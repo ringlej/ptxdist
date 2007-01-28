@@ -1,3 +1,1154 @@
+2007-01-28  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* release: released 0.10.6
+
+2007-01-28  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* php5: fix URL; marked broken (doens't find libxml2)
+	* bridgeutils: marked broken
+	* scripts: added changelog script
+	* toplevel: updated ChangeLog
+	* credits: ladis somehow got lost, sorry about that
+	* ptxdist: version bump
+	* ptxdist: open branch for ptxdist-0.10.6 release
+
+2007-01-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ptxdist: version bump
+	* ptxdist: open branch for ptxdist-0.10.6 release
+	* host-modutils: removed, we don't support 2.4 any more (at
+	  least not officially)
+	* host-util-linux: install stage forgot to touch target
+	* ltrace: marked broken, doesn't compile
+	* kaffe: marked broken - doesn't compile
+	* libxml2: iconv support is broken
+	* ntp: marked broken (doesn't compile)
+	* ntp: fixed URL
+
+2007-01-26  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* grub: use standard menu size
+
+2007-01-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* oprofile: marked broken (doesn't compile)
+
+2007-01-26  Luotao Fu <l.fu@pengutronix.de>
+
+	* samba: fixed lock directory (thx to mkl)
+
+2007-01-26  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* ncurses.make: use SYSROOT instead of $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+
+2007-01-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* host-slirp: mark broken; it does not compile
+	* mico: does not compile, tries to call "ldconfig", which is not
+	  available if you are not root. So we mark it to be broken for
+	  now.
+	* checkinstall:
+	  remove checkinstall mechanism; it does not work,
+	  the concept is not even finished, so we kick it out for now.
+
+2007-01-26  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* scripts/libptxdist.sh:
+	  unbreak ptxd_get_ptxconf
+
+2007-01-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* openafs: is broken, so mark it accordingly
+
+2007-01-26  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* termcap: adding help and install termcap datafile as default
+	  - termcap is a static library only, but requires the termcap
+	  datafile at runtime
+	* mysql: fix dependency to termcap
+	  - mysql can use ncurses or termcap
+	  - adding choice to the user
+
+2007-01-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libc.in: use standard menu size
+	* libiconv: use standard menu size
+	* locales.in: use standard menu size
+	* kernel.in: use standard menu size
+	* gcclibs: use standard menu size
+
+2007-01-26  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* scripts/install_copy_toolchain.sh, rules/pre/Rules.make:
+	  This patch updates install_copy_toolchain_dl to current copy
+	  toolchain mechanism. As a side effect
+	  install_copy_toolchain_dl works again for Ladis uClibc based
+	  toolchain.  Thanks to Ladis for this patch
+
+2007-01-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* live555: mark as broken
+
+2007-01-26  Luotao Fu <l.fu@pengutronix.de>
+
+	* samba: bugfix
+	* rootfs_rc_d_links.in: added samba rc link
+	* samba: default configuration file and startup script for samba
+
+2007-01-26  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* termcap/ncurses: exclude termcap when ncurses is enabled
+	* termcap.in: adding help
+
+2007-01-26  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* ptxdist: only remove prefix* if it's in the workspace
+
+2007-01-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* host-cramfs: add dependency to zlib
+	* cramfs: make it a hosttool (it was one, but broken)
+
+2007-01-26  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* ptxdist: add test help
+
+2007-01-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* rules/host-mkelfImage.in, rules/host-mkelfImage.make:
+	  fixed building
+	* series:
+	  generic/ldflags-cppflags-fix.diff, generic/series:
+	  add patch to provide external CPP and LDFLAGS
+
+2007-01-26  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* libptxdist.sh: add ptxd_human_to_number function
+	* fbtest.in: fixed
+
+2007-01-25  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Rules.make: * Rules.make: documentation fix
+
+2007-01-25  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: some more entries are solved
+	* rootfs:
+	  udhcpc script now gets installed as selected in the menu
+	  - installs the script from selectable source
+	  - some notes and help added
+	* syslogng: patch by Manfred Gruber added
+	  - using correct source path for user defined config file
+
+2007-01-25  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* rootfs_configfiles.in: make PS1, PS2 and PS4 hardwired. We had
+	  too much hassle with eight backslashes in the config files
+
+2007-01-24  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: adding note about uRamdisk
+	* ncurses: handling of non wide char and wide char libs changed
+	  - non wide char: Nothing changed
+	  - wide char: Wide char libs are generated only and all other
+	    programs that request for non wide char are forced to link
+	    against the wide char libs
+	  - for external built programs a non wide named link to the
+	    wide char libs are generated on demand
+	* nano: finds the correct ncurses libs with the new ncursrs mechanism
+	* hexedit: remove additional LDFLAGS, it fails with the new ncurses mechanism
+	* pureftpd: Support inetd start
+	* mc: using ncurses or slang on demand
+	* mc: using ncurses or slang on demand
+	* ncurses.in: adding menudocu to ncurses
+
+2007-01-24  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* TODO: updates
+	* pure-ftpd: fix autotool rerun
+	* libxslt: avoid autotools rerun
+	* util-linux: avoid autotool rebuilding
+	* extract stage: fix relative file:// urls
+
+2007-01-24  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* AppleWM.make: fixing package name because ipkg reject the
+	  previous one 
+	* TODO: adding uRamdisk note
+
+2007-01-24  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Rules.make: extract stage: remove duplicate file URL test
+	* Rules.make: extract stage: check for project-local packet directory
+	  _before_ we test if PACKET is empty; local directories don't
+	  have FOOBAR_SOURCE defined, because it doesn't make sense.
+	* dgen: add sanity check for workspace
+
+2007-01-23  Luotao Fu <l.fu@pengutronix.de>
+
+	* startx: now loads xinitrc from etc/X11/xinit *cross 
+	  compiling with cross cpp
+
+2007-01-21  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: local sources - file://- are still doing strange things
+
+2007-01-19  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ncurses: fix libraries targetinstall for wide char case
+	* chrony.in: removed trailing whitespace
+	* xorg-lib-oldX: change paket name to be correct according to
+	  the ipkg naming rules.
+	* Rules.make: bail out if ipkg packetizing breaks
+	* mknbi: removed image options
+	* host-mknbi: doesn't work anyway, thrown away. If somebody is
+	  interested, please submit a working patch.
+	* ptxdist: improve error message for non-existing ptxconfig files
+	* libptxdist: source ptxconfig file only if it exists
+	* ptxdist: test if ptxdist projects do really exist before
+	  doing something with them.
+
+2007-01-17  Ladislav Michl <>
+
+	* uclibc.make: updates
+
+2007-01-16  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: update
+
+2007-01-15  lmi
+
+	* module-init-tools-3.2.1: Remove
+	  patches for obsolete module-init-tools version.
+
+2007-01-15  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* TODO: updates
+
+2007-01-12  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* sdl: typo fixed
+	* xorg-xdm: adding xinerama, when the server supports it
+
+2007-01-12  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* xorg-dirs.make: use IPV6 and ipv6 to disable
+	* xorg-font.in: select xorg-font menu per default
+
+2007-01-12  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: updates
+
+2007-01-12  Luotao Fu <l.fu@pengutronix.de>
+
+	* xorg-server.in: fixed xorg dependency to libdl
+
+2007-01-12  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* TODO: updates
+	* host-umkimage: needs host-zlib; let it find the right include
+	  paths.
+	* host-umkimage: added zlib dependency
+
+2007-01-12  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* xorg-options.in: Extending help
+	* TODO: updates
+
+2007-01-12  Luotao Fu <l.fu@pengutronix.de>
+
+	* xorg-options.in: added dependencies to prevent xorg options
+	  selected by default y though no x present at all
+
+2007-01-12  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* rootfs.make: typo fixed that confuses the bash
+	* Rules.make: adding a note about CROSS_PATH
+
+2007-01-12  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* TODO: updates
+	* fontconfig.in: removed trailing whitespace
+
+2007-01-11  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: updates
+	* ptxdist: expanding PATH to find local host side tools
+
+2007-01-11  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* php5: add more --without- workarounds
+	* samba: doesn't work on the target yet, so mark as broken
+	* php5: mark broken config options as broken
+	* samba: added patches
+	* mysql: added patches
+	* TODO: updates
+
+2007-01-11  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* libptxdist.sh: scripts/libptxdist.sh, bin/ptxdist: put
+	  PTXCONF_HOST_PREFIX in path
+
+2007-01-11  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: updates
+	* nano.make: enabling wide char support (also utf8) now depends on
+	  ncurses switches, due to autodetection does not work correctly
+	  - if ncurses is configured for non-wide characters, also nano
+	  is configured for non-utf8 support, otherwise it fails at runtime
+	* ncurses: Correct wide char handling
+	  - supporting wide chars (also utf8) is now a switch and will be
+	  forwarded to configure
+	  - correct installing the generated libraries for wide and non
+	  wide char support, with additional links for backward compatibility
+	* TODO: updates
+	* passwd and group:
+	  Define new users and groups to be used by some applications at
+	  runtime
+	  - passwd:
+	    + adding user 'messagebus' for dbus with uid of 103
+	    + adding user 'nobody' with uid 65534
+	  - group:
+	    + adding group 'messagebus' with gid 104
+	    + adding group 'nogroup' with gid 65534
+
+2007-01-11  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* xorg-lib-Xfont.make: use XORG_OPTIONS_TRANS
+	* xorg-app-xdm.make: use XORG_OPTIONS_TRANS
+	* xorg-options.in: trans-options: don't depend on ICE
+	* xorg-server.make: use XORG_OPTIONS_TRANS
+	* xorg-lib-Xfont.in: enable builtin fonts per default
+	* fontconfig.in: install configs per default
+	* xorg-dirs.make:
+	  introduced centralised generation of XORG_OPTIONS_TRANS
+	* xorg-lib-SM.make,
+	  xorg-lib-Xmu.make, xorg-lib-X11.make, xorg-app-xhost.make,
+	  xorg-lib-ICE.make:
+	  used centralized XORG_OPTIONS_TRANS option
+	* php5.make: removed commented out URL
+	* xorg-lib-Xau.make: added PARALLELMFLAGS
+	* xorg-lib-Xfontcache.make: add PARALLELMFLAGS
+	* xorg-lib-*.make: added PRALLELMFLAGS
+	* procps.make: do not install procps
+	* zlib.make: fixed install_{copy,link} calls (tnx to lfu)
+
+2007-01-11  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libdbus-c++: added patches
+	* boost: added patches
+
+2007-01-11  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* xorg-font, xorg-lib-Xfont.in:
+	  select Xfont support depending on installed fonts
+	* libpng.make: fix typo
+
+2007-01-11  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* libpng: typo fixed; now it installs its config file in the correct path
+	* libxslt: typo fixed; now it installs its config file into the correct path
+	* libxml2: typo fixed - does now install its config file in the correct path
+
+2007-01-11  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* zlib.make: fixed installed libraries
+
+2007-01-11  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* glibc.in: adding some useful help
+
+2007-01-11  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* configure.ac: fixed localedef version check
+
+2007-01-10  lmi
+
+	* uclibc.make: uClibc is shipped with
+	  toolchain, so no need to source its config.
+
+2007-01-10  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* configure.ac:
+	  accept more glibc versions
+
+2007-01-10  lmi
+
+	* php5.make: No need to install php-config and phpize on host
+	  now...
+
+2007-01-10  Luotao Fu <l.fu@pengutronix.de>
+
+	* make_locale.sh: cleaned debugging and obsolete stuffs
+	* install_copy_toolchain.sh: cleared debugging stuffs
+	* configure.ac: added recent version number to localedef version check
+
+2007-01-09  Luotao Fu <l.fu@pengutronix.de>
+
+	* Kconfig: cosmetic change
+	* Kconfig: core menu hint text
+	* locales.in: added default locale language
+	* xorg-lib-X11.in: added dependency of xlocale to glibc locale
+
+2007-01-09  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* syslog: startscript - adding stop argument
+	  - the script now als can stop this service
+	  - stopping is required in order to unmount /var/log when system
+	  stops or is going to reboot
+
+2007-01-09  Luotao Fu <l.fu@pengutronix.de>
+
+	* configure.ac: typo fix
+	* make_locale.sh: added locale generatio script
+	* configure.ac: added localedef as requirement for ptxdist
+	* install_copy_toolchain.sh: added locale configuration for 
+	  target to ptxdist
+	* glibc.make: added glibc i18n rawdata installation
+	* libiconv.make: added language extension config parameter
+	* glibc.in: change i18n rawdata installation, added new dependencies 
+	  of locale utilities
+
+2007-01-09  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* udev.make: first attempt to use the new udev system
+	* procps.in: addding help text
+	* TODO: updates
+	* kernel.make: * kernel.make - typo fixed
+	  - if no kernel patch series files is given
+	  also no kernel-patches-target/ nor kernel-patches-native/
+	  is required any more
+	* rootfs:
+	  remove generic /etc/resolv.conf
+	  - there is no generic solution possible
+	  - its useless in the presence of the generic /etc/nsswitch.conf
+	  - its also useless if dns is activated (it does not what one
+	    expects when one activates dns)
+	  - help added, how to get a working dns
+	* rootfs: remove /dev/pts creation
+	  - this directory is useless since udev uses a ramfs in dev/
+	  and creates its own pts/
+	  - one who needs static device nodes does need its own creation
+	  solution, due to ptxdist does not support it any longer
+
+2007-01-08  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* TODO: updates
+
+2007-01-08  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* host-apache2: moved host-apache2 into hosttools
+	* php4.make: * apache2.in, php4.make, php4.in:
+	  fixed deps for php4
+	* host-termcap.make: obsolete
+	* host-apache2.make: cleaned up install
+	* host-termcap.in: removed termcap, obsolete
+	* generic/php-4.4.4-arm-cross.diff,
+	  generic/scripts_add_sysroot.diff, generic/series:
+	  sysroot support for php4-config scirpts
+	* cross-gdb.make: removed obsolete
+	* xorg-driver-video-fbdev.make: removed needless hacks
+	* xorg-server.make: added PARALLELMFLAGS
+	* xorg-server.in: fixed deps
+	* procps.make: regenerated, get lost of PTXCONF_PREFIX
+	* xorg-lib-X11.make: added PARALLELMFLAGS
+	* xmlstarlet.in: menu cleanups
+	* daemonize.in, gawk.in, gdbserver.in, gdbserver.in:
+	  changed config -> menuconfig
+	* xorg-lib-X11.in: fixed typo (hongkong -> taiwan)
+	* scripts/install_copy_toolchain.sh:
+	  added wildcard support
+
+2007-01-06  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ipkg, dosfsutils, e2fsprogs: menue alignments fixed
+	* php4: fixed menu structure
+	* xerces, mysql: menu alignment fixed
+	* libpv, libmodbus, gnuplot: fixed menu alignments
+	* boost: menu fix
+	* filesystem menu: reordered alphabetically
+	* samba: added (but doesn't work yet)
+	* mysql: added
+	* fftw: added
+	* xerces: added
+	* libiconv: added
+	* php5: added
+	* boost: added
+	* libdbus-cxx: put temporary revison on ptx server
+
+2007-01-05  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* rules/xorg-font*.in: readded fu's font menu layout
+
+2007-01-05  Luotao Fu <l.fu@pengutronix.de>
+
+	* trunks/ptxdist-trunk/rules/xorg-font-adobe-100dpi.in,
+	  trunks/ptxdist-trunk/rules/xorg-font-adobe-75dpi.in,
+	  trunks/ptxdist-trunk/rules/xorg-font-bh-ttf.in,
+	  trunks/ptxdist-trunk/rules/xorg-font-bitstream-type1.in: changed
+	  default installation due to mkl's changes in font menu
+
+2007-01-05  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* rules/xorg-fonts.make:
+	  added targetinstall stage
+
+2007-01-05  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* syslog-ng: Disabling broken features
+	  - ipv4 only: Broken, ipv6 structures are used anyway
+	  - sun streams: Broken, configure detecs missing headers, but they
+	    are used anyway
+	  - sun door: Broken, configure detecs missing headers, but they
+	    are used anyway
+
+2007-01-05  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* xorg-font*.in:
+	  reintroduced menuconfig for fonts
+	* mplayer.make: 
+	  added missing PTXCONF to _all_ options
+	* apache2.make:
+	  added missing PTXCONF to option ROOTFS_HTTPD_USER_DOC
+	* xorg-server.make:
+	  added missing PTXCONF_PREFIX to option
+	  PTXCONF_XORG_LIB_X11_XF86BIGFONT
+	* fontconfig.in:
+	  config -> menuconfig
+	* xorg-font-ttf.in:
+	  moved into scaleable
+	* xorg-font*:
+	  new font stuff
+
+2007-01-05  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* hpanel: Change package's makefile for easier cross compiling
+	  - uses make's built in rules
+	  - does not strip the executable until installing
+	  - uses pkg-config instead of fixed pathes to libraries
+	    and header files
+	* hpanel: CROSS_ENV added to let pkg_config find its local environment
+
+2007-01-05  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* fbutils: unbroke for gcc 4.2
+
+2007-01-05  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* xorg-server.in: help added
+
+2007-01-04  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* rootfs.make: typo fixed - telnetd is a nowait service for inetd
+	* inetutils: tftpd
+	  - cannot start standalone, removing all menu entries
+	    that selects standalone startup
+	  - always needs inetd to run
+	* rootfs.make: typo fixed: tftp is of dgram type
+
+2007-01-04  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* mtd-utils: removed tools which are not in upstream any more
+	* mtd-utils: remove install stage
+
+2007-01-04  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* mtd-utils.make: added missing cpp and ldflags
+
+2007-01-04  Luotao Fu <l.fu@pengutronix.de>
+
+	* xorg-lib-X11.make: added chinese XLOCALE support
+	* xorg-app.in: added xset
+
+2007-01-04  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* sdl_image: marked BROKEN
+	* cyclictest: put patch stage into the right order
+	* python24: fixed prefix for host-python, which is
+	  PTXCONF_HOST_PREFIX now.
+	* mkfontscale, mkfontdir: fixed targetinstall path
+	* broken: removed obsolete files
+	* ntp: comment cleanup
+	* ltt: remove obsolete and broken old LTT
+
+2007-01-04  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: update
+
+2007-01-04  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* font menu: fixed alignment
+
+2007-01-03  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* scripts/dgen.sh, rules/pre/Virtual.make:
+	  improved deps, host-pkg-config is now build as first
+	* fontconfig.make:
+	  use X default fontpath, fix install lib versions
+	* xorg-server.make, pre/xorg-dirs.make:
+	  moved XORG_ common path definitions into pre/xorg-dirs.make
+
+2007-01-03  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* ptxdist: Simplify project specific files to integrate
+	  - provide a simple rule template to add project specific
+	    files into the build environment
+	  - intended to be used for non auto generated files
+	    (web pages etc.)
+	  - "Adding files into the build" application note refers to
+	    this feature
+
+2007-01-03  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ptxdist: removed bogus ,
+
+2007-01-03  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* freetype.make, fontconfig.make:
+	* builds_unix_freetype-config_in_sysroot.diff:
+	  fixed sysroot handling
+
+2007-01-03  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ptxdist: please also clean ${PTXDIST_WORKSPACE}/local-host and
+	  local-cross
+
+2007-01-03  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* host-xorg-proto-bigreqs.make: fixed typo
+	* fu will das so
+	* *proto*.in: removed prompt
+	* scripts/dgen.sh, rules/pre/Rules.make:
+	  removed new .extract in packagedir rule
+
+2007-01-03  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* fontconfig: use pkg-config instead of freetype-config
+	* freetype: remove double installation of freetype-config (which
+	  we don't use any more, anyway, in favour of pkg-config)
+	* freetype: update to freetype-2.2.1, fixed crosscompiling
+	  issues
+
+2007-01-03  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* rootfs.in: removing obsolete default n entry at /dev/pts
+
+2007-01-02  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libdbus-cxx:
+	  finally compiles; the only thing that's missing is a real release 
+	  and a download URL.
+	* libx11: add documentation for FIXMEs
+	* host-libx11:
+	  add hack to make it compile again
+	* hosttools: added more hosttools
+
+2007-01-02  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* rules/host-xorg-proto-xcmisc.make:
+	  fixed type host-proto-xorg -> host-xorg-proto
+	* rules/host-xorg-lib-fontenc.in,
+	  rules/host-xorg-app-mkfontscale.in:
+	  added missing deps
+
+2007-01-02  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* host-xorg-*: added more host tools
+	* xorg-app-mkfontscale:
+	  added, because host-xorg-app-mkfontscale needs it
+	* pure-ftpd: add default config
+
+2007-01-02  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* kaffe-1.1.7:
+	  removed patches, highly experimental stuff
+
+2007-01-02  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Toplevel.make:
+	  hide command in 'touch' macro
+	* ldd: added LDD_DIR - needed by dependency autogenerator
+	* mtd utils: prompt changed
+	* rootfs: added ROOTFS_DIR - necessary for dependency
+	  autogenerator.
+	* pureftpd: added generic config (without content yet)
+	* zlib: fix library names for zlib-1.2.3-ptx1
+	* TODO: update
+	* zlib: revert version change, is not on server yet
+	* gdbserver: added
+	  GDBSERVER_DIR - needed for dependency generator.
+	* glibc: add missing GLIBC_DIR - needed for dependency generator.
+	* gcclibs: fix missing GCCLIBS_DIR - needed for dependency
+	  generator.
+	* removed trailing whitespace
+
+2007-01-02  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* Kconfig: add template
+	  as mentioned in the application note
+
+2007-01-02  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* hosttools.in: added host-pkg-config.in
+	* zlib: -ptx2 is not on the server, use -ptx1 for now
+	* host-pkg-config.in: added missing file
+
+2007-01-02  Luotao Fu <l.fu@pengutronix.de>
+
+	* xorg-font-intl.make: fixed makevars
+
+2007-01-02  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* fonts: normalized menues
+	* cross-pkg-config-wrapper: fix paths. Merged from
+	  branches/ptxdist-trunk-mkl by rsc.
+	* hosttools.in: add new hosttools.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* Toplevel: take care of pre- and post files.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* ptxdist_vars: take care of pre- and post files.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* Namespaces
+	* host-pkg-config: added Merged from 
+	  branches/ptxdist-trunk-mkl by rsc.
+	* dgen.sh: fixed dependency generation.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* Rules.make: fixed 'host' mechanisms.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* pkg-config-wrapper: use "right" pkg-config.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* host-fakeroot: cleanup.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* ptxdist: unified ptxconfig path; change newpacket method to
+	  also work for existing targets; several cleanups.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* xorg-lib-xtrans: fixed duplicate slash.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* xorg-lib-xfont:
+	  changed name (X -> x). Merged from
+	  branches/ptxdist-trunk-mkl by rsc.
+	* xorg-font-adobe-100dpi: fixed duplicate slash, added standard
+	  install mechanism. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* templates: moved to fit the new 'class' scheme.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* template: add PARALLELMFLAGS.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* host-xorg-*:
+	  Added several host tools for building the font
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* host-xorg-font-util: added.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* xorg-font-util:
+	  removed duplicate slash.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* mkfontdir:
+	  moved to xorg namespace for hosttools.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* ucstoany:
+	  removed.  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* bdftopcf: Moved to xorg namespace for hosttools.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* mkfontscale: moved to xorg namespace.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* freetype: Add hosttool. Merged from branches/ptxdist-trunk-mkl
+	  by rsc.
+	* rules/xorg-font-adobe-75dpi.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-xfree86-type1.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-bh-100dpi.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-misc-cyrillic.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-adobe-utopia-75dpi.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-winitzki-cyrillic.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-bh-75dpi.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-sony-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-schumacher-misc.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-misc-ethiopic.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-screen-cyrillic.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-misc-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-micro-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-bitstream-type1.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-util-alias.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-cursor-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-adobe-100dpi.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-daewoo-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-adobe-utopia-100dpi.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-isas-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-ibm-type1.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-bh-lucidatypewriter-100dpi.in: fixed dependency
+	  wrt. utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-bh-lucidatypewriter-75dpi.in: fixed dependency
+	  wrt. utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-bitstream-100dpi.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-alias.in: fixed dependency wrt. utilities. Merged
+	  from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-100dpi-trans.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-adobe-utopia-type1.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-bitstream-75dpi.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-util.in: fixed dependency wrt. utilities. Merged
+	  from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-cronyx-cyrillic.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-misc-meltho.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-encodings.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-bitstream-speedo.in: fixed dependency wrt.
+	  utilities. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-jis-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-dec-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-sun-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-mutt-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-75dpi-trans.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-arabic-misc.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* rules/xorg-font-bh-ttf.in: fixed dependency wrt. utilities.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+
+2007-01-02  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: update
+	* rootfs.in: /dev/pts defaults to 'no'
+	  - creating this directory make no sense, as it will be
+	    covered at runtime by a ramfs and the udev start script
+	    will recreate it
+	  - if one don't want to use udev one can enable it (but need
+	    some kind of mechanism to create the static device nodes)
+	* cvs: improving some features
+	  - remove cvs' internal zlib to speed up build
+	  - adding support to configure cvs' runtime
+
+2007-01-02  Luotao Fu <l.fu@pengutronix.de>
+
+	* fontconfig.make: fixed missing PTXCONF in ifdef
+
+2007-01-02  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Virtual.make:
+	  fixed typo in label; changed 'mtd' to
+	  'mtd-utils', following this recent change. Merged from
+	  branches/ptxdist-trunk-mkl by rsc.
+	* images: change dependencies to reflect movement from 'mtd' to
+	  'mtd-utils'. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* menues: removed prompts for cross and host tools; there's
+	  nothing to configure here. Merged from
+	  branches/ptxdist-trunk-mkl by rsc.
+	* cross-pkg-config-wrapper: fix dependencies. Merged from
+	  branches/ptxdist-trunk-mkl by rsc.
+	* Kconfig: fix to reflect last changes. Merged from
+	  branches/ptxdist-trunk-mkl by rsc.
+	* zlib: recreated packet files with ptxdist newpacket; host-zlib
+	  prompt was removed, no reason to configure something manually
+	  here. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* autotools: removed broken packets. Merged from
+	  branches/ptxdist-trunk-mkl by rsc.
+	* kaffe: added jit fix patch; removed broken in and make files.
+	  Merged from branches/ptxdist-trunk-mkl by rsc.
+	* mtd-utils: moved 'mtd' to new packet 'mtd-utils', which fits
+	  reality better. Merged from branches/ptxdist-trunk-mkl by rsc.
+	* ipkg-utils: updated from 1.7 to 050831, which is a newer
+	  version. Merged from branch/ptxdist-trunk-mkl by rsc.
+
+2007-01-02  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* udev.conf: removing udev_db entry because nobody cares about it
+	  - changing defaults to meet the init.d/udev start script
+	    requirements
+	  - adding entry to additionaly install user's rule files
+	    this entry defaults to 'n', so nothing changes for existing
+	    projects
+	  - adding some help info to udev's components
+	* udev.make:
+	  - adding rule file support
+	  - adding new udev components for udev versions 096 and above if
+	    we are going to update to this version
+
+2007-01-02  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libdbus-c++: more changes merged; still not fully working,
+	  because upstream has not released yet and I'm waiting for
+	  mkl's host/cross-pkg-config fixes.
+
+2007-01-02  Luotao Fu <l.fu@pengutronix.de>
+
+	* xorg-font-intl.make: fixed fontdir
+
+2007-01-01  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* TODO: update
+
+2007-01-01  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* uml: UML kernel build
+	  - typo fixed which results in a wrong and unknown target
+	    for UML kernels
+
+2007-01-01  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* TODO: update
+
+2007-01-01  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: update
+	* fam:
+	  - always tries to rebuild the configure file and fails
+	    on most systems due to it expects old autotools
+	  - currently marked as broken
+	* kernel: module build out of tree
+	  - using correct variable for current working directory,
+	    without it nothing will be built
+	  - user must add dependency to KERNEL manually, if not
+	    module will be built prior kernel and fails
+
+2006-12-31  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* mico.in: * added initial support for dbus c++ bindings
+
+2006-12-29  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* syslogng: fixed remaining dropbear reference; patch by Manfred Gruber
+	* syslogng: fixed startscript links; patch by Manfred Gruber
+
+2006-12-22  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* renamed pkg-config-wrapper from host to crosstool
+
+2006-12-22  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: update
+
+2006-12-22  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* rootfs: fix install of user defined /etc/inetd.conf
+	  Patch by Steven Scholz.
+
+2006-12-21  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* mad: better architecture support
+	  - do not guess -march anymore. The compiler already knows it
+	  - install libraries locally to be used by other packets
+	* trunks/ptxdist-trunk/rules/alsa-utils.in:
+	  hint from Gilbert Forkel: alsautils need pthreads library
+	* TODO: update
+
+2006-12-21  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* TODO: update
+
+2006-12-21  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* dhcp: modify dhclient to make it work
+	  - support installation of dhclient.conf
+	  - installs also the required script dhclient calls
+	    to setup the interface
+	* Makefile: adding useful compiler warning
+
+2006-12-20  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* host-mkfontscale.in, host-mkfontscale.make:
+	* host-mkfontdir.in, host-mkfontdir.make:
+
+2006-12-19  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* bin/ptxdist:
+	  don't check compiler in BUILD_TOOLCHAIN
+	* Kconfig:
+	  removed BUILD_USERLAND
+	* Virtual.make:
+	* Rules.make:
+	  don't set PKG_CONFIG_PATH
+	* Definitions.make:
+	  add tr_sh def
+	* sdl.make:
+	  install intro CROSS_PREFIX
+	* gtk22.make:
+	  cleanups
+	* penguzilla.make:
+	  kill PREFIX
+	* host-pkg-config-wrapper.make:
+	  install into CROSS_PREFIX
+	* xorg-driver-video-apm.make:
+	  let it work w/o patch
+	* cramfs.make:
+	  kill PREFIX
+	* xorg-driver-video-nsc.make:
+	  removed CFLAGS hackery
+	* konq-e.make:
+	  killed PREFIX
+	* qt.make:
+	  eliminated PREFIX
+	* klibc.make:
+	  PREFIX -> CROSS_PREFIX
+
+2006-12-19  Luotao Fu <l.fu@pengutronix.de>
+
+	* dropbear.in: fixed dependency
+
+2006-12-19  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* crosstool.in:
+	  removed
+	* xorg-driver-video-i810.make:
+	  updated to work w/o patches
+	* gcclibs.make:
+	  removed PTXCONF_GCCLIBS_GCC_S_NOF
+	* crosstool.make:
+	  obsolete
+	* glibc.make:
+	  removed PTXCONF_GLIBC_INSTALL
+	* alsa-lib.in alsa-utils.in
+	  dhcp.in ffmpeg.in gcclibs.in glibc.in host-ipkg-utils.in
+	  initng.in libc.in live.in sdl.in target.in:
+	  removed BUILD_USERLAND
+	* xf86-video-i810-1.6.5:
+	  obsolete
+	* xf86-video-ati-X11R7.0-6.5.7.3 xf86-video-ati-X11R7.1-6.6.0:
+	  obsolete
+	* xf86-video-i810-X11R7.1-1.6.0 xf86-video-i810-1.6.1:
+	  obsolete
+	* font-adobe-utopia-100dpi-X11R7.0-1.0.1:
+	  obsolete
+	* font-misc-misc-X11R7.0-1.0.0:
+	  obsolete
+	* generic/SDL-1.2.10-sdl.pc.in.diff:
+	  use @name@ instead of vars
+	* font-adobe-100dpi-X11R7.0-1.0.0:
+	  obsolete
+	* font-adobe-utopia-75dpi-X11R7.0-1.0.1:
+	  obsolete
+	* xf86-video-dummy-X11R7.1-0.2.0:
+	  re-added and fixed patch
+	* generic/vesa.diff, generic/series:
+	  removed pkg-config --variable hacks
+	* font-adobe-75dpi-X11R7.0-1.0.0:
+	  obsolete
+	* xf86-video-dummy-X11R7.1-0.2.0:
+	  obsolete
+	* pkg-config-wrapper:
+	  added handling for --variable
+	* Kconfig: removed BUILD_USERLAND
+	* settoolchain.sh: obsolete -> removed
+	* ptxdist:
+	  allow kernelconfig even if no .config for kernel is present
+	  (chick and egg problem)
+	* rules/glibc.make:
+	  don't strip gconv/gconv-modules (which is a textfile)
+	* kernel.make:
+	  improved ppc/powerpc handling, improved module support,
+	  don't apply patches when no series is given
+	  bailout if no .config is given
+	* trunks/ptxdist-trunk/patches/pure-ftpd-1.0.20:
+
+2006-12-18  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* kernel: fixed module-init-tools dependency
+
+2006-12-18  Luotao Fu <l.fu@pengutronix.de>
+
+	* trunks/ptxdist-trunk/rules/hosttools.in: deleted mkfontdir and
+	  mkfontscale as host tool due to X depedencies
+	* trunks/ptxdist-trunk/rules/host-mkfontscale.make: deleted
+	  mkfontdir and mkfontscale as host tool due to X depedencies
+	* trunks/ptxdist-trunk/rules/host-mkfontdir.in,
+	  trunks/ptxdist-trunk/rules/host-mkfontscale.in: added
+	  dependencies
+	* trunks/ptxdist-trunk/rules/hosttools.in: included mkfontdir and
+	  mkfontscale in hosttools
+	* trunks/ptxdist-trunk/rules/host-mkfontdir.in,
+	  trunks/ptxdist-trunk/rules/host-mkfontdir.make,
+	  trunks/ptxdist-trunk/rules/host-mkfontscale.in,
+	  trunks/ptxdist-trunk/rules/host-mkfontscale.make: added hosttool
+	  fontdir and fontscale
+
+2006-12-18  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: update
+
+2006-12-17  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* apache2: fixed
+	  help text, added missing brace, let "restart"
+	  do what it promises (not reload!)
+	* apache2: add
+	  error handling to start file
+	* apache2: agrrrr...
+	  this could never have worked. The default
+	  config file searches mime.types in /var/www, whereas
+	  apache2.make installs it into /usr/share/apache2. Fixed
+	  default configuration.
+	* apache2: fixed another nasty typo
+	* apache2: fix wrong config variable for pidfile
+
+2006-12-17  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: update
+	* Makefile: project makefile template added
+	* pureftpd.make: using correct permissions for pureftpd's config file
+
+2006-12-15  Luotao Fu <l.fu@pengutronix.de>
+
+	* xorg-font-intl: added internalisation fonts
+	* xorg-font-util-alias: missed files in last commitment
+	* hosttools.in: added host font tools
+	* xorg-fonts: redefined target install stage to minimize installation size
+	* xorg-font.in: changed xorg fonts install menu structure with more
+	  debian flavour for better organisation. defineble targetinstall according 
+	  to codepages to minimize installation size
+	* fonts: added host font utilsto fix font compililation
+
+2006-12-12  Luotao Fu <l.fu@pengutronix.de>
+
+	* glibc: added glibc locale files installation
+
+2006-12-12  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* tftpd: service from inetutils packet added
+	  - starts via inetd or standalone
+	  - configurable base directory
+	  - extends /etc/services on demand
+	  - extends /etc/inetd.conf on demand
+	  - provides generic startup script
+
+2006-12-11  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: update
+
+2006-12-08  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* kernel.make: add kernel ppc <-> powerpc hackery
+
+2006-12-08  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ChangeLog: backported from 0.10.5-branch
+
 2006-12-22 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* rootfs: fix install of user defined /etc/inetd.conf

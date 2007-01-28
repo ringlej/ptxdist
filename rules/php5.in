@@ -2,6 +2,9 @@
 
 menuconfig PHP5
 	bool
+	depends on BROKEN
+	# FIXME:
+	# - doesn't find libxml2 on himalia
 	prompt "php5                          "
 	select APACHE2 if PHP5_SAPI_APXS2
 	select MYSQL if PHP5_EXT_MYSQL

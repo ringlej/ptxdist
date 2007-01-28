@@ -2,6 +2,10 @@
 
 config BRIDGE_UTILS
 	bool
+	# FIXME: 
+	# - claims about missing "missing"
+	# - tries to pick up non-local include paths
+	depends on BROKEN
 	prompt "Bridge Utils        "
 	help
 	  Utilities for configuring the Linux ethernet bridge
