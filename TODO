@@ -1,5 +1,9 @@
-TODO for 0.10.6
+TODO for 0.10.7
 ===============
+
+[ ] jbe: use tmpfs everywhere instead of the ramfs
+
+[ ] jbe: audit BROKEN marked packages
 
 After branch:
 
