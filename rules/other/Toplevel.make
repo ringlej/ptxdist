@@ -305,7 +305,7 @@ ifdef PTXCONF_IMAGE_EXT2_GZIP
 	cat $(IMAGEDIR)/root.ext2 | gzip -v9 > $(IMAGEDIR)/root.ext2.gz
 endif
 ifdef PTXCONF_IMAGE_UIMAGE
-	$(PTXCONF_PREFIX)/bin/u-boot-mkimage \
+	PATH=$(CROSS_PATH) mkimage \
 		-A $(PTXCONF_ARCH) \
 		-O Linux \
 		-T ramdisk \
