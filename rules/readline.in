@@ -1,7 +1,34 @@
-config READLINE
+menuconfig READLINE
 	bool
-	select NCURSES
+	select NCURSES if READLINE_NCURSES
+	select TERMCAP if READLINE_TERMCAP
 	select GCCLIBS_GCC_S
-	prompt "readline"
+	prompt "readline                    "
 	help
 	  Shared libraries for terminal handling
+
+choice
+	prompt "termcap library to be used"
+	default READLINE_NCURSES
+	depends on READLINE
+
+	config READLINE_NOPREFERENCE
+		bool
+		prompt "no preference"
+		help
+		  Tries to autodetect what library is present. If ncurses
+		  and termcap will be found termcap has precedence over ncurses.
+
+	config READLINE_TERMCAP
+		bool
+		prompt "termcap"
+		help
+		  Links the readline library against the termcap library
+
+	config READLINE_NCURSES
+		bool
+		prompt "ncurses"
+		help
+		  Links the readline library against the ncurses library
+
+endchoice

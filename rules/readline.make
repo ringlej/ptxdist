@@ -2,7 +2,7 @@
 # $Id: template 1681 2004-09-01 18:12:49Z  $
 #
 # Copyright (C) 2004 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -65,7 +65,18 @@ READLINE_MAKEVARS = DESTDIR=$(SYSROOT)
 #
 # autoconf
 #
-READLINE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+READLINE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+		--enable-shared \
+		--disable-static\
+		--disable-multibyte
+
+ifdef PTXCONF_READLINE_TERMCAP
+READLINE_AUTOCONF += --without-curses
+endif
+ifdef PTXCONF_READLINE_NCURSES
+# uses termcap instead of ncurses if both are found!
+READLINE_AUTOCONF += --with-curses
+endif
 
 $(STATEDIR)/readline.prepare: $(readline_prepare_deps_default)
 	@$(call targetinfo, $@)
