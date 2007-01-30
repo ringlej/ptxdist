@@ -2,8 +2,9 @@ config CYCLICTEST
 	bool
 	prompt "cyclictest    "
 	select GLIBC_PTHREAD
+	select GLIBC_LIBRT
 	help
 	  cyclictest is a testprogram for high resolution timers.
-	  
+
 	  See also: http://www.tglx.de/projects/misc/cyclictest/
 
