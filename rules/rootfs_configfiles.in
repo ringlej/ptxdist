@@ -511,6 +511,7 @@ menuconfig ROOTFS_UDHCPC
 config ROOTFS_GENERIC_IPKG_CONF
 	depends on ROOTFS
 	depends on IMAGE_IPKG
+	depends on IPKG
 	bool
 	prompt "/etc/ipkg.conf              "
 	help
