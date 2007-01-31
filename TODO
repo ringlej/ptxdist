@@ -1,6 +1,10 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: remove ptxdist's documentation from the installation.
+	 It's now useless and outdated as a better alternative
+	 is present with the application notes
+
 [ ] jbe: cleanup rules/other/Toplevel.make
 
 [ ] jbe: org-server fails if no xkbfile is selected
