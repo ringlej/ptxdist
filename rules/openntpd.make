@@ -124,6 +124,11 @@ $(STATEDIR)/openntpd.targetinstall: $(openntpd_targetinstall_deps_default)
 
 	@$(call install_copy, openntpd, 0, 0, 0755, $(OPENNTPD_DIR)/ntpd, /usr/sbin/ntpd)
 
+ifdef PTXCONF_OPENNTPD_USERS_CONFIG
+	@$(call install_copy, openntpd, 0, 0, 0644, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/ntpd.conf, \
+		/etc/ntpd.conf, n)
+endif
 	@$(call install_finish, openntpd)
 
 	@$(call touch, $@)

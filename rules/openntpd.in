@@ -2,17 +2,19 @@ comment "OpenNTPD conflicts with NTP"
 	depends on NTP && OPENNTPD
 
 menuconfig OPENNTPD
-	bool             
+	bool
 	prompt "OpenNTPD            "
+	select ROOTFS_VAR_RUN
 	help
 	  This will install the BSD Open NTPD Daemon
-	  OpenNTPD is a FREE, easy to use implementation of the 
-	  Network Time Protocol. It provides the ability to sync 
-	  the local clock to remote NTP servers and can act as NTP 
+	  OpenNTPD is a FREE, easy to use implementation of the
+	  Network Time Protocol. It provides the ability to sync
+	  the local clock to remote NTP servers and can act as NTP
 	  server itself, redistributing the local clock.
 	  See http://www.openntpd.org/ for details
 
-# ----- Compile Options
+comment "build options   ---"
+	depends on OPENNTPD
 
 config  OPENNTPD_ARC4RANDOM
 	bool
@@ -22,3 +24,17 @@ config  OPENNTPD_ARC4RANDOM
 	help
 	  Enabled by default - if unsure, say YES
 	  Say NO and install OpenSSL as alternative.
+
+comment "install options   ---"
+	depends on OPENNTPD
+
+config  OPENNTPD_USERS_CONFIG
+	bool
+	prompt "install user defined /etc/ntpd.conf"
+	depends on OPENNTPD
+	help
+	  This uses a user defined ntpd.conf file. PTXdist will use the file
+	  projectroot/etc/ntpd.conf in your local project.
+	  A default ntpd.conf to generate your own one comes with the packet
+	  itself.
+
