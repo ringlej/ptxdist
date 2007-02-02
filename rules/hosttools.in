@@ -68,4 +68,4 @@ source "rules/host-xorg-proto-x.in"
 source "rules/host-xorg-proto-xext.in"
 source "rules/host-xorg-proto-xcmisc.in"
 source "rules/host-xorg-proto-fonts.in"
-
+source "rules/host-glib.in"
