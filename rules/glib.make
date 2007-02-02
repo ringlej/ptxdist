@@ -75,6 +75,7 @@ GLIB_ENV	+= glib_cv_uscore=no
 # autoconf
 #
 GLIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
+GLIB_AUTOCONF += --libdir=$(SYSROOT)/usr/lib
 
 $(STATEDIR)/glib.prepare: $(glib_prepare_deps_default)
 	@$(call targetinfo, $@)
