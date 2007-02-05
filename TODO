@@ -1,6 +1,10 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: it seems to extract a kernel always touches the local
+	 kernelconfig.target (or similar). This confuses svn, as
+	 this file always changes without calling "ptxdist kernelconfig"
+
 [ ] jbe: remove ptxdist's documentation from the installation.
 	 It's now useless and outdated as a better alternative
 	 is present with the application notes
