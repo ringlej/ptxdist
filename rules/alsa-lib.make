@@ -60,7 +60,7 @@ alsa-lib_prepare: $(STATEDIR)/alsa-lib.prepare
 
 ALSA_LIB_PATH	:=  PATH=$(CROSS_PATH)
 ALSA_LIB_ENV 	:=  $(CROSS_ENV)
-
+ALSA_LIB_ENV	+=  --libdir=$(SYSROOT)/usr/lib
 #
 # autoconf
 #
