@@ -156,16 +156,10 @@ ifdef PTXCONF_GLIBC_NSL
 	@$(call install_copy_toolchain_lib, glibc, libnsl.so)
 endif
 
-ifdef PTXCONF_GLIBC_GCONV
+ifdef PTXCONF_GLIBC_GCONV_DEF
 	@$(call install_copy, glibc, 0, 0, 0755, /usr/lib/gconv)
 	@$(call install_copy_toolchain_lib, glibc, gconv/gconv-modules, /usr/lib/gconv, n)
-endif
-
-ifdef PTXCONF_GLIBC_GCONV_ISO8859_1
 	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-1.so, /usr/lib/gconv)
-endif
-
-ifdef PTXCONF_GLIBC_GCONV_ISO8859_15
 	@$(call install_copy_toolchain_lib, glibc, gconv/ISO8859-15.so, /usr/lib/gconv)
 endif
 
