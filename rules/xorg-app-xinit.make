@@ -69,12 +69,15 @@ XORG_APP_XINIT_MAKEVARS :=  XINITDIR=/etc/X11/xinit \
 #
 XORG_APP_XINIT_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking \
+
 #
 # if no value is given ignore the "--datadir" switch
 #
 ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
 	XORG_APP_XINIT_AUTOCONF += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 endif
+# startx and xinitrc shall use configfiles out of /etc/X11/xinit
+XORG_APP_XINIT_AUTOCONF += --libdir=/etc
 
 # what else is required?
 #
