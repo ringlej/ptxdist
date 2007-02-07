@@ -1,7 +1,7 @@
 TODO for 0.10.7
 ===============
 
-[ ] jbe: current trunk complains
+[X] jbe: current trunk complains
 	glib.make:40: warning: overriding commands for target `/home/all_src/glib-2.8.6.tar.bz2'
 	host-glib.make:38: warning: ignoring old commands for target `/home/all_src/glib-2.8.6.tar.bz2'
 
