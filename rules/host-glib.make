@@ -19,9 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_GLIB) += host-glib
 #
 HOST_GLIB_VERSION	:= 2.8.6
 HOST_GLIB		:= glib-$(HOST_GLIB_VERSION)
-HOST_GLIB_SUFFIX	:= tar.bz2
-HOST_GLIB_URL	:= ftp://ftp.gtk.org/pub/gtk/v2.8//$(HOST_GLIB).$(HOST_GLIB_SUFFIX)
-HOST_GLIB_SOURCE	:= $(SRCDIR)/$(HOST_GLIB).$(HOST_GLIB_SUFFIX)
 HOST_GLIB_DIR	:= $(HOST_BUILDDIR)/$(HOST_GLIB)
 
 # ----------------------------------------------------------------------------
@@ -47,8 +44,8 @@ host-glib_extract: $(STATEDIR)/host-glib.extract
 $(STATEDIR)/host-glib.extract: $(host-glib_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_GLIB_DIR))
-	@$(call extract, HOST_GLIB, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_GLIB, $(HOST_GLIB_DIR))
+	@$(call extract, GLIB, $(HOST_BUILDDIR))
+	@$(call patchin, GLIB, $(HOST_GLIB_DIR))
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
