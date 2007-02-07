@@ -17,6 +17,14 @@ TODO for 0.10.7
 
 [ ] jbe: audit BROKEN marked packages
 
+[ ] lfu: some mountable devices are available after udev started. hence
+	we need an extra mount script to mount all entries in fstab instead
+	out of rcS
+
+[ ] lfu: often used config files for X like xorg.conf or xinitrd shall be
+	integrated into ptxdist generic files. the installation shall follow
+	the scheme of other rootfs configuration files
+
 After branch:
 
 [ ] rsc: audit if 'ptxdist get' fetches all packets correctly
