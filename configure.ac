@@ -125,11 +125,11 @@ if test -z "$LOCALEDEF"; then
 fi
 
 AC_MSG_CHECKING([localedef version])
-LOCALEDEF_VERSION=`$LOCALEDEF --version 2>/dev/null | $SED -ne "s/.*[bin|libc]. \([[0-9\.]]*\)/\1/p"`
+LOCALEDEF_VERSION=`$LOCALEDEF --version 2>/dev/null | $SED -ne "s/.*[[bin|libc]])\ \([[0-9\.]]*\)/\1/p"`
 case "$LOCALEDEF_VERSION" in
 2.[[01]]*) AC_MSG_ERROR([we need at least GNU localedef 2.2.x but found $LOCALEDEF_VERSION]) ;;
 2.[[23456789]]*) ;;
-*)   AC_MSG_ERROR([we need at least GNU localedef 2.2.x]) ;;
+*)   AC_MSG_ERROR([we need at least GNU localedef 2.2.x but found $LOCALEDEF_VERSION]) ;;
 esac
 AC_MSG_RESULT([$LOCALEDEF_VERSION])
 
