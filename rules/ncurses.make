@@ -101,7 +101,7 @@ ncurses_compile: $(STATEDIR)/ncurses.compile
 
 $(STATEDIR)/ncurses.compile: $(ncurses_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(NCURSES_DIR) && $(NCURSES_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $(NCURSES_DIR) && $(NCURSES_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
