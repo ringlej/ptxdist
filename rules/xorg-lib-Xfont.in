@@ -21,9 +21,7 @@ menuconfig XORG_LIB_XFONT
 
 config XORG_LIB_XFONT_FREETYPE
 	depends on XORG_LIB_XFONT
-	depends on FREETYPE
 	bool
-	default y
 	prompt "Use freetype as rendering library"
 	help
 	  This will enable freetype 2.x library.
