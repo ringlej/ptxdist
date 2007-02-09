@@ -186,6 +186,10 @@ ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE
 		$(XORG_LIB_X11_DIR)/nls/locale.dir, \
 		/usr/lib/X11/locale/locale.dir,n)
 
+	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
+		$(XORG_LIB_X11_DIR)/nls/compose.dir, \
+		/usr/lib/X11/locale/compose.dir,n)
+
 	@$(call install_copy, xorg-lib-X11, 0, 0, 0755, /usr/lib/X11/locale/C)
 	@$(call install_copy, xorg-lib-X11, 0, 0, 0644, \
 		$(XORG_LIB_X11_DIR)/nls/C/Compose, \
