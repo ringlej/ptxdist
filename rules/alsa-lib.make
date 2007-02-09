@@ -65,6 +65,7 @@ ALSA_LIB_ENV	+=  --libdir=$(SYSROOT)/usr/lib
 # autoconf
 #
 ALSA_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
+ALSA_LIB_AUTOCONF += --libdir=$(SYSROOT)/usr/lib
 
 $(STATEDIR)/alsa-lib.prepare: $(alsa-lib_prepare_deps_default)
 	@$(call targetinfo, $@)
