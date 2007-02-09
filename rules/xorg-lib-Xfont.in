@@ -5,6 +5,7 @@
 
 menuconfig XORG_LIB_XFONT
 	bool
+	depends on XORG_LIB_X11
 	select XORG_PROTO_X
 	select XORG_PROTO_FONTS
 	select XORG_LIB_FONTENC
@@ -12,6 +13,7 @@ menuconfig XORG_LIB_XFONT
 	select FREETYPE if XORG_LIB_XFONT_FREETYPE
 	select XORG_PROTO_FONTCACHE if XORG_LIB_XFONT_FONTCACHE
 	select XORG_LIB_XTRANS if XORG_LIB_XFONT_FONTSERVER
+	default y
 	prompt "libXfont              "
 	help
 	  X font Library. At least one file based font support must be enabled
@@ -19,14 +21,18 @@ menuconfig XORG_LIB_XFONT
 
 config XORG_LIB_XFONT_FREETYPE
 	depends on XORG_LIB_XFONT
+	depends on FREETYPE
 	bool
+	default y
 	prompt "Use freetype as rendering library"
 	help
 	  This will enable freetype 2.x library.
 
 config XORG_LIB_XFONT_FONTCACHE
 	depends on XORG_LIB_XFONT
+	depends on XORG_LIB_XFONTCACHE
 	bool
+	default y
 	prompt "Use fontcache"
 	help
 	 This will enable fontcache support
