@@ -1,6 +1,9 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: review all READMEs, COMPILE-TESTs, SPECIFICATIONs and so on files
+	 in the ptxdist install folder. Most of them are trash only
+
 [ ] jbe: fakeroot seems to have problems to run in a 64 bit environment. Not
 	 at the image creation stage, only at the "install" stage
 
