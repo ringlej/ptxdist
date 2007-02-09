@@ -1,6 +1,11 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: fakeroot seems to have problems to run in a 64 bit environment. Not
+	 at the image creation stage, only at the "install" stage
+
+[ ] jbe: alsa-lib creates funny pathes at the install stage
+
 [X] jbe: current trunk complains
 	glib.make:40: warning: overriding commands for target `/home/all_src/glib-2.8.6.tar.bz2'
 	host-glib.make:38: warning: ignoring old commands for target `/home/all_src/glib-2.8.6.tar.bz2'
