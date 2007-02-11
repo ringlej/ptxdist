@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_NCURSES) += ncurses
 #
 # Paths and names
 #
-NCURSES_VERSION	:= 5.5
+NCURSES_VERSION	:= 5.6
 NCURSES		:= ncurses-$(NCURSES_VERSION)
 NCURSES_SUFFIX	:= tar.gz
 NCURSES_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/ncurses/$(NCURSES).$(NCURSES_SUFFIX)
@@ -59,7 +59,7 @@ ncurses_prepare: $(STATEDIR)/ncurses.prepare
 
 NCURSES_PATH	:= PATH=$(CROSS_PATH)
 # FIXME: Prevent this: configure: WARNING: Assuming unsigned for type of bool
-NCURSES_ENV 	:= $(CROSS_ENV) cf_cv_func_nanosleep=yes cf_cv_working_poll=yes
+NCURSES_ENV 	:= $(CROSS_ENV)
 
 # --without-gpm: elsewhere its guessed
 NCURSES_AUTOCONF := \
@@ -72,7 +72,9 @@ NCURSES_AUTOCONF := \
 	--enable-const \
 	--enable-overwrite \
 	--without-gpm \
-	--with-debug
+	--with-debug \
+	--disable-echo
+
 # enable wide char support on demand only
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 NCURSES_AUTOCONF += --enable-widec
@@ -101,7 +103,7 @@ ncurses_compile: $(STATEDIR)/ncurses.compile
 
 $(STATEDIR)/ncurses.compile: $(ncurses_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(NCURSES_DIR) && $(NCURSES_PATH) $(MAKE)
+	cd $(NCURSES_DIR) && $(NCURSES_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
