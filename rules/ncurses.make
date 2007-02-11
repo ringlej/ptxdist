@@ -168,77 +168,77 @@ $(STATEDIR)/ncurses.targetinstall: $(ncurses_targetinstall_deps_default)
 
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libncursesw.so.5.5, /lib/libncursesw.so.5.5)
-	@$(call install_link, ncurses, libncursesw.so.5.5, /lib/libncursesw.so.5)
-	@$(call install_link, ncurses, libncursesw.so.5.5, /lib/libncursesw.so)
+		$(NCURSES_DIR)/lib/libncursesw.so.5.6, /lib/libncursesw.so.5.6)
+	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncursesw.so.5)
+	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncursesw.so)
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 # for backward compatibility
 # only needed if any application is linked against the non wide variant
 # Note: Should not happen, if it is compiled by ptxdist!
-	@$(call install_link, ncurses, libncursesw.so.5.5, /lib/libncurses.so.5)
-	@$(call install_link, ncurses, libncursesw.so.5.5, /lib/libncurses.so)
+	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncurses.so.5)
+	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncurses.so)
 endif
 else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libncurses.so.5.5, /lib/libncurses.so.5.5)
-	@$(call install_link, ncurses, libncurses.so.5.5, /lib/libncurses.so.5)
-	@$(call install_link, ncurses, libncurses.so.5.5, /lib/libncurses.so)
+		$(NCURSES_DIR)/lib/libncurses.so.5.6, /lib/libncurses.so.5.6)
+	@$(call install_link, ncurses, libncurses.so.5.6, /lib/libncurses.so.5)
+	@$(call install_link, ncurses, libncurses.so.5.6, /lib/libncurses.so)
 endif
 
 ifdef PTXCONF_NCURSES_FORM
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libformw.so.5.5, /lib/libformw.so.5.5)
-	@$(call install_link, ncurses, libformw.so.5.5, /lib/libformw.so.5)
-	@$(call install_link, ncurses, libformw.so.5.5, /lib/libformw.so)
+		$(NCURSES_DIR)/lib/libformw.so.5.6, /lib/libformw.so.5.6)
+	@$(call install_link, ncurses, libformw.so.5.6, /lib/libformw.so.5)
+	@$(call install_link, ncurses, libformw.so.5.6, /lib/libformw.so)
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libformw.so.5.5, /lib/libform.so.5.5)
-	@$(call install_link, ncurses, libformw.so.5.5, /lib/libform.so.5)
-	@$(call install_link, ncurses, libformw.so.5.5, /lib/libform.so)
+	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so.5.6)
+	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so.5)
+	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so)
 endif
 else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libform.so.5.5, /lib/libform.so.5.5)
-	@$(call install_link, ncurses, libform.so.5.5, /lib/libform.so.5)
-	@$(call install_link, ncurses, libform.so.5.5, /lib/libform.so)
+		$(NCURSES_DIR)/lib/libform.so.5.6, /lib/libform.so.5.6)
+	@$(call install_link, ncurses, libform.so.5.6, /lib/libform.so.5)
+	@$(call install_link, ncurses, libform.so.5.6, /lib/libform.so)
 endif
 endif
 
 ifdef PTXCONF_NCURSES_MENU
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libmenuw.so.5.5, /lib/libmenuw.so.5.5)
-	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenuw.so.5)
-	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenuw.so)
+		$(NCURSES_DIR)/lib/libmenuw.so.5.6, /lib/libmenuw.so.5.6)
+	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenuw.so.5)
+	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenuw.so)
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenu.so.5.5)
-	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenu.so.5)
-	@$(call install_link, ncurses, libmenuw.so.5.5, /lib/libmenu.so)
+	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so.5.6)
+	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so.5)
+	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so)
 endif
 else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libmenu.so.5.5, /lib/libmenu.so.5.5)
-	@$(call install_link, ncurses, libmenu.so.5.5, /lib/libmenu.so.5)
-	@$(call install_link, ncurses, libmenu.so.5.5, /lib/libmenu.so)
+		$(NCURSES_DIR)/lib/libmenu.so.5.6, /lib/libmenu.so.5.6)
+	@$(call install_link, ncurses, libmenu.so.5.6, /lib/libmenu.so.5)
+	@$(call install_link, ncurses, libmenu.so.5.6, /lib/libmenu.so)
 endif
 endif
 
 ifdef PTXCONF_NCURSES_PANEL
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libpanelw.so.5.5, /lib/libpanelw.so.5.5)
-	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanelw.so.5)
-	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanelw.so)
+		$(NCURSES_DIR)/lib/libpanelw.so.5.6, /lib/libpanelw.so.5.6)
+	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanelw.so.5)
+	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanelw.so)
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanel.so.5.5)
-	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanel.so.5)
-	@$(call install_link, ncurses, libpanelw.so.5.5, /lib/libpanel.so)
+	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so.5.6)
+	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so.5)
+	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so)
 endif
 else
 	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libpanel.so.5.5, /lib/libpanel.so.5.5)
-	@$(call install_link, ncurses, libpanel.so.5.5, /lib/libpanel.so.5)
-	@$(call install_link, ncurses, libpanel.so.5.5, /lib/libpanel.so)
+		$(NCURSES_DIR)/lib/libpanel.so.5.6, /lib/libpanel.so.5.6)
+	@$(call install_link, ncurses, libpanel.so.5.6, /lib/libpanel.so.5)
+	@$(call install_link, ncurses, libpanel.so.5.6, /lib/libpanel.so)
 endif
 endif
 
