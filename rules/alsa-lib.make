@@ -60,11 +60,11 @@ alsa-lib_prepare: $(STATEDIR)/alsa-lib.prepare
 
 ALSA_LIB_PATH	:=  PATH=$(CROSS_PATH)
 ALSA_LIB_ENV 	:=  $(CROSS_ENV)
+
 #
 # autoconf
 #
 ALSA_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
-ALSA_LIB_AUTOCONF += --libdir=$(SYSROOT)/usr/lib
 
 $(STATEDIR)/alsa-lib.prepare: $(alsa-lib_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +82,7 @@ alsa-lib_compile: $(STATEDIR)/alsa-lib.compile
 
 $(STATEDIR)/alsa-lib.compile: $(alsa-lib_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(ALSA_LIB_DIR) && $(ALSA_LIB_PATH) make
+	cd $(ALSA_LIB_DIR) && $(ALSA_LIB_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -137,11 +137,11 @@ $(STATEDIR)/alsa-lib.targetinstall: $(alsa-lib_targetinstall_deps_default)
 	@$(call install_copy, alsa-lib, \
 		0, 0, 0755, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-hda.so, \
 		/lib/alsa-lib/smixer/smixer-hda.so )
-	
+
 	@$(call install_copy, alsa-lib, \
 		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/alsa.conf, \
 		/usr/share/alsa/alsa.conf, n)
-	
+
 	@$(call install_copy, alsa-lib, \
 		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/pcm/default.conf, \
 		/usr/share/alsa/pcm/default.conf, n)

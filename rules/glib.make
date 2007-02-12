@@ -62,20 +62,13 @@ glib_prepare: $(STATEDIR)/glib.prepare
 GLIB_PATH	:= PATH=$(CROSS_PATH)
 GLIB_ENV 	:= \
 	$(CROSS_ENV) \
-	glib_cv_stack_grows=no
-
-#FIXME
-#ifdef $(PTXCONF_GLIBC_DL)
-#GLIB_ENV	+= glib_cv_uscore=yes
-#else
-GLIB_ENV	+= glib_cv_uscore=no
-#endif
+	glib_cv_stack_grows=no \
+	glib_cv_uscore=no
 
 #
 # autoconf
 #
 GLIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
-GLIB_AUTOCONF += --libdir=$(SYSROOT)/usr/lib
 
 $(STATEDIR)/glib.prepare: $(glib_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -93,7 +86,7 @@ glib_compile: $(STATEDIR)/glib.compile
 
 $(STATEDIR)/glib.compile: $(glib_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(GLIB_DIR) && $(GLIB_PATH) make
+	cd $(GLIB_DIR) && $(GLIB_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
