@@ -97,7 +97,7 @@ busybox_compile: $(STATEDIR)/busybox.compile
 
 $(STATEDIR)/busybox.compile: $(busybox_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) make $(BUSYBOX_MAKEVARS)
+	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) $(MAKE) $(BUSYBOX_MAKEVARS) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
