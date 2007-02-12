@@ -17,9 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_GLIB) += host-glib
 #
 # Paths and names
 #
-HOST_GLIB_VERSION	:= 2.8.6
-HOST_GLIB		:= glib-$(HOST_GLIB_VERSION)
-HOST_GLIB_DIR	:= $(HOST_BUILDDIR)/$(HOST_GLIB)
+HOST_GLIB_DIR	= $(HOST_BUILDDIR)/$(GLIB)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -27,13 +25,9 @@ HOST_GLIB_DIR	:= $(HOST_BUILDDIR)/$(HOST_GLIB)
 
 host-glib_get: $(STATEDIR)/host-glib.get
 
-$(STATEDIR)/host-glib.get: $(host-glib_get_deps_default)
+$(STATEDIR)/host-glib.get: $(STATEDIR)/glib.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(HOST_GLIB_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, HOST_GLIB)
 
 # ----------------------------------------------------------------------------
 # Extract
