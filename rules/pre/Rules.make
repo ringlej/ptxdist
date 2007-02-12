@@ -593,6 +593,14 @@ install = \
 			DESTDIR=;					\
 		$(CHECK_PIPE_STATUS)					\
 	else								\
+		for FILE in `find $${BUILDDIR} -name "*.la" -type f`; do	\
+			if test -e $${FILE}; then			\
+				for DIR in /lib /usr/lib; do		\
+					sed -i -e "/dependency_libs/s:\( \)\($${DIR}\):\1$(SYSROOT)\2:g"		\
+						-e "/libdir/s:\(libdir='\)\($${DIR}\):\1$(SYSROOT)\2:g;" $$FILE;	\
+				done;					\
+			fi;						\
+		done;							\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
