@@ -30,7 +30,6 @@ config	NFSUTILS_WITH_TCPWRAPPERS
 choice
 	prompt "statd's userid"
 	depends on NFSUTILS
-	depends on NFSUTILS_INSTALL_STATD
 	default NFSUTILS_RPCUSER_UID
 
 	config NFSUTILS_RPCUSER_UID
