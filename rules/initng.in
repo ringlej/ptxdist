@@ -2,9 +2,14 @@ menuconfig INITNG
 	bool
 	select HOST_CMAKE
 	select NCURSES
+	select GLIBC_DL
 	prompt "initng              "
 	help
-	  FIXME
+	  Initng is a full replacement of the old and in many ways 
+	  deprecated sysvinit tool. It is designed with speed in mind, doing
+	  as much as possible asynchronously. In other words: It will boot
+	  your system faster, give you more control over the boot process,
+	  and provide you with additional statistics.
 
 config INITNG_WITH_BUSYBOX
 	bool
