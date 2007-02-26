@@ -1,6 +1,9 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: hd images must be built from ipkgs to support the ipkg tool
+	 on the target
+
 [ ] jbe: review all READMEs, COMPILE-TESTs, SPECIFICATIONs and so on files
 	 in the ptxdist install folder. Most of them are trash only
 
