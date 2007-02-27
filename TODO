@@ -1,6 +1,9 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: Switching from generating hd image to jffs2 image _rebuilds_
+	 the the whole project!
+
 [ ] jbe: hd images must be built from ipkgs to support the ipkg tool
 	 on the target
 
