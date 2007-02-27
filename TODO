@@ -1,6 +1,9 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: most of the time thttpd does not respond to the USR1 signal.
+	  - the start/stop script fails to stop this service
+
 [ ] jbe: Switching from generating hd image to jffs2 image _rebuilds_
 	 the the whole project!
 
