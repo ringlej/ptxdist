@@ -60,6 +60,7 @@ module-init-tools_prepare: $(STATEDIR)/module-init-tools.prepare
 
 MODULE_INIT_TOOLS_PATH	:= PATH=$(CROSS_PATH)
 MODULE_INIT_TOOLS_ENV 	:= $(CROSS_ENV)
+MODULE_INIT_TOOLS_MAKEVARS := MAN5="" MAN8=""
 
 #
 # autoconf
@@ -82,7 +83,7 @@ module-init-tools_compile: $(STATEDIR)/module-init-tools.compile
 
 $(STATEDIR)/module-init-tools.compile: $(module-init-tools_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(MODULE_INIT_TOOLS_DIR) && $(MODULE_INIT_TOOLS_PATH) $(MAKE)
+	cd $(MODULE_INIT_TOOLS_DIR) && $(MODULE_INIT_TOOLS_PATH) $(MAKE) $(MODULE_INIT_TOOLS_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
