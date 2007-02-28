@@ -15,15 +15,40 @@ config ROOTFS_ETC_INITD
 	  so if you don't intend to use your completely self-made etc
 	  directory you should problably switch this on.
 
-config ROOTFS_ETC_INITD_RCS
+########################## rcS startup control ############################
+
+menuconfig ROOTFS_ETC_INITD_RCS
 	bool
-	prompt "rcS"
+	prompt "rcS                       "
 	depends on ROOTFS_ETC_INITD
 	default y
 	help
 	  The /etc/init.d/rcS script is started by init in /etc/inittab.
 	  Its main purpose is to run the other init scripts by calling
 	  run-parts.
+
+	choice
+		prompt "Kind of rcS script"
+		default ROOTFS_ETC_INITD_RCS_DEFAULT
+		depends on ROOTFS_ETC_INITD_RCS
+
+		config ROOTFS_ETC_INITD_RCS_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/init.d/rcS startup script.
+			  See <ptxdist-install>/generic/etc/init.d/rcS
+
+		config ROOTFS_ETC_INITD_RCS_USER
+			bool
+			prompt "User defined"
+			help
+			  This installs a user defined rcS startup script.
+			  PTXdist uses the file projectroot/etc/init.d/rcS in
+			  your local project
+	endchoice
+
+########################## inetd for Busybox ############################
 
 # initd startscript is for busysbox only
 config ROOTFS_ETC_INITD_INETD

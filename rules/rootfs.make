@@ -169,11 +169,19 @@ endif
 	@$(call install_copy, rootfs, 0, 0, 0755, /etc/rc.d)
 
 # -----------------------------------------------------------------------------
-# FIXME provide also a user defined file!
+# /etc/init.d/rcS from selectable source
+#
 ifdef PTXCONF_ROOTFS_ETC_INITD_RCS
+ifdef PTXCONF_ROOTFS_ETC_INITD_RCS_DEFAULT
 	@$(call install_copy, rootfs, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/rcS, \
 		/etc/init.d/rcS, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_RCS_USER
+	@$(call install_copy, rootfs, 0, 0, 0755, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/etc/init.d/rcS, \
+		/etc/init.d/rcS, n)
+endif
 endif
 
 # -----------------------------------------------------------------------------
