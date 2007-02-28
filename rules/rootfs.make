@@ -179,7 +179,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_RCS_DEFAULT
 endif
 ifdef PTXCONF_ROOTFS_ETC_INITD_RCS_USER
 	@$(call install_copy, rootfs, 0, 0, 0755, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/etc/init.d/rcS, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/rcS, \
 		/etc/init.d/rcS, n)
 endif
 endif
