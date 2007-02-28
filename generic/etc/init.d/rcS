@@ -12,12 +12,8 @@ echo "done."
 # modprobe ppp_async
 # loadkmap < /etc/boottime.kmap
 
-# set hostname 
+# set hostname
 test -e /etc/hostname && hostname -F /etc/hostname
-
-echo -n "creating Network-Device lo..."
-ifconfig lo up 127.0.0.1
-echo "done."
 
 echo "running rc.d services..."
 run-parts -a start /etc/rc.d
