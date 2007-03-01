@@ -1,0 +1,10 @@
+menuconfig HOST_DTC
+	depends on ARCH_PPC
+	bool
+	prompt "device tree compiler (dtc)"
+	default y
+	help
+	  Kernels compiled with arch=powerpc need a device tree
+	  for startup. The device tree compiler (DTC) is used
+	  to generate this tree from a dts (device tree source)
+	  file usually shipped with the kernel.
