@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_FAKEROOT) += host-fakeroot
 #
 # Paths and names
 #
-HOST_FAKEROOT_VERSION	:= 1.5.1
+HOST_FAKEROOT_VERSION	:= 1.5.10
 HOST_FAKEROOT		:= fakeroot-$(HOST_FAKEROOT_VERSION)
 HOST_FAKEROOT_SUFFIX	:= tar.gz
 HOST_FAKEROOT_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/fakeroot_$(HOST_FAKEROOT_VERSION).$(HOST_FAKEROOT_SUFFIX)
