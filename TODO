@@ -1,6 +1,25 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: Current implementation of "screen" is useless due to lack of generic configuration
+
+[ ] jbe: Generic projects must be audited carefully prior any release. For the
+	 0.10.6 release, ARM and PowerPC projects where updated, but the x86
+	 project was/is still on 0.10.5!
+
+[ ] jbe: working with hd.img is very delicate. The incomplete partition table
+	 confuses the linux kernel, so any rewrite of the image after done
+	 one time fails with "no space left on device". Also fdisk fails
+	 when trying to repair this partition table. Only Windows can
+	 rewrite the partition table in this case. After this, also Linux
+	 is able to write to the hard disk again!
+	 But the BIOS and Kernel on target side are successfull. Problem
+	 happend on SUSE-10.1 on host side and an USB to IDE adapter
+	 to initial write the hd.img to the harddisk.
+
+[ ] jbe: rules file for zlib is broken since ptxdist-0.10.6!
+	 What the hell means libz.so.0.0.0???? In ptxdist-0.10.5 it was libz.so.1.2.3!
+
 [ ] jbe: most of the time thttpd does not respond to the USR1 signal.
 	  - the start/stop script fails to stop this service
 
@@ -19,6 +38,8 @@ TODO for 0.10.7
 
 [ ] jbe: fakeroot seems to have problems to run in a 64 bit environment. Not
 	 at the image creation stage, only at the "install" stage
+	 Update:
+	 - fakeroot fails on all glibc 2.5 based systems
 
 [ ] jbe: alsa-lib creates funny pathes at the install stage
 
