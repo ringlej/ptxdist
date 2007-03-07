@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_ZLIB) += zlib
 #
 # Paths and names
 #
-ZLIB_VERSION	:= 1.2.3-ptx1
+ZLIB_VERSION	:= 1.2.3-ptx3
 ZLIB		:= zlib-$(ZLIB_VERSION)
 ZLIB_SUFFIX	:= tar.bz2
 ZLIB_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(ZLIB).$(ZLIB_SUFFIX)
@@ -113,9 +113,9 @@ $(STATEDIR)/zlib.targetinstall: $(zlib_targetinstall_deps_default)
 	@$(call install_fixup, zlib,DEPENDS,)
 	@$(call install_fixup, zlib,DESCRIPTION,missing)
 
-	@$(call install_copy, zlib, 0, 0, 0644, $(ZLIB_DIR)/.libs/libz.so.0.0.0, /usr/lib/libz.so.0.0.0)
-	@$(call install_link, zlib, libz.so.0.0.0, /usr/lib/libz.so.0)
-	@$(call install_link, zlib, libz.so.0.0.0, /usr/lib/libz.so)
+	@$(call install_copy, zlib, 0, 0, 0644, $(ZLIB_DIR)/.libs/libz.so.1.2.3, /usr/lib/libz.so.1.2.3)
+	@$(call install_link, zlib, libz.so.1.2.3, /usr/lib/libz.so.1)
+	@$(call install_link, zlib, libz.so.1.2.3, /usr/lib/libz.so)
 
 	@$(call install_finish, zlib)
 
