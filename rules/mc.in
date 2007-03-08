@@ -13,13 +13,13 @@ comment "build options   ---"
 
 choice
 	prompt "Kind of MMI"
-	default ROOTFS_ETC_INITD_CVS_DEFAULT
+	default MC_USES_NO_PREFERENCE
 	depends on MC
 
 config MC_USES_NO_PREFERENCE
 	bool "no preference"
 	help
-	  Build midnight commander without any external library
+	  Build midnight commander without any external library preference
 
 config MC_USES_NCURSES
 	bool "Use ncurses"
