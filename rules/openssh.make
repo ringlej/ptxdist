@@ -146,15 +146,6 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH
 	@$(call install_alternative, openssh, 0, 0, 0755, /etc/init.d/openssh)
 endif
 
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_OPENSSH_LINK),"")
-	@$(call install_copy, openssh, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, openssh, ../init.d/openssh, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_OPENSSH_LINK))
-endif
-
 ifdef PTXCONF_OPENSSH_SCP
 	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/scp, \
 		/usr/bin/scp)
@@ -186,9 +177,9 @@ endif
 #
 # FIXME: Is this packet the right location for the link?
 #
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SSHD_LINK),"")
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_OPENSSH_LINK),"")
 	@$(call install_link, openssh, ../init.d/openssh, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SSHD_LINK))
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_OPENSSH_LINK))
 endif
 endif
 
