@@ -1,3 +1,26 @@
+#
+# Submitted-By: Robert Schwebel, 2007-03-10
+# Committed-By: Robert Schwebel
+#
+# Error:
+#
+# kernel/qapplication_qws.cpp:1884: error: cast from 'void*' to 'int' loses precision
+# kernel/qapplication_qws.cpp: In static member function 'static void QApplication::restoreOverrideCursor()':
+# kernel/qapplication_qws.cpp:1903: error: cast from 'void*' to 'int' loses precision
+# kernel/qapplication_qws.cpp:1907: error: cast from 'void*' to 'int' loses precision
+# kernel/qapplication_qws.cpp: In member function 'int QApplication::qwsProcessEvent(QWSEvent*)':
+# kernel/qapplication_qws.cpp:2135: error: cast from 'void*' to 'int' loses precision
+# make[2]: *** [.obj/release-shared-emb-generic/qapplication_qws.o] Error 1
+#
+# Description:
+#
+# we have to use long instead of int here
+#
+# State:
+#
+# unknown
+#
+
 Index: qt-embedded-free-3.3.4/src/kernel/qfont_qws.cpp
 ===================================================================
 --- qt-embedded-free-3.3.4.orig/src/kernel/qfont_qws.cpp
@@ -11,3 +34,39 @@ Index: qt-embedded-free-3.3.4/src/kernel/qfont_qws.cpp
  
  	// look for the requested font in the engine data cache
  	engineData = QFontCache::instance->findEngineData( key );
+Index: qt-embedded-free-3.3.4/src/kernel/qapplication_qws.cpp
+===================================================================
+--- qt-embedded-free-3.3.4.orig/src/kernel/qapplication_qws.cpp
++++ qt-embedded-free-3.3.4/src/kernel/qapplication_qws.cpp
+@@ -1881,7 +1881,7 @@ void QApplication::setOverrideCursor( co
+ 	w = widgetAt(*qt_last_x, *qt_last_y, FALSE);
+     if ( !w )
+ 	w = desktop();
+-    QPaintDevice::qwsDisplay()->selectCursor(w, (int)app_cursor->handle());
++    QPaintDevice::qwsDisplay()->selectCursor(w, (long)app_cursor->handle());
+ }
+ 
+ void QApplication::restoreOverrideCursor()
+@@ -1900,11 +1900,11 @@ void QApplication::restoreOverrideCursor
+ 	cursorStack = 0;
+ 	qws_overrideCursor = FALSE;
+ 	if ( w->testWState(WState_OwnCursor) )
+-	    QPaintDevice::qwsDisplay()->selectCursor(w, (int)w->cursor().handle());
++	    QPaintDevice::qwsDisplay()->selectCursor(w, (long)w->cursor().handle());
+ 	else
+ 	    QPaintDevice::qwsDisplay()->selectCursor(w, ArrowCursor);
+     } else {
+-	QPaintDevice::qwsDisplay()->selectCursor(w, (int)app_cursor->handle());
++	QPaintDevice::qwsDisplay()->selectCursor(w, (long)app_cursor->handle());
+     }
+ }
+ #endif// QT_NO_CURSOR
+@@ -2132,7 +2132,7 @@ int QApplication::qwsProcessEvent( QWSEv
+ 		    }
+ 		    if ( !qws_overrideCursor ) {
+ 			if (curs)
+-			    QPaintDevice::qwsDisplay()->selectCursor(widget, (int)curs->handle());
++			    QPaintDevice::qwsDisplay()->selectCursor(widget, (long)curs->handle());
+ 			else
+ 			    QPaintDevice::qwsDisplay()->selectCursor(widget, ArrowCursor);
+ 		    }
