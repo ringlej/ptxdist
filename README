@@ -1,16 +1,14 @@
 PTXdist
 =======
 
-
 Installation
 ------------
 
 To install PTXdist, just run 
 
-	./configure --prefix <installpath> 
+	./configure --prefix=<installpath> 
 
-to configure the packet (FIXME: make this --prefix=/path..., probably by
-really autoconfigurizing), then
+to configure the packet, then
 
 	make
 
@@ -18,9 +16,9 @@ to build everything and
 
 	make install
 
-in case you want to install it. Make sure your $PATH environment
-variable points to <installpath>/bin, because that's where the ptxdist
-frontend program is being installed to. 
+in case you want to install it. When you start using PTXdist, make sure
+your $PATH environment variable points to <installpath>/bin, because
+that's where the ptxdist frontend program is being installed to. 
 
 For developers who want to work with svn versions of PTXdist it is only
 necessary to run "./configure && make" and set the PATH variable to the
