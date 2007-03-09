@@ -1,6 +1,9 @@
 TODO for 0.10.7
 ===============
 
+[ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks into PTXdist's build
+	Audit other environment variables also!
+
 [ ] jbe: Current implementation of "screen" is useless due to lack of generic configuration
 
 [ ] jbe: Generic projects must be audited carefully prior any release. For the
