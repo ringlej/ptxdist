@@ -8,6 +8,16 @@ menuconfig UDEV
 	  removes device node files in the /dev directory, or it
 	  renames network interfaces.
 
+	  Usually udev runs as udevd(8) and receives uevents directly
+	  from the kernel if a device is added or removed from the system.
+
+	  If udev receives a device event, it matches its configured
+	  rules against the available device attributes provided in
+	  sysfs to identify the device. Rules that match, may provide
+	  additional device information or specify a device node name
+	  and multiple symlink names and instruct udev to run
+	  additional programs as part of the device event handling.
+
 	  Ensure: This udev implementation requires at least kernel
 	  2.6.15 and must have sysfs, unix domain sockets and networking
 	  enabled.
@@ -34,20 +44,11 @@ config UDEV_ENABLE_DEBUG
 comment "install options  ---"
 	depends on UDEV
 
-config UDEV_UDEV
-	bool "udev"
+config UDEV_TEST_UDEV
+	bool "test-udev"
 	depends on UDEV
-	default y
 	help
-	  Usually udev runs as udevd(8) and receives uevents directly
-	  from the kernel if a device is added or removed from the system.
-
-	  If udev receives a device event, it matches its configured
-	  rules against the available device attributes provided in
-	  sysfs to identify the device. Rules that match, may provide
-	  additional device information or specify a device node name
-	  and multiple symlink names and instruct udev to run
-	  additional programs as part of the device event handling.
+	  test-udev is for testing purposes only
 
 config UDEV_UDEVD
 	bool "udevd"
@@ -202,7 +203,6 @@ config ROOTFS_ETC_INITD_UDEV
 		#
 		# these commands are required by the generic start script
 		#
-			select UDEV_UDEV
 			select UDEV_UDEVD
 			select UDEV_TRIGGER
 			select UDEV_SETTLE

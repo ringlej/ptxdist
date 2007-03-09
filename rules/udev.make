@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template 2680 2005-05-27 10:29:43Z rsc $
+# $Id: udev.make,v 1.15 2007/03/07 14:34:52 michl Exp $
 #
 # Copyright (C) 2005-2006 by Robert Schwebel
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
-UDEV_VERSION	:= 103
+UDEV_VERSION	:= 106
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
 UDEV_URL	:= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
@@ -186,9 +186,9 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_UDEV_LINK),"")
 endif
 endif
 
-ifdef PTXCONF_UDEV_UDEV
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev, \
-		/sbin/udev)
+ifdef PTXCONF_UDEV_TEST_UDEV
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/test-udev, \
+		/sbin/test-udev)
 endif
 ifdef PTXCONF_UDEV_UDEVD
 	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevd, \
