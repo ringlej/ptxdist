@@ -2,6 +2,7 @@
 
 	* COMPILE-TEST: removed because it is obsolete
 	* SPECIFICATION: removed (also obsolete)
+	* TOOLCHAINS: removed (also obsolete)
 
 2007-01-28  Robert Schwebel <r.schwebel@pengutronix.de>
 
