@@ -16,11 +16,11 @@ PACKAGES-$(PTXCONF_UTELNETD) += utelnetd
 #
 # Paths and names
 #
-UTELNETD_VERSION		= 0.1.9
-UTELNETD			= utelnetd-$(UTELNETD_VERSION)
-UTELNETD_URL			= http://www.pengutronix.de/software/utelnetd/$(UTELNETD).tar.gz
-UTELNETD_SOURCE			= $(SRCDIR)/$(UTELNETD).tar.gz
-UTELNETD_DIR			= $(BUILDDIR)/$(UTELNETD)
+UTELNETD_VERSION	= 0.1.9
+UTELNETD		= utelnetd-$(UTELNETD_VERSION)
+UTELNETD_URL		= http://www.pengutronix.de/software/utelnetd/$(UTELNETD).tar.gz
+UTELNETD_SOURCE		= $(SRCDIR)/$(UTELNETD).tar.gz
+UTELNETD_DIR		= $(BUILDDIR)/$(UTELNETD)
 
 
 # ----------------------------------------------------------------------------
@@ -100,6 +100,7 @@ $(STATEDIR)/utelnetd.targetinstall: $(utelnetd_targetinstall_deps_default)
 	@$(call install_fixup, utelnetd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, utelnetd,DEPENDS,)
 	@$(call install_fixup, utelnetd,DESCRIPTION,missing)
+
 #
 # Install the startup script on request only
 #
@@ -116,8 +117,6 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_UTELNETD_USER
 		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/utelnetd, \
 		/etc/init.d/telnetd, n)
 endif
-endif
-
 #
 # FIXME: Is this packet the right location for the link?
 #
@@ -126,7 +125,7 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
 	@$(call install_link, utelnetd, ../init.d/telnetd, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
 endif
-
+endif
 	@$(call install_copy, utelnetd, 0, 0, 0755, $(UTELNETD_DIR)/utelnetd, \
 		/sbin/utelnetd)
 
