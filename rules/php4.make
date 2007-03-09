@@ -80,7 +80,7 @@ ifndef PTXCONF_PHP4_CLI
 PHP4_AUTOCONF += --disable-cli
 endif
 
-ifndef PTXCONF_PHP4_ZTS
+ifdef PTXCONF_PHP4_ZTS
 PHP4_AUTOCONF += --enable-experimental-zts
 endif
 
@@ -138,7 +138,7 @@ $(STATEDIR)/php4.targetinstall: $(php4_targetinstall_deps_default)
 
 	@$(call install_copy, php4, 0, 0, 0755, /usr/lib/php4)
 
-ifdef PTXCONF_APACHE2_MOD_PHP4
+ifdef PTXCONF_PHP4_MOD_APACHE2
 	@$(call install_copy, php4, 0, 0, 0644, $(PHP4_DIR)/libs/libphp4.so, /usr/lib/apache2/libphp4.so)
 endif
 ifdef PTXCONF_PHP4_CLI
