@@ -9,13 +9,13 @@ config PROCPS_TOP
 	bool
 	prompt "top"
 	depends on PROCPS
-	depends on !BB_CONFIG_TOP
+	depends on !BB_TOP
 	help
 	  FIXME: This item needs to be documented
 
 comment "top is disabled by busybox top"
 	depends on PROCPS
-	depends on BB_CONFIG_TOP
+	depends on BB_TOP
 
 config PROCPS_SLABTOP
 	bool
@@ -28,19 +28,19 @@ config PROCPS_SYSCTL
 	bool
 	prompt "sysctl"
 	depends on PROCPS
-	depends on !BB_CONFIG_BB_SYSCTL
+	depends on !BB_BB_SYSCTL
 	help
 	  FIXME: This item needs to be documented
 
 comment "sysctl is disabled by busybox sysctl"
 	depends on PROCPS
-	depends on BB_CONFIG_BB_SYSCTL
+	depends on BB_BB_SYSCTL
 
 config PROCPS_PS
 	bool
 	prompt "ps"
 	depends on PROCPS
-	depends on !BB_CONFIG_PS
+	depends on !BB_PS
 	help
 	  ps stands for process status. With this command you
 	  analyse current states of all processes running on
@@ -48,7 +48,7 @@ config PROCPS_PS
 
 comment "ps is disabled by busybox ps"
 	depends on PROCPS
-	depends on BB_CONFIG_PS
+	depends on BB_PS
 
 config PROCPS_W
 	bool

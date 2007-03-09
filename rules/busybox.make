@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION		= 1.1.3
+BUSYBOX_VERSION		= 1.4.1
 BUSYBOX			= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX		= tar.bz2
 BUSYBOX_URL		= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
@@ -62,12 +62,13 @@ BUSYBOX_PATH		=  PATH=$(CROSS_PATH)
 BUSYBOX_ENV 		=  $(CROSS_ENV)
 
 BUSYBOX_TARGET_LDFLAGS	=  $(call remove_quotes,$(TARGET_LDFLAGS))
-ifdef PTXCONF_BB_CONFIG_STATIC                                                                                                        
+ifdef PTXCONF_BB_STATIC
 BUSYBOX_TARGET_LDFLAGS	+= -static
-endif                                                                                                                                 
+endif
 
 BUSYBOX_MAKEVARS=\
-	CROSS=$(COMPILER_PREFIX) \
+	ARCH=$(PTXCONF_ARCH) \
+	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	HOSTCC=$(HOSTCC) \
 	EXTRA_CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))' \
 	LDFLAGS='$(BUSYBOX_TARGET_LDFLAGS)' \
@@ -81,11 +82,8 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps_default)
 
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
 	grep -e PTXCONF_BB_ $(PTXDIST_WORKSPACE)/ptxconfig > $(BUSYBOX_DIR)/.config
-	perl -i -p -e 's/PTXCONF_BB_//g' $(BUSYBOX_DIR)/.config
-	echo GCC_PREFIX=$(COMPILER_PREFIX)
-	perl -i -p -e 's/^CROSS_COMPILER_PREFIX=.*$$/CROSS_COMPILER_PREFIX=\"$(COMPILER_PREFIX)\"/g' $(BUSYBOX_DIR)/.config
+	perl -i -p -e 's/PTXCONF_BB_/CONFIG_/g' $(BUSYBOX_DIR)/.config
 	yes "" | $(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
-	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) dep $(BUSYBOX_MAKEVARS)
 
 	@$(call touch, $@)
 

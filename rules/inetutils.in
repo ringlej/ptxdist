@@ -9,7 +9,7 @@ comment "build options   ---"
 
 config INETUTILS_INETD
 	bool
-	depends on !BB_CONFIG_INETD
+	depends on !BB_INETD
 	prompt "inetd"
 	depends on INETUTILS
 	help
@@ -17,18 +17,18 @@ config INETUTILS_INETD
 	  various other programs and start them if a connection request occures.
 
 comment "busy box' inetd is selected!"
-	depends on INETUTILS && BB_CONFIG_INETD
+	depends on INETUTILS && BB_INETD
 
 config INETUTILS_PING
 	bool
-	depends on !BB_CONFIG_PING
+	depends on !BB_PING
 	prompt "ping"
 	depends on INETUTILS
 	help
 	  Ping is a small tool to check if another host is alive in the network
 
 comment "busy box' ping is selected!"
-	depends on INETUTILS && BB_CONFIG_PING
+	depends on INETUTILS && BB_PING
 
 config INETUTILS_RCP
 	bool

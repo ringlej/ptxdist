@@ -7,42 +7,42 @@ config COREUTILS_CP
 	bool
 	prompt "cp"
 	depends on COREUTILS
-	depends on !BB_CONFIG_CP
+	depends on !BB_CP
 	help
 	  copy files and directories
 
 comment "busy box' cp is selected!"
-	depends on COREUTILS && BB_CONFIG_CP
+	depends on COREUTILS && BB_CP
 
 config COREUTILS_DD
 	bool
 	prompt "dd"
 	depends on COREUTILS
-	depends on !BB_CONFIG_DD
+	depends on !BB_DD
 	help
 	  convert and copy a file
 
 comment "busy box' dd is selected!"
-	depends on COREUTILS && BB_CONFIG_DD
+	depends on COREUTILS && BB_DD
 
 config COREUTILS_MD5SUM
 	bool
 	prompt "md5sum"
 	depends on COREUTILS
-	depends on !BB_CONFIG_MD5SUM
+	depends on !BB_MD5SUM
 	help
 	  compute and check MD5 message digest
 
 comment "busy box' md5sum is selected!"
-	depends on COREUTILS && BB_CONFIG_MD5SUM
+	depends on COREUTILS && BB_MD5SUM
 
 config COREUTILS_SEQ
 	bool
 	prompt "seq"
 	depends on COREUTILS
-	depends on !BB_CONFIG_SEQ
+	depends on !BB_SEQ
 	help
 	  print a sequence of numbers
 
 comment "busy box' seq is selected!"
-	depends on COREUTILS && BB_CONFIG_SEQ
+	depends on COREUTILS && BB_SEQ

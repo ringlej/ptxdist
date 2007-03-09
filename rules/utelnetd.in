@@ -1,5 +1,5 @@
 menuconfig UTELNETD
-	depends on !BB_CONFIG_TELNETD
+	depends on !BB_TELNETD
 	bool
 	prompt "utelnetd            "
 	help

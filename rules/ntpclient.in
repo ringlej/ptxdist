@@ -32,7 +32,7 @@ config NTPCLIENT_BUILD_NTPCLIENT
 config NTPCLIENT_BUILD_ADJTIMEX
 	bool
 	depends on NTPCLIENT
-	depends on !BB_CONFIG_ADJTIMEX
+	depends on !BB_ADJTIMEX
 	prompt "adjtimex"
 	default y
 	help
@@ -40,7 +40,7 @@ config NTPCLIENT_BUILD_ADJTIMEX
 
 comment "Busybox' adjtimex is in use"
 	depends on NTPCLIENT
-	depends on BB_CONFIG_ADJTIMEX
+	depends on BB_ADJTIMEX
 
 comment "runtime options   ---"
 	depends on NTPCLIENT

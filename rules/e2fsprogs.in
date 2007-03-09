@@ -10,13 +10,13 @@ config E2FSPROGS_MKFS
 	prompt "Install mke2fs"
 	default y
 	depends on E2FSPROGS
-	depends on !BB_CONFIG_MKE2FS
+	depends on !BB_MKE2FS
 	help
 	 This installs /sbin/mke2fs, the filesystem builder for
 	 ext2 and ext3
 
 comment "Busybox' mke2fs is selected"
-	depends on BB_CONFIG_MKE2FS
+	depends on BB_MKE2FS
 	depends on E2FSPROGS
 
 config E2FSPROGS_E2FSCK
@@ -24,20 +24,20 @@ config E2FSPROGS_E2FSCK
 	prompt "Install e2fsck"
 	default y
 	depends on E2FSPROGS
-	depends on !BB_CONFIG_E2FSCK
+	depends on !BB_E2FSCK
 	help
 	 This will install /sbin/e2fsck, the filesystem
 	 checking and recovery tool for ext2 and ext3.
 
 comment "Busybox' e2fsck is selected"
-	depends on BB_CONFIG_E2FSCK
+	depends on BB_E2FSCK
 	depends on E2FSPROGS
 
 config E2FSPROGS_TUNE2FS
 	bool
 	prompt "Install tune2fs, findfs, e2label"
 	depends on E2FSPROGS
-	depends on !BB_CONFIG_TUNE2FS
+	depends on !BB_TUNE2FS
 	help
 	 This will install /sbin/tune2fs, /sbin/findfs, /sbin/e2label
 	 to your target. Please note, that all thre share the same
@@ -52,5 +52,5 @@ config E2FSPROGS_TUNE2FS
 	 e2label can display and edit ext2 and ext3 filesystem labels.
 
 comment "Busybox' tune2fs is selected"
-	depends on BB_CONFIG_TUNE2FS
+	depends on BB_TUNE2FS
 	depends on E2FSPROGS

@@ -766,7 +766,11 @@ endif
 # -----------------------------------------------------------------------------
 # add telnetd if enabled
 #
-ifdef PTXCONF_BB_CONFIG_FEATURE_TELNETD_INETD
+ifdef PTXCONF_BB_FEATURE_TELNETD_STANDALONE
+# remove all telnetd entries if this service is not enabled
+	@$(call install_replace, rootfs, /etc/inetd.conf, @TELNETD@, )
+	@$(call install_replace, rootfs, /etc/services, @TELNETD@, )
+else
 # for busybox only!
 # add default string to start the telnetd from busybox into inetd.conf
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
@@ -777,10 +781,6 @@ ifdef PTXCONF_BB_CONFIG_FEATURE_TELNETD_INETD
 		/etc/services, \
 		@TELNETD@, \
 		"telnet 23/tcp\ntelnet 23/udp" )
-else
-# remove all telnetd entries if this service is not enabled
-	@$(call install_replace, rootfs, /etc/inetd.conf, @TELNETD@, )
-	@$(call install_replace, rootfs, /etc/services, @TELNETD@, )
 endif
 
 # -----------------------------------------------------------------------------
