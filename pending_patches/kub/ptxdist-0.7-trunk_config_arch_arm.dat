@@ -1,8 +1,0 @@
---- ptxdist-0.7-trunk/config/arch/arm.dat	Fri Aug  5 11:09:39 2005
-+++ ptxdist-0.7.5-kub/config/arch/arm.dat	Fri Jul 22 11:15:40 2005
-@@ -1,4 +1,4 @@
- KERNELCONFIG=$PWD/arm.config
- TARGET=arm-unknown-linux-gnu
--TARGET_CFLAGS="-O"
-+TARGET_CFLAGS="-O2"
- GLIBC_EXTRA_CONFIG="--without-fp"
