@@ -27,6 +27,7 @@ fi
 export PKG_CONFIG_LIBDIR=${SYSROOT}/lib/pkgconfig:${SYSROOT}/usr/lib/pkgconfig
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
+unset PKG_CONFIG_PATH
 
 found_var=false
 for ((i = 1; i <= ${#}; i++)); do
