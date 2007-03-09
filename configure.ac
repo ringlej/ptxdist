@@ -107,6 +107,12 @@ if test -z "$CC"; then
 	AC_MSG_ERROR([gcc could not be found, please install])
 fi
 
+dnl Check for g++
+AC_PROG_CXX
+if test -z "$CXX"; then
+	AC_MSG_ERROR([g++ could not be found, please install])
+fi
+
 dnl Check for awk
 AC_PROG_AWK
 AC_MSG_CHECKING([awk version])

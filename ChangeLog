@@ -4,6 +4,7 @@
 	* SPECIFICATION: removed (also obsolete)
 	* TOOLCHAINS: removed (also obsolete)
 	* pending_patches: removed
+	* configure: add check for g++ (it is needed...)
 
 2007-01-28  Robert Schwebel <r.schwebel@pengutronix.de>
 
