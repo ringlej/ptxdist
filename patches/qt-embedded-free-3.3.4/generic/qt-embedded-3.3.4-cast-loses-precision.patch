@@ -70,3 +70,73 @@ Index: qt-embedded-free-3.3.4/src/kernel/qapplication_qws.cpp
  			else
  			    QPaintDevice::qwsDisplay()->selectCursor(widget, ArrowCursor);
  		    }
+Index: qt-embedded-free-3.3.4/src/kernel/qwidget_qws.cpp
+===================================================================
+--- qt-embedded-free-3.3.4.orig/src/kernel/qwidget_qws.cpp
++++ qt-embedded-free-3.3.4/src/kernel/qwidget_qws.cpp
+@@ -629,7 +629,7 @@ void QWidget::grabMouse( const QCursor &
+ 	qt_mouseGrb->releaseMouse();
+ 
+     qwsDisplay()->grabMouse(this,TRUE);
+-    qwsDisplay()->selectCursor(this, (unsigned int)cursor.handle());
++    qwsDisplay()->selectCursor(this, (unsigned long)cursor.handle());
+     qt_mouseGrb = this;
+     qt_pressGrab = 0;
+ }
+@@ -1843,7 +1843,7 @@ void QWidget::updateCursor( const QRegio
+ 	QSize s( qt_screen->width(), qt_screen->height() );
+ 	QPoint pos = qt_screen->mapToDevice(QPoint(*qt_last_x, *qt_last_y), s);
+ 	if ( r.contains(pos) )
+-	    qwsDisplay()->selectCursor((QWidget*)this, (unsigned int)cursor().handle());
++	    qwsDisplay()->selectCursor((QWidget*)this, (unsigned long)cursor().handle());
+     }
+ }
+ #endif
+Index: qt-embedded-free-3.3.4/src/kernel/qwsregionmanager_qws.cpp
+===================================================================
+--- qt-embedded-free-3.3.4.orig/src/kernel/qwsregionmanager_qws.cpp
++++ qt-embedded-free-3.3.4/src/kernel/qwsregionmanager_qws.cpp
+@@ -288,7 +288,7 @@ bool QWSRegionManager::attach( const QSt
+ 	    data = (unsigned char *)shmat( shmId, 0, 0 );
+     }
+ 
+-    return ( shmId != -1 && (int)data != -1 );
++    return ( shmId != -1 && (long)data != -1 );
+ #else
+ 	int dataSize = sizeof(QWSRegionHeader)                // header
+ 		    + sizeof(QWSRegionIndex) * QT_MAX_REGIONS // + index
+Index: qt-embedded-free-3.3.4/src/kernel/qsharedmemory_p.cpp
+===================================================================
+--- qt-embedded-free-3.3.4.orig/src/kernel/qsharedmemory_p.cpp
++++ qt-embedded-free-3.3.4/src/kernel/qsharedmemory_p.cpp
+@@ -129,7 +129,7 @@ bool QSharedMemory::attach ()
+     shmId = shmget (key, shmSize, 0);
+ 
+   shmBase = shmat (shmId, 0, 0);
+-  if ((int) shmBase == -1 || shmBase == 0)
++  if ((long) shmBase == -1 || shmBase == 0)
+     return FALSE;
+   else
+     return TRUE;
+Index: qt-embedded-free-3.3.4/src/embedded/qgfxlinuxfb_qws.cpp
+===================================================================
+--- qt-embedded-free-3.3.4.orig/src/embedded/qgfxlinuxfb_qws.cpp
++++ qt-embedded-free-3.3.4/src/embedded/qgfxlinuxfb_qws.cpp
+@@ -176,7 +176,7 @@ bool QLinuxFbScreen::connect( const QStr
+ 				 MAP_SHARED, fd, 0);
+     data += dataoffset;
+ 
+-    if ((int)data == -1) {
++    if ((long)data == -1) {
+ 	perror("mapping /dev/fb0");
+ 	qWarning("Error: failed to map framebuffer device to memory.");
+ 	return FALSE;
+@@ -736,7 +736,7 @@ void QLinuxFbScreen::setupOffScreen()
+     psize += 8;     // for alignment
+     psize &= ~0x7;  // align
+ 
+-    unsigned int pos=(unsigned int)data;
++    unsigned int pos=(unsigned long)data;
+     pos += psize;
+     entryp = ((int *)pos);
+     lowest = ((unsigned int *)pos)+1;
