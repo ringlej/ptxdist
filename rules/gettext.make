@@ -103,15 +103,7 @@ gettext_install: $(STATEDIR)/gettext.install
 
 $(STATEDIR)/gettext.install: $(gettext_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
-	#@$(call install, GETTEXT)
-	rm -rf $(GETTEXT_INST_DIR)
-	cd $(GETTEXT_DIR) && $(GETTEXT_PATH) $(MAKE_INSTALL) prefix=$(GETTEXT_INST_DIR)/usr
-	mkdir -p $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	cp -a $(GETTEXT_INST_DIR)/usr/lib/. $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
-	mkdir -p $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-	cp -a $(GETTEXT_INST_DIR)/usr/include/. $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-	rm -rf $(GETTEXT_INST_DIR)
+	@$(call install, GETTEXT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
