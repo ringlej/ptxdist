@@ -1,6 +1,8 @@
 TODO for 0.10.7
 ===============
 
+[ ] rsc: add generic/sbin/init trick
+
 [ ] bbu: default path to generic projects seems not work
 
 [ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks into PTXdist's build
