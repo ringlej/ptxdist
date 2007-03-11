@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -106,7 +106,9 @@ busybox_install: $(STATEDIR)/busybox.install
 
 $(STATEDIR)/busybox.install: $(busybox_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, BUSYBOX)
+# Note: If symbol BB_PREFIX is empty when entering the prepare stage
+# this stage will fail! Ensure BB_PREFIX contains something like "./_install"
+	$(call install, BUSYBOX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

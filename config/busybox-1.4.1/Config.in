@@ -447,7 +447,7 @@ config BB_INSTALL_APPLET_DONT
        depends on BB_FEATURE_INSTALLER || BB_FEATURE_SH_STANDALONE_SHELL
        help
          Do not install applet links. Useful when using the -install feature
-         or a standalone shell for rescue pruposes.
+         or a standalone shell for rescue purposes.
 
 endchoice
 
@@ -456,6 +456,8 @@ config BB_PREFIX
 	default "./_install"
 	help
 	  Define your directory to install BusyBox files/subdirs in.
+	  Note: Do not leave this entry empty! Busybox' install stage
+	  will fail with a curious error message if so!
 
 endmenu
 
