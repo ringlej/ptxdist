@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# This init script makes sure we have /dev/console and /dev/null, no matter
+# if we boot from flash or NFS
+
+mount -t tmpfs none /dev -o mode=755
+
+mknod /dev/console c 5 1
+chmod 600 /dev/console
+mknod /dev/null c 1 3
+chmod 666 /dev/null
+
+# FIXME: this still gives a "unable to open initial console" warning
+
+exec /bin/busybox init $@ 1> /dev/console 2> /dev/console < /dev/console
+
