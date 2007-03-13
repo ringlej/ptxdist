@@ -1,7 +1,8 @@
-config CHRONY
-	bool
+# chrony configuration
+
+menuconfig CHRONY
+	bool "Chrony              "
 	select READLINE
-	prompt "Chrony              "
 	help
 	  FIXME: remove READLINE select when 1.21 works again.
 
@@ -16,3 +17,97 @@ config CHRONY
 	  various settings.
 
 	  See http://chrony.sunsite.dk/ for details
+
+comment "install options   ---"
+	depends on CHRONY
+
+config CHRONY_INSTALL_CHRONY_COMMAND
+	depends on CHRONY
+	bool
+	default n
+	prompt "Install chrony command helper"
+	help
+	  Install a command helper in /usr/bin/chrony_command, 
+	  which extracts the command access key from 
+	  /etc/chrony/chrony.keys and uses it to run 
+	  one given command. Note: The user needs access to
+	  the chrony.keys file. 
+
+menuconfig CHRONY_INSTALL_CONFIG
+	depends on CHRONY
+	bool
+	default y
+	prompt "Install chrony config files"
+	help
+	  Install /etc/chrony/chrony.conf and /etc/chrony/chony.keys
+	  from a selectable source.
+
+	choice
+		prompt "Kind of chrony config"
+		depends on CHRONY_INSTALL_CONFIG
+		default CHRONY_DEFAULTCONFIG
+
+		config CHRONY_DEFAULTCONFIG
+			bool
+			prompt "Use generic"
+			help
+			  Install generic chrony config files.
+			  See <ptxdist-install>/generic/etc/chrony/
+
+		config CHRONY_USERCONFIG
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined chrony config.
+			  PTXdist uses files projectroot/chrony/ 
+			  in your local project
+	endchoice
+
+config CHRONY_DEFAULT_ACCESS_KEY
+	depends on CHRONY
+	string
+	prompt "setup default access key for chronyc"
+	default "undefined"
+	help
+	  This will install a default access key with the
+	  given content to the chrony.keys file. This is
+	  used by /etc/init.d/chrony to access status
+	  data, etc.
+
+config CHRONY_DEFAULT_NTP_SERVER
+	depends on CHRONY
+	string
+	prompt "setup default ntp peer"
+	default "10.1.1.2"
+	help
+	  This will set the ntp server for simple
+	  configurations.
+
+menuconfig ROOTFS_ETC_INITD_CHRONY
+	depends on CHRONY
+	bool
+	default y
+	prompt "Install startup script"
+	help
+	  The /etc/init.d/chrony script lets you control the chronyd daemon.
+
+	choice
+		prompt "Kind of startup script"
+		depends on ROOTFS_ETC_INITD_CHRONY
+		default ROOTFS_ETC_INITD_CHRONY_DEFAULT
+
+		config ROOTFS_ETC_INITD_CHRONY_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Install a generic /etc/init.d/chrony file.
+			  See <ptxdist-install>/generic/etc/init.d/chrony
+
+		config ROOTFS_ETC_INITD_CHRONY_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined httpd startup script. PTXdist
+			  uses file projectroot/etc/init.d/chrony in your local
+			  project
+	endchoice

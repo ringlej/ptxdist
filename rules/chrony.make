@@ -111,12 +111,92 @@ $(STATEDIR)/chrony.targetinstall: $(chrony_targetinstall_deps_default)
 	@$(call install_fixup, chrony,PRIORITY,optional)
 	@$(call install_fixup, chrony,VERSION,$(CHRONY_VERSION))
 	@$(call install_fixup, chrony,SECTION,base)
-	@$(call install_fixup, chrony,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, chrony,AUTHOR,"PTXdist Base Package <ptxdist\@pengutronix.de>")
 	@$(call install_fixup, chrony,DEPENDS,)
 	@$(call install_fixup, chrony,DESCRIPTION,missing)
 
-	@$(call install_copy, chrony, 0, 0, 0755, $(CHRONY_DIR)/chronyd, /usr/sbin/chronyd)
-	@$(call install_copy, chrony, 0, 0, 0755, $(CHRONY_DIR)/chronyc, /usr/bin/chronyc)
+# ---------------------------
+# install chrony binaries
+#
+	@$(call install_copy, chrony, 0, 0, 0755, 			\
+		$(CHRONY_DIR)/chronyd, 					\
+		/usr/sbin/chronyd)
+	@$(call install_copy, chrony, 0, 0, 0755, 			\
+		$(CHRONY_DIR)/chronyc, 					\
+		/usr/bin/chronyc)
+
+# ---------------------------
+# install chrony command helper script on demand
+#
+ifdef PTXCONF_CHRONY_INSTALL_CHRONY_COMMAND
+	@$(call install_copy, chrony, 0, 0, 0755, 			\
+		$(PTXDIST_TOPDIR)/generic/usr/bin/chrony_command, 	\
+		/usr/bin/chrony_command, n)			
+endif
+
+# ---------------------------
+# generate a config file
+#
+ifdef PTXCONF_CHRONY_INSTALL_CONFIG
+ifdef PTXCONF_CHRONY_DEFAULTCONFIG
+# use generic one
+	@$(call install_copy, chrony, 0, 0, 0644, 			\
+		$(PTXDIST_TOPDIR)/generic/etc/chrony/chrony.conf, 	\
+		/etc/chrony/chrony.conf, n)
+	@$(call install_copy, chrony, 0, 0, 0600, 			\
+		$(PTXDIST_TOPDIR)/generic/etc/chrony/chrony.keys, 	\
+		/etc/chrony/chrony.keys, n)		
+endif
+ifdef PTXCONF_CHRONY_USERCONFIG
+# users one
+	@$(call install_copy, chrony, 0, 0, 0644, 				\
+		$(PTXDIST_WORKSPACE)/projectroot/etc/chrony/chrony.conf, 	\
+		/etc/chrony/chrony.conf, n)
+	@$(call install_copy, chrony, 0, 0, 0600, 				\
+		$(PTXDIST_WORKSPACE)/projectroot/etc/chrony/chrony.keys, 	\
+		/etc/chrony/chrony.keys, n)		
+endif
+# modify placeholders with data from configuration
+	@$(call install_replace, chrony, /etc/chrony/chrony.conf, \
+		@UNCONFIGURED_CHRONY_SERVER_IP@, $(PTXCONF_CHRONY_DEFAULT_NTP_SERVER) )
+
+	@$(call install_replace, chrony, /etc/chrony/chrony.keys, \
+		@UNCONFIGURED_CHRONY_ACCESS_KEY@, $(PTXCONF_CHRONY_DEFAULT_ACCESS_KEY) )
+endif
+
+# ---------------------------
+# install startup script on demand
+#
+ifdef PTXCONF_ROOTFS_ETC_INITD_CHRONY
+ifdef PTXCONF_ROOTFS_ETC_INITD_CHRONY_DEFAULT
+# generic script with path modifications
+	@$(call install_copy, chrony, 0, 0, 0755, 		\
+	$(PTXDIST_TOPDIR)/generic/etc/init.d/chrony, 		\
+	/etc/init.d/chrony, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_CHRONY_USER
+# users one
+	@$(call install_copy, chrony, 0, 0, 0755, 		\
+	$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/chrony,	\
+	 /etc/init.d/chrony, n)
+endif
+# install link to launch automatically if enabled
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_CHRONY_LINK),"")
+	@$(call install_link, chrony, 				\
+	../init.d/chrony, 					\
+	/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_CHRONY_LINK))
+endif
+endif	
+
+# ---------------------------
+# install chrony command helper script 
+#
+ifdef PTXCONF_CHRONY_INSTALL_CHRONY_COMMAND
+	@$(call install_copy, chrony, 0, 0, 0755, 			\
+		$(PTXDIST_TOPDIR)/generic/usr/bin/chrony_command, 	\
+		/usr/bin/chrony_command, n)			
+endif
+
 
 	@$(call install_finish, chrony)
 

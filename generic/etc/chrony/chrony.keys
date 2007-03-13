@@ -1,0 +1,4 @@
+# Key File for chronyc
+# this is needed, to access chronyd from chronyc client
+#
+1 @UNCONFIGURED_CHRONY_ACCESS_KEY@
