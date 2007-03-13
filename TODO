@@ -101,6 +101,27 @@ After release:
 TODO for 0.10.x
 ===============
 
+[ ] bbu: Discuss the future kconfig include scheme. At the moment, overriding 
+	 single *.in files is a real pain.
+	 
+	 - There should be a way to autogenerate the needed files 
+	   before starting kconfig or kconfig should just ignore
+	   double definitions (which might be a bad idea)
+	 
+	 Features needed: 
+	 
+	 - override *.make as well as *.in
+	 - create a sane menu structure
+	 
+[ ] bbu: check ptxdist first-time-usage scenario for chicken-egg problems
+         e.g. if you don´t set sane defaults for PTXCONF_SETUP_PROJECTPATH, 
+	 ptxdist won´t find its own projects.
+	 
+[ ] bbu: Discuss the whole definition of "package". At the moment, 
+	 most package options are scattered across two or more 
+	 *.in or *.make files, making "drop-in replacements" nearly 
+	 impossible.
+	 
 [ ] audit all packages if they change the target CPU (with --march or --mtune)
 
    [ ] openssl does so
