@@ -22,16 +22,6 @@ config ROOTFS_ETC_INITD_MODULES_LINK
 	  /etc/init.d/modules. Keep this entry empty if you do not want to start
 	  this service automatically.
 
-config ROOTFS_ETC_INITD_INETD_LINK
-	depends on ROOTFS_ETC_INITD_INETD || INETUTILS_ETC_INITD_INETD
-	string
-	prompt "inted link name"
-	default "S11_inetd"
-	help
-	  Set a link to with this name in /etc/rc.d which points to
-	  /etc/init.d/inetd. Keep this entry empty if you do not want to start
-	  this service automatically.
-
 config ROOTFS_ETC_INITD_NETWORKING_LINK
 	depends on ROOTFS_ETC_INITD_NETWORKING
 	string
@@ -42,14 +32,24 @@ config ROOTFS_ETC_INITD_NETWORKING_LINK
 	  /etc/init.d/networking. Keep this entry empty if you do not want to
 	  start this service automatically.
 
-config ROOTFS_ETC_INITD_SYSLOGNG_LINK
-	depends on ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
+config ROOTFS_ETC_INITD_BANNER_LINK
+	depends on ROOTFS_ETC_INITD_BANNER
 	string
-	prompt "syslog-ng link name"
-	default "S08_syslog-ng"
+	prompt "banner link name"
+	default "S03_banner"
 	help
-	  Set a link into /etc/rc.d which points to /etc/init.d/syslog-ng to
-	  start the syslog-ng daemon when system boots. Keep this entry empty if
+	  Set a link to with this name in /etc/rc.d which points to
+	  /etc/init.d/banner. Keep this entry empty if you do not want to start
+	  this service automatically.
+
+config ROOTFS_ETC_INITD_NFS_LINK
+	depends on ROOTFS_ETC_INITD_NFS_DEFAULT || ROOTFS_ETC_INITD_NFS_USER
+	string
+	prompt "nfsd link name"
+	default "S06_nfsd"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/nfsd to
+	  start nfs server when system starts. Keep this entry empty if
 	  you do not want to start this service automatically.
 
 config ROOTFS_ETC_INITD_TELNETD_LINK
@@ -62,24 +62,14 @@ config ROOTFS_ETC_INITD_TELNETD_LINK
 	  /etc/init.d/telnetd. Keep this entry empty if you do not want to start
 	  this service automatically.
 
-config ROOTFS_ETC_INITD_BANNER_LINK
-	depends on ROOTFS_ETC_INITD_BANNER
+config ROOTFS_ETC_INITD_SYSLOGNG_LINK
+	depends on ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
 	string
-	prompt "banner link name"
-	default "S03_banner"
+	prompt "syslog-ng link name"
+	default "S08_syslog-ng"
 	help
-	  Set a link to with this name in /etc/rc.d which points to
-	  /etc/init.d/banner. Keep this entry empty if you do not want to start
-	  this service automatically.
-
-config ROOTFS_ETC_INITD_THTTPD_LINK
-	depends on THTTPD
-	string
-	prompt "thttpd link name"
-	default "S10_thttpd"
-	help
-	  Set a link into /etc/rc.d which points to /etc/init.d/thttpd to
-	  start thin http daemon when system starts. Keep this entry empty if
+	  Set a link into /etc/rc.d which points to /etc/init.d/syslog-ng to
+	  start the syslog-ng daemon when system boots. Keep this entry empty if
 	  you do not want to start this service automatically.
 
 config ROOTFS_ETC_INITD_HTTPD_LINK
@@ -131,25 +121,15 @@ config ROOTFS_ETC_INITD_SAMBA_LINK
 	  Set a link into /etc/rc.d which points to /etc/init.d/samba to
 	  start the samba server.
 
-config ROOTFS_ETC_INITD_CVS_LINK
-	depends on CVS_STARTUP_TYPE_STANDALONE
+config ROOTFS_ETC_INITD_THTTPD_LINK
+	depends on THTTPD
 	string
-	prompt "cvs link name"
-	default "S13_cvs"
+	prompt "thttpd link name"
+	default "S10_thttpd"
 	help
-	  Set a link into /etc/rc.d which points to /etc/init.d/cvs to
-	  start cvs as a standalone service when system starts. Keep this entry
-	  empty if you do not want to start this service automatically.
-
-config ROOTFS_ETC_INITD_RSYNC_LINK
-	depends on RSYNC_STARTUP_TYPE_STANDALONE
-	string
-	prompt "rsync link name"
-	default "S14_rsync"
-	help
-	  Set a link into /etc/rc.d which points to /etc/init.d/rsync to
-	  start rsync as a standalone service when system starts. Keep this
-	  entry empty if you do not want to start this service automatically.
+	  Set a link into /etc/rc.d which points to /etc/init.d/thttpd to
+	  start thin http daemon when system starts. Keep this entry empty if
+	  you do not want to start this service automatically.
 
 config ROOTFS_ETC_INITD_DNSMASQ_LINK
 	depends on DNSMASQ_STARTUP_TYPE_STANDALONE
@@ -169,6 +149,36 @@ config ROOTFS_ETC_INITD_PORTMAP_LINK
 	help
 	  Set a link into /etc/rc.d which points to /etc/init.d/portmapd to
 	  start portmap as a standalone service when system starts. Keep this
+	  entry empty if you do not want to start this service automatically.
+
+config ROOTFS_ETC_INITD_INETD_LINK
+	depends on ROOTFS_ETC_INITD_INETD || INETUTILS_ETC_INITD_INETD
+	string
+	prompt "inted link name"
+	default "S11_inetd"
+	help
+	  Set a link to with this name in /etc/rc.d which points to
+	  /etc/init.d/inetd. Keep this entry empty if you do not want to start
+	  this service automatically.
+
+config ROOTFS_ETC_INITD_CVS_LINK
+	depends on CVS_STARTUP_TYPE_STANDALONE
+	string
+	prompt "cvs link name"
+	default "S13_cvs"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/cvs to
+	  start cvs as a standalone service when system starts. Keep this entry
+	  empty if you do not want to start this service automatically.
+
+config ROOTFS_ETC_INITD_RSYNC_LINK
+	depends on RSYNC_STARTUP_TYPE_STANDALONE
+	string
+	prompt "rsync link name"
+	default "S14_rsync"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/rsync to
+	  start rsync as a standalone service when system starts. Keep this
 	  entry empty if you do not want to start this service automatically.
 
 config ROOTFS_ETC_INITD_FAM_LINK
@@ -201,16 +211,6 @@ config ROOTFS_ETC_INITD_CROND_LINK
 	  start crond when system starts. Keep this entry empty if
 	  you do not want to start this service automatically.
 
-config ROOTFS_ETC_INITD_NFS_LINK
-	depends on ROOTFS_ETC_INITD_NFS_DEFAULT || ROOTFS_ETC_INITD_NFS_USER
-	string
-	prompt "nfsd link name"
-	default "S06_nfsd"
-	help
-	  Set a link into /etc/rc.d which points to /etc/init.d/nfsd to
-	  start nfs server when system starts. Keep this entry empty if
-	  you do not want to start this service automatically.
-
 config ROOTFS_ETC_INITD_DBUS_LINK
 	depends on DBUS_INSTALL_STARTUP_SCRIPT
 	string
@@ -230,8 +230,6 @@ config ROOTFS_ETC_INITD_NTPCLIENT_LINK
 	  Set a link into /etc/rc.d which points to /etc/init.d/ntpclient to
 	  start ntpclientd when system starts. Keep this entry empty if
 	  you do not want to start this service automatically.
-
-
 
 config ROOTFS_ETC_INITD_TIMEKEEPER_LINK
 	depends on ROOTFS_ETC_INITD_HWCLOCK
