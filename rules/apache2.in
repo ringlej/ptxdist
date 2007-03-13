@@ -103,7 +103,7 @@ config APACHE2_INSTALL_CONFIG
 			bool
 			prompt "User defined"
 			help
-			  This uses a user defined httpd.conf startup script.
+			  This uses a user defined httpd.conf file.
 			  PTXdist uses file projectroot/httpd.conf in your
 			  local project
 	endchoice
