@@ -1,6 +1,10 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: if ptxdist was called with wrong parameters (and complains about it) it
+	 should return also an error return code (so something like
+	 "ptxdist clen kernel && ptxdist go" fails)
+
 [ ] rsc: add generic/sbin/init trick
 
 [ ] bbu: default path to generic projects seems not work
