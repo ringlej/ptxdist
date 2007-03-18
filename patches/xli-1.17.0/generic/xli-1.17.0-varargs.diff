@@ -1,0 +1,13 @@
+Index: rlelib.c
+===================================================================
+--- rlelib.c.orig
++++ rlelib.c
+@@ -12,7 +12,7 @@
+  */
+ 
+ #include "xli.h"
+-#include <varargs.h>
++#include <stdarg.h>
+ #include <ctype.h>
+ #include "rle.h"
+ 
