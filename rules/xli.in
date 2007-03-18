@@ -1,0 +1,9 @@
+config XLI
+	bool
+	select LIBPNG
+	select LIBJPEG
+	select XORG_LIB_X11
+	prompt "xli"
+	help
+	  xli is an image viewer for png and jpeg images.
+

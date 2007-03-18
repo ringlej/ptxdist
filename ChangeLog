@@ -1,3 +1,7 @@
+2007-03-19  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* xli: added
+
 2007-03-09  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* COMPILE-TEST: removed because it is obsolete
