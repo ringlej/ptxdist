@@ -83,7 +83,7 @@ $(STATEDIR)/xerces.compile: $(xerces_compile_deps_default)
 	@$(call targetinfo, $@)
 	( \
 		export XERCESCROOT=$(XERCES_DIR); \
-		cd $(XERCES_DIR)/src/xercesc && $(XERCES_PATH) $(MAKE); \
+		cd $(XERCES_DIR)/src/xercesc && $(XERCES_PATH) SYSROOT=$(SYSROOT) $(MAKE); \
 	)
 	@$(call touch, $@)
 

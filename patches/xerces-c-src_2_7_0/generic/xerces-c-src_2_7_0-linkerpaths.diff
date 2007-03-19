@@ -1,0 +1,536 @@
+#
+# Submitted-By: Robert Schwebel, 2007-03-19
+# Committed-By: Robert Schwebel
+#
+# Error:
+#
+# /../arm-v4t-linux-gnueabi/bin/ld: cannot find -lxerces-c
+# collect2: ld returned 1 exit status
+# make[2]: *** [.../build-target/xerces-c-src_2_7_0/l
+# ib/libxerces-depdom.so.27.0] Error 1
+#
+# Description:
+#
+# The makefiles are not SYSROOT aware.
+#
+# State:
+#
+# unknown
+#
+
+Index: xerces-c-src_2_7_0/src/xercesc/Makefile.incl
+===================================================================
+--- xerces-c-src_2_7_0.orig/src/xercesc/Makefile.incl
++++ xerces-c-src_2_7_0/src/xercesc/Makefile.incl
+@@ -80,15 +80,15 @@ ifeq (${PLATFORM}, SOLARIS)
+     MAKE_SHARED = ${CXX} -D${PLATFORM} -shared ${LDFLAGS}
+     MAKE_SHARED_C = ${CC} -D${PLATFORM} -shared ${LDFLAGS}
+     ifeq (${TRANSCODER}, ICU)
+-        ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib \
++        ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib \
+                   -licuuc -licudata -lm -lgen
+     else
+-        ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib \
++        ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib \
+                   -lm  -lgen
+     endif
+ 
+     ifeq (${MESSAGELOADER}, ICU)
+-        ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib \
++        ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib \
+                   -licuuc -licudata -lXercesMessages -lm -lgen
+     endif
+ 
+@@ -122,10 +122,10 @@ ifeq (${PLATFORM}, UNIXWARE)
+     MAKE_SHARED = ${CXX} -D${PLATFORM} -shared ${LDFLAGS}
+     MAKE_SHARED_C = ${CC} -D${PLATFORM} -shared ${LDFLAGS}
+     ifeq (${TRANSCODER}, ICU)
+-        ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib \
++        ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib \
+                   -licuuc -licudata -lm -lw -lgen
+     else
+-        ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib \
++        ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib \
+                   -lm -lw -lgen
+     endif
+   else
+@@ -134,10 +134,10 @@ ifeq (${PLATFORM}, UNIXWARE)
+     MAKE_SHARED = ${CXX} -D${PLATFORM} -G ${LDFLAGS}
+     MAKE_SHARED_C = ${CC} -D${PLATFORM} -G ${LDFLAGS}
+     ifeq (${TRANSCODER}, ICU)
+-        ALLLIBS = ${LIBS} -L/usr/local/lib -L/usr/ccs/lib \
++        ALLLIBS = ${LIBS} -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib \
+                   -licuuc -licudata -lm -lw -lC -lc -lgen
+     else
+-        ALLLIBS = ${LIBS} -L/usr/local/lib -L/usr/ccs/lib \
++        ALLLIBS = ${LIBS} -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib \
+                   -lm -lw -lC -lc -lgen
+     endif
+   endif
+@@ -199,19 +199,19 @@ ifeq (${PLATFORM}, AIX)
+ #PLATFORM_CPP_COMPILER = xlC_r
+ #PLATFORM_C_COMPILER = xlc_r
+ #ifdef ICUROOT
+-#  ALLLIBS = ${LIBS} -L/usr/lpp/xlC/lib -L${ICUROOT}/lib -licuuc -licudata -lbsd
++#  ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lpp/xlC/lib -L${ICUROOT}/lib -licuuc -licudata -lbsd
+ #else
+-#  ALLLIBS = -L/usr/lpp/xlC/lib -lbsd
++#  ALLLIBS = -L${SYSROOT}/usr/lpp/xlC/lib -lbsd
+ #endif
+ 
+ ifeq (${TRANSCODER}, ICU)
+-    ALLLIBS = ${LIBS} -L/usr/lpp/xlC/lib -licuuc32 -licudata32
++    ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lpp/xlC/lib -licuuc32 -licudata32
+ else
+-    ALLLIBS = ${LIBS} -L/usr/lpp/xlC/lib
++    ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lpp/xlC/lib
+ endif
+ 
+ ifeq (${MESSAGELOADER}, ICU)
+-    ALLLIBS = ${LIBS} -L/usr/lpp/xlC/lib -licuuc32 -licudata32 -lXercesMessages26
++    ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lpp/xlC/lib -licuuc32 -licudata32 -lXercesMessages26
+ endif
+ 
+ ifeq (${CXXVER}, v5compat)
+@@ -288,9 +288,9 @@ PLATFORM_COMPILE_OPTIONS = -fPIC -D${PLA
+ MAKE_SHARED = ${CXX} -D${PLATFORM} -nostart -fPIC ${LDFLAGS}
+ MAKE_SHARED_C = ${CC} -D${PLATFORM} -nostart -fPIC ${LDFLAGS}
+ ifeq (${TRANSCODER}, ICU)
+-    ALLLIBS = ${LIBS} -L/boot/develop/lib/x86 -L/boot/home/config/lib -lbe -licuuc -licudata
++    ALLLIBS = ${LIBS} -L${SYSROOT}/boot/develop/lib/x86 -L${SYSROOT}/boot/home/config/lib -lbe -licuuc -licudata
+ else
+-    ALLLIBS = ${LIBS} -L/boot/develop/lib/x86 -L/boot/home/config/lib -lbe
++    ALLLIBS = ${LIBS} -L${SYSROOT}/boot/develop/lib/x86 -L${SYSROOT}/boot/home/config/lib -lbe
+ endif
+ EXTRA_LINK_OPTIONS = -Xlinker -Map -Xlinker $(XML_OBJ)/${SO_NAME}.map
+ DEPDOM_LINK_OPTIONS = -Xlinker -Map -Xlinker $(XML_OBJ)/${SO_DEPDOM}.map
+@@ -348,23 +348,23 @@ ifeq (${PLATFORM}, LINUX)
+ 
+         ifeq (${BITSTOBUILD}, 64)
+             ifeq (${TRANSCODER}, ICU)
+-                ALLLIBS = ${LIBS} -L/usr/lib64 -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib -licuuc -licudata
++                ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib64 -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib -licuuc -licudata
+             else
+-                ALLLIBS = ${LIBS} -L/usr/lib64 -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib
++                ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib64 -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib
+             endif
+ 
+             ifeq (${MESSAGELOADER}, ICU)
+-                ALLLIBS = ${LIBS} -L/usr/lib64 -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib -licuuc -licudata -lXercesMessages
++                ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib64 -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib -licuuc -licudata -lXercesMessages
+             endif
+         else
+             ifeq (${TRANSCODER}, ICU)
+-                ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib -licuuc -licudata
++                ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib -licuuc -licudata
+             else
+-                ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib
++                ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib
+             endif
+ 
+             ifeq (${MESSAGELOADER}, ICU)
+-                ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib -licuuc -licudata -lXercesMessages
++                ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib -licuuc -licudata -lXercesMessages
+             endif
+         endif
+ 
+@@ -387,13 +387,13 @@ PLATFORM_COMPILE_OPTIONS = -shared
+ MAKE_SHARED = ${CXX}  -shared ${LDFLAGS}
+ MAKE_SHARED_C = ${CC} -shared ${LDFLAGS}
+ ifeq (${TRANSCODER}, ICU)
+-    ALLLIBS = ${LIBS} -L/usr/local/lib -licuuc -licudata
++    ALLLIBS = ${LIBS} -L${SYSROOT}/usr/local/lib -licuuc -licudata
+ else
+     ALLLIBS = ${LIBS}
+ endif
+ 
+ ifeq (${MESSAGELOADER}, ICU)
+-    ALLLIBS = ${LIBS} -L/usr/local/lib -licuuc -licudata -lXercesMessages
++    ALLLIBS = ${LIBS} -L${SYSROOT}/usr/local/lib -licuuc -licudata -lXercesMessages
+ endif
+ 
+ EXTRA_LINK_OPTIONS =
+@@ -411,7 +411,7 @@ MAKE_SHARED = ${CXX} -D${PLATFORM} -shar
+ MAKE_SHARED_C = ${CC} -D${PLATFORM} -shared -fPIC ${LDFLAGS}
+ ifeq (${TRANSCODER}, ICU)
+     PLATFORM_COMPILE_OPTIONS = -fPIC -D${PLATFORM} -I/usr/local/include
+-    ALLLIBS = ${LIBS} -L/usr/local/lib -L${ICUROOT} -licuuc -licudata -lgcc
++    ALLLIBS = ${LIBS} -L${SYSROOT}/usr/local/lib -L${ICUROOT} -licuuc -licudata -lgcc
+ else
+     PLATFORM_COMPILE_OPTIONS = -fPIC -D${PLATFORM}
+     ALLLIBS = ${LIBS}
+@@ -429,7 +429,7 @@ MAKE_SHARED = ${CXX} -D${PLATFORM} -shar
+ MAKE_SHARED_C = ${CC} -D${PLATFORM} -shared -fPIC ${LDFLAGS}
+ ifeq (${TRANSCODER}, ICU)
+     PLATFORM_COMPILE_OPTIONS = -fPIC -D${PLATFORM} -I/usr/local/include
+-    ALLLIBS = ${LIBS} -L/usr/local/lib -L${ICUROOT} -licuuc -licudata -lgcc
++    ALLLIBS = ${LIBS} -L${SYSROOT}/usr/local/lib -L${ICUROOT} -licuuc -licudata -lgcc
+ else
+     PLATFORM_COMPILE_OPTIONS = -fPIC -D${PLATFORM}
+     ALLLIBS = ${LIBS}
+@@ -601,9 +601,9 @@ ifeq (${PLATFORM}, TRU64)
+     MAKE_SHARED = ${CXX} -D${PLATFORM} -shared -ptr ${XERCESCROOT}/.cxx_repository ${LDFLAGS}
+     PLATFORM_COMPILE_OPTIONS = -D${PLATFORM} -ptr ${XERCESCROOT}/.cxx_repository
+     ifeq (${TRANSCODER}, ICU)
+-    ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib -licuuc -licudata -lc -lrt
++    ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib -licuuc -licudata -lc -lrt
+     else
+-    ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib -lc -lrt
++    ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib -lc -lrt
+     endif
+   endif
+ endif
+@@ -619,9 +619,9 @@ ifeq (${PLATFORM}, MACOSX)
+     MAKE_SHARED = ${CXX} -D${PLATFORM} -dynamiclib ${LDFLAGS}
+     MAKE_SHARED_C = ${CC} -D${PLATFORM} -dynamiclib ${LDFLAGS}
+     ifeq (${TRANSCODER}, ICU)
+-        ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib -licuuc -licudata -lc
++        ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib -licuuc -licudata -lc
+     else
+-        ALLLIBS = ${LIBS} -L/usr/lib
++        ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib
+     endif
+     SHLIBSUFFIX=.dylib
+     ICUSHLIBSUFFIX=.dylib
+@@ -638,9 +638,9 @@ ifeq (${PLATFORM}, CYGWIN)
+       MAKE_SHARED = ${CXX} -shared ${LDFLAGS}
+       MAKE_SHARED_C = ${CC} -shared ${LDFLAGS}
+       ifeq (${TRANSCODER}, ICU)
+-              ALLLIBS = ${LIBS} -L/usr/lib -L/usr/local/lib -L/usr/ccs/lib -licuuc -licudata -lc
++              ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib -L${SYSROOT}/usr/ccs/lib -licuuc -licudata -lc
+       else
+-              ALLLIBS = ${LIBS} -L/usr/lib
++              ALLLIBS = ${LIBS} -L${SYSROOT}/usr/lib
+       endif
+       EXTRA_LINK_OPTIONS = \
+               -Xlinker --warn-once \
+Index: xerces-c-src_2_7_0/tests/Makefile.incl
+===================================================================
+--- xerces-c-src_2_7_0.orig/tests/Makefile.incl
++++ xerces-c-src_2_7_0/tests/Makefile.incl
+@@ -47,7 +47,7 @@ ifeq (${PLATFORM}, IRIX)
+ 	CMP= -c ${CXXFLAGS}
+ 	CC= ${COMPILER} -c -D${PLATFORM} -D_REENTRANT -fpic
+ 	LINK = ${COMPILER} -D${PLATFORM} -fpic ${LDFLAGS}
+-	PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++	PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+ 	EXTRA_LINK_OPTIONS=-lc ${EXTRA_LIBS}
+   else
+ 	CMP= -c ${CXXFLAGS}
+@@ -65,13 +65,13 @@ ifeq (${PLATFORM}, SOLARIS)
+ 	CMP= -c ${CXXFLAGS}
+ 	CC= ${COMPILER} -c -D${PLATFORM} -D_REENTRANT -fpic
+ 	LINK = ${COMPILER} -D${PLATFORM} -fpic ${LDFLAGS}
+-	PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++	PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+ 	EXTRA_LINK_OPTIONS=-lc ${EXTRA_LIBS}
+   else
+ 	CMP= -c ${CXXFLAGS}
+ 	CC= CC -c -D${PLATFORM} -D_REENTRANT -KPIC
+  LINK =  CC -D${PLATFORM} ${LDFLAGS}
+-	PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib
++	PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib
+ 	EXTRA_LINK_OPTIONS=-lc -lgen ${EXTRA_LIBS}
+   endif
+   SHLIBSUFFIX=.so
+@@ -83,7 +83,7 @@ ifeq (${PLATFORM}, OPENSERVER)
+   CMP=-c ${CXXFLAGS}
+   LINK=${CC} ${LDFLAGS}
+   EXTRA_LINK_OPTIONS=-lc -lsocket ${EXTRA_LIBS}
+-  PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++  PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+   SHLIBSUFFIX=.so
+ endif
+ 
+@@ -93,7 +93,7 @@ ifeq (${PLATFORM}, UNIXWARE)
+   CC= ${COMPILER} -O2 -c -D${PLATFORM} -D_REENTRANT -fpic -pthread
+   LINK = ${COMPILER} -D${PLATFORM} -fpic -pthread ${LDFLAGS}
+   EXTRA_LINK_OPTIONS=-lc -lsocket ${EXTRA_LIBS}
+-  PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++  PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+   SHLIBSUFFIX=.so
+ endif
+ 
+@@ -109,7 +109,7 @@ PLATFORM_LIBRARIES =
+ PLATFORM_COMPILE_OPTIONS = -KPIC -Kthread -DPTX
+ MAKE_SHARED = ${PLATFORM_CPP_COMPILER} -DPTX -G
+ MAKE_SHARED_C = ${PLATFORM_C_COMPILER} -DPTX  -G
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/local/lib -L${XMLINSTALL}/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/local/lib -L${XMLINSTALL}/lib
+ EXTRA_LINK_OPTIONS=-lm -lgen ${EXTRA_LIBS}
+ SHLIBSUFFIX=.so
+ endif
+@@ -133,7 +133,7 @@ else
+ endif
+ 
+ # the compiler knows about this two
+-# PLATFORM_LIB_LINK_OPTIONS=-L/usr/lpp/xlC/lib
++# PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lpp/xlC/lib
+ # EXTRA_LINK_OPTIONS=-lC ${EXTRA_LIBS}
+ SHLIBSUFFIX=.a
+ endif
+@@ -160,7 +160,7 @@ ifeq (${PLATFORM}, BEOS)
+ CMP= -c ${CXXFLAGS}
+ CC= ${COMPILER} -c -D${PLATFORM} -DAPP_NO_THREADS -fpic
+ LINK =  ${COMPILER} -D${PLATFORM} -fpic ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/boot/develop/lib/x86 -L/boot/home/config/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/boot/develop/lib/x86 -L${SYSROOT}/boot/home/config/lib
+ EXTRA_LINK_OPTIONS=-lbe ${EXTRA_LIBS}
+ SHLIBSUFFIX=.so
+ endif
+@@ -171,14 +171,14 @@ ifeq (${PLATFORM}, LINUX)
+     CMP= -c ${CXXFLAGS} -qnotempinc
+     CC= ${COMPILER} -c -D${PLATFORM}
+     LINK =  ${COMPILER} -D${PLATFORM} ${LDFLAGS}
+-    PLATFORM_LIB_LINK_OPTIONS=-L/usr/local/lib
++    PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/local/lib
+     EXTRA_LINK_OPTIONS=-lc ${EXTRA_LIBS}
+     SHLIBSUFFIX=.so
+   else
+     CMP= -c ${CXXFLAGS}
+     CC= ${COMPILER} -c -D${PLATFORM} -D_REENTRANT -fpic
+     LINK =  ${COMPILER} -D${PLATFORM} -fpic ${LDFLAGS}
+-    PLATFORM_LIB_LINK_OPTIONS=-L/usr/local/lib
++    PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/local/lib
+     EXTRA_LINK_OPTIONS=-lc ${EXTRA_LIBS}
+     SHLIBSUFFIX=.so
+   endif
+@@ -189,7 +189,7 @@ ifeq (${PLATFORM}, QNX)
+ CMP= -c ${CXXFLAGS}
+ CC=QCC -c -O -I/usr/local/include
+ LINK =  ${COMPILER} ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/local/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/local/lib
+ EXTRA_LINK_OPTIONS=${EXTRA_LIBS}
+ SHLIBSUFFIX=.so
+ endif
+@@ -200,7 +200,7 @@ ifeq (${PLATFORM}, CYGWIN)
+ CMP= -c ${CXXFLAGS}
+ CC= ${COMPILER} -c -D__${PLATFORM}__
+ LINK =  ${COMPILER} -D__${PLATFORM}__ ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+ EXTRA_LINK_OPTIONS=${EXTRA_LIBS}
+ SHLIBSUFFIX=.dll
+ endif
+@@ -210,7 +210,7 @@ ifeq (${PLATFORM}, INTERIX)
+ CMP= -c ${CXXFLAGS} 
+ CC= ${COMPILER} -c -D${PLATFORM} -D_REENTRANT -D_ALL_SOURCE
+ LINK =  ${COMPILER} -D${PLATFORM} ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/local/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/local/lib
+ EXTRA_LINK_OPTIONS=${EXTRA_LIBS}
+ SHLIBSUFFIX=.so
+ endif
+@@ -220,7 +220,7 @@ ifeq (${PLATFORM}, MINGW)
+ CMP= -c ${CXXFLAGS} -fexceptions
+ CC= ${COMPILER} -c -D__${PLATFORM}__ -DPLATFORM_WIN32
+ LINK =  ${COMPILER} -D__${PLATFORM}__ ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+ EXTRA_LINK_OPTIONS=${EXTRA_LIBS}
+ SHLIBSUFFIX=.dll
+ endif
+@@ -268,9 +268,9 @@ ifeq (${PLATFORM}, HPUX)
+     LINK =  ${CC} -Wl,+s -Wl,+b,. ${LDFLAGS}
+     
+     ifeq (${CXXVER}, aCC05)
+-       PLATFORM_LIB_LINK_OPTIONS=-L/opt/aCC/lib -L/usr/ccs/lib -mt
++       PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/opt/aCC/lib -L${SYSROOT}/usr/ccs/lib -mt
+     else
+-       PLATFORM_LIB_LINK_OPTIONS=-L/opt/aCC/lib -L/usr/ccs/lib -lpthread    
++       PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/opt/aCC/lib -L${SYSROOT}/usr/ccs/lib -lpthread    
+     endif      
+         
+     SHLIBSUFFIX=.sl
+@@ -285,7 +285,7 @@ ifeq (${PLATFORM}, HPUX)
+     CMP = -c $(COMMON_CMP)
+     CC = CC
+     LINK =  ${CC} $(COMMON_CMP) -Wl,+s -Wl,+b,. ${LDFLAGS}
+-    PLATFORM_LIB_LINK_OPTIONS=-L/opt/CC/lib -L/usr/lib
++    PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/opt/CC/lib -L${SYSROOT}/usr/lib
+     SHLIBSUFFIX=.sl
+   endif
+ endif
+@@ -358,7 +358,7 @@ ifeq (${PLATFORM}, TRU64)
+ CMP= -c ${CXXFLAGS}
+ CC = ${COMPILER} -c -D${PLATFORM}
+ LINK = ${COMPILER} -D${PLATFORM} ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+ SHLIBSUFFIX=.so
+ endif
+ 
+@@ -368,6 +368,6 @@ ifeq (${PLATFORM}, MACOSX)
+ 	CMP= -c ${CXXFLAGS}
+ 	CC= c++ -c -D${PLATFORM} -D_REENTRANT
+ 	LINK = c++ -D${PLATFORM} ${LDFLAGS}
+-	PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib
++	PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib
+ 	SHLIBSUFFIX=.dylib
+ endif
+Index: xerces-c-src_2_7_0/samples/Makefile.incl
+===================================================================
+--- xerces-c-src_2_7_0.orig/samples/Makefile.incl
++++ xerces-c-src_2_7_0/samples/Makefile.incl
+@@ -48,7 +48,7 @@ ifeq (${PLATFORM}, IRIX)
+ 	CMP= -c ${CXXFLAGS}
+ 	CC= ${COMPILER} -c -D${PLATFORM} -D_REENTRANT -fpic
+ 	LINK = ${COMPILER} -D${PLATFORM} -fpic ${LDFLAGS}
+-	PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++	PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+ 	EXTRA_LINK_OPTIONS=-lc ${EXTRA_LIBS}
+   else
+ 	CMP= -c ${CXXFLAGS}
+@@ -66,13 +66,13 @@ ifeq (${PLATFORM}, SOLARIS)
+ 	CMP= -c ${CXXFLAGS}
+ 	CC= ${COMPILER} -c -D${PLATFORM} -D_REENTRANT -fpic
+ 	LINK = ${COMPILER} -D${PLATFORM} -fpic ${LDFLAGS}
+-	PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++	PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+ 	EXTRA_LINK_OPTIONS=-lc ${EXTRA_LIBS}
+   else
+ 	CMP= -c ${CXXFLAGS}
+ 	CC= CC -c -D${PLATFORM} -D_REENTRANT -pic
+  LINK =  CC -D${PLATFORM} ${LDFLAGS}
+-	PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib
++	PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib
+ 	EXTRA_LINK_OPTIONS=-lc -lgen ${EXTRA_LIBS}
+   endif
+   SHLIBSUFFIX=.so
+@@ -84,7 +84,7 @@ ifeq (${PLATFORM}, OPENSERVER)
+   CMP=-c ${CXXFLAGS}
+   LINK=${CC} ${LDFLAGS}
+   EXTRA_LINK_OPTIONS=-lc -lsocket ${EXTRA_LIBS}
+-  PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++  PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+   SHLIBSUFFIX=.so
+ endif
+ 
+@@ -94,7 +94,7 @@ ifeq (${PLATFORM}, UNIXWARE)
+   CC= ${COMPILER} -O2 -c -D${PLATFORM} -D_REENTRANT -fpic -pthread
+   LINK = ${COMPILER} -D${PLATFORM} -fpic -pthread ${LDFLAGS}
+   EXTRA_LINK_OPTIONS=-lc -lsocket ${EXTRA_LIBS}
+-  PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++  PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+   SHLIBSUFFIX=.so
+ endif
+ 
+@@ -110,7 +110,7 @@ PLATFORM_LIBRARIES =
+ PLATFORM_COMPILE_OPTIONS = -KPIC -Kthread -DPTX
+ MAKE_SHARED = ${PLATFORM_CPP_COMPILER} -DPTX -G
+ MAKE_SHARED_C = ${PLATFORM_C_COMPILER} -DPTX  -G
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/local/lib -L${XMLINSTALL}/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/local/lib -L${XMLINSTALL}/lib
+ EXTRA_LINK_OPTIONS=-lm -lgen ${EXTRA_LIBS}
+ SHLIBSUFFIX=.so
+ endif
+@@ -132,7 +132,7 @@ else
+ 	EXTRA_LINK_OPTIONS=-bmaxdata:0x80000000
+ endif
+ # the compiler knows about this two
+-# PLATFORM_LIB_LINK_OPTIONS=-L/usr/lpp/xlC/lib
++# PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lpp/xlC/lib
+ # EXTRA_LINK_OPTIONS=-lC ${EXTRA_LIBS}
+ # EXTRA_LINK_OPTIONS=-bnolibpath
+ SHLIBSUFFIX=.a
+@@ -160,7 +160,7 @@ ifeq (${PLATFORM}, BEOS)
+ CMP= -c ${CXXFLAGS}
+ CC= ${COMPILER} -c -D${PLATFORM} -DAPP_NO_THREADS -fpic
+ LINK =  ${COMPILER} -D${PLATFORM} -fpic ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/boot/develop/lib/x86 -L/boot/home/config/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/boot/develop/lib/x86 -L${SYSROOT}/boot/home/config/lib
+ EXTRA_LINK_OPTIONS=-lbe ${EXTRA_LIBS}
+ SHLIBSUFFIX=.so
+ endif
+@@ -171,14 +171,14 @@ ifeq (${PLATFORM}, LINUX)
+     CMP= -c ${CXXFLAGS} -qnotempinc
+     CC= ${COMPILER} -c -D${PLATFORM} 
+     LINK =  ${COMPILER} ${LDFLAGS}
+-    PLATFORM_LIB_LINK_OPTIONS=-L/usr/local/lib
++    PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/local/lib
+     EXTRA_LINK_OPTIONS=-lc ${EXTRA_LIBS}
+     SHLIBSUFFIX=.so
+   else
+     CMP= -c ${CXXFLAGS}
+     CC= ${COMPILER} -c -D${PLATFORM} -D_REENTRANT -fpic
+     LINK =  ${COMPILER} -D${PLATFORM} -fpic ${LDFLAGS}
+-    PLATFORM_LIB_LINK_OPTIONS=-L/usr/local/lib
++    PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/local/lib
+     EXTRA_LINK_OPTIONS=-lc ${EXTRA_LIBS}
+     SHLIBSUFFIX=.so
+   endif
+@@ -189,7 +189,7 @@ ifeq (${PLATFORM}, QNX)
+ CMP= -c ${CXXFLAGS}
+ CC= QCC -c 
+ LINK = QCC ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/local/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/local/lib
+ EXTRA_LINK_OPTIONS=${EXTRA_LIBS}
+ SHLIBSUFFIX=.so
+ endif
+@@ -200,7 +200,7 @@ ifeq (${PLATFORM}, CYGWIN)
+ CMP= -c ${CXXFLAGS}
+ CC= ${COMPILER} -c -D__${PLATFORM}__
+ LINK =  ${COMPILER} -D__${PLATFORM}__ ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+ EXTRA_LINK_OPTIONS=${EXTRA_LIBS}
+ SHLIBSUFFIX=.dll
+ endif
+@@ -210,7 +210,7 @@ ifeq (${PLATFORM}, INTERIX)
+ CMP= -c ${CXXFLAGS} 
+ CC= ${COMPILER} -c -D${PLATFORM} -D_REENTRANT -D_ALL_SOURCE 
+ LINK =  ${COMPILER} -D${PLATFORM} ${LDFLAGS} 
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/local/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/local/lib
+ EXTRA_LINK_OPTIONS=-lc ${EXTRA_LIBS}
+ SHLIBSUFFIX=.so
+ endif
+@@ -220,7 +220,7 @@ ifeq (${PLATFORM}, MINGW)
+ CMP= -c ${CXXFLAGS} -fexceptions
+ CC= ${COMPILER} -c -D__${PLATFORM}__ 
+ LINK =  ${COMPILER} -D__${PLATFORM}__ ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+ EXTRA_LINK_OPTIONS=${EXTRA_LIBS}
+ SHLIBSUFFIX=.dll
+ endif
+@@ -268,9 +268,9 @@ ifeq (${PLATFORM}, HPUX)
+     LINK =  ${CC} -Wl,+s -Wl,+b,. ${LDFLAGS}
+     
+     ifeq (${CXXVER}, aCC05)
+-       PLATFORM_LIB_LINK_OPTIONS=-L/opt/aCC/lib -L/usr/ccs/lib -mt
++       PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/opt/aCC/lib -L${SYSROOT}/usr/ccs/lib -mt
+     else
+-       PLATFORM_LIB_LINK_OPTIONS=-L/opt/aCC/lib -L/usr/ccs/lib -lpthread    
++       PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/opt/aCC/lib -L${SYSROOT}/usr/ccs/lib -lpthread    
+     endif      
+ 
+     SHLIBSUFFIX=.sl
+@@ -285,7 +285,7 @@ ifeq (${PLATFORM}, HPUX)
+     CMP = -c $(COMMON_CMP)
+     CC = CC
+     LINK =  ${CC} $(COMMON_CMP) -Wl,+s -Wl,+b,. ${LDFLAGS}
+-    PLATFORM_LIB_LINK_OPTIONS=-L/opt/CC/lib -L/usr/lib
++    PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/opt/CC/lib -L${SYSROOT}/usr/lib
+     SHLIBSUFFIX=.sl
+   endif
+ endif
+@@ -354,7 +354,7 @@ ifeq (${PLATFORM}, TRU64)
+ CMP= -c ${CXXFLAGS}
+ CC = ${COMPILER} -c -D${PLATFORM}
+ LINK = ${COMPILER} -D${PLATFORM} ${LDFLAGS}
+-PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib -L/usr/local/lib
++PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/local/lib
+ SHLIBSUFFIX=.so
+ endif
+ 
+@@ -364,6 +364,6 @@ ifeq (${PLATFORM}, MACOSX)
+ 	CMP= -c ${CXXFLAGS}
+ 	CC= c++ -c -D${PLATFORM} -D_REENTRANT
+ 	LINK = c++ -D${PLATFORM} ${LDFLAGS}
+-	PLATFORM_LIB_LINK_OPTIONS=-L/usr/lib
++	PLATFORM_LIB_LINK_OPTIONS=-L${SYSROOT}/usr/lib
+ 	SHLIBSUFFIX=.dylib
+ endif
