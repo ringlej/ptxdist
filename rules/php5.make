@@ -152,6 +152,7 @@ endif
 ifdef PTXCONF_PHP5_SAPI_PHTTPD
 PHP5_AUTOCONF += --with-phttpd
 else
+# FIXME: php5 interprets --without-... as --with ...
 #PHP5_AUTOCONF += --without-phttpd
 endif
 
@@ -188,7 +189,8 @@ endif
 ifdef PTXCONF_PHP5_SAPI_CGI
 PHP5_AUTOCONF += --enable-cgi
 else
-PHP5_AUTOCONF += --disable-cgi
+# FIXME: php5 interprets --without-... as --with ...
+#PHP5_AUTOCONF += --disable-cgi
 endif
 
 ifdef PTXCONF_PHP5_SAPI_FORCE_CGI_REDIRECT
