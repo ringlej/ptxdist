@@ -1,6 +1,9 @@
 TODO for 0.10.7
 ===============
 
+[ ] rsc: xorg-data-xkbdata needs xkbcomp on the host - otherwhise we get
+         a circular dependency ...
+
 [ ] jbe: if ptxdist was called with wrong parameters (and complains about it) it
 	 should return also an error return code (so something like
 	 "ptxdist clen kernel && ptxdist go" fails)
