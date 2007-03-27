@@ -1,5 +1,7 @@
 2007-03-27  Robert Schwebel <r.schwebel@pengutronix.de
 
+	* glib: updated to 2.12.9
+
 	* sqlite: Version 3.2.8 is no longer at the sqlite.org URL so
 	downloading was broken. Here's a small patch to support building
 	the latest release... Patch by Randall Loomis.
