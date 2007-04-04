@@ -161,7 +161,7 @@ ifdef PTXCONF_OPENSSH_KEYGEN
 		/usr/bin/ssh-keygen)
 endif
 
-ifdef PTXCONF_ROOTFS_ETC_INITD_SSHD
+ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH
 ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH_DEFAULT
 # install the generic one
 	@$(call install_copy, openssh, 0, 0, 0755, \
