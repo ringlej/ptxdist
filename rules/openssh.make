@@ -171,7 +171,7 @@ endif
 ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH_USER
 # install users one
 	@$(call install_copy, openssh, 0, 0, 0755, \
-		$(PTXDIST_WORKSPACE)/generic/etc/init.d/openssh, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/openssh, \
 		/etc/init.d/openssh, n)
 endif
 #
