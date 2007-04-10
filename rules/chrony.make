@@ -200,7 +200,7 @@ endif
 # ---------------------------
 # install chrony stat convenience wrapper
 #
-ifdef PTXCONF_CHRONY_INSTALL_CHRONY_COMMAND
+ifdef PTXCONF_CHRONY_INSTALL_CHRONY_STAT
 	@$(call install_copy, chrony, 0, 0, 0755, 			\
 		$(PTXDIST_TOPDIR)/generic/usr/bin/chrony_stat, 	\
 		/usr/bin/chrony_stat, n)			
