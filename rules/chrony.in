@@ -33,6 +33,30 @@ config CHRONY_INSTALL_CHRONY_COMMAND
 	  one given command. Note: The user needs access to
 	  the chrony.keys file. 
 
+config CHRONY_INSTALL_CHRONY_STAT
+	depends on CHRONY
+	bool
+	default n
+	prompt "Install chrony statistics helper"
+	help
+	  Install a convenience wrapper in /usr/bin/chrony_stat, 
+	  which gives a short overview for your configured time sources.
+	  
+	  Usage /usr/bin/chrony_stat [ --full | --bool | --skew | --short-skew | --help ]
+
+	  --full        or no argument: show server name and verbose status
+	  
+	  --bool        show server name and 
+	                a) true, if timesource is currently synced
+	                b) false otherwise
+	
+	  --skew        show servername and
+	                a) estimated error, if timesource is currently synced
+	                b) false otherwise
+	
+	  --short-skew  show estimated error, if timesource is currently synced
+	                suppress all other servers
+
 menuconfig CHRONY_INSTALL_CONFIG
 	depends on CHRONY
 	bool
