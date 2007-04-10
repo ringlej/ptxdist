@@ -5,11 +5,11 @@
 # some chronyc commands need prior autentication: extract keys from config
 PREFIX="chrony command helper: "
 command=$1
-if [ -n "$command" ] ; then
+if [ -z "$command" ] ; then
 	echo "Usage: $0 <command>"
 	exit 0
 fi
-[ "$command" -eq "--help" ] && command="help"
+[ "$command" = "--help" ] && command="help"
 
 bailout(){
         echo "${PREFIX}ERROR   --- $*" >&2
