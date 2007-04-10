@@ -1,6 +1,11 @@
 TODO for 0.10.7
 ===============
 
+[ ] rsc: find out why iproute2 needs berkeley-db
+
+[ ] rsc: xorg-app-xkbcomp needs xorg-lib-xkbfile, but dependency doesn't
+         work
+
 [ ] rsc: xorg-data-xkbdata needs xkbcomp on the host - otherwhise we get
          a circular dependency ...
 
