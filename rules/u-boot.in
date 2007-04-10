@@ -1,0 +1,20 @@
+menuconfig U_BOOT
+	bool
+	default y
+	prompt "build U-Boot bootloader for target"
+
+config U_BOOT_VERSION
+	string
+	depends on U_BOOT
+	default 1.2.0
+	prompt "U-Boot version"
+
+config U_BOOT_CONFIG
+	string
+	depends on U_BOOT
+	prompt "U-Boot config target"
+
+config U_BOOT_SERIES
+	string
+	depends on U_BOOT
+	prompt "U-Boot patch Series File"
