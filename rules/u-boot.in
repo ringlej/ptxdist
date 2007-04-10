@@ -1,6 +1,5 @@
 menuconfig U_BOOT
 	bool
-	default y
 	prompt "build U-Boot bootloader for target"
 
 config U_BOOT_VERSION
