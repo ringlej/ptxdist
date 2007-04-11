@@ -1,6 +1,14 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: samba fails to run with:
+	[...]
+	sys_gethostbyname: Unknown host. eth0
+	can't determine netmask for eth0
+	WARNING: no network interfaces found
+	[...]
+	Seems to be a failure with current glibc
+
 [ ] rsc: find out why iproute2 needs berkeley-db
 
 [ ] rsc: xorg-app-xkbcomp needs xorg-lib-xkbfile, but dependency doesn't
@@ -109,27 +117,27 @@ After release:
 TODO for 0.10.x
 ===============
 
-[ ] bbu: Discuss the future kconfig include scheme. At the moment, overriding 
+[ ] bbu: Discuss the future kconfig include scheme. At the moment, overriding
 	 single *.in files is a real pain.
-	 
-	 - There should be a way to autogenerate the needed files 
+
+	 - There should be a way to autogenerate the needed files
 	   before starting kconfig or kconfig should just ignore
 	   double definitions (which might be a bad idea)
-	 
-	 Features needed: 
-	 
+
+	 Features needed:
+
 	 - override *.make as well as *.in
 	 - create a sane menu structure
-	 
+
 [ ] bbu: check ptxdist first-time-usage scenario for chicken-egg problems
-         e.g. if you don´t set sane defaults for PTXCONF_SETUP_PROJECTPATH, 
+         e.g. if you don´t set sane defaults for PTXCONF_SETUP_PROJECTPATH,
 	 ptxdist won´t find its own projects.
-	 
-[ ] bbu: Discuss the whole definition of "package". At the moment, 
-	 most package options are scattered across two or more 
-	 *.in or *.make files, making "drop-in replacements" nearly 
+
+[ ] bbu: Discuss the whole definition of "package". At the moment,
+	 most package options are scattered across two or more
+	 *.in or *.make files, making "drop-in replacements" nearly
 	 impossible.
-	 
+
 [ ] audit all packages if they change the target CPU (with --march or --mtune)
 
    [ ] openssl does so
