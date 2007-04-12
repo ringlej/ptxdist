@@ -1,0 +1,5 @@
+config FUSE
+	bool
+	prompt "FUSE"
+	help
+	  utilities for filesystems in userspace
