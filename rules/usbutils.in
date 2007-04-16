@@ -1,0 +1,14 @@
+menuconfig USBUTILS
+	select LIBUSB
+	bool
+	prompt "usbutils            "
+	help
+	  usbutils 
+
+config USBUTILS_LSUSB
+	bool
+	depends on USBUTILS
+	prompt "lsusb"
+	help
+	  lsusb - list the devices connected to a host
+

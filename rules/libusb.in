@@ -1,0 +1,4 @@
+config LIBUSB
+	bool
+	prompt "libusb              "
+

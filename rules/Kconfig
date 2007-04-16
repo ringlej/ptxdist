@@ -75,6 +75,7 @@ source "rules/util-linux.in"
 source "rules/udev.in"
 source "rules/xmlstarlet.in"
 source "rules/pciutils.in"
+source "rules/usbutils.in"
 endmenu
 
 menu "Scripting Languages           "
@@ -143,6 +144,7 @@ source "rules/db44.in"
 source "rules/expat.in"
 source "rules/gettext.in"
 source "rules/hrtimers-support.in"
+source "rules/libusb.in"
 
 source "rules/libdaemon.in"
 source "rules/libelf.in"
