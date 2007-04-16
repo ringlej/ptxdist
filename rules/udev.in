@@ -169,6 +169,15 @@ config ROOTFS_ETC_UDEV_CONF
 
 	endchoice
 
+config ROOTFS_ETC_UDEV_DEFAULT_RULES
+	bool
+	depends on UDEV
+	prompt "Install default udev rules"
+	help
+	  This will install the generic udev rules file under
+	  /etc/udev/rules.d/udev.rules. Currently this file
+	  is very basic.
+
 config ROOTFS_ETC_UDEV_USER_RULES
 	bool
 	depends on UDEV
@@ -177,7 +186,7 @@ config ROOTFS_ETC_UDEV_USER_RULES
 	  This will install all user defined udev *.rules files from the active
 	  project. PTXdist expects the files in projectroot/etc/udev/rules.d
 	  and will install them into /etc/udev/rules.d on the target.
-	  Note: PTXdist comes without any generic udev rules. So all devices
+	  Note: PTXdist only comes with very basic generic udev rules. All devices
 	  are owned by root only. If you need special permission control you must
 	  add some udev rules to create device nodes with correct permissions.
 	  There are some rule files in the udev packet. Refer

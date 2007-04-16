@@ -1,0 +1,7 @@
+# make the first rtc device the default one
+KERNEL=="rtc0",         SYMLINK="rtc"
+
+# create /dev/bus/usb tree
+SUBSYSTEM=="usb_device",	PROGRAM="/bin/sh -c 'K=%k; K=$${K#usbdev}; printf bus/usb/%%03i/%%03i $${K%%%%.*} $${K#*.}'", ACTION=="add", \
+				NAME="%c"
+

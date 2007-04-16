@@ -159,6 +159,11 @@ ifdef PTXCONF_ROOTFS_ETC_UDEV_USER_RULES
 			/etc/udev/rules.d/$$i,n); \
 	done;
 endif
+ifdef PTXCONF_ROOTFS_ETC_UDEV_DEFAULT_RULES
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/udev/rules.d/udev.rules, \
+		/etc/udev/rules.d/udev.rules, n)
+endif
 #
 # Install the startup script on request only
 #
