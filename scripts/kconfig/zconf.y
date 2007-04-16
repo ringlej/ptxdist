@@ -495,7 +495,7 @@ void conf_parse(const char *name)
 	sym_init();
 	menu_init();
 	modules_sym = sym_lookup("MODULES", 0);
-	rootmenu.prompt = menu_add_prompt(P_MENU, "Linux Kernel Configuration", NULL);
+	rootmenu.prompt = menu_add_prompt(P_MENU, "Powered by PTXdist - http://www.pengutronix.de/software/ptxdist/", NULL);
 
 	//zconfdebug = 1;
 	zconfparse();

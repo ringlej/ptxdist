@@ -38,7 +38,7 @@
 #define DIALOG_BG                    COLOR_WHITE
 #define DIALOG_HL                    FALSE
 
-#define TITLE_FG                     COLOR_YELLOW
+#define TITLE_FG                     COLOR_BLACK
 #define TITLE_BG                     COLOR_WHITE
 #define TITLE_HL                     TRUE
 
@@ -118,11 +118,11 @@
 #define TAG_SELECTED_BG              COLOR_BLUE
 #define TAG_SELECTED_HL              TRUE
 
-#define TAG_KEY_FG                   COLOR_YELLOW
+#define TAG_KEY_FG                   COLOR_BLACK
 #define TAG_KEY_BG                   COLOR_WHITE
 #define TAG_KEY_HL                   TRUE
 
-#define TAG_KEY_SELECTED_FG          COLOR_YELLOW
+#define TAG_KEY_SELECTED_FG          COLOR_WHITE
 #define TAG_KEY_SELECTED_BG          COLOR_BLUE
 #define TAG_KEY_SELECTED_HL          TRUE
 
