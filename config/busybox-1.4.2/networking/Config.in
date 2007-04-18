@@ -669,7 +669,7 @@ config BB_FEATURE_TRACEROUTE_USE_ICMP
 	help
 	  Add feature to allow for ICMP ECHO instead of UDP datagrams.
 
-source config/busybox-1.4.1/networking/udhcp/Config.in
+source config/busybox-1.4.2/networking/udhcp/Config.in
 
 config BB_VCONFIG
 	bool "vconfig"

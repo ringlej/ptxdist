@@ -447,7 +447,7 @@ config BB_INSTALL_APPLET_DONT
        depends on BB_FEATURE_INSTALLER || BB_FEATURE_SH_STANDALONE_SHELL
        help
          Do not install applet links. Useful when using the -install feature
-         or a standalone shell for rescue purposes.
+         or a standalone shell for rescue pruposes.
 
 endchoice
 
@@ -461,26 +461,26 @@ config BB_PREFIX
 
 endmenu
 
-source config/busybox-1.4.1/libbb/Config.in
+source config/busybox-1.4.2/libbb/Config.in
 
 endmenu
 
 comment "Applets"
 
-source config/busybox-1.4.1/archival/Config.in
-source config/busybox-1.4.1/coreutils/Config.in
-source config/busybox-1.4.1/console-tools/Config.in
-source config/busybox-1.4.1/debianutils/Config.in
-source config/busybox-1.4.1/editors/Config.in
-source config/busybox-1.4.1/findutils/Config.in
-source config/busybox-1.4.1/init/Config.in
-source config/busybox-1.4.1/loginutils/Config.in
-source config/busybox-1.4.1/e2fsprogs/Config.in
-source config/busybox-1.4.1/modutils/Config.in
-source config/busybox-1.4.1/util-linux/Config.in
-source config/busybox-1.4.1/miscutils/Config.in
-source config/busybox-1.4.1/networking/Config.in
-source config/busybox-1.4.1/procps/Config.in
-source config/busybox-1.4.1/shell/Config.in
-source config/busybox-1.4.1/sysklogd/Config.in
-source config/busybox-1.4.1/runit/Config.in
+source config/busybox-1.4.2/archival/Config.in
+source config/busybox-1.4.2/coreutils/Config.in
+source config/busybox-1.4.2/console-tools/Config.in
+source config/busybox-1.4.2/debianutils/Config.in
+source config/busybox-1.4.2/editors/Config.in
+source config/busybox-1.4.2/findutils/Config.in
+source config/busybox-1.4.2/init/Config.in
+source config/busybox-1.4.2/loginutils/Config.in
+source config/busybox-1.4.2/e2fsprogs/Config.in
+source config/busybox-1.4.2/modutils/Config.in
+source config/busybox-1.4.2/util-linux/Config.in
+source config/busybox-1.4.2/miscutils/Config.in
+source config/busybox-1.4.2/networking/Config.in
+source config/busybox-1.4.2/procps/Config.in
+source config/busybox-1.4.2/shell/Config.in
+source config/busybox-1.4.2/sysklogd/Config.in
+source config/busybox-1.4.2/runit/Config.in

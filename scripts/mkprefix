@@ -1,14 +1,14 @@
 #!/usr/bin/perl -w
 # $Id$
 
-#require 5.008;
-
 use strict;
-use Getopt::Mixed qw(nextOption);
+use Getopt::Long qw(:config no_ignore_case);
 
 my @lines = ();
 
-my ($REL) = q$Revision: 1.4 $=~m/(\d+(?:\.\d+)+)/;
+my ($REL) = q$Revision: 1.5 $=~m/(\d+(?:\.\d+)+)/;
+my $help = undef;
+my $version = undef;
 my $prefix = undef;
 my $verbose = undef;
 my $reverse = undef;
@@ -39,15 +39,10 @@ sub esc { ${$_[0]} =~ s/([\[\]\(\)\*\.\-\^\$\@])/\\$1/g; }
 
 # get command line params:
 $0 =~ s!^.*/!!;
-Getopt::Mixed::init('h p=s r v V help>h prefix>p reverse>r verbose>v version>V');
-while (my ($opt, $val, $pretty) = nextOption()) {
-	if	($opt eq 'h')		{ help(); }
-	elsif ($opt eq 'p')		{ $prefix = $val; }
-	elsif ($opt eq 'r')		{ $reverse = 1; }
-	elsif ($opt eq 'v')		{ $verbose = 1; }
-	elsif ($opt eq 'V')		{ version(); }
-}
-Getopt::Mixed::cleanup();
+GetOptions('help' => \$help, 'verbose' => \$verbose, 'reverse' => \$reverse, 'prefix=s' => \$prefix);
+
+if ($help)    { help(); }
+if ($version) { version(); }
 
 if (!defined $prefix) {
 	print STDERR "Fatal: prefix not specified\n\n"; help; die;
