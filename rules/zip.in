@@ -1,0 +1,25 @@
+menuconfig ZIP
+	bool "zip                           "
+	help
+	  zip is a compression and file packaging utility for Unix, VMS, MSDOS,
+	  OS/2, Windows NT, Minix, Atari and Macintosh, Amiga and Acorn RISC OS.
+
+	  It is analogous to a combination of the UNIX commands tar(1) and com-
+	  press(1) and is compatible with PKZIP (Phil Katz's ZIP for MSDOS sys-
+	  tems).
+
+config ZIP_ZIP
+	bool "zip"
+	depends on ZIP
+
+config ZIP_ZIPCLOAK
+	bool "zipcloak"
+	depends on ZIP
+
+config ZIP_ZIPNOTE
+	bool "zipnote"
+	depends on ZIP
+
+config ZIP_ZIPSPLIT
+	bool "zipsplit"
+	depends on ZIP
