@@ -1,3 +1,7 @@
+2007-04-19  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* mgetty: fixed URL; patch by Juergen Kilb
+
 2007-03-27  Robert Schwebel <r.schwebel@pengutronix.de
 
 	* glib: updated to 2.12.9
