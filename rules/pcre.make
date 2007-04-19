@@ -18,12 +18,12 @@ PACKAGES-$(PTXCONF_PCRE) += pcre
 #
 # Paths and names
 #
-PCRE_VERSION		= 5.0
-PCRE			= pcre-$(PCRE_VERSION)
-PCRE_SUFFIX		= tar.gz
-PCRE_URL		= ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/$(PCRE).$(PCRE_SUFFIX)
-PCRE_SOURCE		= $(SRCDIR)/$(PCRE).$(PCRE_SUFFIX)
-PCRE_DIR		= $(BUILDDIR)/$(PCRE)
+PCRE_VERSION	= 5.0
+PCRE		= pcre-$(PCRE_VERSION)
+PCRE_SUFFIX	= tar.gz
+PCRE_URL	= $(PTXCONF_SETUP_SFMIRROR)/pcre/$(PCRE).$(PCRE_SUFFIX)
+PCRE_SOURCE	= $(SRCDIR)/$(PCRE).$(PCRE_SUFFIX)
+PCRE_DIR	= $(BUILDDIR)/$(PCRE)
 
 
 # ----------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 2007-04-19  Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* pcre: fixed URL; patch by Juergen Kilb
 	* mgetty: fixed URL; patch by Juergen Kilb
 
 2007-03-27  Robert Schwebel <r.schwebel@pengutronix.de
