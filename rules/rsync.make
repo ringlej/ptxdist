@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_RSYNC) += rsync
 RSYNC_VERSION	= 2.6.8
 RSYNC		= rsync-$(RSYNC_VERSION)
 RSYNC_SUFFIX	= tar.gz
-RSYNC_URL	= http://samba.anu.edu.au/ftp/rsync/$(RSYNC).$(RSYNC_SUFFIX)
+RSYNC_URL	= http://samba.anu.edu.au/ftp/rsync/old-versions//$(RSYNC).$(RSYNC_SUFFIX)
 RSYNC_SOURCE	= $(SRCDIR)/$(RSYNC).$(RSYNC_SUFFIX)
 RSYNC_DIR	= $(BUILDDIR)/$(RSYNC)
 

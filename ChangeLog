@@ -2,6 +2,7 @@
 
 	* pcre: fixed URL; patch by Juergen Kilb
 	* mgetty: fixed URL; patch by Juergen Kilb
+	* rsync: fixed URL; patch by Juergen Kilb
 
 2007-03-27  Robert Schwebel <r.schwebel@pengutronix.de
 
