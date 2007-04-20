@@ -1,6 +1,8 @@
 TODO for 0.10.7
 ===============
 
+[ ] rsc: add 'quiet' support to start scripts
+
 [ ] jbe: ipkg does not work on the target anymore. Cannot install anything.
 
 [ ] jbe: samba fails to run with:
