@@ -1,6 +1,8 @@
 TODO for 0.10.7
 ===============
 
+[ ] jbe: ipkg does not work on the target anymore. Cannot install anything.
+
 [ ] jbe: samba fails to run with:
 	[...]
 	sys_gethostbyname: Unknown host. eth0
@@ -214,13 +216,13 @@ TODO for 0.10.x
 [.] jbe: more help texts
 [ ] bbu: audit *.in and *.make files, broken install definitions everywhere [tm]
 	 (mostly c&p errors, probably)
-	 
+
 [ ] bbu: reimplement cuckoo-test for ptxdist 0.10 series
 	 - files w/ wrong build-arch
 	 - missing libs
 	 - statistics
 	 - stripped / non stripped files
-	 
+
 [ ] bbu: reimplement generic pre- and post-flight checks for 0.10.x
 	 - dependency checks
 	 - cuckoo-test
@@ -231,8 +233,8 @@ TODO for 0.10.x
 [ ] bbu: generic logging aproach w/ single and combined logs
 	 - combined log for normal use
 	 - build-logs per package, test-suite, etc would
-	   support features like 
-	   	- "quiet build", while still providing the full error 
+	   support features like
+	   	- "quiet build", while still providing the full error
 		   output of the failing target
 		- helpdesk notification fetaures
 	 	- build statistics
@@ -242,10 +244,10 @@ TODO for 0.10.x
 
 	Discussion about the whole PTXdist build-,
 	deployment- and testing-mechanics:
- 	
+
 	- Support different target package formats
 	  Rationale: - Some standardization aproaches like carrier grade linux
-		       or the linux standard base make rpm or dpk packages 
+		       or the linux standard base make rpm or dpk packages
 		       mandatory.
 		     - Users asked for it
 	  Which package formats would be useful ?
@@ -258,7 +260,7 @@ TODO for 0.10.x
 	  ! Depends: Discussion about the current installation scheme
 
 	- Support binary package distribution
-	  Rationale: Most Customers don´t want to build the 
+	  Rationale: Most Customers don´t want to build the
 	  	     base System on their own. They want a
 		     well defined base system and then apply
 		     some changes, add files (probably on the fly)
@@ -266,15 +268,15 @@ TODO for 0.10.x
 	  ! Problem: This might break the current PTXdist philosophy
 	  	     (executeable documentation)
 	  ! Depends: We would need some kind of install-filter or exclude-list
-	
+
 	- Deployment / Testing Frontend (maybe GUI driven)
 	  Rationale: needed in a binary package distribution scenario
-	  	     to customize the installation from a generic 
+	  	     to customize the installation from a generic
 		     binary package.
-	
+
 	- Support precompiled customer environment
-	  Rationale: This would reduce compile times for 
-	  	     the customer, since he would start 
+	  Rationale: This would reduce compile times for
+	  	     the customer, since he would start
 		     directly w/ his own application
 		     w/o the need for a full ptxdist run.
 	  ! Problem: Build Hierarchy is not relocateable
@@ -282,13 +284,13 @@ TODO for 0.10.x
 	  ! Problem: Make depends on timestamps
 	  Possible solutions:
 	  	     - create intermediate build labels / paths
-		     - tweak things during installation 
+		     - tweak things during installation
 		       (dirty, dirty ... how do we handle updates?)
 		     - Provide a "full blown" toolchain with all
 		       host-tools and chroot into it
 		       (dirty, dirty ... needs root privileges)
 		     - Provide a "full blown" toolchain with all
-		       host-tools inside a virtual machine, 
+		       host-tools inside a virtual machine,
 		       vmware image or CoLinux
 		       (dirty, slow, but runs even with Windows)
 		       (nasty, since it would be some kind of closed box solution)
@@ -298,26 +300,26 @@ TODO for 0.10.x
 	  ! Problem: We don´t want to use root privileges
 	  ! Problem: Generate valid Partition Tables
 	  ! Problem: ipkg list has to work inside the
-		     target system, so we would need 
+		     target system, so we would need
 		     two or more diffenrent installation "views":
 		     - The partition image generation view,
-		       which 
+		       which
 		       a) respects partition boundaries
 		       b) rewrites the resulting installation
 		          paths respectively.
 		     - The binary target package view (i.e. ipkg)
-		       which 
+		       which
 		       a) generates apropriate pre- and post-
 		          installation scripts to i.e. remount
 			  the partitions read/write
-		       b) creates binary packages, rooted in 
+		       b) creates binary packages, rooted in
 		          "/" on the target.
-		     - An optional "user-view", where something 
+		     - An optional "user-view", where something
 		       else can happen, i.e. transfering stuff
-		       to an ftp server or mounting an image 
+		       to an ftp server or mounting an image
 		       with root privileges or as user via fuse.
-		       
-	- TODO: 
+
+	- TODO:
 		- Create Use Cases:
 			- What is covered by the current design
 			- What would be nice, well designed and sane
