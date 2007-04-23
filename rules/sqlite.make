@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION		= 3.2.8
+SQLITE_VERSION		= 3.3.13
 SQLITE			= sqlite-$(SQLITE_VERSION)
 SQLITE_SUFFIX		= tar.gz
 SQLITE_URL		= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
@@ -97,6 +97,7 @@ $(STATEDIR)/sqlite.prepare: $(sqlite_prepare_deps_default)
 	echo "READLINE_FLAGS = "				>> $(SQLITE_MK)
 	echo "LIBREADLINE = "					>> $(SQLITE_MK)
 	echo "ENCODING = $(SQLITE_ENCODING)"			>> $(SQLITE_MK)
+	echo "NAWK = awk"					>> $(SQLITE_MK)
 	echo 'include $$(TOP)/main.mk'				>> $(SQLITE_MK)
 	echo 'libsqlite:   $$(LIBOBJ) libsqlite3.a'		>> $(SQLITE_MK)
 	echo -e '\t$$(TCCX) $(SQLITE_LDFLAGS) $$(LIBOBJ)'	>> $(SQLITE_MK)
