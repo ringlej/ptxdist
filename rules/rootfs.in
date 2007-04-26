@@ -6,7 +6,7 @@ config ROOTFS
 	bool
 	prompt "Create Directories in /"
 	default y
-	select BB_FEATURE_SHADOWPASSWDS if BUSYBOX
+	select BB_CONFIG_FEATURE_SHADOWPASSWDS if BUSYBOX
 	help
 	  In order to support a standard root filesystem some subdirectories are
 	  mandatory. They will be created by ptxdist automatically. Some

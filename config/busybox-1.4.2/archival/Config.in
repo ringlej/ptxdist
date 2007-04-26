@@ -6,7 +6,7 @@
 menu "Archival Utilities"
   depends on BUSYBOX
 
-config BB_AR
+config BB_CONFIG_AR
 	bool "ar"
 	default n
 	help
@@ -29,17 +29,17 @@ config BB_AR
 	  Unless you have a specific application which requires ar, you should
 	  probably say N here.
 
-config BB_FEATURE_AR_LONG_FILENAMES
+config BB_CONFIG_FEATURE_AR_LONG_FILENAMES
 	bool "Enable support for long filenames (not need for debs)"
 	default n
-	depends on BB_AR
+	depends on BB_CONFIG_AR
 	help
 	  By default the ar format can only store the first 15 characters of the
 	  filename, this option removes that limitation.
 	  It supports the GNU ar long filename method which moves multiple long
 	  filenames into a the data section of a new ar entry.
 
-config BB_BUNZIP2
+config BB_CONFIG_BUNZIP2
 	bool "bunzip2"
 	default n
 	help
@@ -55,7 +55,7 @@ config BB_BUNZIP2
 	  Unless you have a specific application which requires bunzip2, you
 	  should probably say N here.
 
-config BB_CPIO
+config BB_CONFIG_CPIO
 	bool "cpio"
 	default n
 	help
@@ -69,7 +69,7 @@ config BB_CPIO
 	  Unless you have a specific application which requires cpio, you should
 	  probably say N here.
 
-config BB_DPKG
+config BB_CONFIG_DPKG
 	bool "dpkg"
 	default n
 	help
@@ -78,7 +78,7 @@ config BB_DPKG
 	  This implementation of dpkg has a number of limitations, you should use the
 	  official dpkg if possible.
 
-config BB_DPKG_DEB
+config BB_CONFIG_DPKG_DEB
 	bool "dpkg_deb"
 	default n
 	help
@@ -89,16 +89,16 @@ config BB_DPKG_DEB
 	  Unless you have a specific application which requires dpkg-deb, you should
 	  probably say N here.
 
-config BB_FEATURE_DPKG_DEB_EXTRACT_ONLY
+config BB_CONFIG_FEATURE_DPKG_DEB_EXTRACT_ONLY
 	bool "extract only (-x)"
 	default n
-	depends on BB_DPKG_DEB
+	depends on BB_CONFIG_DPKG_DEB
 	help
 	  This reduces dpkg-deb to the equivalent of "ar -p <deb> data.tar.gz | tar -zx".
 	  However it saves space as none of the extra dpkg-deb, ar or tar options are
 	  needed, they are linked to internally.
 
-config BB_GUNZIP
+config BB_CONFIG_GUNZIP
 	bool "gunzip"
 	default n
 	help
@@ -106,35 +106,35 @@ config BB_GUNZIP
 	  You can use the `-t' option to test the integrity of
 	  an archive, without decompressing it.
 
-config BB_FEATURE_GUNZIP_UNCOMPRESS
+config BB_CONFIG_FEATURE_GUNZIP_UNCOMPRESS
 	bool "Uncompress support"
 	default n
-	depends on BB_GUNZIP
+	depends on BB_CONFIG_GUNZIP
 	help
 	  Enable if you want gunzip to have the ability to decompress
 	  archives created by the program compress (not much
 	  used anymore).
 
-config BB_GZIP
+config BB_CONFIG_GZIP
 	bool "gzip"
 	default n
 	help
 	  gzip is used to compress files.
 	  It's probably the most widely used UNIX compression program.
 
-config BB_RPM2CPIO
+config BB_CONFIG_RPM2CPIO
 	bool "rpm2cpio"
 	default n
 	help
 	  Converts an RPM file into a CPIO archive.
 
-config BB_RPM
+config BB_CONFIG_RPM
 	bool "rpm"
 	default n
 	help
 	  Mini RPM applet - queries and extracts RPM packages.
 
-config BB_TAR
+config BB_CONFIG_TAR
 	bool "tar"
 	default n
 	help
@@ -142,86 +142,86 @@ config BB_TAR
 	  create compressed archives. It's probably the most widely used
 	  UNIX archive program.
 
-config BB_FEATURE_TAR_CREATE
+config BB_CONFIG_FEATURE_TAR_CREATE
 	bool "Enable archive creation"
 	default y
-	depends on BB_TAR
+	depends on BB_CONFIG_TAR
 	help
 	  If you enable this option you'll be able to create
 	  tar archives using the `-c' option.
 
-config BB_FEATURE_TAR_BZIP2
+config BB_CONFIG_FEATURE_TAR_BZIP2
 	bool "Enable -j option to handle .tar.bz2 files"
 	default n
-	depends on BB_TAR
+	depends on BB_CONFIG_TAR
 	help
 	  If you enable this option you'll be able to extract
 	  archives compressed with bzip2.
 
-config BB_FEATURE_TAR_LZMA
+config BB_CONFIG_FEATURE_TAR_LZMA
 	bool "Enable -a option to handle .tar.lzma files"
 	default n
-	depends on BB_TAR
+	depends on BB_CONFIG_TAR
 	help
 	  If you enable this option you'll be able to extract
 	  archives compressed with lzma.
 
-config BB_FEATURE_TAR_FROM
+config BB_CONFIG_FEATURE_TAR_FROM
 	bool "Enable -X (exclude from) and -T (include from) options)"
 	default n
-	depends on BB_TAR
+	depends on BB_CONFIG_TAR
 	help
 	  If you enable this option you'll be able to specify
 	  a list of files to include or exclude from an archive.
 
-config BB_FEATURE_TAR_GZIP
+config BB_CONFIG_FEATURE_TAR_GZIP
 	bool "Enable -z option"
 	default y
-	depends on BB_TAR
+	depends on BB_CONFIG_TAR
 	help
 	  If you enable this option tar will be able to call gzip,
 	  when creating or extracting tar gziped archives.
 
-config BB_FEATURE_TAR_COMPRESS
+config BB_CONFIG_FEATURE_TAR_COMPRESS
 	bool "Enable -Z option"
 	default n
-	depends on BB_TAR
+	depends on BB_CONFIG_TAR
 	help
 	  If you enable this option tar will be able to call uncompress,
 	  when extracting .tar.Z archives.
 
-config BB_FEATURE_TAR_OLDGNU_COMPATIBILITY
+config BB_CONFIG_FEATURE_TAR_OLDGNU_COMPATIBILITY
 	bool "Enable support for old tar header format"
 	default N
-	depends on BB_TAR
+	depends on BB_CONFIG_TAR
 	help
 	  This option is required to unpack archives created in
 	  the old GNU format; help to kill this old format by
 	  repacking your ancient archives with the new format.
 
-config BB_FEATURE_TAR_GNU_EXTENSIONS
+config BB_CONFIG_FEATURE_TAR_GNU_EXTENSIONS
 	bool "Enable support for some GNU tar extensions"
 	default y
-	depends on BB_TAR
+	depends on BB_CONFIG_TAR
 	help
 	  With this option busybox supports GNU long filenames and
 	  linknames.
 
-config BB_FEATURE_TAR_LONG_OPTIONS
+config BB_CONFIG_FEATURE_TAR_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BB_TAR && BB_GETOPT_LONG
+	depends on BB_CONFIG_TAR && BB_CONFIG_GETOPT_LONG
 	help
 		Enable use of long options, increases size by about 400 Bytes
 
-config BB_UNCOMPRESS
+config BB_CONFIG_UNCOMPRESS
 	bool "uncompress"
 	default n
 	help
 	  uncompress is used to decompress archives created by compress.
 	  Not much used anymore, replaced by gzip/gunzip.
 
-config BB_UNLZMA
+config BB_CONFIG_UNLZMA
 	bool "unlzma"
 	default n
 	help
@@ -236,15 +236,15 @@ config BB_UNLZMA
 	  Unless you have a specific application which requires unlzma, you
 	  should probably say N here.
 
-config BB_FEATURE_LZMA_FAST
+config BB_CONFIG_FEATURE_LZMA_FAST
 	bool "Optimze unlzma for speed"
 	default n
-	depends on BB_UNLZMA
+	depends on BB_CONFIG_UNLZMA
 	help
 	  This option reduces decompression time by about 33% at the cost of
 	  a 2K bigger binary.
 
-config BB_UNZIP
+config BB_CONFIG_UNZIP
 	bool "unzip"
 	default n
 	help
@@ -255,31 +255,31 @@ config BB_UNZIP
 	  directory of your choice.
 
 comment "Common options for cpio and tar"
-	depends on BB_CPIO || BB_TAR
+	depends on BB_CONFIG_CPIO || BB_CONFIG_TAR
 
-config BB_FEATURE_UNARCHIVE_TAPE
+config BB_CONFIG_FEATURE_UNARCHIVE_TAPE
 	bool "Enable tape drive support"
 	default n
-	depends on BB_CPIO || BB_TAR
+	depends on BB_CONFIG_CPIO || BB_CONFIG_TAR
 	help
 	  I don't think this is needed anymore.
 
 comment "Common options for dpkg and dpkg_deb"
-	depends on BB_DPKG || BB_DPKG_DEB
+	depends on BB_CONFIG_DPKG || BB_CONFIG_DPKG_DEB
 
-config BB_FEATURE_DEB_TAR_GZ
+config BB_CONFIG_FEATURE_DEB_TAR_GZ
 	bool "gzip debian packages (normal)"
-	default y if BB_DPKG || BB_DPKG_DEB
-	depends on BB_DPKG || BB_DPKG_DEB
+	default y if BB_CONFIG_DPKG || BB_CONFIG_DPKG_DEB
+	depends on BB_CONFIG_DPKG || BB_CONFIG_DPKG_DEB
 	help
 	  This is the default compression method inside the debian ar file.
 
 	  If you want compatibility with standard .deb's you should say yes here.
 
-config BB_FEATURE_DEB_TAR_BZ2
+config BB_CONFIG_FEATURE_DEB_TAR_BZ2
 	bool "bzip2 debian packages"
 	default n
-	depends on BB_DPKG || BB_DPKG_DEB
+	depends on BB_CONFIG_DPKG || BB_CONFIG_DPKG_DEB
 	help
 	  This allows dpkg and dpkg-deb to extract deb's that are compressed internally
 	  with bzip2 instead of gzip.
@@ -287,10 +287,10 @@ config BB_FEATURE_DEB_TAR_BZ2
 	  You only want this if you are creating your own custom debian packages that
 	  use an internal control.tar.bz2 or data.tar.bz2.
 
-config BB_FEATURE_DEB_TAR_LZMA
+config BB_CONFIG_FEATURE_DEB_TAR_LZMA
 	bool "lzma debian packages"
 	default n
-	depends on BB_DPKG || BB_DPKG_DEB
+	depends on BB_CONFIG_DPKG || BB_CONFIG_DPKG_DEB
 	help
 	  This allows dpkg and dpkg-deb to extract deb's that are compressed
 	  internally with lzma instead of gzip.

@@ -6,7 +6,7 @@
 menu "Process Utilities"
   depends on BUSYBOX
 
-config BB_FREE
+config BB_CONFIG_FREE
 	bool "free"
 	default n
 	help
@@ -14,7 +14,7 @@ config BB_FREE
 	  memory in the system, as well as the buffers used by the kernel.
 	  The shared memory column should be ignored; it is obsolete.
 
-config BB_FUSER
+config BB_CONFIG_FUSER
 	bool "fuser"
 	default n
 	help
@@ -22,7 +22,7 @@ config BB_FUSER
 	  file open.  fuser can also list all PIDs that have a given network
 	  (TCP or UDP) port open.
 
-config BB_KILL
+config BB_CONFIG_KILL
 	bool "kill"
 	default n
 	help
@@ -30,86 +30,86 @@ config BB_KILL
 	  process or process group.  If no signal is specified, the TERM
 	  signal is sent.
 
-config BB_KILLALL
+config BB_CONFIG_KILLALL
 	bool "killall"
 	default n
-	depends on BB_KILL
+	depends on BB_CONFIG_KILL
 	help
 	  killall sends a signal to all processes running any of the
 	  specified commands.  If no signal name is specified, SIGTERM is
 	  sent.
 
-config BB_KILLALL5
+config BB_CONFIG_KILLALL5
 	bool "killall5"
 	default n
-	depends on BB_KILL
+	depends on BB_CONFIG_KILL
 
-config BB_PIDOF
+config BB_CONFIG_PIDOF
 	bool "pidof"
 	default n
 	help
 	  Pidof finds the process id's (pids) of the named programs. It prints
 	  those id's on the standard output.
 
-config BB_FEATURE_PIDOF_SINGLE
+config BB_CONFIG_FEATURE_PIDOF_SINGLE
 	bool "Enable argument for single shot (-s)"
 	default n
-	depends on BB_PIDOF
+	depends on BB_CONFIG_PIDOF
 	help
 	  Support argument '-s' for returning only the first pid found.
 
-config BB_FEATURE_PIDOF_OMIT
+config BB_CONFIG_FEATURE_PIDOF_OMIT
 	bool "Enable argument for omitting pids (-o)"
 	default n
-	depends on BB_PIDOF
+	depends on BB_CONFIG_PIDOF
 	help
 	  Support argument '-o' for omitting the given pids in output.
 	  The special pid %PPID can be used to name the parent process
 	  of the pidof, in other words the calling shell or shell script.
 
-config BB_PS
+config BB_CONFIG_PS
 	bool "ps"
 	default n
 	help
 	  ps gives a snapshot of the current processes.
 
-config BB_FEATURE_PS_WIDE
+config BB_CONFIG_FEATURE_PS_WIDE
 	bool "Enable argument for wide output (-w)"
 	default n
-	depends on BB_PS
+	depends on BB_CONFIG_PS
 	help
 	  Support argument 'w' for wide output.
 	  If given once, 132 chars are printed and given more than
 	  one, the length is unlimited.
 
-config BB_RENICE
+config BB_CONFIG_RENICE
 	bool "renice"
 	default n
 	help
 	  Renice alters the scheduling priority of one or more running
 	  processes.
 
-config BB_BB_SYSCTL
+config BB_CONFIG_BB_SYSCTL
 	bool "sysctl"
 	default n
 	help
 	  Configure kernel parameters at runtime.
 
-config BB_TOP
+config BB_CONFIG_TOP
 	bool "top"
 	default n
 	help
 	  The top program provides a dynamic real-time view of a running
 	  system.
 
-config BB_FEATURE_TOP_CPU_USAGE_PERCENTAGE
+config BB_CONFIG_FEATURE_TOP_CPU_USAGE_PERCENTAGE
 	bool "Support showing CPU usage percentage (add 2k bytes)"
 	default y
-	depends on BB_TOP
+	depends on BB_CONFIG_TOP
 	help
 	  Make top display CPU usage.
 
-config BB_UPTIME
+config BB_CONFIG_UPTIME
 	bool "uptime"
 	default n
 	help

@@ -6,14 +6,14 @@
 menu "Runit Utilities"
   depends on BUSYBOX
 
-config BB_RUNSV
+config BB_CONFIG_RUNSV
 	bool "runsv"
 	default n
 	help
 	  runsv starts and monitors a service and optionally an appendant log
 	  service.
 
-config BB_RUNSVDIR
+config BB_CONFIG_RUNSVDIR
 	bool "runsvdir"
 	default n
 	help
@@ -21,14 +21,14 @@ config BB_RUNSVDIR
 	  a directory, in the services directory dir, up to a limit of 1000
 	  subdirectories, and restarts a runsv process if it terminates.
 
-config BB_SV
+config BB_CONFIG_SV
 	bool "sv"
 	default n
 	help
 	  sv reports the current status and controls the state of services
 	  monitored by the runsv supervisor.
 
-config BB_SVLOGD
+config BB_CONFIG_SVLOGD
 	bool "svlogd"
 	default n
 	help
@@ -36,30 +36,30 @@ config BB_SVLOGD
 	  filters log messages, and writes the data to one or more automatically
 	  rotated logs.
 
-config BB_CHPST
+config BB_CONFIG_CHPST
 	bool "chpst"
 	default n
 	help
 	  chpst changes the process state according to the given options, and
 	  execs specified program.
 
-config BB_SETUIDGID
+config BB_CONFIG_SETUIDGID
 	bool "setuidgid"
 	help
 	  Sets soft resource limits as specified by options
 
-config BB_ENVUIDGID
+config BB_CONFIG_ENVUIDGID
 	bool "envuidgid"
 	help
 	  Sets $UID to account's uid and $GID to account's gid
 
-config BB_ENVDIR
+config BB_CONFIG_ENVDIR
 	bool "envdir"
 	help
 	  Sets various environment variables as specified by files
 	  in the given directory
 
-config BB_SOFTLIMIT
+config BB_CONFIG_SOFTLIMIT
 	bool "softlimit"
 	help
 	  Sets soft resource limits as specified by options

@@ -14,7 +14,7 @@ for cfgfile in $(find ${bb_path} -name "Config.in"); do
 	new_cfgfile=$(echo $cfgfile | sed -e "s~${bb_path}~\.~g")
 	dir=$(echo $new_cfgfile | sed -e "s~Config\.in~~g")
 	mkdir -p $dir
-	../../scripts/mkprefix -v -p BB_ < $cfgfile > $new_cfgfile
+	../../scripts/mkprefix -v -p BB_CONFIG_ < $cfgfile > $new_cfgfile
 done
 
 #

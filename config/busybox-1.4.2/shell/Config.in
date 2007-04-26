@@ -8,36 +8,36 @@ menu "Shells"
 
 choice
 	prompt "Choose your default shell"
-	default BB_FEATURE_SH_IS_NONE
+	default BB_CONFIG_FEATURE_SH_IS_NONE
 	help
 	  Choose a shell. The ash shell is the most bash compatible
 	  and full featured one.
 
-config BB_FEATURE_SH_IS_ASH
-	select BB_ASH
+config BB_CONFIG_FEATURE_SH_IS_ASH
+	select BB_CONFIG_ASH
 	bool "ash"
 
-config BB_FEATURE_SH_IS_HUSH
-	select BB_HUSH
+config BB_CONFIG_FEATURE_SH_IS_HUSH
+	select BB_CONFIG_HUSH
 	bool "hush"
 
-config BB_FEATURE_SH_IS_LASH
-	select BB_LASH
+config BB_CONFIG_FEATURE_SH_IS_LASH
+	select BB_CONFIG_LASH
 	bool "lash"
 
-config BB_FEATURE_SH_IS_MSH
-	select BB_MSH
+config BB_CONFIG_FEATURE_SH_IS_MSH
+	select BB_CONFIG_MSH
 	bool "msh"
 
-config BB_FEATURE_SH_IS_NONE
+config BB_CONFIG_FEATURE_SH_IS_NONE
 	bool "none"
 
 endchoice
 
-config BB_ASH
+config BB_CONFIG_ASH
 	bool "ash"
 	default n
-	select BB_TEST
+	select BB_CONFIG_TEST
 	help
 	  Tha 'ash' shell adds about 60k in the default configuration and is
 	  the most complete and most pedantically correct shell included with
@@ -46,105 +46,105 @@ config BB_ASH
 	  (written by Kenneth Almquist) from NetBSD.
 
 comment "Ash Shell Options"
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 
-config BB_ASH_JOB_CONTROL
+config BB_CONFIG_ASH_JOB_CONTROL
 	bool "Job control"
 	default y
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  Enable job control in the ash shell.
 
-config BB_ASH_READ_NCHARS
+config BB_CONFIG_ASH_READ_NCHARS
 	bool "'read -n N' and 'read -s' support"
 	default n
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  'read -n N' will return a value after N characters have been read.
 	  'read -s' will read without echoing the user's input.
 
-config BB_ASH_READ_TIMEOUT
+config BB_CONFIG_ASH_READ_TIMEOUT
 	bool "'read -t S' support."
 	default n
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  'read -t S' will return a value after S seconds have passed.
 	  This implementation will allow fractional seconds, expressed
 	  as a decimal fraction, e.g. 'read -t 2.5 foo'.
 
-config BB_ASH_ALIAS
+config BB_CONFIG_ASH_ALIAS
 	bool "alias support"
 	default y
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  Enable alias support in the ash shell.
 
-config BB_ASH_MATH_SUPPORT
+config BB_CONFIG_ASH_MATH_SUPPORT
 	bool "Posix math support"
 	default y
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  Enable math support in the ash shell.
 
-config BB_ASH_MATH_SUPPORT_64
+config BB_CONFIG_ASH_MATH_SUPPORT_64
 	bool "Extend Posix math support to 64 bit"
 	default n
-	depends on BB_ASH_MATH_SUPPORT
+	depends on BB_CONFIG_ASH_MATH_SUPPORT
 	help
 	  Enable 64-bit math support in the ash shell.  This will make
 	  the shell slightly larger, but will allow computation with very
 	  large numbers.
 
-config BB_ASH_GETOPTS
+config BB_CONFIG_ASH_GETOPTS
 	bool "Builtin getopt to parse positional parameters"
 	default n
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  Enable getopts builtin in the ash shell.
 
-config BB_ASH_BUILTIN_ECHO
+config BB_CONFIG_ASH_BUILTIN_ECHO
 	bool "Builtin version of 'echo'"
 	default y
-	select BB_ECHO
-	depends on BB_ASH
+	select BB_CONFIG_ECHO
+	depends on BB_CONFIG_ASH
 	help
 	  Enable support for echo, built in to ash.
 
-config BB_ASH_BUILTIN_TEST
+config BB_CONFIG_ASH_BUILTIN_TEST
 	bool "Builtin version of 'test'"
 	default y
-	select BB_TEST
-	depends on BB_ASH
+	select BB_CONFIG_TEST
+	depends on BB_CONFIG_ASH
 	help
 	  Enable support for test, built in to ash.
 
-config BB_ASH_CMDCMD
+config BB_CONFIG_ASH_CMDCMD
 	bool "'command' command to override shell builtins"
 	default n
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  Enable support for the ash 'command' builtin, which allows
 	  you to run the specified command with the specified arguments,
 	  even when there is an ash builtin command with the same name.
 
-config BB_ASH_MAIL
+config BB_CONFIG_ASH_MAIL
 	bool "Check for new mail on interactive shells"
 	default y
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  Enable "check for new mail" in the ash shell.
 
-config BB_ASH_OPTIMIZE_FOR_SIZE
+config BB_CONFIG_ASH_OPTIMIZE_FOR_SIZE
 	bool "Optimize for size instead of speed"
 	default y
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  Compile ash for reduced size at the price of speed.
 
-config BB_ASH_RANDOM_SUPPORT
+config BB_CONFIG_ASH_RANDOM_SUPPORT
 	bool "Pseudorandom generator and variable $RANDOM"
 	default n
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  Enable pseudorandom generator and dynamic variable "$RANDOM".
 	  Each read of "$RANDOM" will generate a new pseudorandom value.
@@ -152,21 +152,21 @@ config BB_ASH_RANDOM_SUPPORT
 	  After "unset RANDOM" then generator will switch off and this
 	  variable will no longer have special treatment.
 
-config BB_ASH_EXPAND_PRMT
+config BB_CONFIG_ASH_EXPAND_PRMT
 	bool "Expand prompt string"
 	default n
-	depends on BB_ASH
+	depends on BB_CONFIG_ASH
 	help
 	  "PS#" may be contain volatile content, such as backquote commands.
 	  This option recreates the prompt string from the environment
 	  variable each time it is displayed.
 
-config BB_HUSH
+config BB_CONFIG_HUSH
 	bool "hush"
 	default n
-	select BB_TRUE
-	select BB_FALSE
-	select BB_TEST
+	select BB_CONFIG_TRUE
+	select BB_CONFIG_FALSE
+	select BB_CONFIG_TEST
 	help
 	  hush is a very small shell (just 18k) and it has fairly complete
 	  Bourne shell grammar.  It even handles all the normal flow control
@@ -178,12 +178,12 @@ config BB_HUSH
 	  expansion, &> and >& redirection of stdout+stderr, etc.
 
 
-config BB_LASH
+config BB_CONFIG_LASH
 	bool "lash"
 	default n
-	select BB_TRUE
-	select BB_FALSE
-	select BB_TEST
+	select BB_CONFIG_TRUE
+	select BB_CONFIG_FALSE
+	select BB_CONFIG_TEST
 	help
 	  lash is the very smallest shell (adds just 10k) and it is quite
 	  usable as a command prompt, but it is not suitable for any but the
@@ -193,12 +193,12 @@ config BB_LASH
 	  command editing makes it a very nice lightweight command prompt.
 
 
-config BB_MSH
+config BB_CONFIG_MSH
 	bool "msh"
 	default n
-	select BB_TRUE
-	select BB_FALSE
-	select BB_TEST
+	select BB_CONFIG_TRUE
+	select BB_CONFIG_FALSE
+	select BB_CONFIG_TEST
 	help
 	  The minix shell (adds just 30k) is quite complete and handles things
 	  like for/do/done, case/esac and all the things you expect a Bourne
@@ -208,19 +208,19 @@ config BB_MSH
 	  It also uses only vfork, so it can be used on uClinux systems.
 
 comment "Bourne Shell Options"
-	depends on BB_MSH || BB_LASH || BB_HUSH || BB_ASH
+	depends on BB_CONFIG_MSH || BB_CONFIG_LASH || BB_CONFIG_HUSH || BB_CONFIG_ASH
 
-config BB_FEATURE_SH_EXTRA_QUIET
+config BB_CONFIG_FEATURE_SH_EXTRA_QUIET
 	bool "Hide message on interactive shell startup"
 	default n
-	depends on BB_MSH || BB_LASH || BB_HUSH || BB_ASH
+	depends on BB_CONFIG_MSH || BB_CONFIG_LASH || BB_CONFIG_HUSH || BB_CONFIG_ASH
 	help
 	  Remove the busybox introduction when starting a shell.
 
-config BB_FEATURE_SH_STANDALONE_SHELL
+config BB_CONFIG_FEATURE_SH_STANDALONE_SHELL
 	bool "Standalone shell"
 	default n
-	depends on BB_MSH || BB_LASH || BB_HUSH || BB_ASH
+	depends on BB_CONFIG_MSH || BB_CONFIG_LASH || BB_CONFIG_HUSH || BB_CONFIG_ASH
 	help
 	  This option causes the selected busybox shell to use busybox applets
 	  in preference to executables in the PATH whenever possible.  For
@@ -241,54 +241,54 @@ config BB_FEATURE_SH_STANDALONE_SHELL
 	  that exact location with that exact name, this option will not work at
 	  all.
 
-config BB_FEATURE_COMMAND_EDITING
+config BB_CONFIG_FEATURE_COMMAND_EDITING
 	bool "Command line editing"
 	default n
-	depends on BB_MSH || BB_LASH || BB_HUSH || BB_ASH
+	depends on BB_CONFIG_MSH || BB_CONFIG_LASH || BB_CONFIG_HUSH || BB_CONFIG_ASH
 	help
 	  Enable command editing in shell.
 
-config BB_FEATURE_COMMAND_EDITING_VI
+config BB_CONFIG_FEATURE_COMMAND_EDITING_VI
 	bool "vi-style line editing commands"
 	default n
-	depends on BB_FEATURE_COMMAND_EDITING
+	depends on BB_CONFIG_FEATURE_COMMAND_EDITING
 	help
 	  Enable vi-style line editing in the shell.  This mode can be
 	  turned on and off with "set -o vi" and "set +o vi".
 
-config BB_FEATURE_COMMAND_HISTORY
+config BB_CONFIG_FEATURE_COMMAND_HISTORY
 	int "History size"
 	range 0 99999
 	default 15
-	depends on BB_FEATURE_COMMAND_EDITING
+	depends on BB_CONFIG_FEATURE_COMMAND_EDITING
 	help
 	  Specify command history size in shell.
 
-config BB_FEATURE_COMMAND_SAVEHISTORY
+config BB_CONFIG_FEATURE_COMMAND_SAVEHISTORY
 	bool "History saving"
 	default n
-	depends on BB_ASH && BB_FEATURE_COMMAND_EDITING
+	depends on BB_CONFIG_ASH && BB_CONFIG_FEATURE_COMMAND_EDITING
 	help
 	  Enable history saving in ash shell.
 
-config BB_FEATURE_COMMAND_TAB_COMPLETION
+config BB_CONFIG_FEATURE_COMMAND_TAB_COMPLETION
 	bool "Tab completion"
 	default n
-	depends on BB_FEATURE_COMMAND_EDITING
+	depends on BB_CONFIG_FEATURE_COMMAND_EDITING
 	help
 	  Enable tab completion in shell.
 
-config BB_FEATURE_COMMAND_USERNAME_COMPLETION
+config BB_CONFIG_FEATURE_COMMAND_USERNAME_COMPLETION
 	bool "Username completion"
 	default n
-	depends on BB_FEATURE_COMMAND_TAB_COMPLETION
+	depends on BB_CONFIG_FEATURE_COMMAND_TAB_COMPLETION
 	help
 	  Enable username completion in shell.
 
-config BB_FEATURE_SH_FANCY_PROMPT
+config BB_CONFIG_FEATURE_SH_FANCY_PROMPT
 	bool "Fancy shell prompts"
 	default n
-	depends on BB_FEATURE_COMMAND_EDITING
+	depends on BB_CONFIG_FEATURE_COMMAND_EDITING
 	help
 	  Setting this option allows for prompts to use things like \w and
 	  \$ and also using escape codes.

@@ -241,7 +241,7 @@ menuconfig ROOTFS_HOSTS
 #
 menuconfig ROOTFS_INITTAB
 	depends on ROOTFS
-	select BB_GETTY if BUSYBOX
+	select BB_CONFIG_GETTY if BUSYBOX
 	bool
 	prompt "/etc/inittab                "
 	default y
@@ -415,7 +415,7 @@ menuconfig ROOTFS_PROTOCOLS
 #
 menuconfig ROOTFS_INETD
 	depends on ROOTFS
-	depends on BB_INETD || INETUTILS_INETD
+	depends on BB_CONFIG_INETD || INETUTILS_INETD
 	bool
 	prompt "/etc/inetd.conf             "
 	default y
@@ -468,8 +468,8 @@ config ROOTFS_ETC_MODULES
 #
 menuconfig ROOTFS_UDHCPC
 	depends on ROOTFS
-	depends on BB_APP_UDHCPC
-	select BB_IFCONFIG
+	depends on BB_CONFIG_APP_UDHCPC
+	select BB_CONFIG_IFCONFIG
 	bool
 	prompt "/etc/udhcpc.script          "
 	default y

@@ -6,25 +6,25 @@
 menu "Miscellaneous Utilities"
   depends on BUSYBOX
 
-config BB_ADJTIMEX
+config BB_CONFIG_ADJTIMEX
 	bool "adjtimex"
 	default n
 	help
 	  Adjtimex reads and optionally sets adjustment parameters for
 	  the Linux clock adjustment algorithm.
 
-config BB_BBCONFIG
+config BB_CONFIG_BBCONFIG
 	bool "bbconfig"
 	default n
 	help
 	  The bbconfig applet will print the config file with which
 	  busybox was built.
 
-config BB_CROND
+config BB_CONFIG_CROND
 	bool "crond"
 	default n
-	select BB_FEATURE_SUID
-	select BB_FEATURE_SYSLOG
+	select BB_CONFIG_FEATURE_SUID
+	select BB_CONFIG_FEATURE_SYSLOG
 	help
 	  Crond is a background daemon that parses individual crontab
 	  files and executes commands on behalf of the users in question.
@@ -36,39 +36,39 @@ config BB_CROND
 	  Note that Busybox binary must be setuid root for this applet to
 	  work properly.
 
-config BB_DEBUG_CROND_OPTION
+config BB_CONFIG_DEBUG_CROND_OPTION
 	bool "Support debug option -d"
-	depends on BB_CROND
+	depends on BB_CONFIG_CROND
 	default n
 	help
 	  Support option -d to enter debug mode.
 
-config BB_FEATURE_CROND_CALL_SENDMAIL
+config BB_CONFIG_FEATURE_CROND_CALL_SENDMAIL
 	bool "Using /usr/sbin/sendmail?"
 	default n
-	depends on BB_CROND
+	depends on BB_CONFIG_CROND
 	help
 	  Support calling /usr/sbin/sendmail for send cmd outputs.
 
-config BB_CRONTAB
+config BB_CONFIG_CRONTAB
 	bool "crontab"
 	default n
-	select BB_FEATURE_SUID
+	select BB_CONFIG_FEATURE_SUID
 	help
 	  Crontab manipulates the crontab for a particular user.  Only
 	  the superuser may specify a different user and/or crontab directory.
 
-config BB_DC
+config BB_CONFIG_DC
 	bool "dc"
 	default n
 	help
 	  Dc is a reverse-polish desk calculator which supports unlimited
 	  precision arithmetic.
 
-config BB_DEVFSD
+config BB_CONFIG_DEVFSD
 	bool "devfsd (obsolete)"
 	default n
-	select BB_FEATURE_SYSLOG
+	select BB_CONFIG_FEATURE_SYSLOG
 	help
 	  This is deprecated, and will be removed at the end of 2008.
 
@@ -81,30 +81,30 @@ config BB_DEVFSD
 
 	   But only if they are written UPPERCASE!!!!!!!!
 
-config BB_DEVFSD_MODLOAD
+config BB_CONFIG_DEVFSD_MODLOAD
 	bool "Adds support for MODLOAD keyword in devsfd.conf"
 	default n
-	depends on BB_DEVFSD
+	depends on BB_CONFIG_DEVFSD
 	help
 	  This actually doesn't work with busybox modutils but needs
 	  the external modutils.
 
-config BB_DEVFSD_FG_NP
+config BB_CONFIG_DEVFSD_FG_NP
 	bool "Enables the -fg and -np options"
 	default n
-	depends on BB_DEVFSD
+	depends on BB_CONFIG_DEVFSD
 	help
 		-fg	Run the daemon in the foreground.
 		-np	Exit  after  parsing  the configuration file. Do not poll for events.
 
-config BB_DEVFSD_VERBOSE
+config BB_CONFIG_DEVFSD_VERBOSE
 	bool "Increases logging (and size)"
 	default n
-	depends on BB_DEVFSD
+	depends on BB_CONFIG_DEVFSD
 	help
 	  Increases logging to stderr or syslog.
 
-config BB_FEATURE_DEVFS
+config BB_CONFIG_FEATURE_DEVFS
 	bool "  Use devfs names for all devices (obsolete)"
 	default n
 	help
@@ -114,72 +114,72 @@ config BB_FEATURE_DEVFS
 	  /dev/loop0.  If your /dev directory has normal names instead of
 	  devfs names, you don't want this.
 
-config BB_EJECT
+config BB_CONFIG_EJECT
 	bool "eject"
 	default n
 	help
 	  Used to eject cdroms.  (defaults to /dev/cdrom)
 
-config BB_LAST
+config BB_CONFIG_LAST
 	bool "last"
 	default n
-	select BB_FEATURE_WTMP
+	select BB_CONFIG_FEATURE_WTMP
 	help
 	  'last' displays a list of the last users that logged into the system.
 
-config BB_LESS
+config BB_CONFIG_LESS
 	bool "less"
 	default n
 	help
 	  'less' is a pager, meaning that it displays text files. It possesses
 	  a wide array of features, and is an improvement over 'more'.
 
-config BB_FEATURE_LESS_MAXLINES
+config BB_CONFIG_FEATURE_LESS_MAXLINES
 	int "Max number of input lines less will try to eat"
 	default 9999999
-	depends on BB_LESS
+	depends on BB_CONFIG_LESS
 
-config BB_FEATURE_LESS_BRACKETS
+config BB_CONFIG_FEATURE_LESS_BRACKETS
 	bool "Enable bracket searching"
 	default y
-	depends on BB_LESS
+	depends on BB_CONFIG_LESS
 	help
 	  This option adds the capability to search for matching left and right
 	  brackets, facilitating programming.
 
-config BB_FEATURE_LESS_FLAGS
+config BB_CONFIG_FEATURE_LESS_FLAGS
 	bool "Enable extra flags"
 	default y
-	depends on BB_LESS
+	depends on BB_CONFIG_LESS
 	help
 	  The extra flags provided do the following:
 
 	  The -M flag enables a more sophisticated status line.
 	  The -m flag enables a simpler status line with a percentage.
 
-config BB_FEATURE_LESS_FLAGCS
+config BB_CONFIG_FEATURE_LESS_FLAGCS
 	bool "Enable flag changes"
 	default n
-	depends on BB_LESS
+	depends on BB_CONFIG_LESS
 	help
 	  This enables the ability to change command-line flags within
 	  less itself.
 
-config BB_FEATURE_LESS_MARKS
+config BB_CONFIG_FEATURE_LESS_MARKS
 	bool "Enable marks"
 	default n
-	depends on BB_LESS
+	depends on BB_CONFIG_LESS
 	help
 	  Marks enable positions in a file to be stored for easy reference.
 
-config BB_FEATURE_LESS_REGEXP
+config BB_CONFIG_FEATURE_LESS_REGEXP
 	bool "Enable regular expressions"
 	default n
-	depends on BB_LESS
+	depends on BB_CONFIG_LESS
 	help
 	  Enable regular expressions, allowing complex file searches.
 
-config BB_HDPARM
+config BB_CONFIG_HDPARM
 	bool "hdparm"
 	default n
 	help
@@ -187,58 +187,58 @@ config BB_HDPARM
 	  drives.  Adds about 13k (or around 30k if you enable the
 	  FEATURE_HDPARM_GET_IDENTITY option)....
 
-config BB_FEATURE_HDPARM_GET_IDENTITY
+config BB_CONFIG_FEATURE_HDPARM_GET_IDENTITY
 	bool "Support obtaining detailed information directly from drives"
 	default y
-	depends on BB_HDPARM
+	depends on BB_CONFIG_HDPARM
 	help
 	  Enables the -I and -i options to obtain detailed information
 	  directly from drives about their capabilities and supported ATA
 	  feature set. If no device name is specified, hdparm will read
 	  identify data from stdin. Enabling this option will add about 16k...
 
-config BB_FEATURE_HDPARM_HDIO_SCAN_HWIF
+config BB_CONFIG_FEATURE_HDPARM_HDIO_SCAN_HWIF
 	bool "Register an IDE interface (DANGEROUS)"
 	default n
-	depends on BB_HDPARM
+	depends on BB_CONFIG_HDPARM
 	help
 	  Enables the 'hdparm -R' option to register an IDE interface.
 	  This is dangerous stuff, so you should probably say N.
 
-config BB_FEATURE_HDPARM_HDIO_UNREGISTER_HWIF
+config BB_CONFIG_FEATURE_HDPARM_HDIO_UNREGISTER_HWIF
 	bool "Un-register an IDE interface (DANGEROUS)"
 	default n
-	depends on BB_HDPARM
+	depends on BB_CONFIG_HDPARM
 	help
 	  Enables the 'hdparm -U' option to un-register an IDE interface.
 	  This is dangerous stuff, so you should probably say N.
 
-config BB_FEATURE_HDPARM_HDIO_DRIVE_RESET
+config BB_CONFIG_FEATURE_HDPARM_HDIO_DRIVE_RESET
 	bool "perform device reset (DANGEROUS)"
 	default n
-	depends on BB_HDPARM
+	depends on BB_CONFIG_HDPARM
 	help
 	  Enables the 'hdparm -w' option to perform a device reset.
 	  This is dangerous stuff, so you should probably say N.
 
-config BB_FEATURE_HDPARM_HDIO_TRISTATE_HWIF
+config BB_CONFIG_FEATURE_HDPARM_HDIO_TRISTATE_HWIF
 	bool "tristate device for hotswap (DANGEROUS)"
 	default n
-	depends on BB_HDPARM
+	depends on BB_CONFIG_HDPARM
 	help
 	  Enables the 'hdparm -x' option to tristate device for hotswap,
 	  and the '-b' option to get/set bus state.  This is dangerous
 	  stuff, so you should probably say N.
 
-config BB_FEATURE_HDPARM_HDIO_GETSET_DMA
+config BB_CONFIG_FEATURE_HDPARM_HDIO_GETSET_DMA
 	bool "get/set using_dma flag (DANGEROUS)"
 	default n
-	depends on BB_HDPARM
+	depends on BB_CONFIG_HDPARM
 	help
 	  Enables the 'hdparm -d' option to get/set using_dma flag.
 	  This is dangerous stuff, so you should probably say N.
 
-config BB_MAKEDEVS
+config BB_CONFIG_MAKEDEVS
 	bool "makedevs"
 	default n
 	help
@@ -259,24 +259,24 @@ config BB_MAKEDEVS
 
 choice
 	prompt "Choose makedevs behaviour"
-	depends BB_MAKEDEVS
-	default BB_FEATURE_MAKEDEVS_TABLE
+	depends BB_CONFIG_MAKEDEVS
+	default BB_CONFIG_FEATURE_MAKEDEVS_TABLE
 
-config BB_FEATURE_MAKEDEVS_LEAF
+config BB_CONFIG_FEATURE_MAKEDEVS_LEAF
         bool "leaf"
 
-config BB_FEATURE_MAKEDEVS_TABLE
+config BB_CONFIG_FEATURE_MAKEDEVS_TABLE
 	bool "table"
 
 endchoice
 
-config BB_MOUNTPOINT
+config BB_CONFIG_MOUNTPOINT
 	bool "mountpoint"
 	default n
 	help
 	  mountpoint checks if the directory is a mountpoint.
 
-config BB_MT
+config BB_CONFIG_MT
 	bool "mt"
 	default n
 	help
@@ -284,23 +284,23 @@ config BB_MT
 	  to advance or rewind a tape past a specified number of archive
 	  files on the tape.
 
-config BB_NMETER
+config BB_CONFIG_NMETER
 	bool "nmeter"
 	default n
 	help
 	  nmeter prints various system parameters continuously.
 
-config BB_RAIDAUTORUN
+config BB_CONFIG_RAIDAUTORUN
 	bool "raidautorun"
 	default n
 	help
 	  raidautorun tells the kernel md driver to
 	  search and start RAID arrays.
 
-config BB_READAHEAD
+config BB_CONFIG_READAHEAD
         bool "readahead"
 	default n
-	depends on BB_LFS
+	depends on BB_CONFIG_LFS
 	help
  	  Preload the files listed on the command line into RAM cache so that
 	  subsequent reads on these files will not block on disk I/O.
@@ -314,7 +314,7 @@ config BB_READAHEAD
 	  As readahead(2) blocks until each file has been read, it is best to
 	  run this applet as a background job.
 
-config BB_RUNLEVEL
+config BB_CONFIG_RUNLEVEL
         bool "runlevel"
 	default n
 	help
@@ -323,42 +323,42 @@ config BB_RUNLEVEL
 	  This applet uses utmp but does not rely on busybox supporing
 	  utmp on purpose. It is used by e.g. emdebian via /etc/init.d/rc.
 
-config BB_RX
+config BB_CONFIG_RX
         bool "rx"
 	default n
 	help
  	  Receive files using the Xmodem protocol.
 
-config BB_STRINGS
+config BB_CONFIG_STRINGS
 	bool "strings"
 	default n
 	help
 	  strings prints the printable character sequences for each file
 	  specified.
 
-config BB_SETSID
+config BB_CONFIG_SETSID
 	bool "setsid"
 	default n
 	help
 	  setsid runs a program in a new session
 
-config BB_TASKSET
+config BB_CONFIG_TASKSET
 	bool "taskset"
 	default n
 	help
 	  Retrieve or set a processes's CPU affinity.
 	  This requires sched_{g,s}etaffinity support in your libc.
 
-config BB_FEATURE_TASKSET_FANCY
+config BB_CONFIG_FEATURE_TASKSET_FANCY
 	bool "fancy output"
 	default y
-	depends on BB_TASKSET
+	depends on BB_CONFIG_TASKSET
 	help
 	  Add code for fancy output. This merely silences a compiler-warning
 	  and adds about 135 Bytes. May be needed for machines with alot
 	  of CPUs.
 
-config BB_TIME
+config BB_CONFIG_TIME
 	bool "time"
 	default n
 	help
@@ -366,7 +366,7 @@ config BB_TIME
 	  When the command finishes, time writes a message to standard output
 	  giving timing statistics about this program run.
 
-config BB_WATCHDOG
+config BB_CONFIG_WATCHDOG
 	bool "watchdog"
 	default n
 	help

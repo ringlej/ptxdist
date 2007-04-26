@@ -62,7 +62,7 @@ BUSYBOX_PATH		=  PATH=$(CROSS_PATH)
 BUSYBOX_ENV 		=  $(CROSS_ENV)
 
 BUSYBOX_TARGET_LDFLAGS	=  $(call remove_quotes,$(TARGET_LDFLAGS))
-ifdef PTXCONF_BB_STATIC
+ifdef PTXCONF_BB_CONFIG_STATIC
 BUSYBOX_TARGET_LDFLAGS	+= -static
 endif
 
@@ -81,8 +81,8 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps_default)
 	touch $(BUSYBOX_DIR)/busybox.links
 
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
-	grep -e PTXCONF_BB_ $(PTXDIST_WORKSPACE)/ptxconfig > $(BUSYBOX_DIR)/.config
-	perl -i -p -e 's/PTXCONF_BB_/CONFIG_/g' $(BUSYBOX_DIR)/.config
+	grep -e PTXCONF_BB_CONFIG_ $(PTXDIST_WORKSPACE)/ptxconfig > $(BUSYBOX_DIR)/.config
+	perl -i -p -e 's/PTXCONF_BB_CONFIG_/CONFIG_/g' $(BUSYBOX_DIR)/.config
 	yes "" | $(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
 
 	@$(call touch, $@)

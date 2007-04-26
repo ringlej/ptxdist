@@ -766,7 +766,7 @@ endif
 # -----------------------------------------------------------------------------
 # add telnetd if enabled
 #
-ifdef PTXCONF_BB_FEATURE_TELNETD_STANDALONE
+ifdef PTXCONF_BB_CONFIG_FEATURE_TELNETD_STANDALONE
 # remove all telnetd entries if this service is not enabled
 	@$(call install_replace, rootfs, /etc/inetd.conf, @TELNETD@, )
 	@$(call install_replace, rootfs, /etc/services, @TELNETD@, )

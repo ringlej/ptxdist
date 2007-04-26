@@ -6,32 +6,32 @@
 menu "Init Utilities"
   depends on BUSYBOX
 
-config BB_INIT
+config BB_CONFIG_INIT
 	bool "init"
 	default n
-	select BB_FEATURE_SYSLOG
+	select BB_CONFIG_FEATURE_SYSLOG
 	help
 	  init is the first program run when the system boots.
 
-config BB_DEBUG_INIT
+config BB_CONFIG_DEBUG_INIT
 	bool "debugging aid"
 	default n
-	depends on BB_INIT
+	depends on BB_CONFIG_INIT
 	help
 	  Turn this on to disable all the dangerous
 	  rebooting stuff when debugging.
 
-config BB_FEATURE_USE_INITTAB
+config BB_CONFIG_FEATURE_USE_INITTAB
 	bool "Support reading an inittab file"
 	default y
-	depends on BB_INIT
+	depends on BB_CONFIG_INIT
 	help
 	  Allow init to read an inittab file when the system boot.
 
-config BB_FEATURE_INIT_SCTTY
+config BB_CONFIG_FEATURE_INIT_SCTTY
 	bool "Support running commands with a controlling-tty"
 	default n
-	depends on BB_INIT
+	depends on BB_CONFIG_INIT
 	help
 	  If this option is enabled a command starting with hyphen (-)
 	  is run in its own session (setsid(2)) and possibly with a
@@ -39,17 +39,17 @@ config BB_FEATURE_INIT_SCTTY
 	  behavour, but is often what you want in an embedded system where
 	  the console is only accessed during development or for maintenance.
 
-config BB_FEATURE_EXTRA_QUIET
+config BB_CONFIG_FEATURE_EXTRA_QUIET
 	bool "Be _extra_ quiet on boot"
 	default y
-	depends on BB_INIT
+	depends on BB_CONFIG_INIT
 	help
 	  Prevent init from logging some messages to the console during boot.
 
-config BB_FEATURE_INIT_COREDUMPS
+config BB_CONFIG_FEATURE_INIT_COREDUMPS
 	bool "Support dumping core for child processes (debugging only)"
 	default n
-	depends on BB_INIT
+	depends on BB_CONFIG_INIT
 	help
 	  If this option is enabled and the file /.init_enable_core
 	  exists, then init will call setrlimit() to allow unlimited
@@ -58,10 +58,10 @@ config BB_FEATURE_INIT_COREDUMPS
 
 
 
-config BB_FEATURE_INITRD
+config BB_CONFIG_FEATURE_INITRD
 	bool "Support running init from within an initrd (not initramfs)"
 	default y
-	depends on BB_INIT
+	depends on BB_CONFIG_INIT
 	help
 	  Legacy support for running init under the old-style initrd.  Allows
 	  the name linuxrc to act as init, and it doesn't assume init is PID 1.
@@ -69,13 +69,13 @@ config BB_FEATURE_INITRD
 	  This does not apply to initramfs, which runs /init as PID 1 and
 	  requires no special support.
 
-config BB_HALT
+config BB_CONFIG_HALT
 	bool "poweroff, halt, and reboot"
 	default y
 	help
 	  Stop all processes and either halt, reboot, or power off the system.
 
-config BB_MESG
+config BB_CONFIG_MESG
 	bool "mesg"
 	default y
 	help

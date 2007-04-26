@@ -6,13 +6,13 @@
 menu "Linux Ext2 FS Progs"
   depends on BUSYBOX
 
-config BB_CHATTR
+config BB_CONFIG_CHATTR
 	bool "chattr"
 	default n
 	help
 	  chattr changes the file attributes on a second extended file system.
 
-config BB_E2FSCK
+config BB_CONFIG_E2FSCK
 	bool "e2fsck"
 	default n
 	help
@@ -21,7 +21,7 @@ config BB_E2FSCK
 	  The normal compat symlinks 'fsck.ext2' and 'fsck.ext3' are also
 	  provided.
 
-config BB_FSCK
+config BB_CONFIG_FSCK
 	bool "fsck"
 	default n
 	help
@@ -29,38 +29,38 @@ config BB_FSCK
 	  In actuality, fsck is simply a front-end for the various file system
 	  checkers (fsck.fstype) available under Linux.
 
-config BB_LSATTR
+config BB_CONFIG_LSATTR
 	bool "lsattr"
 	default n
 	help
 	  lsattr lists the file attributes on a second extended file system.
 
-config BB_MKE2FS
+config BB_CONFIG_MKE2FS
 	bool "mke2fs"
 	default n
 	help
 	  mke2fs is used to create an ext2/ext3 filesystem.  The normal compat
 	  symlinks 'mkfs.ext2' and 'mkfs.ext3' are also provided.
 
-config BB_TUNE2FS
+config BB_CONFIG_TUNE2FS
 	bool "tune2fs"
 	default n
 	help
 	  tune2fs allows the system administrator to adjust various tunable
 	  filesystem parameters on Linux ext2/ext3 filesystems.
 
-config BB_E2LABEL
+config BB_CONFIG_E2LABEL
 	bool "e2label"
 	default n
-	depends on BB_TUNE2FS
+	depends on BB_CONFIG_TUNE2FS
 	help
 	  e2label will display or change the filesystem label on the ext2
 	  filesystem located on device.
 
-config BB_FINDFS
+config BB_CONFIG_FINDFS
 	bool "findfs"
 	default n
-	depends on BB_TUNE2FS
+	depends on BB_CONFIG_TUNE2FS
 	help
 	  findfs will search the disks in the system looking for a filesystem
 	  which has a label matching label or a UUID equal to uuid.
