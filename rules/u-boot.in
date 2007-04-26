@@ -12,8 +12,6 @@ config U_BOOT_CONFIG
 	string
 	depends on U_BOOT
 	prompt "U-Boot config target"
-
-config U_BOOT_SERIES
-	string
-	depends on U_BOOT
-	prompt "U-Boot patch Series File"
+	help
+	  The U-Boot make config target. usually something like
+	  yourbox_config.
