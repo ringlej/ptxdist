@@ -40,6 +40,7 @@ gdbserver_extract: $(STATEDIR)/gdbserver.extract
 
 gdbserver_extract_deps := \
 	$(gdbserver_extract_deps_default) \
+	$(STATEDIR)/gdb.get \
 	$(STATEDIR)/gdb.extract
 
 $(STATEDIR)/gdbserver.extract: $(gdbserver_extract_deps)
