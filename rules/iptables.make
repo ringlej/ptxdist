@@ -368,8 +368,8 @@ ifdef PTXCONF_IPTABLES_INSTALL_libip6t_HL
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_HL.so, /usr/lib/iptables/libip6t_HL.so, n)
 endif
 
-ifdef PTXCONF_IPTABLES_INSTALL_libip6t_icmpv6
-	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_icmpv6.so, /usr/lib/iptables/libip6t_icmpv6.so, n)
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_icmp6
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_icmp6.so, /usr/lib/iptables/libip6t_icmp6.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libip6t_ipv6header

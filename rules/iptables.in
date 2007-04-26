@@ -532,9 +532,9 @@ config IPTABLES_INSTALL_libip6t_HL
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libip6t_icmpv6
+config IPTABLES_INSTALL_libip6t_icmp6
 	bool
-	prompt "install libip6t_icmpv6.so"
+	prompt "install libip6t_icmp6.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IP6TABLES
 	help
