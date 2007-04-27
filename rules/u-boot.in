@@ -7,11 +7,15 @@ config U_BOOT_VERSION
 	depends on U_BOOT
 	default 1.2.0
 	prompt "U-Boot version"
+	help
+	  Enter the Uboot version you want to build. Usally something like "1.2.0"
 
 config U_BOOT_CONFIG
 	string
 	depends on U_BOOT
 	prompt "U-Boot config target"
 	help
-	  The U-Boot make config target. usually something like
-	  yourbox_config.
+	  The U-Boot make config target. Usually something like
+	  "yourbox_config". See Uboot's main Makefile for possible
+	  configuration targets.
+
