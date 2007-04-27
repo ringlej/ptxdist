@@ -113,7 +113,7 @@ ifdef PTXCONF_ROOTFS_ETC_INITD_UTELNETD_DEFAULT
 endif
 ifdef PTXCONF_ROOTFS_ETC_INITD_UTELNETD_USER
 # install users one
-	@$(call install_copy, udev, 0, 0, 0755, \
+	@$(call install_copy, utelnetd, 0, 0, 0755, \
 		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/utelnetd, \
 		/etc/init.d/telnetd, n)
 endif
