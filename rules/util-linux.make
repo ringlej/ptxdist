@@ -145,6 +145,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_CFDISK
 	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL_LINUX_DIR)/fdisk/cfdisk, /usr/sbin/cfdisk)
 endif
+ifdef PTXCONF_UTIL_LINUX_SETTERM
+	@$(call install_copy, util-linux, 0, 0, 0755, $(UTIL_LINUX_DIR)/misc-utils/setterm, /usr/bin/setterm)
+endif
 
 	@$(call install_finish,util-linux)
 
