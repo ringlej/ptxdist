@@ -48,6 +48,24 @@ shift `expr $OPTIND - 1`
 
 pushd "$TARGET" || exit 1
 
+# if we have quilt use it to apply the patchstack
+if [ -n "$(which quilt)" ]; then
+	ln -s $PATCHESPATH patches
+
+	if [ -f "$SERIES" ]; then
+		ln -s "$SERIES" series
+	else
+		(cd $PATCHESPATH && find  -name "*.patch" -or -name "*.diff" -or -name "*.gz" -or -name "*.bz2") > series
+	fi
+
+	quilt push -a
+
+	if [ "$?" != 0 ]; then
+		exit 1;
+	fi
+	exit 0;
+fi
+
 {
 	if [ -f "$SERIES" ]; then
 		cat "$SERIES"
