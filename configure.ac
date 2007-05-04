@@ -278,6 +278,16 @@ else
 	AC_MSG_ERROR(Please install the Python distutils package)
 fi
 
+AC_MSG_CHECKING(whether python development files are present)
+PYTHON_CONFDIR=`$PYTHON -v -c "import distutils" 2>&1 | $EGREP distutils | $EGREP directory | $SED -ne "s/^[[^\/]]*\([[^[:space:]]]*\).*/\1/p"`/../config/
+if test -e "$PYTHON_CONFDIR/Makefile"; then
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+	AC_MSG_ERROR([some python development files could not be found, you are
+		      likely using suse or redhat system as host. In this case 
+		      please install the python-devel packages])
+fi
 
 dnl Check for patch
 AC_ARG_WITH(patch, AC_HELP_STRING(
