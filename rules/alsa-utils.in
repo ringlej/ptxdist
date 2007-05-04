@@ -3,6 +3,11 @@ config ALSA_UTILS
 	prompt "Alsa Utils"
 	select NCURSES
 	select ALSA_LIB
+# all tools from this package rely on special parts in the library:
+	select ALSA_LIB_MIXER
+	select ALSA_LIB_PCM
+	select ALSA_LIB_RAWMIDI
+	select ALSA_LIB_SEQ
 	select GLIBC_PTHREAD
 	help
 	  Some utils to handle the Advanced Linux Sound Architecture.

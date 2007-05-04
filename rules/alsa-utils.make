@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,7 +64,13 @@ ALSA_UTILS_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-ALSA_UTILS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+ALSA_UTILS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking
+
+# switches that should be controlled
+# --disable-nls
+# --disable-alsamixer
+# --disable-alsatest
 
 $(STATEDIR)/alsa-utils.prepare: $(alsa-utils_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -120,7 +126,7 @@ $(STATEDIR)/alsa-utils.targetinstall: $(alsa-utils_targetinstall_deps_default)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/aplay/aplay, /usr/bin/aplay)
 	# link arecord aplay
 	@$(call install_link, alsa-utils, aplay, /usr/bin/arecord)
-	
+
 	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/iecset/iecset, /usr/bin/iecset)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aconnect/aconnect, /usr/bin/aconnect)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aplaymidi/aplaymidi, /usr/bin/aplaymidi)
