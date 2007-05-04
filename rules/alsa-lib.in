@@ -1,6 +1,81 @@
-config ALSA_LIB
+menuconfig ALSA_LIB
 	bool
-	prompt "Alsa Libaries"
+	prompt "Alsa Libaries               "
 	help
-	  FIXME: This item needs to be documented
+	  This is the user space library to kernel's "Advanced Linux Sound Architecture" feature
 
+config ALSA_LIB_RESMGR
+	bool
+	depends on ALSA_LIB
+	prompt "build resmgr"
+	help
+	  support resmgr (optional component)
+
+config ALSA_LIB_READ
+	bool
+	depends on ALSA_LIB
+	default y
+	prompt "build read support"
+	help
+	  Reading /dev/aload* is the default. Disable it on demand
+
+config ALSA_LIB_MIXER
+	bool
+	depends on ALSA_LIB
+	default y
+	prompt "build mixer"
+	help
+	  Disable the mixer component if you do not need it
+
+config ALSA_LIB_PCM
+	bool
+	depends on ALSA_LIB
+	default y
+	prompt "build pcm"
+	help
+	  Disable the PCM component if you do not need it
+
+config ALSA_LIB_RAWMIDI
+	bool
+	depends on ALSA_LIB
+	default y
+	prompt "build raw midi support"
+	help
+	  Disable the raw MIDI component if you do not need it
+
+config ALSA_LIB_HWDEP
+	bool
+	depends on ALSA_LIB
+	default y
+	prompt "build hwdep"
+	help
+	  Disable the hwdep component if you do not need it
+
+config ALSA_LIB_SEQ
+	bool
+	depends on ALSA_LIB
+	default y
+	prompt "build sequencer"
+	help
+	  Disable the sequencer component if you do not need it
+
+config ALSA_LIB_INSTR
+	bool
+	depends on ALSA_LIB
+	default y
+	prompt "build intrument support"
+	help
+	  Disable the instrument component if you do not need it
+
+config ALSA_LIB_STATIC
+	bool
+	depends on ALSA_LIB
+	prompt "Build static library only"
+	depends on BROKEN
+	help
+	  This will build the static library only. On architectures with
+	  a low register count (like ia32) this makes sense, due to
+	  is allows the compiler to use one additional register and
+	  speed up things (if only one application uses this library)
+	  Note: This feature does not work yet. For example the esound
+	  daemon fails to link due to missing exported functions.

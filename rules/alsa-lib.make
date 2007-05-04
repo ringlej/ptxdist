@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,7 +64,53 @@ ALSA_LIB_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-ALSA_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
+ALSA_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking \
+	--with-debug=no
+
+ifdef PTXCONF_ALSA_LIB_STATIC
+ALSA_LIB_AUTOCONF += --enable-static --disable-shared
+else
+ALSA_LIB_AUTOCONF += --disable-static --enable-shared
+endif
+
+ifdef PTXCONF_ALSA_LIB_RESMGR
+ALSA_LIB_AUTOCONF += --enable-resmgr
+endif
+
+ifndef PTXCONF_ALSA_LIB_READ
+ALSA_LIB_AUTOCONF += --disable-aload
+endif
+
+ifndef PTXCONF_ALSA_LIB_MIXER
+ALSA_LIB_AUTOCONF += --disable-mixer
+endif
+
+ifndef PTXCONF_ALSA_LIB_PCM
+ALSA_LIB_AUTOCONF += --disable-pcm
+endif
+
+ifndef PTXCONF_ALSA_LIB_RAWMIDI
+ALSA_LIB_AUTOCONF += --disable-rawmidi
+endif
+
+ifndef PTXCONF_ALSA_LIB_HWDEP
+ALSA_LIB_AUTOCONF += --disable-hwdep
+endif
+
+ifndef PTXCONF_ALSA_LIB_SEQ
+ALSA_LIB_AUTOCONF += --disable-seq
+endif
+
+ifndef PTXCONF_ALSA_LIB_INSTR
+ALSA_LIB_AUTOCONF += --disable-instr
+endif
+
+# unhandled, yet
+# --with-softfloat
+# --with-alsa-devdir=dir
+# --with-aload-devdir=dir
+# --with-pcm-plugins=<list>
 
 $(STATEDIR)/alsa-lib.prepare: $(alsa-lib_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -126,10 +172,13 @@ $(STATEDIR)/alsa-lib.targetinstall: $(alsa-lib_targetinstall_deps_default)
 		libasound.so.2.0.0, \
 		/usr/lib/libasound.so)
 
+ifdef PTXCONF_ALSA_LIB_MIXER
 	@$(call install_copy, alsa-lib, \
 		0, 0, 0755, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-ac97.so, \
 		/lib/alsa-lib/smixer/smixer-ac97.so )
+endif
 
+ifdef PTXCONF_ALSA_LIB_MIXER
 	@$(call install_copy, alsa-lib, \
 		0, 0, 0755, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-sbase.so, \
 		/lib/alsa-lib/smixer/smixer-sbase.so )
@@ -137,6 +186,7 @@ $(STATEDIR)/alsa-lib.targetinstall: $(alsa-lib_targetinstall_deps_default)
 	@$(call install_copy, alsa-lib, \
 		0, 0, 0755, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-hda.so, \
 		/lib/alsa-lib/smixer/smixer-hda.so )
+endif
 
 	@$(call install_copy, alsa-lib, \
 		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/alsa.conf, \
@@ -156,7 +206,7 @@ $(STATEDIR)/alsa-lib.targetinstall: $(alsa-lib_targetinstall_deps_default)
 
 	@$(call install_copy, alsa-lib, \
 		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/pcm/dsnoop.conf, \
-		/usr/share/alsa/pcm/dsnoop.conf, n)	
+		/usr/share/alsa/pcm/dsnoop.conf, n)
 
 	@$(call install_finish, alsa-lib)
 
