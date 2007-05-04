@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # apply_patch_series: either apply a patch series to a directory or
 #                     apply all patches from a given directory
