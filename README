@@ -68,9 +68,6 @@ Directory Layout
 These files and directories are supposed to be in an empty project
 directory: 
 
-kernel-patches-native/	contains patch series for the kernel which is
-			compiled natively (for simulation)
-kernel-patches-target/	contains patch series for the target kernel
 kernelconfig.native	kernel .config file for the native kernel
 kernelconfig.target	kernel .config file for the target kernel
 patches/		project specific patches, overwrites the generic

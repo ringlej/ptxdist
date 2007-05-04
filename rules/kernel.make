@@ -25,7 +25,6 @@ KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
 
 KERNEL_CONFIG		:= $(call remove_quotes,$(PTXDIST_WORKSPACE)/$(PTXCONF_KERNEL$(KERNEL_STYLE)_CONFIG))
-KERNEL_SERIES		:= $(PTXDIST_WORKSPACE)/kernel-patches$(KERNEL_style)/$(PTXCONF_KERNEL$(KERNEL_STYLE)_SERIES)
 
 KERNEL_DIR_INSTALL	:= $(KERNEL_DIR)-install
 
@@ -81,9 +80,7 @@ $(STATEDIR)/kernel.extract: $(kernel_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(KERNEL_DIR))
 	@$(call extract, KERNEL)
-ifneq ($(PTXCONF_KERNEL_SERIES),"")
-	@$(call patchin, KERNEL,,$(KERNEL_SERIES))
-endif
+	@$(call patchin, KERNEL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
