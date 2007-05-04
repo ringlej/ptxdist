@@ -98,6 +98,40 @@ boardsetup() {
 	rm -fr $tmpdir
 }
 
+# check a ptxdist version against a configfile version.
+#
+# - The ptxdist major version has to be equal to the configfile major version
+# - The ptxdist minor version has to be equal to the configfile minor version
+# - The ptxdist micro version has to greater than or equal to the configfile
+#   micro version
+# - If the configfile has no minor or micro version stop here and assume
+#   everything is ok (this means 'can build with 0.10.x or 0.x').
+# - If the ptxdist minor or micro version is "svn" then no further checks are
+#   done. You know what you are doing when you use svn, don't you?
+#
+check_version () {
+	ptxdist="$1"
+	config="$2"
+
+	ptxdist_major=`echo $ptxdist | awk -F. '{print $1}'`
+	config_major=`echo $config | awk -F. '{print $1}'`
+	[ "$ptxdist_major" != "$config_major" ] && return 1
+
+	ptxdist_minor=`echo $ptxdist | awk -F. '{print $2}'`
+	config_minor=`echo $config | awk -F. '{print $2}'`
+	[ -z "$config_minor" ] && return 0
+	[ "$ptxdist_minor" = "svn" ] && return 0
+	[ "$ptxdist_minor" != "$config_minor" ] && return 1
+
+	ptxdist_micro=`echo $ptxdist | awk -F. '{print $3}'`
+	config_micro=`echo $config | awk -F. '{print $3}'`
+	[ -z "$config_micro" ] && return 0
+	[ "$ptxdist_micro" = "svn" ] && return 0
+	[ "$ptxdist_micro" -lt "$config_micro" ] && return 1
+
+	return 0
+}
+
 #
 # Check for existence of a ptxconfig file
 # check_ptxconfig()
@@ -112,13 +146,15 @@ check_ptxconfig() {
 		exit 1
 	fi
 
-	# sanity check: we process only files which have been built with the
-	# same PTXdist version!
-
 	PTXCONF_CONFIGFILE_VERSION=$(. ${PTXCONFIG} && echo ${PTXCONF_CONFIGFILE_VERSION})
-	if [ "${PTXCONF_CONFIGFILE_VERSION}" != "${FULLVERSION}" ]; then
+
+	check_version "${FULLVERSION}" "${PTXCONF_CONFIGFILE_VERSION}"
+	if [ "$?" != 0 ]; then
 		echo
-		echo "${PROMPT}error: trying to build ptxdist \"${PTXCONF_CONFIGFILE_VERSION}\" project with \"${FULLVERSION}\""
+		echo "${PROMPT}error: The configfile version and ptxdist version do not match:"
+		echo
+		echo "        configfile version: ${PTXCONF_CONFIGFILE_VERSION}"
+		echo "        ptxdist version:    ${FULLVERSION}"
 		echo
 		exit 1
 	fi
