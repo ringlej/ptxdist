@@ -1,20 +1,195 @@
-2007-04-19  Robert Schwebel <r.schwebel@pengutronix.de>
+2007-05-04  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
 
-	* pcre: fixed URL; patch by Juergen Kilb
+	* apply_patch_series.sh: removed debug 
+	* apply_patch_series.sh: be a bit more sane, don't fail on
+	existing patches subdirs or series files
+	
+	* rules/pre/Rules.make: set PKG_CONFIG_PATH to nix, in HOST ENV
+	prevent host stuff leak into our own stuff
+
+2007-05-04  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* alsa-utils: consider new alsa-lib menu entries
+	* alsa-lib: adding more menu entries and help for more specific
+	configuration
+	* utelnetd.make: Using correct packet name for user's startup script
+	* u-boot.in: some help added
+
+2007-05-04  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* kernel: do not use kernel-patches-target and
+	kernel-patches-native anymore. The kernel patches are now placed
+	under patches/linux-version like for every other package
+
+	* ptxdist: check a ptxdist version against a configfile version.
+
+	- The ptxdist major version has to be equal to the configfile major version
+	- The ptxdist minor version has to be equal to the configfile minor version
+	- The ptxdist micro version has to greater than or equal to the configfile
+	  micro version
+	- If the configfile has no minor or micro version stop here and assume
+	  everything is ok (this means 'can build with 0.10.x or 0.x').
+	- If the ptxdist minor or micro version is "svn" then no further checks are
+	  done. You know what you are doing when you use svn, don't you?
+
+	* ptxdist: use quilt to apply patch stacks if we have it
+	* setterm: add setterm installation option
+
+2007-04-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* overall: removed some obsolete files
+
+2007-04-26  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* u-boot: add some help text
+
+2007-04-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* iptables: typo in lib name
+
+	* busybox: revert BB_ vs. BB_CONFIG_ change which comes due to
+	the fact that busybox uses a new kconfig. This patch makes it
+	possible to migrate old configurations in a sane time again ...
+
+2007-04-20  Sascha Hauer <s.hauer@pengutronix.de>
+	
+	* gdbserver: fixed get stage. We need to depend on gdb.get here
+	too, because otherwise, when gdbserver is selected but not gdb,
+	ptxdist will try to do a gdb.extract without doing gdb.get
+	beforehand
+
+2007-04-23  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* sqlite: version bump
+
+2007-04-23  Bjoern Buerger <b.buerger@pengutronix.de>
+
+	* projects directory is not mandatory anymore
+
+2007-04-20  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* busybox: add patch for stty
+
+2007-04-18  Robert Schwebel <r.schwebel@pengutronix.de>
+
 	* mgetty: fixed URL; patch by Juergen Kilb
+	* pcre: fixed URL; patch by Juergen Kilb
 	* rsync: fixed URL; patch by Juergen Kilb
 
-2007-03-27  Robert Schwebel <r.schwebel@pengutronix.de
+2007-04-18  Ladislav Michl <ladis@linux-mips.org>
+
+	* zip: added
+	* busybox: version bump to 1.4.2
+
+2007-04-16  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* tslib: version bump to 0.0.3
+	* udev: add basic rules
+	* libusb: added
+	* usbutils: added
+
+2007-04-16  Bjoern Buerger <b.buerger@pengutronix.de>
+
+	* ptxdist: changed default theme of ptxdist hotkeys are now
+	highlighted _bold_ black / _bold_ white
+	* ptxdist: changed menu title
+
+2007-04-12  Luotao Fu <l.fu@pengutronix.de>
+
+	* fuse: added
+	* iptables: version update, needed for kernel later than 2.6.19
+
+2007-04-11  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* samba: added issues to TODO file
+
+2007-04-10  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* u-boot: do not build u-boot as default it makes no sense for
+	x86 targets
+
+2007-04-10  Bjoern Buerger <b.buerger@pengutronix.de>
+
+	* chrony: several fixes and additions
+
+2007-04-05  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* u-boot: addded u-boot support
+
+2007-04-05  Ladislav Michl <ladis@linux-mips.org>
+
+	* glib: Fix glib targetinstall. Patch by Manfred Gruber.
+	* init: Copy user defined init script from correct location.
+	Patch by Jari Takkala.
+
+2007-04-05  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* freetype-2.1.10:
+	delete unused patches
+	* procps-2.0.16:
+	delete unused patches
+	* xorg-server-X11R7.0-1.0.1:
+	delete ununsed patches
+	* libX11-X11R7.0-1.0.0, libXt-X11R7.0-1.0.0:
+	delete unused patches
+	* crosstool-0.32, crosstool-0.38:
+	delete ununsed patches
+
+2007-04-04  Ladislav Michl <ladis@linux-mips.org>
+
+	* openssh: Fix openssh startup script installation. Patch by
+	Manfred Gruber <m.gruber@tirol.com>
+
+2007-03-27  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* glib: updated to 2.12.9
-
 	* sqlite: Version 3.2.8 is no longer at the sqlite.org URL so
 	downloading was broken. Here's a small patch to support building
 	the latest release... Patch by Randall Loomis.
 
 2007-03-19  Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* php4: removed
+	* php5: compiles in minimal config now
+	* xerces: fix sysroot problem
+	* fbtest: add patch to use -O2 instead of -O3; works around a
+	compiler issue
 	* xli: added
+
+2007-03-16  Bjoern Buerger <b.buerger@pengutronix.de>
+	
+	* xterm: source vanished. upgraded to 224
+
+2007-03-13  Bjoern Buerger <b.buerger@pengutronix.de>
+
+	* apache2: minor documentation fix
+	* chrony: added chrony default config, tools, menu entries
+	* rootfs: reordered entries in accordance to rc.d default start
+	order
+	* rootfs: removed duplicate dependency
+
+2007-03-13  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: ptxdist should return valid return value
+
+2007-03-11  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* TODO: more issues
+	* init: this may avoid the 'cp -a /dev/{console,null}' hackery
+	  with root permissions
+
+2007-03-11  Juergen Beisert <j.beisert@pengutronix.de>
+	
+	* busybox: adding some notes about failing install stages
+	 - do not leave symbol BB_PREFIX empty
+	 - could be accidentally happen when migrating from older ptxdist releases
+	   (and reconfigure the whole busybox again)
+	 - gives curious error messages then
+
+2007-03-10  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* gettext: use generic macro instead of handmade stuff
+	* qt-embedded: added patches for casts which lose precision
 
 2007-03-09  Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -23,6 +198,186 @@
 	* TOOLCHAINS: removed (also obsolete)
 	* pending_patches: removed
 	* configure: add check for g++ (it is needed...)
+
+2007-03-09  Ladislav Michl <ladis@linux-mips.org>
+
+	* busybox: Upgrade to busybox-1.4.1
+	* udev: upgrade to udev-106
+	* utelnet: Install startup link only if startup script is
+	installed.
+	* apache2: fix module instalation.
+
+2007-03-09  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* pkg-config-wrapper: fixed
+
+2007-03-09  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: adding generic project path issue
+	* TODO: PKG_CONFIG_PATH leaks into PTXdist
+
+2007-03-08  Ladislav Michl <ladis@linux-mips.org>
+
+	* openssh: remove duplicate startup link instalation.
+
+2007-03-08  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* mc.in: Using correct default symbol for MMI preference
+
+2007-03-07  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* zlib.make: Issue solved
+
+2007-03-07  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* zlib.make:
+	fixed zlibs version numbers (to 1.2.3 again)
+
+2007-03-07  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* fakeroot: issue solved
+	* TODO: new issues added about broken or useless features
+
+2007-03-06  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* fakeroot: update to 1.5.10 for fixing the glibc-2.5 issues
+	with *at syscalls
+	* fakeroot: added patches for glibc-2.5
+
+2007-03-02  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* bin/ptxdist:
+	check_dirs_prefix():
+	removed superflous {} when creating dirs
+	thanks to lowlander for spotting this
+
+2007-03-01  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* powerpc: add device tree compiler and oftree support
+
+2007-02-28  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* rootfs.make: correct path for user defined rcS script
+	* rootfs.make/rootfs_init_d_files.in: Install rcS script from
+	selectable source
+	* rcS: conflict removed
+	 - no more lo device initialisation in rcS
+	 - lo initialisation is done in the network script only
+
+2007-02-28  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+	
+	* module-init-tools.make: don't build documentation
+	* TODO: added remark for jffs2 images
+
+2007-02-27  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* thttpd: adding open issue to the TODO list - fixing error
+	message, when the service is not running and should be stopped
+	* TODO: switching images should not rebuild the whole project
+
+2007-02-26  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: hd images via ipkg
+
+2007-02-20  Luotao Fu <l.fu@pengutronix.de>
+
+	* initng: fixed depencencies
+	* nfsutils: fixed make install failure while not target
+	installing statd
+
+2007-02-15  Luotao Fu <l.fu@pengutronix.de>
+
+	* host-pelts: version bump
+
+2007-02-12  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+	
+	* busybox.make: added parallelmflags
+	* host-glib.make: regenerated makefile
+	* alsa-lib.make, glib.make: removed --libdir hack
+	* pre/Rules.make: fixup .la files before "make install"
+
+2007-02-11  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+
+	* rules/ncurses.make: grmpf: fixed targetinstall stage
+	* rules/ncurses.make: version bump -> 5.6 PARALLELMFLAGS added,
+	cause they are working now
+
+2007-02-09  Luotao Fu <l.fu@pengutronix.de>
+
+	* xorg-lib-X11: added missing generic xlocale file
+	* xorg-lib-Xfont: fixed recursive dependencies
+	* fonts: fonts installation now depends on xlib, so that it's no
+	long chosen as default in empty projects
+	* general: several dependency enhancements
+	* alsa-lib: fixed libdir to run linker on 64bit host
+
+2007-02-09  Sascha Hauer <s.hauer@pengutronix.de>
+
+	* ncurses: remove PARALLELMFLAGS, doesn't build on 8 CPUs
+
+2007-02-08  Luotao Fu <l.fu@pengutronix.de>
+
+	* configure: fixed malformed regexp in configure.ac
+
+2007-02-07  Ladislav Michl <ladis@linux-mips.org>
+
+	* patches: remove obsolete patches for linux-2.4.21,
+	modutils-2.4.27 and uClibc-0.9.26.
+
+2007-02-07  Luotao Fu <l.fu@pengutronix.de>
+
+	* glib: fixed targetoveriding and removed unnecessary get
+	* TODO: updates
+	* configure: added checking for localedef on host machine with
+	belocs locales bin package
+
+2007-02-06  Luotao Fu <l.fu@pengutronix.de>
+
+	* alsa-lib: linking explicitly from sysroot
+	* xorg-app-xinit: fixed libdir bug
+	* glibc: fixed gconv bug
+
+2007-02-05  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* kernel: extract stage seems to touch kernel configuration
+
+2007-02-02  Luotao Fu <l.fu@pengutronix.de>
+
+	* font-alias: patch for variable fonts problems
+	* glib: define libdir to prevent linking from /usr/lib
+	* glib: added glib hosttool to enable crosscompiling on machines
+	without glib-genmarshal
+
+2007-02-01  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* openntpd: configure file added (on demand)
+
+2007-01-31  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* to be removed: documentation
+
+2007-01-30  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* memedit: Requires readline with ncurses
+	* readline: adding termcap or ncurses to be used - configure
+	does not do the right thing yet. If termcap and ncurses is found
+	it selects termcap even if --with-curses was given
+	* TODO: added more future work
+	* Toplevel.make: fix path and wrong tool to create a uboot multi
+	image; patch by Steven Scholz modified and applied
+	* cyclictest: dependency to librt added; patch from Steven
+	Scholz
+	* ipkg: Configure file makes no sense without the ipkg binary;
+	dependency fixed
+	* ipkg config: dependencies fixed; patch by Steven Scholz
+
+2007-01-29  Juergen Beisert <j.beisert@pengutronix.de>
+
+	* TODO: add notes for next release
+
+2007-01-28  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* trunk: backports from 0.10.6-branch
 
 2007-01-28  Robert Schwebel <r.schwebel@pengutronix.de>
 
