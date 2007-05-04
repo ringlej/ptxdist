@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # apply_patch_series: either apply a patch series to a directory or
 #                     apply all patches from a given directory
@@ -17,6 +17,75 @@ usage() {
 	echo "  -p <path>      apply all patches from <path>"
 	echo "  -d <directory> target directory"
 	exit 1
+}
+
+do_quilt() {
+	# If there is a file called "series" we can't use quilt....
+
+	if test -e series; then
+		return 1
+	fi
+
+	if test -e patches; then
+		export QUILT_PATCHES=_ptx_patches
+		echo
+		echo "I'm using \"_ptx_patches\" for quilt, not \"patches\""
+		echo "(This is just a warning)"
+		echo
+	else
+		export QUILT_PATCHES=patches
+	fi
+
+	ln -s "${PATCHESPATH}" ${QUILT_PATCHES}
+
+	if [ -f "${SERIES}" ]; then
+		ln -s "${SERIES}" series
+	else
+		(cd $PATCHESPATH && find  -name "*.patch" -or -name "*.diff" -or -name "*.gz" -or -name "*.bz2") > series
+	fi
+
+	quilt push -a
+	if [ "$?" != 0 ]; then
+		exit 1;
+	fi
+
+	exit 0;
+}
+
+
+do_classic() {
+	{
+		if [ -f "$SERIES" ]; then
+			cat "$SERIES"
+		else
+			cd $PATCHESPATH && find  -name "*.patch" -or -name "*.diff" -or -name "*.gz" -or -name "*.bz2"
+		fi
+	} | egrep -v "^[[:space:]]*#" | egrep -v "^[[:space:]]*$" | while read patchfile patchpara; do
+		abspatch="$PATCHESPATH"/"$patchfile"
+		if [ ! -e "$abspatch" ]; then
+			echo "patch $abspatch does not exist. aborting"
+			exit 1
+		fi
+
+		case "$patchfile" in
+		*.gz)
+			CAT=zcat
+			;;
+		*.bz2)
+			CAT=bzcat
+			;;
+		*)
+			CAT=cat
+			;;
+		esac;
+
+		echo "applying $abspatch"
+		if [ $patchpara ] && [ `echo $patchpara | egrep '\-p[0-9]+'` ] ;then
+			$CAT "$abspatch" | patch $patchpara || exit 1
+		else
+			$CAT "$abspatch" | patch -p1 || exit 1
+		fi
+	done
 }
 
 #
@@ -49,54 +118,12 @@ shift `expr $OPTIND - 1`
 pushd "$TARGET" || exit 1
 
 # if we have quilt use it to apply the patchstack
-if [ -n "$(which quilt)" ]; then
-	ln -s $PATCHESPATH patches
-
-	if [ -f "$SERIES" ]; then
-		ln -s "$SERIES" series
-	else
-		(cd $PATCHESPATH && find  -name "*.patch" -or -name "*.diff" -or -name "*.gz" -or -name "*.bz2") > series
-	fi
-
-	quilt push -a
-
-	if [ "$?" != 0 ]; then
-		exit 1;
-	fi
-	exit 0;
+which quilt 1> /dev/null 2>&1
+if [ $? -eq 0 ]; then
+	do_quilt # if do_quilt returns try classic method
 fi
+do_classic
 
-{
-	if [ -f "$SERIES" ]; then
-		cat "$SERIES"
-	else
-		cd $PATCHESPATH && find  -name "*.patch" -or -name "*.diff" -or -name "*.gz" -or -name "*.bz2"
-	fi
-} |
-egrep -v "^[[:space:]]*#" | egrep -v "^[[:space:]]*$" | while read patchfile patchpara; do
-	abspatch="$PATCHESPATH"/"$patchfile"
-	if [ ! -e "$abspatch" ]; then
-		echo "patch $abspatch does not exist. aborting"
-		exit 1
-	fi
-	case "$patchfile" in
-	*.gz)
-		CAT=zcat
-		;;
-	*.bz2)
-		CAT=bzcat
-		;;
-	*)
-		CAT=cat
-		;;
-	esac;
-	echo "applying $abspatch"
-	if [ $patchpara ] && [ `echo $patchpara | egrep '\-p[0-9]+'` ] ;then
-		$CAT "$abspatch" | patch $patchpara || exit 1
-	else
-		$CAT "$abspatch" | patch -p1 || exit 1
-	fi
-done
 
 if [ "$?" != 0 ]; then
 	exit 1;
