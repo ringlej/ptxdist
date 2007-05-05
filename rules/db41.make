@@ -49,6 +49,7 @@ $(STATEDIR)/db41.extract: $(db41_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(DB41_DIR))
 	@$(call extract, DB41)
+	@$(call patchin, DB41)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -93,8 +94,6 @@ db41_install: $(STATEDIR)/db41.install
 
 $(STATEDIR)/db41.install: $(db41_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
-	# @$(call install, DB41)
 	$(DB41_PATH) $(DB41_ENV) make -C $(DB41_DIR)/dist install
 	@$(call touch, $@)
 
@@ -115,11 +114,16 @@ $(STATEDIR)/db41.targetinstall: $(db41_targetinstall_deps_default)
 	@$(call install_fixup, db41,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, db41,DEPENDS,)
 	@$(call install_fixup, db41,DESCRIPTION,missing)
-	
-	# FIXME: RSC: the wildcard will probably break; fix when needed :-) 
-	# FIXME: RSC: use correct paths from the build directories
-	@$(call install_copy, db41, 0, 0, 0755, $(SYSROOT)/bin/db_*, /usr/bin/)
-	@$(call install_copy, db41, 0, 0, 0644, $(SYSROOT)/lib/libdb*.so*, /usr/lib/)
+
+	cd $(SYSROOT)/usr/bin && for file in db_*; do \
+		$(call install_copy, db41, 0, 0, 0755, $(SYSROOT)/usr/bin/$$file, /usr/bin/$$file); \
+	done
+	@$(call install_copy, db41, 0, 0, 0644, $(SYSROOT)/usr/lib/libdb-4.1.so, /usr/lib/libdb-4.1.so)
+	@$(call install_link, db41, libdb-4.1.so, /usr/lib/libdb-4.so)
+	@$(call install_link, db41, libdb-4.1.so, /usr/lib/libdb.so)
+	@$(call install_copy, db41, 0, 0, 0644, $(SYSROOT)/usr/lib/libdb_cxx-4.1.so, /usr/lib/libdb_cxx-4.1.so)
+	@$(call install_link, db41, libdb_cxx-4.1.so, /usr/lib/libdb_cxx-4.so)
+	@$(call install_link, db41, libdb_cxx-4.1.so, /usr/lib/libdb_cxx.so)
 
 	@$(call install_finish, db41)
 

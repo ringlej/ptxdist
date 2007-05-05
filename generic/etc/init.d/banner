@@ -6,11 +6,17 @@
 # Robert Schwebel <r.schwebel@pengutronix.de>
 #
 
+FIGLET="/usr/sbin/figlet"
+FIGLET_FONTS="/usr/share/figlet"
+
 echo
 echo "OSELAS(R)-@PROJECT@@PRJVERSION@ (@PTXDIST@-@VERSION@.@PATCHLEVEL@.@SUBLEVEL@@EXTRAVERSION@/@DATE@)"
 echo
 host=`/bin/hostname`
-/usr/sbin/figlet -f /usr/share/figlet/standard "@VENDOR@$host"
+if [ -n "@VENDOR@" ]; then
+	${FIGLET} -w 0 -f "${FIGLET_FONTS}/standard" "@VENDOR@"
+fi
+${FIGLET} -w 0 -f "${FIGLET_FONTS}/standard" "$host"
 echo
 echo
 

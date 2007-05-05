@@ -1,3 +1,22 @@
+2007-05-05  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* trunk: backports from 1.0.0-trunk 
+
+2007-05-05  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* release: released 1.0.0
+
+2007-05-04  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* figlet: fix output
+	* db41: cleanup; patch by Randall Loomis
+	* db41: fixed build issues with the patch above
+	* sysfsutils: fixed install path for systool; patch by Jari
+	Takkala
+	* alsa-lib: resmgr support is broken, because it needs libresmgr
+	* Rules.make: remove internal quotes in pkg-config path; patch
+	by Jari Takkala
+
 2007-05-04  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
 
 	* apply_patch_series.sh: removed debug 

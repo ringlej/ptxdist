@@ -120,7 +120,7 @@ ifdef PTXCONF_SYSFSUTILS_LIB
 	@$(call install_link, sysfsutils, libsysfs.so.2.0.0, /lib/libsysfs.so)
 endif
 ifdef PTXCONF_SYSFSUTILS_SYSTOOL
-	@$(call install_copy, sysfsutils, 0, 0, 0775, $(SYSFSUTILS_DIR)/cmd/systool, /bin/systool, n)
+	@$(call install_copy, sysfsutils, 0, 0, 0775, $(SYSFSUTILS_DIR)/cmd/.libs/systool, /bin/systool, n)
 endif
 	@$(call install_finish, sysfsutils)
 

@@ -1,6 +1,18 @@
 PTXdist
 =======
 
+Necessary Packages
+------------------
+
+In order to build ptxdist, you need three archives:
+
+	ptxdist-<version>.tgz		(mandatory)
+	ptxdist-<version>-patches.tgz	(mandatory)
+	ptxdist-<version>-projects.tgz	(optional)
+
+Extract these archives into some build directory; the tarballs are put
+together in a way that they extract into one subdir ptxdist-<version>.
+
 Installation
 ------------
 
@@ -16,9 +28,9 @@ to build everything and
 
 	make install
 
-in case you want to install it. When you start using PTXdist, make sure
-your $PATH environment variable points to <installpath>/bin, because
-that's where the ptxdist frontend program is being installed to. 
+to install it. When you start using PTXdist, make sure your $PATH
+environment variable points to <installpath>/bin, because that's where
+the ptxdist frontend program is being installed to. 
 
 For developers who want to work with svn versions of PTXdist it is only
 necessary to run "./configure && make" and set the PATH variable to the
@@ -28,23 +40,33 @@ bin/ directory inside the PTXdist tree.
 Quickstart
 ----------
 
-For the impatient: try out to compile your own Linux system for generic
-i586 and above machines by cloning the generic-i586-glibc project: 
+PTXdist comes with some example projects in the
 
-	somewhere$ ptxdist clone generic-i586-glibc myproject
+	ptxdist-<version>-projects.tgz 
+	
+archive. If this packet is installed with ptxdist it is possible to
+"clone" the example projects and use them i.e. as a start for your own
+project. Find out which projects are available, using
 
-This copies the generic-i586-glibc project into ./myproject, which is
+	$ ptxdist projects
+
+Then clone a project with
+
+	$ ptxdist clone <projectname> myproject
+
+This copies the project named <projectname> into ./myproject, which is
 your "workspace" for the following actions. 
 
 Change into your project's workspace and build everything: 
 
-	somewhere$ cd myproject
-	somewhere/myproject$ ptxdist go
+	$ cd myproject
+	$ ptxdist go
 
 This builds a root filesystem into the root/ directory of your
-workspace. You can try it with 
+workspace. If the project was built for the same architecture as your
+devenlopment machine, you can try it with 
 
-	somewhere/myproject$ chroot root/ /bin/sh
+	$ chroot root/ /bin/sh
 
 If you have more time to find out how it works, read on. 
 
@@ -58,8 +80,12 @@ but there is no reason why you can't use it to configure your firewall,
 router or whatever dedicated "device" comes to your mind. 
 
 The job works like this: you run 'ptxdist menuconfig', configure what
-you need and get a .config file. Run 'ptxdist go' and you'll find a 
+you need and get a 'ptxconfig' file. Run 'ptxdist go' and you'll find a
 root tree in root/. Voila. 
+
+All magic necessary to do these things in a cross enviroment are written
+into "recipies", living in rules/*.make, and config menues in
+rules/*.in.
 
 
 Directory Layout
