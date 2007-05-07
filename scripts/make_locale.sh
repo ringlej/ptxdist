@@ -53,8 +53,13 @@ add_locale() {
 		[ $? -ne 0 ] && { echo "Could not create temporary locales directory ${PREF}/usr/lib/locale"; exit 1; }
 	fi
 
+	# we have to first generate the split file and then combine it to
+	# archive since SuSE is stupid and patch the localedef in a
+	# weird way, that it doesn't pack the stuffs in archive as default.
 	I18NPATH=${SYSROOT_USR}/share/i18n \
-	localedef -i $LOCALE_DEF -f $CHARMAP $LOCALE_NAME --prefix=${PREF} 
+	localedef --no-archive -i $LOCALE_DEF -f $CHARMAP $LOCALE_NAME --prefix=${PREF}
+	I18NPATH=${SYSROOT_USR}/share/i18n \
+	localedef --add-to-archive ${PREF}/usr/lib/locale/${LOCALE_NAME} --prefix=${PREF}
 
 	[ $? -ne 0 ] && { echo "calling localedef binary failed"; exit 1; }
 
