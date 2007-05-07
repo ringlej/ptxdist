@@ -1,5 +1,7 @@
-TODO for 0.10.7
-===============
+TODO for 1.1.x
+==============
+
+[ ] rsc: fix python dependencies for related libs
 
 [ ] rsc: add 'quiet' support to start scripts
 
