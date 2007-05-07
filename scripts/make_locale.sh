@@ -58,7 +58,7 @@ add_locale() {
 
 	[ $? -ne 0 ] && { echo "calling localedef binary failed"; exit 1; }
 
-	[ ! -n ${PREF}/usr/lib/locale/locale-archive ] && { echo "locale archive generation failed"; exit 1; }
+	[ ! -e ${PREF}/usr/lib/locale/locale-archive ] && { echo "locale archive generation failed"; exit 1; }
 }
 
 add_locale "${@}"
