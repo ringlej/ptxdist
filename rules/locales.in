@@ -2,6 +2,7 @@ menuconfig LOCALES
 	bool
 	prompt "system locales                "
 	depends on GLIBC
+	select HOST_LOCALEDEF
 	help
 	  select this to enable locale installation, otherwise your system will only
 	  support locales "C" and "POSIX"

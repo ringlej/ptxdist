@@ -19,13 +19,14 @@ usage() {
 	echo "  -i definition	locale definitionfile"
 	echo "  -p prefix	prefix dir"
 	echo "  -n name		locale name"
+	echo "  -e exec		localedef excuteble"
 	exit 1
 }
 
 add_locale() {
 	local CHARMAP LOCALE_DEF PREF SYSROOT_USR LOCALE_NAME
 
-	while getopts "f:i:p:n::" opt; do
+	while getopts "f:i:p:n:e::" opt; do
 		case "${opt}" in
 		    f)
 			CHARMAP="${OPTARG}"
@@ -39,6 +40,9 @@ add_locale() {
 		    n)
 		    	LOCALE_NAME="${OPTARG}"
 			;;
+		    e)
+			LOCALEDEF="${OPTARG}"
+			;;
 		    *)
 			usage
 			;;
@@ -48,19 +52,15 @@ add_locale() {
 	SYSROOT_USR=`ptxd_get_sysroot_usr`
 	[ ! -d ${SYSROOT_USR} ] && { echo "Toolchain sysroot dir not found"; exit 1; }
 
+	I18NPATH=${SYSROOT_USR}/share/i18n	
+	[ ! -d ${I18NPATH} ] && { echo "I18NPATH source dir not found"; exit 1; }
+
 	if [ ! -d ${PREF}/usr/lib/locale ]; then
 		mkdir -p ${PREF}/usr/lib/locale 
 		[ $? -ne 0 ] && { echo "Could not create temporary locales directory ${PREF}/usr/lib/locale"; exit 1; }
 	fi
 
-	# we have to first generate the split file and then combine it to
-	# archive since SuSE is stupid and patch the localedef in a
-	# weird way, that it doesn't pack the stuffs in archive as default.
-	I18NPATH=${SYSROOT_USR}/share/i18n \
-	localedef --no-archive -i $LOCALE_DEF -f $CHARMAP $LOCALE_NAME --prefix=${PREF}
-	I18NPATH=${SYSROOT_USR}/share/i18n \
-	localedef --add-to-archive ${PREF}/usr/lib/locale/${LOCALE_NAME} --prefix=${PREF}
-
+	${LOCALEDEF} -i $LOCALE_DEF -f ${CHARMAP} $LOCALE_NAME --prefix=${PREF}
 	[ $? -ne 0 ] && { echo "calling localedef binary failed"; exit 1; }
 
 	[ ! -e ${PREF}/usr/lib/locale/locale-archive ] && { echo "locale archive generation failed"; exit 1; }
