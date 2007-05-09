@@ -1,0 +1,9 @@
+config ETHTOOL
+	bool
+	prompt "ethtool             "
+	help
+	  Ethtool is a GNU/Linux net driver diagnostic and tuning
+	  tool for the Linux 2.4.x (or later) series of kernels.
+	  It obtains information and diagnostics related to media,
+	  link status, driver version, PCI (or other) bus location,
+	  and more. 
