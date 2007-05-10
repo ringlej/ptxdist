@@ -1,0 +1,48 @@
+#
+# Submitted-By: Marc Kleine-Budde, 2007-05-10
+#
+# Error:
+#
+# Makefile is not sysroot aware
+#
+# State:
+#
+# unkown
+#
+---
+ pppd/Makefile.linux |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+Index: ppp-2.4.4/pppd/Makefile.linux
+===================================================================
+--- ppp-2.4.4.orig/pppd/Makefile.linux
++++ ppp-2.4.4/pppd/Makefile.linux
+@@ -96,8 +96,8 @@ endif
+ 
+ # EAP SRP-SHA1
+ ifdef USE_SRP
+-CFLAGS	+= -DUSE_SRP -DOPENSSL -I/usr/local/ssl/include
+-LIBS	+= -lsrp -L/usr/local/ssl/lib -lcrypto
++CFLAGS	+= -DUSE_SRP -DOPENSSL -I$(SYSROOT)/usr/ssl/include
++LIBS	+= -lsrp -L$(SYSROOT)/usr/ssl/lib -lcrypto
+ TARGETS	+= srp-entry
+ EXTRAINSTALL = $(INSTALL) -s -c -m 555 srp-entry $(BINDIR)/srp-entry
+ MANPAGES += srp-entry.8
+@@ -117,7 +117,7 @@ CFLAGS   += -DHAS_SHADOW
+ #LIBS     += -lshadow $(LIBS)
+ endif
+ 
+-ifneq ($(wildcard /usr/include/crypt.h),)
++ifneq ($(wildcard $(SYSROOT)/usr/include/crypt.h),)
+ CFLAGS  += -DHAVE_CRYPT_H=1
+ LIBS	+= -lcrypt
+ endif
+@@ -169,7 +169,7 @@ LIBS	+= -ldl
+ endif
+ 
+ ifdef FILTER
+-ifneq ($(wildcard /usr/include/pcap-bpf.h),)
++ifneq ($(wildcard $(SYSROOT)/usr/include/pcap-bpf.h),)
+ LIBS    += -lpcap
+ CFLAGS  += -DPPP_FILTER
+ endif
