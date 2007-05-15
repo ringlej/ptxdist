@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_SYSLOGNG) += syslogng
 SYSLOGNG_VERSION	:= 1.9.11
 SYSLOGNG		:= syslog-ng-$(SYSLOGNG_VERSION)
 SYSLOGNG_SUFFIX		:= tar.gz
-SYSLOGNG_URL		:= http://www.balabit.com/downloads/syslog-ng/1.9/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
+SYSLOGNG_URL		:= http://www.balabit.com/downloads/files/syslog-ng/1.9/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_SOURCE		:= $(SRCDIR)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_DIR		:= $(BUILDDIR)/$(SYSLOGNG)
 
