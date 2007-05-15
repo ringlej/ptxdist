@@ -21,7 +21,7 @@ PACKAGES-$(PTXCONF_LIBPOPT) += libpopt
 LIBPOPT_VERSION	:= 1.7
 LIBPOPT		:= popt-$(LIBPOPT_VERSION)
 LIBPOPT_SUFFIX	:= tar.gz
-LIBPOPT_URL	:= ftp://ftp.rpm.org/pub/rpm/dist/rpm-4.1.x/$(LIBPOPT).$(LIBPOPT_SUFFIX)
+LIBPOPT_URL	:= http://ftp.uni-erlangen.de/pub/mirrors/gentoo/$(LIBPOPT).$(LIBPOPT_SUFFIX)
 LIBPOPT_SOURCE	:= $(SRCDIR)/$(LIBPOPT).$(LIBPOPT_SUFFIX)
 LIBPOPT_DIR	:= $(BUILDDIR)/$(LIBPOPT)
 
