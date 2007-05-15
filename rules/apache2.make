@@ -20,7 +20,8 @@ PACKAGES-$(PTXCONF_APACHE2) += apache2
 APACHE2_VERSION	:= 2.0.58
 APACHE2		:= httpd-$(APACHE2_VERSION)
 APACHE2_SUFFIX	:= tar.bz2
-APACHE2_URL	:= http://ftp.uni-erlangen.de/pub/mirrors/apache/httpd/$(APACHE2).$(APACHE2_SUFFIX)
+#APACHE2_URL	:= http://ftp.uni-erlangen.de/pub/mirrors/apache/httpd/$(APACHE2).$(APACHE2_SUFFIX)
+APACHE2_URL	:= http://archive.apache.org/dist/httpd/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_SOURCE	:= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_DIR	:= $(BUILDDIR)/$(APACHE2)
 
