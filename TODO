@@ -1,6 +1,8 @@
 TODO for 1.1.x
 ==============
 
+[ ] bbu: add minimal documentation for internal vars (useful for customer makefiles)
+
 [ ] rsc: fix python dependencies for related libs
 
 [ ] rsc: add 'quiet' support to start scripts
