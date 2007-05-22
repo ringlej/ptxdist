@@ -20,12 +20,12 @@ all:
 	@echo "done."
 	@touch .done
 
-install: all 
+install: all
 	@echo "installing PTXdist to ${DESTDIR}${prefix}..."
 	@rm -fr ${DESTDIR}${instdir}
 	@mkdir -p ${DESTDIR}${instdir}
 	@test -d ${DESTDIR}${instdir} || exit 1
-	@touch ${DESTDIR}${instdir} || exit 1 
+	@touch ${DESTDIR}${instdir} || exit 1
 	@echo "installing PTXdist to ${DESTDIR}${prefix}/bin..."
 	tar -C ${abs_srcdir} -cf - --exclude .svn --exclude state --exclude debian . | tar -C ${DESTDIR}${instdir} -xvf -
 	@mkdir -p ${DESTDIR}${prefix}/bin
@@ -34,10 +34,10 @@ install: all
 	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist
 
 clean:
-	@test ! -f ${abs_srcdir}/scripts/lxdialog/Makefile || (cd ${abs_srcdir}/scripts/lxdialog && ${MAKE} clean)                        
-	@rm -f ${abs_srcdir}/scripts/lxdialog/Makefile                                                                                 
-	@cd ${abs_srcdir}/scripts/kconfig && ${MAKE} clean                                                                                
-	@rm -f .done                                                                                                                   
+	@test ! -f ${abs_srcdir}/scripts/lxdialog/Makefile || (cd ${abs_srcdir}/scripts/lxdialog && ${MAKE} clean)
+	@rm -f ${abs_srcdir}/scripts/lxdialog/Makefile
+	@cd ${abs_srcdir}/scripts/kconfig && ${MAKE} clean
+	@rm -f .done
 
 dist:
 	PTXDIST_TOPDIR=$(shell pwd); \
