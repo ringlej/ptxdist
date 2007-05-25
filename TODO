@@ -618,7 +618,7 @@ Old TODOs
 [ ] BBU: Implement scheme for alternative download-URLs as
     fallback (e.g. mirrors)
 
-[ ] BBU: rsync URLs
+[ ] BBU: rsync, git, svn URLs -> maybe download, repackage as tar for local use?
 
 [ ] BBU: show required cross-tool, host-gcc and -glibc-versions (compilercheck)
 
