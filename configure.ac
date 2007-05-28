@@ -161,12 +161,6 @@ if test -z "$MKTEMP"; then
 	AC_MSG_ERROR([mktemp could not be found, please install])
 fi
 
-dnl Check for pkg-config
-AC_PATH_PROGS(PKG_CONFIG, pkg-config,, $PATH)
-if test -z "${PKG_CONFIG}"; then
-	AC_MSG_ERROR([pkg-config could not be found, please install])
-fi
-
 dnl Check for wget
 AC_PATH_PROGS(WGET, wget,, $PATH)
 if test -z "$WGET"; then
