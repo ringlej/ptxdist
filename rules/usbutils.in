@@ -11,4 +11,8 @@ config USBUTILS_LSUSB
 	prompt "lsusb"
 	help
 	  lsusb - list the devices connected to a host
+	  Note: To use lsusb don't forget to enable kernel's
+	  usb filesystem and to mount it at runtime at /proc/bus/usb.
+	  An entry like "usbfs /proc/bus/usb usbfs devgid=14,devmode=0660 0  0"
+	  in the /etc/fstab does the job.
 
