@@ -625,7 +625,7 @@ endif
 ifdef PTXCONF_ROOTFS_BUSYBOX_USER_HTTPD_CONF
 	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/httpd.conf, \
-		etc/httpd.conf, n)
+		/etc/httpd.conf, n)
 endif
 
 # -----------------------------------------------------------------------------
