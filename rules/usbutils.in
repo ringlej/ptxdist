@@ -3,7 +3,7 @@ menuconfig USBUTILS
 	bool
 	prompt "usbutils            "
 	help
-	  usbutils 
+	  usbutils
 
 config USBUTILS_LSUSB
 	bool

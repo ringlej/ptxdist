@@ -115,7 +115,7 @@ $(STATEDIR)/usbutils.targetinstall: $(usbutils_targetinstall_deps_default)
 ifdef PTXCONF_USBUTILS_LSUSB
 	@$(call install_copy, usbutils, 0, 0, 0755, $(USBUTILS_DIR)/lsusb, /usr/bin/lsusb)
 endif
-	@$(call install_copy, usbutils, 0, 0, 0755, $(USBUTILS_DIR)/usb.ids, /usr/share/usb.ids)
+	@$(call install_copy, usbutils, 0, 0, 0644, $(USBUTILS_DIR)/usb.ids, /usr/share/usb.ids,n)
 
 	@$(call install_finish, usbutils)
 
