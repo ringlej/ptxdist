@@ -115,7 +115,7 @@ $(STATEDIR)/pciutils.targetinstall: $(pciutils_targetinstall_deps_default)
 
 	@$(call install_copy, pciutils, 0, 0, 0755, $(PCIUTILS_DIR)/lspci, /usr/bin/lspci)
 	@$(call install_copy, pciutils, 0, 0, 0755, $(PCIUTILS_DIR)/setpci, /usr/bin/setpci)
-	@$(call install_copy, pciutils, 0, 0, 0755, $(PCIUTILS_DIR)/pci.ids, /usr/share/pci.ids, n)
+	@$(call install_copy, pciutils, 0, 0, 0644, $(PCIUTILS_DIR)/pci.ids, /usr/share/pci.ids, n)
 
 	@$(call install_finish,pciutils)
 
