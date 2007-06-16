@@ -621,6 +621,14 @@ ifdef PTXCONF_ROOTFS_USER_CROND_CONF
 endif
 
 # -----------------------------------------------------------------------------
+# for Busybox only
+ifdef PTXCONF_ROOTFS_BUSYBOX_USER_HTTPD_CONF
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/httpd.conf, \
+		etc/httpd.conf, n)
+endif
+
+# -----------------------------------------------------------------------------
 # This part creates /etc/inetd.conf and /etc/services on demand
 # -----------------------------------------------------------------------------
 

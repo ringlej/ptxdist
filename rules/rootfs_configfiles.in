@@ -540,6 +540,20 @@ config ROOTFS_USER_CROND_CONF
 	  Install /var/spool/cron/crontabs/root from projectroot/crond/root and
 	  /etc/cron/daily from projectroot/crond/daily
 
+#
+# for Busybox' http only
+# install users httpd.conf
+#
+config ROOTFS_BUSYBOX_USER_HTTPD_CONF
+	depends on ROOTFS
+	depends on BB_CONFIG_HTTPD
+	default n
+	bool
+	prompt "project's httpd.conf configuration"
+	help
+	  Install /etc/httpd.conf from projectroot/etc/httpd.conf
+	  Note: This is for the busysbox based httpd only!
+
 # ----------------------------------------------------------------------------
 
 endmenu
