@@ -506,26 +506,6 @@ menuconfig ROOTFS_UDHCPC
 	endchoice
 
 #
-# /etc/ipkg.conf
-#
-config ROOTFS_GENERIC_IPKG_CONF
-	depends on ROOTFS
-	depends on IPKG
-	bool
-	prompt "/etc/ipkg.conf              "
-	help
-	  Installs a generic /etc/ipkg.conf file.
-
-	config ROOTFS_GENERIC_IPKG_CONF_URL
-		depends on ROOTFS_GENERIC_IPKG_CONF
-		string
-		prompt "IPKG Update Site URL"
-		default "http://some/path"
-		help
-		  This path is put into the /etc/ipkg.conf file and specifies
-		  where to find an IPKG packet feed.
-
-#
 # for Busybox' crond only
 # /var/spool/cron/crontabs/
 # /etc/crond.conf

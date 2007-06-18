@@ -2,7 +2,7 @@
 # $Id: template 2224 2005-01-20 15:19:18Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -114,24 +114,38 @@ $(STATEDIR)/ipkg.targetinstall: $(ipkg_targetinstall_deps_default)
 	@$(call install_fixup, ipkg,DEPENDS,)
 	@$(call install_fixup, ipkg,DESCRIPTION,missing)
 
-	@$(call install_copy, ipkg, 0, 0, 0644, $(IPKG_DIR)/.libs/libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0.0)
+	@$(call install_copy, ipkg, 0, 0, 0644, \
+		$(IPKG_DIR)/.libs/libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0.0)
 	@$(call install_link, ipkg, libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0)
 	@$(call install_link, ipkg, libipkg.so.0.0.0, /usr/lib/libipkg.so.0)
 
 ifdef PTXCONF_IPKG_LOG_WRAPPER
-	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg-cl)
+	@$(call install_copy, ipkg, 0, 0, 0755, \
+		$(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg-cl)
 	@$(call install_copy, ipkg, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/bin/ipkg_log_wrapper, \
 		/usr/bin/ipkg, n)
 else
-	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg)
+	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, \
+		/usr/bin/ipkg)
 endif
 
 ifdef PTXCONF_IPKG_EXTRACT_TEST
-	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/ipkg_extract_test, /usr/bin/ipkg_extract_test)
+	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/ipkg_extract_test, \
+		/usr/bin/ipkg_extract_test)
 endif
 ifdef PTXCONF_IPKG_HASH_TEST
-	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/ipkg_hash_test, /usr/bin/ipkg_hash_test)
+	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/ipkg_hash_test, \
+		/usr/bin/ipkg_hash_test)
+endif
+
+ifdef PTXCONF_IPKG_GENERIC_IPKG_CONF
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
+	$(call install_replace, rootfs, /etc/ipkg.conf, @SRC@, \
+		$(PTXCONF_IPKG_GENERIC_IPKG_CONF_URL))
+	@$(call install_replace, rootfs, /etc/ipkg.conf, @ARCH@, \
+  		$(PTXCONF_ARCH))
 endif
 
 	@$(call install_finish, ipkg)

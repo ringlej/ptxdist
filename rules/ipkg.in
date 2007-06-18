@@ -1,7 +1,12 @@
 menuconfig IPKG
 	bool "ipkg                          "
+# ipkg calls wget with long options!
+	select BB_CONFIG_FEATURE_WGET_LONG_OPTIONS if BB_CONFIG_WGET
 	help
-	  FIXME: This item needs to be documented
+	  IPKG is a small packet mechanism for embedded systems to
+	  maintain the applications on the system.
+	  It allows installing, updating or removing applications
+	  at runtime
 
 config IPKG_EXTRACT_TEST
 	bool
@@ -26,3 +31,30 @@ config IPKG_LOG_WRAPPER
 	help
 	  If selected, ipkg will be installed with a wrapper script
 	  which provides basic logging facilities
+
+config IPKG_GENERIC_IPKG_CONF
+	bool
+	prompt "install /etc/ipkg.conf"
+	default y
+	depends on ROOTFS
+	depends on IPKG
+	help
+	  Installs a generic /etc/ipkg.conf file.
+
+	config IPKG_GENERIC_IPKG_CONF_URL
+		depends on IPKG_GENERIC_IPKG_CONF
+		string
+		prompt "IPKG Update Site URL"
+		default "src http://some/path"
+		help
+		  This path is put into the /etc/ipkg.conf file and specifies
+		  where to find an IPKG packet feed.
+
+		  Note: Keep the "src" in front of the URL, its required if the
+		  URL should be used.
+
+		  If you don't want to use this feature, keep the whole entry empty.
+
+		  Important: To make ipkg work at runtime, you must install this
+		  configuration file. Without it you can't install new packages.
+
