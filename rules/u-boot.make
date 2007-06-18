@@ -81,7 +81,8 @@ u-boot_compile: $(STATEDIR)/u-boot.compile
 
 $(STATEDIR)/u-boot.compile: $(u-boot_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(U_BOOT_DIR) && $(U_BOOT_PATH) $(MAKE) $(PARALLELMFLAGS)
+# release 1.2.0 seems not be able to massive build in parallel
+	@cd $(U_BOOT_DIR) && $(U_BOOT_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -103,7 +104,7 @@ u-boot_targetinstall: $(STATEDIR)/u-boot.targetinstall
 $(STATEDIR)/u-boot.targetinstall: $(u-boot_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	cp $(U_BOOT_DIR)/u-boot.bin $(IMAGEDIR)/u-boot.bin
+	@cp $(U_BOOT_DIR)/u-boot.bin $(IMAGEDIR)/u-boot.bin
 
 	@$(call touch, $@)
 
@@ -112,8 +113,8 @@ $(STATEDIR)/u-boot.targetinstall: $(u-boot_targetinstall_deps_default)
 # ----------------------------------------------------------------------------
 
 u-boot_clean:
-	rm -rf $(STATEDIR)/u-boot.*
-	rm -rf $(IMAGEDIR)/u-boot_*
-	rm -rf $(U_BOOT_DIR)
+	@rm -rf $(STATEDIR)/u-boot.*
+	@rm -rf $(IMAGEDIR)/u-boot_*
+	@rm -rf $(U_BOOT_DIR)
 
 # vim: syntax=make

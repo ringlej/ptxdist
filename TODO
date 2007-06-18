@@ -1,6 +1,9 @@
 TODO for 1.1.x
 ==============
 
+[x] jbe: uboot-1.2.0's build system is not multi processor save
+	-> supress -j option
+
 [ ] jbe: suppress cross toolchain and toolchain vendor check while --native build
 
 [ ] bbu: add minimal documentation for internal vars (useful for customer makefiles)
