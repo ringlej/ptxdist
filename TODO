@@ -1,7 +1,10 @@
 TODO for 1.1.x
 ==============
 
+[ ] jbe: suppress cross toolchain and toolchain vendor check while --native build
+
 [ ] bbu: add minimal documentation for internal vars (useful for customer makefiles)
+	-> see manual (not quickstart)
 
 [ ] rsc: fix python dependencies for related libs
 
