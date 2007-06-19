@@ -222,7 +222,7 @@ config IMAGE_UIMAGE
 	select IMAGE_EXT2
 	select IMAGE_EXT2_GZIP
 	help
-	  The file images/uRamdisk can be loaded by the bootloader U-Boot
+	  The file images/uRamdisk can be loaded separatly by the bootloader U-Boot
 
 config IMAGE_UIMAGE_NAME
 	string
@@ -240,6 +240,25 @@ config IMAGE_UIMAGE_EXTRA_ARGS
 	help
 	  If needed you can add extra arguments for umkimage here
 	  (e.g. -a 0xaa00000 -e 0xaa00000 )
+
+config IMAGE_CPIO
+	bool
+	prompt "Generate images/initrd.gz"
+	help
+	  Build the traditionally initrd RAM disk to be used
+	  as initramfs by the kernel.
+
+# TODO: See comment in rules/other/Toplevel.make for this topic
+#config IMAGE_MULTI_UIMAGE
+#	bool
+#	prompt "Generate a multi image images/muimage"
+#	select HOST_UMKIMAGE
+#	select KERNEL
+#	select IMAGE_CPIO
+#	help
+#	  This generates a multi content image to be loaded by
+#	  the bootloader U-Boot. It contains the kernel and the
+#	  RAM disk in one image.
 
 config IMAGE_EXT2
 	bool

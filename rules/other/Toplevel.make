@@ -6,7 +6,7 @@
 #
 
 #
-# TODO: 
+# TODO:
 #
 # - We only support out-of-tree since 0.10; so the location of the
 #   makefile is always known. And OUTOFTREE is always true.
@@ -24,7 +24,7 @@ export SHELL
 
 # This makefile is called with PTXDIST_TOPDIR set to the PTXdist
 # toplevel installation directory. So we first source the static
-# definitions to inherit everything the ptxdist shellscript know: 
+# definitions to inherit everything the ptxdist shellscript know:
 
 include ${PTXDIST_TOPDIR}/scripts/ptxdist_version.sh
 
@@ -55,8 +55,8 @@ SRCDIR			= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
 endif
 
 #export HOME PTXDIST_WORKSPACE PTXDIST_TOPDIR
-#export PATCHDIR RULESDIR BUILDDIR CROSS_BUILDDIR 
-#export HOST_BUILDDIR STATEDIR IMAGEDIR ROOTDIR SRCDIR 
+#export PATCHDIR RULESDIR BUILDDIR CROSS_BUILDDIR
+#export HOST_BUILDDIR STATEDIR IMAGEDIR ROOTDIR SRCDIR
 
 -include $(PTXDIST_WORKSPACE)/ptxconfig
 
@@ -76,7 +76,7 @@ VIRTUAL			:=
 
 
 # ----------------------------------------------------------------------------
-# PTXCONF_PREFIX can be overwritten from the make var PREFIX 
+# PTXCONF_PREFIX can be overwritten from the make var PREFIX
 # ----------------------------------------------------------------------------
 
 ifdef PREFIX
@@ -88,7 +88,7 @@ endif
 # Include all rule files
 # ----------------------------------------------------------------------------
 
-all: 
+all:
 	@echo "ptxdist: error: please use ptxdist instead of calling make directly."
 	@exit 1
 
@@ -118,7 +118,7 @@ ALL_PACKAGES		:= \
 	$(HOST_PACKAGES) $(HOST_PACKAGES-)
 
 # ----------------------------------------------------------------------------
-# Install targets 
+# Install targets
 # ----------------------------------------------------------------------------
 
 PACKAGES_TARGETINSTALL 	:= $(addsuffix _targetinstall,$(PACKAGES)) $(addsuffix _targetinstall,$(VIRTUAL))
@@ -182,17 +182,17 @@ dep_world: $(HOST_PACKAGES_INSTALL) \
 	   $(PACKAGES_TARGETINSTALL)
 	@echo $@ : $^ | sed  -e 's/\([^ ]*\)_\([^_]*\)/\1.\2/g' >> $(DEP_OUTPUT)
 
-world: dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree 
+world: dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree
 
 host-tools:    dep_output_clean $(HOST_PACKAGES_INSTALL) dep_tree
-host-get:      getclean $(HOST_PACKAGES_GET) 
+host-get:      getclean $(HOST_PACKAGES_GET)
 host-extract:  $(HOST_PACKAGES_EXTRACT)
 host-prepare:  $(HOST_PACKAGES_PREPARE)
 host-compile:  $(HOST_PACKAGES_COMPILE)
 host-install:  $(HOST_PACKAGES_INSTALL)
 
 cross-tools:   dep_output_clean $(CROSS_PACKAGES_INSTALL) dep_tree
-cross-get:     getclean $(CROSS_PACKAGES_GET) 
+cross-get:     getclean $(CROSS_PACKAGES_GET)
 cross-extract: $(CROSS_PACKAGES_EXTRACT)
 cross-prepare: $(CROSS_PACKAGES_PREPARE)
 cross-compile: $(CROSS_PACKAGES_COMPILE)
@@ -260,29 +260,95 @@ ifdef PTXCONF_GRUB
 	GENHDIMARGS += -m $(GRUB_DIR)/stage1/stage1
 	GENHDIMARGS += -n $(GRUB_DIR)/stage2/stage2
 endif
+#
+# generate the list of source permission files
+#
+PERMISSION_FILES := $(wildcard $(STATEDIR)/*.perms)
 
-$(STATEDIR)/images: $(images_deps)
-	cat $(STATEDIR)/*.perms > $(IMAGEDIR)/permissions
+#
+# create one file with all permissions from all permission source files
+#
+$(IMAGEDIR)/permissions: $(PERMISSION_FILES)
+	@cat $^ > $@
+
+#
+# to extract the ipkgs we need a dummy config file
+#
+$(IMAGEDIR)/ipkg.conf:
+	@echo -e "dest root /\narch $(PTXCONF_ARCH) 10\narch all 1\narch noarch 1\n" > $@
+
+#
+# Working directory to create any kind of image
+#
+WORKDIR := $(IMAGEDIR)/work_dir
+
+#
+# Create architecture type for mkimge
+# Most architectures are working with label $(PTXCONF_ARCH)
+# but the i386 family needs "x86" instead!
+#
+ifeq ($(PTXCONF_ARCH),"i386")
+MKIMAGE_ARCH := "x86"
+else
+MKIMAGE_ARCH := $(PTXCONF_ARCH)
+endif
+
+#
+$(STATEDIR)/images: $(images_deps) $(IMAGEDIR)/permissions $(IMAGEDIR)/ipkg.conf
+# TODO: generate a list of current valid ipkg packages instead of using all
+# in the image directory!
+#
+# we need a temporarely working directory
+#
+	@rm -rf $(WORKDIR)
+	@mkdir $(WORKDIR)
+#
+# extract all current ipkgs into the working directory
+#
+	@echo "Extracting packages into working directory..."
+	@cd $(WORKDIR); \
+	for archive in $(IMAGEDIR)/*.ipk; do	\
+		$(PTXCONF_HOST_PREFIX)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -force-depends \
+			-o $(WORKDIR) install "$$archive" 2>&1 >/dev/null; \
+	done
+	@echo "done."
+
 ifdef PTXCONF_IMAGE_TGZ
-	cd $(IMAGEDIR) && $(PTXDIST_TOPDIR)/scripts/make_image_tgz.sh $(ROOTDIR) permissions
+#
+# create the root.tgz image
+#
+	@echo "Creating root.tgz..."
+	@cd $(WORKDIR);							\
+	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
+	(	echo -n "tar -zcf ";					\
+		echo -n "$(IMAGEDIR)/root.tgz ." )			\
+	) | $(FAKEROOT) --
+	@echo "done."
 endif
+
 ifdef PTXCONF_IMAGE_JFFS2
-	@imagesfrom=$(IMAGEDIR);							\
-	cp $(PTXDIST_TOPDIR)/generic/etc/ipkg.conf $(IMAGEDIR)/ipkg.conf;		\
-	sed -i -e "s,@SRC@,,g" $(IMAGEDIR)/ipkg.conf;					\
-	sed -i -e "s,@ARCH@,$(PTXCONF_ARCH),g" $(IMAGEDIR)/ipkg.conf;			\
-	echo "Creating rootfs using packages from $$imagesfrom";				\
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/make_image_root.sh 	\
-		-i $$imagesfrom								\
-		-r $(ROOTDIR)								\
-		-p $(IMAGEDIR)/permissions						\
-		-e $(PTXCONF_IMAGE_JFFS2_BLOCKSIZE)					\
-		-j $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS)					\
-		-o $(IMAGEDIR)/root.jffs2						\
-		-f $(IMAGEDIR)/ipkg.conf
+#
+# create the JFFS2 image
+#
+	@echo "Creating root.jffs2..."
+	@cd $(WORKDIR);							\
+	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
+	(								\
+		echo -n "$(PTXCONF_HOST_PREFIX)/sbin/mkfs.jffs2 ";	\
+		echo -n "-d $(WORKDIR) ";				\
+		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
+		echo -n "$(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS) ";		\
+		echo -n "-o $(IMAGEDIR)/root.jffs2" )			\
+	) | $(FAKEROOT) --
+	@echo "done."
 endif
+
 ifdef PTXCONF_IMAGE_EXT2
-	cd $(ROOTDIR);									\
+#
+# create the ext2 image
+#
+	@echo "Creating root.ext2..."
+	@cd $(WORKDIR);									\
 	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&				\
 	(										\
 		echo -n "$(PTXCONF_HOST_PREFIX)/bin/genext2fs ";			\
@@ -291,39 +357,70 @@ ifdef PTXCONF_IMAGE_EXT2
 		echo -n "-d $(ROOTDIR) ";						\
 		echo "$(IMAGEDIR)/root.ext2" )						\
 	) | $(FAKEROOT) --
+	@echo "done."
 endif
 
 ifdef PTXCONF_IMAGE_HD
-
-	echo "Creating hdimg using $(IMAGEDIR)/root.ext2";				\
+# TODO
+	@echo "Creating hdimg from $(IMAGEDIR)/root.ext2";				\
 	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg		\
-	-o images/hd.img								\
+	-o $(IMAGEDIR)/hd.img								\
 	$(GENHDIMARGS)
+	@echo "done."
 endif
+
 ifdef PTXCONF_IMAGE_EXT2_GZIP
-	rm -f $(IMAGEDIR)/root.ext2.gz
-	cat $(IMAGEDIR)/root.ext2 | gzip -v9 > $(IMAGEDIR)/root.ext2.gz
+	@echo "Creating root.ext2.gz from root.ext2...";
+	@rm -f $(IMAGEDIR)/root.ext2.gz
+	@cat $(IMAGEDIR)/root.ext2 | gzip -v9 > $(IMAGEDIR)/root.ext2.gz
+	@echo "done."
 endif
+
 ifdef PTXCONF_IMAGE_UIMAGE
-	PATH=$(CROSS_PATH) mkimage \
-		-A $(PTXCONF_ARCH) \
+# TODO
+	$(PTXCONF_HOST_PREFIX)/bin/mkimage \
+		-A $(MKIMAGE_ARCH) \
 		-O Linux \
 		-T ramdisk \
 		-C gzip \
 		-n $(PTXCONF_IMAGE_UIMAGE_NAME) \
 		-d $(IMAGEDIR)/root.ext2.gz \
 		$(IMAGEDIR)/uRamdisk
+	@echo "done."
 endif
-ifdef PTXCONF_IMAGE_MKNBI
-	PERL5LIB=$(PTXCONF_PREFIX)/usr/local/lib/mknbi \
-		 $(PTXCONF_PREFIX)/usr/local/lib/mknbi/mknbi \
-		--format=$(MKNBI_EXT) \
-		--target=linux \
-		--output=$(IMAGEDIR)/$(PTXCONF_PROJECT).$(MKNBI_EXT) \
-		-a $(PTXCONF_IMAGE_MKNBI_APPEND) \
-		$(MKNBI_KERNEL) \
-		$(MKNBI_ROOTFS)
+
+ifdef PTXCONF_IMAGE_CPIO
+#
+# create traditional initrd.gz, to be used
+# as initramfs (-> "-H newc")
+#
+	@echo "Creating initrd.gz..."
+	@cd $(WORKDIR);							\
+	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
+	(								\
+		echo "find . | ";					\
+		echo "cpio --quiet -H newc -o | ";				\
+		echo "gzip -9 -n > $(IMAGEDIR)/initrd.gz" )		\
+	) | $(FAKEROOT) --
+	@echo "done."
 endif
+
+#
+# TODO: Find a way to always find the correct zipped kernel image on every
+# architecture.
+#
+#ifdef IMAGE_MULTI_UIMAGE
+#	@echo "Creating multi content uimage..."
+#	@$(PTXCONF_HOST_PREFIX)/bin/mkimage -A $(PTXCONF_ARCH)		\
+#		-O Linux -T multi -C gzip -a 0 -e 0			\
+#		-n 'Multi-File Image'					\
+#		-d $(KERNEL_DIR)/vmlinux.bin.gz:$(IMAGEDIR)/initrd.img	\
+#       	$(IMAGEDIR)/muimage
+#	@echo "done."
+#endif
+
+	@echo "Clean up temp working directory"
+	@rm -rf $(WORKDIR)
 	touch $@
 
 # ----------------------------------------------------------------------------
@@ -446,7 +543,7 @@ rootclean: imagesclean
 	@echo "done."
 	@echo -n "cleaning state/*.targetinstall... "
 	@rm -f $(STATEDIR)/*.targetinstall
-	@echo "done."	
+	@echo "done."
 	@echo -n "cleaning permissions............. "
 	@rm -f $(STATEDIR)/*.perms
 	@echo "done."
@@ -507,7 +604,7 @@ clean: projectclean
 
 distclean: clean
 	@echo -n "cleaning logfile................. "
-	@rm -f logfile* 
+	@rm -f logfile*
 	@echo "done."
 	@echo -n "cleaning .config................. "
 	@cd $(PTXDIST_WORKSPACE) && rm -f .config* .tmp*
@@ -536,7 +633,7 @@ distclean: clean
 # 		[ -d .svn ] && svn update; 				\
 # 	fi;
 # 	@echo "done."
-# 
+#
 # svn-stat:
 # 	@$(call targetinfo, svn stat in Toplevel)
 # 	@cd $(PTXDIST_TOPDIR) && svn stat
@@ -551,13 +648,13 @@ distclean: clean
 # Misc other targets
 # ----------------------------------------------------------------------------
 
-archive: distclean 
+archive: distclean
 	@echo
 	@echo "packaging sources ...... "
 	@echo "PLEASE RUN scripts/make_archive.sh --action create --topdir $(PTXDIST_TOPDIR) manually"
 	@echo "to get a clean archive (FIXME)"
 	svn stat
-	scripts/make_archive.sh --action create --topdir $(PTXDIST_TOPDIR) 
+	scripts/make_archive.sh --action create --topdir $(PTXDIST_TOPDIR)
 
 archive-toolchain: virtual-xchain_install
 	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(PTXDIST_TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
