@@ -221,6 +221,7 @@ DOPERMISSIONS = '{	\
 	if ($$1 == "n")	\
 		printf("mkdir -p .`dirname %s`; mknod -m %s .%s %s %s %s; chown %s.%s .%s;\n", $$2, $$5, $$2, $$6, $$7, $$8, $$3, $$4, $$2);}'
 
+
 images: $(STATEDIR)/images
 
 ipkg-push: $(STATEDIR)/ipkg-push
@@ -260,10 +261,18 @@ ifdef PTXCONF_GRUB
 	GENHDIMARGS += -m $(GRUB_DIR)/stage1/stage1
 	GENHDIMARGS += -n $(GRUB_DIR)/stage2/stage2
 endif
+
 #
 # generate the list of source permission files
 #
 PERMISSION_FILES := $(wildcard $(STATEDIR)/*.perms)
+
+#
+# List of all ipkgs that should be rootfs's base
+# TODO: generate a list of current valid ipkg packages
+# instead of using all in the images/ directory!
+#
+IPKG_FILES := $(wildcard $(IMAGEDIR)/*.ipk)
 
 #
 # create one file with all permissions from all permission source files
@@ -294,43 +303,44 @@ MKIMAGE_ARCH := $(PTXCONF_ARCH)
 endif
 
 #
-$(STATEDIR)/images: $(images_deps) $(IMAGEDIR)/permissions $(IMAGEDIR)/ipkg.conf
-# TODO: generate a list of current valid ipkg packages instead of using all
-# in the image directory!
+# Define what images should be build
 #
-# we need a temporarely working directory
-#
-	@rm -rf $(WORKDIR)
-	@mkdir $(WORKDIR)
+SEL_ROOTFS-y				:=
+SEL_ROOTFS-$(PTXCONF_IMAGE_TGZ)		+= $(IMAGEDIR)/root.tgz
+SEL_ROOTFS-$(PTXCONF_IMAGE_JFFS2)	+= $(IMAGEDIR)/root.jffs2
+SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2)	+= $(IMAGEDIR)/root.ext2
+SEL_ROOTFS-$(PTXCONF_IMAGE_HD)		+= $(IMAGEDIR)/hd.img
+SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2_GZIP)	+= $(IMAGEDIR)/root.ext2.gz
+SEL_ROOTFS-$(PTXCONF_IMAGE_UIMAGE)	+= $(IMAGEDIR)/uRamdisk
+SEL_ROOTFS-$(PTXCONF_IMAGE_CPIO)	+= $(IMAGEDIR)/initrd.gz
+
 #
 # extract all current ipkgs into the working directory
 #
-	@echo "Extracting packages into working directory..."
-	@cd $(WORKDIR); \
-	for archive in $(IMAGEDIR)/*.ipk; do	\
-		$(PTXCONF_HOST_PREFIX)/bin/ipkg-cl -f "$(IMAGEDIR)/ipkg.conf" -force-depends \
-			-o $(WORKDIR) install "$$archive" >/dev/null 2>&1;  \
-	done
-	@echo "done."
+$(STATEDIR)/image_working_dir: $(IPKG_FILES) $(IMAGEDIR)/permissions $(IMAGEDIR)/ipkg.conf
+	@rm -rf $(WORKDIR)
+	@mkdir $(WORKDIR)
+	@echo -n "Extracting ipkg packages into working directory..."
+	@$(FAKEROOT) -- $(PTXCONF_HOST_PREFIX)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(WORKDIR) install $(IPKG_FILES) 2>&1 >/dev/null
+	@$(call touch, $@)
 
-ifdef PTXCONF_IMAGE_TGZ
 #
 # create the root.tgz image
 #
-	@echo "Creating root.tgz..."
+$(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
+	@echo -n "Creating root.tgz from working dir..."
 	@cd $(WORKDIR);							\
 	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
 	(	echo -n "tar -zcf ";					\
-		echo -n "$(IMAGEDIR)/root.tgz ." )			\
+		echo -n "$@ ." )			\
 	) | $(FAKEROOT) --
 	@echo "done."
-endif
 
-ifdef PTXCONF_IMAGE_JFFS2
 #
 # create the JFFS2 image
 #
-	@echo "Creating root.jffs2..."
+$(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir
+	@echo -n "Creating root.jffs2 from working dir..."
 	@cd $(WORKDIR);							\
 	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
 	(								\
@@ -338,90 +348,94 @@ ifdef PTXCONF_IMAGE_JFFS2
 		echo -n "-d $(WORKDIR) ";				\
 		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
 		echo -n "$(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS) ";		\
-		echo -n "-o $(IMAGEDIR)/root.jffs2" )			\
+		echo -n "-o $@" )			\
 	) | $(FAKEROOT) --
 	@echo "done."
-endif
 
-ifdef PTXCONF_IMAGE_EXT2
 #
 # create the ext2 image
 #
-	@echo "Creating root.ext2..."
-	@cd $(WORKDIR);									\
-	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&				\
-	(										\
-		echo -n "$(PTXCONF_HOST_PREFIX)/bin/genext2fs ";			\
-		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) ";				\
-		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) ";				\
-		echo -n "-d $(ROOTDIR) ";						\
-		echo "$(IMAGEDIR)/root.ext2" )						\
+$(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
+	@echo -n "Creating root.ext2 from working dir..."
+	@cd $(WORKDIR);							\
+	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
+	(								\
+		echo -n "$(PTXCONF_HOST_PREFIX)/bin/genext2fs ";	\
+		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) ";		\
+		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) ";		\
+		echo -n "-d $(ROOTDIR) ";				\
+		echo "$@" )				\
 	) | $(FAKEROOT) --
 	@echo "done."
-endif
 
-ifdef PTXCONF_IMAGE_HD
+#
 # TODO
-	@echo "Creating hdimg from $(IMAGEDIR)/root.ext2";				\
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg		\
-	-o $(IMAGEDIR)/hd.img								\
-	$(GENHDIMARGS)
+#
+$(IMAGEDIR)/hd.img: $(IMAGEDIR)/root.ext2
+	@echo -n "Creating hdimg from root.ext2";			\
+	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg	\
+	-o $@ $(GENHDIMARGS)
 	@echo "done."
-endif
 
-ifdef PTXCONF_IMAGE_EXT2_GZIP
-	@echo "Creating root.ext2.gz from root.ext2...";
-	@rm -f $(IMAGEDIR)/root.ext2.gz
-	@cat $(IMAGEDIR)/root.ext2 | gzip -v9 > $(IMAGEDIR)/root.ext2.gz
-	@echo "done."
-endif
-
-ifdef PTXCONF_IMAGE_UIMAGE
+#
 # TODO
-	$(PTXCONF_HOST_PREFIX)/bin/mkimage \
+#
+$(IMAGEDIR)/root.ext2.gz: $(IMAGEDIR)/root.ext2
+	@echo -n "Creating root.ext2.gz from root.ext2...";
+	@rm -f $@
+	@cat $< | gzip -v9 > $@
+	@echo "done."
+
+#
+# TODO
+#
+$(IMAGEDIR)/uRamdisk: $(IMAGEDIR)/root.ext2.gz
+	@echo -n "Creating U-Boot ramdisk from root.ext2.gz...";
+	@$(PTXCONF_HOST_PREFIX)/bin/mkimage \
 		-A $(MKIMAGE_ARCH) \
 		-O Linux \
 		-T ramdisk \
 		-C gzip \
 		-n $(PTXCONF_IMAGE_UIMAGE_NAME) \
-		-d $(IMAGEDIR)/root.ext2.gz \
-		$(IMAGEDIR)/uRamdisk
+		-d $< \
+		$@
 	@echo "done."
-endif
 
-ifdef PTXCONF_IMAGE_CPIO
 #
 # create traditional initrd.gz, to be used
 # as initramfs (-> "-H newc")
 #
-	@echo "Creating initrd.gz..."
+$(IMAGEDIR)/initrd.gz: $(STATEDIR)/image_working_dir
+	@echo -n "Creating initrd.gz from working dir..."
 	@cd $(WORKDIR);							\
 	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
 	(								\
 		echo "find . | ";					\
 		echo "cpio --quiet -H newc -o | ";				\
-		echo "gzip -9 -n > $(IMAGEDIR)/initrd.gz" )		\
+		echo "gzip -9 -n > $@" )		\
 	) | $(FAKEROOT) --
 	@echo "done."
-endif
 
 #
 # TODO: Find a way to always find the correct zipped kernel image on every
 # architecture.
 #
-#ifdef IMAGE_MULTI_UIMAGE
-#	@echo "Creating multi content uimage..."
+#$(IMAGEDIR)/muimage: $(IMAGEDIR)/initrd.gz $(KERNEL_DIR)/???????
+#	@echo -n "Creating multi content uimage..."
 #	@$(PTXCONF_HOST_PREFIX)/bin/mkimage -A $(PTXCONF_ARCH)		\
 #		-O Linux -T multi -C gzip -a 0 -e 0			\
 #		-n 'Multi-File Image'					\
 #		-d $(KERNEL_DIR)/vmlinux.bin.gz:$(IMAGEDIR)/initrd.img	\
 #       	$(IMAGEDIR)/muimage
 #	@echo "done."
-#endif
 
+#
+# create all requested images and clean up when done
+#
+$(STATEDIR)/images:  $(SEL_ROOTFS-y) $(images_deps)
 	@echo "Clean up temp working directory"
-	@rm -rf $(WORKDIR)
-	touch $@
+	@rm -rf $(WORKDIR) $(STATEDIR)/image_working_dir
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Simulation
