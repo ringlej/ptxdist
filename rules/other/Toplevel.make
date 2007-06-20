@@ -308,8 +308,8 @@ $(STATEDIR)/images: $(images_deps) $(IMAGEDIR)/permissions $(IMAGEDIR)/ipkg.conf
 	@echo "Extracting packages into working directory..."
 	@cd $(WORKDIR); \
 	for archive in $(IMAGEDIR)/*.ipk; do	\
-		$(PTXCONF_HOST_PREFIX)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -force-depends \
-			-o $(WORKDIR) install "$$archive" 2>&1 >/dev/null; \
+		$(PTXCONF_HOST_PREFIX)/bin/ipkg-cl -f "$(IMAGEDIR)/ipkg.conf" -force-depends \
+			-o $(WORKDIR) install "$$archive" >/dev/null 2>&1;  \
 	done
 	@echo "done."
 
