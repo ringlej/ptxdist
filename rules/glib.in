@@ -1,14 +1,12 @@
 menuconfig GLIB
 	bool
 	prompt "glib                          "
-	select LIBICONV if GLIB_LIBICONV
-	select GETTEXT if GLIB_GETTEXT
 	select HOST_GLIB
 	help
-	  GLib is a library containing many useful C 
-	  routines for things such as trees, hashes, 
+	  GLib is a library containing many useful C
+	  routines for things such as trees, hashes,
 	  lists, and strings.  It is a useful general-purpose
-	  C library used by projects such as GTK+, 
+	  C library used by projects such as GTK+,
 	  GIMP, and GNOME.
 
 choice
@@ -28,6 +26,7 @@ choice
 	config GLIB_ICONV_LIBICONV
 		bool
 		prompt "libiconv"
+		select LIBICONV
 		help
 		  If iconv is not part of the C library, you can use GNU
 		  libiconv instead.
