@@ -476,34 +476,6 @@ ipkg-test: world
 
 # ----------------------------------------------------------------------------
 
-toolchains:
-	cd $(PTXDIST_WORKSPACE); 					\
-	rm -f TOOLCHAINS;						\
-	echo "Automatic Toolchain Compilation" >> TOOLCHAINS;		\
-	echo "--------------------------" >> TOOLCHAINS;		\
-	echo >> TOOLCHAINS;						\
-	echo start: `date` >> TOOLCHAINS;				\
-	echo >> TOOLCHAINS;						\
-	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-2.95.3_glibc_2.2.5     TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.3.3_glibc_2.3.2      TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.3.6_glibc_2.3.2_linux_2.6.14 TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-gnu-3.4.5_glibc_2.3.6      TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_arm-softfloat-linux-uclibc-3.3.3_uClibc-0.9.27 TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-2.95.3_glibc-2.2.5      TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.5_glibc-2.3.6       TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-uclibc-3.3.3_uClibc-0.9.27  TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_m68k-unknown-linux-uclibc-3.3.3_uClibc-0.9.27  TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_powerpc-405-linux-gnu-3.2.3_glibc-2.2.5        TOOLCHAINS;\
-	scripts/compile-test /usr/bin toolchain_powerpc-604-linux-gnu-3.4.1_glibc-2.3.3        TOOLCHAINS;\
-	echo >> TOOLCHAINS;						\
-	echo stop: `date` >> TOOLCHAINS;				\
-	echo >> TOOLCHAINS;
-
-#	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.2_glibc-2.3.3       TOOLCHAINS;\
-#	scripts/compile-test /usr/bin toolchain_i586-unknown-linux-gnu-3.4.4_glibc-2.3.5       TOOLCHAINS;\
-
-# ----------------------------------------------------------------------------
-
 qa-static:
 	@cd $(PTXDIST_WORKSPACE);					\
 	rm -f QA.log;							\
@@ -541,100 +513,6 @@ qa-static:
 # 	echo | tee -a QA-autobuild.log
 
 # ----------------------------------------------------------------------------
-# Cleaning
-# ----------------------------------------------------------------------------
-
-imagesclean:
-	@echo -n "cleaning images dir.............. "
-	@rm -fr $(IMAGEDIR)
-	@rm -f $(STATEDIR)/images
-	@echo "done."
-	@echo
-
-rootclean: imagesclean
-	@echo -n "cleaning root dir................ "
-	@rm -fr $(ROOTDIR)
-	@echo "done."
-	@echo -n "cleaning state/*.targetinstall... "
-	@rm -f $(STATEDIR)/*.targetinstall
-	@echo "done."
-	@echo -n "cleaning permissions............. "
-	@rm -f $(STATEDIR)/*.perms
-	@echo "done."
-	@echo
-
-projectclean: rootclean
-	@echo -n "cleaning state dir............... "
-	@for i in $(notdir $(wildcard $(STATEDIR)/*)); do 		\
-		[ -n "`echo \"$$i\" | grep host-`" ] || rm -fr $(STATEDIR)/$$i;\
-	done
-	@echo "done."
-	@echo -n "cleaning host build dir.......... "
-	@for i in $(wildcard $(BUILDDIR)/*); do 			\
-		echo -n $$i; 						\
-		rm -rf $$i; 						\
-		echo; echo -n "                                  ";	\
-	done
-	@rm -fr $(BUILDDIR)
-	@echo "done."
-	@echo -n "cleaning dependency tree ........ "
-	@rm -f $(DEP_OUTPUT) $(DEP_TREE_PS) $(DEP_TREE_A4_PS)
-	@echo "done."
-	@if [ -d $(PTXDIST_TOPDIR)/Documentation/manual ]; then				\
-		echo -n "cleaning manual.................. ";				\
-		make -C $(PTXDIST_TOPDIR)/Documentation/manual clean > /dev/null;	\
-		echo "done.";								\
-	fi;
-	@echo
-
-clean: projectclean
-	@echo -n "cleaning build-host dir.......... "
-	@for i in $(wildcard $(STATEDIR)/*); do rm -rf $$i; done
-	@for i in $(wildcard $(HOST_BUILDDIR)/*); do 			\
-		echo -n $$i; 						\
-		rm -rf $$i; 						\
-		echo; echo -n "                                  ";	\
-	done
-	@rm -fr $(HOST_BUILDDIR)
-	@echo "done."
-	@echo -n "cleaning build-cross dir......... "
-	@for i in $(wildcard $(CROSS_BUILDDIR)/*); do 			\
-		echo -n $$i; 						\
-		rm -rf $$i; 						\
-		echo; echo -n "                                  ";	\
-	done
-	@rm -fr $(CROSS_BUILDDIR)
-	@echo "done."
-	@echo -n "cleaning scripts dir............. "
-	@if [ -n "$(OUTOFTREE)" ]; then 				\
-		rm -fr $(PTXDIST_WORKSPACE)/scripts; 			\
-	else								\
-		make -s -C $(PTXDIST_WORKSPACE)/scripts/kconfig clean;	\
-		rm -f $(PTXDIST_WORKSPACE)/scripts/lxdialog/lxdialog;	\
-		rm -f $(PTXDIST_WORKSPACE)/scripts/lxdialog/Makefile;	\
-	fi
-	@echo "done."
-	@echo
-
-distclean: clean
-	@echo -n "cleaning logfile................. "
-	@rm -f logfile*
-	@echo "done."
-	@echo -n "cleaning .config................. "
-	@cd $(PTXDIST_WORKSPACE) && rm -f .config* .tmp*
-	@cd $(PTXDIST_WORKSPACE) && rm -f config/setup/scripts config/setup/.config scripts/scripts
-	@echo "done."
-	@echo -n "cleaning logs.................... "
-	@rm -fr $(PTXDIST_WORKSPACE)/logs/root-orig.txt $(PTXDIST_WORKSPACE)/logs/root-ipkg.txt $(PTXDIST_WORKSPACE)/logs/root.diff
-	@echo "done."
-	@if [ -n "$(OUTOFTREE)" ]; then 				\
-		rm -fr $(PTXDIST_WORKSPACE)/config;			\
-		rm -fr $(PTXDIST_WORKSPACE)/rules;			\
-		rm -fr $(PTXDIST_WORKSPACE)/state;			\
-	fi
-	@echo
-
-# ----------------------------------------------------------------------------
 # SVN Targets
 # ----------------------------------------------------------------------------
 
@@ -661,22 +539,6 @@ distclean: clean
 # ----------------------------------------------------------------------------
 # Misc other targets
 # ----------------------------------------------------------------------------
-
-archive: distclean
-	@echo
-	@echo "packaging sources ...... "
-	@echo "PLEASE RUN scripts/make_archive.sh --action create --topdir $(PTXDIST_TOPDIR) manually"
-	@echo "to get a clean archive (FIXME)"
-	svn stat
-	scripts/make_archive.sh --action create --topdir $(PTXDIST_TOPDIR)
-
-archive-toolchain: virtual-xchain_install
-	$(TAR) -C $(PTXCONF_PREFIX)/.. -jcvf $(PTXDIST_TOPDIR)/$(PTXCONF_GNU_TARGET).tar.bz2 \
-		$(shell basename $(PTXCONF_PREFIX))
-
-%_recompile:
-	@rm -f $(STATEDIR)/$*.compile
-	@make -C $(PTXDIST_WORKSPACE) $*_compile
 
 print-%:
 	@echo "$* is \"$($*)\""
