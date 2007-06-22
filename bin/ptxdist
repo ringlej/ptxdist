@@ -524,23 +524,25 @@ clean() {
 		rm -rf ${dir}
 	done
 
-	echo "${PROMPT}removing sysroot directories..."
-	ptxconf_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_PREFIX})
-	ptxconf_host_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_HOST_PREFIX})
-	ptxconf_cross_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_CROSS_PREFIX})
+	if test -f "${PTXCONFIG}"; then
+		echo "${PROMPT}removing sysroot directories..."
+		ptxconf_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_PREFIX})
+		ptxconf_host_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_HOST_PREFIX})
+		ptxconf_cross_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_CROSS_PREFIX})
 
-	for dir in ${ptxconf_prefix} ${ptxconf_host_prefix} ${ptxconf_cross_prefix}; do
-		if test \! -d "${dir}"; then
-			continue
-		fi
-		case "${dir}" in
-		    (${PTXDIST_WORKSPACE}/*)
-			rm -rf "${dir}"
-			;;
-		    (*)
-			;;
-		esac
-	done
+		for dir in ${ptxconf_prefix} ${ptxconf_host_prefix} ${ptxconf_cross_prefix}; do
+			if test \! -d "${dir}"; then
+				continue
+			fi
+			case "${dir}" in
+			    (${PTXDIST_WORKSPACE}/*)
+				rm -rf "${dir}"
+				;;
+			    (*)
+				;;
+			esac
+		done
+	fi
 
 	echo "${PROMPT}removing deps..."
 	rm -f depend.out deptree-a4.ps deptree.ps
@@ -886,9 +888,9 @@ while [ "$#" != "0" ]; do
 			rm -f .toolchain
 			echo "${PROMPT}removing logs dir..."
 			rm -fr logfile
-			if [ -h "ptxconfig" ]; then
+			if [ -h "${PTXCONFIG}" ]; then
 				echo "${PROMPT}removing ptxconfig link..."
-				rm ptxconfig
+				rm ${PTXCONFIG}
 			fi
 			echo
 			;;
