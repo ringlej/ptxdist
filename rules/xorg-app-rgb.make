@@ -119,7 +119,7 @@ $(STATEDIR)/xorg-app-rgb.targetinstall: $(xorg-app-rgb_targetinstall_deps_defaul
 
 	@$(call install_copy, xorg-app-rgb, 0, 0, 0644, \
 		$(XORG_APP_RGB_DIR)/rgb.txt, \
-		$(PTXCONF_XORG_DEFAULT_DATA_DIR)/X11/rgb.txt)
+		$(PTXCONF_XORG_DEFAULT_DATA_DIR)/X11/rgb.txt, n)
 
 	@$(call install_finish,xorg-app-rgb)
 
