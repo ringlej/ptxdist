@@ -179,6 +179,11 @@ $(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps_default)
 		fi;							\
 	done
 
+	@if test \! -e $(IMAGEDIR)/linuximage; then				\
+		echo "$(PTXCONF_KERNEL_IMAGE) not found, maybe bzImage on ARM";	\
+		exit 1;								\
+	fi
+
 ifdef  PTXCONF_KERNEL_INSTALL
 	@$(call install_init,  kernel)
 	@$(call install_fixup, kernel, PACKAGE, kernel)
