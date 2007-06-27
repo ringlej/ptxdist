@@ -12,6 +12,7 @@ config IMAGE_TGZ
 config IMAGE_HD
 	bool
 	select IMAGE_EXT2
+	select HOST_GENPART
 	prompt "Generate images/hd.img"
 	help
 	  General
