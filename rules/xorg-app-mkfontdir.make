@@ -117,7 +117,7 @@ $(STATEDIR)/xorg-app-mkfontdir.targetinstall: $(xorg-app-mkfontdir_targetinstall
 
 	@$(call install_copy, xorg-app-mkfontdir, 0, 0, 0755, \
 		$(XORG_APP_MKFONTDIR_DIR)/mkfontdir, \
-		/usr/bin/mkfontdir)
+		/usr/bin/mkfontdir, n)
 
 	@$(call install_finish, xorg-app-mkfontdir)
 
