@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_LTP) += ltp
 LTP_VERSION	= 20050505
 LTP		= ltp-full-$(LTP_VERSION)
 LTP_SUFFIX	= tgz
-LTP_URL		= http://mesh.dl.sourceforge.net/sourceforge/ltp/$(LTP).$(LTP_SUFFIX)
+LTP_URL		= $(PTXCONF_SETUP_SFMIRROR)/ltp/$(LTP).$(LTP_SUFFIX)
 LTP_SOURCE	= $(SRCDIR)/$(LTP).$(LTP_SUFFIX)
 LTP_DIR		= $(BUILDDIR)/$(LTP)
 
