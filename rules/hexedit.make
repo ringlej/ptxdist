@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_HEXEDIT) += hexedit
 #
 # Paths and names
 #
-HEXEDIT_VERSION	= 1.2.10
-HEXEDIT		= hexedit-$(HEXEDIT_VERSION)
-HEXEDIT_SUFFIX	= src.tgz
-HEXEDIT_URL	= http://merd.net/pixel/$(HEXEDIT).$(HEXEDIT_SUFFIX)
-HEXEDIT_SOURCE	= $(SRCDIR)/$(HEXEDIT).$(HEXEDIT_SUFFIX)
-HEXEDIT_DIR	= $(BUILDDIR)/$(HEXEDIT)
+HEXEDIT_VERSION	:= 1.2.12
+HEXEDIT		:= hexedit-$(HEXEDIT_VERSION)
+HEXEDIT_SUFFIX	:= src.tgz
+HEXEDIT_URL	:= http://rigaux.org/$(HEXEDIT).$(HEXEDIT_SUFFIX)
+HEXEDIT_SOURCE	:= $(SRCDIR)/$(HEXEDIT).$(HEXEDIT_SUFFIX)
+HEXEDIT_DIR	:= $(BUILDDIR)/$(HEXEDIT)
 
 
 # ----------------------------------------------------------------------------
