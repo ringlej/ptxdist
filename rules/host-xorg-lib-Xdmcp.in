@@ -1,3 +1,3 @@
 config HOST_XORG_LIB_XDMCP
-	select HOST-XORG-PROTO-X
+	select HOST_XORG_PROTO_X
 	bool
