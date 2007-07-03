@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
+# $Id: u-boot.make,v 1.4 2007-07-03 13:07:47 michl Exp $
 #
 # Copyright (C) 2007 by Sascha Hauer
 #
@@ -70,7 +70,7 @@ $(STATEDIR)/u-boot.prepare: $(u-boot_prepare_deps_default)
 	@$(call clean, $(U_BOOT_DIR)/config.cache)
 	cd $(U_BOOT_DIR) && \
 		$(U_BOOT_PATH) $(U_BOOT_ENV) \
-		make $(PTXCONF_U_BOOT_CONFIG)
+		$(MAKE) $(PTXCONF_U_BOOT_CONFIG)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -82,7 +82,9 @@ u-boot_compile: $(STATEDIR)/u-boot.compile
 $(STATEDIR)/u-boot.compile: $(u-boot_compile_deps_default)
 	@$(call targetinfo, $@)
 # release 1.2.0 seems not be able to massive build in parallel
-	@cd $(U_BOOT_DIR) && $(U_BOOT_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
+	@cd $(U_BOOT_DIR) && \
+		$(U_BOOT_PATH) $(U_BOOT_ENV) \
+		$(MAKE) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
