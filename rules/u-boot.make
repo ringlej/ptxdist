@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: u-boot.make,v 1.4 2007-07-03 13:07:47 michl Exp $
+# $Id: u-boot.make,v 1.5 2007-07-03 13:29:45 michl Exp $
 #
 # Copyright (C) 2007 by Sascha Hauer
 #
@@ -58,7 +58,7 @@ $(STATEDIR)/u-boot.extract: $(u-boot_extract_deps_default)
 u-boot_prepare: $(STATEDIR)/u-boot.prepare
 
 U_BOOT_PATH	:= PATH=$(CROSS_PATH)
-U_BOOT_ENV 	:= $(CROSS_ENV) CROSS_COMPILE=$(COMPILER_PREFIX)
+U_BOOT_ENV 	:= CROSS_COMPILE=$(COMPILER_PREFIX)
 
 #
 # autoconf
