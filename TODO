@@ -1,7 +1,13 @@
 TODO for 1.1.x
 ==============
 
-[ ] jbe: transfer ipkg's runtime configuration to the ipkg packet itself
+[ ] jbe: review samba configure stage. For a non-root and cross-compile run it
+	seems to omit many tests and switches of many features in the final
+	application.
+	-> check if samba_cv_HAVE_IFACE_IFCONF=yes and samba_cv_HAVE_MMAP=yes
+	   can be used all over all architectures as defaults
+
+[x] jbe: transfer ipkg's runtime configuration to the ipkg packet itself
 	-> its not rootfs
 
 [x] jbe: uboot-1.2.0's build system is not multi processor save
