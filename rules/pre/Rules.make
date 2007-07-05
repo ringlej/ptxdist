@@ -257,6 +257,11 @@ CROSS_ENV_AC := \
 CROSS_ENV_DESTDIR := \
 	DESTDIR=$(SYSROOT)
 
+ifdef NATIVE
+CROSS_ENV_LIBRARY_PATH := \
+	LD_LIBRARY_PATH="$(SYSROOT)/lib:$(SYSROOT)/usr/lib"
+endif
+
 #
 # We want to use DESTDIR and --prefix=/usr, to get no build paths in our
 # binaries. Unfortunately, not all packages support this, especially
@@ -286,7 +291,8 @@ CROSS_ENV := \
 	$(CROSS_ENV_FLAGS) \
 	$(CROSS_ENV_PKG_CONFIG) \
 	$(CROSS_ENV_AC) \
-	$(CROSS_ENV_DESTDIR)
+	$(CROSS_ENV_DESTDIR) \
+	$(CROSS_ENV_LIBRARY_PATH)
 
 CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR) $(CROSS_AUTOCONF_ARCH)
 CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) $(CROSS_AUTOCONF_ARCH)
@@ -297,7 +303,8 @@ CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
 	$(CROSS_ENV_FLAGS) \
 	$(CROSS_ENV_PKG_CONFIG) \
-	$(CROSS_ENV_DESTDIR)
+	$(CROSS_ENV_DESTDIR) \
+	$(CROSS_ENV_LIBRARY_PATH)
 
 CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR)
 CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT)
@@ -861,7 +868,15 @@ install_copy = 											\
 			;;									\
 		(*)										\
 			$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/$$PACKET/ipkg/$$DST;	\
+			if [ $$? -ne 0 ]; then							\
+				echo "Error: install_copy failed!";				\
+				exit 1;								\
+			fi;									\
 			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
+			if [ $$? -ne 0 ]; then							\
+				echo "Error: install_copy failed!";				\
+				exit 1;								\
+			fi;									\
 			;;									\
 		esac;										\
 		mkdir -p $(IMAGEDIR)/$$PACKET;							\
