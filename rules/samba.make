@@ -61,12 +61,24 @@ SAMBA_PATH	:= PATH=$(CROSS_PATH)
 
 SAMBA_ENV 	:= \
 	$(CROSS_ENV) \
-	samba_cv_HAVE_GETTIMEOFDAY_TZ=yes
+	SMB_BUILD_CC_NEGATIVE_ENUM_VALUES=no \
+	samba_cv_HAVE_GETTIMEOFDAY_TZ=yes \
+	samba_cv_USE_SETRESUID=yes \
+	samba_cv_HAVE_IFACE_IFCONF=yes
 
 #
 # autoconf
 #
 SAMBA_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+SAMBA_AUTOCONF += --sysconfdir=/etc/samba \
+		--libdir=/etc/samba \
+		--with-lockdir=/var/lock \
+		--with-piddir=/var/lock \
+      		--with-configdir=/etc/samba \
+		--with-logfilebase=/var/log \
+		--with-libdir=/etc/samba \
+		--with-privatedir=/etc/samba
 
 ifdef PTXCONF_SAMBA_CUPS
 SAMBA_AUTOCONF += --enable-cups
@@ -74,6 +86,9 @@ else
 SAMBA_AUTOCONF += --disable-cups
 endif
 
+ifdef PTXCONF_SAMBA_SMBFS
+SAMBA_AUTOCONF += --with-smbmount
+endif
 $(STATEDIR)/samba.prepare: $(samba_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SAMBA_DIR)/config.cache)
@@ -121,11 +136,75 @@ $(STATEDIR)/samba.targetinstall: $(samba_targetinstall_deps_default)
 	@$(call install_fixup, samba,DEPENDS,)
 	@$(call install_fixup, samba,DESCRIPTION,missing)
 
-ifdef PTXCONF_SAMBA_SMBD
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbd, /usr/sbin/smbd)
+	@$(call install_copy, samba, 0, 0, 0755, /etc/samba)	
+
+ifdef PTXCONF_SAMBA_COMMON
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/nmblookup, /usr/bin/nmblookup)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/net, /usr/bin/net)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbpasswd, /usr/bin/smbpasswd)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/testparm, /usr/bin/testparm)
+	@$(call install_copy, samba, 0, 0, 0644, $(SAMBA_DIR)/source/codepages/lowcase.dat, /etc/samba/lowcase.dat,n)
+	@$(call install_copy, samba, 0, 0, 0644, $(SAMBA_DIR)/source/codepages/upcase.dat, /etc/samba/upcase.dat,n)
+	@$(call install_copy, samba, 0, 0, 0644, $(SAMBA_DIR)/source/codepages/valid.dat, /etc/samba/valid.dat,n)
 endif
-ifdef PTXCONF_SAMBA_NMBD
+
+ifdef PTXCONF_ROOTFS_ETC_SAMBA_CONFIG_DEFAULT
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/samba/smb.conf, \
+		/etc/samba/smb.conf, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_SAMBA_CONFIG_USER
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/samba/smb.conf,\
+		/etc/samba/smb.conf, n)
+endif
+
+ifdef PTXCONF_SAMBA_SERVER
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbd, /usr/sbin/smbd)
 	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/nmbd, /usr/sbin/nmbd)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/pdbedit, /usr/sbin/pdbedit)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbcontrol, /usr/sbin/smbcontrol)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbstatus, /usr/sbin/smbstatus)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/tdbbackup, /usr/sbin/tdbbackup)
+endif
+ifdef PTXCONF_ROOTFS_ETC_SAMBA_SECRETS_USER
+	@$(call install_copy, rootfs, 0, 0, 0600, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/samba/secrets.tdb,\
+		/etc/samba/secrets.tdb, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_SAMBA_DEFAULT
+	@$(call install_copy, rootfs, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/samba, \
+		/etc/init.d/samba, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_SAMBA_USER
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/samba,\
+		/etc/init.d/samba, n)
+endif
+
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SAMBA_LINK),"")
+	@$(call install_copy, samba, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, samba, ../init.d/samba, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SAMBA_LINK))
+endif
+
+ifdef PTXCONF_SAMBA_CLIENT
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbcacls, /usr/bin/smbcacls)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbcquotas, /usr/bin/smbcquotas)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbtree, /usr/bin/smbtree)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbclient, /usr/bin/smbclient)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/rpcclient, /usr/bin/rpcclient)
+endif
+
+ifdef PTXCONF_SAMBA_LIBCLIENT
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/libsmbclient.so, /usr/lib/libsmbclient.so.0)
+	@$(call install_link, samba, libsmbclient.so.0.1, /usr/lib/libsmbclient.so.0)
+endif
+
+ifdef PTXCONF_SAMBA_SMBFS
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbmount, /usr/bin/smbmount)
+	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbumount, /usr/bin/smbumount)
 endif
 
 	@$(call install_finish, samba)
