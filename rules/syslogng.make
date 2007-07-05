@@ -175,13 +175,13 @@ ifdef PTXCONF_ROOTFS_ETC_SYSLOGNG_CONFIG_DEFAULT
 # install the generic one
 	@$(call install_copy, syslogng, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/syslog-ng.conf, \
-		/etc/syslog-ng.conf)
+		/etc/syslog-ng.conf, n)
 endif
 ifdef PTXCONF_ROOTFS_ETC_SYSLOGNG_CONFIG_USER
 # install users one
 	@$(call install_copy, syslogng, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/syslog-ng.conf, \
-		/etc/syslog-ng.conf)
+		/etc/syslog-ng.conf, n)
 endif
 endif
 	@$(call install_finish, syslogng)
