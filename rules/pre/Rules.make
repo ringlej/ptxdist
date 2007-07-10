@@ -399,7 +399,10 @@ add_locale =							\
 	PREF=$(strip $(4));					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)			\
 	$(SCRIPTSDIR)/make_locale.sh 				\
-		-f $$CHARMAP -i $$LOCALE_DEF -p $$PREF -n $$LOCALE_NAME
+		-e $(PTX_PREFIX_HOST)/bin/localedef 		\
+		-f $$CHARMAP -i $$LOCALE_DEF 			\
+		-p $$PREF 					\
+		-n $$LOCALE_NAME
 
 #
 # extract
