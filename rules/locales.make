@@ -130,7 +130,7 @@ $(STATEDIR)/locales.targetinstall: $(locales_targetinstall_deps_default)
 	@$(call install_copy, locales, 0, 0, 0755, $(LOCALES_DIR)/usr/lib/locale/locale-archive, \
 		/usr/lib/locale/locale-archive, n);
 	@$(call install_finish, locales)
-	
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
