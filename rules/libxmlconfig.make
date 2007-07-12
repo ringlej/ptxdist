@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBXMLCONFIG) += libxmlconfig
 #
 # Paths and names
 #
-LIBXMLCONFIG_VERSION	= 1.0.5
-LIBXMLCONFIG		= libxmlconfig-$(LIBXMLCONFIG_VERSION)
-LIBXMLCONFIG_SUFFIX	= tar.bz2
-LIBXMLCONFIG_URL	= http://www.pengutronix.de/software/libxmlconfig/download/$(LIBXMLCONFIG).$(LIBXMLCONFIG_SUFFIX)
-LIBXMLCONFIG_SOURCE	= $(SRCDIR)/$(LIBXMLCONFIG).$(LIBXMLCONFIG_SUFFIX)
-LIBXMLCONFIG_DIR	= $(BUILDDIR)/$(LIBXMLCONFIG)
+LIBXMLCONFIG_VERSION	:= 1.0.6
+LIBXMLCONFIG		:= libxmlconfig-$(LIBXMLCONFIG_VERSION)
+LIBXMLCONFIG_SUFFIX	:= tar.bz2
+LIBXMLCONFIG_URL	:= http://www.pengutronix.de/software/libxmlconfig/download/$(LIBXMLCONFIG).$(LIBXMLCONFIG_SUFFIX)
+LIBXMLCONFIG_SOURCE	:= $(SRCDIR)/$(LIBXMLCONFIG).$(LIBXMLCONFIG_SUFFIX)
+LIBXMLCONFIG_DIR	:= $(BUILDDIR)/$(LIBXMLCONFIG)
 
 
 # ----------------------------------------------------------------------------
@@ -58,13 +58,13 @@ $(STATEDIR)/libxmlconfig.extract: $(libxmlconfig_extract_deps_default)
 
 libxmlconfig_prepare: $(STATEDIR)/libxmlconfig.prepare
 
-LIBXMLCONFIG_PATH	=  PATH=$(CROSS_PATH)
-LIBXMLCONFIG_ENV 	=  $(CROSS_ENV)
+LIBXMLCONFIG_PATH	:=  PATH=$(CROSS_PATH)
+LIBXMLCONFIG_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBXMLCONFIG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+LIBXMLCONFIG_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/libxmlconfig.prepare: $(libxmlconfig_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -82,7 +82,7 @@ libxmlconfig_compile: $(STATEDIR)/libxmlconfig.compile
 
 $(STATEDIR)/libxmlconfig.compile: $(libxmlconfig_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LIBXMLCONFIG_DIR) && $(LIBXMLCONFIG_ENV) $(LIBXMLCONFIG_PATH) make
+	cd $(LIBXMLCONFIG_DIR) && $(LIBXMLCONFIG_ENV) $(LIBXMLCONFIG_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
