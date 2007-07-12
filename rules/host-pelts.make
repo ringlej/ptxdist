@@ -19,7 +19,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_PELTS) += host-pelts
 #
 # Paths and names
 #
-HOST_PELTS_VERSION	:= 1.0.7
+HOST_PELTS_VERSION	:= 1.0.8
 HOST_PELTS		:= pelts-$(HOST_PELTS_VERSION)
 HOST_PELTS_SUFFIX	:= tar.bz2
 HOST_PELTS_URL		:= http://www.pengutronix.de/software/pelts/download/v1/$(HOST_PELTS).$(HOST_PELTS_SUFFIX)
@@ -84,7 +84,7 @@ host-pelts_compile: $(STATEDIR)/host-pelts.compile
 
 $(STATEDIR)/host-pelts.compile: $(host-pelts_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_PELTS_DIR) && $(HOST_PELTS_ENV) $(HOST_PELTS_PATH) make
+	cd $(HOST_PELTS_DIR) && $(HOST_PELTS_ENV) $(HOST_PELTS_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
