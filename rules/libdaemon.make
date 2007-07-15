@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: template 5041 2006-03-09 08:45:49Z mkl $
+# $Id: libdaemon.make,v 1.7 2007-07-15 19:14:38 michl Exp $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #          
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBDAEMON) += libdaemon
 #
 # Paths and names
 #
-LIBDAEMON_VERSION	:= 0.10
+LIBDAEMON_VERSION	:= 0.12
 LIBDAEMON		:= libdaemon-$(LIBDAEMON_VERSION)
 LIBDAEMON_SUFFIX	:= tar.gz
 LIBDAEMON_URL		:= http://0pointer.de/lennart/projects/libdaemon/$(LIBDAEMON).$(LIBDAEMON_SUFFIX)
@@ -84,7 +84,7 @@ libdaemon_compile: $(STATEDIR)/libdaemon.compile
 
 $(STATEDIR)/libdaemon.compile: $(libdaemon_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LIBDAEMON_DIR) && $(LIBDAEMON_PATH) make
+	cd $(LIBDAEMON_DIR) && $(LIBDAEMON_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -117,15 +117,15 @@ $(STATEDIR)/libdaemon.targetinstall: $(libdaemon_targetinstall_deps_default)
 	@$(call install_fixup,libdaemon,DESCRIPTION,missing)
 
 	@$(call install_copy, libdaemon, 0, 0, 0644, \
-		$(LIBDAEMON_DIR)/libdaemon/.libs/libdaemon.so.0.2.4, \
-		/usr/lib/libdaemon.so.0.2.4)
+		$(LIBDAEMON_DIR)/libdaemon/.libs/libdaemon.so.0.3.1, \
+		/usr/lib/libdaemon.so.0.3.1)
 
 	@$(call install_link, libdaemon, \
-		libdaemon.so.0.2.4, \
+		libdaemon.so.0.3.1, \
 		/usr/lib/libdaemon.so.0)
 
 	@$(call install_link, libdaemon, \
-		libdaemon.so.0.2.4, \
+		libdaemon.so.0.3.1, \
 		/usr/lib/libdaemon.so)
 
 	@$(call install_finish,libdaemon)
