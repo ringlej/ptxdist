@@ -60,7 +60,7 @@ logrotate_prepare: $(STATEDIR)/logrotate.prepare
 LOGROTATE_PATH	:= PATH=$(CROSS_PATH)
 LOGROTATE_ENV 	:= $(CROSS_ENV) RPM_OPT_FLAGS='$(strip $(CROSS_CPPFLAGS))'
 
-LOGRORATE_MAKEVARS := OS_NAME=Linux LFS=-D_FILE_OFFSET_BITS=64
+LOGROTATE_MAKEVARS := OS_NAME=Linux LFS=-D_FILE_OFFSET_BITS=64
 
 $(STATEDIR)/logrotate.prepare: $(logrotate_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -74,7 +74,7 @@ logrotate_compile: $(STATEDIR)/logrotate.compile
 
 $(STATEDIR)/logrotate.compile: $(logrotate_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LOGROTATE_DIR) && $(LOGROTATE_ENV) $(LOGROTATE_PATH) $(MAKE) $(LOGRORATE_MAKEVARS)
+	cd $(LOGROTATE_DIR) && $(LOGROTATE_ENV) $(LOGROTATE_PATH) $(MAKE) $(LOGROTATE_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
