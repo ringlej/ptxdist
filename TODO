@@ -1,6 +1,12 @@
 TODO for 1.1.x
 ==============
 
+[ ] rsc: cyclictest needs a "select GLIBC" to fullfill the packet
+    dependency generation requirements
+
+[ ] rsc: SuSE has an old stat version which doesn't support --printf;
+    this breaks building of hd.img
+
 [ ] jbe: review samba configure stage. For a non-root and cross-compile run it
 	seems to omit many tests and switches of many features in the final
 	application.
