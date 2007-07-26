@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BINUTILS) += binutils
 #
 # Paths and names
 #
-BINUTILS_VERSION	:= 2.16.1
+BINUTILS_VERSION	:= 2.17
 BINUTILS		:= binutils-$(BINUTILS_VERSION)
 BINUTILS_SUFFIX		:= tar.bz2
 BINUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/binutils/$(BINUTILS).$(BINUTILS_SUFFIX)
@@ -113,6 +113,24 @@ binutils_targetinstall: $(STATEDIR)/binutils.targetinstall
 
 $(STATEDIR)/binutils.targetinstall: $(binutils_targetinstall_deps_default)
 	@$(call targetinfo, $@)
+	@$(call install_init, binutils)
+	@$(call install_fixup, binutils,PACKAGE,binutils)
+	@$(call install_fixup, binutils,PRIORITY,optional)
+	@$(call install_fixup, binutils,VERSION,$(BINUTILS_VERSION))
+	@$(call install_fixup, binutils,SECTION,base)
+	@$(call install_fixup, binutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, binutils,DEPENDS,)
+	@$(call install_fixup, binutils,DESCRIPTION,missing)
+
+	@$(call install_copy, binutils, 0, 0, 0755, $(BINUTILS_DIR)/binutils/.libs/objdump, \
+		/usr/bin/objdump)
+
+	@$(call install_copy, binutils, 0, 0, 0755, $(BINUTILS_DIR)/opcodes/.libs/libopcodes-2.17.so, /usr/lib/libopcodes-2.17.so )
+	@$(call install_link, binutils, libopcodes-2.17.so, /usr/lib/libopcodes.so)
+	@$(call install_copy, binutils, 0, 0, 0755, $(BINUTILS_DIR)/bfd/.libs/libbfd-2.17.so, /usr/lib/libbfd-2.17.so )
+	@$(call install_link, binutils, libbfd-2.17.so, /usr/lib/libbfd.so)
+
+	@$(call install_finish, binutils)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
