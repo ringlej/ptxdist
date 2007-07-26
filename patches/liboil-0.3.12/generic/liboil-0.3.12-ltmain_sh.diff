@@ -1,3 +1,16 @@
+# 
+# Submitted-By: Guillaume GOURAT, 2007-07-26
+# Committed-By: Robert Schwebel
+#
+# Description: 
+#
+# See https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=58664
+#
+# State:
+# 
+# not submitted to upstream
+#
+
 diff --unified --recursive liboil-0.3.12/ltmain.sh liboil-0.3.12-nx1/ltmain.sh
 --- liboil-0.3.12/ltmain.sh	2006-06-19 20:36:49.000000000 +0200
 +++ liboil-0.3.12-nx1/ltmain.sh	2007-07-26 16:45:07.000000000 +0200
