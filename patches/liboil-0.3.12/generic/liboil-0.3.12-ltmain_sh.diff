@@ -1,0 +1,12 @@
+diff --unified --recursive liboil-0.3.12/ltmain.sh liboil-0.3.12-nx1/ltmain.sh
+--- liboil-0.3.12/ltmain.sh	2006-06-19 20:36:49.000000000 +0200
++++ liboil-0.3.12-nx1/ltmain.sh	2007-07-26 16:45:07.000000000 +0200
+@@ -2545,7 +2545,7 @@
+ 	   { test "$use_static_libs" = no || test -z "$old_library"; }; then
+ 	  if test "$installed" = no; then
+ 	    notinst_deplibs="$notinst_deplibs $lib"
+-	    need_relink=yes
++	    #need_relink=yes
+ 	  fi
+ 	  # This is a shared library
+ 

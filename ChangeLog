@@ -1,3 +1,7 @@
+2007-07-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* liboil: added; patch by Guillaume Gourat.
+
 2007-05-05  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* trunk: backports from 1.0.0-trunk 

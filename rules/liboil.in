@@ -1,0 +1,10 @@
+config LIBOIL
+	bool
+	prompt "liboil"
+	help
+	  Liboil is a library of simple functions that are optimized for
+	  various CPUs ("optimization of inner loops"). See the project
+	  homepage for details:
+
+	  http://liboil.freedesktop.org/wiki/
+
