@@ -1,0 +1,3 @@
+config CROSS_INSIGHT
+	bool
+	prompt "insight"

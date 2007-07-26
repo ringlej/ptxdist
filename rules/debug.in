@@ -3,6 +3,7 @@
 
 source "rules/cppunit.in"
 source "rules/gdb.in"
+source "rules/cross-insight.in"
 
 source "rules/binutils.in"
 source "rules/memtest.in"
@@ -12,4 +13,4 @@ source "rules/ldd.in"
 source "rules/ltrace.in"
 source "rules/strace.in"
 source "rules/valgrind.in"
-
+source "rules/ltt-control.in"
