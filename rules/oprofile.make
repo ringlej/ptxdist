@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_OPROFILE) += oprofile
 #
 # Paths and names
 #
-OPROFILE_VERSION	= 0.9.1
+OPROFILE_VERSION	= 0.9.3
 OPROFILE		= oprofile-$(OPROFILE_VERSION)
 OPROFILE_SUFFIX		= tar.gz
 OPROFILE_URL		= $(PTXCONF_SETUP_SFMIRROR)/oprofile/$(OPROFILE).$(OPROFILE_SUFFIX)
@@ -112,7 +112,35 @@ oprofile_targetinstall: $(STATEDIR)/oprofile.targetinstall
 
 $(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME: nothing to do on targetinstall? 
+
+	@$(call install_init, oprofile)
+	@$(call install_fixup, oprofile,PACKAGE,oprofile)
+	@$(call install_fixup, oprofile,PRIORITY,optional)
+	@$(call install_fixup, oprofile,VERSION,$(MAD_VERSION))
+	@$(call install_fixup, oprofile,SECTION,base)
+	@$(call install_fixup, oprofile,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, oprofile,DEPENDS,)
+	@$(call install_fixup, oprofile,DESCRIPTION,missing)
+
+	@$(call install_copy, oprofile, 0, 0, 0755, $(OPROFILE_DIR)/utils/opcontrol, \
+		/usr/bin/opcontrol, 0)
+	@$(call install_copy, oprofile, 0, 0, 0755, $(OPROFILE_DIR)/pp/opreport, \
+		/usr/bin/opreport)
+	@$(call install_copy, oprofile, 0, 0, 0755, $(OPROFILE_DIR)/daemon/oprofiled, \
+		/usr/bin/oprofiled)
+	@$(call install_copy, oprofile, 0, 0, 0755, $(OPROFILE_DIR)/utils/ophelp, \
+		/usr/bin/ophelp)
+
+	#
+	# Currently we install the events and unit_mask files for all architectures.
+	# This wastes some space.
+	#
+	@for i in $$(find $(OPROFILE_DIR)/events/ -name "unit_masks" -o -name "events"); do \
+		$(call install_copy, oprofile, 0, 0, 0755, $$i, \
+			/usr/share/oprofile/$$(echo $$i | sed "s^$(OPROFILE_DIR)/events^^"), 0); \
+	done
+
+	@$(call install_finish, oprofile)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

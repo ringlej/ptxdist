@@ -4,7 +4,6 @@ config OPROFILE
 	# arrange_profiles.cpp:93: error: definition of 'bool
 	# profile_classes::matches(const profile_classes&)' is not in
 	# namespace enclosing 'profile_classes'
-	depends on BROKEN
 	select LIBPOPT
 	select BINUTILS
 	prompt "oprofile"
