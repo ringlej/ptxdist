@@ -1,2 +1,3 @@
 config HOST_XORG_LIB_XAU
+	select HOST_XORG_PROTO_X
 	bool
