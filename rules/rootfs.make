@@ -576,6 +576,16 @@ ifdef PTXCONF_ROOTFS_ETC_MODULES
 endif
 
 # -----------------------------------------------------------------------------
+ifdef PTXCONF_ROOTFS_GENERIC_IPKG_CONF
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
+	@$(call install_replace, rootfs, /etc/ipkg.conf, @SRC@, \
+		$(PTXCONF_ROOTFS_GENERIC_IPKG_CONF_URL))
+	@$(call install_replace, rootfs, /etc/ipkg.conf, @ARCH@, \
+  		$(PTXCONF_ARCH))
+endif
+
+# -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_UDHCPC
 
 ifdef PTXCONF_ROOTFS_GENERIC_UDHCPC
@@ -608,14 +618,6 @@ ifdef PTXCONF_ROOTFS_USER_CROND_CONF
 	@$(call install_copy, rootfs, 0, 0, 0755, \
 		$(PTXDIST_WORKSPACE)/projectroot/crond/daily, \
 		/etc/cron/daily, n)
-endif
-
-# -----------------------------------------------------------------------------
-# for Busybox only
-ifdef PTXCONF_ROOTFS_BUSYBOX_USER_HTTPD_CONF
-	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/httpd.conf, \
-		/etc/httpd.conf, n)
 endif
 
 # -----------------------------------------------------------------------------
@@ -764,6 +766,7 @@ endif
 # -----------------------------------------------------------------------------
 # add telnetd if enabled
 #
+ifdef PTXCONF_BB_CONFIG_TELNETD
 ifdef PTXCONF_BB_CONFIG_FEATURE_TELNETD_STANDALONE
 # remove all telnetd entries if this service is not enabled
 	@$(call install_replace, rootfs, /etc/inetd.conf, @TELNETD@, )
@@ -779,6 +782,10 @@ else
 		/etc/services, \
 		@TELNETD@, \
 		"telnet 23/tcp\ntelnet 23/udp" )
+endif
+else
+	@$(call install_replace, rootfs, /etc/inetd.conf, @TELNETD@, )
+	@$(call install_replace, rootfs, /etc/services, @TELNETD@, )
 endif
 
 # -----------------------------------------------------------------------------
