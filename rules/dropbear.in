@@ -2,6 +2,7 @@ menuconfig DROPBEAR
         bool
 	prompt "Dropbear SSH-Server "
 	select ZLIB
+	select GLIBC_UTIL
 	help
 	  dropbear is a SSH 2 server and client designed
 	  to be small enough to be used in small memory
