@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_EVENTLOG) += eventlog
 EVENTLOG_VERSION	= 0.2.4
 EVENTLOG		= eventlog-$(EVENTLOG_VERSION)
 EVENTLOG_SUFFIX		= tar.gz
-EVENTLOG_URL		= http://www.balabit.com/downloads/files/syslog-ng/1.9/src/$(EVENTLOG).$(EVENTLOG_SUFFIX)
+EVENTLOG_URL		= http://www.balabit.com/downloads/files/syslog-ng/sources/1.9/src/$(EVENTLOG).$(EVENTLOG_SUFFIX)
 EVENTLOG_SOURCE		= $(SRCDIR)/$(EVENTLOG).$(EVENTLOG_SUFFIX)
 EVENTLOG_DIR		= $(BUILDDIR)/$(EVENTLOG)
 
