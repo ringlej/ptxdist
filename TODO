@@ -130,6 +130,9 @@ TODO for 1.1.x
 	integrated into ptxdist generic files. the installation shall follow
 	the scheme of other rootfs configuration files
 
+[ ] when the drop command is used without a stage, complain about that
+    and suggest to use clean instead
+
 After branch:
 
 [ ] rsc: audit if 'ptxdist get' fetches all packets correctly
