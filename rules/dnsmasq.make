@@ -151,12 +151,12 @@ endif
 ifdef PTXCONF_DNSMASQ_ETC_DEFAULT
 	@$(call install_copy, dnsmasq, 0, 0, 0644, \
 		$(DNSMASQ_DIR)/dnsmasq.conf.example, \
-		/etc/dnsmasq.conf)
+		/etc/dnsmasq.conf,n)
 endif
 ifdef PTXCONF_DNSMASQ_ETC_USER
 	@$(call install_copy, dnsmasq, 0, 0, 0644, \
 		${PTXDIST_WORKSPACE}/projectroot/etc/dnsmasq.conf, \
-		/etc/dnsmasq.conf)
+		/etc/dnsmasq.conf,n)
 endif
 
 	@$(call install_finish, dnsmasq)
