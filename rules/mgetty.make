@@ -120,11 +120,11 @@ $(STATEDIR)/mgetty.targetinstall: $(mgetty_targetinstall_deps_default)
 	@$(call install_fixup, mgetty,DESCRIPTION,missing)
 
 	@$(call install_copy, mgetty, 0, 0, 0700, $(MGETTY_DIR)/mgetty, /usr/sbin/mgetty)
-	
+
 ifdef PTXCONF_MGETTY_INSTALL_CONFIG
-	@$(call install_copy, mgetty, 0, 0, 0600, $(MGETTY_DIR)/login.config, /etc/mgetty+sendfax/login.config)
-	@$(call install_copy, mgetty, 0, 0, 0600, $(MGETTY_DIR)/mgetty.config, /etc/mgetty+sendfax/mgetty.config)
-	@$(call install_copy, mgetty, 0, 0, 0600, $(MGETTY_DIR)/dialin.config, /etc/mgetty+sendfax/dialin.config)
+	@$(call install_copy, mgetty, 0, 0, 0600, $(MGETTY_DIR)/login.config, /etc/mgetty+sendfax/login.config, n)
+	@$(call install_copy, mgetty, 0, 0, 0600, $(MGETTY_DIR)/mgetty.config, /etc/mgetty+sendfax/mgetty.config, n)
+	@$(call install_copy, mgetty, 0, 0, 0600, $(MGETTY_DIR)/dialin.config, /etc/mgetty+sendfax/dialin.config, n)
 endif
 ifdef PTXCONF_MGETTY_CALLBACK
 	@$(call install_copy, mgetty, 0, 0, 4755, $(MGETTY_DIR)/callback/callback, /usr/sbin/callback)
@@ -135,22 +135,22 @@ ifdef PTXCONF_SENDFAX
 	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/g3/g3cat, /usr/bin/g3cat)
 	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/g3/g32pbm, /usr/bin/g32pbm)
 ifdef PTXCONF_MGETTY_INSTALL_CONFIG
-	@$(call install_copy, mgetty, 0, 0, 0644, $(MGETTY_DIR)/sendfax.config, /etc/mgetty+sendfax/sendfax.config)
-endif	
+	@$(call install_copy, mgetty, 0, 0, 0644, $(MGETTY_DIR)/sendfax.config, /etc/mgetty+sendfax/sendfax.config, n)
+endif
 ifdef PTXCONF_SENDFAX_SPOOL
-	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxspool, /usr/bin/faxspool)
-	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxrunq, /usr/bin/faxrunq)
-	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxq, /usr/bin/faxq)
-	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxrm, /usr/bin/faxrm)
-	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxrunqd, /usr/bin/faxrunqd)
+	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxspool, /usr/bin/faxspool, n)
+	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxrunq, /usr/bin/faxrunq, n)
+	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxq, /usr/bin/faxq, n)
+	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxrm, /usr/bin/faxrm, n)
+	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxrunqd, /usr/bin/faxrunqd, n)
 	@$(call install_copy, mgetty, 0, 0, 0755, $(MGETTY_DIR)/fax/faxq-helper, /usr/lib/mgetty+sendfax/faxq-helper)
 endif
 ifdef PTXCONF_MGETTY_INSTALL_CONFIG
-	@$(call install_copy, mgetty, 0, 0, 0644, $(MGETTY_DIR)/faxrunq.config, /etc/mgetty+sendfax/faxrunq.config)
+	@$(call install_copy, mgetty, 0, 0, 0644, $(MGETTY_DIR)/faxrunq.config, /etc/mgetty+sendfax/faxrunq.config, n)
 endif
 endif
 	@$(call install_finish, mgetty)
-	
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
