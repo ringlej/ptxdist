@@ -70,7 +70,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 
 $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make
+	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -116,6 +116,6 @@ $(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps_default)
 
 @packet@_clean:
 	rm -rf $(STATEDIR)/@packet@.*
-	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) make clean
+	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) $(MAKE) clean
 
 # vim: syntax=make
