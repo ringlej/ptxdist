@@ -79,7 +79,7 @@ efax_compile: $(STATEDIR)/efax.compile
 
 $(STATEDIR)/efax.compile: $(efax_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(EFAX_DIR) && $(EFAX_ENV) $(EFAX_PATH) make all
+	cd $(EFAX_DIR) && $(EFAX_ENV) $(EFAX_PATH) make all CC=$(CROSS_CC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
