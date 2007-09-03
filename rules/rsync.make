@@ -141,32 +141,32 @@ ifdef PTXCONF_RSYNC_CONFIG_FILE_DEFAULT
 ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)),)
 	@$(call install_copy, rsync, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/rsyncd.conf, \
-		$(PTXCONF_RSYNC_CONFIG_FILE) )
+		$(PTXCONF_RSYNC_CONFIG_FILE), n)
 else
 # use default
 	@$(call install_copy, rsync, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/rsyncd.conf, \
-		/etc/rsyncd.conf)
+		/etc/rsyncd.conf, n)
 endif
 	@$(call install_copy, rsync, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/rsyncd.secrets, \
-		/etc/rsyncd.secrets )
+		/etc/rsyncd.secrets, n)
 endif
 
 ifdef PTXCONF_RSYNC_CONFIG_FILE_USER
 ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)),)
 	@$(call install_copy, rsync, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/rsyncd.conf, \
-		$(PTXCONF_RSYNC_CONFIG_FILE) )
+		$(PTXCONF_RSYNC_CONFIG_FILE), n)
 else
 # use as default
 	@$(call install_copy, rsync, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/rsyncd.conf, \
-		/etc/rsyncd.conf)
+		/etc/rsyncd.conf, n)
 endif
 	@$(call install_copy, rsync, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/rsyncd.secrets, \
-		/etc/rsyncd.secrets )
+		/etc/rsyncd.secrets, n)
 endif
 
 ifdef PTXCONF_RSYNC_STARTUP_TYPE_STANDALONE
@@ -195,7 +195,7 @@ endif
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_RSYNC_LINK),"")
 	@$(call install_copy, rsync, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, rsync, ../init.d/rsyncd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_RSYNC_LINK))
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_RSYNC_LINK), n)
 endif
 endif
 
