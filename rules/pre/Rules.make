@@ -894,7 +894,7 @@ install_copy = 											\
 		(0 | n | no)									\
 			;;									\
 		(*)											\
-			$(BSD_FILE) $(IMAGEDIR)/$$PACKET/ipkg/$$DST | $(GREP) unstripped;		\
+			$(BSD_FILE) $(IMAGEDIR)/$$PACKET/ipkg/$$DST | $(GREP) "not stripped";		\
 				case "$$?" in								\
 				(0)									\
 				$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/$$PACKET/ipkg/$$DST;	\
