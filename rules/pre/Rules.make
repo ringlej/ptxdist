@@ -52,6 +52,8 @@ AWK		= awk
 PERL		= perl
 GREP		= grep
 INSTALL		= install
+BSD_FILE	= file
+
 PARALLELMFLAGS  ?= -j$(shell if [ -r /proc/cpuinfo ];				\
 	then echo $$(( `cat /proc/cpuinfo | grep -e '^processor' | wc -l` * 2 ));	\
 		else echo 1;							\
@@ -891,21 +893,29 @@ install_copy = 											\
 		case "$$STRIP" in								\
 		(0 | n | no)									\
 			;;									\
-		(*)										\
-			$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/$$PACKET/ipkg/$$DST;	\
-			if [ $$? -ne 0 ]; then							\
-				echo "Error: install_copy failed!";				\
-				exit 1;								\
-			fi;									\
-			$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
-			if [ $$? -ne 0 ]; then							\
-				echo "Error: install_copy failed!";				\
-				exit 1;								\
-			fi;									\
-			;;									\
-		esac;										\
-		mkdir -p $(IMAGEDIR)/$$PACKET;							\
-		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;			\
+		(*)											\
+			$(BSD_FILE) $(IMAGEDIR)/$$PACKET/ipkg/$$DST | $(GREP) unstripped;		\
+				case "$$?" in								\
+				(0)									\
+				$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/$$PACKET/ipkg/$$DST;	\
+				if [ $$? -ne 0 ]; then							\
+					echo "Error: install_copy failed!";				\
+					exit 1;								\
+				fi;									\
+				$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
+				if [ $$? -ne 0 ]; then							\
+					echo "Error: install_copy failed!";				\
+					exit 1;								\
+				fi;									\
+				;;									\
+				(1)									\
+				echo "no unstripped binary - skipping";					\
+				;;									\
+				esac;									\
+			;;										\
+		esac;											\
+		mkdir -p $(IMAGEDIR)/$$PACKET;								\
+		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;				\
 	fi
 
 #
