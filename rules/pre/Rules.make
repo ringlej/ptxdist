@@ -591,6 +591,13 @@ get_option_ext =									\
 #
 # FIXME: if we don't use --install=no we can make one packet.
 #
+# workflow: 
+# - mangle all *.la files in $BUILDDIR
+# - make install to _standard_ SYSROOT (e.g. $PTXDIST_WORKSPACE/local/$ARCH/)
+# - again, mangle all *.la files in $BUILDDIR and reset libdir
+# - make install to _package_local_ SYSROOT (can be used as install base)
+# - mangle all *.la files in the _default_ $SYSROOT for further development
+#
 install = \
 	BUILDDIR="$($(strip $(1))_DIR)";				\
 	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
@@ -619,16 +626,31 @@ install = \
 			DESTDIR=$(SYSROOT);"				\
 			| $(FAKEROOT) --;				\
 		$(CHECK_PIPE_STATUS)					\
-	fi;								\
-	for DIR in /lib /usr/lib; do					\
-		for FILE in `find $(SYSROOT)/$${DIR}/ -name "*.la"`; do	\
-			if test -e $${FILE}; then			\
-				sed -i -e "/dependency_libs/s:\( \)\($${DIR}\):\1$(SYSROOT)\2:g"	\
-					-e "/libdir/s:\(libdir='\)\($${DIR}\):\1$(SYSROOT)\2:g;" $$FILE;	\
+		for DIR in /lib /usr/lib; do				\
+			for FILE in `find $(SYSROOT)/$${DIR}/ -name "*.la"`; do						\
+				if test -e $${FILE}; then								\
+					sed -i -e "/dependency_libs/s:\( \)\($${DIR}\):\1$(SYSROOT)\2:g"		\
+						-e "/libdir/s:\(libdir='\)\($${DIR}\):\1$(SYSROOT)\2:g;" $$FILE;	\
+				fi;						\
+			done;							\
+		done;								\
+		mkdir -p $$BUILDDIR/PTXDIST_SYSROOT/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; \
+		for FILE in `find $${BUILDDIR} -name "*.la" -type f`; do	\
+			if test -e $${FILE}; then				\
+				echo "DEBUG_BEFORE: $$FILE ->" ; grep libdir $$FILE;				\
+				sed -i -e "/libdir/s:$(SYSROOT):$$BUILDDIR/PTXDIST_SYSROOT:g;" $$FILE;		\
+				echo "DEBUG_AFTER : $$FILE ->" ; grep libdir $$FILE;				\
 			fi;						\
 		done;							\
-	done
-
+		cd $$BUILDDIR &&					\
+			echo "$($(strip $(1))_ENV)			\
+			$($(strip $(1))_PATH)				\
+			make install $(4)				\
+			$($(strip $(1))_MAKEVARS)			\
+			DESTDIR=$$BUILDDIR/PTXDIST_SYSROOT;"		\
+			| $(FAKEROOT) --;				\
+		$(CHECK_PIPE_STATUS)					\
+	fi;
 
 #
 # clean
