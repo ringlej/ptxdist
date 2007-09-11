@@ -1,5 +1,5 @@
 # -*-makefile-*-
-# $Id: php5.make,v 1.1 2007/01/08 08:28:01 michl Exp $
+# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
@@ -20,8 +20,8 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 PHP5_VERSION	:= 5.1.6
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
-#PHP5_URL	:= http://de.php.net/distributions/$(PHP5).$(PHP5_SUFFIX)
-PHP5_URL	:= http://files.edin.dk/php/museum/php5/$(PHP5).$(PHP5_SUFFIX)
+#PHP5_URL	:= http://de2.php.net/get/$(PHP5).$(PHP5_SUFFIX)/from/de.php.net/mirror/
+PHP5_URL	:= http://de2.php.net/get/$(PHP5).$(PHP5_SUFFIX)
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
 PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
 
@@ -65,7 +65,7 @@ PHP5_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 PHP5_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
+PHP5_AUTOCONF += --with-config-file-path=/etc/php5/
 # FIXME: php5 doesn't interprete "with_foo=no" correctly, so we cannot
 # give --without-foo options. Should be fixed in php5's configure.in.
 
@@ -92,14 +92,12 @@ endif
 ifdef PTXCONF_PHP5_SAPI_APXS2FILTER
 PHP5_AUTOCONF += --with-apxs2filter
 else
-# FIXME: php5 interprets --without-... as --with ...
-# PHP5_AUTOCONF += --without-apxs2filter
+#PHP5_AUTOCONF += --without-apxs2filter
 endif
 
 ifdef PTXCONF_PHP5_SAPI_APXS2
 PHP5_AUTOCONF += --with-apxs2=$(SYSROOT)/usr/bin/apxs
 else
-# FIXME: php5 interprets --without-... as --with ...
 # PHP5_AUTOCONF += --without-apxs2
 endif
 
@@ -110,7 +108,6 @@ endif
 ifdef PTXCONF_PHP5_SAPI_CAUDIUM
 PHP5_AUTOCONF += --with-caudium
 else
-# FIXME: php5 interprets --without-... as --with ...
 # PHP5_AUTOCONF += --without-caudium
 endif
 
@@ -153,7 +150,6 @@ endif
 ifdef PTXCONF_PHP5_SAPI_PHTTPD
 PHP5_AUTOCONF += --with-phttpd
 else
-# FIXME: php5 interprets --without-... as --with ...
 #PHP5_AUTOCONF += --without-phttpd
 endif
 
@@ -190,8 +186,7 @@ endif
 ifdef PTXCONF_PHP5_SAPI_CGI
 PHP5_AUTOCONF += --enable-cgi
 else
-# FIXME: php5 interprets --without-... as --with ...
-#PHP5_AUTOCONF += --disable-cgi
+PHP5_AUTOCONF += --disable-cgi
 endif
 
 ifdef PTXCONF_PHP5_SAPI_FORCE_CGI_REDIRECT
@@ -230,7 +225,7 @@ endif
 
 ifdef PTXCONF_PHP5_XML_LIBXML2
 PHP5_AUTOCONF += --enable-libxml
-PHP5_AUTOCONF += --with-libxml-dir=$(SYSROOT)/usr/lib
+PHP5_AUTOCONF += --with-libxml-dir=$(SYSROOT)/usr
 else
 PHP5_AUTOCONF += --disable-libxml
 endif
@@ -254,7 +249,7 @@ PHP5_AUTOCONF += --disable-dom
 endif
 
 ifdef PTXCONF_PHP5_XML_LIBXML2_XSLT
-PHP5_AUTOCONF += --with-xsl=$(SYSROOT)/usr/lib
+PHP5_AUTOCONF += --with-xsl=$(SYSROOT)/usr
 else
 PHP5_AUTOCONF += --without-xsl
 endif
@@ -315,6 +310,8 @@ $(STATEDIR)/php5.install: $(php5_install_deps_default)
 		$(PHP5_ENV) $(PHP5_PATH) \
 		make install-build install-headers install-programs \
 		INSTALL_ROOT=$(SYSROOT)
+		install -m 755 -D $(PHP5_DIR)/scripts/php-config $(PTXCONF_PREFIX)/bin/php-config
+		install -m 755 -D $(PHP5_DIR)/scripts/phpize $(PTXCONF_PREFIX)/bin/phpize
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -338,8 +335,20 @@ $(STATEDIR)/php5.targetinstall: $(php5_targetinstall_deps_default)
 ifdef PTXCONF_PHP5_SAPI_APXS2
 	@$(call install_copy, php5, 0, 0, 0644, $(PHP5_DIR)/libs/libphp5.so, /usr/lib/apache2/libphp5.so)
 endif
+
 ifdef PTXCONF_PHP5_CLI
 	@$(call install_copy, php5, 0, 0, 0755, $(PHP5_DIR)/sapi/cli/php, /usr/bin/php5)
+endif
+
+ifdef PTXCONF_ROOTFS_GENERIC_PHP5_INI
+	@$(call install_copy, php5, 0, 0, 0644, $(PHP5_DIR)/php.ini-recommended, \
+		/etc/php5/php.ini,n)
+endif
+
+ifdef PTXCONF_ROOTFS_USER_PHP5_INI
+	@$(call install_copy, php5, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/php5/php.ini, \
+		/etc/php5/php.ini,n)
 endif
 
 	@$(call install_finish,php5)

@@ -2,166 +2,148 @@
 
 menuconfig PHP5
 	bool
-	# FIXME:
-	# - doesn't find libxml2 on himalia
 	prompt "php5                          "
 	select APACHE2 if PHP5_SAPI_APXS2
 	select MYSQL if PHP5_EXT_MYSQL
-
-comment "Note: PHP5 will currently not run in all config combinations."
-	depends on PHP5
-comment "Please send patches to fix :-)"
-	depends on PHP5
 
 # ----------------------------------------------------------------------------
 # SAPI Modules
 # ----------------------------------------------------------------------------
 
-menuconfig PHP5_SAPI
-	bool
+menu "SAPI Modules"
 	depends on PHP5
-	prompt "SAPI Modules                  "
 
 config PHP5_SAPI_AOLSERVER
 	bool
-	depends on PHP5_SAPI
 	prompt "aolserver"
+	depends on BROKEN
 	help
 	  Use AOLserver.
 
 config PHP5_SAPI_MOD_CHARSET
 	bool
-	depends on PHP5_SAPI
 	prompt "mod_charset"
 	help
 	  Enable transfer tables for mod_charset (Rus Apache)
 
-#
-# FIXME: apxs2filter and apxs2 don't work together
-#
-#config PHP5_SAPI_APXS2FILTER
-#	bool
-#	depends on PHP5_SAPI
-#	prompt "apxs2filter"
-#	help
-#	  EXPERIMENTAL: Build shared Apache 2.0 Filter module. FILE is the optional
-#	  pathname to the Apache apxs tool [apxs]
+config PHP5_SAPI_APXS2FILTER
+	bool
+	prompt "apxs2filter"
+	depends on ! PHP5_SAPI_APXS2
+	help
+	  EXPERIMENTAL: Build shared Apache 2.0 Filter module. FILE is the optional
+	  pathname to the Apache apxs tool [apxs]
 
 config PHP5_SAPI_APXS2
 	bool
-	depends on PHP5_SAPI
 	prompt "apache mod_php (apxs2)"
 	help
 	  Build shared Apache 2.0 Handler module.
 
 config PHP5_SAPI_CAUDIUM
 	bool
-	depends on PHP5_SAPI
 	prompt "caudium"
+	depends on BROKEN
 	help
 	  Build PHP as a Pike module for use with Caudium.
 
 config PHP5_SAPI_CLI
 	bool
-	depends on PHP5_SAPI
 	prompt "cli"
 	help
-	  Build CLI version of PHP
+	  Build CLI (commandline interface) version of PHP
 
 config PHP5_SAPI_CONTINUITY
 	bool
-	depends on PHP5_SAPI
 	prompt "continuity"
+	depends on BROKEN
 	help
 	  Build PHP as Continuity Server module.
 
 config PHP5_SAPI_EMBEDDED
 	bool
-	depends on PHP5_SAPI
 	prompt "embedded"
 	help
 	  Enable building of embedded SAPI library.
 
 config PHP5_SAPI_ISAPI
 	bool
-	depends on PHP5_SAPI
 	prompt "isapi"
+	depends on BROKEN
 	help
 	  Build PHP as an ISAPI module for use with Zeus
 
 config PHP5_SAPI_MILTER
 	bool
-	depends on PHP5_SAPI
 	prompt "milter"
+	depends on BROKEN
 	help
 	  Build PHP as Milter application.
 
 config PHP5_SAPI_NSAPI
 	bool
-	depends on PHP5_SAPI
 	prompt "nsapi"
+	depends on BROKEN
 	help
 	  Build PHP as NSAPI module for Netscape/iPlanet/SunONE.
 
 config PHP5_SAPI_PHTTPD
 	bool
-	depends on PHP5_SAPI
 	prompt "phttpd"
+	depends on BROKEN
 	help
 	  Build PHP as phttpd module.
 
 config PHP5_SAPI_PI3WEB
 	bool
-	depends on PHP5_SAPI
 	prompt "pi3web"
+	depends on BROKEN
 	help
 	  Build PHP as Pi3Web module
 
 config PHP5_SAPI_ROXEN
 	bool
-	depends on PHP5_SAPI
 	prompt "roxen"
+	depends on BROKEN
 	help
 	  Build PHP as a Pike module. DIR is the base Roxen
 
 config PHP5_SAPI_ROXEN_ZTS
 	bool
-	depends on PHP5_SAPI
 	prompt "roxen-zts"
+	depends on BROKEN
 	help
 	  Build the Roxen module using Zend Thread Safety.
 
 config PHP5_SAPI_THTTPD
 	bool
-	depends on PHP5_SAPI
 	prompt "thttpd"
+	depends on BROKEN
 	help
 	  Build PHP as thttpd module
 
 config PHP5_SAPI_TUX
 	bool
-	depends on PHP5_SAPI
 	prompt "tux"
+	depends on BROKEN
 	help
 	  Build PHP as a TUX module.
 
 config PHP5_SAPI_WEBJAMES
 	bool
-	depends on PHP5_SAPI
 	prompt "webjames"
+	depends on BROKEN
 	help
 	  Build PHP as a WebJames module (RISC OS only).
 
 config PHP5_SAPI_CGI
 	bool
-	depends on PHP5_SAPI
 	prompt "cgi"
 	help
 	  Build CGI version of PHP.
 
 config PHP5_SAPI_FORCE_CGI_REDIRECT
 	bool
-	depends on PHP5_SAPI
 	depends on PHP5_SAPI_CGI
 	prompt "force-cgi-redirect"
 	help
@@ -171,7 +153,6 @@ config PHP5_SAPI_FORCE_CGI_REDIRECT
 
 config PHP5_SAPI_DISCARD_PATH
 	bool
-	depends on PHP5_SAPI
 	depends on PHP5_SAPI_CGI
 	prompt "discard path"
 	help
@@ -182,7 +163,6 @@ config PHP5_SAPI_DISCARD_PATH
 
 config PHP5_SAPI_FASTCGI
 	bool
-	depends on PHP5_SAPI
 	depends on PHP5_SAPI_CGI
 	prompt "fastcgi"
 	help
@@ -191,7 +171,6 @@ config PHP5_SAPI_FASTCGI
 
 config PHP5_SAPI_PATH_INFO_CHECK
 	bool
-	depends on PHP5_SAPI
 	depends on PHP5_SAPI_CGI
 	prompt "path info check"
 	help
@@ -200,7 +179,6 @@ config PHP5_SAPI_PATH_INFO_CHECK
 
 config PHP5_SAPI_FALLBACK
 	bool
-	depends on PHP5_SAPI
 	default y
 	depends on \
 		!PHP5_SAPI_AOLSERVER && \
@@ -227,14 +205,46 @@ config PHP5_SAPI_FALLBACK
 		!PHP5_SAPI_PATH_INFO_CHECK
 	select PHP5_SAPI_CLI
 
+endmenu
+
 # ----------------------------------------------------------------------------
 # General Settings
 # ----------------------------------------------------------------------------
 
-menuconfig PHP5_XML
+config ROOTFS_PHP5_INI
+	depends on PHP5
+	bool
+	prompt "/etc/php5/php.ini"
+	default y
+	help
+	  Installs a /etc/php5/php.ini file from a selectable source.
+
+choice
+	prompt "Kind of /etc/php5/php.ini"
+	depends on ROOTFS_PHP5_INI
+	default ROOTFS_GENERIC_PHP5_INI
+
+		config ROOTFS_GENERIC_PHP5_INI
+			bool
+			prompt "Use generic"
+			help
+			  This uses the recommended generic configuration
+			  file (php.ini-recommended) which is shipped with
+			  source of PHP5.
+
+		config ROOTFS_USER_PHP5_INI
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/php5/php.ini. PTXdist
+			  uses file projectroot/etc/php5/php.ini in your local
+			  project.
+endchoice
+
+config PHP5_XML
 	bool
 	depends on PHP5
-	prompt "xml support                   "
+	prompt "xml support"
 	help
 	  Support for XML.
 
@@ -253,7 +263,6 @@ endchoice
 config PHP5_XML_LIBXML2_READER
 	bool
 	depends on PHP5
-	depends on PHP5_XML
 	depends on PHP5_XML_LIBXML2
 	prompt "xml reader support"
 	help
@@ -262,7 +271,6 @@ config PHP5_XML_LIBXML2_READER
 config PHP5_XML_LIBXML2_WRITER
 	bool
 	depends on PHP5
-	depends on PHP5_XML
 	depends on PHP5_XML_LIBXML2
 	select LIBXML2_WRITER
 	prompt "xml writer support"
@@ -272,7 +280,6 @@ config PHP5_XML_LIBXML2_WRITER
 config PHP5_XML_LIBXML2_DOM
 	bool
 	depends on PHP5
-	depends on PHP5_XML
 	depends on PHP5_XML_LIBXML2
 	select LIBXML2_DOM
 	prompt "DOM support"
