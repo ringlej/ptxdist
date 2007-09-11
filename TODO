@@ -649,6 +649,16 @@ Old TODOs
 [ ] SHA: scripts/make_image_root.sh puts all ipkg packages from imagedir into the
     resulting images, even those which are lying there from old builds
 
+[ ] LFU: We want add automounting during boot for extra storage devices.
+	 Currently we call mount -a before we have loaded extra modules, which
+	 means that storage devices on i.E. usb will not be to be mounted
+	 automaticaly during boot, if the modules are not compiled in. We can
+	 do this with a script, which is called after /etc/init.d/modules.
+	 Additionally We might want to add mechanismen to determine extra mount
+	 device and mount points and generate the entry in customized /etc/fstab
+[ ] LFU: fix libgd 
+[ ] LFU: add timezone support to ptxdist (depends on Toolchain newer than 1.1.0
+	 Release)
 DONE
 ----
 
