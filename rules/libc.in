@@ -1,5 +1,6 @@
 menu "C library                     "
 
 source "rules/glibc.in"
+source "rules/uclibc.in"
 
 endmenu
