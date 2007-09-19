@@ -21,6 +21,11 @@ choice
 		help
 		  This is support for the ARM processor architecture w/o MMU.
 
+	config ARCH_BLACKFIN
+		bool "blackfin"
+		help
+		  This is support for the blackfin processor.
+
 	config ARCH_X86
 		bool "X86"
 		help
@@ -288,6 +293,7 @@ config ARCH
 	default "arm"			if ARCH_ARM
 	default "armnommu"		if ARCH_ARM_NOMMU
 	default "alpha"			if ARCH_ALPHA
+	default "blackfin"		if ARCH_BLACKFIN
 	default "i386"			if ARCH_X86
 	default "m68k"			if ARCH_M68K
 	default "ppc"			if ARCH_PPC
@@ -303,6 +309,7 @@ config ARCH_USERSPACE
 	default "arm"			if ARCH_ARM
 	default "arm"			if ARCH_ARM_NOMMU
 	default "alpha"			if ARCH_ALPHA
+	default "blackfin"		if ARCH_BLACKFIN
 	default "i386"			if ARCH_X86
 	default "m68k"			if ARCH_M68K
 	default "powerpc"		if ARCH_PPC

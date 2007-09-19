@@ -46,6 +46,7 @@ config KERNEL_ARCH
 	default "arm"			if ARCH_ARM
 	default "armnommu"		if ARCH_ARM_NOMMU
 	default "alpha"			if ARCH_ALPHA
+	default "blackfin"		if ARCH_BLACKFIN
 	default "i386"			if ARCH_X86
 	default "m68k"			if ARCH_M68K
 	default "sparc"			if ARCH_SPARC
