@@ -1,6 +1,8 @@
 TODO for 1.1.x
 ==============
 
+[ ] bbu: add more real GNU coreutils
+
 [ ] rsc: cyclictest needs a "select GLIBC" to fullfill the packet
     dependency generation requirements
 
