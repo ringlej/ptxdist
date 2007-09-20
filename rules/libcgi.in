@@ -1,0 +1,10 @@
+config LIBCGI
+	bool
+	prompt "libcgi"
+	help
+	  libcgi is a library for CGI programs written in C. 
+	  It includes a lot of functions like string 
+	  manipulation, session and cookie support, GET and 
+	  POST methods manipulation etc. to help you to 
+	  quickly write powerful CGI programs. 
+

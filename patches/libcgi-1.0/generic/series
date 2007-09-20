@@ -1,0 +1,16 @@
+# 
+# Submitted-By: Guillaume GOURAT, 2007-07-26
+# Committed-By: Guillaume GOURAT, 2007-07-26
+#
+# Description: 
+#
+# patch from the debian libcgi package
+# http://packages.debian.org/stable/libdevel/libcgi-dev
+#
+
+libcgi-1.0-debianpatches.diff
+libcgi-1.0-makefile-destdir.diff
+libcgi-1.0-typo.diff
+libcgi-1.0-wrong-variable.diff
+libcgi-1.0-makefile-autogen.diff
+
