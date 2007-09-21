@@ -1,0 +1,12 @@
+# this is a quick hack, but quite useful
+
+Usage: main OPTIONS
+
+    --help, -h                  this help
+    --check-all, -a             check ALL packages
+
+plugins/url_check/main checks the availability of all needed source packages
+for the current project configuration. By default, packages
+will only be checked, if the corresponding switch in
+ptxdistrc is set to "y" (enabled in 'ptxdist menuconfig')
+

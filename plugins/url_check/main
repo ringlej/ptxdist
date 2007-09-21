@@ -1,0 +1,254 @@
+#!/bin/bash
+# ----------------------------------------------------------
+#
+# Script: 	PTXdist URL Checker
+# Rev: 		1
+# Description:
+# Written by:	Bjørn Bürger <b.buerger@pengutronix.de>
+# Changed:      2006-09-21 bbu
+# Docs:		inline
+# Manpage:	none
+#
+# ----------------------------------------------------------
+PREFIX="`basename $0` "
+# ----------------------------------------------------------
+# Short Documentation / Comments
+# ----------------------------------------------------------
+#
+# TODO: 
+# build URL_CHECKER as host-tool in ptxdist. 
+# Problem -> uses python => big and fat
+# OR find a lightweight alternative. 
+#
+# Please note, that wget has problems w/ ftp links.
+#
+#
+
+# ----------------------------------------------------------
+# generic script settings
+# ----------------------------------------------------------
+#
+# The script domains - chose one or more of:
+# - dumb_tool
+# - tool
+# - development
+# - system_management
+#
+# PTX_SCRIPT_DOMAINS="dumb_tool"
+
+PTX_LIB_VERSION="2"
+
+# ----------------------------------------------------------
+# Default Configuration Options
+# ----------------------------------------------------------
+
+MKTEMP="mktemp"
+WHICH="which"
+GREP="grep"
+EGREP="egrep"
+CAT="cat"
+SED="sed"
+MKDIR="mkdir"
+
+LINKCHECKER_BIN="linkchecker"
+
+URL_CHECKER="$LINKCHECKER_BIN --no-warnings"
+# URL_CHECKER="wget --spider"
+
+PTXCONFIG="ptxconfig"
+
+logdir="`dirname $0`/log"
+logfile="$logdir/url_check_log"
+
+# ----------------------------------------------------------
+# Load ptx shell library and generic ptx configuration
+# ----------------------------------------------------------
+
+PTXLIB=`dirname $0`/ptxlib.bash
+
+if [ -e "$PTXLIB" ] ; then
+	. $PTXLIB
+else
+	echo "ERROR: ptxlib not found"
+	exit 1
+fi
+
+# ==========================================================
+# Temporary files
+# ==========================================================
+
+TMPDIR="`$MKTEMP -d /tmp/url_check_plugin.XXXXXXXXXX`" || echo "could not create TMPDIR"
+
+ptx_debug "TMPDIR is $TMPDIR"
+
+# ==========================================================
+# Traps
+# ==========================================================
+
+[ -e "$TMPDIR/on_exit_reverse.sh" ] || echo "echo" > $TMPDIR/on_exit_reverse.sh
+
+if [ "$DEBUG" = "true" ]; then
+	ptx_debug "trap function: deleting temporary files..."
+	trap '[ -e "$TMPDIR/on_exit_reverse.sh" ] && sh $TMPDIR/on_exit_reverse.sh ; rm -rvf /tmp/$(basename $TMPDIR)' EXIT
+else
+	trap '[ -e "$TMPDIR/on_exit_reverse.sh" ] && sh $TMPDIR/on_exit_reverse.sh ; rm -rf /tmp/$(basename $TMPDIR)' EXIT
+fi
+
+# ----------------------------------------------------------
+# Default Dependency check
+# ----------------------------------------------------------
+
+dependency_check_dirs_depends=""
+dependency_check_files_depends="$PTXCONFIG"
+dependency_check_tools_depends="$LINKCHECKER_BIN $MKTEMP"
+
+ptx_dependency_check
+
+# ==========================================================
+# Option Parser
+# ==========================================================
+
+Usage() {
+cat <<-EOF
+
+Usage: `basename "$0"` OPTIONS
+
+    --help, -h                  this help
+    --check-all, -a		check ALL packages
+
+$0 checks the availability of all needed source packages 
+for the current project configuration. By default, packages 
+will only be checked, if the corresponding switch in 
+ptxdistrc is set to "y" (enabled in 'ptxdist menuconfig')
+
+EOF
+}
+
+# Parser
+# ------
+# option	no argument
+# option:	required argument
+# option::	optional argument
+
+TEMP=`getopt --options h,a			\
+	--longoptions="help,check-all"		\
+        -n "$0" -- "$@"`
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+eval set -- "$TEMP"
+
+while true ; do
+        case "$1" in
+                -h|--help)
+			[ -z "$action" ]
+			action="help" ;
+			shift
+			;;
+                -a|--check-all)
+			[ -z "$action" ]
+			action="check_all" ;
+			shift
+			;;
+                --) shift ; break ;;
+                *) echo "Internal error!" ; exit 1 ;;
+        esac
+done
+
+# ==========================================================
+# Script Variables
+# ==========================================================
+
+# none
+
+# ==========================================================
+# Script Functions
+# ==========================================================
+
+init(){
+	# choose the right ptxdist version:
+	PTXDIST=$(echo `$GREP PTXCONF_CONFIGFILE_VERSION $PTXCONFIG` \; echo "ptxdist-\$PTXCONF_CONFIGFILE_VERSION" | sh)
+	PTXDIST_BIN="`$WHICH $PTXDIST`"
+	ptx_debug "PTXDIST is: $PTXDIST ($PTXDIST_BIN)"
+	if [ "$1" = "all" ]; then
+		# get all package labels 
+		# (PACKAGES-y contains all activated packages)
+		# (PACKAGES- contains all deactivated packages)
+		YESPACKAGES=`$PTXDIST print PACKAGES-y | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		NOPACKAGES=`$PTXDIST print PACKAGES- | sed -e s/'PACKAGES- is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+	else
+		# get configured package labels 
+		# (PACKAGES-y contains all activated packages)
+		YESPACKAGES=`$PTXDIST print PACKAGES-y | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		NOPACKAGES=""
+	fi
+	PACKAGES="$YESPACKAGES $NOPACKAGES"
+}
+
+create_url_list(){
+	echo "creating list of download URLS for `echo $PACKAGES | wc -w` packages (This may take a while!)"
+	for target in $PACKAGES; do
+		$PTXDIST print ${target}_URL | $SED -e s/.*is\ \"//g -e s/\"//g >> $TMPDIR/urllist
+		echo -n "."
+	done
+	echo "done"
+}
+
+test_urls(){
+	egrep -v "^#|^$|^[[:space:]]" $TMPDIR/urllist \
+	| while read line; do
+		$URL_CHECKER $line >$TMPDIR/errormsg 2>&1
+		case $? in
+			0)
+			echo " [  OK  ] $line"
+			;;
+			*)
+			echo ""
+			echo " [ FAIL ] $line"
+			echo ""
+			$CAT $TMPDIR/errormsg | $GREP -A 10 "Start checking at"
+			echo ""
+			;;
+		esac
+	done
+}
+
+runner(){
+	$MKDIR -p $logdir
+	case $? in
+		0)
+		test_urls | tee $logfile
+		echo "LOGFILE is --> $logfile"
+		;;
+		*)
+		test_urls
+		;;
+	esac
+}
+
+# ==========================================================
+# Script Main
+# ==========================================================
+
+case "$action" in
+       help)
+	Usage
+       ;;
+       check_all)
+       	init all
+	create_url_list >&2
+	runner
+       ;;
+       *)
+       	init
+	create_url_list >&2
+	runner
+       ;;
+esac
+
+# ==========================================================
+# Cleanup
+# ==========================================================
+
+# unconfigured - done by trap function
+# ----------------------------------------------------------
+# End
+# ----------------------------------------------------------
