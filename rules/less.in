@@ -1,0 +1,35 @@
+menuconfig LESS
+	bool
+	default n
+	prompt "less                 "
+	help
+	  Less is a pager. A pager is a program 
+	  that displays text files. More info:
+	  http://www.greenwoodsoftware.com/less/
+
+config LESS_BIN
+	bool
+	default y
+	depends on LESS && !BB_CONFIG_LESS
+	prompt "install less pager      "
+	help
+	  less - a pager
+
+config LESS_KEY
+	bool
+	default n
+	depends on LESS && !BB_CONFIG_LESS
+	prompt "install lesskey      "
+	help
+	  lesskey - specify key bindings for less
+
+config LESS_ECHO
+	bool
+	default n
+	depends on LESS && !BB_CONFIG_LESS
+	prompt "install lessecho     "
+	help
+	  lessecho - expand metacharacters
+
+comment "busy box' less is selected!"
+	depends on LESS && BB_CONFIG_LESS
