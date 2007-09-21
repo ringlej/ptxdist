@@ -1,6 +1,12 @@
 TODO for 1.1.x
 ==============
 
+[ ] mol: bash configure --enable-job-control does not work when cross compiling
+         posible fix in:
+         https://iocaste.extern.pengutronix.de/svn/oselas/bsp/johndeere/OSELAS.BSP-JohnDeere-ComPC-trunk/rules/bash.make
+         explained here:
+         http://www.mail-archive.com/bug-bash%40gnu.org/msg03107.html
+
 [ ] bbu: add more real GNU coreutils
 
 [ ] rsc: cyclictest needs a "select GLIBC" to fullfill the packet
