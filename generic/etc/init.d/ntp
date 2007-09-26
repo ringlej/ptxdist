@@ -9,10 +9,10 @@ BINARY=/usr/sbin/ntpd
 PIDFILE="/var/run/ntpd.pid"
 
 case "`basename $0`" in 
-	ntp-client)
+	*ntp-client)
 		CONFIG="/etc/ntp-client.conf"
 		;;
-	ntp-server)
+	*ntp-server)
 		CONFIG="/etc/ntp-server.conf"
 		;;
 	*)

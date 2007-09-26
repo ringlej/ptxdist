@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_NTP) += ntp
 #
 # Paths and names
 #
-NTP_VERSION	= 4.2.2p3
+NTP_VERSION	= 4.2.4p3
 NTP		= ntp-$(NTP_VERSION)
 NTP_SUFFIX	= tar.gz
 NTP_URL		= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_SUFFIX)
@@ -359,17 +359,43 @@ $(STATEDIR)/ntp.targetinstall: $(ntp_targetinstall_deps_default)
 ifdef PTXCONF_NTP_NTPDATE
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpdate/ntpdate, /usr/sbin/ntpdate)
 endif
+
 ifdef PTXCONF_NTP_NTPD
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpd/ntpd, /usr/sbin/ntpd)
 	@$(call install_copy, ntp, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/ntp, /etc/init.d/ntp-server, n)
+  ifdef PTXCONF_NTP_NTPD_RCD_LINK
+	@$(call install_copy, ntp, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, ntp, ../init.d/ntp-server, \
+		/etc/rc.d/S19_ntp-server)
+  endif
+  ifdef PTXCONF_NTP_NTPD_USR_CONF
+	@$(call install_copy, ntp, 0, 0, 0644, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/ntp-server.conf, \
+		/etc/ntp-server.conf, n)
+  endif
 endif
+
 ifdef PTXCONF_NTP_NTPDC
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpdc/ntpdc, /usr/sbin/ntpdc)
 	@$(call install_link, ntp, /etc/init.d/ntp-server, /etc/init.d/ntp-client, n)
+  ifdef PTXCONF_NTP_NTPDC_RCD_LINK
+	@$(call install_copy, ntp, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, ntp, ../init.d/ntp-client, \
+		/etc/rc.d/S19_ntp-client)
+  endif
+  ifdef PTXCONF_NTP_NTPDC_USR_CONF
+	@$(call install_copy, ntp, 0, 0, 0644, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/ntp-client.conf, \
+		/etc/ntp-client.conf, n)
+  endif
 endif
+
 ifdef PTXCONF_NTP_NTPQ
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpq/ntpq, /usr/sbin/ntpq)
 endif
+
+	@$(call install_copy, ntp, 0, 0, 0755, /var/log/ntpstats/)
+	@$(call install_copy, ntp, 0, 0, 0755, /var/lib/ntp)
 
 	@$(call install_finish, ntp)
 	@$(call touch, $@)

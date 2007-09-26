@@ -1,3 +1,10 @@
+2007-09-26  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* ntp: update NTP package to version 4.2.4p3. Adds options for
+	rc.d links for the server and ntpdc plus configurations. Some
+	missing /var directories for statistics files have also been
+	added. Patch by Carsten Schlote.
+
 2007-09-21  Bjoern Buerger <b.buerger@pengutronix.de>
 
 	* less: added

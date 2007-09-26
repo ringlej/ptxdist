@@ -201,6 +201,20 @@ config NTP_NTPD
 	help
 	  FIXME: This item needs to be documented
 
+config NTP_NTPD_RCD_LINK
+	bool
+	prompt "install link in /etc/rc.d to start ntp-server"
+	depends on NTP_NTPD
+	help
+	  This option installs a link into /etc/rc.d/ to /etc/init.d/ntp-server.
+
+config NTP_NTPD_USR_CONF
+	bool
+	prompt "install a user defined configuration file for ntp-server"
+	depends on NTP_NTPD
+	help
+	  This option installs a config file from project-root to /etc/ntp-server.conf
+
 config NTP_NTPDC
 	bool
 	prompt "install ntpdc"
@@ -208,12 +222,27 @@ config NTP_NTPDC
 	help
 	  FIXME: This item needs to be documented
 
+config NTP_NTPDC_RCD_LINK
+	bool
+	prompt "install link in /etc/rc.d to start ntp-client"
+	depends on NTP_NTPDC
+	help
+	  This option installs a link into /etc/rc.d/ to /etc/init.d/ntp-client.
+
+config NTP_NTPDC_USR_CONF
+	bool
+	prompt "install a user defined configuration file for ntp-server"
+	depends on NTP_NTPDC
+	help
+	  This option installs a config file from project-root to /etc/ntp-client.conf
+
 config NTP_NTPQ
 	bool
 	prompt "install ntpq"
 	depends on NTP
 	help
 	  FIXME: This item needs to be documented
+
 
 comment "NTP conflicts with OpenNTPD"
 	depends on NTP && OPENNTPD
