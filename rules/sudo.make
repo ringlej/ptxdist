@@ -9,8 +9,6 @@
 # see the README file.
 #
 
-# FIXME: RSC: ipkgize
-
 #
 # We provide this package
 #
@@ -19,7 +17,7 @@ PACKAGES-$(PTXCONF_SUDO) += sudo
 #
 # Paths and names
 #
-SUDO_VERSION	= 1.6.8
+SUDO_VERSION	= 1.6.9p5
 SUDO		= sudo-$(SUDO_VERSION)
 SUDO_SUFFIX	= tar.gz
 SUDO_URL	= http://www.courtesan.com/sudo/dist/$(SUDO).$(SUDO_SUFFIX)
@@ -61,12 +59,20 @@ $(STATEDIR)/sudo.extract: $(sudo_extract_deps_default)
 sudo_prepare: $(STATEDIR)/sudo.prepare
 
 SUDO_PATH	=  PATH=$(CROSS_PATH)
-SUDO_ENV 	=  $(CROSS_ENV)
+SUDO_ENV = \
+	$(CROSS_ENV) \
+	sudo_cv_uid_t_len=10
 
 #
 # autoconf
 #
-SUDO_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+SUDO_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--without-pam
+
+ifdef PTXCONF_SUDO_DONT_SEND_MAILS
+SUDO_AUTOCONF += --without-sendmail
+endif
 
 $(STATEDIR)/sudo.prepare: $(sudo_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -95,7 +101,6 @@ sudo_install: $(STATEDIR)/sudo.install
 
 $(STATEDIR)/sudo.install: $(sudo_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, SUDO)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -106,6 +111,31 @@ sudo_targetinstall: $(STATEDIR)/sudo.targetinstall
 
 $(STATEDIR)/sudo.targetinstall: $(sudo_targetinstall_deps_default)
 	@$(call targetinfo, $@)
+
+	@$(call install_init,  sudo)
+	@$(call install_fixup, sudo,PACKAGE,sudo)
+	@$(call install_fixup, sudo,PRIORITY,optional)
+	@$(call install_fixup, sudo,VERSION,$(SUDO_VERSION))
+	@$(call install_fixup, sudo,SECTION,base)
+	@$(call install_fixup, sudo,AUTHOR,"Carsten Schlote <c.schlote\@konzeptpark.de>")
+	@$(call install_fixup, sudo,DEPENDS,)
+	@$(call install_fixup, sudo,DESCRIPTION,missing)
+
+	@$(call install_copy, sudo, 0, 0, 7755, $(SUDO_DIR)/sudo, /usr/bin/sudo)
+	@$(call install_link, sudo, sudo, /usr/bin/sudoedit)
+
+	@$(call install_copy, sudo, 0, 0, 0755, $(SUDO_DIR)/.libs/sudo_noexec.so, /usr/libexec/sudo_noexec.so)
+
+ifdef PTXCONF_SUDO_ETC_SUDOERS
+ifdef PTXCONF_SUDO_ETC_SUDOERS_DEFAULT
+	@$(call install_copy, sudo, 0, 0, 0440, $(SUDO_DIR)/sudoers, /etc/sudoers,n)
+endif
+ifdef PTXCONF_SUDO_ETC_SUDOERS_USER
+	@$(call install_copy, sudo, 0, 0, 0440, ${PTXDIST_WORKSPACE}/projectroot/etc/sudoers, /etc/sudoers,n)
+endif
+endif
+	@$(call install_finish, sudo)
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

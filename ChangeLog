@@ -1,3 +1,10 @@
+2007-10-01  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* sudo: This updates sudo to 1.6.8p12. It patches some compile
+	breakage, when trying to cross compile. It also allows to
+	install a user sudoers file from projectroot. Patch by Carsten
+	Schlote.
+
 2007-09-26  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* ntp: update NTP package to version 4.2.4p3. Adds options for

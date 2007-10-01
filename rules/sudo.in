@@ -1,11 +1,43 @@
 config SUDO
 	bool
-	depends on BROKEN
-	prompt "sudo [BROKEN]"
+	prompt "sudo"
 	help
 	  Sudo is a program designed to allow a sysadmin
 	  to give limited root privileges to users and log
 	  root activity.  The basic philosophy is to give
  	  as few privileges as possible but still allow
 	  people to get their work done.
+
+config SUDO_DONT_SEND_MAILS
+	bool "don't send mails"
+	depends on SUDO
+	default y
+
+config SUDO_ETC_SUDOERS
+	bool "Install sudoers file into /etc"
+	depends on SUDO
+	default y
+	help
+	  Installs /etc/sudoers from a selectable source
+
+	choice
+		prompt "Kind of sudoers"
+		default SUDO_ETC_SUDOERS_DEFAULT
+		depends on SUDO_ETC_SUDOERS
+
+		config SUDO_ETC_SUDOERS_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/sudoers file from the
+			  sources.
+
+		config SUDO_ETC_SUDOERS_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined /etc/sudoers file. PTXdist
+			  uses file projectroot/etc/sudoers in your local project.
+
+	endchoice
 
