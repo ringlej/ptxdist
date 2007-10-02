@@ -1,8 +1,9 @@
 # -*-makefile-*-
-# $Id: template 5041 2006-03-09 08:45:49Z mkl $
+# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+# Copyright (C) 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,13 +18,12 @@ PACKAGES-$(PTXCONF_LIBJPEG) += libjpeg
 #
 # Paths and names
 #
-LIBJPEG_VERSION	:= 6b
-LIBJPEG		:= jpeg-6b
-LIBJPEG_SUFFIX	:= tar.gz
-LIBJPEG_URL	:= http://www.ijg.org/files/jpegsrc.v6b.$(LIBJPEG_SUFFIX)
-LIBJPEG_SOURCE	:= $(SRCDIR)/jpegsrc.v6b.$(LIBJPEG_SUFFIX)
+LIBJPEG_VERSION	:= 6b-ptx1
+LIBJPEG		:= libjpeg-$(LIBJPEG_VERSION)
+LIBJPEG_SUFFIX	:= tar.bz2
+LIBJPEG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBJPEG).$(LIBJPEG_SUFFIX)
+LIBJPEG_SOURCE	:= $(SRCDIR)/$(LIBJPEG).$(LIBJPEG_SUFFIX)
 LIBJPEG_DIR	:= $(BUILDDIR)/$(LIBJPEG)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,7 +31,7 @@ LIBJPEG_DIR	:= $(BUILDDIR)/$(LIBJPEG)
 
 libjpeg_get: $(STATEDIR)/libjpeg.get
 
-$(STATEDIR)/libjpeg.get: $(libjpeg_get_deps_default)
+$(STATEDIR)/libjpeg.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(LIBJPEG_SOURCE):
 
 libjpeg_extract: $(STATEDIR)/libjpeg.extract
 
-$(STATEDIR)/libjpeg.extract: $(libjpeg_extract_deps_default)
+$(STATEDIR)/libjpeg.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBJPEG_DIR))
 	@$(call extract, LIBJPEG)
@@ -59,19 +59,14 @@ $(STATEDIR)/libjpeg.extract: $(libjpeg_extract_deps_default)
 libjpeg_prepare: $(STATEDIR)/libjpeg.prepare
 
 LIBJPEG_PATH	:= PATH=$(CROSS_PATH)
-LIBJPEG_ENV 	:= \
-	$(CROSS_ENV) \
-	ac_cv_prog_cc_cross=yes
+LIBJPEG_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBJPEG_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--enable-shared \
-	--enable-static
+LIBJPEG_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/libjpeg.prepare: $(libjpeg_prepare_deps_default)
+$(STATEDIR)/libjpeg.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBJPEG_DIR)/config.cache)
 	cd $(LIBJPEG_DIR) && \
@@ -85,11 +80,9 @@ $(STATEDIR)/libjpeg.prepare: $(libjpeg_prepare_deps_default)
 
 libjpeg_compile: $(STATEDIR)/libjpeg.compile
 
-$(STATEDIR)/libjpeg.compile: $(libjpeg_compile_deps_default)
+$(STATEDIR)/libjpeg.compile:
 	@$(call targetinfo, $@)
-	# libtool came from a patch, so we have to make it executable
-	chmod a+x $(LIBJPEG_DIR)/libtool
-	cd $(LIBJPEG_DIR) && $(LIBJPEG_PATH) make
+	cd $(LIBJPEG_DIR) && $(LIBJPEG_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -98,7 +91,7 @@ $(STATEDIR)/libjpeg.compile: $(libjpeg_compile_deps_default)
 
 libjpeg_install: $(STATEDIR)/libjpeg.install
 
-$(STATEDIR)/libjpeg.install: $(libjpeg_install_deps_default)
+$(STATEDIR)/libjpeg.install:
 	@$(call targetinfo, $@)
 	@$(call install, LIBJPEG)
 	@$(call touch, $@)
@@ -109,27 +102,27 @@ $(STATEDIR)/libjpeg.install: $(libjpeg_install_deps_default)
 
 libjpeg_targetinstall: $(STATEDIR)/libjpeg.targetinstall
 
-$(STATEDIR)/libjpeg.targetinstall: $(libjpeg_targetinstall_deps_default)
+$(STATEDIR)/libjpeg.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, libjpeg)
-	@$(call install_fixup,libjpeg,PACKAGE,libjpeg)
-	@$(call install_fixup,libjpeg,PRIORITY,optional)
-	@$(call install_fixup,libjpeg,VERSION,$(LIBJPEG_VERSION))
-	@$(call install_fixup,libjpeg,SECTION,base)
-	@$(call install_fixup,libjpeg,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,libjpeg,DEPENDS,)
-	@$(call install_fixup,libjpeg,DESCRIPTION,missing)
+	@$(call install_fixup, libjpeg,PACKAGE,libjpeg)
+	@$(call install_fixup, libjpeg,PRIORITY,optional)
+	@$(call install_fixup, libjpeg,VERSION,$(LIBJPEG_VERSION))
+	@$(call install_fixup, libjpeg,SECTION,base)
+	@$(call install_fixup, libjpeg,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libjpeg,DEPENDS,)
+	@$(call install_fixup, libjpeg,DESCRIPTION,missing)
 
 	@$(call install_copy, libjpeg, 0, 0, 0755, $(LIBJPEG_DIR)/.libs/cjpeg, /usr/bin/cjpeg)
 	@$(call install_copy, libjpeg, 0, 0, 0755, $(LIBJPEG_DIR)/.libs/djpeg, /usr/bin/djpeg)
 	@$(call install_copy, libjpeg, 0, 0, 0755, $(LIBJPEG_DIR)/.libs/jpegtran, /usr/bin/jpegtran)
 
-	@$(call install_copy, libjpeg, 0, 0, 0755, $(LIBJPEG_DIR)/.libs/libjpeg.so.62.0.0, /usr/lib/libjpeg.so.62.0.0 )
+	@$(call install_copy, libjpeg, 0, 0, 0755, $(LIBJPEG_DIR)/.libs/libjpeg.so.62.0.0, /usr/lib/libjpeg.so.62.0.0)
 	@$(call install_link, libjpeg, libjpeg.so.62.0.0, /usr/lib/libjpeg.so.62)
 	@$(call install_link, libjpeg, libjpeg.so.62.0.0, /usr/lib/libjpeg.so)
 
-	@$(call install_finish,libjpeg)
+	@$(call install_finish, libjpeg)
 
 	@$(call touch, $@)
 
