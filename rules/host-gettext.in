@@ -1,0 +1,15 @@
+menuconfig HOST_GETTEXT
+	bool "gettext (GNU)               "
+#	select HOST_LIBICONV if ARCH_MINGW
+	help
+	  The gettext program translates a natural language
+	  message into the user's language, by looking up
+	  the translation in a message catalog.
+
+config HOST_GETTEXT_LIBINTL
+	bool
+	depends on HOST_GETTEXT
+	prompt "Install GNU libintl"
+	help
+	  FIXME: This item needs to be documented
+

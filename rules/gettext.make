@@ -2,8 +2,8 @@
 # $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#             Pengutronix <info@pengutronix.de>, Germany
-#          
+#               Pengutronix <info@pengutronix.de>, Germany
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,15 +18,12 @@ PACKAGES-$(PTXCONF_GETTEXT) += gettext
 #
 # Paths and names
 #
-GETTEXT_VERSION		= 0.15
-GETTEXT			= gettext-$(GETTEXT_VERSION)
-GETTEXT_SUFFIX		= tar.gz
-GETTEXT_URL		= $(PTXCONF_SETUP_GNUMIRROR)/gettext/$(GETTEXT).$(GETTEXT_SUFFIX)
-GETTEXT_SOURCE		= $(SRCDIR)/$(GETTEXT).$(GETTEXT_SUFFIX)
-GETTEXT_DIR		= $(BUILDDIR)/$(GETTEXT)
-
-GETTEXT_INST_DIR	= $(BUILDDIR)/$(GETTEXT)-install
-
+GETTEXT_VERSION	:= 0.16.1
+GETTEXT		:= gettext-$(GETTEXT_VERSION)
+GETTEXT_SUFFIX	:= tar.gz
+GETTEXT_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/gettext/$(GETTEXT).$(GETTEXT_SUFFIX)
+GETTEXT_SOURCE	:= $(SRCDIR)/$(GETTEXT).$(GETTEXT_SUFFIX)
+GETTEXT_DIR	:= $(BUILDDIR)/$(GETTEXT)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -34,7 +31,7 @@ GETTEXT_INST_DIR	= $(BUILDDIR)/$(GETTEXT)-install
 
 gettext_get: $(STATEDIR)/gettext.get
 
-$(STATEDIR)/gettext.get: $(gettext_get_deps_default)
+$(STATEDIR)/gettext.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -48,7 +45,7 @@ $(GETTEXT_SOURCE):
 
 gettext_extract: $(STATEDIR)/gettext.extract
 
-$(STATEDIR)/gettext.extract: $(gettext_extract_deps_default)
+$(STATEDIR)/gettext.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GETTEXT_DIR))
 	@$(call extract, GETTEXT)
@@ -61,22 +58,22 @@ $(STATEDIR)/gettext.extract: $(gettext_extract_deps_default)
 
 gettext_prepare: $(STATEDIR)/gettext.prepare
 
-GETTEXT_PATH	=  PATH=$(CROSS_PATH)
-GETTEXT_ENV 	=  $(CROSS_ENV) \
-	ac_cv_func_getline=yes \
-	am_cv_func_working_getline=yes
+GETTEXT_PATH	:= PATH=$(CROSS_PATH)
+GETTEXT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
+GETTEXT_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-java \
+	--disable-native-java \
+	--disable-csharp
 
-GETTEXT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-# This is braindead but correct :-) No, it isn't!
-# GETTEXT_AUTOCONF	+= --disable-nls
-
-$(STATEDIR)/gettext.prepare: $(gettext_prepare_deps_default)
+$(STATEDIR)/gettext.prepare:
 	@$(call targetinfo, $@)
+	@$(call clean, $(GETTEXT_DIR)/config.cache)
 	cd $(GETTEXT_DIR) && \
 		$(GETTEXT_PATH) $(GETTEXT_ENV) \
 		./configure $(GETTEXT_AUTOCONF)
@@ -88,11 +85,9 @@ $(STATEDIR)/gettext.prepare: $(gettext_prepare_deps_default)
 
 gettext_compile: $(STATEDIR)/gettext.compile
 
-gettext_compile_deps = $(gettext_compile_deps_default)
-
-$(STATEDIR)/gettext.compile: $(gettext_compile_deps_default)
+$(STATEDIR)/gettext.compile:
 	@$(call targetinfo, $@)
-	$(GETTEXT_PATH) make -C $(GETTEXT_DIR)
+	cd $(GETTEXT_DIR) && $(GETTEXT_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -101,7 +96,7 @@ $(STATEDIR)/gettext.compile: $(gettext_compile_deps_default)
 
 gettext_install: $(STATEDIR)/gettext.install
 
-$(STATEDIR)/gettext.install: $(gettext_install_deps_default)
+$(STATEDIR)/gettext.install:
 	@$(call targetinfo, $@)
 	@$(call install, GETTEXT)
 	@$(call touch, $@)
@@ -112,7 +107,7 @@ $(STATEDIR)/gettext.install: $(gettext_install_deps_default)
 
 gettext_targetinstall: $(STATEDIR)/gettext.targetinstall
 
-$(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps_default)
+$(STATEDIR)/gettext.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, gettext)
@@ -123,15 +118,8 @@ $(STATEDIR)/gettext.targetinstall: $(gettext_targetinstall_deps_default)
 	@$(call install_fixup, gettext,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, gettext,DEPENDS,)
 	@$(call install_fixup, gettext,DESCRIPTION,missing)
-	
-	cd $(GETTEXT_DIR)/gettext-runtime/intl/.libs && \
-		for file in `find . -type f -name 'lib*intl.so*'`; do \
-			$(call install_copy, gettext, 0, 0, 0644, $$file, /usr/lib/$$file, n); \
-		done
-	cd $(GETTEXT_DIR)/gettext-runtime/intl/.libs && \
-		for file in `find . -type l -name 'lib*intl.so*'`; do \
-			$(call install_link, gettext, `readlink $$file`, /usr/lib/$$file); \
-		done
+
+	@$(call install_copy, gettext, 0, 0, 0755, $(GETTEXT_DIR)/foobar, /dev/null)
 
 	@$(call install_finish, gettext)
 
