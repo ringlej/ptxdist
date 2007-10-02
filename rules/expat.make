@@ -3,7 +3,8 @@
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
-#          
+#               2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,13 +19,12 @@ PACKAGES-$(PTXCONF_EXPAT) += expat
 #
 # Paths and names
 #
-EXPAT_VERSION	:= 1.95.8
+EXPAT_VERSION	:= 2.0.0
 EXPAT		:= expat-$(EXPAT_VERSION)
 EXPAT_SUFFIX	:= tar.gz
 EXPAT_URL	:= $(PTXCONF_SETUP_SFMIRROR)/expat/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_SOURCE	:= $(SRCDIR)/$(EXPAT).$(EXPAT_SUFFIX)
 EXPAT_DIR	:= $(BUILDDIR)/$(EXPAT)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -32,7 +32,7 @@ EXPAT_DIR	:= $(BUILDDIR)/$(EXPAT)
 
 expat_get: $(STATEDIR)/expat.get
 
-$(STATEDIR)/expat.get: $(expat_get_deps_default)
+$(STATEDIR)/expat.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +46,7 @@ $(EXPAT_SOURCE):
 
 expat_extract: $(STATEDIR)/expat.extract
 
-$(STATEDIR)/expat.extract: $(expat_extract_deps_default)
+$(STATEDIR)/expat.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(EXPAT_DIR))
 	@$(call extract, EXPAT)
@@ -65,11 +65,11 @@ EXPAT_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-EXPAT_AUTOCONF  := $(CROSS_AUTOCONF_USR)
+EXPAT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/expat.prepare: $(expat_prepare_deps_default)
+$(STATEDIR)/expat.prepare:
 	@$(call targetinfo, $@)
-	@$(call clean, $(EXPAT_BUILDDIR))
+	@$(call clean, $(EXPAT_DIR)/config.cache)
 	cd $(EXPAT_DIR) && \
 		$(EXPAT_PATH) $(EXPAT_ENV) \
 		./configure $(EXPAT_AUTOCONF)
@@ -81,10 +81,9 @@ $(STATEDIR)/expat.prepare: $(expat_prepare_deps_default)
 
 expat_compile: $(STATEDIR)/expat.compile
 
-$(STATEDIR)/expat.compile: $(expat_compile_deps_default)
+$(STATEDIR)/expat.compile:
 	@$(call targetinfo, $@)
-	cd $(EXPAT_DIR) && \
-		$(EXPAT_PATH) $(MAKE)
+	cd $(EXPAT_DIR) && $(EXPAT_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -93,7 +92,7 @@ $(STATEDIR)/expat.compile: $(expat_compile_deps_default)
 
 expat_install: $(STATEDIR)/expat.install
 
-$(STATEDIR)/expat.install: $(expat_install_deps_default)
+$(STATEDIR)/expat.install:
 	@$(call targetinfo, $@)
 	@$(call install, EXPAT)
 	@$(call touch, $@)
@@ -104,7 +103,7 @@ $(STATEDIR)/expat.install: $(expat_install_deps_default)
 
 expat_targetinstall: $(STATEDIR)/expat.targetinstall
 
-$(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps_default)
+$(STATEDIR)/expat.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, expat)
@@ -116,9 +115,9 @@ $(STATEDIR)/expat.targetinstall: $(expat_targetinstall_deps_default)
 	@$(call install_fixup, expat,DEPENDS,)
 	@$(call install_fixup, expat,DESCRIPTION,missing)
 
-	@$(call install_copy, expat, 0, 0, 0644, $(EXPAT_DIR)/.libs/libexpat.so.0.5.0, /usr/lib/libexpat.so.0.5.0)
-	@$(call install_link, expat, libexpat.so.0.5.0, /usr/lib/libexpat.so.0)
-	@$(call install_link, expat, libexpat.so.0.5.0, /usr/lib/libexpat.so)
+	@$(call install_copy, expat, 0, 0, 0644, $(EXPAT_DIR)/.libs/libexpat.so.1.5.0, /usr/lib/libexpat.so.1.5.0)
+	@$(call install_link, expat, libexpat.so.1.5.0, /usr/lib/libexpat.so.1)
+	@$(call install_link, expat, libexpat.so.1.5.0, /usr/lib/libexpat.so)
 
 	@$(call install_finish, expat)
 
