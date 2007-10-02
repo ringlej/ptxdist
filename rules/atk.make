@@ -4,7 +4,7 @@
 # Copyright (C) 2003-2006 Robert Schwebel <r.schwebel@pengutronix.de>
 #                         Pengutronix <info@pengutronix.de>, Germany
 #                         Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -19,13 +19,12 @@ PACKAGES-$(PTXCONF_ATK) += atk
 #
 # Paths and names
 #
-ATK_VERSION	:= 1.10.3
+ATK_VERSION	:= 1.20.0
 ATK		:= atk-$(ATK_VERSION)
 ATK_SUFFIX	:= tar.bz2
-ATK_URL		:= ftp://ftp.gtk.org/pub/gtk/v2.8/$(ATK).$(ATK_SUFFIX)
+ATK_URL		:= http://ftp.gnome.org/pub/gnome/sources/atk/1.20/$(ATK).$(ATK_SUFFIX)
 ATK_SOURCE	:= $(SRCDIR)/$(ATK).$(ATK_SUFFIX)
 ATK_DIR		:= $(BUILDDIR)/$(ATK)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -33,7 +32,7 @@ ATK_DIR		:= $(BUILDDIR)/$(ATK)
 
 atk_get: $(STATEDIR)/atk.get
 
-$(STATEDIR)/atk.get: $(atk_get_deps_default)
+$(STATEDIR)/atk.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,7 +46,7 @@ $(ATK_SOURCE):
 
 atk_extract: $(STATEDIR)/atk.extract
 
-$(STATEDIR)/atk.extract: $(atk_extract_deps_default)
+$(STATEDIR)/atk.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(ATK_DIR))
 	@$(call extract, ATK)
@@ -61,14 +60,17 @@ $(STATEDIR)/atk.extract: $(atk_extract_deps_default)
 atk_prepare: $(STATEDIR)/atk.prepare
 
 ATK_PATH	:= PATH=$(CROSS_PATH)
-ATK_ENV 	:= $(CROSS_ENV)
+ATK_ENV		:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-ATK_AUTOCONF := $(CROSS_AUTOCONF_USR)
+ATK_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-static \
+	--disable-glibtest
 
-$(STATEDIR)/atk.prepare: $(atk_prepare_deps_default)
+$(STATEDIR)/atk.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(ATK_DIR)/config.cache)
 	cd $(ATK_DIR) && \
@@ -82,9 +84,9 @@ $(STATEDIR)/atk.prepare: $(atk_prepare_deps_default)
 
 atk_compile: $(STATEDIR)/atk.compile
 
-$(STATEDIR)/atk.compile: $(atk_compile_deps_default)
+$(STATEDIR)/atk.compile:
 	@$(call targetinfo, $@)
-	cd $(ATK_DIR) && $(ATK_PATH) make
+	cd $(ATK_DIR) && $(ATK_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -93,7 +95,7 @@ $(STATEDIR)/atk.compile: $(atk_compile_deps_default)
 
 atk_install: $(STATEDIR)/atk.install
 
-$(STATEDIR)/atk.install: $(atk_install_deps_default)
+$(STATEDIR)/atk.install:
 	@$(call targetinfo, $@)
 	@$(call install, ATK)
 	@$(call touch, $@)
@@ -104,7 +106,7 @@ $(STATEDIR)/atk.install: $(atk_install_deps_default)
 
 atk_targetinstall: $(STATEDIR)/atk.targetinstall
 
-$(STATEDIR)/atk.targetinstall: $(atk_targetinstall_deps_default)
+$(STATEDIR)/atk.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, atk)
@@ -116,9 +118,11 @@ $(STATEDIR)/atk.targetinstall: $(atk_targetinstall_deps_default)
 	@$(call install_fixup,atk,DEPENDS,)
 	@$(call install_fixup,atk,DESCRIPTION,missing)
 
-	@$(call install_copy, atk, 0, 0, 0644, $(ATK_DIR)/atk/.libs/libatk-1.0.so.0.1010.3, /usr/lib/libatk-1.0.so.0.1010.3)
-	@$(call install_link, atk, libatk-1.0.so.0.1010.3, /usr/lib/libatk-1.0.so.0)
-	@$(call install_link, atk, libatk-1.0.so.0.1010.3, /usr/lib/libatk-1.0.so)
+	@$(call install_copy, atk, 0, 0, 0644, \
+		$(ATK_DIR)/atk/.libs/libatk-1.0.so.0.1915.1, \
+		/usr/lib/libatk-1.0.so.0.1915.1)
+	@$(call install_link, atk, libatk-1.0.so.0.1915.1, /usr/lib/libatk-1.0.so.0)
+	@$(call install_link, atk, libatk-1.0.so.0.1915.1, /usr/lib/libatk-1.0.so)
 
 	@$(call install_finish,atk)
 

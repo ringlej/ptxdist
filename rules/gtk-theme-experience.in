@@ -1,0 +1,30 @@
+
+config GTK_THEME_EXPERIENCE
+	bool
+	depends on GTK_ENGINE_EXPERIENCE
+	default y if GTK_ENGINE_EXPERIENCE
+
+config GTK_THEME_EXPERIENCE_PLAIN
+	bool
+	depends on GTK_ENGINE_EXPERIENCE
+	depends on GTK_THEME_EXPERIENCE
+	prompt "eXperience theme with plain coloring"
+	help
+	  Plain eXperience theme.
+
+config GTK_THEME_EXPERIENCE_ICE
+	bool
+	depends on GTK_ENGINE_EXPERIENCE
+	depends on GTK_THEME_EXPERIENCE
+	prompt "eXperience theme with ice coloring"
+	help
+	  eXperience "ice" theme.
+
+config GTK_THEME_EXPERIENCE_OLIVE
+	bool
+	depends on GTK_ENGINE_EXPERIENCE
+	depends on GTK_THEME_EXPERIENCE
+	prompt "eXperience theme with olive coloring"
+	help
+	  eXperience "olive" theme.
+

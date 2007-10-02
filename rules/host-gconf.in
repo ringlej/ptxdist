@@ -1,0 +1,4 @@
+config HOST_GCONF
+	bool
+	prompt "gconf"
+

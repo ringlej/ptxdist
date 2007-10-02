@@ -1,48 +1,127 @@
 menuconfig GTK
 	bool
-	prompt "gtk+"
+	prompt "gtk+                          "
 	select GLIB
 	select ATK
 	select PANGO
-#	select LIBTIFF if GTK_LIBTIFF
-	select LIBPNG if GTK_LIBPNG
-	select LIBJPEG if GTK_LIBJPG
+
+	select CAIRO
+	select CAIRO_PDF
+
+#	select LIBTIFF if GTK_LOADER_TIFF
+	select LIBPNG if GTK_LOADER_PNG
+	select LIBJPEG if GTK_LOADER_JPEG
+
 	select XORG_LIB_XEXT if GTK_TARGET_X11
 	select XORG_LIB_XINERAMA if GTK_TARGET_X11_XINERAMA
 	select XORG_LIB_XRANDR if GTK_TARGET_X11_XRANDR
-	depends on BROKEN
-	help	
+
+	help
 	The GTK+ is a multi-platform toolkit for creating graphical
 	user interfaces. Offering a complete set of widgets, the GTK+
 	is suitable for projects ranging from small one-off tools to complete
 	application suites.
 
+menu "graphic loaders"
+	depends on GTK
 
-#config GTK_LIBTIFF
+config GTK_LOADER_PNG
+	bool
+	prompt "png"
+	depends on GTK
+	default y
+
+config GTK_LOADER_BMP
+	bool
+	prompt "bmp"
+	depends on GTK
+
+config GTK_LOADER_WBMP
+	bool
+	prompt "wbmp"
+	depends on GTK
+
+config GTK_LOADER_GIF
+	bool
+	prompt "gif"
+	depends on GTK
+
+config GTK_LOADER_ICO
+	bool
+	prompt "ico"
+	depends on GTK
+
+config GTK_LOADER_ANI
+	bool
+	prompt "ani"
+	depends on GTK
+
+config GTK_LOADER_JPEG
+	bool
+	prompt "jpeg"
+	depends on GTK
+
+config GTK_LOADER_PNM
+	bool
+	prompt "pnm"
+	depends on GTK
+
+config GTK_LOADER_RAS
+	bool
+	prompt "ras"
+	depends on GTK
+
+#config GTK_LOADER_TIFF
 #	bool
-#	prompt "TIFF loader for gdk-pixbuf"
+#	prompt "tiff"
 #	depends on GTK
-#	depends on BROKEN
-#	default y
 
-config GTK_LIBJPEG
+config GTK_LOADER_XPM
 	bool
-	prompt "JPEG loader for gdk-pixbuf"
+	prompt "xpm"
 	depends on GTK
-	default y
 
-config GTK_LIBPNG
+config GTK_LOADER_TGA
 	bool
-	prompt "PNG loader for gdk-pixbuf"
+	prompt "tga"
 	depends on GTK
-	depends on BROKEN
-	default y
 
-config GTK_TARGET_X11
+config GTK_LOADER_PCX
 	bool
-	prompt "gdk-target X11"
+	prompt "pcx"
 	depends on GTK
-	select CAIRO_XLIB
+
+endmenu
+
+choice
+	prompt "gdk-target"
+	depends on GTK
+
+	config GTK_TARGET_X11
+		bool "X11"
+		depends on GTK
+		select CAIRO_XLIB
+		select CAIRO_PS
+
+	config GTK_TARGET_DIRECTFB
+		bool "directfb"
+		depends on GTK
+		select CAIRO_DIRECTFB
+		select CAIRO_PS
+
+	config GTK_TARGET_WIN32
+		bool "Win32"
+		depends on GTK
+		depends on ARCH_MINGW
+		select CAIRO_WIN32
+
+	config GTK_TARGET_HOST_X11
+		bool "host X11"
+		depends on GTK
+		select CAIRO_XLIB
+		select CAIRO_PS
+
+endchoice
 
 config GTK_TARGET_X11_XINERAMA
 	bool
@@ -55,4 +134,39 @@ config GTK_TARGET_X11_XRANDR
 	prompt "Xrandr support"
 	depends on GTK
 	depends on GTK_TARGET_X11
+
+
+config GTK_DEMO
+	bool
+	prompt "gtkdemo"
+	depends on GTK
+
+
+menuconfig GTK_ENGINES
+	bool
+	prompt "gtk engines                   "
+	depends on GTK
+
+source "workspace/rules/gtk-engine-experience.in"
+
+choice
+	prompt "default theme"
+	depends on GTK
+
+	config GTK_DEFAULT_NONE
+		bool "none"
+		depends on GTK
+
+	config GTK_DEFAULT_THEME_EXPERIENCE_PLAIN
+		bool "eXperience (plain)"
+		depends on GTK_THEME_EXPERIENCE_PLAIN
+
+	config GTK_DEFAULT_THEME_EXPERIENCE_ICE
+		bool "eXperience (ice)"
+		depends on GTK_THEME_EXPERIENCE_ICE
+
+	config GTK_DEFAULT_THEME_EXPERIENCE_OLIVE
+		bool "eXperience (olive)"
+		depends on GTK_THEME_EXPERIENCE_OLIVE
+endchoice
 

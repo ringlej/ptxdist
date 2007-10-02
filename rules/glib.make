@@ -18,10 +18,10 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #
 # Paths and names
 #
-GLIB_VERSION	:= 2.12.9
+GLIB_VERSION	:= 2.14.1
 GLIB		:= glib-$(GLIB_VERSION)
 GLIB_SUFFIX	:= tar.bz2
-GLIB_URL	:= ftp://ftp.gtk.org/pub/glib/2.12/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
+GLIB_URL	:= ftp://ftp.gtk.org/pub/glib/2.14/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
 GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
@@ -31,7 +31,7 @@ GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
 glib_get: $(STATEDIR)/glib.get
 
-$(STATEDIR)/glib.get: $(glib_get_deps_default)
+$(STATEDIR)/glib.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(GLIB_SOURCE):
 
 glib_extract: $(STATEDIR)/glib.extract
 
-$(STATEDIR)/glib.extract: $(glib_extract_deps_default)
+$(STATEDIR)/glib.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB_DIR))
 	@$(call extract, GLIB)
@@ -69,21 +69,11 @@ GLIB_ENV 	:= \
 #
 # autoconf
 #
-GLIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
+GLIB_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-static
 
-ifdef PTXCONF_GLIB_ICONV_NATIVE
-GLIB_AUTOCONF += --with-libiconv=native
-endif
-ifdef PTXCONF_GLIB_ICONV_LIBICONV
-GLIB_AUTOCONF += --with-libiconv=gnu
-endif
-ifdef PTXCONV_GLIB_ICONV_CACHE
-GLIB_AUTOCONF += --enable-iconv-cache=yes 
-else
-GLIB_AUTOCONF += --enable-iconv-cache=no
-endif
-
-$(STATEDIR)/glib.prepare: $(glib_prepare_deps_default)
+$(STATEDIR)/glib.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GLIB_DIR)/config.cache)
 	cd $(GLIB_DIR) && \
@@ -97,7 +87,7 @@ $(STATEDIR)/glib.prepare: $(glib_prepare_deps_default)
 
 glib_compile: $(STATEDIR)/glib.compile
 
-$(STATEDIR)/glib.compile: $(glib_compile_deps_default)
+$(STATEDIR)/glib.compile:
 	@$(call targetinfo, $@)
 	cd $(GLIB_DIR) && $(GLIB_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -108,7 +98,7 @@ $(STATEDIR)/glib.compile: $(glib_compile_deps_default)
 
 glib_install: $(STATEDIR)/glib.install
 
-$(STATEDIR)/glib.install: $(glib_install_deps_default)
+$(STATEDIR)/glib.install:
 	@$(call targetinfo, $@)
 	@$(call install, GLIB)
 	@$(call touch, $@)
@@ -119,7 +109,7 @@ $(STATEDIR)/glib.install: $(glib_install_deps_default)
 
 glib_targetinstall: $(STATEDIR)/glib.targetinstall
 
-$(STATEDIR)/glib.targetinstall: $(glib_targetinstall_deps_default)
+$(STATEDIR)/glib.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, glib)
@@ -131,21 +121,29 @@ $(STATEDIR)/glib.targetinstall: $(glib_targetinstall_deps_default)
 	@$(call install_fixup,glib,DEPENDS,)
 	@$(call install_fixup,glib,DESCRIPTION,missing)
 
-	@$(call install_copy, glib, 0, 0, 0644, $(GLIB_DIR)/glib/.libs/libglib-2.0.so.0.1200.9, /usr/lib/libglib-2.0.so.0.1200.9)
-	@$(call install_link, glib, libglib-2.0.so.0.1200.9, /usr/lib/libglib-2.0.so.0)
-	@$(call install_link, glib, libglib-2.0.so.0.1200.9, /usr/lib/libglib-2.0.so)
+	@$(call install_copy, glib, 0, 0, 0644, \
+		$(GLIB_DIR)/glib/.libs/libglib-2.0.so.0.1307.0, \
+		/usr/lib/libglib-2.0.so.0.1307.0)
+	@$(call install_link, glib, libglib-2.0.so.0.1307.0, /usr/lib/libglib-2.0.so.0)
+	@$(call install_link, glib, libglib-2.0.so.0.1307.0, /usr/lib/libglib-2.0.so)
 
-	@$(call install_copy, glib, 0, 0, 0644, $(GLIB_DIR)/gobject/.libs/libgobject-2.0.so.0.1200.9, /usr/lib/libgobject-2.0.so.0.1200.9)
-	@$(call install_link, glib, libgobject-2.0.so.0.1200.9, /usr/lib/libgobject-2.0.so.0)
-	@$(call install_link, glib, libgobject-2.0.so.0.1200.9, /usr/lib/libgobject-2.0.so)
+	@$(call install_copy, glib, 0, 0, 0644, \
+		$(GLIB_DIR)/gobject/.libs/libgobject-2.0.so.0.1307.0, \
+		/usr/lib/libgobject-2.0.so.0.1307.0)
+	@$(call install_link, glib, libgobject-2.0.so.0.1307.0, /usr/lib/libgobject-2.0.so.0)
+	@$(call install_link, glib, libgobject-2.0.so.0.1307.0, /usr/lib/libgobject-2.0.so)
 
-	@$(call install_copy, glib, 0, 0, 0644, $(GLIB_DIR)/gmodule/.libs/libgmodule-2.0.so.0.1200.9, /usr/lib/libgmodule-2.0.so.0.1200.9)
-	@$(call install_link, glib, libgmodule-2.0.so.0.1200.9, /usr/lib/libgmodule-2.0.so.0)
-	@$(call install_link, glib, libgmodule-2.0.so.0.1200.9, /usr/lib/libgmodule-2.0.so)
+	@$(call install_copy, glib, 0, 0, 0644, \
+		$(GLIB_DIR)/gmodule/.libs/libgmodule-2.0.so.0.1307.0, \
+		/usr/lib/libgmodule-2.0.so.0.1307.0)
+	@$(call install_link, glib, libgmodule-2.0.so.0.1307.0, /usr/lib/libgmodule-2.0.so.0)
+	@$(call install_link, glib, libgmodule-2.0.so.0.1307.0, /usr/lib/libgmodule-2.0.so)
 
-	@$(call install_copy, glib, 0, 0, 0644, $(GLIB_DIR)/gthread/.libs/libgthread-2.0.so.0.1200.9, /usr/lib/libgthread-2.0.so.0.1200.9)
-	@$(call install_link, glib, libgthread-2.0.so.0.1200.9, /usr/lib/libgthread-2.0.so.0)
-	@$(call install_link, glib, libgthread-2.0.so.0.1200.9, /usr/lib/libgthread-2.0.so)
+	@$(call install_copy, glib, 0, 0, 0644, \
+		$(GLIB_DIR)/gthread/.libs/libgthread-2.0.so.0.1307.0, \
+		/usr/lib/libgthread-2.0.so.0.1307.0)
+	@$(call install_link, glib, libgthread-2.0.so.0.1307.0, /usr/lib/libgthread-2.0.so.0)
+	@$(call install_link, glib, libgthread-2.0.so.0.1307.0, /usr/lib/libgthread-2.0.so)
 
 	@$(call install_finish,glib)
 

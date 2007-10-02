@@ -1,0 +1,62 @@
+menuconfig DIRECTFB
+	bool
+	prompt "directfb                      "
+	select HOST_DIRECTFB
+	select MENU_XORG_FONTS
+	select LIBPNG if DIRECTFB_IMAGE_PNG
+	select LIBJPEG if DIRECTFB_IMAGE_JPEG
+	select FREETYPE if DIRECTFB_FONT_FREETYPE
+	select TSLIB if DIRECTFB_INPUT_TSLIB
+
+config DIRECTFB_IMAGE_PNG
+	bool "build PNG image provider"
+	depends on DIRECTFB
+
+config DIRECTFB_IMAGE_JPEG
+	bool "build JPEG image provider"
+	depends on DIRECTFB
+
+
+config DIRECTFB_FONT_FREETYPE
+	bool "build FreeType2 font provider"
+	depends on DIRECTFB
+
+config DIRECTFB_WM_UNIQUE
+	bool "enable Unique (WM Module)"
+	depends on DIRECTFB
+	select DIRECTFB_IMAGE_PNG
+
+menu "input driver"
+	depends on DIRECTFB
+
+config DIRECTFB_INPUT_KEYBOARD
+	bool "keyboard"
+
+config DIRECTFB_INPUT_LINUXINPUT
+	default y
+	bool "linuxinput"
+
+config DIRECTFB_INPUT_PS2MOUSE
+	bool "ps2mouse"
+
+config DIRECTFB_INPUT_TSLIB
+	bool "tslib"
+
+endmenu
+
+config DIRECTFB_EXAMPLES
+	bool
+	prompt "directfb examples"
+	select DIRECTFB_IMAGE_PNG
+	select DIRECTFB_IMAGE_JPEG
+	select DIRECTFB_FONT_FREETYPE
+	select DIRECTFB
+
+config HOST_DIRECTFB
+	bool
+	select HOST_LIBPNG
+
+config HOST_LIBPNG
+	bool
+	select HOST_ZLIB
+

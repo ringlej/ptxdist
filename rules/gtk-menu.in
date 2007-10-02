@@ -1,9 +1,13 @@
 menu "GTK+ and friends      "
 
-source "rules/gtk.in"
-source "rules/glib.in"
-source "rules/atk.in"
-source "rules/pango.in"
-source "rules/cairo.in"
+source "workspace/rules/gtk.in"
+source "workspace/rules/glib.in"
+source "workspace/rules/atk.in"
+source "workspace/rules/pango.in"
+source "workspace/rules/cairo.in"
+source "workspace/rules/directfb.in"
+source "workspace/rules/libglade.in"
+source "workspace/rules/glade.in"
+source "workspace/rules/wine.in"
 
 endmenu

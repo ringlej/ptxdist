@@ -1,7 +1,7 @@
-config ATK
+config HOST_ATK
 	bool
 	prompt "atk"
-	select GLIB
+	select HOST_GLIB
 	help
 	  ATK is a toolkit providing accessibility interfaces
 	  for applications or other toolkits. By implementing

@@ -1,45 +1,21 @@
-menuconfig GLIB
+config GLIB
 	bool
-	prompt "glib                          "
+	prompt "glib"
+	select LIBICONV if GLIB_LIBICONV
+	select GETTEXT if GLIB_GETTEXT
 	select HOST_GLIB
 	help
-	  GLib is a library containing many useful C
-	  routines for things such as trees, hashes,
-	  lists, and strings.  It is a useful general-purpose
-	  C library used by projects such as GTK+,
-	  GIMP, and GNOME.
+	  GLib is a library containing many useful C routines for things
+	  such as trees, hashes, lists, and strings. It is a useful
+	  general-purpose C library used by projects such as GTK+, GIMP,
+	  and GNOME.
 
-choice
-	depends on GLIB
-	prompt "iconv implementation"
-	help
-	  iconv provides conversion between unicode and native
-	  encodings.
-
-	config GLIB_ICONV_NATIVE
-		bool
-		prompt "native (from glibc)"
-		help
-		  Most modern systems have libiconv already as part of
-		  the glibc.
-
-	config GLIB_ICONV_LIBICONV
-		bool
-		prompt "libiconv"
-		select LIBICONV
-		help
-		  If iconv is not part of the C library, you can use GNU
-		  libiconv instead.
-endchoice
-
-config GLIB_ICONV_CACHE
+config GLIB_LIBICONV
 	bool
 	depends on GLIB
-	prompt "iconv cache"
-	help
-	  cache iconv descriptors
+	default y if ARCH_MINGW
 
-config HOST_GLIB
+config GLIB_GETTEXT
 	bool
 	depends on GLIB
-
+	default y if ARCH_MINGW

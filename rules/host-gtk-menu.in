@@ -1,0 +1,13 @@
+menu "GTK+ and friends        "
+
+source "workspace/rules/host-gtk.in"
+source "workspace/rules/host-glib.in"
+source "workspace/rules/host-atk.in"
+source "workspace/rules/host-pango.in"
+source "workspace/rules/host-cairo.in"
+#source "workspace/rules/host-directfb.in"
+source "workspace/rules/host-libglade.in"
+source "workspace/rules/host-glade.in"
+#source "workspace/rules/host-wine.in"
+endmenu
+

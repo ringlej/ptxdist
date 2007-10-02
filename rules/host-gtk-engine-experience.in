@@ -1,0 +1,9 @@
+config HOST_GTK_ENGINE_EXPERIENCE
+	bool
+	prompt "eXperience engine"
+	depends on HOST_GTK_ENGINES
+	help
+	  A pixmap engine that is somewhat like XP, but way better...
+
+source "workspace/rules/host-gtk-theme-experience.in"
+

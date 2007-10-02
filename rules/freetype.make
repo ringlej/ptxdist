@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_FREETYPE) += freetype
 #
 # Paths and names
 #
-FREETYPE_VERSION	:= 2.2.1
+FREETYPE_VERSION	:= 2.3.4
 FREETYPE		:= freetype-$(FREETYPE_VERSION)
 FREETYPE_SUFFIX		:= tar.bz2
 FREETYPE_URL		:= http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).$(FREETYPE_SUFFIX)
@@ -31,7 +31,7 @@ FREETYPE_DIR		:= $(BUILDDIR)/$(FREETYPE)
 
 freetype_get: $(STATEDIR)/freetype.get
 
-$(STATEDIR)/freetype.get: $(freetype_get_deps_default)
+$(STATEDIR)/freetype.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(FREETYPE_SOURCE):
 
 freetype_extract: $(STATEDIR)/freetype.extract
 
-$(STATEDIR)/freetype.extract: $(freetype_extract_deps_default)
+$(STATEDIR)/freetype.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(FREETYPE_DIR))
 	@$(call extract, FREETYPE)
@@ -66,7 +66,7 @@ FREETYPE_ENV 	:= $(CROSS_ENV)
 #
 FREETYPE_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/freetype.prepare: $(freetype_prepare_deps_default)
+$(STATEDIR)/freetype.prepare:
 	@$(call targetinfo, $@)
 	cd $(FREETYPE_DIR) && \
 		$(FREETYPE_PATH) $(FREETYPE_ENV) \
@@ -79,7 +79,7 @@ $(STATEDIR)/freetype.prepare: $(freetype_prepare_deps_default)
 
 freetype_compile: $(STATEDIR)/freetype.compile
 
-$(STATEDIR)/freetype.compile: $(freetype_compile_deps_default)
+$(STATEDIR)/freetype.compile:
 	@$(call targetinfo, $@)
 	cd $(FREETYPE_DIR) && \
 		$(FREETYPE_PATH) $(MAKE) $(PARALLELMFLAGS)
@@ -91,7 +91,7 @@ $(STATEDIR)/freetype.compile: $(freetype_compile_deps_default)
 
 freetype_install: $(STATEDIR)/freetype.install
 
-$(STATEDIR)/freetype.install: $(freetype_install_deps_default)
+$(STATEDIR)/freetype.install:
 	@$(call targetinfo, $@)
 	@$(call install, FREETYPE)
 	$(INSTALL) -m 755 -D $(FREETYPE_DIR)/builds/unix/freetype-config \
@@ -104,7 +104,7 @@ $(STATEDIR)/freetype.install: $(freetype_install_deps_default)
 
 freetype_targetinstall: $(STATEDIR)/freetype.targetinstall
 
-$(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps_default)
+$(STATEDIR)/freetype.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, freetype)
@@ -117,10 +117,10 @@ $(STATEDIR)/freetype.targetinstall: $(freetype_targetinstall_deps_default)
 	@$(call install_fixup, freetype,DESCRIPTION,missing)
 
 	@$(call install_copy, freetype, 0, 0, 0644, \
-		$(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.10, \
-		/usr/lib/libfreetype.so.6.3.10)
-	@$(call install_link, freetype, libfreetype.so.6.3.10, /usr/lib/libfreetype.so.6)
-	@$(call install_link, freetype, libfreetype.so.6.3.10, /usr/lib/libfreetype.so)
+		$(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.15, \
+		/usr/lib/libfreetype.so.6.3.15)
+	@$(call install_link, freetype, libfreetype.so.6.3.15, /usr/lib/libfreetype.so.6)
+	@$(call install_link, freetype, libfreetype.so.6.3.15, /usr/lib/libfreetype.so)
 
 	@$(call install_finish, freetype)
 

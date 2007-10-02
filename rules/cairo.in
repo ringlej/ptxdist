@@ -1,29 +1,53 @@
 menuconfig CAIRO
 	bool
-	select XORG_LIB_XT if CAIRO_XLIB
-	select XORG_LIB_XRENDER if CAIRO_XLIB
+	select XORG_LIB_XT if CAIRO_XLIB && !GTK_TARGET_HOST_X11
+	select XORG_LIB_XRENDER if CAIRO_XLIB && !GTK_TARGET_HOST_X11
 
-	select FONTCONFIG if CAIRO_FREETYPE
+	select DIRECTFB if CAIRO_DIRECTFB
+
 	select FREETYPE if CAIRO_FREETYPE
+	select FONTCONFIG if CAIRO_FREETYPE
 
 	select LIBPNG if CAIRO_PNG
 
-	prompt "cairo"
+	prompt "cairo                         "
+
+config CAIRO_PS
+	bool
+	depends on CAIRO
+	prompt "PostScript backend"
+
+config CAIRO_PDF
+	bool
+	depends on CAIRO
+	prompt "PDF backend"
+
 
 config CAIRO_XLIB
 	bool
-	default y
 	depends on CAIRO
 	prompt "Xlib backend"
+	select CAIRO_FREETYPE
+
+config CAIRO_DIRECTFB
+	bool
+	depends on CAIRO
+	prompt "directfb backend"
+	select CAIRO_FREETYPE
+
+config CAIRO_WIN32
+	bool
+	depends on CAIRO
+	depends on ARCH_MINGW
+	prompt "Win32 backend"
+
 
 config CAIRO_FREETYPE
 	bool
-	default y
 	depends on CAIRO
 	prompt "Freetype font backend"
 
 config CAIRO_PNG
 	bool
-	default y
 	depends on CAIRO
 	prompt "PNG support"
