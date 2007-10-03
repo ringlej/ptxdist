@@ -4,7 +4,7 @@
 # Copyright (C) 2003-2006 Robert Schwebel <r.schwebel@pengutronix.de>
 #                         Pengutronix <info@pengutronix.de>, Germany
 #                         Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -19,13 +19,12 @@ PACKAGES-$(PTXCONF_PANGO) += pango
 #
 # Paths and names
 #
-PANGO_VERSION	:= 1.10.4
+PANGO_VERSION	:= 1.17.5
 PANGO		:= pango-$(PANGO_VERSION)
 PANGO_SUFFIX	:= tar.bz2
-PANGO_URL	:= ftp://ftp.gtk.org/pub/gtk/v2.8/$(PANGO).$(PANGO_SUFFIX)
+PANGO_URL	:= http://ftp.gnome.org/pub/GNOME/sources/pango/1.17/$(PANGO).$(PANGO_SUFFIX)
 PANGO_SOURCE	:= $(SRCDIR)/$(PANGO).$(PANGO_SUFFIX)
 PANGO_DIR	:= $(BUILDDIR)/$(PANGO)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -33,7 +32,7 @@ PANGO_DIR	:= $(BUILDDIR)/$(PANGO)
 
 pango_get: $(STATEDIR)/pango.get
 
-$(STATEDIR)/pango.get: $(pango_get_deps_default)
+$(STATEDIR)/pango.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,7 +46,7 @@ $(PANGO_SOURCE):
 
 pango_extract: $(STATEDIR)/pango.extract
 
-$(STATEDIR)/pango.extract: $(pango_extract_deps_default)
+$(STATEDIR)/pango.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(PANGO_DIR))
 	@$(call extract, PANGO)
@@ -66,11 +65,56 @@ PANGO_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
+ifdef PTXCONF_PANGO_BASIC
+PANGO_MODULES += basic-fc,basic-win32,basic-x,basic-atsui
+endif
+
+ifdef PTXCONF_PANGO_ARABIC
+PANGO_MODULES += arabic-fc
+endif
+
+ifdef PTXCONF_PANGO_HANGUL
+PANGO_MODULES += hangul-fc
+endif
+
+ifdef PTXCONF_PANGO_HEBREW
+PANGO_MODULES += hebrew-fc
+endif
+
+ifdef PTXCONF_PANGO_INDIC
+PANGO_MODULES += indic-fc,indic-lang
+endif
+
+ifdef PTXCONF_PANGO_KHMER
+PANGO_MODULES += khmer-fc
+endif
+
+ifdef PTXCONF_PANGO_SYRIAC
+PANGO_MODULES += syriac-fc
+endif
+
+ifdef PTXCONF_PANGO_THAI
+PANGO_MODULES += thai-fc
+endif
+
+ifdef PTXCONF_PANGO_TIBETAN
+PANGO_MODULES += tibetan-fc
+endif
+
 PANGO_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-explicit-deps=yes
+	--enable-static \
+	--enable-explicit-deps=yes \
+	--without-dynamic-modules \
+	--with-included-modules=$(subst $(space),$(comma),$(PANGO_MODULES))
 
-$(STATEDIR)/pango.prepare: $(pango_prepare_deps_default)
+ifdef PTXCONF_PANGO_TARGET_X11
+PANGO_AUTOCONF += --with-x=$(SYSROOT)/usr
+else
+PANGO_AUTOCONF += --without-x
+endif
+
+$(STATEDIR)/pango.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(PANGO_DIR)/config.cache)
 	cd $(PANGO_DIR) && \
@@ -84,9 +128,9 @@ $(STATEDIR)/pango.prepare: $(pango_prepare_deps_default)
 
 pango_compile: $(STATEDIR)/pango.compile
 
-$(STATEDIR)/pango.compile: $(pango_compile_deps_default)
+$(STATEDIR)/pango.compile:
 	@$(call targetinfo, $@)
-	cd $(PANGO_DIR) && $(PANGO_PATH) make
+	cd $(PANGO_DIR) && $(PANGO_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -95,7 +139,7 @@ $(STATEDIR)/pango.compile: $(pango_compile_deps_default)
 
 pango_install: $(STATEDIR)/pango.install
 
-$(STATEDIR)/pango.install: $(pango_install_deps_default)
+$(STATEDIR)/pango.install:
 	@$(call targetinfo, $@)
 	@$(call install, PANGO)
 	@$(call touch, $@)
@@ -106,7 +150,7 @@ $(STATEDIR)/pango.install: $(pango_install_deps_default)
 
 pango_targetinstall: $(STATEDIR)/pango.targetinstall
 
-$(STATEDIR)/pango.targetinstall: $(pango_targetinstall_deps_default)
+$(STATEDIR)/pango.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, pango)
@@ -118,14 +162,23 @@ $(STATEDIR)/pango.targetinstall: $(pango_targetinstall_deps_default)
 	@$(call install_fixup,pango,DEPENDS,)
 	@$(call install_fixup,pango,DESCRIPTION,missing)
 
-#***
-#*** Warning: pango.modules not created
-#***
-#*** Generate this file on the target system
-#*** system using pango-querymodules
-#***
+	@$(call install_copy, pango, 0, 0, 0644, \
+		$(PANGO_DIR)/pango/.libs/libpango-1.0.so.0.1705.0, \
+		/usr/lib/libpango-1.0.so.0.1705.0)
+	@$(call install_link, pango, libpango-1.0.so.0.1705.0, /usr/lib/libpango-1.0.so.0)
+	@$(call install_link, pango, libpango-1.0.so.0.1705.0, /usr/lib/libpango-1.0.so)
 
-#	@$(call install_copy, pango, 0, 0, 0755, $(PANGO_DIR)/foobar, /dev/null)
+	@$(call install_copy, pango, 0, 0, 0644, \
+		$(PANGO_DIR)/pango/.libs/libpangoft2-1.0.so.0.1705.0, \
+		/usr/lib/libpangoft2-1.0.so.0.1705.0)
+	@$(call install_link, pango, libpangoft2-1.0.so.0.1705.0, /usr/lib/libpangoft2-1.0.so.0)
+	@$(call install_link, pango, libpangoft2-1.0.so.0.1705.0, /usr/lib/libpangoft2-1.0.so)
+
+	@$(call install_copy, pango, 0, 0, 0644, \
+		$(PANGO_DIR)/pango/.libs/libpangocairo-1.0.so.0.1705.0, \
+		/usr/lib/libpangocairo-1.0.so.0.1705.0)
+	@$(call install_link, pango, libpangocairo-1.0.so.0.1705.0, /usr/lib/libpangocairo-1.0.so.0)
+	@$(call install_link, pango, libpangocairo-1.0.so.0.1705.0, /usr/lib/libpangocairo-1.0.so)
 
 	@$(call install_finish,pango)
 

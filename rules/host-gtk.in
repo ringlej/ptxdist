@@ -142,7 +142,7 @@ menuconfig HOST_GTK_ENGINES
 	prompt "gtk engines                   "
 	depends on HOST_GTK
 
-source "workspace/rules/host-gtk-engine-experience.in"
+source "rules/host-gtk-engine-experience.in"
 
 choice
 	prompt "default theme"

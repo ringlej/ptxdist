@@ -114,10 +114,6 @@ $(STATEDIR)/libjpeg.targetinstall:
 	@$(call install_fixup, libjpeg,DEPENDS,)
 	@$(call install_fixup, libjpeg,DESCRIPTION,missing)
 
-	@$(call install_copy, libjpeg, 0, 0, 0755, $(LIBJPEG_DIR)/.libs/cjpeg, /usr/bin/cjpeg)
-	@$(call install_copy, libjpeg, 0, 0, 0755, $(LIBJPEG_DIR)/.libs/djpeg, /usr/bin/djpeg)
-	@$(call install_copy, libjpeg, 0, 0, 0755, $(LIBJPEG_DIR)/.libs/jpegtran, /usr/bin/jpegtran)
-
 	@$(call install_copy, libjpeg, 0, 0, 0755, $(LIBJPEG_DIR)/.libs/libjpeg.so.62.0.0, /usr/lib/libjpeg.so.62.0.0)
 	@$(call install_link, libjpeg, libjpeg.so.62.0.0, /usr/lib/libjpeg.so.62)
 	@$(call install_link, libjpeg, libjpeg.so.62.0.0, /usr/lib/libjpeg.so)

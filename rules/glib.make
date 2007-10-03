@@ -122,28 +122,28 @@ $(STATEDIR)/glib.targetinstall:
 	@$(call install_fixup,glib,DESCRIPTION,missing)
 
 	@$(call install_copy, glib, 0, 0, 0644, \
-		$(GLIB_DIR)/glib/.libs/libglib-2.0.so.0.1307.0, \
-		/usr/lib/libglib-2.0.so.0.1307.0)
-	@$(call install_link, glib, libglib-2.0.so.0.1307.0, /usr/lib/libglib-2.0.so.0)
-	@$(call install_link, glib, libglib-2.0.so.0.1307.0, /usr/lib/libglib-2.0.so)
+		$(GLIB_DIR)/glib/.libs/libglib-2.0.so.0.1400.1, \
+		/usr/lib/libglib-2.0.so.0.1400.1)
+	@$(call install_link, glib, libglib-2.0.so.0.1400.1, /usr/lib/libglib-2.0.so.0)
+	@$(call install_link, glib, libglib-2.0.so.0.1400.1, /usr/lib/libglib-2.0.so)
 
 	@$(call install_copy, glib, 0, 0, 0644, \
-		$(GLIB_DIR)/gobject/.libs/libgobject-2.0.so.0.1307.0, \
-		/usr/lib/libgobject-2.0.so.0.1307.0)
-	@$(call install_link, glib, libgobject-2.0.so.0.1307.0, /usr/lib/libgobject-2.0.so.0)
-	@$(call install_link, glib, libgobject-2.0.so.0.1307.0, /usr/lib/libgobject-2.0.so)
+		$(GLIB_DIR)/gobject/.libs/libgobject-2.0.so.0.1400.1, \
+		/usr/lib/libgobject-2.0.so.0.1400.1)
+	@$(call install_link, glib, libgobject-2.0.so.0.1400.1, /usr/lib/libgobject-2.0.so.0)
+	@$(call install_link, glib, libgobject-2.0.so.0.1400.1, /usr/lib/libgobject-2.0.so)
 
 	@$(call install_copy, glib, 0, 0, 0644, \
-		$(GLIB_DIR)/gmodule/.libs/libgmodule-2.0.so.0.1307.0, \
-		/usr/lib/libgmodule-2.0.so.0.1307.0)
-	@$(call install_link, glib, libgmodule-2.0.so.0.1307.0, /usr/lib/libgmodule-2.0.so.0)
-	@$(call install_link, glib, libgmodule-2.0.so.0.1307.0, /usr/lib/libgmodule-2.0.so)
+		$(GLIB_DIR)/gmodule/.libs/libgmodule-2.0.so.0.1400.1, \
+		/usr/lib/libgmodule-2.0.so.0.1400.1)
+	@$(call install_link, glib, libgmodule-2.0.so.0.1400.1, /usr/lib/libgmodule-2.0.so.0)
+	@$(call install_link, glib, libgmodule-2.0.so.0.1400.1, /usr/lib/libgmodule-2.0.so)
 
 	@$(call install_copy, glib, 0, 0, 0644, \
-		$(GLIB_DIR)/gthread/.libs/libgthread-2.0.so.0.1307.0, \
-		/usr/lib/libgthread-2.0.so.0.1307.0)
-	@$(call install_link, glib, libgthread-2.0.so.0.1307.0, /usr/lib/libgthread-2.0.so.0)
-	@$(call install_link, glib, libgthread-2.0.so.0.1307.0, /usr/lib/libgthread-2.0.so)
+		$(GLIB_DIR)/gthread/.libs/libgthread-2.0.so.0.1400.1, \
+		/usr/lib/libgthread-2.0.so.0.1400.1)
+	@$(call install_link, glib, libgthread-2.0.so.0.1400.1, /usr/lib/libgthread-2.0.so.0)
+	@$(call install_link, glib, libgthread-2.0.so.0.1400.1, /usr/lib/libgthread-2.0.so)
 
 	@$(call install_finish,glib)
 

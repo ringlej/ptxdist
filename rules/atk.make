@@ -119,10 +119,10 @@ $(STATEDIR)/atk.targetinstall:
 	@$(call install_fixup,atk,DESCRIPTION,missing)
 
 	@$(call install_copy, atk, 0, 0, 0644, \
-		$(ATK_DIR)/atk/.libs/libatk-1.0.so.0.1915.1, \
-		/usr/lib/libatk-1.0.so.0.1915.1)
-	@$(call install_link, atk, libatk-1.0.so.0.1915.1, /usr/lib/libatk-1.0.so.0)
-	@$(call install_link, atk, libatk-1.0.so.0.1915.1, /usr/lib/libatk-1.0.so)
+		$(ATK_DIR)/atk/.libs/libatk-1.0.so.0.2009.1, \
+		/usr/lib/libatk-1.0.so.0.2009.1)
+	@$(call install_link, atk, libatk-1.0.so.0.2009.1, /usr/lib/libatk-1.0.so.0)
+	@$(call install_link, atk, libatk-1.0.so.0.2009.1, /usr/lib/libatk-1.0.so)
 
 	@$(call install_finish,atk)
 

@@ -147,7 +147,7 @@ menuconfig GTK_ENGINES
 	prompt "gtk engines                   "
 	depends on GTK
 
-source "workspace/rules/gtk-engine-experience.in"
+source "rules/gtk-engine-experience.in"
 
 choice
 	prompt "default theme"

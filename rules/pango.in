@@ -1,6 +1,58 @@
-config PANGO
+menuconfig PANGO
 	bool
-	prompt "pango"
-	select FONTCONFIG
+	prompt "pango                         "
 	select CAIRO
-	depends on BROKEN
+	select GLIB
+	select WINE if ARCH_MINGW
+
+config PANGO_TARGET_X11
+	bool
+	depends on PANGO
+	default GTK_TARGET_X11
+
+
+config PANGO_ARABIC
+	bool
+	depends on PANGO
+	prompt "arabic"
+
+config PANGO_BASIC
+	bool
+	default y
+	depends on PANGO
+	prompt "basic"
+
+config PANGO_HANGUL
+	bool
+	depends on PANGO
+	prompt "hangul"
+
+config PANGO_HEBREW
+	bool
+	depends on PANGO
+	prompt "hebrew"
+
+config PANGO_INDIC
+	bool
+	depends on PANGO
+	prompt "indic"
+
+config PANGO_KHMER
+	bool
+	depends on PANGO
+	prompt "khmer"
+
+config PANGO_SYRIAC
+	bool
+	depends on PANGO
+	prompt "syriac"
+
+config PANGO_THAI
+	bool
+	depends on PANGO
+	prompt "thai"
+
+config PANGO_TIBETAN
+	bool
+	depends on PANGO
+	prompt "tibetan"
