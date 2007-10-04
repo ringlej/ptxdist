@@ -1,6 +1,9 @@
 TODO for 1.1.x
 ==============
 
+[ ] rsc: put export LANG=C somewhere into PTXdist, to make compiler
+         output more readable
+
 [ ] mol: bash configure --enable-job-control does not work when cross compiling
          posible fix in:
          https://iocaste.extern.pengutronix.de/svn/oselas/bsp/johndeere/OSELAS.BSP-JohnDeere-ComPC-trunk/rules/bash.make
