@@ -1,5 +1,11 @@
 2007-10-01  Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* gawk: updated and targetinstall completed. Simply completes
+	the gawk configuration and installation. Package now usable.
+	Patch by Carsten Schlote.
+
+2007-10-01  Robert Schwebel <r.schwebel@pengutronix.de>
+
 	* sudo: This updates sudo to 1.6.8p12. It patches some compile
 	breakage, when trying to cross compile. It also allows to
 	install a user sudoers file from projectroot. Patch by Carsten

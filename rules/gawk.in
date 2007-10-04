@@ -1,8 +1,17 @@
-config GAWK
+menuconfig GAWK
 	bool "gawk"
 	help
-	  Gawk  is the GNU Project's implementation of 
-	  the AWK programming language.  It conforms to 
-	  the definition of the language in the 
-	  POSIX 1003.2 Command Language And Utilities 
-	  Standard.
+	  Gawk is the GNU Project's implementation of the AWK programming
+	  language. It conforms to the definition of the language in the POSIX
+	  1003.2 Command Language And Utilities Standard.
+
+config GAWK_PGAWK
+	bool "Install pgawk"
+	depends on GAWK
+	default n
+
+config GAWK_AWKLIB
+	bool "Install awklib"
+	depends on GAWK
+	default n
+

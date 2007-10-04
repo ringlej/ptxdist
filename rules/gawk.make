@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation, By Milan Bobde
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -104,7 +104,31 @@ gawk_targetinstall: $(STATEDIR)/gawk.targetinstall
 
 $(STATEDIR)/gawk.targetinstall: $(gawk_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME: RSC: ipkgize
+
+	@$(call install_init, gawk)
+	@$(call install_fixup, gawk,PACKAGE,gawk)
+	@$(call install_fixup, gawk,PRIORITY,optional)
+	@$(call install_fixup, gawk,VERSION,$(GAWK_VERSION))
+	@$(call install_fixup, gawk,SECTION,base)
+	@$(call install_fixup, gawk,AUTHOR,"Carsten Schlote <schlote\@konzeptpark.de>")
+	@$(call install_fixup, gawk,DEPENDS,)
+	@$(call install_fixup, gawk,DESCRIPTION,missing)
+
+	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/gawk, /usr/bin/gawk)
+	$(call install_link, gawk, /usr/bin/gawk, /usr/bin/awk)
+
+ifdef PTXCONF_GAWK_PGAWK
+	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/pgawk, /usr/bin/pgawk)
+endif
+
+ifdef PTXCONF_GAWK_AWKLIB
+	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/awklib/igawk, /usr/bin/igawk)
+	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/awklib/pwcat, /usr/libexec/gawk/pwcat)
+	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/awklib/grcat, /usr/libexec/gawk/grcat)
+endif
+
+	@$(call install_finish, gawk)
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
