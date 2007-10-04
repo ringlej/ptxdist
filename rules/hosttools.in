@@ -34,6 +34,7 @@ source "rules/host-mico.in"
 source "rules/host-qte.in"
 source "rules/host-slirp.in"
 source "rules/host-cmake.in"
+source "rules/host-localedef.in"
 
 comment "------------------------------"
 comment "Scripting Languages           "
