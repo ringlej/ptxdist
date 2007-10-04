@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 #
 # This script find out which sysinclude path is compiled into gcc
 #

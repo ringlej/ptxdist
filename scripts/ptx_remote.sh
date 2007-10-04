@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 host_ip=${1}
 target_ip=${2}
