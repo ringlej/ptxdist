@@ -434,6 +434,8 @@ Setup and Project Actions:
   oldconfig                      run 'make oldconfig' on ptxconfig file
   kernelconfig                   configure the kernel
 
+  u_boot_config                  configure U-Boot (U-Boot V2 only)
+
   toolchain <path>               select this toolchain (path to binaries)
   select <config>                if there is no ptxconfig file you can
                                  select one of several configs to be used
@@ -956,6 +958,14 @@ while [ "$#" != "0" ]; do
 			check_native
 			check_deps
 			ptxd_make kernel_menuconfig
+			check_pipe_status
+			exit 0
+			;;
+	u_boot_config)	shift
+			check_ptxconfig
+			check_native
+			check_deps
+			ptxd_make u-boot-v2_menuconfig
 			check_pipe_status
 			exit 0
 			;;
