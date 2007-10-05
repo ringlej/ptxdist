@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002-2006 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002-2007 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_ZLIB) += zlib
 #
 # Paths and names
 #
-ZLIB_VERSION	:= 1.2.3-ptx3
+ZLIB_VERSION	:= 1.2.3-ptx4
 ZLIB		:= zlib-$(ZLIB_VERSION)
 ZLIB_SUFFIX	:= tar.bz2
 ZLIB_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(ZLIB).$(ZLIB_SUFFIX)
@@ -30,7 +30,7 @@ ZLIB_DIR	:= $(BUILDDIR)/$(ZLIB)
 
 zlib_get: $(STATEDIR)/zlib.get
 
-$(STATEDIR)/zlib.get: $(zlib_get_deps_default)
+$(STATEDIR)/zlib.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(ZLIB_SOURCE):
 
 zlib_extract: $(STATEDIR)/zlib.extract
 
-$(STATEDIR)/zlib.extract: $(zlib_extract_deps_default)
+$(STATEDIR)/zlib.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZLIB_DIR))
 	@$(call extract, ZLIB)
@@ -63,9 +63,10 @@ ZLIB_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-ZLIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
+ZLIB_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/zlib.prepare: $(zlib_prepare_deps_default)
+$(STATEDIR)/zlib.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZLIB_DIR)/config.cache)
 	cd $(ZLIB_DIR) && \
@@ -79,7 +80,7 @@ $(STATEDIR)/zlib.prepare: $(zlib_prepare_deps_default)
 
 zlib_compile: $(STATEDIR)/zlib.compile
 
-$(STATEDIR)/zlib.compile: $(zlib_compile_deps_default)
+$(STATEDIR)/zlib.compile:
 	@$(call targetinfo, $@)
 	cd $(ZLIB_DIR) && $(ZLIB_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -90,7 +91,7 @@ $(STATEDIR)/zlib.compile: $(zlib_compile_deps_default)
 
 zlib_install: $(STATEDIR)/zlib.install
 
-$(STATEDIR)/zlib.install: $(zlib_install_deps_default)
+$(STATEDIR)/zlib.install:
 	@$(call targetinfo, $@)
 	@$(call install, ZLIB)
 	@$(call touch, $@)
@@ -101,7 +102,7 @@ $(STATEDIR)/zlib.install: $(zlib_install_deps_default)
 
 zlib_targetinstall: $(STATEDIR)/zlib.targetinstall
 
-$(STATEDIR)/zlib.targetinstall: $(zlib_targetinstall_deps_default)
+$(STATEDIR)/zlib.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, zlib)
