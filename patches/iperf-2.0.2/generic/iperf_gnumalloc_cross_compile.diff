@@ -1,0 +1,24 @@
+Subject: fix iperf malloc detection for cross compiling
+
+Iperf configure assumes a non gnu compatible malloc for cross compiling
+Change the default to be able to cross compile.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+
+---
+ configure |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: iperf-2.0.2/configure
+===================================================================
+--- iperf-2.0.2.orig/configure
++++ iperf-2.0.2/configure
+@@ -9519,7 +9519,7 @@ if test "${ac_cv_func_malloc_0_nonnull+s
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   if test "$cross_compiling" = yes; then
+-  ac_cv_func_malloc_0_nonnull=no
++  ac_cv_func_malloc_0_nonnull=yes
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
