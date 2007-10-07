@@ -16,25 +16,25 @@ together in a way that they extract into one subdir ptxdist-<version>.
 Installation
 ------------
 
-To install PTXdist, just run 
+To install PTXdist, just run
 
-	./configure --prefix=<installpath> 
+	./configure --prefix=<installpath>
 
 to configure the packet, then
 
 	make
 
-to build everything and 
+to build everything and
 
 	make install
 
 to install it. When you start using PTXdist, make sure your $PATH
 environment variable points to <installpath>/bin, because that's where
-the ptxdist frontend program is being installed to. 
+the ptxdist frontend program is being installed to.
 
 For developers who want to work with svn versions of PTXdist it is only
 necessary to run "./configure && make" and set the PATH variable to the
-bin/ directory inside the PTXdist tree. 
+bin/ directory inside the PTXdist tree.
 
 
 Quickstart
@@ -42,8 +42,8 @@ Quickstart
 
 PTXdist comes with some example projects in the
 
-	ptxdist-<version>-projects.tgz 
-	
+	ptxdist-<version>-projects.tgz
+
 archive. If this packet is installed with ptxdist it is possible to
 "clone" the example projects and use them i.e. as a start for your own
 project. Find out which projects are available, using
@@ -55,20 +55,20 @@ Then clone a project with
 	$ ptxdist clone <projectname> myproject
 
 This copies the project named <projectname> into ./myproject, which is
-your "workspace" for the following actions. 
+your "workspace" for the following actions.
 
-Change into your project's workspace and build everything: 
+Change into your project's workspace and build everything:
 
 	$ cd myproject
 	$ ptxdist go
 
 This builds a root filesystem into the root/ directory of your
 workspace. If the project was built for the same architecture as your
-devenlopment machine, you can try it with 
+devenlopment machine, you can try it with
 
 	$ chroot root/ /bin/sh
 
-If you have more time to find out how it works, read on. 
+If you have more time to find out how it works, read on.
 
 
 Idea
@@ -77,11 +77,11 @@ Idea
 PTXdist is a tool which can be used to generate a root tree for all
 kinds of Linux systems. It was written with embedded systems in mind,
 but there is no reason why you can't use it to configure your firewall,
-router or whatever dedicated "device" comes to your mind. 
+router or whatever dedicated "device" comes to your mind.
 
 The job works like this: you run 'ptxdist menuconfig', configure what
 you need and get a 'ptxconfig' file. Run 'ptxdist go' and you'll find a
-root tree in root/. Voila. 
+root tree in root/. Voila.
 
 All magic necessary to do these things in a cross enviroment are written
 into "recipies", living in rules/*.make, and config menues in
@@ -92,45 +92,45 @@ Directory Layout
 ----------------
 
 These files and directories are supposed to be in an empty project
-directory: 
+directory:
 
 kernelconfig.native	kernel .config file for the native kernel
 kernelconfig.target	kernel .config file for the target kernel
 patches/		project specific patches, overwrites the generic
 			ones from PTXdist
 projectroot/		put files here which are to be copied over to
-			the target's root directory, like for example 
+			the target's root directory, like for example
 			etc files, scripts, ... Note that the copying
 			has to be done explicitly by some project
-			specific rule file.  
+			specific rule file.
 ptxconfig		.config file to configure the userland for
-			your project. 
+			your project.
 rules/			contains project specific rules
 src -> ...		link to point to your directory containing
-			tarball files for the packets. 
+			tarball files for the packets.
 
 Additionally some other directories are being built when you run
-"ptxdist go" or other start other build targets. 
+"ptxdist go" or other start other build targets.
 
 build-host/		build directory for host tools
 build-cross/		build directory for cross tools
 build-target/		build directory for target tools
-images/			'ptxdist images' creates tarballs and 
-			filesystem images in this directory. 
+images/			'ptxdist images' creates tarballs and
+			filesystem images in this directory.
 local/			tools which are installed locally go to this dir
 root/			root filesystem for the target
-state/			state files (show in which state packages 
+state/			state files (show in which state packages
 			currently are during the compilation)
 
 For more details look at the output of 'ptxdist --help' or see the
-PTXdist manual. 
+PTXdist manual.
 
 
 Bugs
 ----
 
 - search for FIXMEs
-- see TODO, which is out of date :-) 
-  
+- see TODO, which is out of date :-)
+
 Robert Schwebel <r.schwebel@pengutronix.de>, 2006-02-19
 
