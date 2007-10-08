@@ -1,5 +1,7 @@
 2007-10-08  Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* sed: added; patch by Marco Cavallini.
+
 	* libcgicc: fix broken library. Install the headers into
 	the sysroot directory, fix targetinstall stage. Patch by
 	Carsten Schlote.
