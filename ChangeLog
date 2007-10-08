@@ -1,3 +1,14 @@
+2007-10-08  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* iptables: update the iptables package to 1.3.8 and updates
+	iptables.in and iptables.make to match this version. Updated
+	menu structure to reflect the current iptables modules.
+	Added ipt_DF module as patch - it's some ugly hack to remove
+	the DF bit from connections. It's sometimes required for
+	broken TCP stacks behind routers, which ignore ICMP no
+	fragmentation replies and insist on sending large pakets with
+	DF flag set. Patch by Carsten Schlote.
+
 2007-10-01  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* gawk: updated and targetinstall completed. Simply completes

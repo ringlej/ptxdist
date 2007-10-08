@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
+# Copyright (C) 2007 by Carsten Schlote, konzeptpark
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +18,7 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	= 1.3.7
+IPTABLES_VERSION	= 1.3.8
 IPTABLES		= iptables-$(IPTABLES_VERSION)
 IPTABLES_SUFFIX		= tar.bz2
 IPTABLES_URL		= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
@@ -120,7 +121,7 @@ ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_SAVE
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/iptables-save, /sbin/iptables-save)
 endif
 
-# --- iptables stuff
+# --- iptables stuff - commented entries no longer available
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_addrtype
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_addrtype.so, /usr/lib/iptables/libipt_addrtype.so, n)
@@ -138,8 +139,12 @@ ifdef PTXCONF_IPTABLES_INSTALL_libipt_CLUSTERIP
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_CLUSTERIP.so, /usr/lib/iptables/libipt_CLUSTERIP.so, n)
 endif
 
-ifdef PTXCONF_IPTABLES_INSTALL_libipt_connlimit
-	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_connlimit.so, /usr/lib/iptables/libipt_connlimit.so, n)
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_comment
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_comment.so, /usr/lib/iptables/libipt_comment.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_connbytes
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_connbytes.so, /usr/lib/iptables/libipt_connbytes.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_connmark
@@ -152,6 +157,14 @@ endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_conntrack
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_conntrack.so, /usr/lib/iptables/libipt_conntrack.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_dccp
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_dccp.so, /usr/lib/iptables/libipt_dccp.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_DF
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_DF.so, /usr/lib/iptables/libipt_DF.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_DNAT
@@ -176,6 +189,10 @@ endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_esp
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_esp.so, /usr/lib/iptables/libipt_esp.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_hashlimit
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_hashlimit.so, /usr/lib/iptables/libipt_hashlimit.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_helper
@@ -230,6 +247,14 @@ ifdef PTXCONF_IPTABLES_INSTALL_libipt_NETMAP
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_NETMAP.so, /usr/lib/iptables/libipt_NETMAP.so, n)
 endif
 
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_NFLOG
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_NFLOG.so, /usr/lib/iptables/libipt_NFLOG.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_NFQUEUE
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_NFQUEUE.so, /usr/lib/iptables/libipt_NFQUEUE.so, n)
+endif
+
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_NOTRACK
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_NOTRACK.so, /usr/lib/iptables/libipt_NOTRACK.so, n)
 endif
@@ -246,6 +271,14 @@ ifdef PTXCONF_IPTABLES_INSTALL_libipt_pkttype
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_pkttype.so, /usr/lib/iptables/libipt_pkttype.so, n)
 endif
 
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_policy
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_policy.so, /usr/lib/iptables/libipt_policy.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_quota
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_quota.so, /usr/lib/iptables/libipt_quota.so, n)
+endif
+
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_realm
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_realm.so, /usr/lib/iptables/libipt_realm.so, n)
 endif
@@ -260,10 +293,6 @@ endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_REJECT
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_REJECT.so, /usr/lib/iptables/libipt_REJECT.so, n)
-endif
-
-ifdef PTXCONF_IPTABLES_INSTALL_libipt_rpc
-	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_rpc.so, /usr/lib/iptables/libipt_rpc.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_SAME
@@ -286,8 +315,12 @@ ifdef PTXCONF_IPTABLES_INSTALL_libipt_state
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_state.so, /usr/lib/iptables/libipt_state.so, n)
 endif
 
-ifdef PTXCONF_IPTABLES_INSTALL_libipt_TARPIT
-	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_TARPIT.so, /usr/lib/iptables/libipt_TARPIT.so, n)
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_statistic
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_statistic.so, /usr/lib/iptables/libipt_statistic.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libipt_string
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_string.so, /usr/lib/iptables/libipt_string.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_tcpmss
@@ -308,10 +341,6 @@ endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_TOS
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_TOS.so, /usr/lib/iptables/libipt_TOS.so, n)
-endif
-
-ifdef PTXCONF_IPTABLES_INSTALL_libipt_TRACE
-	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libipt_TRACE.so, /usr/lib/iptables/libipt_TRACE.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libipt_ttl
@@ -340,8 +369,12 @@ ifdef PTXCONF_IPTABLES_INSTALL_libip6t_ah
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_ah.so, /usr/lib/iptables/libip6t_ah.so, n)
 endif
 
-ifdef PTXCONF_IPTABLES_INSTALL_libip6t_dst
-	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_dst.so, /usr/lib/iptables/libip6t_dst.so, n)
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_connmark
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_connmark.so, /usr/lib/iptables/libip6t_connmark.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_CONNMARK
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_CONNMARK.so, /usr/lib/iptables/libip6t_CONNMARK.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libip6t_esp
@@ -356,8 +389,8 @@ ifdef PTXCONF_IPTABLES_INSTALL_libip6t_frag
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_frag.so, /usr/lib/iptables/libip6t_frag.so, n)
 endif
 
-ifdef PTXCONF_IPTABLES_INSTALL_libip6t_hbh
-	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_hbh.so, /usr/lib/iptables/libip6t_hbh.so, n)
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_hashlimit
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_hashlimit.so, /usr/lib/iptables/libip6t_hashlimit.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libip6t_hl
@@ -400,28 +433,60 @@ ifdef PTXCONF_IPTABLES_INSTALL_libip6t_MARK
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_MARK.so, /usr/lib/iptables/libip6t_MARK.so, n)
 endif
 
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_mh
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_mh.so, /usr/lib/iptables/libip6t_mh.so, n)
+endif
+
 ifdef PTXCONF_IPTABLES_INSTALL_libip6t_multiport
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_multiport.so, /usr/lib/iptables/libip6t_multiport.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_NFLOG
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_NFLOG.so, /usr/lib/iptables/libip6t_NFLOG.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_NFQUEUE
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_NFQUEUE.so, /usr/lib/iptables/libip6t_NFQUEUE.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libip6t_owner
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_owner.so, /usr/lib/iptables/libip6t_owner.so, n)
 endif
 
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_physdev
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_physdev.so, /usr/lib/iptables/libip6t_physdev.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_policy
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_policy.so, /usr/lib/iptables/libip6t_policy.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_REJECT
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_REJECT.so, /usr/lib/iptables/libip6t_REJECT.so, n)
+endif
+
 ifdef PTXCONF_IPTABLES_INSTALL_libip6t_rt
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_rt.so, /usr/lib/iptables/libip6t_rt.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_sctp
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_sctp.so, /usr/lib/iptables/libip6t_sctp.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libip6t_standard
 	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_standard.so, /usr/lib/iptables/libip6t_standard.so, n)
 endif
 
-ifdef PTXCONF_IPTABLES_INSTALL_libip6t_tcp
-	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_tcp.so, /usr/lib/iptables/libip6t_tcp.so, n)
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_state
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_state.so, /usr/lib/iptables/libip6t_state.so, n)
 endif
 
-ifdef PTXCONF_IPTABLES_INSTALL_libip6t_TRACE
-	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_TRACE.so, /usr/lib/iptables/libip6t_TRACE.so, n)
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_TCPMSS
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_TCPMSS.so, /usr/lib/iptables/libip6t_TCPMSS.so, n)
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_libip6t_tcp
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/extensions/libip6t_tcp.so, /usr/lib/iptables/libip6t_tcp.so, n)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_libip6t_udp
@@ -429,7 +494,6 @@ ifdef PTXCONF_IPTABLES_INSTALL_libip6t_udp
 endif
 
 	@$(call install_finish, iptables)	
-
 
 	@$(call touch, $@)
 
