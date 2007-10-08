@@ -2,5 +2,12 @@ config JOE
 	bool
 	prompt "joe"
 	help
-	  Joe is a simple editor which uses the old wordstar commands. 
+	  Joe is a simple editor which uses the old wordstar commands.
 
+config JOE_SYNTAX_HIGHLIGHT
+	bool
+	default y
+	prompt "Install syntax hilighting patterns"
+	depends on JOE
+	help
+		This option will install the syntax highlighting for joe

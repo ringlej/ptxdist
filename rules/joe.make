@@ -1,7 +1,8 @@
 # $Id: template 2516 2005-04-25 10:29:55Z rsc $
 #
 # Copyright (C) 2005 by Oscar Peredo
-#          
+# Copyright (C) 2007 by Carsten Schlote
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -16,7 +17,7 @@ PACKAGES-$(PTXCONF_JOE) += joe
 #
 # Paths and names
 #
-JOE_VERSION	= 3.2
+JOE_VERSION	= 3.5
 JOE		= joe-$(JOE_VERSION)
 JOE_SUFFIX	= tar.gz
 JOE_URL		= $(PTXCONF_SETUP_SFMIRROR)/joe-editor/$(JOE).$(JOE_SUFFIX)
@@ -64,8 +65,6 @@ JOE_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 JOE_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-# FIXME
-JOE_AUTOCONF += --prefix=/
 
 $(STATEDIR)/joe.prepare: $(joe_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -111,21 +110,28 @@ $(STATEDIR)/joe.targetinstall: $(joe_targetinstall_deps_default)
 	@$(call install_fixup, joe,PRIORITY,optional)
 	@$(call install_fixup, joe,VERSION,$(JOE_VERSION))
 	@$(call install_fixup, joe,SECTION,base)
-	@$(call install_fixup, joe,AUTHOR,"Oscar Peredo <oscar\@exis.cl>")
+	@$(call install_fixup, joe,AUTHOR,"Carsten Schlote <c.schlote\@konzeptpark.de>")
 	@$(call install_fixup, joe,DEPENDS,)
 	@$(call install_fixup, joe,DESCRIPTION,missing)
 
 	@$(call install_copy, joe, 0, 0, 0755, $(JOE_DIR)/joe, /bin/joe)
 	@$(call install_copy, joe, 0, 0, 0755, $(JOE_DIR)/termidx, /bin/termidx)
-	@$(call install_copy, joe, 0, 0, 0755, /etc/joe) 
-	@$(call install_copy, joe, 0, 0, 0644, $(JOE_DIR)/joerc, /etc/joe/joerc,n)
-	@$(call install_copy, joe, 0, 0, 0755, /etc/joe/syntax)
 
+	@$(call install_copy, joe, 0, 0, 0755, /etc/joe)
+	@for file in $(JOE_DIR)/rc/*rc; do \
+		destination=`basename $$file`; \
+		echo "dst=$$destination"; \
+		$(call install_copy, joe, 0, 0, 0644, $$file, /etc/joe/$$destination, n); \
+	done
+
+  ifdef PTXCONF_JOE_SYNTAX_HIGHLIGHT
+	@$(call install_copy, joe, 0, 0, 0755, /etc/joe/syntax)
 	@for file in $(JOE_DIR)/syntax/*.jsf; do \
 		destination=`basename $$file`; \
 		echo "dst=$$destination"; \
 		$(call install_copy, joe, 0, 0, 0644, $$file, /etc/joe/syntax/$$destination, n); \
 	done
+  endif
 
 	@$(call install_finish, joe)
 	@$(call touch, $@)

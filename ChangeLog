@@ -1,5 +1,8 @@
 2007-10-08  Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* joe: update to version 3.5 and allow to install the syntax
+	highlighting files as well. Patch by Carsten Schlote.
+
 	* iptables: update the iptables package to 1.3.8 and updates
 	iptables.in and iptables.make to match this version. Updated
 	menu structure to reflect the current iptables modules.
