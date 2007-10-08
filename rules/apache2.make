@@ -20,7 +20,6 @@ PACKAGES-$(PTXCONF_APACHE2) += apache2
 APACHE2_VERSION	:= 2.0.58
 APACHE2		:= httpd-$(APACHE2_VERSION)
 APACHE2_SUFFIX	:= tar.bz2
-#APACHE2_URL	:= http://ftp.uni-erlangen.de/pub/mirrors/apache/httpd/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_URL	:= http://archive.apache.org/dist/httpd/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_SOURCE	:= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_DIR	:= $(BUILDDIR)/$(APACHE2)
@@ -71,9 +70,13 @@ APACHE2_ENV 	:=  $(CROSS_ENV) \
 #
 # autoconf
 #
+# - if we don't specify expat here, apache2 finds the internal one and
+#   installs it into sysroot, which overwrites our installed version
+#
 APACHE2_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-so
+	--enable-so \
+	--with-expat=$(SYSROOT)/usr
 
 ifdef PTXCONF_APACHE2_MPM_PREFORK
 APACHE2_AUTOCONF += --with-mpm=prefork
