@@ -67,6 +67,7 @@ config IPTABLES_INSTALL_libipt_CLASSIFY
 
 config IPTABLES_INSTALL_libipt_CLUSTERIP
 	bool
+	depends on BROKEN
 	prompt "install libipt_CLUSTERIP.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IPTABLES
@@ -83,6 +84,7 @@ config IPTABLES_INSTALL_libipt_comment
 
 config IPTABLES_INSTALL_libipt_connbytes
 	bool
+	depends on BROKEN
 	prompt "install libipt_connbytes.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IPTABLES
@@ -115,6 +117,7 @@ config IPTABLES_INSTALL_libipt_conntrack
 
 config IPTABLES_INSTALL_libipt_dccp
 	bool
+	depends on BROKEN
 	prompt "install libipt_dccp.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IPTABLES
@@ -123,6 +126,7 @@ config IPTABLES_INSTALL_libipt_dccp
 
 config IPTABLES_INSTALL_libipt_DF
 	bool
+	depends on BROKEN
 	prompt "install libipt_DF.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IPTABLES
@@ -291,6 +295,7 @@ config IPTABLES_INSTALL_libipt_NETMAP
 
 config IPTABLES_INSTALL_libipt_NFLOG
 	bool
+	depends on BROKEN
 	prompt "install libipt_NFLOG.so"
 	depends on IPTABLES_INSTALL_IPTABLES
 	depends on IPTABLES
@@ -347,6 +352,7 @@ config IPTABLES_INSTALL_libipt_policy
 
 config IPTABLES_INSTALL_libipt_quota
 	bool
+	depends on BROKEN
 	prompt "install libipt_quota.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IPTABLES
@@ -363,6 +369,7 @@ config IPTABLES_INSTALL_libipt_realm
 
 config IPTABLES_INSTALL_libipt_recent
 	bool
+	depends on BROKEN
 	prompt "install libipt_recent.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IPTABLES
@@ -435,6 +442,7 @@ config IPTABLES_INSTALL_libipt_statistics
 
 config IPTABLES_INSTALL_libipt_string
 	bool
+	depends on BROKEN
 	prompt "install libipt_string.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IPTABLES
@@ -526,6 +534,7 @@ comment "----------------------------------"
 
 config IPTABLES_INSTALL_libip6t_ah
 	bool
+	depends on BROKEN
 	prompt "install libip6t_ah.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IP6TABLES
@@ -550,6 +559,7 @@ config IPTABLES_INSTALL_libip6t_CONNMARK
 
 config IPTABLES_INSTALL_libip6t_esp
 	bool
+	depends on BROKEN
 	prompt "install libip6t_esp.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IP6TABLES
@@ -566,6 +576,7 @@ config IPTABLES_INSTALL_libip6t_eui64
 
 config IPTABLES_INSTALL_libip6t_frag
 	bool
+	depends on BROKEN
 	prompt "install libip6t_frag.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IP6TABLES
@@ -574,6 +585,7 @@ config IPTABLES_INSTALL_libip6t_frag
 
 config IPTABLES_INSTALL_libip6t_hashlimit
 	bool
+	depends on BROKEN
 	prompt "install libip6t_hashlimit.so"
 	depends on IPTABLES_INSTALL_IP6TABLES
 	depends on IPTABLES
@@ -606,6 +618,7 @@ config IPTABLES_INSTALL_libip6t_icmp6
 
 config IPTABLES_INSTALL_libip6t_ipv6header
 	bool
+	depends on BROKEN
 	prompt "install libip6t_ipv6header.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IP6TABLES
@@ -662,6 +675,7 @@ config IPTABLES_INSTALL_libip6t_MARK
 
 config IPTABLES_INSTALL_libip6t_mh
 	bool
+	depends on BROKEN
 	prompt "install libip6t_mh.so"
 	depends on IPTABLES_INSTALL_IP6TABLES
 	depends on IPTABLES
@@ -678,6 +692,7 @@ config IPTABLES_INSTALL_libip6t_multiport
 
 config IPTABLES_INSTALL_libip6t_NFLOG
 	bool
+	depends on BROKEN
 	prompt "install libip6t_NFLOG.so"
 	depends on IPTABLES_INSTALL_IP6TABLES
 	depends on IPTABLES
@@ -718,6 +733,7 @@ config IPTABLES_INSTALL_libip6t_policy
 
 config IPTABLES_INSTALL_libip6t_REJECT
 	bool
+	depends on BROKEN
 	prompt "install libip6t_REJECT.so"
 	depends on IPTABLES_INSTALL_IP6TABLES
 	depends on IPTABLES
@@ -726,6 +742,7 @@ config IPTABLES_INSTALL_libip6t_REJECT
 
 config IPTABLES_INSTALL_libip6t_rt
 	bool
+	depends on BROKEN
 	prompt "install libip6t_rt.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IP6TABLES
@@ -734,6 +751,7 @@ config IPTABLES_INSTALL_libip6t_rt
 
 config IPTABLES_INSTALL_libip6t_sctp
 	bool
+	depends on BROKEN
 	prompt "install libip6t_sctp.so"
 	depends on IPTABLES
 	depends on IPTABLES_INSTALL_IP6TABLES
