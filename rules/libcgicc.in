@@ -1,7 +1,7 @@
+
 menuconfig CGICC
-	bool "libcgicc [BROKEN]   "
+	bool "libcgicc"
 	select GCCLIBS_CXX
-	depends on BROKEN
 	help
 	  cgicc is a C++ class library for writing CGI applications. See
 	  http://www.cgicc.org for more details.

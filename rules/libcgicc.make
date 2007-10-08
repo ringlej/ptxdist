@@ -1,7 +1,7 @@
 # $Id$
 #
 # Copyright (C) 2005 by Alessio Igor Bogani
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -92,7 +92,7 @@ libcgicc_install: $(STATEDIR)/libcgicc.install
 
 $(STATEDIR)/libcgicc.install: $(libcgicc_install_deps_default)
 	@$(call targetinfo, $@)
-	#@$(call install, CGICC)
+	@$(call install, CGICC)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -109,11 +109,11 @@ $(STATEDIR)/libcgicc.targetinstall: $(libcgicc_targetinstall_deps_default)
 	@$(call install_fixup, libcgicc,PRIORITY,optional)
 	@$(call install_fixup, libcgicc,VERSION,$(CGICC_VERSION))
 	@$(call install_fixup, libcgicc,SECTION,base)
-	@$(call install_fixup, libcgicc,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libcgicc,AUTHOR,"Carsten Schlote <c.schlote\@konzeptpark.de>")
 	@$(call install_fixup, libcgicc,DEPENDS,)
 	@$(call install_fixup, libcgicc,DESCRIPTION,missing)
 
-	@$(call install_copy, libcgicc, $(CGICC_DIR)/cgicc/libcgicc.so.5.0.1, /usr/lib/libcgicc.so.5.0.1)
+	@$(call install_copy, libcgicc, 0,0, 755, $(CGICC_DIR)/cgicc/.libs/libcgicc.so.5.0.1, /usr/lib/libcgicc.so.5.0.1)
 	@$(call install_link, libcgicc, libcgicc.so.5.0.1, /usr/lib/libcgicc.so.5)
 	@$(call install_link, libcgicc, libcgicc.so.5.0.1, /usr/lib/libcgicc.so)
 

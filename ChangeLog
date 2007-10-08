@@ -1,5 +1,9 @@
 2007-10-08  Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* libcgicc: fix broken library. Install the headers into
+	the sysroot directory, fix targetinstall stage. Patch by
+	Carsten Schlote.
+
 	* joe: update to version 3.5 and allow to install the syntax
 	highlighting files as well. Patch by Carsten Schlote.
 
