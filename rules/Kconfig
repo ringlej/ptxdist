@@ -85,6 +85,10 @@ menu "Scripting Languages           "
 source "rules/scriptlanguages.in"
 endmenu
 
+menu "Bytecode Engines / VMs        "
+source "rules/bytecode_engines.in"
+endmenu
+
 menu "Networking Tools              "
 source "rules/networking.in"
 endmenu

@@ -1,0 +1,3 @@
+comment "Bytecode Engines       "
+
+source "rules/sun-java6-jre.in"

@@ -1,0 +1,41 @@
+menuconfig SUN_JAVA6_JRE
+	bool
+	default n
+	depends on ARCH_X86
+	prompt "jre 6u2 (sun)            "
+	help
+	  Sun[tm] Java Runtime Environment 6
+	  Note:
+	  This is an self-extracting shell archive,
+	  bas things could happen!
+
+config SUN_JAVA6_JRE_LICENSE_ACCEPT_STRING
+        string
+        depends on SUN_JAVA6_JRE
+        default "no"
+        prompt "Accept the License for JRE 6?"
+        help
+          Set this value to "yes" if you want to accept
+	  the License for 
+	  JAVA SE RUNTIME ENVIRONMENT (JRE) VERSION 6
+	  The string will be forwarded to the real
+	  installation routine for automatic builds.
+	  Default is NOT to accept the license per default, 
+	  since this has to be done manually. Please 
+	  contact Sun Microsystems, Inc. for any commercial 
+	  licensing issues if you need to redistribute 
+	  JAVA TECHNOLOGY as part of a commercial product:
+	  http://java.com
+	  Please Note: If you don't agree to the license 
+	  you can't install this software.
+
+config SUN_JAVA6_JRE_TARGET_PREFIX
+        string
+        depends on SUN_JAVA6_JRE
+        default "/usr/lib/jvm"
+        prompt "PREFIX for JRE 6"
+        help
+          Where should the java runtime environment be 
+	  installed. The default (/usr/lib/jvm/) is 
+	  default on many desktop systems. 
+	  Your mileage may vary, of course.
