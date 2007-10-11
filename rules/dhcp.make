@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_DHCP) += dhcp
 DHCP_VERSION	= 3.0.5
 DHCP		= dhcp-$(DHCP_VERSION)
 DHCP_SUFFIX	= tar.gz
-DHCP_URL	= ftp://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX)
+DHCP_URL	= ftp://ftp.isc.org/isc/dhcp/dhcp-3.0-history/$(DHCP).$(DHCP_SUFFIX)
 DHCP_SOURCE	= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
 DHCP_DIR	= $(BUILDDIR)/$(DHCP)
 
