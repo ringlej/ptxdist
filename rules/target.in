@@ -337,7 +337,7 @@ config PREFIX
 	  PTXdist uses a sysroot/destdir mechanism, which means that packets
 	  are being installed with
 
-	  	make install DESTDIR=${PTXCONF_PREFIX}/${PTXCONF_GNU_TARGET}
+	  	make install DESTDIR=$(SYSROOT)
 
 config HOST_PREFIX
 	string

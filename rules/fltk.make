@@ -64,8 +64,8 @@ FLTK_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 FLTK_AUTOCONF	=  $(CROSS_AUTOCONF_USR) \
-	--x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include \
-	--x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib \
+	--x-includes=$(SYSROOT)/include \
+	--x-libraries=$(SYSROOT)/lib \
 	--enable-shared \
 	--enable-localjpeg \
 	--enable-localzlib \

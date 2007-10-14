@@ -58,7 +58,7 @@ $(STATEDIR)/xalf.extract: $(xalf_extract_deps_default)
 
 xalf_prepare: $(STATEDIR)/xalf.prepare
 
-XALF_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+XALF_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
 XALF_ENV 	=  $(CROSS_ENV)
 #XALF_ENV	+=
 

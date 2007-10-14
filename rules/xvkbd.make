@@ -56,7 +56,7 @@ $(STATEDIR)/xvkbd.extract: $(xvkbd_extract_deps_default)
 
 xvkbd_prepare: $(STATEDIR)/xvkbd.prepare
 
-XVKBD_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+XVKBD_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
 XVKBD_ENV 	=  $(CROSS_ENV)
 
 $(STATEDIR)/xvkbd.prepare: $(xvkbd_prepare_deps_default)

@@ -59,16 +59,16 @@ $(STATEDIR)/gtk1210.extract: $(gtk1210_extract_deps_default)
 
 gtk1210_prepare: $(STATEDIR)/gtk1210.prepare
 
-GTK1210_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+GTK1210_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
 GTK1210_ENV 	=  $(CROSS_ENV)
-GTK1210_ENV	+= ac_cv_have_x='have_x=yes ac_x_includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include ac_x_libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib'
+GTK1210_ENV	+= ac_cv_have_x='have_x=yes ac_x_includes=$(SYSROOT)/include ac_x_libraries=$(SYSROOT)/lib'
 
 #
 # autoconf
 #
 GTK1210_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
 GTK1210_AUTOCONF	+= --with-threads=posix
-GTK1210_AUTOCONF 	+= --with-glib-prefix=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)
+GTK1210_AUTOCONF 	+= --with-glib-prefix=$(SYSROOT)
 GTK1210_AUTOCONF	+= --with-x
 
 $(STATEDIR)/gtk1210.prepare: $(gtk1210_prepare_deps_default)

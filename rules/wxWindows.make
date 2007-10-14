@@ -61,7 +61,7 @@ $(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps_default)
 
 wxWindows_prepare: $(STATEDIR)/wxWindows.prepare
 
-WXWINDOWS_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+WXWINDOWS_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
 WXWINDOWS_ENV 	=  $(CROSS_ENV)
 
 
@@ -69,8 +69,8 @@ WXWINDOWS_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 WXWINDOWS_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
-WXWINDOWS_AUTOCONF	+= --x-includes=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include/X11
-WXWINDOWS_AUTOCONF	+= --x-libraries=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+WXWINDOWS_AUTOCONF	+= --x-includes=$(SYSROOT)/include/X11
+WXWINDOWS_AUTOCONF	+= --x-libraries=$(SYSROOT)/lib
 WXWINDOWS_AUTOCONF	+= --disable-shared 
 
 # WARNING : HERE WORK IS STILL IN PROGRESS !

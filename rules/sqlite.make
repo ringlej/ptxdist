@@ -123,14 +123,14 @@ sqlite_install: $(STATEDIR)/sqlite.install
 
 $(STATEDIR)/sqlite.install: $(sqlite_install_deps_default)
 	@$(call targetinfo, $@)
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
-	install -d $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+	install -d $(SYSROOT)/include
+	install -d $(SYSROOT)/lib
 	cp $(SQLITE_DIR)/sqlite3.h \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/include
+		$(SYSROOT)/include
 	cp $(SQLITE_DIR)/libsqlite3.a \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+		$(SYSROOT)/lib
 	cp $(SQLITE_DIR)/libsqlite3.so \
-		$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib
+		$(SYSROOT)/lib
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

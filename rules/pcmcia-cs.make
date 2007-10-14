@@ -58,13 +58,13 @@ $(STATEDIR)/pcmcia-cs.extract: $(pcmcia-cs_extract_deps_default)
 
 pcmcia-cs_prepare: $(STATEDIR)/pcmcia-cs.prepare
 
-PCMCIA-CS_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+PCMCIA-CS_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
 PCMCIA-CS_ENV 	=  $(CROSS_ENV)
 
 PCMCIA-CS_CONF	=  --noprompt \
 	--kernel=$(KERNEL_DIR) \
-	--target=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET) \
-	--moddir=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/lib/modules/$(KERNEL_VERSION) \
+	--target=$(SYSROOT) \
+	--moddir=$(SYSROOT)/lib/modules/$(KERNEL_VERSION) \
 	--arch=$(PTXCONF_ARCH) \
 	--ucc=$(COMPILER_PREFIX)gcc \
 	--kcc=$(COMPILER_PREFIX)gcc \
@@ -129,25 +129,25 @@ $(STATEDIR)/pcmcia-cs.targetinstall: $(pcmcia-cs_targetinstall_deps_default)
 	@$(call install_fixup, pcmcia-cs,DESCRIPTION,missing)
 
 ifdef PTXCONF_PCMCIA_TOOLS_CARDMGR
-	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/cardmgr, /sbin/cardmgr)
-	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/cardctl, /sbin/cardctl)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(SYSROOT)/sbin/cardmgr, /sbin/cardmgr)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(SYSROOT)/sbin/cardctl, /sbin/cardctl)
 endif
 
 ifdef PTXCONF_PCMCIA_TOOLS_MISC
 	# FIXME: There are more. Which ones are needed?
-	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ifport, /sbin/ifport)
-	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ifuser, /sbin/ifuser)
-	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ide_info, /sbin/ide_info)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(SYSROOT)/sbin/ifport, /sbin/ifport)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(SYSROOT)/sbin/ifuser, /sbin/ifuser)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(SYSROOT)/sbin/ide_info, /sbin/ide_info)
 endif
 
 ifdef PTXCONF_PCMCIA_TOOLS_FTL
-	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ftl_format, /sbin/ftl_format)
-	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/ftl_check, /sbin/ftl_check)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(SYSROOT)/sbin/ftl_format, /sbin/ftl_format)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(SYSROOT)/sbin/ftl_check, /sbin/ftl_check)
 endif
 
 ifdef PTXCONF_PCMCIA_TOOLS_DEBUG
-	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/dump_cis, /sbin/dump_cis)
-	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/sbin/pack_cis, /sbin/pack_cis)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(SYSROOT)/sbin/dump_cis, /sbin/dump_cis)
+	@$(call install_copy, pcmcia-cs, 0, 0, 0755, $(SYSROOT)/sbin/pack_cis, /sbin/pack_cis)
 endif
 
 	# FIXME: Maybe we want to add an install option for  /etc/rc.d/rc.pcmcia

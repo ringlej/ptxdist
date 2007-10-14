@@ -61,7 +61,7 @@ $(STATEDIR)/libidl-2.extract: $(libidl-2_extract_deps_default)
 
 libidl-2_prepare: $(STATEDIR)/libidl-2.prepare
 
-LIBIDL_2_PATH	=  PATH=$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET)/bin:$(CROSS_PATH)
+LIBIDL_2_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
 LIBIDL_2_ENV 	= \
 	$(CROSS_ENV) \
 	libIDL_cv_long_long_format=ll
