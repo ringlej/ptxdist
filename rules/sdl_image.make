@@ -64,6 +64,7 @@ SDL_IMAGE_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
+# FIXME: rsc: shouldn't sdl-prefix be /usr?
 SDL_IMAGE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-sdl-prefix=$(PTXCONF_PREFIX) \
