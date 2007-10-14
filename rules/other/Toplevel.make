@@ -77,6 +77,7 @@ VIRTUAL			:=
 
 # ----------------------------------------------------------------------------
 # PTXCONF_PREFIX can be overwritten from the make var PREFIX
+# FIXME: rsc: this needs to be migrated to DESTDIR, because it's not PREFIX!
 # ----------------------------------------------------------------------------
 
 ifdef PREFIX
