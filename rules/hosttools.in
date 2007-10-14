@@ -26,6 +26,12 @@ source "rules/host-umkimage.in"
 source "rules/host-mkelfImage.in"
 
 comment "------------------------------"
+comment "Graphics Tools                "
+comment "------------------------------"
+
+source "rules/host-gtk-menu.in"
+
+comment "------------------------------"
 comment "Other Host Tools              "
 comment "------------------------------"
 
@@ -35,6 +41,8 @@ source "rules/host-qte.in"
 source "rules/host-slirp.in"
 source "rules/host-cmake.in"
 source "rules/host-localedef.in"
+source "rules/host-fontconfig.in"
+source "rules/host-libxml2.in"
 
 comment "------------------------------"
 comment "Scripting Languages           "
@@ -70,6 +78,5 @@ source "rules/host-xorg-proto-x.in"
 source "rules/host-xorg-proto-xext.in"
 source "rules/host-xorg-proto-xcmisc.in"
 source "rules/host-xorg-proto-fonts.in"
-source "rules/host-glib.in"
 source "rules/host-gettext.in"
 source "rules/host-libiconv.in"
