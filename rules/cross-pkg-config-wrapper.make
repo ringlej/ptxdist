@@ -69,8 +69,8 @@ cross-pkg-config-wrapper_install: $(STATEDIR)/cross-pkg-config-wrapper.install
 
 $(STATEDIR)/cross-pkg-config-wrapper.install: $(cross-pkg-config-wrapper_install_deps_default)
 	@$(call targetinfo, $@)
-	install -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTX_PREFIX_CROSS)/bin/pkg-config
-	install -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTX_PREFIX_CROSS)/bin/$(COMPILER_PREFIX)pkg-config
+	install -D -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTX_PREFIX_CROSS)/bin/pkg-config
+	install -D -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTX_PREFIX_CROSS)/bin/$(COMPILER_PREFIX)pkg-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
