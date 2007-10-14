@@ -71,6 +71,7 @@ PHP_APC_AUTOCONF = \
 $(STATEDIR)/php-apc.prepare: $(php-apc_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP_APC_DIR)/config.cache)
+# FIXME: rsc: phpize path is definitely wrong here, needs to be a host tool
 	cd $(PHP_APC_DIR) && \
 		$(PHP_APC_PATH) $(PHP_APC_ENV) \
 		$(PTXCONF_PREFIX)/bin/phpize && \
