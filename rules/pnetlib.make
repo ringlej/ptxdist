@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_PNETLIB) += pnetlib
 PNETLIB_VERSION	= 0.7.2
 PNETLIB		= pnetlib-$(PNETLIB_VERSION)
 PNETLIB_SUFFIX	= tar.gz
-PNETLIB_URL	= http://www.southern-storm.com.au/download/$(PNETLIB).$(PNETLIB_SUFFIX)
+PNETLIB_URL	= ftp://ftp.gnu.org/pub/gnu/dotgnu/pnet/$(PNETLIB).$(PNETLIB_SUFFIX)
 PNETLIB_SOURCE	= $(SRCDIR)/$(PNETLIB).$(PNETLIB_SUFFIX)
 PNETLIB_DIR	= $(BUILDDIR)/$(PNETLIB)
 
