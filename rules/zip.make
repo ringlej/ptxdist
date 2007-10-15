@@ -20,7 +20,7 @@ ZIP_VERSION	:= 2.32
 ZIP_AVERSION	:= 232
 ZIP_ARCHIVE	:= zip$(ZIP_AVERSION).tgz
 ZIP		:= zip-$(ZIP_VERSION)
-ZIP_URL		:= ftp://ftp.info-zip.org/pub/infozip/src/$(ZIP_ARCHIVE)
+ZIP_URL		:= http://www.mirrorservice.org/sites/ftp.info-zip.org/pub/infozip/src/$(ZIP_ARCHIVE)
 ZIP_SOURCE	:= $(SRCDIR)/$(ZIP_ARCHIVE)
 ZIP_DIR		:= $(BUILDDIR)/$(ZIP)
 
