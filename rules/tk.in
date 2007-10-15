@@ -1,0 +1,11 @@
+menuconfig TK
+	bool
+	prompt "Tk                 "
+	select ROOTFS_DEV
+	depends on TCL
+	depends on BROKEN
+	help
+	  Tk is a graphical extension to Tcl (Tool Command Language)
+
+comment "build options  ---"
+	depends on TK
