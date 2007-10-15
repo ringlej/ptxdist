@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_KLIBC) += klibc
 KLIBC_VERSION	:= 1.4.30
 KLIBC		:= klibc-$(KLIBC_VERSION)
 KLIBC_SUFFIX	:= tar.gz
-KLIBC_URL	:= http://www.kernel.org/pub/linux/libs/klibc/Testing/$(KLIBC).$(KLIBC_SUFFIX)
+KLIBC_URL	:= http://www.kernel.org/pub/linux/libs/klibc/Testing/1.4.x/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_SOURCE	:= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_DIR	:= $(BUILDDIR)/$(KLIBC)
 
