@@ -20,7 +20,7 @@ UNZIP_VERSION	:= 5.52
 UNZIP_AVERSION	:= 552
 UNZIP_ARCHIVE	:= unzip$(UNZIP_AVERSION).tgz
 UNZIP		:= unzip-$(UNZIP_VERSION)
-UNZIP_URL	:= ftp://ftp.info-zip.org/pub/infozip/src/$(UNZIP_ARCHIVE)
+UNZIP_URL	:= http://www.mirrorservice.org/sites/ftp.info-zip.org/pub/infozip/src/$(UNZIP_ARCHIVE)
 UNZIP_SOURCE	:= $(SRCDIR)/$(UNZIP_ARCHIVE)
 UNZIP_DIR	:= $(BUILDDIR)/$(UNZIP)
 
