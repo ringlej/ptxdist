@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_DIRECTFB) += directfb
 #
 # Paths and names
 #
-DIRECTFB_VERSION	:= 1.0.0
+DIRECTFB_VERSION	:= 1.1.0
 DIRECTFB		:= DirectFB-$(DIRECTFB_VERSION)
 DIRECTFB_SUFFIX		:= tar.gz
 DIRECTFB_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(DIRECTFB).$(DIRECTFB_SUFFIX)
