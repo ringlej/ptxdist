@@ -2,7 +2,7 @@
 # $Id: valgrind.make $
 #
 # Copyright (C) 2005 by Shahar Livne <shahar@livnex.com>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_VALGRIND) += valgrind
 VALGRIND_VERSION	= 3.1.1
 VALGRIND		= valgrind-$(VALGRIND_VERSION)
 VALGRIND_SUFFIX		= tar.bz2
-VALGRIND_URL		= http://valgrind.org/downloads/$(VALGRIND).$(VALGRIND_SUFFIX)
+VALGRIND_URL		= http://site.n.ml.org/download/20060517103526/valgrind/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_SOURCE		= $(SRCDIR)/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_DIR		= $(BUILDDIR)/$(VALGRIND)
 
