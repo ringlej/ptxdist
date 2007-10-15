@@ -26,7 +26,7 @@ else
 UNIONFS_VERSION	:= 1.1.4
 UNIONFS		:= unionfs-$(UNIONFS_VERSION)
 UNIONFS_SUFFIX	:= tar.gz
-UNIONFS_URL	:= ftp://ftp.fsl.cs.sunysb.edu/pub/unionfs/$(UNIONFS).$(UNIONFS_SUFFIX)
+UNIONFS_URL	:= ftp://ftp.fsl.cs.sunysb.edu/pub/unionfs/old/$(UNIONFS).$(UNIONFS_SUFFIX)
 endif
 UNIONFS_SOURCE	:= $(SRCDIR)/$(UNIONFS).$(UNIONFS_SUFFIX)
 UNIONFS_DIR	:= $(BUILDDIR)/$(UNIONFS)
