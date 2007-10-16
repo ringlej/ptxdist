@@ -4,7 +4,7 @@
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -16,11 +16,11 @@
 PACKAGES-$(PTXCONF_PDKSH) += pdksh
 
 #
-# Paths and names 
+# Paths and names
 #
 PDKSH_VERSION		= 5.2.14
 PDKSH			= pdksh-$(PDKSH_VERSION)
-PDKSH_URL		= ftp://ftp.cs.mun.ca/pub/pdksh/$(PDKSH).tar.gz 
+PDKSH_URL		= ftp://ftp.cs.mun.ca/pub/pdksh/$(PDKSH).tar.gz
 PDKSH_SOURCE		= $(SRCDIR)/$(PDKSH).tar.gz
 PDKSH_DIR		= $(BUILDDIR)/$(PDKSH)
 
@@ -165,9 +165,9 @@ $(STATEDIR)/pdksh.targetinstall: $(pdksh_targetinstall_deps_default)
 	@$(call install_fixup, pdksh,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, pdksh,DEPENDS,)
 	@$(call install_fixup, pdksh,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, pdksh, 0, 0, 0755, $(PDKSH_DIR)/ksh, /bin/ksh)
-	
+
 	@$(call install_finish, pdksh)
 	@$(call touch, $@)
 
@@ -175,9 +175,9 @@ $(STATEDIR)/pdksh.targetinstall: $(pdksh_targetinstall_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-pdksh_clean: 
-	rm -rf $(STATEDIR)/pdksh.* 
-	rm -rf $(IMAGEDIR)/pdksh_* 
+pdksh_clean:
+	rm -rf $(STATEDIR)/pdksh.*
+	rm -rf $(IMAGEDIR)/pdksh_*
 	rm -rf $(PDKSH_DIR)
 
 # vim: syntax=make
