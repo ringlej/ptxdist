@@ -1,16 +1,11 @@
-#
-# Submitted-By: Benedikt Spranger, 2005-01-31
-# Committed-By: Robert Schwebel
-#
-# Error:
-#
-# <error description>
-#
-# Description:
-#
-# <pointer to discussions on the net>
-#
-# State:
-#
-# <upstream state of this problem>
-#
+Subject: fix something in blub
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+When cross compiling blub it breaks with the following error message:
+
+...
+
+This patch does this and that in order to avoid this error.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
