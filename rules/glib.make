@@ -71,7 +71,8 @@ GLIB_ENV 	:= \
 #
 GLIB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-static
+	--enable-static \
+	--with-libiconv=gnu
 
 $(STATEDIR)/glib.prepare:
 	@$(call targetinfo, $@)
