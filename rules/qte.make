@@ -1,15 +1,14 @@
 # -*-makefile-*-
 # $Id$
 #
-# (c) 2003 by Marco Cavallini <m.cavallini@koansoftware.com>
-#          
+# Copyright (C) 2003 by Marco Cavallini <m.cavallini@koansoftware.com>
+# Copyright (C) 2007 by Robert Schwebel
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
-
-# FIXME: RSC: do something on targetinstall
 
 #
 # We provide this package
@@ -19,17 +18,12 @@ PACKAGES-$(PTXCONF_QTE) += qte
 #
 # Paths and names
 #
-QTE_MAJOR	= 3
-QTE_MINOR	= 3
-QTE_MICRO	= 4
-QTE_VERSION	= $(QTE_MAJOR).$(QTE_MINOR).$(QTE_MICRO)
-QTE		= qt-embedded-free-$(QTE_VERSION)
-QTE_SUFFIX	= tar.gz
-QTE_URL		= ftp://ftp.trolltech.com/qt/source/$(QTE).$(QTE_SUFFIX)
-QTE_SOURCE	= $(SRCDIR)/$(QTE).$(QTE_SUFFIX)
-QTE_DIR		= $(BUILDDIR)/$(QTE)
-QTDIR		= $(BUILDDIR)/$(QTE)
-
+QTE_VERSION	:= 3.3.4
+QTE		:= qt-embedded-free-$(QTE_VERSION)
+QTE_SUFFIX	:= tar.gz
+QTE_URL		:= ftp://ftp.trolltech.com/qt/source/$(QTE).$(QTE_SUFFIX)
+QTE_SOURCE	:= $(SRCDIR)/$(QTE).$(QTE_SUFFIX)
+QTE_DIR		:= $(BUILDDIR)/$(QTE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -64,7 +58,7 @@ $(STATEDIR)/qte.extract: $(qte_extract_deps_default)
 
 qte_prepare: $(STATEDIR)/qte.prepare
 
-QTE_PATH	:=  PATH=$(CROSS_PATH)
+QTE_PATH	:= PATH=$(CROSS_PATH)
 QTE_ENV		:= QTDIR=/opt
 
 #
@@ -88,7 +82,7 @@ QTE_AUTOCONF	= \
 	-disable-workspace
 
 ifdef PTXCONF_QTE_THREAD
-QTE_AUTOCONF	+= -thread 
+QTE_AUTOCONF	+= -thread
 else
 QTE_AUTOCONF	+= -no-thread
 endif
@@ -110,7 +104,7 @@ endif
 ifdef PTXCONF_QTE_SHARED
 QTE_AUTOCONF	+= -shared
 else
-QTE_AUTOCONF	+= -static 
+QTE_AUTOCONF	+= -static
 endif
 
 $(STATEDIR)/qte.prepare: $(qte_prepare_deps_default)
@@ -196,7 +190,7 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps_default)
 
 	cd $(QTE_DIR) && \
 		echo yes | $(QTE_PATH) $(QTE_ENV) \
-		./configure $(QTE_AUTOCONF)
+ 		./configure $(QTE_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -207,8 +201,7 @@ qte_compile: $(STATEDIR)/qte.compile
 
 $(STATEDIR)/qte.compile: $(qte_compile_deps_default)
 	@$(call targetinfo, $@)
-	cp -f $(PTXCONF_PREFIX)/bin/uic $(QTE_DIR)/bin/uic
-	$(QTE_PATH) $(QTE_ENV) make -C $(QTE_DIR) $(QTE_ENV)
+	cd $(QTE_DIR) && $(QTE_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -231,7 +224,7 @@ qte_targetinstall: $(STATEDIR)/qte.targetinstall
 $(STATEDIR)/qte.targetinstall: $(qte_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, qte)
+	@$(call install_init,  qte)
 	@$(call install_fixup, qte,PACKAGE,qte)
 	@$(call install_fixup, qte,PRIORITY,optional)
 	@$(call install_fixup, qte,VERSION,$(QTE_VERSION))
@@ -402,6 +395,7 @@ endif
 endif
 
 	@$(call install_finish, qte)
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
