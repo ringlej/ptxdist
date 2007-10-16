@@ -119,7 +119,24 @@ $(STATEDIR)/gettext.targetinstall:
 	@$(call install_fixup, gettext,DEPENDS,)
 	@$(call install_fixup, gettext,DESCRIPTION,missing)
 
-	@$(call install_copy, gettext, 0, 0, 0755, $(GETTEXT_DIR)/foobar, /dev/null)
+	@$(call install_copy, gettext, 0, 0, 0755, $(GETTEXT_DIR)/gettext-tools/src/xgettext, /usr/bin/xgettext)
+	@$(call install_copy, gettext, 0, 0, 0755, $(GETTEXT_DIR)/gettext-runtime/src/gettext, /usr/bin/gettext)
+
+	@$(call install_copy, gettext, 0, 0, 0644, \
+		$(GETTEXT_DIR)/gettext-tools/gnulib-lib/.libs/libgettextlib-0.16.1.so, \
+		/usr/lib/libgettextlib-0.16.1.so)
+
+	@$(call install_copy, gettext, 0, 0, 0644, \
+		$(GETTEXT_DIR)/gettext-runtime/libasprintf/.libs/libasprintf.so.0.0.0, \
+		/usr/lib/libasprintf.so.0.0.0)
+
+	@$(call install_copy, gettext, 0, 0, 0644, \
+		$(GETTEXT_DIR)/gettext-tools/libgettextpo/.libs/libgettextpo.so.0.3.0, \
+		/usr/lib/libgettextpo.so.0.3.0)
+
+	@$(call install_copy, gettext, 0, 0, 0644, \
+		$(GETTEXT_DIR)/gettext-tools/src/.libs/libgettextsrc-0.16.1.so, \
+		/usr/lib/libgettextsrc-0.16.1.so)
 
 	@$(call install_finish, gettext)
 
