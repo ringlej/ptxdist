@@ -1,6 +1,12 @@
---- libcgi-1.0.orig/Makefile.in
-+++ libcgi-1.0/Makefile.in
-@@ -5,22 +5,27 @@
+---
+ Makefile.in |   47 +++++++++++++++++++++++++++--------------------
+ 1 file changed, 27 insertions(+), 20 deletions(-)
+
+Index: Makefile.in
+===================================================================
+--- Makefile.in.orig
++++ Makefile.in
+@@ -5,22 +5,27 @@ INSTALL_DATA = @INSTALL_DATA@
  prefix = @prefix@
  exec_prefix = @exec_prefix@
  
@@ -33,7 +39,13 @@
  
  	@echo ""
  	@echo ""
-@@ -48,14 +53,15 @@
+@@ -43,19 +48,20 @@ all: $(OBJS) src/libcgi.so
+ 
+ 
+ shared: src/libcgi.so
+-	cp src/libcgi.so $(LIBDIR)
++	cp src/libcgi.so $(DESTDIR)$(LIBDIR)
+ 
  src/libcgi.a: $(OBJS)
  	$(AR) rc src/libcgi.a $(OBJS)
  
@@ -55,7 +67,7 @@
  
  
  src/error.o: src/error.c src/error.h
-@@ -69,8 +75,9 @@
+@@ -69,8 +75,9 @@ src/general.o: src/general.c
  src/list.o: src/list.c
  
  clean:
@@ -66,7 +78,7 @@
  
  uninstall: clean
  	rm -f $(LIBDIR)/libcgi.*
-@@ -78,11 +85,11 @@
+@@ -78,11 +85,11 @@ uninstall: clean
  	rm -f $(INCDIR)/session.h
  	rm -f $(MANDIR)/libcgi*
  
