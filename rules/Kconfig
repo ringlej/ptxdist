@@ -44,6 +44,7 @@ source "rules/dtc.in"
 source "rules/libc.in"
 source "rules/gcclibs.in"
 source "rules/locales.in"
+source "rules/timezone.in"
 source "rules/u-boot.in"
 endmenu
 

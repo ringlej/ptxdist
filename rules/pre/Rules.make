@@ -406,6 +406,24 @@ add_locale =							\
 		-p $$PREF 					\
 		-n $$LOCALE_NAME
 
+
+#
+# add_zoneinfo
+#
+# add zoneinfo support to glibc-archive
+#
+# $1: zoneinfoname: zoneinfoname (i.E. Europe)
+# $2: prefix; installation prefix for glibc-archive
+#
+#
+add_zoneinfo =							\
+	ZONEINFO_NAME=$(strip $(1));				\
+	PREF=$(strip $(2));					\
+	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)			\
+	$(SCRIPTSDIR)/make_zoneinfo.sh				\
+	-n $$ZONEINFO_NAME					\
+	-p $$PREF
+
 #
 # extract
 #
