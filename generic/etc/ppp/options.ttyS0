@@ -1,0 +1,5 @@
+# Port Configuration for Serial Port ttyS0
+# IP Address of the local ppp end is:  192.168.42.42
+# IP Address of the client ppp end is: 192.168.42.43
+192.168.42.42:192.168.42.43            		# serverAddress:clientAdress
+netmask 255.255.255.0                   	# The netmask of the LAN the server is connected to

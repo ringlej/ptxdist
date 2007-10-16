@@ -1,9 +1,8 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
+# $Id: pppd.make 3876 2006-01-12 20:18:48Z rsc $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
-#		GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
-# 		2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+#             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -19,12 +18,13 @@ PACKAGES-$(PTXCONF_PPP) += ppp
 #
 # Paths and names
 #
-PPP_VERSION	:= 2.4.4
+PPP_VERSION	:= 2.4.1
 PPP		:= ppp-$(PPP_VERSION)
 PPP_SUFFIX	:= tar.gz
-PPP_URL		:= http://samba.org/ftp/ppp/$(PPP).$(PPP_SUFFIX)
+PPP_URL		:= ftp://ftp.samba.org/pub/ppp/$(PPP).$(PPP_SUFFIX)
 PPP_SOURCE	:= $(SRCDIR)/$(PPP).$(PPP_SUFFIX)
 PPP_DIR		:= $(BUILDDIR)/$(PPP)
+
 
 # ----------------------------------------------------------------------------
 # Get
@@ -60,19 +60,12 @@ $(STATEDIR)/ppp.extract: $(ppp_extract_deps_default)
 ppp_prepare: $(STATEDIR)/ppp.prepare
 
 PPP_PATH	:= PATH=$(CROSS_PATH)
-PPP_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-PPP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+PPP_MAKEVARS	:= CROSS=$(CROSS_ENV)
 
 $(STATEDIR)/ppp.prepare: $(ppp_prepare_deps_default)
 	@$(call targetinfo, $@)
-	@$(call clean, $(PPP_DIR)/config.cache)
 	cd $(PPP_DIR) && \
-		$(PPP_PATH) $(PPP_ENV) \
-		./configure $(PPP_AUTOCONF)
+		./configure
 
 ifdef PTXCONF_PPP_MS_CHAP
 	@$(call enable_sh,$(PPP_DIR)/pppd/Makefile,CHAPMS=y)
@@ -99,12 +92,10 @@ ifndef PTXCONF_PPP_IPX
 	@perl -p -i -e 's/ipxcp.o //' $(PPP_DIR)/pppd/Makefile
 endif
 
-ifdef PTXCONF_PPP_PLUGINS
-	@$(call enable_sh,$(PPP_DIR)/pppd/Makefile,HAVE_MULTILINK=y)
-else
-	@$(call disable_sh,$(PPP_DIR)/pppd/Makefile,HAVE_MULTILINK=y)
+ifndef PTXCONF_PPP_MULTILINK
+	@perl -p -i -e 's/-DHAVE_MULTILINK //' $(PPP_DIR)/pppd/Makefile
+	@perl -p -i -e 's/multilink.o //' $(PPP_DIR)/pppd/Makefile
 endif
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -115,7 +106,8 @@ ppp_compile: $(STATEDIR)/ppp.compile
 
 $(STATEDIR)/ppp.compile: $(ppp_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(PPP_DIR) && $(PPP_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
+	cd $(PPP_DIR) && \
+		$(PPP_PATH) $(MAKE) $(PPP_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -126,7 +118,6 @@ ppp_install: $(STATEDIR)/ppp.install
 
 $(STATEDIR)/ppp.install: $(ppp_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, PPP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -150,8 +141,12 @@ $(STATEDIR)/ppp.targetinstall: $(ppp_targetinstall_deps_default)
 	@$(call install_copy, ppp, 0, 0, 0755, $(PPP_DIR)/pppd/pppd, /usr/sbin/pppd)
 	@$(call install_copy, ppp, 0, 0, 0755, $(PPP_DIR)/chat/chat, /usr/sbin/chat)
 
-	@$(call install_finish, ppp)
+	# install configuration files
+	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options.server, n)
+	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options.ttyS0, n)
+	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/pap-secrets, n)
 
+	@$(call install_finish, ppp)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
