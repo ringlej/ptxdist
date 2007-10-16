@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 #
 # Paths and names
 #
-PROFTPD_VERSION		= 1.3.0rc1
+PROFTPD_VERSION		= 1.3.0a
 PROFTPD			= proftpd-$(PROFTPD_VERSION)
 PROFTPD_SUFFIX		= tar.gz
 PROFTPD_URL		= ftp://ftp.proftpd.org/distrib/source/proftpd-$(PROFTPD_VERSION).$(PROFTPD_SUFFIX)
