@@ -64,7 +64,8 @@ SAMBA_ENV 	:= \
 	SMB_BUILD_CC_NEGATIVE_ENUM_VALUES=no \
 	samba_cv_HAVE_GETTIMEOFDAY_TZ=yes \
 	samba_cv_USE_SETRESUID=yes \
-	samba_cv_HAVE_IFACE_IFCONF=yes
+	samba_cv_HAVE_IFACE_IFCONF=yes \
+	samba_cv_HAVE_IFACE_IFREQ=yes
 
 #
 # autoconf
@@ -199,7 +200,7 @@ endif
 
 ifdef PTXCONF_SAMBA_LIBCLIENT
 	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/libsmbclient.so, /usr/lib/libsmbclient.so.0)
-	@$(call install_link, samba, libsmbclient.so.0.1, /usr/lib/libsmbclient.so.0)
+	@$(call install_link, samba, libsmbclient.so.0, /usr/lib/libsmbclient.so.0.1)
 endif
 
 ifdef PTXCONF_SAMBA_SMBFS
