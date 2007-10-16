@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_SUDO) += sudo
 #
 # Paths and names
 #
-SUDO_VERSION	= 1.6.9p5
+SUDO_VERSION	= 1.6.9p6
 SUDO		= sudo-$(SUDO_VERSION)
 SUDO_SUFFIX	= tar.gz
 SUDO_URL	= http://www.courtesan.com/sudo/dist/$(SUDO).$(SUDO_SUFFIX)
