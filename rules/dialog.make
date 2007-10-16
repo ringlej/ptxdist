@@ -2,7 +2,7 @@
 # $Id: template 2078 2004-12-01 15:28:17Z rsc $
 #
 # Copyright (C) 2004 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_DIALOG) += dialog
 #
 # Paths and names
 #
-DIALOG_VERSION		= 1.0-20041118
-DIALOG			= dialog-$(DIALOG_VERSION)
-DIALOG_SUFFIX		= tgz
-DIALOG_URL		= http://invisible-island.net/dialog/$(DIALOG).$(DIALOG_SUFFIX)
+DIALOG_VERSION		= 1.0-20060221
+DIALOG			= dialog_$(DIALOG_VERSION)
+DIALOG_SUFFIX		= tar.gz
+DIALOG_URL		= ftp://ftp.us.debian.org/debian/pool/main/d/dialog/$(DIALOG).orig.$(DIALOG_SUFFIX)
 DIALOG_SOURCE		= $(SRCDIR)/$(DIALOG).$(DIALOG_SUFFIX)
 DIALOG_DIR		= $(BUILDDIR)/$(DIALOG)
 
