@@ -113,7 +113,7 @@ $(STATEDIR)/sed.targetinstall: $(sed_targetinstall_deps_default)
 	@$(call install_fixup, sed,DEPENDS,)
 	@$(call install_fixup, sed,DESCRIPTION,missing)
 
-	@$(call install_copy, sed, 0, 0, 0755, $(SED_DIR)/PTXDIST_SYSROOT/usr/bin/sed, /usr/bin/sed)
+	@$(call install_copy, sed, 0, 0, 0755, $(SED_DIR)/sed/sed, /usr/bin/sed)
 
 	@$(call install_finish, sed)
 
