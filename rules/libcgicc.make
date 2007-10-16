@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_CGICC) += libcgicc
 CGICC_VERSION		= 3.2.3
 CGICC			= cgicc-$(CGICC_VERSION)
 CGICC_SUFFIX		= tar.gz
-CGICC_URL		= http://www.cgicc.org/files/$(CGICC).$(CGICC_SUFFIX)
+CGICC_URL		= ftp://ftp.gnu.org/gnu/cgicc/$(CGICC).$(CGICC_SUFFIX)
 CGICC_SOURCE		= $(SRCDIR)/$(CGICC).$(CGICC_SUFFIX)
 CGICC_DIR		= $(BUILDDIR)/$(CGICC)
 
