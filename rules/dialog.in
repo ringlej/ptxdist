@@ -3,9 +3,9 @@ config DIALOG
 	prompt "dialog"
 	help
 	  Displays user-friendly dialog boxes from shell scripts
- 
- 	  This application provides a method of displaying several 
-	  different types of dialog boxes from shell scripts. This 
-	  allows a developer of a script to interact with the user 
+
+ 	  This application provides a method of displaying several
+	  different types of dialog boxes from shell scripts. This
+	  allows a developer of a script to interact with the user
 	  in a much friendlier manner.
- 
+

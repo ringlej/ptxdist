@@ -10,7 +10,6 @@ menuconfig DTC
 	  You will find the device tree binary blob under
 	  images/oftree in your workspace.
 
-
 config DTC_OFTREE_DTS
 	string "source dts file"
 	depends on DTC

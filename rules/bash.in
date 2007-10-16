@@ -6,29 +6,30 @@ menuconfig BASH
 	  Bash is an sh-compatible command language interpreter that executes
  	  commands read from the standard input or from a file.  Bash also
  	  incorporates useful features from the Korn and C shells (ksh and csh).
- 	  
+
 	  Bash is ultimately intended to be a conformant implementation of the
  	  IEEE POSIX Shell and Tools specification (IEEE Working Group 1003.2).
- 	  
-	  Included in the bash package is the Programmable Completion Code, 
+
+	  Included in the bash package is the Programmable Completion Code,
 	  by Ian Macdonald.
 
 	  http://www.gnu.org/software/bash/
 
 config BASH_SHLIKE
-	bool	
+	bool
 	prompt "Enable minimal sh like configuration"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  This produces a shell with minimal features, close to the
+	  historical Bourne shell.
 
 config BASH_ALIASES
 	bool
 	prompt "Enable aliases"
 	depends on BASH
 	help
-	  Aliases allow a string to be substituted for a word 
-	  when it is used as the first word of a simple command.  
+	  Aliases allow a string to be substituted for a word
+	  when it is used as the first word of a simple command.
 	  The shell maintains a list of aliases that may be
 	  set  and unset with the alias and unalias builtin commands
 
@@ -37,7 +38,7 @@ config BASH_ALIASES
 #	prompt "Enable arithmetic for command"
 #	depends on BASH
 #	help "This does currently (bash-2.05b) not work properly and is deactivated in bash.make!"
-	
+
 config BASH_ARRAY
 	bool
 	prompt "Include shell array variables"
@@ -48,7 +49,7 @@ config BASH_HISTORY
 	prompt "Turn on csh-style history substitution"
 	depends on BASH
 	help
-	  The bash shell supports a history expansion feature 
+	  The bash shell supports a history expansion feature
 	  that is similar to the history expansion in csh.
 
 config BASH_BRACE
@@ -56,8 +57,8 @@ config BASH_BRACE
 	prompt "Include brace expansion"
 	depends on BASH
 	help
-	  Brace  expansion is a mechanism by which arbitrary 
-	  strings may be generated.  This mechanism is similar 
+	  Brace  expansion is a mechanism by which arbitrary
+	  strings may be generated.  This mechanism is similar
 	  to pathname expansion, but the filenames generated
 	  need not exist.
 
@@ -72,11 +73,11 @@ config BASH_DIRSTACK
 	prompt "Enable builtins pushd/popd/dirs"
 	depends on BASH
 	help
-	   Without  options, "dirs" displays the list of 
-	   currently remembered directories.  The default 
-	   display is on a single line with directory 
-	   names separated by spaces.  Directories are 
-	   added to the list with the pushd command; 
+	   Without  options, "dirs" displays the list of
+	   currently remembered directories.  The default
+	   display is on a single line with directory
+	   names separated by spaces.  Directories are
+	   added to the list with the pushd command;
 	   the popd command removes entries from the list.
 
 #config BASH_EXTPATTERN
@@ -90,7 +91,7 @@ config BASH_HELP
 	prompt "Include the help builtin"
 	depends on BASH
 	help
-	  This builtin support minimal help features inside bash
+	  This builtin supports minimal help features inside bash
 
 config BASH_CMDHISTORY
 	bool
@@ -98,7 +99,7 @@ config BASH_CMDHISTORY
 	depends on BASH
 	help
 	  This enables command history features. The shell
-	  buffers command in a rinfbuffer, which can be listed, 
+	  buffers commands in a ringbuffer, which can be listed,
 	  searched and accessed by various commands and magic
 	  shell expansion features.
 
@@ -115,60 +116,81 @@ config BASH_LARGEFILES
 	prompt "Enable support for large files"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  Enable support for large files (LFS) if the operating system
+	  requires special compiler options to build programs
+	  which can access large files.
 
 config BASH_PROCSUBST
-	bool 
+	bool
 	prompt "Enable process substitution"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  This enables process substitution if the operating system
+	  provides the necessary support.
+	  Process substitution is supported on systems that support
+	  named pipes (FIFOs) or the '/dev/fd' method of naming open
+	  files. It takes the form of <(list) or >(list).
 
 config BASH_COMPLETION
-	bool 
+	bool
 	prompt "Enable programmable completion"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  Enable the programmable completion facilities.
+	  When word completion is attempted for an argument to a
+	  command for which a completion specification (a compspec) has
+	  been defined using the complete builtin, the programmable
+	  completion facilities are invoked.
+	  If Readline is not enabled, this option has no effect.
 
 config BASH_ESC
 	bool
 	prompt "Turn on escape character decoding in prompts"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  Turn on the interpretation of a number of backslash-escaped
+	  characters in the $PS1, $PS2, $PS3, and $PS4 prompt strings.
 
 config BASH_EDIT
 	bool
 	prompt "Turn on command line editing"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  Include support for command-line editing and history with
+	  the Bash version of the Readline library.
 
 config BASH_RESTRICTED
 	bool
 	prompt "Enable a restricted shell"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  Include support for a restricted shell. If this is enabled,
+	  Bash enters a restricted mode, when called as rbash or invoked
+	  with the `--restricted' or `-r' option.
+	  A restricted shell is used to set up an environment
+	  more controlled than the standard shell.
 
 config BASH_SELECT
 	bool
 	prompt "Include select command"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  Include the select builtin, which allows the generation of
+	  simple menus.
 
 config BASH_GPROF
 	bool
 	prompt "Allow profiling with gprof"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  This builds a Bash binary that produces profiling information
+	  to be processed by gprof each time it is executed.
 
 config BASH_STATIC
 	bool
 	prompt "Link bash statically"
 	depends on BASH
 	help
-	  FIXME: This item needs to be documented
+	  This causes Bash to be linked statically, if gcc is being used.
+	  This could be used to build a version to use as root's shell.
+

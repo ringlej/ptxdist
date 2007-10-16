@@ -5,27 +5,26 @@ menuconfig BIND
 	bool
 	select OPENSSL
 	help
-	  The Berkeley Internet Name Domain (BIND) implements 
-	  an Internet domain name server. BIND is the most 
-	  widely-used name server software on the Internet, 
+	  The Berkeley Internet Name Domain (BIND) implements
+	  an Internet domain name server. BIND is the most
+	  widely-used name server software on the Internet,
 	  and is supported by the Internet Software Consortium.
-	  
+
 	  http://www.isc.org
 
-	  Bind9 is a major rewrite, which is widely considered 
+	  Bind9 is a major rewrite, which is widely considered
 	  to be a lot more secure and stable than its buggy
-	  predecessors bind4.x and bind8.x. It supports 
+	  predecessors bind4.x and bind8.x. It supports
 	  encryption, multiple views on your dns zones and
 	  dynamic zone updates.
-	  
+
 
 config BIND_THREADS
 	bool
 	prompt "enable threads"
 	depends on BIND && GLIBC_PTHREADS
 	help
-	  FIXME: This item needs to be documented
-	
+	  Specify this to build a multithreaded BIND
 
 config BIND_CRYPTO
 	bool
@@ -40,7 +39,7 @@ config BIND_IPV6
 	prompt "enable IPv6"
 	depends BIND
 	help
-	  Enables support for IPv6, the upcoming 
-	  default version of IP which is designed 
+	  Enables support for IPv6, the upcoming
+	  default version of IP which is designed
 	  to be an evolutionary step from IPv4
 

@@ -3,5 +3,9 @@ config GTK1210
 	depends on BROKEN
 	prompt "gtk 1.2.10 [BROKEN]"
 	help
-	  FIXME: This item needs to be documented
+	  GTK+ is a multi-platform toolkit for creating
+	  graphical user interfaces. Offering a complete
+	  set of widgets, GTK+ is suitable for projects
+	  ranging from small one-off projects to complete
+	  application suites.
 

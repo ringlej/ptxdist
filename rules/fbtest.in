@@ -3,4 +3,4 @@ config FBTEST
 	prompt "fbtest"
 	select LIBNETPBM
 	help
-	  Testprogram for framebuffer devices.
+	  fbtest is a program used for framebuffer devices.

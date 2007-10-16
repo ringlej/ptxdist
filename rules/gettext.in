@@ -2,15 +2,15 @@ menuconfig GETTEXT
 	bool "gettext (GNU)               "
 	select LIBICONV if ARCH_MINGW
 	help
-	  The gettext program translates a natural language 
-	  message into the user's language, by looking up 
+	  The gettext program translates a natural language
+	  message into the user's language, by looking up
 	  the translation in a message catalog.
-	 
+
 
 config GETTEXT_LIBINTL
 	bool
 	depends on GETTEXT
 	prompt "Install GNU libintl"
 	help
-	  FIXME: This item needs to be documented
+	  libintl is the GNU internationalization runtime library.
 

@@ -5,10 +5,10 @@ config BETAFTPD
 	prompt "betaftpd            "
 	select LIBRN
 	help
-	  BetaFTPD is an ftpd replacement for Unix/Linux. 
-	  
-	  In addition to being fast (because it's single-threaded), 
+	  BetaFTPD is an ftpd replacement for Unix/Linux.
+
+	  In addition to being fast (because it's single-threaded),
 	  it is very small, the executable is about 20 kB uncompressed.
-	  
+
 	  http://betaftpd.sourceforge.net/
 

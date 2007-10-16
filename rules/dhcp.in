@@ -4,7 +4,7 @@ menuconfig DHCP
 	help
 	  This is the DHCP server from version 3 of the Internet Software
 	  Consortium DHCP package. For more information visit the ISC web
- 	  site at http://www.isc.org.
+ 	  site at http://www.isc.org/.
 
 	  Dynamic Host Configuration Protocol (DHCP) is a protocol like
 	  BOOTP (actually dhcpd includes much of the functionality of

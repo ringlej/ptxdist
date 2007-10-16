@@ -2,13 +2,13 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
-# 
+#
 #
 # We provide this package
 #
@@ -62,12 +62,12 @@ FFMPEG_PATH	:=  PATH=$(CROSS_PATH):/sbin/
 FFMPEG_ENV 	:=  $(CROSS_ENV)
 
 #
-# autoconf 
+# autoconf
 # Carefull, ffmpeg has a home grown configure, and not all autoconf options work!!! :-/
 # for example it enables things by default and than only has a --disable-BLA option and no
 # --enable-BLA option.
 #
-FFMPEG_AUTOCONF := --prefix=/usr 
+FFMPEG_AUTOCONF := --prefix=/usr
 FFMPEG_AUTOCONF += --cross-prefix=$(COMPILER_PREFIX)
 #FFMPEG_AUTOCONF += --cc=$(CROSS_CC)
 #FFMPEG_AUTOCONF += --make=$(MAKE)
@@ -78,8 +78,8 @@ FFMPEG_AUTOCONF += --extra-ldflags="$(CROSS_LDFLAGS) -L$(SYSROOT)/usr/lib"
 FFMPEG_AUTOCONF += --extra-libs="$(CROSS_LIBS) -lm"
 #FFMPEG_AUTOCONF += --enable-mingw32
 #FFMPEG_AUTOCONF += --enable-mingwce
-#FFMPEG_AUTOCONF += --enable-sunmlib   
-FFMPEG_AUTOCONF += --disable-audio-beos 
+#FFMPEG_AUTOCONF += --enable-sunmlib
+FFMPEG_AUTOCONF += --disable-audio-beos
 
 ifdef PTXCONF_ARCH_X86
  FFMPEG_AUTOCONF += --disable-altivec
@@ -136,7 +136,7 @@ FFMPEG_AUTOCONF += \
 	--disable-iwmmxt
 endif
 
-ifdef PTXCONF_ARCH_PPC 
+ifdef PTXCONF_ARCH_PPC
 FFMPEG_AUTOCONF += \
 	--cpu=powerpc \
 	--disable-altivec \
@@ -194,7 +194,7 @@ FFMPEG_AUTOCONF += \
 endif
 
 ifdef PTXCONF_FFMPEG_SHARED
-FFMPEG_AUTOCONF += --enable-shared 
+FFMPEG_AUTOCONF += --enable-shared
 else
 FFMPEG_AUTOCONF += --disable-shared
 endif
@@ -206,7 +206,7 @@ FFMPEG_AUTOCONF += --disable-static
 endif
 
 ifdef PTXCONF_FFMPEG_PTHREADS
-FFMPEG_AUTOCONF += --enable-pthreads 
+FFMPEG_AUTOCONF += --enable-pthreads
 endif
 
 ifndef PTXCONF_FFMPEG_FFSERVER
@@ -230,7 +230,7 @@ FFMPEG_AUTOCONF += --disable-strip
 endif
 
 ifdef PTXCONF_FFMPEG_GPROF
-FFMPEG_AUTOCONF += --enable-gprof 
+FFMPEG_AUTOCONF += --enable-gprof
 endif
 
 ifndef PTXCONF_FFMPEG_DEBUG
@@ -238,7 +238,7 @@ FFMPEG_AUTOCONF += --disable-debug
 endif
 
 ifndef PTXCONF_FFMPEG_OPTS
-FFMPEG_AUTOCONF += --disable-opts  
+FFMPEG_AUTOCONF += --disable-opts
 endif
 
 ifdef PTXCONF_FFMPEG_GPL
@@ -246,47 +246,47 @@ FFMPEG_AUTOCONF += --enable-gpl
 endif
 
 ifdef PTXCONF_FFMPEG_MP3LAME
-FFMPEG_AUTOCONF += --enable-mp3lame 
+FFMPEG_AUTOCONF += --enable-mp3lame
 endif
 
 ifdef PTXCONF_FFMPEG_LIBOGG
-FFMPEG_AUTOCONF += --enable-libogg 
+FFMPEG_AUTOCONF += --enable-libogg
 endif
 
 ifdef PTXCONF_FFMPEG_VORBIS
-FFMPEG_AUTOCONF += --enable-vorbis 
+FFMPEG_AUTOCONF += --enable-vorbis
 endif
 
 ifdef PTXCONF_FFMPEG_THEORA
-FFMPEG_AUTOCONF += --enable-theora 
+FFMPEG_AUTOCONF += --enable-theora
 endif
 
 ifdef PTXCONF_FFMPEG_FAAD
-FFMPEG_AUTOCONF += --enable-faad   
+FFMPEG_AUTOCONF += --enable-faad
 endif
 
 ifdef PTXCONF_FFMPEG_FAADBIN
-FFMPEG_AUTOCONF += --enable-faadbin 
+FFMPEG_AUTOCONF += --enable-faadbin
 endif
 
 ifdef PTXCONF_FFMPEG_FAAC
-FFMPEG_AUTOCONF += --enable-faac   
+FFMPEG_AUTOCONF += --enable-faac
 endif
 
 ifdef PTXCONF_FFMPEG_LIBGSM
-FFMPEG_AUTOCONF += --enable-libgsm 
+FFMPEG_AUTOCONF += --enable-libgsm
 endif
 
 ifdef PTXCONF_FFMPEG_XVID
-FFMPEG_AUTOCONF += --enable-xvid   
+FFMPEG_AUTOCONF += --enable-xvid
 endif
 
 ifdef PTXCONF_FFMPEG_X264
-FFMPEG_AUTOCONF += --enable-x264   
+FFMPEG_AUTOCONF += --enable-x264
 endif
 
 ifdef PTXCONF_FFMPEG_A52
-FFMPEG_AUTOCONF += --enable-a52   
+FFMPEG_AUTOCONF += --enable-a52
 endif
 
 ifdef PTXCONF_FFMPEG_A52BIN
@@ -294,75 +294,75 @@ FFMPEG_AUTOCONF += --enable-a52bin
 endif
 
 ifdef PTXCONF_FFMPEG_DTS
-FFMPEG_AUTOCONF += --enable-dts    
+FFMPEG_AUTOCONF += --enable-dts
 endif
 
 ifdef PTXCONF_FFMPEG_PP
-FFMPEG_AUTOCONF += --enable-pp    
+FFMPEG_AUTOCONF += --enable-pp
 endif
 
 ifdef PTXCONF_FFMPEG_AMR_NB
-FFMPEG_AUTOCONF += --enable-amr_nb      
+FFMPEG_AUTOCONF += --enable-amr_nb
 endif
 
 ifdef PTXCONF_FFMPEG_AMR_NB_FIXED
-FFMPEG_AUTOCONF += --enable-amr_nb-fixed 
+FFMPEG_AUTOCONF += --enable-amr_nb-fixed
 endif
 
 ifdef PTXCONF_FFMPEG_AMR_WB
-FFMPEG_AUTOCONF += --enable-amr_wb 
+FFMPEG_AUTOCONF += --enable-amr_wb
 endif
 
 ifdef PTXCONF_FFMPEG_AMR_IF2
-FFMPEG_AUTOCONF += --enable-amr_if2 
+FFMPEG_AUTOCONF += --enable-amr_if2
 endif
 
 ifdef PTXCONF_FFMPEG_DC1394
-FFMPEG_AUTOCONF += --enable-dc1394 
+FFMPEG_AUTOCONF += --enable-dc1394
 endif
 
 ifndef PTXCONF_FFMPEG_AUDIO_OSS
-FFMPEG_AUTOCONF += --disable-audio-oss 
+FFMPEG_AUTOCONF += --disable-audio-oss
 endif
 
 ifndef PTXCONF_FFMPEG_V4L
-FFMPEG_AUTOCONF += --disable-v4l  
+FFMPEG_AUTOCONF += --disable-v4l
 endif
 
 ifndef PTXCONF_FFMPEG_V4L2
-FFMPEG_AUTOCONF += --disable-v4l2  
+FFMPEG_AUTOCONF += --disable-v4l2
 endif
 
 ifndef PTXCONF_FFMPEG_BKTR
-FFMPEG_AUTOCONF += --disable-bktr  
+FFMPEG_AUTOCONF += --disable-bktr
 endif
 
 ifndef PTXCONF_FFMPEG_DV1394
-FFMPEG_AUTOCONF += --disable-dv1394 
+FFMPEG_AUTOCONF += --disable-dv1394
 endif
 
 ifndef PTXCONF_FFMPEG_NETWORK
-FFMPEG_AUTOCONF += --disable-network  
+FFMPEG_AUTOCONF += --disable-network
 endif
 
 ifndef PTXCONF_FFMPEG_ZLIB
-FFMPEG_AUTOCONF += --disable-zlib      
+FFMPEG_AUTOCONF += --disable-zlib
 endif
 
 ifndef PTXCONF_FFMPEG_SIMPLE_IDCT
-FFMPEG_AUTOCONF += --disable-simple_idct 
+FFMPEG_AUTOCONF += --disable-simple_idct
 endif
 
 ifndef PTXCONF_FFMPEG_VHOOK
-FFMPEG_AUTOCONF += --disable-vhook       
+FFMPEG_AUTOCONF += --disable-vhook
 endif
 
 ifndef PTXCONF_FFMPEG_MPEGAUDIO_HP
-FFMPEG_AUTOCONF += --disable-mpegaudio-hp 
+FFMPEG_AUTOCONF += --disable-mpegaudio-hp
 endif
 
 ifndef PTXCONF_FFMPEG_PROTOCOL
-FFMPEG_AUTOCONF += --disable-protocols 
+FFMPEG_AUTOCONF += --disable-protocols
 endif
 
 # FIXME selectivly enable/disable decoders to reduce library size

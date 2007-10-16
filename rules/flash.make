@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_FLASH) += flash
 # Paths and names 
 #
 FLASH_VERSION		= 0.9.5
+# 2007-10-16: Today version 0.9.5 from 2001 is still the latest version.
 FLASH			= flash-$(FLASH_VERSION)
 FLASH_URL 		= http://www.netsoc.ucd.ie/flash/$(FLASH).tar.gz
 FLASH_SOURCE		= $(SRCDIR)/$(FLASH).tar.gz

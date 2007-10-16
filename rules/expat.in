@@ -2,5 +2,5 @@ config EXPAT
 	bool
 	prompt "expat XML parser library"
 	help
-	  This is a XML parsing library, written in C 
-	  
+	  This is an XML parsing library, written in C
+

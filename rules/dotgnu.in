@@ -2,7 +2,7 @@
 
 menuconfig DOTGNU
 	bool "DotGNU              "
-		
+
 source "rules/treecc.in"
 source "rules/pnet.in"
 source "rules/pnetlib.in"

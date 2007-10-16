@@ -139,7 +139,7 @@ config BOOST_FILESYSTEM
 	depends on BOOST
 	prompt "filesystem"
 	help
-	  Bootst filesystem library.
+	  Boost filesystem library.
 
 # format
 # config BOOST_
@@ -465,7 +465,7 @@ config BOOST_REGEX
 	depends on BOOST
 	prompt "regex"
 	help
-	  Bootst regex library.
+	  Boost regex library.
 
 # config BOOST_SIGNALS
 # 	bool

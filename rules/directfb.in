@@ -7,6 +7,17 @@ menuconfig DIRECTFB
 	select LIBJPEG if DIRECTFB_IMAGE_JPEG
 	select FREETYPE if DIRECTFB_FONT_FREETYPE
 	select TSLIB if DIRECTFB_INPUT_TSLIB
+	help
+	  DirectFB is a thin library that provides hardware
+	  graphics acceleration, input device handling and
+	  abstraction, integrated windowing system with support
+	  for translucent windows and multiple display layers,
+	  not only on top of the Linux Framebuffer Device.
+	  It is a complete hardware abstraction layer with
+	  software fallbacks for every graphics operation that
+	  is not supported by the underlying hardware. DirectFB
+	  adds graphical power to embedded systems and sets a
+	  new standard for graphics under Linux.
 
 config DIRECTFB_IMAGE_PNG
 	bool "build PNG image provider"

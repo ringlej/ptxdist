@@ -5,7 +5,7 @@ config BLUEZ_UTILS
 	select BLUEZ_LIBS
 	select DBUS
 	help
-	  For details about this project see the homepage on 
+	  For details about this project see the homepage on
 
 		http://www.bluez.org
 

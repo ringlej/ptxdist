@@ -3,5 +3,8 @@ config CLOCK
 	depends on BROKEN
 	prompt "clock [BROKEN]"
 	help
-	  FIXME: This item needs to be documented
+	  This is clock, used on the Intel platforms to set
+	  the system from the real time clock, and vice versa.
+
+	  Note 2007-10-16: Probably superseded by 'hwclock'.
 

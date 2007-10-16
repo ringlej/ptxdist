@@ -13,12 +13,14 @@ config GCCLIBS_CXX
 	select GCCLIBS_GCC_S
 	select GLIBC_LIBM
 	help
-	  FIXME: This item needs to be documented
+	  Selects the GNU Standard C++ Library
+	  libstdc++ in addition to libgcc_s
 
 config GCCLIBS_GCC_S
 	bool "libgcc_s"
 	select GCCLIBS
 	help
-	  FIXME: This item needs to be documented
+	  Selects the GNU Standard C++ Library
+	  libgcc_s
 
 endmenu

@@ -3,17 +3,17 @@ menuconfig DBENCH
 	prompt "dbench"
 	help
 	  The dbench (disk) and tbench (TCP) benchmarks
- 	  dbench and tbench simulate the load of the 
-	  netbench "industry standard" benchmark used 
+ 	  dbench and tbench simulate the load of the
+	  netbench "industry standard" benchmark used
 	  to rate (windows) file servers.  Unlike netbench,
-	  they do not require a lab of Microsoft Windows 
-	  PCs: dbench produces the filesystem load on a 
-	  netbench run, and tbench produces the network 
+	  they do not require a lab of Microsoft Windows
+	  PCs: dbench produces the filesystem load on a
+	  netbench run, and tbench produces the network
 	  load, allowing simpler bottleneck isolation.
- 	  
-	  Note that this benchmark is *not* a realistic 
+
+	  Note that this benchmark is *not* a realistic
 	  reflection of normal server load.
- 	  
+
 	  http://samba.org/ftp/tridge/dbench/
 
 
@@ -25,7 +25,7 @@ config DBENCH_DBENCH
 	prompt "install dbench"
 	depends on DBENCH
 	help
-	  dbench produces the filesystem load 
+	  dbench produces the filesystem load
 	  on a netbench run
 
 config DBENCH_TBENCH
@@ -33,7 +33,7 @@ config DBENCH_TBENCH
 	prompt "install tbench"
 	depends on DBENCH
 	help
-	  tbench produces the network load 
+	  tbench produces the network load
 	  on a netbench run. Client component.
 
 config DBENCH_TBENCH_SERVER
@@ -41,6 +41,6 @@ config DBENCH_TBENCH_SERVER
 	prompt "install tbench server"
 	depends on DBENCH
 	help
-	  tbench produces the network load 
+	  tbench produces the network load
 	  on a netbench run. Server component.
 

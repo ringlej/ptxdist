@@ -15,7 +15,9 @@ config GDB_SHARED
 	default y
 	depends on GDB
 	help
-	  FIXME: This item needs to be documented
+	  If not set, the build option
+	  LDFLAGS=-static will be activated.
+
 
 choice
 	prompt "Select term library"
@@ -25,10 +27,21 @@ choice
 	config GDB_TERMCAP
 		bool "termcap"
 		help
-	  	  FIXME: This item needs to be documented
+	  	  Use termcap as terminal library.
+
+		  Termcap is a library of C functions that
+		  enable programs to send control strings
+		  to terminals in a way independent of the
+		  terminal type.
 
 	config GDB_NCURSES
 		bool "ncurses"
 		help
-	  	  FIXME: This item needs to be documented
+	  	  Use ncurses as terminal library.
+
+		  The ncurses (new curses) library is a free
+		  software emulation of curses. It uses terminfo
+		  format, supports pads and color and multiple
+		  highlights and forms charcters and function-key
+		  mapping.
 endchoice

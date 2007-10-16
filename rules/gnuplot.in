@@ -19,15 +19,13 @@ config GNUPLOT_FITERRVARS
 	bool
 	prompt "Support for fitting error variables"
 	depends on GNUPLOT
-	help
-	  FIXME: This item needs to be documented
 
 config GNUPLOT_X
 	bool
 	prompt "X support"
 	depends on GNUPLOT
 	help
-	  FIXME: This item needs to be documented
+	  Enable the graphical X11 user interface of GNUplot
 
 config GNUPLOT_PLOT
 	bool
@@ -35,14 +33,17 @@ config GNUPLOT_PLOT
 	depends on GNUPLOT
 	depends on BROKEN
 	help
-	  FIXME: This item needs to be documented
+	  If you link this program with the Unix plot library
+	  (rather outdated) it will be able to generate Unix
+	  plot output.
 
 config GNUPLOT_PNG
 	bool
 	prompt "PNG support"
 	depends on GNUPLOT
 	help
-	  FIXME: This item needs to be documented
+	  Include support for PNG (Portable Network Graphics)
+	  graphics format
 
 config GNUPLOT_GD
 	bool
@@ -50,7 +51,9 @@ config GNUPLOT_GD
 	depends on GNUPLOT
 	depends on BROKEN
 	help
-	  FIXME: This item needs to be documented
+	  Use the GD library.
+	  GD is an open source code library for the dynamic
+	  creation of images.
 
 config GNUPLOT_PDF
 	bool
@@ -58,5 +61,5 @@ config GNUPLOT_PDF
 	depends on GNUPLOT
 	depends on BROKEN
 	help
-	  FIXME: This item needs to be documented
+	  Include support for output as PDF (Portable Document Format)
 

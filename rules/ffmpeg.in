@@ -1,4 +1,3 @@
-# FIXME
 
 comment "ffmpeg not supported by strongARM"
 	depends on ARCH_ARM && !BROKEN
@@ -10,28 +9,37 @@ menuconfig FFMPEG
 	select SDL if FFMPEG_FFPLAY
 	prompt "FFMPEG                   "
 	help
-	  FIXME
+	  FFmpeg is an audio/video conversion tool.
+	  It includes libavcodec, the leading open
+	  source codec library. An experimental
+	  streaming server for live broadcasts is
+	  also included.
 
 config FFMPEG_SHARED
 	bool
 	depends on FFMPEG
 	prompt "Build shared libs"
 	help
-	  FIXME
+	  To build with shared libraries, use both
+	  --enable-shared   and
+	  --disable-static
 
 config FFMPEG_STATIC
 	bool
 	depends on FFMPEG
 	prompt "Build static libs"
 	help
-	  FIXME
+	  To build with static libraries, use both
+	  --enable-static   and
+	  --disable-shared
 
 config FFMPEG_PTHREADS
 	bool
 	depends on FFMPEG
 	prompt "Use pthreads"
 	help
-	  FIXME
+	  This switch enables the build to link against
+	  the Posix threads library.
 
 config FFMPEG_FFSERVER
 	bool
@@ -39,7 +47,12 @@ config FFMPEG_FFSERVER
 	depends on BROKEN
 	prompt "Build ffserver"
 	help
-	  FIXME
+	  FFserver is a streaming server for both audio
+	  and video. It supports several live feeds,
+	  streaming from files and time shifting on live
+	  feeds (you can seek to positions in the past
+	  on each live feed, provided you specify a big
+	  enough feed storage in ffserver.conf).
 
 config FFMPEG_FFPLAY
 	bool
@@ -47,56 +60,63 @@ config FFMPEG_FFPLAY
 	depends on BROKEN
 	prompt "Build ffplay"
 	help
-	  FIXME
+	  FFplay is a very simple and portable media
+	  player using the FFmpeg libraries and the
+	  SDL library. It is mostly used as a testbed
+	  for the various FFmpeg APIs.
 
 config FFMPEG_MEMALIGN_HACK
 	bool
 	depends on FFMPEG
 	prompt "Use memalign hack"
 	help
-	  FIXME
+	  Reportedly, this is a Windows hack. Without this
+	  option ffmpeg always crashes with the message
+	  "removing common factors from framerate" when
+	  encoding AVIs.
 
 config FFMPEG_SMALL
 	bool
 	depends on FFMPEG
 	prompt "Optimize for size"
 	help
-	  FIXME
+	  Optimize for size instead of speed
 
 config FFMPEG_STRIP
 	bool
 	depends on FFMPEG
 	prompt "Strip executables"
 	help
-	  FIXME
+	  Stripping of executables and shared libraries
 
 config FFMPEG_GPROF
 	bool
 	depends on FFMPEG
 	prompt "Enable profiling"
 	help
-	  FIXME
+	  Enable profiling with gprof
 
 config FFMPEG_DEBUG
-	bool 
+	bool
 	depends on FFMPEG
 	prompt "Enable debug"
 	help
-	  FIXME
+	  Create debugging symbols
 
 config FFMPEG_OPTS
 	bool
 	depends on FFMPEG
 	prompt "Enable optimization"
 	help
-	  FIXME
+	  Enable compiler optimizations
 
 config FFMPEG_GPL
 	bool
 	depends on FFMPEG
 	prompt "Allow GPL code"
 	help
-	  FIXME
+	  Allow use of GPL code, the resulting libav*
+	  and ffmpeg will be under GPL
 
 config FFMPEG_MP3LAME
 	bool
@@ -104,7 +124,7 @@ config FFMPEG_MP3LAME
 	depends on BROKEN
 	prompt "mp3lame support"
 	help
-	  FIXME
+	  Enable MP3 encoding via libmp3lame
 
 config FFMPEG_LIBOGG
 	bool
@@ -112,7 +132,7 @@ config FFMPEG_LIBOGG
 	depends on BROKEN
 	prompt "libogg support"
 	help
-	  FIXME
+	  Enable Ogg support via libogg
 
 config FFMPEG_VORBIS
 	bool
@@ -120,7 +140,7 @@ config FFMPEG_VORBIS
 	depends on BROKEN
 	prompt "vorbis support"
 	help
-	  FIXME
+	  Enable Vorbis support via libvorbis
 
 config FFMPEG_THEORA
 	bool
@@ -128,7 +148,10 @@ config FFMPEG_THEORA
 	depends on BROKEN
 	prompt "theora support"
 	help
-	  FIXME
+	  Enable Theora support via libtheora.
+	  Theora is a free and open video compression
+	  format from the Xiph.org Foundation.
+	  More information on http://www.theora.org/
 
 config FFMPEG_FAAD
 	bool
@@ -136,15 +159,15 @@ config FFMPEG_FAAD
 	depends on BROKEN
 	prompt "faad support"
 	help
-	  FIXME
+	  Enable FAAD support via libfaad
 
 config FFMPEG_FAADBIN
 	bool
 	depends on FFMPEG
 	depends on BROKEN
-	prompt "FAAD support"
+	prompt "FAAD runtime linking"
 	help
-	  FIXME
+	  Build FAAD support with runtime linking
 
 config FFMPEG_FAAC
 	bool
@@ -152,7 +175,7 @@ config FFMPEG_FAAC
 	depends on BROKEN
 	prompt "FAAC support"
 	help
-	  FIXME
+	  Enable FAAC support via libfaac
 
 config FFMPEG_LIBGSM
 	bool
@@ -160,15 +183,15 @@ config FFMPEG_LIBGSM
 	depends on BROKEN
 	prompt "libgsm support"
 	help
-	  FIXME
+	  Enable GSM support via libgsm
 
 config FFMPEG_XVID
 	bool
 	depends on FFMPEG
 	depends on BROKEN
-	prompt "XVID support"
+	prompt "XviD support"
 	help
-	  FIXME
+	  Enable XviD support via xvidcore
 
 config FFMPEG_X264
 	bool
@@ -176,7 +199,7 @@ config FFMPEG_X264
 	depends on BROKEN
 	prompt "X264 support"
 	help
-	  FIXME
+	  Enable H.264 encoding via x264
 
 config FFMPEG_A52
 	bool
@@ -184,15 +207,15 @@ config FFMPEG_A52
 	depends on BROKEN
 	prompt "A52 support"
 	help
-	  FIXME
+	  Enable GPLed A52 support
 
 config FFMPEG_A52BIN
 	bool
 	depends on FFMPEG
 	depends on BROKEN
-	prompt "A52 bin support"
+	prompt "A52 runtime support"
 	help
-	  FIXME
+	  Open liba52.so.0 at runtime
 
 config FFMPEG_DTS
 	bool
@@ -200,7 +223,7 @@ config FFMPEG_DTS
 	depends on BROKEN
 	prompt "DTS support"
 	help
-	  FIXME
+	  Enable GPLed DTS support
 
 config FFMPEG_PP
 	bool
@@ -208,7 +231,7 @@ config FFMPEG_PP
 	depends on FFMPEG_GPL
 	prompt "Post Prosessing support"
 	help
-	  FIXME
+	  Enable GPLed postprocessing support
 
 config FFMPEG_AMR_NB
         bool
@@ -216,7 +239,7 @@ config FFMPEG_AMR_NB
 	depends on BROKEN
         prompt "AMR_NB float audio codec"
         help
-          FIXME
+          Enable amr_nb float audio codec
 
 config FFMPEG_AMR_NB_FIXED
         bool
@@ -224,7 +247,7 @@ config FFMPEG_AMR_NB_FIXED
 	depends on BROKEN
         prompt "AMR_NB fixed point audio codec"
         help
-          FIXME
+          Use fixed point for amr-nb codec
 
 config FFMPEG_AMR_WB
         bool
@@ -232,7 +255,7 @@ config FFMPEG_AMR_WB
 	depends on BROKEN
         prompt "AMR_WB float audio codec"
         help
-          FIXME
+          Enable amr_wb float audio codec
 
 config FFMPEG_AMR_IF2
         bool
@@ -240,7 +263,7 @@ config FFMPEG_AMR_IF2
 	depends on BROKEN
         prompt "AMR_IF2 audio codec"
         help
-          FIXME
+          Enable amr_wb IF2 audio codec
 
 config FFMPEG_DC1394
         bool
@@ -248,21 +271,22 @@ config FFMPEG_DC1394
 	depends on BROKEN
         prompt "IIDC-1394 grabbing"
         help
-          FIXME
+          Enable IIDC-1394 grabbing using libdc1394
+	  and libraw1394
 
 config FFMPEG_AUDIO_OSS
         bool
         depends on FFMPEG
         prompt "OSS Audio support"
         help
-          FIXME
+          Enable OSS (Open Sound System) audio support
 
 config FFMPEG_V4L
         bool
         depends on FFMPEG
         prompt "V4L support"
         help
-          FIXME
+          Enable video4linux grabbing
 
 
 config FFMPEG_V4L2
@@ -270,28 +294,26 @@ config FFMPEG_V4L2
         depends on FFMPEG
         prompt "V4L2 support"
         help
-          FIXME
+          Enable video4linux2 grabbing
 
 config FFMPEG_BKTR
         bool
         depends on FFMPEG
         prompt "BKTR support"
         help
-          FIXME
+          Enable bktr video grabbing
 
 config FFMPEG_DV1394
         bool
         depends on FFMPEG
         prompt "DV1394 grabbing support"
         help
-          FIXME
+          Enable DV1394 grabbing
 
 config FFMPEG_NETWORK
         bool
         depends on FFMPEG
-        prompt "Networking support"
-        help
-          FIXME
+        prompt "Network support"
 
 config FFMPEG_ZLIB
         bool
@@ -299,33 +321,33 @@ config FFMPEG_ZLIB
 	select ZLIB
         prompt "ZLIB support"
         help
-          FIXME
+          Include functionality by zlib compression library
 
 config FFMPEG_SIMPLE_IDCT
         bool
         depends on FFMPEG
         prompt "Simple IDCT support"
         help
-          FIXME
+          Use simple IDCT routines
 
 config FFMPEG_VHOOK
         bool
         depends on FFMPEG
         prompt "video hooking support"
         help
-          FIXME
+          Enable video hooking support
 
 config FFMPEG_MPEGAUDIO_HP
         bool
         depends on FFMPEG
         prompt "Faster MPEG audio decoding support"
         help
-          FIXME
+          Selects faster (but less accurate) MPEG audio decoding
 
 config FFMPEG_PROTOCOL
         bool
         depends on FFMPEG
         prompt "I/O protocols support"
         help
-          FIXME
+          Enable I/O protocols support
 

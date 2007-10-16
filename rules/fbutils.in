@@ -3,7 +3,7 @@ menuconfig FBUTILS
 	select GCCLIBS_CXX
 	prompt "fbutils               "
 	help
-	  Utilities and support for framebuffer devices 
+	  Utilities and support for framebuffer devices
 
 comment	"Target Options"
 	depends on FBUTILS
@@ -25,7 +25,9 @@ config FBUTILS_FBCMAP
 	default y
 	prompt "install fbcmap util on target"
 	help
-	  FIXME: This item needs to be documented
+	  Some color frame buffers support the FBIOPUTCMAP and
+	  FBIOGETCMAP ioctl() requests, which provide access
+	  to the colormap.
 
 config FBUTILS_CON2FBMAP
 	depends on FBUTILS
@@ -33,9 +35,9 @@ config FBUTILS_CON2FBMAP
 	default y
 	prompt "install con2fbmap util on target"
 	help
-	  con2fbmap is a system utility to show or change the mapping 
-	  of the consoles to the frame buffer device. The frame buffer 
-	  device provides a simple and unique interface to access 
+	  con2fbmap is a system utility to show or change the mapping
+	  of the consoles to the frame buffer device. The frame buffer
+	  device provides a simple and unique interface to access
 	  different kinds of graphic displays.
 
 config FBUTILS_FBCONVERT

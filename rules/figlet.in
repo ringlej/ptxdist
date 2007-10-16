@@ -3,14 +3,14 @@ config FIGLET
 	prompt "figlet"
 	help
 	  Figlet is a tool to create bit ASCII text like
-	  this one: 
-	  
-	     __ _       _      _   
-  	    / _(_) __ _| | ___| |_ 
+	  this one:
+
+	     __ _       _      _
+  	    / _(_) __ _| | ___| |_
 	   | |_| |/ _` | |/ _ \ __|
-	   |  _| | (_| | |  __/ |_ 
+	   |  _| | (_| | |  __/ |_
 	   |_| |_|\__, |_|\___|\__|
-	          |___/            
+	          |___/
 
 	  For more information see http://www.figlet.org
 

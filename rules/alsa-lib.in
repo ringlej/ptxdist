@@ -2,7 +2,7 @@ menuconfig ALSA_LIB
 	bool
 	prompt "Alsa Libaries               "
 	help
-	  This is the user space library to kernel's "Advanced Linux Sound Architecture" feature
+	  This is the userspace library to the kernel's "Advanced Linux Sound Architecture" feature
 
 config ALSA_LIB_RESMGR
 	bool
@@ -76,7 +76,7 @@ config ALSA_LIB_STATIC
 	help
 	  This will build the static library only. On architectures with
 	  a low register count (like ia32) this makes sense, due to
-	  is allows the compiler to use one additional register and
-	  speed up things (if only one application uses this library)
+	  allowing the compiler to use one additional register and
+	  speeding up things (if only one application uses this library)
 	  Note: This feature does not work yet. For example the esound
 	  daemon fails to link due to missing exported functions.

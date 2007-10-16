@@ -1,4 +1,4 @@
-menuconfig DB41   
+menuconfig DB41
 	bool "Berkeley DB-4.1             "
 
 config DB41_INSTALL_BIN_UTIL
@@ -7,10 +7,10 @@ config DB41_INSTALL_BIN_UTIL
 	depends on DB41
 	help
 	  v4.x Berkeley Database Tools
- 	  
+
 	  This package provides different tools for manipulating databases
  	  in the Berkeley v4.x database format, and includes:
-  	  
+
 	  db_archive:    write the pathnames of the log files no longer in use.
   	  db_checkpoint: daemon process to monitor the database log and
     	                 checkpoint it periodically.
@@ -20,6 +20,6 @@ config DB41_INSTALL_BIN_UTIL
   	  db_dump:  	 read a database file and write it in a format understood by
   	  db_printlog: 	 dump log files in human readable format.
   	  db_stat: 	 display statistics for Berkeley DB environments.
-  	  db_upgrade: 	 upgrades the version of files and the 
+  	  db_upgrade: 	 upgrades the version of files and the
 	  		 databases they contain.
   	  db_verify: 	 check the structure of files and their databases.

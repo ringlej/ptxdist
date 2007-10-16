@@ -11,5 +11,5 @@ config ALSA_UTILS
 	select GLIBC_PTHREAD
 	help
 	  Some utils to handle the Advanced Linux Sound Architecture.
-	  With this utils you can control your sound device, playing and
-	  recording sounds.
+	  With these utils you can control your sound device, for
+	  playback and recording of sounds.

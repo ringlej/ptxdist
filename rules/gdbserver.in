@@ -11,5 +11,6 @@ config GDBSERVER_SHARED
 	depends on GDBSERVER
 	select GLIBC_THREAD_DB if GLIBC && GLIBC_INSTALL
 	help
-	  FIXME: This item needs to be documented
+	  If not set, the build option LDFLAGS=-static
+	  will be activated.
 

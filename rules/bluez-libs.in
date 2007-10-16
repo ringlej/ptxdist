@@ -4,7 +4,7 @@ config BLUEZ_LIBS
 	depends on BLUEZ
 	help
 	  bluez libraries, needed to build bluez-utils. For details
-	  about this project see the homepage on 
+	  about this project see the homepage on
 
 		http://www.bluez.org
 

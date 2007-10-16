@@ -15,7 +15,7 @@ menuconfig FAM
 	  system changes. This also works for network filesystems, if the remote
 	  host also runs a fam daemon.
 
-	  This version is patched so it uses kernel's DNOTIFY feature. Ensure this
+	  This version is patched so it uses the kernel's DNOTIFY feature. Ensure this
 	  feature is enabled in the kernel (search for symbol CONFIG_DNOTIFY)
 
 	  This daemon requires portmap to spread its service.

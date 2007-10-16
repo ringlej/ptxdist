@@ -4,6 +4,6 @@ config BINUTILS
 	bool
 	prompt "binutils"
 	help
-	  this is only here to provide libbfd. some packages
-	  like oprofile need this library
+	  This only provides libbfd. Some packages
+	  like oprofile need this library.
 

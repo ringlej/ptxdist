@@ -11,6 +11,10 @@ menuconfig CAIRO
 	select LIBPNG if CAIRO_PNG
 
 	prompt "cairo                         "
+	help
+	  Cairo is a software library used to provide
+	  a vector graphics based, device-independent
+	  API for software developers.
 
 config CAIRO_PS
 	bool

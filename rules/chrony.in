@@ -3,9 +3,8 @@
 menuconfig CHRONY
 	bool "Chrony              "
 	select READLINE
+# FIXME: remove READLINE select when 1.21 works again.
 	help
-	  FIXME: remove READLINE select when 1.21 works again.
-
 	  This will install the Chrony NTPD Daemon (chronyd)
 	  Chrony is a pair of programs which are used to maintain
 	  the accuracy of the system clock on a computer. The two
@@ -27,11 +26,11 @@ config CHRONY_INSTALL_CHRONY_COMMAND
 	default n
 	prompt "Install chrony command helper"
 	help
-	  Install a command helper in /usr/bin/chrony_command, 
-	  which extracts the command access key from 
-	  /etc/chrony/chrony.keys and uses it to run 
+	  Install a command helper in /usr/bin/chrony_command,
+	  which extracts the command access key from
+	  /etc/chrony/chrony.keys and uses it to run
 	  one given command. Note: The user needs access to
-	  the chrony.keys file. 
+	  the chrony.keys file.
 
 config CHRONY_INSTALL_CHRONY_STAT
 	depends on CHRONY
@@ -39,21 +38,21 @@ config CHRONY_INSTALL_CHRONY_STAT
 	default n
 	prompt "Install chrony statistics helper"
 	help
-	  Install a convenience wrapper in /usr/bin/chrony_stat, 
+	  Install a convenience wrapper in /usr/bin/chrony_stat,
 	  which gives a short overview for your configured time sources.
-	  
+
 	  Usage /usr/bin/chrony_stat [ --full | --bool | --skew | --short-skew | --help ]
 
 	  --full        or no argument: show server name and verbose status
-	  
-	  --bool        show server name and 
+
+	  --bool        show server name and
 	                a) true, if timesource is currently synced
 	                b) false otherwise
-	
+
 	  --skew        show servername and
 	                a) estimated error, if timesource is currently synced
 	                b) false otherwise
-	
+
 	  --short-skew  show estimated error, if timesource is currently synced
 	                suppress all other servers
 
@@ -83,7 +82,7 @@ menuconfig CHRONY_INSTALL_CONFIG
 			prompt "User defined"
 			help
 			  This uses a user defined chrony config.
-			  PTXdist uses files projectroot/chrony/ 
+			  PTXdist uses files projectroot/chrony/
 			  in your local project
 	endchoice
 

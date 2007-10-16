@@ -3,5 +3,6 @@ config GTK2
 	depends on BROKEN
 	prompt "gtk 2 [BROKEN]"
 	help
-	  FIXME: This item needs to be documented
+	  This includes gtk2-engines, which are
+	  theme engines for GTK+ 2.x 
 

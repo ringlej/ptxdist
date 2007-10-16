@@ -3,3 +3,6 @@ config FUSE
 	prompt "FUSE"
 	help
 	  utilities for filesystems in userspace
+
+	  The project page is found at
+	  http://fuse.sourceforge.net/

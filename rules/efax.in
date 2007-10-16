@@ -3,15 +3,15 @@ config EFAX
 	prompt "efax"
 	help
 	  Programs to send and receive fax messages
-	  
- 	  efax is a small ANSI C/POSIX program that provides 
-	  the data transport function for fax applications 
+
+ 	  efax is a small ANSI C/POSIX program that provides
+	  the data transport function for fax applications
 	  using any Class 1 or Class 2 fax modem.
-	  
- 	  Another program, efix, converts between fax, text, 
-	  bit-map and gray-scale formats. fax, a shell script, 
-	  provides a simple user interface to the efax and efix 
-	  programs. It allows you to send text or Postscript 
-	  files as faxes and receive, print or preview 
+
+ 	  Another program, efix, converts between fax, text,
+	  bit-map and gray-scale formats. fax, a shell script,
+	  provides a simple user interface to the efax and efix
+	  programs. It allows you to send text or Postscript
+	  files as faxes and receive, print or preview
 	  received faxes.
- 
+

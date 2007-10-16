@@ -3,8 +3,9 @@ menuconfig FLTK
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
 	help
-	  FLTK, a LGPLed cross-platform graphical
-	  user interface toolkit originally based on libForms.
+	  FLTK (Fast Light Toolkit), a LGPLed cross-platform
+	  graphical user interface toolkit originally based
+	  on libForms.
 
 	  URL: http://www.fltk.org/
 
@@ -14,28 +15,26 @@ config FLTK_OPENGL
 	default y
 	depends on FLTK
 	help
-	  FIXME: This item needs to be documented
+	  Turn on OpenGL support (default=yes)
 
 config FLTK_THREADS
 	bool
 	prompt "Enable multi-threading support"
 	depends on FLTK
-	help
-	  FIXME: This item needs to be documented
 
 config FLTK_XFT
 	bool
 	prompt "Turn on Xft support"
 	depends on FLTK
 	help
-	  FIXME: This item needs to be documented
+	  Turn on Xft support (default=no)
 
 config FLTK_XDBE
 	bool
 	prompt "Turn on Xdbe support"
 	depends on FLTK
 	help
-	  FIXME: This item needs to be documented
+	  Turn on Xdbe support (default=no)
 
 config FLTK_FLUID
 	bool
@@ -46,7 +45,7 @@ config FLTK_FLUID
 	  some of the demos.
 
 	  When cross compiling FLTK fluid is built for the target platform.
-	  Thus it will most probably not run on your host and compiling the 
+	  Thus it will most probably not run on your host and compiling the
 	  demo programs will fail.
 
 	  So you're better off leaving this disabled.

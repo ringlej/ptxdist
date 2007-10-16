@@ -1,8 +1,8 @@
 menuconfig CANUTILS
 	bool "canutils            "
 	help
-	  The canutils package contains tools to configure 
-	  and test the Socket CAN framework
+	  The canutils package contains tools to configure
+	  and test the Socket CAN framework.
 
 config CANUTILS_VERSION
 	prompt "Version"
@@ -16,7 +16,7 @@ config CANUTILS_CANCONFIG
 	prompt "canconfig"
 	help
 	  Configuration Tool for socket can.
-	  
+
 config CANUTILS_CANDUMP
 	bool
 	depends on CANUTILS
@@ -29,7 +29,7 @@ config CANUTILS_CANECHO
 	depends on CANUTILS
 	prompt "canecho"
 	help
-	  A little utility to echo canbus messages 
+	  A little utility to echo canbus messages
 
 config CANUTILS_CANSEND
 	bool
@@ -43,6 +43,6 @@ config CANUTILS_CANSEQUENCE
 	depends on CANUTILS
 	prompt "cansequence"
 	help
-	  A little utility to send canbus messages from command line
-	  with sequence numbers inside
+	  A little utility to send and verify canbus messages
+	  from command line with sequence numbers inside
 

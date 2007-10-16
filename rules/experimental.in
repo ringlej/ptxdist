@@ -13,7 +13,7 @@ config EXPERIMENTAL_MORE
 	depends on EXPERIMENTAL
 	help
 	  If you thought that PTXCONF_EXPERIMENTAL was stuff you shouldn't
-	  try, packets being marked with PTXCONF_EXPERIMENTAL_MORE is
+	  try, packets being marked with PTXCONF_EXPERIMENTAL_MORE are
 	  definitely not for people who do not want to live on the
 	  bleeding edge.
 

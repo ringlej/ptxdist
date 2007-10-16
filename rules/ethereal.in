@@ -14,12 +14,12 @@ config ETHEREAL_ETHEREAL
 	prompt "Gtk based ethereal"
 	depends on ETHEREAL
 	help
-	  This is the graphical Version, based on GTK+
+	  This is the graphical version of ethereal, based on GTK+
 
 config ETHEREAL_TETHEREAL
 	bool
 	prompt "Text based tethereal"
 	depends on ETHEREAL
 	help
-	  This is the textmode Version of ethereal.
+	  This is the textmode version of ethereal.
 
