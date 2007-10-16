@@ -63,10 +63,6 @@ config DIRECTFB_EXAMPLES
 	select DIRECTFB_FONT_FREETYPE
 	select DIRECTFB
 
-config HOST_DIRECTFB
-	bool
-	select HOST_LIBPNG
-
 config HOST_LIBPNG
 	bool
 	select HOST_ZLIB

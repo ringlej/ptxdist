@@ -1,0 +1,4 @@
+config HOST_DIRECTFB
+	bool
+	select HOST_LIBPNG
+
