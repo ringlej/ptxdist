@@ -20,7 +20,8 @@ PACKAGES-$(PTXCONF_MYSQL) += mysql
 MYSQL_VERSION	:= 5.1.14-beta
 MYSQL		:= mysql-$(MYSQL_VERSION)
 MYSQL_SUFFIX	:= tar.gz
-MYSQL_URL	:= ftp://ftp.gwdg.de/pub/misc/mysql/Downloads/MySQL-5.1/$(MYSQL).$(MYSQL_SUFFIX)
+#MYSQL_URL	:= ftp://ftp.gwdg.de/pub/misc/mysql/Downloads/MySQL-5.1/$(MYSQL).$(MYSQL_SUFFIX)
+MYSQL_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(MYSQL).$(MYSQL_SUFFIX)
 MYSQL_SOURCE	:= $(SRCDIR)/$(MYSQL).$(MYSQL_SUFFIX)
 MYSQL_DIR	:= $(BUILDDIR)/$(MYSQL)
 
