@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_DAEMONIZE) += daemonize
 #
 # Paths and names
 #
-DAEMONIZE_VERSION	= 1.5.1
+DAEMONIZE_VERSION	= 1.4
 DAEMONIZE		= daemonize-$(DAEMONIZE_VERSION)
 DAEMONIZE_SUFFIX	= tar.gz
 DAEMONIZE_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(DAEMONIZE).$(DAEMONIZE_SUFFIX)
