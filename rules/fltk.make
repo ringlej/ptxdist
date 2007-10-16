@@ -49,6 +49,7 @@ $(STATEDIR)/fltk.extract: $(fltk_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(FLTK_DIR))
 	@$(call extract, FLTK)
+	@$(call patchin, FLTK)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -108,7 +109,10 @@ fltk_compile: $(STATEDIR)/fltk.compile
 
 $(STATEDIR)/fltk.compile: $(fltk_compile_deps_default)
 	@$(call targetinfo, $@)
-	$(FLTK_PATH) $(FLTK_ENV) make -C $(FLTK_DIR)
+	# FIXME: if fltk breaks, it is not handled to the toplevel make, so
+	# it breaks silently. Remove the xorg-lib-X11 dependency from the in
+	# file in order to trigger this. Needs a proper patch.
+	cd $(FLTK_DIR) && $(FLTK_ENV) $(FLTK_PATH) make $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

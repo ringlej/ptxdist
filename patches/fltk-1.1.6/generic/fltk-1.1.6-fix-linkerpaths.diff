@@ -1,0 +1,31 @@
+---
+ configure    |    2 +-
+ configure.in |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+Index: configure.in
+===================================================================
+--- configure.in.orig
++++ configure.in
+@@ -437,7 +437,7 @@ AC_CHECK_LIB(png,png_set_tRNS_to_alpha, 
+         AC_DEFINE(HAVE_PNG_H)
+         PNGINC="-I../png"
+         PNG="png"
+-        IMAGELIBS="-lfltk_png $IMAGELIBS"
++        IMAGELIBS="-L../lib -lfltk_png $IMAGELIBS"
+     fi])
+ 
+ AC_SUBST(JPEG)
+Index: configure
+===================================================================
+--- configure.orig
++++ configure
+@@ -6430,7 +6430,7 @@ _ACEOF
+ 
+         PNGINC="-I../png"
+         PNG="png"
+-        IMAGELIBS="-lfltk_png $IMAGELIBS"
++        IMAGELIBS="-L../lib -lfltk_png $IMAGELIBS"
+     fi
+ fi
+ 

@@ -1,7 +1,9 @@
 menuconfig FLTK
 	bool "FLTK GUI Toolkit      "
+	select XORG_LIB_X11
+	select XORG_LIB_XEXT
 	help
-	  FLTK, a LGPLed cross-platform graphical 
+	  FLTK, a LGPLed cross-platform graphical
 	  user interface toolkit originally based on libForms.
 
 	  URL: http://www.fltk.org/
