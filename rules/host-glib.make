@@ -54,7 +54,9 @@ HOST_GLIB_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_GLIB_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_GLIB_AUTOCONF := \
+	$(HOST_AUTOCONF) \
+	--with-libiconv=gnu
 
 $(STATEDIR)/host-glib.prepare: $(host-glib_prepare_deps_default)
 	@$(call targetinfo, $@)

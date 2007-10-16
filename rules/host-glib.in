@@ -1,2 +1,3 @@
 config HOST_GLIB
 	bool
+	select HOST_LIBICONV
