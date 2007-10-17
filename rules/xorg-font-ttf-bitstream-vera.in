@@ -1,0 +1,8 @@
+config XORG_FONT_TTF_BITSTREAM_VERA
+	bool
+	select XORG_FONTS
+	depends on XORG_FONT_TTF
+	default y
+	prompt "bitstream vera"
+	help
+	  contains truetype fonts provided by gnome

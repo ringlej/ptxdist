@@ -1,0 +1,24 @@
+menuconfig XORG_CURSOR
+	bool "xorg cursor themes    "
+	select XORG_LIB_X11_CURSOR
+	select XORG_LIB_XCURSOR
+
+source "rules/xcursor-transparent-theme.in"
+
+choice
+	prompt "default cursor theme"
+	depends on XORG_CURSOR
+
+	config XORG_CRUSOR_NONE
+		bool "no theme"
+
+	config XORG_CURSOR_XCURSOR_TRANSPARENT_THEME
+		bool "xcursor-transparent-theme"
+		depends on XCURSOR_TRANSPARENT_THEME
+
+endchoice
+
+config XORG_CURSOR_THEME
+	string
+	default "core"                if XORG_CRUSOR_NONE
+	default "xcursor-transparent" if XORG_CURSOR_XCURSOR_TRANSPARENT_THEME

@@ -1,0 +1,9 @@
+config XCURSOR_TRANSPARENT_THEME
+	bool
+	depends on XORG_CURSOR
+	prompt "xcursor transparent theme"
+	help
+	  This package contains a totally transparent X11 Cursor
+	  theme. Using the theme provides an effective and flexible
+	  way to hide the X11 Cursor. This kind of behaviour maybe
+	  required on Handheld computers running the X Window System.

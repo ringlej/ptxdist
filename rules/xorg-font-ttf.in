@@ -5,3 +5,4 @@ menuconfig XORG_FONT_TTF
 	prompt "xorg true/open type fonts     "
 
 source "rules/xorg-font-bh-ttf.in"
+source "rules/xorg-font-ttf-bitstream-vera.in"
