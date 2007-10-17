@@ -2,7 +2,14 @@ menuconfig INETUTILS
 	bool
 	prompt "inetutils           "
 	help
-	  FIXME: This item needs to be documented
+	  Inetutils is a collection of common network programs. It includes:
+	  * An ftp client and server.
+	  * A telnet client and server.
+	  * An rsh client and server.
+	  * An rlogin client and server.
+	  * A tftp client and server.
+	  * And much more... 
+	  These are improved versions of programs originally from BSD.
 
 comment "build options   ---"
 	depends on INETUTILS
@@ -35,21 +42,26 @@ config INETUTILS_RCP
 	prompt "rcp"
 	depends on INETUTILS
 	help
-	  FIXME: This item needs to be documented
+	  Rcp copies files between machines.
 
 config INETUTILS_RLOGIND
 	bool
 	prompt "rlogind"
 	depends on INETUTILS
 	help
-	  FIXME: This item needs to be documented
+	  Rlogind is the server for the program. The server provides a remote
+	  login facility with authentication based on privileged port numbers
+	  from trusted hosts.
 
 config INETUTILS_RSH
 	bool
 	prompt "rsh"
 	depends on INETUTILS
 	help
-	  FIXME: This item needs to be documented
+	  rsh - remote shell
+	  Rsh copies its standard input to the remote command, the standard
+	  output of the remote command to its standard output, and the
+	  standard error of the remote command to its standard error.
 
 config INETUTILS_RSHD
 	bool
@@ -57,22 +69,27 @@ config INETUTILS_RSHD
 	depends on INETUTILS
 	select INETUTILS_INETD
 	help
-	  FIXME: This item needs to be documented
+	  Rshd is the server for the program. The server provides remote
+	  execution facilities with authentication based on privileged
+	  port numbers from trusted hosts.
 
 config INETUTILS_SYSLOGD
 	bool
 	prompt "syslogd"
 	depends on INETUTILS
 	help
-	  FIXME: This item needs to be documented
+	  Sysklogd provides two system utilities which provide support
+	  for system logging and kernel message trapping. Support of both
+	  internet and unix domain sockets enables this utility package
+	  to support both local and remote logging.
 
 config INETUTILS_TFTPD
 	bool
 	prompt "tftpd"
 	depends on INETUTILS
 	help
-	  TFTPD is a ftp daemon to be used for diskless clients. Most bootloader
-	  using the Trivisal File Transfer Protocol to load their OS image. Note:
+	  TFTPD is a ftp daemon to be used for diskless clients. Most bootloaders
+	  use the Trivial File Transfer Protocol to load their OS image. Note:
 	  There is no authentication!
 
 comment "runtime options  ---"
@@ -131,3 +148,4 @@ config INETUTILS_TFTPD_STRING
 	  Note: This tftp daemon can be started on demand from inetd only. You
 	  must enable one of the two possible inet daemons: There is one
 	  embedded in busybox and one in this packet.
+

@@ -4,10 +4,10 @@ menuconfig IPTABLES
 	prompt "iptables            "
 	bool
 	help
-	  Iptables  is used to set up, maintain, and inspect the 
-	  tables of IP packet filter rules in the Linux kernel.  
-	  Several different tables may be defined.  Each table 
-	  contains a number of built-in chains and may also 
+	  Iptables  is used to set up, maintain, and inspect the
+	  tables of IP packet filter rules in the Linux kernel.
+	  Several different tables may be defined.  Each table
+	  contains a number of built-in chains and may also
 	  contain user-defined chains.
 
 config IPTABLES_INSTALL_IP6TABLES
@@ -19,7 +19,7 @@ config IPTABLES_INSTALL_IP6TABLES
 
 config IPTABLES_INSTALL_IPTABLES
 	bool
-	prompt "install iptables"	
+	prompt "install iptables"
 	depends on IPTABLES
 	help
 	  install the IPv4 Version of iptables
@@ -29,14 +29,18 @@ config IPTABLES_INSTALL_IPTABLES_RESTORE
 	prompt "install iptables-restore"
 	depends on IPTABLES
 	help
-	  FIXME: This item needs to be documented
+	  The iptables-restore command is used to restore
+	  the iptables rule-set that was saved with the
+	  iptables-save command.
 
 config IPTABLES_INSTALL_IPTABLES_SAVE
 	bool
 	prompt "install iptables-save"
 	depends on IPTABLES
 	help
-	  FIXME: This item needs to be documented
+	  The iptables-save command is a tool to save
+	  the current rule-set into a file that
+	  iptables-restore can use.
 
 comment "----------------------------------"
 	depends on IPTABLES

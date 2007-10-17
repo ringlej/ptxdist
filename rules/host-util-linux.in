@@ -7,18 +7,18 @@ config HOST_UTIL_LINUX_FDISK
 	prompt "fdisk"
 	depends on HOST_UTIL_LINUX
 	help
-	  FIXME: This item needs to be documented
+	  fdisk - Partition table manipulator for Linux
 
 config HOST_UTIL_LINUX_CFDISK
 	bool
 	prompt "cfdisk"
 	depends on HOST_UTIL_LINUX
 	help
-	  FIXME: This item needs to be documented
+	  cfdisk - Curses based disk partition table manipulator
 
 config HOST_UTIL_LINUX_SFDISK
 	bool
 	prompt "sfdisk"
 	depends on HOST_UTIL_LINUX
 	help
-	  FIXME: This item needs to be documented
+	  sfdisk - Partition table manipulator for Linux

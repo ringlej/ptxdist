@@ -3,5 +3,9 @@ config HOST_FLEX254
 	prompt "flex 2.5.4 [BROKEN]"
 	depends on BROKEN
 	help
-	  FIXME: This item needs to be documented
+	  Flex (The Fast Lexical Analyzer)
 
+	  Flex is a fast lexical analyser generator. It is
+	  a tool for generating programs that perform
+	  pattern-matching on text. Flex is a non-GNU free
+	  implementation of the well known Lex program.

@@ -1,4 +1,6 @@
 config HOST_PYTHON24
 	bool
 	prompt "Python 2.4"
-
+	help
+	  Python is an interpreted, interactive,
+	  object-oriented, extensible programming language.

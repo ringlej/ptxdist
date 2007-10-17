@@ -2,7 +2,7 @@ menuconfig HOST_E2FSPROGS
 	bool
 	prompt "e2fsprogs               "
 	help
-	  Useful Hosttools for management of ext2 and ext3 filesystems
+	  Useful hosttools for management of ext2 and ext3 filesystems
 
 config HOST_E2FSPROGS_TUNE2FS
 	bool

@@ -13,5 +13,5 @@ config HOST_LIBICONV_EXTRA_ENCODINGS
 	bool
 	prompt "build with support for extra encodings"
 	help
-	  provides support for a few extra encodings. see
-	  readme in source package for details
+	  provides support for a few extra encodings. See
+	  readme in source package for details.

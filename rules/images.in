@@ -18,8 +18,8 @@ config IMAGE_HD
 	  General
 	  -------
 
-	  Build a harddisk root image. The image will contain a partition table
-	  which you can define with the following entries. Note that the resulting
+	  Build a harddisk root image. The image will contain a partition
+	  table defined by the following entries. Note that the resulting
 	  partition table does not have CHS entries but only LBA entries, so
 	  you need to switch your (x86-) Bios to LBA. Also note that fdisk will
 	  complain about inconsistent CHS/LBA entries. You can ignore these warnings.

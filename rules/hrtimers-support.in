@@ -1,7 +1,7 @@
 config HRTIMERS_SUPPORT
 	bool
 	depends on BROKEN
-	# probably not needed any more with > glibc-2.5
+	# probably not needed anymore with > glibc-2.5
 	prompt "hrtimers-support"
 	help
 	  This is the support library for the High Resolution Timer

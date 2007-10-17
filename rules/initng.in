@@ -5,7 +5,7 @@ menuconfig INITNG
 	select GLIBC_DL
 	prompt "initng              "
 	help
-	  Initng is a full replacement of the old and in many ways 
+	  Initng is a full replacement of the old and in many ways
 	  deprecated sysvinit tool. It is designed with speed in mind, doing
 	  as much as possible asynchronously. In other words: It will boot
 	  your system faster, give you more control over the boot process,
@@ -57,7 +57,7 @@ config INITNG_ALSO
 config INITNG_BASH_LAUNCHER
 	bool
 	depends on INITNG
-	prompt "Bash Launcer Plugin"
+	prompt "Bash Launcher Plugin"
 	help
 	  FIXME
 
@@ -141,7 +141,7 @@ config INITNG_FIND
 
 config INITNG_FMON
 	bool
-	depends on INITNG 
+	depends on INITNG
 	depends on ARCH_X86 || ARCH_PPC
 	prompt "File Monitoring Plugin"
 	help

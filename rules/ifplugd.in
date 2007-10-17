@@ -5,7 +5,7 @@ menuconfig IFPLUGD
 	help
 	  ifplugd is a Linux daemon which will automatically configure your
 	  ethernet device when a cable is plugged in and automatically
-	  unconfigure it if the cable is pulled.
+	  unconfigure it once the cable is pulled.
 
 config IFPLUGD_STATUS
 	bool

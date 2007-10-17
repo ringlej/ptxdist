@@ -2,5 +2,5 @@ config I855RESOLUTION
 	bool
 	prompt "i855resolution"
 	help
-	  FIXME
+	  This tool is a patch/hack to add modes to the video bios.
 

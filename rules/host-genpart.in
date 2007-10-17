@@ -4,4 +4,4 @@ config HOST_GENPART
 	help
 	  Tool to generate a 16 byte partition table entry defined by
 	  command line arguments and dump it to stdout. No CHS magic is
-	  done, only lba entries are filled out.
+	  done, only LBA entries are filled out.

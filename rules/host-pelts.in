@@ -3,4 +3,4 @@ config HOST_PELTS
 	prompt "pelts"
 	help
 	  Pengutronix Embedded Linux Test Suite
-	
+

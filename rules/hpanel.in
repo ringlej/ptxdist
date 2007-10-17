@@ -5,7 +5,7 @@ config HPANEL
 	select XORG_LIB_XPM
 	prompt "hpanel"
 	help
-	  hpaenl is a small panel that lists your windows 
-	  and allows you to switch workspaces. works with
-	  pekwm
+	  hpanel is a small panel that lists your windows 
+	  and allows you to switch workspaces. Works with
+	  pekwm.
 

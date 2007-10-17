@@ -49,6 +49,8 @@ config HOST_LIBXSLT_LIBEXSLT
 	prompt "libexslt"
 	default y if HOST_LIBXSLT
 	depends on HOST_LIBXSLT
+	help
+	  EXSLT is a community initiative to provide extensions to XSLT.
 
 config HOST_LIBXSLT_XSLTPROC
 	bool

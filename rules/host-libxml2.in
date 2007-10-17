@@ -8,7 +8,14 @@ menuconfig HOST_LIBXML2
 	prompt "libxml2                     "
 	select HOST_ZLIB if HOST_LIBXML2_ZLIB
 	help
-	  FIXME: This item needs to be documented
+	  Libxml2 is a XML C parser and toolkit. XML itself is a
+	  metalanguage to design markup languages, i.e. text
+	  language where semantic and structure are added to the
+	  content using extra "markup" information enclosed
+	  between angle brackets. HTML is the most well-known
+	  markup language. Though the library is written in C a
+	  variety of language bindings make it available in other
+	  environments.
 
 config HOST_LIBXML2_C14N
 	bool
@@ -98,7 +105,8 @@ config HOST_LIBXML2_ICONV
 	depends on HOST_LIBXML2
 	prompt "ICONV support"
 	help
-	  Add ICONV support.
+	  Add ICONV support. The iconv program converts
+	  text from one encoding to another encoding.
 
 config HOST_LIBXML2_ISO8859X
 	bool
@@ -193,6 +201,9 @@ config HOST_LIBXML2_SAX1
 	prompt "SAX1 API"
 	help
 	  Enable the SAX1 API
+	  SAX is the Simple API for XML, originally a
+	  Java-only API. SAX was the first widely adopted
+	  API for XML in Java, and is a 'de facto' standard.
 
 config HOST_LIBXML2_SCHEMAS
 	bool
@@ -200,7 +211,8 @@ config HOST_LIBXML2_SCHEMAS
 	depends on HOST_LIBXML2
 	prompt "Relax-NG/Schema Support"
 	help
-	  Add Relay-NG and experimental Schemas support
+	  Add Relax-NG and experimental Schemas support.
+	  RELAX NG is a schema language for XML.
 
 config HOST_LIBXML2_SCHEMATRON
 	bool
@@ -209,6 +221,11 @@ config HOST_LIBXML2_SCHEMATRON
 	prompt "Schematron Support"
 	help
 	  Add Schematron support
+
+	  The Schematron differs in basic concept from
+	  other schema languages in that it not based
+	  on grammars but on finding tree patterns in
+	  the parsed document.
 
 config HOST_LIBXML2_THREADS
 	bool
@@ -233,13 +250,21 @@ config HOST_LIBXML2_DOM
 	help
 	  Add the DOM tree manipulation API.
 
+	  The XML Document Object Model (XML DOM) defines
+	  a standard way for accessing and manipulating
+	  XML documents.
+	  The DOM presents an XML document as a tree-structure
+	  (a node tree), with the elements, attributes,
+	  and text defined as nodes.
+
 config HOST_LIBXML2_DTD
 	bool
 	default y
 	depends on HOST_LIBXML2
 	prompt "DTD Validation support"
 	help
-	  Add the DTD validation support
+	  Add the DTD (Document Type Definition)
+	  validation support
 
 config HOST_LIBXML2_WRITER
 	bool
@@ -255,7 +280,11 @@ config HOST_LIBXML2_XINCLUDE
 	depends on HOST_LIBXML2
 	prompt "XInclude"
 	help
-	  XInclude support.
+	  XInclude introduces a generic mechanism for merging
+	  XML documents (as represented by their information sets)
+	  for use by applications that need such a facility.
+	  The syntax leverages existing XML constructs - elements,
+	  attributes, and URI references.
 
 config HOST_LIBXML2_XPATH
 	bool
@@ -263,7 +292,9 @@ config HOST_LIBXML2_XPATH
 	depends on HOST_LIBXML2
 	prompt "XPATH support"
 	help
-	  XPATH support
+	  XPath is a language for addressing parts
+	  of an XML document, designed to be used
+	  by both XSLT and XPointer.
 
 config HOST_LIBXML2_XPTR
 	bool
@@ -271,7 +302,20 @@ config HOST_LIBXML2_XPTR
 	depends on HOST_LIBXML2
 	prompt "XPTR"
 	help
-	  XPointer support
+	  XML Pointer Language (XPointer) is a language to
+	  be used as the basis for a fragment identifier for
+	  any URI reference that locates a resource whose
+	  Internet media type is one of text/xml,
+	  application/xml, text/xml-external-parsed-entity,
+	  or application/xml-external-parsed-entity.
+
+	  XPointer, which is based on the XML Path Language
+	  (XPath), supports addressing into the internal
+	  structures of XML documents. It allows for
+	  examination of a hierarchical document structure
+	  and choice of its internal parts based on various
+	  properties, such as element types, attribute values,
+	  character content, and relative position.
 
 config HOST_LIBXML2_MODULES
 	bool

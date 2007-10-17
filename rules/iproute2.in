@@ -3,5 +3,7 @@ config IPROUTE2
 	prompt "iproute2"
 	select DB44
 	help
-	  FIXME
+	  Iproute2 is a collection of utilities for
+	  controlling TCP/IP networking and traffic
+	  control in Linux.
 

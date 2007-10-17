@@ -2,5 +2,5 @@ config I915RESOLUTION
 	bool
 	prompt "i915resolution"
 	help
-	  FIXME
+	  This tool is a patch/hack to add modes to the video bios.
 

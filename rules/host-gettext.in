@@ -11,5 +11,4 @@ config HOST_GETTEXT_LIBINTL
 	depends on HOST_GETTEXT
 	prompt "Install GNU libintl"
 	help
-	  FIXME: This item needs to be documented
-
+	  libintl is the GNU internationalization runtime library.
