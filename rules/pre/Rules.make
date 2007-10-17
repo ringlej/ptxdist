@@ -59,7 +59,7 @@ PARALLELMFLAGS  ?= -j$(shell if [ -r /proc/cpuinfo ];				\
 		else echo 1;							\
 	fi)
 
-FAKEROOT	= $(PTXCONF_HOST_PREFIX)/bin/fakeroot
+FAKEROOT	:= $(PTXCONF_HOST_PREFIX)/bin/fakeroot -l $(PTXCONF_HOST_PREFIX)/lib/libfakeroot.so
 
 CHECK_PIPE_STATUS = \
 	for i in  "$${PIPESTATUS[@]}"; do [ $$i -gt 0 ] && {			\
