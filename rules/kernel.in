@@ -19,7 +19,7 @@ config KERNEL_VERSION
 	prompt "linux kernel Version"
 	depends on KERNEL
 	string
-	default "2.6.19"
+	default "2.6.23"
 
 choice
 	prompt "kernel architecture (ppc/powerpc)"
@@ -77,7 +77,7 @@ config KERNEL_CONFIG
 	string
 	default "kernelconfig.target"
 	help
-	  tris entry specifies the .config file used to compile your kernel
+	  this entry specifies the .config file used to compile your kernel
 
 config KERNEL_MODULES
 	bool
@@ -101,7 +101,7 @@ config KERNEL_IMAGE_Z
 	bool
 	prompt "zImage"
 	help
-	 This usually is the target to be used on ia32 platforms, it
+	 This usually is a target to be used on ia32 platforms, it
 	 is the older format and limited to about 500k in size due to
 	 low memory size restrictions.
 

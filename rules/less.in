@@ -3,7 +3,7 @@ menuconfig LESS
 	default n
 	prompt "less                 "
 	help
-	  Less is a pager. A pager is a program 
+	  Less is a pager. A pager is a program
 	  that displays text files. More info:
 	  http://www.greenwoodsoftware.com/less/
 

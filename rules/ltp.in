@@ -2,13 +2,13 @@ menuconfig LTP
 	bool
 	prompt "Linux Test Project  "
 	help
-	  The Linux Test Project is a joint project with SGI, IBM, OSDL, 
-	  and Bull with a goal to deliver test suites to the open source 
-	  community that validate the reliability, robustness, and 
-	  stability of Linux. The Linux Test Project is a collection of 
-	  tools for testing the Linux kernel and related features. 
-	  The goal is to improve the Linux kernel by bring test 
-	  automation to the kernel testing effort. 
+	  The Linux Test Project is a joint project with SGI, IBM, OSDL,
+	  and Bull with a goal to deliver test suites to the open source
+	  community that validate the reliability, robustness, and
+	  stability of Linux. The Linux Test Project is a collection of
+	  tools for testing the Linux kernel and related features.
+	  The goal is to improve the Linux kernel by bring test
+	  automation to the kernel testing effort.
 
 
 source "rules/ltp-ballista.in"

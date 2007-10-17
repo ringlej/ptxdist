@@ -37,4 +37,5 @@ config LIBPV_PVTOOL
 	prompt "install pvtool"
 	depends on LIBPV
 	help
-	  FIXME: This item needs to be documented
+	  pvtool is a tool belonging to libpv. It is used to read, write
+	  and manipulate process variables in a standalone manner.

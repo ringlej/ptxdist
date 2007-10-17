@@ -3,7 +3,7 @@ menuconfig LTP_KERNEL
 	prompt "Kernel              "
 	depends on LTP
 	help
-	  Kernel based tests. 
+	  Kernel based tests.
 
 # ----------------------------------------------------------------------------
 menuconfig LTP_KERNEL_FS
@@ -25,14 +25,14 @@ config LTP_KERNEL_FS_DOIO
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  A set of tests to generate file system load. 
+	  A set of tests to generate file system load.
 
 config LTP_KERNEL_FS_DOIO_RWTEST
 	prompt "rwtest"
 	bool
 	depends on LTP_KERNEL_FS_DOIO
 	help
-	  Wrapper for doio and iogen: do basic i/o instructions on a set of file 
+	  Wrapper for doio and iogen: do basic i/o instructions on a set of file
 	  descriptors.
 
 config LTP_KERNEL_FS_DOIO_GROWFILES
@@ -40,9 +40,9 @@ config LTP_KERNEL_FS_DOIO_GROWFILES
 	bool
 	depends on LTP_KERNEL_FS_DOIO
 	help
-	  Creates and truncates files in gradual steps and check all system 
-	  calls for proper return values. This test can cause 
-	  disc fragmentation. 
+	  Creates and truncates files in gradual steps and check all system
+	  calls for proper return values. This test can cause
+	  disc fragmentation.
 
 # ----------------------------------------------------------------------------
 
@@ -51,11 +51,11 @@ config LTP_KERNEL_FS_FSBENCH
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  File system stress test benchmarking. 
+	  File system stress test benchmarking.
 
 	  FIXME: paths have to be adapted, wants to build in ~/fs-bench
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 config LTP_KERNEL_FS_FSDI
 	prompt "fsdi"
@@ -63,20 +63,20 @@ config LTP_KERNEL_FS_FSDI
 	depends on LTP_KERNEL_FS
 	help
 	  Data integrity test: create file of a specified size and copy it
-	  to a certain directory depth, then checking the integrity. 
+	  to a certain directory depth, then checking the integrity.
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 config LTP_KERNEL_FS_INOD
 	prompt "fs_inod"
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  Inode creation/deletion stress test. 
+	  Inode creation/deletion stress test.
 
-	  FIXME: needs bash? 
-	  
-# ----------------------------------------------------------------------------	  
+	  FIXME: needs bash?
+
+# ----------------------------------------------------------------------------
 
 # fs_maim
 
@@ -85,50 +85,50 @@ config LTP_KERNEL_FS_PERMS
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  Permission test. 
+	  Permission test.
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 config LTP_KERNEL_FS_FSSTRESS
 	prompt "fsstress"
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  File system stress test. 
+	  File system stress test.
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 config LTP_KERNEL_FS_FSX
 	prompt "fsx"
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  File system stress test. 
+	  File system stress test.
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 config LTP_KERNEL_FS_FTEST
 	prompt "ftest"
 	bool
 	depends on LTP_KERNEL_FS
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 config LTP_KERNEL_FS_INODE
 	prompt "inode"
 	bool
 	depends on LTP_KERNEL_FS
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 config LTP_KERNEL_FS_LFTEST
 	prompt "lftest"
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  Test large file support on a filesystem. 
+	  Test large file support on a filesystem.
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 # linktest: written in perl
 # mongo: written in perl
@@ -138,27 +138,27 @@ config LTP_KERNEL_FS_OPENFILE
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  Create files and open simultanously. 
+	  Create files and open simultanously.
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 config LTP_KERNEL_FS_PROC
 	prompt "proc"
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  Test proc system entries. 
+	  Test proc system entries.
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 config LTP_KERNEL_FS_RACER
 	prompt "racer"
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  Create filess and shuffle them around, to provoke race conditions. 
+	  Create filess and shuffle them around, to provoke race conditions.
 
-# ----------------------------------------------------------------------------	  
+# ----------------------------------------------------------------------------
 
 # scsi
 
@@ -167,4 +167,4 @@ config LTP_KERNEL_FS_STREAM
 	bool
 	depends on LTP_KERNEL_FS
 	help
-	  Stream I/O. 
+	  Stream I/O.

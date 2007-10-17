@@ -8,7 +8,15 @@ menuconfig LIBXML2
 	prompt "libxml2                     "
 	select ZLIB if LIBXML2_ZLIB
 	help
-	  FIXME: This item needs to be documented
+	  Libxml2 is a XML C parser and toolkit. XML itself is a
+	  metalanguage to design markup languages, i.e. text
+	  language where semantic and structure are added to the
+	  content using extra "markup" information enclosed
+	  between angle brackets. HTML is the most well-known
+	  markup language. Though the library is written in C a
+	  variety of language bindings make it available in other
+	  environments.
+
 
 config LIBXML2_C14N
 	bool

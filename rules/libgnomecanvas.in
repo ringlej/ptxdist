@@ -3,5 +3,10 @@ config LIBGNOMECANVAS
 	depends on BROKEN
 	prompt "libgnomecanvas [BROKEN]"
 	help
-	  FIXME: This item needs to be documented
+	  libgnomecanvas is the library for the GNOME canvas,
+	  an engine for structured graphics that offers a rich
+	  imaging model, high performance rendering, and a
+	  powerful, high-level API. It is based on the Tk
+	  toolkit's canvas widget, and is one of the essential
+	  Gnome libraries.
 

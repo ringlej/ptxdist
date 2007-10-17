@@ -2,4 +2,4 @@ config LIBJPEG
 	bool
 	prompt "libjpeg"
 	help
-	  FIXME: This item needs to be documented
+	  libjpeg is a library for handling the JPEG (JFIF) image format.

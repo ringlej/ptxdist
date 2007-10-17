@@ -4,14 +4,17 @@ menuconfig LIBNETPBM
 	bool
 	prompt "libnetpbm                   "
 	help
-	  FIXME: This item needs to be documented
+	  libnetpbm is a C programming library for reading,
+	  writing, and manipulating Netpbm images. It also
+	  contains a few general graphics manipulation tools,
+	  but it is not intended to be a graphics tools library.
 
 config LIBNETPBM_BUILD_FIASCO
 	bool
 	depends on LIBNETPBM
 	prompt "build fiasco"
 	help
-	  FIXME: This item needs to be documented
+	  FIASCO stands for Fractal Image and Sequence Codec.
 
 # FIXME: add library support (TIFF, JPEG, ...)
 

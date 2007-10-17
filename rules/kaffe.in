@@ -4,6 +4,9 @@ menuconfig KAFFE
 	depends on BROKEN
 	select HOST_KAFFE
 	help
+	  Kaffe is a Java Virtual Machine. It works on many platforms and
+	  includes Just-In-Time (JIT) support for most of them.
+
 	  This packet needs an already installed Eclipse Java Compiler on the
 	  host to be built successfully. A standard JAVA environment (for example
 	  the jdk from sun) does not work.

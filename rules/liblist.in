@@ -2,8 +2,8 @@ config LIBLIST
 	bool
 	prompt "liblist"
 	help
-	  Liblist is a generic list and tree implementation. More details and 
-	  the API can be found on 
+	  Liblist is a generic list and tree implementation. More details and
+	  the API can be found on
 
 	  	http://www.pengutronix.de/software/liblist/
 

@@ -2,5 +2,10 @@ config LIBNET
 	bool
 	prompt "libnet"
 	help
-	  FIXME: This item needs to be documented
+	  Libnet is a generic networking API that provides
+	  access to several protocols. It is not designed
+	  as a 'all in one' solution to networking. Currently
+	  many features that are common in some network
+	  protocols are not available with Libnet, such as
+	  streaming via TCP/IP.
 

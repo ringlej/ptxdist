@@ -2,4 +2,10 @@ config LIBPOPT
 	bool
 	prompt "libpopt"
 	help
-	  FIXME: This item needs to be documented
+	  popt command line argument parser library
+
+	  popt is a command line option parsing library inspired
+	  by the usefulness of getopt, but also by it's deficiencies.
+	  Amongst other things, it doesn't use global variables,
+	  can parse any argv-style array, option aliasing and
+	  automatic generation of help and usage messages.

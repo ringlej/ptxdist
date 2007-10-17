@@ -3,5 +3,9 @@ config LIBOOP
 	depends on BROKEN
 	prompt "LIBOOP [BROKEN]"
 	help
-	  FIXME: This item needs to be documented
+	  Liboop provides a generic, callback-based event
+	  dispatch interface, and aims to ease the development
+	  of multiplexed, non-blocking, event-driven modular
+	  applications, components, and libraries under
+	  POSIX-based operating systems.
 

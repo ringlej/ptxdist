@@ -2,14 +2,14 @@ config LILO
 	bool "LILO"
 	depends on ARCH_X86
 	help
-	  LInux LOader - The Classic OS loader 
-	  It can load Linux and others, this Package contains lilo 
-	  (the installer) and boot-record-images to install Linux, 
-	  OS/2, DOS and generic Boot Sectors of other OSes.
- 
- 	  You can use LILO to manage your Master Boot Record 
-	  (with a simple text screen, text menu or colorful 
-	  splash graphics) or call LILO from other Boot-Loaders 
+	  LInux LOader - The Classic OS loader
+	  It can load Linux and others, this package contains lilo
+	  (the installer) and boot-record-images to install Linux,
+	  OS/2, DOS and generic boot sectors of other OSes.
+
+ 	  You can use LILO to manage your Master Boot Record
+	  (with a simple text screen, text menu or colorful
+	  splash graphics) or call LILO from other Boot-Loaders
 	  to jump-start the Linux kernel.
-	  
-	  Note: This Package is only running on x86-based plattforms
+
+	  Note: This package will only run on x86-based platforms

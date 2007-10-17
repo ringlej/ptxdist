@@ -12,14 +12,14 @@ config LTP_MISC_MATH
 	prompt "math"
 	depends on LTP_MISC
 	help
-	  FIXME: This item needs to be documented
+	  Floating point math tests of the LTP (Linux Test Project)
 
 config LTP_MISC_MATH_ABS
 	bool
 	prompt "abs"
 	depends on LTP_MISC_MATH
 	help
-	  Absolute integer value test 
+	  Absolute integer value test
 
 config LTP_MISC_MATH_ATOF
 	bool

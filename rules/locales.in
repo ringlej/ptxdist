@@ -31,7 +31,7 @@ config LOCALES_EN_GB_EURO
 	depends on LOCALES
 	help
 	  British English language support with Euro sign.
- 
+
 comment "German Support"
 	depends on LOCALES
 

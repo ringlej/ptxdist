@@ -1,7 +1,13 @@
 config LIBIDL068
 	bool
 	depends on BROKEN
-	prompt "libidl 0.68 [BROKEN]"
+	prompt "libidl 0.6.8 [BROKEN]"
 	help
-	  FIXME: This item needs to be documented
+	  libIDL is a front-end for CORBA IDL and Mozilla's XPIDL,
+	  currently used in the GNOME  project (bundled with ORBit),
+	  the Mozilla project, and other projects here and there.
+
+	  This distribution (0.6.8) does not install as libIDL-2, as
+	  newer ones do.
+
 

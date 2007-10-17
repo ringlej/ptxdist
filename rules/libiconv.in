@@ -2,10 +2,10 @@ menuconfig LIBICONV
 	bool
 	prompt "libiconv                    "
 	help
-	  
-	  libiconv converts traditional character encodings 
+
+	  libiconv converts traditional character encodings
 	  to/from UNICODE. It is for you if your application
-	  needs to support multiple character encodings, but 
+	  needs to support multiple character encodings, but
 	  that support lacks from your system.
 
 config LIBICONV_EXTRA_ENCODINGS
