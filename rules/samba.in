@@ -85,6 +85,7 @@ menuconfig SAMBA
 	config SAMBA_COMMON
 		bool
 		depends on SAMBA
+		default y
 		prompt "Samba common files"
 		help
 		  Install smbd daemon on target.
@@ -93,18 +94,46 @@ menuconfig SAMBA
 		bool
 		depends on SAMBA
 		depends on SAMBA_SERVER
-		default y
-		prompt "Samba config files"
-		help
-		  This uses a user defined config file. Will use
-		  the file out of projectroot/etc/samba/smb.conf
+	choice
+		prompt "Kind of samba config file"
+		depends on SAMBA
+		depends on SAMBA_COMMON
+		default ROOTFS_ETC_SAMBA_CONFIG_DEFAULT
+
+		config ROOTFS_ETC_SAMBA_CONFIG_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  Installs a generic /etc/samba/smb.conf file.
+
+		config ROOTFS_ETC_SAMBA_CONFIG_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined config file. Will use
+			  the file out of projectroot/etc/samba/smb.conf
+	endchoice
+
 	config SAMBA_SERVER
 		bool
 		depends on SAMBA
 		select SAMBA_COMMON
 		prompt "Samba server"
 		help
-		  Installs samba server
+		  Installs samba server. ATTENTION: You need rw access to your
+		  rootfs before starting the samba server!
+
+	config ROOTFS_ETC_SAMBA_SECRETS_USER
+		bool
+		depends on SAMBA
+		depends on SAMBA_SERVER
+		prompt "User defined smb password Database"
+		help
+		  This will install the /etc/samba/secrets.tdb from
+		  projectroot/etc/samba/secrets.tdb. If you wish to run samba
+		  in user security level and use you own userdatabase. You will
+		  have to enable this. If you say n here. The samba server will
+		  generates his own secrets.tdb after initialisation.
 
 	config ROOTFS_ETC_INITD_SAMBA
 		bool
@@ -112,18 +141,25 @@ menuconfig SAMBA
 		depends on SAMBA_SERVER
 		select BB_CONFIG_START_STOP_DAEMON      if BUSYBOX
 		default y
-		prompt "Samba Server startup script"
-		help
-		  Startup script for samba
+		choice
+			prompt "Kind of samba start script"
+			depends on SAMBA
+			depends on SAMBA_SERVER
+			default ROOTFS_ETC_INITD_SAMBA_DEFAULT
 
-	config ROOTFS_ETC_SAMBA_SECRETS
-		bool
-		depends on SAMBA
-		depends on SAMBA_SERVER
-		default y
-		prompt "Userdefined Samba Password database"
-		help
-		  installs projectroot/etc/samba/secrets.tdb
+			config ROOTFS_ETC_INITD_SAMBA_DEFAULT
+				bool
+				prompt "Use generic"
+				help
+			  	  Installs a generic /etc/init.d/samba file.
+
+			config ROOTFS_ETC_INITD_SAMBA_USER
+				bool
+				prompt "User defined"
+				help
+				  This uses a user defined init file. Will use
+				  the file out of projectroot/etc/init.d/samba
+		endchoice
 
 	config SAMBA_CLIENT
 		bool
@@ -152,8 +188,8 @@ menuconfig SAMBA
 	config SAMBA_CUPS
 		bool
 		depends on SAMBA
+		depends on BROKEN
 		prompt "cups support"
 		help
 		  Turn on CUPS support
 
-# FIXME: we might want smbfs also
