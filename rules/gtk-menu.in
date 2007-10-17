@@ -1,10 +1,13 @@
 menu "GTK+ and friends      "
 
 source "rules/gtk.in"
+source "rules/gtkmm.in"
 source "rules/glib.in"
+source "rules/glibmm.in"
 source "rules/atk.in"
 source "rules/pango.in"
 source "rules/cairo.in"
+source "rules/cairomm.in"
 source "rules/directfb.in"
 source "rules/libglade.in"
 source "rules/glade.in"

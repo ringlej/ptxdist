@@ -1,0 +1,9 @@
+config GLIBMM
+	bool
+	select GLIB
+	select LIBSIGCPP
+	select GCCLIBS_CXX
+	prompt "glibmm"
+	help
+	  glibmm is the C++ interface to the glib library.
+
