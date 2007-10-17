@@ -10,10 +10,20 @@ config GLIB
 	  general-purpose C library used by projects such as GTK+, GIMP,
 	  and GNOME.
 
-config GLIB_LIBICONV
-	bool
+choice
+	prompt "iconv variant" if !ARCH_MINGW
+	default GLIB_LIBICONV_GNU
 	depends on GLIB
-	default y if ARCH_MINGW
+
+	config GLIB_LIBICONV_GNU
+		bool
+		prompt "gnu (libiconv)"
+
+	config GLIB_LIBICONV_NATIVE
+		bool
+		prompt "native"
+
+endchoice
 
 config GLIB_GETTEXT
 	bool

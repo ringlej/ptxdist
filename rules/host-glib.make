@@ -54,6 +54,8 @@ HOST_GLIB_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
+# libiconv: hardcode to libiconv (gnu), because 'no' does not work
+#
 HOST_GLIB_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--with-libiconv=gnu

@@ -64,15 +64,20 @@ GLIB_ENV 	:= \
 	glib_cv_uscore=no \
 	glib_cv_stack_grows=no
 
-#FIXME: these 2 test may be arch dependent
+# FIXME: these 2 test may be arch dependent
 
 #
 # autoconf
 #
 GLIB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-static \
-	--with-libiconv=gnu
+	--enable-static
+
+ifdef PTXCONF_GLIB_LIBICONV_GNU
+GLIB_AUTOCONF += --with-libiconv=gnu
+else
+GLIB_AUTOCONF += --with-libiconv=native
+endif
 
 $(STATEDIR)/glib.prepare:
 	@$(call targetinfo, $@)
