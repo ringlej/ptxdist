@@ -112,7 +112,7 @@ $(STATEDIR)/nfsutils.prepare: $(nfsutils_prepare_deps_default)
 	@$(call clean, $(NFSUTILS_DIR)/config.cache)
 	cd $(NFSUTILS_DIR) && \
 		$(NFSUTILS_PATH) $(NFSUTILS_ENV) \
-		./configure $(NFSUTILS_AUTOCONF)
+		./configure $(NFSUTILS_AUTOCONF) $(NFSUTILS_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
