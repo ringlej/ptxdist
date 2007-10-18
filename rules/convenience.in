@@ -1,0 +1,4 @@
+# Meta Config File
+# Workplace Convenience
+
+source "rules/mk-devnodes.in"
