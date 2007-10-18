@@ -113,16 +113,25 @@ $(STATEDIR)/less.targetinstall: $(less_targetinstall_deps_default)
 	@$(call install_fixup, less,DEPENDS,)
 	@$(call install_fixup, less,DESCRIPTION,missing)
 
+	@echo "DEBUG"
+	@echo "SYSROOT: $(SYSROOT) $(LESS)"
+	@echo ""
+
+#
+# FIXME: copy from $(SYSROOT is probably a bad idea, better would be something like
+#        (...)/local/packages/less-406/... identified as e.g. $(PACKAGE_SYSROOT)
+#	 or $(LESS_SYSROOT).						bbu, 20071018
+#
 ifdef PTXCONF_LESS_BIN
-	@$(call install_copy, less, 0, 0, 0755, $(LESS_DIR)/PTXDIST_SYSROOT/usr/bin/less, /usr/bin/less)
+	@$(call install_copy, less, 0, 0, 0755, $(SYSROOT)/usr/bin/less, /usr/bin/less)
 endif
 
 ifdef PTXCONF_LESS_KEY
-	@$(call install_copy, less, 0, 0, 0755, $(LESS_DIR)/PTXDIST_SYSROOT/usr/bin/lesskey, /usr/bin/lesskey)
+	@$(call install_copy, less, 0, 0, 0755, $(SYSROOT)/usr/bin/lesskey, /usr/bin/lesskey)
 endif
 
 ifdef PTXCONF_LESS_ECHO
-	@$(call install_copy, less, 0, 0, 0755, $(LESS_DIR)/PTXDIST_SYSROOT/usr/bin/lessecho, /usr/bin/lessecho)
+	@$(call install_copy, less, 0, 0, 0755, $(SYSROOT)/usr/bin/lessecho, /usr/bin/lessecho)
 endif
 
 	@$(call install_finish, less)
