@@ -1,0 +1,38 @@
+---
+ fb.c |    9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+Index: fbtest-20041102-1/fb.c
+===================================================================
+--- fbtest-20041102-1.orig/fb.c
++++ fbtest-20041102-1/fb.c
+@@ -37,6 +37,7 @@ static unsigned long fb_start;
+ static u32 fb_len, fb_offset;
+ u8 *fb;
+ 
++extern unsigned long page_mask;
+ 
+     /*
+      *   Saved frame buffer device state
+@@ -181,9 +182,9 @@ void fb_map(void)
+     caddr_t addr;
+ 
+     Debug("fb_map()\n");
+-    fb_start = (unsigned long)fb_fix.smem_start & PAGE_MASK;
+-    fb_offset = (unsigned long)fb_fix.smem_start & ~PAGE_MASK;
+-    fb_len = (fb_offset+fb_fix.smem_len+~PAGE_MASK) & PAGE_MASK;
++    fb_start = (unsigned long)fb_fix.smem_start & page_mask;
++    fb_offset = (unsigned long)fb_fix.smem_start & ~page_mask;
++    fb_len = (fb_offset+fb_fix.smem_len+~page_mask) & page_mask;
+     Debug("fb_start = %lx, fb_offset = %x, fb_len = %x\n", fb_start, fb_offset,
+ 	  fb_len);
+     addr = mmap(NULL, fb_len, PROT_READ | PROT_WRITE, MAP_SHARED, fb_fd, 0);
+@@ -200,7 +201,7 @@ void fb_map(void)
+ void fb_unmap(void)
+ {
+     Debug("fb_unmap()\n");
+-    if (munmap((caddr_t)((unsigned long)fb & PAGE_MASK), fb_len) == -1)
++    if (munmap((caddr_t)((unsigned long)fb & page_mask), fb_len) == -1)
+ 	Fatal("munmap smem: %s\n", strerror(errno));
+ }
+ 
