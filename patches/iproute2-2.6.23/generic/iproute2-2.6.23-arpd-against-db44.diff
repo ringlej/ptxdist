@@ -11,7 +11,7 @@ Index: misc/Makefile
  
  arpd: arpd.c
 -	$(CC) $(CFLAGS) -I$(DBM_INCLUDE) $(LDFLAGS) -o arpd arpd.c $(LIBNETLINK) -ldb -lpthread
-+	$(CC) $(CFLAGS) -I$(DBM_INCLUDE) $(LDFLAGS) -o arpd arpd.c $(LIBNETLINK) -ldb44 -lpthread
++	$(CC) $(CFLAGS) -I$(DBM_INCLUDE) $(LDFLAGS) -o arpd arpd.c $(LIBNETLINK) -ldb-4.4 -lpthread
  
  ssfilter.c: ssfilter.y
  	bison ssfilter.y -o ssfilter.c
