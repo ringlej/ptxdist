@@ -1,3 +1,7 @@
+2007-10-18  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* xorg-app-mkfontscale: fix dependency to freetype
+
 2007-10-08  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* sed: added; patch by Marco Cavallini.

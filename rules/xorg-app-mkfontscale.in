@@ -2,6 +2,7 @@ config XORG_APP_MKFONTSCALE
 	bool
 	depends on XORG_APP
 	select XORG_LIB_FONTENC
+	select FREETYPE
 	prompt "xorg mkfontscale"
 	help
 	  Create an index of scalable font files for X
