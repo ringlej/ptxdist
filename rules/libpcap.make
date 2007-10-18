@@ -59,16 +59,21 @@ $(STATEDIR)/libpcap.extract: $(libpcap_extract_deps_default)
 libpcap_prepare: $(STATEDIR)/libpcap.prepare
 
 LIBPCAP_PATH := PATH=$(CROSS_PATH)
-LIBPCAP_ENV := \
-	$(CROSS_ENV) \
-	ac_cv_linux_vers=2
+
+LIBPCAP_ENV := $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBPCAP_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--with-pcap=linux
+LIBPCAP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+ifdef PTXCONF_ARCH_MINGW
+LIBPCAP_AUTOCONF += --with-pcap=null
+LIBPCAP_ENV += ac_cv_lbl_gcc_fixincludes=yes
+else
+LIBPCAP_AUTOCONF += --with-pcap=linux
+LIBPCAP_ENV += ac_cv_linux_vers=2
+endif
 
 # FIXME: Missing switches
 # --disable-protochain disable \"protochain\" insn
