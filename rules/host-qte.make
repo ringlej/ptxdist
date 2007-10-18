@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2005 by Sascha Hauer
+# Copyright (C) 2007 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,8 +18,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_QTE) += host-qte
 #
 # Paths and names
 #
-HOST_QTE	= $(QTE)
-HOST_QTE_DIR	= $(HOST_BUILDDIR)/$(HOST_QTE)
+HOST_QTE_DIR	= $(HOST_BUILDDIR)/$(QTE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -49,12 +49,13 @@ $(STATEDIR)/host-qte.extract: $(host-qte_extract_deps_default)
 
 host-qte_prepare: $(STATEDIR)/host-qte.prepare
 
-HOST_QTE_PATH	=  PATH=$(HOST_PATH)
-HOST_QTE_ENV 	=  $(HOSTCC_ENV)
+HOST_QTE_PATH	:= PATH=$(HOST_PATH)
+HOST_QTE_ENV 	:= $(HOST_ENV)
 
 #
 # qte does not use autoconf, but something that looks similar
 #
+HOST_QTE_AUTOCONF	:= $(HOST_AUTOCONF)
 # disable all we can - we need only uic
 HOST_QTE_CONF := -prefix=$(PTXCONF_PREFIX) \
 	-platform=$(GNU_HOST) \
@@ -79,13 +80,14 @@ HOST_QTE_CONF := -prefix=$(PTXCONF_PREFIX) \
 	-no-cups \
 	-no-stl \
 	-no-qvfb
+ 
 
 $(STATEDIR)/host-qte.prepare: $(host-qte_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_QTE_DIR)/config.cache)
 	cd $(HOST_QTE_DIR) && \
 		echo yes | $(HOST_QTE_PATH) $(HOST_QTE_ENV) \
-		./configure $(HOST_QTE_AUTOCONF)
+ 		./configure $(HOST_QTE_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -111,10 +113,6 @@ $(STATEDIR)/host-qte.install: $(host-qte_install_deps_default)
 	mkdir -p $(PTXCONF_PREFIX)/bin
 	cp $(HOST_QTE_DIR)/bin/uic $(PTXCONF_PREFIX)/bin
 	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Tagetinstall
-# ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
 # Clean
