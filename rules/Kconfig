@@ -5,7 +5,7 @@
 
 source "rules/ptxdist-version.in"
 
-comment "------------------------------------"
+comment "--------- Host Options -------------"
 
 menu "PTXdist Config, Architecture  "
 source "rules/experimental.in"
@@ -22,6 +22,10 @@ endmenu
 
 menu "Debugging Tools               "
 source "rules/debug.in"
+endmenu
+
+menu "Workplace Convenience         "
+source "rules/convenience.in"
 endmenu
 
 comment "------------------------------------"
