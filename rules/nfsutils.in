@@ -1,15 +1,41 @@
 menuconfig NFSUTILS
 	bool "nfsutils            "
+	help
+	  The Sun Network Filesystem (NFS) protocol provides transparent remote
+   	  access to shared files across networks.  The NFS protocol is designed
+   	  to be portable across different machines, operating systems, network
+   	  architectures, and transport protocols.  This portability is achieved
+   	  through the use of Remote Procedure Call (RPC) primitives built on
+   	  top of an eXternal Data Representation (XDR).  Implementations
+   	  already exist for a variety of machines, from personal computers to
+	  supercomputers. See RFC1094 for Details.
+	  RFC1094 URL: http://www.ietf.org/rfc/rfc1094.txt
+
+	  PTXdist currently supports version 2 and 3 of the NFS protocol,
+	  but not NFSv4. Patches are welcome. You will find the NFSv4 protocol
+	  specification in RFC3530: http://www.ietf.org/rfc/rfc3530.txt
 
 # -----
 
 comment "build options"
 	depends on NFSUTILS
+	depends on KERNEL
 
 config	NFSUTILS_V3
 	bool
 	prompt "Enable support for NFSv3"
 	depends on NFSUTILS
+	help
+	  Enable support for version 3 of the NFS protocol.
+	  Revision 3 of the NFS protocol addresses new
+	  requirements. The need to support larger files
+	  and file systems has prompted extensions to
+	  allow 64 bit file sizes and offsets. The revision
+	  enhances security by adding support for an access
+	  check to be done on the server.
+
+	  See RFC1813 for Details:
+	  http://www.ietf.org/rfc/rfc1813.txt
 
 config	NFSUTILS_SECURE_STATD
 	bool
