@@ -43,6 +43,7 @@ source "rules/host-cmake.in"
 source "rules/host-localedef.in"
 source "rules/host-fontconfig.in"
 source "rules/host-libxml2.in"
+source "rules/host-libxslt.in"
 
 comment "------------------------------"
 comment "Scripting Languages           "
