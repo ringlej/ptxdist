@@ -2,6 +2,8 @@ config IPROUTE2
 	bool
 	prompt "iproute2"
 	select DB44
+	# arpd.c:(.text+0x1428): undefined reference to `__db185_open'
+#	depends on BROKEN
 	help
 	  Iproute2 is a collection of utilities for
 	  controlling TCP/IP networking and traffic

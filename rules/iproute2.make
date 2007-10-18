@@ -17,9 +17,9 @@ PACKAGES-$(PTXCONF_IPROUTE2) += iproute2
 #
 # Paths and names
 #
-IPROUTE2_VERSION	:= 2.6.16-060323
+IPROUTE2_VERSION	:= 2.6.23
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
-IPROUTE2_SUFFIX		:= tar.gz
+IPROUTE2_SUFFIX		:= tar.bz2
 IPROUTE2_URL		:= http://developer.osdl.org/dev/iproute2/download/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_SOURCE		:= $(SRCDIR)/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_DIR		:= $(BUILDDIR)/$(IPROUTE2)
@@ -136,10 +136,6 @@ $(STATEDIR)/iproute2.targetinstall: $(iproute2_targetinstall_deps_default)
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/misc/ss, \
 		/usr/sbin/ss )
-
-	@$(call install_copy, iproute2, 0, 0, 0755, \
-		$(IPROUTE2_DIR)/tc/q_netem.so, \
-		/usr/lib/tc/q_netem.so )
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/normal.dist, \
