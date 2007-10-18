@@ -2,7 +2,19 @@ menuconfig PCMCIA_TOOLS
 	bool "PCMCIA Tools        "
 	depends on KERNEL_2_4
 	help
-	  FIXME: This item needs to be documented
+	  The Linux pcmcia-cs package is officially deprecated.
+	  It can only be used with 2.4 and older kernels. Current
+	  information on PCMCIA support for recent 2.6 kernels is
+	  available here.
+
+	  Card Services for Linux is a complete PCMCIA support package.
+	  It includes a set of loadable kernel modules that implement a
+	  version of the PCMCIA 2.1 Card Services applications program
+	  interface, a set of client drivers for specific cards, and a
+	  card manager daemon that can respond to card insertion and
+	  removal events, loading and unloading drivers on demand. It
+	  supports "hot swapping" of PCMCIA cards, so cards can be
+	  inserted and ejected at any time.
 
 config PCMCIA_TOOLS_CARDMGR
 	bool

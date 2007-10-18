@@ -4,12 +4,22 @@ menuconfig NMAP
 	select PCRE
 	select GCCLIBS_CXX
 	help
-	  FIXME: This item needs to be documented
+	  Nmap ("Network Mapper") is a utility for network exploration
+	  or security auditing. Many systems and network administrators
+	  also find it useful for tasks such as network inventory,
+	  managing service upgrade schedules, and monitoring host or
+	  service uptime.
 
 config NMAP_SERVICES
 	bool "Install nmap-services"
 	default y
 	depends on NMAP
 	help
-	  FIXME: This item needs to be documented
+	  This will install a set of nmap extensions, consisting of:
+	       nmap-os-fingerprints
+	       nmap-service-probes
+	       nmap-services
+	       nmap-protocols
+	       nmap-rpc
+
 

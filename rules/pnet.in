@@ -4,5 +4,13 @@ config PNET
 	select TREECC
 	depends on DOTGNU
 	help
-	  FIXME: This item needs to be documented
+	  DotGNU Portable.NET
+
+	  The goal of DotGNU Portable.NET is to build a
+	  suite of Free Software tools to compile and
+	  execute applications for the Common Language
+	  Infrastructure (CLI), which is often referred
+	  to as ".NET".
+
+
 

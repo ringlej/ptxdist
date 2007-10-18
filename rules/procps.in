@@ -22,7 +22,7 @@ config PROCPS_SLABTOP
 	prompt "slabtop"
 	depends on PROCPS
 	help
-	  FIXME: This item needs to be documented
+	  display kernel slab cache information in real time
 
 config PROCPS_SYSCTL
 	bool
@@ -30,7 +30,7 @@ config PROCPS_SYSCTL
 	depends on PROCPS
 	depends on !BB_CONFIG_SYSCTL
 	help
-	  FIXME: This item needs to be documented
+	  configure kernel parameters at runtime
 
 comment "sysctl is disabled by busybox sysctl"
 	depends on PROCPS
@@ -55,11 +55,11 @@ config PROCPS_W
 	prompt "w"
 	depends on PROCPS
 	help
-	  FIXME: This item needs to be documented
+	  Show who is logged on and what they are doing.
 
 config PROCPS_PGREP
 	bool
 	prompt "pgrep"
 	depends on PROCPS
 	help
-	  FIXME: This item needs to be documented
+	  look up processes based on name and other attributes

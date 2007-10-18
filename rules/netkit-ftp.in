@@ -1,8 +1,8 @@
 config NETKIT_FTP
 	bool
 	prompt "NetKit FTP client"
-	help 
-	  This is the ftp client from netkit 
+	help
+	  This is the ftp client from netkit
 	  See http://freshmeat.net/projects/netkit/ for details.
 
 	  License: BSD License (original)

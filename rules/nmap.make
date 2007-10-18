@@ -92,7 +92,7 @@ $(STATEDIR)/nmap.prepare: $(nmap_prepare_deps_default)
 
 nmap_compile: $(STATEDIR)/nmap.compile
 
-$(STATEDIR)/nmap.compile: $(nmap_compile_deps_default) 
+$(STATEDIR)/nmap.compile: $(nmap_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(NMAP_PATH) make -C $(NMAP_DIR) nmap
 	@$(call touch, $@)
@@ -141,9 +141,9 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-nmap_clean: 
-	rm -rf $(STATEDIR)/nmap.* 
-	rm -rf $(IMAGEDIR)/nmap_* 
+nmap_clean:
+	rm -rf $(STATEDIR)/nmap.*
+	rm -rf $(IMAGEDIR)/nmap_*
 	rm -rf $(NMAP_DIR)
 
 # vim: syntax=make

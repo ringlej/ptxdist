@@ -3,7 +3,8 @@ menuconfig PDKSH
 	prompt "pdksh [BROKEN]      "
 	depends on BROKEN
 	help
-	  FIXME: This item needs to be documented
+	  The Public Domain Korn Shell
+	  PD-ksh is a clone of the AT&T Korn shell.
 
 config PDKSH_SHLIKE
 	bool

@@ -8,4 +8,9 @@ config PEKWM
 	select GCCLIBS_CXX
 	prompt "pekwm"
 	help
-	  FIXME
+	  The Pek Window Manager is written by Claes Nästen, the code
+	  is based on the aewm++ window manager, but it has evolved
+	  enough that it no longer resembles aewm++ at all. It has a
+	  much expanded feature-set, including window grouping
+	  (similar to ion, pwm, or fluxbox), autoproperties, xinerama,
+	  keygrabber that supports keychains, and much more.

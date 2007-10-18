@@ -3,8 +3,8 @@ config NANO
 	select NCURSES
 	prompt "nano"
 	help
-	  nano  is a small, free and friendly editor which aims 
-	  to replace Pico. Rather than just copying Pico's look 
-	  and feel, nano also implements some missing (or disabled 
-	  by default) features in Pico, such as "search and 
+	  nano  is a small, free and friendly editor which aims
+	  to replace Pico. Rather than just copying Pico's look
+	  and feel, nano also implements some missing (or disabled
+	  by default) features in Pico, such as "search and
 	  replace" and "go to line number"

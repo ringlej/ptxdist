@@ -3,5 +3,5 @@ config PARANOIA
 	depends on BROKEN
 	prompt "paranoia [BROKEN]"
 	help
-	  FIXME: This item needs to bee documented
+	  Kahan's Floating Point Test "Paranoia"
 

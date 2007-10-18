@@ -3,4 +3,4 @@ config PENGUZILLA
 	prompt "Penguzilla                  "
 	depends on EXPERIMENTAL
 	help
-	  FIXME: This item needs to be documented
+	  Penguzilla is ... umm, use your imagination.

@@ -2,7 +2,13 @@ menuconfig PPP
 	bool
 	prompt "ppp                 "
 	help
-	  FIXME: This item needs to be documented
+	  Just like SLIP, PPP is a protocol to send
+	  datagrams across a serial connection, but
+	  addresses a couple of deficiencies of the
+	  former. It lets the communicating sides
+	  negotiate options such as the IP address
+	  and the maximum datagram size at startup
+	  time, and provides for client authorization.
 
 config PPP_MS_CHAP
 	bool

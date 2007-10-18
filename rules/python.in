@@ -6,5 +6,10 @@ config PYTHON23
 	select GLIBC_UTIL if GLIBC
 	select GCCLIBS_CXX
 	help
-	  FIXME: This item needs to be documented
+	  Python is a dynamic object-oriented programming
+	  language that can be used for many kinds of
+	  software development. It offers strong support
+	  for integration with other languages and tools,
+	  comes with extensive standard libraries, and
+	  can be learned in a few days.
 

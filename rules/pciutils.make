@@ -2,7 +2,7 @@
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -62,7 +62,7 @@ PCIUTILS_PATH	:=  PATH=$(CROSS_PATH)
 PCIUTILS_ENV 	:=  $(CROSS_ENV)
 
 PCIUTILS_ENV += PREFIX=/usr
-PCIUTILS_ENV += HOST=i686--linux 
+PCIUTILS_ENV += HOST=i686--linux
 PCIUTILS_ENV += RELEASE=2.6.15
 
 #
