@@ -2,6 +2,7 @@ menuconfig QTE
 	bool
 	prompt "QT Embedded           "
 	select HOST_QTE
+	depends on BROKEN
 	help
 	  FIXME: This item needs to be documented
 
