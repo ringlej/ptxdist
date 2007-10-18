@@ -95,8 +95,8 @@ CROSS_PATH := $(PTX_PREFIX_CROSS)/bin:$(PTX_PREFIX_CROSS)/sbin:$(PTX_PREFIX_HOST
 # same as PTXCONF_GNU_TARGET, but w/o -linux
 # e.g. i486 instead of i486-linux
 #
-SHORT_TARGET		:= `echo $(PTXCONF_GNU_TARGET) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
-SHORT_HOST		:= `echo $(GNU_HOST) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/'`
+SHORT_TARGET		:= $(shell echo $(PTXCONF_GNU_TARGET) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/')
+SHORT_HOST		:= $(shell echo $(GNU_HOST) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/')
 
 
 # ----------------------------------------------------------------------------
