@@ -335,7 +335,7 @@ check_dirs_prefix() {
 
 	rm ${testfile}
 
-	mkdir -p ${prefix}/{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
+	# mkdir -p ${prefix}/{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 }
 
 
@@ -347,7 +347,7 @@ check_dirs() {
 	local ptxconf_prefix ptxconf_prefix_host ptxconf_prefix_cross dir
 	local ptxconf_gnu_target testfile_upper testfile_lower i
 
-# prefix
+	# prefix
 	if [ -z "$PREFIX" ]; then
 		ptxconf_prefix="$(. ${PTXCONFIG} && echo ${PTXCONF_PREFIX})"
 	else
@@ -361,11 +361,11 @@ check_dirs() {
 		check_dirs_prefix "${dir}"
 	done
 
-# sysroot
+	# sysroot - keep in sync with rules/pre/Rules.make -> SYSROOT
 	ptxconf_gnu_target=$(. ${PTXCONFIG} && echo ${PTXCONF_GNU_TARGET})
-	mkdir -p ${ptxconf_prefix}/${ptxconf_gnu_target}/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
+	mkdir -p ${ptxconf_prefix}/sysroot/${ptxconf_gnu_target}/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 
-# builddirs
+	# builddirs
 	for i in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR} \
 		${STATEDIR} ${IMAGEDIR} ${ROOTDIR} ${ROOTDIR_DEBUG}; do
 		mkdir -p ${i}

@@ -78,7 +78,12 @@ CHECK_PIPE_STATUS = \
 #
 # SYSROOT is the directory stuff is being installed into on the host
 #
-SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/$(PTXCONF_GNU_TARGET))
+SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/sysroot/$(PTXCONF_GNU_TARGET))
+
+#
+# PKGDIR is the directory we install the packet sysroots and ipkgs into
+#
+PKGDIR := $(call remove_quotes,$(PTXCONF_PREFIX)/packages/$(PTXCONF_GNU_TARGET))
 
 #
 # prepare the search path
@@ -611,7 +616,7 @@ get_option_ext =									\
 #
 # FIXME: if we don't use --install=no we can make one packet.
 #
-# workflow: 
+# workflow:
 # - mangle all *.la files in $BUILDDIR
 # - make install to _standard_ SYSROOT (e.g. $PTXDIST_WORKSPACE/local/$ARCH/)
 # - again, mangle all *.la files in $BUILDDIR and reset libdir
@@ -620,6 +625,7 @@ get_option_ext =									\
 #
 install = \
 	BUILDDIR="$($(strip $(1))_DIR)";				\
+	PKG_PKGDIR="$(PKGDIR)/$($(strip $(1)))";			\
 	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
 	if [ "$(strip $(3))" = "h" ]; then				\
 		cd $$BUILDDIR &&					\
@@ -633,8 +639,8 @@ install = \
 		for FILE in `find $${BUILDDIR} -name "*.la" -type f`; do	\
 			if test -e $${FILE}; then			\
 				for DIR in /lib /usr/lib; do		\
-					sed -i -e "/dependency_libs/s:\( \)\($${DIR}\):\1$(SYSROOT)\2:g"		\
-						-e "/libdir/s:\(libdir='\)\($${DIR}\):\1$(SYSROOT)\2:g;" $$FILE;	\
+					sed -i -e "/^dependency_libs/s:\( \)\($${DIR}\):\1$(SYSROOT)\2:g"		\
+						-e "/^libdir/s:\(libdir='\)\($${DIR}\):\1$(SYSROOT)\2:g;" $$FILE;	\
 				done;					\
 			fi;						\
 		done;							\
@@ -649,28 +655,29 @@ install = \
 		for DIR in /lib /usr/lib; do				\
 			for FILE in `find $(SYSROOT)/$${DIR}/ -name "*.la"`; do						\
 				if test -e $${FILE}; then								\
-					sed -i -e "/dependency_libs/s:\( \)\($${DIR}\):\1$(SYSROOT)\2:g"		\
-						-e "/libdir/s:\(libdir='\)\($${DIR}\):\1$(SYSROOT)\2:g;" $$FILE;	\
+					sed -i -e "/^dependency_libs/s:\( \)\($${DIR}\):\1$(SYSROOT)\2:g"		\
+						-e "/^libdir/s:\(libdir='\)\($${DIR}\):\1$(SYSROOT)\2:g;" $$FILE;	\
 				fi;						\
 			done;							\
 		done;								\
-		mkdir -p $$BUILDDIR/PTXDIST_SYSROOT/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; \
+		mkdir -p $$PKG_PKGDIR/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; \
 		for FILE in `find $${BUILDDIR} -name "*.la" -type f`; do	\
 			if test -e $${FILE}; then				\
-				echo "DEBUG_BEFORE: $$FILE ->" ; grep libdir $$FILE;				\
-				sed -i -e "/libdir/s:$(SYSROOT):$$BUILDDIR/PTXDIST_SYSROOT:g;" $$FILE;		\
-				echo "DEBUG_AFTER : $$FILE ->" ; grep libdir $$FILE;				\
+				sed -i -e "/^libdir/s:$(SYSROOT):$$PKG_PKGDIR:g;" $$FILE;			\
 			fi;						\
 		done;							\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
+			LIBDIR=$(SYSROOT)				\
 			make install $(4)				\
 			$($(strip $(1))_MAKEVARS)			\
-			DESTDIR=$$BUILDDIR/PTXDIST_SYSROOT;"		\
+			DESTDIR=$$PKG_PKGDIR;"				\
 			| $(FAKEROOT) --;				\
 		$(CHECK_PIPE_STATUS)					\
 	fi;
+
+
 
 #
 # clean
@@ -868,7 +875,7 @@ install_copy = 											\
 		echo "  owner=$$OWN";								\
 		echo "  group=$$GRP";								\
 		echo "  permissions=$$PER";							\
-		$(INSTALL) -d $(IMAGEDIR)/$$PACKET/ipkg/$$SRC;					\
+		$(INSTALL) -d $(PKGDIR)/$$PACKET.tmp/ipkg/$$SRC;				\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
@@ -883,7 +890,7 @@ install_copy = 											\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		mkdir -p $(IMAGEDIR)/$$PACKET;							\
+		mkdir -p $(PKGDIR)/$$PACKET.tmp;						\
 		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;			\
 	else											\
 		echo "install_copy:";								\
@@ -892,8 +899,8 @@ install_copy = 											\
 		echo "  owner=$$OWN";								\
 		echo "  group=$$GRP";								\
 		echo "  permissions=$$PER"; 							\
-		rm -fr $(IMAGEDIR)/$$PACKET/ipkg/$$DST; 					\
-		$(INSTALL) -D $$SRC $(IMAGEDIR)/$$PACKET/ipkg/$$DST;				\
+		rm -fr $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST; 					\
+		$(INSTALL) -D $$SRC $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST;				\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
@@ -912,10 +919,10 @@ install_copy = 											\
 		(0 | n | no)									\
 			;;									\
 		(*)											\
-			$(BSD_FILE) $(IMAGEDIR)/$$PACKET/ipkg/$$DST | $(GREP) "not stripped";		\
+			$(BSD_FILE) $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST | $(GREP) "not stripped";		\
 				case "$$?" in								\
 				(0)									\
-				$(CROSS_STRIP) -R .note -R .comment $(IMAGEDIR)/$$PACKET/ipkg/$$DST;	\
+				$(CROSS_STRIP) -R .note -R .comment $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST;	\
 				if [ $$? -ne 0 ]; then							\
 					echo "Error: install_copy failed!";				\
 					exit 1;								\
@@ -932,7 +939,7 @@ install_copy = 											\
 				esac;									\
 			;;										\
 		esac;											\
-		mkdir -p $(IMAGEDIR)/$$PACKET;								\
+		mkdir -p $(PKGDIR)/$$PACKET.tmp;							\
 		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;				\
 	fi
 
@@ -967,8 +974,8 @@ install_alternative =									\
 	echo "  owner=$$OWN";								\
 	echo "  group=$$GRP";								\
 	echo "  permissions=$$PER"; 							\
-	rm -fr $(IMAGEDIR)/$$PACKET/ipkg/$$FILE; 					\
-	$(INSTALL) -D $$SRC $(IMAGEDIR)/$$PACKET/ipkg/$$FILE;				\
+	rm -fr $(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE; 					\
+	$(INSTALL) -D $$SRC $(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE;				\
 	if [ $$? -ne 0 ]; then								\
 		echo "Error: install_alternative failed!";				\
 		exit 1;									\
@@ -983,7 +990,7 @@ install_alternative =									\
 		echo "Error: install_alternative failed!";				\
 		exit 1;									\
 	fi;										\
-	mkdir -p $(IMAGEDIR)/$$PACKET;							\
+	mkdir -p $(PKGDIR)/$$PACKET.tmp;						\
 	echo "f:$$FILE:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;
 
 #
@@ -1002,9 +1009,9 @@ install_replace = \
 	FILE=$(strip $(2));									\
 	PLACEHOLDER=$(strip $(3));								\
 	VALUE=$(strip $(4));									\
-	if [ ! -f "$(IMAGEDIR)/$$PACKET/ipkg/$$FILE" ]; then 					\
+	if [ ! -f "$(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE" ]; then 					\
 		echo;										\
-		echo "install_replace: error: file not found: $(IMAGEDIR)/$$PACKET/ipkg/$$FILE";\
+		echo "install_replace: error: file not found: $(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE";\
 		echo;										\
 		exit 1;										\
 	fi;											\
@@ -1020,7 +1027,7 @@ install_replace = \
 		echo;										\
 		exit 1;										\
 	fi;											\
-	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(IMAGEDIR)/$$PACKET/ipkg/$$FILE;			\
+	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE;		\
 	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR)/$$FILE;				\
 	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR_DEBUG)/$$FILE;
 
@@ -1093,8 +1100,8 @@ install_link =									\
 	mkdir -p `dirname $(ROOTDIR_DEBUG)$$DST`;				\
 	$(LN) -sf $$SRC $(ROOTDIR)$$DST; 					\
 	$(LN) -sf $$SRC $(ROOTDIR_DEBUG)$$DST; 					\
-	mkdir -p `dirname $(IMAGEDIR)/$$PACKET/ipkg$$DST`;			\
-	$(LN) -sf $$SRC $(IMAGEDIR)/$$PACKET/ipkg/$$DST
+	mkdir -p `dirname $(PKGDIR)/$$PACKET.tmp/ipkg$$DST`;			\
+	$(LN) -sf $$SRC $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST
 
 #
 # install_node
@@ -1127,7 +1134,7 @@ install_node =				\
 	echo "  major=$$MAJ";		\
 	echo "  minor=$$MIN";		\
 	echo "  name=$$DEV";		\
-	mkdir -p $(IMAGEDIR)/$$PACKET;		\
+	mkdir -p $(PKGDIR)/$$PACKET.tmp;\
 	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(STATEDIR)/$$PACKET.perms
 
 #
@@ -1144,23 +1151,26 @@ install_fixup = 									\
 	REPLACE_FROM=$(strip $(2));							\
 	REPLACE_TO=$(strip $(3));							\
 	echo -n "install_fixup:  @$$REPLACE_FROM@ -> $$REPLACE_TO ... "; 		\
-	perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(IMAGEDIR)/$$PACKET/ipkg/CONTROL/control;	\
+	if [ "$$REPLACE_FROM" = "VERSION" ]; then					\
+		REPLACE_TO=$${REPLACE_TO}$(PTXCONF_PROJECT_BUILD);			\
+	fi;										\
+	perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control;	\
 	echo "done.";
 
 #
 # install_init
 #
-# Deletes $(IMAGEDIR)/$$PACKET/ipkg and prepares for new ipkg package creation
+# Deletes $(PKGDIR)/$$PACKET.tmp/ipkg and prepares for new ipkg package creation
 #
 # $1: packet label
 #
 install_init =										\
 	PACKET=$(strip $(1));								\
 	echo "install_init: preparing for image creation...";				\
-	rm -fr $(IMAGEDIR)/$$PACKET/*;							\
+	rm -fr $(PKGDIR)/$$PACKET.tmp/*;						\
 	rm -f $(STATEDIR)/$$PACKET.perms;						\
-	mkdir -p $(IMAGEDIR)/$$PACKET/ipkg/CONTROL; 					\
-	cp -f $(RULESDIR)/default.ipkg $(IMAGEDIR)/$$PACKET/ipkg/CONTROL/control;	\
+	mkdir -p $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL; 					\
+	cp -f $(RULESDIR)/default.ipkg $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control;	\
 	if [ -z $(PTXCONF_IMAGE_IPKG_ARCH) ]; then					\
 		echo "Error: please specify an architecure name for ipkg!";		\
 		exit -1;								\
@@ -1168,8 +1178,24 @@ install_init =										\
 	REPLACE_FROM="ARCH";								\
 	REPLACE_TO=$(PTXCONF_IMAGE_IPKG_ARCH);						\
 	echo -n "install_init:   @$$REPLACE_FROM@ -> $$REPLACE_TO ... ";	 	\
-	perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(IMAGEDIR)/$$PACKET/ipkg/CONTROL/control;	\
-	echo "done";
+	perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control;	\
+	echo "done"; \
+	for script in preinst postinst prerm postrm; do \
+		echo -n "install_init:   $$script "; \
+		if [ -f ${PTXDIST_WORKSPACE}/rules/$$PACKET.$$script ]; then \
+			$(INSTALL) -m 0755 \
+				-D ${PTXDIST_WORKSPACE}/rules/$$PACKET.$$script \
+				$(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/$$script; \
+			echo "found in project"; \
+		else if [ -f ${PTXDIST_TOPDIR}/rules/$$PACKET.script ]; then \
+			$(INSTALL) -m 0755 \
+				-D ${PTXDIST_TOPDIR}/rules/$$PACKET.$$script \
+				$(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/$$script; \
+			echo "found in ptxdist"; \
+		else \
+			echo "not available"; \
+		fi; fi; \
+	done
 
 #
 # install_finish
@@ -1183,17 +1209,17 @@ install_finish = 													\
 	PACKET=$(strip $(1));											\
 	if [ ! -f $(STATEDIR)/$$PACKET.perms ]; then								\
 		echo "Packet $$PACKET is empty. not generating";						\
-		rm -rf $(IMAGEDIR)/$$PACKET;									\
+		rm -rf $(PKGDIR)/$$PACKET.tmp;									\
 		exit 0;												\
 	fi;													\
 	echo -n "install_finish: creating package directory ... ";						\
-	(echo "pushd $(IMAGEDIR)/$$PACKET/ipkg;";								\
+	(echo "pushd $(PKGDIR)/$$PACKET.tmp/ipkg;";								\
 	$(AWK) -F: $(DOPERMISSIONS) $(STATEDIR)/$$PACKET.perms; echo "popd;"; 					\
 	echo -n "echo \"install_finish: packaging ipkg packet ... \"; ";					\
 	echo -n "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build "; 							\
-	echo    "$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(IMAGEDIR)/$$PACKET/ipkg $(IMAGEDIR)") |$(FAKEROOT) -- 2>&1;	\
+	echo    "$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(PKGDIR)/$$PACKET.tmp/ipkg $(PKGDIR)") |$(FAKEROOT) -- 2>&1;	\
 	$(CHECK_PIPE_STATUS)											\
-	rm -rf $(IMAGEDIR)/$$PACKET;										\
+	rm -rf $(PKGDIR)/$$PACKET.tmp;										\
 	echo "done.";
 
 #
@@ -1234,7 +1260,7 @@ install_autoinstall = 										\
 		STRIPFLAG="-i $(CROSS_STRIP)"; 						\
 		;;									\
 	esac;										\
-	$(SCRIPTSDIR)/make_targetinstall.sh -p "$$SRC" -o $$OWN -g $$GRP -r $$PER -n $$PACKET -f $$PACKNAME -t "$(PTXDIST_WORKSPACE)/build-target" -d "$(IMAGEDIR)/$$PACKET/ipkg" $$STRIPFLAG;			\
+	$(SCRIPTSDIR)/make_targetinstall.sh -p "$$SRC" -o $$OWN -g $$GRP -r $$PER -n $$PACKET -f $$PACKNAME -t "$(PTXDIST_WORKSPACE)/build-target" -d "$(PKGDIR)/$$PACKET.tmp/ipkg" $$STRIPFLAG;			\
 	if [ $$? -ne 0 ]; then								\
 		echo "Error: install_autoinstall failed!";				\
 		exit 1;									\
@@ -1249,7 +1275,7 @@ install_autoinstall = 										\
 		echo "Error: install_autoinstall failed!";				\
 		exit 1;									\
 	fi;										\
-	mkdir -p $(IMAGEDIR)/$$PACKET;							\
+	mkdir -p $(PKGDIR)/$$PACKET.tmp;						\
 
 # ----------------------------------------------------
 #  autogeneration of dependencies
