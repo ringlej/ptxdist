@@ -1,6 +1,10 @@
 config MEMTEST
-	bool 
+	bool
 	prompt "memtest"
 	help
-	  FIXME: This item needs to be documented
+	  Juan Quintela's Memory Test Suite
+
+	  This is one (small) test suite of programs that have triggered/trigger
+	  problems in the virtual memory system.  The idea is having a set of
+	  programs easy to set up and run to test the memory system.
 

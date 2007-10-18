@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions

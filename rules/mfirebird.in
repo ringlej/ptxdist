@@ -3,21 +3,26 @@ menuconfig MFIREBIRD
 	depends on EXPERIMENTAL
 	prompt "Mozilla Firefox             "
 	help
-	  FIXME: This item needs to be documented
+	  Mozilla Firefox 0.8
+	  The Browser, Reloaded
 
-config MFIREBIRD_CALENDAR
-	bool
-	prompt "Calender Client"
-	depends on MFIREBIRD
-	help
-	  FIXME: This item needs to be documented
+	  Mozilla Firefox is an award-winning preview of next
+	  generation browsing technology from mozilla.org.
+	  Mozilla Firefox empowers you to accomplish your online
+	  activities faster, more safely and efficiently than
+	  any other browser, period. Built with Tab browsing,
+	  popup blocking and a number of other seamless
+	  innovations, Mozilla Firefox stands out ahead.
 
-config MFIREBIRD_MAILNEWS
-	bool
-	prompt "Mail+News Client"
-	depends on MFIREBIRD
-	help
-	  FIXME: This item needs to be documented
+#config MFIREBIRD_CALENDAR
+#	bool
+#	prompt "Calender Client"
+#	depends on MFIREBIRD
+
+#config MFIREBIRD_MAILNEWS
+#	bool
+#	prompt "Mail+News Client"
+#	depends on MFIREBIRD
 
 #config MFIREBIRD_MAILNEWS_STATICBUILD
 #	bool
@@ -35,14 +40,19 @@ config MFIREBIRD_FREETYPE2
 	depends on MFIREBIRD
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  FreeType 2 is a software font engine that is
+	  designed to be small, efficient, highly
+	  customizable, and portable while capable of
+	  producing high-quality output (glyph images).
 
 config MFIREBIRD_XFT
 	bool
 	prompt "Xft support"
 	depends on MFIREBIRD
 	help
-	  FIXME: This item needs to be documented
+	  Xft is a simple library designed to interface
+	  the FreeType rasterizer with the X Rendering
+	  Extension.
 
 #config MFIREBIRD_POSTSCRIPT
 #	bool
@@ -114,12 +124,10 @@ config MFIREBIRD_XFT
 #	prompt "Plaintext editor only"
 #	depends on MFIREBIRD
 
-config MFIREBIRD_COMPOSER
-	bool
-	prompt "Composer"
-	depends on MFIREBIRD
-	help
-	  FIXME: This item needs to be documented
+#config MFIREBIRD_COMPOSER
+#	bool
+#	prompt "Composer"
+#	depends on MFIREBIRD
 
 #config MFIREBIRD_EXTENSIONS
 #	bool
@@ -181,7 +189,7 @@ config MFIREBIRD_DEBUG
 	prompt "Build with debug info"
 	depends on MFIREBIRD
 	help
-	  FIXME: This item needs to be documented
+	  Switches on debugging info generation during build
 
 config MFIREBIRD_OPTIMIZE
 	string
@@ -189,7 +197,8 @@ config MFIREBIRD_OPTIMIZE
 	depends on MFIREBIRD
 	default "-O"
 	help
-	  FIXME: This item needs to be documented
+	  Optimization during build, use as in this example:
+	      --enable-optimize="-O3 -mcpu=G5 -mtune=G5 -mpowerpc64"
 
 #config MFIREBIRD_BOEHM
 #	bool

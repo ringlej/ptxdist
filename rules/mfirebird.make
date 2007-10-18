@@ -1,9 +1,9 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>, 
+# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>,
 #                       Pengutronix e.K.<info@pengutronix.de>, Germany
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -258,7 +258,7 @@ endif
 #endif
 #
 #ifdef PTXCONF_MFIREBIRD_MATHML
-#MFIREBIRD_AUTOCONF	+= --enable-mathml 
+#MFIREBIRD_AUTOCONF	+= --enable-mathml
 #else
 #MFIREBIRD_AUTOCONF	+= --disable-mathml
 #endif
@@ -457,7 +457,7 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps_default)
 #	cp -a $(SYSROOT)/lib/mozilla-1.6/chrome $(ROOTDIR)/usr/lib/mozilla-1.6
 #	cp -a $(SYSROOT)/lib/mozilla-1.6/res $(ROOTDIR)/usr/lib/mozilla-1.6
 
-# BSP: Quick and ... 
+# BSP: Quick and ...
 	for file in $(SYSROOT)/lib/mozilla-1.6/*; do 			\
 		$(call install_copy, mfirebird, 0, 0, 0755, $$file, /usr/lib/)		\
 	done

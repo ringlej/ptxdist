@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2004 by Greg Brackley
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -10,7 +10,7 @@
 #
 #
 # The MADWIFI project doesn't have regular releases (yet). The easiest thing to do
-# is to get a CVS release. I found some release here 
+# is to get a CVS release. I found some release here
 # http://debian.isg.ee.ethz.ch/public/pool/madwifi/
 #
 # The FAQ http://www.mattfoster.clara.co.uk/madwifi-faq.htm is useful.

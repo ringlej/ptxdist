@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by BSP
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -98,7 +98,7 @@ mgetty_install: $(STATEDIR)/mgetty.install
 $(STATEDIR)/mgetty.install: $(mgetty_install_deps_default)
 	@$(call targetinfo, $@)
 	# don't run make install - there's nothing to install and
-	# mgetty's Makefile doesn't work for non-root 
+	# mgetty's Makefile doesn't work for non-root
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

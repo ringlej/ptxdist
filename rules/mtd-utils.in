@@ -2,130 +2,139 @@ menuconfig MTD_UTILS
 	bool "mtd-utils           "
 	select ZLIB
 	help
-	  FIXME: This item needs to be documented
+	  mtdutils is a set of utilities for doing low-level operations on flash devices.
 
 config MTD_UTILS_FLASH_ERASE
 	bool
 	prompt "flash_erase"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  erase parts of a MTD device
 
 config MTD_UTILS_FLASH_ERASEALL
 	bool
 	prompt "flash_eraseall"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  erase the whole of a MTD device
 
 config MTD_UTILS_FLASH_INFO
 	bool
 	prompt "flash_info"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  print info about a MTD device
 
 config MTD_UTILS_FLASH_LOCK
 	bool
 	prompt "flash_lock"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  This utility locks one or more sectors of flash device.
 
 config MTD_UTILS_FLASH_UNLOCK
 	bool
 	prompt "flash_unlock"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  This utility unlock all sectors of flash device.
 
 config MTD_UTILS_FLASHCP
 	bool
 	prompt "flashcp"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  Flash Copy - Written by Abraham van der Merwe
 
 config MTD_UTILS_FTL_CHECK
 	bool
 	prompt "ftl_check"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  Utility to check an FTL partition
 
 config MTD_UTILS_FTL_FORMAT
 	bool
 	prompt "ftl_format"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  Utility to create an FTL partition in a memory region
 
 config MTD_UTILS_JFFS2_DUMP
 	bool
 	prompt "jffs2_dump"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  This utility dumps the contents of a binary JFFS2 image
 
 #config MTD_UTILS_JFFS2READER
 #	bool
 #	prompt "jffs2reader"
 #	depends on MTD_UTILS
 #	help
-#	  FIXME: This item needs to be documented
+#	  A jffs2 image reader
 
 config MTD_UTILS_JITTERTEST
 	bool
 	prompt "jittertest"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  This program is used to measure what the jitter of a
+	  real time task would be under "standard" Linux.
+
+	  More particularly, what is the effect of running
+	  a real time task under Linux with background
+	  JFFS file system activity.
 
 config MTD_UTILS_MTDDEBUG
 	bool
 	prompt "mtd_debug"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  Does info, read, write and erase on mtd devices
 
 config MTD_UTILS_NANDDUMP
 	bool
 	prompt "nanddump"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  This utility dumps the contents of raw NAND chips or NAND
+	  chips contained in DoC devices.
 
 config MTD_UTILS_NANDWRITE
 	bool
 	prompt "nandwrite"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  This utility writes a binary image directly to a NAND flash
+	  chip or NAND chips contained in DoC devices. This is the
+	  "inverse operation" of nanddump.
 
 config MTD_UTILS_NFTL_FORMAT
 	bool
 	prompt "nftl_format"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  Creating a NFTL/INFTL partition on an MTD device
 
 config MTD_UTILS_NFTLDUMP
 	bool
 	prompt "nftldump"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  Dumping the content of NFTL partitions on a "Physical Disk"
 
 config MTD_UTILS_MKJFFS
 	bool
 	prompt "mkfs.jffs"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  Build a JFFS image in a file, from a given directory tree.
 
 config MTD_UTILS_MKJFFS2
 	bool
 	prompt "mkfs.jffs2"
 	depends on MTD_UTILS
 	help
-	  FIXME: This item needs to be documented
+	  Build a JFFS2 image in a file, from a given directory tree.
+

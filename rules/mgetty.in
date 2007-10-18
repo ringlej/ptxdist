@@ -1,7 +1,17 @@
 menuconfig MGETTY
 	bool "mgetty & sendfax    "
 	help
-	  FIXME: This item needs to be documented
+	  mgetty+sendfax is a reliable and proven fax send and receive solution.
+
+	  mgetty is a modem-aware getty. It supports modems with the Hayes AT
+	  command set and is especially designed for supporting modems that
+	  are used to send faxes and to dial out as well as dial in. These
+	  features are not required for a serial console.
+
+	  Sendfax is designed to be able to send exactly one fax (consisting
+	  of multiple pages) to exactly one fax machine, but it is usable from
+	  within shell scripts. Its input are pages in "g3" format, either
+	  created with ghostscript or with pbm2g3.
 
 config MGETTY_CONFIG
 	prompt "Name of policy.h file to be used"
@@ -27,7 +37,10 @@ config SENDFAX
 	default y
 	depends on MGETTY
 	help
-	  FIXME: This item needs to be documented
+	  Choose here if you want to install sendfax in addition
+	  to mgetty. If you only need mgetty for its getty
+	  functionality, but are not going to use faxes, you can
+	  opt to omit sendfax.
 
 config SENDFAX_SPOOL
 	bool
@@ -35,12 +48,21 @@ config SENDFAX_SPOOL
 	prompt "Install faxspooling programs"
 	depends on MGETTY
 	help
-	  FIXME: This item needs to be documented
+	  This will install
+	  /usr/bin/faxspool
+	  /usr/bin/faxrunq
+	  /usr/bin/faxq
+	  /usr/bin/faxrm
+	  /usr/bin/faxrunqd
+	  /usr/lib/mgetty+sendfax/faxq-helper
+
 
 config MGETTY_CALLBACK
 	prompt "Install callback program"
 	bool
 	depends on MGETTY
 	help
-	  FIXME: This item needs to be documented
+	  The callback utility of mgetty is able to call
+	  back after a login 'attempt' based on entries in
+	  /etc/mgetty+sendfax/login.conf
 

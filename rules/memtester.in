@@ -1,5 +1,5 @@
 config MEMTESTER
-	bool 
+	bool
 	prompt "memtester"
 	help
 	  Memory tester written by Charles Cazabon. See

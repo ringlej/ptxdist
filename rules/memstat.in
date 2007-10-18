@@ -2,5 +2,5 @@ config MEMSTAT
 	bool
 	prompt "memstat"
 	help
-	  memstat is a memory diagnose tool which lets you find
- 	  out which process uses how much virtual memory. 
+	  memstat is a memory diagnosis tool which lets you find
+ 	  out which process uses how much virtual memory.

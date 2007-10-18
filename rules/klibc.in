@@ -167,7 +167,7 @@ config KLIBC_DYNAMIC_LIB
 	bool
 	prompt "Shared library support"
 	help
-	  This adds the shared klibc.so to be used for dynamically linked commands. Its the
+	  This adds the shared klibc.so to be used for dynamically linked commands. It's the
 	  regular way to get smaller executables. It gets installed into /lib/klibc.so
 
 #comment "Select shared linked commands to install"
