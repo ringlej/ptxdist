@@ -287,7 +287,7 @@ libxml2_compile: $(STATEDIR)/libxml2.compile
 
 $(STATEDIR)/libxml2.compile: $(libxml2_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LIBXML2_DIR) && $(LIBXML2_PATH) make
+	cd $(LIBXML2_DIR) && $(LIBXML2_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
