@@ -105,7 +105,7 @@ XORG_LIB_X11_AUTOCONF	+= --disable-loadable-i18n
 endif
 
 ifdef PTXCONF_XORG_LIB_X11_CURSOR
-XORG_LIB_X11_AUTOCONF	+= --disable-loadable-xcursor
+XORG_LIB_X11_AUTOCONF	+= --enable-loadable-xcursor
 else
 XORG_LIB_X11_AUTOCONF	+= --disable-loadable-xcursor
 endif
