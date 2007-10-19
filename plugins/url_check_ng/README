@@ -1,0 +1,27 @@
+# new urlcheck version, which uses m2b environment
+# for faster processing. This will speed up processing
+# ( ~about 30 seconds to 5 minutes ).
+
+Usage: main OPTIONS
+
+    --help, -h                  this help
+    --check-all, -a             check ALL packages
+
+plugins/url_check_ng/main checks the availability of all
+needed source packages for the current project configuration.
+By default, packages will only be checked, if the
+corresponding switch in ptxdistrc is set to "y" (enabled
+in 'ptxdist menuconfig')
+
+Usage:
+
+<full_path>/plugins/url_check_ng/main [--help | --check-all ]
+
+OR
+
+user@host:YourPTXdistProject$ ptxdist make plugin-url_check_ng
+
+PTXdist will will try to find the plugin in
+a) $PTXDIST_WORKSPACE/plugins
+b) $PTXDIST_TOPDIR/plugins
+
