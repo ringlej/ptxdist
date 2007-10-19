@@ -57,7 +57,8 @@ $(STATEDIR)/bash.extract: $(bash_extract_deps_default)
 bash_prepare: $(STATEDIR)/bash.prepare
 
 BASH_AUTOCONF	= $(CROSS_AUTOCONF_ROOT) \
-	--disable-sanity-checks
+	--disable-sanity-checks \
+	--datadir=/usr/share
 BASH_PATH	=  PATH=$(CROSS_PATH)
 BASH_ENV	=  $(CROSS_ENV) \
 	ac_cv_func_setvbuf_reversed=no \
@@ -203,7 +204,7 @@ bash_compile: $(STATEDIR)/bash.compile
 
 $(STATEDIR)/bash.compile: $(bash_compile_deps_default) 
 	@$(call targetinfo, $@)
-	cd $(BASH_DIR) && $(BASH_PATH) make
+	cd $(BASH_DIR) && $(BASH_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
