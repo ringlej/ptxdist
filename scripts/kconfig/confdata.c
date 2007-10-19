@@ -311,11 +311,8 @@ int conf_write(const char *name)
 	fprintf(out, _("#\n"
 		       "# Automatically generated make config: don't edit\n"
 		       "# %s version: %s\n"
-		       "%s%s"
 		       "#\n"),
-		     getenv("PROJECT"), getenv("FULLVERSION"),
-		     use_timestamp ? "# " : "",
-		     use_timestamp ? ctime(&now) : "");
+		     getenv("PROJECT"), getenv("FULLVERSION"));
 	if (out_h)
 		fprintf(out_h, "/*\n"
 			       " * Automatically generated C config: don't edit\n"
