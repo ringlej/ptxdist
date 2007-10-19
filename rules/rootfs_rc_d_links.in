@@ -49,7 +49,7 @@ config ROOTFS_ETC_INITD_CHRONY_LINK
 	default "S03_chrony"
 	help
 	  Set a link into /etc/rc.d which points to /etc/init.d/chrony to
-	  start chronyd ntp client/server when system starts. Keep this 
+	  start chronyd ntp client/server when system starts. Keep this
 	  entry empty if you do not want to start this service automatically.
 
 config ROOTFS_ETC_INITD_NFS_LINK

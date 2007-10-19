@@ -4,15 +4,14 @@ menuconfig QTE
 	select HOST_QTE
 	depends on BROKEN
 	help
-	  FIXME: This item needs to be documented
-
+	  Qt/Embedded, the embedded Linux port of Qt, is a
+	  complete and self-contained C++ GUI and platform
+	  development tool for Linux-based embedded development.
 
 config QTE_SHARED
 	bool
 	prompt "Build shared QT/E library"
 	depends on QTE
-	help
-	  FIXME: This item needs to be documented
 
 config QTE_TSLIB
 	bool
@@ -20,19 +19,28 @@ config QTE_TSLIB
 	depends on QTE
 	select TSLIB
 	help
-	  FIXME: This item needs to be documented
+	  Tslib is an abstraction layer for touchscreen panel
+	  events, as well as a filter stack for the manipulation
+	  of those events.
 
 config QTE_THREAD
 	bool
 	prompt "Build QT/E library with threading support"
 	depends on QTE
-	help
-	  FIXME: This item needs to be documented
 
 config QTE_STL
 	bool
 	prompt "Build QT/E library with STL support"
 	depends on QTE
 	help
-	  FIXME: This item needs to be documented
-
+	  The STL option will make it possible for you to use STL
+	  code in your Qt code. In addition the Qt template
+	  classes will support APIs that make it easy to convert
+	  from and to STL types.
+	  If you want to use stl in a non Qt sentence, then you
+	  don't need to enable this option, but it would be wise
+	  to do CONFIG+=stl in your .profile as this turns it on
+	  in the compiler if necessary. Visual C++ needs stl to
+	  be turned on in your .pro file for example, otherwise
+	  it will issue a lot of warnings that mention the -GX
+	  option.

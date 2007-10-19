@@ -7,14 +7,14 @@ config SYSFSUTILS_LIB
 	default y
 	depends on SYSFSUTILS
 	help
-	  Sysfs is a virtual file system in Linux kernel 
-	  2.5+ that provides a tree of system devices. 
+	  Sysfs is a virtual file system in Linux kernel
+	  2.5+ that provides a tree of system devices.
 
 config SYSFSUTILS_SYSTOOL
 	bool
 	prompt "install sysfs systool"
 	depends on SYSFSUTILS
 	help
-	  Enable this tio get the program 'systool' 
-	  to query sysfs entries: it can list devices 
+	  Enable this tio get the program 'systool'
+	  to query sysfs entries: it can list devices
 	  by bus, class, and topology.

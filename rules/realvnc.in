@@ -2,6 +2,10 @@ menuconfig REALVNC
 	bool "realvnc [BROKEN]      "
 	select ZLIB
 	depends on BROKEN
+	help
+	  RealVNC provides remote control software which
+	  lets you see and interact with desktop
+	  applications across any network.
 
 config REALVNC_SERVER
 	bool

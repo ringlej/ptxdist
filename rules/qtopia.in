@@ -3,8 +3,8 @@ menuconfig QTOPIA
         select TSLIB if QTOPIA_TSLIB
         prompt "QTopia Core           "
 	help
-	  QTopia Core is Trolltech's Widget Library formerly known as 
-	  QT Embedded. 
+	  QTopia Core is Trolltech's Widget Library formerly known as
+	  QT Embedded.
 
 config QTOPIA_SHARED
 	bool

@@ -10,7 +10,10 @@ menuconfig SDL
         select XORG_LIB_XVMC if SDL_X11
         select XORG_LIB_XINERAMA if SDL_X11
 	help
-	  FIXME
+	  Simple DirectMedia Layer is a cross-platform multimedia
+	  library designed to provide low level access to audio,
+	  keyboard, mouse, joystick, 3D hardware via OpenGL, and
+	  2D video framebuffer.
 
 config SDL_NASM
         bool
@@ -73,7 +76,10 @@ config SDL_OSS
         prompt "SDL OSS Support"
         depends on SDL_AUDIO
         help
-          FIXME
+          Open Sound System (OSS) is the first attempt in
+	  unifying the digital audio architecture for UNIX.
+	  OSS is a set of device drivers that provide a
+	  uniform API across all the major UNIX architectures.
 
 config SDL_ALSA
         bool
@@ -81,7 +87,9 @@ config SDL_ALSA
         depends on SDL_AUDIO
 	select ALSA_LIB
         help
-          FIXME
+          The Advanced Linux Sound Architecture (ALSA)
+	  provides audio and MIDI functionality to the
+	  Linux operating system.
 
 config SDL_ALSA_SHARED
         bool
@@ -97,7 +105,7 @@ config SDL_ESD
         depends on SDL_AUDIO
 	depends on BROKEN
         help
-          FIXME
+          ESound Audio Daemon
 
 config SDL_ESD_SHARED
         bool
@@ -112,7 +120,8 @@ config SDL_ARTS
         prompt "SDL Arts Support"
         depends on SDL_AUDIO
         help
-          FIXME
+          SDL-arts is a plugin for the SDL library that allows
+	  it to output sound using the aRts sound daemon
 
 config SDL_ARTS_SHARED
         bool
@@ -127,7 +136,9 @@ config SDL_NAS
         prompt "SDL NAS Support"
         depends on SDL_AUDIO
         help
-          FIXME
+          The Network Audio System is a network transparent,
+	  client/server audio transport system. It can be
+	  described as the audio equivalent of an X server.
 
 config SDL_DISKAUDIO
         bool
@@ -149,42 +160,51 @@ config SDL_NANOX
         depends on SDL_VIDEO
 	depends on BROKEN
         help
-          FIXME
+          The Nano-X Window System is an Open Source project
+	  aimed at bringing the features of modern graphical
+	  windowing environments to smaller devices and platforms.
 
 config SDL_XORG
         bool
         prompt "Xorg Support"
         depends on SDL_VIDEO
         help
-          FIXME
+          X.Org provides an open source implementation of the
+	  X Window System.
 
 config SDL_FBCON
         bool
-        prompt "SDL Disk Audio Support"
+        prompt "SDL fbcon support"
         depends on SDL_VIDEO
         help
-          FIXME
+          Framebuffer console
 
 config SDL_DIRECTFB
         bool
         prompt "DirectFB Support"
         depends on SDL_VIDEO
         help
-          FIXME
+          DirectFB is a thin library that provides hardware
+	  graphics acceleration, input device handling and
+	  abstraction, integrated windowing system with support
+	  for translucent windows and multiple display layers,
+	  not only on top of the Linux Framebuffer Device.
 
 config SDL_AALIB
         bool
         prompt "AALib Support"
         depends on SDL_VIDEO
         help
-          FIXME
+          AAlib is an portable ascii art GFX library.
 
 config SDL_OPENGL
         bool
         prompt "OpenGL Support"
         depends on SDL_VIDEO
         help
-          FIXME
+          OpenGL is a multi-platform software interface to
+	  graphics hardware, supporting rendering and imaging
+	  operations.
 
 config SDL_EVENT
         bool
@@ -213,14 +233,14 @@ menuconfig SDL_THREADS
         prompt "SDL Thread Support"
         depends on SDL
         help
-          FIXME
+          Turn on multithreading support
 
 config SDL_PTH
         bool
         prompt "PTH Support"
         depends on SDL_THREADS
         help
-          FIXME
+          Turn on support for GNU Portable Threads
 
 source "rules/sdl_image.in"
 

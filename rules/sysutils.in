@@ -6,12 +6,12 @@ config SYSUTILS_LSBUS
 	prompt "  install lsbus"
 	depends on SYSUTILS
 	help
-	  FIXME: This item needs to be documented
+	  lsbus: a small application to query system bus information.
 
 config SYSUTILS_SYSTOOL
 	bool
 	prompt "  install systool"
 	depends on SYSUTILS
 	help
-	  FIXME: This item needs to be documented
+	  systool: an application to view system device information by bus, class, and topology.
 

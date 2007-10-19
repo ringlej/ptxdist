@@ -21,56 +21,61 @@ config SYSVINIT_SHUTDOWN
 	prompt "shutdown"
 	depends on SYSVINIT
 	help
-	  FIXME: This item needs to be documented
+	  shutdown is called by halt and reboot to perform the necesary action
 
 config SYSVINIT_RUNLEVEL
 	bool
 	prompt "runlevel"
 	depends on SYSVINIT
 	help
-	  FIXME: This item needs to be documented
+	  This tool is used to switch to another runlevel.
 
 config SYSVINIT_KILLALL5
 	bool
 	prompt "killall5"
 	depends on SYSVINIT
 	help
-	  FIXME: This item needs to be documented
+	  killall5 is the SystemV killall command. It sends a signal to all
+	  processes except the processes in its own session, so it won't
+	  kill the shell that is running the script it was called from.
+	  Its primary (only) use is in the rc scripts found in the
+	  /etc/init.d directory.
 
 config SYSVINIT_SULOGIN
 	bool
 	prompt "sulogin"
 	depends on SYSVINIT
 	help
-	  FIXME: This item needs to be documented
+	  Single-user login
 
 config SYSVINIT_BOOTLOGD
 	bool
 	prompt "bootlogd"
 	depends on SYSVINIT
 	help
-	  FIXME: This item needs to be documented
+	  Bootlogd runs in the background and copies all strings sent to
+	  the /dev/console device to a logfile.
 
 config SYSVINIT_WALL
 	bool
 	prompt "wall"
 	depends on SYSVINIT
 	help
-	  FIXME: This item needs to be documented
+	  wall - write a message to users
 
 config SYSVINIT_LAST
 	bool
 	prompt "last"
 	depends on SYSVINIT
 	help
-	  FIXME: This item needs to be documented
+	  last - show listing of last logged in users
 
 config SYSVINIT_MESG
 	bool
 	prompt "mesg"
 	depends on SYSVINIT
 	help
-	  FIXME: This item needs to be documented
+	  mesg - control write access to your terminal
 
 config SYSVINIT_BSDINIT
 	bool

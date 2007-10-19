@@ -10,7 +10,7 @@ choice
 	config SQLITE_ISO8859
 		bool
  		prompt "ISO8859"
-    
+
 	config SQLITE_UTF8
 		bool
  		prompt "UTF-8"
@@ -22,7 +22,7 @@ config SQLITE_DISABLE_LFS
 	depends on SQLITE
 
 config SQLITE_THREADSAFE
-	bool 
+	bool
 	prompt "Safe for use within a multi-threaded program"
 	depends on SQLITE
 

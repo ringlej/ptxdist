@@ -3,6 +3,6 @@ config SMTPCLIENT
 	prompt "smtpclient"
 	default n
 	help
-	  smtpclient is a small program which can be used to send emails. 
-	  Unfortunately it disappeared from www.engelschall.com, so we 
-	  put it on the Pengutronix web server for now. 
+	  smtpclient is a small program which can be used to send emails.
+	  Unfortunately it disappeared from www.engelschall.com, so we
+	  put it on the Pengutronix web server for now.

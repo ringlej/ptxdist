@@ -168,7 +168,7 @@ menuconfig SAMBA
 		prompt "Samba client"
 		help
 		  Installs some client components of the Samba suite.
-	
+
 	config SAMBA_LIBCLIENT
 		bool
 		depends on SAMBA
