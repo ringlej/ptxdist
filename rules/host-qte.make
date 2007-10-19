@@ -80,14 +80,14 @@ HOST_QTE_CONF := -prefix=$(PTXCONF_PREFIX) \
 	-no-cups \
 	-no-stl \
 	-no-qvfb
- 
+
 
 $(STATEDIR)/host-qte.prepare: $(host-qte_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_QTE_DIR)/config.cache)
 	cd $(HOST_QTE_DIR) && \
 		echo yes | $(HOST_QTE_PATH) $(HOST_QTE_ENV) \
- 		./configure $(HOST_QTE_AUTOCONF)
+		./configure $(HOST_QTE_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -98,8 +98,8 @@ host-qte_compile: $(STATEDIR)/host-qte.compile
 
 $(STATEDIR)/host-qte.compile: $(host-qte_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_QTE_DIR) && $(HOST_QTE_ENV) $(HOST_QTE_PATH) make sub-src
-	cd $(HOST_QTE_DIR)/tools/designer/uic && $(HOST_QTE_ENV) $(HOST_QTE_PATH) make
+	cd $(HOST_QTE_DIR) && $(HOST_QTE_ENV) $(HOST_QTE_PATH) $(MAKE) sub-src $(PARALLELMFLAGS)
+	cd $(HOST_QTE_DIR)/tools/designer/uic && $(HOST_QTE_ENV) $(HOST_QTE_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
