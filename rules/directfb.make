@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
-# Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006, 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,10 +17,9 @@ PACKAGES-$(PTXCONF_DIRECTFB) += directfb
 #
 # Paths and names
 #
-DIRECTFB_VERSION	:= 1.0.0
+DIRECTFB_VERSION	:= 1.0.1
 DIRECTFB		:= DirectFB-$(DIRECTFB_VERSION)
 DIRECTFB_SUFFIX		:= tar.gz
-DIRECTFB_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(DIRECTFB).$(DIRECTFB_SUFFIX)
 DIRECTFB_URL		:= http://www.directfb.org/downloads/Core/$(DIRECTFB).$(DIRECTFB_SUFFIX)
 DIRECTFB_SOURCE		:= $(SRCDIR)/$(DIRECTFB).$(DIRECTFB_SUFFIX)
 DIRECTFB_DIR		:= $(BUILDDIR)/$(DIRECTFB)
@@ -85,6 +84,7 @@ endif
 DIRECTFB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-osx \
+	--disable-x11 \
 	--disable-network \
 	--disable-multi \
 	--disable-voodoo \
@@ -175,22 +175,22 @@ $(STATEDIR)/directfb.targetinstall:
 	@$(call install_fixup,directfb,DESCRIPTION,missing)
 
 	@$(call install_copy, directfb, 0, 0, 0644, \
-		$(DIRECTFB_DIR)/src/.libs/libdirectfb-1.0.so.0.0.0, \
-		/usr/lib/libdirectfb-1.0.so.0.0.0)
-	@$(call install_link, directfb, libdirectfb-1.0.so.0.0.0, /usr/lib/libdirectfb-1.0.so.0)
-	@$(call install_link, directfb, libdirectfb-1.0.so.0.0.0, /usr/lib/libdirectfb.so)
+		$(DIRECTFB_DIR)/src/.libs/libdirectfb-1.0.so.0.1.0, \
+		/usr/lib/libdirectfb-1.0.so.0.1.0)
+	@$(call install_link, directfb, libdirectfb-1.0.so.0.1.0, /usr/lib/libdirectfb-1.0.so.0)
+	@$(call install_link, directfb, libdirectfb-1.0.so.0.1.0, /usr/lib/libdirectfb.so)
 
 	@$(call install_copy, directfb, 0, 0, 0644, \
-		$(DIRECTFB_DIR)/lib/fusion/.libs/libfusion-1.0.so.0.0.0, \
-		/usr/lib/libfusion-1.0.so.0.0.0)
-	@$(call install_link, directfb, libfusion-1.0.so.0.0.0, /usr/lib/libfusion-1.0.so.0)
-	@$(call install_link, directfb, libfusion-1.0.so.0.0.0, /usr/lib/libfusion.so)
+		$(DIRECTFB_DIR)/lib/fusion/.libs/libfusion-1.0.so.0.1.0, \
+		/usr/lib/libfusion-1.0.so.0.1.0)
+	@$(call install_link, directfb, libfusion-1.0.so.0.1.0, /usr/lib/libfusion-1.0.so.0)
+	@$(call install_link, directfb, libfusion-1.0.so.0.1.0, /usr/lib/libfusion.so)
 
 	@$(call install_copy, directfb, 0, 0, 0644, \
-		$(DIRECTFB_DIR)/lib/direct/.libs/libdirect-1.0.so.0.0.0, \
-		/usr/lib/libdirect-1.0.so.0.0.0)
-	@$(call install_link, directfb, libdirect-1.0.so.0.0.0, /usr/lib/libdirect-1.0.so.0)
-	@$(call install_link, directfb, libdirect-1.0.so.0.0.0, /usr/lib/libdirect.so)
+		$(DIRECTFB_DIR)/lib/direct/.libs/libdirect-1.0.so.0.1.0, \
+		/usr/lib/libdirect-1.0.so.0.1.0)
+	@$(call install_link, directfb, libdirect-1.0.so.0.1.0, /usr/lib/libdirect-1.0.so.0)
+	@$(call install_link, directfb, libdirect-1.0.so.0.1.0, /usr/lib/libdirect.so)
 
 
 	@$(call install_copy, directfb, 0, 0, 0644, \
@@ -207,10 +207,10 @@ ifdef PTXCONF_DIRECTFB_WM_UNIQUE
 		/usr/lib/directfb-1.0-0/wm/libdirectfbwm_unique.so)
 
 	@$(call install_copy, directfb, 0, 0, 0644, \
-		$(DIRECTFB_DIR)/wm/unique/.libs/libuniquewm-1.0.so.0.0.0, \
-		/usr/lib/libuniquewm-1.0.so.0.0.0)
-	@$(call install_link, directfb, libuniquewm-1.0.so.0.0.0, /usr/lib/libuniquewm-1.0.so.0)
-	@$(call install_link, directfb, libuniquewm-1.0.so.0.0.0, /usr/lib/libuniquewm.so)
+		$(DIRECTFB_DIR)/wm/unique/.libs/libuniquewm-1.0.so.0.1.0, \
+		/usr/lib/libuniquewm-1.0.so.0.1.0)
+	@$(call install_link, directfb, libuniquewm-1.0.so.0.1.0, /usr/lib/libuniquewm-1.0.so.0)
+	@$(call install_link, directfb, libuniquewm-1.0.so.0.1.0, /usr/lib/libuniquewm.so)
 endif
 
 ifdef PTXCONF_DIRECTFB_IMAGE_PNG
