@@ -58,12 +58,12 @@ $(STATEDIR)/dbus.extract: $(dbus_extract_deps_default)
 dbus_prepare: $(STATEDIR)/dbus.prepare
 
 DBUS_PATH := PATH=$(CROSS_PATH)
-
 DBUS_ENV := \
 	$(CROSS_ENV) \
 	ac_cv_have_abstract_sockets=yes
+
 ifdef PTXCONF_DBUS_X
-DBUS_ENV += ac_cv_have_x="have_x=yes ac_x_includes=$(SYSROOT)/usr/X11R6/include ac_x_libraries=$(SYSROOT)/usr/X11R6/lib"
+DBUS_ENV += ac_cv_have_x="have_x=yes ac_x_includes=$(SYSROOT)/usr/include ac_x_libraries=$(SYSROOT)/usr/lib"
 endif
 
 #
@@ -74,8 +74,9 @@ DBUS_AUTOCONF := \
 	--enable-abstract-sockets=yes \
 	--localstatedir=/var \
 	--with-dbus-user=$(PTXCONF_DBUS_USER)
+
 ifdef PTXCONF_DBUS_X
-DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr/X11R6
+DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr
 else
 DBUS_AUTOCONF += --without-x
 endif
@@ -96,7 +97,7 @@ dbus_compile: $(STATEDIR)/dbus.compile
 
 $(STATEDIR)/dbus.compile: $(dbus_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(DBUS_DIR) && $(DBUS_PATH) $(MAKE)
+	cd $(DBUS_DIR) && $(DBUS_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
