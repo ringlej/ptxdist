@@ -190,7 +190,7 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps_default)
 
 	cd $(QTE_DIR) && \
 		echo yes | $(QTE_PATH) $(QTE_ENV) \
- 		./configure $(QTE_AUTOCONF)
+		./configure $(QTE_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
