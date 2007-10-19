@@ -3,5 +3,5 @@ config XORG_LIB_OLDX
 	prompt "liboldX"
 	select XORG_LIB_X11
 	help
-	  FIXME
+	  liboldX - X version 10 backwards compatibility
 

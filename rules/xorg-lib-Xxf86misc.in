@@ -7,4 +7,4 @@ config XORG_LIB_XXF86MISC
 	select XORG_LIB_XEXT
 	select XORG_LIB_X11
 	help
-	  FIXME
+	  X11 XFree86 miscellaneous extension library

@@ -6,4 +6,6 @@ config XORG_LIB_XEXT
 	select XORG_PROTO_XEXT
 	select XORG_LIB_XAU
 	help
-	  FIXME
+	  The X Extensions library provides mechanisms that
+	  were not provided in the core protocol in Xlib.
+

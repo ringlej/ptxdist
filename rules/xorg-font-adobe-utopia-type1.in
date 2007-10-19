@@ -4,4 +4,4 @@ config XORG_FONT_ADOBE_UTOPIA_TYPE1
 	depends on XORG_FONT_TYPE1
 	prompt "Adobe Utopia type1"
 	help
-	  FIXME
+	  adobe utopia fonts, in type1 format

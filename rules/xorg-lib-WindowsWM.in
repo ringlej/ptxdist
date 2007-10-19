@@ -6,5 +6,5 @@ config XORG_LIB_WINDOWSWM
 	select XORG_PROTO_WINDOWSWM
 	prompt "libWindowsWM"
 	help
-	  FIXME
+	  The WindowsWM Library
 

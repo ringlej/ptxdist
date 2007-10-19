@@ -4,4 +4,6 @@ config XORG_DRIVER_INPUT_VOID
 	select XORG_SERVER
 	prompt "void"
 	help
-	  FIXME
+	  This package provides the void input driver, which
+	  never actually registers any input events -- it is,
+	  as such, a 'fake' driver.

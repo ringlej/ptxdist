@@ -7,4 +7,6 @@ config XORG_LIB_XTRAP
 	select XORG_LIB_XEXT
 	select XORG_PROTO_XEXT
 	help
-	  FIXME
+	  libXTrap provides an interface to the DEC-XTRAP
+	  extension, which allows for capture and synthesis
+	  of core input events.

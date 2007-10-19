@@ -2,5 +2,7 @@ config XORG_LIB_XTRANS
 	bool
 	prompt "xtrans"
 	help
-	  FIXME
+	  code for a network API translation layer to insulate X
+	  applications and libraries from OS network vagaries
+
 

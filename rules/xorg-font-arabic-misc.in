@@ -3,4 +3,13 @@ config XORG_FONT_ARABIC_MISC
 	select XORG_FONTS
 	prompt "Arabic misc."
 	help
-	  FIXME
+	  This is a 100dpi, 24 point (approximately) font that is meant to act as
+	  an example of what glyphs are needed to minimally support (almost) all
+	  of the Arabic characters available in Unicode.
+
+	  The encoding of this font is the encoding of Arabic from Unicode 2.0
+	  with the addition of some contextual forms and some other convenient
+	  glyphs that do not exist in Unicode.  An additional file, "uniarab.txt",
+	  has been provided to describe the encoding of the extra contextual
+	  glyphs.
+

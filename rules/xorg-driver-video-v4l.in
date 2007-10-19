@@ -8,5 +8,5 @@ config XORG_DRIVER_VIDEO_V4L
 	select XORG_PROTO_FONTS
 	prompt "Video for Linux v4l"
 	help
-	  FIXME
+	  X.Org X server -- Video 4 Linux display driver.
 

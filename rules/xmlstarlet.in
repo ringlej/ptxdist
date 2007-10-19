@@ -10,7 +10,7 @@ config XMLSTARLET
 	  plain text files using UNIX grep, sed, awk, diff, patch, join, etc
 	  commands.
 
-	  For more details see the project web page: 
+	  For more details see the project web page:
 
 		http://xmlstar.sourceforge.net/
 

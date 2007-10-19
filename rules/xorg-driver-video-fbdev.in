@@ -5,4 +5,4 @@ config XORG_DRIVER_VIDEO_FBDEV
 	select XORG_PROTO_FONTS
 	prompt "FBDev"
 	help
-	  FIXME
+	  fbdev is a driver for framebuffer devices.

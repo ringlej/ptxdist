@@ -5,4 +5,4 @@ config XORG_DRIVER_VIDEO_DUMMY
 	select XORG_PROTO_FONTS
 	prompt "Dummy"
 	help
-	  FIXME
+	  This package contains the X.Org xf86-video-dummy driver.

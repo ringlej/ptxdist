@@ -5,4 +5,8 @@ config XORG_LIB_XXF86DGA
 	select XORG_LIB_XEXT
 	select XORG_PROTO_XF86DGA
 	help
-	  FIXME
+	  libXxf86dga provides the XFree86-DGA extension,
+	  which allows direct graphics access to a
+	  framebuffer-like region, and also allows
+	  relative mouse reporting, et al. It is mainly
+	  used by games and emulators for games.

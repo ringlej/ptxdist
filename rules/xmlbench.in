@@ -2,4 +2,8 @@ menuconfig XMLBENCH
 	depends on BROKEN
 	bool
 	prompt "xmlbench [BROKEN]"
+	help
+	  xmlbench provides benchmarking toolset for all
+	  available multiplatform C/C++ (and some Java)
+	  XML parsers.
 

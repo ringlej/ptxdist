@@ -7,4 +7,6 @@ config XORG_LIB_XVMC
 	select XORG_PROTO_XEXT
 	select XORG_PROTO_VIDEO
 	help
-	  FIXME
+	  libXvMC provides an X Window System client
+	  interface to the XVideo-MotionCompensation
+	  extension to the X protocol.

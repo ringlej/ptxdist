@@ -4,7 +4,7 @@ config XORG_FONT_ADOBE_UTOPIA_100DPI
 	depends on XORG_FONT_100DPI
 	prompt "Adobe Utopia 100dpi"
 	help
-	  adobe utopia fonts, containing Utopia Regular, 
+	  adobe utopia fonts, containing Utopia Regular,
 	  Utopia Italic, Utopia Bold and Utopia Bold Italic.
 	  This package contains only fonts in the ISO 10646-1,
 	  ISO 8859-1 and ISO 8859-15 encodings

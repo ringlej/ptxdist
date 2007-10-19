@@ -5,4 +5,7 @@ config XORG_DRIVER_INPUT_MOUSE
 	select XORG_SERVER
 	prompt "Mouse"
 	help
-	  FIXME
+	  mouse  is  an  Xorg  input driver for mice.
+	  The driver supports most available mouse types and interfaces.
+	  USB mice are only supported on some OSs, and the level of support
+	  for PS/2 mice depends on the OS.

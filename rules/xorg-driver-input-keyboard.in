@@ -8,4 +8,4 @@ config XORG_DRIVER_INPUT_KEYBOARD
 	select XORG_PROTO_KB
 	select XORG_SERVER
 	help
-	  FIXME
+	  kbd is an Xorg input driver for keyboards.

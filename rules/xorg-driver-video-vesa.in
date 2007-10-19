@@ -8,6 +8,6 @@ config XORG_DRIVER_VIDEO_VESA
 	select XORG_PROTO_FONTS
 	prompt "VESA"
 	help
-	  FIXME
+	  This is the VESA video driver for the modular Xorg server.
 
 

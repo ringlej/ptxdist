@@ -5,4 +5,7 @@ config XORG_DRIVER_INPUT_EVDEV
 	select XORG_PROTO_X
 	select XORG_SERVER
 	help
-	  FIXME
+	  evdev is an Xorg input driver for Linux's generic
+	  event devices.  It therefore supports all input
+	  devices that the kernel knows about, including
+	  most mice and keyboards.

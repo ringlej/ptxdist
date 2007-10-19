@@ -4,4 +4,6 @@ config XORG_LIB_FONTENC
 	select XORG_PROTO_X
 	prompt "libfontenc"
 	help
-	  FIXME
+	  libfontenc is a library which helps font libraries
+	  portably determine and deal with different encodings
+	  of fonts.

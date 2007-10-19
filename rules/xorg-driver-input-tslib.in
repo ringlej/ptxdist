@@ -5,4 +5,4 @@ config XORG_DRIVER_INPUT_TSLIB
 	select TSLIB
 	prompt "tslib"
 	help
-	  FIXME
+	  tslib input driver for use of tslib based touchscreen devices as input

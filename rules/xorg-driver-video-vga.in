@@ -8,6 +8,5 @@ config XORG_DRIVER_VIDEO_VGA
 	select XORG_PROTO_FONTS
 	prompt "VGA"
 	help
-	  FIXME
-
+	  This is the generic VGA video driver for the modular Xorg server.
 

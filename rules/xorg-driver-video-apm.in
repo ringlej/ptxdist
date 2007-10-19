@@ -6,4 +6,4 @@ config XORG_DRIVER_VIDEO_APM
 	select XORG_PROTO_FONTS
 	prompt "APM"
 	help
-	  FIXME
+	  This is the Alliance ProMotion video driver for the modular Xorg server.

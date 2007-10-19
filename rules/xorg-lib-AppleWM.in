@@ -6,4 +6,8 @@ config XORG_LIB_APPLEWM
 	select XORG_PROTO_XEXT
 	prompt "libAppleWM"
 	help
-	  FIXME
+	  libapplewm is a simple library designed to interface
+	  with the Apple-WM extension. This extension allows
+	  X window managers to better interact with the Mac OS X
+	  Aqua user interface when running X11 in a rootless mode.
+

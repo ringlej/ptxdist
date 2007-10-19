@@ -7,7 +7,7 @@ config XORG_APP_XRDB
 	select XORG_LIB_ICE
 	prompt "xorg xrdb"
 	help
-	  Xrdb is used to get or set the contents of the RESOURCE_MANAGER 
-	  property on the root window of screen 0, or the SCREEN_RESOURCES 
-	  property on the root window of any or all screens, or everything 
+	  Xrdb is used to get or set the contents of the RESOURCE_MANAGER
+	  property on the root window of screen 0, or the SCREEN_RESOURCES
+	  property on the root window of any or all screens, or everything
 	  combined.

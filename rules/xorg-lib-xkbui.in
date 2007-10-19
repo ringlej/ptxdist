@@ -5,4 +5,5 @@ config XORG_LIB_XKBUI
 	select XORG_LIB_XT
 	select XORG_LIB_XKBFILE
 	help
-	  FIXME
+	  libxkbui provides an interface to easily
+	  present XKB layouts as graphical widgets.

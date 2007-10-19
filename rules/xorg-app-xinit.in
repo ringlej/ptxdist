@@ -4,5 +4,6 @@ config XORG_APP_XINIT
 	select XORG_LIB_X11
 	prompt "xorg xinit"
 	help
-	  FIXME
+	  This package provides xinit and startx, utilities for starting the
+	  X Window System server. This is from the modular X.org.
 

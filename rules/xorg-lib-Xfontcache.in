@@ -6,4 +6,6 @@ config XORG_LIB_XFONTCACHE
 	select XORG_LIB_X11
 	prompt "libXfontcache"
 	help
-	  FIXME
+	  Xfontcache - X-TrueType font cache extension client library
+	  FontCache is an extension that is used by X-TrueType to
+	  cache informations about fonts.

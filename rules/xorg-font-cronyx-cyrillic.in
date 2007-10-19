@@ -3,4 +3,4 @@ config XORG_FONT_CRONYX_CYRILLIC
 	select XORG_FONTS
 	prompt "Cronyx cyrillic"
 	help
-	  FIXME
+	  This package delivers the Cronyx cyrillic BDF fonts

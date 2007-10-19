@@ -5,4 +5,7 @@ config XORG_LIB_XSCRNSAVER
 	select XORG_LIB_XEXT
 	select XORG_PROTO_SCRNSAVER
 	help
-	  FIXME
+	  libXScrnSaver provides access to the MIT-SCREEN-SAVER extension of the
+	  X protocol.  The Screen Saver extension allows clients behaving as
+	  screen savers to register themselves with the X server, to better
+	  integrate themselves with the running session.

@@ -7,4 +7,4 @@ config XORG_LIB_XPRINTAPPUTIL
 	select XORG_LIB_XAU
 	prompt "libXprintAppUtil"
 	help
-	  FIXME
+	  Xprint job utility client library

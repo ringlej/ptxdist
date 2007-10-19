@@ -4,5 +4,7 @@ config XORG_APP_XHOST
 	select XORG_LIB_XMU
 	prompt "xorg xhost"
 	help
-	  FIXME
+	  This package provides xhost, the server access control program for X.
+	  This is from the modular X.org X11 project.
+
 

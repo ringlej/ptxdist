@@ -5,6 +5,6 @@ config XORG_FONT_BITSTREAM_TYPE1
 	default y
 	prompt "Bitstream type1"
 	help
-	  This package contains the type1 version of Bitstream 
+	  This package contains the type1 version of Bitstream
 	  Courier and Charter. Type1 fonts have XLFD and are
 	  scalable. They are needed for ghostscript.

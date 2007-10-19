@@ -3,5 +3,11 @@ config XALF
 	depends on BROKEN
 	prompt "xalf [BROKEN]"
 	help
-	  FIXME: This item needs to be documented
+	  Xalf is a small utility to provide feedback when
+	  starting X11 applications. Feedback can be given
+	  via four different indicators: an invisible window
+	  (to be used in conjunction with a task pager like
+	  GNOME's tasklist_applet or KDE's Taskbar), an
+	  generic splashscreen, an hourglass attached to the
+	  mouse cursor, or an animated star.
 

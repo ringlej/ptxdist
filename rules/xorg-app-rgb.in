@@ -4,5 +4,7 @@ config XORG_APP_RGB
 	select XORG_LIB_X11
 	prompt "xorg rgb"
 	help
-	  FIXME
+	  This package contains the RGB color database for X11.
+	  This is from the modular X.org X11 project.
+
 

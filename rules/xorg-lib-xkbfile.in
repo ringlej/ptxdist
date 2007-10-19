@@ -5,5 +5,7 @@ config XORG_LIB_XKBFILE
 	select XORG_LIB_X11
 	select XORG_PROTO_KB
 	help
-	  The xkbfile Library
+	  The xkbfile library libxkbfile provides an interface
+	  to read and manipulate description files for XKB,
+	  the X11 keyboard configuration extension.
 
