@@ -90,7 +90,7 @@ $(STATEDIR)/kernel.extract: $(kernel_extract_deps_default)
 kernel_prepare: $(STATEDIR)/kernel.prepare
 
 KERNEL_PATH	:= PATH=$(CROSS_PATH)
-KERNEL_ENV 	:=
+KERNEL_ENV 	:= KCONFIG_NOTIMESTAMP=1
 KERNEL_MAKEVARS := \
 	$(PARALLELMFLAGS) \
 	HOSTCC=$(HOSTCC) \
@@ -134,7 +134,7 @@ ifdef PTXCONF_KLIBC
 		$(KERNEL_DIR)/.config
 endif
 
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) oldconfig
 
 	cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG)
@@ -258,7 +258,7 @@ kernel_oldconfig kernel_menuconfig: $(STATEDIR)/kernel.extract
 		cp $(KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
 	fi
 	@cd $(KERNEL_DIR) && \
-		$(KERNEL_PATH) $(MAKE) $(KERNEL_MAKEVARS) $(subst kernel_,,$@)
+		$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) $(subst kernel_,,$@)
 	@if cmp -s $(KERNEL_DIR)/.config $(KERNEL_CONFIG); then \
 		echo "kernel configuration unchanged"; \
 	else \
