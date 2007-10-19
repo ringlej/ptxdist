@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -14,11 +14,11 @@
 PACKAGES-$(PTXCONF_COREUTILS) += coreutils
 
 #
-# Paths and names 
+# Paths and names
 #
 COREUTILS_VERSION	:= 5.2.1
 COREUTILS		:= coreutils-$(COREUTILS_VERSION)
-COREUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/coreutils/$(COREUTILS).tar.bz2 
+COREUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/coreutils/$(COREUTILS).tar.bz2
 COREUTILS_SOURCE	:= $(SRCDIR)/$(COREUTILS).tar.bz2
 COREUTILS_DIR		:= $(BUILDDIR)/$(COREUTILS)
 
@@ -64,12 +64,6 @@ COREUTILS_AUTOCONF := \
 COREUTILS_PATH	:=  PATH=$(CROSS_PATH)
 COREUTILS_ENV	:=  $(CROSS_ENV)
 
-#ifdef PTXCONF_COREUTILS_SHLIKE
-#COREUTILS_AUTOCONF	+= --enable-shell=sh
-#else
-#COREUTILS_AUTOCONF	+= --enable-shell=ksh
-#endif
-
 $(STATEDIR)/coreutils.prepare: $(coreutils_prepare_deps_default)
 	@$(call targetinfo, $@)
 
@@ -114,7 +108,6 @@ coreutils_install: $(STATEDIR)/coreutils.install
 
 $(STATEDIR)/coreutils.install: $(coreutils_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
 	# @$(call install, COREUTILS)
 	@$(call touch, $@)
 
@@ -140,7 +133,7 @@ ifdef PTXCONF_COREUTILS_CP
 	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/cp, /bin/cp)
 endif
 ifdef PTXCONF_COREUTILS_DD
-	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/dd, /bin/dd)	
+	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/dd, /bin/dd)
 endif
 ifdef PTXCONF_COREUTILS_MD5SUM
 	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/md5sum, /usr/bin/md5sum)
@@ -157,7 +150,7 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-coreutils_clean: 
+coreutils_clean:
 	rm -rf $(STATEDIR)/coreutils.* $(COREUTILS_DIR)
 	rm -fr $(IMAGEDIR)/coreutils_*
 
