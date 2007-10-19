@@ -78,7 +78,7 @@ host-dbus_compile: $(STATEDIR)/host-dbus.compile
 
 $(STATEDIR)/host-dbus.compile: $(host-dbus_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_DBUS_DIR) && $(HOST_DBUS_PATH) $(MAKE)
+	cd $(HOST_DBUS_DIR) && $(HOST_DBUS_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
