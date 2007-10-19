@@ -61,6 +61,7 @@ slang_prepare: $(STATEDIR)/slang.prepare
 SLANG_PATH	:= PATH=$(CROSS_PATH)
 SLANG_ENV 	:= $(CROSS_ENV)
 SLANG_MAKEVARS	:= SLANG_INST_LIB=
+
 #
 # autoconf
 #
