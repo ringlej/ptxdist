@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
-# Copyright (C) 2003-2006 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003-2007 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +17,9 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names
 #
-STRACE_VERSION		:= 4.5.14-20061101
+STRACE_VERSION		:= 4.5.15
 STRACE			:= strace-$(STRACE_VERSION)
-#STRACE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).tar.bz2
-STRACE_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(STRACE).tar.bz2
+STRACE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).tar.bz2
 STRACE_SOURCE		:= $(SRCDIR)/$(STRACE).tar.bz2
 STRACE_DIR		:= $(BUILDDIR)/$(STRACE)
 
@@ -85,7 +84,7 @@ strace_compile: $(STATEDIR)/strace.compile
 
 $(STATEDIR)/strace.compile: $(strace_compile_deps_default)
 	@$(call targetinfo, $@)
-	$(STRACE_PATH) $(STRACE_ENV) make -C $(STRACE_DIR)
+	$(STRACE_PATH) $(STRACE_ENV) make -C $(STRACE_DIR) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
