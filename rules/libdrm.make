@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -82,7 +82,7 @@ libdrm_compile: $(STATEDIR)/libdrm.compile
 
 $(STATEDIR)/libdrm.compile: $(libdrm_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LIBDRM_DIR) && $(LIBDRM_PATH) make
+	cd $(LIBDRM_DIR) && $(LIBDRM_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -114,7 +114,12 @@ $(STATEDIR)/libdrm.targetinstall: $(libdrm_targetinstall_deps_default)
 	@$(call install_fixup, libdrm,DEPENDS,)
 	@$(call install_fixup, libdrm,DESCRIPTION,missing)
 
-#FIXME
+	@$(call install_copy, libdrm, 0, 0, 0755, \
+		$(LIBDRM_DIR)/libdrm/.libs/libdrm.so.2.3.0, \
+		/usr/lib/libdrm.so.2.3.0)
+
+	@$(call install_link, libdrm, libdrm.so.2.3.0, /usr/lib/libdrm.so.2)
+	@$(call install_link, libdrm, libdrm.so.2.3.0, /usr/lib/libdrm.so)
 
 	@$(call install_finish, libdrm)
 
