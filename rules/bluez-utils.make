@@ -1,8 +1,9 @@
 # -*-makefile-*-
-# $Id: template 3455 2005-11-29 13:22:09Z rsc $
+# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#               2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,13 +18,12 @@ PACKAGES-$(PTXCONF_BLUEZ_UTILS) += bluez-utils
 #
 # Paths and names
 #
-BLUEZ_UTILS_VERSION	= 3.7
-BLUEZ_UTILS		= bluez-utils-$(BLUEZ_UTILS_VERSION)
-BLUEZ_UTILS_SUFFIX	= tar.gz
-BLUEZ_UTILS_URL		= http://bluez.sf.net/download/$(BLUEZ_UTILS).$(BLUEZ_UTILS_SUFFIX)
-BLUEZ_UTILS_SOURCE	= $(SRCDIR)/$(BLUEZ_UTILS).$(BLUEZ_UTILS_SUFFIX)
-BLUEZ_UTILS_DIR		= $(BUILDDIR)/$(BLUEZ_UTILS)
-
+BLUEZ_UTILS_VERSION	:= 3.20
+BLUEZ_UTILS		:= bluez-utils-$(BLUEZ_UTILS_VERSION)
+BLUEZ_UTILS_SUFFIX	:= tar.gz
+BLUEZ_UTILS_URL		:= http://bluez.sourceforge.net/download/$(BLUEZ_UTILS).$(BLUEZ_UTILS_SUFFIX)
+BLUEZ_UTILS_SOURCE	:= $(SRCDIR)/$(BLUEZ_UTILS).$(BLUEZ_UTILS_SUFFIX)
+BLUEZ_UTILS_DIR		:= $(BUILDDIR)/$(BLUEZ_UTILS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -58,18 +58,15 @@ $(STATEDIR)/bluez-utils.extract: $(bluez-utils_extract_deps_default)
 
 bluez-utils_prepare: $(STATEDIR)/bluez-utils.prepare
 
-BLUEZ_UTILS_PATH	=  PATH=$(CROSS_PATH)
-BLUEZ_UTILS_ENV 	=  $(CROSS_ENV)
+BLUEZ_UTILS_PATH	:= PATH=$(CROSS_PATH)
+BLUEZ_UTILS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-BLUEZ_UTILS_AUTOCONF	=  $(CROSS_AUTOCONF_USR) \
-	--with-bluez=$(BLUEZ_LIBS_DIR)
-
-# FIXME: these incorrectly pull in /usr/include if selected
-# Discuss with mkl what the right upstream solution is and make a patch
-BLUEZ_UTILS_AUTOCONF += --without-alsa \
+BLUEZ_UTILS_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--without-alsa \
 	--without-fuse \
 	--without-openobex \
 	--without-usb
@@ -90,7 +87,7 @@ bluez-utils_compile: $(STATEDIR)/bluez-utils.compile
 
 $(STATEDIR)/bluez-utils.compile: $(bluez-utils_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(BLUEZ_UTILS_DIR) && $(BLUEZ_UTILS_ENV) $(BLUEZ_UTILS_PATH) make
+	cd $(BLUEZ_UTILS_DIR) && $(BLUEZ_UTILS_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
