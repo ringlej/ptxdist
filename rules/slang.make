@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_SLANG) += slang
 #
 # Paths and names
 #
-SLANG_VERSION	:= 2.1.1
+SLANG_VERSION	:= 2.1.2
 SLANG		:= slang-$(SLANG_VERSION)
 SLANG_SUFFIX	:= tar.bz2
 SLANG_URL	:= ftp://space.mit.edu/pub/davis/slang/v2.1/$(SLANG).$(SLANG_SUFFIX)
@@ -60,7 +60,7 @@ slang_prepare: $(STATEDIR)/slang.prepare
 
 SLANG_PATH	:= PATH=$(CROSS_PATH)
 SLANG_ENV 	:= $(CROSS_ENV)
-
+SLANG_MAKEVARS	:= SLANG_INST_LIB=
 #
 # autoconf
 #
