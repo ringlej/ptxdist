@@ -636,8 +636,15 @@ install = \
 			DESTDIR=;					\
 		$(CHECK_PIPE_STATUS)					\
 	else								\
-		sed -i -e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${SYSROOT}\2:g"			\
-			$$(/bin/ls -r -t `find $${BUILDDIR} -name "*.la" -type f`);			\
+		if test "`find $${BUILDDIR} -name "*.la" -type f`" = "" ; then				\
+			la=false;					\
+		else							\
+			la=true;					\
+		fi;							\
+		if $$la; then						\
+			sed -i -e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${SYSROOT}\2:g"		\
+				$$(/bin/ls -r -t `find $${BUILDDIR} -name "*.la" -type f`);		\
+		fi;							\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
@@ -652,8 +659,10 @@ install = \
 			`find ${SYSROOT} -name "*.la"`;			\
 									\
 		mkdir -p $$PKG_PKGDIR/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; \
-		sed -i -e "/^libdir/s:$(SYSROOT):$$PKG_PKGDIR:g"					\
-			$$(/bin/ls -r -t `find $${BUILDDIR} -name "*.la" -type f`);			\
+		if $$la; then						\
+			sed -i -e "/^libdir/s:$(SYSROOT):$$PKG_PKGDIR:g"				\
+				$$(/bin/ls -r -t `find $${BUILDDIR} -name "*.la" -type f`);		\
+		fi;							\
 									\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
@@ -861,7 +870,6 @@ install_copy = 											\
 	STRIP="$(strip $(7))";									\
 												\
 	PKG_PKGDIR="$(PKGDIR)/$(shell echo $($(strip $(1))) | awk '{print toupper($0)}')";	\
-	echo "DEBUG RSC: PKG_PKGDIR=$$PKG_PKGDIR"; 						\
 	if [ -z "$(6)" ]; then									\
 		SRC=$${PKG_PKGDIR}/$$SRC;							\
 	fi; 											\
