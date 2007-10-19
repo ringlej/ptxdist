@@ -1,0 +1,44 @@
+linkchecker patch
+-----------------
+
+The following patch is a quick hack to prevent robots.txt
+restrictions from taking effect. This is somewhat ugly, but
+we need to *know exactly* if a source package is accessible
+or has moved. So we explicitly don't want to honor those
+restrictions. Unfortunately, the --robots-txt option is
+enabled per default and you cannot disable it from the
+command line.
+
+Since this hack is generally a bad thing, please behave
+reasponsible: Don't run url_checks too often (or at
+least ask the mirror maintainers for approval to do so).
+A server maintainer who doesn't want spiders to index
+his machine might have his reasons... ;-)
+
+bbu, 20071019
+
+----------------------------------------------------------------------------
+
+--- robotparser2.py.orig	2007-10-19 14:59:06.000000000 +0200
++++ robotparser2.py	2007-10-19 15:03:28.000000000 +0200
+@@ -344,19 +344,9 @@
+         if not isinstance(url, str):
+             url = url.encode("ascii", "ignore")
+         if self.disallow_all:
+-            return False
++            return True
+         if self.allow_all:
+             return True
+-        # search for given user agent matches
+-        # the first match counts
+-        url = urllib.quote(urlparse.urlparse(urllib.unquote(url))[2]) or "/"
+-        for entry in self.entries:
+-            if entry.applies_to(useragent):
+-                return entry.allowance(url)
+-        # try the default entry last
+-        if self.default_entry is not None:
+-            return self.default_entry.allowance(url)
+-        # agent not found ==> access granted
+         return True
+
+     def get_crawldelay (self, useragent):
