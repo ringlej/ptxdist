@@ -636,14 +636,8 @@ install = \
 			DESTDIR=;					\
 		$(CHECK_PIPE_STATUS)					\
 	else								\
-		for FILE in `find $${BUILDDIR} -name "*.la" -type f`; do	\
-			if test -e $${FILE}; then			\
-				for DIR in /lib /usr/lib; do		\
-					sed -i -e "/^dependency_libs/s:\( \)\($${DIR}\):\1$(SYSROOT)\2:g"		\
-						-e "/^libdir/s:\(libdir='\)\($${DIR}\):\1$(SYSROOT)\2:g;" $$FILE;	\
-				done;					\
-			fi;						\
-		done;							\
+		sed -i -e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${SYSROOT}\2:g"			\
+			$$(/bin/ls -r -t `find $${BUILDDIR} -name "*.la" -type f`);			\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
@@ -652,20 +646,15 @@ install = \
 			DESTDIR=$(SYSROOT);"				\
 			| $(FAKEROOT) --;				\
 		$(CHECK_PIPE_STATUS)					\
-		for DIR in /lib /usr/lib; do				\
-			for FILE in `find $(SYSROOT)/$${DIR}/ -name "*.la"`; do						\
-				if test -e $${FILE}; then								\
-					sed -i -e "/^dependency_libs/s:\( \)\($${DIR}\):\1$(SYSROOT)\2:g"		\
-						-e "/^libdir/s:\(libdir='\)\($${DIR}\):\1$(SYSROOT)\2:g;" $$FILE;	\
-				fi;						\
-			done;							\
-		done;								\
+									\
+		sed -i -e "/^dependency_libs/s:\( \)\(/lib\|/usr/lib\):\1${SYSROOT}\2:g"		\
+			-e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${SYSROOT}\2:g"		\
+			`find ${SYSROOT} -name "*.la"`;			\
+									\
 		mkdir -p $$PKG_PKGDIR/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; \
-		for FILE in `find $${BUILDDIR} -name "*.la" -type f`; do	\
-			if test -e $${FILE}; then				\
-				sed -i -e "/^libdir/s:$(SYSROOT):$$PKG_PKGDIR:g;" $$FILE;			\
-			fi;						\
-		done;							\
+		sed -i -e "/^libdir/s:$(SYSROOT):$$PKG_PKGDIR:g"					\
+			$$(/bin/ls -r -t `find $${BUILDDIR} -name "*.la" -type f`);			\
+									\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
@@ -676,7 +665,6 @@ install = \
 			| $(FAKEROOT) --;				\
 		$(CHECK_PIPE_STATUS)					\
 	fi;
-
 
 
 #
