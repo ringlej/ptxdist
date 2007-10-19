@@ -1,7 +1,7 @@
 menuconfig HOST_FONTCONFIG
 	bool "Fontconfig              "
 	select HOST_FREETYPE
-#	select HOST_EXPAT
+	select HOST_EXPAT
 	help
 	  Fontconfig is a font configuration and
 	  customization library, which does not depend on
