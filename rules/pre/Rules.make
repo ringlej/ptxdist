@@ -845,8 +845,10 @@ patchin =										\
 # $3: GID
 # $4: permissions (octal)
 # $5: source (for files); directory (for directories)
-# $6: destination (for files); empty (for directories). Prefixed with $(ROOTDIR),
+# $6: a) destination (for files); empty (for directories). Prefixed with $(ROOTDIR),
 #     so it needs to have a leading /
+#     b) empty -> src file is taken from PKG_PKGDIR, so you only have to specify
+#        a path like /usr/bin/blub there
 # $7: strip (for files; y|n); default is to strip
 #
 install_copy = 											\
@@ -857,6 +859,12 @@ install_copy = 											\
 	SRC=$(strip $(5));									\
 	DST=$(strip $(6));									\
 	STRIP="$(strip $(7))";									\
+												\
+	PKG_PKGDIR="$(PKGDIR)/$(shell echo $($(strip $(1))) | awk '{print toupper($0)}')";	\
+	echo "DEBUG RSC: PKG_PKGDIR=$$PKG_PKGDIR"; 						\
+	if [ -z "$(6)" ]; then									\
+		SRC=$${PKG_PKGDIR}/$$SRC;							\
+	fi; 											\
 	if [ -z "$(6)" ]; then									\
 		echo "install_copy:";								\
 		echo "  dir=$$SRC";								\

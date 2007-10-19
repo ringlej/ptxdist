@@ -1,3 +1,7 @@
+2007-10-19  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* Rules.make: allow PKG_PKGDIR related install_copy calls.
+
 2007-10-19  Michael Olbrich <m.olbrich@pengutronix.de>
 
 	* xorg: Update to Xorg 7.3. Add new dependencies libxcb and
