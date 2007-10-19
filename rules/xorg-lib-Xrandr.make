@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_LIB_XRANDR) += xorg-lib-Xrandr
 #
 # Paths and names
 #
-XORG_LIB_XRANDR_VERSION	:= 1.1.1
-XORG_LIB_XRANDR		:= libXrandr-X11R7.1-$(XORG_LIB_XRANDR_VERSION)
+XORG_LIB_XRANDR_VERSION	:= 1.2.2
+XORG_LIB_XRANDR		:= libXrandr-$(XORG_LIB_XRANDR_VERSION)
 XORG_LIB_XRANDR_SUFFIX	:= tar.bz2
-XORG_LIB_XRANDR_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/lib/$(XORG_LIB_XRANDR).$(XORG_LIB_XRANDR_SUFFIX)
+XORG_LIB_XRANDR_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/lib/$(XORG_LIB_XRANDR).$(XORG_LIB_XRANDR_SUFFIX)
 XORG_LIB_XRANDR_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XRANDR).$(XORG_LIB_XRANDR_SUFFIX)
 XORG_LIB_XRANDR_DIR	:= $(BUILDDIR)/$(XORG_LIB_XRANDR)
 
@@ -116,15 +116,15 @@ $(STATEDIR)/xorg-lib-Xrandr.targetinstall: $(xorg-lib-Xrandr_targetinstall_deps_
 	@$(call install_fixup, xorg-lib-Xrandr,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-Xrandr, 0, 0, 0644, \
-		$(XORG_LIB_XRANDR_DIR)/src/.libs/libXrandr.so.2.0.0, \
-		$(XORG_LIBDIR)/libXrandr.so.2.0.0)
+		$(XORG_LIB_XRANDR_DIR)/src/.libs/libXrandr.so.2.1.0, \
+		$(XORG_LIBDIR)/libXrandr.so.2.1.0)
 
 	@$(call install_link, xorg-lib-Xrandr, \
-		libXrandr.so.2.0.0, \
+		libXrandr.so.2.1.0, \
 		$(XORG_LIBDIR)/libXrandr.so.2)
 
 	@$(call install_link, xorg-lib-Xrandr, \
-		libXrandr.so.2.0.0, \
+		libXrandr.so.2.1.0, \
 		$(XORG_LIBDIR)/libXrandr.so)
 
 	@$(call install_finish, xorg-lib-Xrandr)

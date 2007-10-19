@@ -1,0 +1,3 @@
+xorg-server-1.4-remove-link-dependency.diff
+xorg-server-1.4-libdrm.diff
+xorg-server-1.4-reconf.diff

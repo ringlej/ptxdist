@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_SERVER) += xorg-server
 #
 # Paths and names
 #
-XORG_SERVER_VERSION	:= 1.1.0
-XORG_SERVER		:= xorg-server-X11R7.1-$(XORG_SERVER_VERSION)
+XORG_SERVER_VERSION	:= 1.4
+XORG_SERVER		:= xorg-server-$(XORG_SERVER_VERSION)
 XORG_SERVER_SUFFIX	:= tar.bz2
-XORG_SERVER_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
+XORG_SERVER_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
 XORG_SERVER_SOURCE	:= $(SRCDIR)/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
 XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
 
@@ -60,7 +60,7 @@ xorg-server_prepare: $(STATEDIR)/xorg-server.prepare
 XORG_SERVER_PATH	:=  PATH=$(CROSS_PATH)
 XORG_SERVER_ENV 	:=  $(CROSS_ENV) \
 	ac_cv_sys_linker_h=yes \
-	ac_cv_file__usr_share_X11_sgml_defs_ent=no
+	ac_cv_file__usr_share_sgml_X11_defs_ent=no
 
 # FIXME: not all processors upports MTRR. Geode GX1 not for example. But it
 # is a 586 clone. configure decides always to support mtrr!
@@ -73,8 +73,7 @@ XORG_SERVER_ENV 	:=  $(CROSS_ENV) \
 XORG_SERVER_AUTOCONF = $(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
 	--disable-dependency-tracking \
-	--localstatedir=/var \
-	--disable-builddocs
+	--localstatedir=/var
 #
 # if no value is given ignore the "--datadir" switch
 #
@@ -462,20 +461,20 @@ endif
 ifdef PTXCONF_XORG_DRIVER_VIDEO
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/fbdevhw/.libs/libfbdevhw.so, $(XORG_PREFIX)/lib/xorg/modules/linux/libfbdevhw.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libafb.so, $(XORG_PREFIX)/lib/xorg/modules/libafb.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb16.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb16.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb16.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb16.so)
 #	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb24.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb24.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb32.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb32.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/ddc/.libs/libddc.so, $(XORG_PREFIX)/lib/xorg/modules/libddc.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/ddc/.libs/libddc.so, $(XORG_PREFIX)/lib/xorg/modules/libddc.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/exa/.libs/libexa.so, $(XORG_PREFIX)/lib/xorg/modules/libexa.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libfb.so, $(XORG_PREFIX)/lib/xorg/modules/libfb.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/libi2c.so, $(XORG_PREFIX)/lib/xorg/modules/libi2c.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/libi2c.so, $(XORG_PREFIX)/lib/xorg/modules/libi2c.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/int10/.libs/libint10.so, $(XORG_PREFIX)/lib/xorg/modules/libint10.so)
 #	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/liblayer.so, $(XORG_PREFIX)/lib/xorg/modules/liblayer.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libmfb.so, $(XORG_PREFIX)/lib/xorg/modules/libmfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/scanpci/.libs/libpcidata.so, $(XORG_PREFIX)/lib/xorg/modules/libpcidata.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/rac/.libs/librac.so, $(XORG_PREFIX)/lib/xorg/modules/librac.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/ramdac/.libs/libramdac.so, $(XORG_PREFIX)/lib/xorg/modules/libramdac.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/rac/.libs/librac.so, $(XORG_PREFIX)/lib/xorg/modules/librac.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/ramdac/.libs/libramdac.so, $(XORG_PREFIX)/lib/xorg/modules/libramdac.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/scanpci/.libs/libscanpci.so, $(XORG_PREFIX)/lib/xorg/modules/libscanpci.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/shadowfb/.libs/libshadowfb.so, $(XORG_PREFIX)/lib/xorg/modules/libshadowfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libshadow.so, $(XORG_PREFIX)/lib/xorg/modules/libshadow.so)
@@ -491,7 +490,7 @@ endif
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/extmod/.libs/libextmod.so ,/usr/lib/xorg/modules/extensions/libextmod.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libdbe.so ,/usr/lib/xorg/modules/extensions/libdbe.so)
 
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libbitmap.so ,/usr/lib/xorg/modules/fonts/libbitmap.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libbitmap.so ,/usr/lib/xorg/modules/fonts/libbitmap.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libfreetype.so ,/usr/lib/xorg/modules/fonts/libfreetype.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libtype1.so ,/usr/lib/xorg/modules/fonts/libtype1.so)
 

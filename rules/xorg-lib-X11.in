@@ -2,6 +2,7 @@ menuconfig XORG_LIB_X11
 	bool
 	prompt "libX11                "
 # always required:
+	select LIBXCB
 	select XORG_PROTO_X
 	select XORG_LIB_XAU
 	select XORG_PROTO_BIGREQS	# FIXME Why always?

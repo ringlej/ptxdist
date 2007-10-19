@@ -5,6 +5,7 @@ config XORG_APP_XDM
 	select XORG_LIB_XPM
 	select XORG_LIB_XMU
 	select XORG_LIB_XAW
+	select XORG_LIB_XAW_V7
 # FIX: When the X server supports Xinerama, this package needs
 # the library ready for use!
 	select XORG_LIB_XINERAMA if XORG_SERVER_EXT_XINERAMA

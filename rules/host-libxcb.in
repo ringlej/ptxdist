@@ -1,0 +1,7 @@
+config HOST_LIBXCB
+	bool
+	select HOST_XCB_PROTO
+	select HOST_LIBXSLT
+	select HOST_LIBXSLT_XSLTPROC
+	select HOST_LIBPTHREAD_STUBS
+	select HOST_XORG_LIB_XAU

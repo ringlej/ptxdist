@@ -1,3 +1,8 @@
+2007-10-19  Michael Olbrich <m.olbrich@pengutronix.de>
+
+	* xorg: Update to Xorg 7.3. Add new dependencies libxcb and
+	pixman. Update all packages to the corresponding versions.
+
 2007-10-18  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* xorg-app-mkfontscale: fix dependency to freetype

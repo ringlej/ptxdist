@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_DRIVER_INPUT_KEYBOARD) += xorg-driver-input-keyboard
 #
 # Paths and names
 #
-XORG_DRIVER_INPUT_KEYBOARD_VERSION	:= 1.1.0
-XORG_DRIVER_INPUT_KEYBOARD		:= xf86-input-keyboard-X11R7.1-$(XORG_DRIVER_INPUT_KEYBOARD_VERSION)
+XORG_DRIVER_INPUT_KEYBOARD_VERSION	:= 1.2.2
+XORG_DRIVER_INPUT_KEYBOARD		:= xf86-input-keyboard-$(XORG_DRIVER_INPUT_KEYBOARD_VERSION)
 XORG_DRIVER_INPUT_KEYBOARD_SUFFIX	:= tar.bz2
-XORG_DRIVER_INPUT_KEYBOARD_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.1/src/driver/$(XORG_DRIVER_INPUT_KEYBOARD).$(XORG_DRIVER_INPUT_KEYBOARD_SUFFIX)
+XORG_DRIVER_INPUT_KEYBOARD_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/driver/$(XORG_DRIVER_INPUT_KEYBOARD).$(XORG_DRIVER_INPUT_KEYBOARD_SUFFIX)
 XORG_DRIVER_INPUT_KEYBOARD_SOURCE	:= $(SRCDIR)/$(XORG_DRIVER_INPUT_KEYBOARD).$(XORG_DRIVER_INPUT_KEYBOARD_SUFFIX)
 XORG_DRIVER_INPUT_KEYBOARD_DIR		:= $(BUILDDIR)/$(XORG_DRIVER_INPUT_KEYBOARD)
 
@@ -114,7 +114,6 @@ $(STATEDIR)/xorg-driver-input-keyboard.targetinstall: $(xorg-driver-input-keyboa
 	@$(call install_fixup, xorg-driver-input-keyboard,DEPENDS,)
 	@$(call install_fixup, xorg-driver-input-keyboard,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-driver-input-keyboard, 0, 0, 0755, $(XORG_DRIVER_INPUT_KEYBOARD_DIR)/src/.libs/keyboard_drv.so, /usr/lib/xorg/modules/keyboard_drv.so)
 	@$(call install_copy, xorg-driver-input-keyboard, 0, 0, 0755, $(XORG_DRIVER_INPUT_KEYBOARD_DIR)/src/.libs/kbd_drv.so, /usr/lib/xorg/modules/kbd_drv.so)
 
 	@$(call install_finish, xorg-driver-input-keyboard)

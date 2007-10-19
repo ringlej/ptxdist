@@ -1,5 +1,6 @@
 # xorg proto configuration
 
+source "rules/xcb-proto.in"
 source "rules/xorg-proto-applewm.in"
 source "rules/xorg-proto-bigreqs.in"
 source "rules/xorg-proto-composite.in"

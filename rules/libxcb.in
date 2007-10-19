@@ -1,0 +1,12 @@
+config LIBXCB
+	bool
+	prompt "libxcb"
+	select XCB_PROTO
+	select LIBXSLT
+	select LIBXSLT_XSLTPROC
+	select LIBPTHREAD_STUBS
+	select XORG_LIB_XAU
+	help
+	  The X protocol C-language Binding (XCB) is a replacement for Xlib
+	  featuring a small footprint, latency hiding, direct access to the
+	  protocol, improved threading support, and extensibility.

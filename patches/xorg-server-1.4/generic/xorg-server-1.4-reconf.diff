@@ -1,0 +1,34 @@
+Index: xorg-server-1.4/hw/xfree86/os-support/linux/Makefile.in
+===================================================================
+--- xorg-server-1.4.orig/hw/xfree86/os-support/linux/Makefile.in	2007-10-17 21:16:57.000000000 +0200
++++ xorg-server-1.4/hw/xfree86/os-support/linux/Makefile.in	2007-10-17 21:18:42.000000000 +0200
+@@ -411,7 +411,7 @@
+                      $(PLATFORM_PCI_SUPPORT)
+ 
+ AM_CFLAGS = -DUSESTDRES -DHAVE_SYSV_IPC $(DIX_CFLAGS) $(XORG_CFLAGS) $(PLATFORM_DEFINES)
+-INCLUDES = $(XORG_INCS) $(PLATFORM_INCLUDES) -I/usr/include/drm # FIXME this last part is crack
++INCLUDES = $(XORG_INCS) $(PLATFORM_INCLUDES)
+ 
+ # FIXME: These need to be added to the build
+ LNX_EXTRA_SRCS = \
+Index: xorg-server-1.4/hw/xfree86/xaa/Makefile.in
+===================================================================
+--- xorg-server-1.4.orig/hw/xfree86/xaa/Makefile.in	2007-10-17 21:16:57.000000000 +0200
++++ xorg-server-1.4/hw/xfree86/xaa/Makefile.in	2007-10-17 21:18:45.000000000 +0200
+@@ -60,7 +60,7 @@
+ am__installdirs = "$(DESTDIR)$(moduledir)" "$(DESTDIR)$(sdkdir)"
+ moduleLTLIBRARIES_INSTALL = $(INSTALL)
+ LTLIBRARIES = $(module_LTLIBRARIES)
+-libxaa_la_DEPENDENCIES = $(top_builddir)/miext/cw/libcw.la
++libxaa_la_LIBADD =
+ am__objects_1 = s-xaaLine.lo s-xaaDashLine.lo
+ am__objects_2 = l-xaaBitmap.lo l-xaaStipple.lo l-xaaTEGlyph.lo
+ am__objects_3 = m-xaaBitmap.lo m-xaaStipple.lo m-xaaTEGlyph.lo
+@@ -399,7 +399,6 @@
+ MSB_3_FIXED = mf3-xaaBitmap.c mf3-xaaStipple.c
+ POLYSEG = s-xaaLine.c s-xaaDashLine.c
+ libxaa_la_LDFLAGS = -avoid-version
+-libxaa_la_LIBADD = $(top_builddir)/miext/cw/libcw.la
+ module_LTLIBRARIES = libxaa.la
+ libxaa_la_SOURCES = xaaInit.c xaaGC.c xaaInitAccel.c xaaFallback.c \
+                    xaaBitBlt.c xaaCpyArea.c xaaGCmisc.c xaaCpyWin.c \
