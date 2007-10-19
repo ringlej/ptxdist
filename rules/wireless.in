@@ -4,9 +4,9 @@ config WIRELESS
 	bool
 	prompt "Wireless Tools"
 	help
- 	  The wireless tools are used to manipulate the 
-	  Linux Wireless Extension. The Wireless Extension 
-	  is an interface allowing you to set Wireless LAN 
+ 	  The wireless tools are used to manipulate the
+	  Linux Wireless Extension. The Wireless Extension
+	  is an interface allowing you to set Wireless LAN
 	  specific parameters and get the specific stats.
 
 config WIRELESS_SHARED
@@ -15,6 +15,6 @@ config WIRELESS_SHARED
 	help
 	  Building shared version of wireless tools and
 	  installing a shared library libiw.so onto target.
-	  
+
 source "rules/madwifi.in"
 endmenu

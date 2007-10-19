@@ -14,7 +14,7 @@ menuconfig THTTPD
 	comment "runtime options  ---"
 	depends on THTTPD
 #
-# FIXME: Can thttpd also started by inetd like busybox' one?
+# FIXME: Can thttpd also started by inetd like busybox's one?
 # If yes, add a choice here for this startup option
 #
 	config ROOTFS_ETC_INITD_THTTPD

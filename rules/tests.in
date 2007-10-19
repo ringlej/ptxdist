@@ -3,8 +3,8 @@ config TESTSUITE_DIR
 	prompt "Directory for Test Suites"
 	default "/usr/lib/testsuites"
 	help
-	  This directory is the toplevel directory to install 
-	  test suites. 
+	  This directory is the toplevel directory to install
+	  test suites.
 
 
 source "rules/dbench.in"

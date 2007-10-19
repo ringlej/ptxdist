@@ -86,7 +86,7 @@ config GLIBC_CRYPT
 	depends on GLIBC
 	prompt "Install libcrypt on the target"
 	help
-	  FIXME: This item needs to be documented
+	  The encryption/decryption library
 
 config GLIBC_UTIL
 	bool

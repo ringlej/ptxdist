@@ -3,5 +3,13 @@ config TINYLOGIN
 	depends on BROKEN
 	prompt "tinylogin [BROKEN]"
 	help
-	  FIXME: This item needs to bee documented
+	  TinyLogin is a suite of tiny Unix utilities for
+	  handling logging into, being authenticated by,
+	  changing one's password for, and otherwise
+	  maintaining users and groups on an embedded
+	  system. It also provides shadow password support
+	  to enhance system security. TinyLogin is, as the
+	  name implies, very small, and makes an excellent
+	  complement to BusyBox on an embedded system
+	  (though it can of course be used without).
 

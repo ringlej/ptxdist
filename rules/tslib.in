@@ -2,18 +2,27 @@ menuconfig TSLIB
 	bool
 	prompt "tslib (touch library) "
 	help
-	  FIXME: This item needs to be documented
+	  Tslib is an abstraction layer for touchscreen panel events,
+	  as well as a filter stack for the manipulation of those
+	  events. It was created by Russell King of arm.linux.org.uk.
+	  Examples of implemented filters include jitter smoothing
+	  and the calibration transform. Tslib is generally used on
+	  embedded devices to provide a common user space interface
+	  to touchscreen functionality.
 
 config TSLIB_TS_CALIBRATE
 	bool
 	prompt "Install ts_calibrate on target"
 	depends on TSLIB
 	help
-	  FIXME: This item needs to be documented
+	  ts_calibrate is a graphical tool to calibrate the
+	  touch sensor. The app asks the user to tap a
+	  sequence of 5 cross-hairs with a stylus. It
+	  recalibrates the touchscreen, then exits.
 
 config TSLIB_TS_TEST
 	bool
 	prompt "Install ts_test on target"
 	depends on TSLIB
 	help
-	  FIXME: This item needs to be documented
+	  Basic test program for touchscreen library.

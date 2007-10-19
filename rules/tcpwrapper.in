@@ -2,12 +2,23 @@ menuconfig	TCPWRAPPER
 	bool
 	prompt "tcpwrapper          "
 	help
-	  FIXME: This item needs to be documented
+	  With this package you can monitor and filter incoming requests for the
+	  SYSTAT, FINGER, FTP, TELNET, RLOGIN, RSH, EXEC, TFTP, TALK, and other
+	  network services.
+
+	  The package provides tiny daemon wrapper programs that can be installed
+	  without any changes to existing software or to existing configuration
+	  files.  The wrappers report the name of the client host and of the
+	  requested service; the wrappers do not exchange information with the
+	  client or server applications, and impose no overhead on the actual
+	  conversation between the client and server applications.
 
 config	TCPWRAPPER_INSTALL_TCPD
 	bool
 	prompt "Install /usr/sbin/tcpd"
 	depends on TCPWRAPPER
 	help
-	  FIXME: This item needs to be documented
+	  The tcpd program can be set up to monitor incoming requests for telnet,
+	  finger, ftp, exec, rsh, rlogin, tftp, talk, comsat and other services
+	  that have a one-to-one mapping onto executable files.
 

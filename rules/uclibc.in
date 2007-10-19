@@ -14,55 +14,56 @@ comment	"Install options"
 config UCLIBC_LIBC
 	bool
 	depends on UCLIBC
-	prompt "Install uClibc on the target"
+	prompt "Install libc on the target"
 	help
-	  FIXME: This item needs to be documented
+	  The C library
 
 config UCLIBC_CRYPT
 	bool
 	depends on UCLIBC_LIBC
 	prompt "Install libcrypt on the target"
 	help
-	  FIXME: This item needs to be documented
+	  The encryption/decryption library
 
 config UCLIBC_DL
 	bool
 	depends on UCLIBC_LIBC
 	prompt "Install libdl on the target"
 	help
-	  FIXME: This item needs to be documented
+	  The dynamic linking library
 
 config UCLIBC_M
 	bool
 	depends on UCLIBC_LIBC
 	prompt "Install libm on the target"
 	help
-	  FIXME: This item needs to be documented
+	  The C math libary
 
 config UCLIBC_NSL
 	bool
 	depends on UCLIBC_LIBC
 	prompt "Install libnsl on the target"
 	help
-	  FIXME: This item needs to be documented
+	  The network services library
 
 config UCLIBC_PTHREAD
 	bool
 	depends on UCLIBC_LIBC
 	prompt "Install libpthread on the target"
 	help
-	  FIXME: This item needs to be documented
+	  The posix threads library
 
 config UCLIBC_RESOLV
 	bool
 	depends on UCLIBC_LIBC
 	prompt "Install libresolv on the target"
 	help
-	  FIXME: This item needs to be documented
+	  The resolver library
 
 config UCLIBC_UTIL
 	bool
 	depends on UCLIBC_LIBC
 	prompt "Install libutil on the target"
 	help
-	  FIXME: This item needs to be documented
+	  Contains code for "standard" functions used in many different Unix
+	  utilities.

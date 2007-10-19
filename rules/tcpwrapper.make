@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -15,7 +15,7 @@
 PACKAGES-$(PTXCONF_TCPWRAPPER) += tcpwrapper
 
 #
-# Paths and names 
+# Paths and names
 #
 TCPWRAPPER_VERSION		= 7.6
 TCPWRAPPER			= tcp_wrappers_$(TCPWRAPPER_VERSION)
@@ -73,7 +73,7 @@ TCPWRAPPER_PATH	= PATH=$(CROSS_PATH)
 $(STATEDIR)/tcpwrapper.compile: $(tcpwrapper_compile_deps_default)
 	@$(call targetinfo, $@)
 	$(TCPWRAPPER_PATH) $(TCPWRAPPER_ENV) \
-		make -C $(TCPWRAPPER_DIR) linux 
+		make -C $(TCPWRAPPER_DIR) linux
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -116,9 +116,9 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-tcpwrapper_clean: 
-	rm -rf $(STATEDIR)/tcpwrapper.* 
-	rm -rf $(IMAGEDIR)/tcpwrapper_* 
+tcpwrapper_clean:
+	rm -rf $(STATEDIR)/tcpwrapper.*
+	rm -rf $(IMAGEDIR)/tcpwrapper_*
 	rm -rf $(TCPWRAPPER_DIR)
 
 # vim: syntax=make

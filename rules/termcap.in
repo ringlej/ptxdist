@@ -1,5 +1,6 @@
-menuconfig TERMCAP
-	bool "termcap                     "
+menuconfig	TERMCAP
+	bool
+	prompt "termcap                     "
 	help
 	  This is the GNU termcap library -- a library of C functions that
 	  enable programs to send control strings to terminals in a way
@@ -8,8 +9,9 @@ menuconfig TERMCAP
 	  other termcap libraries.
 	  This is a static library only.
 
-config TERMCAP_TERMCAP
-	bool "install termcap data file"
+config	TERMCAP_TERMCAP
+	bool
+	prompt "install termcap data file"
 	depends on TERMCAP
 	default y
 	help

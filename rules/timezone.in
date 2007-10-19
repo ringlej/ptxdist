@@ -1,12 +1,12 @@
 comment "Time zone support doesn't work with OELAS.Toolchain1.1.0"
 comment "and prio versions, hence marked as broken for now"
 
-menuconfig TIMEZONE 
+menuconfig TIMEZONE
 	bool
 	prompt "Timezone Files           "
 	depends on GLIBC
 	depends on BROKEN
-	help 
+	help
 	  installs timezone files
 
 comment "Timezone support"
