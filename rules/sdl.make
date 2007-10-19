@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_SDL) += sdl
 #
 # Paths and names
 #
-SDL_VERSION	:= 1.2.10
+SDL_VERSION	:= 1.2.12
 SDL		:= SDL-$(SDL_VERSION)
 SDL_SUFFIX	:= tar.gz
 SDL_URL		:= http://www.libsdl.org/release/$(SDL).$(SDL_SUFFIX)
@@ -300,7 +300,7 @@ sdl_compile: $(STATEDIR)/sdl.compile
 
 $(STATEDIR)/sdl.compile: $(sdl_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(SDL_DIR) && $(SDL_ENV) $(SDL_PATH) make
+	cd $(SDL_DIR) && $(SDL_ENV) $(SDL_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -312,13 +312,10 @@ sdl_install: $(STATEDIR)/sdl.install
 $(STATEDIR)/sdl.install: $(sdl_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, SDL)
-	# install sdl-config in bin dir
-	mkdir -p $(PTXCONF_CROSS_PREFIX)/bin
+
 	cp $(SDL_DIR)/sdl-config $(PTXCONF_CROSS_PREFIX)/bin/sdl-config
 	chmod a+x $(PTXCONF_CROSS_PREFIX)/bin/sdl-config
-	# install sdl.pc package config file
-	mkdir -p $(SYSROOT)/usr/lib/pkgconfig/
-	cp $(SDL_DIR)/sdl.pc $(SYSROOT)/usr/lib/pkgconfig/
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -341,15 +338,15 @@ $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 
 ifdef PTXCONF_SDL_SHARED
 	@$(call install_copy, sdl, 0, 0, 0644, \
-		$(SDL_DIR)/build/.libs/libSDL-1.2.so.0.7.3, \
-		/usr/lib/libSDL-1.2.so.0.7.3)
+		$(SDL_DIR)/build/.libs/libSDL-1.2.so.0.11.1, \
+		/usr/lib/libSDL-1.2.so.0.11.1)
 
 	@$(call install_link, sdl, \
-		libSDL-1.2.so.0.7.3, \
+		libSDL-1.2.so.0.11.1, \
 		/usr/lib/libSDL-1.2.so.0)
 
 	@$(call install_link, sdl, \
-		libSDL-1.2.so.0.7.3, \
+		libSDL-1.2.so.0.11.1, \
 		/usr/lib/libSDL-1.2.so)
 endif
 
