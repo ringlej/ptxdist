@@ -140,9 +140,9 @@ CROSS_PACKAGES_COMPILE	:= $(addsuffix _compile,$(CROSS_PACKAGES))
 
 # FIXME: should probably go somewhere else (separate images.make?)
 ifdef PTXCONF_MKNBI_NBI
-MKNBI_EXT = "nbi"
+MKNBI_EXT = nbi
 else
-MKNBI_EXT = "elf"
+MKNBI_EXT = elf
 endif
 
 MKNBI_KERNEL = $(KERNEL_TARGET_PATH)
@@ -298,7 +298,7 @@ WORKDIR := $(IMAGEDIR)/work_dir
 # but the i386 family needs "x86" instead!
 #
 ifeq ($(PTXCONF_ARCH),"i386")
-MKIMAGE_ARCH := "x86"
+MKIMAGE_ARCH := x86
 else
 MKIMAGE_ARCH := $(PTXCONF_ARCH)
 endif
@@ -544,6 +544,59 @@ qa-static:
 print-%:
 	@echo "$* is \"$($*)\""
 
+plugins:
+	@echo "Installed Plugins:"
+	@echo $(wildcard $(PTXDIST_TOPDIR)/plugins/*)
+
+plugin-%: dump
+	@echo "trying plugin $(*)"
+	@if [ -x "$(PTXDIST_WORKSPACE)/plugins/$(*)/main" ]; then 	\
+		echo "local plugin found.";				\
+		$(PTXDIST_WORKSPACE)/plugins/$(*)/main;			\
+	elif [ -x "$(PTXDIST_TOPDIR)/plugins/$(*)/main" ]; then  	\
+		echo "generic plugin found.";                   	\
+		$(PTXDIST_TOPDIR)/plugins/$(*)/main;            	\
+	else								\
+		echo "sorry, plugin not found";				\
+	fi
+
+# ----------------------------------------------------------------------------
+# environment export to plugins and shell scripts
+# ----------------------------------------------------------------------------
+# If you run 'ptxdist make dump', you will get two files:
+# $(STATEDIR)/environment.symbols <- A list of all internal Variable
+#                                    Symbols in the main PTXdist Makefile
+# $(STATEDIR)/environment.bash    <- A selection of Variables in bash
+#				     syntax. Please adjust M2B_DUMP_VARIABLES
+#				     and M2B_DUMP_SUFFIXES to your needs.
+#				     See rules/other/Definitions.make
+# ----------------------------------------------------------------------------
+#
+# dump all internal make symbols
+#
+$(M2B).symbols:
+	@echo "$(.VARIABLES)" 		\
+	| sed s/\ /\\n/g 		\
+	| egrep -v "[^A-Z0-9_-]|^_$$" 	\
+	| sort -u > $@
+
+dump-symbols:	$(M2B).symbols ;
+#
+# dump selected symbols with value
+#
+packages := $(PACKAGES-) $(PACKAGES-y)
+prefixes := $(shell echo $(packages) | tr "a-z-" "A-Z_")
+symbols := $(foreach prefix,$(prefixes),$(foreach suffix,$(M2B_DUMP_SUFFIXES),$(prefix)$(suffix)))
+allsymbols := $(prefixes) $(shell echo $(symbols) | tr "a-z-" "A-Z_") $(M2B_DUMP_VARIABLES)
+
+dump-%: $(M2B).symbols
+	@echo 'M2B_$(call remove_quotes,$(*))="$(call remove_quotes,$($(*)))"' >> $(M2B).bash.tmp
+	@echo '$(call remove_quotes,$(*)) $(call remove_quotes,$($(*)))' >> $(M2B).tmp
+
+dump: $(addprefix dump-,$(allsymbols))
+	@mv $(M2B).bash.tmp $(M2B).bash
+	@mv $(M2B).tmp $(M2B)
+#
 # ----------------------------------------------------------------------------
 
 .PHONY: dep_output_clean dep_tree dep_world before_config
