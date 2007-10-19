@@ -1,6 +1,7 @@
 ---
- fb.c |    9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ fb.c   |    9 +++++----
+ main.c |    3 +++
+ 2 files changed, 8 insertions(+), 4 deletions(-)
 
 Index: fbtest-20041102-1/fb.c
 ===================================================================
@@ -36,3 +37,31 @@ Index: fbtest-20041102-1/fb.c
  	Fatal("munmap smem: %s\n", strerror(errno));
  }
  
+Index: fbtest-20041102-1/main.c
+===================================================================
+--- fbtest-20041102-1.orig/main.c
++++ fbtest-20041102-1/main.c
+@@ -13,6 +13,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <unistd.h>
+ 
+ #include "types.h"
+ #include "util.h"
+@@ -28,6 +29,7 @@
+ const char *ProgramName;
+ 
+ const char *Opt_Fbdev = DEFAULT_FBDEV;
++unsigned long page_mask;
+ int Opt_Debug = 0;
+ int Opt_List = 0;
+ int Opt_Quiet = 0;
+@@ -73,6 +75,7 @@ static void SigHandler(int signo)
+ 
+ int main(int argc, char *argv[])
+ {
++    page_mask = ~(sysconf(_SC_PAGE_SIZE)-1);
+     ProgramName = argv[0];
+ 
+     while (argc > 1 && argv[1][0] == '-') {
