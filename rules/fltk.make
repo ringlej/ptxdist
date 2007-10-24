@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_FLTK) += fltk
 FLTK_VERSION	:= 1.1.6
 FLTK		:= fltk-$(FLTK_VERSION)
 FLTK_SUFFIX	:= source.tar.bz2
-FLTK_URL	:= ftp://ftp.rz.tu-bs.de/pub/mirror/ftp.easysw.com/ftp/pub/fltk/$(FLTK_VERSION)/$(FLTK)-$(FLTK_SUFFIX)
+FLTK_URL	:= http://ftp.rz.tu-bs.de/pub/mirror/ftp.easysw.com/ftp/pub/fltk/$(FLTK_VERSION)/$(FLTK)-$(FLTK_SUFFIX)
 FLTK_SOURCE	:= $(SRCDIR)/$(FLTK)-$(FLTK_SUFFIX)
 FLTK_DIR	:= $(BUILDDIR)/$(FLTK)
 
