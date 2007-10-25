@@ -188,10 +188,10 @@ init(){
 		case $line in
                 "PACKAGES-y"*)
 			# we don´t want to see kernel- and u-boot urls, so we just skip these packages
-                        YESPACKAGES=`echo "$content" | tr "a-z-" "A-Z_" | sed -e s/kernel\ //g -e s/u-boot\ //g`
+                        YESPACKAGES=`echo "$content" | sed -e s/kernel\ //g -e s/u-boot\ //g | tr "a-z-" "A-Z_"`
 			;;
                 "PACKAGES-"*)
-                	NOPACKAGES=`echo "$content" | tr "a-z-" "A-Z_" | sed -e s/kernel\ //g -e s/u-boot\ //g`
+                	NOPACKAGES=`echo "$content" | sed -e s/kernel\ //g -e s/u-boot\ //g | tr "a-z-" "A-Z_"`
 			;;
                 esac
         done < ${M2B_ENV}
