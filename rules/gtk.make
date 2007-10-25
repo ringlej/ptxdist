@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_GTK) += gtk
 GTK_VERSION	:= 2.12.0
 GTK		:= gtk+-$(GTK_VERSION)
 GTK_SUFFIX	:= tar.bz2
-GTK_URL		:= ftp://ftp.gtk.org/pub/gtk/2.12/$(GTK).$(GTK_SUFFIX)
+GTK_URL		:= http://ftp.gtk.org/pub/gtk/2.12/$(GTK).$(GTK_SUFFIX)
 GTK_SOURCE	:= $(SRCDIR)/$(GTK).$(GTK_SUFFIX)
 GTK_DIR		:= $(BUILDDIR)/$(GTK)
 

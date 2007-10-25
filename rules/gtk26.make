@@ -21,7 +21,7 @@ PACKAGES-$(PTXCONF_GTK26) += gtk26
 GTK26_VERSION	= 2.6.10
 GTK26		= gtk+-$(GTK26_VERSION)
 GTK26_SUFFIX	= tar.bz2
-GTK26_URL	= ftp://ftp.gtk.org/pub/gtk/v2.6/$(GTK26).$(GTK26_SUFFIX)
+GTK26_URL	= http://ftp.gtk.org/pub/gtk/v2.6/$(GTK26).$(GTK26_SUFFIX)
 GTK26_SOURCE	= $(SRCDIR)/$(GTK26).$(GTK26_SUFFIX)
 GTK26_DIR	= $(BUILDDIR)/$(GTK26)
 
