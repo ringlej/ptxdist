@@ -74,6 +74,13 @@ ifdef PTXCONF_SUDO_DONT_SEND_MAILS
 SUDO_AUTOCONF += --without-sendmail
 endif
 
+  ifdef PTXCONF_SUDO_NO_SENDMAIL
+SUDO_AUTOCONF += --without-sendmail
+  endif
+  ifdef PTXCONF_SUDO_NO_PAM
+SUDO_AUTOCONF += --without-pam
+  endif
+
 $(STATEDIR)/sudo.prepare: $(sudo_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(SUDO_DIR)/config.cache)
@@ -112,7 +119,7 @@ sudo_targetinstall: $(STATEDIR)/sudo.targetinstall
 $(STATEDIR)/sudo.targetinstall: $(sudo_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init,  sudo)
+	@$(call install_init, sudo)
 	@$(call install_fixup, sudo,PACKAGE,sudo)
 	@$(call install_fixup, sudo,PRIORITY,optional)
 	@$(call install_fixup, sudo,VERSION,$(SUDO_VERSION))
@@ -126,14 +133,14 @@ $(STATEDIR)/sudo.targetinstall: $(sudo_targetinstall_deps_default)
 
 	@$(call install_copy, sudo, 0, 0, 0755, $(SUDO_DIR)/.libs/sudo_noexec.so, /usr/libexec/sudo_noexec.so)
 
-ifdef PTXCONF_SUDO_ETC_SUDOERS
-ifdef PTXCONF_SUDO_ETC_SUDOERS_DEFAULT
+ ifdef PTXCONF_SUDO_ETC_SUDOERS
+  ifdef PTXCONF_SUDO_ETC_SUDOERS_DEFAULT
 	@$(call install_copy, sudo, 0, 0, 0440, $(SUDO_DIR)/sudoers, /etc/sudoers,n)
-endif
-ifdef PTXCONF_SUDO_ETC_SUDOERS_USER
+  endif
+  ifdef PTXCONF_SUDO_ETC_SUDOERS_USER
 	@$(call install_copy, sudo, 0, 0, 0440, ${PTXDIST_WORKSPACE}/projectroot/etc/sudoers, /etc/sudoers,n)
-endif
-endif
+  endif
+ endif
 	@$(call install_finish, sudo)
 
 	@$(call touch, $@)

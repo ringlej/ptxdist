@@ -8,14 +8,18 @@ config SUDO
  	  as few privileges as possible but still allow
 	  people to get their work done.
 
-config SUDO_DONT_SEND_MAILS
-	bool "don't send mails"
-	depends on SUDO
+if SUDO
+
+config SUDO_NO_SENDMAIL
+	bool "Send no mails"
+	default y
+
+config SUDO_NO_PAM
+	bool "Don't use libpam"
 	default y
 
 config SUDO_ETC_SUDOERS
 	bool "Install sudoers file into /etc"
-	depends on SUDO
 	default y
 	help
 	  Installs /etc/sudoers from a selectable source
@@ -41,3 +45,5 @@ config SUDO_ETC_SUDOERS
 
 	endchoice
 
+
+endif

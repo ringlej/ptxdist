@@ -1,0 +1,11 @@
+--- sudo-1.6.8p12/configure.orig	2007-07-06 16:42:44.000000000 +0200
++++ sudo-1.6.8p12/configure	2007-07-06 16:43:33.000000000 +0200
+@@ -24397,7 +24397,7 @@ if test "$cross_compiling" = yes; then
+ See \`config.log' for more details." >&5
+ echo "$as_me: error: cannot run test program while cross compiling
+ See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++    }
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ #line $LINENO "configure"

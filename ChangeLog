@@ -1,5 +1,11 @@
 2007-10-27  Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* sudo: update to version 1.6.9p2. It patches some compile
+	breakage, when trying to cross compile. It also allows to
+	install a user sudoers file from projectroot.
+
+	Signed-off-by: Carsten Schlote <c.schlote@konzeptpark.de>
+
 	* netkit-ftp: Removed libc dependency from netkit-ftp.
 	Removed ipkg dependency to libc from netkit-ftp packet. As
 	we use glibc this caused the packet to refuse installation.
