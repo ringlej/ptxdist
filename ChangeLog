@@ -1,5 +1,11 @@
 2007-10-27  Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* netkit-ftp: Removed libc dependency from netkit-ftp.
+	Removed ipkg dependency to libc from netkit-ftp packet. As
+	we use glibc this caused the packet to refuse installation.
+
+	Signed-off-by: Carsten Schlote <c.schlote@konzeptpark.de>
+
 	* libgmp: remove gmp3 and gmp4, added libgmp instead. Compiles
 	at least for ARM.
 

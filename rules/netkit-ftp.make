@@ -124,7 +124,7 @@ $(STATEDIR)/netkit-ftp.targetinstall: $(netkit-ftp_targetinstall_deps_default)
 	@$(call install_fixup, netkit-ftp,VERSION,$(NETKIT_FTP_VERSION))
 	@$(call install_fixup, netkit-ftp,SECTION,base)
 	@$(call install_fixup, netkit-ftp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup, netkit-ftp,DEPENDS,libc)
+	@$(call install_fixup, netkit-ftp,DEPENDS,)
 	@$(call install_fixup, netkit-ftp,DESCRIPTION,missing)
 
 	@$(call install_copy, netkit-ftp, 0, 0, 0755, $(NETKIT_FTP_DIR)/ftp/ftp, /bin/ftp)
