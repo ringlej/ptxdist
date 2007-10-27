@@ -4,6 +4,8 @@
 	breakage, when trying to cross compile. It also allows to
 	install a user sudoers file from projectroot.
 
+	Change mail and pam options to positive logic.
+
 	Signed-off-by: Carsten Schlote <c.schlote@konzeptpark.de>
 
 	* netkit-ftp: Removed libc dependency from netkit-ftp.

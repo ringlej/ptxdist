@@ -10,13 +10,13 @@ config SUDO
 
 if SUDO
 
-config SUDO_NO_SENDMAIL
-	bool "Send no mails"
-	default y
+config SUDO_USE_SENDMAIL
+	bool "Use sendmail"
+	default n
 
-config SUDO_NO_PAM
-	bool "Don't use libpam"
-	default y
+config SUDO_USE_PAM
+	bool "Use libpam"
+	default n
 
 config SUDO_ETC_SUDOERS
 	bool "Install sudoers file into /etc"

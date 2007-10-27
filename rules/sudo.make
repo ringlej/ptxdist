@@ -74,10 +74,10 @@ ifdef PTXCONF_SUDO_DONT_SEND_MAILS
 SUDO_AUTOCONF += --without-sendmail
 endif
 
-  ifdef PTXCONF_SUDO_NO_SENDMAIL
+  ifndef PTXCONF_SUDO_USE_SENDMAIL
 SUDO_AUTOCONF += --without-sendmail
   endif
-  ifdef PTXCONF_SUDO_NO_PAM
+  ifndef PTXCONF_SUDO_USE_PAM
 SUDO_AUTOCONF += --without-pam
   endif
 
