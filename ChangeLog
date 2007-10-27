@@ -1,3 +1,10 @@
+2007-10-27  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* libgmp: remove gmp3 and gmp4, added libgmp instead. Compiles
+	at least for ARM.
+
+	Signed-off-by: Carsten Schlote <c.schlote@konzeptpark.de>
+
 2007-10-19  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* Rules.make: allow PKG_PKGDIR related install_copy calls.

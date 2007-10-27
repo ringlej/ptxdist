@@ -3,7 +3,7 @@
 menuconfig LSH
 	prompt "LSH                 "
 	bool
-	select GMP4
+	select LIBGMP
 	select LIBOOP
 	help
 	  lsh is an SSH implementation. 
