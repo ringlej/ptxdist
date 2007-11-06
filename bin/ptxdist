@@ -86,7 +86,9 @@ boardsetup() {
 
 	# prepare everything to make kconfig see it's original environment
 	ln -sf ${PTXDIST_TOPDIR}/scripts
-	cp ${PTXDIST_WORKSPACE}/boardsetup/boardsetup .config
+	if test -e ${PTXDIST_WORKSPACE}/boardsetup/boardsetup; then
+	    cp ${PTXDIST_WORKSPACE}/boardsetup/boardsetup .config
+	fi
 
 	# store boardsetup
 	${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_WORKSPACE}/boardsetup/Kconfig
