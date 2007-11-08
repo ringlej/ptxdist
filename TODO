@@ -1,6 +1,8 @@
 TODO for 1.1.x
 ==============
 
+[ ] mkl: reactiveate new install_copy feature (no explicid destination)
+
 [ ] rsc: put export LANG=C somewhere into PTXdist, to make compiler
          output more readable
 
