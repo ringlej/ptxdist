@@ -869,7 +869,7 @@ install_copy = 											\
 	DST=$(strip $(6));									\
 	STRIP="$(strip $(7))";									\
 												\
-	PKG_PKGDIR="$(PKGDIR)/$(shell echo $($(strip $(1))) | awk '{print toupper($0)}')";	\
+	PKG_PKGDIR="$(PKGDIR)/$($(call uppercase, $(1)))";					\
 	if [ -z "$(6)" ]; then									\
 		SRC=$${PKG_PKGDIR}/$$SRC;							\
 	fi; 											\
