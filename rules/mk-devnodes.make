@@ -5,10 +5,7 @@ world: $(STATEDIR)/mk-devnodes.sh
 endif
 
 $(STATEDIR)/mk-devnodes.sh: dep_world
-	@(									\
-		echo "#/bin/bash";						\
-		echo "mkdir dev";						\
-	) > "$@"		
+	@echo "#/bin/bash" > "$@"
 
 	@IFS=":";								\
 	(									\
