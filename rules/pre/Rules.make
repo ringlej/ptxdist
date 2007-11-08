@@ -864,6 +864,7 @@ patchin =										\
 #	if [ -z "$(6)" ]; then									\
 #		SRC=$${PKG_PKGDIR}/$$SRC;							\
 #	fi; 											\
+#
 install_copy = 											\
 	PACKET=$(strip $(1));									\
 	OWN=$(strip $(2));									\
