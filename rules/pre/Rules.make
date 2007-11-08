@@ -860,6 +860,10 @@ patchin =										\
 #        a path like /usr/bin/blub there
 # $7: strip (for files; y|n); default is to strip
 #
+#	PKG_PKGDIR="$(PKGDIR)/$($(call uppercase, $(1)))";					\
+#	if [ -z "$(6)" ]; then									\
+#		SRC=$${PKG_PKGDIR}/$$SRC;							\
+#	fi; 											\
 install_copy = 											\
 	PACKET=$(strip $(1));									\
 	OWN=$(strip $(2));									\
@@ -869,10 +873,6 @@ install_copy = 											\
 	DST=$(strip $(6));									\
 	STRIP="$(strip $(7))";									\
 												\
-	PKG_PKGDIR="$(PKGDIR)/$($(call uppercase, $(1)))";					\
-	if [ -z "$(6)" ]; then									\
-		SRC=$${PKG_PKGDIR}/$$SRC;							\
-	fi; 											\
 	if [ -z "$(6)" ]; then									\
 		echo "install_copy:";								\
 		echo "  dir=$$SRC";								\
