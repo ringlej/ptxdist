@@ -1050,7 +1050,7 @@ install_copy_toolchain_lib =									\
 	DST="$(strip $3)";									\
 	STRIP="$(strip $4)";									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
-	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)							\
+	${CROSS_ENV_CC} $(CROSS_ENV_STRIP) PKGDIR="$(PKGDIR)"					\
 		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -l "$${LIB}" $${DST} -s "$${STRIP}"
 
 #
@@ -1065,7 +1065,7 @@ install_copy_toolchain_dl =									\
 	DST="$(strip $2)";									\
 	STRIP="$(strip $3)";									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
-	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)							\
+	${CROSS_ENV_CC} $(CROSS_ENV_STRIP) PKGDIR="$(PKGDIR)"					\
 		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -l LINKER $${DST} -s "$${STRIP}"
 
 #

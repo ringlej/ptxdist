@@ -46,6 +46,33 @@ ptxd_get_dl() {
 
 
 #
+# $1: lib_path	# cannolocilized path to lib or link
+# $2: var	# sysroot and prefix will be "prefixed" with this var if existing
+#
+# out: eval sysroot= prefix=
+#
+ptxd_split_lib_prefix_sysroot_eval() {
+    local lib_path lib lib_dir prefix tmp pre
+
+    lib_path="${1}"
+    pre="${2:+${2}_}"
+
+    lib="${lib_path##*/}"			# the pure library filename "libxxx.so"
+    lib_dir="${lib_path%/${lib}}"		# abs path to that lib
+
+    # try to identify sysroot part of that path
+    for prefix in {/usr,}/lib{64,32,}{/tls,} ""; do
+	tmp="${lib_dir%${prefix}}"
+	if test "${lib_dir}" != "${tmp}"; then
+	    break
+	fi
+    done
+
+    echo "${pre}sysroot=\"${lib_dir%${prefix}}\" ${pre}prefix=\"${prefix}\""
+}
+
+
+#
 # $1: lib_path: canonicalized path to lib
 #
 # The work is done here!
@@ -56,12 +83,10 @@ ptxd_get_dl() {
 #   (if it's not a linker script)
 # - look into the linker scripts and copy only the _shared_
 #   libs mentioned there
-# - one more thing: if we find a tls lib (e.g. in the /lib/tls subdir)
-#   we use it
 #
 ptxd_install_toolchain_lib() {
-    local lib_path lib lib_dir sysroot prefix prefix script_lib tmp tls_lib dir v_full lib_v_major
-    local args packet dest strip
+    local lib_path lib lib_dir sysroot prefix prefix script_lib tmp dir v_full lib_v_major
+    local args packet dest strip lnk lnk_path lnk_prefix lnk_sysroot
 
     eval "${@}"
     eval "${args}"
@@ -70,26 +95,15 @@ ptxd_install_toolchain_lib() {
 	lib="${lib_path##*/}"			# the pure library filename "libxxx.so"
 	lib_dir="${lib_path%/${lib}}"		# abs path to that lib
 
-	# try to identify sysroot part of that path
-	for prefix in "/usr/lib/tls" "/usr/lib" "/lib/tls" "/lib"; do
-	    tmp="${lib_dir%${prefix}}"
-	    if test "${lib_dir}" != "${tmp}"; then
-		break
-	    fi
-	done
-	sysroot="${lib_dir%${prefix}}"
+	# guess sysroot from given lib
+	eval `ptxd_split_lib_prefix_sysroot_eval "${lib_path}"`
+	if test -z "${prefix}" -a -z "${dest}"; then
+	    echo "cannot identify prefix and no user supplied dest" >&2
+	    exit 1
+	fi
 
 	# if the user has given us a $prefix use it
 	prefix="${dest:-${prefix}}"
-
-# disabled cause tls is bad for UML
-	# is there a tls variant of the lib? (e.g. native build on debian)
-#	tls_lib="${lib_dir}/tls/${lib}"
-#	if test -e "${tls_lib}"; then
-#	    echo "tls - ${tls_lib}"
-#	    ptxd_install_toolchain_lib "${tls_lib}"
-#	    return $?
-#	fi
 
 	# remove existing libs
 	for dir in \
@@ -104,29 +118,37 @@ ptxd_install_toolchain_lib() {
 	if test -h "${lib_path}"; then		# link
 	    echo "link - ${lib_path}"
 
-	    # now install that link into the root and ipkg dirs
-	    for dir in \
-		"${ROOTDIR}" \
-		"${ROOTDIR_DEBUG}" \
-		"${IMAGEDIR}/${packet}/ipkg/"; do
-
-		test -d "${dir}${prefix}" || mkdir -p "${dir}${prefix}"
-		cp -d "${lib_path}" "${dir}${prefix}/${lib}"
-	    done
-
-	    # now do the same thing for the target of the link
-	    lib_path="`readlink \"${lib_path}\"`" || ( echo "broken link" >&2; exit 1 )
+	    # get target of the link
+	    lnk_path="`readlink \"${lib_path}\"`" || ( echo "broken link" >&2; exit 1 )
+	    lnk="`basename \"${lnk_path}\"`"
 
 	    # deal with relative and absolute links
-	    case "${lib_path}" in
+	    case "${lnk_path}" in
 		/*)
 		    # nix
 		    ;;
 		*)
-		    lib_path="${lib_dir}/${lib_path}"
+		    lnk_path="${lib_dir}/${lnk_path}"
 		    ;;
 	    esac
-	    lib_path="`ptxd_abspath \"${lib_path}\"`"
+
+	    lnk_path="`ptxd_abspath \"${lnk_path}\"`"
+	    eval `ptxd_split_lib_prefix_sysroot_eval "${lnk_path}" lnk`
+	    lnk_prefix="${dest:-${lnk_prefix}}"
+
+	    # now install that link into the root and ipkg dirs
+	    for dir in \
+		"${ROOTDIR}" \
+		"${ROOTDIR_DEBUG}" \
+		"${PKGDIR}/${packet}.tmp/ipkg"; do
+
+		if test \! -d "${dir}${prefix}"; then
+		    mkdir -p "${dir}${prefix}"
+		fi
+		ln -sf "${lnk_prefix}/${lnk}" "${dir}${prefix}/${lib}"
+	    done
+
+	    lib_path="${lnk_path}"
 	    continue
 	elif test -f "${lib_path}"; then	# regular file
 	    # is this a linker script?
@@ -158,14 +180,14 @@ ptxd_install_toolchain_lib() {
 		for dir in \
 		    "${ROOTDIR}" \
 		    "${ROOTDIR_DEBUG}" \
-		    "${IMAGEDIR}/${packet}/ipkg"; do
+		    "${PKGDIR}/${packet}.tmp/ipkg"; do
 
 		  install -D "${lib_path}" "${dir}${prefix}/${lib}"
 		done
 
 		if "${strip}"; then
 		    ${STRIP} "${ROOTDIR}${prefix}/${lib}"
-		    ${STRIP} "${IMAGEDIR}/${packet}/ipkg${prefix}/${lib}"
+		    ${STRIP} "${PKGDIR}/${packet}.tmp/ipkg${prefix}/${lib}"
 		fi
 		echo "f:${prefix}/${lib}:0:0:755" >> "${STATEDIR}/${packet}.perms"
 
@@ -184,7 +206,7 @@ ptxd_install_toolchain_lib() {
 		    for dir in \
 			"${ROOTDIR}" \
 			"${ROOTDIR_DEBUG}" \
-			"${IMAGEDIR}/${packet}/ipkg"; do
+			"${PKGDIR}/${packet}.tmp/ipkg"; do
 
 		      if test \! -e "${dir}${prefix}/${lib_v_major}"; then
 			  ln -sf "${lib}" "${dir}${prefix}/${lib_v_major}"
@@ -274,14 +296,14 @@ ptxd_install_toolchain_usr() {
 	for dir in \
 	    "${ROOTDIR}" \
 	    "${ROOTDIR_DEBUG}" \
-	    "${IMAGEDIR}/${packet}/ipkg"; do
+	    "${PKGDIR}/${packet}.tmp/ipkg"; do
 
 	  install -m "${usr_perm}" -D "${usr_src}" "${dir}${usr_dst}"
 	done
 
 	if "${strip}"; then
 	    ${STRIP} "${ROOTDIR}${usr_dst}"
-	    ${STRIP} "${IMAGEDIR}/${packet}/ipkg${usr_dst}"
+	    ${STRIP} "${PKGDIR}/${packet}.tmp/ipkg${usr_dst}"
 	fi
 	echo "f:${usr_dst}:0:0:${usr_perm}" >> "${STATEDIR}/${packet}.perms"
     done
