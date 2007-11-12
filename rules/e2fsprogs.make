@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002-2006 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002-2007 by Pengutronix e.K., Hildesheim, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.39
+E2FSPROGS_VERSION	:= 1.40.2
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
@@ -84,7 +84,7 @@ e2fsprogs_compile: $(STATEDIR)/e2fsprogs.compile
 
 $(STATEDIR)/e2fsprogs.compile: $(e2fsprogs_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(E2FSPROGS_DIR) && $(E2FSPROGS_PATH) make
+	cd $(E2FSPROGS_DIR) && $(E2FSPROGS_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
