@@ -1,7 +1,6 @@
 menuconfig LESS
 	bool
-	default n
-	prompt "less                 "
+	prompt "less                "
 	help
 	  Less is a pager. A pager is a program
 	  that displays text files. More info:
@@ -17,7 +16,6 @@ config LESS_BIN
 
 config LESS_KEY
 	bool
-	default n
 	depends on LESS && !BB_CONFIG_LESS
 	prompt "install lesskey      "
 	help
@@ -25,7 +23,6 @@ config LESS_KEY
 
 config LESS_ECHO
 	bool
-	default n
 	depends on LESS && !BB_CONFIG_LESS
 	prompt "install lessecho     "
 	help

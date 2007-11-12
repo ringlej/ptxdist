@@ -1,5 +1,5 @@
 menuconfig GAWK
-	bool "gawk"
+	bool "gawk                "
 	help
 	  Gawk is the GNU Project's implementation of the AWK programming
 	  language. It conforms to the definition of the language in the POSIX
