@@ -1,6 +1,6 @@
-config SUDO
+menuconfig SUDO
 	bool
-	prompt "sudo"
+	prompt "sudo                "
 	help
 	  Sudo is a program designed to allow a sysadmin
 	  to give limited root privileges to users and log
