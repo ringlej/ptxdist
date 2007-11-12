@@ -55,9 +55,8 @@ HOST_QTE_ENV 	:= $(HOST_ENV)
 #
 # qte does not use autoconf, but something that looks similar
 #
-HOST_QTE_AUTOCONF	:= $(HOST_AUTOCONF)
-# disable all we can - we need only uic
-HOST_QTE_CONF := -prefix=$(PTXCONF_PREFIX) \
+HOST_QTE_AUTOCONF := \
+	-prefix=$(PTX_PREFIX_HOST) \
 	-platform=$(GNU_HOST) \
 	-disable styles \
 	-disable tools \
@@ -110,8 +109,7 @@ host-qte_install: $(STATEDIR)/host-qte.install
 
 $(STATEDIR)/host-qte.install: $(host-qte_install_deps_default)
 	@$(call targetinfo, $@)
-	mkdir -p $(PTXCONF_PREFIX)/bin
-	cp $(HOST_QTE_DIR)/bin/uic $(PTXCONF_PREFIX)/bin
+	cp $(HOST_QTE_DIR)/bin/uic $(PTX_PREFIX_HOST)/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
