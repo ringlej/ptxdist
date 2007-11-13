@@ -5,7 +5,7 @@ dnl
 dnl FIXME: how to have the version number only in one place?
 dnl
 
-AC_INIT([ptxdist],[1.svn],[ptxdist@pengutronix.de])
+AC_INIT([ptxdist],[1.99.0],[ptxdist@pengutronix.de])
 AC_CONFIG_AUX_DIR(autoconf)
 AC_PREREQ(2.59)
 AC_REVISION ($Revision: 1.38 $)
