@@ -1,5 +1,11 @@
---- screen-4.0.2/configure	2003-12-05 14:46:53.000000000 +0100
-+++ screen-4.0.2-my/configure	2006-11-14 15:05:15.000000000 +0100
+---
+ configure | 8714 +++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 4475 insertions(+), 4239 deletions(-)
+
+Index: screen-4.0.2/configure
+===================================================================
+--- screen-4.0.2.orig/configure
++++ screen-4.0.2/configure
 @@ -1,10 +1,10 @@
  #! /bin/sh
  # From configure.in Revision: 1.18 .
@@ -14,7 +20,7 @@
  # This configure script is free software; the Free Software Foundation
  # gives unlimited permission to copy, distribute and modify it.
  ## --------------------- ##
-@@ -18,20 +18,80 @@
+@@ -18,20 +18,80 @@ if test -n "${ZSH_VERSION+set}" && (emul
    # Zsh 3.x and 4.x performs word splitting on ${1+"$@"}, which
    # is contrary to our usage.  Disable this feature.
    alias -g '${1+"$@"}'='"$@"'
@@ -99,7 +105,7 @@
  PS1='$ '
  PS2='> '
  PS4='+ '
-@@ -42,21 +102,22 @@
+@@ -42,21 +102,22 @@ for as_var in \
    LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER \
    LC_TELEPHONE LC_TIME
  do
@@ -126,7 +132,7 @@
    as_basename=basename
  else
    as_basename=false
-@@ -64,206 +125,436 @@
+@@ -64,206 +125,436 @@ fi
  
  
  # Name of the executable.
@@ -680,7 +686,7 @@
  # Identity of this package.
  PACKAGE_NAME=
  PACKAGE_TARNAME=
-@@ -275,42 +566,104 @@
+@@ -275,42 +566,104 @@ ac_unique_file="screen.c"
  # Factoring default headers for most tests.
  ac_includes_default="\
  #include <stdio.h>
@@ -799,7 +805,7 @@
  
  # Initialize some variables set by options.
  ac_init_help=
-@@ -337,34 +690,48 @@
+@@ -337,34 +690,48 @@ x_libraries=NONE
  # and all the variables that are supposed to be based on exec_prefix
  # by default will actually change.
  # Use braces instead of parens because sh, perl, etc. also accept them.
@@ -855,7 +861,7 @@
  
    -bindir | --bindir | --bindi | --bind | --bin | --bi)
      ac_prev=bindir ;;
-@@ -386,12 +753,18 @@
+@@ -386,12 +753,18 @@ do
    --config-cache | -C)
      cache_file=config.cache ;;
  
@@ -877,7 +883,7 @@
    -disable-* | --disable-*)
      ac_feature=`expr "x$ac_option" : 'x-*disable-\(.*\)'`
      # Reject names that are not valid shell variable names.
-@@ -399,7 +772,17 @@
+@@ -399,7 +772,17 @@ do
        { echo "$as_me: error: invalid feature name: $ac_feature" >&2
     { (exit 1); exit 1; }; }
      ac_feature=`echo $ac_feature | sed 's/-/_/g'`
@@ -896,7 +902,7 @@
  
    -enable-* | --enable-*)
      ac_feature=`expr "x$ac_option" : 'x-*enable-\([^=]*\)'`
-@@ -408,11 +791,7 @@
+@@ -408,11 +791,7 @@ do
        { echo "$as_me: error: invalid feature name: $ac_feature" >&2
     { (exit 1); exit 1; }; }
      ac_feature=`echo $ac_feature | sed 's/-/_/g'`
@@ -909,7 +915,7 @@
  
    -exec-prefix | --exec_prefix | --exec-prefix | --exec-prefi \
    | --exec-pref | --exec-pre | --exec-pr | --exec-p | --exec- \
-@@ -439,6 +818,12 @@
+@@ -439,6 +818,12 @@ do
    -host=* | --host=* | --hos=* | --ho=*)
      host_alias=$ac_optarg ;;
  
@@ -922,7 +928,7 @@
    -includedir | --includedir | --includedi | --included | --include \
    | --includ | --inclu | --incl | --inc)
      ac_prev=includedir ;;
-@@ -463,13 +848,16 @@
+@@ -463,13 +848,16 @@ do
    | --libexe=* | --libex=* | --libe=*)
      libexecdir=$ac_optarg ;;
  
@@ -943,7 +949,7 @@
      localstatedir=$ac_optarg ;;
  
    -mandir | --mandir | --mandi | --mand | --man | --ma | --m)
-@@ -534,6 +922,16 @@
+@@ -534,6 +922,16 @@ do
    | --progr-tra=* | --program-tr=* | --program-t=*)
      program_transform_name=$ac_optarg ;;
  
@@ -960,7 +966,7 @@
    -q | -quiet | --quiet | --quie | --qui | --qu | --q \
    | -silent | --silent | --silen | --sile | --sil)
      silent=yes ;;
-@@ -590,11 +988,7 @@
+@@ -590,11 +988,7 @@ do
        { echo "$as_me: error: invalid package name: $ac_package" >&2
     { (exit 1); exit 1; }; }
      ac_package=`echo $ac_package| sed 's/-/_/g'`
@@ -973,7 +979,7 @@
  
    -without-* | --without-*)
      ac_package=`expr "x$ac_option" : 'x-*without-\(.*\)'`
-@@ -603,7 +997,7 @@
+@@ -603,7 +997,7 @@ do
        { echo "$as_me: error: invalid package name: $ac_package" >&2
     { (exit 1); exit 1; }; }
      ac_package=`echo $ac_package | sed 's/-/_/g'`
@@ -982,7 +988,7 @@
  
    --x)
      # Obsolete; use --with-x.
-@@ -634,8 +1028,7 @@
+@@ -634,8 +1028,7 @@ Try \`$0 --help' for more information." 
      expr "x$ac_envvar" : ".*[^_$as_cr_alnum]" >/dev/null &&
        { echo "$as_me: error: invalid variable name: $ac_envvar" >&2
     { (exit 1); exit 1; }; }
@@ -992,7 +998,7 @@
      export $ac_envvar ;;
  
    *)
-@@ -655,27 +1048,19 @@
+@@ -655,27 +1048,19 @@ if test -n "$ac_prev"; then
     { (exit 1); exit 1; }; }
  fi
  
@@ -1030,7 +1036,7 @@
  done
  
  # There might be people who depend on the old broken behavior: `$host'
-@@ -702,74 +1087,76 @@
+@@ -702,74 +1087,76 @@ test -n "$host_alias" && ac_tool_prefix=
  test "$silent" = yes && exec 6>/dev/null
  
  
@@ -1164,7 +1170,7 @@
  
  #
  # Report the --help message.
-@@ -798,14 +1185,11 @@
+@@ -798,14 +1185,11 @@ Configuration:
    -n, --no-create         do not create output files
        --srcdir=DIR        find the sources in DIR [configure dir or \`..']
  
@@ -1181,7 +1187,7 @@
  
  By default, \`make install' will install all the files in
  \`$ac_default_prefix/bin', \`$ac_default_prefix/lib' etc.  You can specify
-@@ -818,15 +1202,22 @@
+@@ -818,15 +1202,22 @@ Fine tuning of the installation director
    --bindir=DIR           user executables [EPREFIX/bin]
    --sbindir=DIR          system admin executables [EPREFIX/sbin]
    --libexecdir=DIR       program executables [EPREFIX/libexec]
@@ -1207,7 +1213,7 @@
  _ACEOF
  
    cat <<\_ACEOF
-@@ -851,8 +1242,6 @@
+@@ -851,8 +1242,6 @@ Optional Packages:
    --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
    --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
    --with-socket-dir=path  where to put the per-user sockets
@@ -1216,7 +1222,7 @@
    --with-sys-screenrc=path  where to put the global screenrc file
  
  Some influential environment variables:
-@@ -860,94 +1249,94 @@
+@@ -860,94 +1249,94 @@ Some influential environment variables:
    CFLAGS      C compiler flags
    LDFLAGS     linker flags, e.g. -L<lib dir> if you have libraries in a
                nonstandard directory <lib dir>
@@ -1361,7 +1367,7 @@
  {
  cat <<_ASUNAME
  ## --------- ##
-@@ -966,7 +1355,7 @@
+@@ -966,7 +1355,7 @@ uname -v = `(uname -v) 2>/dev/null || ec
  /bin/arch              = `(/bin/arch) 2>/dev/null              || echo unknown`
  /usr/bin/arch -k       = `(/usr/bin/arch -k) 2>/dev/null       || echo unknown`
  /usr/convex/getsysinfo = `(/usr/convex/getsysinfo) 2>/dev/null || echo unknown`
@@ -1370,7 +1376,7 @@
  /bin/machine           = `(/bin/machine) 2>/dev/null           || echo unknown`
  /usr/bin/oslevel       = `(/usr/bin/oslevel) 2>/dev/null       || echo unknown`
  /bin/universe          = `(/bin/universe) 2>/dev/null          || echo unknown`
-@@ -980,6 +1369,7 @@
+@@ -980,6 +1369,7 @@ do
    test -z "$as_dir" && as_dir=.
    echo "PATH: $as_dir"
  done
@@ -1378,7 +1384,7 @@
  
  } >&5
  
-@@ -1001,7 +1391,6 @@
+@@ -1001,7 +1391,6 @@ _ACEOF
  ac_configure_args=
  ac_configure_args0=
  ac_configure_args1=
@@ -1386,7 +1392,7 @@
  ac_must_keep_next=false
  for ac_pass in 1 2
  do
-@@ -1012,7 +1401,7 @@
+@@ -1012,7 +1401,7 @@ do
      -q | -quiet | --quiet | --quie | --qui | --qu | --q \
      | -silent | --silent | --silen | --sile | --sil)
        continue ;;
@@ -1395,7 +1401,7 @@
        ac_arg=`echo "$ac_arg" | sed "s/'/'\\\\\\\\''/g"` ;;
      esac
      case $ac_pass in
-@@ -1020,23 +1409,21 @@
+@@ -1020,23 +1409,21 @@ do
      2)
        ac_configure_args1="$ac_configure_args1 '$ac_arg'"
        if test $ac_must_keep_next = true; then
@@ -1432,7 +1438,7 @@
        ;;
      esac
    done
-@@ -1047,8 +1434,8 @@
+@@ -1047,8 +1434,8 @@ $as_unset ac_configure_args1 || test "${
  # When interrupted or exit'd, cleanup temporary files, and complete
  # config.log.  We remove comments because anyway the quotes in there
  # would cause problems or look ugly.
@@ -1443,7 +1449,7 @@
  trap 'exit_status=$?
    # Save into config.log some information that might help in debugging.
    {
-@@ -1061,20 +1448,34 @@
+@@ -1061,20 +1448,34 @@ trap 'exit_status=$?
  _ASBOX
      echo
      # The following way of writing the cache mishandles newlines in values,
@@ -1488,7 +1494,7 @@
      echo
  
      cat <<\_ASBOX
-@@ -1085,22 +1486,28 @@
+@@ -1085,22 +1486,28 @@ _ASBOX
      echo
      for ac_var in $ac_subst_vars
      do
@@ -1524,7 +1530,7 @@
        done | sort
        echo
      fi
-@@ -1112,26 +1519,24 @@
+@@ -1112,26 +1519,24 @@ _ASBOX
  ## ----------- ##
  _ASBOX
        echo
@@ -1556,7 +1562,7 @@
  
  # Predefined preprocessor variables.
  
-@@ -1162,14 +1567,17 @@
+@@ -1162,14 +1567,17 @@ _ACEOF
  
  # Let the site file select an alternate cache file if it wants to.
  # Prefer explicitly selected file to automatically selected ones.
@@ -1581,7 +1587,7 @@
    if test -r "$ac_site_file"; then
      { echo "$as_me:$LINENO: loading site script $ac_site_file" >&5
  echo "$as_me: loading site script $ac_site_file" >&6;}
-@@ -1185,8 +1593,8 @@
+@@ -1185,8 +1593,8 @@ if test -r "$cache_file"; then
      { echo "$as_me:$LINENO: loading cache $cache_file" >&5
  echo "$as_me: loading cache $cache_file" >&6;}
      case $cache_file in
@@ -1592,7 +1598,7 @@
      esac
    fi
  else
-@@ -1198,12 +1606,11 @@
+@@ -1198,12 +1606,11 @@ fi
  # Check that the precious variables saved in the cache have kept the same
  # value.
  ac_cache_corrupted=false
@@ -1608,7 +1614,7 @@
    case $ac_old_set,$ac_new_set in
      set,)
        { echo "$as_me:$LINENO: error: \`$ac_var' was set to \`$ac_old_val' in the previous run" >&5
-@@ -1216,20 +1623,19 @@
+@@ -1216,20 +1623,19 @@ echo "$as_me: error: \`$ac_var' was not 
      ,);;
      *)
        if test "x$ac_old_val" != "x$ac_new_val"; then
@@ -1634,7 +1640,7 @@
      *) ac_arg=$ac_var=$ac_new_val ;;
      esac
      case " $ac_configure_args " in
-@@ -1246,12 +1652,6 @@
+@@ -1246,12 +1652,6 @@ echo "$as_me: error: run \`make distclea
     { (exit 1); exit 1; }; }
  fi
  
@@ -1647,7 +1653,7 @@
  
  
  
-@@ -1268,9 +1668,14 @@
+@@ -1268,9 +1668,14 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
  
  
  
@@ -1663,7 +1669,7 @@
  
  
  
-@@ -1285,8 +1690,8 @@
+@@ -1285,8 +1690,8 @@ if test "x$prefix" = xNONE; then
    echo $ECHO_N "checking for prefix by $ECHO_C" >&6
    # Extract the first word of "screen", so it can be a program name with args.
  set dummy screen; ac_word=$2
@@ -1674,7 +1680,7 @@
  if test "${ac_cv_path_ac_prefix_program+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1301,52 +1706,75 @@
+@@ -1301,52 +1706,75 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -1777,7 +1783,7 @@
    fi
  fi
  
-@@ -1354,8 +1782,8 @@
+@@ -1354,8 +1782,8 @@ if test "x$prefix" = xNONE; then
    echo $ECHO_N "checking for prefix by $ECHO_C" >&6
    # Extract the first word of "gzip", so it can be a program name with args.
  set dummy gzip; ac_word=$2
@@ -1788,7 +1794,7 @@
  if test "${ac_cv_path_ac_prefix_program+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1370,52 +1798,75 @@
+@@ -1370,52 +1798,75 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -1891,7 +1897,7 @@
    fi
  fi
  
-@@ -1429,8 +1880,8 @@
+@@ -1429,8 +1880,8 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
  if test -n "$ac_tool_prefix"; then
    # Extract the first word of "${ac_tool_prefix}gcc", so it can be a program name with args.
  set dummy ${ac_tool_prefix}gcc; ac_word=$2
@@ -1902,7 +1908,7 @@
  if test "${ac_cv_prog_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1443,32 +1894,34 @@
+@@ -1443,32 +1894,34 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -1944,7 +1950,7 @@
  if test "${ac_cv_prog_ac_ct_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1481,36 +1934,51 @@
+@@ -1481,36 +1934,51 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -2006,7 +2012,7 @@
  if test "${ac_cv_prog_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1523,74 +1991,34 @@
+@@ -1523,74 +1991,34 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -2090,7 +2096,7 @@
  if test "${ac_cv_prog_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1604,7 +2032,7 @@
+@@ -1604,7 +2032,7 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -2099,7 +2105,7 @@
      if test "$as_dir/$ac_word$ac_exec_ext" = "/usr/ucb/cc"; then
         ac_prog_rejected=yes
         continue
-@@ -1615,6 +2043,7 @@
+@@ -1615,6 +2043,7 @@ do
    fi
  done
  done
@@ -2107,7 +2113,7 @@
  
  if test $ac_prog_rejected = yes; then
    # We found a bogon in the path, so make sure we never use it.
-@@ -1632,22 +2061,23 @@
+@@ -1632,22 +2061,23 @@ fi
  fi
  CC=$ac_cv_prog_CC
  if test -n "$CC"; then
@@ -2138,7 +2144,7 @@
  if test "${ac_cv_prog_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1660,36 +2090,38 @@
+@@ -1660,36 +2090,38 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -2185,7 +2191,7 @@
  if test "${ac_cv_prog_ac_ct_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1702,29 +2134,45 @@
+@@ -1702,29 +2134,45 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -2237,7 +2243,7 @@
  fi
  
  fi
-@@ -1737,27 +2185,40 @@
+@@ -1737,27 +2185,40 @@ See \`config.log' for more details." >&2
     { (exit 1); exit 1; }; }
  
  # Provide some information about the compiler.
@@ -2287,7 +2293,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -1777,47 +2238,77 @@
+@@ -1777,47 +2238,77 @@ ac_clean_files="$ac_clean_files a.out a.
  # Try to create an executable without -o first, disregard a.out.
  # It will help us diagnose broken compilers, and finding out an intuition
  # of exeext.
@@ -2393,7 +2399,7 @@
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
-@@ -1829,19 +2320,21 @@
+@@ -1829,19 +2320,21 @@ See \`config.log' for more details." >&2
  fi
  
  ac_exeext=$ac_cv_exeext
@@ -2422,7 +2428,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -1860,22 +2353,27 @@
+@@ -1860,22 +2353,27 @@ See \`config.log' for more details." >&2
      fi
    fi
  fi
@@ -2462,7 +2468,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; then
-@@ -1886,10 +2384,9 @@
+@@ -1886,10 +2384,9 @@ if { (eval echo "$as_me:$LINENO: \"$ac_l
  for ac_file in conftest.exe conftest conftest.*; do
    test -f "$ac_file" || continue
    case $ac_file in
@@ -2475,7 +2481,7 @@
      * ) break;;
    esac
  done
-@@ -1902,19 +2399,18 @@
+@@ -1902,19 +2399,18 @@ See \`config.log' for more details." >&2
  fi
  
  rm -f conftest$ac_cv_exeext
@@ -2499,7 +2505,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -1930,14 +2426,20 @@
+@@ -1930,14 +2426,20 @@ main ()
  }
  _ACEOF
  rm -f conftest.o conftest.obj
@@ -2524,7 +2530,7 @@
      *) ac_cv_objext=`expr "$ac_file" : '.*\.\(.*\)'`
         break;;
    esac
-@@ -1955,17 +2457,16 @@
+@@ -1955,17 +2457,16 @@ fi
  
  rm -f conftest.$ac_cv_objext conftest.$ac_ext
  fi
@@ -2546,7 +2552,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -1984,14 +2485,36 @@
+@@ -1984,14 +2485,36 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -2588,7 +2594,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -2000,25 +2523,139 @@
+@@ -2000,25 +2523,139 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -2737,7 +2743,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -2034,14 +2671,36 @@
+@@ -2034,14 +2671,36 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -2779,7 +2785,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -2050,12 +2709,20 @@
+@@ -2050,12 +2709,20 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -2804,7 +2810,7 @@
  if test "$ac_test_CFLAGS" = set; then
    CFLAGS=$ac_save_CFLAGS
  elif test $ac_cv_prog_cc_g = yes; then
-@@ -2071,15 +2738,14 @@
+@@ -2071,15 +2738,14 @@ else
      CFLAGS=
    fi
  fi
@@ -2824,7 +2830,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -2107,6 +2773,21 @@
+@@ -2107,6 +2773,21 @@ static char *f (char * (*g) (char **, in
    va_end (v);
    return s;
  }
@@ -2846,7 +2852,7 @@
  int test (int i, double x);
  struct s1 {int (*f) (int a);};
  struct s2 {int (*f) (double a);};
-@@ -2121,203 +2802,108 @@
+@@ -2121,203 +2802,108 @@ return f (e, argv, 0) != argv[0]  ||  f 
    return 0;
  }
  _ACEOF
@@ -3129,7 +3135,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -2328,10 +2914,15 @@
+@@ -2328,10 +2914,15 @@ cat >>conftest.$ac_ext <<_ACEOF
  #else
  # include <assert.h>
  #endif
@@ -3148,7 +3154,7 @@
    ac_status=$?
    grep -v '^ *+' conftest.er1 >conftest.err
    rm -f conftest.er1
-@@ -2340,6 +2931,7 @@
+@@ -2340,6 +2931,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_c
    (exit $ac_status); } >/dev/null; then
    if test -s conftest.err; then
      ac_cpp_err=$ac_c_preproc_warn_flag
@@ -3156,7 +3162,7 @@
    else
      ac_cpp_err=
    fi
-@@ -2355,12 +2947,12 @@
+@@ -2355,12 +2947,12 @@ sed 's/^/| /' conftest.$ac_ext >&5
    # Broken: fails on valid input.
  continue
  fi
@@ -3171,7 +3177,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -2368,8 +2960,13 @@
+@@ -2368,8 +2960,13 @@ cat >>conftest.$ac_ext <<_ACEOF
  /* end confdefs.h.  */
  #include <ac_nonexistent.h>
  _ACEOF
@@ -3187,7 +3193,7 @@
    ac_status=$?
    grep -v '^ *+' conftest.er1 >conftest.err
    rm -f conftest.er1
-@@ -2378,6 +2975,7 @@
+@@ -2378,6 +2975,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_c
    (exit $ac_status); } >/dev/null; then
    if test -s conftest.err; then
      ac_cpp_err=$ac_c_preproc_warn_flag
@@ -3195,7 +3201,7 @@
    else
      ac_cpp_err=
    fi
-@@ -2395,6 +2993,7 @@
+@@ -2395,6 +2993,7 @@ sed 's/^/| /' conftest.$ac_ext >&5
  ac_preproc_ok=:
  break
  fi
@@ -3203,7 +3209,7 @@
  rm -f conftest.err conftest.$ac_ext
  
  done
-@@ -2412,8 +3011,8 @@
+@@ -2412,8 +3011,8 @@ fi
  else
    ac_cv_prog_CPP=$CPP
  fi
@@ -3214,7 +3220,7 @@
  ac_preproc_ok=false
  for ac_c_preproc_warn_flag in '' yes
  do
-@@ -2424,7 +3023,6 @@
+@@ -2424,7 +3023,6 @@ do
    # On the NeXT, cc -E runs the code through the compiler's parser,
    # not just through cpp. "Syntax error" is here to catch this case.
    cat >conftest.$ac_ext <<_ACEOF
@@ -3222,7 +3228,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -2435,10 +3033,15 @@
+@@ -2435,10 +3033,15 @@ cat >>conftest.$ac_ext <<_ACEOF
  #else
  # include <assert.h>
  #endif
@@ -3241,7 +3247,7 @@
    ac_status=$?
    grep -v '^ *+' conftest.er1 >conftest.err
    rm -f conftest.er1
-@@ -2447,6 +3050,7 @@
+@@ -2447,6 +3050,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_c
    (exit $ac_status); } >/dev/null; then
    if test -s conftest.err; then
      ac_cpp_err=$ac_c_preproc_warn_flag
@@ -3249,7 +3255,7 @@
    else
      ac_cpp_err=
    fi
-@@ -2462,12 +3066,12 @@
+@@ -2462,12 +3066,12 @@ sed 's/^/| /' conftest.$ac_ext >&5
    # Broken: fails on valid input.
  continue
  fi
@@ -3264,7 +3270,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -2475,8 +3079,13 @@
+@@ -2475,8 +3079,13 @@ cat >>conftest.$ac_ext <<_ACEOF
  /* end confdefs.h.  */
  #include <ac_nonexistent.h>
  _ACEOF
@@ -3280,7 +3286,7 @@
    ac_status=$?
    grep -v '^ *+' conftest.er1 >conftest.err
    rm -f conftest.er1
-@@ -2485,6 +3094,7 @@
+@@ -2485,6 +3094,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_c
    (exit $ac_status); } >/dev/null; then
    if test -s conftest.err; then
      ac_cpp_err=$ac_c_preproc_warn_flag
@@ -3288,7 +3294,7 @@
    else
      ac_cpp_err=
    fi
-@@ -2502,6 +3112,7 @@
+@@ -2502,6 +3112,7 @@ sed 's/^/| /' conftest.$ac_ext >&5
  ac_preproc_ok=:
  break
  fi
@@ -3296,7 +3302,7 @@
  rm -f conftest.err conftest.$ac_ext
  
  done
-@@ -2525,30 +3136,176 @@
+@@ -2525,30 +3136,176 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
  
  
  
@@ -3485,7 +3491,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -2568,7 +3325,6 @@
+@@ -2568,7 +3325,6 @@ rm -f conftest*
  
    if test $ac_cv_prog_gcc_traditional = no; then
      cat >conftest.$ac_ext <<_ACEOF
@@ -3493,7 +3499,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -2585,326 +3341,186 @@
+@@ -2585,326 +3341,186 @@ rm -f conftest*
  
    fi
  fi
@@ -3926,7 +3932,7 @@
  
  # Find a good install program.  We prefer a C program (faster),
  # so one script is as good as another.  But avoid the broken or
-@@ -2917,9 +3533,10 @@
+@@ -2917,9 +3533,10 @@ ac_configure="$SHELL $ac_aux_dir/configu
  # AIX 4 /usr/bin/installbsd, which doesn't work without a -g flag
  # AFS /usr/afsws/bin/install, which mishandles nonexistent args
  # SVR4 /usr/ucb/install, which tries to use the nonexistent group "staff"
@@ -3939,7 +3945,7 @@
  if test -z "$INSTALL"; then
  if test "${ac_cv_path_install+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
-@@ -2933,6 +3550,7 @@
+@@ -2933,6 +3550,7 @@ do
  case $as_dir/ in
    ./ | .// | /cC/* | \
    /etc/* | /usr/sbin/* | /usr/etc/* | /sbin/* | /usr/afsws/bin/* | \
@@ -3947,7 +3953,7 @@
    /usr/ucb/* ) ;;
    *)
      # OSF1 and SCO ODT 3.0 have their own names for install.
-@@ -2940,40 +3558,41 @@
+@@ -2940,40 +3558,41 @@ case $as_dir/ in
      # by default.
      for ac_prog in ginstall scoinst install; do
        for ac_exec_ext in '' $ac_executable_extensions; do
@@ -4008,7 +4014,7 @@
  
  # Use test -z because SunOS4 sh mishandles braces in ${var-val}.
  # It thinks the first close brace ends the variable substitution.
-@@ -2992,37 +3611,37 @@
+@@ -2992,37 +3611,37 @@ fi
  
  
  
@@ -4064,7 +4070,7 @@
  
  
  if test -n "$ISC"; then
-@@ -3048,7 +3667,6 @@
+@@ -3048,7 +3667,6 @@ test -f /bin/mx || LIBS="$LIBS -lmld" # 
  { echo "$as_me:$LINENO: checking mld library..." >&5
  echo "$as_me: checking mld library..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -4072,7 +4078,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3064,14 +3682,36 @@
+@@ -3064,14 +3682,36 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -4114,7 +4120,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3080,9 +3720,11 @@
+@@ -3080,9 +3720,11 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -4128,7 +4134,7 @@
  if test -r /dev/ptc; then
  cat >>confdefs.h <<\_ACEOF
  #define MIPS 1
-@@ -3091,7 +3733,6 @@
+@@ -3091,7 +3733,6 @@ _ACEOF
  { echo "$as_me:$LINENO: checking wait3..." >&5
  echo "$as_me: checking wait3..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -4136,7 +4142,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3107,14 +3748,36 @@
+@@ -3107,14 +3748,36 @@ wait3();
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -4178,7 +4184,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3123,10 +3786,9 @@
+@@ -3123,10 +3786,9 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -4190,7 +4196,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3142,14 +3804,36 @@
+@@ -3142,14 +3804,36 @@ wait2();
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -4232,7 +4238,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3162,10 +3846,15 @@
+@@ -3162,10 +3846,15 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -4250,7 +4256,7 @@
  fi
  fi
  
-@@ -3173,7 +3862,6 @@
+@@ -3173,7 +3862,6 @@ fi
  { echo "$as_me:$LINENO: checking for Ultrix..." >&5
  echo "$as_me: checking for Ultrix..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -4258,7 +4264,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3197,7 +3885,6 @@
+@@ -3197,7 +3885,6 @@ LIBS="$LIBS -lpyr"
  { echo "$as_me:$LINENO: checking Pyramid OSX..." >&5
  echo "$as_me: checking Pyramid OSX..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -4266,7 +4272,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3213,14 +3900,36 @@
+@@ -3213,14 +3900,36 @@ open_controlling_pty("")
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -4308,7 +4314,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3232,15 +3941,16 @@
+@@ -3232,15 +3941,16 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -4328,7 +4334,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3265,7 +3975,6 @@
+@@ -3265,7 +3975,6 @@ fi
  { echo "$as_me:$LINENO: checking for POSIX.1..." >&5
  echo "$as_me: checking for POSIX.1..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -4336,7 +4342,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3294,7 +4003,6 @@
+@@ -3294,7 +4003,6 @@ fi
  { echo "$as_me:$LINENO: checking for System V..." >&5
  echo "$as_me: checking for System V..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -4344,7 +4350,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3312,14 +4020,36 @@
+@@ -3312,14 +4020,36 @@ int x = SIGCHLD | FNDELAY;
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -4386,7 +4392,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3328,17 +4058,17 @@
+@@ -3328,17 +4058,17 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -4407,7 +4413,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3360,13 +4090,12 @@
+@@ -3360,13 +4090,12 @@ oldlibs="$LIBS"
  LIBS="$LIBS -lelf"
  { echo "$as_me:$LINENO: checking SVR4..." >&5
  echo "$as_me: checking SVR4..." >&6;}
@@ -4423,7 +4429,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3386,14 +4115,36 @@
+@@ -3386,14 +4115,36 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -4465,7 +4471,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3402,14 +4153,14 @@
+@@ -3402,14 +4153,14 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -4483,7 +4489,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3431,7 +4182,6 @@
+@@ -3431,7 +4182,6 @@ fi
  if test $ac_cv_header_stdc = yes; then
    # ISC 2.0.2 stdlib.h does not declare free, contrary to ANSI.
    cat >conftest.$ac_ext <<_ACEOF
@@ -4491,7 +4497,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3456,21 +4206,21 @@
+@@ -3456,21 +4206,21 @@ if test $ac_cv_header_stdc = yes; then
    :
  else
    cat >conftest.$ac_ext <<_ACEOF
@@ -4517,7 +4523,7 @@
  # define TOUPPER(c) (ISLOWER(c) ? ((c) | 0x40) : (c))
  #endif
  
-@@ -3481,19 +4231,28 @@
+@@ -3481,19 +4231,28 @@ main ()
    int i;
    for (i = 0; i < 256; i++)
      if (XOR (islower (i), ISLOWER (i))
@@ -4553,7 +4559,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3506,12 +4265,14 @@
+@@ -3506,12 +4265,14 @@ sed 's/^/| /' conftest.$ac_ext >&5
  ( exit $ac_status )
  ac_cv_header_stdc=no
  fi
@@ -4571,7 +4577,7 @@
  if test $ac_cv_header_stdc = yes; then
  
  cat >>confdefs.h <<\_ACEOF
-@@ -3531,16 +4292,15 @@
+@@ -3531,16 +4292,15 @@ fi
  
  
  for ac_header in sys/types.h sys/stat.h stdlib.h string.h memory.h strings.h \
@@ -4592,7 +4598,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3551,14 +4311,36 @@
+@@ -3551,14 +4311,36 @@ $ac_includes_default
  #include <$ac_header>
  _ACEOF
  rm -f conftest.$ac_objext
@@ -4634,7 +4640,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3567,12 +4349,14 @@
+@@ -3567,12 +4349,14 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -4653,7 +4659,7 @@
  if test `eval echo '${'$as_ac_Header'}'` = yes; then
    cat >>confdefs.h <<_ACEOF
  #define `echo "HAVE_$ac_header" | $as_tr_cpp` 1
-@@ -3584,7 +4368,6 @@
+@@ -3584,7 +4368,6 @@ done
  
  
  cat >conftest.$ac_ext <<_ACEOF
@@ -4661,7 +4667,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3601,31 +4384,52 @@
+@@ -3601,31 +4384,52 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -4726,7 +4732,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3635,14 +4439,36 @@
+@@ -3635,14 +4439,36 @@ $ac_includes_default
  #include <dwarf.h>
  _ACEOF
  rm -f conftest.$ac_objext
@@ -4768,7 +4774,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3651,17 +4477,17 @@
+@@ -3651,17 +4477,17 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -4793,7 +4799,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3669,8 +4495,13 @@
+@@ -3669,8 +4495,13 @@ cat >>conftest.$ac_ext <<_ACEOF
  /* end confdefs.h.  */
  #include <dwarf.h>
  _ACEOF
@@ -4809,7 +4815,7 @@
    ac_status=$?
    grep -v '^ *+' conftest.er1 >conftest.err
    rm -f conftest.er1
-@@ -3679,6 +4510,7 @@
+@@ -3679,6 +4510,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_c
    (exit $ac_status); } >/dev/null; then
    if test -s conftest.err; then
      ac_cpp_err=$ac_c_preproc_warn_flag
@@ -4817,7 +4823,7 @@
    else
      ac_cpp_err=
    fi
-@@ -3693,52 +4525,45 @@
+@@ -3693,52 +4525,45 @@ sed 's/^/| /' conftest.$ac_ext >&5
  
    ac_header_preproc=no
  fi
@@ -4892,7 +4898,7 @@
  
  fi
  if test $ac_cv_header_dwarf_h = yes; then
-@@ -3751,19 +4576,18 @@
+@@ -3751,19 +4576,18 @@ _ACEOF
  
  else
    if test "${ac_cv_header_elf_h+set}" = set; then
@@ -4918,7 +4924,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3773,14 +4597,36 @@
+@@ -3773,14 +4597,36 @@ $ac_includes_default
  #include <elf.h>
  _ACEOF
  rm -f conftest.$ac_objext
@@ -4960,7 +4966,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3789,17 +4635,17 @@
+@@ -3789,17 +4635,17 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -4985,7 +4991,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3807,8 +4653,13 @@
+@@ -3807,8 +4653,13 @@ cat >>conftest.$ac_ext <<_ACEOF
  /* end confdefs.h.  */
  #include <elf.h>
  _ACEOF
@@ -5001,7 +5007,7 @@
    ac_status=$?
    grep -v '^ *+' conftest.er1 >conftest.err
    rm -f conftest.er1
-@@ -3817,6 +4668,7 @@
+@@ -3817,6 +4668,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_c
    (exit $ac_status); } >/dev/null; then
    if test -s conftest.err; then
      ac_cpp_err=$ac_c_preproc_warn_flag
@@ -5009,7 +5015,7 @@
    else
      ac_cpp_err=
    fi
-@@ -3831,52 +4683,45 @@
+@@ -3831,52 +4683,45 @@ sed 's/^/| /' conftest.$ac_ext >&5
  
    ac_header_preproc=no
  fi
@@ -5084,7 +5090,7 @@
  
  fi
  if test $ac_cv_header_elf_h = yes; then
-@@ -3898,14 +4743,15 @@
+@@ -3898,14 +4743,15 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -5103,7 +5109,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3928,7 +4774,6 @@
+@@ -3928,7 +4774,6 @@ rm -f conftest*
  { echo "$as_me:$LINENO: checking BSD job jontrol..." >&5
  echo "$as_me: checking BSD job jontrol..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -5111,7 +5117,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -3957,14 +4802,36 @@
+@@ -3957,14 +4802,36 @@ int y = TIOCNOTTY;
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -5153,7 +5159,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -3977,15 +4844,16 @@
+@@ -3977,15 +4844,16 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -5173,7 +5179,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -4007,14 +4875,36 @@
+@@ -4007,14 +4875,36 @@ setreuid(0, 0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -5215,7 +5221,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -4026,12 +4916,14 @@
+@@ -4026,12 +4916,14 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -5232,7 +5238,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -4053,14 +4945,36 @@
+@@ -4053,14 +4945,36 @@ seteuid(0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -5274,7 +5280,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -4072,14 +4986,16 @@
+@@ -4072,14 +4986,16 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -5293,7 +5299,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -4095,14 +5011,36 @@
+@@ -4095,14 +5011,36 @@ select(0, 0, 0, 0, 0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -5335,7 +5341,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -4111,11 +5049,10 @@
+@@ -4111,11 +5049,10 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -5348,7 +5354,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -4131,589 +5068,60 @@
+@@ -4131,589 +5068,60 @@ select(0, 0, 0, 0, 0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -5971,7 +5977,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -4729,14 +5137,36 @@
+@@ -4729,14 +5137,36 @@ tgetent((char *)0, (char *)0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -6014,7 +6020,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -4745,12 +5175,11 @@
+@@ -4745,12 +5175,11 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -6028,7 +6034,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -4772,14 +5201,36 @@
+@@ -4772,14 +5201,36 @@ tgetent((char *)0, (char *)0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -6070,7 +6076,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -4788,11 +5239,10 @@
+@@ -4788,11 +5239,10 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -6083,7 +6089,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -4808,14 +5258,36 @@
+@@ -4808,14 +5258,36 @@ tgetent((char *)0, (char *)0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -6125,7 +6131,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -4824,11 +5296,10 @@
+@@ -4824,11 +5296,10 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -6138,7 +6144,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -4844,14 +5315,36 @@
+@@ -4844,14 +5315,36 @@ tgetent((char *)0, (char *)0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -6180,7 +6186,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -4860,11 +5353,10 @@
+@@ -4860,11 +5353,10 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -6193,7 +6199,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -4880,14 +5372,36 @@
+@@ -4880,14 +5372,36 @@ tgetent((char *)0, (char *)0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -6235,7 +6241,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -4896,71 +5410,38 @@
+@@ -4896,71 +5410,38 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -6324,7 +6330,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -4976,14 +5457,36 @@
+@@ -4976,14 +5457,36 @@ ospeed=5;
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -6366,7 +6372,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -4992,12 +5495,14 @@
+@@ -4992,12 +5495,14 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -6383,7 +6389,7 @@
  
  { echo "$as_me:$LINENO: checking for /dev/ptc..." >&5
  echo "$as_me: checking for /dev/ptc..." >&6;}
-@@ -5013,7 +5518,6 @@
+@@ -5013,7 +5518,6 @@ echo "$as_me: checking for SVR4 ptys..."
  sysvr4ptys=
  if test -c /dev/ptmx ; then
  cat >conftest.$ac_ext <<_ACEOF
@@ -6391,7 +6397,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -5029,14 +5533,36 @@
+@@ -5029,14 +5533,36 @@ ptsname(0);grantpt(0);unlockpt(0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -6433,7 +6439,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -5049,72 +5575,98 @@
+@@ -5049,72 +5575,98 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -6553,7 +6559,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -5123,12 +5675,15 @@
+@@ -5123,12 +5675,15 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -6573,7 +6579,7 @@
  if test `eval echo '${'$as_ac_var'}'` = yes; then
    cat >>confdefs.h <<_ACEOF
  #define `echo "HAVE_$ac_func" | $as_tr_cpp` 1
-@@ -5143,64 +5698,87 @@
+@@ -5143,64 +5698,87 @@ if test -z "$sysvr4ptys"; then
  for ac_func in openpty
  do
  as_ac_var=`echo "ac_cv_func_$ac_func" | $as_tr_sh`
@@ -6681,7 +6687,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -5209,57 +5787,81 @@
+@@ -5209,57 +5787,81 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -6779,7 +6785,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -5268,302 +5870,69 @@
+@@ -5268,302 +5870,69 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -7117,7 +7123,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -5591,14 +5960,36 @@
+@@ -5591,14 +5960,36 @@ int x = DEAD_PROCESS; pututline((struct 
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -7159,7 +7165,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -5610,12 +6001,11 @@
+@@ -5610,12 +6001,11 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -7173,7 +7179,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -5643,14 +6033,36 @@
+@@ -5643,14 +6033,36 @@ int x = DEAD_PROCESS; pututline((struct 
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -7215,7 +7221,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -5662,16 +6074,19 @@
+@@ -5662,16 +6074,19 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -7239,7 +7245,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -5696,333 +6111,103 @@
+@@ -5696,333 +6111,103 @@ struct utmp u; u.ut_host[0] = 0;
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -7634,7 +7640,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6031,26 +6216,31 @@
+@@ -6031,26 +6216,31 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -7676,7 +7682,7 @@
    ac_status=$?
    grep -v '^ *+' conftest.er1 >conftest.err
    rm -f conftest.er1
-@@ -6059,6 +6249,7 @@
+@@ -6059,6 +6249,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_c
    (exit $ac_status); } >/dev/null; then
    if test -s conftest.err; then
      ac_cpp_err=$ac_c_preproc_warn_flag
@@ -7684,7 +7690,7 @@
    else
      ac_cpp_err=
    fi
-@@ -6073,241 +6264,200 @@
+@@ -6073,241 +6264,200 @@ sed 's/^/| /' conftest.$ac_ext >&5
  
    ac_header_preproc=no
  fi
@@ -8060,7 +8066,7 @@
  cat > conftest.c <<EOF
  #include "confdefs.h"
  
-@@ -6384,7 +6534,6 @@
+@@ -6384,7 +6534,6 @@ else
  { echo "$as_me:$LINENO: checking return type of signal handlers..." >&5
  echo "$as_me: checking return type of signal handlers..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -8068,7 +8074,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6405,14 +6554,36 @@
+@@ -6405,14 +6554,36 @@ int i;
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -8110,7 +8116,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6424,12 +6595,13 @@
+@@ -6424,12 +6595,13 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -8126,7 +8132,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6454,14 +6626,36 @@
+@@ -6454,14 +6626,36 @@ sigset(0, (int (*)())0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -8168,7 +8174,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6473,84 +6667,16 @@
+@@ -6473,84 +6667,16 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -8256,7 +8262,7 @@
  
  fi
  
-@@ -6563,7 +6689,6 @@
+@@ -6563,7 +6689,6 @@ LIBS="$LIBS -lcrypt"
  { echo "$as_me:$LINENO: checking crypt..." >&5
  echo "$as_me: checking crypt..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -8264,7 +8270,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6579,14 +6704,36 @@
+@@ -6579,14 +6704,36 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -8307,7 +8313,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6595,9 +6742,11 @@
+@@ -6595,9 +6742,11 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -8321,7 +8327,7 @@
  test -f /lib/libsec.a || test -f /usr/lib/libsec.a && LIBS="$LIBS -lsec"
  test -f /lib/libshadow.a || test -f /usr/lib/libshadow.a && LIBS="$LIBS -lshadow"
  oldlibs="$LIBS"
-@@ -6605,7 +6754,6 @@
+@@ -6605,7 +6754,6 @@ LIBS="$LIBS -lsun"
  { echo "$as_me:$LINENO: checking IRIX sun library..." >&5
  echo "$as_me: checking IRIX sun library..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -8329,7 +8335,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6621,14 +6769,36 @@
+@@ -6621,14 +6769,36 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -8371,7 +8377,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6637,14 +6807,15 @@
+@@ -6637,14 +6807,15 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -8390,7 +8396,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6660,14 +6831,36 @@
+@@ -6660,14 +6831,36 @@ closelog();
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -8432,7 +8438,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6676,12 +6869,11 @@
+@@ -6676,12 +6869,11 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -8446,7 +8452,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6697,14 +6889,36 @@
+@@ -6697,14 +6889,36 @@ closelog();
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -8488,7 +8494,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6714,19 +6928,22 @@
+@@ -6714,19 +6928,22 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -8515,7 +8521,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6747,7 +6964,6 @@
+@@ -6747,7 +6964,6 @@ rm -f conftest*
  { echo "$as_me:$LINENO: checking wait union..." >&5
  echo "$as_me: checking wait union..." >&6;}
  cat >conftest.$ac_ext <<_ACEOF
@@ -8523,7 +8529,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6771,14 +6987,36 @@
+@@ -6771,14 +6987,36 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -8565,7 +8571,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6790,14 +7028,15 @@
+@@ -6790,14 +7028,15 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -8583,7 +8589,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6805,8 +7044,13 @@
+@@ -6805,8 +7044,13 @@ cat >>conftest.$ac_ext <<_ACEOF
  /* end confdefs.h.  */
  #include <termio.h>
  _ACEOF
@@ -8599,7 +8605,7 @@
    ac_status=$?
    grep -v '^ *+' conftest.er1 >conftest.err
    rm -f conftest.er1
-@@ -6815,6 +7059,7 @@
+@@ -6815,6 +7059,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_c
    (exit $ac_status); } >/dev/null; then
    if test -s conftest.err; then
      ac_cpp_err=$ac_c_preproc_warn_flag
@@ -8607,7 +8613,7 @@
    else
      ac_cpp_err=
    fi
-@@ -6832,7 +7077,6 @@
+@@ -6832,7 +7077,6 @@ sed 's/^/| /' conftest.$ac_ext >&5
  
    if test -n "$posix"; then
  cat >conftest.$ac_ext <<_ACEOF
@@ -8615,7 +8621,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6840,8 +7084,13 @@
+@@ -6840,8 +7084,13 @@ cat >>conftest.$ac_ext <<_ACEOF
  /* end confdefs.h.  */
  #include <termios.h>
  _ACEOF
@@ -8631,7 +8637,7 @@
    ac_status=$?
    grep -v '^ *+' conftest.er1 >conftest.err
    rm -f conftest.er1
-@@ -6850,6 +7099,7 @@
+@@ -6850,6 +7099,7 @@ if { (eval echo "$as_me:$LINENO: \"$ac_c
    (exit $ac_status); } >/dev/null; then
    if test -s conftest.err; then
      ac_cpp_err=$ac_c_preproc_warn_flag
@@ -8639,7 +8645,7 @@
    else
      ac_cpp_err=
    fi
-@@ -6867,17 +7117,18 @@
+@@ -6867,17 +7117,18 @@ sed 's/^/| /' conftest.$ac_ext >&5
  
  
  fi
@@ -8659,7 +8665,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6893,14 +7144,36 @@
+@@ -6893,14 +7144,36 @@ getspnam("x");
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -8701,7 +8707,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6912,13 +7185,15 @@
+@@ -6912,13 +7185,15 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -8719,7 +8725,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6934,14 +7209,36 @@
+@@ -6934,14 +7209,36 @@ getttyent();
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -8761,7 +8767,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6953,13 +7250,15 @@
+@@ -6953,13 +7250,15 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -8779,7 +8785,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -6975,14 +7274,36 @@
+@@ -6975,14 +7274,36 @@ fdwalk(NULL, NULL);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -8821,7 +8827,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -6994,181 +7315,41 @@
+@@ -6994,181 +7315,41 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -9016,7 +9022,7 @@
  cat >>confdefs.h <<\_ACEOF
  #define NAME_MAX 14
  _ACEOF
-@@ -7176,10 +7357,9 @@
+@@ -7176,10 +7357,9 @@ _ACEOF
  fi
  rm -f /tmp/conftest*
  
@@ -9029,7 +9035,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -7195,19 +7375,41 @@
+@@ -7195,19 +7375,41 @@ vsprintf(0,0,0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -9078,7 +9084,7 @@
  #define USEVARARGS 1
  _ACEOF
  
-@@ -7215,10 +7417,12 @@
+@@ -7215,10 +7417,12 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -9094,7 +9100,7 @@
  
  
  
-@@ -7228,13 +7432,12 @@
+@@ -7228,13 +7432,12 @@ rm -f conftest.$ac_objext conftest$ac_ex
  ac_header_dirent=no
  for ac_hdr in dirent.h sys/ndir.h sys/dir.h ndir.h; do
    as_ac_Header=`echo "ac_cv_header_dirent_$ac_hdr" | $as_tr_sh`
@@ -9111,7 +9117,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -7253,14 +7456,36 @@
+@@ -7253,14 +7456,36 @@ return 0;
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -9153,7 +9159,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -7269,12 +7494,14 @@
+@@ -7269,12 +7494,14 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -9172,7 +9178,7 @@
  if test `eval echo '${'$as_ac_Header'}'` = yes; then
    cat >>confdefs.h <<_ACEOF
  #define `echo "HAVE_$ac_hdr" | $as_tr_cpp` 1
-@@ -7286,226 +7513,211 @@
+@@ -7286,226 +7513,211 @@ fi
  done
  # Two versions of opendir et al. are in -ldir and -lx on SCO Xenix.
  if test $ac_header_dirent = dirent.h; then
@@ -9532,7 +9538,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -7521,19 +7733,41 @@
+@@ -7521,19 +7733,41 @@ setenv((char *)0,(char *)0);unsetenv((ch
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -9581,7 +9587,7 @@
  #define USESETENV 1
  _ACEOF
  
-@@ -7541,12 +7775,11 @@
+@@ -7541,12 +7775,11 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -9598,7 +9604,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -7562,37 +7795,62 @@
+@@ -7562,37 +7795,62 @@ putenv((char *)0);unsetenv((char *)0);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -9675,7 +9681,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -7610,19 +7868,41 @@
+@@ -7610,19 +7868,41 @@ nl_langinfo(CODESET);
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -9724,7 +9730,7 @@
  #define HAVE_NL_LANGINFO 1
  _ACEOF
  
-@@ -7630,114 +7910,109 @@
+@@ -7630,114 +7910,109 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -9902,7 +9908,7 @@
  
  fi
  
-@@ -7756,64 +8031,87 @@
+@@ -7756,64 +8031,87 @@ fi
  for ac_func in rename fchmod fchown strerror lstat _exit utimes vsnprintf getcwd setlocale strftime
  do
  as_ac_var=`echo "ac_cv_func_$ac_func" | $as_tr_sh`
@@ -10010,7 +10016,7 @@
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -7822,12 +8120,15 @@
+@@ -7822,12 +8120,15 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -10030,7 +10036,7 @@
  if test `eval echo '${'$as_ac_var'}'` = yes; then
    cat >>confdefs.h <<_ACEOF
  #define `echo "HAVE_$ac_func" | $as_tr_cpp` 1
-@@ -7837,18 +8138,17 @@
+@@ -7837,18 +8138,17 @@ fi
  done
  
  
@@ -10054,7 +10060,7 @@
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -7868,19 +8168,41 @@
+@@ -7868,19 +8168,41 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext conftest$ac_exeext
@@ -10103,7 +10109,7 @@
  #define USE_PAM 1
  _ACEOF
  
-@@ -7888,50 +8210,52 @@
+@@ -7888,50 +8210,52 @@ else
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
@@ -10171,7 +10177,7 @@
  if test "$enable_rxvt_osc" = "yes"; then
    cat >>confdefs.h <<\_ACEOF
  #define RXVT_OSC 1
-@@ -7946,82 +8270,43 @@
+@@ -7946,82 +8270,43 @@ if test -z "$old_CFLAGS"; then
  fi
  test -n "$seqptx" && LIBS="-ltermcap -lc -lsocket -linet -lnsl -lsec -lseq"
  
@@ -10246,7 +10252,8 @@
  SCREENENCODINGS="\"/usr/local/lib/screen/utf8encodings\""
  if test -n "$datadir"; then
  eval SCREENENCODINGS="$datadir/screen/utf8encodings"
- SCREENENCODINGS="\"$SCREENENCODINGS\""
+-SCREENENCODINGS="\"$SCREENENCODINGS\""
++eval SCREENENCODINGS="\"$SCREENENCODINGS\""
  fi
 -echo "$as_me:$LINENO: checking for the utf8-encodings location" >&5
 -echo $ECHO_N "checking for the utf8-encodings location... $ECHO_C" >&6
@@ -10270,7 +10277,7 @@
  cat >confcache <<\_ACEOF
  # This file is a shell script that caches the results of configure
  # tests run on this system so they can be shared between configure
-@@ -8040,39 +8325,58 @@
+@@ -8040,39 +8325,58 @@ _ACEOF
  
  # The following way of writing the cache mishandles newlines in values,
  # but we know of no workaround that is simple, portable, and efficient.
@@ -10347,7 +10354,7 @@
    fi
  fi
  rm -f confcache
-@@ -8081,32 +8385,18 @@
+@@ -8081,32 +8385,18 @@ test "x$prefix" = xNONE && prefix=$ac_de
  # Let make expand exec_prefix.
  test "x$exec_prefix" = xNONE && exec_prefix='${prefix}'
  
@@ -10386,7 +10393,7 @@
  done
  LIBOBJS=$ac_libobjs
  
-@@ -8144,20 +8434,80 @@
+@@ -8144,20 +8434,80 @@ if test -n "${ZSH_VERSION+set}" && (emul
    # Zsh 3.x and 4.x performs word splitting on ${1+"$@"}, which
    # is contrary to our usage.  Disable this feature.
    alias -g '${1+"$@"}'='"$@"'
@@ -10471,7 +10478,7 @@
  PS1='$ '
  PS2='> '
  PS4='+ '
-@@ -8168,21 +8518,22 @@
+@@ -8168,21 +8518,22 @@ for as_var in \
    LC_MEASUREMENT LC_MESSAGES LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER \
    LC_TELEPHONE LC_TIME
  do
@@ -10498,7 +10505,7 @@
    as_basename=basename
  else
    as_basename=false
-@@ -8190,200 +8541,157 @@
+@@ -8190,200 +8541,157 @@ fi
  
  
  # Name of the executable.
@@ -10790,7 +10797,7 @@
  
    CONFIG_FILES    = $CONFIG_FILES
    CONFIG_HEADERS  = $CONFIG_HEADERS
-@@ -8391,30 +8699,20 @@
+@@ -8391,30 +8699,20 @@ generated by GNU Autoconf 2.57.  Invocat
    CONFIG_COMMANDS = $CONFIG_COMMANDS
    $ $0 $@
  
@@ -10829,7 +10836,7 @@
  ac_cs_usage="\
  \`$as_me' instantiates files from templates according to the
  current configuration.
-@@ -8422,14 +8720,14 @@
+@@ -8422,14 +8720,14 @@ current configuration.
  Usage: $0 [OPTIONS] [FILE]...
  
    -h, --help       print this help, then exit
@@ -10847,7 +10854,7 @@
  
  Configuration files:
  $config_files
-@@ -8441,20 +8739,21 @@
+@@ -8441,20 +8739,21 @@ Configuration commands:
  $config_commands
  
  Report bugs to <bug-autoconf@gnu.org>."
@@ -10876,7 +10883,7 @@
  _ACEOF
  
  cat >>$CONFIG_STATUS <<\_ACEOF
-@@ -8465,39 +8764,24 @@
+@@ -8465,39 +8764,24 @@ while test $# != 0
  do
    case $1 in
    --*=*)
@@ -10922,7 +10929,7 @@
      debug=: ;;
    --file | --fil | --fi | --f )
      $ac_shift
-@@ -8507,18 +8791,24 @@
+@@ -8507,18 +8791,24 @@ Try \`$0 --help' for more information." 
      $ac_shift
      CONFIG_HEADERS="$CONFIG_HEADERS $ac_optarg"
      ac_need_defaults=false;;
@@ -10952,7 +10959,7 @@
  
    esac
    shift
-@@ -8534,31 +8824,45 @@
+@@ -8534,31 +8824,45 @@ fi
  _ACEOF
  cat >>$CONFIG_STATUS <<_ACEOF
  if \$ac_cs_recheck; then
@@ -11009,7 +11016,7 @@
  # If the user did not use the arguments to specify the items to instantiate,
  # then the envvar interface is used.  Set only those that are not.
  # We use the long form for the default assignment because of an extremely
-@@ -8570,587 +8874,519 @@
+@@ -8570,587 +8874,519 @@ if $ac_need_defaults; then
  fi
  
  # Have a temporary directory for convenience.  Make it in the build tree

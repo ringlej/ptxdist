@@ -1,0 +1,24 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: Fix screenencodings dir
+
+This patch fixes the assignement of the SCREENENCODINGS variable which was holding "${}" before.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ configure.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: screen-4.0.2/configure.in
+===================================================================
+--- screen-4.0.2.orig/configure.in
++++ screen-4.0.2/configure.in
+@@ -646,7 +646,7 @@ AC_MSG_RESULT($ETCSCREENRC)
+ SCREENENCODINGS="\"/usr/local/lib/screen/utf8encodings\""
+ if test -n "$datadir"; then
+ eval SCREENENCODINGS="$datadir/screen/utf8encodings"
+-SCREENENCODINGS="\"$SCREENENCODINGS\""
++eval SCREENENCODINGS="\"$SCREENENCODINGS\""
+ fi
+ AC_MSG_CHECKING(for the utf8-encodings location)
+ AC_DEFINE_UNQUOTED(SCREENENCODINGS,$SCREENENCODINGS)
