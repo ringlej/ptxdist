@@ -1,6 +1,8 @@
 TODO for 1.1.x
 ==============
 
+[ ] mkl: reactivate rules/host-xorg-lib-X11.in select to HOST_LIBXCB
+
 [ ] mkl: reactiveate new install_copy feature (no explicid destination)
 
 [ ] rsc: put export LANG=C somewhere into PTXdist, to make compiler
