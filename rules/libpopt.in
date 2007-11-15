@@ -1,11 +1,12 @@
-config LIBPOPT
+menuconfig LIBPOPT
 	bool
-	prompt "libpopt"
+	prompt "libpopt                     "
 	help
-	  popt command line argument parser library
+	  FIXME: This item needs to be documented
 
-	  popt is a command line option parsing library inspired
-	  by the usefulness of getopt, but also by it's deficiencies.
-	  Amongst other things, it doesn't use global variables,
-	  can parse any argv-style array, option aliasing and
-	  automatic generation of help and usage messages.
+config LIBPOPT_NLS
+	bool
+	prompt "native language support"
+	depends on LIBPOPT
+	help
+	  Specify if we want to have gettext internationalization.

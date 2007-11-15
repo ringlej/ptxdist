@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2003 by Benedikt Spranger
 # Copyright (C) 2006 by Marc Kleine-Budde
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBPOPT) += libpopt
 #
 # Paths and names
 #
-LIBPOPT_VERSION	:= 1.7
+LIBPOPT_VERSION	:= 1.10.7
 LIBPOPT		:= popt-$(LIBPOPT_VERSION)
 LIBPOPT_SUFFIX	:= tar.gz
 LIBPOPT_URL	:= http://ftp.uni-erlangen.de/pub/mirrors/gentoo/distfiles/$(LIBPOPT).$(LIBPOPT_SUFFIX)
@@ -60,12 +60,25 @@ $(STATEDIR)/libpopt.extract: $(libpopt_extract_deps_default)
 libpopt_prepare: $(STATEDIR)/libpopt.prepare
 
 LIBPOPT_PATH	:=  PATH=$(CROSS_PATH)
+
 LIBPOPT_ENV 	:=  $(CROSS_ENV)
+
+ifndef PTXCONF_LIBPOPT_NLS
+# uggly hack: configure script sees "no" if we set this go ":"
+LIBPOPT_ENV	+= ac_cv_path_XGETTEXT=:
+endif
 
 #
 # autoconf
 #
-LIBPOPT_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBPOPT_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR)
+
+ifdef PTXCONF_LIBPOPT_NLS
+LIBPOPT_AUTOCONF += --enable-nls
+else
+LIBPOPT_AUTOCONF += --disable-nls
+endif
 
 $(STATEDIR)/libpopt.prepare: $(libpopt_prepare_deps_default)
 	@$(call targetinfo, $@)
