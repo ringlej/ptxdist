@@ -1,0 +1,42 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: add missing offsetof definition
+
+This patch adds the missing offset of definition, it's missing if comiling
+against sanitized userspace headers.
+
+The error locks like this:
+
+In file included from cmdmon.c:42:
+logging.h:80: warning: type qualifiers ignored on function return type
+cmdmon.c: In function 'check_rx_packet_auth':
+cmdmon.c:268: warning: implicit declaration of function 'offsetof'
+cmdmon.c:268: error: expected expression before 'CMD_Request'
+cmdmon.c:269: error: expected expression before 'CMD_Request'
+cmdmon.c:270: error: expected expression before 'CMD_Request'
+cmdmon.c: In function 'generate_tx_packet_auth':
+cmdmon.c:297: error: expected expression before 'CMD_Request'
+cmdmon.c:298: error: expected expression before 'CMD_Reply'
+cmdmon.c:299: error: expected expression before 'CMD_Reply'
+cmdmon.c: In function 'handle_client_accesses':
+cmdmon.c:1403: error: expected expression before 'CMD_Reply'
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ cmdmon.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+Index: chrony-1.20/cmdmon.c
+===================================================================
+--- chrony-1.20.orig/cmdmon.c
++++ chrony-1.20/cmdmon.c
+@@ -56,6 +56,9 @@
+ #include "pktlength.h"
+ #include "clientlog.h"
+ 
++#undef offsetof
++#define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
++
+ /* ================================================== */
+ 
+ /* File descriptor for command and monitoring socket */
