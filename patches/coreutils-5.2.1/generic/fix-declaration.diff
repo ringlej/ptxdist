@@ -1,0 +1,62 @@
+Subject: fix declarations
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+
+This patch fixes these errors:
+
+test.c:129: error: static declaration of 'eaccess' follows non-static declaration
+/usr/include/unistd.h:268: error: previous declaration of 'eaccess' was here
+
+tee.c:34: error: conflicting types for 'tee'
+/usr/include/bits/fcntl.h:233: error: previous declaration of 'tee' was here
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ src/tee.c  |    6 +++---
+ src/test.c |    2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+Index: coreutils-5.2.1/src/test.c
+===================================================================
+--- coreutils-5.2.1.orig/src/test.c
++++ coreutils-5.2.1/src/test.c
+@@ -124,7 +124,7 @@ test_syntax_error (char const *format, c
+ #if HAVE_SETREUID && HAVE_SETREGID
+ /* Do the same thing access(2) does, but use the effective uid and gid.  */
+ 
+-static int
++int
+ eaccess (char const *file, int mode)
+ {
+   static int have_ids;
+Index: coreutils-5.2.1/src/tee.c
+===================================================================
+--- coreutils-5.2.1.orig/src/tee.c
++++ coreutils-5.2.1/src/tee.c
+@@ -31,7 +31,7 @@
+ 
+ #define AUTHORS "Mike Parker", "Richard M. Stallman", "David MacKenzie"
+ 
+-static int tee (int nfiles, const char **files);
++static int mytee (int nfiles, const char **files);
+ 
+ /* If nonzero, append to output files rather than truncating them. */
+ static int append;
+@@ -146,7 +146,7 @@ main (int argc, char **argv)
+   /* Do *not* warn if tee is given no file arguments.
+      POSIX requires that it work when given no arguments.  */
+ 
+-  errs = tee (argc - optind, (const char **) &argv[optind]);
++  errs = mytee (argc - optind, (const char **) &argv[optind]);
+   if (close (STDIN_FILENO) != 0)
+     error (EXIT_FAILURE, errno, _("standard input"));
+ 
+@@ -158,7 +158,7 @@ main (int argc, char **argv)
+    Return 0 if successful, 1 if any errors occur. */
+ 
+ static int
+-tee (int nfiles, const char **files)
++mytee (int nfiles, const char **files)
+ {
+   FILE **descriptors;
+   char buffer[BUFSIZ];
