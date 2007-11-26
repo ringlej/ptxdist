@@ -70,7 +70,7 @@ $(STATEDIR)/@class@@packet@.prepare: $(@class@@packet@_prepare_deps_default)
 	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
 	cd $(@CLASS@@PACKET@_DIR) && \
 		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
-		./configure $(@CLASS@@PACKET@_AUTOCONF)
+		./configure $(@AUTOCONF_CLASS@)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
