@@ -1,0 +1,6 @@
+config @PACKET@
+	bool
+	select XORG_FONTS
+	prompt "@packet@"
+	help
+	  FIXME

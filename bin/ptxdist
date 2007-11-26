@@ -482,7 +482,7 @@ Misc
                                  type can be one of:
                                  target, host, host-existing-target,
                                  cross, cross-existing-target, source,
-                                 kernel_driver, simple
+                                 kernel_driver, font, simple
 
 Environment:
 
@@ -595,16 +595,16 @@ menuconfig_action() {
 
 newpacket () {
 	local packet_name version url author year suffix overwrite \
-	    template packet_filename packet_name packet PACKET packetdash filename \
+	    template template_file suffix packet_filename packet_name packet PACKET packetdash filename \
 	    class CLASS autoconf_class
 
 	case $1 in
-	    target|host|host-existing-target|cross|cross-existing-target|source|kernel_driver|simple)
+	    target|host|host-existing-target|cross|cross-existing-target|source|kernel_driver|font|simple)
 		;;
 	    *)	echo
 		echo "${PROMPT}error: illegal packet type: $1"
 		echo "must be one of host, host-existing-target, target,"
-		echo "cross, cross-existing-target, source, kernel_driver"
+		echo "cross, cross-existing-target, source, kernel_driver, font, simple"
 		echo
 		exit 1
 		;;
@@ -661,6 +661,11 @@ newpacket () {
 		class=
 		autoconf_class=
 		;;
+	    font)
+		template=template-font
+		class=
+		autoconf_class=
+		;;
 	    simple)
 		template=template-file
 		class=
@@ -677,20 +682,29 @@ newpacket () {
 
 	year=`date +%Y`
 
-	filename="${class}${packet_filename}.make"
+	for suffix in "make" "in"; do
+	    template_file="${RULESDIR}/${template}-${suffix}"
+	    filename="${class}${packet_filename}.${suffix}"
 
-	if [ -f "${filename}" ]; then
+	    if test \! -f "${template_file}"; then
+		echo
+		echo "${PROMPT}warning: template \"${template_file}\" does not exist"
+		echo
+		continue
+	    fi
+
+	    if [ -f "${filename}" ]; then
 		echo
 		echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n]"
 		read overwrite
 		if [ "$overwrite" != "y" ]; then
-			echo "${PROMPT}aborted."
-			echo
-			exit 0
+		    echo "${PROMPT}aborted."
+		    echo
+		    exit 0
 		fi
-	fi
+	    fi
 
-	sed \
+	    sed \
 		-e "s#\@packet_filename@#${packet_filename}#g" \
 		-e "s#\@PACKET@#${PACKET}#g" \
 		-e "s#\@packet@#${packet}#g" \
@@ -703,9 +717,9 @@ newpacket () {
 		-e "s#\@YEAR@#${year}#g" \
 		-e "s#\@AUTHOR@#${author}#g" \
 		-e "s#\@SUFFIX@#${suffix}#g" \
-		${RULESDIR}/${template} \
-		> ${filename}
-
+		"${template_file}" \
+		> "${filename}"
+	done
 }
 
 oldconfig_action() {
