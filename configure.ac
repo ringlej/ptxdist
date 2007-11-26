@@ -229,6 +229,12 @@ if test -z "$FILE"; then
 	AC_MSG_ERROR([file could not be found, please install])
 fi
 
+dnl Check for msgfmt
+AC_PATH_PROGS(MSGFMT, msgfmt,, $PATH)
+if test -z "$MSGFMT"; then
+	AC_MSG_ERROR([gettext could not be found, please install])
+fi
+
 dnl Check for gcc
 AC_PATH_PROGS(GCC, gcc,, $PATH)
 
