@@ -595,7 +595,7 @@ menuconfig_action() {
 
 newpacket () {
 	local packet_name version url author year suffix overwrite \
-	    template template_file suffix packet_filename packet_name packet PACKET packetdash filename \
+	    template template_file template_suffix packet_filename packet_name packet PACKET packetdash filename \
 	    class CLASS autoconf_class
 
 	case $1 in
@@ -682,9 +682,9 @@ newpacket () {
 
 	year=`date +%Y`
 
-	for suffix in "make" "in"; do
-	    template_file="${RULESDIR}/${template}-${suffix}"
-	    filename="${class}${packet_filename}.${suffix}"
+	for template_suffix in "make" "in"; do
+	    template_file="${RULESDIR}/${template}-${template_suffix}"
+	    filename="${class}${packet_filename}.${template_suffix}"
 
 	    if test \! -f "${template_file}"; then
 		echo
