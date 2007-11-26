@@ -6,8 +6,8 @@
 
 comma:=,
 nullstring:=
-space:= $(nullstring) # end of the linespace=
-quote:="
+space:= $(nullstring) $(nullstring)
+quote:="#"
 
 #
 # Make to bash export (M2B):
