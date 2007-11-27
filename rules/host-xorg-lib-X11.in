@@ -2,7 +2,7 @@ config HOST_XORG_LIB_X11
 	bool
 	select HOST_XORG_PROTO_X
 
-#	select HOST_LIBXCB
+	select HOST_LIBXCB
 	select HOST_XORG_PROTO_XEXT
 	select HOST_XORG_LIB_XTRANS
 	select HOST_XORG_LIB_XAU
