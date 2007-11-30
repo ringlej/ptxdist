@@ -113,9 +113,18 @@ $(STATEDIR)/directfb-examples.targetinstall:
 	@$(call install_fixup, directfb-examples,DEPENDS,)
 	@$(call install_fixup, directfb-examples,DESCRIPTION,missing)
 
-# 	@$(call install_copy, directfb-examples, 0, 0, 0755, $(DIRECTFB_EXAMPLES_DIR)/foobar, /dev/null)
+# installs the binaries
+	@for i in `find $(DIRECTFB_EXAMPLES_DIR)/src -perm /u+x -type f ! -name "*.[h|c]"`; do \
+		$(call install_copy, directfb-examples, 0, 0, 0755, $$i, /usr/bin/$$(basename $$i)); \
+	done;
 
-	@$(call install_finish, directfb-examples)
+# install the datafiles
+ifdef PTXCONF_DIRECTFB_EXAMPLES_DATA
+	@cd $(DIRECTFB_EXAMPLES_DIR)/data; \
+	for i in `find . -type f ! -name "*akefile*"`; do \
+		$(call install_copy, directfb-examples, 0, 0, 0644, $$i, /usr/share/directfb-examples/$$i, n); \
+	done
+endif
 
 	@$(call touch, $@)
 

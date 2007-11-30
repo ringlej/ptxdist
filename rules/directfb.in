@@ -63,6 +63,14 @@ config DIRECTFB_EXAMPLES
 	select DIRECTFB_FONT_FREETYPE
 	select DIRECTFB
 
+config DIRECTFB_EXAMPLES_DATA
+	bool
+	prompt "directfb-exampels data files"
+	depends on DIRECTFB_EXAMPLES
+	help
+	  some of the directfb examples need image and fonts files from this
+	  package, this will add about 1M to your target
+
 config HOST_LIBPNG
 	bool
 	select HOST_ZLIB
