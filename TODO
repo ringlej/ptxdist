@@ -1,6 +1,15 @@
 TODO for 1.1.x
 ==============
 
+[ ] rsc: configure continues, even if a test breaks. Example:
+    checking lex library... sed: couldn't write 76 items to stdout: No space left on device
+    grep: write error: No space left on device
+    sed: couldn't write 46 items to stdout: No space left on device
+    none needed
+    checking whether yytext is a pointer... sed: couldn't write 29 items to stdout: No space left on device
+    no
+    [...anything proceeds...]
+
 [ ] mkl: reactivate rules/host-xorg-lib-X11.in select to HOST_LIBXCB
 
 [ ] mkl: reactiveate new install_copy feature (no explicid destination)
