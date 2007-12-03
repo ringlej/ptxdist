@@ -273,7 +273,7 @@ PERMISSION_FILES := $(wildcard $(STATEDIR)/*.perms)
 # TODO: generate a list of current valid ipkg packages
 # instead of using all in the images/ directory!
 #
-IPKG_FILES := $(wildcard $(IMAGEDIR)/*.ipk)
+IPKG_FILES := $(wildcard $(PKGDIR)/*.ipk)
 
 #
 # create one file with all permissions from all permission source files
