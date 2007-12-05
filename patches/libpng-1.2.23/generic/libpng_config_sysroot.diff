@@ -1,0 +1,23 @@
+---
+ scripts/libpng-config.in |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+Index: scripts/libpng-config.in
+===================================================================
+--- scripts/libpng-config.in.orig
++++ scripts/libpng-config.in
+@@ -9,10 +9,10 @@
+ # Modeled after libxml-config.
+ 
+ version="@PNGLIB_VERSION@"
+-prefix="@prefix@"
+-exec_prefix="@exec_prefix@"
+-libdir="@libdir@"
+-includedir="@includedir@/libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@"
++prefix="$SYSROOT@prefix@"
++exec_prefix="$SYSROOT@exec_prefix@"
++libdir="$SYSROOT@libdir@"
++includedir="$SYSROOT@includedir@/libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@"
+ libs="-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@"
+ all_libs="-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@ -lz -lm"
+ I_opts="-I${includedir}"
