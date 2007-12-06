@@ -41,13 +41,7 @@ ZCAT		= zcat
 BZIP2		= bzip2
 BZCAT		= bzcat
 CAT		= cat
-RM		= rm
-MKDIR		= mkdir
 MKTEMP		= mktemp
-CD		= cd
-MV		= mv
-CP		= cp
-LN		= ln
 AWK		= awk
 PERL		= perl
 GREP		= grep
@@ -95,9 +89,8 @@ CROSS_PATH := $(PTX_PREFIX_CROSS)/bin:$(PTX_PREFIX_CROSS)/sbin:$(PTX_PREFIX_HOST
 # same as PTXCONF_GNU_TARGET, but w/o -linux
 # e.g. i486 instead of i486-linux
 #
-SHORT_TARGET		:= $(shell echo $(PTXCONF_GNU_TARGET) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/')
-SHORT_HOST		:= $(shell echo $(GNU_HOST) | $(PERL) -i -p -e 's/(.*?)-.*/$$1/')
-
+SHORT_TARGET		:= $(shell echo $(PTXCONF_GNU_TARGET) | sed -e 's/^\([^-]*\)-.*/\1/')
+SHORT_HOST		:= $(shell echo $(GNU_HOST) | sed -e 's/^\([^-]*\)-.*/\1/')
 
 # ----------------------------------------------------------------------------
 # Environment
@@ -463,7 +456,7 @@ extract =							\
 		echo;						\
 		exit -1;					\
 	fi;							\
-	[ -d $$DEST ] || $(MKDIR) -p $$DEST;			\
+	[ -d $$DEST ] || mkdir -p $$DEST;			\
 								\
 								\
 	echo "extract: archive=$$PACKET";			\
@@ -506,7 +499,7 @@ get =								\
 	fi;							\
 	SRC="$(strip $(2))";					\
 	SRC=$${SRC:-$(SRCDIR)};					\
-	[ -d $$SRC ] || $(MKDIR) -p $$SRC;			\
+	[ -d $$SRC ] || mkdir -p $$SRC;				\
 	case $$URL in 						\
 	http*)							\
 		$(WGET) -P $$SRC $$URL;				\
@@ -532,7 +525,7 @@ get =								\
 		THING="$$(echo $$URL | sed s-file://-/-g)";	\
 		if [ -f "$$THING" ]; then			\
 			echo "local archive, copying"; 		\
-			$(CP) -av $$THING $$SRC;		\
+			cp -av $$THING $$SRC;			\
 			[ $$? -eq 0 ] || {			\
 				echo;				\
 				echo "Could not copy packet!";	\
@@ -684,7 +677,7 @@ install = \
 clean =								\
 	DIR="$(strip $(1))";					\
 	if [ -e $$DIR ]; then					\
-		$(RM) -rf $$DIR;				\
+		rm -rf $$DIR;					\
 	fi
 
 
@@ -701,8 +694,8 @@ clean =								\
 enable_c =											\
 	FILENAME="$(strip $(1))";								\
 	PARAMETER="$(strip $(2))";								\
-	$(PERL) -p -i -e									\
-		"s,^\s*(\/\*)?\s*(\#\s*define\s+$$PARAMETER)\s*(\*\/)?$$,\$$2\n,"		\
+	sed -i -e										\
+		"s,^\s*\(\/\*\)\?\s*\(#\s*define\s\+$$PARAMETER\)\s*\(\*\/\)\?$$,\2,"		\
 		$$FILENAME
 
 #
@@ -718,9 +711,10 @@ enable_c =											\
 disable_c =											\
 	FILENAME="$(strip $(1))";								\
 	PARAMETER="$(strip $(2))";								\
-	$(PERL) -p -i -e									\
-		"s,^\s*(\/\*)?\s*(\#\s*define\s+$$PARAMETER)\s*(\*\/)?$$,\/\*\$$2\*\/\n,"	\
+	sed -i -e										\
+		"s,^\s*\(\/\*\)\?\s*\(#\s*define\s\+$$PARAMETER\)\s*\(\*\/\)\?$$,\/\*\2\*\/," 	\
 		$$FILENAME
+
 
 #
 # enable_sh
@@ -735,10 +729,9 @@ disable_c =											\
 enable_sh =						\
 	FILENAME="$(strip $(1))";			\
 	PARAMETER="$(strip $(2))";			\
-	$(PERL) -p -i -e				\
-		"s,^\s*(\#)?\s*($$PARAMETER),\$$2,"	\
+	sed -i -e					\
+		"s,^\s*\(#\)\?\s*\($$PARAMETER\),\2,"	\
 		$$FILENAME
-
 
 #
 # disable_sh
@@ -753,8 +746,8 @@ enable_sh =						\
 disable_sh =						\
 	FILENAME="$(strip $(1))";			\
 	PARAMETER="$(strip $(2))";			\
-	$(PERL) -p -i -e				\
-		"s,^\s*(\#)?\s*($$PARAMETER),\#\$$2,"	\
+	sed -i -e					\
+		"s,^\s*\(#\)\?\s*\($$PARAMETER\),#\2,"	\
 		$$FILENAME
 
 #
@@ -1103,10 +1096,10 @@ install_link =									\
 	echo "install_link: src=$$SRC dst=$$DST "; 				\
 	mkdir -p `dirname $(ROOTDIR)$$DST`;					\
 	mkdir -p `dirname $(ROOTDIR_DEBUG)$$DST`;				\
-	$(LN) -sf $$SRC $(ROOTDIR)$$DST; 					\
-	$(LN) -sf $$SRC $(ROOTDIR_DEBUG)$$DST; 					\
+	ln -sf $$SRC $(ROOTDIR)$$DST; 						\
+	ln -sf $$SRC $(ROOTDIR_DEBUG)$$DST; 					\
 	mkdir -p `dirname $(PKGDIR)/$$PACKET.tmp/ipkg$$DST`;			\
-	$(LN) -sf $$SRC $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST
+	ln -sf $$SRC $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST
 
 #
 # install_node
@@ -1159,7 +1152,7 @@ install_fixup = 									\
 	if [ "$$REPLACE_FROM" = "VERSION" ]; then					\
 		REPLACE_TO=$${REPLACE_TO}$(PTXCONF_PROJECT_BUILD);			\
 	fi;										\
-	perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control;	\
+	sed -i -e "s,@$$REPLACE_FROM@,$$REPLACE_TO,g" $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control; \
 	echo "done.";
 
 #
@@ -1183,7 +1176,7 @@ install_init =										\
 	REPLACE_FROM="ARCH";								\
 	REPLACE_TO=$(PTXCONF_IMAGE_IPKG_ARCH);						\
 	echo -n "install_init:   @$$REPLACE_FROM@ -> $$REPLACE_TO ... ";	 	\
-	perl -i -p -e "s,\@$$REPLACE_FROM@,$$REPLACE_TO,g" $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control;	\
+	sed -i -e "s,@$$REPLACE_FROM@,$$REPLACE_TO,g" $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control; \
 	echo "done"; \
 	for script in preinst postinst prerm postrm; do \
 		echo -n "install_init:   $$script "; \
@@ -1209,8 +1202,8 @@ install_init =										\
 #
 # $1: packet label
 #
-install_finish = 													\
-	export LANG=C; 													\
+install_finish = 												\
+	export LANG=C; 												\
 	PACKET=$(strip $(1));											\
 	if [ ! -f $(STATEDIR)/$$PACKET.perms ]; then								\
 		echo "Packet $$PACKET is empty. not generating";						\
