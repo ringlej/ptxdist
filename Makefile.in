@@ -10,13 +10,10 @@ SHELL=bash
 export SHELL
 
 all:
-	@echo "building lxdialog..."
-	cp ${abs_srcdir}/scripts/ptx-modifications/Makefile.lxdialog.ptx ${abs_srcdir}/scripts/lxdialog/Makefile
-	cd ${abs_srcdir}/scripts/lxdialog && ${MAKE}
 	@echo "building conf..."
 	cd ${abs_srcdir}/scripts/kconfig && ${MAKE} conf
 	@echo "building mconf..."
-	cd ${abs_srcdir}/scripts/kconfig && ${MAKE} mconf
+	cd ${abs_srcdir}/scripts/kconfig && ${MAKE} mconf CURSES_LOC='@CURSES_LOC@' CURSES_LIB=@CURSES_LIB@
 	@echo "done."
 	@touch .done
 
@@ -34,8 +31,6 @@ install: all
 	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist
 
 clean:
-	@test ! -f ${abs_srcdir}/scripts/lxdialog/Makefile || (cd ${abs_srcdir}/scripts/lxdialog && ${MAKE} clean)
-	@rm -f ${abs_srcdir}/scripts/lxdialog/Makefile
 	@cd ${abs_srcdir}/scripts/kconfig && ${MAKE} clean
 	@rm -f .done
 

@@ -30,18 +30,33 @@ extern "C" {
 #undef P
 
 #define SRCTREE "srctree"
+
 #define CFGSYM "PTXCONF_"
 #define CFGSYMFC 'P'
 #define CFGSYMLEN 8
 #define RELEASESYM "FULLVERSION"
 #define RELEASENAME "PTXdist"
-	
 
 #define PACKAGE "linux"
 #define LOCALEDIR "/usr/share/locale"
 
 #define _(text) gettext(text)
 #define N_(text) (text)
+
+
+#define TF_COMMAND	0x0001
+#define TF_PARAM	0x0002
+#define TF_OPTION	0x0004
+
+#define T_OPT_MODULES		1
+#define T_OPT_DEFCONFIG_LIST	2
+
+struct kconf_id {
+	int name;
+	int token;
+	unsigned int flags;
+	enum symbol_type stype;
+};
 
 int zconfparse(void);
 void zconfdump(FILE *out);
@@ -55,17 +70,17 @@ int zconf_lineno(void);
 char *zconf_curname(void);
 
 /* confdata.c */
-extern const char conf_def_filename[];
-extern char conf_filename[];
-
+const char *conf_get_configname(void);
 char *conf_get_default_confname(void);
+void sym_set_change_count(int count);
+void sym_add_change_count(int count);
 
 /* kconfig_load.c */
 void kconfig_load(void);
 
 /* menu.c */
 void menu_init(void);
-void menu_add_menu(void);
+struct menu *menu_add_menu(void);
 void menu_end_menu(void);
 void menu_add_entry(struct symbol *sym);
 void menu_end_entry(void);
@@ -74,6 +89,7 @@ struct property *menu_add_prop(enum prop_type type, char *prompt, struct expr *e
 struct property *menu_add_prompt(enum prop_type type, char *prompt, struct expr *dep);
 void menu_add_expr(enum prop_type type, struct expr *expr, struct expr *dep);
 void menu_add_symbol(enum prop_type type, struct symbol *sym, struct expr *dep);
+void menu_add_option(int token, char *arg);
 void menu_finalize(struct menu *parent);
 void menu_set_type(int type);
 
@@ -95,6 +111,7 @@ const char *str_get(struct gstr *gs);
 /* symbol.c */
 void sym_init(void);
 void sym_clear_all_valid(void);
+void sym_set_all_changed(void);
 void sym_set_changed(struct symbol *sym);
 struct symbol *sym_check_deps(struct symbol *sym);
 struct property *prop_alloc(enum prop_type type, struct symbol *sym);
@@ -133,7 +150,7 @@ static inline bool sym_is_optional(struct symbol *sym)
 
 static inline bool sym_has_value(struct symbol *sym)
 {
-	return sym->flags & SYMBOL_NEW ? false : true;
+	return sym->flags & SYMBOL_DEF_USER ? true : false;
 }
 
 #ifdef __cplusplus

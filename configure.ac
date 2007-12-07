@@ -32,11 +32,30 @@ dnl Check header files, mostly for lxdialog & kconfig
 dnl
 
 AC_HEADER_STDC
-AC_CHECK_HEADER(
-	[ncurses.h],
-	[],
-	AC_MSG_ERROR([Cannot find ncurses.h. Please install the ncurses development packet.])
-)
+
+AC_CHECK_LIB([curses],   [mvaddch], [CURSES_LIB='curses'])
+AC_CHECK_LIB([ncurses],  [mvaddch], [CURSES_LIB='ncurses'])
+AC_CHECK_LIB([pdcurses], [mvaddch], [CURSES_LIB='pdcurses'])
+if test "$CURSES_LIB" = ""
+then
+	AC_MSG_ERROR([No curses library found.])
+fi
+if test "$CURSES_LIB" = "ncurses"
+then
+	AC_CHECK_HEADER(
+		[ncurses.h],
+		[CURSES_LOC='<ncurses.h>'],
+		AC_MSG_ERROR([Cannot find ncurses.h.])
+	)
+else
+	AC_CHECK_HEADER(
+		[curses.h],
+		[CURSES_LOC='<curses.h>'],
+		AC_MSG_ERROR([Cannot find curses.h.])
+	)
+fi
+AC_SUBST(CURSES_LOC)
+AC_SUBST(CURSES_LIB)
 
 AC_SYS_INTERPRETER
 if test "$interpval" != yes ; then
