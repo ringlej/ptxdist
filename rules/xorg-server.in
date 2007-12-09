@@ -147,7 +147,7 @@ config XORG_SERVER_QUIRKS
 
 # ----------------------------------------------------------------------------
 
-comment " *** X.org Servers ***"
+comment "*** X.org Servers ***"
 	depends on XORG_SERVER
 
 config XORG_SERVER_XORG

@@ -1,3 +1,7 @@
+2007-12-09  Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* .in: remove leading whitespace; found by Marco Cavallini.
+
 2007-10-27  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* sudo: update to version 1.6.9p2. It patches some compile

@@ -209,7 +209,7 @@ menu "Install gconv libraries"
 
 config GLIBC_GCONV_DEF
 	bool
-	prompt "  default gconv modules"
+	prompt "default gconv modules"
 	depends on GLIBC
 	default y
 	help
@@ -219,7 +219,7 @@ config GLIBC_GCONV_DEF
 
 config GLIBC_GCONV_ZH
 	bool
-	prompt "  gconv modules for chinese language"
+	prompt "gconv modules for chinese language"
 	depends on GLIBC
 	help
 	  install the gconv modules for chinese language, including BIG5, GB2312

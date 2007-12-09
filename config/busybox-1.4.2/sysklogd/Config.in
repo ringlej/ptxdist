@@ -58,7 +58,7 @@ config BB_CONFIG_FEATURE_IPC_SYSLOG
 	  break badly.
 
 config BB_CONFIG_FEATURE_IPC_SYSLOG_BUFFER_SIZE
-	int "    Circular buffer size in Kbytes (minimum 4KB)"
+	int "Circular buffer size in Kbytes (minimum 4KB)"
 	default 16
 	depends on BB_CONFIG_FEATURE_IPC_SYSLOG
 	help
