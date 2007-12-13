@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_LIBGD) += libgd
 #
 # Paths and names
 #
-LIBGD_VERSION	= 2.0.15
+LIBGD_VERSION	= 2.0.35
 LIBGD		= gd-$(LIBGD_VERSION)
 LIBGD_SUFFIX	= tar.gz
-LIBGD_URL	= http://www.boutell.com/gd/http/$(LIBGD).$(LIBGD_SUFFIX)
+LIBGD_URL	= http://www.libgd.org/releases/$(LIBGD).$(LIBGD_SUFFIX)
 LIBGD_SOURCE	= $(SRCDIR)/$(LIBGD).$(LIBGD_SUFFIX)
 LIBGD_DIR	= $(BUILDDIR)/$(LIBGD)
 
@@ -67,7 +67,40 @@ LIBGD_ENV 	=  $(CROSS_ENV)
 #
 LIBGD_AUTOCONF  =  $(CROSS_AUTOCONF_USR)
 
-#LIBGD_AUTOCONF	+= 
+ifdef PTXCONF_LIBGD_X
+LIBGD_AUTOCONF	+= --with-x
+else
+LIBGD_AUTOCONF += --without-x
+endif
+ifdef PTXCONF_LIBGD_JPEG
+LIBGD_AUTOCONF += --with-jpeg=$(SYSROOT)/usr
+else
+LIBGD_AUTOCONF += --without-jpeg
+endif
+
+ifdef PTXCONF_LIBGD_PNG
+LIBGD_AUTOCONF += --with-png=$(SYSROOT)/usr
+else
+LIBGD_AUTOCONF += --without-png
+endif
+
+ifdef PTXCONF_LIBGD_XPM
+LIBGD_AUTOCONF += --with-xpm=$(SYSROOT)/usr
+else
+LIBGD_AUTOCONF += --without-xpm
+endif
+
+ifdef PTXCONF_LIBGD_FREETYPE
+LIBGD_AUTOCONF += --with-freetype=$(SYSROOT)/usr
+else
+LIBGD_AUTOCONF += --without-freetype
+endif
+
+ifdef PTXCONF_LIBGD_FONTCONFIG
+LIBGD_AUTOCONF += --with-fontconfig=$(SYSROOT)/usr
+else
+LIBGD_AUTOCONF += --without-fontconfig
+endif
 
 $(STATEDIR)/libgd.prepare: $(libgd_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -108,6 +141,11 @@ libgd_targetinstall: $(STATEDIR)/libgd.targetinstall
 
 $(STATEDIR)/libgd.targetinstall: $(libgd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
+	@$(call install_copy, libgd, 0, 0, 0755,\
+		$(LIBGD_DIR)/.libs/libgd.so.2.0.0, /usr/lib/libgd.so.2.0.0)	
+	@$(call install_link, libgd, libgd.so.2.0.0, /usr/lib/libgd.so.2)
+	@$(call install_link, libgd, libgd.so.2.0.0, /usr/lib/libgd.so)
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

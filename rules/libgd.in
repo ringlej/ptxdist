@@ -1,7 +1,11 @@
 config LIBGD
 	bool
-	depends on BROKEN
-	prompt "libgd [BROKEN]"
+	prompt "libgd"
+	select LIBPNG if LIBGD_PNG
+	select LIBJPEG if LIBGD_JPEG
+	select XORG_LIB_XPM if LIBGD_XPM
+	select FONTCONFIG if LIBGD_FONTCONFIG
+	select FREETYPE if LIBGD_FREETYPE
 	help
 	  GD is an open source code library for the
 	  dynamic creation of images by programmers.
@@ -10,3 +14,48 @@ config LIBGD
 	  generate charts, graphics, thumbnails, and
 	  most anything else, on the fly.
 
+config LIBGD_X
+	bool
+	prompt "with X libs support"
+	depends on LIBGD
+	default n 
+	help
+	   compiles libgd with X libraries support
+
+config LIBGD_PNG
+	bool
+	prompt "with png support"
+	depends on LIBGD
+	default y
+	help
+	   compiles libgd with png support
+
+config LIBGD_JPEG
+	bool
+	prompt "with jpeg support"
+	depends on LIBGD
+	default y
+	help
+	   compiles libgd with jpeg support
+
+config LIBGD_XPM
+	bool
+	prompt "with xpm support"
+	depends on LIBGD
+	help
+	   compiles libgd with xpm support
+
+config LIBGD_FONTCONFIG
+	bool
+	prompt "with fontconfig support"
+	depends on LIBGD
+	default y
+	help
+	   compiles libgd with png support
+
+config LIBGD_FREETYPE
+	bool
+	prompt "with freetype support"
+	depends on LIBGD
+	help
+	   compiles libgd with freetype support
