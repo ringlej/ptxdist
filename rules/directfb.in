@@ -19,6 +19,18 @@ menuconfig DIRECTFB
 	  adds graphical power to embedded systems and sets a
 	  new standard for graphics under Linux.
 
+config DIRECTFB_DEBUG
+	bool "build with debug support"
+	depends on DIRECTFB
+
+config DIRECTFB_TRACE
+	bool "build with trace support"
+	depends on DIRECTFB
+
+config DIRECTFB_IMAGE_GIF
+	bool "build GIF image provider"
+	depends on DIRECTFB
+
 config DIRECTFB_IMAGE_PNG
 	bool "build PNG image provider"
 	depends on DIRECTFB
@@ -58,6 +70,7 @@ endmenu
 config DIRECTFB_EXAMPLES
 	bool
 	prompt "directfb examples"
+	select DIRECTFB_IMAGE_GIF
 	select DIRECTFB_IMAGE_PNG
 	select DIRECTFB_IMAGE_JPEG
 	select DIRECTFB_FONT_FREETYPE

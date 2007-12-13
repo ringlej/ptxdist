@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
-# Copyright (C) 2006, 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -21,6 +21,7 @@ DIRECTFB_VERSION	:= 1.0.1
 DIRECTFB		:= DirectFB-$(DIRECTFB_VERSION)
 DIRECTFB_SUFFIX		:= tar.gz
 DIRECTFB_URL		:= http://www.directfb.org/downloads/Core/$(DIRECTFB).$(DIRECTFB_SUFFIX)
+#DIRECTFB_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(DIRECTFB).$(DIRECTFB_SUFFIX)
 DIRECTFB_SOURCE		:= $(SRCDIR)/$(DIRECTFB).$(DIRECTFB_SUFFIX)
 DIRECTFB_DIR		:= $(BUILDDIR)/$(DIRECTFB)
 
@@ -84,7 +85,6 @@ endif
 DIRECTFB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-osx \
-	--disable-x11 \
 	--disable-network \
 	--disable-multi \
 	--disable-voodoo \
@@ -92,20 +92,38 @@ DIRECTFB_AUTOCONF := \
 	--disable-vnc \
 	--disable-sysfs \
 	--disable-zlib \
-	--disable-gif \
 	--disable-video4linux \
 	--disable-video4linux2 \
-	\
 	--with-gfxdrivers=none \
 	--with-inputdrivers=$(subst $(space),$(comma),$(DIRECTFB_INPUT)) \
-	\
-	--enable-fbdev
+	--enable-fbdev \
+	--disable-x11
 
+
+ifdef PTXCONF_DIRECTFB_DEBUG
+DIRECTFB_AUTOCONF += --enable-debug
+MODULE_DIRECTORY   = /usr/lib/directfb-1.0-0
+else
+DIRECTFB_AUTOCONF += --disable-debug-support
+MODULE_DIRECTORY   = /usr/lib/directfb-1.0-0-pure
+endif
+
+ifdef PTXCONF_DIRECTFB_TRACE
+DIRECTFB_AUTOCONF += --enable-trace
+else
+DIRECTFB_AUTOCONF += --disable-trace
+endif
 
 ifdef PTXCONF_DIRECTFB_WM_UNIQUE
 DIRECTFB_AUTOCONF += --enable-unique
 else
 DIRECTFB_AUTOCONF += --disable-unique
+endif
+
+ifdef PTXCONF_DIRECTFB_IMAGE_GIF
+DIRECTFB_AUTOCONF += --enable-gif
+else
+DIRECTFB_AUTOCONF += --disable-gif
 endif
 
 ifdef PTXCONF_DIRECTFB_IMAGE_PNG
@@ -174,6 +192,10 @@ $(STATEDIR)/directfb.targetinstall:
 	@$(call install_fixup,directfb,DEPENDS,)
 	@$(call install_fixup,directfb,DESCRIPTION,missing)
 
+	@$(call install_copy, directfb, 0, 0, 0755, \
+		$(DIRECTFB_DIR)/tools/.libs/dfbinfo, \
+		/usr/bin/dfbinfo)
+
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/src/.libs/libdirectfb-1.0.so.0.1.0, \
 		/usr/lib/libdirectfb-1.0.so.0.1.0)
@@ -195,16 +217,16 @@ $(STATEDIR)/directfb.targetinstall:
 
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/systems/fbdev/.libs/libdirectfb_fbdev.so, \
-		/usr/lib/directfb-1.0-0/systems/libdirectfb_fbdev.so)
+		$(MODULE_DIRECTORY)/systems/libdirectfb_fbdev.so)
 
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/wm/default/.libs/libdirectfbwm_default.so, \
-		/usr/lib/directfb-1.0-0/wm/libdirectfbwm_default.so)
+		$(MODULE_DIRECTORY)/wm/libdirectfbwm_default.so)
 
 ifdef PTXCONF_DIRECTFB_WM_UNIQUE
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/wm/unique/.libs/libdirectfbwm_unique.so, \
-		/usr/lib/directfb-1.0-0/wm/libdirectfbwm_unique.so)
+		$(MODULE_DIRECTORY)/wm/libdirectfbwm_unique.so)
 
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/wm/unique/.libs/libuniquewm-1.0.so.0.1.0, \
@@ -213,42 +235,54 @@ ifdef PTXCONF_DIRECTFB_WM_UNIQUE
 	@$(call install_link, directfb, libuniquewm-1.0.so.0.1.0, /usr/lib/libuniquewm.so)
 endif
 
+ifdef PTXCONF_DIRECTFB_IMAGE_GIF
+	@$(call install_copy, directfb, 0, 0, 0644, \
+		$(DIRECTFB_DIR)/interfaces/IDirectFBImageProvider/.libs/libidirectfbimageprovider_gif.so, \
+		$(MODULE_DIRECTORY)/interfaces/IDirectFBImageProvider/libidirectfbimageprovider_gif.so)
+endif
+
 ifdef PTXCONF_DIRECTFB_IMAGE_PNG
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/interfaces/IDirectFBImageProvider/.libs/libidirectfbimageprovider_png.so, \
-		/usr/lib/directfb-1.0-0/interfaces/IDirectFBImageProvider/libidirectfbimageprovider_png.so)
+		$(MODULE_DIRECTORY)/interfaces/IDirectFBImageProvider/libidirectfbimageprovider_png.so)
 endif
 
 ifdef PTXCONF_DIRECTFB_IMAGE_JPEG
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/interfaces/IDirectFBImageProvider/.libs/libidirectfbimageprovider_jpeg.so, \
-		/usr/lib/directfb-1.0-0/interfaces/IDirectFBImageProvider/libidirectfbimageprovider_jpeg.so)
+		$(MODULE_DIRECTORY)/interfaces/IDirectFBImageProvider/libidirectfbimageprovider_jpeg.so)
 endif
 
 
 ifdef PTXCONF_DIRECTFB_INPUT_LINUXINPUT
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/inputdrivers/linux_input/.libs/libdirectfb_linux_input.so, \
-		/usr/lib/directfb-1.0-0/inputdrivers/libdirectfb_linux_input.so)
+		$(MODULE_DIRECTORY)/inputdrivers/libdirectfb_linux_input.so)
+endif
+
+ifdef PTXCONF_DIRECTFB_INPUT_KEYBOARD
+	@$(call install_copy, directfb, 0, 0, 0644, \
+		$(DIRECTFB_DIR)/inputdrivers/keyboard/.libs/libdirectfb_keyboard.so, \
+		$(MODULE_DIRECTORY)/inputdrivers/libdirectfb_keyboard.so)
 endif
 
 ifdef PTXCONF_DIRECTFB_INPUT_PS2MOUSE
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/inputdrivers/ps2mouse/.libs/libdirectfb_ps2mouse.so, \
-		/usr/lib/directfb-1.0-0/inputdrivers/libdirectfb_ps2mouse.so)
+		$(MODULE_DIRECTORY)/inputdrivers/libdirectfb_ps2mouse.so)
 endif
 
 ifdef PTXCONF_DIRECTFB_INPUT_TSLIB
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/inputdrivers/tslib/.libs/libdirectfb_tslib.so, \
-		/usr/lib/directfb-1.0-0/inputdrivers/libdirectfb_tslib.so)
+		$(MODULE_DIRECTORY)/inputdrivers/libdirectfb_tslib.so)
 endif
 
 
 ifdef PTXCONF_DIRECTFB_FONT_FREETYPE
 	@$(call install_copy, directfb, 0, 0, 0644, \
 		$(DIRECTFB_DIR)/interfaces/IDirectFBFont/.libs/libidirectfbfont_ft2.so, \
-		/usr/lib/directfb-1.0-0/interfaces/IDirectFBFont/libidirectfbfont_ft2.so)
+		$(MODULE_DIRECTORY)/interfaces/IDirectFBFont/libidirectfbfont_ft2.so)
 endif
 
 
