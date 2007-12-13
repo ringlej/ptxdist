@@ -2,7 +2,7 @@
 # $Id: template 4761 2006-02-24 17:35:57Z sha $
 #
 # Copyright (C) 2006 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_PEKWM) += pekwm
 PEKWM_VERSION	:= 0.1.4
 PEKWM		:= pekwm-$(PEKWM_VERSION)
 PEKWM_SUFFIX	:= tar.bz2
-PEKWM_URL	:= http://pekwm.org/files/$(PEKWM).$(PEKWM_SUFFIX)
+PEKWM_URL	:= http://www.sourcefiles.org/Window_Managers/$(PEKWM).$(PEKWM_SUFFIX)
 PEKWM_SOURCE	:= $(SRCDIR)/$(PEKWM).$(PEKWM_SUFFIX)
 PEKWM_DIR	:= $(BUILDDIR)/$(PEKWM)
 
