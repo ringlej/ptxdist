@@ -60,9 +60,9 @@ procps_prepare: $(STATEDIR)/procps.prepare
 
 PROCPS_PATH	:= PATH=$(CROSS_PATH)
 PROCPS_MAKEVARS	:= \
-	CC='$(CROSS_CC)' \
-	CPPFLAGS='$(TARGET_CPPFLAGS)' \
-	LDFLAGS="$(TARGET_LDFLAGS)"
+	CC="$(CROSS_CC)" \
+	CPPFLAGS="$(CROSS_CPPFLAGS)" \
+	LDFLAGS="$(CROSS_LDFLAGS)"
 
 #
 # autoconf
