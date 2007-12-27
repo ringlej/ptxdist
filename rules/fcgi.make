@@ -111,10 +111,6 @@ $(STATEDIR)/fcgi.targetinstall: $(fcgi_targetinstall_deps_default)
 		/usr/bin/cgi-fcgi)
 	@$(call install_copy, fcgi, 0, 0, 0755, $(FCGI_DIR)/libfcgi/.libs/libfcgi.so.0.0.0, \
 		/usr/lib/libfcgi.so.0.0.0)
-	@$(call install_copy, fcgi, 0, 0, 0755, $(FCGI_DIR)/libfcgi/.libs/libfcgi.lai, \
-		/usr/lib/libfcgi.la)
-	@$(call install_copy, fcgi, 0, 0, 0755, $(FCGI_DIR)/libfcgi/.libs/libfcgi.a, \
-		/usr/lib/libfcgi.a)
 	@$(call install_link,  fcgi, libfcgi.so.0.0.0,  /usr/lib/libfcgi.so.0)
 	@$(call install_link,  fcgi, libfcgi.so.0, /usr/lib/libfcgi.so)
 
