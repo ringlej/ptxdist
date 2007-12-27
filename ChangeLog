@@ -1,5 +1,10 @@
 2007-12-13  Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* lighttpd: adds lighttpd to ptxdist. Lighttpd is another
+	popular web server for embedded targets. Patch by Daniel
+	Schnell. The configuration is dependant on fast cgi, pcre and
+	openssl.
+
 	* fcgi: integrates fastcgi 2.4.0 to be used e.g. by lighttpd.
 	It doesn't contain any patches because it configures quite well
 	under linux. Patch by Daniel Schnell.
@@ -101,7 +106,7 @@
 
 2007-05-05  Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* trunk: backports from 1.0.0-trunk 
+	* trunk: backports from 1.0.0-trunk
 
 2007-05-05  Robert Schwebel <r.schwebel@pengutronix.de>
 
@@ -120,10 +125,10 @@
 
 2007-05-04  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
 
-	* apply_patch_series.sh: removed debug 
+	* apply_patch_series.sh: removed debug
 	* apply_patch_series.sh: be a bit more sane, don't fail on
 	existing patches subdirs or series files
-	
+
 	* rules/pre/Rules.make: set PKG_CONFIG_PATH to nix, in HOST ENV
 	prevent host stuff leak into our own stuff
 
@@ -172,7 +177,7 @@
 	possible to migrate old configurations in a sane time again ...
 
 2007-04-20  Sascha Hauer <s.hauer@pengutronix.de>
-	
+
 	* gdbserver: fixed get stage. We need to depend on gdb.get here
 	too, because otherwise, when gdbserver is selected but not gdb,
 	ptxdist will try to do a gdb.extract without doing gdb.get
@@ -277,7 +282,7 @@
 	* xli: added
 
 2007-03-16  Bjoern Buerger <b.buerger@pengutronix.de>
-	
+
 	* xterm: source vanished. upgraded to 224
 
 2007-03-13  Bjoern Buerger <b.buerger@pengutronix.de>
@@ -299,7 +304,7 @@
 	  with root permissions
 
 2007-03-11  Juergen Beisert <j.beisert@pengutronix.de>
-	
+
 	* busybox: adding some notes about failing install stages
 	 - do not leave symbol BB_PREFIX empty
 	 - could be accidentally happen when migrating from older ptxdist releases
@@ -385,7 +390,7 @@
 	 - lo initialisation is done in the network script only
 
 2007-02-28  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
-	
+
 	* module-init-tools.make: don't build documentation
 	* TODO: added remark for jffs2 images
 
@@ -410,7 +415,7 @@
 	* host-pelts: version bump
 
 2007-02-12  Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
-	
+
 	* busybox.make: added parallelmflags
 	* host-glib.make: regenerated makefile
 	* alsa-lib.make, glib.make: removed --libdir hack
@@ -674,7 +679,7 @@
 2007-01-24  Juergen Beisert <j.beisert@pengutronix.de>
 
 	* AppleWM.make: fixing package name because ipkg reject the
-	  previous one 
+	  previous one
 	* TODO: adding uRamdisk note
 
 2007-01-24  Robert Schwebel <r.schwebel@pengutronix.de>
@@ -687,7 +692,7 @@
 
 2007-01-23  Luotao Fu <l.fu@pengutronix.de>
 
-	* startx: now loads xinitrc from etc/X11/xinit *cross 
+	* startx: now loads xinitrc from etc/X11/xinit *cross
 	  compiling with cross cpp
 
 2007-01-21  Juergen Beisert <j.beisert@pengutronix.de>
@@ -903,11 +908,11 @@
 	* configure.ac: typo fix
 	* make_locale.sh: added locale generatio script
 	* configure.ac: added localedef as requirement for ptxdist
-	* install_copy_toolchain.sh: added locale configuration for 
+	* install_copy_toolchain.sh: added locale configuration for
 	  target to ptxdist
 	* glibc.make: added glibc i18n rawdata installation
 	* libiconv.make: added language extension config parameter
-	* glibc.in: change i18n rawdata installation, added new dependencies 
+	* glibc.in: change i18n rawdata installation, added new dependencies
 	  of locale utilities
 
 2007-01-09  Juergen Beisert <j.beisert@pengutronix.de>
@@ -1007,7 +1012,7 @@
 
 	* xorg-font*.in:
 	  reintroduced menuconfig for fonts
-	* mplayer.make: 
+	* mplayer.make:
 	  added missing PTXCONF to _all_ options
 	* apache2.make:
 	  added missing PTXCONF to option ROOTFS_HTTPD_USER_DOC
@@ -1137,7 +1142,7 @@
 2007-01-02  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* libdbus-cxx:
-	  finally compiles; the only thing that's missing is a real release 
+	  finally compiles; the only thing that's missing is a real release
 	  and a download URL.
 	* libx11: add documentation for FIXMEs
 	* host-libx11:
@@ -1210,7 +1215,7 @@
 	* ptxdist_vars: take care of pre- and post files.
 	  Merged from branches/ptxdist-trunk-mkl by rsc.
 	* Namespaces
-	* host-pkg-config: added Merged from 
+	* host-pkg-config: added Merged from
 	  branches/ptxdist-trunk-mkl by rsc.
 	* dgen.sh: fixed dependency generation.
 	  Merged from branches/ptxdist-trunk-mkl by rsc.
@@ -1621,7 +1626,7 @@
 	* hosttools.in: added host font tools
 	* xorg-fonts: redefined target install stage to minimize installation size
 	* xorg-font.in: changed xorg fonts install menu structure with more
-	  debian flavour for better organisation. defineble targetinstall according 
+	  debian flavour for better organisation. defineble targetinstall according
 	  to codepages to minimize installation size
 	* fonts: added host font utilsto fix font compililation
 
