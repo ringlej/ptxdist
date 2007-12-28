@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_PEKWM) += pekwm
 PEKWM_VERSION	:= 0.1.4
 PEKWM		:= pekwm-$(PEKWM_VERSION)
 PEKWM_SUFFIX	:= tar.bz2
-PEKWM_URL	:= http://www.sourcefiles.org/Window_Managers/$(PEKWM).$(PEKWM_SUFFIX)
+PEKWM_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(PEKWM).$(PEKWM_SUFFIX)
 PEKWM_SOURCE	:= $(SRCDIR)/$(PEKWM).$(PEKWM_SUFFIX)
 PEKWM_DIR	:= $(BUILDDIR)/$(PEKWM)
 

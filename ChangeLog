@@ -3,6 +3,7 @@
 	* sudo: fixed URL
 	* mad: fixed URL, moved packet to pengutronix server because
 	upstream version has disappeared
+	* pekwm: fixed URL (dito)
 
 2007-12-27  Robert Schwebel <r.schwebel@pengutronix.de>
 
