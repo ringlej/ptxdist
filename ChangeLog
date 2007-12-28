@@ -5,6 +5,7 @@
 	upstream version has disappeared
 	* pekwm: fixed URL (dito)
 	* sqlite: version bump, old version was not available any more
+	* unionfs: fixed URL
 
 2007-12-27  Robert Schwebel <r.schwebel@pengutronix.de>
 

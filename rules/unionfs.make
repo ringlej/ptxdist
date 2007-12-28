@@ -2,7 +2,7 @@
 # $Id: template 4453 2006-01-29 13:28:16Z rsc $
 #
 # Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -26,7 +26,7 @@ else
 UNIONFS_VERSION	:= 1.1.4
 UNIONFS		:= unionfs-$(UNIONFS_VERSION)
 UNIONFS_SUFFIX	:= tar.gz
-UNIONFS_URL	:= ftp://ftp.fsl.cs.sunysb.edu/pub/unionfs/old/$(UNIONFS).$(UNIONFS_SUFFIX)
+UNIONFS_URL	:= ftp://ftp.fsl.cs.sunysb.edu/pub/unionfs/OLD/unionfs-1.x/$(UNIONFS).$(UNIONFS_SUFFIX)
 endif
 UNIONFS_SOURCE	:= $(SRCDIR)/$(UNIONFS).$(UNIONFS_SUFFIX)
 UNIONFS_DIR	:= $(BUILDDIR)/$(UNIONFS)
