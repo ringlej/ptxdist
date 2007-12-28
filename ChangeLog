@@ -1,6 +1,8 @@
 2007-12-28  Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* sudo: fixed URL
+	* mad: fixed URL, moved packet to pengutronix server because
+	upstream version has disappeared
 
 2007-12-27  Robert Schwebel <r.schwebel@pengutronix.de>
 
