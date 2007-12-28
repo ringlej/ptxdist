@@ -4,6 +4,7 @@
 	* mad: fixed URL, moved packet to pengutronix server because
 	upstream version has disappeared
 	* pekwm: fixed URL (dito)
+	* sqlite: version bump, old version was not available any more
 
 2007-12-27  Robert Schwebel <r.schwebel@pengutronix.de>
 

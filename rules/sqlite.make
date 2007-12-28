@@ -1,9 +1,9 @@
 # -*-makefile-*-
-# 
+#
 # $Id$
 #
 # Copyright (C) 2004 by Ladislav Michl
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION		= 3.3.13
+SQLITE_VERSION		= 3.5.4
 SQLITE			= sqlite-$(SQLITE_VERSION)
 SQLITE_SUFFIX		= tar.gz
 SQLITE_URL		= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
@@ -102,7 +102,7 @@ $(STATEDIR)/sqlite.prepare: $(sqlite_prepare_deps_default)
 	echo 'libsqlite:   $$(LIBOBJ) libsqlite3.a'		>> $(SQLITE_MK)
 	echo -e '\t$$(TCCX) $(SQLITE_LDFLAGS) $$(LIBOBJ)'	>> $(SQLITE_MK)
 	@$(call touch, $@)
-		
+
 
 # ----------------------------------------------------------------------------
 # Compile
