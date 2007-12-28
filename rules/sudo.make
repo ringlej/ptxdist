@@ -2,7 +2,7 @@
 # $Id: template 1681 2004-09-01 18:12:49Z  $
 #
 # Copyright (C) 2004 by BSP
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_SUDO) += sudo
 #
 # Paths and names
 #
-SUDO_VERSION	= 1.6.9p6
+SUDO_VERSION	= 1.6.9
 SUDO		= sudo-$(SUDO_VERSION)
 SUDO_SUFFIX	= tar.gz
-SUDO_URL	= http://www.courtesan.com/sudo/dist/$(SUDO).$(SUDO_SUFFIX)
+SUDO_URL	= http://www.courtesan.com/sudo/dist/OLD/$(SUDO).$(SUDO_SUFFIX)
 SUDO_SOURCE	= $(SRCDIR)/$(SUDO).$(SUDO_SUFFIX)
 SUDO_DIR	= $(BUILDDIR)/$(SUDO)
 
