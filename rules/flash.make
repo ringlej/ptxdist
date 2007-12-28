@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -14,12 +14,11 @@
 PACKAGES-$(PTXCONF_FLASH) += flash
 
 #
-# Paths and names 
+# Paths and names
 #
 FLASH_VERSION		= 0.9.5
-# 2007-10-16: Today version 0.9.5 from 2001 is still the latest version.
 FLASH			= flash-$(FLASH_VERSION)
-FLASH_URL 		= http://www.netsoc.ucd.ie/flash/$(FLASH).tar.gz
+FLASH_URL 		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FLASH).tar.gz
 FLASH_SOURCE		= $(SRCDIR)/$(FLASH).tar.gz
 FLASH_DIR 		= $(BUILDDIR)/$(FLASH)
 FLASH_EXTRACT		= gzip -dc
@@ -123,7 +122,7 @@ flash_targetinstall: $(STATEDIR)/flash.targetinstall
 
 $(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-	
+
 	@$(call install_init, flash)
 	@$(call install_fixup, flash,PACKAGE,flash)
 	@$(call install_fixup, flash,PRIORITY,optional)
@@ -135,7 +134,7 @@ $(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps_default)
 
 	@$(call install_copy, flash, 0, 0, 0755, $(FLASH_DIR)/flash, /usr/bin/flash)
 
-	# FIMXE: RSC: permissions? 
+	# FIMXE: RSC: permissions?
 	@$(call install_copy, flash, 0, 0, 0755, $(FLASH_DIR)/modules/alarms, /usr/lib/flash/alarms)
 	@$(call install_copy, flash, 0, 0, 0755, $(FLASH_DIR)/modules/background, /usr/lib/flash/background)
 	@$(call install_copy, flash, 0, 0, 0755, $(FLASH_DIR)/modules/countdown, /usr/lib/flash/countdown)
@@ -147,9 +146,9 @@ $(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-flash_clean: 
-	rm -fr $(STATEDIR)/flash.* 
-	rm -fr $(IMAGEDIR)/flash_* 
+flash_clean:
+	rm -fr $(STATEDIR)/flash.*
+	rm -fr $(IMAGEDIR)/flash_*
 	rm -fr $(FLASH_DIR)
 
 # vim: syntax=make
