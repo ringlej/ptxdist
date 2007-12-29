@@ -1,6 +1,7 @@
 2007-12-29 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* fbgrab: added; patch by Roland Hostettler
+	* net-snmp: added; patch by Randall Loomis
 
 2007-12-28  Robert Schwebel <r.schwebel@pengutronix.de>
 
