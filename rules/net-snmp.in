@@ -1,127 +1,127 @@
 menuconfig NET_SNMP
 	bool "Net-SNMP            "
 
-config NET_SNMP_FEATURE_ENABLE_LITTLE_ENDIAN
+config NET_SNMP_LITTLE_ENDIAN
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Build for little endian target"
+	prompt "little endian target"
 
-config NET_SNMP_FEATURE_ENABLE_MINI_AGENT
+config NET_SNMP_MINI_AGENT
 	bool
 	default y
 	depends on NET_SNMP
-	prompt "Build a minimal agent"
+	prompt "minimal agent"
 
-config NET_SNMP_FEATURE_DISABLE_AGENT
+config NET_SNMP_AGENT
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Do not build the agent (snmpd)"
+	prompt "agent (snmpd)"
 
-config NET_SNMP_FEATURE_DISABLE_APPLICATIONS
+config NET_SNMP_APPLICATIONS
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Do not build the apps (snmpget, ...)"
+	prompt "apps (snmpget, ...)"
 
-config NET_SNMP_FEATURE_DISABLE_SCRIPTS
+config NET_SNMP_SCRIPTS
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Do not build the scripts (mib2c, ...)"
+	prompt "scripts (mib2c, ...)"
 
-config NET_SNMP_FEATURE_DISABLE_MIBS
+config NET_SNMP_MIBS
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Do not install the mib files"
+	prompt "mib files"
 
-config NET_SNMP_FEATURE_DISABLE_MIB_LOADING
+config NET_SNMP_MIB_LOADING
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Do not include code that parses and manipulates mib files."
+	prompt "include code that parses and manipulates mib files"
 
-config NET_SNMP_FEATURE_DISABLE_SNMPV1
+config NET_SNMP_SNMPV1
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Do not include code that implements SNMPv1"
+	prompt "support for SNMPv1"
 
-config NET_SNMP_FEATURE_DISABLE_SNMPV2C
+config NET_SNMP_SNMPV2C
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Do not include code that implements SNMPv2c"
+	prompt "support for SNMPv2c"
 
-config NET_SNMP_FEATURE_DISABLE_DES
+config NET_SNMP_DES
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Do not support DES encryption"
+	prompt "DES encryption"
 
-config NET_SNMP_FEATURE_DISABLE_MD5
+config NET_SNMP_MD5
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Do not support MD5 authentication"
+	prompt "MD5 authentication"
 
-config NET_SNMP_FEATURE_DISABLE_SNMPTRAPD
+config NET_SNMP_SNMPTRAPD
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Disable agentx subagent code in snmptrapd"
+	prompt "agentx subagent code in snmptrapd"
 
-config NET_SNMP_FEATURE_ENABLE_IPV6
+config NET_SNMP_IPV6
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Enable IPv6 ready version"
+	prompt "support for IPv6"
 
-config NET_SNMP_FEATURE_ENABLE_LOCAL_SMUX
+config NET_SNMP_LOCAL_SMUX
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Restrict SMUX connections to localhost (by default)"
+	prompt "restrict SMUX connections to localhost (by default)"
 
-config NET_SNMP_FEATURE_DISABLE_DEBUGGING
+config NET_SNMP_DEBUGGING
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Disallows debugging code to be built in"
+	prompt "debugging"
 
-config NET_SNMP_FEATURE_ENABLE_DEVELOPER
+config NET_SNMP_DEVELOPER
 	bool
 	default n
 	depends on NET_SNMP
-	prompt "Turn on super-duper-extra-compile-warnings using gcc"
+	prompt "super-duper-extra-compile-warnings using gcc"
 
-config NET_SNMP_FEATURE_DEFAULT_SNMP_VERSION
+config NET_SNMP_DEFAULT_VERSION
 	prompt "default SNMP version: 1, 2 (for SNMPv2c), or 3"
 	string
 	default	"3"
 	depends on NET_SNMP
 
-config NET_SNMP_FEATURE_LOGFILE
+config NET_SNMP_LOGFILE
 	prompt "logfile location"
 	string
 	default	"/var/log/snmpd.log"
 	depends on NET_SNMP
 
-config NET_SNMP_FEATURE_PERSISTENT_DIR
+config NET_SNMP_PERSISTENT_DIR
 	prompt "persistent data storage directory"
 	string
 	default	"/var/net-snmp"
 	depends on NET_SNMP
 
-config NET_SNMP_FEATURE_WITH_MIB_MODULES
-	prompt "compile with additional mib modules"
+config NET_SNMP_MIB_MODULES
+	prompt "additional mib modules"
 	string
 	default	""
 	depends on NET_SNMP
 
-config NET_SNMP_FEATURE_WITH_MIBS
+config NET_SNMP_DEFAULT_MIBS
 	prompt "default mib id's to read"
 	string
 	default	""

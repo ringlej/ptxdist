@@ -1,5 +1,6 @@
 2007-12-29 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* net-snmp: refactored menu entries to use positive logic
 	* fbgrab: added; patch by Roland Hostettler
 	* net-snmp: added; patch by Randall Loomis
 

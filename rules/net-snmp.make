@@ -72,115 +72,164 @@ NET_SNMP_AUTOCONF	+= --with-defaults
 # we don't need no stinking manuals
 NET_SNMP_AUTOCONF	+= --disable-manuals
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_LITTLE_ENDIAN
+# FIXME rsc: should be well known in PTXdist, but isn't currently?
+ifdef PTXCONF_NET_SNMP_LITTLE_ENDIAN
 NET_SNMP_AUTOCONF	+= --with-endianness=little
 else
 NET_SNMP_AUTOCONF	+= --with-endianness=big
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_MINI_AGENT
+ifdef PTXCONF_NET_SNMP_MINI_AGENT
 NET_SNMP_AUTOCONF	+= --enable-mini-agent
+else
+NET_SNMP_AUTOCONF	+= --disable-mini-agent
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_AGENT
+ifdef PTXCONF_NET_SNMP_AGENT
+NET_SNMP_AUTOCONF	+= --enable-agent
+else
 NET_SNMP_AUTOCONF	+= --disable-agent
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_APPLICATIONS
+ifdef PTXCONF_NET_SNMP_APPLICATIONS
+NET_SNMP_AUTOCONF	+= --enable-applications
+else
 NET_SNMP_AUTOCONF	+= --disable-applications
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_SCRIPTS
+ifdef PTXCONF_NET_SNMP_SCRIPTS
+NET_SNMP_AUTOCONF	+= --enable-scripts
+else
 NET_SNMP_AUTOCONF	+= --disable-scripts
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_MIBS
+ifdef PTXCONF_NET_SNMP_MIBS
+NET_SNMP_AUTOCONF	+= --enable-mibs
+else
 NET_SNMP_AUTOCONF	+= --disable-mibs
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_MIB_LOADING
+ifdef PTXCONF_NET_SNMP_MIB_LOADING
+NET_SNMP_AUTOCONF	+= --enable-mib-loading
+else
 NET_SNMP_AUTOCONF	+= --disable-mib-loading
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_SNMPV1
+ifdef PTXCONF_NET_SNMP_SNMPV1
+NET_SNMP_AUTOCONF	+= --enable-snmpv1
+else
 NET_SNMP_AUTOCONF	+= --disable-snmpv1
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_SNMPV2C
+ifdef PTXCONF_NET_SNMP_SNMPV2C
+NET_SNMP_AUTOCONF	+= --enable-snmpv2c
+else
 NET_SNMP_AUTOCONF	+= --disable-snmpv2c
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_DES
+ifdef PTXCONF_NET_SNMP_DES
+NET_SNMP_AUTOCONF	+= --enable-des
+else
 NET_SNMP_AUTOCONF	+= --disable-des
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_MD5
+ifdef PTXCONF_NET_SNMP_MD5
+NET_SNMP_AUTOCONF	+= --enable-md5
+else
 NET_SNMP_AUTOCONF	+= --disable-md5
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_SNMPTRAPD
+ifdef PTXCONF_NET_SNMP_SNMPTRAPD
+NET_SNMP_AUTOCONF	+= --enable-snmptrapd-subagent
+else
 NET_SNMP_AUTOCONF	+= --disable-snmptrapd-subagent
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_IPV6
+ifdef PTXCONF_NET_SNMP_IPV6
 NET_SNMP_AUTOCONF	+= --enable-ipv6
+else
+NET_SNMP_AUTOCONF	+= --disable-ipv6
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_LOCAL_SMUX
+ifdef PTXCONF_NET_SNMP_LOCAL_SMUX
 NET_SNMP_AUTOCONF	+= --enable-local-smux
+else
+NET_SNMP_AUTOCONF	+= --disable-local-smux
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_DEBUGGING
+ifdef PTXCONF_NET_SNMP_DEBUGGING
+NET_SNMP_AUTOCONF	+= --enable-debugging
+else
 NET_SNMP_AUTOCONF	+= --disable-debugging
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_DEVELOPER
+ifdef PTXCONF_NET_SNMP_DEVELOPER
 NET_SNMP_AUTOCONF	+= --enable-developer
+else
+NET_SNMP_AUTOCONF	+= --disable-developer
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_DISABLE_PRIVACY
+ifdef PTXCONF_NET_SNMP_PRIVACY
+NET_SNMP_AUTOCONF	+= --enable-privacy
+else
 NET_SNMP_AUTOCONF	+= --disable-privacy
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_INTERNAL_MD5
+ifdef PTXCONF_NET_SNMP_INTERNAL_MD5
 NET_SNMP_AUTOCONF	+= --enable-internal-md5
+else
+NET_SNMP_AUTOCONF	+= --disable-internal-md5
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_AGENTX_DOM_SOCK_ONLY
+ifdef PTXCONF_NET_SNMP_AGENTX_DOM_SOCK_ONLY
 NET_SNMP_AUTOCONF	+= --enable-agentx-dom-sock-only
+else
+NET_SNMP_AUTOCONF	+= --disable-agentx-dom-sock-only
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_MIB_CONFIG_CHECKING
+ifdef PTXCONF_NET_SNMP_MIB_CONFIG_CHECKING
 NET_SNMP_AUTOCONF	+= --enable-mib-config-checking
+else
+NET_SNMP_AUTOCONF	+= --disable-mib-config-checking
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_MFD_REWRITES
+ifdef PTXCONF_NET_SNMP_MFD_REWRITES
 NET_SNMP_AUTOCONF	+= --enable-mfd-rewrites
+else
+NET_SNMP_AUTOCONF	+= --disable-mfd-rewrites
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_TESTING_CODE
+ifdef PTXCONF_NET_SNMP_TESTING_CODE
 NET_SNMP_AUTOCONF	+= --enable-testing-code
+else
+NET_SNMP_AUTOCONF	+= --disable-testing-code
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_REENTRANT
+ifdef PTXCONF_NET_SNMP_REENTRANT
 NET_SNMP_AUTOCONF	+= --enable-reentrant
+else
+NET_SNMP_AUTOCONF	+= --disable-reentrant
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_EMBEDDED_PERL
+ifdef PTXCONF_NET_SNMP_EMBEDDED_PERL
 NET_SNMP_AUTOCONF	+= --enable-embedded-perl
+else
+NET_SNMP_AUTOCONF	+= --disable-embedded-perl
 endif
 
-ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_UCD_COMPAT
+ifdef PTXCONF_NET_SNMP_UCD_COMPAT
 NET_SNMP_AUTOCONF	+= --enable-ucd-snmp-compatibility
+else
+NET_SNMP_AUTOCONF	+= --disable-ucd-snmp-compatibility
 endif
 
-NET_SNMP_AUTOCONF	+= --with-mib-modules=$(PTXCONF_NET_SNMP_FEATURE_WITH_MIB_MODULES)
-NET_SNMP_AUTOCONF	+= --with-mibs=$(PTXCONF_NET_SNMP_FEATURE_WITH_MIBS)
+NET_SNMP_AUTOCONF	+= --with-mib-modules=$(PTXCONF_NET_SNMP_MIB_MODULES)
+NET_SNMP_AUTOCONF	+= --with-mibs=$(PTXCONF_NET_SNMP_DEFAULT_MIBS)
 
-NET_SNMP_AUTOCONF	+= --with-logfile=$(call remove_quotes,$(PTXCONF_NET_SNMP_FEATURE_LOGFILE))
-NET_SNMP_AUTOCONF	+= --with-persistent-directory=$(call remove_quotes,$(PTXCONF_NET_SNMP_FEATURE_PERSISTENT_DIR))
+NET_SNMP_AUTOCONF	+= --with-logfile=$(call remove_quotes,$(PTXCONF_NET_SNMP_LOGFILE))
+NET_SNMP_AUTOCONF	+= --with-persistent-directory=$(call remove_quotes,$(PTXCONF_NET_SNMP_PERSISTENT_DIR))
 
-NET_SNMP_AUTOCONF	+= --with-default-snmp-version=$(call remove_quotes,$(PTXCONF_NET_SNMP_FEATURE_DEFAULT_SNMP_VERSION))
+NET_SNMP_AUTOCONF	+= --with-default-snmp-version=$(call remove_quotes,$(PTXCONF_NET_SNMP_DEFAULT_VERSION))
 NET_SNMP_AUTOCONF	+= --enable-shared
 NET_SNMP_AUTOCONF	+= --disable-static
 
@@ -277,7 +326,7 @@ $(STATEDIR)/net-snmp.targetinstall:	$(net-snmp_targetinstall_deps_default)
 	@$(call install_fixup, net-snmp,DEPENDS,)
 	@$(call install_fixup, net-snmp,DESCRIPTION,missing)
 
-ifndef PTXCONF_NET_SNMP_FEATURE_DISABLE_AGENT
+ifdef PTXCONF_NET_SNMP_AGENT
 	@$(call install_copy, net-snmp, 0, 0, 0644, \
 		$(NET_SNMP_DIR)/agent/.libs/libnetsnmpagent.so.$(NET_SNMP_LIBVER), \
 		/usr/lib/libnetsnmpagent.so.$(NET_SNMP_LIBVER))
@@ -307,9 +356,9 @@ ifndef PTXCONF_NET_SNMP_FEATURE_DISABLE_AGENT
 		/usr/lib/libnetsnmphelpers.so.$(NET_SNMP_LIBMAJOR))
 	@$(call install_link, net-snmp, libnetsnmphelpers.so.$(NET_SNMP_LIBVER), \
 		/usr/lib/libnetsnmphelpers.so)
-endif # PTXCONF_NET_SNMP_FEATURE_DISABLE_AGENT
+endif
 
-ifndef PTXCONF_NET_SNMP_FEATURE_DISABLE_APPLICATIONS
+ifdef PTXCONF_NET_SNMP_APPLICATIONS
 # apps libs
 	@$(call install_copy, net-snmp, 0, 0, 0644, \
 		$(NET_SNMP_DIR)/apps/.libs/libnetsnmptrapd.so.$(NET_SNMP_LIBVER), \
@@ -320,7 +369,7 @@ ifndef PTXCONF_NET_SNMP_FEATURE_DISABLE_APPLICATIONS
 		/usr/lib/libnetsnmptrapd.so)
 
 # apps binaries
-##ifdef PTXCONF_NET_SNMP_FEATURE_ENABLE_MINI_AGENT
+##ifdef PTXCONF_NET_SNMP_MINI_AGENT
 ##	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/lt-snmpget, /usr/bin/lt-snmpget)
 ##	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/lt-snmpwalk, /usr/bin/lt-snmpwalk)
 ##endif
@@ -344,7 +393,7 @@ ifndef PTXCONF_NET_SNMP_FEATURE_DISABLE_APPLICATIONS
 # apps snmpstat
 	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpnetstat/.libs/snmpnetstat, /usr/bin/snmpnetstat)
 
-endif # PTXCONF_NET_SNMP_FEATURE_DISABLE_APPLICATIONS
+endif
 
 # snmplib
 	@$(call install_copy, net-snmp, 0, 0, 0644, \
@@ -356,7 +405,7 @@ endif # PTXCONF_NET_SNMP_FEATURE_DISABLE_APPLICATIONS
 		/usr/lib/libnetsnmp.so)
 
 # MIB files <TODO: install specified set of mib files>
-ifndef PTXCONF_NET_SNMP_FEATURE_DISABLE_MIBS
+ifdef PTXCONF_NET_SNMP_MIBS
 
 	@for i in $(NET_SNMP_MIBS) ; do \
 		$(call install_copy, net-snmp, 0, 0, 0644, \
