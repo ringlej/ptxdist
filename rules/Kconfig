@@ -218,6 +218,7 @@ source "rules/pekwm.in"
 comment "Framebuffer"
 source "rules/fbtest.in"
 source "rules/fbutils.in"
+source "rules/fbgrab.in"
 
 comment "Other Stuff"
 source "rules/fontconfig.in"

@@ -1,0 +1,40 @@
+#
+# Submitted-By: Roland Hostettler, 2007-02-01
+# Committed-By: 
+#
+# Error:
+#
+# Upstream makefile is not usable for cross compilation
+#
+# Description:
+#
+# -
+#
+# State:
+#
+# Unknown
+#
+diff -Nur fbgrab-1.0.orig/Makefile fbgrab-1.0/Makefile
+--- fbgrab-1.0.orig/Makefile	2002-03-20 20:49:06.000000000 +0100
++++ fbgrab-1.0/Makefile	2007-02-01 21:23:38.000000000 +0100
+@@ -4,13 +4,13 @@
+ ###
+ 
+ fbgrab: fbgrab.c
+-	splint +posixlib fbgrab.c
+-	gcc -g -Wall fbgrab.c -lpng -lz -o fbgrab
++#	splint +posixlib fbgrab.c
++	${CC} ${CPPFLAGS} ${LDFLAGS} fbgrab.c -o fbgrab
+ 
+ install:
+-	strip fbgrab
+-	install fbgrab /usr/bin/fbgrab
+-	install fbgrab.1.man /usr/man/man1/fbgrab.1
++	${STRIP} fbgrab
++	install fbgrab ${DESTDIR}/usr/bin/fbgrab
++	install fbgrab.1.man ${DESTDIR}/usr/man/man1/fbgrab.1
+ 
+ clean:
+-	rm -f fbgrab *~ \#*\#
+\ Kein Zeilenumbruch am Dateiende.
++	rm -f fbgrab *~ \#*\#
