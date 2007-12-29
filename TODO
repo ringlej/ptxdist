@@ -1,6 +1,8 @@
 TODO for 1.1.x
 ==============
 
+[ ] rsc: we don't seem to have a target option for the endianess!
+
 [ ] rsc: configure continues, even if a test breaks. Example:
     checking lex library... sed: couldn't write 76 items to stdout: No space left on device
     grep: write error: No space left on device
