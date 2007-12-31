@@ -1,5 +1,12 @@
 2007-12-31 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* busybox: If busybox feature "BB_CONFIG_FEATURE_SUID" is
+	set, the busybox binary must be installed on the target
+	with the SUID bit set. There are several features which
+	will turn on the SUID feature implicitly including: login,
+	passwd, su, vlock, crond, crontab, ipcs, ipcrm.
+	Patch by Randall Loomis.
+
 	* xauth: added; patch by Claudio Leonel
 	* haserl: added; patch by Tom St
 
