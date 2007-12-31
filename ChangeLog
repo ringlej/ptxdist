@@ -1,6 +1,7 @@
 2007-12-31 Robert Schwebel <r.schwebel@pengutronix.de>
 
-	* xauth: added patch by Claudio Leonel
+	* xauth: added; patch by Claudio Leonel
+	* haserl: added; patch by Tom St
 
 2007-12-29 Robert Schwebel <r.schwebel@pengutronix.de>
 
