@@ -75,14 +75,6 @@ N: Roland Hostettler
 E: r.hostettler@gmx.ch
 D: Developer
 
-N: Claudio Leonel
-E: cls@elaxys.com.br
-D: Developer
-
-N: Ladislav Michl
-E: ladis@linux-mips.org
-D: Maintainer
-
 N: Lev Iserovich
 E: lev.iserovich@deshaw.com
 D: Developer
@@ -98,6 +90,14 @@ E: j.kilb@phytec.de
 D: Developer
 S: Phytec Messtechnik GmbH
 
+N: Claudio Leonel
+E: cls@elaxys.com.br
+D: Developer
+
+N: Ladislav Michl
+E: ladis@linux-mips.org
+D: Maintainer
+
 N: Shahar Livne
 E: livnes@gmail.com
 D: Developer
@@ -107,6 +107,10 @@ E: rloomis@solectek.com
 D: Developer
 
 N: Jiri Nesladek
+D: Developer
+
+N: Michael Olbrich
+E: m.olbrich@pengutronix.de
 D: Developer
 
 N: Oscar Peredo

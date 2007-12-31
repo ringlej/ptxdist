@@ -1,0 +1,10 @@
+
+config CALIBRATOR
+	bool
+	prompt "calibrator"
+	help
+	  The Calibrator is a Cache-Memory and TLB Calibration Tool
+
+	  See http://monetdb.cwi.nl/Calibrator/ for details.
+
+# vim: syntax=kconfig

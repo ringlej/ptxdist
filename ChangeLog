@@ -1,5 +1,9 @@
 2007-12-31 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* hackbench: added; patch by Michael Olbrich
+
+	* calibrator: added; patch by Michael Olbrich
+
 	* libxml2: set LIBXML2_ENV needed for a correct generation when the
 	cross toolchain prefix and the target name differs. strip the lib on the
 	target file system. Patch by Guillaume Gourat.
