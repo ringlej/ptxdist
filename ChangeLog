@@ -1,5 +1,9 @@
 2007-12-31 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* libxml2: set LIBXML2_ENV needed for a correct generation when the
+	cross toolchain prefix and the target name differs. strip the lib on the
+	target file system. Patch by Guillaume Gourat.
+
 	* busybox: If busybox feature "BB_CONFIG_FEATURE_SUID" is
 	set, the busybox binary must be installed on the target
 	with the SUID bit set. There are several features which

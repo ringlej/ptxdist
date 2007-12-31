@@ -59,6 +59,7 @@ $(STATEDIR)/libxml2.extract: $(libxml2_extract_deps_default)
 libxml2_prepare: $(STATEDIR)/libxml2.prepare
 
 LIBXML2_PATH	:= PATH=$(CROSS_PATH)
+LIBXML2_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -322,7 +323,7 @@ $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps_default)
 
 	@$(call install_copy, libxml2, 0, 0, 0644, \
 		$(LIBXML2_DIR)/.libs/libxml2.so.2.6.27, \
-		/usr/lib/libxml2.so.2.6.27)
+		/usr/lib/libxml2.so.2.6.27, y)
 	@$(call install_link, libxml2, libxml2.so.2.6.27,  /usr/lib/libxml2.so.2)
 	@$(call install_link, libxml2, libxml2.so.2.6.27, /usr/lib/libxml2.so)
 
