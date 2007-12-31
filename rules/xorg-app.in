@@ -16,3 +16,5 @@ source "rules/xorg-app-xkbcomp.in"
 source "rules/xorg-app-setxkbmap.in"
 source "rules/xorg-app-xset.in"
 source "rules/xorg-app-xrdb.in"
+source "rules/xorg-app-xauth.in"
+
