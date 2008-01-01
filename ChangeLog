@@ -1,5 +1,7 @@
 2008-01-01 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* rsync3: added rsync 3.0.0pre7 in order to test
+	the new and probably less memory consuming algorithms
 	* xkbcomp: fixed dependency to xorg-lib-xkbfile.
 
 2007-12-31 Robert Schwebel <r.schwebel@pengutronix.de>

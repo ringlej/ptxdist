@@ -1,0 +1,77 @@
+Subject: reconfigure
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Autoreconf for the patches in the series. We also touch config.h.in
+because the build system tries to run autoconf if one of configure.in
+and config.h.in are newer.
+
+This patch is not intended for upstream.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ config.h.in  |    1 +
+ configure.sh |   20 +++++++++++++++++++-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
+
+Index: configure.sh
+===================================================================
+--- configure.sh.orig
++++ configure.sh
+@@ -677,6 +677,9 @@ EGREP
+ INSTALL_PROGRAM
+ INSTALL_SCRIPT
+ INSTALL_DATA
++CC_FOR_BUILD
++CFLAGS_FOR_BUILD
++LDFLAGS_FOR_BUILD
+ HAVE_REMSH
+ HAVE_YODL2MAN
+ LIBOBJS
+@@ -3638,6 +3641,18 @@ esac
+ 
+ 
+ 
++# build tools for cross compiling
++if test "x$cross_compiling" = "xno"; then
++        CC_FOR_BUILD=${CC_FOR_BUILD-${CC-gcc}}
++else
++        CC_FOR_BUILD=${CC_FOR_BUILD-gcc}
++fi
++CFLAGS_FOR_BUILD=-O2
++LDFLAGS_FOR_BUILD=
++
++
++
++
+ 
+ cat >>confdefs.h <<\_ACEOF
+ #define _GNU_SOURCE 1
+@@ -17777,6 +17792,9 @@ EGREP!$EGREP$ac_delim
+ INSTALL_PROGRAM!$INSTALL_PROGRAM$ac_delim
+ INSTALL_SCRIPT!$INSTALL_SCRIPT$ac_delim
+ INSTALL_DATA!$INSTALL_DATA$ac_delim
++CC_FOR_BUILD!$CC_FOR_BUILD$ac_delim
++CFLAGS_FOR_BUILD!$CFLAGS_FOR_BUILD$ac_delim
++LDFLAGS_FOR_BUILD!$LDFLAGS_FOR_BUILD$ac_delim
+ HAVE_REMSH!$HAVE_REMSH$ac_delim
+ HAVE_YODL2MAN!$HAVE_YODL2MAN$ac_delim
+ LIBOBJS!$LIBOBJS$ac_delim
+@@ -17789,7 +17807,7 @@ MAKE_MAN!$MAKE_MAN$ac_delim
+ LTLIBOBJS!$LTLIBOBJS$ac_delim
+ _ACEOF
+ 
+-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 73; then
++  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 76; then
+     break
+   elif $ac_last_try; then
+     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
+Index: config.h.in
+===================================================================
+--- config.h.in.orig
++++ config.h.in
+@@ -665,3 +665,4 @@
+ 
+ /* Define to `int' if <sys/types.h> doesn't define. */
+ #undef uid_t
++

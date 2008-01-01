@@ -1,0 +1,3 @@
+rsync-3.0.0pre7-crosscompile.diff -p0
+rsync-3.0.0pre7-autoreconf.diff -p0
+
