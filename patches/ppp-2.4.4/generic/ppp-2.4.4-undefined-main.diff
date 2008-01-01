@@ -1,0 +1,28 @@
+Subject: pppd: undefined main
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+When compiling this code, gcc barfs here:
+
+/some/path/../sysroot-arm-v4t-linux-gnueabi/usr/lib/crt1.o: In function `_start':
+init.c:(.text+0x30): undefined reference to `main'
+
+So we add a -c switch to the Makefile.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ pppd/plugins/Makefile.linux |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: pppd/plugins/Makefile.linux
+===================================================================
+--- pppd/plugins/Makefile.linux.orig
++++ pppd/plugins/Makefile.linux
+@@ -23,7 +23,7 @@ all:	$(PLUGINS)
+ 	for d in $(SUBDIRS); do $(MAKE) $(MFLAGS) -C $$d all; done
+ 
+ %.so: %.c
+-	$(CC) -o $@ $(LDFLAGS) $(CFLAGS) $^
++	$(CC) -o $@ $(LDFLAGS) $(CFLAGS) -c $^
+ 
+ VERSION = $(shell awk -F '"' '/VERSION/ { print $$2; }' ../patchlevel.h)
+ 
