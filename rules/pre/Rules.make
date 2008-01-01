@@ -729,7 +729,7 @@ disable_c =											\
 enable_sh =						\
 	FILENAME="$(strip $(1))";			\
 	PARAMETER="$(strip $(2))";			\
-	echo sed -i -e					\
+	sed -i -e					\
 		"s,^\s*\(\#\)\?\s*\($$PARAMETER\),\2,"	\
 		$$FILENAME
 
