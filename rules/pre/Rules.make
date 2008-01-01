@@ -729,8 +729,8 @@ disable_c =											\
 enable_sh =						\
 	FILENAME="$(strip $(1))";			\
 	PARAMETER="$(strip $(2))";			\
-	sed -i -e					\
-		"s,^\s*\(#\)\?\s*\($$PARAMETER\),\2,"	\
+	echo sed -i -e					\
+		"s,^\s*\(\#\)\?\s*\($$PARAMETER\),\2,"	\
 		$$FILENAME
 
 #
@@ -747,7 +747,7 @@ disable_sh =						\
 	FILENAME="$(strip $(1))";			\
 	PARAMETER="$(strip $(2))";			\
 	sed -i -e					\
-		"s,^\s*\(#\)\?\s*\($$PARAMETER\),#\2,"	\
+		"s,^\s*\(\#\)\?\s*\($$PARAMETER\),#\2,"	\
 		$$FILENAME
 
 #
