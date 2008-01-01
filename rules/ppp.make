@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_PPP) += ppp
 #
 # Paths and names
 #
-PPP_VERSION	:= 2.4.1
+PPP_VERSION	:= 2.4.4
 PPP		:= ppp-$(PPP_VERSION)
 PPP_SUFFIX	:= tar.gz
 PPP_URL		:= ftp://ftp.samba.org/pub/ppp/$(PPP).$(PPP_SUFFIX)
