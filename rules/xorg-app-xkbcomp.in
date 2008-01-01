@@ -5,6 +5,7 @@ config XORG_APP_XKBCOMP
 	prompt "xorg xkbcomp"
 	select XORG_DATA_XKBDATA
 	select XORG_LIB_X11_XKB
+	select XORG_LIB_XKBFILE
 	default n
 	help
 	  Compiles XKB keyboard descriptions. This tool is needed
