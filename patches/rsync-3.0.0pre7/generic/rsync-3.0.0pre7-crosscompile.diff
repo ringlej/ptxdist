@@ -18,6 +18,8 @@ arm-v4t-linux-gnueabi-gcc -std=gnu99 -g -O2 -DHAVE_CONFIG_H -Wall -W -I./popt
 /bin/sh: ./mkrounding: cannot execute binary file
 ----------8<----------8<----------
 
+This is https://bugzilla.samba.org/show_bug.cgi?id=5170
+
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
