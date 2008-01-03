@@ -40,7 +40,7 @@ ptxd_get_ptxconf() {
 # $#	all other parameters are given to $2
 #
 ptxd_kconfig() {
-	local tmpdir fun copy_back
+	local tmpdir fun copy_back ptxcnf
 
 	copy_back="${1}"
 	fun="${2}"
@@ -56,16 +56,16 @@ ptxd_kconfig() {
 	fi
 
 	pushd $tmpdir > /dev/null
-	ln -sf ${PTXDIST_TOPDIR}/scripts
-	ln -sf ${PTXDIST_TOPDIR}/rules
-	ln -sf ${PTXDIST_TOPDIR}/config
-	ln -sf ${PTXDIST_WORKSPACE} workspace
-	cp $(readlink -f ${PTXDIST_WORKSPACE}/ptxconfig) .config
+	ln -sf "${PTXDIST_TOPDIR}/rules"
+	ln -sf "${PTXDIST_TOPDIR}/config"
+	ln -sf "${PTXDIST_WORKSPACE}" workspace
+	ptxcnf=`readlink -f "${PTXDIST_WORKSPACE}/ptxconfig"`
+	cp "$ptxcnf" .config
 
 	shift 2 # call ${fun} with the remaining arguments
 
 	if ${fun} $* && [ "${copy_back}" = "true" ]; then
-		cp .config $(readlink -f ${PTXDIST_WORKSPACE}/ptxconfig)
+		cp .config "$ptxcnf"
 	fi
 
 	popd > /dev/null
@@ -77,7 +77,7 @@ ptxd_kconfig() {
 #
 #
 ptxd_make() {
-	make $PTXDIST_MAKE_DBG -f ${PTXDIST_TOPDIR}/rules/other/Toplevel.make PTXDIST_TOPDIR=${PTXDIST_TOPDIR} $*
+	make $PTXDIST_MAKE_DBG -f "${PTXDIST_TOPDIR}/rules/other/Toplevel.make" PTXDIST_TOPDIR="${PTXDIST_TOPDIR}" $*
 }
 
 

@@ -17,10 +17,12 @@ DEBUG=
 PTXDIST=$0
 
 if [ -L "$PTXDIST" ]; then
-	PTXDIST_TOPDIR=$(cd $(dirname $(readlink -f $PTXDIST))/.. && pwd)
+	PTXDIST_TOPDIR=`readlink -f "$PTXDIST"`
 else
-	PTXDIST_TOPDIR=$(cd $(dirname $PTXDIST)/.. && pwd)
+	PTXDIST_TOPDIR=$PTXDIST
 fi
+PTXDIST_TOPDIR=`dirname "$PTXDIST_TOPDIR"`
+PTXDIST_TOPDIR=`cd "$PTXDIST_TOPDIR"/.. && pwd`
 
 export PTXDIST PTXDIST_WORKSPACE PTXDIST_TOPDIR
 
@@ -29,7 +31,7 @@ export PTXDIST PTXDIST_WORKSPACE PTXDIST_TOPDIR
 # sanity check: is PTXdist already configured?
 #
 
-if [ ! -e ${PTXDIST_TOPDIR}/.done ]; then
+if [ ! -e "${PTXDIST_TOPDIR}/.done" ]; then
 	echo
 	echo "${PROMPT}error: PTXdist in ${PTXDIST_TOPDIR} is not built."
 	echo
@@ -46,16 +48,16 @@ for file in \
 	scripts/ptxdist_version.sh \
 	scripts/libptxdist.sh \
 ; do
-	if test -e ${PTXDIST_TOPDIR}/$file; then
-		. ${PTXDIST_TOPDIR}/$file
+	if [ -e "$PTXDIST_TOPDIR/$file" ]; then
+		. "$PTXDIST_TOPDIR/$file"
 	else
-		echo "${PROMPT}didn't find \$(PTXDIST_TOPDIR)/$file"
+		echo "${PROMPT}didn't find ${PTXDIST_TOPDIR}/$file"
 		exit 1
 	fi
 done
 
 # source the user's .ptxdistrc
-[ -e "$HOME/.ptxdistrc.${FULLVERSION}" ] && . $HOME/.ptxdistrc.${FULLVERSION}
+[ -e "$HOME/.ptxdistrc.${FULLVERSION}" ] && . "$HOME/.ptxdistrc.${FULLVERSION}"
 
 # use linked toolchain if available
 [ -d ".toolchain" ] && export PATH=${PTXDIST_WORKSPACE}/.toolchain:$PATH
@@ -76,7 +78,7 @@ boardsetup() {
 	echo "${PROMPT}boardsetup..."
 
 	if [ ! -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
-		echo "error: boardsetup/boardsetup or boardsetup/Kconfig missing"
+		echo "${PROMPT}error: boardsetup/boardsetup or boardsetup/Kconfig missing"
 		echo
 		exit 1
 	fi
@@ -85,15 +87,14 @@ boardsetup() {
 	pushd $tmpdir > /dev/null
 
 	# prepare everything to make kconfig see it's original environment
-	ln -sf ${PTXDIST_TOPDIR}/scripts
-	if test -e ${PTXDIST_WORKSPACE}/boardsetup/boardsetup; then
-	    cp ${PTXDIST_WORKSPACE}/boardsetup/boardsetup .config
+	if [ -e "${PTXDIST_WORKSPACE}/boardsetup/boardsetup" ]; then
+	    cp "${PTXDIST_WORKSPACE}/boardsetup/boardsetup" .config
 	fi
 
 	# store boardsetup
-	${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_WORKSPACE}/boardsetup/Kconfig
-	echo "${PROMPT}saving \$PTXDIST_WORKSPACE/boardsetup/boardsetup"
-	cp .config ${PTXDIST_WORKSPACE}/boardsetup/boardsetup
+	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
+	echo "${PROMPT}saving ${PTXDIST_WORKSPACE}/boardsetup/boardsetup"
+	cp .config "${PTXDIST_WORKSPACE}/boardsetup/boardsetup"
 
 	popd > /dev/null
 	echo "${PROMPT}cleanup..."
@@ -140,7 +141,7 @@ check_version () {
 #
 check_ptxconfig() {
 
-	if [ ! -e "ptxconfig" ]; then
+	if [ ! -e "$PTXCONFIG" ]; then
 		echo
 		echo "${PROMPT}error: ptxconfig file is missing"
 		echo "${PROMPT}error: please 'ptxdist clone' an existing project"
@@ -148,7 +149,7 @@ check_ptxconfig() {
 		exit 1
 	fi
 
-	PTXCONF_CONFIGFILE_VERSION=$(. ${PTXCONFIG} && echo ${PTXCONF_CONFIGFILE_VERSION})
+	PTXCONF_CONFIGFILE_VERSION=$(. "${PTXCONFIG}" && echo ${PTXCONF_CONFIGFILE_VERSION})
 
 	check_version "${FULLVERSION}" "${PTXCONF_CONFIGFILE_VERSION}"
 	if [ "$?" != 0 ]; then
@@ -166,9 +167,9 @@ check_kernelconfig() {
 	local kernelconfig
 
 	if [ "$NATIVE" = "1" ]; then
-		kernelconfig=$(. ${PTXCONFIG} && echo ${PTXCONF_KERNEL_NATIVE_CONFIG})
+		kernelconfig=$(. "${PTXCONFIG}" && echo ${PTXCONF_KERNEL_NATIVE_CONFIG})
 	else
-		kernelconfig=$(. ${PTXCONFIG} && echo ${PTXCONF_KERNEL_CONFIG})
+		kernelconfig=$(. "${PTXCONFIG}" && echo ${PTXCONF_KERNEL_CONFIG})
 	fi
 	if [ ! -e "$kernelconfig" ]; then
 		echo
@@ -214,7 +215,7 @@ check_path() {
 check_compiler() {
 	local build_userland compiler vendor_should vendor_is vendor_def compiler_should compiler_is
 
-	build_toolchain=$(. ${PTXCONFIG} && echo ${PTXCONF_BUILD_TOOLCHAIN})
+	build_toolchain=$(. "${PTXCONFIG}" && echo ${PTXCONF_BUILD_TOOLCHAIN})
 
 	[ -n "$build_toolchain" -o "$NATIVE" != "" ] && return
 #
@@ -223,8 +224,8 @@ check_compiler() {
 # 2) Correct vendor if the vendor string is given
 # 3) Correct compiler version if a specific compiler version is given
 #
-	compiler=$(. ${PTXCONFIG} && echo ${PTXCONF_COMPILER_PREFIX})gcc
-	vendor_should=$(. ${PTXCONFIG} && echo ${PTXCONF_CROSSCHAIN_VENDOR})
+	compiler=$(. "${PTXCONFIG}" && echo ${PTXCONF_COMPILER_PREFIX})gcc
+	vendor_should=$(. "${PTXCONFIG}" && echo ${PTXCONF_CROSSCHAIN_VENDOR})
 	if [ ! -z "$vendor_should" ]; then
 	# yea! Vendor is specified in the project. So check for
 	# toolchain vendor identification file
@@ -248,7 +249,7 @@ check_compiler() {
 		fi
 	fi
 
-	compiler_should=$(. ${PTXCONFIG} && echo ${PTXCONF_CROSSCHAIN_CHECK})
+	compiler_should=$(. "${PTXCONFIG}" && echo ${PTXCONF_CROSSCHAIN_CHECK})
 	compiler_is=$($compiler -dumpversion 2> /dev/null)
 
 	if [ -z "$compiler_is" ]; then
@@ -272,7 +273,7 @@ check_compiler() {
 # checks if the dependencies are allright (make for the poor)
 #
 check_deps() {
-	${DGENDIR}/dgen.sh
+	"${DGENDIR}/dgen.sh"
 }
 
 
@@ -285,8 +286,8 @@ check_dirs_prefix() {
 		return
 	fi
 
-	if test \! -d ${prefix}; then
-		mkdir -p ${prefix} 2> /dev/null
+	if test \! -d "${prefix}"; then
+		mkdir -p "${prefix}" 2> /dev/null
 		if test $? -ne 0; then
 			echo
 			echo "error: \"${ptxconf_prefix}\""
@@ -300,15 +301,15 @@ check_dirs_prefix() {
 			fi
 			echo
 			echo sudo mkdir -p ${prefix}
-			sudo mkdir -p ${prefix}
+			sudo mkdir -p "${prefix}"
 			echo
 			echo sudo chown $UID ${prefix}
-			sudo chown $UID ${prefix}
+			sudo chown $UID "${prefix}"
 		fi
 	fi
 
     	testfile=${prefix}/.secret-world-domination-project
-	touch ${testfile} 2> /dev/null
+	touch "${testfile}" 2> /dev/null
 	if test $? -ne 0; then
 		echo
 		echo "error: \"${ptxconf_prefix}\""
@@ -326,7 +327,7 @@ check_dirs_prefix() {
 		echo sudo chmod u+w ${prefix}
 		sudo chmod u+w ${prefix}
 
-		touch ${testfile} 2> /dev/null
+		touch "${testfile}" 2> /dev/null
 		if test $? -ne 0; then
 			echo
 			echo "error: cannot make \"${ptxconf_prefix}\" writeable, giving up"
@@ -335,9 +336,9 @@ check_dirs_prefix() {
 		fi
 	fi
 
-	rm ${testfile}
+	rm "${testfile}"
 
-	mkdir -p ${prefix}/{etc,lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
+	mkdir -p "${prefix}"/{etc,lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 }
 
 
@@ -351,37 +352,37 @@ check_dirs() {
 
 	# prefix
 	if [ -z "$PREFIX" ]; then
-		ptxconf_prefix="$(. ${PTXCONFIG} && echo ${PTXCONF_PREFIX})"
+		ptxconf_prefix=$(. "${PTXCONFIG}" && echo ${PTXCONF_PREFIX})
 	else
-		ptxconf_prefix="${PREFIX}"
+		ptxconf_prefix=${PREFIX}
 	fi
 
-	ptxconf_prefix_host="$(. ${PTXCONFIG} && echo ${PTXCONF_HOST_PREFIX})"
-	ptxconf_prefix_cross="$(. ${PTXCONFIG} && echo ${PTXCONF_CROSS_PREFIX})"
+	ptxconf_prefix_host=$(. "${PTXCONFIG}" && echo ${PTXCONF_HOST_PREFIX})
+	ptxconf_prefix_cross=$(. "${PTXCONFIG}" && echo ${PTXCONF_CROSS_PREFIX})
 
 	for dir in "${ptxconf_prefix_host}" "${ptxconf_prefix_cross}"; do
 		check_dirs_prefix "${dir}"
 	done
 
 	# sysroot - keep in sync with rules/pre/Rules.make -> SYSROOT
-	ptxconf_gnu_target=$(. ${PTXCONFIG} && echo ${PTXCONF_GNU_TARGET})
-	mkdir -p ${ptxconf_prefix}/sysroot/${ptxconf_gnu_target}/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
+	ptxconf_gnu_target=$(. "${PTXCONFIG}" && echo ${PTXCONF_GNU_TARGET})
+	mkdir -p "${ptxconf_prefix}/sysroot/${ptxconf_gnu_target}"/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 
 	# builddirs
-	for i in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR} \
-		${STATEDIR} ${IMAGEDIR} ${ROOTDIR} ${ROOTDIR_DEBUG}; do
-		mkdir -p ${i}
+	for i in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${HOST_BUILDDIR}" \
+		"${STATEDIR}" "${IMAGEDIR}" "${ROOTDIR}" "${ROOTDIR_DEBUG}"; do
+		mkdir -p "${i}"
 	done
 
-	for i in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR}; do
+	for i in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${HOST_BUILDDIR}"; do
 		testfile_lower=${i}/.secret-world-domination-project
 		testfile_upper=${i}/.Secret-World-Domination-Project
 
-		echo lower > ${testfile_lower}
-		echo upper > ${testfile_upper}
+		echo lower > "${testfile_lower}"
+		echo upper > "${testfile_upper}"
 
-		if test "`cat ${testfile_lower}`" != "lower" -o \
-		    "`cat ${testfile_upper}`" != "upper"; then
+		if test "`cat "${testfile_lower}"`" != "lower" -o \
+		    "`cat "${testfile_upper}"`" != "upper"; then
 			echo
 			echo "error: \"${i}\""
 			echo "       is not a case sensitive filesystem."
@@ -390,7 +391,7 @@ check_dirs() {
 			exit 1
 		fi
 
-		rm ${testfile_lower} ${testfile_upper}
+		rm "${testfile_lower}" "${testfile_upper}"
 	done
 }
 
@@ -499,10 +500,10 @@ clean() {
 	if [ "$1" = "root" ]; then
 		echo
 		echo "${PROMPT}cleaning root directory..."
-		rm -fr ${ROOTDIR}
-		rm -fr ${ROOTDIR_DEBUG}
+		rm -fr "${ROOTDIR}"
+		rm -fr "${ROOTDIR_DEBUG}"
 		echo "${PROMPT}cleaning targetinstall stages..."
-		rm -f ${STATEDIR}/*.targetinstall
+		rm -f "${STATEDIR}"/*.targetinstall
 		echo "${PROMPT}done."
 		echo
 		return
@@ -515,26 +516,26 @@ clean() {
 
 	echo
 	echo "${PROMPT}removing build directories..."
-	for dir in ${BUILDDIR} ${CROSS_BUILDDIR} ${HOST_BUILDDIR}; do
+	for dir in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${HOST_BUILDDIR}"; do
 		if test \! -d "${dir}"; then
 			continue
 		fi
-		for bdir in `find ${dir} -maxdepth 1 -mindepth 1 -type l`; do
-		    pushd ${bdir} > /dev/null
+		for bdir in `find "${dir}" -maxdepth 1 -mindepth 1 -type l`; do
+		    pushd "${bdir}" > /dev/null
 		    make clean 1> /dev/null 2>&1
 		    echo "${PROMPT}running \"make clean\" in \"${bdir#${dir}/}\"..."
 		    popd > /dev/null
 		done
-		rm -rf ${dir}
+		rm -rf "${dir}"
 	done
 
 	if test -f "${PTXCONFIG}"; then
 		echo "${PROMPT}removing sysroot directories..."
-		ptxconf_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_PREFIX})
-		ptxconf_host_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_HOST_PREFIX})
-		ptxconf_cross_prefix=$(. ${PTXCONFIG} && echo ${PTXCONF_CROSS_PREFIX})
+		ptxconf_prefix=$(. "${PTXCONFIG}" && echo ${PTXCONF_PREFIX})
+		ptxconf_host_prefix=$(. "${PTXCONFIG}" && echo ${PTXCONF_HOST_PREFIX})
+		ptxconf_cross_prefix=$(. "${PTXCONFIG}" && echo ${PTXCONF_CROSS_PREFIX})
 
-		for dir in ${ptxconf_prefix} ${ptxconf_host_prefix} ${ptxconf_cross_prefix}; do
+		for dir in "${ptxconf_prefix}" "${ptxconf_host_prefix}" "${ptxconf_cross_prefix}"; do
 			if test \! -d "${dir}"; then
 				continue
 			fi
@@ -551,12 +552,12 @@ clean() {
 	echo "${PROMPT}removing deps..."
 	rm -f depend.out deptree-a4.ps deptree.ps
 	echo "${PROMPT}removing imagedir..."
-	rm -fr ${IMAGEDIR}
+	rm -fr "${IMAGEDIR}"
 	echo "${PROMPT}removing root..."
-	rm -fr ${ROOTDIR}
-	rm -fr ${ROOTDIR_DEBUG}
+	rm -fr "${ROOTDIR}"
+	rm -fr "${ROOTDIR_DEBUG}"
 	echo "${PROMPT}removing state..."
-	rm -fr ${STATEDIR}
+	rm -fr "${STATEDIR}"
 	echo "${PROMPT}removing logfile..."
 	rm -f logfile
 	echo "${PROMPT}removing test logfile..."
@@ -576,8 +577,8 @@ drop() {
 	fi
 
 	echo
-	if [ -e ${STATEDIR}/${statefile} ]; then
-		rm -f ${STATEDIR}/${statefile}
+	if [ -e "${STATEDIR}/${statefile}" ]; then
+		rm -f "${STATEDIR}/${statefile}"
 		echo "dropping ${statefile}"
 		echo
 		exit 0
@@ -590,7 +591,7 @@ drop() {
 
 menuconfig_action() {
 	echo "${PROMPT}menuconfig..."
-	${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_KCONFIG}
+	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_KCONFIG}"
 }
 
 newpacket () {
@@ -623,7 +624,6 @@ newpacket () {
 	read author
 	echo -n "${PROMPT}enter suffix............: "
 	read suffix
-
 
 	case $1 in
 	    target)
@@ -723,7 +723,7 @@ newpacket () {
 }
 
 oldconfig_action() {
-	${PTXDIST_TOPDIR}/scripts/kconfig/conf -s ${PTXDIST_KCONFIG}
+	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -s "${PTXDIST_KCONFIG}"
 }
 
 projects() {
@@ -761,17 +761,16 @@ setup() {
 	pushd $tmpdir > /dev/null
 
 	# prepare everything to make kconfig see it's original environment
-	ln -sf ${PTXDIST_TOPDIR}/scripts
-	cp ${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default .config
+	cp "${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default" .config
 	if [ -f "$HOME/.ptxdistrc.${FULLVERSION}" ]; then
 		echo "using \$HOME/.ptxdistrc.${FULLVERSION}"
-		cp $HOME/.ptxdistrc.${FULLVERSION} .config
+		cp "$HOME/.ptxdistrc.${FULLVERSION}" .config
 	fi
 
 	# store ~/.ptxdistrc
-	${PTXDIST_TOPDIR}/scripts/kconfig/mconf ${PTXDIST_TOPDIR}/config/setup/Kconfig
+	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_TOPDIR}/config/setup/Kconfig"
 	echo "${PROMPT}saving \$HOME/.ptxdistrc.${FULLVERSION}"
-	cp .config $HOME/.ptxdistrc.${FULLVERSION}
+	cp .config "$HOME/.ptxdistrc.${FULLVERSION}"
 
 	popd > /dev/null
 	echo "${PROMPT}cleanup..."
@@ -1156,11 +1155,11 @@ while [ "$#" != "0" ]; do
 			fi
 			if [ -x "$PTXDIST_WORKSPACE/tests/$1" ]; then
 				echo
-				$PTXDIST_WORKSPACE/tests/$1 > ${PTXDIST_WORKSPACE}/test.log
+				"$PTXDIST_WORKSPACE/tests/$1" > ${PTXDIST_WORKSPACE}/test.log
 				echo
 			else if [ -x "$PTXDIST_TOPDIR/tests/$1" ]; then
 				echo
-				$PTXDIST_TOPDIR/tests/$1 > ${PTXDIST_WORKSPACE}/test.log
+				"$PTXDIST_TOPDIR/tests/$1" > ${PTXDIST_WORKSPACE}/test.log
 				echo
 			else
 				echo

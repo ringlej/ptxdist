@@ -10,8 +10,8 @@ if test -z "${PTXDIST_WORKSPACE}"; then
     exit
 fi
 
-. ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh
-. ${SCRIPTSDIR}/libptxdist.sh
+. "${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh"
+. "${SCRIPTSDIR}/libptxdist.sh"
 PTXCONFIG=${PTXDIST_WORKSPACE}/ptxconfig
 
 #
@@ -27,7 +27,7 @@ CONFIGDEPS_MAP=${CONFIGDEPS}_map.sh
 #
 gen_configdeps_action () {
     yes "" | \
-	${PTXDIST_TOPDIR}/scripts/kconfig/conf -O ${PTXDIST_KCONFIG} | \
+	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -O "${PTXDIST_KCONFIG}" | \
 	grep -e "^DEP:.*:"
 };
 
@@ -35,7 +35,7 @@ gen_configdeps_action () {
 # $(CONFIGDEPS): $(IN_ALL)
 #
 gen_configdeps() {
-    ptxd_kconfig false gen_configdeps_action > ${CONFIGDEPS}
+    ptxd_kconfig false gen_configdeps_action > "${CONFIGDEPS}"
 }
 
 
@@ -43,7 +43,7 @@ gen_configdeps() {
 # $(CONFIGDEPS_MAP): $(CONFIGDEPS)
 #
 gen_configdeps_map() {
-    sed -ne "s~DEP:\([^:]*\):\(.*\)~DEP_\1=\"\2\"~p" ${CONFIGDEPS} > ${CONFIGDEPS_MAP}
+    sed -ne "s~DEP:\([^:]*\):\(.*\)~DEP_\1=\"\2\"~p" "${CONFIGDEPS}" > "${CONFIGDEPS_MAP}"
 }
 
 
@@ -53,21 +53,21 @@ gen_configdeps_map() {
 #
 gen_rulesfiles_all() {
    (
-	if test -d ${PROJECTRULESDIR}; then
-	    find ${PROJECTRULESDIR}/ \
+	if test -d "${PROJECTRULESDIR}"; then
+	    find "${PROJECTRULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
-	    find ${RULESDIR}/ \
+	    find "${RULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" \
-		`find ${PROJECTRULESDIR}/ \
+		`find "${PROJECTRULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" \
 		-printf "! -name %f "`
 	else
-	    find ${RULESDIR}/ \
+	    find "${RULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
 	fi
-    ) > ${RULESFILES_ALL}
+    ) > "${RULESFILES_ALL}"
 
-    sed -e "s/\(.*\)/include \1/" ${RULESFILES_ALL} > ${RULESFILES_ALL_MAKE}
+    sed -e "s/\(.*\)/include \1/" "${RULESFILES_ALL}" > "${RULESFILES_ALL_MAKE}"
 }
 
 
@@ -75,9 +75,9 @@ gen_rulesfiles_all() {
 # $(MAP_all): $(RULESFILES_ALL)
 #
 gen_map_all() {
-    grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< ${RULESFILES_ALL}` | \
+    grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" "${RULESFILES_ALL}" | \
 	sed -e "s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~FILENAME_\2=\"\1\"\nPACKAGE_\2=\"\3\"~" \
-	> ${MAP_ALL}
+	> "${MAP_ALL}"
 }
 
 
@@ -179,10 +179,10 @@ gen_packages_dep() {
 # main()
 #
 
-. ${PTXCONFIG}
+. "${PTXCONFIG}"
 
-if test \! -e ${STATEDIR}; then
-    mkdir ${STATEDIR}
+if test \! -e "${STATEDIR}" ; then
+    mkdir "${STATEDIR}"
 fi
 
 gen_configdeps
@@ -191,7 +191,7 @@ gen_configdeps_map
 gen_rulesfiles_all
 gen_map_all
 
-. ${MAP_ALL}
-. ${CONFIGDEPS_MAP}
+. "${MAP_ALL}"
+. "${CONFIGDEPS_MAP}"
 
 gen_packages_dep
