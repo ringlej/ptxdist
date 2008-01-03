@@ -266,24 +266,31 @@ void dialog_clear(void)
 /*
  * Do some initialization for dialog
  */
-void init_dialog(const char *backtitle)
+int init_dialog(const char *backtitle)
 {
+	int height, width;
+
+	initscr();		/* Init curses */
+	getmaxyx(stdscr, height, width);
+	if (height < 19 || width < 80) {
+		endwin();
+		return -ERRDISPLAYTOOSMALL;
+	}
+
 	dlg.backtitle = backtitle;
 	color_setup(getenv("MENUCONFIG_COLOR"));
+
+	keypad(stdscr, TRUE);
+	cbreak();
+	noecho();
+	dialog_clear();
+
+	return 0;
 }
 
 void set_dialog_backtitle(const char *backtitle)
 {
 	dlg.backtitle = backtitle;
-}
-
-void reset_dialog(void)
-{
-	initscr();		/* Init curses */
-	keypad(stdscr, TRUE);
-	cbreak();
-	noecho();
-	dialog_clear();
 }
 
 /*

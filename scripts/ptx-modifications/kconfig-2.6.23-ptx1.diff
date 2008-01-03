@@ -288,24 +288,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/lkc.h ptxdist-trun
 diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-trunk/scripts/kconfig/mconf.c
 --- linux-2.6.23/scripts/kconfig/mconf.c	2007-10-09 22:31:38.000000000 +0200
 +++ ptxdist-trunk/scripts/kconfig/mconf.c	2007-12-06 17:07:58.000000000 +0100
-@@ -9,16 +9,13 @@
-  */
- 
- #include <sys/ioctl.h>
--#include <sys/wait.h>
- #include <ctype.h>
- #include <errno.h>
- #include <fcntl.h>
- #include <limits.h>
--#include <signal.h>
- #include <stdarg.h>
- #include <stdlib.h>
- #include <string.h>
--#include <termios.h>
- #include <unistd.h>
- #include <locale.h>
- 
-@@ -29,10 +26,7 @@
+@@ -29,10 +29,7 @@
  static const char mconf_readme[] = N_(
  "Overview\n"
  "--------\n"
@@ -317,7 +300,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  "entered in as decimal or hexadecimal numbers or possibly text.\n"
  "\n"
  "Menu items beginning with [*], <M> or [ ] represent features\n"
-@@ -115,7 +109,7 @@
+@@ -115,7 +112,7 @@
  "-----------------------------\n"
  "Menuconfig supports the use of alternate configuration files for\n"
  "those who, for various reasons, find it necessary to switch\n"
@@ -326,7 +309,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  "\n"
  "At the end of the main menu you will find two options.  One is\n"
  "for saving the current configuration to a file of your choosing.\n"
-@@ -148,7 +142,7 @@
+@@ -148,7 +145,7 @@
  "\n"
  "Optional personality available\n"
  "------------------------------\n"
@@ -335,7 +318,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  "menu, rather than the default multimenu hierarchy, run the menuconfig\n"
  "with MENUCONFIG_MODE environment variable set to single_menu. Example:\n"
  "\n"
-@@ -200,18 +194,18 @@
+@@ -200,18 +197,18 @@
  	"This feature depends on another which has been configured as a module.\n"
  	"As a result, this feature will be built as a module."),
  nohelp_text[] = N_(
@@ -357,7 +340,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  	"to modify that configuration.\n"
  	"\n"
  	"If you are uncertain, then you have probably never used alternate\n"
-@@ -221,7 +215,7 @@
+@@ -221,7 +218,7 @@
  	"as an alternate.  Leave blank to abort."),
  save_config_help[] = N_(
  	"\n"
@@ -366,7 +349,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  	"configurations available on a single machine.\n"
  	"\n"
  	"Entering a file name here will allow you to later retrieve, modify\n"
-@@ -232,7 +226,7 @@
+@@ -232,7 +229,7 @@
  	"leave this blank.\n"),
  search_help[] = N_(
  	"\n"
@@ -375,7 +358,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  	"Regular expressions are allowed.\n"
  	"Example: search for \"^FOO\"\n"
  	"Result:\n"
-@@ -249,7 +243,7 @@
+@@ -249,7 +246,7 @@
  	"Selected by: BAR\n"
  	"-----------------------------------------------------------------\n"
  	"o The line 'Prompt:' shows the text used in the menu structure for\n"
@@ -384,7 +367,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  	"o The 'Defined at' line tell at what file / line number the symbol\n"
  	"  is defined\n"
  	"o The 'Depends on:' line tell what symbols needs to be defined for\n"
-@@ -265,13 +259,12 @@
+@@ -265,9 +262,9 @@
  	"Only relevant lines are shown.\n"
  	"\n\n"
  	"Search examples:\n"
@@ -397,11 +380,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  	"\n");
  
  static int indent;
--static struct termios ios_org;
- static int rows = 0, cols = 0;
- static struct menu *current_menu;
- static int child_count;
-@@ -398,13 +391,9 @@
+@@ -398,13 +395,9 @@
  {
  	static char menu_backtitle[PATH_MAX+128];
  	int size;
@@ -417,7 +396,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  	if (size >= sizeof(menu_backtitle))
  		menu_backtitle[sizeof(menu_backtitle)-1] = '\0';
  	set_dialog_backtitle(menu_backtitle);
-@@ -424,8 +413,8 @@
+@@ -424,8 +417,8 @@
  again:
  	dialog_clear();
  	dres = dialog_inputbox(_("Search Configuration Parameter"),
@@ -428,7 +407,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  			      10, 75, "");
  	switch (dres) {
  	case 0:
-@@ -728,7 +717,7 @@
+@@ -728,7 +721,7 @@
  	if (menu_has_help(menu))
  	{
  		if (sym->name) {
@@ -437,24 +416,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  			str_append(&help, _(menu_get_help(menu)));
  			str_append(&help, "\n");
  		}
-@@ -886,7 +875,7 @@
- 
- static void conf_cleanup(void)
- {
--	tcsetattr(1, TCSAFLUSH, &ios_org);
-+	end_dialog();
- }
- 
- int main(int ac, char **av)
-@@ -907,7 +896,6 @@
- 			single_menu_mode = 1;
- 	}
- 
--	tcgetattr(1, &ios_org);
- 	atexit(conf_cleanup);
- 	init_wsize();
- 	reset_dialog();
-@@ -919,7 +907,7 @@
+@@ -919,7 +912,7 @@
  		if (conf_get_changed())
  			res = dialog_yesno(NULL,
  					   _("Do you wish to save your "
@@ -463,7 +425,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
  					     "<ESC><ESC> to continue."),
  					   6, 60);
  		else
-@@ -931,20 +919,20 @@
+@@ -931,20 +924,20 @@
  	case 0:
  		if (conf_write(filename)) {
  			fprintf(stderr, _("\n\n"
@@ -488,7 +450,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
 +			"Your configuration changes were NOT saved."
  			"\n\n"));
  	}
- 
+
 diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/README.PTX ptxdist-trunk/scripts/kconfig/README.PTX
 --- linux-2.6.23/scripts/kconfig/README.PTX	1970-01-01 01:00:00.000000000 +0100
 +++ ptxdist-trunk/scripts/kconfig/README.PTX	2007-12-06 11:32:11.000000000 +0100
