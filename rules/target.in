@@ -249,6 +249,29 @@ choice
 		depends on SH_ARCH_SH4
 endchoice
 
+#
+# endianess
+#
+# FIXME: ARCH_SH can be both
+
+config ENDIAN_BIG
+	bool
+	default y if ARM_ARCH_BE
+	default y if ARCH_M68K
+	default y if ARCH_SPARC
+	default y if MIPS_ARCH_BE
+	default y if ARCH_PARISC
+
+config ENDIAN_LITTLE
+	bool
+	default y if ARCH_ALPHA
+	default y if ARM_ARCH_LE
+	default y if ARCH_BLACKFIN
+	default y if ARCH_X86
+	default y if MIPS_ARCH_LE
+	default y if ARCH_CRIS
+
+
 config SOFTFLOAT
 	bool
 	prompt "Use Software Floatingpoint"
