@@ -1,0 +1,6 @@
+config PTXDIST
+	bool
+	prompt "ptxdist"
+	help
+	  Guess what ...?
+

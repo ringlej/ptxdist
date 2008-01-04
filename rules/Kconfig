@@ -255,6 +255,10 @@ source "rules/pelts_tests.in"
 source "rules/tests.in"
 endmenu
 
+menu "Development Tools             "
+source rules/ptxdist.in
+endmenu
+
 menu "Broken or orphaned Packages   "
 depends on BROKEN
 source "rules/at-spi.in"
