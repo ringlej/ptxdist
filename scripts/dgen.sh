@@ -75,7 +75,7 @@ gen_rulesfiles_all() {
 # $(MAP_all): $(RULESFILES_ALL)
 #
 gen_map_all() {
-    grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" "${RULESFILES_ALL}" | \
+    grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< "${RULESFILES_ALL}"` | \
 	sed -e "s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~FILENAME_\2=\"\1\"\nPACKAGE_\2=\"\3\"~" \
 	> "${MAP_ALL}"
 }
