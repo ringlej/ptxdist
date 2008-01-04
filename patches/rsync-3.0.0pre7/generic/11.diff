@@ -1,0 +1,71 @@
+From: Wayne Davison <wayned@samba.org>
+Date: Tue, 1 Jan 2008 04:27:40 +0000 (-0800)
+Subject: Some minor tweaks:
+X-Git-Url: http://git.samba.org/?p=rsync.git;a=commitdiff_plain;h=5288be3af7c24814011130306725c24df792cc06
+
+Some minor tweaks:
+- Improved some comments in hlink.c.
+- Changed "the" to "a" in rsyncd.conf.yo.
+- Improved the PATCH.name filtering loop in patch-update.
+---
+
+diff --git a/hlink.c b/hlink.c
+index dfd0068..87e4236 100644
+--- a/hlink.c
++++ b/hlink.c
+@@ -143,7 +143,7 @@ static void match_gnums(int32 *ndx_list, int ndx_count)
+ 			if (gnum != gnum_next)
+ 				break;
+ 			F_HL_PREV(file) = prev;
+-			/* The linked list must use raw ndx values. */
++			/* The linked list uses over-the-wire ndx values. */
+ 			if (unsort_ndx)
+ 				prev = F_NDX(file);
+ 			else
+@@ -275,13 +275,13 @@ int hard_link_check(struct file_struct *file, int ndx, const char *fname,
+ 	if (!prev_name) {
+ 		struct file_struct *prev_file = flist->files[prev_ndx - flist->ndx_start];
+ 
+-		/* Is the previous link is not complete yet? */
++		/* Is the previous link not complete yet? */
+ 		if (!(prev_file->flags & FLAG_HLINK_DONE)) {
+ 			/* Is the previous link being transferred? */
+ 			if (prev_file->flags & FLAG_FILE_SENT) {
+-				/* Add ourselves to the list of files that will be
+-				 * updated when the transfer completes, and mark
+-				 * ourself as waiting for the transfer. */
++				/* Add ourselves to the list of files that will
++				 * be updated when the transfer completes, and
++				 * mark ourself as waiting for the transfer. */
+ 				F_HL_PREV(file) = F_HL_PREV(prev_file);
+ 				F_HL_PREV(prev_file) = ndx;
+ 				file->flags |= FLAG_FILE_SENT;
+diff --git a/rsyncd.conf.yo b/rsyncd.conf.yo
+index 4818094..ffb9473 100644
+--- a/rsyncd.conf.yo
++++ b/rsyncd.conf.yo
+@@ -180,7 +180,7 @@ as long as that directory does not exist.  When this option is enabled,
+ rsync will refuse to run if that path is a directory or a symlink to
+ a directory.  When using the "munge symlinks" option in a chroot area,
+ you should add this path to the exclude setting for the module so that
+-the user can't try to create it.
++a user can't try to create it.
+ 
+ Note:  rsync makes no attempt to verify that any pre-existing symlinks in
+ the hierarchy are as safe as you want them to be.  If you setup an rsync
+diff --git a/support/patch-update b/support/patch-update
+index 0c0cb6d..14360c1 100755
+--- a/support/patch-update
++++ b/support/patch-update
+@@ -59,7 +59,9 @@ foreach my $patch (@patches) {
+     my $desc = '';
+     open(PIPE, '-|', 'git', 'diff', '-U1000', "master...$branch", '--', "PATCH.$patch") or die $!;
+     while (<PIPE>) {
+-	next if m{^\Q+++\E b/PATCH};
++	last if /^@@ /;
++    }
++    while (<PIPE>) {
+ 	next unless s/^[ +]//;
+ 	if (m#patch -p1 <patches/(\S+)\.diff# && $1 ne $patch) {
+ 	    $parent{$patch} = $1;
+

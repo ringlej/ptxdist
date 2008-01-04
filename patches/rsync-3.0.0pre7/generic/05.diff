@@ -1,0 +1,22 @@
+From: Wayne Davison <wayned@samba.org>
+Date: Wed, 19 Dec 2007 17:36:05 +0000 (-0800)
+Subject: Fixed Source URL and changed from ftp to http.
+X-Git-Url: http://git.samba.org/?p=rsync.git;a=commitdiff_plain;h=bc065415b07081e2f0634dab13ff4813a8f7025d
+
+Fixed Source URL and changed from ftp to http.
+---
+
+diff --git a/packaging/lsb/rsync.spec b/packaging/lsb/rsync.spec
+index f126d68..9b9f665 100644
+--- a/packaging/lsb/rsync.spec
++++ b/packaging/lsb/rsync.spec
+@@ -3,7 +3,7 @@ Name: rsync
+ Version: 3.0.0pre7
+ Release: 1
+ Group: Applications/Internet
+-Source:	ftp://rsync.samba.org/pub/rsync/rsync-%{version}.tar.gz
++Source:	http://rsync.samba.org/ftp/rsync/rsync-%{version}.tar.gz
+ URL: http://rsync.samba.org/
+ 
+ Prefix: %{_prefix}
+

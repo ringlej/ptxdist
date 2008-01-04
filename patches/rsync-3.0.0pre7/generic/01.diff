@@ -1,0 +1,23 @@
+From: Wayne Davison <wayned@samba.org>
+Date: Sun, 16 Dec 2007 23:41:59 +0000 (-0800)
+Subject: Added the 'h' option to the tar command that creates the patches
+X-Git-Url: http://git.samba.org/?p=rsync.git;a=commitdiff_plain;h=e3915dac764208a166d87b6ef964c875b435d143
+
+Added the 'h' option to the tar command that creates the patches
+tar file just in case the patches directory is a symlink.
+---
+
+diff --git a/packaging/release-rsync b/packaging/release-rsync
+index e55972a..7dc38ca 100755
+--- a/packaging/release-rsync
++++ b/packaging/release-rsync
+@@ -253,7 +253,7 @@ system "fakeroot tar czf $srctar_file rsync-$version; rm -rf rsync-$version";
+ system "support/patch-update --gen";
+ 
+ symlink('.', "rsync-$version");
+-system "fakeroot tar czf $pattar_file rsync-$version/patches";
++system "fakeroot tar chzf $pattar_file rsync-$version/patches";
+ unlink("rsync-$version");
+ 
+ print "Updating the other files in $dest ...\n";
+

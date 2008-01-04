@@ -1,0 +1,47 @@
+From: Wayne Davison <wayned@samba.org>
+Date: Tue, 1 Jan 2008 18:34:27 +0000 (-0800)
+Subject: Renamed mkrounding.c to rounding.c.
+X-Git-Url: http://git.samba.org/?p=rsync.git;a=commitdiff_plain;h=a5fd4b6e6e3d4649f0f65cd4a0385283fe69154c
+
+Renamed mkrounding.c to rounding.c.
+---
+
+diff --git a/Makefile.in b/Makefile.in
+index 5323654..8594a9d 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -80,9 +80,9 @@ $(CHECK_OBJS): $(HEADERS)
+ 
+ flist.o: rounding.h
+ 
+-rounding.h: mkrounding.c rsync.h
++rounding.h: rounding.c rsync.h
+ 	@for r in 0 1 3; do \
+-	    if $(CC) $(CFLAGS) $(LDFLAGS) -o mkrounding -DEXTRA_ROUNDING=$$r -I. $(srcdir)/mkrounding.c >/dev/null 2>&1; then \
++	    if $(CC) $(CFLAGS) $(LDFLAGS) -o rounding -DEXTRA_ROUNDING=$$r -I. $(srcdir)/rounding.c >/dev/null 2>&1; then \
+ 		echo "#define EXTRA_ROUNDING $$r" >rounding.h; \
+ 		if test -f "$$HOME/build_farm/build_test.fns"; then \
+ 		    echo "EXTRA_ROUNDING is $$r" >&2; \
+@@ -90,7 +90,7 @@ rounding.h: mkrounding.c rsync.h
+ 		break; \
+ 	    fi; \
+ 	done
+-	@rm -f mkrounding
++	@rm -f rounding
+ 	@if test -f rounding.h; then : ; else \
+ 	    echo "Failed to create rounding.h!"; \
+ 	    exit 1; \
+@@ -154,7 +154,7 @@ rsyncd.conf.5: rsyncd.conf.yo
+ 
+ clean: cleantests
+ 	rm -f *~ $(OBJS) $(CHECK_PROGS) $(CHECK_OBJS) $(CHECK_SYMLINKS) \
+-		mkrounding rounding.h
++		rounding rounding.h
+ 
+ cleantests:
+ 	rm -rf ./testtmp*
+diff --git a/mkrounding.c b/rounding.c
+similarity index 100%
+rename from mkrounding.c
+rename to rounding.c
+

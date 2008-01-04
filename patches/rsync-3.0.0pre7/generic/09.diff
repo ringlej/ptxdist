@@ -1,0 +1,93 @@
+From: Wayne Davison <wayned@samba.org>
+Date: Sun, 30 Dec 2007 06:52:42 +0000 (-0800)
+Subject: Made some user-/group-name pointers "const".
+X-Git-Url: http://git.samba.org/?p=rsync.git;a=commitdiff_plain;h=c78cb8f349d74dbb19abbc4edeef12655bdcdf23
+
+Made some user-/group-name pointers "const".
+---
+
+diff --git a/acls.c b/acls.c
+index 8200573..6aad47a 100644
+--- a/acls.c
++++ b/acls.c
+@@ -556,7 +556,7 @@ static void send_ida_entries(const ida_entries *idal, int f)
+ 
+ 	for (ida = idal->idas; count--; ida++) {
+ 		uint32 xbits = ida->access << 2;
+-		char *name;
++		const char *name;
+ 		if (ida->access & NAME_IS_USER) {
+ 			xbits |= XFLAG_NAME_IS_USER;
+ 			name = add_uid(ida->id);
+diff --git a/flist.c b/flist.c
+index 69cfec1..960e6a1 100644
+--- a/flist.c
++++ b/flist.c
+@@ -351,7 +351,7 @@ static void send_file_entry(int f, struct file_struct *file, int ndx, int first_
+ 	static uint32 rdev_major;
+ 	static uid_t uid;
+ 	static gid_t gid;
+-	static char *user_name, *group_name;
++	static const char *user_name, *group_name;
+ 	static char lastname[MAXPATHLEN];
+ 	char fname[MAXPATHLEN];
+ 	int first_hlink_ndx = -1;
+diff --git a/uidlist.c b/uidlist.c
+index 7477f36..48e0318 100644
+--- a/uidlist.c
++++ b/uidlist.c
+@@ -43,7 +43,7 @@ extern int numeric_ids;
+ 
+ struct idlist {
+ 	struct idlist *next;
+-	char *name;
++	const char *name;
+ 	id_t id, id2;
+ 	uint16 flags;
+ };
+@@ -51,7 +51,7 @@ struct idlist {
+ static struct idlist *uidlist;
+ static struct idlist *gidlist;
+ 
+-static struct idlist *add_to_list(struct idlist **root, id_t id, char *name,
++static struct idlist *add_to_list(struct idlist **root, id_t id, const char *name,
+ 				  id_t id2, uint16 flags)
+ {
+ 	struct idlist *node = new(struct idlist);
+@@ -67,7 +67,7 @@ static struct idlist *add_to_list(struct idlist **root, id_t id, char *name,
+ }
+ 
+ /* turn a uid into a user name */
+-static char *uid_to_name(uid_t uid)
++static const char *uid_to_name(uid_t uid)
+ {
+ 	struct passwd *pass = getpwuid(uid);
+ 	if (pass)
+@@ -76,7 +76,7 @@ static char *uid_to_name(uid_t uid)
+ }
+ 
+ /* turn a gid into a group name */
+-static char *gid_to_name(gid_t gid)
++static const char *gid_to_name(gid_t gid)
+ {
+ 	struct group *grp = getgrgid(gid);
+ 	if (grp)
+@@ -237,7 +237,7 @@ gid_t match_gid(gid_t gid, uint16 *flags_ptr)
+ }
+ 
+ /* Add a uid to the list of uids.  Only called on sending side. */
+-char *add_uid(uid_t uid)
++const char *add_uid(uid_t uid)
+ {
+ 	struct idlist *list;
+ 	struct idlist *node;
+@@ -255,7 +255,7 @@ char *add_uid(uid_t uid)
+ }
+ 
+ /* Add a gid to the list of gids.  Only called on sending side. */
+-char *add_gid(gid_t gid)
++const char *add_gid(gid_t gid)
+ {
+ 	struct idlist *list;
+ 	struct idlist *node;
+

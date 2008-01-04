@@ -1,0 +1,59 @@
+From: Wayne Davison <wayned@samba.org>
+Date: Tue, 1 Jan 2008 16:59:26 +0000 (-0800)
+Subject: If we're cross-compiling, tell the user to run mkrounding on the
+X-Git-Url: http://git.samba.org/?p=rsync.git;a=commitdiff_plain;h=f859d3ded6285c499898540ca4fb16f1e1a7d26b
+
+If we're cross-compiling, tell the user to run mkrounding on the
+target machine to build the rounding.h file.
+---
+
+diff --git a/Makefile.in b/Makefile.in
+index bc18f4a..a5bf03f 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -81,7 +81,14 @@ $(CHECK_OBJS): $(HEADERS)
+ flist.o: rounding.h
+ 
+ rounding.h: mkrounding$(EXEEXT)
+-	./mkrounding$(EXEEXT) >rounding.h
++	@if test x@cross_compiling@ = xno; then \
++	    ./mkrounding$(EXEEXT) >rounding.h; \
++	else \
++	    echo "Copy the mkrounding$(EXEEXT) command to the target machine and run it like this:"; \
++	    echo "    ./mkrounding$(EXEEXT) >rounding.h"; \
++	    echo "Then copy the resulting rounding.h file to this build machine and rerun \"make\"."; \
++	    exit 1; \
++	fi
+ 
+ mkrounding$(EXEEXT): mkrounding.c rsync.h
+ 	@sed '1,/^struct file_struct/d; /^}/,$$d' <$(srcdir)/rsync.h >mkrounding.h
+diff --git a/NEWS b/NEWS
+index 5e9dc75..7bd2ed8 100644
+--- a/NEWS
++++ b/NEWS
+@@ -34,6 +34,12 @@ Changes since 2.6.9:
+       options:  --compare-dest, --link-dest, --copy-dest, --partial-dir,
+       --backup-dir, --temp-dir, and --files-from.
+ 
++    - If a file's data arrived successfully on the receiving side but the
++      rename of the tempory file to the destination file failed AND the
++      --remove-souce-files (or the deprecated --remove-sent-files) option
++      was specified, rsync no longer erroneously removes the associated
++      source file.
++
+     - Fixed the output of -ii when combined with one of the --*-dest options:
+       it now itemizes all the items, not just the changed ones.
+ 
+diff --git a/configure.in b/configure.in
+index 8e3402b..6c2c9ea 100644
+--- a/configure.in
++++ b/configure.in
+@@ -824,6 +824,7 @@ AC_SUBST(OBJ_RESTORE)
+ AC_SUBST(CC_SHOBJ_FLAG)
+ AC_SUBST(BUILD_POPT)
+ AC_SUBST(MAKE_MAN)
++AC_SUBST(cross_compiling)
+ 
+ AC_CHECK_HEADERS(sys/acl.h acl/libacl.h)
+ AC_CHECK_FUNCS(_acl __acl _facl __facl)
+

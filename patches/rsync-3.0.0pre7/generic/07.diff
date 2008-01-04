@@ -1,0 +1,25 @@
+From: Wayne Davison <wayned@samba.org>
+Date: Sat, 29 Dec 2007 17:53:37 +0000 (-0800)
+Subject: Added check for libiconv_open when iconv_open isn't found.
+X-Git-Url: http://git.samba.org/?p=rsync.git;a=commitdiff_plain;h=b6800a0b32d53cbb23129a3eea8fa832fb864b79
+
+Added check for libiconv_open when iconv_open isn't found.
+---
+
+diff --git a/configure.in b/configure.in
+index 171cbe1..8e3402b 100644
+--- a/configure.in
++++ b/configure.in
+@@ -554,6 +554,11 @@ AC_CHECK_FUNCS(waitpid wait4 getcwd strdup chown chmod lchmod mknod mkfifo \
+     strerror putenv iconv_open locale_charset nl_langinfo getxattr \
+     extattr_get_link sigaction sigprocmask setattrlist)
+ 
++dnl cygwin iconv.h defines iconv_open as libiconv_open
++if test x"$ac_cv_func_iconv_open" != x"yes"; then
++    AC_CHECK_FUNC(libiconv_open, [ac_cv_func_iconv_open=yes; AC_DEFINE(HAVE_ICONV_OPEN, 1)])
++fi
++
+ AC_CHECK_FUNCS(getpgrp tcgetpgrp)
+ if test $ac_cv_func_getpgrp = yes; then
+     AC_FUNC_GETPGRP
+
