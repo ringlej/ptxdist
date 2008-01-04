@@ -364,7 +364,7 @@ $(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
 		echo -n "$(PTXCONF_HOST_PREFIX)/bin/genext2fs ";	\
 		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) ";		\
 		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) ";		\
-		echo -n "-d $(ROOTDIR) ";				\
+		echo -n "-d $(WORKDIR) ";				\
 		echo "$@" )				\
 	) | $(FAKEROOT) --
 	@echo "done."
