@@ -1,3 +1,8 @@
+2008-01-07 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* util-linux-ng: added
+	* e2fsprogs: changed version from 1.40.2 to 1.40.4
+
 2008-01-06 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* sjinn: added; patch by Tom St
