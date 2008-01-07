@@ -1,3 +1,7 @@
+2008-01-06 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* sjinn: added; patch by Tom St
+
 2008-01-01 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* nfsutils: removed obsolete patches for nfsutils 1.0.1; we

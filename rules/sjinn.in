@@ -1,0 +1,4 @@
+config SJINN
+	bool "SJINN"
+	help
+	  rs232 comm tool
