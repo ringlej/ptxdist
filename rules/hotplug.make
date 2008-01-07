@@ -83,7 +83,7 @@ hotplug_install: $(STATEDIR)/hotplug.install
 
 $(STATEDIR)/hotplug.install: $(hotplug_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, HOTPLUG,,,prefix=$(SYSROOT))
+	@$(call install, HOTPLUG,,,prefix=$(SYSROOT) SHELL=/bin/bash)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
