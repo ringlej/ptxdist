@@ -95,6 +95,9 @@ endif
 ifdef PTXCONF_COREUTILS_MD5SUM
 	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src md5sum
 endif
+ifdef PTXCONF_COREUTILS_READLINK
+	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src readlink
+endif
 ifdef PTXCONF_COREUTILS_SEQ
 	$(COREUTILS_PATH) make -C $(COREUTILS_DIR)/src seq
 endif
@@ -137,6 +140,9 @@ ifdef PTXCONF_COREUTILS_DD
 endif
 ifdef PTXCONF_COREUTILS_MD5SUM
 	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/md5sum, /usr/bin/md5sum)
+endif
+ifdef PTXCONF_COREUTILS_READLINK
+	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/readlink, /usr/bin/readlink)
 endif
 ifdef PTXCONF_COREUTILS_SEQ
 	@$(call install_copy, coreutils, 0, 0, 0755, $(COREUTILS_DIR)/src/seq, /usr/bin/seq)

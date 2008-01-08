@@ -36,6 +36,14 @@ config COREUTILS_MD5SUM
 comment "busy box' md5sum is selected!"
 	depends on COREUTILS && BB_CONFIG_MD5SUM
 
+config COREUTILS_READLINK
+	bool
+	prompt "readlink"
+	depends on COREUTILS
+	depends on !BB_CONFIG_READLINK
+	help
+	  the readlink tool
+
 config COREUTILS_SEQ
 	bool
 	prompt "seq"
