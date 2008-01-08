@@ -1,5 +1,6 @@
 2008-01-08 Robert Schwebel <r.schwebel@pengutronix.de>
 
+	* ppp: fixed p0 patch level; patch by Gary Thomas.
 	* libpopt: fixed URL
 
 2008-01-07 Robert Schwebel <r.schwebel@pengutronix.de>
