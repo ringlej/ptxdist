@@ -1,5 +1,7 @@
 config PTXDIST
 	bool
+	select COREUTILS
+	select COREUTILS_READLINK
 	prompt "ptxdist"
 	help
 	  Guess what ...?

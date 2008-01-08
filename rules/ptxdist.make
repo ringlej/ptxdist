@@ -120,8 +120,24 @@ $(STATEDIR)/ptxdist.targetinstall: $(ptxdist_targetinstall_deps_default)
 	@$(call install_fixup, ptxdist,DEPENDS,)
 	@$(call install_fixup, ptxdist,DESCRIPTION,missing)
 
-	for i in `cd $(PKGDIR)/$(PTXDIST); find . -type f`; do \
-		$(call install_copy, ptxdist, 0, 0, 0755, $(PKGDIR)/$(PTXDIST)/$$i, /$$i); \
+	$(call install_copy, ptxdist, 0, 0, 0755, \
+		$(PKGDIR)/$(PTXDIST)/usr/lib/$(PTXDIST)/bin/ptxdist, \
+		/usr/lib/$(PTXDIST)/bin/ptxdist, n)
+
+	$(call install_link, ptxdist, \
+		/usr/lib/$(PTXDIST)/bin/ptxdist, \
+		/usr/bin/ptxdist)
+
+	$(call install_copy, ptxdist, 0, 0, 0644, \
+		$(PKGDIR)/$(PTXDIST)/usr/lib/$(PTXDIST)/.done, \
+		/usr/lib/$(PTXDIST)/.done, n)
+
+	for j in patches config plugins generic rules scripts; do \
+		for i in `cd $(PKGDIR)/$(PTXDIST)/usr/lib/$(PTXDIST)/$$j; find . -type f`; do \
+			$(call install_copy, ptxdist, 0, 0, 0644, \
+				$(PKGDIR)/$(PTXDIST)/usr/lib/$(PTXDIST)/$$j/$$i, \
+				/usr/lib/$(PTXDIST)/$$j/$$i); \
+		done; \
 	done
 
 	@$(call install_finish, ptxdist)
