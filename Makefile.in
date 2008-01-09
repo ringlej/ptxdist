@@ -11,11 +11,11 @@ export SHELL
 
 all:
 	@echo "building conf..."
-	cd ${abs_srcdir}/scripts/kconfig && \
-		${MAKE} conf CONF_LIBS=@CONF_LIBS@
+	cd "${abs_srcdir}/scripts/kconfig" && \
+		${MAKE} conf "CONF_LIBS=@CONF_LIBS@"
 	@echo "building mconf..."
-	cd ${abs_srcdir}/scripts/kconfig && \
-		${MAKE} mconf CURSES_LOC='@CURSES_LOC@' MCONF_LIBS=@MCONF_LIBS@
+	cd "${abs_srcdir}/scripts/kconfig" && \
+		${MAKE} mconf CURSES_LOC='@CURSES_LOC@' "MCONF_LIBS=@MCONF_LIBS@"
 	@echo "done."
 	@touch .done
 
@@ -33,7 +33,7 @@ install: all
 	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist
 
 clean:
-	@cd ${abs_srcdir}/scripts/kconfig && ${MAKE} clean
+	@cd "${abs_srcdir}/scripts/kconfig" && ${MAKE} clean
 	@rm -f .done
 
 dist:
