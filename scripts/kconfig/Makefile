@@ -14,16 +14,12 @@ CURSES_LOC := <ncurses.h>
 endif
 CFLAGS += "-DCURSES_LOC=$(CURSES_LOC)"
 
-ifndef CURSES_LIB
-CURSES_LIB := ncurses
+ifndef MCONF_LIBS
+MCONF_LIBS := -lncurses
 endif
-ifdef REGEX_LIB
-conf-libs  := -l$(REGEX_LIB)
-else
-conf-libs  :=
-endif
-mconf-libs := -l$(CURSES_LIB)
-mconf-libs += $(conf-libs)
+
+conf-libs  := $(CONF_LIBS)
+mconf-libs := $(MCONF_LIBS)
 
 lkc-deps := lkc.h lkc_defs.h expr.h
 

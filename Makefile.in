@@ -11,9 +11,11 @@ export SHELL
 
 all:
 	@echo "building conf..."
-	cd ${abs_srcdir}/scripts/kconfig && ${MAKE} conf
+	cd ${abs_srcdir}/scripts/kconfig && \
+		${MAKE} conf CONF_LIBS=@CONF_LIBS@
 	@echo "building mconf..."
-	cd ${abs_srcdir}/scripts/kconfig && ${MAKE} mconf CURSES_LOC='@CURSES_LOC@' CURSES_LIB=@CURSES_LIB@
+	cd ${abs_srcdir}/scripts/kconfig && \
+		${MAKE} mconf CURSES_LOC='@CURSES_LOC@' MCONF_LIBS=@MCONF_LIBS@
 	@echo "done."
 	@touch .done
 

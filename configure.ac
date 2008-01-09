@@ -33,13 +33,18 @@ dnl
 
 AC_HEADER_STDC
 
-AC_CHECK_LIB([curses],   [mvaddch], [CURSES_LIB='curses'])
-AC_CHECK_LIB([ncurses],  [mvaddch], [CURSES_LIB='ncurses'])
-AC_CHECK_LIB([pdcurses], [mvaddch], [CURSES_LIB='pdcurses'])
-if test "$CURSES_LIB" = ""
-then
-	AC_MSG_ERROR([No curses library found.])
-fi
+AC_CHECK_HEADER([regex.h], [], AC_MSG_ERROR([Cannot find regex.h.]))
+
+AC_SEARCH_LIBS(regcomp, [regex gnuregex],,
+	AC_MSG_ERROR([POSIX regex required.]))
+CONF_LIBS=${LIBS}
+AC_SUBST(CONF_LIBS)
+
+AC_SEARCH_LIBS(mvaddch, [ncurses curses pdcurses], CURSES_LIB=$ac_lib,
+	AC_MSG_ERROR([curses library required.]))
+MCONF_LIBS=${LIBS}
+AC_SUBST(MCONF_LIBS)
+
 if test "$CURSES_LIB" = "ncurses"
 then
 	AC_CHECK_HEADER(
@@ -55,7 +60,6 @@ else
 	)
 fi
 AC_SUBST(CURSES_LOC)
-AC_SUBST(CURSES_LIB)
 
 AC_SYS_INTERPRETER
 if test "$interpval" != yes ; then
