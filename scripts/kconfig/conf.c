@@ -4,11 +4,11 @@
  */
 
 #include <ctype.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <time.h>
+#include <unistd.h>
 #include <sys/stat.h>
 
 #define LKC_DIRECT_LINK
@@ -162,7 +162,7 @@ static int conf_askvalue(struct symbol *sym, const char *def)
 		}
 	case set_random:
 		do {
-			val = (tristate)(random() % 3);
+			val = (tristate)(rand() % 3);
 		} while (!sym_tristate_within_range(sym, val));
 		switch (val) {
 		case no: line[0] = 'n'; break;
@@ -376,7 +376,7 @@ static int conf_choice(struct menu *menu)
 				continue;
 			break;
 		case set_random:
-			def = (random() % cnt) + 1;
+			def = (rand() % cnt) + 1;
 		case set_default:
 		case set_yes:
 		case set_mod:
@@ -536,7 +536,7 @@ int main(int ac, char **av)
 			break;
 		case 'r':
 			input_mode = set_random;
-			srandom(time(NULL));
+			srand(time(NULL));
 			break;
 		case 'h':
 		case '?':
@@ -544,7 +544,7 @@ int main(int ac, char **av)
 			exit(0);
 		}
 	}
-  	name = av[i];
+	name = av[i];
 	if (!name) {
 		printf(_("%s: Kconfig file missing\n"), av[0]);
 		exit(1);

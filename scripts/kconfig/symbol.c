@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <regex.h>
-#include <sys/utsname.h>
 
 #define LKC_DIRECT_LINK
 #include "lkc.h"
@@ -44,15 +43,12 @@ void sym_add_default(struct symbol *sym, const char *def)
 void sym_init(void)
 {
 	struct symbol *sym;
-	struct utsname uts;
 	char *p;
 	static bool inited = false;
 
 	if (inited)
 		return;
 	inited = true;
-
-	uname(&uts);
 
 	sym = sym_lookup("ARCH", 0);
 	sym->type = S_STRING;
@@ -67,11 +63,6 @@ void sym_init(void)
 	p = getenv("KERNELVERSION");
 	if (p)
 		sym_add_default(sym, p);
-
-	sym = sym_lookup("UNAME_RELEASE", 0);
-	sym->type = S_STRING;
-	sym->flags |= SYMBOL_AUTO;
-	sym_add_default(sym, uts.release);
 }
 
 enum symbol_type sym_get_type(struct symbol *sym)
