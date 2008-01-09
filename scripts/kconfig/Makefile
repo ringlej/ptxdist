@@ -13,6 +13,7 @@ ifndef CURSES_LOC
 CURSES_LOC := <ncurses.h>
 endif
 CFLAGS += "-DCURSES_LOC=$(CURSES_LOC)"
+CFLAGS += -DKBUILD_NO_NLS
 
 ifndef MCONF_LIBS
 MCONF_LIBS := -lncurses
