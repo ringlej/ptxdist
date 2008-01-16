@@ -112,7 +112,7 @@ config BB_CONFIG_DEVFSD_VERBOSE
 	  Increases logging to stderr or syslog.
 
 config BB_CONFIG_FEATURE_DEVFS
-	bool "  Use devfs names for all devices (obsolete)"
+	bool "Use devfs names for all devices (obsolete)"
 	default n
 	help
 	  This is obsolete and will be going away at the end of 2008..

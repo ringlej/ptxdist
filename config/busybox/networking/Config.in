@@ -593,7 +593,7 @@ config BB_CONFIG_NETSTAT
 	  netstat prints information about the Linux networking subsystem.
 
 config BB_CONFIG_FEATURE_NETSTAT_WIDE
-	bool "  Enable wide netstat output"
+	bool "Enable wide netstat output"
 	default n
 	depends on BB_CONFIG_NETSTAT
 	help
