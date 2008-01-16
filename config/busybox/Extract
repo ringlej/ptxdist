@@ -1,0 +1,42 @@
+#!/bin/bash
+
+dir=/tmp
+
+# Try to be smart and get latest and greatest.
+bb_path=`find ${dir} -maxdepth 1 -type d -name "busybox-*" | sort | tail -n 1`
+
+if test -z ${bb_path}
+then
+	echo "Extract busybox to ${dir} directory before running this script."
+	exit 1
+fi
+
+bb_version=`basename ${bb_path} | sed -e "s/busybox-//g"`
+echo "---------------------------------------------------------------------"
+echo "Extracting busybox configuration from version ${bb_version}..."
+echo "---------------------------------------------------------------------"
+
+#
+# first extract all configuration files from the original source tree
+#
+
+for cfgfile in $(find ${bb_path} -name "Config.in"); do
+	new_cfgfile=$(echo $cfgfile | sed -e "s~${bb_path}~\.~g")
+	dir=$(echo $new_cfgfile | sed -e "s~Config\.in~~g")
+	mkdir -p $dir
+	../../scripts/mkprefix -v -p BB_CONFIG_ < $cfgfile > $new_cfgfile
+done
+
+#
+# fix some entries
+# 
+
+echo "---------------------------------------------------------------------"
+echo "Fixing some stuff..."
+echo "---------------------------------------------------------------------"
+
+for cfgfile in $(find . -name "Config.in"); do
+	sed -i -e "s/^source \(.*\)/source config\/busybox\/\1/g" $cfgfile
+	sed -i -e "s/^mainmenu \(.*$\)/# mainmenu \1/g" $cfgfile
+	sed -i -e "s/^\(menu .*\)$/\1\n\tdepends on BUSYBOX/g" $cfgfile
+done

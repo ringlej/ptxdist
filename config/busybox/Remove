@@ -1,0 +1,4 @@
+#!/bin/sh
+
+find . -type d | grep -v "\.$" | xargs rm -fr  
+rm -r *.in

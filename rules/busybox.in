@@ -11,6 +11,6 @@ config BUSYBOX
 
 	  For more information see http://www.busybox.net
 
-source "config/busybox-1.4.2/Config.in"
+source "config/busybox/Config.in"
 
 endmenu

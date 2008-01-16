@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION		= 1.4.2
+BUSYBOX_VERSION		= 1.9.0
 BUSYBOX			= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX		= tar.bz2
 BUSYBOX_URL		= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
@@ -81,8 +81,8 @@ $(STATEDIR)/busybox.prepare: $(busybox_prepare_deps_default)
 	touch $(BUSYBOX_DIR)/busybox.links
 
 	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
-	grep -e PTXCONF_BB_CONFIG_ $(PTXDIST_WORKSPACE)/ptxconfig > $(BUSYBOX_DIR)/.config
-	perl -i -p -e 's/PTXCONF_BB_CONFIG_/CONFIG_/g' $(BUSYBOX_DIR)/.config
+	grep -e PTXCONF_BB_CONFIG_ $(PTXDIST_WORKSPACE)/ptxconfig | \
+		sed -e 's/PTXCONF_BB_CONFIG_/CONFIG_/g' > $(BUSYBOX_DIR)/.config
 	yes "" | $(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
 
 	@$(call touch, $@)
