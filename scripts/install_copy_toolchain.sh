@@ -159,6 +159,9 @@ ptxd_install_toolchain_lib() {
 		# strip all braces and install all shared libs ( *.so*), ignore "GROUP" and static libs
 		#
 		for script_lib in `sed -n -e "/GROUP/s/[()]//gp" "${lib_path}"`; do
+		    # deal with multiple "//" in paths, remove them
+		    script_lib="`echo ${script_lib} | sed -e \"s://*:/:g\"`"
+
 		    # deal with relative and absolute libs
 		    case "${script_lib}" in
 			/*.so*)
