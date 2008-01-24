@@ -617,9 +617,9 @@ get_option_ext =									\
 # - mangle all *.la files in the _default_ $SYSROOT for further development
 #
 install = \
-	BUILDDIR="$($(strip $(1))_DIR)";				\
+	BUILDDIR="$($(strip $(1))_DIR)/";				\
 	PKG_PKGDIR="$(PKGDIR)/$($(strip $(1)))";			\
-	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))";		\
+	[ "$(strip $(2))" != ""  ] && BUILDDIR="$(strip $(2))/";	\
 	if [ "$(strip $(3))" = "h" ]; then				\
 		cd $$BUILDDIR &&					\
 			$($(strip $(1))_ENV)				\
