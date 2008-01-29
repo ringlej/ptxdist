@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_JVISU) += jvisu
 #
 # Paths and names
 #
-JVISU_VERSION	:= 1.0.0
+JVISU_VERSION	:= 1.0.1
 JVISU		:= JVisu-$(JVISU_VERSION)
 JVISU_SUFFIX	:= tgz
 JVISU_URL	:= http://www.pengutronix.de/software/jvisu/download/archive/$(JVISU).$(JVISU_SUFFIX)
@@ -81,7 +81,7 @@ $(STATEDIR)/jvisu.compile: $(jvisu_compile_deps_default)
 	@$(call targetinfo, $@)
 
 	# FIXME: we need ant to do this; should we make it a host tool? 
-	cd $(JVISU_DIR) && $(JVISU_ENV) $(JVISU_PATH) ./build.sh jar
+	cd $(JVISU_DIR) && $(JVISU_ENV) $(JVISU_PATH) /bin/bash ./build.sh jar
 
 	@$(call touch, $@)
 
