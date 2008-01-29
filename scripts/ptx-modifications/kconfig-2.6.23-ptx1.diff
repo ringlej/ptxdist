@@ -7,19 +7,65 @@ this patch applied.
 
 ------------------------------------------------------------------------------
 
-diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/conf.c ptxdist-trunk/scripts/kconfig/conf.c
---- linux-2.6.23/scripts/kconfig/conf.c	2007-10-09 22:31:38.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/conf.c	2007-12-06 17:37:17.000000000 +0100
-@@ -14,6 +14,8 @@
- #define LKC_DIRECT_LINK
- #include "lkc.h"
+---
+ ptxdist-trunk/scripts/kconfig/README.PTX          |   11 
+ ptxdist-trunk/scripts/kconfig/conf.c              |   39 
+ ptxdist-trunk/scripts/kconfig/confdata.c          |   71 -
+ ptxdist-trunk/scripts/kconfig/gconf.c             |    4 
+ ptxdist-trunk/scripts/kconfig/lkc.h               |    6 
+ ptxdist-trunk/scripts/kconfig/mconf.c             |   53 -
+ ptxdist-trunk/scripts/kconfig/symbol.c            |    9 
+ ptxdist-trunk/scripts/kconfig/zconf.tab.c_shipped |  923 ++++++++++++----------
+ ptxdist-trunk/scripts/kconfig/zconf.y             |    2 
+ 9 files changed, 659 insertions(+), 459 deletions(-)
+
+Index: b/ptxdist-trunk/scripts/kconfig/conf.c
+===================================================================
+--- a/ptxdist-trunk/scripts/kconfig/conf.c
++++ b/ptxdist-trunk/scripts/kconfig/conf.c
+@@ -492,17 +492,52 @@
+ 		check_conf(child);
+ }
  
-+extern int dep_output;
++void create_dep_output()
++{
++	int i;
++	bool hit;
++	struct symbol *sym;
++	struct property *prop;
 +
- static void conf(struct menu *menu);
- static void check_conf(struct menu *menu);
++	for_all_symbols(i, sym) {
++		if ((sym_get_tristate_value(sym) == no) || !sym->name)
++			continue;
++
++		hit = 0;
++		for (prop = sym->prop; prop; prop = prop->next) {
++			if (prop->type == P_SELECT  && expr_calc_value(prop->visible.expr)) {
++				hit=1;
++				break;
++			}
++		}
++		if (!hit)
++			continue;
++		printf("DEP:%s", sym->name);
++		for (prop = sym->prop; prop; prop = prop->next) {
++			if (prop->type == P_SELECT  && expr_calc_value(prop->visible.expr)) {
++				printf(":%s", prop->expr->left.sym->name);
++			}
++		}
++		printf("\n");
++        }
++}
++
+ int main(int ac, char **av)
+ {
+ 	int i = 1;
+ 	const char *name;
+ 	struct stat tmpstat;
++	int dep_output = 0;
  
-@@ -503,6 +505,10 @@
+ 	if (ac > i && av[i][0] == '-') {
+ 		switch (av[i++][1]) {
  		case 'o':
  			input_mode = ask_new;
  			break;
@@ -30,7 +76,16 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/conf.c ptxdist-tru
  		case 's':
  			input_mode = ask_silent;
  			valid_stdin = isatty(0) && isatty(1) && isatty(2);
-@@ -621,10 +627,12 @@
+@@ -570,6 +605,8 @@
+ 	case ask_all:
+ 	case ask_new:
+ 		conf_read(NULL);
++		if (dep_output)
++			create_dep_output();
+ 		break;
+ 	case set_no:
+ 	case set_mod:
+@@ -621,10 +658,12 @@
  		return 1;
  	}
  skip_check:
@@ -43,9 +98,10 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/conf.c ptxdist-tru
  
  	return 0;
  }
-diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/confdata.c ptxdist-trunk/scripts/kconfig/confdata.c
---- linux-2.6.23/scripts/kconfig/confdata.c	2007-10-09 22:31:38.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/confdata.c	2007-12-06 18:06:01.000000000 +0100
+Index: b/ptxdist-trunk/scripts/kconfig/confdata.c
+===================================================================
+--- a/ptxdist-trunk/scripts/kconfig/confdata.c
++++ b/ptxdist-trunk/scripts/kconfig/confdata.c
 @@ -21,7 +21,7 @@
  static const char *conf_filename;
  static int conf_lineno, conf_warnings, conf_unsaved;
@@ -255,9 +311,10 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/confdata.c ptxdist
  
  static int sym_change_count;
  static void (*conf_changed_callback)(void);
-diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/gconf.c ptxdist-trunk/scripts/kconfig/gconf.c
---- linux-2.6.23/scripts/kconfig/gconf.c	2007-10-09 22:31:38.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/gconf.c	2007-12-06 11:16:10.000000000 +0100
+Index: b/ptxdist-trunk/scripts/kconfig/gconf.c
+===================================================================
+--- a/ptxdist-trunk/scripts/kconfig/gconf.c
++++ b/ptxdist-trunk/scripts/kconfig/gconf.c
 @@ -268,8 +268,8 @@
  					  /*"style", PANGO_STYLE_OBLIQUE, */
  					  NULL);
@@ -269,9 +326,10 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/gconf.c ptxdist-tr
  	gtk_window_set_title(GTK_WINDOW(main_wnd), title);
  
  	gtk_widget_show(main_wnd);
-diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/lkc.h ptxdist-trunk/scripts/kconfig/lkc.h
---- linux-2.6.23/scripts/kconfig/lkc.h	2007-10-09 22:31:38.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/lkc.h	2007-12-06 11:19:48.000000000 +0100
+Index: b/ptxdist-trunk/scripts/kconfig/lkc.h
+===================================================================
+--- a/ptxdist-trunk/scripts/kconfig/lkc.h
++++ b/ptxdist-trunk/scripts/kconfig/lkc.h
 @@ -31,6 +31,12 @@
  
  #define SRCTREE "srctree"
@@ -285,9 +343,10 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/lkc.h ptxdist-trun
  #define PACKAGE "linux"
  #define LOCALEDIR "/usr/share/locale"
  
-diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-trunk/scripts/kconfig/mconf.c
---- linux-2.6.23/scripts/kconfig/mconf.c	2007-10-09 22:31:38.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/mconf.c	2007-12-06 17:07:58.000000000 +0100
+Index: b/ptxdist-trunk/scripts/kconfig/mconf.c
+===================================================================
+--- a/ptxdist-trunk/scripts/kconfig/mconf.c
++++ b/ptxdist-trunk/scripts/kconfig/mconf.c
 @@ -29,10 +29,7 @@
  static const char mconf_readme[] = N_(
  "Overview\n"
@@ -450,10 +509,11 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/mconf.c ptxdist-tr
 +			"Your configuration changes were NOT saved."
  			"\n\n"));
  	}
-
-diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/README.PTX ptxdist-trunk/scripts/kconfig/README.PTX
---- linux-2.6.23/scripts/kconfig/README.PTX	1970-01-01 01:00:00.000000000 +0100
-+++ ptxdist-trunk/scripts/kconfig/README.PTX	2007-12-06 11:32:11.000000000 +0100
+ 
+Index: b/ptxdist-trunk/scripts/kconfig/README.PTX
+===================================================================
+--- /dev/null
++++ b/ptxdist-trunk/scripts/kconfig/README.PTX
 @@ -0,0 +1,11 @@
 +README.PTX
 +==========
@@ -466,9 +526,10 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/README.PTX ptxdist
 +
 +Robert Schwebel <r.schwebel@pengutronix.de>
 +
-diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shipped ptxdist-trunk/scripts/kconfig/zconf.tab.c_shipped
---- linux-2.6.23/scripts/kconfig/zconf.tab.c_shipped	2007-10-09 22:31:38.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/zconf.tab.c_shipped	2007-12-06 12:53:41.000000000 +0100
+Index: b/ptxdist-trunk/scripts/kconfig/zconf.tab.c_shipped
+===================================================================
+--- a/ptxdist-trunk/scripts/kconfig/zconf.tab.c_shipped
++++ b/ptxdist-trunk/scripts/kconfig/zconf.tab.c_shipped
 @@ -1,7 +1,9 @@
 -/* A Bison parser, made by GNU Bison 2.1.  */
 +/* A Bison parser, made by GNU Bison 2.3.  */
@@ -519,15 +580,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
  /* Skeleton name.  */
  #define YYSKELETON_NAME "yacc.c"
-@@ -163,6 +173,7 @@
- #define DEBUG_PARSE	0x0002
- 
- int cdebug = PRINTD;
-+int dep_output = 0;
- 
- extern int zconflex(void);
- static void zconfprint(const char *err, ...);
-@@ -198,18 +209,20 @@
+@@ -198,18 +208,20 @@
  # define YYTOKEN_TABLE 0
  #endif
  
@@ -552,7 +605,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  # define yystype YYSTYPE /* obsolescent; will be withdrawn */
  # define YYSTYPE_IS_DECLARED 1
  # define YYSTYPE_IS_TRIVIAL 1
-@@ -220,23 +233,56 @@
+@@ -220,23 +232,56 @@
  /* Copy the second part of user declarations.  */
  
  
@@ -619,7 +672,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  #ifndef YY_
  # if YYENABLE_NLS
  #  if ENABLE_NLS
-@@ -249,7 +295,32 @@
+@@ -249,7 +294,32 @@
  # endif
  #endif
  
@@ -653,7 +706,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
  /* The parser invokes alloca or malloc; define the necessary symbols.  */
  
-@@ -257,64 +328,76 @@
+@@ -257,64 +327,76 @@
  #  if YYSTACK_USE_ALLOCA
  #   ifdef __GNUC__
  #    define YYSTACK_ALLOC __builtin_alloca
@@ -750,7 +803,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
    YYSTYPE yyvs;
    };
  
-@@ -324,13 +407,13 @@
+@@ -324,13 +406,13 @@
  /* The size of an array large to enough to hold all stacks, each with
     N elements.  */
  # define YYSTACK_BYTES(N) \
@@ -766,7 +819,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  #   define YYCOPY(To, From, Count) \
        __builtin_memcpy (To, From, (Count) * sizeof (*(From)))
  #  else
-@@ -341,7 +424,7 @@
+@@ -341,7 +423,7 @@
  	  for (yyi = 0; yyi < (Count); yyi++)	\
  	    (To)[yyi] = (From)[yyi];		\
  	}					\
@@ -775,7 +828,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  #  endif
  # endif
  
-@@ -359,28 +442,22 @@
+@@ -359,28 +441,22 @@
  	yynewbytes = yystacksize * sizeof (*Stack) + YYSTACK_GAP_MAXIMUM; \
  	yyptr += yynewbytes / sizeof (*yyptr);				\
        }									\
@@ -810,7 +863,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  #define YYNSTATES  183
  
  /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
-@@ -391,7 +468,7 @@
+@@ -391,7 +467,7 @@
    ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
  
  /* YYTRANSLATE[YYLEX] -- Bison symbol number corresponding to YYLEX.  */
@@ -819,7 +872,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
         0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
         2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-@@ -428,7 +505,7 @@
+@@ -428,7 +504,7 @@
  #if YYDEBUG
  /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
     YYRHS.  */
@@ -828,7 +881,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
         0,     0,     3,     5,     6,     9,    12,    15,    20,    23,
        28,    33,    37,    39,    41,    43,    45,    47,    49,    51,
-@@ -444,8 +521,8 @@
+@@ -444,8 +520,8 @@
       326
  };
  
@@ -839,39 +892,16 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
        37,     0,    -1,    38,    -1,    -1,    38,    40,    -1,    38,
        54,    -1,    38,    65,    -1,    38,     3,    75,    77,    -1,
-@@ -483,26 +560,26 @@
+@@ -483,7 +559,7 @@
  };
  
  /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 -static const unsigned short int yyrline[] =
 +static const yytype_uint16 yyrline[] =
  {
--       0,   105,   105,   107,   109,   110,   111,   112,   113,   114,
--     115,   119,   123,   123,   123,   123,   123,   123,   123,   127,
--     128,   129,   130,   131,   132,   136,   137,   143,   151,   157,
--     165,   175,   177,   178,   179,   180,   181,   182,   185,   193,
--     199,   209,   215,   221,   224,   226,   237,   238,   243,   252,
--     257,   265,   268,   270,   271,   272,   273,   274,   277,   283,
--     294,   300,   310,   312,   317,   325,   333,   336,   338,   339,
--     340,   345,   352,   357,   365,   368,   370,   371,   372,   375,
--     383,   390,   397,   403,   410,   412,   413,   414,   417,   422,
--     427,   435,   437,   442,   443,   446,   447,   448,   452,   453,
--     456,   457,   460,   461,   462,   463,   464,   465,   466,   469,
--     470
-+       0,   106,   106,   108,   110,   111,   112,   113,   114,   115,
-+     116,   120,   124,   124,   124,   124,   124,   124,   124,   128,
-+     129,   130,   131,   132,   133,   137,   138,   144,   154,   160,
-+     170,   180,   182,   183,   184,   185,   186,   187,   190,   198,
-+     204,   214,   223,   229,   232,   234,   245,   246,   251,   260,
-+     265,   273,   276,   278,   279,   280,   281,   282,   285,   291,
-+     302,   308,   318,   320,   325,   333,   341,   344,   346,   347,
-+     348,   353,   360,   365,   373,   376,   378,   379,   380,   383,
-+     391,   398,   405,   411,   418,   420,   421,   422,   425,   430,
-+     435,   443,   445,   450,   451,   454,   455,   456,   460,   461,
-+     464,   465,   468,   469,   470,   471,   472,   473,   474,   477,
-+     478
- };
- #endif
+        0,   105,   105,   107,   109,   110,   111,   112,   113,   114,
+      115,   119,   123,   123,   123,   123,   123,   123,   123,   127,
+@@ -502,7 +578,7 @@
  
  #if YYDEBUG || YYERROR_VERBOSE || YYTOKEN_TABLE
  /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
@@ -880,7 +910,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  static const char *const yytname[] =
  {
    "$end", "error", "$undefined", "T_MAINMENU", "T_MENU", "T_ENDMENU",
-@@ -527,7 +604,7 @@
+@@ -527,7 +603,7 @@
  # ifdef YYPRINT
  /* YYTOKNUM[YYLEX-NUM] -- Internal token number corresponding to
     token YYLEX-NUM.  */
@@ -889,7 +919,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
         0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
       265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-@@ -537,7 +614,7 @@
+@@ -537,7 +613,7 @@
  # endif
  
  /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
@@ -898,7 +928,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
         0,    36,    37,    38,    38,    38,    38,    38,    38,    38,
        38,    38,    39,    39,    39,    39,    39,    39,    39,    40,
-@@ -554,7 +631,7 @@
+@@ -554,7 +630,7 @@
  };
  
  /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -907,7 +937,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
         0,     2,     1,     0,     2,     2,     2,     4,     2,     4,
         4,     3,     1,     1,     1,     1,     1,     1,     1,     1,
-@@ -573,7 +650,7 @@
+@@ -573,7 +649,7 @@
  /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
     STATE-NUM when YYTABLE doesn't specify something else to do.  Zero
     means the default is an error.  */
@@ -916,7 +946,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
         3,     0,     0,     1,     0,     0,     0,     0,     0,     0,
         0,     0,     0,     0,     0,     0,    12,    16,    13,    14,
-@@ -596,8 +673,8 @@
+@@ -596,8 +672,8 @@
        61,    42,    47
  };
  
@@ -927,7 +957,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
        -1,     1,     2,    25,    26,   100,    27,    28,    29,    30,
        64,   101,   102,   148,   178,    31,    32,   116,    33,    66,
-@@ -609,7 +686,7 @@
+@@ -609,7 +685,7 @@
  /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
     STATE-NUM.  */
  #define YYPACT_NINF -135
@@ -936,7 +966,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
      -135,     2,   170,  -135,   -14,    56,    56,    -8,    56,    24,
        67,    56,     7,    14,    62,    97,  -135,  -135,  -135,  -135,
-@@ -633,7 +710,7 @@
+@@ -633,7 +709,7 @@
  };
  
  /* YYPGOTO[NTERM-NUM].  */
@@ -945,7 +975,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
      -135,  -135,  -135,  -135,    94,   -45,  -135,  -135,  -135,  -135,
       237,  -135,  -135,  -135,  -135,  -135,  -135,  -135,   -54,  -135,
-@@ -647,7 +724,7 @@
+@@ -647,7 +723,7 @@
     number is the opposite.  If zero, do what YYDEFACT says.
     If YYTABLE_NINF, syntax error.  */
  #define YYTABLE_NINF -82
@@ -954,7 +984,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
        46,    47,     3,    49,    79,    80,    52,   135,   136,    84,
       161,   162,   163,   158,   119,    85,   127,    43,   168,   147,
-@@ -679,7 +756,7 @@
+@@ -679,7 +755,7 @@
         0,     0,     0,     0,     0,    71
  };
  
@@ -963,7 +993,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
         5,     6,     0,     8,    57,    58,    11,    84,    85,    28,
       144,   145,   146,    14,    68,    34,    70,    31,   152,    96,
-@@ -713,7 +790,7 @@
+@@ -713,7 +789,7 @@
  
  /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
     symbol of state STATE-NUM.  */
@@ -972,7 +1002,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
         0,    37,    38,     0,     1,     3,     4,     5,     6,     7,
         8,     9,    10,    11,    14,    15,    16,    18,    19,    20,
-@@ -761,7 +838,7 @@
+@@ -761,7 +837,7 @@
        yychar = (Token);						\
        yylval = (Value);						\
        yytoken = YYTRANSLATE (yychar);				\
@@ -981,7 +1011,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
        goto yybackup;						\
      }								\
    else								\
-@@ -769,7 +846,7 @@
+@@ -769,7 +845,7 @@
        yyerror (YY_("syntax error: cannot back up")); \
        YYERROR;							\
      }								\
@@ -990,7 +1020,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
  
  #define YYTERROR	1
-@@ -784,7 +861,7 @@
+@@ -784,7 +860,7 @@
  #ifndef YYLLOC_DEFAULT
  # define YYLLOC_DEFAULT(Current, Rhs, N)				\
      do									\
@@ -999,7 +1029,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	{								\
  	  (Current).first_line   = YYRHSLOC (Rhs, 1).first_line;	\
  	  (Current).first_column = YYRHSLOC (Rhs, 1).first_column;	\
-@@ -798,7 +875,7 @@
+@@ -798,7 +874,7 @@
  	  (Current).first_column = (Current).last_column =		\
  	    YYRHSLOC (Rhs, 0).last_column;				\
  	}								\
@@ -1008,7 +1038,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  #endif
  
  
-@@ -810,8 +887,8 @@
+@@ -810,8 +886,8 @@
  # if YYLTYPE_IS_TRIVIAL
  #  define YY_LOCATION_PRINT(File, Loc)			\
       fprintf (File, "%d.%d-%d.%d",			\
@@ -1019,7 +1049,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  # else
  #  define YY_LOCATION_PRINT(File, Loc) ((void) 0)
  # endif
-@@ -838,36 +915,96 @@
+@@ -838,36 +914,96 @@
  do {						\
    if (yydebug)					\
      YYFPRINTF Args;				\
@@ -1132,7 +1162,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
      YYFPRINTF (stderr, " %d", *bottom);
    YYFPRINTF (stderr, "\n");
  }
-@@ -876,37 +1013,45 @@
+@@ -876,37 +1012,45 @@
  do {								\
    if (yydebug)							\
      yy_stack_print ((Bottom), (Top));				\
@@ -1190,7 +1220,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
  /* Nonzero means print parse trace.  It is left uninitialized so that
     multiple parsers can coexist.  */
-@@ -940,42 +1085,44 @@
+@@ -940,42 +1084,44 @@
  #if YYERROR_VERBOSE
  
  # ifndef yystrlen
@@ -1251,7 +1281,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  {
    char *yyd = yydest;
    const char *yys = yysrc;
-@@ -1001,7 +1148,7 @@
+@@ -1001,7 +1147,7 @@
  {
    if (*yystr == '"')
      {
@@ -1260,7 +1290,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
        char const *yyp = yystr;
  
        for (;;)
-@@ -1036,53 +1183,123 @@
+@@ -1036,53 +1182,123 @@
  }
  # endif
  
@@ -1418,7 +1448,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  static void
  yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep)
  #else
-@@ -1093,8 +1310,7 @@
+@@ -1093,8 +1309,7 @@
      YYSTYPE *yyvaluep;
  #endif
  {
@@ -1428,7 +1458,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
    if (!yymsg)
      yymsg = "Deleting";
-@@ -1104,37 +1320,37 @@
+@@ -1104,37 +1319,37 @@
      {
        case 52: /* "choice_entry" */
  
@@ -1473,7 +1503,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
      }
  }
  
-@@ -1142,13 +1358,13 @@
+@@ -1142,13 +1357,13 @@
  /* Prevent warnings from -Wmissing-prototypes.  */
  
  #ifdef YYPARSE_PARAM
@@ -1491,7 +1521,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  int yyparse (void);
  #else
  int yyparse ();
-@@ -1173,20 +1389,24 @@
+@@ -1173,20 +1388,24 @@
  `----------*/
  
  #ifdef YYPARSE_PARAM
@@ -1524,7 +1554,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  #endif
  #endif
  {
-@@ -1198,6 +1418,12 @@
+@@ -1198,6 +1417,12 @@
    int yyerrstatus;
    /* Look-ahead token as an internal (translated) token number.  */
    int yytoken = 0;
@@ -1537,7 +1567,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
    /* Three stacks and their tools:
       `yyss': related to states,
-@@ -1208,9 +1434,9 @@
+@@ -1208,9 +1433,9 @@
       to reallocate them elsewhere.  */
  
    /* The state stack.  */
@@ -1550,7 +1580,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
    /* The semantic value stack.  */
    YYSTYPE yyvsa[YYINITDEPTH];
-@@ -1219,7 +1445,7 @@
+@@ -1219,7 +1444,7 @@
  
  
  
@@ -1559,7 +1589,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
    YYSIZE_T yystacksize = YYINITDEPTH;
  
-@@ -1228,9 +1454,9 @@
+@@ -1228,9 +1453,9 @@
    YYSTYPE yyval;
  
  
@@ -1572,7 +1602,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
    YYDPRINTF ((stderr, "Starting parse\n"));
  
-@@ -1254,8 +1480,7 @@
+@@ -1254,8 +1479,7 @@
  `------------------------------------------------------------*/
   yynewstate:
    /* In all cases, when you get here, the value and location stacks
@@ -1582,7 +1612,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
    yyssp++;
  
   yysetstate:
-@@ -1268,11 +1493,11 @@
+@@ -1268,11 +1492,11 @@
  
  #ifdef yyoverflow
        {
@@ -1596,7 +1626,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
  
  	/* Each stack pointer address is followed by the size of the
-@@ -1300,7 +1525,7 @@
+@@ -1300,7 +1524,7 @@
  	yystacksize = YYMAXDEPTH;
  
        {
@@ -1605,7 +1635,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	union yyalloc *yyptr =
  	  (union yyalloc *) YYSTACK_ALLOC (YYSTACK_BYTES (yystacksize));
  	if (! yyptr)
-@@ -1335,12 +1560,10 @@
+@@ -1335,12 +1559,10 @@
  `-----------*/
  yybackup:
  
@@ -1620,7 +1650,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
    yyn = yypact[yystate];
    if (yyn == YYPACT_NINF)
      goto yydefault;
-@@ -1382,22 +1605,21 @@
+@@ -1382,22 +1604,21 @@
    if (yyn == YYFINAL)
      YYACCEPT;
  
@@ -1650,7 +1680,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
    goto yynewstate;
  
  
-@@ -1439,13 +1661,13 @@
+@@ -1439,13 +1660,13 @@
  
    case 9:
  
@@ -1666,7 +1696,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  ;}
      break;
  
-@@ -1456,7 +1678,7 @@
+@@ -1456,7 +1677,7 @@
  
    case 25:
  
@@ -1675,7 +1705,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
      break;
  
    case 26:
-@@ -1467,10 +1689,12 @@
+@@ -1467,10 +1688,10 @@
    case 27:
  
      {
@@ -1685,12 +1715,10 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	menu_add_entry(sym);
 -	printd(DEBUG_PARSE, "%s:%d:config %s\n", zconf_curname(), zconf_lineno(), (yyvsp[-1].string));
 +	printd(DEBUG_PARSE, "%s:%d:config %s\n", zconf_curname(), zconf_lineno(), (yyvsp[(2) - (3)].string));
-+	if (dep_output)
-+		printf("\nDEP:%s", sym->name);
  ;}
      break;
  
-@@ -1485,10 +1709,12 @@
+@@ -1485,10 +1706,10 @@
    case 29:
  
      {
@@ -1700,12 +1728,10 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	menu_add_entry(sym);
 -	printd(DEBUG_PARSE, "%s:%d:menuconfig %s\n", zconf_curname(), zconf_lineno(), (yyvsp[-1].string));
 +	printd(DEBUG_PARSE, "%s:%d:menuconfig %s\n", zconf_curname(), zconf_lineno(), (yyvsp[(2) - (3)].string));
-+	if (dep_output)
-+		printf("\nDEP:%s", sym->name);
  ;}
      break;
  
-@@ -1507,17 +1733,17 @@
+@@ -1507,17 +1728,17 @@
    case 38:
  
      {
@@ -1726,7 +1752,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	printd(DEBUG_PARSE, "%s:%d:prompt\n", zconf_curname(), zconf_lineno());
  ;}
      break;
-@@ -1525,27 +1751,30 @@
+@@ -1525,19 +1746,19 @@
    case 40:
  
      {
@@ -1747,14 +1773,11 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
      {
 -	menu_add_symbol(P_SELECT, sym_lookup((yyvsp[-2].string), 0), (yyvsp[-1].expr));
-+	struct symbol *sym = sym_lookup((yyvsp[(2) - (4)].string), 0);
-+	menu_add_symbol(P_SELECT, sym, (yyvsp[(3) - (4)].expr));
++	menu_add_symbol(P_SELECT, sym_lookup((yyvsp[(2) - (4)].string), 0), (yyvsp[(3) - (4)].expr));
  	printd(DEBUG_PARSE, "%s:%d:select\n", zconf_curname(), zconf_lineno());
-+	if (dep_output)
-+		printf(":%s", sym->name);
  ;}
      break;
- 
+@@ -1545,7 +1766,7 @@
    case 42:
  
      {
@@ -1763,7 +1786,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	printd(DEBUG_PARSE, "%s:%d:range\n", zconf_curname(), zconf_lineno());
  ;}
      break;
-@@ -1553,12 +1782,12 @@
+@@ -1553,12 +1774,12 @@
    case 45:
  
      {
@@ -1780,7 +1803,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  ;}
      break;
  
-@@ -1569,7 +1798,7 @@
+@@ -1569,7 +1790,7 @@
  
    case 47:
  
@@ -1789,7 +1812,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
      break;
  
    case 48:
-@@ -1593,7 +1822,7 @@
+@@ -1593,7 +1814,7 @@
    case 50:
  
      {
@@ -1798,7 +1821,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  		menu_end_menu();
  		printd(DEBUG_PARSE, "%s:%d:endchoice\n", zconf_curname(), zconf_lineno());
  	}
-@@ -1603,7 +1832,7 @@
+@@ -1603,7 +1824,7 @@
    case 58:
  
      {
@@ -1807,7 +1830,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	printd(DEBUG_PARSE, "%s:%d:prompt\n", zconf_curname(), zconf_lineno());
  ;}
      break;
-@@ -1611,11 +1840,11 @@
+@@ -1611,11 +1832,11 @@
    case 59:
  
      {
@@ -1822,7 +1845,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	} else
  		YYERROR;
  ;}
-@@ -1632,8 +1861,8 @@
+@@ -1632,8 +1853,8 @@
    case 61:
  
      {
@@ -1833,7 +1856,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  		printd(DEBUG_PARSE, "%s:%d:default\n",
  			zconf_curname(), zconf_lineno());
  	} else
-@@ -1646,7 +1875,7 @@
+@@ -1646,7 +1867,7 @@
      {
  	printd(DEBUG_PARSE, "%s:%d:if\n", zconf_curname(), zconf_lineno());
  	menu_add_entry(NULL);
@@ -1842,7 +1865,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	(yyval.menu) = menu_add_menu();
  ;}
      break;
-@@ -1654,7 +1883,7 @@
+@@ -1654,7 +1875,7 @@
    case 65:
  
      {
@@ -1851,7 +1874,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  		menu_end_menu();
  		printd(DEBUG_PARSE, "%s:%d:endif\n", zconf_curname(), zconf_lineno());
  	}
-@@ -1665,7 +1894,7 @@
+@@ -1665,7 +1886,7 @@
  
      {
  	menu_add_entry(NULL);
@@ -1860,7 +1883,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	printd(DEBUG_PARSE, "%s:%d:menu\n", zconf_curname(), zconf_lineno());
  ;}
      break;
-@@ -1680,7 +1909,7 @@
+@@ -1680,7 +1901,7 @@
    case 73:
  
      {
@@ -1869,7 +1892,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  		menu_end_menu();
  		printd(DEBUG_PARSE, "%s:%d:endmenu\n", zconf_curname(), zconf_lineno());
  	}
-@@ -1690,8 +1919,8 @@
+@@ -1690,8 +1911,8 @@
    case 79:
  
      {
@@ -1880,7 +1903,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  ;}
      break;
  
-@@ -1699,7 +1928,7 @@
+@@ -1699,7 +1920,7 @@
  
      {
  	menu_add_entry(NULL);
@@ -1889,7 +1912,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	printd(DEBUG_PARSE, "%s:%d:comment\n", zconf_curname(), zconf_lineno());
  ;}
      break;
-@@ -1722,14 +1951,14 @@
+@@ -1722,14 +1943,14 @@
    case 83:
  
      {
@@ -1906,7 +1929,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	printd(DEBUG_PARSE, "%s:%d:depends on\n", zconf_curname(), zconf_lineno());
  ;}
      break;
-@@ -1737,7 +1966,7 @@
+@@ -1737,7 +1958,7 @@
    case 89:
  
      {
@@ -1915,7 +1938,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	printd(DEBUG_PARSE, "%s:%d:depends\n", zconf_curname(), zconf_lineno());
  ;}
      break;
-@@ -1745,7 +1974,7 @@
+@@ -1745,7 +1966,7 @@
    case 90:
  
      {
@@ -1924,7 +1947,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	printd(DEBUG_PARSE, "%s:%d:requires\n", zconf_curname(), zconf_lineno());
  ;}
      break;
-@@ -1753,23 +1982,23 @@
+@@ -1753,23 +1974,23 @@
    case 92:
  
      {
@@ -1952,7 +1975,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
      break;
  
    case 100:
-@@ -1779,65 +2008,63 @@
+@@ -1779,65 +2000,63 @@
  
    case 101:
  
@@ -2033,7 +2056,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
    YY_STACK_PRINT (yyss, yyssp);
  
    *++yyvsp = yyval;
-@@ -1866,110 +2093,41 @@
+@@ -1866,110 +2085,41 @@
    if (!yyerrstatus)
      {
        ++yynerrs;
@@ -2175,7 +2198,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
      }
  
  
-@@ -1980,14 +2138,15 @@
+@@ -1980,14 +2130,15 @@
  	 error, discard it.  */
  
        if (yychar <= YYEOF)
@@ -2194,7 +2217,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  	  yychar = YYEMPTY;
  	}
      }
-@@ -2005,11 +2164,14 @@
+@@ -2005,11 +2156,14 @@
    /* Pacify compilers like GCC when the user code never invokes
       YYERROR and the label yyerrorlab therefore never appears in user
       code.  */
@@ -2212,7 +2235,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
    yystate = *yyssp;
    goto yyerrlab1;
  
-@@ -2039,8 +2201,9 @@
+@@ -2039,8 +2193,9 @@
  	YYABORT;
  
  
@@ -2224,7 +2247,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
        yystate = *yyssp;
        YY_STACK_PRINT (yyss, yyssp);
      }
-@@ -2051,7 +2214,7 @@
+@@ -2051,7 +2206,7 @@
    *++yyvsp = yylval;
  
  
@@ -2233,7 +2256,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
    YY_SYMBOL_PRINT ("Shifting", yystos[yyn], yyvsp, yylsp);
  
    yystate = yyn;
-@@ -2086,17 +2249,26 @@
+@@ -2086,17 +2241,26 @@
    if (yychar != YYEOF && yychar != YYEMPTY)
       yydestruct ("Cleanup: discarding lookahead",
  		 yytoken, &yylval);
@@ -2262,7 +2285,7 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  }
  
  
-@@ -2115,7 +2287,7 @@
+@@ -2115,7 +2279,7 @@
  	modules_sym = sym_lookup(NULL, 0);
  	modules_sym->type = S_BOOLEAN;
  	modules_sym->flags |= SYMBOL_AUTO;
@@ -2271,54 +2294,16 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.tab.c_shippe
  
  #if YYDEBUG
  	if (getenv("ZCONF_DEBUG"))
-@@ -2344,4 +2516,3 @@
+@@ -2344,4 +2508,3 @@
  #include "symbol.c"
  #include "menu.c"
  
 -
-diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.y ptxdist-trunk/scripts/kconfig/zconf.y
---- linux-2.6.23/scripts/kconfig/zconf.y	2007-10-09 22:31:38.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/zconf.y	2007-12-06 11:42:21.000000000 +0100
-@@ -22,6 +22,7 @@
- #define DEBUG_PARSE	0x0002
- 
- int cdebug = PRINTD;
-+int dep_output = 0;
- 
- extern int zconflex(void);
- static void zconfprint(const char *err, ...);
-@@ -146,6 +147,8 @@
- 	sym->flags |= SYMBOL_OPTIONAL;
- 	menu_add_entry(sym);
- 	printd(DEBUG_PARSE, "%s:%d:config %s\n", zconf_curname(), zconf_lineno(), $2);
-+	if (dep_output)
-+		printf("\nDEP:%s", sym->name);
- };
- 
- config_stmt: config_entry_start config_option_list
-@@ -160,6 +163,8 @@
- 	sym->flags |= SYMBOL_OPTIONAL;
- 	menu_add_entry(sym);
- 	printd(DEBUG_PARSE, "%s:%d:menuconfig %s\n", zconf_curname(), zconf_lineno(), $2);
-+	if (dep_output)
-+		printf("\nDEP:%s", sym->name);
- };
- 
- menuconfig_stmt: menuconfig_entry_start config_option_list
-@@ -208,8 +213,11 @@
- 
- config_option: T_SELECT T_WORD if_expr T_EOL
- {
--	menu_add_symbol(P_SELECT, sym_lookup($2, 0), $3);
-+	struct symbol *sym = sym_lookup($2, 0);
-+	menu_add_symbol(P_SELECT, sym, $3);
- 	printd(DEBUG_PARSE, "%s:%d:select\n", zconf_curname(), zconf_lineno());
-+	if (dep_output)
-+		printf(":%s", sym->name);
- };
- 
- config_option: T_RANGE symbol symbol if_expr T_EOL
-@@ -484,7 +492,7 @@
+Index: b/ptxdist-trunk/scripts/kconfig/zconf.y
+===================================================================
+--- a/ptxdist-trunk/scripts/kconfig/zconf.y
++++ b/ptxdist-trunk/scripts/kconfig/zconf.y
+@@ -484,7 +484,7 @@
  	modules_sym = sym_lookup(NULL, 0);
  	modules_sym->type = S_BOOLEAN;
  	modules_sym->flags |= SYMBOL_AUTO;
@@ -2327,8 +2312,10 @@ diff -x .gitignore -x .svn -Naur linux-2.6.23/scripts/kconfig/zconf.y ptxdist-tr
  
  #if YYDEBUG
  	if (getenv("ZCONF_DEBUG"))
---- linux-2.6.23/scripts/kconfig/symbol.c	2007-10-09 22:31:38.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/symbol.c	2008-01-09 16:40:00.000000000 +0100
+Index: b/ptxdist-trunk/scripts/kconfig/symbol.c
+===================================================================
+--- a/ptxdist-trunk/scripts/kconfig/symbol.c
++++ b/ptxdist-trunk/scripts/kconfig/symbol.c
 @@ -7,7 +7,6 @@
  #include <stdlib.h>
  #include <string.h>

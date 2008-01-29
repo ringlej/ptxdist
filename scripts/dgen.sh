@@ -27,8 +27,7 @@ CONFIGDEPS_MAP=${CONFIGDEPS}_map.sh
 #
 gen_configdeps_action () {
     yes "" | \
-	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -O "${PTXDIST_KCONFIG}" | \
-	grep -e "^DEP:.*:"
+	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -O "${PTXDIST_KCONFIG}"
 };
 
 #

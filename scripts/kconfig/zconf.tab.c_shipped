@@ -173,7 +173,6 @@
 #define DEBUG_PARSE	0x0002
 
 int cdebug = PRINTD;
-int dep_output = 0;
 
 extern int zconflex(void);
 static void zconfprint(const char *err, ...);
@@ -562,18 +561,18 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   106,   106,   108,   110,   111,   112,   113,   114,   115,
-     116,   120,   124,   124,   124,   124,   124,   124,   124,   128,
-     129,   130,   131,   132,   133,   137,   138,   144,   154,   160,
-     170,   180,   182,   183,   184,   185,   186,   187,   190,   198,
-     204,   214,   223,   229,   232,   234,   245,   246,   251,   260,
-     265,   273,   276,   278,   279,   280,   281,   282,   285,   291,
-     302,   308,   318,   320,   325,   333,   341,   344,   346,   347,
-     348,   353,   360,   365,   373,   376,   378,   379,   380,   383,
-     391,   398,   405,   411,   418,   420,   421,   422,   425,   430,
-     435,   443,   445,   450,   451,   454,   455,   456,   460,   461,
-     464,   465,   468,   469,   470,   471,   472,   473,   474,   477,
-     478
+       0,   105,   105,   107,   109,   110,   111,   112,   113,   114,
+     115,   119,   123,   123,   123,   123,   123,   123,   123,   127,
+     128,   129,   130,   131,   132,   136,   137,   143,   151,   157,
+     165,   175,   177,   178,   179,   180,   181,   182,   185,   193,
+     199,   209,   215,   221,   224,   226,   237,   238,   243,   252,
+     257,   265,   268,   270,   271,   272,   273,   274,   277,   283,
+     294,   300,   310,   312,   317,   325,   333,   336,   338,   339,
+     340,   345,   352,   357,   365,   368,   370,   371,   372,   375,
+     383,   390,   397,   403,   410,   412,   413,   414,   417,   422,
+     427,   435,   437,   442,   443,   446,   447,   448,   452,   453,
+     456,   457,   460,   461,   462,   463,   464,   465,   466,   469,
+     470
 };
 #endif
 
@@ -1693,8 +1692,6 @@ yyreduce:
 	sym->flags |= SYMBOL_OPTIONAL;
 	menu_add_entry(sym);
 	printd(DEBUG_PARSE, "%s:%d:config %s\n", zconf_curname(), zconf_lineno(), (yyvsp[(2) - (3)].string));
-	if (dep_output)
-		printf("\nDEP:%s", sym->name);
 ;}
     break;
 
@@ -1713,8 +1710,6 @@ yyreduce:
 	sym->flags |= SYMBOL_OPTIONAL;
 	menu_add_entry(sym);
 	printd(DEBUG_PARSE, "%s:%d:menuconfig %s\n", zconf_curname(), zconf_lineno(), (yyvsp[(2) - (3)].string));
-	if (dep_output)
-		printf("\nDEP:%s", sym->name);
 ;}
     break;
 
@@ -1763,11 +1758,8 @@ yyreduce:
   case 41:
 
     {
-	struct symbol *sym = sym_lookup((yyvsp[(2) - (4)].string), 0);
-	menu_add_symbol(P_SELECT, sym, (yyvsp[(3) - (4)].expr));
+	menu_add_symbol(P_SELECT, sym_lookup((yyvsp[(2) - (4)].string), 0), (yyvsp[(3) - (4)].expr));
 	printd(DEBUG_PARSE, "%s:%d:select\n", zconf_curname(), zconf_lineno());
-	if (dep_output)
-		printf(":%s", sym->name);
 ;}
     break;
 

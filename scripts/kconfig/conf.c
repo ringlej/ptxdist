@@ -14,8 +14,6 @@
 #define LKC_DIRECT_LINK
 #include "lkc.h"
 
-extern int dep_output;
-
 static void conf(struct menu *menu);
 static void check_conf(struct menu *menu);
 
@@ -494,11 +492,42 @@ static void check_conf(struct menu *menu)
 		check_conf(child);
 }
 
+void create_dep_output()
+{
+	int i;
+	bool hit;
+	struct symbol *sym;
+	struct property *prop;
+
+	for_all_symbols(i, sym) {
+		if ((sym_get_tristate_value(sym) == no) || !sym->name)
+			continue;
+
+		hit = 0;
+		for (prop = sym->prop; prop; prop = prop->next) {
+			if (prop->type == P_SELECT  && expr_calc_value(prop->visible.expr)) {
+				hit=1;
+				break;
+			}
+		}
+		if (!hit)
+			continue;
+		printf("DEP:%s", sym->name);
+		for (prop = sym->prop; prop; prop = prop->next) {
+			if (prop->type == P_SELECT  && expr_calc_value(prop->visible.expr)) {
+				printf(":%s", prop->expr->left.sym->name);
+			}
+		}
+		printf("\n");
+        }
+}
+
 int main(int ac, char **av)
 {
 	int i = 1;
 	const char *name;
 	struct stat tmpstat;
+	int dep_output = 0;
 
 	if (ac > i && av[i][0] == '-') {
 		switch (av[i++][1]) {
@@ -576,6 +605,8 @@ int main(int ac, char **av)
 	case ask_all:
 	case ask_new:
 		conf_read(NULL);
+		if (dep_output)
+			create_dep_output();
 		break;
 	case set_no:
 	case set_mod:
