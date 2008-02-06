@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION		= 3.5.4
+SQLITE_VERSION		= 3.5.6
 SQLITE			= sqlite-$(SQLITE_VERSION)
 SQLITE_SUFFIX		= tar.gz
 SQLITE_URL		= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
@@ -123,14 +123,22 @@ sqlite_install: $(STATEDIR)/sqlite.install
 
 $(STATEDIR)/sqlite.install: $(sqlite_install_deps_default)
 	@$(call targetinfo, $@)
-	install -d $(SYSROOT)/include
-	install -d $(SYSROOT)/lib
+	install -d $(PKGDIR)/$(SQLITE)/usr/include
+	install -d $(SYSROOT)/usr/include
+	install -d $(PKGDIR)/$(SQLITE)/usr/lib
+	install -d $(SYSROOT)/usr/lib
 	cp $(SQLITE_DIR)/sqlite3.h \
-		$(SYSROOT)/include
+		$(PKGDIR)/$(SQLITE)/usr/include
+	cp $(SQLITE_DIR)/sqlite3.h \
+		$(SYSROOT)/usr/include
 	cp $(SQLITE_DIR)/libsqlite3.a \
-		$(SYSROOT)/lib
+		$(PKGDIR)/$(SQLITE)/usr/lib
+	cp $(SQLITE_DIR)/libsqlite3.a \
+		$(SYSROOT)/usr/lib
 	cp $(SQLITE_DIR)/libsqlite3.so \
-		$(SYSROOT)/lib
+		$(PKGDIR)/$(SQLITE)/usr/lib
+	cp $(SQLITE_DIR)/libsqlite3.so \
+		$(SYSROOT)/usr/lib
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
