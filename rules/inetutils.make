@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_INETUTILS) += inetutils
 #
 # Paths and names
 #
-INETUTILS_VERSION	= 1.4.2
+INETUTILS_VERSION	= 1.5
 INETUTILS		= inetutils-$(INETUTILS_VERSION)
 INETUTILS_SUFFIX	= tar.gz
 INETUTILS_URL		= $(PTXCONF_SETUP_GNUMIRROR)/inetutils/$(INETUTILS).$(INETUTILS_SUFFIX)
@@ -155,6 +155,7 @@ inetutils_compile: $(STATEDIR)/inetutils.compile
 
 $(STATEDIR)/inetutils.compile: $(inetutils_compile_deps_default)
 	@$(call targetinfo, $@)
+	$(INETUTILS_PATH) make -C $(INETUTILS_DIR)/lib
 	$(INETUTILS_PATH) make -C $(INETUTILS_DIR)/libinetutils
 
 # First the libraries:

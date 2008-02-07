@@ -1,5 +1,6 @@
 menuconfig INETUTILS
 	bool
+	depends on !BB_CONFIG_SYSLOGD
 	prompt "inetutils           "
 	help
 	  Inetutils is a collection of common network programs. It includes:
@@ -10,6 +11,9 @@ menuconfig INETUTILS
 	  * A tftp client and server.
 	  * And much more... 
 	  These are improved versions of programs originally from BSD.
+
+comment "busy box' syslogd is selected!"
+	depends on INETUTILS && BB_CONFIG_SYSLOGD
 
 comment "build options   ---"
 	depends on INETUTILS
