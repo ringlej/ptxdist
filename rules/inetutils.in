@@ -12,9 +12,6 @@ menuconfig INETUTILS
 	  * And much more... 
 	  These are improved versions of programs originally from BSD.
 
-comment "busy box' syslogd is selected!"
-	depends on INETUTILS && BB_CONFIG_SYSLOGD
-
 comment "build options   ---"
 	depends on INETUTILS
 
@@ -80,12 +77,15 @@ config INETUTILS_RSHD
 config INETUTILS_SYSLOGD
 	bool
 	prompt "syslogd"
-	depends on INETUTILS
+	depends on INETUTILS && !BB_CONFIG_SYSLOGD
 	help
 	  Sysklogd provides two system utilities which provide support
 	  for system logging and kernel message trapping. Support of both
 	  internet and unix domain sockets enables this utility package
 	  to support both local and remote logging.
+
+comment "busy box' syslogd is selected!"
+	depends on INETUTILS && BB_CONFIG_SYSLOGD
 
 config INETUTILS_TFTPD
 	bool
