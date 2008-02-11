@@ -1,6 +1,15 @@
---- busybox-1.9.0/util-linux/mkswap.c	Fri Dec 21 22:00:33 2007
-+++ busybox-1.9.0-mkswap/util-linux/mkswap.c	Sat Feb  2 18:55:31 2008
-@@ -64,9 +64,10 @@
+Subject: busybox 1.9.0 fixes
+From: http://busybox.net/downloads/fixes-1.9.0
+
+---
+ util-linux/mkswap.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+Index: busybox-1.9.0/util-linux/mkswap.c
+===================================================================
+--- busybox-1.9.0.orig/util-linux/mkswap.c
++++ busybox-1.9.0/util-linux/mkswap.c
+@@ -64,9 +64,10 @@ int mkswap_main(int argc, char **argv)
  	// Figure out how big the device is and announce our intentions.
  
  	fd = xopen(argv[1], O_RDWR);

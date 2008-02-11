@@ -1,8 +1,10 @@
 busybox-1.9.0-allno.patch
 busybox-1.9.0-fsck.patch
+busybox-1.9.0-hush_nommu_tick.patch
 busybox-1.9.0-iproute.patch
 busybox-1.9.0-mkswap.patch
 busybox-1.9.0-msh.patch
 busybox-1.9.0-nameif.patch
 busybox-1.9.0-stty.patch
+busybox-1.9.0-test.patch
 busybox-1.9.0-zcip.patch

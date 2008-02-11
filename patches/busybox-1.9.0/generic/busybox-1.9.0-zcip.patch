@@ -1,6 +1,15 @@
---- busybox-1.9.0/networking/zcip.c	Fri Dec 21 22:00:25 2007
-+++ busybox-1.9.0-zcip/networking/zcip.c	Mon Feb  4 09:37:14 2008
-@@ -180,7 +180,7 @@
+Subject: busybox 1.9.0 fixes
+From: http://busybox.net/downloads/fixes-1.9.0
+
+---
+ networking/zcip.c |   24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
+
+Index: busybox-1.9.0/networking/zcip.c
+===================================================================
+--- busybox-1.9.0.orig/networking/zcip.c
++++ busybox-1.9.0/networking/zcip.c
+@@ -180,7 +180,7 @@ int zcip_main(int argc, char **argv)
  	char *r_opt;
  	unsigned opts;
  
@@ -9,7 +18,7 @@
  	struct {
  		const struct in_addr null_ip;
  		const struct ether_addr null_addr;
-@@ -214,8 +214,17 @@
+@@ -214,8 +214,17 @@ int zcip_main(int argc, char **argv)
  	// exactly 2 args; -v accumulates and implies -f
  	opt_complementary = "=2:vv:vf";
  	opts = getopt32(argv, "fqr:v", &r_opt, &verbose);
@@ -28,7 +37,7 @@
  		openlog(applet_name, 0, LOG_DAEMON);
  		logmode |= LOGMODE_SYSLOG;
  	}
-@@ -226,11 +235,6 @@
+@@ -226,11 +235,6 @@ int zcip_main(int argc, char **argv)
  			bb_error_msg_and_die("invalid link address");
  		}
  	}
@@ -40,7 +49,7 @@
  	argc -= optind;
  	argv += optind;
  
-@@ -249,8 +253,6 @@
+@@ -249,8 +253,6 @@ int zcip_main(int argc, char **argv)
  	//TODO: are we leaving sa_family == 0 (AF_UNSPEC)?!
  	safe_strncpy(saddr.sa_data, intf, sizeof(saddr.sa_data));
  
@@ -49,7 +58,7 @@
  	// bind to the interface's ARP socket
  	xbind(sock_fd, &saddr, sizeof(saddr));
  
-@@ -290,7 +292,7 @@
+@@ -290,7 +292,7 @@ int zcip_main(int argc, char **argv)
  	// restarting after address conflicts:
  	//  - start with some address we want to try
  	//  - short random delay
@@ -58,7 +67,7 @@
  	//  - arp announcements that we're claiming it
  	//  - use it
  	//  - defend it, within limits
-@@ -321,7 +323,7 @@
+@@ -321,7 +323,7 @@ int zcip_main(int argc, char **argv)
  		switch (safe_poll(fds, 1, timeout_ms)) {
  
  		default:

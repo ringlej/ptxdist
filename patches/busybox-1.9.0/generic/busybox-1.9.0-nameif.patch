@@ -1,7 +1,15 @@
-diff -urN busybox-1.9.0/networking/nameif.c busybox-1.9.0-nameif/networking/nameif.c
---- busybox-1.9.0/networking/nameif.c	2007-12-24 14:08:25.000000000 +0000
-+++ busybox-1.9.0-nameif/networking/nameif.c	2008-01-04 20:05:48.000000000 +0000
-@@ -50,18 +50,18 @@
+Subject: busybox 1.9.0 fixes
+From: http://busybox.net/downloads/fixes-1.9.0
+
+---
+ networking/nameif.c |   22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+Index: busybox-1.9.0/networking/nameif.c
+===================================================================
+--- busybox-1.9.0.orig/networking/nameif.c
++++ busybox-1.9.0/networking/nameif.c
+@@ -50,18 +50,18 @@ typedef struct ethtable_s {
  #define ETHTOOL_BUSINFO_LEN 32
  /* these strings are set to whatever the driver author decides... */
  struct ethtool_drvinfo {

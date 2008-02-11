@@ -1,7 +1,15 @@
-diff -urN busybox-1.9.0/networking/libiproute/iproute.c busybox-1.9.0-iproute/networking/libiproute/iproute.c
---- busybox-1.9.0/networking/libiproute/iproute.c	2007-12-21 22:00:23.000000000 +0000
-+++ busybox-1.9.0-iproute/networking/libiproute/iproute.c	2008-01-04 15:18:33.000000000 +0000
-@@ -841,15 +841,17 @@
+Subject: busybox 1.9.0 fixes
+From: http://busybox.net/downloads/fixes-1.9.0
+
+---
+ networking/libiproute/iproute.c |   10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+Index: busybox-1.9.0/networking/libiproute/iproute.c
+===================================================================
+--- busybox-1.9.0.orig/networking/libiproute/iproute.c
++++ busybox-1.9.0/networking/libiproute/iproute.c
+@@ -841,15 +841,17 @@ int do_iproute(char **argv)
  	/*0-3*/	"add\0""append\0""change\0""chg\0"
  	/*4-7*/	"delete\0""get\0""list\0""show\0"
  	/*8..*/	"prepend\0""replace\0""test\0""flush\0";
