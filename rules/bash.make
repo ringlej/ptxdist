@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -14,11 +14,11 @@
 PACKAGES-$(PTXCONF_BASH) += bash
 
 #
-# Paths and names 
+# Paths and names
 #
 BASH_VERSION		= 3.1
 BASH			= bash-$(BASH_VERSION)
-BASH_URL		= $(PTXCONF_SETUP_GNUMIRROR)/bash/$(BASH).tar.gz 
+BASH_URL		= $(PTXCONF_SETUP_GNUMIRROR)/bash/$(BASH).tar.gz
 BASH_SOURCE		= $(SRCDIR)/$(BASH).tar.gz
 BASH_DIR		= $(BUILDDIR)/$(BASH)
 
@@ -202,7 +202,7 @@ $(STATEDIR)/bash.prepare: $(bash_prepare_deps_default)
 
 bash_compile: $(STATEDIR)/bash.compile
 
-$(STATEDIR)/bash.compile: $(bash_compile_deps_default) 
+$(STATEDIR)/bash.compile: $(bash_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BASH_DIR) && $(BASH_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -246,10 +246,10 @@ $(STATEDIR)/bash.targetinstall: $(bash_targetinstall_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-bash_clean: 
-	rm -rf $(STATEDIR)/bash.* 
-	rm -rf $(IMAGEDIR)/bash_* 
-	rm -fr $(STATEDIR)/bash-patches.get 
+bash_clean:
+	rm -rf $(STATEDIR)/bash.*
+	rm -rf $(IMAGEDIR)/bash_*
+	rm -fr $(STATEDIR)/bash-patches.get
 	rm -fr $(BASH_DIR)
 
 # vim: syntax=make
