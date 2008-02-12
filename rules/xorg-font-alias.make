@@ -107,7 +107,7 @@ xorg-font-alias_targetinstall: $(STATEDIR)/xorg-font-alias.targetinstall
 $(STATEDIR)/xorg-font-alias.targetinstall: $(xorg-font-alias_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-font-alias)
+	@$(call install_init,  xorg-font-alias)
 	@$(call install_fixup, xorg-font-alias,PACKAGE,xorg-font-alias)
 	@$(call install_fixup, xorg-font-alias,PRIORITY,optional)
 	@$(call install_fixup, xorg-font-alias,VERSION,$(XORG_FONT_ALIAS_VERSION))
@@ -116,10 +116,14 @@ $(STATEDIR)/xorg-font-alias.targetinstall: $(xorg-font-alias_targetinstall_deps_
 	@$(call install_fixup, xorg-font-alias,DEPENDS,)
 	@$(call install_fixup, xorg-font-alias,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/100dpi/fonts.alias, $(XORG_FONTDIR)/100dpi/fonts.alias, n)
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/75dpi/fonts.alias, $(XORG_FONTDIR)/75dpi/fonts.alias, n)
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/cyrillic/fonts.alias, $(XORG_FONTDIR)/cyrillic/fonts.alias, n)
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, $(XORG_FONT_ALIAS_DIR)/misc/fonts.alias, $(XORG_FONTDIR)/misc/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, \
+		$(XORG_FONT_ALIAS_DIR)/100dpi/fonts.alias, $(XORG_FONTDIR)/100dpi/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, \
+		$(XORG_FONT_ALIAS_DIR)/75dpi/fonts.alias, $(XORG_FONTDIR)/75dpi/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, \
+		$(XORG_FONT_ALIAS_DIR)/cyrillic/fonts.alias, $(XORG_FONTDIR)/cyrillic/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, \
+		$(XORG_FONT_ALIAS_DIR)/misc/fonts.alias, $(XORG_FONTDIR)/misc/fonts.alias, n)
 
 	@$(call install_finish, xorg-font-alias)
 
