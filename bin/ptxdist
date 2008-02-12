@@ -1115,6 +1115,30 @@ while [ "$#" != "0" ]; do
 			fi
 			exit $?
 			;;
+	platform)	shift
+			if [ ! -f "$1" ]; then
+				echo
+				echo "${PROMPT}error: couldn't select \"$1\", file does not exist"
+				echo
+				exit 1
+			fi
+			if [ -f "platformconfig" ]; then
+				echo
+				echo -n "${PROMPT}warning: overwrite existing platformconfig [y/n]? "
+				read answer
+				if [ "$answer" != "y" ]; then
+					echo "interrupting"
+					echo
+					exit 1
+				fi
+			fi
+			echo
+			echo "${PROMPT}selecting platformconfig \"$1\""
+			ln -sf $1 platformconfig
+			echo "${PROMPT}done."
+			echo
+			exit 0
+			;;
 	platformconfig)	shift
 			platformconfig
 			;;
