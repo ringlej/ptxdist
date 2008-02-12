@@ -18,7 +18,7 @@ Usage: `basename "$0"` OPTIONS <svn rep>
     -o <hdimg file> resulting hd image
     -i <img file>   filesystem image
     -p <def>       partition definition (can be given multiple times)
-    
+
     A partition definition has the form
     start_sector:end_sector:partition_type:[imagefile]
 EOF
