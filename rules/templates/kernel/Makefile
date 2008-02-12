@@ -4,7 +4,7 @@ all:
 	@echo "please export PTX_KERNEL_DIR"
 
 clean:
-	rm -rf module-template.ko *.kmod *.mod.c .*.cmd Module.symvers .tmp_versions
+	rm -rf *.ko *.kmod *.mod.c .*.cmd .*.o.d Module.symvers .tmp_versions
 
 else
 
