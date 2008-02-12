@@ -1,10 +1,6 @@
 
-comment "ffmpeg not supported by strongARM"
-	depends on ARCH_ARM && !BROKEN
-
 menuconfig FFMPEG
 	bool
-	depends on ARCH_ARM && BROKEN
 	select ZLIB if FFMPEG_ZLIB
 	select SDL if FFMPEG_FFPLAY
 	prompt "FFMPEG                   "

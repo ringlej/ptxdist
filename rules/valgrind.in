@@ -1,6 +1,5 @@
 config VALGRIND
 	bool
-	depends on ARCH_X86
 	prompt "valgrind"
 	help
 	  Valgrind is a GPL'd system for debugging and profiling x86-Linux

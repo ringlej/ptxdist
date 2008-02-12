@@ -58,6 +58,7 @@ endif
 #export PATCHDIR RULESDIR BUILDDIR CROSS_BUILDDIR
 #export HOST_BUILDDIR STATEDIR IMAGEDIR ROOTDIR SRCDIR
 
+-include $(PTXDIST_WORKSPACE)/platformconfig
 -include $(PTXDIST_WORKSPACE)/ptxconfig
 
 # ----------------------------------------------------------------------------
@@ -374,7 +375,7 @@ $(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
 #
 $(IMAGEDIR)/hd.img: $(IMAGEDIR)/root.ext2
 	@echo -n "Creating hdimg from root.ext2";			\
-	PATH=$(PTXCONF_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg	\
+	PATH=$(PTXCONF_HOST_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg	\
 	-o $@ $(GENHDIMARGS)
 	@echo "done."
 

@@ -1,13 +1,8 @@
 
 menuconfig GRUB
 	bool "grub                          "
-	depends on ARCH_X86
 	help
 	  Grub - The GRand Unified Bootloader
-
-comment "grub is only available on x86"
-	depends on GRUB
-	depends on !ARCH_X86
 
 comment "Config Options"
 	depends on GRUB

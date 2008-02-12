@@ -142,7 +142,6 @@ config INITNG_FIND
 config INITNG_FMON
 	bool
 	depends on INITNG
-	depends on ARCH_X86 || ARCH_PPC
 	prompt "File Monitoring Plugin"
 	help
 	  FIXME

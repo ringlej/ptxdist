@@ -12,7 +12,9 @@
 #
 # We provide this package
 #
+ifdef PTXCONF_ARCH_PPC
 PACKAGES-$(PTXCONF_DTC) += dtc
+endif
 
 # ----------------------------------------------------------------------------
 # Get

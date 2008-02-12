@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -11,10 +11,12 @@
 #
 # We provide this package
 #
+ifdef PTXCONF_ARCH_X86
 PACKAGES-$(PTXCONF_GRUB) += grub
+endif
 
 #
-# Paths and names 
+# Paths and names
 #
 GRUB_VERSION		= 0.97
 GRUB			= grub-$(GRUB_VERSION)
@@ -422,7 +424,6 @@ GRUB_AUTOCONF += --enable-auto-linux-mem-opt
 else
 GRUB_AUTOCONF += --disable-auto-linux-mem-opt
 endif
-
 
 $(STATEDIR)/grub.prepare: $(grub_prepare_deps_default)
 	@$(call targetinfo, $@)

@@ -7,9 +7,8 @@ source "rules/ptxdist-version.in"
 
 comment "--------- Host Options -------------"
 
-menu "PTXdist Config, Architecture  "
+menu "Code Maturity                 "
 source "rules/experimental.in"
-source "rules/target.in"
 endmenu
 
 menu "Cross Compilation Tools       "

@@ -149,6 +149,13 @@ check_ptxconfig() {
 		exit 1
 	fi
 
+	if [ ! -e "${PTXDIST_WORKSPACE}/platformconfig" ]; then
+		echo
+		echo "${PROMPT}error: 'platformconfig' is missing"
+		echo
+		exit 1
+	fi
+
 	PTXCONF_CONFIGFILE_VERSION=$(. "${PTXCONFIG}" && echo ${PTXCONF_CONFIGFILE_VERSION})
 
 	check_version "${FULLVERSION}" "${PTXCONF_CONFIGFILE_VERSION}"
@@ -249,7 +256,7 @@ check_compiler() {
 		fi
 	fi
 
-	compiler_should=$(. "${PTXCONFIG}" && echo ${PTXCONF_CROSSCHAIN_CHECK})
+	compiler_should=$(. "${PLATFORMCONFIG}" && echo ${PTXCONF_CROSSCHAIN_CHECK})
 	compiler_is=$($compiler -dumpversion 2> /dev/null)
 
 	if [ -z "$compiler_is" ]; then
@@ -352,20 +359,20 @@ check_dirs() {
 
 	# prefix
 	if [ -z "$PREFIX" ]; then
-		ptxconf_prefix=$(. "${PTXCONFIG}" && echo ${PTXCONF_PREFIX})
+		ptxconf_prefix=$(. "${PLATFORMCONFIG}" && echo ${PTXCONF_PREFIX})
 	else
 		ptxconf_prefix=${PREFIX}
 	fi
 
-	ptxconf_prefix_host=$(. "${PTXCONFIG}" && echo ${PTXCONF_HOST_PREFIX})
-	ptxconf_prefix_cross=$(. "${PTXCONFIG}" && echo ${PTXCONF_CROSS_PREFIX})
+	ptxconf_prefix_host=$(. "${PLATFORMCONFIG}" && echo ${PTXCONF_HOST_PREFIX})
+	ptxconf_prefix_cross=$(. "${PLATFORMCONFIG}" && echo ${PTXCONF_CROSS_PREFIX})
 
 	for dir in "${ptxconf_prefix_host}" "${ptxconf_prefix_cross}"; do
 		check_dirs_prefix "${dir}"
 	done
 
 	# sysroot - keep in sync with rules/pre/Rules.make -> SYSROOT
-	ptxconf_gnu_target=$(. "${PTXCONFIG}" && echo ${PTXCONF_GNU_TARGET})
+	ptxconf_gnu_target=$(. "${PLATFORMCONFIG}" && echo ${PTXCONF_GNU_TARGET})
 	mkdir -p "${ptxconf_prefix}/sysroot/${ptxconf_gnu_target}"/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 
 	# builddirs
@@ -726,6 +733,40 @@ oldconfig_action() {
 	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -s "${PTXDIST_KCONFIG}"
 }
 
+#
+# platform config
+#
+platformconfig() {
+	local tmpdir kconfig
+
+	echo
+	echo "${PROMPT}platformconfig..."
+
+	if [ -e "${PTXDIST_WORKSPACE}/platforms/Kconfig" ]; then
+		kconfig=${PTXDIST_WORKSPACE}/platforms/Kconfig
+	else
+		kconfig=${PTXDIST_TOPDIR}/platforms/Kconfig
+	fi
+
+	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
+	pushd $tmpdir > /dev/null
+
+	# prepare everything to make kconfig see it's original environment
+	if [ -e "${PTXDIST_WORKSPACE}/platformconfig" ]; then
+	    cp "$(readlink -f ${PTXDIST_WORKSPACE}/platformconfig)" .config
+	fi
+
+	# store boardsetup
+	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${kconfig}"
+	echo "${PROMPT}saving ${PTXDIST_WORKSPACE}/platformconfig"
+	cp .config "$(readlink -f ${PTXDIST_WORKSPACE}/platformconfig)"
+
+	popd > /dev/null
+	echo "${PROMPT}cleanup..."
+	rm -fr $tmpdir
+}
+
+
 projects() {
 	local ifs_old projects projectdir
 	echo
@@ -1073,6 +1114,9 @@ while [ "$#" != "0" ]; do
 				ptxd_make $1_oldconfig
 			fi
 			exit $?
+			;;
+	platformconfig)	shift
+			platformconfig
 			;;
 	prepare)	shift
 			check_ptxconfig

@@ -1,6 +1,5 @@
 menuconfig DTC
 	bool
-	depends on ARCH_PPC
 	select HOST_DTC
 	select KERNEL
 	prompt "Build device tree             "

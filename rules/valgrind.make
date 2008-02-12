@@ -12,7 +12,9 @@
 #
 # We provide this package
 #
+ifdef PTXCONF_ARCH_X86
 PACKAGES-$(PTXCONF_VALGRIND) += valgrind
+endif
 
 #
 # Paths and names
@@ -141,7 +143,7 @@ $(STATEDIR)/valgrind.targetinstall: $(valgrind_targetinstall_deps_default)
 
 	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/coregrind/libcoregrind_x86_linux.a, /usr/lib/valgrind/x86-linux/libcoregrind.a)
 	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/VEX/libvex_x86_linux.a, /usr/lib/valgrind/x86-linux/libvex.a)
-	
+
 	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/massif, /usr/lib/valgrind/x86-linux/massif)
 	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/memcheck, /usr/lib/valgrind/x86-linux/memcheck)
 	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/.in_place/x86-linux/none, /usr/lib/valgrind/x86-linux/none)

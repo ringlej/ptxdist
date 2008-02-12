@@ -1,7 +1,6 @@
 config MADWIFI
 	bool
 	prompt "Multiband Atheros WiFi Driver"
-	depends on ARCH_X86 && WIRELESS
 	help
 	  MadWifi is one of the most advanced WLAN drivers
 	  available for Linux today. It is stable and has

@@ -22,7 +22,9 @@
 #
 #
 
+ifdef PTXCONF_ARCH_X86
 PACKAGES-$(PTXCONF_MADWIFI) += madwifi
+endif
 
 #
 # Paths and names
