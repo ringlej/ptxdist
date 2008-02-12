@@ -133,12 +133,18 @@ ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_DEFAULT
 	@$(call install_copy, udev, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/udev/udev.conf, \
 		/etc/udev/udev.conf, n)
+	@$(call install_copy, udev, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/udev/permissions.rules, \
+		/etc/udev/permissions.rules, n)
 endif
 ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_USER
 # user defined
 	@$(call install_copy, udev, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/udev.conf, \
 		/etc/udev/udev.conf, n)
+	@$(call install_copy, udev, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/permissions.rules, \
+		/etc/udev/permissions.rules, n)
 endif
 endif
 #
