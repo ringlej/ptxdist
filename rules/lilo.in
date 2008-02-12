@@ -1,6 +1,6 @@
 config LILO
-	bool "LILO"
-	depends on ARCH_X86
+	bool
+	prompt "LILO"
 	help
 	  LInux LOader - The Classic OS loader
 	  It can load Linux and others, this package contains lilo
