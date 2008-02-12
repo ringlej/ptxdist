@@ -61,7 +61,7 @@ HOST_FONTCONFIG_AUTOCONF := \
 	--disable-docs \
 	--with-cache-dir=$(PTX_PREFIX_HOST)/var/cache/fontconfig \
 	--with-default-fonts=$(XORG_FONTDIR) \
-	--with-arch=$(PTXCONF_ARCH)
+	--with-arch=$(PTXCONF_ARCH_STRING)
 
 $(STATEDIR)/host-fontconfig.prepare: $(host-fontconfig_prepare_deps_default)
 	@$(call targetinfo, $@)

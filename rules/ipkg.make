@@ -145,7 +145,7 @@ ifdef PTXCONF_IPKG_GENERIC_IPKG_CONF
 	$(call install_replace, rootfs, /etc/ipkg.conf, @SRC@, \
 		$(PTXCONF_IPKG_GENERIC_IPKG_CONF_URL))
 	@$(call install_replace, rootfs, /etc/ipkg.conf, @ARCH@, \
-  		$(PTXCONF_ARCH))
+  		$(PTXCONF_ARCH_STRING))
 endif
 
 	@$(call install_finish, ipkg)

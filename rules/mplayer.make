@@ -68,7 +68,7 @@ MPLAYER_AUTOCONF :=\
 	--cc=$(PTXCONF_GNU_TARGET)-gcc \
 	--as=$(PTXCONF_GNU_TARGET)-as \
 	--host-cc=$(HOSTCC) \
-	--target=$(PTXCONF_ARCH) \
+	--target=$(PTXCONF_ARCH_STRING) \
 	--disable-mencoder \
 	--with-x11incdir=$(SYSROOT)/usr/include \
 	--with-x11libdir=$(SYSROOT)/usr/lib \

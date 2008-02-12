@@ -286,7 +286,7 @@ $(IMAGEDIR)/permissions: $(PERMISSION_FILES)
 # to extract the ipkgs we need a dummy config file
 #
 $(IMAGEDIR)/ipkg.conf:
-	@echo -e "dest root /\narch $(PTXCONF_ARCH) 10\narch all 1\narch noarch 1\n" > $@
+	@echo -e "dest root /\narch $(PTXCONF_ARCH_STRING) 10\narch all 1\narch noarch 1\n" > $@
 
 #
 # Working directory to create any kind of image
@@ -295,13 +295,13 @@ WORKDIR := $(IMAGEDIR)/work_dir
 
 #
 # Create architecture type for mkimge
-# Most architectures are working with label $(PTXCONF_ARCH)
+# Most architectures are working with label $(PTXCONF_ARCH_STRING)
 # but the i386 family needs "x86" instead!
 #
-ifeq ($(PTXCONF_ARCH),"i386")
+ifeq ($(PTXCONF_ARCH_STRING),"i386")
 MKIMAGE_ARCH := x86
 else
-MKIMAGE_ARCH := $(PTXCONF_ARCH)
+MKIMAGE_ARCH := $(PTXCONF_ARCH_STRING)
 endif
 
 #
@@ -424,7 +424,7 @@ $(IMAGEDIR)/initrd.gz: $(STATEDIR)/image_working_dir
 #
 #$(IMAGEDIR)/muimage: $(IMAGEDIR)/initrd.gz $(KERNEL_DIR)/???????
 #	@echo -n "Creating multi content uimage..."
-#	@$(PTXCONF_HOST_PREFIX)/bin/mkimage -A $(PTXCONF_ARCH)		\
+#	@$(PTXCONF_HOST_PREFIX)/bin/mkimage -A $(PTXCONF_ARCH_STRING)	\
 #		-O Linux -T multi -C gzip -a 0 -e 0			\
 #		-n 'Multi-File Image'					\
 #		-d $(KERNEL_DIR)/vmlinux.bin.gz:$(IMAGEDIR)/initrd.img	\

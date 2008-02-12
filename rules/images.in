@@ -177,11 +177,11 @@ config IMAGE_IPKG_EXTRA_ARGS
 
 config IMAGE_IPKG_ARCH
 	string
-	default "${PTXCONF_ARCH}"
+	default "${PTXCONF_ARCH_STRING}"
 	prompt "Name for ipkg field 'Architecture:'"
 	help
 	  You can specify an architecture name for your ipkg packets here, e.g.
-	  ${PTXCONF_PROJECT}. Default is ${PTXCONF_ARCH}. Another option would
+	  ${PTXCONF_PROJECT}. Default is ${PTXCONF_ARCH_STRING}. Another option would
 	  be to fix this to the PTXdist version you are using; think of
 	  PTXdist being a distro development tool ("Build with ptxdist-0.8.15").
 

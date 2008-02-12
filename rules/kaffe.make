@@ -170,16 +170,16 @@ $(STATEDIR)/kaffe.targetinstall: $(kaffe_targetinstall_deps_default)
 	@$(call install_copy, kaffe, 0, 0, 0644, $(KAFFE_DIR)-tmp/usr/jre/lib/gmpjavamath.jar, /usr/jre/lib/gmpjavamath.jar)
 	@$(call install_copy, kaffe, 0, 0, 0644, $(KAFFE_DIR)-tmp/usr/jre/lib/logging.properties, /usr/jre/lib/logging.properties)
 
-	@for i in $(KAFFE_DIR)-tmp/usr/jre/lib/$(PTXCONF_ARCH)/*.la; do \
-		$(call install_copy, kaffe, 0, 0, 0755, $$i, /usr/jre/lib/$(PTXCONF_ARCH)/$$(basename $$i)); \
+	@for i in $(KAFFE_DIR)-tmp/usr/jre/lib/$(PTXCONF_ARCH_STRING)/*.la; do \
+		$(call install_copy, kaffe, 0, 0, 0755, $$i, /usr/jre/lib/$(PTXCONF_ARCH_STRING)/$$(basename $$i)); \
 	done
 
 ifndef PTXCONF_KAFFE_STATIC
-	@for i in $(KAFFE_DIR)-tmp/usr/jre/lib/$(PTXCONF_ARCH)/*.so; do \
+	@for i in $(KAFFE_DIR)-tmp/usr/jre/lib/$(PTXCONF_ARCH_STRING)/*.so; do \
 		if [ -h "$$i" ]; then \
-			$(call install_link, kaffe, $$(readlink $$i), /usr/jre/lib/$(PTXCONF_ARCH)/$$(basename $$i)); \
+			$(call install_link, kaffe, $$(readlink $$i), /usr/jre/lib/$(PTXCONF_ARCH_STRING)/$$(basename $$i)); \
 		elif [ -f "$$i" ]; then \
-			$(call install_copy, kaffe, 0, 0, 0755, $$i, /usr/jre/lib/$(PTXCONF_ARCH)/$$(basename $$i)); \
+			$(call install_copy, kaffe, 0, 0, 0755, $$i, /usr/jre/lib/$(PTXCONF_ARCH_STRING)/$$(basename $$i)); \
 		else \
 			echo "unknown file type in $$i. aborting"; \
 			exit 1; \

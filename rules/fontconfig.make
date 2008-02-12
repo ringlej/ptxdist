@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_FONTCONFIG) += fontconfig
 #
 # Paths and names
 #
-FONTCONFIG_VERSION	:= 2.4.2
+FONTCONFIG_VERSION	:= 2.5.91
 FONTCONFIG		:= fontconfig-$(FONTCONFIG_VERSION)
 FONTCONFIG_SUFFIX	:= tar.gz
 FONTCONFIG_URL		:= http://fontconfig.org/release/$(FONTCONFIG).$(FONTCONFIG_SUFFIX)
@@ -71,7 +71,7 @@ FONTCONFIG_AUTOCONF := \
 	--disable-docs \
 	--with-cache-dir=/var/cache/fontconfig \
 	--with-default-fonts=$(XORG_FONTDIR) \
-	--with-arch=$(PTXCONF_ARCH)
+	--with-arch=$(PTXCONF_ARCH_STRING)
 
 $(STATEDIR)/fontconfig.prepare: $(fontconfig_prepare_deps_default)
 	@$(call targetinfo, $@)

@@ -78,7 +78,7 @@ klibc_compile: $(STATEDIR)/klibc.compile
 # KLIBCARCH define the target architecture
 # INSTALLROOT where to install the executables
 KLIBC_MAKEVARS := \
-	KLIBCARCH=$(PTXCONF_ARCH) \
+	KLIBCARCH=$(PTXCONF_ARCH_STRING) \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	INSTALLROOT=$(SYSROOT)
 

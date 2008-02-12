@@ -65,7 +65,7 @@ PCMCIAUTILS_ENV 	=  $(CROSS_ENV)
 # choice and modify the line which states STARTUP = true to STARTUP = false.
 # see http://www.kernel.org/pub/linux/utils/kernel/pcmcia/howto.html
 
-PCMCIAUTILS_MAKEVARS :=  ARCH=$(PTXCONF_ARCH) \
+PCMCIAUTILS_MAKEVARS :=  ARCH=$(PTXCONF_ARCH_STRING) \
 	prefix=$(SYSROOT) \
 	CROSS=$(COMPILER_PREFIX) \
 	GCCINCDIR=$(SYSROOT)/usr/include

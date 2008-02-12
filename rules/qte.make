@@ -76,7 +76,7 @@ QTE_AUTOCONF	= \
 	-depths 8,16 \
 	-no-qvfb \
 	-xplatform linux-ptxdist \
-	-embedded $(PTXCONF_ARCH) \
+	-embedded $(PTXCONF_ARCH_STRING) \
 	-disable-opengl \
 	-disable-sql \
 	-disable-workspace
