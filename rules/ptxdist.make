@@ -132,7 +132,13 @@ $(STATEDIR)/ptxdist.targetinstall: $(ptxdist_targetinstall_deps_default)
 		$(PKGDIR)/$(PTXDIST)/usr/lib/$(PTXDIST)/.done, \
 		/usr/lib/$(PTXDIST)/.done, n)
 
-	for j in patches config plugins generic rules scripts; do \
+	for i in `cd $(PKGDIR)/$(PTXDIST)/usr/lib/$(PTXDIST)/scripts; find . -type f`; do \
+		$(call install_copy, ptxdist, 0, 0, 0755, \
+			$(PKGDIR)/$(PTXDIST)/usr/lib/$(PTXDIST)/scripts/$$i, \
+			/usr/lib/$(PTXDIST)/scripts/$$i); \
+	done; \
+
+	for j in patches config plugins generic rules; do \
 		for i in `cd $(PKGDIR)/$(PTXDIST)/usr/lib/$(PTXDIST)/$$j; find . -type f`; do \
 			$(call install_copy, ptxdist, 0, 0, 0644, \
 				$(PKGDIR)/$(PTXDIST)/usr/lib/$(PTXDIST)/$$j/$$i, \
