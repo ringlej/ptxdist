@@ -30,7 +30,7 @@
 
 @class@@packet@_get: $(STATEDIR)/@class@@packet@.get
 
-$(STATEDIR)/@class@@packet@.get: $(@class@@packet@_get_deps_default)
+$(STATEDIR)/@class@@packet@.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(@CLASS@@PACKET@_SOURCE):
 
 @class@@packet@_extract: $(STATEDIR)/@class@@packet@.extract
 
-$(STATEDIR)/@class@@packet@.extract: $(@class@@packet@_extract_deps_default)
+$(STATEDIR)/@class@@packet@.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(@CLASS@@PACKET@_DIR))
 	@$(call extract, @CLASS@@PACKET@, $(@CLASS@BUILDDIR))
@@ -65,7 +65,7 @@ $(STATEDIR)/@class@@packet@.extract: $(@class@@packet@_extract_deps_default)
 #
 @CLASS@@PACKET@_AUTOCONF	:= $(@AUTOCONF_CLASS@AUTOCONF)
 
-$(STATEDIR)/@class@@packet@.prepare: $(@class@@packet@_prepare_deps_default)
+$(STATEDIR)/@class@@packet@.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
 	cd $(@CLASS@@PACKET@_DIR) && \
@@ -79,7 +79,7 @@ $(STATEDIR)/@class@@packet@.prepare: $(@class@@packet@_prepare_deps_default)
 
 @class@@packet@_compile: $(STATEDIR)/@class@@packet@.compile
 
-$(STATEDIR)/@class@@packet@.compile: $(@class@@packet@_compile_deps_default)
+$(STATEDIR)/@class@@packet@.compile:
 	@$(call targetinfo, $@)
 	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -90,7 +90,7 @@ $(STATEDIR)/@class@@packet@.compile: $(@class@@packet@_compile_deps_default)
 
 @class@@packet@_install: $(STATEDIR)/@class@@packet@.install
 
-$(STATEDIR)/@class@@packet@.install: $(@class@@packet@_install_deps_default)
+$(STATEDIR)/@class@@packet@.install:
 	@$(call targetinfo, $@)
 	@$(call install, @CLASS@@PACKET@,,h)
 	@$(call touch, $@)

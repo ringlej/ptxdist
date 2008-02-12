@@ -33,7 +33,7 @@ endif
 
 @packet@_get: $(STATEDIR)/@packet@.get
 
-$(STATEDIR)/@packet@.get: $(@packet@_get_deps_default)
+$(STATEDIR)/@packet@.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -47,7 +47,7 @@ $(@PACKET@_SOURCE):
 
 @packet@_extract: $(STATEDIR)/@packet@.extract
 
-$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
+$(STATEDIR)/@packet@.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
 	@$(call extract, @PACKET@)
@@ -63,7 +63,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
 @PACKET@_PATH	:= PATH=$(CROSS_PATH)
 @PACKET@_ENV 	:= $(CROSS_ENV)
 
-$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
+$(STATEDIR)/@packet@.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -73,7 +73,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 
 @packet@_compile: $(STATEDIR)/@packet@.compile
 
-$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
+$(STATEDIR)/@packet@.compile:
 	@$(call targetinfo, $@)
 	cd $(@PACKET@_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS)
 	@$(call touch, $@)
@@ -94,7 +94,7 @@ $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 
 @packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
 
-$(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps_default)
+$(STATEDIR)/@packet@.targetinstall:
 	@$(call targetinfo, $@)
 	cd $(@PACKET@_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) modules_install
 	@$(call touch, $@)

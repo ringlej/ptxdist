@@ -30,7 +30,7 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 
 @packet@_get: $(STATEDIR)/@packet@.get
 
-$(STATEDIR)/@packet@.get: $(@packet@_get_deps_default)
+$(STATEDIR)/@packet@.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(@PACKET@_SOURCE):
 
 @packet@_extract: $(STATEDIR)/@packet@.extract
 
-$(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
+$(STATEDIR)/@packet@.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
 	@$(call extract, @PACKET@)
@@ -65,7 +65,7 @@ $(STATEDIR)/@packet@.extract: $(@packet@_extract_deps_default)
 #
 @PACKET@_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
+$(STATEDIR)/@packet@.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR)/config.cache)
 	cd $(@PACKET@_DIR) && \
@@ -79,7 +79,7 @@ $(STATEDIR)/@packet@.prepare: $(@packet@_prepare_deps_default)
 
 @packet@_compile: $(STATEDIR)/@packet@.compile
 
-$(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
+$(STATEDIR)/@packet@.compile:
 	@$(call targetinfo, $@)
 	cd $(@PACKET@_DIR) && $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -90,7 +90,7 @@ $(STATEDIR)/@packet@.compile: $(@packet@_compile_deps_default)
 
 @packet@_install: $(STATEDIR)/@packet@.install
 
-$(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
+$(STATEDIR)/@packet@.install:
 	@$(call targetinfo, $@)
 	@$(call install, @PACKET@)
 	@$(call touch, $@)
@@ -101,7 +101,7 @@ $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 
 @packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
 
-$(STATEDIR)/@packet@.targetinstall: $(@packet@_targetinstall_deps_default)
+$(STATEDIR)/@packet@.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, @packet@)

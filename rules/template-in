@@ -1,0 +1,5 @@
+config @PACKET@
+	bool
+	prompt "@packet@"
+	help
+	  FIXME
