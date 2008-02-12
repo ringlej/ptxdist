@@ -21,6 +21,7 @@ choice
 
 	config ARCH_ALPHA
 		bool "alpha     "
+		select HAS_MMU
 		help
 		  This is support for the Alpha processor architecture.
 
@@ -36,41 +37,49 @@ choice
 
 	config ARCH_X86
 		bool "x86       "
+		select HAS_MMU
 		help
 		  This is support for the Intel x86 architecture.
 
 	config ARCH_PPC
 		bool "ppc       "
+		select HAS_MMU
 		help
 		  This is support for the PowerPC architecture.
 
 	config ARCH_M68K
 		bool "m68k      "
+		select HAS_MMU
 		help
 		  This is support for the Motorola/Freescale M68k architecture.
 
 	config ARCH_SPARC
 		bool "sparc     "
+		select HAS_MMU
 		help
 		  This is support for the SPARC architecture.
 
 	config ARCH_MIPS
 		bool "mips      "
+		select HAS_MMU
 		help
 		  This is support for the MIPS architecture.
 
 	config ARCH_CRIS
 		bool "cris      "
+		select HAS_MMU
 		help
 		  This is support for the cris architecture.
 
 	config ARCH_PARISC
 		bool "parisc    "
+		select HAS_MMU
 		help
 		  This is support for the parisc architecture.
 
 	config ARCH_SH
 		bool "superh    "
+		select HAS_MMU
 		help
 		  This is support for the SuperH architecture.
 endchoice
@@ -223,9 +232,6 @@ config ENDIAN_LITTLE
 
 config HAS_MMU
 	bool
-	default y
-	help
-	  Specify if this cpu has a memory management unit.
 
 # FIXME we don't build the toolchain any more...?
 config SOFTFLOAT
@@ -268,19 +274,6 @@ config ARCH_USERSPACE_STRING
 	default "cris"			if ARCH_CRIS
 	default "hppa"			if ARCH_PARISC
 	default "sh"			if ARCH_SH
-
-config ARCH_ARM_STRING
-	string
-	default "atmel"			if ARCH_ARM_ATMEL
-	default "at91rm9200"		if ARCH_ARM_AT91RM9200
-	default "epxa"			if ARCH_ARM_EPXA
-	default "imx"			if ARCH_ARM_IMX
-	default "ixp2000"		if ARCH_ARM_IXP2000
-	default "netarm"		if ARCH_ARM_NETARM
-	default "netx"			if ARCH_ARM_NETX
-	default "omap"			if ARCH_ARM_OMAP
-	default "pxa"			if ARCH_ARM_PXA
-	default "sa1100"		if ARCH_ARM_SA1100
 
 # ----------------------------------------------------------------------------
 
@@ -394,9 +387,6 @@ config KERNEL_VERSION
 	prompt "kernel version"
 	string
 
-menu "kernel architecture selection "
-	depends on ARCH_PPC
-
 choice
 	prompt "kernel architecture (ppc/powerpc)"
 	depends on ARCH_PPC
@@ -432,8 +422,6 @@ config KERNEL_ARCH
 
 	default "ppc"			if KERNEL_ARCH_PPC
 	default "powerpc"		if KERNEL_ARCH_POWERPC
-
-endmenu
 
 
 menu "patching & configuration      "
