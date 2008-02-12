@@ -448,10 +448,9 @@ endmenu
 
 
 # FIXME make this architecture dependend
-menu "kernel image type             "
 
 choice
-	prompt "Image Type"
+	prompt "Image Type          "
 	default KERNEL_IMAGE_BZ
 
 config KERNEL_IMAGE_BZ
@@ -463,7 +462,7 @@ config KERNEL_IMAGE_BZ
 
 config KERNEL_IMAGE_Z
 	bool
-	prompt "zImage"
+	prompt "zImage "
 	help
 	 This usually is a target to be used on ia32 platforms, it
 	 is the older format and limited to about 500k in size due to
@@ -471,7 +470,7 @@ config KERNEL_IMAGE_Z
 
 config KERNEL_IMAGE_U
 	bool
-	prompt "uImage"
+	prompt "uImage "
 	help
 	 This is the target for most non ia32 platforms like PowerPC
 	 and ARM architectures. Its a compressed image with additional
@@ -484,8 +483,6 @@ config KERNEL_IMAGE_VMLINUX
 	 This is the target to get the kernel image as an ELF. Mostly
 	 used for debugging purposes.
 endchoice
-
-endmenu
 
 
 #
