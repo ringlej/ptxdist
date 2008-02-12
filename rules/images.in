@@ -175,16 +175,6 @@ config IMAGE_IPKG_EXTRA_ARGS
 	  If needed you can add extra arguments for ipkg-build here
 	  (e.g. -c if you want ipkg-build to use tar instead of ar.)
 
-config IMAGE_IPKG_ARCH
-	string
-	default "${PTXCONF_ARCH_STRING}"
-	prompt "Name for ipkg field 'Architecture:'"
-	help
-	  You can specify an architecture name for your ipkg packets here, e.g.
-	  ${PTXCONF_PROJECT}. Default is ${PTXCONF_ARCH_STRING}. Another option would
-	  be to fix this to the PTXdist version you are using; think of
-	  PTXdist being a distro development tool ("Build with ptxdist-0.8.15").
-
 config IMAGE_JFFS2
 	bool
 	select HOST_MTD_UTILS

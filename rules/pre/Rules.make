@@ -1169,12 +1169,8 @@ install_init =										\
 	rm -f $(STATEDIR)/$$PACKET.perms;						\
 	mkdir -p $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL; 					\
 	cp -f $(RULESDIR)/default.ipkg $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control;	\
-	if [ -z $(PTXCONF_IMAGE_IPKG_ARCH) ]; then					\
-		echo "Error: please specify an architecure name for ipkg!";		\
-		exit -1;								\
-	fi;										\
 	REPLACE_FROM="ARCH";								\
-	REPLACE_TO=$(PTXCONF_IMAGE_IPKG_ARCH);						\
+	REPLACE_TO=$(PTXCONF_ARCH_STRING);						\
 	echo -n "install_init:   @$$REPLACE_FROM@ -> $$REPLACE_TO ... ";	 	\
 	sed -i -e "s,@$$REPLACE_FROM@,$$REPLACE_TO,g" $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control; \
 	echo "done"; \
