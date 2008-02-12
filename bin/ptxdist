@@ -149,7 +149,7 @@ check_ptxconfig() {
 		exit 1
 	fi
 
-	if [ ! -e "${PTXDIST_WORKSPACE}/platformconfig" ]; then
+	if [ ! -e "${PLATFORMCONFIG}" ]; then
 		echo
 		echo "${PROMPT}error: 'platformconfig' is missing"
 		echo
@@ -225,14 +225,16 @@ check_compiler() {
 	build_toolchain=$(. "${PTXCONFIG}" && echo ${PTXCONF_BUILD_TOOLCHAIN})
 
 	[ -n "$build_toolchain" -o "$NATIVE" != "" ] && return
-#
-# Three things should be checked
-# 1) Correct compiler name
-# 2) Correct vendor if the vendor string is given
-# 3) Correct compiler version if a specific compiler version is given
-#
-	compiler=$(. "${PTXCONFIG}" && echo ${PTXCONF_COMPILER_PREFIX})gcc
-	vendor_should=$(. "${PTXCONFIG}" && echo ${PTXCONF_CROSSCHAIN_VENDOR})
+
+	#
+	# Three things should be checked
+	# 1) Correct compiler name
+	# 2) Correct vendor if the vendor string is given
+	# 3) Correct compiler version if a specific compiler version is given
+	#
+
+	compiler=$(. ${PLATFORMCONFIG} && echo ${PTXCONF_COMPILER_PREFIX})gcc
+	vendor_should=$(. ${PLATFORMCONFIG} && echo ${PTXCONF_CROSSCHAIN_VENDOR})
 	if [ ! -z "$vendor_should" ]; then
 	# yea! Vendor is specified in the project. So check for
 	# toolchain vendor identification file
@@ -752,14 +754,14 @@ platformconfig() {
 	pushd $tmpdir > /dev/null
 
 	# prepare everything to make kconfig see it's original environment
-	if [ -e "${PTXDIST_WORKSPACE}/platformconfig" ]; then
-	    cp "$(readlink -f ${PTXDIST_WORKSPACE}/platformconfig)" .config
+	if [ -e "${PLATFORMCONFIG}" ]; then
+	    cp "$(readlink -f ${PLATFORMCONFIG})" .config
 	fi
 
 	# store boardsetup
 	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${kconfig}"
-	echo "${PROMPT}saving ${PTXDIST_WORKSPACE}/platformconfig"
-	cp .config "$(readlink -f ${PTXDIST_WORKSPACE}/platformconfig)"
+	echo "${PROMPT}saving ${PLATFORMCONFIG}"
+	cp .config "$(readlink -f ${PLATFORMCONFIG})"
 
 	popd > /dev/null
 	echo "${PROMPT}cleanup..."
@@ -1122,7 +1124,7 @@ while [ "$#" != "0" ]; do
 				echo
 				exit 1
 			fi
-			if [ -f "platformconfig" ]; then
+			if [ -f "${PLATFORMCONFIG}" ]; then
 				echo
 				echo -n "${PROMPT}warning: overwrite existing platformconfig [y/n]? "
 				read answer
@@ -1134,7 +1136,7 @@ while [ "$#" != "0" ]; do
 			fi
 			echo
 			echo "${PROMPT}selecting platformconfig \"$1\""
-			ln -sf $1 platformconfig
+			ln -sf $1 ${PLATFORMCONFIG}
 			echo "${PROMPT}done."
 			echo
 			exit 0
