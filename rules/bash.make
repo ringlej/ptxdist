@@ -204,7 +204,7 @@ bash_compile: $(STATEDIR)/bash.compile
 
 $(STATEDIR)/bash.compile: $(bash_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(BASH_DIR) && $(BASH_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $(BASH_DIR) && $(BASH_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
