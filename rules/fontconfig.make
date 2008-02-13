@@ -122,15 +122,15 @@ $(STATEDIR)/fontconfig.targetinstall: $(fontconfig_targetinstall_deps_default)
 	@$(call install_fixup,fontconfig,DESCRIPTION,missing)
 
 	@$(call install_copy, fontconfig, 0, 0, 0644, \
-		$(FONTCONFIG_DIR)/src/.libs/libfontconfig.so.1.2.0, \
-		/usr/lib/libfontconfig.so.1.2.0)
+		$(FONTCONFIG_DIR)/src/.libs/libfontconfig.so.1.3.0, \
+		/usr/lib/libfontconfig.so.1.3.0)
 
 	@$(call install_link, fontconfig, \
-		libfontconfig.so.1.2.0, \
+		libfontconfig.so.1.3.0, \
 		/usr/lib/libfontconfig.so.1)
 
 	@$(call install_link, fontconfig, \
-		libfontconfig.so.1.2.0, \
+		libfontconfig.so.1.3.0, \
 		/usr/lib/libfontconfig.so)
 
 ifdef PTXCONF_FONTCONFIG_CONFS
