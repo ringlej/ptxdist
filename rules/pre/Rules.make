@@ -917,7 +917,7 @@ install_copy = 											\
 		(0 | n | no)									\
 			;;									\
 		(*)											\
-			$(BSD_FILE) $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST | $(GREP) "not stripped";		\
+			$(BSD_FILE) $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST | $(GREP) -q "not stripped";	\
 				case "$$?" in								\
 				(0)									\
 				$(CROSS_STRIP) -R .note -R .comment $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST;	\
@@ -1148,6 +1148,15 @@ install_fixup = 									\
 	PACKET=$(strip $(1));								\
 	REPLACE_FROM=$(strip $(2));							\
 	REPLACE_TO=$(strip $(3));							\
+											\
+	case "$${REPLACE_FROM}" in							\
+		(AUTHOR)								\
+			REPLACE_TO="`echo $${REPLACE_TO} | sed -e 's/@/\\\@/g'`"	\
+			;;								\
+		(*)									\
+			;;								\
+	esac;										\
+											\
 	echo -n "install_fixup:  @$$REPLACE_FROM@ -> $$REPLACE_TO ... "; 		\
 	if [ "$$REPLACE_FROM" = "VERSION" ]; then					\
 		REPLACE_TO=$${REPLACE_TO}$(PTXCONF_PROJECT_BUILD);			\
