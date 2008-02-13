@@ -4,7 +4,7 @@
 # Copyright (C) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
 #               2003 by Pengutronix e.K., Hildesheim, Germany
 #
-# See CREDITS for details about who has contributed to this project. 
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -16,7 +16,7 @@
 PACKAGES-$(PTXCONF_OPENSSL) += openssl
 
 #
-# Paths and names 
+# Paths and names
 #
 OPENSSL_VERSION		= 0.9.7g
 OPENSSL			= openssl-$(OPENSSL_VERSION)
@@ -164,7 +164,7 @@ $(STATEDIR)/openssl.targetinstall: $(openssl_targetinstall_deps_default)
 	@$(call install_fixup, openssl,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, openssl,DEPENDS,)
 	@$(call install_fixup, openssl,DESCRIPTION,missing)
-	
+
 ifdef PTXCONF_OPENSSL_SHARED
 	@$(call install_copy, openssl, 0, 0, 0644, $(OPENSSL_DIR)/libssl.so.0.9.7, /usr/lib/libssl.so.0.9.7)
 	@$(call install_link, openssl, libssl.so.0.9.7, /usr/lib/libssl.so.0)
@@ -181,9 +181,9 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-openssl_clean: 
-	rm -rf $(STATEDIR)/openssl.* 
-	rm -rf $(IMAGEDIR)/openssl_* 
+openssl_clean:
+	rm -rf $(STATEDIR)/openssl.*
+	rm -rf $(IMAGEDIR)/openssl_*
 	rm -rf $(OPENSSL_DIR)
 
 # vim: syntax=make
