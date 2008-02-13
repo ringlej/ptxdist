@@ -390,8 +390,8 @@ check_dirs() {
 		echo lower > "${testfile_lower}"
 		echo upper > "${testfile_upper}"
 
-		if test "`cat "${testfile_lower}"`" != "lower" -o \
-		    "`cat "${testfile_upper}"`" != "upper"; then
+		if test "`cat \"${testfile_lower}\"`" != "lower" -o \
+		    "`cat \"${testfile_upper}\"`" != "upper"; then
 			echo
 			echo "error: \"${i}\""
 			echo "       is not a case sensitive filesystem."
@@ -686,7 +686,7 @@ newpacket () {
 	packet_filename="${packet_name}"
 
 	packet="`echo ${packet_name} | tr \"[A-Z]\" \"[a-z]\"`"
-	packetdash="`echo ${packet} | tr \"[_]\" \"[-]\"`"
+	packetdash="`echo ${packet} | tr \"[_]\" \"[\-]\"`"
 	PACKET="`echo ${packet_name} | tr \"[a-z-]\" \"[A-Z_]\"`"
 	CLASS="`echo ${class} | tr \"[a-z-]\" \"[A-Z_]\"`"
 
