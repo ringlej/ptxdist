@@ -133,6 +133,7 @@ else
 BASH_AUTOCONF	+= --disable-history
 endif
 ifeq (y, $(PTXCONF_BASH_JOBS))
+BASH_ENV	+= bash_cv_job_control_missing=present
 BASH_AUTOCONF	+= --enable-job-control
 else
 BASH_AUTOCONF	+= --disable-job-control
