@@ -4,6 +4,7 @@ config XORG_LIB_XFIXES
 	select XORG_PROTO_X
 	select XORG_PROTO_FIXES
 	select XORG_PROTO_XEXT
+	select XORG_LIB_X11
 	help
 	  The X Fixes extension was created to address a number of shortcomings in the
 	  core X window system that prevented applications from doing some things
