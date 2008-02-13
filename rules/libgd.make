@@ -85,9 +85,9 @@ LIBGD_AUTOCONF += --without-png
 endif
 
 ifdef PTXCONF_LIBGD_XPM
-LIBGD_AUTOCONF += --with-xpm=$(SYSROOT)/usr
+LIBGD_AUTOCONF += --with-xpm=$(SYSROOT)/usr --with-x
 else
-LIBGD_AUTOCONF += --without-xpm
+LIBGD_AUTOCONF += --without-xpm --without-x
 endif
 
 ifdef PTXCONF_LIBGD_FREETYPE
