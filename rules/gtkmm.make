@@ -123,6 +123,36 @@ $(STATEDIR)/gtkmm.targetinstall: $(gtkmm_targetinstall_deps_default)
 	@$(call install_link, gtkmm, \
 		libgtkmm-2.4.so.1.0.30, /usr/lib/libgtkmm-2.4.so)
 
+	@$(call install_copy, gtkmm, 0, 0, 0644, \
+		$(GTKMM_DIR)/gdk/gdkmm/.libs/libgdkmm-2.4.so.1.0.30, \
+		/usr/lib/libgdkmm-2.4.so.1.0.30)
+
+	@$(call install_link, gtkmm, \
+		libgdkmm-2.4.so.1.0.30, /usr/lib/libgdkmm-2.4.so.1)
+
+	@$(call install_link, gtkmm, \
+		libgdkmm-2.4.so.1.0.30, /usr/lib/libgdkmm-2.4.so)
+
+	@$(call install_copy, gtkmm, 0, 0, 0644, \
+		$(GTKMM_DIR)/atk/atkmm/.libs/libatkmm-1.6.so.1.0.30, \
+		/usr/lib/libatkmm-1.6.so.1.0.30)
+
+	@$(call install_link, gtkmm, \
+		libatkmm-1.6.so.1.0.30, /usr/lib/libatkmm-1.6.so.1)
+
+	@$(call install_link, gtkmm, \
+		libatkmm-1.6.so.1.0.30, /usr/lib/libatkmm-1.6.so)
+
+	@$(call install_copy, gtkmm, 0, 0, 0644, \
+		$(GTKMM_DIR)/pango/pangomm/.libs/libpangomm-1.4.so.1.0.30, \
+		/usr/lib/libpangomm-1.4.so.1.0.30)
+
+	@$(call install_link, gtkmm, \
+		libpangomm-1.4.so.1.0.30, /usr/lib/libpangomm-1.4.so.1)
+
+	@$(call install_link, gtkmm, \
+		libpangomm-1.4.so.1.0.30, /usr/lib/libpangomm-1.4.so)
+
 	@$(call install_finish, gtkmm)
 
 	@$(call touch, $@)
