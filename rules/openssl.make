@@ -24,30 +24,38 @@ OPENSSL_URL 		= http://www.openssl.org/source/$(OPENSSL).tar.gz
 OPENSSL_SOURCE		= $(SRCDIR)/$(OPENSSL).tar.gz
 OPENSSL_DIR 		= $(BUILDDIR)/$(OPENSSL)
 
-ifdef PTXCONF_ARM_ARCH_LE
+ifneq ($(and $(PTXCONF_ARCH_ARM),$(PTXCONF_ENDIAN_LITTLE)),)
 	THUD = linux-arm
 endif
-ifdef PTXCONF_ARM_ARCH_BE
+
+ifneq ($(and $(PTXCONF_ARCH_ARM),$(PTXCONF_ENDIAN_BIG)),)
 	THUD = linux-armeb
 endif
-ifdef PTXCONF_MIPS_ARCH_LE
+
+ifneq ($(and $(PTXCONF_ARCH_MIPS),$(PTXCONF_ENDIAN_LITTLE)),)
 	THUD = linux-mipsel
 endif
-ifdef PTXCONF_MIPS_ARCH_BE
+
+ifneq ($(and $(PTXCONF_ARCH_MIPS),$(PTXCONF_ENDIAN_BIG)),)
 	THUD = linux-mips
 endif
+
 ifdef PTXCONF_ARCH_X86
+ifdef PTXCONF_ARCH_I586
+	THUD = linux-i386-i586
+else
+ifdef PTXCONF_ARCH_I686
+	THUD = linux-i386-i686/cmov
+else
 	THUD = linux-i386
 endif
-ifdef PTXCONF_OPT_I586
-	THUD = linux-i386-i586
 endif
-ifdef PTXCONF_OPT_I686
-	THUD = linux-i386-i686/cmov
 endif
+
 ifdef PTXCONF_ARCH_PPC
 	THUD = linux-ppc
 endif
+
 ifdef PTXCONF_ARCH_SPARC
 	THUD = linux-sparc
 endif
