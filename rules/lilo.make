@@ -14,7 +14,9 @@
 #
 # We provide this package
 #
+ifdef PTXCONF_ARCH_X86
 PACKAGES-$(PTXCONF_LILO) += lilo
+endif
 
 #
 # Paths and names 
