@@ -141,7 +141,7 @@ check_version () {
 #
 check_ptxconfig() {
 
-	if [ ! -e "$PTXCONFIG" ]; then
+	if [ ! -e "${PTXCONFIG}" ]; then
 		echo
 		echo "${PROMPT}error: ptxconfig file is missing"
 		echo "${PROMPT}error: please 'ptxdist clone' an existing project"
@@ -531,8 +531,9 @@ clean() {
 		fi
 		for bdir in `find "${dir}" -maxdepth 1 -mindepth 1 -type l`; do
 		    pushd "${bdir}" > /dev/null
+		    echo -n "${PROMPT}running \"make clean\" in \"${bdir#${dir}/}\"... "
 		    make clean 1> /dev/null 2>&1
-		    echo "${PROMPT}running \"make clean\" in \"${bdir#${dir}/}\"..."
+		    echo "done"
 		    popd > /dev/null
 		done
 		rm -rf "${dir}"
@@ -540,9 +541,9 @@ clean() {
 
 	if test -f "${PTXCONFIG}"; then
 		echo "${PROMPT}removing sysroot directories..."
-		ptxconf_prefix=$(. "${PTXCONFIG}" && echo ${PTXCONF_PREFIX})
-		ptxconf_host_prefix=$(. "${PTXCONFIG}" && echo ${PTXCONF_HOST_PREFIX})
-		ptxconf_cross_prefix=$(. "${PTXCONFIG}" && echo ${PTXCONF_CROSS_PREFIX})
+		ptxconf_prefix="`ptxd_get_ptxconf PTXCONF_PREFIX`"
+		ptxconf_host_prefix="`ptxd_get_ptxconf PTXCONF_HOST_PREFIX`"
+		ptxconf_cross_prefix="`ptxd_get_ptxconf PTXCONF_CROSS_PREFIX`"
 
 		for dir in "${ptxconf_prefix}" "${ptxconf_host_prefix}" "${ptxconf_cross_prefix}"; do
 			if test \! -d "${dir}"; then

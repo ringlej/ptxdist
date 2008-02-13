@@ -25,6 +25,7 @@ ptxd_get_ptxconf() {
 	if test -z "${_ptxd_get_ptxconf_sourced}"; then
 	    if test -f "${PTXCONFIG}"; then
 		source "${PTXCONFIG}"
+		source "${PLATFORMCONFIG}"
 		_ptxd_get_ptxconf_sourced=true
 	    else
 		return
