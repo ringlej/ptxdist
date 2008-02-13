@@ -1,0 +1,28 @@
+Subject: fix linking of libusbpp.so
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+If available "-lusb" will be expanded into /usr/lib/libusb.so.
+Explicitly link against the local libusb.la to avoid this.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ Makefile.am |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+Index: b/Makefile.am
+===================================================================
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -66,7 +66,10 @@ libusbpp_la_LDFLAGS = \
+ 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
+ 	-release $(LT_RELEASE) \
+ 	-export-dynamic \
+-	$(LDADDS) -lusb $(PREBIND_FLAGSPP)
++	$(LDADDS) $(PREBIND_FLAGSPP)
++
++libusbpp_la_LIBADD = \
++	$(top_builddir)/libusb.la
+ 
+ .PHONY: files release snapshot
+ 
