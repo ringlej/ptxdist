@@ -500,7 +500,7 @@ Index: b/ptxdist-trunk/scripts/kconfig/mconf.c
 -			"*** End of Linux kernel configuration.\n"
 -			"*** Execute 'make' to build the kernel or try 'make help'."
 +			"*** End of project configuration.\n"
-+			"*** Execute 'make' to build the project or try 'make help'."
++			"*** Execute 'ptxdist go' to build the project or try 'ptxdist help'."
  			"\n\n"));
  		break;
  	default:
