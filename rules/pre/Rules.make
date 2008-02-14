@@ -1151,17 +1151,18 @@ install_fixup = 									\
 											\
 	case "$${REPLACE_FROM}" in							\
 		(AUTHOR)								\
-			REPLACE_TO="`echo $${REPLACE_TO} | sed -e 's/@/\\\@/g'`"	\
+			REPLACE_TO="`echo $${REPLACE_TO} | sed -e 's/[^\\]@/\\\@/g'`";	\
 			;;								\
-		(*)									\
+		(PACKAGE)								\
+			REPLACE_TO="`echo $${REPLACE_TO} | sed -e 's/_/-/g'`";		\
+			;;								\
+		(VERSION)								\
+			REPLACE_TO="$${REPLACE_TO}$(PTXCONF_PROJECT_BUILD)";		\
 			;;								\
 	esac;										\
 											\
 	echo -n "install_fixup:  @$$REPLACE_FROM@ -> $$REPLACE_TO ... "; 		\
-	if [ "$$REPLACE_FROM" = "VERSION" ]; then					\
-		REPLACE_TO=$${REPLACE_TO}$(PTXCONF_PROJECT_BUILD);			\
-	fi;										\
-	sed -i -e "s,@$$REPLACE_FROM@,$$REPLACE_TO,g" $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control; \
+	sed -i -e "s,@$$REPLACE_FROM@,$$REPLACE_TO,g" "$(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control"; \
 	echo "done.";
 
 #
