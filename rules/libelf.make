@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBELF) += libelf
 #
 # Paths and names
 #
-LIBELF_VERSION	:= 0.8.6
+LIBELF_VERSION	:= 0.8.9
 LIBELF		:= libelf-$(LIBELF_VERSION)
 LIBELF_SUFFIX	:= tar.gz
 LIBELF_URL	:= http://www.mr511.de/software/$(LIBELF).$(LIBELF_SUFFIX)
