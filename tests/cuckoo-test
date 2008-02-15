@@ -1,8 +1,8 @@
-#! /bin/sh
+#!/bin/bash
 
 source ${PTXDIST_WORKSPACE}/ptxconfig
 
-case ${PTXCONF_ARCH} in
+case ${PTXCONF_ARCH_STRING} in
 	arm)
 		CPUVENDOR="ARM"
 	;;
@@ -19,7 +19,7 @@ case ${PTXCONF_ARCH} in
 		CPUVENDOR="MIPS"
 	;;
 	*)
-		echo please add CPUVENDOR for PTXCONF_ARCH=${PTXCONF_ARCH} to Makefile
+		echo please add CPUVENDOR for PTXCONF_ARCH=${PTXCONF_ARCH_STRING} to Makefile
 		exit 1
 	;;
 esac
