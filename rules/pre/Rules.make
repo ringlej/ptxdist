@@ -695,7 +695,7 @@ enable_c =											\
 	FILENAME="$(strip $(1))";								\
 	PARAMETER="$(strip $(2))";								\
 	sed -i -e										\
-		"s,^\s*\(\/\*\)\?\s*\(#\s*define\s\+$$PARAMETER\)\s*\(\*\/\)\?$$,\2,"		\
+		"s,^\s*\(\/\*\)\?\s*\(\\\#\s*define\s\+$$PARAMETER\)\s*\(\*\/\)\?$$,\2,"	\
 		$$FILENAME
 
 #
@@ -712,7 +712,7 @@ disable_c =											\
 	FILENAME="$(strip $(1))";								\
 	PARAMETER="$(strip $(2))";								\
 	sed -i -e										\
-		"s,^\s*\(\/\*\)\?\s*\(#\s*define\s\+$$PARAMETER\)\s*\(\*\/\)\?$$,\/\*\2\*\/," 	\
+		"s,^\s*\(\/\*\)\?\s*\(\\\#\s*define\s\+$$PARAMETER\)\s*\(\*\/\)\?$$,\/\*\2\*\/," \
 		$$FILENAME
 
 
