@@ -8,9 +8,6 @@ menuconfig RSYNC3
 	  greatly speed up file transfers when the destination file is being
 	  updated.
 
-comment "build options   ---"
-	depends on RSYNC3
-
 config RSYNC3_IPV6
 	bool
 	depends on RSYNC3
