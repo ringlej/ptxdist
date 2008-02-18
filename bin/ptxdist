@@ -1234,7 +1234,7 @@ while [ "$#" != "0" ]; do
 				echo
 			else
 				echo
-				echo "${PROMPT}error: test $i not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
+				echo "${PROMPT}error: Test '$1' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
 				echo
 			fi
 			fi
