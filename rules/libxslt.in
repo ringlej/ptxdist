@@ -6,6 +6,11 @@ menuconfig LIBXSLT
 	bool
 	prompt "libxslt                     "
 	select LIBXML2
+	select LIBXML2_OUTPUT
+	select LIBXML2_XINCLUDE
+	select LIBXML2_XPTR
+	select LIBXML2_DOM
+	select LIBXML2_HTML
 	help
 	  LibXSLT is a generic XSLT implementation. For details see the
 	  project homepage:
