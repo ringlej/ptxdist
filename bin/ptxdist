@@ -424,6 +424,17 @@ check_native() {
 	fi
 }
 
+check_if_selected() {
+	CONFIGVAR=PTXCONF_$(echo $1 | tr 'a-z' 'A-Z')
+	PTXCONFIG_CONFIGVAR=$(. "${PTXCONFIG}" && eval echo \$$CONFIGVAR)
+	if [ -z ${PTXCONFIG_CONFIGVAR} ]; then
+		echo
+		echo "${PROMPT}error: $1 is not selected in ${PTXCONFIG}"
+		echo
+		exit 1
+	fi
+}
+
 #
 # usage()
 #
@@ -804,7 +815,7 @@ setup() {
 	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
 	pushd $tmpdir > /dev/null
 
-	# prepare everything to make kconfig see it's original environment
+	# prepare everything to make kconfig see its original environment
 	cp "${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default" .config
 	if [ -f "$HOME/.ptxdistrc.${FULLVERSION}" ]; then
 		echo "using \$HOME/.ptxdistrc.${FULLVERSION}"
@@ -922,6 +933,7 @@ while [ "$#" != "0" ]; do
 				exit 1
 			fi
 			check_ptxconfig
+			check_if_selected $1
 			check_native
 			check_compiler
 			check_dirs
@@ -932,6 +944,7 @@ while [ "$#" != "0" ]; do
 			;;
 	clean)		shift
 			check_ptxconfig
+			check_if_selected $1
 			check_deps
 			clean $1
 			exit 0
@@ -957,10 +970,12 @@ while [ "$#" != "0" ]; do
 			;;
 	drop)		shift
 			check_ptxconfig
+			check_if_selected $1
 			drop $1 $2
 			;;
 	extract)	shift
 			check_ptxconfig
+			check_if_selected $1
 			check_native
 			check_deps
 			ptxd_make $1_extract 2>&1 | tee -a logfile
@@ -969,6 +984,7 @@ while [ "$#" != "0" ]; do
 			;;
 	get)		shift
 			check_ptxconfig
+			check_if_selected $1
 			check_native
 			check_deps
 			if [ $# -eq 0 ]; then
@@ -1004,6 +1020,7 @@ while [ "$#" != "0" ]; do
 			;;
 	install)	shift
 			check_ptxconfig
+			check_if_selected $1
 			check_native
 			check_compiler
 			check_dirs
@@ -1147,6 +1164,7 @@ while [ "$#" != "0" ]; do
 			;;
 	prepare)	shift
 			check_ptxconfig
+			check_if_selected $1
 			check_native
 			check_compiler
 			check_dirs
@@ -1206,6 +1224,7 @@ while [ "$#" != "0" ]; do
 	setup)		shift; setup;;
 	targetinstall)	shift
 			check_ptxconfig
+			check_if_selected $1
 			check_native
 			check_compiler
 			check_dirs
@@ -1234,7 +1253,7 @@ while [ "$#" != "0" ]; do
 				echo
 			else
 				echo
-				echo "${PROMPT}error: Test '$1' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
+				echo "${PROMPT}error: test '$1' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
 				echo
 			fi
 			fi
