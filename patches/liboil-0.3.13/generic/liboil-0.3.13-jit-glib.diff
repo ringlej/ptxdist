@@ -1,0 +1,28 @@
+Subject: liboil: jit example does only work when glib is active
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+The makefile tries to build the jit example unconditionally, which fails
+if we don't find glib:
+
+jit.c:4:18: error: glib.h: No such file or directoryojprogram.c:4:18:
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ examples/Makefile.am |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+Index: liboil-0.3.13/examples/Makefile.am
+===================================================================
+--- liboil-0.3.13.orig/examples/Makefile.am	2008-02-22 20:59:17.000000000 +0100
++++ liboil-0.3.13/examples/Makefile.am	2008-02-23 01:01:02.000000000 +0100
+@@ -1,5 +1,8 @@
++if HAVE_GLIB
++SUBDIRS_GLIB = jit
++endif
+ 
+-SUBDIRS = jpeg md5 uberopt work huffman taylor videoscale audioresample jit
++SUBDIRS = jpeg md5 uberopt work huffman taylor videoscale audioresample $(SUBDIRS_GLIB)
+ 
+ bin_PROGRAMS = oil-bugreport
+ 

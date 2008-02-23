@@ -1,0 +1,5 @@
+liboil-0.3.12-ltmain_sh.diff
+liboil-0.3.13-jit-glib.diff
+liboil-0.3.13-static-oil_cpu_flags.diff
+liboil-0.3.13-autoreconf.diff.bz2
+

@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2006 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBOIL) += liboil
 #
 # Paths and names
 #
-LIBOIL_VERSION	:= 0.3.12
+LIBOIL_VERSION	:= 0.3.13
 LIBOIL		:= liboil-$(LIBOIL_VERSION)
 LIBOIL_SUFFIX	:= tar.gz
 LIBOIL_URL	:= http://liboil.freedesktop.org/download/$(LIBOIL).$(LIBOIL_SUFFIX)

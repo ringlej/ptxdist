@@ -11,10 +11,15 @@
 # not submitted to upstream
 #
 
-diff --unified --recursive liboil-0.3.12/ltmain.sh liboil-0.3.12-nx1/ltmain.sh
---- liboil-0.3.12/ltmain.sh	2006-06-19 20:36:49.000000000 +0200
-+++ liboil-0.3.12-nx1/ltmain.sh	2007-07-26 16:45:07.000000000 +0200
-@@ -2545,7 +2545,7 @@
+---
+ ltmain.sh |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: liboil-0.3.13/ltmain.sh
+===================================================================
+--- liboil-0.3.13.orig/ltmain.sh	2007-08-14 19:43:36.000000000 +0200
++++ liboil-0.3.13/ltmain.sh	2008-02-23 01:01:02.000000000 +0100
+@@ -2587,7 +2587,7 @@
  	   { test "$use_static_libs" = no || test -z "$old_library"; }; then
  	  if test "$installed" = no; then
  	    notinst_deplibs="$notinst_deplibs $lib"
