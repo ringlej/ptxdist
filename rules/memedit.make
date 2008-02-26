@@ -114,7 +114,7 @@ $(STATEDIR)/memedit.targetinstall: $(memedit_targetinstall_deps_default)
 	@$(call install_fixup, memedit,DEPENDS,)
 	@$(call install_fixup, memedit,DESCRIPTION,missing)
 
-	@$(call install_copy, memedit, 0, 0, 0755, /usr/bin/memedit)
+	@$(call install_copy, memedit, 0, 0, 0755, $(MEMEDIT_DIR)/memedit, /usr/bin/memedit)
 
 	@$(call install_finish, memedit)
 
