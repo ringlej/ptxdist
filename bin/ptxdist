@@ -425,8 +425,8 @@ check_native() {
 }
 
 check_if_selected() {
-	CONFIGVAR=PTXCONF_$(echo $1 | tr 'a-z' 'A-Z')
-	PTXCONFIG_CONFIGVAR=$(. "${PTXCONFIG}" && eval echo \$$CONFIGVAR)
+	local CONFIGVAR=PTXCONF_$(echo $1 | tr 'a-z' 'A-Z')
+	local PTXCONFIG_CONFIGVAR=$(ptxd_get_ptxconf $CONFIGVAR)
 	if [ -z ${PTXCONFIG_CONFIGVAR} ]; then
 		echo
 		echo "${PROMPT}error: $1 is not selected in ${PTXCONFIG}"
@@ -530,6 +530,7 @@ clean() {
 	fi
 
 	if [ -n "$1" ]; then
+		check_if_selected $1
 		ptxd_make $1_clean
 		return
 	fi
@@ -944,7 +945,6 @@ while [ "$#" != "0" ]; do
 			;;
 	clean)		shift
 			check_ptxconfig
-			check_if_selected $1
 			check_deps
 			clean $1
 			exit 0
@@ -970,7 +970,6 @@ while [ "$#" != "0" ]; do
 			;;
 	drop)		shift
 			check_ptxconfig
-			check_if_selected $1
 			drop $1 $2
 			;;
 	extract)	shift
