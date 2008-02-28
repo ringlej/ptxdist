@@ -64,7 +64,7 @@ $(STATEDIR)/ptxdist.extract: $(ptxdist_extract_deps_default)
 
 ptxdist_prepare: $(STATEDIR)/ptxdist.prepare
 
-PTXDIST_PATH	:= PATH=$(CROSS_PATH)
+PTXDIST_PK_PATH	:= PATH=$(CROSS_PATH)
 PTXDIST_ENV 	:= $(CROSS_ENV) CROSS_COMPILE=$(PTXCONF_COMPILER_PREFIX)
 
 #
@@ -76,7 +76,7 @@ $(STATEDIR)/ptxdist.prepare: $(ptxdist_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(PTXDIST_DIR)/config.cache)
 	cd $(PTXDIST_DIR) && \
-		$(PTXDIST_PATH) $(PTXDIST_ENV) \
+		$(PTXDIST_PK_PATH) $(PTXDIST_ENV) \
 		./configure $(PTXDIST_AUTOCONF)
 	@$(call touch, $@)
 
