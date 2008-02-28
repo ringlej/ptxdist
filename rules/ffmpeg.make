@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_FFMPEG) += ffmpeg
 #
 # Paths and names
 #
-FFMPEG_VERSION	:= r6104
+FFMPEG_VERSION	:= r12134
 FFMPEG		:= ffmpeg-$(FFMPEG_VERSION)
 FFMPEG_SUFFIX	:= tar.bz2
 FFMPEG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FFMPEG).$(FFMPEG_SUFFIX)
@@ -79,34 +79,34 @@ FFMPEG_AUTOCONF += --extra-libs="$(CROSS_LIBS) -lm"
 #FFMPEG_AUTOCONF += --enable-mingw32
 #FFMPEG_AUTOCONF += --enable-mingwce
 #FFMPEG_AUTOCONF += --enable-sunmlib
-FFMPEG_AUTOCONF += --disable-audio-beos
+#FFMPEG_AUTOCONF += --disable-audio-beos
 
 ifdef PTXCONF_ARCH_X86
  FFMPEG_AUTOCONF += --disable-altivec
  FFMPEG_AUTOCONF += --disable-iwmmxt
- ifdef PTXCONF_OPT_I386
+ ifdef PTXCONF_ARCH_X86_I386
   FFMPEG_AUTOCONF += --cpu=i386
   FFMPEG_AUTOCONF += --tune=i386
   FFMPEG_AUTOCONF += --disable-mmx
  endif
- ifdef PTXCONF_OPT_I486
+ ifdef PTXCONF_ARCH_X86_I486
   FFMPEG_AUTOCONF += --cpu=i486
   FFMPEG_AUTOCONF += --tune=i486
   FFMPEG_AUTOCONF += --disable-mmx
  endif
- ifdef PTXCONF_OPT_I586
+ ifdef PTXCONF_ARCH_X86_I586
   FFMPEG_AUTOCONF += --cpu=i586
   FFMPEG_AUTOCONF += --tune=i586
  endif
- ifdef PTXCONF_OPT_I686
+ ifdef PTXCONF_ARCH_X86_I686
   FFMPEG_AUTOCONF += --cpu=i686
   FFMPEG_AUTOCONF += --tune=i686
  endif
- ifdef PTXCONF_OPT_PII
+ ifdef PTXCONF_ARCH_X86_P2
   FFMPEG_AUTOCONF += --cpu=i686
   FFMPEG_AUTOCONF += --tune=pentium2
  endif
- ifdef PTXCONF_OPT_P3M
+ ifdef PTXCONF_ARCH_X86_P3M
   FFMPEG_AUTOCONF += --cpu=i686
   FFMPEG_AUTOCONF += --tune=pentium3
  endif
@@ -121,18 +121,16 @@ FFMPEG_AUTOCONF += \
 endif
 
 ifdef PTXCONF_ARCH_ARM
-FFMPEG_AUTOCONF += \
-	--cpu=armv4l \
+ ifdef PTXCONF_ARCH_ARM_NETX
+   FFMPEG_AUTOCONF += --cpu=arm926ej-s
+ endif
+ ifdef PTXCONF_ARCH_ARM_PXA
+   # FIXME not all xscales are iwmmxt
+   FFMPEG_AUTOCONF += --cpu=iwmmxt
+ endif
+ FFMPEG_AUTOCONF += \
 	--disable-altivec \
  	--disable-mmx \
-	--disable-iwmmxt
-endif
-
-ifdef PTXCONF_ARCH_ARM_NOMMU
-FFMPEG_AUTOCONF += \
-	--cpu=armv4l \
-	--disable-altivec \
-	--disable-mmx \
 	--disable-iwmmxt
 endif
 
@@ -163,7 +161,6 @@ endif
 
 ifdef PTXCONF_ARCH_MIPS
 FFMPEG_AUTOCONF += \
-	--cpu=armv4l \
 	--disable-altivec \
 	--disable-mmx \
 	--disable-iwmmxt
