@@ -388,7 +388,7 @@ config KERNEL_VERSION
 	string
 
 choice
-	prompt "kernel architecture (ppc/powerpc)"
+	prompt "kernel architecture "
 	depends on ARCH_PPC
 	default KERNEL_ARCH_POWERPC
 	help
@@ -398,7 +398,7 @@ choice
 
 	config KERNEL_ARCH_PPC
 		bool
-		prompt "ppc"
+		prompt "ppc    "
 
 	config KERNEL_ARCH_POWERPC
 		bool
