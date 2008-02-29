@@ -13,6 +13,7 @@ source "rules/directfb.in"
 source "rules/libglade.in"
 source "rules/glade.in"
 source "rules/glademm.in"
+source "rules/gwt.in"
 source "rules/wine.in"
 
 endmenu
