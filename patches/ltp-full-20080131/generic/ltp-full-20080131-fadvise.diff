@@ -1,0 +1,65 @@
+---
+ testcases/kernel/syscalls/fadvise/posix_fadvise01.c |    3 +++
+ testcases/kernel/syscalls/fadvise/posix_fadvise02.c |    3 +++
+ testcases/kernel/syscalls/fadvise/posix_fadvise03.c |    4 ++++
+ testcases/kernel/syscalls/fadvise/posix_fadvise04.c |    4 ++++
+ 4 files changed, 14 insertions(+)
+
+Index: ltp-full-20080131/testcases/kernel/syscalls/fadvise/posix_fadvise01.c
+===================================================================
+--- ltp-full-20080131.orig/testcases/kernel/syscalls/fadvise/posix_fadvise01.c	2008-02-29 01:21:20.000000000 +0100
++++ ltp-full-20080131/testcases/kernel/syscalls/fadvise/posix_fadvise01.c	2008-02-29 01:22:04.000000000 +0100
+@@ -48,6 +48,9 @@
+ #ifndef _FILE_OFFSET_BITS
+ #define _FILE_OFFSET_BITS 32
+ #endif
++#ifndef __NR_fadvise64
++#define __NR_fadvise64 0
++#endif
+ 
+ void setup();
+ void cleanup();
+Index: ltp-full-20080131/testcases/kernel/syscalls/fadvise/posix_fadvise02.c
+===================================================================
+--- ltp-full-20080131.orig/testcases/kernel/syscalls/fadvise/posix_fadvise02.c	2008-02-29 01:22:52.000000000 +0100
++++ ltp-full-20080131/testcases/kernel/syscalls/fadvise/posix_fadvise02.c	2008-02-29 01:23:07.000000000 +0100
+@@ -47,6 +47,9 @@
+ #ifndef _FILE_OFFSET_BITS
+ #define _FILE_OFFSET_BITS 32
+ #endif
++#ifndef __NR_fadvise64
++#define __NR_fadvise64 0
++#endif
+ 
+ void setup();
+ void cleanup();
+Index: ltp-full-20080131/testcases/kernel/syscalls/fadvise/posix_fadvise03.c
+===================================================================
+--- ltp-full-20080131.orig/testcases/kernel/syscalls/fadvise/posix_fadvise03.c	2008-02-29 01:23:11.000000000 +0100
++++ ltp-full-20080131/testcases/kernel/syscalls/fadvise/posix_fadvise03.c	2008-02-29 01:23:19.000000000 +0100
+@@ -49,6 +49,10 @@
+ #define _FILE_OFFSET_BITS 32
+ #endif
+ 
++#ifndef __NR_fadvise64
++#define __NR_fadvise64 0
++#endif
++
+ void setup();
+ void cleanup();
+ 
+Index: ltp-full-20080131/testcases/kernel/syscalls/fadvise/posix_fadvise04.c
+===================================================================
+--- ltp-full-20080131.orig/testcases/kernel/syscalls/fadvise/posix_fadvise04.c	2008-02-29 01:23:22.000000000 +0100
++++ ltp-full-20080131/testcases/kernel/syscalls/fadvise/posix_fadvise04.c	2008-02-29 01:23:29.000000000 +0100
+@@ -47,6 +47,10 @@
+ #define _FILE_OFFSET_BITS 32
+ #endif
+ 
++#ifndef __NR_fadvise64
++#define __NR_fadvise64 0
++#endif
++
+ void setup();
+ void cleanup();
+ 
