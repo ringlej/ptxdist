@@ -425,7 +425,7 @@ check_native() {
 }
 
 check_if_selected() {
-	local CONFIGVAR=PTXCONF_$(echo $1 | tr 'a-z' 'A-Z')
+	local CONFIGVAR=PTXCONF_$(echo $1 | tr 'a-z-' 'A-Z_')
 	local PTXCONFIG_CONFIGVAR=$(ptxd_get_ptxconf $CONFIGVAR)
 	if [ -z ${PTXCONFIG_CONFIGVAR} ]; then
 		echo
