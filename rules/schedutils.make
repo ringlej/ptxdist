@@ -78,7 +78,7 @@ schedutils_compile: $(STATEDIR)/schedutils.compile
 
 $(STATEDIR)/schedutils.compile: $(schedutils_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(SCHEDUTILS_DIR) && $(SCHEDUTILS_PATH) make $(SCHEDUTILS_ENV) chrt
+	cd $(SCHEDUTILS_DIR) && $(SCHEDUTILS_PATH) make $(SCHEDUTILS_ENV)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -110,7 +110,15 @@ $(STATEDIR)/schedutils.targetinstall: $(schedutils_targetinstall_deps_default)
 	@$(call install_fixup,schedutils,DEPENDS,)
 	@$(call install_fixup,schedutils,DESCRIPTION,missing)
 
+ifdef PTXCONF_SCHEDUTILS_CHRT
 	@$(call install_copy, schedutils, 0, 0, 0755, $(SCHEDUTILS_DIR)/chrt, /usr/bin/chrt)
+endif
+ifdef PTXCONF_SCHEDUTILS_IONICE
+	@$(call install_copy, schedutils, 0, 0, 0755, $(SCHEDUTILS_DIR)/ionice, /usr/bin/ionice)
+endif
+ifdef PTXCONF_SCHEDUTILS_TASKSET
+	@$(call install_copy, schedutils, 0, 0, 0755, $(SCHEDUTILS_DIR)/taskset, /usr/bin/taskset)
+endif
 
 	@$(call install_finish,schedutils)
 
