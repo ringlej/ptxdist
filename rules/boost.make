@@ -107,18 +107,27 @@ boost_install: $(STATEDIR)/boost.install
 
 $(STATEDIR)/boost.install: $(boost_install_deps_default)
 	@$(call targetinfo, $@)
-	mkdir -p $(SYSROOT)/usr/include/boost/
+
+	@cd $(BOOST_DIR)/boost; \
+	for i in `find . -type d ! -path "*regex/*" ! -path "*thread/*"`; do \
+		if [ ! `ls $$i/*.hpp 2>/dev/null 1>/dev/null; echo $$?` -gt 0 ]; then \
+			[ ! -d $(SYSROOT)/usr/include/boost/$$i ] && \
+			mkdir -p $(SYSROOT)/usr/include/boost/$$i; \
+			cp -f $$i/*.hpp $(SYSROOT)/usr/include/boost/$$i/; \
+		fi \
+	done
+
 ifdef PTXCONF_BOOST_FILESYSTEM
 endif
 ifdef PTXCONF_BOOST_REGEX
-	cp -a \
+	@cp -a \
 	  $(BOOST_DIR)/bin/boost/libs/regex/build/libboost_regex.so/gcc/release/shared-linkable-true/libboost_regex-gcc-1_33_1.so \
 	  $(SYSROOT)/usr/lib/
-	cp -a $(BOOST_DIR)/boost/regex/ $(BOOST_DIR)/boost/regex.hpp $(SYSROOT)/usr/include/boost/
+	@cp -a $(BOOST_DIR)/boost/regex/ $(BOOST_DIR)/boost/regex.hpp $(SYSROOT)/usr/include/boost/
 endif
 ifdef PTXCONF_BOOST_THREAD
-	cp -a $(BOOST_DIR)/libs/thread/build/bin-stage/libboost_thread* $(SYSROOT)/usr/lib/
-	cp -a $(BOOST_DIR)/boost/thread/ $(BOOST_DIR)/boost/thread.hpp $(SYSROOT)/usr/include/boost/
+	@cp -a $(BOOST_DIR)/libs/thread/build/bin-stage/libboost_thread* $(SYSROOT)/usr/lib/
+	@cp -a $(BOOST_DIR)/boost/thread/ $(BOOST_DIR)/boost/thread.hpp $(SYSROOT)/usr/include/boost/
 endif
 	@$(call touch, $@)
 
