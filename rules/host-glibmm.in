@@ -1,0 +1,9 @@
+config HOST_GLIBMM
+	bool
+	select HOST_GLIB
+	select HOST_LIBSIGCPP
+#	select HOST_GCCLIBS_CXX
+	prompt "glibmm"
+	help
+	  glibmm is the C++ interface to the glib library.
+

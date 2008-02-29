@@ -1,0 +1,24 @@
+Subject: take out double qualification of function
+By: Debian packet author
+  IsSubwidget() is double qualified. Newer Compilers(tested with 4.1.2) don't
+  like this and break up with error on this.
+  This patch is taken from debian source packet
+
+Signed-off-by: n.a.
+---
+ src/writers/gnome_app.hh |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/src/writers/gnome_app.hh
+===================================================================
+--- a/src/writers/gnome_app.hh
++++ b/src/writers/gnome_app.hh
+@@ -28,7 +28,7 @@ class Gnome_App : public Gtk_Window
+ 	virtual bool NeedExplicitCtor(const Widget &w) const;
+ 	virtual void ConstructionArgs(const Widget &w, CxxFile &f) const;
+ 	virtual void Configure(const Widget &w, CxxFile &f,const std::string &instance) const;
+-	virtual Subwidget Gnome_App::IsSubwidget(const Widget &w,const Widget &ch) const;
++	virtual Subwidget IsSubwidget(const Widget &w,const Widget &ch) const;
+ 	virtual const std::string InternalInstance(const Widget &parent,const Widget &w2) const;
+ 	virtual void AddChildren(const Widget &w,CxxFile &f,const std::string &instance,const WriterBase &writer_for_subw, const Widget &widget_for_subw) const;
+ };

@@ -1,0 +1,34 @@
+Subject: fix code generation for Gtk::Alignment
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+  Produce correct code even if some properties have the default values and
+  are not specified in the glade file.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/writers/alignment.cc |   13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
+
+Index: b/src/writers/alignment.cc
+===================================================================
+--- a/src/writers/alignment.cc
++++ b/src/writers/alignment.cc
+@@ -43,15 +43,10 @@ const std::string Gtk_Alignment::Include
+ 
+ void Gtk_Alignment::ConstructionArgs(const Widget &w, CxxFile &f) const
+ {
+-   if( w.hasProperty("xalign") && w.hasProperty("yalign") && 
+-       w.hasProperty("xscale") && w.hasProperty("yscale") )
+-   {
+-      f.FunctionArg() << w.getFloatProperty("xalign");
+-      f.FunctionArg() << w.getFloatProperty("yalign");
+-      f.FunctionArg() << w.getFloatProperty("xscale");
+-      f.FunctionArg() << w.getFloatProperty("yscale");
+-   }
+-   else f.FunctionArg();
++   f.FunctionArg() << (w.hasProperty("xalign") ? w.getFloatProperty("xalign") : 0.5);
++   f.FunctionArg() << (w.hasProperty("yalign") ? w.getFloatProperty("yalign") : 0.5);
++   f.FunctionArg() << (w.hasProperty("xscale") ? w.getFloatProperty("xscale") : 1.0);
++   f.FunctionArg() << (w.hasProperty("yscale") ? w.getFloatProperty("yscale") : 1.0);
+ }
+ 
+ Gtk_Alignment::Gtk_Alignment()

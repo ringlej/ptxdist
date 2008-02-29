@@ -1,0 +1,95 @@
+Subject: make pkg-config binary configurable
+By: Luotao Fu <l.fu@pengutronix.de>
+  glademm calls directly pkg-config in $PATH. We however need that customizable
+  pkg-config to be called, i.E. our host built pkg-config in BSP. Hence we make
+  the path to the pkg-config we want to call configurable via parameter.
+  not determined for upstream
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+---
+ src/Configuration.hh |    1 +
+ src/glade--.cc       |   21 ++++++++++++++++-----
+ 2 files changed, 17 insertions(+), 5 deletions(-)
+
+Index: b/src/glade--.cc
+===================================================================
+--- a/src/glade--.cc
++++ b/src/glade--.cc
+@@ -93,7 +93,7 @@ const static struct option options[]=
+   { "verbose",		no_argument,	   NULL, 'v' },
+   { "show-options",	no_argument,	   NULL, SHOW_OPTIONS },
+   { "image-provider",	required_argument, NULL, IMAGE_PROVIDER },
+-  
++  { "pkgconfig",	required_argument, NULL, 'p' },
+   { NULL,		0,		   NULL, 0 }
+ };
+ 
+@@ -134,7 +134,15 @@ static bool CheckVersion(const std::stri
+ {  if (v.source==Pkg_Version::Command_Line) return true;
+    char buf[80];
+    bool result=false;
+-   FILE *f=popen(cmd.c_str(),"r");
++   FILE *f;
++	int i;
++	std::string n_cmd = cmd.c_str();
++	std::string::size_type loc = n_cmd.find("pkg-config", 0);
++	if (Configuration.pkgconfig_bin != "" && loc != std::string::npos) {
++		n_cmd.replace(loc, Configuration.pkgconfig_bin.length(),
++							 Configuration.pkgconfig_bin);
++   }
++   f=popen(n_cmd.c_str(),"r");
+    if (f)
+    {  if (fgets(buf,sizeof(buf),f))
+       {  if (!ignore_letters)
+@@ -144,11 +152,11 @@ static bool CheckVersion(const std::stri
+          // not installed/found
+          if (!strncmp(buf,"Package ",8) && strstr(buf," not ")) result=false;
+          else if (parse_version(buf,v,src,ignore_letters)) result=true;
+-         else std::cerr << cmd << ": strange result '" << buf << "'\n";
++         else std::cerr << n_cmd << ": strange result '" << buf << "'\n";
+       }
+       pclose(f);
+    }
+-   else perror(cmd.c_str());
++   else perror(n_cmd.c_str());
+    return result;
+ }
+ 
+@@ -383,7 +391,7 @@ int main(int argc,char **argv)
+    {  if (i) Configuration.commandline+=' ';
+       Configuration.commandline+=argv[i];
+    }
+-   while ((opt=getopt_long(argc,argv,"d:m:h:c:Vgrs1AwlN",options,NULL))!=EOF) 
++   while ((opt=getopt_long(argc,argv,"d:m:h:c:p:Vgrs1AwlN",options,NULL))!=EOF)
+     switch(opt)
+    {  case 'd': Configuration.destination_directory=optarg;
+          break;
+@@ -393,6 +401,8 @@ int main(int argc,char **argv)
+       	 break;
+       case 'h': Configuration.header_suffix=optarg;
+          break;
++      case 'p': Configuration.pkgconfig_bin=optarg;
++	 break;
+       case 'V': std::cout<< "glademm V"VERSION" (glade to Gtk-- converter)\n";
+          return 0;
+          break;
+@@ -487,6 +497,7 @@ int main(int argc,char **argv)
+ 		 "\t--baseclass\tderive from base class (for class parameters)\n"
+          	 "\t--libglade\tgenerate code skeleton for a libglade-- application.\n"
+          	 "\t--libglade-option\tgenerate infrastructure for libglade without using it.\n"
++				 "\t--pkgconfig\tpath to the pkg-config binary to be used\n"
+          	 "\t--version\tprints 'glademm V"VERSION"'\n";
+          return 1;
+    }
+Index: b/src/Configuration.hh
+===================================================================
+--- a/src/Configuration.hh
++++ b/src/Configuration.hh
+@@ -83,6 +83,7 @@ struct Configuration : public Naming
+    std::string pixmap_dir_relative_to_src;
+    std::string author_name;
+    std::string author_email;
++   std::string pkgconfig_bin;
+    bool debug:1;
+    bool sample_code:1;
+    bool bare_bones:1;

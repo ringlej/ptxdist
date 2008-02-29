@@ -1,0 +1,41 @@
+Subject: add --gettext to enable gettext support
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+  gettext support is usually auto detected. When using --glade-only
+  all autodetection is disabled. This patch allows to manually enable
+  gettext support.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/glade--.cc |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+Index: b/src/glade--.cc
+===================================================================
+--- a/src/glade--.cc
++++ b/src/glade--.cc
+@@ -94,6 +94,7 @@ const static struct option options[]=
+   { "show-options",	no_argument,	   NULL, SHOW_OPTIONS },
+   { "image-provider",	required_argument, NULL, IMAGE_PROVIDER },
+   { "pkgconfig",	required_argument, NULL, 'p' },
++  { "gettext",		no_argument,	   NULL, 't' },
+   { NULL,		0,		   NULL, 0 }
+ };
+ 
+@@ -404,6 +405,8 @@ int main(int argc,char **argv)
+          break;
+       case 'p': Configuration.pkgconfig_bin=optarg;
+ 	 break;
++      case 't': Configuration.gettext_support=true;
++         break;
+       case 'V': std::cout<< "glademm V"VERSION" (glade to Gtk-- converter)\n";
+          return 0;
+          break;
+@@ -547,7 +550,7 @@ reopen:
+          if (name.substr(name.size()-6,6)==".glade") name=name.substr(0,name.size()-6);
+          t.push_back(Tag("program_name",name));
+          t.push_back(Tag("gnome_support","false"));
+-         t.push_back(Tag("gettext_support","false"));
++         t.push_back(Tag("gettext_support",Configuration.gettext_support ? "true" : "false"));
+          ApplyProject(t);
+       }
+    }

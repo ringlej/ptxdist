@@ -9,5 +9,9 @@ source "rules/host-directfb.in"
 source "rules/host-libglade.in"
 source "rules/host-glade.in"
 #source "rules/host-wine.in"
+source "rules/host-glibmm.in"
+source "rules/host-gtkmm.in"
+source "rules/host-cairomm.in"
+source "rules/host-glademm.in"
 endmenu
 

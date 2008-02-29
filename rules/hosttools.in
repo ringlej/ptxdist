@@ -45,6 +45,7 @@ source "rules/host-fontconfig.in"
 source "rules/host-libxml2.in"
 source "rules/host-libxslt.in"
 source "rules/host-libpthread-stubs.in"
+source "rules/host-libsigcpp.in"
 
 comment "------------------------------"
 comment "Scripting Languages           "

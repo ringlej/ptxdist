@@ -1,0 +1,104 @@
+Subject: fix --gladeonly
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+  Don't do things that are not needed to create *_glade.* files.
+  This fixes a crash and various bogus output.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/Cxx_Fileset.cc |    6 ++++++
+ src/glade--.cc     |   15 ++++++++++-----
+ 2 files changed, 16 insertions(+), 5 deletions(-)
+
+Index: b/src/Cxx_Fileset.cc
+===================================================================
+--- a/src/Cxx_Fileset.cc
++++ b/src/Cxx_Fileset.cc
+@@ -180,6 +180,8 @@ void Cxx_Fileset::WriteClasses(const Wid
+    }
+    
+    /******* H: class Xyz ******/
++   if (!Configuration.bare_bones) 
++   {
+    if (Configuration.baseclass)
+    {  bc.Definition().Class(Configuration.TypeName(w.Name())+"_base");
+       bc.StartBlock();
+@@ -210,6 +212,7 @@ void Cxx_Fileset::WriteClasses(const Wid
+ 
+    DeclareSignalHandler(top_wr,w,w,true);
+    h.EndBlock();
++   }
+    
+    /****** GC: include, definitions **************/
+    
+@@ -405,6 +408,8 @@ void Cxx_Fileset::WriteClasses(const Wid
+    
+    /****** C: signal handler stubs *******/
+    
++   if (!Configuration.bare_bones) 
++   {
+    if (Configuration.debug) 
+       std::cout << "======== C signal stubs ============\n";
+    for (Widget::const_contained_iterator i=w.begin_contained(Internal_Both);
+@@ -416,6 +421,7 @@ void Cxx_Fileset::WriteClasses(const Wid
+    }
+ 
+    DefineSignalHandler(top_wr,w,w);
++   }
+    
+    /****** other classes/files ********/
+    // recurse
+Index: b/src/glade--.cc
+===================================================================
+--- a/src/glade--.cc
++++ b/src/glade--.cc
+@@ -160,10 +160,8 @@ static bool CheckVersion(const std::stri
+    return result;
+ }
+ 
+-static void call_gtkmm_config()
+-{  CheckVersion("pkg-config --version",Configuration.pc_version,Pkg_Version::Pkg_Config);
+-
+-   if (CheckVersion("automake-1.9 --version",Configuration.automake_version,Pkg_Version::MMVersion,true))
++static void call_autotool_config()
++{  if (CheckVersion("automake-1.9 --version",Configuration.automake_version,Pkg_Version::MMVersion,true))
+       Configuration.automake_name="automake-1.9";
+    else if (CheckVersion("automake-1.8 --version",Configuration.automake_version,Pkg_Version::MMVersion,true))
+       Configuration.automake_name="automake-1.8";
+@@ -189,7 +187,10 @@ static void call_gtkmm_config()
+ //      Configuration.use_autoreconf=true;
+    
+    CheckVersion("gettext --version",Configuration.gettext_version,Pkg_Version::MMVersion,true);
++}
+ 
++static void call_gtkmm_config()
++{  CheckVersion("pkg-config --version",Configuration.pc_version,Pkg_Version::Pkg_Config);
+    // Pkgconfig checks (Gnome 2)
+    if (Configuration.gnome2) {
+       if (!!Configuration.pc_version) {
+@@ -412,6 +413,7 @@ int main(int argc,char **argv)
+       case 's': Configuration.sample_code=true;
+          break;
+       case 'r': Configuration.bare_bones=true;
++                Configuration.no_autoconf=true;
+          break;
+       case 'A': Configuration.no_autoconf=true;
+          break;
+@@ -535,7 +537,8 @@ reopen:
+          else std::cerr << "Warning: strange project tag '" << t.Type() << "'\n";
+       }
+       catch (...)
+-      {  std::cerr << "Warning: no or illegal project file.\n";
++      {  if (!Configuration.bare_bones)
++           std::cerr << "Warning: no or illegal project file.\n";
+          Tag t("glade-project","");
+          // Configuration.in_filename without path and .glade
+          std::string name=Configuration.in_filename;
+@@ -572,6 +575,8 @@ reopen:
+ 
+    if (Configuration.debug) top.debug(depth);
+    call_gtkmm_config();
++   if (!Configuration.no_autoconf)
++     call_autotool_config();
+    
+    // Apply dependant preferences 
+    if (Configuration.gettext_support)

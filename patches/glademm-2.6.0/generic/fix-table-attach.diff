@@ -1,0 +1,49 @@
+Subject: fix code generation for Gtk::Table
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+  Use the correct default values.
+  Note: this may break old glade files (glade-2 and older).
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/writers/table.cc |   14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+Index: b/src/writers/table.cc
+===================================================================
+--- a/src/writers/table.cc
++++ b/src/writers/table.cc
+@@ -51,7 +51,7 @@ Gtk_Table::Gtk_Table()
+ void Gtk_Table::ConstructionArgs(const Widget &w, CxxFile &f) const
+ {  f.FunctionArg() << w.getIntProperty("rows",2);
+    f.FunctionArg() << w.getIntProperty("columns",2);
+-   f.FunctionArg() << PRINT_BOOL(w.getBoolProperty("homogeneous",true));
++   f.FunctionArg() << PRINT_BOOL(w.getBoolProperty("homogeneous",false));
+ }
+ 
+ std::string getAttachOptions(const ChildParamList& ch, const std::string which)
+@@ -68,6 +68,10 @@ std::string getAttachOptions(const Child
+          if (*i == "fill") options += "|GTK_FILL";
+          else if (*i == "expand") options += "|GTK_EXPAND";
+          else if (*i == "shrink") options += "|GTK_SHRINK";
++         else
++         { options += "|" + ch.getProperty(which+"_options");
++           break;
++         }
+    }
+    else // glade1 style
+    {  if (ch.getBoolProperty(which+"expand",true)) options+="|GTK_EXPAND";
+@@ -86,10 +90,10 @@ std::string getAttachOptions(const Child
+ 
+ void Gtk_Table::AddChild(const Widget &w,CxxFile &f,const std::string &instance) const
+ {  const ChildParamList ch=w.get_Child_params();
+-   int left_attach=ch.getIntProperty("left_attach",-1);
+-   int right_attach=ch.getIntProperty("right_attach",-1);
+-   int top_attach=ch.getIntProperty("top_attach",-1);
+-   int bottom_attach=ch.getIntProperty("bottom_attach",-1);
++   int left_attach=ch.getIntProperty("left_attach",0);
++   int right_attach=ch.getIntProperty("right_attach",1);
++   int top_attach=ch.getIntProperty("top_attach",0);
++   int bottom_attach=ch.getIntProperty("bottom_attach",1);
+ 
+    std::string xoptions = getAttachOptions(ch, "x");
+    std::string yoptions = getAttachOptions(ch, "y");
