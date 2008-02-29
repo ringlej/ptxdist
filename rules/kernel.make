@@ -32,19 +32,19 @@ KERNEL_DIR_INSTALL	:= $(KERNEL_DIR)-install
 # Some configuration stuff for the different kernel image formats
 #
 ifdef PTXCONF_KERNEL_IMAGE_Z
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH_STRING)/boot/zImage
+KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH_KERNEL_STRING)/boot/zImage
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_BZ
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH_STRING)/boot/bzImage
+KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH_KERNEL_STRING)/boot/bzImage
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_U
 KERNEL_IMAGE_PATH	:= \
 	$(KERNEL_DIR)/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH_STRING)/boot/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH_STRING)/boot/images/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH_STRING)/boot/images/vmlinux.UBoot
+	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH_KERNEL_STRING)/boot/uImage \
+	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH_KERNEL_STRING)/boot/images/uImage \
+	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH_KERNEL_STRING)/boot/images/vmlinux.UBoot
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_VMLINUX
@@ -55,6 +55,22 @@ ifdef NATIVE
 KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/vmlinux
 endif
 
+#
+# platform dependencies
+#
+
+kernel_prepare_deps =
+kernel_targetinstall_deps =
+
+ifdef PTXCONF_KERNEL_MODULES
+kernel_prepare_deps += $(STATEDIR)/cross-module-init-tools.install
+kernel_targetinstall_deps += $(STATEDIR)/cross-module-init-tools.targetinstall
+endif
+
+ifdef PTXCONF_KERNEL_IMAGE_U
+kernel_prepare_deps += $(STATEDIR)/host-umkimage.install
+kernel_targetinstall_deps += $(STATEDIR)/host-umkimage.targetinstall
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -103,7 +119,7 @@ KERNEL_MAKEVARS += ARCH=um
 KERNEL_IMAGE	:= vmlinux
 else
 KERNEL_MAKEVARS += \
-	ARCH=$(PTXCONF_ARCH_STRING) \
+	ARCH=$(PTXCONF_ARCH_KERNEL_STRING) \
 	CROSS_COMPILE=$(COMPILER_PREFIX)
 KERNEL_IMAGE	:= $(PTXCONF_KERNEL_IMAGE)
 endif
@@ -117,7 +133,7 @@ $(KERNEL_CONFIG):
 	@echo
 	@exit 1
 
-$(STATEDIR)/kernel.prepare: $(kernel_prepare_deps_default) $(KERNEL_CONFIG)
+$(STATEDIR)/kernel.prepare: $(kernel_prepare_deps_default) $(KERNEL_CONFIG) $(kernel_prepare_deps)
 	@$(call targetinfo, $@)
 
 	@if [ -f $(KERNEL_CONFIG) ]; then				\
@@ -169,7 +185,7 @@ $(STATEDIR)/kernel.install: $(kernel_install_deps_default)
 
 kernel_targetinstall: $(STATEDIR)/kernel.targetinstall.post
 
-$(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps_default)
+$(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps_default) $(kernel_targetinstall_deps)
 	@$(call targetinfo, $@)
 
 # we _always_ need the kernel in the image dir

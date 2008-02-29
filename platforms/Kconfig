@@ -405,7 +405,7 @@ choice
 		prompt "powerpc"
 endchoice
 
-config KERNEL_ARCH
+config ARCH_KERNEL_STRING
 	string
 	default "arm"			if ARCH_ARM
 	default "armnommu"		if ARCH_ARM && !HAS_MMU

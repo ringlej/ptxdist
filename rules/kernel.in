@@ -5,8 +5,6 @@
 menuconfig KERNEL
 	bool
 	default y
-	select CROSS_MODULE_INIT_TOOLS if KERNEL_MODULES
-	select HOST_UMKIMAGE if KERNEL_IMAGE_U
 	prompt "linux kernel                  "
 	help
 	  Build the Linux kernel.
