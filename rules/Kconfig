@@ -153,6 +153,7 @@ endmenu
 
 menu "System Libraries              "
 source "rules/alsa-lib.in"
+source "rules/argtable2.in"
 source "rules/boost.in"
 source "rules/commoncpp2.in"
 source "rules/db41.in"
