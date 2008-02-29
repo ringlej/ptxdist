@@ -21,7 +21,6 @@ CANUTILS_VERSION	:= $(call remove_quotes, $(PTXCONF_CANUTILS_VERSION))
 CANUTILS		:= canutils-$(CANUTILS_VERSION)
 CANUTILS_SUFFIX		:= tar.bz2
 CANUTILS_URL		= http://www.pengutronix.de/software/socket-can/download/canutils/v$(shell echo $(PTXCONF_CANUTILS_VERSION)|sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1.\2/")/$(CANUTILS).$(CANUTILS_SUFFIX)
-
 CANUTILS_SOURCE		:= $(SRCDIR)/$(CANUTILS).$(CANUTILS_SUFFIX)
 CANUTILS_DIR		:= $(BUILDDIR)/$(CANUTILS)
 
@@ -72,6 +71,7 @@ $(STATEDIR)/canutils.prepare: $(canutils_prepare_deps_default)
 	@$(call clean, $(CANUTILS_DIR)/config.cache)
 	cd $(CANUTILS_DIR) && \
 		$(CANUTILS_PATH) $(CANUTILS_ENV) \
+		CPPFLAGS="-I${KERNEL_DIR}/include $${CPPFLAGS}" \
 		./configure $(CANUTILS_AUTOCONF)
 	@$(call touch, $@)
 
@@ -83,7 +83,7 @@ canutils_compile: $(STATEDIR)/canutils.compile
 
 $(STATEDIR)/canutils.compile: $(canutils_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(CANUTILS_DIR) && $(CANUTILS_ENV) $(CANUTILS_PATH) make
+	cd $(CANUTILS_DIR) && $(CANUTILS_ENV) $(CANUTILS_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

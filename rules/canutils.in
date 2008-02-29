@@ -1,5 +1,6 @@
 menuconfig CANUTILS
 	bool "canutils            "
+	select KERNEL
 	help
 	  The canutils package contains tools to configure
 	  and test the Socket CAN framework.
