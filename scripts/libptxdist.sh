@@ -113,6 +113,19 @@ ptxd_human_to_number() {
 }
 
 #
+# convert a package name into its make_name (i.e. host-foo -> HOST_FOO)
+#
+ptxd_name_to_NAME() {
+	local name
+	if [ "$#" != 1 ]; then
+		echo "usage: ptxd_name_to_NAME <pkg-name>"
+		exit 1
+	fi
+	name=$(echo $1 | tr 'a-z-' 'A-Z_')
+	echo $name
+}
+
+#
 # customized exit functions
 #
 # $1 --> Error Message

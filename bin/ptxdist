@@ -431,7 +431,7 @@ check_if_selected() {
 		echo
 		exit 1
 	fi
-	local CONFIGVAR=PTXCONF_$(echo $1 | tr 'a-z-' 'A-Z_')
+	local CONFIGVAR=PTXCONF_$(ptxd_name_to_NAME $1)
 	local PTXCONFIG_CONFIGVAR=$(ptxd_get_ptxconf $CONFIGVAR)
 	if [ -z ${PTXCONFIG_CONFIGVAR} ]; then
 		echo
