@@ -589,6 +589,7 @@ packages := $(PACKAGES-) $(PACKAGES-y)
 prefixes := $(shell echo $(packages) | tr "a-z-" "A-Z_")
 symbols := $(foreach prefix,$(prefixes),$(foreach suffix,$(M2B_DUMP_SUFFIXES),$(prefix)$(suffix)))
 allsymbols := $(prefixes) $(shell echo $(symbols) | tr "a-z-" "A-Z_") $(M2B_DUMP_VARIABLES)
+sources := $(addsuffix _SOURCE,$(prefixes))
 
 dump-%: $(M2B).symbols
 	@echo 'M2B_$(call remove_quotes,$(*))="$(call remove_quotes,$($(*)))"' >> $(M2B).bash.tmp
@@ -597,6 +598,12 @@ dump-%: $(M2B).symbols
 dump: $(addprefix dump-,$(allsymbols))
 	@mv $(M2B).bash.tmp $(M2B).bash
 	@mv $(M2B).tmp $(M2B)
+
+export:
+	@for i in $(foreach source,$(sources),$($(source))); do \
+		echo "$$i"; \
+	done
+
 #
 # ----------------------------------------------------------------------------
 
