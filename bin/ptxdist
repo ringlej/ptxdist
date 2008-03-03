@@ -425,6 +425,12 @@ check_native() {
 }
 
 check_if_selected() {
+	if [ -z $1 ]; then
+		echo
+		echo "${PROMPT}error: please specify a target"
+		echo
+		exit 1
+	fi
 	local CONFIGVAR=PTXCONF_$(echo $1 | tr 'a-z-' 'A-Z_')
 	local PTXCONFIG_CONFIGVAR=$(ptxd_get_ptxconf $CONFIGVAR)
 	if [ -z ${PTXCONFIG_CONFIGVAR} ]; then
@@ -929,10 +935,6 @@ while [ "$#" != "0" ]; do
 			boardsetup
 			;;
 	compile)	shift
-			if [ $# -eq 0 ]; then
-				echo "${PROMPT}error: add target you want to compile"
-				exit 1
-			fi
 			check_ptxconfig
 			check_if_selected $1
 			check_native
@@ -983,7 +985,6 @@ while [ "$#" != "0" ]; do
 			;;
 	get)		shift
 			check_ptxconfig
-			check_if_selected $1
 			check_native
 			check_deps
 			if [ $# -eq 0 ]; then
@@ -991,6 +992,7 @@ while [ "$#" != "0" ]; do
 				check_pipe_status
 				exit 0
 			else
+				check_if_selected $1
 				ptxd_make $1_get 2>&1 | tee -a logfile
 				check_pipe_status
 				exit 0
