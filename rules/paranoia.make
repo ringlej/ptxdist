@@ -21,7 +21,7 @@ PACKAGES-$(PTXCONF_PARANOIA) += paranoia
 #
 PARANOIA		= paranoia
 PARANOIA_URL		= http://www.netlib.org/paranoia/paranoia.c
-PARANOIA_SOURCE		= $(PARANOIA).c
+PARANOIA_SOURCE		= $(SRCDIR)/$(PARANOIA).c
 PARANOIA_DIR		= $(BUILDDIR)/$(PARANOIA)
 
 
