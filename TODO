@@ -1,6 +1,9 @@
 TODO for 1.1.x
 ==============
 
+[ ] rsc: platformconfig: check what about PTXCONF_IMAGE_IPKG_ARCH; it
+    should go to the platformconfig code.
+
 [ ] rsc: we don't seem to have a target option for the endianess!
 
 [ ] rsc: configure continues, even if a test breaks. Example:
