@@ -119,6 +119,10 @@ ALL_PACKAGES		:= \
 	$(CROSS_PACKAGES) $(CROSS_PACKAGES-) \
 	$(HOST_PACKAGES) $(HOST_PACKAGES-)
 
+SELECTED_PACKAGES	:= \
+	$(PACKAGES-y) $(CROSS_PACKAGES-y) \
+	$(HOST_PACKAGES-y)  $(VIRTUAL-y)
+
 # ----------------------------------------------------------------------------
 # Install targets
 # ----------------------------------------------------------------------------
@@ -589,7 +593,7 @@ packages := $(PACKAGES-) $(PACKAGES-y)
 prefixes := $(shell echo $(packages) | tr "a-z-" "A-Z_")
 symbols := $(foreach prefix,$(prefixes),$(foreach suffix,$(M2B_DUMP_SUFFIXES),$(prefix)$(suffix)))
 allsymbols := $(prefixes) $(shell echo $(symbols) | tr "a-z-" "A-Z_") $(M2B_DUMP_VARIABLES)
-sources := $(addsuffix _SOURCE,$(prefixes))
+sources := $(addsuffix _SOURCE,$(shell echo $(SELECTED_PACKAGES) | tr "a-z-" "A-Z_"))
 
 dump-%: $(M2B).symbols
 	@echo 'M2B_$(call remove_quotes,$(*))="$(call remove_quotes,$($(*)))"' >> $(M2B).bash.tmp
@@ -601,7 +605,7 @@ dump: $(addprefix dump-,$(allsymbols))
 
 export:
 	@for i in $(foreach source,$(sources),$($(source))); do \
-		echo "$$i"; \
+		cp $$i $(EXPORTDIR); \
 	done
 
 #

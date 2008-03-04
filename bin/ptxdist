@@ -974,6 +974,21 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			drop $1 $2
 			;;
+	export)		shift
+			if [ ! -d $1 ]; then
+				echo
+				echo "${PROMPT}error: directory '$1' does not exist!"
+				echo
+				exit 1
+			fi
+			export EXPORTDIR=$1
+			check_ptxconfig
+			check_native
+			check_deps
+			ptxd_make export $1 2>&1 | tee -a logfile
+			check_pipe_status
+			exit 0
+			;;
 	extract)	shift
 			check_ptxconfig
 			check_if_selected $1
