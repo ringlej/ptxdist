@@ -312,6 +312,9 @@ endif
 
 ifdef PTXCONF_XORG_SERVER_XPRINT
 XORG_SERVER_AUTOCONF += --enable-xprint
+# xprint FreeType backend have to be disabled in the x.org contribution due to
+# licence troubels
+XORG_SERVER_AUTOCONF += --disable-freetype
 else
 XORG_SERVER_AUTOCONF += --disable-xprint
 endif
@@ -443,9 +446,6 @@ $(STATEDIR)/xorg-server.targetinstall: $(xorg-server_targetinstall_deps_default)
 ifdef PTXCONF_XORG_SERVER_XVFB
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/vfb/Xvfb, $(XORG_PREFIX)/bin/Xvfb)
 endif
-ifdef PTXCONF_XORG_SERVER_XORG
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/Xorg, $(XORG_PREFIX)/bin/Xorg)
-endif
 ifdef PTXCONF_XORG_SERVER_DMX
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/dmx/Xdmx, $(XORG_PREFIX)/bin/Xdmx)
 endif
@@ -453,11 +453,15 @@ ifdef PTXCONF_XORG_SERVER_XNEST
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xnest/Xnest, $(XORG_PREFIX)/bin/Xnest)
 endif
 ifdef PTXCONF_XORG_SERVER_XPRINT
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xprint/Xprt, $(XORG_PREFIX)/bin/Xprt)
 endif
 ifdef PTXCONF_XORG_SERVER_XWIN
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xwin/Xwin, $(XORG_PREFIX)/bin/Xwin)
 endif
 
+ifdef PTXCONF_XORG_SERVER_XORG
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/Xorg, $(XORG_PREFIX)/bin/Xorg)
+	@$(call install_link, xorg-server, $(XORG_PREFIX)/bin/Xorg, /usr/bin/X)
 ifdef PTXCONF_XORG_DRIVER_VIDEO
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/fbdevhw/.libs/libfbdevhw.so, $(XORG_PREFIX)/lib/xorg/modules/linux/libfbdevhw.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libafb.so, $(XORG_PREFIX)/lib/xorg/modules/libafb.so)
@@ -592,8 +596,7 @@ endif
 
 ifdef PTXCONF_XORG_SERVER_OPT_KBD_MODE
 endif
-	@$(call install_link, xorg-server, $(XORG_PREFIX)/bin/Xorg, /usr/bin/X)
-
+endif # PTXCONF_XORG_SERVER_XORG
 	@$(call install_finish, xorg-server)
 
 	@$(call touch, $@)

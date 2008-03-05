@@ -191,11 +191,10 @@ config XORG_SERVER_XWIN
 config XORG_SERVER_XPRINT
 	bool
 	depends on XORG_SERVER
-	depends on BROKEN
-	prompt "Xprint server and extension [BROKEN]"
+	prompt "Xprint server and extension"
 	help
 	  Support the Xprint extension on this server. This lets application
-	  render to a non to non-display devices. Currently broken.
+	  render to a non to non-display devices.
 
 config XORG_SERVER_XEPHYR
 	bool
