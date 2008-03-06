@@ -603,8 +603,11 @@ dump: $(addprefix dump-,$(allsymbols))
 	@mv $(M2B).bash.tmp $(M2B).bash
 	@mv $(M2B).tmp $(M2B)
 
+# [HOST|CROSS]_FOO_SOURCE may be empty; try FOO_SOURCE in that case
+get_source = $(if $($(source)), $($(source)), $($(subst CROSS_,,$(subst HOST_,,$(source)))))
+
 export:
-	@for i in $(foreach source,$(sources),$($(source))); do \
+	@for i in $(foreach source,$(sources),$(get_source)); do \
 		cp $$i $(EXPORTDIR); \
 	done
 
