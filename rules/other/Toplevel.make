@@ -603,11 +603,6 @@ dump: $(addprefix dump-,$(allsymbols))
 	@mv $(M2B).bash.tmp $(M2B).bash
 	@mv $(M2B).tmp $(M2B)
 
-export:
-	@for i in $(foreach source,$(sources),$(get_source)); do \
-		cp $$i $(EXPORTDIR); \
-	done
-
 #
 # ----------------------------------------------------------------------------
 

@@ -2,3 +2,9 @@
 # [HOST|CROSS]_FOO_SOURCE may be empty; try FOO_SOURCE in that case
 get_source = $(if $($(source)), $($(source)), $($(subst CROSS_,,$(subst HOST_,,$(source)))))
 
+#FIXME? now copies files twice if selected for host _and_ target. 
+export:
+	@for i in $(foreach source,$(sources),$(get_source)); do \
+		cp $$i $(EXPORTDIR); \
+	done
+
