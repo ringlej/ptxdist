@@ -474,12 +474,12 @@ config BOOST_REGEX
 # 	help
 # 	  Bootst signals library.
 #
-# config BOOST_SERIALIZATION
-# 	bool
-# 	depends on BOOST
-# 	prompt "serialization"
-# 	help
-# 	  Bootst serialization library.
+config BOOST_SERIALIZATION
+ 	bool
+ 	depends on BOOST
+ 	prompt "serialization"
+ 	help
+ 	  Bootst serialization library.
 #
 # config BOOST_THREAD
 # 	bool
@@ -530,11 +530,12 @@ config BOOST_REGEX
 # 	help
 # 	  Bootst test library.
 #
-# config BOOST_PROGRAM_OPTIONS
-# 	bool
-# 	depends on BOOST
-# 	prompt "program options"
-# 	help
+config BOOST_PROGRAM_OPTIONS
+	bool
+ 	depends on BOOST
+ 	prompt "program options"
+ 	help
+	  FIXME
 # 	  Bootst regexp library.
 #
 # config BOOST_GRAPH

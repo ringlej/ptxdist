@@ -97,6 +97,13 @@ endif
 ifdef PTXCONF_BOOST_THREAD
 	cd $(BOOST_DIR)/libs/thread/build && $(BOOST_JAM)
 endif
+ifdef PTXCONF_BOOST_PROGRAM_OPTIONS
+	cd $(BOOST_DIR)/libs/program_options/build && $(BOOST_JAM)
+endif
+ifdef PTXCONF_BOOST_SERIALIZATION
+	cd $(BOOST_DIR)/libs/serialization/build && $(BOOST_JAM)
+endif
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -109,7 +116,8 @@ $(STATEDIR)/boost.install: $(boost_install_deps_default)
 	@$(call targetinfo, $@)
 
 	@cd $(BOOST_DIR)/boost; \
-	for i in `find . -type d ! -path "*regex/*" ! -path "*thread/*"`; do \
+	for i in `find . -type d ! -path "*regex/*" ! -path "*thread/*" ! -path "*program_options/*" \
+		! -path "serialization/*" ! -path "filessystem/*"`; do \
 		if [ ! `ls $$i/*.hpp 2>/dev/null 1>/dev/null; echo $$?` -gt 0 ]; then \
 			[ ! -d $(SYSROOT)/usr/include/boost/$$i ] && \
 			mkdir -p $(SYSROOT)/usr/include/boost/$$i; \
@@ -118,6 +126,7 @@ $(STATEDIR)/boost.install: $(boost_install_deps_default)
 	done
 
 ifdef PTXCONF_BOOST_FILESYSTEM
+	@cp -a $(BOOST_DIR)/boost/filesystem/ $(SYSROOT)/usr/include/boost/
 endif
 ifdef PTXCONF_BOOST_REGEX
 	@cp -a \
@@ -128,6 +137,12 @@ endif
 ifdef PTXCONF_BOOST_THREAD
 	@cp -a $(BOOST_DIR)/libs/thread/build/bin-stage/libboost_thread* $(SYSROOT)/usr/lib/
 	@cp -a $(BOOST_DIR)/boost/thread/ $(BOOST_DIR)/boost/thread.hpp $(SYSROOT)/usr/include/boost/
+endif
+ifdef PTXCONF_BOOST_PROGRAM_OPTIONS
+	@cp -a $(BOOST_DIR)/boost/program_options/ $(BOOST_DIR)/boost/program_options.hpp $(SYSROOT)/usr/include/boost/
+endif
+ifdef PTXCONF_BOOST_SERIALIZATION
+	@cp -a $(BOOST_DIR)/boost/serialization/ $(SYSROOT)/usr/include/boost/
 endif
 	@$(call touch, $@)
 
@@ -174,6 +189,30 @@ ifdef PTXCONF_BOOST_THREAD
 	@$(call install_link, boost, \
 		libboost_thread-gcc-mt-d-1_33_1.so.1.33.1, \
 		/usr/lib/libboost_thread-gcc-mt-d-1_33_1.so)
+endif
+
+ifdef PTXCONF_BOOST_PROGRAM_OPTIONS
+	@$(call install_copy, boost, 0, 0, 0644, \
+		$(BOOST_DIR)/stage/lib/libboost_program_options-gcc-d-1_33_1.so.1.33.1, \
+		/usr/lib/libboost_program_options-gcc-d-1_33_1.so.1.33.1)
+	@$(call install_link, boost, \
+		libboost_program_options-gcc-d-1_33_1.so.1.33.1, \
+		/usr/lib/libboost_program_options-gcc-d-1_33_1.so)
+endif
+ifdef PTXCONF_BOOST_SERIALIZATION
+	@$(call install_copy, boost, 0, 0, 0644, \
+		$(BOOST_DIR)/stage/lib/libboost_serialization-gcc-d-1_33_1.so.1.33.1, \
+		/usr/lib/libboost_serialization-gcc-d-1_33_1.so.1.33.1)
+	@$(call install_copy, boost, 0, 0, 0644, \
+		$(BOOST_DIR)/stage/lib/libboost_wserialization-gcc-d-1_33_1.so.1.33.1, \
+		/usr/lib/libboost_wserialization-gcc-d-1_33_1.so.1.33.1)
+
+	@$(call install_link, boost, \
+		libboost_serialization-gcc-d-1_33_1.so.1.33.1, \
+		/usr/lib/libboost_serialization-gcc-d-1_33_1.so)
+	@$(call install_link, boost, \
+		libboost_wserialization-gcc-d-1_33_1.so.1.33.1, \
+		/usr/lib/libboost_wserialization-gcc-d-1_33_1.so)
 endif
 
 	@$(call install_finish,boost)
