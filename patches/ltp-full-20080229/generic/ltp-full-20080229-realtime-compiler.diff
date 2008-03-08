@@ -1,0 +1,37 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: realtime tests try to overwrite compiler
+
+Usually the cross compiler is set from the toplevel directory by setting
+the CROSS_COMPILER variable. This makefile tries to overwrite it, but
+wrong.
+
+It is also possible to push in CFLAGS from the toplevel by using
+CROSS_CFLAGS. We should use these here as well.
+
+Finally, LDFLAGS are set here but not used by the makefiles. Moving the
+posix libs to LDLIBS makes it build.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ testcases/realtime/config.mk |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+Index: ltp-full-20080229/testcases/realtime/config.mk
+===================================================================
+--- ltp-full-20080229.orig/testcases/realtime/config.mk	2008-03-09 00:33:47.000000000 +0100
++++ ltp-full-20080229/testcases/realtime/config.mk	2008-03-09 00:40:40.000000000 +0100
+@@ -16,9 +16,9 @@
+ 
+ # Default stuff common to all testcases
+ #
+-CFLAGS	+=  -Wall -Werror -O2 -I$(srcdir)/include -D_GNU_SOURCE
+-LDFLAGS	+= -lpthread -lrt -lm
++CFLAGS	+= -Wall -Werror -O2 -I$(srcdir)/include -D_GNU_SOURCE $(CROSS_CFLAGS)
+ LDLIBS	+= $(srcdir)/lib/libjvmsim.a \
+ 	   $(srcdir)/lib/librttest.a \
+-	   $(srcdir)/lib/libstats.a
+-CC	= gcc
++	   $(srcdir)/lib/libstats.a \
++	   -lpthread -lrt -lm
++

@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LTP) += ltp
 #
 # Paths and names
 #
-LTP_VERSION	= 20080131
+LTP_VERSION	= 20080229
 LTP		= ltp-full-$(LTP_VERSION)
 LTP_SUFFIX	= tgz
 LTP_URL		= $(PTXCONF_SETUP_SFMIRROR)/ltp/$(LTP).$(LTP_SUFFIX)
@@ -75,13 +75,22 @@ $(STATEDIR)/ltp.compile: $(ltp_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(LTP_DIR); \
 	CROSS_COMPILER=$(PTXDIST_WORKSPACE)/.toolchain/$(PTXCONF_COMPILER_PREFIX) \
-	make CROSS_CFLAGS="" LDFLAGS="-static -L$(LTP_DIR)/lib" \
+	make \
+		CROSS_CFLAGS="$(CROSS_CPPFLAGS)" \
+		LDFLAGS="-static -L$(LTP_DIR)/lib" \
 		LOADLIBS="-lpthread -lc -lresolv -lnss_dns -lnss_files -lm -lc" \
-		$(PARALLELMFLAGS); \
-	CROSS_COMPILER=$(PTXDIST_WORKSPACE)/.toolchain/$(PTXCONF_COMPILER_PREFIX) \
-	make CROSS_CFLAGS="" LDFLAGS="-static -L$(LTP_DIR)/lib" \
-		LOADLIBS="-lpthread -lc -lresolv -lnss_dns -lnss_files -lm -lc" \
-		$(PARALLELMFLAGS) install; \
+		$(PARALLELMFLAGS) all install
+
+#	CROSS_COMPILER=$(PTXDIST_WORKSPACE)/.toolchain/$(PTXCONF_COMPILER_PREFIX) \
+#	make CROSS_CFLAGS="" LDFLAGS="-static -L$(LTP_DIR)/lib" \
+#		LOADLIBS="-lpthread -lc -lresolv -lnss_dns -lnss_files -lm -lc" \
+#		$(PARALLELMFLAGS) all install
+
+#	CROSS_COMPILER=$(PTXDIST_WORKSPACE)/.toolchain/$(PTXCONF_COMPILER_PREFIX) \
+#	make CROSS_CFLAGS="" LDFLAGS="-static -L$(LTP_DIR)/lib" \
+#		LOADLIBS="-lpthread -lc -lresolv -lnss_dns -lnss_files -lm -lc" \
+#		$(PARALLELMFLAGS) install
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

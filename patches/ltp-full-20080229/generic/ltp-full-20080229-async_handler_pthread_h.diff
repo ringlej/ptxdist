@@ -1,0 +1,32 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: async_handler_tsc.c needs pthread.h
+
+This file uses pthread_mutex_lock(), which needs posix.h. Otherwhise we get
+this error:
+
+gcc -Wall  -Wall -Werror -O2 -I./include -D_GNU_SOURCE -Wall -Werror -O2
+-I../include -D_GNU_SOURCE -Wall -Werror -O2 -I../../include -D_GNU_SOURCE
+-static -L/.../ltp-full-20080229/lib  async_handler_tsc.c
+../../lib/libjvmsim.a ../../lib/librttest.a ../../lib/libstats.a -o
+async_handler_tsc
+/tmp/ccFZp2hs.o: In function `signal_thread':
+async_handler_tsc.c:(.text+0x344): undefined reference to `pthread_mutex_lock'
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ testcases/realtime/func/async_handler/async_handler_tsc.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: ltp-full-20080229/testcases/realtime/func/async_handler/async_handler_tsc.c
+===================================================================
+--- ltp-full-20080229.orig/testcases/realtime/func/async_handler/async_handler_tsc.c	2008-02-29 08:55:42.000000000 +0100
++++ ltp-full-20080229/testcases/realtime/func/async_handler/async_handler_tsc.c	2008-03-09 00:34:18.000000000 +0100
+@@ -47,6 +47,7 @@
+ #include <stdlib.h>
+ #include <math.h>
+ #include <stdint.h>
++#include <pthread.h>
+ #include <librttest.h>
+ #include <libjvmsim.h>
+ #include <libstats.h>

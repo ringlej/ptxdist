@@ -1,0 +1,638 @@
+  Add Makefiles to all the realtime testcases without any autotools
+dependencies.
+
+Signed-off-by: Sebastien Dugue <sebastien.dugue@bull.net>
+Cc: Darren Hart <dvhltc@us.ibm.com>
+Cc: Tim Chavez <tinytim@us.ibm.com>
+---
+ testcases/realtime/Makefile                        |   15 ++++++++++
+ testcases/realtime/config.mk                       |   24 +++++++++++++++++
+ testcases/realtime/func/Makefile                   |   28 ++++++++++++++++++++
+ testcases/realtime/func/async_handler/Makefile     |   21 +++++++++++++++
+ testcases/realtime/func/gtod_latency/Makefile      |   17 ++++++++++++
+ testcases/realtime/func/hrtimer-prio/Makefile      |   20 ++++++++++++++
+ testcases/realtime/func/matrix_mult/Makefile       |   20 ++++++++++++++
+ testcases/realtime/func/measurement/Makefile       |   16 +++++++++++
+ testcases/realtime/func/periodic_cpu_load/Makefile |   17 ++++++++++++
+ testcases/realtime/func/pi-tests/Makefile          |   25 +++++++++++++++++
+ testcases/realtime/func/pi_perf/Makefile           |   21 +++++++++++++++
+ testcases/realtime/func/prio-preempt/Makefile      |   21 +++++++++++++++
+ testcases/realtime/func/prio-wake/Makefile         |   21 +++++++++++++++
+ .../realtime/func/pthread_kill_latency/Makefile    |   21 +++++++++++++++
+ testcases/realtime/func/sched_football/Makefile    |   16 +++++++++++
+ testcases/realtime/func/sched_jitter/Makefile      |   16 +++++++++++
+ testcases/realtime/func/sched_latency/Makefile     |   21 +++++++++++++++
+ testcases/realtime/func/thread_clock/Makefile      |   16 +++++++++++
+ testcases/realtime/lib/Makefile                    |   24 +++++++++++++++++
+ testcases/realtime/perf/Makefile                   |   14 ++++++++++
+ testcases/realtime/perf/latency/Makefile           |   16 +++++++++++
+ testcases/realtime/stress/Makefile                 |   14 ++++++++++
+ testcases/realtime/stress/pi-tests/Makefile        |   16 +++++++++++
+ 23 files changed, 440 insertions(+), 0 deletions(-)
+ create mode 100644 testcases/realtime/Makefile
+ create mode 100644 testcases/realtime/config.mk
+ create mode 100644 testcases/realtime/func/Makefile
+ create mode 100644 testcases/realtime/func/async_handler/Makefile
+ create mode 100644 testcases/realtime/func/gtod_latency/Makefile
+ create mode 100644 testcases/realtime/func/hrtimer-prio/Makefile
+ create mode 100644 testcases/realtime/func/matrix_mult/Makefile
+ create mode 100644 testcases/realtime/func/measurement/Makefile
+ create mode 100644 testcases/realtime/func/periodic_cpu_load/Makefile
+ create mode 100644 testcases/realtime/func/pi-tests/Makefile
+ create mode 100644 testcases/realtime/func/pi_perf/Makefile
+ create mode 100644 testcases/realtime/func/prio-preempt/Makefile
+ create mode 100644 testcases/realtime/func/prio-wake/Makefile
+ create mode 100644 testcases/realtime/func/pthread_kill_latency/Makefile
+ create mode 100644 testcases/realtime/func/sched_football/Makefile
+ create mode 100644 testcases/realtime/func/sched_jitter/Makefile
+ create mode 100644 testcases/realtime/func/sched_latency/Makefile
+ create mode 100644 testcases/realtime/func/thread_clock/Makefile
+ create mode 100644 testcases/realtime/lib/Makefile
+ create mode 100644 testcases/realtime/perf/Makefile
+ create mode 100644 testcases/realtime/perf/latency/Makefile
+ create mode 100644 testcases/realtime/stress/Makefile
+ create mode 100644 testcases/realtime/stress/pi-tests/Makefile
+
+diff --git a/testcases/realtime/Makefile b/testcases/realtime/Makefile
+new file mode 100644
+index 0000000..60ea13c
+--- /dev/null
++++ b/testcases/realtime/Makefile
+@@ -0,0 +1,15 @@
++
++srcdir := .
++include $(srcdir)/config.mk
++
++SUBDIRS = lib func perf stress
++
++all:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i; done
++
++install:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i install; done
++
++clean:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean ; done
++	@rm .config
+diff --git a/testcases/realtime/config.mk b/testcases/realtime/config.mk
+new file mode 100644
+index 0000000..a143d95
+--- /dev/null
++++ b/testcases/realtime/config.mk
+@@ -0,0 +1,24 @@
++
++
++# Check kernel/glibc support for PI and Robust mutexes and cache
++# the result.
++ifeq ($(shell [ -e $(srcdir)/.config ] && echo yes), yes)
++	HAVE_PI_MUTEX := $(shell grep HAVE_PI_MUTEX $(srcdir)/.config | \
++				 awk '{print $$2}')
++	HAVE_ROBUST_MUTEX := $(shell grep HAVE_ROBUST_MUTEX $(srcdir)/.config | \
++				     awk '{print $$2}')
++else
++	HAVE_PI_MUTEX := $(shell sh $(srcdir)/scripts/check_pi.sh)
++	HAVE_ROBUST_MUTEX:= $(shell sh $(srcdir)/scripts/check_robust.sh)
++	dummy := $(shell echo "HAVE_PI_MUTEX $(HAVE_PI_MUTEX)" > $(srcdir)/.config; \
++		echo "HAVE_ROBUST_MUTEX $(HAVE_ROBUST_MUTEX)" >> $(srcdir)/.config)
++endif
++
++# Default stuff common to all testcases
++#
++CFLAGS	+=  -Wall -Werror -O2 -I$(srcdir)/include -D_GNU_SOURCE
++LDFLAGS	+= -lpthread -lrt -lm
++LDLIBS	+= $(srcdir)/lib/libjvmsim.a \
++	   $(srcdir)/lib/librttest.a \
++	   $(srcdir)/lib/libstats.a
++CC	= gcc
+diff --git a/testcases/realtime/func/Makefile b/testcases/realtime/func/Makefile
+new file mode 100644
+index 0000000..2dd2906
+--- /dev/null
++++ b/testcases/realtime/func/Makefile
+@@ -0,0 +1,28 @@
++
++srcdir := ..
++include $(srcdir)/config.mk
++
++SUBDIRS = \
++	async_handler \
++	gtod_latency \
++	hrtimer-prio \
++	matrix_mult \
++	measurement \
++	periodic_cpu_load \
++	pi-tests \
++	prio-preempt \
++	prio-wake \
++	pthread_kill_latency \
++	sched_football \
++	sched_jitter \
++	sched_latency \
++	thread_clock
++
++all:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i; done
++
++install:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i install; done
++
++clean:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean ; done
+diff --git a/testcases/realtime/func/async_handler/Makefile b/testcases/realtime/func/async_handler/Makefile
+new file mode 100644
+index 0000000..0a813ac
+--- /dev/null
++++ b/testcases/realtime/func/async_handler/Makefile
+@@ -0,0 +1,21 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++
++ifeq ($(HAVE_PI_MUTEX), yes)
++TARGETS = $(SRCS:%.c=%)
++else
++TARGETS =
++endif
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/gtod_latency/Makefile b/testcases/realtime/func/gtod_latency/Makefile
+new file mode 100644
+index 0000000..4039a6f
+--- /dev/null
++++ b/testcases/realtime/func/gtod_latency/Makefile
+@@ -0,0 +1,17 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++
++TARGETS = $(SRCS:%.c=%)
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/hrtimer-prio/Makefile b/testcases/realtime/func/hrtimer-prio/Makefile
+new file mode 100644
+index 0000000..4a583f8
+--- /dev/null
++++ b/testcases/realtime/func/hrtimer-prio/Makefile
+@@ -0,0 +1,20 @@
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++
++ifeq ($(HAVE_PI_MUTEX), yes)
++TARGETS = $(SRCS:%.c=%)
++else
++TARGETS =
++endif
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/matrix_mult/Makefile b/testcases/realtime/func/matrix_mult/Makefile
+new file mode 100644
+index 0000000..4a583f8
+--- /dev/null
++++ b/testcases/realtime/func/matrix_mult/Makefile
+@@ -0,0 +1,20 @@
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++
++ifeq ($(HAVE_PI_MUTEX), yes)
++TARGETS = $(SRCS:%.c=%)
++else
++TARGETS =
++endif
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/measurement/Makefile b/testcases/realtime/func/measurement/Makefile
+new file mode 100644
+index 0000000..67aa51e
+--- /dev/null
++++ b/testcases/realtime/func/measurement/Makefile
+@@ -0,0 +1,16 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++TARGETS = $(SRCS:%.c=%)
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/periodic_cpu_load/Makefile b/testcases/realtime/func/periodic_cpu_load/Makefile
+new file mode 100644
+index 0000000..4039a6f
+--- /dev/null
++++ b/testcases/realtime/func/periodic_cpu_load/Makefile
+@@ -0,0 +1,17 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++
++TARGETS = $(SRCS:%.c=%)
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/pi-tests/Makefile b/testcases/realtime/func/pi-tests/Makefile
+new file mode 100644
+index 0000000..1e1de91
+--- /dev/null
++++ b/testcases/realtime/func/pi-tests/Makefile
+@@ -0,0 +1,25 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++ALL_TARGETS = testpi-0 testpi-1 testpi-2 testpi-4 testpi-5 testpi-6 testpi-7 \
++	      sbrk_mutex
++
++TARGETS = testpi-0
++
++ifeq ($(HAVE_PI_MUTEX), yes)
++TARGETS += testpi-1 testpi-2 testpi-4 testpi-5 testpi-7
++endif
++
++ifeq ($(HAVE_ROBUST_MUTEX), yes)
++TARGETS += testpi-6 sbrk_mutex
++endif
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(ALL_TARGETS) *~
++
+diff --git a/testcases/realtime/func/pi_perf/Makefile b/testcases/realtime/func/pi_perf/Makefile
+new file mode 100644
+index 0000000..0a813ac
+--- /dev/null
++++ b/testcases/realtime/func/pi_perf/Makefile
+@@ -0,0 +1,21 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++
++ifeq ($(HAVE_PI_MUTEX), yes)
++TARGETS = $(SRCS:%.c=%)
++else
++TARGETS =
++endif
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/prio-preempt/Makefile b/testcases/realtime/func/prio-preempt/Makefile
+new file mode 100644
+index 0000000..0a813ac
+--- /dev/null
++++ b/testcases/realtime/func/prio-preempt/Makefile
+@@ -0,0 +1,21 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++
++ifeq ($(HAVE_PI_MUTEX), yes)
++TARGETS = $(SRCS:%.c=%)
++else
++TARGETS =
++endif
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/prio-wake/Makefile b/testcases/realtime/func/prio-wake/Makefile
+new file mode 100644
+index 0000000..0a813ac
+--- /dev/null
++++ b/testcases/realtime/func/prio-wake/Makefile
+@@ -0,0 +1,21 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++
++ifeq ($(HAVE_PI_MUTEX), yes)
++TARGETS = $(SRCS:%.c=%)
++else
++TARGETS =
++endif
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/pthread_kill_latency/Makefile b/testcases/realtime/func/pthread_kill_latency/Makefile
+new file mode 100644
+index 0000000..0a813ac
+--- /dev/null
++++ b/testcases/realtime/func/pthread_kill_latency/Makefile
+@@ -0,0 +1,21 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++
++ifeq ($(HAVE_PI_MUTEX), yes)
++TARGETS = $(SRCS:%.c=%)
++else
++TARGETS =
++endif
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/sched_football/Makefile b/testcases/realtime/func/sched_football/Makefile
+new file mode 100644
+index 0000000..67aa51e
+--- /dev/null
++++ b/testcases/realtime/func/sched_football/Makefile
+@@ -0,0 +1,16 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++TARGETS = $(SRCS:%.c=%)
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/sched_jitter/Makefile b/testcases/realtime/func/sched_jitter/Makefile
+new file mode 100644
+index 0000000..67aa51e
+--- /dev/null
++++ b/testcases/realtime/func/sched_jitter/Makefile
+@@ -0,0 +1,16 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++TARGETS = $(SRCS:%.c=%)
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/sched_latency/Makefile b/testcases/realtime/func/sched_latency/Makefile
+new file mode 100644
+index 0000000..0a813ac
+--- /dev/null
++++ b/testcases/realtime/func/sched_latency/Makefile
+@@ -0,0 +1,21 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++
++ifeq ($(HAVE_PI_MUTEX), yes)
++TARGETS = $(SRCS:%.c=%)
++else
++TARGETS =
++endif
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/func/thread_clock/Makefile b/testcases/realtime/func/thread_clock/Makefile
+new file mode 100644
+index 0000000..67aa51e
+--- /dev/null
++++ b/testcases/realtime/func/thread_clock/Makefile
+@@ -0,0 +1,16 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++TARGETS = $(SRCS:%.c=%)
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/lib/Makefile b/testcases/realtime/lib/Makefile
+new file mode 100644
+index 0000000..615595b
+--- /dev/null
++++ b/testcases/realtime/lib/Makefile
+@@ -0,0 +1,24 @@
++
++srcdir := ..
++include $(srcdir)/config.mk
++
++
++AR	= ar cru
++RANLIB	= ranlib
++
++
++SRCS	= libjvmsim.c librttest.c libstats.c
++OBJS	= $(SRCS:%.c=%.o)
++TARGETS	= $(SRCS:%.c=%.a)
++
++all: $(TARGETS)
++
++%.a: %.o
++	@rm -f $@
++	$(AR) $@ $<
++	$(RANLIB) $@
++
++install:
++
++clean:
++	rm -f $(TARGETS) $(OBJS) *~
+diff --git a/testcases/realtime/perf/Makefile b/testcases/realtime/perf/Makefile
+new file mode 100644
+index 0000000..3418d47
+--- /dev/null
++++ b/testcases/realtime/perf/Makefile
+@@ -0,0 +1,14 @@
++
++srcdir := ..
++include $(srcdir)/config.mk
++
++SUBDIRS = latency
++
++all:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i; done
++
++install:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i install; done
++
++clean:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean ; done
+diff --git a/testcases/realtime/perf/latency/Makefile b/testcases/realtime/perf/latency/Makefile
+new file mode 100644
+index 0000000..67aa51e
+--- /dev/null
++++ b/testcases/realtime/perf/latency/Makefile
+@@ -0,0 +1,16 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++TARGETS = $(SRCS:%.c=%)
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+diff --git a/testcases/realtime/stress/Makefile b/testcases/realtime/stress/Makefile
+new file mode 100644
+index 0000000..e03391f
+--- /dev/null
++++ b/testcases/realtime/stress/Makefile
+@@ -0,0 +1,14 @@
++
++srcdir := ..
++include $(srcdir)/config.mk
++
++SUBDIRS = pi-tests
++
++all:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i; done
++
++install:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i install; done
++
++clean:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean ; done
+diff --git a/testcases/realtime/stress/pi-tests/Makefile b/testcases/realtime/stress/pi-tests/Makefile
+new file mode 100644
+index 0000000..67aa51e
+--- /dev/null
++++ b/testcases/realtime/stress/pi-tests/Makefile
+@@ -0,0 +1,16 @@
++
++srcdir := ../..
++include $(srcdir)/config.mk
++
++
++SRCS    = $(wildcard *.c)
++TARGETS = $(SRCS:%.c=%)
++
++all: $(TARGETS)
++
++install:
++	@set -e; for i in $(TARGETS); do ln -f $$i ../../../bin/$$i; done
++
++clean:
++	rm -f $(TARGETS) *~
++
+-- 
+1.5.4.rc2.84.gf85fd-dirty
+
+
+
