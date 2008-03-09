@@ -2,6 +2,7 @@
 
 menuconfig LIBNETPBM
 	bool
+	select LIBPNG if LIBNETPBM_PNG2PNM
 	prompt "libnetpbm                   "
 	help
 	  libnetpbm is a C programming library for reading,
@@ -15,6 +16,27 @@ config LIBNETPBM_BUILD_FIASCO
 	prompt "build fiasco"
 	help
 	  FIASCO stands for Fractal Image and Sequence Codec.
+
+config LIBNETPBM_PBM2LJ
+	bool
+	depends on LIBNETPBM
+	prompt "pbmtolj"
+	help
+	  Convert color pbm bitmaps to HP-PCL5
+
+config LIBNETPBM_PPM2LJ
+	bool
+	depends on LIBNETPBM
+	prompt "ppmtolj"
+	help
+	  Convert monochrome ppm bitmaps to HP-PCL5
+
+config LIBNETPBM_PNG2PNM
+	bool
+	depends on LIBNETPBM
+	prompt "pngtopnm"
+	help
+	  Convert png images to portable anymap.
 
 # FIXME: add library support (TIFF, JPEG, ...)
 
