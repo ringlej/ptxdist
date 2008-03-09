@@ -3,6 +3,7 @@ menuconfig MPLAYER
 	select LIBJPEG if MPLAYER_VO_JPEG
 	select XORG_LIB_XV if MPLAYER_VO_XV
 	select XORG_LIB_X11 if MPLAYER_VO_X11
+	select FFMPEG if MPLAYER_FFMPEG
 	prompt "mplayer             "
 	help
 	  The Ultimate Movie Player For Linux
@@ -40,3 +41,9 @@ config MPLAYER_VO_FBDEV
 	bool
 	prompt "enable framebuffer output support for mplayer"
 	depends on MPLAYER
+
+config MPLAYER_FFMPEG
+	bool
+	prompt "ffmpeg support"
+	depends on MPLAYER
+
