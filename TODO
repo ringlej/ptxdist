@@ -1,5 +1,5 @@
-TODO for 1.1.x
-==============
+TODO for 1.99.x
+===============
 
 [ ] rsc: platformconfig: check what about PTXCONF_IMAGE_IPKG_ARCH; it
     should go to the platformconfig code.
@@ -41,12 +41,6 @@ TODO for 1.1.x
 	application.
 	-> check if samba_cv_HAVE_IFACE_IFCONF=yes and samba_cv_HAVE_MMAP=yes
 	   can be used all over all architectures as defaults
-
-[x] jbe: transfer ipkg's runtime configuration to the ipkg packet itself
-	-> its not rootfs
-
-[x] jbe: uboot-1.2.0's build system is not multi processor save
-	-> supress -j option
 
 [ ] jbe: suppress cross toolchain and toolchain vendor check while --native build
 
@@ -102,9 +96,6 @@ TODO for 1.1.x
 	 happend on SUSE-10.1 on host side and an USB to IDE adapter
 	 to initial write the hd.img to the harddisk.
 
-[x] jbe: rules file for zlib is broken since ptxdist-0.10.6!
-	 What the hell means libz.so.0.0.0???? In ptxdist-0.10.5 it was libz.so.1.2.3!
-
 [ ] jbe: most of the time thttpd does not respond to the USR1 signal.
 	  - the start/stop script fails to stop this service
 
@@ -120,11 +111,6 @@ TODO for 1.1.x
 
 [ ] jbe: review all READMEs, COMPILE-TESTs, SPECIFICATIONs and so on files
 	 in the ptxdist install folder. Most of them are trash only
-
-[x] jbe: fakeroot seems to have problems to run in a 64 bit environment. Not
-	 at the image creation stage, only at the "install" stage
-	 Update:
-	 - fakeroot fails on all glibc 2.5 based systems
 
 [ ] jbe: alsa-lib creates funny pathes at the install stage
 
@@ -685,11 +671,25 @@ Old TODOs
 	 do this with a script, which is called after /etc/init.d/modules.
 	 Additionally We might want to add mechanismen to determine extra mount
 	 device and mount points and generate the entry in customized /etc/fstab
-[ ] LFU: fix libgd 
+[ ] LFU: fix libgd
 [ ] LFU: add timezone support to ptxdist (depends on Toolchain newer than 1.1.0
 	 Release)
 DONE
 ----
+
+[x] jbe: fakeroot seems to have problems to run in a 64 bit environment. Not
+	 at the image creation stage, only at the "install" stage
+	 Update:
+	 - fakeroot fails on all glibc 2.5 based systems
+
+[x] jbe: rules file for zlib is broken since ptxdist-0.10.6!
+	 What the hell means libz.so.0.0.0???? In ptxdist-0.10.5 it was libz.so.1.2.3!
+
+[x] jbe: transfer ipkg's runtime configuration to the ipkg packet itself
+	-> its not rootfs
+
+[x] jbe: uboot-1.2.0's build system is not multi processor save
+	-> supress -j option
 
 [x] pureftp's configure runs twice and needs host's autotools!
 
