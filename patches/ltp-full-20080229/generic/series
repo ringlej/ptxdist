@@ -7,3 +7,4 @@ ltp-full-20080131-fadvise.diff
 ltp-full-20080229-async_handler_pthread_h.diff
 ltp-full-20080229-realtime-compiler.diff
 ltp-full-20080229-kernel-compiler.diff
+ltp-full-20080229-idcheck-quoting.diff

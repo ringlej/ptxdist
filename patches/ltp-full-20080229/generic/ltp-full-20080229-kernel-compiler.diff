@@ -2,19 +2,20 @@ From: Robert Schwebel <r.schwebel@pengutronix.de>
 Subject: filecaps test try to overwrite compiler
 
 Usually the cross compiler is set from the toplevel directory by setting
-the CROSS_COMPILER variable. This makefile tries to overwrite it, but
-wrong.
+the CROSS_COMPILER variable. This makefile tries to overwrite it (and
+even in two different ways - has this ever been reviewed by anybody?),
+but wrong.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
- testcases/kernel/security/filecaps/Makefile |    1 -
- 1 file changed, 1 deletion(-)
+ testcases/kernel/security/filecaps/Makefile |    5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 Index: ltp-full-20080229/testcases/kernel/security/filecaps/Makefile
 ===================================================================
---- ltp-full-20080229.orig/testcases/kernel/security/filecaps/Makefile	2008-03-09 01:06:50.000000000 +0100
-+++ ltp-full-20080229/testcases/kernel/security/filecaps/Makefile	2008-03-09 01:08:33.000000000 +0100
+--- ltp-full-20080229.orig/testcases/kernel/security/filecaps/Makefile	2008-02-29 08:55:42.000000000 +0100
++++ ltp-full-20080229/testcases/kernel/security/filecaps/Makefile	2008-03-09 08:07:42.000000000 +0100
 @@ -20,7 +20,6 @@
  
  SCRIPTS = filecapstest.sh checkforlibcap.sh checkforfilecaps.sh
@@ -23,3 +24,17 @@ Index: ltp-full-20080229/testcases/kernel/security/filecaps/Makefile
  
  CFLAGS += -I../../../../include -Wall
  LDLIBS += -L../../../../lib -lltp -lcap
+@@ -29,11 +28,11 @@
+ TARGETS = $(patsubst %.c,%,$(SRCS))
+ INSTALLTARGETS = $(TARGETS) $(SCRIPTS)
+ all: $(TARGETS)
+-	gcc -o checkforlibcap gotlibcap.c
++	$(CC) $(CROSS_CFLAGS) $(CFLAGS) -o checkforlibcap gotlibcap.c
+ else
+ all:
+ 	@echo "setcap or xattr headers not installed.  Please install libcap from"; echo "ftp://ftp.kernel.org/pub/linux/libs/security/linux-privs/libcap2"; echo "Then make clean in ltp or ltp/testcases/kernel/security/filecaps, and recompile ltp."
+-	gcc -o checkforlibcap nolibcap.c
++	$(CC) $(CROSS_CFLAGS) $(CFLAGS) -o checkforlibcap nolibcap.c
+ TARGETS =
+ endif
+ 

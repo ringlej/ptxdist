@@ -1,0 +1,182 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: fix quoting in IDcheck.sh
+
+If one of the variables expands to nothing, the test(1) calls see the
+wrong syntax. It is good shell praxis to either use
+
+	[ "$FOO" = "bar" ]
+
+or
+
+	[ x$FOO = xbar ]
+
+here; this patch changes the file to use the first variant.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ IDcheck.sh |   62 ++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 31 insertions(+), 31 deletions(-)
+
+Index: ltp-full-20080229/IDcheck.sh
+===================================================================
+--- ltp-full-20080229.orig/IDcheck.sh	2008-03-09 08:10:48.000000000 +0100
++++ ltp-full-20080229/IDcheck.sh	2008-03-09 08:13:28.000000000 +0100
+@@ -45,54 +45,54 @@
+ I_AM_ROOT=0
+ 
+ id nobody > /dev/null
+-if [ $? != "0" ]; then
++if [ "$?" != "0" ]; then
+  NOBODY_ID=1
+ fi
+ 
+ id bin > /dev/null
+-if [ $? != "0" ]; then
++if [ "$?" != "0" ]; then
+  BIN_ID=1
+ fi
+ 
+ id daemon > /dev/null
+-if [ $? != "0" ]; then
++if [ "$?" != "0" ]; then
+  DAEMON_ID=1
+ fi
+ 
+ grep -q ^nobody: /etc/group
+-if [ $? != "0" ]; then
++if [ "$?" != "0" ]; then
+  NOBODY_GRP=1
+ fi
+      
+ grep -q ^bin: /etc/group
+-if [ $? != "0" ]; then
++if [ "$?" != "0" ]; then
+  BIN_GRP=1
+ fi
+ 
+ grep -q ^daemon: /etc/group
+-if [ $? != "0" ]; then
++if [ "$?" != "0" ]; then
+  DAEMON_GRP=1
+ fi
+ 
+ grep -q ^users: /etc/group
+-if [ $? != "0" ]; then
++if [ "$?" != "0" ]; then
+  USERS_GRP=1
+ fi
+ 
+ grep -q ^sys: /etc/group
+-if [ $? != "0" ]; then
++if [ "$?" != "0" ]; then
+  SYS_GRP=1
+ fi
+ 
+ whoami | grep root > /dev/null
+-if [ $? == "0" ]; then
++if [ "$?" == "0" ]; then
+  I_AM_ROOT=1
+ fi
+ 
+ if [ -n "$CREATE" ]; then
+   echo "CREATE variable set to $CREATE ..."
+ else
+-  if [ $NOBODY_ID != "0" ] || [ $BIN_ID != "0" ] || [ $DAEMON_ID != "0" ] || [ $NOBODY_GRP != "0" ] || [ $BIN_GRP != "0" ] || [ $DAEMON_GRP != "0" ] || [ $USERS_GRP != "0" ] || [ $SYS_GRP != "0" ] && [ $I_AM_ROOT != "0" ];
++  if [ "$NOBODY_ID" != "0" ] || [ "$BIN_ID" != "0" ] || [ "$DAEMON_ID" != "0" ] || [ "$NOBODY_GRP" != "0" ] || [ "$BIN_GRP" != "0" ] || [ "$DAEMON_GRP" != "0" ] || [ "$USERS_GRP" != "0" ] || [ "$SYS_GRP" != "0" ] && [ "$I_AM_ROOT" != "0" ];
+   then
+      echo -n "If any required user ids and/or groups are missing, would you like these created? Y/N "
+      read ans
+@@ -107,71 +107,71 @@
+   fi
+ fi
+ 
+-if [ $NOBODY_ID != "1" ] && [ $NOBODY_GRP != "1" ]; then
++if [ "$NOBODY_ID" != "1" ] && [ "$NOBODY_GRP" != "1" ]; then
+   echo "Nobody user id and group exist."
+ else
+-  if [ $NOBODY_ID -eq "1" ] && [ $CREATE -eq "1" ]; then
++  if [ "$NOBODY_ID" -eq "1" ] && [ "$CREATE" -eq "1" ]; then
+     echo nobody:x:99:99:Nobody:: >> /etc/passwd
+   fi
+-  if [ $NOBODY_GRP -eq "1" ] && [ $CREATE -eq "1" ]; then
++  if [ "$NOBODY_GRP" -eq "1" ] && [ "$CREATE" -eq "1" ]; then
+     echo nobody:x:`id -u nobody`: >> /etc/group
+   fi
+ fi
+  
+-if [ $BIN_ID != "1" ] && [ $BIN_GRP != "1" ]; then
++if [ "$BIN_ID" != "1" ] && [ "$BIN_GRP" != "1" ]; then
+   echo "Bin user id and group exist."
+ else
+-  if [ $BIN_ID -eq "1" ] && [ $CREATE -eq "1" ]; then
++  if [ "$BIN_ID" -eq "1" ] && [ "$CREATE" -eq "1" ]; then
+     echo bin:x:1:1:bin:: >> /etc/passwd
+   fi
+-  if [ $BIN_GRP -eq "1" ] && [ $CREATE -eq "1" ]; then
++  if [ "$BIN_GRP" -eq "1" ] && [ "$CREATE" -eq "1" ]; then
+     echo bin:x:`id -u bin`:bin >> /etc/group
+   fi
+ fi
+ 
+-if [ $DAEMON_ID -ne "1" ] && [ $DAEMON_GRP -ne "1" ]; then
++if [ "$DAEMON_ID" -ne "1" ] && [ "$DAEMON_GRP" -ne "1" ]; then
+   echo "Daemon user id and group exist."
+ else
+-  if [ $DAEMON_ID -eq "1" ] && [ $CREATE -eq "1" ]; then
++  if [ "$DAEMON_ID" -eq "1" ] && [ "$CREATE" -eq "1" ]; then
+     echo daemon:x:2:2:daemon:: >> /etc/passwd
+   fi
+-  if [ $DAEMON_GRP -eq "1" ] && [ $CREATE -eq "1" ]; then
++  if [ "$DAEMON_GRP" -eq "1" ] && [ "$CREATE" -eq "1" ]; then
+     echo daemon:x:`id -u daemon`:daemon >> /etc/group
+   fi
+ fi
+ 
+-if [ $USERS_GRP -ne "1" ]; then
++if [ "$USERS_GRP" -ne "1" ]; then
+   echo "Users group exists."
+ else
+-  if [ $CREATE -eq "1" ]; then
++  if [ "$CREATE" -eq "1" ]; then
+     echo users:x:100: >> /etc/group
+   fi
+ fi
+ 
+-if [ $SYS_GRP -ne "1" ]; then
++if [ "$SYS_GRP" -ne "1" ]; then
+   echo "Sys group exists."
+ else
+-  if [ $CREATE -eq "1" ]; then
++  if [ "$CREATE" -eq "1" ]; then
+     echo sys:x:3: >> /etc/group
+   fi
+ fi
+ 
+ id nobody > /dev/null
+-if [ $? -eq "0" ]; then
++if [ "$?" -eq "0" ]; then
+   id bin > /dev/null
+-  if [ $? -eq "0" ]; then
++  if [ "$?" -eq "0" ]; then
+     id daemon > /dev/null
+-    if [ $? -eq "0" ]; then
++    if [ "$?" -eq "0" ]; then
+       id -g nobody > /dev/null
+-      if [ $? -eq "0" ]; then
++      if [ "$?" -eq "0" ]; then
+         id -g bin > /dev/null
+-        if [ $? -eq "0" ]; then
++        if [ "$?" -eq "0" ]; then
+           id -g daemon > /dev/null
+-          if [ $? -eq "0" ]; then
++          if [ "$?" -eq "0" ]; then
+             grep users /etc/group | cut -d: -f1 | grep users > /dev/null
+-            if [ $? -eq "0" ]; then
++            if [ "$?" -eq "0" ]; then
+               grep sys /etc/group | cut -d: -f1 | grep sys > /dev/null
+-              if [ $? -eq "0" ]; then
++              if [ "$?" -eq "0" ]; then
+                echo "Required users/groups exist."
+                exit 0
+               fi
