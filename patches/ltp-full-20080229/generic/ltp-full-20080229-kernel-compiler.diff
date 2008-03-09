@@ -1,0 +1,25 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: filecaps test try to overwrite compiler
+
+Usually the cross compiler is set from the toplevel directory by setting
+the CROSS_COMPILER variable. This makefile tries to overwrite it, but
+wrong.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ testcases/kernel/security/filecaps/Makefile |    1 -
+ 1 file changed, 1 deletion(-)
+
+Index: ltp-full-20080229/testcases/kernel/security/filecaps/Makefile
+===================================================================
+--- ltp-full-20080229.orig/testcases/kernel/security/filecaps/Makefile	2008-03-09 01:06:50.000000000 +0100
++++ ltp-full-20080229/testcases/kernel/security/filecaps/Makefile	2008-03-09 01:08:33.000000000 +0100
+@@ -20,7 +20,6 @@
+ 
+ SCRIPTS = filecapstest.sh checkforlibcap.sh checkforfilecaps.sh
+ ifeq ($(shell sh checkforlibcap.sh yesno),yes)
+-CC=gcc
+ 
+ CFLAGS += -I../../../../include -Wall
+ LDLIBS += -L../../../../lib -lltp -lcap
