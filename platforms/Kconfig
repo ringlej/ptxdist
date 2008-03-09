@@ -389,20 +389,42 @@ config KERNEL_VERSION
 
 choice
 	prompt "kernel architecture "
-	depends on ARCH_PPC
-	default KERNEL_ARCH_POWERPC
+	depends on ARCH_PPC || ARCH_X86
+	default KERNEL_ARCH_POWERPC if ARCH_PPC
+	default KERNEL_ARCH_X86 if ARCH_X86
 	help
-	  In current 2.6 kernels powerpc is supported in two
-	  different architectures. ppc is the old one and currently
-	  gets merged into powerpc.
+	  For x86 and PowerPC there are different possibilities to set the kernel
+	  architecture:
+
+	  - The old variant for PowerPC is ppc, the newer one is powerpc.
+	  - The old variant for x86 is i386 for 32 bit and x86_64 for 64 bit,
+	    kernels later than 2.6.24 use x86.
 
 	config KERNEL_ARCH_PPC
 		bool
+		depends on ARCH_PPC
 		prompt "ppc    "
 
 	config KERNEL_ARCH_POWERPC
 		bool
+		depends on ARCH_PPC
 		prompt "powerpc"
+
+	config KERNEL_ARCH_X86
+		bool
+		depends on ARCH_X86
+		prompt "x86    "
+
+	config KERNEL_ARCH_I386
+		bool
+		depends on ARCH_X86
+		prompt "i386   "
+
+	config KERNEL_ARCH_X86_64
+		bool
+		depends on ARCH_X86
+		prompt "x86_64 "
+
 endchoice
 
 config ARCH_KERNEL_STRING
@@ -411,7 +433,6 @@ config ARCH_KERNEL_STRING
 	default "armnommu"		if ARCH_ARM && !HAS_MMU
 	default "alpha"			if ARCH_ALPHA
 	default "blackfin"		if ARCH_BLACKFIN
-	default "i386"			if ARCH_X86
 	default "m68k"			if ARCH_M68K
 	default "sparc"			if ARCH_SPARC
 	default "mips"			if ARCH_MIPS
@@ -422,7 +443,9 @@ config ARCH_KERNEL_STRING
 
 	default "ppc"			if KERNEL_ARCH_PPC
 	default "powerpc"		if KERNEL_ARCH_POWERPC
-
+	default "x86"			if KERNEL_ARCH_X86
+	default "i386"			if KERNEL_ARCH_I386
+	default "x86_64"		if KERNEL_ARCH_X86_64
 
 menu "patching & configuration      "
 
