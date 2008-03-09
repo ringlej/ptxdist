@@ -2,7 +2,7 @@
 # $Id: template 3502 2005-12-11 12:46:17Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -113,7 +113,7 @@ libnetpbm_targetinstall: $(STATEDIR)/libnetpbm.targetinstall
 $(STATEDIR)/libnetpbm.targetinstall: $(libnetpbm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, libnetpbm)
+	@$(call install_init,  libnetpbm)
 	@$(call install_fixup, libnetpbm,PACKAGE,libnetpbm)
 	@$(call install_fixup, libnetpbm,PRIORITY,optional)
 	@$(call install_fixup, libnetpbm,VERSION,$(LIBNETPBM_VERSION))
@@ -128,6 +128,15 @@ $(STATEDIR)/libnetpbm.targetinstall: $(libnetpbm_targetinstall_deps_default)
 
 	@$(call install_link, libnetpbm, libnetpbm.so.10.31, /usr/lib/libnetpbm.so.10)
 	@$(call install_link, libnetpbm, libnetpbm.so.10.31, /usr/lib/libnetpbm.so)
+
+ifdef PTXCONF_LIBNETPBM_PBM2LJ
+	@$(call install_copy, libnetpbm, 0, 0, 0644, \
+		$(LIBNETPBM_DIR)/converter/pbm/pbmtolj, /usr/bin/pbmtolj)
+endif
+ifdef PTXCONF_LIBNETPBM_PPM2LJ
+	@$(call install_copy, libnetpbm, 0, 0, 0644, \
+		$(LIBNETPBM_DIR)/converter/pbm/pbmtolj, /usr/bin/pbmtolj)
+endif
 
 	@$(call install_finish, libnetpbm)
 
