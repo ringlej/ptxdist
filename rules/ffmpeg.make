@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_FFMPEG) += ffmpeg
 #
 # Paths and names
 #
-FFMPEG_VERSION	:= r12134
+FFMPEG_VERSION	:= r12314
 FFMPEG		:= ffmpeg-$(FFMPEG_VERSION)
 FFMPEG_SUFFIX	:= tar.bz2
 FFMPEG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FFMPEG).$(FFMPEG_SUFFIX)
@@ -85,35 +85,52 @@ ifdef PTXCONF_ARCH_X86
  FFMPEG_AUTOCONF += --disable-altivec
  FFMPEG_AUTOCONF += --disable-iwmmxt
  ifdef PTXCONF_ARCH_X86_I386
-  FFMPEG_AUTOCONF += --cpu=i386
-  FFMPEG_AUTOCONF += --tune=i386
-  FFMPEG_AUTOCONF += --disable-mmx
+  FFMPEG_AUTOCONF += \
+	--arch=x86_32 \
+	--cpu=i386 \
+	--tune=i386 \
+	--disable-mmx
  endif
  ifdef PTXCONF_ARCH_X86_I486
-  FFMPEG_AUTOCONF += --cpu=i486
-  FFMPEG_AUTOCONF += --tune=i486
-  FFMPEG_AUTOCONF += --disable-mmx
+  FFMPEG_AUTOCONF += \
+	--arch=x86_32 \
+	--cpu=i486 \
+	--tune=i486 \
+	--disable-mmx
  endif
  ifdef PTXCONF_ARCH_X86_I586
-  FFMPEG_AUTOCONF += --cpu=i586
-  FFMPEG_AUTOCONF += --tune=i586
+  FFMPEG_AUTOCONF += \
+	--arch=x86_32 \
+	--cpu=i386 \
+	--cpu=i586 \
+	--tune=i586
  endif
  ifdef PTXCONF_ARCH_X86_I686
-  FFMPEG_AUTOCONF += --cpu=i686
-  FFMPEG_AUTOCONF += --tune=i686
+  FFMPEG_AUTOCONF += \
+	--arch=x86_32 \
+	--cpu=i386 \
+	--cpu=i686 \
+	--tune=i686
  endif
  ifdef PTXCONF_ARCH_X86_P2
-  FFMPEG_AUTOCONF += --cpu=i686
-  FFMPEG_AUTOCONF += --tune=pentium2
+  FFMPEG_AUTOCONF += \
+	--arch=x86_32 \
+	--cpu=i386 \
+	--cpu=i686 \
+	--tune=pentium2
  endif
  ifdef PTXCONF_ARCH_X86_P3M
-  FFMPEG_AUTOCONF += --cpu=i686
-  FFMPEG_AUTOCONF += --tune=pentium3
+  FFMPEG_AUTOCONF += \
+	--arch=x86_32 \
+	--cpu=i386 \
+	--cpu=i686 \
+	--tune=pentium3
  endif
 endif
 
 ifdef PTXCONF_ARCH_ALPHA
 FFMPEG_AUTOCONF += \
+	--arch=alpha \
         --cpu=alpha \
         --disable-altivec \
         --disable-mmx \
@@ -122,16 +139,24 @@ endif
 
 ifdef PTXCONF_ARCH_ARM
  ifdef PTXCONF_ARCH_ARM_NETX
-   FFMPEG_AUTOCONF += --cpu=arm926ej-s
- endif
- ifdef PTXCONF_ARCH_ARM_PXA
-   # FIXME not all xscales are iwmmxt
-   FFMPEG_AUTOCONF += --cpu=iwmmxt
- endif
- FFMPEG_AUTOCONF += \
+   FFMPEG_AUTOCONF += \
+	--arch=arm \
+	--cpu=arm926ej-s \
 	--disable-altivec \
  	--disable-mmx \
 	--disable-iwmmxt
+ else
+ ifdef PTXCONF_ARCH_ARM_PXA
+   # FIXME not all xscales are iwmmxt
+   FFMPEG_AUTOCONF += \
+	--arch=arm \
+	--cpu=iwmmxt \
+	--disable-altivec \
+ 	--disable-mmx
+ else 
+ $(error Please define the config options for this CPU type!)
+ endif
+ endif
 endif
 
 ifdef PTXCONF_ARCH_PPC
@@ -390,7 +415,9 @@ ffmpeg_compile: $(STATEDIR)/ffmpeg.compile
 
 $(STATEDIR)/ffmpeg.compile: $(ffmpeg_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(FFMPEG_DIR) && $(FFMPEG_PATH) make $(FFMPEG_MAKEVARS)
+	cd $(FFMPEG_DIR) && \
+		$(FFMPEG_PATH) $(FFMPEG_ENV) \
+		make $(FFMPEG_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
