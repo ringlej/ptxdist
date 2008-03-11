@@ -60,12 +60,12 @@ mplayer_prepare: $(STATEDIR)/mplayer.prepare
 
 MPLAYER_PATH	:= PATH=$(CROSS_PATH)
 
-CFLAGS_BASE	:= -Wl,-rpath-link -Wl,-L$(strip $(SYSROOT))/usr/lib
-CFLGAS_EXTRA	:=
+MPLAYER_CFLAGS_BASE	:= -Wl,-rpath-link -Wl,-L$(strip $(SYSROOT))/usr/lib
+MPLAYER_CFLGAS_EXTRA	:=
 ifdef PTXCONF_ARCH_X86
-CFLAGS_EXTRA	+= -O2
+MPLAYER_CFLAGS_EXTRA	+= -O2
 endif
-MPLAYER_ENV 	:= CFLAGS='$(CFLAGS_BASE) $(CFLAGS_EXTRA)'
+MPLAYER_ENV 	:= CFLAGS='$(MPLAYER_CFLAGS_BASE) $(MPLAYER_CFLAGS_EXTRA)'
 #
 # autoconf
 #
