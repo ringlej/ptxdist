@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_LESS) += less
 LESS_VERSION		:= 406
 LESS			:= less-$(LESS_VERSION)
 LESS_SUFFIX		:= tar.gz
-LESS_URL		:= http://www.greenwoodsoftware.com/less/$(LESS).$(LESS_SUFFIX)
+LESS_URL		:= ftp://ftp.sunfreeware.com/pub/freeware/SOURCES/$(LESS).$(LESS_SUFFIX)
 LESS_SOURCE		:= $(SRCDIR)/$(LESS).$(LESS_SUFFIX)
 LESS_DIR		:= $(BUILDDIR)/$(LESS)
 

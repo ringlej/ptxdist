@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_SAMBA) += samba
 SAMBA_VERSION	:= 3.0.23d
 SAMBA		:= samba-$(SAMBA_VERSION)
 SAMBA_SUFFIX	:= tar.gz
-SAMBA_URL	:= http://us5.samba.org/samba/ftp/$(SAMBA).$(SAMBA_SUFFIX)
+SAMBA_URL	:= http://us5.samba.org/samba/ftp/old-versions/$(SAMBA).$(SAMBA_SUFFIX)
 SAMBA_SOURCE	:= $(SRCDIR)/$(SAMBA).$(SAMBA_SUFFIX)
 SAMBA_DIR	:= $(BUILDDIR)/$(SAMBA)
 
