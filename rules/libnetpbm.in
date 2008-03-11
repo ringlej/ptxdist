@@ -38,5 +38,19 @@ config LIBNETPBM_PNG2PNM
 	help
 	  Convert png images to portable anymap.
 
+config LIBNETPBM_PNM2XWD
+	bool
+	depends on LIBNETPBM
+	prompt "pnmtoxwd"
+	help
+	  Convert portable anymap to x window dump image
+
+config LIBNETPBM_XWD2PNM
+	bool
+	depends on LIBNETPBM
+	prompt "xwdtopnm"
+	help
+	  Convert x window dump image to portable anymap
+
 # FIXME: add library support (TIFF, JPEG, ...)
 

@@ -130,14 +130,21 @@ $(STATEDIR)/libnetpbm.targetinstall: $(libnetpbm_targetinstall_deps_default)
 	@$(call install_link, libnetpbm, libnetpbm.so.10.31, /usr/lib/libnetpbm.so)
 
 ifdef PTXCONF_LIBNETPBM_PBM2LJ
-	@$(call install_copy, libnetpbm, 0, 0, 0644, \
+	@$(call install_copy, libnetpbm, 0, 0, 0755, \
 		$(LIBNETPBM_DIR)/converter/pbm/pbmtolj, /usr/bin/pbmtolj)
 endif
 ifdef PTXCONF_LIBNETPBM_PPM2LJ
-	@$(call install_copy, libnetpbm, 0, 0, 0644, \
-		$(LIBNETPBM_DIR)/converter/pbm/pbmtolj, /usr/bin/pbmtolj)
+	@$(call install_copy, libnetpbm, 0, 0, 0755, \
+		$(LIBNETPBM_DIR)/converter/ppm/ppmtolj, /usr/bin/ppmtolj)
 endif
-
+ifdef PTXCONF_LIBNETPBM_PNM2XWD
+	@$(call install_copy, libnetpbm, 0, 0, 0755, \
+		$(LIBNETPBM_DIR)/converter/other/pnmtoxwd, /usr/bin/pnmtoxwd)
+endif
+ifdef PTXCONF_LIBNETPBM_XWD2PNM
+	@$(call install_copy, libnetpbm, 0, 0, 0755, \
+		$(LIBNETPBM_DIR)/converter/other/xwdtopnm, /usr/bin/xwdtopnm)
+endif
 	@$(call install_finish, libnetpbm)
 
 	@$(call touch, $@)
