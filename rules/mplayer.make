@@ -59,8 +59,13 @@ $(STATEDIR)/mplayer.extract: $(mplayer_extract_deps_default)
 mplayer_prepare: $(STATEDIR)/mplayer.prepare
 
 MPLAYER_PATH	:= PATH=$(CROSS_PATH)
-MPLAYER_ENV 	:= CFLAGS='-Wl,-rpath-link -Wl,-L$(strip $(SYSROOT))/usr/lib'
 
+CFLAGS_BASE	:= -Wl,-rpath-link -Wl,-L$(strip $(SYSROOT))/usr/lib
+CFLGAS_EXTRA	:=
+ifdef PTXCONF_ARCH_X86
+CFLAGS_EXTRA	+= -O2
+endif
+MPLAYER_ENV 	:= CFLAGS='$(CFLAGS_BASE) $(CFLAGS_EXTRA)'
 #
 # autoconf
 #
