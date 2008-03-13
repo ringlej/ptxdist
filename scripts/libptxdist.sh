@@ -22,16 +22,12 @@ shell() {
 
 
 ptxd_get_ptxconf() {
-	if test -z "${_ptxd_get_ptxconf_sourced}"; then
-	    if test -f "${PTXCONFIG}" && test -f "${PLATFORMCONFIG}"; then
+	if test -f "${PTXCONFIG}" -a -f "${PLATFORMCONFIG}"; then
 		source "${PTXCONFIG}"
 		source "${PLATFORMCONFIG}"
-		_ptxd_get_ptxconf_sourced=true
-	    else
+	else
 		return
-	    fi
 	fi
-
 	echo "${!1}"
 }
 
@@ -45,7 +41,7 @@ ptxd_kconfig() {
 
 	copy_back="${1}"
 	fun="${2}"
-	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
+	tmpdir="`mktemp -d /tmp/ptxdist.XXXXXX`"
 
 	# search for kconfig
 	if [ -z "${PTXDIST_KCONFIG}" ]; then
@@ -56,16 +52,16 @@ ptxd_kconfig() {
 		fi
 	fi
 
-	pushd $tmpdir > /dev/null
+	pushd "$tmpdir" > /dev/null
 	ln -sf "${PTXDIST_TOPDIR}/rules"
 	ln -sf "${PTXDIST_TOPDIR}/config"
 	ln -sf "${PTXDIST_WORKSPACE}" workspace
-	ptxcnf=`readlink -f "${PTXDIST_WORKSPACE}/ptxconfig"`
+	ptxcnf="`readlink -f \"${PTXDIST_WORKSPACE}/ptxconfig\"`"
 	cp "$ptxcnf" .config
 
 	shift 2 # call ${fun} with the remaining arguments
 
-	if ${fun} $* && [ "${copy_back}" = "true" ]; then
+	if ${fun} "${@}" && [ "${copy_back}" = "true" ]; then
 		cp .config "$ptxcnf"
 	fi
 
