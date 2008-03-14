@@ -1,0 +1,28 @@
+Subject: busybox 1.9.1 fixes
+From: http://busybox.net/downloads/fixes-1.9.1
+
+---
+ libbb/lineedit.c |   10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+Index: busybox-1.9.1/libbb/lineedit.c
+===================================================================
+--- busybox-1.9.1.orig/libbb/lineedit.c
++++ busybox-1.9.1/libbb/lineedit.c
+@@ -246,7 +246,15 @@ static void input_backward(unsigned num)
+ 	if (cmdedit_x >= num) {
+ 		cmdedit_x -= num;
+ 		if (num <= 4) {
+-			printf("\b\b\b\b" + (4-num));
++			/* This is longer by 5 bytes on x86.
++			 * Also gets mysteriously
++			 * miscompiled for some ARM users.
++			 * printf(("\b\b\b\b" + 4) - num);
++			 * return;
++			 */
++			do {
++				bb_putchar('\b');
++			} while (--num);
+ 			return;
+ 		}
+ 		printf("\033[%uD", num);
