@@ -3,7 +3,7 @@ menuconfig FFMPEG
 	bool
 	select ZLIB if FFMPEG_ZLIB
 	select SDL if FFMPEG_FFPLAY
-	prompt "FFMPEG                   "
+	prompt "ffmpeg              "
 	help
 	  FFmpeg is an audio/video conversion tool.
 	  It includes libavcodec, the leading open
