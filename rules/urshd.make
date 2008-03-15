@@ -1,0 +1,131 @@
+# -*-makefile-*-
+# $Id: template-make 7759 2008-02-12 21:05:07Z mkl $
+#
+# Copyright (C) 2008 by Robert Schwebel
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_URSHD) += urshd
+
+#
+# Paths and names
+#
+URSHD_VERSION	:= 1.0.0
+URSHD		:= urshd-$(URSHD_VERSION)
+URSHD_SUFFIX	:= tar.bz2
+URSHD_URL	:= http://www.pengutronix.de/software/urshd/download/v1.0/$(URSHD).$(URSHD_SUFFIX)
+URSHD_SOURCE	:= $(SRCDIR)/$(URSHD).$(URSHD_SUFFIX)
+URSHD_DIR	:= $(BUILDDIR)/$(URSHD)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+urshd_get: $(STATEDIR)/urshd.get
+
+$(STATEDIR)/urshd.get:
+	@$(call targetinfo, $@)
+	@$(call touch, $@)
+
+$(URSHD_SOURCE):
+	@$(call targetinfo, $@)
+	@$(call get, URSHD)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+urshd_extract: $(STATEDIR)/urshd.extract
+
+$(STATEDIR)/urshd.extract:
+	@$(call targetinfo, $@)
+	@$(call clean, $(URSHD_DIR))
+	@$(call extract, URSHD)
+	@$(call patchin, URSHD)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+urshd_prepare: $(STATEDIR)/urshd.prepare
+
+URSHD_PATH	:= PATH=$(CROSS_PATH)
+URSHD_ENV 	:= $(CROSS_ENV)
+
+#
+# autoconf
+#
+URSHD_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+$(STATEDIR)/urshd.prepare:
+	@$(call targetinfo, $@)
+	@$(call clean, $(URSHD_DIR)/config.cache)
+	cd $(URSHD_DIR) && \
+		$(URSHD_PATH) $(URSHD_ENV) \
+		./configure $(URSHD_AUTOCONF)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+urshd_compile: $(STATEDIR)/urshd.compile
+
+$(STATEDIR)/urshd.compile:
+	@$(call targetinfo, $@)
+	cd $(URSHD_DIR) && $(URSHD_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+urshd_install: $(STATEDIR)/urshd.install
+
+$(STATEDIR)/urshd.install:
+	@$(call targetinfo, $@)
+	@$(call install, URSHD)
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+urshd_targetinstall: $(STATEDIR)/urshd.targetinstall
+
+$(STATEDIR)/urshd.targetinstall:
+	@$(call targetinfo, $@)
+
+	@$(call install_init, urshd)
+	@$(call install_fixup, urshd,PACKAGE,urshd)
+	@$(call install_fixup, urshd,PRIORITY,optional)
+	@$(call install_fixup, urshd,VERSION,$(URSHD_VERSION))
+	@$(call install_fixup, urshd,SECTION,base)
+	@$(call install_fixup, urshd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, urshd,DEPENDS,)
+	@$(call install_fixup, urshd,DESCRIPTION,missing)
+
+	@$(call install_copy, urshd, 0, 0, 0755, $(URSHD_DIR)/src/urshd, /usr/sbin/urshd)
+
+	@$(call install_finish, urshd)
+
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+urshd_clean:
+	rm -rf $(STATEDIR)/urshd.*
+	rm -rf $(IMAGEDIR)/urshd_*
+	rm -rf $(URSHD_DIR)
+
+# vim: syntax=make
