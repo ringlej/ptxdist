@@ -1,0 +1,28 @@
+Subject: use scripts with offlineroot
+
+The ipkg offline root mechanism avoids that the pre/post scripts are
+being run. This patch re-enables the scripts; it makes it possible that
+scripts can decide themselfs if they want to do something if DESTDIR is
+set.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de
+
+---
+
+Index: pkg.c
+===================================================================
+--- pkg.c.orig
++++ pkg.c
+@@ -1443,12 +1443,6 @@ int pkg_run_script(ipkg_conf_t *conf, pk
+ 	  return 0;
+      }
+ 
+-     if (conf->offline_root) {
+-	  fprintf(stderr, "(offline root mode: not running %s.%s)\n", pkg->name, script);
+-	  free(path);
+-	  return 0;
+-     }
+-
+      sprintf_alloc(&cmd, "%s %s", path, args);
+      free(path);
+ 
