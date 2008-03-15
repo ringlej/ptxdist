@@ -1186,20 +1186,27 @@ install_init =										\
 	echo "done"; \
 	for script in preinst postinst prerm postrm; do \
 		echo -n "install_init:   $$script "; \
-		if [ -f ${PTXDIST_WORKSPACE}/rules/$$PACKET.$$script ]; then \
+		if [ -f "${PTXDIST_WORKSPACE}/rules/$$PACKET.$$script" ]; then \
 			$(INSTALL) -m 0755 \
 				-D ${PTXDIST_WORKSPACE}/rules/$$PACKET.$$script \
 				$(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/$$script; \
-			echo "found in project"; \
-		else if [ -f ${PTXDIST_TOPDIR}/rules/$$PACKET.script ]; then \
+			echo "found in project, packaging"; \
+		else if [ -f "${PTXDIST_TOPDIR}/rules/$$PACKET.$$script" ]; then \
 			$(INSTALL) -m 0755 \
 				-D ${PTXDIST_TOPDIR}/rules/$$PACKET.$$script \
 				$(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/$$script; \
-			echo "found in ptxdist"; \
+			echo "found in ptxdist, packaging"; \
 		else \
 			echo "not available"; \
 		fi; fi; \
-	done
+	done; \
+	if [ -f "${PTXDIST_WORKSPACE}/rules/$$PACKET.preinst" ]; then \
+		echo "install_init:   running preinst"; \
+		DESTDIR=${ROOTDIR} /bin/sh ${PTXDIST_WORKSPACE}/rules/$$PACKET.preinst; \
+	else if [ -f "${PTXDIST_TOPDIR}/rules/$$PACKET.preinst" ]; then \
+		echo "install_init:   running preinst"; \
+		DESTDIR=${ROOTDIR} /bin/sh ${PTXDIST_TOPDIR}/rules/$$PACKET.preinst; \
+	fi; fi;
 
 #
 # install_finish
@@ -1224,7 +1231,15 @@ install_finish = 												\
 	echo    "$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(PKGDIR)/$$PACKET.tmp/ipkg $(PKGDIR)") |$(FAKEROOT) -- 2>&1;	\
 	$(CHECK_PIPE_STATUS)											\
 	rm -rf $(PKGDIR)/$$PACKET.tmp;										\
-	echo "done.";
+	echo "done."; \
+	\
+	if [ -f "${PTXDIST_WORKSPACE}/rules/$$PACKET.postinst" ]; then \
+		echo "install_finish: running postinst"; \
+		DESTDIR=${ROOTDIR} /bin/sh ${PTXDIST_WORKSPACE}/rules/$$PACKET.postinst; \
+	else if [ -f "${PTXDIST_TOPDIR}/rules/$$PACKET.postinst" ]; then \
+		echo "install_finish: running postinst"; \
+		DESTDIR=${ROOTDIR} /bin/sh ${PTXDIST_TOPDIR}/rules/$$PACKET.postinst; \
+	fi; fi
 
 #
 # install_autoinstall
