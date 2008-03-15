@@ -327,7 +327,7 @@ $(STATEDIR)/image_working_dir: $(IPKG_FILES) $(IMAGEDIR)/permissions $(IMAGEDIR)
 	@rm -rf $(WORKDIR)
 	@mkdir $(WORKDIR)
 	@echo -n "Extracting ipkg packages into working directory..."
-	@$(FAKEROOT) -- $(PTXCONF_HOST_PREFIX)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(WORKDIR) install $(IPKG_FILES) 2>&1 >/dev/null
+	@DESTDIR=$(WORKDIR) $(FAKEROOT) -- $(PTXCONF_HOST_PREFIX)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(WORKDIR) install $(IPKG_FILES) 2>&1 >/dev/null
 	@$(call touch, $@)
 
 #
