@@ -1,6 +1,9 @@
-config LIGHTTPD
+#
+
+menuconfig LIGHTTPD
 	bool
-	prompt "lighttpd"
+	prompt "lighttpd            "
+	select ZLIB if LIGHTTPD__ZLIB
 	help
 	  Security, speed, compliance, and flexibility -- all of
 	  these describe lighttpd (pron. lighty) which is rapidly
@@ -11,3 +14,116 @@ config LIGHTTPD
 	  set (FastCGI, SCGI, Auth, Output-Compression,
 	  URL-Rewriting and many more) lighttpd is the perfect solution
 	  for every server that is suffering load problems.is a small,
+
+config LIGHTTPD__ZLIB
+	bool
+	depends on LIGHTTPD
+	prompt "zlib support"
+	help
+	  Enable zlib support for mod_compress.
+
+config LIGHTTPD__BZLIB
+	bool
+	depends on LIGHTTPD
+#	prompt "blib support"
+	help
+	  Enable bzip2 support for mod_compress.
+
+config LIGHTTPD__LFS
+	bool
+	depends on LIGHTTPD
+#	prompt "large file system support"
+	help
+	  Turn on Large File System.
+
+config LIGHTTPD__IPV6
+	bool
+	depends on LIGHTTPD
+#	prompt "ip v6 support"
+	help
+	  Enable IPv6 support.
+
+config LIGHTTPD__MYSQL
+	bool
+	depends on LIGHTTPD
+#	prompt "MySQL support"
+	help
+
+config LIGHTTPD__LDAP
+	bool
+	depends on LIGHTTPD
+#	prompt "ldap"
+	help
+	  Enable LDAP support.
+
+config LIGHTTPD__ATTR
+	bool
+	depends on LIGHTTPD
+#	prompt "extended attribute support"
+	help
+	  Enable extended attribute support.
+
+config LIGHTTPD__OPENSSL
+	bool
+	depends on LIGHTTPD
+#	prompt "openssl support"
+	help
+	  Include openssl support.
+
+config LIGHTTPD__KERBEROS
+	bool
+	depends on LIGHTTPD
+	select LIGHTTPD__OPENSSL
+#	prompt "kerberos5 support"
+	help
+	  Use Kerberos5 support with OpenSSL.
+
+config LIGHTTPD__PCRE
+	bool
+	depends on LIGHTTPD
+#	prompt "pcre support"
+	help
+	  Enable pcre support.
+
+config LIGHTTPD__FAM
+	bool
+	depends on LIGHTTPD
+#	prompt "fam"
+	help
+	  fam/gamin for reducing number of stat() calls.
+
+config LIGHTTPD__WEBDAV_PROPS
+	bool
+	depends on LIGHTTPD
+#	prompt "properties in mod_webdav"
+	help
+	  properties in mod_webdav
+
+config LIGHTTPD__WEBDAV_LOCKS
+	bool
+	depends on LIGHTTPD
+#	prompt "locks in mod_webdav"
+	help
+	  locks in mod_webdav
+
+config LIGHTTPD__GDBM
+	bool
+	depends on LIGHTTPD
+#	prompt "gdbm storage for mod_trigger_b4_dl"
+	help
+	  gdbm storage for mod_trigger_b4_dl
+
+config LIGHTTPD__MEMCACHE
+	bool
+	depends on LIGHTTPD
+#	prompt "memcached storage for mod_trigger_b4_dl"
+	help
+	  memcached storage for mod_trigger_b4_dl
+
+config LIGHTTPD__LUA
+	bool
+	depends on LIGHTTPD
+#	prompt "lua engine for mod_cml"
+	help
+	  lua engine for mod_cml
+

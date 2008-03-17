@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIGHTTPD) += lighttpd
 #
 # Paths and names
 #
-LIGHTTPD_VERSION= 1.4.18
+LIGHTTPD_VERSION= 1.4.19
 LIGHTTPD	= lighttpd-$(LIGHTTPD_VERSION)
 LIGHTTPD_SUFFIX	= tar.bz2
 LIGHTTPD_URL	= http://www.lighttpd.net/download/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
@@ -64,14 +64,100 @@ LIGHTTPD_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-LIGHTTPD_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+LIGHTTPD_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--without-valgrind
+# --prefix=/usr
+
+ifdef PTXCONF_LIGHTTPD__ZLIB
+LIGHTTPD_AUTOCONF += --with-zlib=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-zlib
+endif
+ifdef PTXCONF_LIGHTTPD__BZLIB
+LIGHTTPD_AUTOCONF += --with-bzip2=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-bzip2
+endif
+ifdef PTXCONF_LIGHTTPD__LFS
+LIGHTTPD_AUTOCONF += --enable-lfs
+else
+LIGHTTPD_AUTOCONF += --disable-lfs
+endif
+ifdef PTXCONF_LIGHTTPD__IPV6
+LIGHTTPD_AUTOCONF += --enable-ipv6
+else
+LIGHTTPD_AUTOCONF += --disable-ipv6
+endif
+ifdef PTXCONF_LIGHTTPD__MYSQL
+LIGHTTPD_AUTOCONF += --with-mysql=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-mysql
+endif
+ifdef PTXCONF_LIGHTTPD__LDAP
+LIGHTTPD_AUTOCONF += --with-ldap=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-ldap
+endif
+ifdef PTXCONF_LIGHTTPD__ATTR
+LIGHTTPD_AUTOCONF += --with-attr=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-attr
+endif
+ifdef PTXCONF_LIGHTTPD__OPENSSL
+LIGHTTPD_AUTOCONF += --with-openssl=FIXME
+# --with-openssl-includes=DIR OpenSSL includes
+# --with-openssl-libs=DIR OpenSSL libraries
+else
+LIGHTTPD_AUTOCONF += --without-openssl
+endif
+ifdef PTXCONF_LIGHTTPD__KERBEROS
+LIGHTTPD_AUTOCONF += --with-kerberos=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-kerberos
+endif
+ifdef PTXCONF_LIGHTTPD__PCRE
+LIGHTTPD_AUTOCONF += --with-pcre=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-pcre
+endif
+ifdef PTXCONF_LIGHTTPD__FAM
+LIGHTTPD_AUTOCONF += --with-fam=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-fam
+endif
+ifdef PTXCONF_LIGHTTPD__WEBDAV_PROPS
+LIGHTTPD_AUTOCONF += --with-webdav-props=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-webdav-props
+endif
+ifdef PTXCONF_LIGHTTPD__WEBDAV_LOCKS
+LIGHTTPD_AUTOCONF += --with-webdav-locks=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-webdav-locks
+endif
+ifdef PTXCONF_LIGHTTPD__GDBM
+LIGHTTPD_AUTOCONF += --with-gdbm=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-gdbm
+endif
+ifdef PTXCONF_LIGHTTPD__MEMCACHE
+LIGHTTPD_AUTOCONF += --with-memcache=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-memcache
+endif
+ifdef PTXCONF_LIGHTTPD__LUA
+LIGHTTPD_AUTOCONF += --with-lua=FIXME
+else
+LIGHTTPD_AUTOCONF += --without-lua
+endif
 
 $(STATEDIR)/lighttpd.prepare: $(lighttpd_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIGHTTPD_DIR)/config.cache)
 	cd $(LIGHTTPD_DIR) && \
 		$(LIGHTTPD_PATH) $(LIGHTTPD_ENV) \
-		./configure $(LIGHTTPD_AUTOCONF) --with-openssl --with-pcre --prefix=/usr
+		./configure $(LIGHTTPD_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
