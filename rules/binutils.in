@@ -1,9 +1,18 @@
 # binutils configuration
 
-config BINUTILS
+menuconfig BINUTILS
 	bool
-	prompt "binutils"
+	prompt "binutils            "
 	help
-	  This only provides libbfd. Some packages
-	  like oprofile need this library.
+	  The GNU binutils are needed for some debug utilities, like oprofile.
+
+config BINUTILS_READELF
+	bool
+	depends on BINUTILS
+	prompt "readelf"
+
+config BINUTILS_OBJDUMP
+	bool
+	depends on BINUTILS
+	prompt "objdump"
 
