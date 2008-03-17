@@ -1,0 +1,6 @@
+
+config LTP_NETWORK
+	bool
+	prompt "Network             "
+	select LTP
+

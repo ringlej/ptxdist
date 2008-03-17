@@ -1,0 +1,7 @@
+
+menuconfig LTP_HPI
+	bool
+	prompt "open_hpi_testsuite  "
+	select LTP
+	depends on BROKEN
+

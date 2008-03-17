@@ -23,7 +23,7 @@ LTP_SUFFIX	= tgz
 LTP_URL		= $(PTXCONF_SETUP_SFMIRROR)/ltp/$(LTP).$(LTP_SUFFIX)
 LTP_SOURCE	= $(SRCDIR)/$(LTP).$(LTP_SUFFIX)
 LTP_DIR		= $(BUILDDIR)/$(LTP)
-
+LTP_BIN_DIR	= /usr/bin/ltp
 
 # ----------------------------------------------------------------------------
 # Get
@@ -59,7 +59,7 @@ $(STATEDIR)/ltp.extract: $(ltp_extract_deps_default)
 ltp_prepare: $(STATEDIR)/ltp.prepare
 
 LTP_PATH	=  PATH=$(CROSS_PATH)
-LTP_ENV 	=  $(CROSS_ENV)
+LTP_ENV 	=  $(CROSS_ENV) LDFLAGS="-L$(LTP_DIR)/lib"
 
 $(STATEDIR)/ltp.prepare: $(ltp_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -73,13 +73,7 @@ ltp_compile: $(STATEDIR)/ltp.compile
 
 $(STATEDIR)/ltp.compile: $(ltp_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LTP_DIR); \
-	CROSS_COMPILER=$(PTXDIST_WORKSPACE)/.toolchain/$(PTXCONF_COMPILER_PREFIX) \
-	make \
-		CROSS_CFLAGS="$(CROSS_CPPFLAGS)" \
-		LDFLAGS="-static -L$(LTP_DIR)/lib" \
-		LOADLIBS="-lpthread -lc -lresolv -lnss_dns -lnss_files -lm -lc" \
-		$(PARALLELMFLAGS) all install
+	cd $(LTP_DIR); $(LTP_ENV) make $(PARALLELMFLAGS) libltp.a
 
 #	CROSS_COMPILER=$(PTXDIST_WORKSPACE)/.toolchain/$(PTXCONF_COMPILER_PREFIX) \
 #	make CROSS_CFLAGS="" LDFLAGS="-static -L$(LTP_DIR)/lib" \
@@ -120,11 +114,6 @@ $(STATEDIR)/ltp.targetinstall: $(ltp_targetinstall_deps_default)
 	@$(call install_fixup, ltp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp,DEPENDS,)
 	@$(call install_fixup, ltp,DESCRIPTION,missing)
-
-	cd $(LTP_DIR)/testcases/bin; \
-	for file in `find . -type f`; do \
-		$(call install_copy, ltp, 0, 0, 0755, $(LTP_DIR)/testcases/bin/$$file, /usr/bin/ltp/$$file); \
-	done
 
 	@$(call install_finish, ltp)
 

@@ -4,7 +4,7 @@ menuconfig LTP_BALLISTA
 	bool
 	prompt "ballista [BROKEN]   "
 	depends on BROKEN
-	depends on LTP
+	select LTP
 	help
 	  The ballista test suite is designed to provide numerous
 	  combinations of erroneous input parameters to system calls.

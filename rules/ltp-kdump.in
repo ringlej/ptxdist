@@ -1,0 +1,8 @@
+
+
+menuconfig LTP_KDUMP
+	bool
+	prompt "Kdump               "
+	select LTP
+	depends on BROKEN
+

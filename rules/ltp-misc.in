@@ -1,36 +1,36 @@
 # ----------------------------------------------------------------------------
-menuconfig LTP_MISC
+config LTP_MISC
 # ----------------------------------------------------------------------------
 	bool
 	prompt "Misc                "
-	depends on LTP
+	select LTP
 
 # Math -----------------------------------------------------------------------
 
-config LTP_MISC_MATH
-	bool
-	prompt "math"
-	depends on LTP_MISC
-	help
-	  Floating point math tests of the LTP (Linux Test Project)
-
-config LTP_MISC_MATH_ABS
-	bool
-	prompt "abs"
-	depends on LTP_MISC_MATH
-	help
-	  Absolute integer value test
-
-config LTP_MISC_MATH_ATOF
-	bool
-	prompt "atof"
-	depends on LTP_MISC_MATH
-	help
-	  ASCII to float conversion
-
-config LTP_MISC_MATH_FLOAT
-	bool
-	prompt "float"
-	depends on LTP_MISC_MATH
-	help
-	  Floating point tests
+#config LTP_MISC_MATH
+#	bool
+#	prompt "math"
+#	depends on LTP_MISC
+#	help
+#	  Floating point math tests of the LTP (Linux Test Project)
+#
+#config LTP_MISC_MATH_ABS
+#	bool
+#	prompt "abs"
+#	depends on LTP_MISC_MATH
+#	help
+#	  Absolute integer value test
+#
+#config LTP_MISC_MATH_ATOF
+#	bool
+#	prompt "atof"
+#	depends on LTP_MISC_MATH
+#	help
+#	  ASCII to float conversion
+#
+#config LTP_MISC_MATH_FLOAT
+#	bool
+#	prompt "float"
+#	depends on LTP_MISC_MATH
+#	help
+#	  Floating point tests

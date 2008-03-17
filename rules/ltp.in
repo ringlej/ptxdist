@@ -1,4 +1,5 @@
-menuconfig LTP
+menu "Linux Test Project  "
+config LTP
 	bool
 	prompt "Linux Test Project  "
 	help
@@ -13,6 +14,14 @@ menuconfig LTP
 
 source "rules/ltp-ballista.in"
 source "rules/ltp-commands.in"
+source "rules/ltp-dots.in"
+source "rules/ltp-hpi.in"
+source "rules/ltp-kdump.in"
 source "rules/ltp-kernel.in"
 source "rules/ltp-misc.in"
+source "rules/ltp-network.in"
+source "rules/ltp-posix.in"
+source "rules/ltp-pounder21.in"
+source "rules/ltp-realtime.in"
 
+endmenu

@@ -1,0 +1,7 @@
+
+menuconfig LTP_DOTS
+	bool
+	prompt "Dots                "
+	select LTP
+	depends on BROKEN
+
