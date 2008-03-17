@@ -3,7 +3,7 @@
 source "rules/gdbserver.in"
 
 menuconfig GDB
-	bool "gdb (the real one)"
+	prompt "gdb (the real one)  "
 	select GLIBC_LIBM if (GLIBC && GLIBC_INSTALL && GDB_SHARED)
 	select TERMCAP if GDB_TERMCAP
 	select NCURSES if GDB_NCURSES

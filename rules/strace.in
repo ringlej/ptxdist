@@ -1,6 +1,6 @@
 menuconfig STRACE
 	bool
-	prompt "strace"
+	prompt "strace              "
 	help
 	  In  the  simplest  case  strace  runs  the  specified
 	  command until it exits.  It intercepts and records the

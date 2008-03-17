@@ -1,5 +1,6 @@
 menuconfig GDBSERVER
-	bool "gdbserver"
+	bool
+	prompt "gdbserver           "
 	help
 	  GDBSERVER is a program that allows you to run GDB on a
 	  different machine than the one which is running the
