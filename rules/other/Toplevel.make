@@ -69,6 +69,7 @@ endif
 
 PACKAGES		:=
 PACKAGES-y		:=
+PACKAGES-m		:=
 CROSS_PACKAGES		:=
 CROSS_PACKAGES-y	:=
 HOST_PACKAGES		:=
@@ -109,18 +110,18 @@ ifneq ($(wildcard $(POSTRULESDIR)/*.make),)
 include $(wildcard $(POSTRULESDIR)/*.make)
 endif
 
-PACKAGES		:= $(PACKAGES-y)
+PACKAGES		:= $(PACKAGES-y) $(PACKAGES-m)
 CROSS_PACKAGES		:= $(CROSS_PACKAGES-y)
 HOST_PACKAGES		:= $(HOST_PACKAGES-y)
 VIRTUAL			:= $(VIRTUAL-y)
 
 ALL_PACKAGES		:= \
-	$(PACKAGES-y) $(PACKAGES-) \
+	$(PACKAGES-y) $(PACKAGES-m) $(PACKAGES-) \
 	$(CROSS_PACKAGES) $(CROSS_PACKAGES-) \
 	$(HOST_PACKAGES) $(HOST_PACKAGES-)
 
 SELECTED_PACKAGES	:= \
-	$(PACKAGES-y) $(CROSS_PACKAGES-y) \
+	$(PACKAGES-y) $(PACKAGES-m) $(CROSS_PACKAGES-y) \
 	$(HOST_PACKAGES-y)  $(VIRTUAL-y)
 
 # ----------------------------------------------------------------------------
@@ -271,19 +272,17 @@ endif
 #
 # generate the list of source permission files
 #
-PERMISSION_FILES := $(wildcard $(STATEDIR)/*.perms)
+PERMISSION_FILES := $(foreach pkg, $(PACKAGES-y), $(wildcard $(STATEDIR)/$(pkg)*.perms))
 
 #
-# List of all ipkgs that should be rootfs's base
-# TODO: generate a list of current valid ipkg packages
-# instead of using all in the images/ directory!
+# list of all ipkgs being selected for the root image
 #
-IPKG_FILES := $(wildcard $(PKGDIR)/*.ipk)
+IPKG_FILES := $(foreach pkg, $(PACKAGES-y), $(wildcard $(PKGDIR)/$(pkg)*.ipk))
 
 #
 # create one file with all permissions from all permission source files
 #
-$(IMAGEDIR)/permissions: $(PERMISSION_FILES)
+$(IMAGEDIR)/permissions: $(PERMISSION_FILES) $(PTXDIST_WORKSPACE)/ptxconfig
 	@cat $^ > $@
 
 #
@@ -589,7 +588,7 @@ dump-symbols:	$(M2B).symbols ;
 #
 # dump selected symbols with value
 #
-packages := $(PACKAGES-) $(PACKAGES-y)
+packages := $(PACKAGES-) $(PACKAGES-y) $(PACKAGES-m)
 prefixes := $(shell echo $(packages) | tr "a-z-" "A-Z_")
 symbols := $(foreach prefix,$(prefixes),$(foreach suffix,$(M2B_DUMP_SUFFIXES),$(prefix)$(suffix)))
 allsymbols := $(prefixes) $(shell echo $(symbols) | tr "a-z-" "A-Z_") $(M2B_DUMP_VARIABLES)

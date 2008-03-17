@@ -104,7 +104,7 @@ do_package_dep() {
     for dep in $*; do
 	ptxconf_dep=PTXCONF_${dep}
 	dep_package=PACKAGE_${dep}
-	if test "${!ptxconf_dep}" = "y" -a -n "${!dep_package}"; then
+	if [ \( "${!ptxconf_dep}" = "y" -o "${!ptxconf_dep}" = "m" \) -a  -n "${!dep_package}" ]; then
 	    prepare_dep="${prepare_dep} \$(STATEDIR)/${!dep_package}.install"
 
 	    case ${!dep_package} in
@@ -153,7 +153,7 @@ gen_packages_dep() {
 	fi
     done
 
-    sed -ne "s/^PTXCONF_\(.*\)=y/\1/p" ${PTXCONFIG} | while read label; do
+    sed -ne "s/^PTXCONF_\(.*\)=[ym]/\1/p" ${PTXCONFIG} | while read label; do
 	package=PACKAGE_${label}
 	if test -n "${!package}"; then
 	    deps=DEP_${label}

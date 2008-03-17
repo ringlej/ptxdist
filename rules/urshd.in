@@ -1,5 +1,5 @@
 config URSHD
-	bool
+	tristate
 	prompt "urshd               "
 	help
 	  FIXME
