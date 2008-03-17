@@ -64,12 +64,12 @@ kernel_targetinstall_deps =
 
 ifdef PTXCONF_KERNEL_MODULES
 kernel_prepare_deps += $(STATEDIR)/cross-module-init-tools.install
-kernel_targetinstall_deps += $(STATEDIR)/cross-module-init-tools.targetinstall
+kernel_targetinstall_deps += $(STATEDIR)/cross-module-init-tools.install
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_U
 kernel_prepare_deps += $(STATEDIR)/host-umkimage.install
-kernel_targetinstall_deps += $(STATEDIR)/host-umkimage.targetinstall
+kernel_targetinstall_deps += $(STATEDIR)/host-umkimage.install
 endif
 
 # ----------------------------------------------------------------------------
