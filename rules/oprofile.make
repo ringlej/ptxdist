@@ -2,7 +2,9 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
-#          
+# Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
+# Copyright (C) 2003-2007 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,13 +19,12 @@ PACKAGES-$(PTXCONF_OPROFILE) += oprofile
 #
 # Paths and names
 #
-OPROFILE_VERSION	= 0.9.3
-OPROFILE		= oprofile-$(OPROFILE_VERSION)
-OPROFILE_SUFFIX		= tar.gz
-OPROFILE_URL		= $(PTXCONF_SETUP_SFMIRROR)/oprofile/$(OPROFILE).$(OPROFILE_SUFFIX)
-OPROFILE_SOURCE		= $(SRCDIR)/$(OPROFILE).$(OPROFILE_SUFFIX)
-OPROFILE_DIR		= $(BUILDDIR)/$(OPROFILE)
-
+OPROFILE_VERSION	:= 0.9.3
+OPROFILE		:= oprofile-$(OPROFILE_VERSION)
+OPROFILE_SUFFIX		:= tar.gz
+OPROFILE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/oprofile/$(OPROFILE).$(OPROFILE_SUFFIX)
+OPROFILE_SOURCE		:= $(SRCDIR)/$(OPROFILE).$(OPROFILE_SUFFIX)
+OPROFILE_DIR		:= $(BUILDDIR)/$(OPROFILE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -58,21 +59,23 @@ $(STATEDIR)/oprofile.extract: $(oprofile_extract_deps_default)
 
 oprofile_prepare: $(STATEDIR)/oprofile.prepare
 
-OPROFILE_PATH	=  PATH=$(CROSS_PATH)
-OPROFILE_ENV 	=  $(CROSS_ENV)
+OPROFILE_PATH	:= PATH=$(CROSS_PATH)
+OPROFILE_ENV 	:= $(CROSS_ENV)
+
+ifndef PTXCONF_OPROFILE_SHARED
+OPROFILE_ENV	+=  LDFLAGS="-L$(SYSROOT)/usr/lib -static"
+else
+OPROFILE_ENV	+=  LDFLAGS="-L$(SYSROOT)/usr/lib"
+endif
 
 #
 # autoconf
 #
-OPROFILE_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
-OPROFILE_AUTOCONF	+= --with-kernel-support
-#
-# note: we must use here the kernel's makevars (ARCH=fo CROSS_COMPILE=bar)
-#       (see kernel.make) because oprofile includes the kernel's makefile
-#       in it's modules subdir, and there it doesn't care about the CC
-#       we gave him at ./configure-time....
-#
-OPROFILE_MAKEVARS	=  $(KERNEL_MAKEVARS)
+OPROFILE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--target=$(PTXCONF_GNU_TARGET) \
+	--disable-sanity-checks \
+	--with-linux=$(KERNEL_DIR)
 
 $(STATEDIR)/oprofile.prepare: $(oprofile_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -90,7 +93,7 @@ oprofile_compile: $(STATEDIR)/oprofile.compile
 
 $(STATEDIR)/oprofile.compile: $(oprofile_compile_deps_default)
 	@$(call targetinfo, $@)
-	$(OPROFILE_PATH) make -C $(OPROFILE_DIR) $(OPROFILE_MAKEVARS)
+	cd $(OPROFILE_DIR) && $(OPROFILE_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -101,7 +104,7 @@ oprofile_install: $(STATEDIR)/oprofile.install
 
 $(STATEDIR)/oprofile.install: $(oprofile_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, OPROFILE)
+#	@$(call install, OPROFILE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -122,25 +125,38 @@ $(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps_default)
 	@$(call install_fixup, oprofile,DEPENDS,)
 	@$(call install_fixup, oprofile,DESCRIPTION,missing)
 
-	@$(call install_copy, oprofile, 0, 0, 0755, $(OPROFILE_DIR)/utils/opcontrol, \
-		/usr/bin/opcontrol, 0)
-	@$(call install_copy, oprofile, 0, 0, 0755, $(OPROFILE_DIR)/pp/opreport, \
-		/usr/bin/opreport)
-	@$(call install_copy, oprofile, 0, 0, 0755, $(OPROFILE_DIR)/daemon/oprofiled, \
-		/usr/bin/oprofiled)
-	@$(call install_copy, oprofile, 0, 0, 0755, $(OPROFILE_DIR)/utils/ophelp, \
-		/usr/bin/ophelp)
+	@$(call install_copy, oprofile, 0, 0, 0755, \
+		$(OPROFILE_DIR)/utils/opcontrol, \
+		/usr/bin/opcontrol, 0 \
+	)
 
-	#
-	# Currently we install the events and unit_mask files for all architectures.
-	# This wastes some space.
-	#
-	@for i in $$(find $(OPROFILE_DIR)/events/ -name "unit_masks" -o -name "events"); do \
-		$(call install_copy, oprofile, 0, 0, 0755, $$i, \
-			/usr/share/oprofile/$$(echo $$i | sed "s^$(OPROFILE_DIR)/events^^"), 0); \
-	done
+	@$(call install_copy, oprofile, 0, 0, 0755, \
+		$(OPROFILE_DIR)/utils/ophelp, \
+		/usr/bin/ophelp \
+	)
+
+	@$(call install_copy, oprofile, 0, 0, 0755, \
+		$(OPROFILE_DIR)/pp/opreport, \
+		/usr/bin/opreport \
+	)
+
+	@$(call install_copy, oprofile, 0, 0, 0755, \
+		$(OPROFILE_DIR)/daemon/oprofiled, \
+		/usr/bin/oprofiled \
+	)
+
+	@$(call install_copy, oprofile, 0, 0, 0755, \
+		$(OPROFILE_DIR)/events/arm/xscale2/events, \
+		/usr/share/oprofile/arm/xscale2/events, 0 \
+	)
+
+	@$(call install_copy, oprofile, 0, 0, 0755, \
+		$(OPROFILE_DIR)/events/arm/xscale2/unit_masks, \
+		/usr/share/oprofile/arm/xscale2/unit_masks, 0 \
+	)
 
 	@$(call install_finish, oprofile)
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -149,6 +165,7 @@ $(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps_default)
 
 oprofile_clean:
 	rm -rf $(STATEDIR)/oprofile.*
+	rm -rf $(IMAGEDIR)/oprofile_*
 	rm -rf $(OPROFILE_DIR)
 
 # vim: syntax=make

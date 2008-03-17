@@ -1,11 +1,16 @@
 config OPROFILE
 	bool
-	# FIXME:
-	# arrange_profiles.cpp:93: error: definition of 'bool
-	# profile_classes::matches(const profile_classes&)' is not in
-	# namespace enclosing 'profile_classes'
 	select LIBPOPT
+	select KERNEL
+	select BB_CONFIG_DIRNAME
+	select BB_CONFIG_ID
+	select BB_CONFIG_MKTEMP
+	select BB_CONFIG_PIDOF
+	select BB_CONFIG_PRINTF
 	select BINUTILS
-	prompt "oprofile"
+	select BINUTILS_OBJDUMP
+	prompt "oprofile tools"
+	default n
 	help
-	  system-wide profiler for Linux systems
+	  oprofile user space executables including opcontrol, opreport and others
+
