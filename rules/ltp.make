@@ -73,7 +73,7 @@ ltp_compile: $(STATEDIR)/ltp.compile
 
 $(STATEDIR)/ltp.compile: $(ltp_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LTP_DIR); $(LTP_ENV) make $(PARALLELMFLAGS) libltp.a
+	cd $(LTP_DIR); $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) libltp.a
 
 #	CROSS_COMPILER=$(PTXDIST_WORKSPACE)/.toolchain/$(PTXCONF_COMPILER_PREFIX) \
 #	make CROSS_CFLAGS="" LDFLAGS="-static -L$(LTP_DIR)/lib" \

@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_LTP_POSIX) += ltp-posix
 #
 LTP_POSIX_VERSION	= $(LTP_VERSION)
 LTP_POSIX		= ltp-posix-$(LTP_VERSION)
+LTP_POSIX_DIR		= $(LTP_DIR)/testcases/open_posix_testsuite
 LTP_POSIX_PKGDIR	= $(PKGDIR)/$(LTP_POSIX)
 
 # ----------------------------------------------------------------------------
@@ -55,11 +56,22 @@ $(STATEDIR)/ltp-posix.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
+MFLAGS = LDFLAGS="-D_GNU_SOURCE -lpthread -lrt -lm" $(PARALLELMFLAGS)
+
 ltp-posix_compile: $(STATEDIR)/ltp-posix.compile
 
 $(STATEDIR)/ltp-posix.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/open_posix_testsuite; $(LTP_ENV) make $(PARALLELMFLAGS)
+	@cd $(LTP_POSIX_DIR); $(LTP_ENV) $(MAKE) $(MFLAGS) t0
+ifdef PTXCONF_LTP_POSIX_CONFORMANCE
+	@cd $(LTP_POSIX_DIR); $(LTP_ENV) $(MAKE) $(MFLAGS) build-tests
+endif
+ifdef PTXCONF_LTP_POSIX_FUNCTIONAL
+	@cd $(LTP_POSIX_DIR); $(LTP_ENV) $(MAKE) $(MFLAGS) functional-make
+endif
+ifdef PTXCONF_LTP_POSIX_STRESS
+	@cd $(LTP_POSIX_DIR); $(LTP_ENV) $(MAKE) $(MFLAGS) stress-make
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -70,15 +82,19 @@ ltp-posix_install: $(STATEDIR)/ltp-posix.install
 
 $(STATEDIR)/ltp-posix.install:
 	@$(call targetinfo, $@)
-	@mkdir -p $(LTP_POSIX_PKGDIR)/bin
-	@ln -sf $(LTP_POSIX_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/open_posix_testsuite; $(LTP_ENV) make $(PARALLELMFLAGS) install
-	@rm $(LTP_DIR)/testcases/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
+
+ltp-posix_install_copy = \
+	file=$(strip $(1)) \
+	PER=`stat -c "%a" $$file` \
+	$(call install_copy, ltp-posix, 0, 0, $$PER, \
+		$(LTP_POSIX_DIR)/$$file, \
+		$(LTP_BIN_DIR)/posix/$$file)
+
 
 ltp-posix_targetinstall: $(STATEDIR)/ltp-posix.targetinstall
 
@@ -94,11 +110,28 @@ $(STATEDIR)/ltp-posix.targetinstall:
 	@$(call install_fixup, ltp-posix,DEPENDS,)
 	@$(call install_fixup, ltp-posix,DESCRIPTION,missing)
 
-	@for file in `find $(LTP_POSIX_PKGDIR)/bin -type f`; do \
-		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-posix, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+ifdef PTXCONF_LTP_POSIX_CONFORMANCE
+	@cd $(LTP_POSIX_DIR);\
+	for file in `find conformance/ -name "*.test" -o -name "*.sh"`; do \
+		$(call ltp-posix_install_copy, $$file); \
 	done
-
+endif
+ifdef PTXCONF_LTP_POSIX_FUNCTIONAL
+	@cd $(LTP_POSIX_DIR);\
+	for file in `find functional/ -name "*.test" -o -name "*.sh"`; do \
+		$(call ltp-posix_install_copy, $$file); \
+	done
+endif
+ifdef PTXCONF_LTP_POSIX_STRESS
+	@cd $(LTP_POSIX_DIR);\
+	for file in `find stress/ -name "*.test" -o -name "*.sh"`; do \
+		$(call ltp-posix_install_copy, $$file); \
+	done
+endif
+	@cd $(LTP_POSIX_DIR);\
+	for file in run_tests execute.sh t0; do \
+		$(call ltp-posix_install_copy, $$file); \
+	done
 
 	@$(call install_finish, ltp-posix)
 

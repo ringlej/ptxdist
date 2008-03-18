@@ -1,0 +1,62 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: several tests try to overwrite compiler
+
+Usually the cross compiler is set from the toplevel directory by setting
+the CROSS_COMPILER variable. This makefile tries to overwrite it (and
+even in two different ways - has this ever been reviewed by anybody?),
+but wrong.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ testcases/open_posix_testsuite/stress/mqueues/Makefile    |   10 +---------
+ testcases/open_posix_testsuite/stress/semaphores/Makefile |   10 +---------
+ 2 files changed, 2 insertions(+), 18 deletions(-)
+
+Index: b/testcases/open_posix_testsuite/stress/mqueues/Makefile
+===================================================================
+--- a/testcases/open_posix_testsuite/stress/mqueues/Makefile
++++ b/testcases/open_posix_testsuite/stress/mqueues/Makefile
+@@ -1,18 +1,10 @@
+ 
+-ifndef POSIX_DIR_LIB
+-	POSIX_DIR_LIB=/usr/lib
+-endif
+-
+ INCLUDE = -I../../include
+-LIB=-lmqueue
+-
+-CC=gcc
+-CFLAGS=-Wall -O2 -g -I$(POSIX_DIR_INC) -L$(POSIX_DIR_LIB) -lpthread
+ 
+ all: multi_send_rev_1.test multi_send_rev_2.test
+ 
+ %.test : %.c
+-	$(CC) $(CFLAGS) $(INCLUDE) $< -o $@ $(LIB)   
++	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDE) $< -o $@
+ clean: 
+ 	rm *.test
+ 
+Index: b/testcases/open_posix_testsuite/stress/semaphores/Makefile
+===================================================================
+--- a/testcases/open_posix_testsuite/stress/semaphores/Makefile
++++ b/testcases/open_posix_testsuite/stress/semaphores/Makefile
+@@ -1,17 +1,9 @@
+-ifndef POSIX_DIR_LIB
+-	POSIX_DIR_LIB=/usr/lib
+-endif
+-
+ INCLUDE = -I../../include
+-LIB=-lposix1b
+-
+-CC=gcc
+-CFLAGS=-Wall -O2 -g -I$(POSIX_DIR_INC) -L$(POSIX_DIR_LIB)
+ 
+ all:  multi_con_pro.test
+ 
+ %.test : %.c
+-	$(CC) $(CFLAGS) $(INCLUDE) $< -o $@ $(LIB) -lpthread  
++	$(CC) $(CFLAGS) $(INCLUDE) $< -o $@ $(LDFLAGS)
+ clean: 
+ 	rm *.test
+ 

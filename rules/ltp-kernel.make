@@ -55,11 +55,54 @@ $(STATEDIR)/ltp-kernel.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_LTP_KERNEL_NUMA
+LTP_KERNEL_BUILD_TARGETS += numa
+endif
+ifdef PTXCONF_LTP_KERNEL_CONTAINERS
+LTP_KERNEL_BUILD_TARGETS += containers
+endif
+ifdef PTXCONF_LTP_KERNEL_CONTROLLERS
+LTP_KERNEL_BUILD_TARGETS += controllers
+endif
+ifdef PTXCONF_LTP_KERNEL_INCLUDE
+LTP_KERNEL_BUILD_TARGETS += include
+endif
+ifdef PTXCONF_LTP_KERNEL_FS
+LTP_KERNEL_BUILD_TARGETS += fs
+endif
+ifdef PTXCONF_LTP_KERNEL_IO
+LTP_KERNEL_BUILD_TARGETS += io
+endif
+ifdef PTXCONF_LTP_KERNEL_IPC
+LTP_KERNEL_BUILD_TARGETS += ipc
+endif
+ifdef PTXCONF_LTP_KERNEL_MEM
+LTP_KERNEL_BUILD_TARGETS += mem
+endif
+ifdef PTXCONF_LTP_KERNEL_PTY
+LTP_KERNEL_BUILD_TARGETS += pty
+endif
+ifdef PTXCONF_LTP_KERNEL_SCHED
+LTP_KERNEL_BUILD_TARGETS += sched
+endif
+ifdef PTXCONF_LTP_KERNEL_SECURITY
+LTP_KERNEL_BUILD_TARGETS += security
+endif
+ifdef PTXCONF_LTP_KERNEL_SYSCALLS
+LTP_KERNEL_BUILD_TARGETS += syscalls
+endif
+ifdef PTXCONF_LTP_KERNEL_TIMERS
+LTP_KERNEL_BUILD_TARGETS += timers
+endif
+
 ltp-kernel_compile: $(STATEDIR)/ltp-kernel.compile
 
 $(STATEDIR)/ltp-kernel.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/kernel; $(LTP_ENV) make $(PARALLELMFLAGS)
+	@for target in $(LTP_KERNEL_BUILD_TARGETS); do \
+		cd $(LTP_DIR)/testcases/kernel/$$target; \
+		$(LTP_ENV) $(MAKE) $(PARALLELMFLAGS); \
+	done
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -72,7 +115,10 @@ $(STATEDIR)/ltp-kernel.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_KERNEL_PKGDIR)/bin
 	@ln -sf $(LTP_KERNEL_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/kernel; $(LTP_ENV) make $(PARALLELMFLAGS) install
+	@for target in $(LTP_KERNEL_BUILD_TARGETS); do \
+		cd $(LTP_DIR)/testcases/kernel/$$target; \
+		$(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install; \
+	done
 	@rm $(LTP_DIR)/testcases/bin
 	@$(call touch, $@)
 
@@ -94,9 +140,12 @@ $(STATEDIR)/ltp-kernel.targetinstall:
 	@$(call install_fixup, ltp-kernel,DEPENDS,)
 	@$(call install_fixup, ltp-kernel,DESCRIPTION,missing)
 
-	@for file in `find $(LTP_KERNEL_PKGDIR)/bin -type f`; do \
+	@cd $(LTP_KERNEL_PKGDIR)/bin; \
+	for file in `find -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-kernel, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-kernel, 0, 0, $$PER, \
+			$(LTP_KERNEL_PKGDIR)/bin/$$file, \
+			$(LTP_BIN_DIR)/$$file); \
 	done
 
 

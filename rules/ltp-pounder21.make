@@ -59,7 +59,7 @@ ltp-pounder21_compile: $(STATEDIR)/ltp-pounder21.compile
 
 $(STATEDIR)/ltp-pounder21.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/pounder21; $(LTP_ENV) make $(PARALLELMFLAGS)
+	@cd $(LTP_DIR)/testcases/pounder21; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ $(STATEDIR)/ltp-pounder21.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_POUNDER21_PKGDIR)/bin
 	@ln -sf $(LTP_POUNDER21_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/pounder21; $(LTP_ENV) make $(PARALLELMFLAGS) install
+	@cd $(LTP_DIR)/testcases/pounder21; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
 	@rm $(LTP_DIR)/testcases/bin
 	@$(call touch, $@)
 

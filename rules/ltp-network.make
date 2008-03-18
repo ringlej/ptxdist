@@ -59,7 +59,7 @@ ltp-network_compile: $(STATEDIR)/ltp-network.compile
 
 $(STATEDIR)/ltp-network.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/network; $(LTP_ENV) make $(PARALLELMFLAGS)
+	@cd $(LTP_DIR)/testcases/network; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ $(STATEDIR)/ltp-network.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_NETWORK_PKGDIR)/bin
 	@ln -sf $(LTP_NETWORK_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/network; $(LTP_ENV) make $(PARALLELMFLAGS) install
+	@cd $(LTP_DIR)/testcases/network; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
 	@rm $(LTP_DIR)/testcases/bin
 	@$(call touch, $@)
 
@@ -94,9 +94,12 @@ $(STATEDIR)/ltp-network.targetinstall:
 	@$(call install_fixup, ltp-network,DEPENDS,)
 	@$(call install_fixup, ltp-network,DESCRIPTION,missing)
 
-	@for file in `find $(LTP_NETWORK_PKGDIR)/bin -type f`; do \
+	@cd $(LTP_NETWORK_PKGDIR)/bin; \
+	for file in `find -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-network, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-network, 0, 0, $$PER, \
+			$(LTP_NETWORK_PKGDIR)/bin/$$file, \
+			$(LTP_BIN_DIR)/$$file); \
 	done
 
 

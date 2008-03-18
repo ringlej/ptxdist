@@ -59,7 +59,7 @@ ltp-commands_compile: $(STATEDIR)/ltp-commands.compile
 
 $(STATEDIR)/ltp-commands.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/commands; $(LTP_ENV) make $(PARALLELMFLAGS)
+	@cd $(LTP_DIR)/testcases/commands; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ $(STATEDIR)/ltp-commands.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_COMMANDS_PKGDIR)/bin
 	@ln -sf $(LTP_COMMANDS_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/commands; $(LTP_ENV) make $(PARALLELMFLAGS) install
+	@cd $(LTP_DIR)/testcases/commands; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
 	@rm $(LTP_DIR)/testcases/bin
 	@$(call touch, $@)
 
@@ -94,9 +94,12 @@ $(STATEDIR)/ltp-commands.targetinstall:
 	@$(call install_fixup, ltp-commands,DEPENDS,)
 	@$(call install_fixup, ltp-commands,DESCRIPTION,missing)
 
-	@for file in `find $(LTP_COMMANDS_PKGDIR)/bin -type f`; do \
+	@cd $(LTP_COMMANDS_PKGDIR)/bin; \
+	for file in `find -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-commands, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-commands, 0, 0, $$PER, \
+			$(LTP_COMMANDS_PKGDIR)/bin/$$file, \
+			$(LTP_BIN_DIR)/$$file); \
 	done
 
 

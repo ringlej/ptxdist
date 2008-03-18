@@ -59,7 +59,7 @@ ltp-misc_compile: $(STATEDIR)/ltp-misc.compile
 
 $(STATEDIR)/ltp-misc.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/misc; $(LTP_ENV) make $(PARALLELMFLAGS)
+	@cd $(LTP_DIR)/testcases/misc; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ $(STATEDIR)/ltp-misc.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_MISC_PKGDIR)/bin
 	@ln -sf $(LTP_MISC_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/misc; $(LTP_ENV) make $(PARALLELMFLAGS) install
+	@cd $(LTP_DIR)/testcases/misc; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
 	@rm $(LTP_DIR)/testcases/bin
 	@$(call touch, $@)
 
@@ -94,9 +94,12 @@ $(STATEDIR)/ltp-misc.targetinstall:
 	@$(call install_fixup, ltp-misc,DEPENDS,)
 	@$(call install_fixup, ltp-misc,DESCRIPTION,missing)
 
-	@for file in `find $(LTP_MISC_PKGDIR)/bin -type f`; do \
+	@cd $(LTP_MISC_PKGDIR)/bin; \
+	for file in `find -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-misc, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-misc, 0, 0, $$PER, \
+			$(LTP_MISC_PKGDIR)/bin/$$file, \
+			$(LTP_BIN_DIR)/$$file); \
 	done
 
 

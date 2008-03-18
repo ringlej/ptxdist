@@ -59,7 +59,7 @@ ltp-kdump_compile: $(STATEDIR)/ltp-kdump.compile
 
 $(STATEDIR)/ltp-kdump.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/kdump; $(LTP_ENV) make $(PARALLELMFLAGS)
+	@cd $(LTP_DIR)/testcases/kdump; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ $(STATEDIR)/ltp-kdump.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_KDUMP_PKGDIR)/bin
 	@ln -sf $(LTP_KDUMP_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/kdump; $(LTP_ENV) make $(PARALLELMFLAGS) install
+	@cd $(LTP_DIR)/testcases/kdump; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
 	@rm $(LTP_DIR)/testcases/bin
 	@$(call touch, $@)
 

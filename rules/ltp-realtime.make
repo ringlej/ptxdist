@@ -59,7 +59,7 @@ ltp-realtime_compile: $(STATEDIR)/ltp-realtime.compile
 
 $(STATEDIR)/ltp-realtime.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/realtime; $(LTP_ENV) make $(PARALLELMFLAGS)
+	@cd $(LTP_DIR)/testcases/realtime; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ $(STATEDIR)/ltp-realtime.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_REALTIME_PKGDIR)/bin
 	@ln -sf $(LTP_REALTIME_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/realtime; $(LTP_ENV) make $(PARALLELMFLAGS) install
+	@cd $(LTP_DIR)/testcases/realtime; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
 	@rm $(LTP_DIR)/testcases/bin
 	@$(call touch, $@)
 
