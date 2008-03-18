@@ -1,6 +1,8 @@
 config GMAKE
 	tristate
 	prompt "gmake"
+	select GLIBC_LIBRT
+	select GLIBC_PTHREAD
 	help
 	  gmake is GNU make.
 
