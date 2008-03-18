@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_GMAKE) += gmake
 GMAKE_VERSION	:= 3.81
 GMAKE		:= make-$(GMAKE_VERSION)
 GMAKE_SUFFIX	:= tar.bz2
-GMAKE_URL	:= ftp://ftp.gnu.org/gnu/make/$(GMAKE).$(GMAKE_SUFFIX)
+GMAKE_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/make/$(GMAKE).$(GMAKE_SUFFIX)
 GMAKE_SOURCE	:= $(SRCDIR)/$(GMAKE).$(GMAKE_SUFFIX)
 GMAKE_DIR	:= $(BUILDDIR)/$(GMAKE)
 
@@ -30,7 +30,7 @@ GMAKE_DIR	:= $(BUILDDIR)/$(GMAKE)
 
 gmake_get: $(STATEDIR)/gmake.get
 
-$(STATEDIR)/gmake.get: $(gmake_get_deps_default)
+$(STATEDIR)/gmake.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(GMAKE_SOURCE):
 
 gmake_extract: $(STATEDIR)/gmake.extract
 
-$(STATEDIR)/gmake.extract: $(gmake_extract_deps_default)
+$(STATEDIR)/gmake.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GMAKE_DIR))
 	@$(call extract, GMAKE)
@@ -69,7 +69,7 @@ GMAKE_AUTOCONF := \
 	--disable-rpath \
 	--without-libintl-prefix
 
-$(STATEDIR)/gmake.prepare: $(gmake_prepare_deps_default)
+$(STATEDIR)/gmake.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GMAKE_DIR)/config.cache)
 	cd $(GMAKE_DIR) && \
@@ -83,7 +83,7 @@ $(STATEDIR)/gmake.prepare: $(gmake_prepare_deps_default)
 
 gmake_compile: $(STATEDIR)/gmake.compile
 
-$(STATEDIR)/gmake.compile: $(gmake_compile_deps_default)
+$(STATEDIR)/gmake.compile:
 	@$(call targetinfo, $@)
 	cd $(GMAKE_DIR) && $(GMAKE_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -94,7 +94,7 @@ $(STATEDIR)/gmake.compile: $(gmake_compile_deps_default)
 
 gmake_install: $(STATEDIR)/gmake.install
 
-$(STATEDIR)/gmake.install: $(gmake_install_deps_default)
+$(STATEDIR)/gmake.install:
 	@$(call targetinfo, $@)
 	@$(call install, GMAKE)
 	@$(call touch, $@)
@@ -105,7 +105,7 @@ $(STATEDIR)/gmake.install: $(gmake_install_deps_default)
 
 gmake_targetinstall: $(STATEDIR)/gmake.targetinstall
 
-$(STATEDIR)/gmake.targetinstall: $(gmake_targetinstall_deps_default)
+$(STATEDIR)/gmake.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, gmake)
