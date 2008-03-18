@@ -1,0 +1,6 @@
+config GMAKE
+	tristate
+	prompt "gmake"
+	help
+	  gmake is GNU make.
+
