@@ -3,7 +3,6 @@ menuconfig MPLAYER
 	select LIBJPEG if MPLAYER_VO_JPEG
 	select XORG_LIB_XV if MPLAYER_VO_XV
 	select XORG_LIB_X11 if MPLAYER_VO_X11
-	select FFMPEG if MPLAYER_FFMPEG
 	prompt "mplayer             "
 	help
 	  The Ultimate Movie Player For Linux
@@ -17,33 +16,75 @@ menuconfig MPLAYER
 	  and some lowlevel card-specific drivers
 	  (for Matrox/3dfx/SiS) too.
 
-config MPLAYER_V4L2
+# -----
+
+menuconfig MPLAYER_VI
 	bool
-	prompt "enable v4l2 support for mplayer"
+	prompt "Video Input"
 	depends on MPLAYER
 
-config MPLAYER_VO_JPEG
+config MPLAYER_VI_V4L1
 	bool
-	prompt "enable jpeg output support for mplayer"
+	prompt "v4l1 support"
+	depends on MPLAYER_VI
+
+config MPLAYER_VI_V4L2
+	bool
+	select GLIBC_PTHREAD
+	prompt "v4l2 support"
+	depends on MPLAYER_VI
+
+# -----
+
+menuconfig MPLAYER_VO
+	bool
+	prompt "Video Output"
 	depends on MPLAYER
 
 config MPLAYER_VO_XV
 	bool
+	depends on MPLAYER_VO
 	prompt "enable Xvideo output support for mplayer"
 	depends on MPLAYER
 
 config MPLAYER_VO_X11
 	bool
+	depends on MPLAYER_VO
 	prompt "enable X11 output support for mplayer"
 	depends on MPLAYER
 
 config MPLAYER_VO_FBDEV
 	bool
+	depends on MPLAYER_VO
 	prompt "enable framebuffer output support for mplayer"
 	depends on MPLAYER
 
-config MPLAYER_FFMPEG
+# -----
+
+menuconfig MPLAYER_CODEC
 	bool
-	prompt "ffmpeg support"
+	prompt "Video Codecs"
 	depends on MPLAYER
+
+config MPLAYER_CODEC_MPEG2
+	bool
+	prompt "mpeg2"
+	depends on MPLAYER_CODEC
+
+# -----
+
+menuconfig MPLAYER_ADVANCED
+	bool
+	prompt "Advanced Options"
+	depends on MPLAYER
+
+config MPLAYER_ADVANCED_PXA
+	bool
+	prompt "pxa support"
+	depends on MPLAYER_ADVANCED
+
+config MPLAYER_ADVANCED_IWMMXT
+	bool
+	prompt "iwmmxt extensions"
+	depends on MPLAYER_ADVANCED
 
