@@ -1,1 +1,4 @@
 busybox-1.9.1-lineedit.patch
+busybox-1.9.1-init.patch
+busybox-1.9.1-patch_permissions.patch
+busybox-1.9.1-httpd-POST.patch
