@@ -10,3 +10,4 @@ MPlayer-1.0rc2-v4l2-tv-pthread.diff
 mplayer-3.diff
 #mplayer-4.diff
 #mmpatch.diff
+mplayer_libavcodec_pld.diff
