@@ -1,0 +1,77 @@
+Subject: busybox 1.10.0 fixes
+From: http://busybox.net/downloads/fixes-1.10.0
+
+---
+ coreutils/tail.c            |   22 +++++++++-------------
+ testsuite/tail/tail-n-works |    8 ++++----
+ testsuite/tail/tail-works   |    8 ++++----
+ 3 files changed, 17 insertions(+), 21 deletions(-)
+
+Index: busybox-1.10.0/coreutils/tail.c
+===================================================================
+--- busybox-1.10.0.orig/coreutils/tail.c
++++ busybox-1.10.0/coreutils/tail.c
+@@ -163,8 +163,6 @@ int tail_main(int argc, char **argv)
+ 	fmt = header_fmt + 1;	/* Skip header leading newline on first output. */
+ 	i = 0;
+ 	do {
+-		off_t current;
+-
+ 		if (nfiles > header_threshhold) {
+ 			tail_xprint_header(fmt, argv[i]);
+ 			fmt = header_fmt;
+@@ -173,19 +171,17 @@ int tail_main(int argc, char **argv)
+ 		/* Optimizing count-bytes case if the file is seekable.
+ 		 * Beware of backing up too far.
+ 		 * Also we exclude files with size 0 (because of /proc/xxx) */
+-		current = lseek(fds[i], 0, SEEK_END);
+-		if (current > 0) {
+-			if (!from_top) {
++		if (COUNT_BYTES && !from_top) {
++			off_t current = lseek(fds[i], 0, SEEK_END);
++			if (current > 0) {
+ 				if (count == 0)
+ 					continue; /* showing zero lines is easy :) */
+-				if (COUNT_BYTES) {
+-					current -= count;
+-					if (current < 0)
+-						current = 0;
+-					xlseek(fds[i], current, SEEK_SET);
+-					bb_copyfd_size(fds[i], STDOUT_FILENO, count);
+-					continue;
+-				}
++				current -= count;
++				if (current < 0)
++					current = 0;
++				xlseek(fds[i], current, SEEK_SET);
++				bb_copyfd_size(fds[i], STDOUT_FILENO, count);
++				continue;
+ 			}
+ 		}
+ 
+Index: busybox-1.10.0/testsuite/tail/tail-n-works
+===================================================================
+--- busybox-1.10.0.orig/testsuite/tail/tail-n-works
++++ busybox-1.10.0/testsuite/tail/tail-n-works
+@@ -1,4 +1,4 @@
+-[ -n "$d" ] || d=..
+-tail -n 2 "$d/README" > logfile.gnu
+-busybox tail -n 2 "$d/README" > logfile.bb
+-cmp logfile.gnu logfile.bb
++echo -ne "abc\ndef\n123\n" >input
++echo -ne "def\n123\n" >logfile.ok
++busybox tail -n 2 input > logfile.bb
++cmp logfile.ok logfile.bb
+Index: busybox-1.10.0/testsuite/tail/tail-works
+===================================================================
+--- busybox-1.10.0.orig/testsuite/tail/tail-works
++++ busybox-1.10.0/testsuite/tail/tail-works
+@@ -1,4 +1,4 @@
+-[ -n "$d" ] || d=..
+-tail -n 2 "$d/README" > logfile.gnu
+-busybox tail -n 2 "$d/README" > logfile.bb
+-cmp logfile.gnu logfile.bb
++echo -ne "abc\ndef\n123\n" >input
++echo -ne "def\n123\n" >logfile.ok
++busybox tail -2 input > logfile.bb
++cmp logfile.ok logfile.bb

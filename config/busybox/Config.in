@@ -113,7 +113,7 @@ config BB_CONFIG_LOCALE_SUPPORT
 	  busybox to support locale settings.
 
 config BB_CONFIG_GETOPT_LONG
-	bool "Enable support for --long-options"
+	bool "Support for --long-options"
 	default y
 	help
 	  Enable this if you want busybox applets to use the gnu --long-option
@@ -280,6 +280,17 @@ config BB_CONFIG_STATIC
 	  your target platform does not support shared libraries, or
 	  you are building an initrd which doesn't need anything but
 	  BusyBox, etc).
+
+	  Most people will leave this set to 'N'.
+
+config BB_CONFIG_NOMMU
+	bool "Force NOMMU build"
+	default n
+	help
+	  Busybox tries to detect whether architecture it is being
+	  built against supports MMU or not. If this detection fails,
+	  or if you want to build NOMMU version of busybox for testing,
+	  you may force NOMMU build here.
 
 	  Most people will leave this set to 'N'.
 
@@ -560,4 +571,4 @@ source config/busybox/shell/Config.in
 source config/busybox/sysklogd/Config.in
 source config/busybox/runit/Config.in
 source config/busybox/selinux/Config.in
-source config/busybox/ipsvd/Config.in
+source config/busybox/printutils/Config.in

@@ -73,7 +73,7 @@ config BB_CONFIG_RESIZE
 	  terminal.
 
 config BB_CONFIG_FEATURE_RESIZE_PRINT
-	bool "print environment variables"
+	bool "Print environment variables"
 	default n
 	depends on BB_CONFIG_RESIZE
 	help

@@ -19,7 +19,7 @@ config BB_CONFIG_DMESG
 	  wish to enable the 'dmesg' utility.
 
 config BB_CONFIG_FEATURE_DMESG_PRETTY
-	bool "pretty dmesg output"
+	bool "Pretty dmesg output"
 	default y
 	depends on BB_CONFIG_DMESG
 	help
@@ -94,7 +94,7 @@ config BB_CONFIG_FDISK
 	  'disk slices' that are defined on a hard drive.
 
 config BB_CONFIG_FDISK_SUPPORT_LARGE_DISKS
-	bool "support over 4GB disks"
+	bool "Support over 4GB disks"
 	default y
 	depends on BB_CONFIG_FDISK
 	help
@@ -150,6 +150,17 @@ config BB_CONFIG_FEATURE_FDISK_ADVANCED
 	  define arbitrary drive geometry, move the beginning of data in a
 	  partition, and similarly evil things.  Unless you have a very good
 	  reason you would be wise to leave this disabled.
+
+config BB_CONFIG_FINDFS
+	bool "findfs"
+	default n
+	select BB_CONFIG_VOLUMEID
+	help
+	  This is similar to the findfs program that is part of the e2fsprogs
+	  package.  However, the e2fsprogs version only support ext2/3.  This
+	  version supports those in addition to FAT, swap, and ReiserFS.
+	  WARNING:
+	  With all submodules selected, it will add ~8k to busybox.
 
 config BB_CONFIG_FREERAMDISK
 	bool "freeramdisk"
@@ -211,13 +222,6 @@ config BB_CONFIG_HEXDUMP
 	  The hexdump utility is used to display binary data in a readable
 	  way that is comparable to the output from most hex editors.
 
-config BB_CONFIG_HD
-	bool "hd"
-	default n
-	select BB_CONFIG_HEXDUMP
-	help
-	  hd is an alias to hexdump -C.
-
 config BB_CONFIG_FEATURE_HEXDUMP_REVERSE
 	bool "Support -R, reverse of 'hexdump -Cv'"
 	default n
@@ -227,6 +231,13 @@ config BB_CONFIG_FEATURE_HEXDUMP_REVERSE
 	  readable way. This option creates binary data from an ascii input.
 	  NB: this option is non-standard. It's unwise to use it in scripts
 	  aimed to be portable.
+
+config BB_CONFIG_HD
+	bool "hd"
+	default n
+	select BB_CONFIG_HEXDUMP
+	help
+	  hd is an alias to hexdump -C.
 
 config BB_CONFIG_HWCLOCK
 	bool "hwclock"
@@ -302,6 +313,15 @@ config BB_CONFIG_FEATURE_MDEV_CONF
 
 	  For more information, please see docs/mdev.txt
 
+config BB_CONFIG_FEATURE_MDEV_RENAME
+	bool "Support subdirs/symlinks"
+	default n
+	depends on BB_CONFIG_FEATURE_MDEV_CONF
+	help
+	  Add support for renaming devices and creating symlinks.
+
+	  For more information, please see docs/mdev.txt
+
 config BB_CONFIG_FEATURE_MDEV_EXEC
 	bool "Support command execution at device addition/removal"
 	default n
@@ -337,7 +357,7 @@ config BB_CONFIG_MKSWAP
 	  the swap space using the 'swapon' utility.
 
 config BB_CONFIG_FEATURE_MKSWAP_V0
-	bool "version 0 support"
+	bool "Version 0 support"
 	default n
 	depends on BB_CONFIG_MKSWAP
 #	depends on MKSWAP && DEPRECATED
@@ -359,13 +379,223 @@ config BB_CONFIG_MORE
 config BB_CONFIG_FEATURE_USE_TERMIOS
 	bool "Use termios to manipulate the screen"
 	default y
-	depends on BB_CONFIG_MORE
+	depends on BB_CONFIG_MORE || BB_CONFIG_TOP
 	help
 	  This option allows utilities such as 'more' and 'top' to determine
 	  the size of the screen.  If you leave this disabled, your utilities
 	  that display things on the screen will be especially primitive and
 	  will be unable to determine the current screen size, and will be
 	  unable to move the cursor.
+
+config BB_CONFIG_VOLUMEID
+	bool "Routines for detecting label and uuid on common filesystems"
+	default n
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_EXT
+	bool "Ext filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_REISERFS
+	bool "Reiser filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_FAT
+	bool "fat filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_HFS
+	bool "hfs filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_JFS
+	bool "jfs filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+### config FEATURE_VOLUMEID_UFS
+###	bool "ufs filesystem"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_XFS
+	bool "xfs filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_NTFS
+	bool "ntfs filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_ISO9660
+	bool "iso9660 filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_UDF
+	bool "udf filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_LUKS
+	bool "luks filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_LINUXSWAP
+	bool "linux swap filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+### config FEATURE_VOLUMEID_LVM
+###	bool "lvm"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_CRAMFS
+	bool "cramfs filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+### config FEATURE_VOLUMEID_HPFS
+###	bool "hpfs filesystem"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_ROMFS
+	bool "romfs filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_SYSV
+	bool "sysv filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+### config FEATURE_VOLUMEID_MINIX
+###	bool "minix filesystem"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+### These only detect partition tables - not used (yet?)
+### config FEATURE_VOLUMEID_MAC
+###	bool "mac filesystem"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+### 
+### config FEATURE_VOLUMEID_MSDOS
+###	bool "msdos filesystem"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_OCFS2
+	bool "ocfs2 filesystem"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
+
+### config FEATURE_VOLUMEID_HIGHPOINTRAID
+###	bool "highpoint raid"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+### config FEATURE_VOLUMEID_ISWRAID
+###	bool "intel raid"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+### config FEATURE_VOLUMEID_LSIRAID
+###	bool "lsi raid"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+### config FEATURE_VOLUMEID_VIARAID
+###	bool "via raid"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+### config FEATURE_VOLUMEID_SILICONRAID
+###	bool "silicon raid"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+### config FEATURE_VOLUMEID_NVIDIARAID
+###	bool "nvidia raid"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+### config FEATURE_VOLUMEID_PROMISERAID
+###	bool "promise raid"
+###	default n
+###	depends on VOLUMEID
+###	help
+###	  TODO
+
+config BB_CONFIG_FEATURE_VOLUMEID_LINUXRAID
+	bool "linuxraid"
+	default n
+	depends on BB_CONFIG_VOLUMEID
+	help
+	  TODO
 
 config BB_CONFIG_MOUNT
 	bool "mount"
@@ -378,15 +608,42 @@ config BB_CONFIG_MOUNT
 	  NFS filesystems.  Most people using BusyBox will also want to enable
 	  the 'mount' utility.
 
+config BB_CONFIG_FEATURE_MOUNT_FAKE
+	bool "Support option -f"
+	default n
+	depends on BB_CONFIG_MOUNT
+	help
+	  Enable support for faking a file system mount.
+
+config BB_CONFIG_FEATURE_MOUNT_VERBOSE
+	bool "Support option -v"
+	default n
+	depends on BB_CONFIG_MOUNT
+	help
+	  Enable multi-level -v[vv...] verbose messages. Useful if you
+	  debug mount problems and want to see what is exactly passed
+	  to the kernel.
+
 config BB_CONFIG_FEATURE_MOUNT_HELPERS
 	bool "Support mount helpers"
 	default n
 	depends on BB_CONFIG_MOUNT
 	help
 	  Enable mounting of virtual file systems via external helpers.
-	  E.g. mount obexfs#-b00.11.22.33.44.55 /mnt will in effect call
-	  obexfs -b00.11.22.33.44.55 /mnt
-	  The idea is to use such virtual filesystems in /etc/fstab
+	  E.g. "mount obexfs#-b00.11.22.33.44.55 /mnt" will in effect call
+	  "obexfs -b00.11.22.33.44.55 /mnt"
+	  Also "mount -t sometype [-o opts] fs /mnt" will try
+	  "sometype [-o opts] fs /mnt" if simple mount syscall fails.
+	  The idea is to use such virtual filesystems in /etc/fstab.
+
+config BB_CONFIG_FEATURE_MOUNT_LABEL
+	bool "Support specifiying devices by label or UUID"
+	default n
+	depends on BB_CONFIG_MOUNT
+	select BB_CONFIG_VOLUMEID
+	help
+	  This allows for specifying a device by label or uuid, rather than by
+	  name.  This feature utilizes the same functionality as findfs.
 
 config BB_CONFIG_FEATURE_MOUNT_NFS
 	bool "Support mounting NFS file systems"
@@ -448,6 +705,12 @@ config BB_CONFIG_READPROFILE
 	help
 	  This allows you to parse /proc/profile for basic profiling.
 
+config BB_CONFIG_RTCWAKE
+	bool "rtcwake"
+	default n
+	help
+	  Enter a system sleep state until specified wakeup time.
+
 config BB_CONFIG_SETARCH
 	bool "setarch"
 	default n
@@ -497,7 +760,7 @@ config BB_CONFIG_UMOUNT
 	  also want to enable 'umount'.
 
 config BB_CONFIG_FEATURE_UMOUNT_ALL
-	bool "umount -a option"
+	bool "Support option -a"
 	default n
 	depends on BB_CONFIG_UMOUNT
 	help
@@ -526,6 +789,7 @@ config BB_CONFIG_FEATURE_MTAB_SUPPORT
 	bool "Support for the old /etc/mtab file"
 	default n
 	depends on BB_CONFIG_MOUNT || BB_CONFIG_UMOUNT
+	select BB_CONFIG_FEATURE_MOUNT_FAKE
 	help
 	  Historically, Unix systems kept track of the currently mounted
 	  partitions in the file "/etc/mtab".  These days, the kernel exports
@@ -546,4 +810,3 @@ config BB_CONFIG_FEATURE_MTAB_SUPPORT
 	  your kernel.
 
 endmenu
-

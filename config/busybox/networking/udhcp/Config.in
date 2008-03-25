@@ -42,6 +42,15 @@ config BB_CONFIG_FEATURE_UDHCPD_WRITE_LEASES_EARLY
 	  to send SIGUSR1 for the initial writing, or updating. Any timed
 	  rewriting remains undisturbed
 
+config BB_CONFIG_DHCPD_LEASES_FILE
+	string "Absolute path to lease file"
+	default "/var/lib/misc/udhcpd.leases"
+	depends on BB_CONFIG_APP_UDHCPD
+	help
+	  The udhcpd stores address in lease files. Normaly it is save
+	  to leave it untouched.
+
+
 config BB_CONFIG_APP_UDHCPC
 	bool "udhcp Client (udhcpc)"
 	default n
@@ -63,6 +72,13 @@ config BB_CONFIG_FEATURE_UDHCPC_ARPING
 	  is really available. The client will DHCPDECLINE the offer if the
 	  address is in use, and restart the discover process.
 
+config BB_CONFIG_FEATURE_UDHCP_PORT
+	bool "Enable '-P port' option for udhcpd and udhcpc"
+	default n
+	depends on BB_CONFIG_APP_UDHCPD || BB_CONFIG_APP_UDHCPC
+	help
+	  At the cost of ~300 bytes, enables -P port option.
+	  This feature is typically not needed.
 
 config BB_CONFIG_FEATURE_UDHCP_DEBUG
 	bool "Compile udhcp with noisy debugging messages"
@@ -82,6 +98,16 @@ config BB_CONFIG_FEATURE_RFC3397
 	help
 	  If selected, both client and server will support passing of domain
 	  search lists via option 119, specified in RFC3397.
+
+config BB_CONFIG_DHCPC_DEFAULT_SCRIPT
+	string "Absolute path to config script"
+	default "/usr/share/udhcpc/default.script"
+	depends on BB_CONFIG_APP_UDHCPC
+	help
+	  This script is called after udhcpc receives and answer. See
+	  examples/udhcp for a working example. Normaly it is save
+	  to leave this untouched.
+
 
 config BB_CONFIG_UDHCPC_SLACK_FOR_BUGGY_SERVERS
 	int "DHCP options slack buffer size"

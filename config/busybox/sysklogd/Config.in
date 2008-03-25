@@ -43,6 +43,14 @@ config BB_CONFIG_FEATURE_REMOTE_LOG
 	  measure to prevent system logs from being tampered with
 	  by an intruder.
 
+config BB_CONFIG_FEATURE_SYSLOGD_DUP
+	bool "Support -D (drop dups) option"
+	default n
+	depends on BB_CONFIG_SYSLOGD
+	help
+	  Option -D instructs syslogd to drop consecutive messages
+	  which are totally the same.
+
 config BB_CONFIG_FEATURE_IPC_SYSLOG
 	bool "Circular Buffer support"
 	default n
@@ -77,7 +85,7 @@ config BB_CONFIG_LOGREAD
 	  stored in the syslogd circular buffer.
 
 config BB_CONFIG_FEATURE_LOGREAD_REDUCED_LOCKING
-	bool "logread double buffering"
+	bool "Double buffering"
 	default n
 	depends on BB_CONFIG_LOGREAD
 	help

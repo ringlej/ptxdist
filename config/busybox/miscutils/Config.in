@@ -20,6 +20,73 @@ config BB_CONFIG_BBCONFIG
 	  The bbconfig applet will print the config file with which
 	  busybox was built.
 
+config BB_CONFIG_CHAT
+	bool "chat"
+	default n
+	help
+	  Simple chat utility.
+
+config BB_CONFIG_FEATURE_CHAT_NOFAIL
+	bool "Enable NOFAIL expect strings"
+	depends on BB_CONFIG_CHAT
+	default y
+	help
+	  When enabled expect strings which are started with a dash trigger
+	  no-fail mode. That is when expectation is not met within timeout
+	  the script is not terminated but sends next SEND string and waits
+	  for next EXPECT string. This allows to compose far more flexible
+	  scripts.
+
+config BB_CONFIG_FEATURE_CHAT_TTY_HIFI
+	bool "Force STDIN to be a TTY"
+	depends on BB_CONFIG_CHAT
+	default n
+	help
+	  Original chat always treats STDIN as a TTY device and sets for it
+	  so-called raw mode. This option turns on such behaviour.
+
+config BB_CONFIG_FEATURE_CHAT_IMPLICIT_CR
+	bool "Enable implicit Carriage Return"
+	depends on BB_CONFIG_CHAT
+	default y
+	help
+	  When enabled make chat to terminate all SEND strings with a "\r"
+	  unless "\c" is met anywhere in the string.
+
+config BB_CONFIG_FEATURE_CHAT_SWALLOW_OPTS
+	bool "Swallow options"
+	depends on BB_CONFIG_CHAT
+	default n
+	help
+	  Busybox chat require no options. To make it not fail when used
+	  in place of original chat (which has a bunch of options) turn
+	  this on.
+
+config BB_CONFIG_FEATURE_CHAT_SEND_ESCAPES
+	bool "Support weird SEND escapes"
+	depends on BB_CONFIG_CHAT
+	default n
+	help
+	  Original chat uses some escape sequences in SEND arguments which
+	  are not sent to device but rather performs special actions.
+	  E.g. "\K" means to send a break sequence to device.
+	  "\d" delays execution for a second, "\p" -- for a 1/100 of second.
+	  Before turning this option on think twice: do you really need them?
+
+config BB_CONFIG_FEATURE_CHAT_VAR_ABORT_LEN
+	bool "Support variable-length ABORT conditions"
+	depends on BB_CONFIG_CHAT
+	default n
+	help
+	  Original chat uses fixed 50-bytes length ABORT conditions. Say N here.
+
+config BB_CONFIG_FEATURE_CHAT_CLR_ABORT
+	bool "Support revoking of ABORT conditions"
+	depends on BB_CONFIG_CHAT
+	default n
+	help
+	  Support CLR_ABORT directive.
+
 config BB_CONFIG_CHRT
 	bool "chrt"
 	default n
@@ -40,15 +107,13 @@ config BB_CONFIG_CROND
 	      $ cat /var/spool/cron/crontabs/root
 	      # Run daily cron jobs at 4:40 every day:
 	      40 4 * * * /etc/cron/daily > /dev/null 2>&1
-	  Note that Busybox binary must be setuid root for this applet to
-	  work properly.
 
 config BB_CONFIG_DEBUG_CROND_OPTION
-	bool "Support debug option -d"
+	bool "Support option -d to redirect output to stderr"
 	depends on BB_CONFIG_CROND
 	default n
 	help
-	  Support option -d to enter debug mode.
+	  -d sets loglevel to 0 (most verbose) and directs all output to stderr.
 
 config BB_CONFIG_FEATURE_CROND_CALL_SENDMAIL
 	bool "Using /usr/sbin/sendmail?"
@@ -64,6 +129,8 @@ config BB_CONFIG_CRONTAB
 	help
 	  Crontab manipulates the crontab for a particular user.  Only
 	  the superuser may specify a different user and/or crontab directory.
+	  Note that Busybox binary must be setuid root for this applet to
+	  work properly.
 
 config BB_CONFIG_DC
 	bool "dc"
@@ -126,6 +193,14 @@ config BB_CONFIG_EJECT
 	default n
 	help
 	  Used to eject cdroms.  (defaults to /dev/cdrom)
+
+config BB_CONFIG_FEATURE_EJECT_SCSI
+  bool "SCSI support"
+  default n
+  depends on BB_CONFIG_EJECT
+  help
+    Add the -s option to eject, this allows to eject SCSI-Devices and
+    usb-storage devices.
 
 config BB_CONFIG_LAST
 	bool "last"
@@ -336,6 +411,12 @@ config BB_CONFIG_RX
 	help
 	  Receive files using the Xmodem protocol.
 
+config BB_CONFIG_SCRIPT
+	bool "script"
+	default n
+	help
+	  The script makes typescript of terminal session.
+
 config BB_CONFIG_STRINGS
 	bool "strings"
 	default n
@@ -357,7 +438,7 @@ config BB_CONFIG_TASKSET
 	  This requires sched_{g,s}etaffinity support in your libc.
 
 config BB_CONFIG_FEATURE_TASKSET_FANCY
-	bool "fancy output"
+	bool "Fancy output"
 	default y
 	depends on BB_CONFIG_TASKSET
 	help
@@ -393,4 +474,3 @@ config BB_CONFIG_WATCHDOG
 	  hung, and will cause the hardware to reboot.
 
 endmenu
-
