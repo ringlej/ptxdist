@@ -24,7 +24,7 @@ GCCLIBS_DIR             = $(BUILDDIR)/gcclibs
 
 gcclibs_get: $(STATEDIR)/gcclibs.get
 
-$(STATEDIR)/gcclibs.get: $(gcclibs_get_deps_default)
+$(STATEDIR)/gcclibs.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -34,7 +34,7 @@ $(STATEDIR)/gcclibs.get: $(gcclibs_get_deps_default)
 
 gcclibs_extract: $(STATEDIR)/gcclibs.extract
 
-$(STATEDIR)/gcclibs.extract: $(gcclibs_extract_deps_default)
+$(STATEDIR)/gcclibs.extract:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(STATEDIR)/gcclibs.extract: $(gcclibs_extract_deps_default)
 
 gcclibs_prepare: $(STATEDIR)/gcclibs.prepare
 
-$(STATEDIR)/gcclibs.prepare: $(gcclibs_prepare_deps_default)
+$(STATEDIR)/gcclibs.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -54,7 +54,7 @@ $(STATEDIR)/gcclibs.prepare: $(gcclibs_prepare_deps_default)
 
 gcclibs_compile: $(STATEDIR)/gcclibs.compile
 
-$(STATEDIR)/gcclibs.compile: $(gcclibs_compile_deps_default)
+$(STATEDIR)/gcclibs.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -64,7 +64,7 @@ $(STATEDIR)/gcclibs.compile: $(gcclibs_compile_deps_default)
 
 gcclibs_install: $(STATEDIR)/gcclibs.install
 
-$(STATEDIR)/gcclibs.install: $(gcclibs_install_deps_default)
+$(STATEDIR)/gcclibs.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -74,7 +74,7 @@ $(STATEDIR)/gcclibs.install: $(gcclibs_install_deps_default)
 
 gcclibs_targetinstall: $(STATEDIR)/gcclibs.targetinstall
 
-$(STATEDIR)/gcclibs.targetinstall: $(gcclibs_targetinstall_deps_default)
+$(STATEDIR)/gcclibs.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, gcclibs)
