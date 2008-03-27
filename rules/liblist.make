@@ -1,8 +1,9 @@
 # -*-makefile-*-
-# $Id$
+# $Id: template-make 7626 2007-11-26 10:27:03Z mkl $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+# 		2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,13 +18,12 @@ PACKAGES-$(PTXCONF_LIBLIST) += liblist
 #
 # Paths and names
 #
-LIBLIST_VERSION		= 1.0.3
-LIBLIST			= liblist-$(LIBLIST_VERSION)
-LIBLIST_SUFFIX		= tar.gz
-LIBLIST_URL		= http://www.pengutronix.de/software/liblist/download/$(LIBLIST).$(LIBLIST_SUFFIX)
-LIBLIST_SOURCE		= $(SRCDIR)/$(LIBLIST).$(LIBLIST_SUFFIX)
-LIBLIST_DIR		= $(BUILDDIR)/$(LIBLIST)
-
+LIBLIST_VERSION	:= 1.0.3
+LIBLIST		:= liblist-$(LIBLIST_VERSION)
+LIBLIST_SUFFIX	:= tar.gz
+LIBLIST_URL	:= http://www.pengutronix.de/software/liblist/download/$(LIBLIST).$(LIBLIST_SUFFIX)
+LIBLIST_SOURCE	:= $(SRCDIR)/$(LIBLIST).$(LIBLIST_SUFFIX)
+LIBLIST_DIR	:= $(BUILDDIR)/$(LIBLIST)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,7 +31,7 @@ LIBLIST_DIR		= $(BUILDDIR)/$(LIBLIST)
 
 liblist_get: $(STATEDIR)/liblist.get
 
-$(STATEDIR)/liblist.get: $(liblist_get_deps_default)
+$(STATEDIR)/liblist.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(LIBLIST_SOURCE):
 
 liblist_extract: $(STATEDIR)/liblist.extract
 
-$(STATEDIR)/liblist.extract: $(liblist_extract_deps_default)
+$(STATEDIR)/liblist.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBLIST_DIR))
 	@$(call extract, LIBLIST)
@@ -58,15 +58,15 @@ $(STATEDIR)/liblist.extract: $(liblist_extract_deps_default)
 
 liblist_prepare: $(STATEDIR)/liblist.prepare
 
-LIBLIST_PATH	=  PATH=$(CROSS_PATH)
-LIBLIST_ENV 	=  $(CROSS_ENV)
+LIBLIST_PATH	:= PATH=$(CROSS_PATH)
+LIBLIST_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBLIST_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+LIBLIST_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/liblist.prepare: $(liblist_prepare_deps_default)
+$(STATEDIR)/liblist.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBLIST_DIR)/config.cache)
 	cd $(LIBLIST_DIR) && \
@@ -80,9 +80,9 @@ $(STATEDIR)/liblist.prepare: $(liblist_prepare_deps_default)
 
 liblist_compile: $(STATEDIR)/liblist.compile
 
-$(STATEDIR)/liblist.compile: $(liblist_compile_deps_default)
+$(STATEDIR)/liblist.compile:
 	@$(call targetinfo, $@)
-	cd $(LIBLIST_DIR) && $(LIBLIST_ENV) $(LIBLIST_PATH) make
+	cd $(LIBLIST_DIR) && $(LIBLIST_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -91,9 +91,9 @@ $(STATEDIR)/liblist.compile: $(liblist_compile_deps_default)
 
 liblist_install: $(STATEDIR)/liblist.install
 
-$(STATEDIR)/liblist.install: $(liblist_install_deps_default)
+$(STATEDIR)/liblist.install:
 	@$(call targetinfo, $@)
-	$(call install, LIBLIST)
+	@$(call install, LIBLIST)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -102,7 +102,7 @@ $(STATEDIR)/liblist.install: $(liblist_install_deps_default)
 
 liblist_targetinstall: $(STATEDIR)/liblist.targetinstall
 
-$(STATEDIR)/liblist.targetinstall: $(liblist_targetinstall_deps_default)
+$(STATEDIR)/liblist.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, liblist)
