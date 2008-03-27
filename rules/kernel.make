@@ -28,6 +28,18 @@ $(STATEDIR)/kernel.targetinstall: $(STATEDIR)/host-umkimage.install
 endif
 
 #
+# handle special compilers
+#
+ifneq ($(PTX_COMPILER_PREFIX),$(PTX_COMPILER_PREFIX_KERNEL))
+ifeq ($(wildcard .ktoolchain/$(PTX_COMPILER_PREFIX_KERNEL)gcc),)
+$(warning *** no .ktoolchain link found. Please create a link)
+$(warning *** .ktoolchain to the bin directory of your $(PTX_COMPILER_PREFIX_KERNEL) toolchain)
+$(error )
+endif
+KERNEL_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.ktoolchain/
+endif
+
+#
 # Paths and names
 #
 KERNEL			:= linux-$(KERNEL_VERSION)
@@ -45,29 +57,28 @@ KERNEL_DIR_INSTALL	:= $(KERNEL_DIR)-install
 # Some configuration stuff for the different kernel image formats
 #
 ifdef PTXCONF_KERNEL_IMAGE_Z
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH_KERNEL_STRING)/boot/zImage
+KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/zImage
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_BZ
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_ARCH_KERNEL_STRING)/boot/bzImage
+KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/bzImage
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_U
 KERNEL_IMAGE_PATH	:= \
 	$(KERNEL_DIR)/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH_KERNEL_STRING)/boot/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH_KERNEL_STRING)/boot/images/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_ARCH_KERNEL_STRING)/boot/images/vmlinux.UBoot
+	$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/uImage \
+	$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/images/uImage \
+	$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/images/vmlinux.UBoot
+endif
+
+ifdef PTXCONF_KERNEL_IMAGE_VM
+KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/vmImage
 endif
 
 ifdef PTXCONF_KERNEL_IMAGE_VMLINUX
 KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/vmlinux
 endif
-
-ifdef NATIVE
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/vmlinux
-endif
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -107,19 +118,14 @@ KERNEL_ENV 	:= KCONFIG_NOTIMESTAMP=1
 KERNEL_MAKEVARS := \
 	$(PARALLELMFLAGS) \
 	HOSTCC=$(HOSTCC) \
-	DEPMOD=$(PTXCONF_CROSS_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod \
+	ARCH=$(PTXCONF_KERNEL_ARCH_STRING) \
+	CROSS_COMPILE=$(KERNEL_TOOLCHAIN_LINK)$(PTX_COMPILER_PREFIX_KERNEL) \
+	\
+	DEPMOD=$(PTX_PREFIX_CROSS)/sbin/$(PTXCONF_GNU_TARGET)-depmod \
 	INSTALL_MOD_PATH=$(KERNEL_DIR_INSTALL) \
 	PTX_KERNEL_DIR=$(KERNEL_DIR)
 
-ifdef NATIVE
-KERNEL_MAKEVARS += ARCH=um
-KERNEL_IMAGE	:= vmlinux
-else
-KERNEL_MAKEVARS += \
-	ARCH=$(PTXCONF_ARCH_KERNEL_STRING) \
-	CROSS_COMPILE=$(COMPILER_PREFIX)
 KERNEL_IMAGE	:= $(PTXCONF_KERNEL_IMAGE)
-endif
 
 $(KERNEL_CONFIG):
 	@echo
