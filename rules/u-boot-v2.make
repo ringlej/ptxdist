@@ -2,6 +2,7 @@
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Sascha Hauer
+#               2008 by Marc Kleine-Budde
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -15,9 +16,21 @@
 PACKAGES-$(PTXCONF_U_BOOT_V2) += u-boot-v2
 
 #
+# handle special compilers
+#
+ifneq ($(PTX_COMPILER_PREFIX),$(PTX_COMPILER_PREFIX_UBOOT))
+ifeq ($(wildcard .utoolchain/$(PTX_COMPILER_PREFIX_UBOOT)gcc),)
+$(warning *** no .utoolchain link found. Please create a link)
+$(warning *** .utoolchain to the bin directory of your $(PTX_COMPILER_PREFIX_UBOOT) toolchain)
+$(error )
+endif
+U_BOOT_V2_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.utoolchain/
+endif
+
+#
 # Paths and names
 #
-U_BOOT_V2_VERSION	:= 2.0.0-rc4
+U_BOOT_V2_VERSION	:= $(call remove_quotes,$(PTXCONF_U_BOOT_V2_VERSION))
 U_BOOT_V2		:= u-boot-$(U_BOOT_V2_VERSION)
 U_BOOT_V2_SUFFIX	:= tar.gz
 U_BOOT_V2_URL		:= http://www.pengutronix.de/software/u-boot/download/$(U_BOOT_V2).$(U_BOOT_V2_SUFFIX)
@@ -57,6 +70,16 @@ $(STATEDIR)/u-boot-v2.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
+u-boot-v2_prepare: $(STATEDIR)/u-boot-v2.prepare
+
+U_BOOT_V2_PATH	:= PATH=$(CROSS_PATH)
+U_BOOT_V2_ENV 	:= KCONFIG_NOTIMESTAMP=1
+U_BOOT_V2_MAKEVARS := \
+	$(PARALLELMFLAGS) \
+	HOSTCC=$(HOSTCC) \
+	ARCH=$(PTXCONF_U_BOOT_V2_ARCH_STRING) \
+	CROSS_COMPILE=$(U_BOOT_V2_TOOLCHAIN_LINK)$(PTX_COMPILER_PREFIX_UBOOT)
+
 $(U_BOOT_V2_CONFIG):
 	@echo
 	@echo "***************************************************************************"
@@ -66,24 +89,9 @@ $(U_BOOT_V2_CONFIG):
 	@echo
 	@exit 1
 
-U_BOOT_V2_MAKEVARS := \
-	$(PARALLELMFLAGS) \
-	HOSTCC=$(HOSTCC) \
-	ARCH=$(PTXCONF_U_BOOT_V2_ARCH) \
-	CROSS_COMPILE=$(shell readlink .utoolchain)/bfin-elf-
-
-u-boot-v2_prepare: $(STATEDIR)/u-boot-v2.prepare
-
-U_BOOT_V2_PATH	:= PATH=$(CROSS_PATH)
-U_BOOT_V2_ENV 	:= $(CROSS_ENV)
-
 $(STATEDIR)/u-boot-v2.prepare: $(U_BOOT_V2_CONFIG)
 	@$(call targetinfo, $@)
-	@if [ ! -e .utoolchain ]; then							\
-		echo "no .utoolchain link found. Please create a link";			\
-		echo ".utoolchain to the bin directory of your bfin-elf toolchain";	\
-		exit 1;									\
-	fi
+
 	@if [ -f $(U_BOOT_V2_CONFIG) ]; then						\
 		echo "Using U-Boot-v2 config file: $(U_BOOT_V2_CONFIG)";		\
 		install -m 644 $(U_BOOT_V2_CONFIG) $(U_BOOT_V2_DIR)/.config;		\
@@ -91,6 +99,7 @@ $(STATEDIR)/u-boot-v2.prepare: $(U_BOOT_V2_CONFIG)
 		echo "ERROR: No such u-boot config: $(U_BOOT_V2_CONFIG)";		\
 		exit 1;									\
 	fi
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -112,6 +121,9 @@ u-boot-v2_install: $(STATEDIR)/u-boot-v2.install
 
 $(STATEDIR)/u-boot-v2.install:
 	@$(call targetinfo, $@)
+
+	install -D -m755 $(U_BOOT_V2_DIR)/scripts/ubootenv $(PTX_PREFIX_HOST)/bin/ubootenv
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -123,7 +135,7 @@ u-boot-v2_targetinstall: $(STATEDIR)/u-boot-v2.targetinstall
 $(STATEDIR)/u-boot-v2.targetinstall:
 	@$(call targetinfo, $@)
 
-	install -D $(U_BOOT_V2_DIR)/uboot.bin $(IMAGEDIR)/u-boot-v2-image;
+	install -D -m644 $(U_BOOT_V2_DIR)/uboot.bin $(IMAGEDIR)/u-boot-v2-image
 
 	@$(call touch, $@)
 
