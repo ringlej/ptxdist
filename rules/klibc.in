@@ -5,7 +5,7 @@
 menuconfig KLIBC
 	bool
 	depends on KERNEL
-	prompt "klibc               "
+	prompt "klibc                         "
 	help
 	  This feature contains a collection of programs that are linked against
 	  klibc. These duplicate some of the functionality of a regular Linux
