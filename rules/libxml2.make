@@ -64,9 +64,9 @@ LIBXML2_ENV	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBXML2_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-LIBXML2_AUTOCONF += --oldincludedir=$(SYSROOT)/usr/include
+LIBXML2_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--oldincludedir=$(SYSROOT)/usr/include
 
 ifdef PTXCONF_LIBXML2_C14N
 LIBXML2_AUTOCONF += --with-c14n
@@ -171,7 +171,7 @@ LIBXML2_AUTOCONF += --without-push
 endif
 
 ifdef PTXCONF_LIBXML2_PYTHON
-LIBXML2_AUTOCONF += --with-python=$(PTXCONF_PREFIX)
+LIBXML2_AUTOCONF += --with-python=$(SYSROOT)/usr
 else
 LIBXML2_AUTOCONF += --with-python=no
 endif
