@@ -389,3 +389,4 @@ config COMPILER_PREFIX_UBOOT
 endmenu
 
 source "platforms/kernel.in"
+source "platforms/u-boot-v2.in"
