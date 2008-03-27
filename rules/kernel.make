@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002-2006 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002-2008 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -15,6 +15,19 @@
 PACKAGES-$(PTXCONF_KERNEL) += kernel
 
 #
+# platform dependencies
+#
+ifdef PTXCONF_KERNEL_MODULES
+$(STATEDIR)/kernel.prepare: $(STATEDIR)/cross-module-init-tools.install
+$(STATEDIR)/kernel.targetinstall: $(STATEDIR)/cross-module-init-tools.install
+endif
+
+ifdef PTXCONF_KERNEL_IMAGE_U
+$(STATEDIR)/kernel.prepare: $(STATEDIR)/host-umkimage.install
+$(STATEDIR)/kernel.targetinstall: $(STATEDIR)/host-umkimage.install
+endif
+
+#
 # Paths and names
 #
 KERNEL			:= linux-$(KERNEL_VERSION)
@@ -24,7 +37,7 @@ KERNEL_URL		= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
 
-KERNEL_CONFIG		:= $(call remove_quotes,$(PTXDIST_WORKSPACE)/$(PTXCONF_KERNEL$(KERNEL_STYLE)_CONFIG))
+KERNEL_CONFIG		:= $(call remove_quotes,$(PTXDIST_WORKSPACE)/$(PTXCONF_KERNEL_CONFIG))
 
 KERNEL_DIR_INSTALL	:= $(KERNEL_DIR)-install
 
@@ -55,22 +68,6 @@ ifdef NATIVE
 KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/vmlinux
 endif
 
-#
-# platform dependencies
-#
-
-kernel_prepare_deps =
-kernel_targetinstall_deps =
-
-ifdef PTXCONF_KERNEL_MODULES
-kernel_prepare_deps += $(STATEDIR)/cross-module-init-tools.install
-kernel_targetinstall_deps += $(STATEDIR)/cross-module-init-tools.install
-endif
-
-ifdef PTXCONF_KERNEL_IMAGE_U
-kernel_prepare_deps += $(STATEDIR)/host-umkimage.install
-kernel_targetinstall_deps += $(STATEDIR)/host-umkimage.install
-endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -78,7 +75,7 @@ endif
 
 kernel_get: $(STATEDIR)/kernel.get
 
-$(STATEDIR)/kernel.get: $(kernel_get_deps_default)
+$(STATEDIR)/kernel.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -92,7 +89,7 @@ $(KERNEL_SOURCE):
 
 kernel_extract: $(STATEDIR)/kernel.extract
 
-$(STATEDIR)/kernel.extract: $(kernel_extract_deps_default)
+$(STATEDIR)/kernel.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(KERNEL_DIR))
 	@$(call extract, KERNEL)
@@ -133,7 +130,7 @@ $(KERNEL_CONFIG):
 	@echo
 	@exit 1
 
-$(STATEDIR)/kernel.prepare: $(kernel_prepare_deps_default) $(KERNEL_CONFIG) $(kernel_prepare_deps)
+$(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 	@$(call targetinfo, $@)
 
 	@if [ -f $(KERNEL_CONFIG) ]; then				\
@@ -163,7 +160,7 @@ endif
 
 kernel_compile: $(STATEDIR)/kernel.compile
 
-$(STATEDIR)/kernel.compile: $(kernel_compile_deps_default)
+$(STATEDIR)/kernel.compile:
 	@$(call targetinfo, $@)
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
@@ -175,7 +172,7 @@ $(STATEDIR)/kernel.compile: $(kernel_compile_deps_default)
 
 kernel_install: $(STATEDIR)/kernel.install
 
-$(STATEDIR)/kernel.install: $(kernel_install_deps_default)
+$(STATEDIR)/kernel.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -185,7 +182,7 @@ $(STATEDIR)/kernel.install: $(kernel_install_deps_default)
 
 kernel_targetinstall: $(STATEDIR)/kernel.targetinstall.post
 
-$(STATEDIR)/kernel.targetinstall: $(kernel_targetinstall_deps_default) $(kernel_targetinstall_deps)
+$(STATEDIR)/kernel.targetinstall:
 	@$(call targetinfo, $@)
 
 # we _always_ need the kernel in the image dir
