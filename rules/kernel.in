@@ -9,20 +9,22 @@ menuconfig KERNEL
 	help
 	  Build the Linux kernel.
 
+config KERNEL_INSTALL
+	bool
+	prompt "install kernel into /boot"
+	depends on KERNEL
+
 config KERNEL_MODULES
 	bool
 	depends on KERNEL
 	default y
 	prompt "build kernel-modules"
 
-config KERNEL_INSTALL
-	bool
-	prompt "install kernel into /boot"
-
 config KERNEL_MODULES_INSTALL
 	bool
 	default y
 	prompt "Install modules into /lib/modules"
+	depends on KERNEL
 	depends on KERNEL_MODULES
 
 #
