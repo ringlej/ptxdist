@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_PKG_CONFIG) += host-pkg-config
 #
 # Paths and names
 #
-HOST_PKG_CONFIG_VERSION	:= 0.21
+HOST_PKG_CONFIG_VERSION	:= 0.23
 HOST_PKG_CONFIG		:= pkg-config-$(HOST_PKG_CONFIG_VERSION)
 HOST_PKG_CONFIG_SUFFIX	:= tar.gz
 HOST_PKG_CONFIG_URL	:= http://pkgconfig.freedesktop.org/releases/$(HOST_PKG_CONFIG).$(HOST_PKG_CONFIG_SUFFIX)
@@ -30,7 +30,7 @@ HOST_PKG_CONFIG_DIR	:= $(HOST_BUILDDIR)/$(HOST_PKG_CONFIG)
 
 host-pkg-config_get: $(STATEDIR)/host-pkg-config.get
 
-$(STATEDIR)/host-pkg-config.get: $(host-pkg-config_get_deps_default)
+$(STATEDIR)/host-pkg-config.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(HOST_PKG_CONFIG_SOURCE):
 
 host-pkg-config_extract: $(STATEDIR)/host-pkg-config.extract
 
-$(STATEDIR)/host-pkg-config.extract: $(host-pkg-config_extract_deps_default)
+$(STATEDIR)/host-pkg-config.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_PKG_CONFIG_DIR))
 	@$(call extract, HOST_PKG_CONFIG, $(HOST_BUILDDIR))
@@ -63,9 +63,9 @@ HOST_PKG_CONFIG_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_PKG_CONFIG_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_PKG_CONFIG_AUTOCONF := $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-pkg-config.prepare: $(host-pkg-config_prepare_deps_default)
+$(STATEDIR)/host-pkg-config.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_PKG_CONFIG_DIR)/config.cache)
 	cd $(HOST_PKG_CONFIG_DIR) && \
@@ -79,7 +79,7 @@ $(STATEDIR)/host-pkg-config.prepare: $(host-pkg-config_prepare_deps_default)
 
 host-pkg-config_compile: $(STATEDIR)/host-pkg-config.compile
 
-$(STATEDIR)/host-pkg-config.compile: $(host-pkg-config_compile_deps_default)
+$(STATEDIR)/host-pkg-config.compile:
 	@$(call targetinfo, $@)
 	cd $(HOST_PKG_CONFIG_DIR) && $(HOST_PKG_CONFIG_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -90,7 +90,7 @@ $(STATEDIR)/host-pkg-config.compile: $(host-pkg-config_compile_deps_default)
 
 host-pkg-config_install: $(STATEDIR)/host-pkg-config.install
 
-$(STATEDIR)/host-pkg-config.install: $(host-pkg-config_install_deps_default)
+$(STATEDIR)/host-pkg-config.install:
 	@$(call targetinfo, $@)
 	@$(call install, HOST_PKG_CONFIG,,h)
 	@$(call touch, $@)
