@@ -2,23 +2,10 @@
 #
 # $Id: Makefile 4495 2006-02-02 16:01:56Z rsc $
 #
-# Copyright (C) 2002-2006 by The PTXdist Team - See CREDITS for Details
-#
-
-#
-# TODO:
-#
-# - We only support out-of-tree since 0.10; so the location of the
-#   makefile is always known. And OUTOFTREE is always true.
-#
-# - Should we allow only src/ in the work dir for sources?
-#
-# - Find out what to do with PREFIX / PTXCONF_PREFIX; Sysroot?
-#   take care of toolchain requirements
+# Copyright (C) 2002-2008 by The PTXdist Team - See CREDITS for Details
 #
 
 # make sure bash is used to execute commands from makefiles
-
 SHELL=bash
 export SHELL
 
@@ -29,7 +16,6 @@ export SHELL
 include ${PTXDIST_TOPDIR}/scripts/ptxdist_version.sh
 
 # The .ptxdistrc contains the per-user settings
-
 ifneq ($(wildcard $(HOME)/.ptxdistrc.$(FULLVERSION)),)
 include $(HOME)/.ptxdistrc.$(FULLVERSION)
 else
@@ -54,18 +40,12 @@ else
 SRCDIR			= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
 endif
 
-#export HOME PTXDIST_WORKSPACE PTXDIST_TOPDIR
-#export PATCHDIR RULESDIR BUILDDIR CROSS_BUILDDIR
-#export HOST_BUILDDIR STATEDIR IMAGEDIR ROOTDIR SRCDIR
-
 -include $(PTXDIST_WORKSPACE)/platformconfig
 -include $(PTXDIST_WORKSPACE)/ptxconfig
 
 # ----------------------------------------------------------------------------
 # Packets for host, cross and target
 # ----------------------------------------------------------------------------
-
-# clean these variables (they may be set from earlier runs during recursion)
 
 PACKAGES		:=
 PACKAGES-y		:=
@@ -162,7 +142,6 @@ endif
 # Targets
 # ----------------------------------------------------------------------------
 
-# FIXME: add check_tools getclean here
 get: $(PACKAGES_GET) $(HOST_PACKAGES_GET) $(CROSS_PACKAGES_GET)
 
 dep_output_clean:
@@ -204,19 +183,6 @@ cross-extract: $(CROSS_PACKAGES_EXTRACT)
 cross-prepare: $(CROSS_PACKAGES_PREPARE)
 cross-compile: $(CROSS_PACKAGES_COMPILE)
 cross-install: $(CROSS_PACKAGES_INSTALL)
-
-#
-# Things which have to be done before _any_ suffix rule is executed
-# (especially PTXDIST_PATH handling)
-#
-
-$(PACKAGES_PREPARE): before_prepare
-before_prepare:
-	@for path in `echo $(PTXDIST_PATH) | awk -F: '{for (i=1; i<=NF; i++) {print $$i}}'`; do \
-		if [ ! -d $$path ]; then							\
-			echo "warning: PTXDIST_PATH component \"$$path\" is no directory";	\
-		fi;										\
-	done;
 
 # ----------------------------------------------------------------------------
 # Images
