@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id: template 3079 2005-09-02 18:09:51Z rsc $
+# $Id: template-make 7626 2007-11-26 10:27:03Z mkl $
 #
-# Copyright (C) 2005 Pengutronix, Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+# Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,13 +17,12 @@ PACKAGES-$(PTXCONF_LIBGSLOOP) += libgsloop
 #
 # Paths and names
 #
-LIBGSLOOP_VERSION	= 0.0.6
-LIBGSLOOP		= libgsloop-$(LIBGSLOOP_VERSION)
-LIBGSLOOP_SUFFIX	= tar.bz2
-LIBGSLOOP_URL		= http://www.pengutronix.de/software/libgsloop/download/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
-LIBGSLOOP_SOURCE	= $(SRCDIR)/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
-LIBGSLOOP_DIR		= $(BUILDDIR)/$(LIBGSLOOP)
-
+LIBGSLOOP_VERSION	:= 0.0.9
+LIBGSLOOP		:= libgsloop-$(LIBGSLOOP_VERSION)
+LIBGSLOOP_SUFFIX	:= tar.bz2
+LIBGSLOOP_URL		:= http://www.pengutronix.de/software/libgsloop/download/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
+LIBGSLOOP_SOURCE	:= $(SRCDIR)/$(LIBGSLOOP).$(LIBGSLOOP_SUFFIX)
+LIBGSLOOP_DIR		:= $(BUILDDIR)/$(LIBGSLOOP)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,7 +30,7 @@ LIBGSLOOP_DIR		= $(BUILDDIR)/$(LIBGSLOOP)
 
 libgsloop_get: $(STATEDIR)/libgsloop.get
 
-$(STATEDIR)/libgsloop.get: $(libgsloop_get_deps_default)
+$(STATEDIR)/libgsloop.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +44,7 @@ $(LIBGSLOOP_SOURCE):
 
 libgsloop_extract: $(STATEDIR)/libgsloop.extract
 
-$(STATEDIR)/libgsloop.extract: $(libgsloop_extract_deps_default)
+$(STATEDIR)/libgsloop.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGSLOOP_DIR))
 	@$(call extract, LIBGSLOOP)
@@ -58,15 +57,15 @@ $(STATEDIR)/libgsloop.extract: $(libgsloop_extract_deps_default)
 
 libgsloop_prepare: $(STATEDIR)/libgsloop.prepare
 
-LIBGSLOOP_PATH	=  PATH=$(CROSS_PATH)
-LIBGSLOOP_ENV 	=  $(CROSS_ENV)
+LIBGSLOOP_PATH	:= PATH=$(CROSS_PATH)
+LIBGSLOOP_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBGSLOOP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+LIBGSLOOP_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/libgsloop.prepare: $(libgsloop_prepare_deps_default)
+$(STATEDIR)/libgsloop.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBGSLOOP_DIR)/config.cache)
 	cd $(LIBGSLOOP_DIR) && \
@@ -80,9 +79,9 @@ $(STATEDIR)/libgsloop.prepare: $(libgsloop_prepare_deps_default)
 
 libgsloop_compile: $(STATEDIR)/libgsloop.compile
 
-$(STATEDIR)/libgsloop.compile: $(libgsloop_compile_deps_default)
+$(STATEDIR)/libgsloop.compile:
 	@$(call targetinfo, $@)
-	cd $(LIBGSLOOP_DIR) && $(LIBGSLOOP_ENV) $(LIBGSLOOP_PATH) make
+	cd $(LIBGSLOOP_DIR) && $(LIBGSLOOP_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -91,7 +90,7 @@ $(STATEDIR)/libgsloop.compile: $(libgsloop_compile_deps_default)
 
 libgsloop_install: $(STATEDIR)/libgsloop.install
 
-$(STATEDIR)/libgsloop.install: $(libgsloop_install_deps_default)
+$(STATEDIR)/libgsloop.install:
 	@$(call targetinfo, $@)
 	@$(call install, LIBGSLOOP)
 	@$(call touch, $@)
@@ -102,7 +101,7 @@ $(STATEDIR)/libgsloop.install: $(libgsloop_install_deps_default)
 
 libgsloop_targetinstall: $(STATEDIR)/libgsloop.targetinstall
 
-$(STATEDIR)/libgsloop.targetinstall: $(libgsloop_targetinstall_deps_default)
+$(STATEDIR)/libgsloop.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, libgsloop)
@@ -114,9 +113,9 @@ $(STATEDIR)/libgsloop.targetinstall: $(libgsloop_targetinstall_deps_default)
 	@$(call install_fixup, libgsloop,DEPENDS,)
 	@$(call install_fixup, libgsloop,DESCRIPTION,missing)
 
-	@$(call install_copy, libgsloop, 0, 0, 0644, $(LIBGSLOOP_DIR)/src/.libs/libgsloop.so.1.1.0, /usr/lib/libgsloop.so.1.1.0)
-	@$(call install_link, libgsloop, libgsloop.so.1.1.0, /usr/lib/libgsloop.so.1)
-	@$(call install_link, libgsloop, libgsloop.so.1.1.0, /usr/lib/libgsloop.so)
+	@$(call install_copy, libgsloop, 0, 0, 0644, $(LIBGSLOOP_DIR)/src/.libs/libgsloop.so.4.0.0, /usr/lib/libgsloop.so.4.0.0)
+	@$(call install_link, libgsloop, libgsloop.so.4.0.0, /usr/lib/libgsloop.so.4)
+	@$(call install_link, libgsloop, libgsloop.so.4.0.0, /usr/lib/libgsloop.so)
 
 	@$(call install_finish, libgsloop)
 
