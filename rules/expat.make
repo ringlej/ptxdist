@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_EXPAT) += expat
 #
 # Paths and names
 #
-EXPAT_VERSION	:= 2.0.0
+EXPAT_VERSION	:= 2.0.1
 EXPAT		:= expat-$(EXPAT_VERSION)
 EXPAT_SUFFIX	:= tar.gz
 EXPAT_URL	:= $(PTXCONF_SETUP_SFMIRROR)/expat/$(EXPAT).$(EXPAT_SUFFIX)
@@ -115,9 +115,9 @@ $(STATEDIR)/expat.targetinstall:
 	@$(call install_fixup, expat,DEPENDS,)
 	@$(call install_fixup, expat,DESCRIPTION,missing)
 
-	@$(call install_copy, expat, 0, 0, 0644, $(EXPAT_DIR)/.libs/libexpat.so.1.5.0, /usr/lib/libexpat.so.1.5.0)
-	@$(call install_link, expat, libexpat.so.1.5.0, /usr/lib/libexpat.so.1)
-	@$(call install_link, expat, libexpat.so.1.5.0, /usr/lib/libexpat.so)
+	@$(call install_copy, expat, 0, 0, 0644, $(EXPAT_DIR)/.libs/libexpat.so.1.5.2, /usr/lib/libexpat.so.1.5.2)
+	@$(call install_link, expat, libexpat.so.1.5.2, /usr/lib/libexpat.so.1)
+	@$(call install_link, expat, libexpat.so.1.5.2, /usr/lib/libexpat.so)
 
 	@$(call install_finish, expat)
 
