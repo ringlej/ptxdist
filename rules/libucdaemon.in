@@ -1,0 +1,5 @@
+config LIBUCDAEMON
+	bool
+	prompt "libucdaemon"
+	help
+	  FIXME
