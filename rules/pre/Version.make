@@ -8,15 +8,7 @@
 # see the README file.
 #
 
-ifdef NATIVE
-KERNEL_STYLE	:= _NATIVE
-KERNEL_style	:= -native
-else
-KERNEL_STYLE	:=
-KERNEL_style	:= -target
-endif
-
-KERNEL_VERSION		:= $(call remove_quotes,$(PTXCONF_KERNEL$(KERNEL_STYLE)_VERSION))
+KERNEL_VERSION		:= $(call remove_quotes,$(PTXCONF_KERNEL_VERSION))
 KERNEL_VERSION_MAJOR	:= $(shell echo $(KERNEL_VERSION) | sed -e "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\1/")
 KERNEL_VERSION_MINOR	:= $(shell echo $(KERNEL_VERSION) | sed -e "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\2/")
 
@@ -31,4 +23,3 @@ GLIBC_VERSION_MICRO	:= $(shell echo $(PTXCONF_GLIBC_VERSION) | sed "s/\([0-9]*\)
 GLIBC_VERSION		:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
 
 PTXDIST_FULLVERSION	:= $(call remove_quotes,ptxdist-$(FULLVERSION)$(PTXCONF_PROJECT_VERSION))
-
