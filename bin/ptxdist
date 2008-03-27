@@ -772,10 +772,12 @@ platformconfig() {
 
 	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
 	pushd $tmpdir > /dev/null
+	ln -sf "${PTXDIST_TOPDIR}/platforms"
+	ln -sf "${PTXDIST_WORKSPACE}" workspace
 
 	# prepare everything to make kconfig see it's original environment
 	if [ -e "${PLATFORMCONFIG}" ]; then
-	    cp "$(readlink -f ${PLATFORMCONFIG})" .config
+		cp "$(readlink -f ${PLATFORMCONFIG})" .config
 	fi
 
 	# store boardsetup
