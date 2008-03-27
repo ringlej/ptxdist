@@ -44,7 +44,7 @@ choice
 
 endchoice
 
-config ARCH_KERNEL_STRING
+config KERNEL_ARCH_STRING
 	string
 	default "arm"			if ARCH_ARM
 	default "armnommu"		if ARCH_ARM && !HAS_MMU
