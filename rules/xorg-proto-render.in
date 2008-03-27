@@ -1,4 +1,7 @@
 config XORG_PROTO_RENDER
 	bool
 	help
-	  FIXME
+	  The X Render Extension adds support for alpha-blended icons, anti-aliased
+	  fonts and drawing primitives, as well as true-color animated mouse cursors
+	  to the X window system.
+

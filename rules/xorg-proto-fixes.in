@@ -1,4 +1,7 @@
 config XORG_PROTO_FIXES
 	bool
 	help
-	  FIXME
+	  The X Fixes extension was created to address a number of shortcomings in
+	  the core X window system that prevented applications from doing some
+	  things efficiently.
+
