@@ -237,8 +237,10 @@ check_compiler() {
 	vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
 
 	if [ ! -z "$vendor_should" ]; then
-	# yea! Vendor is specified in the project. So check for
-	# toolchain vendor identification file
+
+		# yea! Vendor is specified in the project. So check for
+		# toolchain vendor identification file
+
 		vendor_def=$(type -p ptxconfig)
 		if [ -z "$vendor_def" ]; then
 			echo
