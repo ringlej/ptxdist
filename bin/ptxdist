@@ -238,23 +238,33 @@ check_compiler() {
 
 	if [ ! -z "$vendor_should" ]; then
 
-		# yea! Vendor is specified in the project. So check for
-		# toolchain vendor identification file
+		# yea! A toolchain vendor was specified in the ptxconfig file.
+		# So we check for a 'ptxconfig' file in the toolchain directory
+		# and test the PTXCONF_PROJECT string therein.
 
-		vendor_def=$(type -p ptxconfig)
+		if [ ! -d ${PTXDIST_WORKSPACE}/.toolchain ]; then
+			echo
+			echo "${PROMPT}error: specify .toolchain with 'ptxdist toolchain <path>'"
+			echo "${PROMPT}error: or leave PTXCONF_CROSSCHAIN_VENDOR empty to disable toolchain check"
+			echo
+			exit 1
+		fi
+
+		vendor_def=$(readlink -f ${PTXDIST_WORKSPACE}/.toolchain/ptxconfig)
 		if [ -z "$vendor_def" ]; then
 			echo
-			echo "${PROMPT}error: Cannot check toolchain vendor. If this is all right,"
-			echo "${PROMPT}error: leave 'check for specific toolchain vendor' empty!"
+			echo "${PROMPT}error: .toolchain doesn't point to an OSELAS.Toolchain"
+			echo "${PROMPT}error: set PTXCONF_CROSSCHAIN_VENDOR to disable toolchain version check"
 			echo
 			exit 1
 		else
-		# both vendor strings are present. Check them
+			# both vendor strings are present. Check them
 			vendor_is=$(. $vendor_def && echo ${PTXCONF_PROJECT})
 			if [ "$vendor_is" != "$vendor_should" ]; then
 				echo
-				echo "${PROMPT}error: Wrong toolchain vendor. Cannot continue! Vendor is <$vendor_is>,"
-				echo "${PROMPT}error: but should be <$vendor_should> to build this project!"
+				echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is <$vendor_is>,"
+				echo "${PROMPT}error: specified: $vendor_should"
+				echo "${PROMPT}error: found:     $vendor_is"
 				echo
 				exit 1
 			fi
