@@ -9,7 +9,7 @@ config CANUTILS_VERSION
 	prompt "Version"
 	depends on CANUTILS
 	string
-	default "1.1.0"
+	default "2.0.1"
 
 config CANUTILS_CANCONFIG
 	bool
