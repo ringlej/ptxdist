@@ -37,7 +37,7 @@ static void __exit template_cleanup(void)
 module_init(template_init);
 module_exit(template_cleanup);
 
-MODULE_DESCRIPTION("Small module, demo only, not very usefull.");
+MODULE_DESCRIPTION("Small module, demo only, not very useful.");
 MODULE_LICENSE("GPL");
 
 /* end of file module-template.c */
