@@ -1,0 +1,12 @@
+config XAWTV
+	prompt "xawtv"
+	bool
+	select LIBJPEG
+	select NCURSES
+	select XORG_LIB_XFONT
+	select XORG_LIB_FS
+	select XORG_LIB_XAW
+	select XORG_SERVER_XORG
+	help
+	  xawtv is a TV Application
+

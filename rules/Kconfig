@@ -233,6 +233,7 @@ source "rules/libgd.in"
 source "rules/qtopia.in"
 source "rules/sdl.in"
 source "rules/tslib.in"
+source "rules/xawtv.in"
 endmenu
 
 menu "Scientific Apps               "
