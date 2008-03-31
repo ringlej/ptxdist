@@ -1,7 +1,7 @@
 
 menuconfig SCHEDUTILS
 	bool
-	prompt "Scheduler Utilities "
+	prompt "schedutils          "
 	help
 	  These are the Linux scheduler utilities - schedutils for short. These programs
 	  take advantage of the scheduler family of syscalls that Linux implements across
