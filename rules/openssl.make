@@ -24,19 +24,19 @@ OPENSSL_URL 		= http://www.openssl.org/source/$(OPENSSL).tar.gz
 OPENSSL_SOURCE		= $(SRCDIR)/$(OPENSSL).tar.gz
 OPENSSL_DIR 		= $(BUILDDIR)/$(OPENSSL)
 
-ifneq ($(and $(PTXCONF_ARCH_ARM),$(PTXCONF_ENDIAN_LITTLE)),)
+ifeq ($(PTXCONF_ARCH_ARM)$(PTXCONF_ENDIAN_LITTLE),yy)
 	THUD = linux-arm
 endif
 
-ifneq ($(and $(PTXCONF_ARCH_ARM),$(PTXCONF_ENDIAN_BIG)),)
+ifeq ($(PTXCONF_ARCH_ARM)$(PTXCONF_ENDIAN_BIG),yy)
 	THUD = linux-armeb
 endif
 
-ifneq ($(and $(PTXCONF_ARCH_MIPS),$(PTXCONF_ENDIAN_LITTLE)),)
+ifeq ($(PTXCONF_ARCH_MIPS)$(PTXCONF_ENDIAN_LITTLE),yy)
 	THUD = linux-mipsel
 endif
 
-ifneq ($(and $(PTXCONF_ARCH_MIPS),$(PTXCONF_ENDIAN_BIG)),)
+ifeq ($(PTXCONF_ARCH_MIPS)$(PTXCONF_ENDIAN_BIG),yy)
 	THUD = linux-mips
 endif
 
