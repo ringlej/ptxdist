@@ -2,7 +2,7 @@
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by lfu
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -78,7 +78,15 @@ schedutils_compile: $(STATEDIR)/schedutils.compile
 
 $(STATEDIR)/schedutils.compile: $(schedutils_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(SCHEDUTILS_DIR) && $(SCHEDUTILS_PATH) make $(SCHEDUTILS_ENV)
+ifdef PTXCONF_SCHEDUTILS_CHRT
+	cd $(SCHEDUTILS_DIR) && $(SCHEDUTILS_PATH) make chrt $(SCHEDUTILS_ENV)
+endif
+ifdef PTXCONF_SCHEDUTILS_IONICE
+	cd $(SCHEDUTILS_DIR) && $(SCHEDUTILS_PATH) make ionice $(SCHEDUTILS_ENV)
+endif
+ifdef PTXCONF_SCHEDUTILS_TASKSET
+	cd $(SCHEDUTILS_DIR) && $(SCHEDUTILS_PATH) make taskset $(SCHEDUTILS_ENV)
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
