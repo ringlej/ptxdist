@@ -1,3 +1,6 @@
+Subject: busybox 1.10.0 fixes
+From: http://busybox.net/downloads/fixes-1.10.0
+
 ---
  networking/tcpudp.c |    6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
