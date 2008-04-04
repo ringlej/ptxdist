@@ -105,6 +105,6 @@ $(STATEDIR)/@packet@.targetinstall:
 
 @packet@_clean:
 	rm -rf $(STATEDIR)/@packet@.*
-	cd $(@PACKET@_DIR) && $(KERNEL_ENV) $(KERNEL_PATH) $(MAKE) clean
+	cd $(@PACKET@_DIR) && $(KERNEL_ENV) $(KERNEL_PATH) $(MAKE) $(KERNEL_MAKEVARS) clean
 
 # vim: syntax=make
