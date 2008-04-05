@@ -1,7 +1,5 @@
-# 
-# /etc/inittab
 #
-# $Id$
+# /etc/inittab
 #
 
 console::sysinit:/etc/init.d/rcS
