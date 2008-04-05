@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -129,7 +129,6 @@ libgd_install: $(STATEDIR)/libgd.install
 
 $(STATEDIR)/libgd.install: $(libgd_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME: is this a hosttool? 
 	@$(call install, LIBGD)
 	@$(call touch, $@)
 
@@ -141,10 +140,22 @@ libgd_targetinstall: $(STATEDIR)/libgd.targetinstall
 
 $(STATEDIR)/libgd.targetinstall: $(libgd_targetinstall_deps_default)
 	@$(call targetinfo, $@)
+
+	@$(call install_init,  libgd)
+	@$(call install_fixup, libgd,PACKAGE,libgd)
+	@$(call install_fixup, libgd,PRIORITY,optional)
+	@$(call install_fixup, libgd,VERSION,$(USPLASH_VERSION))
+	@$(call install_fixup, libgd,SECTION,base)
+	@$(call install_fixup, libgd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libgd,DEPENDS,)
+	@$(call install_fixup, libgd,DESCRIPTION,missing)
+
 	@$(call install_copy, libgd, 0, 0, 0755,\
-		$(LIBGD_DIR)/.libs/libgd.so.2.0.0, /usr/lib/libgd.so.2.0.0)	
+		$(LIBGD_DIR)/.libs/libgd.so.2.0.0, /usr/lib/libgd.so.2.0.0)
 	@$(call install_link, libgd, libgd.so.2.0.0, /usr/lib/libgd.so.2)
 	@$(call install_link, libgd, libgd.so.2.0.0, /usr/lib/libgd.so)
+
+	@$(call install_finish, libgd)
 
 	@$(call touch, $@)
 
