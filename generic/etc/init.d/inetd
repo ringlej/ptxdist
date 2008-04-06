@@ -8,7 +8,7 @@ BINARY=/usr/sbin/inetd
 
 # --- nothing to change after this line ---
 
-test -f $BINARY || { echo "$BINARY not found" >&2 ; exit 0; }
+test -f $BINARY || { echo "$BINARY not found" >&2 ; exit 1; }
 
 start_proc() {
 	echo -n "starting inetd..."
