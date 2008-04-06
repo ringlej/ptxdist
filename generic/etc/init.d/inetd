@@ -1,5 +1,5 @@
 #!/bin/sh
-# 
+#
 # This is an inetd init.d script which ist called by init(1) with [start|stop] as argument
 #
 
@@ -27,7 +27,7 @@ case "$1" in
         start)
         	start_proc
 		;;
-	stop)	
+	stop)
 		stop_proc
 		;;
         restart|force-reload)
