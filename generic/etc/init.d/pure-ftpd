@@ -84,19 +84,19 @@ stop(){
 
 case "$1" in
     start)
-	    echo -n "${PREFIX}Starting $NAME: "
+	    echo -n "${PREFIX}starting $NAME: "
 	    start
-	    echo "Done"
+	    echo "done"
 	;;
 
     stop)
-	    echo -n "${PREFIX}Stopping $NAME: "
+	    echo -n "${PREFIX}stopping $NAME: "
 	    stop
-	    echo "Done"
+	    echo "done"
 	;;
 
     reload)
-	echo -n "${PREFIX}Reloading $NAME configuration..."
+	echo -n "${PREFIX}reloading $NAME configuration..."
 	if [ -e "$DAEMON_PIDFILE" ]; then
 	   kill -HUP `cat $DAEMON_PIDFILE`
 	   echo " done."
@@ -106,7 +106,7 @@ case "$1" in
 	;;
 
     force-reload|restart)
-	    echo -n "${PREFIX}Restarting $NAME."
+	    echo -n "${PREFIX}restarting $NAME."
 	    stop
 	    echo -n "."
 	    sleep 2
