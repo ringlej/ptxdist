@@ -1,13 +1,14 @@
 #!/bin/sh
-# Start the proftpd FTP daemon.
-# 
+#
+# /etc/init.d/pure-ftpd
+#
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 
-# Defaults
+# defaults
 DAEMON="pure-ftpd"
 NAME="pure-ftpd"
-PREFIX="PURE-FTPD: "
+PREFIX="pure-ftpd: "
 DAEMON_OPTIONS=""
 DAEMON_PIDFILE=/var/run/pure-ftpd.pid
 
@@ -15,12 +16,12 @@ HELPER="pure-uploadscript"
 HELPER_START_SCRIPT=""
 HELPER_OPTIONS="-B -u 0 -g 0"
 
-# Read config (will override defaults)
+# read config (will override defaults)
 DEFAULTS="/etc/pure-ftpd.defaults"
-if [ -r $DEFAULTS ]; then 
-	 . $DEFAULTS 
+if [ -r $DEFAULTS ]; then
+	 . $DEFAULTS
 else
-	echo "${PREFIX}No $DEFAULTS found."
+	echo "${PREFIX}no $DEFAULTS found."
 fi
 
 trap "" 1
@@ -30,13 +31,13 @@ which $DAEMON || { echo "${PREFIX}$DAEMON not found"; exit; }
 
 
 if [ ! -z $HELPER_START_SCRIPT ] ; then
- DAEMON_OPTIONS="$DAEMON_OPTIONS -o"
-fi 
+	DAEMON_OPTIONS="$DAEMON_OPTIONS -o"
+fi
 
 start_helper(){
 	if [ ! -z $HELPER_START_SCRIPT ]; then
 		which $HELPER || { echo "${PREFIX}$HELPER not found"; exit; }
-		echo "${PREFIX}starting upload helper daemon..." 
+		echo "${PREFIX}starting upload helper daemon..."
 		$HELPER $HELPER_OPTIONS -r $HELPER_START_SCRIPT
 	else
 		echo "${PREFIX}no upload script defined, skipping"
@@ -53,34 +54,34 @@ start_daemon(){
 }
 
 stop_daemon(){
-if [ -e "$DAEMON_PIDFILE" ]; then
-  kill `cat $DAEMON_PIDFILE` 
-	case $? in 
-		0)
-		echo "${PREFIX}$NAME stopped"
-		;;
-		*)
-		kill -9 `cat $DAEMON_PIDFILE` 
-		echo "${PREFIX}failed to stop $NAME - process killed" 
-		;;
-	esac
-	rm -f $DAEMON_PIDFILE 
-	echo "${PREFIX}pidfile removed"
-else
-  echo "${PREFIX}pid file not found - process not running"
-fi
+	if [ -e "$DAEMON_PIDFILE" ]; then
+		kill `cat $DAEMON_PIDFILE`
+		case $? in
+			0)
+			echo "${PREFIX}$NAME stopped"
+			;;
+			*)
+			kill -9 `cat $DAEMON_PIDFILE`
+			echo "${PREFIX}failed to stop $NAME - process killed"
+			;;
+		esac
+		rm -f $DAEMON_PIDFILE
+		echo "${PREFIX}pidfile removed"
+	else
+		echo "${PREFIX}pid file not found - process not running"
+	fi
 }
 
 start(){
-	start_daemon                                                     
-	start_helper                                                     
+	start_daemon
+	start_helper
 }
 
 stop(){
 	stop_daemon
 	stop_helper
 }
-	
+
 case "$1" in
     start)
 	    echo -n "${PREFIX}Starting $NAME: "
@@ -96,11 +97,11 @@ case "$1" in
 
     reload)
 	echo -n "${PREFIX}Reloading $NAME configuration..."
-	if [ -e "$DAEMON_PIDFILE" ]; then                                                                                           
+	if [ -e "$DAEMON_PIDFILE" ]; then
 	   kill -HUP `cat $DAEMON_PIDFILE`
 	   echo " done."
 	else
-	   echo "pid file not found - process not running" 
+	   echo "pid file not found - process not running"
 	fi
 	;;
 
@@ -121,3 +122,4 @@ case "$1" in
 esac
 
 exit 0
+
