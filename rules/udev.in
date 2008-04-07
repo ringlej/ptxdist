@@ -192,6 +192,9 @@ config ROOTFS_ETC_UDEV_USER_RULES
 	  There are some rule files in the udev packet. Refer
 	  "build-target/udev-???/etc/udev/rules.d" to check if they meet your
 	  requirements.
+	  Pay attention: Do not use the same filenames for your self defined
+	  rules if you also selected the default rules! The default rule file
+	  will win this race!
 
 config ROOTFS_ETC_INITD_UDEV
 	depends on UDEV
