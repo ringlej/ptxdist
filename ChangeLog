@@ -1,3 +1,7 @@
+2008-04-07 Robert Schwebel <r.schwebel@pengutronix.de>
+
+	* debian packaging: updated; patch by Brandon Fosdick
+
 2008-03-31 Robert Schwebel <r.schwebel@pengutronix.de>
 
 	* xawtv: added

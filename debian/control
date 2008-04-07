@@ -2,7 +2,7 @@ Source: ptxdist
 Section: devel
 Priority: optional
 Maintainer: Robert Schwebel <r.schwebel@pengutronix.de>
-Build-Depends: debhelper (>= 4.0.0)
+Build-Depends: debhelper (>= 4.0.0) ncurses-dev (>= 5.0.0) expect (>= 5.43.0)
 Standards-Version: 3.6.2
 
 Package: ptxdist
