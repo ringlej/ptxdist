@@ -1,3 +1,4 @@
 config HOST_MTD_UTILS
 	bool
+	prompt "mtd-utils"
 	select HOST_ZLIB
