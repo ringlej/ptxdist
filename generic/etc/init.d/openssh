@@ -1,61 +1,113 @@
 #!/bin/sh
 #
+# /etc/init.d/openssh
+#
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/sbin/sshd
 NAME=sshd
-DESC="openssh server"
 PIDFILE=/var/run/sshd.pid
-set -e
 
 OPENSSH_RSAKEY_DEFAULT=/etc/ssh/ssh_host_rsa_key
 OPENSSH_DSAKEY_DEFAULT=/etc/ssh/ssh_host_dsa_key
 
 test -n "$OPENSSH_RSAKEY" || \
-  OPENSSH_RSAKEY=$OPENSSH_RSAKEY_DEFAULT
+	OPENSSH_RSAKEY=$OPENSSH_RSAKEY_DEFAULT
 test -n "$OPENSSH_DSAKEY" || \
-  OPENSSH_DSAKEY=$OPENSSH_DSAKEY_DEFAULT
-test -n "$OPENSSH_KEYTYPES" || \
-  OPENSSH_KEYTYPES="rsa dsa"
+	OPENSSH_DSAKEY=$OPENSSH_DSAKEY_DEFAULT
 
-gen_keys() {
-for t in $OPENSSH_KEYTYPES; do
-  case $t in
-    rsa)
-        test -f $OPENSSH_RSAKEY || ssh-keygen -t rsa -f $OPENSSH_RSAKEY -N ""
-	;;
-    dsa)
-        test -f $OPENSSH_DSAKEY || ssh-keygen -t dsa -f $OPENSSH_DSAKEY -N ""
-	;;
-  esac
-done
+gen_key() {
+
+	key_type=$1
+	key_file=$2
+	root_was_ro=
+
+	touch $key_file > /dev/null 2>&1
+	if [ "$?" -ne "0" ]; then
+		root_was_ro=1
+		echo -n "remounting root rw..."
+		mount / -o remount,rw > /dev/null 2>&1
+		if [ "$?" -ne "0" ]; then
+			echo "failed, aborting"
+			exit 1
+		fi
+		echo "done"
+	fi
+	echo -n "generating $key_type key..."
+	ssh-keygen -t $key_type -f $key_file -N "" > /dev/null 2>&1
+	if [ "$?" = "0" ]; then
+		echo "done"
+	else
+		echo "failed"
+		exit 1
+	fi
+	if [ -n "$root_was_ro" ]; then
+		echo -n "remounting root ro..."
+		mount / -o remount,ro > /dev/null 2>&1
+		if [ "$?" = "0" ]; then
+			echo "done"
+		else
+			echo "failed"
+			exit 1
+		fi
+	fi
 }
 
+
 case "$1" in
-  start)
-	mkdir -p /var/run/sshd
-	echo -n "Starting $DESC: "
-	gen_keys
-	start-stop-daemon -S -x "$DAEMON" -p $PIDFILE
-	echo "$NAME."
-	;;
-  stop)
-	echo -n "Stopping $DESC: "
-	start-stop-daemon -K -p $PIDFILE
-	echo "$NAME."
-	;;
-  restart|force-reload)
-	echo -n "Restarting $DESC: "
-	start-stop-daemon -K -x "$DAEMON" -p $PIDFILE
-	sleep 1
-	start-stop-daemon -S -x "$DAEMON" -p $PIDFILE
-	echo "$NAME."
-	;;
-  *)
-	N=/etc/init.d/$NAME
-	echo "Usage: $N {start|stop|restart|force-reload}" >&2
-	exit 1
-	;;
+
+	start)
+		mkdir -p /var/run/sshd
+
+		# create keys if necessary
+		[ \! -f "$OPENSSH_RSAKEY" ] && gen_key rsa "$OPENSSH_RSAKEY"
+		[ \! -f "$OPENSSH_DSAKEY" ] && gen_key dsa "$OPENSSH_DSAKEY"
+
+		echo -n "starting sshd..."
+		start-stop-daemon -S -x "$DAEMON" -p "$PIDFILE" > /dev/null 2>&1
+		if [ "$?" = "0" ]; then
+			echo "done"
+		else
+			echo "failed"
+			exit 1
+		fi
+		;;
+
+	stop)
+		echo -n "stopping sshd..."
+		start-stop-daemon -K -p $PIDFILE > /dev/null 2>&1
+		if [ "$?" = "0" ]; then
+			echo "done"
+		else
+			echo "failed"
+			exit 1
+		fi
+		;;
+
+	restart|force-reload)
+		echo -n "restarting sshd..."
+		start-stop-daemon -K -x "$DAEMON" -p $PIDFILE > /dev/null 2>&1
+		if [ "$?" = "0" ]; then
+			echo "done"
+		else
+			echo "failed"
+			exit 1
+		fi
+		sleep 1
+		start-stop-daemon -S -x "$DAEMON" -p $PIDFILE > /dev/null 2>&1
+		if [ "$?" = "0" ]; then
+			echo "done"
+		else
+			echo "failed"
+			exit 1
+		fi
+		;;
+
+	*)
+		echo "Usage: $0 {start|stop|restart|force-reload}" >&2
+		exit 1
+		;;
 esac
 
 exit 0
+
