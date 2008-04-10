@@ -22,16 +22,13 @@ start_proc() {
 	echo
 }
 
-stop_proc() {
-}
-
 
 case "$1" in
         start)
         	start_proc
 		;;
 	stop)
-		stop_proc
+		# do nothing
 		;;
         restart|force-reload)
 		start_proc
