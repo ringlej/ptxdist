@@ -4,3 +4,4 @@ busybox-1.10.0-udhcp.patch
 busybox-1.10.0-fuser.patch
 busybox-1.10.0-tcpudp.patch
 busybox-1.10.0-init.patch
+busybox-1.10.0-nameif.patch
