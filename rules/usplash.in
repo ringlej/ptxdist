@@ -1,0 +1,6 @@
+config USPLASH
+	bool
+	select LIBGD
+	prompt "usplash"
+	help
+	  FIXME
