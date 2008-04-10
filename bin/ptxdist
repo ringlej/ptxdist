@@ -1163,7 +1163,7 @@ while [ "$#" != "0" ]; do
 				echo
 				echo -n "${PROMPT}warning: overwrite existing platformconfig [Y/n]? "
 				read answer
-				if [ "$answer" != "y" ] || [ "$answer" != "" ]; then
+				if [ "$answer" != "y" ] && [ "$answer" != "" ]; then
 					echo "interrupting"
 					echo
 					exit 1
