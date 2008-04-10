@@ -92,7 +92,7 @@ host-localedef_install: $(STATEDIR)/host-localedef.install
 
 $(STATEDIR)/host-localedef.install: $(host-localedef_install_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_LOCALEDEF_DIR) && cp localedef $(PTX_PREFIX_HOST)/bin
+	cd $(HOST_LOCALEDEF_DIR) && cp localedef $(PTXCONF_SYSROOT_HOST)/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

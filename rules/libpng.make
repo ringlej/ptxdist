@@ -95,8 +95,8 @@ libpng_install: $(STATEDIR)/libpng.install
 $(STATEDIR)/libpng.install:
 	@$(call targetinfo, $@)
 	@$(call install, LIBPNG)
-	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng-config $(PTXCONF_CROSS_PREFIX)/bin/libpng-config
-	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng12-config $(PTXCONF_CROSS_PREFIX)/bin/libpng12-config
+	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng-config $(PTXCONF_SYSROOT_CROSS)/bin/libpng-config
+	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng12-config $(PTXCONF_SYSROOT_CROSS)/bin/libpng12-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

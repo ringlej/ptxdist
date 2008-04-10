@@ -1,6 +1,4 @@
-##############################################################################
-comment "Image Creation for Target"
-##############################################################################
+menu "image creation options        "
 
 config IMAGE_TGZ
 	bool
@@ -281,4 +279,6 @@ config IMAGE_EXT2_GZIP
 	depends on IMAGE_EXT2
 	help
 	  FIXME: This item needs to be documented
+
+endmenu
 

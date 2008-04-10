@@ -271,24 +271,6 @@ menuconfig ROOTFS_INITTAB
 			  See <ptxdist-install>/generic/inittab how to use them.
 	endchoice
 
-	config ROOTFS_ETC_CONSOLE
-		depends on ROOTFS_INITTAB
-		string
-		default "/dev/tts/0"
-		prompt "start getty on this console"
-		help
-		  This string will be used wherever the placeholder @CONSOLE@ in
-		  the source file for /etc/inittab occures.
-
-	config ROOTFS_ETC_CONSOLE_SPEED
-		depends on ROOTFS_INITTAB
-		string
-		default "115200"
-		prompt "getty baudrate"
-		help
-		  This string will be used wherever the placeholder @SPEED@ in
-		  the source file for /etc/inittab occures.
-
 #
 # /etc/nsswitch
 #

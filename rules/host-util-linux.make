@@ -87,17 +87,17 @@ $(STATEDIR)/host-util-linux.install: $(host-util-linux_install_deps_default)
 
 ifdef PTXCONF_HOST_UTIL_LINUX_FDISK
 	install -D $(HOST_UTIL_LINUX_DIR)/fdisk/fdisk \
-		$(PTXCONF_PREFIX)/sbin/fdisk
+		$(PTXCONF_SYSROOT_TARGET)/sbin/fdisk
 endif
 
 ifdef PTXCONF_HOST_UTIL_LINUX_CFDISK
 	install -D $(HOST_UTIL_LINUX_DIR)/fdisk/cfdisk \
-		$(PTXCONF_PREFIX)/sbin/cfdisk
+		$(PTXCONF_SYSROOT_TARGET)/sbin/cfdisk
 endif
 
 ifdef PTXCONF_HOST_UTIL_LINUX_SFDISK
 	install -D $(HOST_UTIL_LINUX_DIR)/fdisk/sfdisk \
-		$(PTXCONF_PREFIX)/sbin/sfdisk
+		$(PTXCONF_SYSROOT_TARGET)/sbin/sfdisk
 endif
 
 	@$(call touch, $@)

@@ -68,27 +68,27 @@ $(STATEDIR)/gdb-wrapper.install: $(gdb_wrapper_install_deps_default)
 	@$(call targetinfo, $@)
 
 	# let gdb find the target libraries for remote cross debugging
-	install -d $(PTXCONF_PREFIX)/etc
-	rm -f $(PTXCONF_PREFIX)/etc/gdbrc
-	echo "set solib-search-path $(ROOTDIR)/lib:$(ROOTDIR)/usr/lib" >> $(PTXCONF_PREFIX)/etc/gdbrc
-	echo "set solib-absolute-prefix $(ROOTDIR)" >> $(PTXCONF_PREFIX)/etc/gdbrc
+	install -d $(PTXCONF_SYSROOT_TARGET)/etc
+	rm -f $(PTXCONF_SYSROOT_TARGET)/etc/gdbrc
+	echo "set solib-search-path $(ROOTDIR)/lib:$(ROOTDIR)/usr/lib" >> $(PTXCONF_SYSROOT_TARGET)/etc/gdbrc
+	echo "set solib-absolute-prefix $(ROOTDIR)" >> $(PTXCONF_SYSROOT_TARGET)/etc/gdbrc
 
 	# make gdb wrapper
-	install -d $(PTXCONF_PREFIX)/bin
-	rm -f $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
+	install -d $(PTXCONF_SYSROOT_TARGET)/bin
+	rm -f $(PTXCONF_SYSROOT_TARGET)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
 	echo "#!/bin/sh" >> \
-		$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
-	echo "$(PTXCONF_GNU_TARGET)-gdb -x $(PTXCONF_PREFIX)/etc/gdbrc \$$@" >> \
-		$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
-	chmod 755 $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
+		$(PTXCONF_SYSROOT_TARGET)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
+	echo "$(PTXCONF_GNU_TARGET)-gdb -x $(PTXCONF_SYSROOT_TARGET)/etc/gdbrc \$$@" >> \
+		$(PTXCONF_SYSROOT_TARGET)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
+	chmod 755 $(PTXCONF_SYSROOT_TARGET)/bin/$(PTXCONF_GNU_TARGET)-crossgdb
 
 	# make ddd wrapper
-	rm -f $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossddd
+	rm -f $(PTXCONF_SYSROOT_TARGET)/bin/$(PTXCONF_GNU_TARGET)-crossddd
 	echo "#!/bin/sh" >> \
-		$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossddd
-	echo "ddd --debugger $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossgdb \$$@" >> \
-		$(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossddd
-	chmod 755 $(PTXCONF_PREFIX)/bin/$(PTXCONF_GNU_TARGET)-crossddd
+		$(PTXCONF_SYSROOT_TARGET)/bin/$(PTXCONF_GNU_TARGET)-crossddd
+	echo "ddd --debugger $(PTXCONF_SYSROOT_TARGET)/bin/$(PTXCONF_GNU_TARGET)-crossgdb \$$@" >> \
+		$(PTXCONF_SYSROOT_TARGET)/bin/$(PTXCONF_GNU_TARGET)-crossddd
+	chmod 755 $(PTXCONF_SYSROOT_TARGET)/bin/$(PTXCONF_GNU_TARGET)-crossddd
 
 	@$(call touch, $@)
 

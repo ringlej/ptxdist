@@ -30,6 +30,7 @@ endif
 #
 # handle special compilers
 #
+ifneq ($(PTX_COMPILER_PREFIX_KERNEL),)
 ifneq ($(PTX_COMPILER_PREFIX),$(PTX_COMPILER_PREFIX_KERNEL))
 ifeq ($(wildcard .ktoolchain/$(PTX_COMPILER_PREFIX_KERNEL)gcc),)
 $(warning *** no .ktoolchain link found. Please create a link)
@@ -37,6 +38,7 @@ $(warning *** .ktoolchain to the bin directory of your $(PTX_COMPILER_PREFIX_KER
 $(error )
 endif
 KERNEL_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.ktoolchain/
+endif
 endif
 
 #
@@ -121,7 +123,7 @@ KERNEL_MAKEVARS := \
 	ARCH=$(PTXCONF_KERNEL_ARCH_STRING) \
 	CROSS_COMPILE=$(KERNEL_TOOLCHAIN_LINK)$(PTX_COMPILER_PREFIX_KERNEL) \
 	\
-	DEPMOD=$(PTX_PREFIX_CROSS)/sbin/$(PTXCONF_GNU_TARGET)-depmod \
+	DEPMOD=$(PTXCONF_SYSROOT_CROSS)/sbin/$(PTXCONF_GNU_TARGET)-depmod \
 	INSTALL_MOD_PATH=$(KERNEL_DIR_INSTALL) \
 	PTX_KERNEL_DIR=$(KERNEL_DIR)
 

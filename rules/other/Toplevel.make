@@ -40,8 +40,11 @@ else
 SRCDIR			= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
 endif
 
--include $(PTXDIST_WORKSPACE)/platformconfig
+# first, include the ptxconfig with packet definitions
 -include $(PTXDIST_WORKSPACE)/ptxconfig
+
+# platformconfig comes after ptxconfig, so it is able to overwrite things
+-include $(PTXDIST_WORKSPACE)/.platformconfig
 
 # ----------------------------------------------------------------------------
 # Packets for host, cross and target
@@ -56,16 +59,6 @@ HOST_PACKAGES		:=
 HOST_PACKAGES-y		:=
 VIRTUAL			:=
 
-
-# ----------------------------------------------------------------------------
-# PTXCONF_PREFIX can be overwritten from the make var PREFIX
-# FIXME: rsc: this needs to be migrated to DESTDIR, because it's not PREFIX!
-# ----------------------------------------------------------------------------
-
-ifdef PREFIX
-PTXCONF_PREFIX	:= $(PREFIX)
-PREFIX		:=
-endif
 
 # ----------------------------------------------------------------------------
 # Include all rule files
@@ -202,7 +195,9 @@ ipkg-push: $(STATEDIR)/ipkg-push
 $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install
 	@$(call targetinfo, $@)
 	( \
-	export PATH=$(PTXCONF_PREFIX)/bin:$(PTXCONF_PREFIX)/usr/bin:$$PATH; \
+	PATH=$(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/usr/bin:$$PATH; \
+	PATH=$(PTXCONF_SYSROOT_HOST)/bin:$(PTXCONF_SYSROOT_HOST)/usr/bin:$$PATH; \
+	export $$PATH; \
 	$(PTXDIST_TOPDIR)/scripts/ipkg-push \
 		--ipkgdir  $(call remove_quotes,$(IMAGEDIR)) \
 		--repodir  $(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)) \
@@ -292,7 +287,7 @@ $(STATEDIR)/image_working_dir: $(IPKG_FILES) $(IMAGEDIR)/permissions $(IMAGEDIR)
 	@rm -rf $(WORKDIR)
 	@mkdir $(WORKDIR)
 	@echo -n "Extracting ipkg packages into working directory..."
-	@DESTDIR=$(WORKDIR) $(FAKEROOT) -- $(PTXCONF_HOST_PREFIX)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(WORKDIR) install $(IPKG_FILES) 2>&1 >/dev/null
+	@DESTDIR=$(WORKDIR) $(FAKEROOT) -- $(PTXCONF_SYSROOT_HOST)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(WORKDIR) install $(IPKG_FILES) 2>&1 >/dev/null
 	@$(call touch, $@)
 
 #
@@ -315,7 +310,7 @@ $(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir
 	@cd $(WORKDIR);							\
 	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
 	(								\
-		echo -n "$(PTXCONF_HOST_PREFIX)/sbin/mkfs.jffs2 ";	\
+		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/mkfs.jffs2 ";	\
 		echo -n "-d $(WORKDIR) ";				\
 		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
 		echo -n "$(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS) ";		\
@@ -331,7 +326,7 @@ $(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
 	@cd $(WORKDIR);							\
 	($(AWK) -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
 	(								\
-		echo -n "$(PTXCONF_HOST_PREFIX)/bin/genext2fs ";	\
+		echo -n "$(PTXCONF_SYSROOT_HOST)/bin/genext2fs ";	\
 		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) ";		\
 		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) ";		\
 		echo -n "-d $(WORKDIR) ";				\
@@ -344,7 +339,7 @@ $(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
 #
 $(IMAGEDIR)/hd.img: $(IMAGEDIR)/root.ext2
 	@echo -n "Creating hdimg from root.ext2";			\
-	PATH=$(PTXCONF_HOST_PREFIX)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg	\
+	PATH=$(PTXCONF_SYSROOT_HOST)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg	\
 	-o $@ $(GENHDIMARGS)
 	@echo "done."
 
@@ -362,7 +357,7 @@ $(IMAGEDIR)/root.ext2.gz: $(IMAGEDIR)/root.ext2
 #
 $(IMAGEDIR)/uRamdisk: $(IMAGEDIR)/root.ext2.gz
 	@echo -n "Creating U-Boot ramdisk from root.ext2.gz...";
-	@$(PTXCONF_HOST_PREFIX)/bin/mkimage \
+	@$(PTXCONF_SYSROOT_HOST)/bin/mkimage \
 		-A $(MKIMAGE_ARCH) \
 		-O Linux \
 		-T ramdisk \
@@ -393,7 +388,7 @@ $(IMAGEDIR)/initrd.gz: $(STATEDIR)/image_working_dir
 #
 #$(IMAGEDIR)/muimage: $(IMAGEDIR)/initrd.gz $(KERNEL_DIR)/???????
 #	@echo -n "Creating multi content uimage..."
-#	@$(PTXCONF_HOST_PREFIX)/bin/mkimage -A $(PTXCONF_ARCH_STRING)	\
+#	@$(PTXCONF_SYSROOT_HOST)/bin/mkimage -A $(PTXCONF_ARCH_STRING)	\
 #		-O Linux -T multi -C gzip -a 0 -e 0			\
 #		-n 'Multi-File Image'					\
 #		-d $(KERNEL_DIR)/vmlinux.bin.gz:$(IMAGEDIR)/initrd.img	\
@@ -434,78 +429,6 @@ else
 	@echo
 	@exit 1
 endif
-
-# ----------------------------------------------------------------------------
-# Test
-# ----------------------------------------------------------------------------
-
-ipkg-test: world
-	@$(call targetinfo,ipkg-test)
-	@IMAGES=$(IMAGEDIR) ROOT=$(ROOTDIR) \
-	IPKG=$(call remove_quotes,$(PTXCONF_PREFIX))/bin/ipkg-cl \
-		$(PTXDIST_TOPDIR)/scripts/ipkg-test
-
-# ----------------------------------------------------------------------------
-
-qa-static:
-	@cd $(PTXDIST_WORKSPACE);					\
-	rm -f QA.log;							\
-	echo "QA: Static Analysis Report" >> QA-static.log;		\
-	echo start: `date` >> QA-static.log;                   		\
-	echo >> QA-static.log;						\
-	scripts/qa-static/master >> QA-static.log 2>&1;			\
-	echo >> QA-static.log;						\
-	echo stop: `date` >> QA-static.log;				\
-	echo >> QA-static.log;
-	@cat QA-static.log;
-
-# ----------------------------------------------------------------------------
-
-# qa-autobuild:
-# 	@cd $(PTXDIST_WORKSPACE);							\
-# 	rm -f QA-autobuild.log;								\
-# 	echo | tee -a QA-autobuild.log;							\
-# 	echo "QA: Autobuild Report" | tee -a QA-autobuild.log;				\
-# 	echo "start: `date`" | tee -a QA-autobuild.log;                			\
-# 	echo | tee -a QA-autobuild.log;							\
-# 											\
-# 	for i in `find $(PROJECTDIRS) -name "*.ptxconfig"`; do 				\
-# 		autobuild=`echo $$i | perl -p -e "s/.ptxconfig/.autobuild/g"`; 		\
-# 		if [ -x "$$autobuild" ]; then						\
-# 			PTXDIST_TOPDIR=$(PTXDIST_TOPDIR)				\
-# 			PTXDIST_WORKSPACE=$(PTXDIST_WORKSPACE)				\
-# 			$$autobuild | tee -a QA-autobuild.log;				\
-# 		else									\
-# 			echo "skipping `basename $$autobuild`|tee -a QA-autobuild.log";	\
-# 		fi;									\
-# 	done;										\
-# 	echo | tee -a QA-autobuild.log;							\
-# 	echo stop: `date` | tee -a QA-autobuild.log;					\
-# 	echo | tee -a QA-autobuild.log
-
-# ----------------------------------------------------------------------------
-# SVN Targets
-# ----------------------------------------------------------------------------
-
-# svn-up:
-# 	@$(call targetinfo, Updating in Toplevel)
-# 	@cd $(PTXDIST_TOPDIR) && svn update
-# 	@if [ -d "$(PROJECTDIR)" ]; then				\
-# 		$(call targetinfo, Updating in PROJECTDIR);		\
-# 		cd $(PROJECTDIR);					\
-# 		[ -d .svn ] && svn update; 				\
-# 	fi;
-# 	@echo "done."
-#
-# svn-stat:
-# 	@$(call targetinfo, svn stat in Toplevel)
-# 	@cd $(PTXDIST_TOPDIR) && svn stat
-# 	@if [ -d "$(PROJECTDIR)" ]; then				\
-# 		$(call targetinfo, svn stat in PROJECTDIR);		\
-# 		cd $(PROJECTDIR);					\
-# 		[ -d .svn ] && svn stat; 				\
-# 	fi;
-# 	@echo "done."
 
 # ----------------------------------------------------------------------------
 # Misc other targets

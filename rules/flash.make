@@ -66,7 +66,7 @@ $(STATEDIR)/flash.extract: $(flash_extract_deps_default)
 flash_prepare: $(STATEDIR)/flash.prepare
 
 # FIXME: rsc: why this strange path?
-FLASH_PATH	= PATH=$(PTXCONF_PREFIX)/$(AUTOCONF257)/bin:$(CROSS_PATH)
+FLASH_PATH	= PATH=$(PTXCONF_SYSROOT_TARGET)/$(AUTOCONF257)/bin:$(CROSS_PATH)
 FLASH_ENV	= $(CROSS_ENV)
 
 #

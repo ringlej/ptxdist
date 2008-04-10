@@ -59,7 +59,7 @@ host-ipkg-utils_prepare: $(STATEDIR)/host-ipkg-utils.prepare
 
 HOST_IPKG_UTILS_PATH	:= PATH=$(HOST_PATH)
 HOST_IPKG_UTILS_ENV 	:= $(HOST_ENV)
-HOST_IPKG_UTILS_MAKEVARS := PREFIX=$(PTX_PREFIX_HOST)
+HOST_IPKG_UTILS_MAKEVARS := PREFIX=$(PTXCONF_SYSROOT_HOST)
 
 $(STATEDIR)/host-ipkg-utils.prepare: $(host-ipkg-utils_prepare_deps_default)
 	@$(call targetinfo, $@)

@@ -13,6 +13,9 @@ fi
 . "${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh"
 . "${SCRIPTSDIR}/libptxdist.sh"
 PTXCONFIG=${PTXDIST_WORKSPACE}/ptxconfig
+PLATFORMCONFIG=${PTXDIST_WORKSPACE}/.platformconfig
+
+mkdir -p ${STATEDIR}
 
 #
 # local defined vars
@@ -136,7 +139,7 @@ do_package_dep() {
 #
 #
 gen_packages_dep() {
-    local label deps package filename
+    local label deps package filename cfgfile
 
     la_IFS="$IFS"
     IFS=":"
@@ -146,23 +149,25 @@ gen_packages_dep() {
     exec 5>${RULESFILES}
     exec 6>${RULESFILES_MAKE}
 
-    sed -ne "s/^# PTXCONF_\(.*\) is not set/\1/p" ${PTXCONFIG} | while read label; do
-	package=PACKAGE_${label}
-	if test -n "${!package}"; then
-	    echo "\$(STATEDIR)/${!package}.get: \$(${label}_SOURCE)" >&4
-	fi
-    done
+    for cfgfile in ${PTXCONFIG} ${PLATFORMCONFIG}; do
+	    sed -ne "s/^# PTXCONF_\(.*\) is not set/\1/p" ${cfgfile} | while read label; do
+		package=PACKAGE_${label}
+		if test -n "${!package}"; then
+		    echo "\$(STATEDIR)/${!package}.get: \$(${label}_SOURCE)" >&4
+		fi
+	    done
 
-    sed -ne "s/^PTXCONF_\(.*\)=[ym]/\1/p" ${PTXCONFIG} | while read label; do
-	package=PACKAGE_${label}
-	if test -n "${!package}"; then
-	    deps=DEP_${label}
-	    do_package_dep ${!package} ${label} ${!deps} >&4
+	    sed -ne "s/^PTXCONF_\(.*\)=[ym]/\1/p" ${cfgfile} | while read label; do
+		package=PACKAGE_${label}
+		if test -n "${!package}"; then
+		    deps=DEP_${label}
+		    do_package_dep ${!package} ${label} ${!deps} >&4
 
-	    filename=FILENAME_${label}
-	    echo ${!filename} >&5
-	    echo include ${!filename} >&6
-	fi
+		    filename=FILENAME_${label}
+		    echo ${!filename} >&5
+		    echo include ${!filename} >&6
+		fi
+	    done
     done
 
     exec 3>/dev/null
@@ -179,6 +184,7 @@ gen_packages_dep() {
 #
 
 . "${PTXCONFIG}"
+. "${PLATFORMCONFIG}"
 
 if test \! -e "${STATEDIR}" ; then
     mkdir "${STATEDIR}"

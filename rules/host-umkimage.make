@@ -84,7 +84,7 @@ host-umkimage_install: $(STATEDIR)/host-umkimage.install
 
 $(STATEDIR)/host-umkimage.install: $(host-umkimage_install_deps_default)
 	@$(call targetinfo, $@)
-	install $(HOST_UMKIMAGE_DIR)/mkimage $(PTXCONF_HOST_PREFIX)/bin/mkimage
+	install $(HOST_UMKIMAGE_DIR)/mkimage $(PTXCONF_SYSROOT_HOST)/bin/mkimage
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

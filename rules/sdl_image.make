@@ -67,7 +67,7 @@ SDL_IMAGE_ENV 	:=  $(CROSS_ENV)
 # FIXME: rsc: shouldn't sdl-prefix be /usr?
 SDL_IMAGE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--with-sdl-prefix=$(PTXCONF_PREFIX) \
+	--with-sdl-prefix=$(PTXCONF_SYSROOT_TARGET) \
 	--disable-sdltest \
 	--enable-bmp \
 	--enable-gif \

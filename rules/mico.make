@@ -69,7 +69,7 @@ MICO_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 MICO_AUTOCONF =  --target=$(PTXCONF_GNU_TARGET)
-MICO_AUTOCONF += --with-mico=$(PTXCONF_PREFIX)
+MICO_AUTOCONF += --with-mico=$(PTXCONF_SYSROOT_TARGET)
 # FIXME: this should be fixed upstream
 MICO_AUTOCONF += --prefix=$(SYSROOT)
 

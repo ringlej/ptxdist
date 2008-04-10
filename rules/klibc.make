@@ -216,7 +216,7 @@ endif
 #
 # install the compiler wrapper to be used to link programs against klibc
 #
-	install $(KLIBC_DIR)/klcc/klcc $(PTXCONF_CROSS_PREFIX)/bin/klcc
+	install $(KLIBC_DIR)/klcc/klcc $(PTXCONF_SYSROOT_CROSS)/bin/klcc
 #
 # install a few commands to the local architecture directory
 # but important is the klibc.a only to link programs against it
@@ -248,6 +248,6 @@ klibc_clean:
 	rm -rf $(STATEDIR)/klibc.*
 	rm -rf $(IMAGEDIR)/klibc_*
 	rm -rf $(KLIBC_DIR)
-	rm -rf $(PTXCONF_CROSS_PREFIX)/bin/klcc
+	rm -rf $(PTXCONF_SYSROOT_CROSS)/bin/klcc
 
 # vim: syntax=make

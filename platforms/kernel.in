@@ -1,11 +1,39 @@
-menu "Linux kernel                  "
+menuconfig KERNEL
+	bool
+	prompt "Linux kernel                  "
+
+config KERNEL_INSTALL
+	bool
+	prompt "install kernel into /boot"
+	depends on KERNEL
+
+config KERNEL_MODULES
+	bool
+	depends on KERNEL
+	default y
+	prompt "build kernel-modules"
+
+config KERNEL_MODULES_INSTALL
+	bool
+	default y
+	prompt "Install modules into /lib/modules"
+	depends on KERNEL
+	depends on KERNEL_MODULES
+
+config KERNEL_MODULES_BUILD
+	depends on KERNEL
+	depends on KERNEL_MODULES
+	string
+	default "modules"
 
 config KERNEL_VERSION
+	depends on KERNEL
 	prompt "kernel version"
 	string
 
 choice
 	prompt "kernel architecture "
+	depends on KERNEL
 	depends on ARCH_PPC || ARCH_X86
 	default KERNEL_ARCH_POWERPC if ARCH_PPC
 	default KERNEL_ARCH_X86 if ARCH_X86
@@ -45,6 +73,7 @@ choice
 endchoice
 
 config KERNEL_ARCH_STRING
+	depends on KERNEL
 	string
 	default "arm"			if ARCH_ARM
 	default "armnommu"		if ARCH_ARM && !HAS_MMU
@@ -65,8 +94,10 @@ config KERNEL_ARCH_STRING
 	default "x86_64"		if KERNEL_ARCH_X86_64
 
 menu "patching & configuration      "
+	depends on KERNEL
 
 config KERNEL_SERIES
+	depends on KERNEL
 	prompt "patch series file"
 	string
 	default ""
@@ -78,6 +109,7 @@ config KERNEL_SERIES
 	  are then being applied to the kernel.
 
 config KERNEL_CONFIG
+	depends on KERNEL
 	prompt "kernel config file"
 	string
 	default "kernelconfig.target"
@@ -90,45 +122,46 @@ endmenu
 # FIXME make this architecture dependend
 
 choice
+	depends on KERNEL
 	prompt "Image Type          "
 	default KERNEL_IMAGE_BZ
 
-config KERNEL_IMAGE_BZ
-	bool
-	prompt "bzImage"
-	help
-	 This usually is the target to be used on ia32 platforms. It
-	 is not limited in size (to be more precise: Limited up to 4MiB).
+	config KERNEL_IMAGE_BZ
+		bool
+		prompt "bzImage"
+		help
+		 This usually is the target to be used on ia32 platforms. It
+		 is not limited in size (to be more precise: Limited up to 4MiB).
 
-config KERNEL_IMAGE_Z
-	bool
-	prompt "zImage "
-	help
-	 This usually is a target to be used on ia32 platforms, it
-	 is the older format and limited to about 500k in size due to
-	 low memory size restrictions.
+	config KERNEL_IMAGE_Z
+		bool
+		prompt "zImage "
+		help
+		 This usually is a target to be used on ia32 platforms, it
+		 is the older format and limited to about 500k in size due to
+		 low memory size restrictions.
 
-config KERNEL_IMAGE_U
-	bool
-	prompt "uImage "
-	help
-	 This is the target for most non ia32 platforms like PowerPC
-	 and ARM architectures. Its a compressed image with additional
-	 embedded information.
+	config KERNEL_IMAGE_U
+		bool
+		prompt "uImage "
+		help
+		 This is the target for most non ia32 platforms like PowerPC
+		 and ARM architectures. Its a compressed image with additional
+		 embedded information.
 
-config KERNEL_IMAGE_VM
-	bool
-	prompt "vmImage"
-	help
-	 This is the target for most non ia32 platforms like blackfin
-	 architectures.
+	config KERNEL_IMAGE_VM
+		bool
+		prompt "vmImage"
+		help
+		 This is the target for most non ia32 platforms like blackfin
+		 architectures.
 
-config KERNEL_IMAGE_VMLINUX
-	bool
-	prompt "vmlinux"
-	help
-	 This is the target to get the kernel image as an ELF. Mostly
-	 used for debugging purposes.
+	config KERNEL_IMAGE_VMLINUX
+		bool
+		prompt "vmlinux"
+		help
+		 This is the target to get the kernel image as an ELF. Mostly
+		 used for debugging purposes.
 endchoice
 
 
@@ -137,6 +170,7 @@ endchoice
 #
 
 config KERNEL_IMAGE
+	depends on KERNEL
 	string
 	default "bzImage" if KERNEL_IMAGE_BZ
 	default "zImage"  if KERNEL_IMAGE_Z
@@ -144,4 +178,3 @@ config KERNEL_IMAGE
 	default "vmImage" if KERNEL_IMAGE_VM
 	default "vmlinux" if KERNEL_IMAGE_VMLINUX
 
-endmenu

@@ -83,7 +83,7 @@ host-dtc_install: $(STATEDIR)/host-dtc.install
 
 $(STATEDIR)/host-dtc.install: $(host-dtc_install_deps_default)
 	@$(call targetinfo, $@)
-	cp $(HOST_DTC_DIR)/dtc $(PTXCONF_HOST_PREFIX)/bin/dtc
+	cp $(HOST_DTC_DIR)/dtc $(PTXCONF_SYSROOT_HOST)/bin/dtc
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

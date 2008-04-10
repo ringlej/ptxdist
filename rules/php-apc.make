@@ -74,7 +74,7 @@ $(STATEDIR)/php-apc.prepare: $(php-apc_prepare_deps_default)
 # FIXME: rsc: phpize path is definitely wrong here, needs to be a host tool
 	cd $(PHP_APC_DIR) && \
 		$(PHP_APC_PATH) $(PHP_APC_ENV) \
-		$(PTXCONF_PREFIX)/bin/phpize && \
+		$(PTXCONF_SYSROOT_TARGET)/bin/phpize && \
 		$(PHP_APC_PATH) $(PHP_APC_ENV) \
 		./configure $(PHP_APC_AUTOCONF)
 	@$(call touch, $@)

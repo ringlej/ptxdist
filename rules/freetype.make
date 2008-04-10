@@ -95,7 +95,7 @@ $(STATEDIR)/freetype.install:
 	@$(call targetinfo, $@)
 	@$(call install, FREETYPE)
 	$(INSTALL) -m 755 -D $(FREETYPE_DIR)/builds/unix/freetype-config \
-		$(PTX_PREFIX_CROSS)/bin/freetype-config
+		$(PTXCONF_SYSROOT_CROSS)/bin/freetype-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

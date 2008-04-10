@@ -90,8 +90,8 @@ host-cramfs_install: $(STATEDIR)/host-cramfs.install
 
 $(STATEDIR)/host-cramfs.install: $(host-cramfs_install_deps_default)
 	@$(call targetinfo, $@)
-	cp $(HOST_CRAMFS_DIR)/mkcramfs $(PTXCONF_HOST_PREFIX)/bin
-	cp $(HOST_CRAMFS_DIR)/cramfsck $(PTXCONF_HOST_PREFIX)/bin
+	cp $(HOST_CRAMFS_DIR)/mkcramfs $(PTXCONF_SYSROOT_HOST)/bin
+	cp $(HOST_CRAMFS_DIR)/cramfsck $(PTXCONF_SYSROOT_HOST)/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

@@ -15,9 +15,9 @@
 PTXUSER		= $(shell echo $$USER)
 GNU_BUILD	= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
 GNU_HOST	= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
-DEP_OUTPUT	= depend.out
-DEP_TREE_PS	= deptree.ps
-DEP_TREE_A4_PS	= deptree-a4.ps
+DEP_OUTPUT	= ${PLATFORMDIR}/depend.out
+DEP_TREE_PS	= ${PLATFORMDIR}/deptree.ps
+DEP_TREE_A4_PS	= ${PLATFORMDIR}/deptree-a4.ps
 
 SUDO		= sudo
 HOSTCC		= gcc
@@ -53,7 +53,7 @@ PARALLELMFLAGS  ?= -j$(shell if [ -r /proc/cpuinfo ];				\
 		else echo 1;							\
 	fi)
 
-FAKEROOT	:= $(PTXCONF_HOST_PREFIX)/bin/fakeroot -l $(PTXCONF_HOST_PREFIX)/lib/libfakeroot.so
+FAKEROOT	:= $(PTXCONF_SYSROOT_HOST)/bin/fakeroot -l $(PTXCONF_SYSROOT_HOST)/lib/libfakeroot.so
 
 CHECK_PIPE_STATUS = \
 	for i in  "$${PIPESTATUS[@]}"; do [ $$i -gt 0 ] && {			\
@@ -72,18 +72,18 @@ CHECK_PIPE_STATUS = \
 #
 # SYSROOT is the directory stuff is being installed into on the host
 #
-SYSROOT := $(call remove_quotes,$(PTXCONF_PREFIX)/sysroot/$(PTXCONF_GNU_TARGET))
+SYSROOT := $(PLATFORMDIR)/sysroot-target
 
 #
 # PKGDIR is the directory we install the packet sysroots and ipkgs into
 #
-PKGDIR := $(call remove_quotes,$(PTXCONF_PREFIX)/packages/$(PTXCONF_GNU_TARGET))
+PKGDIR := $(PLATFORMDIR)/packages
 
 #
 # prepare the search path
 # In order to work correctly in cross path all local cross tools must be find first!
 #
-CROSS_PATH := $(PTX_PREFIX_CROSS)/bin:$(PTX_PREFIX_CROSS)/sbin:$(PTX_PREFIX_HOST)/bin:$(PTX_PREFIX_HOST)/sbin:$$PATH
+CROSS_PATH := $(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/sbin:$(PTXCONF_SYSROOT_HOST)/bin:$(PTXCONF_SYSROOT_HOST)/sbin:$$PATH
 
 #
 # same as PTXCONF_GNU_TARGET, but w/o -linux
@@ -91,6 +91,12 @@ CROSS_PATH := $(PTX_PREFIX_CROSS)/bin:$(PTX_PREFIX_CROSS)/sbin:$(PTX_PREFIX_HOST
 #
 SHORT_TARGET		:= $(shell echo $(PTXCONF_GNU_TARGET) | sed -e 's/^\([^-]*\)-.*/\1/')
 SHORT_HOST		:= $(shell echo $(GNU_HOST) | sed -e 's/^\([^-]*\)-.*/\1/')
+
+ifneq ($(PTXCONF_PLATFORM),)
+PLATFORM_SUFFIX:=.$(PTXCONF_PLATFORM)
+else
+PLATFORM_SUFFIX:=
+endif
 
 # ----------------------------------------------------------------------------
 # Environment
@@ -134,9 +140,7 @@ endif
 #
 # FIXME: Consolidate a bit more
 #
-ifndef NATIVE
 COMPILER_PREFIX		:= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX))
-endif
 CROSS_AR		:= $(COMPILER_PREFIX)ar
 CROSS_AS		:= $(COMPILER_PREFIX)as
 CROSS_LD		:= $(COMPILER_PREFIX)ld
@@ -226,7 +230,7 @@ CROSS_ENV_PROGS := \
 
 CROSS_ENV_PKG_CONFIG := \
 	SYSROOT=$(SYSROOT) \
-	PKG_CONFIG="$(call remove_quotes,$(PTXCONF_CROSS_PREFIX)/bin/$(COMPILER_PREFIX)pkg-config)"
+	PKG_CONFIG="$(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config"
 
 CROSS_ENV_FLAGS := \
 	$(CROSS_ENV_CFLAGS) \
@@ -321,16 +325,16 @@ endif
 HOSTCC_ENV	:= CC=$(HOSTCC)
 HOSTCXX_ENV	:= CXX=$(HOSTCXX)
 
-HOST_PATH	:= $(PTX_PREFIX_HOST)/bin:$(PTX_PREFIX_HOST)/sbin:$$PATH
+HOST_PATH	:= $(PTXCONF_SYSROOT_HOST)/bin:$(PTXCONF_SYSROOT_HOST)/sbin:$$PATH
 
-HOST_CPPFLAGS	:= -I$(PTX_PREFIX_HOST)/include
-HOST_LDFLAGS	:= -L$(PTX_PREFIX_HOST)/lib -Wl,-rpath -Wl,$(PTX_PREFIX_HOST)/lib
+HOST_CPPFLAGS	:= -I$(PTXCONF_SYSROOT_HOST)/include
+HOST_LDFLAGS	:= -L$(PTXCONF_SYSROOT_HOST)/lib -Wl,-rpath -Wl,$(PTXCONF_SYSROOT_HOST)/lib
 
 HOST_ENV_CC		:= CC="$(HOSTCC)"
 HOST_ENV_CXX		:= CXX="$(HOSTCXX)"
 HOST_ENV_CPPFLAGS	:= CPPFLAGS="$(HOST_CPPFLAGS)"
 HOST_ENV_LDFLAGS	:= LDFLAGS="$(HOST_LDFLAGS)"
-HOST_ENV_PKG_CONFIG	:= PKG_CONFIG_PATH="" PKG_CONFIG_LIBDIR="$(PTX_PREFIX_HOST)/lib/pkgconfig"
+HOST_ENV_PKG_CONFIG	:= PKG_CONFIG_PATH="" PKG_CONFIG_LIBDIR="$(PTXCONF_SYSROOT_HOST)/lib/pkgconfig"
 
 HOST_ENV	:= \
 	$(HOST_ENV_CC) \
@@ -340,7 +344,7 @@ HOST_ENV	:= \
 	$(HOST_ENV_PKG_CONFIG)
 
 
-HOST_AUTOCONF  := --prefix=$(PTX_PREFIX_HOST)
+HOST_AUTOCONF  := --prefix=$(PTXCONF_SYSROOT_HOST)
 
 # ----------------------------------------------------------------------------
 # Convenience macros
@@ -399,7 +403,7 @@ add_locale =							\
 	PREF=$(strip $(4));					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)			\
 	$(SCRIPTSDIR)/make_locale.sh 				\
-		-e $(PTX_PREFIX_HOST)/bin/localedef 		\
+		-e $(PTXCONF_SYSROOT_HOST)/bin/localedef 	\
 		-f $$CHARMAP -i $$LOCALE_DEF 			\
 		-p $$PREF 					\
 		-n $$LOCALE_NAME
@@ -1227,7 +1231,7 @@ install_finish = 												\
 	(echo "pushd $(PKGDIR)/$$PACKET.tmp/ipkg;";								\
 	$(AWK) -F: $(DOPERMISSIONS) $(STATEDIR)/$$PACKET.perms; echo "popd;"; 					\
 	echo -n "echo \"install_finish: packaging ipkg packet ... \"; ";					\
-	echo -n "$(PTXCONF_HOST_PREFIX)/bin/ipkg-build "; 							\
+	echo -n "$(PTXCONF_SYSROOT_HOST)/bin/ipkg-build "; 							\
 	echo    "$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(PKGDIR)/$$PACKET.tmp/ipkg $(PKGDIR)") |$(FAKEROOT) -- 2>&1;	\
 	$(CHECK_PIPE_STATUS)											\
 	rm -rf $(PKGDIR)/$$PACKET.tmp;										\

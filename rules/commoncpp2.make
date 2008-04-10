@@ -102,7 +102,7 @@ commoncpp2_install: $(STATEDIR)/commoncpp2.install
 $(STATEDIR)/commoncpp2.install: $(commoncpp2_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, COMMONCPP2)
-	install -m755 -D $(COMMONCPP2_DIR)/src/ccgnu2-config $(PTXCONF_HOST_PREFIX)/bin/ccgnu2-config
+	install -m755 -D $(COMMONCPP2_DIR)/src/ccgnu2-config $(PTXCONF_SYSROOT_HOST)/bin/ccgnu2-config
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

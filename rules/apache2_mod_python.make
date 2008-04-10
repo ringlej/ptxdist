@@ -67,7 +67,7 @@ APACHE2_MOD_PYTHON_ENV 	:=  $(CROSS_ENV)
 APACHE2_MOD_PYTHON_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--with-apxs=$(SYSROOT)/usr/bin/apxs \
-	--with-python=$(PTXCONF_HOST_PREFIX)/bin/python
+	--with-python=$(PTXCONF_SYSROOT_HOST)/bin/python
 
 $(STATEDIR)/apache2_mod_python.prepare: $(apache2_mod_python_prepare_deps_default)
 	@$(call targetinfo, $@)

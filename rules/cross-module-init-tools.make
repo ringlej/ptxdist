@@ -55,7 +55,7 @@ CROSS_MODULE_INIT_TOOLS_ENV  := $(HOST_ENV)
 # autoconf
 #
 CROSS_MODULE_INIT_TOOLS_AUTOCONF := \
-	--prefix=$(PTXCONF_PREFIX) \
+	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--build=$(GNU_HOST) \
 	--host=$(GNU_HOST) \
 	--target=$(PTXCONF_GNU_TARGET)
@@ -87,7 +87,7 @@ cross-module-init-tools_install: $(STATEDIR)/cross-module-init-tools.install
 
 $(STATEDIR)/cross-module-init-tools.install: $(cross-module-init-tools_install_deps_default)
 	@$(call targetinfo, $@)
-	install -D -m 755 $(CROSS_MODULE_INIT_TOOLS_DIR)/depmod $(PTXCONF_CROSS_PREFIX)/sbin/$(PTXCONF_GNU_TARGET)-depmod
+	install -D -m 755 $(CROSS_MODULE_INIT_TOOLS_DIR)/depmod $(PTXCONF_SYSROOT_CROSS)/sbin/$(PTXCONF_GNU_TARGET)-depmod
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

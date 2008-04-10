@@ -123,7 +123,7 @@ $(STATEDIR)/libxslt.install: $(libxslt_install_deps_default)
 
 	# FIXME: this probably has to be fixed upstream!
 	# libxslt installs xslt-config to wrong path.
-	install $(LIBXSLT_DIR)/xslt-config $(PTXCONF_CROSS_PREFIX)/bin/
+	install $(LIBXSLT_DIR)/xslt-config $(PTXCONF_SYSROOT_CROSS)/bin/
 
 	@$(call touch, $@)
 

@@ -433,7 +433,7 @@ make: ***
 [ ] mol: add possibility to 'ptxdist print' more than one variable in
     one make call  bbu: maybe some kind of "ptxdist env" as in env(1) ?
 
-[ ] check if ${PTXCONF_PREFIX} can be written to and barf if not
+[ ] check if ${PTXCONF_SYSROOT_TARGET} can be written to and barf if not
 
 [ ] add sanity checks for all user configurable variables (especially
     paths)

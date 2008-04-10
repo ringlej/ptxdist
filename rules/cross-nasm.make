@@ -66,7 +66,7 @@ CROSS_NASM_ENV 	:= $(HOSTCC_ENV)
 # autoconf
 #
 CROSS_NASM_AUTOCONF := \
-	--prefix=$(PTXCONF_PREFIX)/gcc-$(GCC_VERSION)-glibc-$(GLIBC_VERSION)/$(PTXCONF_GNU_TARGET) \
+	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--host=$(GNU_HOST) \
 	--build=$(GNU_HOST)

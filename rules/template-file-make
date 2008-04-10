@@ -67,13 +67,13 @@ $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 #
 # TODO:	For files that are required at compiletime (headers, libs to link against)
 #	you can copy these files to the sysroot directory.
-#	Use macro $(PTXCONF_PREFIX) for host files and $(PTXCONF_GNU_TARGET)
+#	Use macro $(PTXCONF_SYSROOT_TARGET) for host files and $(PTXCONF_GNU_TARGET)
 #	for target files
 #
 #	Example for a host header file:
-#		@cp friesel.h $(PTXCONF_PREFIX)/include
+#		@cp friesel.h $(PTXCONF_SYSROOT_TARGET)/include
 #	Example for a host library file:
-#		@cp friesel.so $(PTXCONF_PREFIX)/lib
+#		@cp friesel.so $(PTXCONF_SYSROOT_TARGET)/lib
 #	Example for a target file:
 #		@cp frasel.h  $(PTXCONF_GNU_TARGET)/include
 #	Example for a target library file:

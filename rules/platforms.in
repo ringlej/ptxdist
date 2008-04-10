@@ -1,0 +1,9 @@
+# this is to be included into the rules, so the dependency generator
+# does still work
+
+config KERNEL
+	bool
+
+config U_BOOT_V2
+	bool
+

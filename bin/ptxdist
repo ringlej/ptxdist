@@ -24,8 +24,16 @@ fi
 PTXDIST_TOPDIR=`dirname "$PTXDIST_TOPDIR"`
 PTXDIST_TOPDIR=`cd "$PTXDIST_TOPDIR"/.. && pwd`
 
-export PTXDIST PTXDIST_WORKSPACE PTXDIST_TOPDIR
+# we need the platform before we have sourced platformconfig yet
+# this needs to be in sync with scripts/ptxdist_vars.sh
+PTXCONF_PLATFORM=`test -f ${PTXDIST_WORKSPACE}/.platformconfig && \
+	(source ${PTXDIST_WORKSPACE}/.platformconfig; echo $PTXCONF_PLATFORM)`
 
+if [ -n "$PTXCONF_PLATFORM" ]; then
+	PTXDIST_PLATFORM_PREFIX=platform-
+fi
+
+export PTXDIST PTXDIST_WORKSPACE PTXDIST_TOPDIR PTXCONF_PLATFORM PTXDIST_PLATFORM_PREFIX
 
 #
 # sanity check: is PTXdist already configured?
@@ -60,12 +68,15 @@ done
 [ -e "$HOME/.ptxdistrc.${FULLVERSION}" ] && . "$HOME/.ptxdistrc.${FULLVERSION}"
 
 # use linked toolchain if available
-[ -d ".toolchain" ] && export PATH=${PTXDIST_WORKSPACE}/.toolchain:$PATH
+if [ -d ".toolchain" ]; then
+	TOOLCHAIN=${PTXDIST_WORKSPACE}/.toolchain
+	export PATH=${TOOLCHAIN}:$PATH
+fi
 
 # dir might not be available yet, but will be created later
-prefix_host="`ptxd_get_ptxconf PTXCONF_HOST_PREFIX`"
-if test -n "${prefix_host}"; then
-	export PATH="${prefix_host}/bin:${prefix_host}/sbin:$PATH"
+ptxconf_sysroot_host="`ptxd_get_ptxconf PTXCONF_SYSROOT_HOST`"
+if test -n "${ptxconf_sysroot_host}"; then
+	export PATH="${ptxconf_sysroot_host}/bin:${ptxconf_sysroot_host}/sbin:$PATH"
 fi
 
 #
@@ -151,7 +162,7 @@ check_ptxconfig() {
 
 	if [ ! -e "${PLATFORMCONFIG}" ]; then
 		echo
-		echo "${PROMPT}error: 'platformconfig' is missing"
+		echo "${PROMPT}error: '.platformconfig' is missing"
 		echo
 		exit 1
 	fi
@@ -242,7 +253,7 @@ check_compiler() {
 		# So we check for a 'ptxconfig' file in the toolchain directory
 		# and test the PTXCONF_PROJECT string therein.
 
-		if [ ! -d ${PTXDIST_WORKSPACE}/.toolchain ]; then
+		if [ ! -d ${TOOLCHAIN} ]; then
 			echo
 			echo "${PROMPT}error: specify .toolchain with 'ptxdist toolchain <path>'"
 			echo "${PROMPT}error: or leave PTXCONF_CROSSCHAIN_VENDOR empty to disable toolchain check"
@@ -250,10 +261,10 @@ check_compiler() {
 			exit 1
 		fi
 
-		vendor_def=$(readlink -f ${PTXDIST_WORKSPACE}/.toolchain/ptxconfig)
+		vendor_def=$(readlink -f ${TOOLCHAIN}/ptxconfig)
 		if [ -z "$vendor_def" ]; then
 			echo
-			echo "${PROMPT}error: .toolchain doesn't point to an OSELAS.Toolchain"
+			echo "${PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
 			echo "${PROMPT}error: set PTXCONF_CROSSCHAIN_VENDOR to disable toolchain version check"
 			echo
 			exit 1
@@ -369,26 +380,25 @@ check_dirs_prefix() {
 # they are created here.
 #
 check_dirs() {
-	local ptxconf_prefix ptxconf_prefix_host ptxconf_prefix_cross dir
+	local ptxconf_sysroot_target ptxconf_sysroot_host ptxconf_sysroot_cross dir
 	local ptxconf_gnu_target testfile_upper testfile_lower i
 
-	# prefix
 	if [ -z "$PREFIX" ]; then
-		ptxconf_prefix="$(ptxd_get_ptxconf PTXCONF_PREFIX)"
+		ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
 	else
-		ptxconf_prefix=${PREFIX}
+		ptxconf_sysroot_target=${PREFIX}
 	fi
 
-	ptxconf_prefix_host="$(ptxd_get_ptxconf PTXCONF_HOST_PREFIX)"
-	ptxconf_prefix_cross="$(ptxd_get_ptxconf PTXCONF_CROSS_PREFIX)"
+	ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
+	ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
 
-	for dir in "${ptxconf_prefix_host}" "${ptxconf_prefix_cross}"; do
+	for dir in "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"; do
 		check_dirs_prefix "${dir}"
 	done
 
 	# sysroot - keep in sync with rules/pre/Rules.make -> SYSROOT
 	ptxconf_gnu_target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
-	mkdir -p "${ptxconf_prefix}/sysroot/${ptxconf_gnu_target}"/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
+	mkdir -p "${PTXDIST_WORKSPACE}/${PTXDIST_PLATFORM_PREFIX}${PTXCONF_PLATFORM}/sysroot-target"/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 
 	# builddirs
 	for i in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${HOST_BUILDDIR}" \
@@ -415,26 +425,6 @@ check_dirs() {
 
 		rm "${testfile_lower}" "${testfile_upper}"
 	done
-}
-
-check_native() {
-	[ -n "$NATIVE" ] && touch .build.native
-	[ -z "$NATIVE" ] && touch .build.cross
-	if [ -f ".build.native" ] && [ -f ".build.cross" ]; then
-		if [ -z "$NATIVE" ]; then
-			echo
-			echo "error: trying to crosscompile in a native tree"
-			echo
-			rm -f .build.cross
-			exit 1
-		else
-			echo
-			echo "error: trying to compile natively in a cross tree"
-			echo
-			rm -f .build.native
-			exit 1
-		fi
-	fi
 }
 
 check_if_selected() {
@@ -508,9 +498,6 @@ Clean Actions:
 
 Misc
 
-  run                            start a previously built native image
-
-  --native                       build with native compiler instead of cross
   --version                      print out ptxdist version
 
   (svn up)                       run "svn update" in topdir and project dir
@@ -527,15 +514,16 @@ Misc
 Environment:
 
   PREFIX=<path>                  build into this directory, instead of
-			         building into PTXCONF_PREFIX from config
+			         building into PTXCONF_SYSROOT_TARGET from config
 
 EOF
 }
 
 clean() {
 	local dir bdir
-	local ptxconf_prefix ptxconf_host_prefix ptxconf_cross_prefix
+	local ptxconf_sysroot_target ptxconf_sysroot_host ptxconf_sysroot_cross
 
+	# we want to clean the root dir
 	if [ "$1" = "root" ]; then
 		echo
 		echo "${PROMPT}cleaning root directory..."
@@ -548,6 +536,7 @@ clean() {
 		return
 	fi
 
+	# we want to clean a single package
 	if [ -n "$1" ]; then
 		check_if_selected $1
 		ptxd_make $1_clean
@@ -561,6 +550,7 @@ clean() {
 			continue
 		fi
 		for bdir in `find "${dir}" -maxdepth 1 -mindepth 1 -type l`; do
+		    # run 'make clean' for linked source directories
 		    pushd "${bdir}" > /dev/null
 		    echo -n "${PROMPT}running \"make clean\" in \"${bdir#${dir}/}\"... "
 		    make clean 1> /dev/null 2>&1
@@ -572,14 +562,19 @@ clean() {
 
 	if test -f "${PTXCONFIG}"; then
 		echo "${PROMPT}removing sysroot directories..."
-		ptxconf_prefix="`ptxd_get_ptxconf PTXCONF_PREFIX`"
-		ptxconf_host_prefix="`ptxd_get_ptxconf PTXCONF_HOST_PREFIX`"
-		ptxconf_cross_prefix="`ptxd_get_ptxconf PTXCONF_CROSS_PREFIX`"
+		ptxconf_sysroot_target="`ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET`"
+		ptxconf_sysroot_host="`ptxd_get_ptxconf PTXCONF_SYSROOT_HOST`"
+		ptxconf_sysroot_cross="`ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS`"
 
-		for dir in "${ptxconf_prefix}" "${ptxconf_host_prefix}" "${ptxconf_cross_prefix}"; do
+		for dir in "${ptxconf_sysroot_target}" "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"; do
 			if test \! -d "${dir}"; then
 				continue
 			fi
+			#
+			# remove the dir only if it is inside the workspace; if we for
+			# example build toolchains or production builds to /opt/...,
+			# we don't want to clean them here!
+			#
 			case "${dir}" in
 			    (${PTXDIST_WORKSPACE}/*)
 				rm -rf "${dir}"
@@ -591,7 +586,7 @@ clean() {
 	fi
 
 	echo "${PROMPT}removing deps..."
-	rm -f depend.out deptree-a4.ps deptree.ps
+	rm -f ${PLATFORMDIR}/{depend.out,deptree-a4.ps,deptree.ps}
 	echo "${PROMPT}removing imagedir..."
 	rm -fr "${IMAGEDIR}"
 	echo "${PROMPT}removing root..."
@@ -600,11 +595,17 @@ clean() {
 	echo "${PROMPT}removing state..."
 	rm -fr "${STATEDIR}"
 	echo "${PROMPT}removing logfile..."
-	rm -f logfile
+	rm -f ${PLATFORMDIR}/logfile
 	echo "${PROMPT}removing test logfile..."
-	rm -f test.log
-	echo "${PROMPT}removing cross/native marker..."
-	rm -f .build.cross .build.native
+	rm -f ${PLATFORMDIR}/test.log
+	echo "${PROMPT}removing packages dir..."
+	rm -fr ${PLATFORMDIR}/packages
+	echo "${PROMPT}removing sysroot dir..."
+	rm -fr ${PLATFORMDIR}/sysroot
+
+	# remove the remaining PLATFORMDIR (if empty)
+	rmdir ${PLATFORMDIR} 2>&1 > /dev/null
+
 	echo "${PROMPT}done."
 	echo
 }
@@ -952,11 +953,10 @@ while [ "$#" != "0" ]; do
 	compile)	shift
 			check_ptxconfig
 			check_if_selected $1
-			check_native
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_compile 2>&1 | tee -a logfile
+			ptxd_make $1_compile 2>&1 | tee -a ${PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -978,7 +978,7 @@ while [ "$#" != "0" ]; do
 			echo "${PROMPT}removing toolchain link..."
 			rm -f .toolchain
 			echo "${PROMPT}removing logs dir..."
-			rm -fr logfile
+			rm -fr ${PLATFORMDIR}/logfile
 			if [ -h "${PTXCONFIG}" ]; then
 				echo "${PROMPT}removing ptxconfig link..."
 				rm ${PTXCONFIG}
@@ -998,71 +998,64 @@ while [ "$#" != "0" ]; do
 			fi
 			export EXPORTDIR=$1
 			check_ptxconfig
-			check_native
 			check_deps
-			ptxd_make export $1 2>&1 | tee -a logfile
+			ptxd_make export $1 2>&1 | tee -a ${PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
 	extract)	shift
 			check_ptxconfig
 			check_if_selected $1
-			check_native
 			check_deps
-			ptxd_make $1_extract 2>&1 | tee -a logfile
+			ptxd_make $1_extract 2>&1 | tee -a ${PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
 	get)		shift
 			check_ptxconfig
-			check_native
 			check_deps
 			if [ $# -eq 0 ]; then
-				ptxd_make get 2>&1 | tee -a logfile
+				ptxd_make get 2>&1 | tee -a ${PLATFORMDIR}/logfile
 				check_pipe_status
 				exit 0
 			else
 				check_if_selected $1
-				ptxd_make $1_get 2>&1 | tee -a logfile
+				ptxd_make $1_get 2>&1 | tee -a ${PLATFORMDIR}/logfile
 				check_pipe_status
 				exit 0
 			fi
 			;;
 	go)		shift
 			check_ptxconfig
-			check_native
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make world 2>&1 | tee -a logfile
+			ptxd_make world 2>&1 | tee -a ${PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
 	help|--help)	shift; usage; exit 0; ;;
 	images)		shift
 			check_ptxconfig
-			check_native
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make images 2>&1 | tee -a logfile
+			ptxd_make images 2>&1 | tee -a ${PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
 	install)	shift
 			check_ptxconfig
 			check_if_selected $1
-			check_native
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_install 2>&1 | tee -a logfile
+			ptxd_make $1_install 2>&1 | tee -a ${PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
 	kernelconfig)	shift
 			check_ptxconfig
-			check_native
 			check_deps
 			ptxd_make kernel_menuconfig
 			check_pipe_status
@@ -1070,7 +1063,6 @@ while [ "$#" != "0" ]; do
 			;;
 	u_boot_config)	shift
 			check_ptxconfig
-			check_native
 			check_deps
 			ptxd_make u-boot-v2_menuconfig
 			check_pipe_status
@@ -1121,11 +1113,10 @@ while [ "$#" != "0" ]; do
 			;;
 	make)		shift
 			check_ptxconfig
-			check_native
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1 2>&1 | tee -a logfile
+			ptxd_make $1 2>&1 | tee -a ${PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -1134,15 +1125,11 @@ while [ "$#" != "0" ]; do
 			if test $# -eq 0; then
 				ptxd_kconfig true menuconfig_action
 			else
-				check_native
 				check_deps
 				ptxd_make $1_menuconfig
 			fi
 			check_pipe_status
 			exit 0
-			;;
-	--native)	shift
-			export NATIVE=1
 			;;
 	newpacket)	# test if we are in a rules dir
 			if [ "`basename \`pwd\``" != "rules" ]; then
@@ -1160,7 +1147,6 @@ while [ "$#" != "0" ]; do
 			if test $# -eq 0; then
 				ptxd_kconfig true oldconfig_action
 			else
-				check_native
 				check_deps
 				ptxd_make $1_oldconfig
 			fi
@@ -1175,9 +1161,9 @@ while [ "$#" != "0" ]; do
 			fi
 			if [ -f "${PLATFORMCONFIG}" ]; then
 				echo
-				echo -n "${PROMPT}warning: overwrite existing platformconfig [y/n]? "
+				echo -n "${PROMPT}warning: overwrite existing platformconfig [Y/n]? "
 				read answer
-				if [ "$answer" != "y" ]; then
+				if [ "$answer" != "y" ] || [ "$answer" != "" ]; then
 					echo "interrupting"
 					echo
 					exit 1
@@ -1196,39 +1182,22 @@ while [ "$#" != "0" ]; do
 	prepare)	shift
 			check_ptxconfig
 			check_if_selected $1
-			check_native
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_prepare 2>&1 | tee -a logfile
+			ptxd_make $1_prepare 2>&1 | tee -a ${PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
 	print)		shift
 			check_ptxconfig
 			check_deps
-			ptxd_make print-$1 2>&1 | tee -a logfile
+			ptxd_make print-$1 2>&1 | tee -a ${PLATFORMDIR}/logfile
 			check_pipe_status
 			shift
 			;;
 	projects)	shift
 			projects
-			;;
-	run)		shift
-			check_ptxconfig
-			check_native
-			check_compiler
-			check_dirs
-			check_deps
-			ptxd_make world 2>&1 | tee -a logfile
-			check_pipe_status
-			RUN_ROOTMETHOD=$(. ${PTXCONFIG} && echo ${PTXCONF_KERNEL_NATIVE_ROOT_HOSTFS})
-			RUN_CMDLINE=$(. ${PTXCONFIG} && echo ${PTXCONF_KERNEL_NATIVE_CMDLINE})
-			if [ -n "${RUN_ROOTMETHOD}" ]; then
-				RUN_CMDLINE="${RUN_CMDLINE} root=/dev/root rootflags=`pwd`/root rootfstype=hostfs"
-			fi
-			${PTXDIST_WORKSPACE}/images/linuximage ${RUN_CMDLINE}
-			exit 0
 			;;
 	select)		shift
 			if [ ! -f "$1" ]; then
@@ -1256,11 +1225,10 @@ while [ "$#" != "0" ]; do
 	targetinstall)	shift
 			check_ptxconfig
 			check_if_selected $1
-			check_native
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_targetinstall 2>&1 | tee -a logfile
+			ptxd_make $1_targetinstall 2>&1 | tee -a ${PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -1311,6 +1279,20 @@ while [ "$#" != "0" ]; do
 			ln -sf $1 .toolchain
 			echo
 			exit 0
+			;;
+	--toolchain)	shift
+			echo
+			TOOLCHAIN=$1
+			if [ ! -d "${TOOLCHAIN}" ]; then
+				echo
+				echo "${PROMPT}error: path ${TOOLCHAIN} does not exist"
+				echo
+				exit 1
+			fi
+			echo "${PROMPT}using toolchain in ${TOOLCHAIN}"
+			export PATH=${TOOLCHAIN}:$PATH
+			shift
+			echo
 			;;
 	--version)	echo ${FULLVERSION}
 			exit 0

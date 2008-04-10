@@ -57,7 +57,7 @@ HOST_SLIRP_ENV 		=  $(HOSTCC_ENV)
 # autoconf
 #
 HOST_SLIRP_AUTOCONF := $(HOST_AUTOCONF) \
-	--prefix=$(PTXCONF_PREFIX)/usr
+	--prefix=$(PTXCONF_SYSROOT_TARGET)/usr
 
 $(STATEDIR)/host-slirp.prepare: $(host-slirp_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -86,8 +86,8 @@ host-slirp_install: $(STATEDIR)/host-slirp.install
 
 $(STATEDIR)/host-slirp.install: $(host-slirp_install_deps_default)
 	@$(call targetinfo, $@)
-	mkdir -p $(PTXCONF_PREFIX)/usr/bin
-	mkdir -p $(PTXCONF_PREFIX)/usr/man/man1
+	mkdir -p $(PTXCONF_SYSROOT_TARGET)/usr/bin
+	mkdir -p $(PTXCONF_SYSROOT_TARGET)/usr/man/man1
 	@$(call install, HOST_SLIRP, $(HOST_SLIRP_DIR)/src ,h)
 	@$(call touch, $@)
 

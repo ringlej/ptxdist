@@ -53,7 +53,7 @@ HOST_MTD_UTILS_ENV 	:= $(HOST_ENV)
 HOST_MTD_UTILS_MAKEVARS	:= \
 	CPPFLAGS="$(HOST_CPPFLAGS)" \
 	LDFLAGS="$(HOST_LDFLAGS)" \
-	PREFIX="$(PTX_PREFIX_HOST)"
+	PREFIX="$(PTXCONF_SYSROOT_HOST)"
 
 $(STATEDIR)/host-mtd-utils.prepare: $(host-mtd-utils_prepare_deps_default)
 	@$(call targetinfo, $@)

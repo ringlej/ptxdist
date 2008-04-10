@@ -59,7 +59,7 @@ HOST_FONTCONFIG_ENV 	:= \
 HOST_FONTCONFIG_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--disable-docs \
-	--with-cache-dir=$(PTX_PREFIX_HOST)/var/cache/fontconfig \
+	--with-cache-dir=$(PTXCONF_SYSROOT_HOST)/var/cache/fontconfig \
 	--with-default-fonts=$(XORG_FONTDIR) \
 	--with-arch=$(PTXCONF_ARCH_STRING)
 

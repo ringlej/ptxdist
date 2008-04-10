@@ -313,8 +313,8 @@ $(STATEDIR)/sdl.install: $(sdl_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, SDL)
 
-	cp $(SDL_DIR)/sdl-config $(PTXCONF_CROSS_PREFIX)/bin/sdl-config
-	chmod a+x $(PTXCONF_CROSS_PREFIX)/bin/sdl-config
+	cp $(SDL_DIR)/sdl-config $(PTXCONF_SYSROOT_CROSS)/bin/sdl-config
+	chmod a+x $(PTXCONF_SYSROOT_CROSS)/bin/sdl-config
 
 	@$(call touch, $@)
 

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_U_BOOT_V2) += u-boot-v2
 #
 # handle special compilers
 #
+ifneq ($(PTX_COMPILER_PREFIX_UBOOT),)
 ifneq ($(PTX_COMPILER_PREFIX),$(PTX_COMPILER_PREFIX_UBOOT))
 ifeq ($(wildcard .utoolchain/$(PTX_COMPILER_PREFIX_UBOOT)gcc),)
 $(warning *** no .utoolchain link found. Please create a link)
@@ -25,6 +26,7 @@ $(warning *** .utoolchain to the bin directory of your $(PTX_COMPILER_PREFIX_UBO
 $(error )
 endif
 U_BOOT_V2_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.utoolchain/
+endif
 endif
 
 #
@@ -122,7 +124,7 @@ u-boot-v2_install: $(STATEDIR)/u-boot-v2.install
 $(STATEDIR)/u-boot-v2.install:
 	@$(call targetinfo, $@)
 
-	install -D -m755 $(U_BOOT_V2_DIR)/scripts/ubootenv $(PTX_PREFIX_HOST)/bin/ubootenv
+	install -D -m755 $(U_BOOT_V2_DIR)/scripts/ubootenv $(PTXCONF_SYSROOT_HOST)/bin/ubootenv
 
 	@$(call touch, $@)
 

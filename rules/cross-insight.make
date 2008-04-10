@@ -64,7 +64,7 @@ CROSS_INSIGHT_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 CROSS_INSIGHT_AUTOCONF	:= --target=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(PTX_PREFIX_CROSS)
+	--prefix=$(PTXCONF_SYSROOT_CROSS)
 
 $(STATEDIR)/cross-insight.prepare: $(cross-insight_prepare_deps_default)
 	@$(call targetinfo, $@)

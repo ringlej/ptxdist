@@ -508,10 +508,10 @@ ifdef PTXCONF_ROOTFS_USER_INITTAB
 endif
 	@$(call install_replace, rootfs, /etc/inittab, \
 		@CONSOLE@, \
-		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE)))
+		$(call remove_quotes,$(PTXCONF_CONSOLE_NAME)))
 	@$(call install_replace, rootfs, /etc/inittab, \
 		@SPEED@, \
-		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_CONSOLE_SPEED)))
+		$(call remove_quotes,$(PTXCONF_CONSOLE_SPEED)))
 endif
 
 # -----------------------------------------------------------------------------
@@ -570,9 +570,10 @@ endif
 # -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_ETC_MODULES
 # /etc/modules
-	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/modules, \
-		/etc/modules, n)
+	@file=$(PTXDIST_WORKSPACE)/projectroot/etc/modules; \
+	test -f $(PTXDIST_WORKSPACE)/projectroot/etc/modules$(PLATFORM_SUFFIX) && \
+		file=$(PTXDIST_WORKSPACE)/projectroot/etc/modules$(PLATFORM_SUFFIX); \
+	$(call install_copy, rootfs, 0, 0, 0644, $$file, /etc/modules, n)
 endif
 
 # -----------------------------------------------------------------------------

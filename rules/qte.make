@@ -173,7 +173,7 @@ $(STATEDIR)/qte.prepare: $(qte_prepare_deps_default)
 	@echo 'QMAKE_LIBS_THREAD          = -lpthread'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 
 	@echo 'QMAKE_MOC                  = $(QTDIR)/bin/moc'		>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
-	@echo 'QMAKE_UIC                  = $(PTXCONF_PREFIX)/bin/uic'	>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
+	@echo 'QMAKE_UIC                  = $(PTXCONF_SYSROOT_TARGET)/bin/uic'	>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 
 	@echo 'QMAKE_AR                   = ar cqs'			>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf
 	@echo 'QMAKE_RANLIB               ='				>> $(QTE_DIR)/mkspecs/linux-ptxdist/qmake.conf

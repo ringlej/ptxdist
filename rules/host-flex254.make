@@ -55,7 +55,7 @@ HOST_FLEX254_ENV 	=  $(HOSTCC_ENV)
 #
 # autoconf, but without automake :-(
 #
-HOST_FLEX254_AUTOCONF = --prefix=$(PTXCONF_PREFIX)/usr
+HOST_FLEX254_AUTOCONF = --prefix=$(PTXCONF_SYSROOT_HOST)
 
 $(STATEDIR)/host-flex254.prepare: $(host-flex254_prepare_deps_default)
 	@$(call targetinfo, $@)
