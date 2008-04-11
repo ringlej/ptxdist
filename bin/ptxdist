@@ -93,8 +93,8 @@ export PTXDIST PTXDIST_TOPDIR PTXDIST_WORKSPACE PTXDIST_PLATFORMDIR
 # use linked toolchain if available
 #
 if [ -d ".toolchain" ]; then
-	TOOLCHAIN=${PTXDIST_WORKSPACE}/.toolchain
-	export PATH=${TOOLCHAIN}:$PATH
+	PTXDIST_TOOLCHAIN="${PTXDIST_WORKSPACE}/.toolchain"
+	export PATH="${PTXDIST_TOOLCHAIN}:$PATH"
 fi
 
 # dir might not be available yet, but will be created later
@@ -257,7 +257,7 @@ check_compiler() {
 
 	build_toolchain="$(ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN)"
 
-	[ -n "$build_toolchain" -o "$NATIVE" != "" ] && return
+	[ -n "$build_toolchain" ] && return
 
 	#
 	# Three things should be checked
@@ -269,13 +269,12 @@ check_compiler() {
 	compiler="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)gcc"
 	vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
 
-	if [ ! -z "$vendor_should" ]; then
-
+	if [ -n "${vendor_should}" ]; then
 		# yea! A toolchain vendor was specified in the ptxconfig file.
 		# So we check for a 'ptxconfig' file in the toolchain directory
 		# and test the PTXCONF_PROJECT string therein.
 
-		if [ ! -d ${TOOLCHAIN} ]; then
+		if [ ! -d "${PTXDIST_TOOLCHAIN}" ]; then
 			echo
 			echo "${PROMPT}error: specify .toolchain with 'ptxdist toolchain <path>'"
 			echo "${PROMPT}error: or leave PTXCONF_CROSSCHAIN_VENDOR empty to disable toolchain check"
@@ -283,8 +282,8 @@ check_compiler() {
 			exit 1
 		fi
 
-		vendor_def=$(readlink -f ${TOOLCHAIN}/ptxconfig)
-		if [ -z "$vendor_def" ]; then
+		vendor_def="$(readlink -f ${PTXDIST_TOOLCHAIN}/ptxconfig)"
+		if [ -z "${vendor_def}" ]; then
 			echo
 			echo "${PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
 			echo "${PROMPT}error: set PTXCONF_CROSSCHAIN_VENDOR to disable toolchain version check"
@@ -292,12 +291,12 @@ check_compiler() {
 			exit 1
 		else
 			# both vendor strings are present. Check them
-			vendor_is=$(. $vendor_def && echo ${PTXCONF_PROJECT})
+			vendor_is="$(. ${vendor_def} && echo ${PTXCONF_PROJECT})"
 			if [ "$vendor_is" != "$vendor_should" ]; then
 				echo
-				echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is <$vendor_is>,"
-				echo "${PROMPT}error: specified: $vendor_should"
-				echo "${PROMPT}error: found:     $vendor_is"
+				echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is <${vendor_is}>,"
+				echo "${PROMPT}error: specified: ${vendor_should}"
+				echo "${PROMPT}error: found:     ${vendor_is}"
 				echo
 				exit 1
 			fi
@@ -305,19 +304,19 @@ check_compiler() {
 	fi
 
 	compiler_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
-	compiler_is=$($compiler -dumpversion 2> /dev/null)
+	compiler_is="$(${compiler} -dumpversion 2> /dev/null)"
 
-	if [ -z "$compiler_is" ]; then
+	if [ -z "${compiler_is}" ]; then
 		echo
-		echo "${PROMPT}error: Compiler '$compiler' not found.  Check PATH or"
+		echo "${PROMPT}error: Compiler '${compiler}' not found. Check PATH or"
 		echo "${PROMPT}error: use 'ptxdist toolchain <path/to/toolchain>'."
 		echo
 		exit 1
 	fi
-	if [ "$compiler_is" != "$compiler_should" ]; then
+	if [ "${compiler_is}" != "${compiler_should}" ]; then
 		echo
-		echo "${PROMPT}error: Compiler version $compiler_should expected,"
-		echo "${PROMPT}error: but $compiler_is found."
+		echo "${PROMPT}error: Compiler version ${compiler_should} expected,"
+		echo "${PROMPT}error: but ${compiler_is} found."
 		echo
 		exit 1
 	fi
@@ -500,7 +499,11 @@ Setup and Project Actions:
 
   u_boot_config			configure U-Boot (U-Boot V2 only)
 
-  toolchain <path>		select this toolchain (path to binaries)
+  toolchain [<path>]		if path is omitted the toolchain is guessed,
+				    guessing works only platformconfig is
+				    already selected)
+				othewise select this toolchain
+				    (<path> to binaries)
   select <config>		if there is no ptxconfig file you can
 				select one of several configs to be used
 Build Actions:
@@ -877,6 +880,76 @@ setup() {
 	popd > /dev/null
 	echo "${PROMPT}cleanup..."
 	rm -fr $tmpdir
+}
+
+
+toolchain()
+{
+	local toolchain
+	local vendor target version hint
+
+	toolchain="${1}"
+
+	#
+	# guess the toolchain if path is omitted
+	#
+	if [ -z "${toolchain}" -a -e ${PLATFORMCONFIG} ]; then
+		vendor="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
+		target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
+		version="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
+
+		hint="/opt/${vendor}/${target}/gcc-${version}-*/bin"
+
+		if [ -z "${vendor}" -o \
+		    -z "${target}" -o \
+		    -z "${version}" ]; then
+			echo
+			echo "${PROMPT}error: insufficient information in you ptxconfig file"
+			echo "${PROMPT}       please use the 'ptxdist toolchain <path>"
+			echo
+			exit 1
+		else
+			echo
+			echo "${PROMPT}CROSSCHAIN_VENDOR : ${vendor}"
+			echo "${PROMPT}CROSSCHAIN_CHECK  : ${version}"
+			echo "${PROMPT}GNU_TARGET        : ${target}"
+			echo "${PROMPT}"
+			echo "${PROMPT}looking for       : ${hint}"
+			echo "${PROMPT}"
+		fi
+		toolchain=($(echo ${hint}))
+		if [ ${#toolchain[@]} -ne 1 ]; then
+			echo "${PROMPT}"
+			echo "${PROMPT}"
+			echo "${PROMPT}error: more than one toolchain found matching"
+			echo "${PROMPT}       ${hint}"
+			echo "${PROMPT}       ${toolchain}"
+			echo
+			exit 1
+		fi
+	fi
+	if [ ! -d "${toolchain}" ]; then
+		echo
+		echo "${PROMPT}error: path ${toolchain} does not exist"
+		echo
+		exit 1
+	fi
+	echo "${PROMPT}using toolchain in \"${toolchain}\""
+	test -h ".toolchain" && rm -f .toolchain
+	if [ -e ".toolchain" ]; then
+		echo
+		echo "${PROMPT}error: There is a .toolchain in this directory which is no link."
+		echo "${PROMPT}error: This should never happen, please contact the"
+		echo "${PROMPT}error: Pengutronix Department of Illegal File Removement."
+		echo
+		exit 1
+	fi
+	ln -sf "${toolchain}" .toolchain
+
+	if [ -e "${PLATFORMCONFIG}" ]; then
+		check_compiler
+	fi
+	echo
 }
 
 
@@ -1287,38 +1360,20 @@ while [ "$#" != "0" ]; do
 			exit 0
 			;;
 	toolchain)	shift
-			echo
-			if [ ! -d "$1" ]; then
-				echo
-				echo "${PROMPT}error: path $1 does not exist"
-				echo
-				exit 1
-			fi
-			echo "${PROMPT}using toolchain in $1"
-			test -h ".toolchain" && rm -f .toolchain
-			if [ -e ".toolchain" ]; then
-				echo
-				echo "${PROMPT}error: There is a .toolchain in this directory which is no link."
-				echo "${PROMPT}error: This should never happen, please contact the"
-				echo "${PROMPT}error: Pengutronix Department of Illegal File Removement."
-				echo
-				exit 1
-			fi
-			ln -sf $1 .toolchain
-			echo
+			toolchain "${1}"
 			exit 0
 			;;
 	--toolchain)	shift
 			echo
-			TOOLCHAIN=$1
-			if [ ! -d "${TOOLCHAIN}" ]; then
+			PTXDIST_TOOLCHAIN="${1}"
+			if [ ! -d "${PTXDIST_TOOLCHAIN}" ]; then
 				echo
-				echo "${PROMPT}error: path ${TOOLCHAIN} does not exist"
+				echo "${PROMPT}error: path ${PTXDIST_TOOLCHAIN} does not exist"
 				echo
 				exit 1
 			fi
-			echo "${PROMPT}using toolchain in ${TOOLCHAIN}"
-			export PATH=${TOOLCHAIN}:$PATH
+			echo "${PROMPT}using toolchain in ${PTXDIST_TOOLCHAIN}"
+			export PATH="${PTXDIST_TOOLCHAIN}:$PATH"
 			shift
 			echo
 			;;
