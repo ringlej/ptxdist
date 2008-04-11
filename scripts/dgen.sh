@@ -184,7 +184,7 @@ gen_packages_dep() {
 . "${PLATFORMCONFIG}"
 
 if test \! -e "${STATEDIR}" ; then
-    mkdir "${STATEDIR}"
+    mkdir -p "${STATEDIR}"
 fi
 
 gen_configdeps
