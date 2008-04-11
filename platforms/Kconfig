@@ -23,6 +23,7 @@ config PLATFORM
 source "platforms/architecture.in"
 source "platforms/kernel.in"
 source "platforms/console.in"
+source "platforms/u-boot.in"
 source "platforms/u-boot-v2.in"
 source "platforms/images.in"
 

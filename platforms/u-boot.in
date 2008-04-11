@@ -1,6 +1,6 @@
 menuconfig U_BOOT
 	bool
-	prompt "build U-Boot bootloader for target"
+	prompt "U-Boot                        "
 
 config U_BOOT_VERSION
 	string
@@ -12,10 +12,10 @@ config U_BOOT_VERSION
 
 config U_BOOT_CONFIG
 	string
+	default "${PTXDIST_PLATFORMCONFIGDIR}/u-boot.config"
 	depends on U_BOOT
-	prompt "U-Boot config target"
+	prompt "U-Boot config file"
 	help
 	  The U-Boot make config target. Usually something like
 	  "yourbox_config". See Uboot's main Makefile for possible
 	  configuration targets.
-
