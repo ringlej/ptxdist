@@ -19,7 +19,6 @@ menuconfig NFSUTILS
 
 comment "build options"
 	depends on NFSUTILS
-	depends on KERNEL
 
 config	NFSUTILS_V3
 	bool
@@ -76,21 +75,6 @@ endchoice
 
 comment "install options"
 	depends on NFSUTILS
-
-#config	NFSUTILS_INSTALL_CLIENTSCRIPT
-#	bool
-#	prompt "Install /etc/init.d/nfs-client"
-#	depends on NFSUTILS
-
-#config	NFSUTILS_INSTALL_FUNCTIONSSCRIPT
-#	bool
-#	prompt "Install /etc/init.d/nfs-functions"
-#	depends on NFSUTILS
-
-#config	NFSUTILS_INSTALL_SERVERSCRIPT
-#	bool
-#	prompt "Install /etc/init.d/nfs-server"
-#	depends on NFSUTILS
 
 config	NFSUTILS_INSTALL_EXPORTFS
 	bool
