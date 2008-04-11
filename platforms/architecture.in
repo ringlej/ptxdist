@@ -79,37 +79,37 @@ choice
 	  Please chose one.
 
 	config ARCH_ARM_ATMEL
-		bool "atmel     "
+		bool "atmel      "
 
 	config ARCH_ARM_AT91RM9200
-		bool "at91rm9200"
+		bool "at91rm9200 "
 
 	config ARCH_ARM_AT91SAM9260
 		bool "at91sam9260"
 
 	config ARM_ARM_EPXA
-		bool "excalibur "
+		bool "excalibur  "
 
 	config ARCH_ARM_IMX
-		bool "i.mx      "
+		bool "i.mx       "
 
 	config ARCH_ARM_IXP2000
-		bool "ixp2000   "
+		bool "ixp2000    "
 
 	config ARCH_ARM_NETARM
-		bool "net+arm   "
+		bool "net+arm    "
 
 	config ARCH_ARM_NETX
-		bool "netx      "
+		bool "netx       "
 
 	config ARCH_ARM_OMAP
-		bool "omap      "
+		bool "omap       "
 
 	config ARCH_ARM_PXA
-		bool "pxa       "
+		bool "pxa        "
 
 	config ARCH_ARM_SA1100
-		bool "sa1100    "
+		bool "sa1100     "
 
 endchoice
 
