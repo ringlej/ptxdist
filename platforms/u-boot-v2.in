@@ -6,12 +6,13 @@ config U_BOOT_V2_VERSION
 	prompt "u-boot-v2 version"
 	depends on U_BOOT_V2
 	string
+	default "2.0.0"
 
 config U_BOOT_V2_CONFIG
 	prompt "config file"
 	depends on U_BOOT_V2
 	string
-	default "u-boot-v2.config"
+	default "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-v2.config"
 	help
 	  this entry specifies the .config file used to compile your U-Boot
 

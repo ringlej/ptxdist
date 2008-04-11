@@ -3,12 +3,14 @@ menu "console options               "
 config CONSOLE_NAME
 	string
 	prompt "console name"
+	default "ttyS0"
 	help
 	  Name of the system console, e.g. tty0 or ttyS0
 
 config CONSOLE_SPEED
 	string
 	prompt "console speed"
+	default "115200"
 	help
 	  Speed of the system console; for consoles that don't
 	  have a speed, please enter an arbitrary value.

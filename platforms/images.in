@@ -7,7 +7,8 @@ config IMAGE_TGZ
 	  Build a tar.gz archive of the root filesystem, containing the
 	  right owner/group and access permissions.
 
-config IMAGE_HD
+
+menuconfig IMAGE_HD
 	bool
 	select IMAGE_EXT2
 	select HOST_GENPART
@@ -70,6 +71,7 @@ config IMAGE_HD_PART1_END
 config IMAGE_HD_PART1_TYPE
 	string
 	default "0x83"
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART1
 	prompt "partition 1 type"
 	help
@@ -82,6 +84,7 @@ config IMAGE_HD_PART2
 
 config IMAGE_HD_PART2_START
 	string
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART2
 	prompt "partition 2 start sector"
 	help
@@ -89,6 +92,7 @@ config IMAGE_HD_PART2_START
 
 config IMAGE_HD_PART2_END
 	string
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART2
 	prompt "partition 2 end sector"
 	help
@@ -97,6 +101,7 @@ config IMAGE_HD_PART2_END
 config IMAGE_HD_PART2_TYPE
 	string
 	default "0x83"
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART2
 	prompt "partition 2 type"
 	help
@@ -104,11 +109,13 @@ config IMAGE_HD_PART2_TYPE
 
 config IMAGE_HD_PART3
 	bool
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART2
 	prompt "Create partition 3"
 
 config IMAGE_HD_PART3_START
 	string
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART3
 	prompt "partition 3 start sector"
 	help
@@ -116,6 +123,7 @@ config IMAGE_HD_PART3_START
 
 config IMAGE_HD_PART3_END
 	string
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART3
 	prompt "partition 3 end sector"
 	help
@@ -124,6 +132,7 @@ config IMAGE_HD_PART3_END
 config IMAGE_HD_PART3_TYPE
 	string
 	default "0x83"
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART3
 	prompt "partition 3 type"
 	help
@@ -131,11 +140,13 @@ config IMAGE_HD_PART3_TYPE
 
 config IMAGE_HD_PART4
 	bool
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART3
 	prompt "Create partition 4"
 
 config IMAGE_HD_PART4_START
 	string
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART4
 	prompt "partition 4 start sector"
 	help
@@ -143,6 +154,7 @@ config IMAGE_HD_PART4_START
 
 config IMAGE_HD_PART4_END
 	string
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART4
 	prompt "partition 4 end sector"
 	help
@@ -151,10 +163,12 @@ config IMAGE_HD_PART4_END
 config IMAGE_HD_PART4_TYPE
 	string
 	default "0x83"
+	depends on IMAGE_HD
 	depends on IMAGE_HD_PART4
 	prompt "partition 4 type"
 	help
 	  see Generate images/hd.img
+
 
 config IMAGE_IPKG_IMAGE_FROM_REPOSITORY
 	bool
@@ -173,7 +187,8 @@ config IMAGE_IPKG_EXTRA_ARGS
 	  If needed you can add extra arguments for ipkg-build here
 	  (e.g. -c if you want ipkg-build to use tar instead of ar.)
 
-config IMAGE_JFFS2
+
+menuconfig IMAGE_JFFS2
 	bool
 	select HOST_MTD_UTILS
 	prompt "Generate images/root.jffs2"
@@ -204,7 +219,8 @@ config IMAGE_JFFS2_EXTRA_ARGS
 	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt or
 	  -b to create a big endian filesystem on a little endian host)
 
-config IMAGE_UIMAGE
+
+menuconfig IMAGE_UIMAGE
 	bool
 	prompt "Generate images/uRamdisk"
 	select HOST_UMKIMAGE
@@ -230,6 +246,7 @@ config IMAGE_UIMAGE_EXTRA_ARGS
 	  If needed you can add extra arguments for umkimage here
 	  (e.g. -a 0xaa00000 -e 0xaa00000 )
 
+
 config IMAGE_CPIO
 	bool
 	prompt "Generate images/initrd.gz"
@@ -249,7 +266,7 @@ config IMAGE_CPIO
 #	  the bootloader U-Boot. It contains the kernel and the
 #	  RAM disk in one image.
 
-config IMAGE_EXT2
+menuconfig IMAGE_EXT2
 	bool
 	select HOST_GENEXT2FS
 	prompt "Generate images/root.ext2"

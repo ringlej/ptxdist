@@ -30,6 +30,7 @@ config KERNEL_VERSION
 	depends on KERNEL
 	prompt "kernel version"
 	string
+	default "2.6.25"
 
 choice
 	prompt "kernel architecture "
@@ -112,14 +113,12 @@ config KERNEL_CONFIG
 	depends on KERNEL
 	prompt "kernel config file"
 	string
-	default "kernelconfig.target"
+	default "${PTXDIST_PLATFORMCONFIGDIR}/kernel.config"
 	help
 	  this entry specifies the .config file used to compile your kernel
 
 endmenu
 
-
-# FIXME make this architecture dependend
 
 choice
 	depends on KERNEL
@@ -153,7 +152,7 @@ choice
 		bool
 		prompt "vmImage"
 		help
-		 This is the target for most non ia32 platforms like blackfin
+		 This is the target for non ia32 platforms like blackfin
 		 architectures.
 
 	config KERNEL_IMAGE_VMLINUX

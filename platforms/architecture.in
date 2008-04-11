@@ -288,12 +288,12 @@ menu "paths & directories           "
 config SYSROOT_TARGET
 	prompt "sysroot for target"
 	string
-	default "${PTXDIST_WORKSPACE}/${PTXDIST_PLATFORM_PREFIX}${PTXCONF_PLATFORM}/sysroot-target"
+	default "${PTXDIST_PLATFORMDIR}/sysroot-target"
 	help
 	  The SYSROOT_TARGET directory is the SYSROOT for all files being
 	  installed for the 'target' system. A sane default for this is
 
-	  ${PTXDIST_WORKSPACE}/${PTXDIST_PLATFORM_PREFIX}${PTXCONF_PLATFORM}/sysroot-target.
+	  ${PTXDIST_PLATFORMDIR}/sysroot-target.
 
 	  Use this one unless you do exactly know what you are doing.
 
@@ -304,11 +304,11 @@ config SYSROOT_TARGET
 
 config SYSROOT_HOST
 	string
-	default "${PTXDIST_WORKSPACE}/${PTXDIST_PLATFORM_PREFIX}${PTXCONF_PLATFORM}/sysroot-host"
+	default "${PTXDIST_PLATFORMDIR}/sysroot-host"
 
 config SYSROOT_CROSS
 	string
-	default "${PTXDIST_WORKSPACE}/${PTXDIST_PLATFORM_PREFIX}${PTXCONF_PLATFORM}/sysroot-cross"
+	default "${PTXDIST_PLATFORMDIR}/sysroot-cross"
 
 endmenu
 
