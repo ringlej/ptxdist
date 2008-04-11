@@ -18,15 +18,15 @@ PACKAGES-$(PTXCONF_U_BOOT_V2) += u-boot-v2
 #
 # handle special compilers
 #
-ifneq ($(PTX_COMPILER_PREFIX_UBOOT),)
-ifneq ($(PTX_COMPILER_PREFIX),$(PTX_COMPILER_PREFIX_UBOOT))
-ifeq ($(wildcard .utoolchain/$(PTX_COMPILER_PREFIX_UBOOT)gcc),)
-$(warning *** no .utoolchain link found. Please create a link)
-$(warning *** .utoolchain to the bin directory of your $(PTX_COMPILER_PREFIX_UBOOT) toolchain)
-$(error )
-endif
-U_BOOT_V2_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.utoolchain/
-endif
+ifdef PTXCONF_U_BOOT_V2
+    ifneq ($(PTX_COMPILER_PREFIX),$(PTX_COMPILER_PREFIX_UBOOT))
+        ifeq ($(wildcard .utoolchain/$(PTX_COMPILER_PREFIX_UBOOT)gcc),)
+            $(warning *** no .utoolchain link found. Please create a link)
+            $(warning *** .utoolchain to the bin directory of your $(PTX_COMPILER_PREFIX_UBOOT) toolchain)
+            $(error )
+        endif
+        U_BOOT_V2_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.utoolchain/
+    endif
 endif
 
 #

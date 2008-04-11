@@ -30,15 +30,15 @@ endif
 #
 # handle special compilers
 #
-ifneq ($(PTX_COMPILER_PREFIX_KERNEL),)
-ifneq ($(PTX_COMPILER_PREFIX),$(PTX_COMPILER_PREFIX_KERNEL))
-ifeq ($(wildcard .ktoolchain/$(PTX_COMPILER_PREFIX_KERNEL)gcc),)
-$(warning *** no .ktoolchain link found. Please create a link)
-$(warning *** .ktoolchain to the bin directory of your $(PTX_COMPILER_PREFIX_KERNEL) toolchain)
-$(error )
-endif
-KERNEL_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.ktoolchain/
-endif
+ifdef PTXCONF_KERNEL
+    ifneq ($(PTX_COMPILER_PREFIX),$(PTX_COMPILER_PREFIX_KERNEL))
+        ifeq ($(wildcard .ktoolchain/$(PTX_COMPILER_PREFIX_KERNEL)gcc),)
+            $(warning *** no .ktoolchain link found. Please create a link)
+            $(warning *** .ktoolchain to the bin directory of your $(PTX_COMPILER_PREFIX_KERNEL) toolchain)
+            $(error )
+        endif
+    KERNEL_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.ktoolchain/
+    endif
 endif
 
 #
@@ -196,7 +196,7 @@ $(STATEDIR)/kernel.targetinstall:
 # we _always_ need the kernel in the image dir
 	@for i in $(KERNEL_IMAGE_PATH); do				\
 		if [ -f $$i ]; then					\
-			install -D $$i $(IMAGEDIR)/linuximage;		\
+			install -m 644 $$i $(IMAGEDIR)/linuximage;	\
 		fi;							\
 	done
 
