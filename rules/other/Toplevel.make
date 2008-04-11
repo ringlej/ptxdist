@@ -30,7 +30,6 @@ HOME			:= $(shell echo $$HOME)
 PTXDIST_WORKSPACE	:= $(shell pwd)
 
 include $(PTXDIST_TOPDIR)/scripts/ptxdist_vars.sh
-
 include $(RULESDIR)/other/Definitions.make
 
 ifeq ($(call remove_quotes,$(PTXCONF_SETUP_SRCDIR)),)
@@ -41,10 +40,10 @@ SRCDIR			= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
 endif
 
 # first, include the ptxconfig with packet definitions
--include $(PTXDIST_WORKSPACE)/ptxconfig
+-include $(PTXCONFIG)
 
 # platformconfig comes after ptxconfig, so it is able to overwrite things
--include $(PTXDIST_WORKSPACE)/.platformconfig
+-include $(PLATFORMCONFIG)
 
 # ----------------------------------------------------------------------------
 # Packets for host, cross and target

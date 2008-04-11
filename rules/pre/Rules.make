@@ -15,15 +15,15 @@
 PTXUSER		= $(shell echo $$USER)
 GNU_BUILD	= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
 GNU_HOST	= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
-DEP_OUTPUT	= ${PLATFORMDIR}/depend.out
-DEP_TREE_PS	= ${PLATFORMDIR}/deptree.ps
-DEP_TREE_A4_PS	= ${PLATFORMDIR}/deptree-a4.ps
+DEP_OUTPUT	:= $(PTXDIST_PLATFORMDIR)/depend.out
+DEP_TREE_PS	:= $(PTXDIST_PLATFORMDIR)/deptree.ps
+DEP_TREE_A4_PS	:= $(PTXDIST_PLATFORMDIR)/deptree-a4.ps
 
-SUDO		= sudo
-HOSTCC		= gcc
-HOSTCXX		= g++
-DOT		= dot
-SH		= /bin/sh
+SUDO		:= sudo
+HOSTCC		:= gcc
+HOSTCXX		:= g++
+DOT		:= dot
+SH		:= /bin/sh
 # FIXME: disabled caching in wget. Make sure that all patches on the webserver
 #        have a version number and reenable caching
 WGET		= \
@@ -34,19 +34,19 @@ WGET		= \
 	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
 	wget --cache=off --passive-ftp
 MAKE_INSTALL	= $(MAKE) install
-PATCH		= patch
-TAR		= tar
-GZIP		= gzip
-ZCAT		= zcat
-BZIP2		= bzip2
-BZCAT		= bzcat
-CAT		= cat
-MKTEMP		= mktemp
-AWK		= awk
-PERL		= perl
-GREP		= grep
-INSTALL		= install
-BSD_FILE	= file
+PATCH		:= patch
+TAR		:= tar
+GZIP		:= gzip
+ZCAT		:= zcat
+BZIP2		:= bzip2
+BZCAT		:= bzcat
+CAT		:= cat
+MKTEMP		:= mktemp
+AWK		:= awk
+PERL		:= perl
+GREP		:= grep
+INSTALL		:= install
+BSD_FILE	:= file
 
 PARALLELMFLAGS  ?= -j$(shell if [ -r /proc/cpuinfo ];				\
 	then echo $$(( `cat /proc/cpuinfo | grep -e '^processor' | wc -l` * 2 ));	\
@@ -55,7 +55,7 @@ PARALLELMFLAGS  ?= -j$(shell if [ -r /proc/cpuinfo ];				\
 
 FAKEROOT	:= $(PTXCONF_SYSROOT_HOST)/bin/fakeroot -l $(PTXCONF_SYSROOT_HOST)/lib/libfakeroot.so
 
-CHECK_PIPE_STATUS = \
+CHECK_PIPE_STATUS := \
 	for i in  "$${PIPESTATUS[@]}"; do [ $$i -gt 0 ] && {			\
 		echo;								\
 		echo "error: a command in the pipe returned $$i, bailing out";	\
@@ -72,12 +72,12 @@ CHECK_PIPE_STATUS = \
 #
 # SYSROOT is the directory stuff is being installed into on the host
 #
-SYSROOT := $(PLATFORMDIR)/sysroot-target
+SYSROOT := $(PTXCONF_SYSROOT_TARGET)
 
 #
 # PKGDIR is the directory we install the packet sysroots and ipkgs into
 #
-PKGDIR := $(PLATFORMDIR)/packages
+PKGDIR := $(PTXDIST_PLATFORMDIR)/packages
 
 #
 # prepare the search path
