@@ -108,7 +108,7 @@ $(STATEDIR)/busybox.install: $(busybox_install_deps_default)
 	@$(call targetinfo, $@)
 # Note: If symbol BB_PREFIX is empty when entering the prepare stage
 # this stage will fail! Ensure BB_PREFIX contains something like "./_install"
-	$(call install, BUSYBOX)
+	@$(call install, BUSYBOX)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
