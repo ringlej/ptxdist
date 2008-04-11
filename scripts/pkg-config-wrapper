@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#declare -a PKG_CONFIGS
-
 PKG_CONFIG_ARRAY=(`type -a -P pkg-config`)
 PKG_CONFIG="${PKG_CONFIG_ARRAY[1]}"
 
