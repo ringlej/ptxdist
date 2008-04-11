@@ -905,7 +905,7 @@ toolchain()
 		    -z "${version}" ]; then
 			echo
 			echo "${PROMPT}error: insufficient information in you ptxconfig file"
-			echo "${PROMPT}       please use the 'ptxdist toolchain <path>"
+			echo "${PROMPT}       please use 'ptxdist toolchain <path>"
 			echo
 			exit 1
 		else
@@ -945,10 +945,6 @@ toolchain()
 		exit 1
 	fi
 	ln -sf "${toolchain}" .toolchain
-
-	if [ -e "${PLATFORMCONFIG}" ]; then
-		check_compiler
-	fi
 	echo
 }
 
