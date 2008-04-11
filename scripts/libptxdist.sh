@@ -9,24 +9,12 @@ DEBUG=${DEBUG:="false"}
 DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $2, $3, $4, $2); if ($1 == "n") printf("mknod -m %s .%s %s %s %s; chown %s.%s .%s;\n", $5, $2, $6, $7, $8, $3, $4, $2);}'
 
 
-#
-# We are really BAD :-)
-#
-# This makes it possible to use $(shell <shell code>) in ptxconfig
-# files; if interpreted by make, it simply works, if interpreted by the
-# shell it is replaced by the <shell code>
-#
-shell() {
-	$*
-}
-
-
 ptxd_get_ptxconf() {
-	if test -f "${PTXCONFIG}" -a -f "${PLATFORMCONFIG}"; then
+	if test -f "${PTXCONFIG}"; then
 		source "${PTXCONFIG}"
+	fi
+	if test -f "${PLATFORMCONFIG}"; then
 		source "${PLATFORMCONFIG}"
-	else
-		return
 	fi
 	echo "${!1}"
 }

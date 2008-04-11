@@ -12,39 +12,40 @@ PROMPT="ptxdist: "
 PTXDIST_WORKSPACE=`pwd`
 DEBUG=
 
-# export this, so that children can call the master script, for example
-# to find out the version number
-PTXDIST=$0
+#
+# export this, so that children can call the master script, for
+# example to find out the version number
+#
+PTXDIST="${0}"
 
+#
+# figure out PTXDIST_TOPDIR
+# this is where the ptxdist installation lives
+#
 if [ -L "$PTXDIST" ]; then
-	PTXDIST_TOPDIR=`readlink -f "$PTXDIST"`
+	PTXDIST_TOPDIR="`readlink -f \"${PTXDIST}\"`"
 else
-	PTXDIST_TOPDIR=$PTXDIST
+	PTXDIST_TOPDIR="${PTXDIST}"
 fi
-PTXDIST_TOPDIR=`dirname "$PTXDIST_TOPDIR"`
-PTXDIST_TOPDIR=`cd "$PTXDIST_TOPDIR"/.. && pwd`
-
-# we need the platform before we have sourced platformconfig yet
-# this needs to be in sync with scripts/ptxdist_vars.sh
-PTXCONF_PLATFORM=`test -f ${PTXDIST_WORKSPACE}/.platformconfig && \
-	(source ${PTXDIST_WORKSPACE}/.platformconfig; echo $PTXCONF_PLATFORM)`
-
-if [ -n "$PTXCONF_PLATFORM" ]; then
-	PTXDIST_PLATFORM_PREFIX=platform-
-fi
-
-export PTXDIST PTXDIST_WORKSPACE PTXDIST_TOPDIR PTXCONF_PLATFORM PTXDIST_PLATFORM_PREFIX
+PTXDIST_TOPDIR="`dirname \"${PTXDIST_TOPDIR}\"`"
+PTXDIST_TOPDIR="`cd \"${PTXDIST_TOPDIR}\"/.. && pwd`"
 
 #
 # sanity check: is PTXdist already configured?
 #
-
 if [ ! -e "${PTXDIST_TOPDIR}/.done" ]; then
 	echo
 	echo "${PROMPT}error: PTXdist in ${PTXDIST_TOPDIR} is not built."
 	echo
 	exit 1
 fi
+
+#
+# default is no platform stuff, thus
+# PTXDIST_PLATFORMDIR is just PTXDIST_WORKSPACE
+#
+PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}"
+
 
 #
 # we need the PTXdist shell library
@@ -56,18 +57,41 @@ for file in \
 	scripts/ptxdist_version.sh \
 	scripts/libptxdist.sh \
 ; do
-	if [ -e "$PTXDIST_TOPDIR/$file" ]; then
-		. "$PTXDIST_TOPDIR/$file"
+	abs_file="${PTXDIST_TOPDIR}/${file}"
+	if [ -e "${abs_file}" ]; then
+		. "${abs_file}"
 	else
-		echo "${PROMPT}didn't find ${PTXDIST_TOPDIR}/$file"
+		echo "${PROMPT}FATAL didn't find ${abs_file}"
 		exit 1
 	fi
 done
 
+
+#
+# setup PTXDIST_PLATFORMDIR properly
+#
+ptxconf_platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+if test -n "${ptxconf_platform}"; then
+	PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${ptxconf_platform}"
+else
+	PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}"
+fi
+
+# reread vars with correct PTXDIST_PLATFORMDIR
+. "${SCRIPTSDIR}/ptxdist_vars.sh"
+
+export PTXDIST PTXDIST_TOPDIR PTXDIST_WORKSPACE PTXDIST_PLATFORMDIR
+
+
+#
 # source the user's .ptxdistrc
+#
 [ -e "$HOME/.ptxdistrc.${FULLVERSION}" ] && . "$HOME/.ptxdistrc.${FULLVERSION}"
 
+
+#
 # use linked toolchain if available
+#
 if [ -d ".toolchain" ]; then
 	TOOLCHAIN=${PTXDIST_WORKSPACE}/.toolchain
 	export PATH=${TOOLCHAIN}:$PATH
@@ -78,6 +102,7 @@ ptxconf_sysroot_host="`ptxd_get_ptxconf PTXCONF_SYSROOT_HOST`"
 if test -n "${ptxconf_sysroot_host}"; then
 	export PATH="${ptxconf_sysroot_host}/bin:${ptxconf_sysroot_host}/sbin:$PATH"
 fi
+
 
 #
 # board setup
@@ -151,6 +176,7 @@ check_version () {
 # check_ptxconfig()
 #
 check_ptxconfig() {
+	local configfile_version
 
 	if [ ! -e "${PTXCONFIG}" ]; then
 		echo
@@ -162,20 +188,20 @@ check_ptxconfig() {
 
 	if [ ! -e "${PLATFORMCONFIG}" ]; then
 		echo
-		echo "${PROMPT}error: '.platformconfig' is missing"
+		echo "${PROMPT}error: '${PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing"
 		echo
 		exit 1
 	fi
 
-	PTXCONF_CONFIGFILE_VERSION=$(. "${PTXCONFIG}" && echo ${PTXCONF_CONFIGFILE_VERSION})
+	configfile_version="$(ptxd_get_ptxconf PTXCONF_CONFIGFILE_VERSION)"
 
-	check_version "${FULLVERSION}" "${PTXCONF_CONFIGFILE_VERSION}"
+	check_version "${FULLVERSION}" "${configfile_version}"
 	if [ "$?" != 0 ]; then
 		echo
 		echo "${PROMPT}error: The configfile version and ptxdist version do not match:"
 		echo
-		echo "        configfile version: ${PTXCONF_CONFIGFILE_VERSION}"
-		echo "        ptxdist version:    ${FULLVERSION}"
+		echo "	configfile version: ${configfile_version}"
+		echo "	ptxdist version:    ${FULLVERSION}"
 		echo
 		exit 1
 	fi
@@ -184,11 +210,7 @@ check_ptxconfig() {
 check_kernelconfig() {
 	local kernelconfig
 
-	if [ "$NATIVE" = "1" ]; then
-		kernelconfig=$(. "${PTXCONFIG}" && echo ${PTXCONF_KERNEL_NATIVE_CONFIG})
-	else
-		kernelconfig=$(. "${PTXCONFIG}" && echo ${PTXCONF_KERNEL_CONFIG})
-	fi
+	kernelconfig="$(ptxd_get_ptxconf PTXCONF_KERNEL_CONFIG)"
 	if [ ! -e "$kernelconfig" ]; then
 		echo
 		echo "${PROMPT}error: You don't have a $kernelconfig file"
@@ -233,7 +255,7 @@ check_path() {
 check_compiler() {
 	local build_userland compiler vendor_should vendor_is vendor_def compiler_should compiler_is
 
-	build_toolchain=$(. "${PTXCONFIG}" && echo ${PTXCONF_BUILD_TOOLCHAIN})
+	build_toolchain="$(ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN)"
 
 	[ -n "$build_toolchain" -o "$NATIVE" != "" ] && return
 
@@ -333,15 +355,15 @@ check_dirs_prefix() {
 				exit 1
 			fi
 			echo
-			echo sudo mkdir -p ${prefix}
+			echo sudo mkdir -p "${prefix}"
 			sudo mkdir -p "${prefix}"
 			echo
-			echo sudo chown $UID ${prefix}
+			echo sudo chown $UID "${prefix}"
 			sudo chown $UID "${prefix}"
 		fi
 	fi
 
-    	testfile=${prefix}/.secret-world-domination-project
+    	testfile="${prefix}/.secret-world-domination-project"
 	touch "${testfile}" 2> /dev/null
 	if test $? -ne 0; then
 		echo
@@ -355,10 +377,10 @@ check_dirs_prefix() {
 			exit 1
 		fi
 		echo
-		echo sudo chown $UID ${prefix}
-		sudo chown $UID ${prefix}
-		echo sudo chmod u+w ${prefix}
-		sudo chmod u+w ${prefix}
+		echo sudo chown $UID "${prefix}"
+		sudo chown $UID "${prefix}"
+		echo sudo chmod u+w "${prefix}"
+		sudo chmod u+w "${prefix}"
 
 		touch "${testfile}" 2> /dev/null
 		if test $? -ne 0; then
@@ -380,33 +402,42 @@ check_dirs_prefix() {
 # they are created here.
 #
 check_dirs() {
-	local ptxconf_sysroot_target ptxconf_sysroot_host ptxconf_sysroot_cross dir
-	local ptxconf_gnu_target testfile_upper testfile_lower i
+	local ptxconf_sysroot_target ptxconf_sysroot_host ptxconf_sysroot_cross
+	local dir testfile_upper testfile_lower
 
-	if [ -z "$PREFIX" ]; then
-		ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
-	else
-		ptxconf_sysroot_target=${PREFIX}
-	fi
-
+	ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
 	ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
 	ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
 
-	for dir in "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"; do
+	# check for r/w and create standard directory layout
+	for dir in \
+		"${ptxconf_sysroot_target}" \
+		"${ptxconf_sysroot_target}/usr" \
+		"${ptxconf_sysroot_host}" \
+		"${ptxconf_sysroot_cross}" \
+		; do
 		check_dirs_prefix "${dir}"
 	done
 
-	# sysroot - keep in sync with rules/pre/Rules.make -> SYSROOT
-	ptxconf_gnu_target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
-	mkdir -p "${PTXDIST_WORKSPACE}/${PTXDIST_PLATFORM_PREFIX}${PTXCONF_PLATFORM}/sysroot-target"/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
-
-	# builddirs
-	for i in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${HOST_BUILDDIR}" \
-		"${STATEDIR}" "${IMAGEDIR}" "${ROOTDIR}" "${ROOTDIR_DEBUG}"; do
-		mkdir -p "${i}"
+	# create build and output dirs
+	for dir in \
+		"${BUILDDIR}" \
+		"${CROSS_BUILDDIR}" \
+		"${HOST_BUILDDIR}" \
+		"${STATEDIR}" \
+		"${IMAGEDIR}" \
+		"${ROOTDIR}" \
+		"${ROOTDIR_DEBUG}" \
+		; do
+		mkdir -p "${dir}"
 	done
 
-	for i in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${HOST_BUILDDIR}"; do
+	# check for case sensitive file system
+	for i in \
+		"${BUILDDIR}" \
+		"${CROSS_BUILDDIR}" \
+		"${HOST_BUILDDIR}" \
+		; do
 		testfile_lower=${i}/.secret-world-domination-project
 		testfile_upper=${i}/.Secret-World-Domination-Project
 
@@ -428,15 +459,16 @@ check_dirs() {
 }
 
 check_if_selected() {
-	if [ -z $1 ]; then
+	if [ -z ${1} ]; then
 		echo
 		echo "${PROMPT}error: please specify a target"
 		echo
 		exit 1
 	fi
-	local CONFIGVAR=PTXCONF_$(ptxd_name_to_NAME $1)
-	local PTXCONFIG_CONFIGVAR=$(ptxd_get_ptxconf $CONFIGVAR)
-	if [ -z ${PTXCONFIG_CONFIGVAR} ]; then
+	local configvar="PTXCONF_$(ptxd_name_to_NAME ${1})"
+	local ptxconfig_configvar="$(ptxd_get_ptxconf $configvar)"
+
+	if [ -z ${ptxconfig_configvar} ]; then
 		echo
 		echo "${PROMPT}error: $1 is not selected in ${PTXCONFIG}"
 		echo
@@ -456,66 +488,60 @@ PTXdist `printf "%-24s" ${FULLVERSION}` Build System for Embedded Linux Systems
 
 Setup and Project Actions:
 
-  setup                          setup per-user preferences
-  boardsetup                     setup per-board preferences
+  setup				setup per-user preferences
+  boardsetup			setup per-board preferences
 
-  projects                       show available projects
-  clone <from> <to>              create a new project, cloned from <from>.
+  projects			show available projects
+  clone <from> <to>		create a new project, cloned from <from>.
 
-  menuconfig                     configure the root filesystem
-  oldconfig                      run 'make oldconfig' on ptxconfig file
-  kernelconfig                   configure the kernel
+  menuconfig			configure the root filesystem
+  oldconfig			run 'make oldconfig' on ptxconfig file
+  kernelconfig			configure the kernel
 
-  u_boot_config                  configure U-Boot (U-Boot V2 only)
+  u_boot_config			configure U-Boot (U-Boot V2 only)
 
-  toolchain <path>               select this toolchain (path to binaries)
-  select <config>                if there is no ptxconfig file you can
-                                 select one of several configs to be used
+  toolchain <path>		select this toolchain (path to binaries)
+  select <config>		if there is no ptxconfig file you can
+				select one of several configs to be used
 Build Actions:
 
-  go                             start building the current project
+  go				start building the current project
 
-  get <package>                  get packet sources
-  extract <package>              extract packet
-  prepare <package>              run configure stages for packet
-  compile <package>              compile the sources
-  install <package>              install host side components into sysroot/
-  targetinstall <package>        install files for target into root/
-  clean <package>                cleanup packet
-  autobuild                      search for "autobuild" scripts and run them
-  drop <package>.<stage>         mark a stage of a packet as unbuilt
+  get <package>			get packet sources
+  extract <package>		extract packet
+  prepare <package>		run configure stages for packet
+  compile <package>		compile the sources
+  install <package>		install host side components into sysroot/
+  targetinstall <package>	install files for target into root/
+  clean <package>		cleanup packet
+  autobuild			search for "autobuild" scripts and run them
+  drop <package>.<stage>	mark a stage of a packet as unbuilt
 
-  images                         build images for target system
+  images			build images for target system
 
 Clean Actions:
 
-  clean                          cleanup build-host and build-cross dirs
-  distclean                      cleanup everything
-  (clean images)                 cleanup images directory
-  clean root                     cleanup root directory for target
-  (clean project)                cleanup project specific packages
-  (clean maintainer)             maintainerclean
+  clean				cleanup build-host and build-cross dirs
+  distclean			cleanup everything
+  (clean images)		cleanup images directory
+  clean root			cleanup root directory for target
+  (clean project)		cleanup project specific packages
+  (clean maintainer)		maintainerclean
 
 Misc
 
-  --version                      print out ptxdist version
+  --version			print out ptxdist version
 
-  (svn up)                       run "svn update" in topdir and project dir
-  (svn stat)                     run "svn stat" in topdir and project dir
+  (svn up)			run "svn update" in topdir and project dir
+  (svn stat)			run "svn stat" in topdir and project dir
 
-  test <testname>                run tests
+  test <testname>		run tests
 
-  newpacket <type>               create a new packet Makefile in a rules dir
-                                 type can be one of:
-                                 target, host, host-existing-target,
-                                 cross, cross-existing-target, source,
-                                 kernel_driver, font, simple
-
-Environment:
-
-  PREFIX=<path>                  build into this directory, instead of
-			         building into PTXCONF_SYSROOT_TARGET from config
-
+  newpacket <type>		create a new packet Makefile in a rules dir
+				type can be one of:
+				target, host, host-existing-target,
+				cross, cross-existing-target, source,
+				kernel_driver, font, simple
 EOF
 }
 
@@ -586,7 +612,7 @@ clean() {
 	fi
 
 	echo "${PROMPT}removing deps..."
-	rm -f ${PLATFORMDIR}/{depend.out,deptree-a4.ps,deptree.ps}
+	rm -f ${PTXDIST_PLATFORMDIR}/{depend.out,deptree-a4.ps,deptree.ps}
 	echo "${PROMPT}removing imagedir..."
 	rm -fr "${IMAGEDIR}"
 	echo "${PROMPT}removing root..."
@@ -595,16 +621,14 @@ clean() {
 	echo "${PROMPT}removing state..."
 	rm -fr "${STATEDIR}"
 	echo "${PROMPT}removing logfile..."
-	rm -f ${PLATFORMDIR}/logfile
+	rm -f ${PTXDIST_PLATFORMDIR}/logfile
 	echo "${PROMPT}removing test logfile..."
-	rm -f ${PLATFORMDIR}/test.log
+	rm -f ${PTXDIST_PLATFORMDIR}/test.log
 	echo "${PROMPT}removing packages dir..."
-	rm -fr ${PLATFORMDIR}/packages
-	echo "${PROMPT}removing sysroot dir..."
-	rm -fr ${PLATFORMDIR}/sysroot
+	rm -fr ${PTXDIST_PLATFORMDIR}/packages
 
-	# remove the remaining PLATFORMDIR (if empty)
-	rmdir ${PLATFORMDIR} 2>&1 > /dev/null
+	# remove the remaining PTXDIST_PLATFORMDIR (if empty)
+	rmdir ${PTXDIST_PLATFORMDIR} > /dev/null 2>&1
 
 	echo "${PROMPT}done."
 	echo
@@ -956,7 +980,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_compile 2>&1 | tee -a ${PLATFORMDIR}/logfile
+			ptxd_make $1_compile 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -978,10 +1002,14 @@ while [ "$#" != "0" ]; do
 			echo "${PROMPT}removing toolchain link..."
 			rm -f .toolchain
 			echo "${PROMPT}removing logs dir..."
-			rm -fr ${PLATFORMDIR}/logfile
+			rm -fr ${PTXDIST_PLATFORMDIR}/logfile
 			if [ -h "${PTXCONFIG}" ]; then
 				echo "${PROMPT}removing ptxconfig link..."
-				rm ${PTXCONFIG}
+				rm "${PTXCONFIG}"
+			fi
+			if [ -h "${PLATFORMCONFIG}" ]; then
+				echo "${PROMPT}removing platformconfig link..."
+				rm "${PLATFORMCONFIG}"
 			fi
 			echo
 			;;
@@ -999,7 +1027,7 @@ while [ "$#" != "0" ]; do
 			export EXPORTDIR=$1
 			check_ptxconfig
 			check_deps
-			ptxd_make export $1 2>&1 | tee -a ${PLATFORMDIR}/logfile
+			ptxd_make export $1 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -1007,7 +1035,7 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_if_selected $1
 			check_deps
-			ptxd_make $1_extract 2>&1 | tee -a ${PLATFORMDIR}/logfile
+			ptxd_make $1_extract 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -1015,12 +1043,12 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_deps
 			if [ $# -eq 0 ]; then
-				ptxd_make get 2>&1 | tee -a ${PLATFORMDIR}/logfile
+				ptxd_make get 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 				check_pipe_status
 				exit 0
 			else
 				check_if_selected $1
-				ptxd_make $1_get 2>&1 | tee -a ${PLATFORMDIR}/logfile
+				ptxd_make $1_get 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 				check_pipe_status
 				exit 0
 			fi
@@ -1030,7 +1058,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make world 2>&1 | tee -a ${PLATFORMDIR}/logfile
+			ptxd_make world 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -1040,7 +1068,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make images 2>&1 | tee -a ${PLATFORMDIR}/logfile
+			ptxd_make images 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -1050,7 +1078,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_install 2>&1 | tee -a ${PLATFORMDIR}/logfile
+			ptxd_make $1_install 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -1116,7 +1144,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1 2>&1 | tee -a ${PLATFORMDIR}/logfile
+			ptxd_make $1 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
@@ -1171,7 +1199,7 @@ while [ "$#" != "0" ]; do
 			fi
 			echo
 			echo "${PROMPT}selecting platformconfig \"$1\""
-			ln -sf $1 ${PLATFORMCONFIG}
+			ln -sf "${1}" "${PLATFORMCONFIG}"
 			echo "${PROMPT}done."
 			echo
 			exit 0
@@ -1181,18 +1209,18 @@ while [ "$#" != "0" ]; do
 			;;
 	prepare)	shift
 			check_ptxconfig
-			check_if_selected $1
+			check_if_selected "${1}"
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_prepare 2>&1 | tee -a ${PLATFORMDIR}/logfile
+			ptxd_make $1_prepare 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;
 	print)		shift
 			check_ptxconfig
 			check_deps
-			ptxd_make print-$1 2>&1 | tee -a ${PLATFORMDIR}/logfile
+			ptxd_make print-$1 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			shift
 			;;
@@ -1228,7 +1256,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_targetinstall 2>&1 | tee -a ${PLATFORMDIR}/logfile
+			ptxd_make $1_targetinstall 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit 0
 			;;

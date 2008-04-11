@@ -12,10 +12,6 @@ fi
 
 . "${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh"
 . "${SCRIPTSDIR}/libptxdist.sh"
-PTXCONFIG=${PTXDIST_WORKSPACE}/ptxconfig
-PLATFORMCONFIG=${PTXDIST_WORKSPACE}/.platformconfig
-
-mkdir -p ${STATEDIR}
 
 #
 # local defined vars
@@ -111,7 +107,7 @@ do_package_dep() {
 	    prepare_dep="${prepare_dep} \$(STATEDIR)/${!dep_package}.install"
 
 	    case ${!dep_package} in
-		host-*|cross-*|crosstool*)
+		host-*|cross-*)
 		    ;;
 		*)
 		    targetinstall_dep="${targetinstall_dep} \$(STATEDIR)/${!dep_package}.targetinstall"
@@ -124,7 +120,7 @@ do_package_dep() {
 	host-pkg-config)
 	    echo "\$(STATEDIR)/${package}.prepare: ${prepare_dep}"
 	    ;;
-	host-*|cross-*|crosstool*)
+	host-*|cross-*)
 	    echo "\$(STATEDIR)/${package}.prepare: ${prepare_dep} \$(STATEDIR)/virtual-host-tools.install"
 	    ;;
 	*)
@@ -149,25 +145,26 @@ gen_packages_dep() {
     exec 5>${RULESFILES}
     exec 6>${RULESFILES_MAKE}
 
-    for cfgfile in ${PTXCONFIG} ${PLATFORMCONFIG}; do
-	    sed -ne "s/^# PTXCONF_\(.*\) is not set/\1/p" ${cfgfile} | while read label; do
-		package=PACKAGE_${label}
-		if test -n "${!package}"; then
-		    echo "\$(STATEDIR)/${!package}.get: \$(${label}_SOURCE)" >&4
-		fi
-	    done
+    for cfgfile in "${PTXCONFIG}" "${PLATFORMCONFIG}"; do
+	# generate .get for unselected packages
+	sed -ne "s/^# PTXCONF_\(.*\) is not set/\1/p" "${cfgfile}" | while read label; do
+	    package=PACKAGE_${label}
+	    if test -n "${!package}"; then
+		echo "\$(STATEDIR)/${!package}.get: \$(${label}_SOURCE)" >&4
+	    fi
+	done
 
-	    sed -ne "s/^PTXCONF_\(.*\)=[ym]/\1/p" ${cfgfile} | while read label; do
-		package=PACKAGE_${label}
-		if test -n "${!package}"; then
-		    deps=DEP_${label}
-		    do_package_dep ${!package} ${label} ${!deps} >&4
+	sed -ne "s/^PTXCONF_\(.*\)=[ym]/\1/p" "${cfgfile}" | while read label; do
+	    package=PACKAGE_${label}
+	    if test -n "${!package}"; then
+		deps="DEP_${label}"
+		do_package_dep ${!package} ${label} ${!deps} >&4
 
-		    filename=FILENAME_${label}
-		    echo ${!filename} >&5
-		    echo include ${!filename} >&6
-		fi
-	    done
+		filename=FILENAME_${label}
+		echo ${!filename} >&5
+		echo include ${!filename} >&6
+	    fi
+	done
     done
 
     exec 3>/dev/null
