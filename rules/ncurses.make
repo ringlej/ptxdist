@@ -30,7 +30,7 @@ NCURSES_DIR	:= $(BUILDDIR)/$(NCURSES)
 
 ncurses_get: $(STATEDIR)/ncurses.get
 
-$(STATEDIR)/ncurses.get: $(ncurses_get_deps_default)
+$(STATEDIR)/ncurses.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(NCURSES_SOURCE):
 
 ncurses_extract: $(STATEDIR)/ncurses.extract
 
-$(STATEDIR)/ncurses.extract: $(ncurses_extract_deps_default)
+$(STATEDIR)/ncurses.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(NCURSES_DIR))
 	@$(call extract, NCURSES)
@@ -88,7 +88,7 @@ else
 NCURSES_AUTOCONF += --disable-big-core
 endif
 
-$(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps_default)
+$(STATEDIR)/ncurses.prepare:
 	@$(call targetinfo, $@)
 	cd $(NCURSES_DIR) && \
 		$(NCURSES_PATH) $(NCURSES_ENV) \
@@ -101,7 +101,7 @@ $(STATEDIR)/ncurses.prepare: $(ncurses_prepare_deps_default)
 
 ncurses_compile: $(STATEDIR)/ncurses.compile
 
-$(STATEDIR)/ncurses.compile: $(ncurses_compile_deps_default)
+$(STATEDIR)/ncurses.compile:
 	@$(call targetinfo, $@)
 	cd $(NCURSES_DIR) && $(NCURSES_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -132,7 +132,7 @@ endif
 
 endif
 
-$(STATEDIR)/ncurses.install: $(ncurses_install_deps_default)
+$(STATEDIR)/ncurses.install:
 	@$(call targetinfo, $@)
 	@$(call install, NCURSES)
 
@@ -154,7 +154,7 @@ endif
 
 ncurses_targetinstall: $(STATEDIR)/ncurses.targetinstall
 
-$(STATEDIR)/ncurses.targetinstall: $(ncurses_targetinstall_deps_default)
+$(STATEDIR)/ncurses.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, ncurses)
