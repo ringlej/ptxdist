@@ -106,7 +106,7 @@ u-boot_targetinstall: $(STATEDIR)/u-boot.targetinstall
 $(STATEDIR)/u-boot.targetinstall: $(u-boot_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@cp $(U_BOOT_DIR)/u-boot.bin $(IMAGEDIR)/u-boot.bin
+	@install -D -m644 $(U_BOOT_DIR)/u-boot.bin $(IMAGEDIR)/u-boot.bin
 
 	@$(call touch, $@)
 
