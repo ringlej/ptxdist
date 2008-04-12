@@ -20,8 +20,6 @@ PACKAGES-$(PTXCONF_DOSFSTOOLS) += dosfstools
 DOSFSTOOLS_VERSION	= 2.11
 DOSFSTOOLS		= dosfstools-$(DOSFSTOOLS_VERSION)
 DOSFSTOOLS_SUFFIX	= tar.gz
-#DOSFSTOOLS_SRC		= dosfstools_$(DOSFSTOOLS_VERSION).orig.$(DOSFSTOOLS_SUFFIX)
-#DOSFSTOOLS_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/d/dosfstools/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_SRC		= $(DOSFSTOOLS).src.$(DOSFSTOOLS_SUFFIX)
 DOSFSTOOLS_URL		= ftp://ftp.uni-erlangen.de/pub/Linux/LOCAL/dosfstools/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_SOURCE	= $(SRCDIR)/$(DOSFSTOOLS_SRC)
@@ -88,9 +86,7 @@ dosfstools_install: $(STATEDIR)/dosfstools.install
 
 $(STATEDIR)/dosfstools.install: $(dosfstools_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
 	# @$(call install, DOSFSTOOLS)
-	#cd $(DOSFSTOOLS_DIR) && $(DOSFSTOOLS_ENV) $(DOSFSTOOLS_PATH) $(MAKE_INSTALL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
