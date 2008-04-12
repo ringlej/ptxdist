@@ -2,7 +2,7 @@
 
 if test -z "${PTXDIST_TOPDIR}"; then
 	echo PTXDIST_TOPDIR is unset
-	exit
+	exit 1
 fi
 
 . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh
