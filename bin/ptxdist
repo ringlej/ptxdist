@@ -1,108 +1,8 @@
 #!/bin/bash
 
 export LANG=C
-
-#
-# TODO
-#
-# - split images out of Makefile; we should have a command "image jffs2"
-#   which starts a corresponding script in scripts/
-#
-#
 PROMPT="ptxdist: "
-PTXDIST_WORKSPACE=`pwd`
 DEBUG=
-
-#
-# export this, so that children can call the master script, for
-# example to find out the version number
-#
-PTXDIST="${0}"
-
-#
-# figure out PTXDIST_TOPDIR
-# this is where the ptxdist installation lives
-#
-if [ -L "$PTXDIST" ]; then
-	PTXDIST_TOPDIR="`readlink -f \"${PTXDIST}\"`"
-else
-	PTXDIST_TOPDIR="${PTXDIST}"
-fi
-PTXDIST_TOPDIR="`dirname \"${PTXDIST_TOPDIR}\"`"
-PTXDIST_TOPDIR="`cd \"${PTXDIST_TOPDIR}\"/.. && pwd`"
-
-#
-# sanity check: is PTXdist already configured?
-#
-if [ ! -e "${PTXDIST_TOPDIR}/.done" ]; then
-	echo
-	echo "${PROMPT}error: PTXdist in ${PTXDIST_TOPDIR} is not built."
-	echo
-	exit 1
-fi
-
-#
-# default is no platform stuff, thus
-# PTXDIST_PLATFORMDIR is just PTXDIST_WORKSPACE
-#
-PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}"
-
-
-#
-# we need the PTXdist shell library
-# we need the version definitions
-# we need the static variable definitions
-#
-for file in \
-	scripts/ptxdist_vars.sh \
-	scripts/ptxdist_version.sh \
-	scripts/libptxdist.sh \
-; do
-	abs_file="${PTXDIST_TOPDIR}/${file}"
-	if [ -e "${abs_file}" ]; then
-		. "${abs_file}"
-	else
-		echo "${PROMPT}FATAL didn't find ${abs_file}"
-		exit 1
-	fi
-done
-
-
-#
-# setup PTXDIST_PLATFORMDIR properly
-#
-ptxconf_platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
-if test -n "${ptxconf_platform}"; then
-	PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${ptxconf_platform}"
-else
-	PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}"
-fi
-
-# reread vars with correct PTXDIST_PLATFORMDIR
-. "${SCRIPTSDIR}/ptxdist_vars.sh"
-
-export PTXDIST PTXDIST_TOPDIR PTXDIST_WORKSPACE PTXDIST_PLATFORMDIR
-
-
-#
-# source the user's .ptxdistrc
-#
-[ -e "$HOME/.ptxdistrc.${FULLVERSION}" ] && . "$HOME/.ptxdistrc.${FULLVERSION}"
-
-
-#
-# use linked toolchain if available
-#
-if [ -d ".toolchain" ]; then
-	PTXDIST_TOOLCHAIN="${PTXDIST_WORKSPACE}/.toolchain"
-	export PATH="${PTXDIST_TOOLCHAIN}:$PATH"
-fi
-
-# dir might not be available yet, but will be created later
-ptxconf_sysroot_host="`ptxd_get_ptxconf PTXCONF_SYSROOT_HOST`"
-if test -n "${ptxconf_sysroot_host}"; then
-	export PATH="${ptxconf_sysroot_host}/bin:${ptxconf_sysroot_host}/sbin:$PATH"
-fi
 
 
 #
@@ -120,7 +20,7 @@ boardsetup() {
 		exit 1
 	fi
 
-	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
+	tmpdir="$(mktemp -d ${PTXDIST_TEMPDIR}/boardsetup.XXXXXX)"
 	pushd $tmpdir > /dev/null
 
 	# prepare everything to make kconfig see it's original environment
@@ -149,22 +49,22 @@ boardsetup() {
 # - If the ptxdist minor or micro version is "svn" then no further checks are
 #   done. You know what you are doing when you use svn, don't you?
 #
-check_version () {
+check_version() {
 	ptxdist="$1"
 	config="$2"
 
-	ptxdist_major=`echo $ptxdist | awk -F. '{print $1}'`
-	config_major=`echo $config | awk -F. '{print $1}'`
+	ptxdist_major=$(echo $ptxdist | awk -F. '{print $1}')
+	config_major=$(echo $config | awk -F. '{print $1}')
 	[ "$ptxdist_major" != "$config_major" ] && return 1
 
-	ptxdist_minor=`echo $ptxdist | awk -F. '{print $2}'`
-	config_minor=`echo $config | awk -F. '{print $2}'`
+	ptxdist_minor=$(echo $ptxdist | awk -F. '{print $2}')
+	config_minor=$(echo $config | awk -F. '{print $2}')
 	[ -z "$config_minor" ] && return 0
 	[ "$ptxdist_minor" = "svn" ] && return 0
 	[ "$ptxdist_minor" != "$config_minor" ] && return 1
 
-	ptxdist_micro=`echo $ptxdist | awk -F. '{print $3}'`
-	config_micro=`echo $config | awk -F. '{print $3}'`
+	ptxdist_micro=$(echo $ptxdist | awk -F. '{print $3}')
+	config_micro=$(echo $config | awk -F. '{print $3}')
 	[ -z "$config_micro" ] && return 0
 	[ "$ptxdist_micro" = "svn" ] && return 0
 	[ "$ptxdist_micro" -lt "$config_micro" ] && return 1
@@ -254,7 +154,8 @@ check_path() {
 # This only should be done when we build userland (chicken egg problem)
 #
 check_compiler() {
-	local build_userland compiler vendor_should vendor_is vendor_def compiler_should compiler_is
+	local build_toolchain compiler toolchain_ptxconfig
+	local vendor_should vendor_is compiler_should compiler_is
 
 	build_toolchain="$(ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN)"
 
@@ -277,7 +178,7 @@ check_compiler() {
 
 		if [ ! -d "${PTXDIST_TOOLCHAIN}" ]; then
 			echo
-			echo "${PROMPT}error: specify .toolchain with 'ptxdist toolchain <path>'"
+			echo "${PROMPT}error: specify .toolchain with 'ptxdist toolchain [<path>]'"
 			echo "${PROMPT}error: or leave PTXCONF_CROSSCHAIN_VENDOR empty to disable toolchain check"
 			echo
 			exit 1
@@ -337,20 +238,20 @@ check_dirs_prefix() {
 
 	prefix="${1}"
 
-	if test -z "${prefix}"; then
+	if [ -z "${prefix}" ]; then
 		return
 	fi
 
-	if test \! -d "${prefix}"; then
+	if [ ! -d "${prefix}" ]; then
 		mkdir -p "${prefix}" 2> /dev/null
-		if test $? -ne 0; then
+		if [ $? -ne 0 ]; then
 			echo
 			echo "error: \"${ptxconf_prefix}\""
 			echo "       does not exist and cannot be created!"
 			echo "       Please create that dir with write permissions for you."
 			echo
 			read -t 5 -p "press enter to let sudo do that job!"
-			if test $? -ne 0; then
+			if [ $? -ne 0 ]; then
 				echo
 				exit 1
 			fi
@@ -365,14 +266,14 @@ check_dirs_prefix() {
 
     	testfile="${prefix}/.secret-world-domination-project"
 	touch "${testfile}" 2> /dev/null
-	if test $? -ne 0; then
+	if [ $? -ne 0 ]; then
 		echo
 		echo "error: \"${ptxconf_prefix}\""
 		echo "       does exist, but is not writeable."
 		echo "       Change the permissions and try again."
 		echo
 		read -t 5 -p "press enter to let sudo do the job!"
-		if test $? -ne 0; then
+		if [ $? -ne 0 ]; then
 			echo
 			exit 1
 		fi
@@ -383,7 +284,7 @@ check_dirs_prefix() {
 		sudo chmod u+w "${prefix}"
 
 		touch "${testfile}" 2> /dev/null
-		if test $? -ne 0; then
+		if [ $? -ne 0 ]; then
 			echo
 			echo "error: cannot make \"${ptxconf_prefix}\" writeable, giving up"
 			echo
@@ -444,8 +345,8 @@ check_dirs() {
 		echo lower > "${testfile_lower}"
 		echo upper > "${testfile_upper}"
 
-		if test "`cat \"${testfile_lower}\"`" != "lower" -o \
-		    "`cat \"${testfile_upper}\"`" != "upper"; then
+		if [ "$(cat "${testfile_lower}")" != "lower" -o \
+		    "$(cat "${testfile_upper}")" != "upper" ]; then
 			echo
 			echo "error: \"${dir}\""
 			echo "       is not a case sensitive filesystem."
@@ -476,13 +377,53 @@ check_if_selected() {
 	fi
 }
 
+
+clone() {
+	local ifs_old projectdir
+
+	if [ -z "$1" ]; then usage; exit 1; fi
+	if [ -z "$2" ]; then usage; exit 1; fi
+
+	if [ -d "$2" ]; then
+		echo
+		echo "${PROMPT}error: directory $2 does already exist"
+		echo
+		exit 1
+	fi
+
+	ifs_old=$IFS
+	IFS=:
+
+	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
+
+		echo "${PROMPT}scanning $projectdir..."
+
+		if [ -d "${projectdir}/$1" ] ; then
+
+			mkdir -p $2
+			tar -C ${projectdir}/$1 -cf - \
+			    --exclude .svn --exclude state --exclude debian . | \
+			    tar -C $2 -xvf -
+
+			echo "${PROMPT}done."
+			echo
+			return 0
+		fi
+	done
+	IFS=$ifs_old
+
+	echo "${PROMPT}project $1 is to be cloned, but could not be found"
+	echo
+}
+
+
 #
 # usage()
 #
 usage() {
 cat << EOF
 
-PTXdist `printf "%-24s" ${FULLVERSION}` Build System for Embedded Linux Systems
+PTXdist $(printf "%-24s" ${FULLVERSION}) Build System for Embedded Linux Systems
 
   ptxdist <action [args]> [options]
 
@@ -576,10 +517,10 @@ clean() {
 	echo
 	echo "${PROMPT}removing build directories..."
 	for dir in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${HOST_BUILDDIR}"; do
-		if test \! -d "${dir}"; then
+		if [ ! -d "${dir}" ]; then
 			continue
 		fi
-		for bdir in `find "${dir}" -maxdepth 1 -mindepth 1 -type l`; do
+		for bdir in $(find "${dir}" -maxdepth 1 -mindepth 1 -type l); do
 		    # run 'make clean' for linked source directories
 		    pushd "${bdir}" > /dev/null
 		    echo -n "${PROMPT}running \"make clean\" in \"${bdir#${dir}/}\"... "
@@ -590,14 +531,14 @@ clean() {
 		rm -rf "${dir}"
 	done
 
-	if test -f "${PTXCONFIG}"; then
+	if [ -f "${PTXCONFIG}" ]; then
 		echo "${PROMPT}removing sysroot directories..."
-		ptxconf_sysroot_target="`ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET`"
-		ptxconf_sysroot_host="`ptxd_get_ptxconf PTXCONF_SYSROOT_HOST`"
-		ptxconf_sysroot_cross="`ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS`"
+		ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
+		ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
+		ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
 
 		for dir in "${ptxconf_sysroot_target}" "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"; do
-			if test \! -d "${dir}"; then
+			if [ ! -d "${dir}" ]; then
 				continue
 			fi
 			#
@@ -651,7 +592,7 @@ drop() {
 		rm -f "${STATEDIR}/${statefile}"
 		echo "dropping ${statefile}"
 		echo
-		exit 0
+		exit
 	else
 		echo "stage ${statefile} isn't built, so we cannot drop it"
 		echo
@@ -664,7 +605,7 @@ menuconfig_action() {
 	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_KCONFIG}"
 }
 
-newpacket () {
+newpacket() {
 	local packet_name version url author year suffix overwrite \
 	    template template_file template_suffix packet_filename packet_name packet PACKET packetdash filename \
 	    class CLASS autoconf_class
@@ -745,18 +686,18 @@ newpacket () {
 
 	packet_filename="${packet_name}"
 
-	packet="`echo ${packet_name} | tr \"[A-Z]\" \"[a-z]\"`"
-	packetdash="`echo ${packet} | tr \"[_]\" \"[\-]\"`"
-	PACKET="`echo ${packet_name} | tr \"[a-z-]\" \"[A-Z_]\"`"
-	CLASS="`echo ${class} | tr \"[a-z-]\" \"[A-Z_]\"`"
+	packet="$(echo ${packet_name} | tr "[A-Z]" "[a-z]")"
+	packetdash="$(echo ${packet} | tr "[_]" "[\-]")"
+	PACKET="$(echo ${packet_name} | tr "[a-z-]" "[A-Z_]")"
+	CLASS="$(echo ${class} | tr "[a-z-]" "[A-Z_]")"
 
-	year=`date +%Y`
+	year=$(date +%Y)
 
 	for template_suffix in "make" "in"; do
 	    template_file="${RULESDIR}/${template}-${template_suffix}"
 	    filename="${class}${packet_filename}.${template_suffix}"
 
-	    if test \! -f "${template_file}"; then
+	    if [ ! -f "${template_file}" ]; then
 		echo
 		echo "${PROMPT}warning: template \"${template_file}\" does not exist"
 		echo
@@ -770,7 +711,7 @@ newpacket () {
 		if [ "$overwrite" != "y" ]; then
 		    echo "${PROMPT}aborted."
 		    echo
-		    exit 0
+		    exit
 		fi
 	    fi
 
@@ -811,7 +752,7 @@ platformconfig() {
 		kconfig=${PTXDIST_TOPDIR}/platforms/Kconfig
 	fi
 
-	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
+	tmpdir="$(mktemp -d ${PTXDIST_TEMPDIR}/platformconfig.XXXXXX)"
 	pushd $tmpdir > /dev/null
 	ln -sf "${PTXDIST_TOPDIR}/platforms"
 	ln -sf "${PTXDIST_WORKSPACE}" workspace
@@ -858,12 +799,13 @@ projects() {
 	echo
 }
 
+
 setup() {
 	local tmpdir
 
 	echo
 	echo "${PROMPT}setup..."
-	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`
+	tmpdir="$(mktemp -d ${PTXDIST_TEMPDIR}/setup.XXXXXX)"
 	pushd $tmpdir > /dev/null
 
 	# prepare everything to make kconfig see its original environment
@@ -884,17 +826,23 @@ setup() {
 }
 
 
-toolchain()
-{
+toolchain() {
 	local toolchain
-	local vendor target version hint
+	local vendor target version hint num
 
 	toolchain="${1}"
 
 	#
 	# guess the toolchain if path is omitted
 	#
-	if [ -z "${toolchain}" -a -e ${PLATFORMCONFIG} ]; then
+	if [ -z "${toolchain}" ]; then
+		if [ ! -e "${PLATFORMCONFIG}" ]; then
+			echo
+			echo "${PROMPT}error: cannot guess toolchain, no ${PLATFORMCONFIG#${PTXDIST_WORKSPACE}/} found"
+			echo
+			exit 1
+		fi
+
 		vendor="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
 		target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
 		version="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
@@ -918,17 +866,30 @@ toolchain()
 			echo "${PROMPT}looking for       : ${hint}"
 			echo "${PROMPT}"
 		fi
+		# let the shell expand the "*" in the hint, put it into an array
 		toolchain=($(echo ${hint}))
-		if [ ${#toolchain[@]} -ne 1 ]; then
+
+		# number of items in array == number of found toolchains
+		num="${#toolchain[@]}"
+
+		if [ ${num} -eq 0 ]; then
 			echo "${PROMPT}"
 			echo "${PROMPT}"
-			echo "${PROMPT}error: more than one toolchain found"
+			echo "${PROMPT}error: sorry, no toolchain found, matching"
+			echo "${PROMPT}       ${hint}"
+			echo
+			exit 1
+		elif [ ${num} -ne 1 ]; then
+			echo "${PROMPT}"
+			echo "${PROMPT}"
+			echo "${PROMPT}error: more than one toolchain found, matching"
 			echo "${PROMPT}       ${hint}"
 			echo "${PROMPT}       ${toolchain}"
 			echo
 			exit 1
 		fi
 	fi
+
 	if [ ! -d "${toolchain}" ]; then
 		echo
 		echo "${PROMPT}error: path ${toolchain} does not exist"
@@ -950,59 +911,215 @@ toolchain()
 }
 
 
-clone() {
-	local ifs_old projectdir
 
-	if [ -z "$1" ]; then usage; exit 1; fi
-	if [ -z "$2" ]; then usage; exit 1; fi
 
-	if [ -d "$2" ]; then
+################ setup stuff only ################################
+
+
+#
+# figure out PTXDIST_TOPDIR
+# this is where the ptxdist installation lives
+#
+# out: PTXDIST
+#      PTXDIST_WORKSPACE
+#      PTXDIST_TOPDIR
+#
+setup_topdir() {
+	local topdir
+
+	PTXDIST="${0}"
+	PTXDIST_WORKSPACE="$(pwd)"
+
+	if [ -L "${PTXDIST}" ]; then
+		topdir="$(readlink -f "${PTXDIST}")"
+	else
+		topdir="${PTXDIST}"
+	fi
+	topdir="$(cd "$(dirname "${topdir}")"/.. && pwd)"
+
+	#
+	# sanity check: is PTXdist already configured?
+	#
+	if [ ! -e "${topdir}/.done" ]; then
 		echo
-		echo "${PROMPT}error: directory $2 does already exist"
+		echo "${PROMPT}error: PTXdist in ${topdir} is not built."
 		echo
 		exit 1
 	fi
 
-	ifs_old=$IFS
-	IFS=:
-
-	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
-
-		echo "${PROMPT}scanning $projectdir..."
-
-		if [ -d "${projectdir}/$1" ] ; then
-
-			mkdir -p $2
-			tar -C ${projectdir}/$1 -cf - \
-			    --exclude .svn --exclude state --exclude debian . | \
-			    tar -C $2 -xvf -
-
-			echo "${PROMPT}done."
-			echo
-			return 0
-		fi
-	done
-	IFS=$ifs_old
-
-	echo "${PROMPT}project $1 is to be cloned, but could not be found"
-	echo
+	PTXDIST_TOPDIR="${topdir}"
 }
 
 
 #
-# main()
+# deletes ptxdist's temporary storage
 #
-if [ "$#" = "0" ]; then
-	usage
-	exit 0
-fi
+# in: PTXDIST_TEMPDIR
+#
+ptxdist_deltemp() {
+	if [ -n "${PTXDIST_TEMPDIR}" -a -d "${PTXDIST_TEMPDIR}" ]; then
+		rm -rf "${PTXDIST_TEMPDIR}"
+	fi
+}
+
+
+#
+# setups trap, to delete temporary storage
+#
+setup_traps() {
+	trap 'ptxdist_deltemp' 0 1 15
+}
+
+
+#
+# source the scripts we need
+#
+# we need the PTXdist shell library
+# we need the version definitions
+# we need the static variable definitions
+#
+# out: "ptxd_*"		library calls
+#      "*"		ptxdist version variables
+#      "*DIR"		directory definitions (some not correct, due to missing PTXDIST_PLATFORMDIR)
+#      PTXDIST_TEMPDIR	generic ptxdist temp dir
+#
+setup_libs() {
+	local file abs_file
+
+	for file in \
+		scripts/ptxdist_vars.sh \
+		scripts/ptxdist_version.sh \
+		scripts/libptxdist.sh \
+	; do
+		abs_file="${PTXDIST_TOPDIR}/${file}"
+		if [ -e "${abs_file}" ]; then
+			. "${abs_file}"
+		else
+			echo "${PROMPT}FATAL didn't find ${abs_file}"
+			exit 1
+		fi
+	done
+
+	PTXDIST_TEMPDIR="$(mktemp -d /tmp/ptxdist.XXXXXX)"
+	if [ ${?} -ne 0 ]; then
+		echo
+		echo "${PROMPT}error: unable to create tempdir"
+		echo
+		exit 1
+	fi
+}
+
+
+#
+# setup PTXDIST_PLATFORMDIR properly
+#
+# out: PTXDIST_PLATFORMDIR
+#      "*DIR"	correct directory definitions
+#
+setup_platformdir() {
+	local ptxconf_platform
+
+	ptxconf_platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+
+	if [ -n "${ptxconf_platform}" ]; then
+		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${ptxconf_platform}"
+	else
+		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}"
+	fi
+
+	# reread vars with correct PTXDIST_PLATFORMDIR
+	. "${SCRIPTSDIR}/ptxdist_vars.sh"
+}
+
+
+#
+# source the user's .ptxdistrc
+# or default one
+# setup PTXDIST_SRCDIR
+#
+# out: PTXCONF_*	user preferences
+#      PTXDIST_SRCDIR
+#
+setup_config() {
+	local rc_user rc_default
+
+	rc_user="${HOME}/.ptxdistrc.${FULLVERSION}"
+	rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
+
+	if [ -e "${rc_user}" ]; then
+		ptxd_source_kconfig "${rc_user}"
+	else
+		ptxd_source_kconfig "${rc_default}"
+	fi
+
+	if [ -z ${PTXCONF_SETUP_SRCDIR} ]; then
+		PTXDIST_SRCDIR="${PTXDIST_WORKSPACE}/src"
+	else
+		PTXDIST_SRCDIR="${PTXCONF_SETUP_SRCDIR}"
+	fi
+}
+
+
+#
+# add .toolchain and sysroots to path
+#
+# out: PATH
+#      PTXDIST_TOOLCHAIN
+#
+setup_path() {
+	local sysroot_host
+	#
+	# use linked toolchain if available
+	#
+	if [ -d ".toolchain" ]; then
+		PTXDIST_TOOLCHAIN="${PTXDIST_WORKSPACE}/.toolchain"
+		PATH="${PTXDIST_TOOLCHAIN}:$PATH"
+	fi
+
+	# dir might not be available yet, but will be created later
+	sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
+
+	if [ -n "${sysroot_host}" ]; then
+		PATH="${sysroot_host}/bin:${sysroot_host}/sbin:$PATH"
+	fi
+}
+
+
+########################################################################
+# main()
+########################################################################
+
+setup_topdir
+setup_traps
+setup_libs
+# ---  libs are available from here ---
+setup_platformdir
+# --- platformdir and other *dirs are available from here ---
+setup_config
+# --- all variables are defined now ---
+setup_path
+# --- path is now set ---
+
+export PROJECT FULLVERSION VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION		# FIXME: review these
+export \
+	PATH \
+	\
+	PTXDIST \
+	PTXDIST_TOPDIR \
+	PTXDIST_SRCDIR \
+	PTXDIST_TEMPDIR \
+	\
+	PTXDIST_WORKSPACE \
+	\
+	PTXDIST_PLATFORMDIR \
+	PTXDIST_PLATFORMCONFIGDIR
 
 check_uid
 check_path
 
 while [ "$#" != "0" ]; do
 
-	case $1 in
+	case "${1}" in
 	autobuild)	echo
 			echo "${PROMPT}running autobuild"
 			echo
@@ -1012,16 +1129,16 @@ while [ "$#" != "0" ]; do
 			echo >&5
 			for i in $AUTOBUILDS; do
 				pushd $(dirname $i)
-
-				echo "config............: `basename \`pwd\``" >&5
-				echo "date..............: `date`" >&5
+				
+				echo "config............: $(basename $(pwd))" >&5
+				echo "date..............: $(date)" >&5
 				echo "user..............: ${USER}@${HOSTNAME}" >&5
-				PTX_STARTTIME=`date +"%s"`
+				PTX_STARTTIME=$(date +"%s")
 
 				./$(basename $i)
 
 				PTX_RETVAL=$?
-				PTX_STOPTIME=`date +"%s"`
+				PTX_STOPTIME=$(date +"%s")
 				let "PTX_TIME=$PTX_STOPTIME-$PTX_STARTTIME"
 				let "PTX_TIME_H=$PTX_TIME/3600"
 				let "PTX_TIME_M=($PTX_TIME-$PTX_TIME_H*3600)/60"
@@ -1030,7 +1147,7 @@ while [ "$#" != "0" ]; do
 				echo "result............: ${PTX_RETVAL}" >&5
 				echo >&5
 
-				[ -e "logfile" ] && mv logfile "${AUTOBUILD_TOPDIR}/`basename \`pwd\``.log"
+				[ -e "logfile" ] && mv logfile "${AUTOBUILD_TOPDIR}/$(basename $(pwd)).log"
 				[ "${PTX_RETVAL}" = "0" ] && ${PTXDIST} distclean
 
 				popd
@@ -1038,7 +1155,7 @@ while [ "$#" != "0" ]; do
 			echo
 			echo "${PROMPT}done"
 			echo
-			exit 0
+			exit
 			;;
 	boardsetup)	shift
 			check_ptxconfig
@@ -1052,17 +1169,17 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make $1_compile 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	clean)		shift
 			check_ptxconfig
 			check_deps
 			clean $1
-			exit 0
+			exit
 			;;
 	clone)		shift;
 			clone $1 $2
-			exit 0
+			exit
 			;;
 	-d|--debug)	shift
 			export PTXDIST_MAKE_DBG="--debug=make"
@@ -1099,7 +1216,7 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make export $1 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	extract)	shift
 			check_ptxconfig
@@ -1107,7 +1224,7 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make $1_extract 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	get)		shift
 			check_ptxconfig
@@ -1115,12 +1232,12 @@ while [ "$#" != "0" ]; do
 			if [ $# -eq 0 ]; then
 				ptxd_make get 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 				check_pipe_status
-				exit 0
+				exit
 			else
 				check_if_selected $1
 				ptxd_make $1_get 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 				check_pipe_status
-				exit 0
+				exit
 			fi
 			;;
 	go)		shift
@@ -1130,9 +1247,12 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make world 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
-			exit 0
+			exit
 			;;
-	help|--help)	shift; usage; exit 0; ;;
+	help|--help)	shift
+			usage
+			exit
+			;;
 	images)		shift
 			check_ptxconfig
 			check_compiler
@@ -1140,7 +1260,7 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make images 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	install)	shift
 			check_ptxconfig
@@ -1150,21 +1270,21 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make $1_install 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	kernelconfig)	shift
 			check_ptxconfig
 			check_deps
 			ptxd_make kernel_menuconfig
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	u_boot_config)	shift
 			check_ptxconfig
 			check_deps
 			ptxd_make u-boot-v2_menuconfig
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	maintainer)	shift
 			if [ "$#" = "0" ]; then
@@ -1174,7 +1294,7 @@ while [ "$#" != "0" ]; do
 				echo "${PROMPT} configversionbump"
 				echo "${PROMPT} alloldconfig"
 				echo
-				exit 0
+				exit
 			fi
 			case $1 in
 			configversionbump)
@@ -1207,7 +1327,7 @@ while [ "$#" != "0" ]; do
 				exit 1
 				;;
 			esac
-			exit 0
+			exit
 			;;
 	make)		shift
 			check_ptxconfig
@@ -1216,21 +1336,21 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make $1 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	menuconfig)	shift
 			check_ptxconfig
-			if test $# -eq 0; then
+			if [ ${#} -eq 0 ]; then
 				ptxd_kconfig true menuconfig_action
 			else
 				check_deps
-				ptxd_make $1_menuconfig
+				ptxd_make "${1}_menuconfig"
 			fi
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	newpacket)	# test if we are in a rules dir
-			if [ "`basename \`pwd\``" != "rules" ]; then
+			if [ "$(basename $(pwd))" != "rules" ]; then
 				echo
 				echo "${PROMPT}error: newpacket command only allowed in a rules dir"
 				echo
@@ -1242,11 +1362,11 @@ while [ "$#" != "0" ]; do
 			;;
 	oldconfig)	shift
 			check_ptxconfig
-			if test $# -eq 0; then
+			if [ ${#} -eq 0 ]; then
 				ptxd_kconfig true oldconfig_action
 			else
 				check_deps
-				ptxd_make $1_oldconfig
+				ptxd_make "${1}_oldconfig"
 			fi
 			exit $?
 			;;
@@ -1261,7 +1381,7 @@ while [ "$#" != "0" ]; do
 				echo
 				echo -n "${PROMPT}warning: overwrite existing platformconfig [Y/n]? "
 				read answer
-				if [ "$answer" != "y" ] && [ "$answer" != "" ]; then
+				if [ "$answer" != "y" -a "$answer" != "" ]; then
 					echo "interrupting"
 					echo
 					exit 1
@@ -1272,7 +1392,7 @@ while [ "$#" != "0" ]; do
 			ln -sf "${1}" "${PLATFORMCONFIG}"
 			echo "${PROMPT}done."
 			echo
-			exit 0
+			exit
 			;;
 	platformconfig)	shift
 			platformconfig
@@ -1285,7 +1405,7 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make $1_prepare 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	print)		shift
 			check_ptxconfig
@@ -1317,7 +1437,7 @@ while [ "$#" != "0" ]; do
 			ln -sf $1 ${PTXCONFIG}
 			echo "${PROMPT}done."
 			echo
-			exit 0
+			exit
 			;;
 	setup)		shift; setup;;
 	targetinstall)	shift
@@ -1328,23 +1448,23 @@ while [ "$#" != "0" ]; do
 			check_deps
 			ptxd_make $1_targetinstall 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
-			exit 0
+			exit
 			;;
 	test)		shift
 			if [ -z "$1" ]; then
 				echo "No test given. try ptxdist test help for a list of available tests"
-				exit 0
+				exit 1
 			fi
 			if [ "$1" = help ]; then
 				echo "available tests:"
 				find $PTXDIST_WORKSPACE/tests -maxdepth 1 -type f -exec basename {} \;
-				exit 0
+				exit
 			fi
 			if [ -x "$PTXDIST_WORKSPACE/tests/$1" ]; then
 				echo
 				"$PTXDIST_WORKSPACE/tests/$1" > ${PTXDIST_WORKSPACE}/test.log
 				echo
-			else if [ -x "$PTXDIST_TOPDIR/tests/$1" ]; then
+			elif [ -x "$PTXDIST_TOPDIR/tests/$1" ]; then
 				echo
 				"$PTXDIST_TOPDIR/tests/$1" > ${PTXDIST_WORKSPACE}/test.log
 				echo
@@ -1353,12 +1473,11 @@ while [ "$#" != "0" ]; do
 				echo "${PROMPT}error: test '$1' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
 				echo
 			fi
-			fi
-			exit 0
+			exit
 			;;
 	toolchain)	shift
 			toolchain "${1}"
-			exit 0
+			exit
 			;;
 	--toolchain)	shift
 			echo
@@ -1379,11 +1498,10 @@ while [ "$#" != "0" ]; do
 			;;
 	*)		shift
 			usage
-			exit 0
+			exit 1
 			;;
 	esac
 
 done
 
 exit 0
-

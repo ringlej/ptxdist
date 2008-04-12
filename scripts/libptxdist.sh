@@ -1,12 +1,26 @@
 #!/bin/bash
 
-FULLARGS="$@"
 DEBUG=${DEBUG:="false"}
 
 # 
 # awk script for permission fixing
 #
 DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $2, $3, $4, $2); if ($1 == "n") printf("mknod -m %s .%s %s %s %s; chown %s.%s .%s;\n", $5, $2, $6, $7, $8, $3, $4, $2);}'
+
+
+ptxd_source_kconfig() {
+	local config config_source
+
+	config="${1}"
+	config_source="${PTXDIST_TEMPDIR}/${config##*/}"
+
+	if test \! -e "${config}"; then
+		return false
+	fi
+
+	sed -e "s/^\([^#]*=.*\)/export \1/" "${config}" > "${config_source}"
+	. "${config_source}"
+}
 
 
 ptxd_get_ptxconf() {
@@ -29,7 +43,7 @@ ptxd_kconfig() {
 
 	copy_back="${1}"
 	fun="${2}"
-	tmpdir="`mktemp -d /tmp/ptxdist.XXXXXX`"
+	tmpdir="`mktemp -d ${PTXDIST_TEMPDIR}/kconfig.XXXXXX`"
 
 	# search for kconfig
 	if [ -z "${PTXDIST_KCONFIG}" ]; then
@@ -44,12 +58,12 @@ ptxd_kconfig() {
 	ln -sf "${PTXDIST_TOPDIR}/rules"
 	ln -sf "${PTXDIST_TOPDIR}/config"
 	ln -sf "${PTXDIST_WORKSPACE}" workspace
-	ptxcnf="`readlink -f \"${PTXDIST_WORKSPACE}/ptxconfig\"`"
+	ptxcnf="$(readlink -f "${PTXDIST_WORKSPACE}/ptxconfig")"
 	cp "$ptxcnf" .config
 
 	shift 2 # call ${fun} with the remaining arguments
 
-	if ${fun} "${@}" && [ "${copy_back}" = "true" ]; then
+	if "${fun}" "${@}" && [ "${copy_back}" = "true" ]; then
 		cp .config "$ptxcnf"
 	fi
 
@@ -62,7 +76,7 @@ ptxd_kconfig() {
 #
 #
 ptxd_make() {
-	make $PTXDIST_MAKE_DBG -f "${PTXDIST_TOPDIR}/rules/other/Toplevel.make" PTXDIST_TOPDIR="${PTXDIST_TOPDIR}" $*
+	make $PTXDIST_MAKE_DBG -f "${PTXDIST_TOPDIR}/rules/other/Toplevel.make" "${@}"
 }
 
 
@@ -71,13 +85,13 @@ ptxd_make() {
 # convert a relative or absolute path into an absolute path
 #
 ptxd_abspath() {
-	local DN
+	local dn
 	if [ "$#" != "1" ]; then
 		echo "usage: ptxd_abspath <path>"
 		exit 1
 	fi
-	DN=`dirname $1`
-	echo `cd $DN && pwd`/`basename $1`
+	dn=`dirname $1`
+	echo `cd $dn && pwd`/`basename $1`
 }
 
 #
@@ -101,7 +115,7 @@ ptxd_human_to_number() {
 #
 ptxd_name_to_NAME() {
 	local name
-	if [ "$#" != 1 ]; then
+	if [ ${#} -ne 1 ]; then
 		echo "usage: ptxd_name_to_NAME <pkg-name>"
 		exit 1
 	fi
@@ -119,6 +133,7 @@ ptxd_exit(){
 	echo "$0: $1"
 	exit $2
 }
+
 ptxd_exit_silent(){
 	ptxd_debug "$0: $1"
 	exit $2
@@ -130,6 +145,7 @@ ptxd_exit_silent(){
 ptxd_debug(){
 	[ "$DEBUG" = "true" ] && echo "$0: $1" >&2
 }	
+
 ptxd_debug "Debugging is enabled - Turn off with DEBUG=false"
 
 #
@@ -220,10 +236,6 @@ ptxd_ipkg_rev_packet() {
 #
 ptxd_ipkg_arch() {
 	echo $2
-}
-
-foobar() {
-	echo "foobar $1"
 }
 
 #

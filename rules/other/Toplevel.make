@@ -1,7 +1,5 @@
 # -*-makefile-*-
 #
-# $Id: Makefile 4495 2006-02-02 16:01:56Z rsc $
-#
 # Copyright (C) 2002-2008 by The PTXdist Team - See CREDITS for Details
 #
 
@@ -9,35 +7,14 @@
 SHELL=bash
 export SHELL
 
-# This makefile is called with PTXDIST_TOPDIR set to the PTXdist
-# toplevel installation directory. So we first source the static
-# definitions to inherit everything the ptxdist shellscript know:
-
-include ${PTXDIST_TOPDIR}/scripts/ptxdist_version.sh
-
-# The .ptxdistrc contains the per-user settings
-ifneq ($(wildcard $(HOME)/.ptxdistrc.$(FULLVERSION)),)
-include $(HOME)/.ptxdistrc.$(FULLVERSION)
-else
-include $(PTXDIST_TOPDIR)/config/setup/ptxdistrc.default
-endif
-
 # ----------------------------------------------------------------------------
 # Some directory locations
 # ----------------------------------------------------------------------------
 
-HOME			:= $(shell echo $$HOME)
-PTXDIST_WORKSPACE	:= $(shell pwd)
+SRCDIR := $(PTXDIST_SRCDIR)
 
 include $(PTXDIST_TOPDIR)/scripts/ptxdist_vars.sh
 include $(RULESDIR)/other/Definitions.make
-
-ifeq ($(call remove_quotes,$(PTXCONF_SETUP_SRCDIR)),)
-SRCDIR			:= $(PTXDIST_WORKSPACE)/src
-else
-#			  don't use := here!!!
-SRCDIR			= $(call remove_quotes,$(PTXCONF_SETUP_SRCDIR))
-endif
 
 # first, include the ptxconfig with packet definitions
 -include $(PTXCONFIG)
@@ -50,11 +27,14 @@ endif
 # ----------------------------------------------------------------------------
 
 PACKAGES		:=
+PACKAGES-		:=
 PACKAGES-y		:=
 PACKAGES-m		:=
 CROSS_PACKAGES		:=
+CROSS_PACKAGES-		:=
 CROSS_PACKAGES-y	:=
 HOST_PACKAGES		:=
+HOST_PACKAGES-		:=
 HOST_PACKAGES-y		:=
 VIRTUAL			:=
 
@@ -78,43 +58,45 @@ include $(PACKAGE_DEP_PRE)
 include $(RULESFILES_ALL_MAKE)
 include $(PACKAGE_DEP_POST)
 
-ifneq ($(wildcard $(POSTRULESDIR)/*.make),)
-include $(wildcard $(POSTRULESDIR)/*.make)
-endif
-
 PACKAGES		:= $(PACKAGES-y) $(PACKAGES-m)
 CROSS_PACKAGES		:= $(CROSS_PACKAGES-y)
 HOST_PACKAGES		:= $(HOST_PACKAGES-y)
-VIRTUAL			:= $(VIRTUAL-y)
 
 ALL_PACKAGES		:= \
-	$(PACKAGES-y) $(PACKAGES-m) $(PACKAGES-) \
-	$(CROSS_PACKAGES) $(CROSS_PACKAGES-) \
-	$(HOST_PACKAGES) $(HOST_PACKAGES-)
+	$(PACKAGES-)       $(PACKAGES-y) $(PACKAGES-m)  \
+	$(CROSS_PACKAGES-) $(CROSS_PACKAGES-y) \
+	$(HOST_PACKAGES-)  $(HOST_PACKAGES) 
 
 SELECTED_PACKAGES	:= \
-	$(PACKAGES-y) $(PACKAGES-m) $(CROSS_PACKAGES-y) \
-	$(HOST_PACKAGES-y)  $(VIRTUAL-y)
+	$(PACKAGES-y) $(PACKAGES-m) \
+	$(CROSS_PACKAGES-y) \
+	$(HOST_PACKAGES-y)
+
+ifneq ($(wildcard $(POSTRULESDIR)/*.make),)
+include $(wildcard $(POSTRULESDIR)/*.make)
+endif
 
 # ----------------------------------------------------------------------------
 # Install targets
 # ----------------------------------------------------------------------------
 
-PACKAGES_TARGETINSTALL 	:= $(addsuffix _targetinstall,$(PACKAGES)) $(addsuffix _targetinstall,$(VIRTUAL))
 PACKAGES_GET		:= $(addsuffix _get,$(PACKAGES))
 PACKAGES_EXTRACT	:= $(addsuffix _extract,$(PACKAGES))
 PACKAGES_PREPARE	:= $(addsuffix _prepare,$(PACKAGES))
 PACKAGES_COMPILE	:= $(addsuffix _compile,$(PACKAGES))
-HOST_PACKAGES_INSTALL	:= $(addsuffix _install,$(HOST_PACKAGES))
+PACKAGES_TARGETINSTALL 	:= $(addsuffix _targetinstall,$(PACKAGES))
+
 HOST_PACKAGES_GET	:= $(addsuffix _get,$(HOST_PACKAGES))
 HOST_PACKAGES_EXTRACT	:= $(addsuffix _extract,$(HOST_PACKAGES))
 HOST_PACKAGES_PREPARE	:= $(addsuffix _prepare,$(HOST_PACKAGES))
 HOST_PACKAGES_COMPILE	:= $(addsuffix _compile,$(HOST_PACKAGES))
-CROSS_PACKAGES_INSTALL	:= $(addsuffix _install,$(CROSS_PACKAGES))
+HOST_PACKAGES_INSTALL	:= $(addsuffix _install,$(HOST_PACKAGES))
+
 CROSS_PACKAGES_GET	:= $(addsuffix _get,$(CROSS_PACKAGES))
 CROSS_PACKAGES_EXTRACT	:= $(addsuffix _extract,$(CROSS_PACKAGES))
 CROSS_PACKAGES_PREPARE	:= $(addsuffix _prepare,$(CROSS_PACKAGES))
 CROSS_PACKAGES_COMPILE	:= $(addsuffix _compile,$(CROSS_PACKAGES))
+CROSS_PACKAGES_INSTALL	:= $(addsuffix _install,$(CROSS_PACKAGES))
 
 # FIXME: should probably go somewhere else (separate images.make?)
 ifdef PTXCONF_MKNBI_NBI
@@ -137,7 +119,6 @@ endif
 get: $(PACKAGES_GET) $(HOST_PACKAGES_GET) $(CROSS_PACKAGES_GET)
 
 dep_output_clean:
-#	if [ -e $(DEP_OUTPUT) ]; then rm -f $(DEP_OUTPUT); fi
 	touch $(DEP_OUTPUT)
 
 dep_tree: $(STATEDIR)/dep_tree
@@ -160,7 +141,7 @@ dep_world: $(HOST_PACKAGES_INSTALL) \
 	   $(PACKAGES_TARGETINSTALL)
 	@echo $@ : $^ | sed  -e 's/\([^ ]*\)_\([^_]*\)/\1.\2/g' >> $(DEP_OUTPUT)
 
-world: dep_output_clean dep_world $(BOOTDISK_TARGETINSTALL) dep_tree
+world: dep_output_clean dep_world dep_tree
 
 host-tools:    dep_output_clean $(HOST_PACKAGES_INSTALL) dep_tree
 host-get:      getclean $(HOST_PACKAGES_GET)
