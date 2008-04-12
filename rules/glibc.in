@@ -10,7 +10,7 @@ menuconfig GLIBC
 config GLIBC_VERSION
 	prompt "glibc Version"
 	string
-	default "2.3.6"
+	default "2.5"
 	depends on GLIBC
 
 comment	"Install options"
