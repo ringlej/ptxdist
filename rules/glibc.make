@@ -15,17 +15,19 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_GLIBC) += glibc
-GLIBC_VERSION	:= 1.0
-GLIBC 		:= glibc-$(GLIBC_VERSION)
-GLIBC_DIR	:= $(BUILDDIR)/glibc
-LOCALE_GENERATE_DIR	:= $(GLIBC_DIR)-gen
+
+#
+# Paths and names
+#
+GLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
 glibc_get: $(STATEDIR)/glibc.get
 
-$(STATEDIR)/glibc.get: $(glibc_get_deps_default)
+$(STATEDIR)/glibc.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -36,7 +38,7 @@ $(STATEDIR)/glibc.get: $(glibc_get_deps_default)
 
 glibc_extract: $(STATEDIR)/glibc.extract
 
-$(STATEDIR)/glibc.extract: $(glibc_extract_deps_default)
+$(STATEDIR)/glibc.extract:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,7 +48,7 @@ $(STATEDIR)/glibc.extract: $(glibc_extract_deps_default)
 
 glibc_prepare: $(STATEDIR)/glibc.prepare
 
-$(STATEDIR)/glibc.prepare: $(glibc_prepare_deps_default)
+$(STATEDIR)/glibc.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -56,7 +58,7 @@ $(STATEDIR)/glibc.prepare: $(glibc_prepare_deps_default)
 
 glibc_compile: $(STATEDIR)/glibc.compile
 
-$(STATEDIR)/glibc.compile: $(glibc_compile_deps_default)
+$(STATEDIR)/glibc.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -66,7 +68,7 @@ $(STATEDIR)/glibc.compile: $(glibc_compile_deps_default)
 
 glibc_install: $(STATEDIR)/glibc.install
 
-$(STATEDIR)/glibc.install: $(glibc_install_deps_default)
+$(STATEDIR)/glibc.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -76,7 +78,7 @@ $(STATEDIR)/glibc.install: $(glibc_install_deps_default)
 
 glibc_targetinstall: $(STATEDIR)/glibc.targetinstall
 
-$(STATEDIR)/glibc.targetinstall: $(glibc_targetinstall_deps_default)
+$(STATEDIR)/glibc.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, glibc)
