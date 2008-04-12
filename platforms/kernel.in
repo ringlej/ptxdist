@@ -101,7 +101,7 @@ config KERNEL_SERIES
 	depends on KERNEL
 	prompt "patch series file"
 	string
-	default ""
+	default "series${PTXDIST_PLATFORMSUFFIX}"
 	help
 	  This entry specifies a patch series file which has to live in
 	  the kernel patches directory:
