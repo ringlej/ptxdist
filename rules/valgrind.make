@@ -63,17 +63,13 @@ valgrind_prepare: $(STATEDIR)/valgrind.prepare
 
 VALGRIND_PATH	=  PATH=$(CROSS_PATH)
 VALGRIND_ENV 	=  $(CROSS_ENV)
-#VALGRIND_ENV	+= 
 
 #
 # autoconf
 #
-VALGRIND_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-
-# If --enable-tls is not set, test for TLS fails in cross compiling 
-# environment
-
-VALGRIND_AUTOCONF += --enable-tls
+VALGRIND_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-tls
 
 $(STATEDIR)/valgrind.prepare: $(valgrind_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -102,9 +98,6 @@ valgrind_install: $(STATEDIR)/valgrind.install
 
 $(STATEDIR)/valgrind.install: $(valgrind_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME: rsc: if --prefix=/, doesn't this install to / on the 
-	#             development host? 
-	#cd $(VALGRIND_DIR) && $(VALGRIND_PATH) $(MAKE_INSTALL) PREFIX=$(SYSROOT)
 	@$(call install, VALGRIND)
 	@$(call touch, $@)
 
