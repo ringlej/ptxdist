@@ -31,7 +31,7 @@ UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
 
 udev_get: $(STATEDIR)/udev.get
 
-$(STATEDIR)/udev.get: $(udev_get_deps_default)
+$(STATEDIR)/udev.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(UDEV_SOURCE):
 
 udev_extract: $(STATEDIR)/udev.extract
 
-$(STATEDIR)/udev.extract: $(udev_extract_deps_default)
+$(STATEDIR)/udev.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(UDEV_DIR))
 	@$(call extract, UDEV)
@@ -58,9 +58,7 @@ $(STATEDIR)/udev.extract: $(udev_extract_deps_default)
 
 udev_prepare: $(STATEDIR)/udev.prepare
 
-UDEV_PATH	:=  PATH=$(CROSS_PATH)
-UDEV_ENV 	:=  $(CROSS_ENV)
-UDEV_MAKEVARS	 =  CROSS_COMPILE=$(COMPILER_PREFIX)
+UDEV_TOOLVAR	:=
 
 ifdef PTXCONF_UDEV_FW_HELPER
 UDEV_TOOLVAR	+=  extras/firmware
@@ -68,18 +66,29 @@ endif
 ifdef PTXCONF_UDEV_USB_ID
 UDEV_TOOLVAR	+=  extras/usb_id
 endif
+
 ifdef PTXCONF_UDEV_ENABLE_SYSLOG
 UDEV_SYSLOGVAR	= USE_LOG=true
 else
 UDEV_SYSLOGVAR	= USE_LOG=false
 endif
+
 ifdef PTXCONF_UDEV_ENABLE_DEBUG
 UDEV_DEBUGMSG	= DEBUG=true
 else
 UDEV_DEBUGMSG	= DEBUG=false
 endif
 
-$(STATEDIR)/udev.prepare: $(udev_prepare_deps_default)
+UDEV_PATH	:=  PATH=$(CROSS_PATH)
+UDEV_ENV 	:=  $(CROSS_ENV)
+UDEV_MAKEVARS	:= \
+	CROSS_COMPILE=$(COMPILER_PREFIX) \
+	EXTRAS="$(UDEV_TOOLVAR)" \
+	$(UDEV_SYSLOGVAR) \
+	$(UDEV_DEBUGMSG) 
+
+
+$(STATEDIR)/udev.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(UDEV_DIR)/config.cache)
 	@$(call touch, $@)
@@ -90,10 +99,9 @@ $(STATEDIR)/udev.prepare: $(udev_prepare_deps_default)
 
 udev_compile: $(STATEDIR)/udev.compile
 
-$(STATEDIR)/udev.compile: $(udev_compile_deps_default)
+$(STATEDIR)/udev.compile:
 	@$(call targetinfo, $@)
-	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) make EXTRAS="$(UDEV_TOOLVAR)" \
-		$(UDEV_SYSLOGVAR) $(UDEV_DEBUGMSG) $(UDEV_MAKEVARS)
+	cd $(UDEV_DIR) && $(UDEV_ENV) $(UDEV_PATH) $(MAKE) $(PARALLELMFLAGS) $(UDEV_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -102,7 +110,7 @@ $(STATEDIR)/udev.compile: $(udev_compile_deps_default)
 
 udev_install: $(STATEDIR)/udev.install
 
-$(STATEDIR)/udev.install: $(udev_install_deps_default)
+$(STATEDIR)/udev.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -112,7 +120,7 @@ $(STATEDIR)/udev.install: $(udev_install_deps_default)
 
 udev_targetinstall: $(STATEDIR)/udev.targetinstall
 
-$(STATEDIR)/udev.targetinstall: $(udev_targetinstall_deps_default)
+$(STATEDIR)/udev.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, udev)
