@@ -2,8 +2,6 @@ dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl Most parts of this configure script have been borrowed from quilt.
 dnl
-dnl FIXME: how to have the version number only in one place?
-dnl
 
 AC_INIT([ptxdist],[1.99.svn],[ptxdist@pengutronix.de])
 AC_CONFIG_AUX_DIR(autoconf)
