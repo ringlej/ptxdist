@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_LOCALES) += locales
 #
 LOCALES			:= locales
 LOCALES_VERSION		:= 1.0
-LOCALES_DIR		:= $(BUILDDIR)/$(LOCALES)-temp
+LOCALES_DIR		:= $(BUILDDIR)/$(LOCALES)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -27,12 +27,9 @@ LOCALES_DIR		:= $(BUILDDIR)/$(LOCALES)-temp
 
 locales_get: $(STATEDIR)/locales.get
 
-$(STATEDIR)/locales.get: $(locales_get_deps_default)
+$(STATEDIR)/locales.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
-
-$(LOCALES_SOURCE):
-	@$(call targetinfo, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -40,7 +37,7 @@ $(LOCALES_SOURCE):
 
 locales_extract: $(STATEDIR)/locales.extract
 
-$(STATEDIR)/locales.extract: $(locales_extract_deps_default)
+$(STATEDIR)/locales.extract:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -55,7 +52,7 @@ locales_prepare: $(STATEDIR)/locales.prepare
 #
 LOCALES_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/locales.prepare: $(locales_prepare_deps_default)
+$(STATEDIR)/locales.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(LOCALES_DIR)/config.cache)
 	@mkdir -p $(LOCALES_DIR)/usr/lib/locale
@@ -67,7 +64,7 @@ $(STATEDIR)/locales.prepare: $(locales_prepare_deps_default)
 
 locales_compile: $(STATEDIR)/locales.compile
 
-$(STATEDIR)/locales.compile: $(locales_compile_deps_default)
+$(STATEDIR)/locales.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -77,7 +74,7 @@ $(STATEDIR)/locales.compile: $(locales_compile_deps_default)
 
 locales_install: $(STATEDIR)/locales.install
 
-$(STATEDIR)/locales.install: $(locales_install_deps_default)
+$(STATEDIR)/locales.install:
 	@$(call targetinfo, $@)
 ifdef PTXCONF_LOCALES_EN_US
 	@$(call add_locale, en_US, en_US, ISO-8859-1, $(LOCALES_DIR))
@@ -115,7 +112,7 @@ endif
 
 locales_targetinstall: $(STATEDIR)/locales.targetinstall
 
-$(STATEDIR)/locales.targetinstall: $(locales_targetinstall_deps_default)
+$(STATEDIR)/locales.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, locales)
