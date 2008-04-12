@@ -185,7 +185,7 @@ check_compiler() {
 		fi
 
 		vendor_def="$(readlink -f ${PTXDIST_TOOLCHAIN}/ptxconfig)"
-		if [ -z "${vendor_def}" ]; then
+		if [ -z "${vendor_def}" -o \! -e "${vendor_def}" ]; then
 			echo
 			echo "${PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
 			echo "${PROMPT}error: set PTXCONF_CROSSCHAIN_VENDOR to disable toolchain version check"
@@ -897,7 +897,7 @@ toolchain() {
 		exit 1
 	fi
 	echo "${PROMPT}using toolchain in \"${toolchain}\""
-	test -h ".toolchain" && rm -f .toolchain
+	test -L ".toolchain" && rm -f .toolchain
 	if [ -e ".toolchain" ]; then
 		echo
 		echo "${PROMPT}error: There is a .toolchain in this directory which is no link."
@@ -1014,21 +1014,35 @@ setup_libs() {
 # setup PTXDIST_PLATFORMDIR properly
 #
 # out: PTXDIST_PLATFORMDIR
+#      PTXDIST_PLATFORMSUFFIX
+#      PTXDIST_PLATFORMCONFIGDIR
 #      "*DIR"	correct directory definitions
 #
-setup_platformdir() {
-	local ptxconf_platform
+setup_platform() {
+	local platform cfg_dir
 
-	ptxconf_platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+	platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
 
-	if [ -n "${ptxconf_platform}" ]; then
-		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${ptxconf_platform}"
+	if [ -n "${platform}" ]; then
+		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${platform}"
+		PTXDIST_PLATFORMSUFFIX=".${platform}"
 	else
 		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}"
+		PTXDIST_PLATFORMSUFFIX=""
 	fi
 
 	# reread vars with correct PTXDIST_PLATFORMDIR
 	. "${SCRIPTSDIR}/ptxdist_vars.sh"
+
+	if [ -L ${PLATFORMCONFIG} ]; then
+		cfg_dir="$(dirname "$(readlink -f "${PLATFORMCONFIG}")")"
+	elif [ -e ${PLATFORMCONFIG} ]; then
+		cfg_dir="$(dirname "${PLATFORMCONFIG}")"
+	else
+		unset cfg_dir
+	fi
+
+	PTXDIST_PLATFORMCONFIGDIR="${cfg_dir}"
 }
 
 
@@ -1093,7 +1107,7 @@ setup_topdir
 setup_traps
 setup_libs
 # ---  libs are available from here ---
-setup_platformdir
+setup_platform
 # --- platformdir and other *dirs are available from here ---
 setup_config
 # --- all variables are defined now ---
@@ -1112,6 +1126,7 @@ export \
 	PTXDIST_WORKSPACE \
 	\
 	PTXDIST_PLATFORMDIR \
+	PTXDIST_PLATFORMSUFFIX \
 	PTXDIST_PLATFORMCONFIGDIR
 
 check_uid
@@ -1190,11 +1205,11 @@ while [ "$#" != "0" ]; do
 			rm -f .toolchain
 			echo "${PROMPT}removing logs dir..."
 			rm -fr ${PTXDIST_PLATFORMDIR}/logfile
-			if [ -h "${PTXCONFIG}" ]; then
+			if [ -L "${PTXCONFIG}" ]; then
 				echo "${PROMPT}removing ptxconfig link..."
 				rm "${PTXCONFIG}"
 			fi
-			if [ -h "${PLATFORMCONFIG}" ]; then
+			if [ -L "${PLATFORMCONFIG}" ]; then
 				echo "${PROMPT}removing platformconfig link..."
 				rm "${PLATFORMCONFIG}"
 			fi

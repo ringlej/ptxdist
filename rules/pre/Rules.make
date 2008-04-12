@@ -12,9 +12,8 @@
 
 # FIXME: cleanup
 
-PTXUSER		= $(shell echo $$USER)
-GNU_BUILD	= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
-GNU_HOST	= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
+GNU_BUILD	:= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
+GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 DEP_OUTPUT	:= $(PTXDIST_PLATFORMDIR)/depend.out
 DEP_TREE_PS	:= $(PTXDIST_PLATFORMDIR)/deptree.ps
 DEP_TREE_A4_PS	:= $(PTXDIST_PLATFORMDIR)/deptree-a4.ps
@@ -33,7 +32,6 @@ WGET		= \
 	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
 	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
 	wget --cache=off --passive-ftp
-MAKE_INSTALL	= $(MAKE) install
 PATCH		:= patch
 TAR		:= tar
 GZIP		:= gzip
@@ -75,84 +73,49 @@ CHECK_PIPE_STATUS := \
 SYSROOT := $(PTXCONF_SYSROOT_TARGET)
 
 #
-# PKGDIR is the directory we install the packet sysroots and ipkgs into
-#
-PKGDIR := $(PTXDIST_PLATFORMDIR)/packages
-
-#
 # prepare the search path
 # In order to work correctly in cross path all local cross tools must be find first!
 #
-CROSS_PATH := $(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/sbin:$(PTXCONF_SYSROOT_HOST)/bin:$(PTXCONF_SYSROOT_HOST)/sbin:$$PATH
-
-#
-# same as PTXCONF_GNU_TARGET, but w/o -linux
-# e.g. i486 instead of i486-linux
-#
-SHORT_TARGET		:= $(shell echo $(PTXCONF_GNU_TARGET) | sed -e 's/^\([^-]*\)-.*/\1/')
-SHORT_HOST		:= $(shell echo $(GNU_HOST) | sed -e 's/^\([^-]*\)-.*/\1/')
-
-ifneq ($(PTXCONF_PLATFORM),)
-PLATFORM_SUFFIX:=.$(PTXCONF_PLATFORM)
-else
-PLATFORM_SUFFIX:=
-endif
+CROSS_PATH := $(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/sbin:$$PATH
 
 # ----------------------------------------------------------------------------
 # Environment
 # ----------------------------------------------------------------------------
 
 #
-# CFLAGS / CXXFLAGS
+# TARGET_*FLAGS
 #
+TARGET_CFLAGS		:= $(PTXCONF_TARGET_EXTRA_CFLAGS)
+TARGET_CXXFLAGS		:= $(PTXCONF_TARGET_EXTRA_CXXFLAGS)
+TARGET_CPPFLAGS		:= \
+	$(PTXCONF_TARGET_EXTRA_CPPFLAGS) \
+	-isystem $(SYSROOT)/include \
+	-isystem $(SYSROOT)/usr/include
 
-# FIXME: this is not really consistent any more; we want the arch specific
-#        stuff separate from other options, so we can do NATIVE builds.
-
-ifdef NATIVE
-TARGET_CFLAGS		=
-TARGET_CXXFLAGS		=
-TARGET_CPPFLAGS		=
-TARGET_LDFLAGS		=
-endif
-TARGET_CFLAGS		+= $(PTXCONF_TARGET_EXTRA_CFLAGS)
-TARGET_CXXFLAGS		+= $(PTXCONF_TARGET_EXTRA_CXXFLAGS)
-TARGET_CPPFLAGS		+= $(PTXCONF_TARGET_EXTRA_CPPFLAGS)
-TARGET_LDFLAGS		+= $(PTXCONF_TARGET_EXTRA_LDFLAGS)
-
-##
-## if we use an external crosschain set include and lib dirs correctly:
-##
-## - don't use system standard include paths
-## - find out the compiler's sysincludedir
-##
-ifndef $(PTXCONF_CROSSTOOL)
-TARGET_CXXFLAGS		+= -isystem $(SYSROOT)/include
-TARGET_CXXFLAGS		+= -isystem $(SYSROOT)/usr/include
-TARGET_CPPFLAGS		+= -isystem $(SYSROOT)/include
-TARGET_CPPFLAGS		+= -isystem $(SYSROOT)/usr/include
-TARGET_LDFLAGS		+= -L$(SYSROOT)/lib
-TARGET_LDFLAGS		+= -L$(SYSROOT)/usr/lib -Wl,-rpath-link -Wl,$(SYSROOT)/usr/lib
-endif
+TARGET_LDFLAGS		:= \
+	$(PTXCONF_TARGET_EXTRA_LDFLAGS) \
+	-L$(SYSROOT)/lib \
+	-L$(SYSROOT)/usr/lib \
+	-Wl,-rpath-link -Wl,$(SYSROOT)/usr/lib
 
 
 # Environment variables for toolchain components
 #
 # FIXME: Consolidate a bit more
 #
-COMPILER_PREFIX		:= $(call remove_quotes,$(PTXCONF_COMPILER_PREFIX))
-CROSS_AR		:= $(COMPILER_PREFIX)ar
-CROSS_AS		:= $(COMPILER_PREFIX)as
-CROSS_LD		:= $(COMPILER_PREFIX)ld
-CROSS_NM		:= $(COMPILER_PREFIX)nm
-CROSS_CC		:= $(COMPILER_PREFIX)gcc
-CROSS_CXX		:= $(COMPILER_PREFIX)g++
-CROSS_RANLIB		:= $(COMPILER_PREFIX)ranlib
-CROSS_READELF		:= $(COMPILER_PREFIX)readelf
-CROSS_OBJCOPY		:= $(COMPILER_PREFIX)objcopy
-CROSS_OBJDUMP		:= $(COMPILER_PREFIX)objdump
-CROSS_STRIP		:= $(COMPILER_PREFIX)strip
-CROSS_DLLTOOL		:= $(COMPILER_PREFIX)dlltool
+COMPILER_PREFIX		:= $(PTXCONF_COMPILER_PREFIX)
+CROSS_AR		:= $(PTXCONF_COMPILER_PREFIX)ar
+CROSS_AS		:= $(PTXCONF_COMPILER_PREFIX)as
+CROSS_LD		:= $(PTXCONF_COMPILER_PREFIX)ld
+CROSS_NM		:= $(PTXCONF_COMPILER_PREFIX)nm
+CROSS_CC		:= $(PTXCONF_COMPILER_PREFIX)gcc
+CROSS_CXX		:= $(PTXCONF_COMPILER_PREFIX)g++
+CROSS_RANLIB		:= $(PTXCONF_COMPILER_PREFIX)ranlib
+CROSS_READELF		:= $(PTXCONF_COMPILER_PREFIX)readelf
+CROSS_OBJCOPY		:= $(PTXCONF_COMPILER_PREFIX)objcopy
+CROSS_OBJDUMP		:= $(PTXCONF_COMPILER_PREFIX)objdump
+CROSS_STRIP		:= $(PTXCONF_COMPILER_PREFIX)strip
+CROSS_DLLTOOL		:= $(PTXCONF_COMPILER_PREFIX)dlltool
 
 CROSS_ENV_AR		:= AR=$(CROSS_AR)
 CROSS_ENV_AS		:= AS=$(CROSS_AS)
@@ -261,11 +224,6 @@ CROSS_ENV_AC := \
 CROSS_ENV_DESTDIR := \
 	DESTDIR=$(SYSROOT)
 
-ifdef NATIVE
-CROSS_ENV_LIBRARY_PATH := \
-	LD_LIBRARY_PATH="$(SYSROOT)/lib:$(SYSROOT)/usr/lib"
-endif
-
 #
 # We want to use DESTDIR and --prefix=/usr, to get no build paths in our
 # binaries. Unfortunately, not all packages support this, especially
@@ -288,8 +246,6 @@ CROSS_AUTOCONF_ARCH := \
 CROSS_AUTOCONF_BROKEN_USR := \
 	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=$(SYSROOT))
 
-ifndef NATIVE
-
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
 	$(CROSS_ENV_FLAGS) \
@@ -300,22 +256,6 @@ CROSS_ENV := \
 
 CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR) $(CROSS_AUTOCONF_ARCH)
 CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) $(CROSS_AUTOCONF_ARCH)
-
-else
-
-CROSS_ENV := \
-	$(CROSS_ENV_PROGS) \
-	$(CROSS_ENV_FLAGS) \
-	$(CROSS_ENV_PKG_CONFIG) \
-	$(CROSS_ENV_DESTDIR) \
-	$(CROSS_ENV_LIBRARY_PATH)
-
-CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR)
-CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT)
-
-endif
-
-
 
 # ----------------------------------------------------------------------------
 # HOST stuff

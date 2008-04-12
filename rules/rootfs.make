@@ -571,8 +571,8 @@ endif
 ifdef PTXCONF_ROOTFS_ETC_MODULES
 # /etc/modules
 	@file=$(PTXDIST_WORKSPACE)/projectroot/etc/modules; \
-	test -f $(PTXDIST_WORKSPACE)/projectroot/etc/modules$(PLATFORM_SUFFIX) && \
-		file=$(PTXDIST_WORKSPACE)/projectroot/etc/modules$(PLATFORM_SUFFIX); \
+	test -f $(PTXDIST_WORKSPACE)/projectroot/etc/modules$(PTXDIST_PLATFORMSUFFIX) && \
+		file=$(PTXDIST_WORKSPACE)/projectroot/etc/modules$(PTXDIST_PLATFORMSUFFIX); \
 	$(call install_copy, rootfs, 0, 0, 0644, $$file, /etc/modules, n)
 endif
 

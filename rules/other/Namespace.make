@@ -1,4 +1,5 @@
 PTXCONF_PLATFORM		:= $(call remove_quotes, $(PTXCONF_PLATFORM))
+PTXCONF_COMPILER_PREFIX		:= $(call remove_quotes, $(PTXCONF_COMPILER_PREFIX))
 
 PTXCONF_SYSROOT_TARGET		:= $(call remove_quotes, $(PTXCONF_SYSROOT_TARGET))
 PTXCONF_SYSROOT_HOST		:= $(call remove_quotes, $(PTXCONF_SYSROOT_HOST))
