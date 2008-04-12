@@ -30,7 +30,7 @@ U_BOOT_DIR	:= $(BUILDDIR)/$(U_BOOT)
 
 u-boot_get: $(STATEDIR)/u-boot.get
 
-$(STATEDIR)/u-boot.get: $(u-boot_get_deps_default)
+$(STATEDIR)/u-boot.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,7 +44,7 @@ $(U_BOOT_SOURCE):
 
 u-boot_extract: $(STATEDIR)/u-boot.extract
 
-$(STATEDIR)/u-boot.extract: $(u-boot_extract_deps_default)
+$(STATEDIR)/u-boot.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(U_BOOT_DIR))
 	@$(call extract, U_BOOT)
@@ -65,7 +65,7 @@ U_BOOT_ENV 	:= CROSS_COMPILE=$(COMPILER_PREFIX)
 #
 U_BOOT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/u-boot.prepare: $(u-boot_prepare_deps_default)
+$(STATEDIR)/u-boot.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(U_BOOT_DIR)/config.cache)
 	cd $(U_BOOT_DIR) && \
@@ -79,7 +79,7 @@ $(STATEDIR)/u-boot.prepare: $(u-boot_prepare_deps_default)
 
 u-boot_compile: $(STATEDIR)/u-boot.compile
 
-$(STATEDIR)/u-boot.compile: $(u-boot_compile_deps_default)
+$(STATEDIR)/u-boot.compile:
 	@$(call targetinfo, $@)
 # release 1.2.0 seems not be able to massive build in parallel
 	@cd $(U_BOOT_DIR) && \
@@ -93,7 +93,7 @@ $(STATEDIR)/u-boot.compile: $(u-boot_compile_deps_default)
 
 u-boot_install: $(STATEDIR)/u-boot.install
 
-$(STATEDIR)/u-boot.install: $(u-boot_install_deps_default)
+$(STATEDIR)/u-boot.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -103,7 +103,7 @@ $(STATEDIR)/u-boot.install: $(u-boot_install_deps_default)
 
 u-boot_targetinstall: $(STATEDIR)/u-boot.targetinstall
 
-$(STATEDIR)/u-boot.targetinstall: $(u-boot_targetinstall_deps_default)
+$(STATEDIR)/u-boot.targetinstall:
 	@$(call targetinfo, $@)
 
 	@install -D -m644 $(U_BOOT_DIR)/u-boot.bin $(IMAGEDIR)/u-boot.bin
