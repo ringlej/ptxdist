@@ -87,7 +87,7 @@ host-apache2_install: $(STATEDIR)/host-apache2.install
 
 $(STATEDIR)/host-apache2.install: $(host-apache2_install_deps_default)
 	@$(call targetinfo, $@)
-#	cd $(HOST_APACHE2_DIR) && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) $(MAKE_INSTALL)
+#	cd $(HOST_APACHE2_DIR) && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) $(MAKE) install
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
