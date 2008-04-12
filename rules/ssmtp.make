@@ -113,7 +113,6 @@ $(STATEDIR)/ssmtp.install: $(ssmtp_install_deps_default)
 	@$(call targetinfo, $@)
 	# FIXME
 	#@$(call install, SSMTP)
-#	cd $(SSMTP_DIR) && $(SSMTP_ENV) $(SSMTP_PATH) $(MAKE_INSTALL)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
