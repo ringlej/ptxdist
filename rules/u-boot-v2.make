@@ -39,7 +39,7 @@ U_BOOT_V2_URL		:= http://www.pengutronix.de/software/u-boot/download/$(U_BOOT_V2
 U_BOOT_V2_SOURCE	:= $(SRCDIR)/$(U_BOOT_V2).$(U_BOOT_V2_SUFFIX)
 U_BOOT_V2_DIR		:= $(BUILDDIR)/$(U_BOOT_V2)
 
-U_BOOT_V2_CONFIG	:= $(call remove_quotes,$(PTXDIST_WORKSPACE)/$(PTXCONF_U_BOOT_V2_CONFIG))
+U_BOOT_V2_CONFIG	:= $(call remove_quotes,$(PTXCONF_U_BOOT_V2_CONFIG))
 
 # ----------------------------------------------------------------------------
 # Get
