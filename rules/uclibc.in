@@ -16,7 +16,15 @@ config UCLIBC_LIBC
 	depends on UCLIBC
 	prompt "Install libc on the target"
 	help
-	  The C library
+	  Any Unix-like operating system needs a C library:
+	  the library which defines the "system calls" and
+	  other basic facilities such as open, malloc, printf,
+	  exit...
+
+	  The uClibc library is used as the C library in the
+	  GNU system and embedded systems with the Linux kernel.
+
+	  Better not turn this option off..
 
 config UCLIBC_CRYPT
 	bool
@@ -51,7 +59,18 @@ config UCLIBC_PTHREAD
 	depends on UCLIBC_LIBC
 	prompt "Install libpthread on the target"
 	help
-	  The posix threads library
+	  If at least one application on the target uses threads when executed
+	  this library will be required.
+
+config UCLIBC_THREAD_DB
+	bool
+	depends on UCLIBC_LIBC
+	prompt "Install libthread_db on the target"
+	help
+	  If at least one application on the target uses threads when executed
+	  and you are going to debug this application (also remotely!), this
+	  library will be required. You can omit this library, if you never
+	  intend to debug multithread application on your target.
 
 config UCLIBC_RESOLV
 	bool

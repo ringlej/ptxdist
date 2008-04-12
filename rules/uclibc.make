@@ -14,8 +14,7 @@
 #
 PACKAGES-$(PTXCONF_UCLIBC) += uclibc
 
-UCLIBC_VERSION	:= 1.0
-UCLIBC		:= uClibc-$(UCLIBC_VERSION)
+UCLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_UCLIBC_VERSION))
 
 # ----------------------------------------------------------------------------
 # Get
@@ -23,7 +22,7 @@ UCLIBC		:= uClibc-$(UCLIBC_VERSION)
 
 uclibc_get: $(STATEDIR)/uclibc.get
 
-$(STATEDIR)/uclibc.get: $(uclibc_get_deps_default)
+$(STATEDIR)/uclibc.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -33,7 +32,7 @@ $(STATEDIR)/uclibc.get: $(uclibc_get_deps_default)
 
 uclibc_extract: $(STATEDIR)/uclibc.extract
 
-$(STATEDIR)/uclibc.extract: $(uclibc_extract_deps_default)
+$(STATEDIR)/uclibc.extract:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,7 +42,7 @@ $(STATEDIR)/uclibc.extract: $(uclibc_extract_deps_default)
 
 uclibc_prepare: $(STATEDIR)/uclibc.prepare
 
-$(STATEDIR)/uclibc.prepare: $(uclibc_prepare_deps_default)
+$(STATEDIR)/uclibc.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -53,7 +52,7 @@ $(STATEDIR)/uclibc.prepare: $(uclibc_prepare_deps_default)
 
 uclibc_compile: $(STATEDIR)/uclibc.compile
 
-$(STATEDIR)/uclibc.compile: $(uclibc_compile_deps_default)
+$(STATEDIR)/uclibc.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -63,7 +62,7 @@ $(STATEDIR)/uclibc.compile: $(uclibc_compile_deps_default)
 
 uclibc_install: $(STATEDIR)/uclibc.install
 
-$(STATEDIR)/uclibc.install: $(uclibc_install_deps_default)
+$(STATEDIR)/uclibc.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -73,7 +72,7 @@ $(STATEDIR)/uclibc.install: $(uclibc_install_deps_default)
 
 uclibc_targetinstall: $(STATEDIR)/uclibc.targetinstall
 
-$(STATEDIR)/uclibc.targetinstall: $(uclibc_targetinstall_deps_default)
+$(STATEDIR)/uclibc.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, uclibc)
@@ -111,9 +110,10 @@ endif
 
 ifdef PTXCONF_UCLIBC_PTHREAD
 	@$(call install_copy_toolchain_lib, uclibc, libpthread.so)
-ifdef PTXCONF_GDBSERVER
-	@$(call install_copy_toolchain_lib, uclibc, libthread_db.so)
 endif
+
+ifdef PTXCONF_UCLIBC_THREAD_DB
+	@$(call install_copy_toolchain_lib, uclibc, libthread_db.so)
 endif
 
 ifdef PTXCONF_UCLIBC_RESOLV
