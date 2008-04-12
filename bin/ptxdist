@@ -126,7 +126,7 @@ check_kernelconfig() {
 check_uid() {
 	if [ ${UID} -eq 0 ]; then
 		echo
-		echo "${PROMPT}refusing to run PTXdist as root"
+		echo "${PROMPT}error: refusing to run PTXdist as root"
 		echo
 		exit 1
 	fi
@@ -139,7 +139,7 @@ check_path() {
 	case "${PATH}" in
 		.:*)
 			echo
-			echo "${PROMPT}\".\" in your \$PATH detected, please remove it!"
+			echo "${PROMPT}error: \".\" in your \$PATH detected, please remove it!"
 			echo
 			exit 1
 			;;
@@ -487,6 +487,7 @@ Misc
 				target, host, host-existing-target,
 				cross, cross-existing-target, source,
 				kernel_driver, font, simple
+
 EOF
 }
 
@@ -1131,6 +1132,11 @@ export \
 
 check_uid
 check_path
+
+if [ "$#" = "0" ]; then
+	usage
+	exit 0
+fi
 
 while [ "$#" != "0" ]; do
 
