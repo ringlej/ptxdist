@@ -19,7 +19,7 @@ TODO for 1.99.x
 
 [ ] mkl: reactiveate new install_copy feature (no explicid destination)
 
-[ ] rsc: put export LANG=C somewhere into PTXdist, to make compiler
+[x] rsc: put export LANG=C somewhere into PTXdist, to make compiler
          output more readable
 
 [ ] mol: bash configure --enable-job-control does not work when cross compiling
@@ -42,7 +42,7 @@ TODO for 1.99.x
 	-> check if samba_cv_HAVE_IFACE_IFCONF=yes and samba_cv_HAVE_MMAP=yes
 	   can be used all over all architectures as defaults
 
-[ ] jbe: suppress cross toolchain and toolchain vendor check while --native build
+[x] jbe: suppress cross toolchain and toolchain vendor check while --native build
 
 [ ] bbu: add minimal documentation for internal vars (useful for customer makefiles)
 	-> see manual (not quickstart)
@@ -69,7 +69,7 @@ TODO for 1.99.x
 [ ] rsc: xorg-data-xkbdata needs xkbcomp on the host - otherwhise we get
          a circular dependency ...
 
-[ ] jbe: if ptxdist was called with wrong parameters (and complains about it) it
+[x] jbe: if ptxdist was called with wrong parameters (and complains about it) it
 	 should return also an error return code (so something like
 	 "ptxdist clen kernel && ptxdist go" fails)
 
@@ -99,7 +99,7 @@ TODO for 1.99.x
 [ ] jbe: most of the time thttpd does not respond to the USR1 signal.
 	  - the start/stop script fails to stop this service
 
-[ ] jbe: Switching from generating hd image to jffs2 image _rebuilds_
+[x] jbe: Switching from generating hd image to jffs2 image _rebuilds_
 	 the the whole project!
 
 	 Known Problem: the virtual-cross-tools depends on host-mtd-utils,
@@ -118,7 +118,7 @@ TODO for 1.99.x
 	glib.make:40: warning: overriding commands for target `/home/all_src/glib-2.8.6.tar.bz2'
 	host-glib.make:38: warning: ignoring old commands for target `/home/all_src/glib-2.8.6.tar.bz2'
 
-[ ] jbe: if the "ptxdist toolchain" step was omited, ptxdist complains
+[x] jbe: if the "ptxdist toolchain" step was omited, ptxdist complains
 	 about toolchain vendor instead of missing toolchain
 
 [ ] jbe: it seems to extract a kernel always touches the local
@@ -401,7 +401,7 @@ make[1]: Leaving directory
 make: ***
 [/home/koan/ptxtest/generic_test/state/host-ipkg-utils.install] Error 2
 
-[ ] if a packet is not selected, it's dependencies are not generated. If
+[x] if a packet is not selected, it's dependencies are not generated. If
     you kick a stage then, the dependend stages are not executed.
     Solution: generate the stages as well, so we get an error in that
     case.
@@ -509,7 +509,7 @@ Old TODOs
 
 [ ] port scripts/mkprefix to non-perl
 
-[ ] ptxdist arch <arm|um|ppc|....>
+[x] ptxdist arch <arm|um|ppc|....>
 
     Split build-target into build-${PTXCONF_ARCH}
 
@@ -569,7 +569,7 @@ Old TODOs
 
 [ ] RSC:Invent a project_clean mechanism (workaround done)
 
-[ ] RSC:is "select GLIBC_DEBUG" in gdb.in necessary??
+[x] RSC:is "select GLIBC_DEBUG" in gdb.in necessary??
 
 [ ] sandeep: add a script to setup a new project interactively
 
