@@ -1,5 +1,5 @@
-config MKDEVNODES
-	bool "create primary rootfs devnodes for nfs"
+config FIX_PERMISSIONS
+	bool "create primary rootfs devnodes for nfs and fix permissions"
 	default n
 	help
 	  This function is useful for development

@@ -1,4 +1,4 @@
 # Meta Config File
 # Workplace Convenience
 
-source "rules/mk-devnodes.in"
+source "rules/fix-permissions.in"
