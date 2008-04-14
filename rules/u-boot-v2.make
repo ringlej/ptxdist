@@ -39,7 +39,7 @@ U_BOOT_V2_URL		:= http://www.pengutronix.de/software/u-boot/download/$(U_BOOT_V2
 U_BOOT_V2_SOURCE	:= $(SRCDIR)/$(U_BOOT_V2).$(U_BOOT_V2_SUFFIX)
 U_BOOT_V2_DIR		:= $(BUILDDIR)/$(U_BOOT_V2)
 
-U_BOOT_V2_CONFIG	:= $(call remove_quotes,$(PTXCONF_U_BOOT_V2_CONFIG))
+U_BOOT_V2_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_U_BOOT_V2_CONFIG))
 
 # ----------------------------------------------------------------------------
 # Get
@@ -159,7 +159,7 @@ u-boot-v2_oldconfig u-boot-v2_menuconfig: $(STATEDIR)/u-boot-v2.extract
 		cp $(U_BOOT_V2_CONFIG) $(U_BOOT_V2_DIR)/.config; \
 	fi
 	cd $(U_BOOT_V2_DIR) && \
-		$(U_BOOT_V2_PATH) $(MAKE) $(U_BOOT_V2_MAKEVARS) $(subst u-boot-v2_,,$@)
+		$(U_BOOT_V2_PATH) $(U_BOOT_V2_ENV) $(MAKE) $(U_BOOT_V2_MAKEVARS) $(subst u-boot-v2_,,$@)
 	@if cmp -s $(U_BOOT_V2_DIR)/.config $(U_BOOT_V2_CONFIG); then \
 		echo "U-Boot-v2 configuration unchanged"; \
 	else \

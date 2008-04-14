@@ -12,7 +12,7 @@ config U_BOOT_V2_CONFIG
 	prompt "config file"
 	depends on U_BOOT_V2
 	string
-	default "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-v2.config"
+	default "u-boot-v2.config"
 	help
 	  this entry specifies the .config file used to compile your U-Boot
 

@@ -113,7 +113,7 @@ config KERNEL_CONFIG
 	depends on KERNEL
 	prompt "kernel config file"
 	string
-	default "${PTXDIST_PLATFORMCONFIGDIR}/kernel.config"
+	default "kernel.config"
 	help
 	  this entry specifies the .config file used to compile your kernel
 

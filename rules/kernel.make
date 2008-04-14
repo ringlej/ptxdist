@@ -51,7 +51,7 @@ KERNEL_URL		= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
 
-KERNEL_CONFIG		:= $(call remove_quotes,$(PTXCONF_KERNEL_CONFIG))
+KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
 
 KERNEL_DIR_INSTALL	:= $(KERNEL_DIR)-install
 
