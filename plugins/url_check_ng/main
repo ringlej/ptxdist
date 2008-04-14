@@ -65,7 +65,7 @@ URL_CHECKER="$LINKCHECKER_BIN --no-warnings"
 # URL_CHECKER="wget --spider"
 
 PTXCONFIG="ptxconfig"
-M2B_ENV="state/environment"
+M2B_ENV="${PTXDIST_PLATFORMDIR}/state/environment"
 
 # ----------------------------------------------------------
 # Load ptx shell library and generic ptx configuration
