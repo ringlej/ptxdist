@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: template 1681 2004-09-01 18:12:49Z  $
+# $Id: template-make 7759 2008-02-12 21:05:07Z mkl $
 #
 # Copyright (C) 2004 by Sascha Hauer
+#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,21 +18,18 @@ PACKAGES-$(PTXCONF_READLINE) += readline
 #
 # Paths and names
 #
-READLINE_VERSION	= 5.0
-READLINE		= readline-$(READLINE_VERSION)
-READLINE_SUFFIX		= tar.gz
-READLINE_URL		= $(PTXCONF_SETUP_GNUMIRROR)/readline/$(READLINE).$(READLINE_SUFFIX)
-READLINE_SOURCE		= $(SRCDIR)/$(READLINE).$(READLINE_SUFFIX)
-READLINE_DIR		= $(BUILDDIR)/$(READLINE)
-
+READLINE_VERSION	:= 5.2
+READLINE		:= readline-$(READLINE_VERSION)
+READLINE_SUFFIX		:= tar.gz
+READLINE_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/readline/$(READLINE).$(READLINE_SUFFIX)
+READLINE_SOURCE		:= $(SRCDIR)/$(READLINE).$(READLINE_SUFFIX)
+READLINE_DIR		:= $(BUILDDIR)/$(READLINE)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-readline_get: $(STATEDIR)/readline.get
-
-$(STATEDIR)/readline.get: $(readline_get_deps_default)
+$(STATEDIR)/readline.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +41,7 @@ $(READLINE_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-readline_extract: $(STATEDIR)/readline.extract
-
-$(STATEDIR)/readline.extract: $(readline_extract_deps_default)
+$(STATEDIR)/readline.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(READLINE_DIR))
 	@$(call extract, READLINE)
@@ -56,11 +52,8 @@ $(STATEDIR)/readline.extract: $(readline_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-readline_prepare: $(STATEDIR)/readline.prepare
-
-READLINE_PATH	  =  PATH=$(CROSS_PATH)
-READLINE_ENV 	  =  $(CROSS_ENV)
-READLINE_MAKEVARS = DESTDIR=$(SYSROOT)
+READLINE_PATH	:= PATH=$(CROSS_PATH)
+READLINE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -74,11 +67,10 @@ ifdef PTXCONF_READLINE_TERMCAP
 READLINE_AUTOCONF += --without-curses
 endif
 ifdef PTXCONF_READLINE_NCURSES
-# uses termcap instead of ncurses if both are found!
 READLINE_AUTOCONF += --with-curses
 endif
 
-$(STATEDIR)/readline.prepare: $(readline_prepare_deps_default)
+$(STATEDIR)/readline.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(READLINE_DIR)/config.cache)
 	cd $(READLINE_DIR) && \
@@ -90,34 +82,25 @@ $(STATEDIR)/readline.prepare: $(readline_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-readline_compile: $(STATEDIR)/readline.compile
-
-$(STATEDIR)/readline.compile: $(readline_compile_deps_default)
+$(STATEDIR)/readline.compile:
 	@$(call targetinfo, $@)
-	cd $(READLINE_DIR) && $(READLINE_ENV) $(READLINE_PATH) make
+	cd $(READLINE_DIR) && $(READLINE_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-readline_install: $(STATEDIR)/readline.install
-
-$(STATEDIR)/readline.install: $(readline_install_deps_default)
+$(STATEDIR)/readline.install:
 	@$(call targetinfo, $@)
-	cd $(READLINE_DIR) && \
-		$(READLINE_ENV) $(READLINE_PATH) \
-		make install \
-		$(READLINE_MAKEVARS)
+	@$(call install, READLINE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-readline_targetinstall: $(STATEDIR)/readline.targetinstall
-
-$(STATEDIR)/readline.targetinstall: $(readline_targetinstall_deps_default)
+$(STATEDIR)/readline.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, readline)
@@ -129,9 +112,9 @@ $(STATEDIR)/readline.targetinstall: $(readline_targetinstall_deps_default)
 	@$(call install_fixup, readline,DEPENDS,)
 	@$(call install_fixup, readline,DESCRIPTION,missing)
 
-	@$(call install_copy, readline, 0, 0, 0644, $(READLINE_DIR)/shlib/libreadline.so.5.0, /lib/libreadline.so.5.0)
-	@$(call install_link, readline, libreadline.so.5.0, /lib/libreadline.so.5)
-	@$(call install_link, readline, libreadline.so.5.0, /lib/libreadline.so)
+	@$(call install_copy, readline, 0, 0, 0644, $(READLINE_DIR)/shlib/libreadline.so.5.2, /lib/libreadline.so.5.2)
+	@$(call install_link, readline, libreadline.so.5.2, /lib/libreadline.so.5)
+	@$(call install_link, readline, libreadline.so.5.2, /lib/libreadline.so)
 
 	@$(call install_finish, readline)
 
