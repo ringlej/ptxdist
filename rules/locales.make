@@ -25,8 +25,6 @@ LOCALES_DIR		:= $(BUILDDIR)/$(LOCALES)
 # Get
 # ----------------------------------------------------------------------------
 
-locales_get: $(STATEDIR)/locales.get
-
 $(STATEDIR)/locales.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -35,8 +33,6 @@ $(STATEDIR)/locales.get:
 # Extract
 # ----------------------------------------------------------------------------
 
-locales_extract: $(STATEDIR)/locales.extract
-
 $(STATEDIR)/locales.extract:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -44,13 +40,6 @@ $(STATEDIR)/locales.extract:
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-locales_prepare: $(STATEDIR)/locales.prepare
-
-#
-# autoconf
-#
-LOCALES_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/locales.prepare:
 	@$(call targetinfo, $@)
@@ -62,8 +51,6 @@ $(STATEDIR)/locales.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-locales_compile: $(STATEDIR)/locales.compile
-
 $(STATEDIR)/locales.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -71,8 +58,6 @@ $(STATEDIR)/locales.compile:
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
-
-locales_install: $(STATEDIR)/locales.install
 
 $(STATEDIR)/locales.install:
 	@$(call targetinfo, $@)
@@ -109,8 +94,6 @@ endif
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-locales_targetinstall: $(STATEDIR)/locales.targetinstall
 
 $(STATEDIR)/locales.targetinstall:
 	@$(call targetinfo, $@)
