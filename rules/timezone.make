@@ -19,73 +19,72 @@ PACKAGES-$(PTXCONF_TIMEZONE) += timezone
 #
 TIMEZONE_VERSION	:= 1.0
 TIMEZONE		:= timezone
-TIMEZONE_DIR		:= $(BUILDDIR)/$(TIMEZONE)-temp/usr/share/
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_AFRICA) := "Africa"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_ATLANTIC) += "Atlantic"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_EUROPE) += "Europe"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_EST5EDT) += "EST5EDT"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_CANADA) += "Canada"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_FACTORY) += "Factory"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_GMT0) += "GMT-0"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_ICELAND) += "Iceland"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_JAPAN) += "Japan"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_MST7MDT) += "MST7MDT"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_NAVAJO) += "Navajo"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_WSU) += "W-SU"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_AMERICA) += "America"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_AUSTRALIA) += "Australia"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_CHILE) += "Chile"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_EGYPT) += "Egypt"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_GB) += "GB"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_GMT0) += "GMT0"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_INDIAN) += "Indian"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_KWAJALEIN) += "Kwajalein"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_MEXICO) += "Mexico"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_PRC) += "PRC"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_ROC) += "ROC"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_UCT) += "UCT"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_WET) += "WET"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_ANTARCTICA) += "Antarctica"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_BRAZIL) += "Brazil"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_CUBA) += "Cuba"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_EIRE) += "Eire"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_IRAN) += "Iran"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_LIBYA) += "Libya"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_MIDEAST) += "Mideast"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_PST8PDT) += "PST8PDT"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_ROK) += "ROK"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_US) += "US"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_ZULU) += "Zulu"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_ARCTIC) += "Arctic"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_CET) += "CET"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_EET) += "EET"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_ETC) += "Etc"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_GMT) += "GMT"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_HST) += "HST"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_ISRAEL) += "Israel"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_MET) += "MET"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_NZ) += "NZ"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_PACIFIC) += "Pacific"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_SINGAPORE) += "Singapore"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_UTC) += "UTC"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_ASIA) += "Asia"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_CST6CDT) += "CST6CDT"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_EST) += "EST"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_GMT0) += "GMT+0"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_HONGKONG) += "Hongkong"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_JAMAICA) += "Jamaica"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_MST) += "MST"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_NZ_CHAT) += "NZ-CHAT"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_SYSTEMV) += "SystemV"
-GLIBC_ZONEFILES-$(PTXCONF_TIMEZONE_UNIVERSAL) += "Universal"
+TIMEZONE_DIR		:= $(BUILDDIR)/$(TIMEZONE)/usr/share/
+
+TIMEZONE-$(PTXCONF_TIMEZONE_AFRICA) := "Africa"
+TIMEZONE-$(PTXCONF_TIMEZONE_ATLANTIC) += "Atlantic"
+TIMEZONE-$(PTXCONF_TIMEZONE_EUROPE) += "Europe"
+TIMEZONE-$(PTXCONF_TIMEZONE_EST5EDT) += "EST5EDT"
+TIMEZONE-$(PTXCONF_TIMEZONE_CANADA) += "Canada"
+TIMEZONE-$(PTXCONF_TIMEZONE_FACTORY) += "Factory"
+TIMEZONE-$(PTXCONF_TIMEZONE_GMT0) += "GMT-0"
+TIMEZONE-$(PTXCONF_TIMEZONE_ICELAND) += "Iceland"
+TIMEZONE-$(PTXCONF_TIMEZONE_JAPAN) += "Japan"
+TIMEZONE-$(PTXCONF_TIMEZONE_MST7MDT) += "MST7MDT"
+TIMEZONE-$(PTXCONF_TIMEZONE_NAVAJO) += "Navajo"
+TIMEZONE-$(PTXCONF_TIMEZONE_WSU) += "W-SU"
+TIMEZONE-$(PTXCONF_TIMEZONE_AMERICA) += "America"
+TIMEZONE-$(PTXCONF_TIMEZONE_AUSTRALIA) += "Australia"
+TIMEZONE-$(PTXCONF_TIMEZONE_CHILE) += "Chile"
+TIMEZONE-$(PTXCONF_TIMEZONE_EGYPT) += "Egypt"
+TIMEZONE-$(PTXCONF_TIMEZONE_GB) += "GB"
+TIMEZONE-$(PTXCONF_TIMEZONE_GMT0) += "GMT0"
+TIMEZONE-$(PTXCONF_TIMEZONE_INDIAN) += "Indian"
+TIMEZONE-$(PTXCONF_TIMEZONE_KWAJALEIN) += "Kwajalein"
+TIMEZONE-$(PTXCONF_TIMEZONE_MEXICO) += "Mexico"
+TIMEZONE-$(PTXCONF_TIMEZONE_PRC) += "PRC"
+TIMEZONE-$(PTXCONF_TIMEZONE_ROC) += "ROC"
+TIMEZONE-$(PTXCONF_TIMEZONE_UCT) += "UCT"
+TIMEZONE-$(PTXCONF_TIMEZONE_WET) += "WET"
+TIMEZONE-$(PTXCONF_TIMEZONE_ANTARCTICA) += "Antarctica"
+TIMEZONE-$(PTXCONF_TIMEZONE_BRAZIL) += "Brazil"
+TIMEZONE-$(PTXCONF_TIMEZONE_CUBA) += "Cuba"
+TIMEZONE-$(PTXCONF_TIMEZONE_EIRE) += "Eire"
+TIMEZONE-$(PTXCONF_TIMEZONE_IRAN) += "Iran"
+TIMEZONE-$(PTXCONF_TIMEZONE_LIBYA) += "Libya"
+TIMEZONE-$(PTXCONF_TIMEZONE_MIDEAST) += "Mideast"
+TIMEZONE-$(PTXCONF_TIMEZONE_PST8PDT) += "PST8PDT"
+TIMEZONE-$(PTXCONF_TIMEZONE_ROK) += "ROK"
+TIMEZONE-$(PTXCONF_TIMEZONE_US) += "US"
+TIMEZONE-$(PTXCONF_TIMEZONE_ZULU) += "Zulu"
+TIMEZONE-$(PTXCONF_TIMEZONE_ARCTIC) += "Arctic"
+TIMEZONE-$(PTXCONF_TIMEZONE_CET) += "CET"
+TIMEZONE-$(PTXCONF_TIMEZONE_EET) += "EET"
+TIMEZONE-$(PTXCONF_TIMEZONE_ETC) += "Etc"
+TIMEZONE-$(PTXCONF_TIMEZONE_GMT) += "GMT"
+TIMEZONE-$(PTXCONF_TIMEZONE_HST) += "HST"
+TIMEZONE-$(PTXCONF_TIMEZONE_ISRAEL) += "Israel"
+TIMEZONE-$(PTXCONF_TIMEZONE_MET) += "MET"
+TIMEZONE-$(PTXCONF_TIMEZONE_NZ) += "NZ"
+TIMEZONE-$(PTXCONF_TIMEZONE_PACIFIC) += "Pacific"
+TIMEZONE-$(PTXCONF_TIMEZONE_SINGAPORE) += "Singapore"
+TIMEZONE-$(PTXCONF_TIMEZONE_UTC) += "UTC"
+TIMEZONE-$(PTXCONF_TIMEZONE_ASIA) += "Asia"
+TIMEZONE-$(PTXCONF_TIMEZONE_CST6CDT) += "CST6CDT"
+TIMEZONE-$(PTXCONF_TIMEZONE_EST) += "EST"
+TIMEZONE-$(PTXCONF_TIMEZONE_GMT0) += "GMT+0"
+TIMEZONE-$(PTXCONF_TIMEZONE_HONGKONG) += "Hongkong"
+TIMEZONE-$(PTXCONF_TIMEZONE_JAMAICA) += "Jamaica"
+TIMEZONE-$(PTXCONF_TIMEZONE_MST) += "MST"
+TIMEZONE-$(PTXCONF_TIMEZONE_NZ_CHAT) += "NZ-CHAT"
+TIMEZONE-$(PTXCONF_TIMEZONE_SYSTEMV) += "SystemV"
+TIMEZONE-$(PTXCONF_TIMEZONE_UNIVERSAL) += "Universal"
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-timezone_get: $(STATEDIR)/timezone.get
-
-$(STATEDIR)/timezone.get: $(timezone_get_deps_default)
+$(STATEDIR)/timezone.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -97,9 +96,7 @@ $(TIMEZONE_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-timezone_extract: $(STATEDIR)/timezone.extract
-
-$(STATEDIR)/timezone.extract: $(timezone_extract_deps_default)
+$(STATEDIR)/timezone.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(TIMEZONE_DIR))
 	@mkdir -p $(TIMEZONE_DIR)
@@ -109,9 +106,7 @@ $(STATEDIR)/timezone.extract: $(timezone_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-timezone_prepare: $(STATEDIR)/timezone.prepare
-
-$(STATEDIR)/timezone.prepare: $(timezone_prepare_deps_default)
+$(STATEDIR)/timezone.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -119,9 +114,7 @@ $(STATEDIR)/timezone.prepare: $(timezone_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-timezone_compile: $(STATEDIR)/timezone.compile
-
-$(STATEDIR)/timezone.compile: $(timezone_compile_deps_default)
+$(STATEDIR)/timezone.compile:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -129,9 +122,7 @@ $(STATEDIR)/timezone.compile: $(timezone_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-timezone_install: $(STATEDIR)/timezone.install
-
-$(STATEDIR)/timezone.install: $(timezone_install_deps_default)
+$(STATEDIR)/timezone.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -139,9 +130,7 @@ $(STATEDIR)/timezone.install: $(timezone_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-timezone_targetinstall: $(STATEDIR)/timezone.targetinstall
-
-$(STATEDIR)/timezone.targetinstall: $(timezone_targetinstall_deps_default)
+$(STATEDIR)/timezone.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, timezone)
@@ -153,7 +142,7 @@ $(STATEDIR)/timezone.targetinstall: $(timezone_targetinstall_deps_default)
 	@$(call install_fixup, timezone,DEPENDS,)
 	@$(call install_fixup, timezone,DESCRIPTION,missing)
 
-	@for target in $(GLIBC_ZONEFILES-y); do \
+	@for target in $(TIMEZONE-y); do \
 		$(call add_zoneinfo, $$target, $(TIMEZONE_DIR)); \
 	done
 
