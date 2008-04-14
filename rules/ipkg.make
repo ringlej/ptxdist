@@ -29,8 +29,6 @@ IPKG_DIR	:= $(BUILDDIR)/$(IPKG)
 # Get
 # ----------------------------------------------------------------------------
 
-ipkg_get: $(STATEDIR)/ipkg.get
-
 $(STATEDIR)/ipkg.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -43,8 +41,6 @@ $(IPKG_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-ipkg_extract: $(STATEDIR)/ipkg.extract
-
 $(STATEDIR)/ipkg.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPKG_DIR))
@@ -55,8 +51,6 @@ $(STATEDIR)/ipkg.extract:
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-ipkg_prepare: $(STATEDIR)/ipkg.prepare
 
 IPKG_PATH	=  PATH=$(CROSS_PATH)
 IPKG_ENV 	=  $(CROSS_ENV)
@@ -78,8 +72,6 @@ $(STATEDIR)/ipkg.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-ipkg_compile: $(STATEDIR)/ipkg.compile
-
 $(STATEDIR)/ipkg.compile:
 	@$(call targetinfo, $@)
 	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) $(MAKE)
@@ -89,8 +81,6 @@ $(STATEDIR)/ipkg.compile:
 # Install
 # ----------------------------------------------------------------------------
 
-ipkg_install: $(STATEDIR)/ipkg.install
-
 $(STATEDIR)/ipkg.install:
 	@$(call targetinfo, $@)
 	@$(call install, IPKG)
@@ -99,8 +89,6 @@ $(STATEDIR)/ipkg.install:
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-ipkg_targetinstall: $(STATEDIR)/ipkg.targetinstall
 
 $(STATEDIR)/ipkg.targetinstall:
 	@$(call targetinfo, $@)
