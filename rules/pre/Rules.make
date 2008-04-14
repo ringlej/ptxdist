@@ -249,7 +249,7 @@ CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) $(CROSS_AUTOCONF_ARCH)
 HOSTCC_ENV	:= CC=$(HOSTCC)
 HOSTCXX_ENV	:= CXX=$(HOSTCXX)
 
-HOST_PATH	:= $(PTXCONF_SYSROOT_HOST)/bin:$(PTXCONF_SYSROOT_HOST)/sbin:$$PATH
+HOST_PATH	:= $$PATH
 
 HOST_CPPFLAGS	:= -I$(PTXCONF_SYSROOT_HOST)/include
 HOST_LDFLAGS	:= -L$(PTXCONF_SYSROOT_HOST)/lib -Wl,-rpath -Wl,$(PTXCONF_SYSROOT_HOST)/lib
@@ -1146,7 +1146,7 @@ install_finish = 												\
 #
 install_autoinstall = 										\
 	PACKET=$(strip $(1));									\
-	PACKNAME=$(strip $(2));								\
+	PACKNAME=$(strip $(2));									\
 	OWN=$(strip $(3));									\
 	GRP=$(strip $(4));									\
 	PER=$(strip $(5));									\
