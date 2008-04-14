@@ -577,16 +577,6 @@ ifdef PTXCONF_ROOTFS_ETC_MODULES
 endif
 
 # -----------------------------------------------------------------------------
-ifdef PTXCONF_ROOTFS_GENERIC_IPKG_CONF
-	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
-	@$(call install_replace, rootfs, /etc/ipkg.conf, @SRC@, \
-		$(PTXCONF_ROOTFS_GENERIC_IPKG_CONF_URL))
-	@$(call install_replace, rootfs, /etc/ipkg.conf, @ARCH@, \
-		$(PTXCONF_ARCH_STRING))
-endif
-
-# -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_UDHCPC
 
 ifdef PTXCONF_ROOTFS_GENERIC_UDHCPC
