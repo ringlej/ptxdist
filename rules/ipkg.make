@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_IPKG) += ipkg
 #
 # Paths and names
 #
-IPKG_VERSION		= 0.99.163
-IPKG			= ipkg-$(IPKG_VERSION)
-IPKG_SUFFIX		= tar.gz
-IPKG_URL		= http://handhelds.org/download/packages/ipkg/$(IPKG).$(IPKG_SUFFIX)
-IPKG_SOURCE		= $(SRCDIR)/$(IPKG).$(IPKG_SUFFIX)
-IPKG_DIR		= $(BUILDDIR)/$(IPKG)
+IPKG_VERSION	:= 0.99.163
+IPKG		:= ipkg-$(IPKG_VERSION)
+IPKG_SUFFIX	:= tar.gz
+IPKG_URL	:= http://handhelds.org/download/packages/ipkg/$(IPKG).$(IPKG_SUFFIX)
+IPKG_SOURCE	:= $(SRCDIR)/$(IPKG).$(IPKG_SUFFIX)
+IPKG_DIR	:= $(BUILDDIR)/$(IPKG)
 
 
 # ----------------------------------------------------------------------------
@@ -31,7 +31,7 @@ IPKG_DIR		= $(BUILDDIR)/$(IPKG)
 
 ipkg_get: $(STATEDIR)/ipkg.get
 
-$(STATEDIR)/ipkg.get: $(ipkg_get_deps_default)
+$(STATEDIR)/ipkg.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(IPKG_SOURCE):
 
 ipkg_extract: $(STATEDIR)/ipkg.extract
 
-$(STATEDIR)/ipkg.extract: $(ipkg_extract_deps_default)
+$(STATEDIR)/ipkg.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPKG_DIR))
 	@$(call extract, IPKG)
@@ -66,7 +66,7 @@ IPKG_ENV 	=  $(CROSS_ENV)
 #
 IPKG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/ipkg.prepare: $(ipkg_prepare_deps_default)
+$(STATEDIR)/ipkg.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(IPKG_DIR)/config.cache)
 	cd $(IPKG_DIR) && \
@@ -80,9 +80,9 @@ $(STATEDIR)/ipkg.prepare: $(ipkg_prepare_deps_default)
 
 ipkg_compile: $(STATEDIR)/ipkg.compile
 
-$(STATEDIR)/ipkg.compile: $(ipkg_compile_deps_default)
+$(STATEDIR)/ipkg.compile:
 	@$(call targetinfo, $@)
-	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) make
+	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -91,7 +91,7 @@ $(STATEDIR)/ipkg.compile: $(ipkg_compile_deps_default)
 
 ipkg_install: $(STATEDIR)/ipkg.install
 
-$(STATEDIR)/ipkg.install: $(ipkg_install_deps_default)
+$(STATEDIR)/ipkg.install:
 	@$(call targetinfo, $@)
 	@$(call install, IPKG)
 	@$(call touch, $@)
@@ -102,7 +102,7 @@ $(STATEDIR)/ipkg.install: $(ipkg_install_deps_default)
 
 ipkg_targetinstall: $(STATEDIR)/ipkg.targetinstall
 
-$(STATEDIR)/ipkg.targetinstall: $(ipkg_targetinstall_deps_default)
+$(STATEDIR)/ipkg.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, ipkg)
@@ -140,12 +140,12 @@ ifdef PTXCONF_IPKG_HASH_TEST
 endif
 
 ifdef PTXCONF_IPKG_GENERIC_IPKG_CONF
-	@$(call install_copy, rootfs, 0, 0, 0644, \
+	@$(call install_copy, ipkg, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
-	$(call install_replace, rootfs, /etc/ipkg.conf, @SRC@, \
+	$(call install_replace, ipkg, /etc/ipkg.conf, @SRC@, \
 		$(PTXCONF_IPKG_GENERIC_IPKG_CONF_URL))
-	@$(call install_replace, rootfs, /etc/ipkg.conf, @ARCH@, \
-  		$(PTXCONF_ARCH_STRING))
+	@$(call install_replace, ipkg, /etc/ipkg.conf, @ARCH@, \
+		$(PTXCONF_ARCH_STRING))
 endif
 
 	@$(call install_finish, ipkg)
