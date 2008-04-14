@@ -14,15 +14,10 @@
 
 GNU_BUILD	:= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
 GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
-DEP_OUTPUT	:= $(PTXDIST_PLATFORMDIR)/depend.out
-DEP_TREE_PS	:= $(PTXDIST_PLATFORMDIR)/deptree.ps
-DEP_TREE_A4_PS	:= $(PTXDIST_PLATFORMDIR)/deptree-a4.ps
 
-SUDO		:= sudo
 HOSTCC		:= gcc
 HOSTCXX		:= g++
-DOT		:= dot
-SH		:= /bin/sh
+
 # FIXME: disabled caching in wget. Make sure that all patches on the webserver
 #        have a version number and reenable caching
 WGET		= \
@@ -32,19 +27,8 @@ WGET		= \
 	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
 	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
 	wget --cache=off --passive-ftp
-PATCH		:= patch
-TAR		:= tar
-GZIP		:= gzip
-ZCAT		:= zcat
-BZIP2		:= bzip2
-BZCAT		:= bzcat
-CAT		:= cat
-MKTEMP		:= mktemp
-AWK		:= awk
-PERL		:= perl
-GREP		:= grep
+
 INSTALL		:= install
-BSD_FILE	:= file
 
 PARALLELMFLAGS  ?= -j$(shell if [ -r /proc/cpuinfo ];				\
 	then echo $$(( `cat /proc/cpuinfo | grep -e '^processor' | wc -l` * 2 ));	\
@@ -407,10 +391,10 @@ extract =							\
 	echo "extract: dest=$$DEST";				\
 	case "$$PACKET" in					\
 	*gz)							\
-		EXTRACT=$(GZIP)					\
+		EXTRACT=gzip					\
 		;;						\
 	*bz2)							\
-		EXTRACT=$(BZIP2)				\
+		EXTRACT=bzip2					\
 		;;						\
 	*)							\
 		echo;						\
@@ -420,7 +404,7 @@ extract =							\
 		;;						\
 	esac;							\
 	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
-	$$EXTRACT -dc $$PACKET | $(TAR) -C $$DEST -xf -;	\
+	$$EXTRACT -dc $$PACKET | tar -C $$DEST -xf -;		\
 	$(CHECK_PIPE_STATUS)
 
 #
@@ -499,46 +483,6 @@ get =								\
 		exit -1;					\
 		;;						\
 	esac;
-
-
-#
-# get_options
-#
-# Returns an options from the ptxconfig file
-#
-# $1: regex, that's applied to the ptxconfig file
-#     format: 's/foo/bar/'
-#
-# $2: default option, this value is returned if the regex outputs nothing
-#
-get_option =										\
-	$(shell										\
-		REGEX="$(strip $(1))";							\
-		DEFAULT="$(strip $(2))";						\
-		if [ -f $(PTXDIST_WORKSPACE)/ptxconfig ]; then				\
-			VALUE=`$(CAT) $(PTXDIST_WORKSPACE)/ptxconfig | sed -n -e "$${REGEX}p"`;	\
-		fi;									\
-		echo $${VALUE:-$$DEFAULT}						\
-	)
-
-
-#
-# get_option_ext
-#
-# Returns an options from the .config file
-#
-# $1: regex, that's applied to the .config file
-#     format: 's/foo/bar/'
-# $2: command that get in STDIN the output from the regex magic
-#     should return something in STDOUT
-#
-get_option_ext =									\
-	$(shell										\
-		REGEX="$(strip $(1))";							\
-		if [ -f $(PTXDIST_WORKSPACE)/.config ]; then				\
-			$(CAT) $(PTXDIST_WORKSPACE)/.config | sed -n -e "$${REGEX}p" | $(2);	\
-		fi;									\
-	)
 
 
 #
@@ -861,7 +805,7 @@ install_copy = 											\
 		(0 | n | no)									\
 			;;									\
 		(*)											\
-			$(BSD_FILE) $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST | $(GREP) -q "not stripped";	\
+			file $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST | grep -q "not stripped";		\
 				case "$$?" in								\
 				(0)									\
 				$(CROSS_STRIP) -R .note -R .comment $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST;	\
@@ -1169,7 +1113,7 @@ install_finish = 												\
 	fi;													\
 	echo -n "install_finish: creating package directory ... ";						\
 	(echo "pushd $(PKGDIR)/$$PACKET.tmp/ipkg;";								\
-	$(AWK) -F: $(DOPERMISSIONS) $(STATEDIR)/$$PACKET.perms; echo "popd;"; 					\
+	awk -F: $(DOPERMISSIONS) $(STATEDIR)/$$PACKET.perms; echo "popd;"; 					\
 	echo -n "echo \"install_finish: packaging ipkg packet ... \"; ";					\
 	echo -n "$(PTXCONF_SYSROOT_HOST)/bin/ipkg-build "; 							\
 	echo    "$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(PKGDIR)/$$PACKET.tmp/ipkg $(PKGDIR)") |$(FAKEROOT) -- 2>&1;	\
