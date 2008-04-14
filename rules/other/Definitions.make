@@ -9,25 +9,6 @@ nullstring:=
 space:= $(nullstring) $(nullstring)
 quote:="#"
 
-#
-# Make to bash export (M2B):
-#
-M2B=$(STATEDIR)/environment
-#
-# Select make variables for export to shell (by full name)
-#
-M2B_DUMP_VARIABLES := \
-	PTXCONF_CONFIGFILE_VERSION \
-	PTXCONFIG PTXCONF_SYSROOT_TARGET PTXCONF_PROJECT PTXCONF_PROJECT_VERSION \
-	PTXDIST_WORKSPACE PTXDIST_TOPDIR \
-	PTXDIST PTXDIST_FULLVERSION \
-	RULESDIR SCRIPTSDIR STATEDIR SYSROOT WORKDIR \
-	PACKAGES- PACKAGES-y PACKAGES-m
-
-#
-# Select make variables for export to shell (by suffix)
-#
-M2B_DUMP_SUFFIXES := _URL _DIR _VERSION _SOURCE
 
 # remove_quotes
 #
@@ -41,3 +22,5 @@ add_quote = $(subst $(quote),\$(quote),$(1))
 tr_sh = $(strip $(shell echo $(1) | sed 'y%*+%pp%;s%[^_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]%_%g'))
 uppercase = $(shell echo $(strip $(1)) | tr "a-z.-" "A-Z__")
 
+# vim600:set foldmethod=marker:
+# vim600:set syntax=make:
