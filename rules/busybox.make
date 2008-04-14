@@ -17,21 +17,19 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION		= 1.10.0
-BUSYBOX			= busybox-$(BUSYBOX_VERSION)
-BUSYBOX_SUFFIX		= tar.bz2
-BUSYBOX_URL		= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
-BUSYBOX_SOURCE		= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
-BUSYBOX_DIR		= $(BUILDDIR)/$(BUSYBOX)
-
+BUSYBOX_VERSION	:= 1.10.0
+BUSYBOX		:= busybox-$(BUSYBOX_VERSION)
+BUSYBOX_SUFFIX	:= tar.bz2
+BUSYBOX_URL	:= http://www.busybox.net/downloads//$(BUSYBOX).$(BUSYBOX_SUFFIX)
+BUSYBOX_SOURCE	:= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
+BUSYBOX_DIR	:= $(BUILDDIR)/$(BUSYBOX)
+BUSYBOX_PKGDIR	:= $(PKGDIR)/$(BUSYBOX)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-busybox_get: $(STATEDIR)/busybox.get
-
-$(STATEDIR)/busybox.get: $(busybox_get_deps_default)
+$(STATEDIR)/busybox.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +41,7 @@ $(BUSYBOX_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-busybox_extract: $(STATEDIR)/busybox.extract
-
-$(STATEDIR)/busybox.extract: $(busybox_extract_deps_default)
+$(STATEDIR)/busybox.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(BUSYBOX_DIR))
 	@$(call extract, BUSYBOX)
@@ -56,68 +52,54 @@ $(STATEDIR)/busybox.extract: $(busybox_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-busybox_prepare: $(STATEDIR)/busybox.prepare
-
-BUSYBOX_PATH		=  PATH=$(CROSS_PATH)
-BUSYBOX_ENV 		=  $(CROSS_ENV)
-
-BUSYBOX_TARGET_LDFLAGS	=  $(call remove_quotes,$(TARGET_LDFLAGS))
-ifdef PTXCONF_BB_CONFIG_STATIC
-BUSYBOX_TARGET_LDFLAGS	+= -static
-endif
+BUSYBOX_PATH	:= PATH=$(CROSS_PATH)
+BUSYBOX_ENV 	:= $(CROSS_ENV)
 
 BUSYBOX_MAKEVARS=\
 	ARCH=$(PTXCONF_ARCH_STRING) \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	HOSTCC=$(HOSTCC) \
-	EXTRA_CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))' \
-	LDFLAGS='$(BUSYBOX_TARGET_LDFLAGS)' \
-	PREFIX=$(SYSROOT)
+	$(PARALLELMFLAGS)
 
-$(STATEDIR)/busybox.prepare: $(busybox_prepare_deps_default)
+$(STATEDIR)/busybox.prepare:
 	@$(call targetinfo, $@)
 
-#	FIXME: is this necessary?
-	touch $(BUSYBOX_DIR)/busybox.links
-
-	$(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) distclean $(BUSYBOX_MAKEVARS)
+	cd $(BUSYBOX_DIR) && \
+		$(BUSYBOX_PATH) $(BUSYBOX_ENV) \
+		$(MAKE) distclean $(BUSYBOX_MAKEVARS)
 	grep -e PTXCONF_BB_CONFIG_ $(PTXDIST_WORKSPACE)/ptxconfig | \
 		sed -e 's/PTXCONF_BB_CONFIG_/CONFIG_/g' > $(BUSYBOX_DIR)/.config
-	yes "" | $(BUSYBOX_PATH) make -C $(BUSYBOX_DIR) oldconfig $(BUSYBOX_MAKEVARS)
-
+	cd $(BUSYBOX_DIR) && yes "" | $(BUSYBOX_PATH) $(BUSYBOX_ENV) $(MAKE) \
+		$(BUSYBOX_MAKEVARS) oldconfig
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-busybox_compile: $(STATEDIR)/busybox.compile
-
-$(STATEDIR)/busybox.compile: $(busybox_compile_deps_default)
+$(STATEDIR)/busybox.compile:
 	@$(call targetinfo, $@)
-	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) $(MAKE) $(BUSYBOX_MAKEVARS) $(PARALLELMFLAGS)
+	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) $(MAKE) \
+		$(BUSYBOX_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-busybox_install: $(STATEDIR)/busybox.install
-
-$(STATEDIR)/busybox.install: $(busybox_install_deps_default)
+$(STATEDIR)/busybox.install:
 	@$(call targetinfo, $@)
-# Note: If symbol BB_PREFIX is empty when entering the prepare stage
-# this stage will fail! Ensure BB_PREFIX contains something like "./_install"
-	@$(call install, BUSYBOX)
+	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) $(MAKE) \
+		$(BUSYBOX_MAKEVARS) CONFIG_PREFIX=$(SYSROOT) install
+	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) $(MAKE) \
+		$(BUSYBOX_MAKEVARS) CONFIG_PREFIX=$(BUSYBOX_PKGDIR) install
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-busybox_targetinstall: $(STATEDIR)/busybox.targetinstall
-
-$(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps_default)
+$(STATEDIR)/busybox.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, busybox)
@@ -129,17 +111,15 @@ $(STATEDIR)/busybox.targetinstall: $(busybox_targetinstall_deps_default)
 	@$(call install_fixup, busybox,DEPENDS,)
 	@$(call install_fixup, busybox,DESCRIPTION,missing)
 
-	rm -f $(BUSYBOX_DIR)/busybox.links
-	cd $(BUSYBOX_DIR) && $(MAKE) busybox.links
-
 ifdef PTXCONF_BB_CONFIG_FEATURE_SUID
 	@$(call install_copy, busybox, 0, 0, 4755, $(BUSYBOX_DIR)/busybox, /bin/busybox)
 else
 	@$(call install_copy, busybox, 0, 0, 755, $(BUSYBOX_DIR)/busybox, /bin/busybox)
 endif
-	for file in `cat $(BUSYBOX_DIR)/busybox.links`; do	\
+	@for file in `cat $(BUSYBOX_DIR)/busybox.links`; do	\
 		$(call install_link, busybox, /bin/busybox, $$file);	\
 	done
+
 	@$(call install_finish, busybox)
 
 	@$(call touch, $@)
@@ -150,6 +130,7 @@ endif
 
 busybox_clean:
 	rm -rf $(STATEDIR)/busybox.*
+	rm -rf $(IMAGEDIR)/busybox_*
 	rm -rf $(BUSYBOX_DIR)
 
 # vim: syntax=make
