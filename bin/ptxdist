@@ -1,9 +1,11 @@
 #!/bin/bash
 
 export LANG=C
+export LC_ALL=POSIX
+export LC_CTYPE=POSIX
+
 PROMPT="ptxdist: "
 DEBUG=
-
 
 #
 # board setup
@@ -502,7 +504,7 @@ clean() {
 		rm -fr "${ROOTDIR}"
 		rm -fr "${ROOTDIR_DEBUG}"
 		echo "${PROMPT}cleaning targetinstall stages..."
-		rm -f "${STATEDIR}"/*.targetinstall
+		rm -f "${STATEDIR}"/*.targetinstall*
 		echo "${PROMPT}done."
 		echo
 		return
@@ -510,8 +512,8 @@ clean() {
 
 	# we want to clean a single package
 	if [ -n "$1" ]; then
-		check_if_selected $1
-		ptxd_make $1_clean
+		check_if_selected "${1}"
+		ptxd_make "${1}_clean"
 		return
 	fi
 
@@ -558,7 +560,7 @@ clean() {
 	fi
 
 	echo "${PROMPT}removing deps..."
-	rm -f ${PTXDIST_PLATFORMDIR}/{depend.out,deptree-a4.ps,deptree.ps}
+	rm -f "${PTXDIST_PLATFORMDIR}/"{depend.out,deptree-a4.ps,deptree.ps}
 	echo "${PROMPT}removing imagedir..."
 	rm -fr "${IMAGEDIR}"
 	echo "${PROMPT}removing root..."
@@ -567,14 +569,14 @@ clean() {
 	echo "${PROMPT}removing state..."
 	rm -fr "${STATEDIR}"
 	echo "${PROMPT}removing logfile..."
-	rm -f ${PTXDIST_PLATFORMDIR}/logfile
+	rm -f "${PTXDIST_PLATFORMDIR}/logfile"
 	echo "${PROMPT}removing test logfile..."
-	rm -f ${PTXDIST_PLATFORMDIR}/test.log
+	rm -f "${PTXDIST_PLATFORMDIR}/test.log"
 	echo "${PROMPT}removing packages dir..."
-	rm -fr ${PTXDIST_PLATFORMDIR}/packages
+	rm -fr "${PKGDIR}"
 
 	# remove the remaining PTXDIST_PLATFORMDIR (if empty)
-	rmdir ${PTXDIST_PLATFORMDIR} > /dev/null 2>&1
+	rmdir "${PTXDIST_PLATFORMDIR}" > /dev/null 2>&1
 
 	echo "${PROMPT}done."
 	echo
@@ -1226,16 +1228,16 @@ while [ "$#" != "0" ]; do
 			drop $1 $2
 			;;
 	export)		shift
-			if [ ! -d $1 ]; then
+			if [ ! -d "${1}" ]; then
 				echo
 				echo "${PROMPT}error: directory '$1' does not exist!"
 				echo
 				exit 1
 			fi
-			export EXPORTDIR=$1
+			export EXPORTDIR="${1}"
 			check_ptxconfig
 			check_deps
-			ptxd_make export $1 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
+			ptxd_make export 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
