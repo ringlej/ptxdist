@@ -14,6 +14,28 @@
 #
 # dump all internal make symbols
 #
+
+#
+# Make to bash export (M2B):
+#
+M2B=$(STATEDIR)/environment
+
+#
+# Select make variables for export to shell (by full name)
+#
+M2B_DUMP_VARIABLES := \
+	PTXCONF_CONFIGFILE_VERSION \
+	PTXCONFIG PTXCONF_SYSROOT_TARGET PTXCONF_PROJECT PTXCONF_PROJECT_VERSION \
+	PTXDIST_WORKSPACE PTXDIST_TOPDIR \
+	PTXDIST PTXDIST_FULLVERSION \
+	RULESDIR SCRIPTSDIR STATEDIR SYSROOT WORKDIR \
+	PACKAGES- PACKAGES-y PACKAGES-m
+
+#
+# Select make variables for export to shell (by suffix)
+#
+M2B_DUMP_SUFFIXES := _URL _DIR _VERSION _SOURCE
+
 $(M2B).symbols:
 	@echo "$(.VARIABLES)" 		\
 	| sed s/\ /\\n/g 		\
