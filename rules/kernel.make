@@ -256,7 +256,7 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 
 	@cd $(KERNEL_PKGDIR) &&					\
 		for file in `find . -type f | sed -e "s/\.\//\//g"`; do	\
-			$(call install_copy, kernel-modules, 0, 0, 0644, $(KERNEL_DIR_INSTALL)/$${file}, $${file}, n); \
+			$(call install_copy, kernel-modules, 0, 0, 0644, $(KERNEL_PKGDIR)/$${file}, $${file}, n); \
 		done
 
 	@$(call install_finish, kernel-modules)
