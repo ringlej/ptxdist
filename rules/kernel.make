@@ -85,8 +85,6 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-kernel_get: $(STATEDIR)/kernel.get
-
 $(STATEDIR)/kernel.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -99,8 +97,6 @@ $(KERNEL_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-kernel_extract: $(STATEDIR)/kernel.extract
-
 $(STATEDIR)/kernel.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(KERNEL_DIR))
@@ -111,8 +107,6 @@ $(STATEDIR)/kernel.extract:
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-kernel_prepare: $(STATEDIR)/kernel.prepare
 
 KERNEL_PATH	:= PATH=$(CROSS_PATH)
 KERNEL_ENV 	:= KCONFIG_NOTIMESTAMP=1
@@ -169,8 +163,6 @@ endif
 # Compile
 # ----------------------------------------------------------------------------
 
-kernel_compile: $(STATEDIR)/kernel.compile
-
 $(STATEDIR)/kernel.compile:
 	@$(call targetinfo, $@)
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
@@ -181,8 +173,6 @@ $(STATEDIR)/kernel.compile:
 # Install
 # ----------------------------------------------------------------------------
 
-kernel_install: $(STATEDIR)/kernel.install
-
 $(STATEDIR)/kernel.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -190,8 +180,6 @@ $(STATEDIR)/kernel.install:
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-kernel_targetinstall: $(STATEDIR)/kernel.targetinstall
 
 $(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.targetinstall.pre $(STATEDIR)/kernel.targetinstall.post
 	@$(call targetinfo, $@)
