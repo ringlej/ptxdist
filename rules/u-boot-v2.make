@@ -45,8 +45,6 @@ U_BOOT_V2_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF
 # Get
 # ----------------------------------------------------------------------------
 
-u-boot-v2_get: $(STATEDIR)/u-boot-v2.get
-
 $(STATEDIR)/u-boot-v2.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -59,8 +57,6 @@ $(U_BOOT_V2_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-u-boot-v2_extract: $(STATEDIR)/u-boot-v2.extract
-
 $(STATEDIR)/u-boot-v2.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(U_BOOT_V2_DIR))
@@ -71,8 +67,6 @@ $(STATEDIR)/u-boot-v2.extract:
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-u-boot-v2_prepare: $(STATEDIR)/u-boot-v2.prepare
 
 U_BOOT_V2_PATH	:= PATH=$(CROSS_PATH)
 U_BOOT_V2_ENV 	:= KCONFIG_NOTIMESTAMP=1
@@ -108,8 +102,6 @@ $(STATEDIR)/u-boot-v2.prepare: $(U_BOOT_V2_CONFIG)
 # Compile
 # ----------------------------------------------------------------------------
 
-u-boot-v2_compile: $(STATEDIR)/u-boot-v2.compile
-
 $(STATEDIR)/u-boot-v2.compile:
 	@$(call targetinfo, $@)
 	cd $(U_BOOT_V2_DIR) && $(U_BOOT_V2_PATH) $(MAKE) $(U_BOOT_V2_MAKEVARS)
@@ -118,8 +110,6 @@ $(STATEDIR)/u-boot-v2.compile:
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
-
-u-boot-v2_install: $(STATEDIR)/u-boot-v2.install
 
 $(STATEDIR)/u-boot-v2.install:
 	@$(call targetinfo, $@)
@@ -131,8 +121,6 @@ $(STATEDIR)/u-boot-v2.install:
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-u-boot-v2_targetinstall: $(STATEDIR)/u-boot-v2.targetinstall
 
 $(STATEDIR)/u-boot-v2.targetinstall:
 	@$(call targetinfo, $@)
