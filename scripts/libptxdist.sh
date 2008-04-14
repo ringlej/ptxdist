@@ -76,7 +76,7 @@ ptxd_kconfig() {
 #
 #
 ptxd_make() {
-	make $PTXDIST_MAKE_DBG -f "${PTXDIST_TOPDIR}/rules/other/Toplevel.make" "${@}"
+	make $PTXDIST_MAKE_DBG -r -f "${PTXDIST_TOPDIR}/rules/other/Toplevel.make" "${@}"
 }
 
 
