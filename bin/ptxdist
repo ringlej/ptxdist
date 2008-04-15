@@ -1056,9 +1056,11 @@ setup_platform() {
 #
 # out: PTXCONF_*	user preferences
 #      PTXDIST_SRCDIR
+#      PTXDIST_PARALLELMFLAGS_INTERN
+#      PTXDIST_PARALLELMFLAGS_EXTERN
 #
 setup_config() {
-	local rc_user rc_default
+	local rc_user rc_default cpus pmf_intern pmf_extern
 
 	rc_user="${HOME}/.ptxdistrc.${FULLVERSION}"
 	rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
@@ -1069,11 +1071,42 @@ setup_config() {
 		ptxd_source_kconfig "${rc_default}"
 	fi
 
+	#
+	# setup SRCDIR
+	#
 	if [ -z ${PTXCONF_SETUP_SRCDIR} ]; then
 		PTXDIST_SRCDIR="${PTXDIST_WORKSPACE}/src"
 	else
 		PTXDIST_SRCDIR="${PTXCONF_SETUP_SRCDIR}"
 	fi
+
+	#
+	# setup PARALLELMFLAGS
+	#
+
+	# default no parallel for now
+	pmf_extern=-j1
+
+	#
+	# user may override PARALLELMFLAGS
+	#
+	if [ -n "${PARALLELMFLAGS}" ]; then
+		pmf_intern="${PARALLELMFLAGS}"
+		unset PARALLELMFLAGS
+	elif [ -r /proc/cpuinfo ]; then
+		cpus="$(egrep '^(processor|cpu  )' /proc/cpuinfo | wc -l)"
+		if [ $cpus -eq 0 ]; then
+			cpus="1"
+		fi
+
+		pmf_intern=-j$(( $cpus * 2 ))
+	fi
+
+	#
+	# user may overwrite these, too
+	#
+	PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLELMFLAGS_INTERN:-${pmf_intern}}"
+	PTXDIST_PARALLELMFLAGS_EXTERN="${PTXDIST_PARALLELMFLAGS_EXTERN:-${pmf_extern}}"
 }
 
 
@@ -1130,7 +1163,9 @@ export \
 	\
 	PTXDIST_PLATFORMDIR \
 	PTXDIST_PLATFORMSUFFIX \
-	PTXDIST_PLATFORMCONFIGDIR
+	PTXDIST_PLATFORMCONFIGDIR \
+	\
+	PTXDIST_PARALLELMFLAGS_INTERN
 
 check_uid
 check_path
@@ -1190,7 +1225,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_compile 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
+			ptxd_make "${STATEDIR}/${1}.compile" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1245,7 +1280,7 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_if_selected $1
 			check_deps
-			ptxd_make $1_extract 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
+			ptxd_make "${STATEDIR}/{$1}.extract" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1258,7 +1293,7 @@ while [ "$#" != "0" ]; do
 				exit
 			else
 				check_if_selected $1
-				ptxd_make $1_get 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
+				ptxd_make "${STATEDIR}/${1}.get" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 				check_pipe_status
 				exit
 			fi
@@ -1291,7 +1326,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_install 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
+			ptxd_make "${STATEDIR}/${1}.install" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1357,7 +1392,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
+			ptxd_make "${1}" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1426,14 +1461,14 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_prepare 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
+			ptxd_make "${STATEDIR}/${1}.prepare" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
 	print)		shift
 			check_ptxconfig
 			check_deps
-			ptxd_make print-$1 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
+			ptxd_make "print-${1}" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			shift
 			;;
@@ -1462,14 +1497,16 @@ while [ "$#" != "0" ]; do
 			echo
 			exit
 			;;
-	setup)		shift; setup;;
+	setup)		shift
+			setup
+			;;
 	targetinstall)	shift
 			check_ptxconfig
 			check_if_selected $1
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make $1_targetinstall 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
+			ptxd_make "${STATEDIR}/${1}.targetinstall" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
