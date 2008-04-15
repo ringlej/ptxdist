@@ -1,6 +1,6 @@
 # -*-makefile-*-
 
-DEP_OUTPUT	:= $(PTXDIST_PLATFORMDIR)/depend.out
+DEP_OUTPUT	:= $(STATEDIR)/depend.out
 
 ### --- internal ---
 
