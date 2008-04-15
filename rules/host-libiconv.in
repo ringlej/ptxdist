@@ -1,17 +1,8 @@
-menuconfig HOST_LIBICONV
+config HOST_LIBICONV
 	bool
-	prompt "libiconv                    "
 	help
 
 	  libiconv converts traditional character encodings
 	  to/from UNICODE. It is for you if your application
 	  needs to support multiple character encodings, but
 	  that support lacks from your system.
-
-config HOST_LIBICONV_EXTRA_ENCODINGS
-	depends on HOST_LIBICONV
-	bool
-	prompt "build with support for extra encodings"
-	help
-	  provides support for a few extra encodings. See
-	  readme in source package for details.
