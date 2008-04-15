@@ -1,8 +1,9 @@
-config GLIB
+menuconfig GLIB
 	bool
-	prompt "glib"
-	select LIBICONV if GLIB_LIBICONV_GNU
-	select GETTEXT if GLIB_GETTEXT
+	prompt "glib                          "
+	select LIBICONV if GLIB__LIBICONV_GNU
+	select GETTEXT if GLIB__GETTEXT_GETTEXT
+	select GETTEXT_DUMMY if GLIB__GETTEXT_DUMMY
 	select HOST_GLIB
 	help
 	  GLib is a library containing many useful C routines for things
@@ -11,21 +12,42 @@ config GLIB
 	  and GNOME.
 
 choice
-	prompt "iconv variant" if !ARCH_MINGW
-	default GLIB_LIBICONV_GNU
+	prompt "iconv variant"
+	default GLIB__LIBICONV_GNU
 	depends on GLIB
 
-	config GLIB_LIBICONV_GNU
+	config GLIB__LIBICONV_GNU
 		bool
 		prompt "gnu (libiconv)"
 
-	config GLIB_LIBICONV_NATIVE
+	config GLIB__LIBICONV_NATIVE
 		bool
 		prompt "native"
 
 endchoice
 
-config GLIB_GETTEXT
-	bool
+choice
+	prompt "gettext variant"
+	default GLIB__GETTEXT_NONE
+	default GLIB__GETTEXT_GETTEXT if ARCH_MINGW
+	default GLIB__GETTEXT_DUMMY if ARCH_BLACKFIN
 	depends on GLIB
-	default y if ARCH_MINGW
+	# FIXME: platform
+
+	config GLIB__GETTEXT_NONE
+		bool
+		prompt "not needed"
+
+	config GLIB__GETTEXT_GETTEXT
+		bool
+		prompt "gnu (gettext)"
+
+	config GLIB__GETTEXT_DUMMY
+		bool
+		prompt "dummy"
+
+endchoice
+
+
+
+	
