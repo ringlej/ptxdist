@@ -1,8 +1,8 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
-#               Pengutronix <info@pengutronix.de>, Germany
+# Copyright (C) 2003-2008 by Robert Schwebel <r.schwebel@pengutronix.de>
+#                            Pengutronix <info@pengutronix.de>, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -29,8 +29,6 @@ GETTEXT_DIR	:= $(BUILDDIR)/$(GETTEXT)
 # Get
 # ----------------------------------------------------------------------------
 
-gettext_get: $(STATEDIR)/gettext.get
-
 $(STATEDIR)/gettext.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -43,8 +41,6 @@ $(GETTEXT_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-gettext_extract: $(STATEDIR)/gettext.extract
-
 $(STATEDIR)/gettext.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GETTEXT_DIR))
@@ -55,8 +51,6 @@ $(STATEDIR)/gettext.extract:
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-gettext_prepare: $(STATEDIR)/gettext.prepare
 
 GETTEXT_PATH	:= PATH=$(CROSS_PATH)
 GETTEXT_ENV 	:= $(CROSS_ENV)
@@ -70,7 +64,6 @@ GETTEXT_AUTOCONF := \
 	--disable-native-java \
 	--disable-csharp
 
-
 $(STATEDIR)/gettext.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(GETTEXT_DIR)/config.cache)
@@ -83,8 +76,6 @@ $(STATEDIR)/gettext.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-gettext_compile: $(STATEDIR)/gettext.compile
-
 $(STATEDIR)/gettext.compile:
 	@$(call targetinfo, $@)
 	cd $(GETTEXT_DIR) && $(GETTEXT_PATH) $(MAKE) $(PARALLELMFLAGS)
@@ -94,8 +85,6 @@ $(STATEDIR)/gettext.compile:
 # Install
 # ----------------------------------------------------------------------------
 
-gettext_install: $(STATEDIR)/gettext.install
-
 $(STATEDIR)/gettext.install:
 	@$(call targetinfo, $@)
 	@$(call install, GETTEXT)
@@ -104,8 +93,6 @@ $(STATEDIR)/gettext.install:
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-gettext_targetinstall: $(STATEDIR)/gettext.targetinstall
 
 $(STATEDIR)/gettext.targetinstall:
 	@$(call targetinfo, $@)
