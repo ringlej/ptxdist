@@ -30,11 +30,6 @@ WGET		= \
 
 INSTALL		:= install
 
-PARALLELMFLAGS  ?= -j$(shell if [ -r /proc/cpuinfo ];				\
-	then echo $$(( `cat /proc/cpuinfo | grep -e '^processor' | wc -l` * 2 ));	\
-		else echo 1;							\
-	fi)
-
 FAKEROOT	:= $(PTXCONF_SYSROOT_HOST)/bin/fakeroot -l $(PTXCONF_SYSROOT_HOST)/lib/libfakeroot.so
 
 CHECK_PIPE_STATUS := \

@@ -11,8 +11,6 @@ export SHELL
 # Some directory locations
 # ----------------------------------------------------------------------------
 
-SRCDIR := $(PTXDIST_SRCDIR)
-
 include $(PTXDIST_TOPDIR)/scripts/ptxdist_vars.sh
 include $(RULESDIR)/other/Definitions.make
 
