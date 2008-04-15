@@ -58,10 +58,11 @@ READLINE_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-READLINE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-		--enable-shared \
-		--disable-static\
-		--disable-multibyte
+READLINE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-shared \
+	--disable-static\
+	--disable-multibyte
 
 ifdef PTXCONF_READLINE_TERMCAP
 READLINE_AUTOCONF += --without-curses
