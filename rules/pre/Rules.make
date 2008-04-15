@@ -652,72 +652,77 @@ disable_sh =						\
 # $3: abs path to series file
 #
 patchin =										\
-	PACKET_NAME="$($(strip $(1)))"; 						\
-	URL="$($(strip $(1))_URL)";							\
-	ABS_SERIES_FILE="$(strip $(3))";						\
-											\
-	case $$URL in									\
-	file*)										\
-		THING="$$(echo $$URL | sed s-file://-/-g)";				\
-		if [ -d "$$THING" ]; then						\
-			echo "local directory instead of tar file, skipping patch"; 	\
-			exit 0; 							\
-		fi; 									\
-	esac; 										\
-											\
-	echo "PATCHIN: packet=$$PACKET_NAME";						\
-	if [ "$$PACKET_NAME" = "" ]; then						\
-		echo;									\
-		echo Error: empty parameter to \"patchin\(\)\";				\
-		echo;									\
-		exit -1;								\
-	fi;										\
-	PACKET_DIR="$(strip $(2))";							\
-	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};				\
-	echo "PATCHIN: dir=$$PACKET_DIR";						\
-											\
-	if test -n "$${ABS_SERIES_FILE}"; then						\
-		if [ ! -e "$${ABS_SERIES_FILE}" ]; then					\
-			echo -n "Series file for $$PACKET_NAME given, but series file ";\
-			echo "\"$${ABS_SERIES_FILE}\" does not exist";			\
-		exit -1;								\
-		fi;									\
-	else										\
-	patch_dirs="$(PROJECTPATCHDIR)/$$PACKET_NAME/generic				\
-	            $(PATCHDIR)/$$PACKET_NAME/generic";					\
-											\
-	for dir in $$patch_dirs; do							\
-		if [ -d $$dir ]; then							\
-			patch_dir=$$dir;						\
-			break;								\
-		fi;									\
-	done;										\
-											\
-	if [ -z "$$patch_dir" ]; then							\
-		echo "PATCHIN: no patches for $$PACKET_NAME available";			\
-		exit 0;									\
-	fi;										\
-											\
-	PACKET_SERIES="$(PTXCONF_$(strip $(1))_SERIES)";				\
-	if [ -n "$$PACKET_SERIES" -a ! -f "$$patch_dir/$$PACKET_SERIES" ]; then		\
-		echo -n "Series file for $$PACKET_NAME given, but series file ";	\
-		echo "\"$$patch_dir/$$PACKET_SERIES\" does not exist";			\
-		exit -1;								\
-	fi;										\
-	if [ -z "$$PACKET_SERIES" ]; then						\
-		PACKET_SERIES="series";							\
-	fi;										\
-	ABS_SERIES_FILE="$$patch_dir/$$PACKET_SERIES";					\
-	fi;										\
-											\
-	if [ -f "$${ABS_SERIES_FILE}" ]; then						\
-		echo "PATCHIN: using series file $${ABS_SERIES_FILE}";			\
-		$(SCRIPTSDIR)/apply_patch_series.sh -s "$${ABS_SERIES_FILE}"		\
-			-d $$PACKET_DIR;						\
-	else										\
-		$(SCRIPTSDIR)/apply_patch_series.sh -p "$$patch_dir"			\
-			-d $$PACKET_DIR	;						\
-	fi
+	PACKET_NAME="$($(strip $(1)))"; 							\
+	URL="$($(strip $(1))_URL)";								\
+	PACKET_DIR="$(strip $(2))";								\
+												\
+	if [ "$$PACKET_NAME" = "" ]; then							\
+		echo;										\
+		echo Error: empty parameter to \"patchin\(\)\";					\
+		echo;										\
+		exit -1;									\
+	fi;											\
+												\
+	echo "PATCHIN: packet=$$PACKET_NAME";							\
+												\
+	APPLY_PATCH=true;									\
+	case $$URL in										\
+	file*)											\
+		THING="$$(echo $$URL | sed s-file://-/-g)";					\
+		if [ -d "$$THING" ]; then							\
+			echo "local directory instead of tar file, skipping patch"; 		\
+			APPLY_PATCH=false;							\
+		fi; 										\
+	esac; 											\
+												\
+												\
+	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};					\
+	echo "PATCHIN: dir=$$PACKET_DIR";							\
+												\
+	if $${APPLY_PATCH}; then								\
+		patch_dirs="$(PROJECTPATCHDIR)/$$PACKET_NAME/generic				\
+		            $(PATCHDIR)/$$PACKET_NAME/generic";					\
+												\
+		for dir in $$patch_dirs; do							\
+			if [ -d $$dir ]; then							\
+				patch_dir=$$dir;						\
+				break;								\
+			fi;									\
+		done;										\
+												\
+		if [ -z "$$patch_dir" ]; then							\
+			echo "PATCHIN: no patches for $$PACKET_NAME available";			\
+		else										\
+			PACKET_SERIES="$(PTXCONF_$(strip $(1))_SERIES)";			\
+			if [ -n "$$PACKET_SERIES" -a ! -f "$$patch_dir/$$PACKET_SERIES" ]; then	\
+				echo -n "Series file for $$PACKET_NAME given, but series file ";\
+				echo "\"$$patch_dir/$$PACKET_SERIES\" does not exist";		\
+				exit -1;							\
+			fi;									\
+												\
+			if [ -z "$$PACKET_SERIES" ]; then					\
+				PACKET_SERIES="series";						\
+			fi;									\
+			ABS_SERIES_FILE="$$patch_dir/$$PACKET_SERIES";				\
+												\
+			if [ -f "$${ABS_SERIES_FILE}" ]; then					\
+				echo "PATCHIN: using series file $${ABS_SERIES_FILE}";		\
+				$(SCRIPTSDIR)/apply_patch_series.sh -s "$${ABS_SERIES_FILE}"	\
+					-d $$PACKET_DIR;					\
+			else									\
+				$(SCRIPTSDIR)/apply_patch_series.sh -p "$$patch_dir"		\
+					-d $$PACKET_DIR	;					\
+			fi;									\
+		fi;										\
+	fi;											\
+												\
+	find "$${PACKET_DIR}" -name "configure" | while read conf; do				\
+		echo "Fixing up $${conf}";							\
+		sed -i										\
+			-e "s=sed -e \"s/\\\\(\.\*\\\\)/\\\\1;/\"=sed -e \"s/\\\\(.*\\\\)/'\"\$$ac_symprfx\"'\\\\1;/\"=" \
+		"$${conf}";									\
+	done	
+
 
 #
 # install_copy
