@@ -560,7 +560,7 @@ clean() {
 	fi
 
 	echo "${PROMPT}removing deps..."
-	rm -f "${PTXDIST_PLATFORMDIR}/"{deptree-a4.ps,deptree.ps}
+	rm -f "${PTXDIST_PLATFORMDIR}/"{depend.out,deptree-a4.ps,deptree.ps}
 	echo "${PROMPT}removing imagedir..."
 	rm -fr "${IMAGEDIR}"
 	echo "${PROMPT}removing root..."
@@ -1225,7 +1225,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make "${STATEDIR}/${1}.compile"
+			ptxd_make "${STATEDIR}/${1}.compile" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1272,7 +1272,7 @@ while [ "$#" != "0" ]; do
 			export EXPORTDIR="${1}"
 			check_ptxconfig
 			check_deps
-			ptxd_make export
+			ptxd_make export 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1280,7 +1280,7 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_if_selected $1
 			check_deps
-			ptxd_make "${STATEDIR}/${1}.extract"
+			ptxd_make "${STATEDIR}/${1}.extract" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1288,12 +1288,12 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_deps
 			if [ $# -eq 0 ]; then
-				ptxd_make get
+				ptxd_make get 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 				check_pipe_status
 				exit
 			else
 				check_if_selected $1
-				ptxd_make "${STATEDIR}/${1}.get"
+				ptxd_make "${STATEDIR}/${1}.get" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 				check_pipe_status
 				exit
 			fi
@@ -1303,7 +1303,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make world
+			ptxd_make world 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1316,9 +1316,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make world
-			check_pipe_status
-			ptxd_make images
+			ptxd_make images 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1328,7 +1326,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make "${STATEDIR}/${1}.install"
+			ptxd_make "${STATEDIR}/${1}.install" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1394,7 +1392,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make "${1}"
+			ptxd_make "${1}" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
@@ -1463,14 +1461,14 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make "${STATEDIR}/${1}.prepare"
+			ptxd_make "${STATEDIR}/${1}.prepare" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
 	print)		shift
 			check_ptxconfig
 			check_deps
-			ptxd_make "print-${1}"
+			ptxd_make "print-${1}" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			shift
 			;;
@@ -1508,7 +1506,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make "${STATEDIR}/${1}.targetinstall"
+			ptxd_make "${STATEDIR}/${1}.targetinstall" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;

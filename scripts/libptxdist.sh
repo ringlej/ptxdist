@@ -76,9 +76,7 @@ ptxd_kconfig() {
 #
 #
 ptxd_make() {
-	make ${PTXDIST_MAKE_DBG} ${PTXDIST_PARALLELMFLAGS_EXTERN} \
-		-f "${PTXDIST_TOPDIR}/rules/other/Toplevel.make" "${@}" 2>&1 | 
-		tee -a ${PTXDIST_PLATFORMDIR}/logfile
+	make $PTXDIST_MAKE_DBG -f "${PTXDIST_TOPDIR}/rules/other/Toplevel.make" "${@}"
 }
 
 
