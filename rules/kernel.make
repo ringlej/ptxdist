@@ -181,7 +181,7 @@ $(STATEDIR)/kernel.install:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.targetinstall.pre $(STATEDIR)/kernel.targetinstall.post
+$(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.targetinstall.post
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
