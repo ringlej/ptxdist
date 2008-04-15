@@ -213,7 +213,7 @@ check_compiler() {
 	if [ -z "${compiler_is}" ]; then
 		echo
 		echo "${PROMPT}error: Compiler '${compiler}' not found. Check PATH or"
-		echo "${PROMPT}error: use 'ptxdist toolchain <path/to/toolchain>'."
+		echo "${PROMPT}error: use 'ptxdist toolchain [</path/to/toolchain>]'."
 		echo
 		exit 1
 	fi
@@ -1280,7 +1280,7 @@ while [ "$#" != "0" ]; do
 			check_ptxconfig
 			check_if_selected $1
 			check_deps
-			ptxd_make "${STATEDIR}/{$1}.extract" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
+			ptxd_make "${STATEDIR}/${1}.extract" 2>&1 | tee -a ${PTXDIST_PLATFORMDIR}/logfile
 			check_pipe_status
 			exit
 			;;
