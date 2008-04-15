@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 5709 2006-06-09 13:55:00Z mkl $
 #
-# Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBICONV) += libiconv
 #
 # Paths and names
 #
-LIBICONV_VERSION	:= 1.11
+LIBICONV_VERSION	:= 1.12
 LIBICONV		:= libiconv-$(LIBICONV_VERSION)
 LIBICONV_SUFFIX		:= tar.gz
 LIBICONV_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/libiconv/$(LIBICONV).$(LIBICONV_SUFFIX)
@@ -28,9 +28,7 @@ LIBICONV_DIR		:= $(BUILDDIR)/$(LIBICONV)
 # Get
 # ----------------------------------------------------------------------------
 
-libiconv_get: $(STATEDIR)/libiconv.get
-
-$(STATEDIR)/libiconv.get: $(libiconv_get_deps_default)
+$(STATEDIR)/libiconv.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -42,9 +40,7 @@ $(LIBICONV_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-libiconv_extract: $(STATEDIR)/libiconv.extract
-
-$(STATEDIR)/libiconv.extract: $(libiconv_extract_deps_default)
+$(STATEDIR)/libiconv.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBICONV_DIR))
 	@$(call extract, LIBICONV)
@@ -55,22 +51,21 @@ $(STATEDIR)/libiconv.extract: $(libiconv_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-libiconv_prepare: $(STATEDIR)/libiconv.prepare
-
 LIBICONV_PATH	:=  PATH=$(CROSS_PATH)
 LIBICONV_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBICONV_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+LIBICONV_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--enable-static
 
 ifdef PTXCONF_LIBICONV_EXTRA_ENCODINGS
-	LIBICONV_AUTOCONF += --enable-extra-encodings
+LIBICONV_AUTOCONF += --enable-extra-encodings
 endif
 
-$(STATEDIR)/libiconv.prepare: $(libiconv_prepare_deps_default)
+$(STATEDIR)/libiconv.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBICONV_DIR)/config.cache)
 	cd $(LIBICONV_DIR) && \
@@ -82,9 +77,7 @@ $(STATEDIR)/libiconv.prepare: $(libiconv_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-libiconv_compile: $(STATEDIR)/libiconv.compile
-
-$(STATEDIR)/libiconv.compile: $(libiconv_compile_deps_default)
+$(STATEDIR)/libiconv.compile:
 	@$(call targetinfo, $@)
 	cd $(LIBICONV_DIR) && $(LIBICONV_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -93,9 +86,7 @@ $(STATEDIR)/libiconv.compile: $(libiconv_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-libiconv_install: $(STATEDIR)/libiconv.install
-
-$(STATEDIR)/libiconv.install: $(libiconv_install_deps_default)
+$(STATEDIR)/libiconv.install:
 	@$(call targetinfo, $@)
 	@$(call install, LIBICONV)
 	@$(call touch, $@)
@@ -104,9 +95,7 @@ $(STATEDIR)/libiconv.install: $(libiconv_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libiconv_targetinstall: $(STATEDIR)/libiconv.targetinstall
-
-$(STATEDIR)/libiconv.targetinstall: $(libiconv_targetinstall_deps_default)
+$(STATEDIR)/libiconv.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, libiconv)
