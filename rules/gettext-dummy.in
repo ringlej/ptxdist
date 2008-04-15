@@ -1,0 +1,4 @@
+config GETTEXT_DUMMY
+	bool
+	help
+	  This is a small do nothing replacement for the gettext monster

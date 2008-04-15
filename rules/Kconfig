@@ -155,6 +155,7 @@ source "rules/db41.in"
 source "rules/db44.in"
 source "rules/expat.in"
 source "rules/gettext.in"
+source "rules/gettext-dummy.in"
 source "rules/hrtimers-support.in"
 source "rules/libusb.in"
 
