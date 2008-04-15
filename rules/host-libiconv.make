@@ -23,8 +23,6 @@ HOST_LIBICONV_DIR	= $(HOST_BUILDDIR)/$(LIBICONV)
 # Get
 # ----------------------------------------------------------------------------
 
-host-libiconv_get: $(STATEDIR)/host-libiconv.get
-
 $(STATEDIR)/host-libiconv.get: $(STATEDIR)/libiconv.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -33,9 +31,7 @@ $(STATEDIR)/host-libiconv.get: $(STATEDIR)/libiconv.get
 # Extract
 # ----------------------------------------------------------------------------
 
-host-libiconv_extract: $(STATEDIR)/host-libiconv.extract
-
-$(STATEDIR)/host-libiconv.extract: $(host-libiconv_extract_deps_default)
+$(STATEDIR)/host-libiconv.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_LIBICONV_DIR))
 	@$(call extract, LIBICONV, $(HOST_BUILDDIR))
@@ -46,8 +42,6 @@ $(STATEDIR)/host-libiconv.extract: $(host-libiconv_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-libiconv_prepare: $(STATEDIR)/host-libiconv.prepare
-
 HOST_LIBICONV_PATH	:= PATH=$(HOST_PATH)
 HOST_LIBICONV_ENV 	:= $(HOST_ENV)
 
@@ -56,7 +50,7 @@ HOST_LIBICONV_ENV 	:= $(HOST_ENV)
 #
 HOST_LIBICONV_AUTOCONF	:= $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-libiconv.prepare: $(host-libiconv_prepare_deps_default)
+$(STATEDIR)/host-libiconv.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_LIBICONV_DIR)/config.cache)
 	cd $(HOST_LIBICONV_DIR) && \
@@ -68,9 +62,7 @@ $(STATEDIR)/host-libiconv.prepare: $(host-libiconv_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-host-libiconv_compile: $(STATEDIR)/host-libiconv.compile
-
-$(STATEDIR)/host-libiconv.compile: $(host-libiconv_compile_deps_default)
+$(STATEDIR)/host-libiconv.compile:
 	@$(call targetinfo, $@)
 	cd $(HOST_LIBICONV_DIR) && $(HOST_LIBICONV_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -79,9 +71,7 @@ $(STATEDIR)/host-libiconv.compile: $(host-libiconv_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-host-libiconv_install: $(STATEDIR)/host-libiconv.install
-
-$(STATEDIR)/host-libiconv.install: $(host-libiconv_install_deps_default)
+$(STATEDIR)/host-libiconv.install:
 	@$(call targetinfo, $@)
 	@$(call install, HOST_LIBICONV,,h)
 	@$(call touch, $@)
