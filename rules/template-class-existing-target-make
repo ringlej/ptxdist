@@ -23,8 +23,6 @@
 # Get
 # ----------------------------------------------------------------------------
 
-@class@@packet@_get: $(STATEDIR)/@class@@packet@.get
-
 $(STATEDIR)/@class@@packet@.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -32,8 +30,6 @@ $(STATEDIR)/@class@@packet@.get:
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
-
-@class@@packet@_extract: $(STATEDIR)/@class@@packet@.extract
 
 $(STATEDIR)/@class@@packet@.extract:
 	@$(call targetinfo, $@)
@@ -45,8 +41,6 @@ $(STATEDIR)/@class@@packet@.extract:
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-@class@@packet@_prepare: $(STATEDIR)/@class@@packet@.prepare
 
 @CLASS@@PACKET@_PATH	:= PATH=$(@CLASS@PATH)
 @CLASS@@PACKET@_ENV 	:= $(@CLASS@ENV)
@@ -68,8 +62,6 @@ $(STATEDIR)/@class@@packet@.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-@class@@packet@_compile: $(STATEDIR)/@class@@packet@.compile
-
 $(STATEDIR)/@class@@packet@.compile:
 	@$(call targetinfo, $@)
 	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
@@ -78,8 +70,6 @@ $(STATEDIR)/@class@@packet@.compile:
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
-
-@class@@packet@_install: $(STATEDIR)/@class@@packet@.install
 
 $(STATEDIR)/@class@@packet@.install:
 	@$(call targetinfo, $@)

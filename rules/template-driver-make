@@ -31,8 +31,6 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-@packet@_get: $(STATEDIR)/@packet@.get
-
 $(STATEDIR)/@packet@.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -45,8 +43,6 @@ $(@PACKET@_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-@packet@_extract: $(STATEDIR)/@packet@.extract
-
 $(STATEDIR)/@packet@.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
@@ -57,8 +53,6 @@ $(STATEDIR)/@packet@.extract:
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-@packet@_prepare: $(STATEDIR)/@packet@.prepare
 
 @PACKET@_PATH	:= PATH=$(CROSS_PATH)
 @PACKET@_ENV 	:= $(CROSS_ENV)
@@ -71,8 +65,6 @@ $(STATEDIR)/@packet@.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-@packet@_compile: $(STATEDIR)/@packet@.compile
-
 $(STATEDIR)/@packet@.compile:
 	@$(call targetinfo, $@)
 	cd $(@PACKET@_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS)
@@ -82,8 +74,6 @@ $(STATEDIR)/@packet@.compile:
 # Install
 # ----------------------------------------------------------------------------
 
-@packet@_install: $(STATEDIR)/@packet@.install
-
 $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -91,8 +81,6 @@ $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-@packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
 
 $(STATEDIR)/@packet@.targetinstall:
 	@$(call targetinfo, $@)

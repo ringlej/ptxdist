@@ -26,8 +26,6 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 # Get
 # ----------------------------------------------------------------------------
 
-@packet@_get: $(STATEDIR)/@packet@.get
-
 $(STATEDIR)/@packet@.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -35,8 +33,6 @@ $(STATEDIR)/@packet@.get:
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
-
-@packet@_extract: $(STATEDIR)/@packet@.extract
 
 $(STATEDIR)/@packet@.extract:
 	@$(call targetinfo, $@)
@@ -49,8 +45,6 @@ $(STATEDIR)/@packet@.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-@packet@_prepare: $(STATEDIR)/@packet@.prepare
-
 @PACKET@_PATH	:= PATH=$(CROSS_PATH)
 @PACKET@_ENV 	:= $(CROSS_ENV)
 
@@ -62,8 +56,6 @@ $(STATEDIR)/@packet@.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-@packet@_compile: $(STATEDIR)/@packet@.compile
-
 $(STATEDIR)/@packet@.compile:
 	@$(call targetinfo, $@)
 	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
@@ -73,8 +65,6 @@ $(STATEDIR)/@packet@.compile:
 # Install
 # ----------------------------------------------------------------------------
 
-@packet@_install: $(STATEDIR)/@packet@.install
-
 $(STATEDIR)/@packet@.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -82,8 +72,6 @@ $(STATEDIR)/@packet@.install:
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-@packet@_targetinstall: $(STATEDIR)/@packet@.targetinstall
 
 $(STATEDIR)/@packet@.targetinstall:
 	@$(call targetinfo, $@)
