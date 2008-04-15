@@ -23,8 +23,6 @@ HOST_GLIB_DIR	= $(HOST_BUILDDIR)/$(GLIB)
 # Get
 # ----------------------------------------------------------------------------
 
-host-glib_get: $(STATEDIR)/host-glib.get
-
 $(STATEDIR)/host-glib.get: $(STATEDIR)/glib.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -33,9 +31,7 @@ $(STATEDIR)/host-glib.get: $(STATEDIR)/glib.get
 # Extract
 # ----------------------------------------------------------------------------
 
-host-glib_extract: $(STATEDIR)/host-glib.extract
-
-$(STATEDIR)/host-glib.extract: $(host-glib_extract_deps_default)
+$(STATEDIR)/host-glib.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_GLIB_DIR))
 	@$(call extract, GLIB, $(HOST_BUILDDIR))
@@ -45,8 +41,6 @@ $(STATEDIR)/host-glib.extract: $(host-glib_extract_deps_default)
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-glib_prepare: $(STATEDIR)/host-glib.prepare
 
 HOST_GLIB_PATH	:= PATH=$(HOST_PATH)
 HOST_GLIB_ENV 	:= $(HOST_ENV)
@@ -60,7 +54,7 @@ HOST_GLIB_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--with-libiconv=gnu
 
-$(STATEDIR)/host-glib.prepare: $(host-glib_prepare_deps_default)
+$(STATEDIR)/host-glib.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_GLIB_DIR)/config.cache)
 	cd $(HOST_GLIB_DIR) && \
@@ -72,9 +66,7 @@ $(STATEDIR)/host-glib.prepare: $(host-glib_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-host-glib_compile: $(STATEDIR)/host-glib.compile
-
-$(STATEDIR)/host-glib.compile: $(host-glib_compile_deps_default)
+$(STATEDIR)/host-glib.compile:
 	@$(call targetinfo, $@)
 	cd $(HOST_GLIB_DIR) && $(HOST_GLIB_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -83,9 +75,7 @@ $(STATEDIR)/host-glib.compile: $(host-glib_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-host-glib_install: $(STATEDIR)/host-glib.install
-
-$(STATEDIR)/host-glib.install: $(host-glib_install_deps_default)
+$(STATEDIR)/host-glib.install:
 	@$(call targetinfo, $@)
 	@$(call install, HOST_GLIB,,h)
 	@$(call touch, $@)
