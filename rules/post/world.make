@@ -34,12 +34,39 @@ $(WORLD_DEP_TREE_PS): $(DEP_OUTPUT)
 	@sort $< | uniq | \
 		$(SCRIPTSDIR)/makedeptree | dot -Tps > $@
 
-
 ### --- world ---
 
+$(STATEDIR)/%.get:
+	@$(call targetinfo)
+	@$(call touch)
+
+$(STATEDIR)/%.extract:
+	@$(call targetinfo)
+	@$(call clean, $($(PTX_MAP_PACKAGE_$(*))_DIR))
+	@$(call extract, $(PTX_MAP_PACKAGE_$(*)))
+	@$(call patchin, $(PTX_MAP_PACKAGE_$(*)))
+	@$(call touch)
+
+$(STATEDIR)/%.prepare:
+	@$(call targetinfo)
+	@$(call clean, $($($(PTX_MAP_PACKAGE_$(*))_DIR)/config.cache))
+	$(call world/prepare/simple, $(PTX_MAP_PACKAGE_$(*)))
+	@$(call touch)
+
+$(STATEDIR)/%.compile:
+	@$(call targetinfo)
+	$(call world/compile/simple, $(PTX_MAP_PACKAGE_$(*)))
+	@$(call touch)
+
+$(STATEDIR)/%.install:
+	@$(call targetinfo)
+	@$(call install, $(PTX_MAP_PACKAGE_$(*)))
+	@$(call touch)
+
 $(STATEDIR)/%.targetinstall.post:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
+
 
 $(STATEDIR)/world.targetinstall: $(WORLD_PACKAGES_TARGETINSTALL) \
 	$(WORLD_HOST_PACKAGES_INSTALL) \
