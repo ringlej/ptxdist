@@ -651,7 +651,7 @@ disable_sh =						\
 #     from the packet name
 # $3: abs path to series file
 #
-patchin =										\
+patchin =											\
 	PACKET_NAME="$($(strip $(1)))"; 							\
 	URL="$($(strip $(1))_URL)";								\
 	PACKET_DIR="$(strip $(2))";								\
@@ -716,7 +716,7 @@ patchin =										\
 		fi;										\
 	fi;											\
 												\
-	find "$${PACKET_DIR}" -name "configure" | while read conf; do				\
+	find "$${PACKET_DIR}" -name "configure" -a \! -wholename "*/.pc/*" | while read conf; do\
 		echo "Fixing up $${conf}";							\
 		sed -i										\
 			-e "s=sed -e \"s/\\\\(\.\*\\\\)/\\\\1;/\"=sed -e \"s/\\\\(.*\\\\)/'\"\$$ac_symprfx\"'\\\\1;/\"=" \
