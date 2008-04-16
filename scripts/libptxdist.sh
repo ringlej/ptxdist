@@ -80,7 +80,11 @@ ptxd_make() {
 }
 
 ptxd_make_log() {
-	ptxd_make "${@}" 2>&1 | tee -a "${PTXDIST_PLATFORMDIR}/logfile"
+	if [ -z "${PTXDIST_QUIET}" ]; then
+		ptxd_make "${@}" 2>&1 | tee -a "${PTXDIST_PLATFORMDIR}/logfile"
+	else
+		ptxd_make "${@}" > "${PTXDIST_PLATFORMDIR}/logfile"
+	fi
 }
 
 
@@ -103,7 +107,7 @@ ptxd_abspath() {
 #
 ptxd_human_to_number() {
 	local num
-	if [ "$#" != 1 ]; then
+	if [ ${#} -ne 1 ]; then
 		echo "usage: ptxd_human_to_number <number>"
 		exit 1
 	fi
@@ -123,8 +127,8 @@ ptxd_name_to_NAME() {
 		echo "usage: ptxd_name_to_NAME <pkg-name>"
 		exit 1
 	fi
-	name=$(echo $1 | tr 'a-z-' 'A-Z_')
-	echo $name
+	name="$(echo "${1}" | tr 'a-z-' 'A-Z_')"
+	echo "${name}"
 }
 
 #

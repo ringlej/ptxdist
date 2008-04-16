@@ -275,33 +275,52 @@ HOST_AUTOCONF  := --prefix=$(PTXCONF_SYSROOT_HOST)
 #
 # Print out the targetinfo line on the terminal
 #
-# $1: name of the target to be printed out
-#
-targetinfo = 							\
-	echo;							\
-	TG=`echo $(1) | sed -e "s,/.*/,,g"`; 			\
-	LINE=`echo target: $$TG |sed -e "s/./-/g"`;		\
-	echo $$LINE;						\
-	echo target: $$TG;					\
-	echo $$LINE;						\
-	echo;							\
-	echo $@ : $^ | sed 					\
-		-e "s@$(SRCDIR)@@g"				\
-		-e "s@$(STATEDIR)@@g"				\
-		-e "s@$(RULESDIR)@@g"				\
-		-e "s@$(PROJECTRULESDIR)@@g"			\
-		-e "s@$(PTXDIST_WORKSPACE)@@g"			\
-		-e "s@$(PTXDIST_TOPDIR)@@g" 			\
+ifndef PTXDIST_QUIET
+targetinfo = 									\
+	target="$(strip $(@))";							\
+	target="target: $${target\#\#*/}";					\
+	echo -e "\n$${target//?/-}\n$${target}\n$${target//?/-}\n";		\
+	echo $@ : $^ | sed 							\
+		-e "s@$(SRCDIR)@@g"						\
+		-e "s@$(STATEDIR)@@g"						\
+		-e "s@$(RULESDIR)@@g"						\
+		-e "s@$(PROJECTRULESDIR)@@g"					\
+		-e "s@$(PTXDIST_WORKSPACE)@@g"					\
+		-e "s@$(PTXDIST_TOPDIR)@@g" 					\
 		-e "s@/@@g" >> $(DEP_OUTPUT)
+else
+targetinfo = 									\
+	target="$(strip $(@))";							\
+	target="$${target\#\#*/}";						\
+	echo "started : $(PTX_COLOR_BLUE)$${target}$(PTX_COLOR_OFF)" >&2;	\
+	target="target: $${target}";						\
+	echo -e "\n$${target//?/-}\n$${target}\n$${target//?/-}\n";		\
+	echo $@ : $^ | sed 							\
+		-e "s@$(SRCDIR)@@g"						\
+		-e "s@$(STATEDIR)@@g"						\
+		-e "s@$(RULESDIR)@@g"						\
+		-e "s@$(PROJECTRULESDIR)@@g"					\
+		-e "s@$(PTXDIST_WORKSPACE)@@g"					\
+		-e "s@$(PTXDIST_TOPDIR)@@g" 					\
+		-e "s@/@@g" >> $(DEP_OUTPUT)
+endif
 
 #
 # touch with prefix-creation
 #
-# $1: name of the target to be touched
-#
-touch =								\
-	touch $1;						\
-	echo "Finished target $(shell basename $1)";
+ifndef PTXDIST_QUIET
+touch =										\
+	target="$(strip $(@))";							\
+	touch "$${target}";							\
+	echo "Finished target $${target\#\#*/}"
+else
+touch =										\
+	target="$(strip $(@))";							\
+	touch "$${target}";							\
+	target="$${target\#\#*/}";						\
+	echo "finished: $(PTX_COLOR_GREEN)$${target}$(PTX_COLOR_OFF)" >&2;	\
+	echo "Finished target $${target}"
+endif
 
 #
 # add_locale
