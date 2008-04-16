@@ -11,7 +11,7 @@ config GCCLIBS_CXX
 	bool "libstdc++"
 	select GCCLIBS
 	select GCCLIBS_GCC_S
-	select GLIBC_LIBM
+	select LIBC_M
 	help
 	  Selects the GNU Standard C++ Library
 	  libstdc++ in addition to libgcc_s

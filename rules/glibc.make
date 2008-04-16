@@ -1,9 +1,9 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2005 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix e.K., Hildesheim, Germany
-# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
-# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002      by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
+# Copyright (C) 2005-2008 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -25,32 +25,25 @@ GLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
 # Get
 # ----------------------------------------------------------------------------
 
-glibc_get: $(STATEDIR)/glibc.get
-
 $(STATEDIR)/glibc.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-glibc_extract: $(STATEDIR)/glibc.extract
-
 $(STATEDIR)/glibc.extract:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-glibc_prepare: $(STATEDIR)/glibc.prepare
-
 $(STATEDIR)/glibc.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -59,27 +52,23 @@ $(STATEDIR)/glibc.prepare:
 glibc_compile: $(STATEDIR)/glibc.compile
 
 $(STATEDIR)/glibc.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-glibc_install: $(STATEDIR)/glibc.install
-
 $(STATEDIR)/glibc.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-glibc_targetinstall: $(STATEDIR)/glibc.targetinstall
-
 $(STATEDIR)/glibc.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, glibc)
 	@$(call install_fixup, glibc,PACKAGE,glibc)
@@ -94,7 +83,7 @@ ifdef PTXCONF_GLIBC
 	@$(call install_copy_toolchain_dl, glibc, /lib)
 endif
 
-ifdef PTXCONF_GLIBC_LIBC
+ifdef PTXCONF_GLIBC_C
 	@$(call install_copy_toolchain_lib, glibc, libc.so.6)
 endif
 
@@ -106,7 +95,7 @@ ifdef PTXCONF_GLIBC_THREAD_DB
 	@$(call install_copy_toolchain_lib, glibc, libthread_db.so)
 endif
 
-ifdef PTXCONF_GLIBC_LIBRT
+ifdef PTXCONF_GLIBC_RT
 	@$(call install_copy_toolchain_lib, glibc, librt.so)
 endif
 
@@ -122,7 +111,7 @@ ifdef PTXCONF_GLIBC_UTIL
 	@$(call install_copy_toolchain_lib, glibc, libutil.so)
 endif
 
-ifdef PTXCONF_GLIBC_LIBM
+ifdef PTXCONF_GLIBC_M
 	@$(call install_copy_toolchain_lib, glibc, libm.so)
 endif
 
@@ -192,7 +181,7 @@ endif
 # 	done;
 	@$(call install_finish, glibc)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

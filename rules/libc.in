@@ -3,4 +3,79 @@ menu "C library                     "
 source "rules/glibc.in"
 source "rules/uclibc.in"
 
+config LIBC_C
+	bool
+	select GLIBC_C			if GLIBC
+	select UCLIBC_C			if UCLIBC
+
+config LIBC_PTHREAD
+	bool
+	select GLIBC_PTHREAD		if GLIBC
+	select UCLIBC_PTHREAD		if UCLIBC
+
+config LIBC_THREAD_DB
+	bool
+	select GLIBC_THREAD_DB		if GLIBC
+	select UCLIBC_THREAD_DB		if UCLIBC
+
+config LIBC_RT
+	bool
+	select GLIBC_RT			if GLIBC
+	select UCLIBC_RT		if UCLIBC
+
+config LIBC_DL
+	bool
+	select GLIBC_DL			if GLIBC
+	select UCLIBC_DL		if UCLIBC
+
+config LIBC_CRYPT
+	bool
+	select GLIBC_CRYPT		if GLIBC
+	select UCLIBC_CRYPT		if UCLIBC
+
+config LIBC_UTIL
+	bool
+	select GLIBC_UTIL		if GLIBC
+	select UCLIBC_UTIL		if UCLIBC
+
+config LIBC_M
+	bool
+	select GLIBC_M			if GLIBC
+	select UCLIBC_M			if UCLIBC
+
+config LIBC_NSS_DNS
+	bool
+	select GLIBC_NSS_DNS		if GLIBC
+
+config LIBC_NSS_FILES
+	bool
+	select GLIBC_NSS_FILES		if GLIBC
+
+config LIBC_NSS_HESIOD
+	bool
+	select GLIBC_NSS_HESIOD		if GLIBC
+
+config LIBC_NSS_NIS
+	bool
+	select GLIBC_NSS_NIS		if GLIBC
+
+config LIBC_NSS_NISPLUS
+	bool
+	select GLIBC_NSS_NISPLUS	if GLIBC
+
+config LIBC_NSS_COMPAT
+	bool
+	select GLIBC_NSS_COMPAT		if GLIBC
+
+
+config LIBC_RESOLV
+	bool
+	select GLIBC_RESOLV		if GLIBC
+	select UCLIBC_RESOLV		if UCLIBC
+
+config LIBC_NSL
+	bool
+	select GLIBC_NSL		if GLIBC
+	select UCLIBC_NSL		if UCLIBC
+
 endmenu

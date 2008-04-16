@@ -11,7 +11,7 @@ config UCLIBC_VERSION
 comment	"Install options"
 	depends on UCLIBC
 
-config UCLIBC_LIBC
+config UCLIBC_C
 	bool
 	depends on UCLIBC
 	prompt "Install libc on the target"
@@ -28,35 +28,35 @@ config UCLIBC_LIBC
 
 config UCLIBC_CRYPT
 	bool
-	depends on UCLIBC_LIBC
+	depends on UCLIBC
 	prompt "Install libcrypt on the target"
 	help
 	  The encryption/decryption library
 
 config UCLIBC_DL
 	bool
-	depends on UCLIBC_LIBC
+	depends on UCLIBC
 	prompt "Install libdl on the target"
 	help
 	  The dynamic linking library
 
 config UCLIBC_M
 	bool
-	depends on UCLIBC_LIBC
+	depends on UCLIBC
 	prompt "Install libm on the target"
 	help
 	  The C math libary
 
 config UCLIBC_NSL
 	bool
-	depends on UCLIBC_LIBC
+	depends on UCLIBC
 	prompt "Install libnsl on the target"
 	help
 	  The network services library
 
 config UCLIBC_PTHREAD
 	bool
-	depends on UCLIBC_LIBC
+	depends on UCLIBC
 	prompt "Install libpthread on the target"
 	help
 	  If at least one application on the target uses threads when executed
@@ -64,7 +64,7 @@ config UCLIBC_PTHREAD
 
 config UCLIBC_THREAD_DB
 	bool
-	depends on UCLIBC_LIBC
+	depends on UCLIBC
 	prompt "Install libthread_db on the target"
 	help
 	  If at least one application on the target uses threads when executed
@@ -74,14 +74,21 @@ config UCLIBC_THREAD_DB
 
 config UCLIBC_RESOLV
 	bool
-	depends on UCLIBC_LIBC
+	depends on UCLIBC
 	prompt "Install libresolv on the target"
 	help
 	  The resolver library
 
+config UCLIBC_RT
+	bool
+	depends on UCLIBC
+	prompt "Install librt on the target"
+	help
+	  The rt library
+
 config UCLIBC_UTIL
 	bool
-	depends on UCLIBC_LIBC
+	depends on UCLIBC
 	prompt "Install libutil on the target"
 	help
 	  Contains code for "standard" functions used in many different Unix

@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003, 2004 by Marc Kleine-Budde <kleine-budde@gmx.de>
+# Copyright (C) 2003, 2004, 2008 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -20,60 +20,48 @@ UCLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_UCLIBC_VERSION))
 # Get
 # ----------------------------------------------------------------------------
 
-uclibc_get: $(STATEDIR)/uclibc.get
-
 $(STATEDIR)/uclibc.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-uclibc_extract: $(STATEDIR)/uclibc.extract
-
 $(STATEDIR)/uclibc.extract:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-uclibc_prepare: $(STATEDIR)/uclibc.prepare
-
 $(STATEDIR)/uclibc.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-uclibc_compile: $(STATEDIR)/uclibc.compile
-
 $(STATEDIR)/uclibc.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-uclibc_install: $(STATEDIR)/uclibc.install
-
 $(STATEDIR)/uclibc.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-uclibc_targetinstall: $(STATEDIR)/uclibc.targetinstall
-
 $(STATEDIR)/uclibc.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, uclibc)
 	@$(call install_fixup, uclibc,PACKAGE,uclibc)
@@ -88,7 +76,7 @@ ifdef PTXCONF_UCLIBC
 	@$(call install_copy_toolchain_dl, uclibc, /lib)
 endif
 
-ifdef PTXCONF_UCLIBC_LIBC
+ifdef PTXCONF_UCLIBC_C
 	@$(call install_copy_toolchain_lib, uclibc, libc.so)
 endif
 
@@ -120,12 +108,16 @@ ifdef PTXCONF_UCLIBC_RESOLV
 	@$(call install_copy_toolchain_lib, uclibc, libresolv.so)
 endif
 
+ifdef PTXCONF_UCLIBC_RT
+	@$(call install_copy_toolchain_lib, uclibc, librt.so)
+endif
+
 ifdef PTXCONF_UCLIBC_UTIL
 	@$(call install_copy_toolchain_lib, uclibc, libutil.so)
 endif
 	@$(call install_finish, uclibc)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
