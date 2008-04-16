@@ -1,7 +1,8 @@
 # -*-makefile-*-
 
-SRCDIR		:= $(PTXDIST_SRCDIR)
-PARALLELMFLAGS	:= $(PTXDIST_PARALLELMFLAGS_INTERN)
+SRCDIR			:= $(PTXDIST_SRCDIR)
+PARALLELMFLAGS		:= $(PTXDIST_PARALLELMFLAGS_INTERN)
+PARALLELMFLAGS_BROKEN	:= -j1
 
 #
 # Some definitions for stuff which even kicks vim's syntax highlighting
