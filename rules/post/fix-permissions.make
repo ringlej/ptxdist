@@ -9,13 +9,14 @@ world: $(PTX_FIXPERM_RUN)
 endif
 
 $(PTX_FIXPERM_RUN): $(PTX_PERMISSIONS) $(STATEDIR)/world.targetinstall
+	@$(call targetinfo)
 	@echo;										\
 	echo;										\
 	echo;										\
 	echo;										\
 	echo;										\
 	echo;										\
-	echo "creating devnodes, for the smooth nfsroot feeling";			\
+	echo "creating devnodes, for the smooth nfsroot feeling" >&2;			\
 	echo;										\
 	echo;										\
 	echo;										\
@@ -28,7 +29,7 @@ $(PTX_FIXPERM_RUN): $(PTX_PERMISSIONS) $(STATEDIR)/world.targetinstall
 			sudo $(SCRIPTSDIR)/fix-permissions.sh -r "$${dir}" -p "$<";	\
 			$(CHECK_PIPE_STATUS)						\
 		done;									\
-		$(call touch, $@)							\
+		$(call touch)							\
 	else										\
 		echo;									\
 		echo "watch out for missing initial consoles...";			\
