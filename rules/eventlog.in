@@ -1,5 +1,4 @@
 config EVENTLOG
 	bool
-	prompt "eventlog            "
 	help
 	  Part of syslog-ng.
