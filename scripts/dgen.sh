@@ -70,12 +70,33 @@ gen_rulesfiles_all() {
 
 
 #
-# $(MAP_all): $(RULESFILES_ALL)
+# $(MAP_ALL): $(RULESFILES_ALL)
 #
 gen_map_all() {
-    grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< "${RULESFILES_ALL}"` | \
-	sed -e "s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~FILENAME_\2=\"\1\"\nPACKAGE_\2=\"\3\"~" \
-	> "${MAP_ALL}"
+    #
+    # syslogng.make:PACKAGES-$(PTXCONF_SYSLOGNG) += syslogng
+    # +-----------+                    +------+     +------+
+    #       1                              2           3
+    #
+    # ==>
+    #
+    # FILENAME_SYSLOGNG="syslogng.make"
+    #          +------+  +-----------+
+    #              2           1
+    #
+    # PACKAGE_SYSLOGNG=syslogng
+    #         +------+ +------+
+    #            2         3
+    #
+    grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< "${RULESFILES_ALL}"` \
+	  | tee >(
+		sed -e \
+		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~FILENAME_\2=\"\1\"\nPACKAGE_\2=\"\3\"~" \
+		> "${MAP_ALL}"
+	) | \
+		sed -e \
+		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_PACKAGE_\3=\2~" \
+		> "${PTX_MAP_ALL_MAKE}"
 }
 
 
