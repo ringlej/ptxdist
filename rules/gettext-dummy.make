@@ -28,24 +28,9 @@ GETTEXT_DUMMY_DIR	:= $(BUILDDIR)/$(GETTEXT_DUMMY)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/gettext-dummy.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(GETTEXT_DUMMY_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, GETTEXT_DUMMY)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gettext-dummy.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(GETTEXT_DUMMY_DIR))
-	@$(call extract, GETTEXT_DUMMY)
-	@$(call patchin, GETTEXT_DUMMY)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -59,38 +44,12 @@ GETTEXT_DUMMY_ENV 	:= $(CROSS_ENV)
 #
 GETTEXT_DUMMY_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/gettext-dummy.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(GETTEXT_DUMMY_DIR)/config.cache)
-	cd $(GETTEXT_DUMMY_DIR) && \
-		$(GETTEXT_DUMMY_PATH) $(GETTEXT_DUMMY_ENV) \
-		./configure $(GETTEXT_DUMMY_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gettext-dummy.compile:
-	@$(call targetinfo, $@)
-	cd $(GETTEXT_DUMMY_DIR) && $(GETTEXT_DUMMY_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gettext-dummy.install:
-	@$(call targetinfo, $@)
-	@$(call install, GETTEXT_DUMMY)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/gettext-dummy.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, gettext-dummy)
 	@$(call install_fixup, gettext-dummy,PACKAGE,gettext-dummy)
@@ -103,14 +62,14 @@ $(STATEDIR)/gettext-dummy.targetinstall:
 
 	@$(call install_copy, gettext-dummy, 0, 0, 0644, \
 		$(GETTEXT_DUMMY_DIR)/.libs/libintl.so.0.0.0, \
-		/usr/lib/libpv.so.0.0.0)
+		/usr/lib/libintl.so.0.0.0)
 
 	@$(call install_link, gettext-dummy, libintl.so.0.0.0, /usr/lib/libintl.so.0)
 	@$(call install_link, gettext-dummy, libintl.so.0.0.0, /usr/lib/libintl.so)
 
 	@$(call install_finish, gettext-dummy)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

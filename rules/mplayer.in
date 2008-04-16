@@ -30,7 +30,7 @@ config MPLAYER_VI_V4L1
 
 config MPLAYER_VI_V4L2
 	bool
-	select GLIBC_PTHREAD
+	select LIBC_PTHREAD
 	prompt "v4l2 support"
 	depends on MPLAYER_VI
 

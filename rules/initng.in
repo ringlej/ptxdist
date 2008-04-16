@@ -2,7 +2,7 @@ menuconfig INITNG
 	bool
 	select HOST_CMAKE
 	select NCURSES
-	select GLIBC_DL
+	select LIBC_DL
 	prompt "initng              "
 	help
 	  Initng is a full replacement of the old and in many ways

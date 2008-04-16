@@ -8,8 +8,8 @@ menuconfig CVS
 # ptxdist patch remove it.
 #
 	select ZLIB
-	select GLIBC_CRYPT
-	select GLIBC_NSL
+	select LIBC_CRYPT
+	select LIBC_NSL
 	prompt "cvs                 "
 	help
 	  CVS is the Concurrent Versions System. This is a version control system

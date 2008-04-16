@@ -5,16 +5,14 @@ source "rules/gdbserver.in"
 menuconfig GDB
 	bool
 	prompt "gdb (the real one)  "
-	select GLIBC_LIBM if (GLIBC && GLIBC_INSTALL && GDB_SHARED)
 	select TERMCAP if GDB_TERMCAP
 	select NCURSES if GDB_NCURSES
-	# FIXME: this does not work, the script creates dependencies for
-	# both libraries! (rsc)
 
 config GDB_SHARED
 	bool "Build shared"
 	default y
 	depends on GDB
+	select LIBC_M
 	help
 	  If not set, the build option
 	  LDFLAGS=-static will be activated.

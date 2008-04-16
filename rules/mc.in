@@ -3,7 +3,7 @@ menuconfig MC
 	select GLIB
 	select NCURSES if MC_USES_NCURSES
 	select SLANG if MC_USES_SLANG
-	select GLIBC_NSL
+	select LIBC_NSL
 	prompt "midnight commander  "
 	help
 	  midnight commander is a text oriented file manager

@@ -1,6 +1,6 @@
 menuconfig BASH
 	bool "Bash                "
-	select GLIBC_DL
+	select LIBC_DL
 	help
 	  The GNU Bourne Again SHell
 	  Bash is an sh-compatible command language interpreter that executes

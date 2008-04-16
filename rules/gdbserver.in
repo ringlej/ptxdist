@@ -10,7 +10,7 @@ config GDBSERVER_SHARED
 	bool "shared gdbserver"
 	default y
 	depends on GDBSERVER
-	select GLIBC_THREAD_DB if GLIBC && GLIBC_INSTALL
+	select LIBC_THREAD_DB
 	help
 	  If not set, the build option LDFLAGS=-static
 	  will be activated.

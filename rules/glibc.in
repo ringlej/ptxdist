@@ -16,7 +16,7 @@ config GLIBC_VERSION
 comment	"Install options"
 	depends on GLIBC
 
-config GLIBC_LIBC
+config GLIBC_C
 	bool
 	depends on GLIBC
 	default y
@@ -50,7 +50,7 @@ config GLIBC_THREAD_DB
 	  library will be required. You can omit this library, if you never
 	  intend to debug multithread application on your target.
 
-config GLIBC_LIBRT
+config GLIBC_RT
 	bool
 	depends on GLIBC
 	prompt "Install librt on the target"
@@ -96,7 +96,7 @@ config GLIBC_UTIL
 	  Contains code for "standard" functions used in many different Unix
 	  utilities.
 
-config GLIBC_LIBM
+config GLIBC_M
 	bool
 	depends on GLIBC
 	prompt "Install libm on the target"
@@ -174,6 +174,7 @@ config GLIBC_NSL
 	  Functions in this library provide routines that provide a
 	  transport-level interface to networking services like i.E.
 	  nis(+)
+
 
 config GLIBC_I18N_BIN_LOCALE
 	bool

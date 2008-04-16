@@ -3,7 +3,7 @@
 menuconfig APACHE2
 	bool "Apache 2 HTTP Server"
 	select EXPAT
-	select GLIBC_LIBRT
+	select LIBC_RT
 	select HOST_APACHE2
 	help
 	  Apache v2 is the next generation of the Apache web server.

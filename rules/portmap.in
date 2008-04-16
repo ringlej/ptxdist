@@ -1,7 +1,7 @@
 menuconfig PORTMAP
 	bool
 	prompt "portmapper          "
-	select GLIBC_NSL
+	select LIBC_NSL
 	help
 	  Portmap is a server that converts RPC program numbers into DARPA protocol
 	  port numbers.  It must be running in order to make RPC calls.

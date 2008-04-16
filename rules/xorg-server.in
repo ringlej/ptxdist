@@ -34,7 +34,7 @@ menuconfig XORG_SERVER
 	select XORG_LIB_XFONT
 	select XORG_LIB_XKBFILE
 
-	select GLIBC_DL
+	select LIBC_DL
 	select PIXMAN
 #
 # Required on demand

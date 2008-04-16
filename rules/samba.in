@@ -3,9 +3,8 @@
 menuconfig SAMBA
 	bool
 	prompt "samba                         "
-	select GLIBC
-	select GLIBC_NSL
-	select GLIBC_RESOLV
+	select LIBC_NSL
+	select LIBC_RESOLV
 	help
 	  Samba is an Open Source/Free Software suite that has, since
 	  1992, provided file and print services to all manner of

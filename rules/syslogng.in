@@ -5,6 +5,7 @@ menuconfig SYSLOGNG
 	prompt "syslog-ng           "
 	select EVENTLOG
 	select GLIB
+	select LIBC_RT
 	help
 	  The next generation syslog daemon.
 

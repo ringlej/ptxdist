@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_BASH) += bash
 #
 # Paths and names
 #
-BASH_VERSION		= 3.1
+BASH_VERSION		= 3.2
 BASH			= bash-$(BASH_VERSION)
 BASH_URL		= $(PTXCONF_SETUP_GNUMIRROR)/bash/$(BASH).tar.gz
 BASH_SOURCE		= $(SRCDIR)/$(BASH).tar.gz

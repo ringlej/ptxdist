@@ -2,8 +2,8 @@ config PYTHON23
 	bool
 	depends on BROKEN
 	prompt "python 2.3 [BROKEN]"
-	depends on GLIBC_DL || UCLIBC_DL
-	select GLIBC_UTIL if GLIBC
+	select LIBC_DL
+	select LIBC_UTIL
 	select GCCLIBS_CXX
 	help
 	  Python is a dynamic object-oriented programming

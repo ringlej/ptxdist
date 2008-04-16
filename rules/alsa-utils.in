@@ -8,7 +8,7 @@ config ALSA_UTILS
 	select ALSA_LIB_PCM
 	select ALSA_LIB_RAWMIDI
 	select ALSA_LIB_SEQ
-	select GLIBC_PTHREAD
+	select LIBC_PTHREAD
 	help
 	  Some utils to handle the Advanced Linux Sound Architecture.
 	  With these utils you can control your sound device, for
