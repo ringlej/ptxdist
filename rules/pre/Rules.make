@@ -534,6 +534,9 @@ install = \
 			-e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${SYSROOT}\2:g"		\
 			`find ${SYSROOT} -name "*.la"`;			\
 									\
+		if [ -e "$$PKG_PKGDIR" ]; then				\
+			rm -rf "$${PKG_PKGDIR}";			\
+		fi;							\
 		mkdir -p $$PKG_PKGDIR/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; \
 		if $$la; then						\
 			sed -i -e "/^libdir/s:$(SYSROOT):$$PKG_PKGDIR:g"				\
@@ -549,6 +552,10 @@ install = \
 			DESTDIR=$$PKG_PKGDIR;"				\
 			| $(FAKEROOT) --;				\
 		$(CHECK_PIPE_STATUS)					\
+		if $$la; then						\
+			sed -i -e "/^libdir/s:$$PKG_PKGDIR::g"				\
+				$$(/bin/ls -r -t `find $${BUILDDIR} -name "*.la" -type f`);		\
+		fi;							\
 	fi;
 
 
@@ -718,10 +725,11 @@ patchin =											\
 												\
 	find "$${PACKET_DIR}" -name "configure" -a \! -wholename "*/.pc/*" | while read conf; do\
 		echo "Fixing up $${conf}";							\
-		sed -i										\
-			-e "s=sed -e \"s/\\\\(\.\*\\\\)/\\\\1;/\"=sed -e \"s/\\\\(.*\\\\)/'\"\$$ac_symprfx\"'\\\\1;/\"=" \
+		sed -i -e									\
+		"s=sed -e \"s/\\\\(\.\*\\\\)/\\\\1;/\"=sed -e \"s/\\\\(.*\\\\)/'\"\$$ac_symprfx\"'\\\\1;/\"=" \
 		"$${conf}";									\
-	done	
+		$(CHECK_PIPE_STATUS)								\
+	done
 
 
 #
