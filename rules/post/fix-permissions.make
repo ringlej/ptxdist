@@ -29,7 +29,7 @@ $(PTX_FIXPERM_RUN): $(PTX_PERMISSIONS) $(STATEDIR)/world.targetinstall
 			sudo $(SCRIPTSDIR)/fix-permissions.sh -r "$${dir}" -p "$<";	\
 			$(CHECK_PIPE_STATUS)						\
 		done;									\
-		$(call touch)							\
+		$(call touch);								\
 	else										\
 		echo;									\
 		echo "watch out for missing initial consoles...";			\
