@@ -9,13 +9,6 @@ menuconfig SYSLOGNG
 	  The next generation syslog daemon.
 
 # disabled. Feature implementations are broken
-#config SYSLOGNG_SUPPORT_IPV6
-#	bool
-#	depends on SYSLOGNG
-#	prompt "Support ipv6"
-#	help
-#	  Enable ipv6 support, otherwise ipv4 is supported only
-#
 #config SYSLOGNG_SUNSTREAMS
 #	bool
 #	depends on SYSLOGNG
@@ -30,14 +23,21 @@ menuconfig SYSLOGNG
 #	help
 #	  Support for Sun door
 
-config SYSLOGNG_TCPWRAPPER
+config SYSLOGNG__IPV6
+	bool
+	depends on SYSLOGNG
+	prompt "Support ipv6"
+	help
+	  Enable ipv6 support, otherwise ipv4 is supported only
+
+config SYSLOGNG__TCP_WRAPPER
 	bool
 	depends on SYSLOGNG
 	prompt "tcpwrapper support"
 	help
 	  Support /etc/hosts.deny and /etc/hosts.allow.
 
-config SYSLOGNG_SPOOF_SOURCE
+config SYSLOGNG__SPOOF_SOURCE
 	bool
 	depends on SYSLOGNG
 	prompt "spoof_source feature"

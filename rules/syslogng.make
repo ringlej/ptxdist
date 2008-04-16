@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: template 4453 2006-01-29 13:28:16Z rsc $
+# $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
+#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,46 +18,24 @@ PACKAGES-$(PTXCONF_SYSLOGNG) += syslogng
 #
 # Paths and names
 #
-SYSLOGNG_VERSION	:= 1.9.11
+SYSLOGNG_VERSION	:= 2.0.9
 SYSLOGNG		:= syslog-ng-$(SYSLOGNG_VERSION)
 SYSLOGNG_SUFFIX		:= tar.gz
-SYSLOGNG_URL		:= http://www.balabit.com/downloads/files/syslog-ng/sources/1.9/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
+SYSLOGNG_URL		:= http://www.balabit.com/downloads/files/syslog-ng/sources/2.0/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_SOURCE		:= $(SRCDIR)/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
 SYSLOGNG_DIR		:= $(BUILDDIR)/$(SYSLOGNG)
-
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-syslogng_get: $(STATEDIR)/syslogng.get
-
-$(STATEDIR)/syslogng.get: $(syslogng_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(SYSLOGNG_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, SYSLOGNG)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-syslogng_extract: $(STATEDIR)/syslogng.extract
-
-$(STATEDIR)/syslogng.extract: $(syslogng_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(SYSLOGNG_DIR))
-	@$(call extract, SYSLOGNG)
-	@$(call patchin, SYSLOGNG)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-syslogng_prepare: $(STATEDIR)/syslogng.prepare
 
 SYSLOGNG_PATH	:= PATH=$(CROSS_PATH)
 SYSLOGNG_ENV 	:= $(CROSS_ENV)
@@ -67,73 +46,34 @@ SYSLOGNG_ENV 	:= $(CROSS_ENV)
 SYSLOGNG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-dynamic-linking \
-	--disable-dependency-tracking \
 	--disable-debug \
-	--enable-ipv6 \
 	--disable-sun-streams \
 	--disable-sun-door
-#
-# FIXME:
-# --enable-ipv6: disabling ipv6 is broken, fails in
-#	src/afinet.c:303: undefined reference to `g_sockaddr_inet6_new'
-#	src/afinet.c:304: undefined reference to `g_sockaddr_inet6_new'
-#	src/afinet.c:246: undefined reference to `g_sockaddr_inet6_new'
-#
-# --disable-sun-streams: feature broken. Depends on some header files
-#      configure detects as missing, but sources includes them
-# --disable-sun-door: feature broken. Depends on some header files
-#      configure detects as missing, but sources includes them
-#
-ifdef PTXCONF_SYSLOGNG_TCPWRAPPER
+
+ifdef PTXCONF_SYSLOGNG__IPV6
+SYSLOGNG_AUTOCONF += --enable-ipv6
+else
+SYSLOGNG_AUTOCONF += --disable-ipv6
+endif
+
+ifdef PTXCONF_SYSLOGNG__TCP_WRAPPER
 SYSLOGNG_AUTOCONF += --enable-tcp-wrapper
 else
 SYSLOGNG_AUTOCONF += --disable-tcp-wrapper
 endif
 
-ifdef PTXCONF_SYSLOGNG_SPOOF_SOURCE
+ifdef PTXCONF_SYSLOGNG__SPOOF_SOURCE
 SYSLOGNG_AUTOCONF += --enable-spoof-source
 else
 SYSLOGNG_AUTOCONF += --disable-spoof-source
 endif
 
-$(STATEDIR)/syslogng.prepare: $(syslogng_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(SYSLOGNG_DIR)/config.cache)
-	cd $(SYSLOGNG_DIR) && \
-		$(SYSLOGNG_PATH) $(SYSLOGNG_ENV) \
-		./configure $(SYSLOGNG_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-syslogng_compile: $(STATEDIR)/syslogng.compile
-
-$(STATEDIR)/syslogng.compile: $(syslogng_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(SYSLOGNG_DIR) && $(SYSLOGNG_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-syslogng_install: $(STATEDIR)/syslogng.install
-
-$(STATEDIR)/syslogng.install: $(syslogng_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, SYSLOGNG)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-syslogng_targetinstall: $(STATEDIR)/syslogng.targetinstall
-
-$(STATEDIR)/syslogng.targetinstall: $(syslogng_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/syslogng.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, syslogng)
 	@$(call install_fixup, syslogng,PACKAGE,syslogng)
@@ -184,9 +124,10 @@ ifdef PTXCONF_ROOTFS_ETC_SYSLOGNG_CONFIG_USER
 		/etc/syslog-ng.conf, n)
 endif
 endif
+
 	@$(call install_finish, syslogng)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
