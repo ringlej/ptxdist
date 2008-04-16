@@ -507,7 +507,7 @@ install = \
 		cd $$BUILDDIR &&					\
 			$($(strip $(1))_ENV)				\
 			$($(strip $(1))_PATH)				\
-			make install $(4)				\
+			$(MAKE) install $(PARALLELMFLAGS_BROKEN) $(4)	\
 			$($(strip $(1))_MAKEVARS)			\
 			DESTDIR=;					\
 		$(CHECK_PIPE_STATUS)					\
@@ -524,7 +524,7 @@ install = \
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
-			make install $(4)				\
+			$(MAKE) $(PARALLELMFLAGS_BROKEN) install $(4)	\
 			$($(strip $(1))_MAKEVARS)			\
 			DESTDIR=$(SYSROOT);"				\
 			| $(FAKEROOT) --;				\
@@ -544,7 +544,7 @@ install = \
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
 			LIBDIR=$(SYSROOT)				\
-			make install $(4)				\
+			$(MAKE) $(PARALLELMFLAGS_BROKEN) install $(4)	\
 			$($(strip $(1))_MAKEVARS)			\
 			DESTDIR=$$PKG_PKGDIR;"				\
 			| $(FAKEROOT) --;				\
