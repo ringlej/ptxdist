@@ -181,15 +181,7 @@ $(STATEDIR)/kernel.install:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/kernel.targetinstall: $(STATEDIR)/kernel.targetinstall.post
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Target-Install.pre
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/kernel.targetinstall.pre: $(STATEDIR)/kernel.install
+$(STATEDIR)/kernel.targetinstall:
 	@$(call targetinfo, $@)
 
 # we _always_ need the kernel in the image dir
@@ -237,7 +229,7 @@ endif
 # Target-Install-post
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/kernel.targetinstall.post: $(STATEDIR)/kernel.targetinstall.pre
+$(STATEDIR)/kernel.targetinstall.post:
 	@$(call targetinfo, $@)
 
 ifdef PTXCONF_KERNEL_MODULES_INSTALL

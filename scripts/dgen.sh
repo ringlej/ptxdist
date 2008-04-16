@@ -94,6 +94,7 @@ do_package_dep() {
     echo "\$(STATEDIR)/${package}.extract: \$(STATEDIR)/${package}.get"
     echo "\$(STATEDIR)/${package}.compile: \$(STATEDIR)/${package}.prepare"
     echo "\$(STATEDIR)/${package}.install: \$(STATEDIR)/${package}.compile"
+    echo "\$(STATEDIR)/${package}.targetinstall.post: \$(STATEDIR)/${package}.targetinstall"
 
     prepare_dep="\$(STATEDIR)/${package}.extract"
     targetinstall_dep="\$(STATEDIR)/${package}.install"

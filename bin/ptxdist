@@ -1506,7 +1506,7 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make_log "${STATEDIR}/${1}.targetinstall"
+			ptxd_make_log "${STATEDIR}/${1}.targetinstall.post"
 			check_pipe_status
 			exit
 			;;

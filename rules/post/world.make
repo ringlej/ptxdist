@@ -7,10 +7,13 @@ DEP_OUTPUT	:= $(STATEDIR)/depend.out
 WORLD_DEP_TREE_PS	:= $(PTXDIST_PLATFORMDIR)/deptree.ps
 WORLD_DEP_TREE_A4_PS	:= $(PTXDIST_PLATFORMDIR)/deptree-a4.ps
 
-WORLD_PACKAGES_TARGETINSTALL 	:= $(addprefix $(STATEDIR)/,$(addsuffix .targetinstall,$(PACKAGES)))
+WORLD_PACKAGES_TARGETINSTALL 	:= $(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(PACKAGES)))
 WORLD_HOST_PACKAGES_INSTALL	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(HOST_PACKAGES)))
 WORLD_CROSS_PACKAGES_INSTALL	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(CROSS_PACKAGES)))
 
+
+
+### --- dependency graph generation ---
 
 ifneq ($(shell which dot),)
 world: $(WORLD_DEP_TREE_PS)
@@ -18,6 +21,9 @@ world: $(WORLD_DEP_TREE_PS)
 world: $(WORLD_DEP_TREE_A4_PS)
    endif #ifneq ($(shell which poster),)
 endif #ifneq ($(shell which dot),)
+
+$(DEP_OUTPUT):
+	@$(call touch, $@)
 
 $(WORLD_DEP_TREE_A4_PS): $(WORLD_DEP_TREE_PS)
 	@echo "creating A4 version..."
@@ -28,7 +34,11 @@ $(WORLD_DEP_TREE_PS): $(DEP_OUTPUT)
 	@sort $< | uniq | \
 		$(SCRIPTSDIR)/makedeptree | dot -Tps > $@
 
-$(DEP_OUTPUT):
+
+### --- world ---
+
+$(STATEDIR)/%.targetinstall.post:
+	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
 $(STATEDIR)/world.targetinstall: $(WORLD_PACKAGES_TARGETINSTALL) \
