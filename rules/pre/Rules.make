@@ -744,8 +744,11 @@ patchin =											\
 												\
 	find "$${PACKET_DIR}" -name "configure" -a \! -wholename "*/.pc/*" | while read conf; do\
 		echo "Fixing up $${conf}";							\
-		sed -i -e									\
-		"s=sed -e \"s/\\\\(\.\*\\\\)/\\\\1;/\"=sed -e \"s/\\\\(.*\\\\)/'\"\$$ac_symprfx\"'\\\\1;/\"=" \
+		sed -i										\
+		-e "s=sed -e \"s/\\\\(\.\*\\\\)/\\\\1;/\"=sed -e \"s/\\\\(.*\\\\)/'\"\$$ac_symprfx\"'\\\\1;/\"=" \
+		-e "s:^\(hardcode_into_libs\)=.*:\1=\"no\":"					\
+		-e "s:^\(hardcode_libdir_flag_spec\)=.*:\1=\"\":"				\
+		-e "s:^\(hardcode_libdir_flag_spec_ld\)=.*:\1=\"\":"				\
 		"$${conf}";									\
 		$(CHECK_PIPE_STATUS)								\
 	done
