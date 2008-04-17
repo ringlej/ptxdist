@@ -1,26 +1,16 @@
-menuconfig GLIBC
-	bool
-	default y
-	prompt glibc
-	help
-	  This menu entry lets you select components from the standard
-	  C library called glibc. It depends on the system what components are
-	  required.
+menu "glibc"
 
 config GLIBC_VERSION
 	prompt "glibc Version"
 	string
 	default "2.5"
-	depends on GLIBC
 
 comment	"Install options"
-	depends on GLIBC
 
 config GLIBC_C
 	bool
-	depends on GLIBC
 	default y
-	prompt "Install libc on the target"
+	prompt "Install libc"
 	help
 	  Any Unix-like operating system needs a C library:
 	  the library which defines the "system calls" and
@@ -34,16 +24,14 @@ config GLIBC_C
 
 config GLIBC_PTHREAD
 	bool
-	depends on GLIBC
-	prompt "Install libpthread on the target"
+	prompt "Install libpthread"
 	help
 	  If at least one application on the target uses threads when executed
 	  this library will be required.
 
 config GLIBC_THREAD_DB
 	bool
-	depends on GLIBC
-	prompt "Install libthread_db on the target"
+	prompt "Install libthread_db"
 	help
 	  If at least one application on the target uses threads when executed
 	  and you are going to debug this application (also remotely!), this
@@ -52,16 +40,14 @@ config GLIBC_THREAD_DB
 
 config GLIBC_RT
 	bool
-	depends on GLIBC
-	prompt "Install librt on the target"
+	prompt "Install librt"
 	help
 	  Functions in this library provide most of the interfaces specified by
 	  the POSIX.1b Realtime Extension
 
 config GLIBC_DL
 	bool
-	depends on GLIBC
-	prompt "Install libdl on the target"
+	prompt "Install libdl"
 	help
 	  libdl.so is a dynamic linking library that is generally of use only for
 	  porting applications. If you are porting a BeOS application that requires
@@ -83,30 +69,26 @@ config GLIBC_DL
 
 config GLIBC_CRYPT
 	bool
-	depends on GLIBC
-	prompt "Install libcrypt on the target"
+	prompt "Install libcrypt"
 	help
 	  The encryption/decryption library
 
 config GLIBC_UTIL
 	bool
-	depends on GLIBC
-	prompt "Install libutil on the target"
+	prompt "Install libutil"
 	help
 	  Contains code for "standard" functions used in many different Unix
 	  utilities.
 
 config GLIBC_M
 	bool
-	depends on GLIBC
-	prompt "Install libm on the target"
+	prompt "Install libm"
 	help
 	  If at least one application on your target does any kind of math
 	  calculation, you should install this library.
 
 config GLIBC_NSS_DNS
 	bool
-	depends on GLIBC
 	prompt "Install libnss_dns"
 	select GLIBC_RESOLV
 	help
@@ -114,7 +96,6 @@ config GLIBC_NSS_DNS
 
 config GLIBC_NSS_FILES
 	bool
-	depends on GLIBC
 	prompt "Install libnss_files"
 	help
 	  Contains functions to access some vitale system control files (for
@@ -122,7 +103,6 @@ config GLIBC_NSS_FILES
 
 config GLIBC_NSS_HESIOD
 	bool
-	depends on GLIBC
 	prompt "Install libnss_hesiod"
 	select GLIBC_RESOLV
 	select GLIBC_NSS_FILES
@@ -131,7 +111,6 @@ config GLIBC_NSS_HESIOD
 
 config GLIBC_NSS_NIS
 	bool
-	depends on GLIBC
 	prompt "Install libnss_nis"
 	select GLIBC_NSL
 	select GLIBC_NSS_FILES
@@ -140,7 +119,6 @@ config GLIBC_NSS_NIS
 
 config GLIBC_NSS_NISPLUS
 	bool
-	depends on GLIBC
 	prompt "Install libnss_nisplus"
 	select GLIBC_NSL
 	help
@@ -148,7 +126,6 @@ config GLIBC_NSS_NISPLUS
 
 config GLIBC_NSS_COMPAT
 	bool
-	depends on GLIBC
 	prompt "Install libnss_compat"
 	select GLIBC_NSL
 	help
@@ -156,7 +133,6 @@ config GLIBC_NSS_COMPAT
 
 config GLIBC_RESOLV
 	bool
-	depends on GLIBC
 	prompt "Install libresolv"
 	help
 	  This library is required for creating, sending, and interpreting
@@ -168,7 +144,6 @@ config GLIBC_RESOLV
 
 config GLIBC_NSL
 	bool
-	depends on GLIBC
 	prompt "Install libnsl"
 	help
 	  Functions in this library provide routines that provide a
@@ -179,7 +154,6 @@ config GLIBC_NSL
 config GLIBC_I18N_BIN_LOCALE
 	bool
 	prompt "Install locale"
-	depends on GLIBC
 	help
 	  The locale program writes information about the current
 	  locale environment, or all locales, to standard output.
@@ -187,7 +161,6 @@ config GLIBC_I18N_BIN_LOCALE
 config GLIBC_I18N_BIN_LOCALEDEF
 	bool
 	prompt "Install localedef"
-	depends on GLIBC
 	help
 	  The  localedef  program reads the indicated charmap and
 	  input files, compiles them to a binary form quickly usable
@@ -206,12 +179,10 @@ config GLIBC_I18N_RAWDATA
 	  ptxdist to determine locales while building the system.
 
 menu "Install gconv libraries"
-	depends on GLIBC
 
 config GLIBC_GCONV_DEF
 	bool
 	prompt "default gconv modules"
-	depends on GLIBC
 	default y
 	help
 	  install the iso8859-1 (Latin Alphabet No.1) and the iso8859-15 (Latin
@@ -221,11 +192,10 @@ config GLIBC_GCONV_DEF
 config GLIBC_GCONV_ZH
 	bool
 	prompt "gconv modules for chinese language"
-	depends on GLIBC
 	help
 	  install the gconv modules for chinese language, including BIG5, GB2312
 	  and GB18030
 
 endmenu
 
-# -----
+endmenu

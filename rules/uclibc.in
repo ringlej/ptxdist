@@ -1,20 +1,15 @@
-menuconfig UCLIBC
-	bool
-	prompt "uClibc"
+menu "uClibc"
 
 config UCLIBC_VERSION
 	prompt "uClibc Version"
 	string
 	default "0.9.27"
-	depends on UCLIBC
 
 comment	"Install options"
-	depends on UCLIBC
 
 config UCLIBC_C
 	bool
-	depends on UCLIBC
-	prompt "Install libc on the target"
+	prompt "Install libc"
 	help
 	  Any Unix-like operating system needs a C library:
 	  the library which defines the "system calls" and
@@ -28,44 +23,38 @@ config UCLIBC_C
 
 config UCLIBC_CRYPT
 	bool
-	depends on UCLIBC
-	prompt "Install libcrypt on the target"
+	prompt "Install libcrypt"
 	help
 	  The encryption/decryption library
 
 config UCLIBC_DL
 	bool
-	depends on UCLIBC
-	prompt "Install libdl on the target"
+	prompt "Install libdl"
 	help
 	  The dynamic linking library
 
 config UCLIBC_M
 	bool
-	depends on UCLIBC
-	prompt "Install libm on the target"
+	prompt "Install libm"
 	help
 	  The C math libary
 
 config UCLIBC_NSL
 	bool
-	depends on UCLIBC
-	prompt "Install libnsl on the target"
+	prompt "Install libnsl"
 	help
 	  The network services library
 
 config UCLIBC_PTHREAD
 	bool
-	depends on UCLIBC
-	prompt "Install libpthread on the target"
+	prompt "Install libpthread"
 	help
 	  If at least one application on the target uses threads when executed
 	  this library will be required.
 
 config UCLIBC_THREAD_DB
 	bool
-	depends on UCLIBC
-	prompt "Install libthread_db on the target"
+	prompt "Install libthread_db"
 	help
 	  If at least one application on the target uses threads when executed
 	  and you are going to debug this application (also remotely!), this
@@ -74,22 +63,21 @@ config UCLIBC_THREAD_DB
 
 config UCLIBC_RESOLV
 	bool
-	depends on UCLIBC
-	prompt "Install libresolv on the target"
+	prompt "Install libresolv"
 	help
 	  The resolver library
 
 config UCLIBC_RT
 	bool
-	depends on UCLIBC
-	prompt "Install librt on the target"
+	prompt "Install librt"
 	help
 	  The rt library
 
 config UCLIBC_UTIL
 	bool
-	depends on UCLIBC
-	prompt "Install libutil on the target"
+	prompt "Install libutil"
 	help
 	  Contains code for "standard" functions used in many different Unix
 	  utilities.
+
+endmenu
