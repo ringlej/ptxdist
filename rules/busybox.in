@@ -1,8 +1,6 @@
-menu	"BusyBox             "
-
-config BUSYBOX
+menuconfig BUSYBOX
 	bool
-	prompt "Busybox"
+	prompt "BusyBox             "
 	select LIBC_M if BB_CONFIG_FEATURE_AWK_MATH
 	help
 	  BusyBox is the Swiss Army Knife of embedded Linux. It is a
@@ -11,6 +9,6 @@ config BUSYBOX
 
 	  For more information see http://www.busybox.net
 
+if BUSYBOX
 source "config/busybox/Config.in"
-
-endmenu
+endif
