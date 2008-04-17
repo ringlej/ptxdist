@@ -4,6 +4,7 @@ export LANG=C
 export LC_ALL=POSIX
 export LC_CTYPE=POSIX
 
+PTXDIST_FULLARGS=("${@}")
 PROMPT="ptxdist: "
 DEBUG=
 
@@ -924,21 +925,18 @@ toolchain() {
 # this is where the ptxdist installation lives
 #
 # out: PTXDIST
-#      PTXDIST_WORKSPACE
 #      PTXDIST_TOPDIR
+#      PTXDIST_WORKSPACE
 #
 setup_topdir() {
-	local topdir
+	local ptxdist topdir
 
-	PTXDIST="${0}"
-	PTXDIST_WORKSPACE="$(pwd)"
+	ptxdist="${0}"
 
-	if [ -L "${PTXDIST}" ]; then
-		topdir="$(readlink -f "${PTXDIST}")"
-	else
-		topdir="${PTXDIST}"
+	if [ -L "${ptxdist}" ]; then
+		ptxdist="$(readlink -f "${ptxdist}")"
 	fi
-	topdir="$(cd "$(dirname "${topdir}")"/.. && pwd)"
+	topdir="$(cd "$(dirname "${ptxdist}")"/.. && pwd)"
 
 	#
 	# sanity check: is PTXdist already configured?
@@ -950,7 +948,9 @@ setup_topdir() {
 		exit 1
 	fi
 
+	PTXDIST="${ptxdist}"
 	PTXDIST_TOPDIR="${topdir}"
+	PTXDIST_WORKSPACE="$(pwd)"
 }
 
 
@@ -959,9 +959,12 @@ setup_topdir() {
 #
 # in: PTXDIST_TEMPDIR
 #
-ptxdist_deltemp() {
+ptxdist_trap_handler() {
 	if [ -n "${PTXDIST_TEMPDIR}" -a -d "${PTXDIST_TEMPDIR}" ]; then
 		rm -rf "${PTXDIST_TEMPDIR}"
+	fi
+	if [ -e "${PTX_LOGFILE}" ]; then
+		echo -e "}}} $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_FULLARGS[@]}\n\n\n" >> "${PTX_LOGFILE}"
 	fi
 }
 
@@ -970,7 +973,7 @@ ptxdist_deltemp() {
 # setups trap, to delete temporary storage
 #
 setup_traps() {
-	trap 'ptxdist_deltemp' 0 1 15
+	trap 'ptxdist_trap_handler' 0 1 15
 }
 
 
@@ -1135,6 +1138,14 @@ setup_path() {
 }
 
 
+#
+#
+#
+setup_logfile()
+{
+	echo "{{{ $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_FULLARGS[@]}" >> "${PTX_LOGFILE}"
+}
+
 ########################################################################
 # main()
 ########################################################################
@@ -1149,6 +1160,7 @@ setup_config
 # --- all variables are defined now ---
 setup_path
 # --- path is now set ---
+setup_logfile
 
 export PROJECT FULLVERSION VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION		# FIXME: review these
 export \
