@@ -53,7 +53,7 @@ $(STATEDIR)/portmap.extract: $(portmap_extract_deps_default)
 # Attention: TCP-Wrapper will be ignored and not used!
 #
 #ifndef PTXCONF_TCPWRAPPER
-#	sed -ie 's/$$(WRAP_DIR)\/libwrap.a//' $(PORTMAP_DIR)/Makefile
+#	sed -i -e 's/$$(WRAP_DIR)\/libwrap.a//' $(PORTMAP_DIR)/Makefile
 #endif
 	@$(call touch, $@)
 

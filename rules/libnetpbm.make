@@ -65,16 +65,16 @@ $(STATEDIR)/libnetpbm.prepare: $(libnetpbm_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cp $(LIBNETPBM_DIR)/Makefile.config.in $(LIBNETPBM_DIR)/Makefile.config
 ifdef PTXCONF_LIBNETPBM_BUILD_FIASCO
-	sed -ie "s,^BUILD_FIASCO.*,BUILD_FIASCO=Y,g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -i -e "s,^BUILD_FIASCO.*,BUILD_FIASCO=Y,g" $(LIBNETPBM_DIR)/Makefile.config
 else
-	sed -ie "s,^BUILD_FIASCO.*,BUILD_FIASCO=N,g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -i -e "s,^BUILD_FIASCO.*,BUILD_FIASCO=N,g" $(LIBNETPBM_DIR)/Makefile.config
 endif
-	sed -ie "s,^CC =.*,CC=$(CROSS_CC),g" $(LIBNETPBM_DIR)/Makefile.config
-	sed -ie "s,^LINKER_CAN_DO_EXPLICIT_LIBRARY.*,LINKER_CAN_DO_EXPLICIT_LIBRARY=Y,g" $(LIBNETPBM_DIR)/Makefile.config
-	sed -ie "s,^INTTYPES_H.*,INTTYPES_H = <stdint.h>,g" $(LIBNETPBM_DIR)/Makefile.config
-	sed -ie "s,^CC_FOR_BUILD.*,CC_FOR_BUILD=$(HOSTCC),g" $(LIBNETPBM_DIR)/Makefile.config
-	sed -ie "s,^LD_FOR_BUILD.*,LD_FOR_BUILD=$(HOSTCC),g" $(LIBNETPBM_DIR)/Makefile.config
-	sed -ie "s,^CFLAGS_FOR_BUILD.*,CFLAGS_FOR_BUILD=,g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -i -e "s,^CC =.*,CC=$(CROSS_CC),g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -i -e "s,^LINKER_CAN_DO_EXPLICIT_LIBRARY.*,LINKER_CAN_DO_EXPLICIT_LIBRARY=Y,g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -i -e "s,^INTTYPES_H.*,INTTYPES_H = <stdint.h>,g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -i -e "s,^CC_FOR_BUILD.*,CC_FOR_BUILD=$(HOSTCC),g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -i -e "s,^LD_FOR_BUILD.*,LD_FOR_BUILD=$(HOSTCC),g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -i -e "s,^CFLAGS_FOR_BUILD.*,CFLAGS_FOR_BUILD=,g" $(LIBNETPBM_DIR)/Makefile.config
 	echo "CFLAGS=$(CROSS_CFLAGS) $(CROSS_CPPFLAGS)" >> $(LIBNETPBM_DIR)/Makefile.config
 
 	@$(call touch, $@)

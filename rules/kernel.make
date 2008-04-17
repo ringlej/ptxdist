@@ -148,7 +148,7 @@ $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG) $(STATEDIR)/cross-module-init-tools
 
 ifdef PTXCONF_KLIBC
 # tell the kernel where our spec file for initramfs is
-	@sed -ie 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(KLIBC_CONTROL)\",g' \
+	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(KLIBC_CONTROL)\",g' \
 		$(KERNEL_DIR)/.config
 endif
 

@@ -365,7 +365,7 @@ $(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps_default)
 	@echo 
 	@echo FIXME: this is necessary with gcc 3.4.4 which runs into OOM with -O4
 	@echo
-#	sed -ie "s/[ \t]-O4[ \t]/ -O2 /g" $(MPLAYER_DIR)/config.mak
+#	sed -i -e "s/[ \t]-O4[ \t]/ -O2 /g" $(MPLAYER_DIR)/config.mak
 	@echo
 	@$(call touch, $@)
 
