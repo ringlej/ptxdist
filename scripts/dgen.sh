@@ -19,7 +19,7 @@ fi
 MAP_ALL=${STATEDIR}/map_all.sh
 CONFIGDEPS=${STATEDIR}/configdeps
 CONFIGDEPS_MAP=${CONFIGDEPS}_map.sh
-
+GEN_MAPS_ALL=${STATEDIR}/gen_map_all
 
 #
 #
@@ -88,15 +88,14 @@ gen_map_all() {
     #         +------+ +------+
     #            2         3
     #
-    grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< "${RULESFILES_ALL}"` \
-	  | tee >(
+    grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< "${RULESFILES_ALL}"` > ${GEN_MAPS_ALL}
 		sed -e \
 		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~FILENAME_\2=\"\1\"\nPACKAGE_\2=\"\3\"~" \
-		> "${MAP_ALL}"
-	) | \
+		${GEN_MAPS_ALL} > "${MAP_ALL}"
+	
 		sed -e \
 		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_PACKAGE_\3=\2~" \
-		> "${PTX_MAP_ALL_MAKE}"
+		${GEN_MAPS_ALL} > "${PTX_MAP_ALL_MAKE}"
 }
 
 
