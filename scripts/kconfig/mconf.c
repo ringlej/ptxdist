@@ -893,7 +893,7 @@ int main(int ac, char **av)
 	case -1:
 		printf(_("\n\n"
 			"*** End of project configuration.\n"
-			"*** Execute 'make' to build the project or try 'make help'."
+			"*** Execute 'ptxdist go' to build the project or try 'ptxdist help'."
 			"\n\n"));
 		break;
 	default:

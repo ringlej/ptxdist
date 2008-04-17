@@ -375,7 +375,7 @@ diff -urN -x .svn kconfig-2.6.14/mconf.c kconfig/mconf.c
 -			"*** End of Linux kernel configuration.\n"
 -			"*** Execute 'make' to build the kernel or try 'make help'."
 +			"*** End of configuration.\n"
-+			"*** Execute 'make' to build the project or try 'make help'."
++			"*** Execute 'ptxdist go' to build the project or try 'ptxdist help'."
  			"\n\n"));
  	} else {
  		fprintf(stderr, _("\n\n"
