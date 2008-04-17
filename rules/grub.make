@@ -526,9 +526,9 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-grub_clean: 
-	rm -rf $(STATEDIR)/grub.* 
-	rm -rf $(IMAGEDIR)/grub_* 
+grub_clean:
+	rm -rf $(STATEDIR)/grub.*
+	rm -rf $(IMAGEDIR)/grub_*
 	rm -rf $(GRUB_DIR)
 
 # vim: syntax=make
