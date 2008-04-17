@@ -956,15 +956,21 @@ setup_topdir() {
 
 #
 # deletes ptxdist's temporary storage
+# closes logfile
 #
 # in: PTXDIST_TEMPDIR
+# in: PTX_LOGFILE
 #
 ptxdist_trap_handler() {
 	if [ -n "${PTXDIST_TEMPDIR}" -a -d "${PTXDIST_TEMPDIR}" ]; then
 		rm -rf "${PTXDIST_TEMPDIR}"
 	fi
 	if [ -e "${PTX_LOGFILE}" ]; then
-		echo -e "}}} $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_FULLARGS[@]}\n\n\n" >> "${PTX_LOGFILE}"
+		#
+	    	# use these quotes to keep Enrik's editor happy
+		#        \\
+		#         VV               
+		echo -e "}""}} $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_FULLARGS[@]}\n\n\n" >> "${PTX_LOGFILE}"
 	fi
 }
 
@@ -1139,11 +1145,14 @@ setup_path() {
 
 
 #
-#
+# starts logfile
 #
 setup_logfile()
 {
-	echo "{{{ $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_FULLARGS[@]}" >> "${PTX_LOGFILE}"
+	# use these quotes to keep Enrik's editor happy
+	#      ||
+	#      VV               
+	echo "{""{{ $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_FULLARGS[@]}" >> "${PTX_LOGFILE}"
 }
 
 ########################################################################
