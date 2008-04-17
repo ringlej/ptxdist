@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_DB44) += db44
 DB44_VERSION	= 4.4.20.NC
 DB44		= db-$(DB44_VERSION)
 DB44_SUFFIX	= tar.gz
-DB44_URL	= http://downloads.sleepycat.com/$(DB44).$(DB44_SUFFIX)
+DB44_URL	= http://download.oracle.com/berkeley-db/$(DB44).$(DB44_SUFFIX)
 DB44_SOURCE	= $(SRCDIR)/$(DB44).$(DB44_SUFFIX)
 DB44_DIR	= $(BUILDDIR)/$(DB44)
 
