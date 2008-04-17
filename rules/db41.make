@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_DB41) += db41
 DB41_VERSION	= 4.1.25.NC
 DB41		= db-$(DB41_VERSION)
 DB41_SUFFIX	= tar.gz
-DB41_URL	= http://downloads.sleepycat.com/$(DB41).$(DB41_SUFFIX)
+DB41_URL	= http://download.oracle.com/berkeley-db/$(DB41).$(DB41_SUFFIX)
 DB41_SOURCE	= $(SRCDIR)/$(DB41).$(DB41_SUFFIX)
 DB41_DIR	= $(BUILDDIR)/$(DB41)
 
