@@ -475,8 +475,20 @@ $(STATEDIR)/grub.targetinstall: $(grub_targetinstall_deps_default)
 	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage1/stage1, /boot/grub/stage1, n)
 	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2, /boot/grub/stage2, n)
 
-	@if [ -n $(PTXCONF_GRUB_MENU_LST) ]; then \
-		$(call install_copy, grub, 0, 0, 0644, $(PTXCONF_GRUB_MENU_LST), /boot/grub/menu.lst, n) \
+	if [ -n $(PTXCONF_GRUB_MENU_LST) ]; then \
+		if [ -f $(PTXDIST_WORKSPACE)/boardsetup/boardsetup ]; then \
+			echo "sourcing boardsetup..."; \
+			. $(PTXDIST_WORKSPACE)/boardsetup/boardsetup; \
+		fi; \
+		tmpfile=`mktemp`; \
+		cp $(PTXCONF_GRUB_MENU_LST) $$tmpfile; \
+		sed -i -e "s/@IPADDR@/$${PTXCONF_BOARDSETUP_TARGETIP}/g" $$tmpfile; \
+		sed -i -e "s/@SERVERIP@/$${PTXCONF_BOARDSETUP_SERVERIP}/g" $$tmpfile; \
+		sed -i -e "s/@NETMASK@/$${PTXCONF_BOARDSETUP_NETMASK}/g" $$tmpfile; \
+		sed -i -e "s/@GATEWAY@/$${PTXCONF_BOARDSETUP_GATEWAY}/g" $$tmpfile; \
+		sed -i -e "s/@ROOTFS@/$${PTXCONF_BOARDSETUP_ROOTFS}/g" $$tmpfile; \
+		$(call install_copy, grub, 0, 0, 0644, $$tmpfile, /boot/grub/menu.lst, n); \
+		rm $$tmpfile; \
 	fi
 
 ifdef PTXCONF_GRUB_ISO9660
