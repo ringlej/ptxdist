@@ -1337,6 +1337,8 @@ while [ "$#" != "0" ]; do
 			check_compiler
 			check_dirs
 			check_deps
+			ptxd_make_log world
+			check_pipe_status
 			ptxd_make_log images
 			check_pipe_status
 			exit
