@@ -28,24 +28,10 @@ DASH_DIR	:= $(BUILDDIR)/$(DASH)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/dash.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(DASH_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, DASH)
 
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dash.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(DASH_DIR))
-	@$(call extract, DASH)
-	@$(call patchin, DASH)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -61,38 +47,12 @@ DASH_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-libedit=no
 
-$(STATEDIR)/dash.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(DASH_DIR)/config.cache)
-	cd $(DASH_DIR) && \
-		$(DASH_PATH) $(DASH_ENV) \
-		./configure $(DASH_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dash.compile:
-	@$(call targetinfo, $@)
-	cd $(DASH_DIR) && $(DASH_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dash.install:
-	@$(call targetinfo, $@)
-	@$(call install, DASH)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/dash.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init,  dash)
 	@$(call install_fixup, dash,PACKAGE,dash)
@@ -107,7 +67,7 @@ $(STATEDIR)/dash.targetinstall:
 
 	@$(call install_finish, dash)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
