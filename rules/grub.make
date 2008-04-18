@@ -365,10 +365,8 @@ else
 GRUB_AUTOCONF += --disable-smc9000-scan
 endif
 
-ifneq ("$(PTXCONF_GRUB_NE_SCAN)","")
+ifneq ($(strip $(call remove_quotes $(PTXCONF_GRUB_NE_SCAN))),)
 GRUB_AUTOCONF += --enable-ne-scan=$(PTXCONF_GRUB_NE_SCAN)
-else
-GRUB_AUTOCONF += --disable-ne-scan
 endif
 
 ifneq ("$(PTXCONF_GRUB_WD_DEFAULT_MEM)","")
@@ -487,6 +485,8 @@ $(STATEDIR)/grub.targetinstall: $(grub_targetinstall_deps_default)
 		sed -i -e "s/@NETMASK@/$${PTXCONF_BOARDSETUP_NETMASK}/g" $$tmpfile; \
 		sed -i -e "s/@GATEWAY@/$${PTXCONF_BOARDSETUP_GATEWAY}/g" $$tmpfile; \
 		sed -i -e "s/@ROOTFS@/$${PTXCONF_BOARDSETUP_ROOTFS}/g" $$tmpfile; \
+		sed -i -e "s,@TFTP_PATH@,$${PTXCONF_BOARDSETUP_TFTP_PATH},g" $$tmpfile; \
+		sed -i -e "s,@NFSROOT_PATH@,$${PTXCONF_BOARDSETUP_NFSROOT_PATH},g" $$tmpfile; \
 		$(call install_copy, grub, 0, 0, 0644, $$tmpfile, /boot/grub/menu.lst, n); \
 		rm $$tmpfile; \
 	fi
