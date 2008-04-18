@@ -561,7 +561,8 @@ clean() {
 	fi
 
 	echo "${PROMPT}removing deps..."
-	rm -f "${PTXDIST_PLATFORMDIR}/"{depend.out,deptree-a4.ps,deptree.ps}
+	rm -f "${PTXDIST_PLATFORMDIR}/"{deptree-a4.ps,deptree.ps}
+	rm -f "${STATEDIR}/depend.out"
 	echo "${PROMPT}removing imagedir..."
 	rm -fr "${IMAGEDIR}"
 	echo "${PROMPT}removing root..."
@@ -570,7 +571,7 @@ clean() {
 	echo "${PROMPT}removing state..."
 	rm -fr "${STATEDIR}"
 	echo "${PROMPT}removing logfile..."
-	rm -f "${PTXDIST_PLATFORMDIR}/logfile"
+	rm -f "${PTX_LOGFILE}"
 	echo "${PROMPT}removing test logfile..."
 	rm -f "${PTXDIST_PLATFORMDIR}/test.log"
 	echo "${PROMPT}removing packages dir..."
@@ -969,7 +970,7 @@ ptxdist_trap_handler() {
 		#
 	    	# use these quotes to keep Enrik's editor happy
 		#        \\
-		#         VV               
+		#         VV
 		echo -e "}""}} $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_FULLARGS[@]}\n\n\n" >> "${PTX_LOGFILE}"
 	fi
 }
@@ -1149,9 +1150,16 @@ setup_path() {
 #
 setup_logfile()
 {
+	local logdir
+
+	logdir="${PTX_LOGFILE%/*}"
+
+	if [ ! -d "${logdir}" ]; then
+		mkdir -p ${logdir} || ptxd_bailout "cannot create dir ${logdir}"
+	fi
 	# use these quotes to keep Enrik's editor happy
 	#      ||
-	#      VV               
+	#      VV
 	echo "{""{{ $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_FULLARGS[@]}" >> "${PTX_LOGFILE}"
 }
 
@@ -1208,7 +1216,7 @@ while [ "$#" != "0" ]; do
 			echo >&5
 			for i in $AUTOBUILDS; do
 				pushd $(dirname $i)
-				
+
 				echo "config............: $(basename $(pwd))" >&5
 				echo "date..............: $(date)" >&5
 				echo "user..............: ${USER}@${HOSTNAME}" >&5
