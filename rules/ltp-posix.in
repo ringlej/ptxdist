@@ -1,4 +1,3 @@
-
 menuconfig LTP_POSIX
 	tristate
 	select LTP_BASE

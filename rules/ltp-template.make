@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LTP_TEMPLATE) += ltp-template
 #
 # Paths and names
 #
-LTP_TEMPLATE_VERSION	= $(LTP_VERSION)
-LTP_TEMPLATE		= ltp-template-$(LTP_VERSION)
+LTP_TEMPLATE_VERSION	= $(LTP_BASE_VERSION)
+LTP_TEMPLATE		= ltp-template-$(LTP_BASE_VERSION)
 LTP_TEMPLATE_PKGDIR	= $(PKGDIR)/$(LTP_TEMPLATE)
 
 # ----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ $(STATEDIR)/ltp-template.targetinstall:
 	@$(call install_init, ltp-template)
 	@$(call install_fixup, ltp-template,PACKAGE,ltp-template)
 	@$(call install_fixup, ltp-template,PRIORITY,optional)
-	@$(call install_fixup, ltp-template,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-template,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-template,SECTION,base)
 	@$(call install_fixup, ltp-template,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-template,DEPENDS,)
@@ -96,7 +96,7 @@ $(STATEDIR)/ltp-template.targetinstall:
 
 	@for file in `find $(LTP_TEMPLATE_PKGDIR)/bin -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-template, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-template, 0, 0, $$PER, $$file, $(LTP_BASE_BIN_DIR)/$$file); \
 	done
 
 

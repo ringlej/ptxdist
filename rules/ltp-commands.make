@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LTP_COMMANDS) += ltp-commands
 #
 # Paths and names
 #
-LTP_COMMANDS_VERSION	= $(LTP_VERSION)
-LTP_COMMANDS		= ltp-commands-$(LTP_VERSION)
+LTP_COMMANDS_VERSION	= $(LTP_BASE_VERSION)
+LTP_COMMANDS		= ltp-commands-$(LTP_BASE_VERSION)
 LTP_COMMANDS_PKGDIR	= $(PKGDIR)/$(LTP_COMMANDS)
 
 # ----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ $(STATEDIR)/ltp-commands.targetinstall:
 	@$(call install_init, ltp-commands)
 	@$(call install_fixup, ltp-commands,PACKAGE,ltp-commands)
 	@$(call install_fixup, ltp-commands,PRIORITY,optional)
-	@$(call install_fixup, ltp-commands,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-commands,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-commands,SECTION,base)
 	@$(call install_fixup, ltp-commands,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-commands,DEPENDS,)
@@ -99,7 +99,7 @@ $(STATEDIR)/ltp-commands.targetinstall:
 		PER=`stat -c "%a" $$file` \
 		$(call install_copy, ltp-commands, 0, 0, $$PER, \
 			$(LTP_COMMANDS_PKGDIR)/bin/$$file, \
-			$(LTP_BIN_DIR)/$$file); \
+			$(LTP_BASE_BIN_DIR)/$$file); \
 	done
 
 

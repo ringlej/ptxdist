@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LTP_KDUMP) += ltp-kdump
 #
 # Paths and names
 #
-LTP_KDUMP_VERSION	= $(LTP_VERSION)
-LTP_KDUMP		= ltp-kdump-$(LTP_VERSION)
+LTP_KDUMP_VERSION	= $(LTP_BASE_VERSION)
+LTP_KDUMP		= ltp-kdump-$(LTP_BASE_VERSION)
 LTP_KDUMP_PKGDIR	= $(PKGDIR)/$(LTP_KDUMP)
 
 # ----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ $(STATEDIR)/ltp-kdump.targetinstall:
 	@$(call install_init, ltp-kdump)
 	@$(call install_fixup, ltp-kdump,PACKAGE,ltp-kdump)
 	@$(call install_fixup, ltp-kdump,PRIORITY,optional)
-	@$(call install_fixup, ltp-kdump,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-kdump,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-kdump,SECTION,base)
 	@$(call install_fixup, ltp-kdump,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-kdump,DEPENDS,)
@@ -96,7 +96,7 @@ $(STATEDIR)/ltp-kdump.targetinstall:
 
 	@for file in `find $(LTP_KDUMP_PKGDIR)/bin -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-kdump, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-kdump, 0, 0, $$PER, $$file, $(LTP_BASE_BIN_DIR)/$$file); \
 	done
 
 

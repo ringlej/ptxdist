@@ -1,3 +1,5 @@
+# meta package, used to build the whole beast
+
 config LTP_BASE
 	bool
 	default y if LTP

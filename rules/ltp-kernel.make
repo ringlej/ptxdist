@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LTP_KERNEL) += ltp-kernel
 #
 # Paths and names
 #
-LTP_KERNEL_VERSION	= $(LTP_VERSION)
-LTP_KERNEL		= ltp-kernel-$(LTP_VERSION)
+LTP_KERNEL_VERSION	= $(LTP_BASE_VERSION)
+LTP_KERNEL		= ltp-kernel-$(LTP_BASE_VERSION)
 LTP_KERNEL_PKGDIR	= $(PKGDIR)/$(LTP_KERNEL)
 
 # ----------------------------------------------------------------------------
@@ -113,13 +113,13 @@ ltp-kernel_install: $(STATEDIR)/ltp-kernel.install
 
 $(STATEDIR)/ltp-kernel.install:
 	@$(call targetinfo, $@)
-	@mkdir -p $(LTP_KERNEL_PKGDIR)/bin
-	@ln -sf $(LTP_KERNEL_PKGDIR)/bin $(LTP_BASE_DIR)/testcases/bin
-	@for target in $(LTP_KERNEL_BUILD_TARGETS); do \
+	mkdir -p $(LTP_KERNEL_PKGDIR)/bin
+	ln -sf $(LTP_KERNEL_PKGDIR)/bin $(LTP_BASE_DIR)/testcases/bin
+	for target in $(LTP_KERNEL_BUILD_TARGETS); do \
 		cd $(LTP_BASE_DIR)/testcases/kernel/$$target; \
 		$(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install; \
 	done
-	@rm $(LTP_BASE_DIR)/testcases/bin
+	rm $(LTP_BASE_DIR)/testcases/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -134,7 +134,7 @@ $(STATEDIR)/ltp-kernel.targetinstall:
 	@$(call install_init, ltp-kernel)
 	@$(call install_fixup, ltp-kernel,PACKAGE,ltp-kernel)
 	@$(call install_fixup, ltp-kernel,PRIORITY,optional)
-	@$(call install_fixup, ltp-kernel,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-kernel,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-kernel,SECTION,base)
 	@$(call install_fixup, ltp-kernel,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-kernel,DEPENDS,)
@@ -145,7 +145,7 @@ $(STATEDIR)/ltp-kernel.targetinstall:
 		PER=`stat -c "%a" $$file` \
 		$(call install_copy, ltp-kernel, 0, 0, $$PER, \
 			$(LTP_KERNEL_PKGDIR)/bin/$$file, \
-			$(LTP_BIN_DIR)/$$file); \
+			$(LTP_BASE_BIN_DIR)/$$file); \
 	done
 
 

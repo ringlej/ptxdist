@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LTP_POSIX) += ltp-posix
 #
 # Paths and names
 #
-LTP_POSIX_VERSION	= $(LTP_VERSION)
-LTP_POSIX		= ltp-posix-$(LTP_VERSION)
+LTP_POSIX_VERSION	= $(LTP_BASE_VERSION)
+LTP_POSIX		= ltp-posix-$(LTP_BASE_VERSION)
 LTP_POSIX_DIR		= $(LTP_BASE_DIR)/testcases/open_posix_testsuite
 LTP_POSIX_PKGDIR	= $(PKGDIR)/$(LTP_POSIX)
 
@@ -93,7 +93,7 @@ ltp-posix_install_copy = \
 	PER=`stat -c "%a" $$file` \
 	$(call install_copy, ltp-posix, 0, 0, $$PER, \
 		$(LTP_POSIX_DIR)/$$file, \
-		$(LTP_BIN_DIR)/posix/$$file)
+		$(LTP_BASE_BIN_DIR)/posix/$$file)
 
 
 ltp-posix_targetinstall: $(STATEDIR)/ltp-posix.targetinstall
@@ -104,7 +104,7 @@ $(STATEDIR)/ltp-posix.targetinstall:
 	@$(call install_init, ltp-posix)
 	@$(call install_fixup, ltp-posix,PACKAGE,ltp-posix)
 	@$(call install_fixup, ltp-posix,PRIORITY,optional)
-	@$(call install_fixup, ltp-posix,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-posix,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-posix,SECTION,base)
 	@$(call install_fixup, ltp-posix,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-posix,DEPENDS,)

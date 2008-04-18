@@ -23,7 +23,7 @@ LTP_BASE_SUFFIX		= tgz
 LTP_BASE_URL		= $(PTXCONF_SETUP_SFMIRROR)/ltp_base/$(LTP_BASE).$(LTP_BASE_SUFFIX)
 LTP_BASE_SOURCE		= $(SRCDIR)/$(LTP_BASE).$(LTP_BASE_SUFFIX)
 LTP_BASE_DIR		= $(BUILDDIR)/$(LTP_BASE)
-LTP_BASE_BIN_DIR	= /usr/bin/ltp_base
+LTP_BASE_BIN_DIR	= /usr/bin/ltp
 
 # ----------------------------------------------------------------------------
 # Get

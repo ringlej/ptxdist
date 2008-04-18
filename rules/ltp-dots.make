@@ -17,9 +17,9 @@ PACKAGES-$(PTXCONF_LTP_DOTS) += ltp-dots
 #
 # Paths and names
 #
-LTP_DOTS_VERSION	= $(LTP_VERSION)
-LTP_DOTS		= ltp-dots-$(LTP_VERSION)
-LTP_DOTS_PKGDIR	= $(PKGDIR)/$(LTP_DOTS)
+LTP_DOTS_VERSION	= $(LTP_BASE_VERSION)
+LTP_DOTS		= ltp-dots-$(LTP_BASE_VERSION)
+LTP_DOTS_PKGDIR		= $(PKGDIR)/$(LTP_DOTS)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -88,7 +88,7 @@ $(STATEDIR)/ltp-dots.targetinstall:
 	@$(call install_init, ltp-dots)
 	@$(call install_fixup, ltp-dots,PACKAGE,ltp-dots)
 	@$(call install_fixup, ltp-dots,PRIORITY,optional)
-	@$(call install_fixup, ltp-dots,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-dots,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-dots,SECTION,base)
 	@$(call install_fixup, ltp-dots,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-dots,DEPENDS,)
@@ -96,7 +96,7 @@ $(STATEDIR)/ltp-dots.targetinstall:
 
 	@for file in `find $(LTP_DOTS_PKGDIR)/bin -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-dots, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-dots, 0, 0, $$PER, $$file, $(LTP_BASE_BIN_DIR)/$$file); \
 	done
 
 

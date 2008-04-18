@@ -1,4 +1,3 @@
-
 menuconfig LTP_HPI
 	tristate
 	select LTP_BASE

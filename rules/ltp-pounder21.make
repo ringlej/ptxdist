@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LTP_POUNDER21) += ltp-pounder21
 #
 # Paths and names
 #
-LTP_POUNDER21_VERSION	= $(LTP_VERSION)
-LTP_POUNDER21		= ltp-pounder21-$(LTP_VERSION)
+LTP_POUNDER21_VERSION	= $(LTP_BASE_VERSION)
+LTP_POUNDER21		= ltp-pounder21-$(LTP_BASE_VERSION)
 LTP_POUNDER21_PKGDIR	= $(PKGDIR)/$(LTP_POUNDER21)
 
 # ----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ $(STATEDIR)/ltp-pounder21.targetinstall:
 	@$(call install_init, ltp-pounder21)
 	@$(call install_fixup, ltp-pounder21,PACKAGE,ltp-pounder21)
 	@$(call install_fixup, ltp-pounder21,PRIORITY,optional)
-	@$(call install_fixup, ltp-pounder21,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-pounder21,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-pounder21,SECTION,base)
 	@$(call install_fixup, ltp-pounder21,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-pounder21,DEPENDS,)
@@ -96,7 +96,7 @@ $(STATEDIR)/ltp-pounder21.targetinstall:
 
 	@for file in `find $(LTP_POUNDER21_PKGDIR)/bin -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-pounder21, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-pounder21, 0, 0, $$PER, $$file, $(LTP_BASE_BIN_DIR)/$$file); \
 	done
 
 

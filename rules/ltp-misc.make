@@ -17,9 +17,9 @@ PACKAGES-$(PTXCONF_LTP_MISC) += ltp-misc
 #
 # Paths and names
 #
-LTP_MISC_VERSION	= $(LTP_VERSION)
-LTP_MISC		= ltp-misc-$(LTP_VERSION)
-LTP_MISC_PKGDIR	= $(PKGDIR)/$(LTP_MISC)
+LTP_MISC_VERSION	= $(LTP_BASE_VERSION)
+LTP_MISC		= ltp-misc-$(LTP_BASE_VERSION)
+LTP_MISC_PKGDIR		= $(PKGDIR)/$(LTP_MISC)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -88,7 +88,7 @@ $(STATEDIR)/ltp-misc.targetinstall:
 	@$(call install_init, ltp-misc)
 	@$(call install_fixup, ltp-misc,PACKAGE,ltp-misc)
 	@$(call install_fixup, ltp-misc,PRIORITY,optional)
-	@$(call install_fixup, ltp-misc,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-misc,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-misc,SECTION,base)
 	@$(call install_fixup, ltp-misc,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-misc,DEPENDS,)
@@ -99,7 +99,7 @@ $(STATEDIR)/ltp-misc.targetinstall:
 		PER=`stat -c "%a" $$file` \
 		$(call install_copy, ltp-misc, 0, 0, $$PER, \
 			$(LTP_MISC_PKGDIR)/bin/$$file, \
-			$(LTP_BIN_DIR)/$$file); \
+			$(LTP_BASE_BIN_DIR)/$$file); \
 	done
 
 

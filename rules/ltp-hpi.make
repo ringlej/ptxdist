@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LTP_HPI) += ltp-hpi
 #
 # Paths and names
 #
-LTP_HPI_VERSION	= $(LTP_VERSION)
-LTP_HPI		= ltp-hpi-$(LTP_VERSION)
+LTP_HPI_VERSION	= $(LTP_BASE_VERSION)
+LTP_HPI		= ltp-hpi-$(LTP_BASE_VERSION)
 LTP_HPI_PKGDIR	= $(PKGDIR)/$(LTP_HPI)
 
 # ----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ $(STATEDIR)/ltp-hpi.targetinstall:
 	@$(call install_init, ltp-hpi)
 	@$(call install_fixup, ltp-hpi,PACKAGE,ltp-hpi)
 	@$(call install_fixup, ltp-hpi,PRIORITY,optional)
-	@$(call install_fixup, ltp-hpi,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-hpi,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-hpi,SECTION,base)
 	@$(call install_fixup, ltp-hpi,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-hpi,DEPENDS,)
@@ -96,7 +96,7 @@ $(STATEDIR)/ltp-hpi.targetinstall:
 
 	@for file in `find $(LTP_HPI_PKGDIR)/bin -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-hpi, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-hpi, 0, 0, $$PER, $$file, $(LTP_BASE_BIN_DIR)/$$file); \
 	done
 
 

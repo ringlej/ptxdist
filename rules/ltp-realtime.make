@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LTP_REALTIME) += ltp-realtime
 #
 # Paths and names
 #
-LTP_REALTIME_VERSION	= $(LTP_VERSION)
-LTP_REALTIME		= ltp-realtime-$(LTP_VERSION)
+LTP_REALTIME_VERSION	= $(LTP_BASE_VERSION)
+LTP_REALTIME		= ltp-realtime-$(LTP_BASE_VERSION)
 LTP_REALTIME_PKGDIR	= $(PKGDIR)/$(LTP_REALTIME)
 
 # ----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ $(STATEDIR)/ltp-realtime.targetinstall:
 	@$(call install_init, ltp-realtime)
 	@$(call install_fixup, ltp-realtime,PACKAGE,ltp-realtime)
 	@$(call install_fixup, ltp-realtime,PRIORITY,optional)
-	@$(call install_fixup, ltp-realtime,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-realtime,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-realtime,SECTION,base)
 	@$(call install_fixup, ltp-realtime,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-realtime,DEPENDS,)
@@ -96,7 +96,7 @@ $(STATEDIR)/ltp-realtime.targetinstall:
 
 	@for file in `find $(LTP_REALTIME_PKGDIR)/bin -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-realtime, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-realtime, 0, 0, $$PER, $$file, $(LTP_BASE_BIN_DIR)/$$file); \
 	done
 
 

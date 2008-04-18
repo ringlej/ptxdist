@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_LTP_BALLISTA) += ltp-ballista
 #
 # Paths and names
 #
-LTP_BALLISTA_VERSION	= $(LTP_VERSION)
-LTP_BALLISTA		= ltp-ballista-$(LTP_VERSION)
+LTP_BALLISTA_VERSION	= $(LTP_BASE_VERSION)
+LTP_BALLISTA		= ltp-ballista-$(LTP_BASE_VERSION)
 LTP_BALLISTA_PKGDIR	= $(PKGDIR)/$(LTP_BALLISTA)
 
 # ----------------------------------------------------------------------------
@@ -88,7 +88,7 @@ $(STATEDIR)/ltp-ballista.targetinstall:
 	@$(call install_init, ltp-ballista)
 	@$(call install_fixup, ltp-ballista,PACKAGE,ltp-ballista)
 	@$(call install_fixup, ltp-ballista,PRIORITY,optional)
-	@$(call install_fixup, ltp-ballista,VERSION,$(LTP_VERSION))
+	@$(call install_fixup, ltp-ballista,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-ballista,SECTION,base)
 	@$(call install_fixup, ltp-ballista,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ltp-ballista,DEPENDS,)
@@ -96,7 +96,7 @@ $(STATEDIR)/ltp-ballista.targetinstall:
 
 	@for file in `find $(LTP_BALLISTA_PKGDIR)/bin -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, ltp-ballista, 0, 0, $$PER, $$file, $(LTP_BIN_DIR)/$$file); \
+		$(call install_copy, ltp-ballista, 0, 0, $$PER, $$file, $(LTP_BASE_BIN_DIR)/$$file); \
 	done
 
 
