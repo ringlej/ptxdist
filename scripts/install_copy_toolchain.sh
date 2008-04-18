@@ -4,6 +4,47 @@
 . ${SCRIPTSDIR}/libptxdist.sh
 
 #
+# $1 = from
+# $2 = to
+#
+# out: relative path
+#
+ptxd_abs2rel() {
+    local from from_parts to to_parts max orig_IFS
+
+    [ ${#} -eq 2 ] || ptxd_bailout "supply exactly two paths"
+
+    from="${1}"
+    to="${2}"
+
+    orig_IFS="${IFS}"
+    IFS="/"
+    from_parts=(${from#/})
+    to_parts=(${to#/})
+
+    if [ ${#from_parts[@]} -gt ${#to_parts[@]} ]; then
+	max=${#from_parts[@]}
+    else
+	max=${#to_parts[@]}
+    fi
+
+    for ((i = 0; i < ${max}; i++)); do
+	from="${from_parts[i]}"
+	to="${to_parts[i]}"
+
+	if [ "${from}" = "${to}" ]; then
+	    unset from_parts[$i]
+	    unset to_parts[$i]
+	elif [ -n "${from}" ]; then
+	    from_parts[$i]=".."
+	fi
+    done
+    
+    echo "${from_parts[*]}${from_parts[*]:+/}${to_parts[*]}"
+    IFS="${orig_IFS}"
+}
+
+
 # $1: lib
 #
 # out: $lib_path
@@ -14,13 +55,13 @@ ptxd_get_lib_path() {
     lib="${1}"
 
     # ask the compiler for the lib
-    lib_path="`${CC} -print-file-name=${lib}`"
+    lib_path="$(${CC} -print-file-name=${lib})"
     if test "${lib_path}" = "${lib}"; then
 	echo "install_copy_toolchain_lib: ${lib} not found" >&2
 	return -1
     fi
     # let the shell canonicalized the path
-    lib_dir="`cd ${lib_path%/${lib}} && echo $PWD`"
+    lib_dir="$(cd ${lib_path%/${lib}} && echo $PWD)"
 
     if test \! -d "${lib_dir}"; then
 	echo "install_copy_toolchain_lib: ${lib_dir} not found" >&2
@@ -37,11 +78,11 @@ ptxd_get_lib_path() {
 ptxd_get_dl() {
     local dl
 
-    dl="`echo 'int main(void){return 0;}' | \
+    dl="$(echo 'int main(void){return 0;}' | \
     	${CC} -x c -o /dev/null -v - 2>&1 | \
-	sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p'`"
+	sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')"
 
-    echo "`basename ${dl}`"
+    echo "${dl##*/}"
 }
 
 
@@ -73,7 +114,12 @@ ptxd_split_lib_prefix_sysroot_eval() {
 
 
 #
-# $1: lib_path: canonicalized path to lib
+# call with "key=value"
+#
+# lib_path=<canonicalized path to lib>
+# strip=[true|false]
+# packet=<name of packet>
+# dest=<where to install, relative to root{,-debug}>
 #
 # The work is done here!
 # - look at the filename given us, if it's a link then
@@ -85,24 +131,22 @@ ptxd_split_lib_prefix_sysroot_eval() {
 #   libs mentioned there
 #
 ptxd_install_toolchain_lib() {
-    local lib_path lib lib_dir sysroot prefix prefix script_lib tmp dir v_full lib_v_major
-    local args packet dest strip lnk lnk_path lnk_prefix lnk_sysroot
+    local lib_path lib lib_dir sysroot prefix script_lib tmp dir v_full lib_v_major
+    local packet dest strip lnk lnk_path lnk_prefix lnk_sysroot perm
 
     eval "${@}"
-    eval "${args}"
 
     while true; do
 	lib="${lib_path##*/}"			# the pure library filename "libxxx.so"
 	lib_dir="${lib_path%/${lib}}"		# abs path to that lib
 
 	# guess sysroot from given lib
-	eval `ptxd_split_lib_prefix_sysroot_eval "${lib_path}"`
+	eval $(ptxd_split_lib_prefix_sysroot_eval "${lib_path}")
 	if test -z "${prefix}" -a -z "${dest}"; then
-	    echo "cannot identify prefix and no user supplied dest" >&2
-	    exit 1
+	    ptxd_bailout "cannot identify prefix and no user supplied dest"
 	fi
 
-	# if the user has given us a $prefix use it
+	# if the user has given us a $dest use it
 	prefix="${dest:-${prefix}}"
 
 	# remove existing libs
@@ -119,8 +163,8 @@ ptxd_install_toolchain_lib() {
 	    echo "link - ${lib_path}"
 
 	    # get target of the link
-	    lnk_path="`readlink \"${lib_path}\"`" || ( echo "broken link" >&2; exit 1 )
-	    lnk="`basename \"${lnk_path}\"`"
+	    lnk_path="$(readlink "${lib_path}")" || ptxd_bailout "broken link"
+	    lnk="${lnk_path##*/}"
 
 	    # deal with relative and absolute links
 	    case "${lnk_path}" in
@@ -132,10 +176,12 @@ ptxd_install_toolchain_lib() {
 		    ;;
 	    esac
 
-	    lnk_path="`ptxd_abspath \"${lnk_path}\"`"
-	    eval `ptxd_split_lib_prefix_sysroot_eval "${lnk_path}" lnk`
+	    lnk_path="$(ptxd_abspath "${lnk_path}")"
+	    eval $(ptxd_split_lib_prefix_sysroot_eval "${lnk_path}" lnk)
 	    lnk_prefix="${dest:-${lnk_prefix}}"
 
+	    lnk_prefix="$(ptxd_abs2rel "${prefix}" "${lnk_prefix}")"
+	    lnk_prefix="${lnk_prefix}${lnk_prefix:+/}"
 	    # now install that link into the root and ipkg dirs
 	    for dir in \
 		"${ROOTDIR}" \
@@ -145,7 +191,7 @@ ptxd_install_toolchain_lib() {
 		if test \! -d "${dir}${prefix}"; then
 		    mkdir -p "${dir}${prefix}"
 		fi
-		ln -sf "${lnk_prefix}/${lnk}" "${dir}${prefix}/${lib}"
+		ln -sf "${lnk_prefix}${lnk}" "${dir}${prefix}/${lib}"
 	    done
 
 	    lib_path="${lnk_path}"
@@ -158,41 +204,42 @@ ptxd_install_toolchain_lib() {
 		# the libs are in the GROUP line
 		# strip all braces and install all shared libs ( *.so*), ignore "GROUP" and static libs
 		#
-		for script_lib in `sed -n -e "/GROUP/s/[()]//gp" "${lib_path}"`; do
-		    # deal with multiple "//" in paths, remove them
-		    script_lib="`echo ${script_lib} | sed -e \"s://*:/:g\"`"
-
+		for script_lib in $(sed -n -e "/GROUP/s/[()]//gp" "${lib_path}"); do
 		    # deal with relative and absolute libs
 		    case "${script_lib}" in
 			/*.so*)
-			    echo "in script - ${script_lib}"
-			    ptxd_install_toolchain_lib "args=\"${args}\"" "lib_path=\"${sysroot}/${script_lib}\"" || return $?
+			    script_lib="${sysroot}${script_lib}"
 			    ;;
 			*.so*)
-			    echo "in script - ${script_lib}"
-			    ptxd_install_toolchain_lib "args=\"${args}\"" "lib_path=\"${lib_dir}/${script_lib}\"" || return $?
+			    script_lib="${lib_dir}/${script_lib}"
 			    ;;
 			*)
+			    continue
 			    ;;
 		    esac
+		    script_lib="$(ptxd_abspath "${script_lib}")"
+		    echo "in script - ${script_lib}"
+		    ptxd_install_toolchain_lib strip="${strip}" packet="${packet}" dest="${dest}" lib_path="${script_lib}" || return $?
 		done
 	    else
 		# ordinary shared lib, just copy it
 		echo "lib - ${lib_path}"
+
+		perm="$(stat -c %a "${lib_path}")"
 
 		for dir in \
 		    "${ROOTDIR}" \
 		    "${ROOTDIR_DEBUG}" \
 		    "${PKGDIR}/${packet}.tmp/ipkg"; do
 
-		  install -D "${lib_path}" "${dir}${prefix}/${lib}"
+		  install -m ${perm} -D "${lib_path}" "${dir}${prefix}/${lib}"
 		done
 
 		if "${strip}"; then
 		    ${STRIP} "${ROOTDIR}${prefix}/${lib}"
 		    ${STRIP} "${PKGDIR}/${packet}.tmp/ipkg${prefix}/${lib}"
 		fi
-		echo "f:${prefix}/${lib}:0:0:755" >> "${STATEDIR}/${packet}.perms"
+		echo "f:${prefix}/${lib}:0:0:${perm}" >> "${STATEDIR}/${packet}.perms"
 
 		# now create some links to that lib
 		# e.g. libstdc++.so.6 -> libstdc++.so.6.6.6
@@ -230,23 +277,23 @@ ptxd_install_toolchain_lib() {
 _ptxd_get_sysroot_usr_by_sysroot() {
     local sysroot
 
-    sysroot="`echo 'int main(void){return 0;}' | \
+    sysroot="$(echo 'int main(void){return 0;}' | \
 	${CC} -x c -o /dev/null -v - 2>&1 | \
-	sed -ne \"/.*collect2.*/s,.*--sysroot=\([^[:space:]]*\).*,\1,p\"`"
+	sed -ne "/.*collect2.*/s,.*--sysroot=\([^[:space:]]*\).*,\1,p")"
 
     test -n "${sysroot}" || return 1
 
-    echo "`ptxd_abspath ${sysroot}/usr`"
+    echo "$(ptxd_abspath ${sysroot}/usr)"
 }
 
 
 _ptxd_get_sysroot_usr_by_progname() {
     local prog_name
 
-    prog_name="`${CC} -print-prog-name=gcc`"
+    prog_name="$(${CC} -print-prog-name=gcc)"
     case "${prog_name}" in
 	/*)
-	    prog_name="`ptxd_abspath ${prog_name%/bin/gcc}`"
+	    prog_name="$(ptxd_abspath ${prog_name%/bin/gcc})"
 	    ;;
 	*)
 	    if test "${NATIVE}" = "1"; then
@@ -264,8 +311,8 @@ _ptxd_get_sysroot_usr_by_progname() {
 ptxd_get_sysroot_usr() {
     local sysroot_usr
 
-    sysroot_usr="`_ptxd_get_sysroot_usr_by_sysroot`" ||
-    sysroot_usr="`_ptxd_get_sysroot_usr_by_progname`" ||
+    sysroot_usr="$(_ptxd_get_sysroot_usr_by_sysroot)" ||
+    sysroot_usr="$(_ptxd_get_sysroot_usr_by_progname)" ||
     ( echo "unable to identify your SYSROOT, giving up"; return $? )
 
     echo "${sysroot_usr}"
@@ -284,14 +331,14 @@ ptxd_install_toolchain_usr() {
 
     eval "${@}"
 
-    sysroot_usr="`ptxd_get_sysroot_usr`" || return $?
+    sysroot_usr="$(ptxd_get_sysroot_usr)" || return $?
 
-    if test -z "`find ${sysroot_usr} -path "${sysroot_usr}/${usr}" -a \! -type d`"; then
+    if test -z "$(find ${sysroot_usr} -path "${sysroot_usr}/${usr}" -a \! -type d)"; then
 	echo "file ${usr} not found"
     fi
 
     find ${sysroot_usr} -path "${sysroot_usr}/${usr}" -a \! -type d | while read usr_src; do
-	eval `stat -c"usr_perm=%a" "${usr_src}"`
+	eval $(stat -c"usr_perm=%a" "${usr_src}")
 	usr_dst="/usr${usr_src#${sysroot_usr}}"
 
 	echo "usr - ${usr_dst}"
@@ -343,12 +390,12 @@ ptxd_install_copy_toolchain() {
 	esac
     done
 
-    if test -n "${lib}"; then
-	if test "${lib}" == LINKER; then
-	    lib="`ptxd_get_dl`" || return $?
+    if [ -n "${lib}" ]; then
+	if [ "${lib}" == "LINKER" ]; then
+	    lib="$(ptxd_get_dl)" || return $?
 	fi
-	lib_path="`ptxd_get_lib_path \"${lib}\"`" || return $?
-	ptxd_install_toolchain_lib "args=\"${args}"\" "lib_path=${lib_path}" || return $?
+	lib_path="$(ptxd_get_lib_path "${lib}")" || return $?
+	ptxd_install_toolchain_lib "${args}" lib_path="${lib_path}" || return $?
     elif test -n "${usr}"; then
 	ptxd_install_toolchain_usr "${args}" "usr=${usr}" || return $?
     fi
@@ -360,4 +407,4 @@ ptxd_install_copy_toolchain() {
 #
 # FIXME: ugly hack to use this script as library as well
 #
-[ `basename $0` != "make_locale.sh" ] && [ `basename $0` != "make_zoneinfo.sh" ] && ptxd_install_copy_toolchain "${@}"
+[ $(basename $0) != "make_locale.sh" ] && [ $(basename $0) != "make_zoneinfo.sh" ] && ptxd_install_copy_toolchain "${@}"
