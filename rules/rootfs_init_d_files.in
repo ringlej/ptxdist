@@ -202,9 +202,6 @@ menuconfig ROOTFS_ETC_INITD_HWCLOCK
 
 ########################## User startup script ##############################
 
-# FIXME: RSC: needed somewhere? Shold be done by project specific stuff
-# if needed.
-
 config ROOTFS_ETC_INITD_STARTUP
 	depends on ROOTFS_ETC_INITD
 	bool

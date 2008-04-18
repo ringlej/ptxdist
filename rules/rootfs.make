@@ -335,10 +335,17 @@ endif
 endif
 
 # -----------------------------------------------------------------------------
+# startup is handled here as there is no other location where it could be done
+#
 ifdef PTXCONF_ROOTFS_ETC_INITD_STARTUP
 	@$(call install_copy, rootfs, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/startup, \
 		/etc/init.d/startup, n)
+
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_STARTUP_LINK),"")
+	@$(call install_link, rootfs, ../init.d/startup, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_STARTUP_LINK))
+endif
 endif
 
 # -----------------------------------------------------------------------------

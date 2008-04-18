@@ -251,6 +251,17 @@ config ROOTFS_ETC_INITD_TIMEKEEPER_LINK
 	  sync the system with an internal real time clock when it starts up.
 	  Keep this entry empty if you want to sync manually.
 
+config ROOTFS_ETC_INITD_STARTUP_LINK
+	depends on ROOTFS_ETC_INITD_STARTUP
+	string
+	prompt "startup link name"
+	default "S21_startup"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/startup to
+	  allow a user to start his own application in /home/startup when
+	  the system starts up.
+	  Keep this entry empty if you don't want it to be done automatically.
+
 # ----------------------------------------------------------------------------
 
 endmenu
