@@ -1,5 +1,5 @@
-
 config LTP_NETWORK
-	bool
+	tristate
+	select LTP_BASE
 	prompt "network             "
 

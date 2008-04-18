@@ -100,7 +100,7 @@ ltp-kernel_compile: $(STATEDIR)/ltp-kernel.compile
 $(STATEDIR)/ltp-kernel.compile:
 	@$(call targetinfo, $@)
 	@for target in $(LTP_KERNEL_BUILD_TARGETS); do \
-		cd $(LTP_DIR)/testcases/kernel/$$target; \
+		cd $(LTP_BASE_DIR)/testcases/kernel/$$target; \
 		$(LTP_ENV) $(MAKE) $(PARALLELMFLAGS); \
 	done
 	@$(call touch, $@)
@@ -114,12 +114,12 @@ ltp-kernel_install: $(STATEDIR)/ltp-kernel.install
 $(STATEDIR)/ltp-kernel.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_KERNEL_PKGDIR)/bin
-	@ln -sf $(LTP_KERNEL_PKGDIR)/bin $(LTP_DIR)/testcases/bin
+	@ln -sf $(LTP_KERNEL_PKGDIR)/bin $(LTP_BASE_DIR)/testcases/bin
 	@for target in $(LTP_KERNEL_BUILD_TARGETS); do \
-		cd $(LTP_DIR)/testcases/kernel/$$target; \
+		cd $(LTP_BASE_DIR)/testcases/kernel/$$target; \
 		$(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install; \
 	done
-	@rm $(LTP_DIR)/testcases/bin
+	@rm $(LTP_BASE_DIR)/testcases/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

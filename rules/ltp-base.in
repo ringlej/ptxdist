@@ -1,0 +1,4 @@
+config LTP_BASE
+	bool
+	default y if LTP
+

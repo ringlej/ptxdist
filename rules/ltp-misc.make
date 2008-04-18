@@ -59,7 +59,7 @@ ltp-misc_compile: $(STATEDIR)/ltp-misc.compile
 
 $(STATEDIR)/ltp-misc.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/misc; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
+	@cd $(LTP_BASE_DIR)/testcases/misc; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -71,9 +71,9 @@ ltp-misc_install: $(STATEDIR)/ltp-misc.install
 $(STATEDIR)/ltp-misc.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_MISC_PKGDIR)/bin
-	@ln -sf $(LTP_MISC_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/misc; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
-	@rm $(LTP_DIR)/testcases/bin
+	@ln -sf $(LTP_MISC_PKGDIR)/bin $(LTP_BASE_DIR)/testcases/bin
+	@cd $(LTP_BASE_DIR)/testcases/misc; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
+	@rm $(LTP_BASE_DIR)/testcases/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

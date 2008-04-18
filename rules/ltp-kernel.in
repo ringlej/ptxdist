@@ -1,5 +1,6 @@
 menuconfig LTP_KERNEL
-	bool
+	tristate
+	select LTP_BASE
 	prompt "kernel              "
 	help
 	  Kernel based tests.

@@ -59,7 +59,7 @@ ltp-network_compile: $(STATEDIR)/ltp-network.compile
 
 $(STATEDIR)/ltp-network.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/network; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
+	@cd $(LTP_BASE_DIR)/testcases/network; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -71,9 +71,9 @@ ltp-network_install: $(STATEDIR)/ltp-network.install
 $(STATEDIR)/ltp-network.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_NETWORK_PKGDIR)/bin
-	@ln -sf $(LTP_NETWORK_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/network; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
-	@rm $(LTP_DIR)/testcases/bin
+	@ln -sf $(LTP_NETWORK_PKGDIR)/bin $(LTP_BASE_DIR)/testcases/bin
+	@cd $(LTP_BASE_DIR)/testcases/network; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
+	@rm $(LTP_BASE_DIR)/testcases/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

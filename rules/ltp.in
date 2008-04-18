@@ -12,6 +12,7 @@ menuconfig LTP
 
 if LTP
 
+source "rules/ltp-base.in"
 source "rules/ltp-ballista.in"
 source "rules/ltp-commands.in"
 source "rules/ltp-dots.in"

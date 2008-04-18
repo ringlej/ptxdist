@@ -1,4 +1,5 @@
 config LTP_REALTIME
-	bool
+	tristate
+	select LTP_BASE
 	prompt "realtime            "
 

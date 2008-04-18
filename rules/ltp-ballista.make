@@ -59,7 +59,7 @@ ltp-ballista_compile: $(STATEDIR)/ltp-ballista.compile
 
 $(STATEDIR)/ltp-ballista.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/ballista; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
+	@cd $(LTP_BASE_DIR)/testcases/ballista; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -71,9 +71,9 @@ ltp-ballista_install: $(STATEDIR)/ltp-ballista.install
 $(STATEDIR)/ltp-ballista.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_BALLISTA_PKGDIR)/bin
-	@ln -sf $(LTP_BALLISTA_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/ballista; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
-	@rm $(LTP_DIR)/testcases/bin
+	@ln -sf $(LTP_BALLISTA_PKGDIR)/bin $(LTP_BASE_DIR)/testcases/bin
+	@cd $(LTP_BASE_DIR)/testcases/ballista; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
+	@rm $(LTP_BASE_DIR)/testcases/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

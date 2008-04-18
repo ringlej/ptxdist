@@ -1,5 +1,6 @@
 menuconfig LTP_BALLISTA
-	bool
+	tristate
+	select LTP_BASE
 	prompt "ballista [BROKEN]             "
 	depends on BROKEN
 	help

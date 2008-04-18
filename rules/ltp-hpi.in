@@ -1,6 +1,7 @@
 
 menuconfig LTP_HPI
-	bool
+	tristate
+	select LTP_BASE
 	prompt "open_hpi_testsuite  "
 	depends on BROKEN
 

@@ -59,7 +59,7 @@ ltp-commands_compile: $(STATEDIR)/ltp-commands.compile
 
 $(STATEDIR)/ltp-commands.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/commands; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
+	@cd $(LTP_BASE_DIR)/testcases/commands; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -71,9 +71,9 @@ ltp-commands_install: $(STATEDIR)/ltp-commands.install
 $(STATEDIR)/ltp-commands.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_COMMANDS_PKGDIR)/bin
-	@ln -sf $(LTP_COMMANDS_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/commands; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
-	@rm $(LTP_DIR)/testcases/bin
+	@ln -sf $(LTP_COMMANDS_PKGDIR)/bin $(LTP_BASE_DIR)/testcases/bin
+	@cd $(LTP_BASE_DIR)/testcases/commands; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
+	@rm $(LTP_BASE_DIR)/testcases/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

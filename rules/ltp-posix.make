@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_LTP_POSIX) += ltp-posix
 #
 LTP_POSIX_VERSION	= $(LTP_VERSION)
 LTP_POSIX		= ltp-posix-$(LTP_VERSION)
-LTP_POSIX_DIR		= $(LTP_DIR)/testcases/open_posix_testsuite
+LTP_POSIX_DIR		= $(LTP_BASE_DIR)/testcases/open_posix_testsuite
 LTP_POSIX_PKGDIR	= $(PKGDIR)/$(LTP_POSIX)
 
 # ----------------------------------------------------------------------------

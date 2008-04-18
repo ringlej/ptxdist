@@ -59,7 +59,7 @@ ltp-template_compile: $(STATEDIR)/ltp-template.compile
 
 $(STATEDIR)/ltp-template.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/template; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
+	@cd $(LTP_BASE_DIR)/testcases/template; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -71,9 +71,9 @@ ltp-template_install: $(STATEDIR)/ltp-template.install
 $(STATEDIR)/ltp-template.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_TEMPLATE_PKGDIR)/bin
-	@ln -sf $(LTP_TEMPLATE_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/template; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
-	@rm $(LTP_DIR)/testcases/bin
+	@ln -sf $(LTP_TEMPLATE_PKGDIR)/bin $(LTP_BASE_DIR)/testcases/bin
+	@cd $(LTP_BASE_DIR)/testcases/template; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
+	@rm $(LTP_BASE_DIR)/testcases/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

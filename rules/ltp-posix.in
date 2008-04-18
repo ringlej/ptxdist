@@ -1,6 +1,7 @@
 
 menuconfig LTP_POSIX
-	bool
+	tristate
+	select LTP_BASE
 	prompt "open_posix_testsuite"
 
 config LTP_POSIX_CONFORMANCE

@@ -59,7 +59,7 @@ ltp-dots_compile: $(STATEDIR)/ltp-dots.compile
 
 $(STATEDIR)/ltp-dots.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/DOTS; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
+	@cd $(LTP_BASE_DIR)/testcases/DOTS; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -71,9 +71,9 @@ ltp-dots_install: $(STATEDIR)/ltp-dots.install
 $(STATEDIR)/ltp-dots.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_DOTS_PKGDIR)/bin
-	@ln -sf $(LTP_DOTS_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/DOTS; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
-	@rm $(LTP_DIR)/testcases/bin
+	@ln -sf $(LTP_DOTS_PKGDIR)/bin $(LTP_BASE_DIR)/testcases/bin
+	@cd $(LTP_BASE_DIR)/testcases/DOTS; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
+	@rm $(LTP_BASE_DIR)/testcases/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

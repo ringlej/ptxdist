@@ -1,5 +1,6 @@
 config LTP_COMMANDS
-	bool
+	tristate
+	select LTP_BASE
 	prompt "commands            "
 	help
 	  Test user land commands.

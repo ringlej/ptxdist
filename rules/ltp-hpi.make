@@ -59,7 +59,7 @@ ltp-hpi_compile: $(STATEDIR)/ltp-hpi.compile
 
 $(STATEDIR)/ltp-hpi.compile:
 	@$(call targetinfo, $@)
-	@cd $(LTP_DIR)/testcases/open_hpi_testsuite; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
+	@cd $(LTP_BASE_DIR)/testcases/open_hpi_testsuite; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -71,9 +71,9 @@ ltp-hpi_install: $(STATEDIR)/ltp-hpi.install
 $(STATEDIR)/ltp-hpi.install:
 	@$(call targetinfo, $@)
 	@mkdir -p $(LTP_HPI_PKGDIR)/bin
-	@ln -sf $(LTP_HPI_PKGDIR)/bin $(LTP_DIR)/testcases/bin
-	@cd $(LTP_DIR)/testcases/open_hpi_testsuite; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
-	@rm $(LTP_DIR)/testcases/bin
+	@ln -sf $(LTP_HPI_PKGDIR)/bin $(LTP_BASE_DIR)/testcases/bin
+	@cd $(LTP_BASE_DIR)/testcases/open_hpi_testsuite; $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) install
+	@rm $(LTP_BASE_DIR)/testcases/bin
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

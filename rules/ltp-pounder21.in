@@ -1,6 +1,7 @@
 
 menuconfig LTP_POUNDER21
-	bool
+	tristate
+	select LTP_BASE
 	prompt "pounder21           "
 	depends on BROKEN
 
