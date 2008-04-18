@@ -1,7 +1,6 @@
 config LTP_COMMANDS
 	bool
-	prompt "Commands            "
-	select LTP
+	prompt "commands            "
 	help
 	  Test user land commands.
 

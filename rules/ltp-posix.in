@@ -2,7 +2,6 @@
 menuconfig LTP_POSIX
 	bool
 	prompt "open_posix_testsuite"
-	select LTP
 
 config LTP_POSIX_CONFORMANCE
 	bool

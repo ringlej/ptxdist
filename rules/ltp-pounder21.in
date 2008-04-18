@@ -1,7 +1,6 @@
 
 menuconfig LTP_POUNDER21
 	bool
-	prompt "Pounder21           "
-	select LTP
+	prompt "pounder21           "
 	depends on BROKEN
 

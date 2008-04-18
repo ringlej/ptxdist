@@ -1,6 +1,4 @@
-
 config LTP_REALTIME
 	bool
-	prompt "Realtime            "
-	select LTP
+	prompt "realtime            "
 

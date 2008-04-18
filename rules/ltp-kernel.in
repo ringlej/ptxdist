@@ -1,7 +1,6 @@
 menuconfig LTP_KERNEL
 	bool
-	prompt "Kernel              "
-	select LTP
+	prompt "kernel              "
 	help
 	  Kernel based tests.
 

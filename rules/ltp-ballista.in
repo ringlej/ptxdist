@@ -1,10 +1,7 @@
-# FIXME: There is no Makefile for this stuff
-
 menuconfig LTP_BALLISTA
 	bool
-	prompt "ballista [BROKEN]   "
+	prompt "ballista [BROKEN]             "
 	depends on BROKEN
-	select LTP
 	help
 	  The ballista test suite is designed to provide numerous
 	  combinations of erroneous input parameters to system calls.

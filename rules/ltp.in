@@ -1,7 +1,6 @@
-menu "Linux Test Project  "
-config LTP
+menuconfig LTP
+	prompt "linux test project            "
 	bool
-	prompt "Linux Test Project  "
 	help
 	  The Linux Test Project is a joint project with SGI, IBM, OSDL,
 	  and Bull with a goal to deliver test suites to the open source
@@ -11,6 +10,7 @@ config LTP
 	  The goal is to improve the Linux kernel by bring test
 	  automation to the kernel testing effort.
 
+if LTP
 
 source "rules/ltp-ballista.in"
 source "rules/ltp-commands.in"
@@ -24,4 +24,5 @@ source "rules/ltp-posix.in"
 source "rules/ltp-pounder21.in"
 source "rules/ltp-realtime.in"
 
-endmenu
+endif
+

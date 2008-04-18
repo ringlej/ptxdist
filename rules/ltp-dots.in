@@ -1,7 +1,6 @@
 
 menuconfig LTP_DOTS
 	bool
-	prompt "Dots                "
-	select LTP
+	prompt "dots                "
 	depends on BROKEN
 
