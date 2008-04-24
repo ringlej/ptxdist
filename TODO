@@ -1,6 +1,9 @@
 TODO for 1.99.x
 ===============
 
+[ ] jbe: add help what symbol "PTXCONF_PLATFORM" should contain (or what it
+    means if this entry is still empty)
+
 [ ] jbe: "ptxdist help" does not output the new option "platformconfig"
 
 [ ] rsc: platformconfig: check what about PTXCONF_IMAGE_IPKG_ARCH; it
