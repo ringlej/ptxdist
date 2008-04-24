@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XERCES) += xerces
 XERCES_VERSION	:= 2_7_0
 XERCES		:= xerces-c-src_$(XERCES_VERSION)
 XERCES_SUFFIX	:= tar.gz
-XERCES_URL	:= http://www.apache.org/dist/xml/xerces-c/source/$(XERCES).$(XERCES_SUFFIX)
+XERCES_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XERCES).$(XERCES_SUFFIX)
 XERCES_SOURCE	:= $(SRCDIR)/$(XERCES).$(XERCES_SUFFIX)
 XERCES_DIR	:= $(BUILDDIR)/$(XERCES)
 
