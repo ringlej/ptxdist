@@ -1,6 +1,13 @@
 TODO for 1.99.x
 ===============
 
+[ ] jbe:
+    ptxdist: platformconfig...
+    platforms/images.in:14:warning: 'select' used by config symbol 'IMAGE_HD' refers to undefined symbol 'HOST_GENPART'
+    platforms/images.in:193:warning: 'select' used by config symbol 'IMAGE_JFFS2' refers to undefined symbol 'HOST_MTD_UTILS'
+    platforms/images.in:226:warning: 'select' used by config symbol 'IMAGE_UIMAGE' refers to undefined symbol 'HOST_UMKIMAGE'
+    platforms/images.in:271:warning: 'select' used by config symbol 'IMAGE_EXT2' refers to undefined symbol 'HOST_GENEXT2FS'
+
 [ ] jbe: add help what symbol "PTXCONF_PLATFORM" should contain (or what it
     means if this entry is still empty)
 
