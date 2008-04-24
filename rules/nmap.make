@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_NMAP) += nmap
 NMAP_VERSION		= 4.20
 NMAP			= nmap-$(NMAP_VERSION)
 NMAP_SUFFIX		= tar.bz2
-NMAP_URL		= http://download.insecure.org/nmap/dist/$(NMAP).$(NMAP_SUFFIX)
+NMAP_URL		= http://nmap.org/dist-old/$(NMAP).$(NMAP_SUFFIX)
 NMAP_SOURCE		= $(SRCDIR)/$(NMAP).$(NMAP_SUFFIX)
 NMAP_DIR		= $(BUILDDIR)/$(NMAP)
 

@@ -1,6 +1,7 @@
 2008-04-23 Juergen Beisert <j.beisert@pengutronix.de>
 
 	* xerces.make: Switch to new download location
+	* nmap.make: Switch to new download location
 
 2008-04-07 Robert Schwebel <r.schwebel@pengutronix.de>
 
