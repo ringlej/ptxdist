@@ -1,6 +1,8 @@
 TODO for 1.99.x
 ===============
 
+[ ] jbe: "ptxdist help" does not output the new option "platformconfig"
+
 [ ] rsc: platformconfig: check what about PTXCONF_IMAGE_IPKG_ARCH; it
     should go to the platformconfig code.
 
