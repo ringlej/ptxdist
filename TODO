@@ -1,6 +1,10 @@
 TODO for 1.99.x
 ===============
 
+[ ] jbe: libxcb depends on host's xslt installation! Current fix is to be checked.
+
+[ ] jbe: xcb-proto depends on host's xmllint!
+
 [ ] jbe:
     ptxdist: platformconfig...
     platforms/images.in:14:warning: 'select' used by config symbol 'IMAGE_HD' refers to undefined symbol 'HOST_GENPART'
