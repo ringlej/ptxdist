@@ -36,7 +36,7 @@ source "rules/rootfs_rc_d_links.in"
 source "rules/rootfs_configfiles.in"
 endmenu
 
-menu "Core (Kernel, libc, locales)  "
+menu "Core (libc, locales)          "
 source "rules/platforms.in"
 source "rules/klibc.in"
 source "rules/dtc.in"
@@ -81,6 +81,7 @@ source "rules/udev.in"
 source "rules/xmlstarlet.in"
 source "rules/pciutils.in"
 source "rules/usbutils.in"
+source "rules/pnputils.in"
 endmenu
 
 menu "Scripting Languages           "

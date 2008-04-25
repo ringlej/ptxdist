@@ -1,0 +1,25 @@
+menuconfig PNPUTILS
+	prompt "pnputils            "
+	bool
+	default n
+	help
+	 Builds the pnputils to show debugging information about PNP
+	 devices in your hardware. This is useful for x86 targets only.
+
+config PNPUTILS_SETPNP
+	prompt "install setpnp"
+	depends on PNPUTILS
+	bool
+	default n
+	help
+	  This utility updates the system resource information for Plug and
+	  Play BIOS device nodes.
+
+config PNPUTILS_LSPNP
+	prompt "install lspnp"
+	depends on PNPUTILS
+	bool
+	default y
+	help
+	  This utility presents a formatted interpretation of the contents
+	  of the /sys/bus/pnp/devices or /proc/bus/pnp tree.
