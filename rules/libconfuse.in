@@ -1,0 +1,19 @@
+menuconfig LIBCONFUSE
+	bool "libconfuse                  "
+	default n
+	help
+	  This is libConfuse, a library for parsing configuration files. It was
+	  called libcfg before, but was changed to not confuse with other
+	  similar libraries.
+
+	  There is a project page at http://sv.nongnu.org/projects/confuse.
+	  Report bugs to <confuse-devel@nongnu.org>
+
+config LIBCONFUSE_STATIC
+	bool
+	depends on LIBCONFUSE
+	prompt "build static only"
+	help
+	  Build a static only version of this library. This makes sense if only
+	  one program will use this library on the target and it makes more
+	  sense if a CPU with low count register (like x86) is in use.
