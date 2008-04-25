@@ -29,7 +29,7 @@ $(WORLD_DEP_TREE_A4_PS): $(WORLD_DEP_TREE_PS)
 	@echo "creating A4 version..."
 	@poster -v -c 0\% -m A4 -o $@ $< > /dev/null 2>&1
 
-$(WORLD_DEP_TREE_PS): $(DEP_OUTPUT)
+$(WORLD_DEP_TREE_PS): $(DEP_OUTPUT) $(STATEDIR)/world.targetinstall
 	@echo "creating dependency graph..."
 	@sort $< | uniq | \
 		$(SCRIPTSDIR)/makedeptree | dot -Tps > $@
