@@ -82,6 +82,7 @@ source "rules/xmlstarlet.in"
 source "rules/pciutils.in"
 source "rules/usbutils.in"
 source "rules/pnputils.in"
+source "rules/nanocom.in"
 endmenu
 
 menu "Scripting Languages           "

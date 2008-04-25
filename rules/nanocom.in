@@ -1,0 +1,5 @@
+config NANOCOM
+	bool
+	prompt "nanocom"
+	help
+	  This is a lightweight terminal emulator.
