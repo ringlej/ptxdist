@@ -271,7 +271,7 @@ check_dirs_prefix() {
 	touch "${testfile}" 2> /dev/null
 	if [ $? -ne 0 ]; then
 		echo
-		echo "error: \"${ptxconf_prefix}\""
+		echo "error: \"${prefix}\""
 		echo "       does exist, but is not writeable."
 		echo "       Change the permissions and try again."
 		echo
@@ -289,7 +289,7 @@ check_dirs_prefix() {
 		touch "${testfile}" 2> /dev/null
 		if [ $? -ne 0 ]; then
 			echo
-			echo "error: cannot make \"${ptxconf_prefix}\" writeable, giving up"
+			echo "error: cannot make \"${prefix}\" writeable, giving up"
 			echo
 			exit 1
 		fi
