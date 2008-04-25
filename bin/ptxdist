@@ -249,7 +249,7 @@ check_dirs_prefix() {
 		mkdir -p "${prefix}" 2> /dev/null
 		if [ $? -ne 0 ]; then
 			echo
-			echo "error: \"${ptxconf_prefix}\""
+			echo "error: \"${prefix}\""
 			echo "       does not exist and cannot be created!"
 			echo "       Please create that dir with write permissions for you."
 			echo
