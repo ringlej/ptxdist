@@ -16,4 +16,4 @@ config LIBCONFUSE_STATIC
 	help
 	  Build a static only version of this library. This makes sense if only
 	  one program will use this library on the target and it makes more
-	  sense if a CPU with low count register (like x86) is in use.
+	  sense if a CPU with low register count (like x86) is in use.
