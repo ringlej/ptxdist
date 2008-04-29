@@ -46,7 +46,7 @@ endif
 #
 KERNEL			:= linux-$(KERNEL_VERSION)
 KERNEL_SUFFIX		:= tar.bz2
-KERNEL_TESTING		= $(shell [ -n "$$(echo $(KERNEL_VERSION) | grep rc)" ] && echo "testing/")
+KERNEL_TESTING		= $(subst rc,testing/,$(findstring rc,$(KERNEL_VERSION)))
 KERNEL_URL		= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL_TESTING)$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
