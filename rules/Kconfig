@@ -159,6 +159,7 @@ source "rules/expat.in"
 source "rules/gettext.in"
 source "rules/gettext-dummy.in"
 source "rules/hrtimers-support.in"
+source "rules/inotify-tools.in"
 source "rules/libusb.in"
 
 source "rules/libdaemon.in"

@@ -1,0 +1,25 @@
+diff -ur inotify-tools-3.13/configure inotify-tools-3.13-autoreconf/configure
+--- inotify-tools-3.13/configure	2008-05-05 23:10:55.000000000 +0200
++++ inotify-tools-3.13-autoreconf/configure	2008-05-05 23:13:14.000000000 +0200
+@@ -19675,11 +20033,16 @@
+ { echo "$as_me:$LINENO: checking whether sys/inotify.h actually works" >&5
+ echo $ECHO_N "checking whether sys/inotify.h actually works... $ECHO_C" >&6; }
+ if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
++
++	{ echo "$as_me:$LINENO: result: cross compiling, assuming yes" >&5
++echo "${ECHO_T}cross compiling, assuming yes" >&6; };
++
++cat >>confdefs.h <<\_ACEOF
++#define SYS_INOTIFY_H_EXISTS_AND_WORKS 1
++_ACEOF
++
++
++
+ else
+   cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */

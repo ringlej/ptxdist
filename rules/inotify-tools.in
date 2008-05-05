@@ -1,0 +1,12 @@
+menuconfig INOTIFY_TOOLS
+	bool "inotify-tools               "
+	help
+	  Command line tools for inotify
+	  http://inotify-tools.sourceforge.net/
+
+menuconfig INOTIFY_TOOLS
+	bool "inotify-tools               "
+	help
+	  Command line tools for inotify
+	  http://inotify-tools.sourceforge.net/
+
