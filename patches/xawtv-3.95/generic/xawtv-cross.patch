@@ -1,0 +1,125 @@
+Index: xawtv-3.95/libng/contrib-plugins/Subdir.mk
+===================================================================
+--- xawtv-3.95.orig/libng/contrib-plugins/Subdir.mk
++++ xawtv-3.95/libng/contrib-plugins/Subdir.mk
+@@ -26,7 +26,7 @@ all:: $(TARGETS-contrib-plugins)
+ 
+ install::
+ 	$(INSTALL_DIR) $(libdir)
+-	$(INSTALL_PROGRAM) -s $(TARGETS-contrib-plugins) $(libdir)
++	$(INSTALL_PROGRAM) $(TARGETS-contrib-plugins) $(libdir)
+ 
+ clean::
+ 	rm -f $(TARGETS-contrib-plugins)
+Index: xawtv-3.95/libng/plugins/Subdir.mk
+===================================================================
+--- xawtv-3.95.orig/libng/plugins/Subdir.mk
++++ xawtv-3.95/libng/plugins/Subdir.mk
+@@ -47,7 +47,7 @@ all:: $(TARGETS-plugins)
+ 
+ install::
+ 	$(INSTALL_DIR) $(libdir)
+-	$(INSTALL_PROGRAM) -s $(TARGETS-plugins) $(libdir)
++	$(INSTALL_PROGRAM) $(TARGETS-plugins) $(libdir)
+ 	rm -f $(GONE-plugins)
+ 
+ clean::
+Index: xawtv-3.95/vbistuff/Subdir.mk
+===================================================================
+--- xawtv-3.95.orig/vbistuff/Subdir.mk
++++ xawtv-3.95/vbistuff/Subdir.mk
+@@ -32,7 +32,7 @@ vbistuff/ntsc-cc : LDLIBS  += $(ATHENA_L
+ all:: $(TARGETS-vbistuff)
+ 
+ install::
+-	$(INSTALL_PROGRAM) -s $(TARGETS-vbistuff) $(bindir)
++	$(INSTALL_PROGRAM) $(TARGETS-vbistuff) $(bindir)
+ 
+ clean::
+ 	rm -f $(HTML-alevtd)
+Index: xawtv-3.95/x11/Subdir.mk
+===================================================================
+--- xawtv-3.95.orig/x11/Subdir.mk
++++ xawtv-3.95/x11/Subdir.mk
+@@ -146,7 +146,7 @@ endif
+ 
+ ifeq ($(FOUND_X11),yes)
+ install::
+-	$(INSTALL_PROGRAM) -s $(TARGETS-x11) $(bindir)
++	$(INSTALL_PROGRAM) $(TARGETS-x11) $(bindir)
+ 	$(INSTALL_DIR) $(resdir)/app-defaults
+ 	$(INSTALL_DATA) $(srcdir)/x11/Xawtv.ad $(resdir)/app-defaults/Xawtv
+ endif
+Index: xawtv-3.95/Makefile.in
+===================================================================
+--- xawtv-3.95.orig/Makefile.in
++++ xawtv-3.95/Makefile.in
+@@ -19,7 +19,7 @@ config		:= @x11conf@/xawtvrc
+ CC		:= @CC@
+ CXX		:= @CXX@
+ INSTALL		:= @INSTALL@
+-INSTALL_PROGRAM := @INSTALL_PROGRAM@ -s
++INSTALL_PROGRAM := @INSTALL_PROGRAM@
+ INSTALL_DATA	:= @INSTALL_DATA@
+ INSTALL_DIR	:= @INSTALL@ -d -m 755
+ 
+@@ -29,28 +29,29 @@ VERSION		:= @VERSION@
+ # for CFLAGS
+ WARN_FLAGS	:= -Wall -Wmissing-prototypes -Wstrict-prototypes -Wpointer-arith
+ LFS_FLAGS	:= -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+-X11_FLAGS	:= @X_CFLAGS@ @XFT_FLAGS@ -I/usr/X11R6/include/X11/fonts
++X11_FLAGS	:= @X_CFLAGS@ @XFT_FLAGS@ -I$(SYSROOT)/usr/include/X11 \
++			-I$(SYSROOT)/usr/include/X11/fonts
+ LIB_FLAGS	:= -I. -I./vbistuff -I./x11 \
+ 		   -I$(srcdir)/jwz -I$(srcdir)/common -I$(srcdir)/console \
+ 		   -I$(srcdir)/x11 -I$(srcdir)/structs \
+ 		   -I$(srcdir)/libng -Llibng
+ 
+ # various libraries
+-ATHENA_LIBS	:= @X_LIBS@ @XFT_LIBS@ @LIBS@ @ATHENA@
++ATHENA_LIBS	:= @X_LIBS@ @XFT_LIBS@ @LIBS@ @ATHENA@ $(LDFLAGS_CUST)
+ MOTIF_LIBS	:= @X_LIBS@ @XFT_LIBS@ @LIBS@ -lXm -lXmu -lXt @X_PRE_LIBS@ \
+-		   -lXp -lXpm -lXext -lX11 @X_EXTRA_LIBS@
+-THREAD_LIBS	:= @LIBPTHREAD@
+-CURSES_LIBS	:= @LIBCURSES@
+-LIRC_LIBS	:= @LIRC@
+-OSS_LIBS	:= @LIBOSS@
+-ALSA_LIBS	:= @LIBALSA@
+-AA_LIBS		:= @AALIBS@
+-QT_LIBS		:= @QTLIBS@
+-VBI_LIBS	:= @LIBZVBI@
+-GL_LIBS		:= @LIBGL@
+-DV_LIBS		:= @LIBDV@
+-FS_LIBS		:= -L@x_libraries@ @FSLIB@
+-DLFLAGS		:= @DLFLAGS@
++		   -lXp -lXpm -lXext -lX11 @X_EXTRA_LIBS@ $(LDFLAGS_CUST)
++THREAD_LIBS	:= @LIBPTHREAD@ $(LDFLAGS_CUST)
++CURSES_LIBS	:= @LIBCURSES@ $(LDFLAGS_CUST)
++LIRC_LIBS	:= @LIRC@ $(LDFLAGS_CUST)
++OSS_LIBS	:= @LIBOSS@ $(LDFLAGS_CUST)
++ALSA_LIBS	:= @LIBALSA@ $(LDFLAGS_CUST)
++AA_LIBS		:= @AALIBS@ $(LDFLAGS_CUST)
++QT_LIBS		:= @QTLIBS@ $(LDFLAGS_CUST)
++VBI_LIBS	:= @LIBZVBI@ $(LDFLAGS_CUST)
++GL_LIBS		:= @LIBGL@ $(LDFLAGS_CUST)
++DV_LIBS		:= @LIBDV@ $(LDFLAGS_CUST)
++FS_LIBS		:= @FSLIB@ $(LDFLAGS_CUST)
++DLFLAGS		:= @DLFLAGS@ $(LDFLAGS_CUST)
+ 
+ # stuff configure has found
+ FOUND_AALIB	:= @FOUND_AALIB@
+Index: xawtv-3.95/mk/Compile.mk
+===================================================================
+--- xawtv-3.95.orig/mk/Compile.mk
++++ xawtv-3.95/mk/Compile.mk
+@@ -20,8 +20,8 @@ tmpdep		= mk/$(subst /,_,$*).tmp
+ depfile		= mk/$(subst /,_,$*).dep
+ depfiles	= mk/*.dep
+ 
+-compile_c	= $(CC) $(CFLAGS) -Wp,-MD,$(tmpdep) -c -o $@ $<
+-compile_cc	= $(CXX) $(CXXFLAGS) -Wp,-MD,$(tmpdep) -c -o $@ $<
++compile_c	= $(CC) $(CFLAGS) $(CPPFLAGS) -Wp,-MD,$(tmpdep) -c -o $@ $<
++compile_cc	= $(CXX) $(CXXFLAGS) $(CPPFLAGS) -Wp,-MD,$(tmpdep) -c -o $@ $<
+ fixup_deps	= sed -e "s|.*\.o:|$@:|" < $(tmpdep) > $(depfile) && rm -f $(tmpdep)
+ 
+ link_app	= $(CC) $(LDFLAGS) -o $@  $^ $(LDLIBS)
