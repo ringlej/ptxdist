@@ -1,9 +1,9 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
+# Copyright (C) 2003      by Benedikt Spranger <b.spranger@pengutronix.de>
 # Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
-# Copyright (C) 2003-2007 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003-2008 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -30,43 +30,16 @@ OPROFILE_DIR		:= $(BUILDDIR)/$(OPROFILE)
 # Get
 # ----------------------------------------------------------------------------
 
-oprofile_get: $(STATEDIR)/oprofile.get
-
-$(STATEDIR)/oprofile.get: $(oprofile_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(OPROFILE_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, OPROFILE)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-oprofile_extract: $(STATEDIR)/oprofile.extract
-
-$(STATEDIR)/oprofile.extract: $(oprofile_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(OPROFILE_DIR))
-	@$(call extract, OPROFILE)
-	@$(call patchin, OPROFILE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-oprofile_prepare: $(STATEDIR)/oprofile.prepare
-
 OPROFILE_PATH	:= PATH=$(CROSS_PATH)
 OPROFILE_ENV 	:= $(CROSS_ENV)
-
-ifndef PTXCONF_OPROFILE_SHARED
-OPROFILE_ENV	+=  LDFLAGS="-L$(SYSROOT)/usr/lib -static"
-else
-OPROFILE_ENV	+=  LDFLAGS="-L$(SYSROOT)/usr/lib"
-endif
 
 #
 # autoconf
@@ -74,46 +47,30 @@ endif
 OPROFILE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--disable-sanity-checks \
-	--with-linux=$(KERNEL_DIR)
+#	--disable-sanity-checks
 
-$(STATEDIR)/oprofile.prepare: $(oprofile_prepare_deps_default)
+$(STATEDIR)/oprofile.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(OPROFILE_DIR)/config.cache)
 	cd $(OPROFILE_DIR) && \
 		$(OPROFILE_PATH) $(OPROFILE_ENV) \
-		./configure $(OPROFILE_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-oprofile_compile: $(STATEDIR)/oprofile.compile
-
-$(STATEDIR)/oprofile.compile: $(oprofile_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(OPROFILE_DIR) && $(OPROFILE_PATH) $(MAKE) $(PARALLELMFLAGS)
+		./configure $(OPROFILE_AUTOCONF) --with-linux=$(KERNEL_DIR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-oprofile_install: $(STATEDIR)/oprofile.install
-
-$(STATEDIR)/oprofile.install: $(oprofile_install_deps_default)
+$(STATEDIR)/oprofile.install:
 	@$(call targetinfo, $@)
-#	@$(call install, OPROFILE)
+	@$(call install, OPROFILE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-oprofile_targetinstall: $(STATEDIR)/oprofile.targetinstall
-
-$(STATEDIR)/oprofile.targetinstall: $(oprofile_targetinstall_deps_default)
+$(STATEDIR)/oprofile.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, oprofile)
