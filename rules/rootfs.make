@@ -100,6 +100,9 @@ endif
 ifdef PTXCONF_ROOTFS_HOME
 	@$(call install_copy, rootfs, 0, 0, 2775, /home)
 endif
+ifdef PTXCONF_ROOTFS_HOME_ROOT
+	@$(call install_copy, rootfs, 0, 0, 0700, /root)
+endif
 ifdef PTXCONF_ROOTFS_MEDIA
 ifneq ($(PTXCONF_ROOTFS_MEDIA1),"")
 	@$(call install_copy, rootfs, 0, 0, 0777, /media/$(PTXCONF_ROOTFS_MEDIA1))

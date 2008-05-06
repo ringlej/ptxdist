@@ -43,6 +43,14 @@ config ROOTFS_HOME
 	  not support users out of the box, its up to yourself to create
 	  additional subdirectories here and also provide the permission info.
 
+config ROOTFS_HOME_ROOT
+	depends on ROOTFS
+	bool
+	prompt "/root"
+	default y
+	help
+	  root/ is the usual location to store roots private data.
+
 # Media Mountpoints
 
 menuconfig ROOTFS_MEDIA
