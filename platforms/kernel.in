@@ -36,8 +36,8 @@ choice
 	prompt "kernel architecture "
 	depends on KERNEL
 	depends on ARCH_PPC || ARCH_X86
-	default KERNEL_ARCH_POWERPC if ARCH_PPC
-	default KERNEL_ARCH_X86 if ARCH_X86
+	default KERNEL_ARCH_POWERPC	if ARCH_PPC
+	default KERNEL_ARCH_X86		if ARCH_X86
 	help
 	  For x86 and PowerPC there are different possibilities to set the kernel
 	  architecture:
