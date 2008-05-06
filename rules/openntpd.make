@@ -118,7 +118,7 @@ $(STATEDIR)/openntpd.targetinstall: $(openntpd_targetinstall_deps_default)
 	@$(call install_fixup, openntpd,PRIORITY,optional)
 	@$(call install_fixup, openntpd,VERSION,$(OPENNTPD_VERSION))
 	@$(call install_fixup, openntpd,SECTION,base)
-	@$(call install_fixup, openntpd,AUTHOR,"Bjoern Buerger <b.buerger\@pengutronix.de>")
+	@$(call install_fixup, openntpd,AUTHOR,"Carsten Schlote c.schlote\@konzeptpark.de>")
 	@$(call install_fixup, openntpd,DEPENDS,)
 	@$(call install_fixup, openntpd,DESCRIPTION,missing)
 
@@ -128,7 +128,22 @@ ifdef PTXCONF_OPENNTPD_USERS_CONFIG
 	@$(call install_copy, openntpd, 0, 0, 0644, \
 		${PTXDIST_WORKSPACE}/projectroot/etc/ntpd.conf, \
 		/etc/ntpd.conf, n)
+else
+	@$(call install_copy, openntpd, 0, 0, 0644, \
+		$(OPENNTPD_DIR)/ntpd.conf, \
+		/etc/ntpd.conf, n)
 endif
+
+ifdef PTXCONF_OPENNTPD_INITD_SCRIPT
+	# -- Initscript
+	@$(call install_copy, openntpd, 0,0, 755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/ntp, \
+		/etc/init.d/ntp, n)
+	@$(call install_copy, openntpd, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, openntpd, ../init.d/ntp, \
+		/etc/rc.d/S19_ntp)
+endif
+
 	@$(call install_finish, openntpd)
 
 	@$(call touch, $@)
