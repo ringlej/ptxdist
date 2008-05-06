@@ -1,5 +1,5 @@
 #! /bin/sh
-# Copyright (C) 1996-2004, 2005 Free Software Foundation, Inc.
+# Copyright (C) 1996-2004, 2005, 2006, 2007 Free Software Foundation, Inc.
 # This file is part of the GNU C Library.
 
 # The GNU C Library is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@
 TEXTDOMAIN=libc
 TEXTDOMAINDIR=/usr/share/locale
 
-RTLDLIST="/lib/ld-linux.so.2 /lib64/ld-linux-x86-64.so.2"
+RTLDLIST="/lib/ld-linux.so.3 /lib/ld-linux.so.2 /lib64/ld-linux-x86-64.so.2"
 warn=
 bind_now=
 verbose=
@@ -36,11 +36,11 @@ filename_magic_regex="((^|/)lib|.so$)"
 while test $# -gt 0; do
   case "$1" in
   --vers | --versi | --versio | --version)
-    echo 'ldd (GNU libc) 2.3.6'
+    echo 'ldd (GNU libc) 2.7'
     printf $"Copyright (C) %s Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-" "2005"
+" "2007"
     printf $"Written by %s and %s.
 " "Roland McGrath" "Ulrich Drepper"
     exit 0
@@ -108,9 +108,19 @@ if test "$unused" = yes; then
   add_env="$add_env LD_DEBUG=\"$LD_DEBUG${LD_DEBUG:+,}unused\""
 fi
 
-try_trace() {
+# The following use of cat is needed to make ldd work in SELinux
+# environments where the executed program might not have permissions
+# to write to the console/tty.  But only bash 3.x supports the pipefail
+# option, and we don't bother to handle the case for older bash versions.
+if set -o pipefail 2> /dev/null; then
+  try_trace() {
+    eval $add_env '"$@"' | cat
+  }
+else
+  try_trace() {
     eval $add_env '"$@"'
   }
+fi
 
 case $# in
 0)
@@ -136,8 +146,11 @@ for file do
   *) file=./$file
      ;;
   esac
-  if test ! -f "$file"; then
+  if test ! -e "$file"; then
     echo "ldd: ${file}:" $"No such file or directory" >&2
+    result=1
+  elif test ! -f "$file"; then
+    echo "ldd: ${file}:" $"not regular file" >&2
     result=1
   elif test -r "$file"; then
     if test ! -x "$file" && eval echo "$file" \
@@ -146,31 +159,25 @@ for file do
 	    "\`$file'" >&2
     fi
     RTLD=
+    ret=1
     for rtld in ${RTLDLIST}; do
       if test -x $rtld; then
-	verify_out=`${rtld} --verify "$file"`
+	verify_out=`${rtld} --verify "$file" 2>/dev/null`
         ret=$?
 	case $ret in
 	[02]) RTLD=${rtld}; break;;
 	esac
       fi
     done
-    if test -z "${RTLD}"; then
-      set ${RTLDLIST}
-      RTLD=$1
-      verify_out=`${RTLD} --verify "$file"`
-      ret=$?
-    fi
     case $ret in
     0)
       # If the program exits with exit code 5, it means the process has been
       # invoked with __libc_enable_secure.  Fall back to running it through
       # the dynamic linker.
-      if [ ! -x "$file" ] && eval file -L "$file" 2>/dev/null \
-      | sed 10q | egrep "$file_magic_regex" > /dev/null; then
-	try_trace "${RTLD}" "$file"
-      else
+      if test -x "$file"; then
 	try_trace "$file"
+      else
+	try_trace "${RTLD}" "$file"
       fi
       rc=$?
       if [ $rc = 5 ]; then
