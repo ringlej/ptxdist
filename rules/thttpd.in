@@ -58,3 +58,10 @@ menuconfig THTTPD
 		  This install a generic website into /var/www/index.html
 		  from <ptxdist-install>/generic/thttpd.html
 
+	config THTTPD_INSTALL_HTPASSWD
+		depends on THTTPD
+		bool "Install mkpasswd tool."
+		default y
+		help
+			Install the mkpasswd tool. It can create and manage .htpasswd file
+			for authentication of users.

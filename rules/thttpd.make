@@ -143,6 +143,11 @@ ifdef PTXCONF_THTTPD_GENERIC_SITE
 		/var/www/index.html, n)
 endif
 
+ifdef PTXCONF_THTTPD_INSTALL_HTPASSWD
+	@$(call install_copy, thttpd, 0, 0, 0744, \
+		$(THTTPD_DIR)/extras/htpasswd, \
+		/usr/sbin/htpasswd)
+endif
 	@$(call install_finish, thttpd)
 	@$(call touch, $@)
 
