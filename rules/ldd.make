@@ -15,65 +15,54 @@
 PACKAGES-$(PTXCONF_LDD) += ldd
 
 # This is the version from the glibc we have stolen from
-LDD_VERSION	:= 2.3.6
-LDD_DIR		:= $(BUILDDIR)/ldd
+LDD_VERSION	:= 2.7
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-ldd_get: $(STATEDIR)/ldd.get
-
-$(STATEDIR)/ldd.get: $(ldd_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/ldd.get:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-ldd_extract: $(STATEDIR)/ldd.extract
-
-$(STATEDIR)/ldd.extract: $(ldd_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/ldd.extract:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/ldd.prepare: $(ldd_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/ldd.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-ldd_compile: $(STATEDIR)/ldd.compile
-
-$(STATEDIR)/ldd.compile: $(ldd_compile_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/ldd.compile:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-ldd_install: $(STATEDIR)/ldd.install
-
-$(STATEDIR)/ldd.install: $(ldd_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/ldd.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ldd_targetinstall: $(STATEDIR)/ldd.targetinstall
-
-$(STATEDIR)/ldd.targetinstall: $(ldd_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/ldd.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, ldd)
 	@$(call install_fixup,ldd,PACKAGE,ldd)
@@ -88,7 +77,7 @@ $(STATEDIR)/ldd.targetinstall: $(ldd_targetinstall_deps_default)
 
 	@$(call install_finish,ldd)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
@@ -97,6 +86,5 @@ $(STATEDIR)/ldd.targetinstall: $(ldd_targetinstall_deps_default)
 ldd_clean:
 	rm -rf $(STATEDIR)/ldd.*
 	rm -rf $(IMAGEDIR)/ldd_*
-	rm -rf $(LDD_DIR)
 
 # vim: syntax=make
