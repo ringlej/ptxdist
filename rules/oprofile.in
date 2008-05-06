@@ -2,6 +2,7 @@ config OPROFILE
 	bool
 	select LIBPOPT
 	select KERNEL
+	select KERNEL_VMLINUX
 	select BB_CONFIG_DIRNAME
 	select BB_CONFIG_ID
 	select BB_CONFIG_MKTEMP
