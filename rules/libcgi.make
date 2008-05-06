@@ -115,7 +115,7 @@ $(STATEDIR)/libcgi.targetinstall: $(libcgi_targetinstall_deps_default)
 	@$(call install_fixup, libcgi,DEPENDS,)
 	@$(call install_fixup, libcgi,DESCRIPTION,missing)
 
-	@$(call install_copy, libcgi, 0, 0, 0644, $(LIBCGI_DIR)/src/libcgi.so, /usr/lib/libcgi.so)
+	@$(call install_copy, libcgi, 0, 0, 0644, $(LIBCGI_DIR)/src/libcgi.so, /usr/lib/libcgi.so, y)
 
 	@$(call install_finish, libcgi)
 
