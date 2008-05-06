@@ -237,6 +237,27 @@ menuconfig ROOTFS_ETC_INITD_BANNER
 		  Type in here your favorite vendorname. It gets displayed
 		  whenever your system starts.
 
+	choice
+		prompt "Kind of banner script"
+		depends on ROOTFS_ETC_INITD_BANNER
+		default ROOTFS_ETC_INITD_BANNER_DEFAULT
+
+		config ROOTFS_ETC_INITD_BANNER_DEFAULT
+			bool
+			prompt "Use generic"
+			help
+			  A file from generic/etc/init.d/banner will be used.
+
+		config ROOTFS_ETC_INITD_BANNER_USER
+			bool
+			prompt "User defined"
+			help
+			  This uses a user defined banner script.
+			  PTXdist uses file projectroot/etc/init.d/banner of
+			  your local project
+	endchoice
+
+
 ########################## crond ##########################################
 # this is for busybox' crond only
 #

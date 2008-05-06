@@ -350,9 +350,16 @@ endif
 
 # -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER
+ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER_DEFAULT
 	@$(call install_copy, rootfs, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/banner, \
 		/etc/init.d/banner, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_INITD_BANNER_USER
+	@$(call install_copy, rootfs, 0, 0, 0755, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/banner, \
+		/etc/init.d/banner, n)
+endif
 
 	@$(call install_replace, rootfs, /etc/init.d/banner, \
 		@VENDOR@,  $(PTXCONF_ROOTFS_ETC_VENDOR) )
