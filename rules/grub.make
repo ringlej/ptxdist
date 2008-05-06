@@ -526,8 +526,8 @@ endif
 
 	@$(call install_copy, grub, 0, 0, 0755, $(GRUB_DIR)/grub/grub, /usr/sbin/grub)
 ifdef PTXCONF_GRUB_DISKLESS
-	@$(call install_copy, grub, 0, 0, 0755, $(GRUB_DIR)/stage2/nbgrub, /usr/sbin/nbgrub)
-	@$(call install_copy, grub, 0, 0, 0755, $(GRUB_DIR)/stage2/pxegrub, /usr/sbin/pxegrub)
+	@$(call install_copy, grub, 0, 0, 0755, $(GRUB_DIR)/stage2/nbgrub, /usr/sbin/nbgrub, n)
+	@$(call install_copy, grub, 0, 0, 0755, $(GRUB_DIR)/stage2/pxegrub, /usr/sbin/pxegrub, n)
 endif
 
 	@$(call install_finish, grub)
