@@ -39,28 +39,26 @@ comment "runtime options   ---"
 	depends on RSYNC
 
 choice
+	prompt "Kind of rsyncd.conf/rsyncd.secrets file"
+	depends on RSYNC
+	default RSYNC_CONFIG_FILE_DEFAULT
 
-prompt "Kind of rsyncd.conf/rsyncd.secrets file"
-depends on RSYNC
-default RSYNC_CONFIG_FILE_DEFAULT
+	config RSYNC_CONFIG_FILE_DEFAULT
+		bool
+		prompt "Use generic"
+		help
+		  The files from generic/etc/rsyncd.conf|rsyncd.secrets will be used.
+		  Its a very good idea to start with this default files and save a
+		  customised version into your project, because the generic files are
+		  really useless. You can use your own version if you select
+		  "User defined" here.
 
-config RSYNC_CONFIG_FILE_DEFAULT
-	bool
-	prompt "Use generic"
-	help
-	  The files from generic/etc/rsyncd.conf|rsyncd.secrets will be used.
-	  Its a very good idea to start with this default files and save a
-	  customised version into your project, because the generic files are
-	  really useless. You can use your own version if you select
-	  "User defined" here.
-
-config RSYNC_CONFIG_FILE_USER
-	bool
-	prompt "User defined"
-	help
-	  The files from <project>/projectroot/etc/rsyncd.conf|rsyncd.secrets
-	  will be used.
-
+	config RSYNC_CONFIG_FILE_USER
+		bool
+		prompt "User defined"
+		help
+		  The files from <project>/projectroot/etc/rsyncd.conf|rsyncd.secrets
+		  will be used.
 endchoice
 
 choice
