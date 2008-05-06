@@ -31,7 +31,7 @@ OPROFILE_DIR		:= $(BUILDDIR)/$(OPROFILE)
 # ----------------------------------------------------------------------------
 
 $(OPROFILE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, OPROFILE)
 
 # ----------------------------------------------------------------------------
@@ -47,31 +47,22 @@ OPROFILE_ENV 	:= $(CROSS_ENV)
 OPROFILE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
-#	--disable-sanity-checks
+	--without-x
 
 $(STATEDIR)/oprofile.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(OPROFILE_DIR)/config.cache)
 	cd $(OPROFILE_DIR) && \
 		$(OPROFILE_PATH) $(OPROFILE_ENV) \
 		./configure $(OPROFILE_AUTOCONF) --with-linux=$(KERNEL_DIR)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/oprofile.install:
-	@$(call targetinfo, $@)
-	@$(call install, OPROFILE)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/oprofile.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, oprofile)
 	@$(call install_fixup, oprofile,PACKAGE,oprofile)
@@ -102,19 +93,17 @@ $(STATEDIR)/oprofile.targetinstall:
 		/usr/bin/oprofiled \
 	)
 
-	@$(call install_copy, oprofile, 0, 0, 0755, \
-		$(OPROFILE_DIR)/events/arm/xscale2/events, \
-		/usr/share/oprofile/arm/xscale2/events, 0 \
-	)
+	@cd $(OPROFILE_DIR)/events && \
+	find . \
+		-name "events" -o -name "unit_masks" | \
+		while read file; do \
+		$(call install_copy, oprofile, 0, 0, 0755, \
+			$(OPROFILE_DIR)/events/$$file, \
+			/usr/share/oprofile/$$file, 0 \
+		) \
+	done
 
-	@$(call install_copy, oprofile, 0, 0, 0755, \
-		$(OPROFILE_DIR)/events/arm/xscale2/unit_masks, \
-		/usr/share/oprofile/arm/xscale2/unit_masks, 0 \
-	)
-
-	@$(call install_finish, oprofile)
-
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
