@@ -1,0 +1,4 @@
+config KERNEL_VMLINUX
+	bool
+	help
+	  install kernel image to /boot/vmlinux

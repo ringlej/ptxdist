@@ -196,7 +196,16 @@ $(STATEDIR)/kernel.targetinstall:
 		exit 1;								\
 	fi
 
-ifdef  PTXCONF_KERNEL_INSTALL
+#
+# install the ELF kernel image for debugging purpose
+# e.g. oprofile
+#
+ifdef PTXCONF_KERNEL_VMLINUX
+	$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_DIR)/vmlinux, /boot/vmlinux, n)
+endif
+
+
+ifdef PTXCONF_KERNEL_INSTALL
 	@$(call install_init,  kernel)
 	@$(call install_fixup, kernel, PACKAGE, kernel)
 	@$(call install_fixup, kernel, PRIORITY,optional)
