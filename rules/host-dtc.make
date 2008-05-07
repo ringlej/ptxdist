@@ -17,10 +17,10 @@ HOST_PACKAGES-$(PTXCONF_HOST_DTC) += host-dtc
 #
 # Paths and names
 #
-HOST_DTC_VERSION	:= git-20070301
+HOST_DTC_VERSION	:= v1.1.0
 HOST_DTC		:= dtc-$(HOST_DTC_VERSION)
-HOST_DTC_SUFFIX		:= tar.gz
-HOST_DTC_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_DTC).$(HOST_DTC_SUFFIX)
+HOST_DTC_SUFFIX		:= tgz
+HOST_DTC_URL		:= http://www.jdl.com/software/$(HOST_DTC).$(HOST_DTC_SUFFIX)
 HOST_DTC_SOURCE		:= $(SRCDIR)/$(HOST_DTC).$(HOST_DTC_SUFFIX)
 HOST_DTC_DIR		:= $(HOST_BUILDDIR)/$(HOST_DTC)
 

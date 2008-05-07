@@ -12,9 +12,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_ARCH_PPC
 PACKAGES-$(PTXCONF_DTC) += dtc
-endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -46,7 +44,7 @@ $(STATEDIR)/dtc.extract: $(dtc_extract_deps_default)
 
 dtc_prepare: $(STATEDIR)/dtc.prepare
 
-$(STATEDIR)/dtc.prepare: $(dtc_prepare_deps_default)
+$(STATEDIR)/dtc.prepare: $(dtc_prepare_deps_default) $(STATEDIR)/host-dtc.install
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -78,7 +76,7 @@ dtc_targetinstall: $(STATEDIR)/dtc.targetinstall
 
 $(STATEDIR)/dtc.targetinstall: $(dtc_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-	PATH=$(HOST_PATH) dtc $(PTXCONF_DTC_EXTRA_ARGS) -I dts -O dtb \
+	$(PTXCONF_SYSROOT_HOST)/bin/dtc $(PTXCONF_DTC_EXTRA_ARGS) -I dts -O dtb \
 		$(PTXCONF_DTC_OFTREE_DTS) > $(IMAGEDIR)/oftree
 	
 	@$(call touch, $@)

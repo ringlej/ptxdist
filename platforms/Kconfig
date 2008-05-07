@@ -22,6 +22,7 @@ config PLATFORM
 
 source "platforms/architecture.in"
 source "platforms/kernel.in"
+source "platforms/dtc.in"
 source "platforms/console.in"
 
 menu "bootloaders                   "

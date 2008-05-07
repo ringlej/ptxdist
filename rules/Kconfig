@@ -39,7 +39,6 @@ endmenu
 menu "Core (libc, locales)          "
 source "rules/platforms.in"
 source "rules/klibc.in"
-source "rules/dtc.in"
 source "rules/libc.in"
 source "rules/gcclibs.in"
 source "rules/locales.in"
