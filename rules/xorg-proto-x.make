@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -64,7 +64,19 @@ XORG_PROTO_X_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_PROTO_X_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_PROTO_X_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking
+
+#
+# this was valid for an x86 target. Check on other
+# architectures and do not trust the autodetection
+#
+XORG_PROTO_X_AUTOCONF += \
+	--enable-const-prototypes \
+	--enable-function-prototypes \
+	--enable-varargs-prototypes \
+	--enable-nested-prototypes \
+	--enable-wide-prototypes=no
 
 $(STATEDIR)/xorg-proto-x.prepare: $(xorg-proto-x_prepare_deps_default)
 	@$(call targetinfo, $@)
