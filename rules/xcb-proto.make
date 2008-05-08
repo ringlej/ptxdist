@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_XCB_PROTO) += xcb-proto
 #
 # Paths and names
 #
-XCB_PROTO_VERSION		:= 1.0
-XCB_PROTO			:= xcb-proto-$(XCB_PROTO_VERSION)
-XCB_PROTO_SUFFIX		:= tar.bz2
+XCB_PROTO_VERSION	:= 1.1
+XCB_PROTO		:= xcb-proto-$(XCB_PROTO_VERSION)
+XCB_PROTO_SUFFIX	:= tar.bz2
 XCB_PROTO_URL		:= http://xcb.freedesktop.org/dist/$(XCB_PROTO).$(XCB_PROTO_SUFFIX)
-XCB_PROTO_SOURCE		:= $(SRCDIR)/$(XCB_PROTO).$(XCB_PROTO_SUFFIX)
+XCB_PROTO_SOURCE	:= $(SRCDIR)/$(XCB_PROTO).$(XCB_PROTO_SUFFIX)
 XCB_PROTO_DIR		:= $(BUILDDIR)/$(XCB_PROTO)
 
 # ----------------------------------------------------------------------------
@@ -103,18 +103,6 @@ xcb-proto_targetinstall: $(STATEDIR)/xcb-proto.targetinstall
 
 $(STATEDIR)/xcb-proto.targetinstall: $(xcb-proto_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, xcb-proto)
-	@$(call install_fixup, xcb-proto,PACKAGE,xcb-proto)
-	@$(call install_fixup, xcb-proto,PRIORITY,optional)
-	@$(call install_fixup, xcb-proto,VERSION,$(XCB_PROTO_VERSION))
-	@$(call install_fixup, xcb-proto,SECTION,base)
-	@$(call install_fixup, xcb-proto,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup, xcb-proto,DEPENDS,)
-	@$(call install_fixup, xcb-proto,DESCRIPTION,missing)
-
-	@$(call install_finish, xcb-proto)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
