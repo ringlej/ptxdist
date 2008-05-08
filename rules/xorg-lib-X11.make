@@ -61,15 +61,27 @@ xorg-lib-X11_prepare: $(STATEDIR)/xorg-lib-X11.prepare
 XORG_LIB_X11_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_X11_ENV 	:=  $(CROSS_ENV)
 
+# configure states: "checking for working mmap...no"
+# is this a correct fix?
+XORG_LIB_X11_ENV += ac_cv_func_mmap_fixed_mapped=yes
+
+# configure states: "checking for cpp... /usr/bin/cpp"
+# what is the correct fix?
+
 #
 # autoconf
 #
 XORG_LIB_X11_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
+	--with-xcb \
 	--disable-malloc0returnsnull \
 	--disable-dependency-tracking \
-	--disable-man-pages
+	--disable-man-pages \
+	--enable-xthreads \
+	--enable-xcms \
+	--enable-composecache
+
 #
 # if no value is given ignore the "--datadir" switch
 #
@@ -111,8 +123,6 @@ XORG_LIB_X11_AUTOCONF	+= --disable-loadable-xcursor
 endif
 
 # missing configure switches:
-# --disable-xthreads      Disable Xlib support for Multithreading
-# --disable-xcms          Disable Xlib support for CMS *EXPERIMENTAL*
 # --disable-xlocale       Disable Xlib locale implementation *EXPERIMENTAL*
 # --enable-xlocaledir     Enable XLOCALEDIR environment variable support
 #
