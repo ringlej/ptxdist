@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -66,6 +66,7 @@ XORG_LIB_XRENDER_ENV 	:= $(CROSS_ENV)
 #
 XORG_LIB_XRENDER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking \
 	--disable-malloc0returnsnull
 
 $(STATEDIR)/xorg-lib-Xrender.prepare: $(xorg-lib-Xrender_prepare_deps_default)
