@@ -63,7 +63,9 @@ LIBPTHREAD_STUBS_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBPTHREAD_STUBS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBPTHREAD_STUBS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking \
+	--enable-shared=no
 
 $(STATEDIR)/libpthread-stubs.prepare: $(libpthread-stubs_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -103,18 +105,6 @@ libpthread-stubs_targetinstall: $(STATEDIR)/libpthread-stubs.targetinstall
 
 $(STATEDIR)/libpthread-stubs.targetinstall: $(libpthread-stubs_targetinstall_deps_default)
 	@$(call targetinfo, $@)
-
-	@$(call install_init, libpthread-stubs)
-	@$(call install_fixup, libpthread-stubs,PACKAGE,libpthread-stubs)
-	@$(call install_fixup, libpthread-stubs,PRIORITY,optional)
-	@$(call install_fixup, libpthread-stubs,VERSION,$(LIBPTHREAD_STUBS_VERSION))
-	@$(call install_fixup, libpthread-stubs,SECTION,base)
-	@$(call install_fixup, libpthread-stubs,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup, libpthread-stubs,DEPENDS,)
-	@$(call install_fixup, libpthread-stubs,DESCRIPTION,missing)
-
-	@$(call install_finish, libpthread-stubs)
-
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
