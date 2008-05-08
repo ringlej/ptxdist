@@ -64,7 +64,8 @@ XORG_LIB_XTRANS_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XTRANS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XORG_LIB_XTRANS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking
 
 $(STATEDIR)/xorg-lib-xtrans.prepare: $(xorg-lib-xtrans_prepare_deps_default)
 	@$(call targetinfo, $@)
