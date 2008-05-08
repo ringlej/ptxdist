@@ -1,9 +1,17 @@
-config ZLIB
+menuconfig ZLIB
 	bool
-	prompt "zlib"
+	prompt "zlib                        "
 	help
 	  A Massively Spiffy Yet Delicately Unobtrusive 
 	  Compression Library
 
  	  (Also Free, Not to Mention Unencumbered by Patents)
 
+config ZLIB_STATIC
+	bool
+	prompt "build static only"
+	depends on ZLIB
+	help
+	  Build a static only version of this library. This makes sense if only
+	  one program will use this library on the target and it makes more
+	  sense if a CPU with low register count (like x86) is in use.

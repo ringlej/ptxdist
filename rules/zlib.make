@@ -66,6 +66,10 @@ ZLIB_ENV 	:= $(CROSS_ENV)
 ZLIB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR)
 
+ifdef PTXCONF_ZLIB_STATIC
+ZLIB_AUTOCONF += --enable-shared=no
+endif
+
 $(STATEDIR)/zlib.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(ZLIB_DIR)/config.cache)
@@ -105,6 +109,7 @@ zlib_targetinstall: $(STATEDIR)/zlib.targetinstall
 $(STATEDIR)/zlib.targetinstall:
 	@$(call targetinfo, $@)
 
+ifndef PTXCONF_ZLIB_STATIC
 	@$(call install_init, zlib)
 	@$(call install_fixup, zlib,PACKAGE,zlib)
 	@$(call install_fixup, zlib,PRIORITY,optional)
@@ -114,12 +119,13 @@ $(STATEDIR)/zlib.targetinstall:
 	@$(call install_fixup, zlib,DEPENDS,)
 	@$(call install_fixup, zlib,DESCRIPTION,missing)
 
-	@$(call install_copy, zlib, 0, 0, 0644, $(ZLIB_DIR)/.libs/libz.so.1.2.3, /usr/lib/libz.so.1.2.3)
+	@$(call install_copy, zlib, 0, 0, 0644, \
+		$(ZLIB_DIR)/.libs/libz.so.1.2.3, /usr/lib/libz.so.1.2.3)
 	@$(call install_link, zlib, libz.so.1.2.3, /usr/lib/libz.so.1)
 	@$(call install_link, zlib, libz.so.1.2.3, /usr/lib/libz.so)
 
 	@$(call install_finish, zlib)
-
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
