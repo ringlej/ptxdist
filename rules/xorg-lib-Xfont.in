@@ -5,14 +5,13 @@
 
 menuconfig XORG_LIB_XFONT
 	bool
-	depends on XORG_LIB_X11
 	select XORG_PROTO_X
 	select XORG_PROTO_FONTS
 	select XORG_LIB_FONTENC
-	select ZLIB
+	select ZLIB if XORG_LIB_XFONT_BUILTIN_FONTS
+	select XORG_LIB_XTRANS
 	select FREETYPE if XORG_LIB_XFONT_FREETYPE
 	select XORG_PROTO_FONTCACHE if XORG_LIB_XFONT_FONTCACHE
-	select XORG_LIB_XTRANS if XORG_LIB_XFONT_FONTSERVER
 	default y
 	prompt "libXfont              "
 	help
@@ -95,3 +94,4 @@ config XORG_LIB_XFONT_BUILTIN_FONTS
 	  Builtins (gzipped pcf format in .text segment). Enable this font type
 	  if you don't have any fonts on you target nor a font server in your
 	  network.
+	  FIXME: xorg server fails to build when this entry is disabled.
