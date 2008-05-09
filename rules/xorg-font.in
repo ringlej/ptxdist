@@ -1,13 +1,12 @@
-# xorg proto configuration
+# xorg font configuration
 
 source "rules/xorg-fonts.in"
 
 menuconfig MENU_XORG_FONTS
 	bool
 	prompt "xorg fonts            "
-	depends on XORG_LIB_XFONT
 	select XORG_LIB_XFONT_PCF_FONTS
-	default y
+	default y if XORG_SERVER
 
 source "rules/xorg-font-util-alias.in"
 source "rules/xorg-font-base.in"
