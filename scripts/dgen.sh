@@ -33,7 +33,30 @@ gen_configdeps_action () {
 # $(CONFIGDEPS): $(IN_ALL)
 #
 gen_configdeps() {
+    local tmpdir kconfig
+
     ptxd_kconfig false gen_configdeps_action > "${CONFIGDEPS}"
+
+    if [ -e "${PTXDIST_WORKSPACE}/platforms/Kconfig" ]; then
+	kconfig=${PTXDIST_WORKSPACE}/platforms/Kconfig
+    else
+	kconfig=${PTXDIST_TOPDIR}/platforms/Kconfig
+    fi
+
+    tmpdir="$(mktemp -d ${PTXDIST_TEMPDIR}/platformconfig.XXXXXX)"
+    pushd $tmpdir > /dev/null
+    ln -sf "${PTXDIST_TOPDIR}/platforms"
+    ln -sf "${PTXDIST_WORKSPACE}" workspace
+
+    # prepare everything to make kconfig see it's original environment
+    if [ -e "${PLATFORMCONFIG}" ]; then
+	cp "$(readlink -f ${PLATFORMCONFIG})" .config
+    fi
+
+    "${PTXDIST_TOPDIR}/scripts/kconfig/conf" -O "${kconfig}" >> "${CONFIGDEPS}"
+
+    popd > /dev/null
+    rm -fr $tmpdir
 }
 
 
