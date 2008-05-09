@@ -5,7 +5,7 @@ TODO for 1.99.x
 
 [ ] jbe: xcb-proto depends on host's xmllint!
 
-[ ] jbe:
+[X] jbe:
     ptxdist: platformconfig...
     platforms/images.in:14:warning: 'select' used by config symbol 'IMAGE_HD' refers to undefined symbol 'HOST_GENPART'
     platforms/images.in:193:warning: 'select' used by config symbol 'IMAGE_JFFS2' refers to undefined symbol 'HOST_MTD_UTILS'
@@ -30,8 +30,6 @@ TODO for 1.99.x
     checking whether yytext is a pointer... sed: couldn't write 29 items to stdout: No space left on device
     no
     [...anything proceeds...]
-
-[ ] mkl: reactivate rules/host-xorg-lib-X11.in select to HOST_LIBXCB
 
 [ ] mkl: reactiveate new install_copy feature (no explicid destination)
 

@@ -10,19 +10,6 @@ DOPERMISSIONS := '{	\
 	if ($$1 == "n")	\
 		printf("mkdir -p .`dirname %s`; mknod -m %s .%s %s %s %s; chown %s.%s .%s;\n", $$2, $$5, $$2, $$6, $$7, $$8, $$3, $$4, $$2);}'
 
-ifdef PTXCONF_MKNBI_NBI
-MKNBI_EXT = nbi
-else
-MKNBI_EXT = elf
-endif
-
-MKNBI_KERNEL = $(KERNEL_TARGET_PATH)
-
-MKNBI_ROOTFS = $(IMAGEDIR)/root.ext2
-ifdef PTXCONF_IMAGE_EXT2_GZIP
-MKNBI_ROOTFS = $(IMAGEDIR)/root.ext2.gz
-endif
-
 images: $(STATEDIR)/images
 
 ipkg-push: $(STATEDIR)/ipkg-push

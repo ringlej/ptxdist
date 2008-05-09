@@ -1,6 +1,5 @@
 config HOST_UMKIMAGE
 	bool
-	prompt "uboot mkimage"
 	select HOST_ZLIB
 	help
 	  umkimage is the U-Boot mkimage command. It is used to create

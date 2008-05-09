@@ -1,7 +1,5 @@
 config HOST_CMAKE
 	bool
-        prompt "cmake 2.4.2"
-	select HOST_FAKEROOT
 	help
 	  CMake is an open-source, cross-platfom
 	  build environment. It supports native

@@ -1,5 +1,7 @@
 menuconfig KERNEL
 	bool
+	select HOST_UMKIMAGE		if KERNEL_IMAGE_U
+	select CROSS_MODULE_INIT_TOOLS	if KERNEL_MODULES
 	prompt "Linux kernel                  "
 
 config KERNEL_INSTALL
@@ -94,32 +96,6 @@ config KERNEL_ARCH_STRING
 	default "i386"			if KERNEL_ARCH_I386
 	default "x86_64"		if KERNEL_ARCH_X86_64
 
-menu "patching & configuration      "
-	depends on KERNEL
-
-config KERNEL_SERIES
-	depends on KERNEL
-	prompt "patch series file"
-	string
-	default "series${PTXDIST_PLATFORMSUFFIX}"
-	help
-	  This entry specifies a patch series file which has to live in
-	  the kernel patches directory:
-
-	  The series file contains lines with names of patch files which
-	  are then being applied to the kernel.
-
-config KERNEL_CONFIG
-	depends on KERNEL
-	prompt "kernel config file"
-	string
-	default "kernel.config"
-	help
-	  this entry specifies the .config file used to compile your kernel
-
-endmenu
-
-
 choice
 	depends on KERNEL
 	prompt "Image Type          "
@@ -162,6 +138,32 @@ choice
 		 This is the target to get the kernel image as an ELF. Mostly
 		 used for debugging purposes.
 endchoice
+
+
+menu "patching & configuration      "
+	depends on KERNEL
+
+config KERNEL_SERIES
+	depends on KERNEL
+	prompt "patch series file"
+	string
+	default "series${PTXDIST_PLATFORMSUFFIX}"
+	help
+	  This entry specifies a patch series file which has to live in
+	  the kernel patches directory:
+
+	  The series file contains lines with names of patch files which
+	  are then being applied to the kernel.
+
+config KERNEL_CONFIG
+	depends on KERNEL
+	prompt "kernel config file"
+	string
+	default "kernel.config"
+	help
+	  this entry specifies the .config file used to compile your kernel
+
+endmenu
 
 
 #

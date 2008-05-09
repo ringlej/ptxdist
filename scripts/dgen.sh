@@ -45,6 +45,7 @@ gen_configdeps() {
 
     tmpdir="$(mktemp -d ${PTXDIST_TEMPDIR}/platformconfig.XXXXXX)"
     pushd $tmpdir > /dev/null
+    ln -sf "${PTXDIST_TOPDIR}/rules"
     ln -sf "${PTXDIST_TOPDIR}/platforms"
     ln -sf "${PTXDIST_WORKSPACE}" workspace
 

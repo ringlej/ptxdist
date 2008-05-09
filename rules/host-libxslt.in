@@ -2,9 +2,8 @@
 # LibXSLT - Options updated as of 1.1.14
 #
 
-menuconfig HOST_LIBXSLT
+config HOST_LIBXSLT
 	bool
-	prompt "libxslt                     "
 	select HOST_LIBXML2
 	select HOST_LIBXML2_OUTPUT
 	select HOST_LIBXML2_XINCLUDE

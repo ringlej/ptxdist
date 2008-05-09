@@ -15,19 +15,6 @@
 PACKAGES-$(PTXCONF_KERNEL) += kernel
 
 #
-# platform dependencies
-#
-ifdef PTXCONF_KERNEL_MODULES
-$(STATEDIR)/kernel.prepare: $(STATEDIR)/cross-module-init-tools.install
-$(STATEDIR)/kernel.targetinstall: $(STATEDIR)/cross-module-init-tools.install
-endif
-
-ifdef PTXCONF_KERNEL_IMAGE_U
-$(STATEDIR)/kernel.prepare: $(STATEDIR)/host-umkimage.install
-$(STATEDIR)/kernel.targetinstall: $(STATEDIR)/host-umkimage.install
-endif
-
-#
 # handle special compilers
 #
 ifdef PTXCONF_KERNEL

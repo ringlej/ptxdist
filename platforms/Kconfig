@@ -32,3 +32,6 @@ source "platforms/u-boot-v2.in"
 endmenu
 
 source "platforms/images.in"
+
+source "platforms/hosttools.in"
+source "platforms/crosstools.in"

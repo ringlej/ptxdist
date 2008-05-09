@@ -445,7 +445,7 @@ Setup and Project Actions:
   u_boot_config			configure U-Boot (U-Boot V2 only)
 
   toolchain [<path>]		if path is omitted the toolchain is guessed,
-				    guessing works only platformconfig is
+				    (guessing works only platformconfig is
 				    already selected)
 				othewise select this toolchain
 				    (<path> to binaries)
@@ -759,6 +759,7 @@ platformconfig() {
 
 	tmpdir="$(mktemp -d ${PTXDIST_TEMPDIR}/platformconfig.XXXXXX)"
 	pushd $tmpdir > /dev/null
+	ln -sf "${PTXDIST_TOPDIR}/rules"
 	ln -sf "${PTXDIST_TOPDIR}/platforms"
 	ln -sf "${PTXDIST_WORKSPACE}" workspace
 

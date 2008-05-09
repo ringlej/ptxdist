@@ -1,5 +1,5 @@
-menuconfig HOST_FONTCONFIG
-	bool "Fontconfig              "
+config HOST_FONTCONFIG
+	bool
 	select HOST_FREETYPE
 	select HOST_EXPAT
 	help
@@ -14,26 +14,3 @@ menuconfig HOST_FONTCONFIG
 	  on the application.  The X-specific library 'Xft'
 	  uses fontconfig along with freetype to specify and
  	  rasterize fonts.
-
-config HOST_FONTCONFIG_UTILS
-	bool "install utilities for Fontconfig     "
-	depends on HOST_FONTCONFIG
-	help
-	  The fontconfig utilities package contains fc-list,
-	  fc-match, and fc-cache.
-	  fc-list lists fonts and styles available on the system
-	    for applications using fontconfig.
-	  fc-match  matches fontpattern (empty pattern by
-	    default) using the normal fontconfig matching rules to
-	    find the best font available.
-	  fc-cache  scans the font directories on the system and
-	    builds font information cache files for applications
-	    using fontconfig for their font handling.
-
-config HOST_FONTCONFIG_CONFS
-	bool "install configuration files for Fontconfig"
-	depends on HOST_FONTCONFIG
-	default y
-	help
-	  This installs configuration files of fontconfig,
-	  subpixeling is turned on by default

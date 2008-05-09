@@ -11,9 +11,7 @@ menu "Code Maturity                 "
 source "rules/experimental.in"
 endmenu
 
-menu "Cross Compilation Tools       "
 source "rules/crosstools.in"
-endmenu
 
 menu "Host Side Tools               "
 source "rules/hosttools.in"

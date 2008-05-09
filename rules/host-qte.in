@@ -1,5 +1,4 @@
 config HOST_QTE
 	bool
-	prompt "qt embedded 3.3.4"
 	help
 	  Trolltech Embedded Qt GUI Library

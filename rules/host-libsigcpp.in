@@ -1,6 +1,5 @@
 config HOST_LIBSIGCPP
 	bool
-	prompt "libsigc++"
 	help
 	  libsigc++ implements a typesafe callback system for standard C++. It
 	  allows you to define signals and to connect those signals to any

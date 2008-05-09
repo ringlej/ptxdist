@@ -1,4 +1,2 @@
 config CROSS_MODULE_INIT_TOOLS
 	bool
-	prompt "module init tools"
-	default KERNEL_MODULES
