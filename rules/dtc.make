@@ -18,68 +18,52 @@ PACKAGES-$(PTXCONF_DTC) += dtc
 # Get
 # ----------------------------------------------------------------------------
 
-dtc_get: $(STATEDIR)/dtc.get
-
-$(STATEDIR)/dtc.get: $(dtc_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(DTC_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, DTC)
+$(STATEDIR)/dtc.get:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-dtc_extract: $(STATEDIR)/dtc.extract
-
-$(STATEDIR)/dtc.extract: $(dtc_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/dtc.extract:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-dtc_prepare: $(STATEDIR)/dtc.prepare
-
-$(STATEDIR)/dtc.prepare: $(dtc_prepare_deps_default) $(STATEDIR)/host-dtc.install
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/dtc.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-dtc_compile: $(STATEDIR)/dtc.compile
-
-$(STATEDIR)/dtc.compile: $(dtc_compile_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/dtc.compile:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-dtc_install: $(STATEDIR)/dtc.install
-
-$(STATEDIR)/dtc.install: $(dtc_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/dtc.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-dtc_targetinstall: $(STATEDIR)/dtc.targetinstall
-
-$(STATEDIR)/dtc.targetinstall: $(dtc_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/dtc.targetinstall:
+	@$(call targetinfo)
 	$(PTXCONF_SYSROOT_HOST)/bin/dtc $(PTXCONF_DTC_EXTRA_ARGS) -I dts -O dtb \
 		$(PTXCONF_DTC_OFTREE_DTS) > $(IMAGEDIR)/oftree
-	
-	@$(call touch, $@)
+
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
