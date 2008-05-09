@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
+#           (C) 2008 by Wolfram Sang <w.sang@pengutronix.de>
 # See CREDITS for details about who has contributed to this project. 
 #
 # For further information about the PTXdist project and license conditions
@@ -9,17 +10,21 @@
 #
 
 KERNEL_VERSION		:= $(call remove_quotes,$(PTXCONF_KERNEL_VERSION))
-KERNEL_VERSION_MAJOR	:= $(shell echo $(KERNEL_VERSION) | sed -e "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\1/")
-KERNEL_VERSION_MINOR	:= $(shell echo $(KERNEL_VERSION) | sed -e "s/\([0-9]*\).\([0-9]*\).\([0-9]*\).*/\2/")
+VERSION_TEMP		:= $(subst ., ,$(KERNEL_VERSION))
+KERNEL_VERSION_MAJOR	:= $(word 1,$(VERSION_TEMP))
+KERNEL_VERSION_MINOR	:= $(word 2,$(VERSION_TEMP))
 
-GCC_VERSION_MAJOR	:= $(shell echo $(PTXCONF_GCC_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/")
-GCC_VERSION_MINOR	:= $(shell echo $(PTXCONF_GCC_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\2/")
-GCC_VERSION_MICRO	:= $(shell echo $(PTXCONF_GCC_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\3/")
-GCC_VERSION		:= $(call remove_quotes,$(PTXCONF_GCC_VERSION))
+GCC_VERSION		:= $(call remove_quotes,$(PTXCONF_CROSSCHAIN_CHECK))
+VERSION_TEMP		:= $(subst ., ,$(GCC_VERSION))
+GCC_VERSION_MAJOR	:= $(word 1,$(VERSION_TEMP))
+GCC_VERSION_MINOR	:= $(word 2,$(VERSION_TEMP))
+GCC_VERSION_MICRO	:= $(word 3,$(VERSION_TEMP))
 
-GLIBC_VERSION_MAJOR	:= $(shell echo $(PTXCONF_GLIBC_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1/")
-GLIBC_VERSION_MINOR	:= $(shell echo $(PTXCONF_GLIBC_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\2/")
-GLIBC_VERSION_MICRO	:= $(shell echo $(PTXCONF_GLIBC_VERSION) | sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\3/")
 GLIBC_VERSION		:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
+VERSION_TEMP		:= $(subst ., ,$(GLIBC_VERSION))
+GLIBC_VERSION_MAJOR	:= $(word 1,$(VERSION_TEMP))
+GLIBC_VERSION_MINOR	:= $(word 2,$(VERSION_TEMP))
+GLIBC_VERSION_MICRO	:= $(word 3,$(VERSION_TEMP))
 
 PTXDIST_FULLVERSION	:= $(call remove_quotes,ptxdist-$(FULLVERSION)$(PTXCONF_PROJECT_VERSION))
+VERSION_TEMP		:=
