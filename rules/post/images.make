@@ -212,8 +212,8 @@ $(IMAGEDIR)/initrd.gz: $(STATEDIR)/image_working_dir
 	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
 	(								\
 		echo "find . | ";					\
-		echo "cpio --quiet -H newc -o | ";				\
-		echo "gzip -9 -n > $@" )		\
+		echo "cpio --quiet -H newc -o | ";			\
+		echo "gzip -9 -n > $@" )				\
 	) | $(FAKEROOT) --
 	@echo "done."
 
