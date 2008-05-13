@@ -1,0 +1,25 @@
+menuconfig CPUFREQUTILS
+	bool
+	prompt "cpufrequtils        "
+	select SYSFSUTILS
+	select SYSFSUTILS_LIB
+	help
+	  To make access to the Linux kernel cpufreq subsystem easier for
+	  users and cpufreq userspace tools, a cpufrequtils package was
+	  created.
+	  Refer http://www.kernel.org/pub/linux/utils/kernel/cpufreq/cpufrequtils.html
+	  This package requires the sysfsutils.
+
+config CPUFREQUTILS_FREQ_INFO
+	depends on CPUFREQUTILS
+	bool
+	prompt "install cpufreq-info"
+	help
+	  Command line tools to determine current CPUfreq setting
+
+config CPUFREQUTILS_FREQ_SET
+	depends on CPUFREQUTILS
+	bool
+	prompt "install cpufreq-info"
+	help
+	  Command line tools to set current CPUfreq

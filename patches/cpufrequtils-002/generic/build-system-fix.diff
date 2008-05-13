@@ -1,0 +1,68 @@
+Fix various issues while cross compiling
+
+---
+ Makefile |   26 ++++++++++++++------------
+ 1 file changed, 14 insertions(+), 12 deletions(-)
+
+Index: Makefile
+===================================================================
+--- Makefile.orig
++++ Makefile
+@@ -73,17 +73,20 @@ INSTALL = /usr/bin/install -c
+ INSTALL_PROGRAM = ${INSTALL}
+ INSTALL_DATA  = ${INSTALL} -m 644
+ INSTALL_SCRIPT = ${INSTALL_PROGRAM}
+-LIBTOOL = /usr/bin/libtool
++# --tag required to make libtool happy about the source type
++LIBTOOL = /usr/bin/libtool --tag CC
+ 
+ # If you are running a cross compiler, you may want to set this
+ # to something more interesting, like "arm-linux-".  If you want
+ # to compile vs uClibc, that can be done here as well.
+-CROSS = #/usr/i386-linux-uclibc/usr/bin/i386-uclibc-
+-CC = $(CROSS)gcc
+-LD = $(CROSS)gcc
+-AR = $(CROSS)ar
+-STRIP = $(CROSS)strip
+-RANLIB = $(CROSS)ranlib
++
++# ptxdist will overwrite them
++#CROSS = #/usr/i386-linux-uclibc/usr/bin/i386-uclibc-
++#CC = $(CROSS)gcc
++#LD = $(CROSS)gcc
++#AR = $(CROSS)ar
++#STRIP = $(CROSS)strip
++#RANLIB = $(CROSS)ranlib
+ HOSTCC = gcc
+ 
+ 
+@@ -135,7 +138,7 @@ endif
+ ifeq ($(strip $(SYSFS)),true)
+ 	LIB_PARTS += lib/sysfs.lo
+ 	CFLAGDEF += -DINTERFACE_SYSFS
+-	LDFLAGS = -lsysfs
++	LDFLAGS += -lsysfs
+ endif
+ 
+ ifeq ($(strip $(NLS)),true)
+@@ -144,7 +147,7 @@ ifeq ($(strip $(NLS)),true)
+ endif
+ 
+ 
+-CFLAGS += $(WARNINGS) -I$(GCCINCDIR)
++CFLAGS += $(WARNINGS) -I$(GCCINCDIR) $(CPPFLAGS)
+ 
+ ifeq ($(strip $(V)),false)
+ 	QUIET=@$(PWD)/build/ccdv
+@@ -190,9 +193,8 @@ libcpufreq.la: $(LIB_OBJS) $(LIB_HEADERS
+ libcpufreq: libcpufreq.la
+ 
+ cpufreq-%: $(UTIL_OBJS)
+-	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) -g -I. -I./lib/ -c -o utils/$@.o utils/$*.c
+-	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) -g -I./lib/ -L. -L./.libs/ -lcpufreq -o $@ utils/$@.o
+-	$(QUIET) $(STRIPCMD) $@
++	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) -O2 -g -I. -I./lib/ -c -o utils/$@.o utils/$*.c
++	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) $(LDFLAGS) -g -I./lib/ -L. -L./.libs/ -lcpufreq -o $@ utils/$@.o
+ 
+ utils: cpufreq-info cpufreq-set
+ 
