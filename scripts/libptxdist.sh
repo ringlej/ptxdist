@@ -2,7 +2,7 @@
 
 DEBUG=${DEBUG:="false"}
 
-# 
+#
 # awk script for permission fixing
 #
 DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $2, $3, $4, $2); if ($1 == "n") printf("mknod -m %s .%s %s %s %s; chown %s.%s .%s;\n", $5, $2, $6, $7, $8, $3, $4, $2);}'
@@ -33,39 +33,48 @@ ptxd_get_ptxconf() {
 	echo "${!1}"
 }
 
+
 #
-# $1	copy_back; "true" copies the .config file back to ptxdist
+# $1	config file (or a link to it)
 # $2	function that is called
-# $#	all other parameters are given to $2
+# $3	copy_back; "true" copies the .config file back
 #
 ptxd_kconfig() {
-	local tmpdir fun copy_back ptxcnf
+	local dotconfig="${1}"
+	local fun="${2}"
+	local copy_back="${3}"
 
-	copy_back="${1}"
-	fun="${2}"
-	tmpdir="`mktemp -d ${PTXDIST_TEMPDIR}/kconfig.XXXXXX`"
+	local tmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/kconfig.XXXXXX")"
+	pushd "${tmpdir}" > /dev/null
 
 	# search for kconfig
-	if [ -z "${PTXDIST_KCONFIG}" ]; then
-		if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
-			PTXDIST_KCONFIG="${PTXDIST_WORKSPACE}/Kconfig"
-		else
-			PTXDIST_KCONFIG="config/Kconfig"
-		fi
+	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
+		kconfig="${PTXDIST_WORKSPACE}/Kconfig"
+	else
+		kconfig="config/Kconfig"
 	fi
 
-	pushd "$tmpdir" > /dev/null
+	# search for platformconfig
+	if [ -e "${PTXDIST_WORKSPACE}/platforms/Kconfig" ]; then
+		kconfig_platform="${PTXDIST_WORKSPACE}/platforms/Kconfig"
+	else
+		kconfig_platform="${PTXDIST_TOPDIR}/platforms/Kconfig"
+	fi
+
 	ln -sf "${PTXDIST_TOPDIR}/rules"
 	ln -sf "${PTXDIST_TOPDIR}/config"
+	ln -sf "${PTXDIST_TOPDIR}/platforms"
 	ln -sf "${PTXDIST_WORKSPACE}" workspace
-	ptxcnf="$(readlink -f "${PTXDIST_WORKSPACE}/ptxconfig")"
-	cp "$ptxcnf" .config
 
-	shift 2 # call ${fun} with the remaining arguments
-
-	if "${fun}" "${@}" && [ "${copy_back}" = "true" ]; then
-		cp .config "$ptxcnf"
+	if [ -e "${dotconfig}" ]; then
+		cp "${dotconfig}" .config
 	fi
+
+	export KCONFIG_NOTIMESTAMP=1
+	if "${fun}" && [ "${copy_back}" = "true" ]; then
+		cp .config "${dotconfig}"
+	fi
+	unset KCONFIG_NOTIMESTAMP
 
 	popd > /dev/null
 	rm -fr $tmpdir
@@ -152,7 +161,7 @@ ptxd_exit_silent(){
 #
 ptxd_debug(){
 	[ "$DEBUG" = "true" ] && echo "$0: $1" >&2
-}	
+}
 
 ptxd_debug "Debugging is enabled - Turn off with DEBUG=false"
 
@@ -190,18 +199,18 @@ check_pipe_status() {
 		exit $i
 	}
 	done
-} 
+}
 
 
 #
 # split ipkg filename into it's parts
 #
-# input format: 
+# input format:
 #
 # "name_1.2.3-4_arm.ipk", packet revision (-4) is optional
 #
-# output format: 
-# 
+# output format:
+#
 # - "name arm 1.2.3 4" if packet revision exists
 # - "name arm 1.2.3"   if packet revision doesn't exist
 #
@@ -304,7 +313,7 @@ ptxd_compile_test() {
 	done
 
 	# sanity checks
-	if [ -z "$PTXDIST_TOPDIR" ]; then 
+	if [ -z "$PTXDIST_TOPDIR" ]; then
 		echo "error: PTXDIST_TOPDIR must be set with --ptxdist" >&2
 		echo "error: commandline is $*" >&2
 		exit 1
@@ -318,9 +327,9 @@ ptxd_compile_test() {
 	echo date.....: `date`
 	echo user.....: $USER@$HOSTNAME
 
-	make ${CONFIG_NAME}_config >> ${LOGFILE} 
+	make ${CONFIG_NAME}_config >> ${LOGFILE}
 
-	if [ $? != "0" ]; then 
+	if [ $? != "0" ]; then
 		echo "result...: no config file '$CONFIG_NAME'"
 		echo >> $LOGFILE
 		exit 1
@@ -331,7 +340,7 @@ ptxd_compile_test() {
 	# Now start the compilation
 
 	PTX_STARTTIME=`date +"%s"`
-	(make world; echo PTX_RESULT=$?) > $LOGFILE 2>&1 
+	(make world; echo PTX_RESULT=$?) > $LOGFILE 2>&1
 	PTX_STOPTIME=`date +"%s"`
 	PTX_RESULT=`grep PTX_RESULT logfile | awk -F"=" -- '{print $2}'`
 	let "PTX_TIME=$PTX_STOPTIME-$PTX_STARTTIME"
@@ -360,23 +369,23 @@ ptxd_compile_test() {
 # <stdin> --> Option List:
 # SYMBOL NAME HELPTEXT
 #
-# proof of concept / test implementation 
-# FIXME: This should be read and written 
+# proof of concept / test implementation
+# FIXME: This should be read and written
 #        without tmpfiles and it is nasty anyway ;-)
-#      
+#
 # Use at your own risk
 
 ptxd_generic_option_parser(){
 TMPDIR=`mktemp -d /tmp/ptxdist.XXXXXX` || exit 1
 INFILE=$TMPDIR/infile
 OUTFILE=$TMPDIR/outfile
-while read line ; do 
+while read line ; do
 	echo $line >> $INFILE
-done 
+done
 cat << EOF > $OUTFILE
 
 check_argument(){
-case "\$1" in 
+case "\$1" in
 	--*|"")
 	ptxd_debug "missing argument"
 	return 1
@@ -388,16 +397,16 @@ esac
 }
 
 usage() {
-        echo 
+        echo
         [ -n "\$1" ] && echo -e "\${PREFIX} error: \$1\n"
 	echo "$PROGRAM_DESCRIPTION"
-	echo 
+	echo
         echo "usage: \`basename \$0\` <args>"
         echo
         echo " Arguments:"
         echo
 EOF
-while read SYMBOL OPTION DESCRIPTION ; do 
+while read SYMBOL OPTION DESCRIPTION ; do
 cat << EOF >> $OUTFILE
         echo -e "  --$OPTION\\t $DESCRIPTION"
 EOF
@@ -405,7 +414,7 @@ done < $INFILE
 cat << EOF >> $OUTFILE
         echo
 		echo " \`basename \$0\` returns with an exit status != 0 if something failed."
-	echo 
+	echo
         exit 0
 }
 
@@ -413,21 +422,21 @@ cat << EOF >> $OUTFILE
 # Option parser
 #
 # FIXME: rsc wants to reimplement this with getopt
-# 
+#
 invoke_parser(){
 while [ \$# -gt 0 ]; do
 	case "\$1" in
 
                 --help) usage ;;
 EOF
-while read SYMBOL OPTION DESCRIPTION ; do 
+while read SYMBOL OPTION DESCRIPTION ; do
 cat << EOF >> $OUTFILE
                 --$OPTION)
-			check_argument \$2  		
-			if [ "\$?" = "0" ] ; then 
-				$SYMBOL="\$2";      		
+			check_argument \$2
+			if [ "\$?" = "0" ] ; then
+				$SYMBOL="\$2";
 				shift 2 ;
-			else	
+			else
 				ptxd_debug "skipping option \$1";
 				shift 1 ;
 			fi
@@ -435,8 +444,8 @@ cat << EOF >> $OUTFILE
 EOF
 done < $INFILE
 cat << EOF >> $OUTFILE
-               *)  
-			usage "unknown option \$1" 
+               *)
+			usage "unknown option \$1"
 			;;
         esac
 done

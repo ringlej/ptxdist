@@ -35,6 +35,7 @@ PTX_MAP_ALL_MAKE=${STATEDIR}/ptx_map_all.make
 # our config files
 PTXCONFIG=${PTXDIST_WORKSPACE}/ptxconfig
 PLATFORMCONFIG=${PTXDIST_WORKSPACE}/.platformconfig
+PTXDISTRC=${HOME}/.ptxdistrc.${FULLVERSION}
 
 # logfile
 PTX_LOGFILE=${PTXDIST_PLATFORMDIR}/logfile

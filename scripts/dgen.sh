@@ -26,8 +26,14 @@ GEN_MAPS_ALL=${STATEDIR}/gen_map_all
 #
 gen_configdeps_action () {
     yes "" | \
-	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -O "${PTXDIST_KCONFIG}"
+	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -O "${kconfig}"
 };
+
+gen_configdeps_platform_action () {
+    yes "" | \
+	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -O "${kconfig_platform}"
+};
+
 
 #
 # $(CONFIGDEPS): $(IN_ALL)
@@ -35,30 +41,13 @@ gen_configdeps_action () {
 gen_configdeps() {
     local tmpdir kconfig
 
-    ptxd_kconfig false gen_configdeps_action > "${CONFIGDEPS}"
+    ptxd_kconfig "${PTXCONFIG}" gen_configdeps_action false > "${CONFIGDEPS}"
 
-    if [ -e "${PTXDIST_WORKSPACE}/platforms/Kconfig" ]; then
-	kconfig=${PTXDIST_WORKSPACE}/platforms/Kconfig
-    else
-	kconfig=${PTXDIST_TOPDIR}/platforms/Kconfig
+    if [ -s "${PLATFORMCONFIG}" ]; then
+	ptxd_kconfig "${PLATFORMCONFIG}" gen_configdeps_platform_action false >> "${CONFIGDEPS}"
     fi
-
-    tmpdir="$(mktemp -d ${PTXDIST_TEMPDIR}/platformconfig.XXXXXX)"
-    pushd $tmpdir > /dev/null
-    ln -sf "${PTXDIST_TOPDIR}/rules"
-    ln -sf "${PTXDIST_TOPDIR}/platforms"
-    ln -sf "${PTXDIST_WORKSPACE}" workspace
-
-    # prepare everything to make kconfig see it's original environment
-    if [ -e "${PLATFORMCONFIG}" ]; then
-	cp "$(readlink -f ${PLATFORMCONFIG})" .config
-    fi
-
-    "${PTXDIST_TOPDIR}/scripts/kconfig/conf" -O "${kconfig}" >> "${CONFIGDEPS}"
-
-    popd > /dev/null
-    rm -fr $tmpdir
 }
+
 
 
 #
@@ -116,7 +105,7 @@ gen_map_all() {
 		sed -e \
 		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~FILENAME_\2=\"\1\"\nPACKAGE_\2=\"\3\"~" \
 		${GEN_MAPS_ALL} > "${MAP_ALL}"
-	
+
 		sed -e \
 		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_PACKAGE_\3=\2~" \
 		${GEN_MAPS_ALL} > "${PTX_MAP_ALL_MAKE}"

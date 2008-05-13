@@ -8,12 +8,15 @@ PTXDIST_FULLARGS=("${@}")
 PROMPT="ptxdist: "
 DEBUG=
 
+
+boardsetup_action() {
+	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
+}
+
 #
 # board setup
 #
 boardsetup() {
-	local tmpdir
-
 	echo
 	echo "${PROMPT}boardsetup..."
 
@@ -23,22 +26,7 @@ boardsetup() {
 		exit 1
 	fi
 
-	tmpdir="$(mktemp -d ${PTXDIST_TEMPDIR}/boardsetup.XXXXXX)"
-	pushd $tmpdir > /dev/null
-
-	# prepare everything to make kconfig see it's original environment
-	if [ -e "${PTXDIST_WORKSPACE}/boardsetup/boardsetup" ]; then
-	    cp "${PTXDIST_WORKSPACE}/boardsetup/boardsetup" .config
-	fi
-
-	# store boardsetup
-	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
-	echo "${PROMPT}saving ${PTXDIST_WORKSPACE}/boardsetup/boardsetup"
-	cp .config "${PTXDIST_WORKSPACE}/boardsetup/boardsetup"
-
-	popd > /dev/null
-	echo "${PROMPT}cleanup..."
-	rm -fr $tmpdir
+	ptxd_kconfig "${PTXDIST_WORKSPACE}/boardsetup/boardsetup" boardsetup_action true
 }
 
 # check a ptxdist version against a configfile version.
@@ -607,7 +595,7 @@ drop() {
 
 menuconfig_action() {
 	echo "${PROMPT}menuconfig..."
-	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_KCONFIG}"
+	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${kconfig}"
 }
 
 newpacket() {
@@ -739,43 +727,14 @@ newpacket() {
 }
 
 oldconfig_action() {
-	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -s "${PTXDIST_KCONFIG}"
+	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -s "${kconfig}"
 }
 
-#
-# platform config
-#
-platformconfig() {
-	local tmpdir kconfig
 
-	echo
+platformconfig_action() {
 	echo "${PROMPT}platformconfig..."
-
-	if [ -e "${PTXDIST_WORKSPACE}/platforms/Kconfig" ]; then
-		kconfig=${PTXDIST_WORKSPACE}/platforms/Kconfig
-	else
-		kconfig=${PTXDIST_TOPDIR}/platforms/Kconfig
-	fi
-
-	tmpdir="$(mktemp -d ${PTXDIST_TEMPDIR}/platformconfig.XXXXXX)"
-	pushd $tmpdir > /dev/null
-	ln -sf "${PTXDIST_TOPDIR}/rules"
-	ln -sf "${PTXDIST_TOPDIR}/platforms"
-	ln -sf "${PTXDIST_WORKSPACE}" workspace
-
-	# prepare everything to make kconfig see it's original environment
-	if [ -e "${PLATFORMCONFIG}" ]; then
-		cp "$(readlink -f ${PLATFORMCONFIG})" .config
-	fi
-
-	# store boardsetup
-	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${kconfig}"
-	echo "${PROMPT}saving ${PLATFORMCONFIG}"
-	cp .config "$(readlink -f ${PLATFORMCONFIG})"
-
-	popd > /dev/null
-	echo "${PROMPT}cleanup..."
-	rm -fr $tmpdir
+	echo
+	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${kconfig_platform}"
 }
 
 
@@ -806,29 +765,8 @@ projects() {
 }
 
 
-setup() {
-	local tmpdir
-
-	echo
-	echo "${PROMPT}setup..."
-	tmpdir="$(mktemp -d ${PTXDIST_TEMPDIR}/setup.XXXXXX)"
-	pushd $tmpdir > /dev/null
-
-	# prepare everything to make kconfig see its original environment
-	cp "${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default" .config
-	if [ -f "$HOME/.ptxdistrc.${FULLVERSION}" ]; then
-		echo "using \$HOME/.ptxdistrc.${FULLVERSION}"
-		cp "$HOME/.ptxdistrc.${FULLVERSION}" .config
-	fi
-
-	# store ~/.ptxdistrc
+setup_action() {
 	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_TOPDIR}/config/setup/Kconfig"
-	echo "${PROMPT}saving \$HOME/.ptxdistrc.${FULLVERSION}"
-	cp .config "$HOME/.ptxdistrc.${FULLVERSION}"
-
-	popd > /dev/null
-	echo "${PROMPT}cleanup..."
-	rm -fr $tmpdir
 }
 
 
@@ -933,11 +871,7 @@ toolchain() {
 setup_topdir() {
 	local ptxdist topdir
 
-	ptxdist="${0}"
-
-	if [ -L "${ptxdist}" ]; then
-		ptxdist="$(readlink -f "${ptxdist}")"
-	fi
+	ptxdist="$(readlink -f "${0}")"
 	topdir="$(cd "$(dirname "${ptxdist}")"/.. && pwd)"
 
 	#
@@ -1048,10 +982,8 @@ setup_platform() {
 	# reread vars with correct PTXDIST_PLATFORMDIR
 	. "${SCRIPTSDIR}/ptxdist_vars.sh"
 
-	if [ -L ${PLATFORMCONFIG} ]; then
+	if [ -e ${PLATFORMCONFIG} ]; then
 		cfg_dir="$(dirname "$(readlink -f "${PLATFORMCONFIG}")")"
-	elif [ -e ${PLATFORMCONFIG} ]; then
-		cfg_dir="$(dirname "${PLATFORMCONFIG}")"
 	else
 		unset cfg_dir
 	fi
@@ -1076,11 +1008,11 @@ setup_config() {
 	rc_user="${HOME}/.ptxdistrc.${FULLVERSION}"
 	rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
 
-	if [ -e "${rc_user}" ]; then
-		ptxd_source_kconfig "${rc_user}"
-	else
-		ptxd_source_kconfig "${rc_default}"
+	if [ \! -e "${rc_user}" ]; then
+		cp "${rc_default}" "${rc_user}"
 	fi
+
+	ptxd_source_kconfig "${rc_user}"
 
 	#
 	# setup SRCDIR
@@ -1431,7 +1363,7 @@ while [ "$#" != "0" ]; do
 	menuconfig)	shift
 			check_ptxconfig
 			if [ ${#} -eq 0 ]; then
-				ptxd_kconfig true menuconfig_action
+				ptxd_kconfig "${PTXCONFIG}" menuconfig_action true
 			else
 				check_deps
 				ptxd_make "${1}_menuconfig"
@@ -1453,7 +1385,7 @@ while [ "$#" != "0" ]; do
 	oldconfig)	shift
 			check_ptxconfig
 			if [ ${#} -eq 0 ]; then
-				ptxd_kconfig true oldconfig_action
+				ptxd_kconfig "${PTXCONFIG}" oldconfig_action true
 			else
 				check_deps
 				ptxd_make "${1}_oldconfig"
@@ -1485,7 +1417,7 @@ while [ "$#" != "0" ]; do
 			exit
 			;;
 	platformconfig)	shift
-			platformconfig
+			ptxd_kconfig "${PLATFORMCONFIG}" platformconfig_action true
 			;;
 	prepare)	shift
 			check_ptxconfig
@@ -1524,13 +1456,13 @@ while [ "$#" != "0" ]; do
 			fi
 			echo
 			echo "${PROMPT}linking $1 to ptxconfig"
-			ln -sf $1 ${PTXCONFIG}
+			ln -sf "${1}" "${PTXCONFIG}"
 			echo "${PROMPT}done."
 			echo
 			exit
 			;;
 	setup)		shift
-			setup
+			ptxd_kconfig "${PTXDISTRC}" setup_action true
 			;;
 	targetinstall)	shift
 			check_ptxconfig

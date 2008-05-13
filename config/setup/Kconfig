@@ -68,7 +68,7 @@ menu "Mirrors           "
 
 config SETUP_DEBMIRROR
         string
-        default "http://ftp.de.debian.org/debian"
+        default "http://ftp.uni-kl.de/debian"
         prompt "Debian Pool Mirror"
         help
           The Debian pool mirror to use for downloading various
@@ -76,17 +76,17 @@ config SETUP_DEBMIRROR
 
 config SETUP_SFMIRROR
         string
-        default "http://mesh.dl.sourceforge.net/sourceforge"
+        default "http://surfnet.dl.sourceforge.net/sourceforge"
         prompt "Sourceforge Mirror"
 
 config SETUP_GNUMIRROR
         string
-        default "ftp://ftp.informatik.rwth-aachen.de/pub/gnu"
+        default "http://ftp.uni-kl.de/pub/gnu"
         prompt "GNU.org Mirror"
 
 config SETUP_XORGMIRROR
         string
-        default "ftp://ftp.freedesktop.org/pub/xorg"
+        default "http://ftp.gwdg.de/pub/x11/x.org/pub"
         prompt "x.org Mirror"
 
 endmenu
