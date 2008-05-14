@@ -115,9 +115,9 @@ KERNEL_IMAGE	:= $(PTXCONF_KERNEL_IMAGE)
 
 $(KERNEL_CONFIG):
 	@echo
-	@echo "*************************************************************************"
-	@echo "**** Please generate a kernelconfig with \"ptxdist menuconfig kernel\" ****"
-	@echo "*************************************************************************"
+	@echo "********************************************************************"
+	@echo "**** Please generate a kernelconfig with \"ptxdist kernelconfig\" ****"
+	@echo "********************************************************************"
 	@echo
 	@echo
 	@exit 1
