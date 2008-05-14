@@ -38,9 +38,9 @@ $(WORLD_DEP_TREE_PS): $(DEP_OUTPUT) $(STATEDIR)/world.targetinstall
 
 $(STATEDIR)/host-%.extract:
 	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_PACKAGE_$(*))_DIR))
-	@$(call extract, $(PTX_MAP_PACKAGE_$(*)), $(HOST_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_PACKAGE_$(*)), $($(PTX_MAP_PACKAGE_$(*))_DIR))
+	@$(call clean, $($(PTX_MAP_PACKAGE_host-$(*))_DIR))
+	@$(call extract, $(PTX_MAP_PACKAGE_host-$(*)), $(HOST_BUILDDIR))
+	@$(call patchin, $(PTX_MAP_PACKAGE_host-$(*)), $($(PTX_MAP_PACKAGE_host-$(*))_DIR))
 	@$(call touch)
 
 $(STATEDIR)/host-%.prepare:
