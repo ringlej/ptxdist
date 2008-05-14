@@ -1,14 +1,25 @@
 # -*-makefile-*-
 
 #
-# simple prepare for standard packages
+# simple prepare for standard target autoconf packages
 #
-world/prepare/simple =						\
-	cd $($(strip $(1))_DIR) && 				\
-		$($(strip $(1))_PATH) $($(strip $(1))_ENV)	\
+world/prepare/target =								\
+	cd $($(strip $(1))_DIR) && 						\
+	$($(strip $(1))_PATH) $($(strip $(1))_ENV)				\
 		./configure $($(strip $(1))_AUTOCONF)
 
-world/compile/simple =						\
+#
+# simple prepare for standard host packages
+#
+world/prepare/host =								\
+	cd $($(strip $(1))_DIR) && 						\
+	$($(strip $(1))_PATH) $($(strip $(1))_ENV)				\
+		./configure $($(strip $(1))_AUTOCONF)
+
+#
+# simple compile for target and host packages
+#
+world/compile/simple =								\
 	cd $($(strip $(1))_DIR) && $($(strip $(1))_PATH) $(MAKE) $(PARALLELMFLAGS)
 
 

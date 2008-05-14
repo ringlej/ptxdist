@@ -11,8 +11,6 @@ WORLD_PACKAGES_TARGETINSTALL 	:= $(addprefix $(STATEDIR)/,$(addsuffix .targetins
 WORLD_HOST_PACKAGES_INSTALL	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(HOST_PACKAGES)))
 WORLD_CROSS_PACKAGES_INSTALL	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(CROSS_PACKAGES)))
 
-
-
 ### --- dependency graph generation ---
 
 ifneq ($(shell which dot),)
@@ -36,9 +34,29 @@ $(WORLD_DEP_TREE_PS): $(DEP_OUTPUT) $(STATEDIR)/world.targetinstall
 
 ### --- world ---
 
-$(STATEDIR)/%.get:
+### --- for HOST packages only ---
+
+$(STATEDIR)/host-%.extract:
 	@$(call targetinfo)
+	@$(call clean, $($(PTX_MAP_PACKAGE_$(*))_DIR))
+	@$(call extract, $(PTX_MAP_PACKAGE_$(*)), $(HOST_BUILDDIR))
+	@$(call patchin, $(PTX_MAP_PACKAGE_$(*)), $($(PTX_MAP_PACKAGE_$(*))_DIR))
 	@$(call touch)
+
+$(STATEDIR)/host-%.prepare:
+	@$(call targetinfo)
+	$(call world/prepare/host, $(PTX_MAP_PACKAGE_host-$(*)))
+	@$(call touch)
+
+
+$(STATEDIR)/host-%.install:
+	@$(call targetinfo)
+	@$(call install, $(PTX_MAP_PACKAGE_host-$(*)),,h)
+	@$(call touch)
+
+
+
+### --- for target packages only ---
 
 $(STATEDIR)/%.extract:
 	@$(call targetinfo)
@@ -49,8 +67,21 @@ $(STATEDIR)/%.extract:
 
 $(STATEDIR)/%.prepare:
 	@$(call targetinfo)
-	@$(call clean, $($($(PTX_MAP_PACKAGE_$(*))_DIR)/config.cache))
-	$(call world/prepare/simple, $(PTX_MAP_PACKAGE_$(*)))
+	$(call world/prepare/target, $(PTX_MAP_PACKAGE_$(*)))
+	@$(call touch)
+
+
+$(STATEDIR)/%.install:
+	@$(call targetinfo)
+	@$(call install, $(PTX_MAP_PACKAGE_$(*)))
+	@$(call touch)
+
+
+
+# --- for all pacakges ---
+
+$(STATEDIR)/%.get:
+	@$(call targetinfo)
 	@$(call touch)
 
 $(STATEDIR)/%.compile:
@@ -58,10 +89,6 @@ $(STATEDIR)/%.compile:
 	$(call world/compile/simple, $(PTX_MAP_PACKAGE_$(*)))
 	@$(call touch)
 
-$(STATEDIR)/%.install:
-	@$(call targetinfo)
-	@$(call install, $(PTX_MAP_PACKAGE_$(*)))
-	@$(call touch)
 
 $(STATEDIR)/%.targetinstall.post:
 	@$(call targetinfo)
