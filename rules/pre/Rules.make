@@ -742,6 +742,7 @@ patchin =											\
 				$(SCRIPTSDIR)/apply_patch_series.sh -p "$$patch_dir"		\
 					-d $$PACKET_DIR	;					\
 			fi;									\
+			if [ "$$?" -gt 0 ]; then exit -1; fi;					\
 		fi;										\
 	fi;											\
 												\
