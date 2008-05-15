@@ -179,3 +179,17 @@ config KERNEL_IMAGE
 	default "vmImage" if KERNEL_IMAGE_VM
 	default "vmlinux" if KERNEL_IMAGE_VMLINUX
 
+comment "--- development feature ---"
+	depends on KERNEL
+
+config KERNEL_CHECK_MISMATCH
+	bool
+	prompt "check for section mismatch while building"
+	depends on KERNEL
+	help
+	  Enable this feature if you want kernel's builsystem to check for
+	  section mismatches (__devinit/__devexit, __init/__exit). This
+	  entry is valid for 2.6.25 kernels and above. Previous kernel versions
+	  do this check automatically. Enabling this feature is recommended
+	  for kernel development.
+	  Changing this entry will rebuild the whole kernel.
