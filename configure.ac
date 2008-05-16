@@ -158,6 +158,14 @@ if test -z "${YACC}"; then
    AC_MSG_ERROR([yacc/bison could not be found, please install])
 fi
 
+
+AC_MSG_CHECKING([whether yacc is bison++])
+if $YACC --version | grep bison++ -q; then
+   AC_MSG_ERROR([your $YACC turns out to be bison++, please install plain bison])
+else
+   AC_MSG_RESULT([no, this is good])
+fi
+
 AC_MSG_CHECKING([yacc/bison version])
 YACC_VERSION=`$YACC --version 2>/dev/null | $SED -ne "s/.*GNU Bison.* \([[0-9.]]*\).*/\1/p"`
 case "${YACC_VERSION}" in
