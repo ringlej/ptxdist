@@ -158,6 +158,17 @@ if test -z "${YACC}"; then
    AC_MSG_ERROR([yacc/bison could not be found, please install])
 fi
 
+AC_MSG_CHECKING([yacc/bison version])
+YACC_VERSION=`$YACC --version 2>/dev/null | $SED -ne "s/.*GNU Bison.* \([[0-9.]]*\).*/\1/p"`
+case "${YACC_VERSION}" in
+     1.*)
+     AC_MSG_ERROR([$YACC_VERSION, your bison version is too old, install 2.3 or sth. like that]) ;;
+     "")
+     AC_MSG_WARN([no GNU bison found, continuing anyway....]) ;;
+     *)
+     AC_MSG_RESULT([$YACC_VERSION]) ;;
+esac
+
 dnl Check for bunzip2
 AC_PATH_PROGS(BUNZIP2, bunzip2,, $PATH)
 if test -z "$BUNZIP2"; then
