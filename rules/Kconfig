@@ -193,6 +193,7 @@ endmenu
 
 menu "Middleware                    "
 source "rules/dbus.in"
+source "rules/dbus-glib.in"
 source "rules/libdbus-cxx.in"
 source "rules/omniorb.in"
 source "rules/mico.in"
