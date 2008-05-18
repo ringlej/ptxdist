@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
+# Copyright (C) 2008 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -23,8 +23,6 @@ HOST_XCB_PROTO_DIR	= $(HOST_BUILDDIR)/$(XCB_PROTO)
 # Get
 # ----------------------------------------------------------------------------
 
-host-xcb-proto_get: $(STATEDIR)/host-xcb-proto.get
-
 $(STATEDIR)/host-xcb-proto.get: $(STATEDIR)/xcb-proto.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
@@ -33,9 +31,7 @@ $(STATEDIR)/host-xcb-proto.get: $(STATEDIR)/xcb-proto.get
 # Extract
 # ----------------------------------------------------------------------------
 
-host-xcb-proto_extract: $(STATEDIR)/host-xcb-proto.extract
-
-$(STATEDIR)/host-xcb-proto.extract: $(host-xcb-proto_extract_deps_default)
+$(STATEDIR)/host-xcb-proto.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_XCB_PROTO_DIR))
 	@$(call extract, XCB_PROTO, $(HOST_BUILDDIR))
@@ -46,8 +42,6 @@ $(STATEDIR)/host-xcb-proto.extract: $(host-xcb-proto_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-xcb-proto_prepare: $(STATEDIR)/host-xcb-proto.prepare
-
 HOST_XCB_PROTO_PATH	:= PATH=$(HOST_PATH)
 HOST_XCB_PROTO_ENV 	:= $(HOST_ENV)
 
@@ -56,7 +50,7 @@ HOST_XCB_PROTO_ENV 	:= $(HOST_ENV)
 #
 HOST_XCB_PROTO_AUTOCONF	:= $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-xcb-proto.prepare: $(host-xcb-proto_prepare_deps_default)
+$(STATEDIR)/host-xcb-proto.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_XCB_PROTO_DIR)/config.cache)
 	cd $(HOST_XCB_PROTO_DIR) && \
@@ -68,9 +62,7 @@ $(STATEDIR)/host-xcb-proto.prepare: $(host-xcb-proto_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-host-xcb-proto_compile: $(STATEDIR)/host-xcb-proto.compile
-
-$(STATEDIR)/host-xcb-proto.compile: $(host-xcb-proto_compile_deps_default)
+$(STATEDIR)/host-xcb-proto.compile:
 	@$(call targetinfo, $@)
 	cd $(HOST_XCB_PROTO_DIR) && $(HOST_XCB_PROTO_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -79,9 +71,7 @@ $(STATEDIR)/host-xcb-proto.compile: $(host-xcb-proto_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-host-xcb-proto_install: $(STATEDIR)/host-xcb-proto.install
-
-$(STATEDIR)/host-xcb-proto.install: $(host-xcb-proto_install_deps_default)
+$(STATEDIR)/host-xcb-proto.install:
 	@$(call targetinfo, $@)
 	@$(call install, HOST_XCB_PROTO,,h)
 	@$(call touch, $@)
