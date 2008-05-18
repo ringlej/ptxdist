@@ -1,0 +1,5 @@
+config HOST_DBUS_GLIB
+	bool
+	select HOST_DBUS
+	select HOST_GLIB
+
