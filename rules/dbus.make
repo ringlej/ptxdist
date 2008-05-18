@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.0.0
+DBUS_VERSION	:= 1.1.2
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -58,12 +58,12 @@ $(STATEDIR)/dbus.extract: $(dbus_extract_deps_default)
 dbus_prepare: $(STATEDIR)/dbus.prepare
 
 DBUS_PATH := PATH=$(CROSS_PATH)
+
 DBUS_ENV := \
 	$(CROSS_ENV) \
 	ac_cv_have_abstract_sockets=yes
-
 ifdef PTXCONF_DBUS_X
-DBUS_ENV += ac_cv_have_x="have_x=yes ac_x_includes=$(SYSROOT)/usr/include ac_x_libraries=$(SYSROOT)/usr/lib"
+DBUS_ENV += ac_cv_have_x="have_x=yes ac_x_includes=$(SYSROOT)/usr/X11R6/include ac_x_libraries=$(SYSROOT)/usr/X11R6/lib"
 endif
 
 #
@@ -71,12 +71,26 @@ endif
 #
 DBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-tests \
+	--disable-xml-docs \
+	--disable-doxygen-docs \
+	--disable-gcov \
 	--enable-abstract-sockets=yes \
+	--disable-selinux \
+	--disable-libaudit \
+	--disable-dnotify \
+	--disable-kqueue \
 	--localstatedir=/var \
 	--with-dbus-user=$(PTXCONF_DBUS_USER)
-
+	
+ifdef PTXCONF_DBUS_XML_EXPAT
+DBUS_AUTOCONF += --with-xml=expat
+endif
+ifdef PTXCONF_DBUS_XML_LIBXML2
+DBUS_AUTOCONF += --with-xml=libxml
+endif
 ifdef PTXCONF_DBUS_X
-DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr
+DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr/X11R6
 else
 DBUS_AUTOCONF += --without-x
 endif
@@ -97,7 +111,7 @@ dbus_compile: $(STATEDIR)/dbus.compile
 
 $(STATEDIR)/dbus.compile: $(dbus_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(DBUS_DIR) && $(DBUS_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $(DBUS_DIR) && $(DBUS_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -144,10 +158,10 @@ $(STATEDIR)/dbus.targetinstall: $(dbus_targetinstall_deps_default)
 		$(DBUS_DIR)/tools/.libs/dbus-uuidgen, /usr/bin/dbus-uuidgen)
 
 	@$(call install_copy, dbus, 0, 0, 0644, \
-		$(DBUS_DIR)/dbus/.libs/libdbus-1.so.3.2.0, \
-		/usr/lib/libdbus-1.so.3.2.0)
-	@$(call install_link, dbus, libdbus-1.so.3.2.0, /usr/lib/libdbus-1.so.3)
-	@$(call install_link, dbus, libdbus-1.so.3.2.0, /usr/lib/libdbus-1.so)
+		$(DBUS_DIR)/dbus/.libs/libdbus-1.so.3.4.0, \
+		/usr/lib/libdbus-1.so.3.4.0)
+	@$(call install_link, dbus, libdbus-1.so.3.4.0, /usr/lib/libdbus-1.so.3)
+	@$(call install_link, dbus, libdbus-1.so.3.4.0, /usr/lib/libdbus-1.so)
 
 	#
 	# create system.d and event.d directories, which are used by the configuration and startup files
