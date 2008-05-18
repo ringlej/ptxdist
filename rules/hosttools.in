@@ -14,6 +14,7 @@ source "rules/host-intltool.in"
 
 # automatically selected host tools
 
+source "rules/host-libbz2.in"
 source "rules/host-python24.in"
 source "rules/host-fakeroot.in"
 source "rules/host-ipkg.in"
