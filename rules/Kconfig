@@ -95,6 +95,7 @@ source "rules/networking.in"
 endmenu
 
 menu "Disk and File Utilities       "
+source "rules/attr.in"
 source "rules/bonniexx.in"
 source "rules/dosfstools.in"
 source "rules/e2fsprogs.in"

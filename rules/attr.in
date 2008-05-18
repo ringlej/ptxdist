@@ -1,0 +1,16 @@
+menuconfig ATTR
+	bool
+	select HOST_GETTEXT if ATTR_GETTEXT
+	prompt "attr"
+	help
+
+	  This is the extended attributes project for the ext2 and ext3
+	  filesystems. For reference, have a look at the project homepage:
+
+	  http://acl.bestbits.at/
+
+config ATTR_GETTEXT
+	bool
+	depends on ATTR
+	prompt "gettext support"
+
