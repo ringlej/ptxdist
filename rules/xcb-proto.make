@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
+# $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
 # Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
+# Copyright (C) 2008 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,9 +29,7 @@ XCB_PROTO_DIR		:= $(BUILDDIR)/$(XCB_PROTO)
 # Get
 # ----------------------------------------------------------------------------
 
-xcb-proto_get: $(STATEDIR)/xcb-proto.get
-
-$(STATEDIR)/xcb-proto.get: $(xcb-proto_get_deps_default)
+$(STATEDIR)/xcb-proto.get: $(XCB_PROTO_SOURCE)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -42,9 +41,7 @@ $(XCB_PROTO_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xcb-proto_extract: $(STATEDIR)/xcb-proto.extract
-
-$(STATEDIR)/xcb-proto.extract: $(xcb-proto_extract_deps_default)
+$(STATEDIR)/xcb-proto.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCB_PROTO_DIR))
 	@$(call extract, XCB_PROTO)
@@ -55,8 +52,6 @@ $(STATEDIR)/xcb-proto.extract: $(xcb-proto_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xcb-proto_prepare: $(STATEDIR)/xcb-proto.prepare
-
 XCB_PROTO_PATH	:= PATH=$(CROSS_PATH)
 XCB_PROTO_ENV 	:= $(CROSS_ENV)
 
@@ -65,7 +60,7 @@ XCB_PROTO_ENV 	:= $(CROSS_ENV)
 #
 XCB_PROTO_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xcb-proto.prepare: $(xcb-proto_prepare_deps_default)
+$(STATEDIR)/xcb-proto.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(XCB_PROTO_DIR)/config.cache)
 	cd $(XCB_PROTO_DIR) && \
@@ -77,9 +72,7 @@ $(STATEDIR)/xcb-proto.prepare: $(xcb-proto_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xcb-proto_compile: $(STATEDIR)/xcb-proto.compile
-
-$(STATEDIR)/xcb-proto.compile: $(xcb-proto_compile_deps_default)
+$(STATEDIR)/xcb-proto.compile:
 	@$(call targetinfo, $@)
 	cd $(XCB_PROTO_DIR) && $(XCB_PROTO_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -88,9 +81,7 @@ $(STATEDIR)/xcb-proto.compile: $(xcb-proto_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xcb-proto_install: $(STATEDIR)/xcb-proto.install
-
-$(STATEDIR)/xcb-proto.install: $(xcb-proto_install_deps_default)
+$(STATEDIR)/xcb-proto.install:
 	@$(call targetinfo, $@)
 	@$(call install, XCB_PROTO)
 	@$(call touch, $@)
@@ -99,9 +90,7 @@ $(STATEDIR)/xcb-proto.install: $(xcb-proto_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xcb-proto_targetinstall: $(STATEDIR)/xcb-proto.targetinstall
-
-$(STATEDIR)/xcb-proto.targetinstall: $(xcb-proto_targetinstall_deps_default)
+$(STATEDIR)/xcb-proto.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
