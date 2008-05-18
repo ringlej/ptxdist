@@ -1,0 +1,7 @@
+config DBUS_GLIB
+	bool
+	prompt "glib bindings"
+	select DBUS
+	select HOST_DBUS_GLIB
+	select GLIB
+
