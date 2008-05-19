@@ -41,6 +41,17 @@ include $(PACKAGE_DEP_POST)
 
 include $(PTX_MAP_ALL_MAKE)
 
+#
+# the extended format is:
+# PACKAGES-<ARCH>-<LABEL>
+#
+# to keep it simple, just add the "-y-y" to "-y"
+# (for "-m" and "-" accordingly)
+#
+PACKAGES-y	+= $(PACKAGES-y-y)
+PACKAGES-m	+= $(PACKAGES-y-m)
+PACKAGES-	+= $(PACKAGES-y-) $(PACKAGES--y) $(PACKAGES--m)
+
 PACKAGES		:= $(PACKAGES-y)	$(PACKAGES-m)
 CROSS_PACKAGES		:= $(CROSS_PACKAGES-y)
 HOST_PACKAGES		:= $(HOST_PACKAGES-y)

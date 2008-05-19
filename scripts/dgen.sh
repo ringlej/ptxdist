@@ -106,14 +106,16 @@ gen_map_all() {
     #                    +------+  +------+
     #                       3          2
     #
-    grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< "${RULESFILES_ALL}"` > ${GEN_MAPS_ALL}
-		sed -e \
-		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_TO_FILENAME_\2=\"\1\"\nPTX_MAP_TO_package_\2=\"\3\"~" \
-		${GEN_MAPS_ALL} > "${PTX_MAP_ALL}"
+    grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< "${RULESFILES_ALL}"` | \
+        sed -e "s/\(.*PACKAGES-\)\(\$([^)]*)-\)\(\$([^)]*)\)\(.*\)/\1\3\4/" > ${GEN_MAPS_ALL}
 
-		sed -e \
-		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_TO_PACKAGE_\3=\2~" \
-		${GEN_MAPS_ALL} > "${PTX_MAP_ALL_MAKE}"
+    sed -e \
+	"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_TO_FILENAME_\2=\"\1\"\nPTX_MAP_TO_package_\2=\"\3\"~" \
+	${GEN_MAPS_ALL} > "${PTX_MAP_ALL}"
+
+    sed -e \
+	"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_TO_PACKAGE_\3=\2~" \
+	${GEN_MAPS_ALL} > "${PTX_MAP_ALL_MAKE}"
 }
 
 
