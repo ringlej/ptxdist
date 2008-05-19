@@ -29,7 +29,7 @@ XCB_PROTO_DIR		:= $(BUILDDIR)/$(XCB_PROTO)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/xcb-proto.get: $(XCB_PROTO_SOURCE)
+$(STATEDIR)/xcb-proto.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
