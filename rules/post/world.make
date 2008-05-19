@@ -38,20 +38,20 @@ $(WORLD_DEP_TREE_PS): $(DEP_OUTPUT) $(STATEDIR)/world.targetinstall
 
 $(STATEDIR)/host-%.extract:
 	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_PACKAGE_host-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_PACKAGE_host-$(*)), $(HOST_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_PACKAGE_host-$(*)), $($(PTX_MAP_PACKAGE_host-$(*))_DIR))
+	@$(call clean, $($(PTX_MAP_TO_PACKAGE_host-$(*))_DIR))
+	@$(call extract, $(PTX_MAP_TO_PACKAGE_host-$(*)), $(HOST_BUILDDIR))
+	@$(call patchin, $(PTX_MAP_TO_PACKAGE_host-$(*)), $($(PTX_MAP_TO_PACKAGE_host-$(*))_DIR))
 	@$(call touch)
 
 $(STATEDIR)/host-%.prepare:
 	@$(call targetinfo)
-	$(call world/prepare/host, $(PTX_MAP_PACKAGE_host-$(*)))
+	$(call world/prepare/host, $(PTX_MAP_TO_PACKAGE_host-$(*)))
 	@$(call touch)
 
 
 $(STATEDIR)/host-%.install:
 	@$(call targetinfo)
-	@$(call install, $(PTX_MAP_PACKAGE_host-$(*)),,h)
+	@$(call install, $(PTX_MAP_TO_PACKAGE_host-$(*)),,h)
 	@$(call touch)
 
 
@@ -60,20 +60,20 @@ $(STATEDIR)/host-%.install:
 
 $(STATEDIR)/%.extract:
 	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_PACKAGE_$(*))_DIR))
-	@$(call extract, $(PTX_MAP_PACKAGE_$(*)))
-	@$(call patchin, $(PTX_MAP_PACKAGE_$(*)))
+	@$(call clean, $($(PTX_MAP_TO_PACKAGE_$(*))_DIR))
+	@$(call extract, $(PTX_MAP_TO_PACKAGE_$(*)))
+	@$(call patchin, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
 
 $(STATEDIR)/%.prepare:
 	@$(call targetinfo)
-	$(call world/prepare/target, $(PTX_MAP_PACKAGE_$(*)))
+	$(call world/prepare/target, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
 
 
 $(STATEDIR)/%.install:
 	@$(call targetinfo)
-	@$(call install, $(PTX_MAP_PACKAGE_$(*)))
+	@$(call install, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
 
 
@@ -86,7 +86,7 @@ $(STATEDIR)/%.get:
 
 $(STATEDIR)/%.compile:
 	@$(call targetinfo)
-	$(call world/compile/simple, $(PTX_MAP_PACKAGE_$(*)))
+	$(call world/compile/simple, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
 
 

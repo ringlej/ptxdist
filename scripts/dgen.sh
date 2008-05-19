@@ -16,10 +16,10 @@ fi
 #
 # local defined vars
 #
-MAP_ALL=${STATEDIR}/map_all.sh
-CONFIGDEPS=${STATEDIR}/configdeps
+PTX_MAP_ALL=${STATEDIR}/ptx_map_all.sh
+CONFIGDEPS=${STATEDIR}/ptx_configdeps
 CONFIGDEPS_MAP=${CONFIGDEPS}_map.sh
-GEN_MAPS_ALL=${STATEDIR}/gen_map_all
+GEN_MAPS_ALL=${STATEDIR}/ptx_gen_map_all
 
 #
 #
@@ -43,6 +43,7 @@ gen_configdeps() {
 
     ptxd_kconfig "${PTXCONFIG}" gen_configdeps_action false > "${CONFIGDEPS}"
 
+    # if platformconfig's size is bigger than zero
     if [ -s "${PLATFORMCONFIG}" ]; then
 	ptxd_kconfig "${PLATFORMCONFIG}" gen_configdeps_platform_action false >> "${CONFIGDEPS}"
     fi
@@ -83,7 +84,7 @@ gen_rulesfiles_all() {
 
 
 #
-# $(MAP_ALL): $(RULESFILES_ALL)
+# $(PTX_MAP_ALL): $(RULESFILES_ALL)
 #
 gen_map_all() {
     #
@@ -93,21 +94,25 @@ gen_map_all() {
     #
     # ==>
     #
-    # FILENAME_SYSLOGNG="syslogng.make"
-    #          +------+  +-----------+
-    #              2           1
+    # PTX_MAP_TO_FILENAME_SYSLOGNG="syslogng.make"
+    #                     +------+  +-----------+
+    #                         2           1
     #
-    # PACKAGE_SYSLOGNG=syslogng
-    #         +------+ +------+
-    #            2         3
+    # PTX_MAP_TO_package_SYSLOGNG="syslogng"
+    #                    +------+  +------+
+    #                       2          3
+    #
+    # PTX_MAP_TO_PACKAGE_syslogng="SYSLOGNG"
+    #                    +------+  +------+
+    #                       3          2
     #
     grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< "${RULESFILES_ALL}"` > ${GEN_MAPS_ALL}
 		sed -e \
-		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~FILENAME_\2=\"\1\"\nPACKAGE_\2=\"\3\"~" \
-		${GEN_MAPS_ALL} > "${MAP_ALL}"
+		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_TO_FILENAME_\2=\"\1\"\nPTX_MAP_TO_package_\2=\"\3\"~" \
+		${GEN_MAPS_ALL} > "${PTX_MAP_ALL}"
 
 		sed -e \
-		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_PACKAGE_\3=\2~" \
+		"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_TO_PACKAGE_\3=\2~" \
 		${GEN_MAPS_ALL} > "${PTX_MAP_ALL_MAKE}"
 }
 
@@ -123,10 +128,10 @@ do_package_dep() {
     package=${1}
     label=${2}
 
-    echo "\$(STATEDIR)/${package}.get: \$(${label}_SOURCE)"
-    echo "\$(STATEDIR)/${package}.extract: \$(STATEDIR)/${package}.get"
-    echo "\$(STATEDIR)/${package}.compile: \$(STATEDIR)/${package}.prepare"
-    echo "\$(STATEDIR)/${package}.install: \$(STATEDIR)/${package}.compile"
+    echo "\$(STATEDIR)/${package}.extract:            \$(STATEDIR)/${package}.get"
+    echo "\$(STATEDIR)/${package}.tags:               \$(STATEDIR)/${package}.prepare"
+    echo "\$(STATEDIR)/${package}.compile:            \$(STATEDIR)/${package}.prepare"
+    echo "\$(STATEDIR)/${package}.install:            \$(STATEDIR)/${package}.compile"
     echo "\$(STATEDIR)/${package}.targetinstall.post: \$(STATEDIR)/${package}.targetinstall"
 
     prepare_dep="\$(STATEDIR)/${package}.extract"
@@ -136,7 +141,7 @@ do_package_dep() {
 
     for dep in $*; do
 	ptxconf_dep=PTXCONF_${dep}
-	dep_package=PACKAGE_${dep}
+	dep_package=PTX_MAP_TO_package_${dep}
 	if [ \( "${!ptxconf_dep}" = "y" -o "${!ptxconf_dep}" = "m" \) -a  -n "${!dep_package}" ]; then
 	    prepare_dep="${prepare_dep} \$(STATEDIR)/${!dep_package}.install"
 
@@ -179,22 +184,19 @@ gen_packages_dep() {
     exec 5>${RULESFILES}
     exec 6>${RULESFILES_MAKE}
 
-    for cfgfile in "${PTXCONFIG}" "${PLATFORMCONFIG}"; do
-	# generate .get for unselected packages
-	sed -ne "s/^# PTXCONF_\(.*\) is not set/\1/p" "${cfgfile}" | while read label; do
-	    package=PACKAGE_${label}
-	    if test -n "${!package}"; then
-		echo "\$(STATEDIR)/${!package}.get: \$(${label}_SOURCE)" >&4
-	    fi
-	done
+    for package in "${!PTX_MAP_TO_package_@}" ; do
+	label="${package#PTX_MAP_TO_package_}"
+	echo "\$(STATEDIR)/${!package}.get: \$(${label}_SOURCE)" >&4
+    done
 
+    for cfgfile in "${PTXCONFIG}" "${PLATFORMCONFIG}"; do
 	sed -ne "s/^PTXCONF_\(.*\)=[ym]/\1/p" "${cfgfile}" | while read label; do
-	    package=PACKAGE_${label}
+	    package=PTX_MAP_TO_package_${label}
 	    if test -n "${!package}"; then
 		deps="DEP_${label}"
 		do_package_dep ${!package} ${label} ${!deps} >&4
 
-		filename=FILENAME_${label}
+		filename=PTX_MAP_TO_FILENAME_${label}
 		echo ${!filename} >&5
 		echo include ${!filename} >&6
 	    fi
@@ -227,7 +229,7 @@ gen_configdeps_map
 gen_rulesfiles_all
 gen_map_all
 
-. "${MAP_ALL}"
+. "${PTX_MAP_ALL}"
 . "${CONFIGDEPS_MAP}"
 
 gen_packages_dep
