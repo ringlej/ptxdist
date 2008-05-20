@@ -240,22 +240,6 @@ config ARCH_STRING
 	default "parisc"		if ARCH_PARISC
 	default "sh"			if ARCH_SH
 
-config ARCH_USERSPACE_STRING
-	string
-	default "arm"			if ARCH_ARM && ENDIAN_LITTLE
-	default "armeb"			if ARCH_ARM && ENDIAN_BIG
-	default "alpha"			if ARCH_ALPHA
-	default "blackfin"		if ARCH_BLACKFIN
-	default "i386"			if ARCH_X86
-	default "m68k"			if ARCH_M68K
-	default "powerpc"		if ARCH_PPC
-	default "sparc"			if ARCH_SPARC
-	default "mips"			if ARCH_MIPS && ENDIAN_LITTLE
-	default "mipsel"		if ARCH_MIPS && ENDIAN_BIG
-	default "cris"			if ARCH_CRIS
-	default "hppa"			if ARCH_PARISC
-	default "sh"			if ARCH_SH
-
 # ----------------------------------------------------------------------------
 
 menu "extra toolchain options       "
