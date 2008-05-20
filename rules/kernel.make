@@ -126,7 +126,7 @@ $(KERNEL_CONFIG):
 	@echo
 	@exit 1
 
-$(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG) $(STATEDIR)/cross-module-init-tools.install
+$(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 	@$(call targetinfo, $@)
 
 	@if [ -f $(KERNEL_CONFIG) ]; then				\
