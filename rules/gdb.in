@@ -1,14 +1,18 @@
 #
 
-source "rules/gdbserver.in"
+menu "gdb                 "
+
+config GDB__VERSION
+       string "gdb version"
+       default 6.8
 
 menuconfig GDB
 	bool
 	prompt "gdb (the real one)  "
-	select TERMCAP if GDB_TERMCAP
-	select NCURSES if GDB_NCURSES
+	select TERMCAP if GDB__TERMCAP
+	select NCURSES if GDB__NCURSES
 
-config GDB_SHARED
+config GDB__SHARED
 	bool "Build shared"
 	default y
 	depends on GDB
@@ -20,10 +24,10 @@ config GDB_SHARED
 
 choice
 	prompt "Select term library"
-	default GDB_TERMCAP
+	default GDB__TERMCAP
 	depends on GDB
 
-	config GDB_TERMCAP
+	config GDB__TERMCAP
 		bool "termcap"
 		help
 	  	  Use termcap as terminal library.
@@ -33,7 +37,7 @@ choice
 		  to terminals in a way independent of the
 		  terminal type.
 
-	config GDB_NCURSES
+	config GDB__NCURSES
 		bool "ncurses"
 		help
 	  	  Use ncurses as terminal library.
@@ -44,3 +48,7 @@ choice
 		  highlights and forms charcters and function-key
 		  mapping.
 endchoice
+
+source "rules/gdbserver.in"
+
+endmenu

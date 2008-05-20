@@ -6,7 +6,7 @@ menuconfig GDBSERVER
 	  different machine than the one which is running the
 	  program being debugged.
 
-config GDBSERVER_SHARED
+config GDBSERVER__SHARED
 	bool "shared gdbserver"
 	default y
 	depends on GDBSERVER

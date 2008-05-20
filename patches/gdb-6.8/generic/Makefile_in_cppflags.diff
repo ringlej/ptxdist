@@ -31,9 +31,9 @@
 #
 Index: Makefile.in
 ===================================================================
---- Makefile.in.orig
-+++ Makefile.in
-@@ -141,6 +141,7 @@ HOST_EXPORTS = \
+--- Makefile.in.orig	2008-03-27 19:23:26.000000000 +0100
++++ Makefile.in	2008-04-01 15:26:34.000000000 +0200
+@@ -152,6 +152,7 @@
  	CC="$(CC)"; export CC; \
  	CFLAGS="$(CFLAGS)"; export CFLAGS; \
  	CONFIG_SHELL="$(SHELL)"; export CONFIG_SHELL; \
@@ -41,9 +41,9 @@ Index: Makefile.in
  	CXX="$(CXX)"; export CXX; \
  	CXXFLAGS="$(CXXFLAGS)"; export CXXFLAGS; \
  	AR="$(AR)"; export AR; \
-@@ -290,6 +291,7 @@ WINDRES = @WINDRES@
+@@ -317,6 +318,7 @@
  CFLAGS = @CFLAGS@
- LDFLAGS = 
+ LDFLAGS = @LDFLAGS@
  LIBCFLAGS = $(CFLAGS)
 +CPPFLAGS = @CPPFLAGS@
  CXXFLAGS = @CXXFLAGS@
