@@ -47,6 +47,7 @@ OPROFILE_ENV 	:= $(CROSS_ENV)
 OPROFILE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
+	--with-kernel-support \
 	--without-x
 
 $(STATEDIR)/oprofile.prepare:
