@@ -3,3 +3,5 @@
 
 config KERNEL
 	bool
+	select CROSS_MODULE_INIT_TOOLS
+
