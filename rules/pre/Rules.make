@@ -20,7 +20,7 @@ HOSTCXX		:= g++
 
 # FIXME: disabled caching in wget. Make sure that all patches on the webserver
 #        have a version number and reenable caching
-WGET		= \
+PTX_WGET		= \
 	export ptx_http_proxy=$(PTXCONF_SETUP_HTTP_PROXY); \
 	export ptx_ftp_proxy=$(PTXCONF_SETUP_FTP_PROXY); \
 	eval \
@@ -447,7 +447,7 @@ get =								\
 	[ -d $$SRC ] || mkdir -p $$SRC;				\
 	case $$URL in 						\
 	http*)							\
-		$(WGET) -P $$SRC $$URL;				\
+		$(PTX_WGET) -P $$SRC $$URL;			\
 		[ $$? -eq 0 ] || {				\
 			echo;					\
 			echo "Could not get packet via http!";	\
@@ -457,7 +457,7 @@ get =								\
 			};					\
 		;;						\
 	ftp*)							\
-		$(WGET) -P $$SRC $$URL;				\
+		$(PTX_WGET) -P $$SRC $$URL;			\
 		[ $$? -eq 0 ] || {				\
 			echo;					\
 			echo "Could not get packet via ftp!";	\
