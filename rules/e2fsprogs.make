@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002-2007 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002-2008 by Pengutronix e.K., Hildesheim, Germany
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.40.4
+E2FSPROGS_VERSION	:= 1.40.8
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
@@ -29,28 +29,9 @@ E2FSPROGS_DIR		:= $(BUILDDIR)/$(E2FSPROGS)
 # Get
 # ----------------------------------------------------------------------------
 
-e2fsprogs_get: $(STATEDIR)/e2fsprogs.get
-
-$(STATEDIR)/e2fsprogs.get: $(e2fsprogs_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(E2FSPROGS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, E2FSPROGS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-e2fsprogs_extract: $(STATEDIR)/e2fsprogs.extract
-
-$(STATEDIR)/e2fsprogs.extract: $(e2fsprogs_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(E2FSPROGS_DIR))
-	@$(call extract, E2FSPROGS)
-	@$(call patchin, E2FSPROGS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -66,46 +47,24 @@ E2FSPROGS_ENV 	:=  $(CROSS_ENV)
 #
 E2FSPROGS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--with-root-prefix=""
-
-$(STATEDIR)/e2fsprogs.prepare: $(e2fsprogs_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(E2FSPROGS_DIR)/config.cache)
-	cd $(E2FSPROGS_DIR) && \
-		$(E2FSPROGS_PATH) $(E2FSPROGS_ENV) \
-		./configure $(E2FSPROGS_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-e2fsprogs_compile: $(STATEDIR)/e2fsprogs.compile
-
-$(STATEDIR)/e2fsprogs.compile: $(e2fsprogs_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(E2FSPROGS_DIR) && $(E2FSPROGS_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	--with-root-prefix="" \
+	--disable-nls
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-e2fsprogs_install: $(STATEDIR)/e2fsprogs.install
-
-$(STATEDIR)/e2fsprogs.install: $(e2fsprogs_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/e2fsprogs.install:
+	@$(call targetinfo)
 	@$(call install, E2FSPROGS,,,install-libs)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-e2fsprogs_targetinstall: $(STATEDIR)/e2fsprogs.targetinstall
-
-$(STATEDIR)/e2fsprogs.targetinstall: $(e2fsprogs_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/e2fsprogs.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, e2fsprogs)
 	@$(call install_fixup,e2fsprogs,PACKAGE,e2fsprogs)
@@ -120,7 +79,7 @@ ifdef PTXCONF_E2FSPROGS_MKFS
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/mke2fs, /sbin/mke2fs)
 endif
 ifdef PTXCONF_E2FSPROGS_E2FSCK
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/e2fsck/e2fsck.shared, /sbin/e2fsck)
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/e2fsck/e2fsck, /sbin/e2fsck)
 endif
 ifdef PTXCONF_E2FSPROGS_TUNE2FS
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/tune2fs, /sbin/tune2fs)
@@ -130,7 +89,7 @@ endif
 
 	@$(call install_finish,e2fsprogs)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
