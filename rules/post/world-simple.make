@@ -20,7 +20,8 @@ world/prepare/host =								\
 # simple compile for target and host packages
 #
 world/compile/simple =								\
-	cd $($(strip $(1))_DIR) && $($(strip $(1))_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $($(strip $(1))_DIR) && $($(strip $(1))_PATH)			\
+		$(MAKE) $($(strip $(1))_MAKEVARS) $(PARALLELMFLAGS)
 
 
 # vim600:set foldmethod=marker:
