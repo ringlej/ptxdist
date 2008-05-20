@@ -59,3 +59,6 @@ source "rules/host-xorg-proto-xext.in"
 source "rules/host-xorg-proto-xcmisc.in"
 source "rules/host-xorg-proto-fonts.in"
 source "rules/host-libiconv.in"
+
+source "rules/cross-module-init-tools.in"
+
