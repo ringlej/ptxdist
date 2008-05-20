@@ -1036,10 +1036,14 @@ setup_config() {
 	if [ -n "${PARALLELMFLAGS}" ]; then
 		pmf_intern="${PARALLELMFLAGS}"
 		unset PARALLELMFLAGS
-	elif [ -r /proc/cpuinfo ]; then
-		cpus="$(egrep '^(processor|cpu  )' /proc/cpuinfo | wc -l)"
-		if [ $cpus -eq 0 ]; then
-			cpus="1"
+	else
+		if [ -r /proc/cpuinfo ]; then
+			cpus="$(egrep '^(processor|cpu  )' /proc/cpuinfo | wc -l)"
+			if [ $cpus -eq 0 ]; then
+				cpus=1
+			fi
+		else
+			cpus=1
 		fi
 
 		pmf_intern=-j$(( $cpus * 2 ))
