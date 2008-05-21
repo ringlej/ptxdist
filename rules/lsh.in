@@ -6,7 +6,7 @@ menuconfig LSH
 	select LIBGMP
 	select LIBOOP
 	help
-	  lsh is an SSH implementation. 
+	  lsh is an SSH implementation.
 
 config LSH_EXECUV
 	bool
