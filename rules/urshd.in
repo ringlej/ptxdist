@@ -1,5 +1,5 @@
 config URSHD
 	tristate
-	prompt "urshd               "
+	prompt "urshd"
 	help
 	  FIXME
