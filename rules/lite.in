@@ -1,0 +1,6 @@
+config LITE
+	bool
+	prompt "LiTE"
+	select DIRECTFB
+	help
+	  LiTE is a Toolkit Engine for DirectFB

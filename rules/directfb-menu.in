@@ -1,0 +1,7 @@
+menu "directfb              "
+
+source "rules/directfb.in"
+source "rules/directfb-examples.in"
+source "rules/lite.in"
+
+endmenu

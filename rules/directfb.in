@@ -1,6 +1,7 @@
 menuconfig DIRECTFB
 	bool
-	prompt "directfb                      "
+	prompt "directfb              "
+
 	select HOST_DIRECTFB
 	select MENU_XORG_FONTS
 	select LIBPNG if DIRECTFB_IMAGE_PNG
@@ -66,25 +67,3 @@ config DIRECTFB_INPUT_TSLIB
 	bool "tslib"
 
 endmenu
-
-config DIRECTFB_EXAMPLES
-	bool
-	prompt "directfb examples"
-	select DIRECTFB_IMAGE_GIF
-	select DIRECTFB_IMAGE_PNG
-	select DIRECTFB_IMAGE_JPEG
-	select DIRECTFB_FONT_FREETYPE
-	select DIRECTFB
-
-config DIRECTFB_EXAMPLES_DATA
-	bool
-	prompt "directfb-exampels data files"
-	depends on DIRECTFB_EXAMPLES
-	help
-	  some of the directfb examples need image and fonts files from this
-	  package, this will add about 1M to your target
-
-config HOST_LIBPNG
-	bool
-	select HOST_ZLIB
-
