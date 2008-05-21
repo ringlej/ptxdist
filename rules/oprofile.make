@@ -104,6 +104,8 @@ $(STATEDIR)/oprofile.targetinstall:
 		) \
 	done
 
+	@$(call install_finish, oprofile)
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
