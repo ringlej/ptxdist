@@ -1,0 +1,5 @@
+config LIBOOP
+	bool
+	prompt "liboop"
+	help
+	  FIXME
