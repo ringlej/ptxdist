@@ -68,9 +68,3 @@ source "rules/wireless.in"
 source "rules/wireshark.in"
 source "rules/zebra.in"
 
-##############################################################################
-comment "Realtime Networking "
-##############################################################################
-
-source "rules/rtnet.in"
-
