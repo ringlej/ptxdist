@@ -15,7 +15,7 @@
 #
 PACKAGES-$(PTXCONF_GDBSERVER) += gdbserver
 
-GGDBSERVER		= gdbserver-$(GDB_VERSION)
+GDBSERVER		= gdbserver-$(GDB_VERSION)
 GDBSERVER_BUILDDIR	= $(BUILDDIR)/$(GDB)-server-build
 
 # ----------------------------------------------------------------------------
