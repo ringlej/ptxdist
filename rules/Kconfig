@@ -268,21 +268,6 @@ endmenu
 
 menu "Broken or orphaned Packages   "
 depends on BROKEN
-source "rules/at-spi.in"
 source "rules/cfgsh.in"
-source "rules/dialog.in"
-source "rules/e2tools.in"
-source "rules/flex.in"
-source "rules/xalf.in"
-source "rules/dotgnu.in"
-source "rules/gail.in"
-source "rules/konq-e.in"
-source "rules/libart.in"
-source "rules/libgnomecanvas.in"
-source "rules/libIDL-2.in"
-source "rules/liboop.in"
-source "rules/paranoia.in"
-source "rules/tinylogin.in"
-source "rules/xvkbd.in"
 endmenu
 

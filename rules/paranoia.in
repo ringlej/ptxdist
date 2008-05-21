@@ -1,7 +1,0 @@
-config PARANOIA
-	bool
-	depends on BROKEN
-	prompt "paranoia [BROKEN]"
-	help
-	  Kahan's Floating Point Test "Paranoia"
-
