@@ -12,7 +12,7 @@
 
 # FIXME: cleanup
 
-GNU_BUILD	:= $(shell $(PTXDIST_TOPDIR)/scripts/config.guess)
+GNU_BUILD	:= $(shell $(SCRIPTSDIR)/external/config.guess)
 GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 
 HOSTCC		:= gcc
