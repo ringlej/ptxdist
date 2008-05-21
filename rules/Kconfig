@@ -206,6 +206,7 @@ endmenu
 menu "Graphics Libraries            "
 
 source "rules/xorg.in"
+source "rules/directfb-menu.in"
 
 comment "X Applications"
 source "rules/gtk-menu.in"
