@@ -982,7 +982,7 @@ setup_platform() {
 	# reread vars with correct PTXDIST_PLATFORMDIR
 	. "${SCRIPTSDIR}/ptxdist_vars.sh"
 
-	if [ -e ${PLATFORMCONFIG} ]; then
+	if [ -e "${PLATFORMCONFIG}" ]; then
 		cfg_dir="$(dirname "$(readlink -f "${PLATFORMCONFIG}")")"
 	else
 		unset cfg_dir
@@ -1017,7 +1017,7 @@ setup_config() {
 	#
 	# setup SRCDIR
 	#
-	if [ -z ${PTXCONF_SETUP_SRCDIR} ]; then
+	if [ -z "${PTXCONF_SETUP_SRCDIR}" ]; then
 		PTXDIST_SRCDIR="${PTXDIST_WORKSPACE}/src"
 	else
 		PTXDIST_SRCDIR="${PTXCONF_SETUP_SRCDIR}"
