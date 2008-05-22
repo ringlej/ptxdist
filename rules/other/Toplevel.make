@@ -50,7 +50,7 @@ include $(PTX_MAP_ALL_MAKE)
 #
 PACKAGES-y	+= $(PACKAGES-y-y)
 PACKAGES-m	+= $(PACKAGES-y-m)
-PACKAGES-	+= $(PACKAGES-y-) $(PACKAGES--y) $(PACKAGES--m)
+PACKAGES-	+= $(PACKAGES-y-) $(PACKAGES--y) $(PACKAGES--m) $(PACKAGES--)
 
 PACKAGES		:= $(PACKAGES-y)	$(PACKAGES-m)
 CROSS_PACKAGES		:= $(CROSS_PACKAGES-y)
@@ -70,13 +70,16 @@ ifneq ($(wildcard $(POSTRULESDIR)/*.make),)
 include $(wildcard $(POSTRULESDIR)/*.make)
 endif
 
+ifneq ($(wildcard $(PROJECTPOSTRULESDIR)/*.make),)
+include $(wildcard $(PROJECTPOSTRULESDIR)/*.make)
+endif
 
 # ----------------------------------------------------------------------------
 # Misc other targets
 # ----------------------------------------------------------------------------
 
 print-%:
-	@echo "$* is \"$($*)\""
+	@echo "$* is \"$($(*))\""
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:
