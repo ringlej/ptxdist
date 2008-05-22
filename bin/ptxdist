@@ -175,7 +175,7 @@ check_compiler() {
 			exit 1
 		fi
 
-		vendor_def="$(readlink -f ${PTXDIST_TOOLCHAIN}/ptxconfig)"
+		vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/ptxconfig")"
 		if [ -z "${vendor_def}" -o \! -e "${vendor_def}" ]; then
 			echo
 			echo "${PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
