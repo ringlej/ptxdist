@@ -16,10 +16,10 @@ fi
 #
 # local defined vars
 #
-PTX_MAP_ALL=${STATEDIR}/ptx_map_all.sh
-CONFIGDEPS=${STATEDIR}/ptx_configdeps
-CONFIGDEPS_MAP=${CONFIGDEPS}_map.sh
-GEN_MAPS_ALL=${STATEDIR}/ptx_gen_map_all
+PTX_MAP_ALL="${STATEDIR}/ptx_map_all.sh"
+CONFIGDEPS="${STATEDIR}/ptx_configdeps"
+CONFIGDEPS_MAP="${CONFIGDEPS}_map.sh"
+GEN_MAPS_ALL="${STATEDIR}/ptx_gen_map_all"
 
 #
 #
@@ -107,15 +107,15 @@ gen_map_all() {
     #                       3          2
     #
     grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< "${RULESFILES_ALL}"` | \
-        sed -e "s/\(.*PACKAGES-\)\(\$([^)]*)-\)\(\$([^)]*)\)\(.*\)/\1\3\4/" > ${GEN_MAPS_ALL}
+        sed -e "s/\(.*PACKAGES-\)\(\$([^)]*)-\)\(\$([^)]*)\)\(.*\)/\1\3\4/" > "${GEN_MAPS_ALL}"
 
     sed -e \
 	"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_TO_FILENAME_\2=\"\1\"\nPTX_MAP_TO_package_\2=\"\3\"~" \
-	${GEN_MAPS_ALL} > "${PTX_MAP_ALL}"
+	"${GEN_MAPS_ALL}" > "${PTX_MAP_ALL}"
 
     sed -e \
 	"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_TO_PACKAGE_\3=\2~" \
-	${GEN_MAPS_ALL} > "${PTX_MAP_ALL_MAKE}"
+	"${GEN_MAPS_ALL}" > "${PTX_MAP_ALL_MAKE}"
 }
 
 
@@ -127,8 +127,8 @@ gen_map_all() {
 do_package_dep() {
     local package label prepare_dep targetinstall_dep dep ptxconf_dep dep_package
 
-    package=${1}
-    label=${2}
+    package="${1}"
+    label="${2}"
 
     echo "\$(STATEDIR)/${package}.extract:            \$(STATEDIR)/${package}.get"
     echo "\$(STATEDIR)/${package}.tags:               \$(STATEDIR)/${package}.prepare"
@@ -181,10 +181,10 @@ gen_packages_dep() {
     la_IFS="$IFS"
     IFS=":"
 
-    exec 3>${PACKAGE_DEP_PRE}
-    exec 4>${PACKAGE_DEP_POST}
-    exec 5>${RULESFILES}
-    exec 6>${RULESFILES_MAKE}
+    exec 3>"${PACKAGE_DEP_PRE}"
+    exec 4>"${PACKAGE_DEP_POST}"
+    exec 5>"${RULESFILES}"
+    exec 6>"${RULESFILES_MAKE}"
 
     for package in "${!PTX_MAP_TO_package_@}" ; do
 	label="${package#PTX_MAP_TO_package_}"
@@ -193,14 +193,14 @@ gen_packages_dep() {
 
     for cfgfile in "${PTXCONFIG}" "${PLATFORMCONFIG}"; do
 	sed -ne "s/^PTXCONF_\(.*\)=[ym]/\1/p" "${cfgfile}" | while read label; do
-	    package=PTX_MAP_TO_package_${label}
+	    package="PTX_MAP_TO_package_${label}"
 	    if test -n "${!package}"; then
 		deps="DEP_${label}"
-		do_package_dep ${!package} ${label} ${!deps} >&4
+		do_package_dep "${!package}" "${label}" "${!deps}" >&4
 
-		filename=PTX_MAP_TO_FILENAME_${label}
-		echo ${!filename} >&5
-		echo include ${!filename} >&6
+		filename="PTX_MAP_TO_FILENAME_${label}"
+		echo "${!filename}" >&5
+		echo "include ${!filename}" >&6
 	    fi
 	done
     done
