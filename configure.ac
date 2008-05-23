@@ -275,6 +275,12 @@ if test -z "$MSGFMT"; then
 	AC_MSG_ERROR([gettext could not be found, please install])
 fi
 
+dnl Check for tty
+AC_PATH_PROGS(TTY, tty,, $PATH)
+if test -z "$TTY"; then
+	AC_MSG_ERROR([tty could not be found, please install])
+fi
+
 dnl Check for gcc
 AC_PATH_PROGS(GCC, gcc,, $PATH)
 
