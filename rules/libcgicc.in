@@ -1,7 +1,6 @@
-
-menuconfig CGICC
+config LIBCGICC
 	bool
-	prompt "libcgicc            "
+	prompt "libcgicc"
 	select GCCLIBS_CXX
 	help
 	  cgicc is a C++ class library for writing CGI applications. See
