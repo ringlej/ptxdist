@@ -1,0 +1,29 @@
+#
+# rules/liblzo.in
+#
+menuconfig LIBLZO
+	bool
+	default n
+	prompt "liblzo                      "
+	help
+	  Compiles the LZO compression libraries on your target system.
+
+          See http://www.oberhumer.com/opensource/lzo/ for info about it.
+
+config LIBLZO_SHARED
+	bool
+	default y
+	prompt "Create shared library"
+	depends on LIBLZO
+	help
+	  Create a shared library and install it into /usr/lib
+
+config LIBLZO_STATIC
+	bool
+	default n
+	prompt "Create static link library"
+	depends on LIBLZO
+	help
+	  Create a static link library and install it into /usr/lib.
+	  Normally not needed.
+
