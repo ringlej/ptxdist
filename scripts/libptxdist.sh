@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEBUG=${DEBUG:="false"}
+PTX_DEBUG=${PTX_DEBUG:="false"}
 
 #
 # awk script for permission fixing
@@ -35,9 +35,9 @@ ptxd_get_ptxconf() {
 
 
 #
-# $1	config file (or a link to it)
-# $2	function that is called
-# $3	copy_back; "true" copies the .config file back
+# $1   config file (or a link to it)
+# $2   function that is called
+# $3   copy_back; "true" copies the .config file back
 #
 ptxd_kconfig() {
 	local dotconfig="${1}"
@@ -85,7 +85,7 @@ ptxd_kconfig() {
 #
 #
 ptxd_make() {
-	make ${PTXDIST_MAKE_DBG} ${PTXDIST_PARALLELMFLAGS_EXTERN} -f "${PTXDIST_TOPDIR}/rules/other/Toplevel.make" "${@}"
+	make ${PTXDIST_MAKE_DBG} ${PTXDIST_PARALLELMFLAGS_EXTERN} -f "${RULESDIR}/other/Toplevel.make" "${@}"
 }
 
 ptxd_make_log() {
@@ -94,6 +94,7 @@ ptxd_make_log() {
 	else
 		ptxd_make "${@}" > "${PTX_LOGFILE}"
 	fi
+	check_pipe_status
 }
 
 
@@ -160,10 +161,12 @@ ptxd_exit_silent(){
 # Debugging Output
 #
 ptxd_debug(){
-	[ "$DEBUG" = "true" ] && echo "$0: $1" >&2
+	if [ "${PTX_DEBUG}" = "true" ]; then
+		echo "$0: $1" >&2
+	fi
 }
 
-ptxd_debug "Debugging is enabled - Turn off with DEBUG=false"
+ptxd_debug "Debugging is enabled - Turn off with PTX_DEBUG=false"
 
 #
 # print out error message and exit with status 1
@@ -192,12 +195,13 @@ ptxd_warning() {
 # check if a previously executed pipe returned an error
 #
 check_pipe_status() {
-	for i in  "${PIPESTATUS[@]}"; do [ $i -gt 0 ] && {
-		echo
-		echo "error: a command in the pipe returned $i, bailing out"
-		echo
-		exit $i
-	}
+	for i in  "${PIPESTATUS[@]}"; do
+		if [ ${i} -ne 0 ]; then
+			echo
+			echo "error: a command in the pipe returned ${i}, bailing out"
+			echo
+			exit $i
+		fi
 	done
 }
 
