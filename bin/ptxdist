@@ -727,7 +727,14 @@ newpacket() {
 }
 
 oldconfig_action() {
-	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -s "${kconfig}"
+	# In silent mode, we cannot redirect input. So use oldconfig
+	# instead of silentoldconfig if somebody tries to automate us.
+	tty -s
+	if [ "$?" = "0" ]; then
+		"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -s "${kconfig}"
+	else
+		"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -o "${kconfig}"
+	fi
 }
 
 
