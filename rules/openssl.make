@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002 by Jochen Striepe for Pengutronix e.K., Hildesheim, Germany
-#               2003 by Pengutronix e.K., Hildesheim, Germany
+#               2003-2008 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,46 +18,50 @@ PACKAGES-$(PTXCONF_OPENSSL) += openssl
 #
 # Paths and names
 #
-OPENSSL_VERSION		= 0.9.7g
-OPENSSL			= openssl-$(OPENSSL_VERSION)
-OPENSSL_URL 		= http://www.openssl.org/source/$(OPENSSL).tar.gz
-OPENSSL_SOURCE		= $(SRCDIR)/$(OPENSSL).tar.gz
-OPENSSL_DIR 		= $(BUILDDIR)/$(OPENSSL)
+OPENSSL_VERSION		:= 0.9.7g
+OPENSSL			:= openssl-$(OPENSSL_VERSION)
+OPENSSL_URL 		:= http://www.openssl.org/source/$(OPENSSL).tar.gz
+OPENSSL_SOURCE		:= $(SRCDIR)/$(OPENSSL).tar.gz
+OPENSSL_DIR 		:= $(BUILDDIR)/$(OPENSSL)
 
 ifeq ($(PTXCONF_ARCH_ARM)$(PTXCONF_ENDIAN_LITTLE),yy)
-	THUD = linux-arm
+	OPENSSL_THUD := linux-arm
 endif
 
 ifeq ($(PTXCONF_ARCH_ARM)$(PTXCONF_ENDIAN_BIG),yy)
-	THUD = linux-armeb
+	OPENSSL_THUD := linux-armeb
+endif
+
+ifdef PTXCONF_ARCH_M68K
+	OPENSSL_THUD = linux-m68k
 endif
 
 ifeq ($(PTXCONF_ARCH_MIPS)$(PTXCONF_ENDIAN_LITTLE),yy)
-	THUD = linux-mipsel
+	OPENSSL_THUD := linux-mipsel
 endif
 
 ifeq ($(PTXCONF_ARCH_MIPS)$(PTXCONF_ENDIAN_BIG),yy)
-	THUD = linux-mips
+	OPENSSL_THUD := linux-mips
 endif
 
 ifdef PTXCONF_ARCH_X86
 ifdef PTXCONF_ARCH_I586
-	THUD = linux-i386-i586
+	OPENSSL_THUD := linux-i386-i586
 else
 ifdef PTXCONF_ARCH_I686
-	THUD = linux-i386-i686/cmov
+	OPENSSL_THUD := linux-i386-i686/cmov
 else
-	THUD = linux-i386
+	OPENSSL_THUD := linux-i386
 endif
 endif
 endif
 
 ifdef PTXCONF_ARCH_PPC
-	THUD = linux-ppc
+	OPENSSL_THUD := linux-ppc
 endif
 
 ifdef PTXCONF_ARCH_SPARC
-	THUD = linux-sparc
+	OPENSSL_THUD := linux-sparc
 endif
 
 
@@ -65,34 +69,13 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-openssl_get: $(STATEDIR)/openssl.get
-
-$(STATEDIR)/openssl.get: $(openssl_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(OPENSSL_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, OPENSSL)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-openssl_extract: $(STATEDIR)/openssl.extract
-
-$(STATEDIR)/openssl.extract: $(openssl_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(OPENSSL_DIR))
-	@$(call extract, OPENSSL)
-	@$(call patchin, OPENSSL)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-openssl_prepare: $(STATEDIR)/openssl.prepare
 
 OPENSSL_PATH	= PATH=$(CROSS_PATH)
 OPENSSL_MAKEVARS = \
@@ -111,35 +94,31 @@ OPENSSL_AUTOCONF	+= no-shared
 endif
 
 $(STATEDIR)/openssl.prepare: $(openssl_prepare_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(OPENSSL_DIR) && \
 		$(OPENSSL_PATH) \
-		./Configure $(THUD) $(OPENSSL_AUTOCONF)
-	@$(call touch, $@)
+		./Configure $(OPENSSL_THUD) $(OPENSSL_AUTOCONF)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-openssl_compile: $(STATEDIR)/openssl.compile
-
-$(STATEDIR)/openssl.compile: $(openssl_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/openssl.compile:
+	@$(call targetinfo)
 #
 # generate openssl.pc with correct path inside
 #
-	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) make INSTALLTOP=$(SYSROOT) openssl.pc
-	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) make $(OPENSSL_MAKEVARS)
-	@$(call touch, $@)
+	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) $(MAKE) INSTALLTOP=$(SYSROOT) openssl.pc
+	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) $(MAKE) $(OPENSSL_MAKEVARS) $(PARALLELMFLAGS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-openssl_install: $(STATEDIR)/openssl.install
-
-$(STATEDIR)/openssl.install: $(openssl_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/openssl.install:
+	@$(call targetinfo)
 #
 # broken Makefile, generates dir with wrong permissions...
 # chmod 755 fixed that
@@ -153,16 +132,14 @@ $(STATEDIR)/openssl.install: $(openssl_install_deps_default)
 # FIXME:
 # 	OPENSSL=${D}/usr/bin/openssl /usr/bin/perl tools/c_rehash ${D}/etc/ssl/certs
 #
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-openssl_targetinstall: $(STATEDIR)/openssl.targetinstall
-
-$(STATEDIR)/openssl.targetinstall: $(openssl_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/openssl.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, openssl)
 	@$(call install_fixup, openssl,PACKAGE,openssl)
@@ -183,7 +160,7 @@ ifdef PTXCONF_OPENSSL_SHARED
 	@$(call install_link, openssl, libcrypto.so.0.9.7, /usr/lib/libcrypto.so)
 endif
 	@$(call install_finish, openssl)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
