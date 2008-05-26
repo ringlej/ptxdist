@@ -1,3 +1,4 @@
 strace-undef-PACKET_MEMBERSHIP.patch
+strace-4.5.15-m68k-mcfv4e-fix.patch
 strace-4.5.15-blackfin.patch
 strace-4.5.15-blackfin-autoreconf.patch.bz2
