@@ -38,6 +38,9 @@ $(GDB_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
+#
+# extra dep for the gdbserver
+#
 $(STATEDIR)/gdb.extract: $(GDB_SOURCE)
 
 # ----------------------------------------------------------------------------
@@ -93,8 +96,6 @@ $(STATEDIR)/gdb.install:
 
 $(STATEDIR)/gdb.targetinstall:
 	@$(call targetinfo)
-
-	mkdir -p $(ROOTDIR)/usr/bin
 
 	@$(call install_init, gdb)
 	@$(call install_fixup, gdb,PACKAGE,gdb)
