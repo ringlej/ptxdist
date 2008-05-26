@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 Ixia Corporation (www.ixiacom.com), by Milan Bobde
+#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,104 +18,68 @@ PACKAGES-$(PTXCONF_NMAP) += nmap
 #
 # Paths and names
 #
-NMAP_VERSION		= 4.20
-NMAP			= nmap-$(NMAP_VERSION)
-NMAP_SUFFIX		= tar.bz2
-NMAP_URL		= http://nmap.org/dist-old/$(NMAP).$(NMAP_SUFFIX)
-NMAP_SOURCE		= $(SRCDIR)/$(NMAP).$(NMAP_SUFFIX)
-NMAP_DIR		= $(BUILDDIR)/$(NMAP)
+NMAP_VERSION	:= 4.62
+NMAP		:= nmap-$(NMAP_VERSION)
+NMAP_SUFFIX	:= tar.bz2
+NMAP_URL	:= http://nmap.org/dist/$(NMAP).$(NMAP_SUFFIX)
+NMAP_SOURCE	:= $(SRCDIR)/$(NMAP).$(NMAP_SUFFIX)
+NMAP_DIR	:= $(BUILDDIR)/$(NMAP)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-nmap_get: $(STATEDIR)/nmap.get
-
-$(STATEDIR)/nmap.get: $(nmap_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(NMAP_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, NMAP)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-nmap_extract: $(STATEDIR)/nmap.extract
-
-$(STATEDIR)/nmap.extract: $(nmap_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(NMAP_DIR))
-	@$(call extract, NMAP)
-	@$(call patchin, NMAP)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-nmap_prepare: $(STATEDIR)/nmap.prepare
-
-NMAP_PATH	=  PATH=$(CROSS_PATH)
-NMAP_ENV = \
+NMAP_PATH := PATH=$(CROSS_PATH)
+NMAP_ENV  := \
 	$(CROSS_ENV) \
 	ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR)
 
 #
 # autoconf
 #
-NMAP_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
-	--with-pcap=linux
-#
-# FIXME:
-#
-# nmap works only with openssh shared libs, dunnno why...
-#
-ifdef PTXCONF_OPENSSL_SHARED
-NMAP_AUTOCONF		+= --with-openssl=$(SYSROOT)
+NMAP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--with-libpcre=$(SYSROOT)/usr \
+	--with-libpcap=included \
+	--without-liblua \
+	--without-zenmap \
+	\
+	--enable-protochain \
+	--disable-optimizer-dbg \
+	--disable-yydebug
+
+ifdef PTXCONF_NMAP__IPV6
+NMAP_AUTOCONF += --enable-ipv6
 else
-NMAP_AUTOCONF		+= --without-openssl
+NMAP_AUTOCONF += --disable-ipv6
 endif
 
-$(STATEDIR)/nmap.prepare: $(nmap_prepare_deps_default)
-	@$(call targetinfo, $@)
-	cd $(NMAP_DIR) && \
-		$(NMAP_PATH) $(NMAP_ENV) \
-		./configure $(NMAP_AUTOCONF)
-	@$(call touch, $@)
+ifdef PTXCONF_NMAP__OPENSSL
+NMAP_AUTOCONF += --with-openssl=$(SYSROOT)
+else
+NMAP_AUTOCONF += --without-openssl
+endif
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-nmap_compile: $(STATEDIR)/nmap.compile
-
-$(STATEDIR)/nmap.compile: $(nmap_compile_deps_default)
-	@$(call targetinfo, $@)
-	$(NMAP_PATH) make -C $(NMAP_DIR) nmap
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-nmap_install: $(STATEDIR)/nmap.install
-
-$(STATEDIR)/nmap.install: $(nmap_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+ifdef PTXCONF_ARCH_MINGW
+NMAP_AUTOCONF += --with-pcap=null
+else
+NMAP_AUTOCONF += --with-pcap=linux
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-nmap_targetinstall: $(STATEDIR)/nmap.targetinstall
-
-$(STATEDIR)/nmap.targetinstall: $(nmap_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/nmap.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, nmap)
 	@$(call install_fixup, nmap,PACKAGE,nmap)
@@ -127,15 +92,16 @@ $(STATEDIR)/nmap.targetinstall: $(nmap_targetinstall_deps_default)
 
 	@$(call install_copy, nmap, 0, 0, 0755, $(NMAP_DIR)/nmap, /usr/bin/nmap)
 
-ifdef PTXCONF_NMAP_SERVICES
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-os-fingerprints, /usr/share/nmap/nmap-os-fingerprints, n)
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-service-probes, /usr/share/nmap/nmap-service-probes, n)
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-services, /usr/share/nmap/nmap-services, n)
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-protocols, /usr/share/nmap/nmap-protocols, n)
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-rpc, /usr/share/nmap/nmap-rpc, n)
+ifdef PTXCONF_NMAP__SERVICES
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-mac-prefixes,	/usr/share/nmap/nmap-mac-prefixes, n)
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-os-db,		/usr/share/nmap/nmap-os-db, n)
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-protocols,	/usr/share/nmap/nmap-protocols, n)
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-rpc,		/usr/share/nmap/nmap-rpc, n)
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-service-probes,/usr/share/nmap/nmap-service-probes, n)
+	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-services,	/usr/share/nmap/nmap-services, n)
 endif
 	@$(call install_finish, nmap)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
