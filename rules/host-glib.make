@@ -24,19 +24,19 @@ HOST_GLIB_DIR	= $(HOST_BUILDDIR)/$(GLIB)
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-glib.get: $(STATEDIR)/glib.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-glib.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(HOST_GLIB_DIR))
 	@$(call extract, GLIB, $(HOST_BUILDDIR))
 	@$(call patchin, GLIB, $(HOST_GLIB_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -53,32 +53,6 @@ HOST_GLIB_ENV 	:= $(HOST_ENV)
 HOST_GLIB_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--with-libiconv=gnu
-
-$(STATEDIR)/host-glib.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_GLIB_DIR)/config.cache)
-	cd $(HOST_GLIB_DIR) && \
-		$(HOST_GLIB_PATH) $(HOST_GLIB_ENV) \
-		./configure $(HOST_GLIB_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-glib.compile:
-	@$(call targetinfo, $@)
-	cd $(HOST_GLIB_DIR) && $(HOST_GLIB_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-glib.install:
-	@$(call targetinfo, $@)
-	@$(call install, HOST_GLIB,,h)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
