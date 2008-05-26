@@ -29,24 +29,9 @@ STRACE_DIR	:= $(BUILDDIR)/$(STRACE)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/strace.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(STRACE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, STRACE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/strace.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(STRACE_DIR))
-	@$(call extract, STRACE)
-	@$(call patchin, STRACE)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -67,38 +52,12 @@ STRACE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET)
 
-$(STATEDIR)/strace.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(STRACE_DIR)/config.cache)
-	cd $(STRACE_DIR) && \
-		$(STRACE_PATH) $(STRACE_ENV) \
-		./configure $(STRACE_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/strace.compile:
-	@$(call targetinfo, $@)
-	cd $(STRACE_DIR) && $(STRACE_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/strace.install:
-	@$(call targetinfo, $@)
-	@$(call install, STRACE)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/strace.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, strace)
 	@$(call install_fixup, strace,PACKAGE,strace)
@@ -113,7 +72,7 @@ $(STATEDIR)/strace.targetinstall:
 
 	@$(call install_finish, strace)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
