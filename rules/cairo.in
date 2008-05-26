@@ -1,16 +1,16 @@
 menuconfig CAIRO
 	bool
-	select XORG_LIB_XT if CAIRO_XLIB && !GTK_TARGET_HOST_X11
-	select XORG_LIB_XRENDER if CAIRO_XLIB && !GTK_TARGET_HOST_X11
+	select XORG_LIB_XT	if CAIRO_XLIB && !GTK_TARGET_HOST_X11
+	select XORG_LIB_XRENDER	if CAIRO_XLIB && !GTK_TARGET_HOST_X11
 
-	select DIRECTFB if CAIRO_DIRECTFB
+	select DIRECTFB		if CAIRO_DIRECTFB
 
-	select FREETYPE if CAIRO_FREETYPE
-	select FONTCONFIG if CAIRO_FREETYPE
+	select FREETYPE		if CAIRO_FREETYPE
+	select FONTCONFIG	if CAIRO_FREETYPE
 
-	select LIBPNG if CAIRO_PNG
+	select LIBPNG		if CAIRO_PNG
 
-	prompt "cairo                         "
+	prompt "cairo                 "
 	help
 	  Cairo is a software library used to provide
 	  a vector graphics based, device-independent
