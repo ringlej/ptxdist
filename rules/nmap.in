@@ -1,7 +1,8 @@
 menuconfig NMAP
 	bool "nmap                "
+	select OPENSSL if NMAP__OPENSSL
 	select OPENSSL
-	select PCRE
+	select LIBPCRE
 	select GCCLIBS_CXX
 	help
 	  Nmap ("Network Mapper") is a utility for network exploration
@@ -10,7 +11,13 @@ menuconfig NMAP
 	  managing service upgrade schedules, and monitoring host or
 	  service uptime.
 
-config NMAP_SERVICES
+config NMAP__OPENSSL
+       bool "openssl support"
+
+config NMAP__IPV6
+       bool "ipv6 support (in included libpcap)"
+
+config NMAP__SERVICES
 	bool "Install nmap-services"
 	default y
 	depends on NMAP

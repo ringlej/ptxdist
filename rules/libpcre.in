@@ -1,0 +1,13 @@
+menuconfig LIBPCRE
+	bool "libpcre                     "
+	select GCCLIBS_CXX if LIBPCRE__LIBPCRECPP
+	help
+	  Perl Compatible Regluar Expressions Library
+
+config LIBPCRE__LIBPCREPOSIX
+       bool "install libpcreposix"
+       depends on PCRE
+
+config LIBPCRE__LIBPCRECPP
+       bool "install libpcrecpp (c++ bindings for libpcre)"
+       depends on PCRE
