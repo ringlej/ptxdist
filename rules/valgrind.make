@@ -25,7 +25,7 @@ VALGRIND_SUFFIX		:= tar.bz2
 VALGRIND_URL		:= http://valgrind.org/downloads/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_SOURCE		:= $(SRCDIR)/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_DIR		:= $(BUILDDIR)/$(VALGRIND)
-VALGRIND_INSTDIR	:= $(PKGDIR)/$(VALGRIND)
+VALGRIND_PKGDIR		:= $(PKGDIR)/$(VALGRIND)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -67,12 +67,14 @@ $(STATEDIR)/valgrind.targetinstall:
 
 	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/coregrind/valgrind, /usr/bin/valgrind)
 
-	@cd $(VALGRIND_INSTDIR) && find usr/lib/valgrind -name "*.supp" | while read file; do \
-		$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_INSTDIR)/$$file, /$$file, n) \
+	@cd $(VALGRIND_PKGDIR) && \
+		find usr/lib/valgrind -name "*.supp" | while read file; do \
+		$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_PKGDIR)/$$file, /$$file, n) \
 	done
 
-	cd $(VALGRIND_INSTDIR) && find usr/lib/valgrind -mindepth 2 -type f \! -wholename "*.a" | while read file; do \
-		$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_INSTDIR)/$$file, /$$file) \
+	@cd $(VALGRIND_PKGDIR) && \
+		find usr/lib/valgrind -mindepth 2 -type f \! -wholename "*.a" | while read file; do \
+		$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_PKGDIR)/$$file, /$$file) \
 	done
 
 	@$(call install_finish, valgrind)
