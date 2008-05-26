@@ -516,7 +516,7 @@ get =								\
 #
 # workflow:
 # - mangle all *.la files in $BUILDDIR
-# - make install to _standard_ SYSROOT (e.g. $PTXDIST_WORKSPACE/local/$ARCH/)
+# - make install to _standard_ SYSROOT
 # - again, mangle all *.la files in $BUILDDIR and reset libdir
 # - make install to _package_local_ SYSROOT (can be used as install base)
 # - mangle all *.la files in the _default_ $SYSROOT for further development
