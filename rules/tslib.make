@@ -1,7 +1,8 @@
 # -*-makefile-*-
-# $Id: template 3079 2005-09-02 18:09:51Z rsc $
+# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2005 by Sascha Hauer
+#               2007-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,40 +18,20 @@ PACKAGES-$(PTXCONF_TSLIB) += tslib
 #
 # Paths and names
 #
-TSLIB_VERSION	= 0.0.2
-TSLIB		= tslib-$(TSLIB_VERSION)
-TSLIB_SUFFIX		= tar.bz2
-TSLIB_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(TSLIB).$(TSLIB_SUFFIX)
-TSLIB_SOURCE		= $(SRCDIR)/$(TSLIB).$(TSLIB_SUFFIX)
-TSLIB_DIR		= $(BUILDDIR)/$(TSLIB)
-
+TSLIB_VERSION	:= 1.0
+TSLIB		:= tslib-$(TSLIB_VERSION)
+TSLIB_SUFFIX	:= tar.bz2
+TSLIB_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(TSLIB).$(TSLIB_SUFFIX)
+TSLIB_SOURCE	:= $(SRCDIR)/$(TSLIB).$(TSLIB_SUFFIX)
+TSLIB_DIR	:= $(BUILDDIR)/$(TSLIB)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-tslib_get: $(STATEDIR)/tslib.get
-
-$(STATEDIR)/tslib.get: $(tslib_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(TSLIB_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, TSLIB)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-tslib_extract: $(STATEDIR)/tslib.extract
-
-$(STATEDIR)/tslib.extract: $(tslib_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(TSLIB_DIR))
-	@$(call extract, TSLIB)
-	@$(call patchin, TSLIB)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -58,52 +39,20 @@ $(STATEDIR)/tslib.extract: $(tslib_extract_deps_default)
 
 tslib_prepare: $(STATEDIR)/tslib.prepare
 
-TSLIB_PATH	=  PATH=$(CROSS_PATH)
-TSLIB_ENV 	=  $(CROSS_ENV)
+TSLIB_PATH	:= PATH=$(CROSS_PATH)
+TSLIB_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-TSLIB_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/tslib.prepare: $(tslib_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(TSLIB_DIR)/config.cache)
-	cd $(TSLIB_DIR) && \
-		$(TSLIB_PATH) $(TSLIB_ENV) \
-		./configure $(TSLIB_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-tslib_compile: $(STATEDIR)/tslib.compile
-
-$(STATEDIR)/tslib.compile: $(tslib_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(TSLIB_DIR) && $(TSLIB_ENV) $(TSLIB_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-tslib_install: $(STATEDIR)/tslib.install
-
-$(STATEDIR)/tslib.install: $(tslib_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, TSLIB)
-	@$(call touch, $@)
+TSLIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-tslib_targetinstall: $(STATEDIR)/tslib.targetinstall
-
-$(STATEDIR)/tslib.targetinstall: $(tslib_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/tslib.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, tslib)
 	@$(call install_fixup, tslib,PACKAGE,tslib)
@@ -133,7 +82,7 @@ endif
 
 	@$(call install_finish, tslib)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
