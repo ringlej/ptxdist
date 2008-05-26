@@ -28,28 +28,9 @@ LIBDBUS_CXX_DIR		:= $(BUILDDIR)/$(LIBDBUS_CXX)
 # Get
 # ----------------------------------------------------------------------------
 
-libdbus-cxx_get: $(STATEDIR)/libdbus-cxx.get
-
-$(STATEDIR)/libdbus-cxx.get: $(libdbus-cxx_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBDBUS_CXX_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBDBUS_CXX)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libdbus-cxx_extract: $(STATEDIR)/libdbus-cxx.extract
-
-$(STATEDIR)/libdbus-cxx.extract: $(libdbus-cxx_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBDBUS_CXX_DIR))
-	@$(call extract, LIBDBUS_CXX)
-	@$(call patchin, LIBDBUS_CXX)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -71,44 +52,20 @@ LIBDBUS_CXX_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--with-build-libdbus-cxx=$(HOST_LIBDBUS_CXX_DIR)
 
-$(STATEDIR)/libdbus-cxx.prepare: $(libdbus-cxx_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libdbus-cxx.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(LIBDBUS_CXX_DIR)/config.cache)
 	cd $(LIBDBUS_CXX_DIR) && \
 		$(LIBDBUS_CXX_PATH) $(LIBDBUS_CXX_ENV) \
 		./configure $(LIBDBUS_CXX_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libdbus-cxx_compile: $(STATEDIR)/libdbus-cxx.compile
-
-$(STATEDIR)/libdbus-cxx.compile: $(libdbus-cxx_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBDBUS_CXX_DIR) && $(LIBDBUS_CXX_PATH) $(LIBDBUS_CXX_ENV) $(MAKE) $(LIBDBUS_CXX_MAKEVARS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libdbus-cxx_install: $(STATEDIR)/libdbus-cxx.install
-
-$(STATEDIR)/libdbus-cxx.install: $(libdbus-cxx_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBDBUS_CXX)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libdbus-cxx_targetinstall: $(STATEDIR)/libdbus-cxx.targetinstall
-
-$(STATEDIR)/libdbus-cxx.targetinstall: $(libdbus-cxx_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libdbus-cxx.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, libdbus-cxx)
 	@$(call install_fixup, libdbus-cxx,PACKAGE,libdbus-cxx)
@@ -127,7 +84,7 @@ $(STATEDIR)/libdbus-cxx.targetinstall: $(libdbus-cxx_targetinstall_deps_default)
 
 	@$(call install_finish, libdbus-cxx)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

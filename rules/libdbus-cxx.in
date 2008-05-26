@@ -3,6 +3,7 @@ config LIBDBUS_CXX
 	prompt "dbus c++ bindings             "
 	select DBUS
 	select HOST_LIBDBUS_CXX
+	depends on BROKEN
 	help
 	  This library offers C++ bindings for dbus.
 

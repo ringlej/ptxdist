@@ -1,7 +1,7 @@
 config DBUS_GLIB
 	bool
-	prompt "glib bindings"
+	prompt "dbus glib bindings"
 	select DBUS
 	select HOST_DBUS_GLIB
 	select GLIB
-
+	depends on BROKEN
