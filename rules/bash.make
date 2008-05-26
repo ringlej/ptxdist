@@ -250,7 +250,6 @@ $(STATEDIR)/bash.targetinstall: $(bash_targetinstall_deps_default)
 bash_clean:
 	rm -rf $(STATEDIR)/bash.*
 	rm -rf $(IMAGEDIR)/bash_*
-	rm -fr $(STATEDIR)/bash-patches.get
 	rm -fr $(BASH_DIR)
 
 # vim: syntax=make
