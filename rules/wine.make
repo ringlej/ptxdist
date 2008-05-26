@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2007, 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_WINE) += wine
+PACKAGES-$(PTXCONF_ARCH_MINGW)-$(PTXCONF_WINE) += wine
 
 #
 # Paths and names
