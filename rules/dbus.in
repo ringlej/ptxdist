@@ -3,9 +3,9 @@
 menuconfig DBUS
 	bool
 	prompt "dbus                          "
-	select EXPAT if DBUS_XML_EXPAT
-	select LIBXML2 if DBUS_XML_LIBXML2
-	select XORG_LIB_X11 if DBUS_X
+	select EXPAT		if DBUS_XML_EXPAT
+	select LIBXML2		if DBUS_XML_LIBXML2
+	select XORG_LIB_X11	if DBUS_X
 	help
 	  D-Bus is a message bus system, a simple way for applications
 	  to talk to one another. For details see the project homepage:

@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Roland Hostettler
+#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +18,7 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.1.2
+DBUS_VERSION	:= 1.1.4
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -28,43 +29,18 @@ DBUS_DIR	:= $(BUILDDIR)/$(DBUS)
 # Get
 # ----------------------------------------------------------------------------
 
-dbus_get: $(STATEDIR)/dbus.get
-
-$(STATEDIR)/dbus.get: $(dbus_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(DBUS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, DBUS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-dbus_extract: $(STATEDIR)/dbus.extract
-
-$(STATEDIR)/dbus.extract: $(dbus_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(DBUS_DIR))
-	@$(call extract, DBUS)
-	@$(call patchin, DBUS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-dbus_prepare: $(STATEDIR)/dbus.prepare
-
 DBUS_PATH := PATH=$(CROSS_PATH)
-
 DBUS_ENV := \
 	$(CROSS_ENV) \
 	ac_cv_have_abstract_sockets=yes
-ifdef PTXCONF_DBUS_X
-DBUS_ENV += ac_cv_have_x="have_x=yes ac_x_includes=$(SYSROOT)/usr/X11R6/include ac_x_libraries=$(SYSROOT)/usr/X11R6/lib"
-endif
 
 #
 # autoconf
@@ -82,57 +58,27 @@ DBUS_AUTOCONF := \
 	--disable-kqueue \
 	--localstatedir=/var \
 	--with-dbus-user=$(PTXCONF_DBUS_USER)
-	
+
 ifdef PTXCONF_DBUS_XML_EXPAT
 DBUS_AUTOCONF += --with-xml=expat
 endif
 ifdef PTXCONF_DBUS_XML_LIBXML2
 DBUS_AUTOCONF += --with-xml=libxml
 endif
+
 ifdef PTXCONF_DBUS_X
-DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr/X11R6
+DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr
 else
 DBUS_AUTOCONF += --without-x
 endif
 
-$(STATEDIR)/dbus.prepare: $(dbus_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(DBUS_DIR)/config.cache)
-	cd $(DBUS_DIR) && \
-		$(DBUS_PATH) $(DBUS_ENV) \
-		./configure $(DBUS_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-dbus_compile: $(STATEDIR)/dbus.compile
-
-$(STATEDIR)/dbus.compile: $(dbus_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(DBUS_DIR) && $(DBUS_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-dbus_install: $(STATEDIR)/dbus.install
-
-$(STATEDIR)/dbus.install: $(dbus_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, DBUS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-dbus_targetinstall: $(STATEDIR)/dbus.targetinstall
-
-$(STATEDIR)/dbus.targetinstall: $(dbus_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/dbus.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, dbus)
 	@$(call install_fixup,dbus,PACKAGE,dbus)
@@ -237,7 +183,7 @@ endif
 
 	@$(call install_finish,dbus)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
