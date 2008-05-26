@@ -1,14 +1,19 @@
 menuconfig PANGO
 	bool
-	prompt "pango                         "
+	prompt "pango                 "
 	select CAIRO
 	select GLIB
-	select WINE if ARCH_MINGW
+	select WINE if PANGO__WINE
 
 config PANGO_TARGET_X11
 	bool
 	depends on PANGO
 	default GTK_TARGET_X11
+
+
+config PANGO__WINE
+	bool "extra dep for MINGW"
+	depends on PANGO
 
 
 config PANGO_ARABIC
