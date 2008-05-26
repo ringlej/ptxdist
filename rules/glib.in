@@ -1,9 +1,9 @@
 menuconfig GLIB
 	bool
-	prompt "glib                          "
-	select LIBICONV if GLIB__LIBICONV_GNU
-	select GETTEXT if GLIB__GETTEXT_GETTEXT
-	select GETTEXT_DUMMY if GLIB__GETTEXT_DUMMY
+	prompt "glib                  "
+	select LIBICONV		if GLIB__LIBICONV_GNU
+	select GETTEXT		if GLIB__GETTEXT_GETTEXT
+	select GETTEXT_DUMMY	if GLIB__GETTEXT_DUMMY
 	select HOST_GLIB
 	help
 	  GLib is a library containing many useful C routines for things
@@ -29,10 +29,7 @@ endchoice
 choice
 	prompt "gettext variant"
 	default GLIB__GETTEXT_NONE
-	default GLIB__GETTEXT_GETTEXT if ARCH_MINGW
-	default GLIB__GETTEXT_DUMMY if ARCH_BLACKFIN
 	depends on GLIB
-	# FIXME: platform
 
 	config GLIB__GETTEXT_NONE
 		bool
