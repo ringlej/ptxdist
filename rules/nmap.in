@@ -13,9 +13,11 @@ menuconfig NMAP
 
 config NMAP__OPENSSL
        bool "openssl support"
+       depends on NMAP
 
 config NMAP__IPV6
        bool "ipv6 support (in included libpcap)"
+       depends on NMAP
 
 config NMAP__SERVICES
 	bool "Install nmap-services"
