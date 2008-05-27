@@ -342,12 +342,22 @@ add_locale =							\
 	LOCALE_DEF=$(strip $(2));				\
 	CHARMAP=$(strip $(3));					\
 	PREF=$(strip $(4));					\
+	LE=$(PTXCONF_ENDIAN_LITTLE);				\
+	BE=$(PTXCONF_ENDIAN_BIG);				\
+	if [ "$$LE" = "y" ]; then				\
+		ENDIAN=-l;					\
+	elif [ "$$BE" = "y" ]; then				\
+		ENDIAN=-b;					\
+	else							\
+		exit 1;						\
+	fi;							\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)			\
 	$(SCRIPTSDIR)/make_locale.sh 				\
 		-e $(PTXCONF_SYSROOT_HOST)/bin/localedef 	\
 		-f $$CHARMAP -i $$LOCALE_DEF 			\
 		-p $$PREF 					\
-		-n $$LOCALE_NAME
+		-n $$LOCALE_NAME				\
+		$$ENDIAN
 
 
 #
