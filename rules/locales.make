@@ -43,8 +43,6 @@ $(STATEDIR)/locales.extract:
 
 $(STATEDIR)/locales.prepare:
 	@$(call targetinfo, $@)
-	@$(call clean, $(LOCALES_DIR)/config.cache)
-	@mkdir -p $(LOCALES_DIR)/usr/lib/locale
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -61,6 +59,10 @@ $(STATEDIR)/locales.compile:
 
 $(STATEDIR)/locales.install:
 	@$(call targetinfo, $@)
+
+	@$(call clean, $(LOCALES_DIR))
+	@mkdir -p $(LOCALES_DIR)/usr/lib/locale
+
 ifdef PTXCONF_LOCALES_EN_US
 	@$(call add_locale, en_US, en_US, ISO-8859-1, $(LOCALES_DIR))
 endif
