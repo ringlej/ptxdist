@@ -160,7 +160,7 @@ fi
 
 
 AC_MSG_CHECKING([whether yacc is bison++])
-if $YACC --version | grep bison++ -q; then
+if $YACC --version 2>/dev/null | grep bison++ -q; then
    AC_MSG_ERROR([your $YACC turns out to be bison++, please install plain bison])
 else
    AC_MSG_RESULT([no, this is good])
