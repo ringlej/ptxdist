@@ -28,6 +28,12 @@ choice
 		help
 		  This is support for the Intel x86 architecture.
 
+	config ARCH_MINGW
+		bool "mingw     "
+		select HAS_MMU
+		help
+		  This is support for the Intel x86 architecture.
+
 	config ARCH_PPC
 		bool "ppc       "
 		select HAS_MMU
@@ -214,6 +220,7 @@ config ENDIAN_LITTLE
 	default y if ARCH_ALPHA
 	default y if ARCH_BLACKFIN
 	default y if ARCH_X86
+	default y if ARCH_MINGW
 	default y if ARCH_CRIS
 
 
@@ -231,6 +238,7 @@ config ARCH_STRING
 	default "alpha"			if ARCH_ALPHA
 	default "blackfin"		if ARCH_BLACKFIN
 	default "i386"			if ARCH_X86
+	default "i386"			if ARCH_MINGW
 	default "m68k"			if ARCH_M68K
 	default "ppc"			if ARCH_PPC
 	default "sparc"			if ARCH_SPARC
