@@ -18,10 +18,10 @@ PACKAGES-$(PTXCONF_KERNEL) += kernel
 # handle special compilers
 #
 ifdef PTXCONF_KERNEL
-    ifneq ($(PTX_COMPILER_PREFIX),$(PTX_COMPILER_PREFIX_KERNEL))
-        ifeq ($(wildcard .ktoolchain/$(PTX_COMPILER_PREFIX_KERNEL)gcc),)
+    ifneq ($(PTXCONF_COMPILER_PREFIX),$(PTXCONF_COMPILER_PREFIX_KERNEL))
+        ifeq ($(wildcard .ktoolchain/$(PTXCONF_COMPILER_PREFIX_KERNEL)gcc),)
             $(warning *** no .ktoolchain link found. Please create a link)
-            $(warning *** .ktoolchain to the bin directory of your $(PTX_COMPILER_PREFIX_KERNEL) toolchain)
+            $(warning *** .ktoolchain to the bin directory of your $(PTXCONF_COMPILER_PREFIX_KERNEL) toolchain)
             $(error )
         endif
     KERNEL_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.ktoolchain/
@@ -33,8 +33,8 @@ endif
 #
 KERNEL			:= linux-$(KERNEL_VERSION)
 KERNEL_SUFFIX		:= tar.bz2
-KERNEL_TESTING		= $(subst rc,testing/,$(findstring rc,$(KERNEL_VERSION)))
-KERNEL_URL		= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL_TESTING)$(KERNEL).$(KERNEL_SUFFIX)
+KERNEL_TESTING		:= $(subst rc,testing/,$(findstring rc,$(KERNEL_VERSION)))
+KERNEL_URL		:= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL_TESTING)$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
 KERNEL_PKGDIR		:= $(PKGDIR)/$(KERNEL)
@@ -72,24 +72,9 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/kernel.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(KERNEL_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, KERNEL)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/kernel.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(KERNEL_DIR))
-	@$(call extract, KERNEL)
-	@$(call patchin, KERNEL)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -101,7 +86,7 @@ KERNEL_MAKEVARS := \
 	$(PARALLELMFLAGS) \
 	HOSTCC=$(HOSTCC) \
 	ARCH=$(PTXCONF_KERNEL_ARCH_STRING) \
-	CROSS_COMPILE=$(KERNEL_TOOLCHAIN_LINK)$(PTX_COMPILER_PREFIX_KERNEL) \
+	CROSS_COMPILE=$(KERNEL_TOOLCHAIN_LINK)$(PTXCONF_COMPILER_PREFIX_KERNEL) \
 	\
 	INSTALL_MOD_PATH=$(KERNEL_PKGDIR) \
 	PTX_KERNEL_DIR=$(KERNEL_DIR)
@@ -127,7 +112,7 @@ $(KERNEL_CONFIG):
 	@exit 1
 
 $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@if [ -f $(KERNEL_CONFIG) ]; then				\
 		echo "Using kernel config file: $(KERNEL_CONFIG)";	\
@@ -148,32 +133,42 @@ endif
 
 	cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG)
 
-	@$(call touch, $@)
+	@$(call touch)
+
+
+# ----------------------------------------------------------------------------
+# tags
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/kernel.tags:
+	@$(call targetinfo)
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
+		$(KERNEL_MAKEVARS) TAGS cscope
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/kernel.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/kernel.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/kernel.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 # we _always_ need the kernel in the image dir
 	@for i in $(KERNEL_IMAGE_PATH); do				\
@@ -222,7 +217,7 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 		$(KERNEL_MAKEVARS) modules_install
 endif
 
-	@$(call touch, $@)
+	@$(call touch)
 
 
 # ----------------------------------------------------------------------------
@@ -230,7 +225,7 @@ endif
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/kernel.targetinstall.post:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@$(call install_init,  kernel-modules)
@@ -242,15 +237,15 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@$(call install_fixup, kernel-modules, DEPENDS,)
 	@$(call install_fixup, kernel-modules, DESCRIPTION,missing)
 
-	@cd $(KERNEL_PKGDIR) &&					\
-		for file in `find . -type f | sed -e "s/\.\//\//g"`; do	\
-			$(call install_copy, kernel-modules, 0, 0, 0644, $(KERNEL_PKGDIR)/$${file}, $${file}, n); \
-		done
+	@cd $(KERNEL_PKGDIR) && \
+		find lib -type f | while read file; do \
+			$(call install_copy, kernel-modules, 0, 0, 0644, $(KERNEL_PKGDIR)/$${file}, /$${file}, n) \
+	done
 
 	@$(call install_finish, kernel-modules)
 endif
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
@@ -269,8 +264,10 @@ kernel_oldconfig kernel_menuconfig: $(STATEDIR)/kernel.extract
 	@if test -e $(KERNEL_CONFIG); then \
 		cp $(KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
 	fi
+
 	@cd $(KERNEL_DIR) && \
 		$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) $(subst kernel_,,$@)
+
 	@if cmp -s $(KERNEL_DIR)/.config $(KERNEL_CONFIG); then \
 		echo "kernel configuration unchanged"; \
 	else \

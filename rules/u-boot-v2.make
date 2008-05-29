@@ -19,10 +19,10 @@ PACKAGES-$(PTXCONF_U_BOOT_V2) += u-boot-v2
 # handle special compilers
 #
 ifdef PTXCONF_U_BOOT_V2
-    ifneq ($(PTX_COMPILER_PREFIX),$(PTX_COMPILER_PREFIX_UBOOT))
-        ifeq ($(wildcard .utoolchain/$(PTX_COMPILER_PREFIX_UBOOT)gcc),)
+    ifneq ($(PTXCONF_COMPILER_PREFIX),$(PTXCONF_COMPILER_PREFIX_UBOOT))
+        ifeq ($(wildcard .utoolchain/$(PTXCONF_COMPILER_PREFIX_UBOOT)gcc),)
             $(warning *** no .utoolchain link found. Please create a link)
-            $(warning *** .utoolchain to the bin directory of your $(PTX_COMPILER_PREFIX_UBOOT) toolchain)
+            $(warning *** .utoolchain to the bin directory of your $(PTXCONF_COMPILER_PREFIX_UBOOT) toolchain)
             $(error )
         endif
         U_BOOT_V2_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.utoolchain/
@@ -74,7 +74,7 @@ U_BOOT_V2_MAKEVARS := \
 	$(PARALLELMFLAGS) \
 	HOSTCC=$(HOSTCC) \
 	ARCH=$(PTXCONF_U_BOOT_V2_ARCH_STRING) \
-	CROSS_COMPILE=$(U_BOOT_V2_TOOLCHAIN_LINK)$(PTX_COMPILER_PREFIX_UBOOT)
+	CROSS_COMPILE=$(U_BOOT_V2_TOOLCHAIN_LINK)$(PTXCONF_COMPILER_PREFIX_UBOOT)
 
 $(U_BOOT_V2_CONFIG):
 	@echo
