@@ -1,3 +1,3 @@
-#! /bin/sh
+#!/bin/bash
 
 awk 'BEGIN{print "digraph \"ptxdist \"{"}{for (i = 3; i <= NF; i++) print "\""$i"\" -> \""$1"\";"}END{print "}"}' $1
