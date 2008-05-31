@@ -1,0 +1,7 @@
+config FRODO
+	bool
+	select READLINE
+	select ALSA_LIB
+	prompt "FRODO"
+	help 
+	  FIXME
