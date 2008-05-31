@@ -1,3 +1,5 @@
+# -*-makefile-*-
+
 PTXCONF_PLATFORM		:= $(call remove_quotes, $(PTXCONF_PLATFORM))
 PTXCONF_GNU_TARGET		:= $(call remove_quotes, $(PTXCONF_GNU_TARGET))
 PTXCONF_COMPILER_PREFIX		:= $(call remove_quotes, $(PTXCONF_COMPILER_PREFIX))
@@ -13,3 +15,5 @@ PTXCONF_COMPILER_PREFIX_UBOOT	:= $(call remove_quotes, $(PTXCONF_COMPILER_PREFIX
 PTXCONF_ARCH_STRING		:= $(call remove_quotes, $(PTXCONF_ARCH_STRING))
 PTXCONF_KERNEL_ARCH_STRING	:= $(call remove_quotes, $(PTXCONF_KERNEL_ARCH_STRING))
 PTXCONF_U_BOOT_V2_ARCH_STRING	:= $(call remove_quotes, $(PTXCONF_U_BOOT_V2_ARCH_STRING))
+
+# vim: syntax=make
