@@ -1,0 +1,26 @@
+Subject: usplash: needs compiler to build dependencies
+
+Usplash tries to use the preprocessor to create the dependencies, but
+this only works with the compiler. Trying the preprocessor results in
+
+cpp: too many input files
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ bogl/Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: usplash_0.5.21/bogl/Makefile
+===================================================================
+--- usplash_0.5.21.orig/bogl/Makefile
++++ usplash_0.5.21/bogl/Makefile
+@@ -92,7 +92,7 @@ pngtobogl: pngtobogl.o
+ 
+ depend: .depend
+ .depend: $(SOURCES_DEP)
+-	$(CPP) $(ALLCFLAGS) -M $(SOURCES_DEP) > .depend
++	$(CC) $(ALLCFLAGS) -M $(SOURCES_DEP) > .depend
+ 
+ clean: 
+ 	rm -rf reduce-font bterm bdftobogl pngtobogl *.o $(GENERATED) *-test lang.h tmp.*.c bowl-boxes $(LIB) unifont-reduced.bgf unifont-reduced.bdf
