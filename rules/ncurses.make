@@ -28,28 +28,9 @@ NCURSES_DIR	:= $(BUILDDIR)/$(NCURSES)
 # Get
 # ----------------------------------------------------------------------------
 
-ncurses_get: $(STATEDIR)/ncurses.get
-
-$(STATEDIR)/ncurses.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(NCURSES_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, NCURSES)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-ncurses_extract: $(STATEDIR)/ncurses.extract
-
-$(STATEDIR)/ncurses.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(NCURSES_DIR))
-	@$(call extract, NCURSES)
-	@$(call patchin, NCURSES)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -58,10 +39,8 @@ $(STATEDIR)/ncurses.extract:
 ncurses_prepare: $(STATEDIR)/ncurses.prepare
 
 NCURSES_PATH	:= PATH=$(CROSS_PATH)
-# FIXME: Prevent this: configure: WARNING: Assuming unsigned for type of bool
 NCURSES_ENV 	:= $(CROSS_ENV)
 
-# --without-gpm: elsewhere its guessed
 NCURSES_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--libdir=/lib \
@@ -88,29 +67,9 @@ else
 NCURSES_AUTOCONF += --disable-big-core
 endif
 
-$(STATEDIR)/ncurses.prepare:
-	@$(call targetinfo, $@)
-	cd $(NCURSES_DIR) && \
-		$(NCURSES_PATH) $(NCURSES_ENV) \
-		./configure $(NCURSES_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-ncurses_compile: $(STATEDIR)/ncurses.compile
-
-$(STATEDIR)/ncurses.compile:
-	@$(call targetinfo, $@)
-	cd $(NCURSES_DIR) && $(NCURSES_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
-
-ncurses_install: $(STATEDIR)/ncurses.install
 
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 #
@@ -133,7 +92,7 @@ endif
 endif
 
 $(STATEDIR)/ncurses.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install, NCURSES)
 
 ifdef PTXCONF_NCURSES_WIDE_CHAR
@@ -146,16 +105,14 @@ ifdef PTXCONF_NCURSES_WIDE_CHAR
 	done
 	ln -sf libncurses++w.a $(SYSROOT)/lib/libncurses++.a
 endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ncurses_targetinstall: $(STATEDIR)/ncurses.targetinstall
-
 $(STATEDIR)/ncurses.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, ncurses)
 	@$(call install_fixup, ncurses,PACKAGE,ncurses)
@@ -271,7 +228,7 @@ endif
 
 	@$(call install_finish, ncurses)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
