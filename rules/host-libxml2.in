@@ -3,9 +3,10 @@
 # Options valid for 2.6.20 as well. ZLIB missing in both.
 #
 
-config HOST_LIBXML2
+menuconfig HOST_LIBXML2
 	bool
 	select HOST_ZLIB if HOST_LIBXML2_ZLIB
+	prompt "libxml2                 "
 	help
 	  Libxml2 is a XML C parser and toolkit. XML itself is a
 	  metalanguage to design markup languages, i.e. text
@@ -16,10 +17,11 @@ config HOST_LIBXML2
 	  variety of language bindings make it available in other
 	  environments.
 
+if HOST_LIBXML2
+
 config HOST_LIBXML2_C14N
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "C14N Support"
 	help
 	  Activate the W3C XML Canonicalisation (C14N) to serialize
@@ -29,7 +31,6 @@ config HOST_LIBXML2_C14N
 config HOST_LIBXML2_CATALOG
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "Catalog support"
 	help
 	  Add the Catalog support.
@@ -45,7 +46,6 @@ config HOST_LIBXML2_CATALOG
 config HOST_LIBXML2_DEBUG
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "Debugging"
 	help
 	  Enable debugging support.
@@ -53,14 +53,12 @@ config HOST_LIBXML2_DEBUG
 config HOST_LIBXML2_DOCBOOK
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "Docbook support"
 	help
 	  Enable Docbook SGML support
 
 config HOST_LIBXML2_FEXCEPTIONS
 	bool
-	depends on HOST_LIBXML2
 	prompt "C++ Exception Support"
 	help
 	  Add GCC flag -fexceptions for C++ exceptions.
@@ -68,14 +66,12 @@ config HOST_LIBXML2_FEXCEPTIONS
 config HOST_LIBXML2_FTP
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "FTP Support"
 	help
 	  Add FTP support.
 
 config HOST_LIBXML2_HISTORY
 	bool
-	depends on HOST_LIBXML2
 	prompt "History support for xmlling shell"
 	help
 	  This feature adds history support to the xmllint shell.
@@ -83,7 +79,6 @@ config HOST_LIBXML2_HISTORY
 config HOST_LIBXML2_HTML
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "HTML support"
 	help
 	  Add HTML support.
@@ -91,7 +86,6 @@ config HOST_LIBXML2_HTML
 config HOST_LIBXML2_HTTP
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "HTTP support"
 	help
 	  Add HTTP support.
@@ -101,7 +95,6 @@ config HOST_LIBXML2_ICONV
 	# FIXME: doesn't pick up correct LDADD flags
 	depends on BROKEN
 	default y
-	depends on HOST_LIBXML2
 	prompt "ICONV support"
 	help
 	  Add ICONV support. The iconv program converts
@@ -110,7 +103,6 @@ config HOST_LIBXML2_ICONV
 config HOST_LIBXML2_ISO8859X
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "ISO8859x support if no ICONV"
 	help
 	  Add ISO8859X support if no iconv.
@@ -118,21 +110,18 @@ config HOST_LIBXML2_ISO8859X
 config HOST_LIBXML2_LEGACY
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "Support for deprecated APIs"
 	help
 	  Add support for deprecated APIs (compatiblity)
 
 config HOST_LIBXML2_MEM_DEBUG
 	bool
-	depends on HOST_LIBXML2
 	prompt "Memory Debugging Module"
 	help
 	  Add the memory debugging support.
 
 config HOST_LIBXML2_MINIMUM
 	bool
-	depends on HOST_LIBXML2
 	prompt "Optimize for size"
 	help
 	  Build a minimally sized library
@@ -140,7 +129,6 @@ config HOST_LIBXML2_MINIMUM
 config HOST_LIBXML2_OUTPUT
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "Output Serialization"
 	help
 	  Add the serialization support.
@@ -148,7 +136,6 @@ config HOST_LIBXML2_OUTPUT
 config HOST_LIBXML2_PATTERN
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "XML Pattern Selection Interface"
 	help
 	  Add XML Pattern selection interface
@@ -156,14 +143,12 @@ config HOST_LIBXML2_PATTERN
 config HOST_LIBXML2_PUSH
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "PUSH Parser"
 	help
 	  Add the PUSH parser interface.
 
 config HOST_LIBXML2_PYTHON
 	bool
-	depends on HOST_LIBXML2
 	prompt "Python bindings"
 	help
 	  Build Python bindings if found.
@@ -171,7 +156,6 @@ config HOST_LIBXML2_PYTHON
 config HOST_LIBXML2_READER
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "xmlReader Parsing Interface"
 	help
 	  Add the xmlReader parsing interface.
@@ -179,7 +163,6 @@ config HOST_LIBXML2_READER
 config HOST_LIBXML2_REGEXPS
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "Regular Expressions support"
 	help
 	  Add support for Regular Expressions.
@@ -188,7 +171,6 @@ config HOST_LIBXML2_REGEXPS
 
 config HOST_LIBXML2_RUN_DEBUG
 	bool
-	depends on HOST_LIBXML2
 	prompt "Enable Runtime Debugging"
 	help
 	  Enable runtime debugging module.
@@ -196,7 +178,6 @@ config HOST_LIBXML2_RUN_DEBUG
 config HOST_LIBXML2_SAX1
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "SAX1 API"
 	help
 	  Enable the SAX1 API
@@ -207,7 +188,6 @@ config HOST_LIBXML2_SAX1
 config HOST_LIBXML2_SCHEMAS
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "Relax-NG/Schema Support"
 	help
 	  Add Relax-NG and experimental Schemas support.
@@ -216,7 +196,6 @@ config HOST_LIBXML2_SCHEMAS
 config HOST_LIBXML2_SCHEMATRON
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "Schematron Support"
 	help
 	  Add Schematron support
@@ -229,14 +208,12 @@ config HOST_LIBXML2_SCHEMATRON
 config HOST_LIBXML2_THREADS
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "Thread support"
 	help
 	  Add multithreaded support
 
 config HOST_LIBXML2_THREADS_ALLOC
 	bool
-	depends on HOST_LIBXML2
 	prompt "Per-Thread memory"
 	help
 	  Add per-thread memory.
@@ -244,7 +221,6 @@ config HOST_LIBXML2_THREADS_ALLOC
 config HOST_LIBXML2_DOM
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "DOM API"
 	help
 	  Add the DOM tree manipulation API.
@@ -259,7 +235,6 @@ config HOST_LIBXML2_DOM
 config HOST_LIBXML2_DTD
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "DTD Validation support"
 	help
 	  Add the DTD (Document Type Definition)
@@ -268,7 +243,6 @@ config HOST_LIBXML2_DTD
 config HOST_LIBXML2_WRITER
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "xmlWriter support"
 	help
 	  Add XML Writer support.
@@ -276,7 +250,6 @@ config HOST_LIBXML2_WRITER
 config HOST_LIBXML2_XINCLUDE
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "XInclude"
 	help
 	  XInclude introduces a generic mechanism for merging
@@ -288,7 +261,6 @@ config HOST_LIBXML2_XINCLUDE
 config HOST_LIBXML2_XPATH
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "XPATH support"
 	help
 	  XPath is a language for addressing parts
@@ -298,7 +270,6 @@ config HOST_LIBXML2_XPATH
 config HOST_LIBXML2_XPTR
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "XPTR"
 	help
 	  XML Pointer Language (XPointer) is a language to
@@ -319,7 +290,6 @@ config HOST_LIBXML2_XPTR
 config HOST_LIBXML2_MODULES
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "Dynamic Modules"
 	help
 	  Dynamic Modules support.
@@ -327,6 +297,7 @@ config HOST_LIBXML2_MODULES
 config HOST_LIBXML2_ZLIB
 	bool
 	default y
-	depends on HOST_LIBXML2
 	prompt "zlib (compression) support"
+
+endif
 
