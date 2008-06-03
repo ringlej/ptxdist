@@ -165,19 +165,21 @@ done
 
 init(){
 	# choose the right ptxdist version:
+	echo "PATH is $PATH"
 	PTXDIST=$(echo `$GREP PTXCONF_CONFIGFILE_VERSION $PTXCONFIG` \; echo "ptxdist-\$PTXCONF_CONFIGFILE_VERSION" | sh)
+	which $PTXDIST || PTXDIST=ptxdist
 	PTXDIST_BIN="`$WHICH $PTXDIST`"
 	ptx_debug "PTXDIST is: $PTXDIST ($PTXDIST_BIN)"
 	if [ "$1" = "all" ]; then
 		# get all package labels 
 		# (PACKAGES-y contains all activated packages)
 		# (PACKAGES- contains all deactivated packages)
-		YESPACKAGES=`$PTXDIST print PACKAGES-y | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
-		NOPACKAGES=`$PTXDIST print PACKAGES- | sed -e s/'PACKAGES- is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		YESPACKAGES=`$PTXDIST print PACKAGES-y | grep "^PACKAGES" | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		NOPACKAGES=`$PTXDIST print PACKAGES- | grep "^PACKAGES" | sed -e s/'PACKAGES- is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
 	else
 		# get configured package labels 
 		# (PACKAGES-y contains all activated packages)
-		YESPACKAGES=`$PTXDIST print PACKAGES-y | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		YESPACKAGES=`$PTXDIST print PACKAGES-y | grep "^PACKAGES" | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
 		NOPACKAGES=""
 	fi
 	PACKAGES="$YESPACKAGES $NOPACKAGES"
