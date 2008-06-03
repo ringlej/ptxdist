@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 #
 # Paths and names
 #
-ALSA_LIB_VERSION	:= 1.0.11
+ALSA_LIB_VERSION	:= 1.0.16
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_SUFFIX		:= tar.bz2
 ALSA_LIB_URL		:= ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
@@ -29,28 +29,9 @@ ALSA_LIB_DIR		:= $(BUILDDIR)/$(ALSA_LIB)
 # Get
 # ----------------------------------------------------------------------------
 
-alsa-lib_get: $(STATEDIR)/alsa-lib.get
-
-$(STATEDIR)/alsa-lib.get: $(alsa-lib_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(ALSA_LIB_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, ALSA_LIB)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-alsa-lib_extract: $(STATEDIR)/alsa-lib.extract
-
-$(STATEDIR)/alsa-lib.extract: $(alsa-lib_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(ALSA_LIB_DIR))
-	@$(call extract, ALSA_LIB)
-	@$(call patchin, ALSA_LIB)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -66,6 +47,7 @@ ALSA_LIB_ENV 	:=  $(CROSS_ENV)
 #
 ALSA_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking \
+	--disable-python \
 	--with-debug=no
 
 ifdef PTXCONF_ALSA_LIB_STATIC
@@ -112,44 +94,13 @@ endif
 # --with-aload-devdir=dir
 # --with-pcm-plugins=<list>
 
-$(STATEDIR)/alsa-lib.prepare: $(alsa-lib_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(ALSA_LIB_DIR)/config.cache)
-	cd $(ALSA_LIB_DIR) && \
-		$(ALSA_LIB_PATH) $(ALSA_LIB_ENV) \
-		./configure $(ALSA_LIB_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-alsa-lib_compile: $(STATEDIR)/alsa-lib.compile
-
-$(STATEDIR)/alsa-lib.compile: $(alsa-lib_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(ALSA_LIB_DIR) && $(ALSA_LIB_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-alsa-lib_install: $(STATEDIR)/alsa-lib.install
-
-$(STATEDIR)/alsa-lib.install: $(alsa-lib_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, ALSA_LIB)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-alsa-lib_targetinstall: $(STATEDIR)/alsa-lib.targetinstall
-
-$(STATEDIR)/alsa-lib.targetinstall: $(alsa-lib_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/alsa-lib.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, alsa-lib)
 	@$(call install_fixup, alsa-lib, PACKAGE, alsa-lib)
@@ -210,7 +161,7 @@ endif
 
 	@$(call install_finish, alsa-lib)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
