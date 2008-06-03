@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LESS) += less
 #
 # Paths and names
 #
-LESS_VERSION		:= 406
+LESS_VERSION		:= 418
 LESS			:= less-$(LESS_VERSION)
 LESS_SUFFIX		:= tar.gz
 LESS_URL		:= ftp://ftp.sunfreeware.com/pub/freeware/SOURCES/$(LESS).$(LESS_SUFFIX)
@@ -64,6 +64,52 @@ LESS_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 LESS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+ifdef PTXCONF_LESS_USE_PW
+LESS_ENV += ac_cv_lib_PW_regcmp=yes
+else
+LESS_ENV += ac_cv_lib_PW_regcmp=no
+endif
+ifdef PTXCONF_LESS_USE_CURSES
+LESS_ENV += ac_cv_lib_curses_initscr=yes
+else
+LESS_ENV += ac_cv_lib_curses_initscr=no
+endif
+ifdef PTXCONF_LESS_USE_TINFO
+LESS_ENV += ac_cv_lib_tinfo_tgoto=yes
+else
+LESS_ENV += ac_cv_lib_tinfo_tgoto=no
+endif
+ifdef PTXCONF_LESS_USE_XCURSES
+LESS_ENV += ac_cv_lib_xcurses_initscr=yes
+else
+LESS_ENV += ac_cv_lib_xcurses_initscr=no
+endif
+ifdef PTXCONF_LESS_USE_NCURSES
+LESS_ENV += ac_cv_lib_ncurses_initscr=yes
+else
+LESS_ENV += ac_cv_lib_ncurses_initscr=no
+endif
+ifdef PTXCONF_LESS_USE_TERMCAP
+LESS_ENV += ac_cv_lib_termcap_tgetent=yes
+else
+LESS_ENV += ac_cv_lib_termcap_tgetent=no
+endif
+ifdef PTXCONF_LESS_USE_TERMLIB
+LESS_ENV += ac_cv_lib_termlib_tgetent=yes
+else
+LESS_ENV += ac_cv_lib_termlib_tgetent=no
+endif
+ifdef PTXCONF_LESS_USE_GEN
+LESS_ENV += ac_cv_lib_gen_regcmp=yes
+else
+LESS_ENV += ac_cv_lib_gen_regcmp=no
+endif
+ifdef PTXCONF_LESS_USE_INTL
+LESS_ENV += ac_cv_lib_intl_regcmp=yes
+else
+LESS_ENV += ac_cv_lib_intl_regcmp=no
+endif
 
 $(STATEDIR)/less.prepare: $(less_prepare_deps_default)
 	@$(call targetinfo, $@)

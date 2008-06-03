@@ -1,32 +1,90 @@
 menuconfig LESS
 	bool
 	prompt "less                "
+#	select LIBPW if LESS_USE_PW
+#	select CURSES if LESS_USE_CURSES
+#	select TINFO if LESS_USE_TINFO
+#	select XCURSES if LESS_USE_XCURSES
+	select NCURSES if LESS_USE_NCURSES
+	select NCURSES if LESS_USE_NCURSESW
+	select NCURSES_WIDE_CHAR if LESS_USE_NCURSESW
+	select TERMCAP if LESS_USE_TERMCAP
+#	select TERMLIB if LESS_USE_TERMLIB
+#	select GEN if LESS_USE_GEN
+#	select INTL if LESS_USE_INTL
 	help
 	  Less is a pager. A pager is a program
 	  that displays text files. More info:
 	  http://www.greenwoodsoftware.com/less/
 
+if LESS
+
 config LESS_BIN
 	bool
 	default y
-	depends on LESS && !BB_CONFIG_LESS
+	depends on !BB_CONFIG_LESS
 	prompt "install less pager      "
 	help
 	  less - a pager
 
 config LESS_KEY
 	bool
-	depends on LESS && !BB_CONFIG_LESS
+	depends on !BB_CONFIG_LESS
 	prompt "install lesskey      "
 	help
 	  lesskey - specify key bindings for less
 
 config LESS_ECHO
 	bool
-	depends on LESS && !BB_CONFIG_LESS
+	depends on !BB_CONFIG_LESS
 	prompt "install lessecho     "
 	help
 	  lessecho - expand metacharacters
 
 comment "busy box' less is selected!"
-	depends on LESS && BB_CONFIG_LESS
+	depends on BB_CONFIG_LESS
+
+# library dependencies
+
+config LESS_USE_PW
+	bool
+#	prompt "use libPW"
+
+config LESS_USE_CURSES
+	bool
+#	prompt "use curses"
+
+config LESS_USE_TINFO
+	bool
+#	prompt "use tinfo"
+
+config LESS_USE_XCURSES
+	bool
+#	prompt "use xcurses"
+
+config LESS_USE_NCURSES
+	bool
+	prompt "use ncurses"
+
+config LESS_USE_NCURSESW
+	bool
+	prompt "use ncursesw"
+
+config LESS_USE_TERMCAP
+	bool
+	prompt "use termcap"
+
+config LESS_USE_TERMLIB
+	bool
+#	prompt "use termlib"
+
+config LESS_USE_GEN
+	bool
+#	prompt "use libgen"
+
+config LESS_USE_INTL
+	bool
+#	prompt "use libintl"
+
+endif
+
