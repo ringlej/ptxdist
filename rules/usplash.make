@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_USPLASH) += usplash
 USPLASH_VERSION	:= 0.5.19
 USPLASH		:= usplash_$(USPLASH_VERSION)
 USPLASH_SUFFIX	:= tar.gz
-USPLASH_URL	:= http://archive.ubuntu.com/ubuntu/pool/main/u/usplash//$(USPLASH).$(USPLASH_SUFFIX)
+USPLASH_URL	:= http://archive.ubuntu.com/ubuntu/pool/main/u/usplash/$(USPLASH).$(USPLASH_SUFFIX)
 USPLASH_SOURCE	:= $(SRCDIR)/$(USPLASH).$(USPLASH_SUFFIX)
 USPLASH_DIR	:= $(BUILDDIR)/$(USPLASH)
 
