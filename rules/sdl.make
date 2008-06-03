@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_SDL) += sdl
 #
 # Paths and names
 #
-SDL_VERSION	:= 1.2.12
+SDL_VERSION	:= 1.2.13
 SDL		:= SDL-$(SDL_VERSION)
 SDL_SUFFIX	:= tar.gz
 SDL_URL		:= http://www.libsdl.org/release/$(SDL).$(SDL_SUFFIX)
@@ -29,28 +29,9 @@ SDL_DIR		:= $(BUILDDIR)/$(SDL)
 # Get
 # ----------------------------------------------------------------------------
 
-sdl_get: $(STATEDIR)/sdl.get
-
-$(STATEDIR)/sdl.get: $(sdl_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(SDL_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, SDL)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-sdl_extract: $(STATEDIR)/sdl.extract
-
-$(STATEDIR)/sdl.extract: $(sdl_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(SDL_DIR))
-	@$(call extract, SDL)
-	@$(call patchin, SDL)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -65,11 +46,13 @@ SDL_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 SDL_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
 ifdef PTXCONF_SDL_SHARED
 SDL_AUTOCONF += --enable-shared
 else
 SDL_AUTOCONF += --disable-shared
 endif
+
 ifdef PTXCONF_SDL_STATIC
 SDL_AUTOCONF += --enable-static
 else
@@ -86,10 +69,11 @@ SDL_AUTOCONF += --enable-audio
  endif
 
  ifdef PTXCONF_SDL_ALSA
- SDL_AUTOCONF += --enable-alsa
- SDL_AUTOCONF += --disable-alsatest
- #SDL_AUTOCONF += --with-alsa-prefix=PFX
- #SDL_AUTOCONF += --with-alsa-inc-prefix=PFX
+ SDL_AUTOCONF += \
+	--enable-alsa \
+	--disable-alsatest \
+	--with-alsa-prefix=$(SYSROOT)/usr/lib \
+	--with-alsa-inc-prefix=$(SYSROOT)/usr/include
   ifdef PTXCONF_SDL_ALSA_SHARED
   SDL_AUTOCONF += --enable-alsa-shared
   else
@@ -285,12 +269,12 @@ SDL_AUTOCONF += \
 	--enable-input-events
 
 $(STATEDIR)/sdl.prepare: $(sdl_prepare_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(SDL_DIR)/config.cache)
 	cd $(SDL_DIR) && \
 		$(SDL_PATH) $(SDL_ENV) \
 		./configure $(SDL_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -299,9 +283,9 @@ $(STATEDIR)/sdl.prepare: $(sdl_prepare_deps_default)
 sdl_compile: $(STATEDIR)/sdl.compile
 
 $(STATEDIR)/sdl.compile: $(sdl_compile_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(SDL_DIR) && $(SDL_ENV) $(SDL_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -310,13 +294,13 @@ $(STATEDIR)/sdl.compile: $(sdl_compile_deps_default)
 sdl_install: $(STATEDIR)/sdl.install
 
 $(STATEDIR)/sdl.install: $(sdl_install_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install, SDL)
 
 	cp $(SDL_DIR)/sdl-config $(PTXCONF_SYSROOT_CROSS)/bin/sdl-config
 	chmod a+x $(PTXCONF_SYSROOT_CROSS)/bin/sdl-config
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -325,7 +309,7 @@ $(STATEDIR)/sdl.install: $(sdl_install_deps_default)
 sdl_targetinstall: $(STATEDIR)/sdl.targetinstall
 
 $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, sdl)
 	@$(call install_fixup, sdl,PACKAGE,sdl)
@@ -338,21 +322,21 @@ $(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
 
 ifdef PTXCONF_SDL_SHARED
 	@$(call install_copy, sdl, 0, 0, 0644, \
-		$(SDL_DIR)/build/.libs/libSDL-1.2.so.0.11.1, \
-		/usr/lib/libSDL-1.2.so.0.11.1)
+		$(SDL_DIR)/build/.libs/libSDL-1.2.so.0.11.2, \
+		/usr/lib/libSDL-1.2.so.0.11.2)
 
 	@$(call install_link, sdl, \
-		libSDL-1.2.so.0.11.1, \
+		libSDL-1.2.so.0.11.2, \
 		/usr/lib/libSDL-1.2.so.0)
 
 	@$(call install_link, sdl, \
-		libSDL-1.2.so.0.11.1, \
+		libSDL-1.2.so.0.11.2, \
 		/usr/lib/libSDL-1.2.so)
 endif
 
 	@$(call install_finish, sdl)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

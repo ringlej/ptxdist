@@ -4,11 +4,15 @@ menuconfig SDL
 	bool
 	prompt "SDL                   "
 	select ALSA_LIB if SDL_ALSA
-        select XORG_LIB_X11 if SDL_X11
-        select XORG_LIB_XT if SDL_X11
-        select XORG_LIB_XV if SDL_X11
-        select XORG_LIB_XVMC if SDL_X11
-        select XORG_LIB_XINERAMA if SDL_X11
+	select XORG_LIB_X11		if SDL_X11
+	select XORG_LIB_XT		if SDL_X11
+	select XORG_LIB_XV		if SDL_X11
+	select XORG_LIB_XVMC		if SDL_X11
+	select XORG_LIB_XINERAMA	if SDL_X11
+
+	select ALSA_LIB			if SDL_ALSA
+	select DIRECTFB			if SDL_DIRECTFB
+	select CROSS_NASM		if SDL_NASM
 	help
 	  Simple DirectMedia Layer is a cross-platform multimedia
 	  library designed to provide low level access to audio,
@@ -16,231 +20,242 @@ menuconfig SDL
 	  2D video framebuffer.
 
 config SDL_NASM
-        bool
-        prompt "Use NASM"
-        depends on SDL
-        help
-          FIXME
+	bool
+	prompt "Use NASM"
+	depends on SDL
+	help
+	  FIXME
 
 config SDL_SHARED
 	bool
 	prompt "Build Shared libraries"
 	depends on SDL
-	help 
+	default y
+	help
 	  FIXME
 
 config SDL_STATIC
 	bool
 	prompt "Build Static libraries"
 	depends on SDL
-	help 
+	help
 	  FIXME
 
 config SDL_TIMERS
-        bool
-        prompt "SDL Timers Support"
-        depends on SDL
-        help
-          FIXME
+	bool
+	prompt "SDL Timers Support"
+	depends on SDL
+	default y
+	help
+	  FIXME
 
 config SDL_ENDIAN
-        bool
-        prompt "SDL Endian Support"
-        depends on SDL
-        help
-          FIXME
+	bool
+	prompt "SDL Endian Support"
+	depends on SDL
+	default y
+	help
+	  FIXME
 
 config SDL_FILE
-        bool
-        prompt "SDL File Support"
-        depends on SDL
-        help
-          FIXME
+	bool
+	prompt "SDL File Support"
+	depends on SDL
+	default y
+	help
+	  FIXME
 
 config SDL_CPUINFO
-        bool
-        prompt "SDL CPU Info Support"
-        depends on SDL
-        help
-          FIXME
+	bool
+	prompt "SDL CPU Info Support"
+	depends on SDL
+	default y
+	help
+	  FIXME
 
 menuconfig SDL_AUDIO
 	bool
 	prompt "SDL Audio Support"
 	depends on SDL
-	help 
+	default y
+	help
 	  FIXME
 
 config SDL_OSS
-        bool
-        prompt "SDL OSS Support"
-        depends on SDL_AUDIO
-        help
-          Open Sound System (OSS) is the first attempt in
+	bool
+	prompt "SDL OSS Support"
+	depends on SDL_AUDIO
+	help
+	  Open Sound System (OSS) is the first attempt in
 	  unifying the digital audio architecture for UNIX.
 	  OSS is a set of device drivers that provide a
 	  uniform API across all the major UNIX architectures.
 
 config SDL_ALSA
-        bool
-        prompt "SDL ALSA Support"
-        depends on SDL_AUDIO
-	select ALSA_LIB
-        help
-          The Advanced Linux Sound Architecture (ALSA)
+	bool
+	prompt "SDL ALSA Support"
+	depends on SDL_AUDIO
+	default y
+	help
+	  The Advanced Linux Sound Architecture (ALSA)
 	  provides audio and MIDI functionality to the
 	  Linux operating system.
 
 config SDL_ALSA_SHARED
-        bool
-        prompt "SDL ALSA Shared library"
-        depends on SDL_AUDIO
-        depends on SDL_ALSA
-        help
-          FIXME
+	bool
+	prompt "SDL ALSA Shared library"
+	depends on SDL_AUDIO
+	depends on SDL_ALSA
+	default y
+	help
+	  FIXME
 
 config SDL_ESD
-        bool
-        prompt "SDL ESD Support"
-        depends on SDL_AUDIO
+	bool
+	prompt "SDL ESD Support"
+	depends on SDL_AUDIO
 	depends on BROKEN
-        help
-          ESound Audio Daemon
+	help
+	  ESound Audio Daemon
 
 config SDL_ESD_SHARED
-        bool
-        prompt "SDL ESD Shared library"
-        depends on SDL_AUDIO
-        depends on SDL_ESD
-        help
-          FIXME
+	bool
+	prompt "SDL ESD Shared library"
+	depends on SDL_AUDIO
+	depends on SDL_ESD
+	help
+	  FIXME
 
 config SDL_ARTS
-        bool
-        prompt "SDL Arts Support"
-        depends on SDL_AUDIO
-        help
-          SDL-arts is a plugin for the SDL library that allows
+	bool
+	prompt "SDL Arts Support"
+	depends on SDL_AUDIO
+	help
+	  SDL-arts is a plugin for the SDL library that allows
 	  it to output sound using the aRts sound daemon
 
 config SDL_ARTS_SHARED
-        bool
-        prompt "SDL Arts Shared library"
-        depends on SDL_AUDIO
-        depends on SDL_ARTS
-        help
-          FIXME
+	bool
+	prompt "SDL Arts Shared library"
+	depends on SDL_AUDIO
+	depends on SDL_ARTS
+	help
+	  FIXME
 
 config SDL_NAS
-        bool
-        prompt "SDL NAS Support"
-        depends on SDL_AUDIO
-        help
-          The Network Audio System is a network transparent,
+	bool
+	prompt "SDL NAS Support"
+	depends on SDL_AUDIO
+	help
+	  The Network Audio System is a network transparent,
 	  client/server audio transport system. It can be
 	  described as the audio equivalent of an X server.
 
 config SDL_DISKAUDIO
-        bool
-        prompt "SDL Disk Audio Support"
-        depends on SDL_AUDIO
-        help
-          FIXME
+	bool
+	prompt "SDL Disk Audio Support"
+	depends on SDL_AUDIO
+	help
+	  FIXME
 
 menuconfig SDL_VIDEO
-        bool
-        prompt "SDL Video Support"
-        depends on SDL
-        help
-          FIXME
+	bool
+	prompt "SDL Video Support"
+	depends on SDL
+	default y
+	help
+	  FIXME
 
 config SDL_NANOX
-        bool
-        prompt "NanoX Support"
-        depends on SDL_VIDEO
+	bool
+	prompt "NanoX Support"
+	depends on SDL_VIDEO
 	depends on BROKEN
-        help
-          The Nano-X Window System is an Open Source project
+	help
+	  The Nano-X Window System is an Open Source project
 	  aimed at bringing the features of modern graphical
 	  windowing environments to smaller devices and platforms.
 
 config SDL_XORG
-        bool
-        prompt "Xorg Support"
-        depends on SDL_VIDEO
-        help
-          X.Org provides an open source implementation of the
+	bool
+	prompt "Xorg Support"
+	depends on SDL_VIDEO
+	help
+	  X.Org provides an open source implementation of the
 	  X Window System.
 
 config SDL_FBCON
-        bool
-        prompt "SDL fbcon support"
-        depends on SDL_VIDEO
-        help
-          Framebuffer console
+	bool
+	prompt "SDL fbcon support"
+	depends on SDL_VIDEO
+	help
+	  Framebuffer console
 
 config SDL_DIRECTFB
-        bool
-        prompt "DirectFB Support"
-        depends on SDL_VIDEO
-        help
-          DirectFB is a thin library that provides hardware
+	bool
+	prompt "DirectFB Support"
+	depends on SDL_VIDEO
+	help
+	  DirectFB is a thin library that provides hardware
 	  graphics acceleration, input device handling and
 	  abstraction, integrated windowing system with support
 	  for translucent windows and multiple display layers,
 	  not only on top of the Linux Framebuffer Device.
 
 config SDL_AALIB
-        bool
-        prompt "AALib Support"
-        depends on SDL_VIDEO
-        help
-          AAlib is an portable ascii art GFX library.
+	bool
+	prompt "AALib Support"
+	depends on SDL_VIDEO
+	help
+	  AAlib is an portable ascii art GFX library.
 
 config SDL_OPENGL
-        bool
-        prompt "OpenGL Support"
-        depends on SDL_VIDEO
-        help
-          OpenGL is a multi-platform software interface to
+	bool
+	prompt "OpenGL Support"
+	depends on SDL_VIDEO
+	help
+	  OpenGL is a multi-platform software interface to
 	  graphics hardware, supporting rendering and imaging
 	  operations.
 
 config SDL_EVENT
-        bool
-        prompt "SDL Event Support"
-        depends on SDL
-        help
-          FIXME
+	bool
+	prompt "SDL Event Support"
+	depends on SDL
+	default y
+	help
+	  FIXME
 
 config SDL_JOYSTICK
-        bool
-        prompt "SDL Joystick Support"
-        depends on SDL
-        help
-          FIXME
+	bool
+	prompt "SDL Joystick Support"
+	depends on SDL
+	help
+	  FIXME
 
 config SDL_CDROM
-        bool
-        prompt "SDL CDROM Support"
-        depends on SDL
-        help
-          FIXME
+	bool
+	prompt "SDL CDROM Support"
+	depends on SDL
+	help
+	  FIXME
 
 
 menuconfig SDL_THREADS
-        bool
-        prompt "SDL Thread Support"
-        depends on SDL
-        help
-          Turn on multithreading support
+	bool
+	prompt "SDL Thread Support"
+	depends on SDL
+	default y
+	help
+	  Turn on multithreading support
 
 config SDL_PTH
-        bool
-        prompt "PTH Support"
-        depends on SDL_THREADS
-        help
-          Turn on support for GNU Portable Threads
+	bool
+	prompt "PTH Support"
+	depends on SDL_THREADS
+	default y
+	help
+	  Turn on support for GNU Portable Threads
 
 source "rules/sdl_image.in"
 
