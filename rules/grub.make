@@ -18,45 +18,24 @@ endif
 #
 # Paths and names
 #
-GRUB_VERSION		= 0.97
-GRUB			= grub-$(GRUB_VERSION)
-GRUB_URL		= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
-GRUB_SOURCE		= $(SRCDIR)/$(GRUB).tar.gz
-GRUB_DIR		= $(BUILDDIR)/$(GRUB)
+GRUB_VERSION		:= 0.97
+GRUB			:= grub-$(GRUB_VERSION)
+GRUB_URL		:= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
+GRUB_SOURCE		:= $(SRCDIR)/$(GRUB).tar.gz
+GRUB_DIR		:= $(BUILDDIR)/$(GRUB)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-grub_get: $(STATEDIR)/grub.get
-
-$(STATEDIR)/grub.get: $(grub_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(GRUB_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, GRUB)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-grub_extract: $(STATEDIR)/grub.extract
-
-$(STATEDIR)/grub.extract: $(grub_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(GRUB_DIR))
-	@$(call extract, GRUB)
-	@$(call patchin, GRUB)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-grub_prepare: $(STATEDIR)/grub.prepare
 
 GRUB_PATH	:= PATH=$(CROSS_PATH)
 
@@ -423,43 +402,12 @@ else
 GRUB_AUTOCONF += --disable-auto-linux-mem-opt
 endif
 
-$(STATEDIR)/grub.prepare: $(grub_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(GRUB_DIR)/config.cache)
-	cd $(GRUB_DIR) && \
-		$(GRUB_PATH) $(GRUB_ENV) ./configure $(GRUB_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-grub_compile: $(STATEDIR)/grub.compile
-
-$(STATEDIR)/grub.compile: $(grub_compile_deps_default)
-	@$(call targetinfo, $@)
-	$(GRUB_PATH) make -C $(GRUB_DIR)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-grub_install: $(STATEDIR)/grub.install
-
-$(STATEDIR)/grub.install: $(grub_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, GRUB)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-grub_targetinstall: $(STATEDIR)/grub.targetinstall
-
-$(STATEDIR)/grub.targetinstall: $(grub_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/grub.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, grub)
 	@$(call install_fixup, grub,PACKAGE,grub)
@@ -473,8 +421,9 @@ $(STATEDIR)/grub.targetinstall: $(grub_targetinstall_deps_default)
 	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage1/stage1, /boot/grub/stage1, n)
 	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2, /boot/grub/stage2, n)
 
-	if [ -n $(PTXCONF_GRUB_MENU_LST) ]; then \
+	@if [ -n $(PTXCONF_GRUB_MENU_LST) ]; then \
 		if [ -f $(PTXDIST_WORKSPACE)/boardsetup/boardsetup ]; then \
+			export ROOTDIR="$(ROOTDIR)"; \
 			echo "sourcing boardsetup..."; \
 			. $(PTXDIST_WORKSPACE)/boardsetup/boardsetup; \
 		fi; \
@@ -532,7 +481,7 @@ endif
 
 	@$(call install_finish, grub)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
