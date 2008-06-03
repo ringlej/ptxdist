@@ -43,8 +43,6 @@ $(STATEDIR)/host-libxml2.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-libxml2_prepare: $(STATEDIR)/host-libxml2.prepare
-
 HOST_LIBXML2_PATH	:= PATH=$(HOST_PATH)
 HOST_LIBXML2_ENV 	:= $(HOST_ENV)
 
