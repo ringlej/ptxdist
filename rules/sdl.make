@@ -37,8 +37,6 @@ $(SDL_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-sdl_prepare: $(STATEDIR)/sdl.prepare
-
 SDL_PATH	:=  PATH=$(CROSS_PATH)
 SDL_ENV 	:=  $(CROSS_ENV)
 
@@ -277,23 +275,10 @@ $(STATEDIR)/sdl.prepare: $(sdl_prepare_deps_default)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-sdl_compile: $(STATEDIR)/sdl.compile
-
-$(STATEDIR)/sdl.compile: $(sdl_compile_deps_default)
-	@$(call targetinfo)
-	cd $(SDL_DIR) && $(SDL_ENV) $(SDL_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-sdl_install: $(STATEDIR)/sdl.install
-
-$(STATEDIR)/sdl.install: $(sdl_install_deps_default)
+$(STATEDIR)/sdl.install:
 	@$(call targetinfo)
 	@$(call install, SDL)
 
@@ -306,9 +291,7 @@ $(STATEDIR)/sdl.install: $(sdl_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-sdl_targetinstall: $(STATEDIR)/sdl.targetinstall
-
-$(STATEDIR)/sdl.targetinstall: $(sdl_targetinstall_deps_default)
+$(STATEDIR)/sdl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sdl)
