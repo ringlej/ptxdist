@@ -29,24 +29,9 @@ READLINE_DIR		:= $(BUILDDIR)/$(READLINE)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/readline.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(READLINE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, READLINE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/readline.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(READLINE_DIR))
-	@$(call extract, READLINE)
-	@$(call patchin, READLINE)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -71,38 +56,12 @@ ifdef PTXCONF_READLINE_NCURSES
 READLINE_AUTOCONF += --with-curses
 endif
 
-$(STATEDIR)/readline.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(READLINE_DIR)/config.cache)
-	cd $(READLINE_DIR) && \
-		$(READLINE_PATH) $(READLINE_ENV) \
-		./configure $(READLINE_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/readline.compile:
-	@$(call targetinfo, $@)
-	cd $(READLINE_DIR) && $(READLINE_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/readline.install:
-	@$(call targetinfo, $@)
-	@$(call install, READLINE)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/readline.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, readline)
 	@$(call install_fixup, readline,PACKAGE,readline)
@@ -119,7 +78,7 @@ $(STATEDIR)/readline.targetinstall:
 
 	@$(call install_finish, readline)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
