@@ -1,5 +1,5 @@
 config BING
-	bool
+	tristate
 	prompt "bing                "
 	help
 	  Empirical stochastic bandwidth tester (bing)
