@@ -115,6 +115,11 @@ shift `expr $OPTIND - 1`
 
 [ -n "$SERIES" ] && PATCHESPATH=`dirname $SERIES`
 
+if [ -e "$SERIES" ] && [ ! -s "$SERIES" ]; then
+	echo "series file is empty, we assume that no patches have to be applied"
+	exit 0
+fi
+
 pushd "$TARGET" || exit 1
 
 # if we have quilt use it to apply the patchstack
