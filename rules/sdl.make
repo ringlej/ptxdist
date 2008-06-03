@@ -252,6 +252,7 @@ SDL_AUTOCONF += \
 	--disable-video-vgl \
 	--disable-video-xbios \
 	--disable-video-gem \
+	--enable-assembly \
 	--enable-video-dummy \
 	--enable-pthreads \
 	--enable-pthread-sem \
