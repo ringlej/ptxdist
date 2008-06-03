@@ -1,7 +1,7 @@
-config FRODO
-	bool
+menuconfig FRODO
+	bool "frodo"
 	select READLINE
 	select ALSA_LIB
-	prompt "FRODO"
+	select SDL
 	help 
 	  FIXME

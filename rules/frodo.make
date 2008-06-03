@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2007-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,34 +28,13 @@ FRODO_DIR	:= $(BUILDDIR)/$(FRODO)
 # Get
 # ----------------------------------------------------------------------------
 
-frodo_get: $(STATEDIR)/frodo.get
-
-$(STATEDIR)/frodo.get: $(frodo_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(FRODO_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, FRODO)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-frodo_extract: $(STATEDIR)/frodo.extract
-
-$(STATEDIR)/frodo.extract: $(frodo_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FRODO_DIR))
-	@$(call extract, FRODO)
-	@$(call patchin, FRODO)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-frodo_prepare: $(STATEDIR)/frodo.prepare
 
 FRODO_PATH	:= PATH=$(CROSS_PATH)
 FRODO_ENV 	:= $(CROSS_ENV)
@@ -65,44 +44,37 @@ FRODO_ENV 	:= $(CROSS_ENV)
 #
 FRODO_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/frodo.prepare: $(frodo_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/frodo.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(FRODO_DIR)/config.cache)
 	cd $(FRODO_DIR)/Src && \
 		$(FRODO_PATH) $(FRODO_ENV) \
 		./configure $(FRODO_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-frodo_compile: $(STATEDIR)/frodo.compile
-
-$(STATEDIR)/frodo.compile: $(frodo_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/frodo.compile:
+	@$(call targetinfo)
 	cd $(FRODO_DIR)/Src && $(FRODO_ENV) $(FRODO_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-frodo_install: $(STATEDIR)/frodo.install
-
-$(STATEDIR)/frodo.install: $(frodo_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, FRODO)
-	@$(call touch, $@)
+$(STATEDIR)/frodo.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-frodo_targetinstall: $(STATEDIR)/frodo.targetinstall
-
-$(STATEDIR)/frodo.targetinstall: $(frodo_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/frodo.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, frodo)
 	@$(call install_fixup, frodo,PACKAGE,frodo)
@@ -113,11 +85,16 @@ $(STATEDIR)/frodo.targetinstall: $(frodo_targetinstall_deps_default)
 	@$(call install_fixup, frodo,DEPENDS,)
 	@$(call install_fixup, frodo,DESCRIPTION,missing)
 
-	@$(call install_copy, frodo, 0, 0, 0755, $(FRODO_DIR)/foobar, /dev/null)
+	@$(call install_copy, frodo, 0, 0, 0755, $(FRODO_DIR)/Src/Frodo, /usr/bin/Frodo)
+
+	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/1541 ROM, /home/1541 ROM, n)
+	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/Basic ROM, /home/Basic ROM, n)
+	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/Char ROM, /home/Char ROM, n)
+	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/Kernal ROM, /home/Kernal ROM, n)
 
 	@$(call install_finish, frodo)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
