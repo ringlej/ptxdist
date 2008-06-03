@@ -29,24 +29,9 @@ GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/glib.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(GLIB_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, GLIB)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glib.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(GLIB_DIR))
-	@$(call extract, GLIB)
-	@$(call patchin, GLIB)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -57,8 +42,6 @@ GLIB_ENV 	:= \
 	$(CROSS_ENV) \
 	glib_cv_uscore=no \
 	glib_cv_stack_grows=no
-
-# FIXME: these 2 test may be arch dependent
 
 #
 # autoconf
@@ -73,32 +56,6 @@ endif
 ifdef PTXCONF_GLIB__LIBICONV_NATIVE
 GLIB_AUTOCONF += --with-libiconv=native
 endif
-
-$(STATEDIR)/glib.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(GLIB_DIR)/config.cache)
-	cd $(GLIB_DIR) && \
-		$(GLIB_PATH) $(GLIB_ENV) \
-		./configure $(GLIB_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glib.compile:
-	@$(call targetinfo, $@)
-	cd $(GLIB_DIR) && $(GLIB_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/glib.install:
-	@$(call targetinfo, $@)
-	@$(call install, GLIB)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
