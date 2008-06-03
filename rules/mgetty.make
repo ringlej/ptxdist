@@ -159,7 +159,7 @@ endif
 
 mgetty_clean:
 	rm -rf $(STATEDIR)/mgetty.*
-	rm -rf $(IMAGEDIR)/mgetty_*
+	rm -rf $(PKGDIR)/mgetty_*
 	rm -rf $(MGETTY_DIR)
 
 # vim: syntax=make

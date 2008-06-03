@@ -168,7 +168,7 @@ endif
 
 openssl_clean:
 	rm -rf $(STATEDIR)/openssl.*
-	rm -rf $(IMAGEDIR)/openssl_*
+	rm -rf $(PKGDIR)/openssl_*
 	rm -rf $(OPENSSL_DIR)
 
 # vim: syntax=make

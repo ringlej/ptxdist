@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-bh-ttf.targetinstall: $(xorg-font-bh-ttf_targetinstall_dep
 
 xorg-font-bh-ttf_clean:
 	rm -rf $(STATEDIR)/xorg-font-bh-ttf.*
-	rm -rf $(IMAGEDIR)/xorg-font-bh-ttf_*
+	rm -rf $(PKGDIR)/xorg-font-bh-ttf_*
 	rm -rf $(XORG_FONT_BH_TTF_DIR)
 
 # vim: syntax=make

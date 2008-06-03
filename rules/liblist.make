@@ -128,7 +128,7 @@ $(STATEDIR)/liblist.targetinstall:
 
 liblist_clean:
 	rm -rf $(STATEDIR)/liblist.*
-	rm -rf $(IMAGEDIR)/liblist_*
+	rm -rf $(PKGDIR)/liblist_*
 	rm -rf $(LIBLIST_DIR)
 
 # vim: syntax=make

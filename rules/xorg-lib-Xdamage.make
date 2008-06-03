@@ -136,7 +136,7 @@ $(STATEDIR)/xorg-lib-Xdamage.targetinstall: $(xorg-lib-Xdamage_targetinstall_dep
 
 xorg-lib-Xdamage_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xdamage.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xdamage_*
+	rm -rf $(PKGDIR)/xorg-lib-Xdamage_*
 	rm -rf $(XORG_LIB_XDAMAGE_DIR)
 
 # vim: syntax=make

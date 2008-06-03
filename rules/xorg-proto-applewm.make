@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-applewm.targetinstall: $(xorg-proto-applewm_targetinstall
 
 xorg-proto-applewm_clean:
 	rm -rf $(STATEDIR)/xorg-proto-applewm.*
-	rm -rf $(IMAGEDIR)/xorg-proto-applewm_*
+	rm -rf $(PKGDIR)/xorg-proto-applewm_*
 	rm -rf $(XORG_PROTO_APPLEWM_DIR)
 
 # vim: syntax=make

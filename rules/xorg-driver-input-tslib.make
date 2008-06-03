@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-driver-input-tslib.targetinstall: $(xorg-driver-input-tslib_tar
 
 xorg-driver-input-tslib_clean:
 	rm -rf $(STATEDIR)/xorg-driver-input-tslib.*
-	rm -rf $(IMAGEDIR)/xorg-driver-input-tslib_*
+	rm -rf $(PKGDIR)/xorg-driver-input-tslib_*
 	rm -rf $(XORG_DRIVER_INPUT_TSLIB_DIR)
 
 # vim: syntax=make

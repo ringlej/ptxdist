@@ -246,7 +246,7 @@ $(STATEDIR)/klibc.targetinstall: $(klibc_targetinstall_deps_default)
 
 klibc_clean:
 	rm -rf $(STATEDIR)/klibc.*
-	rm -rf $(IMAGEDIR)/klibc_*
+	rm -rf $(PKGDIR)/klibc_*
 	rm -rf $(KLIBC_DIR)
 	rm -rf $(PTXCONF_SYSROOT_CROSS)/bin/klcc
 

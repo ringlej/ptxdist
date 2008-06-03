@@ -113,7 +113,7 @@ $(STATEDIR)/ltp-misc.targetinstall:
 
 ltp-misc_clean:
 	rm -rf $(STATEDIR)/ltp-misc.*
-	rm -rf $(IMAGEDIR)/ltp-misc_*
+	rm -rf $(PKGDIR)/ltp-misc_*
 	rm -rf $(LTP_MISC_DIR)
 
 # vim: syntax=make

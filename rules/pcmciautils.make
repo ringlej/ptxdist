@@ -162,7 +162,7 @@ endif
 
 pcmciautils_clean:
 	rm -rf $(STATEDIR)/pcmciautils.*
-	rm -rf $(IMAGEDIR)/pcmciautils_*
+	rm -rf $(PKGDIR)/pcmciautils_*
 	rm -rf $(PCMCIAUTILS_DIR)
 
 # vim: syntax=make

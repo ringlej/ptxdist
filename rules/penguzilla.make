@@ -135,7 +135,7 @@ $(STATEDIR)/penguzilla.targetinstall: $(penguzilla_targetinstall_deps_default)
 
 penguzilla_clean:
 	rm -rf $(STATEDIR)/penguzilla.*
-	rm -rf $(IMAGEDIR)/penguzilla_*
+	rm -rf $(PKGDIR)/penguzilla_*
 	rm -rf $(PENGUZILLA_DIR)
 
 # vim: syntax=make

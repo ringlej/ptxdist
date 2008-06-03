@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-font-bitstream-75dpi.targetinstall: $(xorg-font-bitstream-75dpi
 
 xorg-font-bitstream-75dpi_clean:
 	rm -rf $(STATEDIR)/xorg-font-bitstream-75dpi.*
-	rm -rf $(IMAGEDIR)/xorg-font-bitstream-75dpi_*
+	rm -rf $(PKGDIR)/xorg-font-bitstream-75dpi_*
 	rm -rf $(XORG_FONT_BITSTREAM_75DPI_DIR)
 
 # vim: syntax=make

@@ -131,7 +131,7 @@ $(STATEDIR)/glademm.targetinstall: $(glademm_targetinstall_deps_default)
 
 glademm_clean:
 	rm -rf $(STATEDIR)/glademm.*
-	rm -rf $(IMAGEDIR)/glademm_*
+	rm -rf $(PKGDIR)/glademm_*
 	rm -rf $(GLADEMM_DIR)
 
 # vim: syntax=make

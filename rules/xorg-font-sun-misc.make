@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-sun-misc.targetinstall: $(xorg-font-sun-misc_targetinstall
 
 xorg-font-sun-misc_clean:
 	rm -rf $(STATEDIR)/xorg-font-sun-misc.*
-	rm -rf $(IMAGEDIR)/xorg-font-sun-misc_*
+	rm -rf $(PKGDIR)/xorg-font-sun-misc_*
 	rm -rf $(XORG_FONT_SUN_MISC_DIR)
 
 # vim: syntax=make

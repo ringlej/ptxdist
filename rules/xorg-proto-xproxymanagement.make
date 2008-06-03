@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-xproxymanagement.targetinstall: $(xorg-proto-xproxymanage
 
 xorg-proto-xproxymanagement_clean:
 	rm -rf $(STATEDIR)/xorg-proto-xproxymanagement.*
-	rm -rf $(IMAGEDIR)/xorg-proto-xproxymanagement_*
+	rm -rf $(PKGDIR)/xorg-proto-xproxymanagement_*
 	rm -rf $(XORG_PROTO_XPROXYMANAGEMENT_DIR)
 
 # vim: syntax=make

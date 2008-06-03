@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-app-xauth.targetinstall: $(xorg-app-xauth_targetinstall_deps_de
 
 xorg-app-xauth_clean:
 	rm -rf $(STATEDIR)/xorg-app-xauth.*
-	rm -rf $(IMAGEDIR)/xorg-app-xauth_*
+	rm -rf $(PKGDIR)/xorg-app-xauth_*
 	rm -rf $(XORG_APP_XAUTH_DIR)
 
 # vim: syntax=make

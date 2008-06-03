@@ -157,7 +157,7 @@ $(STATEDIR)/xorg-font-intl.targetinstall: $(xorg-font-intl_targetinstall_deps_de
 
 xorg-font-intl_clean:
 	rm -rf $(STATEDIR)/xorg-font-intl.*
-	rm -rf $(IMAGEDIR)/xorg-font-intl_*
+	rm -rf $(PKGDIR)/xorg-font-intl_*
 	rm -rf $(XORG_FONT_INTL_DIR)
 
 # vim: syntax=make

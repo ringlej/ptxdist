@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-input.targetinstall: $(xorg-proto-input_targetinstall_dep
 
 xorg-proto-input_clean:
 	rm -rf $(STATEDIR)/xorg-proto-input.*
-	rm -rf $(IMAGEDIR)/xorg-proto-input_*
+	rm -rf $(PKGDIR)/xorg-proto-input_*
 	rm -rf $(XORG_PROTO_INPUT_DIR)
 
 # vim: syntax=make

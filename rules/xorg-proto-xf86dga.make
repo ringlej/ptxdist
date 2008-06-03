@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-xf86dga.targetinstall: $(xorg-proto-xf86dga_targetinstall
 
 xorg-proto-xf86dga_clean:
 	rm -rf $(STATEDIR)/xorg-proto-xf86dga.*
-	rm -rf $(IMAGEDIR)/xorg-proto-xf86dga_*
+	rm -rf $(PKGDIR)/xorg-proto-xf86dga_*
 	rm -rf $(XORG_PROTO_XF86DGA_DIR)
 
 # vim: syntax=make

@@ -136,7 +136,7 @@ $(STATEDIR)/mc.targetinstall: $(mc_targetinstall_deps_default)
 
 mc_clean:
 	rm -rf $(STATEDIR)/mc.*
-	rm -rf $(IMAGEDIR)/mc_*
+	rm -rf $(PKGDIR)/mc_*
 	rm -rf $(MC_DIR)
 
 # vim: syntax=make

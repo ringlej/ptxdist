@@ -179,7 +179,7 @@ endif
 
 poppler_clean:
 	rm -rf $(STATEDIR)/poppler.*
-	rm -rf $(IMAGEDIR)/poppler_*
+	rm -rf $(PKGDIR)/poppler_*
 	rm -rf $(POPPLER_DIR)
 
 # vim: syntax=make

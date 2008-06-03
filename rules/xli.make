@@ -118,7 +118,7 @@ $(STATEDIR)/xli.targetinstall: $(xli_targetinstall_deps_default)
 
 xli_clean:
 	rm -rf $(STATEDIR)/xli.*
-	rm -rf $(IMAGEDIR)/xli_*
+	rm -rf $(PKGDIR)/xli_*
 	rm -rf $(XLI_DIR)
 
 # vim: syntax=make

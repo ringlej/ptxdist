@@ -136,7 +136,7 @@ $(STATEDIR)/xorg-lib-XprintAppUtil.targetinstall: $(xorg-lib-XprintAppUtil_targe
 
 xorg-lib-XprintAppUtil_clean:
 	rm -rf $(STATEDIR)/xorg-lib-XprintAppUtil.*
-	rm -rf $(IMAGEDIR)/xorg-lib-XprintAppUtil_*
+	rm -rf $(PKGDIR)/xorg-lib-XprintAppUtil_*
 	rm -rf $(XORG_LIB_XPRINTAPPUTIL_DIR)
 
 # vim: syntax=make

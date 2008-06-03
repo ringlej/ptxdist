@@ -127,7 +127,7 @@ $(STATEDIR)/argtable2.targetinstall: $(argtable2_targetinstall_deps_default)
 
 argtable2_clean:
 	rm -rf $(STATEDIR)/argtable2.*
-	rm -rf $(IMAGEDIR)/argtable2_*
+	rm -rf $(PKGDIR)/argtable2_*
 	rm -rf $(ARGTABLE2_DIR)
 
 # vim: syntax=make

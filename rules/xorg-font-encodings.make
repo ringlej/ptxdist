@@ -130,7 +130,7 @@ $(STATEDIR)/xorg-font-encodings.targetinstall: $(xorg-font-encodings_targetinsta
 
 xorg-font-encodings_clean:
 	rm -rf $(STATEDIR)/xorg-font-encodings.*
-	rm -rf $(IMAGEDIR)/xorg-font-encodings_*
+	rm -rf $(PKGDIR)/xorg-font-encodings_*
 	rm -rf $(XORG_FONT_ENCODINGS_DIR)
 
 # vim: syntax=make

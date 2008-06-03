@@ -136,7 +136,7 @@ $(STATEDIR)/xorg-lib-fontenc.targetinstall: $(xorg-lib-fontenc_targetinstall_dep
 
 xorg-lib-fontenc_clean:
 	rm -rf $(STATEDIR)/xorg-lib-fontenc.*
-	rm -rf $(IMAGEDIR)/xorg-lib-fontenc_*
+	rm -rf $(PKGDIR)/xorg-lib-fontenc_*
 	rm -rf $(XORG_LIB_FONTENC_DIR)
 
 # vim: syntax=make

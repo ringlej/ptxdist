@@ -92,7 +92,7 @@ endif
 
 binutils_clean:
 	rm -rf $(STATEDIR)/binutils.*
-	rm -rf $(IMAGEDIR)/binutils_*
+	rm -rf $(PKGDIR)/binutils_*
 	rm -rf $(BINUTILS_DIR)
 
 # vim: syntax=make

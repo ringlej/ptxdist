@@ -124,7 +124,7 @@ endif
 
 unzip_clean:
 	rm -rf $(STATEDIR)/unzip.*
-	rm -rf $(IMAGEDIR)/unzip_*
+	rm -rf $(PKGDIR)/unzip_*
 	rm -rf $(UNZIP_DIR)
 
 # vim: syntax=make

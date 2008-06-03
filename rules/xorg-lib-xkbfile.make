@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-xkbfile.targetinstall: $(xorg-lib-xkbfile_targetinstall_dep
 
 xorg-lib-xkbfile_clean:
 	rm -rf $(STATEDIR)/xorg-lib-xkbfile.*
-	rm -rf $(IMAGEDIR)/xorg-lib-xkbfile_*
+	rm -rf $(PKGDIR)/xorg-lib-xkbfile_*
 	rm -rf $(XORG_LIB_XKBFILE_DIR)
 
 # vim: syntax=make

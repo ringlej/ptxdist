@@ -114,7 +114,7 @@ $(STATEDIR)/mesalib.targetinstall: $(mesalib_targetinstall_deps_default)
 
 mesalib_clean:
 	rm -rf $(STATEDIR)/mesalib.*
-	rm -rf $(IMAGEDIR)/mesalib_*
+	rm -rf $(PKGDIR)/mesalib_*
 	rm -rf $(MESALIB_DIR)
 
 # vim: syntax=make

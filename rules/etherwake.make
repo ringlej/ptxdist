@@ -121,7 +121,7 @@ $(STATEDIR)/etherwake.targetinstall: $(etherwake_targetinstall_deps_default)
 
 etherwake_clean:
 	rm -rf $(STATEDIR)/etherwake.*
-	rm -rf $(IMAGEDIR)/etherwake_*
+	rm -rf $(PKGDIR)/etherwake_*
 	rm -rf $(ETHERWAKE_DIR)
 
 # vim: syntax=make

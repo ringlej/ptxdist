@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-Xp.targetinstall: $(xorg-lib-Xp_targetinstall_deps_default)
 
 xorg-lib-Xp_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xp.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xp_*
+	rm -rf $(PKGDIR)/xorg-lib-Xp_*
 	rm -rf $(XORG_LIB_XP_DIR)
 
 # vim: syntax=make

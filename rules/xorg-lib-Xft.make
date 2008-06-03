@@ -136,7 +136,7 @@ $(STATEDIR)/xorg-lib-Xft.targetinstall: $(xorg-lib-Xft_targetinstall_deps_defaul
 
 xorg-lib-Xft_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xft.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xft_*
+	rm -rf $(PKGDIR)/xorg-lib-Xft_*
 	rm -rf $(XORG_LIB_XFT_DIR)
 
 # vim: syntax=make

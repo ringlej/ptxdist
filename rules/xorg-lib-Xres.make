@@ -138,7 +138,7 @@ $(STATEDIR)/xorg-lib-Xres.targetinstall: $(xorg-lib-Xres_targetinstall_deps_defa
 
 xorg-lib-Xres_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xres.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xres_*
+	rm -rf $(PKGDIR)/xorg-lib-Xres_*
 	rm -rf $(XORG_LIB_XRES_DIR)
 
 # vim: syntax=make

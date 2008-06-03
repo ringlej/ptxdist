@@ -128,7 +128,7 @@ $(STATEDIR)/xorg-lib-XvMC.targetinstall: $(xorg-lib-XvMC_targetinstall_deps_defa
 
 xorg-lib-XvMC_clean:
 	rm -rf $(STATEDIR)/xorg-lib-XvMC.*
-	rm -rf $(IMAGEDIR)/xorg-lib-XvMC_*
+	rm -rf $(PKGDIR)/xorg-lib-XvMC_*
 	rm -rf $(XORG_LIB_XVMC_DIR)
 
 # vim: syntax=make

@@ -126,7 +126,7 @@ $(STATEDIR)/liblockfile.targetinstall: $(liblockfile_targetinstall_deps_default)
 
 liblockfile_clean:
 	rm -rf $(STATEDIR)/liblockfile.*
-	rm -rf $(IMAGEDIR)/liblockfile_*
+	rm -rf $(PKGDIR)/liblockfile_*
 	rm -rf $(LIBLOCKFILE_DIR)
 
 # vim: syntax=make

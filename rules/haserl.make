@@ -123,7 +123,7 @@ $(STATEDIR)/haserl.targetinstall: $(haserl_targetinstall_deps_default)
 
 haserl_clean:
 	rm -rf $(STATEDIR)/haserl.*
-	rm -rf $(IMAGEDIR)/haserl_*
+	rm -rf $(PKGDIR)/haserl_*
 	rm -rf $(HASERL_DIR)
 
 # vim: syntax=make

@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-render.targetinstall: $(xorg-proto-render_targetinstall_d
 
 xorg-proto-render_clean:
 	rm -rf $(STATEDIR)/xorg-proto-render.*
-	rm -rf $(IMAGEDIR)/xorg-proto-render_*
+	rm -rf $(PKGDIR)/xorg-proto-render_*
 	rm -rf $(XORG_PROTO_RENDER_DIR)
 
 # vim: syntax=make

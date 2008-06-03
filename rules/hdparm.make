@@ -122,7 +122,7 @@ $(STATEDIR)/hdparm.targetinstall: $(hdparm_targetinstall_deps_default)
 
 hdparm_clean:
 	rm -rf $(STATEDIR)/hdparm.*
-	rm -rf $(IMAGEDIR)/hdparm_*
+	rm -rf $(PKGDIR)/hdparm_*
 	rm -rf $(HDPARM_DIR)
 
 # vim: syntax=make

@@ -130,7 +130,7 @@ $(STATEDIR)/gtk-engine-experience.targetinstall:
 
 gtk-engine-experience_clean:
 	rm -rf $(STATEDIR)/gtk-engine-experience.*
-	rm -rf $(IMAGEDIR)/gtk-engine-experience_*
+	rm -rf $(PKGDIR)/gtk-engine-experience_*
 	rm -rf $(GTK_ENGINE_EXPERIENCE_DIR)
 
 # vim: syntax=make

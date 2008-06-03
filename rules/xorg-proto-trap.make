@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-trap.targetinstall: $(xorg-proto-trap_targetinstall_deps_
 
 xorg-proto-trap_clean:
 	rm -rf $(STATEDIR)/xorg-proto-trap.*
-	rm -rf $(IMAGEDIR)/xorg-proto-trap_*
+	rm -rf $(PKGDIR)/xorg-proto-trap_*
 	rm -rf $(XORG_PROTO_TRAP_DIR)
 
 # vim: syntax=make

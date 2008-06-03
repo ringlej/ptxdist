@@ -146,7 +146,7 @@ endif
 
 ipkg_clean:
 	rm -rf $(STATEDIR)/ipkg.*
-	rm -rf $(IMAGEDIR)/ipkg_*
+	rm -rf $(PKGDIR)/ipkg_*
 	rm -rf $(IPKG_DIR)
 
 # vim: syntax=make

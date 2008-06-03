@@ -145,7 +145,7 @@ $(STATEDIR)/ssmtp.targetinstall: $(ssmtp_targetinstall_deps_default)
 
 ssmtp_clean:
 	rm -rf $(STATEDIR)/ssmtp.*
-	rm -rf $(IMAGEDIR)/ssmtp_*
+	rm -rf $(PKGDIR)/ssmtp_*
 	rm -rf $(SSMTP_DIR)
 
 # vim: syntax=make

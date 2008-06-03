@@ -143,7 +143,7 @@ endif
 
 xorg-font-bh-100dpi_clean:
 	rm -rf $(STATEDIR)/xorg-font-bh-100dpi.*
-	rm -rf $(IMAGEDIR)/xorg-font-bh-100dpi_*
+	rm -rf $(PKGDIR)/xorg-font-bh-100dpi_*
 	rm -rf $(XORG_FONT_BH_100DPI_DIR)
 
 # vim: syntax=make

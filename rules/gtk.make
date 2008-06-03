@@ -252,7 +252,7 @@ endif
 
 gtk_clean:
 	rm -rf $(STATEDIR)/gtk.*
-	rm -rf $(IMAGEDIR)/gtk_*
+	rm -rf $(PKGDIR)/gtk_*
 	rm -rf $(GTK_DIR)
 
 # vim: syntax=make

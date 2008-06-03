@@ -128,7 +128,7 @@ $(STATEDIR)/xorg-app-xvinfo.targetinstall: $(xorg-app-xvinfo_targetinstall_deps_
 
 xorg-app-xvinfo_clean:
 	rm -rf $(STATEDIR)/xorg-app-xvinfo.*
-	rm -rf $(IMAGEDIR)/xorg-app-xvinfo_*
+	rm -rf $(PKGDIR)/xorg-app-xvinfo_*
 	rm -rf $(XORG_APP_XVINFO_DIR)
 
 # vim: syntax=make

@@ -144,7 +144,7 @@ endif
 
 xorg-font-adobe-utopia-75dpi_clean:
 	rm -rf $(STATEDIR)/xorg-font-adobe-utopia-75dpi.*
-	rm -rf $(IMAGEDIR)/xorg-font-adobe-utopia-75dpi_*
+	rm -rf $(PKGDIR)/xorg-font-adobe-utopia-75dpi_*
 	rm -rf $(XORG_FONT_ADOBE_UTOPIA_75DPI_DIR)
 
 # vim: syntax=make

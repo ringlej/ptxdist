@@ -127,7 +127,7 @@ $(STATEDIR)/libusb.targetinstall: $(libusb_targetinstall_deps_default)
 
 libusb_clean:
 	rm -rf $(STATEDIR)/libusb.*
-	rm -rf $(IMAGEDIR)/libusb_*
+	rm -rf $(PKGDIR)/libusb_*
 	rm -rf $(LIBUSB_DIR)
 
 # vim: syntax=make

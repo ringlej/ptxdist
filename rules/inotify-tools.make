@@ -141,6 +141,6 @@ $(STATEDIR)/inotify-tools.targetinstall: $(inotify-tools_targetinstall_deps_defa
 
 inotify-tools_clean:
 	rm -rf $(STATEDIR)/inotify-tools.*
-	rm -rf $(IMAGEDIR)/inotify-tools_*
+	rm -rf $(PKGDIR)/inotify-tools_*
 	rm -rf $(INOTIFY_TOOLS_DIR)
 

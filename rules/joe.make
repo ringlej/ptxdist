@@ -142,7 +142,7 @@ $(STATEDIR)/joe.targetinstall: $(joe_targetinstall_deps_default)
 
 joe_clean:
 	rm -rf $(STATEDIR)/joe.*
-	rm -rf $(IMAGEDIR)/joe_*
+	rm -rf $(PKGDIR)/joe_*
 	rm -rf $(JOE_DIR)
 
 # vim: syntax=make

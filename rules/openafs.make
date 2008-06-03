@@ -131,7 +131,7 @@ $(STATEDIR)/openafs.targetinstall: $(openafs_targetinstall_deps_default)
 
 openafs_clean:
 	rm -rf $(STATEDIR)/openafs.*
-	rm -rf $(IMAGEDIR)/openafs_*
+	rm -rf $(PKGDIR)/openafs_*
 	rm -rf $(OPENAFS_DIR)
 
 # vim: syntax=make

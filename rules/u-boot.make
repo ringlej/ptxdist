@@ -116,7 +116,7 @@ $(STATEDIR)/u-boot.targetinstall:
 
 u-boot_clean:
 	@rm -rf $(STATEDIR)/u-boot.*
-	@rm -rf $(IMAGEDIR)/u-boot_*
+	@rm -rf $(PKGDIR)/u-boot_*
 	@rm -rf $(U_BOOT_DIR)
 
 # vim: syntax=make

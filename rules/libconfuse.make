@@ -138,7 +138,7 @@ endif
 
 libconfuse_clean:
 	rm -rf $(STATEDIR)/libconfuse.*
-	rm -rf $(IMAGEDIR)/libconfuse_*
+	rm -rf $(PKGDIR)/libconfuse_*
 	rm -rf $(LIBCONFUSE_DIR)
 
 # vim: syntax=make

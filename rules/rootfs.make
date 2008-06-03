@@ -887,6 +887,6 @@ endif
 
 rootfs_clean:
 	rm -rf $(STATEDIR)/rootfs.* $(ROOTFS_DIR)
-	rm -rf $(IMAGEDIR)/rootfs_*
+	rm -rf $(PKGDIR)/rootfs_*
 
 # vim: syntax=make

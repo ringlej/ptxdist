@@ -151,7 +151,7 @@ $(STATEDIR)/xorg-lib-Xmu.targetinstall: $(xorg-lib-Xmu_targetinstall_deps_defaul
 
 xorg-lib-Xmu_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xmu.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xmu_*
+	rm -rf $(PKGDIR)/xorg-lib-Xmu_*
 	rm -rf $(XORG_LIB_XMU_DIR)
 
 # vim: syntax=make

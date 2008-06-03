@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-damage.targetinstall: $(xorg-proto-damage_targetinstall_d
 
 xorg-proto-damage_clean:
 	rm -rf $(STATEDIR)/xorg-proto-damage.*
-	rm -rf $(IMAGEDIR)/xorg-proto-damage_*
+	rm -rf $(PKGDIR)/xorg-proto-damage_*
 	rm -rf $(XORG_PROTO_DAMAGE_DIR)
 
 # vim: syntax=make

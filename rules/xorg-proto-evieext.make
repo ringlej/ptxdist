@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-evieext.targetinstall: $(xorg-proto-evieext_targetinstall
 
 xorg-proto-evieext_clean:
 	rm -rf $(STATEDIR)/xorg-proto-evieext.*
-	rm -rf $(IMAGEDIR)/xorg-proto-evieext_*
+	rm -rf $(PKGDIR)/xorg-proto-evieext_*
 	rm -rf $(XORG_PROTO_EVIEEXT_DIR)
 
 # vim: syntax=make

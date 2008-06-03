@@ -124,7 +124,7 @@ $(STATEDIR)/pelts-tests.targetinstall: $(pelts-tests_targetinstall_deps_default)
 
 pelts-tests_clean:
 	rm -rf $(STATEDIR)/pelts-tests.*
-	rm -rf $(IMAGEDIR)/pelts-tests_*
+	rm -rf $(PKGDIR)/pelts-tests_*
 	rm -rf $(PELTS_TESTS_DIR)
 
 # vim: syntax=make

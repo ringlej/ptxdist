@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-WindowsWM.targetinstall: $(xorg-lib-WindowsWM_targetinstall
 
 xorg-lib-WindowsWM_clean:
 	rm -rf $(STATEDIR)/xorg-lib-WindowsWM.*
-	rm -rf $(IMAGEDIR)/xorg-lib-WindowsWM_*
+	rm -rf $(PKGDIR)/xorg-lib-WindowsWM_*
 	rm -rf $(XORG_LIB_WINDOWSWM_DIR)
 
 # vim: syntax=make

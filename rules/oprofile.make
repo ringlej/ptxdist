@@ -114,7 +114,7 @@ $(STATEDIR)/oprofile.targetinstall:
 
 oprofile_clean:
 	rm -rf $(STATEDIR)/oprofile.*
-	rm -rf $(IMAGEDIR)/oprofile_*
+	rm -rf $(PKGDIR)/oprofile_*
 	rm -rf $(OPROFILE_DIR)
 
 # vim: syntax=make

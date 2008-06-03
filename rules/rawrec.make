@@ -131,7 +131,7 @@ endif
 
 rawrec_clean:
 	rm -rf $(STATEDIR)/rawrec.*
-	rm -rf $(IMAGEDIR)/rawrec_*
+	rm -rf $(PKGDIR)/rawrec_*
 	rm -rf $(RAWREC_DIR)
 
 # vim: syntax=make

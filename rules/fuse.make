@@ -134,7 +134,7 @@ $(STATEDIR)/fuse.targetinstall: $(fuse_targetinstall_deps_default)
 
 fuse_clean:
 	rm -rf $(STATEDIR)/fuse.*
-	rm -rf $(IMAGEDIR)/fuse_*
+	rm -rf $(PKGDIR)/fuse_*
 	rm -rf $(FUSE_DIR)
 
 # vim: syntax=make

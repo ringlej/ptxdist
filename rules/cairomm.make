@@ -133,7 +133,7 @@ $(STATEDIR)/cairomm.targetinstall: $(cairomm_targetinstall_deps_default)
 
 cairomm_clean:
 	rm -rf $(STATEDIR)/cairomm.*
-	rm -rf $(IMAGEDIR)/cairomm_*
+	rm -rf $(PKGDIR)/cairomm_*
 	rm -rf $(CAIROMM_DIR)
 
 # vim: syntax=make

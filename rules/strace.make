@@ -80,7 +80,7 @@ $(STATEDIR)/strace.targetinstall:
 
 strace_clean:
 	rm -rf $(STATEDIR)/strace.*
-	rm -rf $(IMAGEDIR)/strace_*
+	rm -rf $(PKGDIR)/strace_*
 	rm -rf $(STRACE_DIR)
 
 # vim: syntax=make

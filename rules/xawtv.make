@@ -164,7 +164,7 @@ $(STATEDIR)/xawtv.targetinstall: $(xawtv_targetinstall_deps_default)
 
 xawtv_clean:
 	rm -rf $(STATEDIR)/xawtv.*
-	rm -rf $(IMAGEDIR)/xawtv_*
+	rm -rf $(PKGDIR)/xawtv_*
 	rm -rf $(XAWTV_DIR)
 
 # vim: syntax=make

@@ -129,7 +129,7 @@ $(STATEDIR)/glade.targetinstall: $(glade_targetinstall_deps_default)
 
 glade_clean:
 	rm -rf $(STATEDIR)/glade.*
-	rm -rf $(IMAGEDIR)/glade_*
+	rm -rf $(PKGDIR)/glade_*
 	rm -rf $(GLADE_DIR)
 
 # vim: syntax=make

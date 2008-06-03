@@ -172,6 +172,6 @@ $(STATEDIR)/sqlite.targetinstall: $(sqlite_targetinstall_deps_default)
 
 sqlite_clean:
 	rm -rf $(STATEDIR)/sqlite.* $(SQLITE_DIR)
-	rm -rf $(IMAGEDIR)/sqlite_*
+	rm -rf $(PKGDIR)/sqlite_*
 
 # vim: syntax=make

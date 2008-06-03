@@ -130,7 +130,7 @@ $(STATEDIR)/libucdaemon.targetinstall:
 
 libucdaemon_clean:
 	rm -rf $(STATEDIR)/libucdaemon.*
-	rm -rf $(IMAGEDIR)/libucdaemon_*
+	rm -rf $(PKGDIR)/libucdaemon_*
 	rm -rf $(LIBUCDAEMON_DIR)
 
 # vim: syntax=make

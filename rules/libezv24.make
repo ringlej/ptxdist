@@ -134,7 +134,7 @@ $(STATEDIR)/libezv24.targetinstall: $(libezv24_targetinstall_deps_default)
 
 libezv24_clean:
 	rm -rf $(STATEDIR)/libezv24.*
-	rm -rf $(IMAGEDIR)/libezv24_*
+	rm -rf $(PKGDIR)/libezv24_*
 	rm -rf $(LIBEZV24_DIR)
 
 # vim: syntax=make

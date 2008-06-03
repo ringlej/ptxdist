@@ -129,7 +129,7 @@ $(STATEDIR)/gmake.targetinstall:
 
 gmake_clean:
 	rm -rf $(STATEDIR)/gmake.*
-	rm -rf $(IMAGEDIR)/gmake_*
+	rm -rf $(PKGDIR)/gmake_*
 	rm -rf $(GMAKE_DIR)
 
 # vim: syntax=make

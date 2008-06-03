@@ -100,7 +100,7 @@ $(STATEDIR)/xcb-proto.targetinstall:
 
 xcb-proto_clean:
 	rm -rf $(STATEDIR)/xcb-proto.*
-	rm -rf $(IMAGEDIR)/xcb-proto_*
+	rm -rf $(PKGDIR)/xcb-proto_*
 	rm -rf $(XCB_PROTO_DIR)
 
 # vim: syntax=make

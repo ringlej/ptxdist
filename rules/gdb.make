@@ -117,6 +117,6 @@ $(STATEDIR)/gdb.targetinstall:
 
 gdb_clean:
 	rm -rf $(STATEDIR)/gdb.* $(GDB_DIR)
-	rm -rf $(IMAGEDIR)/gdb_*
+	rm -rf $(PKGDIR)/gdb_*
 
 # vim: syntax=make

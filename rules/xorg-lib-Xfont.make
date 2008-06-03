@@ -202,7 +202,7 @@ $(STATEDIR)/xorg-lib-xfont.targetinstall: $(xorg-lib-xfont_targetinstall_deps_de
 
 xorg-lib-xfont_clean:
 	rm -rf $(STATEDIR)/xorg-lib-xfont.*
-	rm -rf $(IMAGEDIR)/xorg-lib-xfont_*
+	rm -rf $(PKGDIR)/xorg-lib-xfont_*
 	rm -rf $(XORG_LIB_XFONT_DIR)
 
 # vim: syntax=make

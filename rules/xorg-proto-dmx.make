@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-dmx.targetinstall: $(xorg-proto-dmx_targetinstall_deps_de
 
 xorg-proto-dmx_clean:
 	rm -rf $(STATEDIR)/xorg-proto-dmx.*
-	rm -rf $(IMAGEDIR)/xorg-proto-dmx_*
+	rm -rf $(PKGDIR)/xorg-proto-dmx_*
 	rm -rf $(XORG_PROTO_DMX_DIR)
 
 # vim: syntax=make

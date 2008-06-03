@@ -420,7 +420,7 @@ $(STATEDIR)/mplayer.targetinstall: $(mplayer_targetinstall_deps_default)
 
 mplayer_clean:
 	rm -rf $(STATEDIR)/mplayer.*
-	rm -rf $(IMAGEDIR)/mplayer_*
+	rm -rf $(PKGDIR)/mplayer_*
 	rm -rf $(MPLAYER_DIR)
 
 # vim: syntax=make

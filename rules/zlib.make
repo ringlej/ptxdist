@@ -134,7 +134,7 @@ endif
 
 zlib_clean:
 	rm -rf $(STATEDIR)/zlib.*
-	rm -rf $(IMAGEDIR)/zlib_*
+	rm -rf $(PKGDIR)/zlib_*
 	rm -rf $(ZLIB_DIR)
 
 # vim: syntax=make

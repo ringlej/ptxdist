@@ -124,7 +124,7 @@ $(STATEDIR)/libiconv.targetinstall:
 
 libiconv_clean:
 	rm -rf $(STATEDIR)/libiconv.*
-	rm -rf $(IMAGEDIR)/libiconv_*
+	rm -rf $(PKGDIR)/libiconv_*
 	rm -rf $(LIBICONV_DIR)
 
 # vim: syntax=make

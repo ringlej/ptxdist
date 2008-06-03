@@ -113,7 +113,7 @@ $(STATEDIR)/libpthread-stubs.targetinstall: $(libpthread-stubs_targetinstall_dep
 
 libpthread-stubs_clean:
 	rm -rf $(STATEDIR)/libpthread-stubs.*
-	rm -rf $(IMAGEDIR)/libpthread-stubs_*
+	rm -rf $(PKGDIR)/libpthread-stubs_*
 	rm -rf $(LIBPTHREAD_STUBS_DIR)
 
 # vim: syntax=make

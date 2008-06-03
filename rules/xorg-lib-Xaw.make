@@ -196,7 +196,7 @@ endif
 
 xorg-lib-Xaw_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xaw.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xaw_*
+	rm -rf $(PKGDIR)/xorg-lib-Xaw_*
 	rm -rf $(XORG_LIB_XAW_DIR)
 
 # vim: syntax=make

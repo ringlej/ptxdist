@@ -143,7 +143,7 @@ endif
 
 ltp-posix_clean:
 	rm -rf $(STATEDIR)/ltp-posix.*
-	rm -rf $(IMAGEDIR)/ltp-posix_*
+	rm -rf $(PKGDIR)/ltp-posix_*
 	rm -rf $(LTP_POSIX_DIR)
 
 # vim: syntax=make

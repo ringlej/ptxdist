@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-record.targetinstall: $(xorg-proto-record_targetinstall_d
 
 xorg-proto-record_clean:
 	rm -rf $(STATEDIR)/xorg-proto-record.*
-	rm -rf $(IMAGEDIR)/xorg-proto-record_*
+	rm -rf $(PKGDIR)/xorg-proto-record_*
 	rm -rf $(XORG_PROTO_RECORD_DIR)
 
 # vim: syntax=make

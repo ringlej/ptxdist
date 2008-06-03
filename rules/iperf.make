@@ -125,7 +125,7 @@ $(STATEDIR)/iperf.targetinstall: $(iperf_targetinstall_deps_default)
 
 iperf_clean:
 	rm -rf $(STATEDIR)/iperf.*
-	rm -rf $(IMAGEDIR)/iperf_*
+	rm -rf $(PKGDIR)/iperf_*
 	rm -rf $(IPERF_DIR)
 
 # vim: syntax=make

@@ -132,7 +132,7 @@ $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps_default)
 
 bonniexx_clean:
 	rm -rf $(STATEDIR)/bonniexx.*
-	rm -rf $(IMAGEDIR)/bonniexx_*
+	rm -rf $(PKGDIR)/bonniexx_*
 	rm -rf $(BONNIEXX_DIR)
 
 # vim: syntax=make

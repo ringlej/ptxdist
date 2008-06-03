@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-xf86rush.targetinstall: $(xorg-proto-xf86rush_targetinsta
 
 xorg-proto-xf86rush_clean:
 	rm -rf $(STATEDIR)/xorg-proto-xf86rush.*
-	rm -rf $(IMAGEDIR)/xorg-proto-xf86rush_*
+	rm -rf $(PKGDIR)/xorg-proto-xf86rush_*
 	rm -rf $(XORG_PROTO_XF86RUSH_DIR)
 
 # vim: syntax=make

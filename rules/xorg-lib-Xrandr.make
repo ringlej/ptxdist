@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-Xrandr.targetinstall: $(xorg-lib-Xrandr_targetinstall_deps_
 
 xorg-lib-Xrandr_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xrandr.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xrandr_*
+	rm -rf $(PKGDIR)/xorg-lib-Xrandr_*
 	rm -rf $(XORG_LIB_XRANDR_DIR)
 
 # vim: syntax=make

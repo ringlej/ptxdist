@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-xf86misc.targetinstall: $(xorg-proto-xf86misc_targetinsta
 
 xorg-proto-xf86misc_clean:
 	rm -rf $(STATEDIR)/xorg-proto-xf86misc.*
-	rm -rf $(IMAGEDIR)/xorg-proto-xf86misc_*
+	rm -rf $(PKGDIR)/xorg-proto-xf86misc_*
 	rm -rf $(XORG_PROTO_XF86MISC_DIR)
 
 # vim: syntax=make

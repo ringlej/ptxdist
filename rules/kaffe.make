@@ -199,7 +199,7 @@ endif
 
 kaffe_clean:
 	rm -rf $(STATEDIR)/kaffe.*
-	rm -rf $(IMAGEDIR)/kaffe_*
+	rm -rf $(PKGDIR)/kaffe_*
 	rm -rf $(KAFFE_DIR)
 
 # vim: syntax=make

@@ -129,7 +129,7 @@ $(STATEDIR)/libsigcpp.targetinstall: $(libsigcpp_targetinstall_deps_default)
 
 libsigcpp_clean:
 	rm -rf $(STATEDIR)/libsigcpp.*
-	rm -rf $(IMAGEDIR)/libsigcpp_*
+	rm -rf $(PKGDIR)/libsigcpp_*
 	rm -rf $(LIBSIGCPP_DIR)
 
 # vim: syntax=make

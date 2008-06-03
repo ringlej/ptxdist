@@ -246,7 +246,7 @@ endif
 
 directfb_clean:
 	rm -rf $(STATEDIR)/directfb.*
-	rm -rf $(IMAGEDIR)/directfb_*
+	rm -rf $(PKGDIR)/directfb_*
 	rm -rf $(DIRECTFB_DIR)
 
 # vim: syntax=make

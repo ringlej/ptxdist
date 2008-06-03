@@ -92,7 +92,7 @@ $(STATEDIR)/libdbus-cxx.targetinstall:
 
 libdbus-cxx_clean:
 	rm -rf $(STATEDIR)/libdbus-cxx.*
-	rm -rf $(IMAGEDIR)/libdbus-cxx_*
+	rm -rf $(PKGDIR)/libdbus-cxx_*
 	rm -rf $(LIBDBUS_CXX_DIR)
 
 # vim: syntax=make

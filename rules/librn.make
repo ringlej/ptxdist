@@ -130,7 +130,7 @@ $(STATEDIR)/librn.targetinstall:
 
 librn_clean:
 	rm -rf $(STATEDIR)/librn.*
-	rm -rf $(IMAGEDIR)/librn_*
+	rm -rf $(PKGDIR)/librn_*
 	rm -rf $(LIBRN_DIR)
 
 # vim: syntax=make

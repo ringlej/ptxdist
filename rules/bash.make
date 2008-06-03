@@ -249,7 +249,7 @@ $(STATEDIR)/bash.targetinstall: $(bash_targetinstall_deps_default)
 
 bash_clean:
 	rm -rf $(STATEDIR)/bash.*
-	rm -rf $(IMAGEDIR)/bash_*
+	rm -rf $(PKGDIR)/bash_*
 	rm -fr $(BASH_DIR)
 
 # vim: syntax=make

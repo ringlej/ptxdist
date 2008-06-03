@@ -131,7 +131,7 @@ $(STATEDIR)/libglade.targetinstall:
 
 libglade_clean:
 	rm -rf $(STATEDIR)/libglade.*
-	rm -rf $(IMAGEDIR)/libglade_*
+	rm -rf $(PKGDIR)/libglade_*
 	rm -rf $(LIBGLADE_DIR)
 
 # vim: syntax=make

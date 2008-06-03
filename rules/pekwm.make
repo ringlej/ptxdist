@@ -129,7 +129,7 @@ $(STATEDIR)/pekwm.targetinstall: $(pekwm_targetinstall_deps_default)
 
 pekwm_clean:
 	rm -rf $(STATEDIR)/pekwm.*
-	rm -rf $(IMAGEDIR)/pekwm_*
+	rm -rf $(PKGDIR)/pekwm_*
 	rm -rf $(PEKWM_DIR)
 
 # vim: syntax=make

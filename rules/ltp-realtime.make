@@ -110,7 +110,7 @@ $(STATEDIR)/ltp-realtime.targetinstall:
 
 ltp-realtime_clean:
 	rm -rf $(STATEDIR)/ltp-realtime.*
-	rm -rf $(IMAGEDIR)/ltp-realtime_*
+	rm -rf $(PKGDIR)/ltp-realtime_*
 	rm -rf $(LTP_REALTIME_DIR)
 
 # vim: syntax=make

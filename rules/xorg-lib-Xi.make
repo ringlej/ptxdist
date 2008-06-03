@@ -138,7 +138,7 @@ $(STATEDIR)/xorg-lib-Xi.targetinstall: $(xorg-lib-Xi_targetinstall_deps_default)
 
 xorg-lib-Xi_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xi.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xi_*
+	rm -rf $(PKGDIR)/xorg-lib-Xi_*
 	rm -rf $(XORG_LIB_XI_DIR)
 
 # vim: syntax=make

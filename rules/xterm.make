@@ -128,7 +128,7 @@ $(STATEDIR)/xterm.targetinstall: $(xterm_targetinstall_deps_default)
 
 xterm_clean:
 	rm -rf $(STATEDIR)/xterm.*
-	rm -rf $(IMAGEDIR)/xterm_*
+	rm -rf $(PKGDIR)/xterm_*
 	rm -rf $(XTERM_DIR)
 
 # vim: syntax=make

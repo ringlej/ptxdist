@@ -155,7 +155,7 @@ endif
 
 libnetpbm_clean:
 	rm -rf $(STATEDIR)/libnetpbm.*
-	rm -rf $(IMAGEDIR)/libnetpbm_*
+	rm -rf $(PKGDIR)/libnetpbm_*
 	rm -rf $(LIBNETPBM_DIR)
 
 # vim: syntax=make

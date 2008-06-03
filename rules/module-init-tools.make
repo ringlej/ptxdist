@@ -144,7 +144,7 @@ endif
 
 module-init-tools_clean:
 	rm -rf $(STATEDIR)/module-init-tools.*
-	rm -rf $(IMAGEDIR)/module-init-tools_*
+	rm -rf $(PKGDIR)/module-init-tools_*
 	rm -rf $(MODULE_INIT_TOOLS_DIR)
 
 # vim: syntax=make

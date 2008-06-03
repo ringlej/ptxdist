@@ -131,7 +131,7 @@ $(STATEDIR)/cyclictest.targetinstall: $(cyclictest_targetinstall_deps_default)
 
 cyclictest_clean:
 	rm -rf $(STATEDIR)/cyclictest.*
-	rm -rf $(IMAGEDIR)/cyclictest_*
+	rm -rf $(PKGDIR)/cyclictest_*
 	rm -rf $(CYCLICTEST_DIR)
 
 # vim: syntax=make

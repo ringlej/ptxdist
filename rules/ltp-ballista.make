@@ -110,7 +110,7 @@ $(STATEDIR)/ltp-ballista.targetinstall:
 
 ltp-ballista_clean:
 	rm -rf $(STATEDIR)/ltp-ballista.*
-	rm -rf $(IMAGEDIR)/ltp-ballista_*
+	rm -rf $(PKGDIR)/ltp-ballista_*
 	rm -rf $(LTP_BALLISTA_DIR)
 
 # vim: syntax=make

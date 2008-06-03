@@ -301,7 +301,7 @@ endif
 
 xorg-lib-X11_clean:
 	rm -rf $(STATEDIR)/xorg-lib-X11.*
-	rm -rf $(IMAGEDIR)/xorg-lib-X11_*
+	rm -rf $(PKGDIR)/xorg-lib-X11_*
 	rm -rf $(XORG_LIB_X11_DIR)
 
 # vim: syntax=make

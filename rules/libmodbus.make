@@ -131,7 +131,7 @@ $(STATEDIR)/libmodbus.targetinstall: $(libmodbus_targetinstall_deps_default)
 
 libmodbus_clean:
 	rm -rf $(STATEDIR)/libmodbus.*
-	rm -rf $(IMAGEDIR)/libmodbus_*
+	rm -rf $(PKGDIR)/libmodbus_*
 	rm -rf $(LIBMODBUS_DIR)
 
 # vim: syntax=make

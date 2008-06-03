@@ -148,7 +148,7 @@ endif
 
 dhcp_clean:
 	rm -rf $(STATEDIR)/dhcp.*
-	rm -rf $(IMAGEDIR)/dhcp_*
+	rm -rf $(PKGDIR)/dhcp_*
 	rm -rf $(DHCP_DIR)
 
 # vim: syntax=make

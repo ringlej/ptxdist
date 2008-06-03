@@ -253,7 +253,7 @@ endif
 
 kernel_clean:
 	rm -rf $(STATEDIR)/kernel.*
-	rm -rf $(IMAGEDIR)/kernel_*
+	rm -rf $(PKGDIR)/kernel_*
 	rm -rf $(KERNEL_DIR)
 
 # ----------------------------------------------------------------------------

@@ -138,7 +138,7 @@ $(STATEDIR)/xorg-lib-Xxf86misc.targetinstall: $(xorg-lib-Xxf86misc_targetinstall
 
 xorg-lib-Xxf86misc_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xxf86misc.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xxf86misc_*
+	rm -rf $(PKGDIR)/xorg-lib-Xxf86misc_*
 	rm -rf $(XORG_LIB_XXF86MISC_DIR)
 
 # vim: syntax=make

@@ -125,7 +125,7 @@ $(STATEDIR)/ltp_base.targetinstall: $(ltp_base_targetinstall_deps_default)
 
 ltp_base_clean:
 	rm -rf $(STATEDIR)/ltp_base.*
-	rm -rf $(IMAGEDIR)/ltp_base_*
+	rm -rf $(PKGDIR)/ltp_base_*
 	rm -rf $(LTP_BASE_DIR)
 
 # vim: syntax=make

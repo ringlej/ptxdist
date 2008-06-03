@@ -97,7 +97,7 @@ $(STATEDIR)/wine.targetinstall:
 
 wine_clean:
 	rm -rf $(STATEDIR)/wine.*
-	rm -rf $(IMAGEDIR)/wine_*
+	rm -rf $(PKGDIR)/wine_*
 	rm -rf $(WINE_DIR)
 
 # vim: syntax=make

@@ -185,7 +185,7 @@ $(STATEDIR)/lite.targetinstall: $(lite_targetinstall_deps_default)
 
 lite_clean:
 	rm -rf $(STATEDIR)/lite.*
-	rm -rf $(IMAGEDIR)/lite_*
+	rm -rf $(PKGDIR)/lite_*
 	rm -rf $(LITE_DIR)
 
 # vim: syntax=make

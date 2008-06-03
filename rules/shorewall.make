@@ -120,7 +120,7 @@ $(STATEDIR)/shorewall.targetinstall: $(shorewall_targetinstall_deps_default)
 
 shorewall_clean:
 	rm -rf $(STATEDIR)/shorewall.*
-	rm -rf $(IMAGEDIR)/shorewall_*
+	rm -rf $(PKGDIR)/shorewall_*
 	rm -rf $(SHOREWALL_DIR)
 
 # vim: syntax=make

@@ -85,6 +85,6 @@ $(STATEDIR)/ldd.targetinstall:
 
 ldd_clean:
 	rm -rf $(STATEDIR)/ldd.*
-	rm -rf $(IMAGEDIR)/ldd_*
+	rm -rf $(PKGDIR)/ldd_*
 
 # vim: syntax=make

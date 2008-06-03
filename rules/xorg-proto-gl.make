@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-gl.targetinstall: $(xorg-proto-gl_targetinstall_deps_defa
 
 xorg-proto-gl_clean:
 	rm -rf $(STATEDIR)/xorg-proto-gl.*
-	rm -rf $(IMAGEDIR)/xorg-proto-gl_*
+	rm -rf $(PKGDIR)/xorg-proto-gl_*
 	rm -rf $(XORG_PROTO_GL_DIR)
 
 # vim: syntax=make

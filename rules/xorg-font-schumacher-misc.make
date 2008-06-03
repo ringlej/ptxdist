@@ -148,7 +148,7 @@ endif
 
 xorg-font-schumacher-misc_clean:
 	rm -rf $(STATEDIR)/xorg-font-schumacher-misc.*
-	rm -rf $(IMAGEDIR)/xorg-font-schumacher-misc_*
+	rm -rf $(PKGDIR)/xorg-font-schumacher-misc_*
 	rm -rf $(XORG_FONT_SCHUMACHER_MISC_DIR)
 
 # vim: syntax=make

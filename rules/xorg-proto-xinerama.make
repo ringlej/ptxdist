@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-xinerama.targetinstall: $(xorg-proto-xinerama_targetinsta
 
 xorg-proto-xinerama_clean:
 	rm -rf $(STATEDIR)/xorg-proto-xinerama.*
-	rm -rf $(IMAGEDIR)/xorg-proto-xinerama_*
+	rm -rf $(PKGDIR)/xorg-proto-xinerama_*
 	rm -rf $(XORG_PROTO_XINERAMA_DIR)
 
 # vim: syntax=make

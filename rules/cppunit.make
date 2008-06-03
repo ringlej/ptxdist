@@ -132,7 +132,7 @@ $(STATEDIR)/cppunit.targetinstall: $(cppunit_targetinstall_deps_default)
 
 cppunit_clean:
 	rm -rf $(STATEDIR)/cppunit.*
-	rm -rf $(IMAGEDIR)/cppunit_*
+	rm -rf $(PKGDIR)/cppunit_*
 	rm -rf $(CPPUNIT_DIR)
 
 # vim: syntax=make

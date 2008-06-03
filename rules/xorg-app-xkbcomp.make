@@ -130,7 +130,7 @@ $(STATEDIR)/xorg-app-xkbcomp.targetinstall: $(xorg-app-xkbcomp_targetinstall_dep
 
 xorg-app-xkbcomp_clean:
 	rm -rf $(STATEDIR)/xorg-app-xkbcomp.*
-	rm -rf $(IMAGEDIR)/xorg-app-xkbcomp_*
+	rm -rf $(PKGDIR)/xorg-app-xkbcomp_*
 	rm -rf $(XORG_APP_XKBCOMP_DIR)
 
 # vim: syntax=make

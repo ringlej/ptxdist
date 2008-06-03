@@ -120,7 +120,7 @@ endif
 
 pnputils_clean:
 	rm -rf $(STATEDIR)/pnputils.*
-	rm -rf $(IMAGEDIR)/pnputils_*
+	rm -rf $(PKGDIR)/pnputils_*
 	rm -rf $(PNPUTILS_DIR)
 
 # vim: syntax=make

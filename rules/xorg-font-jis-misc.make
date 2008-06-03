@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-jis-misc.targetinstall: $(xorg-font-jis-misc_targetinstall
 
 xorg-font-jis-misc_clean:
 	rm -rf $(STATEDIR)/xorg-font-jis-misc.*
-	rm -rf $(IMAGEDIR)/xorg-font-jis-misc_*
+	rm -rf $(PKGDIR)/xorg-font-jis-misc_*
 	rm -rf $(XORG_FONT_JIS_MISC_DIR)
 
 # vim: syntax=make

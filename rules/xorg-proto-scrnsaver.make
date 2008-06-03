@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-scrnsaver.targetinstall: $(xorg-proto-scrnsaver_targetins
 
 xorg-proto-scrnsaver_clean:
 	rm -rf $(STATEDIR)/xorg-proto-scrnsaver.*
-	rm -rf $(IMAGEDIR)/xorg-proto-scrnsaver_*
+	rm -rf $(PKGDIR)/xorg-proto-scrnsaver_*
 	rm -rf $(XORG_PROTO_SCRNSAVER_DIR)
 
 # vim: syntax=make

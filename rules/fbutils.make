@@ -129,7 +129,7 @@ endif
 
 fbutils_clean:
 	rm -rf $(STATEDIR)/fbutils.*
-	rm -rf $(IMAGEDIR)/fbutils_*
+	rm -rf $(PKGDIR)/fbutils_*
 	rm -rf $(FBUTILS_DIR)
 
 # vim: syntax=make

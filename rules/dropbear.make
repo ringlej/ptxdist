@@ -338,7 +338,7 @@ endif
 
 dropbear_clean:
 	rm -rf $(STATEDIR)/dropbear.*
-	rm -rf $(IMAGEDIR)/dropbear_*
+	rm -rf $(PKGDIR)/dropbear_*
 	rm -rf $(DROPBEAR_DIR)
 
 # vim: syntax=make

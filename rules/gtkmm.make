@@ -163,7 +163,7 @@ $(STATEDIR)/gtkmm.targetinstall: $(gtkmm_targetinstall_deps_default)
 
 gtkmm_clean:
 	rm -rf $(STATEDIR)/gtkmm.*
-	rm -rf $(IMAGEDIR)/gtkmm_*
+	rm -rf $(PKGDIR)/gtkmm_*
 	rm -rf $(GTKMM_DIR)
 
 # vim: syntax=make

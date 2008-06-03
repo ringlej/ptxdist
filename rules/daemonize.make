@@ -126,7 +126,7 @@ $(STATEDIR)/daemonize.targetinstall: $(daemonize_targetinstall_deps_default)
 
 daemonize_clean:
 	rm -rf $(STATEDIR)/daemonize.*
-	rm -rf $(IMAGEDIR)/daemonize_*
+	rm -rf $(PKGDIR)/daemonize_*
 	rm -rf $(DAEMONIZE_DIR)
 
 # vim: syntax=make

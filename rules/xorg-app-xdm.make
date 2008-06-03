@@ -141,7 +141,7 @@ $(STATEDIR)/xorg-app-xdm.targetinstall: $(xorg-app-xdm_targetinstall_deps_defaul
 
 xorg-app-xdm_clean:
 	rm -rf $(STATEDIR)/xorg-app-xdm.*
-	rm -rf $(IMAGEDIR)/xorg-app-xdm_*
+	rm -rf $(PKGDIR)/xorg-app-xdm_*
 	rm -rf $(XORG_APP_XDM_DIR)
 
 # vim: syntax=make

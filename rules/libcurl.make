@@ -151,7 +151,7 @@ endif
 
 libcurl_clean:
 	rm -rf $(STATEDIR)/libcurl.*
-	rm -rf $(IMAGEDIR)/libcurl_*
+	rm -rf $(PKGDIR)/libcurl_*
 	rm -rf $(LIBCURL_DIR)
 
 # vim: syntax=make

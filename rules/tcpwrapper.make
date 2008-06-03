@@ -118,7 +118,7 @@ endif
 
 tcpwrapper_clean:
 	rm -rf $(STATEDIR)/tcpwrapper.*
-	rm -rf $(IMAGEDIR)/tcpwrapper_*
+	rm -rf $(PKGDIR)/tcpwrapper_*
 	rm -rf $(TCPWRAPPER_DIR)
 
 # vim: syntax=make

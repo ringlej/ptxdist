@@ -110,7 +110,7 @@ $(STATEDIR)/ltp-dots.targetinstall:
 
 ltp-dots_clean:
 	rm -rf $(STATEDIR)/ltp-dots.*
-	rm -rf $(IMAGEDIR)/ltp-dots_*
+	rm -rf $(PKGDIR)/ltp-dots_*
 	rm -rf $(LTP_DOTS_DIR)
 
 # vim: syntax=make

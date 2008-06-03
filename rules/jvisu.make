@@ -128,7 +128,7 @@ endif
 
 jvisu_clean:
 	rm -rf $(STATEDIR)/jvisu.*
-	rm -rf $(IMAGEDIR)/jvisu_*
+	rm -rf $(PKGDIR)/jvisu_*
 	rm -rf $(JVISU_DIR)
 
 # vim: syntax=make

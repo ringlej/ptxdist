@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-FS.targetinstall: $(xorg-lib-FS_targetinstall_deps_default)
 
 xorg-lib-FS_clean:
 	rm -rf $(STATEDIR)/xorg-lib-FS.*
-	rm -rf $(IMAGEDIR)/xorg-lib-FS_*
+	rm -rf $(PKGDIR)/xorg-lib-FS_*
 	rm -rf $(XORG_LIB_FS_DIR)
 
 # vim: syntax=make

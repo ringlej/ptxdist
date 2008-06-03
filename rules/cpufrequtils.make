@@ -126,7 +126,7 @@ endif
 
 cpufrequtils_clean:
 	rm -rf $(STATEDIR)/cpufrequtils.*
-	rm -rf $(IMAGEDIR)/cpufrequtils_*
+	rm -rf $(PKGDIR)/cpufrequtils_*
 	rm -rf $(CPUFREQUTILS_DIR)
 
 # vim: syntax=make

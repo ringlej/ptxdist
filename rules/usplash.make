@@ -136,7 +136,7 @@ $(STATEDIR)/usplash.targetinstall:
 
 usplash_clean:
 	rm -rf $(STATEDIR)/usplash.*
-	rm -rf $(IMAGEDIR)/usplash_*
+	rm -rf $(PKGDIR)/usplash_*
 	rm -rf $(USPLASH_DIR)
 
 # vim: syntax=make

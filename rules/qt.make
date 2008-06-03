@@ -131,7 +131,7 @@ $(STATEDIR)/qt.targetinstall: $(qt_targetinstall_deps_default)
 
 qt_clean:
 	rm -rf $(STATEDIR)/qt.*
-	rm -rf $(IMAGEDIR)/qt.*
+	rm -rf $(PKGDIR)/qt.*
 	rm -rf $(QT_DIR)
 
 # vim: syntax=make

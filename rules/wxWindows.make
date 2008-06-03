@@ -130,7 +130,7 @@ $(STATEDIR)/wxWindows.targetinstall: $(wxWindows_targetinstall_deps_default)
 
 wxWindows_clean:
 	rm -rf $(STATEDIR)/wxWindows.*
-	rm -rf $(IMAGEDIR)/wxWindows_*
+	rm -rf $(PKGDIR)/wxWindows_*
 	rm -rf $(WXWINDOWS_DIR)
 
 # vim: syntax=make

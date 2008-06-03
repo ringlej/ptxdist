@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-isas-misc.targetinstall: $(xorg-font-isas-misc_targetinsta
 
 xorg-font-isas-misc_clean:
 	rm -rf $(STATEDIR)/xorg-font-isas-misc.*
-	rm -rf $(IMAGEDIR)/xorg-font-isas-misc_*
+	rm -rf $(PKGDIR)/xorg-font-isas-misc_*
 	rm -rf $(XORG_FONT_ISAS_MISC_DIR)
 
 # vim: syntax=make

@@ -152,7 +152,7 @@ $(STATEDIR)/xorg-app-xinit.targetinstall: $(xorg-app-xinit_targetinstall_deps_de
 
 xorg-app-xinit_clean:
 	rm -rf $(STATEDIR)/xorg-app-xinit.*
-	rm -rf $(IMAGEDIR)/xorg-app-xinit_*
+	rm -rf $(PKGDIR)/xorg-app-xinit_*
 	rm -rf $(XORG_APP_XINIT_DIR)
 
 # vim: syntax=make

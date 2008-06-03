@@ -127,7 +127,7 @@ $(STATEDIR)/pciutils.targetinstall: $(pciutils_targetinstall_deps_default)
 
 pciutils_clean:
 	rm -rf $(STATEDIR)/pciutils.*
-	rm -rf $(IMAGEDIR)/pciutils_*
+	rm -rf $(PKGDIR)/pciutils_*
 	rm -rf $(PCIUTILS_DIR)
 
 # vim: syntax=make

@@ -150,7 +150,7 @@ $(STATEDIR)/gnupg.targetinstall: $(gnupg_targetinstall_deps_default)
 
 gnupg_clean:
 	rm -rf $(STATEDIR)/gnupg.*
-	rm -rf $(IMAGEDIR)/gnupg_*
+	rm -rf $(PKGDIR)/gnupg_*
 	rm -rf $(GNUPG_DIR)
 
 # vim: syntax=make

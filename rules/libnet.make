@@ -118,7 +118,7 @@ $(STATEDIR)/libnet.targetinstall: $(libnet_targetinstall_deps_default)
 
 libnet_clean:
 	rm -rf $(STATEDIR)/libnet.*
-	rm -rf $(IMAGEDIR)/libnet_*
+	rm -rf $(PKGDIR)/libnet_*
 	rm -rf $(LIBNET_DIR)
 
 # vim: syntax=make

@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-Xdmcp.targetinstall: $(xorg-lib-Xdmcp_targetinstall_deps_de
 
 xorg-lib-Xdmcp_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xdmcp.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xdmcp_*
+	rm -rf $(PKGDIR)/xorg-lib-Xdmcp_*
 	rm -rf $(XORG_LIB_XDMCP_DIR)
 
 # vim: syntax=make

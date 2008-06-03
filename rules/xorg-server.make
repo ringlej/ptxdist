@@ -607,7 +607,7 @@ endif # PTXCONF_XORG_SERVER_XORG
 
 xorg-server_clean:
 	rm -rf $(STATEDIR)/xorg-server.*
-	rm -rf $(IMAGEDIR)/xorg-server_*
+	rm -rf $(PKGDIR)/xorg-server_*
 	rm -rf $(XORG_SERVER_DIR)
 
 # vim: syntax=make

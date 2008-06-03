@@ -159,7 +159,7 @@ endif
 
 util-linux_clean:
 	rm -rf $(STATEDIR)/util-linux.*
-	rm -rf $(IMAGEDIR)/util-linux_*
+	rm -rf $(PKGDIR)/util-linux_*
 	rm -rf $(UTIL_LINUX_DIR)
 
 # vim: syntax=make

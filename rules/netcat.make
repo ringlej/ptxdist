@@ -140,7 +140,7 @@ $(STATEDIR)/netcat.targetinstall: $(netcat_targetinstall_deps_default)
 
 netcat_clean:
 	rm -rf $(STATEDIR)/netcat.*
-	rm -rf $(IMAGEDIR)/netcat_*
+	rm -rf $(PKGDIR)/netcat_*
 	rm -rf $(NETCAT_DIR)
 
 # vim: syntax=make

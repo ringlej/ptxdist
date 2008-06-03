@@ -96,7 +96,7 @@ $(STATEDIR)/cross-module-init-tools.install: $(cross-module-init-tools_install_d
 
 cross-module-init-tools_clean:
 	rm -rf $(STATEDIR)/cross-module-init-tools.*
-	rm -rf $(IMAGEDIR)/cross-module-init-tools_*
+	rm -rf $(PKGDIR)/cross-module-init-tools_*
 	rm -rf $(CROSS_MODULE_INIT_TOOLS_DIR)
 
 # vim: syntax=make

@@ -131,7 +131,7 @@ $(STATEDIR)/libmqueue.targetinstall: $(libmqueue_targetinstall_deps_default)
 
 libmqueue_clean:
 	rm -rf $(STATEDIR)/libmqueue.*
-	rm -rf $(IMAGEDIR)/libmqueue_*
+	rm -rf $(PKGDIR)/libmqueue_*
 	rm -rf $(LIBMQUEUE_DIR)
 
 # vim: syntax=make

@@ -361,7 +361,7 @@ endif
 
 php5_clean:
 	rm -rf $(STATEDIR)/php5.*
-	rm -rf $(IMAGEDIR)/php5_*
+	rm -rf $(PKGDIR)/php5_*
 	rm -rf $(PHP5_DIR)
 
 # vim: syntax=make

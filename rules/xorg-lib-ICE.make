@@ -139,7 +139,7 @@ $(STATEDIR)/xorg-lib-ICE.targetinstall: $(xorg-lib-ICE_targetinstall_deps_defaul
 
 xorg-lib-ICE_clean:
 	rm -rf $(STATEDIR)/xorg-lib-ICE.*
-	rm -rf $(IMAGEDIR)/xorg-lib-ICE_*
+	rm -rf $(PKGDIR)/xorg-lib-ICE_*
 	rm -rf $(XORG_LIB_ICE_DIR)
 
 # vim: syntax=make

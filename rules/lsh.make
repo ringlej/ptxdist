@@ -103,7 +103,7 @@ endif
 
 lsh_clean:
 	rm -rf $(STATEDIR)/lsh.*
-	rm -rf $(IMAGEDIR)/lsh_*
+	rm -rf $(PKGDIR)/lsh_*
 	rm -rf $(LSH_DIR)
 
 # vim: syntax=make

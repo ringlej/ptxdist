@@ -142,7 +142,7 @@ endif
 
 libpv_clean:
 	rm -rf $(STATEDIR)/libpv.*
-	rm -rf $(IMAGEDIR)/libpv_*
+	rm -rf $(PKGDIR)/libpv_*
 	rm -rf $(LIBPV_DIR)
 
 # vim: syntax=make

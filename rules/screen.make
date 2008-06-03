@@ -130,7 +130,7 @@ $(STATEDIR)/screen.targetinstall: $(screen_targetinstall_deps_default)
 
 screen_clean:
 	rm -rf $(STATEDIR)/screen.*
-	rm -rf $(IMAGEDIR)/screen_*
+	rm -rf $(PKGDIR)/screen_*
 	rm -rf $(SCREEN_DIR)
 
 # vim: syntax=make

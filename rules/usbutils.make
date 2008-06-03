@@ -127,7 +127,7 @@ endif
 
 usbutils_clean:
 	rm -rf $(STATEDIR)/usbutils.*
-	rm -rf $(IMAGEDIR)/usbutils_*
+	rm -rf $(PKGDIR)/usbutils_*
 	rm -rf $(USBUTILS_DIR)
 
 # vim: syntax=make

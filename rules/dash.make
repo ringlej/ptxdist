@@ -75,7 +75,7 @@ $(STATEDIR)/dash.targetinstall:
 
 dash_clean:
 	rm -rf $(STATEDIR)/dash.*
-	rm -rf $(IMAGEDIR)/dash_*
+	rm -rf $(PKGDIR)/dash_*
 	rm -rf $(DASH_DIR)
 
 # vim: syntax=make

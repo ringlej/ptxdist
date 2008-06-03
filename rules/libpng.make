@@ -121,7 +121,7 @@ $(STATEDIR)/libpng.targetinstall:
 
 libpng_clean:
 	rm -rf $(STATEDIR)/libpng.*
-	rm -rf $(IMAGEDIR)/libpng_*
+	rm -rf $(PKGDIR)/libpng_*
 	rm -rf $(LIBPNG_DIR)
 
 # vim: syntax=make

@@ -132,7 +132,7 @@ endif
 
 sysfsutils_clean:
 	rm -rf $(STATEDIR)/sysfsutils.*
-	rm -rf $(IMAGEDIR)/sysfsutils_*
+	rm -rf $(PKGDIR)/sysfsutils_*
 	rm -rf $(SYSFSUTILS_DIR)
 
 # vim: syntax=make

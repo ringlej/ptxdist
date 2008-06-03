@@ -261,7 +261,7 @@ endif
 
 mico_clean:
 	rm -rf $(STATEDIR)/mico.*
-	rm -rf $(IMAGEDIR)/mico_*
+	rm -rf $(PKGDIR)/mico_*
 	rm -rf $(MICO_DIR)
 
 # vim: syntax=make

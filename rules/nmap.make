@@ -109,7 +109,7 @@ endif
 
 nmap_clean:
 	rm -rf $(STATEDIR)/nmap.*
-	rm -rf $(IMAGEDIR)/nmap_*
+	rm -rf $(PKGDIR)/nmap_*
 	rm -rf $(NMAP_DIR)
 
 # vim: syntax=make

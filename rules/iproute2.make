@@ -183,7 +183,7 @@ $(STATEDIR)/iproute2.targetinstall: $(iproute2_targetinstall_deps_default)
 
 iproute2_clean:
 	rm -rf $(STATEDIR)/iproute2.*
-	rm -rf $(IMAGEDIR)/iproute2_*
+	rm -rf $(PKGDIR)/iproute2_*
 	rm -rf $(IPROUTE2_DIR)
 
 # vim: syntax=make

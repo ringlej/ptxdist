@@ -123,7 +123,7 @@ $(STATEDIR)/fcgi.targetinstall: $(fcgi_targetinstall_deps_default)
 
 fcgi_clean:
 	rm -rf $(STATEDIR)/fcgi.*
-	rm -rf $(IMAGEDIR)/fcgi_*
+	rm -rf $(PKGDIR)/fcgi_*
 	rm -rf $(FCGI_DIR)
 
 # vim: syntax=make

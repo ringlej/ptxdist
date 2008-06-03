@@ -153,7 +153,7 @@ endif
 
 madwifi_clean:
 	rm -rf $(STATEDIR)/madwifi.*
-	rm -rf $(IMAGEDIR)/madwifi_*
+	rm -rf $(PKGDIR)/madwifi_*
 	rm -rf $(MADWIFI_DIR)
 
 # vim: syntax=make

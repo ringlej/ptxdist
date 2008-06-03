@@ -151,7 +151,7 @@ $(STATEDIR)/xorg-driver-video-i810.targetinstall: $(xorg-driver-video-i810_targe
 
 xorg-driver-video-i810_clean:
 	rm -rf $(STATEDIR)/xorg-driver-video-i810.*
-	rm -rf $(IMAGEDIR)/xorg-driver-video-i810_*
+	rm -rf $(PKGDIR)/xorg-driver-video-i810_*
 	rm -rf $(XORG_DRIVER_VIDEO_I810_DIR)
 
 # vim: syntax=make

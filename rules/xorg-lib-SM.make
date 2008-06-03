@@ -139,7 +139,7 @@ $(STATEDIR)/xorg-lib-SM.targetinstall: $(xorg-lib-SM_targetinstall_deps_default)
 
 xorg-lib-SM_clean:
 	rm -rf $(STATEDIR)/xorg-lib-SM.*
-	rm -rf $(IMAGEDIR)/xorg-lib-SM_*
+	rm -rf $(PKGDIR)/xorg-lib-SM_*
 	rm -rf $(XORG_LIB_SM_DIR)
 
 # vim: syntax=make

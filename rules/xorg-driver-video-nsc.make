@@ -128,7 +128,7 @@ $(STATEDIR)/xorg-driver-video-nsc.targetinstall: $(xorg-driver-video-nsc_targeti
 
 xorg-driver-video-nsc_clean:
 	rm -rf $(STATEDIR)/xorg-driver-video-nsc.*
-	rm -rf $(IMAGEDIR)/xorg-driver-video-nsc_*
+	rm -rf $(PKGDIR)/xorg-driver-video-nsc_*
 	rm -rf $(XORG_DRIVER_VIDEO_NSC_DIR)
 
 # vim: syntax=make

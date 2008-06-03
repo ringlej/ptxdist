@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-windowswm.targetinstall: $(xorg-proto-windowswm_targetins
 
 xorg-proto-windowswm_clean:
 	rm -rf $(STATEDIR)/xorg-proto-windowswm.*
-	rm -rf $(IMAGEDIR)/xorg-proto-windowswm_*
+	rm -rf $(PKGDIR)/xorg-proto-windowswm_*
 	rm -rf $(XORG_PROTO_WINDOWSWM_DIR)
 
 # vim: syntax=make

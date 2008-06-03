@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-xfree86-type1.targetinstall: $(xorg-font-xfree86-type1_tar
 
 xorg-font-xfree86-type1_clean:
 	rm -rf $(STATEDIR)/xorg-font-xfree86-type1.*
-	rm -rf $(IMAGEDIR)/xorg-font-xfree86-type1_*
+	rm -rf $(PKGDIR)/xorg-font-xfree86-type1_*
 	rm -rf $(XORG_FONT_XFREE86_TYPE1_DIR)
 
 # vim: syntax=make

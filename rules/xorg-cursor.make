@@ -106,7 +106,7 @@ $(STATEDIR)/xorg-cursor.targetinstall: $(xorg-cursor_targetinstall_deps_default)
 
 xorg-cursor_clean:
 	rm -rf $(STATEDIR)/xorg-cursor.*
-	rm -rf $(IMAGEDIR)/xorg-cursor_*
+	rm -rf $(PKGDIR)/xorg-cursor_*
 	rm -rf $(XORG_CURSOR_DIR)
 
 # vim: syntax=make

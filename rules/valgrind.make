@@ -87,7 +87,7 @@ $(STATEDIR)/valgrind.targetinstall:
 
 valgrind_clean:
 	rm -rf $(STATEDIR)/valgrind.*
-	rm -rf $(IMAGEDIR)/valgrind_*
+	rm -rf $(PKGDIR)/valgrind_*
 	rm -rf $(VALGRIND_DIR)
 
 # vim: syntax=make

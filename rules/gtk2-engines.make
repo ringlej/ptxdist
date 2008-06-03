@@ -134,7 +134,7 @@ $(STATEDIR)/gtk2-engines.targetinstall: $(gtk2-engines_targetinstall_deps_defaul
 
 gtk2-engines_clean:
 	rm -rf $(STATEDIR)/gtk2-engines.*
-	rm -rf $(IMAGEDIR)/gtk2-engines_*
+	rm -rf $(PKGDIR)/gtk2-engines_*
 	rm -rf $(GTK2-ENGINES_DIR)
 
 # vim: syntax=make

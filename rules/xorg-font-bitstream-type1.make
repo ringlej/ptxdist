@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-font-bitstream-type1.targetinstall: $(xorg-font-bitstream-type1
 
 xorg-font-bitstream-type1_clean:
 	rm -rf $(STATEDIR)/xorg-font-bitstream-type1.*
-	rm -rf $(IMAGEDIR)/xorg-font-bitstream-type1_*
+	rm -rf $(PKGDIR)/xorg-font-bitstream-type1_*
 	rm -rf $(XORG_FONT_BITSTREAM_TYPE1_DIR)
 
 # vim: syntax=make

@@ -236,6 +236,6 @@ endif
 
 ncurses_clean:
 	rm -rf $(STATEDIR)/ncurses.* $(NCURSES_DIR)
-	rm -rf $(IMAGEDIR)/ncurses_*
+	rm -rf $(PKGDIR)/ncurses_*
 
 # vim: syntax=make

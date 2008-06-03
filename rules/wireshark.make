@@ -183,7 +183,7 @@ $(STATEDIR)/wireshark.targetinstall: $(wireshark_targetinstall_deps_default)
 
 wireshark_clean:
 	rm -rf $(STATEDIR)/wireshark.*
-	rm -rf $(IMAGEDIR)/wireshark_*
+	rm -rf $(PKGDIR)/wireshark_*
 	rm -rf $(WIRESHARK_DIR)
 
 # vim: syntax=make

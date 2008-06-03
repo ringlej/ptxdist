@@ -190,7 +190,7 @@ $(STATEDIR)/pango.targetinstall:
 
 pango_clean:
 	rm -rf $(STATEDIR)/pango.*
-	rm -rf $(IMAGEDIR)/pango_*
+	rm -rf $(PKGDIR)/pango_*
 	rm -rf $(PANGO_DIR)
 
 # vim: syntax=make

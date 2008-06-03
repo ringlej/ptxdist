@@ -169,7 +169,7 @@ endif
 
 mtd-utils_clean:
 	rm -rf $(STATEDIR)/mtd-utils.*
-	rm -rf $(IMAGEDIR)/mtd-utils_*
+	rm -rf $(PKGDIR)/mtd-utils_*
 	rm -rf $(MTD_UTILS_DIR)
 
 # vim: syntax=make

@@ -138,7 +138,7 @@ $(STATEDIR)/xorg-lib-Xv.targetinstall: $(xorg-lib-Xv_targetinstall_deps_default)
 
 xorg-lib-Xv_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xv.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xv_*
+	rm -rf $(PKGDIR)/xorg-lib-Xv_*
 	rm -rf $(XORG_LIB_XV_DIR)
 
 # vim: syntax=make

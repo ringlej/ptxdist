@@ -122,7 +122,7 @@ $(STATEDIR)/memtest.targetinstall: $(memtest_targetinstall_deps_default)
 
 memtest_clean:
 	rm -rf $(STATEDIR)/memtest.*
-	rm -rf $(IMAGEDIR)/memtest_*
+	rm -rf $(PKGDIR)/memtest_*
 	rm -rf $(MEMTEST_DIR)
 
 # vim: syntax=make

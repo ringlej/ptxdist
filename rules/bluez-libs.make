@@ -130,7 +130,7 @@ $(STATEDIR)/bluez-libs.targetinstall: $(bluez-libs_targetinstall_deps_default)
 
 bluez-libs_clean:
 	rm -rf $(STATEDIR)/bluez-libs.*
-	rm -rf $(IMAGEDIR)/bluez-libs_*
+	rm -rf $(PKGDIR)/bluez-libs_*
 	rm -rf $(BLUEZ_LIBS_DIR)
 
 # vim: syntax=make

@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-bigreqs.targetinstall: $(xorg-proto-bigreqs_targetinstall
 
 xorg-proto-bigreqs_clean:
 	rm -rf $(STATEDIR)/xorg-proto-bigreqs.*
-	rm -rf $(IMAGEDIR)/xorg-proto-bigreqs_*
+	rm -rf $(PKGDIR)/xorg-proto-bigreqs_*
 	rm -rf $(XORG_PROTO_BIGREQS_DIR)
 
 # vim: syntax=make

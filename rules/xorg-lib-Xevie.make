@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-Xevie.targetinstall: $(xorg-lib-Xevie_targetinstall_deps_de
 
 xorg-lib-Xevie_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xevie.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xevie_*
+	rm -rf $(PKGDIR)/xorg-lib-Xevie_*
 	rm -rf $(XORG_LIB_XEVIE_DIR)
 
 # vim: syntax=make

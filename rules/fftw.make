@@ -129,7 +129,7 @@ $(STATEDIR)/fftw.targetinstall: $(fftw_targetinstall_deps_default)
 
 fftw_clean:
 	rm -rf $(STATEDIR)/fftw.*
-	rm -rf $(IMAGEDIR)/fftw_*
+	rm -rf $(PKGDIR)/fftw_*
 	rm -rf $(FFTW_DIR)
 
 # vim: syntax=make

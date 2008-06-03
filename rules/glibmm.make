@@ -133,7 +133,7 @@ $(STATEDIR)/glibmm.targetinstall: $(glibmm_targetinstall_deps_default)
 
 glibmm_clean:
 	rm -rf $(STATEDIR)/glibmm.*
-	rm -rf $(IMAGEDIR)/glibmm_*
+	rm -rf $(PKGDIR)/glibmm_*
 	rm -rf $(GLIBMM_DIR)
 
 # vim: syntax=make

@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-driver-input-evdev.targetinstall: $(xorg-driver-input-evdev_tar
 
 xorg-driver-input-evdev_clean:
 	rm -rf $(STATEDIR)/xorg-driver-input-evdev.*
-	rm -rf $(IMAGEDIR)/xorg-driver-input-evdev_*
+	rm -rf $(PKGDIR)/xorg-driver-input-evdev_*
 	rm -rf $(XORG_DRIVER_INPUT_EVDEV_DIR)
 
 # vim: syntax=make

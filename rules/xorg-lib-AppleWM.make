@@ -138,7 +138,7 @@ $(STATEDIR)/xorg-lib-AppleWM.targetinstall: $(xorg-lib-AppleWM_targetinstall_dep
 
 xorg-lib-AppleWM_clean:
 	rm -rf $(STATEDIR)/xorg-lib-AppleWM.*
-	rm -rf $(IMAGEDIR)/xorg-lib-AppleWM_*
+	rm -rf $(PKGDIR)/xorg-lib-AppleWM_*
 	rm -rf $(XORG_LIB_APPLEWM_DIR)
 
 # vim: syntax=make

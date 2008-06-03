@@ -169,7 +169,7 @@ endif
 
 dnsmasq_clean:
 	rm -rf $(STATEDIR)/dnsmasq.*
-	rm -rf $(IMAGEDIR)/dnsmasq_*
+	rm -rf $(PKGDIR)/dnsmasq_*
 	rm -rf $(DNSMASQ_DIR)
 
 # vim: syntax=make

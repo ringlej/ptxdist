@@ -127,7 +127,7 @@ $(STATEDIR)/hexedit.targetinstall: $(hexedit_targetinstall_deps_default)
 
 hexedit_clean:
 	rm -rf $(STATEDIR)/hexedit.*
-	rm -rf $(IMAGEDIR)/hexedit_*
+	rm -rf $(PKGDIR)/hexedit_*
 	rm -rf $(HEXEDIT_DIR)
 
 # vim: syntax=make

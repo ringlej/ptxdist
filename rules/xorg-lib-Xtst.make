@@ -136,7 +136,7 @@ $(STATEDIR)/xorg-lib-Xtst.targetinstall: $(xorg-lib-Xtst_targetinstall_deps_defa
 
 xorg-lib-Xtst_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xtst.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xtst_*
+	rm -rf $(PKGDIR)/xorg-lib-Xtst_*
 	rm -rf $(XORG_LIB_XTST_DIR)
 
 # vim: syntax=make

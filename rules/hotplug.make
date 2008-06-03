@@ -160,7 +160,7 @@ endif
 
 hotplug_clean:
 	rm -rf $(STATEDIR)/hotplug.*
-	rm -rf $(IMAGEDIR)/hotplug_*
+	rm -rf $(PKGDIR)/hotplug_*
 	rm -rf $(HOTPLUG_DIR)
 
 # vim: syntax=make

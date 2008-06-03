@@ -406,7 +406,7 @@ endif
 
 ntp_clean:
 	rm -rf $(STATEDIR)/ntp.*
-	rm -rf $(IMAGEDIR)/ntp_*
+	rm -rf $(PKGDIR)/ntp_*
 	rm -rf $(NTP_DIR)
 
 # vim: syntax=make

@@ -125,7 +125,7 @@ $(STATEDIR)/memstat.targetinstall: $(memstat_targetinstall_deps_default)
 
 memstat_clean:
 	rm -rf $(STATEDIR)/memstat.*
-	rm -rf $(IMAGEDIR)/memstat_*
+	rm -rf $(PKGDIR)/memstat_*
 	rm -rf $(MEMSTAT_DIR)
 
 # vim: syntax=make

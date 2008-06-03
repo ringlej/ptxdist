@@ -130,7 +130,7 @@ $(STATEDIR)/xorg-app-setxkbmap.targetinstall: $(xorg-app-setxkbmap_targetinstall
 
 xorg-app-setxkbmap_clean:
 	rm -rf $(STATEDIR)/xorg-app-setxkbmap.*
-	rm -rf $(IMAGEDIR)/xorg-app-setxkbmap_*
+	rm -rf $(PKGDIR)/xorg-app-setxkbmap_*
 	rm -rf $(XORG_APP_SETXKBMAP_DIR)
 
 # vim: syntax=make

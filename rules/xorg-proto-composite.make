@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-composite.targetinstall: $(xorg-proto-composite_targetins
 
 xorg-proto-composite_clean:
 	rm -rf $(STATEDIR)/xorg-proto-composite.*
-	rm -rf $(IMAGEDIR)/xorg-proto-composite_*
+	rm -rf $(PKGDIR)/xorg-proto-composite_*
 	rm -rf $(XORG_PROTO_COMPOSITE_DIR)
 
 # vim: syntax=make

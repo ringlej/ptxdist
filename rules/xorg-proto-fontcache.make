@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-fontcache.targetinstall: $(xorg-proto-fontcache_targetins
 
 xorg-proto-fontcache_clean:
 	rm -rf $(STATEDIR)/xorg-proto-fontcache.*
-	rm -rf $(IMAGEDIR)/xorg-proto-fontcache_*
+	rm -rf $(PKGDIR)/xorg-proto-fontcache_*
 	rm -rf $(XORG_PROTO_FONTCACHE_DIR)
 
 # vim: syntax=make

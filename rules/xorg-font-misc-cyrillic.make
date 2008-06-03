@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-misc-cyrillic.targetinstall: $(xorg-font-misc-cyrillic_tar
 
 xorg-font-misc-cyrillic_clean:
 	rm -rf $(STATEDIR)/xorg-font-misc-cyrillic.*
-	rm -rf $(IMAGEDIR)/xorg-font-misc-cyrillic_*
+	rm -rf $(PKGDIR)/xorg-font-misc-cyrillic_*
 	rm -rf $(XORG_FONT_MISC_CYRILLIC_DIR)
 
 # vim: syntax=make

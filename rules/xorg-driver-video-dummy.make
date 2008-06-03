@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-driver-video-dummy.targetinstall: $(xorg-driver-video-dummy_tar
 
 xorg-driver-video-dummy_clean:
 	rm -rf $(STATEDIR)/xorg-driver-video-dummy.*
-	rm -rf $(IMAGEDIR)/xorg-driver-video-dummy_*
+	rm -rf $(PKGDIR)/xorg-driver-video-dummy_*
 	rm -rf $(XORG_DRIVER_VIDEO_DUMMY_DIR)
 
 # vim: syntax=make

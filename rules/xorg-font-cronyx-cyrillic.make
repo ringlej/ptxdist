@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-cronyx-cyrillic.targetinstall: $(xorg-font-cronyx-cyrillic
 
 xorg-font-cronyx-cyrillic_clean:
 	rm -rf $(STATEDIR)/xorg-font-cronyx-cyrillic.*
-	rm -rf $(IMAGEDIR)/xorg-font-cronyx-cyrillic_*
+	rm -rf $(PKGDIR)/xorg-font-cronyx-cyrillic_*
 	rm -rf $(XORG_FONT_CRONYX_CYRILLIC_DIR)
 
 # vim: syntax=make

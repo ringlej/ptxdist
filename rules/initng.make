@@ -638,7 +638,7 @@ endif
 
 initng_clean:
 	rm -rf $(STATEDIR)/initng.*
-	rm -rf $(IMAGEDIR)/initng_*
+	rm -rf $(PKGDIR)/initng_*
 	rm -rf $(INITNG_DIR)
 
 # vim: syntax=make

@@ -129,7 +129,7 @@ $(STATEDIR)/libxmlconfig.targetinstall:
 
 libxmlconfig_clean:
 	rm -rf $(STATEDIR)/libxmlconfig.*
-	rm -rf $(IMAGEDIR)/libxmlconfig_*
+	rm -rf $(PKGDIR)/libxmlconfig_*
 	rm -rf $(LIBXMLCONFIG_DIR)
 
 # vim: syntax=make

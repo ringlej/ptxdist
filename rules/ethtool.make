@@ -124,7 +124,7 @@ $(STATEDIR)/ethtool.targetinstall: $(ethtool_targetinstall_deps_default)
 
 ethtool_clean:
 	rm -rf $(STATEDIR)/ethtool.*
-	rm -rf $(IMAGEDIR)/ethtool_*
+	rm -rf $(PKGDIR)/ethtool_*
 	rm -rf $(ETHTOOL_DIR)
 
 # vim: syntax=make

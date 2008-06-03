@@ -129,7 +129,7 @@ endif
 
 wireless_clean:
 	rm -rf $(STATEDIR)/wireless.*
-	rm -rf $(IMAGEDIR)/wireless_*
+	rm -rf $(PKGDIR)/wireless_*
 	rm -rf $(WIRELESS_DIR)
 
 # vim: syntax=make

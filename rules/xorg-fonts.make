@@ -141,7 +141,7 @@ $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-fonts.install
 
 xorg-fonts_clean:
 	rm -rf $(STATEDIR)/xorg-fonts.*
-	rm -rf $(IMAGEDIR)/xorg-fonts_*
+	rm -rf $(PKGDIR)/xorg-fonts_*
 	rm -rf $(XORG_FONTS_DIR)
 
 # vim: syntax=make

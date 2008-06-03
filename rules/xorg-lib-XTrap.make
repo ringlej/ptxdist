@@ -136,7 +136,7 @@ $(STATEDIR)/xorg-lib-XTrap.targetinstall: $(xorg-lib-XTrap_targetinstall_deps_de
 
 xorg-lib-XTrap_clean:
 	rm -rf $(STATEDIR)/xorg-lib-XTrap.*
-	rm -rf $(IMAGEDIR)/xorg-lib-XTrap_*
+	rm -rf $(PKGDIR)/xorg-lib-XTrap_*
 	rm -rf $(XORG_LIB_XTRAP_DIR)
 
 # vim: syntax=make

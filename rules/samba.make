@@ -218,7 +218,7 @@ endif
 
 samba_clean:
 	rm -rf $(STATEDIR)/samba.*
-	rm -rf $(IMAGEDIR)/samba_*
+	rm -rf $(PKGDIR)/samba_*
 	rm -rf $(SAMBA_DIR)
 
 # vim: syntax=make

@@ -337,7 +337,7 @@ $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps_default)
 
 libxml2_clean:
 	rm -rf $(STATEDIR)/libxml2.*
-	rm -rf $(IMAGEDIR)/libxml2_*
+	rm -rf $(PKGDIR)/libxml2_*
 	rm -rf $(LIBXML2_DIR)
 
 # vim: syntax=make

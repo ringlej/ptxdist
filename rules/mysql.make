@@ -381,7 +381,7 @@ $(STATEDIR)/mysql.targetinstall: $(mysql_targetinstall_deps_default)
 
 mysql_clean:
 	rm -rf $(STATEDIR)/mysql.*
-	rm -rf $(IMAGEDIR)/mysql_*
+	rm -rf $(PKGDIR)/mysql_*
 	rm -rf $(MYSQL_DIR)
 
 # vim: syntax=make

@@ -131,7 +131,7 @@ $(STATEDIR)/php-apc.targetinstall: $(php-apc_targetinstall_deps_default)
 
 php-apc_clean:
 	rm -rf $(STATEDIR)/php-apc.*
-	rm -rf $(IMAGEDIR)/php-apc_*
+	rm -rf $(PKGDIR)/php-apc_*
 	rm -rf $(PHP_APC_DIR)
 
 # vim: syntax=make

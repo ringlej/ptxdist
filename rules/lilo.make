@@ -105,7 +105,7 @@ $(STATEDIR)/lilo.targetinstall: $(lilo_targetinstall_deps_default)
 
 lilo_clean:
 	rm -rf $(STATEDIR)/lilo.*
-	rm -rf $(IMAGEDIR)/lilo_*
+	rm -rf $(PKGDIR)/lilo_*
 	rm -rf $(LILO_DIR)
 
 # vim: syntax=make

@@ -178,7 +178,7 @@ $(STATEDIR)/pdksh.targetinstall: $(pdksh_targetinstall_deps_default)
 
 pdksh_clean:
 	rm -rf $(STATEDIR)/pdksh.*
-	rm -rf $(IMAGEDIR)/pdksh_*
+	rm -rf $(PKGDIR)/pdksh_*
 	rm -rf $(PDKSH_DIR)
 
 # vim: syntax=make

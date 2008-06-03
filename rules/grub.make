@@ -489,7 +489,7 @@ endif
 
 grub_clean:
 	rm -rf $(STATEDIR)/grub.*
-	rm -rf $(IMAGEDIR)/grub_*
+	rm -rf $(PKGDIR)/grub_*
 	rm -rf $(GRUB_DIR)
 
 # vim: syntax=make

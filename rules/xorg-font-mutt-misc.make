@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-mutt-misc.targetinstall: $(xorg-font-mutt-misc_targetinsta
 
 xorg-font-mutt-misc_clean:
 	rm -rf $(STATEDIR)/xorg-font-mutt-misc.*
-	rm -rf $(IMAGEDIR)/xorg-font-mutt-misc_*
+	rm -rf $(PKGDIR)/xorg-font-mutt-misc_*
 	rm -rf $(XORG_FONT_MUTT_MISC_DIR)
 
 # vim: syntax=make

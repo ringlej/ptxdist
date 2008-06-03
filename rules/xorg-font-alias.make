@@ -135,7 +135,7 @@ $(STATEDIR)/xorg-font-alias.targetinstall: $(xorg-font-alias_targetinstall_deps_
 
 xorg-font-alias_clean:
 	rm -rf $(STATEDIR)/xorg-font-alias.*
-	rm -rf $(IMAGEDIR)/xorg-font-alias_*
+	rm -rf $(PKGDIR)/xorg-font-alias_*
 	rm -rf $(XORG_FONT_ALIAS_DIR)
 
 # vim: syntax=make

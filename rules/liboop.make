@@ -59,7 +59,7 @@ $(STATEDIR)/liboop.targetinstall:
 
 liboop_clean:
 	rm -rf $(STATEDIR)/liboop.*
-	rm -rf $(IMAGEDIR)/liboop_*
+	rm -rf $(PKGDIR)/liboop_*
 	rm -rf $(LIBOOP_DIR)
 
 # vim: syntax=make

@@ -142,7 +142,7 @@ $(STATEDIR)/libpopt.targetinstall: $(libpopt_targetinstall_deps_default)
 
 libpopt_clean:
 	rm -rf $(STATEDIR)/libpopt.*
-	rm -rf $(IMAGEDIR)/libpopt_*
+	rm -rf $(PKGDIR)/libpopt_*
 	rm -rf $(LIBPOPT_DIR)
 
 # vim: syntax=make

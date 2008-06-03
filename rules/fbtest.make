@@ -118,7 +118,7 @@ $(STATEDIR)/fbtest.targetinstall: $(fbtest_targetinstall_deps_default)
 
 fbtest_clean:
 	rm -rf $(STATEDIR)/fbtest.*
-	rm -rf $(IMAGEDIR)/fbtest_*
+	rm -rf $(PKGDIR)/fbtest_*
 	rm -rf $(FBTEST_DIR)
 
 # vim: syntax=make

@@ -129,7 +129,7 @@ $(STATEDIR)/liboil.targetinstall: $(liboil_targetinstall_deps_default)
 
 liboil_clean:
 	rm -rf $(STATEDIR)/liboil.*
-	rm -rf $(IMAGEDIR)/liboil_*
+	rm -rf $(PKGDIR)/liboil_*
 	rm -rf $(LIBOIL_DIR)
 
 # vim: syntax=make

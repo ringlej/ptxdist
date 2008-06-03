@@ -110,7 +110,7 @@ $(STATEDIR)/ltp-template.targetinstall:
 
 ltp-template_clean:
 	rm -rf $(STATEDIR)/ltp-template.*
-	rm -rf $(IMAGEDIR)/ltp-template_*
+	rm -rf $(PKGDIR)/ltp-template_*
 	rm -rf $(LTP_TEMPLATE_DIR)
 
 # vim: syntax=make

@@ -225,7 +225,7 @@ endif
 
 boost_clean:
 	rm -rf $(STATEDIR)/boost.*
-	rm -rf $(IMAGEDIR)/boost_*
+	rm -rf $(PKGDIR)/boost_*
 	rm -rf $(BOOST_DIR)
 
 # vim: syntax=make

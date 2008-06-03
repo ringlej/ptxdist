@@ -102,7 +102,7 @@ $(STATEDIR)/frodo.targetinstall:
 
 frodo_clean:
 	rm -rf $(STATEDIR)/frodo.*
-	rm -rf $(IMAGEDIR)/frodo_*
+	rm -rf $(PKGDIR)/frodo_*
 	rm -rf $(FRODO_DIR)
 
 # vim: syntax=make

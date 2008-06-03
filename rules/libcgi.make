@@ -127,7 +127,7 @@ $(STATEDIR)/libcgi.targetinstall: $(libcgi_targetinstall_deps_default)
 
 libcgi_clean:
 	rm -rf $(STATEDIR)/libcgi.*
-	rm -rf $(IMAGEDIR)/libcgi_*
+	rm -rf $(PKGDIR)/libcgi_*
 	rm -rf $(LIBCGI_DIR)
 
 # vim: syntax=make

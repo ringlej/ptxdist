@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-kb.targetinstall: $(xorg-proto-kb_targetinstall_deps_defa
 
 xorg-proto-kb_clean:
 	rm -rf $(STATEDIR)/xorg-proto-kb.*
-	rm -rf $(IMAGEDIR)/xorg-proto-kb_*
+	rm -rf $(PKGDIR)/xorg-proto-kb_*
 	rm -rf $(XORG_PROTO_KB_DIR)
 
 # vim: syntax=make

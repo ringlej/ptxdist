@@ -182,7 +182,7 @@ $(STATEDIR)/python24.targetinstall: $(python24_targetinstall_deps_default)
 
 python24_clean:
 	rm -rf $(STATEDIR)/python24.*
-	rm -rf $(IMAGEDIR)/python24_*
+	rm -rf $(PKGDIR)/python24_*
 	rm -fr $(PYTHON24_DIR)
 
 # vim: syntax=make

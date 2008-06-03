@@ -183,7 +183,7 @@ endif
 
 pureftpd_clean:
 	rm -rf $(STATEDIR)/pureftpd.*
-	rm -rf $(IMAGEDIR)/pureftpd_*
+	rm -rf $(PKGDIR)/pureftpd_*
 	rm -rf $(PUREFTPD_DIR)
 
 # vim: syntax=make

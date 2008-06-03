@@ -127,7 +127,7 @@ endif
 
 termcap_clean:
 	rm -rf $(STATEDIR)/termcap.*
-	rm -rf $(IMAGEDIR)/termcap_*
+	rm -rf $(PKGDIR)/termcap_*
 	rm -rf $(TERMCAP_DIR)
 
 # vim: syntax=make

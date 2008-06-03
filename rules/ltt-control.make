@@ -136,7 +136,7 @@ $(STATEDIR)/ltt-control.targetinstall: $(ltt-control_targetinstall_deps_default)
 
 ltt-control_clean:
 	rm -rf $(STATEDIR)/ltt-control.*
-	rm -rf $(IMAGEDIR)/ltt-control_*
+	rm -rf $(PKGDIR)/ltt-control_*
 	rm -rf $(LTT_CONTROL_DIR)
 
 # vim: syntax=make

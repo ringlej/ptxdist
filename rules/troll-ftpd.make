@@ -119,7 +119,7 @@ $(STATEDIR)/troll-ftpd.targetinstall: $(troll-ftpd_targetinstall_deps_default)
 
 troll-ftpd_clean:
 	rm -rf $(STATEDIR)/troll-ftpd.*
-	rm -rf $(IMAGEDIR)/troll-ftpd_*
+	rm -rf $(PKGDIR)/troll-ftpd_*
 	rm -rf $(TROLL_FTPD_DIR)
 
 # vim: syntax=make

@@ -154,7 +154,7 @@ $(STATEDIR)/mad.targetinstall: $(mad_targetinstall_deps_default)
 
 mad_clean:
 	rm -rf $(STATEDIR)/mad.*
-	rm -rf $(IMAGEDIR)/mad_*
+	rm -rf $(PKGDIR)/mad_*
 	rm -rf $(MAD_DIR)
 
 # vim: syntax=make

@@ -135,7 +135,7 @@ endif
 
 syslogng_clean:
 	rm -rf $(STATEDIR)/syslogng.*
-	rm -rf $(IMAGEDIR)/syslogng_*
+	rm -rf $(PKGDIR)/syslogng_*
 	rm -rf $(SYSLOGNG_DIR)
 
 # vim: syntax=make

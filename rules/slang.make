@@ -134,7 +134,7 @@ $(STATEDIR)/slang.targetinstall: $(slang_targetinstall_deps_default)
 
 slang_clean:
 	rm -rf $(STATEDIR)/slang.*
-	rm -rf $(IMAGEDIR)/slang_*
+	rm -rf $(PKGDIR)/slang_*
 	rm -rf $(SLANG_DIR)
 
 # vim: syntax=make

@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-driver-video-v4l.targetinstall: $(xorg-driver-video-v4l_targeti
 
 xorg-driver-video-v4l_clean:
 	rm -rf $(STATEDIR)/xorg-driver-video-v4l.*
-	rm -rf $(IMAGEDIR)/xorg-driver-video-v4l_*
+	rm -rf $(PKGDIR)/xorg-driver-video-v4l_*
 	rm -rf $(XORG_DRIVER_VIDEO_V4L_DIR)
 
 # vim: syntax=make

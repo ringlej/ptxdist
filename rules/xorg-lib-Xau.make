@@ -143,7 +143,7 @@ $(STATEDIR)/xorg-lib-Xau.targetinstall: $(xorg-lib-Xau_targetinstall_deps_defaul
 
 xorg-lib-Xau_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xau.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xau_*
+	rm -rf $(PKGDIR)/xorg-lib-Xau_*
 	rm -rf $(XORG_LIB_XAU_DIR)
 
 # vim: syntax=make

@@ -126,7 +126,7 @@ $(STATEDIR)/smtpclient.targetinstall: $(smtpclient_targetinstall_deps_default)
 
 smtpclient_clean:
 	rm -rf $(STATEDIR)/smtpclient.*
-	rm -rf $(IMAGEDIR)/smtpclient_*
+	rm -rf $(PKGDIR)/smtpclient_*
 	rm -rf $(SMTPCLIENT_DIR)
 
 # vim: syntax=make

@@ -128,7 +128,7 @@ $(STATEDIR)/libjpeg.targetinstall:
 
 libjpeg_clean:
 	rm -rf $(STATEDIR)/libjpeg.*
-	rm -rf $(IMAGEDIR)/libjpeg_*
+	rm -rf $(PKGDIR)/libjpeg_*
 	rm -rf $(LIBJPEG_DIR)
 
 # vim: syntax=make

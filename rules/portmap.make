@@ -152,7 +152,7 @@ endif
 
 portmap_clean:
 	rm -rf $(STATEDIR)/portmap.*
-	rm -rf $(IMAGEDIR)/portmap_*
+	rm -rf $(PKGDIR)/portmap_*
 	rm -rf $(PORTMAP_DIR)
 
 # vim: syntax=make

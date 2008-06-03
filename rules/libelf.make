@@ -115,7 +115,7 @@ $(STATEDIR)/libelf.targetinstall: $(libelf_targetinstall_deps_default)
 
 libelf_clean:
 	rm -rf $(STATEDIR)/libelf.*
-	rm -rf $(IMAGEDIR)/libelf_*
+	rm -rf $(PKGDIR)/libelf_*
 	rm -rf $(LIBELF_DIR)
 
 # vim: syntax=make

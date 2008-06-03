@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-driver-input-keyboard.targetinstall: $(xorg-driver-input-keyboa
 
 xorg-driver-input-keyboard_clean:
 	rm -rf $(STATEDIR)/xorg-driver-input-keyboard.*
-	rm -rf $(IMAGEDIR)/xorg-driver-input-keyboard_*
+	rm -rf $(PKGDIR)/xorg-driver-input-keyboard_*
 	rm -rf $(XORG_DRIVER_INPUT_KEYBOARD_DIR)
 
 # vim: syntax=make

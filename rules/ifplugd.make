@@ -134,7 +134,7 @@ endif
 
 ifplugd_clean:
 	rm -rf $(STATEDIR)/ifplugd.*
-	rm -rf $(IMAGEDIR)/ifplugd_*
+	rm -rf $(PKGDIR)/ifplugd_*
 	rm -rf $(IFPLUGD_DIR)
 
 # vim: syntax=make

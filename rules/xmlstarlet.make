@@ -130,7 +130,7 @@ $(STATEDIR)/xmlstarlet.targetinstall: $(xmlstarlet_targetinstall_deps_default)
 
 xmlstarlet_clean:
 	rm -rf $(STATEDIR)/xmlstarlet.*
-	rm -rf $(IMAGEDIR)/xmlstarlet_*
+	rm -rf $(PKGDIR)/xmlstarlet_*
 	rm -rf $(XMLSTARLET_DIR)
 
 # vim: syntax=make

@@ -167,7 +167,7 @@ endif
 
 gtk-theme-experience_clean:
 	rm -rf $(STATEDIR)/gtk-theme-experience.*
-	rm -rf $(IMAGEDIR)/gtk-theme-experience_*
+	rm -rf $(PKGDIR)/gtk-theme-experience_*
 	rm -rf $(GTK_THEME_EXPERIENCE_DIR)
 
 # vim: syntax=make

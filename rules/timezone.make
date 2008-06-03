@@ -169,7 +169,7 @@ endif
 
 timezone_clean:
 	rm -rf $(STATEDIR)/timezone.*
-	rm -rf $(IMAGEDIR)/timezone_*
+	rm -rf $(PKGDIR)/timezone_*
 	rm -rf $(TIMEZONE_DIR)
 
 # vim: syntax=make

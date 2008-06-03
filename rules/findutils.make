@@ -145,7 +145,7 @@ endif
 
 findutils_clean:
 	rm -rf $(STATEDIR)/findutils.*
-	rm -rf $(IMAGEDIR)/findutils_*
+	rm -rf $(PKGDIR)/findutils_*
 	rm -rf $(FINDUTILS_DIR)
 
 # vim: syntax=make

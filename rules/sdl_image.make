@@ -141,7 +141,7 @@ $(STATEDIR)/sdl_image.targetinstall: $(sdl_image_targetinstall_deps_default)
 
 sdl_image_clean:
 	rm -rf $(STATEDIR)/sdl_image.*
-	rm -rf $(IMAGEDIR)/sdl_image_*
+	rm -rf $(PKGDIR)/sdl_image_*
 	rm -rf $(SDL_IMAGE_DIR)
 
 # vim: syntax=make

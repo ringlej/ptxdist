@@ -136,7 +136,7 @@ $(STATEDIR)/xorg-lib-Xcursor.targetinstall: $(xorg-lib-Xcursor_targetinstall_dep
 
 xorg-lib-Xcursor_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xcursor.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xcursor_*
+	rm -rf $(PKGDIR)/xorg-lib-Xcursor_*
 	rm -rf $(XORG_LIB_XCURSOR_DIR)
 
 # vim: syntax=make

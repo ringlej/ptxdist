@@ -128,7 +128,7 @@ $(STATEDIR)/fbgrab.targetinstall: $(fbgrab_targetinstall_deps_default)
 
 fbgrab_clean:
 	rm -rf $(STATEDIR)/fbgrab.*
-	rm -rf $(IMAGEDIR)/fbgrab_*
+	rm -rf $(PKGDIR)/fbgrab_*
 	rm -rf $(FBGRAB_DIR)
 
 # vim: syntax=make

@@ -149,7 +149,7 @@ endif
 
 ntpclient_clean:
 	rm -rf $(STATEDIR)/ntpclient.*
-	rm -rf $(IMAGEDIR)/ntpclient_*
+	rm -rf $(PKGDIR)/ntpclient_*
 	rm -rf $(NTPCLIENT_DIR)
 
 # vim: syntax=make

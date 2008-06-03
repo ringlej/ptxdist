@@ -91,7 +91,7 @@ endif
 
 libpcre_clean:
 	rm -rf $(STATEDIR)/libpcre.*
-	rm -rf $(IMAGEDIR)/libpcre_*
+	rm -rf $(PKGDIR)/libpcre_*
 	rm -rf $(LIBPCRE_DIR)
 
 # vim: syntax=make

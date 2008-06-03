@@ -208,7 +208,7 @@ endif
 
 rsync_clean:
 	rm -rf $(STATEDIR)/rsync.*
-	rm -rf $(IMAGEDIR)/rsync_*
+	rm -rf $(PKGDIR)/rsync_*
 	rm -rf $(RSYNC_DIR)
 
 # vim: syntax=make

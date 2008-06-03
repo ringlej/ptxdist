@@ -193,7 +193,7 @@ endif
 
 openssh_clean:
 	rm -rf $(STATEDIR)/openssh.*
-	rm -rf $(IMAGEDIR)/openssh_*
+	rm -rf $(PKGDIR)/openssh_*
 	rm -rf $(OPENSSH_DIR)
 
 # vim: syntax=make

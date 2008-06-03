@@ -129,7 +129,7 @@ $(STATEDIR)/tk.targetinstall: $(tk_targetinstall_deps_default)
 
 tk_clean:
 	rm -rf $(STATEDIR)/tk.*
-	rm -rf $(IMAGEDIR)/tk_*
+	rm -rf $(PKGDIR)/tk_*
 	rm -rf $(TK_DIR)
 
 # vim: syntax=make

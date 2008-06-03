@@ -275,7 +275,7 @@ $(STATEDIR)/xorg-data-xkbdata.targetinstall: $(xorg-data-xkbdata_targetinstall_d
 
 xorg-data-xkbdata_clean:
 	rm -rf $(STATEDIR)/xorg-data-xkbdata.*
-	rm -rf $(IMAGEDIR)/xorg-data-xkbdata_*
+	rm -rf $(PKGDIR)/xorg-data-xkbdata_*
 	rm -rf $(XORG_DATA_XKBDATA_DIR)
 
 # vim: syntax=make

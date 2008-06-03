@@ -125,7 +125,7 @@ $(STATEDIR)/xorg-app-xrdb.targetinstall: $(xorg-app-xrdb_targetinstall_deps_defa
 
 xorg-app-xrdb_clean:
 	rm -rf $(STATEDIR)/xorg-app-xrdb.*
-	rm -rf $(IMAGEDIR)/xorg-app-xrdb_*
+	rm -rf $(PKGDIR)/xorg-app-xrdb_*
 	rm -rf $(XORG_APP_XRDB_DIR)
 
 # vim: syntax=make

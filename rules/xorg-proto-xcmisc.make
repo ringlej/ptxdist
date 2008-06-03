@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-xcmisc.targetinstall: $(xorg-proto-xcmisc_targetinstall_d
 
 xorg-proto-xcmisc_clean:
 	rm -rf $(STATEDIR)/xorg-proto-xcmisc.*
-	rm -rf $(IMAGEDIR)/xorg-proto-xcmisc_*
+	rm -rf $(PKGDIR)/xorg-proto-xcmisc_*
 	rm -rf $(XORG_PROTO_XCMISC_DIR)
 
 # vim: syntax=make

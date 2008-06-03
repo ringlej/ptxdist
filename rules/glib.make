@@ -107,7 +107,7 @@ $(STATEDIR)/glib.targetinstall:
 
 glib_clean:
 	rm -rf $(STATEDIR)/glib.*
-	rm -rf $(IMAGEDIR)/glib_*
+	rm -rf $(PKGDIR)/glib_*
 	rm -rf $(GLIB_DIR)
 
 # vim: syntax=make

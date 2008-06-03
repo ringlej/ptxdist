@@ -472,7 +472,7 @@ $(STATEDIR)/mfirebird.targetinstall: $(mfirebird_targetinstall_deps_default)
 
 mfirebird_clean:
 	rm -rf $(STATEDIR)/mfirebird.*
-	rm -rf $(IMAGEDIR)/mfirebird_*
+	rm -rf $(PKGDIR)/mfirebird_*
 	rm -rf $(MFIREBIRD_DIR)
 
 # vim: syntax=make

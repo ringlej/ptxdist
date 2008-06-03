@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-fonts.targetinstall: $(xorg-proto-fonts_targetinstall_dep
 
 xorg-proto-fonts_clean:
 	rm -rf $(STATEDIR)/xorg-proto-fonts.*
-	rm -rf $(IMAGEDIR)/xorg-proto-fonts_*
+	rm -rf $(PKGDIR)/xorg-proto-fonts_*
 	rm -rf $(XORG_PROTO_FONTS_DIR)
 
 # vim: syntax=make

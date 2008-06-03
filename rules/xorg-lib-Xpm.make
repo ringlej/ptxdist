@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-Xpm.targetinstall: $(xorg-lib-Xpm_targetinstall_deps_defaul
 
 xorg-lib-Xpm_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xpm.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xpm_*
+	rm -rf $(PKGDIR)/xorg-lib-Xpm_*
 	rm -rf $(XORG_LIB_XPM_DIR)
 
 # vim: syntax=make

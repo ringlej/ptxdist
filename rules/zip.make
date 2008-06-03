@@ -127,7 +127,7 @@ endif
 
 zip_clean:
 	rm -rf $(STATEDIR)/zip.*
-	rm -rf $(IMAGEDIR)/zip_*
+	rm -rf $(PKGDIR)/zip_*
 	rm -rf $(ZIP_DIR)
 
 # vim: syntax=make

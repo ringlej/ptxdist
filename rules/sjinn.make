@@ -121,7 +121,7 @@ $(STATEDIR)/sjinn.targetinstall: $(sjinn_targetinstall_deps_default)
 
 sjinn_clean:
 	rm -rf $(STATEDIR)/sjinn.*
-	rm -rf $(IMAGEDIR)/sjinn_*
+	rm -rf $(PKGDIR)/sjinn_*
 	rm -rf $(SJINN_DIR)
 
 # vim: syntax=make

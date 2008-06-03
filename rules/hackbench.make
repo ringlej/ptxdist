@@ -120,7 +120,7 @@ $(STATEDIR)/hackbench.targetinstall: $(hackbench_targetinstall_deps_default)
 
 hackbench_clean:
 	rm -rf $(STATEDIR)/hackbench.*
-	rm -rf $(IMAGEDIR)/hackbench_*
+	rm -rf $(PKGDIR)/hackbench_*
 	rm -rf $(HACKBENCH_DIR)
 
 # vim: syntax=make

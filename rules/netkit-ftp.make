@@ -139,7 +139,7 @@ $(STATEDIR)/netkit-ftp.targetinstall: $(netkit-ftp_targetinstall_deps_default)
 
 netkit-ftp_clean:
 	rm -rf $(STATEDIR)/netkit-ftp.*
-	rm -rf $(IMAGEDIR)/netkit-ftp_*
+	rm -rf $(PKGDIR)/netkit-ftp_*
 	rm -rf $(NETKIT_FTP_DIR)
 
 # vim: syntax=make

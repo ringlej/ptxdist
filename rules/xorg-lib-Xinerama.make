@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-Xinerama.targetinstall: $(xorg-lib-Xinerama_targetinstall_d
 
 xorg-lib-Xinerama_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xinerama.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xinerama_*
+	rm -rf $(PKGDIR)/xorg-lib-Xinerama_*
 	rm -rf $(XORG_LIB_XINERAMA_DIR)
 
 # vim: syntax=make

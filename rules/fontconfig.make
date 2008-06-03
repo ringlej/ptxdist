@@ -171,7 +171,7 @@ endif
 
 fontconfig_clean:
 	rm -rf $(STATEDIR)/fontconfig.*
-	rm -rf $(IMAGEDIR)/fontconfig_*
+	rm -rf $(PKGDIR)/fontconfig_*
 	rm -rf $(FONTCONFIG_DIR)
 
 # vim: syntax=make

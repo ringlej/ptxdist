@@ -136,7 +136,7 @@ $(STATEDIR)/hrtimers-support.targetinstall: $(hrtimers-support_targetinstall_dep
 
 hrtimers-support_clean:
 	rm -rf $(STATEDIR)/hrtimers-support.*
-	rm -rf $(IMAGEDIR)/hrtimers-support_*
+	rm -rf $(PKGDIR)/hrtimers-support_*
 	rm -rf $(HRTIMERS_SUPPORT_DIR)
 
 # vim: syntax=make

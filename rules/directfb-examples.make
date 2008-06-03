@@ -134,7 +134,7 @@ endif
 
 directfb-examples_clean:
 	rm -rf $(STATEDIR)/directfb-examples.*
-	rm -rf $(IMAGEDIR)/directfb-examples_*
+	rm -rf $(PKGDIR)/directfb-examples_*
 	rm -rf $(DIRECTFB_EXAMPLES_DIR)
 
 # vim: syntax=make

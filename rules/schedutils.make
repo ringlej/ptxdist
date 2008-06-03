@@ -138,7 +138,7 @@ endif
 
 schedutils_clean:
 	rm -rf $(STATEDIR)/schedutils.*
-	rm -rf $(IMAGEDIR)/schedutils_*
+	rm -rf $(PKGDIR)/schedutils_*
 	rm -rf $(SCHEDUTILS_DIR)
 
 # vim: syntax=make

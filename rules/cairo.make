@@ -180,7 +180,7 @@ $(STATEDIR)/cairo.targetinstall:
 
 cairo_clean:
 	rm -rf $(STATEDIR)/cairo.*
-	rm -rf $(IMAGEDIR)/cairo_*
+	rm -rf $(PKGDIR)/cairo_*
 	rm -rf $(CAIRO_DIR)
 
 # vim: syntax=make

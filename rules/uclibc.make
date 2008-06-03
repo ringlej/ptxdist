@@ -125,6 +125,6 @@ endif
 
 uclibc_clean: 
 	rm -rf $(STATEDIR)/uclibc.*
-	rm -rf $(IMAGEDIR)/uclibc_*
+	rm -rf $(PKGDIR)/uclibc_*
 
 # vim: syntax=make

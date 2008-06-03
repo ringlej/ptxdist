@@ -119,7 +119,7 @@ $(STATEDIR)/nanocom.targetinstall: $(nanocom_targetinstall_deps_default)
 
 nanocom_clean:
 	rm -rf $(STATEDIR)/nanocom.*
-	rm -rf $(IMAGEDIR)/nanocom_*
+	rm -rf $(PKGDIR)/nanocom_*
 	rm -rf $(NANOCOM_DIR)
 
 # vim: syntax=make

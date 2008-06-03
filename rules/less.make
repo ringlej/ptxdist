@@ -190,7 +190,7 @@ endif
 
 less_clean:
 	rm -rf $(STATEDIR)/less.*
-	rm -rf $(IMAGEDIR)/less_*
+	rm -rf $(PKGDIR)/less_*
 	rm -rf $(LESS_DIR)
 
 # vim: syntax=make

@@ -117,7 +117,7 @@ $(STATEDIR)/logrotate.targetinstall: $(logrotate_targetinstall_deps_default)
 
 logrotate_clean:
 	rm -rf $(STATEDIR)/logrotate.*
-	rm -rf $(IMAGEDIR)/logrotate_*
+	rm -rf $(PKGDIR)/logrotate_*
 	rm -rf $(LOGROTATE_DIR)
 
 # vim: syntax=make

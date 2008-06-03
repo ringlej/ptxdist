@@ -86,7 +86,7 @@ $(STATEDIR)/pop3spam.targetinstall:
 
 pop3spam_clean:
 	rm -rf $(STATEDIR)/pop3spam.*
-	rm -rf $(IMAGEDIR)/pop3spam_*
+	rm -rf $(PKGDIR)/pop3spam_*
 	rm -rf $(POP3SPAM_DIR)
 
 # vim: syntax=make

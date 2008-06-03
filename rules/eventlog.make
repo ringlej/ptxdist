@@ -82,7 +82,7 @@ $(STATEDIR)/eventlog.targetinstall:
 
 eventlog_clean:
 	rm -rf $(STATEDIR)/eventlog.*
-	rm -rf $(IMAGEDIR)/eventlog_*
+	rm -rf $(PKGDIR)/eventlog_*
 	rm -rf $(EVENTLOG_DIR)
 
 # vim: syntax=make

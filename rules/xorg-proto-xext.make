@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-xext.targetinstall: $(xorg-proto-xext_targetinstall_deps_
 
 xorg-proto-xext_clean:
 	rm -rf $(STATEDIR)/xorg-proto-xext.*
-	rm -rf $(IMAGEDIR)/xorg-proto-xext_*
+	rm -rf $(PKGDIR)/xorg-proto-xext_*
 	rm -rf $(XORG_PROTO_XEXT_DIR)
 
 # vim: syntax=make

@@ -128,7 +128,7 @@ $(STATEDIR)/xorg-lib-dmx.targetinstall: $(xorg-lib-dmx_targetinstall_deps_defaul
 
 xorg-lib-dmx_clean:
 	rm -rf $(STATEDIR)/xorg-lib-dmx.*
-	rm -rf $(IMAGEDIR)/xorg-lib-dmx_*
+	rm -rf $(PKGDIR)/xorg-lib-dmx_*
 	rm -rf $(XORG_LIB_DMX_DIR)
 
 # vim: syntax=make

@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-XScrnSaver.targetinstall: $(xorg-lib-XScrnSaver_targetinsta
 
 xorg-lib-XScrnSaver_clean:
 	rm -rf $(STATEDIR)/xorg-lib-XScrnSaver.*
-	rm -rf $(IMAGEDIR)/xorg-lib-XScrnSaver_*
+	rm -rf $(PKGDIR)/xorg-lib-XScrnSaver_*
 	rm -rf $(XORG_LIB_XSCRNSAVER_DIR)
 
 # vim: syntax=make

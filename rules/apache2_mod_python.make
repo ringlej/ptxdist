@@ -140,7 +140,7 @@ $(STATEDIR)/apache2_mod_python.targetinstall: $(apache2_mod_python_targetinstall
 
 apache2_mod_python_clean:
 	rm -rf $(STATEDIR)/apache2_mod_python.*
-	rm -rf $(IMAGEDIR)/apache2_mod_python_*
+	rm -rf $(PKGDIR)/apache2_mod_python_*
 	rm -rf $(APACHE2_MOD_PYTHON_DIR)
 
 # vim: syntax=make

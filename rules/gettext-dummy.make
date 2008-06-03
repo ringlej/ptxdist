@@ -77,7 +77,7 @@ $(STATEDIR)/gettext-dummy.targetinstall:
 
 gettext-dummy_clean:
 	rm -rf $(STATEDIR)/gettext-dummy.*
-	rm -rf $(IMAGEDIR)/gettext-dummy_*
+	rm -rf $(PKGDIR)/gettext-dummy_*
 	rm -rf $(GETTEXT_DUMMY_DIR)
 
 # vim: syntax=make

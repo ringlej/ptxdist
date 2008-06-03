@@ -135,7 +135,7 @@ $(STATEDIR)/xorg-app-xhost.targetinstall: $(xorg-app-xhost_targetinstall_deps_de
 
 xorg-app-xhost_clean:
 	rm -rf $(STATEDIR)/xorg-app-xhost.*
-	rm -rf $(IMAGEDIR)/xorg-app-xhost_*
+	rm -rf $(PKGDIR)/xorg-app-xhost_*
 	rm -rf $(XORG_APP_XHOST_DIR)
 
 # vim: syntax=make

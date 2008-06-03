@@ -129,7 +129,7 @@ $(STATEDIR)/expat.targetinstall:
 
 expat_clean:
 	rm -rf $(STATEDIR)/expat.*
-	rm -rf $(IMAGEDIR)/expat_*
+	rm -rf $(PKGDIR)/expat_*
 	rm -rf $(EXPAT_DIR)
 
 # vim: syntax=make

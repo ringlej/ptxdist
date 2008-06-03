@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-font-bitstream-speedo.targetinstall: $(xorg-font-bitstream-spee
 
 xorg-font-bitstream-speedo_clean:
 	rm -rf $(STATEDIR)/xorg-font-bitstream-speedo.*
-	rm -rf $(IMAGEDIR)/xorg-font-bitstream-speedo_*
+	rm -rf $(PKGDIR)/xorg-font-bitstream-speedo_*
 	rm -rf $(XORG_FONT_BITSTREAM_SPEEDO_DIR)
 
 # vim: syntax=make

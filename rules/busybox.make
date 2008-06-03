@@ -130,7 +130,7 @@ endif
 
 busybox_clean:
 	rm -rf $(STATEDIR)/busybox.*
-	rm -rf $(IMAGEDIR)/busybox_*
+	rm -rf $(PKGDIR)/busybox_*
 	rm -rf $(BUSYBOX_DIR)
 
 # vim: syntax=make

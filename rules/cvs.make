@@ -245,7 +245,7 @@ endif
 
 cvs_clean:
 	rm -rf $(STATEDIR)/cvs.*
-	rm -rf $(IMAGEDIR)/cvs_*
+	rm -rf $(PKGDIR)/cvs_*
 	rm -rf $(CVS_DIR)
 
 # vim: syntax=make

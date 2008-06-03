@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-lbxutil.targetinstall: $(xorg-lib-lbxutil_targetinstall_dep
 
 xorg-lib-lbxutil_clean:
 	rm -rf $(STATEDIR)/xorg-lib-lbxutil.*
-	rm -rf $(IMAGEDIR)/xorg-lib-lbxutil_*
+	rm -rf $(PKGDIR)/xorg-lib-lbxutil_*
 	rm -rf $(XORG_LIB_LBXUTIL_DIR)
 
 # vim: syntax=make

@@ -138,7 +138,7 @@ $(STATEDIR)/libdaemon.targetinstall: $(libdaemon_targetinstall_deps_default)
 
 libdaemon_clean:
 	rm -rf $(STATEDIR)/libdaemon.*
-	rm -rf $(IMAGEDIR)/libdaemon_*
+	rm -rf $(PKGDIR)/libdaemon_*
 	rm -rf $(LIBDAEMON_DIR)
 
 # vim: syntax=make

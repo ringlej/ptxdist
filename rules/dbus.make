@@ -191,7 +191,7 @@ endif
 
 dbus_clean:
 	rm -rf $(STATEDIR)/dbus.*
-	rm -rf $(IMAGEDIR)/dbus_*
+	rm -rf $(PKGDIR)/dbus_*
 	rm -rf $(DBUS_DIR)
 
 # vim: syntax=make

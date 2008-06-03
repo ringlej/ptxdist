@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-driver-video-vesa.targetinstall: $(xorg-driver-video-vesa_targe
 
 xorg-driver-video-vesa_clean:
 	rm -rf $(STATEDIR)/xorg-driver-video-vesa.*
-	rm -rf $(IMAGEDIR)/xorg-driver-video-vesa_*
+	rm -rf $(PKGDIR)/xorg-driver-video-vesa_*
 	rm -rf $(XORG_DRIVER_VIDEO_VESA_DIR)
 
 # vim: syntax=make

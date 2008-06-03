@@ -136,7 +136,7 @@ $(STATEDIR)/xorg-lib-Xcomposite.targetinstall: $(xorg-lib-Xcomposite_targetinsta
 
 xorg-lib-Xcomposite_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xcomposite.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xcomposite_*
+	rm -rf $(PKGDIR)/xorg-lib-Xcomposite_*
 	rm -rf $(XORG_LIB_XCOMPOSITE_DIR)
 
 # vim: syntax=make

@@ -155,7 +155,7 @@ $(STATEDIR)/ppp.targetinstall: $(ppp_targetinstall_deps_default)
 
 ppp_clean:
 	rm -rf $(STATEDIR)/ppp.*
-	rm -rf $(IMAGEDIR)/ppp_*
+	rm -rf $(PKGDIR)/ppp_*
 	rm -rf $(PPP_DIR)
 
 # vim: syntax=make

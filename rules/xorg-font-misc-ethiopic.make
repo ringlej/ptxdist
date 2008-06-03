@@ -135,7 +135,7 @@ $(STATEDIR)/xorg-font-misc-ethiopic.targetinstall: $(xorg-font-misc-ethiopic_tar
 
 xorg-font-misc-ethiopic_clean:
 	rm -rf $(STATEDIR)/xorg-font-misc-ethiopic.*
-	rm -rf $(IMAGEDIR)/xorg-font-misc-ethiopic_*
+	rm -rf $(PKGDIR)/xorg-font-misc-ethiopic_*
 	rm -rf $(XORG_FONT_MISC_ETHIOPIC_DIR)
 
 # vim: syntax=make

@@ -510,7 +510,7 @@ endif
 
 ffmpeg_clean:
 	rm -rf $(STATEDIR)/ffmpeg.*
-	rm -rf $(IMAGEDIR)/ffmpeg_*
+	rm -rf $(PKGDIR)/ffmpeg_*
 	rm -rf $(FFMPEG_DIR)
 
 # vim: syntax=make

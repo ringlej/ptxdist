@@ -217,7 +217,7 @@ endif
 
 chrony_clean:
 	rm -rf $(STATEDIR)/chrony.*
-	rm -rf $(IMAGEDIR)/chrony_*
+	rm -rf $(PKGDIR)/chrony_*
 	rm -rf $(CHRONY_DIR)
 
 # vim: syntax=make

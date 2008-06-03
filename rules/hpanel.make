@@ -126,7 +126,7 @@ $(STATEDIR)/hpanel.targetinstall: $(hpanel_targetinstall_deps_default)
 
 hpanel_clean:
 	rm -rf $(STATEDIR)/hpanel.*
-	rm -rf $(IMAGEDIR)/hpanel_*
+	rm -rf $(PKGDIR)/hpanel_*
 	rm -rf $(HPANEL_DIR)
 
 # vim: syntax=make

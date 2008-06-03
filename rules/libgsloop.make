@@ -127,7 +127,7 @@ $(STATEDIR)/libgsloop.targetinstall:
 
 libgsloop_clean:
 	rm -rf $(STATEDIR)/libgsloop.*
-	rm -rf $(IMAGEDIR)/libgsloop_*
+	rm -rf $(PKGDIR)/libgsloop_*
 	rm -rf $(LIBGSLOOP_DIR)
 
 # vim: syntax=make

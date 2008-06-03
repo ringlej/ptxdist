@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-app-xset.targetinstall: $(xorg-app-xset_targetinstall_deps_defa
 
 xorg-app-xset_clean:
 	rm -rf $(STATEDIR)/xorg-app-xset.*
-	rm -rf $(IMAGEDIR)/xorg-app-xset_*
+	rm -rf $(PKGDIR)/xorg-app-xset_*
 	rm -rf $(XORG_APP_XSET_DIR)
 
 # vim: syntax=make

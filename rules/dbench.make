@@ -141,7 +141,7 @@ endif
 
 dbench_clean:
 	rm -rf $(STATEDIR)/dbench.*
-	rm -rf $(IMAGEDIR)/dbench_*
+	rm -rf $(PKGDIR)/dbench_*
 	rm -rf $(DBENCH_DIR)
 
 # vim: syntax=make

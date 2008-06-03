@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-font-winitzki-cyrillic.targetinstall: $(xorg-font-winitzki-cyri
 
 xorg-font-winitzki-cyrillic_clean:
 	rm -rf $(STATEDIR)/xorg-font-winitzki-cyrillic.*
-	rm -rf $(IMAGEDIR)/xorg-font-winitzki-cyrillic_*
+	rm -rf $(PKGDIR)/xorg-font-winitzki-cyrillic_*
 	rm -rf $(XORG_FONT_WINITZKI_CYRILLIC_DIR)
 
 # vim: syntax=make

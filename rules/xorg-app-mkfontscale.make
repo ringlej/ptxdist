@@ -129,7 +129,7 @@ $(STATEDIR)/xorg-app-mkfontscale.targetinstall: $(xorg-app-mkfontscale_targetins
 
 xorg-app-mkfontscale_clean:
 	rm -rf $(STATEDIR)/xorg-app-mkfontscale.*
-	rm -rf $(IMAGEDIR)/xorg-app-mkfontscale_*
+	rm -rf $(PKGDIR)/xorg-app-mkfontscale_*
 	rm -rf $(XORG_APP_MKFONTSCALE_DIR)
 
 # vim: syntax=make

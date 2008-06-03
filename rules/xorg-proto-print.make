@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-print.targetinstall: $(xorg-proto-print_targetinstall_dep
 
 xorg-proto-print_clean:
 	rm -rf $(STATEDIR)/xorg-proto-print.*
-	rm -rf $(IMAGEDIR)/xorg-proto-print_*
+	rm -rf $(PKGDIR)/xorg-proto-print_*
 	rm -rf $(XORG_PROTO_PRINT_DIR)
 
 # vim: syntax=make

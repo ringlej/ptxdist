@@ -126,7 +126,7 @@ $(STATEDIR)/memedit.targetinstall: $(memedit_targetinstall_deps_default)
 
 memedit_clean:
 	rm -rf $(STATEDIR)/memedit.*
-	rm -rf $(IMAGEDIR)/memedit_*
+	rm -rf $(PKGDIR)/memedit_*
 	rm -rf $(MEMEDIT_DIR)
 
 # vim: syntax=make

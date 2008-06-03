@@ -157,7 +157,7 @@ endif
 
 thttpd_clean:
 	rm -rf $(STATEDIR)/thttpd.*
-	rm -rf $(IMAGEDIR)/thttpd_*
+	rm -rf $(PKGDIR)/thttpd_*
 	rm -rf $(THTTPD_DIR)
 
 # vim: syntax=make

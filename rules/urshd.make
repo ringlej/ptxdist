@@ -125,7 +125,7 @@ $(STATEDIR)/urshd.targetinstall:
 
 urshd_clean:
 	rm -rf $(STATEDIR)/urshd.*
-	rm -rf $(IMAGEDIR)/urshd_*
+	rm -rf $(PKGDIR)/urshd_*
 	rm -rf $(URSHD_DIR)
 
 # vim: syntax=make

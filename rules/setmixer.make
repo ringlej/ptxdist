@@ -119,7 +119,7 @@ $(STATEDIR)/setmixer.targetinstall: $(setmixer_targetinstall_deps_default)
 
 setmixer_clean:
 	rm -rf $(STATEDIR)/setmixer.*
-	rm -rf $(IMAGEDIR)/setmixer_*
+	rm -rf $(PKGDIR)/setmixer_*
 	rm -rf $(SETMIXER_DIR)
 
 # vim: syntax=make

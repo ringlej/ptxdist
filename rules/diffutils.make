@@ -137,7 +137,7 @@ endif
 
 diffutils_clean:
 	rm -rf $(STATEDIR)/diffutils.*
-	rm -rf $(IMAGEDIR)/diffutils_*
+	rm -rf $(PKGDIR)/diffutils_*
 	rm -rf $(DIFFUTILS_DIR)
 
 # vim: syntax=make

@@ -145,7 +145,7 @@ $(STATEDIR)/xorg-lib-Xt.targetinstall: $(xorg-lib-Xt_targetinstall_deps_default)
 
 xorg-lib-Xt_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xt.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xt_*
+	rm -rf $(PKGDIR)/xorg-lib-Xt_*
 	rm -rf $(XORG_LIB_XT_DIR)
 
 # vim: syntax=make

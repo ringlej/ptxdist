@@ -136,7 +136,7 @@ $(STATEDIR)/xerces.targetinstall: $(xerces_targetinstall_deps_default)
 
 xerces_clean:
 	rm -rf $(STATEDIR)/xerces.*
-	rm -rf $(IMAGEDIR)/xerces_*
+	rm -rf $(PKGDIR)/xerces_*
 	rm -rf $(XERCES_DIR)
 
 # vim: syntax=make

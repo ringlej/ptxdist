@@ -164,7 +164,7 @@ endif
 
 pcmcia-cs_clean:
 	rm -rf $(STATEDIR)/pcmcia-cs.*
-	rm -rf $(IMAGEDIR)/pcmcia-cs_*
+	rm -rf $(PKGDIR)/pcmcia-cs_*
 	rm -rf $(PCMCIA-CS_DIR)
 
 # vim: syntax=make

@@ -128,7 +128,7 @@ $(STATEDIR)/xorg-driver-input-mouse.targetinstall: $(xorg-driver-input-mouse_tar
 
 xorg-driver-input-mouse_clean:
 	rm -rf $(STATEDIR)/xorg-driver-input-mouse.*
-	rm -rf $(IMAGEDIR)/xorg-driver-input-mouse_*
+	rm -rf $(PKGDIR)/xorg-driver-input-mouse_*
 	rm -rf $(XORG_DRIVER_INPUT_MOUSE_DIR)
 
 # vim: syntax=make

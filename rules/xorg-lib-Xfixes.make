@@ -136,7 +136,7 @@ $(STATEDIR)/xorg-lib-Xfixes.targetinstall: $(xorg-lib-Xfixes_targetinstall_deps_
 
 xorg-lib-Xfixes_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xfixes.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xfixes_*
+	rm -rf $(PKGDIR)/xorg-lib-Xfixes_*
 	rm -rf $(XORG_LIB_XFIXES_DIR)
 
 # vim: syntax=make

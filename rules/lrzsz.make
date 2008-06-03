@@ -128,7 +128,7 @@ $(STATEDIR)/lrzsz.targetinstall: $(lrzsz_targetinstall_deps_default)
 
 lrzsz_clean:
 	rm -rf $(STATEDIR)/lrzsz.*
-	rm -rf $(IMAGEDIR)/lrzsz_*
+	rm -rf $(PKGDIR)/lrzsz_*
 	rm -rf $(LRZSZ_DIR)
 
 # vim: syntax=make

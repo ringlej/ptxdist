@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-driver-input-void.targetinstall: $(xorg-driver-input-void_targe
 
 xorg-driver-input-void_clean:
 	rm -rf $(STATEDIR)/xorg-driver-input-void.*
-	rm -rf $(IMAGEDIR)/xorg-driver-input-void_*
+	rm -rf $(PKGDIR)/xorg-driver-input-void_*
 	rm -rf $(XORG_DRIVER_INPUT_VOID_DIR)
 
 # vim: syntax=make

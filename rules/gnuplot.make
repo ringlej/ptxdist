@@ -194,7 +194,7 @@ endif
 
 gnuplot_clean:
 	rm -rf $(STATEDIR)/gnuplot.*
-	rm -rf $(IMAGEDIR)/gnuplot_*
+	rm -rf $(PKGDIR)/gnuplot_*
 	rm -rf $(GNUPLOT_DIR)
 
 # vim: syntax=make

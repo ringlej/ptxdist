@@ -132,7 +132,7 @@ $(STATEDIR)/freetype.targetinstall:
 
 freetype_clean:
 	rm -rf $(STATEDIR)/freetype.*
-	rm -rf $(IMAGEDIR)/freetype_*
+	rm -rf $(PKGDIR)/freetype_*
 	rm -rf $(FREETYPE_DIR)
 
 # vim: syntax=make

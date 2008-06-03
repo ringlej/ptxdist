@@ -130,7 +130,7 @@ endif
 
 dosfstools_clean:
 	rm -rf $(STATEDIR)/dosfstools.*
-	rm -rf $(IMAGEDIR)/dosfstools_*
+	rm -rf $(PKGDIR)/dosfstools_*
 	rm -rf $(DOSFSTOOLS_DIR)
 
 # vim: syntax=make

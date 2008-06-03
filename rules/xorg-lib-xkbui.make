@@ -136,7 +136,7 @@ $(STATEDIR)/xorg-lib-xkbui.targetinstall: $(xorg-lib-xkbui_targetinstall_deps_de
 
 xorg-lib-xkbui_clean:
 	rm -rf $(STATEDIR)/xorg-lib-xkbui.*
-	rm -rf $(IMAGEDIR)/xorg-lib-xkbui_*
+	rm -rf $(PKGDIR)/xorg-lib-xkbui_*
 	rm -rf $(XORG_LIB_XKBUI_DIR)
 
 # vim: syntax=make

@@ -85,7 +85,7 @@ $(STATEDIR)/i2c-tools.targetinstall:
 
 i2c-tools_clean:
 	rm -rf $(STATEDIR)/i2c-tools.*
-	rm -rf $(IMAGEDIR)/i2c-tools_*
+	rm -rf $(PKGDIR)/i2c-tools_*
 	rm -rf $(I2C_TOOLS_DIR)
 
 # vim: syntax=make

@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-font-util.targetinstall: $(xorg-font-util_targetinstall_deps_de
 
 xorg-font-util_clean:
 	rm -rf $(STATEDIR)/xorg-font-util.*
-	rm -rf $(IMAGEDIR)/xorg-font-util_*
+	rm -rf $(PKGDIR)/xorg-font-util_*
 	rm -rf $(XORG_FONT_UTIL_DIR)
 
 # vim: syntax=make

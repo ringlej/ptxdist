@@ -131,7 +131,7 @@ $(STATEDIR)/libdrm.targetinstall: $(libdrm_targetinstall_deps_default)
 
 libdrm_clean:
 	rm -rf $(STATEDIR)/libdrm.*
-	rm -rf $(IMAGEDIR)/libdrm_*
+	rm -rf $(PKGDIR)/libdrm_*
 	rm -rf $(LIBDRM_DIR)
 
 # vim: syntax=make

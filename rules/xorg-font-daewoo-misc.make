@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-daewoo-misc.targetinstall: $(xorg-font-daewoo-misc_targeti
 
 xorg-font-daewoo-misc_clean:
 	rm -rf $(STATEDIR)/xorg-font-daewoo-misc.*
-	rm -rf $(IMAGEDIR)/xorg-font-daewoo-misc_*
+	rm -rf $(PKGDIR)/xorg-font-daewoo-misc_*
 	rm -rf $(XORG_FONT_DAEWOO_MISC_DIR)
 
 # vim: syntax=make

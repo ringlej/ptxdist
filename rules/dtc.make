@@ -71,7 +71,7 @@ $(STATEDIR)/dtc.targetinstall:
 
 dtc_clean:
 	rm -rf $(STATEDIR)/dtc.*
-	rm -rf $(IMAGEDIR)/dtc_*
+	rm -rf $(PKGDIR)/dtc_*
 	rm -rf $(DTC_DIR)
 
 # vim: syntax=make

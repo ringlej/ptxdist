@@ -138,7 +138,7 @@ $(STATEDIR)/xorg-lib-Xext.targetinstall: $(xorg-lib-Xext_targetinstall_deps_defa
 
 xorg-lib-Xext_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xext.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xext_*
+	rm -rf $(PKGDIR)/xorg-lib-Xext_*
 	rm -rf $(XORG_LIB_XEXT_DIR)
 
 # vim: syntax=make

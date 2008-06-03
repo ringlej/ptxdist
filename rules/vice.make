@@ -140,7 +140,7 @@ $(STATEDIR)/vice.targetinstall: $(vice_targetinstall_deps_default)
 
 vice_clean:
 	rm -rf $(STATEDIR)/vice.*
-	rm -rf $(IMAGEDIR)/vice_*
+	rm -rf $(PKGDIR)/vice_*
 	rm -rf $(VICE_DIR)
 
 # vim: syntax=make

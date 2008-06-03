@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-video.targetinstall: $(xorg-proto-video_targetinstall_dep
 
 xorg-proto-video_clean:
 	rm -rf $(STATEDIR)/xorg-proto-video.*
-	rm -rf $(IMAGEDIR)/xorg-proto-video_*
+	rm -rf $(PKGDIR)/xorg-proto-video_*
 	rm -rf $(XORG_PROTO_VIDEO_DIR)
 
 # vim: syntax=make

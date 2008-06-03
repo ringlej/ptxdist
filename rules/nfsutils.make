@@ -300,7 +300,7 @@ endif
 
 nfsutils_clean:
 	rm -rf $(STATEDIR)/nfsutils.*
-	rm -rf $(IMAGEDIR)/nfsutils_*
+	rm -rf $(PKGDIR)/nfsutils_*
 	rm -rf $(NFSUTILS_DIR)
 
 # vim: syntax=make

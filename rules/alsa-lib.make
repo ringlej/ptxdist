@@ -169,7 +169,7 @@ endif
 
 alsa-lib_clean:
 	rm -rf $(STATEDIR)/alsa-lib.*
-	rm -rf $(IMAGEDIR)/alsa-lib_*
+	rm -rf $(PKGDIR)/alsa-lib_*
 	rm -rf $(ALSA_LIB_DIR)
 
 # vim: syntax=make

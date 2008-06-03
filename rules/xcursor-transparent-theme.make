@@ -139,7 +139,7 @@ $(STATEDIR)/xcursor-transparent-theme.targetinstall: $(xcursor-transparent-theme
 
 xcursor-transparent-theme_clean:
 	rm -rf $(STATEDIR)/xcursor-transparent-theme.*
-	rm -rf $(IMAGEDIR)/xcursor-transparent-theme_*
+	rm -rf $(PKGDIR)/xcursor-transparent-theme_*
 	rm -rf $(XCURSOR_TRANSPARENT_THEME_DIR)
 
 # vim: syntax=make

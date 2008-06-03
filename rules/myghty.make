@@ -124,7 +124,7 @@ $(STATEDIR)/myghty.targetinstall: $(myghty_targetinstall_deps_default)
 
 myghty_clean:
 	rm -rf $(STATEDIR)/myghty.*
-	rm -rf $(IMAGEDIR)/myghty_*
+	rm -rf $(PKGDIR)/myghty_*
 	rm -rf $(MYGHTY_DIR)
 
 # vim: syntax=make

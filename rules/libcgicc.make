@@ -76,7 +76,7 @@ $(STATEDIR)/libcgicc.targetinstall:
 
 libcgicc_clean:
 	rm -rf $(STATEDIR)/libcgicc.*
-	rm -rf $(IMAGEDIR)/libcgicc_*
+	rm -rf $(PKGDIR)/libcgicc_*
 	rm -rf $(LIBCGICC_DIR)
 
 # vim: syntax=make

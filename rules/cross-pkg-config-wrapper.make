@@ -79,7 +79,7 @@ $(STATEDIR)/cross-pkg-config-wrapper.install: $(cross-pkg-config-wrapper_install
 
 cross-pkg-config-wrapper_clean:
 	rm -rf $(STATEDIR)/cross-pkg-config-wrapper.*
-	rm -rf $(IMAGEDIR)/cross-pkg-config-wrapper_*
+	rm -rf $(PKGDIR)/cross-pkg-config-wrapper_*
 	rm -rf $(CROSS_PKG_CONFIG_WRAPPER_DIR)
 
 # vim: syntax=make

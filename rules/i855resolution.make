@@ -121,7 +121,7 @@ $(STATEDIR)/i855resolution.targetinstall: $(i855resolution_targetinstall_deps_de
 
 i855resolution_clean:
 	rm -rf $(STATEDIR)/i855resolution.*
-	rm -rf $(IMAGEDIR)/i855resolution_*
+	rm -rf $(PKGDIR)/i855resolution_*
 	rm -rf $(I855RESOLUTION_DIR)
 
 # vim: syntax=make

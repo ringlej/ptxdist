@@ -128,7 +128,7 @@ $(STATEDIR)/wget.targetinstall: $(wget_targetinstall_deps_default)
 
 wget_clean:
 	rm -rf $(STATEDIR)/wget.*
-	rm -rf $(IMAGEDIR)/wget_*
+	rm -rf $(PKGDIR)/wget_*
 	rm -rf $(WGET_DIR)
 
 # vim: syntax=make

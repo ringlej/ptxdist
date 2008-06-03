@@ -241,7 +241,7 @@ $(STATEDIR)/libxcb.targetinstall: $(libxcb_targetinstall_deps_default)
 
 libxcb_clean:
 	rm -rf $(STATEDIR)/libxcb.*
-	rm -rf $(IMAGEDIR)/libxcb_*
+	rm -rf $(PKGDIR)/libxcb_*
 	rm -rf $(LIBXCB_DIR)
 
 # vim: syntax=make

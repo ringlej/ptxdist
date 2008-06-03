@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-dec-misc.targetinstall: $(xorg-font-dec-misc_targetinstall
 
 xorg-font-dec-misc_clean:
 	rm -rf $(STATEDIR)/xorg-font-dec-misc.*
-	rm -rf $(IMAGEDIR)/xorg-font-dec-misc_*
+	rm -rf $(PKGDIR)/xorg-font-dec-misc_*
 	rm -rf $(XORG_FONT_DEC_MISC_DIR)
 
 # vim: syntax=make

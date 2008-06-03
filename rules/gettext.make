@@ -135,7 +135,7 @@ $(STATEDIR)/gettext.targetinstall:
 
 gettext_clean:
 	rm -rf $(STATEDIR)/gettext.*
-	rm -rf $(IMAGEDIR)/gettext_*
+	rm -rf $(PKGDIR)/gettext_*
 	rm -rf $(GETTEXT_DIR)
 
 # vim: syntax=make

@@ -92,7 +92,7 @@ endif
 
 libgmp_clean:
 	rm -rf $(STATEDIR)/libgmp.*
-	rm -rf $(IMAGEDIR)/libgmp_*
+	rm -rf $(PKGDIR)/libgmp_*
 	rm -rf $(LIBGMP_DIR)
 
 # vim: syntax=make

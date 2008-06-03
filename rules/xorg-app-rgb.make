@@ -131,7 +131,7 @@ $(STATEDIR)/xorg-app-rgb.targetinstall: $(xorg-app-rgb_targetinstall_deps_defaul
 
 xorg-app-rgb_clean:
 	rm -rf $(STATEDIR)/xorg-app-rgb.*
-	rm -rf $(IMAGEDIR)/xorg-app-rgb_*
+	rm -rf $(PKGDIR)/xorg-app-rgb_*
 	rm -rf $(XORG_APP_RGB_DIR)
 
 # vim: syntax=make

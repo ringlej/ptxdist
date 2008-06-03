@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-driver-video-vga.targetinstall: $(xorg-driver-video-vga_targeti
 
 xorg-driver-video-vga_clean:
 	rm -rf $(STATEDIR)/xorg-driver-video-vga.*
-	rm -rf $(IMAGEDIR)/xorg-driver-video-vga_*
+	rm -rf $(PKGDIR)/xorg-driver-video-vga_*
 	rm -rf $(XORG_DRIVER_VIDEO_VGA_DIR)
 
 # vim: syntax=make

@@ -503,7 +503,7 @@ endif
 
 iptables_clean:
 	rm -rf $(STATEDIR)/iptables.*
-	rm -rf $(IMAGEDIR)/iptables_*
+	rm -rf $(PKGDIR)/iptables_*
 	rm -rf $(IPTABLES_DIR)
 
 # vim: syntax=make

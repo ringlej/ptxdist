@@ -138,7 +138,7 @@ $(STATEDIR)/xorg-lib-Xxf86dga.targetinstall: $(xorg-lib-Xxf86dga_targetinstall_d
 
 xorg-lib-Xxf86dga_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xxf86dga.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xxf86dga_*
+	rm -rf $(PKGDIR)/xorg-lib-Xxf86dga_*
 	rm -rf $(XORG_LIB_XXF86DGA_DIR)
 
 # vim: syntax=make

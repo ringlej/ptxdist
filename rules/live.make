@@ -166,7 +166,7 @@ $(STATEDIR)/live.targetinstall: $(live_targetinstall_deps_default)
 
 live_clean:
 	rm -rf $(STATEDIR)/live.*
-	rm -rf $(IMAGEDIR)/live_*
+	rm -rf $(PKGDIR)/live_*
 	rm -rf $(LIVE_DIR)
 
 # vim: syntax=make

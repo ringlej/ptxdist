@@ -120,7 +120,7 @@ $(STATEDIR)/calibrator.targetinstall: $(calibrator_targetinstall_deps_default)
 
 calibrator_clean:
 	rm -rf $(STATEDIR)/calibrator.*
-	rm -rf $(IMAGEDIR)/calibrator_*
+	rm -rf $(PKGDIR)/calibrator_*
 	rm -rf $(CALIBRATOR_DIR)
 
 # vim: syntax=make

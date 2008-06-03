@@ -159,7 +159,7 @@ $(STATEDIR)/ltp-kernel.targetinstall:
 
 ltp-kernel_clean:
 	rm -rf $(STATEDIR)/ltp-kernel.*
-	rm -rf $(IMAGEDIR)/ltp-kernel_*
+	rm -rf $(PKGDIR)/ltp-kernel_*
 	rm -rf $(LTP_KERNEL_DIR)
 
 # vim: syntax=make

@@ -347,7 +347,7 @@ endif
 
 apache2_clean:
 	rm -rf $(STATEDIR)/apache2.*
-	rm -rf $(IMAGEDIR)/apache2_*
+	rm -rf $(PKGDIR)/apache2_*
 	rm -rf $(APACHE2_DIR)
 
 # vim: syntax=make

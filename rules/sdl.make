@@ -328,7 +328,7 @@ endif
 
 sdl_clean:
 	rm -rf $(STATEDIR)/sdl.*
-	rm -rf $(IMAGEDIR)/sdl_*
+	rm -rf $(PKGDIR)/sdl_*
 	rm -rf $(SDL_DIR)
 
 # vim: syntax=make

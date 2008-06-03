@@ -139,7 +139,7 @@ $(STATEDIR)/xorg-lib-Xrender.targetinstall: $(xorg-lib-Xrender_targetinstall_dep
 
 xorg-lib-Xrender_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xrender.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xrender_*
+	rm -rf $(PKGDIR)/xorg-lib-Xrender_*
 	rm -rf $(XORG_LIB_XRENDER_DIR)
 
 # vim: syntax=make

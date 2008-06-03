@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-font-adobe-utopia-type1.targetinstall: $(xorg-font-adobe-utopia
 
 xorg-font-adobe-utopia-type1_clean:
 	rm -rf $(STATEDIR)/xorg-font-adobe-utopia-type1.*
-	rm -rf $(IMAGEDIR)/xorg-font-adobe-utopia-type1_*
+	rm -rf $(PKGDIR)/xorg-font-adobe-utopia-type1_*
 	rm -rf $(XORG_FONT_ADOBE_UTOPIA_TYPE1_DIR)
 
 # vim: syntax=make

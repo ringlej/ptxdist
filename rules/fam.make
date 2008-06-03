@@ -164,7 +164,7 @@ endif
 
 fam_clean:
 	rm -rf $(STATEDIR)/fam.*
-	rm -rf $(IMAGEDIR)/fam_*
+	rm -rf $(PKGDIR)/fam_*
 	rm -rf $(FAM_DIR)
 
 # vim: syntax=make

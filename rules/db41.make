@@ -135,7 +135,7 @@ $(STATEDIR)/db41.targetinstall: $(db41_targetinstall_deps_default)
 
 db41_clean:
 	rm -rf $(STATEDIR)/db41.*
-	rm -rf $(IMAGEDIR)/db41_*
+	rm -rf $(PKGDIR)/db41_*
 	rm -rf $(DB41_DIR)
 
 # vim: syntax=make

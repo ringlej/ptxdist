@@ -104,7 +104,7 @@ $(STATEDIR)/liblzo.targetinstall:
 
 liblzo_clean:
 	rm -rf $(STATEDIR)/liblzo.*
-	rm -rf $(IMAGEDIR)/liblzo_*
+	rm -rf $(PKGDIR)/liblzo_*
 	rm -rf $(LIBLZO_DIR)
 
 # vim: syntax=make

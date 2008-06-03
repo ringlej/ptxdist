@@ -138,7 +138,7 @@ $(STATEDIR)/xorg-lib-Xfontcache.targetinstall: $(xorg-lib-Xfontcache_targetinsta
 
 xorg-lib-Xfontcache_clean:
 	rm -rf $(STATEDIR)/xorg-lib-Xfontcache.*
-	rm -rf $(IMAGEDIR)/xorg-lib-Xfontcache_*
+	rm -rf $(PKGDIR)/xorg-lib-Xfontcache_*
 	rm -rf $(XORG_LIB_XFONTCACHE_DIR)
 
 # vim: syntax=make

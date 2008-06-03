@@ -118,7 +118,7 @@ $(STATEDIR)/clock.targetinstall: $(clock_targetinstall_deps_default)
 
 clock_clean:
 	rm -rf $(STATEDIR)/clock.*
-	rm -rf $(IMAGEDIR)/clock_*
+	rm -rf $(PKGDIR)/clock_*
 	rm -rf $(CLOCK_DIR)
 
 # vim: syntax=make

@@ -129,7 +129,7 @@ $(STATEDIR)/xorg-app-mkfontdir.targetinstall: $(xorg-app-mkfontdir_targetinstall
 
 xorg-app-mkfontdir_clean:
 	rm -rf $(STATEDIR)/xorg-app-mkfontdir.*
-	rm -rf $(IMAGEDIR)/xorg-app-mkfontdir_*
+	rm -rf $(PKGDIR)/xorg-app-mkfontdir_*
 	rm -rf $(XORG_APP_MKFONTDIR_DIR)
 
 # vim: syntax=make

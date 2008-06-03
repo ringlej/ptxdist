@@ -128,7 +128,7 @@ $(STATEDIR)/xorg-app-xeyes.targetinstall: $(xorg-app-xeyes_targetinstall_deps_de
 
 xorg-app-xeyes_clean:
 	rm -rf $(STATEDIR)/xorg-app-xeyes.*
-	rm -rf $(IMAGEDIR)/xorg-app-xeyes_*
+	rm -rf $(PKGDIR)/xorg-app-xeyes_*
 	rm -rf $(XORG_APP_XEYES_DIR)
 
 # vim: syntax=make

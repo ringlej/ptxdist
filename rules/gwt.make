@@ -141,7 +141,7 @@ endif
 
 gwt_clean:
 	rm -rf $(STATEDIR)/gwt.*
-	rm -rf $(IMAGEDIR)/gwt_*
+	rm -rf $(PKGDIR)/gwt_*
 	rm -rf $(GWT_DIR)
 
 # vim: syntax=make

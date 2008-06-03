@@ -125,7 +125,7 @@ $(STATEDIR)/efax.targetinstall: $(efax_targetinstall_deps_default)
 
 efax_clean:
 	rm -rf $(STATEDIR)/efax.*
-	rm -rf $(IMAGEDIR)/efax_*
+	rm -rf $(PKGDIR)/efax_*
 	rm -rf $(EFAX_DIR)
 
 # vim: syntax=make

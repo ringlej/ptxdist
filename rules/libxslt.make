@@ -177,7 +177,7 @@ endif
 
 libxslt_clean:
 	rm -rf $(STATEDIR)/libxslt.*
-	rm -rf $(IMAGEDIR)/libxslt_*
+	rm -rf $(PKGDIR)/libxslt_*
 	rm -rf $(LIBXSLT_DIR)
 
 # vim: syntax=make

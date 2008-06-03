@@ -122,7 +122,7 @@ $(STATEDIR)/zebra.targetinstall: $(zebra_targetinstall_deps_default)
 
 zebra_clean: 
 	rm -rf $(STATEDIR)/zebra.* 
-	rm -rf $(IMAGEDIR)/zebra_* 
+	rm -rf $(PKGDIR)/zebra_* 
 	rm -rf $(ZEBRA_DIR)
 
 # vim: syntax=make

@@ -90,7 +90,7 @@ endif
 
 tslib_clean:
 	rm -rf $(STATEDIR)/tslib.*
-	rm -rf $(IMAGEDIR)/tslib_*
+	rm -rf $(PKGDIR)/tslib_*
 	rm -rf $(TSLIB_DIR)
 
 # vim: syntax=make

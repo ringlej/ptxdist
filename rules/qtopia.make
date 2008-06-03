@@ -187,7 +187,7 @@ endif
 
 qtopia_clean:
 	rm -rf $(STATEDIR)/qtopia.*
-	rm -rf $(IMAGEDIR)/qtopia_*
+	rm -rf $(PKGDIR)/qtopia_*
 	rm -rf $(QTOPIA_DIR)
 
 # vim: syntax=make

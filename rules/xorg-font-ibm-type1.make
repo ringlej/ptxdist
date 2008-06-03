@@ -127,7 +127,7 @@ $(STATEDIR)/xorg-font-ibm-type1.targetinstall: $(xorg-font-ibm-type1_targetinsta
 
 xorg-font-ibm-type1_clean:
 	rm -rf $(STATEDIR)/xorg-font-ibm-type1.*
-	rm -rf $(IMAGEDIR)/xorg-font-ibm-type1_*
+	rm -rf $(PKGDIR)/xorg-font-ibm-type1_*
 	rm -rf $(XORG_FONT_IBM_TYPE1_DIR)
 
 # vim: syntax=make

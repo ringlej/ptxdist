@@ -127,7 +127,7 @@ $(STATEDIR)/pixman.targetinstall: $(pixman_targetinstall_deps_default)
 
 pixman_clean:
 	rm -rf $(STATEDIR)/pixman.*
-	rm -rf $(IMAGEDIR)/pixman_*
+	rm -rf $(PKGDIR)/pixman_*
 	rm -rf $(PIXMAN_DIR)
 
 # vim: syntax=make

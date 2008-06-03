@@ -131,7 +131,7 @@ $(STATEDIR)/attr.targetinstall: $(attr_targetinstall_deps_default)
 
 attr_clean:
 	rm -rf $(STATEDIR)/attr.*
-	rm -rf $(IMAGEDIR)/attr_*
+	rm -rf $(PKGDIR)/attr_*
 	rm -rf $(ATTR_DIR)
 
 # vim: syntax=make

@@ -135,7 +135,7 @@ $(STATEDIR)/u-boot-v2.targetinstall:
 
 u-boot-v2_clean:
 	rm -rf $(STATEDIR)/u-boot-v2.*
-	rm -rf $(IMAGEDIR)/u-boot-v2_*
+	rm -rf $(PKGDIR)/u-boot-v2_*
 	rm -rf $(U_BOOT_V2_DIR)
 
 # ----------------------------------------------------------------------------

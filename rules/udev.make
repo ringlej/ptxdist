@@ -262,7 +262,7 @@ endif
 
 udev_clean:
 	rm -rf $(STATEDIR)/udev.*
-	rm -rf $(IMAGEDIR)/udev_*
+	rm -rf $(PKGDIR)/udev_*
 	rm -rf $(UDEV_DIR)
 
 # vim: syntax=make

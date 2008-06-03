@@ -143,7 +143,7 @@ endif
 
 xorg-font-bh-lucidatypewriter-75dpi_clean:
 	rm -rf $(STATEDIR)/xorg-font-bh-lucidatypewriter-75dpi.*
-	rm -rf $(IMAGEDIR)/xorg-font-bh-lucidatypewriter-75dpi_*
+	rm -rf $(PKGDIR)/xorg-font-bh-lucidatypewriter-75dpi_*
 	rm -rf $(XORG_FONT_BH_LUCIDATYPEWRITER_75DPI_DIR)
 
 # vim: syntax=make

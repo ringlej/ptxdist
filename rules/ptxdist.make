@@ -156,7 +156,7 @@ $(STATEDIR)/ptxdist.targetinstall: $(ptxdist_targetinstall_deps_default)
 
 ptxdist_clean:
 	rm -rf $(STATEDIR)/ptxdist.*
-	rm -rf $(IMAGEDIR)/ptxdist_*
+	rm -rf $(PKGDIR)/ptxdist_*
 	rm -rf $(PTXDIST_DIR)
 
 # vim: syntax=make

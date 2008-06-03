@@ -166,7 +166,7 @@ $(STATEDIR)/db44.targetinstall: $(db44_targetinstall_deps_default)
 
 db44_clean:
 	rm -rf $(STATEDIR)/db44.*
-	rm -rf $(IMAGEDIR)/db44_*
+	rm -rf $(PKGDIR)/db44_*
 	rm -rf $(DB44_DIR)
 
 # vim: syntax=make

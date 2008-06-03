@@ -126,7 +126,7 @@ $(STATEDIR)/setserial.targetinstall: $(setserial_targetinstall_deps_default)
 
 setserial_clean:
 	rm -rf $(STATEDIR)/setserial.*
-	rm -rf $(IMAGEDIR)/setserial_*
+	rm -rf $(PKGDIR)/setserial_*
 	rm -rf $(SETSERIAL_DIR)
 
 # vim: syntax=make

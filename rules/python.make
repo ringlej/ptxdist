@@ -151,7 +151,7 @@ $(STATEDIR)/python.targetinstall: $(python_targetinstall_deps_default)
 
 python_clean: 
 	rm -rf $(STATEDIR)/python.*
-	rm -rf $(IMAGEDIR)/python_*
+	rm -rf $(PKGDIR)/python_*
 	rm -fr $(PYTHON_DIR)
 	rm -fr $(PYTHON_BUILDDIR)
 

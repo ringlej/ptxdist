@@ -91,7 +91,7 @@ $(STATEDIR)/dbus-glib.targetinstall:
 
 dbus-glib_clean:
 	rm -rf $(STATEDIR)/dbus-glib.*
-	rm -rf $(IMAGEDIR)/dbus-glib_*
+	rm -rf $(PKGDIR)/dbus-glib_*
 	rm -rf $(DBUS_GLIB_DIR)
 
 # vim: syntax=make

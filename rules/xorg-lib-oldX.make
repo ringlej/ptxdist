@@ -137,7 +137,7 @@ $(STATEDIR)/xorg-lib-oldX.targetinstall: $(xorg-lib-oldX_targetinstall_deps_defa
 
 xorg-lib-oldX_clean:
 	rm -rf $(STATEDIR)/xorg-lib-oldX.*
-	rm -rf $(IMAGEDIR)/xorg-lib-oldX_*
+	rm -rf $(PKGDIR)/xorg-lib-oldX_*
 	rm -rf $(XORG_LIB_OLDX_DIR)
 
 # vim: syntax=make

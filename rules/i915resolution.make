@@ -121,7 +121,7 @@ $(STATEDIR)/i915resolution.targetinstall: $(i915resolution_targetinstall_deps_de
 
 i915resolution_clean:
 	rm -rf $(STATEDIR)/i915resolution.*
-	rm -rf $(IMAGEDIR)/i915resolution_*
+	rm -rf $(PKGDIR)/i915resolution_*
 	rm -rf $(I915RESOLUTION_DIR)
 
 # vim: syntax=make

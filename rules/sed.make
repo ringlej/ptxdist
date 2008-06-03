@@ -125,7 +125,7 @@ $(STATEDIR)/sed.targetinstall: $(sed_targetinstall_deps_default)
 
 sed_clean:
 	rm -rf $(STATEDIR)/sed.*
-	rm -rf $(IMAGEDIR)/sed_*
+	rm -rf $(PKGDIR)/sed_*
 	rm -rf $(SED_DIR)
 
 # vim: syntax=make

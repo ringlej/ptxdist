@@ -154,7 +154,7 @@ endif
 
 openntpd_clean:
 	rm -rf $(STATEDIR)/openntpd.*
-	rm -rf $(IMAGEDIR)/openntpd_*
+	rm -rf $(PKGDIR)/openntpd_*
 	rm -rf $(OPENNTPD_DIR)
 
 # vim: syntax=make

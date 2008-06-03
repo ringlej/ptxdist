@@ -144,7 +144,7 @@ endif
 
 procps_clean:
 	rm -rf $(STATEDIR)/procps.*
-	rm -rf $(IMAGEDIR)/procps_*
+	rm -rf $(PKGDIR)/procps_*
 	rm -rf $(PROCPS_DIR)
 
 # vim: syntax=make

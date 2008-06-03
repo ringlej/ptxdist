@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-xf86vidmode.targetinstall: $(xorg-proto-xf86vidmode_targe
 
 xorg-proto-xf86vidmode_clean:
 	rm -rf $(STATEDIR)/xorg-proto-xf86vidmode.*
-	rm -rf $(IMAGEDIR)/xorg-proto-xf86vidmode_*
+	rm -rf $(PKGDIR)/xorg-proto-xf86vidmode_*
 	rm -rf $(XORG_PROTO_XF86VIDMODE_DIR)
 
 # vim: syntax=make

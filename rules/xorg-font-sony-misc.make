@@ -126,7 +126,7 @@ $(STATEDIR)/xorg-font-sony-misc.targetinstall: $(xorg-font-sony-misc_targetinsta
 
 xorg-font-sony-misc_clean:
 	rm -rf $(STATEDIR)/xorg-font-sony-misc.*
-	rm -rf $(IMAGEDIR)/xorg-font-sony-misc_*
+	rm -rf $(PKGDIR)/xorg-font-sony-misc_*
 	rm -rf $(XORG_FONT_SONY_MISC_DIR)
 
 # vim: syntax=make

@@ -404,7 +404,7 @@ endif
 
 qte_clean:
 	rm -rf $(STATEDIR)/qte.*
-	rm -rf $(IMAGEDIR)/qte_*
+	rm -rf $(PKGDIR)/qte_*
 	rm -rf $(QTE_DIR)
 
 # vim: syntax=make

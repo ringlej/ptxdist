@@ -112,7 +112,7 @@ $(STATEDIR)/xorg-proto-fixes.targetinstall: $(xorg-proto-fixes_targetinstall_dep
 
 xorg-proto-fixes_clean:
 	rm -rf $(STATEDIR)/xorg-proto-fixes.*
-	rm -rf $(IMAGEDIR)/xorg-proto-fixes_*
+	rm -rf $(PKGDIR)/xorg-proto-fixes_*
 	rm -rf $(XORG_PROTO_FIXES_DIR)
 
 # vim: syntax=make

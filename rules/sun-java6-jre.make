@@ -150,7 +150,7 @@ $(STATEDIR)/sun-java6-jre.targetinstall: $(sun-java6-jre_targetinstall_deps_defa
 
 sun-java6-jre_clean:
 	rm -rf $(STATEDIR)/sun-java6-jre.*
-	rm -rf $(IMAGEDIR)/sun-java6-jre_*
+	rm -rf $(PKGDIR)/sun-java6-jre_*
 	rm -rf $(SUN_JAVA6_JRE_DIR)
 
 # vim: syntax=make

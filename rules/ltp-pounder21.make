@@ -110,7 +110,7 @@ $(STATEDIR)/ltp-pounder21.targetinstall:
 
 ltp-pounder21_clean:
 	rm -rf $(STATEDIR)/ltp-pounder21.*
-	rm -rf $(IMAGEDIR)/ltp-pounder21_*
+	rm -rf $(PKGDIR)/ltp-pounder21_*
 	rm -rf $(LTP_POUNDER21_DIR)
 
 # vim: syntax=make

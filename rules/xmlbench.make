@@ -133,7 +133,7 @@ $(STATEDIR)/xmlbench.targetinstall: $(xmlbench_targetinstall_deps_default)
 
 xmlbench_clean:
 	rm -rf $(STATEDIR)/xmlbench.*
-	rm -rf $(IMAGEDIR)/xmlbench_*
+	rm -rf $(PKGDIR)/xmlbench_*
 	rm -rf $(XMLBENCH_DIR)
 
 # vim: syntax=make

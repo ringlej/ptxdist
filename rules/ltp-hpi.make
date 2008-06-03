@@ -110,7 +110,7 @@ $(STATEDIR)/ltp-hpi.targetinstall:
 
 ltp-hpi_clean:
 	rm -rf $(STATEDIR)/ltp-hpi.*
-	rm -rf $(IMAGEDIR)/ltp-hpi_*
+	rm -rf $(PKGDIR)/ltp-hpi_*
 	rm -rf $(LTP_HPI_DIR)
 
 # vim: syntax=make

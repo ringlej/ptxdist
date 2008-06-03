@@ -93,7 +93,7 @@ $(STATEDIR)/alsa-utils.targetinstall:
 
 alsa-utils_clean:
 	rm -rf $(STATEDIR)/alsa-utils.*
-	rm -rf $(IMAGEDIR)/alsa-utils_*
+	rm -rf $(PKGDIR)/alsa-utils_*
 	rm -rf $(ALSA_UTILS_DIR)
 
 # vim: syntax=make

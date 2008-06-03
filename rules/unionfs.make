@@ -140,7 +140,7 @@ endif
 
 unionfs_clean:
 	rm -rf $(STATEDIR)/unionfs.*
-	rm -rf $(IMAGEDIR)/unionfs_*
+	rm -rf $(PKGDIR)/unionfs_*
 	rm -rf $(UNIONFS_DIR)
 
 # vim: syntax=make

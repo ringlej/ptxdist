@@ -118,7 +118,7 @@ $(STATEDIR)/memtester.targetinstall: $(memtester_targetinstall_deps_default)
 
 memtester_clean:
 	rm -rf $(STATEDIR)/memtester.*
-	rm -rf $(IMAGEDIR)/memtester_*
+	rm -rf $(PKGDIR)/memtester_*
 	rm -rf $(MEMTESTER_DIR)
 
 # vim: syntax=make

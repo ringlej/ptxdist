@@ -162,6 +162,6 @@ endif
 
 proftpd_clean:
 	rm -rf $(STATEDIR)/proftpd.* $(PROFTPD_DIR)
-	rm -rf $(IMAGEDIR)/proftpd_*
+	rm -rf $(PKGDIR)/proftpd_*
 
 # vim: syntax=make
