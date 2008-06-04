@@ -45,6 +45,7 @@ SYSLOGNG_ENV 	:= $(CROSS_ENV)
 #
 SYSLOGNG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--with-libnet=$(SYSROOT)/usr/bin \
 	--enable-dynamic-linking \
 	--disable-debug \
 	--disable-sun-streams \
