@@ -1,5 +1,5 @@
 config XTERM
-	bool
+	tristate
 	select XORG_LIB_XAW
 	select XORG_LIB_XMU
 	select XORG_LIB_XEXT
@@ -10,4 +10,5 @@ config XTERM
 	select NCURSES
 	prompt "xterm"
 	help
-	  FIXME
+	  The xterm program is the standard terminal emulator for the X
+	  Window System.

@@ -1,6 +1,6 @@
 menuconfig	TERMCAP
-	bool
-	prompt "termcap                     "
+	tristate
+	prompt "termcap                       "
 	help
 	  This is the GNU termcap library -- a library of C functions that
 	  enable programs to send control strings to terminals in a way

@@ -1,5 +1,5 @@
 config XMLSTARLET
-	bool
+	tristate
 	select LIBXML2
 	select LIBXSLT
 	prompt "xmlstarlet"

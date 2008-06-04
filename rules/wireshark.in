@@ -1,5 +1,5 @@
 menuconfig WIRESHARK
-	bool
+	tristate
 	depends on BROKEN
 	# incorrectly runs libgnutls-config from the host while trying
 	# to find out where tls is
@@ -13,11 +13,12 @@ menuconfig WIRESHARK
 	  to capture packets off the wire. Wireshark decodes
 	  numerous protocols (too many to list).
 
+if WIRESHARK
+
 config WIRESHARK_TSHARK
 	bool
 	default y
 	prompt "tshark"
-	depends on WIRESHARK
 	help
 	  This is the textmode version of wireshark
 
@@ -26,7 +27,6 @@ config WIRESHARK_TSHARK
 #	bool
 #	default n
 #	prompt "wireshark"
-#	depends on WIRESHARK
 #	help
 #	  This is the graphical version of wireshark
 #
@@ -34,8 +34,9 @@ config WIRESHARK_TSHARK
 #config WIRESHARK_IPV6
 #	bool
 #	default n
-#	depends on WIRESHARK
 #	prompt "support ipv6"
 #	help
 #	  Activate this to support ipv6 in wireshark
 #
+
+endif

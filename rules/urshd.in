@@ -2,4 +2,7 @@ config URSHD
 	tristate
 	prompt "urshd"
 	help
-	  FIXME
+	  urshd (micro remote shell server) is a server for rsh program.
+	  It is (indirectly) derived from BSD rshd with all the security
+	  checks cut off.  Unlike other versions it is standalone server
+	  that does not depend on the inetd daemon.

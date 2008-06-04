@@ -9,7 +9,8 @@
 # REQUIRED_LIBS="xfont xau fontenc"
 #
 menuconfig XORG_SERVER
-	bool "xorg server           "
+	tristate
+	prompt "xorg server                   "
 # Always required:
 	select XORG_LIB_X11
 	select XORG_LIB_XAW

@@ -1,5 +1,5 @@
 config ZEBRA
-	bool
+	tristate
 	prompt "GNU Zebra [BROKEN]"
 	depends on BROKEN
 	help

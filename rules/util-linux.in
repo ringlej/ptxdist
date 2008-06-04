@@ -1,6 +1,7 @@
 menuconfig UTIL_LINUX
 
-	bool "util-linux          "
+	tristate
+	"util-linux                    "
 	select NCURSES if UTIL_LINUX_CFDISK
 
 config UTIL_LINUX_FDISK

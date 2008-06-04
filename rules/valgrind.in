@@ -1,5 +1,5 @@
 config VALGRIND
-	bool
+	tristate
 	prompt "valgrind"
 	help
 	  Valgrind is a GPL'd system for debugging and profiling x86-Linux

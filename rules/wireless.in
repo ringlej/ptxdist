@@ -1,7 +1,7 @@
-menu    "Wireless Tools      "
+menu    "Wireless Tools                "
 
 config WIRELESS
-	bool
+	tristate
 	prompt "Wireless Tools"
 	help
  	  The wireless tools are used to manipulate the

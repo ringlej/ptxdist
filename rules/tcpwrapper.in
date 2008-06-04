@@ -1,6 +1,6 @@
 menuconfig	TCPWRAPPER
-	bool
-	prompt "tcpwrapper          "
+	tristate
+	prompt "tcpwrapper                    "
 	help
 	  With this package you can monitor and filter incoming requests for the
 	  SYSTAT, FINGER, FTP, TELNET, RLOGIN, RSH, EXEC, TFTP, TALK, and other

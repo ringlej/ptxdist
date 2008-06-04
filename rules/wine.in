@@ -1,3 +1,4 @@
 config WINE
 	bool
+# only needed for its "usp10.h", e.g. by GTK
 

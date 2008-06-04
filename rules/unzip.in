@@ -1,5 +1,6 @@
 menuconfig UNZIP
-	bool "unzip                         "
+	tristate
+	"unzip                         "
 	help
 	  UnZip is an extraction utility for archives compressed in .zip
 	  format (also called "zipfiles").

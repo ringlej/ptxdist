@@ -1,6 +1,6 @@
 menuconfig UDEV
-	bool
-	prompt "udev                "
+	tristate
+	prompt "udev                          "
 	select ROOTFS_DEV
 	help
 	  udev provides a dynamic device directory containing only

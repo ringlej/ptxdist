@@ -1,5 +1,5 @@
 config @PACKET@
-	bool
+	tristate
 	prompt "@packet@"
 	help
 	  FIXME

@@ -1,6 +1,6 @@
 menuconfig XMLBENCH
 	depends on BROKEN
-	bool
+	tristate
 	prompt "xmlbench [BROKEN]"
 	help
 	  xmlbench provides benchmarking toolset for all

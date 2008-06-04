@@ -1,5 +1,5 @@
 config TROLL_FTPD
-	bool
+	tristate
 	prompt "troll-ftpd [BROKEN]"
 	depends on BROKEN
 	help

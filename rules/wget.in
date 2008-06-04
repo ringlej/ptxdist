@@ -1,5 +1,5 @@
 config WGET
-	bool
+	tristate
 	prompt "wget"
 	depends on !BB_CONFIG_WGET
 	help

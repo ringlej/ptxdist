@@ -1,5 +1,5 @@
 config VICE
-	bool
+	tristate
 	select READLINE
 	select ALSA_LIB
 	prompt "vice"

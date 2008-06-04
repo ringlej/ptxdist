@@ -1,5 +1,5 @@
 config XCURSOR_TRANSPARENT_THEME
-	bool
+	tristate
 	depends on XORG_CURSOR
 	prompt "xcursor transparent theme"
 	help

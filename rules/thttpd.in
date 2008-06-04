@@ -1,6 +1,6 @@
 menuconfig THTTPD
-	bool
-	prompt "thttpd              "
+	tristate
+	prompt "thttpd                        "
 	help
 	  thttpd (thin httpd) is a small, fast secure webserver.
 

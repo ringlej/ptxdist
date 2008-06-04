@@ -1,6 +1,7 @@
 config USPLASH
-	bool
+	tristate
 	select LIBGD
 	prompt "usplash"
 	help
-	  FIXME
+	  Usplash is a userspace application that uses the Linux
+	  framebuffer interface to draw a splash screen at boot.

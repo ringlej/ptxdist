@@ -1,6 +1,6 @@
 config XAWTV
+	tristate
 	prompt "xawtv"
-	bool
 	select LIBJPEG
 	select NCURSES
 	select XORG_LIB_XFONT

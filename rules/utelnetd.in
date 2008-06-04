@@ -1,7 +1,7 @@
 menuconfig UTELNETD
 	depends on !BB_CONFIG_TELNETD
-	bool
-	prompt "utelnetd            "
+	tristate
+	prompt "utelnetd                      "
 	help
 	  utelnet is a very small telnetd implementation.
 

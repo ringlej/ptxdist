@@ -1,5 +1,6 @@
 menuconfig ZIP
-	bool "zip                           "
+	tristate
+	"zip                           "
 	help
 	  zip is a compression and file packaging utility for Unix, VMS, MSDOS,
 	  OS/2, Windows NT, Minix, Atari and Macintosh, Amiga and Acorn RISC OS.
@@ -8,18 +9,18 @@ menuconfig ZIP
 	  press(1) and is compatible with PKZIP (Phil Katz's ZIP for MSDOS sys-
 	  tems).
 
+if ZIP
+
 config ZIP_ZIP
 	bool "zip"
-	depends on ZIP
 
 config ZIP_ZIPCLOAK
 	bool "zipcloak"
-	depends on ZIP
 
 config ZIP_ZIPNOTE
 	bool "zipnote"
-	depends on ZIP
 
 config ZIP_ZIPSPLIT
 	bool "zipsplit"
-	depends on ZIP
+
+endif

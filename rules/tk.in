@@ -1,6 +1,6 @@
 menuconfig TK
-	bool
-	prompt "Tk                 "
+	tristate
+	prompt "Tk (Tcl/Tk)                   "
 	select ROOTFS_DEV
 	depends on TCL
 	depends on BROKEN

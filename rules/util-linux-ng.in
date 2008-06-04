@@ -1,6 +1,7 @@
 menuconfig UTIL_LINUX_NG
 
-	bool "util-linux-ng       "
+	tristate
+	"util-linux-ng                 "
 	select NCURSES if UTIL_LINUX_NG_CFDISK
 	select E2FSPROGS
 

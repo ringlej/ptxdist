@@ -1,5 +1,6 @@
 menuconfig WXWINDOWS
-	bool "wxWidgets [BROKEN]    "
+	tristate
+	"wxWidgets [BROKEN]    "
 	depends on BROKEN
 	help
 	  wxWindows Cross-platform C++ GUI toolkit

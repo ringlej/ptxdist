@@ -1,5 +1,5 @@
 menuconfig ZLIB
-	bool
+	tristate
 	prompt "zlib                        "
 	help
 	  A Massively Spiffy Yet Delicately Unobtrusive 

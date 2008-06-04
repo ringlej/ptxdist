@@ -1,7 +1,7 @@
 menuconfig USBUTILS
 	select LIBUSB
-	bool
-	prompt "usbutils            "
+	tristate
+	prompt "usbutils                      "
 	help
 	  usbutils
 
