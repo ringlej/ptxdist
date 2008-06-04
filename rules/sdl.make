@@ -142,12 +142,20 @@ SDL_AUTOCONF += --enable-video
 	--enable-video-x11-vm \
 	--enable-dga \
 	--enable-video-x11-dgamouse \
-	--enable-video-x11-xv \
-	--enable-video-x11-xinerama \
 	--enable-video-x11-xme \
 	--enable-video-dga \
 	--x-includes=$(SYSROOT)/usr/include \
 	--x-libraries=$(SYSROOT)/usr/lib
+  ifdef PTXCONF_SDL_XORG_XV
+  SDL_AUTOCONF += --enable-video-x11-xv
+  else
+  SDL_AUTOCONF += --disable-video-x11-xv
+  endif
+  ifdef PTXCONF_SDL_XORG_XINERAMA
+  SDL_AUTOCONF += --enable-video-x11-xinerama
+  else
+  SDL_AUTOCONF += --disable-video-x11-xinerama
+  endif
  else
  SDL_AUTOCONF += --without-x
  endif

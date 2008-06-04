@@ -6,9 +6,9 @@ menuconfig SDL
 	select ALSA_LIB if SDL_ALSA
 	select XORG_LIB_X11		if SDL_XORG
 	select XORG_LIB_XT		if SDL_XORG
-	select XORG_LIB_XV		if SDL_XORG
-	select XORG_LIB_XVMC		if SDL_XORG
-	select XORG_LIB_XINERAMA	if SDL_XORG
+	select XORG_LIB_XV		if SDL_XORG_XV
+	select XORG_LIB_XVMC		if SDL_XORG_XV
+	select XORG_LIB_XINERAMA	if SDL_XORG_XINERAMA
 
 	select ALSA_LIB			if SDL_ALSA
 	select DIRECTFB			if SDL_DIRECTFB
@@ -173,13 +173,23 @@ config SDL_NANOX
 	  aimed at bringing the features of modern graphical
 	  windowing environments to smaller devices and platforms.
 
-config SDL_XORG
+menuconfig SDL_XORG
 	bool
 	prompt "Xorg Support"
 	depends on SDL_VIDEO
 	help
 	  X.Org provides an open source implementation of the
 	  X Window System.
+
+config SDL_XORG_XV
+	bool
+	prompt "XVideo Support"
+	depends on SDL_XORG
+
+config SDL_XORG_XINERAMA
+	bool
+	prompt "Xinerama Support"
+	depends on SDL_XORG
 
 config SDL_FBCON
 	bool
