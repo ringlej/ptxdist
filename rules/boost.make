@@ -67,16 +67,45 @@ BOOST_ENV 	:=  $(CROSS_ENV)
 BOOST_JAM	:= \
 	$(BOOST_DIR)/tools/build/jam_src/bjam \
 	-q \
-	-d 1 \
 	-sTOOLS=gcc \
 	-sGCC=$(COMPILER_PREFIX)gcc \
 	-sGXX=$(COMPILER_PREFIX)g++ \
 	-sOBJCOPY=$(COMPILER_PREFIX)objcopy
 
+# boost doesn't provide "no library" choice. If the library list is empty, it
+# goes for all libraries. We start at least with date_time lib here to avoid
+# this
+BOOST_LIBRARIES	:= date_time
+ifdef PTXCONF_BOOST_FILESYSTEM
+BOOST_LIBRARIES += filesystem
+endif
+ifdef PTXCONF_BOOST_REGEX
+BOOST_LIBRARIES += regex
+endif
+ifdef PTXCONF_BOOST_THREAD
+BOOST_LIBRARIES += thread
+endif
+ifdef PTXCONF_BOOST_PROGRAM_OPTIONS
+BOOST_LIBRARIES += program_options
+endif
+ifdef PTXCONF_BOOST_SERIALIZATION
+BOOST_LIBRARIES += serialization
+endif
+
+BOOST_CONF	:= \
+	--with-bjam="$(BOOST_JAM)" \
+	--prefix="$(SYSROOT)/usr" \
+	--with-libraries="$(subst $(space),$(comma),$(BOOST_LIBRARIES))"
+
 $(STATEDIR)/boost.prepare: $(boost_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(BOOST_DIR)/tools/build/jam_src && \
 		sh build.sh gcc && mv bin.*/bjam .
+	
+	cd $(BOOST_DIR) && \
+		$(BOOST_PATH) \
+		./configure $(BOOST_CONF)
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -87,23 +116,7 @@ boost_compile: $(STATEDIR)/boost.compile
 
 $(STATEDIR)/boost.compile: $(boost_compile_deps_default)
 	@$(call targetinfo, $@)
-
-ifdef PTXCONF_BOOST_FILESYSTEM
-	cd $(BOOST_DIR)/libs/filesystem/build && $(BOOST_JAM)
-endif
-ifdef PTXCONF_BOOST_REGEX
-	cd $(BOOST_DIR)/libs/regex/build && $(BOOST_JAM)
-endif
-ifdef PTXCONF_BOOST_THREAD
-	cd $(BOOST_DIR)/libs/thread/build && $(BOOST_JAM)
-endif
-ifdef PTXCONF_BOOST_PROGRAM_OPTIONS
-	cd $(BOOST_DIR)/libs/program_options/build && $(BOOST_JAM)
-endif
-ifdef PTXCONF_BOOST_SERIALIZATION
-	cd $(BOOST_DIR)/libs/serialization/build && $(BOOST_JAM)
-endif
-
+	cd $(BOOST_DIR) && PATH=$(CROSS_PATH) $(MAKE)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -114,36 +127,8 @@ boost_install: $(STATEDIR)/boost.install
 
 $(STATEDIR)/boost.install: $(boost_install_deps_default)
 	@$(call targetinfo, $@)
-
-	@cd $(BOOST_DIR)/boost; \
-	for i in `find . -type d ! -path "*regex/*" ! -path "*thread/*" ! -path "*program_options/*" \
-		! -path "serialization/*" ! -path "filessystem/*"`; do \
-		if [ ! `ls $$i/*.hpp 2>/dev/null 1>/dev/null; echo $$?` -gt 0 ]; then \
-			[ ! -d $(SYSROOT)/usr/include/boost/$$i ] && \
-			mkdir -p $(SYSROOT)/usr/include/boost/$$i; \
-			cp -f $$i/*.hpp $(SYSROOT)/usr/include/boost/$$i/; \
-		fi \
-	done
-
-ifdef PTXCONF_BOOST_FILESYSTEM
-	@cp -a $(BOOST_DIR)/boost/filesystem/ $(SYSROOT)/usr/include/boost/
-endif
-ifdef PTXCONF_BOOST_REGEX
-	@cp -a \
-	  $(BOOST_DIR)/bin/boost/libs/regex/build/libboost_regex.so/gcc/release/shared-linkable-true/libboost_regex-gcc-1_33_1.so \
-	  $(SYSROOT)/usr/lib/
-	@cp -a $(BOOST_DIR)/boost/regex/ $(BOOST_DIR)/boost/regex.hpp $(SYSROOT)/usr/include/boost/
-endif
-ifdef PTXCONF_BOOST_THREAD
-	@cp -a $(BOOST_DIR)/libs/thread/build/bin-stage/libboost_thread* $(SYSROOT)/usr/lib/
-	@cp -a $(BOOST_DIR)/boost/thread/ $(BOOST_DIR)/boost/thread.hpp $(SYSROOT)/usr/include/boost/
-endif
-ifdef PTXCONF_BOOST_PROGRAM_OPTIONS
-	@cp -a $(BOOST_DIR)/boost/program_options/ $(BOOST_DIR)/boost/program_options.hpp $(SYSROOT)/usr/include/boost/
-endif
-ifdef PTXCONF_BOOST_SERIALIZATION
-	@cp -a $(BOOST_DIR)/boost/serialization/ $(SYSROOT)/usr/include/boost/
-endif
+	@$(call install, BOOST)
+	@find $(SYSROOT) -name boost -type d -exec cp -a {} $(SYSROOT)/usr/include \;;
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -163,57 +148,53 @@ $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 	@$(call install_fixup,boost,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,boost,DEPENDS,)
 	@$(call install_fixup,boost,DESCRIPTION,missing)
-
-ifdef PTXCONF_BOOST_FILESYSTEM
-	@$(call install_copy, boost, 0, 0, 0644, \
-		$(BOOST_DIR)/stage/lib/libboost_filesystem-gcc-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_filesystem-gcc-d-1_33_1.so.1.33.1)
-	@$(call install_link, boost, \
-		libboost_filesystem-gcc-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_filesystem-gcc-d-1_33_1.so)
-endif
-
-ifdef PTXCONF_BOOST_REGEX
-	@$(call install_copy, boost, 0, 0, 0644, \
-		$(BOOST_DIR)/stage/lib/libboost_regex-gcc-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_regex-gcc-d-1_33_1.so.1.33.1)
-	@$(call install_link, boost, \
-		libboost_regex-gcc-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_regex-gcc-d-1_33_1.so)
-endif
-
-ifdef PTXCONF_BOOST_THREAD
-	@$(call install_copy, boost, 0, 0, 0644, \
-		$(BOOST_DIR)/libs/thread/build/bin-stage/libboost_thread-gcc-mt-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_thread-gcc-mt-d-1_33_1.so.1.33.1)
-	@$(call install_link, boost, \
-		libboost_thread-gcc-mt-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_thread-gcc-mt-d-1_33_1.so)
-endif
-
-ifdef PTXCONF_BOOST_PROGRAM_OPTIONS
-	@$(call install_copy, boost, 0, 0, 0644, \
-		$(BOOST_DIR)/stage/lib/libboost_program_options-gcc-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_program_options-gcc-d-1_33_1.so.1.33.1)
-	@$(call install_link, boost, \
-		libboost_program_options-gcc-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_program_options-gcc-d-1_33_1.so)
-endif
-ifdef PTXCONF_BOOST_SERIALIZATION
-	@$(call install_copy, boost, 0, 0, 0644, \
-		$(BOOST_DIR)/stage/lib/libboost_serialization-gcc-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_serialization-gcc-d-1_33_1.so.1.33.1)
-	@$(call install_copy, boost, 0, 0, 0644, \
-		$(BOOST_DIR)/stage/lib/libboost_wserialization-gcc-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_wserialization-gcc-d-1_33_1.so.1.33.1)
-
-	@$(call install_link, boost, \
-		libboost_serialization-gcc-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_serialization-gcc-d-1_33_1.so)
-	@$(call install_link, boost, \
-		libboost_wserialization-gcc-d-1_33_1.so.1.33.1, \
-		/usr/lib/libboost_wserialization-gcc-d-1_33_1.so)
-endif
+	
+# iterate for selected libraries
+# trim whitespaces added by make and go for single .so files depending on which
+# kind of binaries we want to install
+	@for BOOST_LIB in $(BOOST_LIBRARIES); do \
+		read BOOST_LIB <<< $$BOOST_LIB; \
+		if [ ! -z $(PTXCONF_BOOST_INST_NOMT_DBG) ]; then \
+			for SO_FILE in `find $(BOOST_DIR)/bin/boost/libs/$$BOOST_LIB/ \
+				 -name "*.so.*" -type f -path "*debug*" ! -path "*threading*"`; do \
+				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
+					/usr/lib/$$(basename $$SO_FILE)); \
+			        $(call install_link, boost, \
+		                	$$(basename $$SO_FILE), \
+        		        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+			done; \
+		fi; \
+		if [ ! -z $(PTXCONF_BOOST_INST_NOMT_RED) ]; then \
+			for SO_FILE in `find $(BOOST_DIR)/bin/boost/libs/$$BOOST_LIB/ \
+				 -name "*.so.*" -type f -path "*release*" ! -path "*threading*"`; do \
+				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
+					/usr/lib/$$(basename $$SO_FILE), n); \
+			        $(call install_link, boost, \
+		                	$$(basename $$SO_FILE), \
+        		        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+			done; \
+		fi; \
+		if [ ! -z $(PTXCONF_BOOST_INST_MT_DBG) ]; then \
+			for SO_FILE in `find $(BOOST_DIR)/bin/boost/libs/$$BOOST_LIB/ \
+				 -name "*.so.*" -type f -path "*debug*" -path "*threading*"`; do \
+				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
+					/usr/lib/$$(basename $$SO_FILE)); \
+			        $(call install_link, boost, \
+		                	$$(basename $$SO_FILE), \
+        		        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+			done; \
+		fi; \
+		if [ ! -z $(PTXCONF_BOOST_INST_MT_RED) ]; then \
+			for SO_FILE in `find $(BOOST_DIR)/bin/boost/libs/$$BOOST_LIB/ \
+				 -name "*.so.*" -type f -path "*release*" -path "*threading*"`; do \
+				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
+					/usr/lib/$$(basename $$SO_FILE), n); \
+			        $(call install_link, boost, \
+		                	$$(basename $$SO_FILE), \
+        		        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+			done; \
+		fi; \
+	done
 
 	@$(call install_finish,boost)
 
@@ -225,7 +206,7 @@ endif
 
 boost_clean:
 	rm -rf $(STATEDIR)/boost.*
-	rm -rf $(PKGDIR)/boost_*
+	rm -rf $(IMAGEDIR)/boost_*
 	rm -rf $(BOOST_DIR)
 
 # vim: syntax=make

@@ -2,7 +2,7 @@
 
 menuconfig BOOST
 	tristate
-	prompt "boost                         "
+	prompt "boost                       "
 	help
 
 	  Boost provides free peer-reviewed portable C++ source libraries.  The
@@ -21,104 +21,47 @@ menuconfig BOOST
 	  For details see the project homepage:
 
 		http://www.boost.org/
-
 if BOOST
+comment "Install Options    "
 
-# config BOOST_ALGORIGHM
-# 	bool
-# 	prompt "algorithm"
-#
-# config BOOST_ANY
-# 	bool
-# 	prompt "any"
-#
-# config BOOST_ARRAY
-# 	bool
-# 	prompt "array"
-#
-# config BOOST_ASSIGN
-# 	bool
-# 	prompt "assign"
-#
-# config BOOST_BIND
-# 	bool
-# 	prompt "bind"
-#
-# config BOOST_COMPATIBILITY
-# 	bool
-# 	prompt "compatibility"
-# 	help
-# 	  Bootst  library.
-#
-# compose
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# concept_check
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# config
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# conversion
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# crc
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# date_time
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# detail
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# disjoint_sets
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# dynamic_bitset
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# expected_results.xml
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
+config BOOST_INST_NOMT_DBG
+	bool
+	prompt "Install binaries with debug functions"
+	default y
+	help
+	  Installs debuggable binaries. Stripped version are installed on target.
+
+config BOOST_INST_NOMT_RED
+	bool
+	prompt "Install reduced binaries (undebuggable)"
+	default n
+	help
+	  Installs reduced binaries by packet provider. Attention: The debugging
+	  symbols are already stripped during build.
+	
+config BOOST_INST_MT_DBG
+	bool
+	select BOOST_THREAD
+	prompt "Install binaries with multithread support and debug functions"
+	default n
+	help
+	  Installs binaries with multithread support, needs thread library.
+
+config BOOST_INST_MT_RED
+	bool
+	select BOOST_THREAD
+	prompt "Install reduced binaries with multithread support (undebuggable)"
+	default n
+	help
+	  Installs binaries with multithread support, needs thread library.
+
+comment "Boost Libraries"
+
+config BOOST_DATE_TIME
+ 	bool
+ 	prompt "date_time"
+ 	help
+ 	  Boost date time library.
 
 config BOOST_FILESYSTEM
 	bool
@@ -126,228 +69,17 @@ config BOOST_FILESYSTEM
 	help
 	  Boost filesystem library.
 
-# format
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# function
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# functional
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# graph
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-#
-# integer
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# io
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# iostreams
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# iterator
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# lambda
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# libraries.htm
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# logic
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# maintainers.txt
-# math
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# mem_fn
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# mpl
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# multi_array
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# multi_index
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# numeric
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# optional
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# parameter
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# platform_maintainers.txt
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# pool
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# preprocessor
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# program_options
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# property_map
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# ptr_container
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# python
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# random
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# range
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# rational
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# regex
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# serialization
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# signals
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# smart_ptr
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# spirit
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# static_assert
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# test
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# thread
+config BOOST_REGEX
+	bool
+	prompt "regex"
+	help
+	  Boost regex library.
+
+config BOOST_SERIALIZATION
+ 	bool
+ 	prompt "serialization"
+ 	help
+ 	  Boost serialization library.
 
 config BOOST_THREAD
 	bool
@@ -355,124 +87,9 @@ config BOOST_THREAD
 	help
 	  Portable C++ multi-threading library.
 
-# timer
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# tokenizer
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# tuple
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# type_traits
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# utility
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# variant
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-# wave
-# config BOOST_
-# 	bool
-# 	prompt ""
-# 	help
-# 	  Bootst  library.
-
-
-# -----
-
-config BOOST_REGEX
-	bool
-	prompt "regex"
-	help
-	  Boost regex library.
-
-# config BOOST_SIGNALS
-# 	bool
-# 	prompt "signals"
-# 	help
-# 	  Bootst signals library.
-#
-config BOOST_SERIALIZATION
- 	bool
- 	prompt "serialization"
- 	help
- 	  Bootst serialization library.
-#
-# config BOOST_THREAD
-# 	bool
-# 	prompt "thread"
-# 	help
-# 	  Bootst thread library.
-#
-# config BOOST_PYTHON
-# 	bool
-# 	prompt "python bindings"
-# 	help
-# 	  Bootst python library.
-#
-# config BOOST_FILESYSTEM
-# 	bool
-# 	prompt "filesystem"
-# 	help
-# 	  Bootst filesystem library.
-#
-# config BOOST_WAVE
-# 	bool
-# 	prompt "wave"
-# 	help
-# 	  Bootst wave library.
-#
-# config BOOST_DATE_TIME
-# 	bool
-# 	prompt "date_time"
-# 	help
-# 	  Bootst regexp library.
-#
-# config BOOST_IOSTREAMS
-# 	bool
-# 	prompt "iostreams"
-# 	help
-# 	  Bootst regexp library.
-#
-# config BOOST_TEST
-# 	bool
-# 	prompt "test"
-# 	help
-# 	  Bootst test library.
-#
 config BOOST_PROGRAM_OPTIONS
 	bool
  	prompt "program options"
  	help
-	  FIXME
-# 	  Bootst regexp library.
-#
-# config BOOST_GRAPH
-# 	bool
-# 	prompt "graph"
-# 	help
-# 	  Bootst regexp library.
-#
-
+	  Boost programm option parser
 endif
