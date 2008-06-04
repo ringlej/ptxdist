@@ -6,6 +6,8 @@ menuconfig SYSLOGNG
 	select EVENTLOG
 	select GLIB
 	select LIBC_RT
+	select LIBNET
+	select TCPWRAPPER
 	help
 	  The next generation syslog daemon.
 
