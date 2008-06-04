@@ -8,11 +8,11 @@ menuconfig XORG_LIB_XFONT
 	select XORG_PROTO_X
 	select XORG_PROTO_FONTS
 	select XORG_LIB_FONTENC
-	select ZLIB if XORG_LIB_XFONT_BUILTIN_FONTS
 	select XORG_LIB_XTRANS
-	select FREETYPE if XORG_LIB_XFONT_FREETYPE
-	select XORG_PROTO_FONTCACHE if XORG_LIB_XFONT_FONTCACHE
-	default y
+	select ZLIB			if XORG_LIB_XFONT_BUILTIN_FONTS
+	select FREETYPE			if XORG_LIB_XFONT_FREETYPE
+	select XORG_PROTO_FONTCACHE	if XORG_LIB_XFONT_FONTCACHE
+	default y if XORG_LIB_X11
 	prompt "libXfont              "
 	help
 	  X font Library. At least one file based font support must be enabled
