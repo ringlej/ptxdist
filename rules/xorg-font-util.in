@@ -1,5 +1,6 @@
 config XORG_FONT_UTIL
-	bool
+	tristate
 	prompt "Util                          "
 	help
-	  FIXME
+	  An application for creating an index of
+	  X font files in a directory

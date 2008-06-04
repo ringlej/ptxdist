@@ -1,5 +1,5 @@
 config XORG_APP_XHOST
-	bool
+	tristate
 	depends on XORG_APP
 	select XORG_LIB_XMU
 	prompt "xorg xhost"

@@ -1,5 +1,5 @@
 config XORG_FONT_ADOBE_75DPI
-	bool
+	tristate
 	default y
 	depends on XORG_FONT_75DPI
 	select XORG_FONTS

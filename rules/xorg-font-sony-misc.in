@@ -1,6 +1,6 @@
 config XORG_FONT_SONY_MISC
-	bool
+	tristate
 	select XORG_FONTS
 	prompt "Sony misc"
 	help
-	  FIXME
+	  This package contains miscellaneous X.Org Sony fonts.

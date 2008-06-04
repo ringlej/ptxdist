@@ -1,5 +1,5 @@
 config XORG_FONT_ADOBE_UTOPIA_75DPI
-	bool
+	tristate
 	select XORG_FONTS
 	depends on XORG_FONT_75DPI
 	prompt "Adobe Utopia 75dpi"

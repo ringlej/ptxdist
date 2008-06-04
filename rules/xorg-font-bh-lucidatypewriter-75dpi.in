@@ -1,5 +1,5 @@
 config XORG_FONT_BH_LUCIDATYPEWRITER_75DPI
-	bool
+	tristate
 	select XORG_FONTS
 	depends on XORG_FONT_75DPI
 	prompt "BH Lucida Typewriter 75dpi"

@@ -1,5 +1,5 @@
 config XORG_FONT_ENCODINGS
-	bool
+	tristate
 	select XORG_FONTS
 	prompt "encodings"
 	help

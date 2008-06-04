@@ -1,6 +1,7 @@
 config XORG_FONT_ISAS_MISC
-	bool
+	tristate
 	select XORG_FONTS
 	prompt "Isas misc"
 	help
-	  FIXME
+	   Xorg ISAS fonts, contains Chinese fonts
+	  

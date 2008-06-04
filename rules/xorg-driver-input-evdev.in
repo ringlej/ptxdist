@@ -1,5 +1,5 @@
 config XORG_DRIVER_INPUT_EVDEV
-	bool
+	tristate
 	prompt "evdev"
 	depends on XORG_DRIVER_INPUT
 	select XORG_PROTO_X

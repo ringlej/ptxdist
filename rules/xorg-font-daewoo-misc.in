@@ -1,6 +1,6 @@
 config XORG_FONT_DAEWOO_MISC
-	bool
+	tristate
 	select XORG_FONTS
 	prompt "Daewoo misc"
 	help
-	  FIXME
+	  Xorg Daewoo fonts, contains Korean fonts

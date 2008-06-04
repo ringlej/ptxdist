@@ -1,5 +1,5 @@
 config XORG_APP_XAUTH
-	bool
+	tristate
 	depends on XORG_APP
 	select XORG_LIB_XAU
 	select XORG_LIB_XEXT

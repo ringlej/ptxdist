@@ -1,7 +1,7 @@
 # configuration for xorg-driver-video-ati
 
 menuconfig XORG_DRIVER_VIDEO_ATI
-	bool
+	tristate
 	depends on XORG_DRIVER_VIDEO
 	depends on ARCH_X86 || ARCH_POWERPC
 	select XORG_SERVER

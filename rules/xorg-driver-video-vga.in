@@ -1,7 +1,7 @@
 # configuration for xorg-driver-video-vga
 
 config XORG_DRIVER_VIDEO_VGA
-	bool
+	tristate
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
 	select XORG_PROTO_X

@@ -1,5 +1,5 @@
 config XORG_FONT_MISC_MISC
-	bool
+	tristate
 	select XORG_FONTS
 	default y
 	prompt "misc misc"

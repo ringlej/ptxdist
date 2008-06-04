@@ -3,7 +3,7 @@
 # the main xorg server
 #
 config XORG_DRIVER_VIDEO_NSC
-	bool
+	tristate
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
 	select XORG_SERVER_XORG

@@ -1,6 +1,6 @@
 config XORG_FONT_SCHUMACHER_MISC
-	bool
+	tristate
 	select XORG_FONTS
 	prompt "Schumacher misc"
 	help
-	  FIXME
+	  This package contains miscellaneous X.Org Schumacher fonts.

@@ -1,5 +1,5 @@
 config XORG_DRIVER_VIDEO_FBDEV
-	bool
+	tristate
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
 	select XORG_PROTO_FONTS

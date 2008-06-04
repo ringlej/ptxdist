@@ -1,7 +1,7 @@
 # configuration for xorg-driver-video-vesa
 
 config XORG_DRIVER_VIDEO_VESA
-	bool
+	tristate
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
 	select XORG_PROTO_X

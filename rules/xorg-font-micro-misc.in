@@ -1,6 +1,6 @@
 config XORG_FONT_MICRO_MISC
-	bool
+	tristate
 	select XORG_FONTS
 	prompt "micro misc"
 	help
-	  FIXME
+	  This package contains miscellaneous X.Org Micro fonts.

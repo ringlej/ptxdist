@@ -1,5 +1,5 @@
 config XORG_DRIVER_INPUT_VOID
-	bool
+	tristate
 	depends on XORG_DRIVER_INPUT
 	select XORG_SERVER
 	prompt "void"

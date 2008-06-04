@@ -1,5 +1,5 @@
 config XORG_APP_XKBCOMP
-	bool
+	tristate
 	depends on XORG_APP
 	depends on XORG_KEYBOARD_MAPPING_SUPPORT
 	prompt "xorg xkbcomp"

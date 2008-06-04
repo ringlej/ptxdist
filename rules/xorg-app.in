@@ -1,7 +1,7 @@
 # xorg application configuration
 
 menuconfig XORG_APP
-        bool "xorg applications     "
+        bool "xorg applications             "
 
 source "rules/xorg-app-xdm.in"
 source "rules/xorg-app-xhost.in"

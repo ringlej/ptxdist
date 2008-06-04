@@ -1,7 +1,7 @@
 # configuration for xorg-driver-video-i810
 
 menuconfig XORG_DRIVER_VIDEO_I810
-	bool
+	tristate
 	depends on XORG_DRIVER_VIDEO
 	depends on ARCH_X86
 	select XORG_SERVER

@@ -1,5 +1,5 @@
 config XORG_APP_XDM
-	bool
+	tristate
 	depends on XORG_APP
 	prompt "xorg XDM"
 	select XORG_LIB_XPM

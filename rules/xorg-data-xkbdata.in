@@ -1,5 +1,5 @@
 config XORG_DATA_XKBDATA
-	bool
+	tristate
 	depends on XORG_APP
 	depends on XORG_LIB_X11
 	prompt "xkbdata"

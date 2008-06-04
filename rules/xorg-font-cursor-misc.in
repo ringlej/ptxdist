@@ -1,5 +1,5 @@
 config XORG_FONT_CURSOR_MISC
-	bool
+	tristate
 	select XORG_FONTS
 	default y
 	prompt "Cursor misc"
