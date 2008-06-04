@@ -152,7 +152,7 @@ config DBUS_INSTALL_STARTUP_SCRIPT
 
 	choice
 		prompt "Kind of startup script"
-		depends DBUS_INSTALL_STARTUP_SCRIPT
+		depends on DBUS_INSTALL_STARTUP_SCRIPT
 		default ROOTFS_ETC_INITD_DBUS_GENERIC
 
 		config ROOTFS_ETC_INITD_DBUS_GENERIC

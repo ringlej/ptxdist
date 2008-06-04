@@ -2,5 +2,5 @@ config PHP_APC
 	tristate
 	depends on BROKEN
 	prompt "php apc [BROKEN]"
-	depends PHP
+	depends on PHP
 

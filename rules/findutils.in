@@ -10,27 +10,27 @@ if FINDUTILS
 
 config FINDUTILS_FIND
 	bool
-	depends !BB_CONFIG_FIND
+	depends on !BB_CONFIG_FIND
 	prompt "find"
 	help
 	  Searches given directory trees for files matching the specified criteria
 
 comment "busy box' find is selected!"
-	depends BB_CONFIG_FIND
+	depends on BB_CONFIG_FIND
 
 config FINDUTILS_XARGS
    bool
-	depends !BB_CONFIG_XARGS
+	depends on !BB_CONFIG_XARGS
 	prompt "xargs"
 	help
 	  Can be used to apply a given command to a list of files
 
 comment "busy box' xargs is selected!"
-   depends BB_CONFIG_XARGS
+   depends on BB_CONFIG_XARGS
 
 config FINDUTILS_DATABASE
 	bool
-	depends !BB_CONFIG_FIND && !BB_CONFIG_XARGS
+	depends on !BB_CONFIG_FIND && !BB_CONFIG_XARGS
 	select FINDUTILS_FIND
 	select FINDUTILS_XARGS
 	prompt "database support"

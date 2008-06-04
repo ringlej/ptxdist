@@ -23,7 +23,7 @@ if BIND
 config BIND_THREADS
 	bool
 	prompt "enable threads"
-	depends GLIBC_PTHREADS
+	depends on GLIBC_PTHREADS
 	help
 	  Specify this to build a multithreaded BIND
 

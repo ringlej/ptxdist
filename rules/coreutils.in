@@ -14,7 +14,7 @@ config COREUTILS_CP
 	  copy files and directories
 
 comment "busy box' cp is selected!"
-	depends BB_CONFIG_CP
+	depends on BB_CONFIG_CP
 
 config COREUTILS_DD
 	bool
@@ -34,7 +34,7 @@ config COREUTILS_MD5SUM
 	  compute and check MD5 message digest
 
 comment "busy box' md5sum is selected!"
-	depends BB_CONFIG_MD5SUM
+	depends on BB_CONFIG_MD5SUM
 
 config COREUTILS_READLINK
 	bool
@@ -51,6 +51,6 @@ config COREUTILS_SEQ
 	  print a sequence of numbers
 
 comment "busy box' seq is selected!"
-	depends BB_CONFIG_SEQ
+	depends on BB_CONFIG_SEQ
 
 endif

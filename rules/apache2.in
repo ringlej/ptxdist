@@ -159,7 +159,7 @@ config APACHE2_DOCUMENTROOT
 	  is provided).
 
 config APACHE2_DEFAULT_INDEX
-	depends APACHE2_DOCUMENTROOT != ""
+	depends on APACHE2_DOCUMENTROOT != ""
 	bool
 	default y
 	prompt "Default index.html"
@@ -170,7 +170,7 @@ comment "Misc   ---"
 
 config APACHE2_PUBLICDOMAINICONS
 	bool "Public Domain Icons"
-	depends APACHE2_SERVERROOT != ""
+	depends on APACHE2_SERVERROOT != ""
 	default y
 	help
           These icons were originally made for Mosaic for X and have been
@@ -181,7 +181,7 @@ config APACHE2_PUBLICDOMAINICONS
 
 config APACHE2_CUSTOMERRORS
 	bool "Multi Language Custom Error Documents"
-	depends APACHE2_SERVERROOT != ""
+	depends on APACHE2_SERVERROOT != ""
 	default y
 	help
 	  Install HTTP error messages in multiple languages. If the preferred
