@@ -1,64 +1,59 @@
 menuconfig HOTPLUG
-	bool "Hotplug             "
+	tristate
+	prompt "Hotplug             "
+
+if HOTPLUG
 
 config HOTPLUG_BLACKLIST
 	bool "blacklist"
-	depends on HOTPLUG
 	help
-	  Installs blacklist script: modules listed here prevent 
-	  the hotplug scripts from loading. 
+	  Installs blacklist script: modules listed here prevent
+	  the hotplug scripts from loading.
 
 config HOTPLUG_FIRMWARE
 	bool "firmware agent"
-	depends on HOTPLUG
 	help
 	  FIXME: This item needs to be documented
 
 config HOTPLUG_IEEE1394
 	bool "ieee1394 agent"
-	depends on HOTPLUG
 	help
 	  FIXME: This item needs to be documented
 
 config HOTPLUG_NET
 	bool "net agent"
-	depends on HOTPLUG
 	help
 	  FIXME: This item needs to be documented
 
 config HOTPLUG_PCI
 	bool "pci agent"
-	depends on HOTPLUG
 	help
 	  FIXME: This item needs to be documented
 
 config HOTPLUG_SCSI
 	bool "scsi agent"
-	depends on HOTPLUG
 	help
 	  FIXME: This item needs to be documented
 
 config HOTPLUG_USB
 	bool "usb agent"
-	depends on HOTPLUG
 	help
 	  FIXME: This item needs to be documented
 
 config HOTPLUG_INPUT
 	bool "input agent"
-	depends on HOTPLUG
 	help
 	  FIXME: This item needs to be documented
 
 config HOTPLUG_DASD
 	bool "dasd agent"
-	depends on HOTPLUG
 	help
 	  FIXME: This item needs to be documented
 
 config HOTPLUG_TAPE
 	bool "tape agent"
-	depends on HOTPLUG
 	help
 	  FIXME: This item needs to be documented
+
+endif
 
