@@ -1,0 +1,10 @@
+config SDL_MIXER
+	bool
+	prompt "SDL mixer"
+	select SDL
+
+	help
+	  SDL Mixer is a sample multi-channel audio mixer library.
+	  It supports 4 channels of 16 bit stereo audio, plus a single
+	  channel of music, mixed by the popular MikMod MOD, Timidity
+	  MIDI, and SMPEG MP3 libraries.

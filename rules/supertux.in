@@ -1,0 +1,15 @@
+config SUPERTUX
+	bool
+	prompt "supertux"
+	select SDL_MIXER
+	select SDL_IMAGE
+	select SDL_JOYSTICK
+	select SDL_IMAGE__PNG
+	select SDL_IMAGE__JPG
+	help
+          SuperTux is a classic 2D jump 'n run sidescroller game in
+	  a similar style like the original SuperMario games. This
+	  release of SuperTux features 9 enemies, 26 playable levels,
+	  software and OpenGL rendering modes, configurable joystick
+	  and keyboard input, new music and completly redone graphics.
+

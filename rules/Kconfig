@@ -208,6 +208,7 @@ menu "Graphics Libraries            "
 
 source "rules/xorg.in"
 source "rules/directfb-menu.in"
+source "rules/sdl-menu.in"
 
 comment "X Applications"
 source "rules/gtk-menu.in"
@@ -237,7 +238,6 @@ source "rules/libpng.in"
 source "rules/libjpeg.in"
 source "rules/libgd.in"
 source "rules/qtopia.in"
-source "rules/sdl.in"
 source "rules/tslib.in"
 source "rules/xawtv.in"
 endmenu
@@ -267,6 +267,10 @@ endmenu
 
 menu "Development Tools             "
 source rules/ptxdist.in
+endmenu
+
+menu "Gamez                         "
+source rules/supertux.in
 endmenu
 
 menu "Broken or orphaned Packages   "

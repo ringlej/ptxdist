@@ -256,7 +256,3 @@ config SDL_PTH
 	default y
 	help
 	  Turn on support for GNU Portable Threads
-
-source "rules/sdl_image.in"
-
-
