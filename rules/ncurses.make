@@ -42,7 +42,10 @@ NCURSES_PATH	:= PATH=$(CROSS_PATH)
 NCURSES_ENV 	:= $(CROSS_ENV)
 
 NCURSES_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
+	$(CROSS_AUTOCONF_USR)
+
+# also used by host-ncurses
+SHARED_NCURSES_AUTOCONF := \
 	--libdir=/lib \
 	--with-normal \
 	--with-shared \
@@ -56,16 +59,35 @@ NCURSES_AUTOCONF := \
 
 # enable wide char support on demand only
 ifdef PTXCONF_NCURSES_WIDE_CHAR
-NCURSES_AUTOCONF += --enable-widec
+SHARED_NCURSES_AUTOCONF += --enable-widec
 else
-NCURSES_AUTOCONF += --disable-widec
+SHARED_NCURSES_AUTOCONF += --disable-widec
 endif
 
 ifdef PTXCONF_NCURSES_BIG_CORE
-NCURSES_AUTOCONF += --enable-big-core
+SHARED_NCURSES_AUTOCONF += --enable-big-core
 else
-NCURSES_AUTOCONF += --disable-big-core
+SHARED_NCURSES_AUTOCONF += --disable-big-core
 endif
+
+$(STATEDIR)/ncurses.prepare:
+	@$(call targetinfo)
+	cd $(NCURSES_DIR) && \
+		$(NCURSES_PATH) $(NCURSES_ENV) \
+		./configure $(NCURSES_AUTOCONF) $(SHARED_NCURSES_AUTOCONF)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+ncurses_compile: $(STATEDIR)/ncurses.compile
+
+$(STATEDIR)/ncurses.compile:
+	@$(call targetinfo)
+	cd $(HOST_NCURSES_DIR)/ncurses && cp make_keys make_hash $(NCURSES_DIR)/ncurses/
+	cd $(NCURSES_DIR) && $(NCURSES_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
