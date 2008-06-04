@@ -1,1 +1,3 @@
 fix-PAGE_SIZE.diff
+add-acsubst-ld.diff
+directfb-config_add-sysroot.diff
