@@ -1,5 +1,5 @@
 config SDL_MIXER
-	bool
+	tristate
 	prompt "SDL mixer"
 	select SDL
 

@@ -1,6 +1,6 @@
 menuconfig RSYNC3
-	bool
-	prompt "rsync v3            "
+	tristate
+	prompt "rsync v3                      "
 	select OPENSSH_SSH
 	help
 	  rsync is a program that behaves in much the same way that rcp does,
@@ -8,9 +8,10 @@ menuconfig RSYNC3
 	  greatly speed up file transfers when the destination file is being
 	  updated.
 
+if RSYNC3
+
 config RSYNC3_IPV6
 	bool
-	depends on RSYNC3
 	default n
 	prompt "Support IPV6"
 	help
@@ -18,7 +19,6 @@ config RSYNC3_IPV6
 
 config RSYNC3_LARGE_FILE
 	bool
-	depends on RSYNC3
 	default y
 	prompt "Large file support"
 	help
@@ -26,19 +26,16 @@ config RSYNC3_LARGE_FILE
 
 config RSYNC3_CONFIG_FILE
 	string
-	depends on RSYNC3
 	default "/etc/rsyncd.conf"
 	prompt "Configuration file at runtime"
 	help
 	  Set configuration file for rsync server to given path on your target
 
 comment "runtime options   ---"
-	depends on RSYNC3
 
 choice
 
 prompt "Kind of rsyncd.conf/rsyncd.secrets file"
-depends on RSYNC3
 default RSYNC3_CONFIG_FILE_DEFAULT
 
 config RSYNC3_CONFIG_FILE_DEFAULT
@@ -62,7 +59,6 @@ endchoice
 
 choice
 	prompt "Kind of startup"
-	depends on RSYNC3
 	default RSYNC3_INETD_SERVER
 
 	config RSYNC3_INETD_SERVER
@@ -87,7 +83,6 @@ endchoice
 
 choice
 	prompt "Kind of startup script"
-	depends on RSYNC3
 	depends on RSYNC3_STARTUP_TYPE_STANDALONE
 	default ROOTFS_ETC_INITD_RSYNC3_DEFAULT
 
@@ -112,7 +107,6 @@ endchoice
 
 config RSYNC3_INETD_STRING
 	string
-	depends on RSYNC3
 	depends on RSYNC3_INETD_SERVER
 	prompt "inetd service entry"
 	default "rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@"
@@ -121,3 +115,4 @@ config RSYNC3_INETD_STRING
 	  in this string will be replaced with the --config option, and the
 	  path given above for configuration
 
+endif

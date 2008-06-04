@@ -1,6 +1,6 @@
 menuconfig SCREEN
-	bool
-	prompt "screen              "
+	tristate
+	prompt "screen                        "
 	select NCURSES
 	help
 	  Screen is a full-screen window manager that multiplexes a physical

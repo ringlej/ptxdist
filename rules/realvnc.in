@@ -1,5 +1,6 @@
 menuconfig REALVNC
-	bool "realvnc [BROKEN]      "
+	tristate
+	"realvnc [BROKEN]      "
 	select ZLIB
 	depends on BROKEN
 	help
@@ -7,17 +8,18 @@ menuconfig REALVNC
 	  lets you see and interact with desktop
 	  applications across any network.
 
+if REALVNC
+
 config REALVNC_SERVER
 	bool
 	prompt "realvnc server"
-	depends on REALVNC
 	help
 	  Install realvnc server
 
 config REALVNC_CLIENT
 	bool
 	prompt "realvnc client"
-	depends on REALVNC
 	help
 	  Install realvnc client
 
+endif

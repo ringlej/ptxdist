@@ -1,9 +1,9 @@
 menuconfig READLINE
-	bool
+	tristate
 	select NCURSES if READLINE_NCURSES
 	select TERMCAP if READLINE_TERMCAP
 	select GCCLIBS_GCC_S
-	prompt "readline                    "
+	prompt "readline                      "
 	help
 	  Shared libraries for terminal handling
 

@@ -1,8 +1,8 @@
 menuconfig SUN_JAVA6_JRE
-	bool
+	tristate
 	default n
 	depends on ARCH_X86
-	prompt "jre 6u2 (sun)            "
+	prompt "jre 6u2 (sun)                 "
 	help
 	  Sun[tm] Java Runtime Environment 6
 	  Note:

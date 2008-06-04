@@ -1,4 +1,5 @@
 config SJINN
-	bool "SJINN"
+	tristate
+	prompt "SJINN"
 	help
 	  rs232 comm tool

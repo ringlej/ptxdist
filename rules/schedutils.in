@@ -1,7 +1,7 @@
 
 menuconfig SCHEDUTILS
-	bool
-	prompt "schedutils          "
+	tristate
+	prompt "schedutils                    "
 	help
 	  These are the Linux scheduler utilities - schedutils for short. These programs
 	  take advantage of the scheduler family of syscalls that Linux implements across
@@ -9,25 +9,24 @@ menuconfig SCHEDUTILS
 	  parameters such as CPU affinity and real-time attributes. The standard UNIX
 	  utilities do not provide support for these interfaces -- thus this package.
 
+if SCHEDUTILS
 
 config SCHEDUTILS_CHRT
 	bool
 	prompt "chrt"
-	depends on SCHEDUTILS
 	help
 	  chrt manipulates the real-time attributes of a process.
 
 config SCHEDUTILS_IONICE
 	bool
 	prompt "ionice"
-	depends on SCHEDUTILS
 	help
 	  ionice gets/sets the program io scheduling class and priority.
 
 config SCHEDUTILS_TASKSET
 	bool
 	prompt "taskset"
-	depends on SCHEDUTILS
 	help
 	  taskset retrieves or sets a process's CPU affinity.
 
+endif

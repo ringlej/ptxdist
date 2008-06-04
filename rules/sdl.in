@@ -1,8 +1,8 @@
 # sdl configuration
 
 menuconfig SDL
-	bool
-	prompt "SDL                   "
+	tristate
+	prompt "SDL                           "
 	select ALSA_LIB if SDL_ALSA
 	select XORG_LIB_X11		if SDL_X11
 	select XORG_LIB_XT		if SDL_X11
@@ -19,17 +19,17 @@ menuconfig SDL
 	  keyboard, mouse, joystick, 3D hardware via OpenGL, and
 	  2D video framebuffer.
 
+if SDL
+
 config SDL_NASM
 	bool
 	prompt "Use NASM"
-	depends on SDL
 	help
 	  FIXME
 
 config SDL_SHARED
 	bool
 	prompt "Build Shared libraries"
-	depends on SDL
 	default y
 	help
 	  FIXME
@@ -37,14 +37,12 @@ config SDL_SHARED
 config SDL_STATIC
 	bool
 	prompt "Build Static libraries"
-	depends on SDL
 	help
 	  FIXME
 
 config SDL_TIMERS
 	bool
 	prompt "SDL Timers Support"
-	depends on SDL
 	default y
 	help
 	  FIXME
@@ -52,7 +50,6 @@ config SDL_TIMERS
 config SDL_ENDIAN
 	bool
 	prompt "SDL Endian Support"
-	depends on SDL
 	default y
 	help
 	  FIXME
@@ -60,7 +57,6 @@ config SDL_ENDIAN
 config SDL_FILE
 	bool
 	prompt "SDL File Support"
-	depends on SDL
 	default y
 	help
 	  FIXME
@@ -68,10 +64,11 @@ config SDL_FILE
 config SDL_CPUINFO
 	bool
 	prompt "SDL CPU Info Support"
-	depends on SDL
 	default y
 	help
 	  FIXME
+
+endif
 
 menuconfig SDL_AUDIO
 	bool

@@ -1,5 +1,5 @@
 config SMTPCLIENT
-	bool
+	tristate
 	prompt "smtpclient"
 	default n
 	help

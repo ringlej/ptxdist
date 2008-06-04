@@ -1,5 +1,5 @@
 config SLANG
-	bool
+	tristate
 	prompt "S-Lang"
 	select LIBPNG
 	select LIBICONV

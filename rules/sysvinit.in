@@ -1,39 +1,37 @@
 menuconfig SYSVINIT
-	bool "SysVInit [BROKEN]   "
+	tristate
+	prompt "SysVInit [BROKEN]"
 	depends on BROKEN
+
+if SYSVINIT
 
 config SYSVINIT_INIT
 	bool
 	prompt "init"
-	depends on SYSVINIT
 	help
 	  Install the init program, this init support runlevel
 
 config SYSVINIT_HALT
 	bool
 	prompt "halt"
-	depends on SYSVINIT
 	help
 	  The 'halt' tool brings the machine down.
 
 config SYSVINIT_SHUTDOWN
 	bool
 	prompt "shutdown"
-	depends on SYSVINIT
 	help
 	  shutdown is called by halt and reboot to perform the necesary action
 
 config SYSVINIT_RUNLEVEL
 	bool
 	prompt "runlevel"
-	depends on SYSVINIT
 	help
 	  This tool is used to switch to another runlevel.
 
 config SYSVINIT_KILLALL5
 	bool
 	prompt "killall5"
-	depends on SYSVINIT
 	help
 	  killall5 is the SystemV killall command. It sends a signal to all
 	  processes except the processes in its own session, so it won't
@@ -44,14 +42,12 @@ config SYSVINIT_KILLALL5
 config SYSVINIT_SULOGIN
 	bool
 	prompt "sulogin"
-	depends on SYSVINIT
 	help
 	  Single-user login
 
 config SYSVINIT_BOOTLOGD
 	bool
 	prompt "bootlogd"
-	depends on SYSVINIT
 	help
 	  Bootlogd runs in the background and copies all strings sent to
 	  the /dev/console device to a logfile.
@@ -59,30 +55,28 @@ config SYSVINIT_BOOTLOGD
 config SYSVINIT_WALL
 	bool
 	prompt "wall"
-	depends on SYSVINIT
 	help
 	  wall - write a message to users
 
 config SYSVINIT_LAST
 	bool
 	prompt "last"
-	depends on SYSVINIT
 	help
 	  last - show listing of last logged in users
 
 config SYSVINIT_MESG
 	bool
 	prompt "mesg"
-	depends on SYSVINIT
 	help
 	  mesg - control write access to your terminal
 
 config SYSVINIT_BSDINIT
 	bool
 	prompt "BSD Styles Init"
-	depends on SYSVINIT && SYSVINIT_INIT
+	depends on SYSVINIT_INIT
 	help
 	  It installs different script to configuration of runlevel supported in init.
 	  These script use BSD style init, described in
 	  http://www.linuxfromscratch.org/hints/downloads/files/bsd-init.txt
 
+endif

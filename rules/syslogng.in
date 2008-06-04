@@ -1,46 +1,43 @@
 # syslog-ng configuration
 
 menuconfig SYSLOGNG
-	bool
-	prompt "syslog-ng           "
+	tristate
+	prompt "syslog-ng                     "
 	select EVENTLOG
 	select GLIB
 	select LIBC_RT
 	help
 	  The next generation syslog daemon.
 
+if SYSLOGNG
+
 # disabled. Feature implementations are broken
 #config SYSLOGNG_SUNSTREAMS
 #	bool
-#	depends on SYSLOGNG
 #	prompt "sun streams support"
 #	help
 #	  Support for Sun STREAMS.
 #
 #config SYSLOGNG_SUNDOOR
 #	bool
-#	depends on SYSLOGNG
 #	prompt "sun door support"
 #	help
 #	  Support for Sun door
 
 config SYSLOGNG__IPV6
 	bool
-	depends on SYSLOGNG
 	prompt "Support ipv6"
 	help
 	  Enable ipv6 support, otherwise ipv4 is supported only
 
 config SYSLOGNG__TCP_WRAPPER
 	bool
-	depends on SYSLOGNG
 	prompt "tcpwrapper support"
 	help
 	  Support /etc/hosts.deny and /etc/hosts.allow.
 
 config SYSLOGNG__SPOOF_SOURCE
 	bool
-	depends on SYSLOGNG
 	prompt "spoof_source feature"
 	help
 	  Enables the ability for source address spoofing.
@@ -55,10 +52,8 @@ config SYSLOGNG__SPOOF_SOURCE
 	  received by TCP as well.
 
 comment "runtime options   ---"
-	depends on SYSLOGNG
 
 config ROOTFS_ETC_SYSLOGNG_CONFIG
-	depends on SYSLOGNG
 	bool
 	default y
 	prompt "Install configuration file"
@@ -88,7 +83,6 @@ config ROOTFS_ETC_SYSLOGNG_CONFIG
 	endchoice
 
 config ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
-	depends on SYSLOGNG
 	bool
 	default y
 	prompt "Install startup script"
@@ -116,3 +110,5 @@ config ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
 			  project
 
 	endchoice
+
+endif

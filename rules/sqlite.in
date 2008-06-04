@@ -1,11 +1,12 @@
 menuconfig SQLITE
-	bool
-	prompt "sqlite                      "
+	tristate
+	prompt "sqlite                        "
+
+if SQLITE	
 
 choice
 	prompt "Assume text encoding"
 	default ISO8859
-	depends on SQLITE
 
 	config SQLITE_ISO8859
 		bool
@@ -19,10 +20,9 @@ endchoice
 config SQLITE_DISABLE_LFS
 	bool
 	prompt "Disable large file support"
-	depends on SQLITE
 
 config SQLITE_THREADSAFE
 	bool
 	prompt "Safe for use within a multi-threaded program"
-	depends on SQLITE
 
+endif

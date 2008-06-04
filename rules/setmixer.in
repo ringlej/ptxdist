@@ -1,5 +1,5 @@
 config SETMIXER
-	bool
+	tristate
 	prompt "setmixer"
 	help
 	  Got bored resetting soundcard manually after every reboot?

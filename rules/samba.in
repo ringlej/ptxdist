@@ -1,7 +1,7 @@
 # samba configuration
 
 menuconfig SAMBA
-	bool
+	tristate
 	prompt "samba                         "
 	select LIBC_NSL
 	select LIBC_RESOLV
@@ -81,9 +81,10 @@ menuconfig SAMBA
 #   --with-static-modules=MODULES  Comma-seperated list of names of modules to statically link in
 #   --with-shared-modules=MODULES  Comma-seperated list of names of modules to build shared
 
+if SAMBA
+
 	config SAMBA_COMMON
 		bool
-		depends on SAMBA
 		default y
 		prompt "Samba common files"
 		help
@@ -91,11 +92,9 @@ menuconfig SAMBA
 
 	config ROOTFS_ETC_SAMBA_CONFIG
 		bool
-		depends on SAMBA
 		depends on SAMBA_SERVER
 	choice
 		prompt "Kind of samba config file"
-		depends on SAMBA
 		depends on SAMBA_COMMON
 		default ROOTFS_ETC_SAMBA_CONFIG_DEFAULT
 
@@ -115,7 +114,6 @@ menuconfig SAMBA
 
 	config SAMBA_SERVER
 		bool
-		depends on SAMBA
 		select SAMBA_COMMON
 		prompt "Samba server"
 		help
@@ -124,7 +122,6 @@ menuconfig SAMBA
 
 	config ROOTFS_ETC_SAMBA_SECRETS_USER
 		bool
-		depends on SAMBA
 		depends on SAMBA_SERVER
 		prompt "User defined smb password Database"
 		help
@@ -136,7 +133,6 @@ menuconfig SAMBA
 
 	config ROOTFS_ETC_INITD_SAMBA
 		bool
-		depends on SAMBA
 		depends on SAMBA_SERVER
 		select BB_CONFIG_START_STOP_DAEMON      if BUSYBOX
 		default y
@@ -162,7 +158,6 @@ menuconfig SAMBA
 
 	config SAMBA_CLIENT
 		bool
-		depends on SAMBA
 		select SAMBA_COMMON
 		prompt "Samba client"
 		help
@@ -170,7 +165,6 @@ menuconfig SAMBA
 
 	config SAMBA_LIBCLIENT
 		bool
-		depends on SAMBA
 		select SAMBA_COMMON
 		prompt "Samba client library"
 		help
@@ -178,7 +172,6 @@ menuconfig SAMBA
 
 	config SAMBA_SMBFS
 		bool
-		depends on SAMBA
 		select SAMBA_COMMON
 		prompt "Samba file system"
 		help
@@ -186,9 +179,9 @@ menuconfig SAMBA
 
 	config SAMBA_CUPS
 		bool
-		depends on SAMBA
 		depends on BROKEN
 		prompt "cups support"
 		help
 		  Turn on CUPS support
 
+endif

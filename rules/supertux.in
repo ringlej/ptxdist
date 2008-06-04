@@ -1,5 +1,5 @@
 config SUPERTUX
-	bool
+	tristate
 	prompt "supertux"
 	select SDL_MIXER
 	select SDL_IMAGE

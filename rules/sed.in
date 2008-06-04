@@ -1,5 +1,6 @@
 config SED
-	bool "sed         "
+	tristate
+	prompt "sed"
 	help
 	  sed reads the specified files or the standard input if no
 	  files are specified, makes editing changes according to a

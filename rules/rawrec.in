@@ -1,5 +1,5 @@
 config RAWREC
-	bool
+	tristate
 	prompt "rawrec/rawplay"
 	help
 	 rawrec and rawplay are GPL'd utilities designed to provide
@@ -9,10 +9,11 @@ config RAWREC
 
 	 Details: http://rawrec.sourceforge.net
 
+if RAWREC
+
 config RAWREC_RAWREC
 	bool
 	prompt "rawrec"
-	depends on RAWREC
 	help
 	  rawrec - a simple audio recording tool
 	  http://rawrec.sourceforge.net
@@ -20,8 +21,8 @@ config RAWREC_RAWREC
 config RAWREC_RAWPLAY
 	bool
 	prompt "rawplay"
-	depends on RAWREC
 	help
 	  rawplay - a simple audio player tool
 	  http://rawrec.sourceforge.net
 
+endif

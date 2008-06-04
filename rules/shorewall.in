@@ -1,5 +1,5 @@
 config SHOREWALL
-	bool
+	tristate
 	prompt "shorewall firewall scripts"
 	help
 	 The Shoreline Firewall (Shorewall) is an iptables based firewall that can be

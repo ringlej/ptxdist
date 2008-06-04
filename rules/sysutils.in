@@ -1,17 +1,19 @@
 menuconfig SYSUTILS
-	bool "sysutils            "
+	tristate
+	prompt "sysutils                      "
+
+if SYSUTILS
 
 config SYSUTILS_LSBUS
 	bool
 	prompt "install lsbus"
-	depends on SYSUTILS
 	help
 	  lsbus: a small application to query system bus information.
 
 config SYSUTILS_SYSTOOL
 	bool
 	prompt "install systool"
-	depends on SYSUTILS
 	help
 	  systool: an application to view system device information by bus, class, and topology.
 
+endif

@@ -1,7 +1,7 @@
 menuconfig SDL_IMAGE
-	bool
+	tristate
 	select SDL
-	prompt "SDL image             "
+	prompt "SDL image                     "
 	select LIBPNG	if SDL_IMAGE__PNG
 	select LIBJPEG	if SDL_IMAGE__JPG
 	help 
