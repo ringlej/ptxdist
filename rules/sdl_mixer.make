@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_SDL_MIXER) += sdl_mixer
 SDL_MIXER_VERSION	:= 1.2.8
 SDL_MIXER		:= SDL_mixer-$(SDL_MIXER_VERSION)
 SDL_MIXER_SUFFIX	:= tar.gz
-SDL_MIXER_URL		:= http://www.libsdl.org/projects/sdl_mixer/release/$(SDL_MIXER).$(SDL_MIXER_SUFFIX)
+SDL_MIXER_URL		:= http://www.libsdl.org/projects/SDL_mixer/release/$(SDL_MIXER).$(SDL_MIXER_SUFFIX)
 SDL_MIXER_SOURCE	:= $(SRCDIR)/$(SDL_MIXER).$(SDL_MIXER_SUFFIX)
 SDL_MIXER_DIR		:= $(BUILDDIR)/$(SDL_MIXER)
 
