@@ -10253,7 +10253,7 @@ Index: screen-4.0.2/configure
  if test -n "$datadir"; then
  eval SCREENENCODINGS="$datadir/screen/utf8encodings"
 -SCREENENCODINGS="\"$SCREENENCODINGS\""
-+eval SCREENENCODINGS="\"$SCREENENCODINGS\""
++eval SCREENENCODINGS="\\\"$SCREENENCODINGS\\\""
  fi
 -echo "$as_me:$LINENO: checking for the utf8-encodings location" >&5
 -echo $ECHO_N "checking for the utf8-encodings location... $ECHO_C" >&6

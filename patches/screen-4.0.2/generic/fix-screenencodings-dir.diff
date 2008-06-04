@@ -18,7 +18,7 @@ Index: screen-4.0.2/configure.in
  if test -n "$datadir"; then
  eval SCREENENCODINGS="$datadir/screen/utf8encodings"
 -SCREENENCODINGS="\"$SCREENENCODINGS\""
-+eval SCREENENCODINGS="\"$SCREENENCODINGS\""
++eval SCREENENCODINGS="\\\"$SCREENENCODINGS\\\""
  fi
  AC_MSG_CHECKING(for the utf8-encodings location)
  AC_DEFINE_UNQUOTED(SCREENENCODINGS,$SCREENENCODINGS)
