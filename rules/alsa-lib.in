@@ -1,6 +1,10 @@
 menuconfig ALSA_LIB
 	tristate
 	prompt "alsa libaries                 "
+	select LIBC_DL
+	select LIBC_M
+	select LIBC_PTHREAD
+	select LIBC_RT
 	help
 	  This is the userspace library to the kernel's "Advanced Linux Sound Architecture" feature
 
