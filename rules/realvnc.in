@@ -1,6 +1,6 @@
 menuconfig REALVNC
 	tristate
-	"realvnc [BROKEN]      "
+	prompt "realvnc [BROKEN]      "
 	select ZLIB
 	depends on BROKEN
 	help

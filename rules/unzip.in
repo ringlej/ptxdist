@@ -1,18 +1,19 @@
 menuconfig UNZIP
 	tristate
-	"unzip                         "
+	prompt "unzip                         "
 	help
 	  UnZip is an extraction utility for archives compressed in .zip
 	  format (also called "zipfiles").
 
+if UNZIP
+
 config UNZIP_UNZIP
 	bool "unzip"
-	depends on UNZIP
 
 config UNZIP_FUNZIP
 	bool "funzip"
-	depends on UNZIP
 
 config UNZIP_UNZIPSFX
 	bool "unzipsfx"
-	depends on UNZIP
+
+endif

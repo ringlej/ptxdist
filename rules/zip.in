@@ -1,6 +1,6 @@
 menuconfig ZIP
 	tristate
-	"zip                           "
+	prompt "zip                           "
 	help
 	  zip is a compression and file packaging utility for Unix, VMS, MSDOS,
 	  OS/2, Windows NT, Minix, Atari and Macintosh, Amiga and Acorn RISC OS.

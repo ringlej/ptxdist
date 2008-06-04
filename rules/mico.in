@@ -114,6 +114,7 @@ config MICO_SERVICE_LIFECYCLE
 config MICO_SERVICE_EXTERNALIZATION
 	bool
 	prompt "Externalization Service"
+	help
 	  FIXME: This feature needs documentation.
 
 comment "Wireless"

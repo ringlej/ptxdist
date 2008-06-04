@@ -167,7 +167,7 @@ config NTP_ARLIB
 	help
 	  FIXME: This item needs to be documented
 
-end if 
+endif 
 
 source "rules/ntp_parse.in"
 source "rules/ntp_nonparse.in"
