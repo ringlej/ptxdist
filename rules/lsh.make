@@ -53,6 +53,7 @@ LSH_AUTOCONF := \
 	--disable-agent-forward \
 	--disable-ipv6 \
 	--disable-utmp \
+	--without-x \
 	--without-system-argp
 
 # ----------------------------------------------------------------------------
