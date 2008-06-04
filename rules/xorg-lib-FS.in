@@ -1,6 +1,9 @@
 config XORG_LIB_FS
 	bool
 	prompt "libFS"
+	select XORG_PROTO_X
+	select XORG_PROTO_FONTS
+	select XORG_LIB_XTRANS
 	help
 	  libFS, the Font Services library, provides various
 	  functions useful to X11 font servers, and clients
