@@ -4,11 +4,11 @@ menuconfig SDL
 	tristate
 	prompt "SDL                           "
 	select ALSA_LIB if SDL_ALSA
-	select XORG_LIB_X11		if SDL_X11
-	select XORG_LIB_XT		if SDL_X11
-	select XORG_LIB_XV		if SDL_X11
-	select XORG_LIB_XVMC		if SDL_X11
-	select XORG_LIB_XINERAMA	if SDL_X11
+	select XORG_LIB_X11		if SDL_XORG
+	select XORG_LIB_XT		if SDL_XORG
+	select XORG_LIB_XV		if SDL_XORG
+	select XORG_LIB_XVMC		if SDL_XORG
+	select XORG_LIB_XINERAMA	if SDL_XORG
 
 	select ALSA_LIB			if SDL_ALSA
 	select DIRECTFB			if SDL_DIRECTFB
