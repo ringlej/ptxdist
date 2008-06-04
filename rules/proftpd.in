@@ -1,29 +1,29 @@
 menuconfig PROFTPD
-	bool "proftpd             "
+	tristate
+	prompt "proftpd                       "
 	help
 	  A powerful replacement for wu-ftpd, this File Transfer Protocol
  	  daemon supports hidden directories, virtual hosts, and
 	  per-directory ".ftpaccess" files.  It uses a single main
 	  configuration file, with a syntax similar to Apache.
 
+if PROFTPD
+
 config PROFTPD_PAM
 	bool
 	prompt "PAM support"
-	depends on PROFTPD
 	help
 	  FIXME: This item needs to be documented
 
 config PROFTPD_SENDFILE
 	bool
 	prompt "sendfile support"
-	depends on PROFTPD
 	help
 	  FIXME: This item needs to be documented
 
 config PROFTPD_SHADOW
 	bool
 	prompt "shadow support"
-	depends on PROFTPD
 	help
 	  FIXME: This item needs to be documented
 
@@ -37,7 +37,7 @@ config PROFTPD_AUTOSHADOW
 config PROFTPD_DEFAULTCONFIG
 	bool
 	prompt "install default config file"
-	depends on PROFTPD
 	help
 	  FIXME: This item needs to be documented
 
+endif

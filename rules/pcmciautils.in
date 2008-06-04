@@ -1,5 +1,6 @@
 menuconfig PCMCIAUTILS
-	bool "PCMCIA Utils        "
+	tristate
+	prompt "pcmcia utils                  "
 	depends on EXPERIMENTAL_MORE
 	select SYSFSUTILS
 	select SYSFSUTILS_LIB
@@ -14,10 +15,11 @@ menuconfig PCMCIAUTILS
 	  (see http://www.kernel.org/pub/linux/utils/kernel/pcmcia/pcmcia.html
 	   and http://www.kernel.org/pub/linux/utils/kernel/pcmcia/howto.html)
 
+if PCMCIAUTILS
+
 config PCMCIAUTILS_STARTUP
 	bool
 	prompt "Support dynamic sockets (STARTUP, PCCARD_NONSTATIC)"
-	depends on PCMCIAUTILS
 	help
 	  If this is enabled some more programms are built and installed to allow
 	  hotplugging of the pcmcia socket itself.
@@ -29,3 +31,4 @@ config PCMCIAUTILS_STARTUP
 	  (see http://www.kernel.org/pub/linux/utils/kernel/pcmcia/pcmcia.html
 	   and http://www.kernel.org/pub/linux/utils/kernel/pcmcia/howto.html)
 
+endif

@@ -1,5 +1,5 @@
 config PYTHON23
-	bool
+	tristate
 	depends on BROKEN
 	prompt "python 2.3 [BROKEN]"
 	select LIBC_DL

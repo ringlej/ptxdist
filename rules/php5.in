@@ -1,17 +1,18 @@
 # php5 configuration
 
 menuconfig PHP5
-	bool
+	tristate
 	prompt "php5                          "
 	select APACHE2 if PHP5_SAPI_APXS2
 	select MYSQL if PHP5_EXT_MYSQL
+
+if PHP5
 
 # ----------------------------------------------------------------------------
 # SAPI Modules
 # ----------------------------------------------------------------------------
 
 menu "SAPI Modules"
-	depends on PHP5
 
 config PHP5_SAPI_AOLSERVER
 	bool
@@ -212,7 +213,6 @@ endmenu
 # ----------------------------------------------------------------------------
 
 config ROOTFS_PHP5_INI
-	depends on PHP5
 	bool
 	prompt "/etc/php5/php.ini"
 	default y
@@ -243,14 +243,12 @@ endchoice
 
 config PHP5_XML
 	bool
-	depends on PHP5
 	prompt "xml support"
 	help
 	  Support for XML.
 
 choice
 	prompt "xml library"
-	depends on PHP5
 	depends on PHP5_XML
 
 	config PHP5_XML_LIBXML2
@@ -262,7 +260,6 @@ endchoice
 
 config PHP5_XML_LIBXML2_READER
 	bool
-	depends on PHP5
 	depends on PHP5_XML_LIBXML2
 	prompt "xml reader support"
 	help
@@ -270,7 +267,6 @@ config PHP5_XML_LIBXML2_READER
 
 config PHP5_XML_LIBXML2_WRITER
 	bool
-	depends on PHP5
 	depends on PHP5_XML_LIBXML2
 	select LIBXML2_WRITER
 	prompt "xml writer support"
@@ -279,7 +275,6 @@ config PHP5_XML_LIBXML2_WRITER
 
 config PHP5_XML_LIBXML2_DOM
 	bool
-	depends on PHP5
 	depends on PHP5_XML_LIBXML2
 	select LIBXML2_DOM
 	prompt "DOM support"
@@ -288,7 +283,6 @@ config PHP5_XML_LIBXML2_DOM
 
 config PHP5_XML_LIBXML2_XSLT
 	bool
-	depends on PHP5
 	depends on PHP5_XML
 	select LIBXSLT
 	prompt "xslt support"
@@ -297,7 +291,6 @@ config PHP5_XML_LIBXML2_XSLT
 
 config PHP5_XML_LIBXML2_SIMPLEXML
 	bool
-	depends on PHP5
 	depends on PHP5_XML
 	prompt "simple xml support"
 	help
@@ -337,7 +330,6 @@ config PHP5_XML_LIBXML2_SIMPLEXML
 # ----------------------------------------------------------------------------
 
 menu "Extensions"
-	depends on PHP5
 
 #Extensions:
 #
@@ -610,3 +602,5 @@ config PHP5_EXT_PEAR
 #  --with-tags[=TAGS]      include additional configurations [automatic]
 
 endmenu
+
+endif

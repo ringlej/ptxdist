@@ -1,14 +1,15 @@
 menuconfig PNPUTILS
-	prompt "pnputils            "
-	bool
+	tristate
+	prompt "pnputils                      "
 	default n
 	help
 	 Builds the pnputils to show debugging information about PNP
 	 devices in your hardware. This is useful for x86 targets only.
 
+if PNPUTILS
+
 config PNPUTILS_SETPNP
 	prompt "install setpnp"
-	depends on PNPUTILS
 	bool
 	default n
 	help
@@ -17,9 +18,10 @@ config PNPUTILS_SETPNP
 
 config PNPUTILS_LSPNP
 	prompt "install lspnp"
-	depends on PNPUTILS
 	bool
 	default y
 	help
 	  This utility presents a formatted interpretation of the contents
 	  of the /sys/bus/pnp/devices or /proc/bus/pnp tree.
+
+endif

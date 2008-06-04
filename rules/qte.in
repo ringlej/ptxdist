@@ -1,6 +1,6 @@
 menuconfig QTE
-	bool
-	prompt "QT Embedded           "
+	tristate
+	prompt "qt embedded                   "
 	select HOST_QTE
 	depends on BROKEN
 	help
@@ -8,15 +8,15 @@ menuconfig QTE
 	  complete and self-contained C++ GUI and platform
 	  development tool for Linux-based embedded development.
 
+if QTE
+
 config QTE_SHARED
 	bool
 	prompt "Build shared QT/E library"
-	depends on QTE
 
 config QTE_TSLIB
 	bool
 	prompt "Build QT/E library with tslib support"
-	depends on QTE
 	select TSLIB
 	help
 	  Tslib is an abstraction layer for touchscreen panel
@@ -26,12 +26,10 @@ config QTE_TSLIB
 config QTE_THREAD
 	bool
 	prompt "Build QT/E library with threading support"
-	depends on QTE
 
 config QTE_STL
 	bool
 	prompt "Build QT/E library with STL support"
-	depends on QTE
 	help
 	  The STL option will make it possible for you to use STL
 	  code in your Qt code. In addition the Qt template
@@ -44,3 +42,5 @@ config QTE_STL
 	  be turned on in your .pro file for example, otherwise
 	  it will issue a lot of warnings that mention the -GX
 	  option.
+
+endif

@@ -1,5 +1,5 @@
 config PEKWM
-	bool
+	tristate
 	select XORG_LIB_SM
 	select XORG_LIB_ICE
 	select XORG_LIB_X11

@@ -1,6 +1,6 @@
 menuconfig PUREFTPD
-	bool
-	prompt "pureftpd            "
+	tristate
+	prompt "pureftpd                      "
 	help
 	  Pure-FTPd is a fast, production-quality, standards-conformant
 	  FTP server based upon Troll-FTPd. Features include chrooted
@@ -11,34 +11,31 @@ menuconfig PUREFTPD
 	  XML real-time status report, virtual users, virtual quotas,
  	  privilege separation, SSL/TLS and more.
 
+if PUREFTPD
+
 config PUREFTPD_UPLOADSCRIPT
 	bool
 	prompt "support upload scripts"
-	depends on PUREFTPD
 	help
 	  Allow running an external script after an upload
 
 comment "build options   ---"
-	depends on PUREFTPD
 
 config PUREFTPD_VIRTUALHOSTS
 	bool
 	prompt "virtual hosts"
-	depends on PUREFTPD
 	help
 	  Handle virtual servers on different IP addresses
 
 config PUREFTPD_DIRALIASES
 	bool
 	prompt "directory aliases"
-	depends on PUREFTPD
 	help
 	  Enable directory aliases
 
 config PUREFTPD_MINIMAL
 	bool
 	prompt "minimal ftpd"
-	depends on PUREFTPD
 	default y
 	help
 	  To efficiently use features of modern FTP clients, Pure-FTPd implements
@@ -55,7 +52,6 @@ config PUREFTPD_MINIMAL
 
 config PUREFTPD_SHRINK_MORE
 	bool
-	depends on PUREFTPD
 	depends on PUREFTPD_MINIMAL
 	default n
 	prompt "shrink more"
@@ -67,11 +63,9 @@ config PUREFTPD_SHRINK_MORE
 	  time required!
 
 comment "runtime options   ---"
-	depends on PUREFTPD
 
 config PUREFTPD_ETC_CONFIG
 	bool
-	depends on PUREFTPD
 	prompt "default config"
 	default n
 	help
@@ -81,7 +75,6 @@ config PUREFTPD_ETC_CONFIG
 choice
 	prompt "Kind of startup"
 	default PUREFTPD_STARTUP_TYPE_STANDALONE
-	depends on PUREFTPD
 
 	config PUREFTPD_INETD_SERVER
 		bool
@@ -106,7 +99,6 @@ endchoice
 
 config PUREFTPD_INETD_STRING
 	string
-	depends on PUREFTPD
 	depends on PUREFTPD_INETD_SERVER
 	prompt "inetd service entry"
 	default "ftp stream tcp nowait root /usr/bin/pure-ftp ftpd"
@@ -116,7 +108,6 @@ config PUREFTPD_INETD_STRING
 choice
 	prompt "Kind of startup script"
 	default ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
-	depends on PUREFTPD
 	depends on ROOTFS_ETC_INITD_PUREFTPD
 
 	config ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
@@ -135,3 +126,4 @@ choice
 		  project
 
 endchoice
+endif

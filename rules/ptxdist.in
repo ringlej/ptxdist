@@ -1,5 +1,5 @@
 config PTXDIST
-	bool
+	tristate
 	select COREUTILS
 	select COREUTILS_READLINK
 	prompt "ptxdist"

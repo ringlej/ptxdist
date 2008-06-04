@@ -1,5 +1,5 @@
 config PHP_APC
-	bool
+	tristate
 	depends on BROKEN
 	prompt "php apc [BROKEN]"
 	depends PHP

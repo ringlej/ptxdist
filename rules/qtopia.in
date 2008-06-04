@@ -1,36 +1,35 @@
 menuconfig QTOPIA
-	bool
+	tristate
         select TSLIB if QTOPIA_TSLIB
-        prompt "QTopia Core           "
+        prompt "qtopia core                   "
 	help
 	  QTopia Core is Trolltech's Widget Library formerly known as
 	  QT Embedded.
 
+if QTOPIA
+
 config QTOPIA_SHARED
 	bool
 	prompt "shared library"
-	depends on QTOPIA
 	help
 	  If selected a shared QTopia Core Library is built.
 
 config QTOPIA_TSLIB
         bool
         prompt "enable tslib support"
-        depends on QTOPIA
         help
           Add support for the touchscreen library tslib.
 
 config QTOPIA_STL
         bool
         prompt "enable STL support"
-        depends on QTOPIA
         help
           Add QTopia support for standard template library.
 
 config QTOPIA_QVFB
         bool
         prompt "Q Virtual Framebuffer"
-        depends on QTOPIA
         help
           Enable support for the virtual framebuffer.
 
+endif

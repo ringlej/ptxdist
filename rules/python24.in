@@ -1,5 +1,5 @@
 config PYTHON24
-	bool
+	tristate
 	prompt "Python 2.4"
 	select LIBC_DL
 	select LIBC_UTIL

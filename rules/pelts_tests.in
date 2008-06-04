@@ -1,5 +1,5 @@
 config PELTS_TESTS
-        bool
+        tristate
         prompt "pelts tests"
         help
           Pengutronix Embedded Linux Test Suite binary test programs

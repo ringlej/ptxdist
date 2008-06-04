@@ -1,5 +1,6 @@
 menuconfig PCMCIA_TOOLS
-	bool "PCMCIA Tools        "
+	tristate
+	prompt "pcmcia tools                  "
 	depends on KERNEL_2_4
 	help
 	  The Linux pcmcia-cs package is officially deprecated.
@@ -16,17 +17,17 @@ menuconfig PCMCIA_TOOLS
 	  supports "hot swapping" of PCMCIA cards, so cards can be
 	  inserted and ejected at any time.
 
+if PCMCIA_TOOLS
+
 config PCMCIA_TOOLS_CARDMGR
 	bool
 	prompt "Install PCMCIA Card Manager"
-	depends on PCMCIA_TOOLS
 	help
 	  Select this to install the programs cardmgr and cardctl onto the target
 
 config PCMCIA_TOOLS_MISC
 	bool
 	prompt "Install additional PCMCIA Tools"
-	depends on PCMCIA_TOOLS
 	help
 	  Select this to install the some of the additional programs (like ifport
 	  ifuser, ide_info) onto the target
@@ -34,14 +35,13 @@ config PCMCIA_TOOLS_MISC
 config PCMCIA_TOOLS_DEBUG
 	bool
 	prompt "Install PCMCIA Debug Tools"
-	depends on PCMCIA_TOOLS
 	help
 	  Select this to install the programs dump_cis and pack_cis onto the target
 
 config PCMCIA_TOOLS_FTL
 	bool
 	prompt "Install PCMCIA FTL Tools"
-	depends on PCMCIA_TOOLS
 	help
 	  Select this to install the programs ftl_format and ftl_check onto the target
 
+endif

@@ -1,5 +1,5 @@
 config PIXMAN
-	bool
+	tristate
 	prompt "pixman"
 	help
 	  Pixman contains lowlevel pixel manipulation routines and is used by

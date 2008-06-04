@@ -1,5 +1,5 @@
 config POP3SPAM
-	bool
+	tristate
 	prompt "pop3spam"
 	select LIBPCRE
 	help

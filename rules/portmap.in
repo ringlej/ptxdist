@@ -1,6 +1,6 @@
 menuconfig PORTMAP
-	bool
-	prompt "portmapper          "
+	tristate
+	prompt "portmapper                    "
 	select LIBC_NSL
 	help
 	  Portmap is a server that converts RPC program numbers into DARPA protocol
@@ -8,21 +8,20 @@ menuconfig PORTMAP
 
 	  Its needed for at least NFS service
 
+if PORTMAP
+
 config	PORTMAP_INSTALL_PORTMAPPER
 	bool
-	depends on PORTMAP
 	default y
 	prompt "Install /sbin/portmap"
 	help
 	  Install the portmapper into /sbin/portmap
 
 comment "runtime options   ---"
-	depends on PORTMAP
 
 choice
 	prompt "Kind of startup"
 	default PORTMAP_STARTUP_TYPE_STANDALONE
-	depends on PORTMAP
 
 	config PORTMAP_INETD_SERVER
 		bool
@@ -47,7 +46,6 @@ endchoice
 
 config PORTMAP_INETD_STRING
 	string
-	depends on PORTMAP
 	depends on PORTMAP_INETD_SERVER
 	prompt "inetd service entry"
 	default "sunrpc stream tcp nowait root /sbin/portmap portmap"
@@ -57,7 +55,6 @@ config PORTMAP_INETD_STRING
 choice
 	prompt "Kind of startup script"
 	default ROOTFS_ETC_INITD_PORTMAP_DEFAULT
-	depends on PORTMAP
 	depends on PORTMAP_STARTUP_TYPE_STANDALONE
 
 	config ROOTFS_ETC_INITD_PORTMAP_DEFAULT
@@ -76,3 +73,4 @@ choice
 		  project
 
 endchoice
+endif

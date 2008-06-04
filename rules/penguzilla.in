@@ -1,6 +1,6 @@
 config PENGUZILLA
-	bool
-	prompt "Penguzilla                  "
+	tristate
+	prompt "penguzilla                  "
 	depends on EXPERIMENTAL
 	help
 	  Penguzilla is ... umm, use your imagination.
