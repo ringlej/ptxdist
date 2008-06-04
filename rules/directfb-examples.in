@@ -12,6 +12,7 @@ if DIRECTFB_EXAMPLES
 config DIRECTFB_EXAMPLES_DATA
 	bool
 	prompt "directfb-exampels data files"
+	default y
 	help
 	  some of the directfb examples need image and fonts files from this
 	  package, this will add about 1M to your target
