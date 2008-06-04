@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2007-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,34 +28,14 @@ DIRECTFB_EXAMPLES_DIR		:= $(BUILDDIR)/$(DIRECTFB_EXAMPLES)
 # Get
 # ----------------------------------------------------------------------------
 
-directfb-examples_get: $(STATEDIR)/directfb-examples.get
-
-$(STATEDIR)/directfb-examples.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(DIRECTFB_EXAMPLES_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, DIRECTFB_EXAMPLES)
 
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-directfb-examples_extract: $(STATEDIR)/directfb-examples.extract
-
-$(STATEDIR)/directfb-examples.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(DIRECTFB_EXAMPLES_DIR))
-	@$(call extract, DIRECTFB_EXAMPLES)
-	@$(call patchin, DIRECTFB_EXAMPLES)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-directfb-examples_prepare: $(STATEDIR)/directfb-examples.prepare
 
 DIRECTFB_EXAMPLES_PATH	:= PATH=$(CROSS_PATH)
 DIRECTFB_EXAMPLES_ENV 	:= $(CROSS_ENV)
@@ -65,44 +45,13 @@ DIRECTFB_EXAMPLES_ENV 	:= $(CROSS_ENV)
 #
 DIRECTFB_EXAMPLES_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/directfb-examples.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(DIRECTFB_EXAMPLES_DIR)/config.cache)
-	cd $(DIRECTFB_EXAMPLES_DIR) && \
-		$(DIRECTFB_EXAMPLES_PATH) $(DIRECTFB_EXAMPLES_ENV) \
-		./configure $(DIRECTFB_EXAMPLES_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-directfb-examples_compile: $(STATEDIR)/directfb-examples.compile
-
-$(STATEDIR)/directfb-examples.compile:
-	@$(call targetinfo, $@)
-	cd $(DIRECTFB_EXAMPLES_DIR) && $(DIRECTFB_EXAMPLES_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-directfb-examples_install: $(STATEDIR)/directfb-examples.install
-
-$(STATEDIR)/directfb-examples.install:
-	@$(call targetinfo, $@)
-	@$(call install, DIRECTFB_EXAMPLES)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-directfb-examples_targetinstall: $(STATEDIR)/directfb-examples.targetinstall
-
 $(STATEDIR)/directfb-examples.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, directfb-examples)
 	@$(call install_fixup, directfb-examples,PACKAGE,directfb-examples)
@@ -114,19 +63,32 @@ $(STATEDIR)/directfb-examples.targetinstall:
 	@$(call install_fixup, directfb-examples,DESCRIPTION,missing)
 
 # installs the binaries
-	@for i in `find $(DIRECTFB_EXAMPLES_DIR)/src -perm /u+x -type f ! -name "*.[h|c]"`; do \
-		$(call install_copy, directfb-examples, 0, 0, 0755, $$i, /usr/bin/$$(basename $$i)); \
-	done;
+	@cd $(DIRECTFB_EXAMPLES_DIR)/src && \
+	find . \
+		-perm /u+x -type f ! -name "*.[h|c]" | \
+		while read file; do \
+		$(call install_copy, directfb-examples, 0, 0, 0755, \
+			$(DIRECTFB_EXAMPLES_DIR)/src/$$file, \
+			/usr/bin/$${file##*/} \
+		) \
+	done
 
 # install the datafiles
 ifdef PTXCONF_DIRECTFB_EXAMPLES_DATA
-	@cd $(DIRECTFB_EXAMPLES_DIR)/data; \
-	for i in `find . -type f ! -name "*akefile*"`; do \
-		$(call install_copy, directfb-examples, 0, 0, 0644, $$i, /usr/share/directfb-examples/$$i, n); \
+	@cd $(DIRECTFB_EXAMPLES_DIR)/data && \
+	find . \
+		-type f -a ! -name "*akefile*" | \
+		while read file; do \
+		$(call install_copy, directfb-examples, 0, 0, 0644, \
+			$(DIRECTFB_EXAMPLES_DIR)/data/$$file, \
+			/usr/share/directfb-examples/$${file##*/}, n \
+		) \
 	done
 endif
 
-	@$(call touch, $@)
+	@$(call install_finish,directfb-examples)
+
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
