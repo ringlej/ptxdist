@@ -1,5 +1,5 @@
 config FREETYPE
-	bool
+	tristate
 	prompt "freetype"
 	select ZLIB
 	help

@@ -1,5 +1,5 @@
 config FIGLET
-	bool
+	tristate
 	prompt "figlet"
 	help
 	  Figlet is a tool to create bit ASCII text like

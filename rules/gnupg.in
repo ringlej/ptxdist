@@ -1,5 +1,5 @@
 config GNUPG
-	bool
+	tristate
 	prompt "GnuPG"
 	help
 	  GnuPG - The GNU Privacy Guard suite of programs

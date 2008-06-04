@@ -1,5 +1,5 @@
 config GDB_WRAPPER
-	bool
+	tristate
 	depends on BROKEN
 	prompt "gdb wrapper [BROKEN]"
 	help

@@ -1,5 +1,5 @@
 config GLIBMM
-	bool
+	tristate
 	select GLIB
 	select LIBSIGCPP
 	select GCCLIBS_CXX

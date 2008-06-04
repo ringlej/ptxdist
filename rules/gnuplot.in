@@ -1,5 +1,5 @@
 menuconfig GNUPLOT
-	bool
+	tristate
 	prompt "gnuplot                       "
 	select ZLIB
 	select LIBPNG if GNUPLOT_PNG
@@ -15,22 +15,21 @@ menuconfig GNUPLOT
  	  C-like language.  Can perform smoothing, spline-fitting, or nonlinear
  	  fits. Can work with complex numbers.
 
+if GNUPLOT
+
 config GNUPLOT_FITERRVARS
 	bool
 	prompt "Support for fitting error variables"
-	depends on GNUPLOT
 
 config GNUPLOT_X
 	bool
 	prompt "X support"
-	depends on GNUPLOT
 	help
 	  Enable the graphical X11 user interface of GNUplot
 
 config GNUPLOT_PLOT
 	bool
 	prompt "use Unix plot library"
-	depends on GNUPLOT
 	depends on BROKEN
 	help
 	  If you link this program with the Unix plot library
@@ -40,7 +39,6 @@ config GNUPLOT_PLOT
 config GNUPLOT_PNG
 	bool
 	prompt "PNG support"
-	depends on GNUPLOT
 	help
 	  Include support for PNG (Portable Network Graphics)
 	  graphics format
@@ -48,7 +46,6 @@ config GNUPLOT_PNG
 config GNUPLOT_GD
 	bool
 	prompt "GD support"
-	depends on GNUPLOT
 	depends on BROKEN
 	help
 	  Use the GD library.
@@ -58,8 +55,7 @@ config GNUPLOT_GD
 config GNUPLOT_PDF
 	bool
 	prompt "PDF support"
-	depends on GNUPLOT
 	depends on BROKEN
 	help
 	  Include support for output as PDF (Portable Document Format)
-
+endif

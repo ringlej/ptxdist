@@ -1,5 +1,5 @@
 config FLASH
-	bool
+	tristate
 	select NCURSES
 	prompt "flash [BROKEN]"
 	depends on BROKEN

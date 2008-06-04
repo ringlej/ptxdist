@@ -1,5 +1,5 @@
 config DBUS_GLIB
-	bool
+	tristate
 	prompt "dbus glib bindings"
 	select DBUS
 	select HOST_DBUS_GLIB

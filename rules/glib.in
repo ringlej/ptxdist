@@ -1,6 +1,6 @@
 menuconfig GLIB
-	bool
-	prompt "glib                  "
+	tristate
+	prompt "glib                          "
 	select LIBICONV		if GLIB__LIBICONV_GNU
 	select GETTEXT		if GLIB__GETTEXT_GETTEXT
 	select GETTEXT_DUMMY	if GLIB__GETTEXT_DUMMY
@@ -11,10 +11,11 @@ menuconfig GLIB
 	  general-purpose C library used by projects such as GTK+, GIMP,
 	  and GNOME.
 
+if GLIB
+
 choice
 	prompt "iconv variant"
 	default GLIB__LIBICONV_GNU
-	depends on GLIB
 
 	config GLIB__LIBICONV_GNU
 		bool
@@ -29,7 +30,6 @@ endchoice
 choice
 	prompt "gettext variant"
 	default GLIB__GETTEXT_NONE
-	depends on GLIB
 
 	config GLIB__GETTEXT_NONE
 		bool
@@ -45,6 +45,4 @@ choice
 
 endchoice
 
-
-
-	
+endif

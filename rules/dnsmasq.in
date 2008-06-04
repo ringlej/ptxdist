@@ -2,8 +2,8 @@
 # dnsmasq configuration
 #
 menuconfig DNSMASQ
-	bool
-	prompt "dnsmasq             "
+	tristate
+	prompt "dnsmasq                       "
 	select DBUS if DNSMASQ_DBUS
 	help
 	  A small caching DNS proxy and DHCP server.
@@ -20,12 +20,12 @@ menuconfig DNSMASQ
 	  Note: In order to make dnsmasq work as DHCP, you have to enable
 	  the following kernel features: FIXME
 
+if DNSMASQ
+
 comment "build options   ---"
-	depends on DNSMASQ
 
 config DNSMASQ_DBUS
 	bool
-	depends on DNSMASQ
 	default n
 	prompt "include DBUS support"
 	help
@@ -34,11 +34,9 @@ config DNSMASQ_DBUS
 	  see DBUS document in dnsmasq packet
 
 comment "runtime options   ---"
-	depends on DNSMASQ
 
 choice
 	prompt "Kind of startup"
-	depends on DNSMASQ
 
 	config DNSMASQ_INETD_SERVER
 		bool
@@ -66,7 +64,6 @@ endchoice
 
 config DNSMASQ_INETD_STRING
 	string
-	depends on DNSMASQ
 	depends on DNSMASQ_INETD_SERVER
 	prompt "inetd service entry"
 	default "domain stream tcp nowait root /sbin/dnsmasq domain"
@@ -76,7 +73,6 @@ config DNSMASQ_INETD_STRING
 choice
 	prompt "Kind of startup script"
 	default ROOTFS_ETC_INITD_DNSMASQ_DEFAULT
-	depends on DNSMASQ
 	depends on DNSMASQ_STARTUP_TYPE_STANDALONE
 
 	config ROOTFS_ETC_INITD_DNSMASQ_DEFAULT
@@ -99,7 +95,6 @@ endchoice
 choice
 	prompt "Configuration's source"
 	default DNSMASQ_ETC_DEFAULT
-	depends on DNSMASQ
 
 	config DNSMASQ_ETC_DEFAULT
 		bool
@@ -119,3 +114,5 @@ choice
 		  from you local project.
 
 endchoice
+
+endif

@@ -1,5 +1,6 @@
 menuconfig FLTK
-	bool "FLTK GUI Toolkit      "
+	tristate
+	prompt "fltk gui toolkit              "
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
 	help
@@ -9,37 +10,34 @@ menuconfig FLTK
 
 	  URL: http://www.fltk.org/
 
+if FLTK
+
 config FLTK_OPENGL
 	bool
 	prompt "Turn on OpenGL support"
 	default y
-	depends on FLTK
 	help
 	  Turn on OpenGL support (default=yes)
 
 config FLTK_THREADS
 	bool
 	prompt "Enable multi-threading support"
-	depends on FLTK
 
 config FLTK_XFT
 	bool
 	prompt "Turn on Xft support"
-	depends on FLTK
 	help
 	  Turn on Xft support (default=no)
 
 config FLTK_XDBE
 	bool
 	prompt "Turn on Xdbe support"
-	depends on FLTK
 	help
 	  Turn on Xdbe support (default=no)
 
 config FLTK_FLUID
 	bool
 	prompt "Build FLUID and demos"
-	depends on FLTK
 	help
 	  fluid is an interactive GUI designer for FLTK and is needed to build
 	  some of the demos.
@@ -50,3 +48,4 @@ config FLTK_FLUID
 
 	  So you're better off leaving this disabled.
 
+endif

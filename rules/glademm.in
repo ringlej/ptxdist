@@ -1,5 +1,5 @@
 config GLADEMM
-	bool
+	tristate
 	select GLADE
 	prompt "glade--"
 	help

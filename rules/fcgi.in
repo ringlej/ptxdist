@@ -1,5 +1,5 @@
 config FCGI
-	bool
-	prompt "Fast CGI"
+	tristate
+	prompt "fast cgi"
 	help
 	  Fast CGI development and runtime libraries.

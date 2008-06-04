@@ -1,10 +1,12 @@
 menuconfig DB44
-	bool "Berkeley DB-4 (4.4)         "
+	tristate
+	prompt "berkeley db-4 (4.4)           "
+
+if DB44
 
 config DB44_INSTALL_BIN_UTIL
 	bool
 	prompt "install db_* tools on target"
-	depends on DB
 	help
 	  v4.x Berkeley Database Tools
 
@@ -23,3 +25,5 @@ config DB44_INSTALL_BIN_UTIL
   	  db_upgrade: 	 upgrades the version of files and the
 	  		 databases they contain.
   	  db_verify: 	 check the structure of files and their databases.
+
+endif

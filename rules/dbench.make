@@ -2,7 +2,7 @@
 # $Id: template 2606 2005-05-10 21:49:41Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions

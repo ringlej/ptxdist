@@ -1,6 +1,6 @@
 menuconfig GTK
-	bool
-	prompt "gtk+                  "
+	tristate
+	prompt "gtk+                          "
 	select GLIB
 	select ATK
 	select PANGO
@@ -22,101 +22,84 @@ menuconfig GTK
 	is suitable for projects ranging from small one-off tools to complete
 	application suites.
 
+if GTK
+
 menu "graphic loaders       "
-	depends on GTK
 
 config GTK_LOADER_PNG
 	bool
 	prompt "png"
-	depends on GTK
 	default y
 
 config GTK_LOADER_BMP
 	bool
 	prompt "bmp"
-	depends on GTK
 
 config GTK_LOADER_WBMP
 	bool
 	prompt "wbmp"
-	depends on GTK
 
 config GTK_LOADER_GIF
 	bool
 	prompt "gif"
-	depends on GTK
 
 config GTK_LOADER_ICO
 	bool
 	prompt "ico"
-	depends on GTK
 
 config GTK_LOADER_ANI
 	bool
 	prompt "ani"
-	depends on GTK
 
 config GTK_LOADER_JPEG
 	bool
 	prompt "jpeg"
-	depends on GTK
 
 config GTK_LOADER_PNM
 	bool
 	prompt "pnm"
-	depends on GTK
 
 config GTK_LOADER_RAS
 	bool
 	prompt "ras"
-	depends on GTK
 
 #config GTK_LOADER_TIFF
 #	bool
 #	prompt "tiff"
-#	depends on GTK
 
 config GTK_LOADER_XPM
 	bool
 	prompt "xpm"
-	depends on GTK
 
 config GTK_LOADER_TGA
 	bool
 	prompt "tga"
-	depends on GTK
 
 config GTK_LOADER_PCX
 	bool
 	prompt "pcx"
-	depends on GTK
 
 endmenu
 
 choice
 	prompt "gdk-target"
-	depends on GTK
 
 	config GTK_TARGET_X11
 		bool "X11      "
-		depends on GTK
 		select CAIRO_XLIB
 		select CAIRO_PS
 
 	config GTK_TARGET_DIRECTFB
 		bool "directfb "
-		depends on GTK
 		select CAIRO_DIRECTFB
 		select CAIRO_PS
 
 	config GTK_TARGET_WIN32
 		bool "Win32    "
-		depends on GTK
 		select CAIRO_WIN32
 
 	config GTK_TARGET_HOST_X11
 		bool "host X11 "
-		depends on GTK
 		select CAIRO_XLIB
 		select CAIRO_PS
 
@@ -125,36 +108,30 @@ endchoice
 config GTK_TARGET_X11_XINERAMA
 	bool
 	prompt "Xinerama support"
-	depends on GTK
 	depends on GTK_TARGET_X11
 
 config GTK_TARGET_X11_XRANDR
 	bool
 	prompt "Xrandr support"
-	depends on GTK
 	depends on GTK_TARGET_X11
 
 
 config GTK_DEMO
 	bool
 	prompt "gtkdemo"
-	depends on GTK
 
 
 menuconfig GTK_ENGINES
 	bool
 	prompt "gtk engines           "
-	depends on GTK
 
 source "rules/gtk-engine-experience.in"
 
 choice
 	prompt "default theme"
-	depends on GTK
 
 	config GTK_DEFAULT_NONE
 		bool "none  "
-		depends on GTK
 
 	config GTK_DEFAULT_THEME_EXPERIENCE_PLAIN
 		bool "eXperience (plain)"
@@ -169,3 +146,4 @@ choice
 		depends on GTK_THEME_EXPERIENCE_OLIVE
 endchoice
 
+endif

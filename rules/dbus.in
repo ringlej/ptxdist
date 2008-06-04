@@ -1,7 +1,7 @@
 # dbus configuration
 
 menuconfig DBUS
-	bool
+	tristate
 	prompt "dbus                          "
 	select EXPAT		if DBUS_XML_EXPAT
 	select LIBXML2		if DBUS_XML_LIBXML2
@@ -12,9 +12,10 @@ menuconfig DBUS
 
 	  http://www.freedesktop.org/wiki/Software_2fdbus
 
+if DBUS
+
 choice
 	prompt "xml library"
-	depends on DBUS
 
 	config DBUS_XML_EXPAT
 		bool
@@ -26,7 +27,6 @@ choice
 endchoice
 
 config DBUS_USER
-	depends on DBUS
 	string
 	prompt "user for running the dbus daemon"
 	default "messagebus"
@@ -37,14 +37,12 @@ config DBUS_USER
 	  related user yourself.
 
 config DBUS_X
-	depends on DBUS
 	bool
 	prompt "enable X support"
 	help
 	  Enable this option to build dbus with support for X.
 
 config ROOTFS_DBUS_SYSTEM_CONF
-	depends on DBUS
 	bool
 	prompt "/etc/dbus-1/system.conf"
 	default y
@@ -75,7 +73,6 @@ config ROOTFS_DBUS_SYSTEM_CONF
 	endchoice
 
 config ROOTFS_DBUS_SESSION_CONF
-	depends on DBUS
 	bool
 	prompt "/etc/dbus-1/session.conf"
 	default y
@@ -150,7 +147,6 @@ config ROOTFS_DBUS_SESSION_CONF
 config DBUS_INSTALL_STARTUP_SCRIPT
 	bool
 	prompt "Install startup script"
-	depends on DBUS
 	help
 	  This installs a startup script for dbus from a selectable source
 
@@ -174,3 +170,4 @@ config DBUS_INSTALL_STARTUP_SCRIPT
 			file projectroot/etc/init.d/dbus in your local project.
 
 	endchoice
+endif

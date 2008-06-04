@@ -1,6 +1,6 @@
 menuconfig DBENCH
-	bool
-	prompt "dbench"
+	tristate
+	prompt "dbench                        "
 	help
 	  The dbench (disk) and tbench (TCP) benchmarks
  	  dbench and tbench simulate the load of the
@@ -16,14 +16,13 @@ menuconfig DBENCH
 
 	  http://samba.org/ftp/tridge/dbench/
 
+if DBENCH
 
 comment "Installation Options"
-	depends on DBENCH
 
 config DBENCH_DBENCH
 	bool
 	prompt "install dbench"
-	depends on DBENCH
 	help
 	  dbench produces the filesystem load
 	  on a netbench run
@@ -31,7 +30,6 @@ config DBENCH_DBENCH
 config DBENCH_TBENCH
 	bool
 	prompt "install tbench"
-	depends on DBENCH
 	help
 	  tbench produces the network load
 	  on a netbench run. Client component.
@@ -39,8 +37,8 @@ config DBENCH_TBENCH
 config DBENCH_TBENCH_SERVER
 	bool
 	prompt "install tbench server"
-	depends on DBENCH
 	help
 	  tbench produces the network load
 	  on a netbench run. Server component.
 
+endif

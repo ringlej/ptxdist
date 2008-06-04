@@ -1,5 +1,5 @@
 config GLADE
-	bool
+	tristate
 	select LIBGLADE
 	prompt "glade"
 	help

@@ -1,7 +1,7 @@
 # libfftw configuration
 
 menuconfig FFTW
-	bool
+	tristate
 	prompt "fftw                          "
 	help
 	  FFTW is a C subroutine library for computing the discrete

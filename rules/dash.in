@@ -1,5 +1,5 @@
 config DASH
-	bool
+	tristate
 	prompt "dash"
 	help
 	  DASH is a POSIX-compliant implementation of /bin/sh that aims

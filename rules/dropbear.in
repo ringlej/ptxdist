@@ -1,6 +1,6 @@
 menuconfig DROPBEAR
-        bool
-	prompt "Dropbear SSH-Server "
+	tristate
+	prompt "dropbear ssh-server           "
 	select ZLIB
 	select LIBC_UTIL
 	help
@@ -15,10 +15,11 @@ menuconfig DROPBEAR
 
 	  http://matt.ucc.asn.au/dropbear/dropbear.html
 
+if DROPBEAR
+
 config DROPBEAR_DIS_ZLIB
 	bool
 	prompt "Don't include zlib support"
-	depends on DROPBEAR
 	help
 	  Disable compresion in Dropbear by dropping use of
 	  zlib.
@@ -31,7 +32,6 @@ config DROPBEAR_DIS_ZLIB
 config DROPBEAR_DIS_OPENPTY
 	bool
 	prompt "Don't use openpty, use alternative method"
-	depends on DROPBEAR
 	help
 	  If openpty() is being used (HAVE_OPENPTY defined in config.h) and it fails,
 	  you can try compiling with --disable-openpty. You will probably then need
@@ -42,7 +42,6 @@ config DROPBEAR_DIS_OPENPTY
 config DROPBEAR_DIS_SYSLOG
 	bool
 	prompt "Don't include syslog support"
-	depends on DROPBEAR
 	help
 	  Keep dropbear from writing to syslog.
 	  This option is useful for small or flash-based filesystems.
@@ -50,7 +49,6 @@ config DROPBEAR_DIS_SYSLOG
 config DROPBEAR_DIS_LASTLOG
 	bool
 	prompt "disable use of lastlog"
-	depends on DROPBEAR
 	help
 	  Keep dropbear from writing to lastlog.
 	  This option is useful for small or flash-based filesystems.
@@ -58,7 +56,6 @@ config DROPBEAR_DIS_LASTLOG
 config DROPBEAR_DIS_UTMP
 	bool
 	prompt "disable use of utmp"
-	depends on DROPBEAR
 	help
 	  FIXME: This item should be documented in detail
 	  Keep dropbear from writing to utmp.
@@ -67,7 +64,6 @@ config DROPBEAR_DIS_UTMP
 config DROPBEAR_DIS_UTMPX
 	bool
 	prompt "disable use of utmpx"
-	depends on DROPBEAR
 	help
 	  FIXME: This item should be documented in detail
 	  Keep dropbear from writing to utmpx.
@@ -76,7 +72,6 @@ config DROPBEAR_DIS_UTMPX
 config DROPBEAR_DIS_WTMP
 	bool
 	prompt "disable use of wtmp"
-	depends on DROPBEAR
 	help
 	  FIXME: This item should be documented in detail
 	  Keep dropbear from writing to wtmp.
@@ -85,7 +80,6 @@ config DROPBEAR_DIS_WTMP
 config DROPBEAR_DIS_WTMPX
 	bool
 	prompt "disable use of wtmpx"
-	depends on DROPBEAR
 	help
 	  FIXME: This item should be documented in detail
 	  Keep dropbear from writing to wtmpx.
@@ -94,7 +88,6 @@ config DROPBEAR_DIS_WTMPX
 config DROPBEAR_DIS_LIBUTIL
 	bool
 	prompt "disable use of libutil"
-	depends on DROPBEAR
 	help
 	  Enable this option to leave out the use of libutil.
 	  This might help to reduce the size of the binary.
@@ -102,24 +95,20 @@ config DROPBEAR_DIS_LIBUTIL
 config DROPBEAR_DIS_PUTUTLINE
 	bool
 	prompt "disable use of pututline"
-	depends on DROPBEAR
 	help
 	  pututline is needed to write to the utmp structure.
 
 config DROPBEAR_DIS_PUTUTXLINE
 	bool
 	prompt "disable use of pututxline"
-	depends on DROPBEAR
 	help
 	  pututxline is needed to write to the utmpx structure.
 
 comment features
-	depends on DROPBEAR
 
 config DROPBEAR_DIS_X11
 	bool
 	prompt "disable X11 Forwarding"
-	depends on DROPBEAR
 	help
 	  X11 forwarding means passing X11 (graphical interface)
 	  information over the SSH connection.
@@ -127,7 +116,6 @@ config DROPBEAR_DIS_X11
 config DROPBEAR_DIS_TCP
 	bool
 	prompt "disable TCP Forwarding"
-	depends on DROPBEAR
 	help
 	  TCP forwarding means the tunneling of TCP ports over
 	  the SSH connection.
@@ -135,18 +123,15 @@ config DROPBEAR_DIS_TCP
 config DROPBEAR_DIS_AGENT
 	bool
 	prompt "disable Authentication Agent Forwarding"
-	depends on DROPBEAR
 	help
 	  Authentication agent is a program to automatize the
 	  use of authentication private keys.
 
 comment "Encryption, at least one required --- RFC Draft requires 3DES"
-	depends on DROPBEAR
 
 config DROPBEAR_AES128
 	bool
 	prompt "AES 128"
-	depends on DROPBEAR
 	help
 	  This Advanced Encryption Standard designed by Joan Daemen
 	  and Vincent Rijmen, is a FIPS-approved symmetric encryption
@@ -156,7 +141,6 @@ config DROPBEAR_AES128
 config DROPBEAR_BLOWFISH
 	bool
 	prompt "Blowfish"
-	depends on DROPBEAR
 	help
 	  Blowfish, by Bruce Schneier, combines a Feistel network,
 	  key-dependent S-Boxes, with a non-invertible f function.
@@ -168,7 +152,6 @@ config DROPBEAR_BLOWFISH
 config DROPBEAR_TWOFISH128
 	bool
 	prompt "Twofish128"
-	depends on DROPBEAR
 	help
 	  Another great algorithm designed by Bruce Schneier.
 	  This block cipher was designed as a successor to
@@ -181,7 +164,6 @@ config DROPBEAR_3DES
 	bool
 	prompt "3DES"
 	default y
-	depends on DROPBEAR
 	help
 	  DES is an IBM algorithm designed during the 1970s.
 	  In 1976, NIST has officially adopted it as an encryption
@@ -192,13 +174,11 @@ config DROPBEAR_3DES
 	  three DES rounds to encrypt the DATA 3 times.
 
 comment "Integrity, at least one required --- RFC Draft requires sha1-hmac"
-	depends on DROPBEAR
 
 config DROPBEAR_SHA1
 	bool
 	prompt "sha1"
 	default y
-	depends on DROPBEAR
 	help
 	  The Secure Hash Algorithm (SHA) was developed by NIST and
 	  is specified in the Secure Hash Standard (SHS, FIPS 180).
@@ -211,19 +191,16 @@ config DROPBEAR_SHA1
 config DROPBEAR_MD5
 	bool
 	prompt "md5"
-	depends on DROPBEAR
 	help
 	  MD5 was developed by Professor Ronald L. Rivest in 1994.
 	  Its 128 bit (16 byte) message digest makes it a faster
 	  implementation than SHA-1.
 
 comment "Hostkey/public key algorithms, at least one required --- SSH2 RFC Draft requires dss"
-	depends on DROPBEAR
 
 config DROPBEAR_RSA
 	bool
 	prompt "rsa"
-	depends on DROPBEAR
 	help
 	  RSA was announced in 1978. The security of the RSA system
 	  is based upon the RSA Problem (RSAP). This problem is
@@ -234,7 +211,6 @@ config DROPBEAR_DSS
 	bool
 	prompt "dss"
 	default y
-	depends on DROPBEAR
 	help
 	  DSS stands for Digital Signature Standard.
 	  DSS employs the ElGamal and Schnorr PK systems to produce
@@ -243,13 +219,11 @@ config DROPBEAR_DSS
 	  of the key length employed.
 
 comment "Authentication types, at least one required --- RFC Draft requires pubkey auth"
-	depends on DROPBEAR
 
 config DROPBEAR_PASSWD
 	bool
 	prompt "password"
 	default y
-	depends on DROPBEAR
 	help
 	  Use password authentication
 
@@ -257,18 +231,15 @@ config DROPBEAR_PUBKEY
 	bool
 	prompt "pubkey"
 	default y
-	depends on DROPBEAR
 	help
 	  Use public key authentication
 
 comment "installation options   ---"
-	depends on DROPBEAR
 
 config DROPBEAR_DROPBEAR
 	bool
 	prompt "Install dropbear SSH server"
 	default y
-	depends on DROPBEAR
 	select DROPBEAR_DROPBEAR_KEY
 	select DROPBEAR_RSA
 	select DROPBEAR_DSS
@@ -279,7 +250,6 @@ config DROPBEAR_DROPBEAR
 config DROPBEAR_DROPBEAR_KEY
 	bool
 	prompt "Install dropbearkey"
-	depends on DROPBEAR
 	help
 	  This program is used to generate the host key(s).
 	  Select this, if you want this program on your target platform.
@@ -287,7 +257,6 @@ config DROPBEAR_DROPBEAR_KEY
 config DROPBEAR_DROPBEAR_CONVERT
 	bool
 	prompt "Install dropbearconvert"
-	depends on DROPBEAR
 	help
 	  With this utility you can convert ssh hostkeys from openssh to dropbear format.
 	  Select this, if you want this program on your target platform.
@@ -295,15 +264,12 @@ config DROPBEAR_DROPBEAR_CONVERT
 config DROPBEAR_SCP
 	bool
 	prompt	"Install dropbear's scp"
-	depends on DROPBEAR
 	help
 	  This is dropbear's implementation of the scp utility.
 
 comment "runtime options   ---"
-	depends on DROPBEAR
 
 config ROOTFS_ETC_INITD_DROPBEAR
-	depends on DROPBEAR
 	bool
 	default y
 	prompt "Install startup script"
@@ -331,3 +297,5 @@ config ROOTFS_ETC_INITD_DROPBEAR
 			  project
 
 	endchoice
+
+endif

@@ -1,5 +1,6 @@
 menuconfig FONTCONFIG
-	bool "Fontconfig            "
+	tristate
+	"fontconfig                           "
 	select FREETYPE
 	select EXPAT
 	help
@@ -15,9 +16,10 @@ menuconfig FONTCONFIG
 	  uses fontconfig along with freetype to specify and
  	  rasterize fonts.
 
+if FONTCONFIG
+
 config FONTCONFIG_UTILS
 	bool "install utilities for Fontconfig     "
-	depends on FONTCONFIG
 	help
 	  The fontconfig utilities package contains fc-list,
 	  fc-match, and fc-cache.
@@ -32,8 +34,9 @@ config FONTCONFIG_UTILS
 
 config FONTCONFIG_CONFS
 	bool "install configuration files for Fontconfig"
-	depends on FONTCONFIG
 	default y
 	help
 	  This installs configuration files of fontconfig,
 	  subpixeling is turned on by default
+
+endif

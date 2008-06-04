@@ -1,5 +1,5 @@
 config GTKMM
-	bool
+	tristate
 	select GLIBMM
 	select ATK
 	select CAIROMM

@@ -1,7 +1,8 @@
 menuconfig FRODO
-	bool "frodo"
+	tristate
+	prompt "frodo"
 	select READLINE
 	select ALSA_LIB
 	select SDL
-	help 
+	help
 	  FIXME

@@ -7,15 +7,16 @@ config GDB__VERSION
        default 6.8
 
 menuconfig GDB
-	bool
-	prompt "gdb (the real one)  "
+	tristate
+	prompt "gdb (the real one)            "
 	select TERMCAP if GDB__TERMCAP
 	select NCURSES if GDB__NCURSES
+
+if GDB
 
 config GDB__SHARED
 	bool "Build shared"
 	default y
-	depends on GDB
 	select LIBC_M
 	help
 	  If not set, the build option
@@ -25,7 +26,6 @@ config GDB__SHARED
 choice
 	prompt "Select term library"
 	default GDB__TERMCAP
-	depends on GDB
 
 	config GDB__TERMCAP
 		bool "termcap"
@@ -48,6 +48,8 @@ choice
 		  highlights and forms charcters and function-key
 		  mapping.
 endchoice
+
+endif
 
 source "rules/gdbserver.in"
 

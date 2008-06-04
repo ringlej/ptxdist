@@ -1,6 +1,6 @@
 menuconfig DIRECTFB
-	bool
-	prompt "directfb              "
+	tristate
+	prompt "directfb                      "
 
 	select HOST_DIRECTFB
 	select MENU_XORG_FONTS
@@ -20,38 +20,34 @@ menuconfig DIRECTFB
 	  adds graphical power to embedded systems and sets a
 	  new standard for graphics under Linux.
 
+if DIRECTFB
+
 config DIRECTFB_DEBUG
 	bool "build with debug support"
-	depends on DIRECTFB
 
 config DIRECTFB_TRACE
 	bool "build with trace support"
-	depends on DIRECTFB
 
 config DIRECTFB_IMAGE_GIF
 	bool "build GIF image provider"
-	depends on DIRECTFB
 
 config DIRECTFB_IMAGE_PNG
 	bool "build PNG image provider"
-	depends on DIRECTFB
 
 config DIRECTFB_IMAGE_JPEG
 	bool "build JPEG image provider"
-	depends on DIRECTFB
 
 
 config DIRECTFB_FONT_FREETYPE
 	bool "build FreeType2 font provider"
-	depends on DIRECTFB
 
 config DIRECTFB_WM_UNIQUE
 	bool "enable Unique (WM Module)"
-	depends on DIRECTFB
 	select DIRECTFB_IMAGE_PNG
 
 menu "input driver"
-	depends on DIRECTFB
+
+endif
 
 config DIRECTFB_INPUT_KEYBOARD
 	bool "keyboard"

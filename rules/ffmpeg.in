@@ -1,9 +1,9 @@
 
 menuconfig FFMPEG
-	bool
+	tristate
 	select ZLIB if FFMPEG_ZLIB
 	select SDL if FFMPEG_FFPLAY
-	prompt "ffmpeg              "
+	prompt "ffmpeg                        "
 	help
 	  FFmpeg is an audio/video conversion tool.
 	  It includes libavcodec, the leading open
@@ -11,9 +11,10 @@ menuconfig FFMPEG
 	  streaming server for live broadcasts is
 	  also included.
 
+if FFMPEG
+
 config FFMPEG_SHARED
 	bool
-	depends on FFMPEG
 	prompt "Build shared libs"
 	help
 	  To build with shared libraries, use both
@@ -22,7 +23,6 @@ config FFMPEG_SHARED
 
 config FFMPEG_STATIC
 	bool
-	depends on FFMPEG
 	prompt "Build static libs"
 	help
 	  To build with static libraries, use both
@@ -31,7 +31,6 @@ config FFMPEG_STATIC
 
 config FFMPEG_PTHREADS
 	bool
-	depends on FFMPEG
 	prompt "Use pthreads"
 	help
 	  This switch enables the build to link against
@@ -39,7 +38,6 @@ config FFMPEG_PTHREADS
 
 config FFMPEG_FFSERVER
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "Build ffserver"
 	help
@@ -52,7 +50,6 @@ config FFMPEG_FFSERVER
 
 config FFMPEG_FFPLAY
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "Build ffplay"
 	help
@@ -63,7 +60,6 @@ config FFMPEG_FFPLAY
 
 config FFMPEG_MEMALIGN_HACK
 	bool
-	depends on FFMPEG
 	prompt "Use memalign hack"
 	help
 	  Reportedly, this is a Windows hack. Without this
@@ -73,42 +69,36 @@ config FFMPEG_MEMALIGN_HACK
 
 config FFMPEG_SMALL
 	bool
-	depends on FFMPEG
 	prompt "Optimize for size"
 	help
 	  Optimize for size instead of speed
 
 config FFMPEG_STRIP
 	bool
-	depends on FFMPEG
 	prompt "Strip executables"
 	help
 	  Stripping of executables and shared libraries
 
 config FFMPEG_GPROF
 	bool
-	depends on FFMPEG
 	prompt "Enable profiling"
 	help
 	  Enable profiling with gprof
 
 config FFMPEG_DEBUG
 	bool
-	depends on FFMPEG
 	prompt "Enable debug"
 	help
 	  Create debugging symbols
 
 config FFMPEG_OPTS
 	bool
-	depends on FFMPEG
 	prompt "Enable optimization"
 	help
 	  Enable compiler optimizations
 
 config FFMPEG_GPL
 	bool
-	depends on FFMPEG
 	prompt "Allow GPL code"
 	help
 	  Allow use of GPL code, the resulting libav*
@@ -116,7 +106,6 @@ config FFMPEG_GPL
 
 config FFMPEG_MP3LAME
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "mp3lame support"
 	help
@@ -124,7 +113,6 @@ config FFMPEG_MP3LAME
 
 config FFMPEG_LIBOGG
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "libogg support"
 	help
@@ -132,7 +120,6 @@ config FFMPEG_LIBOGG
 
 config FFMPEG_VORBIS
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "vorbis support"
 	help
@@ -140,7 +127,6 @@ config FFMPEG_VORBIS
 
 config FFMPEG_THEORA
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "theora support"
 	help
@@ -151,7 +137,6 @@ config FFMPEG_THEORA
 
 config FFMPEG_FAAD
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "faad support"
 	help
@@ -159,7 +144,6 @@ config FFMPEG_FAAD
 
 config FFMPEG_FAADBIN
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "FAAD runtime linking"
 	help
@@ -167,7 +151,6 @@ config FFMPEG_FAADBIN
 
 config FFMPEG_FAAC
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "FAAC support"
 	help
@@ -175,7 +158,6 @@ config FFMPEG_FAAC
 
 config FFMPEG_LIBGSM
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "libgsm support"
 	help
@@ -183,7 +165,6 @@ config FFMPEG_LIBGSM
 
 config FFMPEG_XVID
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "XviD support"
 	help
@@ -191,7 +172,6 @@ config FFMPEG_XVID
 
 config FFMPEG_X264
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "X264 support"
 	help
@@ -199,7 +179,6 @@ config FFMPEG_X264
 
 config FFMPEG_A52
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "A52 support"
 	help
@@ -207,7 +186,6 @@ config FFMPEG_A52
 
 config FFMPEG_A52BIN
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "A52 runtime support"
 	help
@@ -215,7 +193,6 @@ config FFMPEG_A52BIN
 
 config FFMPEG_DTS
 	bool
-	depends on FFMPEG
 	depends on BROKEN
 	prompt "DTS support"
 	help
@@ -223,7 +200,6 @@ config FFMPEG_DTS
 
 config FFMPEG_PP
 	bool
-	depends on FFMPEG
 	depends on FFMPEG_GPL
 	prompt "Post Prosessing support"
 	help
@@ -231,7 +207,6 @@ config FFMPEG_PP
 
 config FFMPEG_AMR_NB
         bool
-        depends on FFMPEG
 	depends on BROKEN
         prompt "AMR_NB float audio codec"
         help
@@ -239,7 +214,6 @@ config FFMPEG_AMR_NB
 
 config FFMPEG_AMR_NB_FIXED
         bool
-        depends on FFMPEG
 	depends on BROKEN
         prompt "AMR_NB fixed point audio codec"
         help
@@ -247,7 +221,6 @@ config FFMPEG_AMR_NB_FIXED
 
 config FFMPEG_AMR_WB
         bool
-        depends on FFMPEG
 	depends on BROKEN
         prompt "AMR_WB float audio codec"
         help
@@ -255,7 +228,6 @@ config FFMPEG_AMR_WB
 
 config FFMPEG_AMR_IF2
         bool
-        depends on FFMPEG
 	depends on BROKEN
         prompt "AMR_IF2 audio codec"
         help
@@ -263,7 +235,6 @@ config FFMPEG_AMR_IF2
 
 config FFMPEG_DC1394
         bool
-        depends on FFMPEG
 	depends on BROKEN
         prompt "IIDC-1394 grabbing"
         help
@@ -272,14 +243,12 @@ config FFMPEG_DC1394
 
 config FFMPEG_AUDIO_OSS
         bool
-        depends on FFMPEG
         prompt "OSS Audio support"
         help
           Enable OSS (Open Sound System) audio support
 
 config FFMPEG_V4L
         bool
-        depends on FFMPEG
         prompt "V4L support"
         help
           Enable video4linux grabbing
@@ -287,33 +256,28 @@ config FFMPEG_V4L
 
 config FFMPEG_V4L2
         bool
-        depends on FFMPEG
         prompt "V4L2 support"
         help
           Enable video4linux2 grabbing
 
 config FFMPEG_BKTR
         bool
-        depends on FFMPEG
         prompt "BKTR support"
         help
           Enable bktr video grabbing
 
 config FFMPEG_DV1394
         bool
-        depends on FFMPEG
         prompt "DV1394 grabbing support"
         help
           Enable DV1394 grabbing
 
 config FFMPEG_NETWORK
         bool
-        depends on FFMPEG
         prompt "Network support"
 
 config FFMPEG_ZLIB
         bool
-        depends on FFMPEG
 	select ZLIB
         prompt "ZLIB support"
         help
@@ -321,29 +285,26 @@ config FFMPEG_ZLIB
 
 config FFMPEG_SIMPLE_IDCT
         bool
-        depends on FFMPEG
         prompt "Simple IDCT support"
         help
           Use simple IDCT routines
 
 config FFMPEG_VHOOK
         bool
-        depends on FFMPEG
         prompt "video hooking support"
         help
           Enable video hooking support
 
 config FFMPEG_MPEGAUDIO_HP
         bool
-        depends on FFMPEG
         prompt "Faster MPEG audio decoding support"
         help
           Selects faster (but less accurate) MPEG audio decoding
 
 config FFMPEG_PROTOCOL
         bool
-        depends on FFMPEG
         prompt "I/O protocols support"
         help
           Enable I/O protocols support
 
+endif

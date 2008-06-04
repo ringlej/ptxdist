@@ -1,11 +1,13 @@
 config GWT
-	bool
+	tristate
 	prompt "gwt"
 	select GTK
 	select GTKMM if GWT_GWTMM
 
+if GWT
+
 config GWT_GWTMM
 	bool
 	prompt "enable gtkmm bindings"
-	depends on GWT
 
+endif

@@ -1,9 +1,9 @@
 # fam File Alteration Monitor
 
 menuconfig FAM
-	bool
+	tristate
 	depends on BROKEN
-	prompt "fam                 "
+	prompt "fam                           "
 	select PORTMAP
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
@@ -20,23 +20,22 @@ menuconfig FAM
 
 	  This daemon requires portmap to spread its service.
 
+if FAM
+
 config FAM_LIBRARY
 	bool
 	default n
 	prompt "Install libfam"
-	depends on FAM
 	help
 	  If there is an application that is linked against libfam check this
 	  entry to install this library also on the target
 
 comment "runtime options   ---"
-	depends on FAM
 
 config FAM_DEFAULT_CONF
 	bool
 	default y
 	prompt "Use default config file"
-	depends on FAM
 	help
 	  This installs fam distribution's fam.conf file. Its almost generic and
 	  usable.
@@ -44,7 +43,6 @@ config FAM_DEFAULT_CONF
 choice
 	prompt "Kind of startup"
 	default FAM_STARTUP_TYPE_STANDALONE
-	depends on FAM
 
 	config FAM_INETD_SERVER
 		bool
@@ -68,7 +66,6 @@ endchoice
 
 config FAM_INETD_STRING
 	string
-	depends on FAM
 	depends on FAM_INETD_SERVER
 	prompt "inetd service entry"
 	default "sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf"
@@ -78,7 +75,6 @@ config FAM_INETD_STRING
 choice
 	prompt "Kind of startup script"
 	default ROOTFS_ETC_INITD_FAM_DEFAULT
-	depends on FAM
 	depends on FAM_STARTUP_TYPE_STANDALONE
 
 	config ROOTFS_ETC_INITD_FAM_DEFAULT
@@ -97,3 +93,4 @@ choice
 		  project
 
 endchoice
+endif

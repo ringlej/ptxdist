@@ -1,6 +1,6 @@
 menuconfig DHCP
-	bool
-	prompt "DHCP                "
+	tristate
+	prompt "dhcp                          "
 	help
 	  This is the DHCP server from version 3 of the Internet Software
 	  Consortium DHCP package. For more information visit the ISC web
@@ -13,17 +13,16 @@ menuconfig DHCP
 
  	  Multiple Ethernet Interfaces are supported by this DHCP package.
 
+if DHCP
 
 config DHCP_SERVER
 	bool
-	depends on DHCP
 	prompt "DHCP Server dhcpd"
 	help
 		FIXME
 
 config DHCP_CLIENT
 	bool
-	depends on DHCP
 	prompt "DHCP Client dhclient"
 	help
 	  This is a client process to provide the system it runs on
@@ -61,8 +60,8 @@ endchoice
 
 config DHCP_RELAY
 	bool
-	depends on DHCP
 	prompt "DHCP Relay dhcrelay"
 	help
 	 FIXME
 
+endif

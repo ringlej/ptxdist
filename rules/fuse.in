@@ -1,5 +1,5 @@
 config FUSE
-	bool
+	tristate
 	prompt "FUSE"
 	help
 	  utilities for filesystems in userspace

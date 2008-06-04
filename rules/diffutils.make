@@ -2,7 +2,7 @@
 # $Id: template 2922 2005-07-11 19:17:53Z rsc $
 #
 # Copyright (C) 2005 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions

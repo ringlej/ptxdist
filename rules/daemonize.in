@@ -1,9 +1,9 @@
 config DAEMONIZE
-	bool 
+	tristate
 	prompt "daemonize"
 	help
 	  Daemonize is a trivial utility that runs a command as a Unix
-	  daemon. See the project homepage for details: 
+	  daemon. See the project homepage for details:
 
 	  http://www.clapper.org/software/daemonize/
 
