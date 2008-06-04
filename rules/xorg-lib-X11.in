@@ -13,14 +13,14 @@ menuconfig XORG_LIB_X11
 	select XORG_PROTO_XEXT
 	select XORG_LIB_XTRANS
 # required on demand
-	select LIBXCB if XORG_LIB_X11_XCB_LOW_LEVEL
-	select XORG_LIB_XAU if !XORG_LIB_X11_XCB_LOW_LEVEL
-	select XORG_PROTO_XCMISC if !XORG_LIB_X11_XCB_LOW_LEVEL
-	select XORG_PROTO_BIGREQS if !XORG_LIB_X11_XCB_LOW_LEVEL
-	select XORG_LIB_XDMCP if !XORG_LIB_X11_XCB_LOW_LEVEL
-	select XORG_PROTO_INPUT if XORG_LIB_X11_XKB
-	select XORG_PROTO_XF86BIGFONT if XORG_LIB_X11_XF86BIGFONT
-	select XORG_PROTO_KB if XORG_LIB_X11_XKB
+	select LIBXCB			if XORG_LIB_X11_XCB_LOW_LEVEL
+	select XORG_LIB_XAU		if !XORG_LIB_X11_XCB_LOW_LEVEL
+	select XORG_PROTO_XCMISC	if !XORG_LIB_X11_XCB_LOW_LEVEL
+	select XORG_PROTO_BIGREQS	if !XORG_LIB_X11_XCB_LOW_LEVEL
+	select XORG_LIB_XDMCP		if !XORG_LIB_X11_XCB_LOW_LEVEL
+	select XORG_PROTO_INPUT		if XORG_LIB_X11_XKB
+	select XORG_PROTO_XF86BIGFONT	if XORG_LIB_X11_XF86BIGFONT
+	select XORG_PROTO_KB		if XORG_LIB_X11_XKB
 	help
 	  This is the main X library
 
@@ -36,7 +36,6 @@ config XORG_LIB_X11_XF86BIGFONT
 	depends on XORG_LIB_X11
 	bool
 	prompt "XF86BigFont extension support"
-	default n
 	help
 	  FIXME
 
@@ -44,7 +43,6 @@ config XORG_LIB_X11_i18n
 	depends on XORG_LIB_X11
 	bool
 	prompt "Loadable i18n module support"
-	default n
 	help
 	  FIXME
 
@@ -52,7 +50,6 @@ config XORG_LIB_X11_CURSOR
 	depends on XORG_LIB_X11
 	bool
 	prompt "loadable xcursor library support"
-	default n
 	help
 	  FIXME
 
@@ -60,7 +57,6 @@ config XORG_LIB_X11_XKB
 	depends on XORG_LIB_X11
 	bool
 	prompt "XKB Support"
-	default n
 	help
 	  This adds the keyboard extension support to the base library. Various
 	  applications handling keyboards need it.
