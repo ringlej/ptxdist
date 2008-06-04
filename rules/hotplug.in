@@ -1,6 +1,6 @@
 menuconfig HOTPLUG
 	tristate
-	prompt "Hotplug             "
+	prompt "hotplug                       "
 
 if HOTPLUG
 
