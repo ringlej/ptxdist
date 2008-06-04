@@ -84,6 +84,8 @@ tcpwrapper_install: $(STATEDIR)/tcpwrapper.install
 
 $(STATEDIR)/tcpwrapper.install: $(tcpwrapper_install_deps_default)
 	@$(call targetinfo, $@)
+	install -d $(SYSROOT)/include
+	install $(TCPWRAPPER_DIR)/tcpd.h $(SYSROOT)/include
 	install -d $(SYSROOT)/lib
 	install $(TCPWRAPPER_DIR)/libwrap.a $(SYSROOT)/lib
 	@$(call touch, $@)
