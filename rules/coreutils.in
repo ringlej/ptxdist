@@ -1,6 +1,6 @@
 menuconfig COREUTILS
 	tristate
-	prompt "GNU coreutils                 "
+	prompt "gnu coreutils                 "
 	help
 	  This package contains some of the The GNU Core Utilities
 
