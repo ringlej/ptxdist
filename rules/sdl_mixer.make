@@ -63,10 +63,11 @@ $(STATEDIR)/sdl_mixer.targetinstall:
 	@$(call install_fixup, sdl_mixer,DESCRIPTION,missing)
 
 	@$(call install_copy, sdl_mixer, 0, 0, 0644, \
-		$(SDL_MIXER_DIR)/build/.libs/libsdl_mixer-1.2.so.0.2.6, \
-		/usr/lib/libsdl_mixer-1.2.so.0.2.6)
+		$(SDL_MIXER_DIR)/build/.libs/libSDL_mixer-1.2.so.0.2.6, \
+		/usr/lib/libSDL_mixer-1.2.so.0.2.6)
 
-	@$(call install_link, sdl_mixer, libsdl_mixer-1.2.so.0.2.6, /usr/lib/libsdl_mixer-1.2.so.0)
+	@$(call install_link, sdl_mixer, libSDL_mixer-1.2.so.0.2.6, /usr/lib/libSDL_mixer-1.2.so.0)
+	@$(call install_link, sdl_mixer, libSDL_mixer.so, /usr/lib/libSDL_mixer-1.2.so.0)
 
 	@$(call install_finish, sdl_mixer)
 
