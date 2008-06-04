@@ -1,4 +1,6 @@
-menuconfig GTK
+menu "gtk+                          "
+
+config GTK
 	tristate
 	prompt "gtk+                          "
 	select GLIB
@@ -21,8 +23,6 @@ menuconfig GTK
 	user interfaces. Offering a complete set of widgets, the GTK+
 	is suitable for projects ranging from small one-off tools to complete
 	application suites.
-
-if GTK
 
 menu "graphic loaders       "
 
@@ -125,7 +125,9 @@ menuconfig GTK_ENGINES
 	bool
 	prompt "gtk engines           "
 
+if GTK_ENGINES
 source "rules/gtk-engine-experience.in"
+endif
 
 choice
 	prompt "default theme"
@@ -146,4 +148,4 @@ choice
 		depends on GTK_THEME_EXPERIENCE_OLIVE
 endchoice
 
-endif
+endmenu

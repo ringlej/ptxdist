@@ -2,7 +2,6 @@ config GTK_ENGINE_EXPERIENCE
 	tristate
 	prompt "experience engine"
 	select GTK
-	depends on GTK_ENGINES
 	help
 	  A pixmap engine that is somewhat like XP, but way better...
 
