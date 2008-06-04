@@ -1,19 +1,19 @@
 # mysql config
 
 menuconfig MYSQL
-	bool
-	prompt "mysql                       "
+	tristate
+	prompt "mysql                         "
 	select TERMCAP if MYSQL_TERMINAL_TERMCAP
 	select NCURSES if MYSQL_TERMINAL_NCURSES
 	select HOST_MYSQL
 	select ZLIB
 
+if MYSQL
+
 comment "build options   ---"
-	depends on MYSQL
 
 choice
 	prompt "terminal library   "
-	depends on MYSQL
 	default MYSQL_TERMINAL_NCURSES
 
 	config MYSQL_TERMINAL_NCURSES
@@ -32,7 +32,6 @@ endchoice
 
 choice
 	prompt "default charset    "
-	depends on MYSQL
 
 	config MYSQL_DEFAULT_CHARSET_ARMSCII8
 		bool
@@ -169,7 +168,6 @@ endchoice
 
 choice
 	prompt "extra charsets     "
-	depends on MYSQL
 
 	config MYSQL_EXTRA_CHARSETS_NONE
 		bool
@@ -191,7 +189,6 @@ endchoice
 menuconfig MYSQL_EXTRA_CHARSETS
 	bool
 	prompt "select extra charsets         "
-	depends on MYSQL
 	depends on MYSQL_EXTRA_CHARSETS_LIST
 
 	config MYSQL_EXTRA_CHARSETS_ARMSCII8
@@ -361,18 +358,15 @@ menuconfig MYSQL_EXTRA_CHARSETS
 
 config MYSQL_UCA
 	bool
-	depends on MYSQL
 	prompt "build national unicode collations"
 
 config MYSQL_SOCKET_PATH
 	string
-	depends on MYSQL
 	prompt "unix domain socket path"
 	default "/var/run/"
 
 config MYSQL_TCP_PORT
 	string
-	depends on MYSQL
 	prompt "tcp port number"
 	default "3306"
 	help
@@ -385,18 +379,18 @@ config MYSQL_TCP_PORT
 
 config MYSQL_WITHOUT_SERVER
 	bool
-	depends on MYSQL
 	prompt "build only client"
 
 config MYSQL_WITH_EMBEDDED_SERVER
 	bool
-	depends on MYSQL
 	prompt "libmysqld"
 
 config MYSQL_QUERY_CACHE
 	bool
-	depends on MYSQL
 	prompt "query cache"
+
+
+endif
 
 #  --without-geometry      Do not build geometry-related parts.
 #  --with-embedded-privilege-control

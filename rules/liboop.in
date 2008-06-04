@@ -1,5 +1,5 @@
 config LIBOOP
-	bool
+	tristate
 	prompt "liboop"
 	help
 	  FIXME

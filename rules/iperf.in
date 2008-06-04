@@ -1,5 +1,5 @@
 config IPERF
-        bool
+        tristate
 	select GCCLIBS_CXX
 	prompt "iperf"
 	help

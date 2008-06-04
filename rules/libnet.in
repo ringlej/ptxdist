@@ -1,5 +1,5 @@
 config LIBNET
-	bool
+	tristate
 	prompt "libnet"
 	help
 	  Libnet is a generic networking API that provides

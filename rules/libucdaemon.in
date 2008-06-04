@@ -1,5 +1,5 @@
 config LIBUCDAEMON
-	bool
+	tristate
 	prompt "libucdaemon"
 	help
 	  FIXME

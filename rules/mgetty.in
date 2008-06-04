@@ -1,5 +1,6 @@
 menuconfig MGETTY
-	bool "mgetty & sendfax    "
+	tristate
+	prompt "mgetty & sendfax              "
 	help
 	  mgetty+sendfax is a reliable and proven fax send and receive solution.
 
@@ -13,11 +14,12 @@ menuconfig MGETTY
 	  within shell scripts. Its input are pages in "g3" format, either
 	  created with ghostscript or with pbm2g3.
 
+if MGETTY
+
 config MGETTY_CONFIG
 	prompt "Name of policy.h file to be used"
 	string
 	default "build-target/mgetty-1.1.30/policy.h-dist"
-	depends on MGETTY
 	help
 	  FIXME: This item needs to be documented
 
@@ -25,7 +27,6 @@ config MGETTY_INSTALL_CONFIG
 	prompt "Install default config files to ${ROOTDIR}/etc/mgetty+sendfax"
 	bool
 	default y
-	depends on MGETTY
 	help
 	  Enabling this option installs mgetty's default config files onto your target.
 	  Say N here if you want to use your own files and make sure they're installed
@@ -35,7 +36,6 @@ config SENDFAX
 	prompt "Install sendfax and G3 helper tools"
 	bool
 	default y
-	depends on MGETTY
 	help
 	  Choose here if you want to install sendfax in addition
 	  to mgetty. If you only need mgetty for its getty
@@ -46,7 +46,6 @@ config SENDFAX_SPOOL
 	bool
 	default y
 	prompt "Install faxspooling programs"
-	depends on MGETTY
 	help
 	  This will install
 	  /usr/bin/faxspool
@@ -60,9 +59,10 @@ config SENDFAX_SPOOL
 config MGETTY_CALLBACK
 	prompt "Install callback program"
 	bool
-	depends on MGETTY
 	help
 	  The callback utility of mgetty is able to call
 	  back after a login 'attempt' based on entries in
 	  /etc/mgetty+sendfax/login.conf
+
+endif
 

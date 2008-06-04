@@ -1,5 +1,5 @@
 config LOGROTATE
-	bool
+	tristate
 	prompt "logrotate           "
 	select LIBPOPT
 	help

@@ -1,6 +1,6 @@
 menuconfig MAD
-	bool
-	prompt "mad                 "
+	tristate
+	prompt "mad                           "
 	help
 	  MAD is an MPEG audio decoder.
 

@@ -1,5 +1,5 @@
 config LIBLOCKFILE
-	bool
+	tristate
 	depends on BROKEN
 	prompt "liblockfile, dotlockfile [BROKEN]"
 	help

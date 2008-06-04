@@ -1,5 +1,5 @@
 config HPANEL
-	bool
+	tristate
 	depends on XORG_SERVER
 	select XORG_LIB_XFT
 	select XORG_LIB_XPM

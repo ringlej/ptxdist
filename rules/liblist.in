@@ -1,5 +1,5 @@
 config LIBLIST
-	bool
+	tristate
 	prompt "liblist"
 	help
 	  Liblist is a generic list and tree implementation. More details and

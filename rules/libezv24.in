@@ -1,8 +1,8 @@
 # configuration for libezv24
 
 config LIBEZV24
-	bool
-	prompt "libezv24"
+	tristate
+	prompt "libezv24                     "
 	help
 	  The goal of this library is to provide an easy to use programming
 	  interface to the serial ports of the Linux system, native on Linux and

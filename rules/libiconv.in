@@ -1,6 +1,6 @@
 menuconfig LIBICONV
-	bool
-	prompt "libiconv                    "
+	tristate
+	prompt "libiconv                      "
 	help
 
 	  libiconv converts traditional character encodings

@@ -1,5 +1,6 @@
 menuconfig LIBCURL
-	bool "libcurl             "
+	tristate
+	prompt "libcurl                       "
 	select OPENSSL if LIBCURL__SSL
 	select ZLIB
 	help
@@ -10,38 +11,34 @@ menuconfig LIBCURL
 	(Basic, Digest, NTLM, Negotiate, kerberos...), file transfer resume,
 	proxy tunneling and a busload of other useful tricks.
 
+if LIBCURL
+
 config LIBCURL__CURL
        bool "install curl program"
-       depends on LIBCURL
 
 config LIBCURL__HTTP
        bool "http"
-       depends on LIBCURL
        default y
 
 config LIBCURL__COOKIES
        bool "cookies support"
-       depends on LIBCURL
        depends on LIBCURL__HTTP
 
 config LIBCURL__FTP
        bool "ftpt"
-       depends on LIBCURL
        default y
 
 config LIBCURL__FILE
        bool "file"
-       depends on LIBCURL
 
 config LIBCURL__SSL
        bool "ssl"
-       depends on LIBCURL
        depends on BROKEN
 
 config LIBCURL__CRYPTO_AUTH
        bool "cryptographic authentication"
-       depends on LIBCURL
 
 config LIBCURL__IPV6
        bool "ipv6"
-       depends on LIBCURL
+
+endif

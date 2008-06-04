@@ -1,5 +1,5 @@
 config JED
-	bool
+	tristate
 	prompt "jed [BROKEN]"
 	depends on BROKEN
 	# tries to execute stuff which is cross compiled

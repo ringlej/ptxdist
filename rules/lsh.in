@@ -1,52 +1,49 @@
 # lsh configuration
 
 menuconfig LSH
-	prompt "LSH                 "
-	bool
+	tristate
+	prompt "LSH                           "
 	select LIBGMP
 	select LIBOOP
 	help
 	  lsh is an SSH implementation.
+if LSH
 
 config LSH_EXECUV
 	bool
 	prompt "Install lsh-execuf"
-	depends on LSH
 	help
 	  FIXME: This item needs to be documented
 
 config LSH_LSHD
 	bool
 	prompt "Install lshd"
-	depends on LSH
 	help
 	  FIXME: This item needs to be documented
 
 config LSH_SFTPD
 	bool
 	prompt  "Install sftp-server"
-	depends on LSH
 	help
 	  FIXME: This item needs to be documented
 
 config LSH_MAKESEED
 	bool
 	prompt "Install lsh-make-seed"
-	depends on LSH
 	help
 	  FIXME: This item needs to be documented
 
 config LSH_KEYGEN 
 	bool
 	prompt "Install lsh-keygen"
-	depends on LSH
 	help
 	  FIXME: This item needs to be documented
 
 config LSH_WRITEKEY
 	bool
 	prompt "Install lsh-writekey"
-	depends on LSH
 	help
 	  FIXME: This item needs to be documented
+
+endif
 

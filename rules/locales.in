@@ -1,5 +1,5 @@
 menuconfig LOCALES
-	bool
+	tristate
 	prompt "system locales                "
 	depends on GLIBC
 	select HOST_LOCALEDEF
@@ -7,13 +7,13 @@ menuconfig LOCALES
 	  select this to enable locale installation, otherwise your system will only
 	  support locales "C" and "POSIX"
 
+if LOCALES
+
 comment "English Support"
-	depends on LOCALES
 
 config LOCALES_EN_US
 	bool
 	prompt "en_US (ISO8859-1)"
-	depends on LOCALES
 	default y
 	help
 	  American English language support.
@@ -21,69 +21,59 @@ config LOCALES_EN_US
 config LOCALES_EN_GB
 	bool
 	prompt "en.GB (ISO8859-1)"
-	depends on LOCALES
 	help
 	  British English language support.
 
 config LOCALES_EN_GB_EURO
 	bool
 	prompt "en_GB.euro (ISO8859-15)"
-	depends on LOCALES
 	help
 	  British English language support with Euro sign.
 
 comment "German Support"
-	depends on LOCALES
 
 config LOCALES_DE_DE
 	bool
 	prompt "de_DE (ISO8859-1)"
-	depends on LOCALES
 	help
 	  German language support (Germany).
 
 config LOCALES_DE_DE_EURO
 	bool
 	prompt "de_DE.euro (ISO8859-15)"
-	depends on LOCALES
 	help
 	  German language support with Euro sign (Germany).
 
 comment "Chinese Support"
-	depends on LOCALES
 
 config LOCALES_ZH_CN
 	bool
 	prompt "zh_CN (GB2312)"
-	depends on LOCALES
 	help
 	  Chinese language support (mainland).
 
 config LOCALES_ZH_CN_GBK
 	bool
 	prompt "zh_CN (GBK)"
-	depends on LOCALES
 	help
 	  Chinese language support (mainland.GBK).
 
 config LOCALES_ZH_CN_GB18030
 	bool
 	prompt "zh_CN (GB18030)"
-	depends on LOCALES
 	help
 	  Chinese language support (mainland.GB13030).
 
 config LOCALES_ZH_TW
 	bool
 	prompt "zh_TW (BIG5)"
-	depends on LOCALES
 	help
 	  Chinese language support (taiwan).
 
 config LOCALES_ZH_HK
 	bool
 	prompt "zh_HK (BIG5_HKSCS)"
-	depends on LOCALES
 	help
 	  Chinese language support (Hongkong).
 
+endif

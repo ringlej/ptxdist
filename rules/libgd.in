@@ -1,5 +1,5 @@
 config LIBGD
-	bool
+	tristate
 	prompt "libgd"
 	select LIBPNG if LIBGD_PNG
 	select LIBJPEG if LIBGD_JPEG
@@ -14,10 +14,11 @@ config LIBGD
 	  generate charts, graphics, thumbnails, and
 	  most anything else, on the fly.
 
+if LIBGD
+
 config LIBGD_X
 	bool
 	prompt "with X libs support"
-	depends on LIBGD
 	default n 
 	help
 	   compiles libgd with X libraries support
@@ -25,7 +26,6 @@ config LIBGD_X
 config LIBGD_PNG
 	bool
 	prompt "with png support"
-	depends on LIBGD
 	default y
 	help
 	   compiles libgd with png support
@@ -33,7 +33,6 @@ config LIBGD_PNG
 config LIBGD_JPEG
 	bool
 	prompt "with jpeg support"
-	depends on LIBGD
 	default y
 	help
 	   compiles libgd with jpeg support
@@ -41,14 +40,12 @@ config LIBGD_JPEG
 config LIBGD_XPM
 	bool
 	prompt "with xpm support"
-	depends on LIBGD
 	help
 	   compiles libgd with xpm support
 
 config LIBGD_FONTCONFIG
 	bool
 	prompt "with fontconfig support"
-	depends on LIBGD
 	default y
 	help
 	   compiles libgd with png support
@@ -56,6 +53,7 @@ config LIBGD_FONTCONFIG
 config LIBGD_FREETYPE
 	bool
 	prompt "with freetype support"
-	depends on LIBGD
 	help
 	   compiles libgd with freetype support
+
+endif

@@ -1,5 +1,5 @@
 config MII_DIAG
-	bool
+	tristate
 	prompt "mii-diag"
 	help
 	  mii-diag command configures, controls and monitors

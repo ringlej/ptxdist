@@ -1,5 +1,5 @@
 config LIBSIGCPP
-	bool
+	tristate
 	prompt "libsigc++"
 	help
 	  libsigc++ implements a typesafe callback system for standard C++. It

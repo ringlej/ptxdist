@@ -1,5 +1,5 @@
 config LIBOIL
-	bool
+	tristate
 	prompt "liboil"
 	help
 	  Liboil is a library of simple functions that are optimized for

@@ -1,5 +1,5 @@
 config LITE
-	bool
+	tristate
 	prompt "LiTE"
 	select DIRECTFB
 	help

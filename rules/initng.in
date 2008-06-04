@@ -1,9 +1,9 @@
 menuconfig INITNG
-	bool
+	tristate
 	select HOST_CMAKE
 	select NCURSES
 	select LIBC_DL
-	prompt "initng              "
+	prompt "initng                        "
 	help
 	  Initng is a full replacement of the old and in many ways
 	  deprecated sysvinit tool. It is designed with speed in mind, doing
@@ -11,23 +11,22 @@ menuconfig INITNG
 	  your system faster, give you more control over the boot process,
 	  and provide you with additional statistics.
 
+if INITNG
+
 config INITNG_WITH_BUSYBOX
 	bool
-	depends on INITNG
 	prompt "Allow busybox as shell"
 	help
 	  FIXME
 
 config INITNG_INSTALL_INIT
 	bool
-	depends on INITNG
 	prompt "Install as /sbin/init"
 	help
 	  FIXME
 
 config INITNG_SELINUX
 	bool
-	depends on INITNG
 	depends on BROKEN
 	prompt "Enable SELinux Support"
 	help
@@ -35,84 +34,72 @@ config INITNG_SELINUX
 
 config INITNG_DEBUG
 	bool
-	depends on INITNG
 	prompt "Enable Debug Support"
 	help
 	  FIXME
 
 config INITNG_FORCE_NOCOLOR
 	bool
-	depends on INITNG
 	prompt "Force No Color"
 	help
 	  FIXME
 
 config INITNG_ALSO
 	bool
-	depends on INITNG
 	prompt "Also Plugin"
 	help
 	  FIXME
 
 config INITNG_BASH_LAUNCHER
 	bool
-	depends on INITNG
 	prompt "Bash Launcher Plugin"
 	help
 	  FIXME
 
 config INITNG_CHDIR
 	bool
-	depends on INITNG
 	prompt "Chdir Plugin"
 	help
 	  FIXME
 
 config INITNG_CHROOT
 	bool
-	depends on INITNG
 	prompt "Chroot Plugin"
 	help
 	  FIXME
 
 config INITNG_CONFLICT
 	bool
-	depends on INITNG
 	prompt "Conflict Plugin"
 	help
 	  FIXME
 
 config INITNG_CPOUT
 	bool
-	depends on INITNG
 	prompt "Cpout Plugin"
 	help
 	  FIXME
 
 config INITNG_CRITICAL
 	bool
-	depends on INITNG
 	prompt "Critical Plugin"
 	help
 	  FIXME
 
 config INITNG_CTRLALTDEL
 	bool
-	depends on INITNG
 	prompt "Ctrl-Alt-Del Plugin"
 	help
 	  FIXME
 
 config INITNG_DAEMON_CLEAN
 	bool
-	depends on INITNG
 	prompt "Daemon Clean Plugin"
 	help
 	  FIXME
 
 config INITNG_DBUS_EVENT
 	bool
-	depends on INITNG
 	depends on BROKEN
 	prompt "DBUS pluging"
 	help
@@ -120,42 +107,36 @@ config INITNG_DBUS_EVENT
 
 config INITNG_DEBUG_COMMANDS
 	bool
-	depends on INITNG
 	prompt "Debug Commands Plugin"
 	help
 	  FIXME
 
 config INITNG_ENVPARSER
 	bool
-	depends on INITNG
 	prompt "Env Parser Plugin"
 	help
 	  FIXME
 
 config INITNG_FIND
 	bool
-	depends on INITNG
 	prompt "Find Plugin"
 	help
 	  FIXME
 
 config INITNG_FMON
 	bool
-	depends on INITNG
 	prompt "File Monitoring Plugin"
 	help
 	  FIXME
 
 config INITNG_FSTAT
 	bool
-	depends on INITNG
 	prompt "Fstat Plugin"
 	help
 	  FIXME
 
 config INITNG_HISTORY
 	bool
-	depends on INITNG
 	depends on INITNG_NGC4
 	prompt "History Plugin"
 	help
@@ -163,184 +144,158 @@ config INITNG_HISTORY
 
 config INITNG_IDLEPROBE
 	bool
-	depends on INITNG
 	prompt "Idle Probe plugin"
 	help
 	  FIXME
 
 config INITNG_INITCTL
 	bool
-	depends on INITNG
 	prompt "Initctl Plugin"
 	help
 	  FIXME
 
 config INITNG_INTERACTIVE
 	bool
-	depends on INITNG
 	prompt "Interactive Plugin"
 	help
 	  FIXME
 
 config INITNG_IPARSER
 	bool
-	depends on INITNG
 	prompt "IParser Plugin"
 	help
 	  FIXME
 
 config INITNG_LAST
 	bool
-	depends on INITNG
 	prompt "Last Plugin"
 	help
 	  FIXME
 
 config INITNG_LIMIT
 	bool
-	depends on INITNG
 	prompt "Limit Plugin"
 	help
 	  FIXME
 
 config INITNG_LOCKFILE
 	bool
-	depends on INITNG
 	prompt "Lock file plugin"
 	help
 	  FIXME
 
 config INITNG_LOGFILE
 	bool
-	depends on INITNG
 	prompt "Logfile Plugin"
 	help
 	  FIXME
 
 config INITNG_NETDEV
 	bool
-	depends on INITNG
 	prompt "Network Dev"
 	help
 	  FIXME
 
 config INITNG_NETPROBE
 	bool
-	depends on INITNG
 	prompt "Netprobe Plugin"
 	help
 	  FIXME
 
 config INITNG_NGC4
 	bool
-	depends on INITNG
 	prompt "NGC4 Plugin"
 	help
 	  FIXME
 
 config INITNG_NGCS
 	bool
-	depends on INITNG
 	prompt "NGCS Plugin"
 	help
 	  FIXME
 
 config INITNG_NGE
 	bool
-	depends on INITNG
 	prompt "NGE Plugin"
 	help
 	  FIXME
 
 config INITNG_PAUSE
 	bool
-	depends on INITNG
 	prompt "Pause Plugin"
 	help
 	  FIXME
 
 config INITNG_PROVIDE
 	bool
-	depends on INITNG
 	prompt "Provide Plugin"
 	help
 	  FIXME
 
 config INITNG_RELOAD
 	bool
-	depends on INITNG
 	prompt "Reload Plugin"
 	help
 	  FIXME
 
 config INITNG_RENICE
 	bool
-	depends on INITNG
 	prompt "Renice Plugin"
 	help
 	  FIXME
 
 config INITNG_RLPARSER
 	bool
-	depends on INITNG
 	prompt "RL Parser Plugin"
 	help
 	  FIXME
 
 config INITNG_SIMPLE_LAUNCHER
 	bool
-	depends on INITNG
 	prompt "Simple Launcher Plugin"
 	help
 	  FIXME
 
 config INITNG_STCMD
 	bool
-	depends on INITNG
 	prompt "Stcmd Plugin"
 	help
 	  FIXME
 
 config INITNG_STDOUT
 	bool
-	depends on INITNG
 	prompt "Std Out Plugin"
 	help
 	  FIXME
 
 config INITNG_SUID
 	bool
-	depends on INITNG
 	prompt "SUID Plugin"
 	help
 	  FIXME
 
 config INITNG_SYNCRON
 	bool
-	depends on INITNG
 	prompt "Syncron Plugin"
 	help
 	  FIXME
 
 config INITNG_SYSLOG
 	bool
-	depends on INITNG
 	prompt "Syslog Plugin"
 	help
 	  FIXME
 
 config INITNG_SYSREQ
 	bool
-	depends on INITNG
 	prompt "SysRq plugin"
 	help
 	  FIXME
 
 config INITNG_UNNEEDED
 	bool
-	depends on INITNG
 	prompt "Unneeded Plugin"
 	help
 	  FIXME
 
-
+endif

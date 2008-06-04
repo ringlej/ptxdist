@@ -1,6 +1,6 @@
 menuconfig LIBPOPT
-	bool
-	prompt "libpopt                     "
+	tristate
+	prompt "libpopt                       "
 	help
 	  FIXME: This item needs to be documented
 

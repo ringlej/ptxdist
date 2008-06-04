@@ -1,5 +1,5 @@
 config MEMEDIT
-	bool
+	tristate
 	select READLINE
 # memedit can only be run with a readline library linked against ncurses
 	select NCURSES

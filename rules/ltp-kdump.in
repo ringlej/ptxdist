@@ -1,6 +1,6 @@
 menuconfig LTP_KDUMP
 	tristate
 	select LTP_BASE
-	prompt "ddump               "
+	prompt "ddump                         "
 	depends on BROKEN
 

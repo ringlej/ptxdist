@@ -1,75 +1,66 @@
 menuconfig LTP_KERNEL
 	tristate
 	select LTP_BASE
-	prompt "kernel              "
+	prompt "kernel                        "
 	help
 	  Kernel based tests.
+
+if LTP_KERNEL
 
 config LTP_KERNEL_NUMA
 	bool
 	prompt "numa"
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_CONTAINERS
 	bool
 	prompt "containers"
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_CONTROLLERS
 	bool
 	prompt "controllers"
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_INCLUDE
 	bool
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_FS
 	bool
 	prompt "fs"
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_IO
 	bool
 	prompt "io"
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_IPC
 	bool
 	prompt "ipc"
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_MEM
 	bool
 	prompt "mem"
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_PTY
 	bool
 	prompt "pty"
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_SCHED
 	bool
 	prompt "sched"
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_SECURITY
 	bool
 	prompt "security"
-	depends on LTP_KERNEL
 
 config LTP_KERNEL_SYSCALLS
 	bool
 	prompt "syscalls"
-	depends on LTP_KERNEL
 	select LTP_KERNEL_INCLUDE
 
 config LTP_KERNEL_TIMERS
 	bool
 	prompt "timers"
-	depends on LTP_KERNEL
 	select LTP_KERNEL_INCLUDE
+
+endif
 
 ## ----------------------------------------------------------------------------
 #menuconfig LTP_KERNEL_FS

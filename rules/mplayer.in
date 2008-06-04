@@ -1,9 +1,9 @@
 menuconfig MPLAYER
-	bool
+	tristate
 	select LIBJPEG if MPLAYER_VO_JPEG
 	select XORG_LIB_XV if MPLAYER_VO_XV
 	select XORG_LIB_X11 if MPLAYER_VO_X11
-	prompt "mplayer             "
+	prompt "mplayer                       "
 	help
 	  The Ultimate Movie Player For Linux
 
@@ -17,6 +17,7 @@ menuconfig MPLAYER
 	  (for Matrox/3dfx/SiS) too.
 
 # -----
+
 
 menuconfig MPLAYER_VI
 	bool

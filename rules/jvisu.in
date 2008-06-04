@@ -1,6 +1,6 @@
 menuconfig JVISU
-	bool
-	prompt "JVisu                       "
+	tristate
+	prompt "JVisu                         "
 	help
 	  JVISU - A java applet based visualisation suite
 

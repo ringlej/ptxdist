@@ -1,5 +1,5 @@
 config LRZSZ
-	bool
+	tristate
 	prompt "lrzsz"
 	help
 	  lrzsz is a unix communication package providing the XMODEM,

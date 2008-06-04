@@ -1,5 +1,5 @@
 config MEMSTAT
-	bool
+	tristate
 	prompt "memstat"
 	help
 	  memstat is a memory diagnosis tool which lets you find

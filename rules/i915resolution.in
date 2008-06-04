@@ -1,5 +1,5 @@
 config I915RESOLUTION
-	bool
+	tristate
 	prompt "i915resolution"
 	help
 	  This tool is a patch/hack to add modes to the video bios.

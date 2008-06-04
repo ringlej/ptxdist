@@ -1,5 +1,5 @@
 config LIBIDL068
-	bool
+	tristate
 	depends on BROKEN
 	prompt "libidl 0.6.8 [BROKEN]"
 	help

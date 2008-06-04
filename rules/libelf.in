@@ -1,5 +1,5 @@
 config LIBELF
-	bool
+	tristate
 	prompt "libelf"
 	help
 	  The elf library provides routines to access, and manipulate,

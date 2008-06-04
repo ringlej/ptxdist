@@ -1,5 +1,5 @@
 menuconfig LIBMODBUS
-	bool
+	tristate
 	prompt "libmodbus                     "
 	help
 	  libmodbus is a library that implements the Modbus/TCP protocol.

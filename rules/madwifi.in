@@ -1,5 +1,5 @@
 config MADWIFI
-	bool
+	tristate
 	prompt "Multiband Atheros WiFi Driver"
 	help
 	  MadWifi is one of the most advanced WLAN drivers

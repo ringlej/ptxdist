@@ -1,6 +1,6 @@
 menuconfig LTP_DOTS
 	tristate
 	select LTP_BASE
-	prompt "dots                "
+	prompt "dots                          "
 	depends on BROKEN
 

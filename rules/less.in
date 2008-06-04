@@ -1,6 +1,6 @@
 menuconfig LESS
-	bool
-	prompt "less                "
+	tristate
+	prompt "less                          "
 #	select LIBPW if LESS_USE_PW
 #	select CURSES if LESS_USE_CURSES
 #	select TINFO if LESS_USE_TINFO

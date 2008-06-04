@@ -1,5 +1,5 @@
 config I2C_TOOLS
-	bool
+	tristate
 	prompt "i2c-tools"
 	help
 	  The userland i2c tools from lm-sensors. They provide generic access

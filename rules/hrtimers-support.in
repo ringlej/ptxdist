@@ -1,5 +1,5 @@
 config HRTIMERS_SUPPORT
-	bool
+	tristate
 	depends on BROKEN
 	# probably not needed anymore with > glibc-2.5
 	prompt "hrtimers-support"

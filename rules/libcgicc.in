@@ -1,5 +1,5 @@
 config LIBCGICC
-	bool
+	tristate
 	prompt "libcgicc"
 	select GCCLIBS_CXX
 	help

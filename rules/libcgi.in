@@ -1,5 +1,5 @@
 config LIBCGI
-	bool
+	tristate
 	prompt "libcgi"
 	help
 	  libcgi is a library for CGI programs written in C. 

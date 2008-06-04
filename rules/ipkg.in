@@ -1,5 +1,6 @@
 menuconfig IPKG
-	bool "ipkg                          "
+	tristate
+	prompt "ipkg                          "
 # ipkg calls wget with long options!
 	select BB_CONFIG_FEATURE_WGET_LONG_OPTIONS if BB_CONFIG_WGET
 	help
@@ -8,10 +9,11 @@ menuconfig IPKG
 	  It allows installing, updating or removing applications
 	  at runtime
 
+if IPKG
+
 config IPKG_EXTRACT_TEST
 	bool
 	prompt "ipkg_extract_test"
-	depends on IPKG
 	help
 	  Unfortunately, nobody knows what this program is being used for.
 	  FIXME: This item needs to be documented
@@ -19,7 +21,6 @@ config IPKG_EXTRACT_TEST
 config IPKG_HASH_TEST
 	bool
 	prompt "ipkg_hash_test"
-	depends on IPKG
 	help
 	  Unfortunately, nobody knows what this program is being used for.
 	  FIXME: This item needs to be documented
@@ -27,7 +28,6 @@ config IPKG_HASH_TEST
 config IPKG_LOG_WRAPPER
 	bool
 	prompt "use ipkg log wrapper"
-	depends on IPKG
 	help
 	  If selected, ipkg will be installed with a wrapper script
 	  which provides basic logging facilities
@@ -37,7 +37,6 @@ config IPKG_GENERIC_IPKG_CONF
 	prompt "install /etc/ipkg.conf"
 	default y
 	depends on ROOTFS
-	depends on IPKG
 	help
 	  Installs a generic /etc/ipkg.conf file.
 
@@ -58,3 +57,4 @@ config IPKG_GENERIC_IPKG_CONF
 		  Important: To make ipkg work at runtime, you must install this
 		  configuration file. Without it you can't install new packages.
 
+endif

@@ -1,6 +1,6 @@
 # meta package, used to build the whole beast
 
 config LTP_BASE
-	bool
+	tristate
 	default y if LTP
 

@@ -1,5 +1,6 @@
 menuconfig INOTIFY_TOOLS
-	bool "inotify-tools               "
+	tristate
+	prompt "inotify-tools               "
 	help
 	  Command line tools for inotify
 	  http://inotify-tools.sourceforge.net/

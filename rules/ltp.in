@@ -1,6 +1,6 @@
 menuconfig LTP
+	tristate
 	prompt "linux test project            "
-	bool
 	help
 	  The Linux Test Project is a joint project with SGI, IBM, OSDL,
 	  and Bull with a goal to deliver test suites to the open source

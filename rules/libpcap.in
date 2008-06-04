@@ -1,6 +1,6 @@
 menuconfig LIBPCAP
-	bool
-	prompt "libpcap             "
+	tristate
+	prompt "libpcap                       "
 	help
 	  libpcap is a system-independent interface for user-level packet capture.
 	  libpcap provides a portable framework for low-level network monitoring.

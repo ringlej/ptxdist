@@ -1,5 +1,5 @@
 config LTT_CONTROL
-	bool
+	tristate
 	prompt "ltt-control"
 	help
 	  Linux Trace Toolkit ltt-control

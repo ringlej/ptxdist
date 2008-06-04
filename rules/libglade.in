@@ -1,5 +1,5 @@
 config LIBGLADE
-	bool
+	tristate
 	select GTK
 	select LIBXML2
 	prompt "libglade"

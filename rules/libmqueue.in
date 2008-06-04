@@ -1,5 +1,5 @@
 config LIBMQUEUE
-	bool
+	tristate
 	prompt "libmqueue"
 	help
 	  Libmqueue offers an implementation of POSIX Message Queues

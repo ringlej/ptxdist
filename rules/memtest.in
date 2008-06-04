@@ -1,5 +1,5 @@
 config MEMTEST
-	bool
+	tristate
 	prompt "memtest"
 	help
 	  Juan Quintela's Memory Test Suite

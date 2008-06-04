@@ -1,6 +1,6 @@
 menuconfig KAFFE
-	prompt "kaffe               "
-	bool
+	tristate
+	prompt "kaffe                         "
 	depends on BROKEN
 	select HOST_KAFFE
 	help

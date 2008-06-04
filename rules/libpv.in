@@ -1,5 +1,5 @@
 menuconfig LIBPV
-	bool
+	tristate
 	prompt "libpv                         "
 	select LIBLIST
 	select LIBC_PTHREAD

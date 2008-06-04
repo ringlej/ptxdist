@@ -1,5 +1,6 @@
 menuconfig LIBCONFUSE
-	bool "libconfuse                  "
+	tristate
+	prompt "libconfuse                    "
 	default n
 	help
 	  This is libConfuse, a library for parsing configuration files. It was

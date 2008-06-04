@@ -3,8 +3,8 @@
 #
 
 menuconfig LIBXSLT
-	bool
-	prompt "libxslt                     "
+	tristate
+	prompt "libxslt                       "
 	select LIBXML2
 	select LIBXML2_OUTPUT
 	select LIBXML2_XINCLUDE
@@ -17,48 +17,40 @@ menuconfig LIBXSLT
 
 		http://xmlsoft.org/XSLT/
 
-
+if LIBXSLT
 # ----- Compile Options
 
 comment "Compile Options"
-	depends on LIBXSLT
 
 config LIBXSLT_CRYPTO
 	bool
 	prompt "Add crypto support to exslt"
-	depends on LIBXSLT
 	depends on BROKEN
 
 config LIBXSLT_PLUGINS
 	bool
 	prompt "Add plugin extension support "
 	default y
-	depends on LIBXSLT
 
 config LIBXSLT_DEBUG
 	bool
 	prompt "Add the debugging support"
-	depends on LIBXSLT
 
 comment "Install Components"
-	depends on LIBXSLT
 
 config LIBXSLT_LIBXSLT
 	bool
 	prompt "libxslt"
 	default y if LIBXSLT
-	depends on LIBXSLT
 
 config LIBXSLT_LIBEXSLT
 	bool
 	prompt "libexslt"
 	default y if LIBXSLT
-	depends on LIBXSLT
 
 config LIBXSLT_XSLTPROC
 	bool
 	prompt "xsltproc"
-	depends on LIBXSLT
 	select LIBXSLT_LIBEXSLT
 	select LIBXSLT_LIBXSLT
 	select LIBXML2
@@ -66,3 +58,4 @@ config LIBXSLT_XSLTPROC
 	  xsltproc is an XML stylesheet processor. See
 	  http://xmlsoft.org/XSLT for details.
 
+endif

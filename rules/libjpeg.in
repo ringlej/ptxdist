@@ -1,5 +1,5 @@
 config LIBJPEG
-	bool
+	tristate
 	prompt "libjpeg"
 	help
 	  libjpeg is a library for handling the JPEG (JFIF) image format.

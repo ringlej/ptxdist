@@ -1,4 +1,4 @@
 config LIBUSB
-	bool
-	prompt "libusb              "
+	tristate
+	prompt "libusb"
 

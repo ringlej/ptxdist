@@ -1,5 +1,5 @@
 config LIBXMLCONFIG
-	bool
+	tristate
 	prompt "libxmlconfig"
 	select LIBXML2
 	select LIBLIST

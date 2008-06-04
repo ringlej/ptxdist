@@ -1,5 +1,6 @@
 config LIBGSLOOP
-	bool "libgsloop"
+	tristate
+	prompt "libgsloop"
 	select LIBRN
 	help
 	  FIXME: This item needs to be documented

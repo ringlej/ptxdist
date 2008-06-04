@@ -1,22 +1,23 @@
 menuconfig LTP_POSIX
 	tristate
 	select LTP_BASE
-	prompt "open_posix_testsuite"
+	prompt "open_posix_testsuite          "
+
+if LTP_POSIX
 
 config LTP_POSIX_CONFORMANCE
 	bool
 	prompt "conformance tests"
-	depends on LTP_POSIX
 	default y
 
 config LTP_POSIX_FUNCTIONAL
 	bool
 	prompt "functional tests"
-	depends on LTP_POSIX
 
 
 config LTP_POSIX_STRESS
 	bool
 	prompt "stress tests"
-	depends on LTP_POSIX
+
+endif
 

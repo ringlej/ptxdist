@@ -1,5 +1,5 @@
 config LIVE_LIB
-	bool
+	tristate
 	depends on BROKEN
 	prompt "LIVE                   "
 	help

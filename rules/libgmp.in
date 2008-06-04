@@ -2,19 +2,20 @@
 # rules/libgmp.in
 #
 menuconfig LIBGMP
-	bool
+	tristate
 	default n
-	prompt "libgmp                      "
+	prompt "libgmp                        "
 	help
 	  Compiles the GNU Multiprecision libraries for your target system.
 
           See http://gmplib.org/ for info about it.
 
+if LIBGMP
+
 config LIBGMP_SHARED
 	bool
 	default y
 	prompt "Create shared library"
-	depends on LIBGMP
 	help
 	  Create a shared library and install it into /usr/lib
 
@@ -22,8 +23,8 @@ config LIBGMP_STATIC
 	bool
 	default n
 	prompt "Create static link library"
-	depends on LIBGMP
 	help
 	  Create a static link library and install it into /usr/lib.
 	  Normally not needed.
 
+endif

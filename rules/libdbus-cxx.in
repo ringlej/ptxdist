@@ -1,6 +1,6 @@
 config LIBDBUS_CXX
-	bool
-	prompt "dbus c++ bindings             "
+	tristate
+	prompt "dbus c++ bindings"
 	select DBUS
 	select HOST_LIBDBUS_CXX
 	depends on BROKEN

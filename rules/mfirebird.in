@@ -1,7 +1,7 @@
 menuconfig MFIREBIRD
-	bool
+	tristate
 	depends on EXPERIMENTAL
-	prompt "Mozilla Firefox             "
+	prompt "Mozilla Firefox               "
 	help
 	  Mozilla Firefox 0.8
 	  The Browser, Reloaded
@@ -33,6 +33,8 @@ menuconfig MFIREBIRD
 #	bool
 #	prompt "LDAP support"
 #	depends on MFIREBIRD
+
+
 
 config MFIREBIRD_FREETYPE2
 	bool

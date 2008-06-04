@@ -1,5 +1,5 @@
 config LILO
-	bool
+	tristate
 	prompt "LILO"
 	help
 	  LInux LOader - The Classic OS loader
