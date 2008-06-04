@@ -87,7 +87,7 @@ iptables_install: $(STATEDIR)/iptables.install
 
 $(STATEDIR)/iptables.install: $(iptables_install_deps_default)
 	@$(call targetinfo, $@)
-	@$(call install, IPTABLES)
+	@$(call install, IPTABLES,,, KERNEL_DIR=$(KERNEL_DIR) PREFIX=/usr)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
