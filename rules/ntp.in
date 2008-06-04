@@ -1,10 +1,10 @@
 menuconfig NTP
-	bool
+	tristate
 	# FIXME:
 	# gcc     -o ntpdc-layout  ntpdc-layout.o  -lelf
 	# /usr/bin/ld: cannot find -lelf
 	depends on BROKEN
-	prompt "NTP                 "
+	prompt "NTP                           "
 	select OPENSSL if NTP_CRYPTO
 	help
 	  Build the standard NTP Daemon Process an supplementary programs.
@@ -12,13 +12,13 @@ menuconfig NTP
 
 # ----- Compile Options
 
+if NTP
+
 comment "Compile Options"
-	depends on NTP
 
 config NTP_CLOCKCTL
 	bool
 	prompt "Use /dev/clockctl for non-root time control"
-	depends on NTP
 	help
 	  The clockctl device introduces alternative entry
 	  points to these system calls, through a special
@@ -32,7 +32,6 @@ config NTP_CLOCKCTL
 config NTP_DEBUGGING
 	bool
 	prompt "include debugging code"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
@@ -40,7 +39,6 @@ config NTP_DST_MINUTES
 	int
 	prompt "minutes per DST adjustment"
 	default 60
-	depends on NTP
 	help
 	  Enter here how many minutes should be added when
 	  switching to daylight saving time.
@@ -48,35 +46,30 @@ config NTP_DST_MINUTES
 config NTP_BANCOMM
 	bool
 	prompt "Datum/Bancomm bc635/VME interface"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_GPSVME
 	bool
 	prompt "TrueTime GPS receiver/VME interface"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_KMEM
 	bool
 	prompt "read /dev/kmem for tick and/or tickadj"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_ACCURATE_ADJTIME
 	bool
 	prompt "the adjtime () call is accurate"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_TICK_FORCE
 	bool
 	prompt "force a value for 'tick'"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
@@ -84,14 +77,13 @@ config NTP_TICK
 	int
 	prompt "value for 'tick'"
 	default 1
-	depends on NTP && NTP_TICK_FORCE
+	depends on NTP_TICK_FORCE
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_TICKADJ_FORCE
 	bool
 	prompt "force a value for 'tickadj'"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
@@ -99,93 +91,83 @@ config NTP_TICKADJ
 	bool
 	prompt "value for 'tickadj'"
 	default 1
-	depends on NTP && NTP_TICKADJ_FORCE
+	depends on NTP_TICKADJ_FORCE
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_SIMULATOR
 	bool
 	prompt "build/install the NTPD simulator?"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_UDP_WILDCARD
 	bool
 	prompt "use UDP wildcard delivery"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_SLEW_ALWAYS
 	bool
 	prompt "always slew the time"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_STEP_SLEW
 	bool
 	prompt "step and slew the time"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_NTPDATE_STEP
 	bool
 	prompt "if ntpdate should step the time"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_HOURLY_TODR_SYNC
 	bool
 	prompt "if we should sync TODR hourly"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_KERNEL_FLL_BUG
 	bool
 	prompt "if we should avoid a kernel FLL bug"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_IRIG_SAWTOOTH
 	bool
 	prompt "if we should enable the IRIG sawtooth filter"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_NIST
 	bool
 	prompt "if we should enable the NIST lockclock scheme"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_CRYPTO
 	bool
 	prompt "use openssl"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_SNTP
 	bool
 	prompt "Build SNTP"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
 
 config NTP_ARLIB
 	bool
 	prompt "Compile the async resolver library"
-	depends on NTP
 	help
 	  FIXME: This item needs to be documented
+
+end if 
 
 source "rules/ntp_parse.in"
 source "rules/ntp_nonparse.in"

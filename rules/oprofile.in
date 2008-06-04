@@ -1,5 +1,5 @@
 config OPROFILE
-	bool
+	tristate
 	select LIBPOPT
 	select KERNEL
 	select KERNEL_VMLINUX

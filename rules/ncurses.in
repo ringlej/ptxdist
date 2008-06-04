@@ -1,5 +1,6 @@
 menuconfig NCURSES
-	bool "ncurses                     "
+	tristate
+	prompt "ncurses                       "
 	select HOST_NCURSES
 	help
 	  The ncurses libraries implement the curses API.  The panel, menu and
@@ -8,12 +9,12 @@ menuconfig NCURSES
 	  `menu', and `form' directories respectively.
 	  For a smaller library select the termcap package instead of ncurses.
 
+if NCURSES
+
 comment "build options ---"
-	depends on NCURSES
 
 config NCURSES_WIDE_CHAR
 	bool "Enable wide char support"
-	depends on NCURSES
 	help
 	  Build ncurses with wide-char/UTF-8 code support. This will create
 	  the wide character libraries used by some other programs to support
@@ -21,7 +22,6 @@ config NCURSES_WIDE_CHAR
 
 config NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	bool "Create links for backward compatibility"
-	depends on NCURSES
 	depends on NCURSES_WIDE_CHAR
 	help
 	  Creates links to the wide char libraries with non wide names to support
@@ -30,7 +30,6 @@ config NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 
 config NCURSES_BIG_CORE
 	bool "Enable the big core"
-	depends on NCURSES
 	default y
 	help
 	  Disable this entry if your target machine has little memory.
@@ -38,12 +37,10 @@ config NCURSES_BIG_CORE
 	  disabled.
 
 comment "install options ---"
-	depends on NCURSES
 
 config NCURSES_TERMCAP
 	bool "install minimal set of termcap data files"
 	default y
-	depends on NCURSES
 	help
 		Installes the following termcap files:
 		- xterm
@@ -56,7 +53,6 @@ config NCURSES_TERMCAP
 
 config NCURSES_FORM
 	bool "Install libform on the target"
-	depends on NCURSES
 	help
 	  From the manual:
 	  If you have seen those forms on web pages which take input from users
@@ -69,7 +65,6 @@ config NCURSES_FORM
 
 config NCURSES_MENU
 	bool "Install libmenu on the target"
-	depends on NCURSES
 	help
 	  The menus library provides a nice extension to basic curses, through
 	  which you can create menus. It provides a set of functions to create
@@ -78,7 +73,6 @@ config NCURSES_MENU
 
 config NCURSES_PANEL
 	bool "Install libpanel on the target"
-	depends on NCURSES
 	help
 	  This library handles windows on the screen.
 	  From the manual:
@@ -87,3 +81,5 @@ config NCURSES_PANEL
 	  doupdate() and relieves the burden of doing it correctly(bottom up).
 	  The library maintains information about the order of windows, their
  	  overlapping and update the screen properly.
+
+endif

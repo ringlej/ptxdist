@@ -1,5 +1,5 @@
 config NANO
-	bool
+	tristate
 	select NCURSES
 	prompt "nano"
 	help

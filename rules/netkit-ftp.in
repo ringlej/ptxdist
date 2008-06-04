@@ -1,5 +1,5 @@
 config NETKIT_FTP
-	bool
+	tristate
 	prompt "NetKit FTP client"
 	help
 	  This is the ftp client from netkit

@@ -1,5 +1,5 @@
 config NANOCOM
-	bool
+	tristate
 	prompt "nanocom"
 	help
 	  This is a lightweight terminal emulator.

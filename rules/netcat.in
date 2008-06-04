@@ -1,6 +1,6 @@
 menuconfig NETCAT
-	bool
-	prompt "netcat              "
+	tristate
+	prompt "netcat                        "
 	help
 	  This is the GNU Flavour of the "netcat" utility.
 
@@ -33,18 +33,18 @@ menuconfig NETCAT
 	  Public License (GPL). See the official GNU Netcat project
 	  homepage for more info:  http://netcat.sourceforge.net/
 
+if NETCAT
 
 config  NETCAT_OLD_HEXDUMP
 	bool
 	prompt "Use the old style hexdump format"
-	depends on NETCAT
 	help
 	  Disabled by default - if unsure, say NO
 
 config  NETCAT_OLD_TELNET
 	bool
 	prompt "Use old telnet codes parsing policy"
-	depends on NETCAT
 	help
 	  Disabled by default - if unsure, say NO
 
+endif

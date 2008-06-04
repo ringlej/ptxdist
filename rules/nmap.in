@@ -1,5 +1,6 @@
 menuconfig NMAP
-	bool "nmap                "
+	tristate
+	prompt "nmap                          "
 	select OPENSSL if NMAP__OPENSSL
 	select OPENSSL
 	select LIBPCRE
@@ -11,18 +12,17 @@ menuconfig NMAP
 	  managing service upgrade schedules, and monitoring host or
 	  service uptime.
 
+if NMAP
+
 config NMAP__OPENSSL
        bool "openssl support"
-       depends on NMAP
 
 config NMAP__IPV6
        bool "ipv6 support (in included libpcap)"
-       depends on NMAP
 
 config NMAP__SERVICES
 	bool "Install nmap-services"
 	default y
-	depends on NMAP
 	help
 	  This will install a set of nmap extensions, consisting of:
 	       nmap-os-fingerprints
@@ -31,4 +31,5 @@ config NMAP__SERVICES
 	       nmap-protocols
 	       nmap-rpc
 
+endif
 

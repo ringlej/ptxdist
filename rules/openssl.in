@@ -1,6 +1,6 @@
 menuconfig OPENSSL
-	prompt "OpenSSL             "
-	bool
+	tristate
+	prompt "OpenSSL                       "
 	help
 	  OpenSSL is a robust, commercial-grade, full-featured
 	  toolkit implementing the Secure Sockets Layer (SSL v2/v3)

@@ -1,5 +1,5 @@
 config OMNIORB
-	bool
+	tristate
 	depends on BROKEN
 	prompt "omniORB [BROKEN]"
 	help

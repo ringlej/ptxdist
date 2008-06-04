@@ -1,5 +1,5 @@
 menuconfig OPENAFS
-	bool
+	tristate
 	prompt "OpenAFS                       "
 	depends on BROKEN
 	help

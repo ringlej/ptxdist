@@ -1,5 +1,6 @@
 menuconfig NFSUTILS
-	bool "nfsutils            "
+	tristate 
+	prompt "nfsutils                      "
 	help
 	  The Sun Network Filesystem (NFS) protocol provides transparent remote
    	  access to shared files across networks.  The NFS protocol is designed
@@ -17,13 +18,13 @@ menuconfig NFSUTILS
 
 # -----
 
+if NFSUTILS
+
 comment "build options"
-	depends on NFSUTILS
 
 config	NFSUTILS_V3
 	bool
 	prompt "Enable support for NFSv3"
-	depends on NFSUTILS
 	help
 	  Enable support for version 3 of the NFS protocol.
 	  Revision 3 of the NFS protocol addresses new
@@ -39,22 +40,18 @@ config	NFSUTILS_V3
 config	NFSUTILS_SECURE_STATD
 	bool
 	prompt "Only lockd can use statd (security)"
-	depends on NFSUTILS
 
 config	NFSUTILS_RQUOTAD
 	bool
 	prompt "Enable rquotad"
-	depends on NFSUTILS
 
 config	NFSUTILS_WITH_TCPWRAPPERS
 	bool
 	prompt "Use TCP Wrappers"
-	depends on NFSUTILS
 	select TCPWRAPPER
 
 choice
 	prompt "statd's userid"
-	depends on NFSUTILS
 	default NFSUTILS_RPCUSER_UID
 
 	config NFSUTILS_RPCUSER_UID
@@ -74,62 +71,50 @@ endchoice
 # -----
 
 comment "install options"
-	depends on NFSUTILS
 
 config	NFSUTILS_INSTALL_EXPORTFS
 	bool
 	prompt "Install /sbin/exportfs"
-	depends on NFSUTILS
 
 config	NFSUTILS_INSTALL_LOCKD
 	bool
 	prompt "Install /sbin/lockd"
-	depends on NFSUTILS
 
 config	NFSUTILS_INSTALL_MOUNTD
 	bool
 	prompt "Install /sbin/mountd"
-	depends on NFSUTILS
 
 config	NFSUTILS_INSTALL_NFSD
 	bool
 	prompt "Install /sbin/nfsd"
-	depends on NFSUTILS
 
 config	NFSUTILS_INSTALL_NFSSTAT
 	bool
 	prompt "Install /sbin/nfsstat"
-	depends on NFSUTILS
 
 config	NFSUTILS_INSTALL_NHFSGRAPH
 	bool
 	prompt "Install /sbin/nhfsgraph"
-	depends on NFSUTILS
 
 config  NFSUTILS_INSTALL_NHFSNUMS
 	bool
 	prompt "Install /sbin/nhfsnums"
-	depends on NFSUTILS
 
 config  NFSUTILS_INSTALL_NHFSRUN
 	bool
 	prompt "Install /sbin/nhfsrun"
-	depends on NFSUTILS
 
 config  NFSUTILS_INSTALL_NHFSSTONE
 	bool
 	prompt "Install /sbin/nhfsstone"
-	depends on NFSUTILS
 
 config  NFSUTILS_INSTALL_SHOWMOUNT
 	bool
 	prompt "Install /sbin/showmount"
-	depends on NFSUTILS
 
 config  NFSUTILS_INSTALL_STATD
 	bool
 	prompt "Install /sbin/statd"
-	depends on NFSUTILS
 # this feature needs /var/lib
 	select ROOTFS_VAR
 	select ROOTFS_VAR_LIB
@@ -137,12 +122,10 @@ config  NFSUTILS_INSTALL_STATD
 # -----
 
 comment "runtime options"
-	depends on NFSUTILS
 
 choice
 	prompt "Kind of startup script"
 	default ROOTFS_ETC_INITD_NFS_DEFAULT
-	depends on NFSUTILS
 
 	config ROOTFS_ETC_INITD_NFS_DEFAULT
 		bool
@@ -162,7 +145,6 @@ choice
 endchoice
 
 config NFSUTILS_INSTALL_USER_EXPORTS
-	depends on NFSUTILS
 	default n
 	bool
 	prompt "Install user's /etc/exports"
@@ -171,3 +153,4 @@ config NFSUTILS_INSTALL_USER_EXPORTS
 	  uses files projectroot/etc/exports in your local
 	  project
 
+endif
