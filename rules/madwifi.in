@@ -1,6 +1,7 @@
 config MADWIFI
 	tristate
 	prompt "Multiband Atheros WiFi Driver"
+	select KERNEL
 	help
 	  MadWifi is one of the most advanced WLAN drivers
 	  available for Linux today. It is stable and has
