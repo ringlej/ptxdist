@@ -48,7 +48,7 @@ $(WORLD_DEP_TREE_PS): $(DEP_OUTPUT) $(STATEDIR)/world.targetinstall
 
 $(STATEDIR)/cross-%.prepare:
 	@$(call targetinfo)
-	$(call world/prepare/cross, $(PTX_MAP_TO_PACKAGE_cross-$(*)))
+	$(call world/prepare/host, $(PTX_MAP_TO_PACKAGE_cross-$(*)))
 	@$(call touch)
 
 $(STATEDIR)/cross-%.extract:
