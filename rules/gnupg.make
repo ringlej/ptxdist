@@ -65,6 +65,7 @@ GNUPG_ENV 	= $(CROSS_ENV)
 # autoconf
 #
 GNUPG_AUTOCONF = $(CROSS_AUTOCONF_USR) \
+	--disable-asm \
 	--disable-card-support \
 	--disable-gnupg-iconv \
 	--disable-exec \
