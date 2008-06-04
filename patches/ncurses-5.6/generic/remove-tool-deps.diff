@@ -1,0 +1,25 @@
+Subject: remove tools build dependency
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+make_keys is built as host tool and copied to the real package.
+This patch makes sure that it is not rebuilt again.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ ncurses/Makefile.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/ncurses/Makefile.in
+===================================================================
+--- a/ncurses/Makefile.in
++++ b/ncurses/Makefile.in
+@@ -189,7 +189,7 @@ $(DESTDIR)$(libdir) :
+ ./lib_gen.c : $(base)/MKlib_gen.sh ../include/curses.h
+ 	sh $(base)/MKlib_gen.sh "$(CPP) $(CPPFLAGS)" "$(AWK)" generated <../include/curses.h >$@
+ 
+-init_keytry.h: make_keys$(BUILD_EXEEXT) keys.list
++init_keytry.h: keys.list
+ 	./make_keys$(BUILD_EXEEXT) keys.list > $@
+ 
+ keys.list :	$(tinfo)/MKkeys_list.sh
