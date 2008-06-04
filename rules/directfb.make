@@ -124,6 +124,18 @@ else
 DIRECTFB_AUTOCONF += --disable-freetype
 endif
 
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/directfb.install:
+	@$(call targetinfo)
+	@$(call install, DIRECTFB)
+
+	$(INSTALL) -m 755 -D $(DIRECTFB_DIR)/directfb-config $(PTXCONF_SYSROOT_CROSS)/bin/directfb-config
+
+	@$(call touch)
+
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -233,8 +245,6 @@ ifdef PTXCONF_DIRECTFB_FONT_FREETYPE
 		$(DIRECTFB_DIR)/interfaces/IDirectFBFont/.libs/libidirectfbfont_ft2.so, \
 		$(DIRECTFB_MODULE_DIRECTORY)/interfaces/IDirectFBFont/libidirectfbfont_ft2.so)
 endif
-
-
 
 	@$(call install_finish,directfb)
 
