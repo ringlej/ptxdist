@@ -6,6 +6,7 @@ config SUPERTUX
 	select SDL_JOYSTICK
 	select SDL_IMAGE__PNG
 	select SDL_IMAGE__JPG
+	select SDL_IMAGE__XPM
 	help
           SuperTux is a classic 2D jump 'n run sidescroller game in
 	  a similar style like the original SuperMario games. This
