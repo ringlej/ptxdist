@@ -18,36 +18,21 @@ PACKAGES-$(PTXCONF_LIBPNG) += libpng
 #
 # Paths and names
 #
-LIBPNG_VERSION	:= 1.2.26
+LIBPNG_VERSION	:= 1.2.29
 LIBPNG		:= libpng-$(LIBPNG_VERSION)
 LIBPNG_SUFFIX	:= tar.bz2
 LIBPNG_URL	:= $(PTXCONF_SETUP_SFMIRROR)/libpng/$(LIBPNG).$(LIBPNG_SUFFIX)
 LIBPNG_SOURCE	:= $(SRCDIR)/$(LIBPNG).$(LIBPNG_SUFFIX)
 LIBPNG_DIR	:= $(BUILDDIR)/$(LIBPNG)
-
+LIBPNG_PKGDIR	:= $(PKGDIR)/$(LIBPNG)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/libpng.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBPNG_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBPNG)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libpng.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBPNG_DIR))
-	@$(call extract, LIBPNG)
-	@$(call patchin, LIBPNG)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -59,42 +44,36 @@ LIBPNG_ENV	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBPNG_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/libpng.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBPNG_BUILDDIR))
-	cd $(LIBPNG_DIR) && \
-		$(LIBPNG_PATH) $(LIBPNG_ENV) \
-		./configure $(LIBPNG_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libpng.compile:
-	@$(call targetinfo, $@)
-	cd $(LIBPNG_DIR) && $(LIBPNG_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+LIBPNG_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-libpng-compat
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/libpng.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install, LIBPNG)
 	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng-config $(PTXCONF_SYSROOT_CROSS)/bin/libpng-config
 	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng12-config $(PTXCONF_SYSROOT_CROSS)/bin/libpng12-config
-	@$(call touch, $@)
+
+#
+# remove library version 3, we don't install it on the target
+# so we can't install it in SYSROOT, too
+#
+	for dir in "$(LIBPNG_PKGDIR)" "$(SYSROOT)"; do \
+		rm -v "$$dir/usr/lib/libpng.so.3"*; \
+	done
+
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/libpng.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, libpng)
 	@$(call install_fixup, libpng,PACKAGE,libpng)
@@ -106,14 +85,14 @@ $(STATEDIR)/libpng.targetinstall:
 	@$(call install_fixup, libpng,DESCRIPTION,missing)
 
 	@$(call install_copy, libpng, 0, 0, 0644, \
-		$(LIBPNG_DIR)/.libs/libpng12.so.0.26.0, \
+		$(LIBPNG_DIR)/.libs/libpng12.so.0.29.0, \
 		/usr/lib/libpng12.so.0.26.0)
-	@$(call install_link, libpng, libpng12.so.0.26.0, /usr/lib/libpng12.so.0)
-	@$(call install_link, libpng, libpng12.so.0.26.0, /usr/lib/libpng12.so)
+	@$(call install_link, libpng, libpng12.so.0.29.0, /usr/lib/libpng12.so.0)
+	@$(call install_link, libpng, libpng12.so.0.29.0, /usr/lib/libpng12.so)
 
 	@$(call install_finish, libpng)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
