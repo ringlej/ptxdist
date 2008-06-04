@@ -5,65 +5,9 @@
 config HOST_LIBXSLT
 	bool
 	select HOST_LIBXML2
-	select HOST_LIBXML2_OUTPUT
-	select HOST_LIBXML2_XINCLUDE
-	select HOST_LIBXML2_XPTR
-	select HOST_LIBXML2_DOM
-	select HOST_LIBXML2_HTML
 	help
 	  LibXSLT is a generic XSLT implementation. For details see the
 	  project homepage:
 
 		http://xmlsoft.org/XSLT/
-
-
-# ----- Compile Options
-
-comment "Compile Options"
-	depends on HOST_LIBXSLT
-
-config HOST_LIBXSLT_CRYPTO
-	bool
-	prompt "Add crypto support to exslt"
-	depends on HOST_LIBXSLT
-	depends on BROKEN
-
-config HOST_LIBXSLT_PLUGINS
-	bool
-	prompt "Add plugin extension support "
-	default y
-	depends on HOST_LIBXSLT
-
-config HOST_LIBXSLT_DEBUG
-	bool
-	prompt "Add the debugging support"
-	depends on HOST_LIBXSLT
-
-comment "Install Components"
-	depends on HOST_LIBXSLT
-
-config HOST_LIBXSLT_LIBXSLT
-	bool
-	prompt "libxslt"
-	default y if HOST_LIBXSLT
-	depends on HOST_LIBXSLT
-
-config HOST_LIBXSLT_LIBEXSLT
-	bool
-	prompt "libexslt"
-	default y if HOST_LIBXSLT
-	depends on HOST_LIBXSLT
-	help
-	  EXSLT is a community initiative to provide extensions to XSLT.
-
-config HOST_LIBXSLT_XSLTPROC
-	bool
-	prompt "xsltproc"
-	depends on HOST_LIBXSLT
-	select HOST_LIBXSLT_LIBEXSLT
-	select HOST_LIBXSLT_LIBXSLT
-	select HOST_LIBXML2
-	help
-	  xsltproc is an XML stylesheet processor. See
-	  http://xmlsoft.org/XSLT for details.
 
