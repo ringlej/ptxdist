@@ -67,7 +67,7 @@ $(STATEDIR)/sdl_mixer.targetinstall:
 		/usr/lib/libSDL_mixer-1.2.so.0.2.6)
 
 	@$(call install_link, sdl_mixer, libSDL_mixer-1.2.so.0.2.6, /usr/lib/libSDL_mixer-1.2.so.0)
-	@$(call install_link, sdl_mixer, libSDL_mixer.so, /usr/lib/libSDL_mixer-1.2.so.0)
+	@$(call install_link, sdl_mixer, libSDL_mixer-1.2.so.0, /usr/lib/libSDL_mixer.so)
 
 	@$(call install_finish, sdl_mixer)
 
