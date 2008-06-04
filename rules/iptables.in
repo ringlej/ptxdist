@@ -260,6 +260,7 @@ config IPTABLES_INSTALL_libipt_NETMAP
 	bool
 	prompt "install libipt_NETMAP.so"
 	depends on IPTABLES_INSTALL_IPTABLES
+	help
 	  FIXME: This item needs to be documented
 
 config IPTABLES_INSTALL_libipt_NFLOG
