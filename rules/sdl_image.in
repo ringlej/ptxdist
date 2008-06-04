@@ -1,7 +1,50 @@
-config SDL_IMAGE
+menuconfig SDL_IMAGE
 	bool
-	depends on BROKEN
-	# Does not compile with armv4t compiler; needs sdl.h, which is SDL.h
 	select SDL
-	prompt "SDL Image"
+	prompt "SDL image             "
+	select LIBPNG	if SDL_IMAGE__PNG
+	select LIBJPEG	if SDL_IMAGE__JPG
+	help 
+	  This is a simple library to load images of various
+	  formats as SDL surfaces. This library currently supports
+	  BMP, PPM, PCX, GIF, JPEG, PNG, TIFF, and XPM formats.
 
+if SDL_IMAGE
+
+config SDL_IMAGE__BMP
+	bool "bmp support"
+
+config SDL_IMAGE__GIF
+	bool "gif support"
+
+config SDL_IMAGE__JPG
+	bool "jpeg support"
+
+config SDL_IMAGE__LBM
+	bool "lbm support"
+
+config SDL_IMAGE__PCX
+	bool "pcx support"
+
+config SDL_IMAGE__PNG
+	bool "png support"
+
+config SDL_IMAGE__PNM
+	bool "pnm support"
+
+config SDL_IMAGE__TGA
+	bool "tga support"
+
+config SDL_IMAGE__TIF
+	bool "tiff support"
+
+config SDL_IMAGE__XCF
+	bool "xcf support"
+
+config SDL_IMAGE__XPM
+	bool "xpm support"
+
+config SDL_IMAGE__XV
+	bool "xv support"
+
+endif
