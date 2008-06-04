@@ -1,6 +1,6 @@
 config ALSA_UTILS
-	bool
-	prompt "Alsa Utils"
+	tristate
+	prompt "alsa utils                    "
 	select NCURSES
 	select ALSA_LIB
 # all tools from this package rely on special parts in the library:

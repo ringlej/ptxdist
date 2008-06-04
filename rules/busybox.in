@@ -1,6 +1,6 @@
 menuconfig BUSYBOX
-	bool
-	prompt "BusyBox             "
+	tristate
+	prompt "busybox                       "
 	select LIBC_M if BB_CONFIG_FEATURE_AWK_MATH
 	help
 	  BusyBox is the Swiss Army Knife of embedded Linux. It is a

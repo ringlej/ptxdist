@@ -1,5 +1,5 @@
 menuconfig BASH
-	bool "Bash                "
+	bool "bash                            "
 	select LIBC_DL
 	help
 	  The GNU Bourne Again SHell
@@ -15,10 +15,11 @@ menuconfig BASH
 
 	  http://www.gnu.org/software/bash/
 
+if BASH
+
 config BASH_SHLIKE
 	bool
 	prompt "Enable minimal sh like configuration"
-	depends on BASH
 	help
 	  This produces a shell with minimal features, close to the
 	  historical Bourne shell.
@@ -26,7 +27,6 @@ config BASH_SHLIKE
 config BASH_ALIASES
 	bool
 	prompt "Enable aliases"
-	depends on BASH
 	help
 	  Aliases allow a string to be substituted for a word
 	  when it is used as the first word of a simple command.
@@ -42,12 +42,10 @@ config BASH_ALIASES
 config BASH_ARRAY
 	bool
 	prompt "Include shell array variables"
-	depends on BASH
 
 config BASH_HISTORY
 	bool
 	prompt "Turn on csh-style history substitution"
-	depends on BASH
 	help
 	  The bash shell supports a history expansion feature
 	  that is similar to the history expansion in csh.
@@ -55,7 +53,6 @@ config BASH_HISTORY
 config BASH_BRACE
 	bool
 	prompt "Include brace expansion"
-	depends on BASH
 	help
 	  Brace  expansion is a mechanism by which arbitrary
 	  strings may be generated.  This mechanism is similar
@@ -71,7 +68,6 @@ config BASH_BRACE
 config BASH_DIRSTACK
 	bool
 	prompt "Enable builtins pushd/popd/dirs"
-	depends on BASH
 	help
 	   Without  options, "dirs" displays the list of
 	   currently remembered directories.  The default
@@ -89,14 +85,12 @@ config BASH_DIRSTACK
 config BASH_HELP
 	bool
 	prompt "Include the help builtin"
-	depends on BASH
 	help
 	  This builtin supports minimal help features inside bash
 
 config BASH_CMDHISTORY
 	bool
 	prompt "Turn on command history"
-	depends on BASH
 	help
 	  This enables command history features. The shell
 	  buffers commands in a ringbuffer, which can be listed,
@@ -106,7 +100,6 @@ config BASH_CMDHISTORY
 config BASH_JOBS
 	bool
 	prompt "Enable job control features"
-	depends on BASH
 	help
 	  This enables support for background jobs in bash.
 	  You can list the actual managed jobs by the "jobs" command.
@@ -114,7 +107,6 @@ config BASH_JOBS
 config BASH_LARGEFILES
 	bool
 	prompt "Enable support for large files"
-	depends on BASH
 	help
 	  Enable support for large files (LFS) if the operating system
 	  requires special compiler options to build programs
@@ -123,7 +115,6 @@ config BASH_LARGEFILES
 config BASH_PROCSUBST
 	bool
 	prompt "Enable process substitution"
-	depends on BASH
 	help
 	  This enables process substitution if the operating system
 	  provides the necessary support.
@@ -134,7 +125,6 @@ config BASH_PROCSUBST
 config BASH_COMPLETION
 	bool
 	prompt "Enable programmable completion"
-	depends on BASH
 	help
 	  Enable the programmable completion facilities.
 	  When word completion is attempted for an argument to a
@@ -146,7 +136,6 @@ config BASH_COMPLETION
 config BASH_ESC
 	bool
 	prompt "Turn on escape character decoding in prompts"
-	depends on BASH
 	help
 	  Turn on the interpretation of a number of backslash-escaped
 	  characters in the $PS1, $PS2, $PS3, and $PS4 prompt strings.
@@ -154,7 +143,6 @@ config BASH_ESC
 config BASH_EDIT
 	bool
 	prompt "Turn on command line editing"
-	depends on BASH
 	help
 	  Include support for command-line editing and history with
 	  the Bash version of the Readline library.
@@ -162,7 +150,6 @@ config BASH_EDIT
 config BASH_RESTRICTED
 	bool
 	prompt "Enable a restricted shell"
-	depends on BASH
 	help
 	  Include support for a restricted shell. If this is enabled,
 	  Bash enters a restricted mode, when called as rbash or invoked
@@ -173,7 +160,6 @@ config BASH_RESTRICTED
 config BASH_SELECT
 	bool
 	prompt "Include select command"
-	depends on BASH
 	help
 	  Include the select builtin, which allows the generation of
 	  simple menus.
@@ -181,7 +167,6 @@ config BASH_SELECT
 config BASH_GPROF
 	bool
 	prompt "Allow profiling with gprof"
-	depends on BASH
 	help
 	  This builds a Bash binary that produces profiling information
 	  to be processed by gprof each time it is executed.
@@ -189,8 +174,8 @@ config BASH_GPROF
 config BASH_STATIC
 	bool
 	prompt "Link bash statically"
-	depends on BASH
 	help
 	  This causes Bash to be linked statically, if gcc is being used.
 	  This could be used to build a version to use as root's shell.
 
+endif

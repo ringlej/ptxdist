@@ -1,6 +1,6 @@
 menuconfig CPUFREQUTILS
-	bool
-	prompt "cpufrequtils        "
+	tristate
+	prompt "cpufrequtils                  "
 	select SYSFSUTILS
 	select SYSFSUTILS_LIB
 	help
@@ -10,16 +10,18 @@ menuconfig CPUFREQUTILS
 	  Refer http://www.kernel.org/pub/linux/utils/kernel/cpufreq/cpufrequtils.html
 	  This package requires the sysfsutils.
 
+if CPUFREQUTILS
+
 config CPUFREQUTILS_FREQ_INFO
-	depends on CPUFREQUTILS
 	bool
 	prompt "install cpufreq-info"
 	help
 	  Command line tools to determine current CPUfreq setting
 
 config CPUFREQUTILS_FREQ_SET
-	depends on CPUFREQUTILS
 	bool
 	prompt "install cpufreq-info"
 	help
 	  Command line tools to set current CPUfreq
+
+endif

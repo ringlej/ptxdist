@@ -1,6 +1,6 @@
 config ATK
-	bool
-	prompt "atk"
+	tristate
+	prompt "atk                           "
 	select GLIB
 	help
 	  ATK is a toolkit providing accessibility interfaces

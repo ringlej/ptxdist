@@ -1,6 +1,6 @@
 config BLUEZ_LIBS
-	bool
-	prompt "bluez-libs"
+	tristate
+	prompt "bluez-libs                   "
 	depends on BLUEZ
 	help
 	  bluez libraries, needed to build bluez-utils. For details

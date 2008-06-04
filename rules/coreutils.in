@@ -1,23 +1,24 @@
 menuconfig COREUTILS
-	bool "GNU coreutils       "
+	tristate
+	prompt "GNU coreutils                 "
 	help
 	  This package contains some of the The GNU Core Utilities
+
+if COREUTILS
 
 config COREUTILS_CP
 	bool
 	prompt "cp"
-	depends on COREUTILS
 	depends on !BB_CONFIG_CP
 	help
 	  copy files and directories
 
 comment "busy box' cp is selected!"
-	depends on COREUTILS && BB_CONFIG_CP
+	depends BB_CONFIG_CP
 
 config COREUTILS_DD
 	bool
 	prompt "dd"
-	depends on COREUTILS
 	depends on !BB_CONFIG_DD
 	help
 	  convert and copy a file
@@ -28,18 +29,16 @@ comment "busy box' dd is selected!"
 config COREUTILS_MD5SUM
 	bool
 	prompt "md5sum"
-	depends on COREUTILS
 	depends on !BB_CONFIG_MD5SUM
 	help
 	  compute and check MD5 message digest
 
 comment "busy box' md5sum is selected!"
-	depends on COREUTILS && BB_CONFIG_MD5SUM
+	depends BB_CONFIG_MD5SUM
 
 config COREUTILS_READLINK
 	bool
 	prompt "readlink"
-	depends on COREUTILS
 	depends on !BB_CONFIG_READLINK
 	help
 	  the readlink tool
@@ -47,10 +46,11 @@ config COREUTILS_READLINK
 config COREUTILS_SEQ
 	bool
 	prompt "seq"
-	depends on COREUTILS
 	depends on !BB_CONFIG_SEQ
 	help
 	  print a sequence of numbers
 
 comment "busy box' seq is selected!"
-	depends on COREUTILS && BB_CONFIG_SEQ
+	depends BB_CONFIG_SEQ
+
+endif

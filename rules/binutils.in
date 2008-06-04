@@ -1,18 +1,19 @@
 # binutils configuration
 
 menuconfig BINUTILS
-	bool
-	prompt "binutils            "
+	tristate
+	prompt "binutils                      "
 	help
 	  The GNU binutils are needed for some debug utilities, like oprofile.
 
+if BINUTILS
+
 config BINUTILS_READELF
 	bool
-	depends on BINUTILS
 	prompt "readelf"
 
 config BINUTILS_OBJDUMP
 	bool
-	depends on BINUTILS
 	prompt "objdump"
 
+endif

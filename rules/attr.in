@@ -1,7 +1,7 @@
 menuconfig ATTR
-	bool
+	tristate
 	select HOST_GETTEXT if ATTR_GETTEXT
-	prompt "attr"
+	prompt "attr                         "
 	help
 
 	  This is the extended attributes project for the ext2 and ext3

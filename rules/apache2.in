@@ -1,7 +1,8 @@
 # Apache 2 configuration
 
 menuconfig APACHE2
-	bool "Apache 2 HTTP Server"
+	tristate
+	prompt "apache 2 http server          "
 	select EXPAT
 	select LIBC_RT
 	select HOST_APACHE2
@@ -11,11 +12,11 @@ menuconfig APACHE2
 	  improvements, such as threading, a new API, IPv6 support,
 	  request/response filtering, and more.
 
+if APACHE2
+
 comment "build options   ---"
-	depends on APACHE2
 
 choice
-	depends on APACHE2
 	prompt "Multi Process Model"
 
 	config APACHE2_MPM_PREFORK
@@ -38,10 +39,8 @@ choice
 endchoice
 
 comment "runtime options   ---"
-	depends on APACHE2
 
 config APACHE2_SERVERROOT
-	depends on APACHE2
 	string
 	prompt "ServerRoot directory"
 	default "/usr/share/apache2"
@@ -50,10 +49,9 @@ config APACHE2_SERVERROOT
 	  located.
 
 menuconfig ROOTFS_ETC_INITD_HTTPD
-	depends on APACHE2
-	bool
+	tristate
 	default y
-	prompt "Install startup script"
+	prompt "install startup script                              "
 	help
 	  The /etc/init.d/httpd script lets you control the apache daemon.
 
@@ -79,7 +77,6 @@ menuconfig ROOTFS_ETC_INITD_HTTPD
 	endchoice
 
 config APACHE2_INSTALL_CONFIG
-	depends on APACHE2
 	bool
 	default y
 	prompt "Install httpd.conf"
@@ -135,10 +132,8 @@ config APACHE2_SERVERADMIN
 	  SERVERADMIN entry in httpd.conf
 
 comment "Directories   ---"
-	depends on APACHE2
 
 config APACHE2_CONFIGDIR
-	depends on APACHE2
 	string
 	default "/etc/apache2"
 	prompt "Config directory"
@@ -147,7 +142,6 @@ config APACHE2_CONFIGDIR
 	  searched here).
 
 config APACHE2_LOGDIR
-	depends on APACHE2
 	string
 	default "/var/log/apache2"
 	prompt "Logfile directory"
@@ -155,7 +149,6 @@ config APACHE2_LOGDIR
 	  Apache's logfile directory.
 
 config APACHE2_DOCUMENTROOT
-	depends on APACHE2
 	string
 	default "/var/www"
 	prompt "DocumentRoot directory"
@@ -166,7 +159,7 @@ config APACHE2_DOCUMENTROOT
 	  is provided).
 
 config APACHE2_DEFAULT_INDEX
-	depends on APACHE2 && APACHE2_DOCUMENTROOT != ""
+	depends APACHE2_DOCUMENTROOT != ""
 	bool
 	default y
 	prompt "Default index.html"
@@ -174,11 +167,10 @@ config APACHE2_DEFAULT_INDEX
 	  Install a demo HTML file, from project/generic/index.html.
 
 comment "Misc   ---"
-	depends on APACHE2
 
 config APACHE2_PUBLICDOMAINICONS
 	bool "Public Domain Icons"
-	depends on APACHE2 && APACHE2_SERVERROOT != ""
+	depends APACHE2_SERVERROOT != ""
 	default y
 	help
           These icons were originally made for Mosaic for X and have been
@@ -189,7 +181,7 @@ config APACHE2_PUBLICDOMAINICONS
 
 config APACHE2_CUSTOMERRORS
 	bool "Multi Language Custom Error Documents"
-	depends on APACHE2 && APACHE2_SERVERROOT != ""
+	depends APACHE2_SERVERROOT != ""
 	default y
 	help
 	  Install HTTP error messages in multiple languages. If the preferred
@@ -198,13 +190,12 @@ config APACHE2_CUSTOMERRORS
 	  Options, Language and ErrorDocument directives.
 
 comment "----------------------------------"
-	depends on APACHE2
 
 comment "Apache 2 Modules"
-	depends on APACHE2
 
 comment "----------------------------------"
-	depends on APACHE2
+
+endif
 
 source "rules/apache2_mod_python.in"
 

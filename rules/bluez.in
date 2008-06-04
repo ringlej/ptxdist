@@ -1,9 +1,12 @@
 menuconfig BLUEZ
-	bool "bluez               "
+	bool
+	prompt "bluez                         "
 	help
 	  bluez is the official Bluetooth stack in the Linux kernel.
 	  This packet offers user space utilities and libraries to
 	  work with the stack.
 
+
 source "rules/bluez-utils.in"
 source "rules/bluez-libs.in"
+

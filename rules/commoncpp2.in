@@ -1,10 +1,11 @@
 # GNU commoncpp 2 configuration
 
 menuconfig COMMONCPP2
-	bool
-	prompt "CommonC++ 2                 "
+	tristate
+	prompt "commonc++ 2                   "
 	select ZLIB if COMMONCPP2_LIBZ
 	select LIBXML2 if COMMONCPP2_LIBXML2
+	select LIBXML2_PUSH if COMMONCPP2_LIBXML2
 	help
 	  GNU Common C++ is a portable and highly optimized class
 	  framework for writing C++ applications that need to use threads,
@@ -14,14 +15,14 @@ menuconfig COMMONCPP2
 
 		http://www.gnu.org/software/commoncpp/
 
+if COMMONCPP2
+
 config COMMONCPP2_LIBZ
 	bool
 	prompt "enable libz compression"
-	depends on COMMONCPP2
 
 config COMMONCPP2_LIBXML2
 	bool
 	prompt "enable libxml2 parser"
-	depends on COMMONCPP2
-	select LIBXML2_PUSH
 
+endif

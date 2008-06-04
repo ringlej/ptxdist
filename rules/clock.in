@@ -1,7 +1,7 @@
 config CLOCK
-	bool
+	tristate
 	depends on BROKEN
-	prompt "clock [BROKEN]"
+	prompt "clock [BROKEN]                "
 	help
 	  This is clock, used on the Intel platforms to set
 	  the system from the real time clock, and vice versa.

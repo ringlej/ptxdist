@@ -1,7 +1,8 @@
 # chrony configuration
 
 menuconfig CHRONY
-	bool "Chrony              "
+	tristate
+	prompt "chrony                        "
 	select READLINE
 # FIXME: remove READLINE select when 1.21 works again.
 	help
@@ -17,11 +18,11 @@ menuconfig CHRONY
 
 	  See http://chrony.sunsite.dk/ for details
 
+if CHRONY
+
 comment "install options   ---"
-	depends on CHRONY
 
 config CHRONY_INSTALL_CHRONY_COMMAND
-	depends on CHRONY
 	bool
 	default n
 	prompt "Install chrony command helper"
@@ -33,7 +34,6 @@ config CHRONY_INSTALL_CHRONY_COMMAND
 	  the chrony.keys file.
 
 config CHRONY_INSTALL_CHRONY_STAT
-	depends on CHRONY
 	bool
 	default n
 	prompt "Install chrony statistics helper"
@@ -57,10 +57,9 @@ config CHRONY_INSTALL_CHRONY_STAT
 	                suppress all other servers
 
 menuconfig CHRONY_INSTALL_CONFIG
-	depends on CHRONY
 	bool
 	default y
-	prompt "Install chrony config files"
+	prompt "Install chrony config files   "
 	help
 	  Install /etc/chrony/chrony.conf and /etc/chrony/chony.keys
 	  from a selectable source.
@@ -87,7 +86,6 @@ menuconfig CHRONY_INSTALL_CONFIG
 	endchoice
 
 config CHRONY_DEFAULT_ACCESS_KEY
-	depends on CHRONY
 	string
 	prompt "setup default access key for chronyc"
 	default "undefined"
@@ -98,7 +96,6 @@ config CHRONY_DEFAULT_ACCESS_KEY
 	  data, etc.
 
 config CHRONY_DEFAULT_NTP_SERVER
-	depends on CHRONY
 	string
 	prompt "setup default ntp peer"
 	default "10.1.1.2"
@@ -107,10 +104,9 @@ config CHRONY_DEFAULT_NTP_SERVER
 	  configurations.
 
 menuconfig ROOTFS_ETC_INITD_CHRONY
-	depends on CHRONY
 	bool
 	default y
-	prompt "Install startup script"
+	prompt "Install startup script        "
 	help
 	  The /etc/init.d/chrony script lets you control the chronyd daemon.
 
@@ -134,3 +130,5 @@ menuconfig ROOTFS_ETC_INITD_CHRONY
 			  uses file projectroot/etc/init.d/chrony in your local
 			  project
 	endchoice
+
+endif

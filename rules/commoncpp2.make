@@ -2,7 +2,7 @@
 # $Id: template 3502 2005-12-11 12:46:17Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -35,7 +35,7 @@ $(STATEDIR)/commoncpp2.get: $(commoncpp2_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
-$(COMMONCPP2_SOURCE): 
+$(COMMONCPP2_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, COMMONCPP2)
 

@@ -1,12 +1,13 @@
 menuconfig ALSA_LIB
-	bool
-	prompt "Alsa Libaries               "
+	tristate
+	prompt "alsa libaries                 "
 	help
 	  This is the userspace library to the kernel's "Advanced Linux Sound Architecture" feature
 
+if ALSA_LIB
+
 config ALSA_LIB_RESMGR
 	bool
-	depends on ALSA_LIB
 	depends on BROKEN
 	prompt "build resmgr"
 	help
@@ -14,7 +15,6 @@ config ALSA_LIB_RESMGR
 
 config ALSA_LIB_READ
 	bool
-	depends on ALSA_LIB
 	default y
 	prompt "build read support"
 	help
@@ -22,7 +22,6 @@ config ALSA_LIB_READ
 
 config ALSA_LIB_MIXER
 	bool
-	depends on ALSA_LIB
 	default y
 	prompt "build mixer"
 	help
@@ -30,7 +29,6 @@ config ALSA_LIB_MIXER
 
 config ALSA_LIB_PCM
 	bool
-	depends on ALSA_LIB
 	default y
 	prompt "build pcm"
 	help
@@ -38,7 +36,6 @@ config ALSA_LIB_PCM
 
 config ALSA_LIB_RAWMIDI
 	bool
-	depends on ALSA_LIB
 	default y
 	prompt "build raw midi support"
 	help
@@ -46,7 +43,6 @@ config ALSA_LIB_RAWMIDI
 
 config ALSA_LIB_HWDEP
 	bool
-	depends on ALSA_LIB
 	default y
 	prompt "build hwdep"
 	help
@@ -54,7 +50,6 @@ config ALSA_LIB_HWDEP
 
 config ALSA_LIB_SEQ
 	bool
-	depends on ALSA_LIB
 	default y
 	prompt "build sequencer"
 	help
@@ -62,7 +57,6 @@ config ALSA_LIB_SEQ
 
 config ALSA_LIB_INSTR
 	bool
-	depends on ALSA_LIB
 	default y
 	prompt "build intrument support"
 	help
@@ -70,7 +64,6 @@ config ALSA_LIB_INSTR
 
 config ALSA_LIB_STATIC
 	bool
-	depends on ALSA_LIB
 	prompt "Build static library only"
 	depends on BROKEN
 	help
@@ -80,3 +73,5 @@ config ALSA_LIB_STATIC
 	  speeding up things (if only one application uses this library)
 	  Note: This feature does not work yet. For example the esound
 	  daemon fails to link due to missing exported functions.
+
+endif

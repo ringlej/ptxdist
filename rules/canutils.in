@@ -1,49 +1,47 @@
 menuconfig CANUTILS
-	bool "canutils            "
+	tristate
+	prompt "canutils                    "
 	select KERNEL
 	help
 	  The canutils package contains tools to configure
 	  and test the Socket CAN framework.
 
+if CANUTILS
+
 config CANUTILS_VERSION
 	prompt "Version"
-	depends on CANUTILS
 	string
 	default "2.0.1"
 
 config CANUTILS_CANCONFIG
 	bool
-	depends on CANUTILS
 	prompt "canconfig"
 	help
 	  Configuration Tool for socket can.
 
 config CANUTILS_CANDUMP
 	bool
-	depends on CANUTILS
 	prompt "candump"
 	help
 	  A little utility to dump canbus messages
 
 config CANUTILS_CANECHO
 	bool
-	depends on CANUTILS
 	prompt "canecho"
 	help
 	  A little utility to echo canbus messages
 
 config CANUTILS_CANSEND
 	bool
-	depends on CANUTILS
 	prompt "cansend"
 	help
 	  A little utility to send canbus messages from command line
 
 config CANUTILS_CANSEQUENCE
 	bool
-	depends on CANUTILS
 	prompt "cansequence"
 	help
 	  A little utility to send and verify canbus messages
 	  from command line with sequence numbers inside
 
+endif

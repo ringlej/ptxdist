@@ -1,5 +1,5 @@
 config BLACKBOX
-	bool
+	tristate
 	prompt "blackbox window manager [BROKEN]"
 	depends on BROKEN
 	select XORG_LIB_X11
