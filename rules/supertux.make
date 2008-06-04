@@ -65,7 +65,7 @@ $(STATEDIR)/supertux.targetinstall:
 
 	@cd $(PKGDIR)/$(SUPERTUX); \
 		for file in `find -type f -perm 644`; do \
-			$(call install_copy, supertux, 0, 0, 0644, $(PKGDIR)/$(SUPERTUX)/$$file, /$$file); \
+			$(call install_copy, supertux, 0, 0, 0644, $(PKGDIR)/$(SUPERTUX)/$$file, /$$file, n); \
 		done
 	@$(call install_copy, supertux, 0, 0, 0755, $(PKGDIR)/$(SUPERTUX)/usr/bin/supertux, /usr/bin/supertux)
 
