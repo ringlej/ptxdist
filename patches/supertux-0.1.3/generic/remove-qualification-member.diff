@@ -1,0 +1,23 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: Fixes this error:
+
+menu.h:210: error: extra qualification 'Menu::' on member 'get_controlfield_key_into_input'
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/menu.h |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: supertux-0.1.3/src/menu.h
+===================================================================
+--- supertux-0.1.3.orig/src/menu.h
++++ supertux-0.1.3/src/menu.h
+@@ -207,7 +207,7 @@ public:
+ 
+   bool isToggled(int id);
+ 
+-  void Menu::get_controlfield_key_into_input(MenuItem *item);
++  void get_controlfield_key_into_input(MenuItem *item);
+ 
+   void draw   ();
+   void draw_item(int index, int menu_width, int menu_height);
