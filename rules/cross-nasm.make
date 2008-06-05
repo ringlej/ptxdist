@@ -13,7 +13,7 @@
 #
 # We provide this package
 #
-CROSS_PACKAGES-$(PTXCONF_CROSS_NASM) += cross-nasm
+CROSS_PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_CROSS_NASM) += cross-nasm
 
 #
 # Paths and names
@@ -46,9 +46,7 @@ CROSS_NASM_ENV 	:= $(HOSTCC_ENV)
 #
 CROSS_NASM_AUTOCONF := \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
-	--target=$(PTXCONF_GNU_TARGET) \
-	--host=$(GNU_HOST) \
-	--build=$(GNU_HOST)
+	--target=$(PTXCONF_GNU_TARGET)
 
 # ----------------------------------------------------------------------------
 # Clean
