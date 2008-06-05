@@ -1,6 +1,6 @@
 # xorg data configuration
 
-menu "xorg data                     "
+menu "xorg data             "
 
 source "rules/xorg-data-xbitmaps.in"
 source "rules/xorg-data-xkbdata.in"

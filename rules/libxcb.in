@@ -8,7 +8,6 @@ menuconfig LIBXCB
 # Is the line below the correct solution for this behavior?
 	select XORG_LIB_XDMCP if XORG_SERVER_EXT_XDMCP
 	select HOST_LIBXSLT
-	select HOST_LIBXSLT_XSLTPROC
 	help
 	  The X protocol C-language Binding (XCB) is a replacement for Xlib
 	  featuring a small footprint, latency hiding, direct access to the

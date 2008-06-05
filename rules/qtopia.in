@@ -1,7 +1,7 @@
 menuconfig QTOPIA
 	tristate
         select TSLIB if QTOPIA_TSLIB
-        prompt "qtopia core                   "
+        prompt "qtopia core           "
 	help
 	  QTopia Core is Trolltech's Widget Library formerly known as
 	  QT Embedded.

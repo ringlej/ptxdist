@@ -10,7 +10,7 @@
 #
 menuconfig XORG_SERVER
 	tristate
-	prompt "xorg server                   "
+	prompt "xorg server           "
 # Always required:
 	select XORG_LIB_X11
 	select XORG_LIB_XAW
