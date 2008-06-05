@@ -3,6 +3,7 @@ config VICE
 	select READLINE
 	select ALSA_LIB
 	prompt "vice"
+	depends on BROKEN
 	help 
 	  VICE emulates well the hardware of the Commodore Business
 	  Machines of the pre-Amiga era. Supported are the various Pets, the
