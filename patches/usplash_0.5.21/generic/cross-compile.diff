@@ -38,7 +38,7 @@ Index: b/Makefile.am
 ===================================================================
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -43,9 +43,9 @@ usplash_write_SOURCES = \
+@@ -45,9 +45,9 @@ usplash_write_SOURCES = \
  	usplash_write.c
  
  %.c: %.bdf

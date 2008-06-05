@@ -1,6 +1,6 @@
 config USPLASH
 	tristate
-	select LIBGD
+	select LIBX86
 	prompt "usplash"
 	help
 	  Usplash is a userspace application that uses the Linux

@@ -64,7 +64,9 @@ USPLASH_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-USPLASH_AUTOCONF := $(CROSS_AUTOCONF_USR)
+USPLASH_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--enable-svga-backend \
+	--disable-bogl-backend
 
 $(STATEDIR)/usplash.prepare:
 	@$(call targetinfo, $@)
