@@ -111,7 +111,7 @@ $(STATEDIR)/alsa-lib.targetinstall:
 	@$(call install_fixup, alsa-lib, DEPENDS,)
 	@$(call install_fixup, alsa-lib, DESCRIPTION,missing)
 
-	@$(call install_copy, alsa-lib, 0, 0, 0755, \
+	@$(call install_copy, alsa-lib, 0, 0, 0644, \
 		$(ALSA_LIB_DIR)/src/.libs/libasound.so.2.0.0, \
 		/usr/lib/libasound.so.2.0.0 )
 
