@@ -11,10 +11,12 @@ menu "Code Maturity                 "
 source "rules/experimental.in"
 endmenu
 
-source "rules/crosstools.in"
-
 menu "Host Side Tools               "
 source "rules/hosttools.in"
+endmenu
+
+menu "Host Side Tools (cross stuff) "
+source "rules/crosstools.in"
 endmenu
 
 menu "Debugging Tools               "
@@ -72,7 +74,6 @@ source "rules/sed.in"
 source "rules/setserial.in"
 source "rules/sudo.in"
 source "rules/sysfsutils.in"
-source "rules/sysutils.in"
 source "rules/util-linux.in"
 source "rules/util-linux-ng.in"
 source "rules/udev.in"
