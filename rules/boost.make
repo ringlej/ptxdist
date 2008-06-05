@@ -91,6 +91,18 @@ endif
 ifdef PTXCONF_BOOST_SERIALIZATION
 BOOST_LIBRARIES += serialization
 endif
+ifdef PTXCONF_BOOST_SIGNALS
+BOOST_LIBRARIES += signals
+endif
+ifdef PTXCONF_BOOST_IOSTREAMS
+BOOST_LIBRARIES += iostreams
+endif
+ifdef PTXCONF_BOOST_WAVE
+BOOST_LIBRARIES += wave
+endif
+ifdef PTXCONF_BOOST_TEST
+BOOST_LIBRARIES += test
+endif
 
 BOOST_CONF	:= \
 	--with-bjam="$(BOOST_JAM)" \

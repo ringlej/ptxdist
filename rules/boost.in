@@ -22,7 +22,7 @@ menuconfig BOOST
 
 		http://www.boost.org/
 if BOOST
-comment "Install Options    "
+comment "Targetinstall Options    "
 
 config BOOST_INST_NOMT_DBG
 	bool
@@ -69,6 +69,21 @@ config BOOST_FILESYSTEM
 	help
 	  Boost filesystem library.
 
+config BOOST_IOSTREAMS
+	bool
+	prompt "iostreams"
+	help
+	  Boost iostream library. ATTENTION: iostreams libary only
+	  provides static library in boost version 1.33.1, (might
+	  change in more recent versions). No dynamic .so library
+	  will be installed to target in this case.
+
+config BOOST_PROGRAM_OPTIONS
+	bool
+ 	prompt "program options"
+ 	help
+	  Boost programm option parser
+
 config BOOST_REGEX
 	bool
 	prompt "regex"
@@ -81,15 +96,37 @@ config BOOST_SERIALIZATION
  	help
  	  Boost serialization library.
 
+config BOOST_SIGNALS
+ 	bool
+ 	prompt "signals"
+ 	help
+ 	  Boost signals library.
+
+config BOOST_TEST
+ 	bool
+ 	prompt "test"
+ 	help
+ 	  Boost test framework.
+
 config BOOST_THREAD
 	bool
 	prompt "thread"
 	help
 	  Portable C++ multi-threading library.
 
-config BOOST_PROGRAM_OPTIONS
+config BOOST_WAVE
 	bool
- 	prompt "program options"
- 	help
-	  Boost programm option parser
+	prompt "wave"
+	help
+	  Boost wave library. ATTENTION: wave libary only provides static
+	  library in boost version 1.33.1, (might change in more recent
+	  versions). No dynamic .so library will be installed to target in
+	  this case
+
+config BOOST_PYTHON
+	bool
+	prompt "python"
+	depends on BROKEN
+	help
+	  boost python support. (still broken)
 endif
