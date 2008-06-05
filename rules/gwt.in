@@ -1,4 +1,4 @@
-config GWT
+menuconfig GWT
 	tristate
 	prompt "gwt"
 	select GTK
