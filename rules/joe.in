@@ -1,6 +1,6 @@
 menuconfig JOE
 	tristate
-	prompt "joe"
+	prompt "joe                           "
 	help
 	  Joe is a simple editor which uses the old wordstar commands.
 
