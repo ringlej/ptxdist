@@ -42,7 +42,9 @@ FRODO_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-FRODO_AUTOCONF := $(CROSS_AUTOCONF_USR)
+FRODO_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--without-x
 
 $(STATEDIR)/frodo.prepare:
 	@$(call targetinfo)
