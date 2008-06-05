@@ -20,7 +20,7 @@ config CPUFREQUTILS_FREQ_INFO
 
 config CPUFREQUTILS_FREQ_SET
 	bool
-	prompt "install cpufreq-info"
+	prompt "install cpufreq-set"
 	help
 	  Command line tools to set current CPUfreq
 
