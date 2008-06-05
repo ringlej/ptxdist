@@ -267,7 +267,9 @@ check_compiler() {
 # checks if the dependencies are allright (make for the poor)
 #
 check_deps() {
-	"${DGENDIR}/dgen.sh"
+	"${SCRIPTSDIR}/dgen.sh" || ptxd_bailout "error in dgen.sh"
+#	ptxd_create_autoconf_cache "${STATEDIR}/autoconf.cache" || ptxd_bailout "error in create_config_cache.sh"
+	touch "${STATEDIR}/autoconf.cache"
 }
 
 
@@ -1255,7 +1257,7 @@ while [ $# -ne 0 ]; do
 			exit 0
 			;;
 	-d|--debug)
-			export PTXDIST_MAKE_DBG="--debug=make"
+			PTXDIST_MAKE_DBG="--debug=make"
 			;;
 	distclean)
 			clean
