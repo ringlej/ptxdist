@@ -1,6 +1,7 @@
 menuconfig QTOPIA
 	tristate
         select TSLIB if QTOPIA_TSLIB
+	select ZLIB
         prompt "qtopia core           "
 	help
 	  QTopia Core is Trolltech's Widget Library formerly known as
