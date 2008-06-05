@@ -1,5 +1,5 @@
 config ETHTOOL
-	bool
+	tristate
 	prompt "ethtool             "
 	help
 	  Ethtool is a GNU/Linux net driver diagnostic and tuning
