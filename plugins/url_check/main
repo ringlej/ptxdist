@@ -188,7 +188,7 @@ init(){
 create_url_list(){
 	echo "creating list of download URLS for `echo $PACKAGES | wc -w` packages (This may take a while!)"
 	for target in $PACKAGES; do
-		$PTXDIST print ${target}_URL 2>> $TMPDIR/errors | $SED -e s/.*is\ \"//g -e s/\"//g >> $TMPDIR/urllist
+		$PTXDIST print ${target}_URL 2>> $TMPDIR/errors | grep "\ is\ " | $SED -e s/.*is\ \"//g -e s/\"//g >> $TMPDIR/urllist
 		echo -n "."
 	done
 	echo "done"
