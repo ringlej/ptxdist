@@ -17,40 +17,21 @@ PACKAGES-$(PTXCONF_RSYNC3) += rsync3
 #
 # Paths and names
 #
-RSYNC3_VERSION	= 3.0.2
-RSYNC3		= rsync-$(RSYNC3_VERSION)
-RSYNC3_SUFFIX	= tar.gz
-RSYNC3_URL	= http://rsync.samba.org/ftp/rsync/$(RSYNC3).$(RSYNC3_SUFFIX)
-RSYNC3_SOURCE	= $(SRCDIR)/$(RSYNC3).$(RSYNC3_SUFFIX)
-RSYNC3_DIR	= $(BUILDDIR)/$(RSYNC3)
+RSYNC3_VERSION	:= 3.0.2
+RSYNC3		:= rsync-$(RSYNC3_VERSION)
+RSYNC3_SUFFIX	:= tar.gz
+RSYNC3_URL	:= http://rsync.samba.org/ftp/rsync/$(RSYNC3).$(RSYNC3_SUFFIX)
+RSYNC3_SOURCE	:= $(SRCDIR)/$(RSYNC3).$(RSYNC3_SUFFIX)
+RSYNC3_DIR	:= $(BUILDDIR)/$(RSYNC3)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-rsync3_get: $(STATEDIR)/rsync3.get
-
-$(STATEDIR)/rsync3.get: $(rsync3_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(RSYNC3_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, RSYNC3)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-rsync3_extract: $(STATEDIR)/rsync3.extract
-
-$(STATEDIR)/rsync3.extract: $(rsync3_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(RSYNC3_DIR))
-	@$(call extract, RSYNC3)
-	@$(call patchin, RSYNC3)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -58,14 +39,14 @@ $(STATEDIR)/rsync3.extract: $(rsync3_extract_deps_default)
 
 rsync3_prepare: $(STATEDIR)/rsync3.prepare
 
-RSYNC3_PATH	=  PATH=$(CROSS_PATH)
-RSYNC3_ENV 	=  rsync3_cv_HAVE_GETTIMEOFDAY_TZ=yes $(CROSS_ENV)
+RSYNC3_PATH	:=  PATH=$(CROSS_PATH)
+RSYNC3_ENV 	:=  rsync3_cv_HAVE_GETTIMEOFDAY_TZ=yes $(CROSS_ENV)
 
 #
 # autoconf
 #
-RSYNC3_AUTOCONF  =  $(CROSS_AUTOCONF_USR) \
-	--target=$(PTXCONF_GNU_TARGET) \
+RSYNC3_AUTOCONF  := \
+	 $(CROSS_AUTOCONF_USR) \
 	--with-included-popt \
 	--disable-debug \
 	--disable-locale
@@ -86,43 +67,12 @@ ifneq ($(call remove_quotes,$(PTXCONF_RSYNC3_CONFIG_FILE)),)
 RSYNC3_AUTOCONF += --with-rsync3d-conf=$(PTXCONF_RSYNC3_CONFIG_FILE)
 endif
 
-$(STATEDIR)/rsync3.prepare: $(rsync3_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(RSYNC3_BUILDDIR))
-	cd $(RSYNC3_DIR) && \
-		$(RSYNC3_PATH) $(RSYNC3_ENV) \
-		./configure $(RSYNC3_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-rsync3_compile: $(STATEDIR)/rsync3.compile
-
-$(STATEDIR)/rsync3.compile: $(rsync3_compile_deps_default)
-	@$(call targetinfo, $@)
-	$(RSYNC3_PATH) make -C $(RSYNC3_DIR)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-rsync3_install: $(STATEDIR)/rsync3.install
-
-$(STATEDIR)/rsync3.install: $(rsync3_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-rsync3_targetinstall: $(STATEDIR)/rsync3.targetinstall
-
-$(STATEDIR)/rsync3.targetinstall: $(rsync3_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/rsync3.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, rsync3)
 	@$(call install_fixup, rsync3,PACKAGE,rsync3)
@@ -200,7 +150,7 @@ endif
 endif
 
 	@$(call install_finish, rsync3)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
