@@ -66,8 +66,8 @@ $(STATEDIR)/libpcre.targetinstall:
 	@$(call install_fixup, libpcre,DESCRIPTION,missing)
 
 	@$(call install_copy, libpcre, 0, 0, 0644, $(LIBPCRE_DIR)/.libs/libpcre.so.0.0.1, /usr/lib/libpcre.so.0.0.1)
-	@$(call install_link, libpcre, /usr/lib/libpcre.so.0.0.1, /usr/lib/libpcre.so.0) 
-	@$(call install_link, libpcre, /usr/lib/libpcre.so.0.0.1, /usr/lib/libpcre.so) 
+	@$(call install_link, libpcre, libpcre.so.0.0.1, /usr/lib/libpcre.so.0) 
+	@$(call install_link, libpcre, libpcre.so.0.0.1, /usr/lib/libpcre.so) 
 
 ifdef PTXCONF_LIBPCRE__LIBPCREPOSIX
 	@$(call install_copy, libpcre, 0, 0, 0644, $(LIBPCRE_DIR)/.libs/libpcreposix.so.0.0.0, /usr/lib/libpcreposix.so.0.0.0)
