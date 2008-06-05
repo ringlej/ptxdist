@@ -1,4 +1,4 @@
-config JOE
+menuconfig JOE
 	tristate
 	prompt "joe"
 	help
