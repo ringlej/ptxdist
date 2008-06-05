@@ -1,6 +1,6 @@
 menuconfig NTPCLIENT
 	tristate
-	prompt "ntpclient              "
+	prompt "ntpclient                     "
 	default n
 	help
 	  ntpclient is a small and efficient client to the NTP protocol.
