@@ -2,7 +2,7 @@
 
 menuconfig BOOST
 	tristate
-	prompt "boost                       "
+	prompt "boost                         "
 	help
 
 	  Boost provides free peer-reviewed portable C++ source libraries.  The
@@ -38,7 +38,7 @@ config BOOST_INST_NOMT_RED
 	help
 	  Installs reduced binaries by packet provider. Attention: The debugging
 	  symbols are already stripped during build.
-	
+
 config BOOST_INST_MT_DBG
 	bool
 	select BOOST_THREAD
