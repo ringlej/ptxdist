@@ -23,30 +23,24 @@ HOST_DIRECTFB_DIR	= $(HOST_BUILDDIR)/$(DIRECTFB)
 # Get
 # ----------------------------------------------------------------------------
 
-host-directfb_get: $(STATEDIR)/host-directfb.get
-
 $(STATEDIR)/host-directfb.get: $(STATEDIR)/directfb.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
-
-host-directfb_extract: $(STATEDIR)/host-directfb.extract
 
 $(STATEDIR)/host-directfb.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_DIRECTFB_DIR))
 	@$(call extract, DIRECTFB, $(HOST_BUILDDIR))
 	@$(call patchin, DIRECTFB, $(HOST_DIRECTFB_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-directfb_prepare: $(STATEDIR)/host-directfb.prepare
 
 HOST_DIRECTFB_PATH	:= PATH=$(HOST_PATH)
 HOST_DIRECTFB_ENV 	:= $(HOST_ENV)
@@ -78,38 +72,22 @@ HOST_DIRECTFB_AUTOCONF	:= \
 	\
 	--enable-png
 
-# we want png support, to let it build the tools
-
-
-$(STATEDIR)/host-directfb.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_DIRECTFB_DIR)/config.cache)
-	cd $(HOST_DIRECTFB_DIR) && \
-		$(HOST_DIRECTFB_PATH) $(HOST_DIRECTFB_ENV) \
-		./configure $(HOST_DIRECTFB_AUTOCONF)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-host-directfb_compile: $(STATEDIR)/host-directfb.compile
-
 $(STATEDIR)/host-directfb.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(HOST_DIRECTFB_DIR)/tools && $(HOST_DIRECTFB_PATH) $(MAKE) $(PARALLELMFLAGS) directfb-csource
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-host-directfb_install: $(STATEDIR)/host-directfb.install
-
 $(STATEDIR)/host-directfb.install:
-	@$(call targetinfo, $@)
-#	@$(call install, HOST_DIRECTFB,,h)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
