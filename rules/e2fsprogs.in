@@ -1,15 +1,17 @@
 menuconfig E2FSPROGS
-	bool "e2fsprogs                     "
+	tristate
+	prompt "e2fsprogs                     "
 	help
 	 The e2fsprogs package provides the filesystem utilities for use
 	 with the ext2 filesystem. It also supports the ext3 filesystem
 	 with journaling support.
 
+if E2FSPROGS
+
 config E2FSPROGS_MKFS
 	bool
 	prompt "mke2fs"
 	default y
-	depends on E2FSPROGS
 	depends on !BB_CONFIG_MKE2FS
 	help
 	 This installs /sbin/mke2fs, the filesystem builder for
@@ -17,13 +19,11 @@ config E2FSPROGS_MKFS
 
 comment "Busybox' mke2fs is selected"
 	depends on BB_CONFIG_MKE2FS
-	depends on E2FSPROGS
 
 config E2FSPROGS_E2FSCK
 	bool
 	prompt "e2fsck"
 	default y
-	depends on E2FSPROGS
 	depends on !BB_CONFIG_E2FSCK
 	help
 	 This will install /sbin/e2fsck, the filesystem
@@ -31,12 +31,10 @@ config E2FSPROGS_E2FSCK
 
 comment "Busybox' e2fsck is selected"
 	depends on BB_CONFIG_E2FSCK
-	depends on E2FSPROGS
 
 config E2FSPROGS_TUNE2FS
 	bool
 	prompt "tune2fs, findfs, e2label"
-	depends on E2FSPROGS
 	depends on !BB_CONFIG_TUNE2FS
 	help
 	 This will install /sbin/tune2fs, /sbin/findfs, /sbin/e2label
@@ -53,5 +51,6 @@ config E2FSPROGS_TUNE2FS
 
 comment "Busybox' tune2fs is selected"
 	depends on BB_CONFIG_TUNE2FS
-	depends on E2FSPROGS
+
+endif
 
