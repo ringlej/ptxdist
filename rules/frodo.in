@@ -1,4 +1,4 @@
-menuconfig FRODO
+config FRODO
 	tristate
 	prompt "frodo"
 	select READLINE
