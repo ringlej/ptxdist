@@ -1,5 +1,5 @@
 config EFAX
-	bool
+	tristate
 	prompt "efax"
 	help
 	  Programs to send and receive fax messages
