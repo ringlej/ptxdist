@@ -159,7 +159,7 @@ config KERNEL_CONFIG
 	depends on KERNEL
 	prompt "kernel config file"
 	string
-	default "kernel.config"
+	default "kernelconfig.${PTXCONF_KERNEL_VERSION}"
 	help
 	  this entry specifies the .config file used to compile your kernel
 
