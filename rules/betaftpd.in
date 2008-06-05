@@ -1,7 +1,5 @@
-# betaftpd configuration
-
 config BETAFTPD
-	bool
+	tristate
 	prompt "betaftpd            "
 	select LIBRN
 	help
