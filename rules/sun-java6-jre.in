@@ -1,7 +1,5 @@
 menuconfig SUN_JAVA6_JRE
 	tristate
-	default n
-	depends on ARCH_X86
 	prompt "jre 6u2 (sun)                 "
 	help
 	  Sun[tm] Java Runtime Environment 6
@@ -12,7 +10,6 @@ menuconfig SUN_JAVA6_JRE
 config SUN_JAVA6_JRE_LICENSE_ACCEPT_STRING
         string
         depends on SUN_JAVA6_JRE
-        default "no"
         prompt "Accept the License for JRE 6?"
         help
           Set this value to "yes" if you want to accept

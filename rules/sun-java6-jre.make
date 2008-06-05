@@ -12,14 +12,12 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_SUN_JAVA6_JRE) += sun-java6-jre
+PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_SUN_JAVA6_JRE) += sun-java6-jre
 
 #
 # Paths and names
 #
 SUN_JAVA6_JRE_VERSION		:= 1.6.0.02
-#SUN_JAVA6_JRE_SUFFIX		:= nonexistant
-
 SUN_JAVA6_JRE			:= jre-6u2-linux-i586
 SUN_JAVA6_JRE_SOURCE		:= $(SRCDIR)/$(SUN_JAVA6_JRE).bin
 SUN_JAVA6_JRE_URL		:= http://javadl.sun.com/webapps/download/AutoDL?BundleId=11284
@@ -29,24 +27,16 @@ SUN_JAVA6_JRE_DIR		:= $(BUILDDIR)/$(SUN_JAVA6_JRE)
 # Get
 # ----------------------------------------------------------------------------
 
-sun-java6-jre_get: $(STATEDIR)/sun-java6-jre.get
-
-$(STATEDIR)/sun-java6-jre.get: $(sun-java6-jre_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(SUN_JAVA6_JRE_SOURCE):
-	@$(call targetinfo, $@)
-	$(WGET) --output-document=$(SUN_JAVA6_JRE_SOURCE) $(SUN_JAVA6_JRE_URL)
+	@$(call targetinfo)
+	@$(WGET) --output-document=$(SUN_JAVA6_JRE_SOURCE) $(SUN_JAVA6_JRE_URL)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-sun-java6-jre_extract: $(STATEDIR)/sun-java6-jre.extract
-
-$(STATEDIR)/sun-java6-jre.extract: $(sun-java6-jre_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/sun-java6-jre.extract:
+	@$(call targetinfo)
 	@$(call clean, $(SUN_JAVA6_JRE_DIR))
 	magic(){ sh $(SUN_JAVA6_JRE_SOURCE) ; };						\
 	[ -d $(SUN_JAVA6_JRE_DIR) ] || $(MKDIR) -p $(SUN_JAVA6_JRE_DIR);			\
@@ -59,54 +49,41 @@ $(STATEDIR)/sun-java6-jre.extract: $(sun-java6-jre_extract_deps_default)
 	(*)	echo "an error occurred"; exit 1 ;						\
 	;;											\
 	esac
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-sun-java6-jre_prepare: $(STATEDIR)/sun-java6-jre.prepare
-
 SUN_JAVA6_JRE_PATH	:= PATH=$(CROSS_PATH)
 SUN_JAVA6_JRE_ENV	:= $(CROSS_ENV)
 
-#
-# autoconf
-#
-SUN_JAVA6_JRE_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/sun-java6-jre.prepare: $(sun-java6-jre_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/sun-java6-jre.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-sun-java6-jre_compile: $(STATEDIR)/sun-java6-jre.compile
-
-$(STATEDIR)/sun-java6-jre.compile: $(sun-java6-jre_compile_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/sun-java6-jre.compile:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-sun-java6-jre_install: $(STATEDIR)/sun-java6-jre.install
-
-$(STATEDIR)/sun-java6-jre.install: $(sun-java6-jre_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/sun-java6-jre.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-sun-java6-jre_targetinstall: $(STATEDIR)/sun-java6-jre.targetinstall
-
-$(STATEDIR)/sun-java6-jre.targetinstall: $(sun-java6-jre_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/sun-java6-jre.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, sun-java6-jre)
 	@$(call install_fixup, sun-java6-jre,PACKAGE,sun-java6-jre)
@@ -142,7 +119,7 @@ $(STATEDIR)/sun-java6-jre.targetinstall: $(sun-java6-jre_targetinstall_deps_defa
 	done
 
 	@$(call install_finish, sun-java6-jre)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
