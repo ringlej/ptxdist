@@ -1,6 +1,6 @@
-menuconfig INOTIFY_TOOLS
+config INOTIFY_TOOLS
 	tristate
-	prompt "inotify-tools               "
+	prompt "inotify-tools"
 	help
 	  Command line tools for inotify
 	  http://inotify-tools.sourceforge.net/
