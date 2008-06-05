@@ -5,6 +5,8 @@ menuconfig DTC
 	bool
 	select HOST_DTC
 	select KERNEL
+	depends on ARCH_PPC
+	default y
 	prompt "Build device tree             "
 	help
 	  Select this to build a device tree for your board.
@@ -14,7 +16,7 @@ menuconfig DTC
 config DTC_OFTREE_DTS
 	string "source dts file"
 	depends on DTC
-	default "${KERNEL_DIR}/arch/powerpc/boot/dts/pcm030.dts"
+	default "${KERNEL_DIR}/arch/powerpc/boot/dts/<yourboard>.dts"
 	help
 	  Select the dts file to use for the device tree binary
 	  blob generation. Default is to use the one shipped with
