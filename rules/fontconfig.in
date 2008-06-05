@@ -1,6 +1,6 @@
 menuconfig FONTCONFIG
 	tristate
-	prompt "fontconfig                           "
+	prompt "fontconfig            "
 	select FREETYPE
 	select EXPAT
 	help

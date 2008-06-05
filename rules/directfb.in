@@ -45,8 +45,6 @@ config DIRECTFB_WM_UNIQUE
 	bool "enable Unique (WM Module)"
 	select DIRECTFB_IMAGE_PNG
 
-endif
-
 menu "input driver"
 
 config DIRECTFB_INPUT_KEYBOARD
@@ -63,3 +61,5 @@ config DIRECTFB_INPUT_TSLIB
 	bool "tslib"
 
 endmenu
+
+endif

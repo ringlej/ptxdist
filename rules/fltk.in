@@ -1,6 +1,6 @@
 menuconfig FLTK
 	tristate
-	prompt "fltk gui toolkit              "
+	prompt "fltk gui toolkit      "
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
 	help
