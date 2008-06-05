@@ -1,0 +1,8 @@
+config SCUMMVM
+	tristate
+	prompt "scummvm"
+	select ALSA_LIB
+	select SDL
+	select CROSS_NASM
+	help
+	  FIXME
