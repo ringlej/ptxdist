@@ -241,7 +241,7 @@ choice
 			  project.
 endchoice
 
-config PHP5_XML
+menuconfig PHP5_XML
 	bool
 	prompt "xml support"
 	help
