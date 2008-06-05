@@ -1,6 +1,6 @@
 menuconfig CANUTILS
 	tristate
-	prompt "canutils                    "
+	prompt "canutils                      "
 	select KERNEL
 	help
 	  The canutils package contains tools to configure
