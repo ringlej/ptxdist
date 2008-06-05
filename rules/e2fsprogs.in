@@ -7,7 +7,7 @@ menuconfig E2FSPROGS
 
 config E2FSPROGS_MKFS
 	bool
-	prompt "Install mke2fs"
+	prompt "mke2fs"
 	default y
 	depends on E2FSPROGS
 	depends on !BB_CONFIG_MKE2FS
@@ -21,7 +21,7 @@ comment "Busybox' mke2fs is selected"
 
 config E2FSPROGS_E2FSCK
 	bool
-	prompt "Install e2fsck"
+	prompt "e2fsck"
 	default y
 	depends on E2FSPROGS
 	depends on !BB_CONFIG_E2FSCK
@@ -35,7 +35,7 @@ comment "Busybox' e2fsck is selected"
 
 config E2FSPROGS_TUNE2FS
 	bool
-	prompt "Install tune2fs, findfs, e2label"
+	prompt "tune2fs, findfs, e2label"
 	depends on E2FSPROGS
 	depends on !BB_CONFIG_TUNE2FS
 	help
@@ -54,3 +54,4 @@ config E2FSPROGS_TUNE2FS
 comment "Busybox' tune2fs is selected"
 	depends on BB_CONFIG_TUNE2FS
 	depends on E2FSPROGS
+
