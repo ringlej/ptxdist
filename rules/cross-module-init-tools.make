@@ -23,24 +23,20 @@ CROSS_MODULE_INIT_TOOLS_DIR	= $(CROSS_BUILDDIR)/$(MODULE_INIT_TOOLS)
 # Get
 # ----------------------------------------------------------------------------
 
-cross-module-init-tools_get: $(STATEDIR)/cross-module-init-tools.get
-
 $(STATEDIR)/cross-module-init-tools.get: $(STATEDIR)/module-init-tools.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-cross-module-init-tools_extract: $(STATEDIR)/cross-module-init-tools.extract
-
-$(STATEDIR)/cross-module-init-tools.extract: $(cross-module-init-tools_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/cross-module-init-tools.extract:
+	@$(call targetinfo)
 	@$(call clean, $(CROSS_MODULE_INIT_TOOLS_DIR))
 	@$(call extract, MODULE_INIT_TOOLS, $(CROSS_BUILDDIR))
 	@$(call patchin, MODULE_INIT_TOOLS, $(CROSS_MODULE_INIT_TOOLS_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -56,39 +52,25 @@ CROSS_MODULE_INIT_TOOLS_ENV  := $(HOST_ENV)
 #
 CROSS_MODULE_INIT_TOOLS_AUTOCONF := \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
-	--build=$(GNU_HOST) \
-	--host=$(GNU_HOST) \
 	--target=$(PTXCONF_GNU_TARGET)
-
-$(STATEDIR)/cross-module-init-tools.prepare: $(cross-module-init-tools_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(CROSS_MODULE_INIT_TOOLS_DIR)/config.cache)
-	cd $(CROSS_MODULE_INIT_TOOLS_DIR) && \
-		$(CROSS_MODULE_INIT_TOOLS_PATH) $(CROSS_MODULE_INIT_TOOLS_ENV) \
-		./configure $(CROSS_MODULE_INIT_TOOLS_AUTOCONF)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-cross-module-init-tools_compile: $(STATEDIR)/cross-module-init-tools.compile
-
-$(STATEDIR)/cross-module-init-tools.compile: $(cross-module-init-tools_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/cross-module-init-tools.compile:
+	@$(call targetinfo)
 	cd $(CROSS_MODULE_INIT_TOOLS_DIR) && $(CROSS_MODULE_INIT_TOOLS_PATH) $(MAKE) depmod
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-cross-module-init-tools_install: $(STATEDIR)/cross-module-init-tools.install
-
-$(STATEDIR)/cross-module-init-tools.install: $(cross-module-init-tools_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/cross-module-init-tools.install:
+	@$(call targetinfo)
 	install -D -m 755 $(CROSS_MODULE_INIT_TOOLS_DIR)/depmod $(PTXCONF_SYSROOT_CROSS)/sbin/$(PTXCONF_GNU_TARGET)-depmod
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
