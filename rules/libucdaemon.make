@@ -28,34 +28,13 @@ LIBUCDAEMON_DIR		:= $(BUILDDIR)/$(LIBUCDAEMON)
 # Get
 # ----------------------------------------------------------------------------
 
-libucdaemon_get: $(STATEDIR)/libucdaemon.get
-
-$(STATEDIR)/libucdaemon.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBUCDAEMON_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBUCDAEMON)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libucdaemon_extract: $(STATEDIR)/libucdaemon.extract
-
-$(STATEDIR)/libucdaemon.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBUCDAEMON_DIR))
-	@$(call extract, LIBUCDAEMON)
-	@$(call patchin, LIBUCDAEMON)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-libucdaemon_prepare: $(STATEDIR)/libucdaemon.prepare
 
 LIBUCDAEMON_PATH	:= PATH=$(CROSS_PATH)
 LIBUCDAEMON_ENV 	:= $(CROSS_ENV)
@@ -65,44 +44,12 @@ LIBUCDAEMON_ENV 	:= $(CROSS_ENV)
 #
 LIBUCDAEMON_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/libucdaemon.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBUCDAEMON_DIR)/config.cache)
-	cd $(LIBUCDAEMON_DIR) && \
-		$(LIBUCDAEMON_PATH) $(LIBUCDAEMON_ENV) \
-		./configure $(LIBUCDAEMON_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libucdaemon_compile: $(STATEDIR)/libucdaemon.compile
-
-$(STATEDIR)/libucdaemon.compile:
-	@$(call targetinfo, $@)
-	cd $(LIBUCDAEMON_DIR) && $(LIBUCDAEMON_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libucdaemon_install: $(STATEDIR)/libucdaemon.install
-
-$(STATEDIR)/libucdaemon.install:
-	@$(call targetinfo, $@)
-	@$(call install, LIBUCDAEMON)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libucdaemon_targetinstall: $(STATEDIR)/libucdaemon.targetinstall
-
 $(STATEDIR)/libucdaemon.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, libucdaemon)
 	@$(call install_fixup, libucdaemon,PACKAGE,libucdaemon)
@@ -113,16 +60,16 @@ $(STATEDIR)/libucdaemon.targetinstall:
 	@$(call install_fixup, libucdaemon,DEPENDS,)
 	@$(call install_fixup, libucdaemon,DESCRIPTION,missing)
 
-	@$(call install_copy, libucdaemon, 0, 0, 0755, \
+	@$(call install_copy, libucdaemon, 0, 0, 0644, \
 		$(LIBUCDAEMON_DIR)/src/.libs/libucdaemon.so.0.0.0, \
-		/ub/lib/libucdaemon.so.0.0.0)
+		/usr/lib/libucdaemon.so.0.0.0)
 
 	@$(call install_link, libucdaemon, libucdaemon.so.0.0.0, /usr/lib/libucdaemon.so.0)
 	@$(call install_link, libucdaemon, libucdaemon.so.0.0.0, /usr/lib/libucdaemon.so)
 
 	@$(call install_finish, libucdaemon)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
