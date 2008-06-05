@@ -1,6 +1,7 @@
 
 menuconfig FFMPEG
 	tristate
+	depends on BROKEN
 	select ZLIB if FFMPEG_ZLIB
 	select SDL if FFMPEG_FFPLAY
 	prompt "ffmpeg                        "
