@@ -1,6 +1,6 @@
 menuconfig DIFFUTILS
 	tristate
-	prompt "gnu diffutils                        "
+	prompt "gnu diffutils                 "
 
 if DIFFUTILS
 
