@@ -77,11 +77,19 @@ $(STATEDIR)/directfb-examples.targetinstall:
 ifdef PTXCONF_DIRECTFB_EXAMPLES_DATA
 	@cd $(DIRECTFB_EXAMPLES_DIR)/data && \
 	find . \
-		-type f -a ! -name "*akefile*" | \
+		-type f -a ! -name "*akefile*" -a ! -name "*.ttf" | \
 		while read file; do \
 		$(call install_copy, directfb-examples, 0, 0, 0644, \
 			$(DIRECTFB_EXAMPLES_DIR)/data/$$file, \
 			/usr/share/directfb-examples/$${file##*/}, n \
+		) \
+	done; \
+	find . \
+		-type f -a ! -name "*akefile*" -a -name "*.ttf" | \
+		while read file; do \
+		$(call install_copy, directfb-examples, 0, 0, 0644, \
+			$(DIRECTFB_EXAMPLES_DIR)/data/$$file, \
+			/usr/share/directfb-examples/fonts/$${file##*/}, n \
 		) \
 	done
 endif
