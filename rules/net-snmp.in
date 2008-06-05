@@ -4,11 +4,6 @@ menuconfig NET_SNMP
 
 if NET_SNMP
 
-config NET_SNMP_LITTLE_ENDIAN
-	bool
-	default n
-	prompt "little endian target"
-
 config NET_SNMP_MINI_AGENT
 	bool
 	default y
@@ -113,6 +108,5 @@ config NET_SNMP_MIB_INSTALL_DIR
 	prompt "directory to install mib files"
 	string
 	default	"/usr/share/snmp/mibs"
-
 
 endif
