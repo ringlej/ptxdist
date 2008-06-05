@@ -1,5 +1,5 @@
 config HEXEDIT
-	bool
+	tristate
 	select NCURSES
 	prompt "hexedit"
 	help
