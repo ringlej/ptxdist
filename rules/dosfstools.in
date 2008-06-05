@@ -1,6 +1,6 @@
 menuconfig DOSFSTOOLS
 	tristate
-	prompt "dosfstools                      "
+	prompt "dosfstools                    "
 
 config DOSFSTOOLS_MKDOSFS
 	bool
