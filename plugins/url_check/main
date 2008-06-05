@@ -113,8 +113,10 @@ cat <<-EOF
 
 Usage: `basename "$0"` OPTIONS
 
-    --help, -h                  this help
-    --check-all, -a		check ALL packages
+    --help          -h          this help
+    --check-all     -a		check ALL packages
+    --modules       -m		check module packages
+    --builtin       -y		check builtin packages
 
 $0 checks the availability of all needed source packages 
 for the current project configuration. By default, packages 
@@ -130,8 +132,8 @@ EOF
 # option:	required argument
 # option::	optional argument
 
-TEMP=`getopt --options h,a			\
-	--longoptions="help,check-all"		\
+TEMP=`getopt --options h,a,y,m					\
+	--longoptions="help,check-all,modules,builtin"		\
         -n "$0" -- "$@"`
 if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 eval set -- "$TEMP"
@@ -148,6 +150,16 @@ while true ; do
 			action="check_all" ;
 			shift
 			;;
+		-m|--modules)
+			[ -z "$action" ]
+                        action="check_modules" ;
+                        shift
+                        ;;
+		-y|--builtin)
+			[ -z "$action" ]
+                        action="check_builtin" ;
+                        shift
+                        ;;
                 --) shift ; break ;;
                 *) echo "Internal error!" ; exit 1 ;;
         esac
@@ -175,14 +187,28 @@ init(){
 		# (PACKAGES-y contains all activated packages)
 		# (PACKAGES- contains all deactivated packages)
 		YESPACKAGES=`$PTXDIST print PACKAGES-y | grep "^PACKAGES" | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		MODPACKAGES=`$PTXDIST print PACKAGES-m | grep "^PACKAGES" | sed -e s/'PACKAGES-m is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
 		NOPACKAGES=`$PTXDIST print PACKAGES- | grep "^PACKAGES" | sed -e s/'PACKAGES- is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
-	else
-		# get configured package labels 
-		# (PACKAGES-y contains all activated packages)
+	elif [ "$1" = "active" ]; then
+		# get only configured builtin package labels 
+		# (PACKAGES-y contains all active builtin packages)
 		YESPACKAGES=`$PTXDIST print PACKAGES-y | grep "^PACKAGES" | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		MODPACKAGES=""
 		NOPACKAGES=""
+	elif [ "$1" = "modules" ]; then
+		# get only configured MODULE package labels 
+		# (PACKAGES-m contains all module packages)
+		YESPACKAGES=""
+		MODPACKAGES=`$PTXDIST print PACKAGES-m | grep "^PACKAGES" | sed -e s/'PACKAGES-m is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		NOPACKAGES=""
+        else
+                # get all configured builtin and module package labels 
+                # (PACKAGES-y contains all activated packages)
+                YESPACKAGES=`$PTXDIST print PACKAGES-y | grep "^PACKAGES" | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+                MODPACKAGES=`$PTXDIST print PACKAGES-m | grep "^PACKAGES" | sed -e s/'PACKAGES-m is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+                NOPACKAGES=""
 	fi
-	PACKAGES="$YESPACKAGES $NOPACKAGES"
+	PACKAGES="$YESPACKAGES $MODPACKAGES $NOPACKAGES"
 }
 
 create_url_list(){
@@ -236,6 +262,16 @@ case "$action" in
        ;;
        check_all)
        	init all
+	create_url_list >&2
+	runner
+       ;;
+       check_modules)
+       	init modules
+	create_url_list >&2
+	runner
+       ;;
+       check_builtin)
+       	init active
 	create_url_list >&2
 	runner
        ;;
