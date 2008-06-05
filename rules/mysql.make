@@ -20,7 +20,6 @@ PACKAGES-$(PTXCONF_MYSQL) += mysql
 MYSQL_VERSION	:= 5.1.14-beta
 MYSQL		:= mysql-$(MYSQL_VERSION)
 MYSQL_SUFFIX	:= tar.gz
-#MYSQL_URL	:= ftp://ftp.gwdg.de/pub/misc/mysql/Downloads/MySQL-5.1/$(MYSQL).$(MYSQL_SUFFIX)
 MYSQL_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(MYSQL).$(MYSQL_SUFFIX)
 MYSQL_SOURCE	:= $(SRCDIR)/$(MYSQL).$(MYSQL_SUFFIX)
 MYSQL_DIR	:= $(BUILDDIR)/$(MYSQL)
@@ -29,34 +28,13 @@ MYSQL_DIR	:= $(BUILDDIR)/$(MYSQL)
 # Get
 # ----------------------------------------------------------------------------
 
-mysql_get: $(STATEDIR)/mysql.get
-
-$(STATEDIR)/mysql.get: $(mysql_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(MYSQL_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, MYSQL)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-mysql_extract: $(STATEDIR)/mysql.extract
-
-$(STATEDIR)/mysql.extract: $(mysql_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(MYSQL_DIR))
-	@$(call extract, MYSQL)
-	@$(call patchin, MYSQL)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-mysql_prepare: $(STATEDIR)/mysql.prepare
 
 MYSQL_PATH	:= PATH=$(HOST_MYSQL_DIR)/extra:$(HOST_MYSQL_DIR)/sql:$(CROSS_PATH)
 
@@ -320,45 +298,12 @@ ifndef PTXCONF_MYSQL_QUERY_CACHE
 MYSQL_AUTOCONF += --without-query-cache
 endif
 
-
-$(STATEDIR)/mysql.prepare: $(mysql_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(MYSQL_DIR)/config.cache)
-	cd $(MYSQL_DIR) && \
-		$(MYSQL_PATH) $(MYSQL_ENV) \
-		./configure $(MYSQL_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-mysql_compile: $(STATEDIR)/mysql.compile
-
-$(STATEDIR)/mysql.compile: $(mysql_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(MYSQL_DIR) && $(MYSQL_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-mysql_install: $(STATEDIR)/mysql.install
-
-$(STATEDIR)/mysql.install: $(mysql_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, MYSQL)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-mysql_targetinstall: $(STATEDIR)/mysql.targetinstall
-
-$(STATEDIR)/mysql.targetinstall: $(mysql_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/mysql.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, mysql)
 	@$(call install_fixup,mysql,PACKAGE,mysql)
@@ -373,7 +318,7 @@ $(STATEDIR)/mysql.targetinstall: $(mysql_targetinstall_deps_default)
 
 	@$(call install_finish,mysql)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
