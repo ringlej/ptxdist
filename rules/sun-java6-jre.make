@@ -29,7 +29,7 @@ SUN_JAVA6_JRE_DIR		:= $(BUILDDIR)/$(SUN_JAVA6_JRE)
 
 $(SUN_JAVA6_JRE_SOURCE):
 	@$(call targetinfo)
-	@$(WGET) --output-document=$(SUN_JAVA6_JRE_SOURCE) $(SUN_JAVA6_JRE_URL)
+	@$(PTX_WGET) --output-document=$(SUN_JAVA6_JRE_SOURCE) $(SUN_JAVA6_JRE_URL)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -39,7 +39,7 @@ $(STATEDIR)/sun-java6-jre.extract:
 	@$(call targetinfo)
 	@$(call clean, $(SUN_JAVA6_JRE_DIR))
 	magic(){ sh $(SUN_JAVA6_JRE_SOURCE) ; };						\
-	[ -d $(SUN_JAVA6_JRE_DIR) ] || $(MKDIR) -p $(SUN_JAVA6_JRE_DIR);			\
+	[ -d $(SUN_JAVA6_JRE_DIR) ] || mkdir -p $(SUN_JAVA6_JRE_DIR);				\
 	cd $(SUN_JAVA6_JRE_DIR)	; 								\
 	case $$? in										\
 	(0) 											\
