@@ -1,6 +1,6 @@
 #
 
-menu "gdb                 "
+menu "gdb                           "
 
 config GDB__VERSION
        string "gdb version"
