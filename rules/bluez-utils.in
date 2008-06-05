@@ -1,7 +1,6 @@
 config BLUEZ_UTILS
 	tristate
-	prompt "bluez-utils                   "
-	depends on BLUEZ
+	prompt "bluez-utils"
 	select BLUEZ_LIBS
 	select DBUS
 	help
