@@ -1,11 +1,11 @@
-config LIBGD
+menuconfig LIBGD
 	tristate
-	prompt "libgd"
-	select LIBPNG if LIBGD_PNG
-	select LIBJPEG if LIBGD_JPEG
-	select XORG_LIB_XPM if LIBGD_XPM
-	select FONTCONFIG if LIBGD_FONTCONFIG
-	select FREETYPE if LIBGD_FREETYPE
+	prompt "libgd                 "
+	select LIBPNG		if LIBGD_PNG
+	select LIBJPEG		if LIBGD_JPEG
+	select XORG_LIB_XPM	if LIBGD_XPM
+	select FONTCONFIG	if LIBGD_FONTCONFIG
+	select FREETYPE		if LIBGD_FREETYPE
 	help
 	  GD is an open source code library for the
 	  dynamic creation of images by programmers.
@@ -19,7 +19,6 @@ if LIBGD
 config LIBGD_X
 	bool
 	prompt "with X libs support"
-	default n 
 	help
 	   compiles libgd with X libraries support
 
