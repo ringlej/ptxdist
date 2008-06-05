@@ -1,0 +1,52 @@
+---
+ Makefile.am      |    4 ++--
+ bogl/Makefile.am |   19 +++++++++++++++----
+ 2 files changed, 17 insertions(+), 6 deletions(-)
+
+Index: b/bogl/Makefile.am
+===================================================================
+--- a/bogl/Makefile.am
++++ b/bogl/Makefile.am
+@@ -69,11 +69,22 @@ bterm_LDADD = \
+ bterm_DEPENDENCIES = \
+ 	libbogl.la
+ 
+-%.c: %.bdf bdftobogl
+-	./bdftobogl $< > $@
++build-bdftobogl: $(bdftobogl_SOURCES)
++	$(CC_FOR_BUILD) -o $@ \
++		$(CFLAGS_FOR_BUILD) \
++		$(AM_CFLAGS) $^
++
++build-pngtobogl: $(pngtobogl_SOURCES)
++	$(CC_FOR_BUILD) -o $@ \
++		-lgd -lpng -lm \
++		$(CFLAGS_FOR_BUILD) \
++		$(AM_CFLAGS) $^
+ 
+-%.c: %.png pngtobogl
+-	./pngtobogl $< > $@
++%.c: %.bdf build-bdftobogl
++	./build-bdftobogl $< > $@
++
++%.c: %.png build-pngtobogl
++	./build-pngtobogl $< > $@
+ 
+ bogl_test_SOURCES = \
+ 	bogl-test.c \
+Index: b/Makefile.am
+===================================================================
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -43,9 +43,9 @@ usplash_write_SOURCES = \
+ 	usplash_write.c
+ 
+ %.c: %.bdf
+-	./bogl/bdftobogl $< > $@
++	./bogl/build-bdftobogl $< > $@
+ 
+ %.c: %.png
+-	./bogl/pngtobogl $< > $@
++	./bogl/build-pngtobogl $< > $@
+ 
+ SUFFIXES: .png .bdf

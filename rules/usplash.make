@@ -69,9 +69,9 @@ USPLASH_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/usplash.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(USPLASH_DIR)/config.cache)
-#	cd $(USPLASH_DIR) && \
-#		$(USPLASH_PATH) $(USPLASH_ENV) \
-#		./configure $(USPLASH_AUTOCONF)
+	cd $(USPLASH_DIR) && \
+		$(USPLASH_PATH) $(USPLASH_ENV) \
+		sh ./configure $(USPLASH_AUTOCONF)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
