@@ -1,6 +1,5 @@
-
 config HACKBENCH
-	bool
+	tristate
 	prompt "hackbench"
 	help
 	  The hackbench test is a benchmark for measuring the performance,
