@@ -1,30 +1,46 @@
+menuconfig GTK_THEME_EXPERIENCE
+	tristate
+	select GTK_ENGINE_EXPERIENCE
+	prompt "experience theme              "
 
-config GTK_THEME_EXPERIENCE
-	bool
-	depends on GTK_ENGINE_EXPERIENCE
-	default y if GTK_ENGINE_EXPERIENCE
+if GTK_THEME_EXPERIENCE
 
 config GTK_THEME_EXPERIENCE_PLAIN
 	bool
-	depends on GTK_ENGINE_EXPERIENCE
-	depends on GTK_THEME_EXPERIENCE
 	prompt "eXperience theme with plain coloring"
 	help
 	  Plain eXperience theme.
 
 config GTK_THEME_EXPERIENCE_ICE
 	bool
-	depends on GTK_ENGINE_EXPERIENCE
-	depends on GTK_THEME_EXPERIENCE
 	prompt "eXperience theme with ice coloring"
 	help
 	  eXperience "ice" theme.
 
 config GTK_THEME_EXPERIENCE_OLIVE
 	bool
-	depends on GTK_ENGINE_EXPERIENCE
-	depends on GTK_THEME_EXPERIENCE
 	prompt "eXperience theme with olive coloring"
 	help
 	  eXperience "olive" theme.
+
+choice
+	prompt "default theme"
+
+	config GTK_DEFAULT_NONE
+		bool "none  "
+
+	config GTK_DEFAULT_THEME_EXPERIENCE_PLAIN
+		bool "eXperience (plain)"
+		depends on GTK_THEME_EXPERIENCE_PLAIN
+
+	config GTK_DEFAULT_THEME_EXPERIENCE_ICE
+		bool "eXperience (ice)"
+		depends on GTK_THEME_EXPERIENCE_ICE
+
+	config GTK_DEFAULT_THEME_EXPERIENCE_OLIVE
+		bool "eXperience (olive)"
+		depends on GTK_THEME_EXPERIENCE_OLIVE
+endchoice
+
+endif
 

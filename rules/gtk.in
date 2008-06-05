@@ -121,31 +121,7 @@ config GTK_DEMO
 	prompt "gtkdemo"
 
 
-menuconfig GTK_ENGINES
-	bool
-	prompt "gtk engines           "
-
-if GTK_ENGINES
 source "rules/gtk-engine-experience.in"
-endif
-
-choice
-	prompt "default theme"
-
-	config GTK_DEFAULT_NONE
-		bool "none  "
-
-	config GTK_DEFAULT_THEME_EXPERIENCE_PLAIN
-		bool "eXperience (plain)"
-		depends on GTK_THEME_EXPERIENCE_PLAIN
-
-	config GTK_DEFAULT_THEME_EXPERIENCE_ICE
-		bool "eXperience (ice)"
-		depends on GTK_THEME_EXPERIENCE_ICE
-
-	config GTK_DEFAULT_THEME_EXPERIENCE_OLIVE
-		bool "eXperience (olive)"
-		depends on GTK_THEME_EXPERIENCE_OLIVE
-endchoice
+source "rules/gtk-theme-experience.in"
 
 endmenu

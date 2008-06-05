@@ -5,5 +5,3 @@ config GTK_ENGINE_EXPERIENCE
 	help
 	  A pixmap engine that is somewhat like XP, but way better...
 
-source "rules/gtk-theme-experience.in"
-
