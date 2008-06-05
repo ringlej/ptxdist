@@ -1,6 +1,6 @@
 menuconfig ZLIB
 	tristate
-	prompt "zlib                        "
+	prompt "zlib                          "
 	help
 	  A Massively Spiffy Yet Delicately Unobtrusive 
 	  Compression Library
