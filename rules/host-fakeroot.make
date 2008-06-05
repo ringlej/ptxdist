@@ -28,34 +28,13 @@ HOST_FAKEROOT_DIR	:= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
 # Get
 # ----------------------------------------------------------------------------
 
-host-fakeroot_get: $(STATEDIR)/host-fakeroot.get
-
-$(STATEDIR)/host-fakeroot.get: $(host-fakeroot_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(HOST_FAKEROOT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, HOST_FAKEROOT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-host-fakeroot_extract: $(STATEDIR)/host-fakeroot.extract
-
-$(STATEDIR)/host-fakeroot.extract: $(host-fakeroot_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_FAKEROOT_DIR))
-	@$(call extract, HOST_FAKEROOT, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_FAKEROOT, $(HOST_FAKEROOT_DIR))
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-fakeroot_prepare: $(STATEDIR)/host-fakeroot.prepare
 
 HOST_FAKEROOT_PATH	:= PATH=$(HOST_PATH)
 HOST_FAKEROOT_ENV 	:= $(HOST_ENV)
@@ -66,36 +45,6 @@ HOST_FAKEROOT_ENV 	:= $(HOST_ENV)
 HOST_FAKEROOT_AUTOCONF	:= \
 	$(HOST_AUTOCONF) \
 	--without-po4a
-
-$(STATEDIR)/host-fakeroot.prepare: $(host-fakeroot_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_FAKEROOT_DIR)/config.cache)
-	cd $(HOST_FAKEROOT_DIR) && \
-		$(HOST_FAKEROOT_PATH) $(HOST_FAKEROOT_ENV) \
-		./configure $(HOST_FAKEROOT_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-host-fakeroot_compile: $(STATEDIR)/host-fakeroot.compile
-
-$(STATEDIR)/host-fakeroot.compile: $(host-fakeroot_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(HOST_FAKEROOT_DIR) && $(HOST_FAKEROOT_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-host-fakeroot_install: $(STATEDIR)/host-fakeroot.install
-
-$(STATEDIR)/host-fakeroot.install: $(host-fakeroot_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, HOST_FAKEROOT,,h)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
