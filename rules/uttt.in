@@ -1,0 +1,28 @@
+config UTTT
+	tristate
+	prompt "Ultra Tic Tac Toe"
+	help
+	  Ultra Tic Tac Toe (UTTT) is a console game board package containing
+	  tic tac toe (naughts and crosses) and connect 4 games.
+if UTTT
+
+config UTTT_TTT
+	bool
+	prompt "Install Tic Tac Toe"
+	help
+	  Tic tac toe can be played on any size square board from 3x3 up to 7x7.
+	  On any size board, filling an entire row, column, or diagonal wins the
+	  game. With 5x5 and larger boards, a point system is used to determine
+	  the winner if neither player fills an entire line. One point is given
+	  for each line of 4 of a player's pieces.
+
+config UTTT_CONNECT4
+	bool
+	prompt "Install connect4"
+	help
+	  Connect 4 is played on a 7x6 board. As in the original board game,
+	  pieces are placed at the top of a column, and "fall" to the bottom of
+	  the column. The game is won by having 4 pieces in a line (horizontal,
+	  vertical, or diagonal).
+
+endif

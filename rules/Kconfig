@@ -273,6 +273,7 @@ endmenu
 menu "Gamez                         "
 source rules/supertux.in
 source rules/scummvm.in
+source rules/uttt.in
 endmenu
 
 menu "Broken or orphaned Packages   "
