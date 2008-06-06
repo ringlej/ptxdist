@@ -54,6 +54,10 @@ $(STATEDIR)/libx86.extract:
 LIBX86_PATH	:= PATH=$(CROSS_PATH)
 LIBX86_ENV 	:= $(CROSS_ENV)
 
+ifndef ARCH_X86
+LIBX86_ENV += BACKEND=x86emu
+endif
+
 #
 # autoconf
 #
