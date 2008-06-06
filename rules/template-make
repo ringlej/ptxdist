@@ -28,12 +28,8 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(@PACKET@_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, @PACKET@)
 
 # ----------------------------------------------------------------------------
@@ -41,11 +37,11 @@ $(@PACKET@_SOURCE):
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(@PACKET@_DIR))
 	@$(call extract, @PACKET@)
 	@$(call patchin, @PACKET@)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -60,37 +56,37 @@ $(STATEDIR)/@packet@.extract:
 @PACKET@_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/@packet@.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(@PACKET@_DIR)/config.cache)
 	cd $(@PACKET@_DIR) && \
 		$(@PACKET@_PATH) $(@PACKET@_ENV) \
 		./configure $(@PACKET@_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(@PACKET@_DIR) && $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install, @PACKET@)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, @packet@)
 	@$(call install_fixup, @packet@,PACKAGE,@packetdash@)
@@ -105,7 +101,7 @@ $(STATEDIR)/@packet@.targetinstall:
 
 	@$(call install_finish, @packet@)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
