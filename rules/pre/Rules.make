@@ -694,7 +694,7 @@ patchin =											\
 	case $$URL in										\
 	file*)											\
 		THING="$$(echo $$URL | sed s-file://-/-g)";					\
-		if [ -d "$$THING" ]; then							\
+		if [ -d "$$THING" -a "$(strip $(1))" != "KERNEL" ]; then			\
 			echo "local directory instead of tar file, skipping patch"; 		\
 			APPLY_PATCH=false;							\
 		fi; 										\

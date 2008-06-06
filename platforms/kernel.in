@@ -34,6 +34,19 @@ config KERNEL_VERSION
 	string
 	default "2.6.25"
 
+config KERNEL_LOCAL_FLAG
+	depends on KERNEL
+	prompt "Local kernel tree"
+	bool
+	help
+	  Do not download a kernel archieve, but use a local kernel tree
+	  (most probably a working tree from a git repository). Its path
+	  is concatenated from SETUP_KERNELDIR_PREFIX defined in setup 
+	  and KERNEL_VERSION from above.
+	  
+	  This function is mostly needed by developers who want to test their
+	  patches against a git-tree.
+
 choice
 	prompt "kernel architecture "
 	depends on KERNEL
@@ -159,7 +172,7 @@ config KERNEL_CONFIG
 	depends on KERNEL
 	prompt "kernel config file"
 	string
-	default "kernelconfig.${PTXCONF_KERNEL_VERSION}"
+	default "kernelconfig-${PTXCONF_KERNEL_VERSION}"
 	help
 	  this entry specifies the .config file used to compile your kernel
 

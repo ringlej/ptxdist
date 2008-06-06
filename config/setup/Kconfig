@@ -56,12 +56,21 @@ config SETUP_PROJECTPATH
 
 endmenu
 
-menu "Source Directory  "
+menu "Source Directories"
 
 config SETUP_SRCDIR
-	prompt "Source Directory "
+	prompt "Source Directory"
 	string
 
+config SETUP_KERNELDIR_PREFIX
+	prompt "Prefix for kernel trees"
+	string
+	help
+	  You can set this prefix to a directory where you collect
+	  kernel trees (like a collection of working trees from one
+	  or more GIT repositories). This is used in combination with
+	  'Local kernel tree' in platformconfig.
+	  
 endmenu
 
 menu "Mirrors           "

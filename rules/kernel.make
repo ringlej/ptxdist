@@ -34,7 +34,13 @@ endif
 KERNEL			:= linux-$(KERNEL_VERSION)
 KERNEL_SUFFIX		:= tar.bz2
 KERNEL_TESTING		:= $(subst rc,testing/,$(findstring rc,$(KERNEL_VERSION)))
+
+ifeq (,$(PTXCONF_KERNEL_LOCAL_FLAG))
 KERNEL_URL		:= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL_TESTING)$(KERNEL).$(KERNEL_SUFFIX)
+else
+KERNEL_URL		:= file://$(PTXCONF_SETUP_KERNELDIR_PREFIX)/$(KERNEL_VERSION)
+endif
+
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
 KERNEL_PKGDIR		:= $(PKGDIR)/$(KERNEL)
@@ -254,6 +260,13 @@ endif
 kernel_clean:
 	rm -rf $(STATEDIR)/kernel.*
 	rm -rf $(PKGDIR)/kernel_*
+	if [ -L $(KERNEL_DIR) ]; then			\
+		pushd $(KERNEL_DIR);			\
+		quilt pop -af;				\
+		rm -rf series patches .pc;		\
+		$(MAKE) $(KERNEL_MAKEVARS) distclean;	\
+		popd; 					\
+	fi
 	rm -rf $(KERNEL_DIR)
 
 # ----------------------------------------------------------------------------
