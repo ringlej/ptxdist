@@ -60,12 +60,12 @@ boardsetup() {
 	echo "${PROMPT}boardsetup..."
 
 	if [ ! -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
-		echo "${PROMPT}error: boardsetup/boardsetup or boardsetup/Kconfig missing"
+		echo "${PROMPT}error: boardsetup/Kconfig missing"
 		echo
 		exit 1
 	fi
 
-	ptxd_kconfig "${PTXDIST_WORKSPACE}/boardsetup/boardsetup" boardsetup_action true
+	ptxd_kconfig "${PTXDIST_WORKSPACE}/boardsetup/boardsetup${PTXDIST_PLATFORMSUFFIX}" boardsetup_action true
 }
 
 
