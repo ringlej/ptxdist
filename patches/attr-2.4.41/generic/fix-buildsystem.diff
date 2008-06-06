@@ -1,0 +1,31 @@
+---
+ include/buildmacros |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+Index: b/include/buildmacros
+===================================================================
+--- a/include/buildmacros
++++ b/include/buildmacros
+@@ -27,7 +27,7 @@ OBJECTS = $(ASFILES:.s=.o) \
+ 	  $(LFILES:.l=.o) \
+ 	  $(YFILES:%.y=%.tab.o)
+ 
+-INSTALL	= $(TOPDIR)/install-sh -o $(PKG_USER) -g $(PKG_GROUP)
++INSTALL	= DIST_ROOT=$(DESTDIR) $(TOPDIR)/install-sh -o $(PKG_USER) -g $(PKG_GROUP)
+ 
+ SHELL = /bin/sh
+ IMAGES_DIR = $(TOPDIR)/all-images
+@@ -42,10 +42,10 @@ LIBNAME = $(basename $(LTLIBRARY))
+ LTOBJECTS = $(OBJECTS:.o=.lo)
+ LTVERSION = $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+ 
+-LTLINK = $(LIBTOOL) --mode=link $(CC)
++LTLINK = $(LIBTOOL) --tag=CC --mode=link $(CC)
+ LTEXEC = $(LIBTOOL) --mode=execute
+-LTINSTALL = $(LIBTOOL) --mode=install $(INSTALL)
+-LTCOMPILE = $(LIBTOOL) --mode=compile $(CCF)
++LTINSTALL = DIST_ROOT=$(DESTDIR) $(LIBTOOL) --mode=install $(TOPDIR)/install-sh -o $(PKG_USER) -g $(PKG_GROUP)
++LTCOMPILE = $(LIBTOOL) --tag=CC --mode=compile $(CCF)
+ 
+ ifeq ($(ENABLE_SHARED),yes)
+ LTLDFLAGS += -rpath $(PKG_LIB_DIR)

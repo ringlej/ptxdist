@@ -58,7 +58,8 @@ $(STATEDIR)/attr.extract: $(attr_extract_deps_default)
 attr_prepare: $(STATEDIR)/attr.prepare
 
 ATTR_PATH	:= PATH=$(CROSS_PATH)
-ATTR_ENV 	:= $(CROSS_ENV)
+ATTR_ENV 	:= $(CROSS_ENV) \
+	LIBTOOL=$(PTXCONF_SYSROOT_CROSS)/bin/libtool
 
 #
 # autoconf
@@ -119,7 +120,9 @@ $(STATEDIR)/attr.targetinstall: $(attr_targetinstall_deps_default)
 	@$(call install_fixup, attr,DEPENDS,)
 	@$(call install_fixup, attr,DESCRIPTION,missing)
 
-	@$(call install_copy, attr, 0, 0, 0755, $(ATTR_DIR)/foobar, /dev/null)
+	@$(call install_copy, attr, 0, 0, 0755, $(ATTR_DIR)/attr/attr, /usr/bin/attr)
+	@$(call install_copy, attr, 0, 0, 0755, $(ATTR_DIR)/setfattr/setfattr, /usr/bin/setfattr)
+	@$(call install_copy, attr, 0, 0, 0755, $(ATTR_DIR)/getfattr/getfattr, /usr/bin/getfattr)
 
 	@$(call install_finish, attr)
 
