@@ -29,28 +29,9 @@ LIBXSLT_DIR	= $(BUILDDIR)/$(LIBXSLT)
 # Get
 # ----------------------------------------------------------------------------
 
-libxslt_get: $(STATEDIR)/libxslt.get
-
-$(STATEDIR)/libxslt.get: $(libxslt_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBXSLT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBXSLT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libxslt_extract: $(STATEDIR)/libxslt.extract
-
-$(STATEDIR)/libxslt.extract: $(libxslt_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBXSLT_DIR))
-	@$(call extract, LIBXSLT)
-	@$(call patchin, LIBXSLT)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -64,10 +45,10 @@ LIBXSLT_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
-LIBXSLT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
-LIBXSLT_AUTOCONF += --with-libxml-libs-prefix=$(SYSROOT)/usr/lib
-LIBXSLT_AUTOCONF += --with-libxml-include-prefix=$(SYSROOT)/usr/include
-LIBXSLT_AUTOCONF += --without-python
+LIBXSLT_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
+	--with-libxml-libs-prefix=$(SYSROOT)/usr/lib \
+	--with-libxml-include-prefix=$(SYSROOT)/usr/include \
+	--without-python
 
 ifdef PTXCONF_LIBXSLT_CRYPTO
 	LIBXSLT_AUTOCONF += --with-crypto
@@ -92,49 +73,22 @@ else
 endif
 
 
-$(STATEDIR)/libxslt.prepare: $(libxslt_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBXSLT_DIR)/config.cache)
-	cd $(LIBXSLT_DIR) && \
-		$(LIBXSLT_PATH) $(LIBXSLT_ENV) \
-		./configure $(LIBXSLT_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
 # ----------------------------------------------------------------------------
 
-libxslt_compile: $(STATEDIR)/libxslt.compile
-
-$(STATEDIR)/libxslt.compile: $(libxslt_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBXSLT_DIR) && $(LIBXSLT_ENV) $(LIBXSLT_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
 # ----------------------------------------------------------------------------
 
-libxslt_install: $(STATEDIR)/libxslt.install
-
-$(STATEDIR)/libxslt.install: $(libxslt_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libxslt.install:
+	@$(call targetinfo)
 	@$(call install, LIBXSLT)
-
-	# FIXME: this probably has to be fixed upstream!
-	# libxslt installs xslt-config to wrong path.
 	install $(LIBXSLT_DIR)/xslt-config $(PTXCONF_SYSROOT_CROSS)/bin/
-
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libxslt_targetinstall: $(STATEDIR)/libxslt.targetinstall
-
-$(STATEDIR)/libxslt.targetinstall: $(libxslt_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libxslt.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, libxslt)
 	@$(call install_fixup, libxslt,PACKAGE,libxslt)
@@ -163,13 +117,13 @@ endif
 
 ifdef PTXCONF_LIBXSLT_XSLTPROC
 	@$(call install_copy, libxslt, 0, 0, 0755, \
-		$(LIBXSLT_DIR)/xsltproc/.libs/xsltproc, \
+		$(LIBXSLT_DIR)/xsltproc/xsltproc, \
 		/usr/bin/xsltproc)
 endif
 
 	@$(call install_finish, libxslt)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

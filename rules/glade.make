@@ -28,28 +28,9 @@ GLADE_DIR	:= $(BUILDDIR)/$(GLADE)
 # Get
 # ----------------------------------------------------------------------------
 
-glade_get: $(STATEDIR)/glade.get
-
-$(STATEDIR)/glade.get: $(glade_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(GLADE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, GLADE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-glade_extract: $(STATEDIR)/glade.extract
-
-$(STATEDIR)/glade.extract: $(glade_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(GLADE_DIR))
-	@$(call extract, GLADE)
-	@$(call patchin, GLADE)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -69,44 +50,12 @@ GLADE_AUTOCONF := \
 	--disable-scrollkeeper \
 	--disable-python
 
-$(STATEDIR)/glade.prepare: $(glade_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(GLADE_DIR)/config.cache)
-	cd $(GLADE_DIR) && \
-		$(GLADE_PATH) $(GLADE_ENV) \
-		./configure $(GLADE_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-glade_compile: $(STATEDIR)/glade.compile
-
-$(STATEDIR)/glade.compile: $(glade_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(GLADE_DIR) && $(GLADE_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-glade_install: $(STATEDIR)/glade.install
-
-$(STATEDIR)/glade.install: $(glade_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, GLADE)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-glade_targetinstall: $(STATEDIR)/glade.targetinstall
-
-$(STATEDIR)/glade.targetinstall: $(glade_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/glade.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, glade)
 	@$(call install_fixup, glade,PACKAGE,glade)
@@ -117,11 +66,11 @@ $(STATEDIR)/glade.targetinstall: $(glade_targetinstall_deps_default)
 	@$(call install_fixup, glade,DEPENDS,)
 	@$(call install_fixup, glade,DESCRIPTION,missing)
 
-	@$(call install_copy, glade, 0, 0, 0755, $(GLADE_DIR)/src/.libs/glade-3, /usr/bin/glade-3)
+	@$(call install_copy, glade, 0, 0, 0755, $(GLADE_DIR)/src/glade-3, /usr/bin/glade-3)
 
 	@$(call install_finish, glade)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

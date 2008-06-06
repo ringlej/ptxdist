@@ -146,7 +146,7 @@ endif
 
 ifdef PTXCONF_GTK_DEMO
 	@$(call install_copy, gtk, 0, 0, 0755, \
-		$(GTK_DIR)/tests/.libs/testgtk, \
+		$(GTK_DIR)/tests/testgtk, \
 		/usr/bin/testgtk)
 endif
 

@@ -17,63 +17,45 @@ PACKAGES-$(PTXCONF_NET_SNMP) += net-snmp
 #
 # Paths and names
 #
-NET_SNMP_VERSION	= 5.3.1
-NET_SNMP		= net-snmp-$(NET_SNMP_VERSION)
-NET_SNMP_SUFFIX		= tar.gz
-NET_SNMP_URL		= $(PTXCONF_SETUP_SFMIRROR)/net-snmp/$(NET_SNMP).$(NET_SNMP_SUFFIX)
-NET_SNMP_SOURCE		= $(SRCDIR)/$(NET_SNMP).$(NET_SNMP_SUFFIX)
-NET_SNMP_DIR		= $(BUILDDIR)/$(NET_SNMP)
+NET_SNMP_VERSION	:= 5.3.1
+NET_SNMP		:= net-snmp-$(NET_SNMP_VERSION)
+NET_SNMP_SUFFIX		:= tar.gz
+NET_SNMP_URL		:= $(PTXCONF_SETUP_SFMIRROR)/net-snmp/$(NET_SNMP).$(NET_SNMP_SUFFIX)
+NET_SNMP_SOURCE		:= $(SRCDIR)/$(NET_SNMP).$(NET_SNMP_SUFFIX)
+NET_SNMP_DIR		:= $(BUILDDIR)/$(NET_SNMP)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-net-snmp_get: $(STATEDIR)/net-snmp.get
-
-$(STATEDIR)/net-snmp.get: $(net-snmp_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(NET_SNMP_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, NET_SNMP)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-net-snmp_extract: $(STATEDIR)/net-snmp.extract
-
-$(STATEDIR)/net-snmp.extract: $(net-snmp_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(NET_SNMP_DIR))
-	@$(call extract, NET_SNMP)
-	@$(call patchin, NET_SNMP)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-net-snmp_prepare: $(STATEDIR)/net-snmp.prepare
-
-NET_SNMP_PATH	=  PATH=$(CROSS_PATH)
-NET_SNMP_ENV 	=  $(CROSS_ENV)
+NET_SNMP_PATH	:=  PATH=$(CROSS_PATH)
+NET_SNMP_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-NET_SNMP_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
+NET_SNMP_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-defaults \
+	--disable-manuals \
+	--with-mib-modules=$(PTXCONF_NET_SNMP_MIB_MODULES) \
+	--with-mibs=$(PTXCONF_NET_SNMP_DEFAULT_MIBS) \
+	--with-logfile=$(call remove_quotes,$(PTXCONF_NET_SNMP_LOGFILE)) \
+	--with-persistent-directory=$(call remove_quotes,$(PTXCONF_NET_SNMP_PERSISTENT_DIR)) \
+	--with-default-snmp-version=$(call remove_quotes,$(PTXCONF_NET_SNMP_DEFAULT_VERSION)) \
+	--enable-shared \
+	--disable-static
 
-# don't prompt for anything that's not explicitly set below
-NET_SNMP_AUTOCONF	+= --with-defaults
-
-# we don't need no stinking manuals
-NET_SNMP_AUTOCONF	+= --disable-manuals
-
-# FIXME rsc: should be well known in PTXdist, but isn't currently?
-ifdef PTXCONF_NET_SNMP_LITTLE_ENDIAN
+ifdef PTXCONF_ENDIAN_LITTLE
 NET_SNMP_AUTOCONF	+= --with-endianness=little
 else
 NET_SNMP_AUTOCONF	+= --with-endianness=big
@@ -223,48 +205,17 @@ else
 NET_SNMP_AUTOCONF	+= --disable-ucd-snmp-compatibility
 endif
 
-NET_SNMP_AUTOCONF	+= --with-mib-modules=$(PTXCONF_NET_SNMP_MIB_MODULES)
-NET_SNMP_AUTOCONF	+= --with-mibs=$(PTXCONF_NET_SNMP_DEFAULT_MIBS)
-
-NET_SNMP_AUTOCONF	+= --with-logfile=$(call remove_quotes,$(PTXCONF_NET_SNMP_LOGFILE))
-NET_SNMP_AUTOCONF	+= --with-persistent-directory=$(call remove_quotes,$(PTXCONF_NET_SNMP_PERSISTENT_DIR))
-
-NET_SNMP_AUTOCONF	+= --with-default-snmp-version=$(call remove_quotes,$(PTXCONF_NET_SNMP_DEFAULT_VERSION))
-NET_SNMP_AUTOCONF	+= --enable-shared
-NET_SNMP_AUTOCONF	+= --disable-static
-
 ##NET_SNMP_AUTOCONF	+= --with-mib-modules=mibII
 ##NET_SNMP_AUTOCONF	+= --with-sys-contact=root@localhost
 ##NET_SNMP_AUTOCONF	+= --with-sys-location=unknown
-
-$(STATEDIR)/net-snmp.prepare: $(net-snmp_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(NET_SNMP_DIR)/config.cache)
-	cd $(NET_SNMP_DIR) && \
-		$(NET_SNMP_PATH) $(NET_SNMP_ENV) \
-		./configure $(NET_SNMP_AUTOCONF)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-net-snmp_compile: $(STATEDIR)/net-snmp.compile
-
-$(STATEDIR)/net-snmp.compile: $(net-snmp_compile_deps_default)
+$(STATEDIR)/net-snmp.compile:
 	@$(call targetinfo, $@)
-	$(NET_SNMP_PATH) make -C $(NET_SNMP_DIR) $(NET_SNMP_MAKEVARS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-net-snmp_install: $(STATEDIR)/net-snmp.install
-
-$(STATEDIR)/net-snmp.install: $(net-snmp_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, NET_SNMP)
+	$(NET_SNMP_PATH) make -C $(NET_SNMP_DIR) $(NET_SNMP_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -273,25 +224,25 @@ $(STATEDIR)/net-snmp.install: $(net-snmp_install_deps_default)
 
 net-snmp_targetinstall:	$(STATEDIR)/net-snmp.targetinstall
 
-NET_SNMP_LIBMAJOR = 10
-NET_SNMP_LIBMINOR = 0.1
-NET_SNMP_LIBVER=$(NET_SNMP_LIBMAJOR).$(NET_SNMP_LIBMINOR)
+NET_SNMP_LIBMAJOR := 10
+NET_SNMP_LIBMINOR := 0.1
+NET_SNMP_LIBVER :=$(NET_SNMP_LIBMAJOR).$(NET_SNMP_LIBMINOR)
 
-NET_SNMP_V1MIBS = RFC1155-SMI.txt RFC1213-MIB.txt RFC-1215.txt
+NET_SNMP_V1MIBS := RFC1155-SMI.txt RFC1213-MIB.txt RFC-1215.txt
 
-NET_SNMP_V2MIBS = SNMPv2-CONF.txt SNMPv2-SMI.txt SNMPv2-TC.txt SNMPv2-TM.txt SNMPv2-MIB.txt
+NET_SNMP_V2MIBS := SNMPv2-CONF.txt SNMPv2-SMI.txt SNMPv2-TC.txt SNMPv2-TM.txt SNMPv2-MIB.txt
 
-NET_SNMP_V3MIBS = SNMP-FRAMEWORK-MIB.txt SNMP-MPD-MIB.txt SNMP-TARGET-MIB.txt \
+NET_SNMP_V3MIBS := SNMP-FRAMEWORK-MIB.txt SNMP-MPD-MIB.txt SNMP-TARGET-MIB.txt \
 			SNMP-NOTIFICATION-MIB.txt SNMP-PROXY-MIB.txt \
 			SNMP-USER-BASED-SM-MIB.txt SNMP-VIEW-BASED-ACM-MIB.txt \
 			SNMP-COMMUNITY-MIB.txt TRANSPORT-ADDRESS-MIB.txt
 
-NET_SNMP_AGENTMIBS = AGENTX-MIB.txt SMUX-MIB.txt
+NET_SNMP_AGENTMIBS := AGENTX-MIB.txt SMUX-MIB.txt
 
-NET_SNMP_IANAMIBS = IANAifType-MIB.txt IANA-LANGUAGE-MIB.txt \
+NET_SNMP_IANAMIBS := IANAifType-MIB.txt IANA-LANGUAGE-MIB.txt \
 			IANA-ADDRESS-FAMILY-NUMBERS-MIB.txt
 
-NET_SNMP_RFCMIBS = IF-MIB.txt IF-INVERTED-STACK-MIB.txt \
+NET_SNMP_RFCMIBS := IF-MIB.txt IF-INVERTED-STACK-MIB.txt \
 			EtherLike-MIB.txt \
 			IP-MIB.txt IP-FORWARD-MIB.txt IANA-RTPROTO-MIB.txt \
 			TCP-MIB.txt UDP-MIB.txt \
@@ -304,18 +255,18 @@ NET_SNMP_RFCMIBS = IF-MIB.txt IF-INVERTED-STACK-MIB.txt \
 			NOTIFICATION-LOG-MIB.txt SNMP-USM-AES-MIB.txt \
 			SNMP-USM-DH-OBJECTS-MIB.txt
 
-NET_SNMP_NETSNMPMIBS = NET-SNMP-TC.txt NET-SNMP-MIB.txt NET-SNMP-AGENT-MIB.txt \
+NET_SNMP_NETSNMPMIBS := NET-SNMP-TC.txt NET-SNMP-MIB.txt NET-SNMP-AGENT-MIB.txt \
 			NET-SNMP-EXAMPLES-MIB.txt NET-SNMP-EXTEND-MIB.txt
 
-NET_SNMP_UCDMIBS = UCD-SNMP-MIB.txt UCD-DEMO-MIB.txt UCD-IPFWACC-MIB.txt \
+NET_SNMP_UCDMIBS := UCD-SNMP-MIB.txt UCD-DEMO-MIB.txt UCD-IPFWACC-MIB.txt \
 			UCD-DLMOD-MIB.txt UCD-DISKIO-MIB.txt
 
 ## FIXME:  for now, you need to manually edit this list to represent what mibs to install on target.
-NET_SNMP_MIBS = $(NET_SNMP_V1MIBS) $(NET_SNMP_V2MIBS) $(NET_SNMP_V3MIBS) \
+NET_SNMP_MIBS := $(NET_SNMP_V1MIBS) $(NET_SNMP_V2MIBS) $(NET_SNMP_V3MIBS) \
 	$(NET_SNMP_AGENTMIBS) $(NET_SNMP_IANAMIBS) $(NET_SNMP_RFCMIBS) $(NET_SNMP_NETSNMPMIBS) $(NET_SNNP_UCDMIBS)
 
-$(STATEDIR)/net-snmp.targetinstall:	$(net-snmp_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/net-snmp.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, net-snmp)
 	@$(call install_fixup, net-snmp,PACKAGE,net-snmp)
@@ -345,7 +296,7 @@ ifdef PTXCONF_NET_SNMP_AGENT
 		/usr/lib/libnetsnmpmibs.so)
 
 # agent binary
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/agent/.libs/snmpd, \
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/agent/snmpd, \
 		/usr/sbin/snmpd)
 
 # agent helper libs
@@ -373,25 +324,25 @@ ifdef PTXCONF_NET_SNMP_APPLICATIONS
 ##	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/lt-snmpget, /usr/bin/lt-snmpget)
 ##	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/lt-snmpwalk, /usr/bin/lt-snmpwalk)
 ##endif
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpbulkget, /usr/bin/snmpbulkget)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpbulkwalk, /usr/bin/snmpbulkwalk)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpdelta, /usr/bin/snmpdelta)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpdf, /usr/bin/snmpdf)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpget, /usr/bin/snmpget)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpgetnext, /usr/bin/snmpgetnext)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpset, /usr/bin/snmpset)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpstatus, /usr/bin/snmpstatus)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmptable, /usr/bin/snmptable)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmptest, /usr/bin/snmptest)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmptranslate, /usr/bin/snmptranslate)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmptrap, /usr/bin/snmptrap)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmptrapd, /usr/bin/snmptrapd)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpusm, /usr/bin/snmpusm)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpvacm, /usr/bin/snmpvacm)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/snmpwalk, /usr/bin/snmpwalk)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpbulkget, /usr/bin/snmpbulkget)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpbulkwalk, /usr/bin/snmpbulkwalk)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpdelta, /usr/bin/snmpdelta)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpdf, /usr/bin/snmpdf)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpget, /usr/bin/snmpget)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpgetnext, /usr/bin/snmpgetnext)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpset, /usr/bin/snmpset)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpstatus, /usr/bin/snmpstatus)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmptable, /usr/bin/snmptable)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmptest, /usr/bin/snmptest)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmptranslate, /usr/bin/snmptranslate)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmptrap, /usr/bin/snmptrap)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmptrapd, /usr/bin/snmptrapd)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpusm, /usr/bin/snmpusm)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpvacm, /usr/bin/snmpvacm)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpwalk, /usr/bin/snmpwalk)
 
 # apps snmpstat
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpnetstat/.libs/snmpnetstat, /usr/bin/snmpnetstat)
+	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpnetstat/snmpnetstat, /usr/bin/snmpnetstat)
 
 endif
 
@@ -415,7 +366,7 @@ ifdef PTXCONF_NET_SNMP_MIBS
 endif
 
 	@$(call install_finish, net-snmp)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -29,24 +29,9 @@ IPKG_DIR	:= $(BUILDDIR)/$(IPKG)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/ipkg.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(IPKG_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, IPKG)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ipkg.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(IPKG_DIR))
-	@$(call extract, IPKG)
-	@$(call patchin, IPKG)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -60,38 +45,12 @@ IPKG_ENV 	=  $(CROSS_ENV)
 #
 IPKG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/ipkg.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(IPKG_DIR)/config.cache)
-	cd $(IPKG_DIR) && \
-		$(IPKG_PATH) $(IPKG_ENV) \
-		./configure $(IPKG_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ipkg.compile:
-	@$(call targetinfo, $@)
-	cd $(IPKG_DIR) && $(IPKG_ENV) $(IPKG_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ipkg.install:
-	@$(call targetinfo, $@)
-	@$(call install, IPKG)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/ipkg.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, ipkg)
 	@$(call install_fixup, ipkg,PACKAGE,ipkg)
@@ -109,12 +68,12 @@ $(STATEDIR)/ipkg.targetinstall:
 
 ifdef PTXCONF_IPKG_LOG_WRAPPER
 	@$(call install_copy, ipkg, 0, 0, 0755, \
-		$(IPKG_DIR)/.libs/ipkg-cl, /usr/bin/ipkg-cl)
+		$(IPKG_DIR)/ipkg-cl, /usr/bin/ipkg-cl)
 	@$(call install_copy, ipkg, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/bin/ipkg_log_wrapper, \
 		/usr/bin/ipkg, n)
 else
-	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/.libs/ipkg-cl, \
+	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/ipkg-cl, \
 		/usr/bin/ipkg)
 endif
 
@@ -138,7 +97,7 @@ endif
 
 	@$(call install_finish, ipkg)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

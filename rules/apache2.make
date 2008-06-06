@@ -29,34 +29,13 @@ APACHE2_DIR	:= $(BUILDDIR)/$(APACHE2)
 # Get
 # ----------------------------------------------------------------------------
 
-apache2_get: $(STATEDIR)/apache2.get
-
-$(STATEDIR)/apache2.get: $(apache2_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(APACHE2_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, APACHE2)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-apache2_extract: $(STATEDIR)/apache2.extract
-
-$(STATEDIR)/apache2.extract: $(apache2_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(APACHE2_DIR))
-	@$(call extract, APACHE2)
-	@$(call patchin, APACHE2)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-apache2_prepare: $(STATEDIR)/apache2.prepare
 
 APACHE2_PATH	:=  PATH=$(CROSS_PATH)
 # FIXME: find a real patch for ac_* apr_* (fix configure script)
@@ -93,8 +72,8 @@ endif
 # --with-python \
 # --with-python-src=$(PYTHON24_DIR) \
 
-$(STATEDIR)/apache2.prepare: $(apache2_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/apache2.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(APACHE2_DIR)/config.cache)
 	cd $(APACHE2_DIR) && \
 		$(APACHE2_PATH) $(APACHE2_ENV) \
@@ -108,16 +87,14 @@ $(STATEDIR)/apache2.prepare: $(apache2_prepare_deps_default)
 	#
 	perl -i -p -e "s/^gen_test_char_OBJECTS =.*$$/gen_test_char_OBJECTS = dummy.lo/g" $(APACHE2_DIR)/server/Makefile
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-apache2_compile: $(STATEDIR)/apache2.compile
-
-$(STATEDIR)/apache2.compile: $(apache2_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/apache2.compile:
+	@$(call targetinfo)
 
 	#
 	# Tweak, tweak...
@@ -137,18 +114,16 @@ $(STATEDIR)/apache2.compile: $(apache2_compile_deps_default)
 	cp $(HOST_APACHE2_DIR)/server/gen_test_char $(APACHE2_DIR)/server/gen_test_char
 	touch $(APACHE2_DIR)/server/gen_test_char
 
-	cd $(APACHE2_DIR) && $(APACHE2_ENV) $(APACHE2_PATH) make
+	cd $(APACHE2_DIR) && $(APACHE2_ENV) $(APACHE2_PATH) $(MAKE)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-apache2_install: $(STATEDIR)/apache2.install
-
-$(STATEDIR)/apache2.install: $(apache2_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/apache2.install:
+	@$(call targetinfo)
 	@$(call install, APACHE2)
 	sed -i -e "s~\([ =\"]\)\(/usr\)~\1$(SYSROOT)\2~g" \
 		$(SYSROOT)/usr/build/apr_rules.mk \
@@ -157,16 +132,14 @@ $(STATEDIR)/apache2.install: $(apache2_install_deps_default)
 		$(SYSROOT)/usr/bin/apr-config \
 		$(SYSROOT)/usr/bin/apu-config \
 		$(SYSROOT)/usr/bin/apxs
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-apache2_targetinstall: $(STATEDIR)/apache2.targetinstall
-
-$(STATEDIR)/apache2.targetinstall: $(apache2_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/apache2.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, apache2)
 	@$(call install_fixup, apache2,PACKAGE,apache2)
@@ -178,7 +151,7 @@ $(STATEDIR)/apache2.targetinstall: $(apache2_targetinstall_deps_default)
 	@$(call install_fixup, apache2,DESCRIPTION,missing)
 
 	# the server binary
-	@$(call install_copy, apache2, 0, 0, 0755, $(APACHE2_DIR)/.libs/httpd, /usr/sbin/apache2)
+	@$(call install_copy, apache2, 0, 0, 0755, $(APACHE2_DIR)/httpd, /usr/sbin/apache2)
 
 	# and some needed shared libraries
 	@$(call install_copy, apache2, 0, 0, 0644, \
@@ -201,24 +174,24 @@ ifdef PTXCONF_APACHE2_PUBLICDOMAINICONS
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons)
 	@cd $(APACHE2_DIR)/docs/icons; \
 	for i in *.gif *.png; do \
-		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i,n); \
+		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i, n); \
 	done
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons/small)
 	@cd $(APACHE2_DIR)/docs/icons/small; \
 	for i in *.gif *.png; do \
-		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i,n); \
+		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i, n); \
 	done
 endif
 ifdef PTXCONF_APACHE2_CUSTOMERRORS
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/error)
 	@cd $(APACHE2_DIR)/docs/error; \
 	for i in *.html.var; do \
-		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/error/$$i,n); \
+		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/error/$$i, n); \
 	done
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/error/include)
 	@cd $(APACHE2_DIR)/docs/error/include; \
 	for i in *.html; do \
-		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/error/include/$$i,n); \
+		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/error/include/$$i, n); \
 	done
 endif
 
@@ -231,10 +204,10 @@ endif
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/conf)
 	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(APACHE2_DIR)/docs/conf/magic, \
-		$(PTXCONF_APACHE2_SERVERROOT)/conf/magic,n)
+		$(PTXCONF_APACHE2_SERVERROOT)/conf/magic, n)
 	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(APACHE2_DIR)/docs/conf/mime.types, \
-		$(PTXCONF_APACHE2_SERVERROOT)/conf/mime.types,n)
+		$(PTXCONF_APACHE2_SERVERROOT)/conf/mime.types, n)
 
 endif
 
@@ -243,7 +216,7 @@ ifneq ($(PTXCONF_APACHE2_DOCUMENTROOT),"")
 ifdef PTXCONF_APACHE2_DEFAULT_INDEX
 	@$(call install_copy, apache2, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/index.html, \
-		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html,n)
+		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html, n)
 endif
 endif
 
@@ -328,18 +301,18 @@ endif
 # ifdef PTXCONF_ROOTFS_HTTPD_USER_DOC
 # 	@cd $(PTXCONF_ROOTFS_HTTPD_USER_DOC_PATH); \
 # 	for i in *.html *.gif *.png; do \
-# 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/$$i,n); \
+# 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/$$i, n); \
 # 	done
 # else
-# 	$(call install_copy, apache2, 12,102,0644,$(PTXDIST_TOPDIR)/projetcs-example/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html,n)
+# 	$(call install_copy, apache2, 12,102,0644,$(PTXDIST_TOPDIR)/projetcs-example/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html, n)
 # endif
 # 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin)
-# 	@$(call install_copy, apache2, 12,102,0644,$(APACHE2_DIR)/doc/cgi-examples/test-cgi,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin,n)
+# 	@$(call install_copy, apache2, 12,102,0644,$(APACHE2_DIR)/doc/cgi-examples/test-cgi,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin, n)
 # 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/log)
 
 	@$(call install_finish, apache2)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

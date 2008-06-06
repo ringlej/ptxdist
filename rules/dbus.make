@@ -97,11 +97,11 @@ $(STATEDIR)/dbus.targetinstall:
 	@$(call install_copy, dbus, 0, 0, 0755, \
 		$(DBUS_DIR)/tools/dbus-launch, /usr/bin/dbus-launch)
 	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/.libs/dbus-monitor, /usr/bin/dbus-monitor)
+		$(DBUS_DIR)/tools/dbus-monitor, /usr/bin/dbus-monitor)
 	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/.libs/dbus-send, /usr/bin/dbus-send)
+		$(DBUS_DIR)/tools/dbus-send, /usr/bin/dbus-send)
 	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/.libs/dbus-uuidgen, /usr/bin/dbus-uuidgen)
+		$(DBUS_DIR)/tools/dbus-uuidgen, /usr/bin/dbus-uuidgen)
 
 	@$(call install_copy, dbus, 0, 0, 0644, \
 		$(DBUS_DIR)/dbus/.libs/libdbus-1.so.3.4.0, \

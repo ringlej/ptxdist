@@ -122,7 +122,7 @@ $(STATEDIR)/libpv.targetinstall: $(libpv_targetinstall_deps_default)
 	@$(call install_fixup, libpv,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBPV_PVTOOL
-	@$(call install_copy, libpv, 0, 0, 0755, $(LIBPV_DIR)/src/.libs/pvtool, /usr/bin/pvtool)
+	@$(call install_copy, libpv, 0, 0, 0755, $(LIBPV_DIR)/src/pvtool, /usr/bin/pvtool)
 endif
 
 	@$(call install_copy, libpv, 0, 0, 0644, \

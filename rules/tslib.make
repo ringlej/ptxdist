@@ -68,10 +68,10 @@ $(STATEDIR)/tslib.targetinstall:
 	@$(call install_link, tslib, libts-0.0.so.0.1.1, /usr/lib/libts-0.0.so.0)
 
 ifdef PTXCONF_TSLIB_TS_CALIBRATE
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/.libs/ts_calibrate, /usr/bin/ts_calibrate)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/ts_calibrate, /usr/bin/ts_calibrate)
 endif
 ifdef PTXCONF_TSLIB_TS_TEST
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/.libs/ts_test, /usr/bin/ts_test)
+	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/ts_test, /usr/bin/ts_test)
 endif
 
 	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/input.so, /usr/lib/ts/input.so)

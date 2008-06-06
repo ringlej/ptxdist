@@ -29,28 +29,9 @@ FONTCONFIG_DIR		:= $(BUILDDIR)/$(FONTCONFIG)
 # Get
 # ----------------------------------------------------------------------------
 
-fontconfig_get: $(STATEDIR)/fontconfig.get
-
-$(STATEDIR)/fontconfig.get: $(fontconfig_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(FONTCONFIG_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, FONTCONFIG)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-fontconfig_extract: $(STATEDIR)/fontconfig.extract
-
-$(STATEDIR)/fontconfig.extract: $(fontconfig_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FONTCONFIG_DIR))
-	@$(call extract, FONTCONFIG)
-	@$(call patchin, FONTCONFIG)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -73,44 +54,12 @@ FONTCONFIG_AUTOCONF := \
 	--with-default-fonts=$(XORG_FONTDIR) \
 	--with-arch=$(PTXCONF_ARCH_STRING)
 
-$(STATEDIR)/fontconfig.prepare: $(fontconfig_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FONTCONFIG_DIR)/config.cache)
-	cd $(FONTCONFIG_DIR) && \
-		$(FONTCONFIG_PATH) $(FONTCONFIG_ENV) \
-		./configure $(FONTCONFIG_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-fontconfig_compile: $(STATEDIR)/fontconfig.compile
-
-$(STATEDIR)/fontconfig.compile: $(fontconfig_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(FONTCONFIG_DIR) && $(FONTCONFIG_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-fontconfig_install: $(STATEDIR)/fontconfig.install
-
-$(STATEDIR)/fontconfig.install: $(fontconfig_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, FONTCONFIG)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-fontconfig_targetinstall: $(STATEDIR)/fontconfig.targetinstall
-
-$(STATEDIR)/fontconfig.targetinstall: $(fontconfig_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/fontconfig.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, fontconfig)
 	@$(call install_fixup,fontconfig,PACKAGE,fontconfig)
@@ -149,21 +98,21 @@ endif
 
 ifdef PTXCONF_FONTCONFIG_UTILS
 	@$(call install_copy, fontconfig, 0, 0, 0755, \
-		$(FONTCONFIG_DIR)/fc-cache/.libs/fc-cache, \
+		$(FONTCONFIG_DIR)/fc-cache/fc-cache, \
 		/usr/bin/fc-cache)
 
 	@$(call install_copy, fontconfig, 0, 0, 0755, \
-		$(FONTCONFIG_DIR)/fc-list/.libs/fc-list, \
+		$(FONTCONFIG_DIR)/fc-list/fc-list, \
 		/usr/bin/fc-list)
 
 	@$(call install_copy, fontconfig, 0, 0, 0755, \
-		$(FONTCONFIG_DIR)/fc-match/.libs/fc-match, \
+		$(FONTCONFIG_DIR)/fc-match/fc-match, \
 		/usr/bin/fc-match)
 endif
 
 	@$(call install_finish,fontconfig)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
