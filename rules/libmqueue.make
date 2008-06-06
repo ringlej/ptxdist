@@ -29,34 +29,13 @@ LIBMQUEUE_DIR		:= $(BUILDDIR)/$(LIBMQUEUE)
 # Get
 # ----------------------------------------------------------------------------
 
-libmqueue_get: $(STATEDIR)/libmqueue.get
-
-$(STATEDIR)/libmqueue.get: $(libmqueue_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBMQUEUE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBMQUEUE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libmqueue_extract: $(STATEDIR)/libmqueue.extract
-
-$(STATEDIR)/libmqueue.extract: $(libmqueue_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBMQUEUE_DIR))
-	@$(call extract, LIBMQUEUE)
-	@$(call patchin, LIBMQUEUE)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-libmqueue_prepare: $(STATEDIR)/libmqueue.prepare
 
 LIBMQUEUE_PATH	:= PATH=$(CROSS_PATH)
 LIBMQUEUE_ENV 	:= $(CROSS_ENV)
@@ -66,44 +45,12 @@ LIBMQUEUE_ENV 	:= $(CROSS_ENV)
 #
 LIBMQUEUE_AUTOCONF :=  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/libmqueue.prepare: $(libmqueue_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBMQUEUE_DIR)/config.cache)
-	cd $(LIBMQUEUE_DIR) && \
-		$(LIBMQUEUE_PATH) $(LIBMQUEUE_ENV) \
-		./configure $(LIBMQUEUE_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libmqueue_compile: $(STATEDIR)/libmqueue.compile
-
-$(STATEDIR)/libmqueue.compile: $(libmqueue_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBMQUEUE_DIR) && $(LIBMQUEUE_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libmqueue_install: $(STATEDIR)/libmqueue.install
-
-$(STATEDIR)/libmqueue.install: $(libmqueue_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBMQUEUE)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libmqueue_targetinstall: $(STATEDIR)/libmqueue.targetinstall
-
-$(STATEDIR)/libmqueue.targetinstall: $(libmqueue_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libmqueue.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, libmqueue)
 	@$(call install_fixup, libmqueue,PACKAGE,libmqueue)
@@ -114,7 +61,7 @@ $(STATEDIR)/libmqueue.targetinstall: $(libmqueue_targetinstall_deps_default)
 	@$(call install_fixup, libmqueue,DEPENDS,)
 	@$(call install_fixup, libmqueue,DESCRIPTION,missing)
 
-	@$(call install_copy, libmqueue, 0, 0, 0755, \
+	@$(call install_copy, libmqueue, 0, 0, 0644, \
 		$(LIBMQUEUE_DIR)/src/.libs/libmqueue.so.4.0.41, \
 		/usr/lib/libmqueue.so.4.0.41)
 
@@ -123,7 +70,7 @@ $(STATEDIR)/libmqueue.targetinstall: $(libmqueue_targetinstall_deps_default)
 
 	@$(call install_finish, libmqueue)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
