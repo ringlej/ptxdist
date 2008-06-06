@@ -28,34 +28,13 @@ XERCES_DIR	:= $(BUILDDIR)/$(XERCES)
 # Get
 # ----------------------------------------------------------------------------
 
-xerces_get: $(STATEDIR)/xerces.get
-
-$(STATEDIR)/xerces.get: $(xerces_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XERCES_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XERCES)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xerces_extract: $(STATEDIR)/xerces.extract
-
-$(STATEDIR)/xerces.extract: $(xerces_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XERCES_DIR))
-	@$(call extract, XERCES)
-	@$(call patchin, XERCES)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-xerces_prepare: $(STATEDIR)/xerces.prepare
 
 XERCES_PATH	:= PATH=$(CROSS_PATH)
 XERCES_ENV 	:= $(CROSS_ENV)
@@ -65,47 +44,39 @@ XERCES_ENV 	:= $(CROSS_ENV)
 #
 XERCES_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xerces.prepare: $(xerces_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xerces.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(XERCES_DIR)/config.cache)
 	cd $(XERCES_DIR)/src/xercesc && \
 		$(XERCES_PATH) $(XERCES_ENV) \
 		./configure $(XERCES_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-xerces_compile: $(STATEDIR)/xerces.compile
-
-$(STATEDIR)/xerces.compile: $(xerces_compile_deps_default)
-	@$(call targetinfo, $@)
-	( \
-		export XERCESCROOT=$(XERCES_DIR); \
-		cd $(XERCES_DIR)/src/xercesc && $(XERCES_PATH) SYSROOT=$(SYSROOT) $(MAKE); \
-	)
-	@$(call touch, $@)
+$(STATEDIR)/xerces.compile:
+	@$(call targetinfo)
+	export XERCESCROOT=$(XERCES_DIR); \
+		cd $(XERCES_DIR)/src/xercesc && $(XERCES_PATH) SYSROOT=$(SYSROOT) \
+		$(MAKE) $(PARALLELMFLAGS_BROKEN)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-xerces_install: $(STATEDIR)/xerces.install
-
-$(STATEDIR)/xerces.install: $(xerces_install_deps_default)
-	@$(call targetinfo, $@)
-	# @$(call install, XERCES)
-	@$(call touch, $@)
+$(STATEDIR)/xerces.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xerces_targetinstall: $(STATEDIR)/xerces.targetinstall
-
-$(STATEDIR)/xerces.targetinstall: $(xerces_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xerces.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xerces)
 	@$(call install_fixup, xerces,PACKAGE,xerces)
@@ -119,16 +90,13 @@ $(STATEDIR)/xerces.targetinstall: $(xerces_targetinstall_deps_default)
 	@$(call install_copy, xerces, 0, 0, 0644, \
 		$(XERCES_DIR)/lib/libxerces-c.so.27.0, \
 		/usr/lib/libxerces-c.so.27.0)
-	@$(call install_link, xerces, \
-		libxerces-c.so.27, \
-		/usr/lib/libxerces-c.so.27)
-	@$(call install_link, xerces, \
-		libxerces-c.so.27, \
-		/usr/lib/libxerces-c.so)
+
+	@$(call install_link, xerces, libxerces-c.so.27.0, /usr/lib/libxerces-c.so.27)
+	@$(call install_link, xerces, libxerces-c.so.27, /usr/lib/libxerces-c.so)
 
 	@$(call install_finish, xerces)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
