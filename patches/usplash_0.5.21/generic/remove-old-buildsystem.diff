@@ -1,6 +1,16 @@
-diff -urN usplash/Makefile usplash.new/Makefile
---- usplash/Makefile	2007-10-15 11:20:39.000000000 +0200
-+++ usplash.new/Makefile	1970-01-01 01:00:00.000000000 +0100
+---
+ Makefile               |   91 ----------
+ bogl/Makefile          |  120 -------------
+ example-theme/Makefile |   29 ---
+ svgalib/Makefile       |  445 -------------------------------------------------
+ svgalib/gl/Makefile    |   78 --------
+ svgalib/src/Makefile   |  445 -------------------------------------------------
+ 6 files changed, 1208 deletions(-)
+
+Index: b/Makefile
+===================================================================
+--- a/Makefile
++++ /dev/null
 @@ -1,91 +0,0 @@
 -CC=gcc
 -CFLAGS=-g -Wall -fPIC
@@ -93,9 +103,10 @@ diff -urN usplash/Makefile usplash.new/Makefile
 -
 -.PHONY: all bogl svgalib install clean
 -.SUFFIXES: .png .bdf
-diff -urN usplash/bogl/Makefile usplash.new/bogl/Makefile
---- usplash/bogl/Makefile	2007-10-15 11:20:39.000000000 +0200
-+++ usplash.new/bogl/Makefile	1970-01-01 01:00:00.000000000 +0100
+Index: b/bogl/Makefile
+===================================================================
+--- a/bogl/Makefile
++++ /dev/null
 @@ -1,120 +0,0 @@
 -LIBS = -lc
 -LIB = libbogl.a
@@ -217,9 +228,10 @@ diff -urN usplash/bogl/Makefile usplash.new/bogl/Makefile
 -	install -m755 bdftobogl mergebdf bterm pngtobogl reduce-font $(DESTDIR)/usr/bin
 -	install -d $(DESTDIR)/usr/share/terminfo
 -	tic -o$(DESTDIR)/usr/share/terminfo bterm.ti
-diff -urN usplash/example-theme/Makefile usplash.new/example-theme/Makefile
---- usplash/example-theme/Makefile	2007-10-15 11:20:39.000000000 +0200
-+++ usplash.new/example-theme/Makefile	1970-01-01 01:00:00.000000000 +0100
+Index: b/example-theme/Makefile
+===================================================================
+--- a/example-theme/Makefile
++++ /dev/null
 @@ -1,29 +0,0 @@
 -CC=gcc
 -CFLAGS=-g -Wall -fPIC
@@ -250,9 +262,10 @@ diff -urN usplash/example-theme/Makefile usplash.new/example-theme/Makefile
 -	$(INSTALL_PROGRAM) eft-theme.so $(DESTDIR)/usr/lib/usplash/eft-theme.so
 -clean:
 -	rm -f *.png.c *.bdf.c *.c.o *.so
-diff -urN usplash/svgalib/Makefile usplash.new/svgalib/Makefile
---- usplash/svgalib/Makefile	2007-10-15 11:20:39.000000000 +0200
-+++ usplash.new/svgalib/Makefile	1970-01-01 01:00:00.000000000 +0100
+Index: b/svgalib/Makefile
+===================================================================
+--- a/svgalib/Makefile
++++ /dev/null
 @@ -1,445 +0,0 @@
 -#---------------------------------------------------------------------OU
 -# Makefile for SVGAlib.
@@ -699,9 +712,10 @@ diff -urN usplash/svgalib/Makefile usplash.new/svgalib/Makefile
 -	indent -gnu src/*.regs
 -
 -FORCE:
-diff -urN usplash/svgalib/gl/Makefile usplash.new/svgalib/gl/Makefile
---- usplash/svgalib/gl/Makefile	2007-10-15 11:20:39.000000000 +0200
-+++ usplash.new/svgalib/gl/Makefile	1970-01-01 01:00:00.000000000 +0100
+Index: b/svgalib/gl/Makefile
+===================================================================
+--- a/svgalib/gl/Makefile
++++ /dev/null
 @@ -1,78 +0,0 @@
 -#----------------------------------------------------------------------
 -# Makefile for SVGAlib GL routines.
@@ -781,9 +795,10 @@ diff -urN usplash/svgalib/gl/Makefile usplash.new/svgalib/gl/Makefile
 -ifeq (.depend.gl,$(wildcard .depend.gl))
 -include .depend.gl
 -endif
-diff -urN usplash/svgalib/src/Makefile usplash.new/svgalib/src/Makefile
---- usplash/svgalib/src/Makefile	2007-10-15 11:20:39.000000000 +0200
-+++ usplash.new/svgalib/src/Makefile	1970-01-01 01:00:00.000000000 +0100
+Index: b/svgalib/src/Makefile
+===================================================================
+--- a/svgalib/src/Makefile
++++ /dev/null
 @@ -1,445 +0,0 @@
 -#----------------------------------------------------------------------
 -# Makefile for the main svgalib source.

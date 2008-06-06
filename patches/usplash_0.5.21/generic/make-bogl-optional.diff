@@ -1,15 +1,10 @@
 ---
  Makefile.am        |    3 
  bogl/helvB10.c     | 6393 +++++++++++++++
- configure.ac       |   12 
+ configure.ac       |   14 
  libusplash.c       |    6 
  usplash-testcard.c |22439 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- Makefile.am        |    3 
- bogl/helvB10.c     | 6393 +++++++++++++++
- configure.ac       |   12 
- libusplash.c       |    6 
- usplash-testcard.c |22439 +++++++++++++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 28853 insertions(+)
+ 5 files changed, 28855 insertions(+)
 
 Index: b/libusplash.c
 ===================================================================
@@ -91,6 +86,22 @@ Index: b/configure.ac
  # FIXME:
  AM_CONDITIONAL(NO_ASM, test false)
  
+@@ -74,6 +86,7 @@ AM_CONDITIONAL(NO_ASM, test false)
+ # Checks for libraries.
+ #
+ 
++if test "$CONFIG_BOGL" = "yes"; then
+ ##
+ # libgd
+ ##
+@@ -96,6 +109,7 @@ PKG_CHECK_MODULES([libpng],
+ )
+ AC_SUBST(libpng_CFLAGS)
+ AC_SUBST(libpng_LIBS)
++fi
+ 
+ #
+ # Checks for header files.
 Index: b/bogl/helvB10.c
 ===================================================================
 --- /dev/null
