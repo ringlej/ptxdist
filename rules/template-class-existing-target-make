@@ -23,20 +23,20 @@
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@class@@packet@.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/@class@@packet@.get: $(STATEDIR)/@packet@.get
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@class@@packet@.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(@CLASS@@PACKET@_DIR))
 	@$(call extract, @PACKET@, $(@CLASS@BUILDDIR))
 	@$(call patchin, @PACKET@, $(@CLASS@@PACKET@_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -51,30 +51,30 @@ $(STATEDIR)/@class@@packet@.extract:
 @CLASS@@PACKET@_AUTOCONF	:= $(@AUTOCONF_CLASS@AUTOCONF)
 
 $(STATEDIR)/@class@@packet@.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
 	cd $(@CLASS@@PACKET@_DIR) && \
 		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
 		./configure $(@CLASS@@PACKET@_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@class@@packet@.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@class@@packet@.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install, @CLASS@@PACKET@,,h)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
