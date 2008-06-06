@@ -2,12 +2,6 @@
 # platforms/Kconfig: main menu structure for platform configuration
 #
 
-#
-# FIXME
-#
-# MODULES wrt. tristate?
-#
-
 mainmenu "Platform"
 
 comment "------------------------------------"
