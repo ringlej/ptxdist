@@ -1495,17 +1495,23 @@ while [ $# -ne 0 ]; do
 				exit 1
 			fi
 			if [ "$1" = help ]; then
+				# FIXME
 				echo "available tests:"
 				find $PTXDIST_WORKSPACE/tests -maxdepth 1 -type f -exec basename {} \;
 				exit 0
 			fi
-			if [ -x "$PTXDIST_WORKSPACE/tests/$1" ]; then
+
+			if [ -x "${PTXDIST_WORKSPACE}/tests/$1${PTXDIST_PLATFORMSUFFIX}" ]; then
 				echo
-				"$PTXDIST_WORKSPACE/tests/$1" > ${PTXDIST_WORKSPACE}/test.log
+				"${PTXDIST_WORKSPACE}/tests/$1${PTXDIST_PLATFORMSUFFIX}" > ${PTXDIST_PLATFORMDIR}/test.log
+				echo
+			elif [ -x "${PTXDIST_WORKSPACE}/tests/$1" ]; then
+				echo
+				"${PTXDIST_WORKSPACE}/tests/$1" > ${PTXDIST_PLATFORMDIR}/test.log
 				echo
 			elif [ -x "$PTXDIST_TOPDIR/tests/$1" ]; then
 				echo
-				"$PTXDIST_TOPDIR/tests/$1" > ${PTXDIST_WORKSPACE}/test.log
+				"${PTXDIST_TOPDIR}/tests/$1" > ${PTXDIST_PLATFORMDIR}/test.log
 				echo
 			else
 				echo
