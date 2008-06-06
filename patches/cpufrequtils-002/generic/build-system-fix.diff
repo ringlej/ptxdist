@@ -1,20 +1,20 @@
 Fix various issues while cross compiling
 
 ---
- Makefile |   26 ++++++++++++++------------
- 1 file changed, 14 insertions(+), 12 deletions(-)
+ Makefile |   28 +++++++++++++++-------------
+ 1 file changed, 15 insertions(+), 13 deletions(-)
 
-Index: Makefile
+Index: b/Makefile
 ===================================================================
---- Makefile.orig
-+++ Makefile
+--- a/Makefile
++++ b/Makefile
 @@ -73,17 +73,20 @@ INSTALL = /usr/bin/install -c
  INSTALL_PROGRAM = ${INSTALL}
  INSTALL_DATA  = ${INSTALL} -m 644
  INSTALL_SCRIPT = ${INSTALL_PROGRAM}
 -LIBTOOL = /usr/bin/libtool
 +# --tag required to make libtool happy about the source type
-+LIBTOOL = /usr/bin/libtool --tag CC
++LIBTOOL = libtool --tag CC
  
  # If you are running a cross compiler, you may want to set this
  # to something more interesting, like "arm-linux-".  If you want
@@ -54,13 +54,15 @@ Index: Makefile
  
  ifeq ($(strip $(V)),false)
  	QUIET=@$(PWD)/build/ccdv
-@@ -190,9 +193,8 @@ libcpufreq.la: $(LIB_OBJS) $(LIB_HEADERS
+@@ -189,10 +192,9 @@ libcpufreq.la: $(LIB_OBJS) $(LIB_HEADERS
+ 
  libcpufreq: libcpufreq.la
  
- cpufreq-%: $(UTIL_OBJS)
+-cpufreq-%: $(UTIL_OBJS)
 -	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) -g -I. -I./lib/ -c -o utils/$@.o utils/$*.c
 -	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) -g -I./lib/ -L. -L./.libs/ -lcpufreq -o $@ utils/$@.o
 -	$(QUIET) $(STRIPCMD) $@
++cpufreq-%: $(UTIL_OBJS) libcpufreq.la
 +	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) -O2 -g -I. -I./lib/ -c -o utils/$@.o utils/$*.c
 +	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) $(LDFLAGS) -g -I./lib/ -L. -L./.libs/ -lcpufreq -o $@ utils/$@.o
  
