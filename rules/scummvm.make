@@ -46,6 +46,13 @@ SCUMMVM_AUTOCONF := \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--prefix=/usr
 
+$(STATEDIR)/scummvm.prepare:
+	@$(call targetinfo)
+	cd $(SCUMMVM_DIR) && \
+		$(SCUMMVM_PATH) $(SCUMMVM_ENV) \
+		./configure $(SCUMMVM_AUTOCONF)
+	@$(call touch)
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
