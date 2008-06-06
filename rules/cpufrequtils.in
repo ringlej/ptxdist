@@ -1,6 +1,7 @@
 menuconfig CPUFREQUTILS
 	tristate
 	prompt "cpufrequtils                  "
+	select CROSS_LIBTOOL
 	select SYSFSUTILS
 	select SYSFSUTILS_LIB
 	help
