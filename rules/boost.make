@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BOOST) += boost
 #
 # Paths and names
 #
-BOOST_VERSION	:= 1_33_1
+BOOST_VERSION	:= 1_35_0
 BOOST		:= boost_$(BOOST_VERSION)
 BOOST_SUFFIX	:= tar.bz2
 BOOST_URL	:= $(PTXCONF_SETUP_SFMIRROR)/boost/$(BOOST).$(BOOST_SUFFIX)
@@ -63,14 +63,17 @@ BOOST_ENV 	:=  $(CROSS_ENV)
 # they reinvent their own wheel^Hmake: jam
 # -q: quit on error
 # -d: debug level, default=1
-
 BOOST_JAM	:= \
-	$(BOOST_DIR)/tools/build/jam_src/bjam \
+	$(BOOST_DIR)/tools/jam/src/bjam \
+	-d1 \
 	-q \
-	-sTOOLS=gcc \
-	-sGCC=$(COMPILER_PREFIX)gcc \
-	-sGXX=$(COMPILER_PREFIX)g++ \
-	-sOBJCOPY=$(COMPILER_PREFIX)objcopy
+	--toolset=gcc \
+	-sNO_BZIP2=0 \
+	-sZLIB_INCLUDE=$(SYSROOT)/usr/include \
+	-sZLIB_LIBPATH=$(SYSROOT)/usr/lib \
+	variant=debug,profile \
+	threading=single,multi \
+	link=shared
 
 # boost doesn't provide "no library" choice. If the library list is empty, it
 # goes for all libraries. We start at least with date_time lib here to avoid
@@ -107,17 +110,17 @@ endif
 BOOST_CONF	:= \
 	--with-bjam="$(BOOST_JAM)" \
 	--prefix="$(SYSROOT)/usr" \
-	--with-libraries="$(subst $(space),$(comma),$(BOOST_LIBRARIES))"
+	--with-libraries="$(subst $(space),$(comma),$(BOOST_LIBRARIES))" \
+	--without-icu 
 
 $(STATEDIR)/boost.prepare: $(boost_prepare_deps_default)
 	@$(call targetinfo, $@)
-	cd $(BOOST_DIR)/tools/build/jam_src && \
-		sh build.sh gcc && mv bin.*/bjam .
-	
+	@cd $(BOOST_DIR)/tools/jam/src && \
+		sh build.sh gcc && mv bin.*/bjam .; \
 	cd $(BOOST_DIR) && \
 		$(BOOST_PATH) \
-		./configure $(BOOST_CONF)
-
+		./configure $(BOOST_CONF); \
+		echo "using gcc : `PATH=$(CROSS_PATH) $(PTXCONF_COMPILER_PREFIX)g++ -dumpversion` : $(PTXCONF_COMPILER_PREFIX)g++ ;" > $(BOOST_DIR)/user-config.jam
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -149,6 +152,14 @@ $(STATEDIR)/boost.install: $(boost_install_deps_default)
 
 boost_targetinstall: $(STATEDIR)/boost.targetinstall
 
+# date_time is append to libraries list as minimum, however we only install it
+# to target if it is really selected
+ifndef PTXCONF_BOOST_DATE_TIME
+BOOST_INST_LIBRARIES := $$( echo $(BOOST_LIBRARIES) | sed "s/date_time //g" )
+else
+BOOST_INST_LIBRARIES := $(BOOST_LIBRARIES)
+endif
+
 $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
@@ -164,10 +175,11 @@ $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 # iterate for selected libraries
 # trim whitespaces added by make and go for single .so files depending on which
 # kind of binaries we want to install
-	@for BOOST_LIB in $(BOOST_LIBRARIES); do \
+	@echo blub $(BOOST_INST_LIBRARIES) blob  $(BOOST_LIBRARIES); \
+	for BOOST_LIB in $(BOOST_INST_LIBRARIES); do \
 		read BOOST_LIB <<< $$BOOST_LIB; \
 		if [ ! -z $(PTXCONF_BOOST_INST_NOMT_DBG) ]; then \
-			for SO_FILE in `find $(BOOST_DIR)/bin/boost/libs/$$BOOST_LIB/ \
+			for SO_FILE in `find $(BOOST_DIR)/bin.v2/libs/$$BOOST_LIB/ \
 				 -name "*.so.*" -type f -path "*debug*" ! -path "*threading*"`; do \
 				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
 					/usr/lib/$$(basename $$SO_FILE)); \
@@ -177,17 +189,17 @@ $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 			done; \
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_NOMT_RED) ]; then \
-			for SO_FILE in `find $(BOOST_DIR)/bin/boost/libs/$$BOOST_LIB/ \
-				 -name "*.so.*" -type f -path "*release*" ! -path "*threading*"`; do \
+			for SO_FILE in `find $(BOOST_DIR)/bin.v2/libs/$$BOOST_LIB/ \
+				 -name "*.so.*" -type f -path "*profile*" ! -path "*threading*"`; do \
 				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
-					/usr/lib/$$(basename $$SO_FILE), n); \
+					/usr/lib/$$(basename $$SO_FILE)); \
 			        $(call install_link, boost, \
 		                	$$(basename $$SO_FILE), \
         		        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
 			done; \
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_MT_DBG) ]; then \
-			for SO_FILE in `find $(BOOST_DIR)/bin/boost/libs/$$BOOST_LIB/ \
+			for SO_FILE in `find $(BOOST_DIR)/bin.v2/libs/$$BOOST_LIB/ \
 				 -name "*.so.*" -type f -path "*debug*" -path "*threading*"`; do \
 				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
 					/usr/lib/$$(basename $$SO_FILE)); \
@@ -197,10 +209,10 @@ $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 			done; \
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_MT_RED) ]; then \
-			for SO_FILE in `find $(BOOST_DIR)/bin/boost/libs/$$BOOST_LIB/ \
-				 -name "*.so.*" -type f -path "*release*" -path "*threading*"`; do \
+			for SO_FILE in `find $(BOOST_DIR)/bin.v2/libs/$$BOOST_LIB/ \
+				 -name "*.so.*" -type f -path "*profile*" -path "*threading*"`; do \
 				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
-					/usr/lib/$$(basename $$SO_FILE), n); \
+					/usr/lib/$$(basename $$SO_FILE)); \
 			        $(call install_link, boost, \
 		                	$$(basename $$SO_FILE), \
         		        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \

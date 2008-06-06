@@ -27,17 +27,16 @@ comment "Targetinstall Options    "
 config BOOST_INST_NOMT_DBG
 	bool
 	prompt "Install binaries with debug functions"
-	default y
+	default n
 	help
-	  Installs debuggable binaries. Stripped version are installed on target.
+	  Install binaries with debugging functions.
 
 config BOOST_INST_NOMT_RED
 	bool
-	prompt "Install reduced binaries (undebuggable)"
-	default n
+	prompt "Install reduced binaries"
+	default y
 	help
-	  Installs reduced binaries by packet provider. Attention: The debugging
-	  symbols are already stripped during build.
+	  Installs reduced binaries witout debugging functions.
 
 config BOOST_INST_MT_DBG
 	bool
@@ -50,7 +49,7 @@ config BOOST_INST_MT_DBG
 config BOOST_INST_MT_RED
 	bool
 	select BOOST_THREAD
-	prompt "Install reduced binaries with multithread support (undebuggable)"
+	prompt "Install reduced binaries with multithread support"
 	default n
 	help
 	  Installs binaries with multithread support, needs thread library.
@@ -73,10 +72,7 @@ config BOOST_IOSTREAMS
 	bool
 	prompt "iostreams"
 	help
-	  Boost iostream library. ATTENTION: iostreams libary only
-	  provides static library in boost version 1.33.1, (might
-	  change in more recent versions). No dynamic .so library
-	  will be installed to target in this case.
+	  Boost iostream library. 
 
 config BOOST_PROGRAM_OPTIONS
 	bool
@@ -118,10 +114,7 @@ config BOOST_WAVE
 	bool
 	prompt "wave"
 	help
-	  Boost wave library. ATTENTION: wave libary only provides static
-	  library in boost version 1.33.1, (might change in more recent
-	  versions). No dynamic .so library will be installed to target in
-	  this case
+	  Boost wave library.
 
 config BOOST_PYTHON
 	bool
