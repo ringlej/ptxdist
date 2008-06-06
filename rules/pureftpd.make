@@ -45,7 +45,8 @@ PUREFTPD_ENV 	:= $(CROSS_ENV) \
 #
 # autoconf
 #
-PUREFTPD_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+PUREFTPD_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking \
 	--without-ascii \
 	--with-banner \
@@ -113,9 +114,7 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
-pureftpd_targetinstall: $(STATEDIR)/pureftpd.targetinstall
-
-$(STATEDIR)/pureftpd.targetinstall: $(pureftpd_targetinstall_deps_default)
+$(STATEDIR)/pureftpd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pureftpd)
