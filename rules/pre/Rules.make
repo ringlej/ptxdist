@@ -174,7 +174,7 @@ CROSS_ENV_PROGS := \
 #
 
 CROSS_ENV_PKG_CONFIG := \
-	SYSROOT=$(SYSROOT) \
+	SYSROOT="$(SYSROOT)" \
 	PKG_CONFIG="$(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config"
 
 CROSS_ENV_FLAGS := \
@@ -217,16 +217,16 @@ CROSS_ENV_DESTDIR := \
 #
 
 CROSS_AUTOCONF_SYSROOT_USR := \
-	$(call remove_quotes,--prefix=/usr --sysconfdir=/etc)
+	--prefix=/usr --sysconfdir=/etc
 
 CROSS_AUTOCONF_SYSROOT_ROOT := \
-	$(call remove_quotes,--prefix=/)
+	--prefix=
 
 CROSS_AUTOCONF_ARCH := \
-	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET))
+	--host=$(PTXCONF_GNU_TARGET) --build=$(GNU_HOST)
 
 CROSS_AUTOCONF_BROKEN_USR := \
-	$(call remove_quotes,--build=$(GNU_HOST) --host=$(PTXCONF_GNU_TARGET) --prefix=$(SYSROOT))
+	$(CROSS_AUTOCONF_ARCH) --prefix=$(SYSROOT)
 
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
@@ -288,6 +288,7 @@ targetinfo = 									\
 		-e "s@$(STATEDIR)@@g"						\
 		-e "s@$(RULESDIR)@@g"						\
 		-e "s@$(PROJECTRULESDIR)@@g"					\
+		-e "s@$(PTXDIST_PLATFORMCONFIGDIR)@@g"				\
 		-e "s@$(PTXDIST_WORKSPACE)@@g"					\
 		-e "s@$(PTXDIST_TOPDIR)@@g" 					\
 		-e "s@/@@g" >> $(DEP_OUTPUT)
@@ -303,6 +304,7 @@ targetinfo = 									\
 		-e "s@$(STATEDIR)@@g"						\
 		-e "s@$(RULESDIR)@@g"						\
 		-e "s@$(PROJECTRULESDIR)@@g"					\
+		-e "s@$(PTXDIST_PLATFORMCONFIGDIR)@@g"				\
 		-e "s@$(PTXDIST_WORKSPACE)@@g"					\
 		-e "s@$(PTXDIST_TOPDIR)@@g" 					\
 		-e "s@/@@g" >> $(DEP_OUTPUT)
@@ -544,15 +546,6 @@ install = \
 			DESTDIR=;					\
 		$(CHECK_PIPE_STATUS)					\
 	else								\
-		if test "`find $${BUILDDIR} -name "*.la" -type f`" = "" ; then				\
-			la=false;					\
-		else							\
-			la=true;					\
-		fi;							\
-		if $$la; then						\
-			sed -i -e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${SYSROOT}\2:g"		\
-				$$(/bin/ls -r -t `find $${BUILDDIR} -name "*.la" -type f`);		\
-		fi;							\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
@@ -570,10 +563,6 @@ install = \
 			rm -rf "$${PKG_PKGDIR}";			\
 		fi;							\
 		mkdir -p $$PKG_PKGDIR/{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}; \
-		if $$la; then						\
-			sed -i -e "/^libdir/s:$(SYSROOT):$$PKG_PKGDIR:g"				\
-				$$(/bin/ls -r -t `find $${BUILDDIR} -name "*.la" -type f`);		\
-		fi;							\
 									\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
@@ -584,11 +573,8 @@ install = \
 			DESTDIR=$$PKG_PKGDIR;"				\
 			| $(FAKEROOT) --;				\
 		$(CHECK_PIPE_STATUS)					\
-		if $$la; then						\
-			sed -i -e "/^libdir/s:$$PKG_PKGDIR::g"				\
-				$$(/bin/ls -r -t `find $${BUILDDIR} -name "*.la" -type f`);		\
-		fi;							\
 	fi;
+
 
 
 #
@@ -756,13 +742,21 @@ patchin =											\
 		fi;										\
 	fi;											\
 												\
-	find "$${PACKET_DIR}" -name "configure" -a \! -wholename "*/.pc/*" | while read conf; do\
+	find "$${PACKET_DIR}" -name "configure" -a \! -path "*/.pc/*" | while read conf; do	\
 		echo "Fixing up $${conf}";							\
 		sed -i										\
 		-e "s=sed -e \"s/\\\\(\.\*\\\\)/\\\\1;/\"=sed -e \"s/\\\\(.*\\\\)/'\"\$$ac_symprfx\"'\\\\1;/\"=" \
 		-e "s:^\(hardcode_into_libs\)=.*:\1=\"no\":"					\
 		-e "s:^\(hardcode_libdir_flag_spec\)=.*:\1=\"\":"				\
 		-e "s:^\(hardcode_libdir_flag_spec_ld\)=.*:\1=\"\":"				\
+		"$${conf}";									\
+		$(CHECK_PIPE_STATUS)								\
+	done;											\
+												\
+	find "$${PACKET_DIR}" -name "ltmain.sh" -a \! -path "*/.pc/*" | while read conf; do	\
+		echo "Fixing up $${conf}";							\
+		sed -i										\
+		-e "s:\(need_relink\)=yes:\1=no:"						\
 		"$${conf}";									\
 		$(CHECK_PIPE_STATUS)								\
 	done
@@ -791,12 +785,12 @@ patchin =											\
 #	fi; 											\
 #
 install_copy = 											\
-	PACKET=$(strip $(1));									\
-	OWN=$(strip $(2));									\
-	GRP=$(strip $(3));									\
-	PER=$(strip $(4));									\
-	SRC=$(strip $(5));									\
-	DST=$(strip $(6));									\
+	PACKET="$(strip $(1))";									\
+	OWN="$(strip $(2))";									\
+	GRP="$(strip $(3))";									\
+	PER="$(strip $(4))";									\
+	SRC="$(strip $(5))";									\
+	DST="$(strip $(6))";									\
 	STRIP="$(strip $(7))";									\
 												\
 	if [ -z "$(6)" ]; then									\
@@ -805,23 +799,23 @@ install_copy = 											\
 		echo "  owner=$$OWN";								\
 		echo "  group=$$GRP";								\
 		echo "  permissions=$$PER";							\
-		$(INSTALL) -d $(PKGDIR)/$$PACKET.tmp/ipkg/$$SRC;				\
+		$(INSTALL) -d "$(PKGDIR)/$$PACKET.tmp/ipkg/$$SRC";				\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		$(INSTALL) -m $$PER -d $(ROOTDIR)/$$SRC;					\
+		$(INSTALL) -m $$PER -d "$(ROOTDIR)/$$SRC";					\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		$(INSTALL) -m $$PER -d $(ROOTDIR_DEBUG)/$$SRC;					\
+		$(INSTALL) -m $$PER -d "$(ROOTDIR_DEBUG)/$$SRC";				\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		mkdir -p $(PKGDIR)/$$PACKET.tmp;						\
-		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;			\
+		mkdir -p "$(PKGDIR)/$$PACKET.tmp";						\
+		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> "$(STATEDIR)/$$PACKET.perms";		\
 	else											\
 		echo "install_copy:";								\
 		echo "  src=$$SRC";								\
@@ -829,18 +823,18 @@ install_copy = 											\
 		echo "  owner=$$OWN";								\
 		echo "  group=$$GRP";								\
 		echo "  permissions=$$PER"; 							\
-		rm -fr $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST; 					\
-		$(INSTALL) -D $$SRC $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST;				\
+		rm -fr "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST"; 					\
+		$(INSTALL) -D "$$SRC" "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST";			\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR)$$DST;					\
+		$(INSTALL) -m $$PER -D "$$SRC" "$(ROOTDIR)$$DST";				\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR_DEBUG)$$DST;				\
+		$(INSTALL) -m $$PER -D "$$SRC" "$(ROOTDIR_DEBUG)$$DST";				\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
@@ -849,15 +843,15 @@ install_copy = 											\
 		(0 | n | no)									\
 			;;									\
 		(*)											\
-			file $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST | grep -q "not stripped";		\
+			file "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST" | grep -q "not stripped";		\
 				case "$$?" in								\
 				(0)									\
-				$(CROSS_STRIP) -R .note -R .comment $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST;	\
+				$(CROSS_STRIP) -R .note -R .comment "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST";\
 				if [ $$? -ne 0 ]; then							\
 					echo "Error: install_copy failed!";				\
 					exit 1;								\
 				fi;									\
-				$(CROSS_STRIP) -R .note -R .comment $(ROOTDIR)$$DST;			\
+				$(CROSS_STRIP) -R .note -R .comment "$(ROOTDIR)$$DST";			\
 				if [ $$? -ne 0 ]; then							\
 					echo "Error: install_copy failed!";				\
 					exit 1;								\
@@ -869,8 +863,8 @@ install_copy = 											\
 				esac;									\
 			;;										\
 		esac;											\
-		mkdir -p $(PKGDIR)/$$PACKET.tmp;							\
-		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;				\
+		mkdir -p "$(PKGDIR)/$$PACKET.tmp";							\
+		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> "$(STATEDIR)/$$PACKET.perms";			\
 	fi
 
 #
