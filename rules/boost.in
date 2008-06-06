@@ -50,7 +50,7 @@ config BOOST_INST_MT_RED
 	bool
 	select BOOST_THREAD
 	prompt "Install reduced binaries with multithread support"
-	default n
+	default y 
 	help
 	  Installs binaries with multithread support, needs thread library.
 
@@ -67,6 +67,12 @@ config BOOST_FILESYSTEM
 	prompt "filesystem"
 	help
 	  Boost filesystem library.
+
+config BOOST_GRAPH
+	bool
+	prompt "graph"
+	help
+	  Boost graph library.
 
 config BOOST_IOSTREAMS
 	bool

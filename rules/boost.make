@@ -106,6 +106,9 @@ endif
 ifdef PTXCONF_BOOST_TEST
 BOOST_LIBRARIES += test
 endif
+ifdef PTXCONF_BOOST_GRAPH
+BOOST_LIBRARIES += graph
+endif
 
 BOOST_CONF	:= \
 	--with-bjam="$(BOOST_JAM)" \
