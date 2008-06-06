@@ -75,7 +75,7 @@ $(STATEDIR)/host-ckermit.compile:
 
 $(STATEDIR)/host-ckermit.install:
 	@$(call targetinfo, $@)
-	cp $(HOST_CKERMIT_DIR)/wermit $(PTXCON_SYSROOT_HOST)/bin/ckermit
+	cp $(HOST_CKERMIT_DIR)/wermit $(PTXCONF_SYSROOT_HOST)/bin/ckermit
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
