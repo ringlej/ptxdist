@@ -1,0 +1,4 @@
+config HOST_CKERMIT
+	bool
+	default y
+
