@@ -53,7 +53,10 @@ HOST_IPKG_ENV	:= $(HOSTCC_ENV)
 #
 # autoconf
 #
-HOST_IPKG_AUTOCONF := $(HOST_AUTOCONF)
+HOST_IPKG_AUTOCONF := \
+	$(HOST_AUTOCONF) \
+	--disable-shared
+
 
 # ----------------------------------------------------------------------------
 # Clean
