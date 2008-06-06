@@ -1,3 +1,4 @@
+# -*-makefile-*-
 #
 # Copyright (C) 2008 by Juergen Beisert
 #
@@ -26,28 +27,9 @@ LIBCONFUSE_DIR		:= $(BUILDDIR)/$(LIBCONFUSE)
 # Get
 # ----------------------------------------------------------------------------
 
-libconfuse_get: $(STATEDIR)/libconfuse.get
-
-$(STATEDIR)/libconfuse.get: $(libconfuse_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(CONFUSE_SOURCE):
-	@$(call targetinfo, $@)
+$(LIBCONFUSE_SOURCE):
+	@$(call targetinfo)
 	@$(call get, LIBCONFUSE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libconfuse_extract: $(STATEDIR)/libconfuse.extract
-
-$(STATEDIR)/libconfuse.extract: $(libconfuse_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBCONFUSE_DIR))
-	@$(call extract, LIBCONFUSE)
-	@$(call patchin, LIBCONFUSE)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -69,44 +51,12 @@ ifdef PTXCONF_LIBCONFUSE_STATIC
 LIBCONFUSE_AUTOCONF += --enable-shared=no
 endif
 
-$(STATEDIR)/libconfuse.prepare: $(libconfuse_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBCONFUSE_DIR)/config.cache)
-	cd $(LIBCONFUSE_DIR) && \
-		$(LIBCONFUSE_PATH) $(LIBCONFUSE_ENV) \
-		./configure $(LIBCONFUSE_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libconfuse_compile: $(STATEDIR)/libconfuse.compile
-
-$(STATEDIR)/libconfuse.compile: $(libconfuse_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBCONFUSE_DIR) && $(LIBCONFUSE_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libconfuse_install: $(STATEDIR)/libconfuse.install
-
-$(STATEDIR)/libconfuse.install: $(libconfuse_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBCONFUSE)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libconfuse_targetinstall: $(STATEDIR)/libconfuse.targetinstall
-
-$(STATEDIR)/libconfuse.targetinstall: $(libconfuse_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libconfuse.targetinstall:
+	@$(call targetinfo)
 
 ifndef PTXCONF_LIBCONFUSE_STATIC
 	@$(call install_init, libconfuse)
@@ -130,7 +80,7 @@ ifndef PTXCONF_LIBCONFUSE_STATIC
 
 	@$(call install_finish, libconfuse)
 endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
