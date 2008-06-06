@@ -119,7 +119,7 @@ $(STATEDIR)/usplash.targetinstall:
 	@$(call install_fixup, usplash,DEPENDS,)
 	@$(call install_fixup, usplash,DESCRIPTION,missing)
 
-	@$(call install_copy, usplash, 0, 0, 0755, $(USPLASH_DIR)/.libs/usplash, /sbin/usplash)
+	@$(call install_copy, usplash, 0, 0, 0755, $(USPLASH_DIR)/usplash, /sbin/usplash)
 	@$(call install_copy, usplash, 0, 0, 0755, $(USPLASH_DIR)/usplash_write, /sbin/usplash_write)
 	@$(call install_copy, usplash, 0, 0, 0755, $(USPLASH_DIR)/usplash_down, /sbin/usplash_down)
 	@$(call install_copy, usplash, 0, 0, 0755, $(USPLASH_DIR)/update-usplash-theme, /sbin/update-usplash-theme)
