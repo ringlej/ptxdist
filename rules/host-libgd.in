@@ -1,0 +1,4 @@
+config HOST_LIBGD
+	bool
+	select HOST_LIBPNG
+

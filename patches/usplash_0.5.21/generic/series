@@ -1,5 +1,4 @@
 remove-old-buildsystem.diff
 autotools.diff
-make-bogl-optional.diff
 cross-compile.diff
 autoreconf.diff
