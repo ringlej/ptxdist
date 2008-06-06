@@ -29,29 +29,21 @@ QTOPIA_DIR		:= $(BUILDDIR)/$(QTOPIA)
 # Get
 # ----------------------------------------------------------------------------
 
-qtopia_get: $(STATEDIR)/qtopia.get
-
-$(STATEDIR)/qtopia.get: $(qtopia_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(QTOPIA_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, QTOPIA)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-qtopia_extract: $(STATEDIR)/qtopia.extract
-
-$(STATEDIR)/qtopia.extract: $(qtopia_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/qtopia.extract:
+	@$(call targetinfo)
 	@$(call clean, $(QTOPIA_DIR))
 	@$(call extract, QTOPIA)
 	@$(call patchin, QTOPIA)
 	sed -i -e "s,@COMPILER_PREFIX@,$(COMPILER_PREFIX),g" $(QTOPIA_DIR)/mkspecs/qws/linux-ptxdist-g++/qmake.conf
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -98,44 +90,38 @@ else
 QTOPIA_AUTOCONF	+= -static
 endif
 
-$(STATEDIR)/qtopia.prepare: $(qtopia_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/qtopia.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(QTOPIA_DIR)/config.cache)
 	cd $(QTOPIA_DIR) && \
 		echo "yes" | $(QTOPIA_PATH) $(QTOPIA_ENV) \
 		./configure $(QTOPIA_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-qtopia_compile: $(STATEDIR)/qtopia.compile
-
-$(STATEDIR)/qtopia.compile: $(qtopia_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/qtopia.compile:
+	@$(call targetinfo)
 	cd $(QTOPIA_DIR) && $(QTOPIA_PATH) make sub-src-all-ordered $(QTOPIA_MAKEVARS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-qtopia_install: $(STATEDIR)/qtopia.install
-
-$(STATEDIR)/qtopia.install: $(qtopia_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/qtopia.install:
+	@$(call targetinfo)
 	cd $(QTOPIA_DIR) && $(QTOPIA_PATH) make sub-src-install_subtargets-ordered $(QTOPIA_MAKEVARS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-qtopia_targetinstall: $(STATEDIR)/qtopia.targetinstall
-
-$(STATEDIR)/qtopia.targetinstall: $(qtopia_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/qtopia.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, qtopia)
 	@$(call install_fixup,qtopia,PACKAGE,qtopia)
@@ -179,7 +165,7 @@ endif
 
 	@$(call install_finish,qtopia)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
