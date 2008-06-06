@@ -24,30 +24,24 @@ HOST_MYSQL_DIR		= $(HOST_BUILDDIR)/$(HOST_MYSQL)
 # Get
 # ----------------------------------------------------------------------------
 
-host-mysql_get: $(STATEDIR)/host-mysql.get
-
 $(STATEDIR)/host-mysql.get: $(STATEDIR)/mysql.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-host-mysql_extract: $(STATEDIR)/host-mysql.extract
-
-$(STATEDIR)/host-mysql.extract: $(host-mysql_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/host-mysql.extract:
+	@$(call targetinfo)
 	@$(call clean, $(HOST_MYSQL_DIR))
 	@$(call extract, MYSQL, $(HOST_BUILDDIR))
 	@$(call patchin, MYSQL, $(HOST_MYSQL_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-mysql_prepare: $(STATEDIR)/host-mysql.prepare
 
 HOST_MYSQL_PATH	:= PATH=$(HOST_PATH)
 HOST_MYSQL_ENV 	:= $(HOST_ENV)
@@ -57,22 +51,12 @@ HOST_MYSQL_ENV 	:= $(HOST_ENV)
 #
 HOST_MYSQL_AUTOCONF := $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-mysql.prepare: $(host-mysql_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_MYSQL_DIR)/config.cache)
-	cd $(HOST_MYSQL_DIR) && \
-		$(HOST_MYSQL_PATH) $(HOST_MYSQL_ENV) \
-		./configure $(HOST_MYSQL_AUTOCONF)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-host-mysql_compile: $(STATEDIR)/host-mysql.compile
-
-$(STATEDIR)/host-mysql.compile: $(host-mysql_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/host-mysql.compile:
+	@$(call targetinfo)
 
 	# we need a comp_err tool
 	cd $(HOST_MYSQL_DIR)/include && $(HOST_MYSQL_PATH) $(MAKE)
@@ -92,17 +76,15 @@ $(STATEDIR)/host-mysql.compile: $(host-mysql_compile_deps_default)
 	# we need dbug/factorial
 	cd $(HOST_MYSQL_DIR)/dbug && $(HOST_MYSQL_PATH) $(MAKE) factorial
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-host-mysql_install: $(STATEDIR)/host-mysql.install
-
-$(STATEDIR)/host-mysql.install: $(host-mysql_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/host-mysql.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
