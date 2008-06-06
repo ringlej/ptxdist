@@ -76,7 +76,7 @@ $(STATEDIR)/host-%.extract:
 	@$(call targetinfo)
 	@$(call clean, $($(PTX_MAP_TO_PACKAGE_host-$(*))_DIR))
 	@$(call extract, $(PTX_MAP_TO_PACKAGE_host-$(*)), $(HOST_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_host-$(*)), $($(PACKAGE)_DIR))
+	@$(call patchin, $(PTX_MAP_TO_PACKAGE_host-$(*)), $($(PTX_MAP_TO_PACKAGE_host-$(*))_DIR))
 	@$(call touch)
 
 $(STATEDIR)/host-%.install:
