@@ -20,7 +20,6 @@ PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 PROFTPD_VERSION		= 1.3.0a
 PROFTPD			= proftpd-$(PROFTPD_VERSION)
 PROFTPD_SUFFIX		= tar.gz
-# PROFTPD_URL		= ftp://ftp.proftpd.org/distrib/source/proftpd-$(PROFTPD_VERSION).$(PROFTPD_SUFFIX)
 PROFTPD_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(PROFTPD).$(PROFTPD_SUFFIX)
 PROFTPD_SOURCE		= $(SRCDIR)/$(PROFTPD).$(PROFTPD_SUFFIX)
 PROFTPD_DIR		= $(BUILDDIR)/$(PROFTPD)
@@ -60,7 +59,6 @@ $(STATEDIR)/proftpd.extract: $(proftpd_extract_deps_default)
 proftpd_prepare: $(STATEDIR)/proftpd.prepare
 
 PROFTPD_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
-PROFTPD_AUTOCONF	+= --sysconfdir=/etc
 
 PROFTPD_PATH		=  PATH=$(CROSS_PATH)
 PROFTPD_ENV		=  $(CROSS_ENV) ac_cv_func_setgrent_void=yes
