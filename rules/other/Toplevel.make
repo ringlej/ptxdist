@@ -14,10 +14,7 @@ export SHELL
 include $(PTXDIST_TOPDIR)/scripts/ptxdist_vars.sh
 include $(RULESDIR)/other/Definitions.make
 
-# first, include the ptxconfig with packet definitions
 -include $(PTXCONFIG)
-
-# platformconfig comes after ptxconfig, so it is able to overwrite things
 -include $(PLATFORMCONFIG)
 
 # ----------------------------------------------------------------------------
@@ -59,7 +56,7 @@ HOST_PACKAGES		:= $(HOST_PACKAGES-y)	$(HOST_PACKAGES-y-y)
 ALL_PACKAGES		:= \
 	$(PACKAGES-)		$(PACKAGES-y)		$(PACKAGES-m) \
 	$(CROSS_PACKAGES-)	$(CROSS_PACKAGES-y) \
-	$(HOST_PACKAGES-)	$(HOST_PACKAGES) 
+	$(HOST_PACKAGES-)	$(HOST_PACKAGES-y) 
 
 SELECTED_PACKAGES	:= \
 	$(PACKAGES-y)		$(PACKAGES-m) \
@@ -75,7 +72,7 @@ include $(wildcard $(PROJECTPOSTRULESDIR)/*.make)
 endif
 
 # ----------------------------------------------------------------------------
-# Misc other targets
+# just the "print" target
 # ----------------------------------------------------------------------------
 
 print-%:
