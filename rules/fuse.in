@@ -1,6 +1,6 @@
 config FUSE
 	tristate
-	prompt "FUSE"
+	prompt "fuse"
 	help
 	  utilities for filesystems in userspace
 
