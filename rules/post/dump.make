@@ -9,7 +9,6 @@
 # $(STATEDIR)/environment.bash    <- A selection of Variables in bash
 #				     syntax. Please adjust M2B_DUMP_VARIABLES
 #				     and M2B_DUMP_SUFFIXES to your needs.
-#				     See rules/other/Definitions.make
 # ----------------------------------------------------------------------------
 #
 # dump all internal make symbols
