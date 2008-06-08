@@ -65,7 +65,7 @@ IPKG_FILES := $(foreach pkg, $(PACKAGES-y), $(wildcard $(PKGDIR)/$(pkg)*.ipk))
 #
 # create one file with all permissions from all permission source files
 #
-$(IMAGEDIR)/permissions: $(PERMISSION_FILES) $(PTXCONFIG)
+$(IMAGEDIR)/permissions: $(PERMISSION_FILES)
 	@cat $^ > $@
 
 #
@@ -120,7 +120,7 @@ $(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
 	@cd $(WORKDIR);							\
 	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
 	(	echo -n "tar -zcf ";					\
-		echo -n "$@ ." )			\
+		echo -n "$@ ." )					\
 	) | $(FAKEROOT) --
 	@echo "done."
 
@@ -136,7 +136,7 @@ $(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir
 		echo -n "-d $(WORKDIR) ";				\
 		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
 		echo -n "$(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS) ";		\
-		echo -n "-o $@" )			\
+		echo -n "-o $@" )					\
 	) | $(FAKEROOT) --
 	@echo "done."
 
@@ -152,7 +152,7 @@ $(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
 		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) ";		\
 		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) ";		\
 		echo -n "-d $(WORKDIR) ";				\
-		echo "$@" )				\
+		echo "$@" )						\
 	) | $(FAKEROOT) --
 	@echo "done."
 
@@ -160,7 +160,7 @@ $(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
 # TODO
 #
 $(IMAGEDIR)/hd.img: $(IMAGEDIR)/root.ext2
-	@echo -n "Creating hdimg from root.ext2";			\
+	@echo -n "Creating hdimg from root.ext2";					\
 	PATH=$(PTXCONF_SYSROOT_HOST)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg	\
 	-o $@ $(GENHDIMARGS)
 	@echo "done."
