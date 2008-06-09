@@ -1144,9 +1144,7 @@ setup_logfile()
 
 	if [ ! -e "${PTX_LOGFILE}" ]; then
 		# let emacs outline mode compatible to vi's fold mode
-		cat > "${PTX_LOGFILE}" <<EOF
-# -*- mode:outline; outline-regexp:"{{{" -*-
-EOF
+		echo -e "# -*- mode:outline; outline-regexp:\"{""{{\" -*-\n" > "${PTX_LOGFILE}"
 	fi
 
 	#
