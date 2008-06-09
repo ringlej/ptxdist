@@ -4,7 +4,7 @@ export LANG=C
 export LC_ALL=POSIX
 export LC_CTYPE=POSIX
 
-PTXDIST_FULLARGS=("${@}")
+PTXDIST_ARGS_FULL=("${@}")
 PROMPT="ptxdist: "
 DEBUG=
 
@@ -112,7 +112,7 @@ check_version() {
 # check_ptxconfig()
 #
 check_ptxconfig() {
-	if [ ! -e "${PTXCONFIG}" ]; then
+	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
 		echo
 		echo "${PROMPT}error: ptxconfig file is missing"
 		echo "${PROMPT}error: please 'ptxdist clone' an existing project"
@@ -120,9 +120,9 @@ check_ptxconfig() {
 		exit 1
 	fi
 
-	if [ ! -e "${PLATFORMCONFIG}" ]; then
+	if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 		echo
-		echo "${PROMPT}error: '${PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing"
+		echo "${PROMPT}error: '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing"
 		echo
 		exit 1
 	fi
@@ -191,10 +191,7 @@ check_path() {
 # This only should be done when we build userland (chicken egg problem)
 #
 check_compiler() {
-	local build_toolchain compiler toolchain_ptxconfig
-	local vendor_should vendor_is compiler_should compiler_is
-
-	build_toolchain="$(ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN)"
+	local build_toolchain="$(ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN)"
 
 	[ -n "$build_toolchain" ] && return
 
@@ -205,15 +202,15 @@ check_compiler() {
 	# 3) Correct compiler version if a specific compiler version is given
 	#
 
-	compiler="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)gcc"
-	vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
+	local compiler="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)gcc"
+	local vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
 
 	if [ -n "${vendor_should}" ]; then
 		# yea! A toolchain vendor was specified in the ptxconfig file.
 		# So we check for a 'ptxconfig' file in the toolchain directory
 		# and test the PTXCONF_PROJECT string therein.
 
-		if [ ! -d "${PTXDIST_TOOLCHAIN}" ]; then
+		if [ ! -d "${PTX_TOOLCHAIN}" ]; then
 			echo
 			echo "${PROMPT}error: specify .toolchain with 'ptxdist toolchain [<path>]'"
 			echo "${PROMPT}error: or leave PTXCONF_CROSSCHAIN_VENDOR empty to disable toolchain check"
@@ -221,7 +218,7 @@ check_compiler() {
 			exit 1
 		fi
 
-		vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/ptxconfig")"
+		local vendor_def="$(readlink -f "${PTX_TOOLCHAIN}/ptxconfig")"
 		if [ -z "${vendor_def}" -o \! -e "${vendor_def}" ]; then
 			echo
 			echo "${PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
@@ -230,7 +227,7 @@ check_compiler() {
 			exit 1
 		else
 			# both vendor strings are present. Check them
-			vendor_is="$(. ${vendor_def} && echo ${PTXCONF_PROJECT})"
+			local vendor_is="$(. ${vendor_def} && echo ${PTXCONF_PROJECT})"
 			if [ "$vendor_is" != "$vendor_should" ]; then
 				echo
 				echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is <${vendor_is}>,"
@@ -242,8 +239,8 @@ check_compiler() {
 		fi
 	fi
 
-	compiler_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
-	compiler_is="$(${compiler} -dumpversion 2> /dev/null || true)"
+	local compiler_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
+	local compiler_is="$(${compiler} -dumpversion 2> /dev/null || true)"
 
 	if [ -z "${compiler_is}" ]; then
 		echo
@@ -252,6 +249,7 @@ check_compiler() {
 		echo
 		exit 1
 	fi
+
 	if [ "${compiler_is}" != "${compiler_should}" ]; then
 		echo
 		echo "${PROMPT}error: Compiler version ${compiler_should} expected,"
@@ -275,9 +273,9 @@ check_deps() {
 
 
 check_dirs_prefix() {
-	local prefix testfile
+	local testfile
 
-	prefix="${1}"
+	local prefix="${1}"
 
 	if [ -z "${prefix}" ]; then
 		echo
@@ -427,7 +425,7 @@ check_if_selected() {
 
 	if [ -z "${ptxconfig_configvar}" ]; then
 		echo
-		echo "${PROMPT}error: ${1} is not selected in ${PTXCONFIG}"
+		echo "${PROMPT}error: ${1} is not selected in ${PTXDIST_PTXCONFIG}"
 		echo
 		exit 1
 	fi
@@ -435,10 +433,7 @@ check_if_selected() {
 
 
 clone() {
-	local ifs_old projectdir
-
-	if [ -z "$1" ]; then usage; exit 1; fi
-	if [ -z "$2" ]; then usage; exit 1; fi
+	local projectdir
 
 	if [ -d "$2" ]; then
 		echo
@@ -447,7 +442,7 @@ clone() {
 		exit 1
 	fi
 
-	ifs_old="${IFS}"
+	local ifs_old="${IFS}"
 	IFS=:
 
 	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
@@ -456,13 +451,14 @@ clone() {
 
 		if [ -d "${projectdir}/$1" ] ; then
 
-			mkdir -p $2
-			tar -C ${projectdir}/$1 -cf - \
+			mkdir -p "${2}"
+			tar -C "${projectdir}/${1}" -cf - \
 			    --exclude .svn --exclude state --exclude debian . | \
-			    tar -C $2 -xvf -
+			    tar -C "${2}" -xvf -
 
 			echo "${PROMPT}done."
 			echo
+			IFS="${ifs_old}"
 			return 0
 		fi
 	done
@@ -517,7 +513,7 @@ Build Actions:
   clean <package>		cleanup packet
   autobuild			search for "autobuild" scripts and run them
   drop <package>.<stage>	mark a stage of a packet as unbuilt
-  tags <package>                try to build tags the packet
+  tags <package>		try to build tags the packet
 
   images			build images for target system
 
@@ -589,7 +585,7 @@ clean() {
 		rm -rf "${dir}"
 	done
 
-	if [ -f "${PTXCONFIG}" ]; then
+	if [ -f "${PTXDIST_PTXCONFIG}" ]; then
 		echo "${PROMPT}removing sysroot directories..."
 		ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
 		ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
@@ -824,9 +820,9 @@ toolchain() {
 	# guess the toolchain if path is omitted
 	#
 	if [ -z "${toolchain}" ]; then
-		if [ ! -e "${PLATFORMCONFIG}" ]; then
+		if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 			echo
-			echo "${PROMPT}error: cannot guess toolchain, no ${PLATFORMCONFIG#${PTXDIST_WORKSPACE}/} found"
+			echo "${PROMPT}error: cannot guess toolchain, no ${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/} found"
 			echo
 			exit 1
 		fi
@@ -901,6 +897,47 @@ toolchain() {
 
 
 
+################ "minusminus" option parser ######################
+
+parse_first()
+{
+	local i arg
+
+	#
+	# sane defaults
+	#
+	PTX_TOOLCHAIN="${PTXDIST_WORKSPACE}/.toolchain"
+	PTXDIST_PLATFORMCONFIG="${PTXDIST_WORKSPACE}/.platformconfig"
+	PTXDIST_PTXCONFIG="${PTXDIST_WORKSPACE}/ptxconfig"
+
+	set -- "${PTXDIST_ARGS_FULL[@]}"
+	while [ $# -ne 0 ]; do
+		arg="${1}"
+		shift
+
+		case "${arg}" in
+		-d|--debug)
+			PTX_MAKE_DBG="--debug=make"
+			# FIXME
+			;;
+
+		--toolchain=*)
+			PTX_TOOLCHAIN="$(ptxd_abspath "${arg#*=}")"
+			;;
+		--platformconfig=*)
+			PTXDIST_PLATFORMCONFIG="$(ptxd_abspath "${arg#*=}")"
+			;;
+		--ptxconfig=*)
+			PTXDIST_PTXCONFIG="$(ptxd_abspath "${arg#*=}")"
+			;;
+		*)
+			PTXDIST_ARGS_SECOND[${#PTXDIST_ARGS_SECOND[@]}]="${arg}"
+			;;
+		esac
+	done
+}
+
+
 ################ setup stuff only ################################
 
 
@@ -951,9 +988,9 @@ ptxdist_trap_exit_handler() {
 	if [ -e "${PTX_LOGFILE}" ]; then
 		#
 	    	# use these quotes to keep Enrik's editor happy
-		#        \\
-		#         VV
-		echo -e "\n}""}} $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_FULLARGS[@]}; (exit value: ${retval})\n\n\n" >> "${PTX_LOGFILE}"
+		#          \\
+		#           VV
+		echo -e "\n}""}} $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_ARGS_FULL[@]}; (exit value: ${retval})\n\n\n" >> "${PTX_LOGFILE}"
 	fi
 }
 
@@ -1014,9 +1051,8 @@ setup_libs() {
 #      "*DIR"	correct directory definitions
 #
 setup_platform() {
-	local platform cfg_dir
-
-	platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+	local cfg_dir
+	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
 
 	if [ -n "${platform}" ]; then
 		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${platform}"
@@ -1029,8 +1065,8 @@ setup_platform() {
 	# reread vars with correct PTXDIST_PLATFORMDIR
 	. "${SCRIPTSDIR}/ptxdist_vars.sh"
 
-	if [ -e "${PLATFORMCONFIG}" ]; then
-		cfg_dir="$(dirname "$(readlink -f "${PLATFORMCONFIG}")")"
+	if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
+		cfg_dir="$(dirname "$(readlink -f "${PTXDIST_PLATFORMCONFIG}")")"
 	else
 		unset cfg_dir
 	fi
@@ -1050,10 +1086,10 @@ setup_platform() {
 #      PTXDIST_PARALLELMFLAGS_EXTERN
 #
 setup_config() {
-	local rc_user rc_default cpus pmf_intern pmf_extern
+	local cpus pmf_intern pmf_extern
 
-	rc_user="${HOME}/.ptxdistrc.${FULLVERSION}"
-	rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
+	local rc_user="${HOME}/.ptxdistrc.${FULLVERSION}"
+	local rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
 
 	if [ \! -e "${rc_user}" ]; then
 		cp "${rc_default}" "${rc_user}"
@@ -1105,23 +1141,17 @@ setup_config() {
 
 
 #
-# add .toolchain and sysroots to path
+# add PTX_TOOLCHAIN and sysroots to path
 #
 # out: PATH
-#      PTXDIST_TOOLCHAIN
 #
 setup_path() {
-	local sysroot_host
-	#
-	# use linked toolchain if available
-	#
-	if [ -d ".toolchain" ]; then
-		PTXDIST_TOOLCHAIN="${PTXDIST_WORKSPACE}/.toolchain"
-		PATH="${PTXDIST_TOOLCHAIN}:$PATH"
+	if [ -d "${PTX_TOOLCHAIN}" ]; then
+		PATH="${PTX_TOOLCHAIN}:$PATH"
 	fi
 
 	# dir might not be available yet, but will be created later
-	sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
+	local sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
 
 	if [ -n "${sysroot_host}" ]; then
 		PATH="${sysroot_host}/bin:${sysroot_host}/sbin:$PATH"
@@ -1143,7 +1173,7 @@ setup_logfile()
 	fi
 
 	if [ ! -e "${PTX_LOGFILE}" ]; then
-		# let emacs outline mode compatible to vi's fold mode
+		# let emacs outline mode be compatible to vi's fold mode
 		echo -e "# -*- mode:outline; outline-regexp:\"{""{{\" -*-\n" > "${PTX_LOGFILE}"
 	fi
 
@@ -1151,7 +1181,7 @@ setup_logfile()
 	# use these quotes to keep Enrik's editor happy
 	#      ||
 	#      VV
-	echo "{""{{ $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_FULLARGS[@]}" >> "${PTX_LOGFILE}"
+	echo "{""{{ $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_ARGS_FULL[@]}" >> "${PTX_LOGFILE}"
 }
 
 ########################################################################
@@ -1162,6 +1192,8 @@ setup_topdir
 setup_traps
 setup_libs
 # ---  libs are available from here ---
+parse_first
+# --- FIXME ---
 setup_platform
 # --- platformdir and other *dirs are available from here ---
 setup_config
@@ -1178,6 +1210,8 @@ export \
 	PTXDIST_TOPDIR \
 	PTXDIST_SRCDIR \
 	PTXDIST_TEMPDIR \
+	PTXDIST_PTXCONFIG \
+	PTXDIST_PLATFORMCONFIG \
 	\
 	PTXDIST_WORKSPACE \
 	\
@@ -1190,6 +1224,11 @@ export \
 check_uid
 check_path
 
+#
+# use args from first stage parser, prepared for us
+#
+set --  "${PTXDIST_ARGS_SECOND[@]}"
+
 if [ $# -eq 0 ]; then
 	usage
 	exit 0
@@ -1200,6 +1239,15 @@ while [ $# -ne 0 ]; do
 	shift
 
 	case "${ptx_cmd}" in
+	--version)
+			echo "${FULLVERSION}"
+			exit 0
+			;;
+
+	--help|help)
+			usage
+			exit 0
+			;;
 
 	extract|prepare|compile|install|targetinstall|tags)
 			if [ "${ptx_cmd}" = "targetinstall" ]; then
@@ -1264,26 +1312,35 @@ while [ $# -ne 0 ]; do
 			exit 0
 			;;
 	clone)
+			if [ $# -ne 2 ]; then
+				usage
+				exit 1
+			fi
+
 			clone "${1}" "${2}"
 			exit 0
 			;;
-	-d|--debug)
-			PTXDIST_MAKE_DBG="--debug=make"
-			;;
 	distclean)
 			clean
-			echo "${PROMPT}removing toolchain link..."
-			rm -f .toolchain
-			echo "${PROMPT}removing logs dir..."
-			rm -fr ${PTXDIST_PLATFORMDIR}/logfile
-			if [ -L "${PTXCONFIG}" ]; then
+
+			if [ -L "${PTX_TOOLCHAIN}" ]; then
+				echo "${PROMPT}removing toolchain link..."
+				rm -f "${PTX_TOOLCHAIN}"
+			fi
+
+			if [ -L "${PTXDIST_PTXCONFIG}" ]; then
 				echo "${PROMPT}removing ptxconfig link..."
-				rm "${PTXCONFIG}"
+				rm "${PTXDIST_PTXCONFIG}"
+
 			fi
-			if [ -L "${PLATFORMCONFIG}" ]; then
+			if [ -L "${PTXDIST_PLATFORMCONFIG}" ]; then
 				echo "${PROMPT}removing platformconfig link..."
-				rm "${PLATFORMCONFIG}"
+				rm "${PTXDIST_PLATFORMCONFIG}"
 			fi
+
+			echo "${PROMPT}removing logs..."
+			rm -fr "${PTXDIST_PLATFORMDIR}/logfile"
+
 			echo
 			exit 0
 			;;
@@ -1299,10 +1356,9 @@ while [ $# -ne 0 ]; do
 				echo
 				exit 1
 			fi
-			export EXPORTDIR="${1}"
 			check_ptxconfig
 			check_deps
-			ptxd_make_log export
+			ptxd_make_log export EXPORTDIR="${1}"
 			exit 0
 			;;
 	get)
@@ -1322,10 +1378,6 @@ while [ $# -ne 0 ]; do
 			check_dirs
 			check_deps
 			ptxd_make_log world
-			exit 0
-			;;
-	help|--help)
-			usage
 			exit 0
 			;;
 	images)
@@ -1398,10 +1450,10 @@ while [ $# -ne 0 ]; do
 			check_ptxconfig
 			case "${1}" in
 			    ""|"ptxdist")
-				ptxd_kconfig "${PTXCONFIG}" menuconfig_action true
+				ptxd_kconfig "${PTXDIST_PTXCONFIG}" menuconfig_action true
 				;;
 			    "platform")
-				ptxd_kconfig "${PLATFORMCONFIG}" platform_config_action true
+				ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_config_action true
 				;;
 			    *)
 				check_if_selected "${1}"
@@ -1424,10 +1476,10 @@ while [ $# -ne 0 ]; do
 			check_ptxconfig
 			case "${1}" in
 			    ""|"ptxdist")
-				ptxd_kconfig "${PTXCONFIG}" oldconfig_action true
+				ptxd_kconfig "${PTXDIST_PTXCONFIG}" oldconfig_action true
 				;;
 			    "platform")
-				ptxd_kconfig "${PLATFORMCONFIG}" platform_oldconfig_action true
+				ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_oldconfig_action true
 				;;
 			    *)
 				check_if_selected "${1}"
@@ -1443,7 +1495,7 @@ while [ $# -ne 0 ]; do
 				echo
 				exit 1
 			fi
-			if [ -f "${PLATFORMCONFIG}" ]; then
+			if [ -f "${PTXDIST_PLATFORMCONFIG}" ]; then
 				echo
 				echo -n "${PROMPT}warning: overwrite existing platformconfig [Y/n]? "
 				read answer
@@ -1455,13 +1507,13 @@ while [ $# -ne 0 ]; do
 			fi
 			echo
 			echo "${PROMPT}selecting platformconfig \"${1}\""
-			ln -sf "${1}" "${PLATFORMCONFIG}"
+			ln -sf "${1}" "${PTXDIST_PLATFORMCONFIG}"
 			echo "${PROMPT}done."
 			echo
 			exit 0
 			;;
 	platformconfig)
-			ptxd_kconfig "${PLATFORMCONFIG}" platform_config_action true
+			ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_config_action true
 			exit 0
 			;;
 	print)
@@ -1481,7 +1533,7 @@ while [ $# -ne 0 ]; do
 				echo
 				exit 1
 			fi
-			if [ -f "${PTXCONFIG}" -a ! -L "${PTXCONFIG}" ]; then
+			if [ -f "${PTXDIST_PTXCONFIG}" -a ! -L "${PTXDIST_PTXCONFIG}" ]; then
 				echo
 				echo "${PROMPT}error: There already is a ptxconfig file."
 				echo "${PROMPT}error: If you really want to select another configuration,"
@@ -1491,7 +1543,7 @@ while [ $# -ne 0 ]; do
 			fi
 			echo
 			echo "${PROMPT}linking $1 to ptxconfig"
-			ln -sf "${1}" "${PTXCONFIG}"
+			ln -sf "${1}" "${PTXDIST_PTXCONFIG}"
 			echo "${PROMPT}done."
 			echo
 			exit 0
@@ -1533,23 +1585,6 @@ while [ $# -ne 0 ]; do
 			;;
 	toolchain)
 			toolchain "${1}"
-			exit 0
-			;;
-	--toolchain)
-			echo
-			PTXDIST_TOOLCHAIN="${1}"
-			if [ ! -d "${PTXDIST_TOOLCHAIN}" ]; then
-				echo
-				echo "${PROMPT}error: path ${PTXDIST_TOOLCHAIN} does not exist"
-				echo
-				exit 1
-			fi
-			echo "${PROMPT}using toolchain in ${PTXDIST_TOOLCHAIN}"
-			export PATH="${PTXDIST_TOOLCHAIN}:$PATH"
-			shift
-			echo
-			;;
-	--version)	echo ${FULLVERSION}
 			exit 0
 			;;
 	*)

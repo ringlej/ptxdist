@@ -24,11 +24,11 @@ ptxd_source_kconfig() {
 
 
 ptxd_get_ptxconf() {
-	if test -f "${PTXCONFIG}"; then
-		source "${PTXCONFIG}"
+	if test -f "${PTXDIST_PTXCONFIG}"; then
+		source "${PTXDIST_PTXCONFIG}"
 	fi
-	if test -f "${PLATFORMCONFIG}"; then
-		source "${PLATFORMCONFIG}"
+	if test -f "${PTXDIST_PLATFORMCONFIG}"; then
+		source "${PTXDIST_PLATFORMCONFIG}"
 	fi
 	echo "${!1}"
 }
@@ -85,7 +85,7 @@ ptxd_kconfig() {
 #
 #
 ptxd_make() {
-	make ${PTXDIST_MAKE_DBG} ${PTXDIST_PARALLELMFLAGS_EXTERN} -f "${RULESDIR}/other/Toplevel.make" "${@}"
+	make ${PTX_MAKE_DBG} ${PTXDIST_PARALLELMFLAGS_EXTERN} -f "${RULESDIR}/other/Toplevel.make" "${@}"
 }
 
 ptxd_make_log() {
@@ -104,7 +104,7 @@ ptxd_make_log() {
 #
 ptxd_abspath() {
 	local dn
-	if [ "$#" != "1" ]; then
+	if [ $# -ne 1 ]; then
 		echo "usage: ptxd_abspath <path>"
 		exit 1
 	fi
@@ -220,8 +220,8 @@ check_pipe_status() {
 #
 ptxd_ipkg_split() {
 	name=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\1/"`
-        rev=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\2/"`
-        arch=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\3/"`
+	rev=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\2/"`
+	arch=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\3/"`
 	rev_upstream=`echo $rev | sed -e "s/\(.*\)-\(.*\)/\1/"`
 	rev_packet=""
 	[ `echo $rev | grep -e "-"` ] && rev_packet=`echo $rev | sed -e "s/\(.*\)-\(.*\)/\2/"`
@@ -401,25 +401,25 @@ esac
 }
 
 usage() {
-        echo
-        [ -n "\$1" ] && echo -e "\${PREFIX} error: \$1\n"
+	echo
+	[ -n "\$1" ] && echo -e "\${PREFIX} error: \$1\n"
 	echo "$PROGRAM_DESCRIPTION"
 	echo
-        echo "usage: \`basename \$0\` <args>"
-        echo
-        echo " Arguments:"
-        echo
+	echo "usage: \`basename \$0\` <args>"
+	echo
+	echo " Arguments:"
+	echo
 EOF
 while read SYMBOL OPTION DESCRIPTION ; do
 cat << EOF >> $OUTFILE
-        echo -e "  --$OPTION\\t $DESCRIPTION"
+	echo -e "  --$OPTION\\t $DESCRIPTION"
 EOF
 done < $INFILE
 cat << EOF >> $OUTFILE
-        echo
-		echo " \`basename \$0\` returns with an exit status != 0 if something failed."
 	echo
-        exit 0
+	echo " \`basename \$0\` returns with an exit status != 0 if something failed."
+	echo
+	exit 0
 }
 
 #
@@ -431,11 +431,11 @@ invoke_parser(){
 while [ \$# -gt 0 ]; do
 	case "\$1" in
 
-                --help) usage ;;
+		--help) usage ;;
 EOF
 while read SYMBOL OPTION DESCRIPTION ; do
 cat << EOF >> $OUTFILE
-                --$OPTION)
+		--$OPTION)
 			check_argument \$2
 			if [ "\$?" = "0" ] ; then
 				$SYMBOL="\$2";
@@ -448,10 +448,10 @@ cat << EOF >> $OUTFILE
 EOF
 done < $INFILE
 cat << EOF >> $OUTFILE
-               *)
+		*)
 			usage "unknown option \$1"
 			;;
-        esac
+	esac
 done
 }
 # cleanup

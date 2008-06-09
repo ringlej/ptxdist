@@ -32,8 +32,6 @@ RULESFILES_ALL_MAKE=${RULESFILES_ALL}.make
 PTX_MAP_ALL_MAKE=${STATEDIR}/ptx_map_all.make
 
 # our config files
-PTXCONFIG=${PTXDIST_WORKSPACE}/ptxconfig
-PLATFORMCONFIG=${PTXDIST_WORKSPACE}/.platformconfig
 PTXDISTRC=${HOME}/.ptxdistrc.${FULLVERSION}
 
 # logfile

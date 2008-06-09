@@ -41,11 +41,11 @@ gen_configdeps_platform_action () {
 gen_configdeps() {
     local tmpdir kconfig
 
-    ptxd_kconfig "${PTXCONFIG}" gen_configdeps_action false > "${CONFIGDEPS}"
+    ptxd_kconfig "${PTXDIST_PTXCONFIG}" gen_configdeps_action false > "${CONFIGDEPS}"
 
     # if platformconfig's size is bigger than zero
-    if [ -s "${PLATFORMCONFIG}" ]; then
-	ptxd_kconfig "${PLATFORMCONFIG}" gen_configdeps_platform_action false >> "${CONFIGDEPS}"
+    if [ -s "${PTXDIST_PLATFORMCONFIG}" ]; then
+	ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" gen_configdeps_platform_action false >> "${CONFIGDEPS}"
     fi
 }
 
@@ -107,7 +107,7 @@ gen_map_all() {
     #                       3          2
     #
     grep -e "^[^#]*PACKAGES-\$(PTXCONF_.*)[[:space:]]*+=" `< "${RULESFILES_ALL}"` | \
-        sed -e "s/\(.*PACKAGES-\)\(\$([^)]*)-\)\(\$([^)]*)\)\(.*\)/\1\3\4/" > "${GEN_MAPS_ALL}"
+	sed -e "s/\(.*PACKAGES-\)\(\$([^)]*)-\)\(\$([^)]*)\)\(.*\)/\1\3\4/" > "${GEN_MAPS_ALL}"
 
     sed -e \
 	"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_TO_FILENAME_\2=\"\1\"\nPTX_MAP_TO_package_\2=\"\3\"~" \
@@ -191,7 +191,7 @@ gen_packages_dep() {
 	echo "\$(STATEDIR)/${!package}.get: \$(${label}_SOURCE)" >&4
     done
 
-    for cfgfile in "${PTXCONFIG}" "${PLATFORMCONFIG}"; do
+    for cfgfile in "${PTXDIST_PTXCONFIG}" "${PTXDIST_PLATFORMCONFIG}"; do
 	sed -ne "s/^PTXCONF_\(.*\)=[ym]/\1/p" "${cfgfile}" | while read label; do
 	    package="PTX_MAP_TO_package_${label}"
 	    if test -n "${!package}"; then
@@ -218,8 +218,8 @@ gen_packages_dep() {
 # main()
 #
 
-. "${PTXCONFIG}"
-. "${PLATFORMCONFIG}"
+. "${PTXDIST_PTXCONFIG}"
+. "${PTXDIST_PLATFORMCONFIG}"
 
 if test \! -e "${STATEDIR}" ; then
     mkdir -p "${STATEDIR}"
