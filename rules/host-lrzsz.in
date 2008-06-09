@@ -1,0 +1,4 @@
+config HOST_LRZSZ
+	bool
+	default y
+
