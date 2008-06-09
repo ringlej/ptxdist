@@ -288,7 +288,7 @@ check_dirs_prefix() {
 		exit 1
 	fi
 
-	if [ -n "${prefix#* }" ]; then
+	if echo "${prefix}" | grep -q " "; then
 		echo
 		echo "error: some important dir (\"${prefix}\")"
 		echo "contains spaces, this will probably not work, sorry"
