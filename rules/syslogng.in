@@ -7,7 +7,7 @@ menuconfig SYSLOGNG
 	select GLIB
 	select LIBC_RT
 	select LIBNET
-	select TCPWRAPPER
+	select TCPWRAPPER	if SYSLOGNG__TCP_WRAPPER
 	help
 	  The next generation syslog daemon.
 
