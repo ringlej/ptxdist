@@ -20,7 +20,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_CKERMIT) += host-ckermit
 HOST_CKERMIT_VERSION	:= 211
 HOST_CKERMIT		:= cku$(HOST_CKERMIT_VERSION)
 HOST_CKERMIT_SUFFIX	:= tar.gz
-HOST_CKERMIT_URL	:= ftp://www.columbia.edu/kermit/archives/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
+HOST_CKERMIT_URL	:= ftp://kermit.columbia.edu/kermit/archives/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
 HOST_CKERMIT_SOURCE	:= $(SRCDIR)/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
 HOST_CKERMIT_DIR	:= $(HOST_BUILDDIR)/$(HOST_CKERMIT)
 
@@ -28,12 +28,8 @@ HOST_CKERMIT_DIR	:= $(HOST_BUILDDIR)/$(HOST_CKERMIT)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/host-ckermit.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(HOST_CKERMIT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, HOST_CKERMIT)
 
 # ----------------------------------------------------------------------------
@@ -41,12 +37,12 @@ $(HOST_CKERMIT_SOURCE):
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-ckermit.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(HOST_CKERMIT_DIR))
 	mkdir -p $(HOST_CKERMIT_DIR)
 	@$(call extract, HOST_CKERMIT, $(HOST_BUILDDIR)/$(HOST_CKERMIT))
 	@$(call patchin, HOST_CKERMIT, $(HOST_CKERMIT_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -56,27 +52,27 @@ HOST_CKERMIT_PATH	:= PATH=$(HOST_PATH)
 HOST_CKERMIT_ENV 	:= $(HOST_ENV)
 
 $(STATEDIR)/host-ckermit.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-ckermit.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(HOST_CKERMIT_DIR) && \
 		$(HOST_CKERMIT_PATH) $(MAKE) linuxnc $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-ckermit.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cp $(HOST_CKERMIT_DIR)/wermit $(PTXCONF_SYSROOT_HOST)/bin/ckermit
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
