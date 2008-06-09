@@ -24,6 +24,8 @@ config GTK
 	is suitable for projects ranging from small one-off tools to complete
 	application suites.
 
+if GTK
+
 menu "graphic loaders       "
 
 config GTK_LOADER_PNG
@@ -120,6 +122,7 @@ config GTK_DEMO
 	bool
 	prompt "gtkdemo"
 
+endif
 
 source "rules/gtk-engine-experience.in"
 source "rules/gtk-theme-experience.in"
