@@ -742,7 +742,7 @@ patchin =											\
 		fi;										\
 	fi;											\
 												\
-	find "$${PACKET_DIR}" -name "configure" -a \! -path "*/.pc/*" | while read conf; do	\
+	find "$${PACKET_DIR}/" -name "configure" -a \! -path "*/.pc/*" | while read conf; do	\
 		echo "Fixing up $${conf}";							\
 		sed -i										\
 		-e "s=sed -e \"s/\\\\(\.\*\\\\)/\\\\1;/\"=sed -e \"s/\\\\(.*\\\\)/'\"\$$ac_symprfx\"'\\\\1;/\"=" \
@@ -753,7 +753,7 @@ patchin =											\
 		$(CHECK_PIPE_STATUS)								\
 	done;											\
 												\
-	find "$${PACKET_DIR}" -name "ltmain.sh" -a \! -path "*/.pc/*" | while read conf; do	\
+	find "$${PACKET_DIR}/" -name "ltmain.sh" -a \! -path "*/.pc/*" | while read conf; do	\
 		echo "Fixing up $${conf}";							\
 		sed -i										\
 		-e "s:\(need_relink\)=yes:\1=no:"						\
