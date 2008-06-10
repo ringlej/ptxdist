@@ -21,7 +21,7 @@ menuconfig MPLAYER
 
 menuconfig MPLAYER_VI
 	bool
-	prompt "Video Input"
+	prompt "Video Input                 "
 	depends on MPLAYER
 
 config MPLAYER_VI_V4L1
@@ -39,7 +39,7 @@ config MPLAYER_VI_V4L2
 
 menuconfig MPLAYER_VO
 	bool
-	prompt "Video Output"
+	prompt "Video Output                "
 	depends on MPLAYER
 
 config MPLAYER_VO_XV
@@ -64,7 +64,7 @@ config MPLAYER_VO_FBDEV
 
 menuconfig MPLAYER_CODEC
 	bool
-	prompt "Video Codecs"
+	prompt "Video Codecs                "
 	depends on MPLAYER
 
 config MPLAYER_CODEC_MPEG2
@@ -76,7 +76,7 @@ config MPLAYER_CODEC_MPEG2
 
 menuconfig MPLAYER_ADVANCED
 	bool
-	prompt "Advanced Options"
+	prompt "Advanced Options            "
 	depends on MPLAYER
 
 config MPLAYER_ADVANCED_PXA

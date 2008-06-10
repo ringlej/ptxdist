@@ -1,7 +1,7 @@
 menuconfig XORG_LIB_XAU
 	bool
 	select XORG_PROTO_X
-	prompt "libXau                "
+	prompt "libXau                        "
 	help
 	  A Sample Authorization Protocol for X for basic authorization.
 

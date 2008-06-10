@@ -200,7 +200,7 @@ config ROOTFS_ETC_INITD_UDEV
 	depends on UDEV
 	bool
 	default y
-	prompt "Install startup script      "
+	prompt "Install startup script        "
 	help
 	  The /etc/init.d/udev script lets you control the udevd daemon.
 

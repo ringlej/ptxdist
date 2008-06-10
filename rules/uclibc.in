@@ -1,4 +1,4 @@
-menu "uClibc"
+menu "uClibc                        "
 
 config UCLIBC_VERSION
 	prompt "uClibc Version"

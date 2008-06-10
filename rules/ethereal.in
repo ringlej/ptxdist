@@ -1,7 +1,7 @@
 menuconfig ETHEREAL
 	bool
 	depends on BROKEN
-	prompt "ethereal [BROKEN]   "
+	prompt "ethereal [BROKEN]             "
 	select LIBPCAP
 	help
 	  Ethereal is a network traffic analyzer for Unix

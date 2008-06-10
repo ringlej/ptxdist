@@ -1,4 +1,4 @@
-menu "GTK+ and friends      "
+menu "GTK+ and friends              "
 
 source "rules/gtk.in"
 source "rules/gtkmm.in"

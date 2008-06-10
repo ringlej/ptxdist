@@ -12,7 +12,7 @@ if PHP5
 # SAPI Modules
 # ----------------------------------------------------------------------------
 
-menu "SAPI Modules"
+menu "SAPI Modules                "
 
 config PHP5_SAPI_AOLSERVER
 	bool
@@ -243,7 +243,7 @@ endchoice
 
 menuconfig PHP5_XML
 	bool
-	prompt "xml support"
+	prompt "xml support                 "
 	help
 	  Support for XML.
 
@@ -329,7 +329,7 @@ config PHP5_XML_LIBXML2_SIMPLEXML
 # Extensions
 # ----------------------------------------------------------------------------
 
-menu "Extensions"
+menu "Extensions                  "
 
 #Extensions:
 #

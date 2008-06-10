@@ -13,25 +13,25 @@ if MYSQL
 comment "build options   ---"
 
 choice
-	prompt "terminal library   "
+	prompt "terminal library "
 	default MYSQL_TERMINAL_NCURSES
 
 	config MYSQL_TERMINAL_NCURSES
 		bool
-		prompt "curses"
+		prompt "curses  "
 		help
 		  MySQL will use dynamic curses library for its terminal manipulation
 
 	config MYSQL_TERMINAL_TERMCAP
 		bool
-		prompt "termcap"
+		prompt "termcap "
 		help
 		  MySQL will use static termcap library for its terminal manipulation
 
 endchoice
 
 choice
-	prompt "default charset    "
+	prompt "default charset  "
 
 	config MYSQL_DEFAULT_CHARSET_ARMSCII8
 		bool
@@ -167,7 +167,7 @@ choice
 endchoice
 
 choice
-	prompt "extra charsets     "
+	prompt "extra charsets   "
 
 	config MYSQL_EXTRA_CHARSETS_NONE
 		bool
@@ -188,7 +188,7 @@ endchoice
 
 menuconfig MYSQL_EXTRA_CHARSETS
 	bool
-	prompt "select extra charsets         "
+	prompt "select extra charsets       "
 	depends on MYSQL_EXTRA_CHARSETS_LIST
 
 	config MYSQL_EXTRA_CHARSETS_ARMSCII8

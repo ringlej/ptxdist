@@ -1,6 +1,6 @@
 menuconfig XORG_LIB_X11
 	bool
-	prompt "libX11                "
+	prompt "libX11                        "
 # always required:
 # - [xproto >= 7.0.6]
 # - xau (when Xlib only)
@@ -89,7 +89,7 @@ config XORG_LIB_X11_INSTALL_LOCALE_8859_15
 	help
 	  install iso8859-15(latin alphabet No.9) locale files.
 
-menu "Chinese locale packets"
+menu "Chinese locale packets    "
 	depends on XORG_LIB_X11_INSTALL_LOCALE
 
 config XORG_LIB_X11_INSTALL_LOCALE_CHN_MAIN

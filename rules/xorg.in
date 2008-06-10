@@ -1,4 +1,4 @@
-menu "Xorg                  "
+menu "Xorg                          "
 
 source "rules/xorg-options.in"
 source "rules/xorg-server.in"

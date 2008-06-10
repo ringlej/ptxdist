@@ -1,6 +1,6 @@
 menuconfig HOST_UTIL_LINUX
 	bool
-	prompt "util-linux              "
+	prompt "util-linux                    "
 
 config HOST_UTIL_LINUX_FDISK
 	bool

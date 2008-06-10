@@ -15,11 +15,11 @@ menuconfig DBUS
 if DBUS
 
 choice
-	prompt "xml library"
+	prompt "xml library       "
 
 	config DBUS_XML_EXPAT
 		bool
-		prompt "expat"
+		prompt "expat  "
 
 	config DBUS_XML_LIBXML2
 		bool

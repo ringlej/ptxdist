@@ -22,7 +22,7 @@ menuconfig BOOST
 
 		http://www.boost.org/
 if BOOST
-comment "Targetinstall Options    "
+comment "Targetinstall Options         "
 
 config BOOST_INST_NOMT_DBG
 	bool

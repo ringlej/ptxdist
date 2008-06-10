@@ -1,4 +1,4 @@
-menu "Xorg Support Libraries"
+menu "Xorg Support Libraries        "
 
 source "rules/freetype.in"
 source "rules/libdrm.in"

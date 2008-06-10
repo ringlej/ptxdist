@@ -1,6 +1,6 @@
 config LIBDRM
 	tristate
-	prompt "libdrm                       "
+	prompt "libdrm                        "
 	help
 	  This library provides an user-level interface to the DRM
 	  device. It is needed for x.org. 

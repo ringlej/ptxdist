@@ -56,7 +56,7 @@ config ROOTFS_HOME_ROOT
 menuconfig ROOTFS_MEDIA
 	depends on ROOTFS
 	bool
-	prompt "/media                    "
+	prompt "/media                      "
 
 config ROOTFS_MEDIA1
 	prompt "Mountpoint 1"

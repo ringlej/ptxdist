@@ -72,7 +72,7 @@ endif
 
 menuconfig SDL_AUDIO
 	bool
-	prompt "SDL Audio Support"
+	prompt "SDL Audio Support           "
 	depends on SDL
 	default y
 	help
@@ -157,7 +157,7 @@ config SDL_DISKAUDIO
 
 menuconfig SDL_VIDEO
 	bool
-	prompt "SDL Video Support"
+	prompt "SDL Video Support           "
 	depends on SDL
 	default y
 	help
@@ -175,7 +175,7 @@ config SDL_NANOX
 
 menuconfig SDL_XORG
 	bool
-	prompt "Xorg Support"
+	prompt "Xorg Support                "
 	depends on SDL_VIDEO
 	help
 	  X.Org provides an open source implementation of the
@@ -250,7 +250,7 @@ config SDL_CDROM
 
 menuconfig SDL_THREADS
 	bool
-	prompt "SDL Thread Support"
+	prompt "SDL Thread Support          "
 	depends on SDL
 	default y
 	help

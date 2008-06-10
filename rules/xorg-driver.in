@@ -1,7 +1,7 @@
 # xorg driver configuration
 
 menuconfig XORG_DRIVER_INPUT
-        bool "xorg input drivers    "
+        bool "xorg input drivers            "
 
 source "rules/xorg-driver-input-evdev.in"
 source "rules/xorg-driver-input-keyboard.in"
@@ -10,7 +10,7 @@ source "rules/xorg-driver-input-tslib.in"
 source "rules/xorg-driver-input-void.in"
 
 menuconfig XORG_DRIVER_VIDEO
-        bool "xorg video drivers    "
+        bool "xorg video drivers            "
 
 source "rules/xorg-driver-video-apm.in"
 source "rules/xorg-driver-video-ati.in"

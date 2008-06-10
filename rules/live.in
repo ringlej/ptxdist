@@ -1,7 +1,7 @@
 config LIVE_LIB
 	tristate
 	depends on BROKEN
-	prompt "LIVE                   "
+	prompt "LIVE                          "
 	help
 	  LIVE555 Streaming Media
 

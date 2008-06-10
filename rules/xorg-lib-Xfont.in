@@ -13,7 +13,7 @@ menuconfig XORG_LIB_XFONT
 	select FREETYPE			if XORG_LIB_XFONT_FREETYPE
 	select XORG_PROTO_FONTCACHE	if XORG_LIB_XFONT_FONTCACHE
 	default y if XORG_LIB_X11
-	prompt "libXfont              "
+	prompt "libXfont                      "
 	help
 	  X font Library. At least one file based font support must be enabled
 	  to make the xorg server (part dix) happy.

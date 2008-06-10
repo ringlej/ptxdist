@@ -1,6 +1,6 @@
 menuconfig UNIONFS
 	tristate
-	prompt "unionfs [BROKEN]    "
+	prompt "unionfs [BROKEN]              "
 	depends on BROKEN
 	select KERNEL
 	select E2FSPROGS

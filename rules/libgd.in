@@ -1,6 +1,6 @@
 menuconfig LIBGD
 	tristate
-	prompt "libgd                 "
+	prompt "libgd                         "
 	select LIBPNG		if LIBGD_PNG
 	select LIBJPEG		if LIBGD_JPEG
 	select XORG_LIB_XPM	if LIBGD_XPM

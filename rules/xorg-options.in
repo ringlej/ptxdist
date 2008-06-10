@@ -1,4 +1,4 @@
-menu "overall X11 options   "
+menu "overall X11 options           "
 
 # disabled, its incomplete
 #

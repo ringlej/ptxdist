@@ -1,4 +1,4 @@
-menu "SDL                   "
+menu "SDL                           "
 
 source "rules/sdl.in"
 source "rules/sdl_image.in"

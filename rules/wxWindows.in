@@ -1,6 +1,6 @@
 menuconfig WXWINDOWS
 	tristate
-	prompt "wxWidgets [BROKEN]    "
+	prompt "wxWidgets [BROKEN]            "
 	depends on BROKEN
 	help
 	  wxWindows Cross-platform C++ GUI toolkit

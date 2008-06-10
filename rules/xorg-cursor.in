@@ -1,6 +1,6 @@
 menuconfig XORG_CURSOR
 	tristate
-	prompt "xorg cursor themes    "
+	prompt "xorg cursor themes            "
 	select XORG_LIB_X11_CURSOR
 	select XORG_LIB_XCURSOR
 

@@ -1,4 +1,4 @@
-menu "directfb              "
+menu "directfb                      "
 
 source "rules/directfb.in"
 source "rules/directfb-examples.in"

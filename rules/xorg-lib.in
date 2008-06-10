@@ -1,6 +1,6 @@
 # xorg lib configuration
 
-menu "xorg libs             "
+menu "xorg libs                     "
 
 source "rules/pixman.in"
 source "rules/libpthread-stubs.in"

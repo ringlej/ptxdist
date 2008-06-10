@@ -1,11 +1,11 @@
 menu "C library                     "
 
 choice
-	prompt "c library"
+	prompt "c library            "
 
 	config GLIBC
 		bool
-		prompt "glibc"
+		prompt "glibc "
 		help
 		  This menu entry lets you select components from the standard
 		  C library called glibc. It depends on the system what components are

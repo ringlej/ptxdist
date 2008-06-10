@@ -1,5 +1,5 @@
 config LTP_NETWORK
 	tristate
 	select LTP_BASE
-	prompt "network             "
+	prompt "network                       "
 

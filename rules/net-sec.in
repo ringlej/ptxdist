@@ -1,4 +1,4 @@
-menu	"Network Security    "
+menu	"Network Security              "
 
 source "rules/shorewall.in"
 

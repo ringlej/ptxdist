@@ -59,7 +59,7 @@ config CHRONY_INSTALL_CHRONY_STAT
 menuconfig CHRONY_INSTALL_CONFIG
 	bool
 	default y
-	prompt "Install chrony config files   "
+	prompt "Install chrony config files "
 	help
 	  Install /etc/chrony/chrony.conf and /etc/chrony/chony.keys
 	  from a selectable source.
@@ -106,7 +106,7 @@ config CHRONY_DEFAULT_NTP_SERVER
 menuconfig ROOTFS_ETC_INITD_CHRONY
 	bool
 	default y
-	prompt "Install startup script        "
+	prompt "Install startup script      "
 	help
 	  The /etc/init.d/chrony script lets you control the chronyd daemon.
 

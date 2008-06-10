@@ -54,7 +54,7 @@ source "rules/xorg-font-cronyx-cyrillic.in"
 source "rules/xorg-font-screen-cyrillic.in"
 source "rules/xorg-font-winitzki-cyrillic.in"
 
-comment "other language fonts    "
+comment "other language fonts          "
 source "rules/xorg-font-arabic-misc.in"
 source "rules/xorg-font-misc-ethiopic.in"
 source "rules/xorg-font-misc-meltho.in"

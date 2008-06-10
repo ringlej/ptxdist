@@ -8,7 +8,7 @@ menu "config files                  "
 menuconfig ROOTFS_PASSWD
 	depends on ROOTFS
 	bool
-	prompt "/etc/passwd                 "
+	prompt "/etc/passwd                   "
 	default y
 	help
 	  Installs a /etc/passwd file from a selectable source.
@@ -42,7 +42,7 @@ menuconfig ROOTFS_PASSWD
 menuconfig ROOTFS_SHADOW
 	depends on ROOTFS
 	bool
-	prompt "/etc/shadow, /etc/shadow-   "
+	prompt "/etc/shadow, /etc/shadow-     "
 	default y
 	help
 	  Installs a /etc/shadow and /etc/shadow- file from a selectable source.
@@ -74,7 +74,7 @@ menuconfig ROOTFS_SHADOW
 menuconfig ROOTFS_GROUP
 	depends on ROOTFS
 	bool
-	prompt "/etc/group, /etc/gshadow    "
+	prompt "/etc/group, /etc/gshadow      "
 	default y
 	help
 	  Installs a /etc/group and /etc/gshadow file from a selectable source.
@@ -105,7 +105,7 @@ menuconfig ROOTFS_GROUP
 menuconfig ROOTFS_FSTAB
 	depends on ROOTFS
 	bool
-	prompt "/etc/fstab                  "
+	prompt "/etc/fstab                    "
 	default y
 	help
 	  Installs a /etc/fstab file from a selectable source.
@@ -136,7 +136,7 @@ menuconfig ROOTFS_FSTAB
 menuconfig ROOTFS_MTAB
 	depends on ROOTFS
 	bool
-	prompt "/etc/mtab                   "
+	prompt "/etc/mtab                     "
 	default y
 	help
 	  Installs a /etc/mtab file from a selectable source.
@@ -171,7 +171,7 @@ menuconfig ROOTFS_MTAB
 menuconfig ROOTFS_HOSTNAME
 	depends on ROOTFS
 	bool
-	prompt "/etc/hostname               "
+	prompt "/etc/hostname                 "
 	default y
 	help
 	  Installs a generic /etc/hostname file.
@@ -210,7 +210,7 @@ menuconfig ROOTFS_HOSTNAME
 menuconfig ROOTFS_HOSTS
 	depends on ROOTFS
 	bool
-	prompt "/etc/hosts                  "
+	prompt "/etc/hosts                    "
 	default y
 	help
 	  Installs a /etc/hosts file from a selectable source.
@@ -243,7 +243,7 @@ menuconfig ROOTFS_INITTAB
 	depends on ROOTFS
 	select BB_CONFIG_GETTY if BUSYBOX
 	bool
-	prompt "/etc/inittab                "
+	prompt "/etc/inittab                  "
 	default y
 	help
 	  Installs a /etc/inittab file from a selectable source.
@@ -277,7 +277,7 @@ menuconfig ROOTFS_INITTAB
 menuconfig ROOTFS_NSSWITCH
 	depends on ROOTFS
 	bool
-	prompt "/etc/nsswitch.conf          "
+	prompt "/etc/nsswitch.conf            "
 	default y
 	help
 	  Installs a /etc/nsswitch.conf file from a selectable source.
@@ -329,7 +329,7 @@ config ROOTFS_RESOLV
 menuconfig ROOTFS_PROFILE
 	depends on ROOTFS
 	bool
-	prompt "/etc/profile                "
+	prompt "/etc/profile                  "
 	default y
 	help
 	  Installs a generic /etc/profile file.
@@ -362,7 +362,7 @@ menuconfig ROOTFS_PROFILE
 menuconfig ROOTFS_PROTOCOLS
 	depends on ROOTFS
 	bool
-	prompt "/etc/protocols              "
+	prompt "/etc/protocols                "
 	default y
 	help
 	  Installs a /etc/protocols file from a selectable source.
@@ -399,7 +399,7 @@ menuconfig ROOTFS_INETD
 	depends on ROOTFS
 	depends on BB_CONFIG_INETD || INETUTILS_INETD
 	bool
-	prompt "/etc/inetd.conf             "
+	prompt "/etc/inetd.conf               "
 	default y
 	help
 	  Installs a /etc/inetd.conf file from a selectable source.
@@ -453,7 +453,7 @@ menuconfig ROOTFS_UDHCPC
 	depends on BB_CONFIG_APP_UDHCPC
 	select BB_CONFIG_IFCONFIG
 	bool
-	prompt "/etc/udhcpc.script          "
+	prompt "/etc/udhcpc.script            "
 	default y
 	help
 	  Installs a /etc/udhcpc.script file from a selectable source.

@@ -1,6 +1,6 @@
 menuconfig GWT
 	tristate
-	prompt "gwt"
+	prompt "gwt                           "
 	select GTK
 	select GTKMM if GWT_GWTMM
 

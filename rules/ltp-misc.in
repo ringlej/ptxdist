@@ -1,7 +1,7 @@
 config LTP_MISC
 	tristate
 	select LTP_BASE
-	prompt "misc                "
+	prompt "misc                          "
 
 # Math -----------------------------------------------------------------------
 

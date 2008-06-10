@@ -1,7 +1,7 @@
 menuconfig FBUTILS
 	tristate
 	select GCCLIBS_CXX
-	prompt "fbutils               "
+	prompt "fbutils                       "
 	help
 	  Utilities and support for framebuffer devices
 

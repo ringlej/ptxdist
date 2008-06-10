@@ -12,7 +12,7 @@ comment "build options   ---"
 	depends on MC
 
 choice
-	prompt "Kind of MMI"
+	prompt "Kind of MMI "
 	default MC_USES_NO_PREFERENCE
 	depends on MC
 
@@ -22,12 +22,12 @@ config MC_USES_NO_PREFERENCE
 	  Build midnight commander without any external library preference
 
 config MC_USES_NCURSES
-	bool "Use ncurses"
+	bool "Use ncurses  "
 	help
 	  Build midnight commander with ncurses
 
 config MC_USES_SLANG
-	bool "Use slang"
+	bool "Use slang    "
 	help
 	  Build midnight commander with slang
 

@@ -1,4 +1,4 @@
-menu "glibc"
+menu "glibc                         "
 
 config GLIBC_VERSION
 	prompt "glibc Version"
@@ -178,7 +178,7 @@ config GLIBC_I18N_RAWDATA
 	  often. Hence we recommend to use the "System locale" option in
 	  ptxdist to determine locales while building the system.
 
-menu "Install gconv libraries"
+menu "Install gconv libraries       "
 
 config GLIBC_GCONV_DEF
 	bool

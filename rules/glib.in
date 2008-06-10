@@ -14,7 +14,7 @@ menuconfig GLIB
 if GLIB
 
 choice
-	prompt "iconv variant"
+	prompt "iconv variant  "
 	default GLIB__LIBICONV_GNU
 
 	config GLIB__LIBICONV_GNU
@@ -23,7 +23,7 @@ choice
 
 	config GLIB__LIBICONV_NATIVE
 		bool
-		prompt "native"
+		prompt "native        "
 
 endchoice
 
@@ -33,15 +33,15 @@ choice
 
 	config GLIB__GETTEXT_NONE
 		bool
-		prompt "not needed"
+		prompt "not needed    "
 
 	config GLIB__GETTEXT_GETTEXT
 		bool
-		prompt "gnu (gettext)"
+		prompt "gnu (gettext) "
 
 	config GLIB__GETTEXT_DUMMY
 		bool
-		prompt "dummy"
+		prompt "dummy         "
 
 endchoice
 

@@ -23,21 +23,21 @@ config LESS_BIN
 	bool
 	default y
 	depends on !BB_CONFIG_LESS
-	prompt "install less pager      "
+	prompt "install less pager            "
 	help
 	  less - a pager
 
 config LESS_KEY
 	bool
 	depends on !BB_CONFIG_LESS
-	prompt "install lesskey      "
+	prompt "install lesskey               "
 	help
 	  lesskey - specify key bindings for less
 
 config LESS_ECHO
 	bool
 	depends on !BB_CONFIG_LESS
-	prompt "install lessecho     "
+	prompt "install lessecho              "
 	help
 	  lessecho - expand metacharacters
 

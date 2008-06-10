@@ -1,6 +1,6 @@
 menuconfig SSMTP
 	tristate
-	prompt "ssmtp [BROKEN]      "
+	prompt "ssmtp [BROKEN]                "
 	depends on BROKEN
 	select OPENSSL
 	help

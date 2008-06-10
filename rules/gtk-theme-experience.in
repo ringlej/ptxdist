@@ -27,7 +27,7 @@ choice
 	prompt "default theme"
 
 	config GTK_DEFAULT_NONE
-		bool "none  "
+		bool "none                          "
 
 	config GTK_DEFAULT_THEME_EXPERIENCE_PLAIN
 		bool "eXperience (plain)"

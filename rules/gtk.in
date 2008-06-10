@@ -26,7 +26,7 @@ config GTK
 
 if GTK
 
-menu "graphic loaders       "
+menu "graphic loaders             "
 
 config GTK_LOADER_PNG
 	bool
@@ -84,24 +84,24 @@ config GTK_LOADER_PCX
 endmenu
 
 choice
-	prompt "gdk-target"
+	prompt "gdk-target       "
 
 	config GTK_TARGET_X11
-		bool "X11      "
+		bool "X11     "
 		select CAIRO_XLIB
 		select CAIRO_PS
 
 	config GTK_TARGET_DIRECTFB
-		bool "directfb "
+		bool "directfb"
 		select CAIRO_DIRECTFB
 		select CAIRO_PS
 
 	config GTK_TARGET_WIN32
-		bool "Win32    "
+		bool "Win32   "
 		select CAIRO_WIN32
 
 	config GTK_TARGET_HOST_X11
-		bool "host X11 "
+		bool "host X11"
 		select CAIRO_XLIB
 		select CAIRO_PS
 

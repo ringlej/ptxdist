@@ -17,13 +17,13 @@ comment "build options   ---"
 	depends on MAD
 
 choice
-	prompt "Optimize for "
+	prompt "Optimize for     "
 	default MAD_OPT_SPEED
 	depends on MAD
 
 	config MAD_OPT_SPEED
 		bool
-		prompt "speed"
+		prompt "speed   "
 		help
 		 optimize for speed over accuracy
 

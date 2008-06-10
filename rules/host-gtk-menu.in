@@ -1,4 +1,4 @@
-menu "GTK+ and friends        "
+menu "GTK+ and friends              "
 
 source "rules/host-gtk.in"
 source "rules/host-glib.in"
