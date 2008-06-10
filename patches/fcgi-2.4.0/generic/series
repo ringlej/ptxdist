@@ -1,0 +1,3 @@
+fix-buildsystem.diff
+prepare-for-new-autotools.diff
+autoreconf.diff
