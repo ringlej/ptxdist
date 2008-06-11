@@ -58,7 +58,7 @@ $(STATEDIR)/libgd.extract: $(libgd_extract_deps_default)
 
 libgd_prepare: $(STATEDIR)/libgd.prepare
 
-LIBGD_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
+LIBGD_PATH	=  PATH=$(CROSS_PATH)
 LIBGD_ENV 	=  $(CROSS_ENV)
 
 
