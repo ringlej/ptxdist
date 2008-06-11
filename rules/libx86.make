@@ -54,8 +54,16 @@ $(STATEDIR)/libx86.extract:
 LIBX86_PATH	:= PATH=$(CROSS_PATH)
 LIBX86_ENV 	:= $(CROSS_ENV)
 
-ifndef ARCH_X86
+# enable build un supported platforms only
+ifdef ARCH_X86
+LIBX86_BUILD = 1
+else
+# use emulator on non x86 architectures
 LIBX86_ENV += BACKEND=x86emu
+
+ifdef ARCH_PPC
+LIBX86_BUILD = 1
+endif
 endif
 
 #
@@ -77,7 +85,9 @@ $(STATEDIR)/libx86.prepare:
 
 $(STATEDIR)/libx86.compile:
 	@$(call targetinfo, $@)
+ifdef LIBX86_BUILD
 	cd $(LIBX86_DIR) && $(LIBX86_ENV) $(LIBX86_PATH) $(MAKE) $(PARALLELMFLAGS)
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -86,7 +96,9 @@ $(STATEDIR)/libx86.compile:
 
 $(STATEDIR)/libx86.install:
 	@$(call targetinfo, $@)
+ifdef LIBX86_BUILD
 	@$(call install, LIBX86)
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -96,6 +108,7 @@ $(STATEDIR)/libx86.install:
 $(STATEDIR)/libx86.targetinstall:
 	@$(call targetinfo, $@)
 
+ifdef LIBX86_BUILD
 	@$(call install_init, libx86)
 	@$(call install_fixup, libx86,PACKAGE,libx86)
 	@$(call install_fixup, libx86,PRIORITY,optional)
@@ -109,6 +122,7 @@ $(STATEDIR)/libx86.targetinstall:
 	@$(call install_link, libx86, libx86.so.1, /usr/lib/libx86.so)
 
 	@$(call install_finish, libx86)
+endif
 
 	@$(call touch, $@)
 
