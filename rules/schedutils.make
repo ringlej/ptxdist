@@ -61,6 +61,12 @@ schedutils_prepare: $(STATEDIR)/schedutils.prepare
 SCHEDUTILS_PATH	:=  PATH=$(CROSS_PATH)
 SCHEDUTILS_ENV 	:=  $(CROSS_ENV)
 
+# This will overwrite the CFLAGS defined in the Makefile
+# "-O2" is the only relevant option specified there.
+ifdef PTXCONF_ARCH_PPC
+SCHEDUTILS_ENV += CFLAGS='$(CROSS_CFLAGS) -D__ppc__ -O2'
+endif
+
 #
 # autoconf
 #
