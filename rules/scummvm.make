@@ -53,6 +53,9 @@ $(STATEDIR)/scummvm.prepare:
 		./configure $(SCUMMVM_AUTOCONF)
 	@$(call touch)
 
+# as is not detected is configure
+SCUMMVM_MAKEVARS := AS=$(CROSS_AS)
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
