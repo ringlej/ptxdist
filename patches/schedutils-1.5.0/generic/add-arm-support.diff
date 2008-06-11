@@ -1,0 +1,18 @@
+---
+ ionice.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+Index: b/ionice.c
+===================================================================
+--- a/ionice.c
++++ b/ionice.c
+@@ -44,6 +44,9 @@
+ #elif defined(__ia64__)
+ # define __NR_ioprio_set	1274
+ # define __NR_ioprio_get	1275
++#elif defined(__arm__)
++# define __NR_ioprio_set	(__NR_SYSCALL_BASE+314)
++# define __NR_ioprio_get	(__NR_SYSCALL_BASE+315)
+ #else
+ # error "Unsupported archiecture!"
+ #endif
