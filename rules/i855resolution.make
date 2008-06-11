@@ -46,9 +46,11 @@ i855resolution_extract: $(STATEDIR)/i855resolution.extract
 
 $(STATEDIR)/i855resolution.extract: $(i855resolution_extract_deps_default)
 	@$(call targetinfo, $@)
+ifdef ARCH_X86
 	@$(call clean, $(I855RESOLUTION_DIR))
 	@$(call extract, I855RESOLUTION)
 	@$(call patchin, I855RESOLUTION)
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -67,7 +69,9 @@ I855RESOLUTION_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/i855resolution.prepare: $(i855resolution_prepare_deps_default)
 	@$(call targetinfo, $@)
+ifdef ARCH_X86
 	cd $(I855RESOLUTION_DIR) && $(I855RESOLUTION_PATH) make clean
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -78,7 +82,9 @@ i855resolution_compile: $(STATEDIR)/i855resolution.compile
 
 $(STATEDIR)/i855resolution.compile: $(i855resolution_compile_deps_default)
 	@$(call targetinfo, $@)
+ifdef ARCH_X86
 	cd $(I855RESOLUTION_DIR) && $(I855RESOLUTION_ENV) $(I855RESOLUTION_PATH) make
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -100,6 +106,7 @@ i855resolution_targetinstall: $(STATEDIR)/i855resolution.targetinstall
 $(STATEDIR)/i855resolution.targetinstall: $(i855resolution_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
+ifdef ARCH_X86
 	@$(call install_init, i855resolution)
 	@$(call install_fixup,i855resolution,PACKAGE,i855resolution)
 	@$(call install_fixup,i855resolution,PRIORITY,optional)
@@ -112,6 +119,7 @@ $(STATEDIR)/i855resolution.targetinstall: $(i855resolution_targetinstall_deps_de
 	@$(call install_copy, i855resolution, 0, 0, 0755, $(I855RESOLUTION_DIR)/855resolution, /usr/sbin/855resolution)
 
 	@$(call install_finish,i855resolution)
+endif
 
 	@$(call touch, $@)
 
