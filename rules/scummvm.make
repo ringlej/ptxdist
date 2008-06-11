@@ -56,6 +56,10 @@ $(STATEDIR)/scummvm.prepare:
 # as is not detected is configure
 SCUMMVM_MAKEVARS := AS=$(CROSS_AS)
 
+$(STATEDIR)/scummvm.install:
+	@$(call targetinfo)
+	@$(call touch)
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
