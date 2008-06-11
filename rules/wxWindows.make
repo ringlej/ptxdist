@@ -61,7 +61,7 @@ $(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps_default)
 
 wxWindows_prepare: $(STATEDIR)/wxWindows.prepare
 
-WXWINDOWS_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
+WXWINDOWS_PATH	=  PATH=$(CROSS_PATH)
 WXWINDOWS_ENV 	=  $(CROSS_ENV)
 
 

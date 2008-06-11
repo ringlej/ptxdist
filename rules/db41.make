@@ -58,7 +58,7 @@ $(STATEDIR)/db41.extract: $(db41_extract_deps_default)
 
 db41_prepare: $(STATEDIR)/db41.prepare
 
-DB41_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
+DB41_PATH	=  PATH=$(CROSS_PATH)
 DB41_ENV 	=  $(CROSS_ENV)
 
 #

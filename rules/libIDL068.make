@@ -61,7 +61,7 @@ $(STATEDIR)/libidl068.extract: $(libidl068_extract_deps_default)
 
 libidl068_prepare: $(STATEDIR)/libidl068.prepare
 
-LIBIDL068_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
+LIBIDL068_PATH	=  PATH=$(CROSS_PATH)
 LIBIDL068_ENV 	=  $(CROSS_ENV)
 
 #

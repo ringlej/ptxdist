@@ -58,7 +58,7 @@ $(STATEDIR)/pcmcia-cs.extract: $(pcmcia-cs_extract_deps_default)
 
 pcmcia-cs_prepare: $(STATEDIR)/pcmcia-cs.prepare
 
-PCMCIA-CS_PATH	=  PATH=$(SYSROOT)/bin:$(CROSS_PATH)
+PCMCIA-CS_PATH	=  PATH=$(CROSS_PATH)
 PCMCIA-CS_ENV 	=  $(CROSS_ENV)
 
 PCMCIA-CS_CONF	=  --noprompt \
