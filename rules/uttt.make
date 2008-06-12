@@ -19,33 +19,18 @@ PACKAGES-$(PTXCONF_UTTT) += uttt
 #
 UTTT_VERSION	:= 0.11.0
 UTTT		:= uttt-$(UTTT_VERSION)
-UTTT_SUFFIX		:= tar.gz
-UTTT_URL		:= http://mesh.dl.sourceforge.net/sourceforge/ttt//$(UTTT).$(UTTT_SUFFIX)
-UTTT_SOURCE		:= $(SRCDIR)/$(UTTT).$(UTTT_SUFFIX)
-UTTT_DIR		:= $(BUILDDIR)/$(UTTT)
+UTTT_SUFFIX	:= tar.gz
+UTTT_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/ttt/$(UTTT).$(UTTT_SUFFIX)
+UTTT_SOURCE	:= $(SRCDIR)/$(UTTT).$(UTTT_SUFFIX)
+UTTT_DIR	:= $(BUILDDIR)/$(UTTT)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/uttt.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(UTTT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, UTTT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uttt.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(UTTT_DIR))
-	@$(call extract, UTTT)
-	@$(call patchin, UTTT)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -59,38 +44,12 @@ UTTT_ENV 	:= $(CROSS_ENV)
 #
 UTTT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/uttt.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(UTTT_DIR)/config.cache)
-	cd $(UTTT_DIR) && \
-		$(UTTT_PATH) $(UTTT_ENV) \
-		./configure $(UTTT_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uttt.compile:
-	@$(call targetinfo, $@)
-	cd $(UTTT_DIR) && $(UTTT_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uttt.install:
-	@$(call targetinfo, $@)
-	@$(call install, UTTT)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/uttt.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, uttt)
 	@$(call install_fixup, uttt,PACKAGE,uttt)
@@ -108,9 +67,10 @@ endif
 ifdef PTXCONF_UTTT_CONNECT4
 	@$(call install_copy, uttt, 0, 0, 0755, $(UTTT_DIR)/src/connect4, /usr/bin/connect4)
 endif
+
 	@$(call install_finish, uttt)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
@@ -118,7 +78,7 @@ endif
 
 uttt_clean:
 	rm -rf $(STATEDIR)/uttt.*
-	rm -rf $(IMAGEDIR)/uttt_*
+	rm -rf $(PKGDIR)/uttt_*
 	rm -rf $(UTTT_DIR)
 
 # vim: syntax=make
