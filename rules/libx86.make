@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
-# Copyright (C) 2008 by 
+# Copyright (C) 2008 by mol@pengutronix.de
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -21,7 +21,7 @@ PACKAGES-$(PTXCONF_ARCH_PPC)-$(PTXCONF_LIBX86) += libx86
 LIBX86_VERSION		:= 1.1
 LIBX86			:= libx86-$(LIBX86_VERSION)
 LIBX86_SUFFIX		:= tar.gz
-LIBX86_URL		:= http://www.codon.org.uk/~mjg59/libx86/downloads//$(LIBX86).$(LIBX86_SUFFIX)
+LIBX86_URL		:= http://www.codon.org.uk/~mjg59/libx86/downloads/$(LIBX86).$(LIBX86_SUFFIX)
 LIBX86_SOURCE		:= $(SRCDIR)/$(LIBX86).$(LIBX86_SUFFIX)
 LIBX86_DIR		:= $(BUILDDIR)/$(LIBX86)
 
@@ -29,24 +29,9 @@ LIBX86_DIR		:= $(BUILDDIR)/$(LIBX86)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/libx86.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBX86_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBX86)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libx86.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBX86_DIR))
-	@$(call extract, LIBX86)
-	@$(call patchin, LIBX86)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -55,48 +40,39 @@ $(STATEDIR)/libx86.extract:
 LIBX86_PATH	:= PATH=$(CROSS_PATH)
 LIBX86_ENV 	:= $(CROSS_ENV)
 
-ifndef ARCH_X86
 # use emulator on non x86 architectures
+ifndef PTXCONF_ARCH_X86
 LIBX86_ENV += BACKEND=x86emu
 endif
 
-#
-# autoconf
-#
-LIBX86_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
 $(STATEDIR)/libx86.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBX86_DIR)/config.cache)
-#	cd $(LIBX86_DIR) && \
-#		$(LIBX86_PATH) $(LIBX86_ENV) \
-#		./configure $(LIBX86_AUTOCONF)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/libx86.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(LIBX86_DIR) && $(LIBX86_ENV) $(LIBX86_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/libx86.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install, LIBX86)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/libx86.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, libx86)
 	@$(call install_fixup, libx86,PACKAGE,libx86)
@@ -112,7 +88,7 @@ $(STATEDIR)/libx86.targetinstall:
 
 	@$(call install_finish, libx86)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
