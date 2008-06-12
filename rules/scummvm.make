@@ -88,7 +88,7 @@ $(STATEDIR)/scummvm.targetinstall:
 
 scummvm_clean:
 	rm -rf $(STATEDIR)/scummvm.*
-	rm -rf $(IMAGEDIR)/scummvm_*
+	rm -rf $(PKGDIR)/scummvm_*
 	rm -rf $(SCUMMVM_DIR)
 
 # vim: syntax=make
