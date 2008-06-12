@@ -79,7 +79,7 @@ $(STATEDIR)/sdl_mixer.targetinstall:
 
 sdl_mixer_clean:
 	rm -rf $(STATEDIR)/sdl_mixer.*
-	rm -rf $(IMAGEDIR)/sdl_mixer_*
+	rm -rf $(PKGDIR)/sdl_mixer_*
 	rm -rf $(SDL_MIXER_DIR)
 
 # vim: syntax=make
