@@ -115,7 +115,7 @@ $(STATEDIR)/@packet@.targetinstall:
 
 @packet@_clean:
 	rm -rf $(STATEDIR)/@packet@.*
-	rm -rf $(IMAGEDIR)/@packet@_*
+	rm -rf $(PKGDIR)/@packet@_*
 	rm -rf $(@PACKET@_DIR)
 
 # vim: syntax=make
