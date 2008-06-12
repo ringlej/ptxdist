@@ -1,5 +1,5 @@
 config EXPAT
-	bool
+	tristate
 	prompt "expat XML parser library"
 	help
 	  This is an XML parsing library, written in C
