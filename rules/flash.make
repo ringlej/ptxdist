@@ -148,7 +148,7 @@ $(STATEDIR)/flash.targetinstall: $(flash_targetinstall_deps_default)
 
 flash_clean:
 	rm -fr $(STATEDIR)/flash.*
-	rm -fr $(IMAGEDIR)/flash_*
+	rm -fr $(PKGDIR)/flash_*
 	rm -fr $(FLASH_DIR)
 
 # vim: syntax=make
