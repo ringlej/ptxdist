@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_MPLAYER) += mplayer
+PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_MPLAYER) += mplayer
 
 #
 # Paths and names

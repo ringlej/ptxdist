@@ -12,7 +12,8 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_USPLASH) += usplash
+PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_USPLASH) += usplash
+PACKAGES-$(PTXCONF_ARCH_PPC)-$(PTXCONF_USPLASH) += usplash
 
 #
 # Paths and names
@@ -70,13 +71,10 @@ USPLASH_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 
 $(STATEDIR)/usplash.prepare:
 	@$(call targetinfo, $@)
-# LIBX86_BUILD is not built on all architectures
-ifdef LIBX86_BUILD
 	@$(call clean, $(USPLASH_DIR)/config.cache)
 	cd $(USPLASH_DIR) && \
 		$(USPLASH_PATH) $(USPLASH_ENV) \
 		sh ./configure $(USPLASH_AUTOCONF)
-endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -87,12 +85,10 @@ usplash_compile: $(STATEDIR)/usplash.compile
 
 $(STATEDIR)/usplash.compile:
 	@$(call targetinfo, $@)
-ifdef LIBX86_BUILD
 	cd $(USPLASH_DIR) && \
 		$(USPLASH_ENV) $(USPLASH_PATH) \
 		$(MAKE) \
 		$(PARALLELMFLAGS_BROKEN)
-endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -103,9 +99,7 @@ usplash_install: $(STATEDIR)/usplash.install
 
 $(STATEDIR)/usplash.install:
 	@$(call targetinfo, $@)
-ifdef LIBX86_BUILD
 	@$(call install, USPLASH)
-endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -117,7 +111,6 @@ usplash_targetinstall: $(STATEDIR)/usplash.targetinstall
 $(STATEDIR)/usplash.targetinstall:
 	@$(call targetinfo, $@)
 
-ifdef LIBX86_BUILD
 	@$(call install_init, usplash)
 	@$(call install_fixup, usplash,PACKAGE,usplash)
 	@$(call install_fixup, usplash,PRIORITY,optional)
@@ -135,7 +128,6 @@ ifdef LIBX86_BUILD
 	@$(call install_link, usplash, /lib/libusplash.so.0, /lib/libusplash.so)
 
 	@$(call install_finish, usplash)
-endif
 
 	@$(call touch, $@)
 

@@ -11,9 +11,7 @@
 #
 # We provide this package
 #
-ifdef PTXCONF_ARCH_X86
-PACKAGES-$(PTXCONF_GRUB) += grub
-endif
+PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_GRUB) += grub
 
 #
 # Paths and names

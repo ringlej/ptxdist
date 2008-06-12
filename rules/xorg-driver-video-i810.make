@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_DRIVER_VIDEO_I810) += xorg-driver-video-i810
+PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_XORG_DRIVER_VIDEO_I810) += xorg-driver-video-i810
 
 #
 # Paths and names
