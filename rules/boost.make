@@ -28,28 +28,9 @@ BOOST_DIR	:= $(BUILDDIR)/$(BOOST)
 # Get
 # ----------------------------------------------------------------------------
 
-boost_get: $(STATEDIR)/boost.get
-
-$(STATEDIR)/boost.get: $(boost_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(BOOST_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, BOOST)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-boost_extract: $(STATEDIR)/boost.extract
-
-$(STATEDIR)/boost.extract: $(boost_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(BOOST_DIR))
-	@$(call extract, BOOST)
-	@$(call patchin, BOOST)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -79,6 +60,7 @@ BOOST_JAM	:= \
 # goes for all libraries. We start at least with date_time lib here to avoid
 # this
 BOOST_LIBRARIES	:= date_time
+
 ifdef PTXCONF_BOOST_FILESYSTEM
 BOOST_LIBRARIES += filesystem
 endif
@@ -110,50 +92,35 @@ ifdef PTXCONF_BOOST_GRAPH
 BOOST_LIBRARIES += graph
 endif
 
-BOOST_CONF	:= \
+BOOST_CONF := \
 	--with-bjam="$(BOOST_JAM)" \
 	--prefix="$(SYSROOT)/usr" \
 	--with-libraries="$(subst $(space),$(comma),$(BOOST_LIBRARIES))" \
-	--without-icu 
+	--without-icu
 
 $(STATEDIR)/boost.prepare: $(boost_prepare_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@cd $(BOOST_DIR)/tools/jam/src && \
 		sh build.sh gcc && mv bin.*/bjam .; \
 	cd $(BOOST_DIR) && \
 		$(BOOST_PATH) \
 		./configure $(BOOST_CONF); \
 		echo "using gcc : `PATH=$(CROSS_PATH) $(PTXCONF_COMPILER_PREFIX)g++ -dumpversion` : $(PTXCONF_COMPILER_PREFIX)g++ ;" > $(BOOST_DIR)/user-config.jam
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-boost_compile: $(STATEDIR)/boost.compile
-
-$(STATEDIR)/boost.compile: $(boost_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(BOOST_DIR) && PATH=$(CROSS_PATH) $(MAKE)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-boost_install: $(STATEDIR)/boost.install
-
-$(STATEDIR)/boost.install: $(boost_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/boost.install:
+	@$(call targetinfo)
 	@$(call install, BOOST)
 	@find $(SYSROOT) -name boost -type d -exec cp -a {} $(SYSROOT)/usr/include \;;
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-boost_targetinstall: $(STATEDIR)/boost.targetinstall
 
 # date_time is append to libraries list as minimum, however we only install it
 # to target if it is really selected
@@ -163,8 +130,8 @@ else
 BOOST_INST_LIBRARIES := $(BOOST_LIBRARIES)
 endif
 
-$(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/boost.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, boost)
 	@$(call install_fixup,boost,PACKAGE,boost)
@@ -174,12 +141,11 @@ $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 	@$(call install_fixup,boost,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,boost,DEPENDS,)
 	@$(call install_fixup,boost,DESCRIPTION,missing)
-	
+
 # iterate for selected libraries
 # trim whitespaces added by make and go for single .so files depending on which
 # kind of binaries we want to install
-	@echo blub $(BOOST_INST_LIBRARIES) blob  $(BOOST_LIBRARIES); \
-	for BOOST_LIB in $(BOOST_INST_LIBRARIES); do \
+	@for BOOST_LIB in $(BOOST_INST_LIBRARIES); do \
 		read BOOST_LIB <<< $$BOOST_LIB; \
 		if [ ! -z $(PTXCONF_BOOST_INST_NOMT_DBG) ]; then \
 			for SO_FILE in `find $(BOOST_DIR)/bin.v2/libs/$$BOOST_LIB/ \
@@ -188,7 +154,7 @@ $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 					/usr/lib/$$(basename $$SO_FILE)); \
 			        $(call install_link, boost, \
 		                	$$(basename $$SO_FILE), \
-        		        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+			        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
 			done; \
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_NOMT_RED) ]; then \
@@ -198,7 +164,7 @@ $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 					/usr/lib/$$(basename $$SO_FILE)); \
 			        $(call install_link, boost, \
 		                	$$(basename $$SO_FILE), \
-        		        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+			        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
 			done; \
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_MT_DBG) ]; then \
@@ -208,7 +174,7 @@ $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 					/usr/lib/$$(basename $$SO_FILE)); \
 			        $(call install_link, boost, \
 		                	$$(basename $$SO_FILE), \
-        		        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+			        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
 			done; \
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_MT_RED) ]; then \
@@ -218,14 +184,14 @@ $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 					/usr/lib/$$(basename $$SO_FILE)); \
 			        $(call install_link, boost, \
 		                	$$(basename $$SO_FILE), \
-        		        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+			        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
 			done; \
 		fi; \
 	done
 
 	@$(call install_finish,boost)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
@@ -233,7 +199,7 @@ $(STATEDIR)/boost.targetinstall: $(boost_targetinstall_deps_default)
 
 boost_clean:
 	rm -rf $(STATEDIR)/boost.*
-	rm -rf $(IMAGEDIR)/boost_*
+	rm -rf $(PKGDIR)/boost_*
 	rm -rf $(BOOST_DIR)
 
 # vim: syntax=make
