@@ -60,9 +60,7 @@ $(STATEDIR)/dtc.install:
 
 $(STATEDIR)/dtc.targetinstall:
 	@$(call targetinfo)
-	$(PTXCONF_SYSROOT_HOST)/bin/dtc $(PTXCONF_DTC_EXTRA_ARGS) -I dts -O dtb \
-		$(PTXCONF_DTC_OFTREE_DTS) > $(IMAGEDIR)/oftree
-
+	$(PTXCONF_SYSROOT_HOST)/bin/dtc $(call remove_quotes,$(PTXCONF_DTC_EXTRA_ARGS)) -I dts -O dtb -o $(IMAGEDIR)/oftree $(PTXCONF_DTC_OFTREE_DTS) 
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
