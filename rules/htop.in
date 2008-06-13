@@ -1,0 +1,8 @@
+config HTOP
+	bool
+	select NCURSES
+	prompt "htop"
+	help
+	  htop is an interactive process viewer for Linux. It is a
+	  text-mode application (for console or X terminals).
+
