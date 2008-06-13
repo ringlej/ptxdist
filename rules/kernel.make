@@ -35,10 +35,10 @@ KERNEL			:= linux-$(KERNEL_VERSION)
 KERNEL_SUFFIX		:= tar.bz2
 KERNEL_TESTING		:= $(subst rc,testing/,$(findstring rc,$(KERNEL_VERSION)))
 
-ifeq (,$(PTXCONF_KERNEL_LOCAL_FLAG))
-KERNEL_URL		:= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL_TESTING)$(KERNEL).$(KERNEL_SUFFIX)
-else
+ifdef PTXCONF_KERNEL_LOCAL_FLAG
 KERNEL_URL		:= file://$(PTXCONF_SETUP_KERNELDIR_PREFIX)/$(KERNEL_VERSION)
+else
+KERNEL_URL		:= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL_TESTING)$(KERNEL).$(KERNEL_SUFFIX)
 endif
 
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
@@ -188,16 +188,7 @@ $(STATEDIR)/kernel.targetinstall:
 		exit 1;								\
 	fi
 
-#
-# install the ELF kernel image for debugging purpose
-# e.g. oprofile
-#
-ifdef PTXCONF_KERNEL_VMLINUX
-	$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_DIR)/vmlinux, /boot/vmlinux, n)
-endif
-
-
-ifdef PTXCONF_KERNEL_INSTALL
+ifneq ($(or $(PTXCONF_KERNEL_INSTALL),$(PTXCONF_KERNEL_VMLINUX)),)
 	@$(call install_init,  kernel)
 	@$(call install_fixup, kernel, PACKAGE, kernel)
 	@$(call install_fixup, kernel, PRIORITY,optional)
@@ -212,14 +203,22 @@ ifdef PTXCONF_KERNEL_INSTALL
 			$(call install_copy, kernel, 0, 0, 0644, $$i, /boot/$(KERNEL_IMAGE), n); \
 		fi;							\
 	done
+
+#
+# install the ELF kernel image for debugging purpose
+# e.g. oprofile
+#
+	@$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_DIR)/vmlinux, /boot/vmlinux, n)
+
 	@$(call install_finish, kernel)
 endif
 
+
 ifdef PTXCONF_KERNEL_MODULES_INSTALL
-	if test -e $(KERNEL_PKGDIR); then \
+	@if test -e $(KERNEL_PKGDIR); then \
 		rm -rf $(KERNEL_PKGDIR); \
 	fi
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
+	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
 		$(KERNEL_MAKEVARS) modules_install
 endif
 
