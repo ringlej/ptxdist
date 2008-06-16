@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Library for acctest acceptance tests done by ssh access to the target
 # to be sourced at beginning of tests/acctest bash script
 #
@@ -8,7 +10,7 @@
 # Choose the communication method: 'ssh' or 'rsh'
 SSH_COMMAND='rsh'
 
-LOGFILE="${PTXDIST_WORKSPACE}/test.log"
+LOGFILE="${PTXDIST_WORKSPACE}/test${PTXDIST_PLATFORMSUFFIX}.log"
 
 
 RED='\0033[1;31m'
@@ -57,7 +59,7 @@ remote() {
 		;;
 	'rsh')
 		echo "rsh -l root ${PTXCONF_BOARDSETUP_TARGETIP} $1" >> "$LOGFILE"
-		local stdoutret=$(rsh -l root ${PTXCONF_BOARDSETUP_TARGETIP} $1'; echo ret=$?') 2>> "$LOGFILE"
+		local stdoutret=$(rsh -l root ${PTXCONF_BOARDSETUP_TARGETIP} $*'; echo ret=$?') 2>> "$LOGFILE"
 		;;
 	*)
 		echo "Error: No or wrong remote-shell command defined in test script $0" >> "$LOGFILE"
@@ -65,7 +67,7 @@ remote() {
 	esac
 	local stdout=$(echo "$stdoutret" | head -n-1)
 	local retvalline=$(echo "$stdoutret" | tail -n1)
-	if [ ${retvalline:0:4} = "ret=" ]
+	if [ "${retvalline:0:4}" = "ret=" ]
 	then # The "ret=" is on a line of its own
 		local retvallinestdoutpart=""
 		local retvallineretpart=""
@@ -128,6 +130,7 @@ remote_file() {
 	*)
 		echo "Syntax error in test script $0" >> "$LOGFILE"
 		false
+		;;
 	esac
 }
 
