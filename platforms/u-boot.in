@@ -2,16 +2,25 @@ menuconfig U_BOOT
 	bool
 	prompt "U-Boot                        "
 
+if U_BOOT
+
 config U_BOOT_VERSION
 	string
-	depends on U_BOOT
 	default 1.2.0
 	prompt "U-Boot version"
 	help
 	  Enter the Uboot version you want to build. Usally something like "1.2.0"
 
+config U_BOOT_PROMPT
+	string
+	prompt "uboot prompt"
+	default "uboot> "
+	help
+	  Specify the uboot prompt here, be careful at this one. Wrong value can cause malfunction
+	  on the host side when using ptxdist's test and autosetup features.
+	  The value is used in regular expressions to communicate with the target via serial line.
+
 config U_BOOT_SERIES
-	depends on U_BOOT
 	prompt "patch series file"
 	string
 	default "series${PTXDIST_PLATFORMSUFFIX}"
@@ -24,9 +33,11 @@ config U_BOOT_SERIES
 
 config U_BOOT_CONFIG
 	string
-	depends on U_BOOT
 	prompt "U-Boot config target"
 	help
 	  The U-Boot make config target. Usually something like
 	  "yourbox_config". See Uboot's main Makefile for possible
 	  configuration targets.
+
+endif
+

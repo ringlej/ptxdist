@@ -14,6 +14,7 @@ DEBUG=
 PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/ptxconfig'
 PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/.platformconfig'
 PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/.toolchain'
+PTXDIST_BOARDSETUP_DEFAULT='${PTXDIST_WORKSPACE}/boardsetup/boardsetup'
 
 
 #
@@ -73,7 +74,7 @@ boardsetup() {
 		exit 1
 	fi
 
-	ptxd_kconfig "${PTXDIST_WORKSPACE}/boardsetup/boardsetup${PTXDIST_PLATFORMSUFFIX}" boardsetup_action true
+	ptxd_kconfig "${PTXDIST_BOARDSETUP}" boardsetup_action true
 }
 
 
@@ -939,6 +940,7 @@ parse_first()
 	PTXDIST_TOOLCHAIN="${PTXDIST_TOOLCHAIN_DEFAULT}"
 	PTXDIST_PLATFORMCONFIG="${PTXDIST_PLATFORMCONFIG_DEFAULT}"
 	PTXDIST_PTXCONFIG="${PTXDIST_PTXCONFIG_DEFAULT}"
+	PTXDIST_BOARDSETUP="${PTXDIST_BOARDSETUP_DEFAULT}"
 
 	PTXDIST_PTXCONFIG_SET=false
 	PTXDIST_PLATFORMCONFIG_SET=false
@@ -1090,6 +1092,7 @@ setup_libs() {
 # out: PTXDIST_PLATFORMDIR
 #      PTXDIST_PLATFORMSUFFIX
 #      PTXDIST_PLATFORMCONFIGDIR
+#      PTXDIST_BOARDSETUP_DEFAULT
 #      "*DIR"	correct directory definitions
 #
 setup_platform() {
@@ -1114,6 +1117,7 @@ setup_platform() {
 	fi
 
 	PTXDIST_PLATFORMCONFIGDIR="${cfg_dir}"
+	eval PTXDIST_BOARDSETUP="${PTXDIST_BOARDSETUP_DEFAULT}"
 }
 
 
@@ -1254,6 +1258,7 @@ export \
 	PTXDIST_TEMPDIR \
 	PTXDIST_PTXCONFIG \
 	PTXDIST_PLATFORMCONFIG \
+	PTXDIST_BOARDSETUP \
 	\
 	PTXDIST_WORKSPACE \
 	\
@@ -1608,24 +1613,21 @@ while [ $# -ne 0 ]; do
 				exit 0
 			fi
 
-			if [ -x "${PTXDIST_WORKSPACE}/tests/$1${PTXDIST_PLATFORMSUFFIX}" ]; then
-				echo
-				"${PTXDIST_WORKSPACE}/tests/$1${PTXDIST_PLATFORMSUFFIX}" > ${PTXDIST_PLATFORMDIR}/test.log
-				echo
-			elif [ -x "${PTXDIST_WORKSPACE}/tests/$1" ]; then
-				echo
-				"${PTXDIST_WORKSPACE}/tests/$1" > ${PTXDIST_PLATFORMDIR}/test.log
-				echo
-			elif [ -x "$PTXDIST_TOPDIR/tests/$1" ]; then
-				echo
-				"${PTXDIST_TOPDIR}/tests/$1" > ${PTXDIST_PLATFORMDIR}/test.log
-				echo
-			else
-				echo
-				echo "${PROMPT}error: test '$1' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
-				echo
-			fi
-			exit 0
+			for tst in \
+				"${PTXDIST_PLATFORMCONFIGDIR}/tests/${1}" \
+				"${PTXDIST_WORKSPACE}/tests/${1}" \
+				"${PTXDIST_TOPDIR}/tests/${1}" \
+				; do \
+				if [ -x "${tst}" ]; then
+					"${tst}" > "${PTXDIST_PLATFORMDIR}/test.log"
+					exit $?
+				fi
+			done
+
+			echo
+			echo "${PROMPT}error: test '$1' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
+			echo
+			exit 1
 			;;
 	toolchain)
 			check_nonstandard "toolchain"
