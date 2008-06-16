@@ -13,7 +13,6 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_LIBX86) += libx86
-PACKAGES-$(PTXCONF_ARCH_PPC)-$(PTXCONF_LIBX86) += libx86
 
 #
 # Paths and names
