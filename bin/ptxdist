@@ -547,18 +547,18 @@ Build Actions:
 Clean Actions:
 
   clean				cleanup build-host and build-cross dirs
-  distclean			cleanup everything
-  (clean images)		cleanup images directory
   clean root			cleanup root directory for target
-  (clean project)		cleanup project specific packages
-  (clean maintainer)		maintainerclean
+  distclean			cleanup everything
+
+Overwrite:
+
+  --ptxconfig			use sepcified ptxconfig
+  --platformconfig		use specified platformconfig
+  --toolchain			use specified toolchain
 
 Misc
 
   --version			print out ptxdist version
-
-  (svn up)			run "svn update" in topdir and project dir
-  (svn stat)			run "svn stat" in topdir and project dir
 
   test <testname>		run tests
 
