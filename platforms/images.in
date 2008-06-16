@@ -199,11 +199,12 @@ menuconfig IMAGE_JFFS2
 	  is smaller than partition's size. If not, garbage data in the remaining
 	  space could confuse the filesystem driver.
 
+if IMAGES_JFFS2
+
 config IMAGE_JFFS2_BLOCKSIZE
 	int
 	default -1
 	prompt "Erase Block Size"
-	depends on IMAGE_JFFS2
 	help
 	  Enter here the size of each (sector) block in target's flash device.
 	  The image must use the same blocksize as the real JFFS2 filesystem
@@ -213,12 +214,12 @@ config IMAGE_JFFS2_EXTRA_ARGS
 	string
 	default ""
 	prompt "extra arguments passed to mkfs.jffs2"
-	depends on IMAGE_JFFS2
 	help
 	  If needed you can add extra arguments for mkfs.jffs2 here
 	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt or
 	  -b to create a big endian filesystem on a little endian host)
 
+endif
 
 menuconfig IMAGE_UIMAGE
 	bool
