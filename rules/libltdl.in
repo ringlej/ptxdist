@@ -1,0 +1,7 @@
+config LIBLTDL
+	tristate
+	prompt "libltdl"
+	help
+	  A small library that aims at hiding the various difficulties
+	  of dlopening libraries from programmers.  It is a system
+	  independent dlopen wrapper for GNU libtool.
