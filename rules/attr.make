@@ -28,37 +28,28 @@ ATTR_DIR	:= $(BUILDDIR)/$(ATTR)
 # Get
 # ----------------------------------------------------------------------------
 
-attr_get: $(STATEDIR)/attr.get
-
-$(STATEDIR)/attr.get: $(attr_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(ATTR_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, ATTR)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-attr_extract: $(STATEDIR)/attr.extract
-
-$(STATEDIR)/attr.extract: $(attr_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/attr.extract:
+	@$(call targetinfo)
 	@$(call clean, $(ATTR_DIR))
 	@$(call extract, ATTR)
 	@$(call patchin, ATTR)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-attr_prepare: $(STATEDIR)/attr.prepare
-
 ATTR_PATH	:= PATH=$(CROSS_PATH)
-ATTR_ENV 	:= $(CROSS_ENV) \
+ATTR_ENV 	:= \
+	$(CROSS_ENV) \
 	LIBTOOL=$(PTXCONF_SYSROOT_CROSS)/bin/libtool
 
 #
@@ -72,44 +63,13 @@ else
 ATTR_AUTOCONF += --disable-gettext
 endif
 
-$(STATEDIR)/attr.prepare: $(attr_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(ATTR_DIR)/config.cache)
-	cd $(ATTR_DIR) && \
-		$(ATTR_PATH) $(ATTR_ENV) \
-		./configure $(ATTR_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-attr_compile: $(STATEDIR)/attr.compile
-
-$(STATEDIR)/attr.compile: $(attr_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(ATTR_DIR) && $(ATTR_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-attr_install: $(STATEDIR)/attr.install
-
-$(STATEDIR)/attr.install: $(attr_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, ATTR)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-attr_targetinstall: $(STATEDIR)/attr.targetinstall
-
-$(STATEDIR)/attr.targetinstall: $(attr_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/attr.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, attr)
 	@$(call install_fixup, attr,PACKAGE,attr)
@@ -126,7 +86,7 @@ $(STATEDIR)/attr.targetinstall: $(attr_targetinstall_deps_default)
 
 	@$(call install_finish, attr)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
