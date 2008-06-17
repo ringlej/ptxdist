@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# Library for acctest acceptance tests done by ssh access to the target
-# to be sourced at beginning of tests/acctest bash script
+# Library for acctest acceptance tests done by ssh/rsh access to the target
+# To be sourced at beginning of tests/acctest bash script
 #
 # 2007-08, 2008-06 jfr@pengutronix.de
 
-# needs bash
-
 # Choose the communication method: 'ssh' or 'rsh'
-SSH_COMMAND='rsh'
+SSH_COMMAND_DEFAULT='rsh'
+SSH_COMMAND=${SSH_COMMAND:-${SSH_COMMAND_DEFAULT}}
 
 LOGFILE="${PTXDIST_WORKSPACE}/test${PTXDIST_PLATFORMSUFFIX}.log"
 
@@ -54,17 +53,19 @@ result() {
 remote() {
 	case "$SSH_COMMAND" in
 	'ssh')
-		echo "ssh -q -o StrictHostKeyChecking=no -l root ${PTXCONF_BOARDSETUP_TARGETIP} $1" >> "$LOGFILE"
-		local stdoutret=$(ssh -l root ${PTXCONF_BOARDSETUP_TARGETIP} $1'; echo ret=$?') 2>> "$LOGFILE"
+		echo "ssh -q -o StrictHostKeyChecking=no -l root ${PTXCONF_BOARDSETUP_TARGETIP} \"$1\"" >> "$LOGFILE"
+		local stdoutret=$(ssh -l root ${PTXCONF_BOARDSETUP_TARGETIP} "$1"'; echo ret=$?') 2>> "$LOGFILE"
 		;;
 	'rsh')
-		echo "rsh -l root ${PTXCONF_BOARDSETUP_TARGETIP} $1" >> "$LOGFILE"
-		local stdoutret=$(rsh -l root ${PTXCONF_BOARDSETUP_TARGETIP} $*'; echo ret=$?') 2>> "$LOGFILE"
+		echo "rsh -l root ${PTXCONF_BOARDSETUP_TARGETIP} \"$1\"" >> "$LOGFILE"
+		local stdoutret=$(rsh -l root ${PTXCONF_BOARDSETUP_TARGETIP} "$1"'; echo ret=$?') 2>> "$LOGFILE"
 		;;
 	*)
 		echo "Error: No or wrong remote-shell command defined in test script $0" >> "$LOGFILE"
 		false
 	esac
+
+
 	local stdout=$(echo "$stdoutret" | head -n-1)
 	local retvalline=$(echo "$stdoutret" | tail -n1)
 	if [ "${retvalline:0:4}" = "ret=" ]
@@ -82,29 +83,29 @@ remote() {
 }
 
 remote_compare() {
-	echo "test \"remote $1\)\" = \"$2\"" >> "$LOGFILE"
-	local ret=$(remote $1) 2>> "$LOGFILE"
+	echo "test \"\$\(remote \"$1\"\)\" = \"$2\"" >> "$LOGFILE"
+	local ret=$(remote "$1") 2>> "$LOGFILE"
 	test "$ret" = "$2" 2>> "${PTXDIST_WORKSPACE}/test.log"
 }
 
 remote_assure_module() {
-# this should not be used as an indicator for functionality:
-# don't just check on loaded modules; rather check their indirect signs of operationality.
-	echo "remote lsmod | grep \"^$1 \"" >> "$LOGFILE"
-	local ret=$(remote lsmod | grep "^$1 ") 2>> "$LOGFILE"
+# This should not be used as an indicator for functionality:
+# Don't just check on loaded modules; rather check their indirect signs of operationality.
+	echo "remote \"lsmod | grep \\\"^$1 \\\"\"" >> "$LOGFILE"
+	local ret=$(remote "lsmod | grep \"^$1 \"") 2>> "$LOGFILE"
 	test "${ret:0:${#1}}" = "$1" 2>> "${PTXDIST_WORKSPACE}/test.log"
 }
 
 remote_assure_process() {
-	local bbtest=$($SSH_COMMAND root@${PTXCONF_BOARDSETUP_TARGETIP} ps --help 2>&1 | grep ^BusyBox) 2>> "$LOGFILE"
+	local bbtest=$(remote "ps --help 2>&1 | grep ^BusyBox") 2>> "$LOGFILE"
 	if [ "${bbtest:0:7}" = "BusyBox" ]
 	then
-		echo "remote ps | grep \"$1\" | grep -v grep" >> "$LOGFILE"
-		local ret=$(remote ps | grep $1 | grep -v grep) 2>> "$LOGFILE"
+		echo "remote \"ps | grep $1 | grep -v grep\"" >> "$LOGFILE"
+		local ret=$(remote "ps | grep $1 | grep -v grep") 2>> "$LOGFILE"
 		echo "$ret" | grep "$1[$ ]" 2>> "${PTXDIST_WORKSPACE}/test.log"
 	else
-		echo "remote ps axo s,comm | grep \"^S $1\"" >> "$LOGFILE"
-		local ret=$(remote ps axo s,comm | grep "^S $1") 2>> "$LOGFILE"
+		echo "remote \"ps axo s,comm | grep \\\"^S $1\\\"\"" >> "$LOGFILE"
+		local ret=$(remote "ps axo s,comm | grep \"^S $1\"") 2>> "$LOGFILE"
 		test "${ret:2:${#1}}" = "$1" 2>> "${PTXDIST_WORKSPACE}/test.log"
 	fi
 }
@@ -112,25 +113,24 @@ remote_assure_process() {
 remote_file() {
 	case "$2" in
 	'block')
-		echo "remote test -b \"$1\"" >> "$LOGFILE"
-		remote test -b "$1" 2>> "$LOGFILE"
+		echo "remote \"test -b $1\"" >> "$LOGFILE"
+		remote "test -b $1" 2>> "$LOGFILE"
 		;;
 	'character')
-		echo "remote test -c \"$1\"" >> "$LOGFILE"
-		remote test -c "$1" 2>> "$LOGFILE"
+		echo "remote \"test -c $1\"" >> "$LOGFILE"
+		remote "test -c $1" 2>> "$LOGFILE"
 		;;
 	'exists')
-		echo "remote test -e \"$1\"" >> "$LOGFILE"
-		remote test -e "$1" 2>> "$LOGFILE"
+		echo "remote \"test -e $1\"" >> "$LOGFILE"
+		remote "test -e $1" 2>> "$LOGFILE"
 		;;
 	'executable')
-		echo "remote test -x \"$1\"" >> "$LOGFILE"
-		remote test -x "$1" 2>> "$LOGFILE"
+		echo "remote \"test -x $1\"" >> "$LOGFILE"
+		remote "test -x $1" 2>> "$LOGFILE"
 		;;
 	*)
 		echo "Syntax error in test script $0" >> "$LOGFILE"
 		false
-		;;
 	esac
 }
 
