@@ -135,9 +135,18 @@ remote_file() {
 }
 
 all_on_board() {
-	checking "for sed on target"
-	remote_file "/bin/sed" executable
-	result fatal
+	if test "$SSH_COMMAND" = "rsh"
+	then
+		checking "for local real rsh availability"
+		rsh 2>&1 | grep "usage: rsh"
+		result fatal
+	fi
+	if test "$SSH_COMMAND" = "ssh"
+	then
+		checking "for local ssh availability"
+		ssh 2>&1 | grep "usage: ssh"
+		result fatal
+	fi
 	checking "for grep on target"
 	remote_file "/bin/grep" executable
 	result fatal
