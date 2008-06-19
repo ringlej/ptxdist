@@ -149,6 +149,7 @@ check_ptxconfig() {
 	if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 		echo
 		echo "${PROMPT}error: '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing"
+		echo "${PROMPT}error: try ptxdist platformconfig"
 		echo
 		exit 1
 	fi
