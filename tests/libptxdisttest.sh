@@ -10,7 +10,8 @@ SSH_COMMAND_DEFAULT='rsh'
 SSH_COMMAND=${SSH_COMMAND:-${SSH_COMMAND_DEFAULT}}
 
 LOGFILE="${PTXDIST_WORKSPACE}/test${PTXDIST_PLATFORMSUFFIX}.log"
-
+REPORTFILE="${PTXDIST_WORKSPACE}/test${PTXDIST_PLATFORMSUFFIX}.report"
+echo "<report starttime=\""$(date +%FT%T)"\">" > "$REPORTFILE"
 
 RED='\0033[1;31m'
 GREEN='\0033[1;32m'
@@ -18,27 +19,65 @@ NC='\0033[0m' # No Color
 ok_count=0
 fail_count=0
 
+
+
+reportwrite() {
+	case "$1" in
+	'checking')
+		echo "<test desc=\"checking $2\">" >> "$REPORTFILE"
+		;;
+	'remote')
+		echo "<remote>$2</remote>" >> "$REPORTFILE"
+		;;
+	'compare')
+		echo "<compare>$2</compare>" >> "$REPORTFILE"
+		;;
+	'boolresult')
+		if [ "$2" = "true" ]; then
+			echo "<result>OK</result>" >> "$REPORTFILE"
+		fi
+		if [ "$2" = "false" ]; then
+			echo "<result>FAIL</result>" >> "$REPORTFILE"
+		fi
+		echo "</test>" >> "$REPORTFILE"
+		;;
+	'stdout')
+		echo "<stdout>" >> "$REPORTFILE"
+		echo "$2" >> "$REPORTFILE"
+		echo "</stdout>" >> "$REPORTFILE"
+		;;
+	'exitstatus')
+		echo "<exitstatus>$2</exitstatus>" >> "$REPORTFILE"
+		;;
+	*)
+		echo "Error: No or wrong action given in reportwrite call in $0" >> "$LOGFILE"
+		false
+	esac
+}
+
+
 checking() {
 	printf "%-71s" "checking $1" >&2
+	reportwrite checking "$1"
 }
 
 result_ok() {
 	printf "%8b" "[${GREEN}  OK  ${NC}]\n" >&2
+	reportwrite boolresult true
 	(( ok_count++ ))
 }
 
 result_fail() {
 	printf "%8b" "[${RED}FAILED${NC}]\n" >&2
+	reportwrite boolresult false
 	(( fail_count++ ))
 }
 
 result() {
 	if [ "$?" = "0" ]; then
-		printf "%8b" "[${GREEN}  OK  ${NC}]\n" >&2
-		(( ok_count++ ))
+		result_ok
 	else
-		printf "%8b" "[${RED}FAILED${NC}]\n" >&2
-		(( fail_count++ ))
+		result_fail
 		if [ "$1" = "fatal" ]; then
 			printf "%8b" "${RED}Fatal. Cannot continue.${NC}\n" >&2
 			exit 1
@@ -54,7 +93,7 @@ remote() {
 	case "$SSH_COMMAND" in
 	'ssh')
 		echo "ssh -q -o StrictHostKeyChecking=no -l root ${PTXCONF_BOARDSETUP_TARGETIP} \"$1\"" >> "$LOGFILE"
-		local stdoutret=$(ssh -l root ${PTXCONF_BOARDSETUP_TARGETIP} "$1"'; echo ret=$?') 2>> "$LOGFILE"
+		local stdoutret=$(ssh -q -o StrictHostKeyChecking=no -l root ${PTXCONF_BOARDSETUP_TARGETIP} "$1"'; echo ret=$?') 2>> "$LOGFILE"
 		;;
 	'rsh')
 		echo "rsh -l root ${PTXCONF_BOARDSETUP_TARGETIP} \"$1\"" >> "$LOGFILE"
@@ -65,7 +104,7 @@ remote() {
 		false
 	esac
 
-
+	reportwrite remote "$1"
 	local stdout=$(echo "$stdoutret" | head -n-1)
 	local retvalline=$(echo "$stdoutret" | tail -n1)
 	if [ "${retvalline:0:4}" = "ret=" ]
@@ -79,12 +118,17 @@ remote() {
 	fi
 	echo "$stdout"
 	echo -n "$retvallinestdoutpart"
+	reportwrite stdout "${stdout}${retvallinestdoutpart}"
+	reportwrite exitstatus ${retvalline:4}
 	return ${retvalline:4}
 }
+
+
 
 remote_compare() {
 	echo "test \"\$\(remote \"$1\"\)\" = \"$2\"" >> "$LOGFILE"
 	local ret=$(remote "$1") 2>> "$LOGFILE"
+	reportwrite compare "$2"
 	test "$ret" = "$2" 2>> "${PTXDIST_WORKSPACE}/test.log"
 }
 
@@ -96,9 +140,23 @@ remote_assure_module() {
 	test "${ret:0:${#1}}" = "$1" 2>> "${PTXDIST_WORKSPACE}/test.log"
 }
 
+remote_busybox() {
+	if [ -z $BUSYBOX ]
+	then
+		local bbtest=$(remote "ps --help 2>&1 | grep ^BusyBox") 2>> "$LOGFILE"
+		if [ "${bbtest:0:7}" = "BusyBox" ]
+		then
+			BUSYBOX="true"
+			return 0
+		else
+			BUSYBOX="false"
+			return 1
+		fi
+	fi
+}
+
 remote_assure_process() {
-	local bbtest=$(remote "ps --help 2>&1 | grep ^BusyBox") 2>> "$LOGFILE"
-	if [ "${bbtest:0:7}" = "BusyBox" ]
+	if remote_busybox
 	then
 		echo "remote \"ps | grep $1 | grep -v grep\"" >> "$LOGFILE"
 		local ret=$(remote "ps | grep $1 | grep -v grep") 2>> "$LOGFILE"
