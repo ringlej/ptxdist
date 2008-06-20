@@ -2,7 +2,7 @@
 
 ### --- internal ---
 
-PTX_FIXPERM_RUN    := $(STATEDIR)/fix-permissions.run
+PTX_FIXPERM_RUN    := $(STATEDIR)/fix-$(PTXDIST_PACKAGES_COLLECTION)-permissions.run
 
 ifdef PTXCONF_FIX_PERMISSIONS
 world: $(PTX_FIXPERM_RUN)
@@ -23,7 +23,7 @@ $(PTX_FIXPERM_RUN): $(PTX_PERMISSIONS) $(STATEDIR)/world.targetinstall
 	echo;										\
 	echo;										\
 	echo;										\
-	read -t 30 -p "(press enter to let sudo to that job)";				\
+	read -t 5 -p "(press enter to let sudo to that job)";				\
 	if test $$? -eq 0; then								\
 		for dir in "$(ROOTDIR)" "$(ROOTDIR_DEBUG)"; do				\
 			sudo $(SCRIPTSDIR)/fix-permissions.sh -r "$${dir}" -p "$<";	\

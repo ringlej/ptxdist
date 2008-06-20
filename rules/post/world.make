@@ -10,18 +10,31 @@
 
 DEP_OUTPUT	:= $(STATEDIR)/depend.out
 
+
+
 ### --- internal ---
 
-WORLD_DEP_TREE_PS		:= $(PTXDIST_PLATFORMDIR)/deptree.ps
-WORLD_DEP_TREE_A4_PS		:= $(PTXDIST_PLATFORMDIR)/deptree-a4.ps
+# --- world ---
 
-WORLD_PACKAGES_TARGETINSTALL 	:= $(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(PACKAGES)))
-WORLD_HOST_PACKAGES_INSTALL	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(HOST_PACKAGES)))
-WORLD_CROSS_PACKAGES_INSTALL	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(CROSS_PACKAGES)))
+WORLD_PACKAGES_TARGET 	:= $(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(PACKAGES_$(PTXDIST_PACKAGES_COLLECTION))))
+WORLD_PACKAGES_HOST	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(HOST_PACKAGES)))
+WORLD_PACKAGES_CROSS	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(CROSS_PACKAGES)))
+
+$(STATEDIR)/world.targetinstall: \
+	$(WORLD_PACKAGES_TARGET) \
+	$(WORLD_PACKAGES_HOST) \
+	$(WORLD_PACKAGES_CROSS)
+	@echo $@ : $^ | sed  -e 's:[^ ]*/\([^ ]\):\1:g' >> $(DEP_OUTPUT)
+	@$(call touch, $@)
+
+world: $(STATEDIR)/world.targetinstall
 
 
 
 ### --- dependency graph generation ---
+
+WORLD_DEP_TREE_PS	:= $(PTXDIST_PLATFORMDIR)/deptree.ps
+WORLD_DEP_TREE_A4_PS	:= $(PTXDIST_PLATFORMDIR)/deptree-a4.ps
 
 ifneq ($(shell which dot),)
 world: $(WORLD_DEP_TREE_PS)
@@ -122,17 +135,6 @@ $(STATEDIR)/%.targetinstall.post:
 	@$(call targetinfo)
 	@$(call touch)
 
-
-
-# --- world ---
-
-$(STATEDIR)/world.targetinstall: $(WORLD_PACKAGES_TARGETINSTALL) \
-	$(WORLD_HOST_PACKAGES_INSTALL) \
-	$(WORLD_CROSS_PACKAGES_INSTALL)
-	@echo $@ : $^ | sed  -e 's:[^ ]*/\([^ ]\):\1:g' >> $(DEP_OUTPUT)
-	@$(call touch, $@)
-
-world: $(STATEDIR)/world.targetinstall
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:
