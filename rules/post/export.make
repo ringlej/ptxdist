@@ -6,7 +6,7 @@ define ptx/export/get_source
 $(if $($(source)),$($(source)),$($(subst CROSS_,,$(subst HOST_,,$(source)))))
 endef
 
-# interate over $(SELECTED_PACKAGES) "bash busybox" ->
+# interate over $(PACKAGES_SELECTED) "bash busybox" ->
 # convert to "BASH_SOURCE BUSYBOX_SOURCE"
 _ptx_export_packages := $(foreach source,$(PACKAGES_SELECTED),$(PTX_MAP_TO_PACKAGE_$(source))_SOURCE)
 
