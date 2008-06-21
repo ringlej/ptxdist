@@ -21,8 +21,8 @@ _ptx_export_packages_dst := $(subst $(SRCDIR),$(EXPORTDIR),$(_ptx_export_package
 
 # force copy
 .PHONY: $(_ptx_export_packages_dst)
-$(_ptx_export_packages_dst): $(_ptx_export_packages_src)
-	@cp -v "$<" "$@"
+$(_ptx_export_packages_dst): 
+	@cp -v "$(SRCDIR)/$(@F)" "$@"
 
 export: $(_ptx_export_packages_dst)
 
