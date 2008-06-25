@@ -1625,10 +1625,10 @@ while [ $# -ne 0 ]; do
 			fi
 
 			for tst in \
-				"${PTXDIST_WORKSPACE}/tests/${1}${PTXDIST_PLATFORMSUFFIX}" \
-				"${PTXDIST_WORKSPACE}/tests/${1}" \
 				"${PTXDIST_PLATFORMCONFIGDIR}/tests/${1}${PTXDIST_PLATFORMSUFFIX}" \
 				"${PTXDIST_PLATFORMCONFIGDIR}/tests/${1}" \
+				"${PTXDIST_WORKSPACE}/tests/${1}${PTXDIST_PLATFORMSUFFIX}" \
+				"${PTXDIST_WORKSPACE}/tests/${1}" \
 				"${PTXDIST_TOPDIR}/tests/${1}${PTXDIST_PLATFORMSUFFIX}" \
 				"${PTXDIST_TOPDIR}/tests/${1}" \
 				; do \
