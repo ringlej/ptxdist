@@ -199,7 +199,7 @@ menuconfig IMAGE_JFFS2
 	  is smaller than partition's size. If not, garbage data in the remaining
 	  space could confuse the filesystem driver.
 
-if IMAGES_JFFS2
+if IMAGE_JFFS2
 
 config IMAGE_JFFS2_BLOCKSIZE
 	int
