@@ -238,6 +238,7 @@ source "rules/libgd.in"
 source "rules/libjpeg.in"
 source "rules/libpng.in"
 source "rules/qtopia.in"
+source "rules/qtopia-examples.in"
 source "rules/tslib.in"
 source "rules/xawtv.in"
 endmenu

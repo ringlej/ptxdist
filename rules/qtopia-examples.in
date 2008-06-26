@@ -1,0 +1,56 @@
+menuconfig QTOPIA_EXAMPLES
+	tristate
+	select QTOPIA
+	select QTOPIA_PREPARE_EXAMPLES
+	select QTOPIA_BUILD_GUI
+	select QTOPIA_BUILD_NETWORK
+	select QTOPIA_BUILD_SQL
+	select QTOPIA_BUILD_SCRIPT
+	select QTOPIA_BUILD_SVG
+	select QTOPIA_BUILD_XML
+	select QTOPIA_BUILD_DESIGNERLIBS
+	select QTOPIA_BUILD_ASSISTANTLIB
+	select QTOPIA_BUILD_QTESTLIB
+	select QTOPIA_BUILD_QTXMLPATTERNS
+	select QTOPIA_BUILD_WEBKIT
+	prompt "QTopia Examples               "
+
+config QTOPIA_EXAMPLES_EXAMPLES
+	bool
+	depends on QTOPIA_EXAMPLES
+	prompt "Examples"
+	help
+	  Qtopia comes with a large collection of example applications.
+	  Select this options to build these examples.
+
+config QTOPIA_EXAMPLES_EXAMPLES_LIST
+	string
+	depends on QTOPIA_EXAMPLES_EXAMPLES
+	prompt "Install List"
+	default "ALL"
+	help
+	  Space separated list of the examples to be installed. An empty string
+	  means the examples will only be built. "ALL" installs all examples.
+	  For each example the binary name including the path relative to the example
+	  source directory must be specified.
+
+config QTOPIA_EXAMPLES_DEMOS
+	bool
+	depends on QTOPIA_EXAMPLES
+	prompt "Demos"
+	help
+	  The qtopia demos are more elaborate examples that demostrate the use of
+	  certain qtopia subsystems.
+	  Select this option to build and install these demos.
+
+config QTOPIA_EXAMPLES_DEMOS_LIST
+	string
+	depends on QTOPIA_EXAMPLES_DEMOS
+	prompt "Install List"
+	default "ALL"
+	help
+	  Space separated list of the demos to be installed. An empty string
+	  means the demos will only be built. "ALL" installs all demos.
+	  For each demo the binary name including the path relative to the demo
+	  source directory must be specified.
+

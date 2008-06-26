@@ -1,0 +1,6 @@
+ptx-mkspec.diff
+remove-ordered.diff
+enable-tool-libs.diff
+fix-configure-disable.diff
+use-pkg-config-for-directfb.diff
+fix-linuxfb-as-plugin.diff
