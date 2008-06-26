@@ -1459,43 +1459,6 @@ while [ $# -ne 0 ]; do
 			ptxd_make u-boot-v2_menuconfig
 			exit 0
 			;;
-	maintainer)
-			case "${1}" in
-			configversionbump)
-				echo
-				echo "${PROMPT} configversionbump:"
-				echo
-				for i in $(find . -name "ptxconfig*" | grep -v .svn); do
-					echo "${PROMPT} version fixup in $i..."
-					sed -i -e \
-						"s/PTXCONF_CONFIGFILE_VERSION=\".*\"/PTXCONF_CONFIGFILE_VERSION=\"${FULLVERSION}\"/g" \
-						$i
-				done
-				;;
-			alloldconfig)
-				echo
-				echo "${PROMPT} alloldconfig:"
-				echo
-				for i in $(find . -name "autobuild" | grep -v .svn); do
-					i_dir=$(dirname $i)
-					echo i=$i i_dir=$i_dir
-					pushd $i_dir
-					ptxdist oldconfig
-					popd
-				done
-				;;
-			*)
-				echo
-				echo "${PROMPT} commands:"
-				echo
-				echo "${PROMPT} configversionbump"
-				echo "${PROMPT} alloldconfig"
-				echo
-				exit 1
-				;;
-			esac
-			exit 0
-			;;
 	make)
 			check_ptxconfig
 			check_compiler
