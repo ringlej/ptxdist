@@ -1,6 +1,9 @@
 TODO for 1.99.x
 ===============
 
+[ ] jbe: ptxdist complains about a missing "projectroot/etc/module" file, but it searches
+    for "projectroot/etc/module-<platformname>"
+
 [ ] jbe: libxcb depends on host's xslt installation! Current fix is to be checked.
 
 [ ] jbe: xcb-proto depends on host's xmllint!
