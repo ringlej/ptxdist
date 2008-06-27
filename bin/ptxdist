@@ -1159,7 +1159,7 @@ setup_config() {
 	if [ -z "${PTXCONF_SETUP_SRCDIR}" ]; then
 		PTXDIST_SRCDIR="${PTXDIST_WORKSPACE}/src"
 	else
-		PTXDIST_SRCDIR="${PTXCONF_SETUP_SRCDIR}"
+		eval PTXDIST_SRCDIR="${PTXCONF_SETUP_SRCDIR}"
 	fi
 
 	#
