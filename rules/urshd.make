@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_URSHD) += urshd
 #
 # Paths and names
 #
-URSHD_VERSION	:= 1.0.0
+URSHD_VERSION	:= 1.0.1
 URSHD		:= urshd-$(URSHD_VERSION)
 URSHD_SUFFIX	:= tar.bz2
 URSHD_URL	:= http://www.pengutronix.de/software/urshd/download/v1.0/$(URSHD).$(URSHD_SUFFIX)
@@ -28,28 +28,9 @@ URSHD_DIR	:= $(BUILDDIR)/$(URSHD)
 # Get
 # ----------------------------------------------------------------------------
 
-urshd_get: $(STATEDIR)/urshd.get
-
-$(STATEDIR)/urshd.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(URSHD_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, URSHD)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-urshd_extract: $(STATEDIR)/urshd.extract
-
-$(STATEDIR)/urshd.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(URSHD_DIR))
-	@$(call extract, URSHD)
-	@$(call patchin, URSHD)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -65,44 +46,12 @@ URSHD_ENV 	:= $(CROSS_ENV)
 #
 URSHD_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/urshd.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(URSHD_DIR)/config.cache)
-	cd $(URSHD_DIR) && \
-		$(URSHD_PATH) $(URSHD_ENV) \
-		./configure $(URSHD_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-urshd_compile: $(STATEDIR)/urshd.compile
-
-$(STATEDIR)/urshd.compile:
-	@$(call targetinfo, $@)
-	cd $(URSHD_DIR) && $(URSHD_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-urshd_install: $(STATEDIR)/urshd.install
-
-$(STATEDIR)/urshd.install:
-	@$(call targetinfo, $@)
-	@$(call install, URSHD)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-urshd_targetinstall: $(STATEDIR)/urshd.targetinstall
-
 $(STATEDIR)/urshd.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, urshd)
 	@$(call install_fixup, urshd,PACKAGE,urshd)
@@ -117,7 +66,7 @@ $(STATEDIR)/urshd.targetinstall:
 
 	@$(call install_finish, urshd)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
