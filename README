@@ -79,9 +79,9 @@ kinds of Linux systems. It was written with embedded systems in mind,
 but there is no reason why you can't use it to configure your firewall,
 router or whatever dedicated "device" comes to your mind.
 
-The job works like this: you run 'ptxdist menuconfig', configure what
-you need and get a 'ptxconfig' file. Run 'ptxdist go' and you'll find a
-root tree in root/. Voila.
+The job works like this: you run 'ptxdist menuconfig' and
+"ptxdist platformconfig", configure what you need. Run 'ptxdist go'
+and you'll find a root tree in <you-platform>/root/. Voila.
 
 All magic necessary to do these things in a cross enviroment are written
 into "recipies", living in rules/*.make, and config menues in
@@ -94,8 +94,7 @@ Directory Layout
 These files and directories are supposed to be in an empty project
 directory:
 
-kernelconfig.native	kernel .config file for the native kernel
-kernelconfig.target	kernel .config file for the target kernel
+configs/		project specific configurations (optional)
 patches/		project specific patches, overwrites the generic
 			ones from PTXdist
 projectroot/		put files here which are to be copied over to
@@ -105,6 +104,8 @@ projectroot/		put files here which are to be copied over to
 			specific rule file.
 ptxconfig		.config file to configure the userland for
 			your project.
+platformconfig		.config file to configure the platform specific
+			part of your project.
 rules/			contains project specific rules
 src -> ...		link to point to your directory containing
 			tarball files for the packets.
@@ -112,25 +113,27 @@ src -> ...		link to point to your directory containing
 Additionally some other directories are being built when you run
 "ptxdist go" or other start other build targets.
 
-build-host/		build directory for host tools
-build-cross/		build directory for cross tools
-build-target/		build directory for target tools
-images/			'ptxdist images' creates tarballs and
+<platform>/build-host/	build directory for host tools
+<platform>/build-cross/	build directory for cross tools
+<platform>/build-target/ build directory for target tools
+<platform>/images/	'ptxdist images' creates tarballs and
 			filesystem images in this directory.
-local/			tools which are installed locally go to this dir
-root/			root filesystem for the target
-state/			state files (show in which state packages
+<platform>/sysroot-target/ target related libs and headerfiles are going to
+			this dir
+<platform>/sysroot-cross/ target related tools, but must run on host are
+			going to this dir
+<platform>/sysroot-host/ host related tools are going to this dir
+
+<platform>/root/	root filesystem for the target
+<platform>/state/	state files (show in which state packages
 			currently are during the compilation)
 
 For more details look at the output of 'ptxdist --help' or see the
 PTXdist manual.
-
 
 Bugs
 ----
 
 - search for FIXMEs
 - see TODO, which is out of date :-)
-
-Robert Schwebel <r.schwebel@pengutronix.de>, 2006-02-19
 

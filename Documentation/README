@@ -1,32 +1,4 @@
-PTXdist Documentation Fragments
--------------------------------
+For documentation please refer:
 
-This file is meant as an intermediate place where we can collect
-documentation sniplets; later this will be combined into a "real"
-manual. 
+http://www.pengutronix.de/software/ptxdist/documentation_en.html
 
-Configuring the Kernel
-----------------------
-
-It is currently not possible to configure a 2.4 kernel with the config
-system, because 2.4 is still based on the old CML language, not on
-KConfig like 2.6 and PTXdist. There is a workaround: First you have to
-set a path to a kernel configuration file (in: Kernel->Name of config in
-$(PTXDIST)/config/kernel) to be used) to a config file; the kernel
-config file doesn't need to exist. Choose the desired kernelversion,
-then exit the menuconfig with save and 'make kernel_menuconfig' then the
-kernel is downloaded, extracted patched and the normal menuconfig from
-the kernel is started. PTXdist takes care of changes in the kernels
-.config files, it is copied from and to the specified config file.
-
-
-Developement - new Packets
---------------------------
-
-When adding a new packet to ptxdist which requires a patch, you'd like
-to use $(call get_patches) and $(call patchin), but you can't, because
-the patch isn't in the public repository yet.
-
-So, here's a patch against 'ptxdist-testing-20031001-1.tar.bz2' that
-adds a local repository called patches-local; patches in there are
-applied after those from the public repository.
