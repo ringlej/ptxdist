@@ -25,7 +25,7 @@ DIALOG=dialog
 
 
 
-menu_platform() {
+menu_platform_select() {
 	check_nonstandard "platform"
 
 	exec 3>&1
@@ -48,40 +48,47 @@ menu_platform() {
 #
 menu() {
 	local tmpfile="$(tempfile -d "${PTXDIST_TEMPDIR}")"
-	
+	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+	platform="${platform:-${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}}"
+
 	exec 3> "${tmpfile}"
 	${DIALOG} \
 		--clear \
 		--title "PTXdist Main Menu" \
-		--menu "" 17 75 10 \
+		--cancel-label "Exit" \
 	        --output-fd 3 \
+		--default-item "${_ptxdist_menu_cmd}" \
+		--menu "" 17 75 10 \
 		-- \
-		"packages"	"Packages to Build" \
-		"installs"	"Packages to Install" \
-		"-----------"	"---------------------------" \
-		"platform"	"Select    Hardware Platform" \
-		"platformcfg"	"Configure Hardware Platform" \
-		"kernel"	"Configure Kernel" \
-		"uboot"		"Configure U-Boot-v2" \
-		"-----------"	"---------------------------" \
-		"user"		"Configure User  Properties" \
-		"board"		"Configure Board Properties" \
+		"packages"		"Packages to Build" \
+		"installs"		"Packages to Install" \
+		"platform_select"	"Select    Hardware Platform ($platform)" \
+		"--------------"	"---------------------------" \
+		"platform"		"Configure Hardware Platform" \
+		"kernel"		"Configure Kernel" \
+		"u-boot-v2"		"Configure U-Boot-v2" \
+		"--------------"	"---------------------------" \
+		"board"			"Configure Board Properties" \
+		"user"			"Configure User  Properties" \
 		|| return $?
 
 	exec 3>&-
-	local selection="$(cat "${tmpfile}")"
+	local cmd="$(cat "${tmpfile}")"
+	_ptxdist_menu_cmd="${cmd}"
 	rm "${tmpfile}"
 
-	case "${selection}" in
-	platform)
-		menu_${selection}
+	case "${cmd}" in
+	platform_select)
+		menu_${cmd}
 		;;
 
-	platformcfg)
-		ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_config_action true
+	platform|kernel|u-boot-v2|board|user)
+		do_menuconfig ${cmd}
+		;;
+	-*)
 		;;
 	*)
-		echo "${selection}"
+		echo "${cmd}"
 		read
 		;;
 	esac
@@ -91,11 +98,11 @@ menu() {
 #
 # *_action
 #
-menuconfig_action() {
+ptx_config_action() {
 	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${kconfig}"
 }
 
-oldconfig_action() {
+ptx_oldconfig_action() {
 	# In silent mode, we cannot redirect input. So use oldconfig
 	# instead of silentoldconfig if somebody tries to automate us.
 	tty -s
@@ -123,29 +130,12 @@ platform_oldconfig_action() {
 }
 
 
-boardsetup_action() {
+board_config_action() {
 	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
 }
 
-setup_action() {
+user_config_action() {
 	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_TOPDIR}/config/setup/Kconfig"
-}
-
-
-#
-# board setup
-#
-boardsetup() {
-	echo
-	echo "${PROMPT}boardsetup..."
-
-	if [ ! -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
-		echo "${PROMPT}error: boardsetup/Kconfig missing"
-		echo
-		exit 1
-	fi
-
-	ptxd_kconfig "${PTXDIST_BOARDSETUP}" boardsetup_action true
 }
 
 
@@ -520,6 +510,7 @@ check_if_selected() {
 		echo
 		exit 1
 	fi
+
 	local configvar="PTXCONF_$(ptxd_name_to_NAME "${1}")"
 	local ptxconfig_configvar="$(ptxd_get_ptxconf "${configvar}")"
 
@@ -527,7 +518,12 @@ check_if_selected() {
 		echo
 		echo "${PROMPT}error: ${1} is not selected in ${PTXDIST_PTXCONFIG}"
 		echo
-		exit 1
+		if [ -n "${PTXDIST_MENU}" ]; then
+			read
+			return 1
+		else
+			exit 1
+		fi
 	fi
 }
 
@@ -1051,6 +1047,35 @@ parse_first()
 }
 
 
+##################################################################
+################ do_* ############################################
+##################################################################
+
+do_menuconfig()
+{
+	if [ "${1}" != "setup" ]; then
+		check_ptxconfig
+	fi
+
+	case "${1}" in
+	""|"ptxdist")
+		ptxd_kconfig "${PTXDIST_PTXCONFIG}" ptx_config_action true
+		;;
+	"platform")
+		ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_config_action true
+		;;
+	"board")
+		ptxd_kconfig "${PTXDIST_BOARDSETUP}" board_config_action true
+		;;
+	"user")
+		ptxd_kconfig "${PTXDISTRC}" user_config_action true
+		;;
+	*)
+		check_if_selected "${1}" || return 0
+		check_deps
+		ptxd_make "${1}_menuconfig"
+	esac
+}
 
 ##################################################################
 ################ normal option parser ############################
@@ -1062,40 +1087,78 @@ parse_second()
 	# use args from first stage parser, prepared for us
 	#
 	set --  "${PTXDIST_ARGS_SECOND[@]}"
-	
+
 	if [ $# -eq 0 ]; then
 		usage
 		exit 0
 	fi
-	
+
 	while [ $# -ne 0 ]; do
-		local ptx_cmd="${1}"
+		local cmd="${1}"
 		shift
-	
-		case "${ptx_cmd}" in
+
+		case "${cmd}" in
+######## --*
 		--version)
 			echo "${FULLVERSION}"
 			exit 0
 			;;
-	
+
 		--help|help)
 			usage
 			exit 0
 			;;
-	
+
+######## standard target, directly into make
+
 		extract|prepare|compile|install|targetinstall|tags)
-			if [ "${ptx_cmd}" = "targetinstall" ]; then
-				ptx_cmd_post=".post"
-			fi
 			check_ptxconfig
 			check_if_selected "${1}"
 			check_compiler
 			check_dirs
 			check_deps
-			ptxd_make_log "${STATEDIR}/${1}.${ptx_cmd}${ptx_cmd_post}"
+
+			if [ "${cmd}" = "targetinstall" ]; then
+				local cmd_post=".post"
+			fi
+			ptxd_make_log "${STATEDIR}/${1}.${cmd}${cmd_post}"
 			exit 0
 			;;
-	
+
+######## *config, *setup
+
+		menuconfig)
+			do_menuconfig "${@}"
+			exit $?
+			;;
+
+		platformconfig)
+			do_menuconfig platform
+			exit $?
+			;;
+
+		kernelconfig)
+			do_menuconfig kernel
+			exit $?
+			;;
+
+		u_boot_config)
+			do_menuconfig u-boot-v2
+			exit $?
+			;;
+
+		boardsetup)
+			do_menuconfig board
+			exit $?
+			;;
+
+		setup)
+			do_menuconfig user
+			exit $?
+			;;
+
+######## the rest of it
+
 		autobuild)
 			echo
 			echo "${PROMPT}running autobuild"
@@ -1134,11 +1197,6 @@ parse_second()
 			echo
 			exit 0
 			;;
-		boardsetup)
-			check_ptxconfig
-			boardsetup
-			exit 0
-			;;
 		clean)
 			check_ptxconfig
 			check_deps
@@ -1165,7 +1223,7 @@ parse_second()
 			if [ -L "${PTXDIST_PTXCONFIG}" ]; then
 				echo "${PROMPT}removing ptxconfig link..."
 				rm "${PTXDIST_PTXCONFIG}"
-	
+
 			fi
 			if [ -L "${PTXDIST_PLATFORMCONFIG}" ]; then
 				echo "${PROMPT}removing platformconfig link..."
@@ -1223,18 +1281,7 @@ parse_second()
 			ptxd_make_log images
 			exit 0
 			;;
-		kernelconfig)
-			check_ptxconfig
-			check_deps
-			ptxd_make kernel_menuconfig
-			exit 0
-			;;
-		u_boot_config)
-			check_ptxconfig
-			check_deps
-			ptxd_make u-boot-v2_menuconfig
-			exit 0
-			;;
+
 		make)
 			check_ptxconfig
 			check_compiler
@@ -1244,25 +1291,11 @@ parse_second()
 			exit 0
 			;;
 		menu)
+			PTXDIST_MENU=true
 			while menu; do true; done
 			exit 0
 			;;
-		menuconfig)
-			check_ptxconfig
-			case "${1}" in
-			    ""|"ptxdist")
-				ptxd_kconfig "${PTXDIST_PTXCONFIG}" menuconfig_action true
-				;;
-			    "platform")
-				ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_config_action true
-				;;
-			    *)
-				check_if_selected "${1}"
-				check_deps
-				ptxd_make "${1}_menuconfig"
-			esac
-			exit ${?}
-			;;
+
 		newpacket)	# test if we are in a rules dir
 			if [ "$(basename $(pwd))" != "rules" ]; then
 				echo
@@ -1313,10 +1346,6 @@ parse_second()
 			echo
 			exit 0
 			;;
-		platformconfig)
-			ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_config_action true
-			exit 0
-				;;
 		print)
 			check_ptxconfig
 			check_deps
@@ -1351,10 +1380,6 @@ parse_second()
 			echo
 			exit 0
 			;;
-		setup)
-			ptxd_kconfig "${PTXDISTRC}" setup_action true
-			exit 0
-				;;
 		test)
 			if [ -z "$1" ]; then
 				echo "No test given. try ptxdist test help for a list of available tests"
