@@ -1,0 +1,9 @@
+config SDPARM
+	tristate
+	prompt "sdparm"
+	help
+	  The sdparm utility accesses SCSI device parameters. When the SCSI
+	  device is a disk, sdparm's role is similar to its namesake: the
+	  Linux hdparm utility which is primarily designed for ATA disks that
+	  had device names starting with "hd".
+	  More at: http://sg.torque.net/sg/sdparm.html#mozTocId812196
