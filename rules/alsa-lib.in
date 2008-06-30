@@ -10,6 +10,32 @@ menuconfig ALSA_LIB
 
 if ALSA_LIB
 
+choice
+	prompt "Base library"
+	default ALSA_LIB_FULL
+
+	config ALSA_LIB_FULL
+		bool
+		prompt "full featured ALSA libs"
+		help
+		  Full featured ALSA library. No limits.
+
+	config ALSA_LIB_LIGHT
+		bool
+		prompt "embedded ALSA libs"
+		help
+		  SALSA-Lib is a small, light-weight, hot and spicy version of
+		  the ALSA library, mainly for embedded systems with limited
+		  resources. The library is designed to be source-level
+		  compatible with ALSA library API for limited contents.  Most
+		  of function calls are inlined, and accesses directly to the
+		  hardware via system calls.
+		  Some components like ALSA sequencer aren't supported, and
+		  most of all, the alsa-lib plugins and configurations are
+		  completely dropped.  Thus, neither dmix nor format
+		  conversion is available with SALSA-lib.
+endchoice
+
 config ALSA_LIB_RESMGR
 	bool
 	depends on BROKEN

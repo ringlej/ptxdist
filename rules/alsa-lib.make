@@ -17,13 +17,22 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 #
 # Paths and names
 #
+ALSA_LIB_SUFFIX		:= tar.bz2
+
+ifdef PTXCONF_ALSA_LIB_FULL
 ALSA_LIB_VERSION	:= 1.0.16
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
-ALSA_LIB_SUFFIX		:= tar.bz2
 ALSA_LIB_URL		:= ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
+endif
+
+ifdef PTXCONF_ALSA_LIB_LIGHT
+ALSA_LIB_VERSION	:= 0.0.17
+ALSA_LIB		:= salsa-lib-$(ALSA_LIB_VERSION)
+ALSA_LIB_URL		:= ftp://ftp.suse.com/pub/people/tiwai/salsa-lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
+endif
+
 ALSA_LIB_SOURCE		:= $(SRCDIR)/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
 ALSA_LIB_DIR		:= $(BUILDDIR)/$(ALSA_LIB)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -78,14 +87,28 @@ endif
 
 ifndef PTXCONF_ALSA_LIB_HWDEP
 ALSA_LIB_AUTOCONF += --disable-hwdep
+else
+ALSA_LIB_AUTOCONF += --enable-hwdep
 endif
 
 ifndef PTXCONF_ALSA_LIB_SEQ
 ALSA_LIB_AUTOCONF += --disable-seq
+else
+ALSA_LIB_AUTOCONF += --enable-seq
 endif
 
 ifndef PTXCONF_ALSA_LIB_INSTR
 ALSA_LIB_AUTOCONF += --disable-instr
+endif
+
+ifdef PTXCONF_ALSA_LIB_LIGHT
+ALSA_LIB_AUTOCONF += --enable-everyhing \
+	--enable-tlv \
+	--enable-timer \
+	--enable-conf \
+	--enable-async \
+	--enable-libasound \
+	--enable-rawmidi
 endif
 
 # unhandled, yet
@@ -111,6 +134,24 @@ $(STATEDIR)/alsa-lib.targetinstall:
 	@$(call install_fixup, alsa-lib, DEPENDS,)
 	@$(call install_fixup, alsa-lib, DESCRIPTION,missing)
 
+ifdef PTXCONF_ALSA_LIB_LIGHT
+	@$(call install_copy, alsa-lib, 0, 0, 0644, \
+		$(ALSA_LIB_DIR)/src/.libs/libsalsa.so.0.0.1, \
+		/usr/lib/libsalsa.so.0.0.1 )
+
+	@$(call install_link, alsa-lib, \
+		libsalsa.so.0.0.1, \
+		/usr/lib/libsalsa.so.0)
+
+	@$(call install_link, alsa-lib, \
+		libsalsa.so.0.0.1, \
+		/usr/lib/libsalsa.so)
+
+	@$(call install_link, alsa-lib, \
+		libsalsa.so, \
+		/usr/lib/libasound.so)
+endif
+ifdef PTXCONF_ALSA_LIB_FULL
 	@$(call install_copy, alsa-lib, 0, 0, 0644, \
 		$(ALSA_LIB_DIR)/src/.libs/libasound.so.2.0.0, \
 		/usr/lib/libasound.so.2.0.0 )
@@ -158,6 +199,7 @@ endif
 	@$(call install_copy, alsa-lib, \
 		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/pcm/dsnoop.conf, \
 		/usr/share/alsa/pcm/dsnoop.conf, n)
+endif
 
 	@$(call install_finish, alsa-lib)
 
