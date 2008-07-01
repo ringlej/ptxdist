@@ -140,6 +140,7 @@ config PHP5_SAPI_WEBJAMES
 config PHP5_SAPI_CGI
 	bool
 	prompt "cgi"
+	depends on ! PHP5_SAPI_APXS2
 	help
 	  Build CGI version of PHP.
 
@@ -165,6 +166,7 @@ config PHP5_SAPI_DISCARD_PATH
 config PHP5_SAPI_FASTCGI
 	bool
 	depends on PHP5_SAPI_CGI
+	depends on ! PHP5_SAPI_DISCARD_PATH
 	prompt "fastcgi"
 	help
 	  If this is enabled, the cgi module will

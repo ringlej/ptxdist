@@ -336,8 +336,12 @@ ifdef PTXCONF_PHP5_SAPI_APXS2
 	@$(call install_copy, php5, 0, 0, 0644, $(PHP5_DIR)/libs/libphp5.so, /usr/lib/apache2/libphp5.so)
 endif
 
-ifdef PTXCONF_PHP5_CLI
+ifdef PTXCONF_PHP5_SAPI_CLI
 	@$(call install_copy, php5, 0, 0, 0755, $(PHP5_DIR)/sapi/cli/php, /usr/bin/php5)
+endif
+
+ifdef PTXCONF_PHP5_SAPI_CGI
+	@$(call install_copy, php5, 0, 0, 0755, $(PHP5_DIR)/sapi/cgi/php, /usr/bin/php5-cgi)
 endif
 
 ifdef PTXCONF_ROOTFS_GENERIC_PHP5_INI
