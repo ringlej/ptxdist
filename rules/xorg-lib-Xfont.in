@@ -20,6 +20,7 @@ menuconfig XORG_LIB_XFONT
 
 config XORG_LIB_XFONT_FREETYPE
 	depends on XORG_LIB_XFONT
+	select FREETYPE
 	bool
 	prompt "Use freetype as rendering library"
 	help

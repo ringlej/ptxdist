@@ -72,7 +72,7 @@ XORG_LIB_XFONT_AUTOCONF := \
 # Use the global switch here to support freetype when
 # its present in the system
 #
-ifdef PTXCONF_FREETYPE
+ifdef PTXCONF_XORG_LIB_XFONT_FREETYPE 
 XORG_LIB_XFONT_AUTOCONF	+= --enable-freetype
 else
 XORG_LIB_XFONT_AUTOCONF	+= --disable-freetype
