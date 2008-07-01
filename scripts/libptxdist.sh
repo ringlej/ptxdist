@@ -8,6 +8,75 @@ PTX_DEBUG=${PTX_DEBUG:="false"}
 DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $2, $3, $4, $2); if ($1 == "n") printf("mknod -m %s .%s %s %s %s; chown %s.%s .%s;\n", $5, $2, $6, $7, $8, $3, $4, $2);}'
 
 
+PTX_DIALOG=dialog
+PTX_DIALOG_HEIGHT=10
+PTX_DIALOG_WIDTH=60
+
+
+ptxd_dialog_fselect() {
+	local ptr="${1}"
+	local _select="${!1:-${PWD}}"		# deref ptr or use $PWD as default
+
+	exec 3>&1
+	while [ -d "${_select}" -o \! -e "${_select}" ]; do
+		_select="$(dialog \
+			--output-fd 2 \
+			--title "Please choose a ${ptr} file" \
+			--fselect "${_select}/" 14 ${PTX_DIALOG_WIDTH} 2>&1 1>&3)" || return
+	done
+	exec 3>&-
+
+	eval "${ptr}"="${_select}"
+}
+
+
+ptxd_dialog_infobox() {
+	if [ -n "${PTX_MENU}" ]; then
+		${PTX_DIALOG} \
+			--infobox "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
+	else
+		echo
+		echo -e "${PROMPT}${*}"
+		echo
+	fi
+}
+
+ptxd_dialog_msgbox() {
+	if [ -n "${PTX_MENU}" ]; then
+		${PTX_DIALOG} \
+			--msgbox "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
+	else
+		echo
+		echo -e "${PROMPT} ${*}"
+		echo
+	fi
+}
+
+ptxd_dialog_yesno() {
+	local answer
+
+	if [ -n "${PTX_MENU}" ]; then
+		${PTX_DIALOG} \
+			--yesno "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
+	else
+		echo
+		echo -e "${PROMPT}${*}"
+		echo
+
+		read answer
+		if [ "${answer}" != "y" -a "${answer}" != "" ]; then
+			echo "interrupting"
+			echo
+			return 1
+		fi
+	fi
+}
+
+
+
+#
+# source a kconfig file
+#
 ptxd_source_kconfig() {
 	local config config_source
 
@@ -70,14 +139,20 @@ ptxd_kconfig() {
 		cp "${dotconfig}" .config
 	fi
 
-	export KCONFIG_NOTIMESTAMP=1
-	if "${fun}" && [ "${copy_back}" = "true" ]; then
+	export KCONFIG_NOTIMESTAMP="1"
+
+	"${fun}"
+	local retval=$?
+	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
 		cp .config "${dotconfig}"
 	fi
+
 	unset KCONFIG_NOTIMESTAMP
 
 	popd > /dev/null
 	rm -fr $tmpdir
+
+	return $retval
 }
 
 

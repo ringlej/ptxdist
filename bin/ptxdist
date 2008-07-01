@@ -20,28 +20,18 @@ PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/.toolchain'
 PTXDIST_BOARDSETUP_DEFAULT='${PTXDIST_WORKSPACE}/boardsetup/boardsetup'
 PTXDIST_PACKAGES_COLLECTION_DEFAULT="ALL"
 
-DIALOG=dialog
 
 
+menu_select() {
+	local config="${1}"
+	local "${config}"
 
+	check_nonstandard "${config}" || return
+	ptxd_dialog_fselect "${config}" || return
 
-menu_platform_select() {
-	check_nonstandard "platform"
-
-	exec 3>&1
-	local platform="$(pwd)"
-	while [ -d "${platform}" ]; do
-		platform="$(${DIALOG} \
-			--title "Please choose a platformconfig file" \
-			--fselect "${platform}/" 14 48 2>&1 1>&3)"
-		retval=$?
-		[ "$retval" != "0" ] && return
-	done
-	exec 3>&-
-
-	echo "${platform}"
-	read
+	do_select "${config}" "${!config}"
 }
+
 
 #
 # le menu
@@ -49,28 +39,31 @@ menu_platform_select() {
 menu() {
 	local tmpfile="$(tempfile -d "${PTXDIST_TEMPDIR}")"
 	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+	local ptxconfig="$(readlink -e "${PTXDIST_PTXCONFIG}")"
+	
 	platform="${platform:-${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}}"
+	ptxconfig="${ptxconfig##*/}"
+#		--cancel-label "Exit" \
 
 	exec 3> "${tmpfile}"
-	${DIALOG} \
+	${PTX_DIALOG} \
 		--clear \
 		--title "PTXdist Main Menu" \
-		--cancel-label "Exit" \
 	        --output-fd 3 \
 		--default-item "${_ptxdist_menu_cmd}" \
 		--menu "" 17 75 10 \
 		-- \
-		"packages"		"Packages to Build" \
-		"installs"		"Packages to Install" \
-		"platform_select"	"Select    Hardware Platform ($platform)" \
-		"--------------"	"---------------------------" \
+		"ptxconfig"		"Select    Software Platform (${ptxconfig})" \
+		"platformconfig"	"Select    Hardware Platform (${platform})" \
+		"--------------"	"--------------------------------------------" \
+		"ptx"			"Configure Software Platform" \
 		"platform"		"Configure Hardware Platform" \
 		"kernel"		"Configure Kernel" \
 		"u-boot-v2"		"Configure U-Boot-v2" \
-		"--------------"	"---------------------------" \
+		"--------------"	"--------------------------------------------" \
 		"board"			"Configure Board Properties" \
 		"user"			"Configure User  Properties" \
-		|| return $?
+		|| return
 
 	exec 3>&-
 	local cmd="$(cat "${tmpfile}")"
@@ -78,20 +71,23 @@ menu() {
 	rm "${tmpfile}"
 
 	case "${cmd}" in
-	platform_select)
-		menu_${cmd}
+	platformconfig|ptxconfig)
+		menu_select "${cmd}"
 		;;
 
-	platform|kernel|u-boot-v2|board|user)
-		do_menuconfig ${cmd}
+	ptx|platform|kernel|u-boot-v2|board|user)
+		do_menuconfig "${cmd}"
 		;;
 	-*)
+		# ignore the "--------------"
 		;;
 	*)
 		echo "${cmd}"
 		read
 		;;
 	esac
+
+	return 0
 }
 
 
@@ -106,7 +102,7 @@ ptx_oldconfig_action() {
 	# In silent mode, we cannot redirect input. So use oldconfig
 	# instead of silentoldconfig if somebody tries to automate us.
 	tty -s
-	if [ $? -eq 0 ]; then
+	if [ ${?} -eq 0 ]; then
 		"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -s "${kconfig}"
 	else
 		"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -o "${kconfig}"
@@ -122,7 +118,7 @@ platform_oldconfig_action() {
 	# In silent mode, we cannot redirect input. So use oldconfig
 	# instead of silentoldconfig if somebody tries to automate us.
 	tty -s
-	if [ $? -eq 0 ]; then
+	if [ ${?} -eq 0 ]; then
 		"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -s "${kconfig_platform}"
 	else
 		"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -o "${kconfig_platform}"
@@ -178,14 +174,17 @@ check_version() {
 
 
 #
-# check if user has used --toolchain
+# check if user has used --toolchain, --ptxconfig, --platformconfig
 #
 check_nonstandard() {
-	local nonstandard_type="PTXDIST_$(echo ${1} | tr 'a-z' 'A-Z')_SET"
+	local nonstandard_set="PTX_${1}_SET"
 
-	if [ -n "${!nonstandard_type}" ]; then
+	if [ "${!nonstandard_set}" = "true" ]; then
+		ptxd_dialog_msgbox "error: cannot select ${1}\ndon't use --${1}"
+		return 1
+	elif [ -z "${!nonstandard_set}" ]; then
 		echo
-		echo "{PROMPT}error: cannot select ${1}, don't use --${1}"
+		echo "${PROMPT}error: invalid use of \"check_nonstandard ${@}\""
 		echo
 		exit 1
 	fi
@@ -218,25 +217,12 @@ check_ptxconfig() {
 	local configfile_version="$(ptxd_get_ptxconf PTXCONF_CONFIGFILE_VERSION)"
 
 	check_version "${FULLVERSION}" "${configfile_version}"
-	if [ $? -ne 0 ]; then
+	if [ ${?} -ne 0 ]; then
 		echo
 		echo "${PROMPT}error: The configfile version and ptxdist version do not match:"
 		echo
 		echo "	configfile version: ${configfile_version}"
 		echo "	ptxdist version:    ${FULLVERSION}"
-		echo
-		exit 1
-	fi
-}
-
-
-
-check_kernelconfig() {
-	local kernelconfig="$(ptxd_get_ptxconf PTXCONF_KERNEL_CONFIG)"
-
-	if [ ! -e "$kernelconfig" ]; then
-		echo
-		echo "${PROMPT}error: You don't have a ${kernelconfig} file"
 		echo
 		exit 1
 	fi
@@ -386,14 +372,14 @@ check_dirs_prefix() {
 
 	if [ ! -d "${prefix}" ]; then
 		mkdir -p "${prefix}" 2> /dev/null
-		if [ $? -ne 0 ]; then
+		if [ ${?} -ne 0 ]; then
 			echo
 			echo "error: \"${prefix}\""
 			echo "       does not exist and cannot be created!"
 			echo "       Please create that dir with write permissions for you."
 			echo
 			read -t 5 -p "press enter to let sudo do that job!"
-			if [ $? -ne 0 ]; then
+			if [ ${?} -ne 0 ]; then
 				echo
 				exit 1
 			fi
@@ -408,14 +394,14 @@ check_dirs_prefix() {
 
     	testfile="${prefix}/.secret-world-domination-project"
 	touch "${testfile}" 2> /dev/null
-	if [ $? -ne 0 ]; then
+	if [ ${?} -ne 0 ]; then
 		echo
 		echo "error: \"${prefix}\""
 		echo "       does exist, but is not writeable."
 		echo "       Change the permissions and try again."
 		echo
 		read -t 5 -p "press enter to let sudo do the job!"
-		if [ $? -ne 0 ]; then
+		if [ ${?} -ne 0 ]; then
 			echo
 			exit 1
 		fi
@@ -426,7 +412,7 @@ check_dirs_prefix() {
 		sudo chmod u+w "${prefix}"
 
 		touch "${testfile}" 2> /dev/null
-		if [ $? -ne 0 ]; then
+		if [ ${?} -ne 0 ]; then
 			echo
 			echo "error: cannot make \"${prefix}\" writeable, giving up"
 			echo
@@ -515,11 +501,8 @@ check_if_selected() {
 	local ptxconfig_configvar="$(ptxd_get_ptxconf "${configvar}")"
 
 	if [ -z "${ptxconfig_configvar}" ]; then
-		echo
-		echo "${PROMPT}error: ${1} is not selected in ${PTXDIST_PTXCONFIG}"
-		echo
-		if [ -n "${PTXDIST_MENU}" ]; then
-			read
+		ptxd_dialog_msgbox "error: \"${1}\" is not selected in\n${PTXDIST_PTXCONFIG}"
+		if [ -n "${PTX_MENU}" ]; then
 			return 1
 		else
 			exit 1
@@ -909,7 +892,125 @@ projects() {
 }
 
 
-toolchain() {
+
+##################################################################
+################ "minusminus" option parser ######################
+##################################################################
+
+parse_first()
+{
+	local arg
+
+	#
+	# sane defaults
+	#
+	PTXDIST_TOOLCHAIN="${PTXDIST_TOOLCHAIN_DEFAULT}"
+	PTXDIST_PLATFORMCONFIG="${PTXDIST_PLATFORMCONFIG_DEFAULT}"
+	PTXDIST_PTXCONFIG="${PTXDIST_PTXCONFIG_DEFAULT}"
+	PTXDIST_BOARDSETUP="${PTXDIST_BOARDSETUP_DEFAULT}"
+	PTXDIST_PACKAGES_COLLECTION="${PTXDIST_PACKAGES_COLLECTION_DEFAULT}"
+
+	#
+	# init these ones
+	#
+	PTX_ptxconfig_SET=false
+	PTX_platformconfig_SET=false
+	PTX_toolchain_SET=false
+
+	set -- "${PTXDIST_ARGS_FULL[@]}"
+	while [ $# -ne 0 ]; do
+		arg="${1}"
+		shift
+
+		case "${arg}" in
+		-d|--debug)
+			PTX_MAKE_DBG="--debug=make"
+			;;
+		--ptxconfig=*)
+			PTXDIST_PTXCONFIG="$(ptxd_abspath "${arg#*=}")"
+			PTX_ptxconfig_SET=true
+			;;
+		--platformconfig=*)
+			PTXDIST_PLATFORMCONFIG="$(ptxd_abspath "${arg#*=}")"
+			PTX_platformconfig_SET=true
+			;;
+		--toolchain=*)
+			PTXDIST_TOOLCHAIN="$(ptxd_abspath "${arg#*=}")"
+			PTX_toolchain_SET=true
+			;;
+		--packages=all)
+			PTXDIST_PACKAGES_COLLECTION="ALL"
+			;;
+		--packages=base)
+			PTXDIST_PACKAGES_COLLECTION="BASE"
+			;;
+		*)
+			PTXDIST_ARGS_SECOND[${#PTXDIST_ARGS_SECOND[@]}]="${arg}"
+			;;
+		esac
+	done
+}
+
+
+##################################################################
+################ do_* ############################################
+##################################################################
+
+do_menuconfig()
+{
+	if [ "${1}" != "setup" ]; then
+		check_ptxconfig
+	fi
+
+	case "${1}" in
+	""|"ptxdist"|"ptx")
+		ptxd_kconfig "${PTXDIST_PTXCONFIG}" ptx_config_action true
+		;;
+	"platform")
+		ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_config_action true
+		;;
+	"board")
+		ptxd_kconfig "${PTXDIST_BOARDSETUP}" board_config_action true
+		;;
+	"user")
+		ptxd_kconfig "${PTXDISTRC}" user_config_action true
+		;;
+	*)
+		check_if_selected "${1}" || return
+
+		ptxd_dialog_infobox "this may take some seconds..."
+		check_deps
+		ptxd_make "${1}_menuconfig"
+	esac
+}
+
+
+do_select()
+{
+	local type="${1}"
+	local file="${2}"
+	local dest_ptr="PTXDIST_$(echo "${type}" | tr 'a-z' 'A-Z')"
+
+	check_nonstandard "${type}" || return
+
+	if [ ! -f "${file}" ]; then
+		ptxd_dialog_msgbox "error: couldn't select \"${file}\", file does not exist"
+		return 1
+	elif [ -f "${!dest_ptr}" ]; then
+		ptxd_dialog_yesno "warning: overwrite existing ${type} [Y/n]?" || return
+	fi
+
+	ln -sf "${file}" "${!dest_ptr}"
+	ptxd_dialog_msgbox "selected ${type} \"${file}\""
+
+	if [ "${type}" = "platformconfig" ]; then
+		do_select_toolchain
+	fi
+}
+
+
+
+do_select_toolchain() {
 	local toolchain="${1}"
 
 	#
@@ -994,89 +1095,6 @@ toolchain() {
 }
 
 
-
-##################################################################
-################ "minusminus" option parser ######################
-##################################################################
-
-parse_first()
-{
-	local arg
-
-	#
-	# sane defaults
-	#
-	PTXDIST_TOOLCHAIN="${PTXDIST_TOOLCHAIN_DEFAULT}"
-	PTXDIST_PLATFORMCONFIG="${PTXDIST_PLATFORMCONFIG_DEFAULT}"
-	PTXDIST_PTXCONFIG="${PTXDIST_PTXCONFIG_DEFAULT}"
-	PTXDIST_BOARDSETUP="${PTXDIST_BOARDSETUP_DEFAULT}"
-	PTXDIST_PACKAGES_COLLECTION="${PTXDIST_PACKAGES_COLLECTION_DEFAULT}"
-
-	set -- "${PTXDIST_ARGS_FULL[@]}"
-	while [ $# -ne 0 ]; do
-		arg="${1}"
-		shift
-
-		case "${arg}" in
-		-d|--debug)
-			PTX_MAKE_DBG="--debug=make"
-			;;
-		--ptxconfig=*)
-			PTXDIST_PTXCONFIG="$(ptxd_abspath "${arg#*=}")"
-			PTXDIST_PTXCONFIG_SET=true
-			;;
-		--platformconfig=*)
-			PTXDIST_PLATFORMCONFIG="$(ptxd_abspath "${arg#*=}")"
-			PTXDIST_PLATFORMCONFIG_SET=true
-			;;
-		--toolchain=*)
-			PTXDIST_TOOLCHAIN="$(ptxd_abspath "${arg#*=}")"
-			PTXDIST_TOOLCHAIN_SET=true
-			;;
-		--packages=all)
-			PTXDIST_PACKAGES_COLLECTION="ALL"
-			;;
-		--packages=base)
-			PTXDIST_PACKAGES_COLLECTION="BASE"
-			;;
-		*)
-			PTXDIST_ARGS_SECOND[${#PTXDIST_ARGS_SECOND[@]}]="${arg}"
-			;;
-		esac
-	done
-}
-
-
-##################################################################
-################ do_* ############################################
-##################################################################
-
-do_menuconfig()
-{
-	if [ "${1}" != "setup" ]; then
-		check_ptxconfig
-	fi
-
-	case "${1}" in
-	""|"ptxdist")
-		ptxd_kconfig "${PTXDIST_PTXCONFIG}" ptx_config_action true
-		;;
-	"platform")
-		ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_config_action true
-		;;
-	"board")
-		ptxd_kconfig "${PTXDIST_BOARDSETUP}" board_config_action true
-		;;
-	"user")
-		ptxd_kconfig "${PTXDISTRC}" user_config_action true
-		;;
-	*)
-		check_if_selected "${1}" || return 0
-		check_deps
-		ptxd_make "${1}_menuconfig"
-	esac
-}
-
 ##################################################################
 ################ normal option parser ############################
 ##################################################################
@@ -1125,36 +1143,52 @@ parse_second()
 			exit 0
 			;;
 
-######## *config, *setup
+######## *config, *setup, toolchain
 
 		menuconfig)
 			do_menuconfig "${@}"
-			exit $?
+			exit ${?}
 			;;
 
 		platformconfig)
 			do_menuconfig platform
-			exit $?
+			exit ${?}
 			;;
 
 		kernelconfig)
 			do_menuconfig kernel
-			exit $?
+			exit ${?}
 			;;
 
 		u_boot_config)
 			do_menuconfig u-boot-v2
-			exit $?
+			exit ${?}
 			;;
 
 		boardsetup)
 			do_menuconfig board
-			exit $?
+			exit ${?}
 			;;
 
 		setup)
 			do_menuconfig user
-			exit $?
+			exit ${?}
+			;;
+
+
+		select)
+			do_select ptxconfig "${1}"
+			exit ${?}
+			;;
+
+		platform)
+			do_select platformconfig "${1}"
+			exit ${?}
+			;;
+
+		toolchain)
+			do_select_toolchain "${1}"
+			exit ${?}
 			;;
 
 ######## the rest of it
@@ -1177,7 +1211,7 @@ parse_second()
 
 				./$(basename $i)
 
-				PTX_RETVAL=$?
+				PTX_RETVAL=${?}
 				PTX_STOPTIME=$(date +"%s")
 				let "PTX_TIME=$PTX_STOPTIME-$PTX_STARTTIME"
 				let "PTX_TIME_H=$PTX_TIME/3600"
@@ -1291,7 +1325,7 @@ parse_second()
 			exit 0
 			;;
 		menu)
-			PTXDIST_MENU=true
+			PTX_MENU=true
 			while menu; do true; done
 			exit 0
 			;;
@@ -1304,7 +1338,7 @@ parse_second()
 				exit 1
 			fi
 			newpacket "${1}"
-			exit $?
+			exit ${?}
 			;;
 		oldconfig)
 			check_ptxconfig
@@ -1322,30 +1356,6 @@ parse_second()
 			esac
 			exit ${?}
 			;;
-		platform)
-			check_nonstandard "platform"
-			if [ ! -f "${1}" ]; then
-				echo
-				echo "${PROMPT}error: couldn't select \"${1}\", file does not exist"
-				echo
-				exit 1
-			elif [ -f "${PTXDIST_PLATFORMCONFIG}" ]; then
-				echo
-				echo -n "${PROMPT}warning: overwrite existing platformconfig [Y/n]? "
-				read answer
-				if [ "${answer}" != "y" -a "${answer}" != "" ]; then
-					echo "interrupting"
-					echo
-					exit 1
-				fi
-			fi
-			echo
-			echo "${PROMPT}selecting platformconfig \"${1}\""
-			ln -sf "${1}" "${PTXDIST_PLATFORMCONFIG}"
-			echo "${PROMPT}done."
-			echo
-			exit 0
-			;;
 		print)
 			check_ptxconfig
 			check_deps
@@ -1354,30 +1364,6 @@ parse_second()
 			;;
 		projects)
 			projects
-			exit 0
-			;;
-		select)
-			check_nonstandard "ptxconfig"
-
-			if [ ! -f "${1}" ]; then
-				echo
-				echo "${PROMPT}error: couldn't select \"${1}\", file does not exist"
-				echo
-				exit 1
-			fi
-			if [ -f "${PTXDIST_PTXCONFIG}" -a ! -L "${PTXDIST_PTXCONFIG}" ]; then
-				echo
-				echo "${PROMPT}error: There already is a ptxconfig file."
-				echo "${PROMPT}error: If you really want to select another configuration,"
-				echo "${PROMPT}error: please move away the ptxconfig file first."
-				echo
-				exit 1
-			fi
-			echo
-			echo "${PROMPT}linking $1 to ptxconfig"
-			ln -sf "${1}" "${PTXDIST_PTXCONFIG}"
-			echo "${PROMPT}done."
-			echo
 			exit 0
 			;;
 		test)
@@ -1402,7 +1388,7 @@ parse_second()
 				; do \
 				if [ -x "${tst}" ]; then
 					"${tst}" > "${PTXDIST_PLATFORMDIR}/test.log"
-					exit $?
+					exit ${?}
 				fi
 			done
 
@@ -1410,11 +1396,6 @@ parse_second()
 			echo "${PROMPT}error: test '$1' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
 			echo
 			exit 1
-			;;
-		toolchain)
-			check_nonstandard "toolchain"
-			toolchain "${1}"
-			exit 0
 			;;
 		*)
 			usage
