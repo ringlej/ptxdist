@@ -1,6 +1,7 @@
 menuconfig LESS
 	tristate
 	prompt "less                          "
+	depends on !BB_CONFIG_LESS
 #	select LIBPW if LESS_USE_PW
 #	select CURSES if LESS_USE_CURSES
 #	select TINFO if LESS_USE_TINFO
@@ -17,32 +18,30 @@ menuconfig LESS
 	  that displays text files. More info:
 	  http://www.greenwoodsoftware.com/less/
 
+comment "busy box' less is selected!"
+	depends on BB_CONFIG_LESS
+
 if LESS
 
 config LESS_BIN
 	bool
 	default y
-	depends on !BB_CONFIG_LESS
 	prompt "install less pager            "
 	help
 	  less - a pager
 
 config LESS_KEY
 	bool
-	depends on !BB_CONFIG_LESS
 	prompt "install lesskey               "
 	help
 	  lesskey - specify key bindings for less
 
 config LESS_ECHO
 	bool
-	depends on !BB_CONFIG_LESS
 	prompt "install lessecho              "
 	help
 	  lessecho - expand metacharacters
 
-comment "busy box' less is selected!"
-	depends on BB_CONFIG_LESS
 
 # library dependencies
 
