@@ -11,17 +11,20 @@ DEBUG=
 #
 # defaults
 #
-PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/ptxconfig'
-PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/.platformconfig'
-PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/.toolchain'
-#PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_ptxconfig'
-#PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
-#PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
+PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_ptxconfig'
+PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
+PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
 PTXDIST_BOARDSETUP_DEFAULT='${PTXDIST_WORKSPACE}/boardsetup/boardsetup'
 PTXDIST_PACKAGES_COLLECTION_DEFAULT="ALL"
 
 
-
+#
+# menu_select
+#
+# start file chooser and actual select function
+#
+# ${1}	specifies what to select {ptxconfig,platformconfig}
+#
 menu_select() {
 	local config="${1}"
 	local "${config}"
@@ -37,9 +40,8 @@ menu_select() {
 # le menu
 #
 menu() {
-	local tmpfile="$(tempfile -d "${PTXDIST_TEMPDIR}")"
 	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
-	local ptxconfig
+	local ptxconfig cmd
 
 	ptxconfig="$(readlink -e "${PTXDIST_PTXCONFIG}")"
 	ptxconfig="${ptxconfig#${PTXDIST_WORKSPACE}/}"
@@ -49,13 +51,14 @@ menu() {
 		platform="${platform#${PTXDIST_WORKSPACE}/}"
 	fi
 
-	exec 3> "${tmpfile}"
-	${PTX_DIALOG} \
+	exec 3>&1
+	exec 4>&1
+	cmd="$(${PTX_DIALOG} \
 		--clear \
 		--title "PTXdist Main Menu" \
 		--output-fd 3 \
 		--default-item "${_ptxdist_menu_cmd}" \
-		--menu "" 17 75 10 \
+		--menu "" 0 0 0 \
 		-- \
 		"ptx"			"Configure Software Platform" \
 		"platform"		"Configure Hardware Platform" \
@@ -67,12 +70,11 @@ menu() {
 		"--------------"	"--------------------------------------------" \
 		"board"			"Configure Board Properties" \
 		"user"			"Configure User  Properties" \
-		|| return
-
+		3>&1 1>&4 \
+		)" || return
+	exec 4>&-
 	exec 3>&-
-	local cmd="$(cat "${tmpfile}")"
 	_ptxdist_menu_cmd="${cmd}"
-	rm "${tmpfile}"
 
 	case "${cmd}" in
 	platformconfig|ptxconfig)
@@ -504,11 +506,7 @@ check_if_selected() {
 		ptxd_dialog_msgbox "\
 error: '${1}' is not selected in
        ${PTXDIST_PTXCONFIG}"
-		if [ -n "${PTX_MENU}" ]; then
-			return 1
-		else
-			exit 1
-		fi
+		return 1
 	fi
 }
 
@@ -644,7 +642,7 @@ clean() {
 
 	# we want to clean a single package
 	if [ -n "${1}" ]; then
-		check_if_selected "${1}"
+		check_if_selected "${1}" || return
 		ptxd_make_log "${1}_clean"
 		return
 	fi
@@ -929,6 +927,9 @@ parse_first()
 		-d|--debug)
 			PTX_MAKE_DBG="--debug=make"
 			;;
+		--force-config)
+			PTX_FORCE_CONFIG=true
+			;;
 		--ptxconfig=*)
 			PTXDIST_PTXCONFIG="$(ptxd_abspath "${arg#*=}")"
 			PTX_ptxconfig_SET=true
@@ -985,7 +986,7 @@ do_menuconfig()
 		check_deps
 		ptxd_make "${1}_menuconfig"
 		if [ -n "${PTX_MENU}" -a $? -ne 0 ]; then
-			echo "...have a key"
+			echo "...any key to continue"
 			read
 		fi
 	esac
@@ -1003,21 +1004,40 @@ do_oldconfig()
 		ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_oldconfig_action true
 		;;
 	*)
-		check_if_selected "${1}"
+		check_if_selected "${1}" || return
 		check_deps
 		ptxd_make "${1}_oldconfig"
 	esac
 }
 
 
+#
+# do_select:
+#
+# select a configfile, do sanity checks, etc
+#
+# ${1}: type of config file {ptxconfig,platformconfig}
+# ${2}: the actual config file 
+#
 do_select()
 {
 	local type="${1}"
 	local file="${2}"
 	local dest_ptr="PTXDIST_$(echo "${type}" | tr 'a-z' 'A-Z')"
 	local dest_file="$(readlink -e ${!dest_ptr})"
+	local magic="^PTXCONF__${type}_MAGIC__=y\$"
 
 	check_nonstandard "${type}" || return
+
+	# check if magic is present in config file
+	if ! egrep -q "${magic}" "${file}" && [ -z "${PTX_FORCE_CONFIG}" ]; then
+		ptxd_dialog_msgbox "\
+error: '${file}'
+       seems not to be a valid ${type} file, it hasn't the right MOJO.
+       if you are absolutely sure use 'ptxdist --force-config'
+       and regenerate the ${type} file."
+		return 1
+	fi
 
 	if [ ! -f "${file}" ]; then
 		ptxd_dialog_msgbox "\
@@ -1053,6 +1073,9 @@ selected ${type}:
 			# export new variables
 			setup_platform
 			setup_export
+			# FIXME: care about
+			# logfile
+			# path
 		fi
 		;;
 	*)
@@ -1093,12 +1116,12 @@ error: cannot guess toolchain, no platform selected.
 		    -z "${version}" ]; then
 			ptxd_dialog_msgbox "
 info: insufficient information in your ptxconfig file
-      please use 'ptxdist toolchain </path/to/toolchain>'"
+      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
 			return 1
 		else
 			ptxd_dialog_msgbox "\
 toolchain vendor : '${vendor}'
-compiler version : '${version}
+compiler version : '${version}'
 target tuple     : '${target}'
 
 looking for      : '${hint}'"
@@ -1128,7 +1151,9 @@ error: more than one toolchain found, matching"
 		return 1
 	fi
 
-	ptxd_dialog_msgbox "using toolchain in '${toolchain}'"
+	ptxd_dialog_msgbox "\
+found and using toolchain:
+'${toolchain}'"
 
 	if [ -L "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
 		rm -f "${PTXDIST_TOOLCHAIN_DEFAULT}"
@@ -1180,7 +1205,7 @@ parse_second()
 
 		extract|prepare|compile|install|targetinstall|tags)
 			check_ptxconfig || return
-			check_if_selected "${1}"
+			check_if_selected "${1}" || return
 			check_compiler
 			check_dirs
 			check_deps
@@ -1346,7 +1371,7 @@ parse_second()
 			if [ $# -eq 0 ]; then
 				ptxd_make_log get
 			else
-				check_if_selected "${1}"
+				check_if_selected "${1}" || return
 				ptxd_make_log "${STATEDIR}/${1}.get"
 			fi
 			exit 0
@@ -1631,7 +1656,7 @@ setup_config() {
 	#
 
 	# default no parallel for now
-	pmf_extern=-j1
+	pmf_extern="-j1"
 
 	#
 	# user may override PARALLELMFLAGS
@@ -1649,7 +1674,7 @@ setup_config() {
 			cpus=1
 		fi
 
-		pmf_intern=-j$(( $cpus * 2 ))
+		pmf_intern="-j$(( $cpus * 2 ))"
 	fi
 
 	#

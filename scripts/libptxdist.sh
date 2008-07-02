@@ -8,12 +8,12 @@ PTX_DEBUG=${PTX_DEBUG:="false"}
 DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $2, $3, $4, $2); if ($1 == "n") printf("mknod -m %s .%s %s %s %s; chown %s.%s .%s;\n", $5, $2, $6, $7, $8, $3, $4, $2);}'
 
 
-PTX_DIALOG=dialog
-PTX_DIALOG_HEIGHT=10
-PTX_DIALOG_WIDTH=70
+PTX_DIALOG="dialog --aspect 60"
+PTX_DIALOG_HEIGHT=0
+PTX_DIALOG_WIDTH=0
 
 
-ptxd_dialog_fselect() {
+ptxd_dialog_fselect_old() {
 	local ptr="${1}"
 	local _select="${!1:-${PWD}}"		# deref ptr or use $PWD as default
 
@@ -22,7 +22,8 @@ ptxd_dialog_fselect() {
 		_select="$(dialog \
 			--output-fd 2 \
 			--title "Please choose a ${ptr} file" \
-			--fselect "${_select}/" 14 ${PTX_DIALOG_WIDTH} 2>&1 1>&3)" || return
+			--fselect "${_select}/" 14 ${PTX_DIALOG_WIDTH} 2>&1 1>&3)" \
+			|| return
 	done
 	exec 3>&-
 
@@ -30,29 +31,67 @@ ptxd_dialog_fselect() {
 }
 
 
-ptxd_dialog_infobox() {
+
+#
+# ${1}	variable name in which string is returned
+#       derefed serves as starting point for file selector
+#       if empty $PWD is used
+#
+# return: selected file in variable ${1}
+#
+ptxd_dialog_fselect() {
+	local ptr="${1}"
+	local _select="${!1:-${PWD}}"
+
+	exec 3>&1
+	exec 4>&1
+	while [ -d "${_select}" -o \! -e "${_select}" ]; do
+		# FIXME take care about real links
+		_select="$(readlink -e ${_select})"
+		_select="${_select}/$(eval ${PTX_DIALOG} \
+			--clear \
+			--output-fd 3 \
+			--title \"Please choose a ${ptr} file\" \
+			--menu \"${_select}\" 0 0 0 \
+			-- \
+			\".\"  \"\<d\>\" \
+			\"..\" \"\<d\>\" \
+			$(find "${_select}/" -maxdepth 1 -mindepth 1    -type d -a \! -name ".*" -printf "\"%f\" \"<d>\"\n" | sort) \
+			$(find "${_select}/" -maxdepth 1 -mindepth 1 \! -type d -a \! -name ".*" -printf "\"%f\" \"<f>\"\n" | sort) \
+			3>&1 1>&4 \
+			)" || return
+	done
+	exec 4>&-
+	exec 3>&-
+
+	eval "${ptr}"="${_select}"
+}
+
+
+_ptxd_dialog_box() {
+	local dialog="${1}"
+	shift
 	if [ -n "${PTX_MENU}" ]; then
 		${PTX_DIALOG} \
 			--no-collapse \
-			--infobox "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
+			--${dialog}box "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
 	else
 		cat <<EOF
 ${@}
+
+
 EOF
 	fi
 }
 
-ptxd_dialog_msgbox() {
-	if [ -n "${PTX_MENU}" ]; then
-		${PTX_DIALOG} \
-			--no-collapse \
-			--msgbox "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
-	else
-		cat <<EOF
-${@}
-EOF
-	fi
+ptxd_dialog_infobox() {
+	_ptxd_dialog_box info "${@}"
 }
+
+ptxd_dialog_msgbox() {
+	_ptxd_dialog_box msg "${@}"
+}
+
 
 ptxd_dialog_yesno() {
 	local answer
@@ -61,10 +100,9 @@ ptxd_dialog_yesno() {
 		${PTX_DIALOG} \
 			--yesno "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
 	else
-		echo
-		echo -e "${PROMPT}${*}"
-		echo
-
+		cat <<EOF
+${@}
+EOF
 		read answer
 		if [ "${answer}" != "y" -a "${answer}" != "" ]; then
 			echo "interrupting"
@@ -185,6 +223,7 @@ ptxd_abspath() {
 		echo "usage: ptxd_abspath <path>"
 		exit 1
 	fi
+
 	dn=`dirname $1`
 	echo `cd $dn && pwd`/`basename $1`
 }
