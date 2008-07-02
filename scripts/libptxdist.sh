@@ -71,16 +71,18 @@ ptxd_dialog_fselect() {
 _ptxd_dialog_box() {
 	local dialog="${1}"
 	shift
+
+	local old_ifs="${IFS}"
+	local IFS=''
+	local msg="${*}"
+	IFS="${old_ifs}"
+
 	if [ -n "${PTX_MENU}" ]; then
 		${PTX_DIALOG} \
 			--no-collapse \
-			--${dialog}box "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
+			--${dialog}box "${msg}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
 	else
-		cat <<EOF
-${@}
-
-
-EOF
+		echo -e "${msg}\n"
 	fi
 }
 
@@ -92,17 +94,20 @@ ptxd_dialog_msgbox() {
 	_ptxd_dialog_box msg "${@}"
 }
 
-
 ptxd_dialog_yesno() {
+	local old_ifs="${IFS}"
+	local IFS=''
+	local msg="${*}"
+	IFS="${old_ifs}"
+
 	local answer
 
 	if [ -n "${PTX_MENU}" ]; then
 		${PTX_DIALOG} \
-			--yesno "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
+			--yesno "${msg}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
 	else
-		cat <<EOF
-${@}
-EOF
+		echo -e "${msg}"
+
 		read answer
 		if [ "${answer}" != "y" -a "${answer}" != "" ]; then
 			echo "interrupting"
@@ -278,7 +283,7 @@ ptxd_exit_silent(){
 #
 ptxd_debug(){
 	if [ "${PTX_DEBUG}" = "true" ]; then
-		echo "$0: $1" >&2
+		echo "$0: ${@}" >&2
 	fi
 }
 

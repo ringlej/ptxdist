@@ -6,7 +6,6 @@ export LC_CTYPE=POSIX
 
 PTXDIST_ARGS_FULL=("${@}")
 PROMPT="ptxdist: "
-DEBUG=
 
 #
 # defaults
@@ -40,8 +39,13 @@ menu_select() {
 # le menu
 #
 menu() {
+	local kernel_version="$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION)"
+	local u_boot_v2_version="$(ptxd_get_ptxconf PTXCONF_U_BOOT_V2_VERSION)"
 	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
 	local ptxconfig cmd
+
+	kernel_version="${kernel_version:-none}"
+	u_boot_v2_version="${u_boot_v2_version:-none}"
 
 	ptxconfig="$(readlink -e "${PTXDIST_PTXCONFIG}")"
 	ptxconfig="${ptxconfig#${PTXDIST_WORKSPACE}/}"
@@ -58,12 +62,13 @@ menu() {
 		--title "PTXdist Main Menu" \
 		--output-fd 3 \
 		--default-item "${_ptxdist_menu_cmd}" \
+		--cancel-label "Exit" \
 		--menu "" 0 0 0 \
 		-- \
 		"ptx"			"Configure Software Platform" \
 		"platform"		"Configure Hardware Platform" \
-		"kernel"		"Configure Kernel" \
-		"u-boot-v2"		"Configure U-Boot-v2" \
+		"kernel"		"Configure Kernel (${kernel_version})" \
+		"u-boot-v2"		"Configure U-Boot-v2 (${u_boot_v2_version})" \
 		"--------------"	"--------------------------------------------" \
 		"ptxconfig"		"Select    Software Platform (${ptxconfig})" \
 		"platformconfig"	"Select    Hardware Platform (${platform})" \
@@ -203,17 +208,17 @@ check_nonstandard() {
 #
 check_ptxconfig() {
 	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
-		ptxd_dialog_msgbox "\
-error: ptxconfig file is missing
-       try 'ptxdist select <ptxconfig>' or
-       'ptxdist clone <project>' to clone an existing project"
+		ptxd_dialog_msgbox \
+			"error: '${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}' file is missing\n"
+			"       try 'ptxdist select <ptxconfig>' or\n" \
+			"       'ptxdist clone <project>' to clone an existing project"
 		return 1
 	fi
 
 	if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
-		ptxd_dialog_msgbox "\
-error: '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing
-       try 'ptxdist platform <platformconfig>'"
+		ptxd_dialog_msgbox \
+			"error: '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing\n" \
+			"       try 'ptxdist platform <platformconfig>'"
 		return 1
 	fi
 
@@ -221,11 +226,11 @@ error: '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing
 
 	check_version "${FULLVERSION}" "${configfile_version}"
 	if [ ${?} -ne 0 ]; then
-		ptxd_dialog_msgbox "\
-error: The configfile version and ptxdist version do not match:
-
-configfile version: ${configfile_version}
-ptxdist version:    ${FULLVERSION}"
+		ptxd_dialog_msgbox \
+			"error: The configfile version and ptxdist version do not match:\n" \
+			"\n" \
+			"configfile version: ${configfile_version}\n" \
+			"ptxdist version:    ${FULLVERSION}"
 		return 1
 	fi
 }
@@ -503,9 +508,9 @@ check_if_selected() {
 	local ptxconfig_configvar="$(ptxd_get_ptxconf "${configvar}")"
 
 	if [ -z "${ptxconfig_configvar}" ]; then
-		ptxd_dialog_msgbox "\
-error: '${1}' is not selected in
-       ${PTXDIST_PTXCONFIG}"
+		ptxd_dialog_msgbox \
+			"error: '${1}' is not selected in\n" \
+			"       ${PTXDIST_PTXCONFIG}"
 		return 1
 	fi
 }
@@ -607,6 +612,7 @@ Overwrite:
   --ptxconfig			use sepcified ptxconfig
   --platformconfig		use specified platformconfig
   --toolchain			use specified toolchain
+  --force-config		select config even if MOJO is missing
 
 Misc
 
@@ -1025,42 +1031,42 @@ do_select()
 	local file="${2}"
 	local dest_ptr="PTXDIST_$(echo "${type}" | tr 'a-z' 'A-Z')"
 	local dest_file="$(readlink -e ${!dest_ptr})"
-	local magic="^PTXCONF__${type}_MAGIC__=y\$"
+	local magic="PTXCONF__${type}_MAGIC__=y"
 
 	check_nonstandard "${type}" || return
 
 	# check if magic is present in config file
-	if ! egrep -q "${magic}" "${file}" && [ -z "${PTX_FORCE_CONFIG}" ]; then
-		ptxd_dialog_msgbox "\
-error: '${file}'
-       seems not to be a valid ${type} file, it hasn't the right MOJO.
-       if you are absolutely sure use 'ptxdist --force-config'
-       and regenerate the ${type} file."
+	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTX_FORCE_CONFIG}" ]; then
+		ptxd_dialog_msgbox \
+			"error: '${file}'\n" \
+			"       seems not to be a valid ${type} file, it has not the right MOJO.\n" \
+			"       if you are absolutely sure use 'ptxdist --force-config'\n" \
+			"       and regenerate the ${type} file."
 		return 1
 	fi
 
 	if [ ! -f "${file}" ]; then
-		ptxd_dialog_msgbox "\
-error: cannot select
-       '${file}'
-       file does not exist"
+		ptxd_dialog_msgbox \
+			"error: cannot select\n" \
+			"       '${file}'\n" \
+			"       file does not exist"
 		return 1
 	elif [ -e "${!dest_ptr}" -a \! -L "${!dest_ptr}" ]; then
-		ptxd_dialog_msgbox "\
-error: '${!dest_ptr}' is not a link
-       thus ${type} is not selectable!"
+		ptxd_dialog_msgbox \
+			"error: '${!dest_ptr}' is not a link\n" \
+			"       thus ${type} is not selectable!"
 		return 1
 	elif [ -f "${!dest_ptr}" ]; then
-		ptxd_dialog_yesno "\
-warning: overwrite existing ${type} [Y/n]?:
-         '${dest_file#${PTXDIST_WORKSPACE}/}'" \
+		ptxd_dialog_yesno \
+			"warning: overwrite existing ${type} [Y/n]?:\n" \
+			"         '${dest_file#${PTXDIST_WORKSPACE}/}'" \
 			|| return
 	fi
 
 	ln -sf "${file}" "${!dest_ptr}"
-	ptxd_dialog_msgbox "\
-selected ${type}:
-'${file}'"
+	ptxd_dialog_msgbox \
+		"info: selected ${type}:\n" \
+		"      '${file}'"
 
 	case "${type}" in
 	platformconfig)
@@ -1114,17 +1120,17 @@ error: cannot guess toolchain, no platform selected.
 		if [ -z "${vendor}" -o \
 		    -z "${target}" -o \
 		    -z "${version}" ]; then
-			ptxd_dialog_msgbox "
-info: insufficient information in your ptxconfig file
-      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
+			ptxd_dialog_msgbox \
+				"info: insufficient information in your ptxconfig file\n" \
+				"      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
 			return 1
 		else
-			ptxd_dialog_msgbox "\
-toolchain vendor : '${vendor}'
-compiler version : '${version}'
-target tuple     : '${target}'
-
-looking for      : '${hint}'"
+			ptxd_dialog_msgbox \
+				"toolchain vendor : '${vendor}'\n" \
+				"compiler version : '${version}'\n" \
+				"target tuple     : '${target}'\n" \
+				"\n" \
+				"looking for      : '${hint}'"
 		fi
 		# let the shell expand the "*" in the hint, put it into an array
 		toolchain=($(echo ${hint}))
@@ -1133,15 +1139,15 @@ looking for      : '${hint}'"
 		local num="${#toolchain[@]}"
 
 		if [ ${num} -eq 0 ]; then
-			ptxd_dialog_msgbox "\
-error: sorry, no toolchain found, matching
-       ${hint}"
+			ptxd_dialog_msgbox \
+				"error: sorry, no toolchain found, matching\n" \
+				"       ${hint}"
 			return 1
 		elif [ ${num} -ne 1 ]; then
-			ptxd_dialog_msgbox "\
-error: more than one toolchain found, matching"
-       '${hint}'"
-       ${toolchain[@]}"
+			ptxd_dialog_msgbox \
+				"error: more than one toolchain found, matching\n" \
+				"       '${hint}\n'" \
+				"       ${toolchain[@]}"
 			return 1
 		fi
 	fi
@@ -1151,17 +1157,17 @@ error: more than one toolchain found, matching"
 		return 1
 	fi
 
-	ptxd_dialog_msgbox "\
-found and using toolchain:
-'${toolchain}'"
+	ptxd_dialog_msgbox \
+		"found and using toolchain:\n" \
+		"'${toolchain}'"
 
 	if [ -L "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
 		rm -f "${PTXDIST_TOOLCHAIN_DEFAULT}"
 	elif [ -e "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
-		ptxd_dialog_msgbox "\
-error: There is a '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' in this directory which is no link.
-       This should never happen, please contact the
-       Pengutronix Department of Illegal File Removement."
+		ptxd_dialog_msgbox \
+			"error: There is a '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' in this directory which is no link.\n" \
+			"       This should never happen, please contact the\n" \
+			"       Pengutronix Department of Illegal File Removement."
 		exit 1
 	fi
 
@@ -1776,8 +1782,9 @@ setup_config
 setup_path
 # --- path is now set ---
 setup_logfile
-
+# -- logfile is ready
 setup_export
+# -- all improtant vars are exported
 
 check_uid
 check_path
