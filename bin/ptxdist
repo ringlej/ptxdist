@@ -39,27 +39,31 @@ menu_select() {
 menu() {
 	local tmpfile="$(tempfile -d "${PTXDIST_TEMPDIR}")"
 	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
-	local ptxconfig="$(readlink -e "${PTXDIST_PTXCONFIG}")"
-	
-	platform="${platform:-${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}}"
-	ptxconfig="${ptxconfig##*/}"
-#		--cancel-label "Exit" \
+	local ptxconfig
+
+	ptxconfig="$(readlink -e "${PTXDIST_PTXCONFIG}")"
+	ptxconfig="${ptxconfig#${PTXDIST_WORKSPACE}/}"
+
+	if [ -z "${platform}" -a -e "${PTXDIST_PLATFORMCONFIG}" ]; then
+		platform="$(readlink -e "${PTXDIST_PLATFORMCONFIG}")"
+		platform="${platform#${PTXDIST_WORKSPACE}/}"
+	fi
 
 	exec 3> "${tmpfile}"
 	${PTX_DIALOG} \
 		--clear \
 		--title "PTXdist Main Menu" \
-	        --output-fd 3 \
+		--output-fd 3 \
 		--default-item "${_ptxdist_menu_cmd}" \
 		--menu "" 17 75 10 \
 		-- \
-		"ptxconfig"		"Select    Software Platform (${ptxconfig})" \
-		"platformconfig"	"Select    Hardware Platform (${platform})" \
-		"--------------"	"--------------------------------------------" \
 		"ptx"			"Configure Software Platform" \
 		"platform"		"Configure Hardware Platform" \
 		"kernel"		"Configure Kernel" \
 		"u-boot-v2"		"Configure U-Boot-v2" \
+		"--------------"	"--------------------------------------------" \
+		"ptxconfig"		"Select    Software Platform (${ptxconfig})" \
+		"platformconfig"	"Select    Hardware Platform (${platform})" \
 		"--------------"	"--------------------------------------------" \
 		"board"			"Configure Board Properties" \
 		"user"			"Configure User  Properties" \
@@ -180,16 +184,14 @@ check_nonstandard() {
 	local nonstandard_set="PTX_${1}_SET"
 
 	if [ "${!nonstandard_set}" = "true" ]; then
-		ptxd_dialog_msgbox "error: cannot select ${1}\ndon't use --${1}"
+		ptxd_dialog_msgbox "error: cannot select ${1} when using the '--${1}' feature"
 		return 1
 	elif [ -z "${!nonstandard_set}" ]; then
 		echo
-		echo "${PROMPT}error: invalid use of \"check_nonstandard ${@}\""
+		echo "${PROMPT}error: invalid use of 'check_nonstandard ${@}'"
 		echo
 		exit 1
 	fi
-
-	return 0;
 }
 
 
@@ -199,32 +201,30 @@ check_nonstandard() {
 #
 check_ptxconfig() {
 	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
-		echo
-		echo "${PROMPT}error: ptxconfig file is missing"
-		echo "${PROMPT}error: please 'ptxdist clone' an existing project"
-		echo
-		exit 1
+		ptxd_dialog_msgbox "\
+error: ptxconfig file is missing
+       try 'ptxdist select <ptxconfig>' or
+       'ptxdist clone <project>' to clone an existing project"
+		return 1
 	fi
 
 	if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
-		echo
-		echo "${PROMPT}error: '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing"
-		echo "${PROMPT}error: try ptxdist platformconfig"
-		echo
-		exit 1
+		ptxd_dialog_msgbox "\
+error: '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing
+       try 'ptxdist platform <platformconfig>'"
+		return 1
 	fi
 
 	local configfile_version="$(ptxd_get_ptxconf PTXCONF_CONFIGFILE_VERSION)"
 
 	check_version "${FULLVERSION}" "${configfile_version}"
 	if [ ${?} -ne 0 ]; then
-		echo
-		echo "${PROMPT}error: The configfile version and ptxdist version do not match:"
-		echo
-		echo "	configfile version: ${configfile_version}"
-		echo "	ptxdist version:    ${FULLVERSION}"
-		echo
-		exit 1
+		ptxd_dialog_msgbox "\
+error: The configfile version and ptxdist version do not match:
+
+configfile version: ${configfile_version}
+ptxdist version:    ${FULLVERSION}"
+		return 1
 	fi
 }
 
@@ -249,14 +249,14 @@ check_uid() {
 #
 check_path() {
 	case "${PATH}" in
-		.:*)
-			echo
-			echo "${PROMPT}error: \".\" in your \$PATH detected, please remove it!"
-			echo
-			exit 1
-			;;
-		*)
-			;;
+	.:*)
+		echo
+		echo "${PROMPT}error: '.' in your \$PATH detected, please remove it!"
+		echo
+		exit 1
+		;;
+	*)
+		;;
 	esac
 }
 
@@ -364,8 +364,8 @@ check_dirs_prefix() {
 
 	if echo "${prefix}" | grep -q " "; then
 		echo
-		echo "error: some important dir (\"${prefix}\")"
-		echo "contains spaces, this will probably not work, sorry"
+		echo "error: some important dir ('${prefix}')"
+		echo "       contains spaces, this will probably not work, sorry"
 		echo
 		exit 1
 	fi
@@ -374,7 +374,7 @@ check_dirs_prefix() {
 		mkdir -p "${prefix}" 2> /dev/null
 		if [ ${?} -ne 0 ]; then
 			echo
-			echo "error: \"${prefix}\""
+			echo "error: '${prefix}'"
 			echo "       does not exist and cannot be created!"
 			echo "       Please create that dir with write permissions for you."
 			echo
@@ -392,11 +392,11 @@ check_dirs_prefix() {
 		fi
 	fi
 
-    	testfile="${prefix}/.secret-world-domination-project"
+	testfile="${prefix}/.secret-world-domination-project"
 	touch "${testfile}" 2> /dev/null
 	if [ ${?} -ne 0 ]; then
 		echo
-		echo "error: \"${prefix}\""
+		echo "error: '${prefix}'"
 		echo "       does exist, but is not writeable."
 		echo "       Change the permissions and try again."
 		echo
@@ -414,7 +414,7 @@ check_dirs_prefix() {
 		touch "${testfile}" 2> /dev/null
 		if [ ${?} -ne 0 ]; then
 			echo
-			echo "error: cannot make \"${prefix}\" writeable, giving up"
+			echo "error: cannot make '${prefix}' writeable, giving up"
 			echo
 			exit 1
 		fi
@@ -476,7 +476,7 @@ check_dirs() {
 		if [ "$(cat "${testfile_lower}")" != "lower" -o \
 		    "$(cat "${testfile_upper}")" != "upper" ]; then
 			echo
-			echo "error: \"${dir}\""
+			echo "error: '${dir}'"
 			echo "       is not a case sensitive filesystem."
 			echo "       Please move your project to a case sensitive one"
 			echo
@@ -501,7 +501,9 @@ check_if_selected() {
 	local ptxconfig_configvar="$(ptxd_get_ptxconf "${configvar}")"
 
 	if [ -z "${ptxconfig_configvar}" ]; then
-		ptxd_dialog_msgbox "error: \"${1}\" is not selected in\n${PTXDIST_PTXCONFIG}"
+		ptxd_dialog_msgbox "\
+error: '${1}' is not selected in
+       ${PTXDIST_PTXCONFIG}"
 		if [ -n "${PTX_MENU}" ]; then
 			return 1
 		else
@@ -654,12 +656,12 @@ clean() {
 			continue
 		fi
 		for bdir in $(find "${dir}" -maxdepth 1 -mindepth 1 -type l); do
-		    # run 'make clean' for linked source directories
-		    pushd "${bdir}" > /dev/null
-		    echo -n "${PROMPT}running \"make clean\" in \"${bdir#${dir}/}\"... "
-		    make clean 1> /dev/null 2>&1
-		    echo "done"
-		    popd > /dev/null
+			# run 'make clean' for linked source directories
+			pushd "${bdir}" > /dev/null
+			echo -n "${PROMPT}running 'make clean' in '${bdir#${dir}/}'... "
+			make clean 1> /dev/null 2>&1
+			echo "done"
+			popd > /dev/null
 		done
 		rm -rf "${dir}"
 	done
@@ -680,10 +682,10 @@ clean() {
 			# we don't want to clean them here!
 			#
 			case "${dir}" in
-			    (${PTXDIST_WORKSPACE}/*)
+			(${PTXDIST_WORKSPACE}/*)
 				rm -rf "${dir}"
 				;;
-			    (*)
+			(*)
 				;;
 			esac
 		done
@@ -742,9 +744,10 @@ newpacket() {
 	    class CLASS autoconf_class
 
 	case $1 in
-	    target|host|host-existing-target|cross|cross-existing-target|source|kernel_driver|font|simple)
+	target|host|host-existing-target|cross|cross-existing-target|source|kernel_driver|font|simple)
 		;;
-	    *)	echo
+	*)
+		echo
 		echo "${PROMPT}error: illegal packet type: $1"
 		echo "must be one of host, host-existing-target, target,"
 		echo "cross, cross-existing-target, source, kernel_driver, font, simple"
@@ -768,47 +771,47 @@ newpacket() {
 	read suffix
 
 	case "$1" in
-	    target)
+	target)
 		template=template
 		class=
 		autoconf_class=
 		;;
-	    host)
+	host)
 		template=template-class
 		class=host-
 		autoconf_class=HOST_
 		;;
-	    cross)
+	cross)
 		template=template-class
 		class=cross-
 		autoconf_class=HOST_CROSS_
 		;;
-	    host-existing-target)
+	host-existing-target)
 		template=template-class-existing-target
 		class=host-
 		autoconf_class=HOST_
 		;;
-	    cross-existing-target)
+	cross-existing-target)
 		template=template-class-existing-target
 		class=cross-
 		autoconf_class=HOST_CROSS_
 		;;
-	    source)
+	source)
 		template=template-src
 		class=
 		autoconf_class=
 		;;
-	    kernel_driver)
+	kernel_driver)
 		template=template-driver
 		class=
 		autoconf_class=
 		;;
-	    font)
+	font)
 		template=template-font
 		class=
 		autoconf_class=
 		;;
-	    simple)
+	simple)
 		template=template-file
 		class=
 		autoconf_class=
@@ -825,26 +828,26 @@ newpacket() {
 	year="$(date +%Y)"
 
 	for template_suffix in "make" "in"; do
-	    template_file="${RULESDIR}/${template}-${template_suffix}"
-	    filename="${class}${packet_filename}.${template_suffix}"
+		template_file="${RULESDIR}/${template}-${template_suffix}"
+		filename="${class}${packet_filename}.${template_suffix}"
 
-	    if [ ! -f "${template_file}" ]; then
-		echo
-		echo "${PROMPT}warning: template \"${template_file}\" does not exist"
-		echo
-		continue
-	    fi
-
-	    if [ -f "${filename}" ]; then
-		echo
-		echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n]"
-		read overwrite
-		if [ "$overwrite" != "y" ]; then
-		    echo "${PROMPT}aborted."
-		    echo
-		    exit
+		if [ ! -f "${template_file}" ]; then
+			echo
+			echo "${PROMPT}warning: template '${template_file}' does not exist"
+			echo
+			continue
 		fi
-	    fi
+
+		if [ -f "${filename}" ]; then
+			echo
+			echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n]"
+			read overwrite
+			if [ "$overwrite" != "y" ]; then
+				echo "${PROMPT}aborted."
+				echo
+				exit
+			fi
+		fi
 
 	    sed \
 		-e "s#\@packet_filename@#${packet_filename}#g" \
@@ -913,9 +916,9 @@ parse_first()
 	#
 	# init these ones
 	#
-	PTX_ptxconfig_SET=false
-	PTX_platformconfig_SET=false
-	PTX_toolchain_SET=false
+	PTX_ptxconfig_SET="false"
+	PTX_platformconfig_SET="false"
+	PTX_toolchain_SET="false"
 
 	set -- "${PTXDIST_ARGS_FULL[@]}"
 	while [ $# -ne 0 ]; do
@@ -959,7 +962,7 @@ parse_first()
 do_menuconfig()
 {
 	if [ "${1}" != "setup" ]; then
-		check_ptxconfig
+		check_ptxconfig || return
 	fi
 
 	case "${1}" in
@@ -981,6 +984,28 @@ do_menuconfig()
 		ptxd_dialog_infobox "this may take some seconds..."
 		check_deps
 		ptxd_make "${1}_menuconfig"
+		if [ -n "${PTX_MENU}" -a $? -ne 0 ]; then
+			echo "...have a key"
+			read
+		fi
+	esac
+}
+
+
+do_oldconfig()
+{
+	check_ptxconfig || return
+	case "${1}" in
+	""|"ptxdist"|"ptx")
+		ptxd_kconfig "${PTXDIST_PTXCONFIG}" ptx_oldconfig_action true
+		;;
+	"platform")
+		ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_oldconfig_action true
+		;;
+	*)
+		check_if_selected "${1}"
+		check_deps
+		ptxd_make "${1}_oldconfig"
 	esac
 }
 
@@ -990,22 +1015,52 @@ do_select()
 	local type="${1}"
 	local file="${2}"
 	local dest_ptr="PTXDIST_$(echo "${type}" | tr 'a-z' 'A-Z')"
+	local dest_file="$(readlink -e ${!dest_ptr})"
 
 	check_nonstandard "${type}" || return
 
 	if [ ! -f "${file}" ]; then
-		ptxd_dialog_msgbox "error: couldn't select \"${file}\", file does not exist"
+		ptxd_dialog_msgbox "\
+error: cannot select
+       '${file}'
+       file does not exist"
+		return 1
+	elif [ \! -L "${!dest_ptr}" ]; then
+		ptxd_dialog_msgbox "\
+error: '${!dest_ptr}' is not a link
+       thus ${type} is not selectable!"
 		return 1
 	elif [ -f "${!dest_ptr}" ]; then
-		ptxd_dialog_yesno "warning: overwrite existing ${type} [Y/n]?" || return
+		ptxd_dialog_yesno "\
+warning: overwrite existing ${type} [Y/n]?:
+         '${dest_file#${PTXDIST_WORKSPACE}/}'" \
+			|| return
 	fi
 
 	ln -sf "${file}" "${!dest_ptr}"
-	ptxd_dialog_msgbox "selected ${type} \"${file}\""
+	ptxd_dialog_msgbox "\
+selected ${type}:
+'${file}'"
 
-	if [ "${type}" = "platformconfig" ]; then
-		do_select_toolchain
-	fi
+	case "${type}" in
+	platformconfig)
+		if [ "${PTX_toolchain_SET}" != "true" ]; then
+			do_select_toolchain
+		fi
+
+		if [ -n "${PTX_MENU}" ]; then
+			# re-read platformconfig and
+			# export new variables
+			setup_platform
+			setup_export
+		fi
+		;;
+	*)
+		;;
+	esac
+
+
+
 }
 
 
@@ -1013,15 +1068,18 @@ do_select()
 do_select_toolchain() {
 	local toolchain="${1}"
 
+	check_nonstandard "toolchain" || return
+
 	#
 	# guess the toolchain if path is omitted
 	#
 	if [ -z "${toolchain}" ]; then
 		if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
-			echo
-			echo "${PROMPT}error: cannot guess toolchain, no ${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/} found"
-			echo
-			exit 1
+			ptxd_dialog_msgbox "\
+error: cannot guess toolchain, no platform selected.
+       try 'ptxdist platform <platformconfig>' first
+       or use 'ptxdist toolchain </path/to/toolchain>'"
+			return 1
 		fi
 
 		local vendor="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
@@ -1033,19 +1091,17 @@ do_select_toolchain() {
 		if [ -z "${vendor}" -o \
 		    -z "${target}" -o \
 		    -z "${version}" ]; then
-			echo
-			echo "${PROMPT}error: insufficient information in your ptxconfig file"
-			echo "${PROMPT}       please use 'ptxdist toolchain <path>"
-			echo
-			exit 1
+			ptxd_dialog_msgbox "
+info: insufficient information in your ptxconfig file
+      please use 'ptxdist toolchain </path/to/toolchain>'"
+			return 1
 		else
-			echo
-			echo "${PROMPT}CROSSCHAIN_VENDOR : ${vendor}"
-			echo "${PROMPT}CROSSCHAIN_CHECK  : ${version}"
-			echo "${PROMPT}GNU_TARGET        : ${target}"
-			echo "${PROMPT}"
-			echo "${PROMPT}looking for       : ${hint}"
-			echo "${PROMPT}"
+			ptxd_dialog_msgbox "\
+toolchain vendor : '${vendor}'
+compiler version : '${version}
+target tuple     : '${target}'
+
+looking for      : '${hint}'"
 		fi
 		# let the shell expand the "*" in the hint, put it into an array
 		toolchain=($(echo ${hint}))
@@ -1054,44 +1110,37 @@ do_select_toolchain() {
 		local num="${#toolchain[@]}"
 
 		if [ ${num} -eq 0 ]; then
-			echo "${PROMPT}"
-			echo "${PROMPT}"
-			echo "${PROMPT}error: sorry, no toolchain found, matching"
-			echo "${PROMPT}       ${hint}"
-			echo
-			exit 1
+			ptxd_dialog_msgbox "\
+error: sorry, no toolchain found, matching
+       ${hint}"
+			return 1
 		elif [ ${num} -ne 1 ]; then
-			echo "${PROMPT}"
-			echo "${PROMPT}"
-			echo "${PROMPT}error: more than one toolchain found, matching"
-			echo "${PROMPT}       ${hint}"
-			echo "${PROMPT}       ${toolchain[@]}"
-			echo
-			exit 1
+			ptxd_dialog_msgbox "\
+error: more than one toolchain found, matching"
+       '${hint}'"
+       ${toolchain[@]}"
+			return 1
 		fi
 	fi
 
 	if [ ! -d "${toolchain}" ]; then
-		echo
-		echo "${PROMPT}error: path ${toolchain} does not exist"
-		echo
-		exit 1
+		ptxd_dialog_msgbox "error: path ${toolchain} does not exist!"
+		return 1
 	fi
 
-	echo "${PROMPT}using toolchain in \"${toolchain}\""
+	ptxd_dialog_msgbox "using toolchain in '${toolchain}'"
 
 	if [ -L "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
 		rm -f "${PTXDIST_TOOLCHAIN_DEFAULT}"
-	elif [ -e "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
-		echo
-		echo "${PROMPT}error: There is a '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' in this directory which is no link."
-		echo "${PROMPT}error: This should never happen, please contact the"
-		echo "${PROMPT}error: Pengutronix Department of Illegal File Removement."
-		echo
+	else [ -e "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
+		ptxd_dialog_msgbox "\
+error: There is a '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' in this directory which is no link.
+       This should never happen, please contact the
+       Pengutronix Department of Illegal File Removement."
 		exit 1
 	fi
+
 	ln -sf "${toolchain}" "${PTXDIST_TOOLCHAIN_DEFAULT}"
-	echo
 }
 
 
@@ -1130,7 +1179,7 @@ parse_second()
 ######## standard target, directly into make
 
 		extract|prepare|compile|install|targetinstall|tags)
-			check_ptxconfig
+			check_ptxconfig || return
 			check_if_selected "${1}"
 			check_compiler
 			check_dirs
@@ -1147,6 +1196,11 @@ parse_second()
 
 		menuconfig)
 			do_menuconfig "${@}"
+			exit ${?}
+			;;
+
+		oldconfig)
+			do_oldconfig "${@}"
 			exit ${?}
 			;;
 
@@ -1174,7 +1228,6 @@ parse_second()
 			do_menuconfig user
 			exit ${?}
 			;;
-
 
 		select)
 			do_select ptxconfig "${1}"
@@ -1232,7 +1285,7 @@ parse_second()
 			exit 0
 			;;
 		clean)
-			check_ptxconfig
+			check_ptxconfig || return
 			check_deps
 			clean "${1}"
 			exit 0
@@ -1271,7 +1324,7 @@ parse_second()
 			exit 0
 			;;
 		drop)
-			check_ptxconfig
+			check_ptxconfig || return
 			drop "${1}" "${2}"
 			exit 0
 			;;
@@ -1282,13 +1335,13 @@ parse_second()
 				echo
 				exit 1
 			fi
-			check_ptxconfig
+			check_ptxconfig || return
 			check_deps
 			ptxd_make_log export EXPORTDIR="${1}"
 			exit 0
 			;;
 		get)
-			check_ptxconfig
+			check_ptxconfig || return
 			check_deps
 			if [ $# -eq 0 ]; then
 				ptxd_make_log get
@@ -1299,7 +1352,7 @@ parse_second()
 			exit 0
 			;;
 		go)
-			check_ptxconfig
+			check_ptxconfig || return
 			check_compiler
 			check_dirs
 			check_deps
@@ -1307,7 +1360,7 @@ parse_second()
 			exit 0
 			;;
 		images)
-			check_ptxconfig
+			check_ptxconfig || return
 			check_compiler
 			check_dirs
 			check_deps
@@ -1317,7 +1370,7 @@ parse_second()
 			;;
 
 		make)
-			check_ptxconfig
+			check_ptxconfig || return
 			check_compiler
 			check_dirs
 			check_deps
@@ -1340,24 +1393,8 @@ parse_second()
 			newpacket "${1}"
 			exit ${?}
 			;;
-		oldconfig)
-			check_ptxconfig
-			case "${1}" in
-			    ""|"ptxdist")
-				ptxd_kconfig "${PTXDIST_PTXCONFIG}" oldconfig_action true
-				;;
-			    "platform")
-				ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_oldconfig_action true
-				;;
-			    *)
-				check_if_selected "${1}"
-				check_deps
-				ptxd_make "${1}_oldconfig"
-			esac
-			exit ${?}
-			;;
 		print)
-			check_ptxconfig
+			check_ptxconfig || return
 			check_deps
 			ptxd_make_log "print-${1}"
 			shift
@@ -1367,6 +1404,8 @@ parse_second()
 			exit 0
 			;;
 		test)
+			check_ptxconfig || return
+
 			if [ -z "$1" ]; then
 				echo "No test given. try ptxdist test help for a list of available tests"
 				exit 1
@@ -1466,7 +1505,7 @@ ptxdist_trap_exit_handler() {
 
 	if [ -e "${PTX_LOGFILE}" ]; then
 		#
-	    	# use these quotes to keep Enrik's editor happy
+		# use these quotes to keep Enrik's editor happy
 		#          \\
 		#           VV
 		echo -e "\n}""}} $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_ARGS_FULL[@]}; (exit value: ${retval})\n\n\n" >> "${PTX_LOGFILE}"
@@ -1667,6 +1706,34 @@ setup_logfile()
 
 
 
+#
+# export some important vars
+# so that they can be used in make
+#
+setup_export() {
+	export PROJECT FULLVERSION VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION		# FIXME: review these
+	export \
+		PATH \
+		\
+		PTXDIST \
+		PTXDIST_TOPDIR \
+		PTXDIST_SRCDIR \
+		PTXDIST_TEMPDIR \
+		PTXDIST_PTXCONFIG \
+		PTXDIST_PLATFORMCONFIG \
+		PTXDIST_BOARDSETUP \
+		\
+		PTXDIST_WORKSPACE \
+		\
+		PTXDIST_PLATFORMDIR \
+		PTXDIST_PLATFORMSUFFIX \
+		PTXDIST_PLATFORMCONFIGDIR \
+		\
+		PTXDIST_PARALLELMFLAGS_INTERN \
+		PTXDIST_PACKAGES_COLLECTION
+}
+
+
 ########################################################################
 # main()
 ########################################################################
@@ -1685,26 +1752,7 @@ setup_path
 # --- path is now set ---
 setup_logfile
 
-export PROJECT FULLVERSION VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION		# FIXME: review these
-export \
-	PATH \
-	\
-	PTXDIST \
-	PTXDIST_TOPDIR \
-	PTXDIST_SRCDIR \
-	PTXDIST_TEMPDIR \
-	PTXDIST_PTXCONFIG \
-	PTXDIST_PLATFORMCONFIG \
-	PTXDIST_BOARDSETUP \
-	\
-	PTXDIST_WORKSPACE \
-	\
-	PTXDIST_PLATFORMDIR \
-	PTXDIST_PLATFORMSUFFIX \
-	PTXDIST_PLATFORMCONFIGDIR \
-	\
-	PTXDIST_PARALLELMFLAGS_INTERN \
-	PTXDIST_PACKAGES_COLLECTION
+setup_export
 
 check_uid
 check_path

@@ -10,7 +10,7 @@ DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $
 
 PTX_DIALOG=dialog
 PTX_DIALOG_HEIGHT=10
-PTX_DIALOG_WIDTH=60
+PTX_DIALOG_WIDTH=70
 
 
 ptxd_dialog_fselect() {
@@ -33,22 +33,24 @@ ptxd_dialog_fselect() {
 ptxd_dialog_infobox() {
 	if [ -n "${PTX_MENU}" ]; then
 		${PTX_DIALOG} \
+			--no-collapse \
 			--infobox "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
 	else
-		echo
-		echo -e "${PROMPT}${*}"
-		echo
+		cat <<EOF
+${@}
+EOF
 	fi
 }
 
 ptxd_dialog_msgbox() {
 	if [ -n "${PTX_MENU}" ]; then
 		${PTX_DIALOG} \
+			--no-collapse \
 			--msgbox "${*}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
 	else
-		echo
-		echo -e "${PROMPT} ${*}"
-		echo
+		cat <<EOF
+${@}
+EOF
 	fi
 }
 
