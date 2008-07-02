@@ -1025,7 +1025,7 @@ error: cannot select
        '${file}'
        file does not exist"
 		return 1
-	elif [ \! -L "${!dest_ptr}" ]; then
+	elif [ -e "${!dest_ptr}" -a \! -L "${!dest_ptr}" ]; then
 		ptxd_dialog_msgbox "\
 error: '${!dest_ptr}' is not a link
        thus ${type} is not selectable!"
