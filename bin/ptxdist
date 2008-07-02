@@ -1132,7 +1132,7 @@ error: more than one toolchain found, matching"
 
 	if [ -L "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
 		rm -f "${PTXDIST_TOOLCHAIN_DEFAULT}"
-	else [ -e "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
+	elif [ -e "${PTXDIST_TOOLCHAIN_DEFAULT}" ]
 		ptxd_dialog_msgbox "\
 error: There is a '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' in this directory which is no link.
        This should never happen, please contact the
