@@ -1,7 +1,16 @@
-Index: commoncpp2-1.3.24/Makefile.in
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: Don't mess with /etc/ld.so.conf
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ Makefile.in |   18 ------------------
+ 1 file changed, 18 deletions(-)
+
+Index: commoncpp2-1.3.25/Makefile.in
 ===================================================================
---- commoncpp2-1.3.24.orig/Makefile.in
-+++ commoncpp2-1.3.24/Makefile.in
+--- commoncpp2-1.3.25.orig/Makefile.in
++++ commoncpp2-1.3.25/Makefile.in
 @@ -675,24 +675,6 @@ macosx:
  darwin:
  	(cd src ; make macosx)
