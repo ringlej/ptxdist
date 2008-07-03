@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION	:= 1.10.1
+BUSYBOX_VERSION	:= 1.10.4
 BUSYBOX		:= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX	:= tar.bz2
 BUSYBOX_URL	:= http://www.busybox.net/downloads//$(BUSYBOX).$(BUSYBOX_SUFFIX)
@@ -29,24 +29,9 @@ BUSYBOX_PKGDIR	:= $(PKGDIR)/$(BUSYBOX)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/busybox.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(BUSYBOX_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, BUSYBOX)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/busybox.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(BUSYBOX_DIR))
-	@$(call extract, BUSYBOX)
-	@$(call patchin, BUSYBOX)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -62,45 +47,35 @@ BUSYBOX_MAKEVARS=\
 	$(PARALLELMFLAGS)
 
 $(STATEDIR)/busybox.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	cd $(BUSYBOX_DIR) && \
 		$(BUSYBOX_PATH) $(BUSYBOX_ENV) \
 		$(MAKE) distclean $(BUSYBOX_MAKEVARS)
-	grep -e PTXCONF_BB_CONFIG_ $(PTXDIST_WORKSPACE)/ptxconfig | \
+	grep -e PTXCONF_BB_CONFIG_ $(PTXDIST_PTXCONFIG) | \
 		sed -e 's/PTXCONF_BB_CONFIG_/CONFIG_/g' > $(BUSYBOX_DIR)/.config
 	cd $(BUSYBOX_DIR) && yes "" | $(BUSYBOX_PATH) $(BUSYBOX_ENV) $(MAKE) \
 		$(BUSYBOX_MAKEVARS) oldconfig
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/busybox.compile:
-	@$(call targetinfo, $@)
-	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) $(MAKE) \
-		$(BUSYBOX_MAKEVARS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/busybox.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) $(MAKE) \
 		$(BUSYBOX_MAKEVARS) CONFIG_PREFIX=$(SYSROOT) install
 	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) $(MAKE) \
 		$(BUSYBOX_MAKEVARS) CONFIG_PREFIX=$(BUSYBOX_PKGDIR) install
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/busybox.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, busybox)
 	@$(call install_fixup, busybox,PACKAGE,busybox)
@@ -122,7 +97,7 @@ endif
 
 	@$(call install_finish, busybox)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
