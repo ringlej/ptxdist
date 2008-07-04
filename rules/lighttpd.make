@@ -220,38 +220,67 @@ $(STATEDIR)/lighttpd.targetinstall:
 		/usr/sbin/lighttpd-angel)
 	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/spawn-fcgi, \
 		/usr/bin/spawn-fcgi)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_flv_streaming.so, /usr/lib/mod_flv_streaming.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_evasive.so, /usr/lib/mod_evasive.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_webdav.so, /usr/lib/mod_webdav.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_magnet.so, /usr/lib/mod_magnet.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_cml.so, /usr/lib/mod_cml.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_trigger_b4_dl.so, /usr/lib/mod_trigger_b4_dl.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_mysql_vhost.so, /usr/lib/mod_mysql_vhost.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_cgi.so, /usr/lib/mod_cgi.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_scgi.so, /usr/lib/mod_scgi.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_staticfile.so, /usr/lib/mod_staticfile.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_dirlisting.so, /usr/lib/mod_dirlisting.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_indexfile.so, /usr/lib/mod_indexfile.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_setenv.so, /usr/lib/mod_setenv.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_alias.so, /usr/lib/mod_alias.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_userdir.so, /usr/lib/mod_userdir.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_rrdtool.so, /usr/lib/mod_rrdtool.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_usertrack.so, /usr/lib/mod_usertrack.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_proxy.so, /usr/lib/mod_proxy.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_ssi.so, /usr/lib/mod_ssi.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_secdownload.so, /usr/lib/mod_secdownload.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_expire.so, /usr/lib/mod_expire.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_evhost.so, /usr/lib/mod_evhost.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_simple_vhost.so, /usr/lib/mod_simple_vhost.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_fastcgi.so, /usr/lib/mod_fastcgi.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_extforward.so, /usr/lib/mod_extforward.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_access.so, /usr/lib/mod_access.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_compress.so, /usr/lib/mod_compress.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_auth.so, /usr/lib/mod_auth.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_rewrite.so, /usr/lib/mod_rewrite.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_redirect.so, /usr/lib/mod_redirect.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_status.so, /usr/lib/mod_status.so)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/.libs/mod_accesslog.so, /usr/lib/mod_accesslog.so)
+
+	@cd $(LIGHTTPD_DIR)/src/.libs && \
+	find . \
+		-name "*.so" | \
+		while read file; do \
+		$(call install_copy, lighttpd, 0, 0, 0644, \
+			$(LIGHTTPD_DIR)/src/.libs/$$file, \
+			/usr/lib/$${file##*/} \
+		) \
+	done
+
+
+ifdef PTXCONF_LIGHTTPD__ETC_INITD_GENERIC
+	@$(call install_copy, lighttpd, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/lighttpd, \
+		/etc/init.d/lighttpd, n)
+endif
+
+ifdef PTXCONF_LIGHTTPD__ETC_INITD_USER
+	@$(call install_copy, lighttpd, 0, 0, 0755, \
+		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/lighttpd, \
+		/etc/init.d/lighttpd, n)
+endif
+
+
+ifdef PTXCONF_LIGHTTPD__CONFIG_DEFAULT
+# use generic one
+	@$(call install_copy, lighttpd, 12, 102, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd.conf, \
+		/etc/lighttpd/lighttpd.conf, n)
+
+	@$(call install_copy, lighttpd, 12, 102, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/mod_fastcgi.conf, \
+		/etc/lighttpd/mod_fastcgi.conf, n)
+endif
+ifdef PTXCONF_LIGHTTPD__CONFIG_USER
+# users one
+	@$(call install_copy, lighttpd, 12, 102, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/lighttpd/lighttpd.conf, \
+		/etc/lighttpd/lighttpd.conf, n)
+endif
+
+ifdef PTXCONF_LIGHTTPD__GENERIC_SITE
+	@$(call install_copy, lighttpd, 12, 102, 0644, \
+		$(PTXDIST_TOPDIR)/generic/var/www/lighttpd.html, \
+		/var/www/index.html, n)
+
+	@$(call install_copy, lighttpd, 12, 102, 0644, \
+		$(PTXDIST_TOPDIR)/generic/var/www/bottles.php, \
+		/var/www/bottles.php, n)
+
+	@$(call install_copy, lighttpd, 12, 102, 0644, \
+		$(PTXDIST_TOPDIR)/generic/var/www/more_bottles.php, \
+		/var/www/more_bottles.php, n)
+endif
+
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_LIGHTTPD_LINK),"")
+	@$(call install_copy, lighttpd, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, lighttpd, ../init.d/lighttpd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_LIGHTTPD_LINK))
+endif
 
 	@$(call install_finish, lighttpd)
 	@$(call touch, $@)
