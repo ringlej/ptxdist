@@ -209,7 +209,7 @@ check_nonstandard() {
 check_ptxconfig() {
 	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
 		ptxd_dialog_msgbox \
-			"error: '${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}' file is missing\n"
+			"error: '${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}' file is missing\n" \
 			"       try 'ptxdist select <ptxconfig>' or\n" \
 			"       'ptxdist clone <project>' to clone an existing project"
 		return 1
