@@ -1,7 +1,14 @@
 # make the first rtc device the default one
-KERNEL=="rtc0",         SYMLINK="rtc"
+KERNEL=="rtc0",			SYMLINK="rtc"
+
+# ALSA devices
+KERNEL=="controlC[0-9]*",       NAME="snd/%k"
+KERNEL=="hwC[D0-9]*",           NAME="snd/%k"
+KERNEL=="pcmC[D0-9cp]*",        NAME="snd/%k"
+KERNEL=="midiC[D0-9]*",         NAME="snd/%k"
+KERNEL=="timer",                NAME="snd/%k"
+KERNEL=="seq",                  NAME="snd/%k"
 
 # create /dev/bus/usb tree
-SUBSYSTEM=="usb_device",	PROGRAM="/bin/sh -c 'K=%k; K=$${K#usbdev}; printf bus/usb/%%03i/%%03i $${K%%%%.*} $${K#*.}'", ACTION=="add", \
-				NAME="%c"
-
+SUBSYSTEM=="usb_device",	PROGRAM="/bin/sh -c 'K=%k; K=$${K#usbdev}; printf bus/usb/%%03i/%%03i $${K%%%%.*} $${K#*.}'", \
+				ACTION=="add", NAME="%c"
