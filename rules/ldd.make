@@ -73,7 +73,7 @@ $(STATEDIR)/ldd.targetinstall:
 	@$(call install_fixup,ldd,DEPENDS,)
 	@$(call install_fixup,ldd,DESCRIPTION,missing)
 
-	@$(call install_copy, ldd, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/bin/ldd, /usr/bin/ldd, n)
+	@$(call install_copy, ldd, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/usr/bin/ldd, /usr/bin/ldd, n)
 
 	@$(call install_finish,ldd)
 
