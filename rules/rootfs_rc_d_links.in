@@ -141,6 +141,16 @@ config ROOTFS_ETC_INITD_THTTPD_LINK
 	  start thin http daemon when system starts. Keep this entry empty if
 	  you do not want to start this service automatically.
 
+config ROOTFS_ETC_INITD_LIGHTTPD_LINK
+	depends on LIGHTTPD
+	string
+	prompt "lighttpd link name"
+	default "S10_lighttpd"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/lighttpd to
+	  start thin http daemon when system starts. Keep this entry empty if
+	  you do not want to start this service automatically.
+
 config ROOTFS_ETC_INITD_DNSMASQ_LINK
 	depends on DNSMASQ_STARTUP_TYPE_STANDALONE
 	string
