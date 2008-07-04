@@ -195,7 +195,7 @@ ptxd_kconfig() {
 	unset KCONFIG_NOTIMESTAMP
 
 	popd > /dev/null
-	rm -fr $tmpdir
+	rm -fr "$tmpdir"
 
 	return $retval
 }
@@ -205,14 +205,14 @@ ptxd_kconfig() {
 #
 #
 ptxd_make() {
-	make ${PTX_MAKE_DBG} ${PTXDIST_PARALLELMFLAGS_EXTERN} -f "${RULESDIR}/other/Toplevel.make" "${@}"
+	make ${PTX_MAKE_DBG} ${PTXDIST_PARALLELMFLAGS_EXTERN} -f "${RULESDIR}/other/Toplevel.make" "${@}" || return
 }
 
 ptxd_make_log() {
 	if [ -z "${PTXDIST_QUIET}" ]; then
 		ptxd_make "${@}" 2>&1 | tee -a "${PTX_LOGFILE}"
 	else
-		ptxd_make "${@}" > "${PTX_LOGFILE}"
+		ptxd_make "${@}" > "${PTX_LOGFILE}" || return
 	fi
 	check_pipe_status
 }
