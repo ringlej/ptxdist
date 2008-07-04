@@ -1,5 +1,5 @@
 config HTOP
-	bool
+	tristate
 	select NCURSES
 	prompt "htop"
 	help
