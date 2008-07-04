@@ -12,5 +12,5 @@ chmod 666 /dev/null
 
 # FIXME: this still gives a "unable to open initial console" warning
 
-exec /bin/busybox init $@ 1> /dev/console 2> /dev/console < /dev/console
+exec /bin/busybox init "$@" 1> /dev/console 2> /dev/console < /dev/console
 
