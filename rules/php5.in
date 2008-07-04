@@ -30,7 +30,7 @@ config PHP5_SAPI_MOD_CHARSET
 config PHP5_SAPI_APXS2FILTER
 	bool
 	prompt "apxs2filter"
-	depends on ! PHP5_SAPI_APXS2
+	depends on !PHP5_SAPI_APXS2
 	help
 	  EXPERIMENTAL: Build shared Apache 2.0 Filter module. FILE is the optional
 	  pathname to the Apache apxs tool [apxs]
@@ -140,7 +140,7 @@ config PHP5_SAPI_WEBJAMES
 config PHP5_SAPI_CGI
 	bool
 	prompt "cgi"
-	depends on ! PHP5_SAPI_APXS2
+	depends on !PHP5_SAPI_APXS2
 	help
 	  Build CGI version of PHP.
 
@@ -166,7 +166,7 @@ config PHP5_SAPI_DISCARD_PATH
 config PHP5_SAPI_FASTCGI
 	bool
 	depends on PHP5_SAPI_CGI
-	depends on ! PHP5_SAPI_DISCARD_PATH
+	depends on !PHP5_SAPI_DISCARD_PATH
 	prompt "fastcgi"
 	help
 	  If this is enabled, the cgi module will
@@ -249,9 +249,10 @@ menuconfig PHP5_XML
 	help
 	  Support for XML.
 
+if PHP5_XML
+
 choice
 	prompt "xml library"
-	depends on PHP5_XML
 
 	config PHP5_XML_LIBXML2
 		bool "libxml2"
@@ -297,6 +298,8 @@ config PHP5_XML_LIBXML2_SIMPLEXML
 	prompt "simple xml support"
 	help
 	  simple xml support
+
+endif
 
 #
 # [ ] --disable-simplexml     Disable SimpleXML support
