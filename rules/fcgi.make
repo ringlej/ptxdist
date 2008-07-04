@@ -34,9 +34,7 @@ $(FCGI_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-fcgi_extract: $(STATEDIR)/fcgi.extract
-
-$(STATEDIR)/fcgi.extract: $(fcgi_extract_deps_default)
+$(STATEDIR)/fcgi.extract:
 	@$(call targetinfo)
 	@$(call clean, $(FCGI_DIR))
 	@$(call extract, FCGI)
@@ -75,7 +73,7 @@ $(STATEDIR)/fcgi.targetinstall:
 
 	@$(call install_copy, fcgi, 0, 0, 0755, $(FCGI_DIR)/libfcgi/.libs/libfcgi.so.0.0.0, \
 		/usr/lib/libfcgi.so.0.0.0)
-	@$(call install_link,  fcgi, libfcgi.so.0.0.0,  /usr/lib/libfcgi.so.0)
+	@$(call install_link,  fcgi, libfcgi.so.0.0.0, /usr/lib/libfcgi.so.0)
 	@$(call install_link,  fcgi, libfcgi.so.0, /usr/lib/libfcgi.so)
 
 	@$(call install_finish, fcgi)
