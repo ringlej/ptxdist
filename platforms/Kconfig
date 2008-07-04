@@ -4,6 +4,11 @@
 
 mainmenu "Platform"
 
+config _platformconfig_MAGIC__
+        bool
+        default y
+
+
 comment "------------------------------------"
 comment "Target Platform Configuration "
 comment "------------------------------------"
