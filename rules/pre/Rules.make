@@ -817,6 +817,9 @@ install_copy = 											\
 		mkdir -p "$(PKGDIR)/$$PACKET.tmp";						\
 		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> "$(STATEDIR)/$$PACKET.perms";		\
 	else											\
+		if [ -e "$${SRC}$(PTXDIST_PLATFORMSUFFIX)" ]; then				\
+			SRC="$${SRC}$(PTXDIST_PLATFORMSUFFIX)";					\
+		fi;										\
 		echo "install_copy:";								\
 		echo "  src=$$SRC";								\
 		echo "  dst=$$DST";								\
@@ -873,8 +876,8 @@ install_copy = 											\
 # Installs a file with user/group ownership and permissions via
 # fakeroot.
 #
-# This macro first looks in $(PTXDIST_WORKSPACE)/source for the file to copy and then
-# in $(PTXDIST_TOPDIR)/generic/source and installs the file under $(ROOTDIR)/source
+# This macro first looks in $(PTXDIST_WORKSPACE)/projectroot for the file to copy and then
+# in $(PTXDIST_TOPDIR)/generic and installs the file under $(ROOTDIR)/source
 #
 # $1: packet label
 # $2: UID
