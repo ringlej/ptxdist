@@ -14,8 +14,8 @@ export SHELL
 include $(PTXDIST_TOPDIR)/scripts/ptxdist_vars.sh
 include $(RULESDIR)/other/Definitions.make
 
--include $(PTXCONFIG)
--include $(PLATFORMCONFIG)
+-include $(PTXDIST_PTXCONFIG)
+-include $(PTXDIST_PLATFORMCONFIG)
 
 # ----------------------------------------------------------------------------
 # Include all rule files
