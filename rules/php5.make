@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
-# Copyright (C) 2006 by Robert Schwebel
+# Copyright (C) 2006-2008 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -20,10 +20,10 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 PHP5_VERSION	:= 5.1.6
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
-#PHP5_URL	:= http://de2.php.net/get/$(PHP5).$(PHP5_SUFFIX)/from/de.php.net/mirror/
-PHP5_URL	:= http://de2.php.net/get/$(PHP5).$(PHP5_SUFFIX)
+PHP5_URL	:= http://museum.php.net/php5/$(PHP5).$(PHP5_SUFFIX)
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
 PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
+PHP5_PKGDIR	:= $(PKGDIR)/$(PHP5)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,7 +31,7 @@ PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
 
 php5_get: $(STATEDIR)/php5.get
 
-$(STATEDIR)/php5.get: $(php5_get_deps_default)
+$(STATEDIR)/php5.get:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -45,7 +45,7 @@ $(PHP5_SOURCE):
 
 php5_extract: $(STATEDIR)/php5.extract
 
-$(STATEDIR)/php5.extract: $(php5_extract_deps_default)
+$(STATEDIR)/php5.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP5_DIR))
 	@$(call extract, PHP5)
@@ -64,8 +64,10 @@ PHP5_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-PHP5_AUTOCONF := $(CROSS_AUTOCONF_USR)
-PHP5_AUTOCONF += --with-config-file-path=/etc/php5/
+PHP5_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-config-file-path=/etc/php5
+
 # FIXME: php5 doesn't interprete "with_foo=no" correctly, so we cannot
 # give --without-foo options. Should be fixed in php5's configure.in.
 
@@ -224,8 +226,9 @@ PHP5_AUTOCONF += --disable-xml
 endif
 
 ifdef PTXCONF_PHP5_XML_LIBXML2
-PHP5_AUTOCONF += --enable-libxml
-PHP5_AUTOCONF += --with-libxml-dir=$(SYSROOT)/usr
+PHP5_AUTOCONF += \
+	--enable-libxml \
+	--with-libxml-dir=$(SYSROOT)/usr
 else
 PHP5_AUTOCONF += --disable-libxml
 endif
@@ -267,7 +270,9 @@ PHP5_AUTOCONF += --without-iconv
 endif
 
 ifdef PTXCONF_PHP5_EXT_MYSQL
-PHP5_AUTOCONF += --with-mysql=$(SYSROOT)/usr
+PHP5_AUTOCONF += \
+	--with-mysql=$(SYSROOT)/usr \
+	--with-pdo-mysql=$(SYSROOT)/usr
 else
 PHP5_AUTOCONF += --without-mysql
 endif
@@ -278,7 +283,7 @@ else
 PHP5_AUTOCONF += --without-pear
 endif
 
-$(STATEDIR)/php5.prepare: $(php5_prepare_deps_default)
+$(STATEDIR)/php5.prepare:
 	@$(call targetinfo, $@)
 	@$(call clean, $(PHP5_DIR)/config.cache)
 	cd $(PHP5_DIR) && \
@@ -292,9 +297,9 @@ $(STATEDIR)/php5.prepare: $(php5_prepare_deps_default)
 
 php5_compile: $(STATEDIR)/php5.compile
 
-$(STATEDIR)/php5.compile: $(php5_compile_deps_default)
+$(STATEDIR)/php5.compile:
 	@$(call targetinfo, $@)
-	cd $(PHP5_DIR) && $(PHP5_PATH) $(MAKE) CC=$(CROSS_CC)
+	cd $(PHP5_DIR) && $(PHP5_PATH) $(MAKE) CC=$(CROSS_CC) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -303,15 +308,18 @@ $(STATEDIR)/php5.compile: $(php5_compile_deps_default)
 
 php5_install: $(STATEDIR)/php5.install
 
-$(STATEDIR)/php5.install: $(php5_install_deps_default)
+$(STATEDIR)/php5.install:
 	@$(call targetinfo, $@)
-	# FIXME
 	cd $(PHP5_DIR) && \
-		$(PHP5_ENV) $(PHP5_PATH) \
-		make install-build install-headers install-programs \
+		$(PHP5_PATH) \
+		make install \
 		INSTALL_ROOT=$(SYSROOT)
-		install -m 755 -D $(PHP5_DIR)/scripts/php-config $(SYSROOT)/bin/php-config
-		install -m 755 -D $(PHP5_DIR)/scripts/phpize $(SYSROOT)/bin/phpize
+	cd $(PHP5_DIR) && \
+		$(PHP5_PATH) \
+		make install \
+		INSTALL_ROOT=$(PHP5_PKGDIR)
+	install -m 755 -D $(PHP5_DIR)/scripts/php-config $(SYSROOT)/bin/php-config
+	install -m 755 -D $(PHP5_DIR)/scripts/phpize $(SYSROOT)/bin/phpize
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -320,7 +328,7 @@ $(STATEDIR)/php5.install: $(php5_install_deps_default)
 
 php5_targetinstall: $(STATEDIR)/php5.targetinstall
 
-$(STATEDIR)/php5.targetinstall: $(php5_targetinstall_deps_default)
+$(STATEDIR)/php5.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, php5)
@@ -346,7 +354,7 @@ endif
 
 ifdef PTXCONF_ROOTFS_GENERIC_PHP5_INI
 	@$(call install_copy, php5, 0, 0, 0644, $(PHP5_DIR)/php.ini-recommended, \
-		/etc/php5/php.ini,n)
+		/etc/php5/php.ini, n)
 endif
 
 ifdef PTXCONF_ROOTFS_USER_PHP5_INI
