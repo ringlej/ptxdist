@@ -587,10 +587,7 @@ endif
 # -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_ETC_MODULES
 # /etc/modules
-	@file=$(PTXDIST_WORKSPACE)/projectroot/etc/modules; \
-	test -f $(PTXDIST_WORKSPACE)/projectroot/etc/modules$(PTXDIST_PLATFORMSUFFIX) && \
-		file=$(PTXDIST_WORKSPACE)/projectroot/etc/modules$(PTXDIST_PLATFORMSUFFIX); \
-	$(call install_copy, rootfs, 0, 0, 0644, $$file, /etc/modules, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $$file, /etc/modules, n)
 endif
 
 # -----------------------------------------------------------------------------
@@ -646,6 +643,7 @@ endif
 		"shell 514/tcp cmd" )
 ifndef PTXCONF_INETUTILS_RSHD
 	@$(call install_replace, rootfs, /etc/services, @RSHD@, )
+endif
 endif
 
 #
