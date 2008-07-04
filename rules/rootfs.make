@@ -632,6 +632,25 @@ endif
 # This part creates /etc/inetd.conf and /etc/services on demand
 # -----------------------------------------------------------------------------
 
+#
+# If urshd is enabled, create only /etc/services
+#
+ifdef PTXCONF_URSHD
+ifndef PTXCONF_ROOTFS_USER_INETD
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/services, \
+		/etc/services, n )
+endif
+	@$(call install_replace, rootfs, /etc/services, \
+		@RSHD@, \
+		"shell 514/tcp cmd" )
+ifndef PTXCONF_INETUTILS_RSHD
+	@$(call install_replace, rootfs, /etc/services, @RSHD@, )
+endif
+
+#
+# Normal procedure when inetd is enabled
+#
 ifdef PTXCONF_ROOTFS_INETD
 # /etc/inetd.conf
 ifdef PTXCONF_ROOTFS_GENERIC_INETD
