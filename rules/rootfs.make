@@ -587,7 +587,7 @@ endif
 # -----------------------------------------------------------------------------
 ifdef PTXCONF_ROOTFS_ETC_MODULES
 # /etc/modules
-	@$(call install_copy, rootfs, 0, 0, 0644, $$file, /etc/modules, n)
+	@$(call install_copy, rootfs, 0, 0, 0644, $(PTXDIST_WORKSPACE)/projectroot/etc/modules, /etc/modules, n)
 endif
 
 # -----------------------------------------------------------------------------
