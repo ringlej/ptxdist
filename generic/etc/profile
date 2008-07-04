@@ -1,12 +1,8 @@
 #
 # /etc/profile
 #
-# $Id$
-#
 
 export PATH="$PATH:/usr/bin:/bin:/sbin"
-
-#umask 022
 
 # This fixes the backspace when telnetting in.
 if [ "$TERM" != "linux" ]; then
