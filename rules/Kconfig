@@ -1,9 +1,13 @@
 #
 # config/Kconfig: Main menu structure definition
-# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2002, 2003, 2004, 2005, 2006
+# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2002-2008
 #
 
 source "rules/ptxdist-version.in"
+
+config _ptxconfig_MAGIC__
+	bool
+	default y
 
 comment "--------- Host Options -------------"
 
