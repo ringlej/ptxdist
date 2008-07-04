@@ -198,17 +198,21 @@ ifneq ($(or $(PTXCONF_KERNEL_INSTALL),$(PTXCONF_KERNEL_VMLINUX)),)
 	@$(call install_fixup, kernel, DEPENDS,)
 	@$(call install_fixup, kernel, DESCRIPTION,missing)
 
+ifdef PTXCONF_KERNEL_INSTALL
 	@for i in $(KERNEL_IMAGE_PATH); do 				\
 		if [ -f $$i ]; then					\
 			$(call install_copy, kernel, 0, 0, 0644, $$i, /boot/$(KERNEL_IMAGE), n); \
 		fi;							\
 	done
+endif
 
+ifdef PTXCONF_KERNEL_VMLINUX
 #
 # install the ELF kernel image for debugging purpose
 # e.g. oprofile
 #
 	@$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_DIR)/vmlinux, /boot/vmlinux, n)
+endif
 
 	@$(call install_finish, kernel)
 endif
