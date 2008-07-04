@@ -29,34 +29,13 @@ COMMONCPP2_DIR		:= $(BUILDDIR)/$(COMMONCPP2)
 # Get
 # ----------------------------------------------------------------------------
 
-commoncpp2_get: $(STATEDIR)/commoncpp2.get
-
-$(STATEDIR)/commoncpp2.get: $(commoncpp2_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(COMMONCPP2_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, COMMONCPP2)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-commoncpp2_extract: $(STATEDIR)/commoncpp2.extract
-
-$(STATEDIR)/commoncpp2.extract: $(commoncpp2_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(COMMONCPP2_DIR))
-	@$(call extract, COMMONCPP2)
-	@$(call patchin, COMMONCPP2)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-commoncpp2_prepare: $(STATEDIR)/commoncpp2.prepare
 
 COMMONCPP2_PATH	:= PATH=$(CROSS_PATH)
 COMMONCPP2_ENV 	:= $(CROSS_ENV)
@@ -74,45 +53,23 @@ ifndef PTXCONF_COMMONCPP2_LIBXML2
 COMMONCPP2_AUTOCONF += --without-libxml2
 endif
 
-$(STATEDIR)/commoncpp2.prepare: $(commoncpp2_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(COMMONCPP2_DIR)/config.cache)
-	cd $(COMMONCPP2_DIR) && \
-		$(COMMONCPP2_PATH) $(COMMONCPP2_ENV) \
-		./configure $(COMMONCPP2_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-commoncpp2_compile: $(STATEDIR)/commoncpp2.compile
-
-$(STATEDIR)/commoncpp2.compile: $(commoncpp2_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(COMMONCPP2_DIR) && $(COMMONCPP2_PATH) make
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-commoncpp2_install: $(STATEDIR)/commoncpp2.install
-
-$(STATEDIR)/commoncpp2.install: $(commoncpp2_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/commoncpp2.install:
+	@$(call targetinfo)
 	@$(call install, COMMONCPP2)
-	install -m755 -D $(COMMONCPP2_DIR)/src/ccgnu2-config $(PTXCONF_SYSROOT_HOST)/bin/ccgnu2-config
-	@$(call touch, $@)
+	install -m755 -D $(COMMONCPP2_DIR)/src/ccgnu2-config $(PTXCONF_SYSROOT_CROSS)/bin/ccgnu2-config
+	read
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-commoncpp2_targetinstall: $(STATEDIR)/commoncpp2.targetinstall
-
-$(STATEDIR)/commoncpp2.targetinstall: $(commoncpp2_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/commoncpp2.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, commoncpp2)
 	@$(call install_fixup, commoncpp2,PACKAGE,commoncpp2)
@@ -139,7 +96,7 @@ $(STATEDIR)/commoncpp2.targetinstall: $(commoncpp2_targetinstall_deps_default)
 
 	@$(call install_finish, commoncpp2)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
