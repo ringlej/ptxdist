@@ -877,7 +877,7 @@ install_copy = 											\
 # fakeroot.
 #
 # This macro first looks in $(PTXDIST_WORKSPACE)/projectroot for the file to copy and then
-# in $(PTXDIST_TOPDIR)/generic and installs the file under $(ROOTDIR)/source
+# in $(PTXDIST_TOPDIR)/generic and installs the file under $(ROOTDIR)
 #
 # $1: packet label
 # $2: UID
