@@ -142,10 +142,6 @@ ifdef PTXCONF_OPENSSH_SSHD
 		/usr/sbin/sshd)
 endif
 
-ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH
-	@$(call install_alternative, openssh, 0, 0, 0755, /etc/init.d/openssh)
-endif
-
 ifdef PTXCONF_OPENSSH_SCP
 	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/scp, \
 		/usr/bin/scp)
@@ -161,13 +157,13 @@ ifdef PTXCONF_OPENSSH_KEYGEN
 		/usr/bin/ssh-keygen)
 endif
 
-ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH
 ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH_DEFAULT
 # install the generic one
 	@$(call install_copy, openssh, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/openssh, \
 		/etc/init.d/openssh, n)
 endif
+
 ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH_USER
 # install users one
 	@$(call install_copy, openssh, 0, 0, 0755, \
@@ -180,7 +176,6 @@ endif
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_OPENSSH_LINK),"")
 	@$(call install_link, openssh, ../init.d/openssh, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_OPENSSH_LINK))
-endif
 endif
 
 	@$(call install_finish, openssh)
