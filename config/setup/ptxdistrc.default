@@ -1,10 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # PTXdist version: 1.99.svn
-# Wed Feb  6 07:46:08 2008
 #
-PTXCONF_SETUP_MODULES=y
-PTXCONF_SETUP_PTXCONF=y
 
 #
 # PTXDIST Setup Menu
@@ -22,9 +19,10 @@ PTXCONF_SETUP_HTTP_PROXY=""
 PTXCONF_SETUP_PROJECTPATH="${PTXDIST_TOPDIR}/projects"
 
 #
-# Source Directory  
+# Source Directories
 #
 PTXCONF_SETUP_SRCDIR="${PTXDIST_WORKSPACE}/src"
+PTXCONF_SETUP_KERNELDIR_PREFIX=""
 
 #
 # Mirrors           
@@ -43,3 +41,8 @@ PTXCONF_SETUP_IPKG_REPOSITORY="/var/www/ipkg-repository"
 # Java SDK          
 #
 PTXCONF_SETUP_JAVA_SDK="/usr"
+
+#
+# Developer Options 
+#
+# PTXCONF_SETUP_CHECK_EXIT_ON_ERROR is not set
