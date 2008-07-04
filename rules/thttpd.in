@@ -56,7 +56,7 @@ menuconfig THTTPD
 		prompt "Populate a generic website"
 		help
 		  This install a generic website into /var/www/index.html
-		  from <ptxdist-install>/generic/thttpd.html
+		  from <ptxdist-install>/generic/var/www/thttpd.html
 
 	config THTTPD_INSTALL_HTPASSWD
 		depends on THTTPD

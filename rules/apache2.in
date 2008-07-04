@@ -94,7 +94,7 @@ config APACHE2_INSTALL_CONFIG
 			prompt "Use generic"
 			help
 			  Install a generic httpd.conf file.
-			  See <ptxdist-install>/generic/etc/httpd.conf
+			  See <ptxdist-install>/generic/etc/apache2/httpd.conf
 
 		config APACHE2_USERCONFIG
 			bool
@@ -164,7 +164,7 @@ config APACHE2_DEFAULT_INDEX
 	default y
 	prompt "Default index.html"
 	help
-	  Install a demo HTML file, from project/generic/index.html.
+	  Install a demo HTML file, from project/generic/var/www/index.html.
 
 comment "Misc   ---"
 

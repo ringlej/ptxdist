@@ -215,7 +215,7 @@ ifneq ($(PTXCONF_APACHE2_DOCUMENTROOT),"")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_DOCUMENTROOT))
 ifdef PTXCONF_APACHE2_DEFAULT_INDEX
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/index.html, \
+		$(PTXDIST_TOPDIR)/generic/var/www/index.html, \
 		$(PTXCONF_APACHE2_DOCUMENTROOT)/index.html, n)
 endif
 endif
@@ -229,7 +229,7 @@ ifdef PTXCONF_APACHE2_INSTALL_CONFIG
 ifdef PTXCONF_APACHE2_DEFAULTCONFIG
 # use generic one
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/httpd.conf, \
+		$(PTXDIST_TOPDIR)/generic/etc/apache2/httpd.conf, \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, n)
 endif
 ifdef PTXCONF_APACHE2_USERCONFIG
@@ -293,22 +293,6 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
 endif
 endif
-
-# #
-# # create apache's default serverroot
-# #
-# ifneq ($(PTXCONF_ROOTFS_HTTPD_SERVERROOT),"")
-# ifdef PTXCONF_ROOTFS_HTTPD_USER_DOC
-# 	@cd $(PTXCONF_ROOTFS_HTTPD_USER_DOC_PATH); \
-# 	for i in *.html *.gif *.png; do \
-# 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/$$i, n); \
-# 	done
-# else
-# 	$(call install_copy, apache2, 12,102,0644,$(PTXDIST_TOPDIR)/projetcs-example/generic/index.html,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/docroot/index.html, n)
-# endif
-# 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin)
-# 	@$(call install_copy, apache2, 12,102,0644,$(APACHE2_DIR)/doc/cgi-examples/test-cgi,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/cgi-bin, n)
-# 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_ROOTFS_HTTPD_SERVERROOT)/log)
 
 	@$(call install_finish, apache2)
 

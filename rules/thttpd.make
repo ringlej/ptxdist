@@ -139,7 +139,7 @@ endif
 ifdef PTXCONF_THTTPD_GENERIC_SITE
 	@$(call install_copy, thttpd, 12, 102, 0755, /var/www)
 	@$(call install_copy, thttpd, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/thttpd.html, \
+		$(PTXDIST_TOPDIR)/generic/var/www/thttpd.html, \
 		/var/www/index.html, n)
 endif
 
