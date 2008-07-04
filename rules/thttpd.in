@@ -13,55 +13,51 @@ menuconfig THTTPD
 
 	comment "runtime options  ---"
 	depends on THTTPD
-#
-# FIXME: Can thttpd also started by inetd like busybox's one?
-# If yes, add a choice here for this startup option
-#
-	config ROOTFS_ETC_INITD_THTTPD
-		depends on THTTPD
+
+if THTTPD
+
+choice
+	prompt "Kind of startup script"
+	default THTTPD__ETC_INITD_GENERIC
+	depends on THTTPD
+	help
+	  The /etc/init.d/thttpd script lets you control the thttpd daemon.
+
+	config THTTPD__ETC_INITD_NONE
 		bool
-		default y
-		prompt "Install startup script"
-		help
-		  The /etc/init.d/thttpd script lets you control the thttpd daemon.
+		prompt "no init.d script"
 
-		choice
-			prompt "Kind of startup script"
-			depends on ROOTFS_ETC_INITD_THTTPD
-			default THTTPD_ETC_INITD_GENERIC
-
-			config THTTPD_ETC_INITD_GENERIC
-				bool
-				prompt "Use generic"
-				help
-				  Installs a generic /etc/init.d/thttpd startup
-				  script. The file from
-				  <ptxdist-install>/generic/etc/init.d/thttpd
-				  will be used.
-
-			config THTTPD_ETC_INITD_USER
-				bool
-				prompt "User defined"
-				help
-				  This uses a user defined thttpd. PTXdist uses
-				  file projectroot/etc/init.d/thttpd in your
-				  local project
-
-		endchoice
-
-	config THTTPD_GENERIC_SITE
-		depends on THTTPD
+	config THTTPD__ETC_INITD_GENERIC
 		bool
-		default y
-		prompt "Populate a generic website"
+		prompt "Use generic"
 		help
-		  This install a generic website into /var/www/index.html
-		  from <ptxdist-install>/generic/var/www/thttpd.html
+		  Installs a generic /etc/init.d/thttpd startup
+		  script. The file from
+		  <ptxdist-install>/generic/etc/init.d/thttpd
+		  will be used.
 
-	config THTTPD_INSTALL_HTPASSWD
-		depends on THTTPD
-		bool "Install mkpasswd tool."
-		default y
+	config THTTPD__ETC_INITD_USER
+		bool
+		prompt "User defined"
 		help
-			Install the mkpasswd tool. It can create and manage .htpasswd file
-			for authentication of users.
+		  This uses a user defined thttpd. PTXdist uses
+		  file projectroot/etc/init.d/thttpd in your
+		  local project
+endchoice
+
+config THTTPD__GENERIC_SITE
+	depends on THTTPD
+	bool
+	default y
+	prompt "Populate a generic website"
+	help
+	  This install a generic website into /var/www/index.html
+	  from <ptxdist-install>/generic/var/www/thttpd.html
+
+config THTTPD__INSTALL_HTPASSWD
+	bool "Install mkpasswd tool."
+	default y
+	help
+	  Install the mkpasswd tool. It can create and manage .htpasswd file
+	  for authentication of users.
+endif
