@@ -20,7 +20,7 @@ PTXDIST_PACKAGES_COLLECTION_DEFAULT="ALL"
 #
 # menu_select
 #
-# start file chooser and actual select function
+# start file chooser and actual "select function"
 #
 # ${1}	specifies what to select {ptxconfig,platformconfig}
 #
@@ -88,6 +88,7 @@ menu() {
 
 	ptx|platform|kernel|u-boot-v2|board|user)
 		do_menuconfig "${cmd}"
+		# FIXME: reread user config file
 		;;
 	-*)
 		# ignore the "--------------"
@@ -1649,6 +1650,15 @@ setup_config() {
 	ptxd_source_kconfig "${rc_user}"
 
 	#
+	# enable or disable errexit
+	#
+	if [ -n "${PTXCONF_SETUP_CHECK_EXIT_ON_ERROR}" ]; then
+		set -e
+	else
+		set +e
+	fi
+
+	#
 	# setup SRCDIR
 	#
 	if [ -z "${PTXCONF_SETUP_SRCDIR}" ]; then
@@ -1773,11 +1783,11 @@ setup_topdir
 setup_traps
 setup_libs
 # ---  libs are available from here ---
+setup_config
+# --- errexit feaute may be active ---
 parse_first
-# --- FIXME ---
 setup_platform
 # --- platformdir and other *dirs are available from here ---
-setup_config
 # --- all variables are defined now ---
 setup_path
 # --- path is now set ---
