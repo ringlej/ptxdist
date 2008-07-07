@@ -1,7 +1,8 @@
 menuconfig LIGHTTPD
 	tristate
 	prompt "lighttpd                      "
-	select ZLIB if LIGHTTPD__ZLIB
+	select ZLIB	if LIGHTTPD__ZLIB
+	select LIBPCRE	if LIGHTTPD__PCRE
 	help
 	  Security, speed, compliance, and flexibility -- all of
 	  these describe lighttpd (pron. lighty) which is rapidly
