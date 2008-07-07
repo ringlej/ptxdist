@@ -1,3 +1,9 @@
+Subject: make pcre-config sysroot aware
+From: Luotao Fu <l.fu@pengutronix.de>
+  pcre-config is not sysroot aware and returns host directories while
+  crosscompiling. This patch fixes this issue
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
  pcre-config.in |   10 +++++-----
  1 file changed, 5 insertions(+), 5 deletions(-)
