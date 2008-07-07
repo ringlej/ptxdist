@@ -54,7 +54,7 @@ LIBPCRE_AUTOCONF := $(CROSS_AUTOCONF_USR)
 # ----------------------------------------------------------------------------
 $(STATEDIR)/libpcre.install:
 	@$(call targetinfo)
-
+	@$(call install, LIBPCRE)
 	cp $(LIBPCRE_DIR)/pcre-config $(PTXCONF_SYSROOT_CROSS)/bin/pcre-config
 	chmod a+x $(PTXCONF_SYSROOT_CROSS)/bin/pcre-config
 
