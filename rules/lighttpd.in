@@ -71,7 +71,8 @@ config LIGHTTPD__KERBEROS
 
 config LIGHTTPD__PCRE
 	bool
-#	prompt "pcre support"
+	select LIBPCRE 
+	prompt "pcre support"
 	help
 	  Enable pcre support.
 

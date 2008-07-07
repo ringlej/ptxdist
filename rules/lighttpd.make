@@ -126,7 +126,7 @@ LIGHTTPD_AUTOCONF += --without-kerberos
 endif
 
 ifdef PTXCONF_LIGHTTPD__PCRE
-LIGHTTPD_AUTOCONF += --with-pcre=FIXME
+LIGHTTPD_AUTOCONF += --with-pcre
 else
 LIGHTTPD_AUTOCONF += --without-pcre
 endif
