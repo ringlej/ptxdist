@@ -3,8 +3,9 @@
 menuconfig PHP5
 	tristate
 	prompt "php5                          "
-	select APACHE2 if PHP5_SAPI_APXS2
-	select MYSQL if PHP5_EXT_MYSQL
+	select APACHE2	if PHP5_SAPI_APXS2
+	select MYSQL	if PHP5_EXT_MYSQL
+	select LIBXML2	if PHP5_XML_LIBXML2
 
 if PHP5
 
