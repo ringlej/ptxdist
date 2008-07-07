@@ -50,6 +50,17 @@ LIBPCRE_ENV 	:=  $(CROSS_ENV)
 LIBPCRE_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+$(STATEDIR)/libpcre.install:
+	@$(call targetinfo)
+
+	cp $(LIBPCRE_DIR)/pcre-config $(PTXCONF_SYSROOT_CROSS)/bin/pcre-config
+	chmod a+x $(PTXCONF_SYSROOT_CROSS)/bin/pcre-config
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
