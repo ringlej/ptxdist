@@ -992,7 +992,7 @@ do_select()
 	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTX_FORCE_CONFIG}" ]; then
 		ptxd_dialog_msgbox \
 			"error: '${file}'\n" \
-			"       seems not to be a valid ${type} file, it has not the right MOJO.\n" \
+			"       seems not to be a valid ${type} file. It appears not to have the right MOJO.\n" \
 			"       if you are absolutely sure use 'ptxdist --force-config'\n" \
 			"       and regenerate the ${type} file."
 		return 1
