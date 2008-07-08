@@ -991,10 +991,11 @@ do_select()
 	# check if magic is present in config file
 	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTX_FORCE_CONFIG}" ]; then
 		ptxd_dialog_msgbox \
-			"error: '${file}'\n" \
-			"       seems not to be a valid ${type} file. It appears not to have the right MOJO.\n" \
-			"       if you are absolutely sure use 'ptxdist --force-config'\n" \
-			"       and regenerate the ${type} file."
+			"error: Couldn't verify(1) that '${file}' is a ${type} file.\n" \
+			"       If you are absolutely sure, please add '--force-config' to ptxdist parameters, e.g.:\n" \
+			"       'ptxdist ${PTXDIST_ARGS_FULL[*]} --force-config'\n" \
+			"\n" \
+			"       (1) it appears not to have the right MOJO."
 		return 1
 	fi
 
@@ -1358,6 +1359,12 @@ parse_second()
 			exit 0
 			;;
 		menu)
+			if [ \! -x "$(which dialog)" ]; then
+				echo
+				echo "${PROMPT}info: Sorry, no menu for you, please install 'dialog'"
+				echo
+				exit 1
+			fi
 			PTX_MENU=true
 			while menu; do true; done
 			exit 0
