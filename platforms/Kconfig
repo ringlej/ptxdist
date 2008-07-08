@@ -17,7 +17,10 @@ config PLATFORM
 	prompt "platform name"
 	string
 	help
-	  This string identifies the platform.
+	  This string identifies the platform. You should give a concise name
+	  here. But if you do not have multiple platforms in this project and
+	  you want a ptxdist-1 behaviour (less or more flat directories), keep
+	  this entry empty.
 
 source "platforms/architecture.in"
 source "platforms/kernel.in"
