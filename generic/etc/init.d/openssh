@@ -22,6 +22,7 @@ gen_key() {
 	key_file=$2
 	root_was_ro=
 
+	touch $key_file > /dev/null 2>&1
 	if [ "$?" -ne "0" ]; then
 		root_was_ro=1
 		echo -n "remounting root rw..."
@@ -31,7 +32,10 @@ gen_key() {
 			exit 1
 		fi
 		echo "done"
+	else
+		rm -f $key_file > /dev/null 2>&1
 	fi
+
 	echo -n "generating $key_type key..."
 	ssh-keygen -t $key_type -f $key_file -N "" > /dev/null 2>&1
 	if [ "$?" = "0" ]; then
