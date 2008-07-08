@@ -1,6 +1,11 @@
 TODO for 1.99.x
 ===============
 
+[ ] if the ptx dialog will be called from within the menu dialog the loop
+    should stop, if calling the ptx dialog resturns with an error. In one case
+    one of the *.in files was missed and the error message can't be read
+    because the menu dialog overwrite it immediately
+
 [ ] jbe: ptxdist complains about a missing "projectroot/etc/module" file, but it searches
     for "projectroot/etc/module-<platformname>"
 
