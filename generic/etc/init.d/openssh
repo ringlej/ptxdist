@@ -22,7 +22,6 @@ gen_key() {
 	key_file=$2
 	root_was_ro=
 
-	touch $key_file > /dev/null 2>&1
 	if [ "$?" -ne "0" ]; then
 		root_was_ro=1
 		echo -n "remounting root rw..."
