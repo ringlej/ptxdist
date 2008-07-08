@@ -88,7 +88,7 @@ menu() {
 		;;
 
 	ptx|platform|kernel|u-boot-v2|board|user)
-		do_config menu "${cmd}"
+		do_config menuconfig "${cmd}"
 		# FIXME: reread user config file
 		;;
 	-*)
@@ -941,7 +941,7 @@ do_config()
 		;;
 	*)
 		echo
-		ech0 "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
+		echo "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
 		echo
 		exit 1
 		;;
@@ -949,11 +949,11 @@ do_config()
 
 	case "${part}" in
 	"ptx"|"ptxdist"|"")
-		ptxd_kconfig_new "${config}" "ptx"
+		ptxd_kconfig "${config}" "ptx"
 		;;
 
 	"platform"|"board"|"user")
-		ptxd_kconfig_new "${config}" "${part}"
+		ptxd_kconfig "${config}" "${part}"
 		;;
 
 	*)
