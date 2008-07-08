@@ -149,50 +149,89 @@ ptxd_get_ptxconf() {
 
 
 #
-# $1   config file (or a link to it)
-# $2   function that is called
-# $3   copy_back; "true" copies the .config file back
+# $1   what kind of config ("oldconfig", "menuconfig", "dep")
+# $2   part identifier ("ptx", "platform", "board", "user")
 #
 ptxd_kconfig() {
-	local dotconfig="${1}"
-	local fun="${2}"
-	local copy_back="${3}"
+	local config="${1}"
+	local part="${2}"
+	local copy_back="true"
 
 	local tmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/kconfig.XXXXXX")"
 	pushd "${tmpdir}" > /dev/null
 
-	# search for kconfig
-	if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
-		kconfig="${PTXDIST_WORKSPACE}/Kconfig"
-	else
-		kconfig="config/Kconfig"
-	fi
+	local file_kconfig file_dotconfig
 
-	# search for platformconfig
-	if [ -e "${PTXDIST_WORKSPACE}/platforms/Kconfig" ]; then
-		kconfig_platform="${PTXDIST_WORKSPACE}/platforms/Kconfig"
-	else
-		kconfig_platform="${PTXDIST_TOPDIR}/platforms/Kconfig"
-	fi
+	case "${part}" in
+	ptx)
+		if [ -e "${PTXDIST_WORKSPACE}/Kconfig" ]; then
+			file_kconfig="${PTXDIST_WORKSPACE}/Kconfig"
+		else
+			file_kconfig="config/Kconfig"
+		fi
+		file_dotconfig="${PTXDIST_PTXCONFIG}"
+		;;
+	platform)
+		if [ -e "${PTXDIST_WORKSPACE}/platforms/Kconfig" ]; then
+			file_kconfig="${PTXDIST_WORKSPACE}/platforms/Kconfig"
+		else
+			file_kconfig="${PTXDIST_TOPDIR}/platforms/Kconfig"
+		fi
+		file_dotconfig="${PTXDIST_PLATFORMCONFIG}"
+		;;
+	board)
+		file_kconfig="${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
+		file_dotconfig="${PTXDIST_BOARDSETUP}"
+		;;
+	user)
+		file_kconfig="${PTXDIST_TOPDIR}/config/setup/Kconfig"
+		file_dotconfig="${PTXDIST_PTXRC}"
+		;;
+	esac
+
 
 	ln -sf "${PTXDIST_TOPDIR}/rules"
 	ln -sf "${PTXDIST_TOPDIR}/config"
 	ln -sf "${PTXDIST_TOPDIR}/platforms"
 	ln -sf "${PTXDIST_WORKSPACE}" workspace
 
-	if [ -e "${dotconfig}" ]; then
-		cp "${dotconfig}" .config
+
+	if [ -e "${file_dotconfig}" ]; then
+		cp "${file_dotconfig}" .config
 	fi
+
+	local conf="${PTXDIST_TOPDIR}/scripts/kconfig/conf"
+	local mconf="${PTXDIST_TOPDIR}/scripts/kconfig/mconf"
 
 	export KCONFIG_NOTIMESTAMP="1"
-
-	"${fun}"
-	local retval=$?
-	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
-		cp .config "${dotconfig}"
-	fi
+	case "${config}" in
+	menuconfig)
+		"${mconf}" "${file_kconfig}"
+		;;
+	oldconfig)
+		#
+		# In silent mode, we cannot redirect input. So use
+		# oldconfig instead of silentoldconfig if somebody
+		# tries to automate us.
+		#
+		if tty -s; then
+			"${conf}" -s "${file_kconfig}"
+		else
+			"${conf}" -o "${file_kconfig}"
+		fi
+		;;
+	dep)
+		copy_back="false"
+		yes "" | "${conf}" -O "${file_kconfig}"
+		;;
+	esac
+	retval=$?
 
 	unset KCONFIG_NOTIMESTAMP
+
+	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
+		cp .config "${file_dotconfig}"
+	fi
 
 	popd > /dev/null
 	rm -fr "$tmpdir"
@@ -316,7 +355,7 @@ ptxd_warning() {
 # check if a previously executed pipe returned an error
 #
 check_pipe_status() {
-	for i in  "${PIPESTATUS[@]}"; do
+	for i in "${PIPESTATUS[@]}"; do
 		if [ ${i} -ne 0 ]; then
 			echo
 			echo "error: a command in the pipe returned ${i}, bailing out"

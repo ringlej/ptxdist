@@ -13,6 +13,7 @@ PROMPT="ptxdist: "
 PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_ptxconfig'
 PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
 PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
+PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdistrc.${FULLVERSION}'
 PTXDIST_BOARDSETUP_DEFAULT='${PTXDIST_WORKSPACE}/boardsetup/boardsetup'
 PTXDIST_PACKAGES_COLLECTION_DEFAULT="ALL"
 
@@ -87,7 +88,7 @@ menu() {
 		;;
 
 	ptx|platform|kernel|u-boot-v2|board|user)
-		do_menuconfig "${cmd}"
+		do_config menu "${cmd}"
 		# FIXME: reread user config file
 		;;
 	-*)
@@ -100,50 +101,6 @@ menu() {
 	esac
 
 	return 0
-}
-
-
-#
-# *_action
-#
-ptx_config_action() {
-	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${kconfig}"
-}
-
-ptx_oldconfig_action() {
-	# In silent mode, we cannot redirect input. So use oldconfig
-	# instead of silentoldconfig if somebody tries to automate us.
-	tty -s
-	if [ ${?} -eq 0 ]; then
-		"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -s "${kconfig}"
-	else
-		"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -o "${kconfig}"
-	fi
-}
-
-
-platform_config_action() {
-	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${kconfig_platform}"
-}
-
-platform_oldconfig_action() {
-	# In silent mode, we cannot redirect input. So use oldconfig
-	# instead of silentoldconfig if somebody tries to automate us.
-	tty -s
-	if [ ${?} -eq 0 ]; then
-		"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -s "${kconfig_platform}"
-	else
-		"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -o "${kconfig_platform}"
-	fi
-}
-
-
-board_config_action() {
-	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
-}
-
-user_config_action() {
-	"${PTXDIST_TOPDIR}/scripts/kconfig/mconf" "${PTXDIST_TOPDIR}/config/setup/Kconfig"
 }
 
 
@@ -196,7 +153,7 @@ check_nonstandard() {
 		return 1
 	elif [ -z "${!nonstandard_set}" ]; then
 		echo
-		echo "${PROMPT}error: invalid use of 'check_nonstandard ${@}'"
+		echo "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
 		echo
 		exit 1
 	fi
@@ -967,53 +924,48 @@ parse_first()
 ################ do_* ############################################
 ##################################################################
 
-do_menuconfig()
+#
+#
+#
+do_config()
 {
-	if [ "${1}" != "setup" ]; then
+	local config="${1}"
+	local part="${2}"
+
+	if [ "${part}" != "user" ]; then
 		check_ptxconfig || return
 	fi
 
-	case "${1}" in
-	""|"ptxdist"|"ptx")
-		ptxd_kconfig "${PTXDIST_PTXCONFIG}" ptx_config_action true
-		;;
-	"platform")
-		ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_config_action true
-		;;
-	"board")
-		ptxd_kconfig "${PTXDIST_BOARDSETUP}" board_config_action true
-		;;
-	"user")
-		ptxd_kconfig "${PTXDISTRC}" user_config_action true
+	case "${config}" in
+	"menuconfig"|"oldconfig")
 		;;
 	*)
-		check_if_selected "${1}" || return
+		echo
+		ech0 "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
+		echo
+		exit 1
+		;;
+	esac
+
+	case "${part}" in
+	"ptx"|"ptxdist"|"")
+		ptxd_kconfig_new "${config}" "ptx"
+		;;
+
+	"platform"|"board"|"user")
+		ptxd_kconfig_new "${config}" "${part}"
+		;;
+
+	*)
+		check_if_selected "${part}" || return
 
 		ptxd_dialog_infobox "this may take some seconds..."
 		check_deps
-		ptxd_make "${1}_menuconfig"
-		if [ -n "${PTX_MENU}" -a $? -ne 0 ]; then
+
+		if ! ptxd_make "${part}_${config}" && [ -n "${PTX_MENU}" ]; then
 			echo "...any key to continue"
 			read
 		fi
-	esac
-}
-
-
-do_oldconfig()
-{
-	check_ptxconfig || return
-	case "${1}" in
-	""|"ptxdist"|"ptx")
-		ptxd_kconfig "${PTXDIST_PTXCONFIG}" ptx_oldconfig_action true
-		;;
-	"platform")
-		ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" platform_oldconfig_action true
-		;;
-	*)
-		check_if_selected "${1}" || return
-		check_deps
-		ptxd_make "${1}_oldconfig"
 	esac
 }
 
@@ -1105,10 +1057,10 @@ do_select_toolchain() {
 	#
 	if [ -z "${toolchain}" ]; then
 		if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
-			ptxd_dialog_msgbox "\
-error: cannot guess toolchain, no platform selected.
-       try 'ptxdist platform <platformconfig>' first
-       or use 'ptxdist toolchain </path/to/toolchain>'"
+			ptxd_dialog_msgbox \
+				"error: cannot guess toolchain, no platform selected.\n" \
+				"       try 'ptxdist platform <platformconfig>' first\n" \
+				"       or use 'ptxdist toolchain </path/to/toolchain>'"
 			return 1
 		fi
 
@@ -1226,40 +1178,36 @@ parse_second()
 
 ######## *config, *setup, toolchain
 
-		menuconfig)
-			do_menuconfig "${@}"
-			exit ${?}
-			;;
-
-		oldconfig)
-			do_oldconfig "${@}"
+		menuconfig|oldconfig)
+			do_config "${cmd}" "${@}"
 			exit ${?}
 			;;
 
 		platformconfig)
-			do_menuconfig platform
+			do_config menuconfig platform
 			exit ${?}
 			;;
 
 		kernelconfig)
-			do_menuconfig kernel
+			do_config menuconfig kernel
 			exit ${?}
 			;;
 
 		u_boot_config)
-			do_menuconfig u-boot-v2
+			do_config menuconfig u-boot-v2
 			exit ${?}
 			;;
 
 		boardsetup)
-			do_menuconfig board
+			do_config menuconfig board
 			exit ${?}
 			;;
 
 		setup)
-			do_menuconfig user
+			do_config menuconfig user
 			exit ${?}
 			;;
+
 
 		select)
 			do_select ptxconfig "${1}"
@@ -1636,11 +1584,15 @@ setup_platform() {
 #      PTXDIST_SRCDIR
 #      PTXDIST_PARALLELMFLAGS_INTERN
 #      PTXDIST_PARALLELMFLAGS_EXTERN
+#      PTXDIST_PTXRC
 #
 setup_config() {
-	local cpus pmf_intern pmf_extern
+	local cpus pmf_intern
 
-	local rc_user="${HOME}/.ptxdistrc.${FULLVERSION}"
+	eval PTXDIST_PTXRC_DEFAULT="${PTXDIST_PTXRC_DEFAULT}"
+	PTXDIST_PTXRC="${PTXDIST_PTXRC_DEFAULT}"
+
+	local rc_user="${PTXDIST_PTXRC}"
 	local rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
 
 	if [ \! -e "${rc_user}" ]; then
@@ -1672,7 +1624,7 @@ setup_config() {
 	#
 
 	# default no parallel for now
-	pmf_extern="-j1"
+	local pmf_extern="-j1"
 
 	#
 	# user may override PARALLELMFLAGS
@@ -1786,6 +1738,7 @@ setup_libs
 setup_config
 # --- errexit feaute may be active ---
 parse_first
+# --- vars to config files are setup ---
 setup_platform
 # --- platformdir and other *dirs are available from here ---
 # --- all variables are defined now ---

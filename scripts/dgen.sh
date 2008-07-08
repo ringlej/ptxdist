@@ -21,19 +21,6 @@ CONFIGDEPS="${STATEDIR}/ptx_configdeps"
 CONFIGDEPS_MAP="${CONFIGDEPS}_map.sh"
 GEN_MAPS_ALL="${STATEDIR}/ptx_gen_map_all"
 
-#
-#
-#
-gen_configdeps_action () {
-    yes "" | \
-	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -O "${kconfig}"
-};
-
-gen_configdeps_platform_action () {
-    yes "" | \
-	"${PTXDIST_TOPDIR}/scripts/kconfig/conf" -O "${kconfig_platform}"
-};
-
 
 #
 # $(CONFIGDEPS): $(IN_ALL)
@@ -41,11 +28,11 @@ gen_configdeps_platform_action () {
 gen_configdeps() {
     local tmpdir kconfig
 
-    ptxd_kconfig "${PTXDIST_PTXCONFIG}" gen_configdeps_action false > "${CONFIGDEPS}"
+    ptxd_kconfig dep ptx > "${CONFIGDEPS}"
 
     # if platformconfig's size is bigger than zero
     if [ -s "${PTXDIST_PLATFORMCONFIG}" ]; then
-	ptxd_kconfig "${PTXDIST_PLATFORMCONFIG}" gen_configdeps_platform_action false >> "${CONFIGDEPS}"
+	ptxd_kconfig dep platform  >> "${CONFIGDEPS}"
     fi
 }
 
