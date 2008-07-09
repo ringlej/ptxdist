@@ -1,9 +1,13 @@
 config SED
 	tristate
+	depends on !BB_CONFIG_SED
 	prompt "sed"
 	help
 	  sed reads the specified files or the standard input if no
 	  files are specified, makes editing changes according to a
 	  list of commands, and writes the results to the standard
 	  output.
+
+comment "busybox's sed selected"
+	depends on BB_CONFIG_SED
 
