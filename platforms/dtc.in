@@ -25,5 +25,4 @@ config DTC_OFTREE_DTS
 config DTC_EXTRA_ARGS
 	string "extra options passed to dtc"
 	depends on DTC
-	default "-V 0x10"
 
