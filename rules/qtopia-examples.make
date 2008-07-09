@@ -17,9 +17,9 @@ PACKAGES-$(PTXCONF_QTOPIA_EXAMPLES) += qtopia-examples
 #
 # Paths and names
 #
-QTOPIA_EXAMPLES_VERSION		:= 4.4.0
-QTOPIA_EXAMPLES			:= qt-embedded-linux-opensource-src-$(QTOPIA_EXAMPLES_VERSION)
-QTOPIA_EXAMPLES_DIR		:= $(BUILDDIR)/$(QTOPIA_EXAMPLES)
+QTOPIA_EXAMPLES_VERSION	:= 4.4.0
+QTOPIA_EXAMPLES		:= qt-embedded-linux-opensource-src-$(QTOPIA_EXAMPLES_VERSION)
+QTOPIA_EXAMPLES_DIR	:= $(BUILDDIR)/$(QTOPIA_EXAMPLES)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -168,7 +168,7 @@ ifdef PTXCONF_QTOPIA_EXAMPLES_EXAMPLES
 		list="$(QTOPIA_EXAMPLES_LIST)"; \
 	fi; \
 	for i in $$list; do \
-		$(call install_copy, qtopia, 0, 0, 0755, \
+		$(call install_copy, qtopia-examples, 0, 0, 0755, \
 			$(QTOPIA_DIR)/examples/$$i, \
 			/usr/bin/qt-examples/$$j/$$i); \
 	done
@@ -181,7 +181,7 @@ ifdef PTXCONF_QTOPIA_EXAMPLES_DEMOS
 		list="$(QTOPIA_DEMOS_LIST)"; \
 	fi; \
 	for i in $$list; do \
-		$(call install_copy, qtopia, 0, 0, 0755, \
+		$(call install_copy, qtopia-examples, 0, 0, 0755, \
 			$(QTOPIA_DIR)/demos/$$i, \
 			/usr/bin/qt-demos/$$j/$$i); \
 	done
