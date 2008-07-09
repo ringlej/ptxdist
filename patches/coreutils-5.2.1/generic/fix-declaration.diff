@@ -13,22 +13,52 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
  src/tee.c  |    6 +++---
- src/test.c |    2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ src/test.c |   10 +++++-----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
 Index: coreutils-5.2.1/src/test.c
 ===================================================================
 --- coreutils-5.2.1.orig/src/test.c
 +++ coreutils-5.2.1/src/test.c
-@@ -124,7 +124,7 @@ test_syntax_error (char const *format, c
- #if HAVE_SETREUID && HAVE_SETREGID
+@@ -125,7 +125,7 @@ test_syntax_error (char const *format, c
  /* Do the same thing access(2) does, but use the effective uid and gid.  */
  
--static int
-+int
- eaccess (char const *file, int mode)
+ static int
+-eaccess (char const *file, int mode)
++_eaccess (char const *file, int mode)
  {
    static int have_ids;
+   static uid_t uid, euid;
+@@ -158,7 +158,7 @@ eaccess (char const *file, int mode)
+   return result;
+ }
+ #else
+-# define eaccess(F, M) euidaccess (F, M)
++# define _eaccess(F, M) euidaccess (F, M)
+ #endif
+ 
+ /* Increment our position in the argument list.  Check that we're not
+@@ -623,17 +623,17 @@ unary_operator (void)
+ 
+     case 'r':			/* file is readable? */
+       unary_advance ();
+-      value = -1 != eaccess (argv[pos - 1], R_OK);
++      value = -1 != _eaccess (argv[pos - 1], R_OK);
+       return (TRUE == value);
+ 
+     case 'w':			/* File is writable? */
+       unary_advance ();
+-      value = -1 != eaccess (argv[pos - 1], W_OK);
++      value = -1 != _eaccess (argv[pos - 1], W_OK);
+       return (TRUE == value);
+ 
+     case 'x':			/* File is executable? */
+       unary_advance ();
+-      value = -1 != eaccess (argv[pos - 1], X_OK);
++      value = -1 != _eaccess (argv[pos - 1], X_OK);
+       return (TRUE == value);
+ 
+     case 'O':			/* File is owned by you? */
 Index: coreutils-5.2.1/src/tee.c
 ===================================================================
 --- coreutils-5.2.1.orig/src/tee.c
@@ -38,7 +68,7 @@ Index: coreutils-5.2.1/src/tee.c
  #define AUTHORS "Mike Parker", "Richard M. Stallman", "David MacKenzie"
  
 -static int tee (int nfiles, const char **files);
-+static int mytee (int nfiles, const char **files);
++static int _tee (int nfiles, const char **files);
  
  /* If nonzero, append to output files rather than truncating them. */
  static int append;
@@ -47,7 +77,7 @@ Index: coreutils-5.2.1/src/tee.c
       POSIX requires that it work when given no arguments.  */
  
 -  errs = tee (argc - optind, (const char **) &argv[optind]);
-+  errs = mytee (argc - optind, (const char **) &argv[optind]);
++  errs = _tee (argc - optind, (const char **) &argv[optind]);
    if (close (STDIN_FILENO) != 0)
      error (EXIT_FAILURE, errno, _("standard input"));
  
@@ -56,7 +86,7 @@ Index: coreutils-5.2.1/src/tee.c
  
  static int
 -tee (int nfiles, const char **files)
-+mytee (int nfiles, const char **files)
++_tee (int nfiles, const char **files)
  {
    FILE **descriptors;
    char buffer[BUFSIZ];
