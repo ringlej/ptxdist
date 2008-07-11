@@ -274,7 +274,7 @@ menu "Development Tools             "
 source rules/ptxdist.in
 endmenu
 
-menu "Gamez                         "
+menu "Games                         "
 source rules/supertux.in
 source rules/scummvm.in
 source rules/uttt.in
