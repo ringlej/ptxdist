@@ -131,6 +131,7 @@ endchoice
 choice
 	prompt "SVGA                "
 	depends on QTOPIA
+	depends on BROKEN
 	default QTOPIA_GFX_SVGA_NONE
 	help
 	  Unaccelerated driver using svgalib.
