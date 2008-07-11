@@ -793,6 +793,8 @@ install_copy = 											\
 	DST="$(strip $(6))";									\
 	STRIP="$(strip $(7))";									\
 												\
+	PER_NFS=$$(printf "0%o" $$(( 0$${PER} & ~06000 )) );					\
+												\
 	if [ -z "$(6)" ]; then									\
 		echo "install_copy:";								\
 		echo "  dir=$$SRC";								\
@@ -804,12 +806,12 @@ install_copy = 											\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		$(INSTALL) -m $$PER -d "$(ROOTDIR)/$$SRC";					\
+		$(INSTALL) -m $$PER_NFS -d "$(ROOTDIR)/$$SRC";					\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		$(INSTALL) -m $$PER -d "$(ROOTDIR_DEBUG)/$$SRC";				\
+		$(INSTALL) -m $$PER_NFS -d "$(ROOTDIR_DEBUG)/$$SRC";				\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
@@ -832,12 +834,12 @@ install_copy = 											\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		$(INSTALL) -m $$PER -D "$$SRC" "$(ROOTDIR)$$DST";				\
+		$(INSTALL) -m $$PER_NFS -D "$$SRC" "$(ROOTDIR)$$DST";				\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		$(INSTALL) -m $$PER -D "$$SRC" "$(ROOTDIR_DEBUG)$$DST";				\
+		$(INSTALL) -m $$PER_NFS -D "$$SRC" "$(ROOTDIR_DEBUG)$$DST";			\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
