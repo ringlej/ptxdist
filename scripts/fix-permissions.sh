@@ -19,8 +19,8 @@ fixup() {
 	case "${kind}" in
 	    f)
 		# if we have a special permission, set it also in rootfs
-		if [ "${TYPE}" = "root" -a $(( 0${perm} & 07000 )) -ne 0 -o \
-		    "${TYPE}" = "image" ]; then
+		# "${TYPE}" = "root" -a $(( 0${perm} & 07000 )) -ne 0
+		if [ "${TYPE}" = "image" ]; then
 		    chown ${uid}\:${gid} "${file}"
 		    chmod ${perm}        "${file}"
 		fi
