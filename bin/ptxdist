@@ -467,7 +467,7 @@ check_if_selected() {
 
 	if [ -z "${ptxconfig_configvar}" ]; then
 		ptxd_dialog_msgbox \
-			"error: '${1}' is not selected in\n" \
+			"${PROMPT}error: '${1}' is not selected in\n" \
 			"       ${PTXDIST_PTXCONFIG}"
 		return 1
 	fi
@@ -959,7 +959,7 @@ do_config()
 	*)
 		check_if_selected "${part}" || return
 
-		ptxd_dialog_infobox "this may take some seconds..."
+		ptxd_dialog_infobox "${PROMPT}Checking dependencies. This may take some seconds."
 		check_deps
 
 		if ! ptxd_make "${part}_${config}" && [ -n "${PTX_MENU}" ]; then
