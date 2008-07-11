@@ -925,7 +925,10 @@ parse_first()
 ##################################################################
 
 #
+# calls menu/old config on several components
 #
+# $1	what kind of config ("menuconfig", "oldconfig")
+# $2	what to "config"
 #
 do_config()
 {
@@ -962,11 +965,17 @@ do_config()
 		ptxd_dialog_infobox "${PROMPT}Checking dependencies. This may take some seconds."
 		check_deps
 
-		if ! ptxd_make "${part}_${config}" && [ -n "${PTX_MENU}" ]; then
-			echo "...any key to continue"
-			read
-		fi
+		ptxd_make "${part}_${config}"
 	esac
+
+
+	if [ $? -ne 0 -a -n "${PTX_MENU}" ]; then
+		echo
+		echo "${PROMPT}'${part} ${config}' retuned with an error"
+		echo
+		read
+	fi
+
 }
 
 
@@ -976,7 +985,7 @@ do_config()
 # select a configfile, do sanity checks, etc
 #
 # ${1}: type of config file {ptxconfig,platformconfig}
-# ${2}: the actual config file 
+# ${2}: the actual config file
 #
 do_select()
 {
@@ -991,8 +1000,11 @@ do_select()
 	# check if magic is present in config file
 	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTX_FORCE_CONFIG}" ]; then
 		ptxd_dialog_msgbox \
-			"error: Couldn't verify(1) that '${file}' is a ${type} file.\n" \
-			"       If you are absolutely sure, please add '--force-config' to ptxdist parameters, e.g.:\n" \
+			"error: Couldn't verify(1) that\n" \
+			"       '${file}'\n" \
+			"       is a valid ${type} file.\n" \
+			"       If you are absolutely sure, please add '--force-config'\n" \
+			"       to ptxdist's parameters, e.g.:\n" \
 			"       'ptxdist ${PTXDIST_ARGS_FULL[*]} --force-config'\n" \
 			"\n" \
 			"       (1) it appears not to have the right MOJO."
@@ -1007,14 +1019,9 @@ do_select()
 		return 1
 	elif [ -e "${!dest_ptr}" -a \! -L "${!dest_ptr}" ]; then
 		ptxd_dialog_msgbox \
-			"error: '${!dest_ptr}' is not a link\n" \
-			"       thus ${type} is not selectable!"
+			"error: '${!dest_ptr}'\n" \
+			"       is not a link thus ${type} is not selectable!"
 		return 1
-	elif [ -f "${!dest_ptr}" ]; then
-		ptxd_dialog_yesno \
-			"warning: overwrite existing ${type} [Y/n]?:\n" \
-			"         '${dest_file#${PTXDIST_WORKSPACE}/}'" \
-			|| return
 	fi
 
 	ln -sf "${file}" "${!dest_ptr}"
@@ -1022,28 +1029,29 @@ do_select()
 		"info: selected ${type}:\n" \
 		"      '${file}'"
 
+	#
+	# try to guess toolchain
+	#
 	case "${type}" in
 	platformconfig)
 		if [ "${PTX_toolchain_SET}" != "true" ]; then
 			do_select_toolchain
-		fi
-
-		if [ -n "${PTX_MENU}" ]; then
-			# re-read platformconfig and
-			# export new variables
-			setup_platform
-			setup_export
-			# FIXME: care about
-			# logfile
-			# path
 		fi
 		;;
 	*)
 		;;
 	esac
 
-
-
+	#
+	# re-read config files and
+	# export changed variables
+	#
+	if [ -n "${PTX_MENU}" ]; then
+		setup_platform
+		setup_path
+		setup_logfile
+		setup_export
+	fi
 }
 
 
@@ -1078,13 +1086,14 @@ do_select_toolchain() {
 				"info: insufficient information in your ptxconfig file\n" \
 				"      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
 			return 1
-		else
-			ptxd_dialog_msgbox \
-				"toolchain vendor : '${vendor}'\n" \
-				"compiler version : '${version}'\n" \
-				"target tuple     : '${target}'\n" \
-				"\n" \
-				"looking for      : '${hint}'"
+#		else
+#			ptxd_dialog_msgbox \
+#				""
+#				"toolchain vendor : '${vendor}'\n" \
+#				"compiler version : '${version}'\n" \
+#				"target tuple     : '${target}'\n" \
+#				"\n" \
+#				"looking for      : '${hint}'"
 		fi
 		# let the shell expand the "*" in the hint, put it into an array
 		toolchain=($(echo ${hint}))
@@ -1666,15 +1675,18 @@ setup_config() {
 # out: PATH
 #
 setup_path() {
+	# save PATH and reuse it later on
+	PATH="${_ptxdist_setup_path:=${PATH}}"
+
 	if [ -d "${PTXDIST_TOOLCHAIN}" ]; then
-		PATH="${PTXDIST_TOOLCHAIN}:$PATH"
+		PATH="${PTXDIST_TOOLCHAIN}:${PATH}"
 	fi
 
 	# dir might not be available yet, but will be created later
 	local sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
 
 	if [ -n "${sysroot_host}" ]; then
-		PATH="${sysroot_host}/bin:${sysroot_host}/sbin:$PATH"
+		PATH="${sysroot_host}/bin:${sysroot_host}/sbin:${PATH}"
 	fi
 }
 
@@ -1684,9 +1696,7 @@ setup_path() {
 #
 setup_logfile()
 {
-	local logdir
-
-	logdir="${PTX_LOGFILE%/*}"
+	local logdir="${PTX_LOGFILE%/*}"
 
 	if [ ! -d "${logdir}" ]; then
 		mkdir -p ${logdir} || ptxd_bailout "cannot create dir ${logdir}"
@@ -1743,7 +1753,7 @@ setup_traps
 setup_libs
 # ---  libs are available from here ---
 setup_config
-# --- errexit feaute may be active ---
+# --- errexit feature may be active ---
 parse_first
 # --- vars to config files are setup ---
 setup_platform
