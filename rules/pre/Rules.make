@@ -411,7 +411,7 @@ extract =							\
 		echo;						\
 		echo Error: empty parameter to \"extract\(\)\";	\
 		echo;						\
-		exit -1;					\
+		exit 1;						\
 	fi;							\
 	[ -d $$DEST ] || mkdir -p $$DEST;			\
 								\
@@ -429,7 +429,7 @@ extract =							\
 		echo;						\
 		echo Unknown format, cannot extract!;		\
 		echo;						\
-		exit -1;					\
+		exit 1;						\
 		;;						\
 	esac;							\
 	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
@@ -452,7 +452,7 @@ get =								\
 		echo;						\
 		echo Error: empty parameter to \"get\(\)\";	\
 		echo;						\
-		exit -1;					\
+		exit 1;						\
 	fi;							\
 	SRC="$(strip $(2))";					\
 	SRC=$${SRC:-$(SRCDIR)};					\
@@ -465,7 +465,7 @@ get =								\
 			echo "Could not get packet via http!";	\
 			echo "URL: $$URL";			\
 			echo;					\
-			exit -1;				\
+			exit 1;					\
 			};					\
 		;;						\
 	ftp*)							\
@@ -475,7 +475,7 @@ get =								\
 			echo "Could not get packet via ftp!";	\
 			echo "URL: $$URL";			\
 			echo;					\
-			exit -1;				\
+			exit 1;					\
 			};					\
 		;;						\
 	file*)							\
@@ -488,7 +488,7 @@ get =								\
 				echo "Could not copy packet!";	\
 				echo "File: $$THING";		\
 				echo;				\
-				exit -1;			\
+				exit 1;				\
 			};					\
 		elif [ -d "$$THING" ]; then			\
 			echo "local directory instead of tar file, skipping get";	\
@@ -509,7 +509,7 @@ get =								\
 		echo "Unknown URL Type!";			\
 		echo "URL: $$URL";				\
 		echo;						\
-		exit -1;					\
+		exit 1;						\
 		;;						\
 	esac;
 
@@ -685,7 +685,7 @@ patchin =											\
 		echo;										\
 		echo Error: empty parameter to \"patchin\(\)\";					\
 		echo;										\
-		exit -1;									\
+		exit 1;										\
 	fi;											\
 												\
 	echo "PATCHIN: packet=$$PACKET_NAME";							\
@@ -703,6 +703,14 @@ patchin =											\
 												\
 	PACKET_DIR=$${PACKET_DIR:-$(BUILDDIR)/$$PACKET_NAME};					\
 	echo "PATCHIN: dir=$$PACKET_DIR";							\
+												\
+	if [ ! -d $${PACKET_DIR} ]; then							\
+		echo;										\
+		echo "Error: dir \"$${PACKET_DIR}\" does not exist";				\
+		echo;										\
+		exit 1;										\
+												\
+	fi;											\
 												\
 	if $${APPLY_PATCH}; then								\
 		patch_dirs="$(PROJECTPATCHDIR)/$$PACKET_NAME/generic				\
@@ -722,7 +730,7 @@ patchin =											\
 			if [ -n "$$PACKET_SERIES" -a ! -f "$$patch_dir/$$PACKET_SERIES" ]; then	\
 				echo -n "Series file for $$PACKET_NAME given, but series file ";\
 				echo "\"$$patch_dir/$$PACKET_SERIES\" does not exist";		\
-				exit -1;							\
+				exit 1;								\
 			fi;									\
 												\
 			if [ -z "$$PACKET_SERIES" ]; then					\
@@ -738,7 +746,7 @@ patchin =											\
 				$(SCRIPTSDIR)/apply_patch_series.sh -p "$$patch_dir"		\
 					-d $$PACKET_DIR	;					\
 			fi;									\
-			if [ "$$?" -gt 0 ]; then exit -1; fi;					\
+			if [ "$$?" -gt 0 ]; then exit 1; fi;					\
 		fi;										\
 	fi;											\
 												\
