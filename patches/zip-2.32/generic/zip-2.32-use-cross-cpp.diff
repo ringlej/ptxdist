@@ -1,0 +1,58 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: zip: use $(CPP) instead of hand crafted cpp paths if specified
+
+The configurescript tries to be intelligent and wants to guess where the
+preprocessor lives. However, this badly fails in cross scenarios. We
+want to use $(CPP) if the user has specified it.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ unix/Makefile  |    2 +-
+ unix/configure |   20 +++++++++++---------
+ 2 files changed, 12 insertions(+), 10 deletions(-)
+
+Index: zip-2.32/unix/Makefile
+===================================================================
+--- zip-2.32.orig/unix/Makefile
++++ zip-2.32/unix/Makefile
+@@ -20,7 +20,7 @@ LN = ln -s
+ CC = cc
+ BIND = $(CC)
+ AS = $(CC) -c
+-CPP = /lib/cpp
++CPP = $(CPP)
+ EXE =
+ 
+ # probably can change this to 'install' if you have it
+Index: zip-2.32/unix/configure
+===================================================================
+--- zip-2.32.orig/unix/configure
++++ zip-2.32/unix/configure
+@@ -50,15 +50,17 @@ _EOF_
+ fi
+ 
+ echo Check for the C preprocessor
+-# on SVR4, cc -E does not produce correct assembler files. Need /lib/cpp.
+-CPP="${CC} -E"
+-# solaris as(1) needs -P, maybe others as well ?
+-[ -f /usr/ccs/lib/cpp ] && CPP="/usr/ccs/lib/cpp -P"
+-[ -f /usr/lib/cpp ] && CPP=/usr/lib/cpp
+-[ -f /lib/cpp ] && CPP=/lib/cpp
+-[ -f /usr/bin/cpp ] && CPP=/usr/bin/cpp
+-[ -f /xenix ] && CPP="${CC} -E"
+-[ -f /lynx.os ] && CPP="${CC} -E"
++if test -z "$CPP"; then
++  # on SVR4, cc -E does not produce correct assembler files. Need /lib/cpp.
++  CPP="${CC} -E"
++  # solaris as(1) needs -P, maybe others as well ?
++  [ -f /usr/ccs/lib/cpp ] && CPP="/usr/ccs/lib/cpp -P"
++  [ -f /usr/lib/cpp ] && CPP=/usr/lib/cpp
++  [ -f /lib/cpp ] && CPP=/lib/cpp
++  [ -f /usr/bin/cpp ] && CPP=/usr/bin/cpp
++  [ -f /xenix ] && CPP="${CC} -E"
++  [ -f /lynx.os ] && CPP="${CC} -E"
++fi
+ 
+ echo "#include <stdio.h>" > conftest.c
+ $CPP conftest.c >/dev/null 2>/dev/null || CPP="${CC} -E"
