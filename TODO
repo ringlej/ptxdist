@@ -1,7 +1,13 @@
 TODO for 1.99.x
 ===============
 
-[ ] if the ptx dialog will be called from within the menu dialog the loop
+[ ] jbe: it must be possible to force some userland components from inside the
+    platformconfig. For example a platform specific kernel driver module
+    needs a special component of the UDEV. Currently it does not work.
+    Duplicating symbols in both config files may work, but it will be
+    "BROKEN BY DESIGN".
+
+[x] jbe: if the ptx dialog will be called from within the menu dialog the loop
     should stop, if calling the ptx dialog resturns with an error. In one case
     one of the *.in files was missed and the error message can't be read
     because the menu dialog overwrite it immediately
@@ -9,9 +15,9 @@ TODO for 1.99.x
 [ ] jbe: ptxdist complains about a missing "projectroot/etc/module" file, but it searches
     for "projectroot/etc/module-<platformname>"
 
-[ ] jbe: libxcb depends on host's xslt installation! Current fix is to be checked.
+[x] jbe: libxcb depends on host's xslt installation! Current fix is to be checked.
 
-[ ] jbe: xcb-proto depends on host's xmllint!
+[x] jbe: xcb-proto depends on host's xmllint!
 
 [X] jbe:
     ptxdist: platformconfig...
