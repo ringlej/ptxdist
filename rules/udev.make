@@ -174,7 +174,7 @@ ifdef PTXCONF_ROOTFS_ETC_UDEV_USER_RULES
 	done;
 endif
 ifdef PTXCONF_ROOTFS_ETC_UDEV_DEFAULT_RULES
-	@$(call install_copy, udev, 0, 0, 0755, \
+	@$(call install_copy, udev, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/udev/rules.d/udev.rules, \
 		/etc/udev/rules.d/udev.rules, n)
 endif
