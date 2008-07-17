@@ -1,5 +1,8 @@
-menu "Xorg                          "
+menuconfig XORG
+	bool
+	prompt "Xorg                          "
 
+if XORG
 source "rules/xorg-options.in"
 source "rules/xorg-server.in"
 source "rules/xorg-driver.in"
@@ -10,5 +13,4 @@ source "rules/xorg-proto.in"
 source "rules/xorg-lib.in"
 source "rules/xorg-data.in"
 source "rules/xorg-support-libs.in"
-
-endmenu
+endif
