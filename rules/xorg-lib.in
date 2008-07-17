@@ -3,6 +3,7 @@
 menu "xorg libs                     "
 
 source "rules/pixman.in"
+source "rules/libpciaccess.in"
 source "rules/libpthread-stubs.in"
 source "rules/libxcb.in"
 source "rules/xorg-lib-AppleWM.in"
