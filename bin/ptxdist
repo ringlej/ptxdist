@@ -3,6 +3,7 @@
 export LANG=C
 export LC_ALL=POSIX
 export LC_CTYPE=POSIX
+export CDPATH=
 
 PTXDIST_ARGS_FULL=("${@}")
 PROMPT="ptxdist: "
