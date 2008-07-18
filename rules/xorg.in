@@ -1,16 +1,19 @@
 menuconfig XORG
 	bool
 	prompt "Xorg                          "
+	help
+	  Enable this entry if you want the whole world of X.
 
 if XORG
 source "rules/xorg-options.in"
 source "rules/xorg-server.in"
 source "rules/xorg-driver.in"
 source "rules/xorg-app.in"
-source "rules/xorg-font.in"
 source "rules/xorg-cursor.in"
 source "rules/xorg-proto.in"
 source "rules/xorg-lib.in"
 source "rules/xorg-data.in"
 source "rules/xorg-support-libs.in"
 endif
+
+source "rules/xorg-font.in"
