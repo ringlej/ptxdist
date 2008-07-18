@@ -492,12 +492,10 @@ get =								\
 			};					\
 		elif [ -d "$$THING" ]; then			\
 			echo "local directory instead of tar file, skipping get";	\
-			[ -e $@ ] || touch $@; 			\
 		else						\
 			THING="$$(echo $$URL | sed s-file://-./-g)";	\
 			if [ -d "$$THING" ]; then		\
 				echo "local project directory instead of tar file, skipping get";	\
-				[ -e $@ ] || touch $@; 		\
 			else					\
 				echo "don't know about $$THING"; \
 				exit 1;				\
