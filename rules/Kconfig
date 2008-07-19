@@ -199,6 +199,7 @@ source "rules/sqlite.in"
 source "rules/termcap.in"
 source "rules/xerces.in"
 source "rules/zlib.in"
+source "rules/libmd.in"
 endmenu
 
 menu "Middleware                    "
