@@ -1196,7 +1196,14 @@ parse_second()
 
 		platformconfig)
 			do_config menuconfig platform
-			exit ${?}
+			local retval=${?}
+			local kernellink=${PTXDIST_WORKSPACE}/.kernel
+			if [ -z $(ptxd_get_ptxconf PTXCONF_KERNEL_SYMLINK_IN_PROJECTDIR) ]; then
+				[ -L ${kernellink} ] && rm -f ${kernellink}
+			else
+				[ ! -e ${kernellink} ] && ln -sf ${BUILDDIR}/linux-$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION) ${kernellink}
+			fi
+			exit ${retval}
 			;;
 
 		kernelconfig)
