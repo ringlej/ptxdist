@@ -182,17 +182,28 @@ config KERNEL_IMAGE
 comment "Development features"
 	depends on KERNEL
 
-config KERNEL_CHECK_MISMATCH
-	bool
-	prompt "check for section mismatch while building"
+config KERNEL_EXTRA_MAKEVARS
+	string
+	default "CONFIG_DEBUG_SECTION_MISMATCH=y"
+	prompt "Additional kbuild options"
 	depends on KERNEL
 	help
+	  Specify extra parameters for the kernel build system here. Useful
+	  options include:
+	  
+	  * CONFIG_DEBUG_SECTION_MISMATCH=y
 	  Enable this feature if you want kernel's builsystem to check for
 	  section mismatches (__devinit/__devexit, __init/__exit). This
 	  entry is valid for 2.6.25 kernels and above. Previous kernel versions
 	  do this check automatically. Enabling this feature is recommended
 	  for kernel development.
 	  Changing this entry will rebuild the whole kernel.
+	  
+	  * C=1
+	  Run sparse when compiling
+	  
+	  * V=1
+	  Increase verbosity when compiling
 
 config KERNEL_LOCAL_FLAG
 	depends on KERNEL
