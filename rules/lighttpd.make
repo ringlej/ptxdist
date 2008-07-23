@@ -248,6 +248,7 @@ endif
 
 ifdef PTXCONF_LIGHTTPD__CONFIG_DEFAULT
 # use generic one
+ifdef PTXCONF_PHP5
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd.conf, \
 		/etc/lighttpd/lighttpd.conf, n)
@@ -255,6 +256,11 @@ ifdef PTXCONF_LIGHTTPD__CONFIG_DEFAULT
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/mod_fastcgi.conf, \
 		/etc/lighttpd/mod_fastcgi.conf, n)
+else
+	@$(call install_copy, lighttpd, 12, 102, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd-no_php.conf, \
+		/etc/lighttpd/lighttpd.conf, n)
+endif
 endif
 ifdef PTXCONF_LIGHTTPD__CONFIG_USER
 # users one
@@ -264,6 +270,7 @@ ifdef PTXCONF_LIGHTTPD__CONFIG_USER
 endif
 
 ifdef PTXCONF_LIGHTTPD__GENERIC_SITE
+ifdef PTXCONF_PHP5
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/var/www/lighttpd.html, \
 		/var/www/index.html, n)
@@ -275,6 +282,11 @@ ifdef PTXCONF_LIGHTTPD__GENERIC_SITE
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/var/www/more_bottles.php, \
 		/var/www/more_bottles.php, n)
+else
+	@$(call install_copy, lighttpd, 12, 102, 0644, \
+		$(PTXDIST_TOPDIR)/generic/var/www/httpd.html, \
+		/var/www/index.html, n)
+endif
 endif
 
 ifneq ($(PTXCONF_ROOTFS_ETC_INITD_LIGHTTPD_LINK),"")
