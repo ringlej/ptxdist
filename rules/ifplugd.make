@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_IFPLUGD) += ifplugd
 IFPLUGD_VERSION	:= 0.28
 IFPLUGD		:= ifplugd-$(IFPLUGD_VERSION)
 IFPLUGD_SUFFIX	:= tar.gz
-IFPLUGD_URL	:= http://0pointer.de/lennart/projects/ifplugd//$(IFPLUGD).$(IFPLUGD_SUFFIX)
+IFPLUGD_URL	:= http://0pointer.de/lennart/projects/ifplugd/$(IFPLUGD).$(IFPLUGD_SUFFIX)
 IFPLUGD_SOURCE	:= $(SRCDIR)/$(IFPLUGD).$(IFPLUGD_SUFFIX)
 IFPLUGD_DIR	:= $(BUILDDIR)/$(IFPLUGD)
 
