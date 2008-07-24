@@ -59,8 +59,9 @@ PERMISSION_FILES := $(foreach pkg, $(PACKAGES-y), $(wildcard $(STATEDIR)/$(pkg)*
 
 #
 # list of all ipkgs being selected for the root image
-#
-IPKG_FILES := $(foreach pkg, $(PACKAGES-y), $(wildcard $(PKGDIR)/$(pkg)*.ipk))
+# UGLY: Just these files have '_' substituted to '-'; the permission files above have NOT.
+#	Consistency would be nicer, but when fixing, change for side-effects carefully!
+IPKG_FILES := $(foreach pkg, $(PACKAGES-y), $(wildcard $(PKGDIR)/$(subst _,-,$(pkg))*.ipk))
 
 #
 # create one file with all permissions from all permission source files

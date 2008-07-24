@@ -1081,6 +1081,7 @@ install_node =				\
 # $2: sequence to be replaced
 # $3: replacement
 #
+# Note: Package must not contain '_' as ipkg needs it as a seperator
 install_fixup = 									\
 	PACKET=$(strip $(1));								\
 	REPLACE_FROM=$(strip $(2));							\
