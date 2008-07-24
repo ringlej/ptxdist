@@ -1,13 +1,13 @@
 Not all systems provide nawk. awk seems also do the job.
 
 ---
- build-target/dnsmasq-2.45/Makefile |    2 +-
+ Makefile |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: build-target/dnsmasq-2.45/Makefile
+Index: Makefile
 ===================================================================
---- build-target/dnsmasq-2.45/Makefile.orig
-+++ build-target/dnsmasq-2.45/Makefile
+--- Makefile.orig
++++ Makefile
 @@ -23,7 +23,7 @@ PO = po
  MAN = man
  
