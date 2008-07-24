@@ -248,7 +248,7 @@ endif
 
 ifdef PTXCONF_LIGHTTPD__CONFIG_DEFAULT
 # use generic one
-ifdef PTXCONF_PHP5
+ifdef PTXCONF_PHP5_SAPI_CGI
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd.conf, \
 		/etc/lighttpd/lighttpd.conf, n)
@@ -270,7 +270,7 @@ ifdef PTXCONF_LIGHTTPD__CONFIG_USER
 endif
 
 ifdef PTXCONF_LIGHTTPD__GENERIC_SITE
-ifdef PTXCONF_PHP5
+ifdef PTXCONF_PHP5_SAPI_CGI
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/var/www/lighttpd.html, \
 		/var/www/index.html, n)
