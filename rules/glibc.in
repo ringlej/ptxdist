@@ -99,7 +99,7 @@ config GLIBC_NSS_FILES
 	prompt "Install libnss_files"
 	help
 	  Contains functions to access some vitale system control files (for
-	  login for example)
+	  login for example) and for name resolution to ip addresses.
 
 config GLIBC_NSS_HESIOD
 	bool
@@ -134,6 +134,8 @@ config GLIBC_NSS_COMPAT
 config GLIBC_RESOLV
 	bool
 	prompt "Install libresolv"
+#	select GLIBC_NSS_FILES
+#	select GLIBC_NSS_DNS
 	help
 	  This library is required for creating, sending, and interpreting
 	  packets to and from the internet domain name service. This library
@@ -141,6 +143,11 @@ config GLIBC_RESOLV
 	  Refer man pages for both files and how to setup them. To use any kind
 	  of DNS, you must provide your own /etc/nsswitch.conf and
 	  /etc/resolv.conf files. See menu "Root Filesystem -> config files -> /etc/nsswitch.conf"
+	  You will also need libnss_files if this name resolution should base
+	  on local files like /etc/hosts and libnss_dns if the name resolution
+	  should work with an external dynamic name resolution service. You
+	  will need both libraries if your /etc/nsswitch.conf contains a line
+	  like "hosts: file dns"
 
 config GLIBC_NSL
 	bool
