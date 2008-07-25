@@ -524,15 +524,23 @@ PTXdist $(printf "%-24s" ${FULLVERSION}) Build System for Embedded Linux Systems
 
 Setup and Project Actions:
 
+  menu				enter main control menu
+
   setup				setup per-user preferences
   boardsetup			setup per-board preferences
 
   projects			show available projects
   clone <from> <to>		create a new project, cloned from <from>.
 
-  menuconfig			configure the root filesystem
-  oldconfig			run 'make oldconfig' on ptxconfig file
+  menuconfig			configure project's filesystem
+
+  menuconfig kernel
   kernelconfig			configure the kernel
+
+  menuconfig platform
+  platformconfig		configure the platform
+
+  oldconfig			run 'make oldconfig' on ptxconfig file
 
   u_boot_config			configure U-Boot (U-Boot V2 only)
 
@@ -541,8 +549,10 @@ Setup and Project Actions:
 				    already selected)
 				othewise select this toolchain
 				    (<path> to binaries)
-  select <config>		if there is no ptxconfig file you can
-				select one of several configs to be used
+  select <config>		if there is no selected_ptxconfig file you can
+				select one of several project configs to be used
+  platform <config>		if there is no selected_platform file you can
+				select one of several platform configs to be used
 Build Actions:
 
   go				start building the current project
@@ -584,6 +594,9 @@ Misc
 				target, host, host-existing-target,
 				cross, cross-existing-target, source,
 				kernel_driver, font, simple
+
+Options:
+  -d				be more noisy
 
 EOF
 }
