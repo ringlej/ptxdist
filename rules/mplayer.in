@@ -15,6 +15,8 @@ menuconfig MPLAYER
 	  but you can use SDL (and this way all drivers of SDL)
 	  and some lowlevel card-specific drivers
 	  (for Matrox/3dfx/SiS) too.
+	  BIG FAT WARNING: For an x86 target currently the configure detects
+	  the capabilities of your host CPU, not target's one!
 
 # -----
 
