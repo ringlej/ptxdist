@@ -81,6 +81,8 @@ MPLAYER_AUTOCONF := \
 	--target=$(PTXCONF_ARCH) \
         --with-extraincdir=$(SYSROOT)/usr/include \
         --with-extralibdir=$(SYSROOT)/usr/lib \
+        --with-extraincdir=$(SYSROOT)/include \
+        --with-extralibdir=$(SYSROOT)/lib \
         --extra-libs='-Wl,-rpath-link -Wl,$(strip $(SYSROOT))/usr/lib'
 #
 # video out
