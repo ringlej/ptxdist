@@ -1,0 +1,31 @@
+Subject: mplayer: Allow more than one search patch for libs and includes
+
+Its useful to allow more than one additional path given to configure to let
+it search at the right places fpr libaries and files to include.
+Some libraries are intstalled to lib/, most are to be found in usr/lib/.
+
+This patch is useful for ptxdist.
+
+Signed-off-by: Juergen Beisert <jbeisert@kreuzholzen.de>
+
+---
+ configure |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: configure
+===================================================================
+--- configure.orig
++++ configure
+@@ -716,10 +716,10 @@ for ac_option do
+     _realcodecsdir=`echo $ac_option | cut -d '=' -f 2`
+     ;;
+   --with-extraincdir=*)
+-    _inc_extra=-I`echo $ac_option | cut -d '=' -f 2 | sed 's,:, -I,g'`
++    _inc_extra="$_inc_extra -I`echo $ac_option | cut -d '=' -f 2 | sed 's,:, -I,g'`"
+     ;;
+   --with-extralibdir=*)
+-    _ld_extra=-L`echo $ac_option | cut -d '=' -f 2 | sed 's,:, -L,g'`
++    _ld_extra="$_ld_extra -L`echo $ac_option | cut -d '=' -f 2 | sed 's,:, -L,g'`"
+     ;;
+ 
+   --with-install=*)
