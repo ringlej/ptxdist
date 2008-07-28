@@ -62,7 +62,7 @@ ALSA_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 ifdef PTXCONF_ALSA_LIB_STATIC
 ALSA_LIB_AUTOCONF += --enable-static --disable-shared
 else
-ALSA_LIB_AUTOCONF += --disable-static --enable-shared
+ALSA_LIB_AUTOCONF += --enable-static
 endif
 
 ifdef PTXCONF_ALSA_LIB_RESMGR
