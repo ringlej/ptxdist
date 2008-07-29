@@ -1,3 +1,19 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: dbus: fix xml parser when used with libxml2
+
+When built with expat, dbus builds fine. However, in combination with
+libxml2 we get the following error:
+
+	xml.c:252: undefined reference to `bus_config_parser_check_doctype'
+	collect2: ld returned 1 exit status
+	make[3]: *** [dbus-daemon-launch-helper] Error 1
+
+I'm not really sure if this is the right fix, but it makes it at least
+compile :-) Looks like some of the tools don't use config-parser as they
+should.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  bus/Makefile.am |   16 ++++++++++++----
  1 file changed, 12 insertions(+), 4 deletions(-)
