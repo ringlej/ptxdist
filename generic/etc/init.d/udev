@@ -1,34 +1,8 @@
-#! /bin/sh
-#
-# udev start script
-#
-# script to populate dev/ by using udev.
-#
-# Copyright (C) 2004 Greg Kroah-Hartman <greg@kroah.com>
-#
-# Released under the GPL v2 only.
-#
-# This needs to be run at the earliest possible point in the boot
-# process. But it could be a good idea to run the syslogd first, due
-# to udev uses it for logging (if enabled).
-#
-# Based on the udev init.d script
-#
-# Thanks go out to the Gentoo developers for proving
-# that this is possible to do.
-#
-# Yes, it's very verbose, feel free to turn off all of the echo calls,
-# they were there to make me feel better that everything was working
-# properly during development...
-#
-# 2007 updated to udev 103 by Juergen Beisert <j.beisert@pengutronix.de>
+#!/bin/sh
 
-. /etc/udev/udev.conf
-
-sysfs_dir=/sys
-udevd=/sbin/udevd
-udevt=/sbin/udevtrigger
-udevs=/sbin/udevsettle
+udev_root="/dev"
+udev_rules="/lib/udev/rules.d"
+udev_log="err"
 
 make_extra_nodes () {
 	# there are a few things that sysfs does not export for us.
@@ -36,45 +10,79 @@ make_extra_nodes () {
 	# remove_extra_nodes()
 	#
 	# Thanks to Gentoo for the initial list of these.
-	ln -snf /proc/self/fd $udev_root/fd
-	ln -snf /proc/self/fd/0 $udev_root/stdin
-	ln -snf /proc/self/fd/1 $udev_root/stdout
-	ln -snf /proc/self/fd/2 $udev_root/stderr
-	ln -snf /proc/kcore $udev_root/core
+	ln -snf /proc/self/fd /dev/fd
+	ln -snf /proc/self/fd/0 /dev/stdin
+	ln -snf /proc/self/fd/1 /dev/stdout
+	ln -snf /proc/self/fd/2 /dev/stderr
+	ln -snf /proc/kcore /dev/core
 
-	mkdir $udev_root/pts
-	mkdir $udev_root/shm
+	mkdir /dev/pts
+	mkdir /dev/shm
+
+	mknod /dev/null c 1 3
+	mknod /dev/console c 5 1
+	mknod /dev/zero c 1 5
 }
 
-# don't use udev if sysfs is not mounted.
-if [ ! -d $sysfs_dir/kernel ]; then
-	echo "error: sysfs not mounted"
-	exit 1
-fi
+case $1 in
+start)
+	echo "starting udev"
 
-# The reason we don't write to mtab is because we don't ever
-# want /dev to be unavailable (such as by `umount -a').
-echo "mounting... tmpfs at $udev_root"
-mount -n -t tmpfs tmpfs $udev_root -o mode=755
-# Udev handles uevents itself, so we don't need to have
-# the kernel call out to any binary in response to them
-echo > /proc/sys/kernel/hotplug
-echo "creating static nodes"
-make_extra_nodes
-# Start the udev daemon to continually
-# watch for, and act on, uevents
-$udevd --daemon
-echo -n "creating initial udev device nodes..."
-# Now traverse sys/ in order to "coldplug"
-# devices that have already been discovered
-$udevt
-# Now wait for udevd to process
-# the uevents we triggered
-$udevs --timeout=10
-echo "done"
-# We can only mount /dev/pts after initialising udev
-if [ -d "/dev/pts" ]; then
-	mount /dev/pts
-fi
-echo "udev startup is finished"
-exit 0
+	# don't use udev if sysfs is not mounted.
+	if [ ! -d /sys/kernel ]; then
+		echo "failed"
+		echo "error: sysfs not mounted"
+		exit 1
+	fi
+
+	# The reason we don't write to mtab is because we don't ever
+	# want /dev to be unavailable (such as by `umount -a').
+	echo "mounting tmpfs at $udev_root"
+	mount -n -t tmpfs tmpfs $udev_root -o mode=755
+
+	# udev handles uevents itself, so we don't need to have
+	# the kernel call out to any binary in response to them
+	echo > /proc/sys/kernel/hotplug
+
+	echo "creating static nodes"
+	make_extra_nodes
+
+	# Start the udev daemon to continually
+	# watch for, and act on, uevents
+	echo -n "starting udevd..."
+	/sbin/udevd --daemon --debug
+	if [ "$?" = "0" ]; then
+		echo "done"
+	else
+		echo "failed"
+	fi
+
+	# Now traverse sys/ in order to "coldplug"
+	# devices that have already been discovered
+	/sbin/udevadm trigger
+	# Now wait for udevd to process
+	# the uevents we triggered
+	echo -n "waiting for devices..."
+	/sbin/udevadm settle --timeout=10
+	if [ "$?" = "0" ]; then
+		echo "done"
+	else
+		echo "failed"
+	fi
+
+	# We can only mount /dev/pts after initialising udev
+	if [ -d "/dev/pts" ]; then
+		mount /dev/pts
+	fi
+
+	exit 0
+
+	;;
+stop)
+	echo "stopping udevd... error, udevd cannot be stopped, aborting"
+	;;
+*)
+	echo "usage: $0 [start|stop]"
+	;;
+esac
+
