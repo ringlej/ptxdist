@@ -1,0 +1,48 @@
+---
+ bus/Makefile.am |   16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+Index: dbus-1.2.1/bus/Makefile.am
+===================================================================
+--- dbus-1.2.1.orig/bus/Makefile.am
++++ dbus-1.2.1/bus/Makefile.am
+@@ -85,14 +85,18 @@ dbus_daemon_LDFLAGS=@R_DYNAMIC_LDFLAG@ @
+ 
+ LAUNCH_HELPER_SOURCES=				\
+ 	$(XML_SOURCES)				\
++	config-parser.c				\
++	config-parser.h				\
+ 	config-parser-common.c			\
+ 	config-parser-common.h			\
+-	config-parser-trivial.c			\
+-	config-parser-trivial.h			\
+ 	desktop-file.c				\
+ 	desktop-file.h				\
+ 	utils.c					\
+ 	utils.h					\
++	policy.c				\
++	policy.h				\
++	selinux.h				\
++	selinux.c				\
+ 	activation-exit-codes.h			\
+ 	activation-helper.h	  		\
+ 	activation-helper.c
+@@ -153,12 +157,16 @@ noinst_PROGRAMS=$(TESTS) dbus-daemon dbu
+ 
+ bus_test_system_SOURCES=			\
+ 	$(XML_SOURCES)				\
++	config-parser.c				\
++	config-parser.h				\
+ 	config-parser-common.c			\
+ 	config-parser-common.h			\
+-	config-parser-trivial.c			\
+-	config-parser-trivial.h			\
+ 	utils.c					\
+ 	utils.h					\
++	policy.c				\
++	policy.h				\
++	selinux.h				\
++	selinux.c				\
+ 	test-system.c
+ 
+ bus_test_system_LDADD=$(top_builddir)/dbus/libdbus-convenience.la $(DBUS_BUS_LIBS)
