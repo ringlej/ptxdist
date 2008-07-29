@@ -322,10 +322,10 @@ $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps_default)
 	@$(call install_fixup, libxml2,DESCRIPTION,missing)
 
 	@$(call install_copy, libxml2, 0, 0, 0644, \
-		$(LIBXML2_DIR)/.libs/libxml2.so.2.6.27, \
-		/usr/lib/libxml2.so.2.6.27, y)
-	@$(call install_link, libxml2, libxml2.so.2.6.27,  /usr/lib/libxml2.so.2)
-	@$(call install_link, libxml2, libxml2.so.2.6.27, /usr/lib/libxml2.so)
+		$(LIBXML2_DIR)/.libs/libxml2.so.2.6.32, \
+		/usr/lib/libxml2.so.2.6.32, y)
+	@$(call install_link, libxml2, libxml2.so.2.6.32,  /usr/lib/libxml2.so.2)
+	@$(call install_link, libxml2, libxml2.so.2.6.32, /usr/lib/libxml2.so)
 
 	@$(call install_finish, libxml2)
 
