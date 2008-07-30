@@ -282,6 +282,10 @@ source rules/scummvm.in
 source rules/uttt.in
 endmenu
 
+menu "Multimedia                    "
+source rules/libogg.in
+endmenu
+
 menu "Broken or orphaned Packages   "
 depends on BROKEN
 source "rules/cfgsh.in"

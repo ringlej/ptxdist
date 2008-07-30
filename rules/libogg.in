@@ -1,0 +1,6 @@
+config LIBOGG
+	tristate
+	prompt "libogg"
+	help
+	  Ogg is a bitstream format, specified in RFC3533.
+
