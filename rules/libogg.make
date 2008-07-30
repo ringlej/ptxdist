@@ -97,7 +97,7 @@ $(STATEDIR)/libogg.targetinstall:
 	@$(call install_fixup, libogg,DEPENDS,)
 	@$(call install_fixup, libogg,DESCRIPTION,missing)
 
-	@$(call install_copy, libogg, 0, 0, 0755, \
+	@$(call install_copy, libogg, 0, 0, 0644, \
 		$(LIBOGG_DIR)/src/.libs/libogg.so.0.5.3, \
 		/usr/lib/libogg.so.0.5.3)
 	@$(call install_link, libogg, libogg.so.0.5.3, libogg.so.0)
