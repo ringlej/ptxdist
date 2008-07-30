@@ -170,7 +170,7 @@ $(STATEDIR)/kernel.install:
 $(STATEDIR)/kernel.targetinstall:
 	@$(call targetinfo)
 
-# we _always_ need the kernel in the image dir
+	# we _always_ need the kernel in the image dir
 	@for i in $(KERNEL_IMAGE_PATH); do				\
 		if [ -f $$i ]; then					\
 			install -m 644 $$i $(IMAGEDIR)/linuximage;	\
