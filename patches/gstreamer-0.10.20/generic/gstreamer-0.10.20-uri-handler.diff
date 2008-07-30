@@ -1,0 +1,24 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: gst: include gstconfig when using macros defined therein
+
+gst/gst.c uses macros defined in gstconfig.h without including it.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ gst/gst.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+Index: gstreamer-0.10.20/gst/gst.c
+===================================================================
+--- gstreamer-0.10.20.orig/gst/gst.c
++++ gstreamer-0.10.20/gst/gst.c
+@@ -103,6 +103,8 @@
+  * Last reviewed on 2006-08-11 (0.10.10)
+  */
+ 
++#include "gstconfig.h"
++
+ #include "gst_private.h"
+ #include <stdlib.h>
+ #include <stdio.h>

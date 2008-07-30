@@ -1,0 +1,68 @@
+menuconfig GSTREAMER
+	tristate
+	prompt "gstreamer"
+	select GLIB
+	# FIXME: this should not be necessary; the gstreamer m4 files
+	# have a check which claims that it should be fixed, but until
+	# now nobody did it.
+	select LIBXML2
+	select LIBXML2_READER
+	help
+	  FIXME
+
+if GSTREAMER
+
+	comment "compile options"
+
+	config GSTREAMER__DEBUG
+		bool
+		prompt "debug support"
+
+	config GSTREAMER__LOADSAVE
+		bool
+		select LIBXML2_OUTPUT
+		select LIBXML2_SAX1
+		prompt "pipleline xml load/save"
+
+	config GSTREAMER__CMDLINEPARSER
+		bool
+		prompt "commandline parser"
+
+	config GSTREAMER__OPTIONPARSING
+		bool
+		prompt "option parsing when gst init"
+
+	config GSTREAMER__NETDIST
+		bool
+		prompt "network distribution"
+
+	config GSTREAMER__URI
+		bool
+		prompt "URI handlers"
+
+	comment "install options"
+
+	config GSTREAMER__INSTALL_TYPEFIND
+		bool
+		prompt "install gst-typefind"
+
+	config GSTREAMER__INSTALL_INSPECT
+		bool
+		prompt "install gst-inspect"
+
+	config GSTREAMER__INSTALL_XMLINSPECT
+		bool
+		prompt "install gst-xmlinspect"
+
+	config GSTREAMER__INSTALL_XMLLAUNCH
+		bool
+		depends on GSTREAMER__LOADSAVE
+		prompt "install gst-xmllaunch"
+
+	config GSTREAMER__INSTALL_LAUNCH
+		bool
+		depends on GSTREAMER__CMDLINEPARSER
+		prompt "install gst-launch"
+
+endif
+

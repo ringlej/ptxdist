@@ -283,6 +283,7 @@ source rules/uttt.in
 endmenu
 
 menu "Multimedia                    "
+source rules/gstreamer.in
 source rules/libogg.in
 source rules/libtheora.in
 source rules/libvorbis.in

@@ -1,0 +1,39 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: gst-inspect: don't print uri handler when compiled without uri handler support
+
+When configuring gstreamer with --disable-uri, gst-inspect breaks:
+
+gst_inspect_0.10-gst-inspect.o: In function `print_uri_handler_info':
+/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-phyCORE-PXA270/build-target/gstreamer-0.10.20/tools/gst-inspect.c:730: undefined reference to `gst_uri_handler_get_type
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ tools/gst-inspect.c |    7 +++++++
+ 1 file changed, 7 insertions(+)
+
+Index: gstreamer-0.10.20/tools/gst-inspect.c
+===================================================================
+--- gstreamer-0.10.20.orig/tools/gst-inspect.c
++++ gstreamer-0.10.20/tools/gst-inspect.c
+@@ -724,6 +724,7 @@ print_index_info (GstElement * element)
+ }
+ #endif
+ 
++#ifndef GST_DISABLE_URI
+ static void
+ print_uri_handler_info (GstElement * element)
+ {
+@@ -756,6 +757,12 @@ print_uri_handler_info (GstElement * ele
+     n_print ("Element has no URI handling capabilities.\n");
+   }
+ }
++#else
++static void
++print_uri_handler_info (GstElement * element)
++{
++}
++#endif
+ 
+ static void
+ print_pad_info (GstElement * element)

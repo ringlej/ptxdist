@@ -1,0 +1,3 @@
+gstreamer-0.10.20-uri-handler.diff
+gstreamer-0.10.20-gst-inspect-uri-handler.diff
+gstreamer-0.10.20-gstelementfactory-uri-handler.diff
