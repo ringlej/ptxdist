@@ -155,6 +155,10 @@ config LIBXML2_PYTHON
 config LIBXML2_READER
 	bool
 	default y
+	# FIXME: this is http://bugzilla.gnome.org/show_bug.cgi?id=545579
+	select LIBXML2_SCHEMAS
+	# hard dependencies from configure.in
+	select LIBXML2_PUSH
 	prompt "xmlReader Parsing Interface"
 	help
 	  Add the xmlReader parsing interface.
@@ -184,6 +188,9 @@ config LIBXML2_SAX1
 config LIBXML2_SCHEMAS
 	bool
 	default y
+	# hard dependencies from configure.in
+	select LIBXML2_PATTERN
+	select LIBXML2_REGEXPS
 	prompt "Relax-NG/Schema Support"
 	help
 	  Add Relay-NG and experimental Schemas support
@@ -211,7 +218,8 @@ config LIBXML2_THREADS_ALLOC
 config LIBXML2_DOM
 	bool
 	default y
-	prompt "DOM API"
+	# FIXME: http://bugzilla.gnome.org/show_bug.cgi?id=545581
+	#prompt "DOM API"
 	help
 	  Add the DOM tree manipulation API.
 
@@ -246,6 +254,8 @@ config LIBXML2_XPATH
 config LIBXML2_XPTR
 	bool
 	default y
+	# hard dependencies from configure.in
+	select LIBXML2_XPATH
 	prompt "XPTR"
 	help
 	  XPointer support
