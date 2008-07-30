@@ -1,0 +1,39 @@
+menuconfig LIBTHEORA
+	tristate
+	select LIBOGG if LIBTHEORA__OGG
+	select LIBVORBIS if LIBTHEORA__VORBIS
+	select SDL if LIBTHEORA__SDL
+	prompt "libtheora"
+	help
+	  Theora is an open video codec being developed by the Xiph.org Foundation
+	  as part of their Ogg project.
+
+if LIBTHEORA
+
+	config LIBTHEORA__OGG
+		bool
+		default y
+		# no prompt, ogg support is selectable, but mandatory :-/
+		# prompt "ogg support"
+
+	config LIBTHEORA__VORBIS
+		bool
+		prompt "vorbis support"
+
+	config LIBTHEORA__SDL
+		bool
+		prompt "sdl support"
+
+	config LIBTHEORA__FLOAT
+		bool
+		prompt "floating point support"
+		help
+		  Disable use of floating point code. This might be a good idea on
+		  architectures which don't have an FPU.
+
+	config LIBTHEORA__ENCODING
+		bool
+		prompt "encoding support"
+
+endif
+

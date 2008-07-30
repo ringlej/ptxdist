@@ -1,0 +1,58 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: libtheora: fix configure.ac to work with cross scenario for sdl
+
+The current test in configure.ac mixes up two different methods (hand
+written plus pkg-config). This patch changes the mechanics towards
+proper pkg-config usage. In return, we get a cleaned up cross scenario
+with no build-system leakage.
+
+This patch fixes the SDL test.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ configure.ac |   29 ++++++++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
+
+Index: libtheora-1.0beta3/configure.ac
+===================================================================
+--- libtheora-1.0beta3.orig/configure.ac
++++ libtheora-1.0beta3/configure.ac
+@@ -284,13 +284,32 @@ if test "${HAVE_VORBIS}" = "yes"; then
+     AC_SUBST(VORBIS_LIBS)
+ fi
+ 
++
+ dnl check for SDL
+-HAVE_SDL=no
++AC_MSG_CHECKING([for sdl])
++AC_ARG_ENABLE(sdl,
++    AS_HELP_STRING([--enable-sdl], [enable SDL @<:@default=yes@:>@]),
++        [case "$enableval" in
++        y | yes) HAVE_SDL=yes ;;
++        *) HAVE_SDL=no ;;
++        esac],
++    [HAVE_SDL=yes])
++AC_MSG_RESULT([${HAVE_SDL}])
++AM_CONDITIONAL(HAVE_SDL, [test "$HAVE_SDL" = "yes"])
++if test "${HAVE_SDL}" = "yes"; then
++    AC_DEFINE(HAVE_SDL, 1, [sdl])
++
++    REQUIRES_SDL="sdl >= fix.me.now"
++    AC_SUBST(REQUIRES_SDL)
++    PKG_CHECK_MODULES([SDL],
++          [${REQUIRES_SDL}],
++          [],
++          [AC_MSG_ERROR([*** ${REQUIRES_SDL} not found by pkg-config on your system])]
++    )
++    AC_SUBST(SDL_CFLAGS)
++    AC_SUBST(SDL_LIBS)
++fi
+ 
+-AM_PATH_SDL(,[
+-  HAVE_SDL=yes
+-  SDL_LIBS=`$SDL_CONFIG --libs`
+-],AC_MSG_WARN([*** Unable to find SDL -- Not compiling example players ***]))
+ 
+ dnl check for OSS
+ HAVE_OSS=no
