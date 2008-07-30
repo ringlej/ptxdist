@@ -1,0 +1,54 @@
+menuconfig LUA
+	tristate
+	prompt "lua"
+	select READLINE	if LUA_READLINE
+	help
+	  Lua is a powerful, fast, light-weight, embeddable scripting language.
+	  Lua combines simple procedural syntax with powerful data description
+	  constructs based on associative arrays and extensible semantics. Lua is
+	  dynamically typed, runs by interpreting bytecode for a register-based
+	  virtual machine, and has automatic memory management with incremental
+	  garbage collection, making it ideal for configuration, scripting, and
+	  rapid prototyping.
+
+	  More information under http://www.lua.org/
+
+if LUA
+
+config LUA_READLINE
+	bool
+	prompt "Use readline"
+	depends on BROKEN
+	help
+	  FIXME
+
+config LUA_INSTALL_LUA
+	bool
+	prompt "Install lua on target"
+	select LUA_INSTALL_LIBLUA
+	help
+	  lua is the stand-alone Lua interpreter.  It loads and executes
+	  Lua programs, either in textual source form or in precompiled
+	  binary form.  (Precompiled binaries are output by luac, the Lua
+	  compiler.)  lua can be used as a batch interpreter and also
+	  interactively.
+
+config LUA_INSTALL_LUAC
+	bool
+	prompt "Install luac on target"
+	select LUA_INSTALL_LIBLUA
+	help
+	  luac is the Lua compiler.  It translates programs written in
+	  the Lua programming language into binary files that can be
+	  later loaded and executed.
+
+config LUA_INSTALL_LIBLUA
+	bool
+	default y
+	prompt "Install liblua.so on target"
+	help
+	  liblua.so is a shared library that can be used to embedded lua
+	  scripting in C programs.
+
+endif
+

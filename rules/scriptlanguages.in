@@ -1,6 +1,7 @@
 comment "Scripting Languages"
 
 source "rules/gmake.in"
+source "rules/lua.in"
 source "rules/php5.in"
 source "rules/php-apc.in"
 source "rules/python.in"
