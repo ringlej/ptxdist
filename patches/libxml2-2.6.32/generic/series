@@ -1,2 +1,3 @@
 libxml2-2.6.27-config_in_sysroot.diff
 libxml2-2.6.27-runtest_c-streamparsetest.diff
+libxml2-2.6.32-reader3-output.diff
