@@ -100,8 +100,8 @@ $(STATEDIR)/libogg.targetinstall:
 	@$(call install_copy, libogg, 0, 0, 0644, \
 		$(LIBOGG_DIR)/src/.libs/libogg.so.0.5.3, \
 		/usr/lib/libogg.so.0.5.3)
-	@$(call install_link, libogg, libogg.so.0.5.3, libogg.so.0)
-	@$(call install_link, libogg, libogg.so.0.5.3, libogg.so)
+	@$(call install_link, libogg, libogg.so.0.5.3, /usr/lib/libogg.so.0)
+	@$(call install_link, libogg, libogg.so.0.5.3, /usr/lib/libogg.so)
 
 	@$(call install_finish, libogg)
 
