@@ -23,7 +23,7 @@ HOST_LRZSZ_DIR	= $(HOST_BUILDDIR)/$(LRZSZ)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/host-lrzsz.get:
+$(STATEDIR)/host-lrzsz.get: $(STATEDIR)/lrzsz.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
