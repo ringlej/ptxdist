@@ -115,9 +115,9 @@ $(STATEDIR)/liboil.targetinstall: $(liboil_targetinstall_deps_default)
 	@$(call install_fixup,liboil,DEPENDS,)
 	@$(call install_fixup,liboil,DESCRIPTION,missing)
 
-	@$(call install_copy, liboil, 0, 0, 0644, $(LIBOIL_DIR)/liboil/.libs/liboil-0.3.so.0.1.0, /usr/lib/liboil-0.3.so.0.1.0, y)
-	@$(call install_link, liboil, liboil-0.3.so.0.1.0, /usr/lib/liboil-0.3.so.0)
-	@$(call install_link, liboil, liboil-0.3.so.0.1.0, /usr/lib/liboil-0.3.so)
+	@$(call install_copy, liboil, 0, 0, 0644, $(LIBOIL_DIR)/liboil/.libs/liboil-0.3.so.0.3.0, /usr/lib/liboil-0.3.so.0.3.0, y)
+	@$(call install_link, liboil, liboil-0.3.so.0.3.0, /usr/lib/liboil-0.3.so.0)
+	@$(call install_link, liboil, liboil-0.3.so.0.3.0, /usr/lib/liboil-0.3.so)
 
 	@$(call install_finish,liboil)
 
