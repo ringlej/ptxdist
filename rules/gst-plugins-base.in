@@ -5,6 +5,7 @@ menuconfig GST_PLUGINS_BASE
 	select GSTREAMER
 	select LIBVORBIS if GST_PLUGINS_BASE__VORBIS
 	select LIBTHEORA if GST_PLUGINS_BASE__THEORA
+	select PANGO if GST_PLUGINS_BASE__PANGO
 	# FIXME: why do we need freetype?
 	select FREETYPE
 	# x features need libx11
@@ -78,6 +79,8 @@ if GST_PLUGINS_BASE
 		bool
 		prompt "volume"
 
+	comment "plugins with dependencies"
+
 	config GST_PLUGINS_BASE__X
 		bool
 		prompt "x"
@@ -134,10 +137,7 @@ if GST_PLUGINS_BASE
 
 	config GST_PLUGINS_BASE__PANGO
 		bool
-		depends on BROKEN
 		prompt "pango"
-
-	comment "pango is broken"
 
 	config GST_PLUGINS_BASE__THEORA
 		bool
