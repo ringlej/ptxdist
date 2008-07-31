@@ -2,7 +2,7 @@
 # $Id: template 2516 2005-04-25 10:29:55Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -49,7 +49,7 @@ $(STATEDIR)/wget.extract: $(wget_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WGET_DIR))
 	@$(call extract, WGET)
-	@$(call patchin, WGET)
+	@$(call patchin, WGET_PACKET)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
