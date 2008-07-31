@@ -1,6 +1,6 @@
 menuconfig GSTREAMER
 	tristate
-	prompt "gstreamer"
+	prompt "gstreamer                     "
 	select GLIB
 	# FIXME: this should not be necessary; the gstreamer m4 files
 	# have a check which claims that it should be fixed, but until
