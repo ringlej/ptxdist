@@ -284,6 +284,7 @@ endmenu
 
 menu "Multimedia                    "
 source rules/gstreamer.in
+source rules/gst-plugins-base.in
 source rules/libogg.in
 source rules/libtheora.in
 source rules/libvorbis.in

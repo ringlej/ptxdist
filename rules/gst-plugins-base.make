@@ -1,0 +1,303 @@
+# -*-makefile-*-
+# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
+#
+# Copyright (C) 2008 by Robert Schwebel
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_GST_PLUGINS_BASE) += gst-plugins-base
+
+#
+# Paths and names
+#
+GST_PLUGINS_BASE_VERSION	:= 0.10.20
+GST_PLUGINS_BASE		:= gst-plugins-base-$(GST_PLUGINS_BASE_VERSION)
+GST_PLUGINS_BASE_SUFFIX	:= tar.bz2
+GST_PLUGINS_BASE_URL	:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE).$(GST_PLUGINS_BASE_SUFFIX)
+GST_PLUGINS_BASE_SOURCE	:= $(SRCDIR)/$(GST_PLUGINS_BASE).$(GST_PLUGINS_BASE_SUFFIX)
+GST_PLUGINS_BASE_DIR	:= $(BUILDDIR)/$(GST_PLUGINS_BASE)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(GST_PLUGINS_BASE_SOURCE):
+	@$(call targetinfo)
+	@$(call get, GST_PLUGINS_BASE)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/gst-plugins-base.extract:
+	@$(call targetinfo)
+	@$(call clean, $(GST_PLUGINS_BASE_DIR))
+	@$(call extract, GST_PLUGINS_BASE)
+	@$(call patchin, GST_PLUGINS_BASE)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+GST_PLUGINS_BASE_PATH	:= PATH=$(CROSS_PATH)
+GST_PLUGINS_BASE_ENV 	:= $(CROSS_ENV)
+
+#
+# autoconf
+#
+GST_PLUGINS_BASE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-rpath \
+	--disable-nls \
+	--disable-debug \
+	--disable-profiling \
+	--disable-valgrind \
+	--disable-gcov \
+	--disable-examples \
+	--disable-largefile \
+	--disable-gtk-doc \
+	--enable-external \
+	--disable-experimental \
+	--disable-oggtest \
+	--disable-vorbistest \
+	--disable-freetypetest \
+	--without-libiconv-prefix \
+	--without-libintl-prefix
+
+# --with-plugins=foo,bar,baz
+
+ifdef PTXCONF_GST_PLUGINS_BASE__ADDER
+GST_PLUGINS_BASE_AUTOCONF += --enable-adder
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-adder
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__AUDIOCONVERT
+GST_PLUGINS_BASE_AUTOCONF += --enable-audioconvert
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-audioconvert
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__AUDIOCONVERT
+GST_PLUGINS_BASE_AUTOCONF += --enable-audioconvert
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-audioconvert
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__AUDIORATE
+GST_PLUGINS_BASE_AUTOCONF += --enable-audiorate
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-audiorate
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__AUDIORESAMPLE
+GST_PLUGINS_BASE_AUTOCONF += --enable-audioresample
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-audioresample
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__AUDIOTESTSRC
+GST_PLUGINS_BASE_AUTOCONF += --enable-audiotestsrc
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-audiotestsrc
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__FFMPEGCOLORSPACE
+GST_PLUGINS_BASE_AUTOCONF += --enable-ffmpegcolorspace
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-ffmpegcolorspace
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__GDP
+GST_PLUGINS_BASE_AUTOCONF += --enable-gdp
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-gdp
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__PLAYBACK
+GST_PLUGINS_BASE_AUTOCONF += --enable-playback
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-playback
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__SUBPARSE
+GST_PLUGINS_BASE_AUTOCONF += --enable-subparse
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-subparse
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__TCP
+GST_PLUGINS_BASE_AUTOCONF += --enable-tcp
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-tcp
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__TYPEFIND
+GST_PLUGINS_BASE_AUTOCONF += --enable-typefind
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-typefind
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__VIDEOTESTSRC
+GST_PLUGINS_BASE_AUTOCONF += --enable-videotestsrc
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-videotestsrc
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__VIDEORATE
+GST_PLUGINS_BASE_AUTOCONF += --enable-videorate
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-videorate
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__VIDEOSCALE
+GST_PLUGINS_BASE_AUTOCONF += --enable-videoscale
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-videoscale
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__VOLUME
+GST_PLUGINS_BASE_AUTOCONF += --enable-volume
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-volume
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__X
+GST_PLUGINS_BASE_AUTOCONF += --enable-x
+GST_PLUGINS_BASE_AUTOCONF += --with-x
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-x
+GST_PLUGINS_BASE_AUTOCONF += --without-x
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__XVIDEO
+GST_PLUGINS_BASE_AUTOCONF += --enable-xvideo
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-xvideo
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__XSHM
+GST_PLUGINS_BASE_AUTOCONF += --enable-xshm
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-xshm
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__GST_V4L
+GST_PLUGINS_BASE_AUTOCONF += --enable-gst_v4l
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-gst_v4l
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__ALSA
+GST_PLUGINS_BASE_AUTOCONF += --enable-alsa
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-alsa
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__CDPARANOIA
+GST_PLUGINS_BASE_AUTOCONF += --enable-cdparanoia
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-cdparanoia
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__GNOME_VFS
+GST_PLUGINS_BASE_AUTOCONF += --enable-gnome_vfs
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-gnome_vfs
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__GIO
+GST_PLUGINS_BASE_AUTOCONF += --enable-gio
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-gio
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__LIBVISUAL
+GST_PLUGINS_BASE_AUTOCONF += --enable-libvisual
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-libvisual
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__OGG
+GST_PLUGINS_BASE_AUTOCONF += --enable-ogg
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-ogg
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__PANGO
+GST_PLUGINS_BASE_AUTOCONF += --enable-pango
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-pango
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__THEORA
+GST_PLUGINS_BASE_AUTOCONF += --enable-theora
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-theora
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE__VORBIS
+GST_PLUGINS_BASE_AUTOCONF += --enable-vorbis
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-vorbis
+endif
+
+$(STATEDIR)/gst-plugins-base.prepare:
+	@$(call targetinfo)
+	@$(call clean, $(GST_PLUGINS_BASE_DIR)/config.cache)
+	cd $(GST_PLUGINS_BASE_DIR) && \
+		$(GST_PLUGINS_BASE_PATH) $(GST_PLUGINS_BASE_ENV) \
+		./configure $(GST_PLUGINS_BASE_AUTOCONF)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/gst-plugins-base.compile:
+	@$(call targetinfo)
+	cd $(GST_PLUGINS_BASE_DIR) && $(GST_PLUGINS_BASE_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/gst-plugins-base.install:
+	@$(call targetinfo)
+	@$(call install, GST_PLUGINS_BASE)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/gst-plugins-base.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init,  gst-plugins-base)
+	@$(call install_fixup, gst-plugins-base,PACKAGE,gst-plugins-base)
+	@$(call install_fixup, gst-plugins-base,PRIORITY,optional)
+	@$(call install_fixup, gst-plugins-base,VERSION,$(GST_PLUGINS_BASE_VERSION))
+	@$(call install_fixup, gst-plugins-base,SECTION,base)
+	@$(call install_fixup, gst-plugins-base,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gst-plugins-base,DEPENDS,)
+	@$(call install_fixup, gst-plugins-base,DESCRIPTION,missing)
+
+	@$(call install_copy, gst-plugins-base, 0, 0, 0755, \
+		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/bin/gst-visualise-0.10, \
+		/usr/bin/gst-visualise)
+
+	for i in \
+		libgsttag-0.10.so.0.14.0  \
+		libgstinterfaces-0.10.so.0.14.0 \
+		libgstcdda-0.10.so.0.14.0 \
+		libgstpbutils-0.10.so.0.14.0 \
+		libgstnetbuffer-0.10.so.0.14.0 \
+		libgstfft-0.10.so.0.14.0 \
+		libgstriff-0.10.so.0.14.0 \
+		libgstaudio-0.10.so.0.14.0 \
+		libgstrtp-0.10.so.0.14.0 \
+		libgstsdp-0.10.so.0.14.0 \
+		libgstrtsp-0.10.so.0.14.0 \
+		libgstvideo-0.10.so.0.14.0 \
+	; do \
+	$(call install_copy, gst-plugins-base, 0, 0, 0644, \
+		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/$$i, \
+		/usr/lib/$$i); \
+	done
+
+	@$(call install_finish, gst-plugins-base)
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+gst-plugins-base_clean:
+	rm -rf $(STATEDIR)/gst-plugins-base.*
+	rm -rf $(PKGDIR)/gst-plugins-base_*
+	rm -rf $(GST_PLUGINS_BASE_DIR)
+
+# vim: syntax=make

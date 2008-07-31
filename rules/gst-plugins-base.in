@@ -1,0 +1,127 @@
+menuconfig GST_PLUGINS_BASE
+	tristate
+	select GLIB
+	select LIBOIL
+	select GSTREAMER
+	prompt "gst-plugins-base              "
+	help
+	  FIXME
+
+if GST_PLUGINS_BASE
+
+	comment "dependency less plugins"
+	# -------------------------------
+
+	config GST_PLUGINS_BASE__ADDER
+		bool
+		prompt "adder"
+
+	config GST_PLUGINS_BASE__AUDIOCONVERT
+		bool
+		prompt "audioconvert"
+
+	config GST_PLUGINS_BASE__AUDIORATE
+		bool
+		prompt "audiorate"
+
+	config GST_PLUGINS_BASE__AUDIORESAMPLE
+		bool
+		prompt "audioresample"
+
+	config GST_PLUGINS_BASE__AUDIOTESTSRC
+		bool
+		prompt "audiotestsrc"
+
+	config GST_PLUGINS_BASE__FFMPEGCOLORSPACE
+		bool
+		prompt "ffmpegcolorspace"
+
+	config GST_PLUGINS_BASE__GDP
+		bool
+		prompt "gdp"
+
+	config GST_PLUGINS_BASE__PLAYBACK
+		bool
+		prompt "playback"
+
+	config GST_PLUGINS_BASE__SUBPARSE
+		bool
+		prompt "subparse"
+
+	config GST_PLUGINS_BASE__TCP
+		bool
+		prompt "tcp"
+
+	config GST_PLUGINS_BASE__TYPEFIND
+		bool
+		prompt "typefind"
+
+	config GST_PLUGINS_BASE__VIDEOTESTSRC
+		bool
+		prompt "videotestsrc"
+
+	config GST_PLUGINS_BASE__VIDEORATE
+		bool
+		prompt "videorate"
+
+	config GST_PLUGINS_BASE__VIDEOSCALE
+		bool
+		prompt "videoscale"
+
+	config GST_PLUGINS_BASE__VOLUME
+		bool
+		prompt "volume"
+
+	config GST_PLUGINS_BASE__X
+		bool
+		prompt "x"
+
+	config GST_PLUGINS_BASE__XVIDEO
+		bool
+		prompt "xvideo"
+
+	config GST_PLUGINS_BASE__XSHM
+		bool
+		prompt "xshm"
+
+	config GST_PLUGINS_BASE__GST_V4L
+		bool
+		prompt "gst_v4l"
+
+	config GST_PLUGINS_BASE__ALSA
+		bool
+		prompt "alsa"
+
+	config GST_PLUGINS_BASE__CDPARANOIA
+		bool
+		prompt "cdparanoia"
+
+	config GST_PLUGINS_BASE__GNOME_VFS
+		bool
+		prompt "gnome_vfs"
+
+	config GST_PLUGINS_BASE__GIO
+		bool
+		prompt "gio"
+
+	config GST_PLUGINS_BASE__LIBVISUAL
+		bool
+		prompt "libvisual"
+
+	config GST_PLUGINS_BASE__OGG
+		bool
+		prompt "ogg"
+
+	config GST_PLUGINS_BASE__PANGO
+		bool
+		prompt "pango"
+
+	config GST_PLUGINS_BASE__THEORA
+		bool
+		prompt "theora"
+
+	config GST_PLUGINS_BASE__VORBIS
+		bool
+		prompt "vorbis"
+
+endif
