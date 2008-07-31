@@ -3,7 +3,7 @@ menuconfig LIBTHEORA
 	select LIBOGG if LIBTHEORA__OGG
 	select LIBVORBIS if LIBTHEORA__VORBIS
 	select SDL if LIBTHEORA__SDL
-	prompt "libtheora"
+	prompt "libtheora                     "
 	help
 	  Theora is an open video codec being developed by the Xiph.org Foundation
 	  as part of their Ogg project.
