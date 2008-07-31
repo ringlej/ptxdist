@@ -3,6 +3,12 @@ menuconfig GST_PLUGINS_BASE
 	select GLIB
 	select LIBOIL
 	select GSTREAMER
+	select LIBVORBIS if GST_PLUGINS_BASE__VORBIS
+	select LIBTHEORA if GST_PLUGINS_BASE__THEORA
+	# FIXME: why do we need freetype?
+	select FREETYPE
+	# x features need libx11
+	select XORG_LIB_X11 if GST_PLUGINS_BASE__X
 	prompt "gst-plugins-base              "
 	help
 	  FIXME
@@ -78,10 +84,12 @@ if GST_PLUGINS_BASE
 
 	config GST_PLUGINS_BASE__XVIDEO
 		bool
+		depends on GST_PLUGINS_BASE__X
 		prompt "xvideo"
 
 	config GST_PLUGINS_BASE__XSHM
 		bool
+		depends on GST_PLUGINS_BASE__X
 		prompt "xshm"
 
 	config GST_PLUGINS_BASE__GST_V4L
@@ -94,19 +102,31 @@ if GST_PLUGINS_BASE
 
 	config GST_PLUGINS_BASE__CDPARANOIA
 		bool
+		depends on BROKEN
 		prompt "cdparanoia"
+
+	comment "cdpraranoia is broken"
 
 	config GST_PLUGINS_BASE__GNOME_VFS
 		bool
+		depends on BROKEN
 		prompt "gnome_vfs"
+
+	comment "gnome_vfs is broken"
 
 	config GST_PLUGINS_BASE__GIO
 		bool
+		depends on BROKEN
 		prompt "gio"
+
+	comment "gio is broken"
 
 	config GST_PLUGINS_BASE__LIBVISUAL
 		bool
+		depends on BROKEN
 		prompt "libvisual"
+
+	comment "libvisual is broken"
 
 	config GST_PLUGINS_BASE__OGG
 		bool
@@ -114,7 +134,10 @@ if GST_PLUGINS_BASE
 
 	config GST_PLUGINS_BASE__PANGO
 		bool
+		depends on BROKEN
 		prompt "pango"
+
+	comment "pango is broken"
 
 	config GST_PLUGINS_BASE__THEORA
 		bool
