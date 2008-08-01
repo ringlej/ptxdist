@@ -60,7 +60,9 @@ HOST_DBUS_ENV 	:= \
 HOST_DBUS_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--enable-abstract-sockets=yes \
-	--with-xml=expat
+	--with-xml=expat \
+	--disable-selinux \
+	--disable-libaudit   
 
 $(STATEDIR)/host-dbus.prepare: $(host-dbus_prepare_deps_default)
 	@$(call targetinfo, $@)

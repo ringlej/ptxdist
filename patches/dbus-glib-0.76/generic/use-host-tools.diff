@@ -1,0 +1,71 @@
+Subject: force to use host tools
+From: Erwin Rol <erwin@erwinrol.com>
+
+When cross compiling it tries to use a just compiled tool.
+
+This path so it will find the tool in the PATH which should
+be the previously compile host version of the tool.
+
+Signed-off-by: Erwin Rol <erwin@erwinrol.com>
+
+---
+
+diff -ur dbus-glib-0.76.orig/dbus/examples/Makefile.am dbus-glib-0.76/dbus/examples/Makefile.am
+--- dbus-glib-0.76.orig/dbus/examples/Makefile.am	2008-05-14 12:21:15.000000000 +0200
++++ dbus-glib-0.76/dbus/examples/Makefile.am	2008-07-31 23:43:24.000000000 +0200
+@@ -21,7 +21,7 @@
+ BUILT_SOURCES = example-service-glue.h
+ 
+ example-service-glue.h: example-service.xml
+-	$(LIBTOOL) --mode=execute $(top_builddir)/dbus/dbus-binding-tool --prefix=some_object --mode=glib-server --output=example-service-glue.h $(srcdir)/example-service.xml
++	$(LIBTOOL) --mode=execute dbus-binding-tool --prefix=some_object --mode=glib-server --output=example-service-glue.h $(srcdir)/example-service.xml
+ 
+ 
+ ## Makefile.am bits for another client/server pair
+@@ -37,7 +37,7 @@
+ BUILT_SOURCES += example-signal-emitter-glue.h
+ 
+ example-signal-emitter-glue.h: example-signal-emitter.xml
+-	$(LIBTOOL) --mode=execute $(top_builddir)/dbus/dbus-binding-tool --prefix=test_object --mode=glib-server --output=example-signal-emitter-glue.h $(srcdir)/example-signal-emitter.xml
++	$(LIBTOOL) --mode=execute dbus-binding-tool --prefix=test_object --mode=glib-server --output=example-signal-emitter-glue.h $(srcdir)/example-signal-emitter.xml
+ 
+ CLEANFILES = $(BUILT_SOURCES)
+ 
+diff -ur dbus-glib-0.76.orig/dbus/examples/statemachine/Makefile.am dbus-glib-0.76/dbus/examples/statemachine/Makefile.am
+--- dbus-glib-0.76.orig/dbus/examples/statemachine/Makefile.am	2008-05-14 12:21:15.000000000 +0200
++++ dbus-glib-0.76/dbus/examples/statemachine/Makefile.am	2008-07-31 23:43:45.000000000 +0200
+@@ -26,10 +26,10 @@
+ BUILT_SOURCES = statemachine-server-glue.h statemachine-glue.h
+ 
+ statemachine-server-glue.h: statemachine-server.xml
+-	$(LIBTOOL) --mode=execute $(top_builddir)/dbus/dbus-binding-tool --prefix=sm_server --mode=glib-server --output=$@ $<
++	$(LIBTOOL) --mode=execute dbus-binding-tool --prefix=sm_server --mode=glib-server --output=$@ $<
+ 
+ statemachine-glue.h: statemachine.xml
+-	$(LIBTOOL) --mode=execute $(top_builddir)/dbus/dbus-binding-tool --prefix=sm_object --mode=glib-server --output=$@ $<
++	$(LIBTOOL) --mode=execute dbus-binding-tool --prefix=sm_object --mode=glib-server --output=$@ $<
+ 
+ sm-marshal.c: Makefile sm-marshal.list
+ 	@GLIB_GENMARSHAL@ --prefix=sm_marshal $(srcdir)/sm-marshal.list --header --body > $@.tmp && mv $@.tmp $@
+diff -ur dbus-glib-0.76.orig/tools/Makefile.am dbus-glib-0.76/tools/Makefile.am
+--- dbus-glib-0.76.orig/tools/Makefile.am	2008-05-14 12:21:15.000000000 +0200
++++ dbus-glib-0.76/tools/Makefile.am	2008-07-31 23:44:38.000000000 +0200
+@@ -4,7 +4,7 @@
+ libdbus_glibdir = $(includedir)/dbus-1.0/dbus
+ 
+ dbus-glib-bindings.h: dbus-bus-introspect.xml $(top_builddir)/dbus/dbus-binding-tool$(EXEEXT)
+-	$(top_builddir)/dbus/dbus-binding-tool --mode=glib-client --prefix=dbus_bus --output=dbus-glib-bindings.h dbus-bus-introspect.xml
++	dbus-binding-tool --mode=glib-client --prefix=dbus_bus --output=dbus-glib-bindings.h dbus-bus-introspect.xml
+ 
+ BUILT_SOURCES = dbus-glib-bindings.h dbus-bus-introspect.xml
+ 
+@@ -13,7 +13,7 @@
+ 	cp $(INTROSPECT_XML_PATH) dbus-bus-introspect.xml
+ else
+ dbus-bus-introspect.xml:
+-	DBUS_TOP_BUILDDIR=$(top_builddir) @DBUS_DAEMONDIR@dbus-daemon --introspect > dbus-bus-introspect.xml.tmp && mv dbus-bus-introspect.xml.tmp dbus-bus-introspect.xml
++	DBUS_TOP_BUILDDIR=$(top_builddir) dbus-daemon --introspect > dbus-bus-introspect.xml.tmp && mv dbus-bus-introspect.xml.tmp dbus-bus-introspect.xml
+ endif
+ 
+ EXTRA_DIST = run-with-tmp-session-bus.sh session.conf
+
