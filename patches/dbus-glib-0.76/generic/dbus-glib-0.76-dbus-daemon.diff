@@ -1,0 +1,16 @@
+---
+ configure.ac |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: dbus-glib-0.76/configure.ac
+===================================================================
+--- dbus-glib-0.76.orig/configure.ac
++++ dbus-glib-0.76/configure.ac
+@@ -665,6 +665,7 @@ AC_SUBST(DBUS_LIBS)
+ 
+ DBUS_INCLUDEDIR=`pkg-config dbus-1 --variable=includedir`
+ AC_SUBST(DBUS_INCLUDEDIR)
++
+ DBUS_DAEMONDIR=`pkg-config dbus-1 --variable=daemondir`
+ if test x"$DBUS_DAEMONDIR" != "x"; then
+     # Add slash, so that if the D-Bus pkgconfig file does not

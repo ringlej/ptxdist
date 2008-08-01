@@ -4,4 +4,7 @@ config DBUS_GLIB
 	select DBUS
 	select HOST_DBUS_GLIB
 	select GLIB
-	depends on BROKEN
+	select EXPAT
+	help
+	  dbus bindings, based on glib
+
