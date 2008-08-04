@@ -68,7 +68,7 @@ $(STATEDIR)/cross-%.extract:
 	@$(call targetinfo)
 	@$(call clean, $($(PTX_MAP_TO_PACKAGE_cross-$(*))_DIR))
 	@$(call extract, $(PTX_MAP_TO_PACKAGE_cross-$(*)), $(CROSS_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_cross-$(*)), $($(PACKAGE)_DIR))
+	@$(call patchin, $(PTX_MAP_TO_PACKAGE_cross-$(*)), $($(PTX_MAP_TO_PACKAGE_cross-$(*))_DIR))
 	@$(call touch)
 
 $(STATEDIR)/cross-%.install:
