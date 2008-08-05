@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 dnl Most parts of this configure script have been borrowed from quilt.
 dnl
 
-AC_INIT([ptxdist],[1.99.svn],[ptxdist@pengutronix.de])
+AC_INIT([ptxdist],[1.99.5],[ptxdist@pengutronix.de])
 AC_CONFIG_AUX_DIR(autoconf)
 AC_PREREQ(2.59)
 AC_REVISION ($Revision: 1.38 $)
