@@ -985,7 +985,7 @@ do_config()
 
 	if [ $? -ne 0 -a -n "${PTX_MENU}" ]; then
 		echo
-		echo "${PROMPT}'${part} ${config}' retuned with an error"
+		echo "${PROMPT}'${part} ${config}' returned with an error"
 		echo
 		read
 	fi
