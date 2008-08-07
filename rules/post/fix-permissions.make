@@ -23,7 +23,7 @@ $(PTX_FIXPERM_RUN): $(PTX_PERMISSIONS) $(STATEDIR)/world.targetinstall
 	echo;										\
 	echo;										\
 	echo;										\
-	read -t 5 -p "(press enter to let sudo to that job)";				\
+	read -t 5 -p "(press enter to let sudo do that job)";				\
 	if test $$? -eq 0; then								\
 		for dir in "$(ROOTDIR)" "$(ROOTDIR_DEBUG)"; do				\
 			sudo $(SCRIPTSDIR)/fix-permissions.sh -r "$${dir}" -p "$<";	\
