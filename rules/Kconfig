@@ -52,6 +52,7 @@ endmenu
 comment "------------------------------------"
 
 menu "Shell & Console Tools         "
+source "rules/atop.in"
 source "rules/bash.in"
 source "rules/busybox.in"
 source "rules/clock.in"
