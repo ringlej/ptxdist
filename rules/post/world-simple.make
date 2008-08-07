@@ -22,7 +22,9 @@ world/prepare/host =								\
 # simple compile for target and host packages
 #
 world/compile/simple =								\
-	cd $($(strip $(1))_DIR) && $($(strip $(1))_PATH)			\
+	cd $($(strip $(1))_DIR) && 						\
+		$($(strip $(1))_PATH)						\
+		$($(strip $(1))_COMPILE_ENV)					\
 		$(MAKE) $($(strip $(1))_MAKEVARS) $(PARALLELMFLAGS)
 
 
