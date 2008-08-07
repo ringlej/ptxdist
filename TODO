@@ -1,6 +1,8 @@
 TODO for 1.99.x
 ===============
 
+[ ] jbe: udev. Generic startscript complains about a missing udev-adm
+
 [ ] jbe: it must be possible to force some userland components from inside the
     platformconfig. For example a platform specific kernel driver module
     needs a special component of the UDEV. Currently it does not work.
