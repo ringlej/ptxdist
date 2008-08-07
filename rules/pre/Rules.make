@@ -420,10 +420,22 @@ extract =							\
 	echo "extract: dest=$$DEST";				\
 	case "$$PACKET" in					\
 	*gz)							\
-		EXTRACT=gzip					\
+		echo $$(basename $$PACKET) >> 			\
+		$(STATEDIR)/packetlist; 			\
+		gzip -dc $$PACKET | tar -C $$DEST -xf -;	\
+		$(CHECK_PIPE_STATUS)				\
 		;;						\
 	*bz2)							\
-		EXTRACT=bzip2					\
+		echo $$(basename $$PACKET) >> 			\
+		$(STATEDIR)/packetlist; 			\
+		bzip2 -dc $$PACKET | tar -C $$DEST -xf -;	\
+		$(CHECK_PIPE_STATUS)				\
+		;;						\
+	*zip)							\
+		echo $$(basename $$PACKET) >> 			\
+		$(STATEDIR)/packetlist; 			\
+		unzip -q $$PACKET -d $$DEST;			\
+		$(CHECK_PIPE_STATUS)				\
 		;;						\
 	*)							\
 		echo;						\
@@ -432,9 +444,6 @@ extract =							\
 		exit 1;						\
 		;;						\
 	esac;							\
-	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
-	$$EXTRACT -dc $$PACKET | tar -C $$DEST -xf -;		\
-	$(CHECK_PIPE_STATUS)
 
 #
 # get
