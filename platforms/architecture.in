@@ -90,11 +90,8 @@ choice
 	config ARCH_ARM_AT91RM9200
 		bool "at91rm9200 "
 
-	config ARCH_ARM_AT91SAM9260
-		bool "at91sam9260"
-
-	config ARCH_ARM_AT91SAM9263
-		bool "at91sam9263"
+	config ARCH_ARM_AT91SAM926X
+		bool "at91sam926x"
 
 	config ARM_ARM_EPXA
 		bool "excalibur  "
@@ -212,8 +209,7 @@ config ENDIAN_LITTLE
 	default y if MENU_ENDIAN_LITTLE
 	default y if ARCH_ARM_ATMEL
 	default y if ARCH_ARM_AT91RM9200
-	default y if ARCH_ARM_AT91SAM9260
-	default y if ARCH_ARM_AT91SAM9263
+	default y if ARCH_ARM_AT91SAM926X
 	default y if ARCH_ARM_EPXA
 	default y if ARCH_ARM_IMX
 	default y if ARCH_ARM_NETARM

@@ -154,15 +154,7 @@ ifdef PTXCONF_ARCH_ARM
 	--disable-altivec \
 	--disable-mmx
  else
- ifdef PTXCONF_ARCH_ARM_AT91SAM9260
-   FFMPEG_AUTOCONF += \
-	--arch=arm \
-	--cpu=arm926ej-s \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
- else
- ifdef PTXCONF_ARCH_ARM_AT91SAM9263
+ ifdef PTXCONF_ARCH_ARM_AT91SAM926X
    FFMPEG_AUTOCONF += \
 	--arch=arm \
 	--cpu=arm926ej-s \
@@ -179,7 +171,6 @@ ifdef PTXCONF_ARCH_ARM
 	--disable-iwmmxt
  else
  $(error Please define the config options for this CPU type!)
- endif
  endif
  endif
  endif
