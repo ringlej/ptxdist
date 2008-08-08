@@ -26,7 +26,7 @@ install: all
 	@test -d ${DESTDIR}${instdir} || exit 1
 	@touch ${DESTDIR}${instdir} || exit 1
 	@echo "installing PTXdist to ${DESTDIR}${prefix}/bin..."
-	tar -C ${abs_srcdir} -cf - --exclude .svn --exclude state --exclude debian . | tar -C ${DESTDIR}${instdir} -xvf -
+	tar -C ${abs_srcdir} -cf - --exclude .svn --exclude state --exclude debian --exclude .pc . | tar -C ${DESTDIR}${instdir} -xvf -
 	@mkdir -p ${DESTDIR}${prefix}/bin
 	@rm -f ${DESTDIR}${prefix}/bin/ptxdist
 	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist-${version}
