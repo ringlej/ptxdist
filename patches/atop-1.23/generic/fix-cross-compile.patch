@@ -30,7 +30,7 @@ Index: atop-1.23/Makefile
  
  atop:		atop.o    $(ALLMODS) Makefile
 -		cc atop.o $(ALLMODS) -o atop $(LDFLAGS)
-+		$(CC) atop.o $(CFLAGS) $(CPPFLAGS) $(ALLMODS) -o atop $(LDFLAGS)
++		$(CC) atop.o $(ALLMODS) -o atop $(LDFLAGS)
  
  clean:
  		rm -f *.o
