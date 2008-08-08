@@ -47,6 +47,7 @@ $(STATEDIR)/utelnetd.extract: $(utelnetd_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UTELNETS_DIR))
 	@$(call extract, UTELNETD)
+	@$(call patchin, UTELNETD)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -66,7 +67,8 @@ $(STATEDIR)/utelnetd.prepare: $(utelnetd_prepare_deps_default)
 utelnetd_compile: $(STATEDIR)/utelnetd.compile
 
 UTELNETD_ENVIRONMENT += PATH=$(CROSS_PATH)
-UTELNETD_MAKEVARS    += CROSS=$(COMPILER_PREFIX)
+UTELNETD_MAKEVARS    += CROSS=$(COMPILER_PREFIX) \
+			EXTRA_CFLAGS='$(call remove_quotes,$(TARGET_CFLAGS))'
 
 $(STATEDIR)/utelnetd.compile: $(utelnetd_compile_deps_default)
 	@$(call targetinfo, $@)
