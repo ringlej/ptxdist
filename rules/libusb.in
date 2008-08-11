@@ -2,3 +2,9 @@ config LIBUSB
 	tristate
 	prompt "libusb"
 
+config LIBUSB_DOCS
+	bool
+	depends on LIBUSB
+	prompt "Documentation"
+	help
+	  Activate to build the libusb-documentation

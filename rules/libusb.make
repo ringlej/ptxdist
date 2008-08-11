@@ -65,6 +65,12 @@ LIBUSB_ENV 	:= $(CROSS_ENV)
 #
 LIBUSB_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+ifdef PTXCONF_LIBUSB_DOCS
+LIBUSB_AUTOCONF += --enable-build-docs
+else
+LIBUSB_AUTOCONF += --disable-build-docs
+endif
+
 $(STATEDIR)/libusb.prepare: $(libusb_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(LIBUSB_DIR)/config.cache)
