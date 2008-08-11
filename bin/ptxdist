@@ -1060,12 +1060,10 @@ do_select()
 	# re-read config files and
 	# export changed variables
 	#
-	if [ -n "${PTX_MENU}" ]; then
-		setup_platform
-		setup_path
-		setup_logfile
-		setup_export
-	fi
+	setup_platform
+	setup_path
+	setup_logfile
+	setup_export
 }
 
 
@@ -1168,6 +1166,8 @@ parse_second()
 		exit 0
 	fi
 
+	local kernellink=${PTXDIST_WORKSPACE}/.kernel
+
 	while [ $# -ne 0 ]; do
 		local cmd="${1}"
 		shift
@@ -1208,7 +1208,6 @@ parse_second()
 			;;
 
 		platformconfig)
-			local kernellink=${PTXDIST_WORKSPACE}/.kernel
 			[ -L ${kernellink} ] && rm -f ${kernellink}
 
 			do_config menuconfig platform
@@ -1247,8 +1246,15 @@ parse_second()
 			;;
 
 		platform)
+			[ -L ${kernellink} ] && rm -f ${kernellink}
+
 			do_select platformconfig "${1}"
-			exit ${?}
+			local retval=${?}
+
+			if [ -n "$(ptxd_get_ptxconf PTXCONF_KERNEL_SYMLINK_IN_PROJECTDIR)" ]; then
+				ln -sf ${BUILDDIR}/linux-$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION) ${kernellink}
+			fi
+			exit ${retval}
 			;;
 
 		toolchain)
