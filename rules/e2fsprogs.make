@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002-2008 by Pengutronix e.K., Hildesheim, Germany
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -77,9 +77,15 @@ $(STATEDIR)/e2fsprogs.targetinstall:
 
 ifdef PTXCONF_E2FSPROGS_MKFS
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/mke2fs, /sbin/mke2fs)
+ifdef PTXCONF_E2FSPROGS_MKFS_EXT2
+	@$(call install_link, e2fsprogs, /sbin/mke2fs, /sbin/mkfs.ext2)
+endif
 endif
 ifdef PTXCONF_E2FSPROGS_E2FSCK
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/e2fsck/e2fsck, /sbin/e2fsck)
+ifdef PTXCONF_E2FSPROGS_E2FSCK_EXT2
+	@$(call install_link, e2fsprogs, /sbin/e2fsck, /sbin/fsck.ext2)
+endif
 endif
 ifdef PTXCONF_E2FSPROGS_TUNE2FS
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/tune2fs, /sbin/tune2fs)

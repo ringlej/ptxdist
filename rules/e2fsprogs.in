@@ -17,6 +17,11 @@ config E2FSPROGS_MKFS
 	 This installs /sbin/mke2fs, the filesystem builder for
 	 ext2 and ext3
 
+config E2FSPROGS_MKFS_EXT2
+	bool
+	prompt "create mkfs.ext2 link"
+	depends on E2FSPROGS_MKFS
+
 comment "Busybox' mke2fs is selected"
 	depends on BB_CONFIG_MKE2FS
 
@@ -28,6 +33,11 @@ config E2FSPROGS_E2FSCK
 	help
 	 This will install /sbin/e2fsck, the filesystem
 	 checking and recovery tool for ext2 and ext3.
+
+config E2FSPROGS_E2FSCK_EXT2
+	bool
+	prompt "create fsck.ext2 link"
+	depends on E2FSPROGS_E2FSCK
 
 comment "Busybox' e2fsck is selected"
 	depends on BB_CONFIG_E2FSCK

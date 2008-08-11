@@ -2,7 +2,7 @@
 # $Id: template 2606 2005-05-10 21:49:41Z rsc $
 #
 # Copyright (C) 2005 by Steven Scholz <steven.scholz@imc-berlin.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -110,14 +110,20 @@ $(STATEDIR)/dosfstools.targetinstall: $(dosfstools_targetinstall_deps_default)
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS
 	@$(call install_copy, dosfstools, 0, 0, 0755, $(DOSFSTOOLS_DIR)/mkdosfs/mkdosfs, /sbin/mkdosfs)
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_MSDOS
-	@$(call install_link, dosfstools, mkdosfs, /sbin/mkfs.msdos)
+	@$(call install_link, dosfstools, /sbin/mkdosfs, /sbin/mkfs.msdos)
 endif
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS_VFAT
-	@$(call install_link, dosfstools, mkdosfs, /sbin/mkfs.vfat)
+	@$(call install_link, dosfstools, /sbin/mkdosfs, /sbin/mkfs.vfat)
 endif
 endif
 ifdef PTXCONF_DOSFSTOOLS_DOSFSCK
 	@$(call install_copy, dosfstools, 0, 0, 0755, $(DOSFSTOOLS_DIR)/dosfsck/dosfsck, /sbin/dosfsck)
+ifdef PTXCONF_DOSFSTOOLS_DOSFSCK_MSDOS
+	@$(call install_link, dosfstools, /sbin/dosfsck, /sbin/fsck.msdos)
+endif
+ifdef PTXCONF_DOSFSTOOLS_DOSFSCK_VFAT
+	@$(call install_link, dosfstools, /sbin/dosfsck, /sbin/fsck.vfat)
+endif
 endif
 
 	@$(call install_finish, dosfstools)

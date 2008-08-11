@@ -30,3 +30,17 @@ config DOSFSTOOLS_DOSFSCK
 	help
 	  This is the DOSFS / VFAT Filesystem Checker
 
+config DOSFSTOOLS_DOSFSCK_MSDOS
+	bool
+	prompt "create fsck.msdos link"
+	depends on DOSFSTOOLS_DOSFSCK
+	help
+	  FAT 12 / MSDOS Format
+
+config DOSFSTOOLS_DOSFSCK_VFAT
+	bool
+	prompt "create fsck.vfat link"
+	depends on DOSFSTOOLS_DOSFSCK
+	help
+	  VFAT Format - Long Filenames, big files, etc.
+
