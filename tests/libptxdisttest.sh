@@ -146,13 +146,13 @@ remote_busybox() {
 		local bbtest=$(remote "ps --help 2>&1 | grep ^BusyBox") 2>> "$LOGFILE"
 		if [ "${bbtest:0:7}" = "BusyBox" ]
 		then
-			BUSYBOX="true"
-			return 0
+			BUSYBOX="0"
 		else
-			BUSYBOX="false"
-			return 1
+			BUSYBOX="1"
 		fi
 	fi
+	
+	return $BUSYBOX
 }
 
 remote_assure_process() {
