@@ -629,20 +629,13 @@ endif
 # This part creates /etc/inetd.conf and /etc/services on demand
 # -----------------------------------------------------------------------------
 
-#
-# If urshd is enabled, create only /etc/services
+# create /etc/services if urshd is enabled without inetd
 #
 ifdef PTXCONF_URSHD
-ifndef PTXCONF_ROOTFS_USER_INETD
+ifndef PTXCONF_ROOTFS_INETD
 	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/services, \
+		$(PTXDIST_TOPDIR)/generic/etc/services.urshd_only, \
 		/etc/services, n )
-endif
-	@$(call install_replace, rootfs, /etc/services, \
-		@RSHD@, \
-		"shell 514/tcp cmd" )
-ifndef PTXCONF_INETUTILS_RSHD
-	@$(call install_replace, rootfs, /etc/services, @RSHD@, )
 endif
 endif
 
@@ -672,14 +665,17 @@ endif
 # Replace all markers if service is enabled
 # or delete markers if service is disabled
 # -----------------------------------------------------------------------------
-# add rshd if enabled
+# add rshd if enabled or make entry for urshd if enabled
 #
 ifdef PTXCONF_INETUTILS_RSHD
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
 		@RSHD@, "shell stream tcp nowait root /usr/sbin/rshd" )
 	@$(call install_replace, rootfs, /etc/services, \
-		@RSHD@, \
-		"shell 514/tcp cmd" )
+		@RSHD@, "shell 514/tcp cmd" )
+else ifdef PTXCONF_URSHD
+	@$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, )
+	@$(call install_replace, rootfs, /etc/services, \
+		@RSHD@, "shell 514/tcp cmd" )
 else
 	@$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, )
 	@$(call install_replace, rootfs, /etc/services, @RSHD@, )
