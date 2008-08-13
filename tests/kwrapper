@@ -1,0 +1,20 @@
+#!/bin/bash
+
+OURDIR="$(dirname $0)"
+KSCRIPT="${OURDIR}/$1.kermit"
+LIB="${OURDIR}/libptxdisttest.kermit"
+
+if [ ! -e ${PTXDIST_WORKSPACE}/boardsetup/boardsetup ]; then
+	echo "Please run 'ptxdist boardsetup' first!"
+	exit 1
+fi
+
+if [ ! -e $LIB ]; then
+	echo "Could not find $LIB!"
+	exit 1
+fi
+
+#we _must_ set the variables in kermit using 'define'! '.' has a bug there (patch already mainlined).
+sed -e 's/^\(PTXCONF_BOARDSETUP_[A-Z0-9_]*\)=/define \1 /' ${PTXDIST_WORKSPACE}/boardsetup/boardsetup >/tmp/boardsetup.kermit
+
+$KSCRIPT ${LIB} /tmp/boardsetup.kermit $2

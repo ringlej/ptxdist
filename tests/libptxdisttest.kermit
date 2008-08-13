@@ -1,0 +1,110 @@
+#!/usr/bin/kermit
+define ptx_init {
+
+	take \%1
+
+        set line \m(PTXCONF_BOARDSETUP_SERIALPORT)
+        set speed \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE)
+        set parity none
+        set stop-bits 1
+        set carrier-watch off
+        set handshake none
+        set flow-control none
+        robust
+
+        set input cancellation off
+        set input case observe
+        set input buffer-length 16384
+
+	writeln ERROR "Communicating via \m(PTXCONF_BOARDSETUP_SERIALPORT) at \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE) bps."
+	writeln ERROR
+        writeln ERROR "==============================="
+        writeln ERROR "Please power on your board now!"
+        writeln ERROR "==============================="
+        writeln ERROR
+
+	.uboot_version := 1
+	.uboot_prompt := "uboot> "
+	.wait_time_default := 300
+
+}
+
+define ptx_exit {
+
+	writeln ERROR "All OK!"
+	exit 0
+}
+
+define ptx_test_start {
+	#do padding with '.'
+	write ERROR "\frpad(\%1,40,.)"
+}
+
+define ptx_test_end {
+
+	writeln ERROR "OK"
+}
+
+define ptx_wait_string {
+
+	if def \%2 {
+		.wait_time := \%2
+	} else {
+		.wait_time := \m(wait_time_default)
+	}
+        input \m(wait_time) \%1
+        if failure {
+	        writeln ERROR "FAILED! (waiting for '\%1')"
+        	exit 1
+        }
+}
+
+define ptx_uboot_enter_shell {
+
+	ptx_test_start "Logging into U-Boot"
+	ptx_wait_string "U-Boot" 120
+	lineout
+	ptx_wait_string \m(uboot_prompt) 10
+	ptx_test_end
+}
+
+define ptx_uboot_exec {
+
+	if def \%2 {
+		.wait_time := \%2
+	} else {
+		.wait_time := \m(wait_time_default)
+	}
+	lineout "\%1"
+	input \m(wait_time) \m(uboot_prompt)
+	if failure {
+		writeln ERROR "FAILED! (timeout while waiting for shell prompt after \%1)"
+		exit 1
+	}
+
+	if = \m(uboot_version) 2 {
+		lineout "echo k-res:$?"
+		input 10 \fpattern(k-res:0$)
+
+		if failure {
+			writeln ERROR "FAILED! (returncode from \%1 is not 0)"
+			exit 1
+		}
+
+		input 10 \m(uboot_prompt)
+	}
+}
+
+define ptx_uboot_exec_single {
+
+	ptx_test_start "\%1"
+	ptx_uboot_exec "\%2" \%3
+	ptx_test_end
+}
+
+define ptx_wait_string_single {
+
+        ptx_test_start "\%1"
+	ptx_wait_string "\%2" \%3
+	ptx_test_end
+}

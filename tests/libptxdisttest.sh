@@ -158,8 +158,10 @@ remote_busybox() {
 remote_assure_process() {
 	if remote_busybox
 	then
-		echo "remote \"ps | grep $1 | grep -v grep\"" >> "$LOGFILE"
-		local ret=$(remote "ps | grep $1 | grep -v grep") 2>> "$LOGFILE"
+		#put brackets around the first char of search string, so grep won't hit its own pid
+		local lookfor="[${1:0:1}]${1:1}"
+		echo "remote \"ps | grep $lookfor\"" >> "$LOGFILE"
+		local ret=$(remote "ps | grep $lookfor") 2>> "$LOGFILE"
 		echo "$ret" | grep "$1[$ ]" 2>> "${PTXDIST_WORKSPACE}/test.log"
 	else
 		echo "remote \"ps axo s,comm | grep \\\"^S $1\\\"\"" >> "$LOGFILE"

@@ -1,0 +1,32 @@
+#!/usr/bin/kermit +
+
+#Read the library
+take \%1
+
+#Set up the line
+ptx_init \%2
+
+ptx_uboot_enter_shell
+
+ptx_test_start "Setting new environment"
+ptx_uboot_exec "printenv" 10
+
+open read \%3
+if failure {
+	writeln ERROR "FAILED! Could not open \%3."
+	exit 1
+}
+
+while true {
+	read \%l
+	if fail break
+	ptx_uboot_exec "\%l" 5
+}
+
+close read
+
+ptx_uboot_exec "printenv"
+#ptx_uboot_exec "saveenv"
+ptx_test_end
+
+ptx_exit
