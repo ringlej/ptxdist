@@ -1,6 +1,6 @@
 config CYCLICTEST
 	tristate
-	prompt "cyclictest                    "
+	prompt "cyclictest"
 	select LIBC_PTHREAD
 	select LIBC_RT
 	help

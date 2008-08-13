@@ -1,5 +1,5 @@
 config HDPARM
-	tristate "hdparm                        "
+	tristate "hdparm"
 	depends on !BB_CONFIG_HDPARM
 	help
 	  hdparm - get/set ATA drive parameters under Linux

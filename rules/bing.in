@@ -1,6 +1,6 @@
 config BING
 	tristate
-	prompt "bing                          "
+	prompt "bing"
 	help
 	  Empirical stochastic bandwidth tester (bing)
 

@@ -1,6 +1,6 @@
 config ETHERWAKE
 	tristate
-	prompt "etherwake                     "
+	prompt "etherwake"
 	help
 	  A little tool to send magic Wake-on-LAN packets
  

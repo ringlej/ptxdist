@@ -1,6 +1,6 @@
 config LIBDAEMON
 	tristate
-	prompt "libdaemon                     "
+	prompt "libdaemon"
 	help
 	  libdaemon is a lightweight C library that eases the writing of UNIX
 	  daemons. It consists of the following parts:

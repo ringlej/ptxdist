@@ -1,7 +1,7 @@
 
 config ARGTABLE2
 	tristate
-	prompt "argtable2                     "
+	prompt "argtable2"
 	help
 	 Argtable is an ANSI C library for parsing GNU style command line
 	 arguments with a minimum of fuss. It enables the programmer to define

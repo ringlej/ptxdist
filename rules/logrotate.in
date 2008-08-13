@@ -1,6 +1,6 @@
 config LOGROTATE
 	tristate
-	prompt "logrotate                     "
+	prompt "logrotate"
 	select LIBPOPT
 	help
 	  The logrotate utility is designed to simplify the

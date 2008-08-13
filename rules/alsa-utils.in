@@ -1,6 +1,6 @@
 config ALSA_UTILS
 	tristate
-	prompt "alsa utils                    "
+	prompt "alsa utils"
 	select NCURSES
 	select ALSA_LIB
 # alsa-utils fails with the salsa-lib

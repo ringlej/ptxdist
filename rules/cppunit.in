@@ -1,6 +1,6 @@
 config CPPUNIT
         tristate
-	prompt "cppunit                       "
+	prompt "cppunit"
 	help
 	  cppunit is a C++ port of JUnit. It is a testing framework.
 	  For more info, check:

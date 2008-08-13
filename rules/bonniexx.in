@@ -1,6 +1,6 @@
 config BONNIEXX
 	tristate
-	prompt "bonnie++                      "
+	prompt "bonnie++"
 	select GCCLIBS_CXX
 	help
 	  Hard drive bottleneck testing benchmark suite

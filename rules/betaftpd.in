@@ -1,6 +1,6 @@
 config BETAFTPD
 	tristate
-	prompt "betaftpd                      "
+	prompt "betaftpd"
 	select LIBRN
 	help
 	  BetaFTPD is an ftpd replacement for Unix/Linux.

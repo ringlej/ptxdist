@@ -1,6 +1,6 @@
 config ETHTOOL
 	tristate
-	prompt "ethtool                       "
+	prompt "ethtool"
 	help
 	  Ethtool is a GNU/Linux net driver diagnostic and tuning
 	  tool.

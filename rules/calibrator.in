@@ -1,7 +1,7 @@
 
 config CALIBRATOR
 	tristate
-	prompt "calibrator                    "
+	prompt "calibrator"
 	help
 	  The Calibrator is a Cache-Memory and TLB Calibration Tool
 
