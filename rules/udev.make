@@ -29,34 +29,13 @@ UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
 # Get
 # ----------------------------------------------------------------------------
 
-udev_get: $(STATEDIR)/udev.get
-
-$(STATEDIR)/udev.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(UDEV_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, UDEV)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-udev_extract: $(STATEDIR)/udev.extract
-
-$(STATEDIR)/udev.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(UDEV_DIR))
-	@$(call extract, UDEV)
-	@$(call patchin, UDEV)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-udev_prepare: $(STATEDIR)/udev.prepare
 
 UDEV_OPTIONS	:=
 
@@ -143,41 +122,34 @@ UDEV_MAKEVARS	:= \
 	EXTRAS="$(UDEV_EXTRAS)" 
 
 $(STATEDIR)/udev.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(UDEV_DIR)/config.cache)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-udev_compile: $(STATEDIR)/udev.compile
-
 $(STATEDIR)/udev.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(UDEV_DIR) && \
 		$(UDEV_ENV) $(UDEV_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) $(UDEV_MAKEVARS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-udev_install: $(STATEDIR)/udev.install
-
 $(STATEDIR)/udev.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-udev_targetinstall: $(STATEDIR)/udev.targetinstall
-
 $(STATEDIR)/udev.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, udev)
 	@$(call install_fixup, udev,PACKAGE,udev)
@@ -333,7 +305,7 @@ endif
 #
 	@$(call install_finish, udev)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
