@@ -583,7 +583,7 @@ Overwrite:
   --toolchain			use specified toolchain
   --force-config		select config even if MOJO is missing
 
-Misc
+Misc:
 
   --version			print out ptxdist version
 
@@ -594,9 +594,15 @@ Misc
 				target, host, host-existing-target,
 				cross, cross-existing-target, source,
 				kernel_driver, font, simple
-
 Options:
-  -d				be more noisy
+
+  -d				print out make decisions (debug)
+  --quiet, -q			suppress output, show only stderr
+
+  --j-intern=<n>, -ji<n>        set number of parallel builds in packages
+                                (default=2*CPUs)
+  --j-extern=<n>, -je<n>        set number of packages built in parallel
+                                (default=1)
 
 EOF
 }
@@ -925,6 +931,21 @@ parse_first()
 			;;
 		--packages=base)
 			PTXDIST_PACKAGES_COLLECTION="BASE"
+			;;
+		--j-intern=*)
+			PTXDIST_PARALLELMFLAGS_INTERN="-j${arg#*=}"
+			;;
+		-ji*)
+			PTXDIST_PARALLELMFLAGS_INTERN="-j${arg#*i}"
+			;;
+		--j-extern=*)
+			PTXDIST_PARALLELMFLAGS_EXTERN="-j${arg#*=}"
+			;;
+		-je*)
+			PTXDIST_PARALLELMFLAGS_EXTERN="-j${arg#*e}"
+			;;
+		-q|--quiet)
+			PTXDIST_QUIET=1
 			;;
 		*)
 			PTXDIST_ARGS_SECOND[${#PTXDIST_ARGS_SECOND[@]}]="${arg}"
@@ -1768,7 +1789,9 @@ setup_export() {
 		PTXDIST_PLATFORMCONFIGDIR \
 		\
 		PTXDIST_PARALLELMFLAGS_INTERN \
-		PTXDIST_PACKAGES_COLLECTION
+		PTXDIST_PACKAGES_COLLECTION \
+		\
+		PTXDIST_QUIET
 }
 
 
