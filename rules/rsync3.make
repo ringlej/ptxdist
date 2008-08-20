@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_RSYNC3) += rsync3
 #
 # Paths and names
 #
-RSYNC3_VERSION	:= 3.0.2
+RSYNC3_VERSION	:= 3.0.3
 RSYNC3		:= rsync-$(RSYNC3_VERSION)
 RSYNC3_SUFFIX	:= tar.gz
-RSYNC3_URL	:= http://rsync.samba.org/ftp/rsync/$(RSYNC3).$(RSYNC3_SUFFIX)
+RSYNC3_URL	:= http://rsync.samba.org/ftp/rsync/src/$(RSYNC3).$(RSYNC3_SUFFIX)
 RSYNC3_SOURCE	:= $(SRCDIR)/$(RSYNC3).$(RSYNC3_SUFFIX)
 RSYNC3_DIR	:= $(BUILDDIR)/$(RSYNC3)
 
@@ -142,7 +142,7 @@ endif
 #
 # FIXME: Is this packet the right location for the link?
 #
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_RSYNC3_LINK),"")
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_RSYNC3_LINK),)
 	@$(call install_copy, rsync3, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, rsync3, ../init.d/rsyncd, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_RSYNC3_LINK), n)

@@ -201,6 +201,16 @@ config ROOTFS_ETC_INITD_RSYNC_LINK
 	  start rsync as a standalone service when system starts. Keep this
 	  entry empty if you do not want to start this service automatically.
 
+config ROOTFS_ETC_INITD_RSYNC3_LINK
+	depends on RSYNC3_STARTUP_TYPE_STANDALONE
+	string
+	prompt "rsync3 link name"
+	default "S14_rsync"
+	help
+	  Set a link into /etc/rc.d which points to /etc/init.d/rsync to
+	  start rsync as a standalone service when system starts. Keep this
+	  entry empty if you do not want to start this service automatically.
+
 config ROOTFS_ETC_INITD_FAM_LINK
 	depends on FAM_STARTUP_TYPE_STANDALONE
 	string
