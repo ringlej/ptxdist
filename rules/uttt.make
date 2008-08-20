@@ -51,12 +51,12 @@ UTTT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/uttt.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, uttt)
+	@$(call install_init,  uttt)
 	@$(call install_fixup, uttt,PACKAGE,uttt)
 	@$(call install_fixup, uttt,PRIORITY,optional)
 	@$(call install_fixup, uttt,VERSION,$(UTTT_VERSION))
 	@$(call install_fixup, uttt,SECTION,base)
-	@$(call install_fixup, uttt,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, uttt,AUTHOR,"Luotao Fu <l.fu\@pengutronix.de>")
 	@$(call install_fixup, uttt,DEPENDS,)
 	@$(call install_fixup, uttt,DESCRIPTION,missing)
 
