@@ -48,7 +48,7 @@ $(STATEDIR)/unzip.extract: $(unzip_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(UNZIP_DIR))
 	@$(call extract, UNZIP)
-	@$(call patchin, UNZIP, $(UNZIP))
+	@$(call patchin, UNZIP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
