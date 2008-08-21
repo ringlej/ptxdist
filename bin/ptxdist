@@ -423,8 +423,11 @@ check_dirs() {
 		"${IMAGEDIR}" \
 		"${ROOTDIR}" \
 		"${ROOTDIR_DEBUG}" \
+	        "${PTXDIST_SRCDIR}" \
 		; do
-		mkdir -p "${dir}"
+		if [ \! -d "${dir}" ]; then
+			mkdir -p "${dir}" || ptxd_bailout "cannot create dir: ${dir}"
+		fi
 	done
 
 	# check for case sensitive file system
@@ -903,7 +906,7 @@ parse_first()
 	PTX_toolchain_SET="false"
 
 	set -- "${PTXDIST_ARGS_FULL[@]}"
-	while [ $# -ne 0 ]; do
+	while [ ${#} -ne 0 ]; do
 		arg="${1}"
 		shift
 
@@ -1666,6 +1669,7 @@ setup_config() {
 
 	ptxd_source_kconfig "${rc_user}"
 
+
 	#
 	# enable or disable errexit
 	#
@@ -1675,6 +1679,7 @@ setup_config() {
 		set +e
 	fi
 
+
 	#
 	# setup SRCDIR
 	#
@@ -1683,6 +1688,19 @@ setup_config() {
 	else
 		eval PTXDIST_SRCDIR="${PTXCONF_SETUP_SRCDIR}"
 	fi
+
+
+	#
+	# setup proxy
+	#
+	if [ -n "${PTXCONF_SETUP_HTTP_PROXY}" ]; then
+		export http_proxy="${PTXCONF_SETUP_HTTP_PROXY}"
+	fi
+
+	if [ -n "${PTXCONF_SETUP_FTP_PROXY}" ]; then
+		export ftp_proxy="${PTXCONF_SETUP_FTP_PROXY}"
+	fi
+
 
 	#
 	# setup PARALLELMFLAGS
@@ -1748,7 +1766,7 @@ setup_logfile()
 	local logdir="${PTX_LOGFILE%/*}"
 
 	if [ ! -d "${logdir}" ]; then
-		mkdir -p ${logdir} || ptxd_bailout "cannot create dir ${logdir}"
+		mkdir -p ${logdir} || ptxd_bailout "cannot create dir: ${logdir}"
 	fi
 
 	if [ ! -e "${PTX_LOGFILE}" ]; then
