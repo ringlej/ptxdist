@@ -27,6 +27,9 @@ PTX_WGET		= \
 	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
 	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
 	wget --cache=off --passive-ftp
+ifdef PTXCONF_QUIET
+PTX_WGET	+= --quiet
+endif
 
 INSTALL		:= install
 
