@@ -8,8 +8,6 @@
 # Programs & Local Defines
 # ----------------------------------------------------------------------------
 
-# change this if you have some wired configuration :)
-
 # FIXME: cleanup
 
 GNU_BUILD	:= $(shell $(SCRIPTSDIR)/external/config.guess)
@@ -17,22 +15,7 @@ GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 
 HOSTCC		:= gcc
 HOSTCXX		:= g++
-
-# FIXME: disabled caching in wget. Make sure that all patches on the webserver
-#        have a version number and reenable caching
-PTX_WGET		= \
-	export ptx_http_proxy=$(PTXCONF_SETUP_HTTP_PROXY); \
-	export ptx_ftp_proxy=$(PTXCONF_SETUP_FTP_PROXY); \
-	eval \
-	$${ptx_http_proxy:+http_proxy=$${ptx_http_proxy}} \
-	$${ptx_ftp_proxy:+ftp_proxy=$${ptx_ftp_proxy}} \
-	wget --cache=off --passive-ftp
-ifdef PTXCONF_QUIET
-PTX_WGET	+= --quiet
-endif
-
 INSTALL		:= install
-
 FAKEROOT	:= $(PTXCONF_SYSROOT_HOST)/bin/fakeroot -l $(PTXCONF_SYSROOT_HOST)/lib/libfakeroot.so
 
 CHECK_PIPE_STATUS := \
@@ -423,22 +406,16 @@ extract =							\
 	echo "extract: dest=$$DEST";				\
 	case "$$PACKET" in					\
 	*gz)							\
-		echo $$(basename $$PACKET) >> 			\
-		$(STATEDIR)/packetlist; 			\
-		gzip -dc $$PACKET | tar -C $$DEST -xf -;	\
-		$(CHECK_PIPE_STATUS)				\
+		EXTRACT=gzip					\
 		;;						\
 	*bz2)							\
-		echo $$(basename $$PACKET) >> 			\
-		$(STATEDIR)/packetlist; 			\
-		bzip2 -dc $$PACKET | tar -C $$DEST -xf -;	\
-		$(CHECK_PIPE_STATUS)				\
+		EXTRACT=bzip2					\
 		;;						\
 	*zip)							\
 		echo $$(basename $$PACKET) >> 			\
-		$(STATEDIR)/packetlist; 			\
+			$(STATEDIR)/packetlist; 		\
 		unzip -q $$PACKET -d $$DEST;			\
-		$(CHECK_PIPE_STATUS)				\
+		exit $$?;					\
 		;;						\
 	*)							\
 		echo;						\
@@ -447,6 +424,11 @@ extract =							\
 		exit 1;						\
 		;;						\
 	esac;							\
+								\
+	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
+	$$EXTRACT -dc $$PACKET | tar -C $$DEST -xf -;		\
+	$(CHECK_PIPE_STATUS)
+
 
 #
 # get
@@ -456,72 +438,9 @@ extract =							\
 # file URLs this case is being handed over to cp.
 #
 # $1: Packet Label; this macro gets $1_URL
-# $2: source directory
 #
 get =								\
-	URL="$($(strip $(1))_URL)";				\
-	if [ "$$URL" = "" ]; then				\
-		echo;						\
-		echo Error: empty parameter to \"get\(\)\";	\
-		echo;						\
-		exit 1;						\
-	fi;							\
-	SRC="$(strip $(2))";					\
-	SRC=$${SRC:-$(SRCDIR)};					\
-	[ -d $$SRC ] || mkdir -p $$SRC;				\
-	case $$URL in 						\
-	http*)							\
-		$(PTX_WGET) -P $$SRC $$URL;			\
-		[ $$? -eq 0 ] || {				\
-			echo;					\
-			echo "Could not get packet via http!";	\
-			echo "URL: $$URL";			\
-			echo;					\
-			exit 1;					\
-			};					\
-		;;						\
-	ftp*)							\
-		$(PTX_WGET) -P $$SRC $$URL;			\
-		[ $$? -eq 0 ] || {				\
-			echo;					\
-			echo "Could not get packet via ftp!";	\
-			echo "URL: $$URL";			\
-			echo;					\
-			exit 1;					\
-			};					\
-		;;						\
-	file*)							\
-		THING="$$(echo $$URL | sed s-file://-/-g)";	\
-		if [ -f "$$THING" ]; then			\
-			echo "local archive, copying"; 		\
-			cp -av $$THING $$SRC;			\
-			[ $$? -eq 0 ] || {			\
-				echo;				\
-				echo "Could not copy packet!";	\
-				echo "File: $$THING";		\
-				echo;				\
-				exit 1;				\
-			};					\
-		elif [ -d "$$THING" ]; then			\
-			echo "local directory instead of tar file, skipping get";	\
-		else						\
-			THING="$$(echo $$URL | sed s-file://-./-g)";	\
-			if [ -d "$$THING" ]; then		\
-				echo "local project directory instead of tar file, skipping get";	\
-			else					\
-				echo "don't know about $$THING"; \
-				exit 1;				\
-			fi;					\
-		fi; 						\
-		;;						\
-	*)							\
-		echo;						\
-		echo "Unknown URL Type!";			\
-		echo "URL: $$URL";				\
-		echo;						\
-		exit 1;						\
-		;;						\
-	esac;
+	ptxd_make_get "$($(strip $(1))_URL)"
 
 
 #
