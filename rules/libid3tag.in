@@ -1,0 +1,10 @@
+config LIBID3TAG
+	tristate
+	select ZLIB
+	prompt "libid3tag"
+	help
+	  ID3 tag reading library from the MAD project
+
+	  ID3 tag manipulation library with full support for reading
+	  ID3v1, ID3v1.1, ID3v2.2, ID3v2.3, and ID3v2.4 tags, as well
+	  as support for writing ID3v1, ID3v1.1, and ID3v2.4 tags.
