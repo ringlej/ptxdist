@@ -142,7 +142,6 @@ source "rules/ffmpeg.in"
 source "rules/flash.in"
 source "rules/gnupg.in"
 source "rules/kaffe.in"
-source "rules/mad.in"
 source "rules/mc.in"
 source "rules/mplayer.in"
 source "rules/rawrec.in"
@@ -275,22 +274,25 @@ source "rules/tests.in"
 endmenu
 
 menu "Development Tools             "
-source rules/ptxdist.in
+source "rules/ptxdist.in"
 endmenu
 
 menu "Games                         "
-source rules/supertux.in
-source rules/scummvm.in
-source rules/uttt.in
+source "rules/scummvm.in"
+source "rules/supertux.in"
+source "rules/uttt.in"
 endmenu
 
 menu "Multimedia                    "
-source rules/gstreamer.in
-source rules/gst-plugins-base.in
-source rules/gst-plugins-good.in
-source rules/libogg.in
-source rules/libtheora.in
-source rules/libvorbis.in
+source "rules/gst-plugins-base.in"
+source "rules/gst-plugins-good.in"
+source "rules/gstreamer.in"
+source "rules/libid3tag.in"
+source "rules/libmad.in"
+source "rules/libogg.in"
+source "rules/libtheora.in"
+source "rules/libvorbis.in"
+source "rules/madplay.in"
 endmenu
 
 menu "Broken or orphaned Packages   "
