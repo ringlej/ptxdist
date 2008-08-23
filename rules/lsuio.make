@@ -19,10 +19,10 @@ PACKAGES-$(PTXCONF_LSUIO) += lsuio
 #
 LSUIO_VERSION	:= 0.2.0
 LSUIO		:= lsuio-$(LSUIO_VERSION)
-LSUIO_SUFFIX		:= tar.gz
-LSUIO_URL		:= http://www.osadl.org/projects/downloads/UIO/user/$(LSUIO).$(LSUIO_SUFFIX)
-LSUIO_SOURCE		:= $(SRCDIR)/$(LSUIO).$(LSUIO_SUFFIX)
-LSUIO_DIR		:= $(BUILDDIR)/$(LSUIO)
+LSUIO_SUFFIX	:= tar.gz
+LSUIO_URL	:= http://www.osadl.org/projects/downloads/UIO/user/$(LSUIO).$(LSUIO_SUFFIX)
+LSUIO_SOURCE	:= $(SRCDIR)/$(LSUIO).$(LSUIO_SUFFIX)
+LSUIO_DIR	:= $(BUILDDIR)/$(LSUIO)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,17 +31,6 @@ LSUIO_DIR		:= $(BUILDDIR)/$(LSUIO)
 $(LSUIO_SOURCE):
 	@$(call targetinfo)
 	@$(call get, LSUIO)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/lsuio.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LSUIO_DIR))
-	@$(call extract, LSUIO)
-	@$(call patchin, LSUIO)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -54,32 +43,6 @@ LSUIO_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 LSUIO_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/lsuio.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LSUIO_DIR)/config.cache)
-	cd $(LSUIO_DIR) && \
-		$(LSUIO_PATH) $(LSUIO_ENV) \
-		./configure $(LSUIO_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/lsuio.compile:
-	@$(call targetinfo)
-	cd $(LSUIO_DIR) && $(LSUIO_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/lsuio.install:
-	@$(call targetinfo)
-	@$(call install, LSUIO)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
