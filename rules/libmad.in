@@ -1,0 +1,34 @@
+config LIBMAD
+	tristate
+	prompt "libmad"
+	help
+	  MPEG audio decoder library
+
+	  MAD is an MPEG audio decoder. It currently only supports the
+	  MPEG 1 standard, but fully implements all three audio layers
+	  (Layer I, Layer II, and Layer III, the latter often
+	  colloquially known as MP3.)
+
+	  MAD has the following special features:
+	  * 100% fixed-point (integer) computation
+	  * completely new implementation based on the ISO/IEC 11172-3 standard
+	  * distributed under the terms of the GNU General Public License (GPL)
+
+choice
+	prompt "Optimize for     "
+	default LIBMAD__OPT_SPEED
+	depends on MADPLAY
+
+	config LIBMAD__OPT_SPEED
+		bool
+		prompt "speed   "
+		help
+		 optimize for speed over accuracy
+
+	config LIBMAD__OPT_ACCURACY
+		bool
+		prompt "accuracy"
+		help
+		  optimize for accuracy over speed
+
+endchoice
