@@ -82,6 +82,10 @@ ifdef PTXCONF_KEXEC_TOOLS_KEXEC
 	@$(call install_copy, kexec-tools, 0, 0, 0755, $(KEXEC_TOOLS_DIR)/build/sbin/kexec, /sbin/kexec)
 endif
 
+ifdef PTXCONF_KEXEC_TOOLS_KDUMP
+	@$(call install_copy, kexec-tools, 0, 0, 0755, $(KEXEC_TOOLS_DIR)/build/sbin/kdump, /sbin/kdump)
+endif
+
 	@$(call install_finish, kexec-tools)
 
 	@$(call touch)
