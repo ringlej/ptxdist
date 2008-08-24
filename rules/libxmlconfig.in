@@ -2,6 +2,7 @@ config LIBXMLCONFIG
 	tristate
 	prompt "libxmlconfig"
 	select LIBXML2
+	select LIBXML2_XPATH
 	select LIBLIST
 	help
 	  libxmlconfig is a helper library which lets you pull config
