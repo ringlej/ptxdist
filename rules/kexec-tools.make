@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_KEXEC_TOOLS) += kexec-tools
 KEXEC_TOOLS_VERSION	:= 2.0.0
 KEXEC_TOOLS		:= kexec-tools-$(KEXEC_TOOLS_VERSION)
 KEXEC_TOOLS_SUFFIX	:= tar.bz2
-KEXEC_TOOLS_URL		:= http://www.kernel.org/pub/linux/kernel/people/horms/kexec-tools//$(KEXEC_TOOLS).$(KEXEC_TOOLS_SUFFIX)
+KEXEC_TOOLS_URL		:= http://www.kernel.org/pub/linux/kernel/people/horms/kexec-tools/$(KEXEC_TOOLS).$(KEXEC_TOOLS_SUFFIX)
 KEXEC_TOOLS_SOURCE	:= $(SRCDIR)/$(KEXEC_TOOLS).$(KEXEC_TOOLS_SUFFIX)
 KEXEC_TOOLS_DIR		:= $(BUILDDIR)/$(KEXEC_TOOLS)
 
@@ -33,17 +33,6 @@ $(KEXEC_TOOLS_SOURCE):
 	@$(call get, KEXEC_TOOLS)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/kexec-tools.extract:
-	@$(call targetinfo)
-	@$(call clean, $(KEXEC_TOOLS_DIR))
-	@$(call extract, KEXEC_TOOLS)
-	@$(call patchin, KEXEC_TOOLS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -53,48 +42,25 @@ KEXEC_TOOLS_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-KEXEC_TOOLS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+KEXEC_TOOLS_AUTOCONF := $(CROSS_AUTOCONF_ROOT)
+
 ifdef PTXCONF_KEXEC_TOOLS_GAMECUBE
 KEXEC_TOOLS_AUTOCONF += --with-gamecube
 else
 KEXEC_TOOLS_AUTOCONF += --without-gamecube
 endif
+
 ifdef PTXCONF_KEXEC_TOOLS_ZLIB
 KEXEC_TOOLS_AUTOCONF += --with-zlib
 else
 KEXEC_TOOLS_AUTOCONF += --without-zlib
 endif
+
 ifdef PTXCONF_KEXEC_TOOLS_XEN
 KEXEC_TOOLS_AUTOCONF += --with-xen
 else
 KEXEC_TOOLS_AUTOCONF += --without-xen
 endif
-
-$(STATEDIR)/kexec-tools.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(KEXEC_TOOLS_DIR)/config.cache)
-	cd $(KEXEC_TOOLS_DIR) && \
-		$(KEXEC_TOOLS_PATH) $(KEXEC_TOOLS_ENV) \
-		./configure $(KEXEC_TOOLS_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/kexec-tools.compile:
-	@$(call targetinfo)
-	cd $(KEXEC_TOOLS_DIR) && $(KEXEC_TOOLS_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/kexec-tools.install:
-	@$(call targetinfo)
-	@$(call install, KEXEC_TOOLS)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
