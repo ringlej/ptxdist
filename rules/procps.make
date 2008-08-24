@@ -29,28 +29,9 @@ PROCPS_DIR	:= $(BUILDDIR)/$(PROCPS)
 # Get
 # ----------------------------------------------------------------------------
 
-procps_get: $(STATEDIR)/procps.get
-
-$(STATEDIR)/procps.get: $(procps_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(PROCPS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, PROCPS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-procps_extract: $(STATEDIR)/procps.extract
-
-$(STATEDIR)/procps.extract: $(procps_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(PROCPS_DIR))
-	@$(call extract, PROCPS)
-	@$(call patchin, PROCPS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -69,40 +50,34 @@ PROCPS_MAKEVARS	:= \
 #
 PROCPS_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/procps.prepare: $(procps_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/procps.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-procps_compile: $(STATEDIR)/procps.compile
-
-$(STATEDIR)/procps.compile: $(procps_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/procps.compile:
+	@$(call targetinfo)
 	cd $(PROCPS_DIR) && $(PROCPS_PATH) $(MAKE) $(PROCPS_MAKEVARS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-procps_install: $(STATEDIR)/procps.install
-
-$(STATEDIR)/procps.install: $(procps_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/procps.install:
+	@$(call targetinfo)
 #	$(call install, PROCPS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-procps_targetinstall: $(STATEDIR)/procps.targetinstall
-
-$(STATEDIR)/procps.targetinstall: $(procps_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/procps.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, procps)
 	@$(call install_fixup, procps,PACKAGE,procps)
@@ -136,7 +111,7 @@ ifdef PTXCONF_PROCPS_PGREP
 endif
 	@$(call install_finish, procps)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
