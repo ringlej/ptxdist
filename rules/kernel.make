@@ -33,16 +33,19 @@ endif
 #
 KERNEL			:= linux-$(KERNEL_VERSION)
 KERNEL_SUFFIX		:= tar.bz2
-KERNEL_TESTING		:= $(subst rc,testing/,$(findstring rc,$(KERNEL_VERSION)))
-ifdef PTXCONF_KERNEL_LOCAL_FLAG
-KERNEL_URL		:= file://$(PTXCONF_SETUP_KERNELDIR_PREFIX)/$(KERNEL_VERSION)
-else
-KERNEL_URL		:= http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL_TESTING)$(KERNEL).$(KERNEL_SUFFIX)
-endif
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
 KERNEL_PKGDIR		:= $(PKGDIR)/$(KERNEL)
 KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
+
+ifdef PTXCONF_KERNEL_LOCAL_FLAG
+KERNEL_URL		:= file://$(PTXCONF_SETUP_KERNELDIR_PREFIX)/$(KERNEL_VERSION)
+else
+KERNEL_URL		:= \
+	http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX) \
+	http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/testing/$(KERNEL_TESTING)$(KERNEL).$(KERNEL_SUFFIX) \
+	http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/testing/v$(KERNEL_VERSION)/$(KERNEL_TESTING)$(KERNEL).$(KERNEL_SUFFIX)
+endif
 
 #
 # Some configuration stuff for the different kernel image formats
