@@ -1,13 +1,29 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: remove asm/page.h, use sysconf
+
+remove include asm/page.h, use susconf instead of hard coded PAGE_MASK and PAGE_SIZE
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
 ---
- fb.c   |    9 +++++----
+ fb.c   |   11 +++++------
  main.c |    3 +++
- 2 files changed, 8 insertions(+), 4 deletions(-)
+ 2 files changed, 8 insertions(+), 6 deletions(-)
 
 Index: fbtest-20041102-1/fb.c
 ===================================================================
 --- fbtest-20041102-1.orig/fb.c
 +++ fbtest-20041102-1/fb.c
-@@ -37,6 +37,7 @@ static unsigned long fb_start;
+@@ -19,8 +19,6 @@
+ #include <sys/stat.h>
+ #include <unistd.h>
+ 
+-#include <asm/page.h>
+-
+ #include "types.h"
+ #include "fb.h"
+ #include "util.h"
+@@ -37,6 +35,7 @@ static unsigned long fb_start;
  static u32 fb_len, fb_offset;
  u8 *fb;
  
@@ -15,7 +31,7 @@ Index: fbtest-20041102-1/fb.c
  
      /*
       *   Saved frame buffer device state
-@@ -181,9 +182,9 @@ void fb_map(void)
+@@ -181,9 +180,9 @@ void fb_map(void)
      caddr_t addr;
  
      Debug("fb_map()\n");
@@ -28,7 +44,7 @@ Index: fbtest-20041102-1/fb.c
      Debug("fb_start = %lx, fb_offset = %x, fb_len = %x\n", fb_start, fb_offset,
  	  fb_len);
      addr = mmap(NULL, fb_len, PROT_READ | PROT_WRITE, MAP_SHARED, fb_fd, 0);
-@@ -200,7 +201,7 @@ void fb_map(void)
+@@ -200,7 +199,7 @@ void fb_map(void)
  void fb_unmap(void)
  {
      Debug("fb_unmap()\n");
