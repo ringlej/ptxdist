@@ -2,18 +2,29 @@ From: Marc Kleine-Budde <mkl@pengutronix.de>
 Subject: remove inlude asm/page.h
 
 This patch removes the include of asm/page.h which is not present
-on toolchains based on to userspace exported kernel headers.
+on toolchains based on to userspace exported kernel headers. Besides
+looking at the host system is evil anyway :)
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- mount/swapargs.h |    1 -
- 1 file changed, 1 deletion(-)
+ mount/swap.configure |    7 -------
+ 1 file changed, 7 deletions(-)
 
-Index: util-linux-2.13-pre7/mount/swapargs.h
+Index: util-linux-2.13-pre7/mount/swap.configure
 ===================================================================
---- util-linux-2.13-pre7.orig/mount/swapargs.h
-+++ util-linux-2.13-pre7/mount/swapargs.h
-@@ -1,3 +1,2 @@
- #define SWAPON_HAS_TWO_ARGS
--#include <asm/page.h>
- #include <sys/swap.h>
+--- util-linux-2.13-pre7.orig/mount/swap.configure
++++ util-linux-2.13-pre7/mount/swap.configure
+@@ -12,13 +12,6 @@ rm -f conftest conftest.c swapargs.h
+ # random value (like #define PAGE_SIZE 4096) instead of including page.h.
+ SWAPH=
+ PAGEH=
+-if [ -f /usr/include/sys/swap.h ]; then
+-	SWAPH="#include <sys/swap.h>"
+-	if [ -f /usr/include/asm/page.h ]; then
+-		PAGEH="#include <asm/page.h>"
+-	fi
+-fi
+-echo $PAGEH > conftest.c
+ echo $SWAPH >> conftest.c
+ echo '#include <unistd.h>
+ main(){ exit(0); swapon("/dev/null", 0); }' >> conftest.c
