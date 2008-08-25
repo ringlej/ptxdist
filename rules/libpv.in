@@ -13,10 +13,11 @@ menuconfig LIBPV
 
 	  The library has also an integrated JVisu socket server.
 
+if LIBPV
+
 config LIBPV_EVENT
 	bool
 	prompt "event support"
-	depends on LIBPV
 	help
 	  This switch enables support for the libpv event mechanism. If
 	  enabled it is possible to be notified when process variables have
@@ -33,10 +34,18 @@ config LIBPV_NEEDS_LIBMQUEUE
 	 mostly the case on older glibc revisions prior 2.3.5. Newer
 	 glibc revisions supports this feature natively.
 
+config LIBPV_PYTHON
+	bool
+	prompt "Python bindings"
+	select PYTHON24
+	help
+	  FIXME: This item needs to be documented
+
 config LIBPV_PVTOOL
 	bool
 	prompt "install pvtool"
-	depends on LIBPV
 	help
 	  pvtool is a tool belonging to libpv. It is used to read, write
 	  and manipulate process variables in a standalone manner.
+
+endif

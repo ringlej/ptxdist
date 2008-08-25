@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBPV) += libpv
 #
 # Paths and names
 #
-LIBPV_VERSION	= 1.2.5
+LIBPV_VERSION	= 1.2.9
 LIBPV		= libpv-$(LIBPV_VERSION)
 LIBPV_SUFFIX	= tar.bz2
 LIBPV_URL	= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
@@ -72,6 +72,11 @@ LIBPV_AUTOCONF += --enable-event
 else
 LIBPV_AUTOCONF += --disable-event
 endif
+ifdef PTXCONF_LIBPV_PYTHON
+LIBPV_AUTOCONF += --enable-python
+else
+LIBPV_AUTOCONF += --disable-python
+endif
 
 $(STATEDIR)/libpv.prepare: $(libpv_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -89,7 +94,7 @@ libpv_compile: $(STATEDIR)/libpv.compile
 
 $(STATEDIR)/libpv.compile: $(libpv_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LIBPV_DIR) && $(LIBPV_ENV) $(LIBPV_PATH) make
+	cd $(LIBPV_DIR) && $(LIBPV_ENV) $(LIBPV_PATH) LDSHARED="$(CROSS_CC) -shared" make
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -131,6 +136,12 @@ endif
 
 	@$(call install_link, libpv, libpv.so.8.1.3, /usr/lib/libpv.so.8)
 	@$(call install_link, libpv, libpv.so.8.1.3, /usr/lib/libpv.so)
+
+ifdef PTXCONF_LIBPV_PYTHON
+	@$(call install_copy, libpv, 0, 0, 0644, \
+		$(SYSROOT)/usr/lib/python2.4/site-packages/libpv.so, \
+		/usr/lib/python2.4/site-packages/libpv.so)
+endif
 
 	@$(call install_finish, libpv)
 
