@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_URSHD) += urshd
 #
 # Paths and names
 #
-URSHD_VERSION	:= 1.0.1
+URSHD_VERSION	:= 1.0.2
 URSHD		:= urshd-$(URSHD_VERSION)
 URSHD_SUFFIX	:= tar.bz2
 URSHD_URL	:= http://www.pengutronix.de/software/urshd/download/v1.0/$(URSHD).$(URSHD_SUFFIX)
