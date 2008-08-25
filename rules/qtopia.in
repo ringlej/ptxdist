@@ -666,6 +666,7 @@ config QTOPIA_BUILD_PHONON
 	bool
 	select QTOPIA_BUILD_GUI
 	depends on QTOPIA
+	depends on BROKEN
 	prompt "Phonon"
 	help
 	  Phonon is a cross-platform multimedia framework that enables the use
