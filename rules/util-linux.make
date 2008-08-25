@@ -28,34 +28,13 @@ UTIL_LINUX_DIR		:= $(BUILDDIR)/$(UTIL_LINUX)
 # Get
 # ----------------------------------------------------------------------------
 
-util-linux_get: $(STATEDIR)/util-linux.get
-
-$(STATEDIR)/util-linux.get: $(util-linux_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(UTIL_LINUX_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, UTIL_LINUX)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-util-linux_extract: $(STATEDIR)/util-linux.extract
-
-$(STATEDIR)/util-linux.extract: $(util-linux_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(UTIL_LINUX_DIR))
-	@$(call extract, UTIL_LINUX)
-	@$(call patchin, UTIL_LINUX)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-util-linux_prepare: $(STATEDIR)/util-linux.prepare
 
 UTIL_LINUX_PATH	:= PATH=$(CROSS_PATH)
 UTIL_LINUX_ENV 	:= $(CROSS_ENV)
@@ -65,44 +44,12 @@ UTIL_LINUX_ENV 	:= $(CROSS_ENV)
 #
 UTIL_LINUX_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/util-linux.prepare: $(util-linux_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(UTIL_LINUX_DIR)/config.cache)
-	cd $(UTIL_LINUX_DIR) && \
-		$(UTIL_LINUX_PATH) $(UTIL_LINUX_ENV) \
-		./configure $(UTIL_LINUX_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-util-linux_compile: $(STATEDIR)/util-linux.compile
-
-$(STATEDIR)/util-linux.compile: $(util-linux_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(UTIL_LINUX_DIR) && $(UTIL_LINUX_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-util-linux_install: $(STATEDIR)/util-linux.install
-
-$(STATEDIR)/util-linux.install: $(util-linux_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, UTIL_LINUX)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-util-linux_targetinstall: $(STATEDIR)/util-linux.targetinstall
-
-$(STATEDIR)/util-linux.targetinstall: $(util-linux_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/util-linux.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, util-linux)
 	@$(call install_fixup,util-linux,PACKAGE,util-linux)
@@ -151,7 +98,7 @@ endif
 
 	@$(call install_finish,util-linux)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
