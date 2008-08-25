@@ -2,6 +2,7 @@
 # $Id: template 3502 2005-12-11 12:46:17Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
+#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,13 +18,15 @@ PACKAGES-$(PTXCONF_COMMONCPP2) += commoncpp2
 #
 # Paths and names
 #
-COMMONCPP2_VERSION	:= 1.3.25
+COMMONCPP2_VERSION	:= 1.6.3
 COMMONCPP2		:= commoncpp2-$(COMMONCPP2_VERSION)
 COMMONCPP2_SUFFIX	:= tar.gz
-COMMONCPP2_URL		:= $(PTXCONF_SETUP_SFMIRROR)/gnutelephony/$(COMMONCPP2).$(COMMONCPP2_SUFFIX)
 COMMONCPP2_SOURCE	:= $(SRCDIR)/$(COMMONCPP2).$(COMMONCPP2_SUFFIX)
 COMMONCPP2_DIR		:= $(BUILDDIR)/$(COMMONCPP2)
 
+COMMONCPP2_URL		:= \
+	http://www.gnutelephony.org/dist/tarballs/$(COMMONCPP2).$(COMMONCPP2_SUFFIX) \
+	http://www.gnutelephony.org/dist/archive/$(COMMONCPP2).$(COMMONCPP2_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -80,18 +83,18 @@ $(STATEDIR)/commoncpp2.targetinstall:
 	@$(call install_fixup, commoncpp2,DESCRIPTION,missing)
 
 	@$(call install_copy, commoncpp2, 0, 0, 0644, \
-		$(COMMONCPP2_DIR)/src/.libs/libccgnu2-1.3.so.1.0.21, \
-		/usr/lib/libccgnu2-1.3.so.1.0.21)
+		$(COMMONCPP2_DIR)/src/.libs/libccgnu2-1.6.so.0.0.2, \
+		/usr/lib/libccgnu2-1.6.so.0.0.2)
 
-	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.21, /usr/lib/libccgnu2-1.3.so.1)
-	@$(call install_link, commoncpp2, libccgnu2-1.3.so.1.0.21, /usr/lib/libccgnu2.so)
+	@$(call install_link, commoncpp2, libccgnu2-1.6.so.0.0.2, /usr/lib/libccgnu2-1.6.so.0)
+	@$(call install_link, commoncpp2, libccgnu2-1.6.so.0.0.2, /usr/lib/libccgnu2.so)
 
 	@$(call install_copy, commoncpp2, 0, 0, 0644, \
-		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.3.so.1.0.21, \
-		/usr/lib/libccext2-1.3.so.1.0.21)
+		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.6.so.0.0.2, \
+		/usr/lib/libccext2-1.6.so.0.0.2)
 
-	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.21, /usr/lib/libccext2-1.3.so.1)
-	@$(call install_link, commoncpp2, libccext2-1.3.so.1.0.21, /usr/lib/libccext2.so)
+	@$(call install_link, commoncpp2, libccext2-1.6.so.0.0.2, /usr/lib/libccext2-1.6.so.1)
+	@$(call install_link, commoncpp2, libccext2-1.6.so.0.0.2, /usr/lib/libccext2.so)
 
 	@$(call install_finish, commoncpp2)
 
