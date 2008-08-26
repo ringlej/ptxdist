@@ -164,34 +164,24 @@ $(STATEDIR)/udev.targetinstall:
 	# binaries
 	#
 
-ifdef PTXCONF_UDEV_INSTALL_UDEVD
 	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevd, \
 		/sbin/udevd)
-endif
-ifdef PTXCONF_UDEV_INSTALL_UDEVADM
 	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevadm, \
 		/sbin/udevadm)
-endif
 ifdef PTXCONF_UDEV_INSTALL_TEST_UDEV
 	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/test-udev, \
 		/sbin/test-udev)
 endif
 
 	#
-	# on-board configuration: this part is mandatory and was made
-	# by the upstream maintainers in a way that it can be exchanged
-	# by distro packets without interfering with local changes
+	# default rules
 	#
 
+ifdef PTXCONF_ROOTFS_UDEV_DEFAULT_RULES
 	cd $(UDEV_DIR)/rules/rules.d; \
 	for file in *; do \
 		$(call install_copy, udev, 0, 0, 0644, $(UDEV_DIR)/rules/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
 	done
-
-ifdef PTXCONF_UDEV_EXTRA_SCSI_ID
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/extras/scsi_id/scsi_id.config, \
-		/etc/scsi_id.config, n)
 endif
 
 	#
@@ -218,91 +208,51 @@ endif
 endif
 
 
-##
-## Install a configuration on demand only
-##
-#ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF
-#ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_DEFAULT
-## use generic
-#	@$(call install_copy, udev, 0, 0, 0644, \
-#		$(PTXDIST_TOPDIR)/generic/etc/udev/udev.conf, \
-#		/etc/udev/udev.conf, n)
-#	@$(call install_copy, udev, 0, 0, 0644, \
-#		$(PTXDIST_TOPDIR)/generic/etc/udev/permissions.rules, \
-#		/etc/udev/permissions.rules, n)
-#endif
-#ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_USER
-## user defined
-#	@$(call install_copy, udev, 0, 0, 0644, \
-#		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/udev.conf, \
-#		/etc/udev/udev.conf, n)
-#	@$(call install_copy, udev, 0, 0, 0644, \
-#		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/permissions.rules, \
-#		/etc/udev/permissions.rules, n)
-#endif
-#endif
-##
-## install all user defined rule files
-##
-#ifdef PTXCONF_ROOTFS_ETC_UDEV_USER_RULES
-## create the rules directory as currently stated in the generic config
-## FIXME: if the user defines a different directory in his own udev.conf
-##        this will fail!
-##
-#	@$(call install_copy, udev, 0, 0, 0755, \
-#		/etc/udev/rules.d)
-## copy *all* *.rules files into targets rule directory
-##
-#	@cd $(PTXDIST_WORKSPACE)/projectroot/etc/udev/rules.d; \
-#	for i in *.rules; do \
-#		$(call install_copy, udev, 0, 0, 0644, $$i, \
-#			/etc/udev/rules.d/$$i,n); \
-#	done;
-#endif
-#ifdef PTXCONF_ROOTFS_ETC_UDEV_DEFAULT_RULES
-#	@$(call install_copy, udev, 0, 0, 0644, \
-#		$(PTXDIST_TOPDIR)/generic/etc/udev/rules.d/udev.rules, \
-#		/etc/udev/rules.d/udev.rules, n)
-#endif
-#ifdef PTXCONF_UDEV_INFO
-#	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevinfo, \
-#		/sbin/udevinfo)
-#endif
-#ifdef PTXCONF_UDEV_START
-#	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevstart, \
-#		/sbin/udevstart)
-#endif
-#ifdef PTXCONF_UDEV_TEST
-#	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevtest, \
-#		/sbin/udevtest)
-#endif
-#ifdef PTXCONF_UDEV_TRIGGER
-#	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevtrigger, \
-#		/sbin/udevtrigger)
-#endif
-#ifdef PTXCONF_UDEV_SETTLE
-#	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevsettle, \
-#		/sbin/udevsettle)
-#endif
-#ifdef PTXCONF_UDEV_CONTROL
-#	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevcontrol, \
-#		/sbin/udevcontrol)
-#endif
-#ifdef PTXCONF_UDEV_MONITOR
-#	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevmonitor, \
-#		/sbin/udevmonitor)
-#endif
-#ifdef PTXCONF_UDEV_USB_ID
-#	@$(call install_copy, udev, 0, 0, 0755, \
-#		$(UDEV_DIR)/extras/usb_id/usb_id, \
-#		/sbin/usbid)
-#endif
-#ifdef PTXCONF_UDEV_FW_HELPER
-#	@$(call install_copy, udev, 0, 0, 0755, \
-#		$(UDEV_DIR)/extras/firmware/firmware.sh, \
-#		/sbin/firmware.sh,n)
-#endif
 #
+# Install a configuration on demand only
+#
+ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF
+ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_DEFAULT
+# use generic
+	@$(call install_copy, udev, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/udev/udev.conf, \
+		/etc/udev/udev.conf, n)
+	@$(call install_copy, udev, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/udev/permissions.rules, \
+		/etc/udev/permissions.rules, n)
+endif
+ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_USER
+# user defined
+	@$(call install_copy, udev, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/udev.conf, \
+		/etc/udev/udev.conf, n)
+	@$(call install_copy, udev, 0, 0, 0644, \
+		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/permissions.rules, \
+		/etc/udev/permissions.rules, n)
+endif
+endif
+
+	#
+	# utilities from extra/
+	#
+
+ifdef PTXCONF_UDEV_EXTRA_USB_ID
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/usb_id/usb_id, \
+		/lib/udev/usbid)
+endif
+ifdef PTXCONF_UDEV_EXTRA_FIRMWARE
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/firmware/firmware.sh, \
+		/lib/udev/firmware.sh,n)
+endif
+
+ifdef PTXCONF_UDEV_EXTRA_SCSI_ID
+	@$(call install_copy, udev, 0, 0, 0644, \
+		$(UDEV_DIR)/extras/scsi_id/scsi_id.config, \
+		/etc/scsi_id.config, n)
+endif
+
 	@$(call install_finish, udev)
 
 	@$(call touch)

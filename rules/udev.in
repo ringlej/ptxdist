@@ -81,7 +81,7 @@ menu "extras                        "
 		bool
 		prompt "firmware"
 		help
-		  FIXME
+	  	  This is a small helper script to load some kind of firmware on demand
 
 	config UDEV_EXTRA_FLOPPY
 		bool
@@ -115,9 +115,11 @@ menu "extras                        "
 
 	config UDEV_EXTRA_USB_ID
 		bool
-		prompt "usb"
+		prompt "usb_id"
 		help
-		  FIXME
+		    This is a helper to generate unique information about some kind of
+		    USB device. This is required to ensure the same hotplugged device to
+		    appear always at the same device node (via link)
 
 	config UDEV_EXTRA_VOLUME_ID
 		bool
@@ -128,20 +130,6 @@ menu "extras                        "
 endmenu
 
 menu "install options               "
-
-	config UDEV_INSTALL_UDEVD
-		bool
-		prompt "install udevd"
-		help
-		  udevd listens to kernel uevents and passes the incoming events to udev.
-		  It ensures the right event order and takes care, that events for child
-		  devices are delayed until the parent has finished the device handling.
-
-	config UDEV_INSTALL_UDEVADM
-		bool
-		prompt "install udevadm"
-		help
-		  FIXME
 
 	config UDEV_INSTALL_TEST_UDEV
 		bool
@@ -164,7 +152,6 @@ menu "install options               "
 			config UDEV_INSTALL_ETC_INITD_UDEV_DEFAULT
 				bool
 				prompt "Use generic"
-				select UDEV_INSTALL_UDEVD
 				help
 				  Installs a generic /etc/init.d/udev startup script.
 				  See <ptxdist-install>/generic/etc/init.d/udev
@@ -188,122 +175,46 @@ menu "install options               "
 		  be something like "S00_udev". An empty string means that no link
 		  is created.
 
-endmenu
+	config ROOTFS_ETC_UDEV_CONF
+		bool
+		default y
+		prompt "Install udev.conf"
+		help
+		  Installs /etc/udev/udev.conf from a selectable source
 
-#config UDEV_START
-#	bool "udevstart"
-#	help
-#	  Populates initial device directory. udevstart scans the kernel exported
-#	  device information available in sysfs for devices which require a device
-#	  node to operate and creates the node using the specified udev rules.
-#	  udevstart is used to create the initial device directory after system
-#	  bootup.
-#
-#config UDEV_TEST
-#	bool "udevtest"
-#	help
-#	  udevtest simulates a udev run for the given device and prints out the
-#	  name of the node udev would have created, or the name of the network
-#	  interface, that would have been renamend.
-#
-#config UDEV_TRIGGER
-#	bool "udevtrigger"
-#	default y
-#	help
-#	   Trigger kernel device uevents to replay missing events at system
-#	   coldplug. Its part of the udev mechanism to startup
-#
-#config UDEV_SETTLE
-#	bool "udevsettle"
-#	default y
-#	help
-#	  Waits watching the udev event queue and exits if all current events
-#	  are handled. Its part of the udev mechanism to startup
-#
-#config UDEV_CONTROL
-#	bool "udevcontrol"
-#	help
-#	  Lets you control the currently running udev system
-#
-#config UDEV_MONITOR
-#	bool "udevmonitor"
-#	help
-#	  udevmonitor listens to the kernel uevents and events send out by a
-#	  udev rule and prints the devpath of the event to the console. It can
-#	  be used analyze to the event timing by comparing the timestamps of
-#	  the kernel uevent with the udev event.
-#
-#config UDEV_FW_HELPER
-#	bool "firmware helper"
-#	help
-#	  This is a small helper script to load some kind of firmware on demand
-#
-#config UDEV_USB_ID
-#	bool "USB device id generator"
-#	help
-#	  This is a helper to generate unique information about some kind of
-#	  USB device. This is required to ensure the same hotplugged device to
-#	  appear always at the same device node (via link)
-#
-#menu "runtime options               "
-#
-#config ROOTFS_ETC_UDEV_CONF
-#	bool
-#	default y
-#	prompt "Install udev.conf"
-#	help
-#	  Installs /etc/udev/udev.conf from a selectable source
-#
-#	choice
-#		prompt "Kind of udev.conf"
-#		default ROOTFS_ETC_UDEV_CONF_DEFAULT
-#		depends on ROOTFS_ETC_UDEV_CONF
-#
-#		config ROOTFS_ETC_UDEV_CONF_DEFAULT
-#			bool
-#			prompt "Use generic"
-#			help
-#			  Installs a generic /etc/udev/udev.conf file.
-#			  See <ptxdist-install>/generic/etc/udev/udev.conf
-#
-#		config ROOTFS_ETC_UDEV_CONF_USER
-#			bool
-#			prompt "User defined"
-#			help
-#			  This uses a user defined udev.conf file. PTXdist
-#			  uses file projectroot/etc/udev/udev.conf in your
-#			  local project.
-#			  Note: If you locate the *.rules path to another
-#			  location than /etc/udev/rules.d, you must install any
-#			  udev rules by your own.
-#
-#	endchoice
-#
-#config ROOTFS_ETC_UDEV_DEFAULT_RULES
-#	bool
-#	prompt "Install default udev rules"
-#	help
-#	  This will install the generic udev rules file under
-#	  /etc/udev/rules.d/udev.rules. Currently this file
-#	  is very basic.
-#
-#config ROOTFS_ETC_UDEV_USER_RULES
-#	bool
-#	prompt "Install user defined rules"
-#	help
-#	  This will install all user defined udev *.rules files from the active
-#	  project. PTXdist expects the files in projectroot/etc/udev/rules.d
-#	  and will install them into /etc/udev/rules.d on the target.
-#	  Note: PTXdist only comes with very basic generic udev rules. All devices
-#	  are owned by root only. If you need special permission control you must
-#	  add some udev rules to create device nodes with correct permissions.
-#	  There are some rule files in the udev packet. Refer
-#	  "build-target/udev-???/etc/udev/rules.d" to check if they meet your
-#	  requirements.
-#	  Pay attention: Do not use the same filenames for your self defined
-#	  rules if you also selected the default rules! The default rule file
-#	  will win this race!
-#
+		choice
+			prompt "Kind of udev.conf"
+			default ROOTFS_ETC_UDEV_CONF_DEFAULT
+			depends on ROOTFS_ETC_UDEV_CONF
+
+			config ROOTFS_ETC_UDEV_CONF_DEFAULT
+				bool
+				prompt "Use generic"
+				help
+				  Installs a generic /etc/udev/udev.conf file.
+				  See <ptxdist-install>/generic/etc/udev/udev.conf
+
+			config ROOTFS_ETC_UDEV_CONF_USER
+				bool
+				prompt "User defined"
+				help
+				  This uses a user defined udev.conf file. PTXdist
+				  uses file projectroot/etc/udev/udev.conf in your
+				  local project.
+				  Note: If you locate the *.rules path to another
+				  location than /etc/udev/rules.d, you must install any
+				  udev rules by your own.
+
+		endchoice
+
+	config ROOTFS_UDEV_DEFAULT_RULES
+		bool
+		prompt "Install default udev rules"
+		help
+		  This will install the generic udev rules files from the udev package
+		  under /lib/udev/rules.d/
+
+	endmenu
 
 endif
 
