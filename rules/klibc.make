@@ -2,7 +2,7 @@
 # $Id: template 3345 2005-11-14 17:14:19Z rsc $
 #
 # Copyright (C) 2005 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +17,12 @@ PACKAGES-$(PTXCONF_KLIBC) += klibc
 #
 # Paths and names
 #
-KLIBC_VERSION	:= 1.4.30
+KLIBC_VERSION	:= 1.5.14
 KLIBC		:= klibc-$(KLIBC_VERSION)
 KLIBC_SUFFIX	:= tar.gz
-KLIBC_URL	:= http://www.kernel.org/pub/linux/libs/klibc/Testing/1.4.x/$(KLIBC).$(KLIBC_SUFFIX)
+KLIBC_URL	:= \
+	http://www.kernel.org/pub/linux/libs/klibc/Testing/$(KLIBC).$(KLIBC_SUFFIX) \
+	http://eu.kernel.org/pub/linux/libs/klibc/Testing/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_SOURCE	:= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_DIR	:= $(BUILDDIR)/$(KLIBC)
 
@@ -66,6 +68,19 @@ KLIBC_ENV 	:= $(CROSS_ENV)
 
 $(STATEDIR)/klibc.prepare: $(klibc_prepare_deps_default)
 	@$(call targetinfo, $@)
+	echo > $(KLIBC_DIR)/defconfig
+	echo "CONFIG_KLIBC=y" >> $(KLIBC_DIR)/defconfig
+	echo "CONFIG_KLIBC_ERRLIST=y" >> $(KLIBC_DIR)/defconfig
+	echo "CONFIG_KLIBC_ZLIB=y" >> $(KLIBC_DIR)/defconfig
+ifdef PTXCONF_ARCH_ARM
+	echo "# ARM options" >> $(KLIBC_DIR)/defconfig
+	echo "# CONFIG_KLIBC_THUMB is not set" >> $(KLIBC_DIR)/defconfig
+	echo "CONFIG_AEABI=y" >> $(KLIBC_DIR)/defconfig
+endif
+ifdef PTXCONF_ARCH_X86
+	echo "# i386 option" >> $(KLIBC_DIR)/defconfig
+	echo "CONFIG_REGPARM=y" >> $(KLIBC_DIR)/defconfig
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
