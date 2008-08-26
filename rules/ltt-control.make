@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LTT_CONTROL) += ltt-control
 #
 # Paths and names
 #
-LTT_CONTROL_VERSION	:= 0.42-16072007
+LTT_CONTROL_VERSION	:= 0.51-12082008
 LTT_CONTROL		:= ltt-control-$(LTT_CONTROL_VERSION)
 LTT_CONTROL_SUFFIX	:= tar.gz
 LTT_CONTROL_URL		:= http://ltt.polymtl.ca/lttng/$(LTT_CONTROL).$(LTT_CONTROL_SUFFIX)
@@ -113,7 +113,7 @@ $(STATEDIR)/ltt-control.targetinstall: $(ltt-control_targetinstall_deps_default)
 	@$(call install_fixup, ltt-control,DEPENDS,)
 	@$(call install_fixup, ltt-control,DESCRIPTION,missing)
 
-	@$(call install_copy, ltt-control, 0, 0, 0755, $(LTT_CONTROL_DIR)/lttctl/.libs/lttctl, /usr/bin/lttctl)
+	@$(call install_copy, ltt-control, 0, 0, 0755, $(LTT_CONTROL_DIR)/lttctl/lttctl, /usr/bin/lttctl)
 	@$(call install_copy, ltt-control, 0, 0, 0755, $(LTT_CONTROL_DIR)/lttd/lttd, /usr/bin/lttd)
 
 	@$(call install_copy, ltt-control, 0, 0, 0644, \
@@ -121,10 +121,6 @@ $(STATEDIR)/ltt-control.targetinstall: $(ltt-control_targetinstall_deps_default)
 		/usr/lib/liblttctl.so.0.0.0)
 	@$(call install_link, ltt-control, liblttctl.so.0.0.0, /usr/lib/liblttctl.so)
 	@$(call install_link, ltt-control, liblttctl.so.0.0.0, /usr/lib/liblttctl.so.0)
-
-	@for i in $(LTT_CONTROL_DIR)/facilities/*; do \
-		$(call install_copy, ltt-control, 0, 0, 0644, $$i, /usr/share/ltt-control/facilities/$$(basename $$i), 0); \
-	done
 
 	@$(call install_finish, ltt-control)
 
