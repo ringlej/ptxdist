@@ -813,7 +813,7 @@ newpacket() {
 	year="$(date +%Y)"
 
 	for template_suffix in "make" "in"; do
-		template_file="${RULESDIR}/${template}-${template_suffix}"
+		template_file="${TEMPLATESDIR}/${template}-${template_suffix}"
 		filename="${class}${packet_filename}.${template_suffix}"
 
 		if [ ! -f "${template_file}" ]; then
