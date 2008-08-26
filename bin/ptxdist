@@ -728,33 +728,6 @@ newpacket() {
 	    template template_file template_suffix packet_filename packet_name packet PACKET packetdash filename \
 	    class CLASS autoconf_class
 
-	case $1 in
-	target|host|host-existing-target|cross|cross-existing-target|source|kernel_driver|font|simple)
-		;;
-	*)
-		echo
-		echo "${PROMPT}error: illegal packet type: $1"
-		echo "must be one of host, host-existing-target, target,"
-		echo "cross, cross-existing-target, source, kernel_driver, font, simple"
-		echo
-		exit 1
-		;;
-	esac
-
-	echo
-	echo "${PROMPT}creating a new packet:"
-	echo
-	echo -n "${PROMPT}enter packet name.......: "
-	read packet_name
-	echo -n "${PROMPT}enter version number....: "
-	read version
-	echo -n "${PROMPT}enter URL of basedir....: "
-	read url
-	echo -n "${PROMPT}enter packet author.....: "
-	read author
-	echo -n "${PROMPT}enter suffix............: "
-	read suffix
-
 	case "$1" in
 	target)
 		template=template
@@ -801,7 +774,29 @@ newpacket() {
 		class=
 		autoconf_class=
 		;;
+	*)
+		echo
+		echo "${PROMPT}error: illegal packet type: $1"
+		echo "must be one of host, host-existing-target, target,"
+		echo "cross, cross-existing-target, source, kernel_driver, font, simple"
+		echo
+		exit 1
+		;;
 	esac
+
+	echo
+	echo "${PROMPT}creating a new packet:"
+	echo
+	echo -n "${PROMPT}enter packet name.......: "
+	read packet_name
+	echo -n "${PROMPT}enter version number....: "
+	read version
+	echo -n "${PROMPT}enter URL of basedir....: "
+	read url
+	echo -n "${PROMPT}enter packet author.....: "
+	read author
+	echo -n "${PROMPT}enter suffix............: "
+	read suffix
 
 	packet_filename="${packet_name}"
 
