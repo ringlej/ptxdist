@@ -8,8 +8,8 @@ ptx_init \%2
 
 ptx_uboot_enter_shell
 
-ptx_uboot_exec_single "Flashing kernel" "run prg_kernel" 300
-ptx_uboot_exec_single "Flashing oftree" "run prg_oftree" 10
-#ptx_uboot_exec_single "Flashing jffs2" "run prg_jffs2" 600
+ptx_uboot_exec_single "Flashing kernel" 300 "run prg_kernel"
+ptx_uboot_exec_single "Flashing oftree" 10 "run prg_oftree"
+ptx_uboot_exec_single "Flashing jffs2" 600 "run prg_jffs2"
 
 ptx_exit

@@ -1,15 +1,7 @@
 #!/usr/bin/kermit +
 
-#Read the library
+# Read the library
 take \%1
-
-#Set up the line
-ptx_init \%2
-
-ptx_uboot_enter_shell
-
-ptx_test_start "Setting new environment"
-ptx_uboot_exec "printenv" 10
 
 open read \%3
 if failure {
@@ -17,16 +9,26 @@ if failure {
 	exit 1
 }
 
+# Set up the line
+ptx_init \%2
+
+ptx_uboot_enter_shell
+
+ptx_test_start "Setting new environment"
+
+# Print out old environment (for debugging)
+ptx_uboot_exec 10 "printenv"
+
 while true {
 	read \%l
 	if fail break
-	ptx_uboot_exec "\%l" 5
+	ptx_uboot_exec 5 "\%l"
 }
 
 close read
 
-ptx_uboot_exec "printenv"
-#ptx_uboot_exec "saveenv"
+ptx_uboot_exec 5 "printenv"
+ptx_uboot_exec 10 "saveenv"
 ptx_test_end
 
 ptx_exit

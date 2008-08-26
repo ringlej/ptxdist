@@ -22,11 +22,6 @@ define ptx_init {
         writeln ERROR "Please power on your board now!"
         writeln ERROR "==============================="
         writeln ERROR
-
-	.uboot_version := 1
-	.uboot_prompt := "uboot> "
-	.wait_time_default := 300
-
 }
 
 define ptx_exit {
@@ -36,6 +31,7 @@ define ptx_exit {
 }
 
 define ptx_test_start {
+
 	#do padding with '.'
 	write ERROR "\frpad(\%1,40,.)"
 }
@@ -47,14 +43,9 @@ define ptx_test_end {
 
 define ptx_wait_string {
 
-	if def \%2 {
-		.wait_time := \%2
-	} else {
-		.wait_time := \m(wait_time_default)
-	}
-        input \m(wait_time) \%1
+        input \%1 \%2
         if failure {
-	        writeln ERROR "FAILED! (waiting for '\%1')"
+	        writeln ERROR "FAILED! (waiting for '\%2')"
         	exit 1
         }
 }
@@ -62,23 +53,23 @@ define ptx_wait_string {
 define ptx_uboot_enter_shell {
 
 	ptx_test_start "Logging into U-Boot"
-	ptx_wait_string "U-Boot" 120
+	minput 120 "U-Boot 1" "U-Boot 2"
+        if failure {
+	        writeln ERROR "FAILED! (waiting for u-boot-signature)"
+        	exit 1
+        }
 	lineout
-	ptx_wait_string \m(uboot_prompt) 10
+	.uboot_version := \v(minput)
+	ptx_wait_string 10 "\m(PTXCONF_BOARDSETUP_UBOOTPROMPT)"
 	ptx_test_end
 }
 
 define ptx_uboot_exec {
 
-	if def \%2 {
-		.wait_time := \%2
-	} else {
-		.wait_time := \m(wait_time_default)
-	}
-	lineout "\%1"
-	input \m(wait_time) \m(uboot_prompt)
+	lineout "\%2"
+	input \%1 \m(PTXCONF_BOARDSETUP_UBOOTPROMPT)
 	if failure {
-		writeln ERROR "FAILED! (timeout while waiting for shell prompt after \%1)"
+		writeln ERROR "FAILED! (timeout while waiting for u-boot prompt after \%2)"
 		exit 1
 	}
 
@@ -87,24 +78,24 @@ define ptx_uboot_exec {
 		input 10 \fpattern(k-res:0$)
 
 		if failure {
-			writeln ERROR "FAILED! (returncode from \%1 is not 0)"
+			writeln ERROR "FAILED! (returncode from \%2 is not 0)"
 			exit 1
 		}
 
-		input 10 \m(uboot_prompt)
+		input 10 \m(PTXCONF_BOARDSETUP_UBOOTPROMPT)
 	}
 }
 
 define ptx_uboot_exec_single {
 
 	ptx_test_start "\%1"
-	ptx_uboot_exec "\%2" \%3
+	ptx_uboot_exec "\%2" "\%3"
 	ptx_test_end
 }
 
 define ptx_wait_string_single {
 
         ptx_test_start "\%1"
-	ptx_wait_string "\%2" \%3
+	ptx_wait_string "\%2" "\%3"
 	ptx_test_end
 }
