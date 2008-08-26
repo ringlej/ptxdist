@@ -20,7 +20,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_CKERMIT) += host-ckermit
 HOST_CKERMIT_VERSION	:= 211
 HOST_CKERMIT		:= cku$(HOST_CKERMIT_VERSION)
 HOST_CKERMIT_SUFFIX	:= tar.gz
-HOST_CKERMIT_URL	:= ftp://kermit.columbia.edu/kermit/archives/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
+# Upstream host does connect but not respond to commands :( (ftp://kermit.columbia.edu/kermit/archives/)
+HOST_CKERMIT_URL	:= ftp://ftp.tu-clausthal.de/pub/linux/gentoo/distfiles/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
 HOST_CKERMIT_SOURCE	:= $(SRCDIR)/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
 HOST_CKERMIT_DIR	:= $(HOST_BUILDDIR)/$(HOST_CKERMIT)
 
