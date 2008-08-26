@@ -1,6 +1,5 @@
 menuconfig INETUTILS
 	tristate
-	depends on !BB_CONFIG_SYSLOGD
 	prompt "inetutils                     "
 	help
 	  Inetutils is a collection of common network programs. It includes:
