@@ -90,7 +90,7 @@ $(STATEDIR)/libmd.install:
 	@$(call targetinfo)
 	cd $(LIBMD_DIR) && \
 		$(LIBMD_PATH) $(LIBMD_ENV) \
-		make BUILDROOT=$(PTXCONF_SYSROOT_TARGET) $(LIBMD_COMPILECONF) \
+		$(FAKEROOT) make BUILDROOT=$(PTXCONF_SYSROOT_TARGET) $(LIBMD_COMPILECONF) \
 		install
 	@$(call touch)
 
