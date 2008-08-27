@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_LTP_BASE) += ltp_base
 #
 # Paths and names
 #
-LTP_BASE_VERSION	= 20080331
+LTP_BASE_VERSION	= 20080731
 LTP_BASE		= ltp-full-$(LTP_BASE_VERSION)
 LTP_BASE_SUFFIX		= tgz
-LTP_BASE_URL		= $(PTXCONF_SETUP_SFMIRROR)/ltp_base/$(LTP_BASE).$(LTP_BASE_SUFFIX)
+LTP_BASE_URL		= $(PTXCONF_SETUP_SFMIRROR)/ltp/$(LTP_BASE).$(LTP_BASE_SUFFIX)
 LTP_BASE_SOURCE		= $(SRCDIR)/$(LTP_BASE).$(LTP_BASE_SUFFIX)
 LTP_BASE_DIR		= $(BUILDDIR)/$(LTP_BASE)
 LTP_BASE_BIN_DIR	= /usr/bin/ltp
@@ -59,7 +59,7 @@ $(STATEDIR)/ltp_base.extract: $(ltp_base_extract_deps_default)
 ltp_base_prepare: $(STATEDIR)/ltp_base.prepare
 
 LTP_BASE_PATH	=  PATH=$(CROSS_PATH)
-LTP_BASE_ENV 	=  $(CROSS_ENV) LDFLAGS="-L$(LTP_BASE_DIR)/lib"
+LTP_ENV 	=  $(CROSS_ENV) LDFLAGS="-L$(LTP_BASE_DIR)/lib"
 
 $(STATEDIR)/ltp_base.prepare: $(ltp_base_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -73,7 +73,7 @@ ltp_base_compile: $(STATEDIR)/ltp_base.compile
 
 $(STATEDIR)/ltp_base.compile: $(ltp_base_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(LTP_BASE_DIR); $(LTP_BASE_ENV) $(MAKE) $(PARALLELMFLAGS) libltp.a
+	cd $(LTP_BASE_DIR); $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) libltp.a
 
 #	CROSS_COMPILER=$(PTXDIST_WORKSPACE)/.toolchain/$(PTXCONF_COMPILER_PREFIX) \
 #	make CROSS_CFLAGS="" LDFLAGS="-static -L$(LTP_BASE_DIR)/lib" \
