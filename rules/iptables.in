@@ -56,13 +56,6 @@ config IPTABLES_INSTALL_libipt_ah
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_CLASSIFY
-	bool
-	prompt "install libipt_CLASSIFY.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
 config IPTABLES_INSTALL_libipt_CLUSTERIP
 	bool
 	depends on BROKEN
@@ -71,38 +64,10 @@ config IPTABLES_INSTALL_libipt_CLUSTERIP
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_comment
-	bool
-	prompt "install libipt_comment.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
 config IPTABLES_INSTALL_libipt_connbytes
 	bool
 	depends on BROKEN
 	prompt "install libipt_connbytes.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_connmark
-	bool
-	prompt "install libipt_connmark.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_CONNMARK
-	bool
-	prompt "install libipt_CONNMARK.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_conntrack
-	bool
-	prompt "install libipt_conntrack.so"
 	depends on IPTABLES_INSTALL_IPTABLES
 	help
 	  FIXME: This item needs to be documented
@@ -130,20 +95,6 @@ config IPTABLES_INSTALL_libipt_DNAT
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_dscp
-	bool
-	prompt "install libipt_dscp.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_DSCP
-	bool
-	prompt "install libipt_DSCP.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
 config IPTABLES_INSTALL_libipt_ecn
 	bool
 	prompt "install libipt_ecn.so"
@@ -158,27 +109,6 @@ config IPTABLES_INSTALL_libipt_ECN
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_esp
-	bool
-	prompt "install libipt_esp.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_hashlimit
-	bool
-	prompt "install libipt_hashlimit.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_helper
-	bool
-	prompt "install libipt_helper.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
 config IPTABLES_INSTALL_libipt_icmp
 	bool
 	prompt "install libipt_icmp.so"
@@ -186,51 +116,9 @@ config IPTABLES_INSTALL_libipt_icmp
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_iprange
-	bool
-	prompt "install libipt_iprange.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_length
-	bool
-	prompt "install libipt_length.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_limit
-	bool
-	prompt "install libipt_limit.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
 config IPTABLES_INSTALL_libipt_LOG
 	bool
 	prompt "install libipt_LOG.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_mac
-	bool
-	prompt "install libipt_mac.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_mark
-	bool
-	prompt "install libipt_mark.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_MARK
-	bool
-	prompt "install libipt_MARK.so"
 	depends on IPTABLES_INSTALL_IPTABLES
 	help
 	  FIXME: This item needs to be documented
@@ -249,13 +137,6 @@ config IPTABLES_INSTALL_libipt_MIRROR
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_multiport
-	bool
-	prompt "install libipt_multiport.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
 config IPTABLES_INSTALL_libipt_NETMAP
 	bool
 	prompt "install libipt_NETMAP.so"
@@ -267,41 +148,6 @@ config IPTABLES_INSTALL_libipt_NFLOG
 	bool
 	depends on BROKEN
 	prompt "install libipt_NFLOG.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_NFQUEUE
-	bool
-	prompt "install libipt_NFQUEUE.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_NOTRACK
-	bool
-	prompt "install libipt_NOTRACK.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_owner
-	bool
-	prompt "install libipt_owner.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_physdev
-	bool
-	prompt "install libipt_physdev.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_pkttype
-	bool
-	prompt "install libipt_pkttype.so"
 	depends on IPTABLES_INSTALL_IPTABLES
 	help
 	  FIXME: This item needs to be documented
@@ -357,30 +203,9 @@ config IPTABLES_INSTALL_libipt_SAME
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_sctp
-	bool
-	prompt "install libipt_sctp.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
 config IPTABLES_INSTALL_libipt_SNAT
 	bool
 	prompt "install libipt_SNAT.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_standard
-	bool
-	prompt "install libipt_standard.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_state
-	bool
-	prompt "install libipt_state.so"
 	depends on IPTABLES_INSTALL_IPTABLES
 	help
 	  FIXME: This item needs to be documented
@@ -400,41 +225,6 @@ config IPTABLES_INSTALL_libipt_string
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libipt_tcpmss
-	bool
-	prompt "install libipt_tcpmss.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_TCPMSS
-	bool
-	prompt "install libipt_TCPMSS.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_tcp
-	bool
-	prompt "install libipt_tcp.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_tos
-	bool
-	prompt "install libipt_tos.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_TOS
-	bool
-	prompt "install libipt_TOS.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
 config IPTABLES_INSTALL_libipt_ttl
 	bool
 	prompt "install libipt_ttl.so"
@@ -445,13 +235,6 @@ config IPTABLES_INSTALL_libipt_ttl
 config IPTABLES_INSTALL_libipt_TTL
 	bool
 	prompt "install libipt_TTL.so"
-	depends on IPTABLES_INSTALL_IPTABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libipt_udp
-	bool
-	prompt "install libipt_udp.so"
 	depends on IPTABLES_INSTALL_IPTABLES
 	help
 	  FIXME: This item needs to be documented
@@ -476,20 +259,6 @@ config IPTABLES_INSTALL_libip6t_ah
 	bool
 	depends on BROKEN
 	prompt "install libip6t_ah.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_connmark
-	bool
-	prompt "install libip6t_connmark.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_CONNMARK
-	bool
-	prompt "install libip6t_CONNMARK.so"
 	depends on IPTABLES_INSTALL_IP6TABLES
 	help
 	  FIXME: This item needs to be documented
@@ -554,44 +323,9 @@ config IPTABLES_INSTALL_libip6t_ipv6header
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libip6t_length
-	bool
-	prompt "install libip6t_length.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_limit
-	bool
-	prompt "install libip6t_limit.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
 config IPTABLES_INSTALL_libip6t_LOG
 	bool
 	prompt "install libip6t_LOG.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_mac
-	bool
-	prompt "install libip6t_mac.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_mark
-	bool
-	prompt "install libip6t_mark.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_MARK
-	bool
-	prompt "install libip6t_MARK.so"
 	depends on IPTABLES_INSTALL_IP6TABLES
 	help
 	  FIXME: This item needs to be documented
@@ -604,38 +338,10 @@ config IPTABLES_INSTALL_libip6t_mh
 	help
 	  FIXME: This item needs to be documented
 
-config IPTABLES_INSTALL_libip6t_multiport
-	bool
-	prompt "install libip6t_multiport.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
 config IPTABLES_INSTALL_libip6t_NFLOG
 	bool
 	depends on BROKEN
 	prompt "install libip6t_NFLOG.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_NFQUEUE
-	bool
-	prompt "install libip6t_NFQUEUE.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_owner
-	bool
-	prompt "install libip6t_owner.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_physdev
-	bool
-	prompt "install libip6t_physdev.so"
 	depends on IPTABLES_INSTALL_IP6TABLES
 	help
 	  FIXME: This item needs to be documented
@@ -667,41 +373,6 @@ config IPTABLES_INSTALL_libip6t_sctp
 	bool
 	depends on BROKEN
 	prompt "install libip6t_sctp.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_standard
-	bool
-	prompt "install libip6t_standard.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_state
-	bool
-	prompt "install libip6t_state.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_TCPMSS
-	bool
-	prompt "install libip6t_TCPMSS.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_tcp
-	bool
-	prompt "install libip6t_tcp.so"
-	depends on IPTABLES_INSTALL_IP6TABLES
-	help
-	  FIXME: This item needs to be documented
-
-config IPTABLES_INSTALL_libip6t_udp
-	bool
-	prompt "install libip6t_udp.so"
 	depends on IPTABLES_INSTALL_IP6TABLES
 	help
 	  FIXME: This item needs to be documented
