@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 #
 # Paths and names
 #
-PHP5_VERSION	:= 5.1.6
+PHP5_VERSION	:= 5.2.4
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
 PHP5_URL	:= http://museum.php.net/php5/$(PHP5).$(PHP5_SUFFIX)
