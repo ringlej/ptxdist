@@ -63,7 +63,7 @@ $(STATEDIR)/tslib.targetinstall:
 	@$(call install_fixup, tslib,DEPENDS,)
 	@$(call install_fixup, tslib,DESCRIPTION,missing)
 
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/src/.libs/libts-0.0.so.0.1.1, /usr/lib/libts-0.0.so.0.1.1)
+	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/src/.libs/libts-0.0.so.0.1.1, /usr/lib/libts-0.0.so.0.1.1)
 	@$(call install_link, tslib, libts-0.0.so.0.1.1, /usr/lib/libts.so)
 	@$(call install_link, tslib, libts-0.0.so.0.1.1, /usr/lib/libts-0.0.so.0)
 
@@ -74,11 +74,11 @@ ifdef PTXCONF_TSLIB_TS_TEST
 	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/ts_test, /usr/bin/ts_test)
 endif
 
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/input.so, /usr/lib/ts/input.so)
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/pthres.so, /usr/lib/ts/pthres.so)
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/variance.so, /usr/lib/ts/variance.so)
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/dejitter.so, /usr/lib/ts/dejitter.so)
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/plugins/.libs/linear.so, /usr/lib/ts/linear.so)
+	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/plugins/.libs/input.so, /usr/lib/ts/input.so)
+	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/plugins/.libs/pthres.so, /usr/lib/ts/pthres.so)
+	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/plugins/.libs/variance.so, /usr/lib/ts/variance.so)
+	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/plugins/.libs/dejitter.so, /usr/lib/ts/dejitter.so)
+	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/plugins/.libs/linear.so, /usr/lib/ts/linear.so)
 
 	@$(call install_finish, tslib)
 
