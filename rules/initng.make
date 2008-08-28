@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_INITNG) += initng
 #
 # Paths and names
 #
-INITNG_VERSION	:= 0.6.7
+INITNG_VERSION	:= 0.6.10.2
 INITNG		:= initng-$(INITNG_VERSION)
 INITNG_SUFFIX	:= tar.bz2
 INITNG_URL	:= http://download.initng.org/initng/v0.6/$(INITNG).$(INITNG_SUFFIX)
@@ -67,7 +67,10 @@ INITNG_ENV 	:=  $(CROSS_ENV)
 INITNG_CMAKE	:= \
 	-DCMAKE_SKIP_RPATH=ON \
 	-DCMAKE_USE_RELATIVE_PATHS=OFF \
-	-DCMAKE_VERBOSE_MAKEFILE=ON
+	-DCMAKE_VERBOSE_MAKEFILE=ON \
+	-DDEBUG=OFF \
+	-DBUILD_EVENT=ON
+
 #INITNG_CMAKE	+= -DCMAKE_AR=$(CROSS_AR)
 #INITNG_CMAKE	+= -DCMAKE_CXX_COMPILER=$(CROSS_CXX)
 #INITNG_CMAKE	+= -DCMAKE_CXX_FLAGS="$(CROSS_CPPFLAGS) $(CROSS_CXXFLAGS)"
@@ -400,7 +403,7 @@ initng_compile: $(STATEDIR)/initng.compile
 
 $(STATEDIR)/initng.compile: $(initng_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(INITNG_DIR)/build/ && $(INITNG_PATH) make
+	cd $(INITNG_DIR)/build/ && $(INITNG_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -411,7 +414,8 @@ initng_install: $(STATEDIR)/initng.install
 
 $(STATEDIR)/initng.install: $(initng_install_deps_default)
 	@$(call targetinfo, $@)
-	cd $(INITNG_DIR)/build/ && $(INITNG_PATH) make install DESTDIR=$(SYSROOT)
+	cd $(INITNG_DIR)/build/ && \
+		$(INITNG_PATH) $(MAKE) install DESTDIR=$(SYSROOT)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -439,6 +443,8 @@ $(STATEDIR)/initng.targetinstall: $(initng_targetinstall_deps_default)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/runlevel/librunlevel.so, /lib/initng/librunlevel.so)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/daemon/libdaemon.so, /lib/initng/libdaemon.so)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/service/libservice.so, /lib/initng/libservice.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/lockfile/liblockfile.so, /lib/initng/liblockfile.so)
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/sysreq/libsysreq.so, /lib/initng/libsysreq.so)
 
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/src/initng, /sbin/initng)
 
@@ -454,6 +460,10 @@ ifdef PTXCONF_INITNG_NGCS
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngcs/libngcs_common.so.0.0.0, /lib/libngcs_common.so.0.0.0)
 	@$(call install_link, initng, libngcs_common.so.0.0.0, /lib/libngcs_common.so.0)
 	@$(call install_link, initng, libngcs_common.so.0.0.0, /lib/libngcs_common.so)
+
+	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/ngcs/libngcs_client.so.0.0.0, /lib/libngcs_client.so.0.0.0)
+	@$(call install_link, initng, libngcs_client.so.0.0.0, /lib/libngcs_client.so.0)
+	@$(call install_link, initng, libngcs_client.so.0.0.0, /lib/libngcs_client.so)
 endif
 
 ifdef PTXCONF_INITNG_NGC4
