@@ -1,0 +1,29 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: util-linux-ng: mount, umount and swapon need libuuid
+
+Configure checks for libuuid and makes it mandatory, but the functions
+that use it forget to link against it.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ mount/Makefile.am |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+Index: util-linux-ng-2.14.1-rc2/mount/Makefile.am
+===================================================================
+--- util-linux-ng-2.14.1-rc2.orig/mount/Makefile.am
++++ util-linux-ng-2.14.1-rc2/mount/Makefile.am
+@@ -36,9 +36,9 @@ losetup_SOURCES = lomount.c sundries.c x
+ losetup_CPPFLAGS = -DMAIN $(AM_CPPFLAGS)
+ 
+ 
+-mount_LDADD = $(LDADD_common)
+-umount_LDADD = $(LDADD_common)
+-swapon_LDADD = $(LDADD_common)
++mount_LDADD = $(LDADD_common) -luuid
++umount_LDADD = $(LDADD_common) -luuid
++swapon_LDADD = $(LDADD_common) -luuid
+ 
+ LDADD_common =
+ LDADD_common_static =
