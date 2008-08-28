@@ -4,6 +4,7 @@ menuconfig LIBPV
 	select LIBLIST
 	select LIBC_PTHREAD
 	select LIBXMLCONFIG
+	select PYTHON24 if LIBPV_PYTHON
 	select LIBMQUEUE if LIBPV_NEEDS_LIBMQUEUE
 	help
 	  libpv.so is a library that implements a user space shared memory for
@@ -37,7 +38,6 @@ config LIBPV_NEEDS_LIBMQUEUE
 config LIBPV_PYTHON
 	bool
 	prompt "Python bindings"
-	select PYTHON24
 	help
 	  FIXME: This item needs to be documented
 
