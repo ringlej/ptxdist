@@ -1,8 +1,16 @@
 #!/bin/bash
 
 OURDIR="$(dirname $0)"
-KSCRIPT="${OURDIR}/$1.kermit"
 LIB="${OURDIR}/libptxdisttest.kermit"
+
+KSCRIPT="${PTXDIST_WORKSPACE}/tests/$1.kermit"
+if [ ! -e $KSCRIPT ]; then
+	KSCRIPT="${OURDIR}/$1.kermit"
+	if [ ! -e $KSCRIPT ]; then
+		echo "No kermit-script for $1 found!"
+		exit 1
+	fi
+fi
 
 if [ ! -e "${PTXDIST_BOARDSETUP}" ]; then
 	echo "Please run 'ptxdist boardsetup' first!"
@@ -17,5 +25,5 @@ fi
 TMPFILE=$(mktemp -t ptxdist-kwrapper.XXXXXXXX)
 #we _must_ set the variables in kermit using 'define'! '.' has a bug there (patch already mainlined).
 sed -e 's/^\(PTXCONF_BOARDSETUP_[A-Z0-9_]*\)=/define \1 /' ${PTXDIST_BOARDSETUP} >$TMPFILE
-$KSCRIPT ${LIB} $TMPFILE $2
+$KSCRIPT ${LIB} $TMPFILE $2 $3 $4 $5 $6 $7 $8 $9
 rm -f $TMPFILE
