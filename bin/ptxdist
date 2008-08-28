@@ -1450,15 +1450,16 @@ parse_second()
 			check_ptxconfig || return
 
 			if [ -z "$1" ]; then
-				echo "No test given. try ptxdist test help for a list of available tests"
+			#	echo "No test given. try ptxdist test help for a list of available tests"
+				echo "No test given."
 				exit 1
 			fi
-			if [ "$1" = help ]; then
-				# FIXME
-				echo "available tests:"
-				find $PTXDIST_WORKSPACE/tests -maxdepth 1 -type f -exec basename {} \;
-				exit 0
-			fi
+			#if [ "$1" = help ]; then
+			#	# FIXME
+			#	echo "available tests:"
+			#	find $PTXDIST_WORKSPACE/tests -maxdepth 1 -type f -exec basename {} \;
+			#	exit 0
+			#fi
 
 			for tst in \
 				"${PTXDIST_WORKSPACE}/tests/${1}${PTXDIST_PLATFORMSUFFIX}" \
