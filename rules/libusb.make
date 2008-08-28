@@ -28,34 +28,13 @@ LIBUSB_DIR	:= $(BUILDDIR)/$(LIBUSB)
 # Get
 # ----------------------------------------------------------------------------
 
-libusb_get: $(STATEDIR)/libusb.get
-
-$(STATEDIR)/libusb.get: $(libusb_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBUSB_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBUSB)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libusb_extract: $(STATEDIR)/libusb.extract
-
-$(STATEDIR)/libusb.extract: $(libusb_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBUSB_DIR))
-	@$(call extract, LIBUSB)
-	@$(call patchin, LIBUSB)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-libusb_prepare: $(STATEDIR)/libusb.prepare
 
 LIBUSB_PATH	:= PATH=$(CROSS_PATH)
 LIBUSB_ENV 	:= $(CROSS_ENV)
@@ -71,61 +50,29 @@ else
 LIBUSB_AUTOCONF += --disable-build-docs
 endif
 
-$(STATEDIR)/libusb.prepare: $(libusb_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBUSB_DIR)/config.cache)
-	cd $(LIBUSB_DIR) && \
-		$(LIBUSB_PATH) $(LIBUSB_ENV) \
-		./configure $(LIBUSB_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libusb_compile: $(STATEDIR)/libusb.compile
-
-$(STATEDIR)/libusb.compile: $(libusb_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBUSB_DIR) && $(LIBUSB_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libusb_install: $(STATEDIR)/libusb.install
-
-$(STATEDIR)/libusb.install: $(libusb_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBUSB)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libusb_targetinstall: $(STATEDIR)/libusb.targetinstall
-
-$(STATEDIR)/libusb.targetinstall: $(libusb_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libusb.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, libusb)
 	@$(call install_fixup, libusb,PACKAGE,libusb)
 	@$(call install_fixup, libusb,PRIORITY,optional)
 	@$(call install_fixup, libusb,VERSION,$(LIBUSB_VERSION))
 	@$(call install_fixup, libusb,SECTION,base)
-	@$(call install_fixup, libusb,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libusb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libusb,DEPENDS,)
 	@$(call install_fixup, libusb,DESCRIPTION,missing)
 
-	@$(call install_copy, libusb, 0, 0, 0755, $(LIBUSB_DIR)/.libs/libusb-0.1.so.4.4.4, /usr/lib/libusb-0.1.so.4.4.4 )
+	@$(call install_copy, libusb, 0, 0, 0644, $(LIBUSB_DIR)/.libs/libusb-0.1.so.4.4.4, /usr/lib/libusb-0.1.so.4.4.4 )
 	@$(call install_link, libusb, libusb-0.1.so.4.4.4, /usr/lib/libusb-0.1.so.4)
 	@$(call install_link, libusb, libusb-0.1.so.4.4.4, /usr/lib/libusb.so)
 
 	@$(call install_finish, libusb)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
