@@ -166,17 +166,17 @@ ifdef PTXCONF_ALSA_LIB_FULL
 
 ifdef PTXCONF_ALSA_LIB_MIXER
 	@$(call install_copy, alsa-lib, \
-		0, 0, 0755, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-ac97.so, \
+		0, 0, 0644, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-ac97.so, \
 		/lib/alsa-lib/smixer/smixer-ac97.so )
 endif
 
 ifdef PTXCONF_ALSA_LIB_MIXER
 	@$(call install_copy, alsa-lib, \
-		0, 0, 0755, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-sbase.so, \
+		0, 0, 0644, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-sbase.so, \
 		/lib/alsa-lib/smixer/smixer-sbase.so )
 
 	@$(call install_copy, alsa-lib, \
-		0, 0, 0755, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-hda.so, \
+		0, 0, 0644, $(ALSA_LIB_DIR)/modules/mixer/simple/.libs/smixer-hda.so, \
 		/lib/alsa-lib/smixer/smixer-hda.so )
 endif
 
