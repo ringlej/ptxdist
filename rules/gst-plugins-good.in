@@ -3,6 +3,7 @@ config GST_PLUGINS_GOOD
 	select GLIB
 	select LIBOIL
 	select GSTREAMER
+	select GST_PLUGINS_BASE
 	prompt "gst-plugins-good"
 	help
 	  FIXME
