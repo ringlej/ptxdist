@@ -135,6 +135,7 @@ check_version() {
 	ptxdist_micro=$(echo $ptxdist | awk -F. '{print $3}')
 	config_micro=$(echo $config | awk -F. '{print $3}')
 	[ -z "$config_micro" ] && return 0
+	[ "$config_micro" = "svn" ] && [ "$ptxdist_micro" != "svn" ] && return 1
 	[ "$ptxdist_micro" = "svn" ] && return 0
 	[ "$ptxdist_micro" -lt "$config_micro" ] && return 1
 
