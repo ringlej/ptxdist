@@ -1,0 +1,182 @@
+menuconfig GPSD
+	tristate
+	select NCURSES if GPSD_CGPS
+	select NCURSES if GPSD_SIFRMON
+	prompt "gpsd"
+	help
+	  gpsd is a daemon that listens to a GPS or Loran receiver
+	  and translates the positional data into a simplified format
+	  that can be more easily used by other programs, like chart plotters.
+	  The package comes with a sample client that plots the location
+	  of the currently visible GPS satellites (if available)
+	  and a speedometer. It can also use DGPS/ip.
+
+if GPSD
+
+config GPSD_PYTHON_BINDINGS
+	bool
+	prompt "python bindings"
+	depends on BROKEN
+	select PYTHON24
+	help
+	  Enables the python bindings.
+
+config GPSD_PROFILING
+	bool
+	prompt "enable profiling"
+
+config GPSD_NTPSHM
+	bool
+	prompt "ntpshm"
+
+config GPSD_PPS
+	bool
+	prompt "pps"
+
+config GPSD_PPS_ON_CTS
+	bool
+	prompt "pps_on_cts"
+
+config GPSD_USER
+	string
+	default "root"
+	prompt "gpsd user"
+	help
+	  This user is used for privilege separation.
+
+config GPSD_FIXED_PORT_SPEED
+	string
+	prompt "fixed port speed"
+
+config GPSD_DBUS
+	bool
+	prompt "dbus bindings"
+
+config GPSD_MAX_CLIENTS
+	string
+	prompt "max clients"
+
+config GPSD_MAX_DEVICES
+	string
+	prompt "max devices"
+
+menu "drivers"
+
+	config GPSD_DRIVER_NMEA
+		bool
+		prompt "nmea"
+
+	config GPSD_DRIVER_SIRF
+		bool
+		prompt "sirf"
+
+	config GPSD_DRIVER_TSIP
+		bool
+		prompt "tsip"
+
+	config GPSD_DRIVER_VF18
+		bool
+		prompt "vf18"
+
+	config GPSD_DRIVER_TRIPMATE
+		bool
+		prompt "tripmate"
+
+	config GPSD_DRIVER_EARTHMATE
+		bool
+		prompt "earthmate"
+
+	config GPSD_DRIVER_ITRAX
+		bool
+		prompt "itrax"
+
+	config GPSD_DRIVER_ASHTECH
+		bool
+		prompt "ashtech"
+
+	config GPSD_DRIVER_NAVCOM
+		bool
+		prompt "navcom"
+
+	config GPSD_DRIVER_GARMIN
+		bool
+		prompt "garmin"
+
+	config GPSD_DRIVER_GARMINTXT
+		bool
+		prompt "garmintxt"
+
+	config GPSD_DRIVER_TNT
+		bool
+		prompt "tnt"
+
+	config GPSD_DRIVER_UBX
+		bool
+		prompt "ubx"
+
+	config GPSD_DRIVER_EVERMORE
+		bool
+		prompt "evermore"
+
+	config GPSD_DRIVER_GPSCLOCK
+		bool
+		prompt "gpsclock"
+
+	config GPSD_DRIVER_RTCM104
+		bool
+		prompt "rtcm104"
+
+	config GPSD_DRIVER_NTRIP
+		bool
+		prompt "ntrip"
+
+endmenu
+
+menu "install options"
+
+	config GPSD_GPSD
+		bool
+		prompt "gpsd"
+		help
+		  FIXME
+
+	config GPSD_GPSCTL
+		bool
+		prompt "gpsctl"
+		help
+		  FIXME
+
+	config GPSD_GPSPIPE
+		bool
+		prompt "gpspipe"
+		help
+		  FIXME
+
+	config GPSD_GPSFLASH
+		bool
+		prompt "gpsflash"
+		help
+		  FIXME
+
+	config GPSD_CGPXLOGGER
+		bool
+		prompt "cgpxlogger"
+		help
+		  FIXME
+
+	config GPSD_CGPS
+		bool
+		prompt "cgps"
+		help
+		  FIXME
+
+	config GPSD_SIRFMON
+		bool
+		prompt "sirfmon"
+		select NCURSES
+		help
+		  FIXME
+endmenu
+
+endif
+
