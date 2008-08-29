@@ -124,22 +124,22 @@ check_version() {
 
 	ptxdist_major=$(echo $ptxdist | awk -F. '{print $1}')
 	config_major=$(echo $config | awk -F. '{print $1}')
-	[ "$ptxdist_major" != "$config_major" ] && return 1
+	[ "${ptxdist_major}" != "${config_major}" ] && return 1
 
 	ptxdist_minor=$(echo $ptxdist | awk -F. '{print $2}')
 	config_minor=$(echo $config | awk -F. '{print $2}')
-	[ -z "$config_minor" ] && return 0
-	[ "$ptxdist_minor" = "svn" ] && return 0
-	[ "$ptxdist_minor" != "$config_minor" ] && return 1
+	[ "${config_minor}" != "${ptxdist_minor}" ] && return 1
 
 	ptxdist_micro=$(echo $ptxdist | awk -F. '{print $3}')
 	config_micro=$(echo $config | awk -F. '{print $3}')
-	[ -z "$config_micro" ] && return 0
-	[ "$config_micro" = "svn" ] && [ "$ptxdist_micro" != "svn" ] && return 1
-	[ "$ptxdist_micro" = "svn" ] && return 0
-	[ "$ptxdist_micro" -lt "$config_micro" ] && return 1
+	[ "${config_micro}" = "${ptxdist_micro}" ] && return 0
 
-	return 0
+	# fail if one is "svn"
+	if [ ${ptxdist_micro} -ge ${config_micro} ] >/dev/null 2>&1; then
+		return 0
+	fi
+
+	return 1
 }
 
 
@@ -185,7 +185,7 @@ check_ptxconfig() {
 	local configfile_version="$(ptxd_get_ptxconf PTXCONF_CONFIGFILE_VERSION)"
 
 	check_version "${FULLVERSION}" "${configfile_version}"
-	if [ ${?} -ne 0 ]; then
+	if [ ${?} -ne 0 -a -z "${PTX_FORCE}" ]; then
 		ptxd_dialog_msgbox \
 			"error: The configfile version and ptxdist version do not match:\n" \
 			"\n" \
@@ -586,8 +586,8 @@ Overwrite:
   --ptxconfig			use sepcified ptxconfig
   --platformconfig		use specified platformconfig
   --toolchain			use specified toolchain
-  --force-config		select config even if MOJO is missing
-
+  --force			select config even if MOJO is missing
+                                or versions do not match
 Misc:
 
   --version			print out ptxdist version
@@ -911,8 +911,8 @@ parse_first()
 		-d|--debug)
 			PTX_MAKE_DBG="--debug=make"
 			;;
-		--force-config)
-			PTX_FORCE_CONFIG=true
+		-f|--force)
+			PTX_FORCE=true
 			;;
 		--ptxconfig=*)
 			PTXDIST_PTXCONFIG="$(ptxd_abspath "${arg#*=}")"
@@ -1033,14 +1033,14 @@ do_select()
 	check_nonstandard "${type}" || return
 
 	# check if magic is present in config file
-	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTX_FORCE_CONFIG}" ]; then
+	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTX_FORCE}" ]; then
 		ptxd_dialog_msgbox \
 			"error: Couldn't verify(1) that\n" \
 			"       '${file}'\n" \
 			"       is a valid ${type} file.\n" \
-			"       If you are absolutely sure, please add '--force-config'\n" \
+			"       If you are absolutely sure, please add '--force'\n" \
 			"       to ptxdist's parameters, e.g.:\n" \
-			"       'ptxdist ${PTXDIST_ARGS_FULL[*]} --force-config'\n" \
+			"       'ptxdist ${PTXDIST_ARGS_FULL[*]} --force'\n" \
 			"\n" \
 			"       (1) it appears not to have the right MOJO."
 		return 1
