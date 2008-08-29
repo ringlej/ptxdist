@@ -545,7 +545,8 @@ Setup and Project Actions:
 
   oldconfig			run 'make oldconfig' on ptxconfig file
 
-  u_boot_config			configure U-Boot (U-Boot V2 only)
+  menuconfig u-boot-v2		configure U-Boot (U-Boot V2 only)
+  u_boot_config			
 
   toolchain [<path>]		if path is omitted the toolchain is guessed,
 				    (guessing works only platformconfig is
@@ -1117,14 +1118,6 @@ do_select_toolchain() {
 				"info: insufficient information in your ptxconfig file\n" \
 				"      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
 			return 1
-#		else
-#			ptxd_dialog_msgbox \
-#				""
-#				"toolchain vendor : '${vendor}'\n" \
-#				"compiler version : '${version}'\n" \
-#				"target tuple     : '${target}'\n" \
-#				"\n" \
-#				"looking for      : '${hint}'"
 		fi
 		# let the shell expand the "*" in the hint, put it into an array
 		toolchain=($(echo ${hint}))
@@ -1140,7 +1133,7 @@ do_select_toolchain() {
 		elif [ ${num} -ne 1 ]; then
 			ptxd_dialog_msgbox \
 				"error: more than one toolchain found, matching\n" \
-				"       '${hint}\n'" \
+				"       '${hint}'" \
 				"       ${toolchain[@]}"
 			return 1
 		fi
