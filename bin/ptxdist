@@ -189,8 +189,13 @@ check_ptxconfig() {
 		ptxd_dialog_msgbox \
 			"error: The configfile version and ptxdist version do not match:\n" \
 			"\n" \
-			"configfile version: ${configfile_version}\n" \
-			"ptxdist version:    ${FULLVERSION}"
+			"       configfile version: ${configfile_version}\n" \
+			"       ptxdist version:    ${FULLVERSION}\n" \
+		        "\n" \
+			"       If you are absolutely sure, please add '--force'\n" \
+			"       to ptxdist's parameters, e.g.:\n" \
+		        "\n" \
+			"       'ptxdist --force ${PTXDIST_ARGS_FULL[*]}'"
 		return 1
 	fi
 }
@@ -1040,7 +1045,8 @@ do_select()
 			"       is a valid ${type} file.\n" \
 			"       If you are absolutely sure, please add '--force'\n" \
 			"       to ptxdist's parameters, e.g.:\n" \
-			"       'ptxdist ${PTXDIST_ARGS_FULL[*]} --force'\n" \
+		        "\n" \
+			"       'ptxdist --force ${PTXDIST_ARGS_FULL[*]}'\n" \
 			"\n" \
 			"       (1) it appears not to have the right MOJO."
 		return 1
