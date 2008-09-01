@@ -266,11 +266,11 @@ endmenu
 
 menu "Test Suites                   "
 source "rules/calibrator.in"
-source "rules/cyclictest.in"
 source "rules/hackbench.in"
 source "rules/iperf.in"
 source "rules/host-pelts.in"
 source "rules/pelts_tests.in"
+source "rules/rt-tests.in"
 source "rules/tests.in"
 endmenu
 

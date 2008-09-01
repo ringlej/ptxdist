@@ -1,0 +1,34 @@
+menuconfig RT_TESTS
+	tristate
+	prompt "rt-tests"
+	help
+	  FIXME
+
+if RT_TESTS
+
+config RT_TESTS_CYCLICTEST
+	bool
+	prompt "cyclictest"
+	help
+	  cyclictest is a benchmark program that can be used to find
+	  worst case realtime latencies.
+
+config RT_TESTS_SIGNALTEST
+	bool
+	prompt "signaltest"
+	help
+	  signal test program
+
+config RT_TESTS_CLASSICPI
+	bool
+	prompt "classic_pi"
+	help
+	  priority inheritance test
+
+config RT_TESTS_PI_STRESS
+	bool
+	prompt "pi_stress"
+	help
+	  priority inheritance stress test
+
+endif
