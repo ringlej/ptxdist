@@ -17,14 +17,13 @@ PACKAGES-$(PTXCONF_CYCLICTEST) += cyclictest
 #
 # Paths and names
 #
-CYCLICTEST_VERSION	= 0.11
+CYCLICTEST_VERSION	= 0.13
 CYCLICTEST		= cyclictest-v$(CYCLICTEST_VERSION)
 CYCLICTEST_SUFFIX	= tar.bz2
 #
 # Note: Top of tree at "http://git.kernel.org/?p=linux/kernel/git/tglx/rt-tests.git;a=summary"
-# all other at "http://www.tglx.de/projects/misc/cyclictest/archive/"
 #
-CYCLICTEST_URL		= http://www.tglx.de/projects/misc/cyclictest/archive/$(CYCLICTEST).$(CYCLICTEST_SUFFIX)
+CYCLICTEST_URL		= http://www.kernel.org/pub/linux/kernel/people/tglx//misc/cyclictest/archive/$(CYCLICTEST).$(CYCLICTEST_SUFFIX)
 CYCLICTEST_SOURCE	= $(SRCDIR)/$(CYCLICTEST).$(CYCLICTEST_SUFFIX)
 CYCLICTEST_DIR		= $(BUILDDIR)/$(CYCLICTEST)
 
