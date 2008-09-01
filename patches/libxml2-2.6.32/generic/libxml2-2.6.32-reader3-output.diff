@@ -14,20 +14,30 @@ LIBXML_OUTPUT_ENABLED.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
----
- doc/examples/reader3.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--
 
-Index: libxml2-2.6.32/doc/examples/reader3.c
-===================================================================
---- libxml2-2.6.32.orig/doc/examples/reader3.c
-+++ libxml2-2.6.32/doc/examples/reader3.c
-@@ -15,7 +15,7 @@
+This bug was fixed in r2885 in the libxml2 svn repository:
+http://svn.gnome.org/viewvc/libxml2/trunk/doc/examples/reader3.c?r1=2885&r2=3785
+
+---
+--- trunk/doc/examples/reader3.c	2004/11/09 16:17:02	2885
++++ trunk/doc/examples/reader3.c	2008/08/29 19:58:23	3785
+@@ -15,7 +15,8 @@
  #include <stdio.h>
  #include <libxml/xmlreader.h>
  
 -#if defined(LIBXML_READER_ENABLED) && defined(LIBXML_PATTERN_ENABLED)
 +#if defined(LIBXML_READER_ENABLED) && defined(LIBXML_PATTERN_ENABLED) && defined(LIBXML_OUTPUT_ENABLED)
++
  
  /**
   * streamFile:
+@@ -113,7 +114,7 @@
+ 
+ #else
+ int main(void) {
+-    fprintf(stderr, "Reader or Pattern support not compiled in\n");
++    fprintf(stderr, "Reader, Pattern or output support not compiled in\n");
+     exit(1);
+ }
+ #endif
