@@ -44,6 +44,12 @@ UTIL_LINUX_NG_ENV 	:= $(CROSS_ENV)
 #
 UTIL_LINUX_NG_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+ifdef PTXCONF_UTIL_LINUX_NG_MKSWAP_UUID
+UTIL_LINUX_NG_AUTOCONF += --enable-uuid
+else
+UTIL_LINUX_NG_AUTOCONF += --disable-uuid
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
