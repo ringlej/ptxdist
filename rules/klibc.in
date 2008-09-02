@@ -4,6 +4,7 @@
 
 menuconfig KLIBC
 	bool
+	select KERNEL
 	prompt "klibc                         "
 	help
 	  This feature contains a collection of programs that are linked against
