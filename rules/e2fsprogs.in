@@ -8,59 +8,197 @@ menuconfig E2FSPROGS
 
 if E2FSPROGS
 
-config E2FSPROGS_MKFS
+# ---------------------
+comment "Build Options"
+# ---------------------
+
+config E2FSPROGS_COMPRESSION
 	bool
-	prompt "mke2fs"
-	default y
-	depends on !BB_CONFIG_MKE2FS
+	prompt "compression"
 	help
-	 This installs /sbin/mke2fs, the filesystem builder for
-	 ext2 and ext3
+	  Enable experimental compression support.
 
-config E2FSPROGS_MKFS_EXT2
+config E2FSPROGS_HTREE
 	bool
-	prompt "create mkfs.ext2 link"
-	depends on E2FSPROGS_MKFS
-
-comment "Busybox' mke2fs is selected"
-	depends on BB_CONFIG_MKE2FS
-
-config E2FSPROGS_E2FSCK
-	bool
-	prompt "e2fsck"
-	default y
-	depends on !BB_CONFIG_E2FSCK
+	prompt "htree"
 	help
-	 This will install /sbin/e2fsck, the filesystem
-	 checking and recovery tool for ext2 and ext3.
+	  Enable experimental htree support.
 
-config E2FSPROGS_E2FSCK_EXT2
+config E2FSPROGS_IMAGER
 	bool
-	prompt "create fsck.ext2 link"
-	depends on E2FSPROGS_E2FSCK
-
-comment "Busybox' e2fsck is selected"
-	depends on BB_CONFIG_E2FSCK
-
-config E2FSPROGS_TUNE2FS
-	bool
-	prompt "tune2fs, findfs, e2label"
-	depends on !BB_CONFIG_TUNE2FS
+	# no prompt
+	default y if E2FSPROGS_INSTALL_IMAGER
 	help
-	 This will install /sbin/tune2fs, /sbin/findfs, /sbin/e2label
-	 to your target. Please note, that all thre share the same
-	 binary (tune2fs).
+	  Enable support for e2image program.
 
-	 tune2fs lets you modify various aspects of your ext2 oder ext3
-	 filesystem. See tune2fs --help for details.
+config E2FSPROGS_RESIZER
+	bool
+	# no prompt
+	default y if E2FSPROGS_INSTALL_RESIZER
+	help
+	  Enable support for e2resize program.
 
-	 findfs will find any filesystem identified by a filesystem-label
-	 or UUID and return the name of the corresponding device node.
+# -----------------------
+comment "Install Options"
+# -----------------------
 
-	 e2label can display and edit ext2 and ext3 filesystem labels.
+config E2FSPROGS_INSTALL_LSATTR
+	bool
+	prompt "install lsattr"
+	help
+	  Enable support for lsattr program.
 
-comment "Busybox' tune2fs is selected"
-	depends on BB_CONFIG_TUNE2FS
+config E2FSPROGS_INSTALL_UUIDGEN
+	bool
+	prompt "install uuidgen"
+	help
+	  Enable support for uuidgen program.
+
+config E2FSPROGS_INSTALL_MK_CMDS
+	bool
+	prompt "install mk_cmds"
+	help
+	  Enable support for mk_cmds program.
+
+config E2FSPROGS_INSTALL_CHATTR
+	bool
+	prompt "install chattr"
+	help
+	  Enable support for chattr program.
+
+config E2FSPROGS_INSTALL_COMPILE_ET
+	bool
+	prompt "install compile_et"
+	help
+	  Enable support for compile_et program.
+
+# -----
+
+config E2FSPROGS_INSTALL_BLKID
+	bool
+	prompt "install blkid"
+	help
+	  Enable support for blkid program.
+
+config E2FSPROGS_INSTALL_MKFS_EXT4DEV
+	bool
+	prompt "install mkfs.ext4dev"
+	help
+	  Enable support for mkfs.ext4dev program.
+
+config E2FSPROGS_INSTALL_LOGSAVE
+	bool
+	prompt "install logsave"
+	help
+	  Enable support for logsave program.
+
+config E2FSPROGS_INSTALL_MKFS_EXT3
+	bool
+	prompt "install mkfs.ext3"
+	help
+	  Enable support for mkfs.ext3 program.
+
+config E2FSPROGS_INSTALL_FSCK_EXT4
+	bool
+	prompt "install fsck.ext4"
+	help
+	  Enable support for fsck.ext4 program.
+
+config E2FSPROGS_INSTALL_DUMPE2FS
+	bool
+	prompt "install dumpe2fs"
+	help
+	  Enable support for dumpe2fs program.
+
+config E2FSPROGS_INSTALL_FINDFS
+	bool
+	prompt "install findfs"
+	help
+	  Enable support for findfs program.
+
+config E2FSPROGS_INSTALL_FILEFRAG
+	bool
+	prompt "install filefrag"
+	help
+	  Enable support for filefrag program.
+
+config E2FSPROGS_INSTALL_MKE2FS
+	bool
+	prompt "install mke2fs"
+	help
+	  Enable support for mke2fs program.
+
+config E2FSPROGS_INSTALL_MKLOSTANDFOUND
+	bool
+	prompt "install mklost+found"
+	help
+	  Enable support for mklost+found program.
+
+config E2FSPROGS_INSTALL_FSCK_EXT4DEV
+	bool
+	prompt "install fsck.ext4dev"
+	help
+	  Enable support for fsck.ext4dev program.
+
+config E2FSPROGS_INSTALL_E2FSCK
+	bool
+	prompt "install e2fsck"
+	help
+	  Enable support for e2fsck program.
+
+config E2FSPROGS_INSTALL_MKFS_EXT2
+	bool
+	prompt "install mkfs.ext2"
+	help
+	  Enable support for mkfs.ext2 program.
+
+config E2FSPROGS_INSTALL_MKFS_EXT4
+	bool
+	prompt "install mkfs.ext4"
+	help
+	  Enable support for mkfs.ext4 program.
+
+config E2FSPROGS_INSTALL_RESIZE2FS
+	bool
+	prompt "install resize2fs"
+	help
+	  Enable support for resize2fs program.
+
+config E2FSPROGS_INSTALL_E2IMAGE
+	bool
+	prompt "install e2image"
+	help
+	  Enable support for e2image program.
+
+config E2FSPROGS_INSTALL_TUNE2FS
+	bool
+	prompt "install tune2fs"
+	help
+	  Enable support for tune2fs program.
+
+config E2FSPROGS_INSTALL_E2UNDO
+	bool
+	prompt "install e2undo"
+	help
+	  Enable support for e2undo program.
+
+config E2FSPROGS_INSTALL_FSCK_EXT3
+	bool
+	prompt "install fsck.ext3"
+	help
+	  Enable support for fsck.ext3 program.
+
+config E2FSPROGS_INSTALL_BADBLOCKS
+	bool
+	prompt "install badblocks"
+	help
+	  Enable support for badblocks program.
+
+config E2FSPROGS_INSTALL_UUID
+	bool
+	prompt "install uuid"
+	help
+	  Enable support for uuid program.
 
 endif
 

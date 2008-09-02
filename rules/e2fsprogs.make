@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.40.8
+E2FSPROGS_VERSION	:= 1.41.1
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
@@ -47,8 +47,45 @@ E2FSPROGS_ENV 	:=  $(CROSS_ENV)
 #
 E2FSPROGS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--with-root-prefix="" \
-	--disable-nls
+	--enable-elf-shlibs \
+	--disable-bsd-shlibs \
+	--disable-profile \
+	--disable-checker \
+	--disable-jbd-debug \
+	--disable-blkid-debug \
+	--disable-testio-debug \
+	--disable-tls \
+	--disable-uuid \
+	--disable-nls \
+	--disable-rpath \
+	--disable-debugfs \
+	--disable-e2initrd-helper
+
+ifdef PTXCONF_E2FSPROGS_COMPRESSION
+E2FSPROGS_AUTOCONF += --enable-compression
+else
+E2FSPROGS_AUTOCONF += --disable-compression
+endif
+ifdef PTXCONF_E2FSPROGS_HTREE
+E2FSPROGS_AUTOCONF += --enable-htree
+else
+E2FSPROGS_AUTOCONF += --disable-htree
+endif
+ifdef PTXCONF_E2FSPROGS_IMAGER
+E2FSPROGS_AUTOCONF += --enable-imager
+else
+E2FSPROGS_AUTOCONF += --disable-imager
+endif
+ifdef PTXCONF_E2FSPROGS_RESIZER
+E2FSPROGS_AUTOCONF += --enable-resizer
+else
+E2FSPROGS_AUTOCONF += --disable-resizer
+endif
+ifdef PTXCONF_E2FSPROGS_FSCK
+E2FSPROGS_AUTOCONF += --enable-fsck
+else
+E2FSPROGS_AUTOCONF += --disable-fsck
+endif
 
 # ----------------------------------------------------------------------------
 # Install
@@ -75,23 +112,122 @@ $(STATEDIR)/e2fsprogs.targetinstall:
 	@$(call install_fixup,e2fsprogs,DEPENDS,)
 	@$(call install_fixup,e2fsprogs,DESCRIPTION,missing)
 
-ifdef PTXCONF_E2FSPROGS_MKFS
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/mke2fs, /sbin/mke2fs)
-ifdef PTXCONF_E2FSPROGS_MKFS_EXT2
-	@$(call install_link, e2fsprogs, /sbin/mke2fs, /sbin/mkfs.ext2)
+	#
+	# libraries
+	#
+
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libblkid.so.1.0, /usr/lib/libblkid.so.1.0)
+	@$(call install_link, e2fsprogs, libblkid.so.1.0, /usr/lib/libblkid.so.1)
+	@$(call install_link, e2fsprogs, libblkid.so.1.0, /usr/lib/libblkid.so)
+
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libcom_err.so.2.1, /usr/lib/libcom_err.so.2.1)
+	@$(call install_link, e2fsprogs, libcom_err.so.2.1, /usr/lib/libcom_err.so.2)
+	@$(call install_link, e2fsprogs, libcom_err.so.2.1, /usr/lib/libcom_err.so)
+
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libe2p.so.2.3, /usr/lib/libe2p.so.2.3)
+	@$(call install_link, e2fsprogs, libe2p.so.2.3, /usr/lib/libe2p.so.2)
+	@$(call install_link, e2fsprogs, libe2p.so.2.3, /usr/lib/libe2p.so)
+
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libext2fs.so.2.4, /usr/lib/libext2fs.so.2.4)
+	@$(call install_link, e2fsprogs, libext2fs.so.2.4, /usr/lib/libext2fs.so.2)
+	@$(call install_link, e2fsprogs, libext2fs.so.2.4, /usr/lib/libext2fs.so)
+
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libss.so.2.0, /usr/lib/libss.so.2.0)
+	@$(call install_link, e2fsprogs, libss.so.2.0, /usr/lib/libss.so.2)
+	@$(call install_link, e2fsprogs, libss.so.2.0, /usr/lib/libss.so)
+
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libuuid.so.1.2, /usr/lib/libuuid.so.1.2)
+	@$(call install_link, e2fsprogs, libuuid.so.1.2, /usr/lib/libuuid.so.1)
+
+	#
+	# binaries in /usr/bin
+	#
+
+ifdef PTXCONF_E2FSPROGS_INSTALL_LSATTR
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/lsattr, /usr/bin/lsattr)
 endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_UUIDGEN
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/uuidgen, /usr/bin/uuidgen)
 endif
-ifdef PTXCONF_E2FSPROGS_E2FSCK
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/e2fsck/e2fsck, /sbin/e2fsck)
-ifdef PTXCONF_E2FSPROGS_E2FSCK_EXT2
-	@$(call install_link, e2fsprogs, /sbin/e2fsck, /sbin/fsck.ext2)
+ifdef PTXCONF_E2FSPROGS_INSTALL_MK_CMDS
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/lib/ss/mk_cmds, /usr/bin/mk_cmds)
 endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_CHATTR
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/chattr, /usr/bin/chattr)
 endif
-ifdef PTXCONF_E2FSPROGS_TUNE2FS
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/tune2fs, /sbin/tune2fs)
-	@$(call install_link, e2fsprogs, /sbin/tune2fs, /sbin/findfs)
-	@$(call install_link, e2fsprogs, /sbin/tune2fs, /sbin/e2label)
+ifdef PTXCONF_E2FSPROGS_INSTALL_COMPILE_ET
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/lib/et/compile_et, /usr/bin/compile_et)
 endif
+
+	#
+	# binaries in /usr/sbin
+	#
+
+ifdef PTXCONF_E2FSPROGS_INSTALL_BLKID
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/blkid, /usr/sbin/blkid)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4DEV
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/mke2fs, /usr/sbin/mkfs.ext4dev)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_LOGSAVE
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/logsave, /usr/sbin/logsave)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT3
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/mke2fs, /usr/sbin/mkfs.ext3)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT4
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/e2fsck/e2fsck, /usr/sbin/fsck.ext4)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_DUMPE2FS
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/dumpe2fs, /usr/sbin/dumpe2fs)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_FINDFS
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/tune2fs, /usr/sbin/findfs)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_FILEFRAG
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/filefrag, /usr/sbin/filefrag)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_MKE2FS
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/mke2fs, /usr/sbin/mke2fs)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_MKLOSTANDFOUND
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/mklost+found, /usr/sbin/mklost+found)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT4DEV
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/e2fsck/e2fsck, /usr/sbin/fsck.ext4dev)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_E2FSCK
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/e2fsck/e2fsck, /usr/sbin/e2fsck)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT2
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/mke2fs, /usr/sbin/mkfs.ext2)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/mke2fs, /usr/sbin/mkfs.ext4)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_RESIZE2FS
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/resize/resize2fs, /usr/sbin/resize2fs)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_E2IMAGE
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/e2image, /usr/sbin/e2image)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_TUNE2FS
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/tune2fs, /usr/sbin/tune2fs)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_E2UNDO
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/e2undo, /usr/sbin/e2undo)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT3
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/e2fsck/e2fsck, /usr/sbin/fsck.ext3)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_BADBLOCKS
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/badblocks, /usr/sbin/badblocks)
+endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_UUID
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/uuidgen, /usr/sbin/uuidgen)
+endif
+
+#./etc/mke2fs.conf
 
 	@$(call install_finish,e2fsprogs)
 
