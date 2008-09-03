@@ -1138,10 +1138,16 @@ do_select_toolchain() {
 				"       ${hint}"
 			return 1
 		elif [ ${num} -ne 1 ]; then
+			local old_ifs="${IFS}"
+			IFS="
+"
+			toolchain="${toolchain[*]}"
+			IFS="${old_ifs}"
+
 			ptxd_dialog_msgbox \
 				"error: more than one toolchain found, matching\n" \
-				"       '${hint}'" \
-				"       ${toolchain[@]}"
+				"       '${hint}':\n\n" \
+				"${toolchain}"
 			return 1
 		fi
 	fi
