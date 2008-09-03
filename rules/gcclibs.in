@@ -7,20 +7,33 @@ menu "gcc libraries                 "
 config GCCLIBS
 	bool
 
+config GCCLIBS_GCC_S
+	bool "libgcc_s"
+	select GCCLIBS
+	help
+	  Installs the libgcc_s Library
+	  
+
 config GCCLIBS_CXX
 	bool "libstdc++"
 	select GCCLIBS
 	select GCCLIBS_GCC_S
 	select LIBC_M
 	help
-	  Selects the GNU Standard C++ Library
-	  libstdc++ in addition to libgcc_s
+	  Installs the GNU Standard C++ Library
+	  libstdc++
 
-config GCCLIBS_GCC_S
-	bool "libgcc_s"
-	select GCCLIBS
+
+config GCCLIBS_GCJ
+	bool "libgcj"
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+	select LIBC_DL
+	select LIBC_M
+	select LIBC_PTHREAD
+	select LIBC_RT
 	help
-	  Selects the GNU Standard C++ Library
-	  libgcc_s
+	  Installs the GNU Java Library
+	  libgcj
 
 endmenu

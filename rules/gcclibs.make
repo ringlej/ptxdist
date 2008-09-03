@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2004 by Robert Schwebel
 #                       Marc Kleine-Budde <kleine-budde@gmx.de>
-#               2005, 2006 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix
+#               2005-2008 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,66 +16,54 @@
 #
 PACKAGES-$(PTXCONF_GCCLIBS) += gcclibs
 
-GCCLIBS_DIR             = $(BUILDDIR)/gcclibs
+GCCLIBS_DIR	:= $(BUILDDIR)/gcclibs
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-gcclibs_get: $(STATEDIR)/gcclibs.get
-
 $(STATEDIR)/gcclibs.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-gcclibs_extract: $(STATEDIR)/gcclibs.extract
-
 $(STATEDIR)/gcclibs.extract:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-gcclibs_prepare: $(STATEDIR)/gcclibs.prepare
-
 $(STATEDIR)/gcclibs.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-gcclibs_compile: $(STATEDIR)/gcclibs.compile
-
 $(STATEDIR)/gcclibs.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-gcclibs_install: $(STATEDIR)/gcclibs.install
-
 $(STATEDIR)/gcclibs.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-gcclibs_targetinstall: $(STATEDIR)/gcclibs.targetinstall
-
 $(STATEDIR)/gcclibs.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, gcclibs)
 	@$(call install_fixup, gcclibs,PACKAGE,gcclibs)
@@ -86,17 +74,21 @@ $(STATEDIR)/gcclibs.targetinstall:
 	@$(call install_fixup, gcclibs,DEPENDS,)
 	@$(call install_fixup, gcclibs,DESCRIPTION,missing)
 
-ifdef PTXCONF_GCCLIBS_CXX
-	@$(call install_copy_toolchain_lib, gcclibs, libstdc++.so, /usr/lib)
-endif
-
 ifdef PTXCONF_GCCLIBS_GCC_S
 	@$(call install_copy_toolchain_lib, gcclibs, libgcc_s.so, /lib)
 endif
 
+ifdef PTXCONF_GCCLIBS_CXX
+	@$(call install_copy_toolchain_lib, gcclibs, libstdc++.so, /usr/lib)
+endif
+
+ifdef PTXCONF_GCCLIBS_GCJ
+	@$(call install_copy_toolchain_lib, gcclibs, libgcj.so, /usr/lib)
+endif
+
 	@$(call install_finish, gcclibs)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
