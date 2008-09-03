@@ -1,3 +1,4 @@
+# -*-makefile-*-
 #
 # Copyright (C) 2007 by Ladislav Michl
 #
@@ -29,72 +30,45 @@ ZIP_DIR		:= $(BUILDDIR)/$(ZIP)
 # Get
 # ----------------------------------------------------------------------------
 
-zip_get: $(STATEDIR)/zip.get
-
-$(STATEDIR)/zip.get: $(zip_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(ZIP_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, ZIP)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-zip_extract: $(STATEDIR)/zip.extract
-
-$(STATEDIR)/zip.extract: $(zip_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(ZIP_DIR))
-	@$(call extract, ZIP)
-	@$(call patchin, ZIP)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-zip_prepare: $(STATEDIR)/zip.prepare
-
 ZIP_PATH	:= PATH=$(CROSS_PATH)
-ZIP_ENV 	:= $(CROSS_ENV) CROSS_COMPILE=$(COMPILER_PREFIX)
+ZIP_MAKEVARS	:= $(CROSS_ENV_CC) $(CROSS_ENV_CPP) $(CROSS_ENV_AS)
 
-$(STATEDIR)/zip.prepare: $(zip_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/zip.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-zip_compile: $(STATEDIR)/zip.compile
-
-$(STATEDIR)/zip.compile: $(zip_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/zip.compile:
+	@$(call targetinfo)
 	cd $(ZIP_DIR) && $(ZIP_PATH) \
-		$(MAKE) $(ZIP_ENV) $(PARALLELMFLAGS) -f unix/Makefile generic
-	@$(call touch, $@)
+		$(MAKE) $(PARALLELMFLAGS) $(ZIP_MAKEVARS) -f unix/Makefile generic
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-zip_install: $(STATEDIR)/zip.install
-
-$(STATEDIR)/zip.install: $(zip_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/zip.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-zip_targetinstall: $(STATEDIR)/zip.targetinstall
-
-$(STATEDIR)/zip.targetinstall: $(zip_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/zip.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, zip)
 	@$(call install_fixup, zip,PACKAGE,zip)
@@ -120,7 +94,7 @@ endif
 
 	@$(call install_finish, zip)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
