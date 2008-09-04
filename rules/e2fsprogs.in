@@ -27,14 +27,14 @@ config E2FSPROGS_HTREE
 config E2FSPROGS_IMAGER
 	bool
 	# no prompt
-	default y if E2FSPROGS_INSTALL_IMAGER
+	default y if E2FSPROGS_INSTALL_E2IMAGE
 	help
 	  Enable support for e2image program.
 
 config E2FSPROGS_RESIZER
 	bool
 	# no prompt
-	default y if E2FSPROGS_INSTALL_RESIZER
+	default y if E2FSPROGS_INSTALL_RESIZE2FS
 	help
 	  Enable support for e2resize program.
 
