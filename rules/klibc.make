@@ -97,7 +97,7 @@ KLIBC_MAKEVARS := \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	INSTALLROOT=$(SYSROOT)
 
-$(STATEDIR)/klibc.compile: $(klibc_compile_deps_default) $(STATEDIR)/kernel.prepare
+$(STATEDIR)/klibc.compile: $(klibc_compile_deps_default) $(STATEDIR)/kernel.install
 	@$(call targetinfo, $@)
 	rm -f $(KLIBC_DIR)/.config
 	ln -sf $(KERNEL_DIR) $(KLIBC_DIR)/linux
