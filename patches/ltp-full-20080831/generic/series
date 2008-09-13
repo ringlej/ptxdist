@@ -1,0 +1,3 @@
+use-right-compiler.diff
+no-libmqueue.diff
+no-libposix1b.diff

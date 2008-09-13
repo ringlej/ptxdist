@@ -1,0 +1,30 @@
+Subject: [PATCH ltp-full-20080831] don't use libmqueue
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+The Makefile in the mqueues directory of the open_posix_testsuite wants
+to link the mq_open testcase against libmqueue. POSIX.1-2001 states:
+
+"Link with -lrt".
+
+So this is definitely wrong, and we do what the standard recommends.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ testcases/open_posix_testsuite/stress/mqueues/Makefile |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: ltp-full-20080831/testcases/open_posix_testsuite/stress/mqueues/Makefile
+===================================================================
+--- ltp-full-20080831.orig/testcases/open_posix_testsuite/stress/mqueues/Makefile
++++ ltp-full-20080831/testcases/open_posix_testsuite/stress/mqueues/Makefile
+@@ -1,7 +1,7 @@
+ INCLUDE = -I../../include
+-LIB=-lmqueue
++LIB=-lrt
+ 
+-CFLAGS=-Wall -O2 -g -lpthread
++CFLAGS=-Wall -O2 -g
+ 
+ all: multi_send_rev_1.test multi_send_rev_2.test
+ 

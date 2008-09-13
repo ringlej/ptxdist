@@ -1,0 +1,59 @@
+Subject: [PATCH ltp-full-20080831]
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+The Makefile in the mqueues- and semaphores directory of the
+open_posix_testsuite try incorrectly to overwrite the compiler and have
+no clue about the fact that there could be a cross compilation scenario,
+so it tries to search libs in /usr/lib. This results in the following
+command line:
+
+make[2]: Entering directory `<somewhere>/ltp-full-20080831/testcases/open_posix_testsuite/stress/mqueues'
+gcc -Wall -O2 -g -I -L/usr/lib -lpthread -I../../include multi_send_rev_1.c -o multi_send_rev_1.test -lmqueue
+
+which is obviously wrong for cross compilation. With this change the
+right compiler and the right libs from the toolchain are being used.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ testcases/open_posix_testsuite/stress/mqueues/Makefile    |    8 +-------
+ testcases/open_posix_testsuite/stress/semaphores/Makefile |    7 +------
+ 2 files changed, 2 insertions(+), 13 deletions(-)
+
+Index: ltp-full-20080831/testcases/open_posix_testsuite/stress/mqueues/Makefile
+===================================================================
+--- ltp-full-20080831.orig/testcases/open_posix_testsuite/stress/mqueues/Makefile
++++ ltp-full-20080831/testcases/open_posix_testsuite/stress/mqueues/Makefile
+@@ -1,13 +1,7 @@
+-
+-ifndef POSIX_DIR_LIB
+-	POSIX_DIR_LIB=/usr/lib
+-endif
+-
+ INCLUDE = -I../../include
+ LIB=-lmqueue
+ 
+-CC=gcc
+-CFLAGS=-Wall -O2 -g -I$(POSIX_DIR_INC) -L$(POSIX_DIR_LIB) -lpthread
++CFLAGS=-Wall -O2 -g -lpthread
+ 
+ all: multi_send_rev_1.test multi_send_rev_2.test
+ 
+Index: ltp-full-20080831/testcases/open_posix_testsuite/stress/semaphores/Makefile
+===================================================================
+--- ltp-full-20080831.orig/testcases/open_posix_testsuite/stress/semaphores/Makefile
++++ ltp-full-20080831/testcases/open_posix_testsuite/stress/semaphores/Makefile
+@@ -1,12 +1,7 @@
+-ifndef POSIX_DIR_LIB
+-	POSIX_DIR_LIB=/usr/lib
+-endif
+-
+ INCLUDE = -I../../include
+ LIB=-lposix1b
+ 
+-CC=gcc
+-CFLAGS=-Wall -O2 -g -I$(POSIX_DIR_INC) -L$(POSIX_DIR_LIB)
++CFLAGS=-Wall -O2 -g
+ 
+ all:  multi_con_pro.test
+ 
