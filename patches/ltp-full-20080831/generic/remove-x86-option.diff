@@ -1,0 +1,30 @@
+Subject: [PATCH ltp-full-20080831] remove x86 specific options from non-x86 specific code
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Doesn't look like anyone tried to compile this on anything else than
+x86 before releasing this code :-/ If anyone needs this, please add a
+construct which does it only for x86.
+
+arm-iwmmx-linux-gnueabi-gcc -Wall -m64 -isystem
+/ptx/work/octopus/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-phyCORE-PXA270/sysroot-target/include
+-isystem
+/ptx/work/octopus/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-phyCORE-PXA270/sysroot-target/usr/include
+-I./include -D_GNU_SOURCE -I../include -D_GNU_SOURCE  -c -o libstats.o
+libstats.c
+cc1: error: unrecognized command line option "-m64"
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ testcases/realtime/config.mk |    1 -
+ 1 file changed, 1 deletion(-)
+
+Index: ltp-full-20080831/testcases/realtime/config.mk
+===================================================================
+--- ltp-full-20080831.orig/testcases/realtime/config.mk
++++ ltp-full-20080831/testcases/realtime/config.mk
+@@ -23,4 +23,3 @@ LDLIBS   += $(srcdir)/lib/libjvmsim.o \
+ 	   $(srcdir)/lib/libstats.o \
+ 	   -lpthread -lrt -lm
+ 
+-CFLAGS   += -m64
