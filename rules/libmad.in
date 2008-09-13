@@ -15,7 +15,7 @@ config LIBMAD
 	  * distributed under the terms of the GNU General Public License (GPL)
 
 choice
-	prompt "Optimize for     "
+	prompt "Optimize for       "
 	default LIBMAD__OPT_SPEED
 	depends on MADPLAY
 
