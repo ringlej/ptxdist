@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template-make 7759 2008-02-12 21:05:07Z mkl $
 #
-# Copyright (C) 2008 by 
+# Copyright (C) 2008 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -12,7 +12,10 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_LTP_REALTIME) += ltp-realtime
+# FIXME: LTP realtime tests do not compile for != x68/powerpc
+#
+PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_LTP_REALTIME) += ltp-realtime
+PACKAGES-$(PTXCONF_ARCH_PPC)-$(PTXCONF_LTP_REALTIME) += ltp-realtime
 
 #
 # Paths and names
@@ -90,7 +93,7 @@ $(STATEDIR)/ltp-realtime.targetinstall:
 	@$(call install_fixup, ltp-realtime,PRIORITY,optional)
 	@$(call install_fixup, ltp-realtime,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-realtime,SECTION,base)
-	@$(call install_fixup, ltp-realtime,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ltp-realtime,AUTHOR,"Michael Olbrich <m.olbrich\@pengutronix.de>")
 	@$(call install_fixup, ltp-realtime,DEPENDS,)
 	@$(call install_fixup, ltp-realtime,DESCRIPTION,missing)
 
