@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2007 by 
+# Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_ARGTABLE2) += argtable2
 #
 # Paths and names
 #
-ARGTABLE2_VERSION	:= 7
+ARGTABLE2_VERSION	:= 9
 ARGTABLE2		:= argtable2-$(ARGTABLE2_VERSION)
-ARGTABLE2_SUFFIX		:= tar.gz
+ARGTABLE2_SUFFIX	:= tar.gz
 ARGTABLE2_URL		:= $(PTXCONF_SETUP_SFMIRROR)/argtable/$(ARGTABLE2).$(ARGTABLE2_SUFFIX)
-ARGTABLE2_SOURCE		:= $(SRCDIR)/$(ARGTABLE2).$(ARGTABLE2_SUFFIX)
+ARGTABLE2_SOURCE	:= $(SRCDIR)/$(ARGTABLE2).$(ARGTABLE2_SUFFIX)
 ARGTABLE2_DIR		:= $(BUILDDIR)/$(ARGTABLE2)
 
 # ----------------------------------------------------------------------------
@@ -113,9 +113,11 @@ $(STATEDIR)/argtable2.targetinstall: $(argtable2_targetinstall_deps_default)
 	@$(call install_fixup, argtable2,DEPENDS,)
 	@$(call install_fixup, argtable2,DESCRIPTION,missing)
 
-	@$(call install_copy, argtable2, 0, 0, 0644, $(ARGTABLE2_DIR)/src/.libs/libargtable2.so.0.1.2, /usr/lib/libargtable2.so.0.1.2)
-	@$(call install_link, argtable2, libargtable2.so.0.1.2, /usr/lib/libargtable2.so.0)
-	@$(call install_link, argtable2, libargtable2.so.0.1.2, /usr/lib/libargtable2.so)
+	@$(call install_copy, argtable2, 0, 0, 0644, \
+		$(ARGTABLE2_DIR)/src/.libs/libargtable2.so.0.1.4, \
+		/usr/lib/libargtable2.so.0.1.2)
+	@$(call install_link, argtable2, libargtable2.so.0.1.4, /usr/lib/libargtable2.so.0)
+	@$(call install_link, argtable2, libargtable2.so.0.1.4, /usr/lib/libargtable2.so)
 
 	@$(call install_finish, argtable2)
 
