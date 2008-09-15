@@ -11,6 +11,8 @@ scenarios. So the patch below uses the standard autoconf test for header
 files. While being there, it fixes HAVE_MTRR to the standard
 nomenclature, which is HAVE_ASM_MTRR_H.
 
+This was reported as https://bugs.freedesktop.org/show_bug.cgi?id=17585
+
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
