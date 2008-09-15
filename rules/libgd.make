@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBGD) += libgd
 #
 # Paths and names
 #
-LIBGD_VERSION	= 2.0.35
+LIBGD_VERSION	= 2.0.36RC1
 LIBGD		= gd-$(LIBGD_VERSION)
 LIBGD_SUFFIX	= tar.gz
 LIBGD_URL	= http://www.libgd.org/releases/$(LIBGD).$(LIBGD_SUFFIX)
