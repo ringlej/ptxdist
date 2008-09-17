@@ -66,7 +66,10 @@ PHP5_ENV 	:= $(CROSS_ENV)
 #
 PHP5_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--with-config-file-path=/etc/php5
+	--with-config-file-path=/etc/php5 \
+	--without-pdo-sqlite
+
+# FIXME: PHP Data Objects -> sqlite doesn't link correctly
 
 # FIXME: php5 doesn't interprete "with_foo=no" correctly, so we cannot
 # give --without-foo options. Should be fixed in php5's configure.in.
