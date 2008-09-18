@@ -1,6 +1,12 @@
 TODO for 1.99.x
 ===============
 
+[ ] jbe: e2fsprogs: HTREE can be disabled, but at least mkfs.ext2 creates (silently)
+    a HTREE based filesystem! e2fsck will fail on such a failsystem unless HTREE
+    support will be activated in the menu!
+
+[ ] jbe: udev seems to load kernel modules by its own. How to disable it?
+
 [ ] jbe: udev. Generic startscript complains about a missing udev-adm
 
 [ ] jbe: it must be possible to force some userland components from inside the
