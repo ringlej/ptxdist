@@ -2,7 +2,7 @@ TODO for 1.99.x
 ===============
 
 [ ] jbe: e2fsprogs: HTREE can be disabled, but at least mkfs.ext2 creates (silently)
-    a HTREE based filesystem! e2fsck will fail on such a failsystem unless HTREE
+    a HTREE based filesystem! e2fsck will fail on such a filesystem unless HTREE
     support will be activated in the menu!
 
 [ ] jbe: udev seems to load kernel modules by its own. How to disable it?
