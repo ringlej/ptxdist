@@ -11,37 +11,15 @@ TODO for 1.99.x
 
 [ ] jbe: udev seems to load kernel modules by its own. How to disable it?
 
-[ ] jbe: udev. Generic startscript complains about a missing udev-adm
-
 [ ] jbe: it must be possible to force some userland components from inside the
     platformconfig. For example a platform specific kernel driver module
     needs a special component of the UDEV. Currently it does not work.
     Duplicating symbols in both config files may work, but it will be
     "BROKEN BY DESIGN".
 
-[x] jbe: if the ptx dialog will be called from within the menu dialog the loop
-    should stop, if calling the ptx dialog resturns with an error. In one case
-    one of the *.in files was missed and the error message can't be read
-    because the menu dialog overwrite it immediately
-
-[ ] jbe: ptxdist complains about a missing "projectroot/etc/module" file, but it searches
-    for "projectroot/etc/module-<platformname>"
-
-[x] jbe: libxcb depends on host's xslt installation! Current fix is to be checked.
-
-[x] jbe: xcb-proto depends on host's xmllint!
-
-[X] jbe:
-    ptxdist: platformconfig...
-    platforms/images.in:14:warning: 'select' used by config symbol 'IMAGE_HD' refers to undefined symbol 'HOST_GENPART'
-    platforms/images.in:193:warning: 'select' used by config symbol 'IMAGE_JFFS2' refers to undefined symbol 'HOST_MTD_UTILS'
-    platforms/images.in:226:warning: 'select' used by config symbol 'IMAGE_UIMAGE' refers to undefined symbol 'HOST_UMKIMAGE'
-    platforms/images.in:271:warning: 'select' used by config symbol 'IMAGE_EXT2' refers to undefined symbol 'HOST_GENEXT2FS'
-
-[x] jbe: add help what symbol "PTXCONF_PLATFORM" should contain (or what it
-    means if this entry is still empty)
-
-[x] jbe: "ptxdist help" does not output the new option "platformconfig"
+[ ] jbe: ptxdist complains about a missing "projectroot/etc/module"
+    file, but it searches for "projectroot/etc/module-<platformname>"
+    rsc: testcase?
 
 [ ] rsc: platformconfig: check what about PTXCONF_IMAGE_IPKG_ARCH; it
     should go to the platformconfig code.
@@ -58,9 +36,6 @@ TODO for 1.99.x
     [...anything proceeds...]
 
 [ ] mkl: reactiveate new install_copy feature (no explicid destination)
-
-[x] rsc: put export LANG=C somewhere into PTXdist, to make compiler
-         output more readable
 
 [ ] mol: bash configure --enable-job-control does not work when cross compiling
          posible fix in:
@@ -82,16 +57,12 @@ TODO for 1.99.x
 	-> check if samba_cv_HAVE_IFACE_IFCONF=yes and samba_cv_HAVE_MMAP=yes
 	   can be used all over all architectures as defaults
 
-[x] jbe: suppress cross toolchain and toolchain vendor check while --native build
-
 [ ] bbu: add minimal documentation for internal vars (useful for customer makefiles)
 	-> see manual (not quickstart)
 
 [ ] rsc: fix python dependencies for related libs
 
 [ ] rsc: add 'quiet' support to start scripts
-
-[ ] jbe: ipkg does not work on the target anymore. Cannot install anything.
 
 [ ] jbe: samba fails to run with:
 	[...]
@@ -108,10 +79,6 @@ TODO for 1.99.x
 
 [ ] rsc: xorg-data-xkbdata needs xkbcomp on the host - otherwhise we get
          a circular dependency ...
-
-[x] jbe: if ptxdist was called with wrong parameters (and complains about it) it
-	 should return also an error return code (so something like
-	 "ptxdist clen kernel && ptxdist go" fails)
 
 [ ] rsc: add generic/sbin/init trick
 
@@ -139,13 +106,6 @@ TODO for 1.99.x
 [ ] jbe: most of the time thttpd does not respond to the USR1 signal.
 	  - the start/stop script fails to stop this service
 
-[x] jbe: Switching from generating hd image to jffs2 image _rebuilds_
-	 the the whole project!
-
-	 Known Problem: the virtual-cross-tools depends on host-mtd-utils,
-	 which is selected by JFFS2. this must depend on images somewhere.
-	 mkl knows how to fix it...
-
 [ ] jbe: hd images must be built from ipkgs to support the ipkg tool
 	 on the target
 
@@ -153,13 +113,6 @@ TODO for 1.99.x
 	 in the ptxdist install folder. Most of them are trash only
 
 [ ] jbe: alsa-lib creates funny pathes at the install stage
-
-[X] jbe: current trunk complains
-	glib.make:40: warning: overriding commands for target `/home/all_src/glib-2.8.6.tar.bz2'
-	host-glib.make:38: warning: ignoring old commands for target `/home/all_src/glib-2.8.6.tar.bz2'
-
-[x] jbe: if the "ptxdist toolchain" step was omited, ptxdist complains
-	 about toolchain vendor instead of missing toolchain
 
 [ ] jbe: it seems to extract a kernel always touches the local
 	 kernelconfig.target (or similar). This confuses svn, as
@@ -441,11 +394,6 @@ make[1]: Leaving directory
 make: ***
 [/home/koan/ptxtest/generic_test/state/host-ipkg-utils.install] Error 2
 
-[x] if a packet is not selected, it's dependencies are not generated. If
-    you kick a stage then, the dependend stages are not executed.
-    Solution: generate the stages as well, so we get an error in that
-    case.
-
 [ ] Start a "Global Patch Repository Unification Project". Potential
     members:
 
@@ -609,8 +557,6 @@ Old TODOs
 
 [ ] RSC:Invent a project_clean mechanism (workaround done)
 
-[x] RSC:is "select GLIBC_DEBUG" in gdb.in necessary??
-
 [ ] sandeep: add a script to setup a new project interactively
 
 [ ] RSC: do module stuff in kernel only when modules are enabled
@@ -716,6 +662,62 @@ Old TODOs
 	 Release)
 DONE
 ----
+
+[x] if a packet is not selected, it's dependencies are not generated. If
+    you kick a stage then, the dependend stages are not executed.
+    Solution: generate the stages as well, so we get an error in that
+    case.
+
+[x] RSC:is "select GLIBC_DEBUG" in gdb.in necessary??
+
+[x] jbe: Switching from generating hd image to jffs2 image _rebuilds_
+	 the the whole project!
+
+	 Known Problem: the virtual-cross-tools depends on host-mtd-utils,
+	 which is selected by JFFS2. this must depend on images somewhere.
+	 mkl knows how to fix it...
+
+[x] jbe: current trunk complains
+	glib.make:40: warning: overriding commands for target `/home/all_src/glib-2.8.6.tar.bz2'
+	host-glib.make:38: warning: ignoring old commands for target `/home/all_src/glib-2.8.6.tar.bz2'
+
+[x] jbe: if the "ptxdist toolchain" step was omited, ptxdist complains
+	 about toolchain vendor instead of missing toolchain
+
+[x] jbe: if ptxdist was called with wrong parameters (and complains about it) it
+	 should return also an error return code (so something like
+	 "ptxdist clen kernel && ptxdist go" fails)
+
+[x] jbe: ipkg does not work on the target anymore. Cannot install anything.
+
+[x] jbe: suppress cross toolchain and toolchain vendor check while --native build
+
+[x] rsc: put export LANG=C somewhere into PTXdist, to make compiler
+         output more readable
+
+[x] jbe: libxcb depends on host's xslt installation! Current fix is to be checked.
+
+[x] jbe: xcb-proto depends on host's xmllint!
+
+[x] jbe:
+    ptxdist: platformconfig...
+    platforms/images.in:14:warning: 'select' used by config symbol 'IMAGE_HD' refers to undefined symbol 'HOST_GENPART'
+    platforms/images.in:193:warning: 'select' used by config symbol 'IMAGE_JFFS2' refers to undefined symbol 'HOST_MTD_UTILS'
+    platforms/images.in:226:warning: 'select' used by config symbol 'IMAGE_UIMAGE' refers to undefined symbol 'HOST_UMKIMAGE'
+    platforms/images.in:271:warning: 'select' used by config symbol 'IMAGE_EXT2' refers to undefined symbol 'HOST_GENEXT2FS'
+
+[x] jbe: add help what symbol "PTXCONF_PLATFORM" should contain (or what it
+    means if this entry is still empty)
+
+[x] jbe: "ptxdist help" does not output the new option "platformconfig"
+
+
+[x] jbe: if the ptx dialog will be called from within the menu dialog the loop
+    should stop, if calling the ptx dialog resturns with an error. In one case
+    one of the *.in files was missed and the error message can't be read
+    because the menu dialog overwrite it immediately
+
+[x] jbe: udev. Generic startscript complains about a missing udev-adm
 
 [x] jbe: fakeroot seems to have problems to run in a 64 bit environment. Not
 	 at the image creation stage, only at the "install" stage
