@@ -1,6 +1,10 @@
 TODO for 1.99.x
 ===============
 
+[ ] rsc: fallback server for udev
+
+[ ] rsc: toolchain selection doesn't work if gcc revision is empty=nocheck
+
 [ ] jbe: e2fsprogs: HTREE can be disabled, but at least mkfs.ext2 creates (silently)
     a HTREE based filesystem! e2fsck will fail on such a filesystem unless HTREE
     support will be activated in the menu!
