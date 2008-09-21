@@ -49,6 +49,7 @@ $(STATEDIR)/cfgsh.extract: $(cfgsh_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(CFGSH_DIR))
 	@$(call extract, CFGSH)
+	@$(call patchin, CFGSH)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
