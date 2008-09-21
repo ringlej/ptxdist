@@ -26,10 +26,6 @@ KLIBC_URL	:= \
 KLIBC_SOURCE	:= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_DIR	:= $(BUILDDIR)/$(KLIBC)
 
-ifdef PTXCONF_KLIBC
-$(STATEDIR)/kernel.compile: $(STATEDIR)/klibc.install
-endif
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
