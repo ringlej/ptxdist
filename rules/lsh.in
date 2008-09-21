@@ -2,7 +2,7 @@
 
 menuconfig LSH
 	tristate
-	prompt "LSH                           "
+	prompt "lsh                           "
 	select LIBGMP
 	select LIBOOP
 	help
