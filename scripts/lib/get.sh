@@ -19,11 +19,11 @@ ptxd_make_get() {
 
 		case "${url}" in
 		http://*|ftp://*)
-			wget --passive-ftp ${PTXDIST_QUIET:+--quiet} -P "${PTXDIST_SRCDIR}" "${url}" && return
+			wget --passive-ftp -t 5 ${PTXDIST_QUIET:+--quiet} -P "${PTXDIST_SRCDIR}" "${url}" && return
 			;;
 		file*)
 			local thing="${url/file:\/\///}"
-			
+
 			if [ -f "$thing" ]; then
 				echo "local archive, copying"
 				cp -av "${thing}" "${PTXDIST_SRCDIR}" && return
