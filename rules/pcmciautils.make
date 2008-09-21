@@ -1,7 +1,7 @@
 # $Id: template 2680 2005-05-27 10:29:43Z rsc $
 #
 # Copyright (C) 2005 by Steven Scholz <steven.scholz@imc-berlin.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_PCMCIAUTILS) += pcmciautils
 #
 # Paths and names
 #
-PCMCIAUTILS_VERSION	= 006
+PCMCIAUTILS_VERSION	= 015
 PCMCIAUTILS		= pcmciautils-$(PCMCIAUTILS_VERSION)
 PCMCIAUTILS_SUFFIX	= tar.gz
 PCMCIAUTILS_URL		= http://www.kernel.org/pub/linux/utils/kernel/pcmcia/$(PCMCIAUTILS).$(PCMCIAUTILS_SUFFIX)
