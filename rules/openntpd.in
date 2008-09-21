@@ -3,7 +3,7 @@ comment "OpenNTPD conflicts with NTP"
 
 menuconfig OPENNTPD
 	tristate
-	prompt "OpenNTPD                      "
+	prompt "openntpd                      "
 	select ROOTFS_VAR_RUN
 	help
 	  This will install the BSD Open NTPD Daemon
