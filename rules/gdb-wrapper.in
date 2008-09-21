@@ -1,7 +1,0 @@
-config GDB_WRAPPER
-	tristate
-	depends on BROKEN
-	prompt "gdb wrapper [BROKEN]"
-	help
-	  FIXME: This item needs to be documented
-
