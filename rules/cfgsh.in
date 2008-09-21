@@ -1,9 +1,8 @@
 menuconfig CFGSH
 	tristate
-	depends on BROKEN
 	select NCURSES
 	select READLINE
-	prompt "cfgsh [BROKEN]                "
+	prompt "cfgsh                         "
 	help
 	  cfgsh, the Configuration Shell utility, is a small utility
 	  meant to be used for he configuration of embedded systems.

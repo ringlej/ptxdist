@@ -2,7 +2,7 @@
 # $Id: cfgsh.make,v 1.1.1.1 2004/09/22 13:17:02 gby Exp $
 #
 # Copyright (C) 2005 by Gilad Ben-Yossef <gilad@codefidence.com>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -59,7 +59,7 @@ cfgsh_prepare: $(STATEDIR)/cfgsh.prepare
 
 CFGSH_PATH	=  PATH=$(CROSS_PATH)
 CFGSH_ENV 	=  $(CROSS_ENV)
-#CFGSH_ENV	+= 
+#CFGSH_ENV	+=
 
 #
 # autoconf

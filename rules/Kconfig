@@ -55,6 +55,7 @@ menu "Shell & Console Tools         "
 source "rules/atop.in"
 source "rules/bash.in"
 source "rules/busybox.in"
+source "rules/cfgsh.in"
 source "rules/clock.in"
 source "rules/coreutils.in"
 source "rules/cpufrequtils.in"
@@ -294,10 +295,5 @@ source "rules/libogg.in"
 source "rules/libtheora.in"
 source "rules/libvorbis.in"
 source "rules/madplay.in"
-endmenu
-
-menu "Broken or orphaned Packages   "
-depends on BROKEN
-source "rules/cfgsh.in"
 endmenu
 
