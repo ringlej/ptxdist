@@ -1,7 +1,7 @@
 config MEMEDIT
 	tristate
 	select READLINE
-# memedit can only be run with a readline library linked against ncurses
+	# memedit can only be run with a readline library linked against ncurses
 	select NCURSES
 	prompt "memedit"
 	help
