@@ -1,8 +1,7 @@
 config JED
 	tristate
-	prompt "jed [BROKEN]"
-	depends on BROKEN
-	# tries to execute stuff which is cross compiled
+	select SLANG
+	prompt "jed"
 	help
 	  JED - An editor for programmers
 
