@@ -1,5 +1,7 @@
 menuconfig NFSUTILS
-	tristate 
+	tristate
+	# we need libblkid
+	select E2FSPROGS
 	prompt "nfsutils                      "
 	help
 	  The Sun Network Filesystem (NFS) protocol provides transparent remote
@@ -76,10 +78,6 @@ config	NFSUTILS_INSTALL_EXPORTFS
 	bool
 	prompt "Install /sbin/exportfs"
 
-config	NFSUTILS_INSTALL_LOCKD
-	bool
-	prompt "Install /sbin/lockd"
-
 config	NFSUTILS_INSTALL_MOUNTD
 	bool
 	prompt "Install /sbin/mountd"
@@ -91,22 +89,6 @@ config	NFSUTILS_INSTALL_NFSD
 config	NFSUTILS_INSTALL_NFSSTAT
 	bool
 	prompt "Install /sbin/nfsstat"
-
-config	NFSUTILS_INSTALL_NHFSGRAPH
-	bool
-	prompt "Install /sbin/nhfsgraph"
-
-config  NFSUTILS_INSTALL_NHFSNUMS
-	bool
-	prompt "Install /sbin/nhfsnums"
-
-config  NFSUTILS_INSTALL_NHFSRUN
-	bool
-	prompt "Install /sbin/nhfsrun"
-
-config  NFSUTILS_INSTALL_NHFSSTONE
-	bool
-	prompt "Install /sbin/nhfsstone"
 
 config  NFSUTILS_INSTALL_SHOWMOUNT
 	bool

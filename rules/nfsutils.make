@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_NFSUTILS) += nfsutils
 #
 # Paths and names
 #
-NFSUTILS_VERSION	:= 1.0.8
+NFSUTILS_VERSION	:= 1.1.3
 NFSUTILS		:= nfs-utils-$(NFSUTILS_VERSION)
 NFSUTILS_SUFFIX		:= tar.gz
 NFSUTILS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/nfs/$(NFSUTILS).$(NFSUTILS_SUFFIX)
@@ -93,9 +93,9 @@ NFSUTILS_AUTOCONF += --disable-rquotad
 endif
 
 ifdef PTXCONF_NFSUTILS_WITH_TCPWRAPPERS
-NFSUTILS_AUTOCONF += --with-tcpwrappers=$(SYSROOT)
+NFSUTILS_AUTOCONF += --with-tcp-wrappers=$(SYSROOT)
 else
-NFSUTILS_AUTOCONF += --without-tcpwrappers
+NFSUTILS_AUTOCONF += --without-tcp-wrappers
 endif
 
 ifdef PTXCONF_NFSUTILS_RPCUSER_UID
@@ -171,12 +171,6 @@ ifdef PTXCONF_NFSUTILS_INSTALL_EXPORTFS
 		/usr/sbin/exportfs)
 endif
 
-ifdef PTXCONF_NFSUTILS_INSTALL_LOCKD
-	@$(call install_copy, nfsutils, 0, 0, 0755, \
-		$(NFSUTILS_DIR)/utils/lockd/lockd, \
-		/sbin/rpc.lockd)
-endif
-
 ifdef PTXCONF_NFSUTILS_INSTALL_MOUNTD
 	@$(call install_copy, nfsutils, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/utils/mountd/mountd, \
@@ -193,27 +187,6 @@ ifdef PTXCONF_NFSUTILS_INSTALL_NFSSTAT
 	@$(call install_copy, nfsutils, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/utils/nfsstat/nfsstat, \
 		/usr/sbin/nfsstat)
-endif
-
-ifdef PTXCONF_NFSUTILS_INSTALL_NHFSGRAPH
-	@$(call install_copy, nfsutils, 0, 0, 0755, \
-		$(NFSUTILS_DIR)/utils/nhfsstone/nhfsgraph, \
-		/usr/sbin/nhfsgraph, n)
-endif
-
-ifdef PTXCONF_NFSUTILS_INSTALL_NHFSNUMS
-	@$(call install_copy, nfsutils, 0, 0, 0755, \
-		$(NFSUTILS_DIR)/utils/nhfsstone/nhfsnums, /usr/sbin/nhfsnums, n)
-endif
-
-ifdef PTXCONF_NFSUTILS_INSTALL_NHFSRUN
-	@$(call install_copy, nfsutils, 0, 0, 0755, \
-		$(NFSUTILS_DIR)/utils/nhfsstone/nhfsrun, /usr/sbin/nhfsrun, n)
-endif
-
-ifdef PTXCONF_NFSUTILS_INSTALL_NHFSSTONE
-	@$(call install_copy, nfsutils, 0, 0, 0755, \
-		$(NFSUTILS_DIR)/utils/nhfsstone/nhfsstone, /usr/sbin/nhfsstone)
 endif
 
 ifdef PTXCONF_NFSUTILS_INSTALL_SHOWMOUNT
