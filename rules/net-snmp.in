@@ -1,6 +1,6 @@
 menuconfig NET_SNMP
 	tristate
-	prompt "Net-SNMP                      "
+	prompt "net-snmp                      "
 
 if NET_SNMP
 
