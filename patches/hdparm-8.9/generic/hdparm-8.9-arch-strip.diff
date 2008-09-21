@@ -1,0 +1,42 @@
+Subject: hdparm: use cross-strip
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+When trying to cross compile, hdparm breaks here:
+
+arm-iwmmx-linux-gnueabi-gcc -s -o hdparm hdparm.o identify.o sgio.o
+sysfs.o geom.o fibmap.o
+strip hdparm
+strip: Unable to recognise the format of the input file `hdparm'
+
+So there has to be a possibility to overwrite "strip" from the command
+line.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+Index: hdparm-8.9/Makefile
+===================================================================
+--- hdparm-8.9.orig/Makefile
++++ hdparm-8.9/Makefile
+@@ -13,6 +13,9 @@ oldmandir = $(manprefix)/man
+ ifndef CC
+ CC = gcc
+ endif
++ifndef STRIP
++STRIP = strip
++endif
+ 
+ CFLAGS := -O2 -W -Wall -Wbad-function-cast -Wcast-align -Wpointer-arith -Wcast-qual -Wshadow -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -fkeep-inline-functions -Wwrite-strings -Waggregate-return -Wnested-externs -Wtrigraphs $(CFLAGS)
+ 
+@@ -29,7 +32,7 @@ all: hdparm
+ 
+ hdparm: hdparm.h sgio.h $(OBJS)
+ 	$(CC) $(LDFLAGS) -o hdparm $(OBJS)
+-	strip hdparm
++	$(STRIP) hdparm
+ 
+ sgio.o:	sgio.h
+ 
