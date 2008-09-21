@@ -3,8 +3,7 @@ menuconfig NTP
 	# FIXME:
 	# gcc     -o ntpdc-layout  ntpdc-layout.o  -lelf
 	# /usr/bin/ld: cannot find -lelf
-	depends on BROKEN
-	prompt "NTP                           "
+	prompt "ntp                           "
 	select OPENSSL if NTP_CRYPTO
 	help
 	  Build the standard NTP Daemon Process an supplementary programs.
