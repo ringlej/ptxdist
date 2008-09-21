@@ -1,6 +1,6 @@
 config SLANG
 	tristate
-	prompt "S-Lang"
+	prompt "s-lang"
 	select LIBPNG
 	select LIBICONV
 	help
