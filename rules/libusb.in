@@ -1,6 +1,8 @@
-config LIBUSB
+menuconfig LIBUSB
 	tristate
-	prompt "libusb"
+	prompt "libusb                        "
+
+if LIBUSB
 
 config LIBUSB_DOCS
 	bool
@@ -8,3 +10,5 @@ config LIBUSB_DOCS
 	prompt "Documentation"
 	help
 	  Activate to build the libusb-documentation
+
+endif
