@@ -1,0 +1,78 @@
+Subject: include and namespace fixes for a stricter compiler
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+g++-4.3 is a lot stricter with respect to the C++ standard.
+This patch adds various includes that used to be implicit.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/Tag.hh                |    1 +
+ src/TagStream.cc          |    7 ++++---
+ src/writers/WriterBase.hh |    1 +
+ src/writers/xpmname.cc    |    1 +
+ 4 files changed, 7 insertions(+), 3 deletions(-)
+
+Index: b/src/writers/WriterBase.hh
+===================================================================
+--- a/src/writers/WriterBase.hh
++++ b/src/writers/WriterBase.hh
+@@ -22,6 +22,7 @@
+ #define WRITER_BASE_HH
+ #include <safemap.hh>
+ #include <string>
++#include <string.h>
+ #include "../Enums.hh"
+ // these are not necessary for all widgets, 
+ // but it's convenient to have them defined
+Index: b/src/Tag.hh
+===================================================================
+--- a/src/Tag.hh
++++ b/src/Tag.hh
+@@ -23,6 +23,7 @@
+ #include <config.h>
+ #endif
+ #include <string>
++#include <string.h>
+ #include <vector>
+ #include <algorithm> // for find
+ #include <stdexcept>
+Index: b/src/writers/xpmname.cc
+===================================================================
+--- a/src/writers/xpmname.cc
++++ b/src/writers/xpmname.cc
+@@ -1,5 +1,6 @@
+ #include <cstdio>
+ #include <string>
++#include <string.h>
+ #include <Configuration.hh>
+ 
+ // parts taken from
+Index: b/src/TagStream.cc
+===================================================================
+--- a/src/TagStream.cc
++++ b/src/TagStream.cc
+@@ -18,9 +18,10 @@
+  */
+ 
+ #include "TagStream.hh"
++#include <iostream>
+ #include <cstring>
++#include <algorithm>
+ #include <unistd.h>
+-#include <algo.h>
+ 
+ //#define REMEMBER_EMPTY_SPACE
+ 
+@@ -73,10 +74,10 @@ std::string TagStream::de_xml(const std:
+ {  std::string ret;
+    std::string::const_iterator i(cont.begin());
+    while (i!=cont.end())
+-   {  std::string::const_iterator verbatim(::find(i,cont.end(),'&'));
++   {  std::string::const_iterator verbatim(std::find(i,cont.end(),'&'));
+       ret+=std::string(i,verbatim);
+       if (verbatim!=cont.end())
+-      {  std::string::const_iterator endtag(::find(verbatim,cont.end(),';'));
++      {  std::string::const_iterator endtag(std::find(verbatim,cont.end(),';'));
+          if (endtag!=cont.end()) ++endtag;
+          std::string tag(verbatim,endtag);
+          if (tag[1]=='#' && tag[2]=='x')
