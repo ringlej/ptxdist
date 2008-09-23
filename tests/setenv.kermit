@@ -3,8 +3,9 @@
 # Read the library
 take \%1
 
+# Open the file with the new environment
 open read \%3
-if failure {
+if fail {
 	writeln ERROR "FAILED! Could not open \%3."
 	exit 1
 }
@@ -16,9 +17,42 @@ ptx_uboot_enter_shell
 
 ptx_test_start "Setting new environment"
 
-# Print out old environment (for debugging)
-ptx_uboot_exec 10 "printenv"
+clear input
+lineout "printenv"
 
+declare \&c[1000]
+# array with entries to skip
+declare \&s = ethaddr stdin stdout stderr baudrate
+.\%i = 0
+
+while true {
+	# wait for newline or u-boot-prompt
+	minput 5 {\10} \m(PTXCONF_BOARDSETUP_UBOOTPROMPT)
+	if fail {
+		writeln ERROR "FAILED! Did not get old environment"
+		exit 1
+	}
+	# quit on u-boot-prompt
+	if = \v(minput) 2 break
+	# if no '=' then continue
+	if not match \v(input) *=* goto out
+	# extract part before '=' (from \v(input) the first word, allow '_')
+	assign envvar \fword(\v(input),1,,_)
+	# skip special keywords
+	if not = \farraylook(\m(envvar),&s) -1 goto out
+	# put setenv-command into array
+	assign \&c[\%i] setenv \m(envvar)
+	incr \%i
+:out
+	clear input
+}
+
+# clear old vars
+for \%j 0 \%i-1 1 {
+	ptx_uboot_exec 5 "\&c[\%j]"
+}
+
+# set new ones from file
 while true {
 	read \%l
 	if fail break
