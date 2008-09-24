@@ -13,7 +13,6 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_USPLASH) += usplash
-PACKAGES-$(PTXCONF_ARCH_PPC)-$(PTXCONF_USPLASH) += usplash
 
 #
 # Paths and names
