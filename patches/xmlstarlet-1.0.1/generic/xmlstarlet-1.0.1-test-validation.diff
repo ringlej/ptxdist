@@ -1,0 +1,32 @@
+Subject: xmlstarlet: bail out if no dtd parsing support in libxml2
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+We use xmlParseDTD without testing if libxml2 has support
+for it enabled. This can result in the following linker error:
+
+xml_validate.o: In function `valAgainstDtd':
+xmlstarlet-1.0.1/src/xml_validate.c:229:
+undefined reference to `xmlParseDTD'
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ src/xml_validate.c |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+Index: xmlstarlet-1.0.1/src/xml_validate.c
+===================================================================
+--- xmlstarlet-1.0.1.orig/src/xml_validate.c
++++ xmlstarlet-1.0.1/src/xml_validate.c
+@@ -226,6 +226,11 @@ valAgainstDtd(valOptionsPtr ops, char* d
+     {
+         xmlDtdPtr dtd;
+ 
++#if !defined(LIBXML_VALID_ENABLED)
++	xmlGenericError(xmlGenericErrorContext,
++	"libxml2 has no validation support");
++	return 2;
++#endif
+         dtd = xmlParseDTD(NULL, (const xmlChar *)dtdvalid);
+         if (dtd == NULL)
+         {

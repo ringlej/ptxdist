@@ -1,0 +1,31 @@
+Subject: xmlstarlet: fix semicolon in wrong place
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+We define a semicolon in the wrong place:
+
+xml_trans.c:84: error: expected ',' or ';' before 'void'
+
+This does not fail only by accident, if the right defines have been set
+in libxml2.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ src/xml_trans.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Index: xmlstarlet-1.0.1/src/xml_trans.c
+===================================================================
+--- xmlstarlet-1.0.1.orig/src/xml_trans.c
++++ xmlstarlet-1.0.1/src/xml_trans.c
+@@ -75,8 +75,9 @@ static const char trans_usage_str_3[] =
+ #ifdef LIBXML_CATALOG_ENABLED
+ "  --catalogs      - use SGML catalogs from $SGML_CATALOG_FILES\n"
+ "                    otherwise XML catalogs starting from\n"
+-"                    file:///etc/xml/catalog are activated by default\n\n";
++"                    file:///etc/xml/catalog are activated by default\n\n"
+ #endif
++;
+ 
+ /**
+  *  Display usage syntax

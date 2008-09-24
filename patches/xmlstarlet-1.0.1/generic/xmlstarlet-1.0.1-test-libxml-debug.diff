@@ -1,0 +1,92 @@
+Subject: xmlstarlet: use debug functions only if libxml2 has debug support
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+We use xmlXPathDebugDumpCompExpr without testing if libxml2 has support
+for it enabled. This can result in the following linker error:
+
+xml_edit.o: In function `edUpdate':
+xmlstarlet-1.0.1/src/xml_edit.c:327:
+undefined reference to `xmlXPathDebugDumpCompExpr'
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ src/xml_edit.c |   18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+Index: xmlstarlet-1.0.1/src/xml_edit.c
+===================================================================
+--- xmlstarlet-1.0.1.orig/src/xml_edit.c
++++ xmlstarlet-1.0.1/src/xml_edit.c
+@@ -323,9 +323,10 @@ edUpdate(xmlDocPtr doc, const char *loc,
+             comp = xmlXPathCompile(BAD_CAST loc);
+             if (comp != NULL)
+             {
++#if defined(LIBXML_DEBUG_ENABLED)
+                 if (tree)
+                     xmlXPathDebugDumpCompExpr(stdout, comp, 0);
+-
++#endif
+                 res = xmlXPathCompiledEval(comp, ctxt);
+                 xmlXPathFreeCompExpr(comp);
+             }
+@@ -406,9 +407,10 @@ edInsert(xmlDocPtr doc, const char *loc,
+             comp = xmlXPathCompile(BAD_CAST loc);
+             if (comp != NULL)
+             {
++#if defined(LIBXML_DEBUG_ENABLED)
+                 if (tree)
+                     xmlXPathDebugDumpCompExpr(stdout, comp, 0);
+-
++#endif
+                 res = xmlXPathCompiledEval(comp, ctxt);
+                 xmlXPathFreeCompExpr(comp);
+             }
+@@ -508,9 +510,10 @@ edRename(xmlDocPtr doc, char *loc, char 
+             comp = xmlXPathCompile(BAD_CAST loc);
+             if (comp != NULL)
+             {
++#if defined(LIBXML_DEBUG_ENABLED)
+                 if (tree)
+                     xmlXPathDebugDumpCompExpr(stdout, comp, 0);
+-
++#endif
+                 res = xmlXPathCompiledEval(comp, ctxt);
+                 xmlXPathFreeCompExpr(comp);
+             }
+@@ -599,9 +602,10 @@ edDelete(xmlDocPtr doc, char *str)
+             comp = xmlXPathCompile(BAD_CAST str);
+             if (comp != NULL)
+             {
++#if defined(LIBXML_DEBUG_ENABLED)
+                 if (tree)
+                     xmlXPathDebugDumpCompExpr(stdout, comp, 0);
+-
++#endif
+                 res = xmlXPathCompiledEval(comp, ctxt);
+                 xmlXPathFreeCompExpr(comp);
+             }
+@@ -691,9 +695,10 @@ edMove(xmlDocPtr doc, char *from, char *
+             comp = xmlXPathCompile(BAD_CAST from);
+             if (comp != NULL)
+             {
++#if defined(LIBXML_DEBUG_ENABLED)
+                 if (tree)
+                     xmlXPathDebugDumpCompExpr(stdout, comp, 0);
+-
++#endif
+                 res = xmlXPathCompiledEval(comp, ctxt);
+                 xmlXPathFreeCompExpr(comp);
+             }
+@@ -738,9 +743,10 @@ edMove(xmlDocPtr doc, char *from, char *
+             comp = xmlXPathCompile(BAD_CAST to);
+             if (comp != NULL)
+             {
++#if defined(LIBXML_DEBUG_ENABLED)
+                 if (tree)
+                     xmlXPathDebugDumpCompExpr(stdout, comp, 0);
+-
++#endif
+                 res_to = xmlXPathCompiledEval(comp, ctxt);
+                 xmlXPathFreeCompExpr(comp);
+             }
