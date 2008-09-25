@@ -9,7 +9,6 @@ echo -n "mounting filesystems..."
 mount -a 2>/dev/null
 echo "done."
 
-# modprobe ppp_async
 # loadkmap < /etc/boottime.kmap
 
 # set hostname
