@@ -46,7 +46,7 @@ UDEV_ENV 	=  $(CROSS_ENV)
 # autoconf
 #
 UDEV_AUTOCONF = \
-	$(CROSS_AUTOCONF_USR) \
+	$(CROSS_AUTOCONF_ROOT) \
 	--enable-shared
 
 ifdef PTXCONF_UDEV__DEBUG
