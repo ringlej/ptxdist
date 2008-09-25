@@ -138,12 +138,12 @@ endif
 	#
 
 ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV
-ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV__DEFAULT
+ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV_DEFAULT
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/udev, \
 		/etc/init.d/udev, n)
 endif
-ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV__USER
+ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV_USER
 	@$(call install_copy, udev, 0, 0, 0755, \
 		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/udev, \
 		/etc/init.d/udev, n)
