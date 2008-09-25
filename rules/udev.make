@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
-UDEV_VERSION	:= 125
+UDEV_VERSION	:= 128
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
 UDEV_URL	:= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
@@ -37,93 +37,43 @@ $(UDEV_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-UDEV_OPTIONS	:=
+udev_prepare: $(STATEDIR)/udev.prepare
 
-# compile options
+UDEV_PATH	=  PATH=$(CROSS_PATH)
+UDEV_ENV 	=  $(CROSS_ENV)
 
-ifdef PTXCONF_UDEV_OPT_DEBUG
-UDEV_OPTIONS	+= DEBUG=true
+#
+# autoconf
+#
+UDEV_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-shared
+
+ifdef PTXCONF_UDEV__DEBUG
+UDEV_AUTOCONF	+= --enable-debug
 else
-UDEV_OPTIONS	+= DEBUG=false
+UDEV_AUTOCONF	+= --disable-debug
 endif
 
-ifdef PTXCONF_UDEV_OPT_GCOV
-UDEV_OPTIONS	+= USE_GCOV=true
+ifdef PTXCONF_UDEV__SELINUX
+UDEV_AUTOCONF	+= --enable-selinux
 else
-UDEV_OPTIONS	+= USE_GCOV=false
+UDEV_AUTOCONF	+= --disable-selinux
 endif
 
-UDEV_OPTIONS	+= USE_SELINUX=false
-
-ifdef PTXCONF_UDEV_OPT_SYSLOG
-UDEV_OPTIONS	+= USE_LOG=true
+ifdef PTXCONF_UDEV__SYSLOG
+UDEV_AUTOCONF	+= --enable-logging
 else
-UDEV_OPTIONS	+= USE_LOG=false
+UDEV_AUTOCONF	+= --disable-logging
 endif
 
-
-# extras
-
-ifdef PTXCONF_UDEV_EXTRA_ATA_ID
-UDEV_EXTRAS	+= extras/ata_id
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_CDROM_ID
-UDEV_EXTRAS	+= extras/cdrom_id
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_COLLECT
-UDEV_EXTRAS	+= extras/collect
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_EDD_ID
-UDEV_EXTRAS	+= extras/edd_id
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_FIRMWARE
-UDEV_EXTRAS	+= extras/firmware
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_FLOPPY
-UDEV_EXTRAS	+= extras/floppy
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_FSTAB_IMPORT
-UDEV_EXTRAS	+= extras/fstab_import
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_PATH_ID
-UDEV_EXTRAS	+= extras/path_id
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_RULE_GENERATOR
-UDEV_EXTRAS	+= extras/rule_generator
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_SCSI_ID
-UDEV_EXTRAS	+= extras/scsi_id
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_USB_ID
-UDEV_EXTRAS	+= extras/usb_id
-endif
-
-ifdef PTXCONF_UDEV_EXTRA_VOLUME_ID
-UDEV_EXTRAS	+= extras/volume_id
-endif
-
-# specify configuration
-
-UDEV_PATH	:=  PATH=$(CROSS_PATH)
-UDEV_ENV 	:=  $(CROSS_ENV)
-UDEV_MAKEVARS	:= \
-	CROSS_COMPILE=$(COMPILER_PREFIX) \
-	$(UDEV_OPTIONS) \
-	EXTRAS="$(UDEV_EXTRAS)" 
-
-$(STATEDIR)/udev.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+$(STATEDIR)/udev.prepare: $(udev_prepare_deps_default)
+	@$(call targetinfo, $@)
+	@$(call clean, $(UDEV_DIR)/config.cache)
+	cd $(UDEV_DIR) && \
+		$(UDEV_PATH) $(UDEV_ENV) \
+		./configure $(UDEV_AUTOCONF)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -132,8 +82,7 @@ $(STATEDIR)/udev.prepare:
 $(STATEDIR)/udev.compile:
 	@$(call targetinfo)
 	cd $(UDEV_DIR) && \
-		$(UDEV_ENV) $(UDEV_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) $(UDEV_MAKEVARS)
+		$(UDEV_ENV) $(UDEV_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -164,12 +113,12 @@ $(STATEDIR)/udev.targetinstall:
 	# binaries
 	#
 
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevd, \
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev/udevd, \
 		/sbin/udevd)
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udevadm, \
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev/udevadm, \
 		/sbin/udevadm)
-ifdef PTXCONF_UDEV_INSTALL_TEST_UDEV
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/test-udev, \
+ifdef PTXCONF_UDEV__INSTALL_TEST_UDEV
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev/test-udev, \
 		/sbin/test-udev)
 endif
 
@@ -177,7 +126,7 @@ endif
 	# default rules
 	#
 
-ifdef PTXCONF_ROOTFS_UDEV_DEFAULT_RULES
+ifdef PTXCONF_ROOTFS_UDEV__DEFAULT_RULES
 	cd $(UDEV_DIR)/rules/rules.d; \
 	for file in *; do \
 		$(call install_copy, udev, 0, 0, 0644, $(UDEV_DIR)/rules/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
@@ -188,22 +137,22 @@ endif
 	# startup scripts
 	#
 
-ifdef PTXCONF_UDEV_INSTALL_ETC_INITD_UDEV
-ifdef PTXCONF_UDEV_INSTALL_ETC_INITD_UDEV_DEFAULT
+ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV
+ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV__DEFAULT
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/udev, \
 		/etc/init.d/udev, n)
 endif
-ifdef PTXCONF_UDEV_INSTALL_ETC_INITD_UDEV_USER
+ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV__USER
 	@$(call install_copy, udev, 0, 0, 0755, \
 		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/udev, \
 		/etc/init.d/udev, n)
 endif
 # FIXME: Is this packet the right location for the link?
-ifneq ($(PTXCONF_UDEV_RC_D_LINK),"")
+ifneq ($(PTXCONF_UDEV__RC_D_LINK),"")
 	@$(call install_copy, udev, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, udev, ../init.d/udev, \
-		/etc/rc.d/$(PTXCONF_UDEV_RC_D_LINK))
+		/etc/rc.d/$(PTXCONF_UDEV__RC_D_LINK))
 endif
 endif
 
@@ -211,8 +160,8 @@ endif
 #
 # Install a configuration on demand only
 #
-ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF
-ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_DEFAULT
+ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF
+ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF_DEFAULT
 # use generic
 	@$(call install_copy, udev, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/udev/udev.conf, \
@@ -221,7 +170,7 @@ ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_DEFAULT
 		$(PTXDIST_TOPDIR)/generic/etc/udev/permissions.rules, \
 		/etc/udev/permissions.rules, n)
 endif
-ifdef PTXCONF_ROOTFS_ETC_UDEV_CONF_USER
+ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF_USER
 # user defined
 	@$(call install_copy, udev, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/udev.conf, \
@@ -236,18 +185,18 @@ endif
 	# utilities from extra/
 	#
 
-ifdef PTXCONF_UDEV_EXTRA_USB_ID
+ifdef PTXCONF_UDEV__EXTRA_USB_ID
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/usb_id/usb_id, \
 		/lib/udev/usbid)
 endif
-ifdef PTXCONF_UDEV_EXTRA_FIRMWARE
+ifdef PTXCONF_UDEV__EXTRA_FIRMWARE
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/firmware/firmware.sh, \
 		/lib/udev/firmware.sh,n)
 endif
 
-ifdef PTXCONF_UDEV_EXTRA_SCSI_ID
+ifdef PTXCONF_UDEV__EXTRA_SCSI_ID
 	@$(call install_copy, udev, 0, 0, 0644, \
 		$(UDEV_DIR)/extras/scsi_id/scsi_id.config, \
 		/etc/scsi_id.config, n)
