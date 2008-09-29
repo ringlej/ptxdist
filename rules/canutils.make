@@ -29,34 +29,13 @@ CANUTILS_DIR		:= $(BUILDDIR)/$(CANUTILS)
 # Get
 # ----------------------------------------------------------------------------
 
-canutils_get: $(STATEDIR)/canutils.get
-
-$(STATEDIR)/canutils.get: $(canutils_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(CANUTILS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, CANUTILS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-canutils_extract: $(STATEDIR)/canutils.extract
-
-$(STATEDIR)/canutils.extract: $(canutils_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(CANUTILS_DIR))
-	@$(call extract, CANUTILS)
-	@$(call patchin, CANUTILS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-canutils_prepare: $(STATEDIR)/canutils.prepare
 
 CANUTILS_PATH	:=  PATH=$(CROSS_PATH)
 CANUTILS_ENV 	:=  $(CROSS_ENV)
@@ -66,45 +45,21 @@ CANUTILS_ENV 	:=  $(CROSS_ENV)
 #
 CANUTILS_AUTOCONF :=  $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/canutils.prepare: $(canutils_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/canutils.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(CANUTILS_DIR)/config.cache)
 	cd $(CANUTILS_DIR) && \
 		$(CANUTILS_PATH) $(CANUTILS_ENV) \
 		CPPFLAGS="-I${KERNEL_DIR}/include $${CPPFLAGS}" \
 		./configure $(CANUTILS_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-canutils_compile: $(STATEDIR)/canutils.compile
-
-$(STATEDIR)/canutils.compile: $(canutils_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(CANUTILS_DIR) && $(CANUTILS_ENV) $(CANUTILS_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-canutils_install: $(STATEDIR)/canutils.install
-
-$(STATEDIR)/canutils.install: $(canutils_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, CANUTILS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-canutils_targetinstall: $(STATEDIR)/canutils.targetinstall
-
-$(STATEDIR)/canutils.targetinstall: $(canutils_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/canutils.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, canutils)
 	@$(call install_fixup, canutils,PACKAGE,canutils)
@@ -131,7 +86,7 @@ ifdef PTXCONF_CANUTILS_CANSEQUENCE
 	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/cansequence, /sbin/cansequence)
 endif
 	@$(call install_finish, canutils)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
