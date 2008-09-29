@@ -1,6 +1,6 @@
 menuconfig LUA
 	tristate
-	prompt "lua"
+	prompt "lua                           "
 	select READLINE	if LUA_READLINE
 	help
 	  Lua is a powerful, fast, light-weight, embeddable scripting language.

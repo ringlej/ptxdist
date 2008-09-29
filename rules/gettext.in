@@ -1,6 +1,6 @@
 menuconfig GETTEXT
 	tristate
-	prompt "gettext (GNU)"
+	prompt "gettext (GNU)                 "
 	select LIBICONV if ARCH_MINGW
 	help
 	  The gettext program translates a natural language

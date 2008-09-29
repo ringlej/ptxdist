@@ -2,7 +2,7 @@ menuconfig GPSD
 	tristate
 	select NCURSES if GPSD_CGPS
 	select NCURSES if GPSD_SIFRMON
-	prompt "gpsd"
+	prompt "gpsd                          "
 	help
 	  gpsd is a daemon that listens to a GPS or Loran receiver
 	  and translates the positional data into a simplified format
