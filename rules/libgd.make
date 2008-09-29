@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBGD) += libgd
 #
 # Paths and names
 #
-LIBGD_VERSION	= 2.0.36RC1
-LIBGD		= gd-$(LIBGD_VERSION)
-LIBGD_SUFFIX	= tar.gz
-LIBGD_URL	= http://www.libgd.org/releases/$(LIBGD).$(LIBGD_SUFFIX)
-LIBGD_SOURCE	= $(SRCDIR)/$(LIBGD).$(LIBGD_SUFFIX)
-LIBGD_DIR	= $(BUILDDIR)/$(LIBGD)
+LIBGD_VERSION	:= 2.0.36RC1
+LIBGD		:= gd-$(LIBGD_VERSION)
+LIBGD_SUFFIX	:= tar.gz
+LIBGD_URL	:= http://www.libgd.org/releases/$(LIBGD).$(LIBGD_SUFFIX)
+LIBGD_SOURCE	:= $(SRCDIR)/$(LIBGD).$(LIBGD_SUFFIX)
+LIBGD_DIR	:= $(BUILDDIR)/$(LIBGD)
 
 
 # ----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ LIBGD_ENV 	:= $(CROSS_ENV)
 LIBGD_AUTOCONF  := $(CROSS_AUTOCONF_USR)
 
 ifdef PTXCONF_LIBGD_X
-LIBGD_AUTOCONF	+= --with-x
+LIBGD_AUTOCONF += --with-x
 else
 LIBGD_AUTOCONF += --without-x
 endif
