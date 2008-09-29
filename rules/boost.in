@@ -2,6 +2,7 @@
 
 menuconfig BOOST
 	tristate
+	select ZLIB
 	prompt "boost                         "
 	help
 
