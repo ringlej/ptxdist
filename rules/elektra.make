@@ -181,7 +181,56 @@ $(STATEDIR)/elektra.targetinstall:
 	@$(call install_fixup, elektra,DEPENDS,)
 	@$(call install_fixup, elektra,DESCRIPTION,missing)
 
-	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/foobar, /dev/null)
+	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/src/kdb/kdb, /usr/bin/kdb)
+	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/src/preload/preload, /usr/bin/preload)
+	@$(call install_copy, elektra, 0, 0, 0644, \
+		$(ELEKTRA_DIR)/src/libelektra/.libs/libelektra.so.3.0.0, \
+		/usr/lib/libelektra.so.3.0.0)
+	@$(call install_link, elektra, libelektra.so.3.0.0, /usr/lib/libelektra.so.3)
+	@$(call install_link, elektra, libelektra.so.3.0.0, /usr/lib/libelektra.so)
+ifdef PTXCONF_ELEKTRA__CPP
+	@$(call install_copy, elektra, 0, 0, 0644, \
+		$(ELEKTRA_DIR)/src/bindings/cpp/.libs/libelektra-cpp.so.0.0.0, \
+		/usr/lib/libelektra-cpp.so.0.0.0)
+	@$(call install_link, elektra, libelektra-cpp.so.0.0.0, /usr/lib/libelektra-cpp.so.0)
+	@$(call install_link, elektra, libelektra-cpp.so.0.0.0, /usr/lib/libelektra-cpp.so)
+endif
+ifdef PTXCONF_ELEKTRA__FILESYS
+	@$(call install_copy, elektra, 0, 0, 0644, \
+		$(ELEKTRA_DIR)/src/backends/filesys/.libs/libelektra-filesys.so, \
+		/usr/lib/elektra/libelektra-filesys.so)
+endif
+ifdef PTXCONF_ELEKTRA__HOSTS
+	@$(call install_copy, elektra, 0, 0, 0644, \
+		$(ELEKTRA_DIR)/src/backends/hosts/.libs/libelektra-hosts.so, \
+		/usr/lib/elektra/libelektra-hosts.so)
+endif
+ifdef PTXCONF_ELEKTRA__INI
+	@$(call install_copy, elektra, 0, 0, 0644, \
+		$(ELEKTRA_DIR)/src/backends/ini/.libs/libelektra-ini.so, \
+		/usr/lib/elektra/libelektra-ini.so)
+endif
+ifdef PTXCONF_ELEKTRA__BERKELEYDB
+	@$(call install_copy, elektra, 0, 0, 0644, \
+		$(ELEKTRA_DIR)/src/backends/berkeleydb/.libs/libelektra-berkeleydb.so, \
+		/usr/lib/elektra/libelektra-berkeleydb.so)
+endif
+ifdef PTXCONF_ELEKTRA__FSTAB
+	@$(call install_copy, elektra, 0, 0, 0644, \
+		$(ELEKTRA_DIR)/src/backends/fstab/.libs/libelektra-fstab.so, \
+		/usr/lib/elektra/libelektra-fstab.so)
+endif
+ifdef PTXCONF_ELEKTRA__PASSWD
+	@$(call install_copy, elektra, 0, 0, 0644, \
+		$(ELEKTRA_DIR)/src/backends/passwd/.libs/libelektra-passwd.so, \
+		/usr/lib/elektra/libelektra-passwd.so)
+endif
+ifdef PTXCONF_ELEKTRA__DAEMON
+	@$(call install_copy, elektra, 0, 0, 0644, \
+		$(ELEKTRA_DIR)/src/backends/daemon/.libs/libelektra-daemon.so, \
+		/usr/lib/elektra/libelektra-daemon.so)
+	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/src/backends/daemon/kdbd, /usr/sbin/kdbd)
+endif
 
 	@$(call install_finish, elektra)
 
