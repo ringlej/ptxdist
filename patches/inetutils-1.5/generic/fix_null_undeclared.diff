@@ -1,0 +1,25 @@
+From: Luotao Fu <l.fu@pengutronix.de>
+Subject: Fix undefined NULL
+
+Compiling inetutils 1.5 with gcc 4.3 fails with 
+icmp_timestamp.c:46: error: 'NULL' undeclared (first use in this function)
+add a specific include of stdlib.h fixes this.
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+
+---
+ libicmp/icmp_timestamp.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: libicmp/icmp_timestamp.c
+===================================================================
+--- libicmp/icmp_timestamp.c.orig
++++ libicmp/icmp_timestamp.c
+@@ -25,6 +25,7 @@
+ #include <sys/socket.h>
+ #include <sys/time.h>
+ #include <signal.h>
++#include <stdlib.h>
+ 
+ #include <netinet/in_systm.h>
+ #include <netinet/in.h>
