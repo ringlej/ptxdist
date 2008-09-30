@@ -1,0 +1,199 @@
+# -*-makefile-*-
+# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
+#
+# Copyright (C) 2008 by Robert Schwebel <r.schwebel@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_ELEKTRA) += elektra
+
+#
+# Paths and names
+#
+ELEKTRA_VERSION	:= 0.7.0rc5
+ELEKTRA		:= elektra-$(ELEKTRA_VERSION)
+ELEKTRA_SUFFIX	:= tar.gz
+ELEKTRA_URL	:= http://www.markus-raab.org/ftp/$(ELEKTRA).$(ELEKTRA_SUFFIX)
+ELEKTRA_SOURCE	:= $(SRCDIR)/$(ELEKTRA).$(ELEKTRA_SUFFIX)
+ELEKTRA_DIR	:= $(BUILDDIR)/$(ELEKTRA)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(ELEKTRA_SOURCE):
+	@$(call targetinfo)
+	@$(call get, ELEKTRA)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/elektra.extract:
+	@$(call targetinfo)
+	@$(call clean, $(ELEKTRA_DIR))
+	@$(call extract, ELEKTRA)
+	@$(call patchin, ELEKTRA)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+ELEKTRA_PATH	:= PATH=$(CROSS_PATH)
+ELEKTRA_ENV 	:= \
+	$(CROSS_ENV) \
+	ac_cv_func_realloc_0_nonnull=yes \
+	ac_cv_func_malloc_0_nonnull=yes
+
+#
+# autoconf
+#
+ELEKTRA_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug \
+	--disable-experimental \
+	--disable-valgrind-tests \
+	--disable-gcov \
+	--enable-shared \
+	--disable-static \
+	--disable-fast-install \
+	--disable-iconv \
+	--disable-rpath \
+	--disable-xmltest \
+	--disable-gconf \
+	--disable-python
+
+ifdef PTXCONF_ELEKTRA__FILESYS
+ELEKTRA_AUTOCONF += --enable-filesys
+else
+ELEKTRA_AUTOCONF += --disable-filesys
+endif
+ifdef PTXCONF_ELEKTRA__HOSTS
+ELEKTRA_AUTOCONF += --enable-hosts
+else
+ELEKTRA_AUTOCONF += --disable-hosts
+endif
+ifdef PTXCONF_ELEKTRA__INI
+ELEKTRA_AUTOCONF += --enable-ini
+else
+ELEKTRA_AUTOCONF += --disable-ini
+endif
+ifdef PTXCONF_ELEKTRA__BERKELEYDB
+ELEKTRA_AUTOCONF += --enable-berkeleydb
+else
+ELEKTRA_AUTOCONF += --disable-berkeleydb
+endif
+ifdef PTXCONF_ELEKTRA__FSTAB
+ELEKTRA_AUTOCONF += --enable-fstab
+else
+ELEKTRA_AUTOCONF += --disable-fstab
+endif
+ifdef PTXCONF_ELEKTRA__PASSWD
+ELEKTRA_AUTOCONF += --enable-passwd
+else
+ELEKTRA_AUTOCONF += --disable-passwd
+endif
+ifdef PTXCONF_ELEKTRA__DAEMON
+ELEKTRA_AUTOCONF += --enable-daemon
+else
+ELEKTRA_AUTOCONF += --disable-daemon
+endif
+ifdef PTXCONF_ELEKTRA__CPP
+ELEKTRA_AUTOCONF += --enable-cpp
+else
+ELEKTRA_AUTOCONF += --disable-cpp
+endif
+
+#  --with-ulibdir=ULIBDIR> Set the path for usr lib.
+#  --with-backenddir=<path where backend libraries are>
+#                          Set the path for backend libraries.
+#                          [LIBDIR/elektra@]
+#  --with-hlvl-backenddir=<path where high level backend libraries are>
+#                          Set the path for high level backend libraries.
+#                          [ULIBDIR/elektra]
+#  --with-docdir=<path where doc will be installed>
+#                          Set the path for documentation.
+#                          [DATADIR/doc/elektra]
+#  --with-develdocdir=<path where elektra-api doc will be installed>
+#                          Set the path for elektra api documentation.
+#                          [DATADIR/doc/elektra-devel]
+#  --with-docbook=<path to docbook.xsl>
+#                          Set path to docbook.xsl used for generate manpage.
+#                          [/usr/share/sgml/docbook/xsl-stylesheets]
+#  --with-kdbschemadir=<relative path to kdb schema>
+#                          Set the path for elektra.xsd. DATADIR will be
+#                          prefixed. [/sgml/elektra-$PACKAGE_VERSION]
+#  --with-default-backend=<backend>
+#                          Set backend elektra will be linked to. [filesys]
+#  --with-default-dbackend=<daemon backend>
+#                          Set the default backend for the kdbd daemon to use.
+#                          [berkeleydb]
+#  --with-xml-prefix=PFX   Prefix where libxml is installed (optional)
+#  --with-xml-exec-prefix=PFX Exec prefix where libxml is installed (optional)
+
+$(STATEDIR)/elektra.prepare:
+	@$(call targetinfo)
+	@$(call clean, $(ELEKTRA_DIR)/config.cache)
+	cd $(ELEKTRA_DIR) && \
+		$(ELEKTRA_PATH) $(ELEKTRA_ENV) \
+		./configure $(ELEKTRA_AUTOCONF)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/elektra.compile:
+	@$(call targetinfo)
+	cd $(ELEKTRA_DIR) && $(ELEKTRA_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/elektra.install:
+	@$(call targetinfo)
+	@$(call install, ELEKTRA)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/elektra.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init, elektra)
+	@$(call install_fixup, elektra,PACKAGE,elektra)
+	@$(call install_fixup, elektra,PRIORITY,optional)
+	@$(call install_fixup, elektra,VERSION,$(ELEKTRA_VERSION))
+	@$(call install_fixup, elektra,SECTION,base)
+	@$(call install_fixup, elektra,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de> <your@email.please>")
+	@$(call install_fixup, elektra,DEPENDS,)
+	@$(call install_fixup, elektra,DESCRIPTION,missing)
+
+	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/foobar, /dev/null)
+
+	@$(call install_finish, elektra)
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+elektra_clean:
+	rm -rf $(STATEDIR)/elektra.*
+	rm -rf $(PKGDIR)/elektra_*
+	rm -rf $(ELEKTRA_DIR)
+
+# vim: syntax=make
