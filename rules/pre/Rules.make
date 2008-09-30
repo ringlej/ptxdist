@@ -176,18 +176,21 @@ CROSS_ENV_FLAGS_FOR_TARGET := \
 	$(CROSS_ENV_LDFLAGS_FOR_TARGET)
 
 CROSS_ENV_AC := \
-	ac_cv_sizeof_long_long=8 \
-	ac_cv_sizeof_long_double=8 \
-	ac_cv_func_getpgrp_void=yes \
-	ac_cv_func_setpgrp_void=yes \
-	ac_cv_func_memcmp_clean=yes \
-	ac_cv_func_setvbuf_reversed=no \
-	ac_cv_func_getrlimit=yes \
-	ac_cv_type_uintptr_t=yes \
-	ac_cv_func_posix_getpwuid_r=yes \
 	ac_cv_func_dcgettext=yes \
-	gt_cv_func_gettext_libintl=yes \
-	ac_cv_sysv_ipc=yes
+	ac_cv_func_getpgrp_void=yes \
+	ac_cv_func_getrlimit=yes \
+	ac_cv_func_memcmp_clean=yes \
+	ac_cv_func_posix_getpwuid_r=yes \
+	ac_cv_func_printf_unix98=yes \
+	ac_cv_func_setpgrp_void=yes \
+	ac_cv_func_setvbuf_reversed=no \
+	ac_cv_func_vsnprintf_c99=yes \
+	ac_cv_sizeof_long_double=8 \
+	ac_cv_sizeof_long_long=8 \
+	ac_cv_sysv_ipc=yes \
+	ac_cv_type_uintptr_t=yes \
+	glib_cv_long_long_format="ll" \
+	gt_cv_func_gettext_libintl=yes
 
 CROSS_ENV_DESTDIR := \
 	DESTDIR=$(SYSROOT)
