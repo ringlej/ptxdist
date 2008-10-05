@@ -1,29 +1,38 @@
 #!/bin/bash
 
-OURDIR="$(dirname $0)"
-LIB="${OURDIR}/libptxdisttest.kermit"
-
-KSCRIPT="${PTXDIST_WORKSPACE}/tests/$1.kermit"
-if [ ! -e $KSCRIPT ]; then
-	KSCRIPT="${OURDIR}/$1.kermit"
-	if [ ! -e $KSCRIPT ]; then
-		echo "No kermit-script for $1 found!"
-		exit 1
-	fi
-fi
+OURDIR="$(dirname "${0}")"
+TST="${1}"
+shift
 
 if [ ! -e "${PTXDIST_BOARDSETUP}" ]; then
 	echo "Please run 'ptxdist boardsetup' first!"
 	exit 1
 fi
 
-if [ ! -e "$LIB" ]; then
-	echo "Could not find $LIB!"
+KSCRIPT="${PTXDIST_WORKSPACE}/tests/${TST}.kermit"
+if [ ! -e "${KSCRIPT}" ]; then
+	KSCRIPT="${OURDIR}/${TST}.kermit"
+	if [ ! -e "${KSCRIPT}" ]; then
+		echo "No kermit-script for ${TST} found!"
+		exit 1
+	fi
+fi
+
+LIB="${OURDIR}/libptxdisttest.kermit"
+if [ ! -e "${LIB}" ]; then
+	echo "Could not find ${LIB}!"
 	exit 1
 fi
 
-TMPFILE=$(mktemp -t ptxdist-kwrapper.XXXXXXXX)
-#we _must_ set the variables in kermit using 'define'! '.' has a bug there (patch already mainlined).
-sed -e 's/^\(PTXCONF_BOARDSETUP_[A-Z0-9_]*\)=/define \1 /' ${PTXDIST_BOARDSETUP} >$TMPFILE
-$KSCRIPT ${LIB} $TMPFILE $2 $3 $4 $5 $6 $7 $8 $9
-rm -f $TMPFILE
+TMPFILE="$(mktemp "${PTXDIST_TEMPDIR}/kwrapper.XXXXXX")"
+
+#
+# we _must_ set the variables in kermit using 'define'!
+# '.' has a bug there (patch already mainlined).
+#
+sed -e 's/^\(PTXCONF_BOARDSETUP_[A-Z0-9_]*\)=/define \1 /' "${PTXDIST_BOARDSETUP}" > "${TMPFILE}"
+# FIXME: add PTXDIST_TEST_vars from environment, too
+
+"${KSCRIPT}" "${LIB}" "${TMPFILE}" "${@}"
+
+rm -f "${TMPFILE}"
