@@ -278,7 +278,7 @@ check_compiler() {
 			local vendor_is="$(. ${vendor_def} && echo ${PTXCONF_PROJECT})"
 			if [ "$vendor_is" != "$vendor_should" ]; then
 				echo
-				echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is <${vendor_is}>,"
+				echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
 				echo "${PROMPT}error: specified: ${vendor_should}"
 				echo "${PROMPT}error: found:     ${vendor_is}"
 				echo
@@ -552,7 +552,7 @@ Setup and Project Actions:
   oldconfig			run 'make oldconfig' on ptxconfig file
 
   menuconfig u-boot-v2		configure U-Boot (U-Boot V2 only)
-  u_boot_config			
+  u_boot_config
 
   toolchain [<path>]		if path is omitted the toolchain is guessed,
 				    (guessing works only platformconfig is
@@ -655,7 +655,7 @@ clean() {
 			echo "done"
 			popd > /dev/null
 		done
-		rm -rf "${dir}"
+		rm -fr "${dir}"
 	done
 
 	if [ -f "${PTXDIST_PTXCONFIG}" ]; then
@@ -675,7 +675,7 @@ clean() {
 			#
 			case "${dir}" in
 			(${PTXDIST_WORKSPACE}/*)
-				rm -rf "${dir}"
+				rm -fr "${dir}"
 				;;
 			(*)
 				;;
@@ -1289,44 +1289,6 @@ parse_second()
 
 ######## the rest of it
 
-		autobuild)
-			echo
-			echo "${PROMPT}running autobuild"
-			echo
-			AUTOBUILDS=$(find . -name "autobuild*" | grep -v .svn)
-			AUTOBUILD_TOPDIR=$(pwd)
-			exec 5>COMPILETEST
-			echo >&5
-			for i in $AUTOBUILDS; do
-				pushd $(dirname $i)
-
-				echo "config............: $(basename $(pwd))" >&5
-				echo "date..............: $(date)" >&5
-				echo "user..............: ${USER}@${HOSTNAME}" >&5
-				PTX_STARTTIME=$(date +"%s")
-
-				./$(basename $i)
-
-				PTX_RETVAL=${?}
-				PTX_STOPTIME=$(date +"%s")
-				let "PTX_TIME=$PTX_STOPTIME-$PTX_STARTTIME"
-				let "PTX_TIME_H=$PTX_TIME/3600"
-				let "PTX_TIME_M=($PTX_TIME-$PTX_TIME_H*3600)/60"
-				let "PTX_TIME_S=($PTX_TIME-$PTX_TIME_H*3600-$PTX_TIME_M*60)/60"
-				echo "buildtime.........: ${PTX_TIME_H}h${PTX_TIME_M}m${PTX_TIME_S}s" >&5
-				echo "result............: ${PTX_RETVAL}" >&5
-				echo >&5
-
-				[ -e "logfile" ] && mv logfile "${AUTOBUILD_TOPDIR}/$(basename $(pwd)).log"
-				[ "${PTX_RETVAL}" = "0" ] && ${PTXDIST} distclean
-
-				popd
-			done
-			echo
-			echo "${PROMPT}done"
-			echo
-			exit 0
-			;;
 		clean)
 			check_ptxconfig || return
 			check_deps
@@ -1361,7 +1323,7 @@ parse_second()
 			fi
 
 			echo "${PROMPT}removing logs..."
-			rm -fr "${PTXDIST_PLATFORMDIR}/logfile"
+			rm -fr "${PTX_LOGFILE}"
 
 			echo
 			exit 0
@@ -1550,7 +1512,7 @@ ptxdist_trap_exit_handler() {
 	local retval="${?}"
 
 	if [ -n "${PTXDIST_TEMPDIR}" -a -d "${PTXDIST_TEMPDIR}" ]; then
-		rm -rf "${PTXDIST_TEMPDIR}"
+		rm -fr "${PTXDIST_TEMPDIR}"
 	fi
 
 	if [ -e "${PTX_LOGFILE}" ]; then
