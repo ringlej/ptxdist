@@ -137,6 +137,9 @@ ptxd_source_kconfig() {
 }
 
 
+#
+# get a symbol from the ptx or platformconfig
+#
 ptxd_get_ptxconf() {
 	if test -f "${PTXDIST_PTXCONFIG}"; then
 		source "${PTXDIST_PTXCONFIG}"
@@ -146,6 +149,7 @@ ptxd_get_ptxconf() {
 	fi
 	echo "${!1}"
 }
+export -f ptxd_get_ptxconf
 
 
 #
@@ -274,6 +278,8 @@ ptxd_abspath() {
 	dn=`dirname $1`
 	echo `cd $dn && pwd`/`basename $1`
 }
+export -f ptxd_abspath
+
 
 #
 # convert a human readable number with [kM] suffix or 0x prefix into a number
@@ -341,6 +347,7 @@ ptxd_bailout() {
 	echo "${PREFIX}error: $1" >&2
 	exit 1
 }
+export -f ptxd_bailout
 
 
 #
@@ -358,15 +365,16 @@ ptxd_warning() {
 # check if a previously executed pipe returned an error
 #
 check_pipe_status() {
-	for i in "${PIPESTATUS[@]}"; do
-		if [ ${i} -ne 0 ]; then
+	for _pipe_status in "${PIPESTATUS[@]}"; do
+		if [ ${_pipe_status} -ne 0 ]; then
 			echo
-			echo "error: a command in the pipe returned ${i}, bailing out"
+			echo "error: a command in the pipe returned ${_pipe_status}, bailing out"
 			echo
-			exit $i
+			exit ${_pipe_status}
 		fi
 	done
 }
+export -f check_pipe_status
 
 
 #
@@ -382,11 +390,11 @@ check_pipe_status() {
 # - "name arm 1.2.3"   if packet revision doesn't exist
 #
 ptxd_ipkg_split() {
-	name=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\1/"`
-	rev=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\2/"`
-	arch=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\3/"`
-	rev_upstream=`echo $rev | sed -e "s/\(.*\)-\(.*\)/\1/"`
-	rev_packet=""
+	local name=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\1/"`
+	local rev=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\2/"`
+	local arch=`echo $1 | sed -e "s/\(.*\)_\(.*\)_\(.*\).ipk/\3/"`
+	local rev_upstream=`echo $rev | sed -e "s/\(.*\)-\(.*\)/\1/"`
+	local rev_packet=""
 	[ `echo $rev | grep -e "-"` ] && rev_packet=`echo $rev | sed -e "s/\(.*\)-\(.*\)/\2/"`
 	if [ "$rev_upstream" = "" ] && [ "$rev_packet" = "" ]; then
 		rev_upstream=$rev
@@ -426,18 +434,18 @@ ptxd_ipkg_arch() {
 #
 ptxd_ipkg_rev_smaller() {
 
-	first=`ptxd_ipkg_split $1`
-	first_rev_upstream=`ptxd_ipkg_rev_upstream $first`
-	first_rev_packet=`ptxd_ipkg_rev_packet $first`
-	second=`ptxd_ipkg_split $2`
-	second_rev_upstream=`ptxd_ipkg_rev_upstream $second`
-	second_rev_packet=`ptxd_ipkg_rev_packet $second`
-	first_major=`echo $first_rev_upstream | awk -F. '{print $1}'`
-	first_minor=`echo $first_rev_upstream | awk -F. '{print $2}'`
-	first_micro=`echo $first_rev_upstream | awk -F. '{print $3}'`
-	second_major=`echo $second_rev_upstream | awk -F. '{print $1}'`
-	second_minor=`echo $second_rev_upstream | awk -F. '{print $2}'`
-	second_micro=`echo $second_rev_upstream | awk -F. '{print $3}'`
+	local first=`ptxd_ipkg_split $1`
+	local first_rev_upstream=`ptxd_ipkg_rev_upstream $first`
+	local first_rev_packet=`ptxd_ipkg_rev_packet $first`
+	local second=`ptxd_ipkg_split $2`
+	local second_rev_upstream=`ptxd_ipkg_rev_upstream $second`
+	local second_rev_packet=`ptxd_ipkg_rev_packet $second`
+	local first_major=`echo $first_rev_upstream | awk -F. '{print $1}'`
+	local first_minor=`echo $first_rev_upstream | awk -F. '{print $2}'`
+	local first_micro=`echo $first_rev_upstream | awk -F. '{print $3}'`
+	local second_major=`echo $second_rev_upstream | awk -F. '{print $1}'`
+	local second_minor=`echo $second_rev_upstream | awk -F. '{print $2}'`
+	local second_micro=`echo $second_rev_upstream | awk -F. '{print $3}'`
 
 	[ $first_major -lt $second_major ] && return 0
 	[ $first_major -gt $second_major ] && return 1
@@ -451,84 +459,6 @@ ptxd_ipkg_rev_smaller() {
 	ptxd_error "packets $1 and $2 have the same revision"
 }
 
-
-#
-# ptxd_compile_test: test-compile a configuration
-#
-
-ptxd_compile_test() {
-
-	# Option parser
-	while [ $# -gt 0 ]; do
-		case "$1" in
-		--path)
-			PATH=$2;
-			shift 2;
-			;;
-		--config-name)
-			CONFIG_NAME=$2;
-			shift 2;
-			;;
-		--ptxdist)
-			PTXDIST_TOPDIR=$2;
-			shift 2;
-			;;
-		*)
-			echo "error: unknown argument: $1" >&2
-			exit 1
-		esac
-	done
-
-	# sanity checks
-	if [ -z "$PTXDIST_TOPDIR" ]; then
-		echo "error: PTXDIST_TOPDIR must be set with --ptxdist" >&2
-		echo "error: commandline is $*" >&2
-		exit 1
-	fi
-
-	LOGFILE=logfile
-	OLD_DIR=`pwd`
-	cd ${PTXDIST_WORKSPACE}
-
-	echo config...: $CONFIG_NAME
-	echo date.....: `date`
-	echo user.....: $USER@$HOSTNAME
-
-	make ${CONFIG_NAME}_config >> ${LOGFILE}
-
-	if [ $? != "0" ]; then
-		echo "result...: no config file '$CONFIG_NAME'"
-		echo >> $LOGFILE
-		exit 1
-	fi
-
-	make silentoldconfig >> $LOGFILE
-
-	# Now start the compilation
-
-	PTX_STARTTIME=`date +"%s"`
-	(make world; echo PTX_RESULT=$?) > $LOGFILE 2>&1
-	PTX_STOPTIME=`date +"%s"`
-	PTX_RESULT=`grep PTX_RESULT logfile | awk -F"=" -- '{print $2}'`
-	let "PTX_TIME=$PTX_STOPTIME-$PTX_STARTTIME"
-
-	PTX_BUILDTIME_H=$(($PTX_TIME/3600))
-	PTX_TIME=$(($PTX_TIME-$PTX_BUILDTIME_H*3600))
-	PTX_BUILDTIME_M=$(($PTX_TIME/60))
-	PTX_TIME=$(($PTX_TIME-$PTX_BUILDTIME_M*60))
-	PTX_BUILDTIME_S=$PTX_TIME
-
-	echo buildtime: ${PTX_BUILDTIME_H}h${PTX_BUILDTIME_M}m${PTX_BUILDTIME_S}s
-	echo result...: $PTX_RESULT
-	echo
-
-	# save logfile
-	mv logfile ${PTXDIST_WORKSPACE}/logs/${CONFIG_NAME}.log
-
-	make distclean
-
-	cd ${OLD_DIR}
-}
 
 
 #
