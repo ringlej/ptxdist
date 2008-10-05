@@ -1,4 +1,5 @@
-#!/usr/bin/kermit
+#!/usr/bin/kermit	# -*-sh-*-
+
 define ptx_init {
 
 	take \%1
