@@ -28,6 +28,7 @@ source "platforms/dtc.in"
 source "platforms/console.in"
 
 menu "bootloaders                   "
+source "platforms/test-bootloader.in"
 source "platforms/grub.in"
 source "platforms/u-boot.in"
 source "platforms/u-boot-v2.in"
