@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#
+# $@: possible download URLs, seperated by space
+#
 ptxd_make_get() {
 	local orig_argv=( "${@}" )
 
@@ -19,7 +22,13 @@ ptxd_make_get() {
 
 		case "${url}" in
 		http://*|ftp://*)
-			wget --passive-ftp -t 5 ${PTXDIST_QUIET:+--quiet} -P "${PTXDIST_SRCDIR}" "${url}" && return
+			wget \
+			    -t 5 \
+			    --progress=bar:force \
+			    --passive-ftp \
+			    ${PTXDIST_QUIET:+--quiet} \
+			    -P "${PTXDIST_SRCDIR}" \
+			    "${url}" && return
 			;;
 		file*)
 			local thing="${url/file:\/\///}"
