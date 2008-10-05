@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# FIXME consolidate these
+PREFIX="setenv "
+PROMPT="${PREFIX}"
+
+#
+#
+#
+setup_u_boot() {
+	true
+}
+
+#
+# setup stuff for u-boot-v2
+#
+setup_u_boot_v2() {
+	local envtmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/kconfig.XXXXXX")"
+	PTXDIST_SETENV_U_BOOT_V2_ENV="$(mktemp "${PTXCONF_BOARDSETUP_TFTP_PATH}/u-boot-v2-environment.XXXXXX")"
+
+	tar -C "${PTXDIST_WORKSPACE}/u-boot-v2-env" -c . \
+		--exclude .svn \
+		--exclude .pc \
+		--exclude .git \
+		--exclude "${CONFFILE}.in" \
+		| tar -C "${envtmpdir}" -x
+
+	ubootenv -s "${envtmpdir}" "${IMAGEDIR}/u-boot-v2-environment"
+
+	cp "${IMAGEDIR}/u-boot-v2-environment" \
+	    "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
+
+	rm -rf "${envtmpdir}"
+}
+
+
+#
+# main()
+#
+
+# FIXME: migrate into ptxdist
+if [ ! -e "${PTXDIST_BOARDSETUP}" ]; then
+	ptxd_bailout "Please run 'ptxdist boardsetup' first!"
+fi
+
+# source and export variables, so we can access them later with awk.
+set -a
+. "${PTXDIST_BOARDSETUP}"
+set +a
+
+bootloader="$(ptxd_get_ptxconf PTXCONF_TEST_BOOTLOADER)"
+case "${bootloader}" in
+	u_boot)
+		CONFFILE="${PTXDIST_WORKSPACE}/tests/u-boot-env.conf"
+		;;
+	u_boot_v2)
+		CONFFILE="${PTXDIST_WORKSPACE}/u-boot-v2-env/config"
+		;;
+	none)
+		echo
+		echo "${PROMPT}error: no bootloader choosen, select a bootloader with:"
+		echo "${PROMPT}error: 'ptxdist platformconfig'"
+		echo
+		exit 1
+		;;
+	*)
+		ptxd_bailout "bootloader: '${bootloader}' is not supported"
+		;;
+esac
+
+#
+# Replace @MAGIC@ with PTXCONF_MAGIC variables from the environment
+# this is all ugly somehow...
+# but works :)
+#
+awk 'match($0, "@[A-Z0-9_]+@") { var=substr($0,RSTART+1,RLENGTH-2); gsub( "@"var"@", ENVIRON[var]); } {print} ' \
+	"${CONFFILE}.in" > "${CONFFILE}"
+
+setup_$(bootloader)
+
+"${PTXDIST_TOPDIR}/tests/kwrapper" setenv.${bootloader} "${CONFFILE}"

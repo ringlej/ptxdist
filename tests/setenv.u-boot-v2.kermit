@@ -1,0 +1,33 @@
+#!/usr/bin/kermit +
+
+#Read the library
+take \%1
+
+#Set up the line
+pelts_init \%2
+
+#Enter shell
+pelts_uboot_enter_shell
+
+#Execute commands
+pelts_test_start "Setting environment"
+pelts_uboot_exec "eth0.ipaddr=\m(PTXCONF_BOARDSETUP_TARGETIP)" 
+pelts_uboot_exec "eth0.serverip=\m(PTXCONF_BOARDSETUP_SERVERIP)"
+pelts_uboot_exec "eth0.gateway=\m(PTXCONF_BOARDSETUP_GATEWAY)"
+pelts_uboot_exec "eth0.netmask=\m(PTXCONF_BOARDSETUP_NETMASK)"
+pelts_uboot_exec "mtdparts=\"128k(uboot)ro,128k(ubootenv),128k(ageing),1280k(kernel0),1280k(kernel1),8704k(system0),8704k(system1),8320k(application),4096k(persistent)\""
+pelts_uboot_exec "addpart /dev/nor0 $mtdparts"
+pelts_test_end
+
+pelts_uboot_exec_single "Calling server" "ping $eth0.serverip"
+
+pelts_test_start "Flashing environment"
+pelts_uboot_exec "unprotect /dev/nor0.ubootenv"
+pelts_uboot_exec "erase /dev/nor0.ubootenv"
+pelts_uboot_exec "tftp u-boot-v2-environment-bfin /dev/nor0.ubootenv"
+pelts_uboot_exec "protect /dev/nor0.ubootenv"
+pelts_test_end
+
+pelts_uboot_exec_single "Reloading new environment" "loadenv"
+
+pelts_exit
