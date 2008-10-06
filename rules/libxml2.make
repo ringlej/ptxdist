@@ -20,7 +20,8 @@ PACKAGES-$(PTXCONF_LIBXML2) += libxml2
 LIBXML2_VERSION	:= 2.6.32
 LIBXML2		:= libxml2-$(LIBXML2_VERSION)
 LIBXML2_SUFFIX	:= tar.gz
-LIBXML2_URL	:= ftp://xmlsoft.org/libxml2/$(LIBXML2).$(LIBXML2_SUFFIX)
+LIBXML2_URL	:= ftp://xmlsoft.org/libxml2/$(LIBXML2).$(LIBXML2_SUFFIX) \
+		   ftp://xmlsoft.org/libxml2/old/$(LIBXML2).$(LIBXML2_SUFFIX)
 LIBXML2_SOURCE	:= $(SRCDIR)/$(LIBXML2).$(LIBXML2_SUFFIX)
 LIBXML2_DIR	:= $(BUILDDIR)/$(LIBXML2)
 
