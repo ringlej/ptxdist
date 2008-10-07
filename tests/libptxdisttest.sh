@@ -11,43 +11,75 @@ SSH_COMMAND=${SSH_COMMAND:-${SSH_COMMAND_DEFAULT}}
 
 LOGFILE="${PTXDIST_WORKSPACE}/test${PTXDIST_PLATFORMSUFFIX}.log"
 REPORTFILE="${PTXDIST_WORKSPACE}/test${PTXDIST_PLATFORMSUFFIX}.report"
-echo "<report starttime=\""$(date +%FT%T)"\">" > "$REPORTFILE"
+TESTRUNDIRBASE="${PTXDIST_WORKSPACE}/results/${PTXDIST_PLATFORMSUFFIX}/"
+echo "<report starttime=\""$(date +%FT%T.%N)"\">" > "$REPORTFILE"
 
 RED='\0033[1;31m'
 GREEN='\0033[1;32m'
 NC='\0033[0m' # No Color
+OKSTRING="OK"
+FAILSTRING="FAILED"
 ok_count=0
 fail_count=0
+testseq=0
 
+
+datenohyphen=$(date +%Y%m%d)
+lastrundir=$(find ${TESTRUNDIRBASE} -name "${datenohyphen}-*" -printf "%P\n" | sort | tail -n1)
+if [ -e "$lastrundir" ]
+then  # create a new dir with testrun sequence one up
+	oldtestrunseq=${lastrundir/"${datenohyphen}-"/}
+	testrunseq=(( oldtestrunseq + 1 ))
+else
+	testrunseq="1"
+fi
+TESTRUNDIR="${TESTRUNDIRBASE}/${datenohyphen}-${testrunseq}"
+mkdir "${TESTRUNDIR}"
 
 
 reportwrite() {
 	case "$1" in
 	'checking')
-		echo "<test desc=\"checking $2\">" >> "$REPORTFILE"
+		echo "<checking>$2</checking>" >> "$REPORTFILE"
 		;;
 	'remote')
 		echo "<remote>$2</remote>" >> "$REPORTFILE"
+		echo "$2" > "${TESTDIR}/cmdline"
 		;;
 	'compare')
 		echo "<compare>$2</compare>" >> "$REPORTFILE"
 		;;
 	'boolresult')
 		if [ "$2" = "true" ]; then
-			echo "<result>OK</result>" >> "$REPORTFILE"
+			echo "<result>${OKSTRING}</result>" >> "$REPORTFILE"
+			echo "${OKSTRING}" > "${TESTDIR}/result"
 		fi
 		if [ "$2" = "false" ]; then
-			echo "<result>FAIL</result>" >> "$REPORTFILE"
+			echo "<result>${FAILSTRING}</result>" >> "$REPORTFILE"
+			echo "${FAILSTRING}" > "${TESTDIR}/result"
 		fi
-		echo "</test>" >> "$REPORTFILE"
 		;;
 	'stdout')
 		echo "<stdout>" >> "$REPORTFILE"
 		echo "$2" >> "$REPORTFILE"
+		echo "$2" > "${TESTDIR}/stdout"
 		echo "</stdout>" >> "$REPORTFILE"
 		;;
 	'exitstatus')
 		echo "<exitstatus>$2</exitstatus>" >> "$REPORTFILE"
+		echo "$2" > "${TESTDIR}/exitstatus"
+		;;
+	'time')
+		if [ $2 = "begin" ]
+		then
+			echo "<starttime>$(date +%FT%T.%N)</starttime>" >> "$REPORTFILE"
+			echo "$(date +%FT%T.%N)" > "${TESTDIR}/starttime"
+		fi
+		if [ $2 = "end" ]
+		then
+			echo "<endtime>$(date +%FT%T.%N)</endtime>" >> "$REPORTFILE"
+			echo "$(date +%FT%T.%N)" > "${TESTDIR}/endtime"
+		fi
 		;;
 	*)
 		echo "Error: No or wrong action given in reportwrite call in $0" >> "$LOGFILE"
@@ -55,6 +87,25 @@ reportwrite() {
 	esac
 }
 
+test_begin() {
+	(( testseq++ ))
+	local testname=${FUNCNAME[1]/"acctest_"}
+	local testseqstring=$(printf "%04d" $testseq)
+	echo "<test name=\"${testname}\" sequence=\"${testseqstring}\">" >> "$REPORTFILE"
+	TESTDIR="${TESTRUNDIR}/${testseqstring}-$testname"
+	if [ ! -e "${TESTDIR}" ]
+	then
+		mkdir "${TESTDIR}"
+	else
+		echo "Directory \"${TESTDIR}\" already exists. Something is going wrong." >&2
+	fi
+	reportwrite time begin
+}
+
+test_end() {
+	reportwrite time end
+	echo "</test>" >> "$REPORTFILE"
+}
 
 checking() {
 	printf "%-71s" "checking $1" >&2
@@ -140,23 +191,18 @@ remote_assure_module() {
 	test "${ret:0:${#1}}" = "$1" 2>> "${PTXDIST_WORKSPACE}/test.log"
 }
 
-remote_busybox() {
+remote_busyboxps() {
 	if [ -z $BUSYBOX ]
 	then
 		local bbtest=$(remote "ps --help 2>&1 | grep ^BusyBox") 2>> "$LOGFILE"
-		if [ "${bbtest:0:7}" = "BusyBox" ]
-		then
-			BUSYBOX="0"
-		else
-			BUSYBOX="1"
-		fi
+		test "${bbtest:0:7}" = "BusyBox"
+		BUSYBOX=$?
 	fi
-	
 	return $BUSYBOX
 }
 
 remote_assure_process() {
-	if remote_busybox
+	if remote_busyboxps
 	then
 		#put brackets around the first char of search string, so grep won't hit its own pid
 		local lookfor="[${1:0:1}]${1:1}"
