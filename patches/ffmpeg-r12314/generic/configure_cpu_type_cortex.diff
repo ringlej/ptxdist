@@ -1,0 +1,25 @@
+From: Luotao Fu <l.fu@pengutronix.de>
+Subject: add cortex* cpus to cpu selections in configure script
+
+This one makes the configure script take the cortex* cpu types, as i.E. used in
+OMAP3 processors, and set the correct gcc flag.
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+---
+ configure |    3 +++
+ 1 file changed, 3 insertions(+)
+
+Index: configure
+===================================================================
+--- configure.orig
++++ configure
+@@ -1464,6 +1464,9 @@ if test $cpu != "generic"; then
+         arm*)
+             add_cflags "-mcpu=$cpu"
+         ;;
++        cortex*)
++            add_cflags "-mcpu=$cpu"
++        ;;
+         *)
+             echo "WARNING: Unknown CPU \"$cpu\", ignored."
+         ;;
