@@ -178,7 +178,7 @@ ifdef PTXCONF_ARCH_ARM
 	--disable-mmx \
 	--disable-iwmmxt
  else
- $(error Please define the config options for this CPU type!)
+ $(warning Please define the config options for this CPU type!)
  endif
  endif
  endif
