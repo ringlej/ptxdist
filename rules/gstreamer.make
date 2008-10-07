@@ -162,6 +162,9 @@ ifdef PTXCONF_GSTREAMER__INSTALL_INSPECT
 	@$(call install_copy, gstreamer, 0, 0, 0755, \
 		$(GSTREAMER_DIR)/tools/gst-inspect, \
 		/usr/bin/gst-inspect)
+	@$(call install_copy, gstreamer, 0, 0, 0755, \
+		$(GSTREAMER_DIR)/tools/gst-inspect-0.10, \
+		/usr/bin/gst-inspect-0.10)
 endif
 ifdef PTXCONF_GSTREAMER__INSTALL_XMLINSPECT
 	@$(call install_copy, gstreamer, 0, 0, 0755, \
@@ -177,6 +180,9 @@ ifdef PTXCONF_GSTREAMER__INSTALL_LAUNCH
 	@$(call install_copy, gstreamer, 0, 0, 0755, \
 		$(GSTREAMER_DIR)/tools/gst-launch, \
 		/usr/bin/gst-launch)
+	@$(call install_copy, gstreamer, 0, 0, 0755, \
+		$(GSTREAMER_DIR)/tools/gst-launch-0.10, \
+		/usr/bin/gst-launch-0.10)
 endif
 ifdef PTXCONF_GSTREAMER__NETDIST
 	@$(call install_copy, gstreamer, 0, 0, 0644, \
