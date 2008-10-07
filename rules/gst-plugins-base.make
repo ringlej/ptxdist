@@ -272,21 +272,24 @@ $(STATEDIR)/gst-plugins-base.targetinstall:
 		/usr/bin/gst-visualise)
 
 	for i in \
-		libgsttag-0.10.so.0.14.0  \
-		libgstinterfaces-0.10.so.0.14.0 \
-		libgstcdda-0.10.so.0.14.0 \
-		libgstpbutils-0.10.so.0.14.0 \
-		libgstnetbuffer-0.10.so.0.14.0 \
-		libgstfft-0.10.so.0.14.0 \
-		libgstriff-0.10.so.0.14.0 \
-		libgstaudio-0.10.so.0.14.0 \
-		libgstrtp-0.10.so.0.14.0 \
-		libgstsdp-0.10.so.0.14.0 \
-		libgstrtsp-0.10.so.0.14.0 \
-		libgstvideo-0.10.so.0.14.0 \
+		libgsttag-0.10.so.0  \
+		libgstinterfaces-0.10.so.0 \
+		libgstcdda-0.10.so.0 \
+		libgstpbutils-0.10.so.0 \
+		libgstnetbuffer-0.10.so.0 \
+		libgstfft-0.10.so.0 \
+		libgstriff-0.10.so.0 \
+		libgstaudio-0.10.so.0 \
+		libgstrtp-0.10.so.0 \
+		libgstsdp-0.10.so.0 \
+		libgstrtsp-0.10.so.0 \
+		libgstvideo-0.10.so.0 \
 	; do \
 	$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/$$i, \
+		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/$$i.14.0, \
+		/usr/lib/$$i.14.0); \
+	$(call install_link, gst-plugins-base,  \
+		$$i.14.0, \
 		/usr/lib/$$i); \
 	done
 
