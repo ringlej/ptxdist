@@ -1,0 +1,22 @@
+menuconfig GST_PLUGINS_BAD
+	tristate
+	select GLIB
+	select LIBOIL
+	select GSTREAMER
+	select GST_PLUGINS_BASE
+	prompt "gst-plugins-bad               "
+	help
+	  FIXME
+
+if GST_PLUGINS_BAD
+
+	config GST_PLUGINS_BAD__FBDEVSINK
+		bool
+		prompt "fbdevsink"
+
+	config GST_PLUGINS_BAD__BAYER
+		bool
+		prompt "bayer filter"
+
+endif
+

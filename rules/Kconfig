@@ -289,6 +289,7 @@ endmenu
 menu "Multimedia                    "
 source "rules/gst-plugins-base.in"
 source "rules/gst-plugins-good.in"
+source "rules/gst-plugins-bad.in"
 source "rules/gstreamer.in"
 source "rules/libid3tag.in"
 source "rules/libmad.in"
