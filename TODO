@@ -1,5 +1,5 @@
-TODO for 1.99.x
-===============
+TODO before 2.0.0
+=================
 
 [ ] rsc: fallback server for udev
 
@@ -11,189 +11,56 @@ TODO for 1.99.x
 
 [ ] jbe: udev seems to load kernel modules by its own. How to disable it?
 
-[ ] jbe: it must be possible to force some userland components from inside the
-    platformconfig. For example a platform specific kernel driver module
-    needs a special component of the UDEV. Currently it does not work.
-    Duplicating symbols in both config files may work, but it will be
-    "BROKEN BY DESIGN".
-
-[ ] jbe: ptxdist complains about a missing "projectroot/etc/module"
-    file, but it searches for "projectroot/etc/module-<platformname>"
-    rsc: testcase?
-
 [ ] rsc: platformconfig: check what about PTXCONF_IMAGE_IPKG_ARCH; it
     should go to the platformconfig code.
 
 [ ] rsc: we don't seem to have a target option for the endianess!
 
-[ ] rsc: configure continues, even if a test breaks. Example:
-    checking lex library... sed: couldn't write 76 items to stdout: No space left on device
-    grep: write error: No space left on device
-    sed: couldn't write 46 items to stdout: No space left on device
-    none needed
-    checking whether yytext is a pointer... sed: couldn't write 29 items to stdout: No space left on device
-    no
-    [...anything proceeds...]
-
 [ ] mkl: reactiveate new install_copy feature (no explicid destination)
+    rsc: ask mkl what kind of problems have been observed with the old
+    implementation that has been thrown out again
 
-[ ] mol: bash configure --enable-job-control does not work when cross compiling
-         posible fix in:
-         https://iocaste.extern.pengutronix.de/svn/oselas/bsp/johndeere/OSELAS.BSP-JohnDeere-ComPC-trunk/rules/bash.make
-         explained here:
-         http://www.mail-archive.com/bug-bash%40gnu.org/msg03107.html
-
-[ ] bbu: add more real GNU coreutils
-
-[ ] rsc: cyclictest needs a "select GLIBC" to fullfill the packet
-    dependency generation requirements
+[ ] rsc: run dependency hunter and fix all remaining dependency problems
 
 [ ] rsc: SuSE has an old stat version which doesn't support --printf;
-    this breaks building of hd.img
-
-[ ] jbe: review samba configure stage. For a non-root and cross-compile run it
-	seems to omit many tests and switches of many features in the final
-	application.
-	-> check if samba_cv_HAVE_IFACE_IFCONF=yes and samba_cv_HAVE_MMAP=yes
-	   can be used all over all architectures as defaults
-
-[ ] bbu: add minimal documentation for internal vars (useful for customer makefiles)
-	-> see manual (not quickstart)
-
-[ ] rsc: fix python dependencies for related libs
+    this breaks building of hd.img. Add test to configure.
 
 [ ] rsc: add 'quiet' support to start scripts
-
-[ ] jbe: samba fails to run with:
-	[...]
-	sys_gethostbyname: Unknown host. eth0
-	can't determine netmask for eth0
-	WARNING: no network interfaces found
-	[...]
-	Seems to be a failure with current glibc
-
-[ ] rsc: find out why iproute2 needs berkeley-db
-
-[ ] rsc: xorg-app-xkbcomp needs xorg-lib-xkbfile, but dependency doesn't
-         work
-
-[ ] rsc: xorg-data-xkbdata needs xkbcomp on the host - otherwhise we get
-         a circular dependency ...
-
-[ ] rsc: add generic/sbin/init trick
 
 [ ] bbu: default path to generic projects seems not work
 
 [ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks into PTXdist's build
 	Audit other environment variables also!
 
-[ ] jbe: Current implementation of "screen" is useless due to lack of generic configuration
-
 [ ] jbe: Generic projects must be audited carefully prior any release. For the
 	 0.10.6 release, ARM and PowerPC projects where updated, but the x86
 	 project was/is still on 0.10.5!
 
-[ ] jbe: working with hd.img is very delicate. The incomplete partition table
-	 confuses the linux kernel, so any rewrite of the image after done
-	 one time fails with "no space left on device". Also fdisk fails
-	 when trying to repair this partition table. Only Windows can
-	 rewrite the partition table in this case. After this, also Linux
-	 is able to write to the hard disk again!
-	 But the BIOS and Kernel on target side are successfull. Problem
-	 happend on SUSE-10.1 on host side and an USB to IDE adapter
-	 to initial write the hd.img to the harddisk.
-
 [ ] jbe: most of the time thttpd does not respond to the USR1 signal.
 	  - the start/stop script fails to stop this service
-
-[ ] jbe: hd images must be built from ipkgs to support the ipkg tool
-	 on the target
 
 [ ] jbe: review all READMEs, COMPILE-TESTs, SPECIFICATIONs and so on files
 	 in the ptxdist install folder. Most of them are trash only
 
-[ ] jbe: alsa-lib creates funny pathes at the install stage
-
 [ ] jbe: it seems to extract a kernel always touches the local
 	 kernelconfig.target (or similar). This confuses svn, as
 	 this file always changes without calling "ptxdist kernelconfig"
+    rsc: mol has a patch for this, integrate
 
-[ ] jbe: remove ptxdist's documentation from the installation.
-	 It's now useless and outdated as a better alternative
-	 is present with the application notes
-
-[ ] jbe: cleanup rules/other/Toplevel.make
-
-[ ] jbe: org-server fails if no xkbfile is selected
-
-[ ] jbe: use tmpfs everywhere instead of the ramfs
-
-[ ] jbe: audit BROKEN marked packages
+[ ] jbe, rsc: add sane minimal in-system documentation
 
 [ ] lfu: some mountable devices are available after udev started. hence
 	we need an extra mount script to mount all entries in fstab instead
 	out of rcS
 
-[ ] lfu: often used config files for X like xorg.conf or xinitrd shall be
-	integrated into ptxdist generic files. the installation shall follow
-	the scheme of other rootfs configuration files
-
 [ ] when the drop command is used without a stage, complain about that
     and suggest to use clean instead
 
-After branch:
-
-[ ] rsc: audit if 'ptxdist get' fetches all packets correctly
-    [ ] http://www.sqlite.org/sqlite-3.2.8.tar.gz does not exists any more
-    [ ] ftp://ftp.leo.org/historic/comp/os/unix/networking/mgetty/mgetty1.1.30-Dec16.tar.gz
-        503: Service Unavailable
-
-[ ] update ChangeLog
-
-After release:
-
-[ ] rsc: update OSELAS.Toolchain and OSELAS.Crosstool to use this version.
-
-TODO for 0.10.x
-===============
-
-[ ] bbu: Discuss the future kconfig include scheme. At the moment, overriding
-	 single *.in files is a real pain.
-
-	 - There should be a way to autogenerate the needed files
-	   before starting kconfig or kconfig should just ignore
-	   double definitions (which might be a bad idea)
-
-	 Features needed:
-
-	 - override *.make as well as *.in
-	 - create a sane menu structure
+[ ] rsc: add bbu's "get" script
 
 [ ] bbu: check ptxdist first-time-usage scenario for chicken-egg problems
          e.g. if you don´t set sane defaults for PTXCONF_SETUP_PROJECTPATH,
 	 ptxdist won´t find its own projects.
-
-[ ] bbu: Discuss the whole definition of "package". At the moment,
-	 most package options are scattered across two or more
-	 *.in or *.make files, making "drop-in replacements" nearly
-	 impossible.
-
-[ ] audit all packages if they change the target CPU (with --march or --mtune)
-
-   [ ] openssl does so
-
-[ ] jbe: uRamdisk should be built from ipkg packages instead of root/ content!
-
-[ ] rsc, bbu: audit THING mechanism in get stage, looks a little bit
-    overcomplicated
-
-[ ] jbe: Adding "ant" to the required host tools. Emit a warning if its not
-    present, but not fail (required only to build jvisu)
-
-    Update 2007-01-24:	rsc: rejected. Ant is only needed by tools which
-			use Java, and we don't want a prerequisite to
-			java in PTXdist. Maybe add some loud warning if
-			packets are built which use java, such as jvisu.
 
 [ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
     this "class" mechanism and make sure it produces sane output. Check
@@ -212,18 +79,120 @@ TODO for 0.10.x
 
 [ ] discuss UIDs and GIDs of other important system users
 
-[ ] jbe: reduce directory count on top level, combine build-* and
-    local-* into a shared subdir rsc: we've agreed on this variant:
+[ ] update ChangeLog
 
-    	build-host/
-	build-target/
-	build-cross/
-	local/
-	local-target/
-	local-cross/
 
-[ ] repair make makro 'install'; there are sometimes three """.
-    See procps.install for reference.
+TODO before 2.1.0
+=================
+
+[ ] jbe: it must be possible to force some userland components from inside the
+    platformconfig. For example a platform specific kernel driver module
+    needs a special component of the UDEV. Currently it does not work.
+    Duplicating symbols in both config files may work, but it will be
+    "BROKEN BY DESIGN".
+
+[ ] rsc: configure continues, even if a test breaks. Example:
+    checking lex library... sed: couldn't write 76 items to stdout: No space left on device
+    grep: write error: No space left on device
+    sed: couldn't write 46 items to stdout: No space left on device
+    none needed
+    checking whether yytext is a pointer... sed: couldn't write 29 items to stdout: No space left on device
+    no
+    [...anything proceeds...]
+
+[ ] jbe: working with hd.img is very delicate. The incomplete partition table
+	 confuses the linux kernel, so any rewrite of the image after done
+	 one time fails with "no space left on device". Also fdisk fails
+	 when trying to repair this partition table. Only Windows can
+	 rewrite the partition table in this case. After this, also Linux
+	 is able to write to the hard disk again!
+	 But the BIOS and Kernel on target side are successfull. Problem
+	 happend on SUSE-10.1 on host side and an USB to IDE adapter
+	 to initial write the hd.img to the harddisk.
+
+[ ] bbu: Discuss the future kconfig include scheme. At the moment, overriding
+	 single *.in files is a real pain.
+
+	 - There should be a way to autogenerate the needed files
+	   before starting kconfig or kconfig should just ignore
+	   double definitions (which might be a bad idea)
+
+	 Features needed:
+
+	 - override *.make as well as *.in
+	 - create a sane menu structure
+
+
+TODO somewhen
+=============
+
+[ ] mol: bash configure --enable-job-control does not work when cross compiling
+         posible fix in:
+         https://iocaste.extern.pengutronix.de/svn/oselas/bsp/johndeere/OSELAS.BSP-JohnDeere-ComPC-trunk/rules/bash.make
+         explained here:
+         http://www.mail-archive.com/bug-bash%40gnu.org/msg03107.html
+
+[ ] bbu: add more real GNU coreutils
+
+[ ] jbe: review samba configure stage. For a non-root and cross-compile run it
+	seems to omit many tests and switches of many features in the final
+	application.
+	-> check if samba_cv_HAVE_IFACE_IFCONF=yes and samba_cv_HAVE_MMAP=yes
+	   can be used all over all architectures as defaults
+
+[ ] bbu: add minimal documentation for internal vars (useful for customer makefiles)
+	-> see manual (not quickstart)
+
+[ ] rsc: fix python
+
+[ ] jbe: samba fails to run with:
+	[...]
+	sys_gethostbyname: Unknown host. eth0
+	can't determine netmask for eth0
+	WARNING: no network interfaces found
+	[...]
+	Seems to be a failure with current glibc
+
+[ ] rsc: find out why iproute2 needs berkeley-db
+
+[ ] rsc: xorg-app-xkbcomp needs xorg-lib-xkbfile, but dependency doesn't
+         work
+
+[ ] rsc: xorg-data-xkbdata needs xkbcomp on the host - otherwhise we get
+         a circular dependency ...
+
+[ ] jbe: Current implementation of "screen" is useless due to lack of
+         generic configuration
+
+[ ] jbe: alsa-lib creates funny pathes at the install stage
+
+[ ] jbe: org-server fails if no xkbfile is selected
+
+[ ] jbe: use tmpfs everywhere instead of the ramfs
+
+[ ] jbe: audit BROKEN marked packages
+
+[ ] lfu: often used config files for X like xorg.conf or xinitrd shall be
+	integrated into ptxdist generic files. the installation shall follow
+	the scheme of other rootfs configuration files
+
+[ ] bbu: Discuss the whole definition of "package". At the moment,
+	 most package options are scattered across two or more
+	 *.in or *.make files, making "drop-in replacements" nearly
+	 impossible.
+
+[ ] jbe: audit all packages if they change the target CPU (with --march
+         or --mtune); openssl does so
+
+[ ] jbe: uRamdisk should be built from ipkg packages instead of root/ content!
+
+[ ] jbe: Adding "ant" to the required host tools. Emit a warning if its not
+    present, but not fail (required only to build jvisu)
+
+    Update 2007-01-24:	rsc: rejected. Ant is only needed by tools which
+			use Java, and we don't want a prerequisite to
+			java in PTXdist. Maybe add some loud warning if
+			packets are built which use java, such as jvisu.
 
 [ ] jbe: why does fam-2.7.0 always try to run the autotools? It fails on most
     modern systems -> mark as broken. rsc: real fix: find out why and fix.
@@ -246,22 +215,18 @@ TODO for 0.10.x
     rsc: while doing this, update to a recent kconfig version, with
     saner colours instead of this unreadable yellow.
 
-[ ] we seem to need python2.3-dev, reported by Marco Cavallini:
-
-[ ] Profiling support (kernel and userspace)
+[ ] feature request: add profiling support (kernel and userspace)
     best with host visualisation
 
-[.] jbe: more help texts
-[ ] bbu: audit *.in and *.make files, broken install definitions everywhere [tm]
-	 (mostly c&p errors, probably)
+[ ] jbe: more help texts
 
-[ ] bbu: reimplement cuckoo-test for ptxdist 0.10 series
+[ ] bbu: reimplement cuckoo-test
 	 - files w/ wrong build-arch
 	 - missing libs
 	 - statistics
 	 - stripped / non stripped files
 
-[ ] bbu: reimplement generic pre- and post-flight checks for 0.10.x
+[ ] bbu: reimplement generic pre- and post-flight checks
 	 - dependency checks
 	 - cuckoo-test
 	 - user defined checks
@@ -368,41 +333,6 @@ TODO for 0.10.x
 		- Draw the big picture :-)
 		- Create Roadmap
 
-
-
--------------------------------
-target: host-ipkg-utils.install
--------------------------------
-
-mkdir -p ""/home/koan/ptxtest/generic_test/local""/usr/bin
-# ipkg.py is forgotten by MAKE_INSTALL, so we copy it manually
-# FIXME: this should probably be fixed upstream
-make[1]: Entering directory
-`/home/koan/ptxtest/generic_test/build-host/ipkg-utils-1.7'
-cp ipkg-build ipkg-deb-unbuild ipkg-unbuild ipkg-compare-versions
-ipkg-upload /home/koan/ptxtest/generic_test/local/usr/bin
-python setup.py install --prefix=/home/koan/ptxtest/generic_test/local/usr
-/usr/lib/python2.3/distutils/dist.py:213: UserWarning: 'licence'
-distribution option is deprecated; use 'license'
-  warnings.warn(msg)
-running install
-error: invalid Python installation: unable to open
-/usr/lib/python2.3/config/Makefile (No such file or directory)
-make[1]: *** [install] Error 1
-make[1]: Leaving directory
-`/home/koan/ptxtest/generic_test/build-host/ipkg-utils-1.7'
-make: ***
-[/home/koan/ptxtest/generic_test/state/host-ipkg-utils.install] Error 2
-
-[ ] Start a "Global Patch Repository Unification Project". Potential
-    members:
-
-    	* PTXdist
-	* T2
-	* OpenEmbedded
-	  http://www.openembedded.org/repo/org.openembedded.dev/packages/
-	* Gentoo
-	* Debian
 [ ] jbe: timezone files installation doesn't work as expected
 
 [ ] jbe: if ipkg building crashes, PTXdist doesn't break. rsc: see
@@ -410,13 +340,6 @@ make: ***
 
 [ ] rsc: ChangeLog automatism:
     http://www.simios.org/node/266?PHPSESSID=a736cf6396ad789e0148d9690761e733
-
-[ ] ero: add -mcpu=... to PTXCONF_TARGET_EXTRA_CPPFLAGS, to let host tools
-    definitely barf if they are accidently being built with the target
-    compiler.
-
-[ ] mol: ptxdist commands behave differently for arguments which exceed
-    the "current" command; some continue parsing and some exit.
 
 [ ] mol: add possibility to 'ptxdist print' more than one variable in
     one make call  bbu: maybe some kind of "ptxdist env" as in env(1) ?
@@ -438,15 +361,27 @@ make: ***
 
 [ ] libxslt crypto support is broken
 
-[ ] add menu entry for user local config files in /etc
-
 [ ] image build mechanism tries to access data and infos from already
     disabled targets! (if they where enabled before). It does so
     unless a manually delete of the remaining and (now) useless targets
     in "state/"
 
+[ ] JBE: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=27363
+
+[ ] Tree Structure
+    RSC: Find sane place for generic files from projects/generic
+    ERO: Make subdirectories, e.g. for x.org stuff. Might use symlinks
+    to avoid changing the scripts.
+    SHA: push make and in files into subdirs, add patches to that dirs
+    as well.
+
+[ ] RSC: add some useful statistics at the end of build (root size, image
+    size etc.).
+
+[ ] RSC: add checksums for download
+
 Interesting packets
--------------------
+===================
 
 [ ] RSC: http://htop.sourceforge.net/
 [ ] RSC: http://cryptmount.sourceforge.net/
@@ -469,6 +404,8 @@ Interesting packets
 [ ] MKL: lilo, tinylogin targetinstall (RSC: find out what MKL means here)
 [ ] RSC: finish integration of zebra
 [ ] RSC: install e2fsck
+[ ] RSC: LTT-ng
+
 
 Test suite components to be added
 =================================
@@ -488,180 +425,52 @@ Test suite components to be added
     checking compliance?
 [ ] RSC: have a look at http://asic-linux.com.mx/~izto/checkinstall/
 
-Old TODOs
-=========
 
-[?] JBE: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=27363
+DONE
+====
 
-[ ] bump bluez-utils/libs to 3.0 (needs dbus)
-
-[ ] port scripts/mkprefix to non-perl
-
-[x] ptxdist arch <arm|um|ppc|....>
-
-    Split build-target into build-${PTXCONF_ARCH}
-
-[ ] Tree Structure
-    RSC: Find sane place for generic files from projects/generic
-    ERO: Make subdirectories, e.g. for x.org stuff. Might use symlinks
-    to avoid changing the scripts.
-    SHA: push make and in files into subdirs, add patches to that dirs
-    as well.
-
-[ ] Program Name Sorting
-    JBE: Sort program entries in "Shell & Console Tools" and other menus by
-    function, not by program name! Especially if there is more than one
-    program that can do the job (see menu entries "Apache 1", "Apache 2" and
-    "thttpd").  To be more concise the whole group should have a checkbox.
-    Not until someone unlocks the "HTTP Server" group he can see the
-    programs in this group.
-    RSC: Please let's stay with alphabetic sorting in the menues. You
-    don't find programs any more otherwhise. If the structure is not
-    clear enough we should clean it up.
-
-[ ] Graphical Configurator
-    JBE:  For a graphical configurator instead of the ncurses one:
-    Maybe ship a static linked "qconfig" version, otherwise the
-    user also has to install the qt development libraries
-    Same with ncurses (menuconfig), or the user has to be forced
-    to install the development libraries for ncurses
-    RSC: good idea, but only for customer packets. Maybe this will
-    become obsolete when we have a good Eclipse based configurator.
-
-[ ] JBE:  Make target "qconfig" starts target "oldconfig", even if
-    the configuration was aborted! Target "menuconfig" doesn't
-
-[ ] Startup Documentation
-    JBE: add documentation to start from scratch with "make setup"
-    this menu should provide the toolchain, all pathes to everything
-    (also to a prebuilt toochain). All other targets should be project
-    specific.
-
-[ ] RSC: make projects doesn't find local_projects/something, if
-    something is a softlink and not a directory.
-
-[ ] RSC: replace perl by (modern) sed -i (hosttool)
-
-[ ] RSC: Do ipkg stuff during make images
-
-[ ] RSC: in NATIVE=1 mode libpthread.so.0 is not copied; find out why
-
-[ ] MKL: let get stages depend on the actual makefile
-
-[ ] RSC: Finish autotoolisation of chrony. The old features from the
-    handwritten configure script have to be added; readline dependency
-    is now temporarily fixed, it should be made optional again.
-
-[ ] RSC:sed: replace all "sed" occurences by $(SED) and maybe switch to
-    a newer GNU sed, which has to be packaged as a hosttool then.
-
-[ ] RSC:Invent a project_clean mechanism (workaround done)
-
-[ ] sandeep: add a script to setup a new project interactively
-
-[ ] RSC: do module stuff in kernel only when modules are enabled
-    in kernel configuration
-
-[ ] RSC: audit bash for configure/menu entry consistency
-
-[ ] RSC: bing outputs strange large numbers when being compiled for ARM
-    :-) Add test suite for floating point.
-
-[ ] RSC: port LTT-ng
-
-[ ] RSC: Mozilla has still problems with cross compilation. See the
-    following Bugzilla entries for possible solutions:
-    http://bugzilla.mozilla.org/show_bug.cgi?id=104541
-    http://bugzilla.mozilla.org/show_bug.cgi?id=172651
-
-[ ] RSC: add some useful statistics at the end of build (root size, image
-    size etc.).
-
-[ ] RSC: fix busybox extract script to support "select CONFIG_foo"
-
-[ ] RSC: make MTDutils release and, by the way, fix build process.
-    This "override" mechanism in the Makefile seems to be broken.
-    MKL: mtdutils buildprocess fixed, splitted into 2 seperate file
-    mtd.make and xchain-mtd.make 'override' seems to be working
-
-[ ] RSC: audit all configure calls to be relative; configure scripts
-    seem to have major problems when being called with absulute path
-
-[ ] RSC: test flash
-
-[ ] RSC: finish integration of iwconfig
-
-[ ] RSC: add #ifdef __cplusplus ... #else ... #endif to bits/in.h
-
-[ ] RSC: add .in file for xvkbd; integrate fixes for Makefile...
-
-[ ] MKL: check openssl works with arm big endian (-DL_ENDIAN doesn't look good)
-
-[ ] MKL: gmp3 cannot produce shared libc for ppc target (host i686-linux)
-
-[ ] MKL: uclinux, patch breaks due to unclean produced patch at uclinux
-
-[ ] MKL: test betaftp, old breaks due to a patch from DKE
-
-[ ] MKL: test wxwindows
-
-[ ] MKL: gawk fix prefix, due to hard coded path
-
-[ ] MKL: integrate ldd (./build/glibc-2.2.5/elf/ldd.bash.in)
-
-[ ] MKL: tweak wireless to xcompile
-
-[ ] RSC: you currently need gdk-pixbuf-csource on the host
-
-[ ] RSC: pango has a patch which has to be verified (GLIB_CFLAGS)
-
-[ ] RSC: you currently need libXcursor.so.* and xcursorgen on the
-    development host
-
-[ ] RSC: replace bootdisk build mechanism by genext2fs; mke2fs is able
-    to reserve N blocks at the beginning of the image!
-
-[ ] KUB: busybox/ash job control is broken
-
-[ ] RSC: add checksums for download
-
-[ ] RSC: restructure config file layout
-
-[ ] RSC: add a test: if #!/bin/sh scripts return
-    "/bin/sh: bad interpreter: Permission denied"
-    tell the user to look if his filesystem was monted
-    with the "exec" option
-
-[ ] RSC: check for uImage targets: have to depend on vmlinux, not on
-    zImage.
-
-[ ] LGR: concept for debug levels: strip, -g, -S
-
-[ ] LGR: key infrastructure: integrate signing, activate this only
-    when running the release cycle.
-
-[ ] BBU: Implement scheme for alternative download-URLs as
+[x] BBU: Implement scheme for alternative download-URLs as
     fallback (e.g. mirrors)
 
-[ ] BBU: rsync, git, svn URLs -> maybe download, repackage as tar for local use?
+[x] add menu entry for user local config files in /etc
 
-[ ] BBU: show required cross-tool, host-gcc and -glibc-versions (compilercheck)
+[x] mol: ptxdist commands behave differently for arguments which exceed
+    the "current" command; some continue parsing and some exit.
 
-[ ] SHA: scripts/make_image_root.sh puts all ipkg packages from imagedir into the
-    resulting images, even those which are lying there from old builds
+[-] Start a "Global Patch Repository Unification Project". Potential
+    members:
 
-[ ] LFU: We want add automounting during boot for extra storage devices.
-	 Currently we call mount -a before we have loaded extra modules, which
-	 means that storage devices on i.E. usb will not be to be mounted
-	 automaticaly during boot, if the modules are not compiled in. We can
-	 do this with a script, which is called after /etc/init.d/modules.
-	 Additionally We might want to add mechanismen to determine extra mount
-	 device and mount points and generate the entry in customized /etc/fstab
-[ ] LFU: fix libgd
-[ ] LFU: add timezone support to ptxdist (depends on Toolchain newer than 1.1.0
-	 Release)
-DONE
-----
+    	* PTXdist
+	* T2
+	* OpenEmbedded
+	  http://www.openembedded.org/repo/org.openembedded.dev/packages/
+	* Gentoo
+	* Debian
+
+[x] bbu: audit *.in and *.make files, broken install definitions everywhere [tm]
+	 (mostly c&p errors, probably)
+
+[x] repair make makro 'install'; there are sometimes three """.
+    See procps.install for reference.
+
+[x] jbe: reduce directory count on top level, combine build-* and
+    local-* into a shared subdir rsc: we've agreed on this variant:
+
+    	build-host/
+	build-target/
+	build-cross/
+	local/
+	local-target/
+	local-cross/
+
+[x] jbe: cleanup rules/other/Toplevel.make
+
+[x] jbe: remove ptxdist's documentation from the installation.
+	 It's now useless and outdated as a better alternative
+	 is present with the application notes
+
+[x] jbe: hd images must be built from ipkgs to support the ipkg tool
+	 on the target
 
 [x] if a packet is not selected, it's dependencies are not generated. If
     you kick a stage then, the dependend stages are not executed.
