@@ -1,6 +1,50 @@
 TODO before 2.0.0
 =================
 
+[ ] bbu, lfu, rsc, sha: "bspfix feature"
+
+    Usecase:
+
+    * create BSP config with "ptxdist menuconfig"
+    * "ptxdist bspfix [bspfix-name]" (creates 2nd config internally)
+    * user makes changes to the software config (menuconfig) and saves
+    * some kind of "diff" is made between "selected_platformconfig" and
+      bspfix-config
+    * if user has one or several "bspfixes" around, they are patched into
+      his ptxconfig on the fly
+
+    Aims:
+
+    * developer: can create their own local modifications of the bsp,
+      without destroying the official one
+    * customer: can make his own changes ontop of our releases; changes
+      are easy to move forward
+
+[ ] bbu, lfu, rsc, sha: "packet sets"
+
+    Observations / Ideas:
+
+    * "modularity" doesn't fit our needs; we don't only want to build
+      the base packages plus all modules; it is more something like:
+      "build minimum set", or "build minimu set + feature x"
+
+    * "packet sets" are lists of packages
+
+    Use Cases:
+
+    * "ptxdist --pkgset=base go" builds the package set "base"
+    * "ptxdist --pkgset=headless_rt go" builds the package set "headless_rt"
+    * "ptxdist --pkgset=all go" builds all selected packages
+    * "ptxdist pkgset <pkgset>" creates "selected_pkgset" and makes it
+      the default for subsequent commands
+      FIXME: find location for pkgset files
+
+    Necessary:
+
+    * separate "targetinstall" stage from "ipkg -> root/image"
+    * How to call this?
+    * API? "ptxdist --pkgset=<pkgset> foobar" installs root/ and image.blub from ipkgs
+
 [ ] rsc: fallback server for udev
 
 [ ] rsc: toolchain selection doesn't work if gcc revision is empty=nocheck
