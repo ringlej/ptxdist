@@ -541,7 +541,7 @@ Setup and Project Actions:
   projects			show available projects
   clone <from> <to>		create a new project, cloned from <from>.
 
-  menuconfig			configure project's filesystem
+  menuconfig			configure the project's filesystem
 
   menuconfig kernel
   kernelconfig			configure the kernel
@@ -555,9 +555,9 @@ Setup and Project Actions:
   u_boot_config
 
   toolchain [<path>]		if path is omitted the toolchain is guessed,
-				    (guessing works only platformconfig is
+				    (guessing works only if platformconfig is
 				    already selected)
-				othewise select this toolchain
+				otherwise select this toolchain
 				    (<path> to binaries)
   select <config>		if there is no selected_ptxconfig file you can
 				select one of several project configs to be used
@@ -576,7 +576,7 @@ Build Actions:
   clean <package>		cleanup packet
   autobuild			search for "autobuild" scripts and run them
   drop <package>.<stage>	mark a stage of a packet as unbuilt
-  tags <package>		try to build tags the packet
+  tags <package>		try to build tags of the packet
 
   images			build images for target system
 
@@ -588,7 +588,7 @@ Clean Actions:
 
 Overwrite:
 
-  --ptxconfig			use sepcified ptxconfig
+  --ptxconfig			use specified ptxconfig
   --platformconfig		use specified platformconfig
   --toolchain			use specified toolchain
   --force			select config even if MOJO is missing
@@ -600,7 +600,7 @@ Misc:
   test <testname>		run tests
 
   newpacket <type>		create a new packet Makefile in a rules dir
-				type can be one of:
+				<type> can be one of:
 				target, host, host-existing-target,
 				cross, cross-existing-target, source,
 				kernel_driver, font, simple
@@ -610,9 +610,9 @@ Options:
   --quiet, -q			suppress output, show only stderr
 
   --j-intern=<n>, -ji<n>        set number of parallel builds in packages
-                                (default=2*CPUs)
+                                (default = 2*CPUs)
   --j-extern=<n>, -je<n>        set number of packages built in parallel
-                                (default=1)
+                                (default = 1)
 
 EOF
 }
