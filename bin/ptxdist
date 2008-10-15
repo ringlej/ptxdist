@@ -604,6 +604,8 @@ Misc:
 				target, host, host-existing-target,
 				cross, cross-existing-target, source,
 				kernel_driver, font, simple
+  print <var>			print the contents of a variable, in the way
+  				it is known by "make"
 Options:
 
   -d				print out make decisions (debug)
