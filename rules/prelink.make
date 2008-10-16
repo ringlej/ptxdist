@@ -43,9 +43,7 @@ PRELINK_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-PRELINK_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-64-bit
+PRELINK_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
