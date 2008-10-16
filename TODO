@@ -1,6 +1,18 @@
 TODO before 2.0.0
 =================
 
+[ ] jbe: Segmentation fault?
+
+    -----------------------
+    target: locales.install
+    -----------------------
+
+    generating "en_US" - this can take some time
+    /work/ptxdist-trunk/scripts/make_locale.sh: line 29: 14673 Segmentation fault \
+         I18NPATH=${SYSROOT_USR}/share/i18n ${LOCALEDEF} ${ENDIAN} -i $LOCALE_DEF \
+         -f ${CHARMAP} --prefix=${PREF} $LOCALE_NAME
+    calling localedef binary failed
+
 [ ] jbe: Shown pathes are much too long in "ptxconfig" and "platformconfig"
     while running "ptxdist menu"
 
