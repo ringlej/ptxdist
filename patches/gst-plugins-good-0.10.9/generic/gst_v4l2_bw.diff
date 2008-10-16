@@ -1,0 +1,32 @@
+Subject: Add b/w support for the v4l2src
+From: Sascha Hauer <s.hauer@pengutronix.de>
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+
+---
+ sys/v4l2/gstv4l2src.c |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+Index: gst-plugins-good-0.10.9/sys/v4l2/gstv4l2src.c
+===================================================================
+--- gst-plugins-good-0.10.9.orig/sys/v4l2/gstv4l2src.c
++++ gst-plugins-good-0.10.9/sys/v4l2/gstv4l2src.c
+@@ -679,6 +679,9 @@ gst_v4l2src_v4l2fourcc_to_structure (gui
+       break;
+     }
+     case V4L2_PIX_FMT_GREY:    /*  8  Greyscale     */
++      structure = gst_structure_new ("video/x-raw-gray",
++          "bpp", G_TYPE_INT, 8, NULL);
++      break;
+     case V4L2_PIX_FMT_YYUV:    /* 16  YUV 4:2:2     */
+     case V4L2_PIX_FMT_HI240:   /*  8  8-bit color   */
+       /* FIXME: get correct fourccs here */
+@@ -990,6 +993,8 @@ gst_v4l2_get_caps_info (GstV4l2Src * v4l
+     fourcc = V4L2_PIX_FMT_JPEG;
+   } else if (strcmp (mimetype, "video/x-raw-bayer") == 0) {
+     fourcc = V4L2_PIX_FMT_SBGGR8;
++  } else if (strcmp (mimetype, "video/x-raw-gray") == 0) {
++    fourcc = V4L2_PIX_FMT_GREY;
+   }
+ 
+   if (fourcc == 0)
