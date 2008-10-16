@@ -1,0 +1,13 @@
+config PRELINK
+	tristate
+	select LIBELF
+	prompt "prelink"
+	help
+	  ELF prelinking utility to speed up dynamic linking.  The
+	  prelink package contains a utility which modifies ELF shared
+	  libraries and executables, so that far fewer relocations
+	  need to be resolved at runtime and thus programs come up
+	  faster.
+
+
+

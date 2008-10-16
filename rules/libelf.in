@@ -5,5 +5,5 @@ config LIBELF
 	  The elf library provides routines to access, and manipulate,
 	  Elf object files. It is still not complete, but is required
 	  for a number of programs, such as Eli (a state of the art
-	  compiler generation system), and Elk (the Extension Language Kit - an
-	  implementation of the Scheme programming language.)
+	  compiler generation system), and Elk (the Extension Language
+	  Kit - an implementation of the Scheme programming language.)

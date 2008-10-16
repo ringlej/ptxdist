@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id: template 5041 2006-03-09 08:45:49Z mkl $
+# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
-# Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+# Copyright (C) 2006, 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,97 +17,65 @@ PACKAGES-$(PTXCONF_LIBELF) += libelf
 #
 # Paths and names
 #
-LIBELF_VERSION	:= 0.8.9
+LIBELF_VERSION	:= 0.8.10
 LIBELF		:= libelf-$(LIBELF_VERSION)
 LIBELF_SUFFIX	:= tar.gz
 LIBELF_URL	:= http://www.mr511.de/software/$(LIBELF).$(LIBELF_SUFFIX)
 LIBELF_SOURCE	:= $(SRCDIR)/$(LIBELF).$(LIBELF_SUFFIX)
 LIBELF_DIR	:= $(BUILDDIR)/$(LIBELF)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-libelf_get: $(STATEDIR)/libelf.get
-
-$(STATEDIR)/libelf.get: $(libelf_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBELF_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBELF)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libelf_extract: $(STATEDIR)/libelf.extract
-
-$(STATEDIR)/libelf.extract: $(libelf_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBELF_DIR))
-	@$(call extract, LIBELF)
-	@$(call patchin, LIBELF)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-libelf_prepare: $(STATEDIR)/libelf.prepare
-
 LIBELF_PATH	:= PATH=$(CROSS_PATH)
-LIBELF_ENV 	:= $(CROSS_ENV)
+LIBELF_ENV 	:= \
+	$(CROSS_ENV) \
+	mr_cv_target_elf=yes \
+	ac_cv_func_mmap_fixed_mapped=yes \
+	libelf_cv_working_memmove=yes \
+	mr_cv_coffee_machine='author is a tee drinker'
+LIBELF_MAKEVARS	:= instroot=$(SYSROOT)
 
 #
 # autoconf
 #
 LIBELF_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--target=$(PTXCONF_GNU_TARGET) \
-	--disable-nls
-
-$(STATEDIR)/libelf.prepare: $(libelf_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBELF_DIR)/config.cache)
-	cd $(LIBELF_DIR) && \
-		$(LIBELF_PATH) $(LIBELF_ENV) \
-		./configure $(LIBELF_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libelf_compile: $(STATEDIR)/libelf.compile
-
-$(STATEDIR)/libelf.compile: $(libelf_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBELF_DIR) && $(LIBELF_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libelf_install: $(STATEDIR)/libelf.install
-
-$(STATEDIR)/libelf.install: $(libelf_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBELF,,,instroot=$(SYSROOT))
-	@$(call touch, $@)
+	--enable-shared
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libelf_targetinstall: $(STATEDIR)/libelf.targetinstall
+$(STATEDIR)/libelf.targetinstall:
+	@$(call targetinfo)
 
-$(STATEDIR)/libelf.targetinstall: $(libelf_targetinstall_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call install_init, libelf)
+	@$(call install_fixup, libelf,PACKAGE,libelf)
+	@$(call install_fixup, libelf,PRIORITY,optional)
+	@$(call install_fixup, libelf,VERSION,$(LIBELF_VERSION))
+	@$(call install_fixup, libelf,SECTION,base)
+	@$(call install_fixup, libelf,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de> <your@email.please>")
+	@$(call install_fixup, libelf,DEPENDS,)
+	@$(call install_fixup, libelf,DESCRIPTION,missing)
+
+	@$(call install_copy, libelf, 0, 0, 0644, \
+		$(LIBELF_DIR)/lib/libelf.so.0.8.10, /usr/lib/libelf.so.0.8.10)
+	@$(call install_link, libelf, libelf.so.0.8.10, /usr/lib/libelf.so.0)
+	@$(call install_link, libelf, libelf.so.0.8.10, /usr/lib/libelf.so)
+
+	@$(call install_finish, libelf)
+
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
