@@ -1,6 +1,9 @@
 TODO before 2.0.0
 =================
 
+[ ] jbe: Shown pathes are much too long in "ptxconfig" and "platformconfig"
+    while running "ptxdist menu"
+
 [ ] jbe: We should provide a solution if someone selects "ptx" or
     "platform" while running "ptxdist menu" and these files are not new enough.
     (happens if someone wants to upgrade his ptxdist-1 based BSP). Currently
