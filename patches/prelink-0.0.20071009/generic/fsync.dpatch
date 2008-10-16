@@ -1,0 +1,46 @@
+#! /bin/sh -e
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Ensures to write the data on the disk when renamed a file 
+
+[ -f debian/patches/00patch-opts ] && . debian/patches/00patch-opts
+patch_opts="${patch_opts:--f --no-backup-if-mismatch}"
+
+if [ $# -ne 1 ]; then
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1
+fi
+case "$1" in
+       -patch) patch $patch_opts -p1 < $0;;
+       -unpatch) patch $patch_opts -p1 -R < $0;;
+        *)
+                echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+                exit 1;;
+esac
+
+exit 0
+@DPATCH@
+
+diff -urN prelink-0.0.20060522.orig/src/cache.c prelink-0.0.20060522/src/cache.c
+--- prelink-0.0.20060522.orig/src/cache.c	2006-05-22 12:07:57.000000000 +0000
++++ prelink-0.0.20060522/src/cache.c	2006-05-24 15:18:40.000000000 +0000
+@@ -627,6 +627,7 @@
+   if (write (fd, &cache, sizeof (cache)) != sizeof (cache)
+       || write (fd, data, len) != len
+       || fchmod (fd, 0644)
++      || fsync (fd)
+       || close (fd)
+       || rename (prelink_cache_tmp, prelink_cache))
+     {
+diff -urN prelink-0.0.20060522.orig/src/dso.c prelink-0.0.20060522/src/dso.c
+--- prelink-0.0.20060522.orig/src/dso.c	2006-05-22 14:02:34.000000000 +0000
++++ prelink-0.0.20060522/src/dso.c	2006-05-24 15:19:09.000000000 +0000
+@@ -1601,6 +1601,8 @@
+     }
+ 
+   elf_end (dso->elf);
++  if (dso_is_rdwr (dso))
++    fsync (dso->fd);
+   close (dso->fd);
+   if (dso->elfro)
+     {

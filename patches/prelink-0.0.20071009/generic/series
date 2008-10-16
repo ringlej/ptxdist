@@ -1,0 +1,7 @@
+dso.c.dpatch
+fsync.dpatch
+init.dpatch
+layout.c.dpatch
+Makefile.in.dpatch
+md5sha.dpatch
+prelink.h.dpatch
