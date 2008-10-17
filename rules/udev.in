@@ -170,7 +170,7 @@ menu "install options               "
 		  be something like "S00_udev". An empty string means that no link
 		  is created.
 
-	config ROOTFS_ETC_UDEV_CONF
+	config ROOTFS_ETC_UDEV__CONF
 		bool
 		default y
 		prompt "Install udev.conf"
@@ -179,17 +179,17 @@ menu "install options               "
 
 		choice
 			prompt "Kind of udev.conf"
-			default ROOTFS_ETC_UDEV_CONF_DEFAULT
-			depends on ROOTFS_ETC_UDEV_CONF
+			default ROOTFS_ETC_UDEV__CONF_DEFAULT
+			depends on ROOTFS_ETC_UDEV__CONF
 
-			config ROOTFS_ETC_UDEV_CONF_DEFAULT
+			config ROOTFS_ETC_UDEV__CONF_DEFAULT
 				bool
 				prompt "Use generic"
 				help
 				  Installs a generic /etc/udev/udev.conf file.
 				  See <ptxdist-install>/generic/etc/udev/udev.conf
 
-			config ROOTFS_ETC_UDEV_CONF_USER
+			config ROOTFS_ETC_UDEV__CONF_USER
 				bool
 				prompt "User defined"
 				help
@@ -202,7 +202,7 @@ menu "install options               "
 
 		endchoice
 
-	config ROOTFS_UDEV_DEFAULT_RULES
+	config ROOTFS_UDEV__DEFAULT_RULES
 		bool
 		prompt "Install default udev rules"
 		help
