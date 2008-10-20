@@ -1,0 +1,78 @@
+# configuration for board setup
+
+menu "Network Configuration         "
+
+config BOARDSETUP_SERVERIP
+	string
+	prompt "server IP address"
+	help
+	  Specify your target board's server IP address here.
+
+config BOARDSETUP_TARGETIP
+	string
+	prompt "target IP address"
+	help
+	  Specify your target board's IP address here.
+
+config BOARDSETUP_GATEWAY
+	string
+	prompt "gateway IP"
+	help
+	  Specify your target board's gateway IP address here.
+
+config BOARDSETUP_NETMASK
+	string
+	prompt "netmask"
+	help
+	  Specify your target board's netmask here.
+
+config BOARDSETUP_NFSROOT_PATH
+	string
+	prompt "nfsroot path"
+	default "${PTXDIST_PLATFORMDIR}/root"
+	help
+	  Specify path where the target should mount its rootpath via nfs. If you
+	  have built a BSP, a reasonalbe value for this field might be the path to
+	  the root/ directory under the location of your BSP. Ensure that the
+	  above given path is exported by nfs server. This field will be ignored
+	  if you don't use nfsroot.
+
+config BOARDSETUP_TFTP_PATH
+	string
+	prompt "tftp path"
+	default "/tftpboot"
+	help
+	  Specify path where the target can fetch files via TFTP. Mostly this is
+	  /tftpboot so the default can be used, but it depends on the host
+	  distribution. The image file for the rootfs will be copied into this
+	  directory prior flashing the target. Ensure write permissions into this
+	  directory.
+
+config BOARDSETUP_ETH_INTERFACE
+	string
+	prompt "ethernet interface (for tap devices only)"
+	default "labnet1"
+	help
+	  If running virtual hardware (simulated by qemu/kvm), qemu needs to know
+	  about a tap interface for virtual networking. Specify it here.
+
+endmenu
+
+menu "Host's Serial Configuration   "
+
+config BOARDSETUP_SERIALPORT
+	string
+	prompt "serial port"
+	default "/dev/ttyS0"
+	help
+	  Specify host's serial port for target connection here.
+
+config BOARDSETUP_SERIALBAUDRATE
+	string
+	prompt "serial baud rate"
+	default "115200"
+	help
+	  Specify the serial port's baud rate the target is using here.
+
+endmenu
+

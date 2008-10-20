@@ -15,7 +15,6 @@ PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_ptxconfig'
 PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
 PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
 PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdistrc.${FULLVERSION}'
-PTXDIST_BOARDSETUP_DEFAULT='${PTXDIST_WORKSPACE}/boardsetup/boardsetup'
 PTXDIST_PACKAGES_COLLECTION_DEFAULT="ALL"
 
 
@@ -899,7 +898,6 @@ parse_first()
 	PTXDIST_TOOLCHAIN="${PTXDIST_TOOLCHAIN_DEFAULT}"
 	PTXDIST_PLATFORMCONFIG="${PTXDIST_PLATFORMCONFIG_DEFAULT}"
 	PTXDIST_PTXCONFIG="${PTXDIST_PTXCONFIG_DEFAULT}"
-	PTXDIST_BOARDSETUP="${PTXDIST_BOARDSETUP_DEFAULT}"
 	PTXDIST_PACKAGES_COLLECTION="${PTXDIST_PACKAGES_COLLECTION_DEFAULT}"
 
 	#
@@ -1257,6 +1255,8 @@ parse_second()
 			;;
 
 		boardsetup)
+			check_ptxconfig
+			[ -d ${HOME}/.ptxdist ] || mkdir ${HOME}/.ptxdist
 			do_config menuconfig board
 			exit ${?}
 			;;
@@ -1580,12 +1580,13 @@ setup_libs() {
 # out: PTXDIST_PLATFORMDIR
 #      PTXDIST_PLATFORMSUFFIX
 #      PTXDIST_PLATFORMCONFIGDIR
-#      PTXDIST_BOARDSETUP_DEFAULT
 #      "*DIR"	correct directory definitions
 #
 setup_platform() {
 	local cfg_dir
 	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+	local project="$(ptxd_get_ptxconf PTXCONF_PROJECT)"
+	local project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"
 
 	if [ -n "${platform}" ]; then
 		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${platform}"
@@ -1605,7 +1606,7 @@ setup_platform() {
 	fi
 
 	PTXDIST_PLATFORMCONFIGDIR="${cfg_dir}"
-	eval PTXDIST_BOARDSETUP="${PTXDIST_BOARDSETUP_DEFAULT}"
+	PTXDIST_BOARDSETUP="${HOME}/.ptxdist/boardsetup.${project}${project_version}.${platform}"
 }
 
 

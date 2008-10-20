@@ -184,7 +184,11 @@ ptxd_kconfig() {
 		file_dotconfig="${PTXDIST_PLATFORMCONFIG}"
 		;;
 	board)
-		file_kconfig="${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
+		if [ -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
+			file_kconfig="${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
+		else
+			file_kconfig="${PTXDIST_TOPDIR}/config/boardsetup/Kconfig"
+		fi
 		file_dotconfig="${PTXDIST_BOARDSETUP}"
 		;;
 	user)
