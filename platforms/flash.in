@@ -7,17 +7,17 @@ comment "A partition size of 0 means that the remaining space"
 comment "is used for a partition"
 comment ""
 
-config BOARDSETUP_FLASH_START
+config FLASH_START
 	string
 	prompt "flash start"
 	default "0xff000000"
 
-config BOARDSETUP_FLASH_SIZE
+config FLASH_SIZE
 	string
 	prompt "flash size"
 	default "16M"
 
-config BOARDSETUP_FLASH_BLOCKSIZE
+config FLASH_BLOCKSIZE
 	string
 	prompt "flash block size"
 	default "128k"
@@ -26,77 +26,77 @@ comment "----------"
 comment "partitions"
 comment "----------"
 
-config BOARDSETUP_FLASH_BLOCKSIZE
+config FLASH_BLOCKSIZE
 	string
 	default "128k"
 
-config BOARDSETUP_FLASH_PART1_SIZE
+config FLASH_PART1_SIZE
 	string
 	prompt "partition 1 size"
 	default "256k"
 
-config BOARDSETUP_FLASH_PART1_NAME
+config FLASH_PART1_NAME
 	string
 	prompt "partition 1 name"
 	default "ubootl"
 
-config BOARDSETUP_FLASH_PART2_SIZE
+config FLASH_PART2_SIZE
 	string
-	depends on BOARDSETUP_FLASH_PART1_SIZE != ""
+	depends on FLASH_PART1_SIZE != ""
 	prompt "partition 2 size"
 	default "1792k"
 
-config BOARDSETUP_FLASH_PART2_NAME
+config FLASH_PART2_NAME
 	string
-	depends on BOARDSETUP_FLASH_PART1_SIZE != ""
+	depends on FLASH_PART1_SIZE != ""
 	prompt "partition 2 name"
 	default "kernel"
 
-config BOARDSETUP_FLASH_PART3_SIZE
+config FLASH_PART3_SIZE
 	string
-	depends on BOARDSETUP_FLASH_PART2_SIZE != ""
+	depends on FLASH_PART2_SIZE != ""
 	prompt "partition 3 size"
 	default "13312k"
 
-config BOARDSETUP_FLASH_PART3_NAME
+config FLASH_PART3_NAME
 	string
-	depends on BOARDSETUP_FLASH_PART2_SIZE != ""
+	depends on FLASH_PART2_SIZE != ""
 	prompt "partition 3 name"
 	default "jffs2"
 
-config BOARDSETUP_FLASH_PART4_SIZE
+config FLASH_PART4_SIZE
 	string
-	depends on BOARDSETUP_FLASH_PART3_SIZE != ""
+	depends on FLASH_PART3_SIZE != ""
 	prompt "partition 4 size"
 	default "256k"
 
-config BOARDSETUP_FLASH_PART4_NAME
+config FLASH_PART4_NAME
 	string
-	depends on BOARDSETUP_FLASH_PART3_SIZE != ""
+	depends on FLASH_PART3_SIZE != ""
 	prompt "partition 4 name"
 	default "uboot"
 
-config BOARDSETUP_FLASH_PART5_SIZE
+config FLASH_PART5_SIZE
 	string
-	depends on BOARDSETUP_FLASH_PART4_SIZE != ""
+	depends on FLASH_PART4_SIZE != ""
 	prompt "partition 5 size"
 	default "128k"
 
-config BOARDSETUP_FLASH_PART5_NAME
+config FLASH_PART5_NAME
 	string
-	depends on BOARDSETUP_FLASH_PART4_SIZE != ""
+	depends on FLASH_PART4_SIZE != ""
 	prompt "partition 5 name"
 	default "oftree"
 
-config BOARDSETUP_FLASH_PART6_SIZE
+config FLASH_PART6_SIZE
 	string
-	depends on BOARDSETUP_FLASH_PART5_SIZE != ""
+	depends on FLASH_PART5_SIZE != ""
 	prompt "partition 6 size"
 	default ""
 
-config BOARDSETUP_FLASH_PART6_NAME
+config FLASH_PART6_NAME
 	string
-	depends on BOARDSETUP_FLASH_PART5_SIZE != ""
+	depends on FLASH_PART5_SIZE != ""
 	prompt "partition 6 name"
 	default "space"
 endmenu
