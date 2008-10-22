@@ -421,10 +421,10 @@ $(STATEDIR)/grub.targetinstall:
 	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2, /boot/grub/stage2, n)
 
 	@if [ -n $(PTXCONF_GRUB_MENU_LST) ]; then \
-		if [ -f $(PTXDIST_WORKSPACE)/boardsetup/boardsetup ]; then \
+		if [ -f $(PTXDIST_BOARDSETUP) ]; then \
 			export ROOTDIR="$(ROOTDIR)"; \
 			echo "sourcing boardsetup..."; \
-			. $(PTXDIST_WORKSPACE)/boardsetup/boardsetup; \
+			. $(PTXDIST_BOARDSETUP); \
 		fi; \
 		tmpfile=`mktemp`; \
 		cp $(PTXCONF_GRUB_MENU_LST) $$tmpfile; \
