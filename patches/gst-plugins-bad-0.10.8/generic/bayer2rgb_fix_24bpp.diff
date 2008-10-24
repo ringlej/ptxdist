@@ -1,4 +1,4 @@
-Subject: bayer2rgb: Fix 24bpp rgb
+Subject: gst-plugins-bad bayer2rgb: Fix 24bpp rgb
 From: Sascha Hauer <s.hauer@pengutronix.de>
 
 The code calculates the wrong color offsets for 24bpp packed

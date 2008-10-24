@@ -1,4 +1,4 @@
-Subject: Add b/w support for the v4l2src
+Subject: gst-plugins-good: Add b/w support for the v4l2src
 From: Sascha Hauer <s.hauer@pengutronix.de>
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>

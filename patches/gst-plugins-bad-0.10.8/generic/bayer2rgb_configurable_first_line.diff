@@ -1,4 +1,4 @@
-Subject: bayer2rgb: Make first line configurable
+Subject: gst-plugins-bad bayer2rgb: Make first line configurable
 From: Sascha Hauer <s.hauer@pengutronix.de>
 
 Since people can't agree whether the first line of a bayer pattern
