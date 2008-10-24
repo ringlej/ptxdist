@@ -91,6 +91,7 @@ $(STATEDIR)/udev.compile:
 
 $(STATEDIR)/udev.install:
 	@$(call targetinfo)
+	@$(call install, UDEV)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -131,6 +132,18 @@ ifdef PTXCONF_ROOTFS_UDEV__DEFAULT_RULES
 	for file in *; do \
 		$(call install_copy, udev, 0, 0, 0644, $(UDEV_DIR)/rules/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
 	done
+	$(call install_copy, udev, 0, 0, 0644, \
+		$(UDEV_DIR)/rules/packages/40-alsa.rules, \
+		/lib/udev/rules.d/40-alsa.rules, n);
+	$(call install_copy, udev, 0, 0, 0644, \
+		$(UDEV_DIR)/rules/packages/40-isdn.rules, \
+		/lib/udev/rules.d/40-isdn.rules, n);
+	$(call install_copy, udev, 0, 0, 0644, \
+		$(UDEV_DIR)/rules/packages/64-device-mapper.rules, \
+		/lib/udev/rules.d/64-device-mapper.rules, n);
+	$(call install_copy, udev, 0, 0, 0644, \
+		$(UDEV_DIR)/rules/packages/64-md-raid.rules, \
+		/lib/udev/rules.d/64-md-raid.rules, n);
 endif
 
 	#
@@ -184,22 +197,68 @@ endif
 	#
 	# utilities from extra/
 	#
-
-ifdef PTXCONF_UDEV__EXTRA_USB_ID
+ifdef PTXCONF_UDEV__EXTRA_ATA_ID
 	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/usb_id/usb_id, \
-		/lib/udev/usbid)
+		$(UDEV_DIR)/extras/ata_id/ata_id, \
+		/lib/udev/ata_id)
+endif
+ifdef PTXCONF_UDEV__EXTRA_CDROM_ID
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/cdrom_id/cdrom_id, \
+		/lib/udev/cdrom_id)
+endif
+ifdef PTXCONF_UDEV__EXTRA_COLLECT
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/collect/collect, \
+		/lib/udev/collect)
+endif
+ifdef PTXCONF_UDEV__EXTRA_EDD_ID
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/edd_id/edd_id, \
+		/lib/udev/edd_id)
 endif
 ifdef PTXCONF_UDEV__EXTRA_FIRMWARE
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/firmware/firmware.sh, \
 		/lib/udev/firmware.sh,n)
 endif
-
+ifdef PTXCONF_UDEV__EXTRA_FLOPPY
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/floppy/create_floppy_devices, \
+		/lib/udev/create_floppy_devices)
+endif
+ifdef PTXCONF_UDEV__EXTRA_FSTAB_IMPORT
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/fstab_import/fstab_import, \
+		/lib/udev/fstab_import)
+endif
+ifdef PTXCONF_UDEV__EXTRA_PATH_ID
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/path_id/path_id, \
+		/lib/udev/path_id)
+endif
+ifdef UDEV__EXTRA_RULE_GENERATOR
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/rule_generator/rule_generator.functions, \
+		/lib/udev/rule_generator.functions)
+endif
 ifdef PTXCONF_UDEV__EXTRA_SCSI_ID
 	@$(call install_copy, udev, 0, 0, 0644, \
 		$(UDEV_DIR)/extras/scsi_id/scsi_id.config, \
 		/etc/scsi_id.config, n)
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/scsi_id/scsi_id, \
+		/lib/udev/scsi_id, n)
+endif
+ifdef PTXCONF_UDEV__EXTRA_USB_ID
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/usb_id/usb_id, \
+		/lib/udev/usb_id)
+endif
+ifdef PTXCONF_UDEV__EXTRA_VOLUME_ID
+	@$(call install_copy, udev, 0, 0, 0755, \
+		$(UDEV_DIR)/extras/volume_id/vol_id, \
+		/lib/udev/vol_id)
 endif
 
 	@$(call install_finish, udev)
