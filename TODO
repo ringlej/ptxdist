@@ -161,6 +161,9 @@ TODO before 2.0.0
 TODO before 2.1.0
 =================
 
+[ ] jbe: Would there be a solution to supress sysroot-* folders for target system
+    (for example bare metall) that do not need a Unix filesystem?
+
 [ ] jbe: it must be possible to force some userland components from inside the
     platformconfig. For example a platform specific kernel driver module
     needs a special component of the UDEV. Currently it does not work.
