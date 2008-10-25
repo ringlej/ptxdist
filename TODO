@@ -1,6 +1,9 @@
 TODO before 2.0.0
 =================
 
+[ ] jbe: Can we also provide a "Bare Metall" platform project to show how to use
+    ptxdist2 for non Linux targets?
+
 [ ] jbe: Would it be possible to omit the "ptxconfig" and "platformconfig" menu entries
     when run "ptxdist menu" when the "selected_ptxconfig" and "selected_platformconfig"
     are real files than links (or not exist yet)? If they are real files, the project
