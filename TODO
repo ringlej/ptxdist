@@ -1,6 +1,11 @@
 TODO before 2.0.0
 =================
 
+[ ] jbe: Would it be possible to omit the "ptxconfig" and "platformconfig" menu entries
+    when run "ptxdist menu" when the "selected_ptxconfig" and "selected_platformconfig"
+    are real files than links (or not exist yet)? If they are real files, the project
+    is a single platform one. There is no need for this step!
+
 [ ] jbe: When someone do not need u-boot-v2 one earns:
     <ptxdist/install/path>/rules/u-boot-v2.make:80: warning: overriding commands for
         target `<path/to/current/BSP/directory>'
