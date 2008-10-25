@@ -1,6 +1,14 @@
 TODO before 2.0.0
 =================
 
+[ ] jbe: When someone do not need u-boot-v2 one earns:
+    <ptxdist/install/path>/rules/u-boot-v2.make:80: warning: overriding commands for
+        target `<path/to/current/BSP/directory>'
+
+[ ] jbe: When someone do not need a Linux kernel one earns:
+    <ptxdist/install/path>rules/kernel.make:109: warning: ignoring old commands for target
+    `<path/to/current/BSP/directory>'
+
 [ ] jbe: Segmentation fault?
 
     -----------------------
