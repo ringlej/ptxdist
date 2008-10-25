@@ -1,6 +1,11 @@
 TODO before 2.0.0
 =================
 
+[ ] jbe: Would it be possible to delete a directory defined by PTXCONF_SYSROOT_TARGET
+    in the form "${PTXDIST_WORKSPACE}/local/${PTXCONF_ARCH_STRING}"
+    Currently the "local" part still exists when running "ptxdist clean".
+    This is for ptxdist-1 backward compatibility.
+
 [ ] jbe: Can we also provide a "Bare Metall" platform project to show how to use
     ptxdist2 for non Linux targets?
 
