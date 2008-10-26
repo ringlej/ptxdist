@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_RT_TESTS) += rt-tests
 #
 # Paths and names
 #
-RT_TESTS_VERSION	:= v0.27
+RT_TESTS_VERSION	:= 0.28
 RT_TESTS		:= rt-tests-$(RT_TESTS_VERSION)
 RT_TESTS_SUFFIX		:= tar.bz2
-RT_TESTS_URL		:= http://www.pengutronix.de/software/rt-tests/download/$(RT_TESTS).$(RT_TESTS_SUFFIX)
+RT_TESTS_URL		:= http://www.kernel.org/pub/linux/kernel/people/clrkwllms/rt-tests/$(RT_TESTS).$(RT_TESTS_SUFFIX)
 RT_TESTS_SOURCE		:= $(SRCDIR)/$(RT_TESTS).$(RT_TESTS_SUFFIX)
 RT_TESTS_DIR		:= $(BUILDDIR)/$(RT_TESTS)
 
@@ -40,6 +40,8 @@ $(STATEDIR)/rt-tests.extract:
 	@$(call targetinfo)
 	@$(call clean, $(RT_TESTS_DIR))
 	@$(call extract, RT_TESTS)
+	rm -fr $(RT_TESTS_DIR)
+	mv $(BUILDDIR)/rt-tests $(RT_TESTS_DIR)
 	@$(call patchin, RT_TESTS)
 	@$(call touch)
 
