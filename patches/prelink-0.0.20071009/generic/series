@@ -5,3 +5,4 @@ layout.c.dpatch
 Makefile.in.dpatch
 md5sha.dpatch
 prelink.h.dpatch
+arm_eabi.patch
