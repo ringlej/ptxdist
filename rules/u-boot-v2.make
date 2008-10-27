@@ -46,11 +46,11 @@ U_BOOT_V2_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/u-boot-v2.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 $(U_BOOT_V2_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, U_BOOT_V2)
 
 # ----------------------------------------------------------------------------
@@ -58,11 +58,11 @@ $(U_BOOT_V2_SOURCE):
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/u-boot-v2.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(U_BOOT_V2_DIR))
 	@$(call extract, U_BOOT_V2)
 	@$(call patchin, U_BOOT_V2)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -78,15 +78,15 @@ U_BOOT_V2_MAKEVARS := \
 
 $(U_BOOT_V2_CONFIG):
 	@echo
-	@echo "***************************************************************************"
-	@echo "**** Please generate a u-boot config with \"ptxdist menuconfig uboot\" ****"
-	@echo "***************************************************************************"
+	@echo "*****************************************************************************"
+	@echo "**** Please generate a u-boot config with 'ptxdist menuconfig u-boot-v2' ****"
+	@echo "*****************************************************************************"
 	@echo
 	@echo
 	@exit 1
 
 $(STATEDIR)/u-boot-v2.prepare: $(U_BOOT_V2_CONFIG)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@if [ -f $(U_BOOT_V2_CONFIG) ]; then						\
 		echo "Using U-Boot-v2 config file: $(U_BOOT_V2_CONFIG)";		\
@@ -96,38 +96,38 @@ $(STATEDIR)/u-boot-v2.prepare: $(U_BOOT_V2_CONFIG)
 		exit 1;									\
 	fi
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/u-boot-v2.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(U_BOOT_V2_DIR) && $(U_BOOT_V2_PATH) $(MAKE) $(U_BOOT_V2_MAKEVARS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/u-boot-v2.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	install -D -m755 $(U_BOOT_V2_DIR)/scripts/ubootenv $(PTXCONF_SYSROOT_HOST)/bin/ubootenv
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/u-boot-v2.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	install -D -m644 $(U_BOOT_V2_DIR)/uboot.bin $(IMAGEDIR)/u-boot-v2-image
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
