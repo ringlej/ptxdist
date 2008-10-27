@@ -1,8 +1,8 @@
 menuconfig RT_TESTS
 	tristate
 	select GLIBC
-	select GLIBC_PTHREAD
-	select GLIBC_RT
+	select LIBC_PTHREAD
+	select LIBC_RT
 	prompt "rt-tests"
 	help
 	  FIXME
