@@ -105,14 +105,16 @@ endif
 
 KERNEL_IMAGE	:= $(PTXCONF_KERNEL_IMAGE)
 
+ifdef PTXCONF_KERNEL
 $(KERNEL_CONFIG):
 	@echo
-	@echo "********************************************************************"
-	@echo "**** Please generate a kernelconfig with \"ptxdist kernelconfig\" ****"
-	@echo "********************************************************************"
+	@echo "*************************************************************************"
+	@echo "**** Please generate a kernelconfig with 'ptxdist menuconfig kernel' ****"
+	@echo "*************************************************************************"
 	@echo
 	@echo
 	@exit 1
+endif
 
 $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 	@$(call targetinfo)
