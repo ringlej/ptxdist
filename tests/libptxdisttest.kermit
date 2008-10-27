@@ -4,25 +4,31 @@ define ptx_init {
 
 	take \%1
 
-        set line \m(PTXCONF_BOARDSETUP_SERIALPORT)
-        set speed \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE)
-        set parity none
-        set stop-bits 1
-        set carrier-watch off
-        set handshake none
-        set flow-control none
-        robust
+	# ':' distinguishes between serial line and telnet port
+	if not match \m(PTXCONF_BOARDSETUP_SERIALPORT) *:* {
+		set line \m(PTXCONF_BOARDSETUP_SERIALPORT)
+		set speed \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE)
+		set parity none
+		set stop-bits 1
+	} else {
+		set host \m(PTXCONF_BOARDSETUP_SERIALPORT)
+		set terminal echo remote
+	}
+	set carrier-watch off
+	set handshake none
+	set flow-control none
+	robust
 
-        set input cancellation off
-        set input case observe
-        set input buffer-length 16384
+	set input cancellation off
+	set input case observe
+	set input buffer-length 16384
 
 	writeln ERROR "Communicating via \m(PTXCONF_BOARDSETUP_SERIALPORT) at \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE) bps."
 	writeln ERROR
-        writeln ERROR "==============================="
-        writeln ERROR "Please power on your board now!"
-        writeln ERROR "==============================="
-        writeln ERROR
+	writeln ERROR "==============================="
+	writeln ERROR "Please power on your board now!"
+	writeln ERROR "==============================="
+	writeln ERROR
 }
 
 define ptx_exit {
@@ -33,7 +39,7 @@ define ptx_exit {
 
 define ptx_test_start {
 
-	#do padding with '.'
+	# do padding with '.'
 	write ERROR "\frpad(\%1,40,.)"
 }
 
@@ -44,21 +50,21 @@ define ptx_test_end {
 
 define ptx_wait_string {
 
-        input \%1 \%2
-        if failure {
-	        writeln ERROR "FAILED! (waiting for '\%2')"
-        	exit 1
-        }
+	input \%1 \%2
+	if failure {
+		writeln ERROR "FAILED! (waiting for '\%2')"
+		exit 1
+	}
 }
 
 define ptx_uboot_enter_shell {
 
 	ptx_test_start "Logging into U-Boot"
 	minput 120 "U-Boot 1" "U-Boot 2"
-        if failure {
-	        writeln ERROR "FAILED! (waiting for u-boot-signature)"
-        	exit 1
-        }
+	if failure {
+		writeln ERROR "FAILED! (waiting for u-boot-signature)"
+		exit 1
+	}
 	lineout
 	.uboot_version := \v(minput)
 	ptx_wait_string 10 "\m(PTXCONF_BOARDSETUP_UBOOTPROMPT)"
@@ -96,7 +102,7 @@ define ptx_uboot_exec_single {
 
 define ptx_wait_string_single {
 
-        ptx_test_start "\%1"
+	ptx_test_start "\%1"
 	ptx_wait_string "\%2" "\%3"
 	ptx_test_end
 }

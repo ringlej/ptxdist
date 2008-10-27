@@ -1,68 +1,97 @@
 #!/usr/bin/kermit +
 
+define setenv_uboot_v1 {
+	ptx_test_start "Setting new environment"
+
+	# Open the file with the new environment
+	open read \%1
+	if fail {
+		writeln ERROR "FAILED! Could not open \%1."
+		exit 1
+	}
+
+	clear input
+	lineout "printenv"
+
+	declare \&c[1000]
+	# array with entries to skip
+	declare \&s = ethaddr stdin stdout stderr baudrate
+	.\%i = 0
+
+	while true {
+		# wait for newline or u-boot-prompt
+		minput 5 {\10} \m(PTXCONF_BOARDSETUP_UBOOTPROMPT)
+		if fail {
+			writeln ERROR "FAILED! Did not get old environment"
+			exit 1
+		}
+		# quit on u-boot-prompt
+		if = \v(minput) 2 break
+		# if no '=' then continue
+		if not match \v(input) *=* goto out
+		# extract part before '=' (from \v(input) the first word, allow '_')
+		assign envvar \fword(\v(input),1,,_)
+		# skip special keywords
+		if not = \farraylook(\m(envvar),&s) -1 goto out
+		# put setenv-command into array
+		assign \&c[\%i] setenv \m(envvar)
+		incr \%i
+	:out
+		clear input
+	}
+
+	# clear old vars
+	for \%j 0 \%i-1 1 {
+		ptx_uboot_exec 5 "\&c[\%j]"
+	}
+
+	# set new ones from file
+	while true {
+		read \%l
+		if fail break
+		ptx_uboot_exec 5 "\%l"
+	}
+
+	close read
+
+	ptx_uboot_exec 5 "printenv"
+	ptx_uboot_exec 10 "saveenv"
+
+	ptx_test_end
+}
+
+define setenv_uboot_v2 {
+	# ! gen_uboot_v2_image
+
+	ptx_test_start "Setting initial environment"
+	ptx_uboot_exec 3 "eth0.ipaddr=\m(PTXCONF_BOARDSETUP_TARGETIP)"
+	ptx_uboot_exec 3 "eth0.serverip=\m(PTXCONF_BOARDSETUP_SERVERIP)"
+	ptx_uboot_exec 3 "eth0.gateway=\m(PTXCONF_BOARDSETUP_GATEWAY)"
+	ptx_uboot_exec 3 "eth0.netmask=\m(PTXCONF_BOARDSETUP_NETMASK)"
+	ptx_uboot_exec 3 "mtdparts=\"128k(uboot)ro,128k(ubootenv),128k(ageing),1280k(kernel0),1280k(kernel1),8704k(system0),8704k(system1),8320k(application),4096k(persistent)\""
+	ptx_uboot_exec 3 "addpart /dev/nor0 $mtdparts"
+	ptx_test_end
+
+	ptx_uboot_exec_single "Calling server" "ping $eth0.serverip"
+
+	ptx_test_start "Flashing default environment"
+	ptx_uboot_exec 3  "unprotect /dev/nor0.ubootenv"
+	ptx_uboot_exec 10 "erase /dev/nor0.ubootenv"
+	ptx_uboot_exec 20 "tftp \%1 /dev/nor0.ubootenv"
+	ptx_uboot_exec 3  "protect /dev/nor0.ubootenv"
+	ptx_test_end
+
+	ptx_uboot_exec_single "Reloading new environment" 10 "loadenv"
+}
+
 # Read the library
 take \%1
-
-# Open the file with the new environment
-open read \%3
-if fail {
-	writeln ERROR "FAILED! Could not open \%3."
-	exit 1
-}
 
 # Set up the line
 ptx_init \%2
 
 ptx_uboot_enter_shell
 
-ptx_test_start "Setting new environment"
-
-clear input
-lineout "printenv"
-
-declare \&c[1000]
-# array with entries to skip
-declare \&s = ethaddr stdin stdout stderr baudrate
-.\%i = 0
-
-while true {
-	# wait for newline or u-boot-prompt
-	minput 5 {\10} \m(PTXCONF_BOARDSETUP_UBOOTPROMPT)
-	if fail {
-		writeln ERROR "FAILED! Did not get old environment"
-		exit 1
-	}
-	# quit on u-boot-prompt
-	if = \v(minput) 2 break
-	# if no '=' then continue
-	if not match \v(input) *=* goto out
-	# extract part before '=' (from \v(input) the first word, allow '_')
-	assign envvar \fword(\v(input),1,,_)
-	# skip special keywords
-	if not = \farraylook(\m(envvar),&s) -1 goto out
-	# put setenv-command into array
-	assign \&c[\%i] setenv \m(envvar)
-	incr \%i
-:out
-	clear input
-}
-
-# clear old vars
-for \%j 0 \%i-1 1 {
-	ptx_uboot_exec 5 "\&c[\%j]"
-}
-
-# set new ones from file
-while true {
-	read \%l
-	if fail break
-	ptx_uboot_exec 5 "\%l"
-}
-
-close read
-
-ptx_uboot_exec 5 "printenv"
-ptx_uboot_exec 10 "saveenv"
-ptx_test_end
+setenv_uboot_v\m(uboot_version)
 
 ptx_exit
