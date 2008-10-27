@@ -1,0 +1,5 @@
+config NICKEL
+	tristate
+	prompt "nickel"
+	help
+	  Nickel (Ni) is a library for hierarchical maps and .ini files.

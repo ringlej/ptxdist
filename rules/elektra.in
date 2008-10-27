@@ -1,5 +1,6 @@
 config ELEKTRA
 	tristate
+	depends on BROKEN
 	prompt "elektra"
 	select DB44 if ELEKTRA__BERKELEYDB
 	help
