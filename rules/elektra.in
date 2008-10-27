@@ -8,7 +8,7 @@ config ELEKTRA
 	  and save their configurations with a consistent API, and allows them to
 	  be aware of other applications' configurations, leveraging easy
 	  application integration. The whole point of it is to tie applications
-	  together, so that they can co-operate and share their user-preferences. 
+	  together, so that they can co-operate and share their user-preferences.
 
 if ELEKTRA
 
