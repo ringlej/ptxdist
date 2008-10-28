@@ -1,4 +1,0 @@
-source "rules/figlet.in"
-source "rules/memedit.in"
-source "rules/memstat.in"
-

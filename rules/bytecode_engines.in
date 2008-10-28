@@ -1,5 +1,0 @@
-comment "Bytecode Engines / VMs        "
-
-source "rules/frodo.in"
-source "rules/sun-java6-jre.in"
-source "rules/vice.in"
