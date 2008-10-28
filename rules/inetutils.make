@@ -17,40 +17,21 @@ PACKAGES-$(PTXCONF_INETUTILS) += inetutils
 #
 # Paths and names
 #
-INETUTILS_VERSION	= 1.5
-INETUTILS		= inetutils-$(INETUTILS_VERSION)
-INETUTILS_SUFFIX	= tar.gz
-INETUTILS_URL		= $(PTXCONF_SETUP_GNUMIRROR)/inetutils/$(INETUTILS).$(INETUTILS_SUFFIX)
-INETUTILS_SOURCE	= $(SRCDIR)/$(INETUTILS).$(INETUTILS_SUFFIX)
-INETUTILS_DIR		= $(BUILDDIR)/$(INETUTILS)
+INETUTILS_VERSION	:= 1.5
+INETUTILS		:= inetutils-$(INETUTILS_VERSION)
+INETUTILS_SUFFIX	:= tar.gz
+INETUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/inetutils/$(INETUTILS).$(INETUTILS_SUFFIX)
+INETUTILS_SOURCE	:= $(SRCDIR)/$(INETUTILS).$(INETUTILS_SUFFIX)
+INETUTILS_DIR		:= $(BUILDDIR)/$(INETUTILS)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-inetutils_get: $(STATEDIR)/inetutils.get
-
-$(STATEDIR)/inetutils.get: $(inetutils_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(INETUTILS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, INETUTILS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-inetutils_extract: $(STATEDIR)/inetutils.extract
-
-$(STATEDIR)/inetutils.extract: $(inetutils_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(INETUTILS_DIR))
-	@$(call extract, INETUTILS)
-	@$(call patchin, INETUTILS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -140,75 +121,62 @@ else
 INETUTILS_AUTOCONF += --disable-tftpd
 endif
 
-$(STATEDIR)/inetutils.prepare: $(inetutils_prepare_deps_default)
-	@$(call targetinfo, $@)
-	cd $(INETUTILS_DIR) && \
-		$(INETUTILS_PATH) $(INETUTILS_ENV) \
-		./configure $(INETUTILS_AUTOCONF)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-inetutils_compile: $(STATEDIR)/inetutils.compile
-
-$(STATEDIR)/inetutils.compile: $(inetutils_compile_deps_default)
-	@$(call targetinfo, $@)
-	$(INETUTILS_PATH) make -C $(INETUTILS_DIR)/lib
-	$(INETUTILS_PATH) make -C $(INETUTILS_DIR)/libinetutils
+$(STATEDIR)/inetutils.compile:
+	@$(call targetinfo)
+	$(INETUTILS_PATH) $(MAKE) -C $(INETUTILS_DIR)/lib
+	$(INETUTILS_PATH) $(MAKE) -C $(INETUTILS_DIR)/libinetutils
 
 # First the libraries:
 ifdef PTXCONF_INETUTILS_PING
-	cd $(INETUTILS_DIR)/libicmp && $(INETUTILS_PATH) make
+	cd $(INETUTILS_DIR)/libicmp && $(INETUTILS_PATH) $(MAKE)
 endif
 
 # Now the tools:
 ifdef PTXCONF_INETUTILS_INETD
-	cd $(INETUTILS_DIR)/inetd && $(INETUTILS_PATH) make
+	cd $(INETUTILS_DIR)/inetd && $(INETUTILS_PATH) $(MAKE)
 endif
 ifdef PTXCONF_INETUTILS_PING
-	cd $(INETUTILS_DIR)/ping && $(INETUTILS_PATH) make
+	cd $(INETUTILS_DIR)/ping && $(INETUTILS_PATH) $(MAKE)
 endif
 ifdef PTXCONF_INETUTILS_RCP
-	cd $(INETUTILS_DIR)/rcp && $(INETUTILS_PATH) make
+	cd $(INETUTILS_DIR)/rcp && $(INETUTILS_PATH) $(MAKE)
 endif
 ifdef PTXCONF_INETUTILS_RLOGIND
-	cd $(INETUTILS_DIR)/rlogind && $(INETUTILS_PATH) make
+	cd $(INETUTILS_DIR)/rlogind && $(INETUTILS_PATH) $(MAKE)
 endif
 ifdef PTXCONF_INETUTILS_RSH
-	cd $(INETUTILS_DIR)/rsh && $(INETUTILS_PATH) make
+	cd $(INETUTILS_DIR)/rsh && $(INETUTILS_PATH) $(MAKE)
 endif
 ifdef PTXCONF_INETUTILS_RSHD
-	cd $(INETUTILS_DIR)/rshd && $(INETUTILS_PATH) make
+	cd $(INETUTILS_DIR)/rshd && $(INETUTILS_PATH) $(MAKE)
 endif
 ifdef PTXCONF_INETUTILS_SYSLOGD
-	cd $(INETUTILS_DIR)/syslogd && $(INETUTILS_PATH) make
+	cd $(INETUTILS_DIR)/syslogd && $(INETUTILS_PATH) $(MAKE)
 endif
 
 ifdef PTXCONF_INETUTILS_TFTPD
-	cd $(INETUTILS_DIR)/tftpd && $(INETUTILS_PATH) make
+	cd $(INETUTILS_DIR)/tftpd && $(INETUTILS_PATH) $(MAKE)
 endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-inetutils_install: $(STATEDIR)/inetutils.install
-
-$(STATEDIR)/inetutils.install: $(inetutils_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/inetutils.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-inetutils_targetinstall: $(STATEDIR)/inetutils.targetinstall
-
-$(STATEDIR)/inetutils.targetinstall: $(inetutils_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/inetutils.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, inetutils)
 	@$(call install_fixup, inetutils,PACKAGE,inetutils)
@@ -285,7 +253,7 @@ endif
 
 	@$(call install_finish, inetutils)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
