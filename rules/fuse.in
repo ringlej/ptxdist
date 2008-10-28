@@ -1,3 +1,4 @@
+## SECTION=disk_and_file
 config FUSE
 	tristate
 	prompt "fuse"

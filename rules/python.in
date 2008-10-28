@@ -1,3 +1,4 @@
+## SECTION=scripting_languages
 config PYTHON23
 	tristate
 	depends on BROKEN

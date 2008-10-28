@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 menuconfig ALSA_LIB
 	tristate
 	prompt "alsa libaries                 "

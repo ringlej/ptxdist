@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 menuconfig NCURSES
 	tristate
 	prompt "ncurses                       "

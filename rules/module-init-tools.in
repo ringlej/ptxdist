@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 # module-init-tools configuration
 
 menuconfig MODULE_INIT_TOOLS

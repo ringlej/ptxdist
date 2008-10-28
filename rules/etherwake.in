@@ -1,3 +1,4 @@
+## SECTION=networking
 config ETHERWAKE
 	tristate
 	prompt "etherwake"

@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 menuconfig MTD_UTILS
 	tristate
 	prompt "mtd-utils                     "

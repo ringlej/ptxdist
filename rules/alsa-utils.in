@@ -1,3 +1,4 @@
+## SECTION=applications
 config ALSA_UTILS
 	tristate
 	prompt "alsa utils"

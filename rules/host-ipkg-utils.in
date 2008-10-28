@@ -1,3 +1,4 @@
+## SECTION=hosttools_noprompt
 config HOST_IPKG_UTILS
 	bool
 	# no prompt, policy is that we always need it

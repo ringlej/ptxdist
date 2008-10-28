@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 # configuration for libezv24
 
 config LIBEZV24

@@ -1,3 +1,4 @@
+## SECTION=hosttools_noprompt
 config HOST_FLEX254
 	bool
 	prompt "flex 2.5.4 [BROKEN]"

@@ -1,3 +1,4 @@
+## SECTION=disk_and_file
 # samba configuration
 
 menuconfig SAMBA

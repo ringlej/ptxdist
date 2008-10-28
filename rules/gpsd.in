@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 menuconfig GPSD
 	tristate
 	select NCURSES if GPSD_CGPS

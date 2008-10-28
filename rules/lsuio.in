@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 config LSUIO
 	tristate
 	prompt "lsuio"

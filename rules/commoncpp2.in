@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 # GNU commoncpp 2 configuration
 
 menuconfig COMMONCPP2

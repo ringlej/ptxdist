@@ -1,3 +1,4 @@
+## SECTION=applications
 
 menuconfig FFMPEG
 	tristate

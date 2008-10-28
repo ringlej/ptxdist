@@ -1,3 +1,4 @@
+## SECTION=scripting_languages
 menuconfig LUA
 	tristate
 	prompt "lua                           "

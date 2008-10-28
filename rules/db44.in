@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 menuconfig DB44
 	tristate
 	prompt "berkeley db-4 (4.4)           "

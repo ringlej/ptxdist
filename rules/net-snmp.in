@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig NET_SNMP
 	tristate
 	prompt "net-snmp                      "

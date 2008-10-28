@@ -1,3 +1,4 @@
+## SECTION=games
 config UTTT
 	tristate
 	prompt "Ultra Tic Tac Toe"

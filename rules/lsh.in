@@ -1,3 +1,4 @@
+## SECTION=networking
 # lsh configuration
 
 menuconfig LSH

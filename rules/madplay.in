@@ -1,4 +1,5 @@
-menuconfig MADPLAY
+## SECTION=multimedia
+config MADPLAY
 	tristate
 	prompt "madplay                       "
 	select LIBMAD

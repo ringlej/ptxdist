@@ -1,3 +1,4 @@
+## SECTION=networking
 config BETAFTPD
 	tristate
 	prompt "betaftpd"

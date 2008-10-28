@@ -1,3 +1,4 @@
+## SECTION=hosttools_noprompt
 config HOST_XORG_APP_BDFTOPCF
 	bool
 	select HOST_XORG_LIB_XFONT

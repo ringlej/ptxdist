@@ -1,3 +1,4 @@
+## SECTION=multimedia
 menuconfig LIBTHEORA
 	tristate
 	select LIBOGG if LIBTHEORA__OGG

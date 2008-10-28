@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig WIRESHARK
 	tristate
 	depends on BROKEN

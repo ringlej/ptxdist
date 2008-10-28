@@ -1,3 +1,4 @@
+## SECTION=networking
 # Bridge Utils configuration
 
 config BRIDGE_UTILS

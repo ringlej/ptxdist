@@ -1,3 +1,4 @@
+## SECTION=networking
 config NETKIT_FTP
 	tristate
 	prompt "netkit ftp client"

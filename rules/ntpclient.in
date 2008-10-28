@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig NTPCLIENT
 	tristate
 	prompt "ntpclient                     "

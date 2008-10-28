@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 menuconfig PCMCIA_TOOLS
 	tristate
 	prompt "pcmcia tools                  "

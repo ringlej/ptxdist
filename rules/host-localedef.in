@@ -1,3 +1,4 @@
+## SECTION=hosttools_noprompt
 config HOST_LOCALEDEF
 	bool
 	default n

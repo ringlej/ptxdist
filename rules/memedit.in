@@ -1,3 +1,4 @@
+## SECTION=tools
 config MEMEDIT
 	tristate
 	select READLINE

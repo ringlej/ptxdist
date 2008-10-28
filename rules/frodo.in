@@ -1,3 +1,4 @@
+## SECTION=bytecode_engines
 config FRODO
 	tristate
 	prompt "frodo"

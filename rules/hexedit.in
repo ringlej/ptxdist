@@ -1,3 +1,4 @@
+## SECTION=editors
 config HEXEDIT
 	tristate
 	select NCURSES

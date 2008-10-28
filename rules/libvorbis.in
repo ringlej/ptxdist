@@ -1,3 +1,4 @@
+## SECTION=multimedia
 config LIBVORBIS
 	tristate
 	select LIBOGG

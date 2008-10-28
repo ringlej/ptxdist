@@ -1,3 +1,4 @@
+## SECTION=multimedia
 menuconfig GST_PLUGINS_BAD
 	tristate
 	select GLIB

@@ -1,3 +1,4 @@
+## SECTION=games
 config SCUMMVM
 	tristate
 	prompt "scummvm"

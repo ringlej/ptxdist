@@ -1,3 +1,4 @@
 config HOST_MTD_UTILS
 	bool
+	select HOST_LIBLZO
 	select HOST_ZLIB

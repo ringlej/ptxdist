@@ -1,3 +1,4 @@
+## SECTION=scripting_languages
 # php5 configuration
 
 menuconfig PHP5

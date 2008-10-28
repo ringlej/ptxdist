@@ -1,3 +1,4 @@
+## SECTION=applications
 menuconfig RAWREC
 	tristate
 	prompt "rawrec/rawplay                "

@@ -1,3 +1,4 @@
+## SECTION=networking
 menu    "Wireless Tools                "
 
 config WIRELESS

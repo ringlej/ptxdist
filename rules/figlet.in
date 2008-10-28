@@ -1,3 +1,4 @@
+## SECTION=tools
 config FIGLET
 	tristate
 	prompt "figlet"

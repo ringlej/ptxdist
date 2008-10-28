@@ -1,3 +1,4 @@
+## SECTION=applications
 menuconfig MC
 	tristate
 	select GLIB

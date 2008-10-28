@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 config LIBOIL
 	tristate
 	prompt "liboil"

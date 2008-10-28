@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 config I2C_TOOLS
 	tristate
 	prompt "i2c-tools"

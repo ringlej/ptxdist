@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig NETCAT
 	tristate
 	prompt "netcat                        "

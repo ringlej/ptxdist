@@ -1,3 +1,4 @@
+## SECTION=disk_and_file
 config LIBLOCKFILE
 	tristate
 	depends on BROKEN

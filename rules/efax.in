@@ -1,3 +1,4 @@
+## SECTION=communication
 config EFAX
 	tristate
 	prompt "efax"

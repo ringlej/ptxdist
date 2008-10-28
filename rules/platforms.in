@@ -1,7 +1,3 @@
-# this is to be included into the rules, so the dependency generator
-# does still work
-
 config KERNEL
 	bool
-	select CROSS_MODULE_INIT_TOOLS
 

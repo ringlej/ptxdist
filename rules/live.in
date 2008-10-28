@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 config LIVE_LIB
 	tristate
 	depends on BROKEN

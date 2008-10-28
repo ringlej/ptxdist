@@ -1,3 +1,4 @@
+## SECTION=networking
 config FCGI
 	tristate
 	prompt "fast cgi"

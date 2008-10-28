@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 comment "busy box' less is selected!"
 	depends on BB_CONFIG_LESS
 

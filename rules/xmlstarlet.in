@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 config XMLSTARLET
 	tristate
 	select LIBXML2

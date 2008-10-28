@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 menuconfig GETTEXT
 	tristate
 	prompt "gettext (GNU)                 "

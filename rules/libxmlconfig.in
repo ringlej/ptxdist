@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 config LIBXMLCONFIG
 	tristate
 	prompt "libxmlconfig"

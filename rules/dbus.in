@@ -1,3 +1,4 @@
+## SECTION=middleware
 # dbus configuration
 
 menuconfig DBUS

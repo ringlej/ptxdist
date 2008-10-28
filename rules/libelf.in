@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 config LIBELF
 	tristate
 	prompt "libelf"

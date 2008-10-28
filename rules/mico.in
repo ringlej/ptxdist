@@ -1,3 +1,4 @@
+## SECTION=middleware
 # configuration for mico
 
 menuconfig MICO

@@ -1,3 +1,4 @@
+## SECTION=multimedia
 menuconfig GSTREAMER
 	tristate
 	prompt "gstreamer                     "

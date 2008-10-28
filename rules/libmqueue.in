@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 config LIBMQUEUE
 	tristate
 	prompt "libmqueue"

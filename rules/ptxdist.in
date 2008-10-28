@@ -1,3 +1,4 @@
+## SECTION=development
 config PTXDIST
 	tristate
 	select COREUTILS

@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig DROPBEAR
 	tristate
 	prompt "dropbear ssh-server           "

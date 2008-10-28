@@ -1,3 +1,4 @@
+## SECTION=web
 config PENGUZILLA
 	tristate
 	prompt "penguzilla"

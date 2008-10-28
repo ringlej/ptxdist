@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig TCPDUMP
 	tristate
 	prompt "tcpdump                       "

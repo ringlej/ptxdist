@@ -1,3 +1,4 @@
+## SECTION=test_suites
 menuconfig RT_TESTS
 	tristate
 	select GLIBC

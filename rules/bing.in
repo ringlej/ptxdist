@@ -1,3 +1,4 @@
+## SECTION=networking
 config BING
 	tristate
 	prompt "bing"

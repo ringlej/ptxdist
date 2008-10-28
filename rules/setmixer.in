@@ -1,3 +1,4 @@
+## SECTION=applications
 config SETMIXER
 	tristate
 	prompt "setmixer"

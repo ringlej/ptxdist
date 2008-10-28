@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 menuconfig INITNG
 	tristate
 	select HOST_CMAKE

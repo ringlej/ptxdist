@@ -1,3 +1,4 @@
+## SECTION=networking
 config ZEBRA
 	tristate
 	prompt "GNU Zebra [BROKEN]"

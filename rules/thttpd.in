@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig THTTPD
 	tristate
 	prompt "thttpd                        "

@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 #
 # LibXML2 - Options updated as of 2.6.19
 # Options valid for 2.6.20 as well. ZLIB missing in both.

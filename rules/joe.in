@@ -1,3 +1,4 @@
+## SECTION=editors
 menuconfig JOE
 	tristate
 	prompt "joe                           "

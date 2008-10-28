@@ -1,3 +1,4 @@
+## SECTION=networking
 # FIXME: audit which extensions are still there
 
 menuconfig IPTABLES

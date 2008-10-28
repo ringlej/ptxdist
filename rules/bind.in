@@ -1,3 +1,4 @@
+## SECTION=networking
 # bind 9 configuration
 
 menuconfig BIND

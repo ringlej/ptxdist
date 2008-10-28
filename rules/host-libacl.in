@@ -1,0 +1,3 @@
+config HOST_LIBACL
+	bool
+	select HOST_ATTR

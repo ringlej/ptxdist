@@ -1,21 +1,9 @@
-menuconfig DIRECTFB_EXAMPLES
+config DIRECTFB_EXAMPLES
 	tristate
-	prompt "directfb examples             "
+	prompt "directfb examples"
 	select DIRECTFB_IMAGE_GIF
 	select DIRECTFB_IMAGE_PNG
 	select DIRECTFB_IMAGE_JPEG
 	select DIRECTFB_FONT_FREETYPE
 	select DIRECTFB
 	select LIBC_PTHREAD
-
-if DIRECTFB_EXAMPLES
-
-config DIRECTFB_EXAMPLES_DATA
-	bool
-	prompt "directfb-exampels data files"
-	default y
-	help
-	  some of the directfb examples need image and fonts files from this
-	  package, this will add about 1M to your target
-
-endif

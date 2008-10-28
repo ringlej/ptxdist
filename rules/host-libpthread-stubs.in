@@ -1,2 +1,3 @@
+## SECTION=hosttools_noprompt
 config HOST_LIBPTHREAD_STUBS
 	bool

@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 config DASH
 	tristate
 	prompt "dash"

@@ -1,3 +1,4 @@
+## SECTION=networking
 # Apache 2 configuration
 
 menuconfig APACHE2

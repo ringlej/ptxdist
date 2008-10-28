@@ -1,3 +1,4 @@
+## SECTION=test_suites
 config MBW
 	tristate
 	prompt "mbw"

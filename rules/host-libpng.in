@@ -1,3 +1,4 @@
+## SECTION=hosttools_noprompt
 config HOST_LIBPNG
 	bool
 	select HOST_ZLIB

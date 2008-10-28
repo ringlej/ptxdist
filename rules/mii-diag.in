@@ -1,3 +1,4 @@
+## SECTION=networking
 config MII_DIAG
 	tristate
 	prompt "mii-diag"

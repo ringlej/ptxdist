@@ -1,3 +1,4 @@
+## SECTION=networking
 # chrony configuration
 
 menuconfig CHRONY

@@ -1,3 +1,4 @@
+## SECTION=disk_and_file
 menuconfig E2FSPROGS
 	tristate
 	prompt "e2fsprogs                     "

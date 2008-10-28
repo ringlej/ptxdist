@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 menuconfig COREUTILS
 	tristate
 	prompt "gnu coreutils                 "

@@ -1,3 +1,4 @@
+## SECTION=communication
 config POP3SPAM
 	tristate
 	prompt "pop3spam"

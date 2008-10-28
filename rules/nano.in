@@ -1,3 +1,4 @@
+## SECTION=editors
 config NANO
 	tristate
 	select NCURSES

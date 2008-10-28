@@ -1,3 +1,4 @@
+## SECTION=hosttools_noprompt
 config HOST_FAKEROOT
 	bool
 	default y

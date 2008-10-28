@@ -1,3 +1,4 @@
+## SECTION=test_suites
 config HOST_PELTS
 	bool
 	prompt "pelts"

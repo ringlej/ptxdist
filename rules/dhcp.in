@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig DHCP
 	tristate
 	prompt "dhcp                          "

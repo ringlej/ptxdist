@@ -1,3 +1,4 @@
+## SECTION=hosttools_noprompt
 config HOST_XORG_LIB_XDMCP
 	bool
 	select HOST_XORG_PROTO_X

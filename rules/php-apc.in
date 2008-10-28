@@ -1,3 +1,4 @@
+## SECTION=scripting_languages
 config PHP_APC
 	tristate
 	depends on BROKEN

@@ -1,8 +1,9 @@
+## SECTION=scientific
 # libfftw configuration
 
-menuconfig FFTW
+config FFTW
 	tristate
-	prompt "fftw                          "
+	prompt "fftw"
 	help
 	  FFTW is a C subroutine library for computing the discrete
 	  Fourier transform (DFT) in one or more dimensions, of

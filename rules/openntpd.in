@@ -1,3 +1,4 @@
+## SECTION=networking
 comment "OpenNTPD conflicts with NTP"
 	depends on NTP && OPENNTPD
 

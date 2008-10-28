@@ -1,3 +1,4 @@
+## SECTION=multimedia
 config LIBID3TAG
 	tristate
 	select ZLIB

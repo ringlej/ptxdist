@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig PPP
 	tristate
 	prompt "ppp                           "

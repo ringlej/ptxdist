@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig RSYNC3
 	tristate
 	prompt "rsync v3                      "

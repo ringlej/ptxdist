@@ -1,3 +1,4 @@
+## SECTION=applications
 menuconfig KAFFE
 	tristate
 	prompt "kaffe                         "

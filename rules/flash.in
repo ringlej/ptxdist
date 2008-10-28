@@ -1,3 +1,4 @@
+## SECTION=applications
 config FLASH
 	tristate
 	select NCURSES

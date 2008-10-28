@@ -1,3 +1,4 @@
+## SECTION=communication
 menuconfig SSMTP
 	tristate
 	prompt "ssmtp [BROKEN]                "

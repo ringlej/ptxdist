@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 config LIBX86
 	tristate
 	prompt "libx86"

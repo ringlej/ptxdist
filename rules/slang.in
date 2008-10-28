@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 config SLANG
 	tristate
 	prompt "s-lang"

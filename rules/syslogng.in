@@ -1,3 +1,4 @@
+## SECTION=networking
 # syslog-ng configuration
 
 menuconfig SYSLOGNG

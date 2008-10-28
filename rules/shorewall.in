@@ -1,3 +1,4 @@
+## SECTION=networking
 config SHOREWALL
 	tristate
 	prompt "shorewall firewall scripts"

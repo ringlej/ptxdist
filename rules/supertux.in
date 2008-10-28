@@ -1,3 +1,4 @@
+## SECTION=games
 config SUPERTUX
 	tristate
 	prompt "supertux"

@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig	TCPWRAPPER
 	tristate
 	prompt "tcpwrapper                    "

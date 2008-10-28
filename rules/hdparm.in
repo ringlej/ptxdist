@@ -1,3 +1,4 @@
+## SECTION=disk_and_file
 config HDPARM
 	tristate "hdparm"
 	depends on !BB_CONFIG_HDPARM

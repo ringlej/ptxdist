@@ -1,3 +1,4 @@
+## SECTION=web
 menuconfig MFIREBIRD
 	tristate
 	depends on EXPERIMENTAL

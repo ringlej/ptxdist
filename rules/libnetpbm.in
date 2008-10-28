@@ -1,3 +1,4 @@
+## SECTION=system_libraries
 # netpbm configuration
 
 menuconfig LIBNETPBM

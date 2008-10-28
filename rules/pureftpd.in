@@ -1,3 +1,4 @@
+## SECTION=networking
 menuconfig PUREFTPD
 	tristate
 	prompt "pureftpd                      "

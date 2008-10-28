@@ -1,3 +1,4 @@
+## SECTION=tools
 config MEMSTAT
 	tristate
 	prompt "memstat"

@@ -1,3 +1,4 @@
+## SECTION=test_suites
 config PELTS_TESTS
         tristate
         prompt "pelts tests"

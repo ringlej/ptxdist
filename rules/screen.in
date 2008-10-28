@@ -1,3 +1,4 @@
+## SECTION=shell_and_console
 menuconfig SCREEN
 	tristate
 	prompt "screen                        "
