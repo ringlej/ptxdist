@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BAD) += gst-plugins-bad
 GST_PLUGINS_BAD_VERSION	:= 0.10.8
 GST_PLUGINS_BAD		:= gst-plugins-bad-$(GST_PLUGINS_BAD_VERSION)
 GST_PLUGINS_BAD_SUFFIX	:= tar.bz2
-GST_PLUGINS_BAD_URL	:= http://gstreamer.freedesktop.org/src/gst-plugins-bad//$(GST_PLUGINS_BAD).$(GST_PLUGINS_BAD_SUFFIX)
+GST_PLUGINS_BAD_URL	:= http://gstreamer.freedesktop.org/src/gst-plugins-bad/$(GST_PLUGINS_BAD).$(GST_PLUGINS_BAD_SUFFIX)
 GST_PLUGINS_BAD_SOURCE	:= $(SRCDIR)/$(GST_PLUGINS_BAD).$(GST_PLUGINS_BAD_SUFFIX)
 GST_PLUGINS_BAD_DIR	:= $(BUILDDIR)/$(GST_PLUGINS_BAD)
 
@@ -31,17 +31,6 @@ GST_PLUGINS_BAD_DIR	:= $(BUILDDIR)/$(GST_PLUGINS_BAD)
 $(GST_PLUGINS_BAD_SOURCE):
 	@$(call targetinfo)
 	@$(call get, GST_PLUGINS_BAD)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gst-plugins-bad.extract:
-	@$(call targetinfo)
-	@$(call clean, $(GST_PLUGINS_BAD_DIR))
-	@$(call extract, GST_PLUGINS_BAD)
-	@$(call patchin, GST_PLUGINS_BAD)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -113,32 +102,6 @@ GST_PLUGINS_BADD_AUTOCONF += --disable-bayer
 endif
 
 
-$(STATEDIR)/gst-plugins-bad.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(GST_PLUGINS_BAD_DIR)/config.cache)
-	cd $(GST_PLUGINS_BAD_DIR) && \
-		$(GST_PLUGINS_BAD_PATH) $(GST_PLUGINS_BAD_ENV) \
-		./configure $(GST_PLUGINS_BAD_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gst-plugins-bad.compile:
-	@$(call targetinfo)
-	cd $(GST_PLUGINS_BAD_DIR) && $(GST_PLUGINS_BAD_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gst-plugins-bad.install:
-	@$(call targetinfo)
-	@$(call install, GST_PLUGINS_BAD)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -151,7 +114,7 @@ $(STATEDIR)/gst-plugins-bad.targetinstall:
 	@$(call install_fixup, gst-plugins-bad,PRIORITY,optional)
 	@$(call install_fixup, gst-plugins-bad,VERSION,$(GST_PLUGINS_BAD_VERSION))
 	@$(call install_fixup, gst-plugins-bad,SECTION,base)
-	@$(call install_fixup, gst-plugins-bad,AUTHOR,"Sascha Hauer <your@email.please>")
+	@$(call install_fixup, gst-plugins-bad,AUTHOR,"Sascha Hauer")
 	@$(call install_fixup, gst-plugins-bad,DEPENDS,)
 	@$(call install_fixup, gst-plugins-bad,DESCRIPTION,missing)
 
