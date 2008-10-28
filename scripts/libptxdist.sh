@@ -161,7 +161,9 @@ ptxd_kconfig() {
 	local part="${2}"
 	local copy_back="true"
 
-	ptxd_kgen || ptxd_bailout "error in kgen"
+	if [ "${config}" != "dep" ]; then
+		ptxd_kgen || ptxd_bailout "error in kgen"
+	fi
 
 	local tmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/kconfig.XXXXXX")"
 	pushd "${tmpdir}" > /dev/null
