@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBLZO) += liblzo
 #
 # Paths and names
 #
-LIBLZO_VERSION	:= 2.02
+LIBLZO_VERSION	:= 2.03
 LIBLZO		:= lzo-$(LIBLZO_VERSION)
 LIBLZO_SUFFIX	:= tar.gz
 LIBLZO_URL	:= http://www.oberhumer.com/opensource/lzo/download/$(LIBLZO).$(LIBLZO_SUFFIX)
