@@ -140,7 +140,7 @@ check_version() {
 		return 1
 	elif [ "${PTXDIST_VERSION_MINOR}" != "${config_minor}" ]; then
 		return 1
-	elif [                            -z "${config_micro}" -o
+	elif [                            -z "${config_micro}" -o \
 	       "${PTXDIST_VERSION_MICRO}"  = "${config_micro}" ]; then
 		return 0
 	elif [ ${PTXDIST_VERSION_MICRO}  -ge  ${config_micro} ] >/dev/null 2>&1; then
