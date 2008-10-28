@@ -64,7 +64,7 @@ $(STATEDIR)/libelf.targetinstall:
 	@$(call install_fixup, libelf,PRIORITY,optional)
 	@$(call install_fixup, libelf,VERSION,$(LIBELF_VERSION))
 	@$(call install_fixup, libelf,SECTION,base)
-	@$(call install_fixup, libelf,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de> <your@email.please>")
+	@$(call install_fixup, libelf,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, libelf,DEPENDS,)
 	@$(call install_fixup, libelf,DESCRIPTION,missing)
 
