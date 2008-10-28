@@ -17,12 +17,15 @@ PACKAGES-$(PTXCONF_ATTR) += attr
 #
 # Paths and names
 #
-ATTR_VERSION	:= 2.4.41
+ATTR_VERSION	:= 2.4.43
 ATTR		:= attr-$(ATTR_VERSION)
 ATTR_SUFFIX	:= tar.gz
-ATTR_URL	:= ftp://oss.sgi.com/projects/xfs/cmd_tars/attr_$(ATTR_VERSION)-1.$(ATTR_SUFFIX)
 ATTR_SOURCE	:= $(SRCDIR)/attr_$(ATTR_VERSION)-1.$(ATTR_SUFFIX)
 ATTR_DIR	:= $(BUILDDIR)/$(ATTR)
+
+ATTR_URL	:= \
+	ftp://oss.sgi.com/projects/xfs/cmd_tars/attr_$(ATTR_VERSION)-1.$(ATTR_SUFFIX) \
+	ftp://oss.sgi.com/projects/xfs/previous/cmd_tars/attr_$(ATTR_VERSION)-1.$(ATTR_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,17 +34,6 @@ ATTR_DIR	:= $(BUILDDIR)/$(ATTR)
 $(ATTR_SOURCE):
 	@$(call targetinfo)
 	@$(call get, ATTR)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/attr.extract:
-	@$(call targetinfo)
-	@$(call clean, $(ATTR_DIR))
-	@$(call extract, ATTR)
-	@$(call patchin, ATTR)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -62,7 +54,6 @@ ATTR_AUTOCONF += --enable-gettext
 else
 ATTR_AUTOCONF += --disable-gettext
 endif
-
 
 # ----------------------------------------------------------------------------
 # Target-Install
