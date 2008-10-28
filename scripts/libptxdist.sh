@@ -161,6 +161,8 @@ ptxd_kconfig() {
 	local part="${2}"
 	local copy_back="true"
 
+	ptxd_kgen || ptxd_bailout "error in kgen"
+
 	local tmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/kconfig.XXXXXX")"
 	pushd "${tmpdir}" > /dev/null
 
@@ -197,12 +199,11 @@ ptxd_kconfig() {
 		;;
 	esac
 
-
 	ln -sf "${PTXDIST_TOPDIR}/rules"
 	ln -sf "${PTXDIST_TOPDIR}/config"
 	ln -sf "${PTXDIST_TOPDIR}/platforms"
 	ln -sf "${PTXDIST_WORKSPACE}" workspace
-
+	ln -sf "${PTXDIST_KGEN_DIR}" generated
 
 	if [ -e "${file_dotconfig}" ]; then
 		cp "${file_dotconfig}" .config
@@ -252,7 +253,7 @@ ptxd_kconfig() {
 #
 #
 ptxd_make() {
-	for lib in "${SCRIPTSDIR}/lib/"*.sh; do
+	for lib in "${SCRIPTSDIR}/lib/ptxd_make_"*.sh; do
 		source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
 	done
 	make ${PTX_MAKE_DBG} ${PTXDIST_PARALLELMFLAGS_EXTERN} -f "${RULESDIR}/other/Toplevel.make" "${@}" || return
