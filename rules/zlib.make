@@ -28,28 +28,9 @@ ZLIB_DIR	:= $(BUILDDIR)/$(ZLIB)
 # Get
 # ----------------------------------------------------------------------------
 
-zlib_get: $(STATEDIR)/zlib.get
-
-$(STATEDIR)/zlib.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(ZLIB_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, ZLIB)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-zlib_extract: $(STATEDIR)/zlib.extract
-
-$(STATEDIR)/zlib.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(ZLIB_DIR))
-	@$(call extract, ZLIB)
-	@$(call patchin, ZLIB)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -70,44 +51,13 @@ ifdef PTXCONF_ZLIB_STATIC
 ZLIB_AUTOCONF += --enable-shared=no
 endif
 
-$(STATEDIR)/zlib.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(ZLIB_DIR)/config.cache)
-	cd $(ZLIB_DIR) && \
-		$(ZLIB_PATH) $(ZLIB_ENV) \
-		./configure $(ZLIB_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-zlib_compile: $(STATEDIR)/zlib.compile
-
-$(STATEDIR)/zlib.compile:
-	@$(call targetinfo, $@)
-	cd $(ZLIB_DIR) && $(ZLIB_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-zlib_install: $(STATEDIR)/zlib.install
-
-$(STATEDIR)/zlib.install:
-	@$(call targetinfo, $@)
-	@$(call install, ZLIB)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-zlib_targetinstall: $(STATEDIR)/zlib.targetinstall
-
 $(STATEDIR)/zlib.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 ifndef PTXCONF_ZLIB_STATIC
 	@$(call install_init, zlib)
@@ -126,7 +76,7 @@ ifndef PTXCONF_ZLIB_STATIC
 
 	@$(call install_finish, zlib)
 endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
