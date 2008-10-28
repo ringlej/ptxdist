@@ -52,7 +52,7 @@ LTRACE_PATH	:= PATH=$(CROSS_PATH)
 LTRACE_ENV 	:= $(CROSS_ENV)
 LTRACE_MAKEVARS	:= \
 	OS=linux-gnu \
-	ARCH=$(PTXCONF_KERNEL_ARCH_STRING)
+	ARCH=$(PTXCONF_ARCH_STRING)
 
 #
 # autoconf
@@ -80,7 +80,7 @@ $(STATEDIR)/ltrace.targetinstall:
 	@$(call install_fixup, ltrace,PRIORITY,optional)
 	@$(call install_fixup, ltrace,VERSION,$(LTRACE_VERSION))
 	@$(call install_fixup, ltrace,SECTION,base)
-	@$(call install_fixup, ltrace,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de> <your@email.please>")
+	@$(call install_fixup, ltrace,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, ltrace,DEPENDS,)
 	@$(call install_fixup, ltrace,DESCRIPTION,missing)
 
