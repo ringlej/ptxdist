@@ -74,12 +74,12 @@ ifdef PTXCONF_SUDO_DONT_SEND_MAILS
 SUDO_AUTOCONF += --without-sendmail
 endif
 
-  ifndef PTXCONF_SUDO_USE_SENDMAIL
+ifndef PTXCONF_SUDO_USE_SENDMAIL
 SUDO_AUTOCONF += --without-sendmail
-  endif
-  ifndef PTXCONF_SUDO_USE_PAM
+endif
+ifndef PTXCONF_SUDO_USE_PAM
 SUDO_AUTOCONF += --without-pam
-  endif
+endif
 
 $(STATEDIR)/sudo.prepare: $(sudo_prepare_deps_default)
 	@$(call targetinfo, $@)
