@@ -37,13 +37,13 @@ $(IPKG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-IPKG_PATH	=  PATH=$(CROSS_PATH)
-IPKG_ENV 	=  $(CROSS_ENV)
+IPKG_PATH	:= PATH=$(CROSS_PATH)
+IPKG_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-IPKG_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+IPKG_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
