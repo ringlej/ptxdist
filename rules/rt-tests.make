@@ -87,7 +87,7 @@ $(STATEDIR)/rt-tests.targetinstall:
 	@$(call install_fixup, rt-tests,PRIORITY,optional)
 	@$(call install_fixup, rt-tests,VERSION,$(RT_TESTS_VERSION))
 	@$(call install_fixup, rt-tests,SECTION,base)
-	@$(call install_fixup, rt-tests,AUTHOR,"Robert Schwebel <your@email.please>")
+	@$(call install_fixup, rt-tests,AUTHOR,"Robert Schwebel")
 	@$(call install_fixup, rt-tests,DEPENDS,)
 	@$(call install_fixup, rt-tests,DESCRIPTION,missing)
 
