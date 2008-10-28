@@ -29,10 +29,20 @@ gen_configdeps() {
     local tmpdir kconfig
 
     ptxd_kconfig dep ptx > "${CONFIGDEPS}"
+    local ret=$?
+    if [ ${ret} -ne 0 ]; then
+	cat "${CONFIGDEPS}" >&2
+	return $ret
+    fi
 
     # if platformconfig's size is bigger than zero
     if [ -s "${PTXDIST_PLATFORMCONFIG}" ]; then
 	ptxd_kconfig dep platform  >> "${CONFIGDEPS}"
+	local ret=$?
+	if [ ${ret} -ne 0 ]; then
+	    cat "${CONFIGDEPS}" >&2
+	    return $ret
+	fi
     fi
 }
 
@@ -212,13 +222,13 @@ if test \! -e "${STATEDIR}" ; then
     mkdir -p "${STATEDIR}"
 fi
 
-gen_configdeps
-gen_configdeps_map
+gen_configdeps || exit $?
+gen_configdeps_map || exit $?
 
-gen_rulesfiles_all
-gen_map_all
+gen_rulesfiles_all || exit $?
+gen_map_all || exit $?
 
 . "${PTX_MAP_ALL}"
 . "${CONFIGDEPS_MAP}"
 
-gen_packages_dep
+gen_packages_dep || exit $?
