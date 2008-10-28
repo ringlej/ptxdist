@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003-2006 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003-2008 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,75 +28,53 @@ MTD_UTILS_DIR		:= $(BUILDDIR)/$(MTD_UTILS)
 # Get
 # ----------------------------------------------------------------------------
 
-mtd-utils_get: $(STATEDIR)/mtd-utils.get
-
-$(STATEDIR)/mtd-utils.get: $(mtd-utils_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(MTD_UTILS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, MTD_UTILS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-mtd-utils_extract: $(STATEDIR)/mtd-utils.extract
-
-$(STATEDIR)/mtd-utils.extract: $(mtd-utils_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(MTD_UTILS_DIR))
-	@$(call extract, MTD_UTILS)
-	@$(call patchin, MTD_UTILS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-mtd-utils_prepare: $(STATEDIR)/mtd-utils.prepare
-
 MTD_UTILS_PATH		:= PATH=$(CROSS_PATH)
-MTD_UTILS_ENV 		:= $(CROSS_ENV)
-MTD_UTILS_MAKEVARS	:= \
-	CROSS="$(COMPILER_PREFIX)" \
-	CPPFLAGS="$(CROSS_CPPFLAGS)" \
-	LDFLAGS="$(CROSS_LDFLAGS)"
+MTD_UTILS_ENV 		:= \
+	$(CROSS_ENV) \
+	CROSS='$(COMPILER_PREFIX)' \
+	CPPFLAGS='$(CROSS_CPPFLAGS)' \
+	LDFLAGS='$(CROSS_LDFLAGS)' \
+	WITHOUT_XATTR=1 \
+	WITHOUT_LZO=1 \
 
-$(STATEDIR)/mtd-utils.prepare: $(mtd-utils_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+MTD_UTILS_MAKEVARS	:= BUILDDIR=.
+
+$(STATEDIR)/mtd-utils.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-mtd-utils_compile: $(STATEDIR)/mtd-utils.compile
-
-$(STATEDIR)/mtd-utils.compile: $(mtd-utils_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(MTD_UTILS_DIR) && $(MTD_UTILS_PATH) $(MAKE) $(PARALLELMFLAGS) $(MTD_UTILS_MAKEVARS)
-	@$(call touch, $@)
+$(STATEDIR)/mtd-utils.compile:
+	@$(call targetinfo)
+	cd $(MTD_UTILS_DIR) && $(MTD_UTILS_PATH) $(MTD_UTILS_ENV) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-mtd-utils_install: $(STATEDIR)/mtd-utils.install
-
-$(STATEDIR)/mtd-utils.install: $(mtd-utils_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+#$(STATEDIR)/mtd-utils.install:
+#	@$(call targetinfo)
+#	@$(call install, MTD_UTILS)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-mtd-utils_targetinstall: $(STATEDIR)/mtd-utils.targetinstall
-
-$(STATEDIR)/mtd-utils.targetinstall: $(mtd-utils_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/mtd-utils.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, mtd-utils)
 	@$(call install_fixup, mtd-utils,PACKAGE,mtd-utils)
@@ -161,7 +139,7 @@ endif
 
 	@$(call install_finish, mtd-utils)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
