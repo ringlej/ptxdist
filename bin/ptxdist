@@ -14,8 +14,10 @@ PROMPT="ptxdist: "
 PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_ptxconfig'
 PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
 PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
-PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdistrc.${FULLVERSION}'
+PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdistrc.${PTXDIST_VERSION_FULL}'
 PTXDIST_PACKAGES_COLLECTION_DEFAULT="ALL"
+
+PTXDIST_KGEN_DIR='${PTXDIST_TEMPDIR}/kgen'
 
 
 #
@@ -66,21 +68,30 @@ menu() {
 		--cancel-label "Exit" \
 		--menu "" 0 0 0 \
 		-- \
-		"ptx"			"Configure Software Platform" \
-		"platform"		"Configure Hardware Platform" \
+		"menuconfig"		"Configure Software Platform" \
+		"platformconfig"	"Configure Hardware Platform" \
 		"kernel"		"Configure Kernel (${kernel_version})" \
 		"u-boot-v2"		"Configure U-Boot-v2 (${u_boot_v2_version})" \
 		"--------------"	"--------------------------------------------" \
-		"ptxconfig"		"Select    Software Platform (${ptxconfig})" \
-		"platformconfig"	"Select    Hardware Platform (${platform})" \
+		"select"		"Select	   Software Platform (${ptxconfig})" \
+		"platform"		"Select	   Hardware Platform (${platform})" \
 		"--------------"	"--------------------------------------------" \
-		"board"			"Configure Board Properties" \
-		"user"			"Configure User  Properties" \
+		"boardsetup"		"Configure Board Properties" \
+		"setup"			"Configure User	 Properties" \
 		3>&1 1>&4 \
 		)" || return
 	exec 4>&-
 	exec 3>&-
 	_ptxdist_menu_cmd="${cmd}"
+
+	case "${cmd}" in
+	menuconfig)	cmd=ptx ;;
+	platformconfig)	cmd=platform ;;
+	select)		cmd=ptxconfig ;;
+	platform)	cmd=platformconfig ;;
+	boardsetup)	cmd=board ;;
+	setup)		cmd=user ;;
+	esac
 
 	case "${cmd}" in
 	platformconfig|ptxconfig)
@@ -112,30 +123,28 @@ menu() {
 # - The ptxdist minor version has to be equal to the configfile minor version
 # - The ptxdist micro version has to greater than or equal to the configfile
 #   micro version
-# - If the configfile has no minor or micro version stop here and assume
-#   everything is ok (this means 'can build with 0.10.x or 0.x').
-# - If the ptxdist minor or micro version is "svn" then no further checks are
-#   done. You know what you are doing when you use svn, don't you?
+# - If the configfile has no micro version stop here and assume
+#   everything is ok (this means '1.0' 'can build with 1.0.x').
 #
 check_version() {
-	local ptxdist="$1"
-	local config="$2"
+	local ifs_old="${IFS}"
+	IFS=.
+	set -- ${1}
+	IFS="${ifs_old}"
 
-	ptxdist_major=$(echo $ptxdist | awk -F. '{print $1}')
-	config_major=$(echo $config | awk -F. '{print $1}')
-	[ "${ptxdist_major}" != "${config_major}" ] && return 1
+	local config_major="${1}"
+	local config_minor="${2}"
+	local config_micro="${3}"
 
-	ptxdist_minor=$(echo $ptxdist | awk -F. '{print $2}')
-	config_minor=$(echo $config | awk -F. '{print $2}')
-	[ "${config_minor}" != "${ptxdist_minor}" ] && return 1
-
-	ptxdist_micro=$(echo $ptxdist | awk -F. '{print $3}')
-	config_micro=$(echo $config | awk -F. '{print $3}')
-	[ "${config_micro}" = "${ptxdist_micro}" ] && return 0
-
-	# fail if one is "svn"
-	if [ ${ptxdist_micro} -ge ${config_micro} ] >/dev/null 2>&1; then
+	if   [ "${PTXDIST_VERSION_MAJOR}" != "${config_major}" ]; then
+		return 1
+	elif [ "${PTXDIST_VERSION_MINOR}" != "${config_minor}" ]; then
+		return 1
+	elif [                            -z "${config_micro}" -o
+	       "${PTXDIST_VERSION_MICRO}"  = "${config_micro}" ]; then
 		return 0
+	elif [ ${PTXDIST_VERSION_MICRO}  -ge  ${config_micro} ] >/dev/null 2>&1; then
+		return 0	# fails if one is "svn"
 	fi
 
 	return 1
@@ -169,32 +178,32 @@ check_ptxconfig() {
 	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
 		ptxd_dialog_msgbox \
 			"error: '${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}' file is missing\n" \
-			"       try 'ptxdist select <ptxconfig>' or\n" \
-			"       'ptxdist clone <project>' to clone an existing project"
+			"	try 'ptxdist select <ptxconfig>' or\n" \
+			"	'ptxdist clone <project>' to clone an existing project"
 		return 1
 	fi
 
 	if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 		ptxd_dialog_msgbox \
 			"error: '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing\n" \
-			"       try 'ptxdist platform <platformconfig>'"
+			"	try 'ptxdist platform <platformconfig>'"
 		return 1
 	fi
 
 	local configfile_version="$(ptxd_get_ptxconf PTXCONF_CONFIGFILE_VERSION)"
 
-	check_version "${FULLVERSION}" "${configfile_version}"
+	check_version "${configfile_version}"
 	if [ ${?} -ne 0 -a -z "${PTX_FORCE}" ]; then
 		ptxd_dialog_msgbox \
 			"error: The configfile version and ptxdist version do not match:\n" \
 			"\n" \
-			"       configfile version: ${configfile_version}\n" \
-			"       ptxdist version:    ${FULLVERSION}\n" \
-		        "\n" \
-			"       If you are absolutely sure, please add '--force'\n" \
-			"       to ptxdist's parameters, e.g.:\n" \
-		        "\n" \
-			"       'ptxdist --force ${PTXDIST_ARGS_FULL[*]}'"
+			"	configfile version: ${configfile_version}\n" \
+			"	ptxdist version:    ${PTXDIST_VERSION_FULL}\n" \
+			"\n" \
+			"	If you are absolutely sure, please add '--force'\n" \
+			"	to ptxdist's parameters, e.g.:\n" \
+			"\n" \
+			"	'ptxdist --force ${PTXDIST_ARGS_FULL[*]}'"
 		return 1
 	fi
 }
@@ -279,7 +288,7 @@ check_compiler() {
 				echo
 				echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
 				echo "${PROMPT}error: specified: ${vendor_should}"
-				echo "${PROMPT}error: found:     ${vendor_is}"
+				echo "${PROMPT}error: found:	 ${vendor_is}"
 				echo
 				exit 1
 			fi
@@ -312,6 +321,7 @@ check_compiler() {
 # checks if the dependencies are allright (make for the poor)
 #
 check_deps() {
+	ptxd_kgen || ptxd_bailout "error in kgen"
 	"${SCRIPTSDIR}/dgen.sh" || ptxd_bailout "error in dgen.sh"
 #	ptxd_create_autoconf_cache "${STATEDIR}/autoconf.cache" || ptxd_bailout "error in create_config_cache.sh"
 	touch "${STATEDIR}/autoconf.cache"
@@ -336,7 +346,7 @@ check_dirs_prefix() {
 	if echo "${prefix}" | grep -q " "; then
 		echo
 		echo "error: some important dir ('${prefix}')"
-		echo "       contains spaces, this will probably not work, sorry"
+		echo "	     contains spaces, this will probably not work, sorry"
 		echo
 		exit 1
 	fi
@@ -346,8 +356,8 @@ check_dirs_prefix() {
 		if [ ${?} -ne 0 ]; then
 			echo
 			echo "error: '${prefix}'"
-			echo "       does not exist and cannot be created!"
-			echo "       Please create that dir with write permissions for you."
+			echo "	     does not exist and cannot be created!"
+			echo "	     Please create that dir with write permissions for you."
 			echo
 			read -t 5 -p "press enter to let sudo do that job!"
 			if [ ${?} -ne 0 ]; then
@@ -368,8 +378,8 @@ check_dirs_prefix() {
 	if [ ${?} -ne 0 ]; then
 		echo
 		echo "error: '${prefix}'"
-		echo "       does exist, but is not writeable."
-		echo "       Change the permissions and try again."
+		echo "	     does exist, but is not writeable."
+		echo "	     Change the permissions and try again."
 		echo
 		read -t 5 -p "press enter to let sudo do the job!"
 		if [ ${?} -ne 0 ]; then
@@ -428,7 +438,7 @@ check_dirs() {
 		"${IMAGEDIR}" \
 		"${ROOTDIR}" \
 		"${ROOTDIR_DEBUG}" \
-	        "${PTXDIST_SRCDIR}" \
+		"${PTXDIST_SRCDIR}" \
 		; do
 		if [ \! -d "${dir}" ]; then
 			mkdir -p "${dir}" || ptxd_bailout "cannot create dir: ${dir}"
@@ -451,8 +461,8 @@ check_dirs() {
 		    "$(cat "${testfile_upper}")" != "upper" ]; then
 			echo
 			echo "error: '${dir}'"
-			echo "       is not a case sensitive filesystem."
-			echo "       Please move your project to a case sensitive one"
+			echo "	     is not a case sensitive filesystem."
+			echo "	     Please move your project to a case sensitive one"
 			echo
 			exit 1
 		fi
@@ -477,7 +487,7 @@ check_if_selected() {
 	if [ -z "${ptxconfig_configvar}" ]; then
 		ptxd_dialog_msgbox \
 			"${PROMPT}error: '${1}' is not selected in\n" \
-			"       ${PTXDIST_PTXCONFIG}"
+			"	${PTXDIST_PTXCONFIG}"
 		return 1
 	fi
 }
@@ -526,7 +536,7 @@ clone() {
 usage() {
 cat << EOF
 
-PTXdist $(printf "%-24s" ${FULLVERSION}) Build System for Embedded Linux Systems
+PTXdist $(printf "%-24s" ${PTXDIST_VERSION_FULL}) Build System for Embedded Linux Systems
 
   ptxdist <action [args]> [options]
 
@@ -591,7 +601,7 @@ Overwrite:
   --platformconfig		use specified platformconfig
   --toolchain			use specified toolchain
   --force			select config even if MOJO is missing
-                                or versions do not match
+				or versions do not match
 Misc:
 
   --version			print out ptxdist version
@@ -604,16 +614,16 @@ Misc:
 				cross, cross-existing-target, source,
 				kernel_driver, font, simple
   print <var>			print the contents of a variable, in the way
-  				it is known by "make"
+				it is known by "make"
 Options:
 
   -d				print out make decisions (debug)
   --quiet, -q			suppress output, show only stderr
 
-  --j-intern=<n>, -ji<n>        set number of parallel builds in packages
-                                (default = 2*CPUs)
-  --j-extern=<n>, -je<n>        set number of packages built in parallel
-                                (default = 1)
+  --j-intern=<n>, -ji<n>	set number of parallel builds in packages
+				(default = 2*CPUs)
+  --j-extern=<n>, -je<n>	set number of packages built in parallel
+				(default = 1)
 
 EOF
 }
@@ -1041,27 +1051,27 @@ do_select()
 	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTX_FORCE}" ]; then
 		ptxd_dialog_msgbox \
 			"error: Couldn't verify(1) that\n" \
-			"       '${file}'\n" \
-			"       is a valid ${type} file.\n" \
-			"       If you are absolutely sure, please add '--force'\n" \
-			"       to ptxdist's parameters, e.g.:\n" \
-		        "\n" \
-			"       'ptxdist --force ${PTXDIST_ARGS_FULL[*]}'\n" \
+			"	'${file}'\n" \
+			"	is a valid ${type} file.\n" \
+			"	If you are absolutely sure, please add '--force'\n" \
+			"	to ptxdist's parameters, e.g.:\n" \
 			"\n" \
-			"       (1) it appears not to have the right MOJO."
+			"	'ptxdist --force ${PTXDIST_ARGS_FULL[*]}'\n" \
+			"\n" \
+			"	(1) it appears not to have the right MOJO."
 		return 1
 	fi
 
 	if [ ! -f "${file}" ]; then
 		ptxd_dialog_msgbox \
 			"error: cannot select\n" \
-			"       '${file}'\n" \
-			"       file does not exist"
+			"	'${file}'\n" \
+			"	file does not exist"
 		return 1
 	elif [ -e "${!dest_ptr}" -a \! -L "${!dest_ptr}" ]; then
 		ptxd_dialog_msgbox \
 			"error: '${!dest_ptr}'\n" \
-			"       is not a link thus ${type} is not selectable!"
+			"	is not a link thus ${type} is not selectable!"
 		return 1
 	fi
 
@@ -1107,8 +1117,8 @@ do_select_toolchain() {
 		if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 			ptxd_dialog_msgbox \
 				"error: cannot guess toolchain, no platform selected.\n" \
-				"       try 'ptxdist platform <platformconfig>' first\n" \
-				"       or use 'ptxdist toolchain </path/to/toolchain>'"
+				"	try 'ptxdist platform <platformconfig>' first\n" \
+				"	or use 'ptxdist toolchain </path/to/toolchain>'"
 			return 1
 		fi
 
@@ -1135,7 +1145,7 @@ do_select_toolchain() {
 		if [ ${num} -eq 0 ]; then
 			ptxd_dialog_msgbox \
 				"error: sorry, no toolchain found, matching\n" \
-				"       ${hint}"
+				"	${hint}"
 			return 1
 		elif [ ${num} -ne 1 ]; then
 			local old_ifs="${IFS}"
@@ -1146,7 +1156,7 @@ do_select_toolchain() {
 
 			ptxd_dialog_msgbox \
 				"error: more than one toolchain found, matching\n" \
-				"       '${hint}':\n\n" \
+				"	'${hint}':\n\n" \
 				"${toolchain}"
 			return 1
 		fi
@@ -1166,8 +1176,8 @@ do_select_toolchain() {
 	elif [ -e "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
 		ptxd_dialog_msgbox \
 			"error: There is a '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' in this directory which is no link.\n" \
-			"       This should never happen, please contact the\n" \
-			"       Pengutronix Department of Illegal File Removement."
+			"	This should never happen, please contact the\n" \
+			"	Pengutronix Department of Illegal File Removement."
 		exit 1
 	fi
 
@@ -1184,7 +1194,7 @@ parse_second()
 	#
 	# use args from first stage parser, prepared for us
 	#
-	set --  "${PTXDIST_ARGS_SECOND[@]}"
+	set --	"${PTXDIST_ARGS_SECOND[@]}"
 
 	if [ $# -eq 0 ]; then
 		usage
@@ -1200,7 +1210,7 @@ parse_second()
 		case "${cmd}" in
 ######## --*
 		--version)
-			echo "${FULLVERSION}"
+			echo "${PTXDIST_VERSION_FULL}"
 			exit 0
 			;;
 
@@ -1396,7 +1406,8 @@ parse_second()
 			exit 0
 			;;
 
-		newpacket)	# test if we are in a rules dir
+		newpacket)
+			# test if we are in a rules dir
 			if [ "$(basename $(pwd))" != "rules" ]; then
 				echo
 				echo "${PROMPT}error: newpacket command only allowed in a rules dir"
@@ -1520,8 +1531,8 @@ ptxdist_trap_exit_handler() {
 	if [ -e "${PTX_LOGFILE}" ]; then
 		#
 		# use these quotes to keep Enrik's editor happy
-		#          \\
-		#           VV
+		#	   \\
+		#	    VV
 		echo -e "\n}""}} $(date '+%FT%T%z') ${PTXDIST} ${PTXDIST_ARGS_FULL[@]}; (exit value: ${retval})\n\n\n" >> "${PTX_LOGFILE}"
 	fi
 }
@@ -1564,6 +1575,10 @@ setup_libs() {
 		fi
 	done
 
+	for lib in "${SCRIPTSDIR}/lib/ptxd_lib_"*.sh; do
+		source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
+	done
+
 	PTXDIST_TEMPDIR="$(mktemp -d /tmp/ptxdist.XXXXXX)"
 	if [ ${?} -ne 0 ]; then
 		echo
@@ -1571,6 +1586,11 @@ setup_libs() {
 		echo
 		exit 1
 	fi
+
+	#
+	# eval those who live in the tempdir
+	#
+	eval PTXDIST_KGEN_DIR="${PTXDIST_KGEN_DIR}"
 }
 
 
@@ -1684,7 +1704,7 @@ setup_config() {
 		unset PARALLELMFLAGS
 	else
 		if [ -r /proc/cpuinfo ]; then
-			cpus="$(egrep '^(processor|cpu  )' /proc/cpuinfo | wc -l)"
+			cpus="$(egrep '^(processor|cpu	)' /proc/cpuinfo | wc -l)"
 			if [ $cpus -eq 0 ]; then
 				cpus=1
 			fi
@@ -1696,7 +1716,7 @@ setup_config() {
 	fi
 
 	#
-	# user may overwrite these, too
+	# user may override these, too
 	#
 	PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLELMFLAGS_INTERN:-${pmf_intern}}"
 	PTXDIST_PARALLELMFLAGS_EXTERN="${PTXDIST_PARALLELMFLAGS_EXTERN:-${pmf_extern}}"
@@ -1767,11 +1787,18 @@ setup_export() {
 		PTXDIST_PLATFORMCONFIG \
 		PTXDIST_BOARDSETUP \
 		\
+		PTXDIST_VERSION_FULL \
+		PTXDIST_VERSION_MAJOR \
+		PTXDIST_VERSION_MINOR \
+		PTXDIST_VERSION_MICRO \
+		\
 		PTXDIST_WORKSPACE \
 		\
 		PTXDIST_PLATFORMDIR \
 		PTXDIST_PLATFORMSUFFIX \
 		PTXDIST_PLATFORMCONFIGDIR \
+		\
+		PTXDIST_KGEN_DIR \
 		\
 		PTXDIST_PARALLELMFLAGS_INTERN \
 		PTXDIST_PACKAGES_COLLECTION \
