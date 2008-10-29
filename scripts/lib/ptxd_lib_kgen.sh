@@ -33,11 +33,13 @@ ptxd_kgen_awk()
 
 		output = "'"${PTXDIST_KGEN_DIR}"'" "/" section ".in";
 
+#		print output ":", "source \"" file "\""
 		print "source \"" file "\"" > output
 	    }
 	}
 	'
 }
+
 
 ptxd_kgen_generate_sections()
 {
@@ -49,10 +51,11 @@ ptxd_kgen_generate_sections()
 		continue
 	    fi
 
-	    grep -R -e "^##[[:space:]]*SECTION=" "${dir}/rules/"*.in
+	    grep -R -H -e "^##[[:space:]]*SECTION=" "${dir}/rules/"*.in
 	done
     ) | ptxd_kgen_awk
 }
+
 
 ptxd_kgen()
 {
