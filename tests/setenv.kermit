@@ -4,9 +4,9 @@ define setenv_uboot_v1 {
 	ptx_test_start "Setting new environment"
 
 	# Open the file with the new environment
-	open read \%1
+	open read \%2
 	if fail {
-		writeln ERROR "FAILED! Could not open \%1."
+		writeln ERROR "FAILED! Could not open \%2."
 		exit 1
 	}
 
@@ -20,7 +20,7 @@ define setenv_uboot_v1 {
 
 	while true {
 		# wait for newline or u-boot-prompt
-		minput 5 {\10} \m(PTXCONF_BOARDSETUP_UBOOTPROMPT)
+		minput 5 {\10} \m(uboot_prompt)
 		if fail {
 			writeln ERROR "FAILED! Did not get old environment"
 			exit 1
@@ -61,7 +61,8 @@ define setenv_uboot_v1 {
 }
 
 define setenv_uboot_v2 {
-	# ! gen_uboot_v2_image
+
+	! \%1/make_uboot_v2_env \%3
 
 	ptx_test_start "Setting initial environment"
 	ptx_uboot_exec 3 "eth0.ipaddr=\m(PTXCONF_BOARDSETUP_TARGETIP)"
@@ -69,15 +70,16 @@ define setenv_uboot_v2 {
 	ptx_uboot_exec 3 "eth0.gateway=\m(PTXCONF_BOARDSETUP_GATEWAY)"
 	ptx_uboot_exec 3 "eth0.netmask=\m(PTXCONF_BOARDSETUP_NETMASK)"
 	ptx_uboot_exec 3 "mtdparts=\"128k(uboot)ro,128k(ubootenv),128k(ageing),1280k(kernel0),1280k(kernel1),8704k(system0),8704k(system1),8320k(application),4096k(persistent)\""
-	ptx_uboot_exec 3 "addpart /dev/nor0 $mtdparts"
+	#ptx_uboot_exec 3 "addpart /dev/nor0 $mtdparts"
 	ptx_test_end
 
-	ptx_uboot_exec_single "Calling server" "ping $eth0.serverip"
+	ptx_uboot_exec_single "Calling server" 15 "ping $eth0.serverip"
 
 	ptx_test_start "Flashing default environment"
 	ptx_uboot_exec 3  "unprotect /dev/nor0.ubootenv"
-	ptx_uboot_exec 10 "erase /dev/nor0.ubootenv"
-	ptx_uboot_exec 20 "tftp \%1 /dev/nor0.ubootenv"
+	#ptx_uboot_exec 10 "erase /dev/nor0.ubootenv"
+	#ptx_uboot_exec 20 "tftp \fbasename(\%3) /dev/nor0.ubootenv"
+	ptx_uboot_exec 20 "tftp \fbasename(\%3) /dev/ram0"
 	ptx_uboot_exec 3  "protect /dev/nor0.ubootenv"
 	ptx_test_end
 
@@ -85,13 +87,13 @@ define setenv_uboot_v2 {
 }
 
 # Read the library
-take \%1
+take \%1/libptxdisttest.kermit
 
 # Set up the line
 ptx_init \%2
 
 ptx_uboot_enter_shell
 
-setenv_uboot_v\m(uboot_version)
+setenv_uboot_v\m(uboot_version) \%1 \%3 \%4
 
 ptx_exit

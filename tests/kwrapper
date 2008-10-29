@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export PTXDIST_SYSROOT_HOST=$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)
+# FIXME!
+export IMAGEDIR=${PTXDIST_PLATFORMDIR}/images
 OURDIR="$(dirname "${0}")"
 TST="${1}"
 shift
@@ -33,6 +36,6 @@ TMPFILE="$(mktemp "${PTXDIST_TEMPDIR}/kwrapper.XXXXXX")"
 sed -e 's/^\(PTXCONF_BOARDSETUP_[A-Z0-9_]*\)=/define \1 /' "${PTXDIST_BOARDSETUP}" > "${TMPFILE}"
 # FIXME: add PTXDIST_TEST_vars from environment, too
 
-"${KSCRIPT}" "${LIB}" "${TMPFILE}" "${@}"
+"${PTXDIST_SYSROOT_HOST}/bin/ckermit" "${KSCRIPT}" = "${OURDIR}" "${TMPFILE}" "${@}"
 
 rm -f "${TMPFILE}"

@@ -3,13 +3,24 @@
 #Read the library
 take \%1
 
+define flash_area {
+	ptx_test_start "Flashing \%4"
+	ptx_uboot_exec 60  "tftp \m(ram_start) \%3"
+	ptx_uboot_exec 5   "protect off \%1 \%2"
+	ptx_uboot_exec 120 "erase \%1 \%2"
+	ptx_uboot_exec 120 "cp.b \m(ram_start) \%1 $(filesize)"
+	ptx_uboot_exec 5   "protect on \%1 \%2"
+	ptx_test_end
+}
+
 #Set up the line
 ptx_init \%2
 
 ptx_uboot_enter_shell
 
-ptx_uboot_exec_single "Flashing kernel" 300 "run prg_kernel"
-ptx_uboot_exec_single "Flashing oftree" 10 "run prg_oftree"
-ptx_uboot_exec_single "Flashing jffs2" 600 "run prg_jffs2"
+define ram_start 0x400000
+flash_area 0xfe040000 0xfe1fffff "\%3" "kernel"
+flash_area 0xfff40000 0xfff7ffff "\%4" "oftree"
+flash_area 0xfe200000 0xffefffff "\%5" "jffs2"
 
 ptx_exit
