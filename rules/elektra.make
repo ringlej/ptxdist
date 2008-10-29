@@ -17,10 +17,11 @@ PACKAGES-$(PTXCONF_ELEKTRA) += elektra
 #
 # Paths and names
 #
-ELEKTRA_VERSION	:= 0.7.0
+ELEKTRA_VERSION	:= 0.7.0-r1618
 ELEKTRA		:= elektra-$(ELEKTRA_VERSION)
 ELEKTRA_SUFFIX	:= tar.gz
-ELEKTRA_URL	:= http://www.markus-raab.org/ftp/$(ELEKTRA).$(ELEKTRA_SUFFIX)
+ELEKTRA_URL	:= http://www.markus-raab.org/ftp/$(ELEKTRA).$(ELEKTRA_SUFFIX) \
+		   http://www.pengutronix.de/software/ptxdist/temporary-src/$(ELEKTRA).$(ELEKTRA_SUFFIX)
 ELEKTRA_SOURCE	:= $(SRCDIR)/$(ELEKTRA).$(ELEKTRA_SUFFIX)
 ELEKTRA_DIR	:= $(BUILDDIR)/$(ELEKTRA)
 
@@ -54,11 +55,20 @@ ELEKTRA_ENV 	:= \
 	ac_cv_func_malloc_0_nonnull=yes
 
 #
+# FIXME:
+#
+# elektra does not try to link against libltdl if not built with
+# --enable-ltdl-install. The right solution is probably to build an external
+# libltdl and select it from kconfig.
+#
+# We install libltdl here, although it may collide with other packages.
+#
+
+#
 # autoconf
 #
 ELEKTRA_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-debug \
 	--disable-experimental \
 	--disable-valgrind-tests \
 	--disable-gcov \
@@ -69,7 +79,18 @@ ELEKTRA_AUTOCONF := \
 	--disable-rpath \
 	--disable-xmltest \
 	--disable-gconf \
-	--disable-python
+	--disable-python \
+	--enable-ltdl-install
+
+ifdef PTXCONF_ELEKTRA__DEBUG
+ELEKTRA_AUTOCONF += --enable-debug
+else
+#ELEKTRA_AUTOCONF += --disable-debug
+endif
+
+#
+# backends
+#
 
 ifdef PTXCONF_ELEKTRA__FILESYS
 ELEKTRA_AUTOCONF += --enable-filesys
@@ -153,7 +174,10 @@ $(STATEDIR)/elektra.prepare:
 
 $(STATEDIR)/elektra.compile:
 	@$(call targetinfo)
-	cd $(ELEKTRA_DIR) && $(ELEKTRA_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $(ELEKTRA_DIR) && \
+		$(ELEKTRA_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $(ELEKTRA_DIR)/examples && \
+		$(ELEKTRA_PATH) $(MAKE) check $(PARALLELMFLAGS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -183,11 +207,21 @@ $(STATEDIR)/elektra.targetinstall:
 
 	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/src/kdb/kdb, /usr/bin/kdb)
 	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/src/preload/preload, /usr/bin/preload)
+
 	@$(call install_copy, elektra, 0, 0, 0644, \
 		$(ELEKTRA_DIR)/src/libelektra/.libs/libelektra.so.3.0.0, \
 		/usr/lib/libelektra.so.3.0.0)
 	@$(call install_link, elektra, libelektra.so.3.0.0, /usr/lib/libelektra.so.3)
 	@$(call install_link, elektra, libelektra.so.3.0.0, /usr/lib/libelektra.so)
+
+#	FIXME: libelektratools is only available if we have xml support
+#
+#	@$(call install_copy, elektra, 0, 0, 0644, \
+#		$(ELEKTRA_DIR)/src/libelektratools/.libs/libelektratools.so.2.0.0, \
+#		/usr/lib/elektra/libelektratools.so.2.0.0)
+#	@$(call install_link, elektra, libelektratools.so.2.0.0, /usr/lib/elektra/libelektratools.so.2)
+#	@$(call install_link, elektra, libelektratools.so.2.0.0, /usr/lib/elektra/libelektratools.so)
+
 ifdef PTXCONF_ELEKTRA__CPP
 	@$(call install_copy, elektra, 0, 0, 0644, \
 		$(ELEKTRA_DIR)/src/bindings/cpp/.libs/libelektra-cpp.so.0.0.0, \
@@ -231,6 +265,50 @@ ifdef PTXCONF_ELEKTRA__DAEMON
 		/usr/lib/elektra/libelektra-daemon.so)
 	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/src/backends/daemon/kdbd, /usr/sbin/kdbd)
 endif
+
+	# make link for default backend
+ifdef PTXCONF_ELEKTRA__DEFAULT_BACKEND_FILESYS
+	@$(call install_link, elektra, \
+		libelektra-filesys.so, \
+		/usr/lib/elektra/libelektra-default.so)
+endif
+ifdef PTXCONF_ELEKTRA__DEFAULT_BACKEND_HOSTS
+	@$(call install_link, elektra, \
+		libelektra-hosts.so, \
+		/usr/lib/elektra/libelektra-default.so)
+endif
+ifdef PTXCONF_ELEKTRA__DEFAULT_BACKEND_INI
+	@$(call install_link, elektra, \
+		libelektra-ini.so, \
+		/usr/lib/elektra/libelektra-default.so)
+endif
+ifdef PTXCONF_ELEKTRA__DEFAULT_BACKEND_BERKELEYDB
+	@$(call install_link, elektra, \
+		libelektra-berkeleydb.so, \
+		/usr/lib/elektra/libelektra-default.so)
+endif
+ifdef PTXCONF_ELEKTRA__DEFAULT_BACKEND_FSTAB
+	@$(call install_link, elektra, \
+		libelektra-fstab.so, \
+		/usr/lib/elektra/libelektra-default.so)
+endif
+ifdef PTXCONF_ELEKTRA__DEFAULT_BACKEND_PASSWD
+	@$(call install_link, elektra, \
+		libelektra-passwd.so, \
+		/usr/lib/elektra/libelektra-default.so)
+endif
+ifdef PTXCONF_ELEKTRA__DEFAULT_BACKEND_DAEMON
+	@$(call install_link, elektra, \
+		libelektra-daemon.so, \
+		/usr/lib/elektra/libelektra-default.so)
+endif
+
+	# FIXME: see note above
+	@$(call install_copy, elektra, 0, 0, 0644, \
+		$(ELEKTRA_DIR)/libltdl/.libs/libltdl.so.7.2.0, \
+		/usr/lib/libltdl.so.7.2.0)
+	@$(call install_link, elektra, libltdl.so.7.2.0, /usr/lib/libltdl.so.7)
+	@$(call install_link, elektra, libltdl.so.7.2.0, /usr/lib/libltdl.so)
 
 	@$(call install_finish, elektra)
 
