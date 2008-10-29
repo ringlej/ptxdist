@@ -73,11 +73,11 @@ menu() {
 		"kernel"		"Configure Kernel (${kernel_version})" \
 		"u-boot-v2"		"Configure U-Boot-v2 (${u_boot_v2_version})" \
 		"--------------"	"--------------------------------------------" \
-		"select"		"Select	   Software Platform (${ptxconfig})" \
-		"platform"		"Select	   Hardware Platform (${platform})" \
+		"select"		"Select Software Platform (${ptxconfig})" \
+		"platform"		"Select Hardware Platform (${platform})" \
 		"--------------"	"--------------------------------------------" \
 		"boardsetup"		"Configure Board Properties" \
-		"setup"			"Configure User	 Properties" \
+		"setup"			"Configure User Properties" \
 		3>&1 1>&4 \
 		)" || return
 	exec 4>&-
