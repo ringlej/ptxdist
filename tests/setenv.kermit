@@ -63,27 +63,30 @@ define setenv_uboot_v1 {
 define setenv_uboot_v2 {
 
 	! \%1/make_uboot_v2_env \%3
+	.imagename := \fbasename(\%3)
 
 	ptx_test_start "Setting initial environment"
 	ptx_uboot_exec 3 "eth0.ipaddr=\m(PTXCONF_BOARDSETUP_TARGETIP)"
 	ptx_uboot_exec 3 "eth0.serverip=\m(PTXCONF_BOARDSETUP_SERVERIP)"
 	ptx_uboot_exec 3 "eth0.gateway=\m(PTXCONF_BOARDSETUP_GATEWAY)"
 	ptx_uboot_exec 3 "eth0.netmask=\m(PTXCONF_BOARDSETUP_NETMASK)"
-	ptx_uboot_exec 3 "mtdparts=\"128k(uboot)ro,128k(ubootenv),128k(ageing),1280k(kernel0),1280k(kernel1),8704k(system0),8704k(system1),8320k(application),4096k(persistent)\""
-	#ptx_uboot_exec 3 "addpart /dev/nor0 $mtdparts"
 	ptx_test_end
 
-	ptx_uboot_exec_single "Calling server" 15 "ping $eth0.serverip"
+	ptx_uboot_exec_single "Getting default environment" 15 "tftp \m(imagename)"
 
 	ptx_test_start "Flashing default environment"
-	ptx_uboot_exec 3  "unprotect /dev/nor0.ubootenv"
-	#ptx_uboot_exec 10 "erase /dev/nor0.ubootenv"
-	#ptx_uboot_exec 20 "tftp \fbasename(\%3) /dev/nor0.ubootenv"
-	ptx_uboot_exec 20 "tftp \fbasename(\%3) /dev/ram0"
-	ptx_uboot_exec 3  "protect /dev/nor0.ubootenv"
+	ptx_uboot_exec 3  "unprotect /dev/env0"
+	ptx_uboot_exec 10 "erase /dev/env0"
+	ptx_uboot_exec 20 "cp \m(imagename) /dev/env0"
 	ptx_test_end
 
 	ptx_uboot_exec_single "Reloading new environment" 10 "loadenv"
+	
+	ptx_test_start "Updating MAC address"
+	ptx_uboot_exec 5 "echo -a /env/config eth0.ethaddr=$eth0.ethaddr"
+	ptx_uboot_exec 10 "saveenv"
+	ptx_uboot_exec 3  "protect /dev/env0"
+	ptx_test_end
 }
 
 # Read the library
