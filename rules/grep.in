@@ -1,0 +1,12 @@
+## SECTION=shell_and_console
+comment "busy box' grep is selected!"
+	depends on BB_CONFIG_GREP
+
+config GREP
+	tristate
+	depends on !BB_CONFIG_GREP
+	prompt "grep"
+	help
+	  GNUgrep searches one or more input files for lines
+	  containing a match to a specified pattern. By default, grep
+	  prints the matching lines.
