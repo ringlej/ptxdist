@@ -234,7 +234,7 @@ config IMAGE_UIMAGE_NAME
 	string
 	default "Application Ramdisk"
 	prompt "name of the ramdisk image"
-	depends IMAGE_UIMAGE
+	depends on IMAGE_UIMAGE
 	help
 	  FIXME: This item needs to be documented
 
