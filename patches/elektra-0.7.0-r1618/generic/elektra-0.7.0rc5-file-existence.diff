@@ -1,3 +1,12 @@
+Subject: don't break build while cross compiling
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+When cross compiling it may not really matter if we have the docbook xsl
+stuff (only needed for documentation). So disable the check in that
+case.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  configure.ac |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
