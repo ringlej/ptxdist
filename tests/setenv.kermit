@@ -79,7 +79,7 @@ define setenv_uboot_v2 {
 
 	ptx_uboot_exec_single "Reloading new environment" 10 "loadenv"
 	
-	ptx_test_start "Updating MAC address"
+	ptx_test_start "Restoring MAC address"
 	ptx_uboot_exec 5 "echo -a /env/config eth0.ethaddr=$eth0.ethaddr"
 	ptx_uboot_exec 10 "saveenv"
 	ptx_uboot_exec 3  "protect /dev/env0"

@@ -1,13 +1,13 @@
 
 define flash {
 	ptx_test_start "Flashing \%2"
+	.tftpfilename := \fbasename(\%1)
 	
-	if = \m(u_boot_version) 2 {
-		ptx_uboot_exec 5 "\%2=\%1"
-		ptx_uboot_exec 120 "update_\%2"
+	if = \m(uboot_version) 2 {
+		ptx_uboot_exec 600 "update_\%2 nor \m(tftpfilename)"
 	} else {
-		ptx_uboot_exec 5 "setenv \%2 \%1"
-		ptx_uboot_exec 120 "run update_\%2"
+		ptx_uboot_exec 5 "setenv \%2 \m(tftpfilename)"
+		ptx_uboot_exec 600 "run update_\%2"
 	}
 	ptx_test_end
 }
