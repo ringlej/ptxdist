@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#FIXME: quit if error
+
 PTXDIST_SETENV_U_BOOT_V2_ENV="${1}"
 ENVTMPDIR="$(mktemp -d "${PTXDIST_TEMPDIR}/uboot_v2_env.XXXXXX")"
 

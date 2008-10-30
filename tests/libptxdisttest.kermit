@@ -1,12 +1,23 @@
 #!/usr/bin/kermit
 
-define ptx_init {
+define ptx_check_fail {
+	if failure {
+		writeln ERROR "FAILED! (\%1)"
+		exit 1
+	}
+}
 
+define ptx_init {
+	# get boardsetup variables
 	take \%1
+
+	writeln ERROR "Communicating via \m(PTXCONF_BOARDSETUP_SERIALPORT) at \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE) bps."
+	writeln ERROR
 
 	# ':' distinguishes between serial line and telnet port
 	if not match \m(PTXCONF_BOARDSETUP_SERIALPORT) *:* {
 		set line \m(PTXCONF_BOARDSETUP_SERIALPORT)
+		ptx_check_fail "Could not setup serial port (\m(PTXCONF_BOARDSETUP_SERIALPORT))!"
 		set speed \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE)
 		set parity none
 		set stop-bits 1
@@ -23,8 +34,6 @@ define ptx_init {
 	set input case observe
 	set input buffer-length 16384
 
-	writeln ERROR "Communicating via \m(PTXCONF_BOARDSETUP_SERIALPORT) at \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE) bps."
-	writeln ERROR
 	writeln ERROR "==============================="
 	writeln ERROR "Please power on your board now!"
 	writeln ERROR "==============================="
@@ -51,10 +60,7 @@ define ptx_test_end {
 define ptx_wait_string {
 
 	input \%1 \%2
-	if failure {
-		writeln ERROR "FAILED! (waiting for '\%2')"
-		exit 1
-	}
+	ptx_check_fail "waiting for '\%2'"
 }
 
 define ptx_uboot_enter_shell {
@@ -63,10 +69,7 @@ define ptx_uboot_enter_shell {
 
 	minput 120 "U-Boot 1" "U-Boot 2"
 :eval_again
-	if failure {
-		writeln ERROR "FAILED! (waiting for u-boot-signature)"
-		exit 1
-	}
+	ptx_check_fail "waiting for u-boot-signature"
 	lineout
 	.uboot_version := \v(minput)
 	if = \m(uboot_version) 2 {
@@ -85,19 +88,13 @@ define ptx_uboot_exec {
 
 	lineout "\%2"
 	input \%1 \m(uboot_prompt)
-	if failure {
-		writeln ERROR "FAILED! (timeout while waiting for u-boot prompt after '\%2')"
-		exit 1
-	}
+	ptx_check_fail "timeout while waiting for u-boot prompt after '\%2'"
 
 	if = \m(uboot_version) 2 {
 		lineout "echo result: $?"
 		input 10 \fpattern(result: 0$)
 
-		if failure {
-			writeln ERROR "FAILED! (returncode from '\%2' is not 0)"
-			exit 1
-		}
+		ptx_check_fail "returncode from '\%2' is not 0"
 
 		input 10 \m(uboot_prompt)
 	}

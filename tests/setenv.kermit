@@ -1,14 +1,10 @@
-#!/usr/bin/kermit +
 
 define setenv_uboot_v1 {
 	ptx_test_start "Setting new environment"
 
 	# Open the file with the new environment
 	open read \%2
-	if fail {
-		writeln ERROR "FAILED! Could not open \%2."
-		exit 1
-	}
+	ptx_check_fail "Could not open \%2."
 
 	clear input
 	lineout "printenv"
@@ -21,10 +17,7 @@ define setenv_uboot_v1 {
 	while true {
 		# wait for newline or u-boot-prompt
 		minput 5 {\10} \m(uboot_prompt)
-		if fail {
-			writeln ERROR "FAILED! Did not get old environment"
-			exit 1
-		}
+		ptx_check_fail "Did not get old environment"
 		# quit on u-boot-prompt
 		if = \v(minput) 2 break
 		# if no '=' then continue
@@ -63,6 +56,10 @@ define setenv_uboot_v1 {
 define setenv_uboot_v2 {
 
 	! \%1/make_uboot_v2_env \%3
+	if > \v(pexitstat) 0 {
+			writeln ERROR "FAILED! Could not generate new environment"
+			exit 1
+	}
 	.imagename := \fbasename(\%3)
 
 	ptx_test_start "Setting initial environment"

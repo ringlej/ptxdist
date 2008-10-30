@@ -1,26 +1,27 @@
-#!/usr/bin/kermit +
 
-#Read the library
-take \%1
-
-define flash_area {
-	ptx_test_start "Flashing \%4"
-	ptx_uboot_exec 60  "tftp \m(ram_start) \%3"
-	ptx_uboot_exec 5   "protect off \%1 \%2"
-	ptx_uboot_exec 120 "erase \%1 \%2"
-	ptx_uboot_exec 120 "cp.b \m(ram_start) \%1 $(filesize)"
-	ptx_uboot_exec 5   "protect on \%1 \%2"
+define flash {
+	ptx_test_start "Flashing \%2"
+	
+	if = \m(u_boot_version) 2 {
+		ptx_uboot_exec 5 "\%2=\%1"
+		ptx_uboot_exec 120 "update_\%2"
+	} else {
+		ptx_uboot_exec 5 "setenv \%2 \%1"
+		ptx_uboot_exec 120 "run update_\%2"
+	}
 	ptx_test_end
 }
+
+#Read the library
+take \%1/libptxdisttest.kermit
 
 #Set up the line
 ptx_init \%2
 
 ptx_uboot_enter_shell
 
-define ram_start 0x400000
-flash_area 0xfe040000 0xfe1fffff "\%3" "kernel"
-flash_area 0xfff40000 0xfff7ffff "\%4" "oftree"
-flash_area 0xfe200000 0xffefffff "\%5" "jffs2"
+flash "\%3" "kernel"
+flash "\%4" "rootfs"
+if defined \%5 flash "\%5" "oftree"
 
 ptx_exit
