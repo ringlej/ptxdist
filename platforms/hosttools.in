@@ -3,6 +3,7 @@ source "rules/host-genpart.in"
 source "rules/host-e2fsprogs.in"
 source "rules/host-cramfs.in"
 source "rules/host-mtd-utils.in"
+source "rules/host-liblzo.in"
 source "rules/host-umkimage.in"
 source "rules/host-mkelfImage.in"
 
