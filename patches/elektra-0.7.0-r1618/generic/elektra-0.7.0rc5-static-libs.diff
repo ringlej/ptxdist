@@ -1,3 +1,10 @@
+Subject: [PATCH] fix --enable-static
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Build static libs only when --enable-static was given.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  configure.ac            |   12 +++++++-----
  src/kdb/Makefile.am     |   10 +++++++++-
