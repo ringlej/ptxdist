@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_GREP) += grep
 GREP_VERSION	:= 2.5.3
 GREP		:= grep-$(GREP_VERSION)
 GREP_SUFFIX		:= tar.bz2
-GREP_URL		:= http://www.de-mirrors.de/gnuftp/grep//$(GREP).$(GREP_SUFFIX)
+GREP_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/grep/$(GREP).$(GREP_SUFFIX)
 GREP_SOURCE		:= $(SRCDIR)/$(GREP).$(GREP_SUFFIX)
 GREP_DIR		:= $(BUILDDIR)/$(GREP)
 
@@ -93,7 +93,7 @@ $(STATEDIR)/grep.targetinstall:
 	@$(call install_fixup, grep,PRIORITY,optional)
 	@$(call install_fixup, grep,VERSION,$(GREP_VERSION))
 	@$(call install_fixup, grep,SECTION,base)
-	@$(call install_fixup, grep,AUTHOR,"Luotao Fu <l.fu@pengutronix.de> <your@email.please>")
+	@$(call install_fixup, grep,AUTHOR,"Luotao Fu <l.fu\@pengutronix.de>")
 	@$(call install_fixup, grep,DEPENDS,)
 	@$(call install_fixup, grep,DESCRIPTION,missing)
 
