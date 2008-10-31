@@ -93,7 +93,7 @@ $(STATEDIR)/bc.targetinstall:
 	@$(call install_fixup, bc,PRIORITY,optional)
 	@$(call install_fixup, bc,VERSION,$(BC_VERSION))
 	@$(call install_fixup, bc,SECTION,base)
-	@$(call install_fixup, bc,AUTHOR,"Luotao Fu <l.fu@pengutronix.de> <your@email.please>")
+	@$(call install_fixup, bc,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
 	@$(call install_fixup, bc,DEPENDS,)
 	@$(call install_fixup, bc,DESCRIPTION,missing)
 
