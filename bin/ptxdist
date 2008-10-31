@@ -1071,7 +1071,8 @@ do_select()
 	elif [ -e "${!dest_ptr}" -a \! -L "${!dest_ptr}" ]; then
 		ptxd_dialog_msgbox \
 			"error: '${!dest_ptr}'\n" \
-			"	is not a link thus ${type} is not selectable!"
+			"	is not a link. This is mostly not critical, as it usually\n" \
+			"	means that ${type} is not selectable in this project."
 		return 1
 	fi
 
