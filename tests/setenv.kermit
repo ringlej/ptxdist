@@ -55,9 +55,9 @@ define setenv_uboot_v1 {
 
 define setenv_uboot_v2 {
 
-	! \%1/make_uboot_v2_env \%3
+	run \%1/make_uboot_v2_env \%3
 	if > \v(pexitstat) 0 {
-			writeln ERROR "FAILED! Could not generate new environment"
+			writeln ERROR "FAILED! Could not generate new environment (also check \$(PTXDIST_PLATFORMDIR)/test.log)"
 			exit 1
 	}
 	.imagename := \fbasename(\%3)
@@ -69,7 +69,10 @@ define setenv_uboot_v2 {
 	ptx_uboot_exec 3 "eth0.netmask=\m(PTXCONF_BOARDSETUP_NETMASK)"
 	ptx_test_end
 
-	ptx_uboot_exec_single "Getting default environment" 15 "tftp \m(imagename)"
+	ptx_test_start "Getting default environment" 
+	ptx_uboot_exec 15 "ping $eth0.serverip"
+	ptx_uboot_exec 15 "tftp \m(imagename)"
+	ptx_test_end
 
 	ptx_test_start "Flashing default environment"
 	ptx_uboot_exec 3  "unprotect /dev/env0"
