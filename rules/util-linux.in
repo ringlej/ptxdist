@@ -4,6 +4,7 @@ menuconfig UTIL_LINUX
 	tristate
 	prompt "util-linux                    "
 	select NCURSES if UTIL_LINUX_CFDISK
+	select NCURSES if UTIL_LINUX_SETTERM
 
 if UTIL_LINUX
 
