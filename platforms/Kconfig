@@ -22,6 +22,12 @@ config PLATFORM
 	  you want a ptxdist-1 behaviour (less or more flat directories), keep
 	  this entry empty.
 
+config PLATFORM_VERSION
+	prompt "platform version"
+	string
+	help
+	  This is the revision of the platform.
+
 source "platforms/architecture.in"
 source "platforms/kernel.in"
 source "platforms/dtc.in"
