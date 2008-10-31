@@ -83,7 +83,6 @@ $(STATEDIR)/directfb-examples.targetinstall:
 			/usr/share/directfb-examples/$${file##*/}, n \
 		) \
 	done; \
-
 	find . -type f -a ! -name "*akefile*" -a -name "*.ttf" | \
 		while read file; do \
 		$(call install_copy, directfb-examples, 0, 0, 0644, \
