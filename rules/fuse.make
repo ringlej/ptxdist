@@ -133,17 +133,23 @@ $(STATEDIR)/fuse.targetinstall: $(fuse_targetinstall_deps_default)
 	@$(call install_fixup, fuse,DEPENDS,)
 	@$(call install_fixup, fuse,DESCRIPTION,missing)
 
-	@$(call install_copy, fuse, 0, 0, 0755, $(FUSE_DIR)/lib/.libs/libfuse.so.2.6.3, /usr/lib/libfuse.so.2.6.3)
-	@$(call install_copy, fuse, 0, 0, 0755, $(FUSE_DIR)/lib/.libs/libulockmgr.so.1.0.1, /usr/lib/libulockmgr.so.1.0.1)
-	@$(call install_link, fuse, libfuse.so.2.6.3, /usr/lib/libfuse.so)
-	@$(call install_link, fuse, libfuse.so.2.6.3, /usr/lib/libfuse.so.2)
+ifdef PTXCONF_FUSE__LIB
+	@$(call install_copy, fuse, 0, 0, 0644, \
+		$(FUSE_DIR)/lib/.libs/libfuse.so.2.7.4, \
+		/usr/lib/libfuse.so.2.6.3)
+	@$(call install_link, fuse, libfuse.so.2.7.4, /usr/lib/libfuse.so)
+	@$(call install_link, fuse, libfuse.so.2.4.4, /usr/lib/libfuse.so.2)
+
+	@$(call install_copy, fuse, 0, 0, 0644, \
+		$(FUSE_DIR)/lib/.libs/libulockmgr.so.1.0.1, \
+		/usr/lib/libulockmgr.so.1.0.1)
 	@$(call install_link, fuse, libulockmgr.so.1.0.1, /usr/lib/libulockmgr.so)
 	@$(call install_link, fuse, libulockmgr.so.1.0.1, /usr/lib/libulockmgr.so.1)
-
+endif
+ifdef PTXCONF_FUSE__UTIL
 	@$(call install_copy, fuse, 0, 0, 0755, $(FUSE_DIR)/util/fusermount, /usr/bin/fusermount)
 	@$(call install_copy, fuse, 0, 0, 0755, $(FUSE_DIR)/util/ulockmgr_server, /usr/bin/ulockmgr_server)
-
-
+endif
 	@$(call install_finish, fuse)
 
 	@$(call touch, $@)
