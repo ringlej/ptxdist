@@ -11,7 +11,7 @@ SSH_COMMAND=${SSH_COMMAND:-${SSH_COMMAND_DEFAULT}}
 
 LOGFILE="${PTXDIST_WORKSPACE}/test${PTXDIST_PLATFORMSUFFIX}.log"
 REPORTFILE="${PTXDIST_WORKSPACE}/test${PTXDIST_PLATFORMSUFFIX}.report"
-TESTRUNDIRBASE="${PTXDIST_WORKSPACE}/results/${PTXDIST_PLATFORMSUFFIX}/"
+TESTRUNDIRBASE="${PTXDIST_WORKSPACE}/results/result${PTXDIST_PLATFORMSUFFIX}"
 echo "<report starttime=\""$(date +%FT%T.%N)"\">" > "$REPORTFILE"
 
 RED='\0033[1;31m'
@@ -26,12 +26,15 @@ testseq=0
 
 datenohyphen=$(date +%Y%m%d)
 lastrundir=$(find ${TESTRUNDIRBASE} -name "${datenohyphen}-*" -printf "%P\n" | sort | tail -n1)
-if [ -e "$lastrundir" ]
+# when empty, set to "newdate", so that the -d test below will turn out negative => testrunseq="0001"
+lastrundir=${lastrundir:-"newdate"}
+if [ -d "${TESTRUNDIRBASE}/${lastrundir}" ]
 then  # create a new dir with testrun sequence one up
 	oldtestrunseq=${lastrundir/"${datenohyphen}-"/}
-	testrunseq=(( oldtestrunseq + 1 ))
+	# remove leading zeros and add 1 with bc, then add leading zeros
+	testrunseq=$(printf "%04d"  $(echo "$oldtestrunseq+1" | bc))
 else
-	testrunseq="1"
+	testrunseq="0001"
 fi
 TESTRUNDIR="${TESTRUNDIRBASE}/${datenohyphen}-${testrunseq}"
 mkdir "${TESTRUNDIR}"
@@ -44,7 +47,13 @@ reportwrite() {
 		;;
 	'remote')
 		echo "<remote>$2</remote>" >> "$REPORTFILE"
-		echo "$2" > "${TESTDIR}/cmdline"
+		echo "[remote]" > "${TESTDIR}/cmdline"
+		echo "$2" >> "${TESTDIR}/cmdline"
+		;;
+	'host')
+		echo "<host>$2</host>" >> "$REPORTFILE"
+		echo "[host]" > "${TESTDIR}/cmdline"
+		echo "$2" >> "${TESTDIR}/cmdline"
 		;;
 	'compare')
 		echo "<compare>$2</compare>" >> "$REPORTFILE"
@@ -72,13 +81,13 @@ reportwrite() {
 	'time')
 		if [ $2 = "begin" ]
 		then
-			echo "<starttime>$(date +%FT%T.%N)</starttime>" >> "$REPORTFILE"
-			echo "$(date +%FT%T.%N)" > "${TESTDIR}/starttime"
+			echo "<starttime>$(date -u +%FT%T.%3NZ)</starttime>" >> "$REPORTFILE"
+			echo "$(date -u +%FT%T.%3NZ)" > "${TESTDIR}/starttime"
 		fi
 		if [ $2 = "end" ]
 		then
-			echo "<endtime>$(date +%FT%T.%N)</endtime>" >> "$REPORTFILE"
-			echo "$(date +%FT%T.%N)" > "${TESTDIR}/endtime"
+			echo "<endtime>$(date -u +%FT%T.%3NZ)</endtime>" >> "$REPORTFILE"
+			echo "$(date -u +%FT%T.%3NZ)" > "${TESTDIR}/endtime"
 		fi
 		;;
 	*)
@@ -105,6 +114,7 @@ test_begin() {
 test_end() {
 	reportwrite time end
 	echo "</test>" >> "$REPORTFILE"
+	if [ "$exit_now" = "1" ]; then exit 1; fi
 }
 
 checking() {
@@ -131,7 +141,7 @@ result() {
 		result_fail
 		if [ "$1" = "fatal" ]; then
 			printf "%8b" "${RED}Fatal. Cannot continue.${NC}\n" >&2
-			exit 1
+			exit_now="1" # actually exiting is done in test_end
 		fi
 	fi
 }
@@ -174,13 +184,36 @@ remote() {
 	return ${retvalline:4}
 }
 
+host() {
+	echo "ssh -q -o StrictHostKeyChecking=no localhost ${PTXCONF_BOARDSETUP_TARGETIP} \"$1\"" >> "$LOGFILE"
+	local stdoutret=$(ssh -q -o StrictHostKeyChecking=no localhost "$1"'; echo ret=$?') 2>> "$LOGFILE"
+	#local stdoutret=$($1; echo ret=$?) 2>> "$LOGFILE"
+	reportwrite host "$1"
+	local stdout=$(echo "$stdoutret" | head -n-1)
+	local retvalline=$(echo "$stdoutret" | tail -n1)
+	if [ "${retvalline:0:4}" = "ret=" ]
+	then # The "ret=" is on a line of its own
+		local retvallinestdoutpart=""
+		local retvallineretpart=""
+	else # There was no newline before "ret="
+		local retvallineretpart=$(expr "$retvalline" : '.*\(ret=.*\)')
+		local retvallinestdoutpart="${retvalline%$retvallineretpart}"
+		retvalline="$retvallineretpart"
+	fi
+	echo "$stdout"
+	echo -n "$retvallinestdoutpart"
+	reportwrite stdout "${stdout}${retvallinestdoutpart}"
+	reportwrite exitstatus ${retvalline:4}
+	return ${retvalline:4}
+}
+
 
 
 remote_compare() {
 	echo "test \"\$\(remote \"$1\"\)\" = \"$2\"" >> "$LOGFILE"
 	local ret=$(remote "$1") 2>> "$LOGFILE"
 	reportwrite compare "$2"
-	test "$ret" = "$2" 2>> "${PTXDIST_WORKSPACE}/test.log"
+	test "$ret" = "$2" 2>> "$LOGFILE"
 }
 
 remote_assure_module() {
@@ -188,7 +221,7 @@ remote_assure_module() {
 # Don't just check on loaded modules; rather check their indirect signs of operationality.
 	echo "remote \"lsmod | grep \\\"^$1 \\\"\"" >> "$LOGFILE"
 	local ret=$(remote "lsmod | grep \"^$1 \"") 2>> "$LOGFILE"
-	test "${ret:0:${#1}}" = "$1" 2>> "${PTXDIST_WORKSPACE}/test.log"
+	test "${ret:0:${#1}}" = "$1" 2>> "$LOGFILE"
 }
 
 remote_busyboxps() {
@@ -208,11 +241,11 @@ remote_assure_process() {
 		local lookfor="[${1:0:1}]${1:1}"
 		echo "remote \"ps | grep $lookfor\"" >> "$LOGFILE"
 		local ret=$(remote "ps | grep $lookfor") 2>> "$LOGFILE"
-		echo "$ret" | grep "$1[$ ]" 2>> "${PTXDIST_WORKSPACE}/test.log"
+		echo "$ret" | grep "$1[$ ]" 2>> "$LOGFILE"
 	else
 		echo "remote \"ps axo s,comm | grep \\\"^S $1\\\"\"" >> "$LOGFILE"
 		local ret=$(remote "ps axo s,comm | grep \"^S $1\"") 2>> "$LOGFILE"
-		test "${ret:2:${#1}}" = "$1" 2>> "${PTXDIST_WORKSPACE}/test.log"
+		test "${ret:2:${#1}}" = "$1" 2>> "$LOGFILE"
 	fi
 }
 
@@ -244,20 +277,20 @@ all_on_board() {
 	if test "$SSH_COMMAND" = "rsh"
 	then
 		checking "for local real rsh availability"
-		rsh 2>&1 | grep "usage: rsh"
+		rsh 2>&1 | grep -q "usage: rsh"
 		result fatal
 	fi
 	if test "$SSH_COMMAND" = "ssh"
 	then
 		checking "for local ssh availability"
-		ssh 2>&1 | grep "usage: ssh"
+		ssh 2>&1 | grep -q "usage: ssh"
 		result fatal
 	fi
 	checking "for grep on target"
-	remote_file "/bin/grep" executable
+	remote_file "/bin/grep" executable 2>> "$LOGFILE"
 	result fatal
 	checking "for regular ps on target"
-	remote 'ps --help | grep "^-o"'
+	remote 'ps --help | grep -q "^-o"' 2>> "$LOGFILE"
 	result fatal
 }
 
