@@ -25,6 +25,7 @@ choice
 	config ARCH_X86
 		bool "x86       "
 		select HAS_MMU
+		select HAS_PCI
 		help
 		  This is support for the Intel x86 architecture.
 
@@ -101,6 +102,7 @@ choice
 
 	config ARCH_ARM_IXP2000
 		bool "ixp2000    "
+		select HAS_PCI
 
 	config ARCH_ARM_NETARM
 		bool "net+arm    "
@@ -223,6 +225,12 @@ config ENDIAN_LITTLE
 	default y if ARCH_MINGW
 	default y if ARCH_CRIS
 
+#
+# PCI bus
+#
+
+config HAS_PCI
+	bool
 
 #
 # memory management unit
