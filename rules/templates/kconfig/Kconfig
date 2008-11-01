@@ -1,13 +1,15 @@
 #
 # Kconfig: Main menu structure definition
-# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2005
+# Copyright (C) Juergen Beisertl <j.beisert@pengutronix.de> 2008
 #
 
 # first of all include toplevel Kconfig file as default
 
 source "config/Kconfig"
 
-# TODO: add any additional menuconfig file below this line.
+# Note: This is for ptxdist-1 backward compatibility:
+#
+# TODO: add any additional menu below this line.
 # use the "workspace" keyword to start the path always in
 # the active project. Examples:
 #
@@ -17,4 +19,19 @@ source "config/Kconfig"
 #    PtxDist's installation directory.
 # -> "/path/to/a/file/my_extension.in" uses this file at its
 #    absolute path.
+#
+
+# Note: This is the new ptxdist-2 mechanism:
+#
+# Create your *.in files and mark them in their header with a line like this:
+#
+# "## SECTION=project_specific"
+#
+# After that include this menu or menues with the following line:
+#
+# source "generated/project_specific.in"
+#
+# The SECTION name and the included file name here must be correspond.
+# You can use as many SECTIONs as you like, to add more than one local sub
+# menu.
 #
