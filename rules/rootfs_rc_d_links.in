@@ -32,6 +32,16 @@ config ROOTFS_ETC_INITD_NETWORKING_LINK
 	  /etc/init.d/networking. Keep this entry empty if you do not want to
 	  start this service automatically.
 
+config ROOTFS_ETC_INITD_ALSA_UTILS_LINK
+	depends on ALSA_UTILS
+	string
+	prompt "alsa-utils link name"
+	default "S02_alsa-utils"
+	help
+	  Set a link to with this name in /etc/rc.d which points to
+	  /etc/init.d/alsa-utils. Keep this entry empty if you do not want to
+	  start this service automatically.
+
 config ROOTFS_ETC_INITD_BANNER_LINK
 	depends on ROOTFS_ETC_INITD_BANNER
 	string
