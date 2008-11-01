@@ -1,0 +1,26 @@
+## SECTION=system_libraries
+menuconfig OWFS
+	tristate
+	select FUSE if OWFS__OWFS
+	prompt "owfs                          "
+	help
+	  OWFS is the 1-Wire file system. It is used by Dallas 1-Wire and iButton
+	  chips with standard linux commands. Create temperature loggers. Monitor
+	  everything.
+
+if OWFS
+
+config OWFS__OWSHELL
+	bool
+	prompt "owshell"
+
+config OWFS__OWNETLIB
+	bool
+	prompt "ownetlib"
+
+config OWFS__OWFS
+	bool
+	select FUSE__LIB
+	prompt "owfs"
+
+endif
