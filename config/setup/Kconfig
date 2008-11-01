@@ -76,16 +76,22 @@ config SETUP_SFMIRROR
         string
         default "http://surfnet.dl.sourceforge.net/sourceforge"
         prompt "Sourceforge Mirror"
+        help
+          For all Sourceforge related packages enter an available mirror here.
 
 config SETUP_GNUMIRROR
         string
         default "http://ftp.uni-kl.de/pub/gnu"
         prompt "GNU.org Mirror"
+        help
+          For all GNU.org related packages enter an available mirror here.
 
 config SETUP_XORGMIRROR
         string
         default "http://ftp.gwdg.de/pub/x11/x.org/pub"
         prompt "x.org Mirror"
+        help
+          For all x.org related packages enter an available mirror here.
 
 endmenu
 
