@@ -9,17 +9,18 @@
 #
 # Just call this script from a workspace dir (at least till it
 # is integrated into ptxdist)
-# 
+#
 
+PTXDIST=${PTXDIST:-ptxdist}
 
-packages=$(ptxdist print PACKAGES | grep "PACKAGES is" | sed "s/PACKAGES is \"\(.*\)\"$/\1/")
+packages=$(${PTXDIST} print PACKAGES | grep "PACKAGES is" | sed "s/PACKAGES is \"\(.*\)\"$/\1/")
 
 for i in $packages; do
 	# only build if logfile does not exist to be able to restart the script
 	if [ ! -f logfile-$i ]; then
 		echo $i > logfile;
-		ptxdist clean
-		ptxdist install $i
+		${PTXDIST} clean
+		${PTXDIST} install $i
 		mv logfile logfile-$i
 	fi
 done
