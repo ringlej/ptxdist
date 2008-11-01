@@ -165,7 +165,7 @@ $(STATEDIR)/owfs.targetinstall:
 
 ifdef PTXCONF_OWFS__OWFS
 	@$(call install_copy, owfs, 0, 0, 0755, \
-		$(PKGDIR)/$(OWFS)/usr/bin/owfs \
+		$(PKGDIR)/$(OWFS)/usr/bin/owfs, \
 		/usr/bin/owfs)
 endif
 
