@@ -1,9 +1,27 @@
 ## SECTION=disk_and_file
-config FUSE
+menuconfig FUSE
 	tristate
-	prompt "fuse"
+	prompt "fuse                          "
 	help
 	  utilities for filesystems in userspace
 
 	  The project page is found at
 	  http://fuse.sourceforge.net/
+
+if FUSE
+
+config FUSE__KERNEL_MODULE
+	bool
+	prompt "kernel module"
+
+config FUSE__LIB
+	bool
+	prompt "fuse lib"
+
+config FUSE__UTIL
+	bool
+	prompt "fuse util"
+
+endif
+
+

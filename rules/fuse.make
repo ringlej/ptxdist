@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_FUSE) += fuse
 #
 # Paths and names
 #
-FUSE_VERSION	:= 2.6.3
+FUSE_VERSION	:= 2.7.4
 FUSE		:= fuse-$(FUSE_VERSION)
-FUSE_SUFFIX		:= tar.gz
-FUSE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/fuse/$(FUSE).$(FUSE_SUFFIX)
-FUSE_SOURCE		:= $(SRCDIR)/$(FUSE).$(FUSE_SUFFIX)
-FUSE_DIR		:= $(BUILDDIR)/$(FUSE)
+FUSE_SUFFIX	:= tar.gz
+FUSE_URL	:= $(PTXCONF_SETUP_SFMIRROR)/fuse/$(FUSE).$(FUSE_SUFFIX)
+FUSE_SOURCE	:= $(SRCDIR)/$(FUSE).$(FUSE_SUFFIX)
+FUSE_DIR	:= $(BUILDDIR)/$(FUSE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -63,7 +63,27 @@ FUSE_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-FUSE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+FUSE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-example \
+	--disable-mtab \
+	--disable-rpath
+
+ifdef PTXCONF_FUSE__KERNEL_MODULE
+FUSE_AUTOCONF += --enable-kernel-module
+else
+FUSE_AUTOCONF += --disable-kernel-module
+endif
+ifdef PTXCONF_FUSE__LIB
+FUSE_AUTOCONF += --enable-lib
+else
+FUSE_AUTOCONF += --disable-lib
+endif
+ifdef PTXCONF_FUSE__UTIL
+FUSE_AUTOCONF += --enable-util
+else
+FUSE_AUTOCONF += --disable-util
+endif
 
 $(STATEDIR)/fuse.prepare: $(fuse_prepare_deps_default)
 	@$(call targetinfo, $@)
