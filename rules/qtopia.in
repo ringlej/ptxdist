@@ -16,7 +16,7 @@ menuconfig QTOPIA
 
 menu "build options               "
 	depends on QTOPIA
-	
+
 config QTOPIA_SHARED
 	bool
 	prompt "build shared libraries"
