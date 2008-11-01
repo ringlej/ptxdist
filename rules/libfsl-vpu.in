@@ -1,4 +1,4 @@
-## SECTION=project_specific
+## SECTION=multimedia
 
 config LIBFSL_VPU
 	tristate

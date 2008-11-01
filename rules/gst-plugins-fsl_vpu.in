@@ -1,4 +1,4 @@
-## SECTION=project_specific
+## SECTION=multimedia
 
 config GST_PLUGINS_FSL_VPU
 	tristate
@@ -6,4 +6,4 @@ config GST_PLUGINS_FSL_VPU
 	select LIBFSL_VPU
 	select GST_PLUGINS_BASE
 	help
-	  FIXME
+	  Video Processing Unit on i.MX27.
