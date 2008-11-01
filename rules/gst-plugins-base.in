@@ -9,9 +9,10 @@ menuconfig GST_PLUGINS_BASE
 	select PANGO if GST_PLUGINS_BASE__PANGO
 	# FIXME: why do we need freetype?
 	select FREETYPE
-	# x features need libx11
+	# x features need libx11 + Xv
 	select XORG if GST_PLUGINS_BASE__X
 	select XORG_LIB_X11 if GST_PLUGINS_BASE__X
+	select XORG_LIB_XV if GST_PLUGINS_BASE__X
 	prompt "gst-plugins-base              "
 	help
 	  FIXME
