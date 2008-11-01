@@ -35,3 +35,9 @@ source "config/Kconfig"
 # You can use as many SECTIONs as you like, to add more than one local sub
 # menu.
 #
+# You can beautify the menu, when you are using:
+#
+# menu "Project Specific Menu         "
+# source "generated/project_specific.in"
+# endmenu
+#
