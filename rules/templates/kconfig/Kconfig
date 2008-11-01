@@ -1,6 +1,6 @@
 #
 # Kconfig: Main menu structure definition
-# Copyright (C) Juergen Beisertl <j.beisert@pengutronix.de> 2008
+# Copyright (C) Juergen Beisert <j.beisert@pengutronix.de> 2008
 #
 
 # first of all include toplevel Kconfig file as default
