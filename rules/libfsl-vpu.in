@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config LIBFSL_VPU
+	tristate
+	prompt "libfsl-vpu"
+	help
+	  FIXME
