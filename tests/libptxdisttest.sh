@@ -276,25 +276,32 @@ remote_file() {
 all_on_board() {
 	if test "$SSH_COMMAND" = "rsh"
 	then
+		test_begin
 		checking "for local real rsh availability"
 		rsh 2>&1 | grep -q "usage: rsh"
 		result fatal
+		test_end
 	fi
 	if test "$SSH_COMMAND" = "ssh"
 	then
+		test_begin
 		checking "for local ssh availability"
 		ssh 2>&1 | grep -q "usage: ssh"
 		result fatal
+		test_end
 	fi
+	test_begin
 	checking "for grep on target"
 	remote_file "/bin/grep" executable 2>> "$LOGFILE"
 	result fatal
+	test_end
+	test_begin
 	checking "for regular ps on target"
 	remote 'ps --help | grep -q "^-o"' 2>> "$LOGFILE"
 	result fatal
+	test_end
 }
 
 write_to_log() {
 	echo "$1" >> "$LOGFILE"
 }
-
