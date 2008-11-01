@@ -51,6 +51,10 @@ ptxd_kgen_generate_sections()
 		continue
 	    fi
 
+	    if [ -z "$(find ${dir}/rules -name *.in)" ]; then
+		continue
+	    fi
+
 	    grep -R -H -e "^##[[:space:]]*SECTION=" "${dir}/rules/"*.in
 	done
     ) | ptxd_kgen_awk
