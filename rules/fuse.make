@@ -58,7 +58,7 @@ $(STATEDIR)/fuse.extract: $(fuse_extract_deps_default)
 fuse_prepare: $(STATEDIR)/fuse.prepare
 
 FUSE_PATH	:= PATH=$(CROSS_PATH)
-FUSE_ENV 	:= $(CROSS_ENV)
+FUSE_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -136,9 +136,9 @@ $(STATEDIR)/fuse.targetinstall: $(fuse_targetinstall_deps_default)
 ifdef PTXCONF_FUSE__LIB
 	@$(call install_copy, fuse, 0, 0, 0644, \
 		$(FUSE_DIR)/lib/.libs/libfuse.so.2.7.4, \
-		/usr/lib/libfuse.so.2.6.3)
+		/usr/lib/libfuse.so.2.7.4)
 	@$(call install_link, fuse, libfuse.so.2.7.4, /usr/lib/libfuse.so)
-	@$(call install_link, fuse, libfuse.so.2.4.4, /usr/lib/libfuse.so.2)
+	@$(call install_link, fuse, libfuse.so.2.7.4, /usr/lib/libfuse.so.2)
 
 	@$(call install_copy, fuse, 0, 0, 0644, \
 		$(FUSE_DIR)/lib/.libs/libulockmgr.so.1.0.1, \
