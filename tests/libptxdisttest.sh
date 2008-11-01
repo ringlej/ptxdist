@@ -137,12 +137,14 @@ result_fail() {
 result() {
 	if [ "$?" = "0" ]; then
 		result_ok
+		return 0
 	else
 		result_fail
 		if [ "$1" = "fatal" ]; then
 			printf "%8b" "${RED}Fatal. Cannot continue.${NC}\n" >&2
 			exit_now="1" # actually exiting is done in test_end
 		fi
+		return 1
 	fi
 }
 
