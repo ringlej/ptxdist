@@ -10,6 +10,7 @@ menuconfig GST_PLUGINS_BASE
 	# FIXME: why do we need freetype?
 	select FREETYPE
 	# x features need libx11
+	select XORG if GST_PLUGINS_BASE__X
 	select XORG_LIB_X11 if GST_PLUGINS_BASE__X
 	prompt "gst-plugins-base              "
 	help
@@ -84,12 +85,14 @@ if GST_PLUGINS_BASE
 
 	config GST_PLUGINS_BASE__X
 		bool
-		prompt "x"
+		prompt "x based plugins"
 
 	config GST_PLUGINS_BASE__XVIDEO
 		bool
 		depends on GST_PLUGINS_BASE__X
-		prompt "xvideo"
+		prompt "xv"
+		help
+		  This plugin offers an xlib based window that can display a video stream.
 
 	config GST_PLUGINS_BASE__XSHM
 		bool
