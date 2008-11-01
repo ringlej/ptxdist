@@ -376,8 +376,8 @@ ifdef PTXCONF_GST_PLUGINS_BASE__X
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE__XVIDEO
 	$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstximagesink.so, \
-		/usr/lib/gstreamer-0.10/libgstximagesink.so)
+		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstxvimagesink.so, \
+		/usr/lib/gstreamer-0.10/libgstxvimagesink.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE__XSHM
 	$(call install_copy, gst-plugins-base, 0, 0, 0644, \
