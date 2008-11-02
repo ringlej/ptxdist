@@ -64,7 +64,7 @@ GST_PLUGINS_GOOD_AUTOCONF := \
 	--disable-examples \
 	--enable-external \
 	--enable-experimental \
-	--enable-schemas-install \
+	--disable-schemas-install \
 	--disable-gtk-doc \
 	--disable-gconftool
 
@@ -495,11 +495,6 @@ $(STATEDIR)/gst-plugins-good.targetinstall:
 	@$(call install_fixup, gst-plugins-good,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, gst-plugins-good,DEPENDS,)
 	@$(call install_fixup, gst-plugins-good,DESCRIPTION,missing)
-
-	# FIXME: is this really necessary?
-	@$(call install_copy, gst-plugins-good, 0, 0, 644, \
-		$(PKGDIR)/$(GST_PLUGINS_GOOD)/etc/gconf/schemas/gstreamer-0.10.schemas, \
-		/etc/gconf/schemas/gstreamer-0.10.schemas)
 
 	# install all activated plugins
 	for i in $(GST_PLUGINS_GOOD_INSTALL); do \
