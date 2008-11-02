@@ -390,6 +390,18 @@ endif
 endif
 
 # -----------------------------------------------------------------------------
+ifdef PTXCONF_ROOTFS_ETC_INITD_SRAMDISK
+	@$(call install_copy, rootfs, 0, 0, 0755, \
+		$(PTXDIST_TOPDIR)/generic/etc/init.d/sramdisk, \
+		/etc/init.d/sramdisk, n)
+ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SRAMDISK_LINK),"")
+	@$(call install_link, rootfs, ../init.d/sramdisk, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SRAMDISK_LINK))
+endif
+endif
+
+
+# -----------------------------------------------------------------------------
 # This part installs configuration files into /etc
 # -----------------------------------------------------------------------------
 

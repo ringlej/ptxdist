@@ -52,6 +52,16 @@ config ROOTFS_ETC_INITD_BANNER_LINK
 	  /etc/init.d/banner. Keep this entry empty if you do not want to start
 	  this service automatically.
 
+config ROOTFS_ETC_INITD_SRAMDISK_LINK
+	depends on ROOTFS_ETC_INITD_SRAMDISK
+	string
+	prompt "sramdisk link name"
+	default "S05_sramdisk"
+	help
+	  Set a link to with this name in /etc/rc.d which points to
+	  /etc/init.d/sramdisk. Keep this entry empty if you do not want to start
+	  this service automatically.
+
 config ROOTFS_ETC_INITD_CHRONY_LINK
 	depends on ROOTFS_ETC_INITD_CHRONY_DEFAULT || ROOTFS_ETC_INITD_CHRONY_USER
 	string

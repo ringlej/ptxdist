@@ -291,4 +291,11 @@ menuconfig ROOTFS_ETC_INITD_CROND
 
 # ----------------------------------------------------------------------------
 
+config ROOTFS_ETC_INITD_SRAMDISK
+	bool
+	depends on ROOTFS_ETC_INITD
+	prompt "sramdisk                    "
+	help
+	  Start script for SRAM ramdisk.
+
 endmenu

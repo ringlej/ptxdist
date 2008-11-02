@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# /etc/init.d/sramdisk
+#
+
+CONF=/etc/sramdisk.conf
+
+case "$1" in
+
+	start|restart|force-reload)
+		echo -n "mounting sramdisk(s)..."
+		if [ ! -f "${CONF}" ]; then
+			echo "skipping, ${CONF} not found"
+			exit 0
+		fi
+		OLD_IFS=${IFS}
+		unset IFS
+		cat ${CONF} | \
+			grep -v -E "^[[:space:]]*$" | \
+			grep -v -e "^[[:space:]]*#.*$" | \
+			while read src dst fs opt dfl1 dfl2;
+		do
+			if [ ! -b $src ]; then
+				echo "error: $src must be a block device"
+				exit 1
+			fi
+			if [ ! -d $dst ]; then
+				echo "error: $dst must be a mount point dir"
+				exit 1
+			fi
+			mount -t $fs -o $opt $src $dst
+			if [ "$?" != "0" ]; then
+				case $fs in
+				minix)
+					echo "formating minix"
+					mkfs.minix -n 30 -v $src
+					;;
+				*)
+					;;
+				esac
+			fi
+		done
+		IFS=${OLD_IFS}
+
+		;;
+	stop)
+		echo -n "unmounting sramdisk(s)..."
+		if [ ! -f "${CONF}" ]; then
+			echo "skipping, ${CONF} not found"
+			exit 0
+		fi
+		OLD_IFS=${IFS}
+		unset IFS
+		cat ${CONF} | \
+			grep -v -E "^[[:space:]]*$" | \
+			grep -v -e "^[[:space:]]*#.*$" | \
+			while read src dst fs opt dfl1 dfl2;
+		do
+			umount $dst
+		done
+		IFS=${OLD_IFS}
+
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|force-reload}" >&2
+		exit 1
+		;;
+esac
+
+exit 0
+
