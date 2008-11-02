@@ -11,5 +11,6 @@ source "rules/host-glibmm.in"
 source "rules/host-gtkmm.in"
 source "rules/host-cairomm.in"
 source "rules/host-glademm.in"
+source "rules/host-gconf.in"
 endmenu
 
