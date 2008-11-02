@@ -66,7 +66,7 @@ GST_PLUGINS_GOOD_AUTOCONF := \
 	--enable-experimental \
 	--enable-schemas-install \
 	--disable-gtk-doc \
-	--disable-gconf-tool \
+	--disable-gconftool
 
 #
 # FIXME: what about these? They are built but I don't know which option
