@@ -55,6 +55,15 @@ FONTCONFIG_AUTOCONF := \
 	--with-arch=$(PTXCONF_ARCH_STRING)
 
 # ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/fontconfig.compile:
+	@$(call targetinfo)
+	cd $(FONTCONFIG_DIR) && $(FONTCONFIG_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
