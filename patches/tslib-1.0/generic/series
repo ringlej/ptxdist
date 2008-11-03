@@ -1,2 +1,3 @@
 tslib-1.0_link_plugins_against_libts.patch
 ts_test_add_quit_button.diff -p0
+tests_assume_input_api.diff -p0
