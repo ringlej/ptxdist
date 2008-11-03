@@ -1,6 +1,0 @@
-This patch series is not finished, the install stage still blows. No
-time to fix it, so we put fakeroot-1.5.1 into temporary-src, because the
-braindamaged upstream folks remove their old versions. 
-
-rsc
-
