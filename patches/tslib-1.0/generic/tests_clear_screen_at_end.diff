@@ -2,25 +2,30 @@ ts_test: clear screen on exit
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
 ---
- tests/ts_test.c |    2 ++
- 1 file changed, 2 insertions(+)
+ tests/ts_calibrate.c |    1 +
+ tests/ts_test.c      |    1 +
+ 2 files changed, 2 insertions(+)
 
 Index: tests/ts_test.c
 ===================================================================
 --- tests/ts_test.c.orig
 +++ tests/ts_test.c
-@@ -49,6 +49,7 @@ static struct ts_button buttons [NR_BUTT
- 
- static void sig(int sig)
- {
-+	fillrect (0, 0, xres - 1, yres - 1, 0);
- 	close_framebuffer();
- 	fflush(stderr);
- 	printf("signal %d caught\n", sig);
-@@ -213,5 +214,6 @@ int main()
+@@ -213,5 +213,6 @@ int main()
  		if (quit_pressed)
  			break;
  	}
 +	fillrect (0, 0, xres - 1, yres - 1, 0);
  	close_framebuffer();
+ }
+Index: tests/ts_calibrate.c
+===================================================================
+--- tests/ts_calibrate.c.orig
++++ tests/ts_calibrate.c
+@@ -235,6 +235,7 @@ int main()
+ 		i = -1;
+ 	}
+ 
++	fillrect (0, 0, xres - 1, yres - 1, 0);
+ 	close_framebuffer();
+ 	return i;
  }
