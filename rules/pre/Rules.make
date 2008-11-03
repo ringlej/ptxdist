@@ -179,9 +179,11 @@ CROSS_ENV_AC := \
 	ac_cv_func_dcgettext=yes \
 	ac_cv_func_getpgrp_void=yes \
 	ac_cv_func_getrlimit=yes \
+	ac_cv_func_malloc_0_nonnull=yes \
 	ac_cv_func_memcmp_clean=yes \
 	ac_cv_func_posix_getpwuid_r=yes \
 	ac_cv_func_printf_unix98=yes \
+	ac_cv_func_realloc_0_nonnull=yes \
 	ac_cv_func_setpgrp_void=yes \
 	ac_cv_func_setvbuf_reversed=no \
 	ac_cv_func_vsnprintf_c99=yes \
@@ -191,6 +193,7 @@ CROSS_ENV_AC := \
 	ac_cv_type_uintptr_t=yes \
 	glib_cv_long_long_format="ll" \
 	gt_cv_func_gettext_libintl=yes
+
 
 CROSS_ENV_DESTDIR := \
 	DESTDIR=$(SYSROOT)
@@ -379,58 +382,11 @@ add_zoneinfo =							\
 # $2: dir to extract into; if $2 is not given we extract to $(BUILDDIR)
 #
 extract =							\
-	PACKET="$($(strip $(1))_SOURCE)";			\
-	PACKETDIR="$($(strip $(1))_DIR)";			\
-	URL="$($(strip $(1))_URL)";				\
-	DEST="$(strip $(2))";					\
-	DEST="$${DEST:-$(BUILDDIR)}";				\
-								\
-	case $$URL in						\
-	file*)							\
-		THING="$$(echo $$URL | sed s-file://--g)";	\
-		if [ -d "$$THING" ]; then			\
-			echo "local directory instead of tar file, linking build dir"; \
-			ln -sf $$(cd `dirname $$THING` && pwd)/$$(basename $$THING) $$PACKETDIR; \
-			exit 0; 				\
-		fi; 						\
-		;;						\
-	esac; 							\
-								\
-	if [ "$$PACKET" = "" ]; then				\
-		echo;						\
-		echo Error: empty parameter to \"extract\(\)\";	\
-		echo;						\
-		exit 1;						\
-	fi;							\
-	[ -d $$DEST ] || mkdir -p $$DEST;			\
-								\
-								\
-	echo "extract: archive=$$PACKET";			\
-	echo "extract: dest=$$DEST";				\
-	case "$$PACKET" in					\
-	*gz)							\
-		EXTRACT=gzip					\
-		;;						\
-	*bz2)							\
-		EXTRACT=bzip2					\
-		;;						\
-	*zip)							\
-		echo $$(basename $$PACKET) >> 			\
-			$(STATEDIR)/packetlist; 		\
-		unzip -q $$PACKET -d $$DEST;			\
-		exit $$?;					\
-		;;						\
-	*)							\
-		echo;						\
-		echo Unknown format, cannot extract!;		\
-		echo;						\
-		exit 1;						\
-		;;						\
-	esac;							\
-								\
-	echo $$(basename $$PACKET) >> $(STATEDIR)/packetlist; 	\
-	$$EXTRACT -dc $$PACKET | tar -C $$DEST -xf -;		\
-	$(CHECK_PIPE_STATUS)
+	ptxd_make_extract					\
+		-s "$($(strip $(1))_SOURCE)"			\
+		-p "$($(strip $(1))_DIR)"			\
+		-u "$($(strip $(1))_URL)"			\
+		-d "$(strip $(2))"
 
 
 #
