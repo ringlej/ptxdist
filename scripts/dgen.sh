@@ -20,7 +20,8 @@ PTX_MAP_ALL="${STATEDIR}/ptx_map_all.sh"
 CONFIGDEPS="${STATEDIR}/ptx_configdeps"
 CONFIGDEPS_MAP="${CONFIGDEPS}_map.sh"
 GEN_MAPS_ALL="${STATEDIR}/ptx_gen_map_all"
-
+DGEN_PACKAGES="${STATEDIR}/ptx_dgen_packages"
+DGEN_PACKAGES_LC="${STATEDIR}/ptx_dgen_packages.lc"
 
 #
 # $(CONFIGDEPS): $(IN_ALL)
@@ -113,6 +114,22 @@ gen_map_all() {
     sed -e \
 	"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~PTX_MAP_TO_PACKAGE_\3=\2~" \
 	"${GEN_MAPS_ALL}" > "${PTX_MAP_ALL_MAKE}"
+
+    sed -e \
+	"s~^\([^:]*\):.*PACKAGES-\$(PTXCONF_\(.*\))[[:space:]]*+=[[:space:]]*\([^[:space:]]*\)~\3~" \
+	"${GEN_MAPS_ALL}" | \
+	tee "${DGEN_PACKAGES}" | \
+	tr "[A-Z]" "[a-z]" > "${DGEN_PACKAGES_LC}"
+
+    diff -u "${DGEN_PACKAGES}" "${DGEN_PACKAGES_LC}" > /dev/null
+    if [ $? -ne 0 ]; then
+	diff -u "${DGEN_PACKAGES}" "${DGEN_PACKAGES_LC}" | grep -e "^[-][^-]"
+	echo
+	echo "error: upper case chars in packages names detected, pleae fix!"
+	echo
+	echo
+	exit 1
+    fi
 }
 
 
