@@ -78,6 +78,9 @@ GST_PLUGINS_GOOD_AUTOCONF := \
 
 ifdef PTXCONF_GST_PLUGINS_GOOD__VIDEOFILTER
 GST_PLUGINS_GOOD_AUTOCONF += --enable-videofilter
+GST_PLUGINS_GOOD_INSTALL  += /usr/lib/gstreamer-0.10/libgstvideoflip.so \
+                             /usr/lib/gstreamer-0.10/libgstgamma.so \
+                             /usr/lib/gstreamer-0.10/libgstvideobalance.so
 else
 GST_PLUGINS_GOOD_AUTOCONF += --disable-videofilter
 endif
