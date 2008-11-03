@@ -1,4 +1,4 @@
-## SECTION=disk_and_file
+## SECTION=test_suites
 config BONNIEXX
 	tristate
 	prompt "bonnie++"
