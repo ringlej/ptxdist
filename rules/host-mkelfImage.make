@@ -14,7 +14,7 @@
 #
 
 #
-HOST_PACKAGES-$(PTXCONF_HOST_MKELFIMAGE) += host-mkelfImage
+HOST_PACKAGES-$(PTXCONF_HOST_MKELFIMAGE) += host-mkelfimage
 
 #
 # Paths and names
@@ -30,9 +30,9 @@ HOST_MKELFIMAGE_DIR	:= $(HOST_BUILDDIR)/$(HOST_MKELFIMAGE)
 # Get
 # ----------------------------------------------------------------------------
 
-host-mkelfImage_get: $(STATEDIR)/host-mkelfImage.get
+host-mkelfimage_get: $(STATEDIR)/host-mkelfimage.get
 
-$(STATEDIR)/host-mkelfImage.get: $(host-mkelfImage_get_deps_default)
+$(STATEDIR)/host-mkelfimage.get: $(host-mkelfimage_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -44,9 +44,9 @@ $(HOST_MKELFIMAGE_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-host-mkelfImage_extract: $(STATEDIR)/host-mkelfImage.extract
+host-mkelfimage_extract: $(STATEDIR)/host-mkelfimage.extract
 
-$(STATEDIR)/host-mkelfImage.extract: $(host-mkelfImage_extract_deps_default)
+$(STATEDIR)/host-mkelfimage.extract: $(host-mkelfimage_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MKELFIMAGE_DIR))
 	@$(call extract, HOST_MKELFIMAGE, $(HOST_BUILDDIR))
@@ -57,7 +57,7 @@ $(STATEDIR)/host-mkelfImage.extract: $(host-mkelfImage_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-mkelfImage_prepare: $(STATEDIR)/host-mkelfImage.prepare
+host-mkelfimage_prepare: $(STATEDIR)/host-mkelfimage.prepare
 
 HOST_MKELFIMAGE_PATH	:= PATH=$(HOST_PATH)
 HOST_MKELFIMAGE_ENV 	:= $(HOST_ENV)
@@ -67,7 +67,7 @@ HOST_MKELFIMAGE_ENV 	:= $(HOST_ENV)
 #
 HOST_MKELFIMAGE_AUTOCONF	:= $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-mkelfImage.prepare: $(host-mkelfImage_prepare_deps_default)
+$(STATEDIR)/host-mkelfimage.prepare: $(host-mkelfimage_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(HOST_MKELFIMAGE_DIR)/config.cache)
 	cd $(HOST_MKELFIMAGE_DIR) && \
@@ -79,10 +79,10 @@ $(STATEDIR)/host-mkelfImage.prepare: $(host-mkelfImage_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-host-mkelfImage_compile: $(STATEDIR)/host-mkelfImage.compile
+host-mkelfimage_compile: $(STATEDIR)/host-mkelfimage.compile
 
 
-$(STATEDIR)/host-mkelfImage.compile: $(host-mkelfImage_compile_deps_default)
+$(STATEDIR)/host-mkelfimage.compile: $(host-mkelfimage_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(HOST_MKELFIMAGE_DIR) && $(HOST_MKELFIMAGE_PATH) make \
 		MY_CPPFLAGS="$(HOST_CPPFLAGS)" LDFLAGS="$(HOST_LDFLAGS)"
@@ -92,9 +92,9 @@ $(STATEDIR)/host-mkelfImage.compile: $(host-mkelfImage_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-host-mkelfImage_install: $(STATEDIR)/host-mkelfImage.install
+host-mkelfimage_install: $(STATEDIR)/host-mkelfimage.install
 
-$(STATEDIR)/host-mkelfImage.install: $(host-mkelfImage_install_deps_default)
+$(STATEDIR)/host-mkelfimage.install: $(host-mkelfimage_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, HOST_MKELFIMAGE,,h)
 	@$(call touch, $@)
@@ -103,8 +103,8 @@ $(STATEDIR)/host-mkelfImage.install: $(host-mkelfImage_install_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-host-mkelfImage_clean:
-	rm -rf $(STATEDIR)/host-mkelfImage.*
+host-mkelfimage_clean:
+	rm -rf $(STATEDIR)/host-mkelfimage.*
 	rm -rf $(HOST_MKELFIMAGE_DIR)
 
 # vim: syntax=make

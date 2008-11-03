@@ -14,7 +14,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_WXWINDOWS_X11) += wxWindows
+PACKAGES-$(PTXCONF_WXWINDOWS_X11) += wxwindows
 
 #
 # Paths and names
@@ -32,9 +32,9 @@ WXWINDOWS_DIR		= $(BUILDDIR)/$(WXWINDOWS)
 # Get
 # ----------------------------------------------------------------------------
 
-wxWindows_get: $(STATEDIR)/wxWindows.get
+wxwindows_get: $(STATEDIR)/wxwindows.get
 
-$(STATEDIR)/wxWindows.get: $(wxWindows_get_deps_default)
+$(STATEDIR)/wxwindows.get: $(wxwindows_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -46,9 +46,9 @@ $(WXWINDOWS_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-wxWindows_extract: $(STATEDIR)/wxWindows.extract
+wxwindows_extract: $(STATEDIR)/wxwindows.extract
 
-$(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps_default)
+$(STATEDIR)/wxwindows.extract: $(wxwindows_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WXWINDOWS_DIR))
 	@$(call extract, WXWINDOWS)
@@ -59,7 +59,7 @@ $(STATEDIR)/wxWindows.extract: $(wxWindows_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-wxWindows_prepare: $(STATEDIR)/wxWindows.prepare
+wxwindows_prepare: $(STATEDIR)/wxwindows.prepare
 
 WXWINDOWS_PATH	=  PATH=$(CROSS_PATH)
 WXWINDOWS_ENV 	=  $(CROSS_ENV)
@@ -82,7 +82,7 @@ WXWINDOWS_AUTOCONF	+= --with-x11 --without-gtk \
 --disable-joystick --with-libjpeg=builtin --with-libtiff=builtin
 
 
-$(STATEDIR)/wxWindows.prepare: $(wxWindows_prepare_deps_default)
+$(STATEDIR)/wxwindows.prepare: $(wxwindows_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WXWINDOWS_BUILDDIR))
 	cd $(WXWINDOWS_DIR) && \
@@ -94,11 +94,11 @@ $(STATEDIR)/wxWindows.prepare: $(wxWindows_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-wxWindows_compile: $(STATEDIR)/wxWindows.compile
+wxwindows_compile: $(STATEDIR)/wxwindows.compile
 
-wxWindows_compile_deps =  $(STATEDIR)/wxWindows.prepare
+wxwindows_compile_deps =  $(STATEDIR)/wxwindows.prepare
 
-$(STATEDIR)/wxWindows.compile: $(wxWindows_compile_deps_default)
+$(STATEDIR)/wxwindows.compile: $(wxwindows_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(WXWINDOWS_DIR) && $(WXWINDOWS_PATH) $(WXWINDOWS_ENV) make
 	@$(call touch, $@)
@@ -108,9 +108,9 @@ $(STATEDIR)/wxWindows.compile: $(wxWindows_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-wxWindows_install: $(STATEDIR)/wxWindows.install
+wxwindows_install: $(STATEDIR)/wxwindows.install
 
-$(STATEDIR)/wxWindows.install: $(wxWindows_install_deps_default)
+$(STATEDIR)/wxwindows.install: $(wxwindows_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -118,9 +118,9 @@ $(STATEDIR)/wxWindows.install: $(wxWindows_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-wxWindows_targetinstall: $(STATEDIR)/wxWindows.targetinstall
+wxwindows_targetinstall: $(STATEDIR)/wxwindows.targetinstall
 
-$(STATEDIR)/wxWindows.targetinstall: $(wxWindows_targetinstall_deps_default)
+$(STATEDIR)/wxwindows.targetinstall: $(wxwindows_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -128,9 +128,9 @@ $(STATEDIR)/wxWindows.targetinstall: $(wxWindows_targetinstall_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-wxWindows_clean:
-	rm -rf $(STATEDIR)/wxWindows.*
-	rm -rf $(PKGDIR)/wxWindows_*
+wxwindows_clean:
+	rm -rf $(STATEDIR)/wxwindows.*
+	rm -rf $(PKGDIR)/wxwindows_*
 	rm -rf $(WXWINDOWS_DIR)
 
 # vim: syntax=make
