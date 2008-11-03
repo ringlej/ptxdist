@@ -15,6 +15,10 @@ menuconfig DBUS
 
 if DBUS
 
+config DBUS__SELINUX
+	prompt "selinux support"
+	bool
+
 choice
 	prompt "xml library       "
 

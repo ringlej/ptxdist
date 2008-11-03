@@ -52,7 +52,6 @@ DBUS_AUTOCONF := \
 	--disable-doxygen-docs \
 	--disable-gcov \
 	--enable-abstract-sockets=yes \
-	--disable-selinux \
 	--disable-libaudit \
 	--disable-dnotify \
 	--disable-kqueue \
@@ -64,6 +63,11 @@ DBUS_AUTOCONF += --with-xml=expat
 endif
 ifdef PTXCONF_DBUS_XML_LIBXML2
 DBUS_AUTOCONF += --with-xml=libxml
+endif
+ifdef PTXCONF_DBUS__SELINUX
+DBUS_AUTOCONF += --enable-selinux
+else
+DBUS_AUTOCONF += --disable-selinux
 endif
 
 ifdef PTXCONF_DBUS_X
