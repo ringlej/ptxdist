@@ -125,7 +125,7 @@ gen_map_all() {
     if [ $? -ne 0 ]; then
 	diff -u "${DGEN_PACKAGES}" "${DGEN_PACKAGES_LC}" | grep -e "^[-][^-]"
 	echo
-	echo "error: upper case chars in packages names detected, pleae fix!"
+	echo "error: upper case chars in packages names detected, please fix!"
 	echo
 	echo
 	exit 1
