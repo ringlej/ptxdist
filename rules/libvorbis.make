@@ -106,17 +106,17 @@ $(STATEDIR)/libvorbis.targetinstall:
 	@$(call install_link, libvorbis, libvorbis.so.0.4.0, /usr/lib/libvorbis.so.0)
 	@$(call install_link, libvorbis, libvorbis.so.0.4.0, /usr/lib/libvorbis.so)
 
-	@$(call install_copy, libvorbisenc, 0, 0, 0644, \
+	@$(call install_copy, libvorbis, 0, 0, 0644, \
 		$(LIBVORBIS_DIR)/lib/.libs/libvorbisenc.so.2.0.3, \
 		/usr/lib/libvorbisenc.so.2.0.3)
-	@$(call install_link, libvorbisenc, libvorbisenc.so.2.0.3, /usr/lib/libvorbisenc.so.2)
-	@$(call install_link, libvorbisenc, libvorbisenc.so.2.0.3, /usr/lib/libvorbisenc.so)
+	@$(call install_link, libvorbis, libvorbisenc.so.2.0.3, /usr/lib/libvorbisenc.so.2)
+	@$(call install_link, libvorbis, libvorbisenc.so.2.0.3, /usr/lib/libvorbisenc.so)
 
-	@$(call install_copy, libvorbisfile, 0, 0, 0644, \
+	@$(call install_copy, libvorbis, 0, 0, 0644, \
 		$(LIBVORBIS_DIR)/lib/.libs/libvorbisfile.so.3.2.0, \
 		/usr/lib/libvorbisfile.so.3.2.0)
-	@$(call install_link, libvorbisfile, libvorbisfile.so.3.2.0, /usr/lib/libvorbisfile.so.3)
-	@$(call install_link, libvorbisfile, libvorbisfile.so.3.2.0, /usr/lib/libvorbisfile.so)
+	@$(call install_link, libvorbis, libvorbisfile.so.3.2.0, /usr/lib/libvorbisfile.so.3)
+	@$(call install_link, libvorbis, libvorbisfile.so.3.2.0, /usr/lib/libvorbisfile.so)
 
 	@$(call install_finish, libvorbis)
 
