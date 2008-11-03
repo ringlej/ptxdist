@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XV) += xorg-lib-Xv
+PACKAGES-$(PTXCONF_XORG_LIB_XV) += xorg-lib-xv
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XV_DIR		:= $(BUILDDIR)/$(XORG_LIB_XV)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xv_get: $(STATEDIR)/xorg-lib-Xv.get
+xorg-lib-xv_get: $(STATEDIR)/xorg-lib-xv.get
 
-$(STATEDIR)/xorg-lib-Xv.get: $(xorg-lib-Xv_get_deps_default)
+$(STATEDIR)/xorg-lib-xv.get: $(xorg-lib-xv_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XV_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xv_extract: $(STATEDIR)/xorg-lib-Xv.extract
+xorg-lib-xv_extract: $(STATEDIR)/xorg-lib-xv.extract
 
-$(STATEDIR)/xorg-lib-Xv.extract: $(xorg-lib-Xv_extract_deps_default)
+$(STATEDIR)/xorg-lib-xv.extract: $(xorg-lib-xv_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XV_DIR))
 	@$(call extract, XORG_LIB_XV)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xv.extract: $(xorg-lib-Xv_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xv_prepare: $(STATEDIR)/xorg-lib-Xv.prepare
+xorg-lib-xv_prepare: $(STATEDIR)/xorg-lib-xv.prepare
 
 XORG_LIB_XV_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XV_ENV 	:=  $(CROSS_ENV)
@@ -68,7 +68,7 @@ XORG_LIB_XV_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull
 
-$(STATEDIR)/xorg-lib-Xv.prepare: $(xorg-lib-Xv_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xv.prepare: $(xorg-lib-xv_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XV_DIR)/config.cache)
 	cd $(XORG_LIB_XV_DIR) && \
@@ -80,9 +80,9 @@ $(STATEDIR)/xorg-lib-Xv.prepare: $(xorg-lib-Xv_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xv_compile: $(STATEDIR)/xorg-lib-Xv.compile
+xorg-lib-xv_compile: $(STATEDIR)/xorg-lib-xv.compile
 
-$(STATEDIR)/xorg-lib-Xv.compile: $(xorg-lib-Xv_compile_deps_default)
+$(STATEDIR)/xorg-lib-xv.compile: $(xorg-lib-xv_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XV_DIR) && $(XORG_LIB_XV_PATH) make
 	@$(call touch, $@)
@@ -91,9 +91,9 @@ $(STATEDIR)/xorg-lib-Xv.compile: $(xorg-lib-Xv_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xv_install: $(STATEDIR)/xorg-lib-Xv.install
+xorg-lib-xv_install: $(STATEDIR)/xorg-lib-xv.install
 
-$(STATEDIR)/xorg-lib-Xv.install: $(xorg-lib-Xv_install_deps_default)
+$(STATEDIR)/xorg-lib-xv.install: $(xorg-lib-xv_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XV)
 	@$(call touch, $@)
@@ -102,33 +102,33 @@ $(STATEDIR)/xorg-lib-Xv.install: $(xorg-lib-Xv_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xv_targetinstall: $(STATEDIR)/xorg-lib-Xv.targetinstall
+xorg-lib-xv_targetinstall: $(STATEDIR)/xorg-lib-xv.targetinstall
 
-$(STATEDIR)/xorg-lib-Xv.targetinstall: $(xorg-lib-Xv_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xv.targetinstall: $(xorg-lib-xv_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xv)
-	@$(call install_fixup, xorg-lib-Xv,PACKAGE,xorg-lib-xv)
-	@$(call install_fixup, xorg-lib-Xv,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xv,VERSION,$(XORG_LIB_XV_VERSION))
-	@$(call install_fixup, xorg-lib-Xv,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xv,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xv,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xv,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xv)
+	@$(call install_fixup, xorg-lib-xv,PACKAGE,xorg-lib-xv)
+	@$(call install_fixup, xorg-lib-xv,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xv,VERSION,$(XORG_LIB_XV_VERSION))
+	@$(call install_fixup, xorg-lib-xv,SECTION,base)
+	@$(call install_fixup, xorg-lib-xv,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xv,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xv,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xv, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xv, 0, 0, 0644, \
 		$(XORG_LIB_XV_DIR)/src/.libs/libXv.so.1.0.0, \
 		$(XORG_LIBDIR)/libXv.so.1.0.0)
 
-	@$(call install_link, xorg-lib-Xv, \
+	@$(call install_link, xorg-lib-xv, \
 		libXv.so.1.0.0, \
 		$(XORG_LIBDIR)/libXv.so.1)
 
-	@$(call install_link, xorg-lib-Xv, \
+	@$(call install_link, xorg-lib-xv, \
 		libXv.so.1.0.0, \
 		$(XORG_LIBDIR)/libXv.so)
 
-	@$(call install_finish, xorg-lib-Xv)
+	@$(call install_finish, xorg-lib-xv)
 
 	@$(call touch, $@)
 
@@ -136,9 +136,9 @@ $(STATEDIR)/xorg-lib-Xv.targetinstall: $(xorg-lib-Xv_targetinstall_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xv_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xv.*
-	rm -rf $(PKGDIR)/xorg-lib-Xv_*
+xorg-lib-xv_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xv.*
+	rm -rf $(PKGDIR)/xorg-lib-xv_*
 	rm -rf $(XORG_LIB_XV_DIR)
 
 # vim: syntax=make

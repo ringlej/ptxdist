@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XRANDR) += xorg-lib-Xrandr
+PACKAGES-$(PTXCONF_XORG_LIB_XRANDR) += xorg-lib-xrandr
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XRANDR_DIR	:= $(BUILDDIR)/$(XORG_LIB_XRANDR)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrandr_get: $(STATEDIR)/xorg-lib-Xrandr.get
+xorg-lib-xrandr_get: $(STATEDIR)/xorg-lib-xrandr.get
 
-$(STATEDIR)/xorg-lib-Xrandr.get: $(xorg-lib-Xrandr_get_deps_default)
+$(STATEDIR)/xorg-lib-xrandr.get: $(xorg-lib-xrandr_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XRANDR_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrandr_extract: $(STATEDIR)/xorg-lib-Xrandr.extract
+xorg-lib-xrandr_extract: $(STATEDIR)/xorg-lib-xrandr.extract
 
-$(STATEDIR)/xorg-lib-Xrandr.extract: $(xorg-lib-Xrandr_extract_deps_default)
+$(STATEDIR)/xorg-lib-xrandr.extract: $(xorg-lib-xrandr_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRANDR_DIR))
 	@$(call extract, XORG_LIB_XRANDR)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xrandr.extract: $(xorg-lib-Xrandr_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrandr_prepare: $(STATEDIR)/xorg-lib-Xrandr.prepare
+xorg-lib-xrandr_prepare: $(STATEDIR)/xorg-lib-xrandr.prepare
 
 XORG_LIB_XRANDR_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XRANDR_ENV 	:=  $(CROSS_ENV)
@@ -67,7 +67,7 @@ XORG_LIB_XRANDR_ENV 	:=  $(CROSS_ENV)
 XORG_LIB_XRANDR_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull
 
-$(STATEDIR)/xorg-lib-Xrandr.prepare: $(xorg-lib-Xrandr_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xrandr.prepare: $(xorg-lib-xrandr_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRANDR_DIR)/config.cache)
 	cd $(XORG_LIB_XRANDR_DIR) && \
@@ -79,9 +79,9 @@ $(STATEDIR)/xorg-lib-Xrandr.prepare: $(xorg-lib-Xrandr_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrandr_compile: $(STATEDIR)/xorg-lib-Xrandr.compile
+xorg-lib-xrandr_compile: $(STATEDIR)/xorg-lib-xrandr.compile
 
-$(STATEDIR)/xorg-lib-Xrandr.compile: $(xorg-lib-Xrandr_compile_deps_default)
+$(STATEDIR)/xorg-lib-xrandr.compile: $(xorg-lib-xrandr_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XRANDR_DIR) && $(XORG_LIB_XRANDR_PATH) make
 	@$(call touch, $@)
@@ -90,9 +90,9 @@ $(STATEDIR)/xorg-lib-Xrandr.compile: $(xorg-lib-Xrandr_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrandr_install: $(STATEDIR)/xorg-lib-Xrandr.install
+xorg-lib-xrandr_install: $(STATEDIR)/xorg-lib-xrandr.install
 
-$(STATEDIR)/xorg-lib-Xrandr.install: $(xorg-lib-Xrandr_install_deps_default)
+$(STATEDIR)/xorg-lib-xrandr.install: $(xorg-lib-xrandr_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XRANDR)
 	@$(call touch, $@)
@@ -101,33 +101,33 @@ $(STATEDIR)/xorg-lib-Xrandr.install: $(xorg-lib-Xrandr_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrandr_targetinstall: $(STATEDIR)/xorg-lib-Xrandr.targetinstall
+xorg-lib-xrandr_targetinstall: $(STATEDIR)/xorg-lib-xrandr.targetinstall
 
-$(STATEDIR)/xorg-lib-Xrandr.targetinstall: $(xorg-lib-Xrandr_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xrandr.targetinstall: $(xorg-lib-xrandr_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xrandr)
-	@$(call install_fixup, xorg-lib-Xrandr,PACKAGE,xorg-lib-xrandr)
-	@$(call install_fixup, xorg-lib-Xrandr,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xrandr,VERSION,$(XORG_LIB_XRANDR_VERSION))
-	@$(call install_fixup, xorg-lib-Xrandr,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xrandr,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xrandr,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xrandr,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xrandr)
+	@$(call install_fixup, xorg-lib-xrandr,PACKAGE,xorg-lib-xrandr)
+	@$(call install_fixup, xorg-lib-xrandr,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xrandr,VERSION,$(XORG_LIB_XRANDR_VERSION))
+	@$(call install_fixup, xorg-lib-xrandr,SECTION,base)
+	@$(call install_fixup, xorg-lib-xrandr,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xrandr,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xrandr,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xrandr, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xrandr, 0, 0, 0644, \
 		$(XORG_LIB_XRANDR_DIR)/src/.libs/libXrandr.so.2.1.0, \
 		$(XORG_LIBDIR)/libXrandr.so.2.1.0)
 
-	@$(call install_link, xorg-lib-Xrandr, \
+	@$(call install_link, xorg-lib-xrandr, \
 		libXrandr.so.2.1.0, \
 		$(XORG_LIBDIR)/libXrandr.so.2)
 
-	@$(call install_link, xorg-lib-Xrandr, \
+	@$(call install_link, xorg-lib-xrandr, \
 		libXrandr.so.2.1.0, \
 		$(XORG_LIBDIR)/libXrandr.so)
 
-	@$(call install_finish, xorg-lib-Xrandr)
+	@$(call install_finish, xorg-lib-xrandr)
 
 	@$(call touch, $@)
 
@@ -135,9 +135,9 @@ $(STATEDIR)/xorg-lib-Xrandr.targetinstall: $(xorg-lib-Xrandr_targetinstall_deps_
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrandr_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xrandr.*
-	rm -rf $(PKGDIR)/xorg-lib-Xrandr_*
+xorg-lib-xrandr_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xrandr.*
+	rm -rf $(PKGDIR)/xorg-lib-xrandr_*
 	rm -rf $(XORG_LIB_XRANDR_DIR)
 
 # vim: syntax=make

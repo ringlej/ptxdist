@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XFONTCACHE) += xorg-lib-Xfontcache
+PACKAGES-$(PTXCONF_XORG_LIB_XFONTCACHE) += xorg-lib-xfontcache
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XFONTCACHE_DIR		:= $(BUILDDIR)/$(XORG_LIB_XFONTCACHE)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfontcache_get: $(STATEDIR)/xorg-lib-Xfontcache.get
+xorg-lib-xfontcache_get: $(STATEDIR)/xorg-lib-xfontcache.get
 
-$(STATEDIR)/xorg-lib-Xfontcache.get: $(xorg-lib-Xfontcache_get_deps_default)
+$(STATEDIR)/xorg-lib-xfontcache.get: $(xorg-lib-xfontcache_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XFONTCACHE_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfontcache_extract: $(STATEDIR)/xorg-lib-Xfontcache.extract
+xorg-lib-xfontcache_extract: $(STATEDIR)/xorg-lib-xfontcache.extract
 
-$(STATEDIR)/xorg-lib-Xfontcache.extract: $(xorg-lib-Xfontcache_extract_deps_default)
+$(STATEDIR)/xorg-lib-xfontcache.extract: $(xorg-lib-xfontcache_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFONTCACHE_DIR))
 	@$(call extract, XORG_LIB_XFONTCACHE)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xfontcache.extract: $(xorg-lib-Xfontcache_extract_deps_defa
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfontcache_prepare: $(STATEDIR)/xorg-lib-Xfontcache.prepare
+xorg-lib-xfontcache_prepare: $(STATEDIR)/xorg-lib-xfontcache.prepare
 
 XORG_LIB_XFONTCACHE_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XFONTCACHE_ENV 	:=  $(CROSS_ENV)
@@ -68,7 +68,7 @@ XORG_LIB_XFONTCACHE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull
 
-$(STATEDIR)/xorg-lib-Xfontcache.prepare: $(xorg-lib-Xfontcache_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xfontcache.prepare: $(xorg-lib-xfontcache_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFONTCACHE_DIR)/config.cache)
 	cd $(XORG_LIB_XFONTCACHE_DIR) && \
@@ -80,9 +80,9 @@ $(STATEDIR)/xorg-lib-Xfontcache.prepare: $(xorg-lib-Xfontcache_prepare_deps_defa
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfontcache_compile: $(STATEDIR)/xorg-lib-Xfontcache.compile
+xorg-lib-xfontcache_compile: $(STATEDIR)/xorg-lib-xfontcache.compile
 
-$(STATEDIR)/xorg-lib-Xfontcache.compile: $(xorg-lib-Xfontcache_compile_deps_default)
+$(STATEDIR)/xorg-lib-xfontcache.compile: $(xorg-lib-xfontcache_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XFONTCACHE_DIR) && $(XORG_LIB_XFONTCACHE_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -91,9 +91,9 @@ $(STATEDIR)/xorg-lib-Xfontcache.compile: $(xorg-lib-Xfontcache_compile_deps_defa
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfontcache_install: $(STATEDIR)/xorg-lib-Xfontcache.install
+xorg-lib-xfontcache_install: $(STATEDIR)/xorg-lib-xfontcache.install
 
-$(STATEDIR)/xorg-lib-Xfontcache.install: $(xorg-lib-Xfontcache_install_deps_default)
+$(STATEDIR)/xorg-lib-xfontcache.install: $(xorg-lib-xfontcache_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XFONTCACHE)
 	@$(call touch, $@)
@@ -102,33 +102,33 @@ $(STATEDIR)/xorg-lib-Xfontcache.install: $(xorg-lib-Xfontcache_install_deps_defa
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfontcache_targetinstall: $(STATEDIR)/xorg-lib-Xfontcache.targetinstall
+xorg-lib-xfontcache_targetinstall: $(STATEDIR)/xorg-lib-xfontcache.targetinstall
 
-$(STATEDIR)/xorg-lib-Xfontcache.targetinstall: $(xorg-lib-Xfontcache_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xfontcache.targetinstall: $(xorg-lib-xfontcache_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xfontcache)
-	@$(call install_fixup, xorg-lib-Xfontcache,PACKAGE,xorg-lib-xfontcache)
-	@$(call install_fixup, xorg-lib-Xfontcache,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xfontcache,VERSION,$(XORG_LIB_XFONTCACHE_VERSION))
-	@$(call install_fixup, xorg-lib-Xfontcache,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xfontcache,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xfontcache,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xfontcache,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xfontcache)
+	@$(call install_fixup, xorg-lib-xfontcache,PACKAGE,xorg-lib-xfontcache)
+	@$(call install_fixup, xorg-lib-xfontcache,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xfontcache,VERSION,$(XORG_LIB_XFONTCACHE_VERSION))
+	@$(call install_fixup, xorg-lib-xfontcache,SECTION,base)
+	@$(call install_fixup, xorg-lib-xfontcache,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xfontcache,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xfontcache,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xfontcache, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xfontcache, 0, 0, 0644, \
 		$(XORG_LIB_XFONTCACHE_DIR)/src/.libs/libXfontcache.so.1.0.0, \
 		$(XORG_LIBDIR)/libXfontcache.so.1.0.0)
 
-	@$(call install_link, xorg-lib-Xfontcache, \
+	@$(call install_link, xorg-lib-xfontcache, \
 		libXfontcache.so.1.0.0, \
 		$(XORG_LIBDIR)/libXfontcache.so.1)
 
-	@$(call install_link, xorg-lib-Xfontcache, \
+	@$(call install_link, xorg-lib-xfontcache, \
 		libXfontcache.so.1.0.0, \
 		$(XORG_LIBDIR)/libXfontcache.so)
 
-	@$(call install_finish, xorg-lib-Xfontcache)
+	@$(call install_finish, xorg-lib-xfontcache)
 
 	@$(call touch, $@)
 
@@ -136,9 +136,9 @@ $(STATEDIR)/xorg-lib-Xfontcache.targetinstall: $(xorg-lib-Xfontcache_targetinsta
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfontcache_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xfontcache.*
-	rm -rf $(PKGDIR)/xorg-lib-Xfontcache_*
+xorg-lib-xfontcache_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xfontcache.*
+	rm -rf $(PKGDIR)/xorg-lib-xfontcache_*
 	rm -rf $(XORG_LIB_XFONTCACHE_DIR)
 
 # vim: syntax=make

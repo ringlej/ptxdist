@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XMU) += xorg-lib-Xmu
+PACKAGES-$(PTXCONF_XORG_LIB_XMU) += xorg-lib-xmu
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XMU_DIR	:= $(BUILDDIR)/$(XORG_LIB_XMU)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xmu_get: $(STATEDIR)/xorg-lib-Xmu.get
+xorg-lib-xmu_get: $(STATEDIR)/xorg-lib-xmu.get
 
-$(STATEDIR)/xorg-lib-Xmu.get: $(xorg-lib-Xmu_get_deps_default)
+$(STATEDIR)/xorg-lib-xmu.get: $(xorg-lib-xmu_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XMU_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xmu_extract: $(STATEDIR)/xorg-lib-Xmu.extract
+xorg-lib-xmu_extract: $(STATEDIR)/xorg-lib-xmu.extract
 
-$(STATEDIR)/xorg-lib-Xmu.extract: $(xorg-lib-Xmu_extract_deps_default)
+$(STATEDIR)/xorg-lib-xmu.extract: $(xorg-lib-xmu_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XMU_DIR))
 	@$(call extract, XORG_LIB_XMU)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xmu.extract: $(xorg-lib-Xmu_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xmu_prepare: $(STATEDIR)/xorg-lib-Xmu.prepare
+xorg-lib-xmu_prepare: $(STATEDIR)/xorg-lib-xmu.prepare
 
 XORG_LIB_XMU_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XMU_ENV 	:=  $(CROSS_ENV)
@@ -69,7 +69,7 @@ XORG_LIB_XMU_AUTOCONF := \
 	$(XORG_OPTIONS_TRANS) \
 	--disable-dependency-tracking
 
-$(STATEDIR)/xorg-lib-Xmu.prepare: $(xorg-lib-Xmu_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xmu.prepare: $(xorg-lib-xmu_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XMU_DIR)/config.cache)
 	cd $(XORG_LIB_XMU_DIR) && \
@@ -81,9 +81,9 @@ $(STATEDIR)/xorg-lib-Xmu.prepare: $(xorg-lib-Xmu_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xmu_compile: $(STATEDIR)/xorg-lib-Xmu.compile
+xorg-lib-xmu_compile: $(STATEDIR)/xorg-lib-xmu.compile
 
-$(STATEDIR)/xorg-lib-Xmu.compile: $(xorg-lib-Xmu_compile_deps_default)
+$(STATEDIR)/xorg-lib-xmu.compile: $(xorg-lib-xmu_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XMU_DIR) && $(XORG_LIB_XMU_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -92,9 +92,9 @@ $(STATEDIR)/xorg-lib-Xmu.compile: $(xorg-lib-Xmu_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xmu_install: $(STATEDIR)/xorg-lib-Xmu.install
+xorg-lib-xmu_install: $(STATEDIR)/xorg-lib-xmu.install
 
-$(STATEDIR)/xorg-lib-Xmu.install: $(xorg-lib-Xmu_install_deps_default)
+$(STATEDIR)/xorg-lib-xmu.install: $(xorg-lib-xmu_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XMU)
 	@$(call touch, $@)
@@ -103,45 +103,45 @@ $(STATEDIR)/xorg-lib-Xmu.install: $(xorg-lib-Xmu_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xmu_targetinstall: $(STATEDIR)/xorg-lib-Xmu.targetinstall
+xorg-lib-xmu_targetinstall: $(STATEDIR)/xorg-lib-xmu.targetinstall
 
-$(STATEDIR)/xorg-lib-Xmu.targetinstall: $(xorg-lib-Xmu_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xmu.targetinstall: $(xorg-lib-xmu_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xmu)
-	@$(call install_fixup, xorg-lib-Xmu,PACKAGE,xorg-lib-xmu)
-	@$(call install_fixup, xorg-lib-Xmu,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xmu,VERSION,$(XORG_LIB_XMU_VERSION))
-	@$(call install_fixup, xorg-lib-Xmu,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xmu,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xmu,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xmu,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xmu)
+	@$(call install_fixup, xorg-lib-xmu,PACKAGE,xorg-lib-xmu)
+	@$(call install_fixup, xorg-lib-xmu,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xmu,VERSION,$(XORG_LIB_XMU_VERSION))
+	@$(call install_fixup, xorg-lib-xmu,SECTION,base)
+	@$(call install_fixup, xorg-lib-xmu,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xmu,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xmu,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xmu, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xmu, 0, 0, 0644, \
 		$(XORG_LIB_XMU_DIR)/src/.libs/libXmu.so.6.2.0, \
 		$(XORG_LIBDIR)/libXmu.so.6.2.0)
 
-	@$(call install_link, xorg-lib-Xmu, \
+	@$(call install_link, xorg-lib-xmu, \
 		libXmu.so.6.2.0, \
 		$(XORG_LIBDIR)/libXmu.so.6)
 
-	@$(call install_link, xorg-lib-Xmu, \
+	@$(call install_link, xorg-lib-xmu, \
 		libXmu.so.6.2.0, \
 		$(XORG_LIBDIR)/libXmu.so)
 
-	@$(call install_copy, xorg-lib-Xmu, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xmu, 0, 0, 0644, \
 		$(XORG_LIB_XMU_DIR)/src/.libs/libXmuu.so.1.0.0, \
 		$(XORG_LIBDIR)/libXmuu.so.1.0.0)
 
-	@$(call install_link, xorg-lib-Xmu, \
+	@$(call install_link, xorg-lib-xmu, \
 		libXmuu.so.1.0.0, \
 		$(XORG_LIBDIR)/libXmuu.so.1)
 
-	@$(call install_link, xorg-lib-Xmu, \
+	@$(call install_link, xorg-lib-xmu, \
 		libXmuu.so.1.0.0, \
 		$(XORG_LIBDIR)/libXmuu.so)
 
-	@$(call install_finish, xorg-lib-Xmu)
+	@$(call install_finish, xorg-lib-xmu)
 
 	@$(call touch, $@)
 
@@ -149,9 +149,9 @@ $(STATEDIR)/xorg-lib-Xmu.targetinstall: $(xorg-lib-Xmu_targetinstall_deps_defaul
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xmu_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xmu.*
-	rm -rf $(PKGDIR)/xorg-lib-Xmu_*
+xorg-lib-xmu_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xmu.*
+	rm -rf $(PKGDIR)/xorg-lib-xmu_*
 	rm -rf $(XORG_LIB_XMU_DIR)
 
 # vim: syntax=make

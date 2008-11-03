@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XRENDER) += xorg-lib-Xrender
+PACKAGES-$(PTXCONF_XORG_LIB_XRENDER) += xorg-lib-xrender
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XRENDER_DIR		:= $(BUILDDIR)/$(XORG_LIB_XRENDER)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrender_get: $(STATEDIR)/xorg-lib-Xrender.get
+xorg-lib-xrender_get: $(STATEDIR)/xorg-lib-xrender.get
 
-$(STATEDIR)/xorg-lib-Xrender.get: $(xorg-lib-Xrender_get_deps_default)
+$(STATEDIR)/xorg-lib-xrender.get: $(xorg-lib-xrender_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XRENDER_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrender_extract: $(STATEDIR)/xorg-lib-Xrender.extract
+xorg-lib-xrender_extract: $(STATEDIR)/xorg-lib-xrender.extract
 
-$(STATEDIR)/xorg-lib-Xrender.extract: $(xorg-lib-Xrender_extract_deps_default)
+$(STATEDIR)/xorg-lib-xrender.extract: $(xorg-lib-xrender_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRENDER_DIR))
 	@$(call extract, XORG_LIB_XRENDER)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xrender.extract: $(xorg-lib-Xrender_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrender_prepare: $(STATEDIR)/xorg-lib-Xrender.prepare
+xorg-lib-xrender_prepare: $(STATEDIR)/xorg-lib-xrender.prepare
 
 XORG_LIB_XRENDER_PATH	:= PATH=$(CROSS_PATH)
 XORG_LIB_XRENDER_ENV 	:= $(CROSS_ENV)
@@ -69,7 +69,7 @@ XORG_LIB_XRENDER_AUTOCONF := \
 	--disable-dependency-tracking \
 	--disable-malloc0returnsnull
 
-$(STATEDIR)/xorg-lib-Xrender.prepare: $(xorg-lib-Xrender_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xrender.prepare: $(xorg-lib-xrender_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRENDER_DIR)/config.cache)
 	cd $(XORG_LIB_XRENDER_DIR) && \
@@ -81,9 +81,9 @@ $(STATEDIR)/xorg-lib-Xrender.prepare: $(xorg-lib-Xrender_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrender_compile: $(STATEDIR)/xorg-lib-Xrender.compile
+xorg-lib-xrender_compile: $(STATEDIR)/xorg-lib-xrender.compile
 
-$(STATEDIR)/xorg-lib-Xrender.compile: $(xorg-lib-Xrender_compile_deps_default)
+$(STATEDIR)/xorg-lib-xrender.compile: $(xorg-lib-xrender_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XRENDER_DIR) && $(XORG_LIB_XRENDER_PATH) make
 	@$(call touch, $@)
@@ -92,9 +92,9 @@ $(STATEDIR)/xorg-lib-Xrender.compile: $(xorg-lib-Xrender_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrender_install: $(STATEDIR)/xorg-lib-Xrender.install
+xorg-lib-xrender_install: $(STATEDIR)/xorg-lib-xrender.install
 
-$(STATEDIR)/xorg-lib-Xrender.install: $(xorg-lib-Xrender_install_deps_default)
+$(STATEDIR)/xorg-lib-xrender.install: $(xorg-lib-xrender_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XRENDER)
 	@$(call touch, $@)
@@ -103,33 +103,33 @@ $(STATEDIR)/xorg-lib-Xrender.install: $(xorg-lib-Xrender_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrender_targetinstall: $(STATEDIR)/xorg-lib-Xrender.targetinstall
+xorg-lib-xrender_targetinstall: $(STATEDIR)/xorg-lib-xrender.targetinstall
 
-$(STATEDIR)/xorg-lib-Xrender.targetinstall: $(xorg-lib-Xrender_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xrender.targetinstall: $(xorg-lib-xrender_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xrender)
-	@$(call install_fixup, xorg-lib-Xrender,PACKAGE,xorg-lib-xrender)
-	@$(call install_fixup, xorg-lib-Xrender,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xrender,VERSION,$(XORG_LIB_XRENDER_VERSION))
-	@$(call install_fixup, xorg-lib-Xrender,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xrender,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xrender,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xrender,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xrender)
+	@$(call install_fixup, xorg-lib-xrender,PACKAGE,xorg-lib-xrender)
+	@$(call install_fixup, xorg-lib-xrender,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xrender,VERSION,$(XORG_LIB_XRENDER_VERSION))
+	@$(call install_fixup, xorg-lib-xrender,SECTION,base)
+	@$(call install_fixup, xorg-lib-xrender,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xrender,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xrender,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xrender, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xrender, 0, 0, 0644, \
 		$(XORG_LIB_XRENDER_DIR)/src/.libs/libXrender.so.1.3.0, \
 		$(XORG_LIBDIR)/libXrender.so.1.3.0)
 
-	@$(call install_link, xorg-lib-Xrender, \
+	@$(call install_link, xorg-lib-xrender, \
 		libXrender.so.1.3.0, \
 		$(XORG_LIBDIR)/libXrender.so.1)
 
-	@$(call install_link, xorg-lib-Xrender, \
+	@$(call install_link, xorg-lib-xrender, \
 		libXrender.so.1.3.0, \
 		$(XORG_LIBDIR)/libXrender.so)
 
-	@$(call install_finish, xorg-lib-Xrender)
+	@$(call install_finish, xorg-lib-xrender)
 
 	@$(call touch, $@)
 
@@ -137,9 +137,9 @@ $(STATEDIR)/xorg-lib-Xrender.targetinstall: $(xorg-lib-Xrender_targetinstall_dep
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xrender_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xrender.*
-	rm -rf $(PKGDIR)/xorg-lib-Xrender_*
+xorg-lib-xrender_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xrender.*
+	rm -rf $(PKGDIR)/xorg-lib-xrender_*
 	rm -rf $(XORG_LIB_XRENDER_DIR)
 
 # vim: syntax=make

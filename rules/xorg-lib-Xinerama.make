@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XINERAMA) += xorg-lib-Xinerama
+PACKAGES-$(PTXCONF_XORG_LIB_XINERAMA) += xorg-lib-xinerama
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XINERAMA_DIR		:= $(BUILDDIR)/$(XORG_LIB_XINERAMA)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xinerama_get: $(STATEDIR)/xorg-lib-Xinerama.get
+xorg-lib-xinerama_get: $(STATEDIR)/xorg-lib-xinerama.get
 
-$(STATEDIR)/xorg-lib-Xinerama.get: $(xorg-lib-Xinerama_get_deps_default)
+$(STATEDIR)/xorg-lib-xinerama.get: $(xorg-lib-xinerama_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XINERAMA_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xinerama_extract: $(STATEDIR)/xorg-lib-Xinerama.extract
+xorg-lib-xinerama_extract: $(STATEDIR)/xorg-lib-xinerama.extract
 
-$(STATEDIR)/xorg-lib-Xinerama.extract: $(xorg-lib-Xinerama_extract_deps_default)
+$(STATEDIR)/xorg-lib-xinerama.extract: $(xorg-lib-xinerama_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XINERAMA_DIR))
 	@$(call extract, XORG_LIB_XINERAMA)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xinerama.extract: $(xorg-lib-Xinerama_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xinerama_prepare: $(STATEDIR)/xorg-lib-Xinerama.prepare
+xorg-lib-xinerama_prepare: $(STATEDIR)/xorg-lib-xinerama.prepare
 
 XORG_LIB_XINERAMA_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XINERAMA_ENV 	:=  $(CROSS_ENV)
@@ -67,7 +67,7 @@ XORG_LIB_XINERAMA_ENV 	:=  $(CROSS_ENV)
 XORG_LIB_XINERAMA_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull
 
-$(STATEDIR)/xorg-lib-Xinerama.prepare: $(xorg-lib-Xinerama_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xinerama.prepare: $(xorg-lib-xinerama_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XINERAMA_DIR)/config.cache)
 	cd $(XORG_LIB_XINERAMA_DIR) && \
@@ -79,9 +79,9 @@ $(STATEDIR)/xorg-lib-Xinerama.prepare: $(xorg-lib-Xinerama_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xinerama_compile: $(STATEDIR)/xorg-lib-Xinerama.compile
+xorg-lib-xinerama_compile: $(STATEDIR)/xorg-lib-xinerama.compile
 
-$(STATEDIR)/xorg-lib-Xinerama.compile: $(xorg-lib-Xinerama_compile_deps_default)
+$(STATEDIR)/xorg-lib-xinerama.compile: $(xorg-lib-xinerama_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XINERAMA_DIR) && $(XORG_LIB_XINERAMA_PATH) make
 	@$(call touch, $@)
@@ -90,9 +90,9 @@ $(STATEDIR)/xorg-lib-Xinerama.compile: $(xorg-lib-Xinerama_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xinerama_install: $(STATEDIR)/xorg-lib-Xinerama.install
+xorg-lib-xinerama_install: $(STATEDIR)/xorg-lib-xinerama.install
 
-$(STATEDIR)/xorg-lib-Xinerama.install: $(xorg-lib-Xinerama_install_deps_default)
+$(STATEDIR)/xorg-lib-xinerama.install: $(xorg-lib-xinerama_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XINERAMA)
 	@$(call touch, $@)
@@ -101,33 +101,33 @@ $(STATEDIR)/xorg-lib-Xinerama.install: $(xorg-lib-Xinerama_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xinerama_targetinstall: $(STATEDIR)/xorg-lib-Xinerama.targetinstall
+xorg-lib-xinerama_targetinstall: $(STATEDIR)/xorg-lib-xinerama.targetinstall
 
-$(STATEDIR)/xorg-lib-Xinerama.targetinstall: $(xorg-lib-Xinerama_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xinerama.targetinstall: $(xorg-lib-xinerama_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xinerama)
-	@$(call install_fixup, xorg-lib-Xinerama,PACKAGE,xorg-lib-xinerama)
-	@$(call install_fixup, xorg-lib-Xinerama,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xinerama,VERSION,$(XORG_LIB_XINERAMA_VERSION))
-	@$(call install_fixup, xorg-lib-Xinerama,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xinerama,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xinerama,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xinerama,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xinerama)
+	@$(call install_fixup, xorg-lib-xinerama,PACKAGE,xorg-lib-xinerama)
+	@$(call install_fixup, xorg-lib-xinerama,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xinerama,VERSION,$(XORG_LIB_XINERAMA_VERSION))
+	@$(call install_fixup, xorg-lib-xinerama,SECTION,base)
+	@$(call install_fixup, xorg-lib-xinerama,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xinerama,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xinerama,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xinerama, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xinerama, 0, 0, 0644, \
 		$(XORG_LIB_XINERAMA_DIR)/src/.libs/libXinerama.so.1.0.0, \
 		$(XORG_LIBDIR)/libXinerama.so.1.0.0)
 
-	@$(call install_link, xorg-lib-Xinerama, \
+	@$(call install_link, xorg-lib-xinerama, \
 		libXinerama.so.1.0.0, \
 		$(XORG_LIBDIR)/libXinerama.so.1)
 
-	@$(call install_link, xorg-lib-Xinerama, \
+	@$(call install_link, xorg-lib-xinerama, \
 		libXinerama.so.1.0.0, \
 		$(XORG_LIBDIR)/libXinerama.so)
 
-	@$(call install_finish, xorg-lib-Xinerama)
+	@$(call install_finish, xorg-lib-xinerama)
 
 	@$(call touch, $@)
 
@@ -135,9 +135,9 @@ $(STATEDIR)/xorg-lib-Xinerama.targetinstall: $(xorg-lib-Xinerama_targetinstall_d
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xinerama_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xinerama.*
-	rm -rf $(PKGDIR)/xorg-lib-Xinerama_*
+xorg-lib-xinerama_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xinerama.*
+	rm -rf $(PKGDIR)/xorg-lib-xinerama_*
 	rm -rf $(XORG_LIB_XINERAMA_DIR)
 
 # vim: syntax=make

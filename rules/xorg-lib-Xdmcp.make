@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XDMCP) += xorg-lib-Xdmcp
+PACKAGES-$(PTXCONF_XORG_LIB_XDMCP) += xorg-lib-xdmcp
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XDMCP_DIR	:= $(BUILDDIR)/$(XORG_LIB_XDMCP)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xdmcp_get: $(STATEDIR)/xorg-lib-Xdmcp.get
+xorg-lib-xdmcp_get: $(STATEDIR)/xorg-lib-xdmcp.get
 
-$(STATEDIR)/xorg-lib-Xdmcp.get: $(xorg-lib-Xdmcp_get_deps_default)
+$(STATEDIR)/xorg-lib-xdmcp.get: $(xorg-lib-xdmcp_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XDMCP_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xdmcp_extract: $(STATEDIR)/xorg-lib-Xdmcp.extract
+xorg-lib-xdmcp_extract: $(STATEDIR)/xorg-lib-xdmcp.extract
 
-$(STATEDIR)/xorg-lib-Xdmcp.extract: $(xorg-lib-Xdmcp_extract_deps_default)
+$(STATEDIR)/xorg-lib-xdmcp.extract: $(xorg-lib-xdmcp_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XDMCP_DIR))
 	@$(call extract, XORG_LIB_XDMCP)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xdmcp.extract: $(xorg-lib-Xdmcp_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xdmcp_prepare: $(STATEDIR)/xorg-lib-Xdmcp.prepare
+xorg-lib-xdmcp_prepare: $(STATEDIR)/xorg-lib-xdmcp.prepare
 
 XORG_LIB_XDMCP_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XDMCP_ENV 	:=  $(CROSS_ENV)
@@ -67,7 +67,7 @@ XORG_LIB_XDMCP_ENV 	:=  $(CROSS_ENV)
 XORG_LIB_XDMCP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking
 
-$(STATEDIR)/xorg-lib-Xdmcp.prepare: $(xorg-lib-Xdmcp_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xdmcp.prepare: $(xorg-lib-xdmcp_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XDMCP_DIR)/config.cache)
 	cd $(XORG_LIB_XDMCP_DIR) && \
@@ -79,9 +79,9 @@ $(STATEDIR)/xorg-lib-Xdmcp.prepare: $(xorg-lib-Xdmcp_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xdmcp_compile: $(STATEDIR)/xorg-lib-Xdmcp.compile
+xorg-lib-xdmcp_compile: $(STATEDIR)/xorg-lib-xdmcp.compile
 
-$(STATEDIR)/xorg-lib-Xdmcp.compile: $(xorg-lib-Xdmcp_compile_deps_default)
+$(STATEDIR)/xorg-lib-xdmcp.compile: $(xorg-lib-xdmcp_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XDMCP_DIR) && $(XORG_LIB_XDMCP_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -90,9 +90,9 @@ $(STATEDIR)/xorg-lib-Xdmcp.compile: $(xorg-lib-Xdmcp_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xdmcp_install: $(STATEDIR)/xorg-lib-Xdmcp.install
+xorg-lib-xdmcp_install: $(STATEDIR)/xorg-lib-xdmcp.install
 
-$(STATEDIR)/xorg-lib-Xdmcp.install: $(xorg-lib-Xdmcp_install_deps_default)
+$(STATEDIR)/xorg-lib-xdmcp.install: $(xorg-lib-xdmcp_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XDMCP)
 	@$(call touch, $@)
@@ -101,33 +101,33 @@ $(STATEDIR)/xorg-lib-Xdmcp.install: $(xorg-lib-Xdmcp_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xdmcp_targetinstall: $(STATEDIR)/xorg-lib-Xdmcp.targetinstall
+xorg-lib-xdmcp_targetinstall: $(STATEDIR)/xorg-lib-xdmcp.targetinstall
 
-$(STATEDIR)/xorg-lib-Xdmcp.targetinstall: $(xorg-lib-Xdmcp_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xdmcp.targetinstall: $(xorg-lib-xdmcp_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xdmcp)
-	@$(call install_fixup, xorg-lib-Xdmcp,PACKAGE,xorg-lib-xdmcp)
-	@$(call install_fixup, xorg-lib-Xdmcp,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xdmcp,VERSION,$(XORG_LIB_XDMCP_VERSION))
-	@$(call install_fixup, xorg-lib-Xdmcp,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xdmcp,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xdmcp,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xdmcp,DESCRIPTION,missing)
+	@$(call install_init,  xorg-lib-xdmcp)
+	@$(call install_fixup, xorg-lib-xdmcp,PACKAGE,xorg-lib-xdmcp)
+	@$(call install_fixup, xorg-lib-xdmcp,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xdmcp,VERSION,$(XORG_LIB_XDMCP_VERSION))
+	@$(call install_fixup, xorg-lib-xdmcp,SECTION,base)
+	@$(call install_fixup, xorg-lib-xdmcp,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xdmcp,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xdmcp,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xdmcp, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xdmcp, 0, 0, 0644, \
 		$(XORG_LIB_XDMCP_DIR)/.libs/libXdmcp.so.6.0.0, \
 		$(XORG_LIBDIR)/libXdmcp.so.6.0.0)
 
-	@$(call install_link, xorg-lib-Xdmcp, \
+	@$(call install_link, xorg-lib-xdmcp, \
 		libXdmcp.so.6.0.0, \
 		$(XORG_LIBDIR)/libXdmcp.so.6)
 
-	@$(call install_link, xorg-lib-Xdmcp, \
+	@$(call install_link, xorg-lib-xdmcp, \
 		libXdmcp.so.6.0.0, \
 		$(XORG_LIBDIR)/libXdmcp.so)
 
-	@$(call install_finish, xorg-lib-Xdmcp)
+	@$(call install_finish, xorg-lib-xdmcp)
 
 	@$(call touch, $@)
 
@@ -135,9 +135,9 @@ $(STATEDIR)/xorg-lib-Xdmcp.targetinstall: $(xorg-lib-Xdmcp_targetinstall_deps_de
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xdmcp_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xdmcp.*
-	rm -rf $(PKGDIR)/xorg-lib-Xdmcp_*
+xorg-lib-xdmcp_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xdmcp.*
+	rm -rf $(PKGDIR)/xorg-lib-xdmcp_*
 	rm -rf $(XORG_LIB_XDMCP_DIR)
 
 # vim: syntax=make

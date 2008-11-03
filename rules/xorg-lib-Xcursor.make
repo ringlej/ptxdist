@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XCURSOR) += xorg-lib-Xcursor
+PACKAGES-$(PTXCONF_XORG_LIB_XCURSOR) += xorg-lib-xcursor
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XCURSOR_DIR		:= $(BUILDDIR)/$(XORG_LIB_XCURSOR)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xcursor_get: $(STATEDIR)/xorg-lib-Xcursor.get
+xorg-lib-xcursor_get: $(STATEDIR)/xorg-lib-xcursor.get
 
-$(STATEDIR)/xorg-lib-Xcursor.get: $(xorg-lib-Xcursor_get_deps_default)
+$(STATEDIR)/xorg-lib-xcursor.get: $(xorg-lib-xcursor_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XCURSOR_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xcursor_extract: $(STATEDIR)/xorg-lib-Xcursor.extract
+xorg-lib-xcursor_extract: $(STATEDIR)/xorg-lib-xcursor.extract
 
-$(STATEDIR)/xorg-lib-Xcursor.extract: $(xorg-lib-Xcursor_extract_deps_default)
+$(STATEDIR)/xorg-lib-xcursor.extract: $(xorg-lib-xcursor_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XCURSOR_DIR))
 	@$(call extract, XORG_LIB_XCURSOR)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xcursor.extract: $(xorg-lib-Xcursor_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xcursor_prepare: $(STATEDIR)/xorg-lib-Xcursor.prepare
+xorg-lib-xcursor_prepare: $(STATEDIR)/xorg-lib-xcursor.prepare
 
 XORG_LIB_XCURSOR_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XCURSOR_ENV 	:=  $(CROSS_ENV)
@@ -66,7 +66,7 @@ XORG_LIB_XCURSOR_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XCURSOR_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xorg-lib-Xcursor.prepare: $(xorg-lib-Xcursor_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xcursor.prepare: $(xorg-lib-xcursor_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XCURSOR_DIR)/config.cache)
 	cd $(XORG_LIB_XCURSOR_DIR) && \
@@ -78,9 +78,9 @@ $(STATEDIR)/xorg-lib-Xcursor.prepare: $(xorg-lib-Xcursor_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xcursor_compile: $(STATEDIR)/xorg-lib-Xcursor.compile
+xorg-lib-xcursor_compile: $(STATEDIR)/xorg-lib-xcursor.compile
 
-$(STATEDIR)/xorg-lib-Xcursor.compile: $(xorg-lib-Xcursor_compile_deps_default)
+$(STATEDIR)/xorg-lib-xcursor.compile: $(xorg-lib-xcursor_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XCURSOR_DIR) && $(XORG_LIB_XCURSOR_PATH) make
 	@$(call touch, $@)
@@ -89,9 +89,9 @@ $(STATEDIR)/xorg-lib-Xcursor.compile: $(xorg-lib-Xcursor_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xcursor_install: $(STATEDIR)/xorg-lib-Xcursor.install
+xorg-lib-xcursor_install: $(STATEDIR)/xorg-lib-xcursor.install
 
-$(STATEDIR)/xorg-lib-Xcursor.install: $(xorg-lib-Xcursor_install_deps_default)
+$(STATEDIR)/xorg-lib-xcursor.install: $(xorg-lib-xcursor_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XCURSOR)
 	@$(call touch, $@)
@@ -100,33 +100,33 @@ $(STATEDIR)/xorg-lib-Xcursor.install: $(xorg-lib-Xcursor_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xcursor_targetinstall: $(STATEDIR)/xorg-lib-Xcursor.targetinstall
+xorg-lib-xcursor_targetinstall: $(STATEDIR)/xorg-lib-xcursor.targetinstall
 
-$(STATEDIR)/xorg-lib-Xcursor.targetinstall: $(xorg-lib-Xcursor_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xcursor.targetinstall: $(xorg-lib-xcursor_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xcursor)
-	@$(call install_fixup, xorg-lib-Xcursor,PACKAGE,xorg-lib-xcursor)
-	@$(call install_fixup, xorg-lib-Xcursor,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xcursor,VERSION,$(XORG_LIB_XCURSOR_VERSION))
-	@$(call install_fixup, xorg-lib-Xcursor,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xcursor,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xcursor,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xcursor,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xcursor)
+	@$(call install_fixup, xorg-lib-xcursor,PACKAGE,xorg-lib-xcursor)
+	@$(call install_fixup, xorg-lib-xcursor,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xcursor,VERSION,$(XORG_LIB_XCURSOR_VERSION))
+	@$(call install_fixup, xorg-lib-xcursor,SECTION,base)
+	@$(call install_fixup, xorg-lib-xcursor,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xcursor,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xcursor,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xcursor, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xcursor, 0, 0, 0644, \
 		$(XORG_LIB_XCURSOR_DIR)/src/.libs/libXcursor.so.1.0.2, \
 		$(XORG_LIBDIR)/libXcursor.so.1.0.2)
 
-	@$(call install_link, xorg-lib-Xcursor, \
+	@$(call install_link, xorg-lib-xcursor, \
 		libXcursor.so.1.0.2, \
 		$(XORG_LIBDIR)/libXcursor.so.1)
 
-	@$(call install_link, xorg-lib-Xcursor, \
+	@$(call install_link, xorg-lib-xcursor, \
 		libXcursor.so.1.0.2, \
 		$(XORG_LIBDIR)/libXcursor.so)
 
-	@$(call install_finish, xorg-lib-Xcursor)
+	@$(call install_finish, xorg-lib-xcursor)
 
 	@$(call touch, $@)
 
@@ -134,9 +134,9 @@ $(STATEDIR)/xorg-lib-Xcursor.targetinstall: $(xorg-lib-Xcursor_targetinstall_dep
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xcursor_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xcursor.*
-	rm -rf $(PKGDIR)/xorg-lib-Xcursor_*
+xorg-lib-xcursor_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xcursor.*
+	rm -rf $(PKGDIR)/xorg-lib-xcursor_*
 	rm -rf $(XORG_LIB_XCURSOR_DIR)
 
 # vim: syntax=make

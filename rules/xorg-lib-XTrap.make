@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XTRAP) += xorg-lib-XTrap
+PACKAGES-$(PTXCONF_XORG_LIB_XTRAP) += xorg-lib-xtrap
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XTRAP_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTRAP)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-XTrap_get: $(STATEDIR)/xorg-lib-XTrap.get
+xorg-lib-xtrap_get: $(STATEDIR)/xorg-lib-xtrap.get
 
-$(STATEDIR)/xorg-lib-XTrap.get: $(xorg-lib-XTrap_get_deps_default)
+$(STATEDIR)/xorg-lib-xtrap.get: $(xorg-lib-xtrap_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XTRAP_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-XTrap_extract: $(STATEDIR)/xorg-lib-XTrap.extract
+xorg-lib-xtrap_extract: $(STATEDIR)/xorg-lib-xtrap.extract
 
-$(STATEDIR)/xorg-lib-XTrap.extract: $(xorg-lib-XTrap_extract_deps_default)
+$(STATEDIR)/xorg-lib-xtrap.extract: $(xorg-lib-xtrap_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XTRAP_DIR))
 	@$(call extract, XORG_LIB_XTRAP)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-XTrap.extract: $(xorg-lib-XTrap_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-XTrap_prepare: $(STATEDIR)/xorg-lib-XTrap.prepare
+xorg-lib-xtrap_prepare: $(STATEDIR)/xorg-lib-xtrap.prepare
 
 XORG_LIB_XTRAP_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XTRAP_ENV 	:=  $(CROSS_ENV)
@@ -66,7 +66,7 @@ XORG_LIB_XTRAP_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XTRAP_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xorg-lib-XTrap.prepare: $(xorg-lib-XTrap_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xtrap.prepare: $(xorg-lib-xtrap_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XTRAP_DIR)/config.cache)
 	cd $(XORG_LIB_XTRAP_DIR) && \
@@ -78,9 +78,9 @@ $(STATEDIR)/xorg-lib-XTrap.prepare: $(xorg-lib-XTrap_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-XTrap_compile: $(STATEDIR)/xorg-lib-XTrap.compile
+xorg-lib-xtrap_compile: $(STATEDIR)/xorg-lib-xtrap.compile
 
-$(STATEDIR)/xorg-lib-XTrap.compile: $(xorg-lib-XTrap_compile_deps_default)
+$(STATEDIR)/xorg-lib-xtrap.compile: $(xorg-lib-xtrap_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XTRAP_DIR) && $(XORG_LIB_XTRAP_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -89,9 +89,9 @@ $(STATEDIR)/xorg-lib-XTrap.compile: $(xorg-lib-XTrap_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-XTrap_install: $(STATEDIR)/xorg-lib-XTrap.install
+xorg-lib-xtrap_install: $(STATEDIR)/xorg-lib-xtrap.install
 
-$(STATEDIR)/xorg-lib-XTrap.install: $(xorg-lib-XTrap_install_deps_default)
+$(STATEDIR)/xorg-lib-xtrap.install: $(xorg-lib-xtrap_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XTRAP)
 	@$(call touch, $@)
@@ -100,33 +100,33 @@ $(STATEDIR)/xorg-lib-XTrap.install: $(xorg-lib-XTrap_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-XTrap_targetinstall: $(STATEDIR)/xorg-lib-XTrap.targetinstall
+xorg-lib-xtrap_targetinstall: $(STATEDIR)/xorg-lib-xtrap.targetinstall
 
-$(STATEDIR)/xorg-lib-XTrap.targetinstall: $(xorg-lib-XTrap_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xtrap.targetinstall: $(xorg-lib-xtrap_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-XTrap)
-	@$(call install_fixup, xorg-lib-XTrap,PACKAGE,xorg-lib-xtrap)
-	@$(call install_fixup, xorg-lib-XTrap,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-XTrap,VERSION,$(XORG_LIB_XTRAP_VERSION))
-	@$(call install_fixup, xorg-lib-XTrap,SECTION,base)
-	@$(call install_fixup, xorg-lib-XTrap,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-XTrap,DEPENDS,)
-	@$(call install_fixup, xorg-lib-XTrap,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xtrap)
+	@$(call install_fixup, xorg-lib-xtrap,PACKAGE,xorg-lib-xtrap)
+	@$(call install_fixup, xorg-lib-xtrap,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xtrap,VERSION,$(XORG_LIB_XTRAP_VERSION))
+	@$(call install_fixup, xorg-lib-xtrap,SECTION,base)
+	@$(call install_fixup, xorg-lib-xtrap,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xtrap,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xtrap,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-XTrap, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xtrap, 0, 0, 0644, \
 		$(XORG_LIB_XTRAP_DIR)/src/.libs/libXTrap.so.6.4.0, \
 		$(XORG_LIBDIR)/libXTrap.so.6.4.0)
 
-	@$(call install_link, xorg-lib-XTrap, \
+	@$(call install_link, xorg-lib-xtrap, \
 		libXTrap.so.6.4.0, \
 		$(XORG_LIBDIR)/libXTrap.so.6)
 
-	@$(call install_link, xorg-lib-XTrap, \
+	@$(call install_link, xorg-lib-xtrap, \
 		libXTrap.so.6.4.0, \
 		$(XORG_LIBDIR)/libXTrap.so)
 
-	@$(call install_finish, xorg-lib-XTrap)
+	@$(call install_finish, xorg-lib-xtrap)
 
 	@$(call touch, $@)
 
@@ -134,9 +134,9 @@ $(STATEDIR)/xorg-lib-XTrap.targetinstall: $(xorg-lib-XTrap_targetinstall_deps_de
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-XTrap_clean:
-	rm -rf $(STATEDIR)/xorg-lib-XTrap.*
-	rm -rf $(PKGDIR)/xorg-lib-XTrap_*
+xorg-lib-xtrap_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xtrap.*
+	rm -rf $(PKGDIR)/xorg-lib-xtrap_*
 	rm -rf $(XORG_LIB_XTRAP_DIR)
 
 # vim: syntax=make

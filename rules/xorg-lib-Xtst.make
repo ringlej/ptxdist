@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XTST) += xorg-lib-Xtst
+PACKAGES-$(PTXCONF_XORG_LIB_XTST) += xorg-lib-xtst
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XTST_DIR	:= $(BUILDDIR)/$(XORG_LIB_XTST)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xtst_get: $(STATEDIR)/xorg-lib-Xtst.get
+xorg-lib-xtst_get: $(STATEDIR)/xorg-lib-xtst.get
 
-$(STATEDIR)/xorg-lib-Xtst.get: $(xorg-lib-Xtst_get_deps_default)
+$(STATEDIR)/xorg-lib-xtst.get: $(xorg-lib-xtst_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XTST_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xtst_extract: $(STATEDIR)/xorg-lib-Xtst.extract
+xorg-lib-xtst_extract: $(STATEDIR)/xorg-lib-xtst.extract
 
-$(STATEDIR)/xorg-lib-Xtst.extract: $(xorg-lib-Xtst_extract_deps_default)
+$(STATEDIR)/xorg-lib-xtst.extract: $(xorg-lib-xtst_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XTST_DIR))
 	@$(call extract, XORG_LIB_XTST)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xtst.extract: $(xorg-lib-Xtst_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xtst_prepare: $(STATEDIR)/xorg-lib-Xtst.prepare
+xorg-lib-xtst_prepare: $(STATEDIR)/xorg-lib-xtst.prepare
 
 XORG_LIB_XTST_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XTST_ENV 	:=  $(CROSS_ENV)
@@ -66,7 +66,7 @@ XORG_LIB_XTST_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XTST_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xorg-lib-Xtst.prepare: $(xorg-lib-Xtst_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xtst.prepare: $(xorg-lib-xtst_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XTST_DIR)/config.cache)
 	cd $(XORG_LIB_XTST_DIR) && \
@@ -78,9 +78,9 @@ $(STATEDIR)/xorg-lib-Xtst.prepare: $(xorg-lib-Xtst_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xtst_compile: $(STATEDIR)/xorg-lib-Xtst.compile
+xorg-lib-xtst_compile: $(STATEDIR)/xorg-lib-xtst.compile
 
-$(STATEDIR)/xorg-lib-Xtst.compile: $(xorg-lib-Xtst_compile_deps_default)
+$(STATEDIR)/xorg-lib-xtst.compile: $(xorg-lib-xtst_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XTST_DIR) && $(XORG_LIB_XTST_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -89,9 +89,9 @@ $(STATEDIR)/xorg-lib-Xtst.compile: $(xorg-lib-Xtst_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xtst_install: $(STATEDIR)/xorg-lib-Xtst.install
+xorg-lib-xtst_install: $(STATEDIR)/xorg-lib-xtst.install
 
-$(STATEDIR)/xorg-lib-Xtst.install: $(xorg-lib-Xtst_install_deps_default)
+$(STATEDIR)/xorg-lib-xtst.install: $(xorg-lib-xtst_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XTST)
 	@$(call touch, $@)
@@ -100,33 +100,33 @@ $(STATEDIR)/xorg-lib-Xtst.install: $(xorg-lib-Xtst_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xtst_targetinstall: $(STATEDIR)/xorg-lib-Xtst.targetinstall
+xorg-lib-xtst_targetinstall: $(STATEDIR)/xorg-lib-xtst.targetinstall
 
-$(STATEDIR)/xorg-lib-Xtst.targetinstall: $(xorg-lib-Xtst_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xtst.targetinstall: $(xorg-lib-xtst_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xtst)
-	@$(call install_fixup, xorg-lib-Xtst,PACKAGE,xorg-lib-xtst)
-	@$(call install_fixup, xorg-lib-Xtst,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xtst,VERSION,$(XORG_LIB_XTST_VERSION))
-	@$(call install_fixup, xorg-lib-Xtst,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xtst,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xtst,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xtst,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xtst)
+	@$(call install_fixup, xorg-lib-xtst,PACKAGE,xorg-lib-xtst)
+	@$(call install_fixup, xorg-lib-xtst,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xtst,VERSION,$(XORG_LIB_XTST_VERSION))
+	@$(call install_fixup, xorg-lib-xtst,SECTION,base)
+	@$(call install_fixup, xorg-lib-xtst,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xtst,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xtst,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xtst, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xtst, 0, 0, 0644, \
 		$(XORG_LIB_XTST_DIR)/src/.libs/libXtst.so.6.1.0, \
 		$(XORG_LIBDIR)/libXtst.so.6.1.0)
 
-	@$(call install_link, xorg-lib-Xtst, \
+	@$(call install_link, xorg-lib-xtst, \
 		libXtst.so.6.1.0, \
 		$(XORG_LIBDIR)/libXtst.so.6)
 
-	@$(call install_link, xorg-lib-Xtst, \
+	@$(call install_link, xorg-lib-xtst, \
 		libXtst.so.6.1.0, \
 		$(XORG_LIBDIR)/libXtst.so)
 
-	@$(call install_finish, xorg-lib-Xtst)
+	@$(call install_finish, xorg-lib-xtst)
 
 	@$(call touch, $@)
 
@@ -134,9 +134,9 @@ $(STATEDIR)/xorg-lib-Xtst.targetinstall: $(xorg-lib-Xtst_targetinstall_deps_defa
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xtst_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xtst.*
-	rm -rf $(PKGDIR)/xorg-lib-Xtst_*
+xorg-lib-xtst_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xtst.*
+	rm -rf $(PKGDIR)/xorg-lib-xtst_*
 	rm -rf $(XORG_LIB_XTST_DIR)
 
 # vim: syntax=make

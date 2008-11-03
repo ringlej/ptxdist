@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XT) += xorg-lib-Xt
+PACKAGES-$(PTXCONF_XORG_LIB_XT) += xorg-lib-xt
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XT_DIR		:= $(BUILDDIR)/$(XORG_LIB_XT)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xt_get: $(STATEDIR)/xorg-lib-Xt.get
+xorg-lib-xt_get: $(STATEDIR)/xorg-lib-xt.get
 
-$(STATEDIR)/xorg-lib-Xt.get: $(xorg-lib-Xt_get_deps_default)
+$(STATEDIR)/xorg-lib-xt.get: $(xorg-lib-xt_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XT_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xt_extract: $(STATEDIR)/xorg-lib-Xt.extract
+xorg-lib-xt_extract: $(STATEDIR)/xorg-lib-xt.extract
 
-$(STATEDIR)/xorg-lib-Xt.extract: $(xorg-lib-Xt_extract_deps_default)
+$(STATEDIR)/xorg-lib-xt.extract: $(xorg-lib-xt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XT_DIR))
 	@$(call extract, XORG_LIB_XT)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xt.extract: $(xorg-lib-Xt_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xt_prepare: $(STATEDIR)/xorg-lib-Xt.prepare
+xorg-lib-xt_prepare: $(STATEDIR)/xorg-lib-xt.prepare
 
 XORG_LIB_XT_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XT_ENV 	:=  $(CROSS_ENV)
@@ -75,7 +75,7 @@ else
 XORG_LIB_XT_AUTOCONF += --disable-xkb
 endif
 
-$(STATEDIR)/xorg-lib-Xt.prepare: $(xorg-lib-Xt_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xt.prepare: $(xorg-lib-xt_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XT_DIR)/config.cache)
 	cd $(XORG_LIB_XT_DIR) && \
@@ -87,9 +87,9 @@ $(STATEDIR)/xorg-lib-Xt.prepare: $(xorg-lib-Xt_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xt_compile: $(STATEDIR)/xorg-lib-Xt.compile
+xorg-lib-xt_compile: $(STATEDIR)/xorg-lib-xt.compile
 
-$(STATEDIR)/xorg-lib-Xt.compile: $(xorg-lib-Xt_compile_deps_default)
+$(STATEDIR)/xorg-lib-xt.compile: $(xorg-lib-xt_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XT_DIR) && $(XORG_LIB_XT_PATH) $(MAKE) $(PARALLELMFLAGS) $(CROSS_ENV_CC_FOR_BUILD)
 	@$(call touch, $@)
@@ -98,9 +98,9 @@ $(STATEDIR)/xorg-lib-Xt.compile: $(xorg-lib-Xt_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xt_install: $(STATEDIR)/xorg-lib-Xt.install
+xorg-lib-xt_install: $(STATEDIR)/xorg-lib-xt.install
 
-$(STATEDIR)/xorg-lib-Xt.install: $(xorg-lib-Xt_install_deps_default)
+$(STATEDIR)/xorg-lib-xt.install: $(xorg-lib-xt_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XT)
 	@$(call touch, $@)
@@ -109,33 +109,33 @@ $(STATEDIR)/xorg-lib-Xt.install: $(xorg-lib-Xt_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xt_targetinstall: $(STATEDIR)/xorg-lib-Xt.targetinstall
+xorg-lib-xt_targetinstall: $(STATEDIR)/xorg-lib-xt.targetinstall
 
-$(STATEDIR)/xorg-lib-Xt.targetinstall: $(xorg-lib-Xt_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xt.targetinstall: $(xorg-lib-xt_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xt)
-	@$(call install_fixup, xorg-lib-Xt,PACKAGE,xorg-lib-xt)
-	@$(call install_fixup, xorg-lib-Xt,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xt,VERSION,$(XORG_LIB_XT_VERSION))
-	@$(call install_fixup, xorg-lib-Xt,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xt,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xt,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xt,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xt)
+	@$(call install_fixup, xorg-lib-xt,PACKAGE,xorg-lib-xt)
+	@$(call install_fixup, xorg-lib-xt,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xt,VERSION,$(XORG_LIB_XT_VERSION))
+	@$(call install_fixup, xorg-lib-xt,SECTION,base)
+	@$(call install_fixup, xorg-lib-xt,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xt,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xt,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xt, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xt, 0, 0, 0644, \
 		$(XORG_LIB_XT_DIR)/src/.libs/libXt.so.6.0.0, \
 		$(XORG_LIBDIR)/libXt.so.6.0.0)
 
-	@$(call install_link, xorg-lib-Xt, \
+	@$(call install_link, xorg-lib-xt, \
 		libXt.so.6.0.0, \
 		$(XORG_LIBDIR)/libXt.so.6)
 
-	@$(call install_link, xorg-lib-Xt, \
+	@$(call install_link, xorg-lib-xt, \
 		libXt.so.6.0.0, \
 		$(XORG_LIBDIR)/libXt.so)
 
-	@$(call install_finish, xorg-lib-Xt)
+	@$(call install_finish, xorg-lib-xt)
 
 	@$(call touch, $@)
 
@@ -143,9 +143,9 @@ $(STATEDIR)/xorg-lib-Xt.targetinstall: $(xorg-lib-Xt_targetinstall_deps_default)
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xt_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xt.*
-	rm -rf $(PKGDIR)/xorg-lib-Xt_*
+xorg-lib-xt_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xt.*
+	rm -rf $(PKGDIR)/xorg-lib-xt_*
 	rm -rf $(XORG_LIB_XT_DIR)
 
 # vim: syntax=make

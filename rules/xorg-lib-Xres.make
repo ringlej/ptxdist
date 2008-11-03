@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XRES) += xorg-lib-Xres
+PACKAGES-$(PTXCONF_XORG_LIB_XRES) += xorg-lib-xres
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XRES_DIR	:= $(BUILDDIR)/$(XORG_LIB_XRES)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xres_get: $(STATEDIR)/xorg-lib-Xres.get
+xorg-lib-xres_get: $(STATEDIR)/xorg-lib-xres.get
 
-$(STATEDIR)/xorg-lib-Xres.get: $(xorg-lib-Xres_get_deps_default)
+$(STATEDIR)/xorg-lib-xres.get: $(xorg-lib-xres_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XRES_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xres_extract: $(STATEDIR)/xorg-lib-Xres.extract
+xorg-lib-xres_extract: $(STATEDIR)/xorg-lib-xres.extract
 
-$(STATEDIR)/xorg-lib-Xres.extract: $(xorg-lib-Xres_extract_deps_default)
+$(STATEDIR)/xorg-lib-xres.extract: $(xorg-lib-xres_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRES_DIR))
 	@$(call extract, XORG_LIB_XRES)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xres.extract: $(xorg-lib-Xres_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xres_prepare: $(STATEDIR)/xorg-lib-Xres.prepare
+xorg-lib-xres_prepare: $(STATEDIR)/xorg-lib-xres.prepare
 
 XORG_LIB_XRES_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XRES_ENV 	:=  $(CROSS_ENV)
@@ -68,7 +68,7 @@ XORG_LIB_XRES_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 XORG_LIB_XRES_AUTOCONF += --disable-malloc0returnsnull
 
-$(STATEDIR)/xorg-lib-Xres.prepare: $(xorg-lib-Xres_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xres.prepare: $(xorg-lib-xres_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XRES_DIR)/config.cache)
 	cd $(XORG_LIB_XRES_DIR) && \
@@ -80,9 +80,9 @@ $(STATEDIR)/xorg-lib-Xres.prepare: $(xorg-lib-Xres_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xres_compile: $(STATEDIR)/xorg-lib-Xres.compile
+xorg-lib-xres_compile: $(STATEDIR)/xorg-lib-xres.compile
 
-$(STATEDIR)/xorg-lib-Xres.compile: $(xorg-lib-Xres_compile_deps_default)
+$(STATEDIR)/xorg-lib-xres.compile: $(xorg-lib-xres_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XRES_DIR) && $(XORG_LIB_XRES_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -91,9 +91,9 @@ $(STATEDIR)/xorg-lib-Xres.compile: $(xorg-lib-Xres_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xres_install: $(STATEDIR)/xorg-lib-Xres.install
+xorg-lib-xres_install: $(STATEDIR)/xorg-lib-xres.install
 
-$(STATEDIR)/xorg-lib-Xres.install: $(xorg-lib-Xres_install_deps_default)
+$(STATEDIR)/xorg-lib-xres.install: $(xorg-lib-xres_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XRES)
 	@$(call touch, $@)
@@ -102,33 +102,33 @@ $(STATEDIR)/xorg-lib-Xres.install: $(xorg-lib-Xres_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xres_targetinstall: $(STATEDIR)/xorg-lib-Xres.targetinstall
+xorg-lib-xres_targetinstall: $(STATEDIR)/xorg-lib-xres.targetinstall
 
-$(STATEDIR)/xorg-lib-Xres.targetinstall: $(xorg-lib-Xres_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xres.targetinstall: $(xorg-lib-xres_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xres)
-	@$(call install_fixup, xorg-lib-Xres,PACKAGE,xorg-lib-xres)
-	@$(call install_fixup, xorg-lib-Xres,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xres,VERSION,$(XORG_LIB_XRES_VERSION))
-	@$(call install_fixup, xorg-lib-Xres,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xres,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xres,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xres,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xres)
+	@$(call install_fixup, xorg-lib-xres,PACKAGE,xorg-lib-xres)
+	@$(call install_fixup, xorg-lib-xres,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xres,VERSION,$(XORG_LIB_XRES_VERSION))
+	@$(call install_fixup, xorg-lib-xres,SECTION,base)
+	@$(call install_fixup, xorg-lib-xres,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xres,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xres,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xres, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xres, 0, 0, 0644, \
 		$(XORG_LIB_XRES_DIR)/src/.libs/libXRes.so.1.0.0, \
 		$(XORG_LIBDIR)/libXRes.so.1.0.0)
 
-	@$(call install_link, xorg-lib-Xres, \
+	@$(call install_link, xorg-lib-xres, \
 		libXRes.so.1.0.0, \
 		$(XORG_LIBDIR)/libXRes.so.1)
 
-	@$(call install_link, xorg-lib-Xres, \
+	@$(call install_link, xorg-lib-xres, \
 		libXRes.so.1.0.0, \
 		$(XORG_LIBDIR)/libXRes.so)
 
-	@$(call install_finish, xorg-lib-Xres)
+	@$(call install_finish, xorg-lib-xres)
 
 	@$(call touch, $@)
 
@@ -136,9 +136,9 @@ $(STATEDIR)/xorg-lib-Xres.targetinstall: $(xorg-lib-Xres_targetinstall_deps_defa
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xres_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xres.*
-	rm -rf $(PKGDIR)/xorg-lib-Xres_*
+xorg-lib-xres_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xres.*
+	rm -rf $(PKGDIR)/xorg-lib-xres_*
 	rm -rf $(XORG_LIB_XRES_DIR)
 
 # vim: syntax=make

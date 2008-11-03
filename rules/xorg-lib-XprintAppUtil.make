@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XPRINTAPPUTIL) += xorg-lib-XprintAppUtil
+PACKAGES-$(PTXCONF_XORG_LIB_XPRINTAPPUTIL) += xorg-lib-xprintappatil
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XPRINTAPPUTIL_DIR	:= $(BUILDDIR)/$(XORG_LIB_XPRINTAPPUTIL)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-XprintAppUtil_get: $(STATEDIR)/xorg-lib-XprintAppUtil.get
+xorg-lib-xprintappatil_get: $(STATEDIR)/xorg-lib-xprintappatil.get
 
-$(STATEDIR)/xorg-lib-XprintAppUtil.get: $(xorg-lib-XprintAppUtil_get_deps_default)
+$(STATEDIR)/xorg-lib-xprintappatil.get: $(xorg-lib-xprintappatil_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XPRINTAPPUTIL_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-XprintAppUtil_extract: $(STATEDIR)/xorg-lib-XprintAppUtil.extract
+xorg-lib-xprintappatil_extract: $(STATEDIR)/xorg-lib-xprintappatil.extract
 
-$(STATEDIR)/xorg-lib-XprintAppUtil.extract: $(xorg-lib-XprintAppUtil_extract_deps_default)
+$(STATEDIR)/xorg-lib-xprintappatil.extract: $(xorg-lib-xprintappatil_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XPRINTAPPUTIL_DIR))
 	@$(call extract, XORG_LIB_XPRINTAPPUTIL)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-XprintAppUtil.extract: $(xorg-lib-XprintAppUtil_extract_dep
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-XprintAppUtil_prepare: $(STATEDIR)/xorg-lib-XprintAppUtil.prepare
+xorg-lib-xprintappatil_prepare: $(STATEDIR)/xorg-lib-xprintappatil.prepare
 
 XORG_LIB_XPRINTAPPUTIL_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XPRINTAPPUTIL_ENV 	:=  $(CROSS_ENV)
@@ -67,7 +67,7 @@ XORG_LIB_XPRINTAPPUTIL_ENV 	:=  $(CROSS_ENV)
 XORG_LIB_XPRINTAPPUTIL_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull
 
-$(STATEDIR)/xorg-lib-XprintAppUtil.prepare: $(xorg-lib-XprintAppUtil_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xprintappatil.prepare: $(xorg-lib-xprintappatil_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XPRINTAPPUTIL_DIR)/config.cache)
 	cd $(XORG_LIB_XPRINTAPPUTIL_DIR) && \
@@ -79,9 +79,9 @@ $(STATEDIR)/xorg-lib-XprintAppUtil.prepare: $(xorg-lib-XprintAppUtil_prepare_dep
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-XprintAppUtil_compile: $(STATEDIR)/xorg-lib-XprintAppUtil.compile
+xorg-lib-xprintappatil_compile: $(STATEDIR)/xorg-lib-xprintappatil.compile
 
-$(STATEDIR)/xorg-lib-XprintAppUtil.compile: $(xorg-lib-XprintAppUtil_compile_deps_default)
+$(STATEDIR)/xorg-lib-xprintappatil.compile: $(xorg-lib-xprintappatil_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XPRINTAPPUTIL_DIR) && $(XORG_LIB_XPRINTAPPUTIL_PATH) make
 	@$(call touch, $@)
@@ -90,9 +90,9 @@ $(STATEDIR)/xorg-lib-XprintAppUtil.compile: $(xorg-lib-XprintAppUtil_compile_dep
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-XprintAppUtil_install: $(STATEDIR)/xorg-lib-XprintAppUtil.install
+xorg-lib-xprintappatil_install: $(STATEDIR)/xorg-lib-xprintappatil.install
 
-$(STATEDIR)/xorg-lib-XprintAppUtil.install: $(xorg-lib-XprintAppUtil_install_deps_default)
+$(STATEDIR)/xorg-lib-xprintappatil.install: $(xorg-lib-xprintappatil_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XPRINTAPPUTIL)
 	@$(call touch, $@)
@@ -101,32 +101,32 @@ $(STATEDIR)/xorg-lib-XprintAppUtil.install: $(xorg-lib-XprintAppUtil_install_dep
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-XprintAppUtil_targetinstall: $(STATEDIR)/xorg-lib-XprintAppUtil.targetinstall
+xorg-lib-xprintappatil_targetinstall: $(STATEDIR)/xorg-lib-xprintappatil.targetinstall
 
-$(STATEDIR)/xorg-lib-XprintAppUtil.targetinstall: $(xorg-lib-XprintAppUtil_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xprintappatil.targetinstall: $(xorg-lib-xprintappatil_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-XprintAppUtil)
-	@$(call install_fixup, xorg-lib-XprintAppUtil,PACKAGE,xorg-lib-xprintapputil)
-	@$(call install_fixup, xorg-lib-XprintAppUtil,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-XprintAppUtil,VERSION,$(XORG_LIB_XPRINTAPPUTIL_VERSION))
-	@$(call install_fixup, xorg-lib-XprintAppUtil,SECTION,base)
-	@$(call install_fixup, xorg-lib-XprintAppUtil,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-XprintAppUtil,DEPENDS,)
-	@$(call install_fixup, xorg-lib-XprintAppUtil,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xprintappatil)
+	@$(call install_fixup, xorg-lib-xprintappatil,PACKAGE,xorg-lib-xprintapputil)
+	@$(call install_fixup, xorg-lib-xprintappatil,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xprintappatil,VERSION,$(XORG_LIB_XPRINTAPPUTIL_VERSION))
+	@$(call install_fixup, xorg-lib-xprintappatil,SECTION,base)
+	@$(call install_fixup, xorg-lib-xprintappatil,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xprintappatil,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xprintappatil,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-XprintAppUtil, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xprintappatil, 0, 0, 0644, \
 		$(XORG_LIB_XPRINTAPPUTIL_DIR)/src/.libs/libXprintAppUtil.so.1.0.0, \
 		$(XORG_LIBDIR)/libXprintAppUtil.so.1.0.0)
 
-	@$(call install_link, xorg-lib-XprintAppUtil, \
+	@$(call install_link, xorg-lib-xprintappatil, \
 		libXprintAppUtil.so.1.0.0, \
 		$(XORG_LIBDIR)/libXprintAppUtil.so.1)
 
-	@$(call install_link, xorg-lib-XprintAppUtil, \
+	@$(call install_link, xorg-lib-xprintappatil, \
 		libXprintAppUtil.so.1.0.0, \
 		$(XORG_LIBDIR)/libXprintAppUtil.so)
-	@$(call install_finish, xorg-lib-XprintAppUtil)
+	@$(call install_finish, xorg-lib-xprintappatil)
 
 	@$(call touch, $@)
 
@@ -134,9 +134,9 @@ $(STATEDIR)/xorg-lib-XprintAppUtil.targetinstall: $(xorg-lib-XprintAppUtil_targe
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-XprintAppUtil_clean:
-	rm -rf $(STATEDIR)/xorg-lib-XprintAppUtil.*
-	rm -rf $(PKGDIR)/xorg-lib-XprintAppUtil_*
+xorg-lib-xprintappatil_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xprintappatil.*
+	rm -rf $(PKGDIR)/xorg-lib-xprintappatil_*
 	rm -rf $(XORG_LIB_XPRINTAPPUTIL_DIR)
 
 # vim: syntax=make

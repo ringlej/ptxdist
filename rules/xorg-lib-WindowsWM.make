@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_WINDOWSWM) += xorg-lib-WindowsWM
+PACKAGES-$(PTXCONF_XORG_LIB_WINDOWSWM) += xorg-lib-windowswm
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_WINDOWSWM_DIR		:= $(BUILDDIR)/$(XORG_LIB_WINDOWSWM)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-WindowsWM_get: $(STATEDIR)/xorg-lib-WindowsWM.get
+xorg-lib-windowswm_get: $(STATEDIR)/xorg-lib-windowswm.get
 
-$(STATEDIR)/xorg-lib-WindowsWM.get: $(xorg-lib-WindowsWM_get_deps_default)
+$(STATEDIR)/xorg-lib-windowswm.get: $(xorg-lib-windowswm_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_WINDOWSWM_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-WindowsWM_extract: $(STATEDIR)/xorg-lib-WindowsWM.extract
+xorg-lib-windowswm_extract: $(STATEDIR)/xorg-lib-windowswm.extract
 
-$(STATEDIR)/xorg-lib-WindowsWM.extract: $(xorg-lib-WindowsWM_extract_deps_default)
+$(STATEDIR)/xorg-lib-windowswm.extract: $(xorg-lib-windowswm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_WINDOWSWM_DIR))
 	@$(call extract, XORG_LIB_WINDOWSWM)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-WindowsWM.extract: $(xorg-lib-WindowsWM_extract_deps_defaul
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-WindowsWM_prepare: $(STATEDIR)/xorg-lib-WindowsWM.prepare
+xorg-lib-windowswm_prepare: $(STATEDIR)/xorg-lib-windowswm.prepare
 
 XORG_LIB_WINDOWSWM_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_WINDOWSWM_ENV 	:=  $(CROSS_ENV)
@@ -67,7 +67,7 @@ XORG_LIB_WINDOWSWM_ENV 	:=  $(CROSS_ENV)
 XORG_LIB_WINDOWSWM_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-malloc0returnsnull
 
-$(STATEDIR)/xorg-lib-WindowsWM.prepare: $(xorg-lib-WindowsWM_prepare_deps_default)
+$(STATEDIR)/xorg-lib-windowswm.prepare: $(xorg-lib-windowswm_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_WINDOWSWM_DIR)/config.cache)
 	cd $(XORG_LIB_WINDOWSWM_DIR) && \
@@ -79,9 +79,9 @@ $(STATEDIR)/xorg-lib-WindowsWM.prepare: $(xorg-lib-WindowsWM_prepare_deps_defaul
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-WindowsWM_compile: $(STATEDIR)/xorg-lib-WindowsWM.compile
+xorg-lib-windowswm_compile: $(STATEDIR)/xorg-lib-windowswm.compile
 
-$(STATEDIR)/xorg-lib-WindowsWM.compile: $(xorg-lib-WindowsWM_compile_deps_default)
+$(STATEDIR)/xorg-lib-windowswm.compile: $(xorg-lib-windowswm_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_WINDOWSWM_DIR) && $(XORG_LIB_WINDOWSWM_PATH) make
 	@$(call touch, $@)
@@ -90,9 +90,9 @@ $(STATEDIR)/xorg-lib-WindowsWM.compile: $(xorg-lib-WindowsWM_compile_deps_defaul
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-WindowsWM_install: $(STATEDIR)/xorg-lib-WindowsWM.install
+xorg-lib-windowswm_install: $(STATEDIR)/xorg-lib-windowswm.install
 
-$(STATEDIR)/xorg-lib-WindowsWM.install: $(xorg-lib-WindowsWM_install_deps_default)
+$(STATEDIR)/xorg-lib-windowswm.install: $(xorg-lib-windowswm_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_WINDOWSWM)
 	@$(call touch, $@)
@@ -101,33 +101,33 @@ $(STATEDIR)/xorg-lib-WindowsWM.install: $(xorg-lib-WindowsWM_install_deps_defaul
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-WindowsWM_targetinstall: $(STATEDIR)/xorg-lib-WindowsWM.targetinstall
+xorg-lib-windowswm_targetinstall: $(STATEDIR)/xorg-lib-windowswm.targetinstall
 
-$(STATEDIR)/xorg-lib-WindowsWM.targetinstall: $(xorg-lib-WindowsWM_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-windowswm.targetinstall: $(xorg-lib-windowswm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-WindowsWM)
-	@$(call install_fixup, xorg-lib-WindowsWM,PACKAGE,xorg-lib-windowswm)
-	@$(call install_fixup, xorg-lib-WindowsWM,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-WindowsWM,VERSION,$(XORG_LIB_WINDOWSWM_VERSION))
-	@$(call install_fixup, xorg-lib-WindowsWM,SECTION,base)
-	@$(call install_fixup, xorg-lib-WindowsWM,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-WindowsWM,DEPENDS,)
-	@$(call install_fixup, xorg-lib-WindowsWM,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-windowswm)
+	@$(call install_fixup, xorg-lib-windowswm,PACKAGE,xorg-lib-windowswm)
+	@$(call install_fixup, xorg-lib-windowswm,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-windowswm,VERSION,$(XORG_LIB_WINDOWSWM_VERSION))
+	@$(call install_fixup, xorg-lib-windowswm,SECTION,base)
+	@$(call install_fixup, xorg-lib-windowswm,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-windowswm,DEPENDS,)
+	@$(call install_fixup, xorg-lib-windowswm,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-WindowsWM, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-windowswm, 0, 0, 0644, \
 		$(XORG_LIB_WINDOWSWM_DIR)/src/.libs/libWindowsWM.so.7.0.0, \
 		$(XORG_LIBDIR)/libWindowsWM.so.7.0.0)
 
-	@$(call install_link, xorg-lib-WindowsWM, \
+	@$(call install_link, xorg-lib-windowswm, \
 		libWindowsWM.so.7.0.0, \
 		$(XORG_LIBDIR)/libWindowsWM.so.7)
 
-	@$(call install_link, xorg-lib-WindowsWM, \
+	@$(call install_link, xorg-lib-windowswm, \
 		libWindowsWM.so.7.0.0, \
 		$(XORG_LIBDIR)/libWindowsWM.so)
 
-	@$(call install_finish, xorg-lib-WindowsWM)
+	@$(call install_finish, xorg-lib-windowswm)
 
 	@$(call touch, $@)
 
@@ -135,9 +135,9 @@ $(STATEDIR)/xorg-lib-WindowsWM.targetinstall: $(xorg-lib-WindowsWM_targetinstall
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-WindowsWM_clean:
-	rm -rf $(STATEDIR)/xorg-lib-WindowsWM.*
-	rm -rf $(PKGDIR)/xorg-lib-WindowsWM_*
+xorg-lib-windowswm_clean:
+	rm -rf $(STATEDIR)/xorg-lib-windowswm.*
+	rm -rf $(PKGDIR)/xorg-lib-windowswm_*
 	rm -rf $(XORG_LIB_WINDOWSWM_DIR)
 
 # vim: syntax=make

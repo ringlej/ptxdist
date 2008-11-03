@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XAU) += xorg-lib-Xau
+PACKAGES-$(PTXCONF_XORG_LIB_XAU) += xorg-lib-xau
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XAU_DIR	:= $(BUILDDIR)/$(XORG_LIB_XAU)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xau_get: $(STATEDIR)/xorg-lib-Xau.get
+xorg-lib-xau_get: $(STATEDIR)/xorg-lib-xau.get
 
-$(STATEDIR)/xorg-lib-Xau.get: $(xorg-lib-Xau_get_deps_default)
+$(STATEDIR)/xorg-lib-xau.get: $(xorg-lib-xau_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XAU_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xau_extract: $(STATEDIR)/xorg-lib-Xau.extract
+xorg-lib-xau_extract: $(STATEDIR)/xorg-lib-xau.extract
 
-$(STATEDIR)/xorg-lib-Xau.extract: $(xorg-lib-Xau_extract_deps_default)
+$(STATEDIR)/xorg-lib-xau.extract: $(xorg-lib-xau_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XAU_DIR))
 	@$(call extract, XORG_LIB_XAU)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xau.extract: $(xorg-lib-Xau_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xau_prepare: $(STATEDIR)/xorg-lib-Xau.prepare
+xorg-lib-xau_prepare: $(STATEDIR)/xorg-lib-xau.prepare
 
 XORG_LIB_XAU_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XAU_ENV 	:=  $(CROSS_ENV)
@@ -73,7 +73,7 @@ else
 XORG_LIB_XAU_AUTOCONF += --disable-xthreads
 endif
 
-$(STATEDIR)/xorg-lib-Xau.prepare: $(xorg-lib-Xau_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xau.prepare: $(xorg-lib-xau_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XAU_DIR)/config.cache)
 	cd $(XORG_LIB_XAU_DIR) && \
@@ -85,9 +85,9 @@ $(STATEDIR)/xorg-lib-Xau.prepare: $(xorg-lib-Xau_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xau_compile: $(STATEDIR)/xorg-lib-Xau.compile
+xorg-lib-xau_compile: $(STATEDIR)/xorg-lib-xau.compile
 
-$(STATEDIR)/xorg-lib-Xau.compile: $(xorg-lib-Xau_compile_deps_default)
+$(STATEDIR)/xorg-lib-xau.compile: $(xorg-lib-xau_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XAU_DIR) && $(XORG_LIB_XAU_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch, $@)
@@ -96,9 +96,9 @@ $(STATEDIR)/xorg-lib-Xau.compile: $(xorg-lib-Xau_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xau_install: $(STATEDIR)/xorg-lib-Xau.install
+xorg-lib-xau_install: $(STATEDIR)/xorg-lib-xau.install
 
-$(STATEDIR)/xorg-lib-Xau.install: $(xorg-lib-Xau_install_deps_default)
+$(STATEDIR)/xorg-lib-xau.install: $(xorg-lib-xau_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XAU)
 	@$(call touch, $@)
@@ -107,33 +107,33 @@ $(STATEDIR)/xorg-lib-Xau.install: $(xorg-lib-Xau_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xau_targetinstall: $(STATEDIR)/xorg-lib-Xau.targetinstall
+xorg-lib-xau_targetinstall: $(STATEDIR)/xorg-lib-xau.targetinstall
 
-$(STATEDIR)/xorg-lib-Xau.targetinstall: $(xorg-lib-Xau_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xau.targetinstall: $(xorg-lib-xau_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xau)
-	@$(call install_fixup, xorg-lib-Xau,PACKAGE,xorg-lib-xau)
-	@$(call install_fixup, xorg-lib-Xau,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xau,VERSION,$(XORG_LIB_XAU_VERSION))
-	@$(call install_fixup, xorg-lib-Xau,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xau,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xau,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xau,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xau)
+	@$(call install_fixup, xorg-lib-xau,PACKAGE,xorg-lib-xau)
+	@$(call install_fixup, xorg-lib-xau,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xau,VERSION,$(XORG_LIB_XAU_VERSION))
+	@$(call install_fixup, xorg-lib-xau,SECTION,base)
+	@$(call install_fixup, xorg-lib-xau,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xau,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xau,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xau, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xau, 0, 0, 0644, \
 		$(XORG_LIB_XAU_DIR)/.libs/libXau.so.6.0.0, \
 		$(XORG_LIBDIR)/libXau.so.6.0.0)
 
-	@$(call install_link, xorg-lib-Xau, \
+	@$(call install_link, xorg-lib-xau, \
 		libXau.so.6.0.0, \
 		$(XORG_LIBDIR)/libXau.so.6)
 
-	@$(call install_link, xorg-lib-Xau, \
+	@$(call install_link, xorg-lib-xau, \
 		libXau.so.6.0.0, \
 		$(XORG_LIBDIR)/libXau.so)
 
-	@$(call install_finish, xorg-lib-Xau)
+	@$(call install_finish, xorg-lib-xau)
 
 	@$(call touch, $@)
 
@@ -141,9 +141,9 @@ $(STATEDIR)/xorg-lib-Xau.targetinstall: $(xorg-lib-Xau_targetinstall_deps_defaul
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xau_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xau.*
-	rm -rf $(PKGDIR)/xorg-lib-Xau_*
+xorg-lib-xau_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xau.*
+	rm -rf $(PKGDIR)/xorg-lib-xau_*
 	rm -rf $(XORG_LIB_XAU_DIR)
 
 # vim: syntax=make

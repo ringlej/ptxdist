@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_APPLEWM) += xorg-lib-AppleWM
+PACKAGES-$(PTXCONF_XORG_LIB_APPLEWM) += xorg-lib-applewm
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_APPLEWM_DIR		:= $(BUILDDIR)/$(XORG_LIB_APPLEWM)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-AppleWM_get: $(STATEDIR)/xorg-lib-AppleWM.get
+xorg-lib-applewm_get: $(STATEDIR)/xorg-lib-applewm.get
 
-$(STATEDIR)/xorg-lib-AppleWM.get: $(xorg-lib-AppleWM_get_deps_default)
+$(STATEDIR)/xorg-lib-applewm.get: $(xorg-lib-applewm_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_APPLEWM_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-AppleWM_extract: $(STATEDIR)/xorg-lib-AppleWM.extract
+xorg-lib-applewm_extract: $(STATEDIR)/xorg-lib-applewm.extract
 
-$(STATEDIR)/xorg-lib-AppleWM.extract: $(xorg-lib-AppleWM_extract_deps_default)
+$(STATEDIR)/xorg-lib-applewm.extract: $(xorg-lib-applewm_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_APPLEWM_DIR))
 	@$(call extract, XORG_LIB_APPLEWM)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-AppleWM.extract: $(xorg-lib-AppleWM_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-AppleWM_prepare: $(STATEDIR)/xorg-lib-AppleWM.prepare
+xorg-lib-applewm_prepare: $(STATEDIR)/xorg-lib-applewm.prepare
 
 XORG_LIB_APPLEWM_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_APPLEWM_ENV 	:=  $(CROSS_ENV)
@@ -68,7 +68,7 @@ XORG_LIB_APPLEWM_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 XORG_LIB_APPLEWM_AUTOCONF += --disable-malloc0returnsnull
 
-$(STATEDIR)/xorg-lib-AppleWM.prepare: $(xorg-lib-AppleWM_prepare_deps_default)
+$(STATEDIR)/xorg-lib-applewm.prepare: $(xorg-lib-applewm_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_APPLEWM_DIR)/config.cache)
 	cd $(XORG_LIB_APPLEWM_DIR) && \
@@ -80,9 +80,9 @@ $(STATEDIR)/xorg-lib-AppleWM.prepare: $(xorg-lib-AppleWM_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-AppleWM_compile: $(STATEDIR)/xorg-lib-AppleWM.compile
+xorg-lib-applewm_compile: $(STATEDIR)/xorg-lib-applewm.compile
 
-$(STATEDIR)/xorg-lib-AppleWM.compile: $(xorg-lib-AppleWM_compile_deps_default)
+$(STATEDIR)/xorg-lib-applewm.compile: $(xorg-lib-applewm_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_APPLEWM_DIR) && $(XORG_LIB_APPLEWM_PATH) make
 	@$(call touch, $@)
@@ -91,9 +91,9 @@ $(STATEDIR)/xorg-lib-AppleWM.compile: $(xorg-lib-AppleWM_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-AppleWM_install: $(STATEDIR)/xorg-lib-AppleWM.install
+xorg-lib-applewm_install: $(STATEDIR)/xorg-lib-applewm.install
 
-$(STATEDIR)/xorg-lib-AppleWM.install: $(xorg-lib-AppleWM_install_deps_default)
+$(STATEDIR)/xorg-lib-applewm.install: $(xorg-lib-applewm_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_APPLEWM)
 	@$(call touch, $@)
@@ -102,33 +102,33 @@ $(STATEDIR)/xorg-lib-AppleWM.install: $(xorg-lib-AppleWM_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-AppleWM_targetinstall: $(STATEDIR)/xorg-lib-AppleWM.targetinstall
+xorg-lib-applewm_targetinstall: $(STATEDIR)/xorg-lib-applewm.targetinstall
 
-$(STATEDIR)/xorg-lib-AppleWM.targetinstall: $(xorg-lib-AppleWM_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-applewm.targetinstall: $(xorg-lib-applewm_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-AppleWM)
-	@$(call install_fixup, xorg-lib-AppleWM,PACKAGE,xorg-lib-apple-wm)
-	@$(call install_fixup, xorg-lib-AppleWM,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-AppleWM,VERSION,$(XORG_LIB_APPLEWM_VERSION))
-	@$(call install_fixup, xorg-lib-AppleWM,SECTION,base)
-	@$(call install_fixup, xorg-lib-AppleWM,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-AppleWM,DEPENDS,)
-	@$(call install_fixup, xorg-lib-AppleWM,DESCRIPTION,missing)
+	@$(call install_init,  xorg-lib-applewm)
+	@$(call install_fixup, xorg-lib-applewm,PACKAGE,xorg-lib-apple-wm)
+	@$(call install_fixup, xorg-lib-applewm,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-applewm,VERSION,$(XORG_LIB_APPLEWM_VERSION))
+	@$(call install_fixup, xorg-lib-applewm,SECTION,base)
+	@$(call install_fixup, xorg-lib-applewm,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-applewm,DEPENDS,)
+	@$(call install_fixup, xorg-lib-applewm,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-AppleWM, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-applewm, 0, 0, 0644, \
 		$(XORG_LIB_APPLEWM_DIR)/src/.libs/libAppleWM.so.7.0.0, \
 		$(XORG_LIBDIR)/libAppleWM.so.7.0.0)
 
-	@$(call install_link, xorg-lib-AppleWM, \
+	@$(call install_link, xorg-lib-applewm, \
 		libAppleWM.so.7.0.0, \
 		$(XORG_LIBDIR)/libAppleWM.so.7)
 
-	@$(call install_link, xorg-lib-AppleWM, \
+	@$(call install_link, xorg-lib-applewm, \
 		libAppleWM.so.7.0.0, \
 		$(XORG_LIBDIR)/libAppleWM.so)
 
-	@$(call install_finish, xorg-lib-AppleWM)
+	@$(call install_finish, xorg-lib-applewm)
 
 	@$(call touch, $@)
 
@@ -136,9 +136,9 @@ $(STATEDIR)/xorg-lib-AppleWM.targetinstall: $(xorg-lib-AppleWM_targetinstall_dep
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-AppleWM_clean:
-	rm -rf $(STATEDIR)/xorg-lib-AppleWM.*
-	rm -rf $(PKGDIR)/xorg-lib-AppleWM_*
+xorg-lib-applewm_clean:
+	rm -rf $(STATEDIR)/xorg-lib-applewm.*
+	rm -rf $(PKGDIR)/xorg-lib-applewm_*
 	rm -rf $(XORG_LIB_APPLEWM_DIR)
 
 # vim: syntax=make

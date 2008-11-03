@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_XORG_LIB_XFIXES) += xorg-lib-Xfixes
+PACKAGES-$(PTXCONF_XORG_LIB_XFIXES) += xorg-lib-xfixes
 
 #
 # Paths and names
@@ -29,9 +29,9 @@ XORG_LIB_XFIXES_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFIXES)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfixes_get: $(STATEDIR)/xorg-lib-Xfixes.get
+xorg-lib-xfixes_get: $(STATEDIR)/xorg-lib-xfixes.get
 
-$(STATEDIR)/xorg-lib-Xfixes.get: $(xorg-lib-Xfixes_get_deps_default)
+$(STATEDIR)/xorg-lib-xfixes.get: $(xorg-lib-xfixes_get_deps_default)
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -43,9 +43,9 @@ $(XORG_LIB_XFIXES_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfixes_extract: $(STATEDIR)/xorg-lib-Xfixes.extract
+xorg-lib-xfixes_extract: $(STATEDIR)/xorg-lib-xfixes.extract
 
-$(STATEDIR)/xorg-lib-Xfixes.extract: $(xorg-lib-Xfixes_extract_deps_default)
+$(STATEDIR)/xorg-lib-xfixes.extract: $(xorg-lib-xfixes_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFIXES_DIR))
 	@$(call extract, XORG_LIB_XFIXES)
@@ -56,7 +56,7 @@ $(STATEDIR)/xorg-lib-Xfixes.extract: $(xorg-lib-Xfixes_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfixes_prepare: $(STATEDIR)/xorg-lib-Xfixes.prepare
+xorg-lib-xfixes_prepare: $(STATEDIR)/xorg-lib-xfixes.prepare
 
 XORG_LIB_XFIXES_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XFIXES_ENV 	:=  $(CROSS_ENV)
@@ -66,7 +66,7 @@ XORG_LIB_XFIXES_ENV 	:=  $(CROSS_ENV)
 #
 XORG_LIB_XFIXES_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xorg-lib-Xfixes.prepare: $(xorg-lib-Xfixes_prepare_deps_default)
+$(STATEDIR)/xorg-lib-xfixes.prepare: $(xorg-lib-xfixes_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(XORG_LIB_XFIXES_DIR)/config.cache)
 	cd $(XORG_LIB_XFIXES_DIR) && \
@@ -78,9 +78,9 @@ $(STATEDIR)/xorg-lib-Xfixes.prepare: $(xorg-lib-Xfixes_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfixes_compile: $(STATEDIR)/xorg-lib-Xfixes.compile
+xorg-lib-xfixes_compile: $(STATEDIR)/xorg-lib-xfixes.compile
 
-$(STATEDIR)/xorg-lib-Xfixes.compile: $(xorg-lib-Xfixes_compile_deps_default)
+$(STATEDIR)/xorg-lib-xfixes.compile: $(xorg-lib-xfixes_compile_deps_default)
 	@$(call targetinfo, $@)
 	cd $(XORG_LIB_XFIXES_DIR) && $(XORG_LIB_XFIXES_PATH) make
 	@$(call touch, $@)
@@ -89,9 +89,9 @@ $(STATEDIR)/xorg-lib-Xfixes.compile: $(xorg-lib-Xfixes_compile_deps_default)
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfixes_install: $(STATEDIR)/xorg-lib-Xfixes.install
+xorg-lib-xfixes_install: $(STATEDIR)/xorg-lib-xfixes.install
 
-$(STATEDIR)/xorg-lib-Xfixes.install: $(xorg-lib-Xfixes_install_deps_default)
+$(STATEDIR)/xorg-lib-xfixes.install: $(xorg-lib-xfixes_install_deps_default)
 	@$(call targetinfo, $@)
 	@$(call install, XORG_LIB_XFIXES)
 	@$(call touch, $@)
@@ -100,33 +100,33 @@ $(STATEDIR)/xorg-lib-Xfixes.install: $(xorg-lib-Xfixes_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfixes_targetinstall: $(STATEDIR)/xorg-lib-Xfixes.targetinstall
+xorg-lib-xfixes_targetinstall: $(STATEDIR)/xorg-lib-xfixes.targetinstall
 
-$(STATEDIR)/xorg-lib-Xfixes.targetinstall: $(xorg-lib-Xfixes_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xfixes.targetinstall: $(xorg-lib-xfixes_targetinstall_deps_default)
 	@$(call targetinfo, $@)
 
-	@$(call install_init, xorg-lib-Xfixes)
-	@$(call install_fixup, xorg-lib-Xfixes,PACKAGE,xorg-lib-xfixes)
-	@$(call install_fixup, xorg-lib-Xfixes,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-Xfixes,VERSION,$(XORG_LIB_XFIXES_VERSION))
-	@$(call install_fixup, xorg-lib-Xfixes,SECTION,base)
-	@$(call install_fixup, xorg-lib-Xfixes,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-Xfixes,DEPENDS,)
-	@$(call install_fixup, xorg-lib-Xfixes,DESCRIPTION,missing)
+	@$(call install_init, xorg-lib-xfixes)
+	@$(call install_fixup, xorg-lib-xfixes,PACKAGE,xorg-lib-xfixes)
+	@$(call install_fixup, xorg-lib-xfixes,PRIORITY,optional)
+	@$(call install_fixup, xorg-lib-xfixes,VERSION,$(XORG_LIB_XFIXES_VERSION))
+	@$(call install_fixup, xorg-lib-xfixes,SECTION,base)
+	@$(call install_fixup, xorg-lib-xfixes,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xfixes,DEPENDS,)
+	@$(call install_fixup, xorg-lib-xfixes,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-Xfixes, 0, 0, 0644, \
+	@$(call install_copy, xorg-lib-xfixes, 0, 0, 0644, \
 		$(XORG_LIB_XFIXES_DIR)/src/.libs/libXfixes.so.3.1.0, \
 		$(XORG_LIBDIR)/libXfixes.so.3.1.0)
 
-	@$(call install_link, xorg-lib-Xfixes, \
+	@$(call install_link, xorg-lib-xfixes, \
 		libXfixes.so.3.1.0, \
 		$(XORG_LIBDIR)/libXfixes.so.3)
 
-	@$(call install_link, xorg-lib-Xfixes, \
+	@$(call install_link, xorg-lib-xfixes, \
 		libXfixes.so.3.1.0, \
 		$(XORG_LIBDIR)/libXfixes.so)
 
-	@$(call install_finish, xorg-lib-Xfixes)
+	@$(call install_finish, xorg-lib-xfixes)
 
 	@$(call touch, $@)
 
@@ -134,9 +134,9 @@ $(STATEDIR)/xorg-lib-Xfixes.targetinstall: $(xorg-lib-Xfixes_targetinstall_deps_
 # Clean
 # ----------------------------------------------------------------------------
 
-xorg-lib-Xfixes_clean:
-	rm -rf $(STATEDIR)/xorg-lib-Xfixes.*
-	rm -rf $(PKGDIR)/xorg-lib-Xfixes_*
+xorg-lib-xfixes_clean:
+	rm -rf $(STATEDIR)/xorg-lib-xfixes.*
+	rm -rf $(PKGDIR)/xorg-lib-xfixes_*
 	rm -rf $(XORG_LIB_XFIXES_DIR)
 
 # vim: syntax=make
