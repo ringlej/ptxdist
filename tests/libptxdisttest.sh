@@ -256,19 +256,19 @@ remote_file() {
 	case "$2" in
 	'block')
 		echo "remote \"test -b $1\"" >> "$LOGFILE"
-		remote "test -b $1" 2>> "$LOGFILE"
+		remote "test -b \"$1\"" 2>> "$LOGFILE"
 		;;
 	'character')
 		echo "remote \"test -c $1\"" >> "$LOGFILE"
-		remote "test -c $1" 2>> "$LOGFILE"
+		remote "test -c \"$1\"" 2>> "$LOGFILE"
 		;;
 	'exists')
 		echo "remote \"test -e $1\"" >> "$LOGFILE"
-		remote "test -e $1" 2>> "$LOGFILE"
+		remote "test -e \"$1\"" 2>> "$LOGFILE"
 		;;
 	'executable')
 		echo "remote \"test -x $1\"" >> "$LOGFILE"
-		remote "test -x $1" 2>> "$LOGFILE"
+		remote "test -x \"$1\"" 2>> "$LOGFILE"
 		;;
 	*)
 		echo "Syntax error in test script $0" >> "$LOGFILE"
