@@ -16,6 +16,7 @@ echo "<report starttime=\""$(date +%FT%T.%N)"\">" > "$REPORTFILE"
 
 RED='\0033[1;31m'
 GREEN='\0033[1;32m'
+BLUE='\0033[1;34m'
 NC='\0033[0m' # No Color
 OKSTRING="OK"
 FAILSTRING="FAILED"
