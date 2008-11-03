@@ -93,7 +93,7 @@ $(STATEDIR)/@packet@.targetinstall:
 	@$(call install_fixup, @packet@,PRIORITY,optional)
 	@$(call install_fixup, @packet@,VERSION,$(@PACKET@_VERSION))
 	@$(call install_fixup, @packet@,SECTION,base)
-	@$(call install_fixup, @packet@,AUTHOR,"@AUTHOR@ <your@email.please>")
+	@$(call install_fixup, @packet@,AUTHOR,"@AUTHOR@")
 	@$(call install_fixup, @packet@,DEPENDS,)
 	@$(call install_fixup, @packet@,DESCRIPTION,missing)
 
