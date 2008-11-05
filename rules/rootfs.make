@@ -684,7 +684,8 @@ ifdef PTXCONF_INETUTILS_RSHD
 		@RSHD@, "shell stream tcp nowait root /usr/sbin/rshd" )
 	@$(call install_replace, rootfs, /etc/services, \
 		@RSHD@, "shell 514/tcp cmd" )
-else ifdef PTXCONF_URSHD
+else
+ifdef PTXCONF_URSHD
 	@$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, )
 	@$(call install_replace, rootfs, /etc/services, \
 		@RSHD@, "shell 514/tcp cmd" )
