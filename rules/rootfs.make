@@ -693,6 +693,7 @@ else
 	@$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, )
 	@$(call install_replace, rootfs, /etc/services, @RSHD@, )
 endif
+endif
 
 # -----------------------------------------------------------------------------
 # add NTP if enabled
