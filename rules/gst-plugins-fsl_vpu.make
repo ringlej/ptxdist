@@ -88,16 +88,18 @@ $(STATEDIR)/gst-plugins-fsl_vpu.install:
 $(STATEDIR)/gst-plugins-fsl_vpu.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, gst-plugins-fsl_vpu)
+	@$(call install_init,  gst-plugins-fsl_vpu)
 	@$(call install_fixup, gst-plugins-fsl_vpu,PACKAGE,gst-plugins-fsl-vpu)
 	@$(call install_fixup, gst-plugins-fsl_vpu,PRIORITY,optional)
 	@$(call install_fixup, gst-plugins-fsl_vpu,VERSION,$(GST_PLUGINS_FSL_VPU_VERSION))
 	@$(call install_fixup, gst-plugins-fsl_vpu,SECTION,base)
-	@$(call install_fixup, gst-plugins-fsl_vpu,AUTHOR,"Sascha Hauer <your@email.please>")
+	@$(call install_fixup, gst-plugins-fsl_vpu,AUTHOR,"Sascha Hauer <s.hauer@pengutronix.de>")
 	@$(call install_fixup, gst-plugins-fsl_vpu,DEPENDS,)
 	@$(call install_fixup, gst-plugins-fsl_vpu,DESCRIPTION,missing)
 
-	@$(call install_copy, gst-plugins-fsl_vpu, 0, 0, 0755, $(GST_PLUGINS_FSL_VPU_DIR)/src/.libs/libgst-plugins-fsl-vpu.so, /usr/lib/gstreamer-0.10/libmfw_gst_vpu.so)
+	@$(call install_copy, gst-plugins-fsl_vpu, 0, 0, 0644, \
+		$(GST_PLUGINS_FSL_VPU_DIR)/src/.libs/libgst-plugins-fsl-vpu.so,
+		/usr/lib/gstreamer-0.10/libmfw_gst_vpu.so)
 
 	@$(call install_finish, gst-plugins-fsl_vpu)
 
