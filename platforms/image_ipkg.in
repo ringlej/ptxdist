@@ -1,0 +1,20 @@
+menu "ipkg options                  "
+
+config IMAGE_IPKG_IMAGE_FROM_REPOSITORY
+	bool
+	prompt "make images: use packets from repository"
+	help
+	  Usually 'make images' packages the files from ${IMAGEDIR}
+	  into ${IMAGEDIR}/root.[filesystem]. If this option is checked the
+	  packet files from the IPKG update site (to be specified in
+	  .ptxdistrc) are taken instead.
+
+config IMAGE_IPKG_EXTRA_ARGS
+	string
+	default ""
+	prompt "extra arguments passed to ipkg-build"
+	help
+	  If needed you can add extra arguments for ipkg-build here
+	  (e.g. -c if you want ipkg-build to use tar instead of ar.)
+
+endmenu

@@ -1,0 +1,6 @@
+config IMAGE_TGZ
+	bool
+	prompt "Generate images/root.tgz"
+	help
+	  Build a tar.gz archive of the root filesystem, containing the
+	  right owner/group and access permissions.

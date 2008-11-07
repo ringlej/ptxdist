@@ -1,0 +1,6 @@
+config IMAGE_CPIO
+	bool
+	prompt "Generate images/initrd.gz"
+	help
+	  Build the traditionally initrd RAM disk to be used
+	  as initramfs by the kernel.

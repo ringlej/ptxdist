@@ -1,0 +1,31 @@
+menuconfig IMAGE_EXT2
+	bool
+	select HOST_GENEXT2FS
+	prompt "Generate images/root.ext2     "
+	help
+	  Build an ext2 image of the root filesystem
+
+if IMAGE_EXT2
+
+config IMAGE_EXT2_SIZE
+	int
+	default 20480
+	prompt "Size in kilobytes"
+	help
+	  FIXME: This item needs to be documented
+
+config IMAGE_EXT2_EXTRA_ARGS
+	string
+	default ""
+	prompt "extra arguments passed to genext2fs"
+	help
+	  If needed you can add extra arguments for genext2fs here
+	  (e.g. -U -r 0 -D=${PTXDIST_WORKSPACE}/device_table.txt)
+
+config IMAGE_EXT2_GZIP
+	bool
+	prompt "Compress the image using gzip"
+	help
+	  FIXME: This item needs to be documented
+
+endif
