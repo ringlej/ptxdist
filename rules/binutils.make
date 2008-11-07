@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BINUTILS) += binutils
 #
 # Paths and names
 #
-ifeq ($(shell which $(CROSS_LD)),)
+ifeq ($(shell which $(CROSS_LD) 2>/dev/null),)
 BINUTILS_VERSION	:= unknown
 else
 BINUTILS_VERSION	:= $(shell $(CROSS_LD) -v | sed -e 's/.* \(.*\)$$/\1/g')
