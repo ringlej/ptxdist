@@ -1,0 +1,60 @@
+menu "toolchain                     "
+
+config CROSSCHAIN_VENDOR
+	string
+	prompt "check for specific toolchain vendor"
+	default ""
+	help
+	  Add here an unique vendor string to ensure this project will
+	  be build with the correct toolchain.
+	  Leave this entry empty to omit this check.
+	  To use this feature add a file called 'ptxconfig' to the bin/ folder of
+	  your toolchain. This file should contain at least one variable definition:
+	  PTXCONF_PROJECT="insert-vendor-string-here"
+	  The string defined here will be checked against the string defined in
+	  PTXCONF_PROJECT in file 'ptxconfig' from the toolchain.
+
+config CROSSCHAIN_CHECK
+	string
+	prompt "check for specific gcc version"
+	default "4.1.2"
+	help
+	  PTXdist calls your cross compiler with -dumpversion and
+	  compares the output with this string. This should help
+	  to avoid compilation with the wrong compiler version
+	  when you use your own external toolchain.
+
+config GNU_TARGET
+	string
+	prompt "gnu target"
+	help
+	  Defines the GNU target for your cross build.
+
+config COMPILER_PREFIX
+	string
+	prompt "compiler prefix"
+	default "${PTXCONF_GNU_TARGET}-"
+	help
+	 This is the prefix used to create the correct cross compiler name. If the
+	 prefix is equal to the GNU Target you can use "${PTXCONF_GNU_TARGET}-" to
+	 use it.
+
+config COMPILER_PREFIX_KERNEL
+	string
+	prompt "compiler prefix (kernel)"
+	default "${PTXCONF_COMPILER_PREFIX}"
+	help
+	 This is the prefix used to create the correct cross compiler
+	 name used to compile the kernel. If the prefix equals the
+	 normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
+
+config COMPILER_PREFIX_UBOOT
+	string
+	prompt "compiler prefix (u-boot)"
+	default "${PTXCONF_COMPILER_PREFIX}"
+	help
+	 This is the prefix used to create the correct cross compiler
+	 name used to compile the u-boot. If the prefix equals the
+	 normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
+
+endmenu

@@ -1,0 +1,27 @@
+menu "extra toolchain options       "
+
+config TARGET_EXTRA_CPPFLAGS
+	string
+	prompt "Extra CPPFLAGS (cpp)"
+	help
+	  Extra options for the C preprocessor.
+
+config TARGET_EXTRA_CFLAGS
+	string
+	prompt "Extra CFLAGS (c)"
+	help
+	  Extra options for the C compiler.
+
+config TARGET_EXTRA_CXXFLAGS
+	string
+	prompt "Extra CXXFLAGS (c++)"
+	help
+	  Extra options for the C++ compiler.
+
+config TARGET_EXTRA_LDFLAGS
+	string
+	prompt "Extra LDFLAGS (ld)"
+	help
+	  Extra options for the linker.
+
+endmenu

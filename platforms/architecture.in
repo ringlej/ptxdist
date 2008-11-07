@@ -1,85 +1,102 @@
 menu "architecture                  "
 
 choice
-	prompt "cpu architecture "
+	prompt "cpu architecture"
 	help
 	  Specify which processor architecture you want to compile for.
 
 	config ARCH_ALPHA
-		bool "alpha     "
+		bool "alpha      "
 		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 		help
 		  This is support for the Alpha processor architecture.
 
 	config ARCH_ARM
-		bool "arm       "
+		bool "arm        "
 		select HAS_MMU
 		help
 		  This is support for the ARM processor architecture.
 
 	config ARCH_BLACKFIN
-		bool "blackfin  "
+		bool "blackfin   "
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 		help
 		  This is support for the blackfin processor.
 
 	config ARCH_X86
-		bool "x86       "
+		bool "x86        "
 		select HAS_MMU
 		select HAS_PCI
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 		help
 		  This is support for the Intel x86 architecture.
 
 	config ARCH_MINGW
-		bool "mingw     "
+		bool "mingw      "
 		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 		help
 		  This is support for the Intel x86 architecture.
 
 	config ARCH_PPC
-		bool "ppc       "
+		bool "ppc        "
 		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_BIG
 		help
 		  This is support for the PowerPC architecture.
 
 	config ARCH_M68K
-		bool "m68k      "
+		bool "m68k       "
 		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_BIG
 		help
 		  This is support for the Motorola/Freescale M68k architecture.
 
 	config ARCH_SPARC
-		bool "sparc     "
+		bool "sparc      "
 		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_BIG
 		help
 		  This is support for the SPARC architecture.
 
 	config ARCH_MIPS
-		bool "mips      "
+		bool "mips       "
 		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
+		select ARCH_SUPPORTS_ENDIAN_BIG
 		help
 		  This is support for the MIPS architecture.
 
 	config ARCH_CRIS
-		bool "cris      "
+		bool "cris       "
 		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 		help
 		  This is support for the cris architecture.
 
 	config ARCH_PARISC
-		bool "parisc    "
+		bool "parisc     "
 		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_BIG
 		help
 		  This is support for the parisc architecture.
 
 	config ARCH_SH
-		bool "superh    "
+		bool "superh     "
 		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
+		select ARCH_SUPPORTS_ENDIAN_BIG
 		help
 		  This is support for the SuperH architecture.
 endchoice
 
+
+#
+# arm
+#
 choice
-	prompt "arm SoC variant  "
+	prompt "arm SoC variant "
 	depends on ARCH_ARM
 	help
 	  The ARM processor architecture has a variety of flavours.
@@ -87,55 +104,62 @@ choice
 
 	config ARCH_ARM_ATMEL
 		bool "atmel      "
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 
 	config ARCH_ARM_AT91RM9200
 		bool "at91rm9200 "
-
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
+		
 	config ARCH_ARM_AT91SAM926X
 		bool "at91sam926x"
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 
 	config ARM_ARM_EPXA
 		bool "excalibur  "
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 
 	config ARCH_ARM_IMX
 		bool "i.mx       "
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 
-	config ARCH_ARM_IXP2000
-		bool "ixp2000    "
+	config ARCH_ARM_IXP
+		bool "ixp        "
 		select HAS_PCI
-
-	config ARCH_ARM_NETARM
-		bool "net+arm    "
+		select ARCH_SUPPORTS_ENDIAN_BIG
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 
 	config ARCH_ARM_NETX
 		bool "netx       "
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 
 	config ARCH_ARM_OMAP
 		bool "omap       "
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 
 	config ARCH_ARM_PXA
 		bool "pxa        "
-
-	config ARCH_ARM_SA1100
-		bool "sa1100     "
-
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
 endchoice
 
-#
-# architecture properties - generated without prompt
-#
 
+#
+# superh
+#
 choice
-	prompt "superh family    "
+	prompt "superh family   "
 	depends on ARCH_SH
 
 	config ARCH_SH_SH3
-		bool "sh3       "
+		bool "sh3        "
 
 	config ARCH_SH_SH4
-		bool "sh4       "
+		bool "sh4        "
 endchoice
 
+
+#
+# x86
+#
 choice
 	prompt "x86 optimization "
 	depends on ARCH_X86
@@ -183,66 +207,43 @@ endchoice
 #
 # endianess
 #
+config ARCH_SUPPORTS_ENDIAN_BIG
+       bool
+
+config ARCH_SUPPORTS_ENDIAN_LITTLE
+       bool
 
 choice
-	prompt "endianess        "
-	depends on ARCH_MIPS || ARCH_SH
+	prompt "endianess       "
 
-	config MENU_ENDIAN_BIG
-		bool "big       "
+	config ENDIAN_BIG
+		bool "big        "
+		depends on ARCH_SUPPORTS_ENDIAN_BIG
 
-	config MENU_ENDIAN_LITTLE
-		bool "little    "
-
+	config ENDIAN_LITTLE
+		bool "little     "
+		depends on ARCH_SUPPORTS_ENDIAN_LITTLE
 endchoice
 
-config ENDIAN_BIG
-	bool
-	default y if MENU_ENDIAN_BIG
-	default y if ARCH_ARM_IXP2000
-	default y if ARCH_PPC
-	default y if ARCH_M68K
-	default y if ARCH_SPARC
-	default y if ARCH_PARISC
-
-
-config ENDIAN_LITTLE
-	bool
-	default y if MENU_ENDIAN_LITTLE
-	default y if ARCH_ARM_ATMEL
-	default y if ARCH_ARM_AT91RM9200
-	default y if ARCH_ARM_AT91SAM926X
-	default y if ARCH_ARM_EPXA
-	default y if ARCH_ARM_IMX
-	default y if ARCH_ARM_NETARM
-	default y if ARCH_ARM_NETX
-	default y if ARCH_ARM_OMAP
-	default y if ARCH_ARM_PXA
-	default y if ARCH_ARM_SA1100
-	default y if ARCH_ALPHA
-	default y if ARCH_BLACKFIN
-	default y if ARCH_X86
-	default y if ARCH_MINGW
-	default y if ARCH_CRIS
 
 #
 # PCI bus
 #
-
 config HAS_PCI
 	bool
 
 #
 # memory management unit
 #
-
 config HAS_MMU
 	bool
 
+#
+# arch string
+#
 config ARCH_STRING
 	string
 	default "arm"			if ARCH_ARM
-	default "armnommu"		if ARCH_ARM && !HAS_MMU
 	default "alpha"			if ARCH_ALPHA
 	default "blackfin"		if ARCH_BLACKFIN
 	default "i386"			if ARCH_X86
@@ -251,132 +252,15 @@ config ARCH_STRING
 	default "ppc"			if ARCH_PPC
 	default "sparc"			if ARCH_SPARC
 	default "mips"			if ARCH_MIPS
-	default "mips"			if ARCH_MIPSEL
 	default "cris"			if ARCH_CRIS
 	default "parisc"		if ARCH_PARISC
 	default "sh"			if ARCH_SH
 
 # ----------------------------------------------------------------------------
 
-menu "extra toolchain options       "
-
-config TARGET_EXTRA_CPPFLAGS
-	string
-	prompt "Extra CPPFLAGS (cpp)"
-	help
-	  Extra options for the C preprocessor.
-
-config TARGET_EXTRA_CFLAGS
-	string
-	prompt "Extra CFLAGS (c)"
-	help
-	  Extra options for the C compiler.
-
-config TARGET_EXTRA_CXXFLAGS
-	string
-	prompt "Extra CXXFLAGS (c++)"
-	help
-	  Extra options for the C++ compiler.
-
-config TARGET_EXTRA_LDFLAGS
-	string
-	prompt "Extra LDFLAGS (ld)"
-	help
-	  Extra options for the linker.
-
-endmenu
-
-
-menu "paths & directories           "
-
-config SYSROOT_TARGET
-	prompt "sysroot for target"
-	string
-	default "${PTXDIST_PLATFORMDIR}/sysroot-target"
-	help
-	  The SYSROOT_TARGET directory is the SYSROOT for all files being
-	  installed for the 'target' system. A sane default for this is
-
-	  ${PTXDIST_PLATFORMDIR}/sysroot-target.
-
-	  Use this one unless you do exactly know what you are doing.
-
-	  PTXdist uses a sysroot/destdir mechanism, which means that packets
-	  are being installed with
-
-	  	make install DESTDIR=$(SYSROOT)
-
-config SYSROOT_HOST
-	string
-	default "${PTXDIST_PLATFORMDIR}/sysroot-host"
-
-config SYSROOT_CROSS
-	string
-	default "${PTXDIST_PLATFORMDIR}/sysroot-cross"
-
-endmenu
-
-
-menu "toolchain                     "
-
-config CROSSCHAIN_VENDOR
-	string
-	prompt "check for specific toolchain vendor"
-	default ""
-	help
-	  Add here an unique vendor string to ensure this project will
-	  be build with the correct toolchain.
-	  Leave this entry empty to omit this check.
-	  To use this feature add a file called 'ptxconfig' to the bin/ folder of
-	  your toolchain. This file should contain at least one variable definition:
-	  PTXCONF_PROJECT="insert-vendor-string-here"
-	  The string defined here will be checked against the string defined in
-	  PTXCONF_PROJECT in file 'ptxconfig' from the toolchain.
-
-config CROSSCHAIN_CHECK
-	string
-	prompt "check for specific gcc version"
-	default "4.1.2"
-	help
-	  PTXdist calls your cross compiler with -dumpversion and
-	  compares the output with this string. This should help
-	  to avoid compilation with the wrong compiler version
-	  when you use your own external toolchain.
-
-config GNU_TARGET
-	string
-	prompt "gnu target"
-	help
-	  Defines the GNU target for your cross build.
-
-config COMPILER_PREFIX
-	string
-	prompt "compiler prefix"
-	default "${PTXCONF_GNU_TARGET}-"
-	help
-	 This is the prefix used to create the correct cross compiler name. If the
-	 prefix is equal to the GNU Target you can use "${PTXCONF_GNU_TARGET}-" to
-	 use it.
-
-config COMPILER_PREFIX_KERNEL
-	string
-	prompt "compiler prefix (kernel)"
-	default "${PTXCONF_COMPILER_PREFIX}"
-	help
-	 This is the prefix used to create the correct cross compiler
-	 name used to compile the kernel. If the prefix equals the
-	 normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
-
-config COMPILER_PREFIX_UBOOT
-	string
-	prompt "compiler prefix (u-boot)"
-	default "${PTXCONF_COMPILER_PREFIX}"
-	help
-	 This is the prefix used to create the correct cross compiler
-	 name used to compile the u-boot. If the prefix equals the
-	 normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
-
-endmenu
+source "platforms/toolchain.in"
+source "platforms/toolchain_options.in"
+source "platforms/paths.in"
 
 endmenu
 

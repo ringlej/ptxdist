@@ -1,0 +1,28 @@
+menu "paths & directories           "
+
+config SYSROOT_TARGET
+	prompt "sysroot for target"
+	string
+	default "${PTXDIST_PLATFORMDIR}/sysroot-target"
+	help
+	  The SYSROOT_TARGET directory is the SYSROOT for all files being
+	  installed for the 'target' system. A sane default for this is
+
+	  ${PTXDIST_PLATFORMDIR}/sysroot-target.
+
+	  Use this one unless you do exactly know what you are doing.
+
+	  PTXdist uses a sysroot/destdir mechanism, which means that packets
+	  are being installed with
+
+	  	make install DESTDIR=$(SYSROOT)
+
+config SYSROOT_HOST
+	string
+	default "${PTXDIST_PLATFORMDIR}/sysroot-host"
+
+config SYSROOT_CROSS
+	string
+	default "${PTXDIST_PLATFORMDIR}/sysroot-cross"
+
+endmenu
