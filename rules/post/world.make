@@ -36,7 +36,7 @@ world: $(STATEDIR)/world.targetinstall
 WORLD_DEP_TREE_PS	:= $(PTXDIST_PLATFORMDIR)/deptree.ps
 WORLD_DEP_TREE_A4_PS	:= $(PTXDIST_PLATFORMDIR)/deptree-a4.ps
 
-ifneq ($(shell which dot 2>/dev/nul),)
+ifneq ($(shell which dot 2>/dev/null),)
 world: $(WORLD_DEP_TREE_PS)
     ifneq ($(shell which poster 2>/dev/null),)
 world: $(WORLD_DEP_TREE_A4_PS)
