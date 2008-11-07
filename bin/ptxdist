@@ -258,9 +258,7 @@ check_compiler() {
 	# 3) Correct compiler version if a specific compiler version is given
 	#
 
-	local compiler="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)gcc"
 	local vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
-
 	if [ -n "${vendor_should}" ]; then
 		# yea! A toolchain vendor was specified in the ptxconfig file.
 		# So we check for a 'ptxconfig' file in the toolchain directory
@@ -278,40 +276,43 @@ check_compiler() {
 		if [ -z "${vendor_def}" -o \! -e "${vendor_def}" ]; then
 			echo
 			echo "${PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
-			echo "${PROMPT}error: set PTXCONF_CROSSCHAIN_VENDOR to disable toolchain version check"
+			echo "${PROMPT}error: leave PTXCONF_CROSSCHAIN_VENDOR empty to disable vendor check"
 			echo
 			exit 1
-		else
-			# both vendor strings are present. Check them
-			local vendor_is="$(. ${vendor_def} && echo ${PTXCONF_PROJECT})"
-			if [ "$vendor_is" != "$vendor_should" ]; then
-				echo
-				echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
-				echo "${PROMPT}error: specified: ${vendor_should}"
-				echo "${PROMPT}error: found:	 ${vendor_is}"
-				echo
-				exit 1
-			fi
+		fi
+
+		# both vendor strings are present. Check them
+		local vendor_is="$(. "${vendor_def}" && echo ${PTXCONF_PROJECT})"
+		if [ "$vendor_is" != "$vendor_should" ]; then
+			echo
+			echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
+			echo "${PROMPT}error: specified: ${vendor_should}"
+			echo "${PROMPT}error: found:	 ${vendor_is}"
+			echo
+			exit 1
 		fi
 	fi
 
 	local compiler_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
-	local compiler_is="$(${compiler} -dumpversion 2> /dev/null || true)"
+	if [ -n "${compiler_should}" ]; then
+		local compiler="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)gcc"
+		local compiler_is="$(${compiler} -dumpversion 2> /dev/null || true)"
 
-	if [ -z "${compiler_is}" ]; then
-		echo
-		echo "${PROMPT}error: Compiler '${compiler}' not found. Check PATH or"
-		echo "${PROMPT}error: use 'ptxdist toolchain [</path/to/toolchain>]'."
-		echo
-		exit 1
-	fi
+		if [ -z "${compiler_is}" ]; then
+			echo
+			echo "${PROMPT}error: Compiler '${compiler}' not found. Check PATH or"
+			echo "${PROMPT}error: use 'ptxdist toolchain [</path/to/toolchain>]'."
+			echo
+			exit 1
+		fi
 
-	if [ "${compiler_is}" != "${compiler_should}" ]; then
-		echo
-		echo "${PROMPT}error: Compiler version ${compiler_should} expected,"
-		echo "${PROMPT}error: but ${compiler_is} found."
-		echo
-		exit 1
+		if [ "${compiler_is}" != "${compiler_should}" ]; then
+			echo
+			echo "${PROMPT}error: Compiler version ${compiler_should} expected,"
+			echo "${PROMPT}error: but ${compiler_is} found."
+			echo
+			exit 1
+		fi
 	fi
 }
 
