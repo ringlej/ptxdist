@@ -76,6 +76,7 @@ U_BOOT_V2_MAKEVARS := \
 	ARCH=$(PTXCONF_U_BOOT_V2_ARCH_STRING) \
 	CROSS_COMPILE=$(U_BOOT_V2_TOOLCHAIN_LINK)$(PTXCONF_COMPILER_PREFIX_UBOOT)
 
+ifdef PTXCONF_U_BOOT_V2
 $(U_BOOT_V2_CONFIG):
 	@echo
 	@echo "*****************************************************************************"
@@ -84,6 +85,7 @@ $(U_BOOT_V2_CONFIG):
 	@echo
 	@echo
 	@exit 1
+endif
 
 $(STATEDIR)/u-boot-v2.prepare: $(U_BOOT_V2_CONFIG)
 	@$(call targetinfo)
