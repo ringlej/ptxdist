@@ -10,31 +10,6 @@ DOPERMISSIONS := '{	\
 	if ($$1 == "n")	\
 		printf("mkdir -p \".`dirname \"%s\"`\"; mknod -m %s \".%s\" %s %s %s; chown %s.%s \".%s\";\n", $$2, $$5, $$2, $$6, $$7, $$8, $$3, $$4, $$2);}'
 
-images: $(STATEDIR)/images
-
-ipkg-push: $(STATEDIR)/ipkg-push
-
-$(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install
-	@$(call targetinfo, $@)
-	( \
-	PATH=$(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/usr/bin:$$PATH; \
-	PATH=$(PTXCONF_SYSROOT_HOST)/bin:$(PTXCONF_SYSROOT_HOST)/usr/bin:$$PATH; \
-	export PATH;  \
-	$(PTXDIST_TOPDIR)/scripts/ipkg-push \
-		--ipkgdir  $(call remove_quotes,$(PKGDIR)) \
-		--repodir  $(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)) \
-		--revision $(call remove_quotes,$(FULLVERSION)) \
-		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
-		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)); \
-	echo; \
-	)
-	$(call touch, $@)
-
-images_deps =  world
-ifdef PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY
-images_deps += $(STATEDIR)/ipkg-push
-endif
-
 ifdef PTXCONF_IMAGE_HD_PART1
 	GENHDIMARGS = -p $(PTXCONF_IMAGE_HD_PART1_START):$(PTXCONF_IMAGE_HD_PART1_END):$(PTXCONF_IMAGE_HD_PART1_TYPE):$(IMAGEDIR)/root.ext2
 endif
@@ -73,7 +48,7 @@ $(IMAGEDIR)/permissions: $(PERMISSION_FILES)
 # to extract the ipkgs we need a dummy config file
 #
 $(IMAGEDIR)/ipkg.conf:
-	@echo -e "dest root /\narch $(PTXCONF_ARCH_STRING) 10\narch all 1\narch noarch 1\n" > $@
+	@echo -e "dest root /\narch $(PTXDIST_IPKG_ARCH_STRING) 10\narch all 1\narch noarch 1\n" > $@
 
 #
 # Working directory to create any kind of image
@@ -218,10 +193,14 @@ $(IMAGEDIR)/initrd.gz: $(STATEDIR)/image_working_dir
 #       	$(IMAGEDIR)/muimage
 #	@echo "done."
 
+
+
 #
 # create all requested images and clean up when done
 #
-$(STATEDIR)/images:  $(SEL_ROOTFS-y) $(images_deps)
+images: $(STATEDIR)/images
+
+$(STATEDIR)/images: world $(SEL_ROOTFS-y)
 	@echo "Clean up temp working directory"
 	@rm -rf $(WORKDIR) $(STATEDIR)/image_working_dir
 	@$(call touch, $@)
