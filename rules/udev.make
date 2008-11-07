@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: udev.make,v 1.15 2007/03/07 14:34:52 michl Exp $
 #
-# Copyright (C) 2005-2006 by Robert Schwebel
+# Copyright (C) 2005-2008 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,12 +17,16 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
-UDEV_VERSION	:= 128
+UDEV_VERSION	:= 131
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
-UDEV_URL	:= http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
 UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
+
+UDEV_URL := \
+	http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX) \
+	http://www.eu.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX) \
+	http://www.us.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
 
 
 # ----------------------------------------------------------------------------
@@ -37,10 +41,8 @@ $(UDEV_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-udev_prepare: $(STATEDIR)/udev.prepare
-
-UDEV_PATH	=  PATH=$(CROSS_PATH)
-UDEV_ENV 	=  $(CROSS_ENV)
+UDEV_PATH	:= PATH=$(CROSS_PATH)
+UDEV_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -66,33 +68,6 @@ UDEV_AUTOCONF	+= --enable-logging
 else
 UDEV_AUTOCONF	+= --disable-logging
 endif
-
-$(STATEDIR)/udev.prepare: $(udev_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(UDEV_DIR)/config.cache)
-	cd $(UDEV_DIR) && \
-		$(UDEV_PATH) $(UDEV_ENV) \
-		./configure $(UDEV_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/udev.compile:
-	@$(call targetinfo)
-	cd $(UDEV_DIR) && \
-		$(UDEV_ENV) $(UDEV_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/udev.install:
-	@$(call targetinfo)
-	@$(call install, UDEV)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -146,36 +121,34 @@ ifdef PTXCONF_ROOTFS_UDEV__DEFAULT_RULES
 		/lib/udev/rules.d/64-md-raid.rules, n);
 endif
 
-	#
-	# startup scripts
-	#
 
-ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV
+#
+# startup scripts
+#
 ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV_DEFAULT
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/etc/init.d/udev, \
 		/etc/init.d/udev, n)
 endif
+
 ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV_USER
 	@$(call install_copy, udev, 0, 0, 0755, \
 		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/udev, \
 		/etc/init.d/udev, n)
 endif
-# FIXME: Is this packet the right location for the link?
+
 ifneq ($(PTXCONF_UDEV__RC_D_LINK),"")
 	@$(call install_copy, udev, 0, 0, 0755, /etc/rc.d)
 	@$(call install_link, udev, ../init.d/udev, \
 		/etc/rc.d/$(PTXCONF_UDEV__RC_D_LINK))
-endif
 endif
 
 
 #
 # Install a configuration on demand only
 #
-ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF
-ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF_DEFAULT
 # use generic
+ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF_DEFAULT
 	@$(call install_copy, udev, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/udev/udev.conf, \
 		/etc/udev/udev.conf, n)
@@ -183,8 +156,9 @@ ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF_DEFAULT
 		$(PTXDIST_TOPDIR)/generic/etc/udev/permissions.rules, \
 		/etc/udev/permissions.rules, n)
 endif
-ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF_USER
+
 # user defined
+ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF_USER
 	@$(call install_copy, udev, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/udev.conf, \
 		/etc/udev/udev.conf, n)
@@ -192,56 +166,64 @@ ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF_USER
 		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/permissions.rules, \
 		/etc/udev/permissions.rules, n)
 endif
-endif
 
-	#
-	# utilities from extra/
-	#
+#
+# utilities from extra/
+#
 ifdef PTXCONF_UDEV__EXTRA_ATA_ID
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/ata_id/ata_id, \
 		/lib/udev/ata_id)
 endif
+
 ifdef PTXCONF_UDEV__EXTRA_CDROM_ID
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/cdrom_id/cdrom_id, \
 		/lib/udev/cdrom_id)
 endif
+
 ifdef PTXCONF_UDEV__EXTRA_COLLECT
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/collect/collect, \
 		/lib/udev/collect)
 endif
+
 ifdef PTXCONF_UDEV__EXTRA_EDD_ID
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/edd_id/edd_id, \
 		/lib/udev/edd_id)
 endif
+
 ifdef PTXCONF_UDEV__EXTRA_FIRMWARE
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/firmware/firmware.sh, \
 		/lib/udev/firmware.sh,n)
 endif
+
 ifdef PTXCONF_UDEV__EXTRA_FLOPPY
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/floppy/create_floppy_devices, \
 		/lib/udev/create_floppy_devices)
 endif
+
 ifdef PTXCONF_UDEV__EXTRA_FSTAB_IMPORT
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/fstab_import/fstab_import, \
 		/lib/udev/fstab_import)
 endif
+
 ifdef PTXCONF_UDEV__EXTRA_PATH_ID
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/path_id/path_id, \
 		/lib/udev/path_id)
 endif
-ifdef UDEV__EXTRA_RULE_GENERATOR
+
+ifdef PTXCONF_UDEV__EXTRA_RULE_GENERATOR
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/rule_generator/rule_generator.functions, \
 		/lib/udev/rule_generator.functions)
 endif
+
 ifdef PTXCONF_UDEV__EXTRA_SCSI_ID
 	@$(call install_copy, udev, 0, 0, 0644, \
 		$(UDEV_DIR)/extras/scsi_id/scsi_id.config, \
@@ -250,15 +232,23 @@ ifdef PTXCONF_UDEV__EXTRA_SCSI_ID
 		$(UDEV_DIR)/extras/scsi_id/scsi_id, \
 		/lib/udev/scsi_id, n)
 endif
+
 ifdef PTXCONF_UDEV__EXTRA_USB_ID
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/usb_id/usb_id, \
 		/lib/udev/usb_id)
 endif
+
 ifdef PTXCONF_UDEV__EXTRA_VOLUME_ID
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/volume_id/vol_id, \
 		/lib/udev/vol_id)
+
+	@$(call install_copy, udev, 0, 0, 0644, \
+		$(UDEV_DIR)/extras/volume_id/lib/.libs/libvolume_id.so.1.0.4, \
+		/lib/libvolume_id.so.1.0.4)
+	@$(call install_link, udev, libvolume_id.so.1.0.4, /lib/libvolume_id.so.1)
+	@$(call install_link, udev, libvolume_id.so.1.0.4, /lib/libvolume_id.so)
 endif
 
 	@$(call install_finish, udev)
