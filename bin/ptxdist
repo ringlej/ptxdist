@@ -735,7 +735,8 @@ drop() {
 		echo
 		exit
 	else
-		echo "stage ${statefile} isn't built, so we cannot drop it"
+		echo "stage '${statefile}' isn't built, so we cannot drop it"
+		echo "maybe you want use clean: 'ptxdist clean ${statefile/.*/}'"
 		echo
 		exit 1
 	fi
