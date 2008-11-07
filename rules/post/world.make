@@ -25,7 +25,7 @@ $(STATEDIR)/world.targetinstall: \
 	$(WORLD_PACKAGES_HOST) \
 	$(WORLD_PACKAGES_CROSS)
 	@echo $@ : $^ | sed  -e 's:[^ ]*/\([^ ]\):\1:g' >> $(DEP_OUTPUT)
-	@$(call touch, $@)
+	@$(call touch)
 
 world: $(STATEDIR)/world.targetinstall
 
@@ -36,15 +36,15 @@ world: $(STATEDIR)/world.targetinstall
 WORLD_DEP_TREE_PS	:= $(PTXDIST_PLATFORMDIR)/deptree.ps
 WORLD_DEP_TREE_A4_PS	:= $(PTXDIST_PLATFORMDIR)/deptree-a4.ps
 
-ifneq ($(shell which dot),)
+ifneq ($(shell which dot 2>/dev/nul),)
 world: $(WORLD_DEP_TREE_PS)
-   ifneq ($(shell which poster),)
+    ifneq ($(shell which poster 2>/dev/null),)
 world: $(WORLD_DEP_TREE_A4_PS)
-   endif #ifneq ($(shell which poster),)
-endif #ifneq ($(shell which dot),)
+    endif
+endif
 
 $(DEP_OUTPUT):
-	@$(call touch, $@)
+	@$(call touch)
 
 $(WORLD_DEP_TREE_A4_PS): $(WORLD_DEP_TREE_PS)
 	@echo "creating A4 version..."
