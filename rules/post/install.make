@@ -350,7 +350,7 @@ install_init =										\
 	mkdir -p $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL; 					\
 	cp -f $(RULESDIR)/default.ipkg $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control;	\
 	REPLACE_FROM="ARCH";								\
-	REPLACE_TO=$(PTXCONF_ARCH_STRING);						\
+	REPLACE_TO=$(PTXDIST_IPKG_ARCH_STRING);						\
 	echo -n "install_init:   @$$REPLACE_FROM@ -> $$REPLACE_TO ... ";	 	\
 	sed -i -e "s,@$$REPLACE_FROM@,$$REPLACE_TO,g" $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control; \
 	echo "done"; \
