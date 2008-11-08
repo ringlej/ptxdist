@@ -92,7 +92,7 @@ ifdef PTXCONF_IPKG_GENERIC_IPKG_CONF
 	$(call install_replace, ipkg, /etc/ipkg.conf, @SRC@, \
 		$(PTXCONF_IPKG_GENERIC_IPKG_CONF_URL))
 	@$(call install_replace, ipkg, /etc/ipkg.conf, @ARCH@, \
-		$(PTXCONF_ARCH_STRING))
+		$(PTXDIST_IPKG_ARCH_STRING))
 endif
 
 	@$(call install_finish, ipkg)
