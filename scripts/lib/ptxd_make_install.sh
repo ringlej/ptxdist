@@ -2,7 +2,7 @@
 
 ptxd_install_init() {
     local ptx_arch="$(ptxd_get_ptxconf PTXCONF_ARCH_STRING)"
-    local ipkg_arch="ptx_arch"
+    local ipkg_arch="${ptx_arch}"
 
     case "${ptx_arch}" in
 	arm)
