@@ -235,7 +235,7 @@ endif
 ifdef PTXCONF_APACHE2_USERCONFIG
 # users one
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/httpd.conf, \
+		$(PTXDIST_WORKSPACE)/projectroot/$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, \
 		$(PTXCONF_APACHE2_CONFIGDIR)/httpd.conf, n)
 endif
 # modify placeholders with data from configuration
