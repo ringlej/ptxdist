@@ -1,0 +1,6 @@
+menu "select optional packages      "
+
+source "generated/ptx_sub_selection.in"
+
+endmenu
+
