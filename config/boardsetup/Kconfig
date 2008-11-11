@@ -65,7 +65,9 @@ config BOARDSETUP_SERIALPORT
 	prompt "serial port"
 	default "/dev/ttyS0"
 	help
-	  Specify host's serial port for target connection here.
+	  Specify host's serial port for target connection.
+	  You can also use a rfc2217-connection (comport-over-telnet). Simply
+	  enter 'host:port'.
 
 config BOARDSETUP_SERIALBAUDRATE
 	string

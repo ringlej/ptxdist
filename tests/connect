@@ -1,0 +1,3 @@
+#!/bin/bash
+
+${PTXDIST_TOPDIR}/tests/kwrapper connect >&2

@@ -17,10 +17,12 @@ HOST_PACKAGES-$(PTXCONF_HOST_CKERMIT) += host-ckermit
 #
 # Paths and names
 #
-HOST_CKERMIT_VERSION	:= 211
+# FIXME: siwtch back to columbia.edu as soon there is a stable release again (will this ever happen?)
+HOST_CKERMIT_VERSION	:= 212-dev27
 HOST_CKERMIT		:= cku$(HOST_CKERMIT_VERSION)
 HOST_CKERMIT_SUFFIX	:= tar.gz
-HOST_CKERMIT_URL	:= http://www.columbia.edu/kermit/ftp/archives/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
+HOST_CKERMIT_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
+#HOST_CKERMIT_URL	:= http://www.columbia.edu/kermit/ftp/archives/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
 HOST_CKERMIT_SOURCE	:= $(SRCDIR)/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
 HOST_CKERMIT_DIR	:= $(HOST_BUILDDIR)/$(HOST_CKERMIT)
 

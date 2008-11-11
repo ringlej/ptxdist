@@ -1,0 +1,7 @@
+#Read the library
+take \%1/libptxdisttest.kermit
+
+#Set up the line
+ptx_init \%2
+
+connect
