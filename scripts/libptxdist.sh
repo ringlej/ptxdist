@@ -153,12 +153,14 @@ export -f ptxd_get_ptxconf
 
 
 #
-# $1   what kind of config ("oldconfig", "menuconfig", "dep")
-# $2   part identifier ("ptx", "platform", "board", "user")
+# $1	what kind of config ("oldconfig", "menuconfig", "dep")
+# $2	part identifier ("ptx", "platform", "packages", "board", "user")
+# $3	optional dotconfig file
 #
 ptxd_kconfig() {
 	local config="${1}"
 	local part="${2}"
+	local file_dotconfig="${3}"
 	local copy_back="true"
 
 	if [ "${config}" != "dep" ]; then
@@ -187,6 +189,11 @@ ptxd_kconfig() {
 		fi
 		file_dotconfig="${PTXDIST_PLATFORMCONFIG}"
 		;;
+	packages)
+		ptxd_dgen   || ptxd_bailout "error in dgen"
+		ptxd_subgen || ptxd_bailout "error in subgen"
+		file_kconfig="${PTXDIST_TOPDIR}/config/packages/Kconfig"
+		;;
 	board)
 		if [ -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
 			file_kconfig="${PTXDIST_WORKSPACE}/boardsetup/Kconfig"
@@ -205,7 +212,7 @@ ptxd_kconfig() {
 	ln -sf "${PTXDIST_TOPDIR}/config"
 	ln -sf "${PTXDIST_TOPDIR}/platforms"
 	ln -sf "${PTXDIST_WORKSPACE}" workspace
-	ln -sf "${PTXDIST_KGEN_DIR}" generated
+	ln -sf "${PTX_KGEN_DIR}" generated
 
 	if [ -e "${file_dotconfig}" ]; then
 		cp "${file_dotconfig}" .config

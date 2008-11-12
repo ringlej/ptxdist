@@ -15,9 +15,7 @@ PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_ptxconfig'
 PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
 PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
 PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdistrc.${PTXDIST_VERSION_FULL}'
-PTXDIST_PACKAGES_COLLECTION_DEFAULT="ALL"
-
-PTXDIST_KGEN_DIR='${PTXDIST_TEMPDIR}/kgen'
+#PTXDIST_PACKAGES_COLLECTION_DEFAULT="ALL"
 
 
 #
@@ -323,7 +321,8 @@ check_compiler() {
 #
 check_deps() {
 	ptxd_kgen || ptxd_bailout "error in kgen"
-	"${SCRIPTSDIR}/dgen.sh" || ptxd_bailout "error in dgen.sh"
+	ptxd_dgen || ptxd_bailout "error in dgen"
+	ptxd_subgen || ptxd_bailout "error in subgen"
 #	ptxd_create_autoconf_cache "${STATEDIR}/autoconf.cache" || ptxd_bailout "error in create_config_cache.sh"
 	touch "${STATEDIR}/autoconf.cache"
 }
@@ -566,7 +565,7 @@ Setup and Project Actions:
 
   toolchain [<path>]		if path is omitted the toolchain is guessed,
 				    (guessing works only if platformconfig is
-				    already selected)
+				     already selected)
 				otherwise select this toolchain
 				    (<path> to binaries)
   select <config>		if there is no selected_ptxconfig file you can
@@ -910,7 +909,7 @@ parse_first()
 	PTXDIST_TOOLCHAIN="${PTXDIST_TOOLCHAIN_DEFAULT}"
 	PTXDIST_PLATFORMCONFIG="${PTXDIST_PLATFORMCONFIG_DEFAULT}"
 	PTXDIST_PTXCONFIG="${PTXDIST_PTXCONFIG_DEFAULT}"
-	PTXDIST_PACKAGES_COLLECTION="${PTXDIST_PACKAGES_COLLECTION_DEFAULT}"
+#	PTXDIST_PACKAGES_COLLECTION="${PTXDIST_PACKAGES_COLLECTION_DEFAULT}"
 
 	#
 	# init these ones
@@ -943,11 +942,20 @@ parse_first()
 			PTXDIST_TOOLCHAIN="$(ptxd_abspath "${arg#*=}")"
 			PTX_toolchain_SET=true
 			;;
-		--packages=all)
-			PTXDIST_PACKAGES_COLLECTION="ALL"
-			;;
-		--packages=base)
-			PTXDIST_PACKAGES_COLLECTION="BASE"
+#		--packages=all)
+#			PTXDIST_PACKAGES_COLLECTION="ALL"
+#			;;
+#		--packages=base)
+#			PTXDIST_PACKAGES_COLLECTION="BASE"
+#			;;
+		--packages=*)
+			export PTXDIST_PACKAGES_COLLECTION="${PTXDIST_WORKSPACE}/configs/${arg#*=}_packages.config"
+			if [ \! -e "${PTXDIST_PACKAGES_COLLECTION}" ]; then
+				echo
+				echo "${PROMPT}error: please specify packages collection '${PTXDIST_PACKAGES_COLLECTION}' not existint"
+				echo
+				exit 1
+			fi
 			;;
 		--j-intern=*)
 			PTXDIST_PARALLELMFLAGS_INTERN="-j${arg#*=}"
@@ -987,6 +995,8 @@ do_config()
 	local config="${1}"
 	local part="${2}"
 
+	shift 2
+
 	if [ "${part}" != "user" ]; then
 		check_ptxconfig || return
 	fi
@@ -1010,7 +1020,15 @@ do_config()
 	"platform"|"board"|"user")
 		ptxd_kconfig "${config}" "${part}"
 		;;
-
+	"packages")
+		if [ -z "${1}" ]; then
+			echo
+			echo "${PROMPT}error: please specify packages collection"
+			echo
+			exit 1
+		fi
+		ptxd_kconfig "${config}" "${part}" "${PTXDIST_WORKSPACE}/configs/${1}_packages.config"
+		;;
 	*)
 		check_if_selected "${part}" || return
 
@@ -1561,7 +1579,7 @@ setup_traps() {
 #      "*DIR"		directory definitions (some not correct, due to missing PTXDIST_PLATFORMDIR)
 #      PTXDIST_TEMPDIR	generic ptxdist temp dir
 #
-setup_libs() {
+setup_libs_early() {
 	local file abs_file
 
 	for file in \
@@ -1578,10 +1596,6 @@ setup_libs() {
 		fi
 	done
 
-	for lib in "${SCRIPTSDIR}/lib/ptxd_lib_"*.sh; do
-		source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
-	done
-
 	PTXDIST_TEMPDIR="$(mktemp -d /tmp/ptxdist.XXXXXX)"
 	if [ ${?} -ne 0 ]; then
 		echo
@@ -1589,47 +1603,6 @@ setup_libs() {
 		echo
 		exit 1
 	fi
-
-	#
-	# eval those who live in the tempdir
-	#
-	eval PTXDIST_KGEN_DIR="${PTXDIST_KGEN_DIR}"
-}
-
-
-#
-# setup PTXDIST_PLATFORMDIR properly
-#
-# out: PTXDIST_PLATFORMDIR
-#      PTXDIST_PLATFORMSUFFIX
-#      PTXDIST_PLATFORMCONFIGDIR
-#      "*DIR"	correct directory definitions
-#
-setup_platform() {
-	local cfg_dir
-	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
-	local project="$(ptxd_get_ptxconf PTXCONF_PROJECT)"
-	local project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"
-
-	if [ -n "${platform}" ]; then
-		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${platform}"
-		PTXDIST_PLATFORMSUFFIX=".${platform}"
-	else
-		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}"
-		PTXDIST_PLATFORMSUFFIX=""
-	fi
-
-	# reread vars with correct PTXDIST_PLATFORMDIR
-	. "${SCRIPTSDIR}/ptxdist_vars.sh"
-
-	if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
-		cfg_dir="$(dirname "$(readlink -f "${PTXDIST_PLATFORMCONFIG}")")"
-	else
-		unset cfg_dir
-	fi
-
-	PTXDIST_PLATFORMCONFIGDIR="${cfg_dir}"
-	PTXDIST_BOARDSETUP="${HOME}/.ptxdist/boardsetup.${project}${project_version}.${platform}"
 }
 
 
@@ -1726,6 +1699,55 @@ setup_config() {
 }
 
 
+
+#
+# setup PTXDIST_PLATFORMDIR properly
+#
+# out: PTXDIST_PLATFORMDIR
+#      PTXDIST_PLATFORMSUFFIX
+#      PTXDIST_PLATFORMCONFIGDIR
+#      "*DIR"	correct directory definitions
+#
+setup_platform() {
+	local cfg_dir
+	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+	local project="$(ptxd_get_ptxconf PTXCONF_PROJECT)"
+	local project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"
+
+	if [ -n "${platform}" ]; then
+		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${platform}"
+		PTXDIST_PLATFORMSUFFIX=".${platform}"
+	else
+		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}"
+		PTXDIST_PLATFORMSUFFIX=""
+	fi
+
+	# reread vars with correct PTXDIST_PLATFORMDIR
+	. "${SCRIPTSDIR}/ptxdist_vars.sh"
+
+	if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
+		cfg_dir="$(dirname "$(readlink -f "${PTXDIST_PLATFORMCONFIG}")")"
+	else
+		unset cfg_dir
+	fi
+
+	PTXDIST_PLATFORMCONFIGDIR="${cfg_dir}"
+	PTXDIST_BOARDSETUP="${HOME}/.ptxdist/boardsetup.${project}${project_version}.${platform}"
+}
+
+
+
+#
+# source more libs
+#
+setup_libs() {
+	for lib in "${SCRIPTSDIR}/lib/ptxd_lib_"*.sh; do
+		source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
+	done
+}
+
+
+
 #
 # add PTXDIST_TOOLCHAIN and sysroots to path
 #
@@ -1749,7 +1771,7 @@ setup_path() {
 
 
 #
-# starts logfile
+# start logfile
 #
 setup_logfile()
 {
@@ -1801,12 +1823,12 @@ setup_export() {
 		PTXDIST_PLATFORMSUFFIX \
 		PTXDIST_PLATFORMCONFIGDIR \
 		\
-		PTXDIST_KGEN_DIR \
-		\
 		PTXDIST_PARALLELMFLAGS_INTERN \
-		PTXDIST_PACKAGES_COLLECTION \
 		\
 		PTXDIST_QUIET
+
+#		PTXDIST_PACKAGES_COLLECTION \
+
 }
 
 
@@ -1816,7 +1838,7 @@ setup_export() {
 
 setup_topdir
 setup_traps
-setup_libs
+setup_libs_early
 # ---  libs are available from here ---
 setup_config
 # --- errexit feature may be active ---
@@ -1825,6 +1847,7 @@ parse_first
 setup_platform
 # --- platformdir and other *dirs are available from here ---
 # --- all variables are defined now ---
+setup_libs
 setup_path
 # --- path is now set ---
 setup_logfile

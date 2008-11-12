@@ -7,6 +7,10 @@
 SHELL=bash
 export SHELL
 
+all:
+	@echo "ptxdist: error: please use 'ptxdist' instead of calling make directly."
+	@exit 1
+
 # ----------------------------------------------------------------------------
 # Some directory locations
 # ----------------------------------------------------------------------------
@@ -17,13 +21,13 @@ include $(RULESDIR)/other/Definitions.make
 -include $(PTXDIST_PTXCONFIG)
 -include $(PTXDIST_PLATFORMCONFIG)
 
+ifdef PTXDIST_PACKAGES_COLLECTION
+include $(PTXDIST_PACKAGES_COLLECTION)
+endif
+
 # ----------------------------------------------------------------------------
 # Include all rule files
 # ----------------------------------------------------------------------------
-
-all:
-	@echo "ptxdist: error: please use ptxdist instead of calling make directly."
-	@exit 1
 
 include $(RULESDIR)/other/Namespace.make
 include $(wildcard $(PRERULESDIR)/*.make)
@@ -32,9 +36,9 @@ ifneq ($(wildcard $(PROJECTPRERULESDIR)/*.make),)
 include $(wildcard $(PROJECTPRERULESDIR)/*.make)
 endif
 
-include $(PACKAGE_DEP_PRE)
-include $(RULESFILES_ALL_MAKE)
-include $(PACKAGE_DEP_POST)
+#include $(PTX_DGEN_DEPS_PRE)
+include $(PTX_DGEN_RULESFILES_MAKE)
+include $(PTX_DGEN_DEPS_POST)
 
 include $(PTX_MAP_ALL_MAKE)
 
@@ -43,7 +47,7 @@ include $(PTX_MAP_ALL_MAKE)
 # PACKAGES-<ARCH>-<LABEL>
 #
 # to keep it simple, just add the "-y-y" to "-y"
-# (for "-m" and "-" accordingly)
+# (for "-m" and "--" accordingly)
 #
 PACKAGES-y	+= $(PACKAGES-y-y)
 PACKAGES-m	+= $(PACKAGES-y-m)

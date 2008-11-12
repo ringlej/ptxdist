@@ -16,7 +16,7 @@ DEP_OUTPUT	:= $(STATEDIR)/depend.out
 
 # --- world ---
 
-WORLD_PACKAGES_TARGET 	:= $(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(PACKAGES_$(PTXDIST_PACKAGES_COLLECTION))))
+WORLD_PACKAGES_TARGET 	:= $(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(PACKAGES)))
 WORLD_PACKAGES_HOST	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(HOST_PACKAGES)))
 WORLD_PACKAGES_CROSS	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(CROSS_PACKAGES)))
 
