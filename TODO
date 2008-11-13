@@ -4,6 +4,13 @@ TODO before 2.0.0
 Prio A
 ------
 
+[ ] jbe: avoid the "make: Nothing to be done for `world'." message when running
+    a "ptxdist images".
+
+[ ] jbe: avoid the convenience stage question, when running "pxtdist images".
+
+[ ] jbe: avoid the convenience stage question again and again and again....
+
 [ ] rsc: 'ptxdist images' for the i586 target sometimes does not work,
     the generated image is incorrect and grub stops booting.
 
