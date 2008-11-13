@@ -2,7 +2,7 @@
 
 ### --- internal ---
 
-PTX_FIXPERM_RUN    := $(STATEDIR)/fix-$(PTXDIST_PACKAGES_COLLECTION)-permissions.run
+PTX_FIXPERM_RUN    := $(STATEDIR)/fix-permissions.run
 
 ifdef PTXCONF_FIX_PERMISSIONS
 world: $(PTX_FIXPERM_RUN)
