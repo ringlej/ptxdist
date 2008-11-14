@@ -1,31 +1,27 @@
 #!/bin/bash
 
+_error() {
+	echo "$1" >&2
+	exit 1
+}
+
 export PTXDIST_SYSROOT_HOST=$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)
-# FIXME!
+# FIXME: Is there a dedicated IMAGEDIR?
 export IMAGEDIR=${PTXDIST_PLATFORMDIR}/images
 OURDIR="$(dirname "${0}")"
 TST="${1}"
 shift
 
-if [ ! -e "${PTXDIST_BOARDSETUP}" ]; then
-	echo "Please run 'ptxdist boardsetup' first!"
-	exit 1
-fi
+[ -e "${PTXDIST_BOARDSETUP}" ] || _error "Please run 'ptxdist boardsetup' first!"
 
 KSCRIPT="${PTXDIST_WORKSPACE}/tests/${TST}.kermit"
 if [ ! -e "${KSCRIPT}" ]; then
 	KSCRIPT="${OURDIR}/${TST}.kermit"
-	if [ ! -e "${KSCRIPT}" ]; then
-		echo "No kermit-script for ${TST} found!"
-		exit 1
-	fi
+	[ -e "${KSCRIPT}" ] || _error "No kermit-script for ${TST} found! Please report to the developers."
 fi
 
 LIB="${OURDIR}/libptxdisttest.kermit"
-if [ ! -e "${LIB}" ]; then
-	echo "Could not find ${LIB}!"
-	exit 1
-fi
+[ -e "${LIB}" ] || _error "Could not find ${LIB}! Please report to the developers."
 
 TMPFILE="$(mktemp "${PTXDIST_TEMPDIR}/kwrapper.XXXXXX")"
 
