@@ -87,6 +87,8 @@ define ptx_uboot_enter_shell {
 define ptx_uboot_exec {
 
 	lineout "\%2"
+	# Wait for the command itself to sync to input buffer
+	input 10 \%2
 	input \%1 \m(uboot_prompt)
 	ptx_check_fail "timeout while waiting for u-boot prompt after '\%2'"
 
