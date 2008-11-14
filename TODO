@@ -4,6 +4,9 @@ TODO before 2.0.0
 Prio A
 ------
 
+[ ] jbe: Fix the too many --without-pam and the always --without-sendmail given
+    in the sudo.make in the prepare step
+
 [ ] jbe: avoid the "make: Nothing to be done for `world'." message when running
     a "ptxdist images".
 
