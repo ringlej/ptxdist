@@ -926,6 +926,7 @@ parse_first()
 		case "${arg}" in
 		-d|--debug)
 			PTX_MAKE_DBG="--debug=make"
+			PTX_DEBUG=true
 			;;
 		-f|--force)
 			PTX_FORCE=true
@@ -1472,7 +1473,11 @@ parse_second()
 				"${PTXDIST_TOPDIR}/tests/${1}" \
 				; do \
 				if [ -x "${tst}" ]; then
-					"${tst}" > "${PTXDIST_PLATFORMDIR}/test.log"
+					if [ "${PTX_DEBUG}" != "true" ]; then
+						"${tst}" > "${PTXDIST_PLATFORMDIR}/test.log"
+					else
+						"${tst}" | tee "${PTXDIST_PLATFORMDIR}/test.log"
+					fi
 					exit ${?}
 				fi
 			done

@@ -1,18 +1,28 @@
 #!/usr/bin/kermit
 
+# FIXME: Sync with libptxdisttest.sh
+.red := "\27[31m"
+.green := "\27[32m"
+.blue := "\27[34m"
+.nocolor := "\27[30m"
+
 define ptx_check_fail {
 	if failure {
-		writeln ERROR "FAILED! (\%1)"
+		writeln ERROR "\m(red)FAILED! (\%1)\m(nocolor)"
 		exit 1
 	}
+}
+
+define ptx_print {
+	writeln ERROR "\m(blue)\%1\m(nocolor)"
 }
 
 define ptx_init {
 	# get boardsetup variables
 	take \%1
 
-	writeln ERROR "Communicating via \m(PTXCONF_BOARDSETUP_SERIALPORT) at \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE) bps."
-	writeln ERROR
+	ptx_print "Communicating via \m(PTXCONF_BOARDSETUP_SERIALPORT) at \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE) bps."
+	ptx_print
 
 	# ':' distinguishes between serial line and telnet port
 	if not match \m(PTXCONF_BOARDSETUP_SERIALPORT) *:* {
@@ -34,27 +44,27 @@ define ptx_init {
 	set input case observe
 	set input buffer-length 16384
 
-	writeln ERROR "==============================="
-	writeln ERROR "Please power on your board now!"
-	writeln ERROR "==============================="
-	writeln ERROR
+	ptx_print "==============================="
+	ptx_print "Please power on your board now!"
+	ptx_print "==============================="
+	ptx_print
 }
 
 define ptx_exit {
 
-	writeln ERROR "All OK!"
+	writeln ERROR "\m(green)All OK!\m(nocolor)"
 	exit 0
 }
 
 define ptx_test_start {
 
 	# do padding with '.'
-	write ERROR "\frpad(\%1,40,.)"
+	write ERROR "\m(blue)\frpad(\%1,40,.)\m(nocolor)"
 }
 
 define ptx_test_end {
 
-	writeln ERROR "OK"
+	writeln ERROR "\m(green)OK\m(nocolor)"
 }
 
 define ptx_wait_string {
