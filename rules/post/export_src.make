@@ -24,7 +24,7 @@ _ptx_export_packages_dst := $(subst $(SRCDIR),$(EXPORTDIR),$(_ptx_export_package
 $(_ptx_export_packages_dst): 
 	@cp -v "$(SRCDIR)/$(@F)" "$@"
 
-export: $(_ptx_export_packages_dst)
+export_src: $(_ptx_export_packages_dst)
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:
