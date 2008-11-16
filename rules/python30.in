@@ -1,0 +1,20 @@
+## SECTION=scripting_languages
+
+menuconfig PYTHON30
+	tristate
+	select HOST_PYTHON30
+	prompt "python 3.0                    "
+	help
+	  Python is a dynamic object-oriented programming language that can be
+	  used for many kinds of software development. It offers strong support
+	  for integration with other languages and tools, comes with extensive
+	  standard libraries, and can be learned in a few days.
+
+if PYTHON30
+
+config PYTHON30__IPV6
+	bool
+	prompt "ip v6 support"
+
+endif
+

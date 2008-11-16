@@ -1,0 +1,197 @@
+---
+ Makefile.pre.in |    2 -
+ setup.py        |   82 ++++++++++++++++++++++++++++----------------------------
+ 2 files changed, 42 insertions(+), 42 deletions(-)
+
+Index: Python-3.0rc2/Makefile.pre.in
+===================================================================
+--- Python-3.0rc2.orig/Makefile.pre.in
++++ Python-3.0rc2/Makefile.pre.in
+@@ -393,7 +393,7 @@ platform: $(BUILDPYTHON)
+ 
+ # Build the shared modules
+ sharedmods: $(BUILDPYTHON)
+-	@case $$MAKEFLAGS in \
++	case $$MAKEFLAGS in \
+ 	*s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' $(HOSTPYTHON) -E $(srcdir)/setup.py -q build;; \
+ 	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' $(HOSTPYTHON) -E $(srcdir)/setup.py build;; \
+ 	esac
+Index: Python-3.0rc2/setup.py
+===================================================================
+--- Python-3.0rc2.orig/setup.py
++++ Python-3.0rc2/setup.py
+@@ -312,8 +312,8 @@ class PyBuildExt(build_ext):
+ 
+     def detect_modules(self):
+         # Ensure that /usr/local is always used
+-        add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
+-        add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
++        add_dir_to_list(self.compiler.library_dirs, os.environ.get('DESTDIR','') + '/usr/local/lib')
++        add_dir_to_list(self.compiler.include_dirs, os.environ.get('DESTDIR','') + '/usr/local/include')
+ 
+         # Add paths specified in the environment variables LDFLAGS and
+         # CPPFLAGS for header and library files.
+@@ -349,7 +349,7 @@ class PyBuildExt(build_ext):
+                     for directory in reversed(options.dirs):
+                         add_dir_to_list(dir_list, directory)
+ 
+-        if os.path.normpath(sys.prefix) != '/usr':
++        if os.path.normpath(sys.prefix) != os.environ.get('DESTDIR','') + '/usr':
+             add_dir_to_list(self.compiler.library_dirs,
+                             sysconfig.get_config_var("LIBDIR"))
+             add_dir_to_list(self.compiler.include_dirs,
+@@ -359,10 +359,10 @@ class PyBuildExt(build_ext):
+         # if a file is found in one of those directories, it can
+         # be assumed that no additional -I,-L directives are needed.
+         lib_dirs = self.compiler.library_dirs + [
+-            '/lib64', '/usr/lib64',
+-            '/lib', '/usr/lib',
++            os.environ.get('DESTDIR','') + '/lib64', os.environ.get('DESTDIR','') + '/usr/lib64',
++            os.environ.get('DESTDIR','') + '/lib', os.environ.get('DESTDIR','') + '/usr/lib',
+             ]
+-        inc_dirs = self.compiler.include_dirs + ['/usr/include']
++        inc_dirs = self.compiler.include_dirs + [os.environ.get('DESTDIR','') + '/usr/include']
+         exts = []
+         missing = []
+ 
+@@ -381,7 +381,7 @@ class PyBuildExt(build_ext):
+ 
+         # OSF/1 and Unixware have some stuff in /usr/ccs/lib (like -ldb)
+         if platform in ['osf1', 'unixware7', 'openunix8']:
+-            lib_dirs += ['/usr/ccs/lib']
++            lib_dirs += [os.environ.get('DESTDIR','') + '/usr/ccs/lib']
+ 
+         if platform == 'darwin':
+             # This should work on any unixy platform ;-)
+@@ -556,11 +556,11 @@ class PyBuildExt(build_ext):
+             elif self.compiler.find_library_file(lib_dirs, 'curses'):
+                 readline_libs.append('curses')
+             elif self.compiler.find_library_file(lib_dirs +
+-                                               ['/usr/lib/termcap'],
++                                               [os.environ.get('DESTDIR','') + '/usr/lib/termcap'],
+                                                'termcap'):
+                 readline_libs.append('termcap')
+             exts.append( Extension('readline', ['readline.c'],
+-                                   library_dirs=['/usr/lib/termcap'],
++                                   library_dirs=[os.environ.get('DESTDIR','') + '/usr/lib/termcap'],
+                                    extra_link_args=readline_extra_link_args,
+                                    libraries=readline_libs) )
+         else:
+@@ -585,20 +585,20 @@ class PyBuildExt(build_ext):
+                                depends = ['socketmodule.h']) )
+         # Detect SSL support for the socket module (via _ssl)
+         search_for_ssl_incs_in = [
+-                              '/usr/local/ssl/include',
+-                              '/usr/contrib/ssl/include/'
++                              os.environ.get('DESTDIR','') + '/usr/local/ssl/include',
++                              os.environ.get('DESTDIR','') + '/usr/contrib/ssl/include/'
+                              ]
+         ssl_incs = find_file('openssl/ssl.h', inc_dirs,
+                              search_for_ssl_incs_in
+                              )
+         if ssl_incs is not None:
+             krb5_h = find_file('krb5.h', inc_dirs,
+-                               ['/usr/kerberos/include'])
++                               [os.environ.get('DESTDIR','') + '/usr/kerberos/include'])
+             if krb5_h:
+                 ssl_incs += krb5_h
+         ssl_libs = find_library_file(self.compiler, 'ssl',lib_dirs,
+-                                     ['/usr/local/ssl/lib',
+-                                      '/usr/contrib/ssl/lib/'
++                                     [os.environ.get('DESTDIR','') + '/usr/local/ssl/lib',
++                                      os.environ.get('DESTDIR','') + '/usr/contrib/ssl/lib/'
+                                      ] )
+ 
+         if (ssl_incs is not None and
+@@ -667,15 +667,15 @@ class PyBuildExt(build_ext):
+         # similar functionality (but slower of course) implemented in Python.
+ 
+         db_inc_paths = [
+-            '/usr/include/db4',
+-            '/usr/local/include/db4',
+-            '/opt/sfw/include/db4',
+-            '/usr/include/db3',
+-            '/usr/local/include/db3',
+-            '/opt/sfw/include/db3',
++            os.environ.get('DESTDIR','') + '/usr/include/db4',
++            os.environ.get('DESTDIR','') + '/usr/local/include/db4',
++            os.environ.get('DESTDIR','') + '/opt/sfw/include/db4',
++            os.environ.get('DESTDIR','') + '/usr/include/db3',
++            os.environ.get('DESTDIR','') + '/usr/local/include/db3',
++            os.environ.get('DESTDIR','') + '/opt/sfw/include/db3',
+             # Fink defaults (http://fink.sourceforge.net/)
+-            '/sw/include/db4',
+-            '/sw/include/db3',
++            os.environ.get('DESTDIR','') + '/sw/include/db4',
++            os.environ.get('DESTDIR','') + '/sw/include/db3',
+         ]
+ 
+         db_incs = None
+@@ -686,12 +686,12 @@ class PyBuildExt(build_ext):
+         # We hunt for #define SQLITE_VERSION "n.n.n"
+         # We need to find >= sqlite version 3.0.8
+         sqlite_incdir = sqlite_libdir = None
+-        sqlite_inc_paths = [ '/usr/include',
+-                             '/usr/include/sqlite',
+-                             '/usr/include/sqlite3',
+-                             '/usr/local/include',
+-                             '/usr/local/include/sqlite',
+-                             '/usr/local/include/sqlite3',
++        sqlite_inc_paths = [ os.environ.get('DESTDIR','') + '/usr/include',
++                             os.environ.get('DESTDIR','') + '/usr/include/sqlite',
++                             os.environ.get('DESTDIR','') + '/usr/include/sqlite3',
++                             os.environ.get('DESTDIR','') + '/usr/local/include',
++                             os.environ.get('DESTDIR','') + '/usr/local/include/sqlite',
++                             os.environ.get('DESTDIR','') + '/usr/local/include/sqlite3',
+                            ]
+         MIN_SQLITE_VERSION_NUMBER = (3, 0, 8)
+         MIN_SQLITE_VERSION = ".".join([str(x)
+@@ -1124,7 +1124,7 @@ class PyBuildExt(build_ext):
+         # For 8.4a2, the X11 headers are not included. Rather than include a
+         # complicated search, this is a hard-coded path. It could bail out
+         # if X11 libs are not found...
+-        include_dirs.append('/usr/X11R6/include')
++        include_dirs.append(os.environ.get('DESTDIR','') + '/usr/X11R6/include')
+         frameworks = ['-framework', 'Tcl', '-framework', 'Tk']
+ 
+         # All existing framework builds of Tcl/Tk don't support 64-bit
+@@ -1211,19 +1211,19 @@ class PyBuildExt(build_ext):
+ 
+         # Check for various platform-specific directories
+         if platform == 'sunos5':
+-            include_dirs.append('/usr/openwin/include')
+-            added_lib_dirs.append('/usr/openwin/lib')
+-        elif os.path.exists('/usr/X11R6/include'):
+-            include_dirs.append('/usr/X11R6/include')
+-            added_lib_dirs.append('/usr/X11R6/lib64')
+-            added_lib_dirs.append('/usr/X11R6/lib')
+-        elif os.path.exists('/usr/X11R5/include'):
+-            include_dirs.append('/usr/X11R5/include')
+-            added_lib_dirs.append('/usr/X11R5/lib')
++            include_dirs.append(os.environ.get('DESTDIR','') + '/usr/openwin/include')
++            added_lib_dirs.append(os.environ.get('DESTDIR','') + '/usr/openwin/lib')
++        elif os.path.exists(os.environ.get('DESTDIR','') + '/usr/X11R6/include'):
++            include_dirs.append(os.environ.get('DESTDIR','') + '/usr/X11R6/include')
++            added_lib_dirs.append(os.environ.get('DESTDIR','') + '/usr/X11R6/lib64')
++            added_lib_dirs.append(os.environ.get('DESTDIR','') + '/usr/X11R6/lib')
++        elif os.path.exists(os.environ.get('DESTDIR','') + '/usr/X11R5/include'):
++            include_dirs.append(os.environ.get('DESTDIR','') + '/usr/X11R5/include')
++            added_lib_dirs.append(os.environ.get('DESTDIR','') + '/usr/X11R5/lib')
+         else:
+             # Assume default location for X11
+-            include_dirs.append('/usr/X11/include')
+-            added_lib_dirs.append('/usr/X11/lib')
++            include_dirs.append(os.environ.get('DESTDIR','') + '/usr/X11/include')
++            added_lib_dirs.append(os.environ.get('DESTDIR','') + '/usr/X11/lib')
+ 
+         # If Cygwin, then verify that X is installed before proceeding
+         if platform == 'cygwin':
+@@ -1403,7 +1403,7 @@ class PyBuildExt(build_ext):
+         if sys.platform == 'darwin':
+             # OS X 10.5 comes with libffi.dylib; the include files are
+             # in /usr/include/ffi
+-            inc_dirs.append('/usr/include/ffi')
++            inc_dirs.append(os.environ.get('DESTDIR','') + '/usr/include/ffi')
+ 
+         ffi_inc = find_file('ffi.h', [], inc_dirs)
+         if ffi_inc is not None:

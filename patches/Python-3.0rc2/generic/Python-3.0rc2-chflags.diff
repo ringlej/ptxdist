@@ -1,0 +1,47 @@
+---
+ configure.in |   23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
+
+Index: Python-3.0rc2/configure.in
+===================================================================
+--- Python-3.0rc2.orig/configure.in
++++ Python-3.0rc2/configure.in
+@@ -2473,7 +2473,7 @@ AC_CHECK_LIB(c, inet_aton, [$ac_cv_prog_
+ # On Tru64, chflags seems to be present, but calling it will
+ # exit Python
+ AC_MSG_CHECKING(for chflags)
+-AC_TRY_RUN([
++AC_RUN_IFELSE([
+ #include <sys/stat.h>
+ #include <unistd.h>
+ int main(int argc, char*argv[])
+@@ -2482,10 +2482,27 @@ int main(int argc, char*argv[])
+     return 1;
+   return 0;
+ }
+-],AC_DEFINE(HAVE_CHFLAGS, 1, Define to 1 if you have the `chflags' function.)
+-  AC_MSG_RESULT(yes),
++],[
++  AC_CACHE_VAL(ac_cv_have_chflags, ac_cv_have_chflags=yes)
++  AC_MSG_RESULT(yes)
++],[
++  AC_CACHE_VAL(ac_cv_have_chflags, ac_cv_have_chflags=no)
+   AC_MSG_RESULT(no)
++],[
++  AC_CACHE_VAL(ac_cv_have_chflags, ac_cv_have_chflags=undef)
++  AC_MSG_RESULT([crosscompiling, ac_cv_have_chflags=$ac_cv_have_chflags])
++]
+ )
++case $ac_cv_have_chflags in
++yes)
++  AC_DEFINE(HAVE_CHFLAGS, 1, Define to 1 if you have the 'chflags' function.)
++  ;;
++no)
++  ;;
++*)
++  AC_MSG_ERROR([please specify ac_cv_have_chflags=yes|no])
++  ;;
++esac
+ 
+ AC_MSG_CHECKING(for lchflags)
+ AC_TRY_RUN([
