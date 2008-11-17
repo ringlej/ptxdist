@@ -572,10 +572,10 @@ Setup and Project Actions:
   menuconfig platform
   platformconfig		configure the platform
 
-  oldconfig			run 'make oldconfig' on ptxconfig file
+  menuconfig u-boot-v2
+  u_boot_config			configure U-Boot (U-Boot V2 only)
 
-  menuconfig u-boot-v2		configure U-Boot (U-Boot V2 only)
-  u_boot_config
+  oldconfig			run 'make oldconfig' on ptxconfig file
 
   toolchain [<path>]		if path is omitted the toolchain is guessed,
 				    (guessing works only if platformconfig is
@@ -609,16 +609,9 @@ Clean Actions:
   clean root			cleanup root directory for target
   distclean			cleanup everything
 
-Overwrite:
-
-  --ptxconfig			use specified ptxconfig
-  --platformconfig		use specified platformconfig
-  --toolchain			use specified toolchain
-  --force			select config even if MOJO is missing
-				or versions do not match
 Misc:
 
-  --version			print out ptxdist version
+  version			print out ptxdist version
   test <testname>		run tests
   newpacket <type>		create a new packet Makefile in a rules dir
 				<type> can be one of:
@@ -629,10 +622,16 @@ Misc:
 				it is known by "make"
   export_src <target dir>	export all source archives needed for this
 				project to <target dir>
+Overwrite defaults:
+
+  --ptxconfig			use specified ptxconfig
+  --platformconfig		use specified platformconfig
+  --toolchain			use specified toolchain
+  --force			select config even if MOJO is missing
 
 Options:
 
-  -d				print out make decisions (debug)
+  --debug, -d			print out additional info (like make decisions)
   --quiet, -q			suppress output, show only stderr
 
   --j-intern=<n>, -ji<n>	set number of parallel builds in packages
@@ -1253,7 +1252,7 @@ parse_second()
 
 		case "${cmd}" in
 ######## --*
-		--version)
+		--version|version)
 			echo "${PTXDIST_VERSION_FULL}"
 			exit 0
 			;;
@@ -1439,7 +1438,7 @@ parse_second()
 		menu)
 			if [ \! -x "$(which dialog)" ]; then
 				echo
-				echo "${PROMPT}info: Sorry, no menu for you, please install 'dialog'"
+				echo "${PROMPT}info: Sorry, menu not possible yet. Please install 'dialog'"
 				echo
 				exit 1
 			fi
