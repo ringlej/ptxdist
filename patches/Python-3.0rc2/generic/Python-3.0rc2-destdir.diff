@@ -1,21 +1,7 @@
 ---
- Makefile.pre.in |    2 -
- setup.py        |   82 ++++++++++++++++++++++++++++----------------------------
- 2 files changed, 42 insertions(+), 42 deletions(-)
+ setup.py |   82 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 41 insertions(+), 41 deletions(-)
 
-Index: Python-3.0rc2/Makefile.pre.in
-===================================================================
---- Python-3.0rc2.orig/Makefile.pre.in
-+++ Python-3.0rc2/Makefile.pre.in
-@@ -393,7 +393,7 @@ platform: $(BUILDPYTHON)
- 
- # Build the shared modules
- sharedmods: $(BUILDPYTHON)
--	@case $$MAKEFLAGS in \
-+	case $$MAKEFLAGS in \
- 	*s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' $(HOSTPYTHON) -E $(srcdir)/setup.py -q build;; \
- 	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' $(HOSTPYTHON) -E $(srcdir)/setup.py build;; \
- 	esac
 Index: Python-3.0rc2/setup.py
 ===================================================================
 --- Python-3.0rc2.orig/setup.py
