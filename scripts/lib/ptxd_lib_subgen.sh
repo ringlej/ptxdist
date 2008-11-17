@@ -12,43 +12,46 @@ ptxd_subgen_generate_sections()
 	}
 
 	$1 ~ /^PTX_MAP_TO_package/ {
-		PKG = gensub(/PTX_MAP_TO_package_/, "", "g", $1);
-		pkg = $2;
-
-		PKGS[$2] = PKG;
+		pkg = gensub(/PTX_MAP_TO_package_/, "", "g", $1);
+		pkgs[$2] = pkg;
 
 		next;
 	}
 
 	$1 ~ /^PTX_MAP_DEP/ {
-		PKG = gensub(/PTX_MAP_DEP_/, "", "g", $1);
-		DEPS[PKG] = $2;
+		pkg = gensub(/PTX_MAP_DEP_/, "", "g", $1);
+		deps[pkg] = $2;
 
 		next;
 	}
 
 	$1 ~ /^PACKAGES-m is/ {
-		modules = $2;
+		n = split($2, module, " ");
+		for (i = 1; i <= n; i++) {
+#			print "module: " module[i] ", pkg: " pkgs[module[i]] ", deps: " deps[pkgs[module[i]]];
+			module_pkgs[pkgs[module[i]]] = module[i];
+		}
 	}
 
 	END {
-		n = split(modules, module, " ");
+		n = asorti(module_pkgs, sorted);
+
 		for (i = 1; i <= n; i++) {
-			pkg = module[i];
-			PKG = PKGS[pkg];
-#			print module[i] ": " PKG ": " DEPS[PKG];
+			pkg = sorted[i];
+			pkg_lc = module_pkgs[pkg];
 
 			printf \
-				"config " PKG "\n"\
-				"\tbool \"" pkg "\"\n"		> sub_in;
+				"config " pkg "\n"\
+				"\t"	"bool \"" pkg_lc "\"\n"		> sub_in;
 
-			m = split(DEPS[PKG], DEP, ":");
-			for (j = 1; j <= m; j++)
-				print "\tselect " DEP[j]	> sub_in;
+			m = split(deps[pkg], dep, ":");
+			for (j = 1; j <= m; j++) {
+				if (dep[j] in module_pkgs)
+					print "\tselect " dep[j]	> sub_in;
+			}
 
-			printf "\n"				> sub_in;
+			printf "\n"					> sub_in;
 		}
-
 		close(sub_in);
 	}
 
