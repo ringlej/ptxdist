@@ -1461,9 +1461,14 @@ parse_second()
 			;;
 		print)
 			check_ptxconfig || return
-			check_deps
-			ptxd_make_log "print-${1}"
+			if [ -n "${!1}" ]; then
+				echo ${!1};
+			else
+				check_deps
+				ptxd_make_log "print-${1}"
+			fi
 			shift
+			#XXX: wsa: No exit. Intentional?
 			;;
 		projects)
 			projects
