@@ -76,6 +76,9 @@ menu() {
 		"--------------"	"--------------------------------------------" \
 		"boardsetup"		"Configure Board Properties" \
 		"setup"			"Configure User Properties" \
+		"--------------"	"--------------------------------------------" \
+		"go"			"Build the project" \
+		"images"		"Build all images" \
 		3>&1 1>&4 \
 		)" || return
 	exec 4>&-
@@ -91,6 +94,8 @@ menu() {
 	setup)		cmd=user ;;
 	esac
 
+	PTXDIST_QUIET=1
+
 	case "${cmd}" in
 	platformconfig|ptxconfig)
 		menu_select "${cmd}"
@@ -102,6 +107,15 @@ menu() {
 		;;
 	-*)
 		# ignore the "--------------"
+		;;
+	go)
+		go
+		read
+		;;
+	images)
+		go
+		ptxd_make_log images
+		read
 		;;
 	*)
 		echo "${cmd}"
@@ -894,6 +908,13 @@ projects() {
 	echo
 }
 
+go() {
+	check_ptxconfig || return
+	check_compiler
+	check_dirs
+	check_deps
+	ptxd_make_log world
+}
 
 
 ##################################################################
@@ -1398,19 +1419,11 @@ parse_second()
 			exit 0
 			;;
 		go)
-			check_ptxconfig || return
-			check_compiler
-			check_dirs
-			check_deps
-			ptxd_make_log world
+			go
 			exit 0
 			;;
 		images)
-			check_ptxconfig || return
-			check_compiler
-			check_dirs
-			check_deps
-			ptxd_make_log world
+			go
 			ptxd_make_log images
 			exit 0
 			;;
