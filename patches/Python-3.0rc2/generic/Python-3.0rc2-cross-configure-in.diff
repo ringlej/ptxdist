@@ -1,0 +1,168 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [PATCH] cross compiling: configure.in fixes
+
+Add the necessary bits for feeding PYTHON_FOR_BUILD into the python
+build process.
+
+Patch is originally from here, adapted to python 3.0rc2:
+http://bugs.gentoo.org/attachment.cgi?id=130627
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ configure.in |   90 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 86 insertions(+), 4 deletions(-)
+
+Index: Python-3.0rc2/configure.in
+===================================================================
+--- Python-3.0rc2.orig/configure.in
++++ Python-3.0rc2/configure.in
+@@ -12,6 +12,11 @@ AC_INIT(python, PYTHON_VERSION, http://w
+ AC_CONFIG_SRCDIR([Include/object.h])
+ AC_CONFIG_HEADER(pyconfig.h)
+ 
++# find compiler while respecting --host setting
++#AC_CANONICAL_HOST()
++AC_CHECK_TOOLS(CC,gcc cc)
++AC_CHECK_TOOLS(CXX,g++ c++)
++
+ dnl This is for stuff that absolutely must end up in pyconfig.h.
+ dnl Please use pyport.h instead, if possible.
+ AH_TOP([
+@@ -214,6 +219,7 @@ AC_SUBST(MACHDEP)
+ AC_MSG_CHECKING(MACHDEP)
+ if test -z "$MACHDEP"
+ then
++    if test "$cross_compiling" = "no"; then
+ 	ac_sys_system=`uname -s`
+ 	if test "$ac_sys_system" = "AIX" -o "$ac_sys_system" = "Monterey64" \
+ 	-o "$ac_sys_system" = "UnixWare" -o "$ac_sys_system" = "OpenUNIX"; then
+@@ -234,6 +240,19 @@ then
+         irix646) MACHDEP="irix6";;
+ 	'')	MACHDEP="unknown";;
+ 	esac
++    else
++        m=`$CC -dumpmachine`
++        changequote(<<, >>)#dnl
++        ac_sys_system=`expr "$m" : "[^-]*-\([^-]*\)"`
++        changequote([, ])#dnl
++
++        case $ac_sys_system in
++        cygwin*) ac_sys_system=`echo $ac_sys_system | sed s/cygwin/CYGWIN/g `;;
++        darwin*) ac_sys_system=`echo $ac_sys_system | sed s/darwin/Darwin/g `;;
++        freebsd*) ac_sys_system=`echo $ac_sys_system | sed s/freebsd/FreeBSD/g `;;
++        linux*) ac_sys_system=`echo $ac_sys_system | sed s/linux/Linux/g `;;
++        esac
++    fi
+ fi
+ 	
+ # Some systems cannot stand _XOPEN_SOURCE being defined at all; they
+@@ -503,9 +522,11 @@ if test -d casesensitivetestdir
+ then
+     AC_MSG_RESULT(yes)
+     BUILDEXEEXT=.exe
++    case_sensitive=no
+ else
+ 	AC_MSG_RESULT(no)
+ 	BUILDEXEEXT=$EXEEXT
++	case_sensitive=yes
+ fi
+ rmdir CaseSensitiveTestDir
+ 
+@@ -705,9 +726,9 @@ fi
+ 
+ AC_MSG_RESULT($LDLIBRARY)
+ 
+-AC_PROG_RANLIB
+-AC_SUBST(AR)
+-AC_CHECK_PROGS(AR, ar aal, ar)
++# find tools while respecting --host setting
++AC_CHECK_TOOL(RANLIB,ranlib)
++AC_CHECK_TOOLS(AR,ar aal,ar)
+ 
+ AC_SUBST(SVNVERSION)
+ AC_CHECK_PROG(SVNVERSION, svnversion, found, not-found)
+@@ -3546,6 +3567,7 @@ else
+ fi
+ 
+ AC_MSG_CHECKING(for %zd printf() format support)
++AC_CACHE_VAL(ac_cv_printf_zd_format,
+ AC_TRY_RUN([#include <stdio.h>
+ #include <stddef.h>
+ #include <string.h>
+@@ -3582,7 +3604,9 @@ int main()
+ }],
+ [AC_MSG_RESULT(yes)
+  AC_DEFINE(PY_FORMAT_SIZE_T, "z", [Define to printf format modifier for Py_ssize_t])],
+- AC_MSG_RESULT(no))
++ AC_MSG_RESULT(no),
++ AC_MSG_RESULT(no)))
++
+ 
+ AC_CHECK_TYPE(socklen_t,,
+   AC_DEFINE(socklen_t,int,
+@@ -3633,6 +3657,64 @@ for dir in $SRCDIRS; do
+ done
+ AC_MSG_RESULT(done)
+ 
++# cross compiling
++AC_SUBST(cross_compiling)
++
++if test "$cross_compiling" = "yes"; then
++    AC_MSG_CHECKING(cc for build)
++    CC_FOR_BUILD="${CC_FOR_BUILD-cc}"
++else
++    CC_FOR_BUILD="${CC_FOR_BUILD-$CC}"
++fi
++
++if test "$cross_compiling" = "yes"; then
++   AC_MSG_RESULT($CC_FOR_BUILD)
++fi
++
++AC_ARG_VAR(CC_FOR_BUILD,[build system C compiler (default: cc)])
++
++if test "$cross_compiling" = "yes"; then
++    AC_MSG_CHECKING(python for build)
++    PYTHON_FOR_BUILD="${PYTHON_FOR_BUILD-python}"
++    PYTHON_FOR_BUILD=`which $PYTHON_FOR_BUILD`
++else
++    PYTHON_FOR_BUILD='./$(BUILDPYTHON)'
++fi
++
++if test "$cross_compiling" = "yes"; then
++    AC_MSG_RESULT($PYTHON_FOR_BUILD)
++fi
++
++AC_ARG_VAR(PYTHON_FOR_BUILD,[build system python (default: python)])
++AC_SUBST(PYTHON_FOR_BUILD)
++
++if test "$cross_compiling" = "yes"; then
++    CFLAGS_FOR_BUILD=${CFLAGS_FOR_BUILD-}
++    CPPFLAGS_FOR_BUILD=${CPPFLAGS_FOR_BUILD- -I.}
++    CROSS_COMMENT=#
++    if test "$case_sensitive" = "yes"
++    then
++        EXEEXT_FOR_BUILD=
++    else
++        EXEEXT_FOR_BUILD=.exe
++    fi
++    LDFLAGS_FOR_BUILD=${LDFLAGS_FOR_BUILD-}
++    LIBS_FOR_BUILD=${LIBS_FOR_BUILD-}
++    O_FOR_BUILD=x
++    RUNSHARED="CROSS_TARGET=$ac_sys_system SRCDIR=$srcdir SO=${SO}"
++else
++    CROSS_COMMENT=
++    EXEEXT_FOR_BUILD=$BUILDEXEEXT
++    O_FOR_BUILD=o
++fi
++AC_SUBST(CFLAGS_FOR_BUILD)
++AC_SUBST(CPPFLAGS_FOR_BUILD)
++AC_SUBST(CROSS_COMMENT)
++AC_SUBST(EXEEXT_FOR_BUILD)
++AC_SUBST(LDFLAGS_FOR_BUILD)
++AC_SUBST(LIBS_FOR_BUILD)
++AC_SUBST(O_FOR_BUILD)
++
+ # generate output files
+ AC_CONFIG_FILES(Makefile.pre Modules/Setup.config)
+ AC_OUTPUT

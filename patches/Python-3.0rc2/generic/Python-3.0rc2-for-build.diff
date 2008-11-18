@@ -1,0 +1,273 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [PATCH] cross compile: add _FOR_BUILD infrastructure
+
+When cross compiling we need a PYTHON_FOR_BUILD, PGEN_FOR_BUILD etc. The
+names follow usual autotool nomenclatures.
+
+Patch is originally from here:
+http://bugs.gentoo.org/attachment.cgi?id=130627
+
+and was ported to Python 3.0rc2
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.pre.in |  116 +++++++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 82 insertions(+), 34 deletions(-)
+
+Index: Python-3.0rc2/Makefile.pre.in
+===================================================================
+--- Python-3.0rc2.orig/Makefile.pre.in
++++ Python-3.0rc2/Makefile.pre.in
+@@ -28,6 +28,8 @@ VERSION=	@VERSION@
+ srcdir=		@srcdir@
+ VPATH=		@srcdir@
+ 
++export srcdir
++
+ CC=		@CC@
+ CXX=		@CXX@
+ MAINCC=		@MAINCC@
+@@ -72,6 +74,15 @@ CFLAGSFORSHARED=@CFLAGSFORSHARED@
+ # C flags used for building the interpreter object files
+ PY_CFLAGS=	$(CFLAGS) $(CPPFLAGS) $(CFLAGSFORSHARED) -DPy_BUILD_CORE
+ 
++# For cross compile: build compiler options
++CC_FOR_BUILD=		@CC_FOR_BUILD@
++CROSS_COMPILING=	@cross_compiling@
++EXEEXT_FOR_BUILD=	@EXEEXT_FOR_BUILD@
++O_FOR_BUILD=		@O_FOR_BUILD@
++CFLAGS_FOR_BUILD=	@CFLAGS_FOR_BUILD@
++CPPFLAGS_FOR_BUILD=	@CPPFLAGS_FOR_BUILD@ -I$(srcdir)/Include
++LDFLAGS_FOR_BUILD=	@LDFLAGS_FOR_BUILD@
++LIBS_FOR_BUILD=		@LIBS_FOR_BUILD@
+ 
+ # Machine-dependent subdirectories
+ MACHDEP=	@MACHDEP@
+@@ -173,7 +184,8 @@ LIBOBJDIR=	Python/
+ LIBOBJS=	@LIBOBJS@
+ 
+ PYTHON=		python$(EXE)
+-BUILDPYTHON=	python$(BUILDEXE)
++BUILDPYTHON=	python$(EXE)
++PYTHON_FOR_BUILD=@PYTHON_FOR_BUILD@
+ 
+ # The task to run while instrument when building the profile-opt target
+ PROFILE_TASK=	$(srcdir)/Tools/pybench/pybench.py -n 2 --with-gc --with-syscheck
+@@ -203,7 +215,8 @@ GRAMMAR_INPUT=	$(srcdir)/Grammar/Grammar
+ 
+ ##########################################################################
+ # Parser
+-PGEN=		Parser/pgen$(EXE)
++PGEN_FOR_BUILD=	Parser/pgen$(EXEEXT_FOR_BUILD)
++
+ 
+ POBJS=		\
+ 		Parser/acceler.o \
+@@ -220,18 +233,31 @@ POBJS=		\
+ 
+ PARSER_OBJS=	$(POBJS) Parser/myreadline.o Parser/tokenizer.o
+ 
+-PGOBJS=		\
+-		Objects/obmalloc.o \
+-		Python/mysnprintf.o \
+-		Parser/tokenizer_pgen.o \
+-		Parser/printgrammar.o \
+-		Parser/pgenmain.o
++POBJS_FOR_BUILD= \
++		Parser/acceler.$(O_FOR_BUILD) \
++		Parser/grammar1.$(O_FOR_BUILD) \
++		Parser/listnode.$(O_FOR_BUILD) \
++		Parser/node.$(O_FOR_BUILD) \
++		Parser/parser.$(O_FOR_BUILD) \
++		Parser/parsetok.$(O_FOR_BUILD) \
++		Parser/bitset.$(O_FOR_BUILD) \
++		Parser/metagrammar.$(O_FOR_BUILD) \
++		Parser/firstsets.$(O_FOR_BUILD) \
++		Parser/grammar.$(O_FOR_BUILD) \
++		Parser/pgen.$(O_FOR_BUILD)
++
++PGOBJS_FOR_BUILD= \
++		Objects/obmalloc.$(O_FOR_BUILD) \
++		Python/mysnprintf.$(O_FOR_BUILD) \
++		Parser/tokenizer_pgen.$(O_FOR_BUILD) \
++		Parser/printgrammar.$(O_FOR_BUILD) \
++		Parser/pgenmain.$(O_FOR_BUILD)
+ 
+ PARSER_HEADERS= \
+ 		Parser/parser.h \
+ 		Parser/tokenizer.h
+ 
+-PGENOBJS=	$(PGENMAIN) $(POBJS) $(PGOBJS)
++PGENOBJS=	$(POBJS_FOR_BUILD) $(PGOBJS_FOR_BUILD)
+ 
+ ##########################################################################
+ # AST
+@@ -385,15 +411,28 @@ $(BUILDPYTHON):	Modules/python.o $(LIBRA
+ 			Modules/python.o \
+ 			$(BLDLIBRARY) $(LIBS) $(MODLIBS) $(SYSLIBS) $(LDLAST)
+ 
+-platform: $(BUILDPYTHON)
+-	$(RUNSHARED) ./$(BUILDPYTHON) -E -c 'import sys ; from distutils.util import get_platform ; print(get_platform()+"-"+sys.version[0:3])' >platform
+-
++platform: $(PYTHON_FOR_BUILD)
++	$(RUNSHARED) $(PYTHON_FOR_BUILD) -E -c 'import sys ; from distutils.util import get_platform ; print get_platform()+"-"+sys.version[0:3]' > platform
+ 
+ # Build the shared modules
+-sharedmods: $(BUILDPYTHON)
++sharedmods: $(PYTHON_FOR_BUILD)
+ 	@case $$MAKEFLAGS in \
+-	*s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
+-	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
++	*-s*) \
++		$(RUNSHARED) \
++		CROSS_COMPILING=$(CROSS_COMPILING) \
++		CC='$(CC)' \
++		LDSHARED='$(BLDSHARED)' \
++		OPT='$(OPT)' \
++		$(PYTHON_FOR_BUILD) -E $(srcdir)/setup.py -q build \
++		;; \
++	*) \
++		$(RUNSHARED) \
++		CROSS_COMPILING=$(CROSS_COMPILING) \
++		CC='$(CC)' \
++		LDSHARED='$(BLDSHARED)' \
++		OPT='$(OPT)' \
++		$(PYTHON_FOR_BUILD) -E $(srcdir)/setup.py build \
++		;; \
+ 	esac
+ 
+ # Build static library
+@@ -509,12 +548,12 @@ Modules/python.o: $(srcdir)/Modules/pyth
+ 	$(MAINCC) -c $(PY_CFLAGS) -o $@ $(srcdir)/Modules/python.c
+ 
+ 
+-$(GRAMMAR_H) $(GRAMMAR_C): $(PGEN) $(GRAMMAR_INPUT)
++$(GRAMMAR_H) $(GRAMMAR_C): $(PGEN_FOR_BUILD) $(GRAMMAR_INPUT)
+ 		-@$(INSTALL) -d Include
+-		-$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
++		-$(PGEN_FOR_BUILD) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
+ 
+-$(PGEN):	$(PGENOBJS)
+-		$(CC) $(OPT) $(LDFLAGS) $(PGENOBJS) $(LIBS) -o $(PGEN)
++$(PGEN_FOR_BUILD): $(PGENOBJS)
++		$(CC_FOR_BUILD) $(OPT) $(LDFLAGS_FOR_BUILD) $(PGENOBJS) $(LIBS_FOR_BUILD) -o $(PGEN_FOR_BUILD)
+ 
+ Parser/grammar.o:	$(srcdir)/Parser/grammar.c \
+ 				$(srcdir)/Include/token.h \
+@@ -567,6 +606,13 @@ Objects/unicodeobject.o: $(srcdir)/Objec
+ Python/formatter_unicode.o: $(srcdir)/Python/formatter_unicode.c \
+                                              $(BYTESTR_DEPS)
+ 
++############################################################################
++# Cross compile rules
++
++# .x is a native object files during cross-compile.
++.SUFFIXES: .x
++.c.x:
++	$(CC_FOR_BUILD) -c $(CPPFLAGS_FOR_BUILD) $(CFLAGS_FOR_BUILD) -o $@ $<
+ 
+ ############################################################################
+ # Header files
+@@ -665,7 +711,7 @@ $(LIBRARY_OBJS) $(MODOBJS) Modules/pytho
+ 
+ TESTOPTS=	-l $(EXTRATESTOPTS)
+ TESTPROG=	$(srcdir)/Lib/test/regrtest.py
+-TESTPYTHON=	$(RUNSHARED) ./$(BUILDPYTHON) -E -bb
++TESTPYTHON=	$(RUNSHARED) $(PYTHON_FOR_BUILD) -E -tt
+ test:		all platform
+ 		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
+ 		-$(TESTPYTHON) $(TESTPROG) $(TESTOPTS)
+@@ -688,8 +734,7 @@ testuniversal:	all platform
+ 		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
+ 		-$(TESTPYTHON) $(TESTPROG) $(TESTOPTS) -uall
+ 		$(TESTPYTHON) $(TESTPROG) $(TESTOPTS) -uall
+-		$(RUNSHARED) /usr/libexec/oah/translate ./$(BUILDPYTHON) -E $(TESTPROG) $(TESTOPTS) -uall
+-
++		$(RUNSHARED) /usr/libexec/oah/translate $(PYTHON_FOR_BUILD) -E -tt $(TESTPROG) $(TESTOPTS) -uall
+ 
+ # Like testall, but with a single pass only
+ # run an optional script to include some information about the build environment
+@@ -817,7 +862,8 @@ LIBSUBDIRS=	tkinter site-packages test t
+ 		setuptools setuptools/command setuptools/tests setuptools.egg-info \
+ 		multiprocessing multiprocessing/dummy \
+ 		curses $(MACHDEPS)
+-libinstall:	build_all $(srcdir)/Lib/$(PLATDIR)
++
++libinstall: $(srcdir)/Lib/$(PLATDIR) $(PYTHON_FOR_BUILD)
+ 	@for i in $(SCRIPTDIR) $(LIBDEST); \
+ 	do \
+ 		if test ! -d $(DESTDIR)$$i; then \
+@@ -874,29 +920,29 @@ libinstall:	build_all $(srcdir)/Lib/$(PL
+ 	done
+ 	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
+ 	-PYTHONPATH=$(DESTDIR)$(LIBDEST)  $(RUNSHARED) \
+-		./$(BUILDPYTHON) -Wi $(DESTDIR)$(LIBDEST)/compileall.py \
++		$(PYTHON_FOR_BUILD) -Wi $(DESTDIR)$(LIBDEST)/compileall.py \
+ 		-d $(LIBDEST) -f \
+ 		-x 'bad_coding|badsyntax|site-packages' $(DESTDIR)$(LIBDEST)
+ 	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+-		./$(BUILDPYTHON) -Wi -O $(DESTDIR)$(LIBDEST)/compileall.py \
++		$(PYTHON_FOR_BUILD) -Wi -O $(DESTDIR)$(LIBDEST)/compileall.py \
+ 		-d $(LIBDEST) -f \
+ 		-x 'bad_coding|badsyntax|site-packages' $(DESTDIR)$(LIBDEST)
+ 	-PYTHONPATH=$(DESTDIR)$(LIBDEST)  $(RUNSHARED) \
+-		./$(BUILDPYTHON) -Wi $(DESTDIR)$(LIBDEST)/compileall.py \
++		$(PYTHON_FOR_BUILD) -Wi $(DESTDIR)$(LIBDEST)/compileall.py \
+ 		-d $(LIBDEST)/site-packages -f \
+ 		-x badsyntax $(DESTDIR)$(LIBDEST)/site-packages
+ 	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+-		./$(BUILDPYTHON) -Wi -O $(DESTDIR)$(LIBDEST)/compileall.py \
++		$(PYTHON_FOR_BUILD) -Wi -O $(DESTDIR)$(LIBDEST)/compileall.py \
+ 		-d $(LIBDEST)/site-packages -f \
+ 		-x badsyntax $(DESTDIR)$(LIBDEST)/site-packages
+ 	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+-		./$(BUILDPYTHON) -Wi -c "import lib2to3.pygram, lib2to3.patcomp;lib2to3.patcomp.PatternCompiler()"
++		$(PYTHON_FOR_BUILD) -Wi -c "import lib2to3.pygram, lib2to3.patcomp;lib2to3.patcomp.PatternCompiler()"
+ 
+ # Create the PLATDIR source directory, if one wasn't distributed..
+ $(srcdir)/Lib/$(PLATDIR):
+ 	mkdir $(srcdir)/Lib/$(PLATDIR)
+ 	cp $(srcdir)/Lib/plat-generic/regen $(srcdir)/Lib/$(PLATDIR)/regen
+-	export PATH; PATH="`pwd`:$$PATH"; \
++	export PATH; PATH="`dirname $(PYTHON_FOR_BUILD)`:$$PATH"; \
+ 	export PYTHONPATH; PYTHONPATH="`pwd`/Lib"; \
+ 	export DYLD_FRAMEWORK_PATH; DYLD_FRAMEWORK_PATH="`pwd`"; \
+ 	export EXE; EXE="$(BUILDEXE)"; \
+@@ -977,8 +1023,9 @@ libainstall:	all
+ # Install the dynamically loadable modules
+ # This goes into $(exec_prefix)
+ sharedinstall:
+-	$(RUNSHARED) ./$(BUILDPYTHON) -E $(srcdir)/setup.py install \
+-	   	--prefix=$(prefix) \
++	CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' CROSS_COMPILING='$(CROSS_COMPILING)' \
++		$(RUNSHARED) $(PYTHON_FOR_BUILD) -E $(srcdir)/setup.py install \
++		--prefix=$(prefix) \
+ 		--install-scripts=$(BINDIR) \
+ 		--install-platlib=$(DESTSHARED) \
+ 		--root=/$(DESTDIR)
+@@ -1055,8 +1102,8 @@ frameworkinstallextras:
+ 
+ # This installs a few of the useful scripts in Tools/scripts
+ scriptsinstall:
+-	SRCDIR=$(srcdir) $(RUNSHARED) \
+-	./$(BUILDPYTHON) $(srcdir)/Tools/scripts/setup.py install \
++	$(RUNSHARED) \
++	$(PYTHON_FOR_BUILD) $(srcdir)/Tools/scripts/setup.py install \
+ 	--prefix=$(prefix) \
+ 	--install-scripts=$(BINDIR) \
+ 	--root=/$(DESTDIR)
+@@ -1131,11 +1178,12 @@ profile-removal:
+ 	find . -name '*.gc??' -exec rm -f {} ';'
+ 
+ clobber: clean profile-removal
+-	-rm -f $(BUILDPYTHON) $(PGEN) $(LIBRARY) $(LDLIBRARY) $(DLLLIBRARY) \
++	-rm -f $(BUILDPYTHON) $(PGEN_FOR_BUILD) $(LIBRARY) $(LDLIBRARY) $(DLLLIBRARY) \
+ 		tags TAGS \
+ 		config.cache config.log pyconfig.h Modules/config.c
+ 	-rm -rf build platform
+ 	-rm -rf $(PYTHONFRAMEWORKDIR)
++	-rm -rf buildpython
+ 
+ # Make things extra clean, before making a distribution:
+ # remove all generated files, even Makefile[.pre]

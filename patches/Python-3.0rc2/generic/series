@@ -1,7 +1,8 @@
+Python-3.0rc2-so-from-env.diff
+Python-3.0rc2-for-build.diff
+Python-3.0rc2-cross-readme.diff
+Python-3.0rc2-cross-configure-in.diff
 Python-3.0rc2-chflags.diff
 Python-3.0rc2-lchflags.diff
-Python-3.0rc2-printf_zd.diff
-Python-3.0rc2-hostpython.diff
-Python-3.0rc2-cross-setup-py.diff
-fixme
-Python-3.0rc2-destdir.diff
+Python-3.0rc2-setup-py.diff
+Python-3.0rc2-libff-config_args.diff

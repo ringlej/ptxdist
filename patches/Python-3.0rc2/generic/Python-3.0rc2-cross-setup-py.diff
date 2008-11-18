@@ -1,3 +1,10 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [PATCH] cross compile: module checking
+
+FIXME: needs rework, probably not used any more
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  setup.py |   45 ++++++++++++++++++++++++---------------------
  1 file changed, 24 insertions(+), 21 deletions(-)

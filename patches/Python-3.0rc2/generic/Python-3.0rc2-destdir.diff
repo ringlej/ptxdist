@@ -1,3 +1,9 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [PATCH] cross compile: DESTDIR support for setup.py
+
+FIXME: needs rework, currently not used in series
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
  setup.py |   82 +++++++++++++++++++++++++++++++--------------------------------
  1 file changed, 41 insertions(+), 41 deletions(-)
