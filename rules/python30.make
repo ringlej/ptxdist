@@ -137,26 +137,56 @@ $(STATEDIR)/python30.compile:
 
 $(STATEDIR)/python30.install:
 	@$(call targetinfo)
-	@$(call install, PYTHON30)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
+PYTHON30_INST_TMP := $(PYTHON30_DIR)/install_temp
+
 $(STATEDIR)/python30.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, python30)
+	@$(call install_init,  python30)
 	@$(call install_fixup, python30,PACKAGE,python30)
 	@$(call install_fixup, python30,PRIORITY,optional)
 	@$(call install_fixup, python30,VERSION,$(PYTHON30_VERSION))
 	@$(call install_fixup, python30,SECTION,base)
-	@$(call install_fixup, python30,AUTHOR,"Robert Schwebel")
+	@$(call install_fixup, python30,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, python30,DEPENDS,)
 	@$(call install_fixup, python30,DESCRIPTION,missing)
 
-	@$(call install_copy, python30, 0, 0, 0755, $(PYTHON30_DIR)/foobar, /dev/null)
+	rm -rf $(PYTHON30_INST_TMP)
+	mkdir -p $(PYTHON30_INST_TMP)
+
+	$(PYTHON30_PATH) make -C $(PYTHON30_DIR) $(PYTHON30_MAKEVARS) \
+		altbininstall DESTDIR=$(PYTHON30_INST_TMP)
+
+	umask 022 && \
+		$(PYTHON30_PATH) make -C $(PYTHON30_DIR) $(PYTHON30_MAKEVARS) \
+		libinstall DESTDIR=$(PYTHON30_INST_TMP)
+
+	$(PYTHON30_PATH) make -C $(PYTHON30_DIR) $(PYTHON30_MAKEVARS) \
+		libainstall DESTDIR=$(PYTHON30_INST_TMP)
+
+	$(PYTHON30_PATH) make -C $(PYTHON30_DIR) $(PYTHON30_MAKEVARS) \
+		sharedinstall DESTDIR=$(PYTHON30_INST_TMP)
+
+	$(PYTHON30_PATH) make -C $(PYTHON30_DIR) $(PYTHON30_MAKEVARS) \
+		oldsharedinstall DESTDIR=$(PYTHON30_INST_TMP)
+
+	# remove redundant files
+	find $(PYTHON30_INST_TMP)/usr/lib/python2.4 -name "*.py"  | xargs rm -f
+	find $(PYTHON30_INST_TMP)/usr/lib/python2.4 -name "*.pyo" | xargs rm -f
+	rm -fr $(PYTHON30_INST_TMP)/usr/lib/python2.4/config
+	rm -fr $(PYTHON30_INST_TMP)/usr/lib/python2.4/test
+
+	files=$$(cd $(PYTHON30_INST_TMP) && find -type f | sed "s/^\.//"); \
+	for i in $$files; do \
+		access=$$(stat -c "%a" $(PYTHON30_INST_TMP)$$i); \
+		$(call install_copy, python30, 0, 0, $$access, $(PYTHON30_INST_TMP)$$i, $$i); \
+	done
 
 	@$(call install_finish, python30)
 
