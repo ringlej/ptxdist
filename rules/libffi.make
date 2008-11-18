@@ -97,7 +97,11 @@ $(STATEDIR)/libffi.targetinstall:
 	@$(call install_fixup, libffi,DEPENDS,)
 	@$(call install_fixup, libffi,DESCRIPTION,missing)
 
-	@$(call install_copy, libffi, 0, 0, 0755, $(LIBFFI_DIR)/foobar, /dev/null)
+	@$(call install_copy, libffi, 0, 0, 0644, \
+		$(LIBFFI_DIR)/.libs/libffi.so.5.0.8, \
+		/usr/lib/libffi.so.5.0.8)
+	@$(call install_link, libffi, libffi.so.5.0.8, /usr/lib/libffi.so.5)
+	@$(call install_link, libffi, libffi.so.5.0.8, /usr/lib/libffi.so)
 
 	@$(call install_finish, libffi)
 
