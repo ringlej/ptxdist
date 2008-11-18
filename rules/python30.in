@@ -3,6 +3,7 @@
 menuconfig PYTHON30
 	tristate
 	select HOST_PYTHON30
+	select LIBFFI
 	prompt "python 3.0                    "
 	help
 	  Python is a dynamic object-oriented programming language that can be
