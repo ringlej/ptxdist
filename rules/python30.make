@@ -51,10 +51,10 @@ PYTHON30_PATH	:= PATH=$(CROSS_PATH)
 
 PYTHON30_ENV := \
 	$(CROSS_ENV) \
+	LDSHARED=$(CROSS_LD) \
 	CROSS_COMPILE=yes \
 	ac_cv_have_chflags=no \
-	ac_cv_have_lchflags=no \
-	ac_cv_py_format_size_t=z
+	ac_cv_have_lchflags=no
 
 #
 # autoconf
@@ -65,7 +65,7 @@ PYTHON30_AUTOCONF := \
 	--disable-profiling \
 	--with-suffix="" \
 	--without-pydebug \
-	--without-system-ffi \
+	--with-system-ffi \
 	--without-signal-module \
 	--with-doc-strings \
 	--with-pymalloc \
@@ -83,6 +83,8 @@ else
 PYTHON30_AUTOCONF += --without-tsc
 endif
 
+# FIXME: yet unhandled
+#
 #  --with-pth
 #  --enable-universalsdk[=SDKDIR]
 #                          Build against Mac OS X 10.4u SDK (ppc/i386)
@@ -96,10 +98,20 @@ endif
 #  --with-libc=STRING      C library
 #  --with-wide-unicode     Use 4-byte Unicode characters (default is 2 bytes)
 
+#
+# Hack Alert:
+#
+# LDFLAGS is needed to convince the linker to link against the cross
+# compiled libpython.so, and -L. is an uggly hack that lets it find the
+# cross lib before that one incorrectly determined by the PYTHON_FOR_BUILD
+#
+
 PYTHON30_MAKEVARS = \
-	HOSTPYTHON=$(PTXCONF_SYSROOT_HOST)/bin/python3.0 \
-	HOSTPGEN=$(HOST_PYTHON30_DIR)/Parser/pgen \
-	DESTDIR=$(PTXCONF_SYSROOT_TARGET)
+	CC_FOR_BUILD=gcc \
+	LDFLAGS="-shared -L." \
+	GNU_HOST=$(PTXCONF_GNU_TARGET) \
+	GNU_BUILD=$(GNU_HOST) \
+	PYTHON_FOR_BUILD=$(PTXCONF_SYSROOT_HOST)/bin/python3.0
 
 $(STATEDIR)/python30.prepare:
 	@$(call targetinfo)
@@ -116,7 +128,7 @@ $(STATEDIR)/python30.prepare:
 $(STATEDIR)/python30.compile:
 	@$(call targetinfo)
 	cd $(PYTHON30_DIR) && \
-		$(PYTHON30_PATH) $(MAKE) $(PARALLELMFLAGS) $(PYTHON30_MAKEVARS) --debug=base
+		$(PYTHON30_PATH) $(MAKE) $(PARALLELMFLAGS) $(PYTHON30_MAKEVARS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
