@@ -6,3 +6,4 @@ Python-3.0rc2-chflags.diff
 Python-3.0rc2-lchflags.diff
 Python-3.0rc2-setup-py.diff
 Python-3.0rc2-libff-config_args.diff
+Python-3.0rc2-autoreconf.diff
