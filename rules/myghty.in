@@ -1,3 +1,5 @@
+## SECTION=networking
+
 config MYGHTY
 	tristate
 	prompt "myghty"
