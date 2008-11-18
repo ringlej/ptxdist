@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config LIBFFI
+	tristate
+	prompt "libffi"
+	help
+	  FIXME
