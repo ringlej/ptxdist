@@ -14,7 +14,10 @@
 #
 # State:
 # 
-# unknown
+# 20081119: wsa: CPPFLAGS is fixed in version 1.2.0
+#		 PREFIX is fixed in git after 1.2.0
+#		 so, wait for next release and drop this patch.
+#		 (pity, we should have mainlined it!)
 #
 
 Index: mtd-utils-1.0.0/Makefile
