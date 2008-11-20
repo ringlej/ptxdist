@@ -1,12 +1,15 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
 Subject: libtheora: fix configure.ac to work with cross scenario for libvorbis
 
+This is https://trac.xiph.org/ticket/1465
+
 The current test in configure.ac mixes up two different methods (hand
 written plus pkg-config). This patch changes the mechanics towards
 proper pkg-config usage. In return, we get a cleaned up cross scenario
 with no build-system leakage.
 
 This patch fixes the vorbis test.
+
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 

@@ -1,6 +1,8 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
 Subject: libtheora: fix configure.ac to work with cross scenario for ogg
 
+This is https://trac.xiph.org/ticket/1467
+
 The current test in configure.ac mixes up two different methods (hand
 written plus pkg-config). This patch changes the mechanics towards
 proper pkg-config usage. In return, we get a cleaned up cross scenario
