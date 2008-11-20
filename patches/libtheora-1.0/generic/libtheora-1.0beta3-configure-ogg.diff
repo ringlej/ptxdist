@@ -14,11 +14,11 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  configure.ac |   50 ++++++++++++++++++++++++--------------------------
  1 file changed, 24 insertions(+), 26 deletions(-)
 
-Index: libtheora-1.0beta3/configure.ac
+Index: libtheora-1.0/configure.ac
 ===================================================================
---- libtheora-1.0beta3.orig/configure.ac
-+++ libtheora-1.0beta3/configure.ac
-@@ -228,34 +228,32 @@ dnl ------------------------------------
+--- libtheora-1.0.orig/configure.ac
++++ libtheora-1.0/configure.ac
+@@ -256,34 +256,32 @@ dnl ------------------------------------
  dnl Checks for support libraries and headers
  dnl --------------------------------------------------
  

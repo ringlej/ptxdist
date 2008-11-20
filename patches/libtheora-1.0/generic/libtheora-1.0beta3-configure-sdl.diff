@@ -14,11 +14,11 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  configure.ac |   29 ++++++++++++++++++++++++-----
  1 file changed, 24 insertions(+), 5 deletions(-)
 
-Index: libtheora-1.0beta3/configure.ac
+Index: libtheora-1.0/configure.ac
 ===================================================================
---- libtheora-1.0beta3.orig/configure.ac
-+++ libtheora-1.0beta3/configure.ac
-@@ -284,13 +284,32 @@ if test "${HAVE_VORBIS}" = "yes"; then
+--- libtheora-1.0.orig/configure.ac
++++ libtheora-1.0/configure.ac
+@@ -312,13 +312,32 @@ if test "${HAVE_VORBIS}" = "yes"; then
      AC_SUBST(VORBIS_LIBS)
  fi
  
