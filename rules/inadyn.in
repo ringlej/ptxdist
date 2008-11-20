@@ -1,0 +1,9 @@
+## SECTION=networking
+config INADYN
+	tristate
+	prompt "inadyn"
+	help
+	  Build the client for use with DynDNS and other services like this.
+	  To configure this tool use your own projectroot/etc/inadyn.conf file.
+	  You can use the generic one coming with ptxdist as a template.
+

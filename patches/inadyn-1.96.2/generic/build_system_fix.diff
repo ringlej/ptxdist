@@ -1,0 +1,34 @@
+Make this buildsystem be configureable for cross compiling.
+
+Signed-off-by <juergen@kreuzholzen.de>
+
+---
+ makefile |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+Index: makefile
+===================================================================
+--- makefile.orig
++++ makefile
+@@ -19,8 +19,8 @@ ifeq ($(TARGET_ARCH),solaris)
+ endif
+ 
+ ifeq ($(TARGET_ARCH),linux)
+-	ARCH_SPECIFIC_LIBS += 
+-	ARCH_SPECIFIC_CFLAGS += 
++	ARCH_SPECIFIC_LIBS += $(LDFLAGS)
++	ARCH_SPECIFIC_CFLAGS += -O2 $(CPPFLAGS)
+ endif
+ 
+ ifdef DEBUG
+@@ -33,8 +33,8 @@ COMMON_OBJ=$(OUTDIR)/base64utils.o $(OUT
+ 	$(OUTDIR)/os_unix.o $(OUTDIR)/os_windows.o $(OUTDIR)/tcp.o $(OUTDIR)/inadyn_cmd.o
+ OBJ=$(COMMON_OBJ) $(CFG_OBJ)
+ 
+-COMPILE=gcc  -Wall  -pedantic -c  $(ARCH_SPECIFIC_CFLAGS) $(CFLAGS) -o "$(OUTDIR)/$(*F).o" $(CFG_INC) "$<"
+-LINK=gcc $(CFLAGS) -o "$(OUTFILE)" $(OBJ) $(CFG_LIB) $(ARCH_SPECIFIC_LIBS)
++COMPILE=$(CC) -Wall -pedantic -c  $(ARCH_SPECIFIC_CFLAGS) $(CFLAGS) -o "$(OUTDIR)/$(*F).o" $(CFG_INC) "$<"
++LINK=$(CC) $(CFLAGS) -o "$(OUTFILE)" $(OBJ) $(CFG_LIB) $(ARCH_SPECIFIC_LIBS)
+ 
+ # Pattern rules
+ $(OUTDIR)/%.o : $(SRCDIR)/%.c
