@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBTHEORA) += libtheora
 #
 # Paths and names
 #
-LIBTHEORA_VERSION	:= 1.0beta3
+LIBTHEORA_VERSION	:= 1.0
 LIBTHEORA		:= libtheora-$(LIBTHEORA_VERSION)
 LIBTHEORA_SUFFIX	:= tar.gz
 LIBTHEORA_URL		:= http://downloads.xiph.org/releases/theora/$(LIBTHEORA).$(LIBTHEORA_SUFFIX)
@@ -130,22 +130,22 @@ $(STATEDIR)/libtheora.targetinstall:
 	@$(call install_fixup, libtheora,DESCRIPTION,missing)
 
 	@$(call install_copy, libtheora, 0, 0, 0644, \
-		$(LIBTHEORA_DIR)/lib/.libs/libtheora.so.0.3.3, \
-		/usr/lib/libtheora.so.0.3.3)
-	@$(call install_link, libtheora, libtheora.so.0.3.3, /usr/lib/libtheora.so.0)
-	@$(call install_link, libtheora, libtheora.so.0.3.3, /usr/lib/libtheora.so)
+		$(LIBTHEORA_DIR)/lib/.libs/libtheora.so.0.3.4, \
+		/usr/lib/libtheora.so.0.3.4)
+	@$(call install_link, libtheora, libtheora.so.0.3.4, /usr/lib/libtheora.so.0)
+	@$(call install_link, libtheora, libtheora.so.0.3.4, /usr/lib/libtheora.so)
 
 	@$(call install_copy, libtheora, 0, 0, 0644, \
-		$(LIBTHEORA_DIR)/lib/.libs/libtheoradec.so.1.0.0, \
-		/usr/lib/libtheoradec.so.1.0.0)
-	@$(call install_link, libtheora, libtheoradec.so.1.0.0, /usr/lib/libtheoradec.so.0)
-	@$(call install_link, libtheora, libtheoradec.so.1.0.0, /usr/lib/libtheoradec.so)
+		$(LIBTHEORA_DIR)/lib/.libs/libtheoradec.so.1.0.1, \
+		/usr/lib/libtheoradec.so.1.0.1)
+	@$(call install_link, libtheora, libtheoradec.so.1.0.1, /usr/lib/libtheoradec.so.0)
+	@$(call install_link, libtheora, libtheoradec.so.1.0.1, /usr/lib/libtheoradec.so)
 
 	@$(call install_copy, libtheora, 0, 0, 0644, \
-		$(LIBTHEORA_DIR)/lib/.libs/libtheoraenc.so.1.0.0, \
-		/usr/lib/libtheoraenc.so.1.0.0)
-	@$(call install_link, libtheora, libtheoraenc.so.1.0.0, /usr/lib/libtheoraenc.so.0)
-	@$(call install_link, libtheora, libtheoraenc.so.1.0.0, /usr/lib/libtheoraenc.so)
+		$(LIBTHEORA_DIR)/lib/.libs/libtheoraenc.so.1.0.1, \
+		/usr/lib/libtheoraenc.so.1.0.1)
+	@$(call install_link, libtheora, libtheoraenc.so.1.0.1, /usr/lib/libtheoraenc.so.0)
+	@$(call install_link, libtheora, libtheoraenc.so.1.0.1, /usr/lib/libtheoraenc.so)
 
 	@$(call install_finish, libtheora)
 
