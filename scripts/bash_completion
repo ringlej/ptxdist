@@ -26,12 +26,16 @@ _ptxdist_completion()
 		;;
 	clone)
 		#HACK! Enable filename completion without specifying '-o filenames' during complete (that will add slashes to commands if there is a dir of the same name :( )
-		compgen -f >/dev/null
+		compgen -f /dummy >/dev/null
 		[ $COMP_CWORD -lt 4 ] && _filedir -d
 		;;
-	select|platform|toolchain|export_src)
-		compgen -f >/dev/null
+	toolchain|export_src)
+		compgen -f /dummy >/dev/null
 		[ $COMP_CWORD -lt 3 ] && _filedir -d
+		;;
+	select|platform)
+		compgen -f /dummy >/dev/null
+		[ $COMP_CWORD -lt 3 ] && _filedir
 		;;
 	get|extract|prepare|compile|install|targetinstall|tags)
 		COMPREPLY=( $( compgen -W "${opts} $( ptxdist print PACKAGES_SELECTED )" -- $cur ) )
