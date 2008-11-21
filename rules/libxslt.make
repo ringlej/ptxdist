@@ -20,7 +20,8 @@ PACKAGES-$(PTXCONF_LIBXSLT) += libxslt
 LIBXSLT_VERSION	= 1.1.15
 LIBXSLT		= libxslt-$(LIBXSLT_VERSION)
 LIBXSLT_SUFFIX	= tar.gz
-LIBXSLT_URL	= ftp://xmlsoft.org/libxslt/$(LIBXSLT).$(LIBXSLT_SUFFIX)
+LIBXSLT_URL	= ftp://xmlsoft.org/libxslt/$(LIBXSLT).$(LIBXSLT_SUFFIX) \
+		  ftp://xmlsoft.org/libxslt/old/$(LIBXSLT).$(LIBXSLT_SUFFIX)
 LIBXSLT_SOURCE	= $(SRCDIR)/$(LIBXSLT).$(LIBXSLT_SUFFIX)
 LIBXSLT_DIR	= $(BUILDDIR)/$(LIBXSLT)
 
