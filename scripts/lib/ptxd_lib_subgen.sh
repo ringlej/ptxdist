@@ -25,8 +25,8 @@ ptxd_subgen_generate_sections()
 		next;
 	}
 
-	$1 ~ /^PACKAGES-m is/ {
-		n = split($2, module, " ");
+	$1 ~ /^[a-z0-9]+/ {
+		n = split($1, module, " ");
 		for (i = 1; i <= n; i++) {
 #			print "module: " module[i] ", pkg: " pkgs[module[i]] ", deps: " deps[pkgs[module[i]]];
 			module_pkgs[pkgs[module[i]]] = module[i];
