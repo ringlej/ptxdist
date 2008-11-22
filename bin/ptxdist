@@ -1882,7 +1882,7 @@ setup_path
 setup_logfile
 # -- logfile is ready
 setup_export
-# -- all improtant vars are exported
+# -- all important vars are exported
 
 check_uid
 check_path
