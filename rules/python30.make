@@ -157,6 +157,8 @@ $(STATEDIR)/python30.targetinstall:
 	@$(call install_fixup, python30,DEPENDS,)
 	@$(call install_fixup, python30,DESCRIPTION,missing)
 
+	# FIXME: backport install options from the python24 image
+
 	rm -rf $(PYTHON30_INST_TMP)
 	mkdir -p $(PYTHON30_INST_TMP)
 
