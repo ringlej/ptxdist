@@ -10,6 +10,7 @@ comment "------------------------------"
 
 source "rules/host-gettext.in"
 source "rules/host-intltool.in"
+source "rules/host-testframework.in"
 
 # automatically selected host tools
 source "generated/hosttools_noprompt.in"
