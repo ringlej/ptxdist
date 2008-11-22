@@ -12,8 +12,8 @@ menuconfig IMAGE_JFFS2
 if IMAGE_JFFS2
 
 config IMAGE_JFFS2_BLOCKSIZE
-	int
-	default -1
+	hex
+	default 0x10000
 	prompt "Erase Block Size"
 	help
 	  Enter here the size of each (sector) block in target's flash device.
