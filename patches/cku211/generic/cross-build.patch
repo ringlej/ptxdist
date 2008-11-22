@@ -1,0 +1,19 @@
+--- cku211/makefile	2004-04-17 12:52:00.000000000 -0600
++++ cku211.NEW/makefile	2007-09-26 08:42:39.000000000 -0600
+@@ -1406,13 +1406,12 @@
+ 
+ ckctel.$(EXT): ckcsym.h ckcdeb.h ckcker.h ckcnet.h ckctel.h ckclib.h
+ 
+-wart: ckwart.$(EXT)
+-	$(CC) $(LNKFLAGS) -o wart ckwart.$(EXT) $(LIBS)
++HOST_CC := $(CC)
++wart: ckwart.c
++	$(HOST_CC) -o wart ckwart.c
+ 
+ ckcmdb.$(EXT): ckcmdb.c ckcdeb.h ckcsym.h ckclib.h
+ 
+-ckwart.$(EXT): ckwart.c
+-
+ ckudia.$(EXT): ckudia.c ckcker.h ckcdeb.h ckucmd.h ckcasc.h ckcsym.h ckcsig.h \
+ 		ckcnet.h ckctel.h ckclib.h
+ 
