@@ -164,14 +164,25 @@ $(STATEDIR)/python24.targetinstall: $(python24_targetinstall_deps_default)
 	# remove redundant files
 	find $(PYTHON24_INST_TMP)/usr/lib/python2.4 -name "*.py"  | xargs rm -f
 	find $(PYTHON24_INST_TMP)/usr/lib/python2.4 -name "*.pyo" | xargs rm -f
-	rm -fr $(PYTHON24_INST_TMP)/usr/lib/python2.4/config
 	rm -fr $(PYTHON24_INST_TMP)/usr/lib/python2.4/test
+ifndef PTXCONF_PYTHON24_CONFIG
+	rm -fr $(PYTHON24_INST_TMP)/usr/lib/python2.4/config
+endif
+ifndef PTXCONF_PYTHON24_LIBTK
+	rm -fr $(PYTHON24_INST_TMP)/usr/lib/python2.4/lib-tk
+endif
+ifndef PTXCONF_PYTHON24_IDLELIB
+	rm -fr $(PYTHON24_INST_TMP)/usr/lib/python2.4/idlelib
+endif
 
 	files=$$(cd $(PYTHON24_INST_TMP) && find -type f | sed "s/^\.//"); \
 	for i in $$files; do \
 		access=$$(stat -c "%a" $(PYTHON24_INST_TMP)$$i); \
 		$(call install_copy, python24, 0, 0, $$access, $(PYTHON24_INST_TMP)$$i, $$i); \
 	done
+ifdef PTXCONF_PYTHON24_SYMLINK
+	@$(call install_link, python24, python2.4, /usr/bin/python)
+endif
 
 	@$(call install_finish, python24)
 	@$(call touch, $@)

@@ -1,7 +1,8 @@
 ## SECTION=scripting_languages
-config PYTHON24
+
+menuconfig PYTHON24
 	tristate
-	prompt "Python 2.4"
+	prompt "python 2.4"
 	select LIBC_DL
 	select LIBC_UTIL
 	select LIBC_PTHREAD
@@ -14,3 +15,24 @@ config PYTHON24
 	  for integration with other languages and tools,
 	  comes with extensive standard libraries, and
 	  can be learned in a few days.
+
+if PYTHON24
+
+config PYTHON24_SYMLINK
+	bool
+	prompt "install symbolic link /usr/bin/python"
+	default y
+
+config PYTHON24_CONFIG
+	bool
+	prompt "preserve config files - needed to run setup tools"
+
+config PYTHON24_LIBTK
+	bool
+	prompt "Include lib-tk packages"
+
+config PYTHON24_IDLELIB
+	bool
+	prompt "Include idlelib packages"
+
+endif
