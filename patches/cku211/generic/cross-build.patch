@@ -1,3 +1,12 @@
+Subject: Enable cross build
+From: Gary Thomas <gary@mlbassoc.com>
+
+Minor Makefile changes to allow package to be cross-built for targets.
+
+Signed-off-by: Gary Thomas <gary@mlbassoc.com>
+
+---
+
 --- cku211/makefile	2004-04-17 12:52:00.000000000 -0600
 +++ cku211.NEW/makefile	2007-09-26 08:42:39.000000000 -0600
 @@ -1406,13 +1406,12 @@
