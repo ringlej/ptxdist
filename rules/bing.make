@@ -2,7 +2,8 @@
 # $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel
-#          
+# Copyright (C) 2008 by Wolfram Sang, Pengutronix e.K.
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +18,10 @@ PACKAGES-$(PTXCONF_BING) += bing
 #
 # Paths and names
 #
-BING_VERSION		= 1.0.5
-BING			= bing-$(BING_VERSION)
+BING_VERSION		= 1.1.3
+BING			= bing_src-$(BING_VERSION)
 BING_SUFFIX		= tar.gz
-BING_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BING).$(BING_SUFFIX)
+BING_URL		= http://fgouget.free.fr/bing/$(BING).$(BING_SUFFIX)
 BING_SOURCE		= $(SRCDIR)/$(BING).$(BING_SUFFIX)
 BING_DIR		= $(BUILDDIR)/$(BING)
 
@@ -59,7 +60,7 @@ $(STATEDIR)/bing.extract: $(bing_extract_deps_default)
 bing_prepare: $(STATEDIR)/bing.prepare
 
 BING_PATH	=  PATH=$(CROSS_PATH)
-BING_ENV 	=  $(CROSS_ENV)
+BING_ENV 	=  $(CROSS_ENV) PREFIX=$(SYSROOT)/usr
 
 $(STATEDIR)/bing.prepare: $(bing_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -84,8 +85,7 @@ bing_install: $(STATEDIR)/bing.install
 
 $(STATEDIR)/bing.install: $(bing_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
-	#@$(call install, BING)
+	@$(call install, BING)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

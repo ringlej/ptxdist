@@ -1,0 +1,53 @@
+Adapt makefile for Linux
+
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+---
+# 20081124: wsa: there is no upstream anymore :(
+
+ Makefile |   12 +++++-----
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+Index: platform-phyCORE-MPC5200B-IO/build-target/bing_src-1.1.3/Makefile
+===================================================================
+--- Makefile.orig
++++ Makefile
+@@ -9,9 +9,9 @@
+ #
+ ##########
+ 
+-BINDIR=/usr/local/bin
+-MANDIR=/usr/local/man
+-
++PREFIX ?= /usr/local
++BINDIR = $(PREFIX)/bin
++MANDIR = $(PREFIX)/man
+ 
+ ##########
+ #
+@@ -21,7 +21,7 @@
+ 
+ # Uncomment if you need the 4.4 BSD compatibility includes.
+ #  -> required on Linux (and Win32)
+-#COMPAT_INCS = -Iinclude
++COMPAT_INCS = -Iinclude
+ 
+ # Maybe specify some specific compatibility options
+ #  -> on AIX activate the BSD mode
+@@ -37,7 +37,7 @@
+ 
+ # Define to use srandom/random rather than srand/rand
+ #  -> required on SunOS 4.1.3, SunOS 5, AIX 2 (BOSX 2 really), OSF1 V2.0
+-NO_SNPRINTF = -DNO_SNPRINTF=1
++#NO_SNPRINTF = -DNO_SNPRINTF=1
+ 
+ # Define if you lack strerror()
+ #NO_STRERROR = -DNO_STRERROR=1
+@@ -47,7 +47,7 @@
+ #  -> if you want to debug bing define
+ #COPTIM = -g
+ #  -> on Linux, SunOS 4 and OSF1 V2.0 you may specify
+-#COPTIM = -O2
++COPTIM = -O2
+ #  -> on Solaris you may use
+ #COPTIM = -O
+ # on some hosts like AIX, HP-UX the optimisation options are already set
