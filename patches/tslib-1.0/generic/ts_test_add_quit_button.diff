@@ -2,6 +2,8 @@ ts_test: add quit button
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
 ---
+# 20081124: wsa: already sent upstream. applied.
+
  tests/ts_test.c |   19 +++++++++++++------
  1 file changed, 13 insertions(+), 6 deletions(-)
 

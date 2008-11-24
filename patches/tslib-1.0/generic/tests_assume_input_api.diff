@@ -2,6 +2,8 @@ tests: assume INPUT_API for tests, so /den/input/event0 is read as default
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
 ---
+# 20081124: wsa: already sent upstream. got improved & applied.
+
  tests/ts_calibrate.c |    4 ----
  tests/ts_test.c      |    4 ----
  2 files changed, 8 deletions(-)

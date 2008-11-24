@@ -14,6 +14,8 @@ line.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+# 20081124: wsa: Sent upstream. (SF Request ID #2339094)
+
  Makefile |    5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)
 

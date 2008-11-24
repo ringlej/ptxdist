@@ -2,6 +2,9 @@ From: Denis Oliver Kropp <dok@directfb.org>
 Subject: Link plugins against main library to allow dynamic loading of libts without RTLD_GLOBAL
 
 Signed-off-by: Denis Oliver Kropp <dok@directfb.org>
+---
+#20081124: wsa: printf already fixed in upstream. Makefile.in not present in scm.
+#		Makefile.am fix sent upstream.
 
 diff -pur tslib-1.0/plugins/Makefile.am tslib-1.0-hacked/plugins/Makefile.am
 --- tslib-1.0/plugins/Makefile.am	2006-08-24 23:02:54.000000000 +0200

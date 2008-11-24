@@ -2,6 +2,8 @@ ts_test: clear screen on exit
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
 ---
+# 20081124: wsa: sent upstream as RFC.
+
  tests/ts_calibrate.c |    1 +
  tests/ts_test.c      |    1 +
  2 files changed, 2 insertions(+)
