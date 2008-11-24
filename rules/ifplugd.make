@@ -59,8 +59,7 @@ ifplugd_prepare: $(STATEDIR)/ifplugd.prepare
 
 IFPLUGD_PATH	:= PATH=$(CROSS_PATH)
 IFPLUGD_ENV 	:= \
-	$(CROSS_ENV) \
-	ac_cv_func_malloc_0_nonnull=yes
+	$(CROSS_ENV)
 
 #
 # autoconf

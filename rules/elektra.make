@@ -50,9 +50,7 @@ $(STATEDIR)/elektra.extract:
 
 ELEKTRA_PATH	:= PATH=$(CROSS_PATH)
 ELEKTRA_ENV 	:= \
-	$(CROSS_ENV) \
-	ac_cv_func_realloc_0_nonnull=yes \
-	ac_cv_func_malloc_0_nonnull=yes
+	$(CROSS_ENV)
 
 #
 # FIXME:

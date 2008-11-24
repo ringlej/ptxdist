@@ -42,9 +42,7 @@ HTOP_PATH	:= PATH=$(CROSS_PATH)
 HTOP_ENV 	:= \
 	$(CROSS_ENV) \
 	ac_cv_file__proc_stat=yes \
-	ac_cv_file__proc_meminfo=yes \
-	ac_cv_func_malloc_0_nonnull=yes \
-	ac_cv_func_realloc_0_nonnull=yes
+	ac_cv_file__proc_meminfo=yes
 
 #
 # autoconf
