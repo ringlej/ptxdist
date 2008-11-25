@@ -8,6 +8,8 @@ add a specific include of stdlib.h fixes this.
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 
 ---
+#20081125: wsa: Already fixed in upstream CVS.
+
  libicmp/icmp_timestamp.c |    1 +
  1 file changed, 1 insertion(+)
 
