@@ -8,6 +8,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
 #20081125: wsa: Mailed to upstream.
+#20081127: wsa: Accepted upstream. Wait for next release.
 
  Makefile |    6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
