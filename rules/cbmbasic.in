@@ -1,0 +1,9 @@
+## SECTION=scripting_languages
+
+config CBMBASIC
+	tristate
+	prompt "cbmbasic"
+	help
+	  This application is a recompiled version of the original
+	  Commodore 64 binary.
+
