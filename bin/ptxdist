@@ -202,7 +202,8 @@ check_ptxconfig() {
 		return 1
 	fi
 
-	if [ -n "${PTXDIST_COLLECTIONCONFIG}" -a ! -e "${PTXDIST_COLLECTIONCONFIG}" ]; then
+	if [ \! -e "${PTXDIST_COLLECTIONCONFIG}" -a \
+	    \( -L "${PTXDIST_COLLECTIONCONFIG}" -o "${PTX_collectionconfig_SET}" == "true" \) ]; then
 		ptxd_dialog_msgbox \
 			"error: '${PTXDIST_COLLECTIONCONFIG#${PTXDIST_WORKSPACE}/}' is missing\n" \
 			"	try 'ptxdist collection <collectionconfig>'"
@@ -1102,6 +1103,14 @@ do_select()
 
 	check_nonstandard "${type}" || return
 
+	if [ ! -f "${file}" ]; then
+		ptxd_dialog_msgbox \
+			"error: cannot select\n" \
+			"	'${file}'\n" \
+			"	does not exist, or is not a file."
+		return 1
+	fi
+
 	# check if magic is present in config file
 	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTX_FORCE}" ]; then
 		ptxd_dialog_msgbox \
@@ -1117,13 +1126,7 @@ do_select()
 		return 1
 	fi
 
-	if [ ! -f "${file}" ]; then
-		ptxd_dialog_msgbox \
-			"error: cannot select\n" \
-			"	'${file}'\n" \
-			"	file does not exist"
-		return 1
-	elif [ -e "${!dest_ptr}" -a \! -L "${!dest_ptr}" ]; then
+	if [ -e "${!dest_ptr}" -a \! -L "${!dest_ptr}" ]; then
 		ptxd_dialog_msgbox \
 			"error: '${!dest_ptr}'\n" \
 			"	is not a link. This is mostly not critical, as it usually\n" \
@@ -1848,27 +1851,6 @@ setup_logfile()
 
 
 #
-# collection feature needs some extra setup
-#
-# if PTXDIST_COLLECTIONCONFIG is a link or has been explicitly set
-# by the user, keep the PTXDIST_COLLECTIONCONFIG variable.
-#
-# in case PTXDIST_COLLECTIONCONFIG does not exist unset it
-#
-setup_collection() {
-	if [ -L "${PTXDIST_COLLECTIONCONFIG}" -o \
-		"${PTX_collectionconfig_SET}" == "true" ]; then
-		return;
-	fi
-
-	if [ \! -e "${PTXDIST_COLLECTIONCONFIG}" ]; then
-		unset PTXDIST_COLLECTIONCONFIG
-	fi
-}
-
-
-
-#
 # export some important vars
 # so that they can be used in make
 #
@@ -1923,7 +1905,6 @@ setup_path
 # --- path is now set ---
 setup_logfile
 # -- logfile is ready
-setup_collection
 setup_export
 # -- all important vars are exported
 

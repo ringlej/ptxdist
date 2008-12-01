@@ -21,7 +21,8 @@ include $(RULESDIR)/other/Definitions.make
 include $(PTXDIST_PTXCONFIG)
 include $(PTXDIST_PLATFORMCONFIG)
 
-ifdef PTXDIST_COLLECTIONCONFIG
+# might be non existent
+ifneq ($(wildcard $(PTXDIST_COLLECTIONCONFIG)),)
 include $(PTXDIST_COLLECTIONCONFIG)
 endif
 
