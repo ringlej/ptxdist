@@ -16,7 +16,7 @@ ptxd_dgen_configdeps() {
 
     (
 	for ((i = 0; i < ${#config[@]}; i++)); do
-	    ptxd_kconfig dep "${config[i]}"
+	    ptxd_kconfig dep "${config[i]}" || exit $?
 	done
     ) | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_DEP_\1=\2~p" > "${PTX_MAP_DEPS}.tmp"
 }
