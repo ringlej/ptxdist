@@ -2,7 +2,7 @@
 
 menuconfig PYTHON24
 	tristate
-	prompt "python 2.4"
+	prompt "python 2.4                    "
 	select LIBC_DL
 	select LIBC_UTIL
 	select LIBC_PTHREAD
