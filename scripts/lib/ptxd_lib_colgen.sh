@@ -1,13 +1,11 @@
 #!/bin/bash
 
-export PTX_SUBGEN_DIR="${PTXDIST_TEMPDIR}/kgen"
-
-ptxd_subgen_generate_sections()
+ptxd_colgen_generate_sections()
 {
     ptxd_make_log "print-PACKAGES-m" | gawk '
 	BEGIN {
 		FS = "=\"|\"|=";
-		sub_in = "'"${PTX_SUBGEN_DIR}"'" "/ptx_collection.in";
+		sub_in = "'"${PTX_KGEN_DIR}"'" "/ptx_collection.in";
 	}
 
 	$1 ~ /^PTX_MAP_TO_package/ {
@@ -63,9 +61,7 @@ ptxd_subgen_generate_sections()
 }
 
 
-ptxd_subgen()
+ptxd_colgen()
 {
-    mkdir -p "${PTX_SUBGEN_DIR}"
-
-    ptxd_subgen_generate_sections
+    ptxd_colgen_generate_sections
 }

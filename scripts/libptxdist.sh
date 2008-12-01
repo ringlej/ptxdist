@@ -196,7 +196,7 @@ ptxd_kconfig() {
 		# "m" packages, so unset PTXDIST_COLLECTIONCONFIG
 		# here.
 		#
-		PTXDIST_COLLECTIONCONFIG="" ptxd_subgen || ptxd_bailout "error in subgen"
+		PTXDIST_COLLECTIONCONFIG="" ptxd_colgen || ptxd_bailout "error in colgen"
 
 		file_kconfig="${PTXDIST_TOPDIR}/config/collection/Kconfig"
 		file_dotconfig="${3}"
@@ -258,7 +258,7 @@ ptxd_kconfig() {
 	unset KCONFIG_NOTIMESTAMP
 
 	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
-		cp .config "${file_dotconfig}" -v || return
+		cp .config "${file_dotconfig}" || return
 	fi
 
 	popd > /dev/null
