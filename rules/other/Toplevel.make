@@ -18,11 +18,11 @@ all:
 include $(PTXDIST_TOPDIR)/scripts/ptxdist_vars.sh
 include $(RULESDIR)/other/Definitions.make
 
--include $(PTXDIST_PTXCONFIG)
--include $(PTXDIST_PLATFORMCONFIG)
+include $(PTXDIST_PTXCONFIG)
+include $(PTXDIST_PLATFORMCONFIG)
 
-ifdef PTXDIST_PACKAGES_COLLECTION
-include $(PTXDIST_PACKAGES_COLLECTION)
+ifdef PTXDIST_COLLECTIONCONFIG
+include $(PTXDIST_COLLECTIONCONFIG)
 endif
 
 # ----------------------------------------------------------------------------

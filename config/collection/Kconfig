@@ -1,0 +1,9 @@
+menu "select optional packages      "
+
+config _collectionconfig_MAGIC__
+	bool
+	default y
+
+source "generated/ptx_collection.in"
+
+endmenu

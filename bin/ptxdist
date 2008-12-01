@@ -13,9 +13,9 @@ PROMPT="ptxdist: "
 #
 PTXDIST_PTXCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_ptxconfig'
 PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
+PTXDIST_COLLECTIONCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_collectionconfig'
 PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
 PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdistrc.${PTXDIST_VERSION_FULL}'
-#PTXDIST_PACKAGES_COLLECTION_DEFAULT="ALL"
 
 
 #
@@ -23,7 +23,7 @@ PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdistrc.${PTXDIST_VERSION_FULL}'
 #
 # start file chooser and actual "select function"
 #
-# ${1}	specifies what to select {ptxconfig,platformconfig}
+# ${1}	specifies what to select {ptxconfig,platformconfig,collectionconfig}
 #
 menu_select() {
 	local config="${1}"
@@ -165,7 +165,7 @@ check_version() {
 
 
 #
-# check if user has used --toolchain, --ptxconfig, --platformconfig
+# check if user has used --ptxconfig, --platformconfig, --collectioncofnig, --toolchain
 #
 check_nonstandard() {
 	local nonstandard_set="PTX_${1}_SET"
@@ -199,6 +199,13 @@ check_ptxconfig() {
 		ptxd_dialog_msgbox \
 			"error: '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing\n" \
 			"	try 'ptxdist platform <platformconfig>'"
+		return 1
+	fi
+
+	if [ -n "${PTXDIST_COLLECTIONCONFIG}" -a ! -e "${PTXDIST_COLLECTIONCONFIG}" ]; then
+		ptxd_dialog_msgbox \
+			"error: '${PTXDIST_COLLECTIONCONFIG#${PTXDIST_WORKSPACE}/}' is missing\n" \
+			"	try 'ptxdist collection <collectionconfig>'"
 		return 1
 	fi
 
@@ -336,7 +343,6 @@ check_compiler() {
 check_deps() {
 	ptxd_kgen || ptxd_bailout "error in kgen"
 	ptxd_dgen || ptxd_bailout "error in dgen"
-	ptxd_subgen || ptxd_bailout "error in subgen"
 #	ptxd_create_autoconf_cache "${STATEDIR}/autoconf.cache" || ptxd_bailout "error in create_config_cache.sh"
 	touch "${STATEDIR}/autoconf.cache"
 }
@@ -572,8 +578,10 @@ Setup and Project Actions:
   menuconfig platform
   platformconfig		configure the platform
 
+  menuconfig collection		configure the collection
+
   menuconfig u-boot-v2
-  u_boot_config			configure U-Boot (U-Boot V2 only)
+  u_boot_config			configure U-Boot V2
 
   oldconfig			run 'make oldconfig' on ptxconfig file
 
@@ -586,6 +594,8 @@ Setup and Project Actions:
 				select one of several project configs to be used
   platform <config>		if there is no selected_platform file you can
 				select one of several platform configs to be used
+  collection <config>		if there is no selected_collection file you can
+				select one of several collection configs to be used
 Build Actions:
 
   go				start building the current project
@@ -626,6 +636,7 @@ Overwrite defaults:
 
   --ptxconfig			use specified ptxconfig
   --platformconfig		use specified platformconfig
+  --collectionconfig		use specified collectionconfig
   --toolchain			use specified toolchain
   --force			select config even if MOJO is missing
 
@@ -929,14 +940,15 @@ parse_first()
 	#
 	PTXDIST_TOOLCHAIN="${PTXDIST_TOOLCHAIN_DEFAULT}"
 	PTXDIST_PLATFORMCONFIG="${PTXDIST_PLATFORMCONFIG_DEFAULT}"
+	PTXDIST_COLLECTIONCONFIG="${PTXDIST_COLLECTIONCONFIG_DEFAULT}"
 	PTXDIST_PTXCONFIG="${PTXDIST_PTXCONFIG_DEFAULT}"
-#	PTXDIST_PACKAGES_COLLECTION="${PTXDIST_PACKAGES_COLLECTION_DEFAULT}"
 
 	#
 	# init these ones
 	#
 	PTX_ptxconfig_SET="false"
 	PTX_platformconfig_SET="false"
+	PTX_collectionconfig_SET="false"
 	PTX_toolchain_SET="false"
 
 	set -- "${PTXDIST_ARGS_FULL[@]}"
@@ -960,24 +972,13 @@ parse_first()
 			PTXDIST_PLATFORMCONFIG="$(ptxd_abspath "${arg#*=}")"
 			PTX_platformconfig_SET=true
 			;;
+		--collectionconfig=*)
+			PTXDIST_COLLECTIONCONFIG="$(ptxd_abspath "${arg#*=}")"
+			PTX_collectionconfig_SET=true
+			;;
 		--toolchain=*)
 			PTXDIST_TOOLCHAIN="$(ptxd_abspath "${arg#*=}")"
 			PTX_toolchain_SET=true
-			;;
-#		--packages=all)
-#			PTXDIST_PACKAGES_COLLECTION="ALL"
-#			;;
-#		--packages=base)
-#			PTXDIST_PACKAGES_COLLECTION="BASE"
-#			;;
-		--packages=*)
-			export PTXDIST_PACKAGES_COLLECTION="${PTXDIST_WORKSPACE}/configs/${arg#*=}_packages.config"
-			if [ \! -e "${PTXDIST_PACKAGES_COLLECTION}" ]; then
-				echo
-				echo "${PROMPT}error: please specify packages collection '${PTXDIST_PACKAGES_COLLECTION}' not existint"
-				echo
-				exit 1
-			fi
 			;;
 		--j-intern=*)
 			PTXDIST_PARALLELMFLAGS_INTERN="-j${arg#*=}"
@@ -1011,13 +1012,12 @@ parse_first()
 #
 # $1	what kind of config ("menuconfig", "oldconfig")
 # $2	what to "config"
+# $...	optional parameters
 #
 do_config()
 {
 	local config="${1}"
 	local part="${2}"
-
-	shift 2
 
 	if [ "${part}" != "user" ]; then
 		check_ptxconfig || return
@@ -1042,32 +1042,45 @@ do_config()
 	"platform"|"board"|"user")
 		ptxd_kconfig "${config}" "${part}"
 		;;
-	"packages")
-		if [ -z "${1}" ]; then
-			echo
-			echo "${PROMPT}error: please specify packages collection"
-			echo
-			exit 1
+	"collection")
+		local file_dotconfig="${3}"
+
+		if [ -z "${PTXDIST_COLLECTIONCONFIG}" -a -z "${file_dotconfig}" ]; then
+			ptxd_dialog_msgbox \
+				"error: no collectionconfig selected, please try\n" \
+				"	'ptxdist collection <collectionconfig>' or\n" \
+				"	'ptxdist menuconfig collection <collectionconfig>' to edit a specific collection."
+			return 1;
 		fi
-		ptxd_kconfig "${config}" "${part}" "${PTXDIST_WORKSPACE}/configs/${1}_packages.config"
+
+		if [ -n "${file_dotconfig}" ]; then
+			file_dotconfig="$(ptxd_abspath "${file_dotconfig}")"
+		else
+			file_dotconfig="${PTXDIST_COLLECTIONCONFIG}"
+		fi
+
+		ptxd_kconfig "${config}" "${part}" "${file_dotconfig}"
 		;;
 	*)
 		check_if_selected "${part}" || return
 
 		ptxd_dialog_infobox "${PROMPT}Checking dependencies. This may take some seconds."
-		check_deps
+		check_deps || return
 
 		ptxd_make "${part}_${config}"
+		;;
 	esac
 
+	local retval=$?
 
-	if [ $? -ne 0 -a -n "${PTX_MENU}" ]; then
+	if [ $retval -ne 0 -a -n "${PTX_MENU}" ]; then
 		echo
 		echo "${PROMPT}'${part} ${config}' returned with an error"
 		echo
 		read
 	fi
 
+	return $retval
 }
 
 
@@ -1076,7 +1089,7 @@ do_config()
 #
 # select a configfile, do sanity checks, etc
 #
-# ${1}: type of config file {ptxconfig,platformconfig}
+# ${1}: type of config file {ptxconfig,platformconfig,collectionconfig}
 # ${2}: the actual config file
 #
 do_select()
@@ -1337,6 +1350,11 @@ parse_second()
 			exit ${retval}
 			;;
 
+		collection)
+			do_select collectionconfig "${1}"
+			exit ${?}
+			;;
+
 		toolchain)
 			do_select_toolchain "${1}"
 			exit ${?}
@@ -1375,6 +1393,10 @@ parse_second()
 			if [ -L "${PTXDIST_PLATFORMCONFIG}" ]; then
 				echo "${PROMPT}removing platformconfig link..."
 				rm "${PTXDIST_PLATFORMCONFIG}"
+			fi
+			if [ -L "${PTXDIST_COLLECTIONCONFIG}" ]; then
+				echo "${PROMPT}removing collectionconfig link..."
+				rm "${PTXDIST_COLLECTIONCONFIG}"
 			fi
 
 			echo "${PROMPT}removing logs..."
@@ -1534,9 +1556,10 @@ parse_second()
 # out: PTXDIST
 #      PTXDIST_TOPDIR
 #      PTXDIST_WORKSPACE
-#      PTXDIST_TOOLCHAIN_DEFAULT
-#      PTXDIST_PLATFORMCONFIG_DEFAULT
 #      PTXDIST_PTXCONFIG_DEFAULT
+#      PTXDIST_PLATFORMCONFIG_DEFAULT
+#      PTXDIST_COLLECTIONCONFIG_DEFAULT
+#      PTXDIST_TOOLCHAIN_DEFAULT
 #
 setup_topdir() {
 	local ptxdist topdir
@@ -1560,6 +1583,7 @@ setup_topdir() {
 
 	eval PTXDIST_PTXCONFIG_DEFAULT="${PTXDIST_PTXCONFIG_DEFAULT}"
 	eval PTXDIST_PLATFORMCONFIG_DEFAULT="${PTXDIST_PLATFORMCONFIG_DEFAULT}"
+	eval PTXDIST_COLLECTIONCONFIG_DEFAULT="${PTXDIST_COLLECTIONCONFIG_DEFAULT}"
 	eval PTXDIST_TOOLCHAIN_DEFAULT="${PTXDIST_TOOLCHAIN_DEFAULT}"
 }
 
@@ -1823,6 +1847,26 @@ setup_logfile()
 }
 
 
+#
+# collection feature needs some extra setup
+#
+# if PTXDIST_COLLECTIONCONFIG is a link or has been explicitly set
+# by the user, keep the PTXDIST_COLLECTIONCONFIG variable.
+#
+# in case PTXDIST_COLLECTIONCONFIG does not exist unset it
+#
+setup_collection() {
+	if [ -L "${PTXDIST_COLLECTIONCONFIG}" -o \
+		"${PTX_collectionconfig_SET}" == "true" ]; then
+		return;
+	fi
+
+	if [ \! -e "${PTXDIST_COLLECTIONCONFIG}" ]; then
+		unset PTXDIST_COLLECTIONCONFIG
+	fi
+}
+
+
 
 #
 # export some important vars
@@ -1839,6 +1883,7 @@ setup_export() {
 		PTXDIST_TEMPDIR \
 		PTXDIST_PTXCONFIG \
 		PTXDIST_PLATFORMCONFIG \
+		PTXDIST_COLLECTIONCONFIG \
 		PTXDIST_BOARDSETUP \
 		\
 		PTXDIST_VERSION_FULL \
@@ -1855,9 +1900,6 @@ setup_export() {
 		PTXDIST_PARALLELMFLAGS_INTERN \
 		\
 		PTXDIST_QUIET
-
-#		PTXDIST_PACKAGES_COLLECTION \
-
 }
 
 
@@ -1881,6 +1923,7 @@ setup_path
 # --- path is now set ---
 setup_logfile
 # -- logfile is ready
+setup_collection
 setup_export
 # -- all important vars are exported
 

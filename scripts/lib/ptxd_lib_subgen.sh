@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#export PTX_SUBGEN_DIR="${STATEDIR}/subgen"
 export PTX_SUBGEN_DIR="${PTXDIST_TEMPDIR}/kgen"
 
 ptxd_subgen_generate_sections()
@@ -8,7 +7,7 @@ ptxd_subgen_generate_sections()
     ptxd_make_log "print-PACKAGES-m" | gawk '
 	BEGIN {
 		FS = "=\"|\"|=";
-		sub_in = "'"${PTX_SUBGEN_DIR}"'" "/ptx_sub_selection.in";
+		sub_in = "'"${PTX_SUBGEN_DIR}"'" "/ptx_collection.in";
 	}
 
 	$1 ~ /^PTX_MAP_TO_package/ {
@@ -31,6 +30,8 @@ ptxd_subgen_generate_sections()
 #			print "module: " module[i] ", pkg: " pkgs[module[i]] ", deps: " deps[pkgs[module[i]]];
 			module_pkgs[pkgs[module[i]]] = module[i];
 		}
+
+		next;
 	}
 
 	END {
@@ -64,10 +65,6 @@ ptxd_subgen_generate_sections()
 
 ptxd_subgen()
 {
-#    if [ -e "${PTX_SUBGEN_DIR}" ]; then
-#	rm -rf "${PTX_SUBGEN_DIR}"
-#    fi
-
     mkdir -p "${PTX_SUBGEN_DIR}"
 
     ptxd_subgen_generate_sections

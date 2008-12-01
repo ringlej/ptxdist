@@ -154,21 +154,17 @@ export -f ptxd_get_ptxconf
 
 #
 # $1	what kind of config ("oldconfig", "menuconfig", "dep")
-# $2	part identifier ("ptx", "platform", "packages", "board", "user")
-# $3	optional dotconfig file
+# $2	part identifier ("ptx", "platform", "collection", "board", "user")
+# $...	optional parameters
 #
 ptxd_kconfig() {
 	local config="${1}"
 	local part="${2}"
-	local file_dotconfig="${3}"
 	local copy_back="true"
 
 	if [ "${config}" != "dep" ]; then
 		ptxd_kgen || ptxd_bailout "error in kgen"
 	fi
-
-	local tmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/kconfig.XXXXXX")"
-	pushd "${tmpdir}" > /dev/null
 
 	local file_kconfig file_dotconfig
 
@@ -189,10 +185,21 @@ ptxd_kconfig() {
 		fi
 		file_dotconfig="${PTXDIST_PLATFORMCONFIG}"
 		;;
-	packages)
-		ptxd_dgen   || ptxd_bailout "error in dgen"
-		ptxd_subgen || ptxd_bailout "error in subgen"
-		file_kconfig="${PTXDIST_TOPDIR}/config/packages/Kconfig"
+	collection)
+		ptxd_dgen || ptxd_bailout "error in dgen"
+
+		#
+		# "PTXDIST_COLLECTIONCONFIG" would overwrite
+		# certain "m" packages with "y".
+		#
+		# but "menuconfig collection" works only on the
+		# "m" packages, so unset PTXDIST_COLLECTIONCONFIG
+		# here.
+		#
+		PTXDIST_COLLECTIONCONFIG="" ptxd_subgen || ptxd_bailout "error in subgen"
+
+		file_kconfig="${PTXDIST_TOPDIR}/config/collection/Kconfig"
+		file_dotconfig="${3}"
 		;;
 	board)
 		if [ -e "${PTXDIST_WORKSPACE}/boardsetup/Kconfig" ]; then
@@ -208,6 +215,9 @@ ptxd_kconfig() {
 		;;
 	esac
 
+	local tmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/kconfig.XXXXXX")"
+	pushd "${tmpdir}" > /dev/null
+
 	ln -sf "${PTXDIST_TOPDIR}/rules"
 	ln -sf "${PTXDIST_TOPDIR}/config"
 	ln -sf "${PTXDIST_TOPDIR}/platforms"
@@ -215,7 +225,7 @@ ptxd_kconfig() {
 	ln -sf "${PTX_KGEN_DIR}" generated
 
 	if [ -e "${file_dotconfig}" ]; then
-		cp "${file_dotconfig}" .config
+		cp "${file_dotconfig}" .config || return
 	fi
 
 	local conf="${PTXDIST_TOPDIR}/scripts/kconfig/conf"
@@ -224,7 +234,7 @@ ptxd_kconfig() {
 	export KCONFIG_NOTIMESTAMP="1"
 	case "${config}" in
 	menuconfig)
-		"${mconf}" "${file_kconfig}"
+		"${mconf}" "${file_kconfig}" || return
 		;;
 	oldconfig)
 		#
@@ -233,14 +243,14 @@ ptxd_kconfig() {
 		# tries to automate us.
 		#
 		if tty -s; then
-			"${conf}" -s "${file_kconfig}"
+			"${conf}" -s "${file_kconfig}" || return
 		else
-			"${conf}" -o "${file_kconfig}"
+			"${conf}" -o "${file_kconfig}" || return
 		fi
 		;;
 	dep)
 		copy_back="false"
-		yes "" | "${conf}" -O "${file_kconfig}"
+		yes "" | "${conf}" -O "${file_kconfig}" || return
 		;;
 	esac
 	retval=$?
@@ -248,11 +258,11 @@ ptxd_kconfig() {
 	unset KCONFIG_NOTIMESTAMP
 
 	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
-		cp .config "${file_dotconfig}"
+		cp .config "${file_dotconfig}" -v || return
 	fi
 
 	popd > /dev/null
-	rm -fr "$tmpdir"
+	rm -fr "${tmpdir}"
 
 	return $retval
 }
