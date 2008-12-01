@@ -56,10 +56,7 @@ define setenv_uboot_v1 {
 define setenv_uboot_v2 {
 
 	run \%1/make_uboot_v2_env \%3
-	if > \v(pexitstat) 0 {
-			writeln ERROR "FAILED! Could not generate new environment (also check \$(PTXDIST_PLATFORMDIR)/test.log)"
-			exit 1
-	}
+	ptx_check_fail "Could not generate new environment (also check \$(PTXDIST_PLATFORMDIR)/test.log)"
 	.imagename := \fbasename(\%3)
 
 	ptx_test_start "Setting initial environment"
