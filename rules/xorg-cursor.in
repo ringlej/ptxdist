@@ -10,7 +10,7 @@ choice
 	prompt "default cursor theme"
 	depends on XORG_CURSOR
 
-	config XORG_CRUSOR_NONE
+	config XORG_CURSOR_NONE
 		bool "no theme"
 
 	config XORG_CURSOR_XCURSOR_TRANSPARENT_THEME
@@ -21,5 +21,5 @@ endchoice
 
 config XORG_CURSOR_THEME
 	string
-	default "core"                if XORG_CRUSOR_NONE
+	default "core"                if XORG_CURSOR_NONE
 	default "xcursor-transparent" if XORG_CURSOR_XCURSOR_TRANSPARENT_THEME
