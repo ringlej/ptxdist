@@ -1046,18 +1046,17 @@ do_config()
 	"collection")
 		local file_dotconfig="${3}"
 
-		if [ -z "${PTXDIST_COLLECTIONCONFIG}" -a -z "${file_dotconfig}" ]; then
-			ptxd_dialog_msgbox \
-				"error: no collectionconfig selected, please try\n" \
-				"	'ptxdist collection <collectionconfig>' or\n" \
-				"	'ptxdist menuconfig collection <collectionconfig>' to edit a specific collection."
-			return 1;
-		fi
-
 		if [ -n "${file_dotconfig}" ]; then
 			file_dotconfig="$(ptxd_abspath "${file_dotconfig}")"
 		else
 			file_dotconfig="${PTXDIST_COLLECTIONCONFIG}"
+			if [ \! -e "${file_dotconfig}" ]; then
+				ptxd_dialog_msgbox \
+					"error: no collectionconfig selected, please try\n" \
+					"	'ptxdist collection <collectionconfig>' first, or\n" \
+					"	'ptxdist menuconfig collection <collectionconfig>' to edit a specific collection."
+				return 1;
+			fi
 		fi
 
 		ptxd_kconfig "${config}" "${part}" "${file_dotconfig}"
