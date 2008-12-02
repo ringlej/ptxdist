@@ -1,5 +1,5 @@
 config XORG_LIB_XEVIE
-	bool
+	tristate
 	prompt "libXevie"
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT

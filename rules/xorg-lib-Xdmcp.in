@@ -1,5 +1,5 @@
 config XORG_LIB_XDMCP
-	bool
+	tristate
 	prompt "libXdmcp"
 	select XORG_PROTO_X
 	help

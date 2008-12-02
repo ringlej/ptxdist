@@ -1,5 +1,5 @@
 config XORG_LIB_XKBUI
-	bool
+	tristate
 	prompt "libxkbui"
 	select XORG_LIB_X11
 	select XORG_LIB_XT

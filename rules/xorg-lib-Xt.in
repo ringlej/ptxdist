@@ -1,5 +1,5 @@
 config XORG_LIB_XT
-	bool
+	tristate
 	prompt "libXt"
 	select XORG_PROTO_X
 	select XORG_PROTO_KB

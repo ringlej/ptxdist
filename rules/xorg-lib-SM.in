@@ -1,5 +1,5 @@
 config XORG_LIB_SM
-	bool
+	tristate
 	prompt "libSM"
 	select XORG_LIB_ICE
 	select XORG_PROTO_X

@@ -1,5 +1,5 @@
 config XORG_LIB_XRENDER
-	bool
+	tristate
 	prompt "libXrender"
 	select XORG_LIB_X11
 	select XORG_PROTO_RENDER

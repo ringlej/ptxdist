@@ -1,5 +1,5 @@
 config XORG_LIB_ICE
-	bool
+	tristate
 	prompt "libICE"
 	select XORG_PROTO_X
 	select XORG_LIB_XTRANS

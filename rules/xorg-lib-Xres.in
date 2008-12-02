@@ -1,5 +1,5 @@
 config XORG_LIB_XRES
-	bool
+	tristate
 	prompt "libXres"
 	select XORG_PROTO_RESOURCE
 	select XORG_LIB_X11

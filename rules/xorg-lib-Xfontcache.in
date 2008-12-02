@@ -1,5 +1,5 @@
 config XORG_LIB_XFONTCACHE
-	bool
+	tristate
 	select XORG_PROTO_FONTCACHE
 	select XORG_PROTO_XEXT
 	select XORG_LIB_XEXT

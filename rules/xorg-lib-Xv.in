@@ -3,7 +3,7 @@
 # Requires.private: x11 xext
 #
 config XORG_LIB_XV
-	bool
+	tristate
 	prompt "libXv"
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT

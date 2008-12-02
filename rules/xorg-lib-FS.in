@@ -1,5 +1,5 @@
 config XORG_LIB_FS
-	bool
+	tristate
 	prompt "libFS"
 	select XORG_PROTO_X
 	select XORG_PROTO_FONTS

@@ -1,5 +1,5 @@
 config XORG_LIB_XPM
-	bool
+	tristate
 	prompt "libXpm"
 	select XORG_LIB_X11
 	select HOST_GETTEXT

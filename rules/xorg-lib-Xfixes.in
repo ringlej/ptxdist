@@ -1,5 +1,5 @@
 config XORG_LIB_XFIXES
-	bool
+	tristate
 	prompt "libXfixes"
 	select XORG_PROTO_X
 	select XORG_PROTO_FIXES

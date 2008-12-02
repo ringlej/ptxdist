@@ -1,5 +1,5 @@
 config XORG_LIB_XDAMAGE
-	bool
+	tristate
 	prompt "libXdamage"
 	select XORG_PROTO_DAMAGE
 	select XORG_PROTO_FIXES

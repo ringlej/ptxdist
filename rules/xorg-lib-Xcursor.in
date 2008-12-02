@@ -1,5 +1,5 @@
 config XORG_LIB_XCURSOR
-	bool
+	tristate
 	select XORG_LIB_XRENDER
 	select XORG_LIB_XFIXES
 	select XORG_LIB_X11

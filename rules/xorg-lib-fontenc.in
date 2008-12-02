@@ -1,5 +1,5 @@
 config XORG_LIB_FONTENC
-	bool
+	tristate
 	select ZLIB
 	select XORG_PROTO_X
 	prompt "libfontenc"

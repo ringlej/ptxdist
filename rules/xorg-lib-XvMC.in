@@ -1,5 +1,5 @@
 config XORG_LIB_XVMC
-	bool
+	tristate
 	prompt "libXvMC"
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT

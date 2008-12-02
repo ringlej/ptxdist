@@ -1,5 +1,5 @@
 config XORG_LIB_XFT
-	bool
+	tristate
 	select FREETYPE
 	select FONTCONFIG
 	select XORG_LIB_XRENDER

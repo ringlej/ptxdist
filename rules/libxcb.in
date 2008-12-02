@@ -1,6 +1,6 @@
-menuconfig LIBXCB
+config LIBXCB
 	tristate
-	prompt "libxcb                        "
+	prompt "libxcb"
 	select XCB_PROTO
 	select LIBPTHREAD_STUBS
 	select XORG_LIB_XAU

@@ -1,5 +1,5 @@
 menuconfig XORG_LIB_XAU
-	bool
+	tristate
 	select XORG_PROTO_X
 	prompt "libXau                        "
 	help

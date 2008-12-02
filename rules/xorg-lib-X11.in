@@ -1,5 +1,5 @@
 menuconfig XORG_LIB_X11
-	bool
+	tristate
 	prompt "libX11                        "
 # always required:
 # - [xproto >= 7.0.6]

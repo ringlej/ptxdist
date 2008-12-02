@@ -1,5 +1,5 @@
 config XORG_LIB_XXF86MISC
-	bool
+	tristate
 	prompt "libXxf86misc"
 	select XORG_PROTO_X
 	select XORG_PROTO_XEXT

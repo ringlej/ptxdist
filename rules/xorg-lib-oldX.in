@@ -1,5 +1,5 @@
 config XORG_LIB_OLDX
-	bool
+	tristate
 	prompt "liboldX"
 	select XORG_LIB_X11
 	help

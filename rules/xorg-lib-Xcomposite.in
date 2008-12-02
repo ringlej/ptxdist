@@ -1,5 +1,5 @@
 config XORG_LIB_XCOMPOSITE
-	bool
+	tristate
 	prompt "libXcomposite"
 	select XORG_PROTO_COMPOSITE
 	select XORG_LIB_X11

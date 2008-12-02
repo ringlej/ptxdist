@@ -4,7 +4,7 @@
 # Libs.private: -lz -lm
 
 menuconfig XORG_LIB_XFONT
-	bool
+	tristate
 	select XORG_PROTO_X
 	select XORG_PROTO_FONTS
 	select XORG_LIB_FONTENC

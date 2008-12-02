@@ -1,5 +1,5 @@
 config XORG_LIB_XTST
-	bool
+	tristate
 	prompt "libXtst"
 	select XORG_PROTO_RECORD
 	select XORG_PROTO_INPUT

@@ -1,5 +1,5 @@
 config XORG_LIB_XMU
-	bool
+	tristate
 	prompt "libXmu"
 	select XORG_LIB_XT
 	select XORG_LIB_XEXT

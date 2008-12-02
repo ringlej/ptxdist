@@ -1,5 +1,5 @@
 config XORG_LIB_XTRANS
-	bool
+	tristate
 	prompt "xtrans"
 	help
 	  code for a network API translation layer to insulate X

@@ -1,5 +1,5 @@
 config XORG_LIB_XTRAP
-	bool
+	tristate
 	prompt "libXTrap"
 	select XORG_LIB_X11
 	select XORG_LIB_XT

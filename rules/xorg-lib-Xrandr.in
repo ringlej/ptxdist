@@ -1,5 +1,5 @@
 config XORG_LIB_XRANDR
-	bool
+	tristate
 	prompt "libXrandr"
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT

@@ -1,5 +1,5 @@
 config XORG_LIB_APPLEWM
-	bool
+	tristate
 	select XORG_PROTO_APPLEWM
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT

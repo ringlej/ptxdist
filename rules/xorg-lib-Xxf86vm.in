@@ -1,5 +1,5 @@
 config XORG_LIB_XXF86VM
-	bool
+	tristate
 	prompt "libXxf86vm"
 	select XORG_PROTO_X
 	select XORG_LIB_X11

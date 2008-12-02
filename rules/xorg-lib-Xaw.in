@@ -1,5 +1,5 @@
 menuconfig XORG_LIB_XAW
-	bool
+	tristate
 	select XORG_LIB_X11
 	select XORG_LIB_XT
 	select XORG_LIB_XMU

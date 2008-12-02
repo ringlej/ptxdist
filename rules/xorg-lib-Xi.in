@@ -1,5 +1,5 @@
 config XORG_LIB_XI
-	bool
+	tristate
 	prompt "libXi"
 	select XORG_PROTO_X
 	select XORG_LIB_X11

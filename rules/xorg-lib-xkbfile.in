@@ -1,5 +1,5 @@
 config XORG_LIB_XKBFILE
-	bool
+	tristate
 	prompt "libxkbfile"
 	select XORG_LIB_X11_XKB
 	select XORG_LIB_X11
