@@ -30,13 +30,13 @@ endif
 #
 # generate the list of source permission files
 #
-PERMISSION_FILES := $(foreach pkg, $(PACKAGES-y), $(wildcard $(STATEDIR)/$(pkg)*.perms))
+PERMISSION_FILES := $(foreach pkg, $(PACKAGES), $(wildcard $(STATEDIR)/$(pkg)*.perms))
 
 #
 # list of all ipkgs being selected for the root image
 # UGLY: Just these files have '_' substituted to '-'; the permission files above have NOT.
 #	Consistency would be nicer, but when fixing, change for side-effects carefully!
-IPKG_FILES := $(foreach pkg, $(PACKAGES-y), $(wildcard $(PKGDIR)/$(subst _,-,$(pkg))*.ipk))
+IPKG_FILES := $(foreach pkg, $(PACKAGES), $(wildcard $(PKGDIR)/$(subst _,-,$(pkg))*.ipk))
 
 #
 # create one file with all permissions from all permission source files
