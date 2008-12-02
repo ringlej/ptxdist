@@ -1,4 +1,4 @@
 config XORG_PROTO_INPUT
-	bool
+	tristate
 	help
 	  Input extension headers

@@ -1,5 +1,5 @@
 config XORG_PROTO_COMPOSITE
-	bool
+	tristate
 	help
 	  The X Composite extension adds support for translucent windows and
 	  non-rectangular windows with anti-aliased edges to the X window

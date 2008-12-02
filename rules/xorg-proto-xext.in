@@ -1,4 +1,4 @@
 config XORG_PROTO_XEXT
-	bool
+	tristate
 	help
 	  FIXME

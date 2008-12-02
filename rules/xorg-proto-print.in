@@ -1,4 +1,4 @@
 config XORG_PROTO_PRINT
-	bool
+	tristate
 	help
 	  FIXME

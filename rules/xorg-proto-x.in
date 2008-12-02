@@ -1,4 +1,4 @@
 config XORG_PROTO_X
-	bool
+	tristate
 	help
 	  Basic header files.

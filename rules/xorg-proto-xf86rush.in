@@ -1,4 +1,4 @@
 config XORG_PROTO_XF86RUSH
-	bool
+	tristate
 	help
 	  FIXME

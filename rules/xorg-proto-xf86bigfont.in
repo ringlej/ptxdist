@@ -1,4 +1,4 @@
 config XORG_PROTO_XF86BIGFONT
-	bool
+	tristate
 	help
 	  FIXME

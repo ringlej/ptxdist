@@ -1,4 +1,4 @@
 config XORG_PROTO_XPROXYMANAGEMENT
-	bool
+	tristate
 	help
 	  FIXME

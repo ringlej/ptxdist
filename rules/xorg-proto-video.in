@@ -1,4 +1,4 @@
 config XORG_PROTO_VIDEO
-	bool
+	tristate
 	help
 	  FIXME

@@ -1,4 +1,4 @@
 config XORG_PROTO_XF86DGA
-	bool
+	tristate
 	help
 	  FIXME

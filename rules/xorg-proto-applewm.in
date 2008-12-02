@@ -1,4 +1,4 @@
 config XORG_PROTO_APPLEWM
-	bool
+	tristate
 	help
 	  FIXME

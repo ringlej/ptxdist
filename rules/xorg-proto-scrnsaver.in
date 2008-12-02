@@ -1,4 +1,4 @@
 config XORG_PROTO_SCRNSAVER
-	bool
+	tristate
 	help
 	  FIXME

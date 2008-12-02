@@ -1,4 +1,4 @@
 config XORG_PROTO_RANDR
-	bool
+	tristate
 	help
 	  FIXME

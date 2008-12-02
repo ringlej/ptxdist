@@ -1,4 +1,4 @@
 config XORG_PROTO_FONTCACHE
-	bool
+	tristate
 	help
 	  FIXME
