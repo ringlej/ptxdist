@@ -1,2 +1,2 @@
 config LIBPTHREAD_STUBS
-	bool
+	tristate
