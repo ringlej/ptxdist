@@ -6,6 +6,8 @@ don't use "kill -s" which busybox' kill doesn't understand
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
+# 20081203: wsa: Fixed in 0.9.4.
+
  utils/opcontrol |   10 +++++-----
  1 file changed, 5 insertions(+), 5 deletions(-)
 
