@@ -5,7 +5,8 @@ ptxd_colgen_generate_sections()
     ptxd_make_log "print-PACKAGES-m" | gawk '
 	BEGIN {
 		FS = "=\"|\"|=";
-		sub_in = "'"${PTX_KGEN_DIR}"'" "/ptx_collection.in";
+		col_in     = "'"${PTX_KGEN_DIR}"'" "/ptx_collection.in";
+		col_all_in = "'"${PTX_KGEN_DIR}"'" "/ptx_collection_all.in";
 	}
 
 	$1 ~ /^PTX_MAP_TO_package/ {
@@ -35,23 +36,37 @@ ptxd_colgen_generate_sections()
 	END {
 		n = asorti(module_pkgs, sorted);
 
+		printf \
+			"config COLLECTION_ALL\n"\
+			"\t"	"bool \"select all packages \"\n"	> col_all_in;
+
+
+		for (i = 1; i <= n; i++) {
+			pkg = sorted[i];
+
+			print "\tselect " pkg				> col_all_in;
+		}
+
+		printf "\n"						> col_all_in;
+		close(col_all_in);
+
 		for (i = 1; i <= n; i++) {
 			pkg = sorted[i];
 			pkg_lc = module_pkgs[pkg];
 
 			printf \
 				"config " pkg "\n"\
-				"\t"	"bool \"" pkg_lc "\"\n"		> sub_in;
+				"\t"	"bool \"" pkg_lc "\"\n"		> col_in;
 
 			m = split(deps[pkg], dep, ":");
 			for (j = 1; j <= m; j++) {
 				if (dep[j] in module_pkgs)
-					print "\tselect " dep[j]	> sub_in;
+					print "\tselect " dep[j]	> col_in;
 			}
 
-			printf "\n"					> sub_in;
+			printf "\n"					> col_in;
 		}
-		close(sub_in);
+		close(col_in);
 	}
 
     ' \
