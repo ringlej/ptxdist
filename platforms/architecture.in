@@ -114,7 +114,7 @@ choice
 		bool "at91sam926x"
 		select ARCH_SUPPORTS_ENDIAN_LITTLE
 
-	config ARM_ARM_EPXA
+	config ARCH_ARM_EPXA
 		bool "excalibur  "
 		select ARCH_SUPPORTS_ENDIAN_LITTLE
 
