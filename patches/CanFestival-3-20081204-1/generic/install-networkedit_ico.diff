@@ -1,0 +1,13 @@
+Index: CanFestival-3-20080926/objdictgen/Makefile.in
+===================================================================
+--- CanFestival-3-20080926.orig/objdictgen/Makefile.in	2008-09-26 12:26:30.000000000 +0200
++++ CanFestival-3-20080926/objdictgen/Makefile.in	2008-09-26 12:27:58.000000000 +0200
+@@ -36,7 +36,7 @@
+ 
+ install: gnosis
+ 	mkdir -p $(DESTDIR)$(PREFIX)/objdictgen
+-	cp -r *.py* config doc doc_index examples gnosis $(DESTDIR)$(PREFIX)/objdictgen
++	cp -r *.py* config doc doc_index examples gnosis networkedit.ico $(DESTDIR)$(PREFIX)/objdictgen
+ 	chmod -R a+r $(DESTDIR)$(PREFIX)/objdictgen
+ 	mkdir -p $(DESTDIR)$(PREFIX)/bin
+ 	ln -sf $(DESTDIR)$(PREFIX)/objdictgen/objdictedit.py $(DESTDIR)$(PREFIX)/bin/objdictedit

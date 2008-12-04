@@ -1,0 +1,4 @@
+fix-destdir.diff
+fix-ldconfig.diff
+install-networkedit_ico.diff
+byteorder.diff
