@@ -259,6 +259,7 @@ ptxd_kconfig() {
 
 	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
 		cp .config "${file_dotconfig}" || return
+		[ -f .config.old ] && cp .config.old "$(readlink -e ${file_dotconfig}).old" || return
 	fi
 
 	popd > /dev/null
