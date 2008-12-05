@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2008 by Robert Schwebel
+# Copyright (C) 2008 by Wolfram Sang
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,20 +17,15 @@ HOST_PACKAGES-$(PTXCONF_HOST_CKERMIT) += host-ckermit
 #
 # Paths and names
 #
-HOST_CKERMIT_VERSION	:= 211
-HOST_CKERMIT		:= cku$(HOST_CKERMIT_VERSION)
-HOST_CKERMIT_SUFFIX	:= tar.gz
-HOST_CKERMIT_URL	:= http://www.columbia.edu/kermit/ftp/archives/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
-HOST_CKERMIT_SOURCE	:= $(SRCDIR)/$(HOST_CKERMIT).$(HOST_CKERMIT_SUFFIX)
-HOST_CKERMIT_DIR	:= $(HOST_BUILDDIR)/$(HOST_CKERMIT)
+HOST_CKERMIT_DIR	= $(HOST_BUILDDIR)/$(CKERMIT)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(HOST_CKERMIT_SOURCE):
+$(STATEDIR)/host-ckermit.get: $(STATEDIR)/ckermit.get
 	@$(call targetinfo)
-	@$(call get, HOST_CKERMIT)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -40,8 +35,8 @@ $(STATEDIR)/host-ckermit.extract:
 	@$(call targetinfo)
 	@$(call clean, $(HOST_CKERMIT_DIR))
 	mkdir -p $(HOST_CKERMIT_DIR)
-	@$(call extract, HOST_CKERMIT, $(HOST_BUILDDIR)/$(HOST_CKERMIT))
-	@$(call patchin, HOST_CKERMIT, $(HOST_CKERMIT_DIR))
+	@$(call extract, CKERMIT, $(HOST_BUILDDIR)/$(CKERMIT))
+	@$(call patchin, CKERMIT, $(HOST_CKERMIT_DIR))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
