@@ -1,5 +1,7 @@
 #!/bin/bash
 
+return 0
+
 ptxd_cfgchg_generate()
 {
     gawk '
