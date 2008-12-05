@@ -16,12 +16,12 @@ PACKAGES-$(PTXCONF_CKERMIT) += ckermit
 #
 # Paths and names
 #
-CKERMIT_VERSION	= 211
-CKERMIT		= cku$(CKERMIT_VERSION)
-CKERMIT_SUFFIX	= tar.gz
-CKERMIT_URL	= http://www.columbia.edu/kermit/ftp/archives/$(CKERMIT).$(CKERMIT_SUFFIX)
-CKERMIT_SOURCE	= $(SRCDIR)/$(CKERMIT).$(CKERMIT_SUFFIX)
-CKERMIT_DIR	= $(BUILDDIR)/$(CKERMIT)
+CKERMIT_VERSION	:= 211
+CKERMIT		:= cku$(CKERMIT_VERSION)
+CKERMIT_SUFFIX	:= tar.gz
+CKERMIT_URL	:= http://www.columbia.edu/kermit/ftp/archives/$(CKERMIT).$(CKERMIT_SUFFIX)
+CKERMIT_SOURCE	:= $(SRCDIR)/$(CKERMIT).$(CKERMIT_SUFFIX)
+CKERMIT_DIR	:= $(BUILDDIR)/$(CKERMIT)
 
 
 # ----------------------------------------------------------------------------
