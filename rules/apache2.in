@@ -190,13 +190,5 @@ config APACHE2_CUSTOMERRORS
 	  the MultiViews feature. This feature is enabled by default via the
 	  Options, Language and ErrorDocument directives.
 
-comment "----------------------------------"
-
-comment "Apache 2 Modules"
-
-comment "----------------------------------"
-
 endif
-
-source "rules/apache2_mod_python.in"
 
