@@ -49,7 +49,7 @@ ptxd_cfgchg()
 		if [ -e "${cfg_old}" ]; then
 			diff -u "${cfg_old}" "${cfg_orig}" | \
 				ptxd_cfgchg_generate | \
-				xargs -0 -r rm
+				xargs -0 -r rm -f
 			#check_pipe_status
 		fi
 
