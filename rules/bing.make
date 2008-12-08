@@ -38,8 +38,8 @@ $(BING_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-BING_PATH	:=  PATH=$(CROSS_PATH)
-BING_ENV 	:=  $(CROSS_ENV) PREFIX=$(SYSROOT)/usr
+BING_PATH	:= PATH=$(CROSS_PATH)
+BING_ENV 	:= $(CROSS_ENV) PREFIX=$(SYSROOT)/usr
 
 $(STATEDIR)/bing.prepare:
 	@$(call targetinfo)
