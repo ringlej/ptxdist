@@ -737,6 +737,15 @@ clean() {
 	rm -f "${PTXDIST_PLATFORMDIR}/test.log"
 	echo "${PROMPT}removing packages dir..."
 	rm -fr "${PKGDIR}"
+	for cfg in \
+		PTXDIST_PTXCONFIG \
+		PTXDIST_PLATFORMCONFIG \
+		PTXDIST_COLLECTIONCONFIG \
+		; do
+
+		local cfg_old="$(readlink -e "${!cfg}").old"
+		rm -f "${cfg_old}"
+	done
 
 	# remove the remaining PTXDIST_PLATFORMDIR (if empty)
 	rmdir "${PTXDIST_PLATFORMDIR}" > /dev/null 2>&1
@@ -1363,12 +1372,20 @@ parse_second()
 
 ######## the rest of it
 
+		bash)
+			check_ptxconfig || return
+			check_compiler
+			check_dirs
+			check_deps
+			"${@}"
+			return
+			;;
 		clean)
 			check_ptxconfig || return
 			check_deps
 			clean "${1}"
 			exit 0
-				;;
+			;;
 		clone)
 			if [ $# -ne 2 ]; then
 				usage
@@ -1381,27 +1398,21 @@ parse_second()
 		distclean)
 			clean
 
-			if [ -L "${PTXDIST_TOOLCHAIN}" ]; then
-				echo "${PROMPT}removing toolchain link..."
-				rm -f "${PTXDIST_TOOLCHAIN}"
-			fi
+			echo "${PROMPT}removing configuration links..."
 
-			if [ -L "${PTXDIST_PTXCONFIG}" ]; then
-				echo "${PROMPT}removing ptxconfig link..."
-				rm "${PTXDIST_PTXCONFIG}"
+			for cfg in \
+				PTXDIST_PTXCONFIG \
+				PTXDIST_PLATFORMCONFIG \
+				PTXDIST_COLLECTIONCONFIG \
+				; do
 
-			fi
-			if [ -L "${PTXDIST_PLATFORMCONFIG}" ]; then
-				echo "${PROMPT}removing platformconfig link..."
-				rm "${PTXDIST_PLATFORMCONFIG}"
-			fi
-			if [ -L "${PTXDIST_COLLECTIONCONFIG}" ]; then
-				echo "${PROMPT}removing collectionconfig link..."
-				rm "${PTXDIST_COLLECTIONCONFIG}"
-			fi
+				if [ -L "${!cfg}" ]; then
+					rm -f "${!cfg}"
+				fi
+			done
 
 			echo "${PROMPT}removing logs..."
-			rm -fr "${PTX_LOGFILE}"
+			rm -f "${PTX_LOGFILE}" "${PTXDIST_WORKSPACE}/logfile"
 
 			echo
 			exit 0
