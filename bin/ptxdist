@@ -1114,15 +1114,13 @@ do_select()
 	# check if magic is present in config file
 	if ! egrep -q "^${magic}$" "${file}" && [ -z "${PTX_FORCE}" ]; then
 		ptxd_dialog_msgbox \
-			"error: Couldn't verify(1) that\n" \
+			"error: Couldn't verify that\n" \
 			"	'${file}'\n" \
 			"	is a valid ${type} file.\n" \
 			"	If you are absolutely sure, please add '--force'\n" \
 			"	to ptxdist's parameters, e.g.:\n" \
 			"\n" \
-			"	'ptxdist --force ${PTXDIST_ARGS_FULL[*]}'\n" \
-			"\n" \
-			"	(1) it appears not to have the right MOJO."
+			"	'ptxdist --force ${PTXDIST_ARGS_FULL[*]}'"
 		return 1
 	fi
 
