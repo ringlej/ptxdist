@@ -50,7 +50,6 @@ ptxd_cfgchg()
 			diff -u "${cfg_old}" "${cfg_orig}" | \
 				ptxd_cfgchg_generate | \
 				xargs -0 -r rm -f --
-			check_pipe_status
 		fi
 
 		cp "${cfg_orig}" "${cfg_old}" || return
