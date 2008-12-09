@@ -1,7 +1,7 @@
 ## SECTION=networking
 
 config APACHE2_MOD_PYTHON
-	module
+	tristate
 	prompt "apache2 mod_python"
 	select APACHE2
 	select HOST_APACHE2
