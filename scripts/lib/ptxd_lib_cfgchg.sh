@@ -19,17 +19,29 @@ ptxd_cfgchg_generate()
 	$1 ~ /^[-\+](|# )PTXCONF/ {
 		opt = gensub(/[-\+](|# )PTXCONF_/, "", "g", $1);
 
+		if (opt ~ /.*_VERSION$/)
+			ver_changed = 1;
+		else
+			ver_changed = 0;
+
 		do {
 			if (opt in pkgs) {
-				pkgs_chged[opt] = pkgs[opt];
+				if (ver_changed)
+					pkgs_ver_changed[opt] = pkgs[opt];
+				else
+					pkgs_opt_changed[opt] = pkgs[opt];
 				break;
 			}
 		} while (sub(/_+[^_]+$/, "", opt));
 	}
 
 	END {
-		for (pkg in pkgs_chged) {
-			printf "'"${STATEDIR}/"'" pkgs_chged[pkg] ".prepare\0";
+		for (pkg in pkgs_ver_changed) {
+			printf "'"${STATEDIR}/"'" pkgs_ver_changed[pkg] ".extract\0";
+		}
+
+		for (pkg in pkgs_opt_changed) {
+			printf "'"${STATEDIR}/"'" pkgs_opt_changed[pkg] ".prepare\0";
 		}
 	}
 
