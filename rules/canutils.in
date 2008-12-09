@@ -12,7 +12,7 @@ if CANUTILS
 config CANUTILS_VERSION
 	prompt "Version"
 	string
-	default "2.0.1"
+	default "3.0.2"
 
 config CANUTILS_CANCONFIG
 	bool
