@@ -4,7 +4,7 @@
 
 PTX_FIXPERM_RUN    := $(STATEDIR)/fix-permissions.run
 
-ifdef PTXCONF_FIX_PERMISSIONS
+ifeq ($(PTXCONF_FIX_PERMISSIONS)-$(PTXDIST_QUIET),y-)
 world: $(PTX_FIXPERM_RUN)
 endif
 
