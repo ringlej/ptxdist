@@ -1401,13 +1401,14 @@ parse_second()
 			echo "${PROMPT}removing configuration links..."
 
 			for cfg in \
-				PTXDIST_PTXCONFIG \
-				PTXDIST_PLATFORMCONFIG \
-				PTXDIST_COLLECTIONCONFIG \
+				"${PTXDIST_PTXCONFIG}" \
+				"${PTXDIST_PLATFORMCONFIG}" \
+				"${PTXDIST_COLLECTIONCONFIG}" \
+				"${PTXDIST_TOOLCHAIN}" \
 				; do
 
-				if [ -L "${!cfg}" ]; then
-					rm -f "${!cfg}"
+				if [ -L "${cfg}" ]; then
+					rm -f -- "${cfg}"
 				fi
 			done
 
