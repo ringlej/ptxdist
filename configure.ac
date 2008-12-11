@@ -358,12 +358,6 @@ else
 	AC_MSG_RESULT(yes)
 fi
 
-dnl Check for kermit for pelts
-
-dnl Check for rpmbuild (v4) vs. rpm (v3)
-dnl AC_PATH_PROGS(RPMBUILD, [rpmbuild rpm])
-dnl AC_SUBST(RPMBUILD)
-
 dnl check if bash completion is desired (adapted from 'source-highlight' by Lorenzo Bettini)
 dnl don't use sysconfdir! as bash_completion does not check multiple directories, we use the system default
 
