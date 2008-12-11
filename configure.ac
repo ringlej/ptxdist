@@ -364,6 +364,23 @@ dnl Check for rpmbuild (v4) vs. rpm (v3)
 dnl AC_PATH_PROGS(RPMBUILD, [rpmbuild rpm])
 dnl AC_SUBST(RPMBUILD)
 
+dnl check if bash completion is desired (adapted from 'source-highlight' by Lorenzo Bettini)
+dnl don't use sysconfdir! as bash_completion does not check multiple directories, we use the system default
+
+AC_ARG_WITH([bash-completion],
+	AS_HELP_STRING([--with-bash-completion@<:@=DIR@:>@], [install bash_completion file (default: yes) - optionally specify bash_completion directory (default: /etc/bash_completion.d)]),
+	[
+	if test "$withval" = "no"; then
+		BASH_COMPLETION_DIR=""
+	elif test "$withval" = "yes"; then
+		BASH_COMPLETION_DIR=/etc/bash_completion.d
+	else
+		BASH_COMPLETION_DIR="$withval"
+	fi
+	],
+	[BASH_COMPLETION_DIR=/etc/bash_completion.d]
+)
+AC_SUBST(BASH_COMPLETION_DIR)
 
 dnl
 dnl versions
