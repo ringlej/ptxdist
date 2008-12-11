@@ -48,7 +48,7 @@ define setenv_uboot_v1 {
 	close read
 
 	ptx_uboot_exec 5 "printenv"
-	ptx_uboot_exec 10 "saveenv"
+	ptx_uboot_exec 30 "saveenv"
 
 	ptx_test_end
 }
