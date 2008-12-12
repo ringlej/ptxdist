@@ -4,9 +4,6 @@ TODO before 2.0.0
 Prio A
 ------
 
-[ ] jbe: avoid the "make: Nothing to be done for `world'." message when running
-    a "ptxdist images".
-
 [ ] jbe: avoid the convenience stage question, when running "pxtdist images".
 
 [ ] jbe: avoid the convenience stage question again and again and again....
@@ -22,41 +19,10 @@ Prio A
 
     20081109 mkl: xorg, directfb, gtk and stuff has still to be migrated
 
-[x] jbe: When someone do not need u-boot-v2 one earns:
-    <ptxdist/install/path>/rules/u-boot-v2.make:80: warning: overriding commands for
-        target `<path/to/current/BSP/directory>'
-
 [ ] jbe: Would it be possible to delete a directory defined by PTXCONF_SYSROOT_TARGET
     in the form "${PTXDIST_WORKSPACE}/local/${PTXCONF_ARCH_STRING}"
     Currently the "local" part still exists when running "ptxdist clean".
     This is for ptxdist-1 backward compatibility.
-
-[x] jbe: When someone do not need a Linux kernel one earns:
-    <ptxdist/install/path>rules/kernel.make:109: warning: ignoring old commands for target
-    `<path/to/current/BSP/directory>'
-
-[x] rsc: fallback server for udev
-
-[x] rsc: toolchain selection doesn't work if gcc revision is empty=nocheck
-
-[x] rsc: platformconfig: check what about PTXCONF_IMAGE_IPKG_ARCH; it
-    should go to the platformconfig code.
-
-    arm -> oabi
-    armel -> eabi little endian
-    armeb -> eabi big endian
-
-    This would make our packages compatible with maemo + debian
-
-    [x] 20081107 mkl: we use not PTXDIST_IPKG_ARCH_STRING which is generated in
-		      scripts/lib/ptxd_make_install.sh
-
-[x] rsc: we don't seem to have a target option for the endianess!
-
-[x] rsc: SuSE has an old stat version which doesn't support --printf;
-    this breaks building of hd.img. Add test to configure.
-
-    [x] 20081107 mkl: we use "stat -c" now
 
 [ ] bbu: default path to generic projects seems not work
 
@@ -71,9 +37,6 @@ Prio A
 [ ] lfu: some mountable devices are available after udev started. hence
 	we need an extra mount script to mount all entries in fstab instead
 	out of rcS
-
-[x] when the drop command is used without a stage, complain about that
-    and suggest to use clean instead
 
 [ ] rsc: add bbu's "get" script
 
@@ -96,6 +59,9 @@ Prio A
 
 Prio B
 ------
+
+[ ] jbe: avoid the "make: Nothing to be done for `world'." message when running
+    a "ptxdist images".
 
 [ ] jbe: Can we also provide a "Bare Metall" platform project to show how to use
     ptxdist2 for non Linux targets?
@@ -566,6 +532,40 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] when the drop command is used without a stage, complain about that
+    and suggest to use clean instead
+
+[x] jbe: When someone do not need a Linux kernel one earns:
+    <ptxdist/install/path>rules/kernel.make:109: warning: ignoring old commands for target
+    `<path/to/current/BSP/directory>'
+
+[x] rsc: fallback server for udev
+
+[x] rsc: toolchain selection doesn't work if gcc revision is empty=nocheck
+
+[x] rsc: platformconfig: check what about PTXCONF_IMAGE_IPKG_ARCH; it
+    should go to the platformconfig code.
+
+    arm -> oabi
+    armel -> eabi little endian
+    armeb -> eabi big endian
+
+    This would make our packages compatible with maemo + debian
+
+    [x] 20081107 mkl: we use not PTXDIST_IPKG_ARCH_STRING which is generated in
+		      scripts/lib/ptxd_make_install.sh
+
+[x] rsc: we don't seem to have a target option for the endianess!
+
+[x] rsc: SuSE has an old stat version which doesn't support --printf;
+    this breaks building of hd.img. Add test to configure.
+
+    [x] 20081107 mkl: we use "stat -c" now
+
+[x] jbe: When someone do not need u-boot-v2 one earns:
+    <ptxdist/install/path>/rules/u-boot-v2.make:80: warning: overriding commands for
+        target `<path/to/current/BSP/directory>'
 
 [x] jbe: Fix the too many --without-pam and the always --without-sendmail given
     in the sudo.make in the prepare step
