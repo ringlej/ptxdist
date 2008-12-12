@@ -11,15 +11,14 @@ menuconfig SUDO
 
 if SUDO
 
-config SUDO_USE_SENDMAIL
-	bool "Use sendmail"
+config SUDO__SENDMAIL
+	bool
+	# FIXME: sendmail support is buggy and searches for
+	# /sbin/sendmail on the host
+	#prompt "sendmail support"
 	default n
 
-config SUDO_USE_PAM
-	bool "Use libpam"
-	default n
-
-config SUDO_ETC_SUDOERS
+config SUDO__ETC_SUDOERS
 	bool "Install sudoers file into /etc"
 	default y
 	help
@@ -27,17 +26,17 @@ config SUDO_ETC_SUDOERS
 
 	choice
 		prompt "Kind of sudoers"
-		default SUDO_ETC_SUDOERS_DEFAULT
-		depends on SUDO_ETC_SUDOERS
+		default SUDO__ETC_SUDOERS_DEFAULT
+		depends on SUDO__ETC_SUDOERS
 
-		config SUDO_ETC_SUDOERS_DEFAULT
+		config SUDO__ETC_SUDOERS_DEFAULT
 			bool
 			prompt "Use generic"
 			help
 			  Installs a generic /etc/sudoers file from the
 			  sources.
 
-		config SUDO_ETC_SUDOERS_USER
+		config SUDO__ETC_SUDOERS_USER
 			bool
 			prompt "User defined"
 			help
@@ -45,6 +44,5 @@ config SUDO_ETC_SUDOERS
 			  uses file projectroot/etc/sudoers in your local project.
 
 	endchoice
-
 
 endif
