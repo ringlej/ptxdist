@@ -4,9 +4,10 @@ TODO before 2.0.0
 Prio A
 ------
 
-[ ] jbe: if the kernel.extract stage fails, ptxdist returns with exit code 0
-    Can be replicated by deleting the configures series file for the patch
-    stack in use.
+[ ] jbe: if the kernel.extract or dtc.targetinstall stage fails, ptxdist returns
+    with exit code 0, when --quiet was given. Can be replicated by deleting the
+    configured series file for the patch stack in use or using a DTS file that
+    does not exist.
 
 [ ] jbe: Fix the too many --without-pam and the always --without-sendmail given
     in the sudo.make in the prepare step
