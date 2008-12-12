@@ -285,7 +285,7 @@ ptxd_make_log() {
 	if [ -z "${PTXDIST_QUIET}" ]; then
 		ptxd_make "${@}" 2>&1 | tee -a "${PTX_LOGFILE}"
 	else
-		ptxd_make "${@}" > "${PTX_LOGFILE}" || return
+		ptxd_make "${@}" > "${PTX_LOGFILE}"
 	fi
 	check_pipe_status
 }

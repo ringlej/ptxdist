@@ -4,11 +4,6 @@ TODO before 2.0.0
 Prio A
 ------
 
-[ ] jbe: if the kernel.extract or dtc.targetinstall stage fails, ptxdist returns
-    with exit code 0, when --quiet was given. Can be replicated by deleting the
-    configured series file for the patch stack in use or using a DTS file that
-    does not exist.
-
 [ ] jbe: Fix the too many --without-pam and the always --without-sendmail given
     in the sudo.make in the prepare step
 
@@ -59,7 +54,7 @@ Prio A
     [x] 20081107 mkl: we use not PTXDIST_IPKG_ARCH_STRING which is generated in
 		      scripts/lib/ptxd_make_install.sh
 
-[.] rsc: we don't seem to have a target option for the endianess!
+[x] rsc: we don't seem to have a target option for the endianess!
 
 [x] rsc: SuSE has an old stat version which doesn't support --printf;
     this breaks building of hd.img. Add test to configure.
@@ -574,6 +569,10 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: if the kernel.extract stage fails, ptxdist returns with exit code 0
+    Can be replicated by deleting the configures series file for the patch
+    stack in use.
 
 [x] BBU: Implement scheme for alternative download-URLs as
     fallback (e.g. mirrors)
