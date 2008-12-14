@@ -5,15 +5,24 @@
 # $Id$
 #
 
-echo -n "mounting filesystems..."
-mount -a 2>/dev/null
-echo "done."
+mount -t proc none /proc
+
+grep -q "quiet" /proc/cmdline
+if [ "$?" = "0" ]; then
+	OUT=/dev/null
+else
+	OUT=/dev/console
+fi
+
+echo -n "mounting filesystems..." 1> $OUT
+mount -a 2>/dev/null 1>$OUT
+echo "done." 1> $OUT
 
 # loadkmap < /etc/boottime.kmap
 
 # set hostname
 test -e /etc/hostname && hostname -F /etc/hostname
 
-echo "running rc.d services..."
-run-parts -a start /etc/rc.d
+echo "running rc.d services..." 1> $OUT
+run-parts -a start /etc/rc.d 1> $OUT
 

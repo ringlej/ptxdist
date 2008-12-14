@@ -1,0 +1,43 @@
+Subject: Avoid messages when quiet
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+I've tried to use busybox with CONFIG_FEATURE_EXTRA_QUIET, but init's
+startup banner does still appear. I don't understand the intended logic
+behind the sniplet patched below: it is in an 'else' part that is only
+executed if the syslog feature is not enabled; why should something
+printed out differently if syslog is not enabled?
+
+So this patch removes the duplicate full_write and delegates it to the
+normal one.
+
+The second part of the patch changes the file descriptor to stdout
+instead of stderr. Init doesn't print out errors.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ init/init.c |    7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+Index: busybox-1.10.4/init/init.c
+===================================================================
+--- busybox-1.10.4.orig/init/init.c
++++ busybox-1.10.4/init/init.c
+@@ -166,16 +166,11 @@ static void message(int where, const cha
+ 				}
+ 			}
+ 		}
+-		if (where & L_LOG) {
+-			full_write(log_fd, msg, l);
+-			if (log_fd == 2)
+-				return; /* don't print dup messages */
+-		}
+ 	}
+ 
+ 	if (where & L_CONSOLE) {
+ 		/* Send console messages to console so people will see them. */
+-		full_write(2, msg, l);
++		full_write(1, msg, l);
+ 	}
+ }
+ 
