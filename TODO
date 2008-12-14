@@ -4,6 +4,8 @@ TODO before 2.0.0
 Prio A
 ------
 
+[ ] rsc: config dependency dropper doesn't work yet
+
 [ ] jbe: avoid the convenience stage question, when running "pxtdist images".
 
 [ ] jbe: avoid the convenience stage question again and again and again....
