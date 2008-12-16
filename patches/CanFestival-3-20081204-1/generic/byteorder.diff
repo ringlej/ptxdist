@@ -1,3 +1,13 @@
+Subject: fix for CAN ID byteorder
+From: Markus Messmer <mme@pengutronix.de>
+
+The can identifier does not need to get switched when compiling for big endian
+machines.
+
+Signed-off-by: Markus Messmer <mme@pengutronix.de>
+
+---
+# datum: 16.12.08 mme: vielleicht auch nur ein hack der hier funktioniert
 Index: CanFestival-3-20080926/src/nmtMaster.c
 ===================================================================
 --- CanFestival-3-20080926.orig/src/nmtMaster.c	2008-01-25 19:01:58.000000000 +0100
