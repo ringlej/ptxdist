@@ -13,10 +13,10 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  configure.in |   90 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++---
  1 file changed, 86 insertions(+), 4 deletions(-)
 
-Index: Python-3.0rc2/configure.in
+Index: Python-3.0/configure.in
 ===================================================================
---- Python-3.0rc2.orig/configure.in
-+++ Python-3.0rc2/configure.in
+--- Python-3.0.orig/configure.in
++++ Python-3.0/configure.in
 @@ -12,6 +12,11 @@ AC_INIT(python, PYTHON_VERSION, http://w
  AC_CONFIG_SRCDIR([Include/object.h])
  AC_CONFIG_HEADER(pyconfig.h)

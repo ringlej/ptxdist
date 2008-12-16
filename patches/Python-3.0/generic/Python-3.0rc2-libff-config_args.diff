@@ -3,10 +3,10 @@
  setup.py        |    4 ++--
  2 files changed, 4 insertions(+), 2 deletions(-)
 
-Index: Python-3.0rc2/setup.py
+Index: Python-3.0/setup.py
 ===================================================================
---- Python-3.0rc2.orig/setup.py
-+++ Python-3.0rc2/setup.py
+--- Python-3.0.orig/setup.py
++++ Python-3.0/setup.py
 @@ -1342,12 +1342,12 @@ class PyBuildExt(build_ext):
                                           ffi_configfile):
                  from distutils.dir_util import mkpath
@@ -22,10 +22,10 @@ Index: Python-3.0rc2/setup.py
  
                  res = os.system(cmd)
                  if res or not os.path.exists(ffi_configfile):
-Index: Python-3.0rc2/Makefile.pre.in
+Index: Python-3.0/Makefile.pre.in
 ===================================================================
---- Python-3.0rc2.orig/Makefile.pre.in
-+++ Python-3.0rc2/Makefile.pre.in
+--- Python-3.0.orig/Makefile.pre.in
++++ Python-3.0/Makefile.pre.in
 @@ -423,6 +423,7 @@ sharedmods: $(PYTHON_FOR_BUILD)
  		CC='$(CC)' \
  		LDSHARED='$(BLDSHARED)' \

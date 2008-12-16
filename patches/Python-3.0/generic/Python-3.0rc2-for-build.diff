@@ -15,10 +15,10 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  Makefile.pre.in |  116 +++++++++++++++++++++++++++++++++++++++-----------------
  1 file changed, 82 insertions(+), 34 deletions(-)
 
-Index: Python-3.0rc2/Makefile.pre.in
+Index: Python-3.0/Makefile.pre.in
 ===================================================================
---- Python-3.0rc2.orig/Makefile.pre.in
-+++ Python-3.0rc2/Makefile.pre.in
+--- Python-3.0.orig/Makefile.pre.in
++++ Python-3.0/Makefile.pre.in
 @@ -28,6 +28,8 @@ VERSION=	@VERSION@
  srcdir=		@srcdir@
  VPATH=		@srcdir@
@@ -188,7 +188,7 @@ Index: Python-3.0rc2/Makefile.pre.in
  
  # Like testall, but with a single pass only
  # run an optional script to include some information about the build environment
-@@ -817,7 +862,8 @@ LIBSUBDIRS=	tkinter site-packages test t
+@@ -816,7 +861,8 @@ LIBSUBDIRS=	tkinter site-packages test t
  		setuptools setuptools/command setuptools/tests setuptools.egg-info \
  		multiprocessing multiprocessing/dummy \
  		curses $(MACHDEPS)
@@ -198,7 +198,7 @@ Index: Python-3.0rc2/Makefile.pre.in
  	@for i in $(SCRIPTDIR) $(LIBDEST); \
  	do \
  		if test ! -d $(DESTDIR)$$i; then \
-@@ -874,29 +920,29 @@ libinstall:	build_all $(srcdir)/Lib/$(PL
+@@ -873,29 +919,29 @@ libinstall:	build_all $(srcdir)/Lib/$(PL
  	done
  	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
  	-PYTHONPATH=$(DESTDIR)$(LIBDEST)  $(RUNSHARED) \
@@ -234,7 +234,7 @@ Index: Python-3.0rc2/Makefile.pre.in
  	export PYTHONPATH; PYTHONPATH="`pwd`/Lib"; \
  	export DYLD_FRAMEWORK_PATH; DYLD_FRAMEWORK_PATH="`pwd`"; \
  	export EXE; EXE="$(BUILDEXE)"; \
-@@ -977,8 +1023,9 @@ libainstall:	all
+@@ -976,8 +1022,9 @@ libainstall:	all
  # Install the dynamically loadable modules
  # This goes into $(exec_prefix)
  sharedinstall:
@@ -246,7 +246,7 @@ Index: Python-3.0rc2/Makefile.pre.in
  		--install-scripts=$(BINDIR) \
  		--install-platlib=$(DESTSHARED) \
  		--root=/$(DESTDIR)
-@@ -1055,8 +1102,8 @@ frameworkinstallextras:
+@@ -1054,8 +1101,8 @@ frameworkinstallextras:
  
  # This installs a few of the useful scripts in Tools/scripts
  scriptsinstall:
@@ -257,7 +257,7 @@ Index: Python-3.0rc2/Makefile.pre.in
  	--prefix=$(prefix) \
  	--install-scripts=$(BINDIR) \
  	--root=/$(DESTDIR)
-@@ -1131,11 +1178,12 @@ profile-removal:
+@@ -1130,11 +1177,12 @@ profile-removal:
  	find . -name '*.gc??' -exec rm -f {} ';'
  
  clobber: clean profile-removal

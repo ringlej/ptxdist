@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_PYTHON30) += python30
 #
 # Paths and names
 #
-PYTHON30_VERSION	:= 3.0rc2
+PYTHON30_VERSION	:= 3.0
 PYTHON30		:= Python-$(PYTHON30_VERSION)
 PYTHON30_SUFFIX		:= tar.bz2
 PYTHON30_URL		:= http://www.python.org/ftp/python/3.0/$(PYTHON30).$(PYTHON30_SUFFIX)

@@ -12,11 +12,11 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  README |   44 ++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 44 insertions(+)
 
-Index: Python-3.0rc2/README
+Index: Python-3.0/README
 ===================================================================
---- Python-3.0rc2.orig/README
-+++ Python-3.0rc2/README
-@@ -181,6 +181,50 @@ there.  For example:
+--- Python-3.0.orig/README
++++ Python-3.0/README
+@@ -156,6 +156,50 @@ there.  For example:
  should do a "make clean" at the toplevel first.)
  
  
