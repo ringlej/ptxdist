@@ -12,6 +12,14 @@ choice
 		help
 		  This is support for the Alpha processor architecture.
 
+	config ARCH_AVR
+		bool "avr 8 bit "
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
+		help
+		  This is support for the Atmel AVR processors.
+		  Note: This covers the 8bit family only, they are not
+		  intended to be used with Linux. Bare metall only.
+
 	config ARCH_ARM
 		bool "arm        "
 		select HAS_MMU
@@ -248,6 +256,7 @@ config HAS_MMU
 config ARCH_STRING
 	string
 	default "arm"			if ARCH_ARM
+	default "avr"			if ARCH_AVR
 	default "alpha"			if ARCH_ALPHA
 	default "blackfin"		if ARCH_BLACKFIN
 	default "i386"			if ARCH_X86
