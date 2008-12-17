@@ -4,6 +4,9 @@ TODO before 2.0.0
 Prio A
 ------
 
+[ ] rsc: fix install_copy without source+destination; it worked before
+    with destination-only, but there was some problem. Ask mkl.
+
 [ ] Subject: Re: [ptxdist-commit] ptxdist r9228 - in trunks/ptxdist-trunk/patches:
     libffi-3.0.7 libffi-3.0.7/generic
 
