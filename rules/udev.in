@@ -53,19 +53,19 @@ menu "extras                        "
 		bool
 		prompt "ata_id"
 		help
-		  FIXME
+		  udev callout to read product/serial number from ATA drives
 
 	config UDEV__EXTRA_CDROM_ID
 		bool
 		prompt "cdrom_id"
 		help
-		  FIXME
+		  udev callout to determine the capabilities of optical drives and media
 
 	config UDEV__EXTRA_COLLECT
 		bool
 		prompt "collect"
 		help
-		  FIXME
+		  Collect variables across events
 
 	config UDEV__EXTRA_EDD_ID
 		bool
@@ -89,13 +89,14 @@ menu "extras                        "
 		bool
 		prompt "fstab_import"
 		help
-		  FIXME
+		  Find matching entry in fstab and export it
 
 	config UDEV__EXTRA_PATH_ID
 		bool
 		prompt "path_id"
 		help
-		  FIXME
+		  udev callout to create a device path based unique name for a device to
+		  implement the Linux Persistent Device Naming scheme
 
 	config UDEV__EXTRA_RULE_GENERATOR
 		bool
@@ -107,7 +108,7 @@ menu "extras                        "
 		bool
 		prompt "scsi_id"
 		help
-		  FIXME
+		  Used to build unique IDs for an SCSI media to identify it again
 
 	config UDEV__EXTRA_USB_ID
 		bool

@@ -210,6 +210,9 @@ ifdef PTXCONF_UDEV__EXTRA_FSTAB_IMPORT
 	@$(call install_copy, udev, 0, 0, 0755, \
 		$(UDEV_DIR)/extras/fstab_import/fstab_import, \
 		/lib/udev/fstab_import)
+	@$(call install_copy, udev, 0, 0, 0644, \
+		$(UDEV_DIR)/extras/fstab_import/79-fstab_import.rules, \
+		/lib/udev/rules.d/79-fstab_import.rules, n)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_PATH_ID
