@@ -4,7 +4,7 @@
 .red := "\27[31m"
 .green := "\27[32m"
 .blue := "\27[34m"
-.nocolor := "\27[30m"
+.nocolor := "\27[0m"
 
 define ptx_check_fail {
 	if failure {
