@@ -1050,7 +1050,9 @@ do_config()
 	"ptx"|"ptxdist"|"")
 		ptxd_kconfig "${config}" "ptx"
 		;;
-
+	"setup")
+		ptxd_kconfig "${config}" "user"
+		;;
 	"platform"|"board"|"user")
 		ptxd_kconfig "${config}" "${part}"
 		;;
