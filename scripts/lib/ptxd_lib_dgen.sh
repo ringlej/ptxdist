@@ -133,7 +133,6 @@ ptxd_dgen_map_all() {
 			print "$(STATEDIR)/" pkgs[PKG] ".get: $(" PKG "_SOURCE)" > PTX_DGEN_DEPS_POST;
 		}
 
-
 		for (PKG in pkgs_active_DEPS) {
 			print "$(STATEDIR)/" pkgs[PKG] ".extract:		$(STATEDIR)/" pkgs[PKG] ".get"		> PTX_DGEN_DEPS_POST;
 			print "$(STATEDIR)/" pkgs[PKG] ".tags:			$(STATEDIR)/" pkgs[PKG] ".prepare"	> PTX_DGEN_DEPS_POST;
@@ -155,7 +154,7 @@ ptxd_dgen_map_all() {
 
 				deps_prepare = deps_prepare " $(STATEDIR)/" pkgs[DEP[j]] ".install"
 
-				if (pkgs[DEP[j]] !~ /^host-|cross-/)
+				if (pkgs[DEP[j]] !~ /^host-|^cross-/)
 					deps_targetinstall = deps_targetinstall " $(STATEDIR)/" pkgs[DEP[j]] ".targetinstall";
 			}
 
