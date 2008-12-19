@@ -13,8 +13,8 @@
 GNU_BUILD	:= $(shell $(SCRIPTSDIR)/external/config.guess)
 GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 
-HOSTCC		:= gcc
-HOSTCXX		:= g++
+HOSTCC		:= $(PTXCONF_SETUP_HOST_CC)
+HOSTCXX		:= $(PTXCONF_SETUP_HOST_CXX)
 INSTALL		:= install
 FAKEROOT	:= $(PTXCONF_SYSROOT_HOST)/bin/fakeroot -l $(PTXCONF_SYSROOT_HOST)/lib/libfakeroot.so
 
