@@ -133,6 +133,11 @@ menu "Developer Options "
 
 config SETUP_CHECK_EXIT_ON_ERROR
 	bool "enable exit on error"
+	help
+	  Use bash' "set -e" feature within ptxdist. Which enables
+	  quite aggressive error checking. Don't turn this on until
+	  you know what you're doing.
+	  
 
 #config SETUP_CCACHE
 #	bool "use ccache"
@@ -141,10 +146,13 @@ config SETUP_HOST_CC
 	prompt "host CC"
 	string
 	default "gcc"
+	help
+	  Specify the host C compile here.
 
 config SETUP_HOST_CXX
 	prompt "host CXX"
 	string
 	default "g++"
+	  Specify the host C++ compile here.
 
 endmenu
