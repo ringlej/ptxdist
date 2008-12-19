@@ -50,7 +50,7 @@ ptxd_make_extract() {
     fi
 
     if [ \! -d "${dest}" ]; then
-	mkdir -p "${dest}"
+	mkdir -p "${dest}" || return
     fi
 
     echo "extract: archive=${packet_source}"
