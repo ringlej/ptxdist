@@ -423,7 +423,7 @@ check_dirs_prefix() {
 		fi
 	fi
 
-	rm "${testfile}"
+	rm -- "${testfile}"
 
 	mkdir -p "${prefix}"/{etc,lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 }
@@ -489,7 +489,7 @@ check_dirs() {
 			exit 1
 		fi
 
-		rm "${testfile_lower}" "${testfile_upper}"
+		rm -- "${testfile_lower}" "${testfile_upper}"
 	done
 }
 
@@ -663,10 +663,10 @@ clean() {
 	if [ "${1}" = "root" ]; then
 		echo
 		echo "${PROMPT}cleaning root directory..."
-		rm -fr "${ROOTDIR}"
-		rm -fr "${ROOTDIR_DEBUG}"
+		rm -fr -- "${ROOTDIR}"
+		rm -fr -- "${ROOTDIR_DEBUG}"
 		echo "${PROMPT}cleaning targetinstall stages..."
-		rm -f "${STATEDIR}"/*.targetinstall*
+		rm -f -- "${STATEDIR}"/*.targetinstall*
 		echo "${PROMPT}done."
 		echo
 		return
@@ -693,7 +693,7 @@ clean() {
 			echo "done"
 			popd > /dev/null
 		done
-		rm -fr "${dir}"
+		rm -fr -- "${dir}"
 	done
 
 	if [ -f "${PTXDIST_PTXCONFIG}" ]; then
@@ -713,7 +713,7 @@ clean() {
 			#
 			case "${dir}" in
 			(${PTXDIST_WORKSPACE}/*)
-				rm -fr "${dir}"
+				rm -fr -- "${dir}"
 				;;
 			(*)
 				;;
@@ -722,33 +722,34 @@ clean() {
 	fi
 
 	echo "${PROMPT}removing deps..."
-	rm -f "${PTXDIST_PLATFORMDIR}/"{deptree-a4.ps,deptree.ps}
-	rm -f "${STATEDIR}/depend.out"
+	rm -f -- "${PTXDIST_PLATFORMDIR}/"{deptree-a4.ps,deptree.ps}
+	rm -f -- "${STATEDIR}/depend.out"
 	echo "${PROMPT}removing imagedir..."
-	rm -fr "${IMAGEDIR}"
+	rm -fr -- "${IMAGEDIR}"
 	echo "${PROMPT}removing root..."
-	rm -fr "${ROOTDIR}"
-	rm -fr "${ROOTDIR_DEBUG}"
+	rm -fr -- "${ROOTDIR}"
+	rm -fr -- "${ROOTDIR_DEBUG}"
 	echo "${PROMPT}removing state..."
-	rm -fr "${STATEDIR}"
+	rm -fr -- "${STATEDIR}"
 	echo "${PROMPT}removing logfile..."
-	rm -f "${PTX_LOGFILE}"
+	rm -f -- "${PTX_LOGFILE}"
 	echo "${PROMPT}removing test logfile..."
-	rm -f "${PTXDIST_PLATFORMDIR}/test.log"
+	rm -f -- "${PTXDIST_PLATFORMDIR}/test.log"
 	echo "${PROMPT}removing packages dir..."
-	rm -fr "${PKGDIR}"
+	rm -fr -- "${PKGDIR}"
 	for cfg in \
-		PTXDIST_PTXCONFIG \
-		PTXDIST_PLATFORMCONFIG \
-		PTXDIST_COLLECTIONCONFIG \
+		"${PTXDIST_PTXCONFIG}" \
+		"${PTXDIST_PLATFORMCONFIG}" \
+		"${PTXDIST_COLLECTIONCONFIG}" \
 		; do
-
-		local cfg_old="$(readlink -e "${!cfg}").old"
-		rm -f "${cfg_old}"
+		local cfg="$(readlink -e "${cfg}")"
+		if [ $? -ne 0 -a -e "${cfg}.old" ]; then
+			rm -f -- "${cfg}.old"
+		fi
 	done
 
 	# remove the remaining PTXDIST_PLATFORMDIR (if empty)
-	rmdir "${PTXDIST_PLATFORMDIR}" > /dev/null 2>&1
+	rmdir -- "${PTXDIST_PLATFORMDIR}" >/dev/null 2>&1
 
 	echo "${PROMPT}done."
 	echo
@@ -765,7 +766,7 @@ drop() {
 
 	echo
 	if [ -e "${STATEDIR}/${statefile}" ]; then
-		rm -f "${STATEDIR}/${statefile}"
+		rm -f -- "${STATEDIR}/${statefile}"
 		echo "dropping ${statefile}"
 		echo
 		exit
@@ -1238,7 +1239,7 @@ do_select_toolchain() {
 		"'${toolchain}'"
 
 	if [ -L "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
-		rm -f "${PTXDIST_TOOLCHAIN_DEFAULT}"
+		rm -f -- "${PTXDIST_TOOLCHAIN_DEFAULT}"
 	elif [ -e "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
 		ptxd_dialog_msgbox \
 			"error: There is a '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' in this directory which is no link.\n" \
@@ -1267,7 +1268,7 @@ parse_second()
 		exit 0
 	fi
 
-	local kernellink=${PTXDIST_WORKSPACE}/.kernel
+	local kernellink="${PTXDIST_WORKSPACE}/.kernel"
 
 	while [ $# -ne 0 ]; do
 		local cmd="${1}"
@@ -1309,13 +1310,15 @@ parse_second()
 			;;
 
 		platformconfig)
-			[ -L ${kernellink} ] && rm -f ${kernellink}
+			if [ -L "${kernellink}" ]; then
+				rm -f -- "${kernellink}"
+			fi
 
 			do_config menuconfig platform
 			local retval=${?}
 
 			if [ -n "$(ptxd_get_ptxconf PTXCONF_KERNEL_SYMLINK_IN_PROJECTDIR)" ]; then
-				ln -sf ${BUILDDIR}/linux-$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION) ${kernellink}
+				ln -sf "${BUILDDIR}/linux-$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION)" "${kernellink}"
 			fi
 			exit ${retval}
 			;;
@@ -1332,7 +1335,9 @@ parse_second()
 
 		boardsetup)
 			check_ptxconfig
-			[ -d ${HOME}/.ptxdist ] || mkdir ${HOME}/.ptxdist
+			if [ \! -d "${HOME}/.ptxdist" ]; then
+				mkdir -- "${HOME}/.ptxdist"
+			fi
 			do_config menuconfig board
 			exit ${?}
 			;;
@@ -1349,13 +1354,15 @@ parse_second()
 			;;
 
 		platform)
-			[ -L ${kernellink} ] && rm -f ${kernellink}
+			if [ -L "${kernellink}" ]; then
+				rm -f -- "${kernellink}"
+			fi
 
 			do_select platformconfig "${1}"
 			local retval=${?}
 
 			if [ -n "$(ptxd_get_ptxconf PTXCONF_KERNEL_SYMLINK_IN_PROJECTDIR)" ]; then
-				ln -sf ${BUILDDIR}/linux-$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION) ${kernellink}
+				ln -sf "${BUILDDIR}/linux-$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION)" "${kernellink}"
 			fi
 			exit ${retval}
 			;;
@@ -1413,7 +1420,7 @@ parse_second()
 			done
 
 			echo "${PROMPT}removing logs..."
-			rm -f "${PTX_LOGFILE}" "${PTXDIST_WORKSPACE}/logfile"
+			rm -f -- "${PTX_LOGFILE}" "${PTXDIST_WORKSPACE}/logfile"
 
 			echo
 			exit 0
@@ -1612,7 +1619,7 @@ ptxdist_trap_exit_handler() {
 	local retval="${?}"
 
 	if [ -n "${PTXDIST_TEMPDIR}" -a -d "${PTXDIST_TEMPDIR}" ]; then
-		rm -fr "${PTXDIST_TEMPDIR}"
+		rm -fr -- "${PTXDIST_TEMPDIR}"
 	fi
 
 	if [ -e "${PTX_LOGFILE}" ]; then
