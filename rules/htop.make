@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_HTOP) += htop
 #
 # Paths and names
 #
-HTOP_VERSION	:= 0.7
+HTOP_VERSION	:= 0.8.1
 HTOP		:= htop-$(HTOP_VERSION)
 HTOP_SUFFIX	:= tar.gz
 HTOP_URL	:= $(PTXCONF_SETUP_SFMIRROR)/htop/$(HTOP).$(HTOP_SUFFIX)
