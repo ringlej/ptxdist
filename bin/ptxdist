@@ -665,6 +665,8 @@ clean() {
 		echo "${PROMPT}cleaning root directory..."
 		rm -fr -- "${ROOTDIR}"
 		rm -fr -- "${ROOTDIR_DEBUG}"
+		echo "${PROMPT}cleaning packages..."
+		rm -fr -- "${PKGDIR}"/*.ipk
 		echo "${PROMPT}cleaning targetinstall stages..."
 		rm -f -- "${STATEDIR}"/*.targetinstall*
 		echo "${PROMPT}done."
