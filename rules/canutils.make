@@ -37,13 +37,13 @@ $(CANUTILS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-CANUTILS_PATH	:=  PATH=$(CROSS_PATH)
-CANUTILS_ENV 	:=  $(CROSS_ENV)
+CANUTILS_PATH	:= PATH=$(CROSS_PATH)
+CANUTILS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-CANUTILS_AUTOCONF :=  $(CROSS_AUTOCONF_USR)
+CANUTILS_AUTOCONF := $(CROSS_AUTOCONF_ROOT)
 
 $(STATEDIR)/canutils.prepare:
 	@$(call targetinfo)
@@ -74,16 +74,16 @@ ifdef PTXCONF_CANUTILS_CANCONFIG
 	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/canconfig, /sbin/canconfig)
 endif
 ifdef PTXCONF_CANUTILS_CANECHO
-	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/canecho,   /sbin/canecho)
+	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/canecho,   /bin/canecho)
 endif
 ifdef PTXCONF_CANUTILS_CANDUMP
-	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/candump,   /sbin/candump)
+	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/candump,   /bin/candump)
 endif
 ifdef PTXCONF_CANUTILS_CANSEND
-	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/cansend,   /sbin/cansend)
+	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/cansend,   /bin/cansend)
 endif
 ifdef PTXCONF_CANUTILS_CANSEQUENCE
-	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/cansequence, /sbin/cansequence)
+	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/cansequence, /bin/cansequence)
 endif
 	@$(call install_finish, canutils)
 	@$(call touch)
