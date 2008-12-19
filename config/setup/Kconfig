@@ -134,8 +134,8 @@ menu "Developer Options "
 config SETUP_CHECK_EXIT_ON_ERROR
 	bool "enable exit on error"
 
-config SETUP_CCACHE
-	bool "use ccache"
+#config SETUP_CCACHE
+#	bool "use ccache"
 
 config SETUP_HOST_CC
 	prompt "host CC"
