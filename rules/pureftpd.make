@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_PUREFTPD) += pureftpd
 PUREFTPD_VERSION	:= 1.0.21
 PUREFTPD		:= pure-ftpd-$(PUREFTPD_VERSION)
 PUREFTPD_SUFFIX		:= tar.bz2
-PUREFTPD_URL		:= http://download.pureftpd.org/pub/pure-ftpd/releases/$(PUREFTPD).$(PUREFTPD_SUFFIX) \
+PUREFTPD_URL		:= http://download.pureftpd.org/pub/pure-ftpd/releases/$(PUREFTPD).$(PUREFTPD_SUFFIX)
 PUREFTPD_SOURCE		:= $(SRCDIR)/$(PUREFTPD).$(PUREFTPD_SUFFIX)
 PUREFTPD_DIR		:= $(BUILDDIR)/$(PUREFTPD)
 
