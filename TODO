@@ -4,6 +4,9 @@ TODO before 2.0.0
 Prio A
 ------
 
+[ ] rsc: we need a "tested distros" strategy for 2.0.0, with
+    pre-packaged toolchains.
+
 [ ] rsc: fix install_copy without source+destination; it worked before
     with destination-only, but there was some problem. Ask mkl.
 
