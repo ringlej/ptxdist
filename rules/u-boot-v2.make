@@ -90,13 +90,10 @@ endif
 $(STATEDIR)/u-boot-v2.prepare: $(U_BOOT_V2_CONFIG)
 	@$(call targetinfo)
 
-	@if [ -f $(U_BOOT_V2_CONFIG) ]; then						\
-		echo "Using U-Boot-v2 config file: $(U_BOOT_V2_CONFIG)";		\
-		install -m 644 $(U_BOOT_V2_CONFIG) $(U_BOOT_V2_DIR)/.config;		\
-	else										\
-		echo "ERROR: No such u-boot config: $(U_BOOT_V2_CONFIG)";		\
-		exit 1;									\
-	fi
+	echo "Using U-Boot-v2 config file: $(U_BOOT_V2_CONFIG)"
+	install -m 644 $(U_BOOT_V2_CONFIG) $(U_BOOT_V2_DIR)/.config
+
+	$(call ptx/oldconfig, U_BOOT_V2)
 
 	@$(call touch)
 

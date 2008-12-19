@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 BUSYBOX_VERSION	:= 1.10.4
 BUSYBOX		:= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX	:= tar.bz2
-BUSYBOX_URL	:= http://www.busybox.net/downloads//$(BUSYBOX).$(BUSYBOX_SUFFIX)
+BUSYBOX_URL	:= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_SOURCE	:= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_DIR	:= $(BUILDDIR)/$(BUSYBOX)
 BUSYBOX_PKGDIR	:= $(PKGDIR)/$(BUSYBOX)
@@ -53,8 +53,9 @@ $(STATEDIR)/busybox.prepare:
 		$(MAKE) distclean $(BUSYBOX_MAKEVARS)
 	grep -e PTXCONF_BB_CONFIG_ $(PTXDIST_PTXCONFIG) | \
 		sed -e 's/PTXCONF_BB_CONFIG_/CONFIG_/g' > $(BUSYBOX_DIR)/.config
-	cd $(BUSYBOX_DIR) && yes "" | $(BUSYBOX_PATH) $(BUSYBOX_ENV) $(MAKE) \
-		$(BUSYBOX_MAKEVARS) oldconfig
+
+	$(call ptx/oldconfig, BUSYBOX)
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

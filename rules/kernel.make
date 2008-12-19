@@ -119,13 +119,8 @@ endif
 $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 	@$(call targetinfo)
 
-	@if [ -f $(KERNEL_CONFIG) ]; then				\
-		echo "Using kernel config file: $(KERNEL_CONFIG)";	\
-		install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config; 	\
-	else								\
-		echo "ERROR: No such kernel config: $(KERNEL_CONFIG)";	\
-		exit 1;							\
-	fi
+	echo "Using kernel config file: $(KERNEL_CONFIG)"
+	install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config
 
 ifdef PTXCONF_KLIBC
 # tell the kernel where our spec file for initramfs is
@@ -133,8 +128,7 @@ ifdef PTXCONF_KLIBC
 		$(KERNEL_DIR)/.config
 endif
 
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) oldconfig
+	$(call ptx/oldconfig, KERNEL)
 
 	cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG)
 
