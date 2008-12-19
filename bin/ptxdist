@@ -267,6 +267,32 @@ check_path() {
 # This only should be done when we build userland (chicken egg problem)
 #
 check_compiler() {
+	local cc
+
+	for cc in \
+		PTXCONF_SETUP_HOST_CC \
+		PTXCONF_SETUP_HOST_CXX \
+		; do
+		if [ -z "${!cc}" ]; then
+			echo
+			echo "${PROMPT}error: undefined host ${cc##*_} compiler"
+			echo "${PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
+			echo "${PROMPT}error: and specify the compiler"
+			echo
+			exit 1
+		fi
+
+		if [ \! -x "$(which "${!cc}" 2>/dev/null)" ]; then
+			echo
+			echo "${PROMPT}error: your host ${cc##*_} compiler: '${!cc}'"
+			echo "${PROMPT}error: cannot be found or isn't executable"
+			echo "${PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
+			echo "${PROMPT}error: and specify the compiler"
+			echo
+			exit 1
+		fi
+	done
+
 	local build_toolchain="$(ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN)"
 
 	[ -n "$build_toolchain" ] && return
