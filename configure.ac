@@ -39,7 +39,7 @@ CONF_LIBS=${LIBS}
 AC_SUBST(CONF_LIBS)
 
 AC_SEARCH_LIBS(mvaddch, [ncurses curses pdcurses], CURSES_LIB=$ac_lib,
-	AC_MSG_ERROR([curses library required.]))
+	[AC_MSG_ERROR([ncurses development library not found, please install libncurses-dev])])
 MCONF_LIBS=${LIBS}
 AC_SUBST(MCONF_LIBS)
 
@@ -176,6 +176,12 @@ case "${YACC_VERSION}" in
      *)
      AC_MSG_RESULT([$YACC_VERSION]) ;;
 esac
+
+dnl Check for makeinfo
+AC_PATH_PROGS(MAKEINFO, makeinfo,, $PATH)
+if test -z "$MAKEINFO"; then
+	AC_MSG_ERROR([makeinfo could not be found, please install the texinfo package])
+fi
 
 dnl Check for bunzip2
 AC_PATH_PROGS(BUNZIP2, bunzip2,, $PATH)
