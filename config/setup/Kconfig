@@ -153,6 +153,7 @@ config SETUP_HOST_CXX
 	prompt "host CXX"
 	string
 	default "g++"
+	help
 	  Specify the host C++ compile here.
 
 endmenu
