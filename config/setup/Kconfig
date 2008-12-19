@@ -65,33 +65,33 @@ endmenu
 menu "Mirrors           "
 
 config SETUP_DEBMIRROR
-        string
-        default "http://ftp.uni-kl.de/debian"
-        prompt "Debian Pool Mirror"
-        help
-          The Debian pool mirror to use for downloading various
+	string
+	default "http://ftp.uni-kl.de/debian"
+	prompt "Debian Pool Mirror"
+	help
+	  The Debian pool mirror to use for downloading various
 	  components of the target root filesystem.
 
 config SETUP_SFMIRROR
-        string
-        default "http://surfnet.dl.sourceforge.net/sourceforge"
-        prompt "Sourceforge Mirror"
-        help
-          For all Sourceforge related packages enter an available mirror here.
+	string
+	default "http://surfnet.dl.sourceforge.net/sourceforge"
+	prompt "Sourceforge Mirror"
+	help
+	  For all Sourceforge related packages enter an available mirror here.
 
 config SETUP_GNUMIRROR
-        string
-        default "http://ftp.uni-kl.de/pub/gnu"
-        prompt "GNU.org Mirror"
-        help
-          For all GNU.org related packages enter an available mirror here.
+	string
+	default "http://ftp.uni-kl.de/pub/gnu"
+	prompt "GNU.org Mirror"
+	help
+	  For all GNU.org related packages enter an available mirror here.
 
 config SETUP_XORGMIRROR
-        string
-        default "http://ftp.gwdg.de/pub/x11/x.org/pub"
-        prompt "x.org Mirror"
-        help
-          For all x.org related packages enter an available mirror here.
+	string
+	default "http://ftp.gwdg.de/pub/x11/x.org/pub"
+	prompt "x.org Mirror"
+	help
+	  For all x.org related packages enter an available mirror here.
 
 endmenu
 
@@ -126,12 +126,25 @@ endmenu
 menu "Developer Options "
 
 #config SETUP_CHECK_OMIT_CASE
-#       bool "don't check for case sensitive file system"
+#	bool "don't check for case sensitive file system"
 
 #config SETUP_CHECK_OMIT_SPACES
-#       bool "don't check for spaces in important directories"
+#	bool "don't check for spaces in important directories"
 
 config SETUP_CHECK_EXIT_ON_ERROR
-       bool "enable exit on error"
+	bool "enable exit on error"
+
+config SETUP_CCACHE
+	bool "use ccache"
+
+config SETUP_HOST_CC
+	prompt "host CC"
+	string
+	default "gcc"
+
+config SETUP_HOST_CXX
+	prompt "host CXX"
+	string
+	default "g++"
 
 endmenu
