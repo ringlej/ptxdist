@@ -1,0 +1,33 @@
+Subject: [PATCH] zcav uses strdup without prototpye
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+The zcav source uses the strdup() function without properly including
+the required header "cstring". With gcc-4.3.2 this leads to the
+following error:
+
+zcav.cpp: In function 'int main(int, char**)':
+zcav.cpp:73: error: 'strdup' was not declared in this scope
+zcav.cpp:75: warning: suggest a space before ';' or explicit braces around empty body in 'for' statement
+zcav.cpp:112: error: 'strcmp' was not declared in this scope
+make[1]: *** [zcav] Error 1
+
+Fixed by patch below.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ zcav.cpp |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: bonnie++-1.03a/zcav.cpp
+===================================================================
+--- bonnie++-1.03a.orig/zcav.cpp
++++ bonnie++-1.03a/zcav.cpp
+@@ -9,6 +9,7 @@ using namespace std;
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <stdlib.h>
++#include <cstring>
+ #include "bonnie.h"
+ #ifdef HAVE_VECTOR
+ #include <vector>
