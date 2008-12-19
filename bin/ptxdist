@@ -165,7 +165,7 @@ check_version() {
 
 
 #
-# check if user has used --ptxconfig, --platformconfig, --collectioncofnig, --toolchain
+# check if user has used --ptxconfig, --platformconfig, --collectionconfig, --toolchain
 #
 check_nonstandard() {
 	local nonstandard_set="PTX_${1}_SET"
