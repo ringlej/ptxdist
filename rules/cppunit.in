@@ -1,3 +1,5 @@
+## SECTION=debug_tools
+
 config CPPUNIT
         tristate
 	prompt "cppunit"

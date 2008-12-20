@@ -1,3 +1,5 @@
+## SECTION=debug_tools
+
 config OPROFILE
 	tristate
 	select LIBPOPT

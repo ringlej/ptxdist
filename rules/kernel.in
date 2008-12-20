@@ -1,3 +1,5 @@
+## SECTION=debug_tools
+
 config KERNEL_VMLINUX
 	bool
 	help

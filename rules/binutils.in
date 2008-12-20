@@ -1,4 +1,4 @@
-# binutils configuration
+## SECTION=debug_tools
 
 menuconfig BINUTILS
 	tristate

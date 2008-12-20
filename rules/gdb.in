@@ -1,4 +1,4 @@
-#
+## SECTION=debug_tools
 
 menu "gdb                           "
 

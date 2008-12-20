@@ -24,7 +24,7 @@ source "rules/crosstools.in"
 endmenu
 
 menu "Debugging Tools               "
-source "rules/debug.in"
+source "generated/debug_tools.in"
 endmenu
 
 menu "Workplace Convenience         "
