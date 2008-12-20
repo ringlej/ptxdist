@@ -108,13 +108,8 @@ menu() {
 	-*)
 		# ignore the "--------------"
 		;;
-	go)
-		go
-		read
-		;;
-	images)
-		go
-		ptxd_make_log images
+	go|images)
+		do_${cmd}
 		read
 		;;
 	*)
@@ -124,6 +119,57 @@ menu() {
 	esac
 
 	return 0
+}
+
+
+
+#
+# check if user has used --ptxconfig, --platformconfig, --collectionconfig, --toolchain
+#
+check_nonstandard() {
+	local nonstandard_set="PTX_${1}_SET"
+
+	if [ "${!nonstandard_set}" = "true" ]; then
+		ptxd_dialog_msgbox "error: cannot select ${1} when using the '--${1}' feature"
+		return 1
+	elif [ -z "${!nonstandard_set}" ]; then
+		echo
+		echo "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
+		echo
+		exit 1
+	fi
+}
+
+
+
+#
+# abort if ptxdist is run as root
+#
+check_uid() {
+	if [ ${UID} -eq 0 ]; then
+		echo
+		echo "${PROMPT}error: refusing to run PTXdist as root"
+		echo
+		exit 1
+	fi
+}
+
+
+
+#
+# check if "." is in the PATH
+#
+check_path() {
+	case "${PATH}" in
+	.:*)
+		echo
+		echo "${PROMPT}error: '.' in your \$PATH detected, please remove it!"
+		echo
+		exit 1
+		;;
+	*)
+		;;
+	esac
 }
 
 
@@ -162,24 +208,6 @@ check_version() {
 	return 1
 }
 
-
-
-#
-# check if user has used --ptxconfig, --platformconfig, --collectionconfig, --toolchain
-#
-check_nonstandard() {
-	local nonstandard_set="PTX_${1}_SET"
-
-	if [ "${!nonstandard_set}" = "true" ]; then
-		ptxd_dialog_msgbox "error: cannot select ${1} when using the '--${1}' feature"
-		return 1
-	elif [ -z "${!nonstandard_set}" ]; then
-		echo
-		echo "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
-		echo
-		exit 1
-	fi
-}
 
 
 #
@@ -231,152 +259,9 @@ check_ptxconfig() {
 
 
 #
-# abort if ptxdist is run as root
+# run different checks on the given directory prefix and creates a
+# default layout of directories
 #
-check_uid() {
-	if [ ${UID} -eq 0 ]; then
-		echo
-		echo "${PROMPT}error: refusing to run PTXdist as root"
-		echo
-		exit 1
-	fi
-}
-
-
-
-#
-# check if "." is in the PATH
-#
-check_path() {
-	case "${PATH}" in
-	.:*)
-		echo
-		echo "${PROMPT}error: '.' in your \$PATH detected, please remove it!"
-		echo
-		exit 1
-		;;
-	*)
-		;;
-	esac
-}
-
-
-
-#
-# Check for defined compiler
-# This only should be done when we build userland (chicken egg problem)
-#
-check_compiler() {
-	local cc
-
-	for cc in \
-		PTXCONF_SETUP_HOST_CC \
-		PTXCONF_SETUP_HOST_CXX \
-		; do
-		if [ -z "${!cc}" ]; then
-			echo
-			echo "${PROMPT}error: undefined host ${cc##*_} compiler"
-			echo "${PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
-			echo "${PROMPT}error: and specify the compiler"
-			echo
-			exit 1
-		fi
-
-		if [ \! -x "$(which "${!cc}" 2>/dev/null)" ]; then
-			echo
-			echo "${PROMPT}error: your host ${cc##*_} compiler: '${!cc}'"
-			echo "${PROMPT}error: cannot be found or isn't executable"
-			echo "${PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
-			echo "${PROMPT}error: and specify the compiler"
-			echo
-			exit 1
-		fi
-	done
-
-	local build_toolchain="$(ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN)"
-
-	[ -n "$build_toolchain" ] && return
-
-	#
-	# Three things should be checked
-	# 1) Correct compiler name
-	# 2) Correct vendor if the vendor string is given
-	# 3) Correct compiler version if a specific compiler version is given
-	#
-
-	local vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
-	if [ -n "${vendor_should}" ]; then
-		# yea! A toolchain vendor was specified in the ptxconfig file.
-		# So we check for a 'ptxconfig' file in the toolchain directory
-		# and test the PTXCONF_PROJECT string therein.
-
-		if [ ! -d "${PTXDIST_TOOLCHAIN}" ]; then
-			echo
-			echo "${PROMPT}error: specify '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' with 'ptxdist toolchain [<path>]'"
-			echo "${PROMPT}error: or leave PTXCONF_CROSSCHAIN_VENDOR empty to disable toolchain check"
-			echo
-			exit 1
-		fi
-
-		local vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/ptxconfig")"
-		if [ -z "${vendor_def}" -o \! -e "${vendor_def}" ]; then
-			echo
-			echo "${PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
-			echo "${PROMPT}error: leave PTXCONF_CROSSCHAIN_VENDOR empty to disable vendor check"
-			echo
-			exit 1
-		fi
-
-		# both vendor strings are present. Check them
-		local vendor_is="$(. "${vendor_def}" && echo ${PTXCONF_PROJECT})"
-		if [ "$vendor_is" != "$vendor_should" ]; then
-			echo
-			echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
-			echo "${PROMPT}error: specified: ${vendor_should}"
-			echo "${PROMPT}error: found:	 ${vendor_is}"
-			echo
-			exit 1
-		fi
-	fi
-
-	local compiler_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
-	if [ -n "${compiler_should}" ]; then
-		local compiler="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)gcc"
-		local compiler_is="$(${compiler} -dumpversion 2> /dev/null || true)"
-
-		if [ -z "${compiler_is}" ]; then
-			echo
-			echo "${PROMPT}error: Compiler '${compiler}' not found. Check PATH or"
-			echo "${PROMPT}error: use 'ptxdist toolchain [</path/to/toolchain>]'."
-			echo
-			exit 1
-		fi
-
-		if [ "${compiler_is}" != "${compiler_should}" ]; then
-			echo
-			echo "${PROMPT}error: Compiler version ${compiler_should} expected,"
-			echo "${PROMPT}error: but ${compiler_is} found."
-			echo
-			exit 1
-		fi
-	fi
-}
-
-
-
-#
-# checks if the dependencies are allright (make for the poor)
-#
-check_deps() {
-	ptxd_kgen || ptxd_bailout "error in kgen"
-	ptxd_dgen || ptxd_bailout "error in dgen"
-	ptxd_cfgchg || ptxd_bailout "error in cfgchg"
-#	ptxd_create_autoconf_cache "${STATEDIR}/autoconf.cache" || ptxd_bailout "error in create_config_cache.sh"
-	touch "${STATEDIR}/autoconf.cache"
-}
-
-
-
 check_dirs_prefix() {
 	local testfile
 
@@ -456,8 +341,8 @@ check_dirs_prefix() {
 
 
 #
-# Most install stages think that some standard directories are there, so
-# they are created here.
+# Most install stages think that some standard directories are there,
+# so they are created here.
 #
 check_dirs() {
 	local ptxconf_sysroot_target ptxconf_sysroot_host ptxconf_sysroot_cross
@@ -489,9 +374,17 @@ check_dirs() {
 		"${PTXDIST_SRCDIR}" \
 		; do
 		if [ \! -d "${dir}" ]; then
-			mkdir -p "${dir}" || ptxd_bailout "cannot create dir: ${dir}"
+			mkdir -p "${dir}" || ptxd_bailout "cannot create dir: '${dir}'"
 		fi
 	done
+
+	# create dir for ccache links
+	if [ -n "${PTX_CCACHE_DIR}" ]; then
+		if [ -e "${PTX_CCACHE_DIR}" ]; then
+			rm -rf -- "${PTX_CCACHE_DIR}" || ptxd_bailout "deleting of dir failed: '${PTX_CCACHE_DIR}'"
+		fi
+		mkdir -p "${PTX_CCACHE_DIR}" || ptxd_bailout "cannot create dir: '${PTX_CCACHE_DIR}'"
+	fi
 
 	# check for case sensitive file system
 	for dir in \
@@ -520,7 +413,138 @@ check_dirs() {
 }
 
 
+#
+# Check for defined compiler
+# This only should be done when we build userland (chicken egg problem)
+#
+check_compiler() {
+	local cc
 
+	for cc in \
+		PTXCONF_SETUP_HOST_CC \
+		PTXCONF_SETUP_HOST_CXX \
+		; do
+		if [ -z "${!cc}" ]; then
+			echo
+			echo "${PROMPT}error: undefined host ${cc##*_} compiler"
+			echo "${PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
+			echo "${PROMPT}error: and specify the compiler"
+			echo
+			exit 1
+		fi
+
+		if [ \! -x "$(which "${!cc}" 2>/dev/null)" ]; then
+			echo
+			echo "${PROMPT}error: your host ${cc##*_} compiler: '${!cc}'"
+			echo "${PROMPT}error: cannot be found or isn't executable"
+			echo "${PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
+			echo "${PROMPT}error: and specify the compiler"
+			echo
+			exit 1
+		fi
+
+		if [ -n "${PTX_CCACHE_DIR}" ]; then
+			ln -sf "$(which "ccache")" "${PTX_CCACHE_DIR}/${!cc}" || ptxd_bailout "unable to create ccache link"
+		fi
+	done
+
+	local build_toolchain="$(ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN)"
+	[ -n "$build_toolchain" ] && return
+
+	#
+	# Three things should be checked
+	# 1) Correct compiler name
+	# 2) Correct vendor if the vendor string is given
+	# 3) Correct compiler version if a specific compiler version is given
+	#
+
+	local vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
+	if [ -n "${vendor_should}" ]; then
+		# yea! A toolchain vendor was specified in the ptxconfig file.
+		# So we check for a 'ptxconfig' file in the toolchain directory
+		# and test the PTXCONF_PROJECT string therein.
+
+		if [ ! -d "${PTXDIST_TOOLCHAIN}" ]; then
+			echo
+			echo "${PROMPT}error: specify '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' with 'ptxdist toolchain [<path>]'"
+			echo "${PROMPT}error: or leave PTXCONF_CROSSCHAIN_VENDOR empty to disable toolchain check"
+			echo
+			exit 1
+		fi
+
+		local vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/ptxconfig")"
+		if [ -z "${vendor_def}" -o \! -e "${vendor_def}" ]; then
+			echo
+			echo "${PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
+			echo "${PROMPT}error: leave PTXCONF_CROSSCHAIN_VENDOR empty to disable vendor check"
+			echo
+			exit 1
+		fi
+
+		# both vendor strings are present. Check them
+		local vendor_is="$(. "${vendor_def}" && echo ${PTXCONF_PROJECT})"
+		if [ "$vendor_is" != "$vendor_should" ]; then
+			echo
+			echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
+			echo "${PROMPT}error: specified: ${vendor_should}"
+			echo "${PROMPT}error: found:	 ${vendor_is}"
+			echo
+			exit 1
+		fi
+	fi
+
+	local compiler_ver_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
+	local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
+	if [ -n "${compiler_ver_should}" ]; then
+		local compiler="${compiler_prefix}gcc"
+		local compiler_ver_is="$(${compiler} -dumpversion 2> /dev/null || true)"
+
+		if [ -z "${compiler_ver_is}" ]; then
+			echo
+			echo "${PROMPT}error: Compiler '${compiler}' not found. Check PATH or"
+			echo "${PROMPT}error: use 'ptxdist toolchain [</path/to/toolchain>]'."
+			echo
+			exit 1
+		fi
+
+		if [ "${compiler_ver_is}" != "${compiler_ver_should}" ]; then
+			echo
+			echo "${PROMPT}error: Compiler version ${compiler_ver_should} expected,"
+			echo "${PROMPT}error: but ${compiler_ver_is} found."
+			echo
+			exit 1
+		fi
+	fi
+
+	if [ -n "${PTX_CCACHE_DIR}" ]; then
+		for cc in \
+			gcc \
+			g++ \
+			; do
+			ln -sf "$(which "ccache")" "${PTX_CCACHE_DIR}/${compiler_prefix}${cc}" || \
+				ptxd_bailout "unable to create ccache link"
+		done
+	fi
+}
+
+
+
+#
+# checks if the dependencies are allright (make for the poor)
+#
+check_deps() {
+	ptxd_kgen || ptxd_bailout "error in kgen"
+	ptxd_dgen || ptxd_bailout "error in dgen"
+	ptxd_cfgchg || ptxd_bailout "error in cfgchg"
+#	ptxd_create_autoconf_cache "${STATEDIR}/autoconf.cache" || ptxd_bailout "error in create_config_cache.sh"
+	touch "${STATEDIR}/autoconf.cache"
+}
+
+
+
+#
+# checks if the given PTXCONF_ option is actually selected
+#
 check_if_selected() {
 	if [ -z "${1}" ]; then
 		echo
@@ -538,6 +562,23 @@ check_if_selected() {
 			"	${PTXDIST_PTXCONFIG}"
 		return 1
 	fi
+}
+
+
+
+#
+# runs the standard tests before calling into make:
+# - check_ptxconfig
+# - check_dirs
+# - check_compiler
+# - check_deps
+#
+check_premake()
+{
+	check_ptxconfig && \
+	check_dirs && \
+	check_compiler &&
+	check_deps || return
 }
 
 
@@ -958,13 +999,6 @@ projects() {
 	echo
 }
 
-go() {
-	check_ptxconfig || return
-	check_compiler
-	check_dirs
-	check_deps
-	ptxd_make_log world
-}
 
 
 ##################################################################
@@ -1282,6 +1316,24 @@ do_select_toolchain() {
 }
 
 
+#
+#
+#
+do_go()
+{
+	check_premake || return
+	ptxd_make_log world
+}
+
+#
+#
+#
+do_images()
+{
+	do_go
+	ptxd_make_log images
+}
+
 ##################################################################
 ################ normal option parser ############################
 ##################################################################
@@ -1319,11 +1371,8 @@ parse_second()
 ######## standard target, directly into make
 
 		extract|prepare|compile|install|targetinstall|tags)
-			check_ptxconfig || return
+			check_premake || return
 			check_if_selected "${1}" || return
-			check_compiler
-			check_dirs
-			check_deps
 
 			if [ "${cmd}" = "targetinstall" ]; then
 				local cmd_post=".post"
@@ -1410,10 +1459,7 @@ parse_second()
 ######## the rest of it
 
 		bash)
-			check_ptxconfig || return
-			check_compiler
-			check_dirs
-			check_deps
+			check_premake || return
 			"${@}"
 			return
 			;;
@@ -1489,26 +1535,17 @@ parse_second()
 			fi
 			exit 0
 			;;
-		go)
-			go
-			exit 0
+		go|images)
+			do_${cmd}
+			exit $?
 			;;
-		images)
-			go
-			ptxd_make_log images
-			exit 0
-			;;
-
 		make)
-			check_ptxconfig || return
-			check_compiler
-			check_dirs
-			check_deps
+			check_premake || return
 			ptxd_make_log "${1}"
 			exit 0
 			;;
 		menu)
-			if [ \! -x "$(which dialog)" ]; then
+			if [ \! -x "$(which dialog 2>/dev/null)" ]; then
 				echo
 				echo "${PROMPT}info: Sorry, menu not possible yet. Please install 'dialog'"
 				echo
@@ -1533,7 +1570,7 @@ parse_second()
 		print)
 			check_ptxconfig || return
 			if [ -n "${!1}" ]; then
-				echo ${!1};
+				echo "${!1}";
 			else
 				check_deps
 				ptxd_make_log "print-${1}"
@@ -1854,7 +1891,7 @@ setup_libs() {
 #
 # add PTXDIST_TOOLCHAIN and sysroots to path
 #
-# out: PATH
+# out: PATH, PTX_CCACHE_DIR
 #
 setup_path() {
 	# save PATH and reuse it later on
@@ -1869,6 +1906,20 @@ setup_path() {
 
 	if [ -n "${sysroot_host}" ]; then
 		PATH="${sysroot_host}/bin:${sysroot_host}/sbin:${PATH}"
+	fi
+
+	if [ -n "${PTXCONF_SETUP_CCACHE}" ]; then
+		if [ -x "$(which ccache 2>/dev/null)" ]; then
+			PTX_CCACHE_DIR="${sysroot_host}/lib/ccache"
+			PATH="${PTX_CCACHE_DIR}:${PATH}"
+		else
+			echo
+			echo "${PROMPT}warning: ccache has been activated, but was not found on you system"
+			echo "${PROMPT}warning: install ccache, disable it ('ptxdist setup' -> 'Developer Options' menu)"
+			echo "${PROMPT}warning: or ignore this warning."
+			echo
+			sleep 3
+		fi
 	fi
 }
 

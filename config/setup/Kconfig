@@ -139,8 +139,12 @@ config SETUP_CHECK_EXIT_ON_ERROR
 	  you know what you're doing.
 	  
 
-#config SETUP_CCACHE
-#	bool "use ccache"
+config SETUP_CCACHE
+	bool "use ccache"
+	help
+	  ccache is a compiler cache. It speeds up re-compilation of
+	  C/C++ code by caching previous compiles and detecting when
+	  the same compile is being done again.
 
 config SETUP_HOST_CC
 	prompt "host CC"
