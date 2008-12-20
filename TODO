@@ -54,13 +54,13 @@ Prio A
     [ ] host-gtk
     [ ] hosttools
     [ ] libc
-    [ ] ltp
+    [x] ltp
     [ ] net-sec
     [x] networking
     [ ] ntp
     [ ] sdl
     [ ] tests
-    [ ] wireless
+    [x] wireless
     [ ] xorg
 
     still have to be migrated
