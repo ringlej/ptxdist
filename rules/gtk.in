@@ -126,7 +126,4 @@ config GTK_DEMO
 
 endif
 
-source "rules/gtk-engine-experience.in"
-source "rules/gtk-theme-experience.in"
-
 endmenu

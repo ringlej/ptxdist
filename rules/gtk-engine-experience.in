@@ -1,3 +1,5 @@
+## SECTION=multimedia_gtk
+
 config GTK_ENGINE_EXPERIENCE
 	tristate
 	prompt "experience engine"
