@@ -1,3 +1,5 @@
+## SECTION=hosttools
+
 config HOST_GETTEXT
 	bool "gettext (GNU)"
 #	select HOST_LIBICONV if ARCH_MINGW

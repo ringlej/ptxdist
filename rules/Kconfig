@@ -16,7 +16,8 @@ source "rules/experimental.in"
 endmenu
 
 menu "Host Side Tools               "
-source "rules/hosttools.in"
+source "generated/hosttools.in"
+source "generated/hosttools_noprompt.in"
 endmenu
 
 menu "Host Side Tools (cross stuff) "

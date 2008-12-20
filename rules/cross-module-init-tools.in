@@ -1,2 +1,4 @@
+## SECTION=hosttools
+
 config CROSS_MODULE_INIT_TOOLS
 	bool
