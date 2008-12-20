@@ -17,14 +17,15 @@ PACKAGES-$(PTXCONF_LIBXSLT) += libxslt
 #
 # Paths and names
 #
-LIBXSLT_VERSION	= 1.1.15
-LIBXSLT		= libxslt-$(LIBXSLT_VERSION)
-LIBXSLT_SUFFIX	= tar.gz
-LIBXSLT_URL	= ftp://xmlsoft.org/libxslt/$(LIBXSLT).$(LIBXSLT_SUFFIX) \
-		  ftp://xmlsoft.org/libxslt/old/$(LIBXSLT).$(LIBXSLT_SUFFIX)
-LIBXSLT_SOURCE	= $(SRCDIR)/$(LIBXSLT).$(LIBXSLT_SUFFIX)
-LIBXSLT_DIR	= $(BUILDDIR)/$(LIBXSLT)
+LIBXSLT_VERSION	:= 1.1.24
+LIBXSLT		:= libxslt-$(LIBXSLT_VERSION)
+LIBXSLT_SUFFIX	:= tar.gz
+LIBXSLT_SOURCE	:= $(SRCDIR)/$(LIBXSLT).$(LIBXSLT_SUFFIX)
+LIBXSLT_DIR	:= $(BUILDDIR)/$(LIBXSLT)
 
+LIBXSLT_URL	:= \
+	ftp://xmlsoft.org/libxslt/$(LIBXSLT).$(LIBXSLT_SUFFIX) \
+	ftp://xmlsoft.org/libxslt/old/$(LIBXSLT).$(LIBXSLT_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -38,50 +39,49 @@ $(LIBXSLT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-libxslt_prepare: $(STATEDIR)/libxslt.prepare
-
-LIBXSLT_PATH	=  PATH=$(CROSS_PATH)
-LIBXSLT_ENV 	=  $(CROSS_ENV)
+LIBXSLT_PATH	:= PATH=$(CROSS_PATH)
+LIBXSLT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBXSLT_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
+LIBXSLT_AUTOCONF := \
+	 $(CROSS_AUTOCONF_USR) \
 	--with-libxml-libs-prefix=$(SYSROOT)/usr/lib \
 	--with-libxml-include-prefix=$(SYSROOT)/usr/include \
 	--without-python
 
 ifdef PTXCONF_LIBXSLT_CRYPTO
-	LIBXSLT_AUTOCONF += --with-crypto
+LIBXSLT_AUTOCONF += --with-crypto
 else
-	LIBXSLT_AUTOCONF += --without-crypto
+LIBXSLT_AUTOCONF += --without-crypto
 endif
-
 
 ifdef PTXCONF_LIBXSLT_PLUGINS
-	LIBXSLT_AUTOCONF += --with-plugins
+LIBXSLT_AUTOCONF += --with-plugins
 else
-	LIBXSLT_AUTOCONF += --without-plugins
+LIBXSLT_AUTOCONF += --without-plugins
 endif
 
-
 ifdef PTXCONF_LIBXSLT_DEBUG
-	LIBXSLT_AUTOCONF += --with-debug
-	LIBXSLT_AUTOCONF += --with-debugger
+LIBXSLT_AUTOCONF += \
+	--with-debug \
+	--with-debugger
 else
-	LIBXSLT_AUTOCONF += --without-debug
-	LIBXSLT_AUTOCONF += --without-debugger
+LIBXSLT_AUTOCONF += \
+	--without-debug \
+	--without-debugger
 endif
 
 
 # ----------------------------------------------------------------------------
-
+# Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/libxslt.install:
 	@$(call targetinfo)
 	@$(call install, LIBXSLT)
-	install $(LIBXSLT_DIR)/xslt-config $(PTXCONF_SYSROOT_CROSS)/bin/
+	@install $(LIBXSLT_DIR)/xslt-config $(PTXCONF_SYSROOT_CROSS)/bin/
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -96,24 +96,24 @@ $(STATEDIR)/libxslt.targetinstall:
 	@$(call install_fixup, libxslt,PRIORITY,optional)
 	@$(call install_fixup, libxslt,VERSION,$(LIBXSLT_VERSION))
 	@$(call install_fixup, libxslt,SECTION,base)
-	@$(call install_fixup, libxslt,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libxslt,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libxslt,DEPENDS,)
 	@$(call install_fixup, libxslt,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBXSLT_LIBXSLT
 	@$(call install_copy, libxslt, 0, 0, 0644, \
-		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.15, \
-		/usr/lib/libxslt.so.1.1.15)
-	@$(call install_link, libxslt, libxslt.so.1.1.15, /usr/lib/libxslt.so.1)
-	@$(call install_link, libxslt, libxslt.so.1.1.15, /usr/lib/libxslt.so)
+		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.24, \
+		/usr/lib/libxslt.so.1.1.24)
+	@$(call install_link, libxslt, libxslt.so.1.1.24, /usr/lib/libxslt.so.1)
+	@$(call install_link, libxslt, libxslt.so.1.1.24, /usr/lib/libxslt.so)
 endif
 
 ifdef PTXCONF_LIBXSLT_LIBEXSLT
 	@$(call install_copy, libxslt, 0, 0, 0644, \
-		$(LIBXSLT_DIR)/libexslt/.libs/libexslt.so.0.8.12, \
-		/usr/lib/libexslt.so.0.8.12)
-	@$(call install_link, libxslt, libexslt.so.0.8.12, /usr/lib/libexslt.so.0)
-	@$(call install_link, libxslt, libexslt.so.0.8.12, /usr/lib/libexslt.so)
+		$(LIBXSLT_DIR)/libexslt/.libs/libexslt.so.0.8.13, \
+		/usr/lib/libexslt.so.0.8.13)
+	@$(call install_link, libxslt, libexslt.so.0.8.13, /usr/lib/libexslt.so.0)
+	@$(call install_link, libxslt, libexslt.so.0.8.13, /usr/lib/libexslt.so)
 endif
 
 ifdef PTXCONF_LIBXSLT_XSLTPROC
