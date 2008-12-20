@@ -4,6 +4,7 @@ config LIBXMLCONFIG
 	prompt "libxmlconfig"
 	select LIBXML2
 	select LIBXML2_XPATH
+	select LIBXML2_SAX1
 	select LIBLIST
 	help
 	  libxmlconfig is a helper library which lets you pull config
