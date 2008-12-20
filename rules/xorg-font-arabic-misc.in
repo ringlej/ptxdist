@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_font_other
+
 config XORG_FONT_ARABIC_MISC
 	bool
 	select XORG_FONTS

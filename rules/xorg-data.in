@@ -1,8 +1,6 @@
-# xorg data configuration
+## SECTION=multimedia_xorg
 
 menu "xorg data                     "
-
-source "rules/xorg-data-xbitmaps.in"
-source "rules/xorg-data-xkbdata.in"
-
+source "generated/multimedia_xorg_data.in"
 endmenu
+

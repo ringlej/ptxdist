@@ -1,7 +1,8 @@
+## SECTION=multimedia_xorg_font
+
 menu "xorg font utils and aliases   "
 	depends on MENU_XORG_FONTS
 
-source "rules/xorg-font-util.in"
-source "rules/xorg-font-alias.in"
+source "generated/multimedia_xorg_font_utils.in"
 
 endmenu

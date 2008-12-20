@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_driver_input
+
 config XORG_DRIVER_INPUT_KEYBOARD
 	tristate
 	prompt "Keyboard"

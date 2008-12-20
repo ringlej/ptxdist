@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_lib
+
 # These are always required:
 # Requires: xproto fontsproto
 # Requires.private: fontenc

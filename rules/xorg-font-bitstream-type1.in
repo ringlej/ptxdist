@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_font_type1
+
 config XORG_FONT_BITSTREAM_TYPE1
 	bool
 	select XORG_FONTS

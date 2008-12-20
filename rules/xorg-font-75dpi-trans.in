@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_font
+
 comment ""
 	depends on MENU_XORG_FONTS
 	depends on INVISIBLE

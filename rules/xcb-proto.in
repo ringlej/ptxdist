@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_proto
+
 config XCB_PROTO
 	tristate
 	help

@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_proto
+
 config XORG_PROTO_XF86DGA
 	tristate
 	help

@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_data
+
 config XORG_DATA_XKBDATA
 	tristate
 	depends on XORG_APP

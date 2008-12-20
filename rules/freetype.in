@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_support_libs
+
 config FREETYPE
 	tristate
 	prompt "freetype"

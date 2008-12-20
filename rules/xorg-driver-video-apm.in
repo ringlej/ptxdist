@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_driver_video
+
 config XORG_DRIVER_VIDEO_APM
 	tristate
 	depends on XORG_DRIVER_VIDEO

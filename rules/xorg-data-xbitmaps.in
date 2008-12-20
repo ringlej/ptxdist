@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_data
+
 config XORG_DATA_XBITMAPS
 	tristate
 	prompt "xbitmaps"

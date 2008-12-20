@@ -1,10 +1,12 @@
+## SECTION=multimedia_xorg
+
 menuconfig XORG_CURSOR
 	tristate
 	prompt "xorg cursor themes            "
 	select XORG_LIB_X11_CURSOR
 	select XORG_LIB_XCURSOR
 
-source "rules/xcursor-transparent-theme.in"
+source "generated/multimedia_xorg_cursor.in"
 
 choice
 	prompt "default cursor theme"

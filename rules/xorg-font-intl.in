@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_font
+
 menu "international fonts for X     "
 	depends on MENU_XORG_FONTS
 
@@ -49,15 +51,10 @@ config XORG_FONT_INTL_ASIAN
 	  further asian languages.
 
 comment "cyrillic fonts"
-source "rules/xorg-font-misc-cyrillic.in"
-source "rules/xorg-font-cronyx-cyrillic.in"
-source "rules/xorg-font-screen-cyrillic.in"
-source "rules/xorg-font-winitzki-cyrillic.in"
+source "generated/multimedia_xorg_font_cyrillic.in"
 
 comment "other language fonts          "
-source "rules/xorg-font-arabic-misc.in"
-source "rules/xorg-font-misc-ethiopic.in"
-source "rules/xorg-font-misc-meltho.in"
+source "generated/multimedia_xorg_font_other.in"
 
 endmenu
 

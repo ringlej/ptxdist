@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_cursor
+
 config XCURSOR_TRANSPARENT_THEME
 	tristate
 	depends on XORG_CURSOR

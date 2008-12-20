@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_lib
+
 config XORG_LIB_FS
 	tristate
 	prompt "libFS"

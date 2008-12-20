@@ -1,2 +1,4 @@
+## SECTION=multimedia_xorg_font_utils
+
 config XORG_FONT_ALIAS
 	bool

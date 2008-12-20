@@ -1,8 +1,10 @@
+## SECTION=multimedia_xorg_font
+
 menuconfig XORG_FONT_TTF
 	depends on MENU_XORG_FONTS
 	select XORG_LIB_XFONT_FREETYPE
 	bool
 	prompt "xorg true/open type fonts     "
 
-source "rules/xorg-font-bh-ttf.in"
-source "rules/xorg-font-ttf-bitstream-vera.in"
+source "generated/multimedia_xorg_font_ttf.in"
+

@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_driver_video
+
 # configuration for xorg-driver-video-nsc
 # this driver is only a module to be used in
 # the main xorg server

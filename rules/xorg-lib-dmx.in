@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_lib
+
 config XORG_LIB_DMX
 	tristate
 	select XORG_LIB_X11

@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_font_speedo
+
 config XORG_FONT_BITSTREAM_SPEEDO
 	bool
 	select XORG_FONTS

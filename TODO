@@ -44,8 +44,24 @@ Prio A
     20081109 mkl:
 
     [x] directfb
-    [ ] xorg
+    [x] xorg
     [x] gtk
+    [ ] bluez
+    [ ] crosstools
+    [ ] debug
+    [ ] gdb
+    [ ] gtk
+    [ ] host-gtk
+    [ ] hosttools
+    [ ] libc
+    [ ] ltp
+    [ ] net-sec
+    [ ] networking
+    [ ] ntp
+    [ ] sdl
+    [ ] tests
+    [ ] wireless
+    [ ] xorg
 
     still have to be migrated
 

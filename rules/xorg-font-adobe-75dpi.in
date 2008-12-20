@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_font_75dpi
+
 config XORG_FONT_ADOBE_75DPI
 	tristate
 	default y

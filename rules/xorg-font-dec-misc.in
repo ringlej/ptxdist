@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_font_base
+
 config XORG_FONT_DEC_MISC
 	tristate
 	select XORG_FONTS

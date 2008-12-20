@@ -13,6 +13,8 @@ menuconfig MENU_XORG_FONTS
 	  These fonts can be used with an x-server, standalone directfb or
 	  gtk ontop of directfb.
 
+if MENU_XORG_FONTS
+
 config XORG_FONTS
 	depends on MENU_XORG_FONTS
 	bool
@@ -23,17 +25,7 @@ config XORG_FONTS
 	select HOST_XORG_APP_BDFTOPCF
 	select HOST_XORG_FONT_UTIL
 
-#source "rules/xorg-fonts.in"
+source "generated/multimedia_xorg_font.in"
 
+endif
 
-source "rules/xorg-font-util-alias.in"
-source "rules/xorg-font-base.in"
-source "rules/xorg-font-base-trans.in"
-source "rules/xorg-font-100dpi.in"
-source "rules/xorg-font-100dpi-trans.in"
-source "rules/xorg-font-75dpi.in"
-source "rules/xorg-font-75dpi-trans.in"
-source "rules/xorg-font-type1.in"
-source "rules/xorg-font-speedo.in"
-source "rules/xorg-font-ttf.in"
-source "rules/xorg-font-intl.in"

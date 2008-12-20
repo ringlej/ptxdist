@@ -1,23 +1,12 @@
-# xorg driver configuration
+## SECTION=multimedia_xorg
 
 menuconfig XORG_DRIVER_INPUT
         bool "xorg input drivers            "
 
-source "rules/xorg-driver-input-evdev.in"
-source "rules/xorg-driver-input-keyboard.in"
-source "rules/xorg-driver-input-mouse.in"
-source "rules/xorg-driver-input-tslib.in"
-source "rules/xorg-driver-input-void.in"
+source "generated/multimedia_xorg_driver_input.in"
 
 menuconfig XORG_DRIVER_VIDEO
         bool "xorg video drivers            "
 
-source "rules/xorg-driver-video-apm.in"
-source "rules/xorg-driver-video-ati.in"
-source "rules/xorg-driver-video-dummy.in"
-source "rules/xorg-driver-video-fbdev.in"
-source "rules/xorg-driver-video-i810.in"
-source "rules/xorg-driver-video-v4l.in"
-source "rules/xorg-driver-video-vga.in"
-source "rules/xorg-driver-video-vesa.in"
-source "rules/xorg-driver-video-nsc.in"
+source "generated/multimedia_xorg_driver_video.in"
+

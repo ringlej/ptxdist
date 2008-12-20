@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_font_100dpi
+
 config XORG_FONT_BH_100DPI
 	tristate
 	select XORG_FONTS

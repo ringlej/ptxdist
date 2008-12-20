@@ -7,13 +7,8 @@ menuconfig XORG
 if XORG
 source "rules/xorg-options.in"
 source "rules/xorg-server.in"
-source "rules/xorg-driver.in"
-source "rules/xorg-app.in"
-source "rules/xorg-cursor.in"
-source "rules/xorg-proto.in"
-source "rules/xorg-lib.in"
-source "rules/xorg-data.in"
-source "rules/xorg-support-libs.in"
+source "generated/multimedia_xorg.in"
 endif
 
 source "rules/xorg-font.in"
+

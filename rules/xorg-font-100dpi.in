@@ -1,10 +1,9 @@
+## SECTION=multimedia_xorg_font
+
 menuconfig XORG_FONT_100DPI
 	prompt  "xorg 100 dpi fonts            "
 	bool
 	depends on MENU_XORG_FONTS
 
-source "rules/xorg-font-adobe-100dpi.in"
-source "rules/xorg-font-adobe-utopia-100dpi.in"
-source "rules/xorg-font-bh-100dpi.in"
-source "rules/xorg-font-bh-lucidatypewriter-100dpi.in"
-source "rules/xorg-font-bitstream-100dpi.in"
+source "generated/multimedia_xorg_font_100dpi.in"
+

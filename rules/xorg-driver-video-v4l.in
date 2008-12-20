@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_driver_video
+
 # configuration for xorg-driver-video-v4l
 
 config XORG_DRIVER_VIDEO_V4L

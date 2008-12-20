@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg_font_other
+
 config XORG_FONT_MISC_ETHIOPIC
 	bool
 	select XORG_FONTS
