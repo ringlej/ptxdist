@@ -56,7 +56,7 @@ Prio A
     [ ] libc
     [ ] ltp
     [ ] net-sec
-    [ ] networking
+    [x] networking
     [ ] ntp
     [ ] sdl
     [ ] tests
