@@ -1,3 +1,5 @@
+## SECTION=multimedia_gtk
+
 menuconfig CAIRO
 	tristate
 	select XORG_LIB_XT	if CAIRO_XLIB && !GTK_TARGET_HOST_X11

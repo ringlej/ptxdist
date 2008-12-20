@@ -45,7 +45,7 @@ Prio A
 
     [x] directfb
     [ ] xorg
-    [ ] gtk
+    [x] gtk
 
     still have to be migrated
 

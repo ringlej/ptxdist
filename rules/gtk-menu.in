@@ -1,18 +1,6 @@
-menu "GTK+ and friends              "
+## SECTION=multimedia
 
-source "rules/gtk.in"
-source "rules/gtkmm.in"
-source "rules/glib.in"
-source "rules/glibmm.in"
-source "rules/atk.in"
-source "rules/pango.in"
-source "rules/poppler.in"
-source "rules/cairo.in"
-source "rules/cairomm.in"
-source "rules/libglade.in"
-source "rules/glade.in"
-source "rules/glademm.in"
-source "rules/gwt.in"
-source "rules/wine.in"
-
+menu "gtk+ & friends                "
+source "generated/multimedia_gtk.in"
 endmenu
+

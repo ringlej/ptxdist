@@ -1,3 +1,5 @@
+## SECTION=multimedia_gtk
+
 config CAIROMM
 	tristate
 	select CAIRO

@@ -1,3 +1,5 @@
+## SECTION=multimedia_gtk
+
 config GLADE
 	tristate
 	select LIBGLADE

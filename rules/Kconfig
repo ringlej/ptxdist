@@ -101,7 +101,6 @@ source "rules/xorg.in"
 source "rules/sdl-menu.in"
 
 comment "X Applications"
-source "rules/gtk-menu.in"
 source "rules/fltk.in"
 source "rules/hpanel.in"
 source "rules/wxWindows.in"
