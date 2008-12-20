@@ -1,7 +1,6 @@
-menu "directfb                      "
+## SECTION=multimedia
 
-source "rules/directfb.in"
-source "rules/directfb-examples.in"
-source "rules/lite.in"
-
+menu "directfb & friends            "
+source "generated/multimedia_directfb.in"
 endmenu
+

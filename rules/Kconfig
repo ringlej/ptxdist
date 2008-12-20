@@ -98,7 +98,6 @@ endmenu
 menu "Graphics Libraries            "
 
 source "rules/xorg.in"
-source "rules/directfb-menu.in"
 source "rules/sdl-menu.in"
 
 comment "X Applications"
@@ -153,6 +152,6 @@ menu "Games                         "
 source "generated/games.in"
 endmenu
 
-menu "Multimedia                    "
+menu "Graphics & Multimedia         "
 source "generated/multimedia.in"
 endmenu

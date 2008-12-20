@@ -1,3 +1,5 @@
+## SECTION=multimedia_directfb
+
 config DIRECTFB_EXAMPLES
 	tristate
 	prompt "directfb examples"

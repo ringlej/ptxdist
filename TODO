@@ -43,8 +43,8 @@ Prio A
 
     20081109 mkl:
 
+    [x] directfb
     [ ] xorg
-    [ ] directfb
     [ ] gtk
 
     still have to be migrated
