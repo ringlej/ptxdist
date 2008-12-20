@@ -1,3 +1,5 @@
+## SECTION=crosstools
+
 config CROSS_PKG_CONFIG_WRAPPER
 	bool
 	default y

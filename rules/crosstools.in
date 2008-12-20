@@ -1,3 +1,0 @@
-source "rules/cross-pkg-config-wrapper.in"
-source "rules/cross-nasm.in"
-source "rules/cross-libtool.in"

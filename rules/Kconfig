@@ -20,7 +20,7 @@ source "rules/hosttools.in"
 endmenu
 
 menu "Host Side Tools (cross stuff) "
-source "rules/crosstools.in"
+source "generated/crosstools.in"
 endmenu
 
 menu "Debugging Tools               "
