@@ -118,17 +118,17 @@ $(STATEDIR)/dbench.targetinstall: $(dbench_targetinstall_deps_default)
 ifdef PTXCONF_DBENCH_DBENCH
 	@$(call install_copy, dbench, 0, 0, 0755, \
 		$(DBENCH_DIR)/dbench, \
-		$(PTXCONF_TESTSUITE_DIR)/$(DBENCH)/dbench)
+		/usr/bin/dbench)
 endif
 ifdef PTXCONF_DBENCH_TBENCH
 	@$(call install_copy, dbench, 0, 0, 0755, \
 		$(DBENCH_DIR)/tbench, \
-		$(PTXCONF_TESTSUITE_DIR)/$(DBENCH)/tbench)
+		/usr/bin/tbench)
 endif
 ifdef PTXCONF_DBENCH_TBENCH_SERVER
 	@$(call install_copy, dbench, 0, 0, 0755, \
 		$(DBENCH_DIR)/tbench_srv, \
-		$(PTXCONF_TESTSUITE_DIR)/$(DBENCH)/tbench_srv)
+		/usr/bin/tbench_srv)
 endif
 
 	@$(call install_finish, dbench)
