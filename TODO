@@ -46,22 +46,22 @@ Prio A
     [x] directfb
     [x] xorg
     [x] gtk
-    [ ] bluez
-    [ ] crosstools
-    [ ] debug
+    [x] bluez
+    [x] crosstools
+    [x] debug
     [ ] gdb
-    [ ] gtk
-    [ ] host-gtk
-    [ ] hosttools
+    [x] gtk
+    [x] host-gtk
+    [x] hosttools
     [ ] libc
     [x] ltp
-    [ ] net-sec
+    [x] net-sec
     [x] networking
     [ ] ntp
     [ ] sdl
-    [ ] tests
+    [x] tests
     [x] wireless
-    [ ] xorg
+    [x] xorg
 
     still have to be migrated
 
