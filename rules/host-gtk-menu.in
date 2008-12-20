@@ -1,16 +1,4 @@
 menu "GTK+ and friends              "
-
-source "rules/host-gtk.in"
-source "rules/host-glib.in"
-source "rules/host-atk.in"
-source "rules/host-pango.in"
-source "rules/host-cairo.in"
-source "rules/host-libglade.in"
-source "rules/host-glade.in"
-source "rules/host-glibmm.in"
-source "rules/host-gtkmm.in"
-source "rules/host-cairomm.in"
-source "rules/host-glademm.in"
-source "rules/host-gconf.in"
+source "generated/host_gtk.in"
 endmenu
 

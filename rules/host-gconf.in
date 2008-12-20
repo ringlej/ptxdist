@@ -1,3 +1,5 @@
+## SECTION=host_gtk
+
 config HOST_GCONF
 	bool
 	prompt "gconf"

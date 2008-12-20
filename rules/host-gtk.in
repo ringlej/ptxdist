@@ -1,3 +1,5 @@
+## SECTION=host_gtk
+
 menuconfig HOST_GTK
 	bool
 	prompt "gtk+                          "

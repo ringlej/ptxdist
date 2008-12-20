@@ -1,3 +1,5 @@
+## SECTION=host_gtk
+
 menuconfig HOST_PANGO
 	bool
 	prompt "pango                         "
