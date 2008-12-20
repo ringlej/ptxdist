@@ -1,6 +1,0 @@
-## SECTION=test_suites
-
-source "rules/dbench.in"
-source "rules/ltp.in"
-source "rules/xmlbench.in"
-

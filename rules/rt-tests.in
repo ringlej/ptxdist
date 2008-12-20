@@ -4,7 +4,7 @@ menuconfig RT_TESTS
 	select GLIBC
 	select LIBC_PTHREAD
 	select LIBC_RT
-	prompt "rt-tests"
+	prompt "rt-tests                      "
 	help
 	  FIXME
 

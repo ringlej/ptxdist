@@ -1,3 +1,5 @@
+## SECTION=test_suites
+
 menuconfig LTP
 	tristate
 	prompt "linux test project            "

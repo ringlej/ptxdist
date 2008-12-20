@@ -1,3 +1,5 @@
+## SECTION=test_suites
+
 menuconfig XMLBENCH
 	depends on BROKEN
 	tristate
