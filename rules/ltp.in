@@ -11,19 +11,6 @@ menuconfig LTP
 	  automation to the kernel testing effort.
 
 if LTP
-
-source "rules/ltp-base.in"
-source "rules/ltp-ballista.in"
-source "rules/ltp-commands.in"
-source "rules/ltp-dots.in"
-source "rules/ltp-hpi.in"
-source "rules/ltp-kdump.in"
-source "rules/ltp-kernel.in"
-source "rules/ltp-misc.in"
-source "rules/ltp-network.in"
-source "rules/ltp-posix.in"
-source "rules/ltp-pounder21.in"
-source "rules/ltp-realtime.in"
-
+source "generated/ltp.in"
 endif
 

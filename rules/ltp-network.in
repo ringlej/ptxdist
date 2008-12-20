@@ -1,3 +1,5 @@
+## SECTION=ltp
+
 config LTP_NETWORK
 	tristate
 	select LTP_BASE
