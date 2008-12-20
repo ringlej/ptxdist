@@ -1,4 +1,0 @@
-## SECTION=communication
-source "rules/bluez-utils.in"
-source "rules/bluez-libs.in"
-

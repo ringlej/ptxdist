@@ -1,3 +1,5 @@
+## SECTION=communication
+
 config BLUEZ_UTILS
 	tristate
 	prompt "bluez-utils"
