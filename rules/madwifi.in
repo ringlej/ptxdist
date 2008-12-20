@@ -1,6 +1,8 @@
-config MADWIFI
+## SECTION=networking
+
+menuconfig MADWIFI
 	tristate
-	prompt "Multiband Atheros WiFi Driver"
+	prompt "madwifi                       "
 	select KERNEL
 	help
 	  MadWifi is one of the most advanced WLAN drivers
@@ -10,10 +12,11 @@ config MADWIFI
 	  Abstraction Layer (HAL) that is available in binary
 	  form only.
 
+if MADWIFI
+
 config MADWIFI_TOOLS_ATHEROS_STATS
 	bool
 	prompt "Atheros Stats"
-	depends on MADWIFI
 	help
 	  Athstats takes two arguments, an interface to query
 	  and an interval period (between successive queries)
@@ -24,11 +27,12 @@ config MADWIFI_TOOLS_ATHEROS_STATS
 config MADWIFI_TOOLS_80211_STATS
 	bool
 	prompt "802.11 Stats"
-	depends on MADWIFI
 	help
 	  80211stats - simple tool to display collected madwifi 802.11 statistics
 
 	  Provide statistics about the madwifi 802.11 stack. 80211stats will
 	  print a summary of statistical elements including rx errors, node,
 	  crypto and key management data.
+
+endif
 
