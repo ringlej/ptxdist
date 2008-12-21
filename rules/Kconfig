@@ -3,7 +3,7 @@
 # Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2002-2008
 #
 
-source "rules/ptxdist-version.in"
+source "generated/ptxdist_version.in"
 
 config _ptxconfig_MAGIC__
 	bool
@@ -15,35 +15,27 @@ menu "PTXdist Options               "
 source "generated/ptxdist_options.in"
 endmenu
 
-menu "Host Side Tools               "
+menu "Host Tools                    "
 source "generated/hosttools.in"
 source "generated/hosttools_noprompt.in"
 endmenu
 
-menu "Host Side Tools (cross stuff) "
+menu "Cross Tools                   "
 source "generated/crosstools.in"
 endmenu
 
-menu "Debugging Tools               "
+menu "Debug Tools                   "
 source "generated/debug_tools.in"
 endmenu
 
 comment "------------------------------------"
 
 menu "Root Filesystem               "
-source "rules/rootfs.in"
-source "rules/rootfs_init_d_files.in"
-source "rules/rootfs_rc_d_links.in"
-source "rules/rootfs_configfiles.in"
+source "generated/rootfs.in"
 endmenu
 
 menu "Core (libc, locales)          "
-source "rules/platforms.in"
-source "rules/klibc.in"
-source "rules/libc.in"
-source "rules/gcclibs.in"
-source "rules/locales.in"
-source "rules/timezone.in"
+source "generated/core.in"
 endmenu
 
 comment "------------------------------------"
@@ -76,10 +68,6 @@ menu "Applications                  "
 source "generated/applications.in"
 endmenu
 
-menu "Tools                         "
-source "generated/tools.in"
-endmenu
-
 menu "Editors                       "
 source "generated/editors.in"
 endmenu
@@ -90,42 +78,6 @@ endmenu
 
 menu "Middleware                    "
 source "generated/middleware.in"
-endmenu
-
-menu "Graphics Libraries            "
-
-source "rules/xorg.in"
-source "rules/sdl-menu.in"
-
-comment "X Applications"
-source "rules/fltk.in"
-source "rules/hpanel.in"
-source "rules/wxWindows.in"
-source "rules/realvnc.in"
-source "rules/xli.in"
-source "rules/xterm.in"
-
-comment "X Window Managers"
-source "rules/blackbox.in"
-source "rules/pekwm.in"
-
-comment "Framebuffer"
-source "rules/fbtest.in"
-source "rules/fbutils.in"
-source "rules/fbgrab.in"
-source "rules/usplash.in"
-
-comment "Other Stuff"
-source "rules/fontconfig.in"
-source "rules/i855resolution.in"
-source "rules/i915resolution.in"
-source "rules/libgd.in"
-source "rules/libjpeg.in"
-source "rules/libpng.in"
-source "rules/qtopia.in"
-source "rules/qtopia-examples.in"
-source "rules/tslib.in"
-source "rules/xawtv.in"
 endmenu
 
 menu "Scientific Apps               "
@@ -148,6 +100,103 @@ menu "Games                         "
 source "generated/games.in"
 endmenu
 
+# ----------------------------------------------------------------------------
+
 menu "Graphics & Multimedia         "
-source "generated/multimedia.in"
+
+menu "directfb & friends            "
+source "generated/multimedia_directfb.in"
 endmenu
+
+menuconfig MENU_XORG_FONTS
+	bool
+	prompt "fonts                         "
+	select XORG_LIB_XFONT_PCF_FONTS if XORG_SERVER
+	default y if XORG_SERVER
+	help
+	  These fonts can be used with an x-server, standalone directfb or
+	  gtk ontop of directfb.
+
+if MENU_XORG_FONTS
+
+config XORG_FONTS
+	depends on MENU_XORG_FONTS
+	bool
+	select XORG_FONT_UTIL
+	select XORG_FONT_ALIAS
+	select HOST_XORG_APP_MKFONTDIR
+	select HOST_XORG_APP_MKFONTSCALE
+	select HOST_XORG_APP_BDFTOPCF
+	select HOST_XORG_FONT_UTIL
+
+source "generated/multimedia_xorg_font.in"
+endif
+
+menu "fltk                          "
+source "generated/multimedia_fltk.in"
+endmenu
+
+menu "framebuffer                   "
+source "generated/multimedia_framebuffer.in"
+endmenu
+
+menu "gstreamer                     "
+source "generated/multimedia_gstreamer.in"
+endmenu
+
+menu "gtk+ & friends                "
+source "generated/multimedia_gtk.in"
+endmenu
+
+menu "mplayer                       "
+source "generated/multimedia_mplayer.in"
+endmenu
+
+menu "qt                            "
+source "generated/qt.in"
+endmenu
+
+menu "sdl                           "
+source "generated/multimedia_sdl.in"
+endmenu
+
+menu "sound                         "
+source "generated/multimedia_sound.in"
+endmenu
+
+menu "tools                         "
+source "generated/multimedia_tools.in"
+endmenu
+
+menu "tslib                         "
+source "generated/multimedia_tslib.in"
+endmenu
+
+menu "xiph codecs                   "
+source "generated/multimedia_xiph.in"
+endmenu
+
+menuconfig XORG
+	bool
+	prompt "xorg                          "
+	help
+	  Enable this entry if you want the whole world of X.
+
+if XORG
+source "generated/multimedia_xorg.in"
+endif
+
+menu "xorg applications             "
+source "generated/x_apps.in"
+endmenu
+
+menu "xorg window managers          "
+source "generated/x_windowmanagers.in"
+endmenu
+
+menu "wxwidgets                     "
+source "generated/multimedia_wxwidgets.in"
+endmenu
+
+endmenu
+

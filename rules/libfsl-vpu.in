@@ -1,4 +1,4 @@
-## SECTION=multimedia
+## SECTION=multimedia_gstreamer
 
 config LIBFSL_VPU
 	tristate

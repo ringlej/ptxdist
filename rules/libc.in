@@ -1,4 +1,6 @@
-menu "C library                     "
+## SECTION=core
+
+menu "c library                     "
 
 choice
 	prompt "c library            "

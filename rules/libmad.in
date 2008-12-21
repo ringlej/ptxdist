@@ -1,4 +1,5 @@
-## SECTION=multimedia
+## SECTION=multimedia_sound
+
 menuconfig LIBMAD
 	tristate
 	prompt "libmad                        "

@@ -1,3 +1,5 @@
+## SECTION=x_windowmanagers
+
 config BLACKBOX
 	tristate
 	prompt "blackbox window manager [BROKEN]"

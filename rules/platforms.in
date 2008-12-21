@@ -1,3 +1,5 @@
+## SECTION=core
+
 config KERNEL
 	bool
 

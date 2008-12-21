@@ -1,3 +1,5 @@
+## SECTION=multimedia_tools
+
 config I915RESOLUTION
 	tristate
 	prompt "i915resolution"

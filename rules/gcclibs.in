@@ -1,6 +1,4 @@
-#
-# rules/gcclibs.in
-#
+## SECTION=core
 
 menu "gcc libraries                 "
 

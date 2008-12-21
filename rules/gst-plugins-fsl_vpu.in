@@ -1,8 +1,8 @@
-## SECTION=multimedia
+## SECTION=multimedia_gstreamer
 
 config GST_PLUGINS_FSL_VPU
 	tristate
-	prompt "Freescale VPU Gstreamer plugin"
+	prompt "freescale vpu plugin"
 	select LIBFSL_VPU
 	select GST_PLUGINS_BASE
 	help

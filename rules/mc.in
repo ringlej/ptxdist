@@ -1,4 +1,5 @@
-## SECTION=applications
+## SECTION=shell_and_console
+
 menuconfig MC
 	tristate
 	select GLIB

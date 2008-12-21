@@ -1,3 +1,5 @@
+## SECTION=x_apps
+
 config XLI
 	tristate
 	select LIBPNG

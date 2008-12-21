@@ -1,3 +1,5 @@
+## SECTION=multimedia_sdl
+
 config SDL_MIXER
 	tristate
 	prompt "SDL mixer"

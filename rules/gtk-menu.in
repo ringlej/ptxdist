@@ -1,6 +1,0 @@
-## SECTION=multimedia
-
-menu "gtk+ & friends                "
-source "generated/multimedia_gtk.in"
-endmenu
-

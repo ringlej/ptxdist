@@ -1,3 +1,5 @@
+## SECTION=x_apps
+
 config HPANEL
 	tristate
 	depends on XORG_SERVER

@@ -1,7 +1,0 @@
-menu "SDL                           "
-
-source "rules/sdl.in"
-source "rules/sdl_image.in"
-source "rules/sdl_mixer.in"
-
-endmenu

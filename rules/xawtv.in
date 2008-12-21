@@ -1,3 +1,5 @@
+## SECTION=multimedia_tools
+
 config XAWTV
 	tristate
 	prompt "xawtv"

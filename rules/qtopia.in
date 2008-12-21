@@ -1,3 +1,5 @@
+## SECTION=qt
+
 menuconfig QTOPIA
 	tristate
 	select TSLIB	if QTOPIA_MOUSE_TSLIB

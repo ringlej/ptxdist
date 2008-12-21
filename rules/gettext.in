@@ -1,7 +1,7 @@
 ## SECTION=system_libraries
 menuconfig GETTEXT
 	tristate
-	prompt "gettext (GNU)                 "
+	prompt "gettext (gnu)                 "
 	select LIBICONV if ARCH_MINGW
 	help
 	  The gettext program translates a natural language
@@ -12,7 +12,7 @@ if GETTEXT
 
 config GETTEXT_LIBINTL
 	bool
-	prompt "Install GNU libintl"
+	prompt "install gnu libintl"
 	help
 	  libintl is the GNU internationalization runtime library.
 

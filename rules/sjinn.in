@@ -1,6 +1,6 @@
 ## SECTION=communication
 config SJINN
 	tristate
-	prompt "SJINN"
+	prompt "sjinn"
 	help
 	  rs232 comm tool

@@ -1,3 +1,5 @@
+## SECTION=multimedia_framebuffer
+
 config USPLASH
 	tristate
 	select LIBX86

@@ -1,3 +1,5 @@
+## SECTION=core
+
 comment "Time zone support doesn't work with OSELAS.Toolchain-1.1.0"
 comment "and prio versions, hence marked as broken for now"
 

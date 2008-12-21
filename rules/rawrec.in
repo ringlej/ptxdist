@@ -1,4 +1,5 @@
-## SECTION=applications
+## SECTION=multimedia_sound
+
 menuconfig RAWREC
 	tristate
 	prompt "rawrec/rawplay                "

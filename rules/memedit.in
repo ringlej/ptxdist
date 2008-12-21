@@ -1,4 +1,5 @@
-## SECTION=tools
+## SECTION=shell_and_console
+
 config MEMEDIT
 	tristate
 	select READLINE

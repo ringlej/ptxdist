@@ -1,6 +1,0 @@
-## SECTION=multimedia
-
-menu "directfb & friends            "
-source "generated/multimedia_directfb.in"
-endmenu
-

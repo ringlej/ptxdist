@@ -1,3 +1,5 @@
+## SECTION=multimedia_tools
+
 config I855RESOLUTION
 	tristate
 	prompt "i855resolution"

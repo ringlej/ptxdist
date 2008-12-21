@@ -1,4 +1,4 @@
-# sdl configuration
+## SECTION=multimedia_sdl
 
 menuconfig SDL
 	tristate

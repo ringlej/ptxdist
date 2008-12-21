@@ -1,4 +1,5 @@
-## SECTION=multimedia
+## SECTION=multimedia_xiph
+
 config LIBOGG
 	tristate
 	prompt "libogg"

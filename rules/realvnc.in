@@ -1,3 +1,5 @@
+## SECTION=x_apps
+
 menuconfig REALVNC
 	tristate
 	prompt "realvnc [BROKEN]              "

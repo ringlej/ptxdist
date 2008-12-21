@@ -1,7 +1,7 @@
 ## SECTION=applications
 config GNUPG
 	tristate
-	prompt "GnuPG"
+	prompt "gnupg"
 	help
 	  GnuPG - The GNU Privacy Guard suite of programs
 

@@ -1,4 +1,6 @@
-menu "overall X11 options           "
+## SECTION=multimedia_xorg
+
+menu "options                       "
 
 # disabled, its incomplete
 #
@@ -34,7 +36,7 @@ menu "overall X11 options           "
 
 config XORG_KEYBOARD_MAPPING_SUPPORT
 	bool
-	prompt "Support keyboard mappings"
+	prompt "support keyboard mappings"
 	default n
 	select XORG_DRIVER_INPUT_KEYBOARD
 	select XORG_APP_XKBCOMP
@@ -47,7 +49,7 @@ config XORG_KEYBOARD_MAPPING_SUPPORT
 
 config XORG_DEFAULT_DATA_DIR
 	string
-	prompt "Default location for X' data files"
+	prompt "default location for x' data files"
 	default "/usr/lib"
 	help
 	  Define here the default path, where X searches for its data files
@@ -57,7 +59,7 @@ config XORG_DEFAULT_DATA_DIR
 
 config XORG_OPTIONS_TRANS_UNIX
 	bool
-	prompt "UNIX domain socket transport"
+	prompt "unix domain socket transport"
 	depends on XORG_LIB_X11
 	default y
 	help
@@ -66,7 +68,7 @@ config XORG_OPTIONS_TRANS_UNIX
 
 config XORG_OPTIONS_TRANS_TCP
 	bool
-	prompt "TCP socket transport"
+	prompt "tcp socket transport"
 	depends on XORG_LIB_X11
 	default y
 	help
@@ -75,7 +77,7 @@ config XORG_OPTIONS_TRANS_TCP
 
 config XORG_OPTIONS_TRANS_IPV6
 	bool
-	prompt "IPv6 support"
+	prompt "ipv6 support"
 	default n
 	help
 	  Enable this if your X server needs IPv6 support. If the starting X
@@ -84,3 +86,4 @@ config XORG_OPTIONS_TRANS_IPV6
 	  useless in this case)
 
 endmenu
+

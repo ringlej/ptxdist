@@ -1,3 +1,5 @@
+## SECTION=system_libraries
+
 config LIBPNG
 	tristate
 	prompt "libpng"

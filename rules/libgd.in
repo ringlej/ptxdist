@@ -1,3 +1,5 @@
+## SECTION=system_libraries
+
 menuconfig LIBGD
 	tristate
 	prompt "libgd                         "

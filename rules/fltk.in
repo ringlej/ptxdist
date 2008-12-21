@@ -1,6 +1,8 @@
+## SECTION=multimedia_fltk
+
 menuconfig FLTK
 	tristate
-	prompt "fltk gui toolkit              "
+	prompt "fltk                          "
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
 	help

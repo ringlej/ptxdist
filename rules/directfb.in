@@ -31,20 +31,20 @@ config DIRECTFB_TRACE
 	bool "build with trace support"
 
 config DIRECTFB_IMAGE_GIF
-	bool "build GIF image provider"
+	bool "build gif image provider"
 
 config DIRECTFB_IMAGE_PNG
-	bool "build PNG image provider"
+	bool "build png image provider"
 
 config DIRECTFB_IMAGE_JPEG
-	bool "build JPEG image provider"
+	bool "build jpeg image provider"
 
 
 config DIRECTFB_FONT_FREETYPE
-	bool "build FreeType2 font provider"
+	bool "build freetype2 font provider"
 
 config DIRECTFB_WM_UNIQUE
-	bool "enable Unique (WM Module)"
+	bool "enable unique (wm module)"
 	select DIRECTFB_IMAGE_PNG
 
 menu "input driver                "

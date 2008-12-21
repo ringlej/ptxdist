@@ -1,3 +1,5 @@
+## SECTION=multimedia_xorg
+
 # xorg server configuration
 #
 # Note: Some of the listed dependencies are hardcoded in the configure script

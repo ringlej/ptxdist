@@ -1,4 +1,5 @@
-## SECTION=applications
+## SECTION=multimedia_mplayer
+
 menuconfig MPLAYER
 	tristate
 	select LIBJPEG if MPLAYER_VO_JPEG

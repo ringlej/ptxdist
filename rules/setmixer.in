@@ -1,4 +1,5 @@
-## SECTION=applications
+## SECTION=multimedia_sound
+
 config SETMIXER
 	tristate
 	prompt "setmixer"

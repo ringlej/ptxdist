@@ -1,4 +1,5 @@
-## SECTION=multimedia
+## SECTION=multimedia_xiph
+
 menuconfig LIBTHEORA
 	tristate
 	select LIBOGG if LIBTHEORA__OGG
