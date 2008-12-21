@@ -1,3 +1,5 @@
+## SECTION=hosttools
+
 menuconfig HOST_UTIL_LINUX
 	tristate
 	prompt "util-linux                    "

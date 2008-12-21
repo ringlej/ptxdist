@@ -1,3 +1,5 @@
+## SECTION=hosttools
+
 config HOST_FLEX254
 	tristate
 	depends on BROKEN

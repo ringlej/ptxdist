@@ -26,54 +26,47 @@ menuconfig HOST_GTK
 
 #all_loaders="png,bmp,wbmp,gif,ico,ani,jpeg,pnm,ras,tiff,xpm,tga,pcx"
 
+if HOST_GTK
+
 menu "graphic loaders"
 	depends on HOST_GTK
 
 config HOST_GTK_LOADER_PNG
 	bool
 	prompt "png"
-	depends on HOST_GTK
 	default y
 
 config HOST_GTK_LOADER_BMP
 	bool
 	prompt "bmp"
-	depends on HOST_GTK
 
 config HOST_GTK_LOADER_WBMP
 	bool
 	prompt "wbmp"
-	depends on HOST_GTK
 
 config HOST_GTK_LOADER_GIF
 	bool
 	prompt "gif"
-	depends on HOST_GTK
 
 config HOST_GTK_LOADER_ICO
 	bool
 	prompt "ico"
-	depends on HOST_GTK
 
 config HOST_GTK_LOADER_ANI
 	bool
 	prompt "ani"
-	depends on HOST_GTK
 
 config HOST_GTK_LOADER_JPEG
 	bool
 	prompt "jpeg"
-	depends on HOST_GTK
 
 config HOST_GTK_LOADER_PNM
 	bool
 	prompt "pnm"
-	depends on HOST_GTK
 
 config HOST_GTK_LOADER_RAS
 	bool
 	prompt "ras"
-	depends on HOST_GTK
 
 #config HOST_GTK_LOADER_TIFF
 #	bool
@@ -83,30 +76,25 @@ config HOST_GTK_LOADER_RAS
 config HOST_GTK_LOADER_XPM
 	bool
 	prompt "xpm"
-	depends on HOST_GTK
 
 config HOST_GTK_LOADER_TGA
 	bool
 	prompt "tga"
-	depends on HOST_GTK
 
 config HOST_GTK_LOADER_PCX
 	bool
 	prompt "pcx"
-	depends on HOST_GTK
 
 endmenu
 
 config HOST_GTK_TARGET_X11
 	bool
-	depends on HOST_GTK
 	default y
 	select HOST_CAIRO_XLIB
 	select HOST_CAIRO_PS
 
 #choice
 #	prompt "gdk-target"
-#	depends on HOST_GTK
 #
 #	config HOST_GTK_TARGET_X11
 #		bool "X11"
@@ -142,9 +130,8 @@ config HOST_GTK_TARGET_X11
 menuconfig HOST_GTK_ENGINES
 	bool
 	prompt "gtk engines                   "
-	depends on HOST_GTK
 
-source "rules/host-gtk-engine-experience.in"
+endif
 
 choice
 	prompt "default theme"

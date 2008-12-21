@@ -1,3 +1,5 @@
+## SECTION=hosttools_noprompt
+
 config HOST_GENEXT2FS
 	tristate
 	help
