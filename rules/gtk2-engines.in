@@ -1,8 +1,0 @@
-config GTK2
-	tristate
-	depends on BROKEN
-	prompt "gtk 2 [BROKEN]"
-	help
-	  This includes gtk2-engines, which are
-	  theme engines for GTK+ 2.x
-

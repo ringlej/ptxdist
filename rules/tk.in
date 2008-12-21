@@ -1,11 +1,11 @@
+## SECTION=multimedia_tk
+
 menuconfig TK
 	tristate
-	prompt "Tk (Tcl/Tk)                   "
+	prompt "tk (tcl/tk)                   "
 	select ROOTFS_DEV
 	depends on TCL
 	depends on BROKEN
 	help
 	  Tk is a graphical extension to Tcl (Tool Command Language)
 
-comment "build options  ---"
-	depends on TK

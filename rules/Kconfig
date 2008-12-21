@@ -164,6 +164,10 @@ menu "sound                         "
 source "generated/multimedia_sound.in"
 endmenu
 
+menu "tk                            "
+source "generated/multimedia_tk.in"
+endmenu
+
 menu "tools                         "
 source "generated/multimedia_tools.in"
 endmenu
