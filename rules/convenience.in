@@ -1,4 +1,0 @@
-# Meta Config File
-# Workplace Convenience
-
-source "rules/fix-permissions.in"

@@ -1,15 +1,15 @@
+## SECTION=ptxdist_options
+
 config FIX_PERMISSIONS
-	bool "create primary rootfs devnodes for nfs and fix permissions"
-	default n
+	bool
+	prompt "create primary rootfs devnodes for nfs and fix permissions"
 	help
-	  This function is useful for development
-	  via nfsroot. Initially, the /dev/null
-	  an /dev/console devnodes are missing in
-	  a fresh sysroot for nfs, preventing a
-	  successful system startup. However, creating
-	  them requires system administrator privileges.
-	  
-	  Say Yes, if you want PTXdist to create
-	  missing devnodes during build stage. This
-	  will result in a smooth nfsroot feeling,
-	  but you need to setup sudo first.
+	  This function is useful for development via nfsroot. Initially, the
+	  /dev/null an /dev/console devnodes are missing in a fresh sysroot for
+	  nfs, preventing a successful system startup. However, creating them
+	  requires system administrator privileges.
+
+	  Say Yes, if you want PTXdist to create missing devnodes during build
+	  stage. This will result in a smooth nfsroot feeling, but you need to
+	  setup sudo first.
+

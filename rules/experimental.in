@@ -1,5 +1,7 @@
+## SECTION=ptxdist_options
+
 config EXPERIMENTAL
-	bool "Support experimental Stuff"
+	bool "support experimental stuff"
 	help
 	  Some options in PTXdist are considered to be experimental.
 	  Well, if I tell you the truth, *all* options are experimental,
@@ -7,7 +9,7 @@ config EXPERIMENTAL
 	  being marked as experimental.
 
 config EXPERIMENTAL_MORE
-	bool "Support even more experimental Stuff"
+	bool "support even more experimental stuff"
 	depends on EXPERIMENTAL
 	help
 	  If you thought that PTXCONF_EXPERIMENTAL was stuff you shouldn't
@@ -16,7 +18,7 @@ config EXPERIMENTAL_MORE
 	  bleeding edge.
 
 config BROKEN
-	bool "Support packets known to be broken"
+	bool "support packets known to be broken"
 	depends on EXPERIMENTAL
 	help
 	  If this option is checked, even packets are activated which
@@ -24,3 +26,4 @@ config BROKEN
 
 config INVISIBLE
 	bool
+

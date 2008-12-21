@@ -11,8 +11,8 @@ config _ptxconfig_MAGIC__
 
 comment "--------- Host Options -------------"
 
-menu "Code Maturity                 "
-source "rules/experimental.in"
+menu "PTXdist Options               "
+source "generated/ptxdist_options.in"
 endmenu
 
 menu "Host Side Tools               "
@@ -26,10 +26,6 @@ endmenu
 
 menu "Debugging Tools               "
 source "generated/debug_tools.in"
-endmenu
-
-menu "Workplace Convenience         "
-source "rules/convenience.in"
 endmenu
 
 comment "------------------------------------"
