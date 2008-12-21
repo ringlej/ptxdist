@@ -1,4 +1,5 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_MICO
-	bool
+	tristate
 	select HOST_FAKEROOT

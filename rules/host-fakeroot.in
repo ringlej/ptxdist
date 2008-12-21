@@ -1,6 +1,7 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_FAKEROOT
-	bool
+	tristate
 	default y
 	help
 	  fakeroot lets you create archives with "real" owners and

@@ -1,5 +1,5 @@
 menuconfig HOST_UTIL_LINUX
-	bool
+	tristate
 	prompt "util-linux                    "
 
 config HOST_UTIL_LINUX_FDISK

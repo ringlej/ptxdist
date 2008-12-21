@@ -1,6 +1,7 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_DBUS_GLIB
-	bool
+	tristate
 	select HOST_DBUS
 	select HOST_GLIB
 

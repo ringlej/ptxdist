@@ -1,7 +1,8 @@
 ## SECTION=hosttools
 
 config HOST_GETTEXT
-	bool "gettext (gnu)"
+	tristate
+	prompt "gettext (gnu)"
 #	select HOST_LIBICONV if ARCH_MINGW
 	help
 	  The gettext program translates a natural language

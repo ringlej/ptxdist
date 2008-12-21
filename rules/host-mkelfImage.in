@@ -1,5 +1,5 @@
 config HOST_MKELFIMAGE
-	bool
+	tristate
 	select HOST_ZLIB
 	help
 	  With mkelfImage you can create elf images from kernel

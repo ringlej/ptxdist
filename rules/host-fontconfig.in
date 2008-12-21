@@ -1,6 +1,6 @@
 ## SECTION=hosttools_noprompt
 config HOST_FONTCONFIG
-	bool
+	tristate
 	select HOST_FREETYPE
 	select HOST_EXPAT
 	help

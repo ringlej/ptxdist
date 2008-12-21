@@ -1,6 +1,7 @@
 ## SECTION=test_suites
+
 config HOST_PELTS
-	bool
+	tristate
 	prompt "pelts"
 	help
 	  Pengutronix Embedded Linux Test Suite

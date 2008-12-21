@@ -1,5 +1,5 @@
 ## SECTION=hosttools_noprompt
 config HOST_LIBDBUS_CXX
-	bool
+	tristate
 	select HOST_DBUS
 

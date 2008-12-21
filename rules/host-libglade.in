@@ -1,7 +1,7 @@
 ## SECTION=host_gtk
 
 config HOST_LIBGLADE
-	bool
+	tristate
 	select HOST_GTK
 	select HOST_LIBXML2
 	prompt "libglade"

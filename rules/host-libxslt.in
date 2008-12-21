@@ -1,10 +1,7 @@
 ## SECTION=hosttools_noprompt
-#
-# LibXSLT - Options updated as of 1.1.14
-#
 
 config HOST_LIBXSLT
-	bool
+	tristate
 	select HOST_LIBXML2
 	help
 	  LibXSLT is a generic XSLT implementation. For details see the

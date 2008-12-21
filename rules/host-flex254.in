@@ -1,5 +1,5 @@
 config HOST_FLEX254
-	bool
+	tristate
 	depends on BROKEN
 	prompt "HOST_FLEX254 [BROKEN]"
 	help

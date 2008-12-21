@@ -1,5 +1,5 @@
 config HOST_GTK_ENGINE_EXPERIENCE
-	bool
+	tristate
 	select HOST_GTK
 	prompt "eXperience engine"
 	help

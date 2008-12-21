@@ -1,6 +1,6 @@
 ## SECTION=hosttools_noprompt
 config HOST_XORG_LIB_X11
-	bool
+	tristate
 	select HOST_XORG_PROTO_X
 
 	select HOST_LIBXCB

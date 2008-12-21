@@ -1,6 +1,7 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_IPKG
-	bool
+	tristate
 	default y
 	# no prompt, policy is that we always need it
 	help

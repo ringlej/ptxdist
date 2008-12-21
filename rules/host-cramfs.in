@@ -1,8 +1,8 @@
 config HOST_CRAMFS
-	bool
+	tristate
 	select HOST_ZLIB
 	help
 	  This package contains tools that let you construct a CramFs
-	  (Compressed ROM File System) image from the contents of a 
-	  given directory, as well as checking a constructed CramFs 
+	  (Compressed ROM File System) image from the contents of a
+	  given directory, as well as checking a constructed CramFs
 	  image and extracting its contents.

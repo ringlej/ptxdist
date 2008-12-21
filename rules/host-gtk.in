@@ -1,7 +1,7 @@
 ## SECTION=host_gtk
 
 menuconfig HOST_GTK
-	bool
+	tristate
 	prompt "gtk+                          "
 	select HOST_GLIB
 	select HOST_ATK

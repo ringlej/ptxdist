@@ -1,4 +1,5 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_PYTHON30
-	bool
+	tristate
 

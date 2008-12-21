@@ -1,6 +1,7 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_DBUS
-	bool
+	tristate
 	select HOST_EXPAT
 	help
 	  D-Bus is a message bus system, a simple way

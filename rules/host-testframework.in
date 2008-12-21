@@ -1,7 +1,7 @@
 ## SECTION=hosttools_noprompt
 
 menuconfig HOST_TESTFRAMEWORK
-	bool
+	tristate
 	prompt "host-side testing framework   "
 	default y
 	select HOST_LRZSZ

@@ -1,7 +1,7 @@
 ## SECTION=host_gtk
 
 config HOST_CAIROMM
-	bool
+	tristate
 	select HOST_CAIRO
 	prompt "cairomm"
 	help

@@ -1,5 +1,6 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_DIRECTFB
-	bool
+	tristate
 	select HOST_LIBPNG
 

@@ -1,4 +1,4 @@
 ## SECTION=hosttools_noprompt
 config HOST_LIBBZ2
-	bool
+	tristate
 

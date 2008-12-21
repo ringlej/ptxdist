@@ -1,6 +1,6 @@
 
 config HOST_GTK_THEME_EXPERIENCE
-	bool
+	tristate
 	depends on HOST_GTK_ENGINE_EXPERIENCE
 	default y if HOST_GTK_ENGINE_EXPERIENCE
 

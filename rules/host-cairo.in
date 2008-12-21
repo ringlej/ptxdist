@@ -1,7 +1,7 @@
 ## SECTION=host_gtk
 
 menuconfig HOST_CAIRO
-	bool
+	tristate
 #	select XORG_LIB_XT if CAIRO_XLIB && !HOST_GTK_TARGET_X11
 #	select XORG_LIB_XRENDER if CAIRO_XLIB && !HOST_GTK_TARGET_X11
 

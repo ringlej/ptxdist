@@ -1,4 +1,4 @@
 config HOST_E2FSPROGS
-	bool
+	tristate
 	help
 	  Useful hosttools for management of ext2 and ext3 filesystems

@@ -1,7 +1,7 @@
 ## SECTION=host_gtk
 
 menuconfig HOST_PANGO
-	bool
+	tristate
 	prompt "pango                         "
 	select HOST_CAIRO
 	select HOST_GLIB

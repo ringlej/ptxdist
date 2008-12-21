@@ -1,7 +1,7 @@
 ## SECTION=hosttools
 
 config HOST_INTLTOOL
-	bool
+	tristate
 	prompt "intltool"
 	help
 	  intltool is a set of tools to centralise translation of many different

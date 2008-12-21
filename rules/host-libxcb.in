@@ -1,6 +1,6 @@
 ## SECTION=hosttools_noprompt
 config HOST_LIBXCB
-	bool
+	tristate
 	select HOST_XCB_PROTO
 	select HOST_LIBXSLT
 	select HOST_LIBPTHREAD_STUBS

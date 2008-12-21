@@ -1,6 +1,7 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_FLEX254
-	bool
+	tristate
 	prompt "flex 2.5.4 [BROKEN]"
 	depends on BROKEN
 	help

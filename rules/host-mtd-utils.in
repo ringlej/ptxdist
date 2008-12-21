@@ -1,5 +1,6 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_MTD_UTILS
-	bool
+	tristate
 	select HOST_LIBLZO
 	select HOST_ZLIB
