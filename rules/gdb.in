@@ -1,11 +1,5 @@
 ## SECTION=debug_tools
 
-menu "gdb                           "
-
-config GDB__VERSION
-       string "gdb version"
-       default 6.8
-
 menuconfig GDB
 	tristate
 	prompt "gdb (the real one)            "
@@ -14,17 +8,20 @@ menuconfig GDB
 
 if GDB
 
+config GDB__VERSION
+       string "gdb version"
+       default 6.8
+
 config GDB__SHARED
-	bool "Build shared"
+	bool "build shared"
 	default y
 	select LIBC_M
 	help
 	  If not set, the build option
 	  LDFLAGS=-static will be activated.
 
-
 choice
-	prompt "Select term library"
+	prompt "select term library"
 	default GDB__TERMCAP
 
 	config GDB__TERMCAP
@@ -51,6 +48,3 @@ endchoice
 
 endif
 
-source "rules/gdbserver.in"
-
-endmenu

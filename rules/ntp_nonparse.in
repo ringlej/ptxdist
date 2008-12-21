@@ -1,3 +1,5 @@
+## SECTION=networking_ntp
+
 # --- non-PARSE clocks ---
 
 menuconfig NTP_ALL_CLOCKS

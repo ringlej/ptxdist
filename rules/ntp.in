@@ -1,4 +1,5 @@
 ## SECTION=networking
+
 menuconfig NTP
 	tristate
 	# FIXME:
@@ -169,8 +170,7 @@ config NTP_ARLIB
 
 endif 
 
-source "rules/ntp_parse.in"
-source "rules/ntp_nonparse.in"
+source "generated/networking_ntp.in"
 
 # ---------- Install Options
 

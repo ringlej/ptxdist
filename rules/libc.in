@@ -19,11 +19,11 @@ choice
 endchoice
 
 if GLIBC
-source "rules/glibc.in"
+source "generated/libc_glibc.in"
 endif
 
 if UCLIBC
-source "rules/uclibc.in"
+source "generated/libc_uclibc.in"
 endif
 
 

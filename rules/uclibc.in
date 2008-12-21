@@ -1,3 +1,5 @@
+## SECTION=libc_uclibc
+
 menu "uClibc                        "
 
 config UCLIBC_VERSION

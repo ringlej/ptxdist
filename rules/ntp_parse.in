@@ -1,3 +1,5 @@
+## SECTION=networking_ntp
+
 # --- PARSE clocks ---
 
 menuconfig NTP_PARSE_CLOCKS
