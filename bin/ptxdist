@@ -1253,20 +1253,41 @@ do_select_toolchain() {
 			return 1
 		fi
 
+		# minimal requirements
 		local vendor="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
 		local target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
-		local version="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
-
-		local hint="/opt/${vendor}/${target}/gcc-${version}-*/bin"
+		local gcc_version="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
 
 		if [ -z "${vendor}" -o \
 		    -z "${target}" -o \
-		    -z "${version}" ]; then
+		    -z "${gcc_version}" ]; then
 			ptxd_dialog_msgbox \
 				"info: insufficient information in your ptxconfig file\n" \
 				"      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
 			return 1
 		fi
+		
+		# gcc
+		local gcc="gcc-${gcc_version}-"
+
+		# java
+		local java="$(ptxd_get_ptxconf PTXCONF_GCCLIBS_GCJ)"
+		java="${java:+java-}"
+		
+		# libc
+		local glibc_version="$(ptxd_get_ptxconf PTXCONF_GLIBC_VERSION)"
+		local uclibc_version="$(ptxd_get_ptxconf PTXCONF_UCLIBC_VERSION)"
+
+		if [ -n "${glibc_version}" ]; then
+			libc="glibc-${glibc_version}-"
+		elif [ -n "${uclibc_version}" ]; then
+			libc="glibc-${uclibc_version}-"
+		else
+			libc=""
+		fi
+
+		local hint="/opt/${vendor}/${target}/${gcc}${java}${libc}*/bin"
+
 		# let the shell expand the "*" in the hint, put it into an array
 		toolchain=($(echo ${hint}))
 
