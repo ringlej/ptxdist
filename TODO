@@ -23,7 +23,12 @@ Prio A
     rsc: add proper definitions according to platform definition
     (PTXCONF_SIZEOF_LONG_DOUBLE)
 
-[ ] rsc: config dependency dropper doesn't work yet
+[ ] rsc: config dependency dropper doesn't work yet; it assumes that all
+    labels correspond to their package names, but that's not true for
+    busybox, so the dropping doesn't work for bb. The right solution would be
+    to change PTXCONF_BB_ to PTXCONF_BUSYBOX__, but that would break all
+    migrations of old projects. Can only be done with a proper migration
+    script.
 
 [ ] jbe: avoid the convenience stage question, when running "pxtdist images".
 
