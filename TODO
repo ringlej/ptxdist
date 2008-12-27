@@ -4,22 +4,6 @@ TODO before 2.0.0
 Prio A
 ------
 
-[ ] Subject: Re: [ptxdist-commit] ptxdist r9228 - in trunks/ptxdist-trunk/patches:
-    libffi-3.0.7 libffi-3.0.7/generic
-
-    I am not sure this is the correct fix. The problem seems that ptxdist
-    uses ac_cv_sizeof_long_double with a value of 8, and that is where the
-    problem is, because that should be 12 on x86 and 16 on x86_64. That
-    error results in double and long double to have the same size and
-    configure to conclude there is no long double. And since that is never
-    true on x86 with gcc, there was no need for the ifdef with
-    HAVE_LONGDOUBLE in the x86 case.
-
-    - Erwin
-
-    rsc: add proper definitions according to platform definition
-    (PTXCONF_SIZEOF_LONG_DOUBLE)
-
 [ ] rsc: config dependency dropper doesn't work yet; it assumes that all
     labels correspond to their package names, but that's not true for
     busybox, so the dropping doesn't work for bb. The right solution would be
@@ -557,6 +541,22 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] Subject: Re: [ptxdist-commit] ptxdist r9228 - in trunks/ptxdist-trunk/patches:
+    libffi-3.0.7 libffi-3.0.7/generic
+
+    I am not sure this is the correct fix. The problem seems that ptxdist
+    uses ac_cv_sizeof_long_double with a value of 8, and that is where the
+    problem is, because that should be 12 on x86 and 16 on x86_64. That
+    error results in double and long double to have the same size and
+    configure to conclude there is no long double. And since that is never
+    true on x86 with gcc, there was no need for the ifdef with
+    HAVE_LONGDOUBLE in the x86 case.
+
+    - Erwin
+
+    rsc: add proper definitions according to platform definition
+    (PTXCONF_SIZEOF_LONG_DOUBLE)
 
 [x] rsc: fix install_copy without source+destination; it worked before
     with destination-only, but there was some problem. Ask mkl.
