@@ -4,6 +4,10 @@ TODO before 2.0.0
 Prio A
 ------
 
+[ ] jbe: Getting the value of an internal ptxdist variable returns always 1 as
+    its exit code ("ptxdist print ROOTDIR" returns with the correct value on stdout
+    but with exit code = 1)
+
 [ ] rsc: we need a "tested distros" strategy for 2.0.0, with
     pre-packaged toolchains.
 

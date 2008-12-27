@@ -2,7 +2,7 @@
 # $Id: template 2922 2005-07-11 19:17:53Z rsc $
 #
 # Copyright (C) 2005 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_MEMTESTER) += memtester
 #
 # Paths and names
 #
-MEMTESTER_VERSION	:= 4.0.6
+MEMTESTER_VERSION	:= 4.0.8
 MEMTESTER		:= memtester-$(MEMTESTER_VERSION)
 MEMTESTER_SUFFIX	:= tar.gz
 MEMTESTER_URL		:= http://pyropus.ca/software/memtester/old-versions/$(MEMTESTER).$(MEMTESTER_SUFFIX)
