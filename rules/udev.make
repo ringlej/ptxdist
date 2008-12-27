@@ -76,7 +76,7 @@ endif
 $(STATEDIR)/udev.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, udev)
+	@$(call install_init,  udev)
 	@$(call install_fixup, udev,PACKAGE,udev)
 	@$(call install_fixup, udev,PRIORITY,optional)
 	@$(call install_fixup, udev,VERSION,$(UDEV_VERSION))
@@ -89,13 +89,10 @@ $(STATEDIR)/udev.targetinstall:
 	# binaries
 	#
 
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev/udevd, \
-		/sbin/udevd)
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev/udevadm, \
-		/sbin/udevadm)
+	@$(call install_copy, udev, 0, 0, 0755, /sbin/udevd)
+	@$(call install_copy, udev, 0, 0, 0755, /sbin/udevadm)
 ifdef PTXCONF_UDEV__INSTALL_TEST_UDEV
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev/test-udev, \
-		/sbin/test-udev)
+	@$(call install_copy, udev, 0, 0, 0755, /sbin/test-udev)
 endif
 
 	#
@@ -107,18 +104,10 @@ ifdef PTXCONF_ROOTFS_UDEV__DEFAULT_RULES
 	for file in *; do \
 		$(call install_copy, udev, 0, 0, 0644, $(UDEV_DIR)/rules/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
 	done
-	$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-alsa.rules, \
-		/lib/udev/rules.d/40-alsa.rules, n);
-	$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-isdn.rules, \
-		/lib/udev/rules.d/40-isdn.rules, n);
-	$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/64-device-mapper.rules, \
-		/lib/udev/rules.d/64-device-mapper.rules, n);
-	$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/64-md-raid.rules, \
-		/lib/udev/rules.d/64-md-raid.rules, n);
+	$(call install_copy, udev, 0, 0, 0644, /lib/udev/rules.d/40-alsa.rules);
+	$(call install_copy, udev, 0, 0, 0644, /lib/udev/rules.d/40-isdn.rules);
+	$(call install_copy, udev, 0, 0, 0644, /lib/udev/rules.d/64-device-mapper.rules);
+	$(call install_copy, udev, 0, 0, 0644, /lib/udev/rules.d/64-md-raid.rules);
 endif
 
 
@@ -126,15 +115,11 @@ endif
 # startup scripts
 #
 ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV_DEFAULT
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/udev, \
-		/etc/init.d/udev, n)
+	@$(call install_copy, udev, 0, 0, 0755, /etc/init.d/udev)
 endif
 
 ifdef PTXCONF_UDEV__INSTALL_ETC_INITD_UDEV_USER
-	@$(call install_copy, udev, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/udev, \
-		/etc/init.d/udev, n)
+	@$(call install_copy, udev, 0, 0, 0755, /etc/init.d/udev)
 endif
 
 ifneq ($(PTXCONF_UDEV__RC_D_LINK),"")
@@ -149,107 +134,69 @@ endif
 #
 # use generic
 ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF_DEFAULT
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/udev/udev.conf, \
-		/etc/udev/udev.conf, n)
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/udev/permissions.rules, \
-		/etc/udev/permissions.rules, n)
+	@$(call install_copy, udev, 0, 0, 0644, /etc/udev/udev.conf)
+	@$(call install_copy, udev, 0, 0, 0644, /etc/udev/permissions.rules)
 endif
 
 # user defined
 ifdef PTXCONF_ROOTFS_ETC_UDEV__CONF_USER
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/udev.conf, \
-		/etc/udev/udev.conf, n)
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/udev/permissions.rules, \
-		/etc/udev/permissions.rules, n)
+	@$(call install_copy, udev, 0, 0, 0644, /etc/udev/udev.conf)
+	@$(call install_copy, udev, 0, 0, 0644, /etc/udev/permissions.rules)
 endif
 
 #
 # utilities from extra/
 #
 ifdef PTXCONF_UDEV__EXTRA_ATA_ID
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/ata_id/ata_id, \
-		/lib/udev/ata_id)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/ata_id)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_CDROM_ID
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/cdrom_id/cdrom_id, \
-		/lib/udev/cdrom_id)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/cdrom_id)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_COLLECT
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/collect/collect, \
-		/lib/udev/collect)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/collect)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_EDD_ID
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/edd_id/edd_id, \
-		/lib/udev/edd_id)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/edd_id)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_FIRMWARE
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/firmware/firmware.sh, \
-		/lib/udev/firmware.sh,n)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/firmware.sh)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_FLOPPY
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/floppy/create_floppy_devices, \
-		/lib/udev/create_floppy_devices)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/create_floppy_devices)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_FSTAB_IMPORT
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/fstab_import/fstab_import, \
-		/lib/udev/fstab_import)
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/extras/fstab_import/79-fstab_import.rules, \
-		/lib/udev/rules.d/79-fstab_import.rules, n)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/fstab_import)
+	@$(call install_copy, udev, 0, 0, 0644, /lib/udev/rules.d/79-fstab_import.rules)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_PATH_ID
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/path_id/path_id, \
-		/lib/udev/path_id)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/path_id)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_RULE_GENERATOR
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/rule_generator/rule_generator.functions, \
-		/lib/udev/rule_generator.functions)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/rule_generator.functions)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_SCSI_ID
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/extras/scsi_id/scsi_id.config, \
-		/etc/scsi_id.config, n)
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/scsi_id/scsi_id, \
-		/lib/udev/scsi_id, n)
+	@$(call install_copy, udev, 0, 0, 0644, /etc/scsi_id.config)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/scsi_id)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_USB_ID
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/usb_id/usb_id, \
-		/lib/udev/usb_id)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/usb_id)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_VOLUME_ID
-	@$(call install_copy, udev, 0, 0, 0755, \
-		$(UDEV_DIR)/extras/volume_id/vol_id, \
-		/lib/udev/vol_id)
+	@$(call install_copy, udev, 0, 0, 0755, /lib/udev/vol_id)
 
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/extras/volume_id/lib/.libs/libvolume_id.so.1.0.6, \
-		/lib/libvolume_id.so.1.0.6)
+	@$(call install_copy, udev, 0, 0, 0644, /lib/libvolume_id.so.1.0.6)
 	@$(call install_link, udev, libvolume_id.so.1.0.6, /lib/libvolume_id.so.1)
 	@$(call install_link, udev, libvolume_id.so.1.0.6, /lib/libvolume_id.so)
 endif
