@@ -4,10 +4,6 @@ TODO before 2.0.0
 Prio A
 ------
 
-[ ] jbe: Getting the value of an internal ptxdist variable returns always 1 as
-    its exit code ("ptxdist print ROOTDIR" returns with the correct value on stdout
-    but with exit code = 1)
-
 [ ] rsc: we need a "tested distros" strategy for 2.0.0, with
     pre-packaged toolchains.
 
@@ -235,6 +231,9 @@ Before Release
 
 TODO before 2.1.0
 =================
+
+[ ] rsc: 'ptxdist print <variable>' is pretty slow now; shall work with retval=0
+    if variable exists and retval!=0 if not
 
 [ ] jbe: Would there be a solution to supress sysroot-* folders for target system
     (for example bare metall) that do not need a Unix filesystem?
@@ -582,6 +581,12 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: Getting the value of an internal ptxdist variable returns always 1 as
+    its exit code ("ptxdist print ROOTDIR" returns with the correct value on stdout
+    but with exit code = 1)
+
+    Update 20081227: rsc: fixed, but now 'ptxdist print' is pretty slow.
 
 [x] when the drop command is used without a stage, complain about that
     and suggest to use clean instead
