@@ -284,12 +284,13 @@ ptxd_make() {
 ptxd_make_log() {
 	if [ -z "${PTXDIST_QUIET}" ]; then
 		ptxd_make "${@}" 2>&1 | tee -a "${PTX_LOGFILE}"
+		check_pipe_status
 	else
 		exec 3>> "${PTX_LOGFILE}"
 		ptxd_make "${@}" 2>&1- 1>&3 | tee -a "${PTX_LOGFILE}" 3>&-
+		check_pipe_status
 		exec 3>&-
 	fi
-	check_pipe_status
 }
 
 
