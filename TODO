@@ -2,7 +2,8 @@ TODO before 2.0.0
 =================
 
 Prio A
-------
+
+[ ] rsc: in x86 simulation: ipkg list doesn't work?
 
 [ ] rsc: config dependency dropper doesn't work yet; it assumes that all
     labels correspond to their package names, but that's not true for
