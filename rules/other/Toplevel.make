@@ -94,10 +94,7 @@ endif
 # ----------------------------------------------------------------------------
 
 print-%:
-	@echo "$($(*))"
-
-exists-%:
-	@[ "$(origin $(*))" != "undefined" ]
+	@[ "$(origin $(*))" != "undefined" ] && echo "$($(*))"
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:
