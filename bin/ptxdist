@@ -1289,7 +1289,7 @@ do_select_toolchain() {
 		local hint="/opt/${vendor}/${target}/${gcc}${java}${libc}*/bin"
 
 		# let the shell expand the "*" in the hint, put it into an array
-		toolchain=($(echo ${hint}))
+		toolchain=($(ls -d ${hint} 2>/dev/null))
 
 		# number of items in array == number of found toolchains
 		local num="${#toolchain[@]}"
