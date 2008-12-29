@@ -2,11 +2,6 @@
 
 menu "glibc                         "
 
-config GLIBC_VERSION
-	prompt "glibc Version"
-	string
-	default "2.5"
-
 comment	"Install options"
 
 config GLIBC_C

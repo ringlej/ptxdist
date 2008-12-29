@@ -24,6 +24,15 @@ config CROSSCHAIN_CHECK
 	  to avoid compilation with the wrong compiler version
 	  when you use your own external toolchain.
 
+config GLIBC_VERSION
+	string
+	prompt "check for specific glibc version"
+	default "2.8"
+	help
+	  Specify the glibc version this BSP shall be built with. This information
+          is used to guess the toolchain path if you use "ptxdist toolchain"
+	  without an argument.
+
 config GNU_TARGET
 	string
 	prompt "gnu target"
