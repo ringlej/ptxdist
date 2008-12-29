@@ -134,35 +134,6 @@ menu "install options               "
 		help
 		  FIXME
 
-	config UDEV__INSTALL_ETC_INITD_UDEV
-		bool
-		default y
-		prompt "install /etc/init.d startup script"
-		help
-		  The /etc/init.d/udev script lets you control the udevd daemon.
-
-		choice
-			prompt "Kind of startup script"
-			default UDEV__INSTALL_ETC_INITD_UDEV_DEFAULT
-			depends on UDEV__INSTALL_ETC_INITD_UDEV
-
-			config UDEV__INSTALL_ETC_INITD_UDEV_DEFAULT
-				bool
-				prompt "Use generic"
-				help
-				  Installs a generic /etc/init.d/udev startup script.
-				  See <ptxdist-install>/generic/etc/init.d/udev
-
-			config UDEV__INSTALL_ETC_INITD_UDEV_USER
-				bool
-				prompt "User defined"
-				help
-				  This uses a user defined udev startup script. PTXdist
-				  uses files projectroot/etc/init.d/udev in your local
-				  project
-
-		endchoice
-
 	config UDEV__RC_D_LINK
 		string
 		prompt "link name in /etc/rc.d"

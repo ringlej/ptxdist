@@ -10,17 +10,18 @@
 # $2: UID
 # $3: GID
 # $4: permissions (octal)
-# $5: source (for files); directory (for directories)
-# $6: a) destination (for files); empty (for directories). Prefixed with $(ROOTDIR),
-#     so it needs to have a leading /
-#     b) empty -> src file is taken from PKG_PKGDIR, so you only have to specify
-#        a path like /usr/bin/blub there
-# $7: strip (for files; y|n); default is to strip
 #
-#	PKG_PKGDIR="$(PKGDIR)/$($(call uppercase, $(1)))";					\
-#	if [ -z "$(6)" ]; then									\
-#		SRC=$${PKG_PKGDIR}/$$SRC;							\
-#	fi; 											\
+# a) install src->dst:
+#     $5: source (for files); directory (for directories)
+#     $6: destination (for files); empty (for directories). Prefixed with
+#         $(ROOTDIR), so it needs to have a leading /
+#
+# b) install from PKG_PKGDIR (result of 'make install'):
+#
+#     $5: "-": source is taken from $(PKG_PKGDIR)/$destination
+#     $6: destination;
+#
+# $7: strip (for files; y|n); default is to strip
 #
 install_copy = 											\
 	PACKET="$(strip $(1))";									\
@@ -30,6 +31,11 @@ install_copy = 											\
 	SRC="$(strip $(5))";									\
 	DST="$(strip $(6))";									\
 	STRIP="$(strip $(7))";									\
+	PKG_PKGDIR="$(PKGDIR)/$($(call uppercase, $(1)))";					\
+												\
+	if [ "$$SRC" = "-" ]; then								\
+		SRC=$${PKG_PKGDIR}/$$DST;							\
+	fi; 											\
 												\
 	PER_NFS=$$(printf "0%o" $$(( 0$${PER} & ~06000 )) );					\
 	PER_NFS_WRITABLE=$$(printf "0%o" $$(( 0$${PER} & ~06000 | 00200 )) );			\
