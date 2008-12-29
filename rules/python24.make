@@ -177,7 +177,7 @@ endif
 
 	files=$$(cd $(PYTHON24_INST_TMP) && find -type f | sed "s/^\.//"); \
 	for i in $$files; do \
-		access=$$(stat -c "%a" $(PYTHON24_INST_TMP)$$i); \
+		access=$$(printf "%04i" $$(stat -c "%a" $(PYTHON24_INST_TMP)$$i)); \
 		$(call install_copy, python24, 0, 0, $$access, $(PYTHON24_INST_TMP)$$i, $$i); \
 	done
 ifdef PTXCONF_PYTHON24_SYMLINK
