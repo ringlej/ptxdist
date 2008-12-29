@@ -1,5 +1,10 @@
 ## SECTION=debug_tools
 
+# must be before GDB - used by gdb & gdbserver
+config GDB__VERSION
+       string "gdb version"
+       default 6.8
+
 menuconfig GDB
 	tristate
 	prompt "gdb (the real one)            "
@@ -7,10 +12,6 @@ menuconfig GDB
 	select NCURSES if GDB__NCURSES
 
 if GDB
-
-config GDB__VERSION
-       string "gdb version"
-       default 6.8
 
 config GDB__SHARED
 	bool "build shared"
