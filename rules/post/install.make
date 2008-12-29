@@ -32,6 +32,7 @@ install_copy = 											\
 	STRIP="$(strip $(7))";									\
 												\
 	PER_NFS=$$(printf "0%o" $$(( 0$${PER} & ~06000 )) );					\
+	PER_NFS_WRITABLE=$$(printf "0%o" $$(( 0$${PER} & ~06000 | 00200 )) );			\
 												\
 	if [ -z "$(6)" ]; then									\
 		echo "install_copy:";								\
@@ -72,12 +73,12 @@ install_copy = 											\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		$(INSTALL) -m $$PER_NFS -D "$$SRC" "$(ROOTDIR)$$DST";				\
+		$(INSTALL) -m $$PER_NFS_WRITABLE -D "$$SRC" "$(ROOTDIR)$$DST";			\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
 		fi;										\
-		$(INSTALL) -m $$PER_NFS -D "$$SRC" "$(ROOTDIR_DEBUG)$$DST";			\
+		$(INSTALL) -m $$PER_NFS_WRITABLE -D "$$SRC" "$(ROOTDIR_DEBUG)$$DST";		\
 		if [ $$? -ne 0 ]; then								\
 			echo "Error: install_copy failed!";					\
 			exit 1;									\
@@ -106,6 +107,8 @@ install_copy = 											\
 				esac;									\
 			;;										\
 		esac;											\
+		chmod $$PER_NFS "$(ROOTDIR)$$DST";							\
+		chmod $$PER_NFS "$(ROOTDIR_DEBUG)$$DST";						\
 		mkdir -p "$(PKGDIR)/$$PACKET.tmp";							\
 		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> "$(STATEDIR)/$$PACKET.perms";			\
 	fi
