@@ -2,7 +2,7 @@
 # $Id: cppunit.make $
 #
 # Copyright (C) 2005 by Shahar Livne <shahar@livnex.com>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_CPPUNIT) += cppunit
 #
 # Paths and names
 #
-CPPUNIT_VERSION	= 1.10.2
+CPPUNIT_VERSION	= 1.12.1
 CPPUNIT		= cppunit-$(CPPUNIT_VERSION)
 CPPUNIT_SUFFIX	= tar.gz
 CPPUNIT_URL	= $(PTXCONF_SETUP_SFMIRROR)/cppunit/$(CPPUNIT).$(CPPUNIT_SUFFIX)
@@ -60,7 +60,7 @@ cppunit_prepare: $(STATEDIR)/cppunit.prepare
 
 CPPUNIT_PATH	=  PATH=$(CROSS_PATH)
 CPPUNIT_ENV 	=  $(CROSS_ENV)
-#CPPUNIT_ENV	+= 
+#CPPUNIT_ENV	+=
 
 #
 # autoconf
@@ -116,11 +116,11 @@ $(STATEDIR)/cppunit.targetinstall: $(cppunit_targetinstall_deps_default)
 	@$(call install_fixup, cppunit,DESCRIPTION,missing)
 
 	@$(call install_copy, cppunit, 0, 0, 0644, \
-		$(CPPUNIT_DIR)/src/cppunit/.libs/libcppunit-1.10.so.2.0.0, \
-		/usr/lib/libcppunit-1.10.so.2.0.0)
+		$(CPPUNIT_DIR)/src/cppunit/.libs/libcppunit-1.12.so.1.0.0, \
+		/usr/lib/libcppunit-1.12.so.1.0.0)
 
-	@$(call install_link, cppunit, libcppunit-1.10.so.2.0.0, /usr/lib/libcppunit-1.10.so.2)
-	@$(call install_link, cppunit, libcppunit-1.10.so.2.0.0, /usr/lib/libcppunit.so)
+	@$(call install_link, cppunit, libcppunit-1.12.so.1.0.0, /usr/lib/libcppunit-1.10.so.1)
+	@$(call install_link, cppunit, libcppunit-1.12.so.1.0.0, /usr/lib/libcppunit.so)
 
 	@$(call install_finish, cppunit)
 
