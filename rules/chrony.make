@@ -2,7 +2,7 @@
 # $Id: template 2680 2005-05-27 10:29:43Z rsc $
 #
 # Copyright (C) 2005 by Bjoern Buerger <b.buerger@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_CHRONY) += chrony
 #
 # Paths and names
 #
-CHRONY_VERSION	:= 1.20
+CHRONY_VERSION	:= 1.23
 CHRONY		:= chrony-$(CHRONY_VERSION)
 CHRONY_SUFFIX	:= tar.gz
 CHRONY_URL	:= http://chrony.sunsite.dk/download/$(CHRONY).$(CHRONY_SUFFIX)
@@ -65,7 +65,8 @@ CHRONY_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 CHRONY_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR)
+	$(CROSS_AUTOCONF_USR) \
+	--disable-readline
 
 $(STATEDIR)/chrony.prepare: $(chrony_prepare_deps_default)
 	@$(call targetinfo, $@)
@@ -131,7 +132,7 @@ $(STATEDIR)/chrony.targetinstall: $(chrony_targetinstall_deps_default)
 ifdef PTXCONF_CHRONY_INSTALL_CHRONY_COMMAND
 	@$(call install_copy, chrony, 0, 0, 0755, 			\
 		$(PTXDIST_TOPDIR)/generic/usr/bin/chrony_command, 	\
-		/usr/bin/chrony_command, n)			
+		/usr/bin/chrony_command, n)
 endif
 
 # ---------------------------
@@ -145,7 +146,7 @@ ifdef PTXCONF_CHRONY_DEFAULTCONFIG
 		/etc/chrony/chrony.conf, n)
 	@$(call install_copy, chrony, 0, 0, 0600, 			\
 		$(PTXDIST_TOPDIR)/generic/etc/chrony/chrony.keys, 	\
-		/etc/chrony/chrony.keys, n)		
+		/etc/chrony/chrony.keys, n)
 endif
 ifdef PTXCONF_CHRONY_USERCONFIG
 # users one
@@ -154,7 +155,7 @@ ifdef PTXCONF_CHRONY_USERCONFIG
 		/etc/chrony/chrony.conf, n)
 	@$(call install_copy, chrony, 0, 0, 0600, 				\
 		$(PTXDIST_WORKSPACE)/projectroot/etc/chrony/chrony.keys, 	\
-		/etc/chrony/chrony.keys, n)		
+		/etc/chrony/chrony.keys, n)
 endif
 # modify placeholders with data from configuration
 	@$(call install_replace, chrony, /etc/chrony/chrony.conf, \
@@ -186,15 +187,15 @@ ifneq ($(PTXCONF_ROOTFS_ETC_INITD_CHRONY_LINK),"")
 	../init.d/chrony, 					\
 	/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_CHRONY_LINK))
 endif
-endif	
+endif
 
 # ---------------------------
-# install chrony command helper script 
+# install chrony command helper script
 #
 ifdef PTXCONF_CHRONY_INSTALL_CHRONY_COMMAND
 	@$(call install_copy, chrony, 0, 0, 0755, 			\
 		$(PTXDIST_TOPDIR)/generic/usr/bin/chrony_command, 	\
-		/usr/bin/chrony_command, n)			
+		/usr/bin/chrony_command, n)
 endif
 
 # ---------------------------
@@ -203,7 +204,7 @@ endif
 ifdef PTXCONF_CHRONY_INSTALL_CHRONY_STAT
 	@$(call install_copy, chrony, 0, 0, 0755, 			\
 		$(PTXDIST_TOPDIR)/generic/usr/bin/chrony_stat, 	\
-		/usr/bin/chrony_stat, n)			
+		/usr/bin/chrony_stat, n)
 endif
 
 
