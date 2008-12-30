@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBCGICC) += libcgicc
 #
 # Paths and names
 #
-LIBCGICC_VERSION	:= 3.2.3
+LIBCGICC_VERSION	:= 3.2.7
 LIBCGICC		:= cgicc-$(LIBCGICC_VERSION)
 LIBCGICC_SUFFIX		:= tar.gz
 LIBCGICC_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/cgicc/$(LIBCGICC).$(LIBCGICC_SUFFIX)
@@ -62,9 +62,9 @@ $(STATEDIR)/libcgicc.targetinstall:
 	@$(call install_fixup, libcgicc,DEPENDS,)
 	@$(call install_fixup, libcgicc,DESCRIPTION,missing)
 
-	@$(call install_copy, libcgicc, 0,0, 644, $(LIBCGICC_DIR)/cgicc/.libs/libcgicc.so.5.0.1, /usr/lib/libcgicc.so.5.0.1)
-	@$(call install_link, libcgicc, libcgicc.so.5.0.1, /usr/lib/libcgicc.so.5)
-	@$(call install_link, libcgicc, libcgicc.so.5.0.1, /usr/lib/libcgicc.so)
+	@$(call install_copy, libcgicc, 0,0, 644, $(LIBCGICC_DIR)/cgicc/.libs/libcgicc.so.5.0.2, /usr/lib/libcgicc.so.5.0.2)
+	@$(call install_link, libcgicc, libcgicc.so.5.0.2, /usr/lib/libcgicc.so.5)
+	@$(call install_link, libcgicc, libcgicc.so.5.0.2, /usr/lib/libcgicc.so)
 
 	@$(call install_finish, libcgicc)
 
