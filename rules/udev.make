@@ -104,10 +104,6 @@ ifdef PTXCONF_ROOTFS_UDEV__DEFAULT_RULES
 	for file in *; do \
 		$(call install_copy, udev, 0, 0, 0644, $(UDEV_DIR)/rules/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
 	done
-	$(call install_copy, udev, 0, 0, 0644, -, /lib/udev/rules.d/40-alsa.rules);
-	$(call install_copy, udev, 0, 0, 0644, -, /lib/udev/rules.d/40-isdn.rules);
-	$(call install_copy, udev, 0, 0, 0644, -, /lib/udev/rules.d/64-device-mapper.rules);
-	$(call install_copy, udev, 0, 0, 0644, -, /lib/udev/rules.d/64-md-raid.rules);
 endif
 
 	#
