@@ -80,6 +80,7 @@ menu "backends                      "
 
 	config ELEKTRA__BERKELEYDB
 		bool
+		depends on BROKEN
 		prompt "berkeleydb backend"
 
 	config ELEKTRA__FSTAB
