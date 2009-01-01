@@ -51,9 +51,9 @@ LIBOOP_AUTOCONF := $(CROSS_AUTOCONF_USR)
 liboop_compile: $(STATEDIR)/liboop.compile
 
 $(STATEDIR)/liboop.compile: $(liboop_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBOOP_DIR) && $(LIBOOP_ENV) $(LIBOOP_PATH) make $(PARALLELMFLAGS_BROKEN)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	cd $(LIBOOP_DIR) && $(LIBOOP_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
