@@ -1749,7 +1749,7 @@ setup_libs_early() {
 	; do
 		abs_file="${PTXDIST_TOPDIR}/${file}"
 		if [ -e "${abs_file}" ]; then
-			. "${abs_file}"
+			. "${abs_file}" || exit $?
 		else
 			echo "${PROMPT}FATAL didn't find ${abs_file}"
 			exit 1
