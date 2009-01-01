@@ -110,4 +110,6 @@ function add_prefix(IN,    in_match) {
 
 END {
 	close(out_file);
+
+	print("successfully imported: \"" in_file "\"");
 }
