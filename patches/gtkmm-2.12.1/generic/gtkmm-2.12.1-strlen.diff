@@ -1,0 +1,24 @@
+Subject: include cstring where necessary
+
+Fix missing declarations while building with gcc-4.3.2 by including the
+proper header file.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ gtk/gtkmm/scale.cc |    2 ++
+ 1 file changed, 2 insertions(+)
+
+Index: gtkmm-2.12.1/gtk/gtkmm/scale.cc
+===================================================================
+--- gtkmm-2.12.1.orig/gtk/gtkmm/scale.cc
++++ gtkmm-2.12.1/gtk/gtkmm/scale.cc
+@@ -33,6 +33,8 @@
+ #include <gtk/gtkvscale.h>
+ #include <math.h>
+ 
++#include <cstring>
++
+ namespace Gtk
+ {
+ 
