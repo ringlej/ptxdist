@@ -92,7 +92,7 @@ $(STATEDIR)/udev.targetinstall:
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevd)
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevadm)
 ifdef PTXCONF_UDEV__INSTALL_TEST_UDEV
-	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/test-udev)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev/test-udev, /sbin/test-udev)
 endif
 
 	#
