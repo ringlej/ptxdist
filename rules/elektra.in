@@ -85,6 +85,7 @@ menu "backends                      "
 
 	config ELEKTRA__FSTAB
 		bool
+		depends on BROKEN
 		prompt "fstab backend"
 
 	config ELEKTRA__PASSWD
