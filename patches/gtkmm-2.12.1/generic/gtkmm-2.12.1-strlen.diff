@@ -6,10 +6,12 @@ proper header file.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+ demos/gtk-demo/demowindow.cc                   |    1 +
+ demos/gtk-demo/textwidget.cc                   |    2 ++
  examples/book/custom/custom_widget/mywidget.cc |    1 +
  gtk/gtkmm/scale.cc                             |    2 ++
  gtk/gtkmm/targetentry.cc                       |    2 +-
- 3 files changed, 4 insertions(+), 1 deletion(-)
+ 5 files changed, 7 insertions(+), 1 deletion(-)
 
 Index: gtkmm-2.12.1/gtk/gtkmm/scale.cc
 ===================================================================
@@ -49,3 +51,28 @@ Index: gtkmm-2.12.1/gtk/gtkmm/targetentry.cc
  
  namespace Gtk
  {
+Index: gtkmm-2.12.1/demos/gtk-demo/textwidget.cc
+===================================================================
+--- gtkmm-2.12.1.orig/demos/gtk-demo/textwidget.cc
++++ gtkmm-2.12.1/demos/gtk-demo/textwidget.cc
+@@ -19,6 +19,8 @@
+  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+  */
+ 
++#include <cstring>
++
+ #include "textwidget.h"
+ #include "pangomm/fontdescription.h"
+ 
+Index: gtkmm-2.12.1/demos/gtk-demo/demowindow.cc
+===================================================================
+--- gtkmm-2.12.1.orig/demos/gtk-demo/demowindow.cc
++++ gtkmm-2.12.1/demos/gtk-demo/demowindow.cc
+@@ -30,6 +30,7 @@
+ #include <vector>
+ #include <cctype>
+ #include <cerrno>
++#include <cstring>
+ #include <stdio.h>
+ 
+ #ifdef NEED_FLOCKFILE_PROTO
