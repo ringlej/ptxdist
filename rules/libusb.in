@@ -1,13 +1,15 @@
 ## SECTION=system_libraries
 menuconfig LIBUSB
 	tristate
-	prompt "libusb                        "
+	prompt "libusb-0.x                    "
+	help
+	  Library to enable user space application programs to
+	  communicate with USB devices.
 
 if LIBUSB
 
 config LIBUSB_DOCS
 	bool
-	depends on LIBUSB
 	prompt "Documentation"
 	help
 	  Activate to build the libusb-documentation
