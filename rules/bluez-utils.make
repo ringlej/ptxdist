@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_BLUEZ_UTILS) += bluez-utils
 #
 # Paths and names
 #
-BLUEZ_UTILS_VERSION	:= 3.20
+BLUEZ_UTILS_VERSION	:= 3.36
 BLUEZ_UTILS		:= bluez-utils-$(BLUEZ_UTILS_VERSION)
 BLUEZ_UTILS_SUFFIX	:= tar.gz
 BLUEZ_UTILS_URL		:= http://bluez.sourceforge.net/download/$(BLUEZ_UTILS).$(BLUEZ_UTILS_SUFFIX)

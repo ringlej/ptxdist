@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_BLUEZ_LIBS) += bluez-libs
 #
 # Paths and names
 #
-BLUEZ_LIBS_VERSION	:= 3.20
+BLUEZ_LIBS_VERSION	:= 3.36
 BLUEZ_LIBS		:= bluez-libs-$(BLUEZ_LIBS_VERSION)
 BLUEZ_LIBS_SUFFIX	:= tar.gz
 BLUEZ_LIBS_URL		:= http://bluez.sourceforge.net/download/$(BLUEZ_LIBS).$(BLUEZ_LIBS_SUFFIX)
@@ -115,10 +115,10 @@ $(STATEDIR)/bluez-libs.targetinstall: $(bluez-libs_targetinstall_deps_default)
 	@$(call install_fixup, bluez-libs,DESCRIPTION,missing)
 
 	@$(call install_copy, bluez-libs, 0, 0, 0644, \
-		$(BLUEZ_LIBS_DIR)/src/.libs/libbluetooth.so.2.9.0, \
-		/usr/lib/libbluetooth.so.2.9.0)
-	@$(call install_link, bluez-libs, libbluetooth.so.2.9.0, /usr/lib/libbluetooth.so.2)
-	@$(call install_link, bluez-libs, libbluetooth.so.2.9.0, /usr/lib/libbluetooth.so)
+		$(BLUEZ_LIBS_DIR)/src/.libs/libbluetooth.so.2.11.2, \
+		/usr/lib/libbluetooth.so.2.11.2)
+	@$(call install_link, bluez-libs, libbluetooth.so.2.11.2, /usr/lib/libbluetooth.so.2)
+	@$(call install_link, bluez-libs, libbluetooth.so.2.11.2, /usr/lib/libbluetooth.so)
 
 	@$(call install_finish, bluez-libs)
 
