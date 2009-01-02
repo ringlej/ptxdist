@@ -1,8 +1,12 @@
+---
+ source/configure.in |    8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
 Index: source/configure.in
 ===================================================================
 --- source/configure.in.orig
 +++ source/configure.in
-@@ -1403,7 +1403,7 @@ AC_DEFINE(HAVE_PRCTL, 1, [Whether prctl 
+@@ -1386,7 +1386,7 @@ AC_DEFINE(HAVE_PRCTL, 1, [Whether prctl 
  case "$host_os" in
      *linux*)
         # glibc <= 2.3.2 has a broken getgrouplist
@@ -11,7 +15,7 @@ Index: source/configure.in
  #include <unistd.h>
  #include <sys/utsname.h>
  main() {
-@@ -1419,10 +1419,14 @@ main() {
+@@ -1402,10 +1402,14 @@ main() {
  #endif
         exit(0);
  }

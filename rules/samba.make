@@ -17,26 +17,12 @@ PACKAGES-$(PTXCONF_SAMBA) += samba
 #
 # Paths and names
 #
-SAMBA_VERSION	:= 3.0.23d
+SAMBA_VERSION	:= 3.0.33
 SAMBA		:= samba-$(SAMBA_VERSION)
 SAMBA_SUFFIX	:= tar.gz
 SAMBA_URL	:= http://us5.samba.org/samba/ftp/old-versions/$(SAMBA).$(SAMBA_SUFFIX)
 SAMBA_SOURCE	:= $(SRCDIR)/$(SAMBA).$(SAMBA_SUFFIX)
 SAMBA_DIR	:= $(BUILDDIR)/$(SAMBA)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-samba_get: $(STATEDIR)/samba.get
-
-$(STATEDIR)/samba.get: $(samba_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(SAMBA_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, SAMBA)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -137,7 +123,7 @@ $(STATEDIR)/samba.targetinstall: $(samba_targetinstall_deps_default)
 	@$(call install_fixup, samba,DEPENDS,)
 	@$(call install_fixup, samba,DESCRIPTION,missing)
 
-	@$(call install_copy, samba, 0, 0, 0755, /etc/samba)	
+	@$(call install_copy, samba, 0, 0, 0755, /etc/samba)
 
 ifdef PTXCONF_SAMBA_COMMON
 	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/nmblookup, /usr/bin/nmblookup)
