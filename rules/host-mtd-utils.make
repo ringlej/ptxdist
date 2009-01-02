@@ -65,7 +65,7 @@ $(STATEDIR)/host-mtd-utils.compile:
 	cd $(HOST_MTD_UTILS_DIR) && \
 		$(HOST_MTD_UTILS_PATH) \
 		$(HOST_MTD_UTILS_COMPILE_ENV) \
-		$(MAKE) $(HOST_MTD_UTILS_MAKEVARS) $(PARALLELMFLAGS)
+		$(MAKE) $(HOST_MTD_UTILS_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
