@@ -17,9 +17,9 @@ PACKAGES-$(PTXCONF_MTD_UTILS) += mtd-utils
 #
 # Paths and names
 #
-MTD_UTILS_VERSION	:= 1.0.0
+MTD_UTILS_VERSION	:= 1.2.0
 MTD_UTILS		:= mtd-utils-$(MTD_UTILS_VERSION)
-MTD_UTILS_SUFFIX	:= tar.gz
+MTD_UTILS_SUFFIX	:= tar.bz2
 MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_SOURCE	:= $(SRCDIR)/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_DIR		:= $(BUILDDIR)/$(MTD_UTILS)
@@ -43,9 +43,9 @@ MTD_UTILS_ENV 		:= \
 	CPPFLAGS='$(CROSS_CPPFLAGS)' \
 	LDFLAGS='$(CROSS_LDFLAGS)' \
 	WITHOUT_XATTR=1 \
-	WITHOUT_LZO=1 \
+	WITHOUT_LZO=1
 
-MTD_UTILS_MAKEVARS	:= BUILDDIR=.
+MTD_UTILS_MAKEVARS	:= BUILDDIR=. WITHOUT_XATTR=1 WITHOUT_LZO=1
 
 $(STATEDIR)/mtd-utils.prepare:
 	@$(call targetinfo)
@@ -57,7 +57,8 @@ $(STATEDIR)/mtd-utils.prepare:
 
 $(STATEDIR)/mtd-utils.compile:
 	@$(call targetinfo)
-	cd $(MTD_UTILS_DIR) && $(MTD_UTILS_PATH) $(MTD_UTILS_ENV) $(MAKE) $(PARALLELMFLAGS)
+	cd $(MTD_UTILS_DIR) && $(MTD_UTILS_PATH) $(MTD_UTILS_ENV) \
+		$(MAKE) $(MTD_UTILS_MAKEVARS) $(PARALLELMFLAGS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -129,9 +130,6 @@ ifdef PTXCONF_MTD_UTILS_NFTL_FORMAT
 endif
 ifdef PTXCONF_MTD_UTILS_NFTLDUMP
 	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_DIR)/nftldump, /sbin/nftldump)
-endif
-ifdef PTXCONF_MTD_UTILS_MKJFFS
-	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_DIR)/mkfs.jffs, /sbin/mkfs.jffs)
 endif
 ifdef PTXCONF_MTD_UTILS_MKJFFS2
 	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_DIR)/mkfs.jffs2, /sbin/mkfs.jffs2)

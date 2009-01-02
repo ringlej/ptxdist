@@ -44,10 +44,13 @@ $(STATEDIR)/host-mtd-utils.extract:
 
 HOST_MTD_UTILS_COMPILE_ENV := \
 	$(HOST_ENV) \
-	WITHOUT_XATTR=1
+	WITHOUT_XATTR=1 \
+	WITHOUT_LZO=1
 
 HOST_MTD_UTILS_MAKEVARS	:= \
-	PREFIX="$(PTXCONF_SYSROOT_HOST)"
+	PREFIX="$(PTXCONF_SYSROOT_HOST)" \
+	WITHOUT_XATTR=1 \
+	WITHOUT_LZO=1
 
 $(STATEDIR)/host-mtd-utils.prepare:
 	@$(call targetinfo)
@@ -62,7 +65,7 @@ $(STATEDIR)/host-mtd-utils.compile:
 	cd $(HOST_MTD_UTILS_DIR) && \
 		$(HOST_MTD_UTILS_PATH) \
 		$(HOST_MTD_UTILS_COMPILE_ENV) \
-		$(MAKE) $(PARALLELMFLAGS_BROKEN)
+		$(MAKE) $(HOST_MTD_UTILS_MAKEVARS) $(PARALLELMFLAGS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

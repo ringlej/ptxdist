@@ -112,12 +112,6 @@ config MTD_UTILS_NFTLDUMP
 	help
 	  Dumping the content of NFTL partitions on a "Physical Disk"
 
-config MTD_UTILS_MKJFFS
-	bool
-	prompt "mkfs.jffs"
-	help
-	  Build a JFFS image in a file, from a given directory tree.
-
 config MTD_UTILS_MKJFFS2
 	bool
 	prompt "mkfs.jffs2"
