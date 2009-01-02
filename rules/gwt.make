@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_GWT) += gwt
 GWT_VERSION		:= 1.0.1
 GWT			:= gwt-$(GWT_VERSION)
 GWT_SUFFIX		:= tar.bz2
-GWT_URL			:= file://${PTXDIST_WORKSPACE}/local_src/$(GWT).$(GWT_SUFFIX)
+GWT_URL			:= http://www.pengutronix.de/software/gwt/download/$(GWT).$(GWT_SUFFIX)
 GWT_SOURCE		:= $(SRCDIR)/$(GWT).$(GWT_SUFFIX)
 GWT_DIR			:= $(BUILDDIR)/$(GWT)
 
