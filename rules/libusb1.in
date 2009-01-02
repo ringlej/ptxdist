@@ -1,0 +1,35 @@
+## SECTION=system_libraries
+menuconfig LIBUSB1
+	tristate
+	prompt "libusb-1.x                    "
+	help
+	  Library to enable user space application programs to
+	  communicate with USB devices.
+	  Note: libusb-1.x is not binary compatible with its precedessor
+	  libusb-0.x!
+
+if LIBUSB1
+
+config LIBUSB1_DISABLE_LOG
+	bool
+	prompt "Disable all log"
+	default y
+	help
+	  Disable all logging
+
+config LIBUSB1_DEBUG_LOG
+	bool
+	prompt "Enable debug log"
+	depends on !LIBUSB1_DISABLE_LOG
+	help
+	  Enable full debug logging
+
+config LIBUSB1_BUILD_STATIC
+	bool
+	prompt "Build static only"
+	help
+	  Build a static only version of this library. This makes sense if only
+	  one program will use this library on the target and it makes even
+	  more sense if a CPU with low register count (like x86) is in use.
+
+endif
