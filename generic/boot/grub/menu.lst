@@ -1,0 +1,16 @@
+serial --unit=0 --speed=115200
+terminal --timeout=2 serial console
+
+default		0
+timeout		2
+color cyan/blue white/blue
+
+title		Standalone Boot
+root		(hd0,0)
+kernel		/boot/bzImage root=/dev/hda1 console=ttyS0,115200 ide=nodma
+
+title		Network Boot
+ifconfig	--server=@SERVERIP@ --gateway=@GATEWAY@ --mask=@NETMASK@ --address=@IPADDR@
+root		(nd)
+kernel		(nd)/linux root=/dev/nfs console=ttyS0,115200 ide=nodma ip=@IPADDR@:@SERVERIP@:@GATEWAY@:@NETMASK@::eth0: nfsroot=@NFSROOT_PATH@
+
