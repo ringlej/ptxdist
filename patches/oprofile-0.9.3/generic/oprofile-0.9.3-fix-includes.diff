@@ -1,0 +1,238 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: fix cross compiling issues with gcc-4.3.2
+
+Fix the following errors which turn up when building with gcc-4.3.2:
+
+In file included from bfd_support.cpp:13:
+op_bfd.h:174: warning: type qualifiers ignored on function return type
+bfd_support.cpp: In function 'bool<unnamed>::get_debug_link_info(bfd*,
+std::string&, long unsigned int&)':
+bfd_support.cpp:81: error: 'exit' was not declared in this scope
+bfd_support.cpp:85: error: 'strlen' was not declared in this scope
+bfd_support.cpp: In function 'bool interesting_symbol(asymbol*)':
+bfd_support.cpp:338: error: 'strcmp' was not declared in this scope
+bfd_support.cpp:352: error: 'strcmp' was not declared in this scope
+bfd_support.cpp: In destructor 'bfd_info::~bfd_info()':
+bfd_support.cpp:406: error: 'free' was not declared in this scope
+make[4]: *** [bfd_support.o] Error 1
+
+file_manip.cpp: In function 'const std::string op_realpath(const
+std::string&)':
+file_manip.cpp:99: error: 'realpath' was not declared in this scope
+make[4]: *** [file_manip.o] Error 1
+
+and several other similar cases.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ libabi/opimport.cpp           |    2 ++
+ libpp/op_header.cpp           |    1 +
+ libpp/profile.cpp             |    2 +-
+ libpp/sample_container.cpp    |    1 +
+ libregex/demangle_symbol.cpp  |    2 ++
+ libutil++/bfd_spu_support.cpp |    2 +-
+ libutil++/bfd_support.cpp     |    4 +++-
+ libutil++/child_reader.cpp    |    2 ++
+ libutil++/cverb.cpp           |    2 +-
+ libutil++/file_manip.cpp      |    2 ++
+ libutil++/op_spu_bfd.cpp      |    3 ++-
+ pp/common_option.cpp          |    1 +
+ pp/opannotate_options.cpp     |    1 +
+ pp/oparchive.cpp              |    1 +
+ pp/opgprof_options.cpp        |    1 +
+ 15 files changed, 22 insertions(+), 5 deletions(-)
+
+Index: oprofile-0.9.3/libutil++/bfd_support.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libutil++/bfd_support.cpp
++++ oprofile-0.9.3/libutil++/bfd_support.cpp
+@@ -18,7 +18,9 @@
+ #include <iostream>
+ #include <fstream>
+ #include <sstream>
+-#include <string>
++
++#include <cstring>
++#include <cstdlib>
+ 
+ using namespace std;
+ 
+Index: oprofile-0.9.3/libutil++/cverb.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libutil++/cverb.cpp
++++ oprofile-0.9.3/libutil++/cverb.cpp
+@@ -12,7 +12,7 @@
+ #include <fstream>
+ #include <iostream>
+ #include <map>
+-#include <string>
++#include <cstring>
+ 
+ #include "cverb.h"
+ 
+Index: oprofile-0.9.3/libutil++/file_manip.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libutil++/file_manip.cpp
++++ oprofile-0.9.3/libutil++/file_manip.cpp
+@@ -16,7 +16,9 @@
+ #include <fnmatch.h>
+ #include <utime.h>
+ 
++#include <climits>
+ #include <cstdio>
++#include <cstdlib>
+ #include <cerrno>
+ #include <iostream>
+ #include <fstream>
+Index: oprofile-0.9.3/libabi/opimport.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libabi/opimport.cpp
++++ oprofile-0.9.3/libabi/opimport.cpp
+@@ -17,6 +17,8 @@
+ #include <iostream>
+ #include <vector>
+ #include <cassert>
++#include <cstring>
++#include <cstdlib>
+ 
+ #include <sys/types.h>
+ #include <sys/stat.h>
+Index: oprofile-0.9.3/libpp/op_header.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libpp/op_header.cpp
++++ oprofile-0.9.3/libpp/op_header.cpp
+@@ -14,6 +14,7 @@
+ #include <iomanip>
+ #include <set>
+ #include <sstream>
++#include <cstring>
+ 
+ #include "op_exception.h"
+ #include "odb.h"
+Index: oprofile-0.9.3/libpp/profile.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libpp/profile.cpp
++++ oprofile-0.9.3/libpp/profile.cpp
+@@ -13,7 +13,7 @@
+ #include <unistd.h>
+ 
+ #include <iostream>
+-#include <string>
++#include <cstring>
+ #include <sstream>
+ 
+ #include <cerrno>
+Index: oprofile-0.9.3/libpp/sample_container.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libpp/sample_container.cpp
++++ oprofile-0.9.3/libpp/sample_container.cpp
+@@ -13,6 +13,7 @@
+ #include <numeric>
+ #include <algorithm>
+ #include <vector>
++#include <climits>
+ 
+ #include "sample_container.h"
+ 
+Index: oprofile-0.9.3/libregex/demangle_symbol.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libregex/demangle_symbol.cpp
++++ oprofile-0.9.3/libregex/demangle_symbol.cpp
+@@ -8,6 +8,8 @@
+  * @author John Levon
+  */
+ 
++#include <cstdlib>
++
+ #include "config.h"
+ 
+ #include "demangle_symbol.h"
+Index: oprofile-0.9.3/libutil++/bfd_spu_support.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libutil++/bfd_spu_support.cpp
++++ oprofile-0.9.3/libutil++/bfd_spu_support.cpp
+@@ -18,7 +18,7 @@
+ #include <iostream>
+ #include <fstream>
+ #include <sstream>
+-#include <string>
++#include <cstring>
+ #include <sys/types.h>
+ 
+ struct spu_elf {
+Index: oprofile-0.9.3/libutil++/child_reader.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libutil++/child_reader.cpp
++++ oprofile-0.9.3/libutil++/child_reader.cpp
+@@ -9,6 +9,8 @@
+  * @author John Levon
+  */
+ 
++#include <cstdlib>
++#include <cstring>
+ #include <unistd.h>
+ #include <sys/wait.h>
+ 
+Index: oprofile-0.9.3/libutil++/op_spu_bfd.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libutil++/op_spu_bfd.cpp
++++ oprofile-0.9.3/libutil++/op_spu_bfd.cpp
+@@ -9,7 +9,8 @@
+  * (C) Copyright IBM Corporation 2007
+  */
+ 
+-
++#include <cstring>
++#include <cstdlib>
+ #include <fcntl.h>
+ #include <sys/stat.h>
+ 
+Index: oprofile-0.9.3/pp/common_option.cpp
+===================================================================
+--- oprofile-0.9.3.orig/pp/common_option.cpp
++++ oprofile-0.9.3/pp/common_option.cpp
+@@ -12,6 +12,7 @@
+ #include <iostream>
+ #include <sstream>
+ #include <iterator>
++#include <cstdlib>
+ 
+ #include "op_config.h"
+ #include "locate_images.h"
+Index: oprofile-0.9.3/pp/opannotate_options.cpp
+===================================================================
+--- oprofile-0.9.3.orig/pp/opannotate_options.cpp
++++ oprofile-0.9.3/pp/opannotate_options.cpp
+@@ -13,6 +13,7 @@
+ #include <list>
+ #include <iterator>
+ #include <iostream>
++#include <cstdlib>
+ 
+ #include "profile_spec.h"
+ #include "arrange_profiles.h"
+Index: oprofile-0.9.3/pp/oparchive.cpp
+===================================================================
+--- oprofile-0.9.3.orig/pp/oparchive.cpp
++++ oprofile-0.9.3/pp/oparchive.cpp
+@@ -15,6 +15,7 @@
+ 
+ #include <errno.h>
+ #include <string.h>
++#include <cstdlib>
+ 
+ #include <sys/types.h>
+ #include <sys/stat.h>
+Index: oprofile-0.9.3/pp/opgprof_options.cpp
+===================================================================
+--- oprofile-0.9.3.orig/pp/opgprof_options.cpp
++++ oprofile-0.9.3/pp/opgprof_options.cpp
+@@ -13,6 +13,7 @@
+ #include <list>
+ #include <iterator>
+ #include <iostream>
++#include <cstdlib>
+ 
+ #include "opgprof_options.h"
+ #include "popt_options.h"

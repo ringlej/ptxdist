@@ -1,0 +1,25 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: PIPE_BUF needs climit
+
+Fix this error with gcc-4.3.2:
+
+child_reader.cpp:32: error: 'PIPE_BUF' was not declared in this scope
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ libutil++/child_reader.cpp |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: oprofile-0.9.3/libutil++/child_reader.cpp
+===================================================================
+--- oprofile-0.9.3.orig/libutil++/child_reader.cpp
++++ oprofile-0.9.3/libutil++/child_reader.cpp
+@@ -13,6 +13,7 @@
+ #include <sys/wait.h>
+ 
+ #include <cerrno>
++#include <climits>
+ #include <sstream>
+ #include <iostream>
+ 

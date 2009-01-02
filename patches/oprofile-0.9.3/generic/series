@@ -1,1 +1,3 @@
 utils_opcontrol-busybox-kill.diff
+oprofile-0.9.3-PIPE_BUF.diff
+oprofile-0.9.3-fix-includes.diff
