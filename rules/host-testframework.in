@@ -1,9 +1,8 @@
-## SECTION=hosttools_noprompt
+## SECTION=hosttools
 
-menuconfig HOST_TESTFRAMEWORK
+config HOST_TESTFRAMEWORK
 	tristate
 	prompt "host-side testing framework   "
 	default y
 	select HOST_LRZSZ
 	select HOST_CKERMIT
-
