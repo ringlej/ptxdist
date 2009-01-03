@@ -13,25 +13,6 @@ PTX_DIALOG_HEIGHT=0
 PTX_DIALOG_WIDTH=0
 
 
-ptxd_dialog_fselect_old() {
-	local ptr="${1}"
-	local _select="${!1:-${PWD}}"		# deref ptr or use $PWD as default
-
-	exec 3>&1
-	while [ -d "${_select}" -o \! -e "${_select}" ]; do
-		_select="$(dialog \
-			--output-fd 2 \
-			--title "Please choose a ${ptr} file" \
-			--fselect "${_select}/" 14 ${PTX_DIALOG_WIDTH} 2>&1 1>&3)" \
-			|| return
-	done
-	exec 3>&-
-
-	eval "${ptr}"="${_select}"
-}
-
-
-
 #
 # ${1}	variable name in which string is returned
 #       derefed serves as starting point for file selector
@@ -283,12 +264,19 @@ ptxd_make() {
 
 ptxd_make_log() {
 	if [ -z "${PTXDIST_QUIET}" ]; then
-		ptxd_make "${@}" 2>&1 | tee -a "${PTX_LOGFILE}"
-		check_pipe_status
+		{
+			{
+				ptxd_make "${@}" 3>&- |
+				tee -a "${PTX_LOGFILE}" 2>&3 3>&-
+				check_pipe_status || return
+			} 2>&1 >&4 4>&- |
+			tee -a "${PTX_LOGFILE}" >&2 3>&- 4>&-
+			check_pipe_status || return
+		} 3>&2 4>&1
 	else
 		exec 3>> "${PTX_LOGFILE}"
 		ptxd_make "${@}" 2>&1- 1>&3 | tee -a "${PTX_LOGFILE}" 3>&-
-		check_pipe_status
+		check_pipe_status || return
 		exec 3>&-
 	fi
 }
@@ -397,10 +385,7 @@ ptxd_warning() {
 check_pipe_status() {
 	for _pipe_status in "${PIPESTATUS[@]}"; do
 		if [ ${_pipe_status} -ne 0 ]; then
-			echo
-			echo "error: a command in the pipe returned ${_pipe_status}, bailing out"
-			echo
-			exit ${_pipe_status}
+			return ${_pipe_status}
 		fi
 	done
 }
