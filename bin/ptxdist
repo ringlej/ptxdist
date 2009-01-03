@@ -482,7 +482,7 @@ check_compiler() {
 		fi
 
 		# both vendor strings are present. Check them
-		local vendor_is="$(. "${vendor_def}" && echo ${PTXCONF_PROJECT})"
+		local vendor_is="$(source "${vendor_def}" && echo ${PTXCONF_PROJECT})"
 		if [ "$vendor_is" != "$vendor_should" ]; then
 			echo
 			echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
@@ -1590,13 +1590,18 @@ parse_second()
 			;;
 		print)
 			check_ptxconfig || return
-			if [ -n "${!1}" ]; then
+			if [ -z "${1}" ]; then
+				exit 1
+			elif [ -n "${!1}" ]; then
 				echo "${!1}"
 			else
 				check_deps
-				ptxd_make_log "print-${1}"
+				ptxd_make_log "print-${1}" 2>/dev/null || {
+					echo "${1} undefined" >&2
+					exit 1
+				}
 			fi
-			exit ${?}
+			exit 0
 			;;
 		projects)
 			projects
@@ -1749,7 +1754,7 @@ setup_libs_early() {
 	; do
 		abs_file="${PTXDIST_TOPDIR}/${file}"
 		if [ -e "${abs_file}" ]; then
-			. "${abs_file}" || exit $?
+			source "${abs_file}" || exit $?
 		else
 			echo "${PROMPT}FATAL didn't find ${abs_file}"
 			exit 1
@@ -1883,7 +1888,7 @@ setup_platform() {
 	fi
 
 	# reread vars with correct PTXDIST_PLATFORMDIR
-	. "${SCRIPTSDIR}/ptxdist_vars.sh"
+	source "${SCRIPTSDIR}/ptxdist_vars.sh" || exit $?
 
 	if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 		cfg_dir="$(dirname "$(readlink -f "${PTXDIST_PLATFORMCONFIG}")")"
