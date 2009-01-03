@@ -22,7 +22,7 @@ if test -z "${SYSROOT}"; then
     exit 1
 fi
 
-export PKG_CONFIG_LIBDIR=${SYSROOT}/lib/pkgconfig:${SYSROOT}/usr/lib/pkgconfig
+export PKG_CONFIG_LIBDIR="${SYSROOT}/lib/pkgconfig:${SYSROOT}/usr/lib/pkgconfig"
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 unset PKG_CONFIG_PATH
@@ -44,7 +44,7 @@ if ${found_var}; then
 # if someone asks for a variable, if it looks like a path (starting with /)
 # prefix it with sysroot
 #
-    ${PKG_CONFIG} "${@}" |
+    "${PKG_CONFIG}" "${@}" |
     sed -e "s~^/~${SYSROOT}/~"
 else
 #
