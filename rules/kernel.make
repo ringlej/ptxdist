@@ -119,8 +119,8 @@ endif
 $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 	@$(call targetinfo)
 
-	echo "Using kernel config file: $(KERNEL_CONFIG)"
-	install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config
+	@echo "Using kernel config file: $(KERNEL_CONFIG)"
+	@install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config
 
 ifdef PTXCONF_KLIBC
 # tell the kernel where our spec file for initramfs is

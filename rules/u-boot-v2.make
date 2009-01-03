@@ -90,8 +90,8 @@ endif
 $(STATEDIR)/u-boot-v2.prepare: $(U_BOOT_V2_CONFIG)
 	@$(call targetinfo)
 
-	echo "Using U-Boot-v2 config file: $(U_BOOT_V2_CONFIG)"
-	install -m 644 $(U_BOOT_V2_CONFIG) $(U_BOOT_V2_DIR)/.config
+	@echo "Using U-Boot-v2 config file: $(U_BOOT_V2_CONFIG)"
+	@install -m 644 $(U_BOOT_V2_CONFIG) $(U_BOOT_V2_DIR)/.config
 
 	$(call ptx/oldconfig, U_BOOT_V2)
 
