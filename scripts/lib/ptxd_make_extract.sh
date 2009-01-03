@@ -79,7 +79,16 @@ ptxd_make_extract() {
     echo "$(basename "${packet_source}")" >> "${STATEDIR}/packetlist"
     ${extract} -dc "${packet_source}" | tar -C "${dest}" -xf -
 
-    check_pipe_status
+    if ! check_pipe_status; then
+	cat >&2 <<EOF
+
+
+error: extracting '${packet_source}' failed
+
+
+EOF
+	exit 1
+    fi
 }
 
 export -f ptxd_make_extract
