@@ -133,8 +133,41 @@ ptxd_get_ptxconf() {
 export -f ptxd_get_ptxconf
 
 
+
 #
-# $1	what kind of config ("oldconfig", "menuconfig", "dep")
+#
+#
+ptxd_kconfig_migrate() {
+	local part="${1}"
+	local assistent="${PTX_MIGRATEDIR}/migrate_${part}"
+
+	if [ \! -x "${assistent}" ]; then
+		echo "sorry: no support to migrate '${part}'"
+		return 0
+	fi
+
+	cp -- ".config" ".config.old" || return
+	"${assistent}" ".config.old" > ".config"
+	retval=$?
+
+	if [ $retval -ne 0 ]; then
+		ptxd_dialog_msgbox "error: error occured during migration"
+		return ${retval}
+	fi
+
+	if diff -u ".config.old" ".config" >/dev/null; then
+		ptxd_dialog_msgbox "info: migration not necessary"
+	else
+		ptxd_dialog_msgbox "info: successfully migrated '${file_dotconfig}'"
+	fi
+
+	return ${retval}
+}
+
+
+
+#
+# $1	what kind of config ("oldconfig", "menuconfig", "dep", "migrate")
 # $2	part identifier ("ptx", "platform", "collection", "board", "user")
 # $...	optional parameters
 #
@@ -206,7 +239,7 @@ ptxd_kconfig() {
 	ln -sf "${PTX_KGEN_DIR}" generated
 
 	if [ -e "${file_dotconfig}" ]; then
-		cp "${file_dotconfig}" .config || return
+		cp -- "${file_dotconfig}" ".config" || return
 	fi
 
 	local conf="${PTXDIST_TOPDIR}/scripts/kconfig/conf"
@@ -215,7 +248,7 @@ ptxd_kconfig() {
 	export KCONFIG_NOTIMESTAMP="1"
 	case "${config}" in
 	menuconfig)
-		"${mconf}" "${file_kconfig}" || return
+		"${mconf}" "${file_kconfig}"
 		;;
 	oldconfig)
 		#
@@ -224,18 +257,21 @@ ptxd_kconfig() {
 		# tries to automate us.
 		#
 		if tty -s; then
-			"${conf}" -s "${file_kconfig}" || return
+			"${conf}" -s "${file_kconfig}"
 		else
-			"${conf}" -o "${file_kconfig}" || return
+			"${conf}" -o "${file_kconfig}"
 		fi
 		;;
 	dep)
 		copy_back="false"
-		yes "" | "${conf}" -O "${file_kconfig}" || return
+		yes "" | "${conf}" -O "${file_kconfig}"
+		;;
+	migrate)
+		ptxd_kconfig_migrate "${part}"
 		;;
 	esac
-	retval=$?
 
+	local retval=${?}
 	unset KCONFIG_NOTIMESTAMP
 
 	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
