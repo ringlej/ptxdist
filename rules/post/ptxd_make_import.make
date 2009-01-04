@@ -14,6 +14,7 @@
 # ptxdist make import <package>
 #
 %_import: $(STATEDIR)/%.extract
+	@$(call targetinfo)
 	@"${PTX_LIBDIR}/ptxd_make_import.awk" "$(*)" "$($(PTX_MAP_TO_PACKAGE_$(*))_KCONFIG)"
 
 # vim: syntax=make
