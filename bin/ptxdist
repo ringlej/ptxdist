@@ -654,7 +654,7 @@ Setup and Project Actions:
 
   oldconfig			run 'make oldconfig' on ptxconfig file
 
-  migrate			migrate config file from a previous
+  migrate			migrate config files from a previous
 				ptxdist release
 
   toolchain [<path>]		if path is omitted the toolchain is guessed,
@@ -1103,7 +1103,7 @@ do_config()
 	fi
 
 	case "${config}" in
-	"menuconfig"|"oldconfig"|"migrate")
+	"menuconfig"|"oldconfig")
 		;;
 	*)
 		echo
@@ -1142,16 +1142,6 @@ do_config()
 		ptxd_kconfig "${config}" "${part}" "${file_dotconfig}"
 		;;
 	*)
-		case "${config}" in
-		"menuconfig"|"oldconfig")
-			;;
-		*)
-			ptxd_dialog_msgbox \
-				"${PROMPT}error: '${config}' is not supported for '${part}'"
-			return 1
-			;;
-		esac
-		
 		check_if_selected "${part}" || return
 
 		ptxd_dialog_infobox "${PROMPT}Checking dependencies. This may take some seconds."
@@ -1354,6 +1344,23 @@ do_select_toolchain() {
 
 
 #
+# migrate _all_ config files, i.e. run oldconfig on them
+#
+do_migrate()
+{
+	local parts=( platform ptx )
+	local part
+
+	PTX_FORCE=true
+
+	for part in "${parts[@]}"; do
+		do_config oldconfig "${part}" || return
+	done
+}
+
+
+
+#
 #
 #
 do_go()
@@ -1420,9 +1427,9 @@ parse_second()
 			exit 0
 			;;
 
-######## *config, *setup, toolchain, migrate
+######## *config, *setup, toolchain
 
-		menuconfig|oldconfig|migrate)
+		menuconfig|oldconfig)
 			do_config "${cmd}" "${@}"
 			exit ${?}
 			;;
@@ -1495,6 +1502,10 @@ parse_second()
 			exit ${?}
 			;;
 
+		migrate)
+			do_migrate
+			exit ${?}
+			;;
 ######## the rest of it
 
 		bash)

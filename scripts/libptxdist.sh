@@ -135,14 +135,16 @@ export -f ptxd_get_ptxconf
 
 
 #
+# migrate a config file
+# look in PTX_MIGRATEDIR for a migration handler and call it
 #
+# $1	part identifier ("ptx", "platform", "collection", "board", "user")
 #
 ptxd_kconfig_migrate() {
 	local part="${1}"
 	local assistent="${PTX_MIGRATEDIR}/migrate_${part}"
 
 	if [ \! -x "${assistent}" ]; then
-		echo "sorry: no support to migrate '${part}'"
 		return 0
 	fi
 
@@ -155,9 +157,7 @@ ptxd_kconfig_migrate() {
 		return ${retval}
 	fi
 
-	if diff -u ".config.old" ".config" >/dev/null; then
-		ptxd_dialog_msgbox "info: migration not necessary"
-	else
+	if ! diff -u ".config.old" ".config" >/dev/null; then
 		ptxd_dialog_msgbox "info: successfully migrated '${file_dotconfig}'"
 	fi
 
@@ -167,7 +167,7 @@ ptxd_kconfig_migrate() {
 
 
 #
-# $1	what kind of config ("oldconfig", "menuconfig", "dep", "migrate")
+# $1	what kind of config ("oldconfig", "menuconfig", "dep")
 # $2	part identifier ("ptx", "platform", "collection", "board", "user")
 # $...	optional parameters
 #
@@ -256,6 +256,7 @@ ptxd_kconfig() {
 		# oldconfig instead of silentoldconfig if somebody
 		# tries to automate us.
 		#
+		ptxd_kconfig_migrate "${part}" || return
 		if tty -s; then
 			"${conf}" -s "${file_kconfig}"
 		else
@@ -265,9 +266,6 @@ ptxd_kconfig() {
 	dep)
 		copy_back="false"
 		yes "" | "${conf}" -O "${file_kconfig}"
-		;;
-	migrate)
-		ptxd_kconfig_migrate "${part}"
 		;;
 	esac
 
