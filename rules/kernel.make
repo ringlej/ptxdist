@@ -128,9 +128,8 @@ ifdef PTXCONF_KLIBC
 		$(KERNEL_DIR)/.config
 endif
 
-	$(call ptx/oldconfig, KERNEL)
-
-	cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG)
+	@$(call ptx/oldconfig, KERNEL)
+	@cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG)
 
 	@$(call touch)
 
