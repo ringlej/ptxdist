@@ -654,6 +654,9 @@ Setup and Project Actions:
 
   oldconfig			run 'make oldconfig' on ptxconfig file
 
+  migrate			migrate config file from a previous
+				ptxdist release
+
   toolchain [<path>]		if path is omitted the toolchain is guessed,
 				    (guessing works only if platformconfig is
 				     already selected)
@@ -662,9 +665,11 @@ Setup and Project Actions:
   select <config>		if there is no selected_ptxconfig file you can
 				select one of several project configs to be used
   platform <config>		if there is no selected_platform file you can
-				select one of several platform configs to be used
+				select one of several platform
+				configs to be used
   collection <config>		if there is no selected_collection file you can
-				select one of several collection configs to be used
+				select one of several collection
+				configs to be used
 Build Actions:
 
   go				start building the current project
@@ -1098,7 +1103,7 @@ do_config()
 	fi
 
 	case "${config}" in
-	"menuconfig"|"oldconfig")
+	"menuconfig"|"oldconfig"|"migrate")
 		;;
 	*)
 		echo
@@ -1137,6 +1142,16 @@ do_config()
 		ptxd_kconfig "${config}" "${part}" "${file_dotconfig}"
 		;;
 	*)
+		case "${config}" in
+		"menuconfig"|"oldconfig")
+			;;
+		*)
+			ptxd_dialog_msgbox \
+				"${PROMPT}error: '${config}' is not supported for '${part}'"
+			return 1
+			;;
+		esac
+		
 		check_if_selected "${part}" || return
 
 		ptxd_dialog_infobox "${PROMPT}Checking dependencies. This may take some seconds."
@@ -1266,14 +1281,14 @@ do_select_toolchain() {
 				"      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
 			return 1
 		fi
-		
+
 		# gcc
 		local gcc="gcc-${gcc_version}-"
 
 		# java
 		local java="$(ptxd_get_ptxconf PTXCONF_GCCLIBS_GCJ)"
 		java="${java:+java-}"
-		
+
 		# libc
 		local glibc_version="$(ptxd_get_ptxconf PTXCONF_GLIBC_VERSION)"
 		local uclibc_version="$(ptxd_get_ptxconf PTXCONF_UCLIBC_VERSION)"
@@ -1337,6 +1352,7 @@ do_select_toolchain() {
 }
 
 
+
 #
 #
 #
@@ -1345,6 +1361,8 @@ do_go()
 	check_premake || return
 	ptxd_make_log world
 }
+
+
 
 #
 #
@@ -1402,9 +1420,9 @@ parse_second()
 			exit 0
 			;;
 
-######## *config, *setup, toolchain
+######## *config, *setup, toolchain, migrate
 
-		menuconfig|oldconfig)
+		menuconfig|oldconfig|migrate)
 			do_config "${cmd}" "${@}"
 			exit ${?}
 			;;
