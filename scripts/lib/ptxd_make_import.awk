@@ -67,7 +67,7 @@ FNR == 1 {
 #
 # add the prefix to a suspicious line
 #
-/^[[:space:]]*(config|select|depends|default)[[:space:]]+/ {
+/^[[:space:]]*(config|select|default|if|depends)[[:space:]]+/ {
 	$0 = add_prefix($0);
 }
 
@@ -101,7 +101,7 @@ function add_prefix(IN,    in_match) {
 #                      |
 #                 in_match[4]
 
-	match(IN, /^([[:space:]]*(config|select|default|depends([[:space:]]+on)?)[[:space:]]+)(.*)$/, in_match);
+	match(IN, /^([[:space:]]*(config|select|default|if|depends([[:space:]]+on)?)[[:space:]]+)(.*)$/, in_match);
 
 	# don't convert "N" symbols like in "default N"
 	return in_match[1] gensub(/(!)?(N[A-Z0-9_]+|[A-MO-Z]+[A-Z0-9_]*)/, "\\1" prefix "\\2", "g", in_match[4]);
