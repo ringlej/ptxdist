@@ -4,16 +4,15 @@
 #
 
 menu "Busybox Library Tuning"
-	depends on BUSYBOX
 
-config BB_CONFIG_PASSWORD_MINLEN
+config BUSYBOX_PASSWORD_MINLEN
 	int "Minimum password length"
 	default 6
 	range 5 32
 	help
 	  Minimum allowable password length.
 
-config BB_CONFIG_MD5_SIZE_VS_SPEED
+config BUSYBOX_MD5_SIZE_VS_SPEED
 	int "MD5: Trade Bytes for Speed"
 	default 2
 	range 0 3
@@ -27,14 +26,14 @@ config BB_CONFIG_MD5_SIZE_VS_SPEED
 	  2                   3.0                5088
 	  3 (smallest)        5.1                4912
 
-config BB_CONFIG_FEATURE_FAST_TOP
+config BUSYBOX_FEATURE_FAST_TOP
 	bool "Faster /proc scanning code (+100 bytes)"
 	default n
 	help
 	  This option makes top (and ps) ~20% faster (or 20% less CPU hungry),
 	  but code size is slightly bigger.
 
-config BB_CONFIG_FEATURE_ETC_NETWORKS
+config BUSYBOX_FEATURE_ETC_NETWORKS
 	bool "Support for /etc/networks"
 	default n
 	help
@@ -42,68 +41,68 @@ config BB_CONFIG_FEATURE_ETC_NETWORKS
 	  a rarely used feature which allows you to use names
 	  instead of IP/mask pairs in route command.
 
-config BB_CONFIG_FEATURE_EDITING
+config BUSYBOX_FEATURE_EDITING
 	bool "Command line editing"
 	default n
 	help
 	  Enable line editing (mainly for shell command line).
 
-config BB_CONFIG_FEATURE_EDITING_MAX_LEN
+config BUSYBOX_FEATURE_EDITING_MAX_LEN
 	int "Maximum length of input"
 	range 128 8192
 	default 1024
-	depends on BB_CONFIG_FEATURE_EDITING
+	depends on BUSYBOX_FEATURE_EDITING
 	help
 	  Line editing code uses on-stack buffers for storage.
 	  You may want to decrease this parameter if your target machine
 	  benefits from smaller stack usage.
 
-config BB_CONFIG_FEATURE_EDITING_VI
+config BUSYBOX_FEATURE_EDITING_VI
 	bool "vi-style line editing commands"
 	default n
-	depends on BB_CONFIG_FEATURE_EDITING
+	depends on BUSYBOX_FEATURE_EDITING
 	help
-	  Enable vi-style line editing.  In shells, this mode can be
+	  Enable vi-style line editing. In shells, this mode can be
 	  turned on and off with "set -o vi" and "set +o vi".
 
-config BB_CONFIG_FEATURE_EDITING_HISTORY
+config BUSYBOX_FEATURE_EDITING_HISTORY
 	int "History size"
 	range 0 99999
 	default 15
-	depends on BB_CONFIG_FEATURE_EDITING
+	depends on BUSYBOX_FEATURE_EDITING
 	help
 	  Specify command history size.
 
-config BB_CONFIG_FEATURE_EDITING_SAVEHISTORY
+config BUSYBOX_FEATURE_EDITING_SAVEHISTORY
 	bool "History saving"
 	default n
-	depends on BB_CONFIG_ASH && BB_CONFIG_FEATURE_EDITING
+	depends on BUSYBOX_ASH && BUSYBOX_FEATURE_EDITING
 	help
 	  Enable history saving in ash shell.
 
-config BB_CONFIG_FEATURE_TAB_COMPLETION
+config BUSYBOX_FEATURE_TAB_COMPLETION
 	bool "Tab completion"
 	default n
-	depends on BB_CONFIG_FEATURE_EDITING
+	depends on BUSYBOX_FEATURE_EDITING
 	help
 	  Enable tab completion.
 
-config BB_CONFIG_FEATURE_USERNAME_COMPLETION
+config BUSYBOX_FEATURE_USERNAME_COMPLETION
 	bool "Username completion"
 	default n
-	depends on BB_CONFIG_FEATURE_TAB_COMPLETION
+	depends on BUSYBOX_FEATURE_TAB_COMPLETION
 	help
 	  Enable username completion.
 
-config BB_CONFIG_FEATURE_EDITING_FANCY_PROMPT
+config BUSYBOX_FEATURE_EDITING_FANCY_PROMPT
 	bool "Fancy shell prompts"
 	default n
-	depends on BB_CONFIG_FEATURE_EDITING
+	depends on BUSYBOX_FEATURE_EDITING
 	help
 	  Setting this option allows for prompts to use things like \w and
 	  \$ and escape codes.
 
-config BB_CONFIG_FEATURE_VERBOSE_CP_MESSAGE
+config BUSYBOX_FEATURE_VERBOSE_CP_MESSAGE
 	bool "Give more precise messages when copy fails (cp, mv etc)"
 	default n
 	help
@@ -118,7 +117,7 @@ config BB_CONFIG_FEATURE_VERBOSE_CP_MESSAGE
 	  respectively.
 	  This will cost you ~60 bytes.
 
-config BB_CONFIG_FEATURE_COPYBUF_KB
+config BUSYBOX_FEATURE_COPYBUF_KB
 	int "Copy buffer size, in kilobytes"
 	range 1 1024
 	default 4
@@ -128,7 +127,7 @@ config BB_CONFIG_FEATURE_COPYBUF_KB
 	  Bigger buffers will be allocated with mmap, with fallback to 4 kb
 	  stack buffer if mmap fails.
 
-config BB_CONFIG_MONOTONIC_SYSCALL
+config BUSYBOX_MONOTONIC_SYSCALL
 	bool "Use clock_gettime(CLOCK_MONOTONIC) syscall"
 	default y
 	help
@@ -138,11 +137,18 @@ config BB_CONFIG_MONOTONIC_SYSCALL
 	  will be used instead (which gives wrong results if date/time
 	  is reset).
 
-config BB_CONFIG_IOCTL_HEX2STR_ERROR
+config BUSYBOX_IOCTL_HEX2STR_ERROR
 	bool "Use ioctl names rather than hex values in error messages"
 	default y
 	help
 	  Use ioctl names rather than hex values in error messages
 	  (e.g. VT_DISALLOCATE rather than 0x5608). If disabled this
 	  saves about 1400 bytes.
+
+config BUSYBOX_FEATURE_HWIB
+	bool "Support infiniband HW"
+	default y
+	help
+	  Support for printing infiniband addresses in
+	  network applets.
 endmenu

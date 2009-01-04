@@ -8,12 +8,12 @@ if DIFFUTILS
 config DIFFUTILS_DIFF
 	bool
 	prompt "diff"
-	depends on !BB_CONFIG_DIFF
+	depends on !BUSYBOX_DIFF
 	help
 	  diff - compare files line by line
 
-comment "busybox's diff selected"
-	depends on BB_CONFIG_DIFF
+comment "BusyBox' diff selected"
+	depends on BUSYBOX_DIFF
 
 config DIFFUTILS_DIFF3
 	bool
@@ -30,11 +30,11 @@ config DIFFUTILS_SDIFF
 config DIFFUTILS_CMP
 	bool
 	prompt "cmp"
-	depends on !BB_CONFIG_CMP
+	depends on !BUSYBOX_CMP
 	help
 	  cmp - compare two files byte by byte
 
-comment "busybox's cmp selected"
-	depends on BB_CONFIG_CMP
+comment "BusyBox' cmp selected"
+	depends on BUSYBOX_CMP
 
 endif

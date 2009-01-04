@@ -12,12 +12,12 @@ if PROCPS
 config PROCPS_TOP
 	bool
 	prompt "top"
-	depends on !BB_CONFIG_TOP
+	depends on !BUSYBOX_TOP
 	help
 	  FIXME: This item needs to be documented
 
 comment "top is disabled by busybox top"
-	depends on BB_CONFIG_TOP
+	depends on BUSYBOX_TOP
 
 config PROCPS_SLABTOP
 	bool
@@ -28,24 +28,24 @@ config PROCPS_SLABTOP
 config PROCPS_SYSCTL
 	bool
 	prompt "sysctl"
-	depends on !BB_CONFIG_SYSCTL
+	depends on !BUSYBOX_SYSCTL
 	help
 	  configure kernel parameters at runtime
 
 comment "sysctl is disabled by busybox sysctl"
-	depends on BB_CONFIG_SYSCTL
+	depends on BUSYBOX_SYSCTL
 
 config PROCPS_PS
 	bool
 	prompt "ps"
-	depends on !BB_CONFIG_PS
+	depends on !BUSYBOX_PS
 	help
 	  ps stands for process status. With this command you
 	  analyse current states of all processes running on
 	  the system
 
 comment "ps is disabled by busybox ps"
-	depends on BB_CONFIG_PS
+	depends on BUSYBOX_PS
 
 config PROCPS_W
 	bool

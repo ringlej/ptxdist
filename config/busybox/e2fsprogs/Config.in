@@ -4,9 +4,8 @@
 #
 
 menu "Linux Ext2 FS Progs"
-	depends on BUSYBOX
 
-config BB_CONFIG_CHATTR
+config BUSYBOX_CHATTR
 	bool "chattr"
 	default n
 	help
@@ -21,7 +20,7 @@ config BB_CONFIG_CHATTR
 ###	  The normal compat symlinks 'fsck.ext2' and 'fsck.ext3' are also
 ###	  provided.
 
-config BB_CONFIG_FSCK
+config BUSYBOX_FSCK
 	bool "fsck"
 	default n
 	help
@@ -29,7 +28,7 @@ config BB_CONFIG_FSCK
 	  In actuality, fsck is simply a front-end for the various file system
 	  checkers (fsck.fstype) available under Linux.
 
-config BB_CONFIG_LSATTR
+config BUSYBOX_LSATTR
 	bool "lsattr"
 	default n
 	help
@@ -39,7 +38,7 @@ config BB_CONFIG_LSATTR
 ###	bool "mke2fs"
 ###	default n
 ###	help
-###	  mke2fs is used to create an ext2/ext3 filesystem.  The normal compat
+###	  mke2fs is used to create an ext2/ext3 filesystem. The normal compat
 ###	  symlinks 'mkfs.ext2' and 'mkfs.ext3' are also provided.
 
 ### config TUNE2FS

@@ -4,9 +4,8 @@
 #
 
 menu "Process Utilities"
-	depends on BUSYBOX
 
-config BB_CONFIG_FREE
+config BUSYBOX_FREE
 	bool "free"
 	default n
 	help
@@ -14,156 +13,175 @@ config BB_CONFIG_FREE
 	  memory in the system, as well as the buffers used by the kernel.
 	  The shared memory column should be ignored; it is obsolete.
 
-config BB_CONFIG_FUSER
+config BUSYBOX_FUSER
 	bool "fuser"
 	default n
 	help
 	  fuser lists all PIDs (Process IDs) that currently have a given
-	  file open.  fuser can also list all PIDs that have a given network
+	  file open. fuser can also list all PIDs that have a given network
 	  (TCP or UDP) port open.
 
-config BB_CONFIG_KILL
+config BUSYBOX_KILL
 	bool "kill"
 	default n
 	help
 	  The command kill sends the specified signal to the specified
-	  process or process group.  If no signal is specified, the TERM
+	  process or process group. If no signal is specified, the TERM
 	  signal is sent.
 
-config BB_CONFIG_KILLALL
+config BUSYBOX_KILLALL
 	bool "killall"
 	default n
-	depends on BB_CONFIG_KILL
+	depends on BUSYBOX_KILL
 	help
 	  killall sends a signal to all processes running any of the
-	  specified commands.  If no signal name is specified, SIGTERM is
+	  specified commands. If no signal name is specified, SIGTERM is
 	  sent.
 
-config BB_CONFIG_KILLALL5
+config BUSYBOX_KILLALL5
 	bool "killall5"
 	default n
-	depends on BB_CONFIG_KILL
+	depends on BUSYBOX_KILL
 
-config BB_CONFIG_NMETER
+config BUSYBOX_NMETER
 	bool "nmeter"
 	default n
 	help
 	  Prints selected system stats continuously, one line per update.
 
-config BB_CONFIG_PGREP
+config BUSYBOX_PGREP
 	bool "pgrep"
 	default n
 	help
 	  Look for processes by name.
 
-config BB_CONFIG_PIDOF
+config BUSYBOX_PIDOF
 	bool "pidof"
 	default n
 	help
 	  Pidof finds the process id's (pids) of the named programs. It prints
 	  those id's on the standard output.
 
-config BB_CONFIG_FEATURE_PIDOF_SINGLE
+config BUSYBOX_FEATURE_PIDOF_SINGLE
 	bool "Enable argument for single shot (-s)"
 	default n
-	depends on BB_CONFIG_PIDOF
+	depends on BUSYBOX_PIDOF
 	help
 	  Support argument '-s' for returning only the first pid found.
 
-config BB_CONFIG_FEATURE_PIDOF_OMIT
+config BUSYBOX_FEATURE_PIDOF_OMIT
 	bool "Enable argument for omitting pids (-o)"
 	default n
-	depends on BB_CONFIG_PIDOF
+	depends on BUSYBOX_PIDOF
 	help
 	  Support argument '-o' for omitting the given pids in output.
 	  The special pid %PPID can be used to name the parent process
 	  of the pidof, in other words the calling shell or shell script.
 
-config BB_CONFIG_PKILL
+config BUSYBOX_PKILL
 	bool "pkill"
 	default n
 	help
 	  Send signals to processes by name.
 
-config BB_CONFIG_PS
+config BUSYBOX_PS
 	bool "ps"
 	default n
 	help
 	  ps gives a snapshot of the current processes.
 
-config BB_CONFIG_FEATURE_PS_WIDE
+config BUSYBOX_FEATURE_PS_WIDE
 	bool "Enable argument for wide output (-w)"
 	default n
-	depends on BB_CONFIG_PS
+	depends on BUSYBOX_PS
 	help
 	  Support argument 'w' for wide output.
 	  If given once, 132 chars are printed and given more than
 	  one, the length is unlimited.
 
-config BB_CONFIG_FEATURE_PS_TIME
+config BUSYBOX_FEATURE_PS_TIME
 	bool "Enable time and elapsed time output"
 	default n
-	depends on BB_CONFIG_PS && BB_CONFIG_DESKTOP
+	depends on BUSYBOX_PS && BUSYBOX_DESKTOP
 	help
 	  Support -o time and -o etime output specifiers.
 
-config BB_CONFIG_FEATURE_PS_UNUSUAL_SYSTEMS
+config BUSYBOX_FEATURE_PS_UNUSUAL_SYSTEMS
 	bool "Support Linux prior to 2.4.0 and non-ELF systems"
 	default n
-	depends on BB_CONFIG_FEATURE_PS_TIME
+	depends on BUSYBOX_FEATURE_PS_TIME
 	help
 	  Include support for measuring HZ on old kernels and non-ELF systems
 	  (if you are on Linux 2.4.0+ and use ELF, you don't need this)
 
-config BB_CONFIG_RENICE
+config BUSYBOX_RENICE
 	bool "renice"
 	default n
 	help
 	  Renice alters the scheduling priority of one or more running
 	  processes.
 
-config BB_CONFIG_BB_SYSCTL
+config BUSYBOX_BB_SYSCTL
 	bool "sysctl"
 	default n
 	help
 	  Configure kernel parameters at runtime.
 
-config BB_CONFIG_TOP
+config BUSYBOX_TOP
 	bool "top"
 	default n
 	help
 	  The top program provides a dynamic real-time view of a running
 	  system.
 
-config BB_CONFIG_FEATURE_TOP_CPU_USAGE_PERCENTAGE
-	bool "Show CPU per-process usage percentage (adds 2k bytes)"
+config BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE
+	bool "Show CPU per-process usage percentage"
 	default y
-	depends on BB_CONFIG_TOP
+	depends on BUSYBOX_TOP
 	help
 	  Make top display CPU usage for each process.
+	  This adds about 2k.
 
-config BB_CONFIG_FEATURE_TOP_CPU_GLOBAL_PERCENTS
-	bool "Show CPU global usage percentage (adds 0.5k bytes)"
+config BUSYBOX_FEATURE_TOP_CPU_GLOBAL_PERCENTS
+	bool "Show CPU global usage percentage"
 	default y
-	depends on BB_CONFIG_FEATURE_TOP_CPU_USAGE_PERCENTAGE
+	depends on BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE
 	help
 	  Makes top display "CPU: NN% usr NN% sys..." line.
+	  This adds about 0.5k.
 
-config BB_CONFIG_FEATURE_TOP_DECIMALS
-	bool "Show 1/10th of a percent in CPU/mem statistics (adds 0.3k bytes)"
+config BUSYBOX_FEATURE_TOP_SMP_CPU
+	bool "SMP CPU usage display ('c' key)"
 	default n
-	depends on BB_CONFIG_FEATURE_TOP_CPU_USAGE_PERCENTAGE
+	depends on BUSYBOX_FEATURE_TOP_CPU_GLOBAL_PERCENTS
+	help
+	  Allow 'c' key to switch between individual/cumulative CPU stats
+	  This adds about 0.5k.
+
+config BUSYBOX_FEATURE_TOP_DECIMALS
+	bool "Show 1/10th of a percent in CPU/mem statistics"
+	default n
+	depends on BUSYBOX_FEATURE_TOP_CPU_USAGE_PERCENTAGE
 	help
 	  Show 1/10th of a percent in CPU/mem statistics.
+	  This adds about 0.3k.
 
-config BB_CONFIG_FEATURE_TOPMEM
-	bool "topmem"
+config BUSYBOX_FEATURE_TOP_SMP_PROCESS
+	bool "Show CPU process runs on ('j' field)"
 	default n
-	depends on BB_CONFIG_TOP
+	depends on BUSYBOX_TOP
 	help
-	  Enable 's' in top (gives lots of memory info)
+	  Show CPU where process was last found running on.
+	  This is the 'j' field.
 
-config BB_CONFIG_UPTIME
+config BUSYBOX_FEATURE_TOPMEM
+	bool "Topmem command ('s' key)"
+	default n
+	depends on BUSYBOX_TOP
+	help
+	  Enable 's' in top (gives lots of memory info).
+
+config BUSYBOX_UPTIME
 	bool "uptime"
 	default n
 	help
@@ -171,14 +189,12 @@ config BB_CONFIG_UPTIME
 	  the system has been running, how many users are currently logged
 	  on, and the system load averages for the past 1, 5, and 15 minutes.
 
-config BB_CONFIG_WATCH
+config BUSYBOX_WATCH
 	bool "watch"
 	default n
-	#huh?? select DATE
 	help
 	  watch is used to execute a program periodically, showing
 	  output to the screen.
 
 
 endmenu
-

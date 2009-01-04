@@ -15,29 +15,38 @@ instead of stderr. Init doesn't print out errors.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
----
- init/init.c |    7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ported to busybox-1.13.2
 
-Index: busybox-1.10.4/init/init.c
+Signed-ogg-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ init/init.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
+
+Index: busybox-1.13.2/init/init.c
 ===================================================================
---- busybox-1.10.4.orig/init/init.c
-+++ busybox-1.10.4/init/init.c
-@@ -166,16 +166,11 @@ static void message(int where, const cha
+--- busybox-1.13.2.orig/init/init.c
++++ busybox-1.13.2/init/init.c
+@@ -152,16 +152,22 @@ static void message(int where, const cha
  				}
  			}
  		}
--		if (where & L_LOG) {
--			full_write(log_fd, msg, l);
--			if (log_fd == 2)
--				return; /* don't print dup messages */
--		}
++#if 0
+ 		if (where & L_LOG) {
+ 			full_write(log_fd, msg, l);
+ 			if (log_fd == STDERR_FILENO)
+ 				return; /* don't print dup messages */
+ 		}
++#endif
  	}
  
  	if (where & L_CONSOLE) {
  		/* Send console messages to console so people will see them. */
--		full_write(2, msg, l);
-+		full_write(1, msg, l);
++#if 0
+ 		full_write(STDERR_FILENO, msg, l);
++#else
++		full_write(STDOUT_FILENO, msg, l);
++#endif
  	}
  }
  

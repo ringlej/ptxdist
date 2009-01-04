@@ -135,7 +135,7 @@ if SAMBA
 	config ROOTFS_ETC_INITD_SAMBA
 		bool
 		depends on SAMBA_SERVER
-		select BB_CONFIG_START_STOP_DAEMON      if BUSYBOX
+		select BUSYBOX_START_STOP_DAEMON      if BUSYBOX
 		default y
 		choice
 			prompt "Kind of samba start script"

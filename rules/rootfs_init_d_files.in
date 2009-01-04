@@ -9,7 +9,7 @@ config ROOTFS_ETC_INITD
 	bool
 	prompt "Generic Scripts for /etc/init.d"
 	default y
-	select BB_CONFIG_RUN_PARTS if BUSYBOX
+	select BUSYBOX_RUN_PARTS if BUSYBOX
 	help
 	  When enabled, this option copies the files from
 	  ${PTXDIST_TOPDIR}/generic/etc/init.d to the target root
@@ -50,18 +50,18 @@ menuconfig ROOTFS_ETC_INITD_RCS
 			  your local project
 	endchoice
 
-########################## inetd for Busybox ############################
+########################## inetd for BusyBox ############################
 
 # initd startscript is for busysbox only
 config ROOTFS_ETC_INITD_INETD
 	depends on ROOTFS_ETC_INITD
-	depends on BB_CONFIG_INETD
+	depends on BUSYBOX_INETD
 	bool
 	prompt "inetd"
 	help
 	  When enabled, this option installs the generic /etc/init.d/inetd
 	  file. This script starts your internet super server (inetd).
-	  This is for Busybox' inetd only.
+	  This is for BusyBox' inetd only.
 
 config ROOTFS_ETC_INITD_LOGROTATE
 	bool
@@ -76,15 +76,15 @@ config ROOTFS_ETC_INITD_MODULES
 	prompt "modules"
 	help
 	  When enabled, load all modules in /etc/modules. This requires
-	  one type of the tool "grep" (from Busybox or paket procps)
+	  one type of the tool "grep" (from BusyBox or paket procps)
 
 menuconfig ROOTFS_ETC_INITD_NETWORKING
 	depends on ROOTFS_ETC_INITD
 	bool
 	default y
 	prompt "networking                  "
-	select BB_CONFIG_IFUPDOWN if BUSYBOX
-	select BB_CONFIG_FEATURE_IFUPDOWN_IP if BUSYBOX
+	select BUSYBOX_IFUPDOWN if BUSYBOX
+	select BUSYBOX_FEATURE_IFUPDOWN_IP if BUSYBOX
 	help
 	  When enabled, this option installs the generic
 	  /etc/init.d/networking file. This script starts
@@ -103,8 +103,8 @@ menuconfig ROOTFS_ETC_INITD_NETWORKING
 
 menuconfig ROOTFS_ETC_INITD_TELNETD
 	depends on ROOTFS_ETC_INITD
-	depends on BB_CONFIG_TELNETD
-	depends on BB_CONFIG_FEATURE_TELNETD_STANDALONE
+	depends on BUSYBOX_TELNETD
+	depends on BUSYBOX_FEATURE_TELNETD_STANDALONE
 	bool
 	default y
 	prompt "telnetd                     "
@@ -139,7 +139,7 @@ menuconfig ROOTFS_ETC_INITD_TELNETD
 
 menuconfig ROOTFS_ETC_INITD_SYSLOGD_KLOGD
 	depends on ROOTFS_ETC_INITD
-	depends on BB_CONFIG_SYSLOGD
+	depends on BUSYBOX_SYSLOGD
 	bool
 	prompt "syslogd                     "
 	help
@@ -173,7 +173,7 @@ menuconfig ROOTFS_ETC_INITD_SYSLOGD_KLOGD
 
 menuconfig ROOTFS_ETC_INITD_HWCLOCK
 	depends on ROOTFS_ETC_INITD
-	depends on BB_CONFIG_HWCLOCK
+	depends on BUSYBOX_HWCLOCK
 	bool
 	prompt "timekeeper                  "
 	help
@@ -261,15 +261,15 @@ menuconfig ROOTFS_ETC_INITD_BANNER
 
 
 ########################## crond ##########################################
-# this is for busybox' crond only
+# this is for BusyBox' crond only
 #
 menuconfig ROOTFS_ETC_INITD_CROND
-	depends on ROOTFS_ETC_INITD && BB_CONFIG_CROND
+	depends on ROOTFS_ETC_INITD && BUSYBOX_CROND
 	bool
 	default y
 	prompt "crond                       "
 	help
-	  The /etc/init.d/crond script lets you control busybox' crond daemon.
+	  The /etc/init.d/crond script lets you control BusyBox' crond daemon.
 
 	choice
 		prompt "Kind of startup scrict"

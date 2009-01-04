@@ -5,11 +5,11 @@ config OPROFILE
 	select LIBPOPT
 	select KERNEL
 	select KERNEL_VMLINUX
-	select BB_CONFIG_DIRNAME
-	select BB_CONFIG_ID
-	select BB_CONFIG_MKTEMP
-	select BB_CONFIG_PIDOF
-	select BB_CONFIG_PRINTF
+	select BUSYBOX_DIRNAME
+	select BUSYBOX_ID
+	select BUSYBOX_MKTEMP
+	select BUSYBOX_PIDOF
+	select BUSYBOX_PRINTF
 	select BINUTILS
 	select BINUTILS_OBJDUMP
 	prompt "oprofile tools"

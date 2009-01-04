@@ -4,40 +4,31 @@
 #
 
 menu "Init Utilities"
-	depends on BUSYBOX
 
-config BB_CONFIG_INIT
+config BUSYBOX_INIT
 	bool "init"
 	default n
-	select BB_CONFIG_FEATURE_SYSLOG
+	select BUSYBOX_FEATURE_SYSLOG
 	help
 	  init is the first program run when the system boots.
 
-config BB_CONFIG_DEBUG_INIT
-	bool "Debugging aid"
-	default n
-	depends on BB_CONFIG_INIT
-	help
-	  Turn this on to disable all the dangerous
-	  rebooting stuff when debugging.
-
-config BB_CONFIG_FEATURE_USE_INITTAB
+config BUSYBOX_FEATURE_USE_INITTAB
 	bool "Support reading an inittab file"
 	default y
-	depends on BB_CONFIG_INIT
+	depends on BUSYBOX_INIT
 	help
 	  Allow init to read an inittab file when the system boot.
 
-config BB_CONFIG_FEATURE_KILL_REMOVED
+config BUSYBOX_FEATURE_KILL_REMOVED
 	bool "Support killing processes that have been removed from inittab"
 	default y
-	depends on BB_CONFIG_FEATURE_USE_INITTAB
+	depends on BUSYBOX_FEATURE_USE_INITTAB
 	help
 	  When respawn entries are removed from inittab and a SIGHUP is
 	  sent to init, this feature will kill the processes that have
 	  been removed.
 
-config BB_CONFIG_FEATURE_KILL_DELAY
+config BUSYBOX_FEATURE_KILL_DELAY
 	int "How long to wait between TERM and KILL (0 - send TERM only)" if FEATURE_KILL_REMOVED
 	range 0 1024
 	default 0
@@ -47,10 +38,10 @@ config BB_CONFIG_FEATURE_KILL_DELAY
 	  (child will hang around for too long and can actually kill
 	  wrong process!)
 
-config BB_CONFIG_FEATURE_INIT_SCTTY
+config BUSYBOX_FEATURE_INIT_SCTTY
 	bool "Run commands with leading dash with controlling tty"
 	default n
-	depends on BB_CONFIG_INIT
+	depends on BUSYBOX_INIT
 	help
 	  If this option is enabled, init will try to give a controlling
 	  tty to any command which has leading hyphen (often it's "-/bin/sh").
@@ -62,52 +53,50 @@ config BB_CONFIG_FEATURE_INIT_SCTTY
 	  development or for maintenance.
 	  NB: using cttyhack applet may work better.
 
-config BB_CONFIG_FEATURE_INIT_SYSLOG
+config BUSYBOX_FEATURE_INIT_SYSLOG
 	bool "Enable init to write to syslog"
 	default n
-	depends on BB_CONFIG_INIT
+	depends on BUSYBOX_INIT
 
-config BB_CONFIG_FEATURE_EXTRA_QUIET
+config BUSYBOX_FEATURE_EXTRA_QUIET
 	bool "Be _extra_ quiet on boot"
 	default y
-	depends on BB_CONFIG_INIT
+	depends on BUSYBOX_INIT
 	help
 	  Prevent init from logging some messages to the console during boot.
 
-config BB_CONFIG_FEATURE_INIT_COREDUMPS
+config BUSYBOX_FEATURE_INIT_COREDUMPS
 	bool "Support dumping core for child processes (debugging only)"
 	default n
-	depends on BB_CONFIG_INIT
+	depends on BUSYBOX_INIT
 	help
 	  If this option is enabled and the file /.init_enable_core
 	  exists, then init will call setrlimit() to allow unlimited
-	  core file sizes.  If this option is disabled, processes
+	  core file sizes. If this option is disabled, processes
 	  will not generate any core files.
 
-
-
-config BB_CONFIG_FEATURE_INITRD
+config BUSYBOX_FEATURE_INITRD
 	bool "Support running init from within an initrd (not initramfs)"
 	default y
-	depends on BB_CONFIG_INIT
+	depends on BUSYBOX_INIT
 	help
-	  Legacy support for running init under the old-style initrd.  Allows
+	  Legacy support for running init under the old-style initrd. Allows
 	  the name linuxrc to act as init, and it doesn't assume init is PID 1.
 
 	  This does not apply to initramfs, which runs /init as PID 1 and
 	  requires no special support.
 
-config BB_CONFIG_HALT
+config BUSYBOX_HALT
 	bool "poweroff, halt, and reboot"
-	default y
+	default n
 	help
 	  Stop all processes and either halt, reboot, or power off the system.
 
-config BB_CONFIG_MESG
+config BUSYBOX_MESG
 	bool "mesg"
-	default y
+	default n
 	help
-	  Mesg controls access to your terminal by others.  It is typically
+	  Mesg controls access to your terminal by others. It is typically
 	  used to allow or disallow other users to write to your terminal
 
 endmenu

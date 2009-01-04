@@ -10,10 +10,10 @@ if UNZIP
 
 config UNZIP_UNZIP
 	bool "unzip"
-	depends on !BB_CONFIG_UNZIP
+	depends on !BUSYBOX_UNZIP
 
-comment "busybox's unzip selected"
-	depends on BB_CONFIG_UNZIP
+comment "BusyBox' unzip selected"
+	depends on BUSYBOX_UNZIP
 
 config UNZIP_FUNZIP
 	bool "funzip"

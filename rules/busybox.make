@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION	:= 1.10.4
+BUSYBOX_VERSION	:= 1.13.2
 BUSYBOX		:= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX	:= tar.bz2
 BUSYBOX_URL	:= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
@@ -52,8 +52,8 @@ $(STATEDIR)/busybox.prepare:
 	cd $(BUSYBOX_DIR) && \
 		$(BUSYBOX_PATH) $(BUSYBOX_ENV) \
 		$(MAKE) distclean $(BUSYBOX_MAKEVARS)
-	grep -e PTXCONF_BB_CONFIG_ $(PTXDIST_PTXCONFIG) | \
-		sed -e 's/PTXCONF_BB_CONFIG_/CONFIG_/g' > $(BUSYBOX_DIR)/.config
+	grep -e PTXCONF_BUSYBOX_ $(PTXDIST_PTXCONFIG) | \
+		sed -e 's/PTXCONF_BUSYBOX_/CONFIG_/g' > $(BUSYBOX_DIR)/.config
 
 	$(call ptx/oldconfig, BUSYBOX)
 
@@ -87,7 +87,7 @@ $(STATEDIR)/busybox.targetinstall:
 	@$(call install_fixup, busybox,DEPENDS,)
 	@$(call install_fixup, busybox,DESCRIPTION,missing)
 
-ifdef PTXCONF_BB_CONFIG_FEATURE_SUID
+ifdef PTXCONF_BUSYBOX_FEATURE_SUID
 	@$(call install_copy, busybox, 0, 0, 4755, $(BUSYBOX_DIR)/busybox, /bin/busybox)
 else
 	@$(call install_copy, busybox, 0, 0, 755, $(BUSYBOX_DIR)/busybox, /bin/busybox)

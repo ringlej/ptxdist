@@ -33,14 +33,14 @@ config NTPCLIENT_BUILD_NTPCLIENT
 
 config NTPCLIENT_BUILD_ADJTIMEX
 	bool
-	depends on !BB_CONFIG_ADJTIMEX
+	depends on !BUSYBOX_ADJTIMEX
 	prompt "adjtimex"
 	default y
 	help
 	  Builds the adjtimex binary to control system time
 
-comment "Busybox' adjtimex is in use"
-	depends on BB_CONFIG_ADJTIMEX
+comment "BusyBox' adjtimex is in use"
+	depends on BUSYBOX_ADJTIMEX
 
 comment "runtime options   ---"
 

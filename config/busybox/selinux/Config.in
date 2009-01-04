@@ -3,120 +3,119 @@
 # see scripts/kbuild/config-language.txt.
 #
 
-menu "Selinux Utilities"
-	depends on BUSYBOX
-	depends on BB_CONFIG_SELINUX
+menu "SELinux Utilities"
+	depends on BUSYBOX_SELINUX
 
-config BB_CONFIG_CHCON
+config BUSYBOX_CHCON
 	bool "chcon"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to change the security context of file.
 
-config BB_CONFIG_FEATURE_CHCON_LONG_OPTIONS
+config BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
 	bool "Enable long options"
 	default y
-	depends on BB_CONFIG_CHCON && BB_CONFIG_GETOPT_LONG
+	depends on BUSYBOX_CHCON && BUSYBOX_GETOPT_LONG
 	help
 	  Support long options for the chcon applet.
 
-config BB_CONFIG_GETENFORCE
+config BUSYBOX_GETENFORCE
 	bool "getenforce"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to get the current mode of SELinux.
 
-config BB_CONFIG_GETSEBOOL
+config BUSYBOX_GETSEBOOL
 	bool "getsebool"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to get SELinux boolean values.
 
-config BB_CONFIG_LOAD_POLICY
+config BUSYBOX_LOAD_POLICY
 	bool "load_policy"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to load SELinux policy.
 
-config BB_CONFIG_MATCHPATHCON
+config BUSYBOX_MATCHPATHCON
 	bool "matchpathcon"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to get default security context of the
 	  specified path from the file contexts configuration.
 
-config BB_CONFIG_RESTORECON
+config BUSYBOX_RESTORECON
 	bool "restorecon"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to relabel files. The feature is almost
 	  the same as setfiles, but usage is a little different.
 
-config BB_CONFIG_RUNCON
+config BUSYBOX_RUNCON
 	bool "runcon"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to run command in speficied security context.
 
-config BB_CONFIG_FEATURE_RUNCON_LONG_OPTIONS
+config BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
 	bool "Enable long options"
 	default y
-	depends on BB_CONFIG_RUNCON && BB_CONFIG_GETOPT_LONG
+	depends on BUSYBOX_RUNCON && BUSYBOX_GETOPT_LONG
 	help
 	  Support long options for the runcon applet.
 
-config BB_CONFIG_SELINUXENABLED
+config BUSYBOX_SELINUXENABLED
 	bool "selinuxenabled"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support for this command to be used within shell scripts
 	  to determine if selinux is enabled.
 
-config BB_CONFIG_SETENFORCE
+config BUSYBOX_SETENFORCE
 	bool "setenforce"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to modify the mode SELinux is running in.
 
-config BB_CONFIG_SETFILES
+config BUSYBOX_SETFILES
 	bool "setfiles"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support to modify to relabel files.
 	  Notice: If you built libselinux with -D_FILE_OFFSET_BITS=64,
 	  (It is default in libselinux's Makefile), you _must_ enable
 	  CONFIG_LFS.
 
-config BB_CONFIG_FEATURE_SETFILES_CHECK_OPTION
+config BUSYBOX_FEATURE_SETFILES_CHECK_OPTION
 	bool "Enable check option"
 	default n
-	depends on BB_CONFIG_SETFILES
+	depends on BUSYBOX_SETFILES
 	help
 	  Support "-c" option (check the validity of the contexts against
 	  the specified binary policy) for setfiles. Requires libsepol.
 
-config BB_CONFIG_SETSEBOOL
+config BUSYBOX_SETSEBOOL
 	bool "setsebool"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Enable support for change boolean.
 	  semanage and -P option is not supported yet.
 
-config BB_CONFIG_SESTATUS
+config BUSYBOX_SESTATUS
 	bool "sestatus"
 	default n
-	depends on BB_CONFIG_SELINUX
+	depends on BUSYBOX_SELINUX
 	help
 	  Displays the status of SELinux.
 

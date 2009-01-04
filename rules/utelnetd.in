@@ -1,6 +1,6 @@
 ## SECTION=networking
 menuconfig UTELNETD
-	depends on !BB_CONFIG_TELNETD
+	depends on !BUSYBOX_TELNETD
 	tristate
 	prompt "utelnetd                      "
 	help

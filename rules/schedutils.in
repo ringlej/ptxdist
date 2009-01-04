@@ -15,12 +15,12 @@ if SCHEDUTILS
 config SCHEDUTILS_CHRT
 	bool
 	prompt "chrt"
-	depends on !BB_CONFIG_CHRT
+	depends on !BUSYBOX_CHRT
 	help
 	  chrt manipulates the real-time attributes of a process.
 
 comment "chrt from busybox selected"
-	depends on BB_CONFIG_CHRT
+	depends on BUSYBOX_CHRT
 
 config SCHEDUTILS_IONICE
 	bool

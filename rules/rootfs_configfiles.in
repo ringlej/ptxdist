@@ -243,7 +243,7 @@ menuconfig ROOTFS_HOSTS
 #
 menuconfig ROOTFS_INITTAB
 	depends on ROOTFS
-	select BB_CONFIG_GETTY if BUSYBOX
+	select BUSYBOX_GETTY if BUSYBOX
 	bool
 	prompt "/etc/inittab                  "
 	default y
@@ -399,7 +399,7 @@ menuconfig ROOTFS_PROTOCOLS
 #
 menuconfig ROOTFS_INETD
 	depends on ROOTFS
-	depends on BB_CONFIG_INETD || INETUTILS_INETD
+	depends on BUSYBOX_INETD || INETUTILS_INETD
 	bool
 	prompt "/etc/inetd.conf               "
 	default y
@@ -448,18 +448,18 @@ config ROOTFS_ETC_MODULES
 
 #
 # /etc/udhcpc.script
-# specific to Busybox' udhcp-client
+# specific to BusyBox' udhcp-client
 #
 menuconfig ROOTFS_UDHCPC
 	depends on ROOTFS
-	depends on BB_CONFIG_APP_UDHCPC
-	select BB_CONFIG_IFCONFIG
+	depends on BUSYBOX_APP_UDHCPC
+	select BUSYBOX_IFCONFIG
 	bool
 	prompt "/etc/udhcpc.script            "
 	default y
 	help
 	  Installs a /etc/udhcpc.script file from a selectable source.
-	  You have checked busybox' udhcpc feature. It accepts the -s file or
+	  You have checked BusyBox' udhcpc feature. It accepts the -s file or
 	  --script=file option. So this /etc/udhcpc.script will be run at dhcp
 	  events.
 	  If your network supports DNS, this script will generate /etc/resolv.conf.
@@ -490,7 +490,7 @@ menuconfig ROOTFS_UDHCPC
 	endchoice
 
 #
-# for Busybox' crond only
+# for BusyBox' crond only
 # /var/spool/cron/crontabs/
 # /etc/crond.conf
 #
@@ -505,12 +505,12 @@ config ROOTFS_USER_CROND_CONF
 	  /etc/cron/daily from projectroot/crond/daily
 
 #
-# for Busybox' http only
+# for BusyBox' http only
 # install users httpd.conf
 #
 config ROOTFS_BUSYBOX_USER_HTTPD_CONF
 	depends on ROOTFS
-	depends on BB_CONFIG_HTTPD
+	depends on BUSYBOX_HTTPD
 	default n
 	bool
 	prompt "project's httpd.conf configuration"

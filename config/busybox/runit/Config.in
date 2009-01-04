@@ -4,16 +4,15 @@
 #
 
 menu "Runit Utilities"
-	depends on BUSYBOX
 
-config BB_CONFIG_RUNSV
+config BUSYBOX_RUNSV
 	bool "runsv"
 	default n
 	help
 	  runsv starts and monitors a service and optionally an appendant log
 	  service.
 
-config BB_CONFIG_RUNSVDIR
+config BUSYBOX_RUNSVDIR
 	bool "runsvdir"
 	default n
 	help
@@ -21,14 +20,31 @@ config BB_CONFIG_RUNSVDIR
 	  a directory, in the services directory dir, up to a limit of 1000
 	  subdirectories, and restarts a runsv process if it terminates.
 
-config BB_CONFIG_SV
+config BUSYBOX_FEATURE_RUNSVDIR_LOG
+	bool "Enable scrolling argument log"
+	depends on BUSYBOX_RUNSVDIR
+	default n
+	help
+	  Enable feature where second parameter of runsvdir holds last error
+	  message (viewable via top/ps). Otherwise (feature is off
+	  or no parameter), error messages go to stderr only.
+
+config BUSYBOX_SV
 	bool "sv"
 	default n
 	help
 	  sv reports the current status and controls the state of services
 	  monitored by the runsv supervisor.
 
-config BB_CONFIG_SVLOGD
+config BUSYBOX_SV_DEFAULT_SERVICE_DIR
+	string "Default directory for services"
+	default "/var/service"
+	depends on BUSYBOX_SV
+	help
+	  Default directory for services.
+	  Defaults to "/var/service"
+
+config BUSYBOX_SVLOGD
 	bool "svlogd"
 	default n
 	help
@@ -36,30 +52,30 @@ config BB_CONFIG_SVLOGD
 	  filters log messages, and writes the data to one or more automatically
 	  rotated logs.
 
-config BB_CONFIG_CHPST
+config BUSYBOX_CHPST
 	bool "chpst"
 	default n
 	help
 	  chpst changes the process state according to the given options, and
 	  execs specified program.
 
-config BB_CONFIG_SETUIDGID
+config BUSYBOX_SETUIDGID
 	bool "setuidgid"
 	help
 	  Sets soft resource limits as specified by options
 
-config BB_CONFIG_ENVUIDGID
+config BUSYBOX_ENVUIDGID
 	bool "envuidgid"
 	help
 	  Sets $UID to account's uid and $GID to account's gid
 
-config BB_CONFIG_ENVDIR
+config BUSYBOX_ENVDIR
 	bool "envdir"
 	help
 	  Sets various environment variables as specified by files
 	  in the given directory
 
-config BB_CONFIG_SOFTLIMIT
+config BUSYBOX_SOFTLIMIT
 	bool "softlimit"
 	help
 	  Sets soft resource limits as specified by options

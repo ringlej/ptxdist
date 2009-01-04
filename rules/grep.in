@@ -1,10 +1,10 @@
 ## SECTION=shell_and_console
-comment "busy box' grep is selected!"
-	depends on BB_CONFIG_GREP
+comment "BusyBox' grep is selected!"
+	depends on BUSYBOX_GREP
 
 config GREP
 	tristate
-	depends on !BB_CONFIG_GREP
+	depends on !BUSYBOX_GREP
 	prompt "grep"
 	help
 	  GNUgrep searches one or more input files for lines

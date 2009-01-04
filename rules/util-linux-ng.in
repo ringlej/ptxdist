@@ -11,12 +11,12 @@ config UTIL_LINUX_NG_FDISK
 	bool
 	prompt "fdisk"
 	depends on UTIL_LINUX_NG
-	depends on !BB_CONFIG_FDISK
+	depends on !BUSYBOX_FDISK
 	help
 	  fdisk - Partition table manipulator for Linux
 
-comment "busy box' fdisk is selected!"
-	depends on UTIL_LINUX_NG && BB_CONFIG_FDISK
+comment "BusyBox' fdisk is selected!"
+	depends on UTIL_LINUX_NG && BUSYBOX_FDISK
 
 config UTIL_LINUX_NG_SFDISK
 	bool
@@ -38,7 +38,7 @@ config UTIL_LINUX_NG_MKSWAP
 	bool
 	prompt "mkswap"
 	depends on UTIL_LINUX_NG
-	depends on !BB_CONFIG_MKSWAP
+	depends on !BUSYBOX_MKSWAP
 	help
 	  mkswap sets up a Linux swap area on a device or in a file.
 
@@ -49,62 +49,62 @@ config UTIL_LINUX_NG_MKSWAP_UUID
 	help
 	  enable uuid support for mkswap
 
-comment "busy box' mkswap is selected!"
-	depends on UTIL_LINUX_NG && BB_CONFIG_MKSWAP
+comment "BusyBox' mkswap is selected!"
+	depends on UTIL_LINUX_NG && BUSYBOX_MKSWAP
 
 config UTIL_LINUX_NG_SWAPON
 	bool
 	prompt "swapon"
 	depends on UTIL_LINUX_NG
-	depends on !BB_CONFIG_SWAPONOFF
+	depends on !BUSYBOX_SWAPONOFF
 	help
 	  Swapon is used to specify devices on which paging and swapping are to take place.
 
-comment "busy box' swapon is selected!"
-	depends on UTIL_LINUX_NG && BB_CONFIG_SWAPONOFF
+comment "BusyBox' swapon is selected!"
+	depends on UTIL_LINUX_NG && BUSYBOX_SWAPONOFF
 
 config UTIL_LINUX_NG_MOUNT
 	bool
 	prompt "mount"
 	depends on UTIL_LINUX_NG
-	depends on !BB_CONFIG_MOUNT
+	depends on !BUSYBOX_MOUNT
 	help
 	  The mount command serves to attach the file system
 	  found on some device to the big file tree.
 
-comment "busy box' mount is selected!"
-	depends on UTIL_LINUX_NG && BB_CONFIG_MOUNT
+comment "BusyBox' mount is selected!"
+	depends on UTIL_LINUX_NG && BUSYBOX_MOUNT
 
 config UTIL_LINUX_NG_UMOUNT
 	bool
 	prompt "umount"
 	depends on UTIL_LINUX_NG
-	depends on !BB_CONFIG_UMOUNT
+	depends on !BUSYBOX_UMOUNT
 	help
 	  The mount(8) command serves to attach the file system
 	  found on some device to the big file tree.
 	  Conversely, the umount(8) command will detach it again.
 
-comment "busy box' umount is selected!"
-	depends on UTIL_LINUX_NG && BB_CONFIG_UMOUNT
+comment "BusyBox' umount is selected!"
+	depends on UTIL_LINUX_NG && BUSYBOX_UMOUNT
 
 config UTIL_LINUX_NG_IPCS
 	bool
 	prompt "ipcs"
 	depends on UTIL_LINUX_NG
-	depends on !BB_CONFIG_IPCS
+	depends on !BUSYBOX_IPCS
 	help
 	  ipcs provides information on the ipc facilities
 	  for which the calling process has read acccess.
 
-comment "busy box' ipcs is selected!"
-	depends on UTIL_LINUX_NG && BB_CONFIG_IPCS
+comment "BusyBox' ipcs is selected!"
+	depends on UTIL_LINUX_NG && BUSYBOX_IPCS
 
 config UTIL_LINUX_NG_READPROFILE
 	bool
 	prompt "readprofile"
 	depends on UTIL_LINUX_NG
-	depends on !BB_CONFIG_READPROFILE
+	depends on !BUSYBOX_READPROFILE
 	help
 	  The readprofile command uses the /proc/profile information
 	  to print ascii data on standard output.  The output is
@@ -115,8 +115,8 @@ config UTIL_LINUX_NG_READPROFILE
 	  as a ratio between the number of ticks and the length of the
 	  procedure. The output is filled with blanks to ease readability.
 
-comment "busy box' readprofile is selected!"
-	depends on UTIL_LINUX_NG && BB_CONFIG_READPROFILE
+comment "BusyBox' readprofile is selected!"
+	depends on UTIL_LINUX_NG && BUSYBOX_READPROFILE
 
 config UTIL_LINUX_NG_SETTERM
 	bool
