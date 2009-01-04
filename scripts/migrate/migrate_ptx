@@ -1,0 +1,8 @@
+#!/bin/sed -f
+
+#
+# from   : ptxdist-1.99.10
+# to     : ptxdist-1.99.11
+# symbol : PTXCONF_BB_CONFIG_* -> PTXCONF_BUSYBOX_*
+#
+s/^\(\(# \)\?PTXCONF\)_BB_CONFIG_\(.*$\)/\1_BUSYBOX_\3/
