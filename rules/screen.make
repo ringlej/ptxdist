@@ -28,34 +28,13 @@ SCREEN_DIR	:= $(BUILDDIR)/$(SCREEN)
 # Get
 # ----------------------------------------------------------------------------
 
-screen_get: $(STATEDIR)/screen.get
-
-$(STATEDIR)/screen.get: $(screen_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(SCREEN_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, SCREEN)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-screen_extract: $(STATEDIR)/screen.extract
-
-$(STATEDIR)/screen.extract: $(screen_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(SCREEN_DIR))
-	@$(call extract, SCREEN)
-	@$(call patchin, SCREEN)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-screen_prepare: $(STATEDIR)/screen.prepare
 
 SCREEN_PATH	:= PATH=$(CROSS_PATH)
 SCREEN_ENV 	:= $(CROSS_ENV)
@@ -63,47 +42,16 @@ SCREEN_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-SCREEN_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+SCREEN_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--with-sys-screenrc=/etc/screenrc
-
-$(STATEDIR)/screen.prepare: $(screen_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(SCREEN_DIR)/config.cache)
-	cd $(SCREEN_DIR) && \
-		$(SCREEN_PATH) $(SCREEN_ENV) \
-		./configure $(SCREEN_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-screen_compile: $(STATEDIR)/screen.compile
-
-$(STATEDIR)/screen.compile: $(screen_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(SCREEN_DIR) && $(SCREEN_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-screen_install: $(STATEDIR)/screen.install
-
-$(STATEDIR)/screen.install: $(screen_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, SCREEN)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-screen_targetinstall: $(STATEDIR)/screen.targetinstall
-
-$(STATEDIR)/screen.targetinstall: $(screen_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/screen.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, screen)
 	@$(call install_fixup,screen,PACKAGE,screen)
@@ -122,7 +70,7 @@ $(STATEDIR)/screen.targetinstall: $(screen_targetinstall_deps_default)
 
 	@$(call install_finish,screen)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
