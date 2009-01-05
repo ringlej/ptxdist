@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBPNG) += libpng
 #
 # Paths and names
 #
-LIBPNG_VERSION	:= 1.2.29
+LIBPNG_VERSION	:= 1.2.34
 LIBPNG		:= libpng-$(LIBPNG_VERSION)
 LIBPNG_SUFFIX	:= tar.bz2
 LIBPNG_URL	:= $(PTXCONF_SETUP_SFMIRROR)/libpng/$(LIBPNG).$(LIBPNG_SUFFIX)
@@ -85,10 +85,10 @@ $(STATEDIR)/libpng.targetinstall:
 	@$(call install_fixup, libpng,DESCRIPTION,missing)
 
 	@$(call install_copy, libpng, 0, 0, 0644, \
-		$(LIBPNG_DIR)/.libs/libpng12.so.0.29.0, \
-		/usr/lib/libpng12.so.0.29.0)
-	@$(call install_link, libpng, libpng12.so.0.29.0, /usr/lib/libpng12.so.0)
-	@$(call install_link, libpng, libpng12.so.0.29.0, /usr/lib/libpng12.so)
+		$(LIBPNG_DIR)/.libs/libpng12.so.0.34.0, \
+		/usr/lib/libpng12.so.0.34.0)
+	@$(call install_link, libpng, libpng12.so.0.34.0, /usr/lib/libpng12.so.0)
+	@$(call install_link, libpng, libpng12.so.0.34.0, /usr/lib/libpng12.so)
 
 	@$(call install_finish, libpng)
 
