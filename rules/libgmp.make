@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBGMP) += libgmp
 #
 # Paths and names
 #
-LIBGMP_VERSION	:= 4.2.2
+LIBGMP_VERSION	:= 4.2.4
 LIBGMP		:= gmp-$(LIBGMP_VERSION)
 LIBGMP_SUFFIX	:= tar.bz2
 LIBGMP_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/gmp/$(LIBGMP).$(LIBGMP_SUFFIX)
@@ -73,9 +73,9 @@ $(STATEDIR)/libgmp.targetinstall:
 	@$(call install_fixup, libgmp,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBGMP_SHARED
-	@$(call install_copy, libgmp, 0, 0, 0644, $(LIBGMP_DIR)/.libs/libgmp.so.3.4.2, /usr/lib/libgmp.so.3.4.2)
-	@$(call install_link, libgmp, libgmp.so.3.4.2, /usr/lib/libgmp.so.3)
-	@$(call install_link, libgmp, libgmp.so.3.4.2, /usr/lib/libgmp.so)
+	@$(call install_copy, libgmp, 0, 0, 0644, $(LIBGMP_DIR)/.libs/libgmp.so.3.4.4, /usr/lib/libgmp.so.3.4.4)
+	@$(call install_link, libgmp, libgmp.so.3.4.4, /usr/lib/libgmp.so.3)
+	@$(call install_link, libgmp, libgmp.so.3.4.4, /usr/lib/libgmp.so)
 endif
 
 ifdef PTXCONF_LIBGMP_STATIC
