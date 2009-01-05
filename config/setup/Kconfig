@@ -160,4 +160,11 @@ config SETUP_HOST_CXX
 	help
 	  Specify the host C++ compile here.
 
+config SETUP_HOST_MAKE
+	prompt "host MAKE"
+	string
+	default "make"
+	help
+	  Specify the host make programm here.
+
 endmenu
