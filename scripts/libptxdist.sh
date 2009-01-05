@@ -263,9 +263,24 @@ ptxd_kconfig() {
 			"${conf}" -o "${file_kconfig}"
 		fi
 		;;
+	allmodconfig)
+		"${conf}" -m "${file_kconfig}"
+		;;
+	allyesconfig)
+		"${conf}" -y "${file_kconfig}"
+		;;
+	allnoconfig)
+		"${conf}" -n "${file_kconfig}"
+		;;
 	dep)
 		copy_back="false"
 		yes "" | "${conf}" -O "${file_kconfig}"
+		;;
+	*)
+		echo
+		echo "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
+		echo
+		exit 1
 		;;
 	esac
 

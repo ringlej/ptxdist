@@ -653,6 +653,9 @@ Setup and Project Actions:
   u_boot_config			configure U-Boot V2
 
   oldconfig			run 'make oldconfig' on ptxconfig file
+  allmodconfig			run 'make allmodconfig' on ptxconfig file
+  allyesconfig			run 'make allyesconfig' on ptxconfig file
+  allnoconfig			run 'make allnoconfig' on ptxconfig file
 
   migrate			migrate config files from a previous
 				ptxdist release
@@ -1089,7 +1092,7 @@ parse_first()
 #
 # calls menu/old config on several components
 #
-# $1	what kind of config ("menuconfig", "oldconfig")
+# $1	what kind of config ("menuconfig", "oldconfig", "allmodconfig", "allyesconfig", "allnoconfig")
 # $2	what to "config"
 # $...	optional parameters
 #
@@ -1103,7 +1106,7 @@ do_config()
 	fi
 
 	case "${config}" in
-	"menuconfig"|"oldconfig")
+	"menuconfig"|"oldconfig"|"allmodconfig"|"allyesconfig"|"allnoconfig")
 		;;
 	*)
 		echo
@@ -1429,7 +1432,7 @@ parse_second()
 
 ######## *config, *setup, toolchain
 
-		menuconfig|oldconfig)
+		menuconfig|oldconfig|allmodconfig|allyesconfig|allnoconfig)
 			do_config "${cmd}" "${@}"
 			exit ${?}
 			;;
