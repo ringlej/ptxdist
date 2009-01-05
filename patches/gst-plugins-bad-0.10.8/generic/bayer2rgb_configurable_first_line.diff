@@ -1,10 +1,14 @@
 Subject: gst-plugins-bad bayer2rgb: Make first line configurable
 From: Sascha Hauer <s.hauer@pengutronix.de>
 
-Since people can't agree whether the first line of a bayer pattern
-is a blue/green line or a green/red line make it configurable.
+Since people can't agree whether the first line of a bayer pattern is a
+blue/green line or a green/red line make it configurable.  We add a new
+parameter "B/G first", with which the user declare the first line as
+blue/green, which is default, or green/red.
+Patch submitted to mainline, status pending.
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Acked-by: Luotao Fu <l.fu@pengutronix.de>
 
 ---
  gst/bayer/gstbayer2rgb.c |   36 +++++++++++++++++++++++++++---------

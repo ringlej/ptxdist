@@ -4,9 +4,10 @@ From: Sascha Hauer <s.hauer@pengutronix.de>
 The code calculates the wrong color offsets for 24bpp packed
 pixel formats. Fix it. While at it, rename int offset to the
 more  name 'mask'
+Patch submitted to mainline, status pending.
 
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-
+Acked-by: Luotao Fu <l.fu@pengutronix.de>
 ---
  gst/bayer/gstbayer2rgb.c |   26 ++++++++++++++------------
  1 file changed, 14 insertions(+), 12 deletions(-)
