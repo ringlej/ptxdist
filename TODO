@@ -5,7 +5,7 @@ Prio A
 
 [ ] rsc: in x86 simulation: ipkg list doesn't work?
 
-[ ] rsc: config dependency dropper doesn't work yet; it assumes that all
+[x] rsc: config dependency dropper doesn't work yet; it assumes that all
     labels correspond to their package names, but that's not true for
     busybox, so the dropping doesn't work for bb. The right solution would be
     to change PTXCONF_BB_ to PTXCONF_BUSYBOX__, but that would break all
@@ -60,6 +60,10 @@ Prio A
 [ ] discuss UID of user "rpcuser"
 
 [ ] discuss UIDs and GIDs of other important system users
+
+[ ] ipkg with dependecies
+
+[ ] migrate libc from ptxconfig to platform
 
 Prio B
 ------
