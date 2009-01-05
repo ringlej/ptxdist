@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_KLIBC) += klibc
 #
 # Paths and names
 #
-KLIBC_VERSION	:= 1.5.14
+KLIBC_VERSION	:= 1.5.15
 KLIBC		:= klibc-$(KLIBC_VERSION)
 KLIBC_SUFFIX	:= tar.gz
 KLIBC_URL	:= \
@@ -30,40 +30,19 @@ KLIBC_DIR	:= $(BUILDDIR)/$(KLIBC)
 # Get
 # ----------------------------------------------------------------------------
 
-klibc_get: $(STATEDIR)/klibc.get
-
-$(STATEDIR)/klibc.get: $(klibc_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(KLIBC_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, KLIBC)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-klibc_extract: $(STATEDIR)/klibc.extract
-
-$(STATEDIR)/klibc.extract: $(klibc_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(KLIBC_DIR))
-	@$(call extract, KLIBC)
-	@$(call patchin, KLIBC)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-klibc_prepare: $(STATEDIR)/klibc.prepare
-
 KLIBC_PATH	:= PATH=$(CROSS_PATH)
 KLIBC_ENV 	:= $(CROSS_ENV)
 
-$(STATEDIR)/klibc.prepare: $(klibc_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/klibc.prepare:
+	@$(call targetinfo)
 	echo > $(KLIBC_DIR)/defconfig
 	echo "CONFIG_KLIBC=y" >> $(KLIBC_DIR)/defconfig
 	echo "CONFIG_KLIBC_ERRLIST=y" >> $(KLIBC_DIR)/defconfig
@@ -77,28 +56,27 @@ ifdef PTXCONF_ARCH_X86
 	echo "# i386 option" >> $(KLIBC_DIR)/defconfig
 	echo "CONFIG_REGPARM=y" >> $(KLIBC_DIR)/defconfig
 endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-klibc_compile: $(STATEDIR)/klibc.compile
-
 # CROSS_COMPILE define the crosscompiler to use
 # KLIBCARCH define the target architecture
 # INSTALLROOT where to install the executables
 KLIBC_MAKEVARS := \
+	$(PARALLELMFLAGS) \
 	KLIBCARCH=$(PTXCONF_ARCH_STRING) \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	INSTALLROOT=$(SYSROOT)
 
-$(STATEDIR)/klibc.compile: $(klibc_compile_deps_default) $(STATEDIR)/kernel.install
-	@$(call targetinfo, $@)
+$(STATEDIR)/klibc.compile:
+	@$(call targetinfo)
 	rm -f $(KLIBC_DIR)/.config
 	ln -sf $(KERNEL_DIR) $(KLIBC_DIR)/linux
 	cd $(KLIBC_DIR) && $(MAKE) $(KLIBC_MAKEVARS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -111,7 +89,6 @@ $(STATEDIR)/klibc.compile: $(klibc_compile_deps_default) $(STATEDIR)/kernel.inst
 # While kernel building the klibc files will be fetched from their build location!
 # ----------------------------------------------------------------------------
 #
-klibc_install: $(STATEDIR)/klibc.install
 
 #
 # where the klibc "install" target installs the target binaries
@@ -120,9 +97,9 @@ KLIBC_BINSRC := $(KLIBC_DIR)/usr
 # where to store the file info
 KLIBC_CONTROL := $(KLIBC_DIR)/initramfs_spec
 
-#
-$(STATEDIR)/klibc.install: $(klibc_install_deps_default)
-	@$(call targetinfo, $@)
+
+$(STATEDIR)/klibc.install:
+	@$(call targetinfo)
 
 	echo "dir /dev/ 755 0 0" > $(KLIBC_CONTROL)
 	echo "dir /proc/ 755 0 0" >> $(KLIBC_CONTROL)
@@ -239,17 +216,15 @@ endif
 #
 	rm -f $(KERNEL_DIR)/usr/initramfs_data.cpio.gz
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-klibc_targetinstall: $(STATEDIR)/klibc.targetinstall
-
-$(STATEDIR)/klibc.targetinstall: $(klibc_targetinstall_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/klibc.targetinstall:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
