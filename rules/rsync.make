@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_RSYNC) += rsync
 RSYNC_VERSION	= 2.6.8
 RSYNC		= rsync-$(RSYNC_VERSION)
 RSYNC_SUFFIX	= tar.gz
-RSYNC_URL	= http://samba.anu.edu.au/ftp/rsync/old-versions//$(RSYNC).$(RSYNC_SUFFIX)
+RSYNC_URL	= http://samba.org/ftp/rsync/src/$(RSYNC).$(RSYNC_SUFFIX)
 RSYNC_SOURCE	= $(SRCDIR)/$(RSYNC).$(RSYNC_SUFFIX)
 RSYNC_DIR	= $(BUILDDIR)/$(RSYNC)
 
@@ -29,28 +29,9 @@ RSYNC_DIR	= $(BUILDDIR)/$(RSYNC)
 # Get
 # ----------------------------------------------------------------------------
 
-rsync_get: $(STATEDIR)/rsync.get
-
-$(STATEDIR)/rsync.get: $(rsync_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(RSYNC_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, RSYNC)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-rsync_extract: $(STATEDIR)/rsync.extract
-
-$(STATEDIR)/rsync.extract: $(rsync_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(RSYNC_DIR))
-	@$(call extract, RSYNC)
-	@$(call patchin, RSYNC)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -58,13 +39,16 @@ $(STATEDIR)/rsync.extract: $(rsync_extract_deps_default)
 
 rsync_prepare: $(STATEDIR)/rsync.prepare
 
-RSYNC_PATH	=  PATH=$(CROSS_PATH)
-RSYNC_ENV 	=  rsync_cv_HAVE_GETTIMEOFDAY_TZ=yes $(CROSS_ENV)
+RSYNC_PATH	:= PATH=$(CROSS_PATH)
+RSYNC_ENV 	:= \
+	$(CROSS_ENV) \
+	rsync_cv_HAVE_GETTIMEOFDAY_TZ=yes 
 
 #
 # autoconf
 #
-RSYNC_AUTOCONF  =  $(CROSS_AUTOCONF_USR) \
+RSYNC_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-included-popt \
 	--disable-debug \
@@ -86,43 +70,12 @@ ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)),)
 RSYNC_AUTOCONF += --with-rsyncd-conf=$(PTXCONF_RSYNC_CONFIG_FILE)
 endif
 
-$(STATEDIR)/rsync.prepare: $(rsync_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(RSYNC_BUILDDIR))
-	cd $(RSYNC_DIR) && \
-		$(RSYNC_PATH) $(RSYNC_ENV) \
-		./configure $(RSYNC_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-rsync_compile: $(STATEDIR)/rsync.compile
-
-$(STATEDIR)/rsync.compile: $(rsync_compile_deps_default)
-	@$(call targetinfo, $@)
-	$(RSYNC_PATH) make -C $(RSYNC_DIR)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-rsync_install: $(STATEDIR)/rsync.install
-
-$(STATEDIR)/rsync.install: $(rsync_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-rsync_targetinstall: $(STATEDIR)/rsync.targetinstall
-
-$(STATEDIR)/rsync.targetinstall: $(rsync_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/rsync.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, rsync)
 	@$(call install_fixup, rsync,PACKAGE,rsync)
@@ -200,7 +153,7 @@ endif
 endif
 
 	@$(call install_finish, rsync)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
