@@ -12,7 +12,7 @@ if PROCPS
 config PROCPS_TOP
 	bool
 	prompt "top"
-	depends on !BUSYBOX_TOP
+	depends on !BUSYBOX_TOP || ALLYES
 	help
 	  FIXME: This item needs to be documented
 
@@ -28,7 +28,7 @@ config PROCPS_SLABTOP
 config PROCPS_SYSCTL
 	bool
 	prompt "sysctl"
-	depends on !BUSYBOX_SYSCTL
+	depends on !BUSYBOX_SYSCTL || ALLYES
 	help
 	  configure kernel parameters at runtime
 
@@ -38,7 +38,7 @@ comment "sysctl is disabled by busybox sysctl"
 config PROCPS_PS
 	bool
 	prompt "ps"
-	depends on !BUSYBOX_PS
+	depends on !BUSYBOX_PS || ALLYES
 	help
 	  ps stands for process status. With this command you
 	  analyse current states of all processes running on

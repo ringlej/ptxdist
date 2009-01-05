@@ -10,7 +10,7 @@ if COREUTILS
 config COREUTILS_CP
 	bool
 	prompt "cp"
-	depends on !BUSYBOX_CP
+	depends on !BUSYBOX_CP || ALLYES
 	help
 	  copy files and directories
 
@@ -20,7 +20,7 @@ comment "BusyBox' cp is selected!"
 config COREUTILS_DD
 	bool
 	prompt "dd"
-	depends on !BUSYBOX_DD
+	depends on !BUSYBOX_DD || ALLYES
 	help
 	  convert and copy a file
 
@@ -30,7 +30,7 @@ comment "BusyBox' dd is selected!"
 config COREUTILS_MD5SUM
 	bool
 	prompt "md5sum"
-	depends on !BUSYBOX_MD5SUM
+	depends on !BUSYBOX_MD5SUM || ALLYES
 	help
 	  compute and check MD5 message digest
 
@@ -40,14 +40,14 @@ comment "BusyBox' md5sum is selected!"
 config COREUTILS_READLINK
 	bool
 	prompt "readlink"
-	depends on !BUSYBOX_READLINK
+	depends on !BUSYBOX_READLINK || ALLYES
 	help
 	  the readlink tool
 
 config COREUTILS_SEQ
 	bool
 	prompt "seq"
-	depends on !BUSYBOX_SEQ
+	depends on !BUSYBOX_SEQ || ALLYES
 	help
 	  print a sequence of numbers
 

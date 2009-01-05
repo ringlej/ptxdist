@@ -15,7 +15,7 @@ if SCHEDUTILS
 config SCHEDUTILS_CHRT
 	bool
 	prompt "chrt"
-	depends on !BUSYBOX_CHRT
+	depends on !BUSYBOX_CHRT || ALLYES
 	help
 	  chrt manipulates the real-time attributes of a process.
 

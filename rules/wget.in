@@ -2,7 +2,7 @@
 config WGET
 	tristate
 	prompt "wget"
-	depends on !BUSYBOX_WGET
+	depends on !BUSYBOX_WGET || ALLYES
 	help
 	  GNU wget is a commandline mirroring tool.
 

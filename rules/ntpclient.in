@@ -33,7 +33,7 @@ config NTPCLIENT_BUILD_NTPCLIENT
 
 config NTPCLIENT_BUILD_ADJTIMEX
 	bool
-	depends on !BUSYBOX_ADJTIMEX
+	depends on !BUSYBOX_ADJTIMEX || ALLYES
 	prompt "adjtimex"
 	default y
 	help

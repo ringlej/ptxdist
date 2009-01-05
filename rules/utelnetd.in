@@ -1,6 +1,6 @@
 ## SECTION=networking
 menuconfig UTELNETD
-	depends on !BUSYBOX_TELNETD
+	depends on !BUSYBOX_TELNETD || ALLYES
 	tristate
 	prompt "utelnetd                      "
 	help

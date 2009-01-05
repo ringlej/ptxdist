@@ -1,7 +1,7 @@
 ## SECTION=shell_and_console
 config SED
 	tristate
-	depends on !BUSYBOX_SED
+	depends on !BUSYBOX_SED || ALLYES
 	prompt "sed"
 	help
 	  sed reads the specified files or the standard input if no

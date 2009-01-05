@@ -11,7 +11,7 @@ if UTIL_LINUX
 config UTIL_LINUX_FDISK
 	bool
 	prompt "fdisk"
-	depends on !BUSYBOX_FDISK
+	depends on !BUSYBOX_FDISK || ALLYES
 	help
 	  fdisk - Partition table manipulator for Linux
 
@@ -35,7 +35,7 @@ config UTIL_LINUX_CFDISK
 config UTIL_LINUX_MKSWAP
 	bool
 	prompt "mkswap"
-	depends on !BUSYBOX_MKSWAP
+	depends on !BUSYBOX_MKSWAP || ALLYES
 	help
 	  mkswap sets up a Linux swap area on a device or in a file.
 
@@ -45,7 +45,7 @@ comment "BusyBox' mkswap is selected!"
 config UTIL_LINUX_SWAPON
 	bool
 	prompt "swapon"
-	depends on !BUSYBOX_SWAPONOFF
+	depends on !BUSYBOX_SWAPONOFF || ALLYES
 	help
 	  Swapon is used to specify devices on which paging and swapping are to take place.
 
@@ -55,7 +55,7 @@ comment "BusyBox' swapon is selected!"
 config UTIL_LINUX_MOUNT
 	bool
 	prompt "mount"
-	depends on !BUSYBOX_MOUNT
+	depends on !BUSYBOX_MOUNT || ALLYES
 	help
 	  The mount command serves to attach the file system
 	  found on some device to the big file tree.
@@ -66,7 +66,7 @@ comment "BusyBox' mount is selected!"
 config UTIL_LINUX_UMOUNT
 	bool
 	prompt "umount"
-	depends on !BUSYBOX_UMOUNT
+	depends on !BUSYBOX_UMOUNT || ALLYES
 	help
 	  The mount(8) command serves to attach the file system
 	  found on some device to the big file tree.
@@ -78,7 +78,7 @@ comment "BusyBox' umount is selected!"
 config UTIL_LINUX_IPCS
 	bool
 	prompt "ipcs"
-	depends on !BUSYBOX_IPCS
+	depends on !BUSYBOX_IPCS || ALLYES
 	help
 	  ipcs provides information on the ipc facilities
 	  for which the calling process has read acccess.
@@ -89,7 +89,7 @@ comment "BusyBox' ipcs is selected!"
 config UTIL_LINUX_READPROFILE
 	bool
 	prompt "readprofile"
-	depends on !BUSYBOX_READPROFILE
+	depends on !BUSYBOX_READPROFILE || ALLYES
 	help
 	  The readprofile command uses the /proc/profile information
 	  to print ascii data on standard output.  The output is

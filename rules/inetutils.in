@@ -18,7 +18,7 @@ comment "build options   ---"
 
 config INETUTILS_INETD
 	bool
-	depends on !BUSYBOX_INETD
+	depends on !BUSYBOX_INETD || ALLYES
 	prompt "inetd"
 	help
 	  This is the network super daemon. It opens network connection for
@@ -29,7 +29,7 @@ comment "BusyBox' inetd is selected!"
 
 config INETUTILS_PING
 	bool
-	depends on !BUSYBOX_PING
+	depends on !BUSYBOX_PING || ALLYES
 	prompt "ping"
 	help
 	  Ping is a small tool to check if another host is alive in the network
@@ -72,7 +72,7 @@ config INETUTILS_RSHD
 config INETUTILS_SYSLOGD
 	bool
 	prompt "syslogd"
-	depends on !BUSYBOX_SYSLOGD
+	depends on !BUSYBOX_SYSLOGD || ALLYES
 	help
 	  Sysklogd provides two system utilities which provide support
 	  for system logging and kernel message trapping. Support of both

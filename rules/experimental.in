@@ -1,29 +1,23 @@
 ## SECTION=ptxdist_options
 
-config EXPERIMENTAL
-	bool "support experimental stuff"
+config INVISIBLE
+	bool
 	help
-	  Some options in PTXdist are considered to be experimental.
-	  Well, if I tell you the truth, *all* options are experimental,
-	  but the ones marked with PTXCONF_EXPERIMENTAL are *officially*
-	  being marked as experimental.
+	  don't delete this, it's to keep some menus in shape :)
 
-config EXPERIMENTAL_MORE
-	bool "support even more experimental stuff"
-	depends on EXPERIMENTAL
+config ALLYES
+	bool "allyes - don't let busybox block other packages"
 	help
-	  If you thought that PTXCONF_EXPERIMENTAL was stuff you shouldn't
-	  try, packets being marked with PTXCONF_EXPERIMENTAL_MORE are
-	  definitely not for people who do not want to live on the
-	  bleeding edge.
+	  if you select this, you can select all packages, even these
+	  who are blocked by activated busybox applets
+
+comment ""
+	depends on INVISIBLE
 
 config BROKEN
 	bool "support packets known to be broken"
-	depends on EXPERIMENTAL
+	depends on !ALLYES
 	help
 	  If this option is checked, even packets are activated which
 	  are known to be broken.
-
-config INVISIBLE
-	bool
 

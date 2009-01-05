@@ -1,7 +1,7 @@
 ## SECTION=disk_and_file
 config HDPARM
 	tristate "hdparm"
-	depends on !BUSYBOX_HDPARM
+	depends on !BUSYBOX_HDPARM || ALLYES
 	help
 	  hdparm - get/set ATA drive parameters under Linux
 

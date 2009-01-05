@@ -10,7 +10,6 @@ menuconfig WXWINDOWS
 config WXWINDOWS_X11
 	bool
 	prompt "wxWindows / X11"
-	depends on EXPERIMENTAL
 	depends on WXWINDOWS
 	help
 	  FIXME: This item needs to be documented

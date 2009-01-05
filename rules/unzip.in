@@ -10,7 +10,7 @@ if UNZIP
 
 config UNZIP_UNZIP
 	bool "unzip"
-	depends on !BUSYBOX_UNZIP
+	depends on !BUSYBOX_UNZIP || ALLYES
 
 comment "BusyBox' unzip selected"
 	depends on BUSYBOX_UNZIP

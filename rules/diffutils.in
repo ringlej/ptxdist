@@ -8,7 +8,7 @@ if DIFFUTILS
 config DIFFUTILS_DIFF
 	bool
 	prompt "diff"
-	depends on !BUSYBOX_DIFF
+	depends on !BUSYBOX_DIFF || ALLYES
 	help
 	  diff - compare files line by line
 
@@ -30,7 +30,7 @@ config DIFFUTILS_SDIFF
 config DIFFUTILS_CMP
 	bool
 	prompt "cmp"
-	depends on !BUSYBOX_CMP
+	depends on !BUSYBOX_CMP || ALLYES
 	help
 	  cmp - compare two files byte by byte
 

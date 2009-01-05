@@ -11,7 +11,7 @@ if FINDUTILS
 
 config FINDUTILS_FIND
 	bool
-	depends on !BUSYBOX_FIND
+	depends on !BUSYBOX_FIND || ALLYES
 	prompt "find"
 	help
 	  Searches given directory trees for files matching the specified criteria
@@ -21,7 +21,7 @@ comment "BusyBox' find is selected!"
 
 config FINDUTILS_XARGS
    bool
-	depends on !BUSYBOX_XARGS
+	depends on !BUSYBOX_XARGS || ALLYES
 	prompt "xargs"
 	help
 	  Can be used to apply a given command to a list of files
@@ -31,7 +31,7 @@ comment "BusyBox' xargs is selected!"
 
 config FINDUTILS_DATABASE
 	bool
-	depends on !BUSYBOX_FIND && !BUSYBOX_XARGS
+	depends on !BUSYBOX_FIND && !BUSYBOX_XARGS || ALLYES
 	select FINDUTILS_FIND
 	select FINDUTILS_XARGS
 	prompt "database support"
