@@ -28,28 +28,9 @@ SED_DIR		:= $(BUILDDIR)/$(SED)
 # Get
 # ----------------------------------------------------------------------------
 
-sed_get: $(STATEDIR)/sed.get
-
-$(STATEDIR)/sed.get: $(sed_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(SED_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, SED)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-sed_extract: $(STATEDIR)/sed.extract
-
-$(STATEDIR)/sed.extract: $(sed_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(SED_DIR))
-	@$(call extract, SED)
-	@$(call patchin, SED)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -65,44 +46,12 @@ SED_ENV 	:= $(CROSS_ENV)
 #
 SED_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/sed.prepare: $(sed_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(SED_DIR)/config.cache)
-	cd $(SED_DIR) && \
-		$(SED_PATH) $(SED_ENV) \
-		./configure $(SED_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-sed_compile: $(STATEDIR)/sed.compile
-
-$(STATEDIR)/sed.compile: $(sed_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(SED_DIR) && $(SED_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-sed_install: $(STATEDIR)/sed.install
-
-$(STATEDIR)/sed.install: $(sed_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, SED)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-sed_targetinstall: $(STATEDIR)/sed.targetinstall
-
-$(STATEDIR)/sed.targetinstall: $(sed_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/sed.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, sed)
 	@$(call install_fixup, sed,PACKAGE,sed)
@@ -117,7 +66,7 @@ $(STATEDIR)/sed.targetinstall: $(sed_targetinstall_deps_default)
 
 	@$(call install_finish, sed)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
