@@ -1,7 +1,0 @@
-## SECTION=web
-config PENGUZILLA
-	tristate
-	prompt "penguzilla"
-	depends on EXPERIMENTAL
-	help
-	  Penguzilla is ... umm, use your imagination.
