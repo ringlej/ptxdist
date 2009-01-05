@@ -17,52 +17,32 @@ PACKAGES-$(PTXCONF_LIBNETPBM) += libnetpbm
 #
 # Paths and names
 #
-LIBNETPBM_VERSION	= 10.31
-LIBNETPBM		= netpbm-$(LIBNETPBM_VERSION)
-LIBNETPBM_SUFFIX	= tgz
-LIBNETPBM_URL		= $(PTXCONF_SETUP_SFMIRROR)/netpbm/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
-LIBNETPBM_SOURCE	= $(SRCDIR)/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
-LIBNETPBM_DIR		= $(BUILDDIR)/$(LIBNETPBM)
+LIBNETPBM_VERSION	:= 10.31
+LIBNETPBM		:= netpbm-$(LIBNETPBM_VERSION)
+LIBNETPBM_SUFFIX	:= tgz
+LIBNETPBM_URL		:= $(PTXCONF_SETUP_SFMIRROR)/netpbm/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
+LIBNETPBM_SOURCE	:= $(SRCDIR)/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
+LIBNETPBM_DIR		:= $(BUILDDIR)/$(LIBNETPBM)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-libnetpbm_get: $(STATEDIR)/libnetpbm.get
-
-$(STATEDIR)/libnetpbm.get: $(libnetpbm_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBNETPBM_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBNETPBM)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libnetpbm_extract: $(STATEDIR)/libnetpbm.extract
-
-$(STATEDIR)/libnetpbm.extract: $(libnetpbm_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBNETPBM_DIR))
-	@$(call extract, LIBNETPBM)
-	@$(call patchin, LIBNETPBM)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-libnetpbm_prepare: $(STATEDIR)/libnetpbm.prepare
+LIBNETPBM_PATH	:=  PATH=$(CROSS_PATH)
+LIBNETPBM_ENV 	:=  $(CROSS_ENV)
 
-LIBNETPBM_PATH	=  PATH=$(CROSS_PATH)
-LIBNETPBM_ENV 	=  $(CROSS_ENV)
+$(STATEDIR)/libnetpbm.prepare:
+	@$(call targetinfo)
 
-$(STATEDIR)/libnetpbm.prepare: $(libnetpbm_prepare_deps_default)
-	@$(call targetinfo, $@)
 	cp $(LIBNETPBM_DIR)/Makefile.config.in $(LIBNETPBM_DIR)/Makefile.config
 ifdef PTXCONF_LIBNETPBM_BUILD_FIASCO
 	sed -i -e "s,^BUILD_FIASCO.*,BUILD_FIASCO=Y,g" $(LIBNETPBM_DIR)/Makefile.config
@@ -77,41 +57,35 @@ endif
 	sed -i -e "s,^CFLAGS_FOR_BUILD.*,CFLAGS_FOR_BUILD=,g" $(LIBNETPBM_DIR)/Makefile.config
 	echo "CFLAGS=$(CROSS_CFLAGS) $(CROSS_CPPFLAGS)" >> $(LIBNETPBM_DIR)/Makefile.config
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-libnetpbm_compile: $(STATEDIR)/libnetpbm.compile
-
-$(STATEDIR)/libnetpbm.compile: $(libnetpbm_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBNETPBM_DIR) && $(LIBNETPBM_ENV) $(LIBNETPBM_PATH) make
-	@$(call touch, $@)
+$(STATEDIR)/libnetpbm.compile:
+	@$(call targetinfo)
+	cd $(LIBNETPBM_DIR) && $(LIBNETPBM_ENV) $(LIBNETPBM_PATH) $(MAKE)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-libnetpbm_install: $(STATEDIR)/libnetpbm.install
-
-$(STATEDIR)/libnetpbm.install: $(libnetpbm_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libnetpbm.install:
+	@$(call targetinfo)
 	mkdir -p $(SYSROOT)/usr/lib
 	cp $(LIBNETPBM_DIR)/lib/libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so.10.31
 	ln -sf libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so.10
 	ln -sf libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libnetpbm_targetinstall: $(STATEDIR)/libnetpbm.targetinstall
-
-$(STATEDIR)/libnetpbm.targetinstall: $(libnetpbm_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libnetpbm.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init,  libnetpbm)
 	@$(call install_fixup, libnetpbm,PACKAGE,libnetpbm)
@@ -147,7 +121,7 @@ ifdef PTXCONF_LIBNETPBM_XWD2PNM
 endif
 	@$(call install_finish, libnetpbm)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
