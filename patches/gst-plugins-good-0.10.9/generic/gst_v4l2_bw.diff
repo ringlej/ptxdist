@@ -1,7 +1,11 @@
 Subject: gst-plugins-good: Add b/w support for the v4l2src
 From: Sascha Hauer <s.hauer@pengutronix.de>
 
+Adds 8bit grayscale support to v4l2src plugin
+Patch submitted to mainline, status pending.
+
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Acked-by: Luotao Fu <l.fu@pengutronix.de>
 
 ---
  sys/v4l2/gstv4l2src.c |    5 +++++
