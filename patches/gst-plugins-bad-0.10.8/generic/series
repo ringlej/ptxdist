@@ -1,2 +1,3 @@
 bayer2rgb_fix_24bpp.diff
 bayer2rgb_configurable_first_line.diff
+fix-depth-calculation.diff
