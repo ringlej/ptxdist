@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_SDPARM) += sdparm
 SDPARM_VERSION	:= 1.03
 SDPARM		:= sdparm-$(SDPARM_VERSION)
 SDPARM_SUFFIX	:= tgz
-SDPARM_URL	:= http://sg.torque.net/sg/p/$(SDPARM).$(SDPARM_SUFFIX)
+SDPARM_URL	:= http://sg.danny.cz/sg/p/$(SDPARM).$(SDPARM_SUFFIX)
 SDPARM_SOURCE	:= $(SRCDIR)/$(SDPARM).$(SDPARM_SUFFIX)
 SDPARM_DIR	:= $(BUILDDIR)/$(SDPARM)
 
@@ -55,32 +55,6 @@ SDPARM_ENV 	:= $(CROSS_ENV)
 #
 SDPARM_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking
-
-$(STATEDIR)/sdparm.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(SDPARM_DIR)/config.cache)
-	cd $(SDPARM_DIR) && \
-		$(SDPARM_PATH) $(SDPARM_ENV) \
-		./configure $(SDPARM_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/sdparm.compile:
-	@$(call targetinfo)
-	cd $(SDPARM_DIR) && $(SDPARM_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/sdparm.install:
-	@$(call targetinfo)
-	@$(call install, SDPARM)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
