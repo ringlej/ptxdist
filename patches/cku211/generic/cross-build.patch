@@ -5,11 +5,90 @@ Minor Makefile changes to allow package to be cross-built for targets.
 
 Signed-off-by: Gary Thomas <gary@mlbassoc.com>
 
----
+made install stage fully DESTDIR aware
 
---- cku211/makefile	2004-04-17 12:52:00.000000000 -0600
-+++ cku211.NEW/makefile	2007-09-26 08:42:39.000000000 -0600
-@@ -1406,13 +1406,12 @@
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ makefile |   47 +++++++++++++++++++++++------------------------
+ 1 file changed, 23 insertions(+), 24 deletions(-)
+
+Index: cku211/makefile
+===================================================================
+--- cku211.orig/makefile
++++ cku211/makefile
+@@ -1018,41 +1018,41 @@ install:
+ 	echo " to match the 'cu' program.  See the ckuins.txt file";\
+ 	echo " for details.";\
+ 	echo;\
+-	echo MANDIR=$(MANDIR);\
++	echo MANDIR=$(DESTDIR)$(MANDIR);\
+ 	if test -n "$(MANDIR)"; then\
+-		if test -d $(MANDIR); then\
+-			echo  "$(MANDIR) exists...";\
++		if test -d $(DESTDIR)$(MANDIR); then\
++			echo  "$(DESTDIR)$(MANDIR) exists...";\
+ 		else\
+-			echo "Creating $(MANDIR)...";\
+-			mkdir $(MANDIR) || exit 1;\
+-			chmod 755 $(MANDIR) || exit 1;\
++			echo "Creating $(DESTDIR)$(MANDIR)...";\
++			mkdir $(DESTDIR)$(MANDIR) || exit 1;\
++			chmod 755 $(DESTDIR)$(MANDIR) || exit 1;\
+ 		fi;\
+ 		echo "Installing man page...";\
+-		rm -f $(MANDIR)/kermit.$(MANEXT);\
+-		cp    ckuker.nr $(MANDIR)/kermit.$(MANEXT) || exit 1;\
+-		chmod 644       $(MANDIR)/kermit.$(MANEXT) || exit 1;\
++		rm -f $(DESTDIR)$(MANDIR)/kermit.$(MANEXT);\
++		cp    ckuker.nr $(DESTDIR)$(MANDIR)/kermit.$(MANEXT) || exit 1;\
++		chmod 644       $(DESTDIR)$(MANDIR)/kermit.$(MANEXT) || exit 1;\
+ 		echo 'set flag=f\nPrC Removing man pages' >&3;\
+-		echo "RmF $(MANDIR)/kermit.$(MANEXT)" >&3;\
++		echo "RmF $(DESTDIR)$(MANDIR)/kermit.$(MANEXT)" >&3;\
+ 		echo 'EfM' >&3;\
+ 		echo;\
+ 	else\
+ 		echo "Not installing man page!\n";\
+ 	fi;\
+-	echo CERTDIR=$(CERTDIR);\
++	echo CERTDIR=$(DESTDIR)$(CERTDIR);\
+ 	if test -n "$(CERTDIR)"; then\
+ 		if test -f ca_certs.pem; then\
+-			if test -d $(CERTDIR); then\
+-				echo  "$(CERTDIR) exists...";\
++			if test -d $(DESTDIR)$(CERTDIR); then\
++				echo  "$(DESTDIR)$(CERTDIR) exists...";\
+ 			else\
+-				echo "Creating $(CERTDIR)...";\
+-				mkdir $(CERTDIR) || exit 1;\
+-				chmod 755 $(CERTDIR) || exit 1;\
++				echo "Creating $(DESTDIR)$(CERTDIR)...";\
++				mkdir $(DESTDIR)$(CERTDIR) || exit 1;\
++				chmod 755 $(DESTDIR)$(CERTDIR) || exit 1;\
+ 			fi;\
+ 			echo "Installing certificates file...";\
+-			cp ca_certs.pem $(CERTDIR) || exit 1;\
++			cp ca_certs.pem $(DESTDIR)$(CERTDIR) || exit 1;\
+ 			echo 'set flag=f' >&3;\
+ 			echo 'PrC Removing certificates file' >&3;\
+-			echo "RmF $(CERTDIR)/ca_certs.pem" >&3;\
++			echo "RmF $(DESTDIR)$(CERTDIR)/ca_certs.pem" >&3;\
+ 			echo 'EfM' >&3;\
+ 			echo;\
+ 		fi;\
+@@ -1110,8 +1110,8 @@ install:
+ 	echo "RmD $(DESTDIR)$(BINDIR)" >&3;\
+ 	echo "RmD $(DESTDIR)$(SRCDIR)" >&3;\
+ 	echo "RmD $(DESTDIR)$(INFODIR)" >&3;\
+-	echo "RmD $(CERTDIR)" >&3;\
+-	echo "RmD $(MANDIR)" >&3;\
++	echo "RmD $(DESTDIR)$(CERTDIR)" >&3;\
++	echo "RmD $(DESTDIR)$(MANDIR)" >&3;\
+ 	echo "RmD $(DESTDIR)" >&3;\
+ 	echo "EfM" >&3;\
+ 	echo "PrN C-Kermit version $(CKVER) is uninstalled!" >&3;\
+@@ -1406,13 +1406,12 @@ ckcnet.$(EXT): ckcnet.c ckcdeb.h ckcker.
  
  ckctel.$(EXT): ckcsym.h ckcdeb.h ckcker.h ckcnet.h ckctel.h ckclib.h
  
