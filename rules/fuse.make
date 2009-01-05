@@ -28,34 +28,13 @@ FUSE_DIR	:= $(BUILDDIR)/$(FUSE)
 # Get
 # ----------------------------------------------------------------------------
 
-fuse_get: $(STATEDIR)/fuse.get
-
-$(STATEDIR)/fuse.get: $(fuse_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(FUSE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, FUSE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-fuse_extract: $(STATEDIR)/fuse.extract
-
-$(STATEDIR)/fuse.extract: $(fuse_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FUSE_DIR))
-	@$(call extract, FUSE)
-	@$(call patchin, FUSE)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-fuse_prepare: $(STATEDIR)/fuse.prepare
 
 FUSE_PATH	:= PATH=$(CROSS_PATH)
 FUSE_ENV	:= $(CROSS_ENV)
@@ -63,66 +42,39 @@ FUSE_ENV	:= $(CROSS_ENV)
 #
 # autoconf
 #
-FUSE_AUTOCONF := \
+# don't use := here
+#
+FUSE_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-example \
 	--disable-mtab \
-	--disable-rpath
+	--disable-rpath \
+	--with-kernel=$(KERNEL_DIR)
 
 ifdef PTXCONF_FUSE__KERNEL_MODULE
 FUSE_AUTOCONF += --enable-kernel-module
 else
 FUSE_AUTOCONF += --disable-kernel-module
 endif
+
 ifdef PTXCONF_FUSE__LIB
 FUSE_AUTOCONF += --enable-lib
 else
 FUSE_AUTOCONF += --disable-lib
 endif
+
 ifdef PTXCONF_FUSE__UTIL
 FUSE_AUTOCONF += --enable-util
 else
 FUSE_AUTOCONF += --disable-util
 endif
 
-$(STATEDIR)/fuse.prepare: $(fuse_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FUSE_DIR)/config.cache)
-	cd $(FUSE_DIR) && \
-		$(FUSE_PATH) $(FUSE_ENV) \
-		./configure $(FUSE_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-fuse_compile: $(STATEDIR)/fuse.compile
-
-$(STATEDIR)/fuse.compile: $(fuse_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(FUSE_DIR) && $(FUSE_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-fuse_install: $(STATEDIR)/fuse.install
-
-$(STATEDIR)/fuse.install: $(fuse_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, FUSE)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-fuse_targetinstall: $(STATEDIR)/fuse.targetinstall
-
-$(STATEDIR)/fuse.targetinstall: $(fuse_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/fuse.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, fuse)
 	@$(call install_fixup, fuse,PACKAGE,fuse)
@@ -152,7 +104,7 @@ ifdef PTXCONF_FUSE__UTIL
 endif
 	@$(call install_finish, fuse)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
