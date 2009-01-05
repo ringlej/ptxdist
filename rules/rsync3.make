@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_RSYNC3) += rsync3
 #
 # Paths and names
 #
-RSYNC3_VERSION	:= 3.0.3
+RSYNC3_VERSION	:= 3.0.5
 RSYNC3		:= rsync-$(RSYNC3_VERSION)
 RSYNC3_SUFFIX	:= tar.gz
 RSYNC3_URL	:= http://rsync.samba.org/ftp/rsync/src/$(RSYNC3).$(RSYNC3_SUFFIX)
@@ -37,10 +37,8 @@ $(RSYNC3_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-rsync3_prepare: $(STATEDIR)/rsync3.prepare
-
-RSYNC3_PATH	:=  PATH=$(CROSS_PATH)
-RSYNC3_ENV 	:=  rsync3_cv_HAVE_GETTIMEOFDAY_TZ=yes $(CROSS_ENV)
+RSYNC3_PATH	:= PATH=$(CROSS_PATH)
+RSYNC3_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
