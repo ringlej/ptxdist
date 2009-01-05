@@ -23,6 +23,7 @@ MTD_UTILS_SUFFIX	:= tar.bz2
 MTD_UTILS_URL		:= ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_SOURCE	:= $(SRCDIR)/$(MTD_UTILS).$(MTD_UTILS_SUFFIX)
 MTD_UTILS_DIR		:= $(BUILDDIR)/$(MTD_UTILS)
+MTD_UTILS_UBI_DIR	:= $(BUILDDIR)/$(MTD_UTILS)/ubi-utils/new-utils
 
 # ----------------------------------------------------------------------------
 # Get
@@ -133,6 +134,34 @@ ifdef PTXCONF_MTD_UTILS_NFTLDUMP
 endif
 ifdef PTXCONF_MTD_UTILS_MKJFFS2
 	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_DIR)/mkfs.jffs2, /sbin/mkfs.jffs2)
+endif
+
+ifdef PTXCONF_MTD_UTILS_UBIATTACH
+	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_UBI_DIR)/ubiattach, /sbin/ubiattach)
+endif
+ifdef PTXCONF_MTD_UTILS_UBIDETACH
+	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_UBI_DIR)/ubidetach, /sbin/ubidetach)
+endif
+ifdef PTXCONF_MTD_UTILS_UBICRC32
+	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_UBI_DIR)/ubicrc32, /sbin/ubicrc32)
+endif
+ifdef PTXCONF_MTD_UTILS_UBIMKVOL
+	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_UBI_DIR)/ubimkvol, /sbin/ubimkvol)
+endif
+ifdef PTXCONF_MTD_UTILS_UBIRMVOL
+	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_UBI_DIR)/ubirmvol, /sbin/ubirmvol)
+endif
+ifdef PTXCONF_MTD_UTILS_UBIUPDATEVOL
+	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_UBI_DIR)/ubirmvol, /sbin/ubiupdatevol)
+endif
+ifdef PTXCONF_MTD_UTILS_UBINFO
+	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_UBI_DIR)/ubinfo, /sbin/ubinfo)
+endif
+ifdef PTXCONF_MTD_UTILS_UBIFORMAT
+	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_UBI_DIR)/ubiformat, /sbin/ubiformat)
+endif
+ifdef PTXCONF_MTD_UTILS_UBINIZE
+	@$(call install_copy, mtd-utils, 0, 0, 0755, $(MTD_UTILS_UBI_DIR)/ubinize, /sbin/ubinize)
 endif
 
 	@$(call install_finish, mtd-utils)

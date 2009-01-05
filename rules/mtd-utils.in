@@ -118,4 +118,60 @@ config MTD_UTILS_MKJFFS2
 	help
 	  Build a JFFS2 image in a file, from a given directory tree.
 
+comment "ubi utils"
+
+config MTD_UTILS_UBIATTACH
+	bool
+	prompt "ubiattach"
+	help
+	  Attach an ubi device to a mtd device
+
+config MTD_UTILS_UBICRC32
+	bool
+	prompt "ubicrc32"
+	help
+	  UBI CRC2 file checksum
+
+config MTD_UTILS_UBIDETACH
+	bool
+	prompt "ubidetach"
+	help
+	  Detach an ubi device from a mtd device
+
+config MTD_UTILS_UBIFORMAT
+	bool
+	prompt "ubiformat"
+	help
+	  format an mtd device
+
+config MTD_UTILS_UBIMKVOL
+	bool
+	prompt "ubimkvol"
+	help
+	  Creates a volume on a UBI device
+
+config MTD_UTILS_UBINFO
+	bool
+	prompt "ubinfo"
+	help
+	  Provides infos on UBI volumes and devices
+
+config MTD_UTILS_UBINIZE
+	bool
+	prompt "ubinize"
+	help
+	  Creates UBI images. Probably more useful on host than on target
+
+config MTD_UTILS_UBIRMVOL
+	bool
+	prompt "ubirmvol"
+	help
+	  Deletes a volume on a UBI device
+
+config MTD_UTILS_UBIUPDATEVOL
+	bool
+	prompt "ubiupdatevol"
+	help
+	  Updates a volume with data from file
+
 endif
