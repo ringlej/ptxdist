@@ -11,10 +11,6 @@ menuconfig FUSE
 
 if FUSE
 
-config FUSE__KERNEL_MODULE
-	bool
-	prompt "kernel module"
-
 config FUSE__LIB
 	bool
 	prompt "fuse lib"

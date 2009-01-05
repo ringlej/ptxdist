@@ -49,13 +49,7 @@ FUSE_AUTOCONF = \
 	--disable-example \
 	--disable-mtab \
 	--disable-rpath \
-	--with-kernel=$(KERNEL_DIR)
-
-ifdef PTXCONF_FUSE__KERNEL_MODULE
-FUSE_AUTOCONF += --enable-kernel-module
-else
-FUSE_AUTOCONF += --disable-kernel-module
-endif
+	--disable-kernel-module
 
 ifdef PTXCONF_FUSE__LIB
 FUSE_AUTOCONF += --enable-lib
