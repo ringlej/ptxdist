@@ -170,7 +170,6 @@ endif
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options.server, n)
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options.ttyS0, n)
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/pap-secrets, n)
-	@$(call install_alternative, ppp, 0, 0, 0750, /etc/init.d/pppd, n)
 
 ifdef PTXCONF_PPP_INST_PPPDUMP
 	@$(call install_copy, ppp, 0, 0, 0755, \
