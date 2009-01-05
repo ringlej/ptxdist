@@ -2,6 +2,7 @@
 config SHOREWALL
 	tristate
 	prompt "shorewall firewall scripts"
+	depends on BROKEN
 	help
 	 The Shoreline Firewall (Shorewall) is an iptables based firewall that can be
 	 used on a dedicated firewall system, a multi-function masquerade
