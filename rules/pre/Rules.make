@@ -184,6 +184,7 @@ CROSS_ENV_AC := \
 	ac_cv_func_posix_getpwuid_r=yes \
 	ac_cv_func_printf_unix98=yes \
 	ac_cv_func_realloc_0_nonnull=yes \
+	ac_cv_func_setgrent_void=yes \
 	ac_cv_func_setpgrp_void=yes \
 	ac_cv_func_setvbuf_reversed=no \
 	ac_cv_func_vsnprintf_c99=yes \
