@@ -20,7 +20,8 @@ PACKAGES-$(PTXCONF_INADYN) += inadyn
 INADYN_VERSION	:= 1.96.2
 INADYN		:= inadyn-$(INADYN_VERSION)
 INADYN_SUFFIX	:= tar.bz2
-INADYN_URL	:= http://cdn.dyndns.com/$(INADYN).$(INADYN_SUFFIX)
+INADYN_URL	:= http://cdn.dyndns.com/$(INADYN).$(INADYN_SUFFIX) \
+		   http://www.pengutronix.de/software/ptxdist/temporary-src/$(INADYN).$(INADYN_SUFFIX)
 INADYN_SOURCE	:= $(SRCDIR)/$(INADYN).$(INADYN_SUFFIX)
 INADYN_DIR	:= $(BUILDDIR)/$(INADYN)
 
@@ -40,6 +41,7 @@ $(STATEDIR)/inadyn.extract:
 	@$(call targetinfo)
 	@$(call clean, $(INADYN_DIR))
 	@$(call extract, INADYN)
+	mv $(BUILDDIR)/inadyn $(INADYN_DIR)
 	@$(call patchin, INADYN)
 	@$(call touch)
 
