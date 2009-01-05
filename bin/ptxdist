@@ -727,6 +727,9 @@ Options:
   --j-extern=<n>, -je<n>	set number of packages built in parallel
 				(default = 1)
 
+  -k				keep going. Continue as much as possible
+				after an error.
+
 EOF
 }
 
@@ -1033,6 +1036,8 @@ parse_first()
 	PTX_collectionconfig_SET="false"
 	PTX_toolchain_SET="false"
 
+	PTX_MAKE_ARGS=""
+
 	set -- "${PTXDIST_ARGS_FULL[@]}"
 	while [ ${#} -ne 0 ]; do
 		arg="${1}"
@@ -1040,8 +1045,11 @@ parse_first()
 
 		case "${arg}" in
 		-d|--debug)
-			PTX_MAKE_DBG="--debug=make"
+			PTX_MAKE_ARGS="${PTX_MAKE_ARGS} --debug=make"
 			PTX_DEBUG=true
+			;;
+		-k)
+			PTX_MAKE_ARGS="${PTX_MAKE_ARGS} -k"
 			;;
 		-f|--force)
 			PTX_FORCE=true
@@ -1869,27 +1877,18 @@ setup_config() {
 	# default no parallel for now
 	local pmf_extern="-j1"
 
-	#
-	# user may override PARALLELMFLAGS
-	#
-	if [ -n "${PARALLELMFLAGS}" ]; then
-		pmf_intern="${PARALLELMFLAGS}"
-		unset PARALLELMFLAGS
-	else
-		if [ -r /proc/cpuinfo ]; then
-			cpus="$(egrep '^(processor|cpu	)' /proc/cpuinfo | wc -l)"
-			if [ $cpus -eq 0 ]; then
-				cpus=1
-			fi
-		else
+	if [ -r /proc/cpuinfo ]; then
+		cpus="$(egrep '^(processor|cpu	)' /proc/cpuinfo | wc -l)"
+		if [ $cpus -eq 0 ]; then
 			cpus=1
 		fi
-
-		pmf_intern="-j$(( $cpus * 2 ))"
+	else
+		cpus=1
 	fi
+	pmf_intern="-j$(( $cpus * 2 ))"
 
 	#
-	# user may override these, too
+	# user may override these, via cmdline
 	#
 	PTXDIST_PARALLELMFLAGS_INTERN="${PTXDIST_PARALLELMFLAGS_INTERN:-${pmf_intern}}"
 	PTXDIST_PARALLELMFLAGS_EXTERN="${PTXDIST_PARALLELMFLAGS_EXTERN:-${pmf_extern}}"
