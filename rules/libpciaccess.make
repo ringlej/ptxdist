@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_LIBPCIACCESS) += libpciaccess
 #
 # Paths and names
 #
-LIBPCIACCESS_VERSION	:= 0.10.3
+LIBPCIACCESS_VERSION	:= 0.10.5
 LIBPCIACCESS		:= libpciaccess-$(LIBPCIACCESS_VERSION)
 LIBPCIACCESS_SUFFIX	:= tar.bz2
 LIBPCIACCESS_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(LIBPCIACCESS).$(LIBPCIACCESS_SUFFIX)
@@ -27,34 +27,13 @@ LIBPCIACCESS_DIR	:= $(BUILDDIR)/$(LIBPCIACCESS)
 # Get
 # ----------------------------------------------------------------------------
 
-libpciaccess_get: $(STATEDIR)/libpciaccess.get
-
-$(STATEDIR)/libpciaccess.get: $(libpciaccess_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBPCIACCESS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBPCIACCESS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libpciaccess_extract: $(STATEDIR)/libpciaccess.extract
-
-$(STATEDIR)/libpciaccess.extract: $(libpciaccess_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBPCIACCESS_DIR))
-	@$(call extract, LIBPCIACCESS)
-	@$(call patchin, LIBPCIACCESS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-libpciaccess_prepare: $(STATEDIR)/libpciaccess.prepare
 
 LIBPCIACCESS_PATH	:= PATH=$(CROSS_PATH)
 LIBPCIACCESS_ENV 	:= $(CROSS_ENV)
@@ -62,7 +41,8 @@ LIBPCIACCESS_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBPCIACCESS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+LIBPCIACCESS_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking
 
 ifdef PTXCONF_LIBPCIACCESS_STATIC
@@ -75,44 +55,12 @@ else
 LIBPCIACCESS_ENV += ac_cv_file__usr_include_asm_mtrr_h=no
 endif
 
-$(STATEDIR)/libpciaccess.prepare: $(libpciaccess_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBPCIACCESS_DIR)/config.cache)
-	cd $(LIBPCIACCESS_DIR) && \
-		$(LIBPCIACCESS_PATH) $(LIBPCIACCESS_ENV) \
-		./configure $(LIBPCIACCESS_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libpciaccess_compile: $(STATEDIR)/libpciaccess.compile
-
-$(STATEDIR)/libpciaccess.compile: $(libpciaccess_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBPCIACCESS_DIR) && $(LIBPCIACCESS_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libpciaccess_install: $(STATEDIR)/libpciaccess.install
-
-$(STATEDIR)/libpciaccess.install: $(libpciaccess_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBPCIACCESS)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libpciaccess_targetinstall: $(STATEDIR)/libpciaccess.targetinstall
-
-$(STATEDIR)/libpciaccess.targetinstall: $(libpciaccess_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libpciaccess.targetinstall:
+	@$(call targetinfo)
 
 ifndef PTXCONF_LIBPCIACCESS_STATIC
 # only shared libraries are to be installed on the target
@@ -136,7 +84,7 @@ ifndef PTXCONF_LIBPCIACCESS_STATIC
 	@$(call install_finish, libpciaccess)
 endif
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
