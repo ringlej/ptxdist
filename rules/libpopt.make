@@ -30,37 +30,15 @@ LIBPOPT_DIR	:= $(BUILDDIR)/$(LIBPOPT)
 # Get
 # ----------------------------------------------------------------------------
 
-libpopt_get: $(STATEDIR)/libpopt.get
-
-$(STATEDIR)/libpopt.get: $(libpopt_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBPOPT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBPOPT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libpopt_extract: $(STATEDIR)/libpopt.extract
-
-$(STATEDIR)/libpopt.extract: $(libpopt_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBPOPT_DIR))
-	@$(call extract, LIBPOPT)
-	@$(call patchin, LIBPOPT)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-libpopt_prepare: $(STATEDIR)/libpopt.prepare
-
 LIBPOPT_PATH	:=  PATH=$(CROSS_PATH)
-
 LIBPOPT_ENV 	:=  $(CROSS_ENV)
 
 ifndef PTXCONF_LIBPOPT_NLS
@@ -80,44 +58,12 @@ else
 LIBPOPT_AUTOCONF += --disable-nls
 endif
 
-$(STATEDIR)/libpopt.prepare: $(libpopt_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBPOPT_DIR)/config.cache)
-	cd $(LIBPOPT_DIR) && \
-		$(LIBPOPT_PATH) $(LIBPOPT_ENV) \
-		./configure $(LIBPOPT_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libpopt_compile: $(STATEDIR)/libpopt.compile
-
-$(STATEDIR)/libpopt.compile: $(libpopt_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBPOPT_DIR) && $(LIBPOPT_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libpopt_install: $(STATEDIR)/libpopt.install
-
-$(STATEDIR)/libpopt.install: $(libpopt_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBPOPT)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libpopt_targetinstall: $(STATEDIR)/libpopt.targetinstall
-
-$(STATEDIR)/libpopt.targetinstall: $(libpopt_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libpopt.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, libpopt)
 	@$(call install_fixup,libpopt,PACKAGE,libpopt)
@@ -134,7 +80,7 @@ $(STATEDIR)/libpopt.targetinstall: $(libpopt_targetinstall_deps_default)
 
 	@$(call install_finish,libpopt)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
