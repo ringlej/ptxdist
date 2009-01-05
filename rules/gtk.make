@@ -36,8 +36,6 @@ $(GTK_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-gtk_prepare: $(STATEDIR)/gtk.prepare
-
 GTK_PATH	:= PATH=$(CROSS_PATH)
 
 # cups-config otherwhise picks up the host version
