@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_RSYNC) += rsync
 #
 # Paths and names
 #
-RSYNC_VERSION	= 2.6.8
-RSYNC		= rsync-$(RSYNC_VERSION)
-RSYNC_SUFFIX	= tar.gz
-RSYNC_URL	= http://samba.org/ftp/rsync/src/$(RSYNC).$(RSYNC_SUFFIX)
-RSYNC_SOURCE	= $(SRCDIR)/$(RSYNC).$(RSYNC_SUFFIX)
-RSYNC_DIR	= $(BUILDDIR)/$(RSYNC)
+RSYNC_VERSION	:= 2.6.8
+RSYNC		:= rsync-$(RSYNC_VERSION)
+RSYNC_SUFFIX	:= tar.gz
+RSYNC_URL	:= http://samba.org/ftp/rsync/src/$(RSYNC).$(RSYNC_SUFFIX)
+RSYNC_SOURCE	:= $(SRCDIR)/$(RSYNC).$(RSYNC_SUFFIX)
+RSYNC_DIR	:= $(BUILDDIR)/$(RSYNC)
 
 
 # ----------------------------------------------------------------------------
