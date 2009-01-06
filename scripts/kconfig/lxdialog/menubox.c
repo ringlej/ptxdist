@@ -278,7 +278,6 @@ do_resize:
 	wrefresh(menu);
 
 	while (key != KEY_ESC) {
-		char sss[256];
 		key = wgetch(menu);
 
 		if (key < 256 && isalpha(key))
@@ -354,11 +353,8 @@ do_resize:
 							choice++;
 					}
 				}
-			} else {
-				sprintf(sss, "i=%d choice=%d max_choice=%d", i, choice, max_choice);
-				dialog_textbox(NULL, sss, 0, 0);
+			} else
 				choice = i;
-			}
 
 			print_item(scroll + choice, choice, TRUE);
 
