@@ -157,9 +157,9 @@ static void print_buttons(WINDOW * win, int height, int width, int selected)
 	int x = width / 2 - 16;
 	int y = height - 2;
 
-	print_button(win, "Select", y, x, selected == 0);
-	print_button(win, " Exit ", y, x + 12, selected == 1);
-	print_button(win, " Help ", y, x + 24, selected == 2);
+	print_button(win, gettext("Select"), y, x, selected == 0);
+	print_button(win, gettext(" Exit "), y, x + 12, selected == 1);
+	print_button(win, gettext(" Help "), y, x + 24, selected == 2);
 
 	wmove(win, y, x + 1 + 12 * selected);
 	wrefresh(win);
@@ -278,6 +278,7 @@ do_resize:
 	wrefresh(menu);
 
 	while (key != KEY_ESC) {
+		char sss[256];
 		key = wgetch(menu);
 
 		if (key < 256 && isalpha(key))
@@ -353,8 +354,11 @@ do_resize:
 							choice++;
 					}
 				}
-			} else
+			} else {
+				sprintf(sss, "i=%d choice=%d max_choice=%d", i, choice, max_choice);
+				dialog_textbox(NULL, sss, 0, 0);
 				choice = i;
+			}
 
 			print_item(scroll + choice, choice, TRUE);
 

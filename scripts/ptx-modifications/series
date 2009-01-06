@@ -1,0 +1,6 @@
+# This patchset changes the official kconfig (see $LINUXSRC/scripts/kconfig for
+# details) to work with ptxdist. The sources included in this tree already have
+# this patches applied.
+kconfig-2.6.28-ptx1.diff -p1
+confdata.c.diff -p1
+linux-2.6.git-48874077ddd6c0c444758059af2cf77c10204ece.diff -p1 -R

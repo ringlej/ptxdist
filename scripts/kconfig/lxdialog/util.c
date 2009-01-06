@@ -296,8 +296,11 @@ void set_dialog_backtitle(const char *backtitle)
 /*
  * End using dialog functions.
  */
-void end_dialog(void)
+void end_dialog(int x, int y)
 {
+	/* move cursor back to original position */
+	move(y, x);
+	refresh();
 	endwin();
 }
 

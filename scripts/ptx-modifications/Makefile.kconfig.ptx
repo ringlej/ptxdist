@@ -1,148 +1,54 @@
-VERSION=1.2
-CC=gcc
-CXX=g++
-CFLAGS=-O2 -Wall -g -fPIC
-CXXFLAGS=$(CFLAGS) -I$(QTDIR)/include
-LDFLAGS=
-LXXFLAGS=$(LDFLAGS) -L$(QTDIR)/lib  -Wl,-rpath,$(QTDIR)/lib
-#LXXFLAGS=$(LDFLAGS) -L/usr/lib/qt3 -Wl,-rpath,$(QTDIR)/lib -Wl,-rpath,/usr/lib/qt3
-LEX=flex
-YACC=bison
-YFLAGS=-d -t -v
-ifndef QTDIR
-QTDIR=/usr/share/qt3
+# ===========================================================================
+# Makefile for the various kconfig executables:
+# conf:	  Used for defconfig, oldconfig and related targets
+# mconf:  Used for the mconfig target.
+#         Utilizes the lxdialog package
+# qconf:  Used for the xconfig target
+#         Based on QT which needs to be installed to compile it
+# gconf:  Used for the gconfig target
+#         Based on GTK which needs to be installed to compile it
+# object files used by all kconfig flavours
+
+ifndef CURSES_LOC
+CURSES_LOC := <ncurses.h>
 endif
-MOC=$(wildcard $(QTDIR)/bin/moc)
+CFLAGS += "-DCURSES_LOC=$(CURSES_LOC)"
+CFLAGS += -DKBUILD_NO_NLS
 
-parse_SRC=zconf.y
-conf_SRC=conf.c $(parse_SRC)
-mconf_SRC=mconf.c $(parse_SRC)
-qconf_SRC=qconf.cc
-lkcc_SRC=cml1.y cml1.l help.l cml1.h expr1.c
-HDR=expr.h lkc.h lkc_proto.h qconf.h
-OTHER=README lkc_spec lkc_overview Makefile.kernel convert-all prepare-all.diff fixup-all.diff \
-	kconfig.i extconf.rb example
-INST=zconf.y zconf.l confdata.c expr.c symbol.c menu.c conf.c mconf.c qconf.cc kconfig_load.c images.c $(parse_SRC) $(HDR)
-INSTGEN=lex.zconf.c zconf.tab.c zconf.tab.h
-
-#DEBUG=1
-ifdef DEBUG
-CFLAGS+=-DLKC_DIRECT_LINK
-qconf_SRC+=$(parse_SRC)
-else
-qconf_SRC+=kconfig_load.c
+ifndef MCONF_LIBS
+MCONF_LIBS := -lncurses
 endif
 
-SRC=$(conf_SRC) $(mconf_SRC) $(qconf_SRC) $(lkcc_SRC)
-CSRC=$(filter %.c, $(SRC))
-YSRC=$(filter %.y, $(SRC))
-LSRC=$(filter %.l, $(SRC))
+conf-libs  := $(CONF_LIBS)
+mconf-libs := $(MCONF_LIBS)
 
-parse_OBJ=$(filter %.o, \
-		$(patsubst %.c,%.o, \
-		$(patsubst %.y,%.tab.o, \
-		$(patsubst %.l,lex.%.o, \
-			$(parse_SRC)))))
-conf_OBJ=$(filter %.o, \
-		$(patsubst %.c,%.o, \
-		$(patsubst %.y,%.tab.o, \
-		$(patsubst %.l,lex.%.o, \
-			$(conf_SRC)))))
-mconf_OBJ=$(filter %.o, \
-		$(patsubst %.c,%.o, \
-		$(patsubst %.y,%.tab.o, \
-		$(patsubst %.l,lex.%.o, \
-			$(mconf_SRC)))))
-qconf_OBJ=$(filter %.o, \
-		$(patsubst %.c,%.o, \
-		$(patsubst %.cc,%.o, \
-		$(patsubst %.y,%.tab.o, \
-		$(patsubst %.l,lex.%.o, \
-			$(qconf_SRC))))))
-lkcc_OBJ=$(filter %.o, \
-		$(patsubst %.c,%.o, \
-		$(patsubst %.y,%.tab.o, \
-		$(patsubst %.l,lex.%.o, \
-			$(lkcc_SRC)))))
-OBJ=$(conf_OBJ) $(mconf_OBJ) $(qconf_OBJ) $(lkcc_OBJ)
+lkc-deps := lkc.h lkc_defs.h expr.h
 
-ifeq ($(MOC),)
-all: lkcc conf mconf
-else
-all: lkcc conf mconf qconf libkconfig.so
-endif
+lxdialog-objs := \
+	lxdialog/checklist.o \
+	lxdialog/inputbox.o  \
+	lxdialog/menubox.o   \
+	lxdialog/textbox.o   \
+	lxdialog/util.o      \
+	lxdialog/yesno.o     \
 
-lex.help.c: help.l
-lex.help.o: lex.help.c cml1.h expr.h
-lex.cml1.c: cml1.l
-lex.cml1.o: lex.cml1.c cml1.tab.h cml1.h expr.h
-cml1.tab.c: cml1.y
-cml1.tab.h: cml1.y
-cml1.tab.o: cml1.tab.c cml1.h expr.h
-expr1.o: expr1.c expr.h
+conf-objs := \
+	conf.o \
+	zconf.tab.o
 
-lkc_deps := lkc.h lkc_proto.h lkc_defs.h expr.h
+mconf-objs := \
+	mconf.o \
+	zconf.tab.o \
+	$(lxdialog-objs)
 
-zconf.tab.c: zconf.y
-zconf.tab.h: zconf.y
-lex.zconf.c: zconf.l
-zconf.tab.o: zconf.tab.c lex.zconf.c confdata.c expr.c symbol.c menu.c $(lkc_deps)
-#lex.zconf.o: lex.zconf.c zconf.tab.h $(lkc_deps)
-#confdata.o: confdata.c $(lkc_deps)
-#expr.o: expr.c $(lkc_deps)
-#symbol.o: symbol.c $(lkc_deps)
-#menu.o: menu.c $(lkc_deps)
-kconfig_load.o: kconfig_load.c $(lkc_deps)
-conf.o: conf.c $(lkc_deps)
-mconf.o: mconf.c $(lkc_deps)
-qconf.moc: qconf.h
-qconf.o: qconf.cc qconf.moc images.c $(lkc_deps)
+conf: $(conf-objs)
+	$(CC) $^ -o $@ $(conf-libs)
 
-mconf: $(mconf_OBJ)
-	$(CC) $(LDFLAGS) $^ -o $@
-
-conf: $(conf_OBJ)
-	$(CC) $(LDFLAGS) $^ -o $@
-
-ifeq ($(MOC),)
-qconf:
-	@echo Unable to find the QT installation. Please make sure that the
-	@echo QT development package is correctly installed and the QTDIR
-	@echo environment variable is set to the correct location.
-	@false
-else
-qconf: $(qconf_OBJ)
-	$(CXX) $(LXXFLAGS) $^ -lqt -ldl -o $@
-endif
-
-lkcc: $(lkcc_OBJ)
-	$(CC) $(LDFLAGS) $^ -o $@
-
-libkconfig.so: $(parse_OBJ)
-	$(CC) -shared $^ -o $@
-
-lkc_defs.h: lkc_proto.h
-	sed < $< > $@ 's/P(\([^,]*\),.*/#define \1 (\*\1_p)/'
-
-clean:
-	rm -f $(OBJ) lkcc conf qconf mconf *.moc lex.* *.tab.? *.output libkconfig.so
-	rm -f .gconf.o.d .kconfig_load.o.d .mconf.o.d .qconf.o.d .zconf.tab.o.d gconf logfile
-
-tgz:
-	mkdir tmp
-	mkdir tmp/lkc-$(VERSION)
-	cp -ra Makefile $(sort $(SRC) $(HDR) $(OTHER) $(INST)) tmp/lkc-$(VERSION)
-	tar -cpvz -C tmp -f lkc-$(VERSION).tar.gz lkc-$(VERSION)
-	rm -rf tmp
-
-%.tab.c %.tab.h: %.y
-	$(YACC) $(YFLAGS) -b $* -p $* $<
-
-lex.%.c: %.l
-	$(LEX) $(LFLAGS) -P$* $<
+mconf: $(mconf-objs)
+	$(CC) $^ -o $@ $(mconf-libs)
 
 %.moc: %.h
-	$(QTDIR)/bin/moc -i $< -o $@
+	$(MOC) -i $< -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -150,42 +56,57 @@ lex.%.c: %.l
 %.o: %.cc
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-ifdef KERNELSRC
-install: lkcc $(INSTGEN)
-	set -x; mkdir $(KERNELSRC)/scripts/kconfig; \
-	cp $(sort $(INST)) $(KERNELSRC)/scripts/kconfig; \
-	for f in $(INSTGEN); do cp $$f $(KERNELSRC)/scripts/kconfig/$${f}_shipped; done; \
-	cp Makefile.kernel $(KERNELSRC)/scripts/kconfig/Makefile; \
-	LKCSRC=$$PWD; export LKCSRC; \
-	cd $(KERNELSRC); \
-	patch -p0 -N < $$LKCSRC/prepare-all.diff; \
-	sh $$LKCSRC/convert-all; \
-	patch -p0 -N < $$LKCSRC/fixup-all.diff
+%.moc: %.h
+	$(KC_QT_MOC) -i $< -o $@
 
-#	cp Makefile $(KERNELSRC)/scripts/kconfig/Makefile; \
+lkc_defs.h: lkc_proto.h
+	sed < $< > $@ 's/P(\([^,]*\),.*/#define \1 (\*\1_p)/'
 
-uninstall:
-	patch -p0 -N -R -d $(KERNELSRC) < prepare-all.diff; \
-	cd $(KERNELSRC); \
-	find -name "Kconfig*" | xargs rm; \
-	rm -rf scripts/kconfig log.*
+zconf.tab.o: lex.zconf.c zconf.hash.c zconf.tab.c confdata.c expr.c symbol.c menu.c $(lkc-deps)
+
+kconfig_load.o: $(lkc-deps)
+
+qconf.o: qconf.moc $(lkc-deps)
+
+gconf.o: $(lkc-deps)
+
+###
+# The following requires flex/bison/gperf
+# By default we use the _shipped versions, uncomment the following line if
+# you are modifying the flex/bison src.
+# LKC_GENPARSER := 1
+
+ifdef LKC_GENPARSER
+
+zconf.tab.c: zconf.y
+lex.zconf.c: zconf.l
+zconf.hash.c: zconf.gperf
+
+%.tab.c: %.y
+	bison -l -b $* -p $(notdir $*) $<
+	cp $@ $@_shipped
+
+lex.%.c: %.l
+	flex -L -P$(notdir $*) -o$@ $<
+	cp $@ $@_shipped
+
+%.hash.c: %.gperf
+	gperf < $< > $@
+	cp $@ $@_shipped
+
 else
-install:
-	@echo "Please use KERNELSRC=<path/to/linux-kernel> to install"
+
+%.tab.c: %.y
+	cp $@_shipped $@
+
+lex.%.c: %.l
+	cp $@_shipped $@
+
+%.hash.c: %.gperf
+	cp $@_shipped $@
+
 endif
 
-ruby: .ruby libkconfig.so .ruby/kconfig.so
-
-.ruby:
-	mkdir .ruby
-
-.ruby/kconfig_wrap.c: kconfig.i kconfig_load.c expr.h lkc_proto.h
-	swig -ruby -o $@ $<
-
-.ruby/Makefile: extconf.rb
-	cd .ruby; ruby ../extconf.rb
-
-.ruby/kconfig.so: .ruby/kconfig_wrap.c .ruby/Makefile
-	make -C .ruby
-
-.PHONY: all tgz clean ruby
+clean:
+	rm -f $(conf-objs) $(mconf-objs) conf mconf gconf qconf
+	rm -f lkc_defs.h zconf.tab.o zconf.tab.c zconf.hash.c lex.zconf.c

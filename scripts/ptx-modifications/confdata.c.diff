@@ -9,20 +9,14 @@ bbu, 20071019
 
 ------------------------------------------------------------------------------
 
-Index: confdata.c
-===================================================================
---- confdata.c	(revision 7549)
-+++ confdata.c	(working copy)
-@@ -311,11 +311,8 @@
- 	fprintf(out, _("#\n"
- 		       "# Automatically generated make config: don't edit\n"
- 		       "# %s version: %s\n"
--		       "%s%s"
- 		       "#\n"),
--		     getenv("PROJECT"), getenv("FULLVERSION"),
--		     use_timestamp ? "# " : "",
--		     use_timestamp ? ctime(&now) : "");
-+		     getenv("PROJECT"), getenv("FULLVERSION"));
- 	if (out_h)
- 		fprintf(out_h, "/*\n"
- 			       " * Automatically generated C config: don't edit\n"
+--- a/scripts/kconfig/confdata.c	2009-01-06 11:58:02.000000000 +0100
++++ b/scripts/kconfig/confdata.c	2009-01-06 11:58:12.000000000 +0100
+@@ -399,7 +399,7 @@
+ 	int type, l;
+ 	const char *str;
+ 	time_t now;
+-	int use_timestamp = 1;
++	int use_timestamp = 0;
+ 	char *env;
+ 
+ 	dirname[0] = 0;

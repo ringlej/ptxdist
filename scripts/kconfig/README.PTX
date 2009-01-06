@@ -1,11 +1,12 @@
 README.PTX
 ==========
 
-This is a copy of the linux-2.6.23 scripts/kconfig directory.
+This is a copy of the linux-2.6.28 scripts/kconfig directory.
 
 To update to a new kconfig version copy the kconfig directory from the kernel
-and replace Makefile with that one to be found in ../ptx-modifications and 
-apply the patches. 
+and replace Makefile with that one to be found in ../ptx-modifications, apply
+patch serie, uncoment 'LKC_GENPARSER := 1' in Makefile and run make to update
+'shipped' files.
 
 Robert Schwebel <r.schwebel@pengutronix.de>
 
