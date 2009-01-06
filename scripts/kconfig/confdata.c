@@ -399,7 +399,7 @@ int conf_write(const char *name)
 	int type, l;
 	const char *str;
 	time_t now;
-	int use_timestamp = 0;
+	int use_timestamp = 1;
 	char *env;
 
 	dirname[0] = 0;
