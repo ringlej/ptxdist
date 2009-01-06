@@ -48,32 +48,14 @@ MINICOM_AUTOCONF := \
 	--enable-socket \
 	--disable-music
 
-$(STATEDIR)/minicom.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(MINICOM_DIR)/config.cache)
-	cd $(MINICOM_DIR) && \
-		$(MINICOM_PATH) $(MINICOM_ENV) \
-		./configure $(MINICOM_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/minicom.compile:
-	@$(call targetinfo)
-	cd $(MINICOM_DIR) && $(MINICOM_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/minicom.install:
 	@$(call targetinfo)
-	#@$(call install, MINICOM)
+	@$(call install, MINICOM)
 	@$(call touch)
-
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -96,7 +78,7 @@ $(STATEDIR)/minicom.targetinstall:
 	@$(call install_copy, minicom, 0, 0, 0755, $(MINICOM_DIR)/src/ascii-xfr, /usr/bin/ascii-xfr)
 
 ifdef PTXCONF_MINICOM_ETC_MINIRC_DFL
-	@$(call install_alternate, minicom, 0, 0, 0755, /etc/minirc.dfl, n)
+	@$(call install_alternate, minicom, 0, 0, 0644, /etc/minirc.dfl, n)
 endif
 
 	@$(call install_finish, minicom)

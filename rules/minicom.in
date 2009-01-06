@@ -15,7 +15,6 @@ if MINICOM
 
 config MINICOM_CONFIGFILES
 	bool
-	default n
 	prompt "install default config file"
 	help
           Install /etc/minirc_dfl config file from projectroot or ptxdist generic.
