@@ -48,7 +48,7 @@ SAMBA_ENV	:= \
 #
 # autoconf
 #
-SAMBA_AUTOCONF :=
+SAMBA_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--sysconfdir=/etc/samba \
 	--libdir=/etc/samba \
