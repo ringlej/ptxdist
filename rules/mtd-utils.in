@@ -3,10 +3,17 @@ menuconfig MTD_UTILS
 	tristate
 	prompt "mtd-utils                     "
 	select ZLIB
+	select LIBLZO if MTD_UTILS_USE_LIBLZO
 	help
 	  mtdutils is a set of utilities for doing low-level operations on flash devices.
 
 if MTD_UTILS
+
+config MTD_UTILS_USE_LIBLZO
+	bool
+	prompt "liblzo support"
+	help
+	  Enable LZO support
 
 config MTD_UTILS_FLASH_ERASE
 	bool
