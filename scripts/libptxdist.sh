@@ -256,7 +256,7 @@ ptxd_kconfig() {
 		# oldconfig instead of silentoldconfig if somebody
 		# tries to automate us.
 		#
-		ptxd_kconfig_migrate "${part}" || return
+		ptxd_kconfig_migrate "${part}" && \
 		if tty -s; then
 			"${conf}" -s "${file_kconfig}"
 		else
@@ -288,9 +288,9 @@ ptxd_kconfig() {
 	unset KCONFIG_NOTIMESTAMP
 
 	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
-		cp .config "${file_dotconfig}" || return
+		cp -- .config "${file_dotconfig}" || return
 		if [ -f .config.old ]; then
-			cp .config.old "$(readlink -e "${file_dotconfig}").old" || return
+			cp -- .config.old "$(readlink -e "${file_dotconfig}").old" || return
 		fi
 	fi
 
