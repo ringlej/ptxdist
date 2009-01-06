@@ -28,9 +28,10 @@ PTXCONF_SETUP_KERNELDIR_PREFIX=""
 # Mirrors           
 #
 PTXCONF_SETUP_DEBMIRROR="http://ftp.uni-kl.de/debian"
-PTXCONF_SETUP_SFMIRROR="http://surfnet.dl.sourceforge.net/sourceforge"
+PTXCONF_SETUP_SFMIRROR="http://heanet.dl.sourceforge.net/sourceforge"
 PTXCONF_SETUP_GNUMIRROR="http://ftp.uni-kl.de/pub/gnu"
 PTXCONF_SETUP_XORGMIRROR="http://ftp.gwdg.de/pub/x11/x.org/pub"
+PTXCONF_SETUP_PTXMIRROR="http://www.pengutronix.de/software/ptxdist/temporary-src"
 
 #
 # IPKG Repository   
@@ -46,5 +47,7 @@ PTXCONF_SETUP_JAVA_SDK="/usr"
 # Developer Options 
 #
 # PTXCONF_SETUP_CHECK_EXIT_ON_ERROR is not set
+# PTXCONF_SETUP_CCACHE is not set
 PTXCONF_SETUP_HOST_CC="gcc"
 PTXCONF_SETUP_HOST_CXX="g++"
+PTXCONF_SETUP_HOST_MAKE="make"
