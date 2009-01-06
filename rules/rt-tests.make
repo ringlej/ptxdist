@@ -95,13 +95,13 @@ ifdef PTXCONF_RT_TESTS_CYCLICTEST
 	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/cyclictest, /usr/bin/cyclictest)
 endif
 ifdef PTXCONF_RT_TESTS_SIGNALTEST
-	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/cyclictest, /usr/bin/signaltest)
+	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/signaltest, /usr/bin/signaltest)
 endif
 ifdef PTXCONF_RT_TESTS_CLASSICPI
-	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/cyclictest, /usr/bin/classic_pi)
+	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/classic_pi, /usr/bin/classic_pi)
 endif
 ifdef PTXCONF_RT_TESTS_PI_STRESS
-	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/cyclictest, /usr/bin/pi_stress)
+	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/pi_stress, /usr/bin/pi_stress)
 endif
 
 	@$(call install_finish, rt-tests)
