@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GNUPLOT) += gnuplot
 #
 # Paths and names
 #
-GNUPLOT_VERSION	:= 4.2.2
+GNUPLOT_VERSION	:= 4.2.4
 GNUPLOT		:= gnuplot-$(GNUPLOT_VERSION)
 GNUPLOT_SUFFIX	:= tar.gz
 GNUPLOT_URL	:= $(PTXCONF_SETUP_SFMIRROR)/gnuplot/$(GNUPLOT).$(GNUPLOT_SUFFIX)
@@ -29,34 +29,13 @@ GNUPLOT_DIR	:= $(BUILDDIR)/$(GNUPLOT)
 # Get
 # ----------------------------------------------------------------------------
 
-gnuplot_get: $(STATEDIR)/gnuplot.get
-
-$(STATEDIR)/gnuplot.get: $(gnuplot_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(GNUPLOT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, GNUPLOT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-gnuplot_extract: $(STATEDIR)/gnuplot.extract
-
-$(STATEDIR)/gnuplot.extract: $(gnuplot_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(GNUPLOT_DIR))
-	@$(call extract, GNUPLOT)
-	@$(call patchin, GNUPLOT)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-gnuplot_prepare: $(STATEDIR)/gnuplot.prepare
 
 GNUPLOT_PATH	:= PATH=$(CROSS_PATH)
 GNUPLOT_ENV	:= $(CROSS_ENV)
@@ -128,46 +107,21 @@ else
 GNUPLOT_AUTOCONF += --without-pdf
 endif
 
-
-$(STATEDIR)/gnuplot.prepare: $(gnuplot_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(GNUPLOT_DIR)/config.cache)
-	cd $(GNUPLOT_DIR) && \
-		$(GNUPLOT_PATH) $(GNUPLOT_ENV) \
-		./configure $(GNUPLOT_AUTOCONF)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-gnuplot_compile: $(STATEDIR)/gnuplot.compile
-
 $(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps_default)
-	@$(call targetinfo, $@)
-
-	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_PATH) make gnuplot
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-gnuplot_install: $(STATEDIR)/gnuplot.install
-
-$(STATEDIR)/gnuplot.install: $(gnuplot_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, GNUPLOT)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_PATH) $(MAKE) gnuplot $(PARALLELMFLAGS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-gnuplot_targetinstall: $(STATEDIR)/gnuplot.targetinstall
-
-$(STATEDIR)/gnuplot.targetinstall: $(gnuplot_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/gnuplot.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, gnuplot)
 	@$(call install_fixup, gnuplot,PACKAGE,gnuplot)
@@ -186,7 +140,7 @@ endif
 
 	@$(call install_finish, gnuplot)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
