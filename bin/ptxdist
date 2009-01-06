@@ -1832,11 +1832,14 @@ setup_config() {
 	local rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
 
 	if [ \! -e "${rc_user}" ]; then
-		cp "${rc_default}" "${rc_user}"
+		cp -- "${rc_default}" "${rc_user}"
 	fi
 
+	#
+	# source default values first, let the user overwrite them
+	#
+	ptxd_source_kconfig "${rc_default}"
 	ptxd_source_kconfig "${rc_user}"
-
 
 	#
 	# enable or disable errexit
@@ -1876,6 +1879,7 @@ setup_config() {
 
 	# default no parallel for now
 	local pmf_extern="-j1"
+	local cpus
 
 	if [ -r /proc/cpuinfo ]; then
 		cpus="$(egrep '^(processor|cpu	)' /proc/cpuinfo | wc -l)"
