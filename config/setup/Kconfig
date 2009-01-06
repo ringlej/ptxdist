@@ -93,6 +93,13 @@ config SETUP_XORGMIRROR
 	help
 	  For all x.org related packages enter an available mirror here.
 
+config SETUP_PTXMIRROR
+	string
+	default "http://www.pengutronix.de/software/ptxdist/temporary-src"
+	prompt "PTXdist Mirror"
+	help
+	  Enter the fallback mirror for all packages here.
+
 endmenu
 
 menu "IPKG Repository   "
