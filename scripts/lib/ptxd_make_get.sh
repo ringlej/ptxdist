@@ -5,6 +5,9 @@
 #
 ptxd_make_get() {
 	local orig_argv=( "${@}" )
+	local -a argv
+	local mrd=false		# is mirror already part of urls?
+
 
 	if [ -z "${1}" ]; then
 		echo
@@ -13,8 +16,33 @@ ptxd_make_get() {
 		exit 1
 	fi
 
-	# split URLs by spaces
-	set -- ${*}
+	while [ ${#} -gt 0 ]; do
+		local url="${1}"
+		shift
+
+		case "${url}" in
+		${PTXCONF_SETUP_PTXMIRROR}/*)
+			# if mirror is given us to download, add it, but only once
+			if ! ${mrd}; then
+				argv[${#argv[@]}]="${url}"
+				mrd=true
+			fi
+			;;
+		http://*|ftp://*)
+
+			# keep original URL
+			argv[${#argv[@]}]="${url}"
+
+			# add mirror to URLs, but only once
+			if ! ${mrd}; then
+				argv[${#argv[@]}]="${url/#*:\/\/*\//${PTXCONF_SETUP_PTXMIRROR}/}"
+				mrd=true
+			fi
+			;;
+		esac
+	done
+
+	set -- "${argv[@]}"
 
 	while [ ${#} -ne 0 ]; do
 		local url="${1}"
