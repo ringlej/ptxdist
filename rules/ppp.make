@@ -176,8 +176,6 @@ ifdef PTXCONF_PPP_INSTALL_START_SCRIPT
 	@$(call install_copy, ppp, 0, 0, 0755, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/pppd, \
 		/etc/init.d/pppd)
-endif
-ifdef PTXCONF_PPP_INSTALL_START_LINK
 ifneq ($(PTXCONF_PPP_INSTALL_START_LINK),"")
 	@$(call install_link, ppp, ../init.d/pppd, \
 		/etc/rc.d/$(PTXCONF_PPP_INSTALL_START_LINK))
