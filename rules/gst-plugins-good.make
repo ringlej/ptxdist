@@ -408,6 +408,7 @@ GST_PLUGINS_GOOD_AUTOCONF += --disable-libdv
 endif
 ifdef PTXCONF_GST_PLUGINS_GOOD__LIBPNG
 GST_PLUGINS_GOOD_AUTOCONF += --enable-libpng
+GST_PLUGINS_GOOD_INSTALL  += /usr/lib/gstreamer-0.10/libgstpng.so
 else
 GST_PLUGINS_GOOD_AUTOCONF += --disable-libpng
 endif
