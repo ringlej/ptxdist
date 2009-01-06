@@ -237,6 +237,16 @@ choice
 		depends on ARCH_SUPPORTS_ENDIAN_LITTLE
 endchoice
 
+#
+# hardware / software floating point
+#
+config HAS_HARDFLOAT
+	bool
+	prompt "hardware floating point"
+	default y if ARCH_ALPHA
+	default y if ARCH_X86
+	default y if ARCH_SPARC
+	default n
 
 #
 # PCI bus
