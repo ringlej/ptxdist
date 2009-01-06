@@ -46,7 +46,7 @@ MTD_UTILS_ENV 		:= \
 	WITHOUT_XATTR=1
 
 ifndef PTXCONF_MTD_UTILS_USE_LIBLZO
-	MTD_UTILS_ENV += WITHOUT_LZO=1
+MTD_UTILS_ENV += WITHOUT_LZO=1
 endif
 
 MTD_UTILS_MAKEVARS	:= BUILDDIR=. WITHOUT_XATTR=1
@@ -62,17 +62,8 @@ $(STATEDIR)/mtd-utils.prepare:
 $(STATEDIR)/mtd-utils.compile:
 	@$(call targetinfo)
 	cd $(MTD_UTILS_DIR) && $(MTD_UTILS_PATH) $(MTD_UTILS_ENV) \
-		$(MAKE) $(MTD_UTILS_MAKEVARS) $(PARALLELMFLAGS)
+		$(MAKE) $(MTD_UTILS_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/mtd-utils.install:
-#	@$(call targetinfo)
-#	@$(call install, MTD_UTILS)
-#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install

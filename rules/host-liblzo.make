@@ -23,30 +23,24 @@ HOST_LIBLZO_DIR	= $(HOST_BUILDDIR)/$(LIBLZO)
 # Get
 # ----------------------------------------------------------------------------
 
-host-liblzo_get: $(STATEDIR)/host-liblzo.get
-
 $(STATEDIR)/host-liblzo.get: $(STATEDIR)/liblzo.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-host-liblzo_extract: $(STATEDIR)/host-liblzo.extract
-
 $(STATEDIR)/host-liblzo.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(HOST_LIBLZO_DIR))
 	@$(call extract, LIBLZO, $(HOST_BUILDDIR))
 	@$(call patchin, LIBLZO, $(HOST_LIBLZO_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-liblzo_prepare: $(STATEDIR)/host-liblzo.prepare
 
 HOST_LIBLZO_PATH	:= PATH=$(HOST_PATH)
 HOST_LIBLZO_ENV 	:= $(HOST_ENV)
@@ -55,36 +49,6 @@ HOST_LIBLZO_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_LIBLZO_AUTOCONF	:= $(HOST_AUTOCONF)
-
-$(STATEDIR)/host-liblzo.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_LIBLZO_DIR)/config.cache)
-	cd $(HOST_LIBLZO_DIR) && \
-		$(HOST_LIBLZO_PATH) $(HOST_LIBLZO_ENV) \
-		./configure $(HOST_LIBLZO_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-host-liblzo_compile: $(STATEDIR)/host-liblzo.compile
-
-$(STATEDIR)/host-liblzo.compile:
-	@$(call targetinfo, $@)
-	cd $(HOST_LIBLZO_DIR) && $(HOST_LIBLZO_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-host-liblzo_install: $(STATEDIR)/host-liblzo.install
-
-$(STATEDIR)/host-liblzo.install:
-	@$(call targetinfo, $@)
-	@$(call install, HOST_LIBLZO,,h)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
