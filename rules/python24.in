@@ -8,7 +8,6 @@ menuconfig PYTHON24
 	select LIBC_PTHREAD
 	select HOST_PYTHON24
 	select GCCLIBS_CXX
-	select KERNEL
 	help
 	  Python is a dynamic object-oriented programming
 	  language that can be used for many kinds of

@@ -75,7 +75,6 @@ $(STATEDIR)/python24.prepare: $(python24_prepare_deps_default)
 	@$(call targetinfo, $@)
 	cd $(PYTHON24_DIR) && \
 		$(PYTHON24_PATH) $(PYTHON24_ENV) \
-		CPPFLAGS="-I${KERNEL_DIR}/include $${CPPFLAGS}" \
 		$(PYTHON24_DIR)/configure $(PYTHON24_AUTOCONF)
 	@$(call touch, $@)
 
