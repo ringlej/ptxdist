@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_APACHE2_MOD_PYTHON) += apache2_mod_python
 #
 # Paths and names
 #
-APACHE2_MOD_PYTHON_VERSION	:= 3.2.8
+APACHE2_MOD_PYTHON_VERSION	:= 3.3.1
 APACHE2_MOD_PYTHON		:= mod_python-$(APACHE2_MOD_PYTHON_VERSION)
 APACHE2_MOD_PYTHON_SUFFIX	:= tgz
 APACHE2_MOD_PYTHON_URL		:= http://apache.easy-webs.de/httpd/modpython/$(APACHE2_MOD_PYTHON).$(APACHE2_MOD_PYTHON_SUFFIX)
@@ -67,7 +67,8 @@ APACHE2_MOD_PYTHON_ENV 	:=  $(CROSS_ENV)
 APACHE2_MOD_PYTHON_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--with-apxs=$(SYSROOT)/usr/bin/apxs \
-	--with-python=$(PTXCONF_SYSROOT_HOST)/bin/python
+	--with-python=$(PTXCONF_SYSROOT_HOST)/bin/python \
+	--with-python-includes=$(SYSROOT)/usr
 
 $(STATEDIR)/apache2_mod_python.prepare: $(apache2_mod_python_prepare_deps_default)
 	@$(call targetinfo, $@)

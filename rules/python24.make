@@ -120,6 +120,10 @@ $(STATEDIR)/python24.install: $(python24_install_deps_default)
 
 	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
 		oldsharedinstall DESTDIR=$(SYSROOT)
+
+	$(PYTHON24_PATH) make -C $(PYTHON24_DIR) $(PYTHON24_MAKEVARS) \
+		inclinstall DESTDIR=$(SYSROOT)
+
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

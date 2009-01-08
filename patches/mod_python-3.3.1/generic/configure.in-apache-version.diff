@@ -1,7 +1,11 @@
-Index: mod_python-3.2.8/configure.in
+---
+ configure.in |    5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+Index: mod_python-3.3.1/configure.in
 ===================================================================
---- mod_python-3.2.8.orig/configure.in
-+++ mod_python-3.2.8/configure.in
+--- mod_python-3.3.1.orig/configure.in
++++ mod_python-3.3.1/configure.in
 @@ -108,6 +108,7 @@ else
  
    # check Apache version
@@ -21,12 +25,3 @@ Index: mod_python-3.2.8/configure.in
    dnl Small hack to work around _eprintf.o problem on Solaris
    if test "`uname`" = "SunOS"; then
      AC_MSG_CHECKING([for gcc on Solaris possible missing _eprintf problem])
-@@ -287,7 +290,7 @@ MOD_PYTHON_SO="`pwd`/src/mod_python.so"
- # get the mod_python version
- AC_SUBST(MP_VERSION)
- MP_VERSION=`awk '/MPV_STRING/ {print $3}' src/include/mpversion.h`
--MP_VERSION=`echo $MP_VERSION | sed s/\\"//g`                                      
-+MP_VERSION=`echo $MP_VERSION | sed s/\"//g`                                      
- 
- # get --with-python-src. The python src is required to generate the documentation
- # It is not required to compile or install mod_python itself
