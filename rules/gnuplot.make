@@ -43,33 +43,40 @@ GNUPLOT_ENV	:= $(CROSS_ENV)
 #
 # autoconf
 #
+# 4.2.4: --disable-datastrings is broken
+#        --disable-binary-data-file is broken
+#
 GNUPLOT_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-history-file \
 	--disable-mouse \
-	--disable-pm3d \
-	--disable-filledboxes \
-	--disable-relative-boxwidth \
-	--disable-defined-var \
+	--disable-x11-mbfonts \
+	--enable-binary-data-file \
+	--disable-with-image \
+	--disable-binary-x11-polygon \
 	--disable-thin-splines \
+	--enable-datastrings \
+	--disable-histograms \
+	--disable-objects \
+	--disable-stringvariables \
+	--disable-macros \
 	--disable-iris \
 	--disable-mgr \
-	\
 	--disable-rgip \
 	--disable-h3d-quadtree \
 	--disable-h3d-gridbox \
-	\
+	--disable-wxwidgets \
+	--without-kpsexpand \
 	--without-lasergnu \
-	--without-gihdir \
 	--without-linux-vga \
 	--without-ggi \
 	--without-xmi \
-	--with-readline \
-	\
+	--with-readline=builtin \
 	--without-cwdrc \
 	--without-lisp-files \
 	--without-row-help \
-	--without-tutorial
+	--without-tutorial \
+	--without-wx-config
 
 ifdef PTXCONF_GNUPLOT_FITERRVARS
 GNUPLOT_AUTOCONF += --enable-fiterrvars
