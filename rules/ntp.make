@@ -2,7 +2,8 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
-#          
+# Copyright (C) 2009 by Robert Schwebel
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,54 +18,43 @@ PACKAGES-$(PTXCONF_NTP) += ntp
 #
 # Paths and names
 #
-NTP_VERSION	= 4.2.4p5
-NTP		= ntp-$(NTP_VERSION)
-NTP_SUFFIX	= tar.gz
-NTP_URL		= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_SUFFIX)
-NTP_SOURCE	= $(SRCDIR)/$(NTP).$(NTP_SUFFIX)
-NTP_DIR		= $(BUILDDIR)/$(NTP)
-
+NTP_VERSION	:= 4.2.4p5
+NTP		:= ntp-$(NTP_VERSION)
+NTP_SUFFIX	:= tar.gz
+NTP_URL		:= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_SUFFIX)
+NTP_SOURCE	:= $(SRCDIR)/$(NTP).$(NTP_SUFFIX)
+NTP_DIR		:= $(BUILDDIR)/$(NTP)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-ntp_get: $(STATEDIR)/ntp.get
-
-$(STATEDIR)/ntp.get: $(ntp_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(NTP_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, NTP)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-ntp_extract: $(STATEDIR)/ntp.extract
-
-$(STATEDIR)/ntp.extract: $(ntp_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/ntp.extract:
+	@$(call targetinfo)
 	@$(call clean, $(NTP_DIR))
 	@$(call extract, NTP)
 	@$(call patchin, NTP)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-ntp_prepare: $(STATEDIR)/ntp.prepare
-
-NTP_PATH	=  PATH=$(CROSS_PATH)
-NTP_ENV 	=  $(CROSS_ENV)
+NTP_PATH	:= PATH=$(CROSS_PATH)
+NTP_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-NTP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+NTP_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # NTP: options, we need lots of options ;-)
 
@@ -297,62 +287,56 @@ ifdef PTXCONF_NTP_ARLIB
 NTP_AUTOCONF += --enable-arlib
 endif
 
-#
-
-$(STATEDIR)/ntp.prepare: $(ntp_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/ntp.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(NTP_DIR)/config.cache)
 	cd $(NTP_DIR) && \
 		$(NTP_PATH) $(NTP_ENV) \
 		./configure $(NTP_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-ntp_compile: $(STATEDIR)/ntp.compile
+$(STATEDIR)/ntp.compile:
+	@$(call targetinfo)
 
-$(STATEDIR)/ntp.compile: $(ntp_compile_deps_default)
-	@$(call targetinfo, $@)
+#	# ntp-4.2.0 tries to build ntpdc/ntpdc-layout for the target but
+#	# trys to run it on the build machine - this is wrong...
+#	perl -i -p -e "s/^CC =/CC ?=/g" $(NTP_DIR)/ntpdc/Makefile
+#	perl -i -p -e "s/^LDFLAGS =/LDFLAGS ?=/g" $(NTP_DIR)/ntpdc/Makefile
+#	perl -i -p -e "s/^CFLAGS =/CFLAGS ?=/g" $(NTP_DIR)/ntpdc/Makefile
+#	cd $(NTP_DIR)/ntpdc && CC=$(HOSTCC) CFLAGS='' LDFLAGS='' make ntpdc-layout
+#
+#	# now build the rest
+#	cd $(NTP_DIR) && $(NTP_ENV) $(NTP_PATH) make
 
-	# ntp-4.2.0 tries to build ntpdc/ntpdc-layout for the target but
-	# trys to run it on the build machine - this is wrong... 
-	perl -i -p -e "s/^CC =/CC ?=/g" $(NTP_DIR)/ntpdc/Makefile
-	perl -i -p -e "s/^LDFLAGS =/LDFLAGS ?=/g" $(NTP_DIR)/ntpdc/Makefile
-	perl -i -p -e "s/^CFLAGS =/CFLAGS ?=/g" $(NTP_DIR)/ntpdc/Makefile
-	cd $(NTP_DIR)/ntpdc && CC=$(HOSTCC) CFLAGS='' LDFLAGS='' make ntpdc-layout 
-
-	# now build the rest
-	cd $(NTP_DIR) && $(NTP_ENV) $(NTP_PATH) make
-	@$(call touch, $@)
+	cd $(NTP_DIR) && $(NTP_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-ntp_install: $(STATEDIR)/ntp.install
-
-$(STATEDIR)/ntp.install: $(ntp_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/ntp.install:
+	@$(call targetinfo)
 	@$(call install, NTP)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ntp_targetinstall: $(STATEDIR)/ntp.targetinstall
+$(STATEDIR)/ntp.targetinstall:
+	@$(call targetinfo)
 
-$(STATEDIR)/ntp.targetinstall: $(ntp_targetinstall_deps_default)
-	@$(call targetinfo, $@)
-
-	@$(call install_init, ntp)
+	@$(call install_init,  ntp)
 	@$(call install_fixup, ntp,PACKAGE,ntp)
 	@$(call install_fixup, ntp,PRIORITY,optional)
 	@$(call install_fixup, ntp,VERSION,$(NTP_VERSION))
 	@$(call install_fixup, ntp,SECTION,base)
-	@$(call install_fixup, ntp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ntp,AUTHOR,"Robert Schwebel")
 	@$(call install_fixup, ntp,DEPENDS,)
 	@$(call install_fixup, ntp,DESCRIPTION,missing)
 
@@ -398,7 +382,8 @@ endif
 	@$(call install_copy, ntp, 0, 0, 0755, /var/lib/ntp)
 
 	@$(call install_finish, ntp)
-	@$(call touch, $@)
+
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
