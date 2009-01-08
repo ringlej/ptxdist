@@ -1,0 +1,4 @@
+python24-destdir.diff
+python24-xcompile.diff
+socket-can-support.diff
+autoreconf.diff

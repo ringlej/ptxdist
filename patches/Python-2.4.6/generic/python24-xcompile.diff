@@ -9,10 +9,16 @@
 # 2005-09-29: ported to python 2.4.2 by Robert Schwebel
 #
 
-diff -urN Python-2.4.2-destdir/Makefile.pre.in Python-2.4.2-xcompile/Makefile.pre.in
---- Python-2.4.2-destdir/Makefile.pre.in	2005-03-29 01:23:01.000000000 +0200
-+++ Python-2.4.2-xcompile/Makefile.pre.in	2005-09-29 20:50:19.000000000 +0200
-@@ -162,6 +162,7 @@
+---
+ Makefile.pre.in |   20 ++++++++++++--------
+ setup.py        |   43 +++++++++++++++++++++++--------------------
+ 2 files changed, 35 insertions(+), 28 deletions(-)
+
+Index: Python-2.4.6/Makefile.pre.in
+===================================================================
+--- Python-2.4.6.orig/Makefile.pre.in
++++ Python-2.4.6/Makefile.pre.in
+@@ -166,6 +166,7 @@ UNICODE_OBJS=   @UNICODE_OBJS@
  
  PYTHON=		python$(EXE)
  BUILDPYTHON=	python$(BUILDEXE)
@@ -20,7 +26,7 @@ diff -urN Python-2.4.2-destdir/Makefile.pre.in Python-2.4.2-xcompile/Makefile.pr
  
  # === Definitions added by makesetup ===
  
-@@ -188,6 +189,7 @@
+@@ -192,6 +193,7 @@ GRAMMAR_INPUT=	$(srcdir)/Grammar/Grammar
  ##########################################################################
  # Parser
  PGEN=		Parser/pgen$(EXE)
@@ -28,7 +34,7 @@ diff -urN Python-2.4.2-destdir/Makefile.pre.in Python-2.4.2-xcompile/Makefile.pr
  
  POBJS=		\
  		Parser/acceler.o \
-@@ -320,8 +322,8 @@
+@@ -324,8 +326,8 @@ platform: $(BUILDPYTHON)
  # Build the shared modules
  sharedmods: $(BUILDPYTHON)
  	case $$MAKEFLAGS in \
@@ -39,7 +45,7 @@ diff -urN Python-2.4.2-destdir/Makefile.pre.in Python-2.4.2-xcompile/Makefile.pr
  	esac
  
  # buildno should really depend on something like LIBRARY_SRC
-@@ -442,7 +444,7 @@
+@@ -455,7 +457,7 @@ Modules/ccpython.o: $(srcdir)/Modules/cc
  
  
  $(GRAMMAR_H) $(GRAMMAR_C): $(PGEN) $(GRAMMAR_INPUT)
@@ -48,7 +54,7 @@ diff -urN Python-2.4.2-destdir/Makefile.pre.in Python-2.4.2-xcompile/Makefile.pr
  
  $(PGEN):	$(PGENOBJS)
  		$(CC) $(OPT) $(LDFLAGS) $(PGENOBJS) $(LIBS) -o $(PGEN)
-@@ -719,19 +721,19 @@
+@@ -749,19 +751,19 @@ libinstall:	$(BUILDPYTHON) $(srcdir)/Lib
  	done
  	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
  	PYTHONPATH=$(DESTDIR)$(LIBDEST)  $(RUNSHARED) \
@@ -72,7 +78,7 @@ diff -urN Python-2.4.2-destdir/Makefile.pre.in Python-2.4.2-xcompile/Makefile.pr
  		-d $(LIBDEST)/site-packages -f \
  		-x badsyntax $(DESTDIR)$(LIBDEST)/site-packages
  
-@@ -826,7 +828,9 @@
+@@ -856,7 +858,9 @@ libainstall:	all
  # Install the dynamically loadable modules
  # This goes into $(exec_prefix)
  sharedinstall:
@@ -83,10 +89,11 @@ diff -urN Python-2.4.2-destdir/Makefile.pre.in Python-2.4.2-xcompile/Makefile.pr
  	   	--prefix=$(prefix) \
  		--install-scripts=$(BINDIR) \
  		--install-platlib=$(DESTSHARED) \
-diff -urN Python-2.4.2-destdir/setup.py Python-2.4.2-xcompile/setup.py
---- Python-2.4.2-destdir/setup.py	2005-09-29 20:54:26.000000000 +0200
-+++ Python-2.4.2-xcompile/setup.py	2005-09-29 20:53:01.000000000 +0200
-@@ -204,26 +204,29 @@
+Index: Python-2.4.6/setup.py
+===================================================================
+--- Python-2.4.6.orig/setup.py
++++ Python-2.4.6/setup.py
+@@ -205,26 +205,29 @@ class PyBuildExt(build_ext):
          try:
              imp.load_dynamic(ext.name, ext_filename)
          except ImportError, why:
