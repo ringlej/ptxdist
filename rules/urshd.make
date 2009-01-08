@@ -63,6 +63,7 @@ $(STATEDIR)/urshd.targetinstall:
 	@$(call install_fixup, urshd,DESCRIPTION,missing)
 
 	@$(call install_copy, urshd, 0, 0, 0755, $(URSHD_DIR)/src/urshd, /usr/sbin/urshd)
+	@$(call install_alternative, urshd, 0, 0, 0644, /etc/hosts.equiv, n)
 
 	@$(call install_finish, urshd)
 
