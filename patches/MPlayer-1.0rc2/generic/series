@@ -11,6 +11,5 @@ mplayer-3.diff
 #mplayer-4.diff
 #mmpatch.diff
 mplayer_libavcodec_pld.diff
-fix_x86_cpu_detection.diff -p0
 allow_more_than_one_path.diff -p0
 
