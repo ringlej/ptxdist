@@ -50,13 +50,24 @@ ptxd_make_get() {
 
 		case "${url}" in
 		http://*|ftp://*)
+			#
+			# download to temporary file first,
+			# and move it to correct file name after successfull download
+			#
+			local file="${url##*/}"
+			rm -f -- "${PTXDIST_SRCDIR}/${file}."*
+			local temp_file="$(mktemp "${PTXDIST_SRCDIR}/${file}.XXXXXXXXXX")"
 			wget \
 			    -t 5 \
 			    --progress=bar:force \
 			    --passive-ftp \
 			    ${PTXDIST_QUIET:+--quiet} \
-			    -P "${PTXDIST_SRCDIR}" \
-			    "${url}" && return
+			    -O ${temp_file} \
+			    "${url}" && {
+				chmod 644 -- "${temp_file}" && \
+				mv -- "${temp_file}" "${PTXDIST_SRCDIR}/${file}"
+				return
+			}
 			;;
 		file*)
 			local thing="${url/file:\/\///}"
