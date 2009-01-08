@@ -1,8 +1,0 @@
-## SECTION=multimedia_tools
-
-config I855RESOLUTION
-	tristate
-	prompt "i855resolution"
-	help
-	  This tool is a patch/hack to add modes to the video bios.
-
