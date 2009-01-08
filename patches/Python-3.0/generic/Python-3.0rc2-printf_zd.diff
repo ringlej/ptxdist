@@ -1,3 +1,11 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: don't use AC_TRY_RUN for %zd test
+
+AC_TRY_RUN is evil when cross compiling; we make it possible to
+overwrite the result of the test with an ac_cv_ variable.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  configure.in |   22 +++++++++++++++++-----
  1 file changed, 17 insertions(+), 5 deletions(-)

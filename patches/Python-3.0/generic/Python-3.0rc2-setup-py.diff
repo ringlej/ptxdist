@@ -1,3 +1,11 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: make setup.py cross compilation aware
+
+Add a CROSS_COMPILING=yes variable in order to tell setup.py that we are
+cross compiling.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  setup.py |   46 ++++++++++++++++++++++++++++++++++++----------
  1 file changed, 36 insertions(+), 10 deletions(-)

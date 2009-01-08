@@ -1,5 +1,5 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
-Subject: [PATCH] cross compile: module checking
+Subject: [PATCH] module checking
 
 FIXME: needs rework, probably not used any more
 

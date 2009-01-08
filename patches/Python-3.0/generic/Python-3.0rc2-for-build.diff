@@ -1,5 +1,5 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
-Subject: [PATCH] cross compile: add _FOR_BUILD infrastructure
+Subject: add _FOR_BUILD infrastructure
 
 When cross compiling we need a PYTHON_FOR_BUILD, PGEN_FOR_BUILD etc. The
 names follow usual autotool nomenclatures.

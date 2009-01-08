@@ -6,8 +6,6 @@ Regenerate configure files. Not intended for upstream.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
-
----
  configure     |  555 +++++++++++++++++++++++++++++++++++++++++++++++++++-------
  pyconfig.h.in |   14 -
  2 files changed, 503 insertions(+), 66 deletions(-)

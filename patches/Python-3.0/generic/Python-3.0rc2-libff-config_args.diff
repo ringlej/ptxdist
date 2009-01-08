@@ -1,3 +1,10 @@
+Subject: hand --host and --build over to libffi
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Handle config args for libffi, for cross compilation.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  Makefile.pre.in |    2 ++
  setup.py        |    4 ++--
