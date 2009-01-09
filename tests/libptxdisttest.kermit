@@ -73,6 +73,12 @@ define ptx_wait_string {
 	ptx_check_fail "waiting for '\%2'"
 }
 
+# Output something and sync to itself being output
+define ptx_lineout {
+	lineout \%1
+	input 5 \%1
+}
+
 define ptx_uboot_enter_shell {
 
 	ptx_test_start "Logging into U-Boot"
@@ -96,14 +102,12 @@ define ptx_uboot_enter_shell {
 
 define ptx_uboot_exec {
 
-	lineout "\%2"
-	# Wait for the command itself to sync to input buffer
-	input 10 \%2
+	ptx_lineout "\%2"
 	input \%1 \m(uboot_prompt)
 	ptx_check_fail "timeout while waiting for u-boot prompt after '\%2'"
 
 	if = \m(uboot_version) 2 {
-		lineout "echo result: $?"
+		ptx_lineout "echo result: $?"
 		input 10 \fpattern(result: 0$)
 
 		ptx_check_fail "returncode from '\%2' is not 0"

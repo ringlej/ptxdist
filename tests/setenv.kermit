@@ -7,7 +7,7 @@ define setenv_uboot_v1 {
 	ptx_check_fail "Could not open \%2."
 
 	clear input
-	lineout "printenv"
+	ptx_lineout "printenv"
 
 	declare \&c[1000]
 	# array with entries to skip
@@ -66,7 +66,7 @@ define setenv_uboot_v2 {
 	ptx_uboot_exec 3 "eth0.netmask=\m(PTXCONF_BOARDSETUP_NETMASK)"
 	ptx_test_end
 
-	ptx_test_start "Getting default environment" 
+	ptx_test_start "Getting default environment"
 	ptx_uboot_exec 15 "ping $eth0.serverip"
 	ptx_uboot_exec 15 "tftp \m(imagename)"
 	ptx_test_end
@@ -78,7 +78,7 @@ define setenv_uboot_v2 {
 	ptx_test_end
 
 	ptx_uboot_exec_single "Reloading new environment" 10 "loadenv"
-	
+
 	ptx_test_start "Restoring MAC address"
 	ptx_uboot_exec 5 "echo -a /env/config eth0.ethaddr=$eth0.ethaddr"
 	ptx_uboot_exec 10 "saveenv"
