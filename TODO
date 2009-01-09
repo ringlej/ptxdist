@@ -3,6 +3,11 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: Working with local sources seems broken, when a <PACKET_NAME>_SOURCE
+    is defined to the regular $(SRCDIR)/<PACKET_NAME>. The get stage fails in
+    this case. Our template will always create and fill this variable. Don't
+    know if this is intended and the failure is elsewhere.
+
 [ ] rsc: in x86 simulation: ipkg list doesn't work?
 
 [ ] jbe: avoid the convenience stage question, when running "pxtdist images".
