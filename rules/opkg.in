@@ -1,0 +1,10 @@
+## SECTION=disk_and_file
+
+config OPKG
+	tristate
+	select LIBCURL
+	prompt "opkg"
+	help
+	  Opkg is a lightweight package management system based on Ipkg.
+
+	  http://code.google.com/p/opkg/
