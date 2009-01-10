@@ -24,7 +24,6 @@ SDL_URL		:= http://www.libsdl.org/release/$(SDL).$(SDL_SUFFIX)
 SDL_SOURCE	:= $(SRCDIR)/$(SDL).$(SDL_SUFFIX)
 SDL_DIR		:= $(BUILDDIR)/$(SDL)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -274,14 +273,6 @@ SDL_AUTOCONF += \
 	--disable-mintaudio \
 	--disable-video-photon \
 	--enable-input-events
-
-$(STATEDIR)/sdl.prepare: $(sdl_prepare_deps_default)
-	@$(call targetinfo)
-	@$(call clean, $(SDL_DIR)/config.cache)
-	cd $(SDL_DIR) && \
-		$(SDL_PATH) $(SDL_ENV) \
-		./configure $(SDL_AUTOCONF)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
