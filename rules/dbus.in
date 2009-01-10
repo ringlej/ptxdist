@@ -16,7 +16,8 @@ menuconfig DBUS
 if DBUS
 
 config DBUS__SELINUX
-	prompt "selinux support"
+	prompt "selinux support [BROKEN]"
+	depends on BROKEN
 	bool
 
 choice

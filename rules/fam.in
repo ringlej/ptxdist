@@ -25,7 +25,6 @@ if FAM
 
 config FAM_LIBRARY
 	bool
-	default n
 	prompt "Install libfam"
 	help
 	  If there is an application that is linked against libfam check this

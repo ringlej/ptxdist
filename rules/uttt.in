@@ -1,7 +1,7 @@
 ## SECTION=games
-config UTTT
+menuconfig UTTT
 	tristate
-	prompt "Ultra Tic Tac Toe"
+	prompt "Ultra Tic Tac Toe             "
 	help
 	  Ultra Tic Tac Toe (UTTT) is a console game board package containing
 	  tic tac toe (naughts and crosses) and connect 4 games.

@@ -29,7 +29,6 @@ config LIBPV_NEEDS_LIBMQUEUE
 	bool
 	prompt "Posix Message Queue support for kernel 2.6"
 	depends on LIBPV_EVENT
-	default n
 	help
 	 Enable this switch if your glibc doesn't yet support the new Posix
 	 Message Queues the kernel 2.6 already supports. This is

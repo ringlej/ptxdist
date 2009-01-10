@@ -13,7 +13,6 @@ config OPROFILE
 	select BINUTILS
 	select BINUTILS_OBJDUMP
 	prompt "oprofile tools"
-	default n
 	help
 	  oprofile user space executables including opcontrol, opreport and others
 

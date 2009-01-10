@@ -211,7 +211,6 @@ config ROOTFS_VAR_LIB
 	depends on ROOTFS_VAR
 	bool
 	prompt "/var/lib"
-	default n
 	help
 	  Create a /var/lib directory in the root filesystem.
 	  Unless you want to mount a tmpfs on /var you should

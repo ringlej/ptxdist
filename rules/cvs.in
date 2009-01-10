@@ -3,7 +3,6 @@
 
 menuconfig CVS
 	tristate
-	default n
 #
 # cvs brings its own libz, but the current
 # ptxdist patch remove it.
@@ -31,7 +30,6 @@ config CVS_NDBM
 
 config CVS_CLIENT
 	bool
-	default n
 	prompt "Build cvs client"
 	help
 	  Include code for running as a remote client
@@ -39,7 +37,6 @@ config CVS_CLIENT
 config CVS_PSSWRD_CLIENT
 	bool
 	depends on CVS_CLIENT
-	default n
 	prompt "Support password authenticated client"
 	help
 	  Enable pserver as a remote access method in the CVS client
@@ -65,7 +62,6 @@ config CVS_FLOW_CONTROL
 config CVS_ENCRYPTION
 	bool
 	depends on CVS_SERVER
-	default n
 	prompt "Enable encryption"
 	help
 	  Enable encryption support
@@ -73,7 +69,6 @@ config CVS_ENCRYPTION
 config CVS_ROOTCOMMIT
 	bool
 	depends on CVS_SERVER
-	default n
 	prompt "Allow root commits"
 	help
 	  Allow the root user to commit files
@@ -84,7 +79,6 @@ config CVS_SERVER_POPULATE_CVSROOT
 	bool
 	depends on CVS_SERVER
 	prompt "Populate CVSROOT files"
-	default n
 	help
 	  This will install a list of files into target's cvs repository. These files
 	  are supporting files; they do not have to exist for cvs to operate, but they

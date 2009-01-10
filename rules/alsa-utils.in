@@ -1,8 +1,8 @@
 ## SECTION=multimedia_sound
 
-menuconfig ALSA_UTILS
+config ALSA_UTILS
 	tristate
-	prompt "alsa utils                    "
+	prompt "alsa utils"
 	select NCURSES
 	select ALSA_LIB
 # alsa-utils fails with the salsa-lib
@@ -17,11 +17,3 @@ menuconfig ALSA_UTILS
 	  Some utils to handle the Advanced Linux Sound Architecture.
 	  With these utils you can control your sound device, for
 	  playback and recording of sounds.
-
-if ALSA_UTILS
-
-
-
-
-endif
-

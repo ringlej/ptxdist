@@ -579,7 +579,8 @@ config PHP5_EXT_MYSQL
 
 config PHP5_EXT_PEAR
 	bool
-	prompt "pear"
+	prompt "pear [BROKEN]"
+	depends on BROKEN
 	help
 	  pear
 

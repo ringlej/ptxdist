@@ -54,7 +54,6 @@ config PUREFTPD_MINIMAL
 config PUREFTPD_SHRINK_MORE
 	bool
 	depends on PUREFTPD_MINIMAL
-	default n
 	prompt "shrink more"
 	help
 	  If you still want to reduce the size, use also this switch and don't
@@ -68,7 +67,6 @@ comment "runtime options   ---"
 config PUREFTPD_ETC_CONFIG
 	bool
 	prompt "default config"
-	default n
 	help
 	  This installs a user defined configuration for pure-ftp. PTXdist
 	  uses files projectroot/etc/pure-ftpd.defaults in your local project

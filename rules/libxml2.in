@@ -1,13 +1,10 @@
 ## SECTION=system_libraries
-#
-# LibXML2 - Options updated as of 2.6.19
-# Options valid for 2.6.20 as well. ZLIB missing in both.
-#
 
 menuconfig LIBXML2
 	tristate
 	prompt "libxml2                       "
-	select ZLIB if LIBXML2_ZLIB
+	select ZLIB	if LIBXML2_ZLIB
+#	select PYTHON24	if LIBXML2_PYTHON	# FIXME
 	help
 	  Libxml2 is a XML C parser and toolkit. XML itself is a
 	  metalanguage to design markup languages, i.e. text

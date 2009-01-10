@@ -1,8 +1,8 @@
 ## SECTION=multimedia_tk
 
-menuconfig TK
+config TK
 	tristate
-	prompt "tk (tcl/tk)                   "
+	prompt "tk (tcl/tk)"
 	select ROOTFS_DEV
 	depends on TCL
 	depends on BROKEN

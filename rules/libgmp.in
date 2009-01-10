@@ -4,7 +4,6 @@
 #
 menuconfig LIBGMP
 	tristate
-	default n
 	prompt "libgmp                        "
 	help
 	  Compiles the GNU Multiprecision libraries for your target system.
@@ -22,7 +21,6 @@ config LIBGMP_SHARED
 
 config LIBGMP_STATIC
 	bool
-	default n
 	prompt "Create static link library"
 	help
 	  Create a static link library and install it into /usr/lib.

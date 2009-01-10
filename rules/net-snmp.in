@@ -12,72 +12,58 @@ config NET_SNMP_MINI_AGENT
 
 config NET_SNMP_AGENT
 	bool
-	default n
 	prompt "agent (snmpd)"
 
 config NET_SNMP_APPLICATIONS
 	bool
-	default n
 	prompt "apps (snmpget, ...)"
 
 config NET_SNMP_SCRIPTS
 	bool
-	default n
 	prompt "scripts (mib2c, ...)"
 
 config NET_SNMP_MIBS
 	bool
-	default n
 	prompt "mib files"
 
 config NET_SNMP_MIB_LOADING
 	bool
-	default n
 	prompt "include code that parses and manipulates mib files"
 
 config NET_SNMP_SNMPV1
 	bool
-	default n
 	prompt "support for SNMPv1"
 
 config NET_SNMP_SNMPV2C
 	bool
-	default n
 	prompt "support for SNMPv2c"
 
 config NET_SNMP_DES
 	bool
-	default n
 	prompt "DES encryption"
 
 config NET_SNMP_MD5
 	bool
-	default n
 	prompt "MD5 authentication"
 
 config NET_SNMP_SNMPTRAPD
 	bool
-	default n
 	prompt "agentx subagent code in snmptrapd"
 
 config NET_SNMP_IPV6
 	bool
-	default n
 	prompt "support for IPv6"
 
 config NET_SNMP_LOCAL_SMUX
 	bool
-	default n
 	prompt "restrict SMUX connections to localhost (by default)"
 
 config NET_SNMP_DEBUGGING
 	bool
-	default n
 	prompt "debugging"
 
 config NET_SNMP_DEVELOPER
 	bool
-	default n
 	prompt "super-duper-extra-compile-warnings using gcc"
 
 config NET_SNMP_DEFAULT_VERSION

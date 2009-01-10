@@ -27,7 +27,6 @@ comment "build options   ---"
 
 config DNSMASQ_DBUS
 	bool
-	default n
 	prompt "include DBUS support"
 	help
 	  This enables DBUS support in dnsmasq. This is not only a build

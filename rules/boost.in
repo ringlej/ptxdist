@@ -29,7 +29,6 @@ comment "Targetinstall Options         "
 config BOOST_INST_NOMT_DBG
 	bool
 	prompt "Install binaries with debug functions"
-	default n
 	help
 	  Install binaries with debugging functions.
 
@@ -44,7 +43,6 @@ config BOOST_INST_MT_DBG
 	bool
 	select BOOST_THREAD
 	prompt "Install binaries with multithread support and debug functions"
-	default n
 	help
 	  Installs binaries with multithread support, needs thread library.
 

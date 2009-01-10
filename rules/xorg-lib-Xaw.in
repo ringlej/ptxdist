@@ -18,7 +18,6 @@ menuconfig XORG_LIB_XAW
 config XORG_LIB_XAW_V6
 	depends on XORG_LIB_XAW
 	bool
-	default n
 	prompt "Build version 6 (old)"
 	help
 	  If you need release 6 of this library, enable it
@@ -26,7 +25,6 @@ config XORG_LIB_XAW_V6
 config XORG_LIB_XAW_V7
 	depends on XORG_LIB_XAW
 	bool
-	default n
 	prompt "Build version 7 (old)"
 	help
 	  If you need release 7 of this library, enable it

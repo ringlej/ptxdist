@@ -128,7 +128,6 @@ choice
 endchoice
 
 config NFSUTILS_INSTALL_USER_EXPORTS
-	default n
 	bool
 	prompt "Install user's /etc/exports"
 	help

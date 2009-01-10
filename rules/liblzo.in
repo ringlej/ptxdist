@@ -4,7 +4,6 @@
 #
 menuconfig LIBLZO
 	tristate
-	default n
 	prompt "liblzo                        "
 	help
 	  Compiles the LZO compression libraries on your target system.
@@ -22,7 +21,6 @@ config LIBLZO_SHARED
 
 config LIBLZO_STATIC
 	bool
-	default n
 	prompt "Create static link library"
 	help
 	  Create a static link library and install it into /usr/lib.

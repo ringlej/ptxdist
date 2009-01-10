@@ -16,7 +16,6 @@ config SUDO__SENDMAIL
 	# FIXME: sendmail support is buggy and searches for
 	# /sbin/sendmail on the host
 	#prompt "sendmail support"
-	default n
 
 config SUDO__ETC_SUDOERS
 	bool "Install sudoers file into /etc"

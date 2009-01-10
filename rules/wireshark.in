@@ -4,7 +4,6 @@ menuconfig WIRESHARK
 	depends on BROKEN
 	# incorrectly runs libgnutls-config from the host while trying
 	# to find out where tls is
-	default n
 	prompt "wireshark                     "
 	select LIBPCAP
 	select GLIB
@@ -18,7 +17,7 @@ if WIRESHARK
 
 config WIRESHARK_TSHARK
 	bool
-	default y
+
 	prompt "tshark"
 	help
 	  This is the textmode version of wireshark
@@ -26,7 +25,6 @@ config WIRESHARK_TSHARK
 # FIXME:
 #config WIRESHARK_WIRESHARK
 #	bool
-#	default n
 #	prompt "wireshark"
 #	help
 #	  This is the graphical version of wireshark
@@ -34,7 +32,6 @@ config WIRESHARK_TSHARK
 # FIXME: Not tested yet
 #config WIRESHARK_IPV6
 #	bool
-#	default n
 #	prompt "support ipv6"
 #	help
 #	  Activate this to support ipv6 in wireshark

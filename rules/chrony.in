@@ -25,7 +25,6 @@ comment "install options   ---"
 
 config CHRONY_INSTALL_CHRONY_COMMAND
 	bool
-	default n
 	prompt "Install chrony command helper"
 	help
 	  Install a command helper in /usr/bin/chrony_command,
@@ -36,7 +35,6 @@ config CHRONY_INSTALL_CHRONY_COMMAND
 
 config CHRONY_INSTALL_CHRONY_STAT
 	bool
-	default n
 	prompt "Install chrony statistics helper"
 	help
 	  Install a convenience wrapper in /usr/bin/chrony_stat,

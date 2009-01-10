@@ -231,7 +231,6 @@ config XORG_SERVER_OPT_SECURE_RPC
 	depends on XORG_SERVER
 	bool
 	prompt "secure RPC"
-	default n
 	help
 	  Use secure RPC authentication (SUN-DES-1)
 
@@ -239,7 +238,6 @@ config XORG_SERVER_OPT_XORGCFG
 	depends on XORG_SERVER
 	bool
 	prompt "build xorgcfg GUI config utility"
-	default n
 	help
 	  --enable-xorgcfg
 
@@ -396,7 +394,6 @@ config XORG_SERVER_EXT_DRI
 	depends on XORG_SERVER
 	bool
 	prompt "DRI extension"
-	default n
 	help
 	  Enable support for the Direct Rendering Infrastructure to get 3D
 	  accelerations support. This is meaningless if you don't have DRI

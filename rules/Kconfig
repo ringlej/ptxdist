@@ -132,9 +132,7 @@ config XORG_FONTS
 source "generated/multimedia_xorg_font.in"
 endif
 
-menu "fltk                          "
 source "generated/multimedia_fltk.in"
-endmenu
 
 menu "framebuffer                   "
 source "generated/multimedia_framebuffer.in"
@@ -150,9 +148,7 @@ source "generated/multimedia_gtk.in"
 #source "generated/multimedia_gtk_themes.in"
 endmenu
 
-menu "mplayer                       "
 source "generated/multimedia_mplayer.in"
-endmenu
 
 menu "qt                            "
 source "generated/qt.in"
@@ -174,9 +170,7 @@ menu "tools                         "
 source "generated/multimedia_tools.in"
 endmenu
 
-menu "tslib                         "
 source "generated/multimedia_tslib.in"
-endmenu
 
 menu "xiph codecs                   "
 source "generated/multimedia_xiph.in"
@@ -200,9 +194,7 @@ menu "xorg window managers          "
 source "generated/x_windowmanagers.in"
 endmenu
 
-menu "wxwidgets                     "
 source "generated/multimedia_wxwidgets.in"
-endmenu
 
 endmenu
 

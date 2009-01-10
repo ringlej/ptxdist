@@ -23,7 +23,6 @@ menuconfig LIBPCAP
 config LIBPCAP_IPV6
 	bool
 	depends on LIBPCAP
-	default no
 	prompt "build IPv6-capable version"
 	help
 	  Enable this if you require ipv6 support.

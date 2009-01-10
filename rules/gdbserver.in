@@ -1,4 +1,4 @@
-## SECTION=debug_tools
+## SECTION=debug_tools_gdb
 
 menuconfig GDBSERVER
 	tristate

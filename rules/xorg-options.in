@@ -37,7 +37,6 @@ menu "options                       "
 config XORG_KEYBOARD_MAPPING_SUPPORT
 	bool
 	prompt "support keyboard mappings"
-	default n
 	select XORG_DRIVER_INPUT_KEYBOARD
 	select XORG_APP_XKBCOMP
 	help
@@ -78,7 +77,6 @@ config XORG_OPTIONS_TRANS_TCP
 config XORG_OPTIONS_TRANS_IPV6
 	bool
 	prompt "ipv6 support"
-	default n
 	help
 	  Enable this if your X server needs IPv6 support. If the starting X
 	  server complains about missing IPv6 support you should disable this

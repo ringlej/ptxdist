@@ -1,0 +1,13 @@
+## SECTION=debug_tools
+
+menu "gdb                           "
+
+# must be before GDB - used by gdb & gdbserver
+config GDB__VERSION
+       string "gdb version"
+       default 6.8
+       depends on GDB || GDBSERVER
+
+source "generated/debug_tools_gdb.in"
+
+endmenu

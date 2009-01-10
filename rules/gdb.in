@@ -1,9 +1,4 @@
-## SECTION=debug_tools
-
-# must be before GDB - used by gdb & gdbserver
-config GDB__VERSION
-       string "gdb version"
-       default 6.8
+## SECTION=debug_tools_gdb
 
 menuconfig GDB
 	tristate

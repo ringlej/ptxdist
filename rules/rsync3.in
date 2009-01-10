@@ -13,7 +13,6 @@ if RSYNC3
 
 config RSYNC3_IPV6
 	bool
-	default n
 	prompt "Support IPV6"
 	help
 	  This switch enables IPV6 support in rsync

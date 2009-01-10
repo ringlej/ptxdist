@@ -441,7 +441,6 @@ config ROOTFS_ETC_MODULES
 	depends on ROOTFS_ETC_INITD_MODULES
 	bool
 	prompt "project's /etc/modules"
-	default n
 	help
 	  Installs a /etc/modules file from projectroot/etc/modules in
 	  your local project.
@@ -497,7 +496,6 @@ menuconfig ROOTFS_UDHCPC
 config ROOTFS_USER_CROND_CONF
 	depends on ROOTFS
 	depends on ROOTFS_ETC_INITD_CROND
-	default n
 	bool
 	prompt "project's crond configuration"
 	help
@@ -511,7 +509,6 @@ config ROOTFS_USER_CROND_CONF
 config ROOTFS_BUSYBOX_USER_HTTPD_CONF
 	depends on ROOTFS
 	depends on BUSYBOX_HTTPD
-	default n
 	bool
 	prompt "project's httpd.conf configuration"
 	help

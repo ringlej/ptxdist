@@ -11,10 +11,8 @@ if GAWK
 
 config GAWK_PGAWK
 	bool "Install pgawk"
-	default n
 
 config GAWK_AWKLIB
 	bool "Install awklib"
-	default n
 
 endif

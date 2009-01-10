@@ -2,7 +2,6 @@
 menuconfig PNPUTILS
 	tristate
 	prompt "pnputils                      "
-	default n
 	help
 	 Builds the pnputils to show debugging information about PNP
 	 devices in your hardware. This is useful for x86 targets only.
@@ -12,7 +11,6 @@ if PNPUTILS
 config PNPUTILS_SETPNP
 	prompt "install setpnp"
 	bool
-	default n
 	help
 	  This utility updates the system resource information for Plug and
 	  Play BIOS device nodes.

@@ -2,7 +2,6 @@
 menuconfig LIBCONFUSE
 	tristate
 	prompt "libconfuse                    "
-	default n
 	help
 	  This is libConfuse, a library for parsing configuration files. It was
 	  called libcfg before, but was changed to not confuse with other

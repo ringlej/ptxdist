@@ -1,9 +1,9 @@
 ## SECTION=shell_and_console
-menuconfig CFGSH
+config CFGSH
 	tristate
 	select NCURSES
 	select READLINE
-	prompt "cfgsh                         "
+	prompt "cfgsh"
 	help
 	  cfgsh, the Configuration Shell utility, is a small utility
 	  meant to be used for he configuration of embedded systems.

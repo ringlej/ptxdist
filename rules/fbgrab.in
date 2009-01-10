@@ -3,7 +3,6 @@
 config FBGRAB
 	select LIBPNG
 	tristate
-	default n
 	prompt "fbgrab"
 	help
 	  FBGrab is a framebuffer screenshot program, capturing the

@@ -34,7 +34,6 @@ config TCPDUMP_SMB
 config TCPDUMP_IPV6
 	bool
 	select LIBPCAP_IPV6
-	default no
 	prompt "enable ipv6 (with ipv4) support"
 	help
 	  Enable this if you require ipv6 support. This also requires ipv6
