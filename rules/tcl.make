@@ -1,5 +1,3 @@
-# -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Juergen Beisert
 #
@@ -17,9 +15,10 @@ PACKAGES-$(PTXCONF_TCL) += tcl
 #
 # Paths and names
 #
-TCL_MAJOR	:= 8.5
+TCL_MAJOR	:= 8
+TCL_MINOR	:= 5
 TCL_PL		:= 6
-TCL_VERSION	:= $(TCL_MAJOR).$(TCL_PL)
+TCL_VERSION	:= $(TCL_MAJOR).$(TCL_MINOR).$(TCL_PL)
 TCL		:= tcl$(TCL_VERSION)
 TCL_SUFFIX	:= -src.tar.gz
 TCL_URL		:= $(PTXCONF_SETUP_SFMIRROR)/tcl/$(TCL)$(TCL_SUFFIX)
@@ -58,7 +57,12 @@ TCL_ENV 	:= $(CROSS_ENV)
 TCL_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-rpath \
 	--disable-symbols \
-	--enable-load
+	--enable-load \
+	--enable-shared
+
+# TODO: Provide the correct encoding for the target
+# --with-encoding=<valid encode from 'usr/lib/tcl8.5/encoding'>
+# Note: TCL uses iso8859-1 until otherwise specified
 
 ifdef PTXCONF_TCL_THREADS
 TCL_AUTOCONF += --enable-threads
@@ -66,7 +70,7 @@ else
 TCL_AUTOCONF += --disable-threads
 endif
 
-# configure rejects some tests due to cross compiling
+# 'configure' rejects some tests due to cross compiling
 
 # checking system version... Linux-2.6.25.4-ptx <-- it detects host's one!
 TCL_ACONF_VAR := tcl_cv_sys_version=Linux-$(PTXCONF_KERNEL_VERSION)
@@ -86,9 +90,8 @@ TCL_ACONF_VAR += ac_cv_func_strtod=yes tcl_cv_strtod_unbroken=yes tcl_cv_strtod_
 # checking if the C stack grows upwards in memory... unknown
 TCL_ACONF_VAR += tcl_cv_stack_grows_up=no
 
-# unresolved issues yet
-#
-# checking for timezone data... /usr/share/zoneinfo <-- it uses host's one
+# unresolved issues yet:
+#  checking for timezone data... /usr/share/zoneinfo <-- it uses host's one
 #
 $(STATEDIR)/tcl.prepare:
 	@$(call targetinfo)
@@ -102,10 +105,6 @@ $(STATEDIR)/tcl.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-# unresolved issues yet:
-#
-# -DTCL_CFGVAL_ENCODING=\"iso8859-1\" <-- it uses the one from the host
-#
 $(STATEDIR)/tcl.compile:
 	@$(call targetinfo)
 	cd $(TCL_DIR)/unix && $(TCL_PATH) $(MAKE) $(PARALLELMFLAGS)
@@ -136,16 +135,96 @@ $(STATEDIR)/tcl.targetinstall:
 	@$(call install_fixup, tcl,DEPENDS,)
 	@$(call install_fixup, tcl,DESCRIPTION,missing)
 
-	@$(call install_copy, tcl, 0, 0, 0755, /usr/lib/tcl8/$(TCL_MAJOR))
+	@$(call install_copy, tcl, 0, 0, 0755, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR))
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/tclIndex, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/package.tcl, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/init.tcl, n)
+
+	@$(call install_copy, tcl, 0, 0, 0755, -, \
+		/usr/bin/tclsh$(TCL_MAJOR).$(TCL_MINOR))
+# a simplified link is very useful
+	@$(call install_link, tcl, \
+		/usr/bin/tclsh$(TCL_MAJOR).$(TCL_MINOR), /usr/bin/tclsh)
+
+	@$(call install_copy, tcl, 0, 0, 0644, -, /usr/lib/libtcl8.5.so)
+
+ifdef PTXCONF_TCL_TESTING
 	@$(call install_copy, tcl, 0, 0, 0755, /usr/lib/tcl$(TCL_MAJOR))
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR)/$(TCL_MAJOR).$(TCL_MINOR)/tcltest-2.3.0.tm, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR)/$(TCL_MAJOR).$(TCL_MINOR)/msgcat-1.4.2.tm, n)
 
-	@$(call install_copy, tcl, 0, 0, 0644, -, /usr/lib/tcl8/$(TCL_MAJOR)/msgcat-1.4.2.tm)
-	@$(call install_copy, tcl, 0, 0, 0644, -, /usr/lib/tcl8/$(TCL_MAJOR)/tcltest-2.3.0.tm)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/tm.tcl, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/parray.tcl, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/clock.tcl, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/auto.tcl, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/history.tcl, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/safe.tcl, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/word.tcl, n)
 
-# what the hell do we need from the "/usr/lib/tcl$(TCL_MAJOR)" directory???
+# avoid a subdirectory hell. Install them where also the other scripts are
+	@$(call install_copy, tcl, 0, 0, 0644, \
+		$(TCL_DIR)/library/opt/optparse.tcl, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/optparse.tcl, n)
 
-	@$(call install_copy, tcl, 0, 0, 0755, -, /usr/bin/tclsh$(TCL_MAJOR))
-	@$(call install_link, tcl, /usr/bin/tclsh$(TCL_MAJOR), /usr/bin/tclsh)
+	@$(call install_copy, tcl, 0, 0, 0644, \
+		$(TCL_DIR)/library/opt/pkgIndex.tcl, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/pkgIndex.tcl, n)
+endif
+
+ifdef PTXCONF_TCL_ENCODING
+	@$(call install_copy, tcl, 0, 0, 0755, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/encoding)
+ifndef PTXCONF_TCL_TESTING
+# install some popular code pages
+# FIXME: Are these the most common ones? Add more if not
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl8.5/encoding/iso8859-1.enc, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl8.5/encoding/iso8859-15.enc, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl8.5/encoding/cp437.enc, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl8.5/encoding/cp850.enc, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl8.5/encoding/ascii.enc, n)
+	@$(call install_copy, tcl, 0, 0, 0644, -, \
+		/usr/lib/tcl8.5/encoding/big5.enc, n)
+else
+# install all code pages
+	@cd $(TCL_DIR)/library/encoding; \
+	for file in * ; do \
+		$(call install_copy, tcl, 0, 0, 0644, \
+			$(TCL_DIR)/library/encoding/$$file, \
+			/usr/lib/tcl8.5/encoding/$$file, n); \
+        done
+# copy all tests to the target
+	@$(call install_copy, tcl, 0, 0, 0755, /usr/share/tcl-tests)
+	@cd $(TCL_DIR)/tests; \
+	for file in * ; do \
+		PER=`stat -c "%a" $$file` \
+		$(call install_copy, tcl, 0, 0, $$PER, \
+			$(TCL_DIR)/tests/$$file, \
+			/usr/share/tcl-tests/$$file); \
+        done
+
+# unresolved tests:
+# Test file error: EscapeToUtfProc: invalid sub table
+
+endif
+endif
 
 	@$(call install_finish, tcl)
 

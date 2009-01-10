@@ -2,7 +2,9 @@
 menuconfig TCL
 	tristate
 	prompt "tcl                           "
-	depends on BROKEN
+	select LIBC_M
+	select LIBC_DL
+	select LIBC_PTHREAD
 	help
 	  From the FAQ (refer http://tcl.sourceforge.net/faqs/):
 	  Tcl and Tk originated with Dr. John Ousterhout while teaching at the
@@ -17,6 +19,8 @@ menuconfig TCL
 	  release of Tk was in 1991. [...]
 	  The current implementation uses a byte code interpreter and runtime
 	  compilation.
+	  Note: To install this package you must have a working TCL on your
+	  host (only required for the install stage).
 
 if TCL
 
@@ -26,5 +30,23 @@ config TCL_THREADS
 	help
 	  Build the TCL engine with thread support. This may speed down non
 	  thread scripts.
+
+config TCL_ENCODING
+	bool
+	prompt "install encodings"
+	help
+	  Install support for various encodings (iso8859-1, iso8859-15,
+	  cp437, cp850, ascii, big5).
+
+config TCL_TESTING
+	bool
+	prompt "prepare for testing"
+	help
+	  If your are a ptxdist user only, leave this entry unchecked.
+	  Enable this if you are a ptxdist developer and you want to run the
+	  TCL test suite on your target to check if this TCL port is correct.
+	  To run the test suite, run single tests from '/usr/share/tcl-tests'
+	  or run the whole suite with '/usr/share/tcl-tests/all.tcl' from
+	  inside a tcl shell.
 
 endif
