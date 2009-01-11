@@ -18,7 +18,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_LOCALEDEF) += host-localedef
 #
 # Paths and names
 #
-HOST_LOCALEDEF_VERSION	:= eglibc-2.8-ptx2
+HOST_LOCALEDEF_VERSION	:= eglibc-2.9-ptx1
 HOST_LOCALEDEF		:= localedef-$(HOST_LOCALEDEF_VERSION)
 HOST_LOCALEDEF_SUFFIX	:= tar.bz2
 HOST_LOCALEDEF_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_LOCALEDEF).$(HOST_LOCALEDEF_SUFFIX)
@@ -37,15 +37,15 @@ $(HOST_LOCALEDEF_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-localedef_prepare: $(STATEDIR)/host-localedef.prepare
-
 HOST_LOCALEDEF_PATH	:= PATH=$(HOST_PATH)
 HOST_LOCALEDEF_ENV 	:= $(HOST_ENV)
 
 #
 # autoconf
 #
-HOST_LOCALEDEF_AUTOCONF	:= --with-glibc=./eglibc-2.8 --prefix=/usr
+HOST_LOCALEDEF_AUTOCONF	:= \
+	--with-glibc=./eglibc-2.9 \
+	--prefix=/usr
 
 # ----------------------------------------------------------------------------
 # Install
