@@ -142,8 +142,6 @@ else
 BASH_AUTOCONF	+= --disable-prompt-string-decoding
 endif
 
-# these options are currently untested...
-
 ifdef PTXCONF_BASH_EDIT
 BASH_AUTOCONF	+= --enable-readline
 else
@@ -173,23 +171,6 @@ BASH_AUTOCONF	+= --enable-static-link
 else
 BASH_AUTOCONF	+= --disable-static-link
 endif
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/bash.compile:
-	@$(call targetinfo)
-	cd $(BASH_DIR) && $(BASH_PATH) $(MAKE) $(PARALLELMFLAGS) #_BROKEN)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/bash.install:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
