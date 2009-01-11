@@ -60,7 +60,7 @@ $(STATEDIR)/fcgi.targetinstall:
 	@$(call install_copy, fcgi, 0, 0, 0755, $(FCGI_DIR)/cgi-fcgi/cgi-fcgi, \
 		/usr/bin/cgi-fcgi)
 
-	@$(call install_copy, fcgi, 0, 0, 0755, $(FCGI_DIR)/libfcgi/.libs/libfcgi.so.0.0.0, \
+	@$(call install_copy, fcgi, 0, 0, 0644, $(FCGI_DIR)/libfcgi/.libs/libfcgi.so.0.0.0, \
 		/usr/lib/libfcgi.so.0.0.0)
 	@$(call install_link,  fcgi, libfcgi.so.0.0.0, /usr/lib/libfcgi.so.0)
 	@$(call install_link,  fcgi, libfcgi.so.0, /usr/lib/libfcgi.so)
