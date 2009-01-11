@@ -29,82 +29,28 @@ LIBOIL_DIR	:= $(BUILDDIR)/$(LIBOIL)
 # Get
 # ----------------------------------------------------------------------------
 
-liboil_get: $(STATEDIR)/liboil.get
-
-$(STATEDIR)/liboil.get: $(liboil_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBOIL_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBOIL)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-liboil_extract: $(STATEDIR)/liboil.extract
-
-$(STATEDIR)/liboil.extract: $(liboil_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBOIL_DIR))
-	@$(call extract, LIBOIL)
-	@$(call patchin, LIBOIL)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-liboil_prepare: $(STATEDIR)/liboil.prepare
-
 LIBOIL_PATH	:= PATH=$(CROSS_PATH)
-LIBOIL_ENV 	:= \
-	$(CROSS_ENV)
+LIBOIL_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 LIBOIL_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/liboil.prepare: $(liboil_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBOIL_DIR)/config.cache)
-	cd $(LIBOIL_DIR) && \
-		$(LIBOIL_PATH) $(LIBOIL_ENV) \
-		./configure $(LIBOIL_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-liboil_compile: $(STATEDIR)/liboil.compile
-
-$(STATEDIR)/liboil.compile: $(liboil_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBOIL_DIR) && $(LIBOIL_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-liboil_install: $(STATEDIR)/liboil.install
-
-$(STATEDIR)/liboil.install: $(liboil_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBOIL)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-liboil_targetinstall: $(STATEDIR)/liboil.targetinstall
-
-$(STATEDIR)/liboil.targetinstall: $(liboil_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/liboil.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, liboil)
 	@$(call install_fixup,liboil,PACKAGE,liboil)
@@ -121,7 +67,7 @@ $(STATEDIR)/liboil.targetinstall: $(liboil_targetinstall_deps_default)
 
 	@$(call install_finish,liboil)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
