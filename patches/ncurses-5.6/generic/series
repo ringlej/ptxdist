@@ -1,1 +1,2 @@
 remove-tool-deps.diff
+ncurses-config-add-sysroot.diff
