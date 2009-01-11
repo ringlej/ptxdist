@@ -28,34 +28,13 @@ ARGTABLE2_DIR		:= $(BUILDDIR)/$(ARGTABLE2)
 # Get
 # ----------------------------------------------------------------------------
 
-argtable2_get: $(STATEDIR)/argtable2.get
-
-$(STATEDIR)/argtable2.get: $(argtable2_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(ARGTABLE2_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, ARGTABLE2)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-argtable2_extract: $(STATEDIR)/argtable2.extract
-
-$(STATEDIR)/argtable2.extract: $(argtable2_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(ARGTABLE2_DIR))
-	@$(call extract, ARGTABLE2)
-	@$(call patchin, ARGTABLE2)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-argtable2_prepare: $(STATEDIR)/argtable2.prepare
 
 ARGTABLE2_PATH	:= PATH=$(CROSS_PATH)
 ARGTABLE2_ENV 	:= $(CROSS_ENV)
@@ -63,46 +42,16 @@ ARGTABLE2_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-ARGTABLE2_AUTOCONF := $(CROSS_AUTOCONF_USR) --disable-debug
-
-$(STATEDIR)/argtable2.prepare: $(argtable2_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(ARGTABLE2_DIR)/config.cache)
-	cd $(ARGTABLE2_DIR) && \
-		$(ARGTABLE2_PATH) $(ARGTABLE2_ENV) \
-		./configure $(ARGTABLE2_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-argtable2_compile: $(STATEDIR)/argtable2.compile
-
-$(STATEDIR)/argtable2.compile: $(argtable2_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(ARGTABLE2_DIR) && $(ARGTABLE2_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-argtable2_install: $(STATEDIR)/argtable2.install
-
-$(STATEDIR)/argtable2.install: $(argtable2_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, ARGTABLE2)
-	@$(call touch, $@)
+ARGTABLE2_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-argtable2_targetinstall: $(STATEDIR)/argtable2.targetinstall
-
-$(STATEDIR)/argtable2.targetinstall: $(argtable2_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/argtable2.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, argtable2)
 	@$(call install_fixup, argtable2,PACKAGE,argtable2)
@@ -121,7 +70,7 @@ $(STATEDIR)/argtable2.targetinstall: $(argtable2_targetinstall_deps_default)
 
 	@$(call install_finish, argtable2)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
