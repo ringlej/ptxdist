@@ -17,15 +17,13 @@ HOST_PACKAGES-$(PTXCONF_HOST_FAKEROOT) += host-fakeroot
 #
 # Paths and names
 #
-HOST_FAKEROOT_VERSION	:= 1.10.1
+HOST_FAKEROOT_VERSION	:= 1.12
 HOST_FAKEROOT_SUFFIX	:= tar.gz
 HOST_FAKEROOT		:= fakeroot-$(HOST_FAKEROOT_VERSION)
 HOST_FAKEROOT_TARBALL	:= fakeroot_$(HOST_FAKEROOT_VERSION).$(HOST_FAKEROOT_SUFFIX)
+HOST_FAKEROOT_URL	:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/f/fakeroot/$(HOST_FAKEROOT_TARBALL)
 HOST_FAKEROOT_SOURCE	:= $(SRCDIR)/$(HOST_FAKEROOT_TARBALL)
 HOST_FAKEROOT_DIR	:= $(HOST_BUILDDIR)/$(HOST_FAKEROOT)
-HOST_FAKEROOT_URL	:= \
-	$(PTXCONF_SETUP_DEBMIRROR)/pool/main/f/fakeroot/$(HOST_FAKEROOT_TARBALL) \
-	http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_FAKEROOT_TARBALL)
 
 # ----------------------------------------------------------------------------
 # Get
