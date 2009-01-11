@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBSIGCPP) += libsigcpp
 #
 # Paths and names
 #
-LIBSIGCPP_VERSION	:= 2.2.2
+LIBSIGCPP_VERSION	:= 2.2.3
 LIBSIGCPP		:= libsigc++-$(LIBSIGCPP_VERSION)
 LIBSIGCPP_SUFFIX	:= tar.bz2
 LIBSIGCPP_URL		:= http://ftp.gnome.org/pub/GNOME/sources/libsigc++/2.2/$(LIBSIGCPP).$(LIBSIGCPP_SUFFIX)
@@ -28,34 +28,24 @@ LIBSIGCPP_DIR		:= $(BUILDDIR)/$(LIBSIGCPP)
 # Get
 # ----------------------------------------------------------------------------
 
-libsigcpp_get: $(STATEDIR)/libsigcpp.get
-
-$(STATEDIR)/libsigcpp.get: $(libsigcpp_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBSIGCPP_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBSIGCPP)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-libsigcpp_extract: $(STATEDIR)/libsigcpp.extract
-
-$(STATEDIR)/libsigcpp.extract: $(libsigcpp_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libsigcpp.extract:
+	@$(call targetinfo)
 	@$(call clean, $(LIBSIGCPP_DIR))
 	@$(call extract, LIBSIGCPP)
 	@$(call patchin, LIBSIGCPP)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-libsigcpp_prepare: $(STATEDIR)/libsigcpp.prepare
 
 LIBSIGCPP_PATH	:= PATH=$(CROSS_PATH)
 LIBSIGCPP_ENV 	:= $(CROSS_ENV)
@@ -65,44 +55,12 @@ LIBSIGCPP_ENV 	:= $(CROSS_ENV)
 #
 LIBSIGCPP_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/libsigcpp.prepare: $(libsigcpp_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBSIGCPP_DIR)/config.cache)
-	cd $(LIBSIGCPP_DIR) && \
-		$(LIBSIGCPP_PATH) $(LIBSIGCPP_ENV) \
-		./configure $(LIBSIGCPP_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libsigcpp_compile: $(STATEDIR)/libsigcpp.compile
-
-$(STATEDIR)/libsigcpp.compile: $(libsigcpp_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBSIGCPP_DIR) && $(LIBSIGCPP_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libsigcpp_install: $(STATEDIR)/libsigcpp.install
-
-$(STATEDIR)/libsigcpp.install: $(libsigcpp_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBSIGCPP)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libsigcpp_targetinstall: $(STATEDIR)/libsigcpp.targetinstall
-
-$(STATEDIR)/libsigcpp.targetinstall: $(libsigcpp_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libsigcpp.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, libsigcpp)
 	@$(call install_fixup, libsigcpp,PACKAGE,libsigcpp)
@@ -121,7 +79,7 @@ $(STATEDIR)/libsigcpp.targetinstall: $(libsigcpp_targetinstall_deps_default)
 
 	@$(call install_finish, libsigcpp)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
