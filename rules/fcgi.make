@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_FCGI) += fcgi
 FCGI_VERSION    := 2.4.0
 FCGI		:= fcgi-$(FCGI_VERSION)
 FCGI_SUFFIX	:= tar.gz
-FCGI_URL	:= http://www.fastcgi.com/dist/fcgi.$(FCGI_SUFFIX)
+FCGI_URL	:= http://www.fastcgi.com/dist/$(FCGI).$(FCGI_SUFFIX)
 FCGI_SOURCE	:= $(SRCDIR)/$(FCGI).$(FCGI_SUFFIX)
 FCGI_DIR	:= $(BUILDDIR)/$(FCGI)
 
@@ -31,27 +31,16 @@ $(FCGI_SOURCE):
 	@$(call get, FCGI)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/fcgi.extract:
-	@$(call targetinfo)
-	@$(call clean, $(FCGI_DIR))
-	@$(call extract, FCGI)
-	@$(call patchin, FCGI)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-FCGI_PATH	=  PATH=$(CROSS_PATH)
-FCGI_ENV 	=  $(CROSS_ENV)
+FCGI_PATH	:=  PATH=$(CROSS_PATH)
+FCGI_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-FCGI_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+FCGI_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
