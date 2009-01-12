@@ -26,7 +26,7 @@ HOST_XORG_LIB_X11_DIR	= $(HOST_BUILDDIR)/$(HOST_XORG_LIB_X11)
 
 host-xorg-lib-x11_get: $(STATEDIR)/host-xorg-lib-x11.get
 
-$(STATEDIR)/host-xorg-lib-x11.get: $(STATEDIR)/xorg-lib-X11.get
+$(STATEDIR)/host-xorg-lib-x11.get: $(STATEDIR)/xorg-lib-x11.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

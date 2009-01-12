@@ -25,7 +25,7 @@ HOST_XORG_LIB_XDMCP_DIR	= $(HOST_BUILDDIR)/$(XORG_LIB_XDMCP)
 
 host-xorg-lib-xdmcp_get: $(STATEDIR)/host-xorg-lib-xdmcp.get
 
-$(STATEDIR)/host-xorg-lib-xdmcp.get: $(STATEDIR)/xorg-lib-Xdmcp.get
+$(STATEDIR)/host-xorg-lib-xdmcp.get: $(STATEDIR)/xorg-lib-xdmcp.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 

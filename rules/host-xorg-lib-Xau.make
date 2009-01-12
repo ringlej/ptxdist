@@ -25,7 +25,7 @@ HOST_XORG_LIB_XAU_DIR	= $(HOST_BUILDDIR)/$(XORG_LIB_XAU)
 
 host-xorg-lib-xau_get: $(STATEDIR)/host-xorg-lib-xau.get
 
-$(STATEDIR)/host-xorg-lib-xau.get: $(STATEDIR)/xorg-lib-Xau.get
+$(STATEDIR)/host-xorg-lib-xau.get: $(STATEDIR)/xorg-lib-xau.get
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
