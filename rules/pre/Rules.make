@@ -195,7 +195,7 @@ CROSS_ENV_AC := \
 	ac_cv_sysv_ipc=yes \
 	ac_cv_type_uintptr_t=yes \
 	glib_cv_long_long_format="ll" \
-	gt_cv_func_gettext_libintl=yes 
+	gt_cv_func_gettext_libintl=yes
 
 CROSS_ENV_DESTDIR := \
 	DESTDIR=$(SYSROOT)
