@@ -3,6 +3,20 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: mplayer.compile: It seems very PXA specific now?
+     i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
+      vo_pxa.c: In function 'draw_osd':
+      vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
+      vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
+      [...]
+      vo_pxa.c: In function 'config':
+      vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
+      vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
+      [...]
+      make[2]: *** [vo_pxa.o] Error 1
+      make[2]: Leaving directory `[...]/platform-i586/build-target/MPlayer-1.0rc2/libvo'
+      --> menu contains pxa specific stuff. Maybe this should be modified?
+
 [ ] jbe: proftpd.compile
      i586-unknown-linux-gnu-gcc [...] -I.. -I../include  -O2 -Wall -c pr_fnmatch.c
        In file included from [...]/sysroot-i586-unknown-linux-gnu/usr/include/asm/sigcontext.h:5,
