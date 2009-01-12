@@ -7,11 +7,11 @@ Signed-of-by: Marc Kleine-Budde <mkl@pengutronix.de>
  configure |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: lighttpd-1.4.19/configure
+Index: lighttpd-1.4.20/configure
 ===================================================================
---- lighttpd-1.4.19.orig/configure
-+++ lighttpd-1.4.19/configure
-@@ -23971,7 +23971,7 @@ fi
+--- lighttpd-1.4.20.orig/configure
++++ lighttpd-1.4.20/configure
+@@ -24519,7 +24519,7 @@ fi
  { echo "$as_me:$LINENO: result: $WITH_PCRE" >&5
  echo "${ECHO_T}$WITH_PCRE" >&6; }
  

@@ -11,11 +11,11 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  configure.in |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: lighttpd-1.4.19/configure.in
+Index: lighttpd-1.4.20/configure.in
 ===================================================================
---- lighttpd-1.4.19.orig/configure.in
-+++ lighttpd-1.4.19/configure.in
-@@ -251,7 +251,7 @@ AC_ARG_WITH(pcre, AC_HELP_STRING([--with
+--- lighttpd-1.4.20.orig/configure.in
++++ lighttpd-1.4.20/configure.in
+@@ -252,7 +252,7 @@ AC_ARG_WITH(pcre, AC_HELP_STRING([--with
      [WITH_PCRE=$withval],[WITH_PCRE=yes])
  AC_MSG_RESULT([$WITH_PCRE])
  
