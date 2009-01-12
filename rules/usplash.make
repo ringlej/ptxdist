@@ -28,35 +28,25 @@ USPLASH_DIR	:= $(BUILDDIR)/$(USPLASH)
 # Get
 # ----------------------------------------------------------------------------
 
-usplash_get: $(STATEDIR)/usplash.get
-
-$(STATEDIR)/usplash.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(USPLASH_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, USPLASH)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-usplash_extract: $(STATEDIR)/usplash.extract
-
 $(STATEDIR)/usplash.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(USPLASH_DIR))
 	@$(call extract, USPLASH)
 	mv $(BUILDDIR)/usplash $(USPLASH_DIR)
 	@$(call patchin, USPLASH)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-usplash_prepare: $(STATEDIR)/usplash.prepare
 
 USPLASH_PATH	:= PATH=$(CROSS_PATH)
 USPLASH_ENV 	:= $(CROSS_ENV)
@@ -64,51 +54,37 @@ USPLASH_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-USPLASH_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+USPLASH_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--enable-svga-backend \
 	--disable-convert-tools
 
 $(STATEDIR)/usplash.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(USPLASH_DIR)/config.cache)
 	cd $(USPLASH_DIR) && \
 		$(USPLASH_PATH) $(USPLASH_ENV) \
 		sh ./configure $(USPLASH_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-usplash_compile: $(STATEDIR)/usplash.compile
-
 $(STATEDIR)/usplash.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(USPLASH_DIR) && \
 		$(USPLASH_ENV) $(USPLASH_PATH) \
 		$(MAKE) \
 		$(PARALLELMFLAGS_BROKEN)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-usplash_install: $(STATEDIR)/usplash.install
-
-$(STATEDIR)/usplash.install:
-	@$(call targetinfo, $@)
-	@$(call install, USPLASH)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-usplash_targetinstall: $(STATEDIR)/usplash.targetinstall
-
 $(STATEDIR)/usplash.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, usplash)
 	@$(call install_fixup, usplash,PACKAGE,usplash)
@@ -128,7 +104,7 @@ $(STATEDIR)/usplash.targetinstall:
 
 	@$(call install_finish, usplash)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
