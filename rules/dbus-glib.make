@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_DBUS_GLIB) += dbus-glib
 #
 # Paths and names
 #
-DBUS_GLIB_VERSION	:= 0.76
+DBUS_GLIB_VERSION	:= 0.78
 DBUS_GLIB		:= dbus-glib-$(DBUS_GLIB_VERSION)
 DBUS_GLIB_SUFFIX	:= tar.gz
 DBUS_GLIB_URL		:= http://dbus.freedesktop.org/releases/dbus-glib/$(DBUS_GLIB).$(DBUS_GLIB_SUFFIX)
@@ -36,14 +36,8 @@ $(DBUS_GLIB_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-dbus-glib_prepare: $(STATEDIR)/dbus-glib.prepare
-
 DBUS_GLIB_PATH	:= PATH=$(CROSS_PATH)
-
-DBUS_GLIB_ENV := \
-	$(CROSS_ENV) \
-	ac_cv_func_posix_getpwnam_r=yes \
-	ac_cv_have_abstract_sockets=yes
+DBUS_GLIB_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
