@@ -21,75 +21,77 @@ menuconfig MPLAYER
 	  the capabilities of your host CPU, not target's one!
 
 # -----
-
+if MPLAYER
 
 menuconfig MPLAYER_VI
 	bool
 	prompt "Video Input                 "
-	depends on MPLAYER
 
+if MPLAYER_VI
 config MPLAYER_VI_V4L1
 	bool
 	prompt "v4l1 support"
-	depends on MPLAYER_VI
 
 config MPLAYER_VI_V4L2
 	bool
 	select LIBC_PTHREAD
 	prompt "v4l2 support"
-	depends on MPLAYER_VI
+endif
 
 # -----
 
 menuconfig MPLAYER_VO
 	bool
 	prompt "Video Output                "
-	depends on MPLAYER
 
+if MPLAYER_VO
 config MPLAYER_VO_XV
 	bool
 	depends on MPLAYER_VO
 	prompt "enable Xvideo output support for mplayer"
-	depends on MPLAYER
 
 config MPLAYER_VO_X11
 	bool
 	depends on MPLAYER_VO
 	prompt "enable X11 output support for mplayer"
-	depends on MPLAYER
 
 config MPLAYER_VO_FBDEV
 	bool
 	depends on MPLAYER_VO
 	prompt "enable framebuffer output support for mplayer"
-	depends on MPLAYER
+endif
 
 # -----
 
 menuconfig MPLAYER_CODEC
 	bool
 	prompt "Video Codecs                "
-	depends on MPLAYER
+
+if MPLAYER_CODEC
 
 config MPLAYER_CODEC_MPEG2
 	bool
 	prompt "mpeg2"
-	depends on MPLAYER_CODEC
+
+endif
 
 # -----
-
+# FIXME: This menu should only be visible when
+# the current architecture is PXA or ARM
+#
 menuconfig MPLAYER_ADVANCED
 	bool
 	prompt "Advanced Options            "
-	depends on MPLAYER
 
+if MPLAYER_ADVANCED
 config MPLAYER_ADVANCED_PXA
 	bool
 	prompt "pxa support"
-	depends on MPLAYER_ADVANCED
 
 config MPLAYER_ADVANCED_IWMMXT
 	bool
 	prompt "iwmmxt extensions"
-	depends on MPLAYER_ADVANCED
 
+endif
+
+endif
