@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_OPENNTPD) += openntpd
 #
 # Paths and names
 #
-OPENNTPD_VERSION	= 3.7p1
-OPENNTPD		= openntpd-$(OPENNTPD_VERSION)
-OPENNTPD_SUFFIX		= tar.gz
-OPENNTPD_URL		= http://ftp.eu.openbsd.org/pub/OpenBSD/OpenNTPD/$(OPENNTPD).$(OPENNTPD_SUFFIX)
-OPENNTPD_SOURCE		= $(SRCDIR)/$(OPENNTPD).$(OPENNTPD_SUFFIX)
-OPENNTPD_DIR		= $(BUILDDIR)/$(OPENNTPD)
+OPENNTPD_VERSION	:= 3.7p1
+OPENNTPD		:= openntpd-$(OPENNTPD_VERSION)
+OPENNTPD_SUFFIX		:= tar.gz
+OPENNTPD_URL		:= http://ftp.eu.openbsd.org/pub/OpenBSD/OpenNTPD/$(OPENNTPD).$(OPENNTPD_SUFFIX)
+OPENNTPD_SOURCE		:= $(SRCDIR)/$(OPENNTPD).$(OPENNTPD_SUFFIX)
+OPENNTPD_DIR		:= $(BUILDDIR)/$(OPENNTPD)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -42,7 +42,7 @@ OPENNTPD_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-OPENNTPD_AUTOCONF :=\
+OPENNTPD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-privsep-user=ntp \
 	--with-privsep-path=/var/run/ntp
