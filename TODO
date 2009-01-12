@@ -3,6 +3,12 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: phyton24 states this but does not stop the build (in the install stage):
+      cannot find -lncursesw
+      collect2: ld returned 1 exit status
+      cannot find -lpanelw
+      collect2: ld returned 1 exit status
+
 [ ] jbe: Working with local sources seems broken, when a <PACKET_NAME>_SOURCE
     is defined to the regular $(SRCDIR)/<PACKET_NAME>. The get stage fails in
     this case. Our template will always create and fill this variable. Don't
