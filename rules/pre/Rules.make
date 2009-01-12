@@ -181,6 +181,7 @@ CROSS_ENV_AC := \
 	ac_cv_func_getrlimit=yes \
 	ac_cv_func_malloc_0_nonnull=yes \
 	ac_cv_func_memcmp_clean=yes \
+	ac_cv_func_posix_getpwnam_r=yes \
 	ac_cv_func_posix_getpwuid_r=yes \
 	ac_cv_func_printf_unix98=yes \
 	ac_cv_func_realloc_0_nonnull=yes \
@@ -188,13 +189,13 @@ CROSS_ENV_AC := \
 	ac_cv_func_setpgrp_void=yes \
 	ac_cv_func_setvbuf_reversed=no \
 	ac_cv_func_vsnprintf_c99=yes \
+	ac_cv_have_abstract_sockets=yes \
 	ac_cv_sizeof_long_double=$(PTXCONF_SIZEOF_LONG_DOUBLE) \
 	ac_cv_sizeof_long_long=8 \
 	ac_cv_sysv_ipc=yes \
 	ac_cv_type_uintptr_t=yes \
 	glib_cv_long_long_format="ll" \
-	gt_cv_func_gettext_libintl=yes
-
+	gt_cv_func_gettext_libintl=yes 
 
 CROSS_ENV_DESTDIR := \
 	DESTDIR=$(SYSROOT)
@@ -639,6 +640,10 @@ patchin =											\
 			if [ "$$?" -gt 0 ]; then exit 1; fi;					\
 		fi;										\
 	fi;											\
+												\
+	case "$(notdir $@)" in									\
+		(host-*|cross-*)	exit 0;;						\
+	esac;											\
 												\
 	find "$${PACKET_DIR}/" -name "configure" -a \! -path "*/.pc/*" | while read conf; do	\
 		echo "Fixing up $${conf}";							\
