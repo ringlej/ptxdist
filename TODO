@@ -2,6 +2,18 @@ TODO before 2.0.0
 =================
 
 Prio A
+[ ] jbe: libcgicc: Runs host's autotools when the compile stage starts on some
+    systems (*not* on himalia). On system where it does not run the autotools
+    the compile stage fails with:
+      make[3]: Entering directory `[....]/platform-i586/build-target/cgicc-3.2.7/doc'
+       if test ! -d html; then \
+             mkdir html; \
+       fi;
+       DATE=`date '+%-d %b %Y'` VERSION=3.2.7 /bin/echo Doxyfile
+       Doxyfile
+       cp cgicc.png gnu-head-sm.jpg cgicc-doc.css html
+       mv html/index.html html/index.html.bak
+       mv: cannot stat `html/index.html': No such file or directory
 
 [ ] jbe: phyton24 states this but does not stop the build (in the install stage):
       cannot find -lncursesw
