@@ -62,7 +62,7 @@ endif
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/glib.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, glib)
 	@$(call install_fixup,glib,PACKAGE,glib)
@@ -99,7 +99,7 @@ $(STATEDIR)/glib.targetinstall:
 
 	@$(call install_finish,glib)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
