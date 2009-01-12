@@ -30,34 +30,13 @@ LIBXML2_DIR	:= $(BUILDDIR)/$(LIBXML2)
 # Get
 # ----------------------------------------------------------------------------
 
-libxml2_get: $(STATEDIR)/libxml2.get
-
-$(STATEDIR)/libxml2.get: $(libxml2_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBXML2_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBXML2)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libxml2_extract: $(STATEDIR)/libxml2.extract
-
-$(STATEDIR)/libxml2.extract: $(libxml2_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBXML2_DIR))
-	@$(call extract, LIBXML2)
-	@$(call patchin, LIBXML2)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-libxml2_prepare: $(STATEDIR)/libxml2.prepare
 
 LIBXML2_PATH	:= PATH=$(CROSS_PATH)
 LIBXML2_ENV	:= $(CROSS_ENV)
@@ -273,45 +252,22 @@ else
 LIBXML2_AUTOCONF += --without-zlib
 endif
 
-$(STATEDIR)/libxml2.prepare: $(libxml2_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBXML2_DIR)/config.cache)
-	cd $(LIBXML2_DIR) && \
-		$(LIBXML2_PATH) $(LIBXML2_ENV) \
-		./configure $(LIBXML2_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libxml2_compile: $(STATEDIR)/libxml2.compile
-
-$(STATEDIR)/libxml2.compile: $(libxml2_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBXML2_DIR) && $(LIBXML2_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-libxml2_install: $(STATEDIR)/libxml2.install
-
-$(STATEDIR)/libxml2.install: $(libxml2_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libxml2.install:
+	@$(call targetinfo)
 	@$(call install, LIBXML2)
 	install -D $(LIBXML2_DIR)/xml2-config $(PTXCONF_SYSROOT_CROSS)/bin/xml2-config
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libxml2_targetinstall: $(STATEDIR)/libxml2.targetinstall
-
-$(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libxml2.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, libxml2)
 	@$(call install_fixup, libxml2,PACKAGE,libxml2)
@@ -330,7 +286,7 @@ $(STATEDIR)/libxml2.targetinstall: $(libxml2_targetinstall_deps_default)
 
 	@$(call install_finish, libxml2)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
