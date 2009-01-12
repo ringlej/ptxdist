@@ -44,6 +44,12 @@ Prio A
       make[2]: Leaving directory `[...]/platform-i586/build-target/MPlayer-1.0rc2/libvo'
       --> menu contains pxa specific stuff. Maybe this should be modified?
 
+    Even with disabled PXA specific options a build for x86 still fails:
+    libvo/libvo.a(video_out.o):(.data+0x20): undefined reference to `video_out_x11'
+    libvo/libvo.a(video_out.o):(.data+0x24): undefined reference to `video_out_xover'
+    libvo/libvo.a(video_out.o):(.data+0x28): undefined reference to `video_out_pxa'
+    [...] and much more
+
 [ ] jbe: proftpd.compile
      i586-unknown-linux-gnu-gcc [...] -I.. -I../include  -O2 -Wall -c pr_fnmatch.c
        In file included from [...]/sysroot-i586-unknown-linux-gnu/usr/include/asm/sigcontext.h:5,
