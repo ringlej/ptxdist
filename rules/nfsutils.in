@@ -3,6 +3,7 @@ menuconfig NFSUTILS
 	tristate
 	# we need libblkid
 	select E2FSPROGS
+	select TCPWRAPPER	if NFSUTILS_WITH_TCPWRAPPERS
 	prompt "nfsutils                      "
 	help
 	  The Sun Network Filesystem (NFS) protocol provides transparent remote
@@ -51,7 +52,6 @@ config	NFSUTILS_RQUOTAD
 config	NFSUTILS_WITH_TCPWRAPPERS
 	bool
 	prompt "Use TCP Wrappers"
-	select TCPWRAPPER
 
 choice
 	prompt "statd's userid"
