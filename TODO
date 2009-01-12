@@ -3,6 +3,10 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: valgrind.prepare
+      checking the libc version... unsupported version
+      configure: error: Valgrind requires glibc version 2.2 - 2.7
+
 [ ] jbe: libx86.compile
      i586-unknown-linux-gnu-gcc [...] -c -o lrmi.o lrmi.c
       lrmi.c: In function 'set_regs':
