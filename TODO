@@ -3,7 +3,8 @@ TODO before 2.0.0
 
 Prio A
 
-[ ] jbe: target: host-intltool.prepare
+[ ] jbe: host-glade.prepare
+[ ] jbe: host-intltool.prepare
       checking for XML::Parser... configure: error: XML::Parser perl module is required for intltool
 
 [ ] jbe: valgrind.prepare
