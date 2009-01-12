@@ -3,6 +3,19 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: proftpd.compile
+     i586-unknown-linux-gnu-gcc [...] -I.. -I../include  -O2 -Wall -c pr_fnmatch.c
+       In file included from [...]/sysroot-i586-unknown-linux-gnu/usr/include/asm/sigcontext.h:5,
+         from [...]/sysroot-i586-unknown-linux-gnu/usr/include/bits/sigcontext.h:28,
+         from [...]/sysroot-i586-unknown-linux-gnu/usr/include/signal.h:333,
+         from [...]/sysroot-i586-unknown-linux-gnu/usr/include/sys/wait.h:31,
+         from ../include/conf.h:95,
+         from pr_fnmatch.c:38:
+         [...]/sysroot-i586-unknown-linux-gnu/usr/include/asm/types.h:8:
+            error: conflicting types for 'mode_t'
+         [...]/sysroot-i586-unknown-linux-gnu/usr/include/sys/types.h:72:
+	    error: previous declaration of 'mode_t' was here
+
 [ ] jbe: grep.compile: Host leakage
       [...]/arm-v5te-linux-gnueabi/bin/ld: skipping incompatible
          /usr/lib/libpcre.so when searching for -lpcre
