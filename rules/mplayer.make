@@ -316,7 +316,7 @@ MPLAYER_AUTOCONF += --disable-xv
 endif
 
 ifdef PTXCONF_MPLAYER_VO_X11
-MPLAYER_AUTOCONF += --enable-x11 
+MPLAYER_AUTOCONF += --enable-x11
 else
 MPLAYER_AUTOCONF += --disable-x11
 endif
@@ -347,6 +347,7 @@ endif
 #
 # Advanced Options
 #
+ifdef PTXCONF_ARCH_ARM_PXA
 ifdef PTXCONF_MPLAYER_ADVANCED_PXA
 MPLAYER_AUTOCONF += --enable-pxa
 else
@@ -356,6 +357,9 @@ ifdef PTXCONF_MPLAYER_ADVANCED_IWMMXT
 MPLAYER_AUTOCONF += --enable-iwmmxt
 else
 MPLAYER_AUTOCONF += --disable-iwmmxt
+endif
+else
+MPLAYER_AUTOCONF += --disable-pxa --disable-iwmmxt
 endif
 
 $(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps_default)
