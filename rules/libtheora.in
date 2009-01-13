@@ -37,5 +37,12 @@ if LIBTHEORA
 		bool
 		prompt "encoding support"
 
-endif
+	config LIBTHEORA__DOC
+		bool
+		prompt "build documentation"
+		help
+		  To build the documentation and the API description you must
+		  have pdflatex, transfig, bibtex or doxygen be present on
+		  your host.
 
+endif

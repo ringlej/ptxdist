@@ -61,6 +61,14 @@ LIBTHEORA_AUTOCONF := \
 	--disable-vorbistest \
 	--disable-sdltest
 
+ifndef PTXCONF_LIBTHEORA__DOC
+LIBTHEORA_AUTOCONF += \
+	ac_cv_prog_HAVE_DOXYGEN=false \
+	ac_cv_prog_HAVE_PDFLATEX=no \
+	ac_cv_prog_HAVE_BIBTEX=no \
+	ac_cv_prog_HAVE_TRANSFIG=no
+endif
+
 ifdef PTXCONF_LIBTHEORA__OGG
 LIBTHEORA_AUTOCONF += --enable-ogg
 else
