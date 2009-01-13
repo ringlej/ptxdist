@@ -6,3 +6,4 @@ no_fbioput_vscreeninfo.patch
 tslib_linux_input_tsdevice.patch
 blit_blend_shortcut.patch
 fix_tslib_driver.diff -p0
+dont_use_linux_config_h_on_powerpc.diff -p0
