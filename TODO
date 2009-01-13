@@ -3,6 +3,19 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: chrony.compile
+      powerpc-603e-linux-gnu-gcc  -O2 -g  -DFEAT_RTC=1 [...] -c rtc_linux.c
+      In file included from rtc_linux.c:61:
+      io_linux.h:39:2: error: #error "I don't know the values of the _IOC_* constants for your architecture"
+      rtc_linux.c: In function 'switch_interrupts':
+      rtc_linux.c:680: error: 'CHRONY_IOC_NONE' undeclared (first use in this function)
+      rtc_linux.c:680: error: (Each undeclared identifier is reported only once
+      rtc_linux.c:680: error: for each function it appears in.)
+      rtc_linux.c:680: error: 'CHRONY_IOC_NRBITS' undeclared (first use in this function)
+      rtc_linux.c:680: error: 'CHRONY_IOC_TYPEBITS' undeclared (first use in this function)
+      rtc_linux.c:680: error: 'CHRONY_IOC_SIZEBITS' undeclared (first use in this function)
+      [...]
+
 [ ] jbe: host-glade.prepare
 [ ] jbe: host-intltool.prepare
       checking for XML::Parser... configure: error: XML::Parser perl module is required for intltool
