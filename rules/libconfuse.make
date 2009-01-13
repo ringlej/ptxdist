@@ -35,20 +35,21 @@ $(LIBCONFUSE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-libconfuse_prepare: $(STATEDIR)/libconfuse.prepare
-
 LIBCONFUSE_PATH	:= PATH=$(CROSS_PATH)
 LIBCONFUSE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIBCONFUSE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-		--disable-dependency-tracking \
-		--disable-nls
+LIBCONFUSE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking \
+	--disable-nls
 
 ifdef PTXCONF_LIBCONFUSE_STATIC
 LIBCONFUSE_AUTOCONF += --enable-shared=no
+else
+LIBCONFUSE_AUTOCONF += --enable-shared
 endif
 
 # ----------------------------------------------------------------------------
@@ -68,7 +69,7 @@ ifndef PTXCONF_LIBCONFUSE_STATIC
 	@$(call install_fixup, libconfuse,DEPENDS,)
 	@$(call install_fixup, libconfuse,DESCRIPTION,missing)
 
-	@$(call install_copy, libconfuse, 0, 0, 0755, \
+	@$(call install_copy, libconfuse, 0, 0, 0644, \
 		$(LIBCONFUSE_DIR)/src/.libs/libconfuse.so.0.0.0, \
 		/usr/lib/libconfuse.so.0.0.0)
 	@$(call install_link, libconfuse, \
