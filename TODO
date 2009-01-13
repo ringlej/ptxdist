@@ -3,6 +3,10 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: directfb.compile
+     powerpc-603e-linux-gnu-gcc -DHAVE_CONFIG_H [...]  -c ppcasm_memcpy_cachable.S  -fPIC -DPIC -o .libs/ppcasm_memcpy_cachable.o
+     ppcasm_memcpy_cachable.S:37:26: error: linux/config.h: No such file or directory
+
 [ ] jbe: libtheora.prepare
      "[x]   sdl support" results into a:
      [...]
