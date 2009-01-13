@@ -6,4 +6,6 @@ config CROSS_INSIGHT
 	help
 	  Insight is a graphical user interface to GDB,
 	  the GNU Debugger written in Tcl/Tk.
+	  Note: You will need a working TCL/TK installation on your host to
+	  run this tool.
 
