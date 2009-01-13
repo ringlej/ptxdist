@@ -3,6 +3,26 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: fltk.compile
+      In file included from ../FL/Fl_Single_Window.H:29,
+      from doublebuffer.cxx:37:
+      ../FL/Fl_Window.H: In member function 'void Fl_Window::size_range(int, int, int, int, int, int, int)':
+      ../FL/Fl_Window.H:91: warning: conversion to 'uchar' from 'short int' may alter its value
+      ../FL/Fl_Window.H:91: warning: conversion to 'uchar' from 'short int' may alter its value
+      ../FL/Fl_Window.H:91: warning: conversion to 'uchar' from 'short int' may alter its value
+      ../fluid/fluid: ../fluid/fluid: cannot execute binary file
+       make[2]: *** [fast_slow.cxx] Error 126
+       make[2]: *** Waiting for unfinished jobs....
+       finished: fltk.compile
+       ---> but it does not fail
+
+[ ] jbe: fltk.install
+      cp: cannot create regular file `/usr/lib/libfltk_jpeg.a': Permission denied
+      make[2]: *** [install] Error 1
+      cp: cannot create regular file `/usr/lib/libfltk_jpeg.a': Permission denied
+      make[2]: *** [install] Error 1
+       ---> but it does not fail
+
 [ ] jbe: chrony.compile
       powerpc-603e-linux-gnu-gcc  -O2 -g  -DFEAT_RTC=1 [...] -c rtc_linux.c
       In file included from rtc_linux.c:61:
@@ -153,6 +173,9 @@ Prio A
 
 Prio B
 ------
+
+[ ] jbe: xorg-lib-fontenc.compile: What does it mean? Intervention needed?
+      [...]/arm-v5te-linux-gnueabi/bin/ld: warning: creating a DT_TEXTREL in object.
 
 [ ] jbe: avoid the "make: Nothing to be done for `world'." message when running
     a "ptxdist images".
