@@ -8424,7 +8424,7 @@ Index: libtheora-1.0/configure
 -     fi
 -  fi
  
-+    REQUIRES_SDL="sdl >= fix.me.now"
++    REQUIRES_SDL="sdl >= 1.2.13
  
 -  PATH="$prefix/bin:$prefix/usr/bin:$PATH"
 -  # Extract the first word of "sdl-config", so it can be a program name with args.

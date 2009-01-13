@@ -40,7 +40,7 @@ Index: libtheora-1.0/configure.ac
 +if test "${HAVE_SDL}" = "yes"; then
 +    AC_DEFINE(HAVE_SDL, 1, [sdl])
 +
-+    REQUIRES_SDL="sdl >= fix.me.now"
++    REQUIRES_SDL="sdl >= 1.2.13"
 +    AC_SUBST(REQUIRES_SDL)
 +    PKG_CHECK_MODULES([SDL],
 +          [${REQUIRES_SDL}],
