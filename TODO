@@ -196,18 +196,6 @@ Prio B
 [ ] jbe: Can we also provide a "Bare Metall" platform project to show how to use
     ptxdist2 for non Linux targets?
 
-[ ] jbe: Segmentation fault?
-
-    -----------------------
-    target: locales.install
-    -----------------------
-
-    generating "en_US" - this can take some time
-    /work/ptxdist-trunk/scripts/make_locale.sh: line 29: 14673 Segmentation fault \
-         I18NPATH=${SYSROOT_USR}/share/i18n ${LOCALEDEF} ${ENDIAN} -i $LOCALE_DEF \
-         -f ${CHARMAP} --prefix=${PREF} $LOCALE_NAME
-    calling localedef binary failed
-
 [ ] jbe: e2fsprogs: HTREE can be disabled, but at least mkfs.ext2 creates (silently)
     a HTREE based filesystem! e2fsck will fail on such a filesystem unless HTREE
     support will be activated in the menu!
@@ -668,6 +656,18 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: Segmentation fault?
+
+    -----------------------
+    target: locales.install
+    -----------------------
+
+    generating "en_US" - this can take some time
+    /work/ptxdist-trunk/scripts/make_locale.sh: line 29: 14673 Segmentation fault \
+         I18NPATH=${SYSROOT_USR}/share/i18n ${LOCALEDEF} ${ENDIAN} -i $LOCALE_DEF \
+         -f ${CHARMAP} --prefix=${PREF} $LOCALE_NAME
+    calling localedef binary failed
 
 [x] jbe: directfb.compile
      powerpc-603e-linux-gnu-gcc -DHAVE_CONFIG_H [...]  -c ppcasm_memcpy_cachable.S  -fPIC -DPIC -o .libs/ppcasm_memcpy_cachable.o
