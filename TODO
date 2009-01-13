@@ -3,6 +3,23 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: libtheora.prepare
+     "[x]   sdl support" results into a:
+     [...]
+     checking for sdl... yes
+     checking for sdl >= fix.me.now... configure: error: *** sdl >= fix.me.now not found
+        by pkg-config on your system
+
+[ ] jbe: busybox.compile (on PowerPC)
+	[...]
+        CC      util-linux/volume_id/ext.o
+	cc1: warnings being treated as errors
+	In file included from util-linux/fdisk.c:622:
+	util-linux/fdisk_osf.c: In function 'xbsd_writelabel':
+	util-linux/fdisk_osf.c:961: warning: unused parameter 'p'
+	make[2]: *** [util-linux/fdisk.o] Error 1
+	make[1]: *** [util-linux] Error 2
+
 [ ] jbe: fltk.compile
       In file included from ../FL/Fl_Single_Window.H:29,
       from doublebuffer.cxx:37:
