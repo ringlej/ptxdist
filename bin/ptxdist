@@ -1672,9 +1672,9 @@ parse_second()
 				; do \
 				if [ -x "${tst}" ]; then
 					if [ "${PTX_DEBUG}" != "true" ]; then
-						"${tst}" > "${PTXDIST_PLATFORMDIR}/test.log"
+						"${tst}" >> "${PTXDIST_PLATFORMDIR}/test.log"
 					else
-						"${tst}" | tee "${PTXDIST_PLATFORMDIR}/test.log"
+						"${tst}" | tee -a "${PTXDIST_PLATFORMDIR}/test.log"
 					fi
 					exit ${?}
 				fi
