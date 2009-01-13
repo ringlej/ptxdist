@@ -7,13 +7,6 @@ Prio A
      powerpc-603e-linux-gnu-gcc -DHAVE_CONFIG_H [...]  -c ppcasm_memcpy_cachable.S  -fPIC -DPIC -o .libs/ppcasm_memcpy_cachable.o
      ppcasm_memcpy_cachable.S:37:26: error: linux/config.h: No such file or directory
 
-[ ] jbe: libtheora.prepare
-     "[x]   sdl support" results into a:
-     [...]
-     checking for sdl... yes
-     checking for sdl >= fix.me.now... configure: error: *** sdl >= fix.me.now not found
-        by pkg-config on your system
-
 [ ] jbe: busybox.compile (on PowerPC)
 	[...]
         CC      util-linux/volume_id/ext.o
@@ -678,6 +671,13 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: libtheora.prepare
+     "[x]   sdl support" results into a:
+     [...]
+     checking for sdl... yes
+     checking for sdl >= fix.me.now... configure: error: *** sdl >= fix.me.now not found
+        by pkg-config on your system
 
 [x] jbe: libcgicc: Runs host's autotools when the compile stage starts on some
     systems (*not* on himalia). On system where it does not run the autotools
