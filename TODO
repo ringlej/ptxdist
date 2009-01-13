@@ -192,6 +192,7 @@ Prio B
       [...]/arm-v5te-linux-gnueabi/bin/ld: warning: creating a DT_TEXTREL in object.
 [ ] jbe: same in cairo.compile
 [ ] jbe: same in canfestival.compile
+[ ] jbe: xorg-lib-fontenc.compile (but this time seen on PowerPC)
 
 [ ] jbe: avoid the "make: Nothing to be done for `world'." message when running
     a "ptxdist images".
