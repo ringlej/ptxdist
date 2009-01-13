@@ -176,6 +176,7 @@ Prio B
 
 [ ] jbe: xorg-lib-fontenc.compile: What does it mean? Intervention needed?
       [...]/arm-v5te-linux-gnueabi/bin/ld: warning: creating a DT_TEXTREL in object.
+[ ] jbe: same in cairo.compile
 
 [ ] jbe: avoid the "make: Nothing to be done for `world'." message when running
     a "ptxdist images".
