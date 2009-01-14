@@ -39,6 +39,9 @@ ptxd_make_get() {
 				mrd=true
 			fi
 			;;
+		file://*)
+			# keep original URL
+			argv[${#argv[@]}]="${url}"
 		esac
 	done
 
