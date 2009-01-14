@@ -52,6 +52,10 @@ define ptx_init {
 
 define ptx_exit {
 
+	# output dummy command, so u-boot v1's "repeat last command with enter" won't do harm
+	if = \m(uboot_version) 1 {
+		ptx_uboot_exec 5 " "
+	}
 	writeln ERROR "\m(green)All OK!\m(nocolor)"
 	exit 0
 }
