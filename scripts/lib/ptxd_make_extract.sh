@@ -39,6 +39,12 @@ ptxd_make_extract() {
 		ln -sf "$(ptxd_abspath "${thing}")" "${packet_dir}"
 		exit $?
 	    fi
+	    if [ -f "${thing}" -a -z "${packet_source}" ]; then
+		echo
+		echo "Using local archive"
+		echo
+		packet_source="${thing}"
+	    fi
 	    ;;
     esac
 
