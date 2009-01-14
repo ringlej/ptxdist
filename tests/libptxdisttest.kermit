@@ -27,13 +27,13 @@ define ptx_init {
 	# ':' distinguishes between serial line and telnet port
 	if not match \m(PTXCONF_BOARDSETUP_SERIALPORT) *:* {
 		set line \m(PTXCONF_BOARDSETUP_SERIALPORT)
-		ptx_check_fail "Could not setup serial port (\m(PTXCONF_BOARDSETUP_SERIALPORT))!"
+		ptx_check_fail "Could not get serial port \m(PTXCONF_BOARDSETUP_SERIALPORT). Is it already in use?"
 		set speed \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE)
 		set parity none
 		set stop-bits 1
 	} else {
 		set host \m(PTXCONF_BOARDSETUP_SERIALPORT)
-		ptx_check_fail "Could not connect to port (\m(PTXCONF_BOARDSETUP_SERIALPORT))!"
+		ptx_check_fail "Could not connect to port \m(PTXCONF_BOARDSETUP_SERIALPORT). Is it already in use?"
 		set terminal echo remote
 	}
 	set carrier-watch off
