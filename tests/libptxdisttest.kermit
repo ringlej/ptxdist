@@ -33,6 +33,7 @@ define ptx_init {
 		set stop-bits 1
 	} else {
 		set host \m(PTXCONF_BOARDSETUP_SERIALPORT)
+		ptx_check_fail "Could not connect to port (\m(PTXCONF_BOARDSETUP_SERIALPORT))!"
 		set terminal echo remote
 	}
 	set carrier-watch off
@@ -56,7 +57,7 @@ define ptx_exit {
 	if = \m(uboot_version) 1 {
 		ptx_uboot_exec 5 " "
 	}
-	writeln ERROR "\m(green)All OK!\m(nocolor)"
+	writeln ERROR "\m(green)Test finished successfully.\m(nocolor)"
 	exit 0
 }
 
