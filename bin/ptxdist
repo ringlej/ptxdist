@@ -1671,6 +1671,7 @@ parse_second()
 				"${PTXDIST_TOPDIR}/tests/${1}" \
 				; do \
 				if [ -x "${tst}" ]; then
+					echo -e "=====\n$(date): Starting test '${tst}'\n=====\n" >> "${PTXDIST_PLATFORMDIR}/test.log"
 					if [ "${PTX_DEBUG}" != "true" ]; then
 						"${tst}" >> "${PTXDIST_PLATFORMDIR}/test.log"
 					else
