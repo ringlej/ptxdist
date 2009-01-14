@@ -3,6 +3,18 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe:  host-fontconfig.compile
+      if gcc [...] -c -o fc-case.o fc-case.c; \
+        then
+         mv -f ".deps/fc-case.Tpo" ".deps/fc-case.Po";
+      else
+        rm -f ".deps/fc-case.Tpo";
+        exit 1;
+      fi
+      In file included from fc-case.c:25:
+       ../src/fcint.h:118:21: error: fcalias.h: No such file or directory
+       make[3]: *** [fc-case.o] Error 1
+
 [ ] jbe: busybox.compile (on PowerPC)
 	[...]
         CC      util-linux/volume_id/ext.o
