@@ -99,7 +99,7 @@ endif
 	# default rules
 	#
 
-ifdef PTXCONF_ROOTFS_UDEV__DEFAULT_RULES
+ifdef PTXCONF_UDEV__DEFAULT_RULES
 	cd $(UDEV_DIR)/rules/rules.d; \
 	for file in *; do \
 		$(call install_copy, udev, 0, 0, 0644, $(UDEV_DIR)/rules/rules.d/$$file, /lib/udev/rules.d/$$file, n); \

@@ -175,7 +175,7 @@ menu "install options               "
 
 		endchoice
 
-	config ROOTFS_UDEV__DEFAULT_RULES
+	config UDEV__DEFAULT_RULES
 		bool
 		prompt "Install default udev rules"
 		help
