@@ -143,37 +143,14 @@ menu "install options               "
 		  be something like "S00_udev". An empty string means that no link
 		  is created.
 
-	config ROOTFS_ETC_UDEV__CONF
+	config UDEV___ETC_CONF
 		bool
 		default y
 		prompt "Install udev.conf"
 		help
-		  Installs /etc/udev/udev.conf from a selectable source
-
-		choice
-			prompt "Kind of udev.conf"
-			default ROOTFS_ETC_UDEV__CONF_DEFAULT
-			depends on ROOTFS_ETC_UDEV__CONF
-
-			config ROOTFS_ETC_UDEV__CONF_DEFAULT
-				bool
-				prompt "Use generic"
-				help
-				  Installs a generic /etc/udev/udev.conf file.
-				  See <ptxdist-install>/generic/etc/udev/udev.conf
-
-			config ROOTFS_ETC_UDEV__CONF_USER
-				bool
-				prompt "User defined"
-				help
-				  This uses a user defined udev.conf file. PTXdist
-				  uses file projectroot/etc/udev/udev.conf in your
-				  local project.
-				  Note: If you locate the *.rules path to another
-				  location than /etc/udev/rules.d, you must install any
-				  udev rules by your own.
-
-		endchoice
+		  Installs /etc/udev/udev.conf. If you don't wish to install the
+		  generic udev.conf, just put a copy of your own udev.conf file into
+		  your own projectroot/etc/udev/ 
 
 	config UDEV__DEFAULT_RULES
 		bool

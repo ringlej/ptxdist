@@ -121,7 +121,9 @@ endif
 	#
 	# Install a configuration on demand only
 	#
+ifdef PTXCONF_UDEV___ETC_CONF
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/udev.conf)
+endif
 
 	#
 	# utilities from extra/
