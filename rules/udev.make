@@ -122,7 +122,6 @@ endif
 	# Install a configuration on demand only
 	#
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/udev.conf)
-	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/permissions.rules)
 
 	#
 	# utilities from extra/
