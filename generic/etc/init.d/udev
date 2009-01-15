@@ -50,7 +50,7 @@ start)
 	# Start the udev daemon to continually
 	# watch for, and act on, uevents
 	echo -n "starting udevd..."
-	/sbin/udevd --daemon --debug
+	/sbin/udevd --daemon
 	if [ "$?" = "0" ]; then
 		echo "done"
 	else
