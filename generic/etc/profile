@@ -3,6 +3,7 @@
 #
 
 export PATH="$PATH:/usr/bin:/bin:/sbin"
+export HISTFILE=/tmp/.ash_history.$USER.$PPID
 
 # This fixes the backspace when telnetting in.
 if [ "$TERM" != "linux" ]; then
