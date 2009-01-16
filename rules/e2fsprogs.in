@@ -183,6 +183,12 @@ config E2FSPROGS_INSTALL_E2UNDO
 	help
 	  Enable support for e2undo program.
 
+config E2FSPROGS_INSTALL_FSCK_EXT2
+	bool
+	prompt "install fsck.ext2"
+	help
+	  Enable support for fsck.ext2 program.
+
 config E2FSPROGS_INSTALL_FSCK_EXT3
 	bool
 	prompt "install fsck.ext3"

@@ -217,6 +217,9 @@ endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_E2UNDO
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/misc/e2undo, /usr/sbin/e2undo)
 endif
+ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT2
+	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/e2fsck/e2fsck, /usr/sbin/fsck.ext2)
+endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_FSCK_EXT3
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, $(E2FSPROGS_DIR)/e2fsck/e2fsck, /usr/sbin/fsck.ext3)
 endif
