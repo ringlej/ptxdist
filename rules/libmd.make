@@ -1,6 +1,7 @@
 # -*-makefile-*-
+# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
-# Copyright (C) 2008 by Juergen Beisert
+# Copyright (C) 2009 by Juergen Beisert
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,10 +17,10 @@ PACKAGES-$(PTXCONF_LIBMD) += libmd
 #
 # Paths and names
 #
-LIBMD_VERSION	:= 0.3
+LIBMD_VERSION	:= 0.3.1
 LIBMD		:= libmd-$(LIBMD_VERSION)
-LIBMD_SUFFIX	:= tar.bz2
-LIBMD_URL	:= ftp://ftp.penguin.cz/pub/users/mhi/libmd/$(LIBMD).$(LIBMD_SUFFIX)
+LIBMD_SUFFIX	:= tar.gz
+LIBMD_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBMD).$(LIBMD_SUFFIX)
 LIBMD_SOURCE	:= $(SRCDIR)/$(LIBMD).$(LIBMD_SUFFIX)
 LIBMD_DIR	:= $(BUILDDIR)/$(LIBMD)
 
@@ -54,6 +55,18 @@ LIBMD_ENV 	:= $(CROSS_ENV)
 #
 LIBMD_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
+ifdef PTXCONF_LIBMD_STATIC
+LIBMD_AUTOCONF += --disable-shared
+endif
+
+ifdef PTXCONF_LIBMD_DEBUG
+LIBMD_AUTOCONF += --enable-debug
+endif
+
+#ifdef PTXCONF_LIBMD_DOC
+#LIBMD_AUTOCONF += --enable-doc
+#endif
+
 $(STATEDIR)/libmd.prepare:
 	@$(call targetinfo)
 	@$(call clean, $(LIBMD_DIR)/config.cache)
@@ -64,22 +77,11 @@ $(STATEDIR)/libmd.prepare:
 
 # ----------------------------------------------------------------------------
 # Compile
-# some fixes are required as this package uses its own makefile style
 # ----------------------------------------------------------------------------
-LIBMD_COMPILECONF :=
-
-ifndef PTXCONF_LIBMD_STATIC
-LIBMD_COMPILECONF += BUILD_DYN=1
-endif
-
-ifdef PTXCONF_LIBMD_DOC
-LIBMD_COMPILECONF += BUILD_DOC=1
-endif
 
 $(STATEDIR)/libmd.compile:
 	@$(call targetinfo)
-	cd $(LIBMD_DIR) && $(LIBMD_PATH) $(MAKE) $(LIBMD_COMPILECONF) \
-		$(PARALLELMFLAGS)
+	cd $(LIBMD_DIR) && $(LIBMD_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -88,10 +90,7 @@ $(STATEDIR)/libmd.compile:
 
 $(STATEDIR)/libmd.install:
 	@$(call targetinfo)
-	cd $(LIBMD_DIR) && \
-		$(LIBMD_PATH) $(LIBMD_ENV) \
-		$(FAKEROOT) make BUILDROOT=$(PTXCONF_SYSROOT_TARGET) $(LIBMD_COMPILECONF) \
-		install
+	@$(call install, LIBMD)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -107,14 +106,14 @@ ifndef PTXCONF_LIBMD_STATIC
 	@$(call install_fixup, libmd,PRIORITY,optional)
 	@$(call install_fixup, libmd,VERSION,$(LIBMD_VERSION))
 	@$(call install_fixup, libmd,SECTION,base)
-	@$(call install_fixup, libmd,AUTHOR,"Juergen Beisert <juergen\@kreuzholzen.de>")
+	@$(call install_fixup, libmd,AUTHOR,"Juergen Beisert <jbe\@pengutronix.de>")
 	@$(call install_fixup, libmd,DEPENDS,)
 	@$(call install_fixup, libmd,DESCRIPTION,missing)
 
 	@$(call install_copy, libmd, 0, 0, 0644, \
-		$(LIBMD_DIR)/libmd.so.1.0, /usr/lib/libmd.so.1.0)
-	@$(call install_link, libmd, libmd.so.1.0, /usr/lib/libmd.so.1)
-	@$(call install_link, libmd, libmd.so.1.0, /usr/lib/libmd.so)
+		$(LIBMD_DIR)/src/.libs/libmd.so.1.0.0, /usr/lib/libmd.so.1.0.0)
+	@$(call install_link, libmd, libmd.so.1.0.0, /usr/lib/libmd.so.1)
+	@$(call install_link, libmd, libmd.so.1.0.0, /usr/lib/libmd.so)
 
 	@$(call install_finish, libmd)
 endif

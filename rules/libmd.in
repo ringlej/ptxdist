@@ -12,20 +12,23 @@ menuconfig LIBMD
 	    RIPEMD-160FIXME
 	  It could be used by the upcoming new Xorg server if you don't want
 	  the openssl package on your target. If there is already openssl
-	  present, the Xorg server can use the SHA-1 from the openssl library.
+	  present, the Xorg server can use the SHA-1 from the openssl library
+	  instead.
+
+if LIBMD
 
 config LIBMD_STATIC
 	bool
 	prompt "build static only"
-	depends on LIBMD
 	help
 	  Build a static only version of this library. This makes sense if only
 	  one program will use this library on the target and it makes more
 	  sense if a CPU with low register count (like x86) is in use.
 
-config LIBMD_DOC
+config LIBMD_DEBUG
 	bool
-	prompt "build docs"
-	depends on LIBMD
+	prompt "enable debug support"
 	help
-	  Build manuals and html doc
+	  Build the library with debug support.
+
+endif
