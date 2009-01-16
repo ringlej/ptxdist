@@ -18,7 +18,8 @@ PACKAGES-$(PTXCONF_SLANG) += slang
 #
 # Paths and names
 #
-SLANG_VERSION	:= 2.1.2
+SLANG_MAJORV	:= 2
+SLANG_VERSION	:= $(SLANG_MAJORV).1.2
 SLANG		:= slang-$(SLANG_VERSION)
 SLANG_SUFFIX	:= tar.bz2
 SLANG_URL	:= ftp://space.mit.edu/pub/davis/slang/v2.1/$(SLANG).$(SLANG_SUFFIX)
@@ -121,7 +122,7 @@ $(STATEDIR)/slang.targetinstall: $(slang_targetinstall_deps_default)
 	@$(call install_copy, slang, 0, 0, 0644, \
 		$(SLANG_DIR)/src/elfobjs/libslang.so.$(SLANG_VERSION), \
 		/usr/lib/libslang.so.$(SLANG_VERSION))
-	@$(call install_link, slang, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so.1)
+	@$(call install_link, slang, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so.$(SLANG_MAJORV))
 	@$(call install_link, slang, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so)
 
 	@$(call install_finish, slang)
