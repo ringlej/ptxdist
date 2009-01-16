@@ -61,7 +61,32 @@ $(STATEDIR)/liboop.compile: $(liboop_compile_deps_default)
 
 $(STATEDIR)/liboop.targetinstall:
 	@$(call targetinfo)
-# only static libs for now
+
+	@$(call install_init,  liboop)
+	@$(call install_fixup, liboop,PACKAGE,liboop)
+	@$(call install_fixup, liboop,PRIORITY,optional)
+	@$(call install_fixup, liboop,VERSION,$(LIBOOP_VERSION))
+	@$(call install_fixup, liboop,SECTION,base)
+	@$(call install_fixup, liboop,AUTHOR,"Marc Kleine-Budde <mkl\@pengutronix.de>")
+	@$(call install_fixup, liboop,DEPENDS,)
+	@$(call install_fixup, liboop,DESCRIPTION,missing)
+
+	@$(call install_copy, liboop, 0, 0, 0644, \
+		$(LIBOOP_DIR)/.libs/liboop-glib2.so.0.0.0, \
+		/usr/lib/liboop-glib2.so.0.0.0)
+	@$(call install_link, liboop, liboop-glib2.so.0.0.0, \
+		/usr/lib/liboop-glib2.so.0)
+	@$(call install_link, liboop, liboop-glib2.so.0.0.0, \
+		/usr/lib/liboop-glib2.so)
+
+	@$(call install_copy, liboop, 0, 0, 0644, \
+		$(LIBOOP_DIR)/.libs/liboop.so.4.0.1, \
+		/usr/lib/liboop.so.4.0.1)
+	@$(call install_link, liboop, liboop.so.4.0.1, /usr/lib/liboop.so.4)
+	@$(call install_link, liboop, liboop.so.4.0.1, /usr/lib/liboop.so)
+
+	@$(call install_finish, liboop)
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
