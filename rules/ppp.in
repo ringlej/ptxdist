@@ -136,6 +136,8 @@ endif
 
 config PPP_NEEDS_CRYPT
         bool
+	# crypt() calls have slipped into pppd; se we enforce 'y' here until this is fixed upstream
+	default y
 
 config PPP_MS_CBCP
 	bool
