@@ -25,7 +25,7 @@ define setenv_uboot_v1 {
 		# extract part before '=' (from \v(input) the first word, allow '_')
 		assign envvar \fword(\v(input),1,,_)
 		# skip special keywords
-		if not = \farraylook(\m(envvar),&s) -1 goto out
+		if not = \farraylook(^\m(envvar)$,&s) -1 goto out
 		# put setenv-command into array
 		assign \&c[\%i] setenv \m(envvar)
 		incr \%i

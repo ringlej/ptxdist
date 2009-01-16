@@ -113,7 +113,7 @@ define ptx_uboot_exec {
 
 	if = \m(uboot_version) 2 {
 		ptx_lineout "echo result: $?"
-		input 10 \fpattern(result: 0$)
+		input 10 \fpattern(^result: 0$)
 
 		ptx_check_fail "returncode from '\%2' is not 0"
 
