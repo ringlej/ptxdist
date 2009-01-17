@@ -56,6 +56,17 @@ ifdef PTXCONF_READLINE_NCURSES
 READLINE_AUTOCONF += --with-curses
 endif
 
+# configure: WARNING: cannot check signal handling if cross compiling -- defaulting to no
+# configure: WARNING: cannot check for sigsetjmp/siglongjmp if cross-compiling -- defaulting to missing
+# configure: WARNING: cannot check strcoll if cross compiling -- defaulting to no
+# configure: WARNING: cannot check ctype macros if cross compiling -- defaulting to no
+READLINE_AUTOCONF += \
+	bash_cv_must_reinstall_sighandlers=no \
+	bash_cv_func_sigsetjmp=present \
+	bash_cv_func_strcoll_broken=no \
+	bash_cv_func_ctype_nonascii=yes
+
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
