@@ -3,6 +3,16 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: gwt.extract (at least a PowerPC)
+     This stage seems to run the autotools.
+
+[ ] jbe: Busybox: (on PowerPC and X86 only)
+     [...]
+     cc1: warnings being treated as errors
+     In file included from util-linux/fdisk.c:622:
+     util-linux/fdisk_osf.c: In function 'xbsd_writelabel':
+     util-linux/fdisk_osf.c:961: error: unused parameter 'p'
+
 [ ] jbe:  host-fontconfig.compile
       if gcc [...] -c -o fc-case.o fc-case.c; \
         then
