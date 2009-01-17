@@ -1,6 +1,11 @@
-diff -ruN figlet222-orig/Makefile figlet222/Makefile
---- figlet222-orig/Makefile	2005-07-05 11:57:46.000000000 +0200
-+++ figlet222/Makefile	2006-01-16 18:29:27.000000000 +0100
+---
+ Makefile |   29 +++++++++++++++--------------
+ 1 file changed, 15 insertions(+), 14 deletions(-)
+
+Index: Makefile
+===================================================================
+--- Makefile.orig
++++ Makefile
 @@ -11,19 +11,20 @@
  # Don't change this even if your shell is different. The only reason
  # for changing this is if sh is not in the same place.
@@ -28,7 +33,7 @@ diff -ruN figlet222-orig/Makefile figlet222/Makefile
  
  # The filename of the font to be used if no other is specified
  #   (standard.flf is recommended, but any other can be used).
-@@ -52,11 +53,11 @@
+@@ -52,11 +53,11 @@ clean:
  	rm -f *.o figlet chkfont
  
  install: figlet chkfont
