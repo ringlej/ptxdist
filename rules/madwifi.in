@@ -4,6 +4,7 @@ menuconfig MADWIFI
 	tristate
 	prompt "madwifi                       "
 	select KERNEL
+	depends on BROKEN
 	help
 	  MadWifi is one of the most advanced WLAN drivers
 	  available for Linux today. It is stable and has
