@@ -1,0 +1,33 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: define IF_MASK for sanitized kernel headers
+
+Current kernels don't have IF_MASK defined in their sanitized headers
+any more. This results in the following error:
+
+lrmi.c: In function 'set_regs':
+lrmi.c:191: error: 'IF_MASK' undeclared (first use in this function)
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ lrmi.c |    7 +++++++
+ 1 file changed, 7 insertions(+)
+
+Index: libx86-1.1/lrmi.c
+===================================================================
+--- libx86-1.1.orig/lrmi.c
++++ libx86-1.1/lrmi.c
+@@ -54,6 +54,13 @@ OTHER DEALINGS IN THE SOFTWARE.
+ #include "lrmi.h"
+ #include "x86-common.h"
+ 
++#if defined(__linux__) && !defined(TF_MASK)
++#define TF_MASK X86_EFLAGS_TF
++#define IF_MASK X86_EFLAGS_IF
++#define VIF_MASK X86_EFLAGS_VIF
++#define IOPL_MASK X86_EFLAGS_IOPL
++#endif
++
+ #if defined(__linux__)
+ #define DEFAULT_VM86_FLAGS 	(IF_MASK | IOPL_MASK)
+ #elif defined(__NetBSD__) || defined(__FreeBSD__)

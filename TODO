@@ -49,21 +49,6 @@ Prio A
       checking the libc version... unsupported version
       configure: error: Valgrind requires glibc version 2.2 - 2.7
 
-[ ] jbe: libx86.compile
-     i586-unknown-linux-gnu-gcc [...] -c -o lrmi.o lrmi.c
-      lrmi.c: In function 'set_regs':
-      lrmi.c:191: error: 'IF_MASK' undeclared (first use in this function)
-      lrmi.c:191: error: (Each undeclared identifier is reported only once
-      lrmi.c:191: error: for each function it appears in.)
-      lrmi.c:191: error: 'IOPL_MASK' undeclared (first use in this function)
-      lrmi.c: In function 'run_vm86':
-      lrmi.c:613: error: 'VIF_MASK' undeclared (first use in this function)
-      lrmi.c:613: error: 'TF_MASK' undeclared (first use in this function)
-      lrmi.c: In function 'LRMI_int':
-      lrmi.c:840: error: 'IF_MASK' undeclared (first use in this function)
-      lrmi.c:840: error: 'IOPL_MASK' undeclared (first use in this function)
-      make[2]: *** [lrmi.o] Error 1
-
 [ ] jbe: madwifi.compile: Kernel version dependend
     on x86: Emits a huge amount of errors about wrong pointers and
     parameter counts.
@@ -651,6 +636,23 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: libx86.compile
+     i586-unknown-linux-gnu-gcc [...] -c -o lrmi.o lrmi.c
+      lrmi.c: In function 'set_regs':
+      lrmi.c:191: error: 'IF_MASK' undeclared (first use in this function)
+      lrmi.c:191: error: (Each undeclared identifier is reported only once
+      lrmi.c:191: error: for each function it appears in.)
+      lrmi.c:191: error: 'IOPL_MASK' undeclared (first use in this function)
+      lrmi.c: In function 'run_vm86':
+      lrmi.c:613: error: 'VIF_MASK' undeclared (first use in this function)
+      lrmi.c:613: error: 'TF_MASK' undeclared (first use in this function)
+      lrmi.c: In function 'LRMI_int':
+      lrmi.c:840: error: 'IF_MASK' undeclared (first use in this function)
+      lrmi.c:840: error: 'IOPL_MASK' undeclared (first use in this function)
+      make[2]: *** [lrmi.o] Error 1
+
+    Update 20090118 rsc: fixed
 
 [x] jbe: Busybox: (on PowerPC and X86 only)
 
