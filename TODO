@@ -3,16 +3,6 @@ TODO before 2.0.0
 
 Prio A
 
-[ ] jbe: Busybox: (on PowerPC and X86 only)
-
-    [...]
-    cc1: warnings being treated as errors
-    In file included from util-linux/fdisk.c:622:
-    util-linux/fdisk_osf.c: In function 'xbsd_writelabel':
-    util-linux/fdisk_osf.c:961: error: unused parameter 'p'
-
-    Update 20090118 rsc: not reproducable here, what did you do to trigger this?
-
 [ ] jbe:  host-fontconfig.compile
       if gcc [...] -c -o fc-case.o fc-case.c; \
         then
@@ -661,6 +651,14 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: Busybox: (on PowerPC and X86 only)
+
+    [...]
+    cc1: warnings being treated as errors
+    In file included from util-linux/fdisk.c:622:
+    util-linux/fdisk_osf.c: In function 'xbsd_writelabel':
+    util-linux/fdisk_osf.c:961: error: unused parameter 'p'
 
 [x] jbe: chrony.compile
       powerpc-603e-linux-gnu-gcc  -O2 -g  -DFEAT_RTC=1 [...] -c rtc_linux.c
