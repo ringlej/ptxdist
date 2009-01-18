@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 #
 # Paths and names
 #
-PROFTPD_VERSION		= 1.3.0a
+PROFTPD_VERSION		= 1.3.2rc3
 PROFTPD			= proftpd-$(PROFTPD_VERSION)
 PROFTPD_SUFFIX		= tar.gz
-PROFTPD_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(PROFTPD).$(PROFTPD_SUFFIX)
+PROFTPD_URL		= ftp://ftp.proftpd.org/distrib/source/$(PROFTPD).$(PROFTPD_SUFFIX)
 PROFTPD_SOURCE		= $(SRCDIR)/$(PROFTPD).$(PROFTPD_SUFFIX)
 PROFTPD_DIR		= $(BUILDDIR)/$(PROFTPD)
 

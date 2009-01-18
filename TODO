@@ -68,19 +68,6 @@ Prio A
     Update 20090118 rsc: not reproducable, switched on again and we wait
     for sisyphus to explode.
 
-[ ] jbe: proftpd.compile
-     i586-unknown-linux-gnu-gcc [...] -I.. -I../include  -O2 -Wall -c pr_fnmatch.c
-       In file included from [...]/sysroot-i586-unknown-linux-gnu/usr/include/asm/sigcontext.h:5,
-         from [...]/sysroot-i586-unknown-linux-gnu/usr/include/bits/sigcontext.h:28,
-         from [...]/sysroot-i586-unknown-linux-gnu/usr/include/signal.h:333,
-         from [...]/sysroot-i586-unknown-linux-gnu/usr/include/sys/wait.h:31,
-         from ../include/conf.h:95,
-         from pr_fnmatch.c:38:
-         [...]/sysroot-i586-unknown-linux-gnu/usr/include/asm/types.h:8:
-            error: conflicting types for 'mode_t'
-         [...]/sysroot-i586-unknown-linux-gnu/usr/include/sys/types.h:72:
-	    error: previous declaration of 'mode_t' was here
-
 [ ] jbe: grep.compile: Host leakage
       [...]/arm-v5te-linux-gnueabi/bin/ld: skipping incompatible
          /usr/lib/libpcre.so when searching for -lpcre
@@ -631,6 +618,22 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: proftpd.compile
+     i586-unknown-linux-gnu-gcc [...] -I.. -I../include  -O2 -Wall -c pr_fnmatch.c
+       In file included from [...]/sysroot-i586-unknown-linux-gnu/usr/include/asm/sigcontext.h:5,
+         from [...]/sysroot-i586-unknown-linux-gnu/usr/include/bits/sigcontext.h:28,
+         from [...]/sysroot-i586-unknown-linux-gnu/usr/include/signal.h:333,
+         from [...]/sysroot-i586-unknown-linux-gnu/usr/include/sys/wait.h:31,
+         from ../include/conf.h:95,
+         from pr_fnmatch.c:38:
+         [...]/sysroot-i586-unknown-linux-gnu/usr/include/asm/types.h:8:
+            error: conflicting types for 'mode_t'
+         [...]/sysroot-i586-unknown-linux-gnu/usr/include/sys/types.h:72:
+	    error: previous declaration of 'mode_t' was here
+
+    Update 20090118 rsc: later toolchain uncover this bug; we upgrade
+    from 1.3.0a to 1.3.2rc3 which fixes the issue.
 
 [x] jbe: madwifi.compile: Kernel version dependend
     on x86: Emits a huge amount of errors about wrong pointers and
