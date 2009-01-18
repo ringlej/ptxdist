@@ -65,6 +65,9 @@ Prio A
     libvo/libvo.a(video_out.o):(.data+0x28): undefined reference to `video_out_pxa'
     [...] and much more
 
+    Update 20090118 rsc: not reproducable, switched on again and we wait
+    for sisyphus to explode.
+
 [ ] jbe: proftpd.compile
      i586-unknown-linux-gnu-gcc [...] -I.. -I../include  -O2 -Wall -c pr_fnmatch.c
        In file included from [...]/sysroot-i586-unknown-linux-gnu/usr/include/asm/sigcontext.h:5,
