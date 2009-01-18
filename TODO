@@ -3,9 +3,6 @@ TODO before 2.0.0
 
 Prio A
 
-[ ] jbe: gwt.extract (at least a PowerPC)
-     This stage seems to run the autotools.
-
 [ ] jbe: Busybox: (on PowerPC and X86 only)
      [...]
      cc1: warnings being treated as errors
@@ -678,6 +675,12 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: gwt.extract (at least a PowerPC) This stage seems to run the
+    autotools.
+
+    Update 20090118 rsc: it runs autotools because it is instructed to
+    do so without any deeper sense, in the .make file. Fixed.
 
 [x] jbe: Segmentation fault?
 

@@ -48,7 +48,6 @@ $(STATEDIR)/gwt.extract: $(gwt_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(GWT_DIR))
 	@$(call extract, GWT)
-	cd $(GWT_DIR) && $(GWT_PATH) $(GWT_ENV) ./autogen.sh
 	@$(call patchin, GWT)
 	@$(call touch, $@)
 
