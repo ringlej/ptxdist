@@ -45,10 +45,6 @@ Prio A
     go' or 'ptxdist <some_stage>' (FIXME which one?) and can output something
     like "error: need perl and XML::Parser to build glade".
 
-[ ] jbe: madwifi.compile: Kernel version dependend
-    on x86: Emits a huge amount of errors about wrong pointers and
-    parameter counts.
-
 [ ] jbe: mplayer.compile: It seems very PXA specific now?
      i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
       vo_pxa.c: In function 'draw_osd':
@@ -632,6 +628,13 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: madwifi.compile: Kernel version dependend
+    on x86: Emits a huge amount of errors about wrong pointers and
+    parameter counts.
+
+    Update 20090118 rsc: madwifi doesn't build with current kernels any
+    more, so we mark it BROKEN.
 
 [x] jbe: valgrind.prepare
       checking the libc version... unsupported version
