@@ -49,6 +49,12 @@ Prio A
 [ ] jbe: host-intltool.prepare
       checking for XML::Parser... configure: error: XML::Parser perl module is required for intltool
 
+    Update 20090118 rsc: add a function to 'ptxdist go' that can run
+    stuff depending on ptxconfig; I don't want to add a ptxdist dependency
+    to XML::Parser and perl, just for glade. Something that runs on 'ptxdist
+    go' or 'ptxdist <some_stage>' (FIXME which one?) and can output something
+    like "error: need perl and XML::Parser to build glade".
+
 [ ] jbe: valgrind.prepare
       checking the libc version... unsupported version
       configure: error: Valgrind requires glibc version 2.2 - 2.7
