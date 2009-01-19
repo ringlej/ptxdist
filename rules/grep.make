@@ -19,10 +19,10 @@ PACKAGES-$(PTXCONF_GREP) += grep
 #
 GREP_VERSION	:= 2.5.3
 GREP		:= grep-$(GREP_VERSION)
-GREP_SUFFIX		:= tar.bz2
-GREP_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/grep/$(GREP).$(GREP_SUFFIX)
-GREP_SOURCE		:= $(SRCDIR)/$(GREP).$(GREP_SUFFIX)
-GREP_DIR		:= $(BUILDDIR)/$(GREP)
+GREP_SUFFIX	:= tar.bz2
+GREP_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/grep/$(GREP).$(GREP_SUFFIX)
+GREP_SOURCE	:= $(SRCDIR)/$(GREP).$(GREP_SUFFIX)
+GREP_DIR	:= $(BUILDDIR)/$(GREP)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -54,6 +54,12 @@ GREP_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 GREP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+ifdef PTXCONF_GREP_PCRE
+GREP_AUTOCONF += --enable-perl-regexp
+else
+GREP_AUTOCONF += --disable-perl-regexp
+endif
 
 $(STATEDIR)/grep.prepare:
 	@$(call targetinfo)
