@@ -68,14 +68,6 @@ Prio A
     Update 20090118 rsc: not reproducable, switched on again and we wait
     for sisyphus to explode.
 
-[ ] jbe: grep.compile: Host leakage
-      [...]/arm-v5te-linux-gnueabi/bin/ld: skipping incompatible
-         /usr/lib/libpcre.so when searching for -lpcre
-      [...]/arm-v5te-linux-gnueabi/bin/ld: skipping incompatible
-         /usr/lib/libpcre.a when searching for -lpcre
-      [...]/arm-v5te-linux-gnueabi/bin/ld: cannot find -lpcre
-         collect2: ld returned 1 exit status
-
 [ ] jbe: host-dbus-glib.compile
       ../../dbus/dbus-binding-tool: error while loading shared libraries:
          libdbus-glib-1.so.2: cannot open shared object file: No such file or directory
@@ -618,6 +610,18 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: grep.compile: Host leakage
+      [...]/arm-v5te-linux-gnueabi/bin/ld: skipping incompatible
+         /usr/lib/libpcre.so when searching for -lpcre
+      [...]/arm-v5te-linux-gnueabi/bin/ld: skipping incompatible
+         /usr/lib/libpcre.a when searching for -lpcre
+      [...]/arm-v5te-linux-gnueabi/bin/ld: cannot find -lpcre
+         collect2: ld returned 1 exit status
+
+    Update 20090119 rsc: added a well defined switch to the grep packet; we are
+    not sure if this is the whole fix; until somebody shows us something different,
+    we assume it to be fixed.
 
 [x] jbe: proftpd.compile
      i586-unknown-linux-gnu-gcc [...] -I.. -I../include  -O2 -Wall -c pr_fnmatch.c
