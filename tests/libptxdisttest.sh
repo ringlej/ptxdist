@@ -190,10 +190,11 @@ remote() {
 host() {
 	echo "${1}" >> "$LOGFILE"
 	reportwrite host "${1}"
-	local stdout=$(${1}) 2>> "$LOGFILE"
+	local stdout=$(eval ${1}) 2>> "$LOGFILE"
 	local retval=$?
 	reportwrite stdout "${stdout}"
 	reportwrite exitstatus ${retval}
+	echo "$stdout"
 	return ${retval}
 }
 
