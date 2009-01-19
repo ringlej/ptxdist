@@ -188,26 +188,13 @@ remote() {
 }
 
 host() {
-	echo "ssh -q -o StrictHostKeyChecking=no localhost ${PTXCONF_BOARDSETUP_TARGETIP} \"$1\"" >> "$LOGFILE"
-	local stdoutret=$(ssh -q -o StrictHostKeyChecking=no localhost "$1"'; echo ret=$?') 2>> "$LOGFILE"
-	#local stdoutret=$($1; echo ret=$?) 2>> "$LOGFILE"
-	reportwrite host "$1"
-	local stdout=$(echo "$stdoutret" | head -n-1)
-	local retvalline=$(echo "$stdoutret" | tail -n1)
-	if [ "${retvalline:0:4}" = "ret=" ]
-	then # The "ret=" is on a line of its own
-		local retvallinestdoutpart=""
-		local retvallineretpart=""
-	else # There was no newline before "ret="
-		local retvallineretpart=$(expr "$retvalline" : '.*\(ret=.*\)')
-		local retvallinestdoutpart="${retvalline%$retvallineretpart}"
-		retvalline="$retvallineretpart"
-	fi
-	echo "$stdout"
-	echo -n "$retvallinestdoutpart"
-	reportwrite stdout "${stdout}${retvallinestdoutpart}"
-	reportwrite exitstatus ${retvalline:4}
-	return ${retvalline:4}
+	echo "${1}" >> "$LOGFILE"
+	reportwrite host "${1}"
+	local stdout=$(${1}) 2>> "$LOGFILE"
+	local retval=$?
+	reportwrite stdout "${stdout}"
+	reportwrite exitstatus ${retval}
+	return ${retval}
 }
 
 
