@@ -62,7 +62,7 @@ BOOST_JAM	:= \
 BOOST_LIBRARIES	:= date_time
 
 ifdef PTXCONF_BOOST_FILESYSTEM
-BOOST_LIBRARIES += filesystem
+BOOST_LIBRARIES += filesystem system
 endif
 ifdef PTXCONF_BOOST_REGEX
 BOOST_LIBRARIES += regex
