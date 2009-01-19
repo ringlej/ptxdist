@@ -253,6 +253,7 @@ config HAS_HARDFLOAT
 #
 config HAS_PCI
 	bool
+	prompt "pci support" if ARCH_PPC
 
 #
 # memory management unit
