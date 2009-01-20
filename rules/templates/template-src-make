@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 #
 @PACKET@		:= @packet@
 @PACKET@_URL		:= @URL@/$(@PACKET@)
-@PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@)
+@PACKET@_SOURCE		:=
 @PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
 
 # ----------------------------------------------------------------------------
