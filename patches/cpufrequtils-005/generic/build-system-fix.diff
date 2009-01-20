@@ -1,13 +1,13 @@
 Fix various issues while cross compiling
 
 ---
- Makefile |   28 +++++++++++++++-------------
- 1 file changed, 15 insertions(+), 13 deletions(-)
+ Makefile |   21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
 
-Index: b/Makefile
+Index: cpufrequtils-005/Makefile
 ===================================================================
---- a/Makefile
-+++ b/Makefile
+--- cpufrequtils-005.orig/Makefile
++++ cpufrequtils-005/Makefile
 @@ -73,17 +73,20 @@ INSTALL = /usr/bin/install -c
  INSTALL_PROGRAM = ${INSTALL}
  INSTALL_DATA  = ${INSTALL} -m 644
@@ -36,16 +36,7 @@ Index: b/Makefile
  HOSTCC = gcc
  
  
-@@ -135,7 +138,7 @@ endif
- ifeq ($(strip $(SYSFS)),true)
- 	LIB_PARTS += lib/sysfs.lo
- 	CFLAGDEF += -DINTERFACE_SYSFS
--	LDFLAGS = -lsysfs
-+	LDFLAGS += -lsysfs
- endif
- 
- ifeq ($(strip $(NLS)),true)
-@@ -144,7 +147,7 @@ ifeq ($(strip $(NLS)),true)
+@@ -143,7 +146,7 @@ ifeq ($(strip $(NLS)),true)
  endif
  
  
@@ -54,17 +45,12 @@ Index: b/Makefile
  
  ifeq ($(strip $(V)),false)
  	QUIET=@$(PWD)/build/ccdv
-@@ -189,10 +192,9 @@ libcpufreq.la: $(LIB_OBJS) $(LIB_HEADERS
- 
+@@ -189,7 +192,7 @@ libcpufreq.la: $(LIB_OBJS) $(LIB_HEADERS
  libcpufreq: libcpufreq.la
  
--cpufreq-%: $(UTIL_OBJS)
+ cpufreq-%: libcpufreq.la $(UTIL_OBJS)
 -	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) -g -I. -I./lib/ -c -o utils/$@.o utils/$*.c
--	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) -g -I./lib/ -L. -L./.libs/ -lcpufreq -o $@ utils/$@.o
--	$(QUIET) $(STRIPCMD) $@
-+cpufreq-%: $(UTIL_OBJS) libcpufreq.la
 +	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) -O2 -g -I. -I./lib/ -c -o utils/$@.o utils/$*.c
-+	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) $(LDFLAGS) -g -I./lib/ -L. -L./.libs/ -lcpufreq -o $@ utils/$@.o
- 
- utils: cpufreq-info cpufreq-set
+ 	$(QUIET) $(CC) $(CFLAGDEF) $(CFLAGS) -g -I./lib/ -L. -L./.libs/ -lcpufreq -o $@ utils/$@.o
+ 	$(QUIET) $(STRIPCMD) $@
  

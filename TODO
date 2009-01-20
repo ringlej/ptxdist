@@ -8,7 +8,7 @@ Prio A
     Check selected_toolchain/powerpc-603e-linux-gnu-readelf -d <binary>
     for long host paths:
 
-    [ ] libcpufreq from the cpufrequtils package
+    [x] libcpufreq from the cpufrequtils package
     [ ] mod_python from the Apache2 package
     [x] mc from the Midnight Commander package
     [x] jed from the JED package
