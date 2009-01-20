@@ -65,11 +65,6 @@ Prio A
       cannot find -lpanelw
       collect2: ld returned 1 exit status
 
-[ ] jbe: Working with local sources seems broken, when a <PACKET_NAME>_SOURCE
-    is defined to the regular $(SRCDIR)/<PACKET_NAME>. The get stage fails in
-    this case. Our template will always create and fill this variable. Don't
-    know if this is intended and the failure is elsewhere.
-
 [ ] rsc: in x86 simulation: ipkg list doesn't work?
 
 [ ] jbe: avoid the convenience stage question, when running "pxtdist images".
@@ -597,6 +592,13 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: Working with local sources seems broken, when a <PACKET_NAME>_SOURCE
+    is defined to the regular $(SRCDIR)/<PACKET_NAME>. The get stage fails in
+    this case. Our template will always create and fill this variable. Don't
+    know if this is intended and the failure is elsewhere.
+
+    Update 20090120 jbe: *_SOURCE is now defined to an empty variable.
 
 [p] jbe: fltk.compile
       In file included from ../FL/Fl_Single_Window.H:29,
