@@ -1,4 +1,4 @@
-## SECTION=scripting_languages
+## SECTION=bytecode_engines
 menuconfig TCL
 	tristate
 	prompt "tcl                           "
