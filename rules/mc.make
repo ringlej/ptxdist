@@ -68,8 +68,7 @@ MC_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-x=no \
 	--without-gpm-mouse \
-	--disable-dependency-tracking
-
+	--disable-rpath
 
 ifdef PTXCONF_MC_USES_NCURSES
 MC_AUTOCONF += --with-screen=ncurses
