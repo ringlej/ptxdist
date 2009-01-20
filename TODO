@@ -257,6 +257,8 @@ Before Release
 TODO before 2.1.0
 =================
 
+[ ] rsc: fix python 3.0
+
 [ ] jbe: Would there be a solution to supress sysroot-* folders for target system
     (for example bare metall) that do not need a Unix filesystem?
 
@@ -305,8 +307,6 @@ TODO somewhen
 [ ] bbu: add minimal documentation for internal vars (useful for customer makefiles)
 	-> see manual (not quickstart)
 
-[ ] rsc: fix python
-
 [ ] jbe: samba fails to run with:
 	[...]
 	sys_gethostbyname: Unknown host. eth0
@@ -345,16 +345,6 @@ TODO somewhen
 
 [ ] jbe: why does fam-2.7.0 always try to run the autotools? It fails on most
     modern systems -> mark as broken. rsc: real fix: find out why and fix.
-
-
-[ ] jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
-    The output of
-    *** End of configuration.
-    *** Execute 'make' to build the project or try 'make help'.
-    is outdated...
-
-    rsc: while doing this, update to a recent kconfig version, with
-    saner colours instead of this unreadable yellow.
 
 [ ] feature request: add profiling support (kernel and userspace)
     best with host visualisation
@@ -474,8 +464,6 @@ TODO somewhen
 		- Draw the big picture :-)
 		- Create Roadmap
 
-[ ] jbe: timezone files installation doesn't work as expected
-
 [ ] jbe: if ipkg building crashes, PTXdist doesn't break. rsc: see
     pipeline error fixing in scripts/libptxdist.sh
 
@@ -506,8 +494,6 @@ TODO somewhen
     disabled targets! (if they where enabled before). It does so
     unless a manually delete of the remaining and (now) useless targets
     in "state/"
-
-[ ] JBE: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=27363
 
 [ ] Tree Structure
     RSC: Find sane place for generic files from projects/generic
@@ -568,6 +554,19 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
+    The output of
+    *** End of configuration.
+    *** Execute 'make' to build the project or try 'make help'.
+    is outdated...
+
+    rsc: while doing this, update to a recent kconfig version, with
+    saner colours instead of this unreadable yellow.
+
+[x] JBE: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=27363
+
+[x] jbe: timezone files installation doesn't work as expected
 
 [x] jbe, rsc: add sane minimal in-system documentation: README
 
