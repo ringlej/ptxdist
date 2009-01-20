@@ -79,7 +79,7 @@ host-fontconfig_compile: $(STATEDIR)/host-fontconfig.compile
 
 $(STATEDIR)/host-fontconfig.compile: $(host-fontconfig_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_FONTCONFIG_DIR) && $(HOST_FONTCONFIG_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $(HOST_FONTCONFIG_DIR) && $(HOST_FONTCONFIG_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
