@@ -1,4 +1,5 @@
 # -*-makefile-*-
+#
 # $Id$
 #
 # Copyright (C) 2008 by Daniel Schnell
@@ -18,7 +19,7 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.18.1
+LIBCURL_VERSION	:= 7.19.3
 LIBCURL		:= curl-$(LIBCURL_VERSION)
 LIBCURL_SUFFIX	:= tar.gz
 LIBCURL_URL	:= http://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
@@ -124,7 +125,7 @@ endif
 $(STATEDIR)/libcurl.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, libcurl)
+	@$(call install_init,  libcurl)
 	@$(call install_fixup, libcurl,PACKAGE,libcurl)
 	@$(call install_fixup, libcurl,PRIORITY,optional)
 	@$(call install_fixup, libcurl,VERSION,$(LIBCURL_VERSION))
@@ -137,8 +138,8 @@ ifdef PTXCONF_LIBCURL__CURL
 	@$(call install_copy, libcurl, 0, 0, 0755, $(LIBCURL_DIR)/src/curl, /usr/bin/curl)
 endif
 
-	@$(call install_copy, libcurl, 0, 0, 0644, $(LIBCURL_DIR)/lib/.libs/libcurl.so.4.0.1, /usr/lib/libcurl.so.4.0.1)
-	@$(call install_link, libcurl, libcurl.so.4.0.1, /usr/lib/libcurl.so.4)
+	@$(call install_copy, libcurl, 0, 0, 0644, $(LIBCURL_DIR)/lib/.libs/libcurl.so.4.1.1, /usr/lib/libcurl.so.4.1.1)
+	@$(call install_link, libcurl, libcurl.so.4.1.1, /usr/lib/libcurl.so.4)
 	@$(call install_link, libcurl, libcurl.so.4, /usr/lib/libcurl.so)
 
 	@$(call install_finish, libcurl)
