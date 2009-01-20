@@ -8,10 +8,7 @@ Prio A
     Check selected_toolchain/powerpc-603e-linux-gnu-readelf -d <binary>
     for long host paths:
 
-    [x] libcpufreq from the cpufrequtils package
     [ ] mod_python from the Apache2 package
-    [x] mc from the Midnight Commander package
-    [x] jed from the JED package
     [ ] inotifywait from the inotify-tools package
 
 [ ] jbe:  host-fontconfig.compile
@@ -554,6 +551,15 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: These libs/executeables are including host library search paths (RPATH)
+
+    Check selected_toolchain/powerpc-603e-linux-gnu-readelf -d <binary>
+    for long host paths:
+
+    [x] libcpufreq from the cpufrequtils package
+    [x] mc from the Midnight Commander package
+    [x] jed from the JED package
 
 [x] jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
     The output of
