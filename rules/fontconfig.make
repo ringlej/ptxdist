@@ -60,6 +60,12 @@ FONTCONFIG_AUTOCONF := \
 
 $(STATEDIR)/fontconfig.compile:
 	@$(call targetinfo)
+	#
+	# parallel build is broken: in fc-case/, two header files are generated.
+	# It *should* work, because the generated files are marked with BUILT_SOURCES,
+	# so they should be built before any other target. However, we've seen cases
+	# where the touch happened *after* fc-case.c was compiled -> bang
+	#
 	cd $(FONTCONFIG_DIR) && $(FONTCONFIG_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch)
 
