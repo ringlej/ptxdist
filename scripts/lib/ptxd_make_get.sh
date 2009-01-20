@@ -8,7 +8,6 @@ ptxd_make_get() {
 	local -a argv
 	local mrd=false		# is mirror already part of urls?
 
-
 	if [ -z "${1}" ]; then
 		echo
 		echo "${PROMPT}error: empty parameter to '${FUNCNAME}'"
@@ -21,6 +20,11 @@ ptxd_make_get() {
 		shift
 
 		case "${url}" in
+		${PTXCONF_SETUP_PTXMIRROR}/*/*)
+			# keep original URL, for stuff like glibc
+			argv[${#argv[@]}]="${url}"
+			mrd=true
+			;;
 		${PTXCONF_SETUP_PTXMIRROR}/*)
 			# if mirror is given us to download, add it, but only once
 			if ! ${mrd}; then
@@ -58,19 +62,24 @@ ptxd_make_get() {
 			# and move it to correct file name after successfull download
 			#
 			local file="${url##*/}"
+
+			# download any pending half downloaded files
 			rm -f -- "${PTXDIST_SRCDIR}/${file}."*
-			local temp_file="$(mktemp "${PTXDIST_SRCDIR}/${file}.XXXXXXXXXX")"
+
+			local temp_file="$(mktemp "${PTXDIST_SRCDIR}/${file}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
 			wget \
-			    -t 5 \
-			    --progress=bar:force \
 			    --passive-ftp \
+			    --progress=bar:force \
+			    --timeout=30 \
+			    --tries=5 \
 			    ${PTXDIST_QUIET:+--quiet} \
-			    -O ${temp_file} \
+			    -O "${temp_file}" \
 			    "${url}" && {
 				chmod 644 -- "${temp_file}" && \
 				mv -- "${temp_file}" "${PTXDIST_SRCDIR}/${file}"
 				return
 			}
+			rm -f -- "${temp_file}"
 			;;
 		file*)
 			local thing="${url/file:\/\///}"
