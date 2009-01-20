@@ -1,0 +1,27 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: avoid rpath
+
+An rpath on the target is uggly as hell when cross compiling. Disable
+it. This is just a hack and not intended for upstream. I was too lazy to
+fix it in the m4 macros... in the end, it's just an emacs clone, so it
+isn't worth it :-)
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ configure |    2 ++
+ 1 file changed, 2 insertions(+)
+
+Index: jed-0.99-18/configure
+===================================================================
+--- jed-0.99-18.orig/configure
++++ jed-0.99-18/configure
+@@ -6383,6 +6383,8 @@ echo "$as_me: error: unable to find the 
+    { (exit 1); exit 1; }; }
+   fi
+ 
++# rsc: uggly hack to disable rpath
++RPATH=
+ 
+ # Check whether --enable-warnings or --disable-warnings was given.
+ if test "${enable_warnings+set}" = set; then
