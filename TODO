@@ -3,6 +3,13 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: These libs/executeables are including host library search paths (RPATH)
+     * libcpufreq from the cpufrequtils package
+     * mod_python from the Apache2 package
+     * mc from the Midnight Commander package
+     * jed from the JED package
+     * inotifywait from the inotify-tools package
+
 [ ] jbe:  host-fontconfig.compile
       if gcc [...] -c -o fc-case.o fc-case.c; \
         then
