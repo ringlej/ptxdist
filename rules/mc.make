@@ -64,10 +64,12 @@ MC_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-MC_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-		--with-x=no \
-		--without-gpm-mouse \
-		--disable-dependency-tracking
+MC_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-x=no \
+	--without-gpm-mouse \
+	--disable-dependency-tracking
+
 
 ifdef PTXCONF_MC_USES_NCURSES
 MC_AUTOCONF += --with-screen=ncurses
