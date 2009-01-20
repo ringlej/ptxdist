@@ -36,6 +36,21 @@ Prio A
     go' or 'ptxdist <some_stage>' (FIXME which one?) and can output something
     like "error: need perl and XML::Parser to build glade".
 
+    Update 2009-01-20:  jbe: add a test for perl XML::Parser into these
+			makefiles and fail gracefully with a nice error
+			message. So this test runs on demand only.
+
+[ ] jbe: Adding "ant" to the required host tools. Emit a warning if its not
+    present, but not fail (required only to build jvisu)
+
+    Update 2007-01-24:	rsc: rejected. Ant is only needed by tools which
+			use Java, and we don't want a prerequisite to
+			java in PTXdist. Maybe add some loud warning if
+			packets are built which use java, such as jvisu.
+    Update 2009-01-20:  jbe: add a test for 'ant' into jvisu's makefile and
+			fail gracefully with a nice error message. So this test
+			runs on demand only.
+
 [ ] jbe: mplayer.compile: It seems very PXA specific now?
      i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
       vo_pxa.c: In function 'draw_osd':
@@ -234,11 +249,6 @@ Before Release
 	 0.10.6 release, ARM and PowerPC projects where updated, but the x86
 	 project was/is still on 0.10.5!
 
-[ ] jbe: review all READMEs, COMPILE-TESTs, SPECIFICATIONs and so on files
-	 in the ptxdist install folder. Most of them are trash only
-
-[ ] jbe, rsc: add sane minimal in-system documentation
-
 [ ] bbu: check ptxdist first-time-usage scenario for chicken-egg problems
          e.g. if you don´t set sane defaults for PTXCONF_SETUP_PROJECTPATH,
 	 ptxdist won´t find its own projects.
@@ -246,9 +256,6 @@ Before Release
 
 TODO before 2.1.0
 =================
-
-[ ] rsc: 'ptxdist print <variable>' is pretty slow now; shall work with retval=0
-    if variable exists and retval!=0 if not
 
 [ ] jbe: Would there be a solution to supress sysroot-* folders for target system
     (for example bare metall) that do not need a Unix filesystem?
@@ -277,19 +284,6 @@ TODO before 2.1.0
 	 But the BIOS and Kernel on target side are successfull. Problem
 	 happend on SUSE-10.1 on host side and an USB to IDE adapter
 	 to initial write the hd.img to the harddisk.
-
-[ ] bbu: Discuss the future kconfig include scheme. At the moment, overriding
-	 single *.in files is a real pain.
-
-	 - There should be a way to autogenerate the needed files
-	   before starting kconfig or kconfig should just ignore
-	   double definitions (which might be a bad idea)
-
-	 Features needed:
-
-	 - override *.make as well as *.in
-	 - create a sane menu structure
-
 
 TODO somewhen
 =============
@@ -329,14 +323,9 @@ TODO somewhen
 [ ] rsc: xorg-data-xkbdata needs xkbcomp on the host - otherwhise we get
          a circular dependency ...
 
-[ ] jbe: Current implementation of "screen" is useless due to lack of
-         generic configuration
-
 [ ] jbe: alsa-lib creates funny pathes at the install stage
 
 [ ] jbe: org-server fails if no xkbfile is selected
-
-[ ] jbe: use tmpfs everywhere instead of the ramfs
 
 [ ] jbe: audit BROKEN marked packages
 
@@ -354,27 +343,11 @@ TODO somewhen
 
 [ ] jbe: uRamdisk should be built from ipkg packages instead of root/ content!
 
-[ ] jbe: Adding "ant" to the required host tools. Emit a warning if its not
-    present, but not fail (required only to build jvisu)
-
-    Update 2007-01-24:	rsc: rejected. Ant is only needed by tools which
-			use Java, and we don't want a prerequisite to
-			java in PTXdist. Maybe add some loud warning if
-			packets are built which use java, such as jvisu.
-
 [ ] jbe: why does fam-2.7.0 always try to run the autotools? It fails on most
     modern systems -> mark as broken. rsc: real fix: find out why and fix.
 
-[ ] jbe: replacing an *.make file for project use is easy. But how to
-    replace a *.in file? rsc: no 0.10.6 issue, defer
 
-    rsc: We have a problem with the dependency generator: if we have a
-    packet which is already in ptxdist a second time in the local
-    project, ptxdist includes _both_ .in files, resulting in the
-    dependencies from the ptxdist version being superimposed on the
-    local project ones.
-
-    jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
+[ ] jbe: correct the ouput of "ptxdist menuconfig" when configuration is finished.
     The output of
     *** End of configuration.
     *** Execute 'make' to build the project or try 'make help'.
@@ -551,7 +524,6 @@ TODO somewhen
 Interesting packets
 ===================
 
-[ ] RSC: http://htop.sourceforge.net/
 [ ] RSC: http://cryptmount.sourceforge.net/
 [ ] RSC: http://www.nongnu.org/failmalloc/
 [ ] RSC: http://stapgui.sourceforge.net
@@ -596,6 +568,37 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe, rsc: add sane minimal in-system documentation: README
+
+[x] jbe: review all READMEs, COMPILE-TESTs, SPECIFICATIONs and so on files
+	 in the ptxdist install folder. Most of them are trash only
+
+[x] jbe: use tmpfs everywhere instead of the ramfs
+
+[x] jbe: Current implementation of "screen" is useless due to lack of
+         generic configuration
+
+[x] jbe: replacing an *.make file for project use is easy. But how to
+    replace a *.in file? rsc: no 0.10.6 issue, defer
+    [...] same as below:
+[x] bbu: Discuss the future kconfig include scheme. At the moment, overriding
+	 single *.in files is a real pain.
+
+	 - There should be a way to autogenerate the needed files
+	   before starting kconfig or kconfig should just ignore
+	   double definitions (which might be a bad idea)
+
+	 Features needed:
+
+	 - override *.make as well as *.in
+	 - create a sane menu structure
+
+[x] rsc: 'ptxdist print <variable>' is pretty slow now; shall work with retval=0
+    if variable exists and retval!=0 if not
+
+[x] RSC: http://htop.sourceforge.net/
+    now part of ptxdist
 
 [x] jbe: Working with local sources seems broken, when a <PACKET_NAME>_SOURCE
     is defined to the regular $(SRCDIR)/<PACKET_NAME>. The get stage fails in
