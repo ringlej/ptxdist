@@ -159,6 +159,13 @@ menu "install options               "
 		  This will install the generic udev rules files from the udev package
 		  under /lib/udev/rules.d/
 
+	config UDEV__COMMON_RULES
+		bool
+		prompt "Install common udev rules"
+		help
+	  	  This will install some of the common rules shipped by udev, including
+		  rules for sound, isdn, md and device mapper.
+
 	config UDEV__CUST_RULES
 		bool
 		prompt "Install customized udev rules"
