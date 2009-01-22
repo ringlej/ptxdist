@@ -3,6 +3,8 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] rsc: http://ch.tudelft.nl/~arthur/svn2cl/
+
 [ ] jbe: These libs/executeables are including host library search paths (RPATH)
 
     Check selected_toolchain/powerpc-603e-linux-gnu-readelf -d <binary>
