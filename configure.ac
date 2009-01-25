@@ -195,6 +195,12 @@ if test -z "$GUNZIP"; then
 	AC_MSG_ERROR([gunzip could not be found, please install])
 fi
 
+dnl Check for unzip
+AC_PATH_PROGS(UNZIP, gunzip,, $PATH)
+if test -z "$UNZIP"; then
+	AC_MSG_ERROR([unzip could not be found, please install])
+fi
+
 dnl Check for readlink
 AC_PATH_PROGS(READLINK, readlink,, $PATH)
 if test -z "$READLINK"; then
