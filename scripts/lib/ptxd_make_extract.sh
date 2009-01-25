@@ -24,7 +24,7 @@ ptxd_make_extract() {
 		local dest="${OPTARG}"
 		;;
 	    *)
-		exit 1
+		return 1
 		;;
 	esac
     done
@@ -37,9 +37,8 @@ ptxd_make_extract() {
 	    if [ -d "${thing}" ]; then
 		echo "local directory instead of tar file, linking build dir"
 		ln -sf "$(ptxd_abspath "${thing}")" "${packet_dir}"
-		exit $?
-	    fi
-	    if [ -f "${thing}" -a -z "${packet_source}" ]; then
+		return
+	    elif [ -f "${thing}" -a -z "${packet_source}" ]; then
 		echo
 		echo "Using local archive"
 		echo
@@ -52,7 +51,7 @@ ptxd_make_extract() {
 	echo
 	echo "Error: empty parameter to 'extract()'"
 	echo
-	exit 1
+	return 1
     fi
 
     if [ \! -d "${dest}" ]; then
@@ -72,13 +71,13 @@ ptxd_make_extract() {
 	*zip)
 	    echo "$(basename "${packet_source}")" >> "${STATEDIR}/packetlist"
 	    unzip -q "${packet_source}" -d "${dest}"
-	    exit $?
+	    return
 	    ;;
 	*)
 	    echo
 	    echo "Unknown format, cannot extract!"
 	    echo
-	    exit 1
+	    return 1
 	    ;;
     esac
 
@@ -93,7 +92,7 @@ error: extracting '${packet_source}' failed
 
 
 EOF
-	exit 1
+	return 1
     fi
 }
 
