@@ -1,9 +1,15 @@
 ## SECTION=core
 
-menu "c library                     "
+menuconfig LIBC
+	tristate
+	prompt "c library                     "
+	default y
+
+if LIBC
 
 choice
 	prompt "c library            "
+	default GLIBC
 
 	config GLIBC
 		bool
@@ -102,4 +108,4 @@ config LIBC_NSL
 	select GLIBC_NSL		if GLIBC
 	select UCLIBC_NSL		if UCLIBC
 
-endmenu
+endif
