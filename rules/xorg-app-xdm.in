@@ -1,6 +1,6 @@
 ## SECTION=multimedia_xorg_app
 
-config XORG_APP_XDM
+menuconfig XORG_APP_XDM
 	tristate
 	depends on XORG_APP
 	prompt "xorg XDM"
@@ -14,11 +14,14 @@ config XORG_APP_XDM
 	help
 	  XDM is the graphical login manager
 
+if XORG_APP_XDM
+
 config XORG_APP_XDM_DEV_RANDOM
 	string
-	depends on XORG_APP_XDM
 	prompt "Random device for XDM"
 	default "/dev/urandom"
 	help
 	  Select a device for random numbers. Note: /dev/random can block
 	  a read, so it can also block XDM!
+
+endif
