@@ -2,7 +2,7 @@
 # $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2005 Ladislav Michl <ladis@linux-mips.org>
-#               2006, 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2006, 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_MODULE_INIT_TOOLS) += module-init-tools
 #
 # Paths and names
 #
-MODULE_INIT_TOOLS_VERSION	:= 3.4
+MODULE_INIT_TOOLS_VERSION	:= 3.5
 MODULE_INIT_TOOLS		:= module-init-tools-$(MODULE_INIT_TOOLS_VERSION)
 MODULE_INIT_TOOLS_SUFFIX	:= tar.bz2
 MODULE_INIT_TOOLS_URL		:= http://www.kernel.org/pub/linux/utils/kernel/module-init-tools/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
