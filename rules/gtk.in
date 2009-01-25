@@ -1,8 +1,6 @@
 ## SECTION=multimedia_gtk
 
-menu "gtk+                          "
-
-config GTK
+menuconfig GTK
 	tristate
 	prompt "gtk+                          "
 	select GLIB
@@ -126,4 +124,3 @@ config GTK_DEMO
 
 endif
 
-endmenu
