@@ -1975,7 +1975,7 @@ setup_path() {
 			PATH="${PTX_CCACHE_DIR}:${PATH}"
 		else
 			echo
-			echo "${PROMPT}warning: ccache has been activated, but was not found on you system"
+			echo "${PROMPT}warning: ccache has been activated, but was not found on your system"
 			echo "${PROMPT}warning: install ccache, disable it ('ptxdist setup' -> 'Developer Options' menu)"
 			echo "${PROMPT}warning: or ignore this warning."
 			echo
