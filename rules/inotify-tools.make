@@ -80,6 +80,8 @@ $(STATEDIR)/inotify-tools.targetinstall:
 		libinotifytools.so.0.4.1, \
 		/usr/lib/libinotifytools.so)
 
+	@$(call install_finish, inotify-tools)
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
