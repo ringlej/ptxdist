@@ -110,7 +110,7 @@ ptxd_source_kconfig() {
 	config_source="${PTXDIST_TEMPDIR}/${config##*/}"
 
 	if test \! -e "${config}"; then
-		return
+		return 1
 	fi
 
 	sed -e "s/^\([^#]*=.*\)/export \1/" "${config}" > "${config_source}"
