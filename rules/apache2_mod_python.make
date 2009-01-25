@@ -24,39 +24,17 @@ APACHE2_MOD_PYTHON_URL		:= http://apache.easy-webs.de/httpd/modpython/$(APACHE2_
 APACHE2_MOD_PYTHON_SOURCE	:= $(SRCDIR)/$(APACHE2_MOD_PYTHON).$(APACHE2_MOD_PYTHON_SUFFIX)
 APACHE2_MOD_PYTHON_DIR		:= $(BUILDDIR)/$(APACHE2_MOD_PYTHON)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-apache2_mod_python_get: $(STATEDIR)/apache2_mod_python.get
-
-$(STATEDIR)/apache2_mod_python.get: $(apache2_mod_python_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(APACHE2_MOD_PYTHON_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, APACHE2_MOD_PYTHON)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-apache2_mod_python_extract: $(STATEDIR)/apache2_mod_python.extract
-
-$(STATEDIR)/apache2_mod_python.extract: $(apache2_mod_python_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(APACHE2_MOD_PYTHON_DIR))
-	@$(call extract, APACHE2_MOD_PYTHON)
-	@$(call patchin, APACHE2_MOD_PYTHON)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-apache2_mod_python_prepare: $(STATEDIR)/apache2_mod_python.prepare
 
 APACHE2_MOD_PYTHON_PATH	:=  PATH=$(CROSS_PATH)
 APACHE2_MOD_PYTHON_ENV 	:=  $(CROSS_ENV)
@@ -64,51 +42,26 @@ APACHE2_MOD_PYTHON_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-APACHE2_MOD_PYTHON_AUTOCONF = \
+APACHE2_MOD_PYTHON_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-apxs=$(SYSROOT)/usr/bin/apxs \
 	--with-python=$(PTXCONF_SYSROOT_HOST)/bin/python \
 	--with-python-includes=$(SYSROOT)/usr
 
-$(STATEDIR)/apache2_mod_python.prepare: $(apache2_mod_python_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(APACHE2_MOD_PYTHON_DIR)/config.cache)
-	cd $(APACHE2_MOD_PYTHON_DIR) && \
-		$(APACHE2_MOD_PYTHON_PATH) $(APACHE2_MOD_PYTHON_ENV) \
-		./configure $(APACHE2_MOD_PYTHON_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-apache2_mod_python_compile: $(STATEDIR)/apache2_mod_python.compile
-
-$(STATEDIR)/apache2_mod_python.compile: $(apache2_mod_python_compile_deps_default)
-	@$(call targetinfo, $@)
-
-	cd $(APACHE2_MOD_PYTHON_DIR) && $(APACHE2_MOD_PYTHON_PATH) $(MAKE)
-
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-apache2_mod_python_install: $(STATEDIR)/apache2_mod_python.install
-
-$(STATEDIR)/apache2_mod_python.install: $(apache2_mod_python_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/apache2_mod_python.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-apache2_mod_python_targetinstall: $(STATEDIR)/apache2_mod_python.targetinstall
-
-$(STATEDIR)/apache2_mod_python.targetinstall: $(apache2_mod_python_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/apache2_mod_python.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init,  apache2_mod_python)
 	@$(call install_fixup, apache2_mod_python,PACKAGE,apache2-mod-python)
@@ -119,11 +72,11 @@ $(STATEDIR)/apache2_mod_python.targetinstall: $(apache2_mod_python_targetinstall
 	@$(call install_fixup, apache2_mod_python,DEPENDS,)
 	@$(call install_fixup, apache2_mod_python,DESCRIPTION,missing)
 
-	@$(call install_copy,  apache2_mod_python, 0, 0, 0644, \
+	@$(call install_copy, apache2_mod_python, 0, 0, 0644, \
 		$(APACHE2_MOD_PYTHON_DIR)/src/.libs/mod_python.so, \
 		/usr/share/apache2/libexec/mod_python.so)
 
-	@$(call install_copy,  apache2_mod_python, 0, 0, 0755, \
+	@$(call install_copy, apache2_mod_python, 0, 0, 0755, \
 		/usr/lib/python2.4/mod_python)
 
 	cd $(APACHE2_MOD_PYTHON_DIR)/lib/python/mod_python && \
@@ -133,7 +86,7 @@ $(STATEDIR)/apache2_mod_python.targetinstall: $(apache2_mod_python_targetinstall
 
 	@$(call install_finish, apache2_mod_python)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
