@@ -25,75 +25,45 @@ HOST_PYTHON24_DIR	= $(HOST_BUILDDIR)/$(HOST_PYTHON24)
 # Get
 # ----------------------------------------------------------------------------
 
-host-python24_get: $(STATEDIR)/host-python24.get
-
 $(STATEDIR)/host-python24.get: $(STATEDIR)/python24.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-host-python24_extract: $(STATEDIR)/host-python24.extract
-
-$(STATEDIR)/host-python24.extract: $(host-python24_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/host-python24.extract:
+	@$(call targetinfo)
 	@$(call clean, $(HOST_PYTHON24_DIR))
 	@$(call extract, PYTHON24, $(HOST_BUILDDIR))
 	@$(call patchin, PYTHON24, $(HOST_PYTHON24_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-python24_prepare: $(STATEDIR)/host-python24.prepare
-
 HOST_PYTHON24_PATH	:= PATH=$(HOST_PATH)
 HOST_PYTHON24_ENV 	:= $(HOST_ENV)
+HOST_PYTHON24_COMPILE_ENV	:= DESTDIR=/
 
 #
 # autoconf
 #
 HOST_PYTHON24_AUTOCONF := $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-python24.prepare: $(host-python24_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_PYTHON24_DIR)/config.cache)
-	cd $(HOST_PYTHON24_DIR) && \
-		$(HOST_PYTHON24_PATH) $(HOST_PYTHON24_ENV) \
-		./configure $(HOST_PYTHON24_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-host-python24_compile: $(STATEDIR)/host-python24.compile
-
-$(STATEDIR)/host-python24.compile: $(host-python24_compile_deps_default)
-	@$(call targetinfo, $@)
-	# we use --prefix, so no destdir here
-	( \
-		export DESTDIR="/"; \
-		cd $(HOST_PYTHON24_DIR) && \
-			$(HOST_PYTHON24_ENV) \
-			$(HOST_PYTHON24_PATH) \
-			make; \
-	)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-host-python24_install: $(STATEDIR)/host-python24.install
-
-$(STATEDIR)/host-python24.install: $(host-python24_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/host-python24.install:
+	@$(call targetinfo)
 	@$(call install, HOST_PYTHON24,,h)
-	@$(call touch, $@)
+
+	sed -i -e "s/^\(LDFLAGS=\).*$$/\1/" "$(PTXCONF_SYSROOT_HOST)/lib/python2.4/config/Makefile"
+
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
