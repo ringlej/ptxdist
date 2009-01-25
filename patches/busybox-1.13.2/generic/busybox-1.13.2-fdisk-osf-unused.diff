@@ -10,6 +10,10 @@ util-linux/fdisk_osf.c:961: error: unused parameter 'p'
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
+used cleaner fix:
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
 ---
  util-linux/fdisk_osf.c |    1 +
  1 file changed, 1 insertion(+)
@@ -22,7 +26,7 @@ Index: busybox-1.13.2/util-linux/fdisk_osf.c
  #if !defined(__alpha__) && !defined(__powerpc__) && !defined(__hppa__)
  	sector = get_start_sect(p) + BSD_LABELSECTOR;
  #else
-+	p = p; /* silence warning */
++	(void)p;	/* silence warning */
  	sector = BSD_LABELSECTOR;
  #endif
  
