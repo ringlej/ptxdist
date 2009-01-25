@@ -1,4 +1,2 @@
-inotify-tools-3.13-configure-inotify.diff
-inotify-tools-3.13-autoreconf.diff
-
-
+inotify-tools-3.13-configure-compile_ifelse.diff
+inotify-tools-3.13-autoreconf.diff.bz2
