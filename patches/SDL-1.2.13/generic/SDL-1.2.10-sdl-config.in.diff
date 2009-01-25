@@ -1,6 +1,34 @@
---- SDL-1.2.10.orig/sdl-config.in	2006-05-01 10:03:00.000000000 +0200
-+++ SDL-1.2.10/sdl-config.in	2006-06-08 11:33:50.000000000 +0200
-@@ -41,14 +41,14 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject teach sdl-config about sysroot
+
+Teach sdl-config the concept of sysroot, but disable manual prefix overwriting.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ sdl-config.in |   14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+Index: SDL-1.2.13/sdl-config.in
+===================================================================
+--- SDL-1.2.13.orig/sdl-config.in
++++ SDL-1.2.13/sdl-config.in
+@@ -23,10 +23,10 @@ while test $# -gt 0; do
+ 
+   case $1 in
+     --prefix=*)
+-      prefix=$optarg
+-      if test $exec_prefix_set = no ; then
+-        exec_prefix=$optarg
+-      fi
++#      prefix=$optarg
++#      if test $exec_prefix_set = no ; then
++#        exec_prefix=$optarg
++#      fi
+       ;;
+     --prefix)
+       echo $prefix
+@@ -42,14 +42,14 @@ while test $# -gt 0; do
        echo @SDL_VERSION@
        ;;
      --cflags)
