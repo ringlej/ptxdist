@@ -11,7 +11,7 @@ Prio A
     for long host paths:
 
     [ ] mod_python from the Apache2 package
-    [ ] inotifywait from the inotify-tools package
+    [x] inotifywait from the inotify-tools package
 
 [ ] jbe:  host-fontconfig.compile
       if gcc [...] -c -o fc-case.o fc-case.c; \
@@ -73,7 +73,7 @@ Prio A
     Update 20090118 rsc: not reproducable, switched on again and we wait
     for sisyphus to explode.
 
-[ ] jbe: host-dbus-glib.compile
+[x] jbe: host-dbus-glib.compile
       ../../dbus/dbus-binding-tool: error while loading shared libraries:
          libdbus-glib-1.so.2: cannot open shared object file: No such file or directory
 
