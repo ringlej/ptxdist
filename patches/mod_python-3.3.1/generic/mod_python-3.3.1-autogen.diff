@@ -1,8 +1,13 @@
 Only in mod_python-3.3.1: aclocal.m4
 Only in mod_python-3.3.1: autom4te.cache
-diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
---- mod_python-3.3.1-orig/configure	2009-01-08 10:33:13.000000000 +0100
-+++ mod_python-3.3.1/configure	2009-01-08 10:33:34.000000000 +0100
+---
+ configure | 4281 ++++++++++++++++++++++++++++++++++++++------------------------
+ 1 file changed, 2630 insertions(+), 1651 deletions(-)
+
+Index: mod_python-3.3.1/configure
+===================================================================
+--- mod_python-3.3.1.orig/configure
++++ mod_python-3.3.1/configure
 @@ -1,25 +1,54 @@
  #! /bin/sh
  # Guess values for system-dependent variables and create Makefiles.
@@ -64,7 +69,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  # Support unset when possible.
  if ( (MAIL=60; unset MAIL) || exit) >/dev/null 2>&1; then
-@@ -29,8 +58,43 @@
+@@ -29,8 +58,43 @@ else
  fi
  
  
@@ -109,7 +114,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  PS1='$ '
  PS2='> '
  PS4='+ '
-@@ -44,18 +108,19 @@
+@@ -44,18 +108,19 @@ do
    if (set +x; test -z "`(eval $as_var=C; export $as_var) 2>&1`"); then
      eval $as_var=C; export $as_var
    else
@@ -132,7 +137,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    as_basename=basename
  else
    as_basename=false
-@@ -63,157 +128,388 @@
+@@ -63,157 +128,388 @@ fi
  
  
  # Name of the executable.
@@ -619,7 +624,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  if mkdir -p . 2>/dev/null; then
    as_mkdir_p=:
-@@ -222,7 +518,28 @@
+@@ -222,7 +518,28 @@ else
    as_mkdir_p=false
  fi
  
@@ -649,7 +654,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  # Sed expression to map a string onto a valid CPP name.
  as_tr_cpp="eval sed 'y%*$as_cr_letters%P$as_cr_LETTERS%;s%[^_$as_cr_alnum]%_%g'"
-@@ -231,39 +548,27 @@
+@@ -231,39 +548,27 @@ as_tr_cpp="eval sed 'y%*$as_cr_letters%P
  as_tr_sh="eval sed 'y%*+%pp%;s%[^_$as_cr_alnum]%_%g'"
  
  
@@ -692,7 +697,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  # Identity of this package.
  PACKAGE_NAME=
  PACKAGE_TARNAME=
-@@ -272,8 +577,99 @@
+@@ -272,8 +577,99 @@ PACKAGE_STRING=
  PACKAGE_BUGREPORT=
  
  ac_unique_file="src/mod_python.c"
@@ -793,7 +798,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  # Initialize some variables set by options.
  ac_init_help=
-@@ -300,34 +696,48 @@
+@@ -300,34 +696,48 @@ x_libraries=NONE
  # and all the variables that are supposed to be based on exec_prefix
  # by default will actually change.
  # Use braces instead of parens because sh, perl, etc. also accept them.
@@ -849,7 +854,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
    -bindir | --bindir | --bindi | --bind | --bin | --bi)
      ac_prev=bindir ;;
-@@ -349,33 +759,45 @@
+@@ -349,33 +759,45 @@ do
    --config-cache | -C)
      cache_file=config.cache ;;
  
@@ -908,7 +913,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
    -exec-prefix | --exec_prefix | --exec-prefix | --exec-prefi \
    | --exec-pref | --exec-pre | --exec-pr | --exec-p | --exec- \
-@@ -402,6 +824,12 @@
+@@ -402,6 +824,12 @@ do
    -host=* | --host=* | --hos=* | --ho=*)
      host_alias=$ac_optarg ;;
  
@@ -921,7 +926,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    -includedir | --includedir | --includedi | --included | --include \
    | --includ | --inclu | --incl | --inc)
      ac_prev=includedir ;;
-@@ -426,13 +854,16 @@
+@@ -426,13 +854,16 @@ do
    | --libexe=* | --libex=* | --libe=*)
      libexecdir=$ac_optarg ;;
  
@@ -942,7 +947,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
      localstatedir=$ac_optarg ;;
  
    -mandir | --mandir | --mandi | --mand | --man | --ma | --m)
-@@ -497,6 +928,16 @@
+@@ -497,6 +928,16 @@ do
    | --progr-tra=* | --program-tr=* | --program-t=*)
      program_transform_name=$ac_optarg ;;
  
@@ -959,7 +964,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    -q | -quiet | --quiet | --quie | --qui | --qu | --q \
    | -silent | --silent | --silen | --sile | --sil)
      silent=yes ;;
-@@ -549,24 +990,20 @@
+@@ -549,24 +990,20 @@ do
    -with-* | --with-*)
      ac_package=`expr "x$ac_option" : 'x-*with-\([^=]*\)'`
      # Reject names that are not valid shell variable names.
@@ -990,7 +995,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
    --x)
      # Obsolete; use --with-x.
-@@ -597,8 +1034,7 @@
+@@ -597,8 +1034,7 @@ Try \`$0 --help' for more information." 
      expr "x$ac_envvar" : ".*[^_$as_cr_alnum]" >/dev/null &&
        { echo "$as_me: error: invalid variable name: $ac_envvar" >&2
     { (exit 1); exit 1; }; }
@@ -1000,7 +1005,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
      export $ac_envvar ;;
  
    *)
-@@ -618,27 +1054,19 @@
+@@ -618,27 +1054,19 @@ if test -n "$ac_prev"; then
     { (exit 1); exit 1; }; }
  fi
  
@@ -1038,7 +1043,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  done
  
  # There might be people who depend on the old broken behavior: `$host'
-@@ -665,70 +1093,76 @@
+@@ -665,70 +1093,76 @@ test -n "$host_alias" && ac_tool_prefix=
  test "$silent" = yes && exec 6>/dev/null
  
  
@@ -1163,7 +1168,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  #
  # Report the --help message.
-@@ -757,9 +1191,6 @@
+@@ -757,9 +1191,6 @@ Configuration:
    -n, --no-create         do not create output files
        --srcdir=DIR        find the sources in DIR [configure dir or \`..']
  
@@ -1173,7 +1178,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  Installation directories:
    --prefix=PREFIX         install architecture-independent files in PREFIX
  			  [$ac_default_prefix]
-@@ -777,15 +1208,22 @@
+@@ -777,15 +1208,22 @@ Fine tuning of the installation director
    --bindir=DIR           user executables [EPREFIX/bin]
    --sbindir=DIR          system admin executables [EPREFIX/sbin]
    --libexecdir=DIR       program executables [EPREFIX/libexec]
@@ -1199,7 +1204,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  _ACEOF
  
    cat <<\_ACEOF
-@@ -802,6 +1240,8 @@
+@@ -802,6 +1240,8 @@ Optional Packages:
  --with-apxs=PATH 	Path to apxs
  --with-apache=DIR 	Path to Apache sources
  --with-python=PATH	Path to specific Python binary
@@ -1208,7 +1213,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  --with-python-src=DIR	Path to python sources - required if you want to generate the documenation
  --with-mutex-dir=DIR	Mutex directory
  --with-max-locks=INTEGER	Maximum number of locks
-@@ -816,125 +1256,95 @@
+@@ -816,125 +1256,95 @@ Some influential environment variables:
    CFLAGS      C compiler flags
    LDFLAGS     linker flags, e.g. -L<lib dir> if you have libraries in a
                nonstandard directory <lib dir>
@@ -1384,7 +1389,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  {
  cat <<_ASUNAME
  ## --------- ##
-@@ -953,7 +1363,7 @@
+@@ -953,7 +1363,7 @@ uname -v = `(uname -v) 2>/dev/null || ec
  /bin/arch              = `(/bin/arch) 2>/dev/null              || echo unknown`
  /usr/bin/arch -k       = `(/usr/bin/arch -k) 2>/dev/null       || echo unknown`
  /usr/convex/getsysinfo = `(/usr/convex/getsysinfo) 2>/dev/null || echo unknown`
@@ -1393,7 +1398,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  /bin/machine           = `(/bin/machine) 2>/dev/null           || echo unknown`
  /usr/bin/oslevel       = `(/usr/bin/oslevel) 2>/dev/null       || echo unknown`
  /bin/universe          = `(/bin/universe) 2>/dev/null          || echo unknown`
-@@ -967,6 +1377,7 @@
+@@ -967,6 +1377,7 @@ do
    test -z "$as_dir" && as_dir=.
    echo "PATH: $as_dir"
  done
@@ -1401,7 +1406,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  } >&5
  
-@@ -988,7 +1399,6 @@
+@@ -988,7 +1399,6 @@ _ACEOF
  ac_configure_args=
  ac_configure_args0=
  ac_configure_args1=
@@ -1409,7 +1414,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  ac_must_keep_next=false
  for ac_pass in 1 2
  do
-@@ -999,7 +1409,7 @@
+@@ -999,7 +1409,7 @@ do
      -q | -quiet | --quiet | --quie | --qui | --qu | --q \
      | -silent | --silent | --silen | --sile | --sil)
        continue ;;
@@ -1418,7 +1423,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
        ac_arg=`echo "$ac_arg" | sed "s/'/'\\\\\\\\''/g"` ;;
      esac
      case $ac_pass in
-@@ -1021,9 +1431,7 @@
+@@ -1021,9 +1431,7 @@ do
  	  -* ) ac_must_keep_next=true ;;
  	esac
        fi
@@ -1429,7 +1434,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
        ;;
      esac
    done
-@@ -1034,8 +1442,8 @@
+@@ -1034,8 +1442,8 @@ $as_unset ac_configure_args1 || test "${
  # When interrupted or exit'd, cleanup temporary files, and complete
  # config.log.  We remove comments because anyway the quotes in there
  # would cause problems or look ugly.
@@ -1440,7 +1445,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  trap 'exit_status=$?
    # Save into config.log some information that might help in debugging.
    {
-@@ -1048,20 +1456,34 @@
+@@ -1048,20 +1456,34 @@ trap 'exit_status=$?
  _ASBOX
      echo
      # The following way of writing the cache mishandles newlines in values,
@@ -1485,7 +1490,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
      echo
  
      cat <<\_ASBOX
-@@ -1072,22 +1494,28 @@
+@@ -1072,22 +1494,28 @@ _ASBOX
      echo
      for ac_var in $ac_subst_vars
      do
@@ -1521,7 +1526,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
        done | sort
        echo
      fi
-@@ -1099,26 +1527,24 @@
+@@ -1099,26 +1527,24 @@ _ASBOX
  ## ----------- ##
  _ASBOX
        echo
@@ -1553,7 +1558,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  # Predefined preprocessor variables.
  
-@@ -1149,14 +1575,17 @@
+@@ -1149,14 +1575,17 @@ _ACEOF
  
  # Let the site file select an alternate cache file if it wants to.
  # Prefer explicitly selected file to automatically selected ones.
@@ -1578,7 +1583,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    if test -r "$ac_site_file"; then
      { echo "$as_me:$LINENO: loading site script $ac_site_file" >&5
  echo "$as_me: loading site script $ac_site_file" >&6;}
-@@ -1172,8 +1601,8 @@
+@@ -1172,8 +1601,8 @@ if test -r "$cache_file"; then
      { echo "$as_me:$LINENO: loading cache $cache_file" >&5
  echo "$as_me: loading cache $cache_file" >&6;}
      case $cache_file in
@@ -1589,7 +1594,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
      esac
    fi
  else
-@@ -1185,12 +1614,11 @@
+@@ -1185,12 +1614,11 @@ fi
  # Check that the precious variables saved in the cache have kept the same
  # value.
  ac_cache_corrupted=false
@@ -1605,7 +1610,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    case $ac_old_set,$ac_new_set in
      set,)
        { echo "$as_me:$LINENO: error: \`$ac_var' was set to \`$ac_old_val' in the previous run" >&5
-@@ -1215,8 +1643,7 @@
+@@ -1215,8 +1643,7 @@ echo "$as_me:   current value: $ac_new_v
    # Pass precious variables to config.status.
    if test "$ac_new_set" = set; then
      case $ac_new_val in
@@ -1615,7 +1620,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
      *) ac_arg=$ac_var=$ac_new_val ;;
      esac
      case " $ac_configure_args " in
-@@ -1233,12 +1660,6 @@
+@@ -1233,12 +1660,6 @@ echo "$as_me: error: run \`make distclea
     { (exit 1); exit 1; }; }
  fi
  
@@ -1628,7 +1633,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  
  
-@@ -1255,6 +1676,11 @@
+@@ -1255,6 +1676,11 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
  
  
  
@@ -1640,7 +1645,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  
  
-@@ -1269,8 +1695,8 @@
+@@ -1269,8 +1695,8 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
  if test -n "$ac_tool_prefix"; then
    # Extract the first word of "${ac_tool_prefix}gcc", so it can be a program name with args.
  set dummy ${ac_tool_prefix}gcc; ac_word=$2
@@ -1651,7 +1656,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_prog_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1283,32 +1709,34 @@
+@@ -1283,32 +1709,34 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -1693,7 +1698,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_prog_ac_ct_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1321,36 +1749,51 @@
+@@ -1321,36 +1749,51 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -1755,7 +1760,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_prog_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1363,74 +1806,34 @@
+@@ -1363,74 +1806,34 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -1839,7 +1844,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_prog_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1444,7 +1847,7 @@
+@@ -1444,7 +1847,7 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -1848,7 +1853,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
      if test "$as_dir/$ac_word$ac_exec_ext" = "/usr/ucb/cc"; then
         ac_prog_rejected=yes
         continue
-@@ -1455,6 +1858,7 @@
+@@ -1455,6 +1858,7 @@ do
    fi
  done
  done
@@ -1856,7 +1861,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  if test $ac_prog_rejected = yes; then
    # We found a bogon in the path, so make sure we never use it.
-@@ -1472,22 +1876,23 @@
+@@ -1472,22 +1876,23 @@ fi
  fi
  CC=$ac_cv_prog_CC
  if test -n "$CC"; then
@@ -1887,7 +1892,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_prog_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1500,36 +1905,38 @@
+@@ -1500,36 +1905,38 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -1934,7 +1939,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_prog_ac_ct_CC+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1542,29 +1949,45 @@
+@@ -1542,29 +1949,45 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -1986,7 +1991,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  fi
  
  fi
-@@ -1577,21 +2000,35 @@
+@@ -1577,21 +2000,35 @@ See \`config.log' for more details." >&2
     { (exit 1); exit 1; }; }
  
  # Provide some information about the compiler.
@@ -2030,7 +2035,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }
-@@ -1616,47 +2053,77 @@
+@@ -1616,47 +2053,77 @@ ac_clean_files="$ac_clean_files a.out a.
  # Try to create an executable without -o first, disregard a.out.
  # It will help us diagnose broken compilers, and finding out an intuition
  # of exeext.
@@ -2130,7 +2135,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    echo "$as_me: failed program was:" >&5
  sed 's/^/| /' conftest.$ac_ext >&5
  
-@@ -1668,19 +2135,21 @@
+@@ -1668,19 +2135,21 @@ See \`config.log' for more details." >&2
  fi
  
  ac_exeext=$ac_cv_exeext
@@ -2159,7 +2164,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; }; then
-@@ -1699,22 +2168,27 @@
+@@ -1699,22 +2168,27 @@ See \`config.log' for more details." >&2
      fi
    fi
  fi
@@ -2199,7 +2204,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    ac_status=$?
    echo "$as_me:$LINENO: \$? = $ac_status" >&5
    (exit $ac_status); }; then
-@@ -1725,9 +2199,8 @@
+@@ -1725,9 +2199,8 @@ if { (eval echo "$as_me:$LINENO: \"$ac_l
  for ac_file in conftest.exe conftest conftest.*; do
    test -f "$ac_file" || continue
    case $ac_file in
@@ -2210,7 +2215,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  	  break;;
      * ) break;;
    esac
-@@ -1741,14 +2214,14 @@
+@@ -1741,14 +2214,14 @@ See \`config.log' for more details." >&2
  fi
  
  rm -f conftest$ac_cv_exeext
@@ -2229,7 +2234,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_objext+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1768,14 +2241,20 @@
+@@ -1768,14 +2241,20 @@ main ()
  }
  _ACEOF
  rm -f conftest.o conftest.obj
@@ -2254,7 +2259,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
      *) ac_cv_objext=`expr "$ac_file" : '.*\.\(.*\)'`
         break;;
    esac
-@@ -1793,12 +2272,12 @@
+@@ -1793,12 +2272,12 @@ fi
  
  rm -f conftest.$ac_cv_objext conftest.$ac_ext
  fi
@@ -2271,7 +2276,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_c_compiler_gnu+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -1821,49 +2300,49 @@
+@@ -1821,49 +2300,49 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -2344,7 +2349,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  /* confdefs.h.  */
  _ACEOF
  cat confdefs.h >>conftest.$ac_ext
-@@ -1879,37 +2358,118 @@
+@@ -1879,37 +2358,118 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -2478,7 +2483,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "$ac_test_CFLAGS" = set; then
    CFLAGS=$ac_save_CFLAGS
  elif test $ac_cv_prog_cc_g = yes; then
-@@ -1925,12 +2485,12 @@
+@@ -1925,12 +2485,12 @@ else
      CFLAGS=
    fi
  fi
@@ -2495,7 +2500,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  ac_save_CC=$CC
  cat >conftest.$ac_ext <<_ACEOF
  /* confdefs.h.  */
-@@ -1964,12 +2524,17 @@
+@@ -1964,12 +2524,17 @@ static char *f (char * (*g) (char **, in
  /* OSF 4.0 Compaq cc is some sort of almost-ANSI by default.  It has
     function prototypes and stuff, but not '\xHH' hex character constants.
     These don't provoke an error unfortunately, instead are silently treated
@@ -2515,7 +2520,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  int test (int i, double x);
  struct s1 {int (*f) (int a);};
  struct s2 {int (*f) (double a);};
-@@ -1984,216 +2549,72 @@
+@@ -1984,216 +2549,72 @@ return f (e, argv, 0) != argv[0]  ||  f 
    return 0;
  }
  _ACEOF
@@ -2777,7 +2782,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  else
    if test -n "$AR"; then
    ac_cv_prog_AR="$AR" # Let the user override the test.
-@@ -2204,53 +2625,61 @@
+@@ -2204,53 +2625,61 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -2853,7 +2858,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  # Find a good install program.  We prefer a C program (faster),
  # so one script is as good as another.  But avoid the broken or
-@@ -2265,8 +2694,8 @@
+@@ -2265,8 +2694,8 @@ ac_configure="$SHELL $ac_aux_dir/configu
  # SVR4 /usr/ucb/install, which tries to use the nonexistent group "staff"
  # OS/2's system install, which has a completely different semantic
  # ./install, which can be erroneously created by make from ./install.sh.
@@ -2864,7 +2869,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test -z "$INSTALL"; then
  if test "${ac_cv_path_install+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
-@@ -2288,7 +2717,7 @@
+@@ -2288,7 +2717,7 @@ case $as_dir/ in
      # by default.
      for ac_prog in ginstall scoinst install; do
        for ac_exec_ext in '' $ac_executable_extensions; do
@@ -2873,7 +2878,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  	  if test $ac_prog = install &&
  	    grep dspmsg "$as_dir/$ac_prog$ac_exec_ext" >/dev/null 2>&1; then
  	    # AIX install.  It has an incompatible calling convention.
-@@ -2307,21 +2736,22 @@
+@@ -2307,21 +2736,22 @@ case $as_dir/ in
      ;;
  esac
  done
@@ -2901,7 +2906,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  # Use test -z because SunOS4 sh mishandles braces in ${var-val}.
  # It thinks the first close brace ends the variable substitution.
-@@ -2331,40 +2761,41 @@
+@@ -2331,40 +2761,41 @@ test -z "$INSTALL_SCRIPT" && INSTALL_SCR
  
  test -z "$INSTALL_DATA" && INSTALL_DATA='${INSTALL} -m 644'
  
@@ -2961,7 +2966,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_lib_m_main+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -2381,45 +2812,43 @@
+@@ -2381,45 +2812,43 @@ cat >>conftest.$ac_ext <<_ACEOF
  int
  main ()
  {
@@ -3025,7 +3030,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test $ac_cv_lib_m_main = yes; then
    cat >>confdefs.h <<_ACEOF
  #define HAVE_LIBM 1
-@@ -2431,8 +2860,8 @@
+@@ -2431,8 +2860,8 @@ fi
  
  
  
@@ -3036,7 +3041,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_c_const+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -2450,10 +2879,10 @@
+@@ -2450,10 +2879,10 @@ main ()
  #ifndef __cplusplus
    /* Ultrix mips cc rejects this.  */
    typedef int charset[2];
@@ -3050,7 +3055,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    /* NEC SVR4.0.2 mips cc rejects this.  */
    struct point {int x, y;};
    static struct point const zero = {0,0};
-@@ -2462,16 +2891,17 @@
+@@ -2462,16 +2891,17 @@ main ()
       an arm of an if-expression whose if-part is not a constant
       expression */
    const char *g = "string";
@@ -3072,7 +3077,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    }
    { /* Someone thinks the Sun supposedly-ANSI compiler will reject this.  */
      int x[] = {25, 17};
-@@ -2490,7 +2920,9 @@
+@@ -2490,7 +2920,9 @@ main ()
    }
    { /* ULTRIX-32 V3.1 (Rev 9) vcc rejects this */
      const int foo = 10;
@@ -3082,7 +3087,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  #endif
  
    ;
-@@ -2498,37 +2930,34 @@
+@@ -2498,37 +2930,34 @@ main ()
  }
  _ACEOF
  rm -f conftest.$ac_objext
@@ -3136,7 +3141,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test $ac_cv_c_const = no; then
  
  cat >>confdefs.h <<\_ACEOF
-@@ -2539,10 +2968,10 @@
+@@ -2539,10 +2968,10 @@ fi
  
  
  ### humor lowers blood pressure
@@ -3151,7 +3156,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  ## The goal is to find apxs
  { echo "$as_me:$LINENO: checking whether apxs is available..." >&5
-@@ -2552,17 +2981,16 @@
+@@ -2552,17 +2981,16 @@ echo "$as_me: checking whether apxs is a
  
  
  # check for --with-apxs
@@ -3175,7 +3180,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
      APXS=$withval
    else
      echo
-@@ -2572,33 +3000,34 @@
+@@ -2572,33 +3000,34 @@ echo "$as_me: error: $withval not found 
    fi
  
  else
@@ -3223,7 +3228,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_path_APXS+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -2613,30 +3042,31 @@
+@@ -2613,30 +3042,31 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -3263,7 +3268,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    fi
  fi
  
-@@ -2644,12 +3074,12 @@
+@@ -2644,12 +3074,12 @@ fi
  # some linux distributions use apxs2 for apache2 installations,
  # so check for apxs2 before we give up.
  if test -z "$APXS"; then
@@ -3280,7 +3285,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_path_APXS+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -2664,30 +3094,31 @@
+@@ -2664,30 +3094,31 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -3320,7 +3325,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    fi
  fi
  
-@@ -2707,13 +3138,13 @@
+@@ -2707,12 +3138,13 @@ else
    ALL="dso"
  
    # check Apache version
@@ -3328,7 +3333,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
 -echo $ECHO_N "checking Apache version... $ECHO_C" >&6
 +  { echo "$as_me:$LINENO: checking Apache version" >&5
 +echo $ECHO_N "checking Apache version... $ECHO_C" >&6; }
-   if test "x$cross_compiling" = "xno"; then
++  if test "x$cross_compiling" = "xno"; then
    HTTPD="`${APXS} -q SBINDIR`/`${APXS} -q TARGET`"
    ver=`$HTTPD -v | awk '/version/ {print $3}' | awk -F/ '{print $2}'`
 -  echo "$as_me:$LINENO: result: $ver" >&5
@@ -3338,7 +3343,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
    # make sure version begins with 2
    if test -z "`echo $ver | egrep \^2`"; then
-@@ -2723,32 +3154,30 @@
+@@ -2722,27 +3154,30 @@ echo "$as_me: error: This version of mod
    fi
  
    # determine LIBEXEC
@@ -3360,14 +3365,13 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    AP_INCLUDES="-I`${APXS} -q INCLUDEDIR`"
 -  echo "$as_me:$LINENO: result: $AP_INCLUDES" >&5
 -echo "${ECHO_T}$AP_INCLUDES" >&6
+-
 +  { echo "$as_me:$LINENO: result: $AP_INCLUDES" >&5
 +echo "${ECHO_T}$AP_INCLUDES" >&6; }
-   else
-     { echo "$as_me:$LINENO: result: cross_compiling, assuming recent new version..." >&5
- echo "${ECHO_T}cross_compiling, assuming recent new version..." >&6; }
-   fi
--
--
++  else
++    { echo "$as_me:$LINENO: result: cross_compiling, assuming recent new version..." >&5
++echo "${ECHO_T}cross_compiling, assuming recent new version..." >&6; }
++  fi
      if test "`uname`" = "SunOS"; then
 -    echo "$as_me:$LINENO: checking for gcc on Solaris possible missing _eprintf problem" >&5
 -echo $ECHO_N "checking for gcc on Solaris possible missing _eprintf problem... $ECHO_C" >&6
@@ -3383,7 +3387,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    fi
  
  fi
-@@ -2760,10 +3189,9 @@
+@@ -2754,10 +3189,9 @@ fi
  ## static is disabled, thus no --with-apache
  ##AC_MSG_CHECKING(for --with-apache)
  
@@ -3396,7 +3400,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
    # temporarily disable static on 2.0 until I figure out how to
    # do it right
-@@ -2779,15 +3207,16 @@
+@@ -2773,15 +3207,16 @@ echo "$as_me: error: $withval does not l
     { (exit 1); exit 1; }; }
    fi
  
@@ -3416,7 +3420,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  ##AC_MSG_RESULT(no))
  
  
-@@ -2806,28 +3235,28 @@
+@@ -2800,28 +3235,28 @@ echo "$as_me: error: Neither static nor 
  fi
  
  
@@ -3457,7 +3461,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test "${ac_cv_path_PYTHON_BIN+set}" = set; then
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
-@@ -2842,27 +3271,28 @@
+@@ -2836,27 +3271,28 @@ do
    IFS=$as_save_IFS
    test -z "$as_dir" && as_dir=.
    for ac_exec_ext in '' $ac_executable_extensions; do
@@ -3492,7 +3496,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    if test -z "$PYTHON_BIN"; then
      { { echo "$as_me:$LINENO: error: python binary not found in path" >&5
  echo "$as_me: error: python binary not found in path" >&2;}
-@@ -2871,12 +3301,12 @@
+@@ -2865,12 +3301,12 @@ echo "$as_me: error: python binary not f
  fi
  
  # find out python version
@@ -3509,7 +3513,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  # make sure Python is version 2
  if test "$PyMAJVERSION" != "2"; then
-@@ -2886,19 +3316,19 @@
+@@ -2880,19 +3316,19 @@ echo "$as_me: error: This version of mod
  fi
  
  # find out compiled in install prefix
@@ -3537,7 +3541,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  # set python std library variable
  
  
-@@ -2920,9 +3350,9 @@
+@@ -2914,9 +3350,9 @@ if test "$PyFRAMEWORKDIR" != "no-framewo
  else
    LDFLAGS="${LDFLAGS} -L${PyLIBPL}"
    as_ac_Lib=`echo "ac_cv_lib_python${PyVERSION}''_Py_NewInterpreter" | $as_tr_sh`
@@ -3550,7 +3554,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    echo $ECHO_N "(cached) $ECHO_C" >&6
  else
    ac_check_lib_save_LIBS=$LIBS
-@@ -2934,55 +3364,54 @@
+@@ -2928,55 +3364,54 @@ cat confdefs.h >>conftest.$ac_ext
  cat >>conftest.$ac_ext <<_ACEOF
  /* end confdefs.h.  */
  
@@ -3628,7 +3632,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  if test `eval echo '${'$as_ac_Lib'}'` = yes; then
     PyPYTHONLIBS="-lpython${PyVERSION}"
  else
-@@ -3001,8 +3430,8 @@
+@@ -2995,8 +3430,8 @@ fi
  LIBS="$save_LIBS"
  
  # (actually this check already just happened above)
@@ -3639,7 +3643,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  PY_LIBS="${PyPYTHONLIBS} ${PyLIBS} ${PyMODLIBS}"
  
  ## XXX this is a small work around for a weird RedHat problem
-@@ -3012,199 +3441,635 @@
+@@ -3006,198 +3441,634 @@ if test -f /etc/redhat-release; then
  fi
  
  LIBS="${LIBS} ${PY_LIBS}"
@@ -3736,14 +3740,14 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
 +  test -n "$PYTHON" && break
 +done
 +test -n "$PYTHON" || PYTHON=":"
-+
-+    fi
-+    am_display_PYTHON=python
  
 -  PYTHON_SRC="$withval"
 -  echo "$as_me:$LINENO: result: $PYTHON_SRC" >&5
 -echo "${ECHO_T}$PYTHON_SRC" >&6
++    fi
++    am_display_PYTHON=python
  
++
 +  if test "$PYTHON" = :; then
 +      { { echo "$as_me:$LINENO: error: no suitable Python interpreter found" >&5
 +echo "$as_me: error: no suitable Python interpreter found" >&2;}
@@ -3778,12 +3782,12 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
 +  PYTHON_PREFIX='${prefix}'
 +
 +  PYTHON_EXEC_PREFIX='${exec_prefix}'
-+
  
 -  MUTEX_DIR="$withval"
 -  echo "$as_me:$LINENO: result: $MUTEX_DIR" >&5
 -echo "${ECHO_T}$MUTEX_DIR" >&6
  
++
 +  { echo "$as_me:$LINENO: checking for $am_display_PYTHON platform" >&5
 +echo $ECHO_N "checking for $am_display_PYTHON platform... $ECHO_C" >&6; }
 +if test "${am_cv_python_platform+set}" = set; then
@@ -4045,7 +4049,6 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
 -    warning unless you need to regenerate psp_parser.c from psp_parse.l.
 -    If you do need regenerate psp_parser.c, use --with-flex to specify the
 -    location of the correct flex version. See the README for more information." >&2;}
--  fi
 +    done
 +    ac_cv_prog_CPP=$CPP
 +
@@ -4410,11 +4413,10 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
 +    warning unless you need to regenerate psp_parser.c from psp_parse.l.
 +    If you do need regenerate psp_parser.c, use --with-flex to specify the
 +    location of the correct flex version. See the README for more information." >&2;}
-+  fi
+   fi
  
  else
-   { echo "$as_me:$LINENO: WARNING: flex $LEX not found
-@@ -3219,7 +4084,8 @@
+@@ -3213,7 +4084,8 @@ echo "$as_me: WARNING: flex $LEX not fou
    See the README for more information." >&2;}
  fi
  
@@ -4424,7 +4426,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  cat >confcache <<\_ACEOF
  # This file is a shell script that caches the results of configure
  # tests run on this system so they can be shared between configure
-@@ -3238,39 +4104,58 @@
+@@ -3232,39 +4104,58 @@ _ACEOF
  
  # The following way of writing the cache mishandles newlines in values,
  # but we know of no workaround that is simple, portable, and efficient.
@@ -4499,7 +4501,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    fi
  fi
  rm -f confcache
-@@ -3279,63 +4164,48 @@
+@@ -3273,63 +4164,48 @@ test "x$prefix" = xNONE && prefix=$ac_de
  # Let make expand exec_prefix.
  test "x$exec_prefix" = xNONE && exec_prefix='${prefix}'
  
@@ -4590,7 +4592,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  done
  LIBOBJS=$ac_libobjs
  
-@@ -3366,17 +4236,45 @@
+@@ -3360,17 +4236,45 @@ cat >>$CONFIG_STATUS <<\_ACEOF
  ## M4sh Initialization.  ##
  ## --------------------- ##
  
@@ -4640,7 +4642,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  # Support unset when possible.
  if ( (MAIL=60; unset MAIL) || exit) >/dev/null 2>&1; then
-@@ -3386,8 +4284,43 @@
+@@ -3380,8 +4284,43 @@ else
  fi
  
  
@@ -4685,7 +4687,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  PS1='$ '
  PS2='> '
  PS4='+ '
-@@ -3401,18 +4334,19 @@
+@@ -3395,18 +4334,19 @@ do
    if (set +x; test -z "`(eval $as_var=C; export $as_var) 2>&1`"); then
      eval $as_var=C; export $as_var
    else
@@ -4708,7 +4710,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    as_basename=basename
  else
    as_basename=false
-@@ -3420,159 +4354,120 @@
+@@ -3414,159 +4354,120 @@ fi
  
  
  # Name of the executable.
@@ -4939,7 +4941,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  if mkdir -p . 2>/dev/null; then
    as_mkdir_p=:
-@@ -3581,7 +4476,28 @@
+@@ -3575,7 +4476,28 @@ else
    as_mkdir_p=false
  fi
  
@@ -4969,7 +4971,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
  # Sed expression to map a string onto a valid CPP name.
  as_tr_cpp="eval sed 'y%*$as_cr_letters%P$as_cr_LETTERS%;s%[^_$as_cr_alnum]%_%g'"
-@@ -3590,31 +4506,14 @@
+@@ -3584,31 +4506,14 @@ as_tr_cpp="eval sed 'y%*$as_cr_letters%P
  as_tr_sh="eval sed 'y%*+%pp%;s%[^_$as_cr_alnum]%_%g'"
  
  
@@ -5005,7 +5007,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
    CONFIG_FILES    = $CONFIG_FILES
    CONFIG_HEADERS  = $CONFIG_HEADERS
-@@ -3622,30 +4521,18 @@
+@@ -3616,30 +4521,18 @@ generated by GNU Autoconf 2.59.  Invocat
    CONFIG_COMMANDS = $CONFIG_COMMANDS
    $ $0 $@
  
@@ -5022,8 +5024,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
 -if test -n "$ac_config_files"; then
 -  echo "config_files=\"$ac_config_files\"" >>$CONFIG_STATUS
 -fi
-+config_files="$ac_config_files"
- 
+-
 -if test -n "$ac_config_headers"; then
 -  echo "config_headers=\"$ac_config_headers\"" >>$CONFIG_STATUS
 -fi
@@ -5031,7 +5032,8 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
 -if test -n "$ac_config_links"; then
 -  echo "config_links=\"$ac_config_links\"" >>$CONFIG_STATUS
 -fi
--
++config_files="$ac_config_files"
+ 
 -if test -n "$ac_config_commands"; then
 -  echo "config_commands=\"$ac_config_commands\"" >>$CONFIG_STATUS
 -fi
@@ -5042,7 +5044,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  ac_cs_usage="\
  \`$as_me' instantiates files from templates according to the
  current configuration.
-@@ -3653,7 +4540,7 @@
+@@ -3647,7 +4540,7 @@ current configuration.
  Usage: $0 [OPTIONS] [FILE]...
  
    -h, --help       print this help, then exit
@@ -5051,7 +5053,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
    -q, --quiet      do not print progress messages
    -d, --debug      don't remove temporary files
        --recheck    update $as_me by reconfiguring in the same conditions
-@@ -3664,19 +4551,21 @@
+@@ -3658,19 +4551,21 @@ Configuration files:
  $config_files
  
  Report bugs to <bug-autoconf@gnu.org>."
@@ -5079,7 +5081,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  _ACEOF
  
  cat >>$CONFIG_STATUS <<\_ACEOF
-@@ -3687,60 +4576,42 @@
+@@ -3681,60 +4576,42 @@ while test $# != 0
  do
    case $1 in
    --*=*)
@@ -5152,7 +5154,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  
    esac
    shift
-@@ -3756,35 +4627,49 @@
+@@ -3750,35 +4627,49 @@ fi
  _ACEOF
  cat >>$CONFIG_STATUS <<_ACEOF
  if \$ac_cs_recheck; then
@@ -5217,7 +5219,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
  # If the user did not use the arguments to specify the items to instantiate,
  # then the envvar interface is used.  Set only those that are not.
  # We use the long form for the default assignment because of an extremely
-@@ -3794,349 +4679,437 @@
+@@ -3788,349 +4679,437 @@ if $ac_need_defaults; then
  fi
  
  # Have a temporary directory for convenience.  Make it in the build tree
@@ -5489,7 +5491,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
 +cat >>$CONFIG_STATUS <<_ACEOF
 +cat >"\$tmp/subs-1.sed" <<\CEOF$ac_eof
 +/@[a-zA-Z_][a-zA-Z_0-9]*@/!b end
-+_ACEOF
+ _ACEOF
 +sed '
 +s/[,\\&]/\\&/g; s/@/@|#_!!_#|/g
 +s/^/s,@/; s/!/@,|#_!!_#|/
@@ -5504,7 +5506,7 @@ diff -ur mod_python-3.3.1-orig/configure mod_python-3.3.1/configure
 +:end
 +s/|#_!!_#|//g
 +CEOF$ac_eof
- _ACEOF
++_ACEOF
 +
 +
 +# VPATH may cause trouble with some makes, so we remove $(srcdir),
