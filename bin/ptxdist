@@ -1484,7 +1484,7 @@ parse_second()
 			;;
 
 
-		select)
+		select|ptx)
 			do_select ptxconfig "${1}"
 			exit ${?}
 			;;
@@ -1717,8 +1717,8 @@ parse_second()
 setup_topdir() {
 	local ptxdist topdir
 
-	ptxdist="$(readlink -f "${0}")"
-	topdir="$(cd "$(dirname "${ptxdist}")"/.. && pwd)"
+	ptxdist="$(readlink -f "${0}")" || return
+	topdir="$(cd "$(dirname "${ptxdist}")"/.. && pwd)" || return
 
 	#
 	# sanity check: is PTXdist already configured?
@@ -1750,6 +1750,7 @@ setup_topdir() {
 #
 ptxdist_trap_exit_handler() {
 	local retval="${?}"
+	local file
 
 	if [ -n "${PTXDIST_TEMPDIR}" -a -d "${PTXDIST_TEMPDIR}" ]; then
 		rm -fr -- "${PTXDIST_TEMPDIR}"
@@ -1795,7 +1796,7 @@ setup_libs_early() {
 	; do
 		abs_file="${PTXDIST_TOPDIR}/${file}"
 		if [ -e "${abs_file}" ]; then
-			source "${abs_file}" || exit $?
+			source "${abs_file}" || return
 		else
 			echo "${PROMPT}FATAL didn't find ${abs_file}"
 			exit 1
@@ -1833,14 +1834,14 @@ setup_config() {
 	local rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
 
 	if [ \! -e "${rc_user}" ]; then
-		cp -- "${rc_default}" "${rc_user}"
+		cp -- "${rc_default}" "${rc_user}" || return
 	fi
 
 	#
 	# source default values first, let the user overwrite them
 	#
-	ptxd_source_kconfig "${rc_default}"
-	ptxd_source_kconfig "${rc_user}"
+	ptxd_source_kconfig "${rc_default}" || return
+	ptxd_source_kconfig "${rc_user}" || return
 
 	#
 	# enable or disable errexit
@@ -1924,10 +1925,10 @@ setup_platform() {
 	fi
 
 	# reread vars with correct PTXDIST_PLATFORMDIR
-	source "${SCRIPTSDIR}/ptxdist_vars.sh" || exit $?
+	source "${SCRIPTSDIR}/ptxdist_vars.sh" || return
 
 	if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
-		cfg_dir="$(dirname "$(readlink -f "${PTXDIST_PLATFORMCONFIG}")")"
+		cfg_dir="$(dirname "$(readlink -f "${PTXDIST_PLATFORMCONFIG}")")" || return
 	else
 		unset cfg_dir
 	fi
@@ -2048,23 +2049,23 @@ setup_export() {
 # main()
 ########################################################################
 
-setup_topdir
-setup_traps
-setup_libs_early
+setup_topdir		|| ptxd_bailout "fatal error"
+setup_traps		|| ptxd_bailout "fatal error"
+setup_libs_early	|| ptxd_bailout "fatal error"
 # ---  libs are available from here ---
-setup_config
+setup_config		|| ptxd_bailout "fatal error"
 # --- errexit feature may be active ---
-parse_first
+parse_first		|| ptxd_bailout "fatal error"
 # --- vars to config files are setup ---
-setup_platform
+setup_platform		|| ptxd_bailout "fatal error"
 # --- platformdir and other *dirs are available from here ---
 # --- all variables are defined now ---
-setup_libs
-setup_path
+setup_libs		|| ptxd_bailout "fatal error"
+setup_path		|| ptxd_bailout "fatal error"
 # --- path is now set ---
-setup_logfile
+setup_logfile		|| ptxd_bailout "fatal error"
 # -- logfile is ready
-setup_export
+setup_export		|| ptxd_bailout "fatal error"
 # -- all important vars are exported
 
 check_uid
