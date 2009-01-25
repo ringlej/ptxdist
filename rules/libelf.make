@@ -50,7 +50,8 @@ LIBELF_MAKEVARS	:= instroot=$(SYSROOT)
 #
 LIBELF_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-shared
+	--enable-shared \
+	--enable-elf64
 
 # ----------------------------------------------------------------------------
 # Target-Install
