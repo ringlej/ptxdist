@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 ALSA_LIB_SUFFIX		:= tar.bz2
 
 ifdef PTXCONF_ALSA_LIB_FULL
-ALSA_LIB_VERSION	:= 1.0.16
+ALSA_LIB_VERSION	:= 1.0.18
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_URL		:= ftp://ftp.alsa-project.org/pub/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
 endif
@@ -45,8 +45,6 @@ $(ALSA_LIB_SOURCE):
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-alsa-lib_prepare: $(STATEDIR)/alsa-lib.prepare
 
 ALSA_LIB_PATH	:=  PATH=$(CROSS_PATH)
 ALSA_LIB_ENV 	:=  $(CROSS_ENV)
@@ -215,4 +213,3 @@ alsa-lib_clean:
 	rm -rf $(ALSA_LIB_DIR)
 
 # vim: syntax=make
-
