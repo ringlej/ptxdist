@@ -1,3 +1,11 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: use AC_COMPILE_IFELSE instead of AC_RUN_IFELSE to check for sys/inotify.h
+
+Without this patch cross compiling inotify-tools doesn't work
+out of the box, because running a cross compiled programm is not
+possible. This patch uses the AC_COMPILE_IFELSE instead.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  configure.ac |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
