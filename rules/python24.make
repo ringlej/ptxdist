@@ -158,7 +158,7 @@ $(STATEDIR)/python24.targetinstall:
 
 	cd $(PYTHON24_PKGDIR) && find -type f | \
 		while read file; do \
-		$(call install_copy, python24, 0, 0, $$(stat -c "0%a" $$file), $(PYTHON24_PKGDIR)/$$file, $$file); \
+		$(call install_copy, python24, 0, 0, $$(stat -c "0%a" $$file), $(PYTHON24_PKGDIR)/$$file, $${file##.}); \
 	done
 
 ifdef PTXCONF_PYTHON24_SYMLINK
