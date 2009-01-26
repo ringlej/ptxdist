@@ -1,3 +1,4 @@
+# -*-makefile-*-
 # $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
@@ -12,6 +13,12 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_JVISU) += jvisu
+
+ifeq ($(PTXCONF_JVISU)-$(shell which ant 2>/dev/null),y-)
+    $(warning *** ant is mandatory to build JVisu)
+    $(warning *** please install ant)
+    $(error )
+endif
 
 #
 # Paths and names
@@ -28,24 +35,16 @@ JVISU_DIR	:= $(BUILDDIR)/$(JVISU)
 # Get
 # ----------------------------------------------------------------------------
 
-jvisu_get: $(STATEDIR)/jvisu.get
-
-$(STATEDIR)/jvisu.get: $(jvisu_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(JVISU_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, JVISU)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-jvisu_extract: $(STATEDIR)/jvisu.extract
-
-$(STATEDIR)/jvisu.extract: $(jvisu_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/jvisu.extract:
+	@$(call targetinfo)
 	@$(call clean, $(JVISU_DIR))
 	@$(call extract, JVISU)
 	@$(call patchin, JVISU)
@@ -54,55 +53,45 @@ $(STATEDIR)/jvisu.extract: $(jvisu_extract_deps_default)
 	# so we tweak it here in a way that it works at least with Debian
 	sed -i -e "s,^JAVAPATH=.*$$,JAVAPATH=$(PTXCONF_SETUP_JAVA_SDK),g" $(JVISU_DIR)/build.properties
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-jvisu_prepare: $(STATEDIR)/jvisu.prepare
 
-JVISU_PATH	=  PATH=$(PTXCONF_SETUP_JAVA_SDK)/bin:$(CROSS_PATH)
-JVISU_ENV 	=  $(CROSS_ENV)
-JVISU_ENV	+= JAVA_HOME=$(PTXCONF_SETUP_JAVA_SDK)
+JVISU_PATH	:= PATH=$(PTXCONF_SETUP_JAVA_SDK)/bin:$(CROSS_PATH)
+JVISU_ENV 	:= \
+	$(CROSS_ENV) \
+	JAVA_HOME=$(PTXCONF_SETUP_JAVA_SDK)
 
-$(STATEDIR)/jvisu.prepare: $(jvisu_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(JVISU_DIR)/config.cache)
-	@$(call touch, $@)
+$(STATEDIR)/jvisu.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-jvisu_compile: $(STATEDIR)/jvisu.compile
-
-$(STATEDIR)/jvisu.compile: $(jvisu_compile_deps_default)
-	@$(call targetinfo, $@)
-
-	# FIXME: we need ant to do this; should we make it a host tool? 
+$(STATEDIR)/jvisu.compile:
+	@$(call targetinfo)
 	cd $(JVISU_DIR) && $(JVISU_ENV) $(JVISU_PATH) /bin/bash ./build.sh jar
-
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-jvisu_install: $(STATEDIR)/jvisu.install
-
-$(STATEDIR)/jvisu.install: $(jvisu_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/jvisu.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-jvisu_targetinstall: $(STATEDIR)/jvisu.targetinstall
-
-$(STATEDIR)/jvisu.targetinstall: $(jvisu_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/jvisu.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, jvisu)
 	@$(call install_fixup, jvisu,PACKAGE,jvisu)
@@ -120,7 +109,7 @@ endif
 
 	@$(call install_finish, jvisu)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
