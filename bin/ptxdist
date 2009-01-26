@@ -735,7 +735,6 @@ EOF
 
 clean() {
 	local dir bdir
-	local ptxconf_sysroot_target ptxconf_sysroot_host ptxconf_sysroot_cross
 
 	# we want to clean the root dir
 	if [ "${1}" = "root" ]; then
@@ -778,9 +777,10 @@ clean() {
 
 	if [ -f "${PTXDIST_PTXCONFIG}" ]; then
 		echo "${PROMPT}removing sysroot directories..."
-		ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
-		ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
-		ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
+		local ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
+		local ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
+		local ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
+		local ptxconf_gnu_target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
 
 		for dir in "${ptxconf_sysroot_target}" "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"; do
 			if [ ! -d "${dir}" ]; then
@@ -799,6 +799,13 @@ clean() {
 				;;
 			esac
 		done
+
+		# this is for ptxdist-1 backward compatibility
+		dir="${PTXDIST_WORKSPACE}/local/${ptxconf_gnu_target}"
+		if [ -n "${ptxconf_gnu_target}" -a -d "${dir}" ]; then
+			rm -rf "${dir}" || true
+			rmdir "${PTXDIST_WORKSPACE}/local" >/dev/null 2>&1 || true
+		fi
 	fi
 
 	echo "${PROMPT}removing deps..."

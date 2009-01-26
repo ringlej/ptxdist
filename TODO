@@ -105,10 +105,14 @@ make: *** [/home/frogger/pengutronix/bsp/OSELAS.BSP-Pengutronix-AllYes-trunk/pla
     when being run with sudo (see start/stop/connect scripts in i586) and
     /dev/net/tun must be made rwrwrw.
 
-[ ] jbe: Would it be possible to delete a directory defined by PTXCONF_SYSROOT_TARGET
+[x] jbe: Would it be possible to delete a directory defined by PTXCONF_SYSROOT_TARGET
     in the form "${PTXDIST_WORKSPACE}/local/${PTXCONF_ARCH_STRING}"
     Currently the "local" part still exists when running "ptxdist clean".
     This is for ptxdist-1 backward compatibility.
+
+    Update 20090126:	the correct is path is:
+			"${PTXDIST_WORKSPACE}/local/${PTXCONF_GNU_TARGET}"
+			and it is cleaned now
 
 [ ] bbu: default path to generic projects seems not work
 
