@@ -306,6 +306,13 @@ TODO before 2.1.0
 TODO somewhen
 =============
 
+[ ] rsc: license management:
+
+    - generate license dependency graph (based on objdump info?)
+    - bundle GPL sources automatically
+
+[ ] rsc: add sparse support
+
 [ ] mol: bash configure --enable-job-control does not work when cross compiling
          posible fix in:
          https://iocaste.extern.pengutronix.de/svn/oselas/bsp/johndeere/OSELAS.BSP-JohnDeere-ComPC-trunk/rules/bash.make
