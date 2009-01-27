@@ -1,0 +1,12 @@
+## SECTION=shell_and_console
+
+config DEVICEKIT
+	tristate
+	select GLIB
+	select DBUS
+	select DBUS_GLIB
+	select UDEV
+	select UDEV__LIBUDEV
+	prompt "devicekit"
+	help
+	  FIXME
