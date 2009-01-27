@@ -3,6 +3,9 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: /usr/share/apache2/libexec/mod_python.so
+    Misses libpython2.4.so.1.0 at runtime
+
 [ ] rsc: http://ch.tudelft.nl/~arthur/svn2cl/
 
 [x] jbe: These libs/executeables are including host library search paths (RPATH)
