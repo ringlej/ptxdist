@@ -1,0 +1,8 @@
+## SECTION=shell_and_console
+
+config UPSTART
+	tristate
+	select DBUS
+	prompt "upstart"
+	help
+	  FIXME
