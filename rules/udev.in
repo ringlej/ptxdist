@@ -146,7 +146,7 @@ menu "install options               "
 	config UDEV__ETC_CONF
 		bool
 		default y
-		prompt "Install udev.conf"
+		prompt "install udev.conf"
 		help
 		  Installs /etc/udev/udev.conf. If you don't wish to install the
 		  generic udev.conf, just put a copy of your own udev.conf file into
@@ -154,24 +154,30 @@ menu "install options               "
 
 	config UDEV__DEFAULT_RULES
 		bool
-		prompt "Install default udev rules"
+		prompt "install default udev rules"
 		help
 		  This will install the generic udev rules files from the udev package
 		  under /lib/udev/rules.d/
 
 	config UDEV__COMMON_RULES
 		bool
-		prompt "Install common udev rules"
+		prompt "install common udev rules"
 		help
 	  	  This will install some of the common rules shipped by udev, including
 		  rules for sound, isdn, md and device mapper.
 
 	config UDEV__CUST_RULES
 		bool
-		prompt "Install customized udev rules"
+		prompt "install customized udev rules"
 		help
 		  This will install the customized udev rules files from
 		  projectroot/lib/udev/rules.d into /lib/udev/rules.d
+
+	config UDEV__LIBUDEV
+		bool
+		prompt "install libudev"
+		help
+		  Install libudev.so on the target.
 
 	endmenu
 

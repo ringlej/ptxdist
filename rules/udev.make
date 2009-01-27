@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
-UDEV_VERSION	:= 136
+UDEV_VERSION	:= 137
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
@@ -199,9 +199,15 @@ endif
 ifdef PTXCONF_UDEV__EXTRA_VOLUME_ID
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/vol_id)
 
-	@$(call install_copy, udev, 0, 0, 0644, -, /lib/libvolume_id.so.1.0.7)
-	@$(call install_link, udev, libvolume_id.so.1.0.7, /lib/libvolume_id.so.1)
-	@$(call install_link, udev, libvolume_id.so.1.0.7, /lib/libvolume_id.so)
+	@$(call install_copy, udev, 0, 0, 0644, -, /lib/libvolume_id.so.1.0.8)
+	@$(call install_link, udev, libvolume_id.so.1.0.8, /lib/libvolume_id.so.1)
+	@$(call install_link, udev, libvolume_id.so.1.0.8, /lib/libvolume_id.so)
+endif
+
+ifdef PTXCONF_UDEV__LIBUDEV
+	@$(call install_copy, udev, 0, 0, 0644, -, /lib/libudev.so.0.0.8)
+	@$(call install_link, udev, libudev.so.0.0.8, /lib/libudev.so.0)
+	@$(call install_link, udev, libudev.so.0.0.8, /lib/libudev.so)
 endif
 
 	@$(call install_finish, udev)
