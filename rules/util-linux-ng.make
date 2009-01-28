@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.14.1-rc2
+UTIL_LINUX_NG_VERSION	:= 2.14.2-rc2
 UTIL_LINUX_NG		:= util-linux-ng-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.bz2
 UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.14/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
@@ -44,11 +44,49 @@ UTIL_LINUX_NG_ENV 	:= $(CROSS_ENV)
 #
 UTIL_LINUX_NG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-nls \
+	--disable-rpath \
+	--disable-agetty \
+	--disable-cramfs \
+	--disable-init \
+	--disable-kill \
+	--disable-last \
+	--disable-mesg \
+	--disable-partx \
+	--disable-raw \
+	--disable-rdev \
+	--disable-rename \
+	--disable-reset \
+	--disable-login-utils \
+	--disable-schedutils \
+	--disable-wall \
+	--disable-write \
+	--disable-chsh-only-listed \
+	--disable-login-chown-vcs \
+	--disable-login-stat-mail \
+	--disable-pg-bell \
+	--disable-require-password \
+	--disable-use-tty-group \
+	--without-pam \
+	--without-slang \
+	--without-selinux \
+	--without-audit \
 	--with-fsprobe=blkid
 
-ifndef UTIL_LINUX_NG_CFDISK
+ifdef PTXCONF_UTIL_LINUX_NG_USES_NCURSES
+UTIL_LINUX_NG_AUTOCONF	+= --with-ncurses
+else
 UTIL_LINUX_NG_AUTOCONF	+= --without-ncurses
 endif
+
+# checking for perl... /usr/bin/perl
+UTIL_LINUX_NG_AUTOCONF += ac_cv_path_PERL=no
+# checking for blkid... /sbin/blkid
+UTIL_LINUX_NG_AUTOCONF += ac_cv_path_BLKID=no
+# checking for vol_id... /sbin/vol_id
+UTIL_LINUX_NG_AUTOCONF += ac_cv_path_VOLID=no
+# uses termcap for 'more' if found
+UTIL_LINUX_NG_AUTOCONF += ac_cv_lib_termcap_tgetnum=no
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -3,17 +3,26 @@ menuconfig UTIL_LINUX_NG
 
 	tristate
 	prompt "util-linux-ng                 "
-	# depends on blkid binary and lib provided by e2fsprogs
-	select HOST_E2FSPROGS
-	select HOST_UDEV
-	select HOST_GETTEXT
+	# only used in misc-utils -> script
+	# select LIBC_UTIL
+	# we may need libuuid from E2FSPROGS, but we always need blkid from
+	# this package
 	select E2FSPROGS
-	select NCURSES if UTIL_LINUX_NG_CFDISK
+	# Always required to guess filesystems
+	select E2FSPROGS_INSTALL_BLKID
+	select NCURSES if UTIL_LINUX_NG_CFDISK || UTIL_LINUX_NG_SETTERM
+	select UTIL_LINUX_NG_USES_NCURSES if UTIL_LINUX_NG_CFDISK || UTIL_LINUX_NG_SETTERM 
+	# Only required for textutils we currently do not use
+	# select TERMCAP if ???????????
+
+if UTIL_LINUX_NG
+
+config UTIL_LINUX_NG_USES_NCURSES
+	bool
 
 config UTIL_LINUX_NG_FDISK
 	bool
 	prompt "fdisk"
-	depends on UTIL_LINUX_NG
 	depends on !BUSYBOX_FDISK || ALLYES
 	help
 	  fdisk - Partition table manipulator for Linux
@@ -24,7 +33,6 @@ comment "BusyBox' fdisk is selected!"
 config UTIL_LINUX_NG_SFDISK
 	bool
 	prompt "sfdisk"
-	depends on UTIL_LINUX_NG
 	help
 	  sfdisk - Partition table manipulator for Linux,
 	  scriptable for unattended partitioning
@@ -32,15 +40,12 @@ config UTIL_LINUX_NG_SFDISK
 config UTIL_LINUX_NG_CFDISK
 	bool
 	prompt "cfdisk"
-	depends on UTIL_LINUX_NG
-	select NCURSES
 	help
 	  cfdisk is a curses based program for partitioning any hard disk drive.
 
 config UTIL_LINUX_NG_MKSWAP
 	bool
 	prompt "mkswap"
-	depends on UTIL_LINUX_NG
 	depends on !BUSYBOX_MKSWAP || ALLYES
 	help
 	  mkswap sets up a Linux swap area on a device or in a file.
@@ -53,35 +58,32 @@ config UTIL_LINUX_NG_MKSWAP_UUID
 	  enable uuid support for mkswap
 
 comment "BusyBox' mkswap is selected!"
-	depends on UTIL_LINUX_NG && BUSYBOX_MKSWAP
+	depends on BUSYBOX_MKSWAP
 
 config UTIL_LINUX_NG_SWAPON
 	bool
 	prompt "swapon"
-	depends on UTIL_LINUX_NG
 	depends on !BUSYBOX_SWAPONOFF || ALLYES
 	help
 	  Swapon is used to specify devices on which paging and swapping are to take place.
 
 comment "BusyBox' swapon is selected!"
-	depends on UTIL_LINUX_NG && BUSYBOX_SWAPONOFF
+	depends on BUSYBOX_SWAPONOFF
 
 config UTIL_LINUX_NG_MOUNT
 	bool
 	prompt "mount"
-	depends on UTIL_LINUX_NG
 	depends on !BUSYBOX_MOUNT || ALLYES
 	help
 	  The mount command serves to attach the file system
 	  found on some device to the big file tree.
 
 comment "BusyBox' mount is selected!"
-	depends on UTIL_LINUX_NG && BUSYBOX_MOUNT
+	depends on BUSYBOX_MOUNT
 
 config UTIL_LINUX_NG_UMOUNT
 	bool
 	prompt "umount"
-	depends on UTIL_LINUX_NG
 	depends on !BUSYBOX_UMOUNT || ALLYES
 	help
 	  The mount(8) command serves to attach the file system
@@ -89,24 +91,22 @@ config UTIL_LINUX_NG_UMOUNT
 	  Conversely, the umount(8) command will detach it again.
 
 comment "BusyBox' umount is selected!"
-	depends on UTIL_LINUX_NG && BUSYBOX_UMOUNT
+	depends on BUSYBOX_UMOUNT
 
 config UTIL_LINUX_NG_IPCS
 	bool
 	prompt "ipcs"
-	depends on UTIL_LINUX_NG
 	depends on !BUSYBOX_IPCS || ALLYES
 	help
 	  ipcs provides information on the ipc facilities
 	  for which the calling process has read acccess.
 
 comment "BusyBox' ipcs is selected!"
-	depends on UTIL_LINUX_NG && BUSYBOX_IPCS
+	depends on BUSYBOX_IPCS
 
 config UTIL_LINUX_NG_READPROFILE
 	bool
 	prompt "readprofile"
-	depends on UTIL_LINUX_NG
 	depends on !BUSYBOX_READPROFILE || ALLYES
 	help
 	  The readprofile command uses the /proc/profile information
@@ -119,13 +119,13 @@ config UTIL_LINUX_NG_READPROFILE
 	  procedure. The output is filled with blanks to ease readability.
 
 comment "BusyBox' readprofile is selected!"
-	depends on UTIL_LINUX_NG && BUSYBOX_READPROFILE
+	depends on BUSYBOX_READPROFILE
 
 config UTIL_LINUX_NG_SETTERM
 	bool
 	prompt "setterm"
-	depends on UTIL_LINUX_NG
 	help
 	  setterm - set terminal attributes like terminal name, cursor
 	  blinking and beeper sound
 
+endif
