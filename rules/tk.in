@@ -3,8 +3,48 @@
 menuconfig TK
 	tristate
 	prompt "tk (tcl/tk)                   "
-	select ROOTFS_DEV
-	depends on TCL
+	select TCL
+	select LIBC_M
+	select LIBC_DL
+	select LIBC_PTHREAD
+	select XORG
+	select XORG_LIB_X11
+	select XORG_LIB_XFT if TK_XFT
 	depends on BROKEN
 	help
 	  Tk is a graphical extension to Tcl (Tool Command Language)
+
+if TK
+
+config TK_WISH
+	bool
+	prompt "install wish"
+	help
+	  Install the TK shell 'wish'. More for development, most of the time
+	  not required.
+
+config TK_THREADS
+	bool
+	prompt "enable thread support"
+	help
+	  Build the TK engine with thread support. This may speed down non
+	  thread scripts.
+
+config TK_XFT
+	bool
+	prompt "use freetype/fontconfig/xft"
+	depends on BROKEN
+	help
+	  Use freetype/fontconfig/xft for font handling.
+	  Note: Currently very broken
+
+config TK_TTK
+	bool
+	prompt "install fancy new widgets"
+	# untested yet
+	depends on BROKEN
+	help
+	  Install the fancy new TTK widgets on the target.
+	  Note: Currently untested
+
+endif
