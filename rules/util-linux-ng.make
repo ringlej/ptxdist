@@ -46,6 +46,10 @@ UTIL_LINUX_NG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-fsprobe=blkid
 
+ifndef UTIL_LINUX_NG_CFDISK
+UTIL_LINUX_NG_AUTOCONF	+= --without-ncurses
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------

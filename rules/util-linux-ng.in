@@ -3,9 +3,12 @@ menuconfig UTIL_LINUX_NG
 
 	tristate
 	prompt "util-linux-ng                 "
+	# depends on blkid binary and lib provided by e2fsprogs
+	select HOST_E2FSPROGS
+	select HOST_UDEV
+	select HOST_GETTEXT
+	select E2FSPROGS
 	select NCURSES if UTIL_LINUX_NG_CFDISK
-	# we may need libuuid from E2FSPROGS
-	select E2FSPROGS if UTIL_LINUX_NG_MKSWAP_UUID
 
 config UTIL_LINUX_NG_FDISK
 	bool
