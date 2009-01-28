@@ -8,8 +8,6 @@ menuconfig UTIL_LINUX_NG
 	# we may need libuuid from E2FSPROGS, but we always need blkid from
 	# this package
 	select E2FSPROGS
-	# Always required to guess filesystems
-	select E2FSPROGS_INSTALL_BLKID
 	select NCURSES if UTIL_LINUX_NG_CFDISK || UTIL_LINUX_NG_SETTERM
 	select UTIL_LINUX_NG_USES_NCURSES if UTIL_LINUX_NG_CFDISK || UTIL_LINUX_NG_SETTERM 
 	# Only required for textutils we currently do not use
