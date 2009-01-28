@@ -1,4 +1,0 @@
-## SECTION=hosttools_noprompt
-
-config HOST_UDEV
-	tristate
