@@ -95,7 +95,7 @@ TCL_ACONF_VAR += tcl_cv_stack_grows_up=no
 #
 $(STATEDIR)/tcl.prepare:
 	@$(call targetinfo)
-	@$(call clean, $(TCL_DIR)/config.cache)
+	@$(call clean, $(TCL_DIR)/unix/config.cache)
 	cd $(TCL_DIR)/unix && \
 		$(TCL_PATH) $(TCL_ENV) \
 		./configure $(TCL_AUTOCONF) $(TCL_ACONF_VAR)
@@ -217,7 +217,7 @@ else
 		PER=`stat -c "%a" $$file` \
 		$(call install_copy, tcl, 0, 0, $$PER, \
 			$(TCL_DIR)/tests/$$file, \
-			/usr/share/tcl-tests/$$file); \
+			/usr/share/tcl-tests/$$file, n); \
         done
 
 # unresolved tests:
