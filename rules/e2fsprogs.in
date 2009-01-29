@@ -1,8 +1,10 @@
 ## SECTION=disk_and_file
+
 menuconfig E2FSPROGS
 	tristate
 	prompt "e2fsprogs                     "
 	select HOST_GETTEXT
+	select E2FSPROGS_LIBS if (!E2FSPROGS_LIBUUID && !E2FSPROGS_LIBBLKID)
 	help
 	 The e2fsprogs package provides the filesystem utilities for use
 	 with the ext2 filesystem. It also supports the ext3 filesystem
@@ -10,9 +12,9 @@ menuconfig E2FSPROGS
 
 if E2FSPROGS
 
-# ---------------------
-comment "Build Options"
-# ---------------------
+# -----------------------------------
+menu "build options                 "
+# -----------------------------------
 
 config E2FSPROGS_COMPRESSION
 	bool
@@ -40,36 +42,77 @@ config E2FSPROGS_RESIZER
 	help
 	  Enable support for e2resize program.
 
-# -----------------------
-comment "Install Options"
-# -----------------------
+endmenu
+
+# -----------------------------------
+menu "libraries                     "
+# -----------------------------------
+
+config E2FSPROGS_LIBS
+	bool
+	prompt "e2fsprogs support libraries"
+	help
+	  Install the e2fsprogs default libraries.
+
+config E2FSPROGS_LIBUUID
+	bool
+	prompt "libuuid"
+	help
+	  Install libuuid.
+
+config E2FSPROGS_LIBBLKID
+	bool
+	prompt "libblkid"
+	help
+	  Install libblkid.
+
+endmenu
+
+# -----------------------------------
+menu "binaries                      "
+# -----------------------------------
 
 config E2FSPROGS_INSTALL_LSATTR
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "lsattr"
 	help
 	  Enable support for lsattr program.
 
 config E2FSPROGS_INSTALL_UUIDGEN
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "uuidgen"
 	help
 	  Enable support for uuidgen program.
 
 config E2FSPROGS_INSTALL_MK_CMDS
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "mk_cmds"
 	help
 	  Enable support for mk_cmds program.
 
 config E2FSPROGS_INSTALL_CHATTR
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "chattr"
 	help
 	  Enable support for chattr program.
 
 config E2FSPROGS_INSTALL_COMPILE_ET
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "compile_et"
 	help
 	  Enable support for compile_et program.
@@ -78,135 +121,203 @@ config E2FSPROGS_INSTALL_COMPILE_ET
 
 config E2FSPROGS_INSTALL_BLKID
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "blkid"
 	help
 	  Enable support for blkid program.
 
 config E2FSPROGS_INSTALL_MKFS_EXT4DEV
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "mkfs.ext4dev"
 	help
 	  Enable support for mkfs.ext4dev program.
 
 config E2FSPROGS_INSTALL_LOGSAVE
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "logsave"
 	help
 	  Enable support for logsave program.
 
 config E2FSPROGS_INSTALL_MKFS_EXT3
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "mkfs.ext3"
 	help
 	  Enable support for mkfs.ext3 program.
 
 config E2FSPROGS_INSTALL_FSCK_EXT4
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "fsck.ext4"
 	help
 	  Enable support for fsck.ext4 program.
 
 config E2FSPROGS_INSTALL_DUMPE2FS
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "dumpe2fs"
 	help
 	  Enable support for dumpe2fs program.
 
 config E2FSPROGS_INSTALL_FINDFS
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "findfs"
 	help
 	  Enable support for findfs program.
 
 config E2FSPROGS_INSTALL_FILEFRAG
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "filefrag"
 	help
 	  Enable support for filefrag program.
 
 config E2FSPROGS_INSTALL_MKE2FS
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "mke2fs"
 	help
 	  Enable support for mke2fs program.
 
 config E2FSPROGS_INSTALL_MKLOSTANDFOUND
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "mklost+found"
 	help
 	  Enable support for mklost+found program.
 
 config E2FSPROGS_INSTALL_FSCK_EXT4DEV
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "fsck.ext4dev"
 	help
 	  Enable support for fsck.ext4dev program.
 
 config E2FSPROGS_INSTALL_E2FSCK
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "e2fsck"
 	help
 	  Enable support for e2fsck program.
 
 config E2FSPROGS_INSTALL_MKFS_EXT2
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "mkfs.ext2"
 	help
 	  Enable support for mkfs.ext2 program.
 
 config E2FSPROGS_INSTALL_MKFS_EXT4
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "mkfs.ext4"
 	help
 	  Enable support for mkfs.ext4 program.
 
 config E2FSPROGS_INSTALL_RESIZE2FS
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "resize2fs"
 	help
 	  Enable support for resize2fs program.
 
 config E2FSPROGS_INSTALL_E2IMAGE
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "e2image"
 	help
 	  Enable support for e2image program.
 
 config E2FSPROGS_INSTALL_TUNE2FS
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "tune2fs"
 	help
 	  Enable support for tune2fs program.
 
 config E2FSPROGS_INSTALL_E2UNDO
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "e2undo"
 	help
 	  Enable support for e2undo program.
 
 config E2FSPROGS_INSTALL_FSCK_EXT2
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "fsck.ext2"
 	help
 	  Enable support for fsck.ext2 program.
 
 config E2FSPROGS_INSTALL_FSCK_EXT3
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "fsck.ext3"
 	help
 	  Enable support for fsck.ext3 program.
 
 config E2FSPROGS_INSTALL_BADBLOCKS
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "badblocks"
 	help
 	  Enable support for badblocks program.
 
 config E2FSPROGS_INSTALL_UUID
 	bool
+	select E2FSPROGS_LIBS
+	select E2FSPROGS_LIBUUID
+	select E2FSPROGS_LIBBLKID
 	prompt "uuid"
 	help
 	  Enable support for uuid program.
+
+endmenu
 
 endif
 

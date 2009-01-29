@@ -116,10 +116,7 @@ $(STATEDIR)/e2fsprogs.targetinstall:
 	# libraries
 	#
 
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libblkid.so.1.0, /usr/lib/libblkid.so.1.0)
-	@$(call install_link, e2fsprogs, libblkid.so.1.0, /usr/lib/libblkid.so.1)
-	@$(call install_link, e2fsprogs, libblkid.so.1.0, /usr/lib/libblkid.so)
-
+ifdef PTXCONF_E2FSPROGS_LIBS
 	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libcom_err.so.2.1, /usr/lib/libcom_err.so.2.1)
 	@$(call install_link, e2fsprogs, libcom_err.so.2.1, /usr/lib/libcom_err.so.2)
 	@$(call install_link, e2fsprogs, libcom_err.so.2.1, /usr/lib/libcom_err.so)
@@ -135,9 +132,19 @@ $(STATEDIR)/e2fsprogs.targetinstall:
 	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libss.so.2.0, /usr/lib/libss.so.2.0)
 	@$(call install_link, e2fsprogs, libss.so.2.0, /usr/lib/libss.so.2)
 	@$(call install_link, e2fsprogs, libss.so.2.0, /usr/lib/libss.so)
+endif
 
+ifdef PTXCONF_E2FSPROGS_LIBBLKID
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libblkid.so.1.0, /usr/lib/libblkid.so.1.0)
+	@$(call install_link, e2fsprogs, libblkid.so.1.0, /usr/lib/libblkid.so.1)
+	@$(call install_link, e2fsprogs, libblkid.so.1.0, /usr/lib/libblkid.so)
+endif
+
+ifdef PTXCONF_E2FSPROGS_LIBUUID
 	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libuuid.so.1.2, /usr/lib/libuuid.so.1.2)
 	@$(call install_link, e2fsprogs, libuuid.so.1.2, /usr/lib/libuuid.so.1)
+	@$(call install_link, e2fsprogs, libuuid.so.1.2, /usr/lib/libuuid.so)
+endif
 
 	#
 	# binaries in /usr/bin
