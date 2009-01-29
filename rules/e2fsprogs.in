@@ -2,6 +2,7 @@
 menuconfig E2FSPROGS
 	tristate
 	prompt "e2fsprogs                     "
+	select HOST_GETTEXT
 	help
 	 The e2fsprogs package provides the filesystem utilities for use
 	 with the ext2 filesystem. It also supports the ext3 filesystem
