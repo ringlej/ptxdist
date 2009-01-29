@@ -16,10 +16,11 @@ PACKAGES-$(PTXCONF_WIRELESS) += wireless
 #
 # Paths and names
 #
-WIRELESS_VERSION	= 28
+WIRELESS_VERSION	= 30.pre7
 WIRELESS		= wireless_tools.$(WIRELESS_VERSION)
 WIRELESS_SUFFIX		= tar.gz
-WIRELESS_URL		= http://pcmcia-cs.sourceforge.net/ftp/contrib/$(WIRELESS).$(WIRELESS_SUFFIX)
+WIRELESS_URL		= http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/$(WIRELESS).$(WIRELESS_SUFFIX) \
+			  http://pcmcia-cs.sourceforge.net/ftp/contrib/$(WIRELESS).$(WIRELESS_SUFFIX)
 WIRELESS_SOURCE		= $(SRCDIR)/$(WIRELESS).$(WIRELESS_SUFFIX)
 WIRELESS_DIR 		= $(BUILDDIR)/$(WIRELESS)
 
@@ -48,6 +49,8 @@ $(STATEDIR)/wireless.extract: $(wireless_extract_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(WIRELESS_DIR))
 	@$(call extract, WIRELESS)
+	# FIXME: move the pre version
+	mv $(BUILDDIR)/wireless_tools.30 $(WIRELESS_DIR)
 	@$(call patchin, WIRELESS)
 	@$(call touch, $@)
 
@@ -77,7 +80,8 @@ wireless_compile: $(STATEDIR)/wireless.compile
 
 $(STATEDIR)/wireless.compile: $(wireless_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(WIRELESS_DIR) && $(WIRELESS_PATH) $(WIRELESS_ENV) make CC=${CROSS_CC}
+	cd $(WIRELESS_DIR) && $(WIRELESS_PATH) $(WIRELESS_ENV) \
+		make CC=${CROSS_CC} PREFIX=/usr
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -88,6 +92,8 @@ wireless_install: $(STATEDIR)/wireless.install
 
 $(STATEDIR)/wireless.install: $(wireless_install_deps_default)
 	@$(call targetinfo, $@)
+	cd $(WIRELESS_DIR) && $(WIRELESS_PATH) $(WIRELESS_ENV) \
+		make install-hdr CC=${CROSS_CC} PREFIX=/usr
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
