@@ -1,0 +1,8 @@
+## SECTION=system_libraries
+
+config POLICYKIT
+	tristate
+	prompt "policykit"
+	help
+	  Policy kit offers an infrastructure for security policies for
+	  dbus applications.

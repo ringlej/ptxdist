@@ -1,0 +1,29 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [patch] compiling without pam doesn't work
+
+When compiled with --with-authfw=none, I get
+
+polkit-resolve-exe-helper.c:46:31: error: security/pam_appl.h: No such file or directory
+
+The patch below fixes it.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ src/polkit-dbus/polkit-resolve-exe-helper.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+Index: PolicyKit-0.9/src/polkit-dbus/polkit-resolve-exe-helper.c
+===================================================================
+--- PolicyKit-0.9.orig/src/polkit-dbus/polkit-resolve-exe-helper.c
++++ PolicyKit-0.9/src/polkit-dbus/polkit-resolve-exe-helper.c
+@@ -43,7 +43,9 @@
+ #ifdef HAVE_FREEBSD
+ #include <sys/param.h>
+ #endif
++#ifdef HAVE_PAM
+ #include <security/pam_appl.h>
++#endif
+ #include <grp.h>
+ #include <pwd.h>
+ #include <syslog.h>
