@@ -7,6 +7,9 @@ In file included from addr.c:28:
 
 This needs limits.h
 
+Patch is already in the upstream git at
+http://git.kernel.org/?p=libs/netlink/libnl.git
+
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
