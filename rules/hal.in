@@ -1,0 +1,20 @@
+## SECTION=shell_and_console
+
+config HAL
+	tristate
+	select UDEV
+	select POLICYKIT if HAL__POLKIT
+	# FIXME: why is this dependency necessary?
+	select UDEV__EXTRA_VOLUME_ID
+	prompt "hal"
+	help
+	  hal is a dbus service which provides userspace access for all
+	  kinds of hardware devices.
+
+if HAL
+
+config HAL__POLKIT
+	bool
+	prompt "policy kit support"
+
+endif
