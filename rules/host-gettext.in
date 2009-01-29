@@ -1,4 +1,4 @@
-## SECTION=hosttools
+## SECTION=hosttools_noprompt
 
 config HOST_GETTEXT
 	tristate
