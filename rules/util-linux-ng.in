@@ -3,13 +3,14 @@ menuconfig UTIL_LINUX_NG
 
 	tristate
 	prompt "util-linux-ng                 "
+	select HOST_GETTEXT
 	# only used in misc-utils -> script
 	# select LIBC_UTIL
 	# we may need libuuid from E2FSPROGS, but we always need blkid from
 	# this package
 	select E2FSPROGS
 	select NCURSES if UTIL_LINUX_NG_CFDISK || UTIL_LINUX_NG_SETTERM
-	select UTIL_LINUX_NG_USES_NCURSES if UTIL_LINUX_NG_CFDISK || UTIL_LINUX_NG_SETTERM 
+	select UTIL_LINUX_NG_USES_NCURSES if UTIL_LINUX_NG_CFDISK || UTIL_LINUX_NG_SETTERM
 	# Only required for textutils we currently do not use
 	# select TERMCAP if ???????????
 
