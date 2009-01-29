@@ -1,0 +1,27 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+In file included from addr.c:28:
+../include/netlink-local.h: In function '__str2type':In file included from attr.c:12:
+../include/netlink-local.h: In function '__str2type':
+../include/netlink-local.h:218: error: 'ULONG_MAX' undeclared (first use in this function)
+
+This needs limits.h
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ include/netlink-local.h |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: libnl-1.1/include/netlink-local.h
+===================================================================
+--- libnl-1.1.orig/include/netlink-local.h
++++ libnl-1.1/include/netlink-local.h
+@@ -26,6 +26,7 @@
+ #include <sys/socket.h>
+ #include <inttypes.h>
+ #include <assert.h>
++#include <limits.h>
+ 
+ #include <arpa/inet.h>
+ #include <netdb.h>

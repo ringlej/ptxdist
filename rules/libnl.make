@@ -1,0 +1,117 @@
+# -*-makefile-*-
+# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
+#
+# Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_LIBNL) += libnl
+
+#
+# Paths and names
+#
+LIBNL_VERSION	:= 1.1
+LIBNL		:= libnl-$(LIBNL_VERSION)
+LIBNL_SUFFIX	:= tar.gz
+LIBNL_URL	:= http://people.suug.ch/~tgr/libnl/files/$(LIBNL).$(LIBNL_SUFFIX)
+LIBNL_SOURCE	:= $(SRCDIR)/$(LIBNL).$(LIBNL_SUFFIX)
+LIBNL_DIR	:= $(BUILDDIR)/$(LIBNL)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(LIBNL_SOURCE):
+	@$(call targetinfo)
+	@$(call get, LIBNL)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/libnl.extract:
+	@$(call targetinfo)
+	@$(call clean, $(LIBNL_DIR))
+	@$(call extract, LIBNL)
+	@$(call patchin, LIBNL)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+LIBNL_PATH	:= PATH=$(CROSS_PATH)
+LIBNL_ENV 	:= $(CROSS_ENV)
+
+#
+# autoconf
+#
+LIBNL_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+$(STATEDIR)/libnl.prepare:
+	@$(call targetinfo)
+	@$(call clean, $(LIBNL_DIR)/config.cache)
+	cd $(LIBNL_DIR) && \
+		$(LIBNL_PATH) $(LIBNL_ENV) \
+		./configure $(LIBNL_AUTOCONF)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/libnl.compile:
+	@$(call targetinfo)
+	cd $(LIBNL_DIR) && $(LIBNL_PATH) $(MAKE) $(PARALLELMFLAGS) CC=$(CROSS_CC)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/libnl.install:
+	@$(call targetinfo)
+	@$(call install, LIBNL)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/libnl.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init, libnl)
+	@$(call install_fixup, libnl,PACKAGE,libnl)
+	@$(call install_fixup, libnl,PRIORITY,optional)
+	@$(call install_fixup, libnl,VERSION,$(LIBNL_VERSION))
+	@$(call install_fixup, libnl,SECTION,base)
+	@$(call install_fixup, libnl,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, libnl,DEPENDS,)
+	@$(call install_fixup, libnl,DESCRIPTION,missing)
+
+	@$(call install_copy, libnl, 0, 0, 0644, -, /usr/lib/libnl.so.1.1)
+	@$(call install_link, libnl, libnl.so.1.1, /usr/lib/libnl.so.1)
+	@$(call install_link, libnl, libnl.so.1.1, /usr/lib/libnl.so)
+
+	@$(call install_finish, libnl)
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+libnl_clean:
+	rm -rf $(STATEDIR)/libnl.*
+	rm -rf $(PKGDIR)/libnl_*
+	rm -rf $(LIBNL_DIR)
+
+# vim: syntax=make

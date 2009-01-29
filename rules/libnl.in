@@ -1,0 +1,11 @@
+## SECTION=system_libraries
+
+config LIBNL
+	tristate
+	prompt "libnl"
+	help
+	  libnl is a library for applications dealing with netlink
+	  sockets. The library provides an interface for raw
+	  netlink messaging and various netlink family specific
+	  interfaces.
+
