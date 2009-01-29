@@ -46,31 +46,31 @@ comment "Install Options"
 
 config E2FSPROGS_INSTALL_LSATTR
 	bool
-	prompt "install lsattr"
+	prompt "lsattr"
 	help
 	  Enable support for lsattr program.
 
 config E2FSPROGS_INSTALL_UUIDGEN
 	bool
-	prompt "install uuidgen"
+	prompt "uuidgen"
 	help
 	  Enable support for uuidgen program.
 
 config E2FSPROGS_INSTALL_MK_CMDS
 	bool
-	prompt "install mk_cmds"
+	prompt "mk_cmds"
 	help
 	  Enable support for mk_cmds program.
 
 config E2FSPROGS_INSTALL_CHATTR
 	bool
-	prompt "install chattr"
+	prompt "chattr"
 	help
 	  Enable support for chattr program.
 
 config E2FSPROGS_INSTALL_COMPILE_ET
 	bool
-	prompt "install compile_et"
+	prompt "compile_et"
 	help
 	  Enable support for compile_et program.
 
@@ -78,133 +78,133 @@ config E2FSPROGS_INSTALL_COMPILE_ET
 
 config E2FSPROGS_INSTALL_BLKID
 	bool
-	prompt "install blkid"
+	prompt "blkid"
 	help
 	  Enable support for blkid program.
 
 config E2FSPROGS_INSTALL_MKFS_EXT4DEV
 	bool
-	prompt "install mkfs.ext4dev"
+	prompt "mkfs.ext4dev"
 	help
 	  Enable support for mkfs.ext4dev program.
 
 config E2FSPROGS_INSTALL_LOGSAVE
 	bool
-	prompt "install logsave"
+	prompt "logsave"
 	help
 	  Enable support for logsave program.
 
 config E2FSPROGS_INSTALL_MKFS_EXT3
 	bool
-	prompt "install mkfs.ext3"
+	prompt "mkfs.ext3"
 	help
 	  Enable support for mkfs.ext3 program.
 
 config E2FSPROGS_INSTALL_FSCK_EXT4
 	bool
-	prompt "install fsck.ext4"
+	prompt "fsck.ext4"
 	help
 	  Enable support for fsck.ext4 program.
 
 config E2FSPROGS_INSTALL_DUMPE2FS
 	bool
-	prompt "install dumpe2fs"
+	prompt "dumpe2fs"
 	help
 	  Enable support for dumpe2fs program.
 
 config E2FSPROGS_INSTALL_FINDFS
 	bool
-	prompt "install findfs"
+	prompt "findfs"
 	help
 	  Enable support for findfs program.
 
 config E2FSPROGS_INSTALL_FILEFRAG
 	bool
-	prompt "install filefrag"
+	prompt "filefrag"
 	help
 	  Enable support for filefrag program.
 
 config E2FSPROGS_INSTALL_MKE2FS
 	bool
-	prompt "install mke2fs"
+	prompt "mke2fs"
 	help
 	  Enable support for mke2fs program.
 
 config E2FSPROGS_INSTALL_MKLOSTANDFOUND
 	bool
-	prompt "install mklost+found"
+	prompt "mklost+found"
 	help
 	  Enable support for mklost+found program.
 
 config E2FSPROGS_INSTALL_FSCK_EXT4DEV
 	bool
-	prompt "install fsck.ext4dev"
+	prompt "fsck.ext4dev"
 	help
 	  Enable support for fsck.ext4dev program.
 
 config E2FSPROGS_INSTALL_E2FSCK
 	bool
-	prompt "install e2fsck"
+	prompt "e2fsck"
 	help
 	  Enable support for e2fsck program.
 
 config E2FSPROGS_INSTALL_MKFS_EXT2
 	bool
-	prompt "install mkfs.ext2"
+	prompt "mkfs.ext2"
 	help
 	  Enable support for mkfs.ext2 program.
 
 config E2FSPROGS_INSTALL_MKFS_EXT4
 	bool
-	prompt "install mkfs.ext4"
+	prompt "mkfs.ext4"
 	help
 	  Enable support for mkfs.ext4 program.
 
 config E2FSPROGS_INSTALL_RESIZE2FS
 	bool
-	prompt "install resize2fs"
+	prompt "resize2fs"
 	help
 	  Enable support for resize2fs program.
 
 config E2FSPROGS_INSTALL_E2IMAGE
 	bool
-	prompt "install e2image"
+	prompt "e2image"
 	help
 	  Enable support for e2image program.
 
 config E2FSPROGS_INSTALL_TUNE2FS
 	bool
-	prompt "install tune2fs"
+	prompt "tune2fs"
 	help
 	  Enable support for tune2fs program.
 
 config E2FSPROGS_INSTALL_E2UNDO
 	bool
-	prompt "install e2undo"
+	prompt "e2undo"
 	help
 	  Enable support for e2undo program.
 
 config E2FSPROGS_INSTALL_FSCK_EXT2
 	bool
-	prompt "install fsck.ext2"
+	prompt "fsck.ext2"
 	help
 	  Enable support for fsck.ext2 program.
 
 config E2FSPROGS_INSTALL_FSCK_EXT3
 	bool
-	prompt "install fsck.ext3"
+	prompt "fsck.ext3"
 	help
 	  Enable support for fsck.ext3 program.
 
 config E2FSPROGS_INSTALL_BADBLOCKS
 	bool
-	prompt "install badblocks"
+	prompt "badblocks"
 	help
 	  Enable support for badblocks program.
 
 config E2FSPROGS_INSTALL_UUID
 	bool
-	prompt "install uuid"
+	prompt "uuid"
 	help
 	  Enable support for uuid program.
 
