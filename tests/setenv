@@ -5,20 +5,28 @@ if [ ! -e "${PTXDIST_BOARDSETUP}" ]; then
 	exit 1
 fi
 
-CONFFILE=${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/config
+CONFFILE="${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/config${PTXDIST_PLATFORMSUFFIX}"
+if [ ! -r "${CONFFILE}.in" ]; then
+	if [ -r "`dirname "${CONFFILE}"`/config.in" ]; then
+		CONFFILE="`dirname "${CONFFILE}"`/config"
+	else
+		echo "Config file for uboot environment is missing!"
+		exit 1
+	fi
+fi
 
 #source and export variables, so we can access them later with awk.
 set -a
-. ${PTXDIST_BOARDSETUP}
+. "${PTXDIST_BOARDSETUP}"
 set +a
 
 #Replace @magics@ with PTXCONF-variables
 #FIXME: Warn if variable is empty?
-awk 'match($0, "@[A-Z0-9_]+@") { var=substr($0,RSTART+1,RLENGTH-2); gsub( "@"var"@", ENVIRON[var]); } {print} ' $CONFFILE.in >$CONFFILE
+awk 'match($0, "@[A-Z0-9_]+@") { var=substr($0,RSTART+1,RLENGTH-2); gsub("@"var"@", ENVIRON[var]); } {print} ' "${CONFFILE}".in >"${CONFFILE}"
 
 PTXDIST_SETENV_U_BOOT_V2_ENV="$(mktemp "${PTXCONF_BOARDSETUP_TFTP_PATH}/u-boot-v2-environment.XXXXXX")"
-chmod 644 ${PTXDIST_SETENV_U_BOOT_V2_ENV}
+chmod 644 "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
 
-${PTXDIST_TOPDIR}/tests/kwrapper setenv ${CONFFILE} ${PTXDIST_SETENV_U_BOOT_V2_ENV}
+"${PTXDIST_WORKSPACE}/tests/kwrapper" setenv "${CONFFILE}" "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
 
-rm -rf ${PTXDIST_SETENV_U_BOOT_V2_ENV}
+rm -rf "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
