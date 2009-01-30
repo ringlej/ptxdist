@@ -1,0 +1,10 @@
+## SECTION=scientific
+
+config LIBPVGEN
+	tristate
+	depends on BROKEN
+	select CANFESTIVAL
+	prompt "libpvgen"
+	help
+	  A code generator & adapter between CanFestival and libpv.
+
