@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_CONNMAN) += connman
 CONNMAN_VERSION	:= 0.10
 CONNMAN		:= connman-$(CONNMAN_VERSION)
 CONNMAN_SUFFIX	:= tar.gz
-CONNMAN_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(CONNMAN).$(CONNMAN_SUFFIX)
+CONNMAN_URL	:= http://ftp.moblin.org/connman/releases/$(CONNMAN).$(CONNMAN_SUFFIX)
 CONNMAN_SOURCE	:= $(SRCDIR)/$(CONNMAN).$(CONNMAN_SUFFIX)
 CONNMAN_DIR	:= $(BUILDDIR)/$(CONNMAN)
 
@@ -210,6 +210,54 @@ $(STATEDIR)/connman.targetinstall:
 
 	# dbus config
 	@$(call install_copy, connman, 0, 0, 0644, -, /etc/dbus-1/system.d/connman.conf)
+
+	#
+	# plugins
+	#
+ifdef PTXCONF_CONNMAN_ETHERNET
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/ethernet.so)
+endif
+ifdef PTXCONF_CONNMAN_BLUETOOTH
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/bluetooth.so)
+endif
+ifdef PTXCONF_CONNMAN_DHCLIENT
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/dhclient.so)
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/scripts/dhclient.conf)
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/scripts/dhclient-script)
+endif
+ifdef PTXCONF_CONNMAN_DNSPROXY
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/dnsproxy.so)
+endif
+ifdef PTXCONF_CONNMAN_FAKE
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/fake.so)
+endif
+ifdef PTXCONF_CONNMAN_HSO
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/hso.so)
+endif
+ifdef PTXCONF_CONNMAN_LOOPBACK
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/loopback.so)
+endif
+ifdef PTXCONF_CONNMAN_POLKIG
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/polkit.so)
+endif
+ifdef PTXCONF_CONNMAN_RESOLVCONF
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/resolvconf.so)
+endif
+ifdef PTXCONF_CONNMAN_UDHCP
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/udhcp.so)
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/scripts/udhcpc-script)
+endif
+ifdef PTXCONF_CONNMAN_WIFI
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/wifi.so)
+endif
+ifdef PTXCONF_CONNMAN_WIMAX
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/wimax.so)
+endif
+
+	# command line client
+ifdef PTXCONF_CONNMAN_CLIENT
+	@$(call install_copy, connman, 0, 0, 0755, $(CONNMAN_DIR)/client/cm, /usr/sbin/cm)
+endif
 
 	@$(call install_finish, connman)
 
