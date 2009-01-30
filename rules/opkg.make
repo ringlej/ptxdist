@@ -106,7 +106,7 @@ $(STATEDIR)/opkg.targetinstall:
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/ldconfig)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/depmod)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/update-modules)
-	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/lib/libopkg.so.0.0.0)
+	@$(call install_copy, opkg, 0, 0, 0644, -, /usr/lib/libopkg.so.0.0.0)
 	@$(call install_link, opkg, libopkg.so.0.0.0, /usr/lib/libopkg.so.0)
 	@$(call install_link, opkg, libopkg.so.0.0.0, /usr/lib/libopkg.so)
 
