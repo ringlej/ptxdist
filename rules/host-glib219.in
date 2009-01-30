@@ -1,0 +1,5 @@
+## SECTION=host_gtk
+
+config HOST_GLIB219
+	tristate
+	select HOST_LIBICONV
