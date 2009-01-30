@@ -1,0 +1,8 @@
+## SECTION=scripting_languages
+
+config DBUS_PYTHON
+	tristate
+	select PYTHON24
+	prompt "dbus-python"
+	help
+	  Python bindings for dbus.
