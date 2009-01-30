@@ -50,10 +50,14 @@ config CONNMAN_DNSPROXY
 
 config CONNMAN_NOVATEL
 	bool
+	# FIXME needs ppp headers
+	depends on BROKEN
 	prompt "novatel support"
 
 config CONNMAN_HUAWEI
 	bool
+	# FIXME needs ppp headers
+	depends on BROKEN
 	prompt "huawei support"
 
 config CONNMAN_HSO
@@ -62,10 +66,13 @@ config CONNMAN_HSO
 
 config CONNMAN_PPP
 	bool
+	# FIXME needs ppp headers
+	depends on BROKEN
 	prompt "ppp support"
 
 config CONNMAN_UDEV
 	bool
+	select UDEV__LIBUDEV
 	prompt "udev support"
 
 config CONNMAN_POLKIT
