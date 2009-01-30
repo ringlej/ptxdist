@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config LIBGDBUS
+	tristate
+	prompt "libgdbus"
+	help
+	  libgdbus is a library for simple dbus integration with glib.
