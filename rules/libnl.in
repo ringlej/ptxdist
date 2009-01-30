@@ -1,6 +1,6 @@
 ## SECTION=system_libraries
 
-config LIBNL
+menuconfig LIBNL
 	tristate
 	prompt "libnl"
 	help
@@ -9,3 +9,10 @@ config LIBNL
 	  netlink messaging and various netlink family specific
 	  interfaces.
 
+if LIBNL
+
+config LIBNL_MONITOR
+	bool
+	prompt "nl-monitor"
+
+endif
