@@ -1,0 +1,83 @@
+## SECTION=networking
+
+menuconfig CONNMAN
+	tristate
+	select LIBC_RT
+	select LIBC_PTHREAD
+	# FIXME: glib dependency not handled by configure
+	select GLIB219
+	prompt "connman                       "
+	help
+	  FIXME
+
+if CONNMAN
+
+config CONNMAN_LOOPBACK
+	bool
+	prompt "loopback support"
+
+config CONNMAN_ETHERNET
+	bool
+	prompt "ethernet support"
+
+config CONNMAN_WIFI
+	bool
+	prompt "wifi support"
+
+config CONNMAN_WIMAX
+	bool
+	prompt "wimax support"
+
+config CONNMAN_BLUETOOTH
+	bool
+	prompt "bluetooth support"
+
+config CONNMAN_UDHCP
+	bool
+	prompt "udhcp support"
+
+config CONNMAN_DHCLIENT
+	bool
+	prompt "dhclient support"
+
+config CONNMAN_RESOLVCONF
+	bool
+	prompt "resolvconf support"
+
+config CONNMAN_DNSPROXY
+	bool
+	prompt "dnsproxy support"
+
+config CONNMAN_NOVATEL
+	bool
+	prompt "novatel support"
+
+config CONNMAN_HUAWEI
+	bool
+	prompt "huawei support"
+
+config CONNMAN_HSO
+	bool
+	prompt "hso support"
+
+config CONNMAN_PPP
+	bool
+	prompt "ppp support"
+
+config CONNMAN_UDEV
+	bool
+	prompt "udev support"
+
+config CONNMAN_POLKIT
+	bool
+	prompt "polkit support"
+
+config CONNMAN_CLIENT
+	bool
+	prompt "client support"
+
+config CONNMAN_FAKE
+	bool
+	prompt "fake support"
+
+endif

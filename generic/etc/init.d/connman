@@ -1,0 +1,40 @@
+#!/bin/sh
+
+DAEMON=/usr/sbin/connmand
+PIDFILE=/var/run/connmand.pid
+DESC="Connection Manager"
+
+set -e
+
+do_start() {
+	start-stop-daemon --start --oknodo \
+		--pidfile $PIDFILE --exec $DAEMON -- $DAEMON_OPTS
+}
+
+do_stop() {
+	start-stop-daemon --stop --oknodo --quiet \
+		--pidfile $PIDFILE --exec $DAEMON
+}
+
+case "$1" in
+  start)
+	echo "Starting $DESC"
+	do_start || echo "failed"
+	;;
+  stop)
+	echo "Stopping $DESC"
+	do_stop || echo "failed"
+	;;
+  restart|force-reload)
+	echo "Restarting $DESC"
+	do_stop
+	sleep 1
+	do_start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
