@@ -1,0 +1,21 @@
+## SECTION=shell_and_console
+
+config NETWORKMANAGER
+	tristate
+	depends on BROKEN
+	select WIRELESS
+	select DBUS_GLIB
+	select LIBNL
+	# we need libuuid from e2fsprogs
+	select E2FSPROGS
+	select E2FSPROGS_LIBUUID
+	# FIXME: hal can be configured without policy-kit, but networkmanager depends on it
+	select HAL
+	select HAL__POLKIT
+	prompt "networkmanager"
+	help
+	  NetworkManager is a tool to automate network configuration as far as
+	  possible. The project web site is here:
+
+	  http://projects.gnome.org/NetworkManager/
+
