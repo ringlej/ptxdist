@@ -75,6 +75,13 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_GLIB__VERSION_2_14
+GLIB_LIB_VERSION := 0.1400.5
+endif
+ifdef PTXCONF_GLIB__VERSION_2_19
+GLIB_LIB_VERSION := 0.1905.0
+endif
+
 $(STATEDIR)/glib.targetinstall:
 	@$(call targetinfo)
 
@@ -86,13 +93,6 @@ $(STATEDIR)/glib.targetinstall:
 	@$(call install_fixup,glib,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup,glib,DEPENDS,)
 	@$(call install_fixup,glib,DESCRIPTION,missing)
-
-ifdef PTXCONF_GLIB__VERSION_2_14
-GLIB_LIB_VERSION := 0.1400.5
-endif
-ifdef PTXCONF_GLIB__VERSION_2_19
-GLIB_LIB_VERSION := 0.1905.0
-endif
 
 	@$(call install_copy, glib, 0, 0, 0644, \
 		$(GLIB_DIR)/glib/.libs/libglib-2.0.so.$(GLIB_LIB_VERSION), \
