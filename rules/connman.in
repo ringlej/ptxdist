@@ -12,79 +12,88 @@ menuconfig CONNMAN
 
 if CONNMAN
 
-config CONNMAN_LOOPBACK
-	bool
-	prompt "loopback support"
+menu "plugins"
 
-config CONNMAN_ETHERNET
-	bool
-	prompt "ethernet support"
+	config CONNMAN_LOOPBACK
+		bool
+		prompt "loopback support"
 
-config CONNMAN_WIFI
-	bool
-	prompt "wifi support"
+	config CONNMAN_ETHERNET
+		bool
+		prompt "ethernet support"
 
-config CONNMAN_WIMAX
-	bool
-	prompt "wimax support"
+	config CONNMAN_WIFI
+		bool
+		prompt "wifi support"
 
-config CONNMAN_BLUETOOTH
-	bool
-	prompt "bluetooth support"
+	config CONNMAN_WIMAX
+		bool
+		prompt "wimax support"
 
-config CONNMAN_UDHCP
-	bool
-	prompt "udhcp support"
+	config CONNMAN_BLUETOOTH
+		bool
+		prompt "bluetooth support"
 
-config CONNMAN_DHCLIENT
-	bool
-	prompt "dhclient support"
+	config CONNMAN_UDHCP
+		bool
+		prompt "udhcp support"
 
-config CONNMAN_RESOLVCONF
-	bool
-	prompt "resolvconf support"
+	config CONNMAN_DHCLIENT
+		bool
+		prompt "dhclient support"
 
-config CONNMAN_DNSPROXY
-	bool
-	prompt "dnsproxy support"
+	config CONNMAN_RESOLVCONF
+		bool
+		prompt "resolvconf support"
 
-config CONNMAN_NOVATEL
-	bool
-	# FIXME needs ppp headers
-	depends on BROKEN
-	prompt "novatel support"
+	config CONNMAN_DNSPROXY
+		bool
+		prompt "dnsproxy support"
 
-config CONNMAN_HUAWEI
-	bool
-	# FIXME needs ppp headers
-	depends on BROKEN
-	prompt "huawei support"
+	config CONNMAN_NOVATEL
+		bool
+		# FIXME needs ppp headers
+		depends on BROKEN
+		prompt "novatel support"
 
-config CONNMAN_HSO
-	bool
-	prompt "hso support"
+	config CONNMAN_HUAWEI
+		bool
+		# FIXME needs ppp headers
+		depends on BROKEN
+		prompt "huawei support"
 
-config CONNMAN_PPP
-	bool
-	# FIXME needs ppp headers
-	depends on BROKEN
-	prompt "ppp support"
+	config CONNMAN_HSO
+		bool
+		prompt "hso support"
 
-config CONNMAN_UDEV
-	bool
-	select UDEV__LIBUDEV
-	prompt "udev support"
+	config CONNMAN_PPP
+		bool
+		# FIXME needs ppp headers
+		depends on BROKEN
+		prompt "ppp support"
 
-config CONNMAN_POLKIT
-	bool
-	prompt "polkit support"
+	config CONNMAN_UDEV
+		bool
+		select UDEV__LIBUDEV
+		prompt "udev support"
+
+	config CONNMAN_POLKIT
+		bool
+		prompt "polkit support"
+
+	config CONNMAN_FAKE
+		bool
+		prompt "fake support"
+
+endmenu
 
 config CONNMAN_CLIENT
 	bool
-	prompt "client support"
+	prompt "commandline client"
 
-config CONNMAN_FAKE
+config CONNMAN_TESTS
 	bool
-	prompt "fake support"
+	select DBUS_PYTHON
+	prompt "install test programs"
 
 endif

@@ -259,6 +259,40 @@ ifdef PTXCONF_CONNMAN_CLIENT
 	@$(call install_copy, connman, 0, 0, 0755, $(CONNMAN_DIR)/client/cm, /usr/sbin/cm)
 endif
 
+	# python tests
+ifdef PTXCONF_CONNMAN_TESTS
+	for i in \
+		connect-network \
+		create-network \
+		debug-connman \
+		disable-device \
+		disable-network \
+		disconnect-network \
+		enable-device \
+		get-state \
+		list-connections \
+		list-devices \
+		list-networks \
+		list-profiles \
+		monitor-connman \
+		select-connection \
+		select-network \
+		set-address \
+		set-passphrase \
+		set-policy \
+		show-introspection \
+		simple-agent \
+		start-scanning \
+		test-compat \
+		test-connman \
+		test-manager \
+	; do \
+		$(call install_copy, connman, 0, 0, 0755, \
+			$(CONNMAN_DIR)/test/$$i, \
+			/usr/sbin/cm-$$i); \
+	done
+endif
+
 	@$(call install_finish, connman)
 
 	@$(call touch)
