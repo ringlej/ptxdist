@@ -2,7 +2,7 @@
 
 menuconfig GLIB219
 	tristate
-	prompt "glib                          "
+	prompt "glib 2.19                     "
 	select LIBICONV		if GLIB219__LIBICONV_GNU
 	select GETTEXT		if GLIB219__GETTEXT_GETTEXT
 	select GETTEXT_DUMMY	if GLIB219__GETTEXT_DUMMY
