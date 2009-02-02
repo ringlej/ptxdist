@@ -5,7 +5,9 @@ menuconfig CONNMAN
 	select LIBC_RT
 	select LIBC_PTHREAD
 	# FIXME: glib dependency not handled by configure
-	select GLIB219
+	select GLIB
+	# FIXME: we need a dependency on GLIB__VERSION_2_19, but if we enforce
+	# this, we get a circular dependency, and selecting it does not work...
 	prompt "connman                       "
 	help
 	  FIXME
@@ -97,3 +99,4 @@ config CONNMAN_TESTS
 	prompt "install test programs"
 
 endif
+
