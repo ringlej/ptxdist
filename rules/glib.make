@@ -24,11 +24,15 @@ endif
 ifdef PTXCONF_GLIB__VERSION_2_19
 GLIB_VERSION	:= 2.19.5
 endif
+
 GLIB		:= glib-$(GLIB_VERSION)
 GLIB_SUFFIX	:= tar.bz2
-GLIB_URL	:= http://ftp.gtk.org/pub/glib/2.14/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
 GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
+
+GLIB_URL	:= \
+	http://ftp.gtk.org/pub/glib/2.14/glib-$(GLIB_VERSION).$(GLIB_SUFFIX) \
+	http://ftp.gtk.org/pub/glib/2.19/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
