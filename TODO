@@ -6,8 +6,11 @@ Prio A
 [ ] jbe: all test scripts should check if their interaction with the filesystem
     where successfull. If a file copy to /tftpboot fails, it should *not* continue.
 
-[ ] jbe: /usr/share/apache2/libexec/mod_python.so
+[x] jbe: /usr/share/apache2/libexec/mod_python.so
     Misses libpython2.4.so.1.0 at runtime
+
+    Update: 2009-01-29:	mkl broke it
+			mol fixed it
 
 [ ] rsc: http://ch.tudelft.nl/~arthur/svn2cl/
 
@@ -148,6 +151,7 @@ make: *** [/home/frogger/pengutronix/bsp/OSELAS.BSP-Pengutronix-AllYes-trunk/pla
       target
     - should output warning that you have to change := into = for
       corresponding target packet
+      mkl: this is not true!
 
 [ ] discuss UID of user "rpcuser"
 
@@ -161,8 +165,9 @@ Prio B
 [ ] jbe: xorg-lib-fontenc.compile: What does it mean? Intervention needed?
       [...]/arm-v5te-linux-gnueabi/bin/ld: warning: creating a DT_TEXTREL in object.
 [ ] jbe: same in cairo.compile
-[ ] jbe: same in canfestival.compile
 [ ] jbe: xorg-lib-fontenc.compile (but this time seen on PowerPC)
+
+[ ] jbe: same in canfestival.compile
 
 [ ] jbe: avoid the "make: Nothing to be done for `world'." message when running
     a "ptxdist images".
