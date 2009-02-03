@@ -3,6 +3,9 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: all test scripts should check if their interaction with the filesystem
+    where successfull. If a file copy to /tftpboot fails, it should *not* continue.
+
 [ ] jbe: /usr/share/apache2/libexec/mod_python.so
     Misses libpython2.4.so.1.0 at runtime
 
