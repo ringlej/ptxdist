@@ -33,17 +33,6 @@ $(DBUS_PYTHON_SOURCE):
 	@$(call get, DBUS_PYTHON)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dbus-python.extract:
-	@$(call targetinfo)
-	@$(call clean, $(DBUS_PYTHON_DIR))
-	@$(call extract, DBUS_PYTHON)
-	@$(call patchin, DBUS_PYTHON)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -57,32 +46,6 @@ DBUS_PYTHON_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-html-docs \
 	--disable-api-docs
-
-$(STATEDIR)/dbus-python.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(DBUS_PYTHON_DIR)/config.cache)
-	cd $(DBUS_PYTHON_DIR) && \
-		$(DBUS_PYTHON_PATH) $(DBUS_PYTHON_ENV) \
-		./configure $(DBUS_PYTHON_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dbus-python.compile:
-	@$(call targetinfo)
-	cd $(DBUS_PYTHON_DIR) && $(DBUS_PYTHON_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dbus-python.install:
-	@$(call targetinfo)
-	@$(call install, DBUS_PYTHON)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
