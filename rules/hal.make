@@ -59,9 +59,9 @@ HAL_ENV 	:= \
 #
 HAL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--localstatedir=/var \
 	--enable-shared \
 	--enable-static \
-	--disable-largefile \
 	--disable-pci-ids \
 	--disable-usb-ids \
 	--disable-pnp-ids \
@@ -85,6 +85,8 @@ HAL_AUTOCONF := \
 	--disable-pmu \
 	--disable-pci \
 	--disable-sonypic \
+	--without-keymaps \
+	--without-imac \
 	--with-hal-user=haldaemon \
 	--with-hal-group=haldaemon
 
@@ -105,12 +107,10 @@ endif
 #  --with-expat=<dir>      Use expat from here
 #  --without-libpci        Compile without pci support
 #  --with-backend=<name>   backend to use (linux/solaris/freebsd/dummy)
-#  --with-keymaps          Re-map multimedia keys (auto)
 #  --with-deprecated-keys  Add fdi-file to support deprecated/removed keys
 #  --with-dbus-sys=<dir>   where D-BUS system.d directory is
 #  --with-macbookpro       Whether to build Macbook Pro utils (auto)
 #  --with-macbook          Include support for Macbook backlight (auto)
-#  --with-imac             Whether to build iMac (x86 only) backlight (auto)
 #  --with-omap             Whether to build OMAP utils (auto)
 #  --with-cpufreq          Whether to build cpufreq utils (auto)
 #  --with-usb-csr          Whether to build addon for wireless USB mice (auto)
@@ -170,7 +170,6 @@ $(STATEDIR)/hal.targetinstall:
 		/usr/bin/hal-find-by-capability \
 		/usr/bin/hal-disable-polling \
 		/usr/bin/hal-lock \
-		/usr/bin/hal-setup-keymap \
 		/usr/bin/hal-find-by-property \
 		/usr/bin/hal-get-property \
 		/usr/bin/lshal \
@@ -191,7 +190,6 @@ $(STATEDIR)/hal.targetinstall:
 		/usr/libexec/hald-addon-hid-ups \
 		/usr/libexec/hald-addon-rfkill-killswitch \
 		/usr/libexec/hald-addon-input \
-		/usr/libexec/hald-addon-imac-backlight \
 		/usr/libexec/hald-probe-hiddev \
 		/usr/libexec/hald-addon-ipw-killswitch \
 		/usr/libexec/hald-probe-input \
@@ -212,11 +210,9 @@ $(STATEDIR)/hal.targetinstall:
 	for i in \
 		/usr/share/hal/fdi/fdi.dtd \
 		/usr/share/hal/fdi/policy/10osvendor/30-wol.fdi \
-		/usr/share/hal/fdi/policy/10osvendor/10-imac-backlight.fdi \
 		/usr/share/hal/fdi/policy/10osvendor/10-laptop-panel-mgmt-policy.fdi \
 		/usr/share/hal/fdi/policy/10osvendor/10-dockstation.fdi \
 		/usr/share/hal/fdi/policy/10osvendor/20-storage-methods.fdi \
-		/usr/share/hal/fdi/policy/10osvendor/10-keymap.fdi \
 		/usr/share/hal/fdi/policy/10osvendor/10-input-policy.fdi \
 		/usr/share/hal/fdi/policy/10osvendor/10-rfkill-switch.fdi \
 		/usr/share/hal/fdi/policy/10osvendor/10-x11-input.fdi \
