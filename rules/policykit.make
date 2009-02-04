@@ -46,7 +46,6 @@ POLICYKIT_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-shared \
 	--enable-static \
-	--disable-largefile \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-tests \
