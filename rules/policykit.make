@@ -33,22 +33,10 @@ $(POLICYKIT_SOURCE):
 	@$(call get, POLICYKIT)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/policykit.extract:
-	@$(call targetinfo)
-	@$(call clean, $(POLICYKIT_DIR))
-	@$(call extract, POLICYKIT)
-	@$(call patchin, POLICYKIT)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 POLICYKIT_PATH	:= PATH=$(CROSS_PATH)
-
 POLICYKIT_ENV 	:= $(CROSS_ENV)
 
 #
@@ -84,32 +72,6 @@ POLICYKIT_AUTOCONF := \
 #  --with-pam-prefix=<prefix> specify where pam files go
 #  --with-pam-module-dir=dirname  directory to install PAM security module
 #  --with-pam-include=<file>  pam file to include
-
-$(STATEDIR)/policykit.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(POLICYKIT_DIR)/config.cache)
-	cd $(POLICYKIT_DIR) && \
-		$(POLICYKIT_PATH) $(POLICYKIT_ENV) \
-		./configure $(POLICYKIT_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/policykit.compile:
-	@$(call targetinfo)
-	cd $(POLICYKIT_DIR) && $(POLICYKIT_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/policykit.install:
-	@$(call targetinfo)
-	@$(call install, POLICYKIT)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -163,7 +125,7 @@ $(STATEDIR)/policykit.targetinstall:
 	do $(call install_copy, policykit, 0, 0, 0755, -, $$i); done
 
 	# binaries with suid
-	@$(call install_copy, policykit, 0, 0, 1755, -, /usr/libexec/polkit-resolve-exe-helper)
+	@$(call install_copy, policykit, 0, 0, 4755, -, /usr/libexec/polkit-resolve-exe-helper)
 
 	@$(call install_finish, policykit)
 
