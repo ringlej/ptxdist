@@ -6,7 +6,6 @@ config POLICYKIT
 	select HOST_INTLTOOL
 	select HOST_XSLTPROC
 	select GLIB	# > 2.6
-	select DBUS
 	select DBUS_GLIB
 	help
 	  Policy kit offers an infrastructure for security policies for
