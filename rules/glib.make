@@ -53,14 +53,6 @@ GLIB_ENV 	:= \
 	glib_cv_uscore=no \
 	glib_cv_stack_grows=no
 
-ifdef PTXCONF_GLIB__VERSION_2_19
-GLIB_ENV += \
-	ac_cv_func_posix_getpwuid_r=yes \
-	ac_cv_func_nonposix_getpwuid_r=no \
-	ac_cv_func_posix_getgrgid_r=yes \
-	ac_cv_func_nonposix_getgrgid_r=no
-endif
-
 #
 # autoconf
 #
