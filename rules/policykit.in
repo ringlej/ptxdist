@@ -3,6 +3,7 @@
 config POLICYKIT
 	tristate
 	prompt "policykit"
+	select HOST_INTLTOOL
 	help
 	  Policy kit offers an infrastructure for security policies for
 	  dbus applications.
