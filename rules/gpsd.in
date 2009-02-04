@@ -76,9 +76,9 @@ menu "drivers"
 		bool
 		prompt "tsip"
 
-	config GPSD_DRIVER_VF18
+	config GPSD_DRIVER_FV18
 		bool
-		prompt "vf18"
+		prompt "fv18"
 
 	config GPSD_DRIVER_TRIPMATE
 		bool
