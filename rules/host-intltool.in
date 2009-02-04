@@ -1,8 +1,7 @@
-## SECTION=hosttools
+## SECTION=hosttools_noprompt
 
 config HOST_INTLTOOL
 	tristate
-	prompt "intltool"
 	help
 	  intltool is a set of tools to centralise translation of many different
 	  file formats using GNU gettext-compatible PO files.
