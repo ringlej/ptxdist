@@ -7,7 +7,9 @@
 # -u PACKET_URL
 #
 ptxd_make_extract() {
-    . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh
+    local opt
+
+    . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return 1
 
     while getopts "s:p:u:d:" opt; do
 	case "${opt}" in
