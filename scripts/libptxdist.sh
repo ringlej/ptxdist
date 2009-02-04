@@ -114,7 +114,7 @@ ptxd_source_kconfig() {
 	fi
 
 	sed -e "s/^\([^#]*=.*\)/export \1/" "${config}" > "${config_source}"
-	. "${config_source}"
+	. "${config_source}" || return
 }
 
 
@@ -123,10 +123,12 @@ ptxd_source_kconfig() {
 #
 ptxd_get_ptxconf() {
 	if test -f "${PTXDIST_PTXCONFIG}"; then
-		source "${PTXDIST_PTXCONFIG}"
+		source "${PTXDIST_PTXCONFIG}"  || \
+		ptxd_bailout "unable to source '${PTXDIST_PTXCONFIG}' (maybe svn conflict?)"
 	fi
 	if test -f "${PTXDIST_PLATFORMCONFIG}"; then
-		source "${PTXDIST_PLATFORMCONFIG}"
+		source "${PTXDIST_PLATFORMCONFIG}" || \
+		ptxd_bailout "unable to source '${PTXDIST_PLATFORMCONFIG}' (maybe svn conflict?)"
 	fi
 	echo "${!1}"
 }
@@ -346,6 +348,7 @@ ptxd_abspath() {
 	echo `cd $dn && pwd`/`basename $1`
 }
 export -f ptxd_abspath
+
 
 
 #
