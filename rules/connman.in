@@ -4,7 +4,9 @@ menuconfig CONNMAN
 	tristate
 	select LIBC_RT
 	select LIBC_PTHREAD
-	select POLICYKIT
+	select DBUS
+	select UDEV if CONNMAN_UDEV
+	select POLICYKIT if CONNMAN_POLKIT
 	# FIXME: glib dependency not handled by configure
 	select GLIB
 	# FIXME: we need a dependency on GLIB__VERSION_2_19, but if we enforce
