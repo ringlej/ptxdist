@@ -24,10 +24,13 @@ menuconfig ROOTFS_ETC_INITD_RCS
 	prompt "rcS                         "
 	depends on ROOTFS_ETC_INITD
 	default y
+	select BUSYBOX_HOSTNAME if BUSYBOX
 	help
 	  The /etc/init.d/rcS script is started by init in /etc/inittab.
 	  Its main purpose is to run the other init scripts by calling
 	  run-parts.
+	  The generic rcS script needs a '/bin/sh' shell and the commands
+          'mount', 'grep' and 'hostname'.
 
 	choice
 		prompt "Kind of rcS script"
