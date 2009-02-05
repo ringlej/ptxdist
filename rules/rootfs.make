@@ -677,7 +677,7 @@ endif
 # Replace all markers if service is enabled
 # or delete markers if service is disabled
 # -----------------------------------------------------------------------------
-# add rshd if enabled or make entry for urshd if enabled
+# add rshd if enabled
 #
 ifdef PTXCONF_INETUTILS_RSHD
 	@$(call install_replace, rootfs, /etc/inetd.conf, \
@@ -685,15 +685,8 @@ ifdef PTXCONF_INETUTILS_RSHD
 	@$(call install_replace, rootfs, /etc/services, \
 		@RSHD@, "shell 514/tcp cmd" )
 else
-ifdef PTXCONF_URSHD
-	@$(call install_replace, rootfs, /etc/inetd.conf, \
-		@RSHD@, "shell stream tcp nowait root /usr/sbin/urshd" )
-	@$(call install_replace, rootfs, /etc/services, \
-		@RSHD@, "shell 514/tcp cmd" )
-else
 	@$(call install_replace, rootfs, /etc/inetd.conf, @RSHD@, )
 	@$(call install_replace, rootfs, /etc/services, @RSHD@, )
-endif
 endif
 
 # -----------------------------------------------------------------------------
