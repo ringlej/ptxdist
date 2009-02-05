@@ -1,0 +1,34 @@
+#!/bin/sh
+
+DAEMON=/usr/sbin/urshd
+PIDFILE=/var/run/urshd.pid
+DESC="u remote shell daemon"
+
+set -e
+
+do_start() {
+	start-stop-daemon --start --oknodo \
+		--pidfile $PIDFILE --exec $DAEMON -- $DAEMON_OPTS
+}
+
+do_stop() {
+	start-stop-daemon --stop --oknodo --quiet \
+		--pidfile $PIDFILE --exec $DAEMON
+}
+
+case "$1" in
+  start)
+	echo "Starting $DESC"
+	do_start || echo "failed"
+	;;
+  stop)
+	echo "Stopping $DESC"
+	do_stop || echo "failed"
+	;;
+  *)
+	echo "Usage: $0 {start|stop}" >&2
+	exit 1
+	;;
+esac
+
+exit 0

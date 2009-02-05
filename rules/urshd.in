@@ -8,3 +8,28 @@ config URSHD
 	  It is (indirectly) derived from BSD rshd with all the security
 	  checks cut off.  Unlike other versions it is standalone server
 	  that does not depend on the inetd daemon.
+	  BIT FAT WARNING:
+	  URSH is a very huge security hole in your system as it grants
+	  permission to everyone.
+
+if URSHD
+
+config URSHD_STARSCRIPT
+	bool
+	prompt "install startscript"
+	select BUSYBOX_START_STOP_DAEMON if BUSYBOX
+	help
+	  Enable this entry to install a startup script into
+	  /etc/init.d. If no local 'projectroot/etc/init.d/urshd' exists, a
+	  generic start script will be used.
+
+config URSHD_RC_D_LINK
+	string
+	prompt "link name in /etc/rc.d"
+	default "S12_urshd"
+	help
+	  Enter the name of the urshd start link in /etc/init.d; this should
+	  be something like "S12_urshd". An empty string means that no link
+	  is created.
+
+endif

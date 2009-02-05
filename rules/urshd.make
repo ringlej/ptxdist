@@ -62,8 +62,20 @@ $(STATEDIR)/urshd.targetinstall:
 	@$(call install_fixup, urshd,DEPENDS,)
 	@$(call install_fixup, urshd,DESCRIPTION,missing)
 
-	@$(call install_copy, urshd, 0, 0, 0755, $(URSHD_DIR)/src/urshd, /usr/sbin/urshd)
+	@$(call install_copy, urshd, 0, 0, 0755, \
+		$(URSHD_DIR)/src/urshd, \
+		/usr/sbin/urshd)
 
+ifdef PTXCONF_URSHD_STARSCRIPT
+	@$(call install_copy, urshd, 0, 0, 0755, /etc/init.d)
+	@$(call install_alternative, urshd, 0, 0, 0755, /etc/init.d/urshd)
+endif
+
+ifneq ($(PTXCONF_URSHD_RC_D_LINK),"")
+	@$(call install_copy, urshd, 0, 0, 0755, /etc/rc.d)
+	@$(call install_link, urshd, ../init.d/urshd, \
+		/etc/rc.d/$(PTXCONF_URSHD_RC_D_LINK))
+endif
 	@$(call install_finish, urshd)
 
 	@$(call touch)
