@@ -37,6 +37,17 @@ $(DIRECTFB_EXAMPLES_SOURCE):
 
 
 # ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/directfb-examples.extract:
+	@$(call targetinfo)
+	@$(call extract, DIRECTFB_EXAMPLES)
+	@$(call patchin, DIRECTFB_EXAMPLES)
+	@cp $(DIRECTFB_EXAMPLES_DIR)/patches/ptx_logo_640_480.png $(DIRECTFB_EXAMPLES_DIR)/data
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
