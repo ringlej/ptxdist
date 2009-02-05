@@ -18,6 +18,9 @@ config URSHD_STARSCRIPT
 	bool
 	prompt "install startscript"
 	select BUSYBOX_START_STOP_DAEMON if BUSYBOX
+	select BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS if BUSYBOX_START_STOP_DAEMON
+	select BUSYBOX_FEATURE_START_STOP_DAEMON_FANCY if BUSYBOX_START_STOP_DAEMON
+	select ROOTFS_VAR_RUN
 	help
 	  Enable this entry to install a startup script into
 	  /etc/init.d. If no local 'projectroot/etc/init.d/urshd' exists, a
