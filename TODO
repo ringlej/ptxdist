@@ -3,6 +3,18 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: "ptxdist platformconfig" moans:
+    error: The configfile version and ptxdist version do not match:
+        configfile version:
+        ptxdist version:    1.99.svn
+    Users current focus is on "selected_platformconfig". But ptxdist
+    moans about an empty 'selected_ptxconfig' here!
+
+    Instead it should:
+    - output the correct filename which is causing the problem here
+    - silently does its job, because the platformconfig is all right here
+    - should output this message, when running a "ptxdist menuconfig"
+
 [ ] Whenever a new packet dependency is added to the menus and one does not
     update the used ptxconfig file, the next build will only detect the
     "<packet_name>.install" dependency and fail due to the fact the
