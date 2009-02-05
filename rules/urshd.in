@@ -1,7 +1,7 @@
 ## SECTION=networking
-config URSHD
+menuconfig URSHD
 	tristate
-	prompt "urshd"
+	prompt "urshd                         "
 	depends on !INETUTILS_RSHD
 	help
 	  urshd (micro remote shell server) is a server for rsh program.
