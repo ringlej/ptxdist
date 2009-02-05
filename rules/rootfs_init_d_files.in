@@ -87,11 +87,15 @@ menuconfig ROOTFS_ETC_INITD_NETWORKING
 	default y
 	prompt "networking                  "
 	select BUSYBOX_IFUPDOWN if BUSYBOX
+	select BUSYBOX_IFCONFIG if BUSYBOX
+	select BUSYBOX_CAT if BUSYBOX
 	select BUSYBOX_FEATURE_IFUPDOWN_IP if BUSYBOX
 	help
 	  When enabled, this option installs the generic
 	  /etc/init.d/networking file. This script starts
 	  your network interfaces by calling ifup -a
+	  To run this script you will need the shell commands
+	  'cat', 'grep' and 'ifconfig'
 
 	config ROOTFS_ETC_INITD_NETWORKING_INTERFACES
 		depends on ROOTFS_ETC_INITD
