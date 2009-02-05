@@ -4,6 +4,7 @@ menuconfig BUSYBOX
 	tristate
 	prompt "busybox                       "
 	select LIBC_M if BUSYBOX_FEATURE_AWK_MATH
+	select LIBC_C
 	help
 	  BusyBox is the Swiss Army Knife of embedded Linux. It is a
 	  multi call program which hosts nearly all important unix
