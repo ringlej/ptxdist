@@ -3,24 +3,19 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] Whenever a new packet dependency is added to the menus and one does not
+    update the used ptxconfig file, the next build will only detect the
+    "<packet_name>.install" dependency and fail due to the fact the
+    "<packet_name>.[get|extract|prepare|compile]" are still missing. When
+    ptxdist is able to detect the dependency to "<packet_name>.install", it
+    should also add the other targets (get|extract|prepare|compile) from inside
+    the <packet_name> silently. The current error is confusing, because it
+    occures even the user didn't change anything in his/her project.
+
 [ ] jbe: all test scripts should check if their interaction with the filesystem
     where successfull. If a file copy to /tftpboot fails, it should *not* continue.
 
-[x] jbe: /usr/share/apache2/libexec/mod_python.so
-    Misses libpython2.4.so.1.0 at runtime
-
-    Update: 2009-01-29:	mkl broke it
-			mol fixed it
-
 [ ] rsc: http://ch.tudelft.nl/~arthur/svn2cl/
-
-[x] jbe: These libs/executeables are including host library search paths (RPATH)
-
-    Check selected_toolchain/powerpc-603e-linux-gnu-readelf -d <binary>
-    for long host paths:
-
-    [x] mod_python from the Apache2 package
-    [x] inotifywait from the inotify-tools package
 
 [ ] jbe:  host-fontconfig.compile
       if gcc [...] -c -o fc-case.o fc-case.c; \
@@ -48,27 +43,6 @@ Prio A
 			makefiles and fail gracefully with a nice error
 			message. So this test runs on demand only.
 
-[x] jbe: Adding "ant" to the required host tools. Emit a warning if its not
-    present, but not fail (required only to build jvisu)
-
-    Update 2007-01-24:	rsc: rejected. Ant is only needed by tools which
-			use Java, and we don't want a prerequisite to
-			java in PTXdist. Maybe add some loud warning if
-			packets are built which use java, such as jvisu.
-    Update 2009-01-20:  jbe: add a test for 'ant' into jvisu's makefile and
-			fail gracefully with a nice error message. So this test
-			runs on demand only.
-
-    Update 2009-01-26:	done, no tests in the configure script for now.
-			looks this way now, everybody happy???
-
-make: *** [/home/frogger/pengutronix/bsp/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-phyCORE-MPC5200B-tiny/state/jvisu.compile] Error 127
-[frogger@hardanger:OSELAS.BSP-Pengutronix-AllYes-trunk]$ ./p compile jvisu
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/jvisu.make:18: *** ant is mandatory to build JVisu
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/jvisu.make:19: *** please install ant
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/jvisu.make:20: *** .  Stop.
-
-
 [ ] jbe: mplayer.compile: It seems very PXA specific now?
      i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
       vo_pxa.c: In function 'draw_osd':
@@ -92,10 +66,6 @@ make: *** [/home/frogger/pengutronix/bsp/OSELAS.BSP-Pengutronix-AllYes-trunk/pla
     Update 20090118 rsc: not reproducable, switched on again and we wait
     for sisyphus to explode.
 
-[x] jbe: host-dbus-glib.compile
-      ../../dbus/dbus-binding-tool: error while loading shared libraries:
-         libdbus-glib-1.so.2: cannot open shared object file: No such file or directory
-
 [ ] jbe: phyton24 states this but does not stop the build (in the install stage):
       cannot find -lncursesw
       collect2: ld returned 1 exit status
@@ -113,15 +83,6 @@ make: *** [/home/frogger/pengutronix/bsp/OSELAS.BSP-Pengutronix-AllYes-trunk/pla
 [ ] rsc: network handling with qemu does not work reliably; it works
     when being run with sudo (see start/stop/connect scripts in i586) and
     /dev/net/tun must be made rwrwrw.
-
-[x] jbe: Would it be possible to delete a directory defined by PTXCONF_SYSROOT_TARGET
-    in the form "${PTXDIST_WORKSPACE}/local/${PTXCONF_ARCH_STRING}"
-    Currently the "local" part still exists when running "ptxdist clean".
-    This is for ptxdist-1 backward compatibility.
-
-    Update 20090126:	the correct is path is:
-			"${PTXDIST_WORKSPACE}/local/${PTXCONF_GNU_TARGET}"
-			and it is cleaned now
 
 [ ] bbu: default path to generic projects seems not work
 
@@ -588,6 +549,57 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: Would it be possible to delete a directory defined by PTXCONF_SYSROOT_TARGET
+    in the form "${PTXDIST_WORKSPACE}/local/${PTXCONF_ARCH_STRING}"
+    Currently the "local" part still exists when running "ptxdist clean".
+    This is for ptxdist-1 backward compatibility.
+
+    Update 20090126:	the correct is path is:
+			"${PTXDIST_WORKSPACE}/local/${PTXCONF_GNU_TARGET}"
+			and it is cleaned now
+
+[x] jbe: host-dbus-glib.compile
+      ../../dbus/dbus-binding-tool: error while loading shared libraries:
+         libdbus-glib-1.so.2: cannot open shared object file: No such file or directory
+
+[x] jbe: Adding "ant" to the required host tools. Emit a warning if its not
+    present, but not fail (required only to build jvisu)
+
+    Update 2007-01-24:	rsc: rejected. Ant is only needed by tools which
+			use Java, and we don't want a prerequisite to
+			java in PTXdist. Maybe add some loud warning if
+			packets are built which use java, such as jvisu.
+    Update 2009-01-20:  jbe: add a test for 'ant' into jvisu's makefile and
+			fail gracefully with a nice error message. So this test
+			runs on demand only.
+
+    Update 2009-01-26:	done, no tests in the configure script for now.
+			looks this way now, everybody happy???
+    Update 2009-02-05:  jbe is happy now.
+
+make: *** [/home/frogger/pengutronix/bsp/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-phyCORE-MPC5200B-tiny/state/jvisu.compile] Error 127
+[frogger@hardanger:OSELAS.BSP-Pengutronix-AllYes-trunk]$ ./p compile jvisu
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/jvisu.make:18: *** ant is mandatory to build JVisu
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/jvisu.make:19: *** please install ant
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/jvisu.make:20: *** .  Stop.
+
+
+
+[x] jbe: /usr/share/apache2/libexec/mod_python.so
+    Misses libpython2.4.so.1.0 at runtime
+
+    Update: 2009-01-29:	mkl broke it
+			mol fixed it
+
+[x] jbe: These libs/executeables are including host library search paths (RPATH)
+
+    Check selected_toolchain/powerpc-603e-linux-gnu-readelf -d <binary>
+    for long host paths:
+
+    [x] mod_python from the Apache2 package
+    [x] inotifywait from the inotify-tools package
+
 
 [x] jbe: These libs/executeables are including host library search paths (RPATH)
 
