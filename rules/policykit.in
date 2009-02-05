@@ -4,7 +4,6 @@ config POLICYKIT
 	tristate
 	prompt "policykit"
 	select HOST_INTLTOOL
-	select HOST_XSLTPROC
 	select GLIB	# > 2.6
 	select DBUS_GLIB
 	help
