@@ -31,7 +31,7 @@ install: all
 	@rm -f ${DESTDIR}${prefix}/bin/ptxdist
 	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist-${version}
 	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist
-	@[ -d "@BASH_COMPLETION_DIR@" ] && cp scripts/bash_completion "@BASH_COMPLETION_DIR@/ptxdist"
+	-@[ -d "@BASH_COMPLETION_DIR@" ] && cp scripts/bash_completion "@BASH_COMPLETION_DIR@/ptxdist"
 
 clean:
 	@cd "${abs_srcdir}/scripts/kconfig" && ${MAKE} clean
