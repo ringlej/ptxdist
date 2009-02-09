@@ -374,7 +374,7 @@ check_dirs() {
 		"${PTXDIST_SRCDIR}" \
 		; do
 		if [ \! -d "${dir}" ]; then
-			mkdir -p "${dir}" || ptxd_bailout "cannot create dir: '${dir}'"
+			mkdir -m 755 -p "${dir}" || ptxd_bailout "cannot create dir: '${dir}'"
 		fi
 	done
 

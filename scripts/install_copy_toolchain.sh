@@ -189,7 +189,7 @@ ptxd_install_toolchain_lib() {
 		"${PKGDIR}/${packet}.tmp/ipkg"; do
 
 		if test \! -d "${dir}${prefix}"; then
-		    mkdir -p "${dir}${prefix}"
+		    install -d "${dir}${prefix}"
 		fi
 		ln -sf "${lnk_prefix}${lnk}" "${dir}${prefix}/${lib}"
 	    done

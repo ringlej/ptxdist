@@ -272,11 +272,11 @@ install_link =									\
 	rm -fr $(ROOTDIR)$$DST;							\
 	rm -fr $(ROOTDIR_DEBUG)$$DST;						\
 	echo "install_link: src=$$SRC dst=$$DST "; 				\
-	mkdir -p `dirname $(ROOTDIR)$$DST`;					\
-	mkdir -p `dirname $(ROOTDIR_DEBUG)$$DST`;				\
+	install -d `dirname $(ROOTDIR)$$DST`;					\
+	install -d `dirname $(ROOTDIR_DEBUG)$$DST`;				\
 	ln -sf $$SRC $(ROOTDIR)$$DST; 						\
 	ln -sf $$SRC $(ROOTDIR_DEBUG)$$DST; 					\
-	mkdir -p `dirname $(PKGDIR)/$$PACKET.tmp/ipkg$$DST`;			\
+	install -d `dirname $(PKGDIR)/$$PACKET.tmp/ipkg$$DST`;			\
 	ln -sf $$SRC $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST
 
 #
