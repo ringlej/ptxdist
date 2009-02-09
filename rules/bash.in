@@ -186,7 +186,6 @@ endif
 config BASH_GPROF
 	bool
 	prompt "Allow profiling with gprof"
-	depends on BROKEN
 	help
 	  This builds a Bash binary that produces profiling information
 	  to be processed by gprof each time it is executed.
@@ -194,7 +193,6 @@ config BASH_GPROF
 config BASH_STATIC
 	bool
 	prompt "Link bash statically"
-	depends on BROKEN
 	help
 	  This causes Bash to be linked statically, if gcc is being used.
 	  This could be used to build a version to use as root's shell.
