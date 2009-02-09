@@ -1198,3 +1198,15 @@ make: *** [/home/frogger/pengutronix/bsp/OSELAS.BSP-Pengutronix-AllYes-trunk/pla
     Update 2007-01-12:	rsc/mkl: the install_link macro has mkdir -p
 			calls in all relevant places; should not
 			happen -> jbe: retest.
+
+TODO.rsc
+--------
+
+[ ] connman:
+
+	[ ] add configure switch for glib detection
+	[ ] if connecting dbus doesn't work, we get no output; seems
+	    like daemon() doesn't connect to syslog first
+
+[ ] http://sreadahead.googlecode.com/files/sreadahead-1.0.tar.gz
+
