@@ -20,6 +20,7 @@ ptxd_dgen_configdeps() {
 		ptxd_dialog_msgbox \
 		    "error: error during generation of dependencies\n" \
 		    "	(maybe amd64 executable on x86)"
+		return 1
 	    }
 	done
     ) | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_DEP_\1=\2~p" > "${PTX_MAP_DEPS}.tmp"
