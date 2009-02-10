@@ -1,5 +1,6 @@
 menuconfig KERNEL
 	bool
+	default y
 	select HOST_UMKIMAGE		if KERNEL_IMAGE_U
 	select CROSS_MODULE_INIT_TOOLS	if KERNEL_MODULES
 	prompt "Linux kernel                  "
