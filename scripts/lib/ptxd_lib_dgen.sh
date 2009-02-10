@@ -16,9 +16,14 @@ ptxd_dgen_configdeps() {
 
     (
 	for ((i = 0; i < ${#config[@]}; i++)); do
-	    ptxd_kconfig dep "${config[i]}" || return
+	    ptxd_kconfig dep "${config[i]}" || {
+		ptxd_dialog_msgbox \
+		    "error: error during generation of dependencies\n" \
+		    "	(maybe amd64 executable on x86)"
+	    }
 	done
     ) | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_DEP_\1=\2~p" > "${PTX_MAP_DEPS}.tmp"
+    check_pipe_status || return
 }
 
 #
