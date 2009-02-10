@@ -30,7 +30,6 @@ $1 ~ /^[A-Z_]*PACKAGES/ {
 
 	print "PTX_MAP_TO_FILENAME_" PKG "=\"" FILENAME "\""	> PTX_MAP_ALL;
 	print "PTX_MAP_TO_package_"  PKG "=\"" pkg "\""		> PTX_MAP_ALL;
-	print "PTX_MAP_TO_PACKAGE_"  pkg "=\"" PKG "\""		> PTX_MAP_ALL;
 
 	print "PTX_MAP_TO_PACKAGE_"  pkg "="   PKG		> PTX_MAP_ALL_MAKE;
 
