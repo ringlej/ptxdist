@@ -1,5 +1,0 @@
-use-right-compiler.diff
-no-libmqueue.diff
-no-libposix1b.diff
-remove-x86-option.diff
-remove-bogus-tsc-tests.diff
