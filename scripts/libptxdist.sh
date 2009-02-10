@@ -122,15 +122,25 @@ ptxd_source_kconfig() {
 # get a symbol from the ptx or platformconfig
 #
 ptxd_get_ptxconf() {
-	if test -f "${PTXDIST_PTXCONFIG}"; then
-		source "${PTXDIST_PTXCONFIG}"  || \
-		ptxd_bailout "unable to source '${PTXDIST_PTXCONFIG}' (maybe svn conflict?)"
-	fi
 	if test -f "${PTXDIST_PLATFORMCONFIG}"; then
 		source "${PTXDIST_PLATFORMCONFIG}" || \
 		ptxd_bailout "unable to source '${PTXDIST_PLATFORMCONFIG}' (maybe svn conflict?)"
 	fi
-	echo "${!1}"
+	if [ -n "${!1}" ]; then
+		echo "${!1}"
+		return
+	fi
+
+	if test -f "${PTXDIST_PTXCONFIG}"; then
+		source "${PTXDIST_PTXCONFIG}"  || \
+		ptxd_bailout "unable to source '${PTXDIST_PTXCONFIG}' (maybe svn conflict?)"
+	fi
+	if [ -n "${!1}" ]; then
+		echo "${!1}"
+		return
+	fi
+
+	return 1;
 }
 export -f ptxd_get_ptxconf
 
@@ -229,16 +239,23 @@ ptxd_kconfig() {
 		file_kconfig="${PTXDIST_TOPDIR}/config/setup/Kconfig"
 		file_dotconfig="${PTXDIST_PTXRC}"
 		;;
+	*)
+		echo
+		echo "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
+		echo
+		exit 1
+		;;
 	esac
 
-	local tmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/kconfig.XXXXXX")"
+	local tmpdir
+	tmpdir="$(mktemp -d "${PTXDIST_TEMPDIR}/kconfig.XXXXXX")" || ptxd_bailout "unable to create tmpdir"
 	pushd "${tmpdir}" > /dev/null
 
-	ln -sf "${PTXDIST_TOPDIR}/rules"
-	ln -sf "${PTXDIST_TOPDIR}/config"
-	ln -sf "${PTXDIST_TOPDIR}/platforms"
-	ln -sf "${PTXDIST_WORKSPACE}" workspace
-	ln -sf "${PTX_KGEN_DIR}" generated
+	ln -sf "${PTXDIST_TOPDIR}/rules" &&
+	ln -sf "${PTXDIST_TOPDIR}/config" &&
+	ln -sf "${PTXDIST_TOPDIR}/platforms" &&
+	ln -sf "${PTXDIST_WORKSPACE}" workspace && 
+	ln -sf "${PTX_KGEN_DIR}" generated || return
 
 	if [ -e "${file_dotconfig}" ]; then
 		cp -- "${file_dotconfig}" ".config" || return
@@ -332,6 +349,23 @@ ptxd_make_log() {
 	fi
 }
 
+
+
+#
+#
+#
+ptxd_dumpstack()
+{
+	local i=0
+
+	echo '############# stackdump #############'
+	while caller $i >&2; do
+		let i++
+	done
+	echo '######## any key to continue ########'
+
+	read
+}
 
 
 #
