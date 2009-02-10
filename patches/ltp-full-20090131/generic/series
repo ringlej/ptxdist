@@ -3,3 +3,5 @@ ltp-full-20090131-librttest-rdtsc-cross.diff
 ltp-full-20090131-undefined-ar.diff
 ltp-full-20090131-crosscompile.diff
 ltp-full-20090131-add-autoreconf.diff
+ltp-full-20090131-dont-install-objectfiles.diff
+ltp-full-20090131-arch-specific-tests.diff

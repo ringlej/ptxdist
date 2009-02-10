@@ -1,0 +1,60 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [patch] don't install object files
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ testcases/commands/ade/ld/Makefile      |    1 -
+ testcases/commands/ade/ldd/Makefile     |    1 -
+ testcases/commands/ade/nm/Makefile      |    1 -
+ testcases/commands/ade/objdump/Makefile |    1 -
+ 4 files changed, 4 deletions(-)
+
+Index: ltp-full-20090131/testcases/commands/ade/ld/Makefile
+===================================================================
+--- ltp-full-20090131.orig/testcases/commands/ade/ld/Makefile
++++ ltp-full-20090131/testcases/commands/ade/ld/Makefile
+@@ -8,7 +8,6 @@ all:  $(OBJECTS)
+ 
+ install:
+ 	ln -f ld01 ../../../bin
+-	ln -f *.o ../../../bin
+ 
+ clean:
+ 	rm -f main.o d1.o f1.o rd1.o rf1.o ldmain.o lola a.out
+Index: ltp-full-20090131/testcases/commands/ade/ldd/Makefile
+===================================================================
+--- ltp-full-20090131.orig/testcases/commands/ade/ldd/Makefile
++++ ltp-full-20090131/testcases/commands/ade/ldd/Makefile
+@@ -8,7 +8,6 @@ all: $(TARGETS)
+ 
+ install:
+ 	ln -f ldd01 ../../../bin
+-	ln -f *.o ../../../bin
+ 
+ clean:
+ 	rm -f $(TARGETS)
+Index: ltp-full-20090131/testcases/commands/ade/nm/Makefile
+===================================================================
+--- ltp-full-20090131.orig/testcases/commands/ade/nm/Makefile
++++ ltp-full-20090131/testcases/commands/ade/nm/Makefile
+@@ -9,7 +9,6 @@ all:  $(OBJECTS)
+ install:
+ 	ln -f nm01 ../../../bin
+ 	ln -f nmfile*.c ../../../bin
+-	ln -f *.o ../../../bin
+ 
+ clean:
+ 	rm -f nmfile*.o 
+Index: ltp-full-20090131/testcases/commands/ade/objdump/Makefile
+===================================================================
+--- ltp-full-20090131.orig/testcases/commands/ade/objdump/Makefile
++++ ltp-full-20090131/testcases/commands/ade/objdump/Makefile
+@@ -8,7 +8,6 @@ all: $(TESTS)
+ 
+ install:
+ 	ln -f objdump01 ../../../bin
+-	ln -f test_arch.o ../../../bin
+ 	ln -f test ../../../bin
+ 	ln -f test_D ../../../bin
+ 
