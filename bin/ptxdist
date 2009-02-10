@@ -185,6 +185,10 @@ check_path() {
 #   everything is ok (this means '1.0' 'can build with 1.0.x').
 #
 check_version() {
+	if [ -n "${PTX_FORCE}" ]; then
+		return 0
+	fi
+
 	local ifs_old="${IFS}"
 	IFS=.
 	set -- ${1}
@@ -211,49 +215,119 @@ check_version() {
 
 
 #
-# Check for existence of a ptxconfig file
-# check_ptxconfig()
+# check the ptxconfig file
 #
-check_ptxconfig() {
+_check_config_ptx() {
 	if [ ! -e "${PTXDIST_PTXCONFIG}" ]; then
 		ptxd_dialog_msgbox \
-			"error: '${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}' file is missing\n" \
+			"error:	'${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}' file is missing\n" \
 			"	try 'ptxdist select <ptxconfig>' or\n" \
 			"	'ptxdist clone <project>' to clone an existing project"
 		return 1
 	fi
 
-	if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
-		ptxd_dialog_msgbox \
-			"error: '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing\n" \
-			"	try 'ptxdist platform <platformconfig>'"
-		return 1
+	# only migrate can skip these cheks
+	if [ -n "${PTX_FORCE_MIGRATE}" ]; then
+		return
 	fi
 
-	if [ \! -e "${PTXDIST_COLLECTIONCONFIG}" -a \
-	    \( -L "${PTXDIST_COLLECTIONCONFIG}" -o "${PTX_collectionconfig_SET}" == "true" \) ]; then
+	local configfile_version
+	configfile_version="$(ptxd_get_ptxconf PTXCONF_CONFIGFILE_VERSION)" || {
 		ptxd_dialog_msgbox \
-			"error: '${PTXDIST_COLLECTIONCONFIG#${PTXDIST_WORKSPACE}/}' is missing\n" \
-			"	try 'ptxdist collection <collectionconfig>'"
+			"error:	the config file '${PTXDIST_PTXCONFIG#${PTXDIST_WORKSPACE}/}'\n" \
+			"	is missing the symbol 'PTXCONF_CONFIGFILE_VERSION',\n" \
+			"	which means it is broken.\n" \
+			"\n" \
+			"	Try 'ptxdist select <ptxconfig>' or\n" \
+			"	'ptxdist clone <project>' to clone an existing project"
 		return 1
-	fi
+	}
 
-	local configfile_version="$(ptxd_get_ptxconf PTXCONF_CONFIGFILE_VERSION)"
-
-	check_version "${configfile_version}"
-	if [ ${?} -ne 0 -a -z "${PTX_FORCE}" ]; then
+	check_version "${configfile_version}" || {
 		ptxd_dialog_msgbox \
-			"error: The configfile version and ptxdist version do not match:\n" \
+			"error:	The ptxconfig file version and ptxdist version do not match:\n" \
 			"\n" \
 			"	configfile version: ${configfile_version}\n" \
 			"	ptxdist version:    ${PTXDIST_VERSION_FULL}\n" \
 			"\n" \
-			"	If you are absolutely sure, please add '--force'\n" \
-			"	to ptxdist's parameters, e.g.:\n" \
+			"	You can either migrate from an older ptxdist release with:\n" \
+			"	'ptxdist migrate'\n" \
 			"\n" \
+			"	or, to ignore this error, add '--force'\n" \
+			"	to ptxdist's parameters, e.g.:\n" \
 			"	'ptxdist --force ${PTXDIST_ARGS_FULL[*]}'"
 		return 1
+	}
+}
+
+
+#
+# check the platformconfig file
+#
+_check_config_platform() {
+	#
+	# don't check platform if e.g. toolchain defines 'PTXCONF_NO_PLATFORM'
+	#
+	ptxd_get_ptxconf PTXCONF_NO_PLATFORM >/dev/null && return || true
+
+	if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
+		ptxd_dialog_msgbox \
+			"error:	'${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}' is missing\n" \
+			"	try 'ptxdist platform <platformconfig>'"
+		return 1
 	fi
+
+	# only migrate can skip these cheks
+	if [ -n "${PTX_FORCE_MIGRATE}" ]; then
+		return
+	fi
+
+	configfile_version="$(ptxd_get_ptxconf PTXCONF_PLATFORMCONFIG_VERSION)" || {
+		ptxd_dialog_msgbox \
+			"error:	The config file '${PTXDIST_PLATFORMCONFIG#${PTXDIST_WORKSPACE}/}'\n" \
+			"	is missing the symbol: 'PTXCONF_PLATFORMCONFIG_VERSION',\n" \
+			"	which means it is broken.\n"
+		return 1
+	}
+
+	check_version "${configfile_version}" || {
+		ptxd_dialog_msgbox \
+			"error:	The platformconfig file version and ptxdist version do not match:\n" \
+			"\n" \
+			"	configfile version: ${configfile_version}\n" \
+			"	ptxdist version:    ${PTXDIST_VERSION_FULL}\n" \
+			"\n" \
+			"	You can either migrate from an older ptxdist release with:\n" \
+			"	'ptxdist migrate'\n" \
+			"\n" \
+			"	or, to ignore this error, add '--force'\n" \
+			"	to ptxdist's parameters, e.g.:\n" \
+			"	'ptxdist --force ${PTXDIST_ARGS_FULL[*]}'"
+		return 1
+	}
+}
+
+
+_check_config_collection() {
+	if [ \! -e "${PTXDIST_COLLECTIONCONFIG}" -a \
+	    \( -L "${PTXDIST_COLLECTIONCONFIG}" -o "${PTX_collectionconfig_SET}" == "true" \) ]; then
+		ptxd_dialog_msgbox \
+			"error:	'${PTXDIST_COLLECTIONCONFIG#${PTXDIST_WORKSPACE}/}' is missing\n" \
+			"	try 'ptxdist collection <collectionconfig>'"
+		return 1
+	fi
+}
+
+#
+# Check for existence of the config files
+# check_config()
+#
+check_config() {
+	[ -n "${PTX_SLEDGEHAMMER}" ] && return
+
+	_check_config_ptx &&
+	_check_config_platform &&
+	_check_config_collection || return
 }
 
 
@@ -568,14 +642,14 @@ check_if_selected() {
 
 #
 # runs the standard tests before calling into make:
-# - check_ptxconfig
+# - check_config
 # - check_dirs
 # - check_compiler
 # - check_deps
 #
 check_premake()
 {
-	check_ptxconfig && \
+	check_config && \
 	check_dirs && \
 	check_compiler &&
 	check_deps || return
@@ -1043,7 +1117,10 @@ parse_first()
 	PTX_collectionconfig_SET="false"
 	PTX_toolchain_SET="false"
 
-	PTX_MAKE_ARGS=""
+	unset PTX_MAKE_ARGS
+	unset PTX_DEBUG
+	unset PTX_FORCE
+	unset PTX_SLEDGEHAMMER
 
 	set -- "${PTXDIST_ARGS_FULL[@]}"
 	while [ ${#} -ne 0 ]; do
@@ -1060,6 +1137,9 @@ parse_first()
 			;;
 		-f|--force)
 			PTX_FORCE=true
+			;;
+		--sledgehammer)
+			PTX_SLEDGEHAMMER=true
 			;;
 		--ptxconfig=*)
 			PTXDIST_PTXCONFIG="$(ptxd_abspath "${arg#*=}")"
@@ -1116,8 +1196,10 @@ do_config()
 	local config="${1}"
 	local part="${2}"
 
+	ptxd_get_ptxconf PTXCONF_NO_PLATFORM >/dev/null && return || true
+
 	if [ "${part}" != "user" ]; then
-		check_ptxconfig || return
+		check_config || return
 	fi
 
 	case "${config}" in
@@ -1367,12 +1449,11 @@ do_select_toolchain() {
 #
 do_migrate()
 {
-	local parts=( platform ptx )
+	local PTX_FORCE_MIGRATE="${PTX_FORCE}"
+	local PTX_FORCE=true
+
 	local part
-
-	PTX_FORCE=true
-
-	for part in "${parts[@]}"; do
+	for part in ptx platform; do
 		do_config oldconfig "${part}" || return
 	done
 }
@@ -1478,7 +1559,7 @@ parse_second()
 			;;
 
 		boardsetup)
-			check_ptxconfig
+			check_config
 			if [ \! -d "${HOME}/.ptxdist" ]; then
 				mkdir -- "${HOME}/.ptxdist"
 			fi
@@ -1533,7 +1614,7 @@ parse_second()
 			return
 			;;
 		clean)
-			check_ptxconfig || return
+			check_config || return
 			check_deps
 			clean "${1}"
 			exit 0
@@ -1571,7 +1652,7 @@ parse_second()
 			exit 0
 			;;
 		drop)
-			check_ptxconfig || return
+			check_config || return
 			drop "${1}" "${2}"
 			exit 0
 			;;
@@ -1588,13 +1669,13 @@ parse_second()
 				echo
 				exit 1
 			fi
-			check_ptxconfig || return
+			check_config || return
 			check_deps
 			ptxd_make_log export_src EXPORTDIR="${1}"
 			exit 0
 			;;
 		get)
-			check_ptxconfig || return
+			check_config || return
 			check_deps
 			if [ $# -eq 0 ]; then
 				ptxd_make_log get
@@ -1637,7 +1718,7 @@ parse_second()
 			exit ${?}
 			;;
 		print)
-			check_ptxconfig || return
+			check_config || return
 			if [ -z "${1}" ]; then
 				exit 1
 			elif [ -n "${!1}" ]; then
@@ -1656,7 +1737,7 @@ parse_second()
 			exit 0
 			;;
 		test)
-			check_ptxconfig || return
+			check_config || return
 
 			if [ -z "$1" ]; then
 			#	echo "No test given. try ptxdist test help for a list of available tests"
