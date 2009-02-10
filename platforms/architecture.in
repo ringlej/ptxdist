@@ -2,6 +2,7 @@ menu "architecture                  "
 
 choice
 	prompt "cpu architecture"
+	default ARCH_X86
 	help
 	  Specify which processor architecture you want to compile for.
 
@@ -175,6 +176,7 @@ endchoice
 choice
 	prompt "x86 optimization "
 	depends on ARCH_X86
+	default ARCH_X86_I586
 
 	config ARCH_X86_I386
 		bool "386       "
