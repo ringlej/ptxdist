@@ -10,7 +10,8 @@ ptxd_dgen_configdeps() {
     local i
     local config[0]=ptx
 
-    if [ -s "${PTXDIST_PLATFORMCONFIG}" ]; then
+    
+    if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 	config[1]=platform
     fi
 
@@ -84,7 +85,7 @@ ptxd_dgen() {
 	mkdir -p "${STATEDIR}" || return
     fi
 
-    ptxd_dgen_configdeps && \
-    ptxd_dgen_rulesfiles && \
+    ptxd_dgen_configdeps &&
+    ptxd_dgen_rulesfiles &&
     ptxd_dgen_map_all
 }
