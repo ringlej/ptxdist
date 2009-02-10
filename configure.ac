@@ -422,6 +422,7 @@ AC_CONFIG_FILES( \
 	Makefile \
 	scripts/ptxdist_version.sh \
 	rules/ptxdist-version.in \
+	platforms/ptxdist-version.in \
 )
 AC_OUTPUT
 AC_MSG_RESULT([])
