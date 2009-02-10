@@ -1,0 +1,21 @@
+---
+ testcases/realtime/include/librttest.h |    6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+Index: ltp-full-20090131/testcases/realtime/include/librttest.h
+===================================================================
+--- ltp-full-20090131.orig/testcases/realtime/include/librttest.h
++++ ltp-full-20090131/testcases/realtime/include/librttest.h
+@@ -124,7 +124,11 @@ typedef struct { volatile int counter; }
+ 	} while(0)
+ #endif
+ #else
+-#error
++#warning "rdtscll() not implemented for this architecture"
++#define rdtscll(val) \
++	do { \
++		val = 0; \
++	} while(0)
+ #endif
+ 
+ extern pthread_mutex_t _buffer_mutex;

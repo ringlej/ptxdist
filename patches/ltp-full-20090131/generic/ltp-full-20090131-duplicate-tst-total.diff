@@ -1,0 +1,38 @@
+Subject: [patch] fix duplicate TST_TOTAL for non-x86
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+When building for ARM I get this:
+
+tcore.c:212: error: redefinition of 'TST_TOTAL'
+tcore.c:30: error: previous definition of 'TST_TOTAL' was here
+
+Move definition to x86 specific part, as we also have one in the non-x86
+part.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ testcases/misc/tcore_patch_test_suites/tcore.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Index: ltp-full-20090131/testcases/misc/tcore_patch_test_suites/tcore.c
+===================================================================
+--- ltp-full-20090131.orig/testcases/misc/tcore_patch_test_suites/tcore.c
++++ ltp-full-20090131/testcases/misc/tcore_patch_test_suites/tcore.c
+@@ -27,7 +27,6 @@ extern int  Tst_count;               /* 
+ extern char *TESTDIR;                /* temporary dir created by tst_tmpdir() */
+ /* Global Variables */
+ char *TCID     = "tcore";            /* test program identifier.              */
+-int  TST_TOTAL = 1;                  /* total number of tests in this file.   */
+ 
+ #if defined __i386__ || defined(__x86_64__)
+ #include <stdio.h>
+@@ -38,6 +37,8 @@ int  TST_TOTAL = 1;                  /* 
+ 
+ #define BUFFER_SIZE 16
+ 
++int  TST_TOTAL = 1;                  /* total number of tests in this file.   */
++
+ /* Circular buffer of integers. */
+ 
+ struct prodcons
