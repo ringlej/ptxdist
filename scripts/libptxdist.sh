@@ -63,7 +63,7 @@ _ptxd_dialog_box() {
 			--no-collapse \
 			--${dialog}box "${msg}" ${PTX_DIALOG_HEIGHT} ${PTX_DIALOG_WIDTH}
 	else
-		echo -e "${msg}\n"
+		echo -e "${msg}\n" >&2
 	fi
 }
 
