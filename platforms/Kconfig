@@ -4,6 +4,8 @@
 
 mainmenu "Platform"
 
+source "platforms/ptxdist-version.in"
+
 config _platformconfig_MAGIC__
         bool
         default y
@@ -25,6 +27,7 @@ config PLATFORM
 config PLATFORM_VERSION
 	prompt "platform version"
 	string
+	default "1.0"
 	help
 	  This is the revision of the platform.
 
