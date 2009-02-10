@@ -1,0 +1,24 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [patch] add canonical build
+
+For cross compilation we usually need to compute the canonical host and
+build variables.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ configure.ac |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: ltp-full-20090131/configure.ac
+===================================================================
+--- ltp-full-20090131.orig/configure.ac
++++ ltp-full-20090131/configure.ac
+@@ -4,6 +4,7 @@ AM_INIT_AUTOMAKE([1.10])
+ AC_CONFIG_HEADERS([include/config.h])
+ AC_CONFIG_FILES([config.mk m4/Makefile])
+ 
++AC_CANONICAL_BUILD
+ AC_CANONICAL_HOST
+ 
+ AC_DEFUN([AC_PROG_AR], [AC_CHECK_TOOL(AR, ar, :)])

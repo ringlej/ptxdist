@@ -1,0 +1,58 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [patch] add autogen.sh script
+
+Getting the autotool steps right is sometimes a little bit difficult, so
+add an autogen.sh script.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ autogen.sh |   41 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
+
+Index: ltp-full-20090131/autogen.sh
+===================================================================
+--- /dev/null
++++ ltp-full-20090131/autogen.sh
+@@ -0,0 +1,41 @@
++#!/bin/bash
++
++#
++# usage:
++#
++# banner <target name>
++#
++banner() {
++
++	echo
++	TG=`echo $1 | sed -e "s,/.*/,,g"`
++	LINE=`echo $TG |sed -e "s/./-/g"`
++	echo $LINE
++	echo $TG
++	echo $LINE
++	echo
++}
++
++
++ACLOCAL=${ACLOCAL:=aclocal}
++AUTOHEADER=${AUTOHEADER:=autoheader}
++AUTOMAKE=${AUTOMAKE:=automake}
++AUTOCONF=${AUTOCONF:=autoconf}
++
++banner "running aclocal"
++$ACLOCAL -I m4
++[ $? != 0 ] && exit
++
++banner "running autoheader"
++$AUTOHEADER
++[ $? != 0 ] && exit
++
++banner "running automake"
++$AUTOMAKE --gnu --add-missing -Wall
++[ $? != 0 ] && exit
++
++banner "running autoconf"
++$AUTOCONF -Wall
++[ $? != 0 ] && exit
++
++banner "Finished"

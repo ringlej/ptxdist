@@ -1,0 +1,31 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [patch] fix AC_PROG_AR definition
+
+This is usually not defined:
+
+rsc@thebe:ltp-full-20090131$ autoreconf
+configure.ac:10: error: possibly undefined macro: AC_PROG_AR
+      If this token and others are legitimate, please use m4_pattern_allow.
+      See the Autoconf documentation.
+autoreconf: /usr/bin/autoconf failed with exit status: 1
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ configure.ac |    3 +++
+ 1 file changed, 3 insertions(+)
+
+Index: ltp-full-20090131/configure.ac
+===================================================================
+--- ltp-full-20090131.orig/configure.ac
++++ ltp-full-20090131/configure.ac
+@@ -5,6 +5,9 @@ AC_CONFIG_HEADERS([include/config.h])
+ AC_CONFIG_FILES([config.mk m4/Makefile])
+ 
+ AC_CANONICAL_HOST
++
++AC_DEFUN([AC_PROG_AR], [AC_CHECK_TOOL(AR, ar, :)])
++
+ AC_PROG_CC
+ AC_PROG_AR
+ AC_PROG_RANLIB
