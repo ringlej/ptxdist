@@ -1169,11 +1169,14 @@ do_config()
 		;;
 	esac
 
-	echo
-	echo "${PROMPT}'${part} ${config}' returned with an error"
-	echo
-	if [ $retval -ne 0 -a -n "${PTX_MENU}" ]; then
-		read
+	local retval=$?
+	if [ $retval -ne 0 ]; then
+		echo
+		echo "${PROMPT}'${part} ${config}' returned with an error"
+		echo
+		if [ -n "${PTX_MENU}" ]; then
+			read
+		fi
 	fi
 
 	return $retval
