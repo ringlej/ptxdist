@@ -10,14 +10,13 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
  config.mk.in                                                |    3 ++
- configure.ac                                                |    7 +++++
- testcases/kernel/sched/Makefile.in                          |   13 +++++++++
- testcases/kernel/sched/hyperthreading/Makefile              |    2 -
+ configure.ac                                                |    6 ++++
+ testcases/kernel/sched/hyperthreading/Makefile              |    3 +-
  testcases/kernel/sched/hyperthreading/ht_affinity/Makefile  |    2 -
  testcases/kernel/sched/hyperthreading/ht_enabled/Makefile   |    2 -
  testcases/kernel/sched/hyperthreading/ht_interrupt/Makefile |    2 -
  testcases/realtime/Makefile.in                              |   16 ++++++++++++
- 8 files changed, 43 insertions(+), 4 deletions(-)
+ 7 files changed, 30 insertions(+), 4 deletions(-)
 
 Index: ltp-full-20090131/configure.ac
 ===================================================================
@@ -32,13 +31,12 @@ Index: ltp-full-20090131/configure.ac
  AC_DEFUN([AC_PROG_AR], [AC_CHECK_TOOL(AR, ar, :)])
  
  AC_PROG_CC
-@@ -23,4 +25,9 @@ LTP_CHECK_SYSCALL_EVENTFD
+@@ -23,4 +25,8 @@ LTP_CHECK_SYSCALL_EVENTFD
  LTP_CHECK_SYSCALL_MODIFY_LDT
  LTP_CHECK_SYSCALL_SIGNALFD
  
 +AC_CONFIG_FILES([
 +	testcases/realtime/Makefile
-+	testcases/kernel/sched/Makefile
 +])
 +
  AC_OUTPUT
@@ -63,24 +61,6 @@ Index: ltp-full-20090131/testcases/realtime/Makefile.in
 +clean:
 +	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean ; done
 +	@rm .config
-Index: ltp-full-20090131/testcases/kernel/sched/Makefile.in
-===================================================================
---- /dev/null
-+++ ltp-full-20090131/testcases/kernel/sched/Makefile.in
-@@ -0,0 +1,13 @@
-+include ../../../config.mk
-+
-+SUBDIRS = cfs-scheduler clisrv hyperthreading nptl process_stress pthreads sched_stress tool
-+
-+all:
-+	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i ; done
-+
-+install:
-+	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i install ; done
-+
-+clean:
-+	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean ; done
-+
 Index: ltp-full-20090131/config.mk.in
 ===================================================================
 --- ltp-full-20090131.orig/config.mk.in
@@ -90,16 +70,17 @@ Index: ltp-full-20090131/config.mk.in
  
  AIO_LIBS = @AIO_LIBS@
 +
-+HOST_CPU = @host_cpu@
++TARGET_ARCH = @host_cpu@
 +
 Index: ltp-full-20090131/testcases/kernel/sched/hyperthreading/Makefile
 ===================================================================
 --- ltp-full-20090131.orig/testcases/kernel/sched/hyperthreading/Makefile
 +++ ltp-full-20090131/testcases/kernel/sched/hyperthreading/Makefile
-@@ -1,5 +1,5 @@
+@@ -1,5 +1,6 @@
++include ../../../../config.mk
  
 -OSV := $(shell uname -m|grep i[3-6]86)
-+OSV := $(shell echo $HOST_NAME | grep i[3-6]86)
++OSV := $(shell echo $(TARGET_ARCH) | grep i[3-6]86)
  ifeq (,$(OSV))
  else
  export CFLAGS+= -DARCH_i386
