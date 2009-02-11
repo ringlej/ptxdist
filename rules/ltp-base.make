@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
+# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
-# Copyright (C) 2005 by Robert Schwebel
+# Copyright (C) 2009 by Juergen Beisert
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,107 +17,94 @@ PACKAGES-$(PTXCONF_LTP_BASE) += ltp_base
 #
 # Paths and names
 #
-LTP_BASE_VERSION	= 20090131
-LTP_BASE		= ltp-full-$(LTP_BASE_VERSION)
-LTP_BASE_SUFFIX		= tgz
-LTP_BASE_URL		= $(PTXCONF_SETUP_SFMIRROR)/ltp/$(LTP_BASE).$(LTP_BASE_SUFFIX)
-LTP_BASE_SOURCE		= $(SRCDIR)/$(LTP_BASE).$(LTP_BASE_SUFFIX)
-LTP_BASE_DIR		= $(BUILDDIR)/$(LTP_BASE)
-LTP_BASE_BIN_DIR	= /usr/bin/ltp
+LTP_BASE_VERSION	:= 20090131
+LTP_BASE		:= ltp-full-$(LTP_BASE_VERSION)
+LTP_BASE_SUFFIX		:= tgz
+LTP_BASE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/ltp/$(LTP_BASE).$(LTP_BASE_SUFFIX)
+LTP_BASE_SOURCE		:= $(SRCDIR)/$(LTP_BASE).$(LTP_BASE_SUFFIX)
+LTP_BASE_DIR		:= $(BUILDDIR)/$(LTP_BASE)
+LTP_BASE_BIN_DIR	:= /usr/bin/ltp
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-ltp_base_get: $(STATEDIR)/ltp_base.get
-
-$(STATEDIR)/ltp_base.get: $(ltp_base_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LTP_BASE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LTP_BASE)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-ltp_base_extract: $(STATEDIR)/ltp_base.extract
-
-$(STATEDIR)/ltp_base.extract: $(ltp_base_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/ltp_base.extract:
+	@$(call targetinfo)
 	@$(call clean, $(LTP_BASE_DIR))
 	@$(call extract, LTP_BASE)
 	@$(call patchin, LTP_BASE)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-ltp_base_prepare: $(STATEDIR)/ltp_base.prepare
+LTP_BASE_PATH	:= PATH=$(CROSS_PATH)
+LTP_BASE_ENV 	:= $(CROSS_ENV)
 
-LTP_BASE_PATH	=  PATH=$(CROSS_PATH)
-LTP_ENV 	=  $(CROSS_ENV) LDFLAGS="-L$(LTP_BASE_DIR)/lib"
+#
+# autoconf
+#
+LTP_BASE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--disable-dependency-tracking
 
-$(STATEDIR)/ltp_base.prepare: $(ltp_base_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/ltp_base.prepare:
+	@$(call targetinfo)
+	@$(call clean, $(LTP_BASE_DIR)/config.cache)
+	cd $(LTP_BASE_DIR) && \
+		$(LTP_BASE_PATH) $(LTP_BASE_ENV) \
+		./configure $(LTP_BASE_AUTOCONF)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-ltp_base_compile: $(STATEDIR)/ltp_base.compile
-
-$(STATEDIR)/ltp_base.compile: $(ltp_base_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LTP_BASE_DIR); $(LTP_ENV) $(MAKE) $(PARALLELMFLAGS) libltp.a
-
-#	CROSS_COMPILER=$(PTXDIST_WORKSPACE)/.toolchain/$(PTXCONF_COMPILER_PREFIX) \
-#	make CROSS_CFLAGS="" LDFLAGS="-static -L$(LTP_BASE_DIR)/lib" \
-#		LOADLIBS="-lpthread -lc -lresolv -lnss_dns -lnss_files -lm -lc" \
-#		$(PARALLELMFLAGS) all install
-
-#	CROSS_COMPILER=$(PTXDIST_WORKSPACE)/.toolchain/$(PTXCONF_COMPILER_PREFIX) \
-#	make CROSS_CFLAGS="" LDFLAGS="-static -L$(LTP_BASE_DIR)/lib" \
-#		LOADLIBS="-lpthread -lc -lresolv -lnss_dns -lnss_files -lm -lc" \
-#		$(PARALLELMFLAGS) install
-
-	@$(call touch, $@)
+$(STATEDIR)/ltp_base.compile:
+	@$(call targetinfo)
+	cd $(LTP_BASE_DIR) && $(LTP_BASE_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-ltp_base_install: $(STATEDIR)/ltp_base.install
-
-$(STATEDIR)/ltp_base.install: $(ltp_base_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/ltp_base.install:
+	@$(call targetinfo)
+	@$(call install, LTP_BASE)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ltp_base_targetinstall: $(STATEDIR)/ltp_base.targetinstall
+$(STATEDIR)/ltp_base.targetinstall:
+	@$(call targetinfo)
 
-$(STATEDIR)/ltp_base.targetinstall: $(ltp_base_targetinstall_deps_default)
-	@$(call targetinfo, $@)
-
-	@$(call install_init,  ltp_base)
+	@$(call install_init, ltp_base)
 	@$(call install_fixup, ltp_base,PACKAGE,ltp_base)
 	@$(call install_fixup, ltp_base,PRIORITY,optional)
 	@$(call install_fixup, ltp_base,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp_base,SECTION,base)
-	@$(call install_fixup, ltp_base,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ltp_base,AUTHOR,"Juergen Beisert")
 	@$(call install_fixup, ltp_base,DEPENDS,)
 	@$(call install_fixup, ltp_base,DESCRIPTION,missing)
 
+
+#	@$(call install_copy, ltp_base, 0, 0, 0755, $(LTP_BASE_DIR)/foobar, /dev/null)
+
 	@$(call install_finish, ltp_base)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
