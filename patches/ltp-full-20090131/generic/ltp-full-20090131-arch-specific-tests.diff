@@ -70,7 +70,7 @@ Index: ltp-full-20090131/config.mk.in
  
  AIO_LIBS = @AIO_LIBS@
 +
-+TARGET_ARCH = @host_cpu@
++TARGET_ARCHITECTURE = @host_cpu@
 +
 Index: ltp-full-20090131/testcases/kernel/sched/hyperthreading/Makefile
 ===================================================================
@@ -80,7 +80,7 @@ Index: ltp-full-20090131/testcases/kernel/sched/hyperthreading/Makefile
 +include ../../../../config.mk
  
 -OSV := $(shell uname -m|grep i[3-6]86)
-+OSV := $(shell echo $(TARGET_ARCH) | grep i[3-6]86)
++OSV := $(shell echo $(TARGET_ARCHITECTURE) | grep i[3-6]86)
  ifeq (,$(OSV))
  else
  export CFLAGS+= -DARCH_i386
