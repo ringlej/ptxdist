@@ -9,9 +9,15 @@ FIXME: Patch not finished yet...
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
- configure.ac                   |    6 ++++++
- testcases/realtime/Makefile.in |   16 ++++++++++++++++
- 2 files changed, 22 insertions(+)
+ config.mk.in                                                |    3 ++
+ configure.ac                                                |    7 +++++
+ testcases/kernel/sched/Makefile.in                          |   13 +++++++++
+ testcases/kernel/sched/hyperthreading/Makefile              |    2 -
+ testcases/kernel/sched/hyperthreading/ht_affinity/Makefile  |    2 -
+ testcases/kernel/sched/hyperthreading/ht_enabled/Makefile   |    2 -
+ testcases/kernel/sched/hyperthreading/ht_interrupt/Makefile |    2 -
+ testcases/realtime/Makefile.in                              |   16 ++++++++++++
+ 8 files changed, 43 insertions(+), 4 deletions(-)
 
 Index: ltp-full-20090131/configure.ac
 ===================================================================
@@ -26,12 +32,13 @@ Index: ltp-full-20090131/configure.ac
  AC_DEFUN([AC_PROG_AR], [AC_CHECK_TOOL(AR, ar, :)])
  
  AC_PROG_CC
-@@ -23,4 +25,8 @@ LTP_CHECK_SYSCALL_EVENTFD
+@@ -23,4 +25,9 @@ LTP_CHECK_SYSCALL_EVENTFD
  LTP_CHECK_SYSCALL_MODIFY_LDT
  LTP_CHECK_SYSCALL_SIGNALFD
  
 +AC_CONFIG_FILES([
 +	testcases/realtime/Makefile
++	testcases/kernel/sched/Makefile
 +])
 +
  AC_OUTPUT
@@ -56,3 +63,82 @@ Index: ltp-full-20090131/testcases/realtime/Makefile.in
 +clean:
 +	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean ; done
 +	@rm .config
+Index: ltp-full-20090131/testcases/kernel/sched/Makefile.in
+===================================================================
+--- /dev/null
++++ ltp-full-20090131/testcases/kernel/sched/Makefile.in
+@@ -0,0 +1,13 @@
++include ../../../config.mk
++
++SUBDIRS = cfs-scheduler clisrv hyperthreading nptl process_stress pthreads sched_stress tool
++
++all:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i ; done
++
++install:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i install ; done
++
++clean:
++	@set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean ; done
++
+Index: ltp-full-20090131/config.mk.in
+===================================================================
+--- ltp-full-20090131.orig/config.mk.in
++++ ltp-full-20090131/config.mk.in
+@@ -7,3 +7,6 @@ CFLAGS = @CFLAGS@
+ LDFLAGS = @LDFLAGS@
+ 
+ AIO_LIBS = @AIO_LIBS@
++
++HOST_CPU = @host_cpu@
++
+Index: ltp-full-20090131/testcases/kernel/sched/hyperthreading/Makefile
+===================================================================
+--- ltp-full-20090131.orig/testcases/kernel/sched/hyperthreading/Makefile
++++ ltp-full-20090131/testcases/kernel/sched/hyperthreading/Makefile
+@@ -1,5 +1,5 @@
+ 
+-OSV := $(shell uname -m|grep i[3-6]86)
++OSV := $(shell echo $HOST_NAME | grep i[3-6]86)
+ ifeq (,$(OSV))
+ else
+ export CFLAGS+= -DARCH_i386
+Index: ltp-full-20090131/testcases/kernel/sched/hyperthreading/ht_affinity/Makefile
+===================================================================
+--- ltp-full-20090131.orig/testcases/kernel/sched/hyperthreading/ht_affinity/Makefile
++++ ltp-full-20090131/testcases/kernel/sched/hyperthreading/ht_affinity/Makefile
+@@ -9,7 +9,7 @@ all: $(TARGETS)
+ #ht_affinity: HTaffinity.o HTutils.o
+ #	gcc -o ht_affinity HTaffinity.o HTutils.o $(CFLAGS) $(LOADLIBES)
+ ht_affinity:
+-	gcc -o ht_affinity HTaffinity.c HTutils.c $(CFLAGS) $(LOADLIBES)
++	$(CC) -o ht_affinity HTaffinity.c HTutils.c $(CFLAGS) $(LOADLIBES)
+ 
+ install:
+ 	@set -e; for i in $(TARGETS) ; do ln -f $$i ../../../../bin/$$i ; done
+Index: ltp-full-20090131/testcases/kernel/sched/hyperthreading/ht_enabled/Makefile
+===================================================================
+--- ltp-full-20090131.orig/testcases/kernel/sched/hyperthreading/ht_enabled/Makefile
++++ ltp-full-20090131/testcases/kernel/sched/hyperthreading/ht_enabled/Makefile
+@@ -7,7 +7,7 @@ TARGETS  := ht_enabled
+ all: $(TARGETS)
+ 
+ ht_enabled:
+-	gcc -o ht_enabled HTenabled.c HTutils.c $(CFLAGS) $(LOADLIBES)
++	$(CC) -o ht_enabled HTenabled.c HTutils.c $(CFLAGS) $(LOADLIBES)
+ 
+ install:
+ 	@set -e; for i in $(TARGETS) ; do ln -f $$i ../../../../bin/$$i ; done
+Index: ltp-full-20090131/testcases/kernel/sched/hyperthreading/ht_interrupt/Makefile
+===================================================================
+--- ltp-full-20090131.orig/testcases/kernel/sched/hyperthreading/ht_interrupt/Makefile
++++ ltp-full-20090131/testcases/kernel/sched/hyperthreading/ht_interrupt/Makefile
+@@ -7,7 +7,7 @@ TARGETS = ht_interrupt
+ all: $(TARGETS)
+ 
+ ht_interrupt:
+-	gcc -o ht_interrupt HTinterrupt.c HTutils.c $(CFLAGS) $(LOADLIBES) 
++	$(CC) -o ht_interrupt HTinterrupt.c HTutils.c $(CFLAGS) $(LOADLIBES)
+ 
+ install:
+ 	@set -e; for i in $(TARGETS) ; do ln -f $$i ../../../../bin/$$i ; done
