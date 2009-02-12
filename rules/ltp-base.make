@@ -95,12 +95,31 @@ $(STATEDIR)/ltp_base.targetinstall:
 	@$(call install_fixup, ltp_base,PRIORITY,optional)
 	@$(call install_fixup, ltp_base,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp_base,SECTION,base)
-	@$(call install_fixup, ltp_base,AUTHOR,"Juergen Beisert")
+	@$(call install_fixup, ltp_base,AUTHOR,"Juergen Beisert\@pengutronix.de")
 	@$(call install_fixup, ltp_base,DEPENDS,)
 	@$(call install_fixup, ltp_base,DESCRIPTION,missing)
 
+# just a test
+	@$(call install_copy, ltp_base, 0, 0, 0755, /home)
+	@$(call install_copy, ltp_base, 0, 0, 0755, /home/ltp)
+	@$(call install_copy, ltp_base, 0, 0, 0755, /home/ltp/bin)
 
-#	@$(call install_copy, ltp_base, 0, 0, 0755, $(LTP_BASE_DIR)/foobar, /dev/null)
+	@cd $(LTP_BASE_DIR)/testcases; \
+	for file in `find bin -type f`; do \
+		PER=`stat -c "%a" $$file` \
+		$(call install_copy, install_copy, 0, 0, $$PER, \
+			$$file, \
+			/home/ltp/$$file) \
+	done
+
+	@$(call install_copy, ltp_base, 0, 0, 0755, /home/ltp/bin/dumpdir)
+	@cd $(LTP_BASE_DIR)/testcases; \
+	for file in `find bin/dumpdir -type f`; do \
+		PER=`stat -c "%a" $$file` \
+		$(call install_copy, install_copy, 0, 0, $$PER, \
+			$$file, \
+			/home/ltp/$$file) \
+	done
 
 	@$(call install_finish, ltp_base)
 

@@ -1,0 +1,27 @@
+Subject: [patch] Disable the group and user test.
+From: Juergen Beisert <j.beisert@pengutronix.de>
+
+It makes no sense to check users and groups on the host system when the tests
+are intended to run on a target.
+
+TODO: Disable this test, when configure detects cross compiling
+
+Signed-off-by: Juergen Beisert <j.beisert@pengutronix.de>
+
+---
+ Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: ltp-full-20090131/Makefile
+===================================================================
+--- ltp-full-20090131.orig/Makefile
++++ ltp-full-20090131/Makefile
+@@ -36,7 +36,7 @@ install: all
+ 	@$(MAKE) -C doc/man1 install
+ 	@$(MAKE) -C doc/man3 install
+ 
+-	@./IDcheck.sh
++#	@./IDcheck.sh
+ 
+ libltp.a: config.h
+ 	@$(MAKE) -C lib $@
