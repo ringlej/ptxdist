@@ -4,5 +4,7 @@
 
 config LTP_BASE
 	tristate
+	select LIBC_M
+	select LIBC_PTHREAD
 	default y if LTP
 

@@ -101,24 +101,31 @@ $(STATEDIR)/ltp_base.targetinstall:
 
 # just a test
 	@$(call install_copy, ltp_base, 0, 0, 0755, /home)
-	@$(call install_copy, ltp_base, 0, 0, 0755, /home/ltp)
-	@$(call install_copy, ltp_base, 0, 0, 0755, /home/ltp/bin)
+	@$(call install_copy, ltp_base, 0, 0, 0755, /home/testcases)
+	@$(call install_copy, ltp_base, 0, 0, 0755, /home/testcases/bin)
+
+# some tools are mandatory
+
+# a useful tool to control processes that run amok (not really yet)
+	$(call install_copy, install_copy, 0, 0, 0755, \
+		$(LTP_BASE_DIR)/pan/pan \
+		/usr/sbin/pan)
 
 	@cd $(LTP_BASE_DIR)/testcases; \
 	for file in `find bin -type f`; do \
 		PER=`stat -c "%a" $$file` \
 		$(call install_copy, install_copy, 0, 0, $$PER, \
 			$$file, \
-			/home/ltp/$$file) \
+			/home/testcases/$$file) \
 	done
 
-	@$(call install_copy, ltp_base, 0, 0, 0755, /home/ltp/bin/dumpdir)
+	@$(call install_copy, ltp_base, 0, 0, 0755, /home/testcases/bin/dumpdir)
 	@cd $(LTP_BASE_DIR)/testcases; \
 	for file in `find bin/dumpdir -type f`; do \
 		PER=`stat -c "%a" $$file` \
 		$(call install_copy, install_copy, 0, 0, $$PER, \
 			$$file, \
-			/home/ltp/$$file) \
+			/home/testcases/$$file) \
 	done
 
 	@$(call install_finish, ltp_base)
