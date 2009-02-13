@@ -107,14 +107,14 @@ $(STATEDIR)/ltp_base.targetinstall:
 # some tools are mandatory
 
 # a useful tool to control processes that run amok (not really yet)
-	$(call install_copy, install_copy, 0, 0, 0755, \
+	$(call install_copy, ltp_base, 0, 0, 0755, \
 		$(LTP_BASE_DIR)/pan/pan \
 		/usr/sbin/pan)
 
 	@cd $(LTP_BASE_DIR)/testcases; \
 	for file in `find bin -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, install_copy, 0, 0, $$PER, \
+		$(call install_copy, ltp_base, 0, 0, $$PER, \
 			$$file, \
 			/home/testcases/$$file) \
 	done
@@ -123,7 +123,7 @@ $(STATEDIR)/ltp_base.targetinstall:
 	@cd $(LTP_BASE_DIR)/testcases; \
 	for file in `find bin/dumpdir -type f`; do \
 		PER=`stat -c "%a" $$file` \
-		$(call install_copy, install_copy, 0, 0, $$PER, \
+		$(call install_copy, ltp_base, 0, 0, $$PER, \
 			$$file, \
 			/home/testcases/$$file) \
 	done
