@@ -422,9 +422,9 @@ check_dirs() {
 	local ptxconf_sysroot_target ptxconf_sysroot_host ptxconf_sysroot_cross
 	local dir testfile_upper testfile_lower
 
-	ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
-	ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
-	ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
+	ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)" &&
+	ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)" &&
+	ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)" || return
 
 	# check for r/w and create standard directory layout
 	for dir in \
@@ -522,8 +522,7 @@ check_compiler() {
 		fi
 	done
 
-	local build_toolchain="$(ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN)"
-	[ -n "$build_toolchain" ] && return
+	ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null && return || true
 
 	#
 	# Three things should be checked
@@ -532,8 +531,8 @@ check_compiler() {
 	# 3) Correct compiler version if a specific compiler version is given
 	#
 
-	local vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
-	if [ -n "${vendor_should}" ]; then
+	local vendor_should
+	vendor_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)" && {
 		# yea! A toolchain vendor was specified in the ptxconfig file.
 		# So we check for a 'ptxconfig' file in the toolchain directory
 		# and test the PTXCONF_PROJECT string therein.
@@ -565,11 +564,11 @@ check_compiler() {
 			echo
 			exit 1
 		fi
-	fi
+	}
 
-	local compiler_ver_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
 	local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
-	if [ -n "${compiler_ver_should}" ]; then
+	local compiler_ver_should
+	compiler_ver_should="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)" && {
 		local compiler="${compiler_prefix}gcc"
 		local compiler_ver_is="$(${compiler} -dumpversion 2> /dev/null || true)"
 
@@ -588,7 +587,7 @@ check_compiler() {
 			echo
 			exit 1
 		fi
-	fi
+	}
 
 	if [ -n "${PTX_CCACHE_DIR}" ]; then
 		for cc in \
@@ -627,15 +626,13 @@ check_if_selected() {
 		exit 1
 	fi
 
-	local configvar="PTXCONF_$(ptxd_name_to_NAME "${1}")"
-	local ptxconfig_configvar="$(ptxd_get_ptxconf "${configvar}")"
-
-	if [ -z "${ptxconfig_configvar}" ]; then
+	local configvar="PTXCONF_$(ptxd_name_to_NAME "${1}")"	# FIXME
+	ptxd_get_ptxconf "${configvar}" > /dev/null || {
 		ptxd_dialog_msgbox \
 			"${PROMPT}error: '${1}' is not selected in\n" \
 			"	${PTXDIST_PTXCONFIG}"
 		return 1
-	fi
+	}
 }
 
 
@@ -649,8 +646,8 @@ check_if_selected() {
 #
 check_premake()
 {
-	check_config && \
-	check_dirs && \
+	check_config &&
+	check_dirs &&
 	check_compiler &&
 	check_deps || return
 }
@@ -1196,9 +1193,9 @@ do_config()
 	local config="${1}"
 	local part="${2}"
 
-	ptxd_get_ptxconf PTXCONF_NO_PLATFORM >/dev/null && return || true
-
-	if [ "${part}" != "user" ]; then
+	if [ "${part}" = "platform" ] && ptxd_get_ptxconf PTXCONF_NO_PLATFORM >/dev/null; then
+		return
+	elif [ "${part}" != "user" ]; then
 		check_config || return
 	fi
 
