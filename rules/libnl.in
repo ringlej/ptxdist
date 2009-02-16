@@ -2,7 +2,7 @@
 
 menuconfig LIBNL
 	tristate
-	prompt "libnl"
+	prompt "libnl                         "
 	help
 	  libnl is a library for applications dealing with netlink
 	  sockets. The library provides an interface for raw
