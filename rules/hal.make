@@ -120,32 +120,6 @@ endif
 #                          Use an given Linux input.h rather than that
 #                          installed on the system (<linux/input.h>)
 
-$(STATEDIR)/hal.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(HAL_DIR)/config.cache)
-	cd $(HAL_DIR) && \
-		$(HAL_PATH) $(HAL_ENV) \
-		./configure $(HAL_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/hal.compile:
-	@$(call targetinfo)
-	cd $(HAL_DIR) && $(HAL_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/hal.install:
-	@$(call targetinfo)
-	@$(call install, HAL)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
