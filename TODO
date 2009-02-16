@@ -3,7 +3,7 @@ TODO before 2.0.0
 
 Prio A
 
-[ ] jbe: "ptxdist platformconfig" moans:
+[x] jbe: "ptxdist platformconfig" moans:
     error: The configfile version and ptxdist version do not match:
         configfile version:
         ptxdist version:    1.99.svn
