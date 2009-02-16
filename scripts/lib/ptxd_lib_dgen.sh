@@ -65,8 +65,10 @@ ptxd_dgen_map_all() {
 	cat <<EOF
 	"${PTX_MAP_DEPS}.tmp"
 	"${PTXDIST_PTXCONFIG}"
-	"${PTXDIST_PLATFORMCONFIG}"
 EOF
+	if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
+	    echo "${PTXDIST_PLATFORMCONFIG}"
+	fi
     } | { 
 	export \
 	    PTX_MAP_ALL \
