@@ -1,0 +1,36 @@
+---
+ pan/pan.c |    7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+Index: ltp-full-20090131/pan/pan.c
+===================================================================
+--- ltp-full-20090131.orig/pan/pan.c
++++ ltp-full-20090131/pan/pan.c
+@@ -164,6 +164,7 @@ main(int argc, char **argv)
+ 	int failcnt = 0;           /* count of total testcases that failed. */
+     int err, i;
+     int starts = -1;
++    int timed = 0;
+     int run_time = -1; char modifier = 'm'; int ret = 0;
+     int stop;
+     int go_idle;
+@@ -254,7 +255,7 @@ main(int argc, char **argv)
+                }
+                printf("PAN will run for %d seconds\n", run_time);
+             }
+-            starts = 0; //-t implies run as many starts as possible
++            timed = 1; //-t implies run as many starts as possible, by default
+ 	    break;
+ 	case 'x':	/* number of tags to keep running */
+ 	    keep_active = atoi(optarg);
+@@ -347,7 +348,9 @@ main(int argc, char **argv)
+     /* Supply a default for starts.  If we are in sequential mode, use
+      * the number of commands available; otherwise 1.
+      */
+-    if (starts == -1) {
++    if (timed == 1 && starts == -1) {	/* timed, infinite by default */
++	starts = -1;
++    } else if (starts == -1) {
+ 	if (sequential) {
+ 	    starts = coll->cnt;
+ 	} else {
