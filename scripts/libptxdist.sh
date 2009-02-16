@@ -275,7 +275,7 @@ ptxd_kconfig() {
 		# oldconfig instead of silentoldconfig if somebody
 		# tries to automate us.
 		#
-		ptxd_kconfig_migrate "${part}" && \
+		ptxd_kconfig_migrate "${part}" &&
 		if tty -s; then
 			"${conf}" -s "${file_kconfig}"
 		else
@@ -293,7 +293,8 @@ ptxd_kconfig() {
 		;;
 	dep)
 		copy_back="false"
-		yes "" | "${conf}" -O "${file_kconfig}"
+		yes "" | "${conf}" -O "${file_kconfig}" &&
+		cp -- ".config" "${PTX_DGEN_DIR}/${part}config"
 		;;
 	*)
 		echo
@@ -358,11 +359,11 @@ ptxd_dumpstack()
 {
 	local i=0
 
-	echo '############# stackdump #############'
+	echo '############# stackdump #############' >&2
 	while caller $i >&2; do
 		let i++
 	done
-	echo '######## any key to continue ########'
+	echo '######## any key to continue ########' >&2
 
 	read
 }
