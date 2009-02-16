@@ -1,3 +1,12 @@
+Subject: limit starts when running for certain time, too
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+
+This patches add a feature to limit the number of times a test is
+started when running for a certain time instead of infinite runs.
+
+This could be used to give a timeout for a certain test.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  pan/pan.c |    7 +++++--
  1 file changed, 5 insertions(+), 2 deletions(-)
