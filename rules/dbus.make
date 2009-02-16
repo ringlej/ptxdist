@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.2.1
+DBUS_VERSION	:= 1.2.12
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -38,23 +38,21 @@ $(DBUS_SOURCE):
 # ----------------------------------------------------------------------------
 
 DBUS_PATH := PATH=$(CROSS_PATH)
-DBUS_ENV := \
-	$(CROSS_ENV) \
-	ac_cv_have_abstract_sockets=yes
+DBUS_ENV := $(CROSS_ENV)
 
 #
 # autoconf
 #
 DBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-tests \
-	--disable-xml-docs \
+	--disable-dnotify \
 	--disable-doxygen-docs \
 	--disable-gcov \
-	--enable-abstract-sockets=yes \
-	--disable-libaudit \
-	--disable-dnotify \
 	--disable-kqueue \
+	--disable-libaudit \
+	--disable-tests \
+	--disable-xml-docs \
+	--enable-abstract-sockets=yes \
 	--localstatedir=/var \
 	--with-dbus-user=$(PTXCONF_DBUS_USER)
 

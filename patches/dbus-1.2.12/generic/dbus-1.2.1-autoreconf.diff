@@ -7,10 +7,15 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
 
-diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
---- dbus-1.2.1-orig/bus/Makefile.in	2008-04-04 20:23:42.000000000 +0200
-+++ dbus-1.2.1/bus/Makefile.in	2008-07-29 22:00:27.000000000 +0200
-@@ -92,18 +92,20 @@
+---
+ bus/Makefile.in |  202 ++++++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 139 insertions(+), 63 deletions(-)
+
+Index: dbus-1.2.12/bus/Makefile.in
+===================================================================
+--- dbus-1.2.12.orig/bus/Makefile.in
++++ dbus-1.2.12/bus/Makefile.in
+@@ -91,18 +91,20 @@ bus_test_LINK = $(LIBTOOL) --tag=CC $(AM
  	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(bus_test_LDFLAGS) \
  	$(LDFLAGS) -o $@
  am__bus_test_launch_helper_SOURCES_DIST = test-launch-helper.c \
@@ -36,7 +41,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  	bus_test_launch_helper-activation-helper.$(OBJEXT)
  am_bus_test_launch_helper_OBJECTS =  \
  	bus_test_launch_helper-test-launch-helper.$(OBJEXT) \
-@@ -115,12 +117,12 @@
+@@ -114,12 +116,12 @@ bus_test_launch_helper_LINK = $(LIBTOOL)
  	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
  	$(bus_test_launch_helper_LDFLAGS) $(LDFLAGS) -o $@
  am__bus_test_system_SOURCES_DIST = config-loader-expat.c \
@@ -55,7 +60,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  bus_test_system_OBJECTS = $(am_bus_test_system_OBJECTS)
  bus_test_system_DEPENDENCIES =  \
  	$(top_builddir)/dbus/libdbus-convenience.la \
-@@ -146,14 +148,15 @@
+@@ -145,14 +147,15 @@ dbus_daemon_LINK = $(LIBTOOL) --tag=CC $
  	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
  	$(dbus_daemon_LDFLAGS) $(LDFLAGS) -o $@
  am__dbus_daemon_launch_helper_SOURCES_DIST = activation-helper-bin.c \
@@ -78,7 +83,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  am_dbus_daemon_launch_helper_OBJECTS =  \
  	activation-helper-bin.$(OBJEXT) $(am__objects_6)
  dbus_daemon_launch_helper_OBJECTS =  \
-@@ -166,18 +169,20 @@
+@@ -165,18 +168,20 @@ dbus_daemon_launch_helper_LINK = $(LIBTO
  	$(LDFLAGS) -o $@
  am__dbus_daemon_launch_helper_test_SOURCES_DIST =  \
  	activation-helper-bin.c config-loader-expat.c \
@@ -104,23 +109,78 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  	dbus_daemon_launch_helper_test-activation-helper.$(OBJEXT)
  am_dbus_daemon_launch_helper_test_OBJECTS = dbus_daemon_launch_helper_test-activation-helper-bin.$(OBJEXT) \
  	$(am__objects_8)
-@@ -281,6 +286,7 @@
- DEFS = @DEFS@
+@@ -281,7 +286,7 @@ DEFS = @DEFS@
  DEPDIR = @DEPDIR@
  DOXYGEN = @DOXYGEN@
-+DSYMUTIL = @DSYMUTIL@
- ECHO = @ECHO@
+ DSYMUTIL = @DSYMUTIL@
+-ECHO = @ECHO@
++DUMPBIN = @DUMPBIN@
  ECHO_C = @ECHO_C@
  ECHO_N = @ECHO_N@
-@@ -316,6 +322,7 @@
+ ECHO_T = @ECHO_T@
+@@ -293,8 +298,7 @@ EXPANDED_LIBDIR = @EXPANDED_LIBDIR@
+ EXPANDED_LIBEXECDIR = @EXPANDED_LIBEXECDIR@
+ EXPANDED_LOCALSTATEDIR = @EXPANDED_LOCALSTATEDIR@
+ EXPANDED_SYSCONFDIR = @EXPANDED_SYSCONFDIR@
+-F77 = @F77@
+-FFLAGS = @FFLAGS@
++FGREP = @FGREP@
+ GETTEXT_PACKAGE = @GETTEXT_PACKAGE@
+ GREP = @GREP@
+ INSTALL = @INSTALL@
+@@ -302,12 +306,14 @@ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_SCRIPT = @INSTALL_SCRIPT@
+ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
++LD = @LD@
+ LDFLAGS = @LDFLAGS@
+ LIBOBJS = @LIBOBJS@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
+ LIBXML_CFLAGS = @LIBXML_CFLAGS@
+ LIBXML_LIBS = @LIBXML_LIBS@
++LIPO = @LIPO@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+@@ -316,8 +322,11 @@ LT_REVISION = @LT_REVISION@
  MAINT = @MAINT@
  MAKEINFO = @MAKEINFO@
  MKDIR_P = @MKDIR_P@
-+NMEDIT = @NMEDIT@
++NM = @NM@
+ NMEDIT = @NMEDIT@
  OBJEXT = @OBJEXT@
++OTOOL = @OTOOL@
++OTOOL64 = @OTOOL64@
  PACKAGE = @PACKAGE@
  PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
-@@ -479,14 +486,18 @@
+ PACKAGE_NAME = @PACKAGE_NAME@
+@@ -364,7 +373,7 @@ abs_top_builddir = @abs_top_builddir@
+ abs_top_srcdir = @abs_top_srcdir@
+ ac_ct_CC = @ac_ct_CC@
+ ac_ct_CXX = @ac_ct_CXX@
+-ac_ct_F77 = @ac_ct_F77@
++ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
+ am__include = @am__include@
+ am__leading_dot = @am__leading_dot@
+ am__quote = @am__quote@
+@@ -395,6 +404,7 @@ libdir = @libdir@
+ libexecdir = @libexecdir@
+ localedir = @localedir@
+ localstatedir = @localstatedir@
++lt_ECHO = @lt_ECHO@
+ mandir = @mandir@
+ mkdir_p = @mkdir_p@
+ oldincludedir = @oldincludedir@
+@@ -407,7 +417,6 @@ sharedstatedir = @sharedstatedir@
+ srcdir = @srcdir@
+ sysconfdir = @sysconfdir@
+ target_alias = @target_alias@
+-top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ configdir = $(sysconfdir)/dbus-1
+@@ -478,14 +487,18 @@ dbus_daemon_LDADD = \
  dbus_daemon_LDFLAGS = @R_DYNAMIC_LDFLAG@ @SECTION_LDFLAGS@ @PIE_LDFLAGS@
  LAUNCH_HELPER_SOURCES = \
  	$(XML_SOURCES)				\
@@ -141,7 +201,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  	activation-exit-codes.h			\
  	activation-helper.h	  		\
  	activation-helper.c
-@@ -528,12 +539,16 @@
+@@ -527,12 +540,16 @@ bus_test_launch_helper_CPPFLAGS = \
  @DBUS_BUILD_TESTS_TRUE@TESTS_ENVIRONMENT = DBUS_TEST_DATA=$(top_builddir)/test/data DBUS_TEST_HOMEDIR=$(top_builddir)/dbus DBUS_FATAL_WARNINGS=1 DBUS_BLOCK_ON_ABORT=1
  bus_test_system_SOURCES = \
  	$(XML_SOURCES)				\
@@ -160,7 +220,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  	test-system.c
  
  bus_test_system_LDADD = $(top_builddir)/dbus/libdbus-convenience.la $(DBUS_BUS_LIBS)
-@@ -664,14 +679,15 @@
+@@ -663,14 +680,15 @@ distclean-compile:
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bus_test_launch_helper-config-loader-expat.Po@am__quote@
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bus_test_launch_helper-config-loader-libxml.Po@am__quote@
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bus_test_launch_helper-config-parser-common.Po@am__quote@
@@ -178,7 +238,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/config-parser.Po@am__quote@
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/connection.Po@am__quote@
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus_daemon_launch_helper_test-activation-helper-bin.Po@am__quote@
-@@ -679,8 +695,10 @@
+@@ -678,8 +696,10 @@ distclean-compile:
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus_daemon_launch_helper_test-config-loader-expat.Po@am__quote@
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus_daemon_launch_helper_test-config-loader-libxml.Po@am__quote@
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus_daemon_launch_helper_test-config-parser-common.Po@am__quote@
@@ -190,7 +250,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dbus_daemon_launch_helper_test-utils.Po@am__quote@
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/desktop-file.Po@am__quote@
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dir-watch-default.Po@am__quote@
-@@ -763,6 +781,20 @@
+@@ -762,6 +782,20 @@ bus_test_launch_helper-config-loader-lib
  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
  @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bus_test_launch_helper_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o bus_test_launch_helper-config-loader-libxml.obj `if test -f 'config-loader-libxml.c'; then $(CYGPATH_W) 'config-loader-libxml.c'; else $(CYGPATH_W) '$(srcdir)/config-loader-libxml.c'; fi`
  
@@ -211,7 +271,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  bus_test_launch_helper-config-parser-common.o: config-parser-common.c
  @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bus_test_launch_helper_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT bus_test_launch_helper-config-parser-common.o -MD -MP -MF $(DEPDIR)/bus_test_launch_helper-config-parser-common.Tpo -c -o bus_test_launch_helper-config-parser-common.o `test -f 'config-parser-common.c' || echo '$(srcdir)/'`config-parser-common.c
  @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/bus_test_launch_helper-config-parser-common.Tpo $(DEPDIR)/bus_test_launch_helper-config-parser-common.Po
-@@ -777,20 +809,6 @@
+@@ -776,20 +810,6 @@ bus_test_launch_helper-config-parser-com
  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
  @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bus_test_launch_helper_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o bus_test_launch_helper-config-parser-common.obj `if test -f 'config-parser-common.c'; then $(CYGPATH_W) 'config-parser-common.c'; else $(CYGPATH_W) '$(srcdir)/config-parser-common.c'; fi`
  
@@ -232,7 +292,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  bus_test_launch_helper-desktop-file.o: desktop-file.c
  @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bus_test_launch_helper_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT bus_test_launch_helper-desktop-file.o -MD -MP -MF $(DEPDIR)/bus_test_launch_helper-desktop-file.Tpo -c -o bus_test_launch_helper-desktop-file.o `test -f 'desktop-file.c' || echo '$(srcdir)/'`desktop-file.c
  @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/bus_test_launch_helper-desktop-file.Tpo $(DEPDIR)/bus_test_launch_helper-desktop-file.Po
-@@ -819,6 +837,34 @@
+@@ -818,6 +838,34 @@ bus_test_launch_helper-utils.obj: utils.
  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
  @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bus_test_launch_helper_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o bus_test_launch_helper-utils.obj `if test -f 'utils.c'; then $(CYGPATH_W) 'utils.c'; else $(CYGPATH_W) '$(srcdir)/utils.c'; fi`
  
@@ -267,7 +327,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  bus_test_launch_helper-activation-helper.o: activation-helper.c
  @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(bus_test_launch_helper_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT bus_test_launch_helper-activation-helper.o -MD -MP -MF $(DEPDIR)/bus_test_launch_helper-activation-helper.Tpo -c -o bus_test_launch_helper-activation-helper.o `test -f 'activation-helper.c' || echo '$(srcdir)/'`activation-helper.c
  @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/bus_test_launch_helper-activation-helper.Tpo $(DEPDIR)/bus_test_launch_helper-activation-helper.Po
-@@ -875,6 +921,20 @@
+@@ -874,6 +922,20 @@ dbus_daemon_launch_helper_test-config-lo
  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
  @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(dbus_daemon_launch_helper_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o dbus_daemon_launch_helper_test-config-loader-libxml.obj `if test -f 'config-loader-libxml.c'; then $(CYGPATH_W) 'config-loader-libxml.c'; else $(CYGPATH_W) '$(srcdir)/config-loader-libxml.c'; fi`
  
@@ -288,7 +348,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  dbus_daemon_launch_helper_test-config-parser-common.o: config-parser-common.c
  @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(dbus_daemon_launch_helper_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT dbus_daemon_launch_helper_test-config-parser-common.o -MD -MP -MF $(DEPDIR)/dbus_daemon_launch_helper_test-config-parser-common.Tpo -c -o dbus_daemon_launch_helper_test-config-parser-common.o `test -f 'config-parser-common.c' || echo '$(srcdir)/'`config-parser-common.c
  @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/dbus_daemon_launch_helper_test-config-parser-common.Tpo $(DEPDIR)/dbus_daemon_launch_helper_test-config-parser-common.Po
-@@ -889,20 +949,6 @@
+@@ -888,20 +950,6 @@ dbus_daemon_launch_helper_test-config-pa
  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
  @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(dbus_daemon_launch_helper_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o dbus_daemon_launch_helper_test-config-parser-common.obj `if test -f 'config-parser-common.c'; then $(CYGPATH_W) 'config-parser-common.c'; else $(CYGPATH_W) '$(srcdir)/config-parser-common.c'; fi`
  
@@ -309,7 +369,7 @@ diff -ur dbus-1.2.1-orig/bus/Makefile.in dbus-1.2.1/bus/Makefile.in
  dbus_daemon_launch_helper_test-desktop-file.o: desktop-file.c
  @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(dbus_daemon_launch_helper_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT dbus_daemon_launch_helper_test-desktop-file.o -MD -MP -MF $(DEPDIR)/dbus_daemon_launch_helper_test-desktop-file.Tpo -c -o dbus_daemon_launch_helper_test-desktop-file.o `test -f 'desktop-file.c' || echo '$(srcdir)/'`desktop-file.c
  @am__fastdepCC_TRUE@	mv -f $(DEPDIR)/dbus_daemon_launch_helper_test-desktop-file.Tpo $(DEPDIR)/dbus_daemon_launch_helper_test-desktop-file.Po
-@@ -931,6 +977,34 @@
+@@ -930,6 +978,34 @@ dbus_daemon_launch_helper_test-utils.obj
  @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
  @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(dbus_daemon_launch_helper_test_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o dbus_daemon_launch_helper_test-utils.obj `if test -f 'utils.c'; then $(CYGPATH_W) 'utils.c'; else $(CYGPATH_W) '$(srcdir)/utils.c'; fi`
  
