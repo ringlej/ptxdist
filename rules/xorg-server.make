@@ -28,28 +28,9 @@ XORG_SERVER_DIR		:= $(BUILDDIR)/$(XORG_SERVER)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-server_get: $(STATEDIR)/xorg-server.get
-
-$(STATEDIR)/xorg-server.get: $(xorg-server_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_SERVER_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_SERVER)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-server_extract: $(STATEDIR)/xorg-server.extract
-
-$(STATEDIR)/xorg-server.extract: $(xorg-server_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_SERVER_DIR))
-	@$(call extract, XORG_SERVER)
-	@$(call patchin, XORG_SERVER)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -70,10 +51,13 @@ XORG_SERVER_ENV 	:=  $(CROSS_ENV) \
 # autoconf
 #
 # don't put a := here! MESALIB_DIR won't get expanded then
-XORG_SERVER_AUTOCONF = $(CROSS_AUTOCONF_USR) \
+XORG_SERVER_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
 	--disable-dependency-tracking \
-	--localstatedir=/var
+	--localstatedir=/var \
+	--disable-config-hal \
+	--disable-config-dbus
 #
 # if no value is given ignore the "--datadir" switch
 #
@@ -395,44 +379,13 @@ endif
 # --with-rgb-path=/path/to/my/rgb-settings
 # Default is: RGBPATH="${datadir}/X11/rgb"
 #
-$(STATEDIR)/xorg-server.prepare: $(xorg-server_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_SERVER_DIR)/config.cache)
-	cd $(XORG_SERVER_DIR) && \
-		$(XORG_SERVER_PATH) $(XORG_SERVER_ENV) \
-		./configure $(XORG_SERVER_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-server_compile: $(STATEDIR)/xorg-server.compile
-
-$(STATEDIR)/xorg-server.compile: $(xorg-server_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_SERVER_DIR) && $(XORG_SERVER_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-server_install: $(STATEDIR)/xorg-server.install
-
-$(STATEDIR)/xorg-server.install: $(xorg-server_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_SERVER)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-server_targetinstall: $(STATEDIR)/xorg-server.targetinstall
-
-$(STATEDIR)/xorg-server.targetinstall: $(xorg-server_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-server.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-server)
 	@$(call install_fixup, xorg-server,PACKAGE,xorg-server)
@@ -599,7 +552,7 @@ endif
 endif # PTXCONF_XORG_SERVER_XORG
 	@$(call install_finish, xorg-server)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
