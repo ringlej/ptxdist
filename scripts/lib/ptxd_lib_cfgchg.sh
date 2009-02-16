@@ -53,17 +53,21 @@ ptxd_cfgchg_generate()
 
 ptxd_cfgchg()
 {
-	for cfg in PTXDIST_PTXCONFIG PTXDIST_PLATFORMCONFIG; do
-		local cfg_orig="${!cfg}"
-		local cfg_default="${cfg}_DEFAULT"
-		local cfg_old="${STATEDIR}/${!cfg_default#${PTXDIST_WORKSPACE}/}.deps_old"
+    for cfg in PTXDIST_PTXCONFIG PTXDIST_PLATFORMCONFIG; do
+	local cfg_orig="${!cfg}"
+	if [ \! -e "${cfg_orig}" ]; then
+	    continue
+	fi
 
-		if [ -e "${cfg_old}" ]; then
-			diff -u "${cfg_old}" "${cfg_orig}" | \
-				ptxd_cfgchg_generate | \
-				xargs -0 -r rm -f --
-		fi
+	local cfg_default="${cfg}_DEFAULT"
+	local cfg_old="${STATEDIR}/${!cfg_default#${PTXDIST_WORKSPACE}/}.deps_old"
 
-		cp "${cfg_orig}" "${cfg_old}" || return
-	done
+	if [ -e "${cfg_old}" ]; then
+	    diff -u "${cfg_old}" "${cfg_orig}" | \
+		ptxd_cfgchg_generate | \
+		xargs -0 -r rm -f --
+	fi
+
+	cp "${cfg_orig}" "${cfg_old}" || return
+    done
 }
