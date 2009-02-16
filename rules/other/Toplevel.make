@@ -19,7 +19,11 @@ include $(PTXDIST_TOPDIR)/scripts/ptxdist_vars.sh
 include $(RULESDIR)/other/Definitions.make
 
 include $(PTXDIST_PTXCONFIG)
-include $(PTXDIST_PLATFORMCONFIG)
+
+# might be non existent
+ifneq ($(wildcard $(PTXDIST_PLATFORMCONFIG)),)
+-include $(PTXDIST_PLATFORMCONFIG)
+endif
 
 # might be non existent
 ifneq ($(wildcard $(PTXDIST_COLLECTIONCONFIG)),)
