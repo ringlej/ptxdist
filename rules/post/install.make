@@ -313,6 +313,20 @@ install_node =				\
 	mkdir -p $(PKGDIR)/$$PACKET.tmp;\
 	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(STATEDIR)/$$PACKET.perms
 
+
+#
+# install_init
+#
+# Deletes $(PKGDIR)/$$PACKET.tmp/ipkg and prepares for new ipkg package creation
+#
+# $1: packet label
+#
+install_init =				\
+	ptxd_make_install_init		\
+		-p '$(strip $(1))'	\
+		-t '$(@)'
+
+
 #
 # install_fixup
 #
@@ -322,70 +336,13 @@ install_node =				\
 # $2: sequence to be replaced
 # $3: replacement
 #
-# Note: Package must not contain '_' as ipkg needs it as a seperator
-install_fixup = 									\
-	PACKET=$(strip $(1));								\
-	REPLACE_FROM=$(strip $(2));							\
-	REPLACE_TO=$(strip $(3));							\
-											\
-	case "$${REPLACE_FROM}" in							\
-		(AUTHOR)								\
-			REPLACE_TO="`echo $${REPLACE_TO} | sed -e 's/[^\\]@/\\\@/g'`";	\
-			;;								\
-		(PACKAGE)								\
-			REPLACE_TO="`echo $${REPLACE_TO} | sed -e 's/_/-/g'`";		\
-			;;								\
-		(VERSION)								\
-			REPLACE_TO="$${REPLACE_TO}$(PTXCONF_PROJECT_BUILD)";		\
-			;;								\
-	esac;										\
-											\
-	echo -n "install_fixup:  @$$REPLACE_FROM@ -> $$REPLACE_TO ... "; 		\
-	sed -i -e "s,@$$REPLACE_FROM@,$$REPLACE_TO,g" "$(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control"; \
-	echo "done.";
+install_fixup =							\
+	PTXCONF_PROJECT_BUILD="$(PTXCONF_PROJECT_BUILD)"	\
+	ptxd_make_install_fixup					\
+		-p '$(strip $(1))'				\
+		-f '$(strip $(2))'				\
+		-t '$(strip $(3))'
 
-#
-# install_init
-#
-# Deletes $(PKGDIR)/$$PACKET.tmp/ipkg and prepares for new ipkg package creation
-#
-# $1: packet label
-#
-install_init =										\
-	PACKET=$(strip $(1));								\
-	echo "install_init: preparing for image creation...";				\
-	rm -fr $(PKGDIR)/$$PACKET.tmp/*;						\
-	rm -f $(STATEDIR)/$$PACKET.perms;						\
-	mkdir -p $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL; 					\
-	cp -f $(RULESDIR)/default.ipkg $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control;	\
-	REPLACE_FROM="ARCH";								\
-	REPLACE_TO=$(PTXDIST_IPKG_ARCH_STRING);						\
-	echo -n "install_init:   @$$REPLACE_FROM@ -> $$REPLACE_TO ... ";	 	\
-	sed -i -e "s,@$$REPLACE_FROM@,$$REPLACE_TO,g" $(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/control; \
-	echo "done"; \
-	for script in preinst postinst prerm postrm; do \
-		echo -n "install_init:   $$script "; \
-		if [ -f "${PTXDIST_WORKSPACE}/rules/$$PACKET.$$script" ]; then \
-			$(INSTALL) -m 0755 \
-				-D ${PTXDIST_WORKSPACE}/rules/$$PACKET.$$script \
-				$(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/$$script; \
-			echo "found in project, packaging"; \
-		else if [ -f "${PTXDIST_TOPDIR}/rules/$$PACKET.$$script" ]; then \
-			$(INSTALL) -m 0755 \
-				-D ${PTXDIST_TOPDIR}/rules/$$PACKET.$$script \
-				$(PKGDIR)/$$PACKET.tmp/ipkg/CONTROL/$$script; \
-			echo "found in ptxdist, packaging"; \
-		else \
-			echo "not available"; \
-		fi; fi; \
-	done; \
-	if [ -f "${PTXDIST_WORKSPACE}/rules/$$PACKET.preinst" ]; then \
-		echo "install_init:   running preinst"; \
-		DESTDIR=${ROOTDIR} /bin/sh ${PTXDIST_WORKSPACE}/rules/$$PACKET.preinst; \
-	elif [ -f "${PTXDIST_TOPDIR}/rules/$$PACKET.preinst" ]; then \
-		echo "install_init:   running preinst"; \
-		DESTDIR=${ROOTDIR} /bin/sh ${PTXDIST_TOPDIR}/rules/$$PACKET.preinst; \
-	fi;
 
 #
 # install_finish
@@ -394,31 +351,12 @@ install_init =										\
 #
 # $1: packet label
 #
-install_finish = 												\
-	export LANG=C; 												\
-	PACKET=$(strip $(1));											\
-	if [ ! -f $(STATEDIR)/$$PACKET.perms ]; then								\
-		echo "Packet $$PACKET is empty. not generating";						\
-		rm -rf $(PKGDIR)/$$PACKET.tmp;									\
-		exit 0;												\
-	fi;													\
-	echo -n "install_finish: creating package directory ... ";						\
-	(echo "pushd $(PKGDIR)/$$PACKET.tmp/ipkg;";								\
-	awk -F: $(DOPERMISSIONS) $(STATEDIR)/$$PACKET.perms; echo "popd;"; 					\
-	echo -n "echo \"install_finish: packaging ipkg packet ... \"; ";					\
-	echo -n "$(PTXCONF_SYSROOT_HOST)/bin/ipkg-build "; 							\
-	echo    "$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) $(PKGDIR)/$$PACKET.tmp/ipkg $(PKGDIR)") |$(FAKEROOT) -- 2>&1;	\
-	$(CHECK_PIPE_STATUS)											\
-	rm -rf $(PKGDIR)/$$PACKET.tmp;										\
-	echo "done."; \
-	\
-	if [ -f "${PTXDIST_WORKSPACE}/rules/$$PACKET.postinst" ]; then \
-		echo "install_finish: running postinst"; \
-		DESTDIR=${ROOTDIR} /bin/sh ${PTXDIST_WORKSPACE}/rules/$$PACKET.postinst; \
-	else if [ -f "${PTXDIST_TOPDIR}/rules/$$PACKET.postinst" ]; then \
-		echo "install_finish: running postinst"; \
-		DESTDIR=${ROOTDIR} /bin/sh ${PTXDIST_TOPDIR}/rules/$$PACKET.postinst; \
-	fi; fi
+install_finish =								\
+	FAKEROOT="$(FAKEROOT)"							\
+	PTXCONF_IMAGE_IPKG_EXTRA_ARGS="$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)"	\
+	ptxd_make_install_finish						\
+		-p '$(strip $(1))'
+
 
 #
 # install_autoinstall
