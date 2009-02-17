@@ -108,7 +108,7 @@ $(STATEDIR)/ltp_base.targetinstall:
 
 # a useful tool to control processes that run amok (not really yet)
 	$(call install_copy, ltp_base, 0, 0, 0755, \
-		$(LTP_BASE_DIR)/pan/pan \
+		$(LTP_BASE_DIR)/pan/pan, \
 		/usr/sbin/pan)
 
 	@cd $(LTP_BASE_DIR)/testcases; \
