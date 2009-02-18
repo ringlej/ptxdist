@@ -3,6 +3,12 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] Bo Hansen: util-linux fails to build more.c when no curses library is
+    present. Different development platforms are behaving differently.
+    jbe's host detects the lack of curses and omits more.c to build in this
+    case. So the build does not fail. Bo's host decide to build more.c
+    even if curses is not present and fails.
+
 [x] jbe: "ptxdist platformconfig" moans:
     error: The configfile version and ptxdist version do not match:
         configfile version:
