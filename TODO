@@ -48,7 +48,7 @@ Prio A
        make[3]: *** [fc-case.o] Error 1
 
 [ ] jbe: host-glade.prepare
-[ ] jbe: host-intltool.prepare
+[x] jbe: host-intltool.prepare
       checking for XML::Parser... configure: error: XML::Parser perl module is required for intltool
 
     Update 20090118 rsc: add a function to 'ptxdist go' that can run
