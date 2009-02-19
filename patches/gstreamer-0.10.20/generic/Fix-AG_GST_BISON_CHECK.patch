@@ -1,0 +1,47 @@
+From 2c4d28a75c26e572b94a967901254caff83d85c4 Mon Sep 17 00:00:00 2001
+From: Roland Illig <roland.illig@gmx.de>
+Date: Mon, 15 Dec 2008 07:06:26 +0000
+Subject: [PATCH] m4/gst-parser.m4: Fix AG_GST_BISON_CHECK to handle version numbers with more than two components (i.e. 2.4.1). Fixes ...
+
+Original commit message from CVS:
+Patch by: Roland Illig <roland dot illig at gmx dot de>
+* m4/gst-parser.m4:
+Fix AG_GST_BISON_CHECK to handle version numbers with more than
+two components (i.e. 2.4.1). Fixes bug #564507.
+---
+ common/m4/gst-parser.m4 |    5 +----
+ configure               |    5 +----
+ 2 files changed, 2 insertions(+), 8 deletions(-)
+
+Index: common/m4/gst-parser.m4
+===================================================================
+--- common/m4/gst-parser.m4.orig
++++ common/m4/gst-parser.m4
+@@ -14,10 +14,7 @@ AC_DEFUN([AG_GST_BISON_CHECK],
+   bison_version=`$BISON_PATH --version | head -n 1 | sed 's/^.*) //' | sed 's/[[a-zA-Z]]*$//' | cut -d' ' -f1`
+   AC_MSG_CHECKING([bison version $bison_version >= $bison_min_version])
+ 
+-  if perl -w <<EOF
+-    exit ($bison_version < $bison_min_version) ? 0 : 1;
+-EOF 
+-  then 
++  if perl -we "exit ((v$bison_version ge v$bison_min_version) ? 0 : 1)"; then
+     AC_MSG_RESULT([yes])
+   else 
+     AC_MSG_ERROR([no])
+Index: configure
+===================================================================
+--- configure.orig
++++ configure
+@@ -25239,10 +25239,7 @@ echo "$as_me: error: Could not find biso
+   { echo "$as_me:$LINENO: checking bison version $bison_version >= $bison_min_version" >&5
+ echo $ECHO_N "checking bison version $bison_version >= $bison_min_version... $ECHO_C" >&6; }
+ 
+-  if perl -w <<EOF
+-    exit ($bison_version < $bison_min_version) ? 0 : 1;
+-EOF
+-  then
++if perl -we "exit ((v$bison_version ge v$bison_min_version) ? 0 : 1)"; then
+     { echo "$as_me:$LINENO: result: yes" >&5
+ echo "${ECHO_T}yes" >&6; }
+   else
