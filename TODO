@@ -3,6 +3,11 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] mkl/jbe: The 'ps' command from the procps package outputs
+            "Unknown HZ value! (xx) Assume 100."
+    on a recently started system. Doing it later again, this message does
+    not occur again. Kernel detection failure?
+
 [ ] Bo Hansen: util-linux fails to build more.c when no curses library is
     present. Different development platforms are behaving differently.
     jbe's host detects the lack of curses and omits more.c to build in this
