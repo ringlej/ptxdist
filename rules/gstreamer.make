@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GSTREAMER) += gstreamer
 #
 # Paths and names
 #
-GSTREAMER_VERSION	:= 0.10.20
+GSTREAMER_VERSION	:= 0.10.22
 GSTREAMER		:= gstreamer-$(GSTREAMER_VERSION)
 GSTREAMER_SUFFIX	:= tar.bz2
 GSTREAMER_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER).$(GSTREAMER_SUFFIX)
@@ -59,8 +59,6 @@ GSTREAMER_AUTOCONF := \
 	--disable-trace \
 	--disable-alloc-trace \
 	--enable-registry \
-	--enable-enumtypes \
-	--enable-index \
 	--enable-plugin \
 	--disable-debug \
 	--disable-profiling \
@@ -103,12 +101,6 @@ GSTREAMER_AUTOCONF += --enable-net
 else
 GSTREAMER_AUTOCONF += --disable-net
 endif
-ifdef PTXCONF_GSTREAMER__URI
-GSTREAMER_AUTOCONF += --enable-uri
-else
-GSTREAMER_AUTOCONF += --disable-uri
-endif
-
 
 
 $(STATEDIR)/gstreamer.prepare:
@@ -186,7 +178,7 @@ ifdef PTXCONF_GSTREAMER__INSTALL_LAUNCH
 endif
 ifdef PTXCONF_GSTREAMER__NETDIST
 	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/libs/gst/net/.libs/libgstnet-0.10.so.0.17.0, \
+		$(GSTREAMER_DIR)/libs/gst/net/.libs/libgstnet-0.10.so.0.19.0, \
 		/usr/lib/libgstnet-0.10.so.0.17.0)
 	@$(call install_link, gstreamer, \
 		libgstnet-0.10.so.0.17.0, \
@@ -196,7 +188,7 @@ ifdef PTXCONF_GSTREAMER__NETDIST
 		/usr/lib/libgstnet-0.10.so)
 endif
 	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/libs/gst/controller/.libs/libgstcontroller-0.10.so.0.17.0, \
+		$(GSTREAMER_DIR)/libs/gst/controller/.libs/libgstcontroller-0.10.so.0.19.0, \
 		/usr/lib/libgstcontroller-0.10.so.0.17.0)
 	@$(call install_link, gstreamer, \
 		libgstcontroller-0.10.so.0.17.0, \
@@ -206,7 +198,7 @@ endif
 		/usr/lib/libgstcontroller-0.10.so)
 
 	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/gst/.libs/libgstreamer-0.10.so.0.17.0, \
+		$(GSTREAMER_DIR)/gst/.libs/libgstreamer-0.10.so.0.19.0, \
 		/usr/lib/libgstreamer-0.10.so.0.17.0)
 	@$(call install_link, gstreamer, \
 		libgstreamer-0.10.so.0.17.0, \
@@ -224,23 +216,23 @@ endif
 		/usr/lib/gstreamer-0.10/libgstcoreindexers.so)
 
 	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/libs/gst/dataprotocol/.libs/libgstdataprotocol-0.10.so.0.17.0, \
-		/usr/lib/libgstdataprotocol-0.10.so.0.17.0)
+		$(GSTREAMER_DIR)/libs/gst/dataprotocol/.libs/libgstdataprotocol-0.10.so.0.19.0, \
+		/usr/lib/libgstdataprotocol-0.10.so.0.19.0)
 	@$(call install_link, gstreamer, \
-		libgstdataprotocol-0.10.so.0.17.0, \
+		libgstdataprotocol-0.10.so.0.19.0, \
 		/usr/lib/libgstdataprotocol-0.10.so.0)
 	@$(call install_link, gstreamer, \
-		libgstdataprotocol-0.10.so.0.17.0, \
+		libgstdataprotocol-0.10.so.0.19.0, \
 		/usr/lib/libgstdataprotocol-0.10.so)
 
 	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/libs/gst/base/.libs/libgstbase-0.10.so.0.17.0, \
-		/usr/lib/libgstbase-0.10.so.0.17.0)
+		$(GSTREAMER_DIR)/libs/gst/base/.libs/libgstbase-0.10.so.0.19.0, \
+		/usr/lib/libgstbase-0.10.so.0.19.0)
 	@$(call install_link, gstreamer, \
-		libgstbase-0.10.so.0.17.0, \
+		libgstbase-0.10.so.0.19.0, \
 		/usr/lib/libgstbase-0.10.so.0)
 	@$(call install_link, gstreamer, \
-		libgstbase-0.10.so.0.17.0, \
+		libgstbase-0.10.so.0.19.0, \
 		/usr/lib/libgstbase-0.10.so.0)
 
 	@$(call install_finish, gstreamer)

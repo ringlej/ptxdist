@@ -38,10 +38,6 @@ if GSTREAMER
 		bool
 		prompt "network distribution"
 
-	config GSTREAMER__URI
-		bool
-		prompt "URI handlers"
-
 	comment "install options"
 
 	config GSTREAMER__INSTALL_TYPEFIND
