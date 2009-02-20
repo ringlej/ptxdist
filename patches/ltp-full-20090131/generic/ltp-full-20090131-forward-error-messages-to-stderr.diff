@@ -1,0 +1,37 @@
+Subject: Forward error messages to stderr
+From: Juergen Beisert <jbe@pengutronix.de>
+
+Unsure if I understand the code in the right manner, but
+other error messages are also forwarded to stderr instead of stdout.
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ pan/pan.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+Index: ltp-full-20090131/pan/pan.c
+===================================================================
+--- ltp-full-20090131.orig/pan/pan.c
++++ ltp-full-20090131/pan/pan.c
+@@ -237,9 +237,9 @@ main(int argc, char **argv)
+ 	    break;
+ 	case 't':	/* run_time to run */
+ 	    ret = sscanf(optarg, "%d%c", &run_time, &modifier);
+-            if (ret == 0) { printf("Need proper time input: ####x where"
++            if (ret == 0) { fprintf(stderr, "Need proper time input: ####x where"
+                                     "x is one of s,m,h,d\n"); break; }
+-            else if (ret == 1) { printf("Only got a time value of %d "
++            else if (ret == 1) { fprintf(stderr, "Only got a time value of %d "
+                                  "modifiers need to come immediately after #"
+                                  " assuming %c\n", run_time, modifier); }
+             else
+@@ -251,7 +251,7 @@ main(int argc, char **argv)
+                   case 'h': run_time = run_time * 60 * 60; break; 
+                   case 'd': run_time = run_time * 60 * 60 * 24; break;
+                   default: 
+-                     printf("Invalid time modifier, try: s|h|m|d\n"); exit(-1);
++                     fprintf(stderr, "Invalid time modifier, try: s|h|m|d\n"); exit(-1);
+                }
+ 	       if (!quiet_mode)
+                   printf("PAN will run for %d seconds\n", run_time);
