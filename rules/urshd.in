@@ -26,13 +26,4 @@ config URSHD_STARSCRIPT
 	  /etc/init.d. If no local 'projectroot/etc/init.d/urshd' exists, a
 	  generic start script will be used.
 
-config URSHD_RC_D_LINK
-	string
-	prompt "link name in /etc/rc.d"
-	default "S12_urshd"
-	help
-	  Enter the name of the urshd start link in /etc/init.d; this should
-	  be something like "S12_urshd". An empty string means that no link
-	  is created.
-
 endif

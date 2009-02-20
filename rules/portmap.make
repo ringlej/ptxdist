@@ -114,33 +114,26 @@ $(STATEDIR)/portmap.targetinstall: $(portmap_targetinstall_deps_default)
 	@$(call install_fixup, portmap,DEPENDS,)
 	@$(call install_fixup, portmap,DESCRIPTION,missing)
 
-ifdef PTXCONF_PORTMAP_INSTALL_PORTMAPPER
-	@$(call install_copy, portmap, 0, 0, 0755, $(PORTMAP_DIR)/portmap, \
+	@$(call install_copy, portmap, 0, 0, 0755, \
+		$(PORTMAP_DIR)/portmap, \
 		/sbin/portmap)
+
+	#
+	# busybox init
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_PORTMAP_STARTSCRIPT
+	@$(call install_alternative, portmap, 0, 0, 0755, /etc/init.d/portmapd, n)
+endif
 endif
 
-ifdef PTXCONF_PORTMAP_STARTUP_TYPE_STANDALONE
-# provide everything for standalone mode
-ifdef PTXCONF_ROOTFS_ETC_INITD_PORTMAP_DEFAULT
-# install the generic one
-	@$(call install_copy, portmap, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/portmapd, \
-		/etc/init.d/portmapd, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_PORTMAP_USER
-# install users one
-	@$(call install_copy, portmap, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/portmapd, \
-		/etc/init.d/portmapd, n)
-endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_PORTMAP_LINK),"")
-	@$(call install_copy, portmap, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, portmap, ../init.d/portmapd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_PORTMAP_LINK))
-endif
+	#
+	# /etc/inetd.conf sniplet
+	#
+
+ifdef PTXCONF_PORTMAP_INETD_SERVER
+	@$(call install_alternative, portmap, 0, 0, 0644, /etc/inetd.conf.d/portmap, n)
 endif
 
 	@$(call install_finish, portmap)

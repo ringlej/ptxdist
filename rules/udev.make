@@ -131,14 +131,11 @@ endif
 	#
 	# startup script
 	#
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_UDEV_STARTSCRIPT
 	@$(call install_alternative, udev, 0, 0, 0755, /etc/init.d/udev)
-
-ifneq ($(PTXCONF_UDEV__RC_D_LINK),"")
-	@$(call install_copy, udev, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, udev, ../init.d/udev, \
-		/etc/rc.d/$(PTXCONF_UDEV__RC_D_LINK))
 endif
-
+endif
 
 	#
 	# Install a configuration on demand only

@@ -173,25 +173,9 @@ config PPP_INST_PPPSTATS
 	  The pppstats utility reports PPP-related statistics at regular
 	  intervals for a specified PPP interface.
 
-comment "startup options"
-
-config PPP_INSTALL_START_SCRIPT
+config PPP_STARTSCRIPT
 	bool
-	prompt "install start script"
-	help
-	  Enabling this entry will install a project specific start script.
-	  PTXdist uses the file projectroot/etc/init.d/pppd in this case.
-	  Note: There is no generic script availlable, you must provide your
-	  own.
-
-config PPP_INSTALL_START_LINK
-	string
-	default "S10_pppd"
-	depends on PPP_INSTALL_START_SCRIPT
-	prompt "create start script link"
-	help
-	  Enabling this entry will install a project specific start script.
-	  Note: There is no generic script availlable, you must provide your
-	  own.
+	default y
+	prompt "install /etc/init.d/pppd"
 
 endif

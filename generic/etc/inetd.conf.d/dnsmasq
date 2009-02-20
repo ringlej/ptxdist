@@ -1,0 +1,1 @@
+domain stream tcp nowait root /sbin/dnsmasq domain

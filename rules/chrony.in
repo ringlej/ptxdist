@@ -5,7 +5,7 @@ menuconfig CHRONY
 	tristate
 	prompt "chrony                        "
 	select READLINE
-# FIXME: remove READLINE select when 1.21 works again.
+	# FIXME: remove READLINE select when 1.21 works again.
 	help
 	  This will install the Chrony NTPD Daemon (chronyd)
 	  Chrony is a pair of programs which are used to maintain
@@ -102,32 +102,9 @@ config CHRONY_DEFAULT_NTP_SERVER
 	  This will set the ntp server for simple
 	  configurations.
 
-menuconfig ROOTFS_ETC_INITD_CHRONY
+config CHRONY_STARTSCRIPT
 	bool
 	default y
-	prompt "Install startup script      "
-	help
-	  The /etc/init.d/chrony script lets you control the chronyd daemon.
-
-	choice
-		prompt "Kind of startup script"
-		depends on ROOTFS_ETC_INITD_CHRONY
-		default ROOTFS_ETC_INITD_CHRONY_DEFAULT
-
-		config ROOTFS_ETC_INITD_CHRONY_DEFAULT
-			bool
-			prompt "Use generic"
-			help
-			  Install a generic /etc/init.d/chrony file.
-			  See <ptxdist-install>/generic/etc/init.d/chrony
-
-		config ROOTFS_ETC_INITD_CHRONY_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined httpd startup script. PTXdist
-			  uses file projectroot/etc/init.d/chrony in your local
-			  project
-	endchoice
+	prompt "install /etc/init.d/chrony"
 
 endif

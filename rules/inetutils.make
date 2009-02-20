@@ -210,6 +210,8 @@ endif
 ifdef PTXCONF_INETUTILS_RSHD
 	@$(call install_copy, inetutils, 0, 0, 0755, \
 		$(INETUTILS_DIR)/rshd/rshd, /usr/sbin/rshd)
+	@$(call install_alternative, inetutils, 0, 0, 0755, \
+		/etc/inetd.conf.d/inetutils-rshd, n)
 endif
 ifdef PTXCONF_INETUTILS_SYSLOGD
 	@$(call install_copy, inetutils, 0, 0, 0755, \
@@ -218,36 +220,25 @@ endif
 ifdef PTXCONF_INETUTILS_TFTPD
 	@$(call install_copy, inetutils, 0, 0, 0755, \
 		$(INETUTILS_DIR)/tftpd/tftpd, /sbin/tftpd)
-# create the base dir
 ifneq ($(PTXCONF_INETUTILS_TFTPD_BASE_DIR),"")
+	# create the base dir
 	@$(call install_copy, inetutils, 99, 0, 0755, \
 		$(PTXCONF_INETUTILS_TFTPD_BASE_DIR) )
 endif
-endif
-#
-# Install the startup for inetd script on request only
-#
-ifdef PTXCONF_INETUTILS_ETC_INITD_INETD
-ifdef PTXCONF_INETUTILS_ETC_INITD_INETD_DEFAULT
-# install the generic one
-	@$(call install_copy, inetutils, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/inetd, \
-		/etc/init.d/inetd, n)
+	@$(call install_alternative, inetutils, 0, 0, 0755, /etc/inetd.conf.d/tftp, n)
+	@$(call install_replace, inetutils, \
+		/etc/inetd.conf.d/tftp, \
+		@ROOT@, \
+		$(PTXCONF_INETUTILS_TFTPD_BASE_DIR) )
 endif
 
-ifdef PTXCONF_INETUTILS_ETC_INITD_INETD_USER
-# install users one
-	@$(call install_copy, inetutils, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/inetd, \
-		/etc/init.d/inetd, n)
-endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK),"")
-	@$(call install_copy, inetutils, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, inetutils, ../init.d/inetd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_INETD_LINK))
+	#
+	# busybox init: start script
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_INETUTILS_INETD_STARTSCRIPT
+	@$(call install_alternative, inetutils, 0, 0, 0755, /etc/init.d/inetd, n)
 endif
 endif
 

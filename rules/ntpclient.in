@@ -43,37 +43,13 @@ comment "BusyBox' adjtimex is in use"
 
 comment "runtime options   ---"
 
-config NTPCLIENT_INSTALL_STARTSCRIPT
+config NTPCLIENT_STARTSCRIPT
 	bool
-	prompt "Install start script"
 	default y
-	help
-	  Enable this extry to let PTXdist install a startup script
-
-choice
-	prompt "Kind of startup script"
-	default ROOTFS_ETC_INITD_NTPCLIENT_DEFAULT
-	depends on NTPCLIENT_INSTALL_STARTSCRIPT
-
-	config ROOTFS_ETC_INITD_NTPCLIENT_DEFAULT
-		bool
-		prompt "Use generic"
-		help
-		  Installs a generic /etc/init.d/ntpclient startup script.
-		  See <ptxdist-install>/generic/etc/init.d/ntpclient
-
-	config ROOTFS_ETC_INITD_NTPCLIENT_USER
-		bool
-		prompt "User defined"
-		help
-		  This uses a user defined ntclient startup script. PTXdist
-		  uses files projectroot/etc/init.d/ntpclient in your local
-		  project
-
-endchoice
+	prompt "install /etc/init.d/nfsclient"
 
 config NTPCLIENT_NTPSERVER_NAME
-	depends on NTPCLIENT_INSTALL_STARTSCRIPT
+	depends on NTPCLIENT_STARTSCRIPT
 	string
 	prompt "NTP server name"
 	default ""

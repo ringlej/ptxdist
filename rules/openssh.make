@@ -140,6 +140,11 @@ ifdef PTXCONF_OPENSSH_SSHD
 	@$(call install_alternative, openssh, 0, 0, 0644, /etc/ssh/sshd_config)
 	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/sshd, \
 		/usr/sbin/sshd)
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_OPENSSH_SSHD_STARTSCRIPT
+	@$(call install_alternative, openssh, 0, 0, 0755, /etc/init.d/openssh, n)
+endif
+endif
 endif
 
 ifdef PTXCONF_OPENSSH_SCP
@@ -155,27 +160,6 @@ endif
 ifdef PTXCONF_OPENSSH_KEYGEN
 	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/ssh-keygen, \
 		/usr/bin/ssh-keygen)
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH_DEFAULT
-# install the generic one
-	@$(call install_copy, openssh, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/openssh, \
-		/etc/init.d/openssh, n)
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_OPENSSH_USER
-# install users one
-	@$(call install_copy, openssh, 0, 0, 0755, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/openssh, \
-		/etc/init.d/openssh, n)
-endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_OPENSSH_LINK),"")
-	@$(call install_link, openssh, ../init.d/openssh, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_OPENSSH_LINK))
 endif
 
 	@$(call install_finish, openssh)

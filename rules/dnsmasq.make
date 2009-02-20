@@ -123,41 +123,14 @@ $(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps_default)
 		$(DNSMASQ_DIR)/src/dnsmasq, \
 		/sbin/dnsmasq)
 
-ifdef PTXCONF_DNSMASQ_STARTUP_TYPE_STANDALONE
-# provide everything for standalone mode
-ifdef PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_DEFAULT
-# install the generic one
-	@$(call install_copy, dnsmasq, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/dnsmasq, \
-		/etc/init.d/dnsmasq, n)
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_USER
-# install users one
-	@$(call install_copy, dnsmasq, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/dnsmasq, \
-		/etc/init.d/dnsmasq, n)
-endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_LINK),"")
-	@$(call install_copy, dnsmasq, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, dnsmasq, ../init.d/dnsmasq, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DNSMASQ_LINK))
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_DNSMASQ_STARTSCRIPT
+	@$(call install_alternative, dnsmasq, 0, 0, 0755, /etc/init.d/dnsmasq, n)
 endif
 endif
 
-ifdef PTXCONF_DNSMASQ_ETC_DEFAULT
-	@$(call install_copy, dnsmasq, 0, 0, 0644, \
-		$(DNSMASQ_DIR)/dnsmasq.conf.example, \
-		/etc/dnsmasq.conf,n)
-endif
-ifdef PTXCONF_DNSMASQ_ETC_USER
-	@$(call install_copy, dnsmasq, 0, 0, 0644, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/dnsmasq.conf, \
-		/etc/dnsmasq.conf,n)
-endif
+	# FIXME: take from $(DNSMASQ_DIR)/dnsmasq.conf.example
+	@$(call install_alternative, dnsmasq, 0, 0, 0644, /etc/dnsmasq.conf, n)
 
 	@$(call install_finish, dnsmasq)
 

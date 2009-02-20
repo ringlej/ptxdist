@@ -153,33 +153,14 @@ ifdef PTXCONF_ROOTFS_USER_DBUS_SESSION_CONF
 		/etc/dbus-1/session.conf,n)
 endif
 
-ifdef PTXCONF_DBUS_INSTALL_STARTUP_SCRIPT
-	#
-	# use the generic startup script in /etc/init.d/dbus
-	#
-ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS_GENERIC
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/dbus, \
-		/etc/init.d/dbus, n)
-endif
-	#
-	# use the user's startup script in /etc/init.d/dbus from projectroot/etc/init.d/dbus
-	#
-ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS_USER
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/dbus, \
-		/etc/init.d/dbus,n)
-endif
 
 	#
-	# create a link in /etc/rc.d/ to /etc/init.d/dbus
+	# busybox init: start script
 	#
-ifdef PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK),"")
-	@$(call install_copy, dbus, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, dbus, ../init.d/dbus, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_DBUS_LINK))
-endif
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_DBUS_STARTSCRIPT
+	@$(call install_alternative, dbus, 0, 0, 0755, /etc/init.d/dbus, n)
 endif
 endif
 

@@ -132,31 +132,6 @@ if SAMBA
 		  have to enable this. If you say n here. The samba server will
 		  generates his own secrets.tdb after initialisation.
 
-	config ROOTFS_ETC_INITD_SAMBA
-		bool
-		depends on SAMBA_SERVER
-		select BUSYBOX_START_STOP_DAEMON      if BUSYBOX
-		default y
-		choice
-			prompt "Kind of samba start script"
-			depends on SAMBA
-			depends on SAMBA_SERVER
-			default ROOTFS_ETC_INITD_SAMBA_DEFAULT
-
-			config ROOTFS_ETC_INITD_SAMBA_DEFAULT
-				bool
-				prompt "Use generic"
-				help
-			  	  Installs a generic /etc/init.d/samba file.
-
-			config ROOTFS_ETC_INITD_SAMBA_USER
-				bool
-				prompt "User defined"
-				help
-				  This uses a user defined init file. Will use
-				  the file out of projectroot/etc/init.d/samba
-		endchoice
-
 	config SAMBA_CLIENT
 		bool
 		select SAMBA_COMMON
@@ -184,5 +159,10 @@ if SAMBA
 		prompt "cups support"
 		help
 		  Turn on CUPS support
+
+	config SAMBA_STARTSCRIPT
+		bool
+		default y
+		prompt "install /etc/init.d/samba"
 
 endif

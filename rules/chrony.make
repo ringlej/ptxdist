@@ -165,29 +165,16 @@ endif
 		@UNCONFIGURED_CHRONY_ACCESS_KEY@, $(PTXCONF_CHRONY_DEFAULT_ACCESS_KEY) )
 endif
 
-# ---------------------------
-# install startup script on demand
-#
-ifdef PTXCONF_ROOTFS_ETC_INITD_CHRONY
-ifdef PTXCONF_ROOTFS_ETC_INITD_CHRONY_DEFAULT
-# generic script with path modifications
-	@$(call install_copy, chrony, 0, 0, 0755, 		\
-	$(PTXDIST_TOPDIR)/generic/etc/init.d/chrony, 		\
-	/etc/init.d/chrony, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_CHRONY_USER
-# users one
-	@$(call install_copy, chrony, 0, 0, 0755, 		\
-	$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/chrony,	\
-	 /etc/init.d/chrony, n)
-endif
-# install link to launch automatically if enabled
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_CHRONY_LINK),"")
-	@$(call install_link, chrony, 				\
-	../init.d/chrony, 					\
-	/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_CHRONY_LINK))
+	#
+	# busybox init: startscripts
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_CHRONY_STARTSCRIPT
+	@$(call install_alternative, chrony, 0, 0, 0755, /etc/init.d/chrony, n)
 endif
 endif
+
 
 # ---------------------------
 # install chrony command helper script

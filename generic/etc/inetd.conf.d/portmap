@@ -1,0 +1,1 @@
+sunrpc stream tcp nowait root /sbin/portmap portmap

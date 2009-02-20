@@ -81,29 +81,10 @@ choice
 
 endchoice
 
-choice
-	prompt "Kind of startup script"
-	depends on RSYNC_STARTUP_TYPE_STANDALONE
-	default ROOTFS_ETC_INITD_RSYNC_DEFAULT
-
-	config ROOTFS_ETC_INITD_RSYNC_DEFAULT
-		bool
-		prompt "Use generic"
-		help
-		  Installs a generic /etc/init.d/rsyncd startup script.
-		  See <ptxdist-install>/generic/etc/init.d/rsyncd
-
-	config ROOTFS_ETC_INITD_RSYNC_USER
-		bool
-		prompt "User defined"
-		help
-		  This uses a user defined rsync startup script. PTXdist
-		  uses files projectroot/etc/init.d/rsyncd in your local
-		  project. You should use "@CONFIG@" in your script.
-		  This gets replaced by "--config=" and the path to the config
-		  file given above.
-
-endchoice
+config RSYNC_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/rsync"
 
 config RSYNC_INETD_STRING
 	string

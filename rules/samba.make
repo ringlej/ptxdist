@@ -150,21 +150,15 @@ ifdef PTXCONF_ROOTFS_ETC_SAMBA_SECRETS_USER
 		$(PTXDIST_WORKSPACE)/projectroot/etc/samba/secrets.tdb,\
 		/etc/samba/secrets.tdb, n)
 endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_SAMBA_DEFAULT
-	@$(call install_copy, rootfs, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/samba, \
-		/etc/init.d/samba, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_SAMBA_USER
-	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/samba,\
-		/etc/init.d/samba, n)
-endif
 
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SAMBA_LINK),"")
-	@$(call install_copy, samba, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, samba, ../init.d/samba, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SAMBA_LINK))
+	#
+	# busybox init
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_SAMBA_STARTSCRIPT
+	@$(call install_alternative, samba, 0, 0, 0755, /etc/init.d/samba, n)
+endif
 endif
 
 ifdef PTXCONF_SAMBA_CLIENT

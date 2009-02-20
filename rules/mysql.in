@@ -390,6 +390,10 @@ config MYSQL_QUERY_CACHE
 	bool
 	prompt "query cache"
 
+config MYSQL_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/mysql"
 
 endif
 

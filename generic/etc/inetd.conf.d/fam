@@ -1,0 +1,1 @@
+sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf

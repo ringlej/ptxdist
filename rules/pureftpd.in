@@ -62,67 +62,9 @@ config PUREFTPD_SHRINK_MORE
 	  But note: Globbing is a nice feature and for Windows clients most of
 	  time required!
 
-comment "runtime options   ---"
-
-config PUREFTPD_ETC_CONFIG
+config PUREFTPD_STARTSCRIPT
 	bool
-	prompt "default config"
-	help
-	  This installs a user defined configuration for pure-ftp. PTXdist
-	  uses files projectroot/etc/pure-ftpd.defaults in your local project
+	default y
+	prompt "install /etc/init.d/pure-ftpd"
 
-choice
-	prompt "Kind of startup"
-	default PUREFTPD_STARTUP_TYPE_STANDALONE
-
-	config PUREFTPD_INETD_SERVER
-		bool
-		prompt "inetd driven"
-		help
-		 pureftp server will be started on demand from inetd. This installs
-		 a startup configuration for pureftp from inetd. It adds to the
-		 /etc/inetd.conf a line like this:
-		 ftp stream tcp nowait root /usr/bin/pureftp ftpd
-		 Note: You must enable one of the two possible inet daemons:
-		 There is one embedded in busybox and one in packet inetutils.
-
-	config ROOTFS_ETC_INITD_PUREFTPD
-		bool
-		prompt "standalone"
-		help
-		  This installs pureftp startup script /etc/init.d/pure-ftpd.
-		  With this script the pure-ftp server will be started at system
-		  startup and waits for connections
-
-endchoice
-
-config PUREFTPD_INETD_STRING
-	string
-	depends on PUREFTPD_INETD_SERVER
-	prompt "inetd service entry"
-	default "ftp stream tcp nowait root /usr/bin/pure-ftp ftpd"
-	help
-	  This string is added to inetd's configuration /etc/inetd.conf.
-
-choice
-	prompt "Kind of startup script"
-	default ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
-	depends on ROOTFS_ETC_INITD_PUREFTPD
-
-	config ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
-		bool
-		prompt "Use generic"
-		help
-		  Installs a generic /etc/init.d/pure-ftpd startup script.
-		  See <ptxdist-install>/generic/etc/init.d/pure-ftpd
-
-	config ROOTFS_ETC_INITD_PUREFTPD_USER
-		bool
-		prompt "User defined"
-		help
-		  This uses a user defined pure-ftpd startup script. PTXdist
-		  uses files projectroot/etc/init.d/pure-ftpd in your local
-		  project
-
-endchoice
 endif

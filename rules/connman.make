@@ -185,10 +185,11 @@ $(STATEDIR)/connman.targetinstall:
 	@$(call install_copy, connman, 0, 0, 0755, /usr/lib/connman/scripts)
 	@$(call install_copy, connman, 0, 0, 0755, /usr/lib/connman/plugins)
 
-	# start script
-	@$(call install_copy, connman, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/connman, \
-		/etc/init.d/connman)
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_CONNMAN_STARTSCRIPT
+	@$(call install_alternative, connman, 0, 0, 0755, /etc/init.d/connman, n)
+endif
+endif
 
 	# dbus config
 	@$(call install_copy, connman, 0, 0, 0644, -, /etc/dbus-1/system.d/connman.conf)

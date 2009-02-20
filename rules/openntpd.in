@@ -16,8 +16,6 @@ menuconfig OPENNTPD
 
 if OPENNTPD
 
-comment "build options   ---"
-
 config  OPENNTPD_ARC4RANDOM
 	bool
 	prompt "Use builtin arc4random rather than OpenSSL's"
@@ -26,24 +24,10 @@ config  OPENNTPD_ARC4RANDOM
 	  Enabled by default - if unsure, say YES
 	  Say NO and install OpenSSL as alternative.
 
-comment "install options   ---"
-	depends on OPENNTPD
-
-config  OPENNTPD_USERS_CONFIG
+config OPENNTPD_STARTSCRIPT
 	bool
-	prompt "install user defined /etc/ntpd.conf"
-	help
-	  This uses a user defined ntpd.conf file. PTXdist will use the file
-	  projectroot/etc/ntpd.conf in your local project.
-	  A default ntpd.conf to generate your own one comes with the packet
-	  itself.
-
-config  OPENNTPD_INITD_SCRIPT
-	bool
-	prompt "install user defined init.d script"
-	help
-	  This options installs a user defined init.d script. PTXdist will use
-	  the file projectroot/etc/init.d/ntp in your local project.
+	default y
+	prompt "install /etc/init.d/openntpd"
 
 endif
 

@@ -101,6 +101,7 @@ $(STATEDIR)/ntpclient.targetinstall: $(ntpclient_targetinstall_deps_default)
 	@$(call install_fixup, ntpclient,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
 	@$(call install_fixup, ntpclient,DEPENDS,)
 	@$(call install_fixup, ntpclient,DESCRIPTION,missing)
+
 ifdef PTXCONF_NTPCLIENT_BUILD_NTPCLIENT
 	@$(call install_copy, ntpclient, 0, 0, 0755, \
 		$(NTPCLIENT_DIR)/ntpclient, /usr/sbin/ntpclient)
@@ -110,33 +111,19 @@ ifdef PTXCONF_NTPCLIENT_BUILD_ADJTIMEX
 		$(NTPCLIENT_DIR)/adjtimex, /sbin/adjtimex)
 endif
 
-ifdef PTXCONF_NTPCLIENT_INSTALL_STARTSCRIPT
-ifdef PTXCONF_ROOTFS_ETC_INITD_NTPCLIENT_DEFAULT
-# install the generic one
-	@$(call install_copy, ntpclient, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/ntpclient, \
-		/etc/init.d/ntpclient, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_NTPCLIENT_USER
-# install users one
-	@$(call install_copy, ntpclient, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/ntpclient, \
-		/etc/init.d/ntpclient, n)
-endif
-# replace the @HOST@ with name of NTP server
+	#
+	# busybox init: start script
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_NTPCLIENT_STARTSCRIPT
+	@$(call install_alternative, ntpclient, 0, 0, 0755, /etc/init.d/ntpclient, n)
 ifneq ($(PTXCONF_NTPCLIENT_NTPSERVER_NAME),"")
+	# replace the @HOST@ with name of NTP server
 	@$(call install_replace, ntpclient, /etc/init.d/ntpclient, \
 		@HOST@, \
 		"$(PTXCONF_NTPCLIENT_NTPSERVER_NAME)" )
 endif
-
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NTPCLIENT_LINK),"")
-	@$(call install_copy, ntpclient, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, ntpclient, ../init.d/ntpclient, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_NTPCLIENT_LINK))
 endif
 endif
 

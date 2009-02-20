@@ -114,59 +114,10 @@ config LIGHTTPD__LUA
 	help
 	  lua engine for mod_cml
 
-
-choice
-	prompt "Kind of startup script"
-	default LIGHTTPD__ETC_INITD_GENERIC
-	depends on LIGHTTPD
-	help
-	  The /etc/init.d/lighttpd script lets you control the lighttpd daemon.
-
-	config LIGHTTPD__ETC_INITD_NONE
-		bool
-		prompt "no init.d script"
-
-	config LIGHTTPD__ETC_INITD_GENERIC
-		bool
-		prompt "Use generic"
-		help
-		  Installs a generic /etc/init.d/lighttpd startup
-		  script. The file from
-		  <ptxdist-install>/generic/etc/init.d/lighttpd
-		  will be used.
-
-	config LIGHTTPD__ETC_INITD_USER
-		bool
-		prompt "User defined"
-		help
-		  This uses a user defined lighttpd. PTXdist uses
-		  file projectroot/etc/init.d/lighttpd in your
-		  local project
-endchoice
-
-
-
-choice
-	prompt "Kind of httpd.conf"
-	default LIGHTTPD__CONFIG_DEFAULT
-
-	config LIGHTTPD__CONFIG_NONE
-		bool "no config"
-
-	config LIGHTTPD__CONFIG_DEFAULT
-		bool "Use generic"
-		help
-		  Install generic lighttpd files.
-		  See <ptxdist-install>/generic/etc/lighttpd/lighttpd.conf
-		  and <ptxdist-install>/generic/etc/lighttpd/mod_fastcgi.conf
-
-	config LIGHTTPD__CONFIG_USER
-		bool "User defined"
-		help
-		  This uses a user defined lighttpd.conf file.
-		  PTXdist uses file projectroot/etc/lighttpd/lighttpd.conf in your
-		  local project.
-endchoice
+config LIGHTTPD_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/lighttpd"
 
 config LIGHTTPD__GENERIC_SITE
 	bool

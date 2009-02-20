@@ -171,14 +171,13 @@ endif
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options.ttyS0, n)
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/pap-secrets, n)
 
-# handle system startup on demand
-ifdef PTXCONF_PPP_INSTALL_START_SCRIPT
-	@$(call install_copy, ppp, 0, 0, 0755, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/pppd, \
-		/etc/init.d/pppd)
-ifneq ($(PTXCONF_PPP_INSTALL_START_LINK),"")
-	@$(call install_link, ppp, ../init.d/pppd, \
-		/etc/rc.d/$(PTXCONF_PPP_INSTALL_START_LINK))
+	#
+	# busybox init
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_PPP_STARTSCRIPT
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/pppd, n)
 endif
 endif
 

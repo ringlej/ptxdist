@@ -168,7 +168,7 @@ config NTP_ARLIB
 	help
 	  FIXME: This item needs to be documented
 
-endif 
+endif
 
 source "generated/networking_ntp.in"
 
@@ -195,19 +195,11 @@ config NTP_NTPD
 	  maintains the system time of day in synchronism with Internet
 	  standard time servers.
 
-config NTP_NTPD_RCD_LINK
+config NTP_NTPD_STARTSCRIPT
 	bool
-	prompt "install link in /etc/rc.d to start ntp-server"
+	default y
 	depends on NTP_NTPD
-	help
-	  This option installs a link into /etc/rc.d/ to /etc/init.d/ntp-server.
-
-config NTP_NTPD_USR_CONF
-	bool
-	prompt "install a user defined configuration file for ntp-server"
-	depends on NTP_NTPD
-	help
-	  This option installs a config file from project-root to /etc/ntp-server.conf
+	prompt "install /etc/init.d/ntp-server"
 
 config NTP_NTPDC
 	bool
@@ -217,19 +209,11 @@ config NTP_NTPDC
 	  ntpdc is used to query the ntpd daemon about its
 	  current state and to request changes in that state.
 
-config NTP_NTPDC_RCD_LINK
+config NTP_NTPC_STARTSCRIPT
 	bool
-	prompt "install link in /etc/rc.d to start ntp-client"
-	depends on NTP_NTPDC
-	help
-	  This option installs a link into /etc/rc.d/ to /etc/init.d/ntp-client.
-
-config NTP_NTPDC_USR_CONF
-	bool
-	prompt "install a user defined configuration file for ntp-server"
-	depends on NTP_NTPDC
-	help
-	  This option installs a config file from project-root to /etc/ntp-client.conf
+	default y
+	depends on NTP_NTPC
+	prompt "install /etc/init.d/ntp-client"
 
 config NTP_NTPQ
 	bool

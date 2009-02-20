@@ -81,23 +81,20 @@ $(STATEDIR)/openntpd.targetinstall:
 
 	@$(call install_copy, openntpd, 0, 0, 0755, $(OPENNTPD_DIR)/ntpd, /usr/sbin/ntpd)
 
-ifdef PTXCONF_OPENNTPD_USERS_CONFIG
-	@$(call install_copy, openntpd, 0, 0, 0644, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/ntpd.conf, \
-		/etc/ntpd.conf, n)
-else
-	@$(call install_copy, openntpd, 0, 0, 0644, \
-		$(OPENNTPD_DIR)/ntpd.conf, \
-		/etc/ntpd.conf, n)
-endif
+	#
+	# config
+	#
 
-ifdef PTXCONF_OPENNTPD_INITD_SCRIPT
-	@$(call install_copy, openntpd, 0,0, 755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/ntp, \
-		/etc/init.d/ntp, n)
-	@$(call install_copy, openntpd, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, openntpd, ../init.d/ntp, \
-		/etc/rc.d/S19_ntp)
+	@$(call install_alternative, openntpd, 0, 0, 0644, /etc/ntpd.conf, n)
+
+	#
+	# busybox init
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_OPENNTPD_STARTSCRIPT
+	@$(call install_alternative, openntpd, 0, 0, 0644, /etc/init.d/ntp, n)
+endif
 endif
 
 	@$(call install_finish, openntpd)

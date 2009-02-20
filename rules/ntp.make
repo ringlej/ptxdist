@@ -340,43 +340,54 @@ $(STATEDIR)/ntp.targetinstall:
 	@$(call install_fixup, ntp,DEPENDS,)
 	@$(call install_fixup, ntp,DESCRIPTION,missing)
 
+	#
+	# ntpdate
+	#
+
 ifdef PTXCONF_NTP_NTPDATE
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpdate/ntpdate, /usr/sbin/ntpdate)
 endif
 
+	#
+	# ntp server
+	#
+
 ifdef PTXCONF_NTP_NTPD
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpd/ntpd, /usr/sbin/ntpd)
-	@$(call install_copy, ntp, 0, 0, 0755, $(PTXDIST_TOPDIR)/generic/etc/init.d/ntp, /etc/init.d/ntp-server, n)
-  ifdef PTXCONF_NTP_NTPD_RCD_LINK
-	@$(call install_copy, ntp, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, ntp, ../init.d/ntp-server, \
-		/etc/rc.d/S19_ntp-server)
-  endif
-  ifdef PTXCONF_NTP_NTPD_USR_CONF
-	@$(call install_copy, ntp, 0, 0, 0644, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/ntp-server.conf, \
-		/etc/ntp-server.conf, n)
-  endif
+	@$(call install_alternative, ntp, 0, 0, 0644, /etc/ntp-server.conf, n)
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_NTP_NTPD_STARTSCRIPT
+	@$(call install_alternative, ntp, 0, 0, 0755, /etc/init.d/ntp, n)
 endif
+endif
+endif
+
+	#
+	# ntpdc
+	#
 
 ifdef PTXCONF_NTP_NTPDC
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpdc/ntpdc, /usr/sbin/ntpdc)
-	@$(call install_link, ntp, /etc/init.d/ntp-server, /etc/init.d/ntp-client, n)
-  ifdef PTXCONF_NTP_NTPDC_RCD_LINK
-	@$(call install_copy, ntp, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, ntp, ../init.d/ntp-client, \
-		/etc/rc.d/S19_ntp-client)
-  endif
-  ifdef PTXCONF_NTP_NTPDC_USR_CONF
-	@$(call install_copy, ntp, 0, 0, 0644, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/ntp-client.conf, \
-		/etc/ntp-client.conf, n)
-  endif
+	@$(call install_alternative, ntp, 0, 0, 0644, /etc/ntp-client.conf, n)
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_NTP_NTPC_STARTSCRIPT
+	@$(call install_alternative, ntp, 0, 0, 0755, /etc/init.d/ntp-client, n)
 endif
+endif
+endif
+
+	#
+	# ntpq
+	#
 
 ifdef PTXCONF_NTP_NTPQ
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpq/ntpq, /usr/sbin/ntpq)
 endif
+
+	#
+	# other files
+	#
 
 	@$(call install_copy, ntp, 0, 0, 0755, /var/log/ntpstats/)
 	@$(call install_copy, ntp, 0, 0, 0755, /var/lib/ntp)

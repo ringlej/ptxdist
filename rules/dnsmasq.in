@@ -70,49 +70,9 @@ config DNSMASQ_INETD_STRING
 	help
 	  This string is added to inetd's configuration /etc/inetd.conf.
 
-choice
-	prompt "Kind of startup script"
-	default ROOTFS_ETC_INITD_DNSMASQ_DEFAULT
-	depends on DNSMASQ_STARTUP_TYPE_STANDALONE
-
-	config ROOTFS_ETC_INITD_DNSMASQ_DEFAULT
-		bool
-		prompt "Use generic"
-		help
-		  Installs a generic /etc/init.d/dnsmasq startup script.
-		  See <ptxdist-install>/generic/etc/init.d/dnsmasq
-
-	config ROOTFS_ETC_INITD_DNSMASQ_USER
-		bool
-		prompt "User defined"
-		help
-		  This uses a user defined dnsmasq startup script. PTXdist
-		  uses files projectroot/etc/init.d/dnsmasq in your local
-		  project
-
-endchoice
-
-choice
-	prompt "Configuration's source"
-	default DNSMASQ_ETC_DEFAULT
-
-	config DNSMASQ_ETC_DEFAULT
-		bool
-		prompt "Use generic"
-		help
-		 The used configuration file for runtime comes from build
-		 directory's file "dnsmasq.conf.example"
-		 Its mostly useless, but gives you a hint how it works.
-		 Use it as a starting point, modify it and store it in your
-		 active project. Then switch here to "User defined".
-
-	config DNSMASQ_ETC_USER
-		bool
-		prompt "User defined"
-		help
-		  This installs dnsmasq.conf from projectroot/etc/dnsmasq.conf
-		  from you local project.
-
-endchoice
+config DNSMASQ_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/dnsmasq"
 
 endif

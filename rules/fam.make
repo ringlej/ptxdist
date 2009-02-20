@@ -131,27 +131,15 @@ ifdef PTXCONF_FAM_LIBRARY
 endif
 
 ifdef PTXCONF_FAM_STARTUP_TYPE_STANDALONE
-# provide everything for standalone mode
-ifdef PTXCONF_ROOTFS_ETC_INITD_FAM_DEFAULT
-# install the generic one
-	@$(call install_copy, fam, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/famd, \
-		/etc/init.d/famd, n)
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_FAM_STARTSCRIPT
+	@$(call install_alternative, fam, 0, 0, 0755, /etc/init.d/famd, n)
 endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_FAM_USER
-# install users one
-	@$(call install_copy, fam, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/famd, \
-		/etc/init.d/famd, n)
 endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_FAM_LINK),"")
-	@$(call install_copy, portmap, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, portmap, ../init.d/famd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_FAM_LINK))
 endif
+
+ifdef PTXCONF_FAM_INETD_SERVER
+	@$(call install_alternative, fam, 0, 0, 0644, /etc/inetd.conf.d/fam, n)
 endif
 
 	@$(call install_finish,fam)

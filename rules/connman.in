@@ -101,5 +101,10 @@ config CONNMAN_TESTS
 	select DBUS_PYTHON
 	prompt "install test programs"
 
+config CONNMAN_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/connman"
+
 endif
 

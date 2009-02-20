@@ -24,95 +24,9 @@ config RSYNC3_LARGE_FILE
 	help
 	  Support for large files
 
-config RSYNC3_CONFIG_FILE
-	string
-	default "/etc/rsyncd.conf"
-	prompt "Configuration file at runtime"
-	help
-	  Set configuration file for rsync server to given path on your target
-
-comment "runtime options   ---"
-
-choice
-
-prompt "Kind of rsyncd.conf/rsyncd.secrets file"
-default RSYNC3_CONFIG_FILE_DEFAULT
-
-config RSYNC3_CONFIG_FILE_DEFAULT
+config RSYNC3_STARTSCRIPT
 	bool
-	prompt "Use generic"
-	help
-	  The files from generic/etc/rsyncd.conf|rsyncd.secrets will be used.
-	  Its a very good idea to start with this default files and save a
-	  customised version into your project, because the generic files are
-	  really useless. You can use your own version if you select
-	  "User defined" here.
-
-config RSYNC3_CONFIG_FILE_USER
-	bool
-	prompt "User defined"
-	help
-	  The files from <project>/projectroot/etc/rsyncd.conf|rsyncd.secrets
-	  will be used.
-
-endchoice
-
-choice
-	prompt "Kind of startup"
-	default RSYNC3_INETD_SERVER
-
-	config RSYNC3_INETD_SERVER
-		bool
-		prompt "inetd driven"
-		help
-		  This installs a startup configuration for rsync from inetd. It adds to
-		  the /etc/inetd.conf a line like this:
-		  rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@
-		  Note: You must enable one of the two possible inet daemons: There is
-		  one embedded in busybox and one in packet inetutils.
-
-	config RSYNC3_STARTUP_TYPE_STANDALONE
-		bool
-		prompt "standalone"
-		help
-		  This installs rsync startup script /etc/init.d/rsyncd. With this
-		  script the rsync server will be started at system startup and
-		  waits for connections
-
-endchoice
-
-choice
-	prompt "Kind of startup script"
-	depends on RSYNC3_STARTUP_TYPE_STANDALONE
-	default ROOTFS_ETC_INITD_RSYNC3_DEFAULT
-
-	config ROOTFS_ETC_INITD_RSYNC3_DEFAULT
-		bool
-		prompt "Use generic"
-		help
-		  Installs a generic /etc/init.d/rsyncd startup script.
-		  See <ptxdist-install>/generic/etc/init.d/rsyncd
-
-	config ROOTFS_ETC_INITD_RSYNC3_USER
-		bool
-		prompt "User defined"
-		help
-		  This uses a user defined rsync startup script. PTXdist
-		  uses files projectroot/etc/init.d/rsyncd in your local
-		  project. You should use "@CONFIG@" in your script.
-		  This gets replaced by "--config=" and the path to the config
-		  file given above.
-
-endchoice
-
-config RSYNC3_INETD_STRING
-	string
-	depends on RSYNC3_INETD_SERVER
-	prompt "inetd service entry"
-	default "rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@"
-	help
-	  This string is added to inetd's configuration /etc/inetd.conf. @CONFIG@
-	  in this string will be replaced with the --config option, and the
-	  path given above for configuration
+	default y
+	prompt "install /etc/init.d/rsync"
 
 endif

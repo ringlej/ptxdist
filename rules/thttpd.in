@@ -17,35 +17,6 @@ menuconfig THTTPD
 
 if THTTPD
 
-choice
-	prompt "Kind of startup script"
-	default THTTPD__ETC_INITD_GENERIC
-	depends on THTTPD
-	help
-	  The /etc/init.d/thttpd script lets you control the thttpd daemon.
-
-	config THTTPD__ETC_INITD_NONE
-		bool
-		prompt "no init.d script"
-
-	config THTTPD__ETC_INITD_GENERIC
-		bool
-		prompt "Use generic"
-		help
-		  Installs a generic /etc/init.d/thttpd startup
-		  script. The file from
-		  <ptxdist-install>/generic/etc/init.d/thttpd
-		  will be used.
-
-	config THTTPD__ETC_INITD_USER
-		bool
-		prompt "User defined"
-		help
-		  This uses a user defined thttpd. PTXdist uses
-		  file projectroot/etc/init.d/thttpd in your
-		  local project
-endchoice
-
 config THTTPD__GENERIC_SITE
 	depends on THTTPD
 	bool
@@ -61,4 +32,10 @@ config THTTPD__INSTALL_HTPASSWD
 	help
 	  Install the mkpasswd tool. It can create and manage .htpasswd file
 	  for authentication of users.
+
+config THTTPD_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/thttpd"
+
 endif

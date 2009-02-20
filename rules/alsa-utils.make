@@ -85,13 +85,9 @@ $(STATEDIR)/alsa-utils.targetinstall:
 	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aseqdump/aseqdump, /usr/bin/aseqdump)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aseqnet/aseqnet, /usr/bin/aseqnet)
 
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_ALSA_UTILS_STARTSCRIPT
 	@$(call install_alternative, alsa-utils, 0, 0, 0755, /etc/init.d/alsa-utils, n)
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_ALSA_UTILS_LINK
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_ALSA_UTILS_LINK),"")
-	@$(call install_copy, alsa-utils, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, alsa-utils, ../init.d/alsa-utils, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_ALSA_UTILS_LINK))
 endif
 endif
 	@$(call install_finish, alsa-utils)

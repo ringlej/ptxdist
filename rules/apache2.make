@@ -258,39 +258,27 @@ endif
 endif
 endif
 
+	#
+	# create the log dir if enabled
+	#
 
-# ---------------------------
-# create the log dir if enabled
-#
 ifneq ($(PTXCONF_APACHE2_LOGDIR),"")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
 endif
 
-# ---------------------------
-# install startup script on demand
-#
-ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD
-ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD_DEFAULT
-# generic script with path modifications
-	@$(call install_copy, apache2, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/httpd, \
-		/etc/init.d/httpd, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_HTTPD_USER
-# users one
-	@$(call install_copy, apache2, 0, 0, 0755, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/httpd, \
-		/etc/init.d/httpd, n)
-endif
-# replace some placeholders
+	#
+	# busybox init: startscript
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_APACHE2_STARTSCRIPT
+	@$(call install_alternative, apache2, 0, 0, 0755, /etc/init.d/httpd, n)
+
+	# replace some placeholders
 	@$(call install_replace, apache2, /etc/init.d/httpd, \
 		@APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )
 	@$(call install_replace, apache2, /etc/init.d/httpd, \
 		@LOGPATH@,  $(PTXCONF_APACHE2_LOGDIR) )
-# install link to launch automatically if enabled
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK),"")
-	@$(call install_link, apache2, ../init.d/httpd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_HTTPD_LINK))
 endif
 endif
 

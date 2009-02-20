@@ -140,14 +140,16 @@ $(STATEDIR)/proftpd.targetinstall: $(proftpd_targetinstall_deps_default)
 	@$(call install_copy, proftpd, 0, 0, 0755, \
 		$(PROFTPD_DIR)/proftpd, \
 		/usr/sbin/proftpd)
-	@$(call install_copy, proftpd, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/proftpd, \
-		/etc/init.d/proftpd, n)
 
-ifdef PTXCONF_PROFTPD_DEFAULTCONFIG
-	@$(call install_copy, proftpd, 11, 101, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/proftpd.conf, \
-		/etc/proftpd.conf, n)
+	@$(call install_alternative, proftpd, 0, 0, 0644, /etc/proftpd.conf, n)
+
+	#
+	# busybox init
+	#
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_PROFTPD_STARTSCRIPT
+	@$(call install_alternative, proftpd, 0, 0, 0755, /etc/init.d/proftpd, n)
+endif
 endif
 
 	@$(call install_finish, proftpd)

@@ -6,36 +6,11 @@ menuconfig UTELNETD
 	help
 	  utelnet is a very small telnetd implementation.
 
-comment "runtime options   ---"
-	depends on UTELNETD
+if UTELNETD
 
-config ROOTFS_ETC_INITD_UTELNETD
-	depends on UTELNETD
+config UTELNETD_STARTSCRIPT
 	bool
 	default y
-	prompt "Install startup script"
-	help
-	  The /etc/init.d/telnetd script lets you control the telnetd daemon.
+	prompt "install /etc/init.d/utelnetd"
 
-	choice
-		prompt "Kind of startup script"
-		default ROOTFS_ETC_INITD_UTELNETD_DEFAULT
-		depends on ROOTFS_ETC_INITD_UTELNETD
-
-		config ROOTFS_ETC_INITD_UTELNETD_DEFAULT
-			bool
-			prompt "Use generic"
-			help
-			  Installs a generic /etc/init.d/telnetd startup script.
-			  See <ptxdist-install>/generic/etc/init.d/telnetd
-
-		config ROOTFS_ETC_INITD_UTELNETD_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined telnetd startup script. PTXdist
-			  uses files projectroot/etc/init.d/utelnetd in your local
-			  project. Note the leading 'u' in utelnetd! But it will
-			  be copied to /etc/init.d/telnetd without 'u'!
-
-	endchoice
+endif

@@ -130,49 +130,26 @@ $(STATEDIR)/pureftpd.targetinstall:
 		$(PUREFTPD_DIR)/src/pure-ftpd, \
 		/usr/sbin/pure-ftpd)
 
+	@$(call install_alternative, pureftpd, 0, 0, 0644, /etc/pure-ftpd.conf, n)
+	@$(call install_alternative, pureftpd, 0, 0, 0644, /etc/inetd.conf.d/pure-ftpd, n)
+
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 	@$(call install_copy, pureftpd, 0, 0, 0755, \
 		$(PUREFTPD_DIR)/src/pure-uploadscript, \
 		/usr/sbin/pure-uploadscript, n)
 endif
 
+	#
+	# busybox init
+	#
 
-ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD
-ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
-# install the generic one
-	@$(call install_copy, pureftpd, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/pure-ftpd, \
-		/etc/init.d/pure-ftpd, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_USER
-# install users one
-	@$(call install_copy, pureftpd, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/pure-ftpd, \
-		/etc/init.d/pure-ftpd, n)
-endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK),"")
-	@$(call install_copy, pureftpd, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, pureftpd, ../init.d/pure-ftpd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_LINK))
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_PUREFTPD_STARTSCRIPT
+	@$(call install_alternative, pureftpd, 0, 0, 0755, /etc/init.d/pure-ftpd, n)
 endif
 endif
 
-ifdef PTXCONF_PUREFTPD_ETC_CONFIG
-ifdef PTXCONF_ROOTFS_ETC_INITD_PUREFTPD_DEFAULT
-	@$(call install_copy, pureftpd, 0, 0, 0644, \
-		${PTXDIST_TOPDIR}/generic/etc/pure-ftpd.conf, \
-		/etc/pure-ftpd.conf, n)
-else
-	@$(call install_copy, pureftpd, 0, 0, 0644, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/pure-ftpd.conf, \
-		/etc/pure-ftpd.conf, n)
-endif
-endif
-
-	@$(call install_finish,pureftpd)
+	@$(call install_finish, pureftpd)
 
 	@$(call touch)
 

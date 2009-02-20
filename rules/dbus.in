@@ -150,30 +150,9 @@ config ROOTFS_DBUS_SESSION_CONF
 #                           Directory for installing the DBUS daemon
 #   --with-x                use the X Window System
 
-config DBUS_INSTALL_STARTUP_SCRIPT
+config DBUS_STARTSCRIPT
 	bool
-	prompt "Install startup script"
-	help
-	  This installs a startup script for dbus from a selectable source
+	default y
+	prompt "install /etc/init.d/dbus"
 
-	choice
-		prompt "Kind of startup script"
-		depends on DBUS_INSTALL_STARTUP_SCRIPT
-		default ROOTFS_ETC_INITD_DBUS_GENERIC
-
-		config ROOTFS_ETC_INITD_DBUS_GENERIC
-			bool
-			prompt "Use generic"
-			help
-			  Installs a generic /etc/init.d/dbus startup script.
-			  See <ptxdist-install>/generic/etc/init.d/dbus
-
-		config ROOTFS_ETC_INITD_DBUS_USER
-			bool
-			prompt "User defined"
-			help
-			This uses a user defined /etc/init.d/dbus. PTXdist uses
-			file projectroot/etc/init.d/dbus in your local project.
-
-	endchoice
 endif

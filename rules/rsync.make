@@ -77,7 +77,7 @@ endif
 $(STATEDIR)/rsync.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, rsync)
+	@$(call install_init,  rsync)
 	@$(call install_fixup, rsync,PACKAGE,rsync)
 	@$(call install_fixup, rsync,PRIORITY,optional)
 	@$(call install_fixup, rsync,VERSION,$(RSYNC_VERSION))
@@ -90,66 +90,28 @@ $(STATEDIR)/rsync.targetinstall:
 		$(RSYNC_DIR)/rsync, \
 		/usr/bin/rsync)
 
-ifdef PTXCONF_RSYNC_CONFIG_FILE_DEFAULT
-ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)),)
-	@$(call install_copy, rsync, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/rsyncd.conf, \
-		$(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)), n )
-else
-# use default
-	@$(call install_copy, rsync, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/rsyncd.conf, \
-		/etc/rsyncd.conf, n)
-endif
-	@$(call install_copy, rsync, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/rsyncd.secrets, \
-		/etc/rsyncd.secrets, n)
-endif
-
-ifdef PTXCONF_RSYNC_CONFIG_FILE_USER
-ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)),)
-	@$(call install_copy, rsync, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/rsyncd.conf, \
-		$(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)), n )
-else
-# use as default
-	@$(call install_copy, rsync, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/rsyncd.conf, \
-		/etc/rsyncd.conf, n)
-endif
-	@$(call install_copy, rsync, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/rsyncd.secrets, \
-		/etc/rsyncd.secrets, n)
-endif
+	@$(call install_alternative, rsync, 0, 0, 0644, /etc/rsyncd.conf, n)
+	@$(call install_alternative, rsync, 0, 0, 0644, /etc/rsyncd.secrets, n)
 
 ifdef PTXCONF_RSYNC_STARTUP_TYPE_STANDALONE
-# provide everything for standalone mode
-ifdef PTXCONF_ROOTFS_ETC_INITD_RSYNC_DEFAULT
-# install generic one
-	@$(call install_copy, rsync, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/rsyncd, \
-		/etc/init.d/rsyncd, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_RSYNC_USER
-# install users one
-	@$(call install_copy, rsync, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/rsyncd, \
-		/etc/init.d/rsyncd, n)
-endif
-# replace the @CONFIG@ with path and name of the configfile
-ifneq ($(PTXCONF_RSYNC_CONFIG_FILE),"")
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_RSYNC_STARTSCRIPT
+	@$(call install_alternative, rsync, 0, 0, 0755, /etc/init.d/rsyncd, n)
 	@$(call install_replace, rsync, /etc/init.d/rsyncd, \
 		@CONFIG@, \
 		"--config=$(PTXCONF_RSYNC_CONFIG_FILE)" )
 endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_RSYNC_LINK),"")
-	@$(call install_copy, rsync, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, rsync, ../init.d/rsyncd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_RSYNC_LINK), n)
 endif
+endif
+
+	#
+	# /etc/inetd.conf sniplet
+	#
+
+ifdef PTXCONF_RSYNC_INETD_SERVER
+	@$(call install_alternative, rsync, 0, 0, 0644, /etc/inetd.conf.d/rsync, n)
+	@$(call install_replace, rsync, /etc/inetd.conf.d/rsync, \
+		@CONFIG@, "--config=$(PTXCONF_RSYNC_CONFIG_FILE)" )
 endif
 
 	@$(call install_finish, rsync)

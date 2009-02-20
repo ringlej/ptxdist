@@ -35,10 +35,9 @@ config PROFTPD_AUTOSHADOW
 	help
 	  FIXME: This item needs to be documented
 
-config PROFTPD_DEFAULTCONFIG
+config PROFTPD_STARTSCRIPT
 	bool
-	prompt "install default config file"
-	help
-	  FIXME: This item needs to be documented
+	default y
+	prompt "install /etc/init.d/proftpd"
 
 endif

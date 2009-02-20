@@ -85,47 +85,22 @@ $(STATEDIR)/syslogng.targetinstall:
 	@$(call install_fixup, syslogng,DEPENDS,)
 	@$(call install_fixup, syslogng,DESCRIPTION,missing)
 
+	# binary
 	@$(call install_copy, syslogng, 0, 0, 0755, \
 		$(SYSLOGNG_DIR)/src/syslog-ng, /sbin/syslog-ng)
 
-ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
-ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_DEFAULT
-# install the generic one
-	@$(call install_copy, syslogng, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/syslog-ng, \
-		/etc/init.d/syslog-ng, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_USER
-# install users one
-	@$(call install_copy, syslogng, 0, 0, 0755, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/init.d/syslog-ng, \
-		/etc/init.d/syslog-ng, n)
-endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK),"")
-	@$(call install_copy, syslogng, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, syslogng, ../init.d/syslog-ng, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_SYSLOGNG_LINK))
-endif
-endif
+	# config
+	@$(call install_alternative, syslogng, 0, 0, 0644, /etc/syslog-ng.conf, n)
 
-ifdef PTXCONF_ROOTFS_ETC_SYSLOGNG_CONFIG
-ifdef PTXCONF_ROOTFS_ETC_SYSLOGNG_CONFIG_DEFAULT
-# install the generic one
-	@$(call install_copy, syslogng, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/syslog-ng.conf, \
-		/etc/syslog-ng.conf, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_SYSLOGNG_CONFIG_USER
-# install users one
-	@$(call install_copy, syslogng, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/syslog-ng.conf, \
-		/etc/syslog-ng.conf, n)
-endif
-endif
+	#
+	# bb init: start scripts
+	#
 
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_SYSLOGNG
+	@$(call install_alternative, syslogng, 0, 0, 0755, /etc/init.d/syslog-ng, n)
+endif
+endif
 	@$(call install_finish, syslogng)
 
 	@$(call touch)

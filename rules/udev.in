@@ -134,15 +134,6 @@ menu "install options               "
 		help
 		  FIXME
 
-	config UDEV__RC_D_LINK
-		string
-		prompt "link name in /etc/rc.d"
-		default "S00_udev"
-		help
-		  Enter the name of the udev start link in /etc/init.d; this should
-		  be something like "S00_udev". An empty string means that no link
-		  is created.
-
 	config UDEV__ETC_CONF
 		bool
 		default y
@@ -178,6 +169,11 @@ menu "install options               "
 		prompt "install libudev"
 		help
 		  Install libudev.so on the target.
+
+	config UDEV_STARTSCRIPT
+		bool
+		default y
+		prompt "install /etc/init.d/udev"
 
 	endmenu
 

@@ -1,0 +1,1 @@
+cvspserver stream tcp nowait root /usr/bin/cvs cvsd -f @ROOT@ pserver

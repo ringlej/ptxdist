@@ -345,7 +345,11 @@ $(STATEDIR)/mysql.targetinstall:
 
 	# install config
 #	@$(call install_copy, phycore-pxa270, 0, 0, 0644, $(PTXDIST_WORKSPACE)/projectroot/etc/my.cnf, /etc/my.cnf, n)
-#	@$(call install_copy, mysql, 0, 0, 0755, $(PTXDIST_WORKSPACE)/projectroot/etc/init.d/mysql, /etc/init.d/mysql, n)
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_MYSQL_STARTSCRIPT
+	@$(call install_alternative, mysql, 0, 0, 0755, /etc/init.d/mysql, n)
+endif
+endif
 
 	@$(call install_finish,mysql)
 

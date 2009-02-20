@@ -9,23 +9,34 @@ menuconfig INETUTILS
 	  * An rsh client and server.
 	  * An rlogin client and server.
 	  * A tftp client and server.
-	  * And much more... 
+	  * And much more...
 	  These are improved versions of programs originally from BSD.
 
 if INETUTILS
 
-comment "build options   ---"
+# -----
 
-config INETUTILS_INETD
+menuconfig INETUTILS_INETD
 	bool
 	depends on !BUSYBOX_INETD || ALLYES
-	prompt "inetd"
+	prompt "inetd                         "
 	help
 	  This is the network super daemon. It opens network connection for
 	  various other programs and start them if a connection request occures.
 
+if INETUTILS_INETD
+
+config INETUTILS_INETD_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/inetd"
+
+endif
+
 comment "BusyBox' inetd is selected!"
 	depends on BUSYBOX_INETD
+
+# -----
 
 config INETUTILS_PING
 	bool
@@ -36,6 +47,8 @@ config INETUTILS_PING
 
 comment "BusyBox' ping is selected!"
 	depends on BUSYBOX_PING
+
+# -----
 
 config INETUTILS_RCP
 	bool
@@ -82,45 +95,17 @@ config INETUTILS_SYSLOGD
 comment "BusyBox' syslogd is selected!"
 	depends on BUSYBOX_SYSLOGD
 
-config INETUTILS_TFTPD
+# -----
+
+menuconfig INETUTILS_TFTPD
 	bool
-	prompt "tftpd"
+	prompt "tftpd                         "
 	help
 	  TFTPD is a ftp daemon to be used for diskless clients. Most bootloaders
 	  use the Trivial File Transfer Protocol to load their OS image. Note:
 	  There is no authentication!
 
-comment "runtime options  ---"
-
-config INETUTILS_ETC_INITD_INETD
-	depends on INETUTILS_INETD
-	bool
-	default y
-	prompt "Install inetd startup script"
-	help
-	  The /etc/init.d/inetd script lets you control the inetd server.
-
-	choice
-		prompt "Kind of startup script"
-		depends on INETUTILS_ETC_INITD_INETD
-		default INETUTILS_ETC_INITD_INETD_DEFAULT
-
-		config INETUTILS_ETC_INITD_INETD_DEFAULT
-			bool
-			prompt "Use generic"
-			help
-			  Installs a generic /etc/init.d/inetd startup script.
-			  See <ptxdist-install>/generic/etc/init.d/inetd
-
-		config INETUTILS_ETC_INITD_INETD_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined inetd startup script. PTXdist
-			  uses files projectroot/etc/init.d/inetd in your local
-			  project
-
-	endchoice
+if INETUTILS_TFTPD
 
 config INETUTILS_TFTPD_BASE_DIR
 	string
@@ -131,16 +116,6 @@ config INETUTILS_TFTPD_BASE_DIR
 	  This string is added to tftpd's command parameters. Placeholder @ROOT@
 	  in all startup options will be replaced by the string given here
 
-config INETUTILS_TFTPD_STRING
-	string
-	depends on INETUTILS_TFTPD
-	prompt "inetd service entry"
-	default "tftp dgram udp wait nobody /sbin/tftpd tftpd -l @ROOT@"
-	help
-	  The string defined here is added to inetd's configuration /etc/inetd.conf. @ROOT@
-	  in this string will be replaced by tftpd exported directory
-	  Note: This tftp daemon can be started on demand from inetd only. You
-	  must enable one of the two possible inet daemons: There is one
-	  embedded in busybox and one in this packet.
+endif
 
 endif

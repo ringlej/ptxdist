@@ -107,26 +107,10 @@ config  NFSUTILS_INSTALL_STATD
 
 comment "runtime options"
 
-choice
-	prompt "Kind of startup script"
-	default ROOTFS_ETC_INITD_NFS_DEFAULT
-
-	config ROOTFS_ETC_INITD_NFS_DEFAULT
-		bool
-		prompt "Use generic"
-		help
-		  Installs a generic /etc/init.d/nfsd startup script.
-		  See <ptxdist-install>/generic/etc/init.d/nfsd
-
-	config ROOTFS_ETC_INITD_NFS_USER
-		bool
-		prompt "User defined"
-		help
-		  This uses a user defined nfsd startup script. PTXdist
-		  uses files projectroot/etc/init.d/nfsd in your local
-		  project
-
-endchoice
+config NFSUTILS_NFSD_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/nfsd"
 
 config NFSUTILS_INSTALL_USER_EXPORTS
 	bool

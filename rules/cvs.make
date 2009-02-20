@@ -180,12 +180,24 @@ $(STATEDIR)/cvs.targetinstall: $(cvs_targetinstall_deps_default)
 	@$(call install_fixup,cvs,DESCRIPTION,missing)
 
 ifdef PTXCONF_CVS_INETD_SERVER
+	@$(call install_alternative, cvs, 0, 0, 0755, /etc/inetd.conf.d/cvs, n)
+ifneq ($(PTXCONF_CVS_SERVER_REPOSITORY),"")
+	# add info about repository's root
+	@$(call install_replace, cvs, /etc/inetd.conf.d/cvs, \
+		@ROOT@, \
+		"--allow-root=$(PTXCONF_CVS_SERVER_REPOSITORY)" )
+else
+	# use cvs' default if not otherwise specified
+	@$(call install_replace, cvs, /etc/inetd.conf.d/cvs, \
+		@ROOT@, )
+endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_CVS_SERVER_REPOSITORY)),)
 	@$(call install_copy, cvs, 0, 0, 0755, $(PTXCONF_CVS_SERVER_REPOSITORY))
 
-#
-# install only existing files
-#
+	#
+	# install only existing files
+	#
 ifdef PTXCONF_CVS_SERVER_POPULATE_CVSROOT
 	@$(call install_copy, cvs, 0, 0, 0750, \
 		$(PTXCONF_CVS_SERVER_REPOSITORY)/CVSROOT)
@@ -205,31 +217,6 @@ ifdef PTXCONF_CVS_SERVER_POPULATE_CVSROOT
 		fi; \
 	done;
 endif
-endif
-endif
-#
-# Install the startup script on request only
-#
-ifdef PTXCONF_CVS_STARTUP_TYPE_STANDALONE
-ifdef PTXCONF_ROOTFS_ETC_INITD_CVS_DEFAULT
-# install the generic one
-	@$(call install_copy, cvs, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/cvs, \
-		/etc/init.d/cvs, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_CVS_USER
-# install users one
-	@$(call install_copy, cvs, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/cvs, \
-		/etc/init.d/cvs, n)
-endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_CVS_LINK),"")
-	@$(call install_copy, cvs, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, cvs, ../init.d/cvs, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_CVS_LINK))
 endif
 endif
 

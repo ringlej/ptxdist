@@ -1,7 +1,7 @@
 ## SECTION=rootfs
 
 # ----------------------------------------------------------------------------
-menu "populate rootfs               "
+menu "directories in rootfs         "
 # ----------------------------------------------------------------------------
 
 config ROOTFS
@@ -221,3 +221,63 @@ config ROOTFS_VAR_LIB
 # ----------------------------------------------------------------------------
 
 endmenu
+
+# ----------------------------------------------------------------------------
+menu "files in rootfs               "
+# ----------------------------------------------------------------------------
+
+config ROOTFS_PASSWD
+	bool
+	prompt "install /etc/passwd"
+
+config ROOTFS_SHADOW
+	bool
+	prompt "install /etc/shadow"
+
+config ROOTFS_GROUP
+	bool
+	prompt "install /etc/group"
+
+config ROOTFS_GSHADOW
+	bool
+	prompt "install /etc/gshadow"
+
+config ROOTFS_FSTAB
+	bool
+	prompt "install /etc/fstab"
+
+config ROOTFS_MTAB
+	bool
+	prompt "install /etc/mtab"
+
+config ROOTFS_HOSTNAME
+	bool
+	prompt "install /etc/hostname"
+
+config ROOTFS_ETC_HOSTNAME
+	string
+	prompt "hostname"
+	depends on ROOTFS_HOSTNAME
+
+config ROOTFS_HOSTS
+	bool
+	prompt "install /etc/hosts"
+
+config ROOTFS_NSSWITCH_CONF
+	bool
+	prompt "install /etc/nsswitch"
+
+config ROOTFS_PROFILE
+	bool
+	prompt "install /etc/profile"
+
+config ROOTFS_PROTOCOLS
+	bool
+	prompt "install /etc/protocols"
+
+config ROOTFS_RESOLV
+	bool
+	prompt "install /etc/resolv.conf"
+
+endmenu
+

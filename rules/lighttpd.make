@@ -232,41 +232,27 @@ $(STATEDIR)/lighttpd.targetinstall:
 		) \
 	done
 
+	#
+	# config
+	#
+	@$(call install_alternative, lighttpd, 0, 0, 0644, /etc/lighttpd.conf, n)
+	# FIXME: withoug PTXCONF_PHP5_SAPI_CGI, we want to install
+	# $(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd-no_php.conf instead?
 
-ifdef PTXCONF_LIGHTTPD__ETC_INITD_GENERIC
-	@$(call install_copy, lighttpd, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/lighttpd, \
-		/etc/init.d/lighttpd, n)
+	#
+	# busybox init: start script
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_LIGHTTPD_STARTSCRIPT
+	@$(call install_alternative, lighttpd, 0, 0, 0755, /etc/init.d/lighttpd, n)
+endif
 endif
 
-ifdef PTXCONF_LIGHTTPD__ETC_INITD_USER
-	@$(call install_copy, lighttpd, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/lighttpd, \
-		/etc/init.d/lighttpd, n)
-endif
-
-
-ifdef PTXCONF_LIGHTTPD__CONFIG_DEFAULT
-# use generic one
 ifdef PTXCONF_PHP5_SAPI_CGI
-	@$(call install_copy, lighttpd, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd.conf, \
-		/etc/lighttpd/lighttpd.conf, n)
-
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/mod_fastcgi.conf, \
 		/etc/lighttpd/mod_fastcgi.conf, n)
-else
-	@$(call install_copy, lighttpd, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd-no_php.conf, \
-		/etc/lighttpd/lighttpd.conf, n)
-endif
-endif
-ifdef PTXCONF_LIGHTTPD__CONFIG_USER
-# users one
-	@$(call install_copy, lighttpd, 12, 102, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/lighttpd/lighttpd.conf, \
-		/etc/lighttpd/lighttpd.conf, n)
 endif
 
 ifdef PTXCONF_LIGHTTPD__GENERIC_SITE
@@ -287,12 +273,6 @@ else
 		$(PTXDIST_TOPDIR)/generic/var/www/httpd.html, \
 		/var/www/index.html, n)
 endif
-endif
-
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_LIGHTTPD_LINK),"")
-	@$(call install_copy, lighttpd, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, lighttpd, ../init.d/lighttpd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_LIGHTTPD_LINK))
 endif
 
 	@$(call install_finish, lighttpd)

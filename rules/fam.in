@@ -64,33 +64,9 @@ choice
 
 endchoice
 
-config FAM_INETD_STRING
-	string
-	depends on FAM_INETD_SERVER
-	prompt "inetd service entry"
-	default "sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf"
-	help
-	  This string is added to inetd's configuration /etc/inetd.conf.
+config FAM_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/famd"
 
-choice
-	prompt "Kind of startup script"
-	default ROOTFS_ETC_INITD_FAM_DEFAULT
-	depends on FAM_STARTUP_TYPE_STANDALONE
-
-	config ROOTFS_ETC_INITD_FAM_DEFAULT
-		bool
-		prompt "Use generic"
-		help
-		  Installs a generic /etc/init.d/famd startup script.
-		  See <ptxdist-install>/generic/etc/init.d/famd
-
-	config ROOTFS_ETC_INITD_FAM_USER
-		bool
-		prompt "User defined"
-		help
-		  This uses a user defined fam startup script. PTXdist
-		  uses files projectroot/etc/init.d/famd in your local
-		  project
-
-endchoice
 endif

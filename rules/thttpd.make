@@ -60,7 +60,7 @@ $(STATEDIR)/thttpd.install:
 $(STATEDIR)/thttpd.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, thttpd)
+	@$(call install_init,  thttpd)
 	@$(call install_fixup, thttpd,PACKAGE,thttpd)
 	@$(call install_fixup, thttpd,PRIORITY,optional)
 	@$(call install_fixup, thttpd,VERSION,$(THTTPD_VERSION))
@@ -72,22 +72,10 @@ $(STATEDIR)/thttpd.targetinstall:
 	@$(call install_copy, thttpd, 0, 0, 0755, $(THTTPD_DIR)/thttpd, \
 		/usr/sbin/thttpd)
 
-ifdef PTXCONF_THTTPD__ETC_INITD_GENERIC
-	@$(call install_copy, thttpd, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/thttpd, \
-		/etc/init.d/thttpd, n)
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_THTTPD_STARTSCRIPT
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/thttpd, n)
 endif
-
-ifdef PTXCONF_THTTPD__ETC_INITD_USER
-	@$(call install_copy, thttpd, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/thttpd, \
-		/etc/init.d/thttpd, n)
-endif
-
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK),"")
-	@$(call install_copy, thttpd, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, thttpd, ../init.d/thttpd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_THTTPD_LINK))
 endif
 
 ifdef PTXCONF_THTTPD__GENERIC_SITE

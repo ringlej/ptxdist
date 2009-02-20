@@ -68,31 +68,19 @@ $(STATEDIR)/utelnetd.targetinstall:
 	@$(call install_fixup, utelnetd,DEPENDS,)
 	@$(call install_fixup, utelnetd,DESCRIPTION,missing)
 
-#
-# Install the startup script on request only
-#
-ifdef PTXCONF_ROOTFS_ETC_INITD_UTELNETD_DEFAULT
-# install the generic one
 	@$(call install_copy, utelnetd, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/telnetd, \
-		/etc/init.d/telnetd, n)
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_INITD_UTELNETD_USER
-# install users one
-	@$(call install_copy, utelnetd, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/utelnetd, \
-		/etc/init.d/telnetd, n)
-endif
-
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK),"")
-	@$(call install_copy, utelnetd, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, utelnetd, ../init.d/telnetd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_TELNETD_LINK))
-endif
-
-	@$(call install_copy, utelnetd, 0, 0, 0755, $(UTELNETD_DIR)/utelnetd, \
+		$(UTELNETD_DIR)/utelnetd, \
 		/sbin/utelnetd)
+
+	#
+	# busybox init
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_UTELNETD_STARTSCRIPT
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/telnetd, n)
+endif
+endif
 
 	@$(call install_finish, utelnetd)
 

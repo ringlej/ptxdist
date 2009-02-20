@@ -14,5 +14,32 @@ menuconfig BUSYBOX
 	  For more information see http://www.busybox.net
 
 if BUSYBOX
+
+config BUSYBOX_INETD_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/inetd"
+
+config BUSYBOX_TELNETD_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/telnetd"
+
+config BUSYBOX_TELNETD_SYSLOGD_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/syslogd"
+
+config BUSYBOX_TELNETD_CROND_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/crond"
+
+config BUSYBOX_TELNETD_HWCLOCK_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/hwclock"
+
 source "config/busybox/Config.in"
+
 endif

@@ -270,33 +270,9 @@ config DROPBEAR_SCP
 
 comment "runtime options   ---"
 
-config ROOTFS_ETC_INITD_DROPBEAR
+config DROPBEAR_STARTSCRIPT
 	bool
 	default y
-	prompt "Install startup script"
-	help
-	  The /etc/init.d/dropbear script lets you control the dropbear daemon.
-
-	choice
-		prompt "Kind of startup script"
-		depends on ROOTFS_ETC_INITD_DROPBEAR
-		default ROOTFS_ETC_INITD_DROPBEAR_DEFAULT
-
-		config ROOTFS_ETC_INITD_DROPBEAR_DEFAULT
-			bool
-			prompt "Use generic"
-			help
-			  Installs a generic /etc/init.d/dropbear startup script.
-			  See <ptxdist-install>/generic/etc/init.d/dropbear
-
-		config ROOTFS_ETC_INITD_DROPBEAR_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined dropbear startup script. PTXdist
-			  uses files projectroot/etc/init.d/dropbear in your local
-			  project
-
-	endchoice
+	prompt "install /etc/init.d/dropbear"
 
 endif

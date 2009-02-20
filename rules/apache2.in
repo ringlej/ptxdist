@@ -49,34 +49,6 @@ config APACHE2_SERVERROOT
 	  This directory defines apache's serverroot where the icons are
 	  located.
 
-menuconfig ROOTFS_ETC_INITD_HTTPD
-	tristate
-	default y
-	prompt "install startup script      "
-	help
-	  The /etc/init.d/httpd script lets you control the apache daemon.
-
-	choice
-		prompt "Kind of startup script"
-		depends on ROOTFS_ETC_INITD_HTTPD
-		default ROOTFS_ETC_INITD_HTTPD_DEFAULT
-
-		config ROOTFS_ETC_INITD_HTTPD_DEFAULT
-			bool
-			prompt "Use generic"
-			help
-			  Install a generic /etc/init.d/httpd file.
-			  See <ptxdist-install>/generic/etc/init.d/httpd
-
-		config ROOTFS_ETC_INITD_HTTPD_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined httpd startup script. PTXdist
-			  uses file projectroot/etc/init.d/httpd in your local
-			  project
-	endchoice
-
 config APACHE2_INSTALL_CONFIG
 	bool
 	default y
@@ -189,6 +161,11 @@ config APACHE2_CUSTOMERRORS
 	  language of a client is available it is selected automatically via
 	  the MultiViews feature. This feature is enabled by default via the
 	  Options, Language and ErrorDocument directives.
+
+config APACHE2_STARTSCRIPT
+	bool
+	default y
+	prompt "install /etc/init.d/httpd"
 
 endif
 

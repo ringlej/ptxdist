@@ -155,16 +155,6 @@ $(STATEDIR)/nfsutils.targetinstall: $(nfsutils_targetinstall_deps_default)
 	@$(call install_fixup,nfsutils,DEPENDS,)
 	@$(call install_fixup,nfsutils,DESCRIPTION,missing)
 
-#ifdef PTXCONF_NFSUTILS_INSTALL_CLIENTSCRIPT
-#	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/etc/nodist/nfs-client, /etc/init.d/nfs-client, n)
-#endif
-#ifdef PTXCONF_NFSUTILS_INSTALL_FUNCTIONSSCRIPT
-#	@$(call install_copy, nfsutils, 0, 0, 0644, $(NFSUTILS_DIR)/etc/nodist/nfs-functions, /etc/init.d/nfs-functions, n)
-#endif
-#ifdef PTXCONF_NFSUTILS_INSTALL_SERVERSCRIPT
-#	@$(call install_copy, nfsutils, 0, 0, 0755, $(NFSUTILS_DIR)/etc/nodist/nfs-server, /etc/init.d/nfs-server, n)
-#endif
-
 ifdef PTXCONF_NFSUTILS_INSTALL_EXPORTFS
 	@$(call install_copy, nfsutils, 0, 0, 0755, \
 		$(NFSUTILS_DIR)/utils/exportfs/exportfs, \
@@ -199,11 +189,12 @@ ifdef PTXCONF_NFSUTILS_INSTALL_STATD
 		$(NFSUTILS_DIR)/utils/statd/statd,\
 		/usr/sbin/rpc.statd)
 endif
+	#
+	# create the /var/lib/nfs folder
+	# for locking this folder must be persistent on server side!
+	# Do not use tmpfs or any other non persistent filesystem.
+	#
 
-# create the /var/lib/nfs folder
-# for locking this folder must be persistent on server side!
-# Do not use tmpfs or any other non persistent filesystem.
-#
 	@$(call install_copy, nfsutils, 0, 0, 0755, \
 		/var/lib/nfs)
 
@@ -235,34 +226,31 @@ endif
 	@$(call install_copy, nfsutils, $(NFSUTILS_RPCUSER_UID), 0, 0700, \
 		/var/lib/nfs/sm.bak)
 
-ifdef PTXCONF_ROOTFS_ETC_INITD_NFS_DEFAULT
-# install the generic one
-	@$(call install_copy, nfsutils, 0, 0, 0755, \
-		$(PTXDIST_TOPDIR)/generic/etc/init.d/nfsd, \
-		/etc/init.d/nfsd, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_INITD_NFS_USER
-# install users one
-	@$(call install_copy, nfsutils, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/init.d/nfsd, \
-		/etc/init.d/nfsd, n)
-endif
-#
-# FIXME: Is this packet the right location for the link?
-#
-ifneq ($(PTXCONF_ROOTFS_ETC_INITD_NFS_LINK),"")
-	@$(call install_copy, nfsutils, 0, 0, 0755, /etc/rc.d)
-	@$(call install_link, nfsutils, ../init.d/nfsd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_ETC_INITD_NFS_LINK))
-endif
-
 ifdef PTXCONF_NFSUTILS_INSTALL_USER_EXPORTS
-# install user defined exportfs
+	# install user defined exportfs
 	@$(call install_copy, nfsutils, 0, 0, 0644, \
 		${PTXDIST_WORKSPACE}/projectroot/etc/exports, \
 		/etc/exports, n)
 endif
 
+	#
+	# busybox init: start scripts
+	#
+
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_NFSUTILS_NFSD_STARTSCRIPT
+	@$(call install_alternative, nfsutils, 0, 0, 0755, /etc/init.d/nfsd, n)
+endif
+#ifdef PTXCONF_NFSUTILS_INSTALL_CLIENTSCRIPT
+#	@$(call install_alternative, nfsutils, 0, 0, 0755, /etc/init.d/nfs-client, n)
+#endif
+#ifdef PTXCONF_NFSUTILS_INSTALL_FUNCTIONSSCRIPT
+#	@$(call install_alternative, nfsutils, 0, 0, 0755, /etc/init.d/nfs-functions, n)
+#endif
+#ifdef PTXCONF_NFSUTILS_INSTALL_SERVERSCRIPT
+#	@$(call install_alternative, nfsutils, 0, 0, 0755, /etc/init.d/nfs-server, n)
+#endif
+endif
 	@$(call install_finish, nfsutils)
 
 	@$(call touch, $@)

@@ -85,33 +85,9 @@ config ROOTFS_ETC_SYSLOGNG_CONFIG
 
 	endchoice
 
-config ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
+config SYSLOGNG_STARTSCRIPT
 	bool
 	default y
-	prompt "Install startup script"
-	help
-	  The /etc/init.d/syslog-ng script lets you control the syslog-ng daemon.
-
-	choice
-		prompt "Kind of startup script"
-		depends on ROOTFS_ETC_INITD_SYSLOGNG_STARTSCRIPT
-		default ROOTFS_ETC_INITD_SYSLOGNG_DEFAULT
-
-		config ROOTFS_ETC_INITD_SYSLOGNG_DEFAULT
-			bool
-			prompt "Use generic"
-			help
-			  Installs a generic /etc/init.d/syslog-ng startup script.
-			  See <ptxdist-install>/generic/etc/init.d/syslog-ng
-
-		config ROOTFS_ETC_INITD_SYSLOGNG_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined syslog-ng startup script. PTXdist
-			  uses file projectroot/etc/init.d/syslog-ng in your local
-			  project
-
-	endchoice
+	prompt "install /etc/init.d/syslog-ng"
 
 endif

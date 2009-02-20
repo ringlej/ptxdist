@@ -16,58 +16,35 @@ menuconfig OPENSSH
 if OPENSSH
 
 config OPENSSH_SSH
-	bool "Install ssh (client)"
+	bool "ssh (client)"
 	help
 	  Install the client program (ssh) on the target
 
 config OPENSSH_SSHD
-	bool "Install sshd (server)"
+	bool "sshd (server)"
 	default y
 	help
 	  Install the openSSH server program (sshd) on the
 	  target
 
-config ROOTFS_ETC_INITD_OPENSSH
-	depends on OPENSSH_SSHD
+config OPENSSH_SSHD_STARTSCRIPT
 	bool
 	default y
-	prompt "Install startup script"
-	help
-	  Install a startup script for the openSSH daemon from a selectable source
-	choice
-		prompt "Kind of startup script"
-		depends on OPENSSH_SSHD && ROOTFS_ETC_INITD_OPENSSH
-		default ROOTFS_ETC_INITD_OPENSSH_DEFAULT
-
-		config ROOTFS_ETC_INITD_OPENSSH_DEFAULT
-			bool
-			prompt "Use generic"
-			help
-			  Installs a generic /etc/init.d/openssh
-			  See <ptxdist-install>/generic/etc/init.d/openssh
-
-		config ROOTFS_ETC_INITD_OPENSSH_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined openssh startup script. PTXdist
-			  uses file projectroot/etc/init.d/openssh in your local
-			  project
-
-	endchoice
+	depends on OPENSSH_SSHD
+	prompt "install /etc/init.d/openssh"
 
 config OPENSSH_SCP
-	bool "Install scp"
+	bool "scp"
 	help
 	  Install the secure copy program (scp) on the target
 
 config OPENSSH_SFTP_SERVER
-	bool "Install sftp-server"
+	bool "sftp-server"
 	help
 	  Install the secure ftp program (sftp) on the target
 
 config OPENSSH_KEYGEN
-	bool "Install ssh-keygen"
+	bool "ssh-keygen"
 	default y
 	help
 	  Install ssh-keygen on the target
