@@ -8,3 +8,4 @@ ltp-full-20090131-disable-epoll_create2.diff
 ltp-full-20090131-arch-specific-tests.diff
 ltp-full-20090131-remove-group-user-check.diff
 ltp-full-20090131-pan-dont-run-infinite.diff
+ltp-full-20090131-reduce_pans_noise.diff

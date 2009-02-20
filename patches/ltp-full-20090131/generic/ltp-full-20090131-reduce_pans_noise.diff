@@ -1,0 +1,34 @@
+Subject: Honor the -q command line option
+From: Juergen Beisert <jbe@pengutronix.de>
+
+If one wants pan to be quiet, pan should honor this.
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ pan/pan.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+Index: ltp-full-20090131/pan/pan.c
+===================================================================
+--- ltp-full-20090131.orig/pan/pan.c
++++ ltp-full-20090131/pan/pan.c
+@@ -207,7 +207,7 @@ main(int argc, char **argv)
+ 	    filename = strdup(optarg);
+ 	    break;
+ 	case 'h':	/* help */
+-	    fprintf(stdout, "Usage: pan -n name [ -SyAehp ] [ -s starts ]"
++	    fprintf(stdout, "Usage: pan -n name [ -SyAehpq ] [ -s starts ]"
+ 				 " [-t time[s|m|h|d] [ -x nactive ] [ -l logfile ]\n\t"
+ 				 "[ -a active-file ] [ -f command-file ] "
+ 				 "[ -C fail-command-file ] "
+@@ -253,7 +253,8 @@ main(int argc, char **argv)
+                   default: 
+                      printf("Invalid time modifier, try: s|h|m|d\n"); exit(-1);
+                }
+-               printf("PAN will run for %d seconds\n", run_time);
++	       if (!quiet_mode)
++                  printf("PAN will run for %d seconds\n", run_time);
+             }
+             timed = 1; //-t implies run as many starts as possible, by default
+ 	    break;
