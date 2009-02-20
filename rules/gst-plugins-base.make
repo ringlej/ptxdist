@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE) += gst-plugins-base
 #
 # Paths and names
 #
-GST_PLUGINS_BASE_VERSION	:= 0.10.20
+GST_PLUGINS_BASE_VERSION	:= 0.10.22
 GST_PLUGINS_BASE		:= gst-plugins-base-$(GST_PLUGINS_BASE_VERSION)
 GST_PLUGINS_BASE_SUFFIX		:= tar.bz2
 GST_PLUGINS_BASE_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE).$(GST_PLUGINS_BASE_SUFFIX)
@@ -246,10 +246,10 @@ $(STATEDIR)/gst-plugins-base.targetinstall:
 		libgstvideo-0.10.so.0 \
 	; do \
 	$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/$$i.14.0, \
-		/usr/lib/$$i.14.0); \
+		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/$$i.16.0, \
+		/usr/lib/$$i.16.0); \
 	$(call install_link, gst-plugins-base,  \
-		$$i.14.0, \
+		$$i.16.0, \
 		/usr/lib/$$i); \
 	done
 

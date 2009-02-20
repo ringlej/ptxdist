@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BAD) += gst-plugins-bad
 #
 # Paths and names
 #
-GST_PLUGINS_BAD_VERSION	:= 0.10.8
+GST_PLUGINS_BAD_VERSION	:= 0.10.10
 GST_PLUGINS_BAD		:= gst-plugins-bad-$(GST_PLUGINS_BAD_VERSION)
 GST_PLUGINS_BAD_SUFFIX	:= tar.bz2
 GST_PLUGINS_BAD_URL	:= http://gstreamer.freedesktop.org/src/gst-plugins-bad/$(GST_PLUGINS_BAD).$(GST_PLUGINS_BAD_SUFFIX)
