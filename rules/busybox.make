@@ -146,10 +146,6 @@ ifdef PTXCONF_BUSYBOX_CROND
 	@$(call install_alternative, busybox, 0, 0, 0644, /etc/cron.daily, n)
 endif
 
-ifdef PTXCONF_BUSYBOX_INETD
-	@$(call install_alternative, busybox, 0, 0, 0644, /etc/inetd.conf, n)
-endif
-
 	@$(call install_finish, busybox)
 
 	@$(call touch)
