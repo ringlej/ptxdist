@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# generate inetd.conf
+cat $DESTDIR/etc/inetd.conf.d/* > $DESTDIR/etc/inetd.conf
+
