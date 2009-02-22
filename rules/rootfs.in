@@ -279,5 +279,10 @@ config ROOTFS_RESOLV
 	bool
 	prompt "install /etc/resolv.conf"
 
+config ROOTFS_SERVICES
+	bool
+	default y
+	prompt "install /etc/services"
+
 endmenu
 
