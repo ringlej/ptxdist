@@ -49,7 +49,7 @@ config ROOTFS_SYSVINIT_LINK_DROPBEAR
 
 config ROOTFS_SYSVINIT_LINK_INETD
 	string
-	depends on INETD
+	depends on BUSYBOX_INETD
 	prompt "inetd"
 	default "S95inetd"
 
