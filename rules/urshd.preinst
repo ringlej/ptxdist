@@ -4,9 +4,3 @@ if [ -x /etc/init.d/urshd ] && [ -z "$DESTDIR" ]; then
 	/etc/init.d/urshd stop
 fi
 
-[ ! -d "${DESTDIR}/etc" ] && mkdir ${DESTDIR}/etc
-
-touch ${DESTDIR}/etc/services
-sed -i '/514\/tcp/d' ${DESTDIR}/etc/services
-echo "shell		514/tcp		cmd		# no passwords used" >> ${DESTDIR}/etc/services
-
