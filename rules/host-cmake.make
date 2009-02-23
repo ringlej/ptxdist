@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_CMAKE) += host-cmake
 #
 # Paths and names
 #
-HOST_CMAKE_VERSION	:= 2.6.1
+HOST_CMAKE_VERSION	:= 2.6.3
 HOST_CMAKE		:= cmake-$(HOST_CMAKE_VERSION)
 HOST_CMAKE_SUFFIX	:= tar.gz
 HOST_CMAKE_URL		:= http://www.cmake.org/files/v2.6/$(HOST_CMAKE).$(HOST_CMAKE_SUFFIX)
@@ -82,7 +82,7 @@ host-cmake_compile: $(STATEDIR)/host-cmake.compile
 
 $(STATEDIR)/host-cmake.compile: $(host-cmake_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(HOST_CMAKE_DIR) && $(HOST_CMAKE_ENV) $(HOST_CMAKE_PATH) make VERBOSE=1
+	cd $(HOST_CMAKE_DIR) && $(HOST_CMAKE_ENV) $(HOST_CMAKE_PATH) make $(PARALLELMFLAGS) VERBOSE=1
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
