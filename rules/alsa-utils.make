@@ -47,6 +47,7 @@ ALSA_UTILS_ENV 	:=  $(CROSS_ENV)
 #
 ALSA_UTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(CROSS_ENV_AC_NCURSES) \
 	--disable-dependency-tracking \
 	--disable-nls \
 	--disable-alsatest
