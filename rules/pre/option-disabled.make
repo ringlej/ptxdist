@@ -5,7 +5,7 @@
 #
 
 #
-# $(call option-disabled, VAR) is 'y' if VAR is not 'y', or 'n' otherwise.
+# $(call ptx/opt-dis, VAR) is 'y' if VAR is not 'y', or 'n' otherwise.
 # VAR should be a variable name, not a variable reference; this is
 # less general, but more terse for the intended use.
 # You can use it to add a file to a list if an option group is
