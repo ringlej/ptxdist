@@ -206,6 +206,9 @@ ifdef PTXCONF_ROOTFS_PROTOCOLS
 endif
 ifdef PTXCONF_ROOTFS_RESOLV
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/resolv.conf, n)
+	@$(call install_replace, rootfs, /etc/resolv.conf, \
+		@NAMESERVER@, \
+		"$(PTXCONF_BOARDSETUP_GATEWAY)")
 endif
 ifdef PTXCONF_ROOTFS_SERVICES
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/services, n)
