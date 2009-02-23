@@ -103,6 +103,8 @@ $(STATEDIR)/ncurses.install:
 	@$(call targetinfo)
 	@$(call install, NCURSES)
 
+	@cp -dp -- "$(PKGDIR)/$(NCURSES)/usr/bin/"*config* "$(PTXCONF_SYSROOT_CROSS)/bin"
+
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 # Note: This tweak only works if we build the application with these settings!
 # Already built applications may continue to use the non wide library!
