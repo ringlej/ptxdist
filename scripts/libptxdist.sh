@@ -328,7 +328,7 @@ ptxd_make() {
 	for lib in "${SCRIPTSDIR}/lib/ptxd_make_"*.sh; do
 		source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
 	done
-	make ${PTX_MAKE_ARGS} ${PTXDIST_PARALLELMFLAGS_EXTERN} -f "${RULESDIR}/other/Toplevel.make" "${@}" || return
+	"${PTXCONF_SETUP_HOST_MAKE}" ${PTX_MAKE_ARGS} ${PTXDIST_PARALLELMFLAGS_EXTERN} -f "${RULESDIR}/other/Toplevel.make" "${@}" || return
 }
 
 ptxd_make_log() {
