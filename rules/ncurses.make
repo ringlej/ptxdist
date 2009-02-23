@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002-2006 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002-2009 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -40,32 +40,29 @@ NCURSES_PATH	:= PATH=$(CROSS_PATH)
 NCURSES_ENV 	:= $(CROSS_ENV)
 
 NCURSES_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR)
-
-# also used by host-ncurses
-SHARED_NCURSES_AUTOCONF := \
-	--libdir=/lib \
-	--with-normal \
-	--with-shared \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-echo \
 	--disable-nls \
-	--without-ada \
 	--enable-const \
 	--enable-overwrite \
-	--without-gpm \
+	--libdir=/lib \
 	--with-debug \
-	--disable-echo
+	--with-normal \
+	--with-shared \
+	--without-ada \
+	--without-gpm
 
 # enable wide char support on demand only
 ifdef PTXCONF_NCURSES_WIDE_CHAR
-SHARED_NCURSES_AUTOCONF += --enable-widec
+NCURSES_AUTOCONF += --enable-widec
 else
-SHARED_NCURSES_AUTOCONF += --disable-widec
+NCURSES_AUTOCONF += --disable-widec
 endif
 
 ifdef PTXCONF_NCURSES_BIG_CORE
-SHARED_NCURSES_AUTOCONF += --enable-big-core
+NCURSES_AUTOCONF += --enable-big-core
 else
-SHARED_NCURSES_AUTOCONF += --disable-big-core
+NCURSES_AUTOCONF += --disable-big-core
 endif
 
 # ----------------------------------------------------------------------------

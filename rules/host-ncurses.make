@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2008 by 
+# Copyright (C) 2008 by mol@pengutronix.de
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -55,7 +55,7 @@ $(STATEDIR)/host-ncurses.prepare:
 	@$(call clean, $(HOST_NCURSES_DIR)/config.cache)
 	cd $(HOST_NCURSES_DIR) && \
 		$(HOST_NCURSES_PATH) $(HOST_NCURSES_ENV) \
-		./configure $(HOST_NCURSES_AUTOCONF) $(SHARED_NCURSES_AUTOCONF)
+		./configure $(HOST_NCURSES_AUTOCONF) $(NCURSES_AUTOCONF)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
