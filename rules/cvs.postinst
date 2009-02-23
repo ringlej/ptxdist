@@ -1,5 +1,7 @@
 #!/bin/sh
 
 # generate inetd.conf
-cat $DESTDIR/etc/inetd.conf.d/* > $DESTDIR/etc/inetd.conf
+if [ -n "`find $DESTDIR/etc/inetd.conf.d -type d -empty`" ]; then
+	cat $DESTDIR/etc/inetd.conf.d/* > $DESTDIR/etc/inetd.conf
+fi
 
