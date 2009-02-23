@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BONNIEXX) += bonniexx
 #
 # Paths and names
 #
-BONNIEXX_VERSION	= 1.03a
+BONNIEXX_VERSION	= 1.03e
 BONNIEXX		= bonnie++-$(BONNIEXX_VERSION)
 BONNIEXX_SUFFIX		= tgz
 BONNIEXX_URL		= http://www.coker.com.au/bonnie++/$(BONNIEXX).$(BONNIEXX_SUFFIX)
