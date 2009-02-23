@@ -39,8 +39,7 @@ $(NCURSES_SOURCE):
 NCURSES_PATH	:= PATH=$(CROSS_PATH)
 NCURSES_ENV 	:= $(CROSS_ENV)
 
-NCURSES_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
+NCURSES_AUTOCONF_SHARED := \
 	--disable-echo \
 	--disable-nls \
 	--enable-const \
@@ -54,16 +53,20 @@ NCURSES_AUTOCONF := \
 
 # enable wide char support on demand only
 ifdef PTXCONF_NCURSES_WIDE_CHAR
-NCURSES_AUTOCONF += --enable-widec
+NCURSES_AUTOCONF_SHARED += --enable-widec
 else
-NCURSES_AUTOCONF += --disable-widec
+NCURSES_AUTOCONF_SHARED += --disable-widec
 endif
 
 ifdef PTXCONF_NCURSES_BIG_CORE
-NCURSES_AUTOCONF += --enable-big-core
+NCURSES_AUTOCONF_SHARED += --enable-big-core
 else
-NCURSES_AUTOCONF += --disable-big-core
+NCURSES_AUTOCONF_SHARED += --disable-big-core
 endif
+
+NCURSES_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	$(NCURSES_AUTOCONF_SHARED)
 
 # ----------------------------------------------------------------------------
 # Compile

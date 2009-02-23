@@ -55,7 +55,7 @@ $(STATEDIR)/host-ncurses.prepare:
 	@$(call clean, $(HOST_NCURSES_DIR)/config.cache)
 	cd $(HOST_NCURSES_DIR) && \
 		$(HOST_NCURSES_PATH) $(HOST_NCURSES_ENV) \
-		./configure $(HOST_NCURSES_AUTOCONF) $(NCURSES_AUTOCONF)
+		./configure $(HOST_NCURSES_AUTOCONF) $(NCURSES_AUTOCONF_SHARED)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
