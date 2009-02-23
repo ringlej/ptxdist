@@ -159,13 +159,13 @@ config ROOTFS_SYSVINIT_LINK_LOGROTATE
 	string
 	depends on INITMETHOD_BBINIT_ETC_INITD_LOGROTATE
 	prompt "logrotate"
-	default "S99logrotate"
+	default "S98logrotate"
 
 config ROOTFS_SYSVINIT_LINK_MODULES
 	string
 	depends on INITMETHOD_BBINIT_ETC_INITD_MODULES
 	prompt "modules"
-	default "S99modules"
+	default "S98modules"
 
 config ROOTFS_SYSVINIT_LINK_NETWORKING
 	string
