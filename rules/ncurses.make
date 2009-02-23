@@ -36,8 +36,6 @@ $(NCURSES_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-ncurses_prepare: $(STATEDIR)/ncurses.prepare
-
 NCURSES_PATH	:= PATH=$(CROSS_PATH)
 NCURSES_ENV 	:= $(CROSS_ENV)
 
@@ -70,18 +68,9 @@ else
 SHARED_NCURSES_AUTOCONF += --disable-big-core
 endif
 
-$(STATEDIR)/ncurses.prepare:
-	@$(call targetinfo)
-	cd $(NCURSES_DIR) && \
-		$(NCURSES_PATH) $(NCURSES_ENV) \
-		./configure $(NCURSES_AUTOCONF) $(SHARED_NCURSES_AUTOCONF)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
-
-ncurses_compile: $(STATEDIR)/ncurses.compile
 
 $(STATEDIR)/ncurses.compile:
 	@$(call targetinfo)
@@ -141,7 +130,7 @@ $(STATEDIR)/ncurses.targetinstall:
 	@$(call install_fixup, ncurses,PRIORITY,optional)
 	@$(call install_fixup, ncurses,VERSION,$(NCURSES_VERSION))
 	@$(call install_fixup, ncurses,SECTION,base)
-	@$(call install_fixup, ncurses,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ncurses,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, ncurses,DEPENDS,)
 	@$(call install_fixup, ncurses,DESCRIPTION,missing)
 
