@@ -21,67 +21,55 @@ ROOTFS_DIR	= $(BUILDDIR)/rootfs
 # Get
 # ----------------------------------------------------------------------------
 
-rootfs_get: $(STATEDIR)/rootfs.get
-
-$(STATEDIR)/rootfs.get: $(rootfs_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/rootfs.get:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-rootfs_extract: $(STATEDIR)/rootfs.extract
-
-$(STATEDIR)/rootfs.extract: $(rootfs_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/rootfs.extract:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-rootfs_prepare: $(STATEDIR)/rootfs.prepare
-
-$(STATEDIR)/rootfs.prepare: $(rootfs_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/rootfs.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-rootfs_compile: $(STATEDIR)/rootfs.compile
-
-$(STATEDIR)/rootfs.compile: $(rootfs_compile_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/rootfs.compile:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-rootfs_install: $(STATEDIR)/rootfs.install
-
-$(STATEDIR)/rootfs.install: $(rootfs_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/rootfs.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-rootfs_targetinstall: $(STATEDIR)/rootfs.targetinstall
-
-$(STATEDIR)/rootfs.targetinstall: $(rootfs_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/rootfs.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init,  rootfs)
 	@$(call install_fixup, rootfs,PACKAGE,rootfs)
 	@$(call install_fixup, rootfs,PRIORITY,optional)
 	@$(call install_fixup, rootfs,VERSION,$(ROOTFS_VERSION))
 	@$(call install_fixup, rootfs,SECTION,base)
-	@$(call install_fixup, rootfs,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, rootfs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, rootfs,DEPENDS,)
 	@$(call install_fixup, rootfs,DESCRIPTION,missing)
 
@@ -218,7 +206,7 @@ endif
 
 	@$(call install_finish, rootfs)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
