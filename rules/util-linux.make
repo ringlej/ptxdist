@@ -42,7 +42,8 @@ UTIL_LINUX_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-UTIL_LINUX_AUTOCONF := $(CROSS_AUTOCONF_USR)
+UTIL_LINUX_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+		ac_cv_lib_termcap_tgetnum=no
 
 # ----------------------------------------------------------------------------
 # Target-Install
