@@ -31,27 +31,6 @@ Prio A
     case. So the build does not fail. Bo's host decide to build more.c
     even if curses is not present and fails.
 
-[x] jbe: "ptxdist platformconfig" moans:
-    error: The configfile version and ptxdist version do not match:
-        configfile version:
-        ptxdist version:    1.99.svn
-    Users current focus is on "selected_platformconfig". But ptxdist
-    moans about an empty 'selected_ptxconfig' here!
-
-    Instead it should:
-    - output the correct filename which is causing the problem here
-    - silently does its job, because the platformconfig is all right here
-    - should output this message, when running a "ptxdist menuconfig"
-
-[x] Whenever a new packet dependency is added to the menus and one does not
-    update the used ptxconfig file, the next build will only detect the
-    "<packet_name>.install" dependency and fail due to the fact the
-    "<packet_name>.[get|extract|prepare|compile]" are still missing. When
-    ptxdist is able to detect the dependency to "<packet_name>.install", it
-    should also add the other targets (get|extract|prepare|compile) from inside
-    the <packet_name> silently. The current error is confusing, because it
-    occures even the user didn't change anything in his/her project.
-
 [ ] jbe: all test scripts should check if their interaction with the filesystem
     where successfull. If a file copy to /tftpboot fails, it should *not* continue.
 
@@ -70,18 +49,6 @@ Prio A
        make[3]: *** [fc-case.o] Error 1
 
 [ ] jbe: host-glade.prepare
-[x] jbe: host-intltool.prepare
-      checking for XML::Parser... configure: error: XML::Parser perl module is required for intltool
-
-    Update 20090118 rsc: add a function to 'ptxdist go' that can run
-    stuff depending on ptxconfig; I don't want to add a ptxdist dependency
-    to XML::Parser and perl, just for glade. Something that runs on 'ptxdist
-    go' or 'ptxdist <some_stage>' (FIXME which one?) and can output something
-    like "error: need perl and XML::Parser to build glade".
-
-    Update 2009-01-20:  jbe: add a test for perl XML::Parser into these
-			makefiles and fail gracefully with a nice error
-			message. So this test runs on demand only.
 
 [ ] jbe: mplayer.compile: It seems very PXA specific now?
      i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
@@ -589,6 +556,40 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: host-intltool.prepare
+      checking for XML::Parser... configure: error: XML::Parser perl module is required for intltool
+
+    Update 20090118 rsc: add a function to 'ptxdist go' that can run
+    stuff depending on ptxconfig; I don't want to add a ptxdist dependency
+    to XML::Parser and perl, just for glade. Something that runs on 'ptxdist
+    go' or 'ptxdist <some_stage>' (FIXME which one?) and can output something
+    like "error: need perl and XML::Parser to build glade".
+
+    Update 2009-01-20:  jbe: add a test for perl XML::Parser into these
+			makefiles and fail gracefully with a nice error
+			message. So this test runs on demand only.
+
+[x] jbe: "ptxdist platformconfig" moans:
+    error: The configfile version and ptxdist version do not match:
+        configfile version:
+        ptxdist version:    1.99.svn
+    Users current focus is on "selected_platformconfig". But ptxdist
+    moans about an empty 'selected_ptxconfig' here!
+
+    Instead it should:
+    - output the correct filename which is causing the problem here
+    - silently does its job, because the platformconfig is all right here
+    - should output this message, when running a "ptxdist menuconfig"
+
+[x] Whenever a new packet dependency is added to the menus and one does not
+    update the used ptxconfig file, the next build will only detect the
+    "<packet_name>.install" dependency and fail due to the fact the
+    "<packet_name>.[get|extract|prepare|compile]" are still missing. When
+    ptxdist is able to detect the dependency to "<packet_name>.install", it
+    should also add the other targets (get|extract|prepare|compile) from inside
+    the <packet_name> silently. The current error is confusing, because it
+    occures even the user didn't change anything in his/her project.
 
 [x] jbe: Would it be possible to delete a directory defined by PTXCONF_SYSROOT_TARGET
     in the form "${PTXDIST_WORKSPACE}/local/${PTXCONF_ARCH_STRING}"
