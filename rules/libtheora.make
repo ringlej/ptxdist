@@ -146,13 +146,13 @@ $(STATEDIR)/libtheora.targetinstall:
 	@$(call install_copy, libtheora, 0, 0, 0644, \
 		$(LIBTHEORA_DIR)/lib/.libs/libtheoradec.so.1.0.1, \
 		/usr/lib/libtheoradec.so.1.0.1)
-	@$(call install_link, libtheora, libtheoradec.so.1.0.1, /usr/lib/libtheoradec.so.0)
+	@$(call install_link, libtheora, libtheoradec.so.1.0.1, /usr/lib/libtheoradec.so.1)
 	@$(call install_link, libtheora, libtheoradec.so.1.0.1, /usr/lib/libtheoradec.so)
 
 	@$(call install_copy, libtheora, 0, 0, 0644, \
 		$(LIBTHEORA_DIR)/lib/.libs/libtheoraenc.so.1.0.1, \
 		/usr/lib/libtheoraenc.so.1.0.1)
-	@$(call install_link, libtheora, libtheoraenc.so.1.0.1, /usr/lib/libtheoraenc.so.0)
+	@$(call install_link, libtheora, libtheoraenc.so.1.0.1, /usr/lib/libtheoraenc.so.1)
 	@$(call install_link, libtheora, libtheoraenc.so.1.0.1, /usr/lib/libtheoraenc.so)
 
 	@$(call install_finish, libtheora)
