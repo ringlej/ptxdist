@@ -26,17 +26,14 @@ LTP_POSIX_PKGDIR	= $(PKGDIR)/$(LTP_POSIX)
 # Get
 # ----------------------------------------------------------------------------
 
-ltp-posix_get: $(STATEDIR)/ltp-posix.get
 
-$(STATEDIR)/ltp-posix.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+#$(STATEDIR)/ltp-posix.get:
+#	@$(call targetinfo, $@)
+#	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
-
-ltp-posix_extract: $(STATEDIR)/ltp-posix.extract
 
 $(STATEDIR)/ltp-posix.extract:
 	@$(call targetinfo, $@)
@@ -45,8 +42,6 @@ $(STATEDIR)/ltp-posix.extract:
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-ltp-posix_prepare: $(STATEDIR)/ltp-posix.prepare
 
 $(STATEDIR)/ltp-posix.prepare:
 	@$(call targetinfo, $@)

@@ -3,6 +3,23 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] Sisyphus:
+    [...]
+    ----------------------
+    target: glibmm.compile
+    ----------------------
+    [...]
+    make[6]: Entering directory
+    `[...]/glibmm-2.14.1/glib/glibmm'
+    [...]
+    convert.cc: In constructor 'Glib::IConv::IConv(const std::string&, const std::string&)':
+    convert.cc:52: error: 'g_assert' was not declared in this scope
+    make[6]: *** [convert.lo] Error 1
+    make[6]: *** Waiting for unfinished jobs....
+    date.cc: In member function 'Glib::ustring Glib::Date::format_string(const Glib::ustring&) const':
+    date.cc:311: error: 'g_assert' was not declared in this scope
+    make[6]: *** [date.lo] Error 1
+
 [ ] mkl/jbe: The 'ps' command from the procps package outputs
             "Unknown HZ value! (xx) Assume 100."
     on a recently started system. Doing it later again, this message does
