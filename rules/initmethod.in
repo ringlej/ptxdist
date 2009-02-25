@@ -107,9 +107,9 @@ config ROOTFS_SYSVINIT_LINK_PROFTPD
 	prompt "proftpd"
 	default "S91proftpd"
 
-config ROOTFS_SYSVINIT_LINK_PURE_FTPD
+config ROOTFS_SYSVINIT_LINK_PUREFTPD
 	string
-	depends on PURE_FTPD
+	depends on PUREFTPD
 	prompt "pureftpd"
 	default "S91pureftpd"
 
