@@ -174,42 +174,42 @@ endchoice
 # x86
 #
 choice
-	prompt "x86 optimization "
+	prompt "x86 optimization"
 	depends on ARCH_X86
 	default ARCH_X86_I586
 
 	config ARCH_X86_I386
-		bool "386       "
+		bool "386        "
 		help
 		  The compiler will generate code for i386 CPUs as default. This code will
 		  run on almost all x86_32 processors.
 
 	config ARCH_X86_I486
-		bool "486       "
+		bool "486        "
 		help
 		  The compiler will generate code for i486 CPUs as default. This code will run
 		  on almost all x86/ia32 processors, but not on i386!
 
 	config ARCH_X86_I586
-		bool "586       "
+		bool "586        "
 		help
 		  The compiler will generate code for i586 class CPUs as default (Pentium).
 		  This code will run on almost all x86/ia32 processors, but not on i386 and i486!
 
 	config ARCH_X86_I686
-		bool "686       "
+		bool "686        "
 		help
 		  The compiler will generate code for i686 class CPUs as default (Pentium Pro).
 		  This code will run on almost all x86/ia32 processors, but not on i386, i486 and pentium!
 
 	config ARCH_X86_P2
-		bool "PII       "
+		bool "PII        "
 		help
 		  The compiler will generate code for Pentium II CPUs as default.
 		  This code will run on Pentium II and above CPUs.
 
   	config ARCH_X86_P3M
-		bool "PIII/M    "
+		bool "PIII/M     "
 		help
 		  The compiler will generate code for Pentium III and Pentium M CPUs as default.
 		  This code will run on Pentium III and above CPUs. Note: A Pentium M is a successor
