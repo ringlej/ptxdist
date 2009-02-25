@@ -33,17 +33,6 @@ $(GST_PLUGINS_GOOD_SOURCE):
 	@$(call get, GST_PLUGINS_GOOD)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gst-plugins-good.extract:
-	@$(call targetinfo)
-	@$(call clean, $(GST_PLUGINS_GOOD_DIR))
-	@$(call extract, GST_PLUGINS_GOOD)
-	@$(call patchin, GST_PLUGINS_GOOD)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -458,32 +447,6 @@ else
 GST_PLUGINS_GOOD_AUTOCONF += --disable-zlib
 endif
 
-$(STATEDIR)/gst-plugins-good.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(GST_PLUGINS_GOOD_DIR)/config.cache)
-	cd $(GST_PLUGINS_GOOD_DIR) && \
-		$(GST_PLUGINS_GOOD_PATH) $(GST_PLUGINS_GOOD_ENV) \
-		./configure $(GST_PLUGINS_GOOD_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gst-plugins-good.compile:
-	@$(call targetinfo)
-	cd $(GST_PLUGINS_GOOD_DIR) && $(GST_PLUGINS_GOOD_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gst-plugins-good.install:
-	@$(call targetinfo)
-	@$(call install, GST_PLUGINS_GOOD)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -501,7 +464,7 @@ $(STATEDIR)/gst-plugins-good.targetinstall:
 	@$(call install_fixup, gst-plugins-good,DESCRIPTION,missing)
 
 	# install all activated plugins
-	for i in $(GST_PLUGINS_GOOD_INSTALL); do \
+	@for i in $(GST_PLUGINS_GOOD_INSTALL); do \
 		$(call install_copy, gst-plugins-good, 0, 0, 644, \
 			$(PKGDIR)/$(GST_PLUGINS_GOOD)$$i, $$i) \
 	done
