@@ -125,8 +125,6 @@ Prio A
 
 [ ] discuss UIDs and GIDs of other important system users
 
-[ ] ipkg with dependecies
-
 Prio B
 ------
 
@@ -251,6 +249,8 @@ Before Release
 
 TODO before 2.1.0
 =================
+
+[ ] ipkg with dependecies
 
 [ ] rsc: fix python 3.0
 
