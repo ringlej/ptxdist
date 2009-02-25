@@ -229,26 +229,44 @@ menu "files in rootfs               "
 config ROOTFS_PASSWD
 	bool
 	prompt "install /etc/passwd"
+	help
+	  If enabled, it installs the "./projectroot/etc/passwd" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_SHADOW
 	bool
 	prompt "install /etc/shadow"
+	help
+	  If enabled, it installs the "./projectroot/etc/shadow" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_GROUP
 	bool
 	prompt "install /etc/group"
+	help
+	  If enabled, it installs the "./projectroot/etc/group" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_GSHADOW
 	bool
 	prompt "install /etc/gshadow"
+	help
+	  If enabled, it installs the "./projectroot/etc/gshadow" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_FSTAB
 	bool
 	prompt "install /etc/fstab"
+	help
+	  If enabled, it installs the "./projectroot/etc/fstab" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_MTAB
 	bool
 	prompt "install /etc/mtab"
+	help
+	  If enabled, it installs the "./projectroot/etc/mtab" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_HOSTNAME
 	bool
@@ -262,27 +280,45 @@ config ROOTFS_ETC_HOSTNAME
 config ROOTFS_HOSTS
 	bool
 	prompt "install /etc/hosts"
+	help
+	  If enabled, it installs the "./projectroot/etc/hosts" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_NSSWITCH_CONF
 	bool
 	prompt "install /etc/nsswitch"
+	help
+	  If enabled, it installs the "./projectroot/etc/nsswitch" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_PROFILE
 	bool
 	prompt "install /etc/profile"
+	help
+	  If enabled, it installs the "./projectroot/etc/profile" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_PROTOCOLS
 	bool
 	prompt "install /etc/protocols"
+	help
+	  If enabled, it installs the "./projectroot/etc/protocols" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_RESOLV
 	bool
 	prompt "install /etc/resolv.conf"
+	help
+	  If enabled, it installs the "./projectroot/etc/resolv.conf" file if
+	  present, else a generic one from the ptxdist directory.
 
 config ROOTFS_SERVICES
 	bool
 	default y
 	prompt "install /etc/services"
+	help
+	  If enabled, it installs the "./projectroot/etc/services" file if
+	  present, else a generic one from the ptxdist directory.
 
 endmenu
 
