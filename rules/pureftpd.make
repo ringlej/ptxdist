@@ -142,7 +142,7 @@ endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_PUREFTPD_STARTSCRIPT
-	@$(call install_alternative, pureftpd, 0, 0, 0755, /etc/init.d/pure-ftpd, n)
+	@$(call install_alternative, pureftpd, 0, 0, 0755, /etc/init.d/pureftpd, n)
 endif
 endif
 
