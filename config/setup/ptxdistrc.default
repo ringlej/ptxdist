@@ -46,6 +46,7 @@ PTXCONF_SETUP_JAVA_SDK="/usr"
 #
 # Developer Options 
 #
+# PTXCONF_SETUP_GEN_DEP_TREE is not set
 # PTXCONF_SETUP_CHECK_EXIT_ON_ERROR is not set
 # PTXCONF_SETUP_CCACHE is not set
 PTXCONF_SETUP_HOST_CC="gcc"
