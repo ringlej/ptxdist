@@ -183,7 +183,7 @@ endif
 ifdef PTXCONF_ROOTFS_HOSTS
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/hosts, n)
 endif
-ifdef PTXCONF_ROOTFS_NSSWITCH
+ifdef PTXCONF_ROOTFS_NSSWITCH_CONF
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/nsswitch.conf, n)
 endif
 ifdef PTXCONF_ROOTFS_PROFILE
@@ -194,10 +194,13 @@ ifdef PTXCONF_ROOTFS_PROTOCOLS
 endif
 ifdef PTXCONF_ROOTFS_RESOLV
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/resolv.conf, n)
+	# replace either by PTXCONF_BOARDSETUP_GATEWAY or nothing if not defined
 ifneq ($(PTXCONF_BOARDSETUP_GATEWAY),)
 	@$(call install_replace, rootfs, /etc/resolv.conf, \
-		@NAMESERVER@, \
+		@NAMESERVER_LINE@, \
 		"nameserver $(PTXCONF_BOARDSETUP_GATEWAY)")
+else
+	@$(call install_replace, rootfs, /etc/resolv.conf, @NAMESERVER_LINE@, "")
 endif
 endif
 ifdef PTXCONF_ROOTFS_SERVICES
