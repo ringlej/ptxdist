@@ -36,8 +36,6 @@ $(PUREFTPD_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-pureftpd_prepare: $(STATEDIR)/pureftpd.prepare
-
 PUREFTPD_PATH	:= PATH=$(CROSS_PATH)
 PUREFTPD_ENV 	:= $(CROSS_ENV) \
 	ac_cv_snprintf_type=8
