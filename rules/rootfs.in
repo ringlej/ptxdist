@@ -286,6 +286,7 @@ config ROOTFS_HOSTS
 
 config ROOTFS_NSSWITCH_CONF
 	bool
+	default y
 	prompt "install /etc/nsswitch"
 	help
 	  If enabled, it installs the "./projectroot/etc/nsswitch" file if
