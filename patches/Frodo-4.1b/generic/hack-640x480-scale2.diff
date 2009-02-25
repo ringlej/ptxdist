@@ -1,0 +1,70 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: hard-code 640x480 and scale by 2 for fullscreen
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Src/Display_SDL.i |   21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
+
+Index: Frodo-4.1b/Src/Display_SDL.i
+===================================================================
+--- Frodo-4.1b.orig/Src/Display_SDL.i
++++ Frodo-4.1b/Src/Display_SDL.i
+@@ -15,6 +15,8 @@
+ // Display surface
+ static SDL_Surface *screen = NULL;
+ 
++unsigned char *my_pixels = (unsigned char *)malloc(640 * 480);
++
+ // Keyboard
+ static bool num_locked = false;
+ 
+@@ -66,7 +68,7 @@ int init_graphics(void)
+ 
+ 	// Open window
+ 	SDL_WM_SetCaption(VERSION_STRING, "Frodo");
+-	screen = SDL_SetVideoMode(DISPLAY_X, DISPLAY_Y + 17, 8, SDL_DOUBLEBUF);
++	screen = SDL_SetVideoMode(640, 480, 8, SDL_DOUBLEBUF);
+ 
+ 	return 1;
+ }
+@@ -124,7 +126,9 @@ void C64Display::NewPrefs(Prefs *prefs)
+ 
+ void C64Display::Update(void)
+ {
++	int x, y;
+ 	// Draw speedometer/LEDs
++#if 0
+ 	SDL_Rect r = {0, DISPLAY_Y, DISPLAY_X, 15};
+ 	SDL_FillRect(screen, &r, fill_gray);
+ 	r.w = DISPLAY_X; r.h = 1;
+@@ -175,8 +179,19 @@ void C64Display::Update(void)
+ 	draw_string(screen, DISPLAY_X * 3/5 + 8, DISPLAY_Y + 4, "D\x12 10", black, fill_gray);
+ 	draw_string(screen, DISPLAY_X * 4/5 + 8, DISPLAY_Y + 4, "D\x12 11", black, fill_gray);
+ 	draw_string(screen, 24, DISPLAY_Y + 4, speedometer_string, black, fill_gray);
+-
++#endif
+ 	// Update display
++
++	for (y = 0; y < 480/2 ; y++) {
++		for (x = 0; x < 640/2; x++) {
++			unsigned char val = *(my_pixels + x + (DISPLAY_X-320)/2 + (y + (DISPLAY_Y-240)/2)* 640);
++			*((unsigned char *)screen->pixels + x*2+0 + (y*2+0) * 640) = val;
++			*((unsigned char *)screen->pixels + x*2+0 + (y*2+1) * 640) = val;
++			*((unsigned char *)screen->pixels + x*2+1 + (y*2+0) * 640) = val;
++			*((unsigned char *)screen->pixels + x*2+1 + (y*2+1) * 640) = val;
++		}
++	}
++
+ 	SDL_Flip(screen);
+ }
+ 
+@@ -249,7 +264,7 @@ void C64Display::Speedometer(int speed)
+ 
+ uint8 *C64Display::BitmapBase(void)
+ {
+-	return (uint8 *)screen->pixels;
++	return (uint8 *)my_pixels;
+ }
+ 
+ 
