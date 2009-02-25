@@ -119,7 +119,7 @@ $(STATEDIR)/gst-plugins-bad.targetinstall:
 	@$(call install_fixup, gst-plugins-bad,DESCRIPTION,missing)
 
 	# install all activated plugins
-	for i in $(GST_PLUGINS_BAD_INSTALL); do \
+	@for i in $(GST_PLUGINS_BAD_INSTALL); do \
 		$(call install_copy, gst-plugins-bad, 0, 0, 644, \
 			$(PKGDIR)/$(GST_PLUGINS_BAD)$$i, $$i) \
 	done
