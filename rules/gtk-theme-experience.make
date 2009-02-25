@@ -28,24 +28,16 @@ GTK_THEME_EXPERIENCE_DIR	:= $(BUILDDIR)/$(GTK_THEME_EXPERIENCE)
 # Get
 # ----------------------------------------------------------------------------
 
-gtk-theme-experience_get: $(STATEDIR)/gtk-theme-experience.get
-
-$(STATEDIR)/gtk-theme-experience.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(GTK_THEME_EXPERIENCE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, GTK_THEME_EXPERIENCE)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-gtk-theme-experience_extract: $(STATEDIR)/gtk-theme-experience.extract
-
 $(STATEDIR)/gtk-theme-experience.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(GTK_THEME_EXPERIENCE_DIR))
 	mkdir -p $(GTK_THEME_EXPERIENCE_DIR)
 	@$(call extract, GTK_THEME_EXPERIENCE, $(GTK_THEME_EXPERIENCE_DIR))
@@ -53,55 +45,38 @@ $(STATEDIR)/gtk-theme-experience.extract:
 	mv "$(GTK_THEME_EXPERIENCE_DIR)/eXperience - olive" $(GTK_THEME_EXPERIENCE_DIR)/eXperience-olive
 	cd $(GTK_THEME_EXPERIENCE_DIR) && find . -name "*~" | xargs rm -fr
 	@$(call patchin, GTK_THEME_EXPERIENCE)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-gtk-theme-experience_prepare: $(STATEDIR)/gtk-theme-experience.prepare
-
-GTK_THEME_EXPERIENCE_PATH	:= PATH=$(CROSS_PATH)
-GTK_THEME_EXPERIENCE_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-GTK_THEME_EXPERIENCE_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
 $(STATEDIR)/gtk-theme-experience.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(GTK_THEME_EXPERIENCE_DIR)/config.cache)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-gtk-theme-experience_compile: $(STATEDIR)/gtk-theme-experience.compile
-
 $(STATEDIR)/gtk-theme-experience.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-gtk-theme-experience_install: $(STATEDIR)/gtk-theme-experience.install
-
 $(STATEDIR)/gtk-theme-experience.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-gtk-theme-experience_targetinstall: $(STATEDIR)/gtk-theme-experience.targetinstall
-
 $(STATEDIR)/gtk-theme-experience.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, gtk-theme-experience)
 	@$(call install_fixup, gtk-theme-experience,PACKAGE,gtk-theme-experience)
@@ -113,7 +88,7 @@ $(STATEDIR)/gtk-theme-experience.targetinstall:
 	@$(call install_fixup, gtk-theme-experience,DESCRIPTION,missing)
 
 ifdef PTXCONF_GTK_THEME_EXPERIENCE_PLAIN
-	cd $(GTK_THEME_EXPERIENCE_DIR)/eXperience && \
+	@cd $(GTK_THEME_EXPERIENCE_DIR)/eXperience && \
 		for f in `find . -type f | grep -v .svn`; do \
 			$(call install_copy, gtk-theme-experience, 0, 0, 0644, \
 			$$f, /usr/share/themes/eXperience/$$f,n) \
@@ -122,7 +97,7 @@ endif
 
 
 ifdef PTXCONF_GTK_THEME_EXPERIENCE_ICE
-	cd $(GTK_THEME_EXPERIENCE_DIR)/eXperience-ice && \
+	@cd $(GTK_THEME_EXPERIENCE_DIR)/eXperience-ice && \
 		for f in `find . -type f | grep -v .svn`; do \
 			$(call install_copy, gtk-theme-experience, 0, 0, 0644, \
 			$$f, /usr/share/themes/eXperience-ice/$$f,n) \
@@ -130,7 +105,7 @@ ifdef PTXCONF_GTK_THEME_EXPERIENCE_ICE
 endif
 
 ifdef PTXCONF_GTK_THEME_EXPERIENCE_OLIVE
-	cd $(GTK_THEME_EXPERIENCE_DIR)/eXperience-olive && \
+	@cd $(GTK_THEME_EXPERIENCE_DIR)/eXperience-olive && \
 		for f in `find . -type f | grep -v .svn`; do \
 			$(call install_copy, gtk-theme-experience, 0, 0, 0644, \
 			$$f, /usr/share/themes/eXperience-olive/$$f,n) \
@@ -138,28 +113,27 @@ ifdef PTXCONF_GTK_THEME_EXPERIENCE_OLIVE
 endif
 
 ifdef PTXCONF_GTK_DEFAULT_THEME_EXPERIENCE_PLAIN
-	echo "include \"/usr/share/themes/eXperience/gtk-2.0/gtkrc\"" > $(GTK_THEME_EXPERIENCE_DIR)/gtkrc-2.0
+	@echo "include \"/usr/share/themes/eXperience/gtk-2.0/gtkrc\"" > $(GTK_THEME_EXPERIENCE_DIR)/gtkrc-2.0
 	@$(call install_copy, gtk-theme-experience, 0, 0, 0644, \
 		$(GTK_THEME_EXPERIENCE_DIR)/gtkrc-2.0, \
 		/etc/gtk-2.0/gtkrc,n)
 endif
 ifdef PTXCONF_GTK_DEFAULT_THEME_EXPERIENCE_ICE
-	echo "include \"/usr/share/themes/eXperience-ice/gtk-2.0/gtkrc\"" > $(GTK_THEME_EXPERIENCE_DIR)/gtkrc-2.0
+	@echo "include \"/usr/share/themes/eXperience-ice/gtk-2.0/gtkrc\"" > $(GTK_THEME_EXPERIENCE_DIR)/gtkrc-2.0
 	@$(call install_copy, gtk-theme-experience, 0, 0, 0644, \
 		$(GTK_THEME_EXPERIENCE_DIR)/gtkrc-2.0, \
 		/etc/gtk-2.0/gtkrc,n)
 endif
 ifdef PTXCONF_GTK_DEFAULT_THEME_EXPERIENCE_OLIVE
-	echo "include \"/usr/share/themes/eXperience-olive/gtk-2.0/gtkrc\"" > $(GTK_THEME_EXPERIENCE_DIR)/gtkrc-2.0
+	@echo "include \"/usr/share/themes/eXperience-olive/gtk-2.0/gtkrc\"" > $(GTK_THEME_EXPERIENCE_DIR)/gtkrc-2.0
 	@$(call install_copy, gtk-theme-experience, 0, 0, 0644, \
 		$(GTK_THEME_EXPERIENCE_DIR)/gtkrc-2.0, \
 		/etc/gtk-2.0/gtkrc,n)
 endif
 
-
 	@$(call install_finish, gtk-theme-experience)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
