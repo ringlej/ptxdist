@@ -47,7 +47,7 @@ UDEV_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-UDEV_AUTOCONF = \
+UDEV_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
 	--enable-shared
 
@@ -100,7 +100,7 @@ endif
 	#
 
 ifdef PTXCONF_UDEV__DEFAULT_RULES
-	cd $(UDEV_DIR)/rules/rules.d; \
+	@cd $(UDEV_DIR)/rules/rules.d; \
 	for file in *; do \
 		$(call install_copy, udev, 0, 0, 0644, $(UDEV_DIR)/rules/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
 	done
@@ -122,7 +122,7 @@ ifdef PTXCONF_UDEV__COMMON_RULES
 endif
 
 ifdef PTXCONF_UDEV__CUST_RULES
-	cd $(PTXDIST_WORKSPACE)/lib/udev/rules.d/; \
+	@cd $(PTXDIST_WORKSPACE)/lib/udev/rules.d/; \
 	for file in *; do \
 		$(call install_copy, udev, 0, 0, 0644, $(PTXDIST_WORKSPACE)/lib/udev/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
 	done
