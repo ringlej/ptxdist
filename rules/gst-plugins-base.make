@@ -385,7 +385,7 @@ ifdef PTXCONF_GST_PLUGINS_BASE__THEORA
 		/usr/lib/gstreamer-0.10/libgsttheora.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE__VORBIS
-	$(call install_copy, gst-plugins-base, 0, 0, 0644, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
 		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstvorbis.so, \
 		/usr/lib/gstreamer-0.10/libgstvorbis.so)
 endif
