@@ -129,7 +129,6 @@ $(STATEDIR)/pureftpd.targetinstall:
 		/usr/sbin/pure-ftpd)
 
 	@$(call install_alternative, pureftpd, 0, 0, 0644, /etc/pure-ftpd.conf, n)
-	@$(call install_alternative, pureftpd, 0, 0, 0644, /etc/inetd.conf.d/pure-ftpd, n)
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 	@$(call install_copy, pureftpd, 0, 0, 0755, \
