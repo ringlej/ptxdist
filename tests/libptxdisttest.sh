@@ -38,7 +38,7 @@ else
 	testrunseq="0001"
 fi
 TESTRUNDIR="${TESTRUNDIRBASE}/${datenohyphen}-${testrunseq}"
-mkdir "${TESTRUNDIR}"
+mkdir -p "${TESTRUNDIR}"
 
 
 reportwrite() {
@@ -105,7 +105,7 @@ test_begin() {
 	TESTDIR="${TESTRUNDIR}/${testseqstring}-$testname"
 	if [ ! -e "${TESTDIR}" ]
 	then
-		mkdir "${TESTDIR}"
+		mkdir -p "${TESTDIR}"
 	else
 		echo "Directory \"${TESTDIR}\" already exists. Something is going wrong." >&2
 	fi
