@@ -138,6 +138,18 @@ menu "Developer Options "
 #config SETUP_CHECK_OMIT_SPACES
 #	bool "don't check for spaces in important directories"
 
+config SETUP_GEN_DEP_TREE
+	bool "generate dependency graphs"
+	help
+	  PTXdist has the feature to generate graphs to illustrate the
+	  dependencies to build a root file system. This information
+	  if probably only interesting for hard core developers or
+	  marketing guys, you probably don't want it.
+
+	  BTW: you need to install the 'dot' program of the
+	       'graphviz' package for this.
+
+
 config SETUP_CHECK_EXIT_ON_ERROR
 	bool "enable exit on error"
 	help

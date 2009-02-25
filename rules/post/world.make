@@ -36,11 +36,13 @@ world: $(STATEDIR)/world.targetinstall
 WORLD_DEP_TREE_PS	:= $(PTXDIST_PLATFORMDIR)/deptree.ps
 WORLD_DEP_TREE_A4_PS	:= $(PTXDIST_PLATFORMDIR)/deptree-a4.ps
 
+ifdef PTXCONF_SETUP_GEN_DEP_TREE
 ifneq ($(shell which dot 2>/dev/null),)
 world: $(WORLD_DEP_TREE_PS)
     ifneq ($(shell which poster 2>/dev/null),)
 world: $(WORLD_DEP_TREE_A4_PS)
     endif
+endif
 endif
 
 $(DEP_OUTPUT):
