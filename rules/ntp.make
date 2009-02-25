@@ -287,11 +287,6 @@ ifdef PTXCONF_NTP_ARLIB
 NTP_AUTOCONF += --enable-arlib
 endif
 
-# avoid md5 inclusion by accident (when libmd is present)
-ifndef PTXCONF_NTP_USE_LIBMD
-NTP_AUTOCONF += ac_cv_lib_md_MD5Init=no
-endif
-
 $(STATEDIR)/ntp.prepare:
 	@$(call targetinfo)
 	@$(call clean, $(NTP_DIR)/config.cache)
