@@ -65,6 +65,6 @@ config PUREFTPD_SHRINK_MORE
 config PUREFTPD_STARTSCRIPT
 	bool
 	default y
-	prompt "install /etc/init.d/pure-ftpd"
+	prompt "install /etc/init.d/pureftpd"
 
 endif

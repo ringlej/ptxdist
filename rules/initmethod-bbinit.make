@@ -203,10 +203,10 @@ ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_SYSVINIT_LINK_PROFTPD)),)
 		../init.d/proftpd, \
 		/etc/rc.d/$(PTXCONF_ROOTFS_SYSVINIT_LINK_PROFTPD))
 endif
-ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_SYSVINIT_LINK_PURE_FTPD)),)
+ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_SYSVINIT_LINK_PUREFTPD)),)
 	@$(call install_link, initmethod-bbinit, \
-		../init.d/pure-ftpd, \
-		/etc/rc.d/$(PTXCONF_ROOTFS_SYSVINIT_LINK_PURE_FTPD))
+		../init.d/pureftpd, \
+		/etc/rc.d/$(PTXCONF_ROOTFS_SYSVINIT_LINK_PUREFTPD))
 endif
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_SYSVINIT_LINK_RSYNCD)),)
 	@$(call install_link, initmethod-bbinit, \
