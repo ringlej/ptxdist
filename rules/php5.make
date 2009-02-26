@@ -352,7 +352,7 @@ ifdef PTXCONF_PHP5_SAPI_CLI
 endif
 
 ifdef PTXCONF_PHP5_SAPI_CGI
-	@$(call install_copy, php5, 0, 0, 0755, $(PHP5_DIR)/sapi/cgi/php, /usr/bin/php5-cgi)
+	@$(call install_copy, php5, 0, 0, 0755, $(PHP5_DIR)/sapi/cgi/php-cgi, /usr/bin/php5-cgi)
 endif
 
 ifdef PTXCONF_ROOTFS_GENERIC_PHP5_INI
