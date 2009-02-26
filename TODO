@@ -48,7 +48,7 @@ Prio A
 
 [ ] rsc: http://ch.tudelft.nl/~arthur/svn2cl/
 
-[ ] jbe:  host-fontconfig.compile
+[x] jbe:  host-fontconfig.compile
       if gcc [...] -c -o fc-case.o fc-case.c; \
         then
          mv -f ".deps/fc-case.Tpo" ".deps/fc-case.Po";
@@ -59,6 +59,9 @@ Prio A
       In file included from fc-case.c:25:
        ../src/fcint.h:118:21: error: fcalias.h: No such file or directory
        make[3]: *** [fc-case.o] Error 1
+
+    mkl: 20090226
+      works on himalia
 
 [ ] jbe: host-glade.prepare
 
