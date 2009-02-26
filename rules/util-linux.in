@@ -1,12 +1,13 @@
 ## SECTION=shell_and_console
 menuconfig UTIL_LINUX
-
 	tristate
 	prompt "util-linux                    "
-	select NCURSES if UTIL_LINUX_CFDISK
-	select NCURSES if UTIL_LINUX_SETTERM
+	select NCURSES if UTIL_LINUX_NCURSES
 
 if UTIL_LINUX
+
+config UTIL_LINUX_NCURSES
+	bool
 
 config UTIL_LINUX_FDISK
 	bool
@@ -28,7 +29,7 @@ config UTIL_LINUX_SFDISK
 config UTIL_LINUX_CFDISK
 	bool
 	prompt "cfdisk"
-	select NCURSES
+	select UTIL_LINUX_NCURSES
 	help
 	  cfdisk is a curses based program for partitioning any hard disk drive.
 
@@ -106,6 +107,7 @@ comment "BusyBox' readprofile is selected!"
 config UTIL_LINUX_SETTERM
 	bool
 	prompt "setterm"
+	select UTIL_LINUX_NCURSES
 	help
 	  setterm - set terminal attributes like terminal name, cursor
 	  blinking and beeper sound

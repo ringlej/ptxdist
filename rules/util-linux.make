@@ -37,13 +37,21 @@ $(UTIL_LINUX_SOURCE):
 # ----------------------------------------------------------------------------
 
 UTIL_LINUX_PATH	:= PATH=$(CROSS_PATH)
-UTIL_LINUX_ENV 	:= $(CROSS_ENV)
+UTIL_LINUX_ENV 	:= \
+	$(CROSS_ENV) \
+	ac_cv_lib_termcap_tgetnum=no \
+	ac_cv_lib_z_crc32=no
 
 #
 # autoconf
 #
-UTIL_LINUX_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-		ac_cv_lib_termcap_tgetnum=no
+UTIL_LINUX_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+
+ifndef PTXCONF_UTIL_LINUX_NCURSES
+UTIL_LINUX_ENV += $(CROSS_ENV_AC_NO_NCURSES)
+endif
+
 
 # ----------------------------------------------------------------------------
 # Target-Install
