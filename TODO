@@ -3,6 +3,14 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: if one enable the "Local kernel tree" by accident but hasn't been setup
+    the "Prefix for kernel trees", ptxdist should output a more useful error message
+    than just:
+    ----------------------
+    target: kernel.extract
+    ----------------------
+    Error: empty parameter to 'extract()'
+
 [ ] ringlej. When the architecture is arm-ixp-big this message occurs:
     $ ptxdist kernelconfig
     <bla>/rules/ffmpeg.make:189: Please define the config options for this CPU type!
