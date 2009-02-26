@@ -25,7 +25,11 @@ CROSS_ENV_AC_NCURSES := \
 	ac_cv_prog_ncursesw5_config=$(CROSS_ENV_AC_NCURSESW5_CONFIG)
 
 CROSS_ENV_AC_NO_NCURSES := \
-	ac_cv_prog_ncurses5_config=no
+	ac_cv_header_ncurses_h=no \
+	ac_cv_header_ncurses_ncurses_h=no \
+	ac_cv_lib_ncurses_initscr=no \
+	ac_cv_prog_ncurses5_config=no \
 	ac_cv_prog_ncursesw5_config=no
+
 
 # vim: syntax=make
