@@ -3,6 +3,10 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] ringlej. When the architecture is arm-ixp-big this message occurs:
+    $ ptxdist kernelconfig
+    <bla>/rules/ffmpeg.make:189: Please define the config options for this CPU type!
+
 [ ] Sisyphus:
     [...]
     ----------------------
