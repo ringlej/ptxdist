@@ -107,7 +107,7 @@ endif
 
 ifdef PTXCONF_BUSYBOX_TELNETD_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/telnetd, n)
-endif
+else
 	@$(call install_alternative, busybox, 0, 0, 0644, /etc/inetd.conf.d/telnetd, n)
 endif
 
