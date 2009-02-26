@@ -33,7 +33,7 @@ ptxd_make_extract() {
 
     dest="${dest:-${BUILDDIR}}"
 
-    case "$packet_url" in
+    case "${packet_url}" in
 	file://*)
 	    local thing="${packet_url/file:\/\///}"
 	    if [ -d "${thing}" ]; then
@@ -45,6 +45,8 @@ ptxd_make_extract() {
 		echo "Using local archive"
 		echo
 		packet_source="${thing}"
+	    else
+		ptxd_bailout "the URL '${packet_url}' points to non existing directory or file."
 	    fi
 	    ;;
     esac
