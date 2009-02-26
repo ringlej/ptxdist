@@ -37,7 +37,12 @@ $(UTIL_LINUX_NG_SOURCE):
 # ----------------------------------------------------------------------------
 
 UTIL_LINUX_NG_PATH	:= PATH=$(CROSS_PATH)
-UTIL_LINUX_NG_ENV 	:= $(CROSS_ENV)
+UTIL_LINUX_NG_ENV 	:= \
+	$(CROSS_ENV) \
+	ac_cv_lib_termcap_tgetnum=no \
+	ac_cv_path_BLKID=no \
+	ac_cv_path_PERL=no \
+	ac_cv_path_VOLID=no
 
 #
 # autoconf
@@ -75,18 +80,11 @@ UTIL_LINUX_NG_AUTOCONF := \
 
 ifdef PTXCONF_UTIL_LINUX_NG_USES_NCURSES
 UTIL_LINUX_NG_AUTOCONF	+= --with-ncurses
+UTIL_LINUX_NG_ENV	+= $(CROSS_ENV_AC_NCURSES)
 else
 UTIL_LINUX_NG_AUTOCONF	+= --without-ncurses
+UTIL_LINUX_NG_ENV	+= $(CROSS_ENV_AC_NO_NCURSES)
 endif
-
-# checking for perl... /usr/bin/perl
-UTIL_LINUX_NG_AUTOCONF += ac_cv_path_PERL=no
-# checking for blkid... /sbin/blkid
-UTIL_LINUX_NG_AUTOCONF += ac_cv_path_BLKID=no
-# checking for vol_id... /sbin/vol_id
-UTIL_LINUX_NG_AUTOCONF += ac_cv_path_VOLID=no
-# uses termcap for 'more' if found
-UTIL_LINUX_NG_AUTOCONF += ac_cv_lib_termcap_tgetnum=no
 
 # ----------------------------------------------------------------------------
 # Target-Install
