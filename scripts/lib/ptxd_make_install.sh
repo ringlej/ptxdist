@@ -230,7 +230,7 @@ ptxd_make_install_finish() {
 	echo "ipkg-build ${PTXCONF_IMAGE_IPKG_EXTRA_ARGS} \"${PKGDIR}/${packet}.tmp/ipkg\" \"${PKGDIR}\""
     ) | ${FAKEROOT} -- 2>&1
     check_pipe_status || return
-    rm -rf "${PKGDIR}a/${packet}.tmp" || return
+    rm -rf "${PKGDIR}/${packet}.tmp" || return
 
     echo "done."
 
