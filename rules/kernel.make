@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2002-2008 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002-2009 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -39,6 +39,23 @@ KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_K
 
 ifdef PTXCONF_KERNEL_LOCAL_FLAG
 KERNEL_URL		:= file://$(PTXCONF_SETUP_KERNELDIR_PREFIX)/$(KERNEL_VERSION)
+ifeq ($(PTXCONF_SETUP_KERNELDIR_PREFIX),)
+$(warning ***)
+$(warning *** PTXCONF_KERNEL_LOCAL_FLAG feature activated, but)
+$(warning *** PTXCONF_SETUP_KERNELDIR_PREFIX is unset!)
+$(warning ***)
+$(warning *** This feature is mainly for developers, who to want have their kernel sources)
+$(warning *** outside of ptxdist. You can turn it off by deselecting "Local kernel tree":)
+$(warning *** "ptxdist platformconfig" -> "Linux kernel" -> "Local kernel tree")
+$(warning ***)
+$(warning *** If you want to use the feature, please enter a propper prefix)
+$(warning *** to your kernel tree)
+$(warning *** "ptxdist setup" -> "Source Directories")
+$(warning ***                 -> "Prefix for kernel trees")
+$(warning *** and specify where to look for your kernel tree)
+$(warning ***)
+$(error )
+endif
 else
 KERNEL_URL		:= \
 	http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX) \

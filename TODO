@@ -3,13 +3,32 @@ TODO before 2.0.0
 
 Prio A
 
-[ ] jbe: if one enable the "Local kernel tree" by accident but hasn't been setup
+[x] jbe: if one enable the "Local kernel tree" by accident but hasn't been setup
     the "Prefix for kernel trees", ptxdist should output a more useful error message
     than just:
     ----------------------
     target: kernel.extract
     ----------------------
     Error: empty parameter to 'extract()'
+
+    mkl: 20090226: done:
+
+[frogger@hardanger:OSELAS.BSP-phyCORE-trunk]$ ./p go
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:43: ***
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:44: *** PTXCONF_KERNEL_LOCAL_FLAG feature activated, but
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:45: *** PTXCONF_SETUP_KERNELDIR_PREFIX is unset!
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:46: ***
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:47: *** This feature is mainly for developers, who to want have their kernel sources
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:48: *** outside of ptxdist. You can turn it off by deselecting "Local kernel tree":
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:49: *** "ptxdist platformconfig" -> "Linux kernel" -> "Local kernel tree"
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:50: ***
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:51: *** If you want to use the feature, please enter a propper prefix
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:52: *** to your kernel tree
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:53: *** "ptxdist setup" -> "Source Directories"
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:54: ***                 -> "Prefix for kernel trees"
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:55: *** and specify where to look for your kernel tree
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:56: ***
+/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:57: *** .  Stop.
 
 [ ] ringlej. When the architecture is arm-ixp-big this message occurs:
     $ ptxdist kernelconfig
