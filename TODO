@@ -82,7 +82,7 @@ Prio A
     mkl: 20090226
       works on himalia
 
-[ ] jbe: host-glade.prepare
+[x] jbe: host-glade.prepare
 
 [ ] jbe: mplayer.compile: It seems very PXA specific now?
      i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
@@ -113,7 +113,16 @@ Prio A
       cannot find -lpanelw
       collect2: ld returned 1 exit status
 
-[ ] rsc: in x86 simulation: ipkg list doesn't work?
+[x] rsc: in x86 simulation: ipkg list doesn't work?
+
+    mkl: 20090226: works
+
+	 root@phyCORE:~ ipkg list
+	 alsa-lib - 1.0.18 -
+	 alsa-utils - 1.0.18 -
+	 atk - 1.20.0 -
+	 atop - 1.23 -
+	 [...]
 
 [ ] jbe: avoid the convenience stage question, when running "pxtdist images".
     jbe: avoid the convenience stage question again and again and again....
@@ -130,10 +139,13 @@ Prio A
 [ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks into PTXdist's build
 	Audit other environment variables also!
 
-[.] jbe: it seems to extract a kernel always touches the local
+[x] jbe: it seems to extract a kernel always touches the local
 	 kernelconfig.target (or similar). This confuses svn, as
 	 this file always changes without calling "ptxdist kernelconfig"
     rsc: mol has a patch for this, integrate
+    mkl: 20090626
+	 no problem with with ptxdist-1.99.11,
+	 probably in the whole 1.99.x series of ptxdist
 
 [ ] lfu: some mountable devices are available after udev started. hence
 	we need an extra mount script to mount all entries in fstab instead
