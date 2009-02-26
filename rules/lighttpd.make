@@ -235,7 +235,7 @@ $(STATEDIR)/lighttpd.targetinstall:
 	#
 	# config
 	#
-	@$(call install_alternative, lighttpd, 0, 0, 0644, /etc/lighttpd.conf, n)
+	@$(call install_alternative, lighttpd, 0, 0, 0644, /etc/lighttpd/lighttpd.conf, n)
 	# FIXME: withoug PTXCONF_PHP5_SAPI_CGI, we want to install
 	# $(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd-no_php.conf instead?
 
