@@ -17,28 +17,35 @@ if BUSYBOX
 
 config BUSYBOX_INETD_STARTSCRIPT
 	bool
+	depends on BUSYBOX_INETD
 	default y
 	prompt "install /etc/init.d/inetd"
 
 config BUSYBOX_TELNETD_STARTSCRIPT
 	bool
+	depends on BUSYBOX_FEATURE_TELNETD_STANDALONE
 	default y
 	prompt "install /etc/init.d/telnetd"
 
 config BUSYBOX_TELNETD_SYSLOGD_STARTSCRIPT
 	bool
+	depends on BUSYBOX_SYSLOGD
 	default y
 	prompt "install /etc/init.d/syslogd"
 
 config BUSYBOX_TELNETD_CROND_STARTSCRIPT
 	bool
+	depends on BUSYBOX_CROND
 	default y
 	prompt "install /etc/init.d/crond"
 
 config BUSYBOX_TELNETD_HWCLOCK_STARTSCRIPT
 	bool
+	depends on BUSYBOX_HWCLOCK
 	default y
 	prompt "install /etc/init.d/hwclock"
+
+comment "---"
 
 source "config/busybox/Config.in"
 

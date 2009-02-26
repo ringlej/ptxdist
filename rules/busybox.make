@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003-2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -96,42 +96,37 @@ endif
 		$(call install_link, busybox, /bin/busybox, $$file);	\
 	done
 
-	#
-	# bb init: start scripts
-	#
+#	#
+#	# bb init: start scripts
+#	#
 
 ifdef PTXCONF_INITMETHOD_BBINIT
-ifdef PTXCONF_BUSYBOX_INETD
 ifdef PTXCONF_BUSYBOX_INETD_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/inetd, n)
 endif
-endif
-ifdef PTXCONF_BUSYBOX_TELNETD
+
 ifdef PTXCONF_BUSYBOX_TELNETD_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/telnetd, n)
 endif
 	@$(call install_alternative, busybox, 0, 0, 0644, /etc/inetd.conf.d/telnetd, n)
 endif
-ifdef PTXCONF_BUSYBOX_SYSLOGD
+
 ifdef PTXCONF_BUSYBOX_SYSLOGD_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/syslogd, n)
 endif
-endif
-ifdef PTXCONF_BUSYBOX_CROND
+
 ifdef PTXCONF_BUSYBOX_CROND_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/crond, n)
 endif
-endif
-ifdef PTXCONF_BUSYBOX_HWCLOCK
+
 ifdef PTXCONF_BUSYBOX_HWCLOCK_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/timekeeping, n)
 endif
-endif
-endif
+endif # PTXCONF_INITMETHOD_BBINIT
 
-	#
-	# config files
-	#
+#	#
+#	# config files
+#	#
 
 ifdef PTXCONF_BUSYBOX_APP_UDHCPC
 	@$(call install_alternative, busybox, 0, 0, 0754, /etc/udhcpc.script, n)
@@ -141,7 +136,7 @@ endif
 ifdef PTXCONF_BUSYBOX_CROND
 	@$(call install_copy, busybox, 0, 0, 0755, /etc/cron)
 	@$(call install_copy, busybox, 0, 0, 0755, /var/spool/cron/crontabs/)
-	# FIXME: looks like this needs more work
+#	# FIXME: looks like this needs more work
 	@$(call install_alternative, busybox, 0, 0, 0644, /var/spool/cron/crontabs/root, n)
 	@$(call install_alternative, busybox, 0, 0, 0644, /etc/cron.daily, n)
 endif
