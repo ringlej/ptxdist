@@ -60,6 +60,15 @@ config SETUP_KERNELDIR_PREFIX
 	  or more GIT repositories). This is used in combination with
 	  'Local kernel tree' in platformconfig.
 
+	  The kernel actually used depends on the configured
+	  'kernel version', e.g. for
+
+	  SETUP_KERNELDIR_PREFIX=/home/foo/my_kernel_sources
+	  KERNEL_VERSION=2.6.29
+
+	  ptxdist will use the kernel in:
+	  "/home/foo/my_kernel_sources/2.6.29"
+
 endmenu
 
 menu "Mirrors           "
