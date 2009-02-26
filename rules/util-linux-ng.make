@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.14.2-rc2
+UTIL_LINUX_NG_VERSION	:= 2.14.2
 UTIL_LINUX_NG		:= util-linux-ng-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.bz2
 UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.14/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
