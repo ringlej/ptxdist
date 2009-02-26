@@ -782,10 +782,10 @@ Misc:
 				project to <target dir>
 Overwrite defaults:
 
-  --ptxconfig			use specified ptxconfig
-  --platformconfig		use specified platformconfig
-  --collectionconfig		use specified collectionconfig
-  --toolchain			use specified toolchain
+  --ptxconfig=<config>		use specified ptxconfig
+  --platformconfig=<config>	use specified platformconfig
+  --collectionconfig=<config>	use specified collectionconfig
+  --toolchain=<toolchain>	use specified toolchain
   --force			select config even if MOJO is missing
 
 Options:
