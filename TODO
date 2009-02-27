@@ -3,6 +3,13 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: if one enters "ptxdist platformconfig" one can earn this message:
+    error:  The config file 'selected_platformconfig'
+            is missing the symbol: 'PTXCONF_PLATFORMCONFIG_VERSION',
+	    which means it is broken.
+    But also the "--force" option does not help. Only "--sledgehammer" helps
+    to create this symbol. Intended behaviour?
+
 [x] jbe: if one enable the "Local kernel tree" by accident but hasn't been setup
     the "Prefix for kernel trees", ptxdist should output a more useful error message
     than just:
