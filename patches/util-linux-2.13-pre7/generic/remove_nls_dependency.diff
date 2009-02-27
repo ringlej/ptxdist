@@ -1,0 +1,824 @@
+From: Juergen Beisert <j.beisert@pengutronix.de>
+Subject: Honor --disable-nls configure switch
+
+Compiling fails if one gives the --disable-nls switch. Solution is to omit
+the setup for this case.
+
+Signed-off-by: Juergen Beisert <j.beisert@pengutronix.de>
+
+---
+ disk-utils/blockdev.c   |    2 ++
+ disk-utils/fdformat.c   |    2 ++
+ disk-utils/fsck.minix.c |    2 ++
+ disk-utils/isosize.c    |    2 ++
+ disk-utils/mkfs.c       |    2 ++
+ disk-utils/mkfs.minix.c |    2 ++
+ disk-utils/mkswap.c     |    2 ++
+ fdisk/cfdisk.c          |    2 ++
+ fdisk/fdisk.c           |    2 ++
+ fdisk/sfdisk.c          |    2 ++
+ getopt/getopt.c         |    3 +--
+ hwclock/hwclock.c       |    2 ++
+ login-utils/agetty.c    |    3 ++-
+ login-utils/wall.c      |    2 ++
+ misc-utils/ddate.c      |    2 ++
+ misc-utils/logger.c     |    2 ++
+ misc-utils/mcookie.c    |    2 ++
+ misc-utils/namei.c      |    4 +++-
+ misc-utils/rename.c     |    2 ++
+ misc-utils/script.c     |    4 +++-
+ misc-utils/setterm.c    |    3 ++-
+ misc-utils/whereis.c    |    3 ++-
+ misc-utils/write.c      |    2 ++
+ mount/lomount.c         |    2 ++
+ mount/mount.c           |    2 ++
+ mount/swapon.c          |    2 ++
+ mount/umount.c          |    2 ++
+ sys-utils/ctrlaltdel.c  |    3 ++-
+ sys-utils/cytune.c      |    2 ++
+ sys-utils/dmesg.c       |    2 ++
+ sys-utils/ipcrm.c       |    2 ++
+ sys-utils/ipcs.c        |    2 ++
+ sys-utils/rdev.c        |    3 ++-
+ sys-utils/readprofile.c |    2 ++
+ sys-utils/renice.c      |    2 ++
+ sys-utils/setsid.c      |    3 ++-
+ sys-utils/tunelp.c      |    2 ++
+ text-utils/col.c        |    4 +++-
+ text-utils/colcrt.c     |    2 ++
+ text-utils/colrm.c      |    2 ++
+ text-utils/column.c     |    2 ++
+ text-utils/hexdump.c    |    2 ++
+ text-utils/more.c       |    3 ++-
+ text-utils/pg.c         |    2 ++
+ text-utils/rev.c        |    2 ++
+ text-utils/tailf.c      |    2 ++
+ text-utils/ul.c         |    2 ++
+ 47 files changed, 96 insertions(+), 12 deletions(-)
+
+Index: disk-utils/blockdev.c
+===================================================================
+--- disk-utils/blockdev.c.orig
++++ disk-utils/blockdev.c
+@@ -162,9 +162,11 @@ main(int argc, char **argv) {
+ 	if ((p = strrchr(progname, '/')) != NULL)
+ 		progname = p+1;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	if (argc < 2)
+ 		usage();
+Index: disk-utils/fdformat.c
+===================================================================
+--- disk-utils/fdformat.c.orig
++++ disk-utils/fdformat.c
+@@ -107,9 +107,11 @@ int main(int argc,char **argv)
+     if ((p = strrchr(progname, '/')) != NULL)
+ 	    progname = p+1;
+ 
++#ifdef ENABLE_NLS
+     setlocale(LC_ALL, "");
+     bindtextdomain(PACKAGE, LOCALEDIR);
+     textdomain(PACKAGE);
++#endif
+ 
+     if (argc == 2 &&
+ 	(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))) {
+Index: disk-utils/fsck.minix.c
+===================================================================
+--- disk-utils/fsck.minix.c.orig
++++ disk-utils/fsck.minix.c
+@@ -1240,9 +1240,11 @@ main(int argc, char ** argv) {
+ 	if ((p = strrchr(program_name, '/')) != NULL)
+ 		program_name = p+1;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	if (argc == 2 &&
+ 	    (!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))) {
+Index: disk-utils/isosize.c
+===================================================================
+--- disk-utils/isosize.c.orig
++++ disk-utils/isosize.c
+@@ -170,9 +170,11 @@ main(int argc, char * argv[]) {
+ 	if ((p = strrchr(progname, '/')) != NULL)
+ 		progname = p+1;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	if (argc >= 2 &&
+ 	    (!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))) {
+Index: disk-utils/mkfs.c
+===================================================================
+--- disk-utils/mkfs.c.orig
++++ disk-utils/mkfs.c
+@@ -43,9 +43,11 @@ int main(int argc, char *argv[])
+   if ((p = strrchr(program_name, '/')) != NULL)
+ 	  program_name = p+1;
+ 
++#ifdef ENABLE_NLS
+   setlocale(LC_ALL, "");
+   bindtextdomain(PACKAGE, LOCALEDIR);
+   textdomain(PACKAGE);
++#endif
+ 
+   if (argc == 2 &&
+       (!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))) {
+Index: disk-utils/mkfs.minix.c
+===================================================================
+--- disk-utils/mkfs.minix.c.orig
++++ disk-utils/mkfs.minix.c
+@@ -617,9 +617,11 @@ main(int argc, char ** argv) {
+   if ((p = strrchr(program_name, '/')) != NULL)
+     program_name = p+1;
+ 
++#ifdef ENABLE_NLS
+   setlocale(LC_ALL, "");
+   bindtextdomain(PACKAGE, LOCALEDIR);
+   textdomain(PACKAGE);
++#endif
+ 
+   if (argc == 2 &&
+       (!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))) {
+Index: disk-utils/mkswap.c
+===================================================================
+--- disk-utils/mkswap.c.orig
++++ disk-utils/mkswap.c
+@@ -513,9 +513,11 @@ main(int argc, char ** argv) {
+ 	if ((pp = strrchr(program_name, '/')) != NULL)
+ 		program_name = pp+1;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	if (argc == 2 &&
+ 	    (!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))) {
+Index: fdisk/fdisk.c
+===================================================================
+--- fdisk/fdisk.c.orig
++++ fdisk/fdisk.c
+@@ -2465,9 +2465,11 @@ main(int argc, char **argv) {
+ 	int j, c;
+ 	int optl = 0, opts = 0;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	/*
+ 	 * Calls:
+Index: fdisk/cfdisk.c
+===================================================================
+--- fdisk/cfdisk.c.orig
++++ fdisk/cfdisk.c
+@@ -2916,9 +2916,11 @@ main(int argc, char **argv)
+     int c;
+     int i, len;
+ 
++#ifdef ENABLE_NLS
+     setlocale(LC_ALL, "");
+     bindtextdomain(PACKAGE, LOCALEDIR);
+     textdomain(PACKAGE);
++#endif
+ 
+     while ((c = getopt(argc, argv, "ac:gh:s:vzP:")) != -1)
+ 	switch (c) {
+Index: fdisk/sfdisk.c
+===================================================================
+--- fdisk/sfdisk.c.orig
++++ fdisk/sfdisk.c
+@@ -2485,9 +2485,11 @@ main(int argc, char **argv) {
+     char *activatearg = 0;
+     char *unhidearg = 0;
+ 
++#ifdef ENABLE_NLS
+     setlocale(LC_ALL, "");
+     bindtextdomain(PACKAGE, LOCALEDIR);
+     textdomain(PACKAGE);
++#endif
+ 
+     if (argc < 1)
+       fatal(_("no command?\n"));
+Index: getopt/getopt.c
+===================================================================
+--- getopt/getopt.c.orig
++++ getopt/getopt.c
+@@ -373,8 +373,7 @@ int main(int argc, char *argv[])
+ 	int opt;
+ 	int compatible=0;
+ 
+-#if WITHOUT_GETTEXT
+-#else
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL,"");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
+Index: hwclock/hwclock.c
+===================================================================
+--- hwclock/hwclock.c.orig
++++ hwclock/hwclock.c
+@@ -1298,6 +1298,7 @@ main(int argc, char **argv) {
+ 	/* Remember what time we were invoked */
+ 	gettimeofday(&startup_time, NULL);
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ #ifdef LC_NUMERIC
+ 	/* We need LC_CTYPE and LC_TIME and LC_MESSAGES, but must avoid
+@@ -1307,6 +1308,7 @@ main(int argc, char **argv) {
+ #endif
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	/* Set option defaults */
+ 	show = set = systohc = hctosys = adjust = noadjfile = FALSE;
+Index: login-utils/agetty.c
+===================================================================
+--- login-utils/agetty.c.orig
++++ login-utils/agetty.c
+@@ -267,10 +267,11 @@ main(argc, argv)
+ 	0,				/* no baud rates known yet */
+     };
+ 
++#ifdef ENABLE_NLS
+        setlocale(LC_ALL, "");
+        bindtextdomain(PACKAGE, LOCALEDIR);
+        textdomain(PACKAGE);
+-    
++#endif
+     /* The BSD-style init command passes us a useless process name. */
+ 
+ #ifdef	SYSV_STYLE
+Index: login-utils/wall.c
+===================================================================
+--- login-utils/wall.c.orig
++++ login-utils/wall.c
+@@ -82,9 +82,11 @@ main(int argc, char **argv) {
+ 	char *p;
+ 	char line[sizeof(utmpptr->ut_line) + 1];
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+         bindtextdomain(PACKAGE, LOCALEDIR);
+         textdomain(PACKAGE);
++#endif
+ 
+ 	progname = argv[0];
+ 	p = rindex(progname, '/');
+Index: misc-utils/ddate.c
+===================================================================
+--- misc-utils/ddate.c.orig
++++ misc-utils/ddate.c
+@@ -164,9 +164,11 @@ main (int argc, char *argv[]) {
+     if ((p = strrchr(progname, '/')) != NULL)
+ 	progname = p+1;
+ 
++#ifdef ENABLE_NLS
+     setlocale(LC_ALL, "");
+     bindtextdomain(PACKAGE, LOCALEDIR);
+     textdomain(PACKAGE);
++#endif
+ 
+     srandom(time(NULL));
+     /* do args here */
+Index: misc-utils/logger.c
+===================================================================
+--- misc-utils/logger.c.orig
++++ misc-utils/logger.c
+@@ -126,9 +126,11 @@ main(int argc, char **argv) {
+ 	char *usock = NULL;
+ 	int LogSock = -1;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	tag = NULL;
+ 	pri = LOG_NOTICE;
+Index: misc-utils/mcookie.c
+===================================================================
+--- misc-utils/mcookie.c.orig
++++ misc-utils/mcookie.c
+@@ -86,9 +86,11 @@ int main( int argc, char **argv )
+    long int          t;
+ #endif
+ 
++#ifdef ENABLE_NLS
+    setlocale(LC_ALL, "");
+    bindtextdomain(PACKAGE, LOCALEDIR);
+    textdomain(PACKAGE);
++#endif
+ 
+    while ((c = getopt( argc, argv, "vf:" )) != -1)
+       switch (c) {
+Index: misc-utils/namei.c
+===================================================================
+--- misc-utils/namei.c.orig
++++ misc-utils/namei.c
+@@ -75,10 +75,12 @@ main(int argc, char **argv) {
+     int c;
+     char curdir[MAXPATHLEN];
+ 
++#ifdef ENABLE_NLS
+     setlocale(LC_ALL, "");
+     bindtextdomain(PACKAGE, LOCALEDIR);
+     textdomain(PACKAGE);
+-    
++#endif
++
+     if(argc < 2)
+ 	usage();
+ 
+Index: misc-utils/script.c
+===================================================================
+--- misc-utils/script.c.orig
++++ misc-utils/script.c
+@@ -132,11 +132,13 @@ main(int argc, char **argv) {
+ 		progname = p+1;
+ 
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	setlocale(LC_NUMERIC, "C");	/* see comment above */
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
+-	
++#endif
++
+ 	if (argc == 2) {
+ 		if (!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version")) {
+ 			printf(_("%s (%s)\n"),
+Index: misc-utils/whereis.c
+===================================================================
+--- misc-utils/whereis.c.orig
++++ misc-utils/whereis.c
+@@ -146,10 +146,11 @@ char	uflag;
+  */
+ int
+ main(int argc, char **argv) {
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
+-	
++#endif
+ 
+ 	argc--, argv++;
+ 	if (argc == 0) {
+Index: misc-utils/setterm.c
+===================================================================
+--- misc-utils/setterm.c.orig
++++ misc-utils/setterm.c
+@@ -1203,10 +1203,11 @@ main(int argc, char **argv) {
+ 	char *term;			/* Terminal type. */
+ 	int vcterm;			/* Set if terminal is a virtual console. */
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
+-  
++#endif
+ 	if (argc < 2)
+ 		bad_arg = TRUE;
+ 
+Index: misc-utils/write.c
+===================================================================
+--- misc-utils/write.c.orig
++++ misc-utils/write.c
+@@ -80,9 +80,11 @@ main(int argc, char **argv) {
+ 	int msgsok, myttyfd;
+ 	char tty[MAXPATHLEN], *mytty;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	/* check that sender has write enabled */
+ 	if (isatty(fileno(stdin)))
+Index: misc-utils/rename.c
+===================================================================
+--- misc-utils/rename.c.orig
++++ misc-utils/rename.c
+@@ -70,9 +70,11 @@ main(int argc, char **argv) {
+ 	if ((p = strrchr(progname, '/')) != NULL)
+ 		progname = p+1;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	if (argc == 2) {
+ 		if (!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version")) {
+Index: mount/mount.c
+===================================================================
+--- mount/mount.c.orig
++++ mount/mount.c
+@@ -1458,9 +1458,11 @@ main(int argc, char *argv[]) {
+ 	int fd;
+ 
+ 	sanitize_env();
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	progname = argv[0];
+ 	if ((p = strrchr(progname, '/')) != NULL)
+Index: mount/lomount.c
+===================================================================
+--- mount/lomount.c.orig
++++ mount/lomount.c
+@@ -448,9 +448,11 @@ main(int argc, char **argv) {
+ 	int pfd = -1;
+ 	unsigned long long off;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	delete = find = 0;
+ 	off = 0;
+Index: mount/umount.c
+===================================================================
+--- mount/umount.c.orig
++++ mount/umount.c
+@@ -642,9 +642,11 @@ main (int argc, char *argv[]) {
+ 	int result = 0;
+ 
+ 	sanitize_env();
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	progname = argv[0];
+ 	if ((p = strrchr(progname, '/')) != NULL)
+Index: mount/swapon.c
+===================================================================
+--- mount/swapon.c.orig
++++ mount/swapon.c
+@@ -517,9 +517,11 @@ int
+ main(int argc, char *argv[]) {
+ 	char *p;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	progname = argv[0];
+ 	p = strrchr(progname, '/');
+Index: sys-utils/dmesg.c
+===================================================================
+--- sys-utils/dmesg.c.orig
++++ sys-utils/dmesg.c
+@@ -68,9 +68,11 @@ main(int argc, char *argv[]) {
+ 	int  lastc;
+ 	int  cmd = 3;		/* Read all messages in the ring buffer */
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	progname = argv[0];
+ 	while ((c = getopt(argc, argv, "cn:s:")) != -1) {
+Index: sys-utils/ipcrm.c
+===================================================================
+--- sys-utils/ipcrm.c.orig
++++ sys-utils/ipcrm.c
+@@ -152,9 +152,11 @@ int main(int argc, char **argv)
+ 	if (argc == 1)
+ 		return 0;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	/* check to see if the command is being invoked in the old way if so
+ 	   then run the old code */
+Index: sys-utils/ipcs.c
+===================================================================
+--- sys-utils/ipcs.c.orig
++++ sys-utils/ipcs.c
+@@ -143,9 +143,11 @@ main (int argc, char **argv) {
+ 	char format = 0;
+ 	char options[] = "atcluphsmqi:";
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	progname = argv[0];
+ 	while ((opt = getopt (argc, argv, options)) != -1) {
+Index: sys-utils/rdev.c
+===================================================================
+--- sys-utils/rdev.c.orig
++++ sys-utils/rdev.c
+@@ -165,10 +165,11 @@ main(int argc, char **argv) {
+ 	struct stat s;
+ 	int cmd;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
+-
++#endif
+ 	/* use the command name to figure out what we have to do - ugly */
+ 	cmd = RDEV;
+ 	if ((ptr = strrchr(argv[0],'/')) != NULL)
+Index: sys-utils/readprofile.c
+===================================================================
+--- sys-utils/readprofile.c.orig
++++ sys-utils/readprofile.c
+@@ -153,9 +153,11 @@ main(int argc, char **argv) {
+ 
+ #define next (current^1)
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	prgname = argv[0];
+ 	proFile = defaultpro;
+Index: sys-utils/renice.c
+===================================================================
+--- sys-utils/renice.c.orig
++++ sys-utils/renice.c
+@@ -59,9 +59,11 @@ main(int argc, char **argv)
+ 	int which = PRIO_PROCESS;
+ 	int who = 0, prio, errs = 0;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	argc--, argv++;
+ 	if (argc < 2) {
+Index: sys-utils/setsid.c
+===================================================================
+--- sys-utils/setsid.c.orig
++++ sys-utils/setsid.c
+@@ -18,10 +18,11 @@
+ 
+ int
+ main(int argc, char *argv[]) {
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
+-	
++#endif
+ 	if (argc < 2) {
+ 		fprintf(stderr, _("usage: %s program [arg ...]\n"),
+ 			argv[0]);
+Index: sys-utils/tunelp.c
+===================================================================
+--- sys-utils/tunelp.c.orig
++++ sys-utils/tunelp.c
+@@ -125,9 +125,11 @@ main (int argc, char ** argv) {
+   if ((p = strrchr(progname, '/')) != NULL)
+ 	  progname = p+1;
+ 
++#ifdef ENABLE_NLS
+   setlocale(LC_ALL, "");
+   bindtextdomain(PACKAGE, LOCALEDIR);
+   textdomain(PACKAGE);
++#endif
+ 
+   if (argc < 2) print_usage(progname);
+ 
+Index: sys-utils/ctrlaltdel.c
+===================================================================
+--- sys-utils/ctrlaltdel.c.orig
++++ sys-utils/ctrlaltdel.c
+@@ -17,10 +17,11 @@
+ int
+ main(int argc, char *argv[]) {
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
+-	
++#endif
+ 
+ 	if(geteuid()) {
+ 		fprintf(stderr,
+Index: sys-utils/cytune.c
+===================================================================
+--- sys-utils/cytune.c.orig
++++ sys-utils/cytune.c
+@@ -175,9 +175,11 @@ int main(int argc, char *argv[]) {
+   global_argc = argc;		/* For signal routine. */
+   global_argv = &argv;		/* For signal routine. */
+ 
++#ifdef ENABLE_NLS
+   setlocale(LC_ALL, "");
+   bindtextdomain(PACKAGE, LOCALEDIR);
+   textdomain(PACKAGE);
++#endif
+ 
+   while ((i = getopt(argc, argv, "qs:S:t:T:gGi:")) != -1) {
+     switch (i) {
+Index: text-utils/col.c
+===================================================================
+--- text-utils/col.c.orig
++++ text-utils/col.c
+@@ -129,10 +129,12 @@ int main(int argc, char **argv)
+ 	int nflushd_lines;		/* number of lines that were flushed */
+ 	int adjust, opt, warned;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
+-	
++#endif
++
+ 	max_bufd_lines = 128;
+ 	compress_spaces = 1;		/* compress spaces into tabs */
+ 	pass_unknown_seqs = 0;          /* remove unknown escape sequences */
+Index: text-utils/colcrt.c
+===================================================================
+--- text-utils/colcrt.c.orig
++++ text-utils/colcrt.c
+@@ -79,9 +79,11 @@ int
+ main(int argc, char **argv) {
+ 	FILE *f;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	argc--;
+ 	progname = *argv++;
+Index: text-utils/colrm.c
+===================================================================
+--- text-utils/colrm.c.orig
++++ text-utils/colrm.c
+@@ -57,7 +57,9 @@ main(int argc, char **argv)
+ 	int i, w;
+ 	int padding;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
++#endif
+ 
+ 	first = 0;
+ 	last = 0;
+Index: text-utils/column.c
+===================================================================
+--- text-utils/column.c.orig
++++ text-utils/column.c
+@@ -90,9 +90,11 @@ main(int argc, char **argv)
+ 	extern char *__progname;
+ 	__progname = argv[0];
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	if (ioctl(1, TIOCGWINSZ, &win) == -1 || !win.ws_col) {
+ 		if ((p = getenv("COLUMNS")) != NULL)
+Index: text-utils/hexdump.c
+===================================================================
+--- text-utils/hexdump.c.orig
++++ text-utils/hexdump.c
+@@ -51,9 +51,11 @@ int main(int argc, char **argv)
+ 	FS *tfs;
+ 	char *p;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	if (!(p = strrchr(argv[0], 'o')) || strcmp(p, "od"))
+ 		newsyntax(argc, &argv);
+Index: text-utils/more.c
+===================================================================
+--- text-utils/more.c.orig
++++ text-utils/more.c
+@@ -230,10 +230,11 @@ int main(int argc, char **argv) {
+     int		initline = 0;
+     char	initbuf[80];
+ 
++#ifdef ENABLE_NLS
+     setlocale(LC_ALL, "");
+     bindtextdomain(PACKAGE, LOCALEDIR);
+     textdomain(PACKAGE);
+-    
++#endif
+     /* avoid gcc complaints about register variables that
+        may be clobbered by a longjmp, by forcing our variables here
+        to be non-register */
+Index: text-utils/pg.c
+===================================================================
+--- text-utils/pg.c.orig
++++ text-utils/pg.c
+@@ -1581,9 +1581,11 @@ main(int argc, char **argv)
+ 
+ 	progname = basename(argv[0]);
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_MESSAGES, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	if (tcgetattr(1, &otio) == 0) {
+ 		ontty = 1;
+Index: text-utils/rev.c
+===================================================================
+--- text-utils/rev.c.orig
++++ text-utils/rev.c
+@@ -69,9 +69,11 @@ main(int argc, char *argv[])
+   FILE *fp;
+   int ch, rval;
+ 
++#ifdef ENABLE_NLS
+   setlocale(LC_ALL, "");
+   bindtextdomain(PACKAGE, LOCALEDIR);
+   textdomain(PACKAGE);
++#endif
+ 
+   while ((ch = getopt(argc, argv, "")) != -1)
+     switch(ch) {
+Index: text-utils/tailf.c
+===================================================================
+--- text-utils/tailf.c.orig
++++ text-utils/tailf.c
+@@ -85,9 +85,11 @@ int main(int argc, char **argv)
+     const char *filename;
+     int        count;
+ 
++#ifdef ENABLE_NLS
+     setlocale(LC_ALL, "");
+     bindtextdomain(PACKAGE, LOCALEDIR);
+     textdomain(PACKAGE);
++#endif
+ 
+     if (argc != 2) {
+ 	fprintf(stderr, _("Usage: tailf logfile\n"));
+Index: text-utils/ul.c
+===================================================================
+--- text-utils/ul.c.orig
++++ text-utils/ul.c
+@@ -118,9 +118,11 @@ int main(int argc, char **argv)
+ 	char *termtype;
+ 	FILE *f;
+ 
++#ifdef ENABLE_NLS
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+ 	textdomain(PACKAGE);
++#endif
+ 
+ 	termtype = getenv("TERM");
+ 	if (termtype == NULL || (argv[0][0] == 'c' && !isatty(1)))
