@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2007-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2007-2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -93,6 +93,9 @@ $(STATEDIR)/frodo.targetinstall:
 	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/Basic ROM, /home/Basic ROM, n)
 	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/Char ROM, /home/Char ROM, n)
 	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/Kernal ROM, /home/Kernal ROM, n)
+
+	@$(call install_alternative, frodo, 0, 0, 0644, /etc/frodorc, n)
+	@$(call install_link, frodo, /etc/frodorc, /home/.frodorc)
 
 	@$(call install_finish, frodo)
 
