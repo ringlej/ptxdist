@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2004 by Robert Schwebel
+# Copyright (C) 2004-2009 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -20,8 +20,7 @@ PACKAGES-$(PTXCONF_TCPDUMP) += tcpdump
 TCPDUMP_VERSION	:= 3.9.5
 TCPDUMP		:= tcpdump-$(TCPDUMP_VERSION)
 TCPDUMP_SUFFIX	:= tar.gz
-TCPDUMP_URL	:= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX) \
-		   http://www.pengutronix.de/software/ptxdist/temporary-src/$(TCPDUMP).$(TCPDUMP_SUFFIX)
+TCPDUMP_URL	:= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
 TCPDUMP_SOURCE	:= $(SRCDIR)/$(TCPDUMP).$(TCPDUMP_SUFFIX)
 TCPDUMP_DIR	:= $(BUILDDIR)/$(TCPDUMP)
 
@@ -30,34 +29,13 @@ TCPDUMP_DIR	:= $(BUILDDIR)/$(TCPDUMP)
 # Get
 # ----------------------------------------------------------------------------
 
-tcpdump_get: $(STATEDIR)/tcpdump.get
-
-$(STATEDIR)/tcpdump.get: $(tcpdump_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(TCPDUMP_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, TCPDUMP)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-tcpdump_extract: $(STATEDIR)/tcpdump.extract
-
-$(STATEDIR)/tcpdump.extract: $(tcpdump_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(TCPDUMP_DIR))
-	@$(call extract, TCPDUMP, $(BUILDDIR))
-	@$(call patchin, TCPDUMP)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-tcpdump_prepare: $(STATEDIR)/tcpdump.prepare
 
 TCPDUMP_PATH	:= PATH=$(CROSS_PATH)
 TCPDUMP_ENV 	:= $(CROSS_ENV)
@@ -89,51 +67,19 @@ else
 TCPDUMP_AUTOCONF += --disable-ipv6
 endif
 
-$(STATEDIR)/tcpdump.prepare: $(tcpdump_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(TCPDUMP_DIR)/config.cache)
-	cd $(TCPDUMP_DIR) && \
-		$(TCPDUMP_PATH) $(TCPDUMP_ENV) \
-		./configure $(TCPDUMP_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-tcpdump_compile: $(STATEDIR)/tcpdump.compile
-
-$(STATEDIR)/tcpdump.compile: $(tcpdump_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(TCPDUMP_DIR) && $(TCPDUMP_PATH) $(TCPDUMP_ENV) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-tcpdump_install: $(STATEDIR)/tcpdump.install
-
-$(STATEDIR)/tcpdump.install: $(tcpdump_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, TCPDUMP)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-tcpdump_targetinstall: $(STATEDIR)/tcpdump.targetinstall
-
-$(STATEDIR)/tcpdump.targetinstall: $(tcpdump_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/tcpdump.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, tcpdump)
 	@$(call install_fixup, tcpdump,PACKAGE,tcpdump)
 	@$(call install_fixup, tcpdump,PRIORITY,optional)
 	@$(call install_fixup, tcpdump,VERSION,$(TCPDUMP_VERSION))
 	@$(call install_fixup, tcpdump,SECTION,base)
-	@$(call install_fixup, tcpdump,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, tcpdump,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, tcpdump,DEPENDS,)
 	@$(call install_fixup, tcpdump,DESCRIPTION,missing)
 
@@ -141,7 +87,7 @@ $(STATEDIR)/tcpdump.targetinstall: $(tcpdump_targetinstall_deps_default)
 
 	@$(call install_finish, tcpdump)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
