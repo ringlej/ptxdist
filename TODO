@@ -131,7 +131,7 @@ Prio A
 	 atop - 1.23 -
 	 [...]
 
-[ ] jbe: avoid the convenience stage question, when running "pxtdist images".
+[x] jbe: avoid the convenience stage question, when running "pxtdist images".
     jbe: avoid the convenience stage question again and again and again....
 
 [ ] rsc: 'ptxdist images' for the i586 target sometimes does not work,
@@ -181,22 +181,30 @@ Prio A
 Prio B
 ------
 
-[ ] jbe: xorg-lib-fontenc.compile: What does it mean? Intervention needed?
+[x] jbe: xorg-lib-fontenc.compile: What does it mean? Intervention needed?
       [...]/arm-v5te-linux-gnueabi/bin/ld: warning: creating a DT_TEXTREL in object.
-[ ] jbe: same in cairo.compile
-[ ] jbe: xorg-lib-fontenc.compile (but this time seen on PowerPC)
+[x] jbe: same in cairo.compile
+[x] jbe: xorg-lib-fontenc.compile (but this time seen on PowerPC)
+
+    mkl: 2009-02-27:
+	this means that we link a static lib into a shared one,
+	and this should be avoided.
 
 [ ] jbe: same in canfestival.compile
 
-[ ] jbe: avoid the "make: Nothing to be done for `world'." message when running
+[x] jbe: avoid the "make: Nothing to be done for `world'." message when running
     a "ptxdist images".
 
 [ ] jbe: Can we also provide a "Bare Metall" platform project to show how to use
     ptxdist2 for non Linux targets?
 
-[ ] jbe: e2fsprogs: HTREE can be disabled, but at least mkfs.ext2 creates (silently)
+[x] jbe: e2fsprogs: HTREE can be disabled, but at least mkfs.ext2 creates (silently)
     a HTREE based filesystem! e2fsck will fail on such a filesystem unless HTREE
     support will be activated in the menu!
+
+    mkl: 2009-2-27:
+	htree enable i.e. hardcode htree supprt
+	btw: disabling affects only the fsck tool, not mk2efs
 
 [ ] jbe: udev seems to load kernel modules by its own. How to disable it?
 
