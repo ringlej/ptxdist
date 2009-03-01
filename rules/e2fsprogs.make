@@ -45,30 +45,25 @@ E2FSPROGS_ENV 	:=  $(CROSS_ENV)
 #
 E2FSPROGS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-elf-shlibs \
-	--disable-bsd-shlibs \
-	--disable-profile \
-	--disable-checker \
-	--disable-jbd-debug \
 	--disable-blkid-debug \
+	--disable-bsd-shlibs \
+	--disable-checker \
+	--disable-debugfs \
+	--disable-e2initrd-helper \
+	--disable-jbd-debug \
+	--disable-nls \
+	--disable-profile \
+	--disable-rpath \
 	--disable-testio-debug \
 	--disable-tls \
 	--disable-uuid \
-	--disable-nls \
-	--disable-rpath \
-	--disable-debugfs \
-	--disable-e2initrd-helper
+	--enable-elf-shlibs \
+	--enable-htree
 
 ifdef PTXCONF_E2FSPROGS_COMPRESSION
 E2FSPROGS_AUTOCONF += --enable-compression
 else
 E2FSPROGS_AUTOCONF += --disable-compression
-endif
-
-ifdef PTXCONF_E2FSPROGS_HTREE
-E2FSPROGS_AUTOCONF += --enable-htree
-else
-E2FSPROGS_AUTOCONF += --disable-htree
 endif
 
 ifdef PTXCONF_E2FSPROGS_IMAGER
