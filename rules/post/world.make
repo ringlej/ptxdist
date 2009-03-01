@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -27,6 +27,7 @@ $(STATEDIR)/world.targetinstall: \
 	@echo $@ : $^ | sed  -e 's:[^ ]*/\([^ ]\):\1:g' >> $(DEP_OUTPUT)
 	@$(call touch)
 
+.PHONY: world
 world: $(STATEDIR)/world.targetinstall
 
 

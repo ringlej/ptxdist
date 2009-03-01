@@ -1473,8 +1473,9 @@ do_go()
 #
 do_images()
 {
-	do_go
-	ptxd_make_log images
+	check_premake &&
+	ptxd_make_log images_world &&
+	ptxd_make_log images || return
 }
 
 ##################################################################
