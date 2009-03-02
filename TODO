@@ -3,6 +3,11 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] mkl:
+
+16:46 < ringlej>  /opt/tools/lib/ptxdist-1.99.11/config/collection/Kconfig:10: can't open file "generated/ptx_collection.in"
+16:47 < ringlej> That was it. I had none marked as "M"
+
 [x] jbe: if one enters "ptxdist platformconfig" one can earn this message:
     error:  The config file 'selected_platformconfig'
             is missing the symbol: 'PTXCONF_PLATFORMCONFIG_VERSION',
