@@ -226,8 +226,7 @@ _check_config_ptx() {
 		return 1
 	fi
 
-	# only migrate can skip these cheks
-	if [ -n "${PTX_FORCE_MIGRATE}" ]; then
+	if [ -n "${PTX_FORCE}" ]; then
 		return
 	fi
 
@@ -277,8 +276,7 @@ _check_config_platform() {
 		return 1
 	fi
 
-	# only migrate can skip these cheks
-	if [ -n "${PTX_FORCE_MIGRATE}" ]; then
+	if [ -n "${PTX_FORCE}" ]; then
 		return
 	fi
 
@@ -1446,9 +1444,6 @@ do_select_toolchain() {
 #
 do_migrate()
 {
-	local PTX_FORCE_MIGRATE="${PTX_FORCE}"
-	local PTX_FORCE=true
-
 	local part
 	for part in ptx platform; do
 		do_config oldconfig "${part}" || return

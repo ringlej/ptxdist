@@ -3,12 +3,15 @@ TODO before 2.0.0
 
 Prio A
 
-[ ] jbe: if one enters "ptxdist platformconfig" one can earn this message:
+[x] jbe: if one enters "ptxdist platformconfig" one can earn this message:
     error:  The config file 'selected_platformconfig'
             is missing the symbol: 'PTXCONF_PLATFORMCONFIG_VERSION',
 	    which means it is broken.
     But also the "--force" option does not help. Only "--sledgehammer" helps
     to create this symbol. Intended behaviour?
+
+    mkl: 20090302:
+	 "--force" works now as expected
 
 [ ] Sisyphus:
 
