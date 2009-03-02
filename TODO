@@ -10,33 +10,6 @@ Prio A
     But also the "--force" option does not help. Only "--sledgehammer" helps
     to create this symbol. Intended behaviour?
 
-[x] jbe: if one enable the "Local kernel tree" by accident but hasn't been setup
-    the "Prefix for kernel trees", ptxdist should output a more useful error message
-    than just:
-    ----------------------
-    target: kernel.extract
-    ----------------------
-    Error: empty parameter to 'extract()'
-
-    mkl: 20090226: done:
-
-[frogger@hardanger:OSELAS.BSP-phyCORE-trunk]$ ./p go
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:43: ***
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:44: *** PTXCONF_KERNEL_LOCAL_FLAG feature activated, but
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:45: *** PTXCONF_SETUP_KERNELDIR_PREFIX is unset!
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:46: ***
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:47: *** This feature is mainly for developers, who to want have their kernel sources
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:48: *** outside of ptxdist. You can turn it off by deselecting "Local kernel tree":
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:49: *** "ptxdist platformconfig" -> "Linux kernel" -> "Local kernel tree"
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:50: ***
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:51: *** If you want to use the feature, please enter a propper prefix
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:52: *** to your kernel tree
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:53: *** "ptxdist setup" -> "Source Directories"
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:54: ***                 -> "Prefix for kernel trees"
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:55: *** and specify where to look for your kernel tree
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:56: ***
-/home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:57: *** .  Stop.
-
 [ ] ringlej. When the architecture is arm-ixp-big this message occurs:
     $ ptxdist kernelconfig
     <bla>/rules/ffmpeg.make:189: Please define the config options for this CPU type!
@@ -63,33 +36,10 @@ Prio A
     on a recently started system. Doing it later again, this message does
     not occur again. Kernel detection failure?
 
-[x] Bo Hansen: util-linux fails to build more.c when no curses library is
-    present. Different development platforms are behaving differently.
-    jbe's host detects the lack of curses and omits more.c to build in this
-    case. So the build does not fail. Bo's host decide to build more.c
-    even if curses is not present and fails.
-
 [ ] jbe: all test scripts should check if their interaction with the filesystem
     where successfull. If a file copy to /tftpboot fails, it should *not* continue.
 
 [ ] rsc: http://ch.tudelft.nl/~arthur/svn2cl/
-
-[x] jbe:  host-fontconfig.compile
-      if gcc [...] -c -o fc-case.o fc-case.c; \
-        then
-         mv -f ".deps/fc-case.Tpo" ".deps/fc-case.Po";
-      else
-        rm -f ".deps/fc-case.Tpo";
-        exit 1;
-      fi
-      In file included from fc-case.c:25:
-       ../src/fcint.h:118:21: error: fcalias.h: No such file or directory
-       make[3]: *** [fc-case.o] Error 1
-
-    mkl: 20090226
-      works on himalia
-
-[x] jbe: host-glade.prepare
 
 [ ] jbe: mplayer.compile: It seems very PXA specific now?
      i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
@@ -120,39 +70,13 @@ Prio A
       cannot find -lpanelw
       collect2: ld returned 1 exit status
 
-[x] rsc: in x86 simulation: ipkg list doesn't work?
-
-    mkl: 20090226: works
-
-	 root@phyCORE:~ ipkg list
-	 alsa-lib - 1.0.18 -
-	 alsa-utils - 1.0.18 -
-	 atk - 1.20.0 -
-	 atop - 1.23 -
-	 [...]
-
-[x] jbe: avoid the convenience stage question, when running "pxtdist images".
-    jbe: avoid the convenience stage question again and again and again....
-
 [ ] rsc: 'ptxdist images' for the i586 target sometimes does not work,
     the generated image is incorrect and grub stops booting.
-
-[x] rsc: network handling with qemu does not work reliably; it works
-    when being run with sudo (see start/stop/connect scripts in i586) and
-    /dev/net/tun must be made rwrwrw.
 
 [ ] bbu: default path to generic projects seems not work
 
 [ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks into PTXdist's build
 	Audit other environment variables also!
-
-[x] jbe: it seems to extract a kernel always touches the local
-	 kernelconfig.target (or similar). This confuses svn, as
-	 this file always changes without calling "ptxdist kernelconfig"
-    rsc: mol has a patch for this, integrate
-    mkl: 20090626
-	 no problem with with ptxdist-1.99.11,
-	 probably in the whole 1.99.x series of ptxdist
 
 [ ] lfu: some mountable devices are available after udev started. hence
 	we need an extra mount script to mount all entries in fstab instead
@@ -181,39 +105,12 @@ Prio A
 Prio B
 ------
 
-[x] jbe: xorg-lib-fontenc.compile: What does it mean? Intervention needed?
-      [...]/arm-v5te-linux-gnueabi/bin/ld: warning: creating a DT_TEXTREL in object.
-[x] jbe: same in cairo.compile
-[x] jbe: xorg-lib-fontenc.compile (but this time seen on PowerPC)
-
-    mkl: 2009-02-27:
-	this means that we link a static lib into a shared one,
-	and this should be avoided.
-
 [ ] jbe: same in canfestival.compile
-
-[x] jbe: avoid the "make: Nothing to be done for `world'." message when running
-    a "ptxdist images".
 
 [ ] jbe: Can we also provide a "Bare Metall" platform project to show how to use
     ptxdist2 for non Linux targets?
 
-[x] jbe: e2fsprogs: HTREE can be disabled, but at least mkfs.ext2 creates (silently)
-    a HTREE based filesystem! e2fsck will fail on such a filesystem unless HTREE
-    support will be activated in the menu!
-
-    mkl: 2009-2-27:
-	htree enable i.e. hardcode htree supprt
-	btw: disabling affects only the fsck tool, not mk2efs
-
 [ ] jbe: udev seems to load kernel modules by its own. How to disable it?
-
-[x] mkl: reactiveate new install_copy feature (no explicid destination)
-    rsc: ask mkl what kind of problems have been observed with the old
-    implementation that has been thrown out again
-
-	update: 2009-01-25: mkl:
-		rsc has upgraded the install_copy macro to handle this
 
 Prio C
 ------
@@ -617,6 +514,111 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] mkl: reactiveate new install_copy feature (no explicid destination)
+    rsc: ask mkl what kind of problems have been observed with the old
+    implementation that has been thrown out again
+
+	update: 2009-01-25: mkl:
+		rsc has upgraded the install_copy macro to handle this
+
+[x] jbe: e2fsprogs: HTREE can be disabled, but at least mkfs.ext2 creates (silently)
+    a HTREE based filesystem! e2fsck will fail on such a filesystem unless HTREE
+    support will be activated in the menu!
+
+    mkl: 2009-2-27:
+	htree enable i.e. hardcode htree supprt
+	btw: disabling affects only the fsck tool, not mk2efs
+
+[x] jbe: avoid the "make: Nothing to be done for `world'." message when running
+    a "ptxdist images".
+
+[x] jbe: xorg-lib-fontenc.compile: What does it mean? Intervention needed?
+      [...]/arm-v5te-linux-gnueabi/bin/ld: warning: creating a DT_TEXTREL in object.
+
+[x] jbe: same in cairo.compile
+
+[x] jbe: xorg-lib-fontenc.compile (but this time seen on PowerPC)
+
+    mkl: 2009-02-27:
+	this means that we link a static lib into a shared one,
+	and this should be avoided.
+
+[x] jbe: it seems to extract a kernel always touches the local
+	 kernelconfig.target (or similar). This confuses svn, as
+	 this file always changes without calling "ptxdist kernelconfig"
+    rsc: mol has a patch for this, integrate
+    mkl: 20090626
+	 no problem with with ptxdist-1.99.11,
+	 probably in the whole 1.99.x series of ptxdist
+
+[x] rsc: network handling with qemu does not work reliably; it works
+    when being run with sudo (see start/stop/connect scripts in i586) and
+    /dev/net/tun must be made rwrwrw.
+
+[x] rsc: in x86 simulation: ipkg list doesn't work?
+
+    mkl: 20090226: works
+
+	 root@phyCORE:~ ipkg list
+	 alsa-lib - 1.0.18 -
+	 alsa-utils - 1.0.18 -
+	 atk - 1.20.0 -
+	 atop - 1.23 -
+	 [...]
+
+[x] jbe: avoid the convenience stage question, when running "pxtdist images".
+    jbe: avoid the convenience stage question again and again and again....
+
+[x] jbe:  host-fontconfig.compile
+      if gcc [...] -c -o fc-case.o fc-case.c; \
+        then
+         mv -f ".deps/fc-case.Tpo" ".deps/fc-case.Po";
+      else
+        rm -f ".deps/fc-case.Tpo";
+        exit 1;
+      fi
+      In file included from fc-case.c:25:
+       ../src/fcint.h:118:21: error: fcalias.h: No such file or directory
+       make[3]: *** [fc-case.o] Error 1
+
+    mkl: 20090226
+      works on himalia
+
+[x] jbe: host-glade.prepare
+
+[x] Bo Hansen: util-linux fails to build more.c when no curses library is
+    present. Different development platforms are behaving differently.
+    jbe's host detects the lack of curses and omits more.c to build in this
+    case. So the build does not fail. Bo's host decide to build more.c
+    even if curses is not present and fails.
+
+[x] jbe: if one enable the "Local kernel tree" by accident but hasn't been setup
+    the "Prefix for kernel trees", ptxdist should output a more useful error message
+    than just:
+    ----------------------
+    target: kernel.extract
+    ----------------------
+    Error: empty parameter to 'extract()'
+
+    mkl: 20090226: done:
+
+    [frogger@hardanger:OSELAS.BSP-phyCORE-trunk]$ ./p go
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:43: ***
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:44: *** PTXCONF_KERNEL_LOCAL_FLAG feature activated, but
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:45: *** PTXCONF_SETUP_KERNELDIR_PREFIX is unset!
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:46: ***
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:47: *** This feature is mainly for developers, who to want have their kernel sources
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:48: *** outside of ptxdist. You can turn it off by deselecting "Local kernel tree":
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:49: *** "ptxdist platformconfig" -> "Linux kernel" -> "Local kernel tree"
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:50: ***
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:51: *** If you want to use the feature, please enter a propper prefix
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:52: *** to your kernel tree
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:53: *** "ptxdist setup" -> "Source Directories"
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:54: ***                 -> "Prefix for kernel trees"
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:55: *** and specify where to look for your kernel tree
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:56: ***
+    /home/frogger/pengutronix/ptxdist/ptxdist-trunk/rules/kernel.make:57: *** .  Stop.
 
 [x] jbe: host-intltool.prepare
       checking for XML::Parser... configure: error: XML::Parser perl module is required for intltool
