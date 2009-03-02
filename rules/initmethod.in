@@ -23,9 +23,7 @@ choice
 
 endchoice
 
-source "generated/initmethod_bbinit.in"
-#source "generated/initmethod_upstart.in"
-#source "generated/initmethod_initng.in"
+source "generated/initmethod.in"
 
 if INITMETHOD_BBINIT
 

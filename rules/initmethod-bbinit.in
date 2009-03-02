@@ -1,4 +1,4 @@
-## SECTION=initmethod_bbinit
+## SECTION=initmethod
 
 if INITMETHOD_BBINIT
 
