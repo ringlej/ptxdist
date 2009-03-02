@@ -10,11 +10,8 @@ Prio A
     But also the "--force" option does not help. Only "--sledgehammer" helps
     to create this symbol. Intended behaviour?
 
-[ ] ringlej. When the architecture is arm-ixp-big this message occurs:
-    $ ptxdist kernelconfig
-    <bla>/rules/ffmpeg.make:189: Please define the config options for this CPU type!
-
 [ ] Sisyphus:
+
     [...]
     ----------------------
     target: glibmm.compile
@@ -31,38 +28,13 @@ Prio A
     date.cc:311: error: 'g_assert' was not declared in this scope
     make[6]: *** [date.lo] Error 1
 
+    rsc: glib has recently been updated to a newer 2.12 version; find out
+    which glibmm version fits the new one and adapt it.
+
 [ ] mkl/jbe: The 'ps' command from the procps package outputs
             "Unknown HZ value! (xx) Assume 100."
     on a recently started system. Doing it later again, this message does
     not occur again. Kernel detection failure?
-
-[ ] jbe: all test scripts should check if their interaction with the filesystem
-    where successfull. If a file copy to /tftpboot fails, it should *not* continue.
-
-[ ] rsc: http://ch.tudelft.nl/~arthur/svn2cl/
-
-[ ] jbe: mplayer.compile: It seems very PXA specific now?
-     i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
-      vo_pxa.c: In function 'draw_osd':
-      vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
-      vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
-      [...]
-      vo_pxa.c: In function 'config':
-      vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
-      vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
-      [...]
-      make[2]: *** [vo_pxa.o] Error 1
-      make[2]: Leaving directory `[...]/platform-i586/build-target/MPlayer-1.0rc2/libvo'
-      --> menu contains pxa specific stuff. Maybe this should be modified?
-
-    Even with disabled PXA specific options a build for x86 still fails:
-    libvo/libvo.a(video_out.o):(.data+0x20): undefined reference to `video_out_x11'
-    libvo/libvo.a(video_out.o):(.data+0x24): undefined reference to `video_out_xover'
-    libvo/libvo.a(video_out.o):(.data+0x28): undefined reference to `video_out_pxa'
-    [...] and much more
-
-    Update 20090118 rsc: not reproducable, switched on again and we wait
-    for sisyphus to explode.
 
 [ ] jbe: phyton24 states this but does not stop the build (in the install stage):
       cannot find -lncursesw
@@ -73,14 +45,10 @@ Prio A
 [ ] rsc: 'ptxdist images' for the i586 target sometimes does not work,
     the generated image is incorrect and grub stops booting.
 
-[ ] bbu: default path to generic projects seems not work
+[ ] bbu: default path to generic projects seems not to work
 
-[ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks into PTXdist's build
-	Audit other environment variables also!
-
-[ ] lfu: some mountable devices are available after udev started. hence
-	we need an extra mount script to mount all entries in fstab instead
-	out of rcS
+[ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks in.
+    We want a whitelist instead of the current blacklist.
 
 [ ] rsc: add bbu's "get" script
 
@@ -98,9 +66,10 @@ Prio A
       corresponding target packet
       mkl: this is not true!
 
-[ ] discuss UID of user "rpcuser"
+[ ] mol: discuss UID of user "rpcuser"
 
-[ ] discuss UIDs and GIDs of other important system users
+[ ] mol: discuss UIDs and GIDs of other important system users
+
 
 Prio B
 ------
@@ -133,8 +102,6 @@ Prio C
 
 [ ] jbe: Running "ptxdist menu" shows always a "u-boot-v2" entry that fails
     if called even if the platformconfig do not use u-boot-v2
-
-[ ] rsc: add 'quiet' support to start scripts (probably centralized in rcS)
 
 [ ] jbe: most of the time thttpd does not respond to the USR1 signal.
 	  - the start/stop script fails to stop this service
@@ -195,6 +162,7 @@ Before Release
 [ ] rsc: run dependency hunter and fix all remaining dependency problems
 
 [ ] update ChangeLog
+    http://ch.tudelft.nl/~arthur/svn2cl/
 
 [ ] jbe: Generic projects must be audited carefully prior any release. For the
 	 0.10.6 release, ARM and PowerPC projects where updated, but the x86
@@ -205,8 +173,43 @@ Before Release
 	 ptxdist won´t find its own projects.
 
 
+
 TODO before 2.1.0
 =================
+
+[ ] lfu: some mountable devices are available after udev has started.
+    hence we need an extra mount script to mount all entries in fstab
+    instead out of rcS.
+
+[ ] jbe: mplayer.compile: It seems very PXA specific now?
+     i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
+      vo_pxa.c: In function 'draw_osd':
+      vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
+      vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
+      [...]
+      vo_pxa.c: In function 'config':
+      vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
+      vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
+      [...]
+      make[2]: *** [vo_pxa.o] Error 1
+      make[2]: Leaving directory `[...]/platform-i586/build-target/MPlayer-1.0rc2/libvo'
+      --> menu contains pxa specific stuff. Maybe this should be modified?
+
+    Even with disabled PXA specific options a build for x86 still fails:
+    libvo/libvo.a(video_out.o):(.data+0x20): undefined reference to `video_out_x11'
+    libvo/libvo.a(video_out.o):(.data+0x24): undefined reference to `video_out_xover'
+    libvo/libvo.a(video_out.o):(.data+0x28): undefined reference to `video_out_pxa'
+    [...] and much more
+
+    Update 20090118 rsc: not reproducable, switched on again and we wait
+    for sisyphus to explode.
+
+[ ] jbe: all test scripts should check if their interaction with the filesystem
+    where successfull. If a file copy to /tftpboot fails, it should *not* continue.
+
+[ ] ringlej. When the architecture is arm-ixp-big this message occurs:
+    $ ptxdist kernelconfig
+    <bla>/rules/ffmpeg.make:189: Please define the config options for this CPU type!
 
 [ ] ipkg with dependecies
 
@@ -514,6 +517,8 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] rsc: add 'quiet' support to start scripts (probably centralized in rcS)
 
 [x] mkl: reactiveate new install_copy feature (no explicid destination)
     rsc: ask mkl what kind of problems have been observed with the old
