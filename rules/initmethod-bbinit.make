@@ -71,50 +71,47 @@ $(STATEDIR)/initmethod-bbinit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  initmethod-bbinit)
-	@$(call install_fixup, initmethod-bbinit,PACKAGE,initmethod-bbinit)
-	@$(call install_fixup, initmethod-bbinit,PRIORITY,optional)
-	@$(call install_fixup, initmethod-bbinit,VERSION,$(INITMETHOD_BBINIT_VERSION))
-	@$(call install_fixup, initmethod-bbinit,SECTION,base)
-	@$(call install_fixup, initmethod-bbinit,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, initmethod-bbinit,DEPENDS,)
-	@$(call install_fixup, initmethod-bbinit,DESCRIPTION,missing)
+	@$(call install_fixup, initmethod-bbinit, PACKAGE, initmethod-bbinit)
+	@$(call install_fixup, initmethod-bbinit, PRIORITY, optional)
+	@$(call install_fixup, initmethod-bbinit, VERSION, $(INITMETHOD_BBINIT_VERSION))
+	@$(call install_fixup, initmethod-bbinit, SECTION, base)
+	@$(call install_fixup, initmethod-bbinit, AUTHOR, "Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, initmethod-bbinit, DEPENDS,)
+	@$(call install_fixup, initmethod-bbinit, DESCRIPTION, missing)
 
-	# first of all: generate the required directories & rcS
+#	# first of all: generate the required directories & rcS
 	@$(call install_copy, initmethod-bbinit, 0, 0, 0755, /etc/init.d)
 	@$(call install_copy, initmethod-bbinit, 0, 0, 0755, /etc/rc.d)
 	@$(call install_alternative, initmethod-bbinit, 0, 0, 0755, /etc/init.d/rcS, n)
 	@$(call install_alternative, initmethod-bbinit, 0, 0, 0644, /etc/inittab, n)
 	@$(call install_replace, initmethod-bbinit, /etc/inittab, \
-		@CONSOLE@, \
-		$(call remove_quotes,$(PTXCONF_CONSOLE_NAME)))
+		@CONSOLE@, $(PTXCONF_CONSOLE_NAME))
 	@$(call install_replace, initmethod-bbinit, /etc/inittab, \
-		@SPEED@, \
-		$(call remove_quotes,$(PTXCONF_CONSOLE_SPEED)))
+		@SPEED@, $(PTXCONF_CONSOLE_SPEED))
 
-	#
-	# start scripts
-	#
-
+#	#
+#	# start scripts
+#	#
 ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_BANNER
 	@$(call install_alternative, initmethod-bbinit, 0, 0, 0755, /etc/init.d/banner, n)
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@VENDOR@,  $(PTXCONF_ROOTFS_ETC_VENDOR) )
+		@VENDOR@, $(PTXCONF_ROOTFS_ETC_VENDOR))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@PROJECT@,  $(PTXCONF_PROJECT) )
+		@PROJECT@, $(PTXCONF_PROJECT))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@PRJVERSION@,  $(PTXCONF_PROJECT_VERSION) )
+		@PRJVERSION@, $(PTXCONF_PROJECT_VERSION))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@VERSION@,  $(VERSION) )
+		@VERSION@, $(VERSION))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@PTXDIST@,  $(PROJECT) )
+		@PTXDIST@, $(PROJECT))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@PATCHLEVEL@,  $(PATCHLEVEL) )
+		@PATCHLEVEL@, $(PATCHLEVEL))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@SUBLEVEL@,  $(SUBLEVEL) )
+		@SUBLEVEL@, $(SUBLEVEL))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@EXTRAVERSION@,  $(EXTRAVERSION) )
+		@EXTRAVERSION@, $(EXTRAVERSION))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@DATE@, $(shell date -Iseconds) )
+		@DATE@, $(shell date -Iseconds))
 endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_MODULES
@@ -135,9 +132,9 @@ ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_NETWORKING
 	@$(call install_copy, initmethod-bbinit, 0, 0, 0755, /etc/network/if-pre-up.d)
 endif
 
-	#
-	# collect start links
-	#
+#	#
+#	# collect start links
+#	#
 ifneq ($(call remove_quotes,$(PTXCONF_ROOTFS_SYSVINIT_LINK_DBUS)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/dbus, \
