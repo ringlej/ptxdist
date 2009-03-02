@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_GLIBMM) += glibmm
 #
 # Paths and names
 #
-GLIBMM_VERSION	:= 2.14.1
+GLIBMM_VERSION	:= 2.18.1
 GLIBMM		:= glibmm-$(GLIBMM_VERSION)
 GLIBMM_SUFFIX	:= tar.bz2
-GLIBMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/glibmm/2.14/$(GLIBMM).$(GLIBMM_SUFFIX)
+GLIBMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/glibmm/2.18/$(GLIBMM).$(GLIBMM_SUFFIX)
 GLIBMM_SOURCE	:= $(SRCDIR)/$(GLIBMM).$(GLIBMM_SUFFIX)
 GLIBMM_DIR	:= $(BUILDDIR)/$(GLIBMM)
 
@@ -61,14 +61,14 @@ $(STATEDIR)/glibmm.targetinstall:
 	@$(call install_fixup, glibmm,DESCRIPTION,missing)
 
 	@$(call install_copy, glibmm, 0, 0, 0644, \
-		$(GLIBMM_DIR)/glib/glibmm/.libs/libglibmm-2.4.so.1.0.24, \
-		/usr/lib/libglibmm-2.4.so.1.0.24)
+		$(GLIBMM_DIR)/glib/glibmm/.libs/libglibmm-2.4.so.1.2.0, \
+		/usr/lib/libglibmm-2.4.so.1.2.0)
 
 	@$(call install_link, glibmm, \
-		libglibmm-2.4.so.1.0.24, /usr/lib/libglibmm-2.4.so.1)
+		libglibmm-2.4.so.1.2.0, /usr/lib/libglibmm-2.4.so.1)
 
 	@$(call install_link, glibmm, \
-		libglibmm-2.4.so.1.0.24, /usr/lib/libglibmm-2.4.so)
+		libglibmm-2.4.so.1.2.0, /usr/lib/libglibmm-2.4.so)
 
 	@$(call install_finish, glibmm)
 

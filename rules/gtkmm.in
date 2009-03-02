@@ -3,6 +3,7 @@
 config GTKMM
 	tristate
 	select GLIBMM
+	select PANGOMM
 	select ATK
 	select CAIROMM
 	select PANGO

@@ -20,7 +20,7 @@ Prio A
     16:46 < ringlej>  /opt/tools/lib/ptxdist-1.99.11/config/collection/Kconfig:10: can't open file "generated/ptx_collection.in"
     16:47 < ringlej> That was it. I had none marked as "M"
 
-[ ] Sisyphus:
+[x] Sisyphus:
 
     [...]
     ----------------------
@@ -40,6 +40,8 @@ Prio A
 
     rsc: glib has recently been updated to a newer 2.12 version; find out
     which glibmm version fits the new one and adapt it.
+
+    Update 20090303 rsc: updated all gtk stack components to latest stable.
 
 [ ] mkl/jbe: The 'ps' command from the procps package outputs
             "Unknown HZ value! (xx) Assume 100."

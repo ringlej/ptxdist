@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_GTK) += gtk
 #
 # Paths and names
 #
-GTK_VERSION	:= 2.12.12
+GTK_VERSION	:= 2.14.7
 GTK		:= gtk+-$(GTK_VERSION)
 GTK_SUFFIX	:= tar.bz2
-GTK_URL		:= http://ftp.gtk.org/pub/gtk/2.12/$(GTK).$(GTK_SUFFIX)
+GTK_URL		:= http://ftp.gtk.org/pub/gtk/2.14/$(GTK).$(GTK_SUFFIX)
 GTK_SOURCE	:= $(SRCDIR)/$(GTK).$(GTK_SUFFIX)
 GTK_DIR		:= $(BUILDDIR)/$(GTK)
 
@@ -66,7 +66,8 @@ GTK_AUTOCONF := \
 	--enable-explicit-deps=yes \
 	--disable-glibtest \
 	--disable-modules \
-	--with-included-loaders=$(subst $(space),$(comma),$(GTK_LOADER-y))
+	--with-included-loaders=$(subst $(space),$(comma),$(GTK_LOADER-y)) \
+	gio_can_sniff=yes
 
 ifndef PTXCONF_GTK_LOADER_PNG
 GTK_AUTOCONF += --without-libpng
@@ -80,6 +81,10 @@ ifndef PTXCONF_GTK_LOADER_JPEG
 GTK_AUTOCONF += --without-libjpeg
 endif
 
+ifndef PTXCONF_GTK_LOADER_JPEG2000
+GTK_AUTOCONF += --without-libjasper
+endif
+
 ifdef PTXCONF_GTK_TARGET_X11
 GTK_AUTOCONF += --with-gdktarget=x11
 endif
@@ -91,6 +96,18 @@ endif
 ifdef PTXCONF_GTK_TARGET_WIN32
 GTK_AUTOCONF += --with-gdktarget=win32
 endif
+
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+gtk_compile: $(STATEDIR)/gtk.compile
+
+$(STATEDIR)/gtk.compile: $(gtk_compile_deps_default)
+	@$(call targetinfo, $@)
+	cd $(GTK_DIR) && $(GTK_ENV) $(GTK_PATH) make $(PARALLELMFLAGS)
+	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -110,37 +127,37 @@ $(STATEDIR)/gtk.targetinstall:
 
 ifdef PTXCONF_GTK_TARGET_DIRECTFB
 	@$(call install_copy, gtk, 0, 0, 0644, \
-		$(GTK_DIR)/gdk/.libs/libgdk-directfb-2.0.so.0.1200.12, \
-		/usr/lib/libgdk-directfb-2.0.so.0.1200.12)
-	@$(call install_link, gtk, libgdk-directfb-2.0.so.0.1200.12, /usr/lib/libgdk-directfb-2.0.so.0)
-	@$(call install_link, gtk, libgdk-directfb-2.0.so.0.1200.12, /usr/lib/libgdk-directfb-2.0.so)
+		$(GTK_DIR)/gdk/.libs/libgdk-directfb-2.0.so.0.1400.8, \
+		/usr/lib/libgdk-directfb-2.0.so.0.1400.8)
+	@$(call install_link, gtk, libgdk-directfb-2.0.so.0.1400.8, /usr/lib/libgdk-directfb-2.0.so.0)
+	@$(call install_link, gtk, libgdk-directfb-2.0.so.0.1400.8, /usr/lib/libgdk-directfb-2.0.so)
 
 	@$(call install_copy, gtk, 0, 0, 0644, \
-		$(GTK_DIR)/gtk/.libs/libgtk-directfb-2.0.so.0.1200.12, \
-		/usr/lib/libgtk-directfb-2.0.so.0.1200.12)
-	@$(call install_link, gtk, libgtk-directfb-2.0.so.0.1200.12, /usr/lib/libgtk-directfb-2.0.so.0)
-	@$(call install_link, gtk, libgtk-directfb-2.0.so.0.1200.12, /usr/lib/libgtk-directfb-2.0.so)
+		$(GTK_DIR)/gtk/.libs/libgtk-directfb-2.0.so.0.1400.8, \
+		/usr/lib/libgtk-directfb-2.0.so.0.1400.8)
+	@$(call install_link, gtk, libgtk-directfb-2.0.so.0.1400.8, /usr/lib/libgtk-directfb-2.0.so.0)
+	@$(call install_link, gtk, libgtk-directfb-2.0.so.0.1400.8, /usr/lib/libgtk-directfb-2.0.so)
 endif
 
 ifdef PTXCONF_GTK_TARGET_X11
 	@$(call install_copy, gtk, 0, 0, 0644, \
-		$(GTK_DIR)/gdk/.libs/libgdk-x11-2.0.so.0.1200.12, \
-		/usr/lib/libgdk-x11-2.0.so.0.1200.12)
-	@$(call install_link, gtk, libgdk-x11-2.0.so.0.1200.12, /usr/lib/libgdk-x11-2.0.so.0)
-	@$(call install_link, gtk, libgdk-x11-2.0.so.0.1200.12, /usr/lib/libgdk-x11-2.0.so)
+		$(GTK_DIR)/gdk/.libs/libgdk-x11-2.0.so.0.1400.8, \
+		/usr/lib/libgdk-x11-2.0.so.0.1400.8)
+	@$(call install_link, gtk, libgdk-x11-2.0.so.0.1400.8, /usr/lib/libgdk-x11-2.0.so.0)
+	@$(call install_link, gtk, libgdk-x11-2.0.so.0.1400.8, /usr/lib/libgdk-x11-2.0.so)
 
 	@$(call install_copy, gtk, 0, 0, 0644, \
-		$(GTK_DIR)/gtk/.libs/libgtk-x11-2.0.so.0.1200.12, \
-		/usr/lib/libgtk-x11-2.0.so.0.1200.12)
-	@$(call install_link, gtk, libgtk-x11-2.0.so.0.1200.12, /usr/lib/libgtk-x11-2.0.so.0)
-	@$(call install_link, gtk, libgtk-x11-2.0.so.0.1200.12, /usr/lib/libgtk-x11-2.0.so)
+		$(GTK_DIR)/gtk/.libs/libgtk-x11-2.0.so.0.1400.8, \
+		/usr/lib/libgtk-x11-2.0.so.0.1400.8)
+	@$(call install_link, gtk, libgtk-x11-2.0.so.0.1400.8, /usr/lib/libgtk-x11-2.0.so.0)
+	@$(call install_link, gtk, libgtk-x11-2.0.so.0.1400.8, /usr/lib/libgtk-x11-2.0.so)
 endif
 
 	@$(call install_copy, gtk, 0, 0, 0644, \
-		$(GTK_DIR)/gdk-pixbuf/.libs/libgdk_pixbuf-2.0.so.0.1200.12, \
-		/usr/lib/libgdk_pixbuf-2.0.so.0.1200.12)
-	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.0.1200.12, /usr/lib/libgdk_pixbuf-2.0.so.0)
-	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.0.1200.12, /usr/lib/libgdk_pixbuf-2.0.so)
+		$(GTK_DIR)/gdk-pixbuf/.libs/libgdk_pixbuf-2.0.so.0.1400.8, \
+		/usr/lib/libgdk_pixbuf-2.0.so.0.1400.8)
+	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.0.1400.8, /usr/lib/libgdk_pixbuf-2.0.so.0)
+	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.0.1400.8, /usr/lib/libgdk_pixbuf-2.0.so)
 
 ifdef PTXCONF_GTK_DEMO
 	@$(call install_copy, gtk, 0, 0, 0755, \

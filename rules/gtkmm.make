@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_GTKMM) += gtkmm
 #
 # Paths and names
 #
-GTKMM_VERSION	:= 2.12.1
+GTKMM_VERSION	:= 2.14.3
 GTKMM		:= gtkmm-$(GTKMM_VERSION)
 GTKMM_SUFFIX	:= tar.bz2
-GTKMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.12/$(GTKMM).$(GTKMM_SUFFIX)
+GTKMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.14/$(GTKMM).$(GTKMM_SUFFIX)
 GTKMM_SOURCE	:= $(SRCDIR)/$(GTKMM).$(GTKMM_SUFFIX)
 GTKMM_DIR	:= $(BUILDDIR)/$(GTKMM)
 
@@ -89,10 +89,6 @@ $(STATEDIR)/gtkmm.targetinstall:
 
 	@$(call install_link, gtkmm, \
 		libatkmm-1.6.so.1.0.30, /usr/lib/libatkmm-1.6.so)
-
-	@$(call install_copy, gtkmm, 0, 0, 0644, \
-		$(GTKMM_DIR)/pango/pangomm/.libs/libpangomm-1.4.so.1.0.30, \
-		/usr/lib/libpangomm-1.4.so.1.0.30)
 
 	@$(call install_link, gtkmm, \
 		libpangomm-1.4.so.1.0.30, /usr/lib/libpangomm-1.4.so.1)

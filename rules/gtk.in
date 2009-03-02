@@ -1,6 +1,8 @@
 ## SECTION=multimedia_gtk
 
-menuconfig GTK
+menu "gtk+                          "
+
+config GTK
 	tristate
 	prompt "gtk+                          "
 	select GLIB
@@ -56,6 +58,10 @@ config GTK_LOADER_ANI
 config GTK_LOADER_JPEG
 	bool
 	prompt "jpeg"
+
+config GTK_LOADER_JPEG2000
+	bool
+	prompt "jpeg 2000"
 
 config GTK_LOADER_PNM
 	bool
@@ -124,3 +130,4 @@ config GTK_DEMO
 
 endif
 
+endmenu

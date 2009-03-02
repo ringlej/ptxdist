@@ -1,0 +1,7 @@
+## SECTION=multimedia_gtk
+
+config PANGOMM
+	tristate
+	prompt "pangomm"
+	help
+	  c++ bindings for pango

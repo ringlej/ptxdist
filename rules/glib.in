@@ -21,11 +21,11 @@ choice
 
 	config GLIB__VERSION_2_19
 		bool
-		prompt "2.19"
+		prompt "2.19 (devel)"
 
-	config GLIB__VERSION_2_14
+	config GLIB__VERSION_2_18
 		bool
-		prompt "2.14"
+		prompt "2.18 (stable)"
 
 endchoice
 
