@@ -5,30 +5,20 @@ Prio A
 
 [ ] mkl: remove inetd.conf leftovers
 
-[frogger@hardanger:rules]$ wcgrep inetd.conf|grep -v "inetd.conf.d"|grep -v postinst
-./fam.in:52:              the /etc/inetd.conf a line like this:
-./dnsmasq.in:47:                 /etc/inetd.conf a line like this:
-./dnsmasq.in:71:          This string is added to inetd's configuration /etc/inetd.conf.
-./portmap.make:132:     # /etc/inetd.conf sniplet
-./cvs.in:124:     This string is added to inetd's configuration /etc/inetd.conf. @ROOT@
-./rsync.make:108:       # /etc/inetd.conf sniplet
-./rsync.in:69:            the /etc/inetd.conf a line like this:
-./rsync.in:95:    This string is added to inetd's configuration /etc/inetd.conf. @CONFIG@
+    [frogger@hardanger:rules]$ wcgrep inetd.conf|grep -v "inetd.conf.d"|grep -v postinst
+    ./fam.in:52:              the /etc/inetd.conf a line like this:
+    ./dnsmasq.in:47:                 /etc/inetd.conf a line like this:
+    ./dnsmasq.in:71:          This string is added to inetd's configuration /etc/inetd.conf.
+    ./portmap.make:132:     # /etc/inetd.conf sniplet
+    ./cvs.in:124:     This string is added to inetd's configuration /etc/inetd.conf. @ROOT@
+    ./rsync.make:108:       # /etc/inetd.conf sniplet
+    ./rsync.in:69:            the /etc/inetd.conf a line like this:
+    ./rsync.in:95:    This string is added to inetd's configuration /etc/inetd.conf. @CONFIG@
 
 [ ] mkl:
 
-16:46 < ringlej>  /opt/tools/lib/ptxdist-1.99.11/config/collection/Kconfig:10: can't open file "generated/ptx_collection.in"
-16:47 < ringlej> That was it. I had none marked as "M"
-
-[x] jbe: if one enters "ptxdist platformconfig" one can earn this message:
-    error:  The config file 'selected_platformconfig'
-            is missing the symbol: 'PTXCONF_PLATFORMCONFIG_VERSION',
-	    which means it is broken.
-    But also the "--force" option does not help. Only "--sledgehammer" helps
-    to create this symbol. Intended behaviour?
-
-    mkl: 20090302:
-	 "--force" works now as expected
+    16:46 < ringlej>  /opt/tools/lib/ptxdist-1.99.11/config/collection/Kconfig:10: can't open file "generated/ptx_collection.in"
+    16:47 < ringlej> That was it. I had none marked as "M"
 
 [ ] Sisyphus:
 
@@ -537,6 +527,16 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: if one enters "ptxdist platformconfig" one can earn this message:
+    error:  The config file 'selected_platformconfig'
+            is missing the symbol: 'PTXCONF_PLATFORMCONFIG_VERSION',
+	    which means it is broken.
+    But also the "--force" option does not help. Only "--sledgehammer" helps
+    to create this symbol. Intended behaviour?
+
+    mkl: 20090302:
+	 "--force" works now as expected
 
 [x] rsc: add 'quiet' support to start scripts (probably centralized in rcS)
 
