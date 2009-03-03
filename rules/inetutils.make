@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation (www.ixiacom.com)
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -37,15 +38,13 @@ $(INETUTILS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-inetutils_prepare: $(STATEDIR)/inetutils.prepare
-
-INETUTILS_PATH	=  PATH=$(CROSS_PATH)
-INETUTILS_ENV 	=  $(CROSS_ENV)
+INETUTILS_PATH	:= PATH=$(CROSS_PATH)
+INETUTILS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-INETUTILS_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
+INETUTILS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--with-PATH-CP=/bin/cp \
 	--localstatedir=/var \
 	--sysconfdir=/etc \
@@ -221,7 +220,7 @@ ifdef PTXCONF_INETUTILS_TFTPD
 	@$(call install_copy, inetutils, 0, 0, 0755, \
 		$(INETUTILS_DIR)/tftpd/tftpd, /sbin/tftpd)
 ifneq ($(PTXCONF_INETUTILS_TFTPD_BASE_DIR),"")
-	# create the base dir
+#	# create the base dir
 	@$(call install_copy, inetutils, 99, 0, 0755, \
 		$(PTXCONF_INETUTILS_TFTPD_BASE_DIR) )
 endif
@@ -232,9 +231,9 @@ endif
 		$(PTXCONF_INETUTILS_TFTPD_BASE_DIR) )
 endif
 
-	#
-	# busybox init: start script
-	#
+#	#
+#	# busybox init: start script
+#	#
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_INETUTILS_INETD_STARTSCRIPT
