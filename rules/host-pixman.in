@@ -1,0 +1,5 @@
+## SECTION=host_gtk
+
+config HOST_PIXMAN
+	bool
+
