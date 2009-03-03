@@ -92,7 +92,7 @@ config INITMETHOD_BBINIT_LINK_DNSMASQ
 
 config INITMETHOD_BBINIT_LINK_DROPBEAR
 	string
-	depends on DROPBEAR
+	depends on DROPBEAR_STARTSCRIPT
 	prompt "dropbear"
 	default "S16dropbear"
 
