@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +18,7 @@ PACKAGES-$(PTXCONF_DNSMASQ) += dnsmasq
 #
 # Paths and names
 #
-DNSMASQ_VERSION		:= 2.45
+DNSMASQ_VERSION		:= 2.47
 DNSMASQ			:= dnsmasq-$(DNSMASQ_VERSION)
 DNSMASQ_SUFFIX		:= tar.gz
 DNSMASQ_URL		:= http://www.thekelleys.org.uk/dnsmasq/$(DNSMASQ).$(DNSMASQ_SUFFIX)
