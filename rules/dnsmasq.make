@@ -17,105 +17,47 @@ PACKAGES-$(PTXCONF_DNSMASQ) += dnsmasq
 #
 # Paths and names
 #
-DNSMASQ_VERSION		= 2.45
-DNSMASQ			= dnsmasq-$(DNSMASQ_VERSION)
-DNSMASQ_SUFFIX		= tar.gz
-DNSMASQ_URL		= http://www.thekelleys.org.uk/dnsmasq/$(DNSMASQ).$(DNSMASQ_SUFFIX)
-DNSMASQ_SOURCE		= $(SRCDIR)/$(DNSMASQ).$(DNSMASQ_SUFFIX)
-DNSMASQ_DIR		= $(BUILDDIR)/$(DNSMASQ)
+DNSMASQ_VERSION		:= 2.45
+DNSMASQ			:= dnsmasq-$(DNSMASQ_VERSION)
+DNSMASQ_SUFFIX		:= tar.gz
+DNSMASQ_URL		:= http://www.thekelleys.org.uk/dnsmasq/$(DNSMASQ).$(DNSMASQ_SUFFIX)
+DNSMASQ_SOURCE		:= $(SRCDIR)/$(DNSMASQ).$(DNSMASQ_SUFFIX)
+DNSMASQ_DIR		:= $(BUILDDIR)/$(DNSMASQ)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-dnsmasq_get: $(STATEDIR)/dnsmasq.get
-
-$(STATEDIR)/dnsmasq.get: $(dnsmasq_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(DNSMASQ_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, DNSMASQ)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-dnsmasq_extract: $(STATEDIR)/dnsmasq.extract
-
-$(STATEDIR)/dnsmasq.extract: $(dnsmasq_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(DNSMASQ_DIR))
-	@$(call extract, DNSMASQ)
-	@$(call patchin, DNSMASQ)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-dnsmasq_prepare: $(STATEDIR)/dnsmasq.prepare
+DNSMASQ_PATH :=  PATH=$(CROSS_PATH)
+DNSMASQ_COMPILE_ENV :=  $(CROSS_ENV)
+DNSMASQ_MAKEVARS := PREFIX=/
 
-DNSMASQ_PATH	=  PATH=$(CROSS_PATH)
-DNSMASQ_ENV 	=  $(CROSS_ENV)
-
-#
-# FIXME: Probably a source of problems while cross compiling:
-# dnsmasq does not use autotools.
-#
-$(STATEDIR)/dnsmasq.prepare: $(dnsmasq_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-#
-# install dnsmasq into /sbin (default is /usr/local/sbin)
-#
-DNSMASQ_MAKEVARS=PREFIX=/
-
-dnsmasq_compile: $(STATEDIR)/dnsmasq.compile
-
-$(STATEDIR)/dnsmasq.compile: $(dnsmasq_compile_deps_default)
-	@$(call targetinfo, $@)
-#
-# Target "all" builds a non i18n aware dnsmasq, "all-i18n" a
-# i18n aware dnsmasq. Currently the non i18n aware version is built
-#
-
-	cd $(DNSMASQ_DIR) && $(DNSMASQ_PATH) $(DNSMASQ_ENV) make $(DNSMASQ_MAKEVARS) all
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-dnsmasq_install: $(STATEDIR)/dnsmasq.install
-
-$(STATEDIR)/dnsmasq.install: $(dnsmasq_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, DNSMASQ)
-	@$(call touch, $@)
+$(STATEDIR)/dnsmasq.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-dnsmasq_targetinstall: $(STATEDIR)/dnsmasq.targetinstall
-
-$(STATEDIR)/dnsmasq.targetinstall: $(dnsmasq_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/dnsmasq.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, dnsmasq)
 	@$(call install_fixup, dnsmasq,PACKAGE,dnsmasq)
 	@$(call install_fixup, dnsmasq,PRIORITY,optional)
 	@$(call install_fixup, dnsmasq,VERSION,$(DNSMASQ_VERSION))
 	@$(call install_fixup, dnsmasq,SECTION,base)
-	@$(call install_fixup, dnsmasq,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, dnsmasq,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, dnsmasq,DEPENDS,)
 	@$(call install_fixup, dnsmasq,DESCRIPTION,missing)
 
@@ -129,12 +71,11 @@ ifdef PTXCONF_DNSMASQ_STARTSCRIPT
 endif
 endif
 
-	# FIXME: take from $(DNSMASQ_DIR)/dnsmasq.conf.example
 	@$(call install_alternative, dnsmasq, 0, 0, 0644, /etc/dnsmasq.conf, n)
 
 	@$(call install_finish, dnsmasq)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
