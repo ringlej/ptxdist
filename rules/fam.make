@@ -27,35 +27,13 @@ FAM_DIR		:= $(BUILDDIR)/$(FAM)
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
-
-fam_get: $(STATEDIR)/fam.get
-
-$(STATEDIR)/fam.get: $(fam_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(FAM_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, FAM)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-fam_extract: $(STATEDIR)/fam.extract
-
-$(STATEDIR)/fam.extract: $(fam_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FAM_DIR))
-	@$(call extract, FAM)
-	@$(call patchin, FAM)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-fam_prepare: $(STATEDIR)/fam.prepare
 
 FAM_PATH	:= PATH=$(CROSS_PATH)
 FAM_ENV 	:= $(CROSS_ENV)
@@ -63,47 +41,16 @@ FAM_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-FAM_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+FAM_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking
-
-$(STATEDIR)/fam.prepare: $(fam_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FAM_DIR)/config.cache)
-	cd $(FAM_DIR) && \
-		$(FAM_PATH) $(FAM_ENV) \
-		./configure $(FAM_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-fam_compile: $(STATEDIR)/fam.compile
-
-$(STATEDIR)/fam.compile: $(fam_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(FAM_DIR) && $(FAM_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-fam_install: $(STATEDIR)/fam.install
-
-$(STATEDIR)/fam.install: $(fam_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, FAM)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-fam_targetinstall: $(STATEDIR)/fam.targetinstall
-
-$(STATEDIR)/fam.targetinstall: $(fam_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/fam.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, fam)
 	@$(call install_fixup,fam,PACKAGE,fam)
@@ -144,7 +91,7 @@ endif
 
 	@$(call install_finish,fam)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
