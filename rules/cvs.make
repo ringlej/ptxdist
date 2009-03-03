@@ -28,34 +28,13 @@ CVS_DIR		:= $(BUILDDIR)/$(CVS)
 # Get
 # ----------------------------------------------------------------------------
 
-cvs_get: $(STATEDIR)/cvs.get
-
-$(STATEDIR)/cvs.get: $(cvs_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(CVS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, CVS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-cvs_extract: $(STATEDIR)/cvs.extract
-
-$(STATEDIR)/cvs.extract: $(cvs_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(CVS_DIR))
-	@$(call extract, CVS)
-	@$(call patchin, CVS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-cvs_prepare: $(STATEDIR)/cvs.prepare
 
 CVS_PATH	:= PATH=$(CROSS_PATH)
 CVS_ENV 	:= $(CROSS_ENV)
@@ -124,35 +103,6 @@ endif
 # --with-umask
 # --with-cvs-admin-group=GROUP
 #
-$(STATEDIR)/cvs.prepare: $(cvs_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(CVS_DIR)/config.cache)
-	cd $(CVS_DIR) && \
-		$(CVS_PATH) $(CVS_ENV) \
-		./configure $(CVS_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-cvs_compile: $(STATEDIR)/cvs.compile
-
-$(STATEDIR)/cvs.compile: $(cvs_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(CVS_DIR) && $(CVS_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-cvs_install: $(STATEDIR)/cvs.install
-
-$(STATEDIR)/cvs.install: $(cvs_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, CVS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -165,29 +115,27 @@ $(STATEDIR)/cvs.install: $(cvs_install_deps_default)
 CVS_CVSROOT_FILES := commitinfo cvsignore cvswrappers editinfo history loginfo \
 	modules rcsinfo taginfo
 
-cvs_targetinstall: $(STATEDIR)/cvs.targetinstall
-
-$(STATEDIR)/cvs.targetinstall: $(cvs_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/cvs.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, cvs)
 	@$(call install_fixup,cvs,PACKAGE,cvs)
 	@$(call install_fixup,cvs,PRIORITY,optional)
 	@$(call install_fixup,cvs,VERSION,$(CVS_VERSION))
 	@$(call install_fixup,cvs,SECTION,base)
-	@$(call install_fixup,cvs,AUTHOR,"Juergen Beisert <j.beisert\@pengutronix.de>")
+	@$(call install_fixup,cvs,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
 	@$(call install_fixup,cvs,DEPENDS,)
 	@$(call install_fixup,cvs,DESCRIPTION,missing)
 
 ifdef PTXCONF_CVS_INETD_SERVER
 	@$(call install_alternative, cvs, 0, 0, 0755, /etc/inetd.conf.d/cvs, n)
 ifneq ($(PTXCONF_CVS_SERVER_REPOSITORY),"")
-	# add info about repository's root
+#	# add info about repository's root
 	@$(call install_replace, cvs, /etc/inetd.conf.d/cvs, \
 		@ROOT@, \
 		"--allow-root=$(PTXCONF_CVS_SERVER_REPOSITORY)" )
 else
-	# use cvs' default if not otherwise specified
+#	# use cvs' default if not otherwise specified
 	@$(call install_replace, cvs, /etc/inetd.conf.d/cvs, \
 		@ROOT@, )
 endif
@@ -195,9 +143,9 @@ endif
 ifneq ($(call remove_quotes,$(PTXCONF_CVS_SERVER_REPOSITORY)),)
 	@$(call install_copy, cvs, 0, 0, 0755, $(PTXCONF_CVS_SERVER_REPOSITORY))
 
-	#
-	# install only existing files
-	#
+#	#
+#	# install only existing files
+#	#
 ifdef PTXCONF_CVS_SERVER_POPULATE_CVSROOT
 	@$(call install_copy, cvs, 0, 0, 0750, \
 		$(PTXCONF_CVS_SERVER_REPOSITORY)/CVSROOT)
@@ -224,7 +172,7 @@ endif
 
 	@$(call install_finish,cvs)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
