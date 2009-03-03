@@ -110,7 +110,7 @@ config INITMETHOD_BBINIT_LINK_LIGHTTPD
 
 config INITMETHOD_BBINIT_LINK_MYSQL
 	string
-	depends on MYSQL
+	depends on MYSQL_STARTSCRIPT
 	prompt "mysql"
 	default ""
 
