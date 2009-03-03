@@ -66,6 +66,10 @@ $(STATEDIR)/dnsmasq.targetinstall:
 		$(DNSMASQ_DIR)/src/dnsmasq, \
 		/usr/sbin/dnsmasq)
 
+ifdef PTXCONF_DNSMASQ_INETD
+	@$(call install_alternative, dnsmasq, 0, 0, 0644, /etc/inetd.conf.d/dnsmasq, n)
+endif
+
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_DNSMASQ_STARTSCRIPT
 	@$(call install_alternative, dnsmasq, 0, 0, 0755, /etc/init.d/dnsmasq, n)

@@ -38,7 +38,7 @@ comment "runtime options   ---"
 choice
 	prompt "Kind of startup"
 
-	config DNSMASQ_INETD_SERVER
+	config DNSMASQ_INETD
 		bool
 		prompt "inetd driven"
 		help
@@ -52,7 +52,7 @@ choice
 		 run it from inetd. In this case you need the standalone
 		 startscript!
 
-	config DNSMASQ_STARTUP_TYPE_STANDALONE
+	config DNSMASQ_STARTSCRIPT
 		bool
 		prompt "standalone"
 		help
@@ -61,18 +61,5 @@ choice
 		  startup and waits for any kind of DHCP or DNS requests.
 
 endchoice
-
-config DNSMASQ_INETD_STRING
-	string
-	depends on DNSMASQ_INETD_SERVER
-	prompt "inetd service entry"
-	default "domain stream tcp nowait root /sbin/dnsmasq domain"
-	help
-	  This string is added to inetd's configuration /etc/inetd.conf.
-
-config DNSMASQ_STARTSCRIPT
-	bool
-	default y
-	prompt "install /etc/init.d/dnsmasq"
 
 endif
