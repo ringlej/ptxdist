@@ -125,6 +125,41 @@ $(STATEDIR)/gtk.targetinstall:
 	@$(call install_fixup,gtk,DEPENDS,)
 	@$(call install_fixup,gtk,DESCRIPTION,missing)
 
+# reviewed: 2.14.7 wants to install this:
+#
+# /usr/bin/gdk-pixbuf-csource
+# /usr/bin/gtk-update-icon-cache
+# /usr/bin/gtk-query-immodules-2.0
+# /usr/bin/gdk-pixbuf-query-loaders
+# /usr/bin/gtk-demo
+# /usr/bin/gtk-builder-convert
+# /usr/share/themes/Default
+# /usr/share/themes/Default/gtk-2.0-key
+# /usr/share/themes/Default/gtk-2.0-key/gtkrc
+# /usr/share/themes/Emacs
+# /usr/share/themes/Emacs/gtk-2.0-key
+# /usr/share/themes/Emacs/gtk-2.0-key/gtkrc
+# /usr/share/themes/Raleigh
+# /usr/share/themes/Raleigh/gtk-2.0
+# /usr/share/themes/Raleigh/gtk-2.0/gtkrc
+# /usr/lib/libgdk_pixbuf-2.0.so.0.1400.8
+# /usr/lib/libgdk-directfb-2.0.so
+# /usr/lib/gtk-2.0/modules/libferret.so
+# /usr/lib/gtk-2.0/modules/libgail.so
+# /usr/lib/gtk-2.0/2.10.0/engines/libpixmap.so
+# /usr/lib/gtk-2.0/2.10.0/printbackends/libprintbackend-lpr.so
+# /usr/lib/gtk-2.0/2.10.0/printbackends/libprintbackend-file.so
+# /usr/lib/libgdk_pixbuf-2.0.so.0
+# /usr/lib/libgdk-directfb-2.0.so.0
+# /usr/lib/libgailutil.so.18
+# /usr/lib/libgailutil.so
+# /usr/lib/libgdk_pixbuf-2.0.so
+# /usr/lib/libgtk-directfb-2.0.so.0
+# /usr/lib/libgdk-directfb-2.0.so.0.1400.8
+# /usr/lib/libgtk-directfb-2.0.so
+# /usr/lib/libgtk-directfb-2.0.so.0.1400.8
+# /etc/gtk-2.0/im-multipress.conf
+
 ifdef PTXCONF_GTK_TARGET_DIRECTFB
 	@$(call install_copy, gtk, 0, 0, 0644, \
 		$(GTK_DIR)/gdk/.libs/libgdk-directfb-2.0.so.0.1400.8, \
