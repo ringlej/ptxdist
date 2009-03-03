@@ -1,4 +1,4 @@
-config HOST_DTC
+menuconfig HOST_DTC
 	bool
 	prompt "Build device tree compiler    "
 	help
@@ -9,11 +9,11 @@ config HOST_DTC
 if HOST_DTC
 
 config HOST_DTC_VERSION
-        string
-        prompt "Device tree compiler version    "
+	string
+	prompt "Device tree compiler version"
 	default "1.1.0"
-        help
-          Specify the DTC version number to be used
+	help
+	  Specify the DTC version number to be used
 
 endif
 
@@ -23,7 +23,7 @@ menuconfig DTC
 	select HOST_DTC
 	select KERNEL
 	default y
-	prompt "Build device tree             "
+	prompt "Build device tree	       "
 	help
 	  Select this to build a device tree for your board.
 	  You will find the device tree binary blob under
@@ -41,4 +41,3 @@ config DTC_OFTREE_DTS
 config DTC_EXTRA_ARGS
 	string "extra options passed to dtc"
 	depends on DTC
-
