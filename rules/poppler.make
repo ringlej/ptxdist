@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
+# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
-# Copyright (C) 2007 by Luotao Fu <l.fu@pengutronix.de>
+# Copyright (C) 2009 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_POPPLER) += poppler
 #
 # Paths and names
 #
-POPPLER_VERSION	:= 0.6.2
+POPPLER_VERSION	:= 0.10.4
 POPPLER		:= poppler-$(POPPLER_VERSION)
 POPPLER_SUFFIX	:= tar.gz
 POPPLER_URL	:= http://poppler.freedesktop.org/$(POPPLER).$(POPPLER_SUFFIX)
@@ -31,6 +31,17 @@ POPPLER_DIR	:= $(BUILDDIR)/$(POPPLER)
 $(POPPLER_SOURCE):
 	@$(call targetinfo)
 	@$(call get, POPPLER)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/poppler.extract:
+	@$(call targetinfo)
+	@$(call clean, $(POPPLER_DIR))
+	@$(call extract, POPPLER)
+	@$(call patchin, POPPLER)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -85,6 +96,32 @@ else
 POPPLER_AUTOCONF += --disable-poppler-glib
 endif
 
+$(STATEDIR)/poppler.prepare:
+	@$(call targetinfo)
+	@$(call clean, $(POPPLER_DIR)/config.cache)
+	cd $(POPPLER_DIR) && \
+		$(POPPLER_PATH) $(POPPLER_ENV) \
+		./configure $(POPPLER_AUTOCONF)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/poppler.compile:
+	@$(call targetinfo)
+	cd $(POPPLER_DIR) && $(POPPLER_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/poppler.install:
+	@$(call targetinfo)
+	@$(call install, POPPLER)
+	@$(call touch)
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -92,19 +129,19 @@ endif
 $(STATEDIR)/poppler.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, poppler)
+	@$(call install_init,  poppler)
 	@$(call install_fixup, poppler,PACKAGE,poppler)
 	@$(call install_fixup, poppler,PRIORITY,optional)
 	@$(call install_fixup, poppler,VERSION,$(POPPLER_VERSION))
 	@$(call install_fixup, poppler,SECTION,base)
-	@$(call install_fixup, poppler,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, poppler,AUTHOR,"")
 	@$(call install_fixup, poppler,DEPENDS,)
 	@$(call install_fixup, poppler,DESCRIPTION,missing)
 
 	@$(call install_copy, poppler, 0, 0, 0755,\
-		$(POPPLER_DIR)/poppler/.libs/libpoppler.so.2.0.0, /usr/lib/libpoppler.so.2.0.0)	
-	@$(call install_link, poppler, libpoppler.so.2.0.0, /usr/lib/libpoppler.so.2)
-	@$(call install_link, poppler, libpoppler.so.2.0.0, /usr/lib/libpoppler.so)
+		$(POPPLER_DIR)/poppler/.libs/libpoppler.so.4.0.0, /usr/lib/libpoppler.so.4.0.0)
+	@$(call install_link, poppler, libpoppler.so.4.0.0, /usr/lib/libpoppler.so.4)
+	@$(call install_link, poppler, libpoppler.so.4.0.0, /usr/lib/libpoppler.so)
 
 ifdef PTXCONF_POPPLER_BIN
 	for i in `find $(POPPLER_DIR)/utils/.libs -type f`; do \
@@ -114,9 +151,9 @@ endif
 
 ifdef PTXCONF_POPPLER_GLIB
 	@$(call install_copy, poppler, 0, 0, 0755,\
-		$(POPPLER_DIR)/glib/.libs/libpoppler-glib.so.2.0.0, /usr/lib/libpoppler-glib.so.2.0.0)	
-	@$(call install_link, poppler, libpoppler-glib.so.2.0.0, /usr/lib/libpoppler-glib.so.2)
-	@$(call install_link, poppler, libpoppler-glib.so.2.0.0, /usr/lib/libpoppler-glib.so)
+		$(POPPLER_DIR)/glib/.libs/libpoppler-glib.so.4.0.0, /usr/lib/libpoppler-glib.so.4.0.0)
+	@$(call install_link, poppler, libpoppler-glib.so.4.0.0, /usr/lib/libpoppler-glib.so.4)
+	@$(call install_link, poppler, libpoppler-glib.so.4.0.0, /usr/lib/libpoppler-glib.so)
 endif
 
 	@$(call install_finish, poppler)
