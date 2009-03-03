@@ -128,6 +128,10 @@ ifndef PTXCONF_HOST_GTK_LOADER_JPEG
 HOST_GTK_AUTOCONF += --without-libjpeg
 endif
 
+ifndef PTXCONF_GTK_LOADER_JPEG2000
+HOST_GTK_AUTOCONF += --without-libjasper
+endif
+
 ifdef PTXCONF_HOST_GTK_TARGET_X11
 HOST_GTK_AUTOCONF += --with-gdktarget=x11
 endif
