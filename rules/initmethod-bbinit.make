@@ -153,6 +153,12 @@ ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_CHRONY)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_CHRONY))
 endif
 
+ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_CONNMAN)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/connman, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_CONNMAN))
+endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DBUS)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/dbus, \
