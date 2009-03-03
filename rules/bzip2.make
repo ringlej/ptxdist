@@ -19,10 +19,10 @@ PACKAGES-$(PTXCONF_BZIP2) += bzip2
 #
 BZIP2_VERSION	:= 1.0.5
 BZIP2		:= bzip2-$(BZIP2_VERSION)
-BZIP2_SUFFIX		:= tar.gz
-BZIP2_URL		:= http://www.bzip.org/1.0.5/$(BZIP2).$(BZIP2_SUFFIX)
-BZIP2_SOURCE		:= $(SRCDIR)/$(BZIP2).$(BZIP2_SUFFIX)
-BZIP2_DIR		:= $(BUILDDIR)/$(BZIP2)
+BZIP2_SUFFIX	:= tar.gz
+BZIP2_URL	:= http://www.bzip.org/1.0.5/$(BZIP2).$(BZIP2_SUFFIX)
+BZIP2_SOURCE	:= $(SRCDIR)/$(BZIP2).$(BZIP2_SUFFIX)
+BZIP2_DIR	:= $(BUILDDIR)/$(BZIP2)
 
 # ----------------------------------------------------------------------------
 # Get
