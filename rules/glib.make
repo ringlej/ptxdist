@@ -121,30 +121,20 @@ $(STATEDIR)/glib.targetinstall:
 	@$(call install_fixup,glib,DEPENDS,)
 	@$(call install_fixup,glib,DESCRIPTION,missing)
 
-	@$(call install_copy, glib, 0, 0, 0644, \
-		$(GLIB_DIR)/glib/.libs/libglib-2.0.so.$(GLIB_LIB_VERSION), \
-		/usr/lib/libglib-2.0.so.$(GLIB_LIB_VERSION))
+	# /usr/bin/gtester-report
+	# /usr/bin/glib-genmarshal
+	# /usr/bin/glib-gettextize
+	# /usr/bin/gobject-query
+	# /usr/bin/glib-mkenums
+	# /usr/bin/gtester
 
-	@$(call install_link, glib, libglib-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/libglib-2.0.so.0)
-	@$(call install_link, glib, libglib-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/libglib-2.0.so)
+	@$(call install_copy, glib, 0, 0, 0644, /usr/lib/gio/modules)
 
-	@$(call install_copy, glib, 0, 0, 0644, \
-		$(GLIB_DIR)/gobject/.libs/libgobject-2.0.so.$(GLIB_LIB_VERSION), \
-		/usr/lib/libgobject-2.0.so.$(GLIB_LIB_VERSION))
-	@$(call install_link, glib, libgobject-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/libgobject-2.0.so.0)
-	@$(call install_link, glib, libgobject-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/libgobject-2.0.so)
-
-	@$(call install_copy, glib, 0, 0, 0644, \
-		$(GLIB_DIR)/gmodule/.libs/libgmodule-2.0.so.$(GLIB_LIB_VERSION), \
-		/usr/lib/libgmodule-2.0.so.$(GLIB_LIB_VERSION))
-	@$(call install_link, glib, libgmodule-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/libgmodule-2.0.so.0)
-	@$(call install_link, glib, libgmodule-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/libgmodule-2.0.so)
-
-	@$(call install_copy, glib, 0, 0, 0644, \
-		$(GLIB_DIR)/gthread/.libs/libgthread-2.0.so.$(GLIB_LIB_VERSION), \
-		/usr/lib/libgthread-2.0.so.$(GLIB_LIB_VERSION))
-	@$(call install_link, glib, libgthread-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/libgthread-2.0.so.0)
-	@$(call install_link, glib, libgthread-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/libgthread-2.0.so)
+	for i in libgio libglib libgmodule libgobject libgthread; do \
+		$(call install_copy, glib, 0, 0, 0644, -, /usr/lib/$$i-2.0.so.$(GLIB_LIB_VERSION)); \
+		$(call install_link, glib, $$i-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/$$i-2.0.so.0); \
+		$(call install_link, glib, $$i-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/$$i-2.0.so); \
+	done
 
 	@$(call install_finish,glib)
 
