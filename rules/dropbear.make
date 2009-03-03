@@ -18,54 +18,35 @@ PACKAGES-$(PTXCONF_DROPBEAR) += dropbear
 #
 # Paths and names
 #
-DROPBEAR_VERSION		= 0.50
-DROPBEAR			= dropbear-$(DROPBEAR_VERSION)
-DROPBEAR_SUFFIX			= tar.bz2
-DROPBEAR_URL			= http://matt.ucc.asn.au/dropbear/releases/$(DROPBEAR).$(DROPBEAR_SUFFIX)
-DROPBEAR_SOURCE			= $(SRCDIR)/$(DROPBEAR).$(DROPBEAR_SUFFIX)
-DROPBEAR_DIR			= $(BUILDDIR)/$(DROPBEAR)
+DROPBEAR_VERSION	:= 0.50
+DROPBEAR		:= dropbear-$(DROPBEAR_VERSION)
+DROPBEAR_SUFFIX		:= tar.bz2
+DROPBEAR_URL		:= http://matt.ucc.asn.au/dropbear/releases/$(DROPBEAR).$(DROPBEAR_SUFFIX)
+DROPBEAR_SOURCE		:= $(SRCDIR)/$(DROPBEAR).$(DROPBEAR_SUFFIX)
+DROPBEAR_DIR		:= $(BUILDDIR)/$(DROPBEAR)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-dropbear_get: $(STATEDIR)/dropbear.get
-
-$(STATEDIR)/dropbear.get: $(dropbear_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(DROPBEAR_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, DROPBEAR)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-dropbear_extract: $(STATEDIR)/dropbear.extract
-
-$(STATEDIR)/dropbear.extract: $(dropbear_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(DROPBEAR_DIR))
-	@$(call extract, DROPBEAR)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-dropbear_prepare: $(STATEDIR)/dropbear.prepare
-
-DROPBEAR_PATH	=  PATH=$(CROSS_PATH)
-DROPBEAR_ENV 	=  $(CROSS_ENV)
+DROPBEAR_PATH	:=  PATH=$(CROSS_PATH)
+DROPBEAR_ENV 	:=  $(CROSS_ENV)
 
 #
 # autoconf
 #
-DROPBEAR_AUTOCONF	=  $(CROSS_AUTOCONF_USR)
-DROPBEAR_AUTOCONF	+= --disable-nls
+DROPBEAR_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-nls
 
 ifdef PTXCONF_DROPBEAR_DIS_ZLIB
 DROPBEAR_AUTOCONF	+= --disable-zlib
@@ -111,8 +92,8 @@ ifdef PTXCONF_DROPBEAR_DIS_PUTUTXLINE
 DROPBEAR_AUTOCONF	+= --disable-pututxline
 endif
 
-$(STATEDIR)/dropbear.prepare: $(dropbear_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/dropbear.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(DROPBEAR_BUILDDIR))
 	cd $(DROPBEAR_DIR) && \
 		$(DROPBEAR_PATH) $(DROPBEAR_ENV) \
@@ -229,51 +210,37 @@ else
 	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_PUBKEY_AUTH)
 endif
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-dropbear_compile: $(STATEDIR)/dropbear.compile
-
-$(STATEDIR)/dropbear.compile: $(dropbear_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make dropbear
-
-ifdef PTXCONF_DROPBEAR_DROPBEAR_KEY
-	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make dropbearkey
-endif
-
-ifdef PTXCONF_DROPBEAR_DROPBEAR_CONVERT
-	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make dropbearconvert
-endif
+$(STATEDIR)/dropbear.compile:
+	@$(call targetinfo)
+	@cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) $(MAKE)
 
 ifdef PTXCONF_DROPBEAR_SCP
-	cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) make scp
+	@cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) $(MAKE) scp
 endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-dropbear_install: $(STATEDIR)/dropbear.install
-
-$(STATEDIR)/dropbear.install: $(dropbear_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/dropbear.install:
+	@$(call targetinfo)
 	# FIXME
 	# @$(call install, DROPBEAR)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-dropbear_targetinstall: $(STATEDIR)/dropbear.targetinstall
-
-$(STATEDIR)/dropbear.targetinstall: $(dropbear_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/dropbear.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, dropbear)
 	@$(call install_fixup, dropbear,PACKAGE,dropbear)
@@ -304,9 +271,9 @@ ifdef PTXCONF_DROPBEAR_SCP
 		$(DROPBEAR_DIR)/scp, /usr/bin/scp)
 endif
 
-	#
-	# busybox init: start script
-	#
+#	#
+#	# busybox init: start script
+#	#
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_DROPBEAR_STARTSCRIPT
@@ -318,7 +285,7 @@ endif
 
 	@$(call install_finish, dropbear)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
