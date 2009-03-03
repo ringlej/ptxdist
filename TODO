@@ -20,29 +20,6 @@ Prio A
     16:46 < ringlej>  /opt/tools/lib/ptxdist-1.99.11/config/collection/Kconfig:10: can't open file "generated/ptx_collection.in"
     16:47 < ringlej> That was it. I had none marked as "M"
 
-[x] Sisyphus:
-
-    [...]
-    ----------------------
-    target: glibmm.compile
-    ----------------------
-    [...]
-    make[6]: Entering directory
-    `[...]/glibmm-2.14.1/glib/glibmm'
-    [...]
-    convert.cc: In constructor 'Glib::IConv::IConv(const std::string&, const std::string&)':
-    convert.cc:52: error: 'g_assert' was not declared in this scope
-    make[6]: *** [convert.lo] Error 1
-    make[6]: *** Waiting for unfinished jobs....
-    date.cc: In member function 'Glib::ustring Glib::Date::format_string(const Glib::ustring&) const':
-    date.cc:311: error: 'g_assert' was not declared in this scope
-    make[6]: *** [date.lo] Error 1
-
-    rsc: glib has recently been updated to a newer 2.12 version; find out
-    which glibmm version fits the new one and adapt it.
-
-    Update 20090303 rsc: updated all gtk stack components to latest stable.
-
 [ ] mkl/jbe: The 'ps' command from the procps package outputs
             "Unknown HZ value! (xx) Assume 100."
     on a recently started system. Doing it later again, this message does
@@ -529,6 +506,29 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] Sisyphus:
+
+    [...]
+    ----------------------
+    target: glibmm.compile
+    ----------------------
+    [...]
+    make[6]: Entering directory
+    `[...]/glibmm-2.14.1/glib/glibmm'
+    [...]
+    convert.cc: In constructor 'Glib::IConv::IConv(const std::string&, const std::string&)':
+    convert.cc:52: error: 'g_assert' was not declared in this scope
+    make[6]: *** [convert.lo] Error 1
+    make[6]: *** Waiting for unfinished jobs....
+    date.cc: In member function 'Glib::ustring Glib::Date::format_string(const Glib::ustring&) const':
+    date.cc:311: error: 'g_assert' was not declared in this scope
+    make[6]: *** [date.lo] Error 1
+
+    rsc: glib has recently been updated to a newer 2.12 version; find out
+    which glibmm version fits the new one and adapt it.
+
+    Update 20090303 rsc: updated all gtk stack components to latest stable.
 
 [x] jbe: if one enters "ptxdist platformconfig" one can earn this message:
     error:  The config file 'selected_platformconfig'
