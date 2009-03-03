@@ -209,7 +209,7 @@ endif
 ifdef PTXCONF_INETUTILS_RSHD
 	@$(call install_copy, inetutils, 0, 0, 0755, \
 		$(INETUTILS_DIR)/rshd/rshd, /usr/sbin/rshd)
-	@$(call install_alternative, inetutils, 0, 0, 0755, \
+	@$(call install_alternative, inetutils, 0, 0, 0644, \
 		/etc/inetd.conf.d/inetutils-rshd, n)
 endif
 ifdef PTXCONF_INETUTILS_SYSLOGD
@@ -224,7 +224,7 @@ ifneq ($(PTXCONF_INETUTILS_TFTPD_BASE_DIR),"")
 	@$(call install_copy, inetutils, 99, 0, 0755, \
 		$(PTXCONF_INETUTILS_TFTPD_BASE_DIR) )
 endif
-	@$(call install_alternative, inetutils, 0, 0, 0755, /etc/inetd.conf.d/tftp, n)
+	@$(call install_alternative, inetutils, 0, 0, 0644, /etc/inetd.conf.d/tftp, n)
 	@$(call install_replace, inetutils, \
 		/etc/inetd.conf.d/tftp, \
 		@ROOT@, \
