@@ -29,42 +29,21 @@ LIGHTTPD_DIR		:= $(BUILDDIR)/$(LIGHTTPD)
 # Get
 # ----------------------------------------------------------------------------
 
-lighttpd_get: $(STATEDIR)/lighttpd.get
-
-$(STATEDIR)/lighttpd.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIGHTTPD_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIGHTTPD)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-lighttpd_extract: $(STATEDIR)/lighttpd.extract
-
-$(STATEDIR)/lighttpd.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIGHTTPD_DIR))
-	@$(call extract, LIGHTTPD)
-	@$(call patchin, LIGHTTPD)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-lighttpd_prepare: $(STATEDIR)/lighttpd.prepare
-
-LIGHTTPD_PATH	=  PATH=$(CROSS_PATH)
-LIGHTTPD_ENV 	=  $(CROSS_ENV)
+LIGHTTPD_PATH	:= PATH=$(CROSS_PATH)
+LIGHTTPD_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-LIGHTTPD_AUTOCONF = \
+LIGHTTPD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--without-valgrind \
 	--prefix=/usr
@@ -167,44 +146,12 @@ else
 LIGHTTPD_AUTOCONF += --without-lua
 endif
 
-$(STATEDIR)/lighttpd.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIGHTTPD_DIR)/config.cache)
-	cd $(LIGHTTPD_DIR) && \
-		$(LIGHTTPD_PATH) $(LIGHTTPD_ENV) \
-		./configure $(LIGHTTPD_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-lighttpd_compile: $(STATEDIR)/lighttpd.compile
-
-$(STATEDIR)/lighttpd.compile:
-	@$(call targetinfo, $@)
-	$(LIGHTTPD_PATH) make -C $(LIGHTTPD_DIR)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-lighttpd_install: $(STATEDIR)/lighttpd.install
-
-$(STATEDIR)/lighttpd.install:
-	@$(call targetinfo, $@)
-	@$(call install, LIGHTTPD)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-lighttpd_targetinstall: $(STATEDIR)/lighttpd.targetinstall
-
 $(STATEDIR)/lighttpd.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, lighttpd)
 	@$(call install_fixup, lighttpd,PACKAGE,lighttpd)
@@ -232,16 +179,16 @@ $(STATEDIR)/lighttpd.targetinstall:
 		) \
 	done
 
-	#
-	# config
-	#
+#	#
+#	# config
+#	#
 	@$(call install_alternative, lighttpd, 0, 0, 0644, /etc/lighttpd/lighttpd.conf, n)
-	# FIXME: withoug PTXCONF_PHP5_SAPI_CGI, we want to install
-	# $(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd-no_php.conf instead?
+#	# FIXME: withoug PTXCONF_PHP5_SAPI_CGI, we want to install
+#	# $(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd-no_php.conf instead?
 
-	#
-	# busybox init: start script
-	#
+#	#
+#	# busybox init: start script
+#	#
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_LIGHTTPD_STARTSCRIPT
@@ -276,7 +223,7 @@ endif
 endif
 
 	@$(call install_finish, lighttpd)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
