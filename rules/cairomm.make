@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_CAIROMM) += cairomm
 #
 # Paths and names
 #
-CAIROMM_VERSION	:= 1.4.4
+CAIROMM_VERSION	:= 1.7.2
 CAIROMM		:= cairomm-$(CAIROMM_VERSION)
 CAIROMM_SUFFIX	:= tar.gz
 CAIROMM_URL	:= http://cairographics.org/releases/$(CAIROMM).$(CAIROMM_SUFFIX)
@@ -114,14 +114,14 @@ $(STATEDIR)/cairomm.targetinstall: $(cairomm_targetinstall_deps_default)
 	@$(call install_fixup, cairomm,DESCRIPTION,missing)
 
 	@$(call install_copy, cairomm, 0, 0, 0644, \
-		$(CAIROMM_DIR)/cairomm/.libs/libcairomm-1.0.so.1.1.0, \
-		/usr/lib/libcairomm-1.0.so.1.1.0)
+		$(CAIROMM_DIR)/cairomm/.libs/libcairomm-1.0.so.1.3.0, \
+		/usr/lib/libcairomm-1.0.so.1.3.0)
 
 	@$(call install_link, cairomm, \
-		libcairomm-1.0.so.1.1.0, /usr/lib/libcairomm-1.0.so.1)
+		libcairomm-1.0.so.1.3.0, /usr/lib/libcairomm-1.0.so.1)
 
 	@$(call install_link, cairomm, \
-		libcairomm-1.0.so.1.1.0, /usr/lib/libcairomm-1.0.so)
+		libcairomm-1.0.so.1.3.0, /usr/lib/libcairomm-1.0.so)
 
 	@$(call install_finish, cairomm)
 

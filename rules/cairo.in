@@ -12,6 +12,8 @@ menuconfig CAIRO
 
 	select LIBPNG		if CAIRO_PNG
 
+	select PIXMAN
+
 	prompt "cairo                         "
 	help
 	  Cairo is a software library used to provide

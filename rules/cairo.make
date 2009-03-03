@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_CAIRO) += cairo
 # Paths and names
 #
 CAIRO_SUFFIX	:= tar.gz
-CAIRO_VERSION	:= 1.4.10
+CAIRO_VERSION	:= 1.8.6
 CAIRO_URL	:= http://cairographics.org/releases/cairo-$(CAIRO_VERSION).$(CAIRO_SUFFIX)
 CAIRO		:= cairo-$(CAIRO_VERSION)
 CAIRO_SOURCE	:= $(SRCDIR)/$(CAIRO).$(CAIRO_SUFFIX)
@@ -65,35 +65,26 @@ CAIRO_ENV 	:= $(CROSS_ENV)
 #
 CAIRO_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-quartz \
+	--enable-shared \
+	--enable-static \
+	--disable-gtk-doc \
+	--disable-gcov \
+	--disable-xlib-xrender \
 	--disable-xcb \
+	--disable-quartz \
+	--disable-quartz-font \
+	--disable-quartz-image \
+	--disable-os2 \
 	--disable-beos \
 	--disable-glitz \
+	--enable-pthread \
 	--disable-svg \
-	--disable-atsui
-
-ifdef PTXCONF_CAIRO_PS
-CAIRO_AUTOCONF += --enable-ps
-else
-CAIRO_AUTOCONF +=--disable-ps
-endif
-
-ifdef PTXCONF_CAIRO_PDF
-CAIRO_AUTOCONF += --enable-pdf
-else
-CAIRO_AUTOCONF +=--disable-pdf
-endif
+	--disable-test-surfaces
 
 ifdef PTXCONF_CAIRO_XLIB
 CAIRO_AUTOCONF += --enable-xlib
 else
 CAIRO_AUTOCONF += --disable-xlib
-endif
-
-ifdef PTXCONF_CAIRO_DIRECTFB
-CAIRO_AUTOCONF += --enable-directfb
-else
-CAIRO_AUTOCONF += --disable-directfb
 endif
 
 ifdef PTXCONF_CAIRO_WIN32
@@ -106,17 +97,43 @@ CAIRO_AUTOCONF += \
 	--disable-win32-font
 endif
 
-ifdef PTXCONF_CAIRO_FREETYPE
-CAIRO_AUTOCONF += --enable-freetype
-else
-CAIRO_AUTOCONF += --disable-freetype
-endif
-
 ifdef PTXCONF_CAIRO_PNG
 CAIRO_AUTOCONF += --enable-png
 else
 CAIRO_AUTOCONF += --disable-png
 endif
+
+ifdef PTXCONF_CAIRO_DIRECTFB
+CAIRO_AUTOCONF += --enable-directfb
+else
+CAIRO_AUTOCONF += --disable-directfb
+endif
+
+ifdef PTXCONF_CAIRO_FREETYPE
+CAIRO_AUTOCONF += --enable-ft
+else
+CAIRO_AUTOCONF += --disable-ft
+endif
+
+ifdef PTXCONF_CAIRO_PS
+CAIRO_AUTOCONF += --enable-ps
+else
+CAIRO_AUTOCONF += --disable-ps
+endif
+
+ifdef PTXCONF_CAIRO_PDF
+CAIRO_AUTOCONF += --enable-pdf
+else
+CAIRO_AUTOCONF += --disable-pdf
+endif
+
+ifdef PTXCONF_HAS_HARDFLOAT
+CAIRO_AUTOCONF += --enable-some-floating-point
+else
+CAIRO_AUTOCONF += --disable-some-floating-point
+endif
+
+#  --with-x                use the X Window System
 
 $(STATEDIR)/cairo.prepare:
 	@$(call targetinfo, $@)
@@ -166,9 +183,9 @@ $(STATEDIR)/cairo.targetinstall:
 	@$(call install_fixup,cairo,DEPENDS,)
 	@$(call install_fixup,cairo,DESCRIPTION,missing)
 
-	@$(call install_copy, cairo, 0, 0, 0644, $(CAIRO_DIR)/src/.libs/libcairo.so.2.11.5, /usr/lib/libcairo.so.2.11.5)
-	@$(call install_link, cairo, libcairo.so.2.11.5, /usr/lib/libcairo.so.2)
-	@$(call install_link, cairo, libcairo.so.2.11.5, /usr/lib/libcairo.so)
+	@$(call install_copy, cairo, 0, 0, 0644, $(CAIRO_DIR)/src/.libs/libcairo.so.2.10800.6, /usr/lib/libcairo.so.2.10800.6)
+	@$(call install_link, cairo, libcairo.so.2.10800.6, /usr/lib/libcairo.so.2)
+	@$(call install_link, cairo, libcairo.so.2.10800.6, /usr/lib/libcairo.so)
 
 	@$(call install_finish,cairo)
 

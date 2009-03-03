@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_PIXMAN) += pixman
 #
 # Paths and names
 #
-PIXMAN_VERSION	:= 0.9.5
+PIXMAN_VERSION	:= 0.12.0
 PIXMAN		:= pixman-$(PIXMAN_VERSION)
-PIXMAN_SUFFIX		:= tar.bz2
-PIXMAN_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib//$(PIXMAN).$(PIXMAN_SUFFIX)
-PIXMAN_SOURCE		:= $(SRCDIR)/$(PIXMAN).$(PIXMAN_SUFFIX)
-PIXMAN_DIR		:= $(BUILDDIR)/$(PIXMAN)
+PIXMAN_SUFFIX	:= tar.bz2
+PIXMAN_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib//$(PIXMAN).$(PIXMAN_SUFFIX)
+PIXMAN_SOURCE	:= $(SRCDIR)/$(PIXMAN).$(PIXMAN_SUFFIX)
+PIXMAN_DIR	:= $(BUILDDIR)/$(PIXMAN)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -113,9 +113,9 @@ $(STATEDIR)/pixman.targetinstall: $(pixman_targetinstall_deps_default)
 	@$(call install_fixup, pixman,DEPENDS,)
 	@$(call install_fixup, pixman,DESCRIPTION,missing)
 
-	@$(call install_copy, pixman, 0, 0, 0644, $(PIXMAN_DIR)/pixman/.libs/libpixman-1.so.0.9.5, /usr/lib/libpixman-1.so.0.9.5)
-	@$(call install_link, pixman, libpixman-1.so.0.9.5, /usr/lib/libpixman-1.so.0)
-	@$(call install_link, pixman, libpixman-1.so.0.9.5, /usr/lib/libpixman-1.so)
+	@$(call install_copy, pixman, 0, 0, 0644, $(PIXMAN_DIR)/pixman/.libs/libpixman-1.so.0.12.0, /usr/lib/libpixman-1.so.0.12.0)
+	@$(call install_link, pixman, libpixman-1.so.0.12.0, /usr/lib/libpixman-1.so.0)
+	@$(call install_link, pixman, libpixman-1.so.0.12.0, /usr/lib/libpixman-1.so)
 
 	@$(call install_finish, pixman)
 

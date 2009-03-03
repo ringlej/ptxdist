@@ -3,6 +3,7 @@
 config CAIROMM
 	tristate
 	select CAIRO
+	select LIBSIGCPP
 	prompt "cairomm                       "
 	help
 	  cairomm is a C++ wrapper for the cairo graphics library. It offers all
