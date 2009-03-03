@@ -1,5 +1,22 @@
 config HOST_DTC
 	bool
+	prompt "Build device tree compiler    "
+	help
+	  Select this if the HOST_DTC tool is required without
+	  building a device tree. (It is also used for building
+	  U-boot FIT images)
+
+if HOST_DTC
+
+config HOST_DTC_VERSION
+        string
+        prompt "Device tree compiler version    "
+	default "1.1.0"
+        help
+          Specify the DTC version number to be used
+
+endif
+
 
 menuconfig DTC
 	bool
