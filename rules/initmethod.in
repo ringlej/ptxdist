@@ -7,6 +7,8 @@ choice
 
 	config INITMETHOD_BBINIT
 		bool
+		select BUSYBOX
+		select BUSYBOX_INIT
 		select BUSYBOX_HOSTNAME
 		select BUSYBOX_RUN_PARTS
 		prompt "busybox init    "
@@ -26,4 +28,3 @@ endchoice
 source "generated/initmethod.in"
 
 endmenu
-
