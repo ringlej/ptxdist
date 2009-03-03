@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,13 +19,12 @@ PACKAGES-$(PTXCONF_DROPBEAR) += dropbear
 #
 # Paths and names
 #
-DROPBEAR_VERSION	:= 0.50
+DROPBEAR_VERSION	:= 0.52
 DROPBEAR		:= dropbear-$(DROPBEAR_VERSION)
 DROPBEAR_SUFFIX		:= tar.bz2
-DROPBEAR_URL		:= http://matt.ucc.asn.au/dropbear/releases/$(DROPBEAR).$(DROPBEAR_SUFFIX)
+DROPBEAR_URL		:= http://www.ucc.asn.au/~matt/dropbear/releases/$(DROPBEAR).$(DROPBEAR_SUFFIX)
 DROPBEAR_SOURCE		:= $(SRCDIR)/$(DROPBEAR).$(DROPBEAR_SUFFIX)
 DROPBEAR_DIR		:= $(BUILDDIR)/$(DROPBEAR)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -99,9 +99,6 @@ $(STATEDIR)/dropbear.prepare:
 		$(DROPBEAR_PATH) $(DROPBEAR_ENV) \
 		$(DROPBEAR_DIR)/configure $(DROPBEAR_AUTOCONF)
 
-# FIXME: rsc: write a proper autotoolization for these switches, it
-# really doesn't work this way!!!
-
 ifdef PTXCONF_DROPBEAR_DIS_X11
 	@echo "ptxdist: disabling x11 forwarding"
 	$(call disable_c, $(DROPBEAR_DIR)/options.h,ENABLE_X11FWD)
@@ -135,50 +132,50 @@ endif
 
 ifdef PTXCONF_DROPBEAR_AES128
 	@echo "ptxdist: enabling aes128"
-	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_AES128_CBC)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_AES128)
 else
 	@echo "ptxdist: disabling aes128"
-	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_AES128_CBC)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_AES128)
 endif
 
 ifdef PTXCONF_DROPBEAR_3DES
 	@echo "ptxdist: enabling 3des"
-	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_3DES_CBC)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_3DES)
 else
 	@echo "ptxdist: disabling 3des"
-	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_3DES_CBC)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_3DES)
 endif
 
 ifdef PTXCONF_DROPBEAR_AES256
 	@echo "ptxdist: enabling aes256"
-	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_AES256_CBC)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_AES256)
 else
 	@echo "ptxdist: disabling aes256"
-	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_AES256_CBC)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_AES256)
 endif
 
 ifdef PTXCONF_DROPBEAR_BLOWFISH
 	@echo "ptxdist: enabling blowfish"
-	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_BLOWFISH_CBC)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_BLOWFISH)
 else
 	@echo "ptxdist: disabling blowfish"
-	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_BLOWFISH_CBC)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_BLOWFISH)
 endif
 
 ifdef PTXCONF_DROPBEAR_TWOFISH256
 	@echo "ptxdist: enabling twofish256"
-	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH256_CBC)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH256)
 else
 	@echo "ptxdist: disabling twofish256"
-	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH256_CBC)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH256)
 endif
 
 ifdef PTXCONF_DROPBEAR_TWOFISH128
 	@echo "ptxdist: enabling twofish128"
-	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH128_CBC)
+	@$(call enable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH128)
 else
 	@echo "ptxdist: disabling twofish128"
-	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH128_CBC)
+	@$(call disable_c, $(DROPBEAR_DIR)/options.h,DROPBEAR_TWOFISH128)
 endif
 
 
