@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2007 by Daniel Schnell
-#		2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#		2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -54,8 +54,8 @@ else
 LIGHTTPD_AUTOCONF += --without-zlib
 endif
 
-ifdef PTXCONF_LIGHTTPD__BZLIB
-LIGHTTPD_AUTOCONF += --with-bzip2=FIXME
+ifdef PTXCONF_LIGHTTPD__BZ2LIB
+LIGHTTPD_AUTOCONF += --with-bzip2=$(SYSROOT)/usr
 else
 LIGHTTPD_AUTOCONF += --without-bzip2
 endif

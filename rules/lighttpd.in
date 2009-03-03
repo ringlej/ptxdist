@@ -2,8 +2,10 @@
 menuconfig LIGHTTPD
 	tristate
 	prompt "lighttpd                      "
-	select ZLIB	if LIGHTTPD__ZLIB
-	select LIBPCRE	if LIGHTTPD__PCRE
+	select ZLIB		if LIGHTTPD__ZLIB
+	select BZIP2		if LIGHTTPD__BZ2LIB
+	select BZIP2__LIBBZ2	if LIGHTTPD__BZ2LIB
+	select LIBPCRE		if LIGHTTPD__PCRE
 	help
 	  Security, speed, compliance, and flexibility -- all of
 	  these describe lighttpd (pron. lighty) which is rapidly
@@ -23,9 +25,9 @@ config LIGHTTPD__ZLIB
 	help
 	  Enable zlib support for mod_compress.
 
-config LIGHTTPD__BZLIB
+config LIGHTTPD__BZ2LIB
 	bool
-#	prompt "blib support"
+	prompt "bz2lib support"
 	help
 	  Enable bzip2 support for mod_compress.
 
