@@ -128,16 +128,41 @@ config DROPBEAR_DIS_AGENT
 	  Authentication agent is a program to automatize the
 	  use of authentication private keys.
 
-comment "Encryption, at least one required --- RFC Draft requires 3DES"
+comment "Encryption, at least one required --- RFC Draft requires 3DES and recommends AES128"
 
 config DROPBEAR_AES128
 	bool
 	prompt "AES 128"
+	default y
 	help
 	  This Advanced Encryption Standard designed by Joan Daemen
 	  and Vincent Rijmen, is a FIPS-approved symmetric encryption
 	  algorithm that may be used by U.S. Government organizations
 	  (and others) to protect sensitive information.
+
+config DROPBEAR_3DES
+	bool
+	prompt "3DES"
+	default y
+	help
+	  DES is an IBM algorithm designed during the 1970s.
+	  In 1976, NIST has officially adopted it as an encryption
+	  algorithm for unclassified data. Since then, DES has
+	  become one of the widely used block ciphers on the
+	  market. As the effective key length of DES is a 56-bit,
+	  a triple-DES was created. The new 3DES concept uses
+	  three DES rounds to encrypt the DATA 3 times.
+
+config DROPBEAR_AES256
+	bool
+	prompt "AES 256"
+	default y
+	help
+	  This Advanced Encryption Standard designed by Joan Daemen
+	  and Vincent Rijmen, is a FIPS-approved symmetric encryption
+	  algorithm that may be used by U.S. Government organizations
+	  (and others) to protect sensitive information.
+
 
 config DROPBEAR_BLOWFISH
 	bool
@@ -161,24 +186,36 @@ config DROPBEAR_TWOFISH128
 	  bijective f function made by four key-dependent
 	  8x8-bit S-boxes.
 
-config DROPBEAR_3DES
+config DROPBEAR_TWOFISH256
 	bool
-	prompt "3DES"
-	default y
+	prompt "Twofish256"
 	help
-	  DES is an IBM algorithm designed during the 1970s.
-	  In 1976, NIST has officially adopted it as an encryption
-	  algorithm for unclassified data. Since then, DES has
-	  become one of the widely used block ciphers on the
-	  market. As the effective key length of DES is a 56-bit,
-	  a triple-DES was created. The new 3DES concept uses
-	  three DES rounds to encrypt the DATA 3 times.
+	  Another great algorithm designed by Bruce Schneier.
+	  This block cipher was designed as a successor to
+	  the 64-bit Blowfish block cipher.
+	  Twofish combines a 16-round Feistel network with a
+	  bijective f function made by four key-dependent
+	  8x8-bit S-boxes.
 
-comment "Integrity, at least one required --- RFC Draft requires sha1-hmac"
+
+comment "Integrity, at least one required --- RFC Draft requires sha1-hmac and recommends sha1-96"
 
 config DROPBEAR_SHA1
 	bool
 	prompt "sha1"
+	default y
+	help
+	  The Secure Hash Algorithm (SHA) was developed by NIST and
+	  is specified in the Secure Hash Standard (SHS, FIPS 180).
+	  SHA-1 is a revision to this version and was published in
+	  1994. It is also described in the ANSI X9.30 (part 2)
+	  standard. SHA-1 produces a 160-bit (20 byte) message digest.
+	  Although slower than MD5, this larger digest size makes it
+	  stronger against brute force attacks.
+
+config DROPBEAR_SHA1_96
+	bool
+	prompt "sha1-96"
 	default y
 	help
 	  The Secure Hash Algorithm (SHA) was developed by NIST and
@@ -197,7 +234,7 @@ config DROPBEAR_MD5
 	  Its 128 bit (16 byte) message digest makes it a faster
 	  implementation than SHA-1.
 
-comment "Hostkey/public key algorithms, at least one required --- SSH2 RFC Draft requires dss"
+comment "Hostkey/public key algorithms, at least one required --- SSH2 RFC Draft requires dss, recommends rsa"
 
 config DROPBEAR_RSA
 	bool
