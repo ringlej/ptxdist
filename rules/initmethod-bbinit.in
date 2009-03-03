@@ -104,7 +104,7 @@ config INITMETHOD_BBINIT_LINK_INETD
 
 config INITMETHOD_BBINIT_LINK_LIGHTTPD
 	string
-	depends on LIGHTTPD
+	depends on LIGHTTPD_STARTSCRIPT
 	prompt "lighttpd"
 	default "S91lighttpd"
 
