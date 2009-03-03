@@ -135,6 +135,11 @@ endif
 #	#
 #	# collect start links
 #	#
+ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_ALSA_UTILS)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/alsa-utils, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_ALSA_UTILS))
+endif
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DBUS)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/dbus, \

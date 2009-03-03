@@ -48,6 +48,12 @@ config INITMETHOD_BBINIT_ETC_INITD_NETWORKING
 
 menu "service startup configuration "
 
+config INITMETHOD_BBINIT_LINK_ALSA_UTILS
+	string
+	depends on ALSA_UTILS_STARTSCRIPT
+	prompt "alsa-utils"
+	default ""
+
 config INITMETHOD_BBINIT_LINK_DBUS
 	string
 	depends on DBUS
