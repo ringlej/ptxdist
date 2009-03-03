@@ -60,6 +60,12 @@ config INITMETHOD_BBINIT_LINK_HTTPD
 	prompt "httpd (apache)"
 	default ""
 
+config INITMETHOD_BBINIT_LINK_CHRONY
+	string
+	depends on CHRONY_STARTSCRIPT
+	prompt "chrony"
+	default ""
+
 config INITMETHOD_BBINIT_LINK_DBUS
 	string
 	depends on DBUS
