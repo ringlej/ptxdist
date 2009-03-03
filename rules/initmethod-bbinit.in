@@ -86,7 +86,7 @@ config INITMETHOD_BBINIT_LINK_DBUS
 
 config INITMETHOD_BBINIT_LINK_DNSMASQ
 	string
-	depends on DNSMASQ
+	depends on DNSMASQ_STARTSCRIPT
 	prompt "dnsmasq"
 	default ""
 
