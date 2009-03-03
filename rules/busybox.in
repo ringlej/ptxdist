@@ -21,11 +21,24 @@ config BUSYBOX_INETD_STARTSCRIPT
 	default y
 	prompt "install /etc/init.d/inetd"
 
-config BUSYBOX_TELNETD_STARTSCRIPT
-	bool
-	depends on BUSYBOX_FEATURE_TELNETD_STANDALONE
-	default y
-	prompt "install /etc/init.d/telnetd"
+choice
+	prompt "telnetd startup type"
+	depends on BUSYBOX_TELNETD
+
+	config BUSYBOX_TELNETD_STARTSCRIPT
+		bool
+		prompt "startscript (standalone)"
+		depends on BUSYBOX_FEATURE_TELNETD_STANDALONE
+		help
+		  start busybox telnetd server in standalone mode.
+		  I.e. without inetd.
+
+	config BUSYBOX_TELNETD_INETD
+		bool
+		prompt "inetd"
+		help
+		  start busybox telnetd server from inetd
+endchoice
 
 config BUSYBOX_TELNETD_SYSLOGD_STARTSCRIPT
 	bool

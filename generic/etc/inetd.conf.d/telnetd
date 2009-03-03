@@ -1,1 +1,1 @@
-telnet stream tcp nowait root /usr/sbin/telnetd telnetd
+telnet stream tcp nowait root /usr/sbin/telnetd telnetd -i

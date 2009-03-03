@@ -96,6 +96,10 @@ endif
 		$(call install_link, busybox, /bin/busybox, $$file);	\
 	done
 
+ifdef BUSYBOX_TELNETD_INETD
+	@$(call install_alternative, busybox, 0, 0, 0644, /etc/inetd.conf.d/telnetd, n)
+endif
+
 #	#
 #	# bb init: start scripts
 #	#
@@ -107,8 +111,6 @@ endif
 
 ifdef PTXCONF_BUSYBOX_TELNETD_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/telnetd, n)
-else
-	@$(call install_alternative, busybox, 0, 0, 0644, /etc/inetd.conf.d/telnetd, n)
 endif
 
 ifdef PTXCONF_BUSYBOX_SYSLOGD_STARTSCRIPT
