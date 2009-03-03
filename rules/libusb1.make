@@ -65,7 +65,7 @@ $(STATEDIR)/libusb1.targetinstall:
 
 ifndef PTXCONF_LIBUSB1_BUILD_STATIC
 	@$(call install_init, libusb1)
-	@$(call install_fixup, libusb1,PACKAGE,libusb)
+	@$(call install_fixup, libusb1,PACKAGE,libusb1)
 	@$(call install_fixup, libusb1,PRIORITY,optional)
 	@$(call install_fixup, libusb1,VERSION,$(LIBUSB1_VERSION))
 	@$(call install_fixup, libusb1,SECTION,base)
