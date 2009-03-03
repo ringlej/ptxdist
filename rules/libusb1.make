@@ -1,3 +1,4 @@
+# -*-makefile-*-
 #
 # Copyright (C) 2009 by Juergen Beisert
 #
