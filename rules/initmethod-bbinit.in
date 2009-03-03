@@ -72,6 +72,12 @@ config INITMETHOD_BBINIT_LINK_CONNMAN
 	prompt "connman"
 	default ""
 
+config INITMETHOD_BBINIT_LINK_CVS
+	string
+	depends on CVS_STARTSCRIPT
+	prompt "cvs"
+	default ""
+
 config INITMETHOD_BBINIT_LINK_DBUS
 	string
 	depends on DBUS
