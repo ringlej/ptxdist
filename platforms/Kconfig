@@ -41,6 +41,7 @@ menu "bootloaders                   "
 source "platforms/grub.in"
 source "platforms/u-boot.in"
 source "platforms/u-boot-v2.in"
+source "platforms/at91bootstrap.in"
 endmenu
 
 
