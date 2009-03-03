@@ -48,145 +48,145 @@ config INITMETHOD_BBINIT_ETC_INITD_NETWORKING
 
 menu "service startup configuration "
 
-config ROOTFS_SYSVINIT_LINK_DBUS
+config INITMETHOD_BBINIT_LINK_DBUS
 	string
 	depends on DBUS
 	prompt "dbus"
 	default "S12dbus"
 
-config ROOTFS_SYSVINIT_LINK_DNSMASQ
+config INITMETHOD_BBINIT_LINK_DNSMASQ
 	string
 	depends on DNSMASQ
 	prompt "dnsmasq"
 	default ""
 
-config ROOTFS_SYSVINIT_LINK_DROPBEAR
+config INITMETHOD_BBINIT_LINK_DROPBEAR
 	string
 	depends on DROPBEAR
 	prompt "dropbear"
 	default "S16dropbear"
 
-config ROOTFS_SYSVINIT_LINK_INETD
+config INITMETHOD_BBINIT_LINK_INETD
 	string
 	depends on BUSYBOX_INETD
 	prompt "inetd"
 	default "S95inetd"
 
-config ROOTFS_SYSVINIT_LINK_LIGHTTPD
+config INITMETHOD_BBINIT_LINK_LIGHTTPD
 	string
 	depends on LIGHTTPD
 	prompt "lighttpd"
 	default "S91lighttpd"
 
-config ROOTFS_SYSVINIT_LINK_MYSQL
+config INITMETHOD_BBINIT_LINK_MYSQL
 	string
 	depends on MYSQL
 	prompt "mysql"
 	default ""
 
-config ROOTFS_SYSVINIT_LINK_NFSD
+config INITMETHOD_BBINIT_LINK_NFSD
 	string
 	depends on NFSD
 	prompt "nfsd"
 	default "S95nfsd"
 
-config ROOTFS_SYSVINIT_LINK_NTP
+config INITMETHOD_BBINIT_LINK_NTP
 	string
 	depends on NTP
 	prompt "ntp"
 	default ""
 
-config ROOTFS_SYSVINIT_LINK_NTPCLIENT
+config INITMETHOD_BBINIT_LINK_NTPCLIENT
 	string
 	depends on NTPCLIENT
 	prompt "ntpclient"
 	default ""
 
-config ROOTFS_SYSVINIT_LINK_OPENSSH
+config INITMETHOD_BBINIT_LINK_OPENSSH
 	string
 	depends on OPENSSH
 	prompt "openssh"
 	default "S16openssh"
 
-config ROOTFS_SYSVINIT_LINK_PORTMAPD
+config INITMETHOD_BBINIT_LINK_PORTMAPD
 	string
 	depends on PORTMAPD
 	prompt "portmapd"
 	default ""
 
-config ROOTFS_SYSVINIT_LINK_PPPD
+config INITMETHOD_BBINIT_LINK_PPPD
 	string
 	depends on PPPD
 	prompt "pppd"
 	default ""
 
-config ROOTFS_SYSVINIT_LINK_PROFTPD
+config INITMETHOD_BBINIT_LINK_PROFTPD
 	string
 	depends on PROFTPD
 	prompt "proftpd"
 	default "S91proftpd"
 
-config ROOTFS_SYSVINIT_LINK_PUREFTPD
+config INITMETHOD_BBINIT_LINK_PUREFTPD
 	string
 	depends on PUREFTPD
 	prompt "pureftpd"
 	default "S91pureftpd"
 
-config ROOTFS_SYSVINIT_LINK_RSYNCD
+config INITMETHOD_BBINIT_LINK_RSYNCD
 	string
 	depends on RSYNCD
 	prompt "rsyncd"
 	default "S20rsyncd"
 
-config ROOTFS_SYSVINIT_LINK_SAMBA
+config INITMETHOD_BBINIT_LINK_SAMBA
 	string
 	depends on SAMBA
 	prompt "samba"
 	default ""
 
-config ROOTFS_SYSVINIT_LINK_SYSLOG_NG
+config INITMETHOD_BBINIT_LINK_SYSLOG_NG
 	string
 	depends on SYSLOG_NG
 	prompt "syslog-ng"
 	default "S10syslogd"
 
-config ROOTFS_SYSVINIT_LINK_TELNETD
+config INITMETHOD_BBINIT_LINK_TELNETD
 	string
 	depends on BUSYBOX_TELNETD
 	prompt "telnetd"
 	default "S16telnetd"
 
-config ROOTFS_SYSVINIT_LINK_THTTPD
+config INITMETHOD_BBINIT_LINK_THTTPD
 	string
 	depends on THTTPD
 	prompt "thttpd"
 	default "S91thttpd"
 
-config ROOTFS_SYSVINIT_LINK_UDEV
+config INITMETHOD_BBINIT_LINK_UDEV
 	string
 	depends on UDEV
 	prompt "udev"
 	default "S00udev"
 
-config ROOTFS_SYSVINIT_LINK_BANNER
+config INITMETHOD_BBINIT_LINK_BANNER
 	string
 	depends on INITMETHOD_BBINIT_ETC_INITD_BANNER
 	prompt "banner"
 	default "S99banner"
 
-config ROOTFS_SYSVINIT_LINK_LOGROTATE
+config INITMETHOD_BBINIT_LINK_LOGROTATE
 	string
 	depends on INITMETHOD_BBINIT_ETC_INITD_LOGROTATE
 	prompt "logrotate"
 	default "S98logrotate"
 
-config ROOTFS_SYSVINIT_LINK_MODULES
+config INITMETHOD_BBINIT_LINK_MODULES
 	string
 	depends on INITMETHOD_BBINIT_ETC_INITD_MODULES
 	prompt "modules"
 	default "S98modules"
 
-config ROOTFS_SYSVINIT_LINK_NETWORKING
+config INITMETHOD_BBINIT_LINK_NETWORKING
 	string
 	depends on INITMETHOD_BBINIT_ETC_INITD_NETWORKING
 	prompt "networking"
