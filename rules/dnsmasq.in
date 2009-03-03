@@ -27,7 +27,8 @@ comment "build options   ---"
 
 config DNSMASQ_DBUS
 	bool
-	prompt "include DBUS support"
+	prompt "include DBUS support [BROKEN]"
+	depends on BROKEN
 	help
 	  This enables DBUS support in dnsmasq. This is not only a build
 	  option. You also have to enable it at runtime. FIXME: Show how,
