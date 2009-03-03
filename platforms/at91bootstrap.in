@@ -1,7 +1,7 @@
 menuconfig AT91BOOTSTRAP
 	bool
 	depends on ARCH_ARM_AT91SAM926X
-	prompt "Build dataflash bootstrap for AT91SAM926*"
+	prompt "AT91 bootstrap                "
 	help
 	  The AT91Bootstrap application is a first level bootloader
 	  for Atmel AT91SAM9 ARM Thumb-based microcontrollers.
@@ -41,6 +41,7 @@ config AT91BOOTSTRAP_VERSION
 config AT91BOOTSTRAP_CONFIG
 	string
 	prompt "AT91 Bootstrap config target"
+	default "at91sam9261ek"
 	help
 	  The AT91 Bootstrap make config target. Usually something like
 	  "at91sam9261ek". See AT91 Bootstrap's 'board' directory for possible
@@ -52,11 +53,11 @@ choice
 
 	config AT91BOOTSTRAP_BOOT_DATAFLASH
 		bool
-		prompt "Boot from SPI dataflash"
+		prompt "SPI dataflash"
 
 	config AT91BOOTSTRAP_BOOT_NAND
 		bool
-		prompt "Boot from NAND-flash"
+		prompt "NAND flash"
 
 
 endchoice
