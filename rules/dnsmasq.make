@@ -40,7 +40,7 @@ $(DNSMASQ_SOURCE):
 
 DNSMASQ_PATH :=  PATH=$(CROSS_PATH)
 DNSMASQ_COMPILE_ENV :=  $(CROSS_ENV)
-DNSMASQ_MAKEVARS := PREFIX=/
+DNSMASQ_MAKEVARS := PREFIX=/usr
 
 $(STATEDIR)/dnsmasq.prepare:
 	@$(call targetinfo)
@@ -64,7 +64,7 @@ $(STATEDIR)/dnsmasq.targetinstall:
 
 	@$(call install_copy, dnsmasq, 0, 0, 0755, \
 		$(DNSMASQ_DIR)/src/dnsmasq, \
-		/sbin/dnsmasq)
+		/usr/sbin/dnsmasq)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_DNSMASQ_STARTSCRIPT
