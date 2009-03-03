@@ -31,13 +31,13 @@ config LIGHTTPD__BZLIB
 
 config LIGHTTPD__LFS
 	bool
-#	prompt "large file system support"
+	prompt "large file system support"
 	help
 	  Turn on Large File System.
 
 config LIGHTTPD__IPV6
 	bool
-#	prompt "ip v6 support"
+	prompt "ip v6 support"
 	help
 	  Enable IPv6 support.
 
