@@ -12,6 +12,8 @@ menuconfig HOST_CAIRO
 
 	select HOST_LIBPNG if HOST_CAIRO_PNG
 
+	select HOST_PIXMAN
+
 	prompt "cairo                         "
 
 config HOST_CAIRO_PS
