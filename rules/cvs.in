@@ -114,19 +114,28 @@ config CVS_SERVER_REPOSITORY
 	  This will be cvs server's root repository (given to cvs as --allow-root=...).
 	  You must give a path here to use the "Populate CVSROOT files" feature.
 
-config CVS_INETD_STRING
-	string
+choice
+	prompt "cvs startup type"
 	depends on CVS_SERVER
-	depends on CVS_INETD_SERVER
-	prompt "inetd service entry"
-	default "cvspserver stream tcp nowait root /usr/bin/cvs cvsd -f @ROOT@ pserver"
-	help
-	  This string is added to inetd's configuration /etc/inetd.conf. @ROOT@
-	  in this string will be replaced by repository's root
 
-config CVS_STARTSCRIPT
-	bool
-	default y
-	prompt "install /etc/init.d/cvs"
+	config CVS_STARTSCRIPT
+		bool
+		prompt "startscript (standalone)"
+		help
+		  This installs cvs startup script /etc/init.d/cvs. With this
+		  script the cvs server will be started at system startup and
+		  waits for connections
+
+	config CVS_INETD
+		bool
+		prompt "inetd"
+		help
+		  cvs server will be started on demand from inetd. This installs
+		  a startup configuration for cvs from inetd. It adds to the
+		  /etc/inetd.conf a line like this:
+		  cvs stream tcp nowait root /usr/bin/cvs cvsd -f --allow-root=/srv/cvsroot pserver
+		  Note: You must enable one of the two possible inet daemons:
+		  There is one embedded in busybox and one in packet inetutils.
+endchoice
 
 endif

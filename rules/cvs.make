@@ -127,9 +127,9 @@ $(STATEDIR)/cvs.targetinstall:
 	@$(call install_fixup,cvs,DEPENDS,)
 	@$(call install_fixup,cvs,DESCRIPTION,missing)
 
-ifdef PTXCONF_CVS_INETD_SERVER
-	@$(call install_alternative, cvs, 0, 0, 0755, /etc/inetd.conf.d/cvs, n)
-ifneq ($(PTXCONF_CVS_SERVER_REPOSITORY),"")
+ifdef PTXCONF_CVS_INETD
+	@$(call install_alternative, cvs, 0, 0, 0644, /etc/inetd.conf.d/cvs, n)
+ifneq ($(call remove_quotes, $(PTXCONF_CVS_SERVER_REPOSITORY),)
 #	# add info about repository's root
 	@$(call install_replace, cvs, /etc/inetd.conf.d/cvs, \
 		@ROOT@, \
@@ -139,8 +139,15 @@ else
 	@$(call install_replace, cvs, /etc/inetd.conf.d/cvs, \
 		@ROOT@, )
 endif
+endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_CVS_SERVER_REPOSITORY)),)
+ifdef PTXCONF_INITMETHOD_BBINIT
+ifdef PTXCONF_CVS_STARTSCRIPT
+	@$(call install_alternative, cvs, 0, 0, 0755, /etc/init.d/cvs, n)
+endif
+endif
+
+ifneq ($(call remove_quotes, $(PTXCONF_CVS_SERVER_REPOSITORY)),)
 	@$(call install_copy, cvs, 0, 0, 0755, $(PTXCONF_CVS_SERVER_REPOSITORY))
 
 #	#
@@ -164,7 +171,6 @@ ifdef PTXCONF_CVS_SERVER_POPULATE_CVSROOT
 				$(PTXCONF_CVS_SERVER_REPOSITORY)/CVSROOT/$$i,n); \
 		fi; \
 	done;
-endif
 endif
 endif
 
