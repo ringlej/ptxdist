@@ -6,6 +6,7 @@ config GTK
 	tristate
 	prompt "gtk+                          "
 	select GLIB
+	select HOST_GLIB
 	select ATK
 	select PANGO
 
