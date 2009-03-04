@@ -1,0 +1,1209 @@
+diff -ur DirectFB-1.3.0-orig/aclocal.m4 DirectFB-1.3.0/aclocal.m4
+--- DirectFB-1.3.0-orig/aclocal.m4	2008-09-29 13:10:10.000000000 +0200
++++ DirectFB-1.3.0/aclocal.m4	2009-03-04 17:44:47.000000000 +0100
+@@ -21,7 +21,7 @@
+ 
+ # libtool.m4 - Configure libtool for the host system. -*-Autoconf-*-
+ 
+-# serial 52 Debian 1.5.26-1ubuntu1 AC_PROG_LIBTOOL
++# serial 52 Debian 1.5.26-4 AC_PROG_LIBTOOL
+ 
+ 
+ # AC_PROVIDE_IFELSE(MACRO-NAME, IF-PROVIDED, IF-NOT-PROVIDED)
+Only in DirectFB-1.3.0: autom4te.cache
+diff -ur DirectFB-1.3.0-orig/configure DirectFB-1.3.0/configure
+--- DirectFB-1.3.0-orig/configure	2008-09-29 13:10:13.000000000 +0200
++++ DirectFB-1.3.0/configure	2009-03-04 17:44:51.000000000 +0100
+@@ -967,6 +967,7 @@
+ FREETYPE_PROVIDER_FALSE
+ V4L_PROVIDER_TRUE
+ V4L_PROVIDER_FALSE
++LINUX_INCLUDE
+ TSLIB_CFLAGS
+ TSLIB_LIBS
+ SOFTWARE_RENDERING_TRUE
+@@ -1733,6 +1734,7 @@
+   --with-pic              try to use only PIC/non-PIC objects [default=use
+                           both]
+   --with-tags[=TAGS]      include additional configurations [automatic]
++  --with-kernel=<path>    path to the kernel source
+   --with-gfxdrivers=<list>   compile gfxdrivers in <list>
+                                gfxdrivers may be comma separated
+                                'all' builds all drivers (default), 'none' builds none
+@@ -5077,7 +5079,7 @@
+   ;;
+ *-*-irix6*)
+   # Find out which ABI we are using.
+-  echo '#line 5080 "configure"' > conftest.$ac_ext
++  echo '#line 5082 "configure"' > conftest.$ac_ext
+   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
+   (eval $ac_compile) 2>&5
+   ac_status=$?
+@@ -8129,11 +8131,11 @@
+    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
+    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
+    -e 's:$: $lt_compiler_flag:'`
+-   (eval echo "\"\$as_me:8132: $lt_compile\"" >&5)
++   (eval echo "\"\$as_me:8134: $lt_compile\"" >&5)
+    (eval "$lt_compile" 2>conftest.err)
+    ac_status=$?
+    cat conftest.err >&5
+-   echo "$as_me:8136: \$? = $ac_status" >&5
++   echo "$as_me:8138: \$? = $ac_status" >&5
+    if (exit $ac_status) && test -s "$ac_outfile"; then
+      # The compiler can only warn and ignore the option if not recognized
+      # So say no if there are warnings other than the usual output.
+@@ -8419,11 +8421,11 @@
+    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
+    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
+    -e 's:$: $lt_compiler_flag:'`
+-   (eval echo "\"\$as_me:8422: $lt_compile\"" >&5)
++   (eval echo "\"\$as_me:8424: $lt_compile\"" >&5)
+    (eval "$lt_compile" 2>conftest.err)
+    ac_status=$?
+    cat conftest.err >&5
+-   echo "$as_me:8426: \$? = $ac_status" >&5
++   echo "$as_me:8428: \$? = $ac_status" >&5
+    if (exit $ac_status) && test -s "$ac_outfile"; then
+      # The compiler can only warn and ignore the option if not recognized
+      # So say no if there are warnings other than the usual output.
+@@ -8523,11 +8525,11 @@
+    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
+    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
+    -e 's:$: $lt_compiler_flag:'`
+-   (eval echo "\"\$as_me:8526: $lt_compile\"" >&5)
++   (eval echo "\"\$as_me:8528: $lt_compile\"" >&5)
+    (eval "$lt_compile" 2>out/conftest.err)
+    ac_status=$?
+    cat out/conftest.err >&5
+-   echo "$as_me:8530: \$? = $ac_status" >&5
++   echo "$as_me:8532: \$? = $ac_status" >&5
+    if (exit $ac_status) && test -s out/conftest2.$ac_objext
+    then
+      # The compiler can only warn and ignore the option if not recognized
+@@ -10900,7 +10902,7 @@
+   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
+   lt_status=$lt_dlunknown
+   cat > conftest.$ac_ext <<EOF
+-#line 10903 "configure"
++#line 10905 "configure"
+ #include "confdefs.h"
+ 
+ #if HAVE_DLFCN_H
+@@ -11000,7 +11002,7 @@
+   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
+   lt_status=$lt_dlunknown
+   cat > conftest.$ac_ext <<EOF
+-#line 11003 "configure"
++#line 11005 "configure"
+ #include "confdefs.h"
+ 
+ #if HAVE_DLFCN_H
+@@ -13401,11 +13403,11 @@
+    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
+    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
+    -e 's:$: $lt_compiler_flag:'`
+-   (eval echo "\"\$as_me:13404: $lt_compile\"" >&5)
++   (eval echo "\"\$as_me:13406: $lt_compile\"" >&5)
+    (eval "$lt_compile" 2>conftest.err)
+    ac_status=$?
+    cat conftest.err >&5
+-   echo "$as_me:13408: \$? = $ac_status" >&5
++   echo "$as_me:13410: \$? = $ac_status" >&5
+    if (exit $ac_status) && test -s "$ac_outfile"; then
+      # The compiler can only warn and ignore the option if not recognized
+      # So say no if there are warnings other than the usual output.
+@@ -13505,11 +13507,11 @@
+    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
+    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
+    -e 's:$: $lt_compiler_flag:'`
+-   (eval echo "\"\$as_me:13508: $lt_compile\"" >&5)
++   (eval echo "\"\$as_me:13510: $lt_compile\"" >&5)
+    (eval "$lt_compile" 2>out/conftest.err)
+    ac_status=$?
+    cat out/conftest.err >&5
+-   echo "$as_me:13512: \$? = $ac_status" >&5
++   echo "$as_me:13514: \$? = $ac_status" >&5
+    if (exit $ac_status) && test -s out/conftest2.$ac_objext
+    then
+      # The compiler can only warn and ignore the option if not recognized
+@@ -15103,11 +15105,11 @@
+    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
+    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
+    -e 's:$: $lt_compiler_flag:'`
+-   (eval echo "\"\$as_me:15106: $lt_compile\"" >&5)
++   (eval echo "\"\$as_me:15108: $lt_compile\"" >&5)
+    (eval "$lt_compile" 2>conftest.err)
+    ac_status=$?
+    cat conftest.err >&5
+-   echo "$as_me:15110: \$? = $ac_status" >&5
++   echo "$as_me:15112: \$? = $ac_status" >&5
+    if (exit $ac_status) && test -s "$ac_outfile"; then
+      # The compiler can only warn and ignore the option if not recognized
+      # So say no if there are warnings other than the usual output.
+@@ -15207,11 +15209,11 @@
+    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
+    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
+    -e 's:$: $lt_compiler_flag:'`
+-   (eval echo "\"\$as_me:15210: $lt_compile\"" >&5)
++   (eval echo "\"\$as_me:15212: $lt_compile\"" >&5)
+    (eval "$lt_compile" 2>out/conftest.err)
+    ac_status=$?
+    cat out/conftest.err >&5
+-   echo "$as_me:15214: \$? = $ac_status" >&5
++   echo "$as_me:15216: \$? = $ac_status" >&5
+    if (exit $ac_status) && test -s out/conftest2.$ac_objext
+    then
+      # The compiler can only warn and ignore the option if not recognized
+@@ -17427,11 +17429,11 @@
+    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
+    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
+    -e 's:$: $lt_compiler_flag:'`
+-   (eval echo "\"\$as_me:17430: $lt_compile\"" >&5)
++   (eval echo "\"\$as_me:17432: $lt_compile\"" >&5)
+    (eval "$lt_compile" 2>conftest.err)
+    ac_status=$?
+    cat conftest.err >&5
+-   echo "$as_me:17434: \$? = $ac_status" >&5
++   echo "$as_me:17436: \$? = $ac_status" >&5
+    if (exit $ac_status) && test -s "$ac_outfile"; then
+      # The compiler can only warn and ignore the option if not recognized
+      # So say no if there are warnings other than the usual output.
+@@ -17717,11 +17719,11 @@
+    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
+    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
+    -e 's:$: $lt_compiler_flag:'`
+-   (eval echo "\"\$as_me:17720: $lt_compile\"" >&5)
++   (eval echo "\"\$as_me:17722: $lt_compile\"" >&5)
+    (eval "$lt_compile" 2>conftest.err)
+    ac_status=$?
+    cat conftest.err >&5
+-   echo "$as_me:17724: \$? = $ac_status" >&5
++   echo "$as_me:17726: \$? = $ac_status" >&5
+    if (exit $ac_status) && test -s "$ac_outfile"; then
+      # The compiler can only warn and ignore the option if not recognized
+      # So say no if there are warnings other than the usual output.
+@@ -17821,11 +17823,11 @@
+    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
+    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
+    -e 's:$: $lt_compiler_flag:'`
+-   (eval echo "\"\$as_me:17824: $lt_compile\"" >&5)
++   (eval echo "\"\$as_me:17826: $lt_compile\"" >&5)
+    (eval "$lt_compile" 2>out/conftest.err)
+    ac_status=$?
+    cat out/conftest.err >&5
+-   echo "$as_me:17828: \$? = $ac_status" >&5
++   echo "$as_me:17830: \$? = $ac_status" >&5
+    if (exit $ac_status) && test -s out/conftest2.$ac_objext
+    then
+      # The compiler can only warn and ignore the option if not recognized
+@@ -25893,6 +25895,33 @@
+ 
+ if test "$have_linux" = "yes"; then
+ 
++#
++# If we cross build, we want to be able to use a kernel for the "host"
++# system, without relying on the fact that the toolchain has the right
++# linux/config.h included (which is probably not the case)
++#
++{ echo "$as_me:$LINENO: checking for kernel headers" >&5
++echo $ECHO_N "checking for kernel headers... $ECHO_C" >&6; }
++
++# Check whether --with-kernel was given.
++if test "${with_kernel+set}" = set; then
++  withval=$with_kernel;
++    kernel_path="$withval"
++    LINUX_INCLUDE="$kernel_path/include"
++    { echo "$as_me:$LINENO: using $kernel_path" >&5
++echo "$as_me: using $kernel_path" >&6;}
++
++else
++
++    { echo "$as_me:$LINENO: using installed kernel headers" >&5
++echo "$as_me: using installed kernel headers" >&6;}
++    LINUX_INCLUDE=""
++
++
++fi
++
++
++
+ { echo "$as_me:$LINENO: checking which gfxdrivers should be built" >&5
+ echo $ECHO_N "checking which gfxdrivers should be built... $ECHO_C" >&6; }
+ 
+@@ -29747,6 +29776,7 @@
+ FREETYPE_PROVIDER_FALSE!$FREETYPE_PROVIDER_FALSE$ac_delim
+ V4L_PROVIDER_TRUE!$V4L_PROVIDER_TRUE$ac_delim
+ V4L_PROVIDER_FALSE!$V4L_PROVIDER_FALSE$ac_delim
++LINUX_INCLUDE!$LINUX_INCLUDE$ac_delim
+ TSLIB_CFLAGS!$TSLIB_CFLAGS$ac_delim
+ TSLIB_LIBS!$TSLIB_LIBS$ac_delim
+ SOFTWARE_RENDERING_TRUE!$SOFTWARE_RENDERING_TRUE$ac_delim
+@@ -29837,7 +29867,6 @@
+ WM97XX_TS_FALSE!$WM97XX_TS_FALSE$ac_delim
+ BUILD_TESTS_TRUE!$BUILD_TESTS_TRUE$ac_delim
+ BUILD_TESTS_FALSE!$BUILD_TESTS_FALSE$ac_delim
+-BUILD_TOOLS_TRUE!$BUILD_TOOLS_TRUE$ac_delim
+ _ACEOF
+ 
+   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
+@@ -29879,6 +29908,7 @@
+ ac_delim='%!_!# '
+ for ac_last_try in false false false false false :; do
+   cat >conf$$subs.sed <<_ACEOF
++BUILD_TOOLS_TRUE!$BUILD_TOOLS_TRUE$ac_delim
+ BUILD_TOOLS_FALSE!$BUILD_TOOLS_FALSE$ac_delim
+ CROSS_COMPILING_TRUE!$CROSS_COMPILING_TRUE$ac_delim
+ CROSS_COMPILING_FALSE!$CROSS_COMPILING_FALSE$ac_delim
+@@ -29909,7 +29939,7 @@
+ LTLIBOBJS!$LTLIBOBJS$ac_delim
+ _ACEOF
+ 
+-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 28; then
++  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 29; then
+     break
+   elif $ac_last_try; then
+     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
+diff -ur DirectFB-1.3.0-orig/data/Makefile.in DirectFB-1.3.0/data/Makefile.in
+--- DirectFB-1.3.0-orig/data/Makefile.in	2008-09-29 13:10:21.000000000 +0200
++++ DirectFB-1.3.0/data/Makefile.in	2009-03-04 17:44:52.000000000 +0100
+@@ -133,6 +133,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/docs/html/Makefile.in DirectFB-1.3.0/docs/html/Makefile.in
+--- DirectFB-1.3.0-orig/docs/html/Makefile.in	2008-09-29 13:10:21.000000000 +0200
++++ DirectFB-1.3.0/docs/html/Makefile.in	2009-03-04 17:44:52.000000000 +0100
+@@ -123,6 +123,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/docs/Makefile.in DirectFB-1.3.0/docs/Makefile.in
+--- DirectFB-1.3.0-orig/docs/Makefile.in	2008-09-29 13:10:21.000000000 +0200
++++ DirectFB-1.3.0/docs/Makefile.in	2009-03-04 17:44:52.000000000 +0100
+@@ -142,6 +142,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/ati128/Makefile.in DirectFB-1.3.0/gfxdrivers/ati128/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/ati128/Makefile.in	2008-09-29 13:10:21.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/ati128/Makefile.in	2009-03-04 17:44:53.000000000 +0100
+@@ -160,6 +160,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/cle266/Makefile.in DirectFB-1.3.0/gfxdrivers/cle266/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/cle266/Makefile.in	2008-09-29 13:10:21.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/cle266/Makefile.in	2009-03-04 17:44:53.000000000 +0100
+@@ -162,6 +162,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/cyber5k/Makefile.in DirectFB-1.3.0/gfxdrivers/cyber5k/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/cyber5k/Makefile.in	2008-09-29 13:10:21.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/cyber5k/Makefile.in	2009-03-04 17:44:53.000000000 +0100
+@@ -160,6 +160,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/davinci/Makefile.in DirectFB-1.3.0/gfxdrivers/davinci/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/davinci/Makefile.in	2008-09-29 13:10:21.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/davinci/Makefile.in	2009-03-04 17:44:53.000000000 +0100
+@@ -181,6 +181,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/ep9x/Makefile.in DirectFB-1.3.0/gfxdrivers/ep9x/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/ep9x/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/ep9x/Makefile.in	2009-03-04 17:44:53.000000000 +0100
+@@ -159,6 +159,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/gl/Makefile.in DirectFB-1.3.0/gfxdrivers/gl/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/gl/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/gl/Makefile.in	2009-03-04 17:44:53.000000000 +0100
+@@ -157,6 +157,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/i810/Makefile.in DirectFB-1.3.0/gfxdrivers/i810/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/i810/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/i810/Makefile.in	2009-03-04 17:44:53.000000000 +0100
+@@ -159,6 +159,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/i830/Makefile.in DirectFB-1.3.0/gfxdrivers/i830/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/i830/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/i830/Makefile.in	2009-03-04 17:44:53.000000000 +0100
+@@ -159,6 +159,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/mach64/Makefile.in DirectFB-1.3.0/gfxdrivers/mach64/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/mach64/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/mach64/Makefile.in	2009-03-04 17:44:54.000000000 +0100
+@@ -160,6 +160,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/Makefile.in DirectFB-1.3.0/gfxdrivers/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/Makefile.in	2008-09-29 13:10:21.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/Makefile.in	2009-03-04 17:44:53.000000000 +0100
+@@ -137,6 +137,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/matrox/Makefile.in DirectFB-1.3.0/gfxdrivers/matrox/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/matrox/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/matrox/Makefile.in	2009-03-04 17:44:54.000000000 +0100
+@@ -161,6 +161,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/neomagic/Makefile.in DirectFB-1.3.0/gfxdrivers/neomagic/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/neomagic/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/neomagic/Makefile.in	2009-03-04 17:44:54.000000000 +0100
+@@ -162,6 +162,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/nsc/include/Makefile.in DirectFB-1.3.0/gfxdrivers/nsc/include/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/nsc/include/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/nsc/include/Makefile.in	2009-03-04 17:44:54.000000000 +0100
+@@ -123,6 +123,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/nsc/Makefile.in DirectFB-1.3.0/gfxdrivers/nsc/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/nsc/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/nsc/Makefile.in	2009-03-04 17:44:54.000000000 +0100
+@@ -169,6 +169,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/nvidia/Makefile.in DirectFB-1.3.0/gfxdrivers/nvidia/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/nvidia/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/nvidia/Makefile.in	2009-03-04 17:44:54.000000000 +0100
+@@ -161,6 +161,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/omap/Makefile.in DirectFB-1.3.0/gfxdrivers/omap/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/omap/Makefile.in	2008-09-29 13:10:22.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/omap/Makefile.in	2009-03-04 17:44:54.000000000 +0100
+@@ -159,6 +159,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/radeon/Makefile.in DirectFB-1.3.0/gfxdrivers/radeon/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/radeon/Makefile.in	2008-09-29 13:10:23.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/radeon/Makefile.in	2009-03-04 17:44:54.000000000 +0100
+@@ -161,6 +161,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/savage/Makefile.in DirectFB-1.3.0/gfxdrivers/savage/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/savage/Makefile.in	2008-09-29 13:10:23.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/savage/Makefile.in	2009-03-04 17:44:54.000000000 +0100
+@@ -160,6 +160,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/sh7722/Makefile.in DirectFB-1.3.0/gfxdrivers/sh7722/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/sh7722/Makefile.in	2008-09-29 13:10:23.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/sh7722/Makefile.in	2009-03-04 17:44:54.000000000 +0100
+@@ -178,6 +178,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/sis315/Makefile.in DirectFB-1.3.0/gfxdrivers/sis315/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/sis315/Makefile.in	2008-09-29 13:10:23.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/sis315/Makefile.in	2009-03-04 17:44:55.000000000 +0100
+@@ -160,6 +160,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/tdfx/Makefile.in DirectFB-1.3.0/gfxdrivers/tdfx/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/tdfx/Makefile.in	2008-09-29 13:10:23.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/tdfx/Makefile.in	2009-03-04 17:44:55.000000000 +0100
+@@ -159,6 +159,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/unichrome/Makefile.in DirectFB-1.3.0/gfxdrivers/unichrome/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/unichrome/Makefile.in	2008-09-29 13:10:23.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/unichrome/Makefile.in	2009-03-04 17:44:55.000000000 +0100
+@@ -164,6 +164,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/gfxdrivers/vmware/Makefile.in DirectFB-1.3.0/gfxdrivers/vmware/Makefile.in
+--- DirectFB-1.3.0-orig/gfxdrivers/vmware/Makefile.in	2008-09-29 13:10:23.000000000 +0200
++++ DirectFB-1.3.0/gfxdrivers/vmware/Makefile.in	2009-03-04 17:44:55.000000000 +0100
+@@ -158,6 +158,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/include/Makefile.in DirectFB-1.3.0/include/Makefile.in
+--- DirectFB-1.3.0-orig/include/Makefile.in	2008-09-29 13:10:23.000000000 +0200
++++ DirectFB-1.3.0/include/Makefile.in	2009-03-04 17:44:55.000000000 +0100
+@@ -136,6 +136,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/dbox2remote/Makefile.in DirectFB-1.3.0/inputdrivers/dbox2remote/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/dbox2remote/Makefile.in	2008-09-29 13:10:23.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/dbox2remote/Makefile.in	2009-03-04 17:44:55.000000000 +0100
+@@ -162,6 +162,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/dreamboxremote/Makefile.in DirectFB-1.3.0/inputdrivers/dreamboxremote/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/dreamboxremote/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/dreamboxremote/Makefile.in	2009-03-04 17:44:55.000000000 +0100
+@@ -162,6 +162,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/dynapro/Makefile.in DirectFB-1.3.0/inputdrivers/dynapro/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/dynapro/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/dynapro/Makefile.in	2009-03-04 17:44:55.000000000 +0100
+@@ -157,6 +157,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/elo/Makefile.in DirectFB-1.3.0/inputdrivers/elo/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/elo/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/elo/Makefile.in	2009-03-04 17:44:56.000000000 +0100
+@@ -159,6 +159,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/gunze/Makefile.in DirectFB-1.3.0/inputdrivers/gunze/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/gunze/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/gunze/Makefile.in	2009-03-04 17:44:56.000000000 +0100
+@@ -157,6 +157,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/h3600_ts/Makefile.in DirectFB-1.3.0/inputdrivers/h3600_ts/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/h3600_ts/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/h3600_ts/Makefile.in	2009-03-04 17:44:56.000000000 +0100
+@@ -160,6 +160,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/joystick/Makefile.in DirectFB-1.3.0/inputdrivers/joystick/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/joystick/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/joystick/Makefile.in	2009-03-04 17:44:56.000000000 +0100
+@@ -161,6 +161,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/keyboard/Makefile.in DirectFB-1.3.0/inputdrivers/keyboard/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/keyboard/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/keyboard/Makefile.in	2009-03-04 17:44:56.000000000 +0100
+@@ -161,6 +161,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/linux_input/Makefile.in DirectFB-1.3.0/inputdrivers/linux_input/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/linux_input/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/linux_input/Makefile.in	2009-03-04 17:44:56.000000000 +0100
+@@ -162,6 +162,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/lirc/Makefile.in DirectFB-1.3.0/inputdrivers/lirc/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/lirc/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/lirc/Makefile.in	2009-03-04 17:44:56.000000000 +0100
+@@ -159,6 +159,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/Makefile.in DirectFB-1.3.0/inputdrivers/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/Makefile.in	2008-09-29 13:10:23.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/Makefile.in	2009-03-04 17:44:55.000000000 +0100
+@@ -137,6 +137,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/mutouch/Makefile.in DirectFB-1.3.0/inputdrivers/mutouch/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/mutouch/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/mutouch/Makefile.in	2009-03-04 17:44:56.000000000 +0100
+@@ -159,6 +159,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/penmount/Makefile.in DirectFB-1.3.0/inputdrivers/penmount/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/penmount/Makefile.in	2008-09-29 13:10:24.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/penmount/Makefile.in	2009-03-04 17:44:56.000000000 +0100
+@@ -158,6 +158,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/ps2mouse/Makefile.in DirectFB-1.3.0/inputdrivers/ps2mouse/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/ps2mouse/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/ps2mouse/Makefile.in	2009-03-04 17:44:56.000000000 +0100
+@@ -161,6 +161,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/serialmouse/Makefile.in DirectFB-1.3.0/inputdrivers/serialmouse/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/serialmouse/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/serialmouse/Makefile.in	2009-03-04 17:44:57.000000000 +0100
+@@ -162,6 +162,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/sonypi/Makefile.in DirectFB-1.3.0/inputdrivers/sonypi/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/sonypi/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/sonypi/Makefile.in	2009-03-04 17:44:57.000000000 +0100
+@@ -159,6 +159,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/tslib/Makefile.in DirectFB-1.3.0/inputdrivers/tslib/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/tslib/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/tslib/Makefile.in	2009-03-04 17:44:57.000000000 +0100
+@@ -161,6 +161,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/ucb1x00_ts/Makefile.in DirectFB-1.3.0/inputdrivers/ucb1x00_ts/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/ucb1x00_ts/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/ucb1x00_ts/Makefile.in	2009-03-04 17:44:57.000000000 +0100
+@@ -161,6 +161,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/inputdrivers/wm97xx_ts/Makefile.in DirectFB-1.3.0/inputdrivers/wm97xx_ts/Makefile.in
+--- DirectFB-1.3.0-orig/inputdrivers/wm97xx_ts/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/inputdrivers/wm97xx_ts/Makefile.in	2009-03-04 17:44:57.000000000 +0100
+@@ -160,6 +160,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/interfaces/IDirectFBFont/Makefile.in DirectFB-1.3.0/interfaces/IDirectFBFont/Makefile.in
+--- DirectFB-1.3.0-orig/interfaces/IDirectFBFont/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/interfaces/IDirectFBFont/Makefile.in	2009-03-04 17:44:57.000000000 +0100
+@@ -188,6 +188,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/interfaces/IDirectFBImageProvider/Makefile.in DirectFB-1.3.0/interfaces/IDirectFBImageProvider/Makefile.in
+--- DirectFB-1.3.0-orig/interfaces/IDirectFBImageProvider/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/interfaces/IDirectFBImageProvider/Makefile.in	2009-03-04 17:44:57.000000000 +0100
+@@ -208,6 +208,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/interfaces/IDirectFBVideoProvider/Makefile.in DirectFB-1.3.0/interfaces/IDirectFBVideoProvider/Makefile.in
+--- DirectFB-1.3.0-orig/interfaces/IDirectFBVideoProvider/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/interfaces/IDirectFBVideoProvider/Makefile.in	2009-03-04 17:44:57.000000000 +0100
+@@ -166,6 +166,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/interfaces/Makefile.in DirectFB-1.3.0/interfaces/Makefile.in
+--- DirectFB-1.3.0-orig/interfaces/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/interfaces/Makefile.in	2009-03-04 17:44:57.000000000 +0100
+@@ -135,6 +135,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/lib/direct/Makefile.in DirectFB-1.3.0/lib/direct/Makefile.in
+--- DirectFB-1.3.0-orig/lib/direct/Makefile.in	2008-09-29 13:10:26.000000000 +0200
++++ DirectFB-1.3.0/lib/direct/Makefile.in	2009-03-04 17:44:58.000000000 +0100
+@@ -183,6 +183,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+@@ -287,6 +288,7 @@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ INCLUDES = \
++	-I$(LINUX_INCLUDE)		\
+ 	-I$(top_builddir)/include	\
+ 	-I$(top_builddir)/lib		\
+ 	-I$(top_srcdir)/include		\
+diff -ur DirectFB-1.3.0-orig/lib/fusion/Makefile.in DirectFB-1.3.0/lib/fusion/Makefile.in
+--- DirectFB-1.3.0-orig/lib/fusion/Makefile.in	2008-09-29 13:10:26.000000000 +0200
++++ DirectFB-1.3.0/lib/fusion/Makefile.in	2009-03-04 17:44:58.000000000 +0100
+@@ -175,6 +175,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/lib/fusion/shm/Makefile.in DirectFB-1.3.0/lib/fusion/shm/Makefile.in
+--- DirectFB-1.3.0-orig/lib/fusion/shm/Makefile.in	2008-09-29 13:10:26.000000000 +0200
++++ DirectFB-1.3.0/lib/fusion/shm/Makefile.in	2009-03-04 17:44:58.000000000 +0100
+@@ -156,6 +156,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/lib/Makefile.in DirectFB-1.3.0/lib/Makefile.in
+--- DirectFB-1.3.0-orig/lib/Makefile.in	2008-09-29 13:10:25.000000000 +0200
++++ DirectFB-1.3.0/lib/Makefile.in	2009-03-04 17:44:58.000000000 +0100
+@@ -135,6 +135,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/lib/voodoo/Makefile.in DirectFB-1.3.0/lib/voodoo/Makefile.in
+--- DirectFB-1.3.0-orig/lib/voodoo/Makefile.in	2008-09-29 13:10:26.000000000 +0200
++++ DirectFB-1.3.0/lib/voodoo/Makefile.in	2009-03-04 17:44:58.000000000 +0100
+@@ -163,6 +163,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/Makefile.in DirectFB-1.3.0/Makefile.in
+--- DirectFB-1.3.0-orig/Makefile.in	2008-09-29 13:10:29.000000000 +0200
++++ DirectFB-1.3.0/Makefile.in	2009-03-04 17:45:01.000000000 +0100
+@@ -168,6 +168,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/patches/Makefile.in DirectFB-1.3.0/patches/Makefile.in
+--- DirectFB-1.3.0-orig/patches/Makefile.in	2008-09-29 13:10:26.000000000 +0200
++++ DirectFB-1.3.0/patches/Makefile.in	2009-03-04 17:44:58.000000000 +0100
+@@ -123,6 +123,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/proxy/dispatcher/Makefile.in DirectFB-1.3.0/proxy/dispatcher/Makefile.in
+--- DirectFB-1.3.0-orig/proxy/dispatcher/Makefile.in	2008-09-29 13:10:26.000000000 +0200
++++ DirectFB-1.3.0/proxy/dispatcher/Makefile.in	2009-03-04 17:44:58.000000000 +0100
+@@ -330,6 +330,7 @@
+ 	$(top_builddir)/lib/direct/libdirect.la
+ 
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/proxy/Makefile.in DirectFB-1.3.0/proxy/Makefile.in
+--- DirectFB-1.3.0-orig/proxy/Makefile.in	2008-09-29 13:10:26.000000000 +0200
++++ DirectFB-1.3.0/proxy/Makefile.in	2009-03-04 17:44:58.000000000 +0100
+@@ -135,6 +135,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/proxy/requestor/Makefile.in DirectFB-1.3.0/proxy/requestor/Makefile.in
+--- DirectFB-1.3.0-orig/proxy/requestor/Makefile.in	2008-09-29 13:10:26.000000000 +0200
++++ DirectFB-1.3.0/proxy/requestor/Makefile.in	2009-03-04 17:44:59.000000000 +0100
+@@ -329,6 +329,7 @@
+ 	$(top_builddir)/lib/direct/libdirect.la
+ 
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/rules/Makefile.in DirectFB-1.3.0/rules/Makefile.in
+--- DirectFB-1.3.0-orig/rules/Makefile.in	2008-09-29 13:10:26.000000000 +0200
++++ DirectFB-1.3.0/rules/Makefile.in	2009-03-04 17:44:59.000000000 +0100
+@@ -123,6 +123,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/src/core/Makefile.in DirectFB-1.3.0/src/core/Makefile.in
+--- DirectFB-1.3.0-orig/src/core/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/src/core/Makefile.in	2009-03-04 17:44:59.000000000 +0100
+@@ -160,6 +160,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/src/display/Makefile.in DirectFB-1.3.0/src/display/Makefile.in
+--- DirectFB-1.3.0-orig/src/display/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/src/display/Makefile.in	2009-03-04 17:44:59.000000000 +0100
+@@ -156,6 +156,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/src/gfx/generic/Makefile.in DirectFB-1.3.0/src/gfx/generic/Makefile.in
+--- DirectFB-1.3.0-orig/src/gfx/generic/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/src/gfx/generic/Makefile.in	2009-03-04 17:44:59.000000000 +0100
+@@ -163,6 +163,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/src/gfx/Makefile.in DirectFB-1.3.0/src/gfx/Makefile.in
+--- DirectFB-1.3.0-orig/src/gfx/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/src/gfx/Makefile.in	2009-03-04 17:44:59.000000000 +0100
+@@ -163,6 +163,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/src/input/Makefile.in DirectFB-1.3.0/src/input/Makefile.in
+--- DirectFB-1.3.0-orig/src/input/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/src/input/Makefile.in	2009-03-04 17:44:59.000000000 +0100
+@@ -154,6 +154,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/src/Makefile.in DirectFB-1.3.0/src/Makefile.in
+--- DirectFB-1.3.0-orig/src/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/src/Makefile.in	2009-03-04 17:44:59.000000000 +0100
+@@ -172,6 +172,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/src/media/Makefile.in DirectFB-1.3.0/src/media/Makefile.in
+--- DirectFB-1.3.0-orig/src/media/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/src/media/Makefile.in	2009-03-04 17:44:59.000000000 +0100
+@@ -156,6 +156,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/src/misc/Makefile.in DirectFB-1.3.0/src/misc/Makefile.in
+--- DirectFB-1.3.0-orig/src/misc/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/src/misc/Makefile.in	2009-03-04 17:45:00.000000000 +0100
+@@ -153,6 +153,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/src/windows/Makefile.in DirectFB-1.3.0/src/windows/Makefile.in
+--- DirectFB-1.3.0-orig/src/windows/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/src/windows/Makefile.in	2009-03-04 17:45:00.000000000 +0100
+@@ -153,6 +153,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/systems/devmem/Makefile.in DirectFB-1.3.0/systems/devmem/Makefile.in
+--- DirectFB-1.3.0-orig/systems/devmem/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/systems/devmem/Makefile.in	2009-03-04 17:45:00.000000000 +0100
+@@ -165,6 +165,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/systems/fbdev/Makefile.in DirectFB-1.3.0/systems/fbdev/Makefile.in
+--- DirectFB-1.3.0-orig/systems/fbdev/Makefile.in	2008-09-29 13:10:28.000000000 +0200
++++ DirectFB-1.3.0/systems/fbdev/Makefile.in	2009-03-04 17:45:00.000000000 +0100
+@@ -165,6 +165,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/systems/Makefile.in DirectFB-1.3.0/systems/Makefile.in
+--- DirectFB-1.3.0-orig/systems/Makefile.in	2008-09-29 13:10:27.000000000 +0200
++++ DirectFB-1.3.0/systems/Makefile.in	2009-03-04 17:45:00.000000000 +0100
+@@ -135,6 +135,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/systems/osx/Makefile.in DirectFB-1.3.0/systems/osx/Makefile.in
+--- DirectFB-1.3.0-orig/systems/osx/Makefile.in	2008-09-29 13:10:28.000000000 +0200
++++ DirectFB-1.3.0/systems/osx/Makefile.in	2009-03-04 17:45:00.000000000 +0100
+@@ -176,6 +176,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/systems/sdl/Makefile.in DirectFB-1.3.0/systems/sdl/Makefile.in
+--- DirectFB-1.3.0-orig/systems/sdl/Makefile.in	2008-09-29 13:10:28.000000000 +0200
++++ DirectFB-1.3.0/systems/sdl/Makefile.in	2009-03-04 17:45:00.000000000 +0100
+@@ -194,6 +194,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/systems/vnc/Makefile.in DirectFB-1.3.0/systems/vnc/Makefile.in
+--- DirectFB-1.3.0-orig/systems/vnc/Makefile.in	2008-09-29 13:10:28.000000000 +0200
++++ DirectFB-1.3.0/systems/vnc/Makefile.in	2009-03-04 17:45:00.000000000 +0100
+@@ -174,6 +174,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/systems/x11/Makefile.in DirectFB-1.3.0/systems/x11/Makefile.in
+--- DirectFB-1.3.0-orig/systems/x11/Makefile.in	2008-09-29 13:10:28.000000000 +0200
++++ DirectFB-1.3.0/systems/x11/Makefile.in	2009-03-04 17:45:00.000000000 +0100
+@@ -179,6 +179,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/tests/Makefile.in DirectFB-1.3.0/tests/Makefile.in
+--- DirectFB-1.3.0-orig/tests/Makefile.in	2008-09-29 13:10:28.000000000 +0200
++++ DirectFB-1.3.0/tests/Makefile.in	2009-03-04 17:45:01.000000000 +0100
+@@ -190,6 +190,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/tools/Makefile.in DirectFB-1.3.0/tools/Makefile.in
+--- DirectFB-1.3.0-orig/tools/Makefile.in	2008-09-29 13:10:28.000000000 +0200
++++ DirectFB-1.3.0/tools/Makefile.in	2009-03-04 17:45:01.000000000 +0100
+@@ -246,6 +246,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/wm/default/Makefile.in DirectFB-1.3.0/wm/default/Makefile.in
+--- DirectFB-1.3.0-orig/wm/default/Makefile.in	2008-09-29 13:10:28.000000000 +0200
++++ DirectFB-1.3.0/wm/default/Makefile.in	2009-03-04 17:45:01.000000000 +0100
+@@ -161,6 +161,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/wm/Makefile.in DirectFB-1.3.0/wm/Makefile.in
+--- DirectFB-1.3.0-orig/wm/Makefile.in	2008-09-29 13:10:28.000000000 +0200
++++ DirectFB-1.3.0/wm/Makefile.in	2009-03-04 17:45:01.000000000 +0100
+@@ -135,6 +135,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/wm/unique/classes/Makefile.in DirectFB-1.3.0/wm/unique/classes/Makefile.in
+--- DirectFB-1.3.0-orig/wm/unique/classes/Makefile.in	2008-09-29 13:10:29.000000000 +0200
++++ DirectFB-1.3.0/wm/unique/classes/Makefile.in	2009-03-04 17:45:01.000000000 +0100
+@@ -142,6 +142,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/wm/unique/data/Makefile.in DirectFB-1.3.0/wm/unique/data/Makefile.in
+--- DirectFB-1.3.0-orig/wm/unique/data/Makefile.in	2008-09-29 13:10:29.000000000 +0200
++++ DirectFB-1.3.0/wm/unique/data/Makefile.in	2009-03-04 17:45:01.000000000 +0100
+@@ -123,6 +123,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/wm/unique/devices/Makefile.in DirectFB-1.3.0/wm/unique/devices/Makefile.in
+--- DirectFB-1.3.0-orig/wm/unique/devices/Makefile.in	2008-09-29 13:10:29.000000000 +0200
++++ DirectFB-1.3.0/wm/unique/devices/Makefile.in	2009-03-04 17:45:01.000000000 +0100
+@@ -142,6 +142,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@
+diff -ur DirectFB-1.3.0-orig/wm/unique/Makefile.in DirectFB-1.3.0/wm/unique/Makefile.in
+--- DirectFB-1.3.0-orig/wm/unique/Makefile.in	2008-09-29 13:10:29.000000000 +0200
++++ DirectFB-1.3.0/wm/unique/Makefile.in	2009-03-04 17:45:01.000000000 +0100
+@@ -222,6 +222,7 @@
+ LIBPNG_CONFIG = @LIBPNG_CONFIG@
+ LIBS = @LIBS@
+ LIBTOOL = @LIBTOOL@
++LINUX_INCLUDE = @LINUX_INCLUDE@
+ LN_S = @LN_S@
+ LTLIBOBJS = @LTLIBOBJS@
+ LT_AGE = @LT_AGE@

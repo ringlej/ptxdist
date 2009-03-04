@@ -74,6 +74,7 @@ DIRECTFB_AUTOCONF := \
 	--disable-zlib \
 	--disable-video4linux \
 	--disable-video4linux2 \
+	--with-kernel=$(KERNEL_DIR) \
 	--with-gfxdrivers=none \
 	--with-inputdrivers=$(subst $(space),$(comma),$(DIRECTFB_INPUT)) \
 	--enable-fbdev \

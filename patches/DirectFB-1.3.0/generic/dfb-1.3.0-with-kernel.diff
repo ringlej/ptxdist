@@ -1,0 +1,89 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: wrong kernel config found on powerpc
+
+When cross compiling to powerpc, I get this error:
+
+ppcasm_memcpy_cachable.S:37:26: error: linux/config.h: No such file or directory
+make[4]: *** [ppcasm_memcpy_cachable.lo] Error 1
+
+This has two reasons:
+
+a) the kernel config comes from linux/autoconf.h, not linux/config.h
+
+b) When building with a random cross gcc toolchain, the toolchain has
+the kernel headers included which have been used to build the toolchain;
+they don't have necessarily to be *exactly* the same machine as the
+target we are actually building for, neither is it sure that the .config
+used for the toolchain has anything in common with our target system.
+
+So the whole assumption that including linux/config.h gives us
+information about our target is plain wrong.
+
+The fix below introduces an additional configure option which lets us
+specify the path to the kernel we are actually using, then use
+linux/autoconf.h from that path. This makes sure the information in dfb
+and the kernel are in sync.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ configure.in                        |   19 +++++++++++++++++++
+ lib/direct/Makefile.am              |    1 +
+ lib/direct/ppcasm_memcpy_cachable.S |    2 +-
+ 3 files changed, 21 insertions(+), 1 deletion(-)
+
+Index: DirectFB-1.3.0/configure.in
+===================================================================
+--- DirectFB-1.3.0.orig/configure.in
++++ DirectFB-1.3.0/configure.in
+@@ -874,6 +874,25 @@ vmware=no
+ 
+ if test "$have_linux" = "yes"; then
+ 
++#
++# If we cross build, we want to be able to use a kernel for the "host"
++# system, without relying on the fact that the toolchain has the right
++# linux/config.h included (which is probably not the case)
++#
++AC_MSG_CHECKING(for kernel headers)
++AC_ARG_WITH(kernel,
++  AC_HELP_STRING([--with-kernel=<path>], [path to the kernel source]),
++  [
++    kernel_path="$withval"
++    LINUX_INCLUDE="$kernel_path/include"
++    AC_MSG_NOTICE(using $kernel_path)
++  ],[
++    AC_MSG_NOTICE(using installed kernel headers)
++    LINUX_INCLUDE=""
++  ]
++)
++AC_SUBST(LINUX_INCLUDE)
++
+ AC_MSG_CHECKING(which gfxdrivers should be built)
+ AC_ARG_WITH(gfxdrivers,
+ [  --with-gfxdrivers=<list>   compile gfxdrivers in <list> ]
+Index: DirectFB-1.3.0/lib/direct/Makefile.am
+===================================================================
+--- DirectFB-1.3.0.orig/lib/direct/Makefile.am
++++ DirectFB-1.3.0/lib/direct/Makefile.am
+@@ -1,6 +1,7 @@
+ ## Makefile.am for DirectFB/lib/direct
+ 
+ INCLUDES = \
++	-I$(LINUX_INCLUDE)		\
+ 	-I$(top_builddir)/include	\
+ 	-I$(top_builddir)/lib		\
+ 	-I$(top_srcdir)/include		\
+Index: DirectFB-1.3.0/lib/direct/ppcasm_memcpy_cachable.S
+===================================================================
+--- DirectFB-1.3.0.orig/lib/direct/ppcasm_memcpy_cachable.S
++++ DirectFB-1.3.0/lib/direct/ppcasm_memcpy_cachable.S
+@@ -34,7 +34,7 @@
+ 
+ #define __ASSEMBLY__
+ 
+-#include <linux/config.h>
++#include <linux/autoconf.h>
+ 
+ #if defined(CONFIG_8xx) || defined(CONFIG_403GCX)
+ #define L1_CACHE_LINE_SIZE       16
