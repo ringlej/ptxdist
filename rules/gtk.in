@@ -21,10 +21,10 @@ config GTK
 	select XORG_LIB_XRANDR	 if GTK_TARGET_X11_XRANDR
 
 	help
-	The GTK+ is a multi-platform toolkit for creating graphical
-	user interfaces. Offering a complete set of widgets, the GTK+
-	is suitable for projects ranging from small one-off tools to complete
-	application suites.
+	  The GTK+ is a multi-platform toolkit for creating graphical
+	  user interfaces. Offering a complete set of widgets, the GTK+
+	  is suitable for projects ranging from small one-off tools to complete
+	  application suites.
 
 if GTK
 
