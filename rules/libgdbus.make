@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_LIBGDBUS) += libgdbus
 #
 LIBGDBUS_VERSION	:= 0.2
 LIBGDBUS		:= libgdbus-$(LIBGDBUS_VERSION)
-LIBGDBUS_SUFFIX		:= tar.gz
-LIBGDBUS_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBGDBUS).$(LIBGDBUS_SUFFIX)
+LIBGDBUS_SUFFIX		:= tar.bz2
+LIBGDBUS_URL		:= http://www.kernel.org/pub/linux/bluetooth/$(LIBGDBUS).$(LIBGDBUS_SUFFIX)
 LIBGDBUS_SOURCE		:= $(SRCDIR)/$(LIBGDBUS).$(LIBGDBUS_SUFFIX)
 LIBGDBUS_DIR		:= $(BUILDDIR)/$(LIBGDBUS)
 
