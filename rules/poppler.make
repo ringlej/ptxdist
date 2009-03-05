@@ -86,6 +86,12 @@ else
 POPPLER_AUTOCONF += --disable-poppler-glib
 endif
 
+ifdef PTXCONF_HAS_HARDFLOAT
+POPPLER_AUTOCONF += --disable-fixedpoint
+else
+POPPLER_AUTOCONF += --enable-fixedpoint
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
