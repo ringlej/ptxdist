@@ -51,8 +51,7 @@ GLIB_PATH	:= PATH=$(CROSS_PATH)
 GLIB_ENV 	:= \
 	$(CROSS_ENV) \
 	glib_cv_uscore=no \
-	glib_cv_stack_grows=no \
-	ac_cv_func_posix_getgrgid_r=yes
+	glib_cv_stack_grows=no
 
 #
 # autoconf
