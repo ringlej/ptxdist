@@ -37,8 +37,6 @@ $(FONTCONFIG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-fontconfig_prepare: $(STATEDIR)/fontconfig.prepare
-
 FONTCONFIG_PATH	:=  PATH=$(CROSS_PATH)
 FONTCONFIG_ENV 	:=  \
 	$(CROSS_ENV) \
