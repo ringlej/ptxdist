@@ -17,13 +17,12 @@ PACKAGES-$(PTXCONF_FREETYPE) += freetype
 #
 # Paths and names
 #
-FREETYPE_VERSION	:= 2.3.7
+FREETYPE_VERSION	:= 2.3.8
 FREETYPE		:= freetype-$(FREETYPE_VERSION)
 FREETYPE_SUFFIX		:= tar.bz2
 FREETYPE_URL		:= http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).$(FREETYPE_SUFFIX)
 FREETYPE_SOURCE		:= $(SRCDIR)/$(FREETYPE).$(FREETYPE_SUFFIX)
 FREETYPE_DIR		:= $(BUILDDIR)/$(FREETYPE)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -72,11 +71,9 @@ $(STATEDIR)/freetype.targetinstall:
 	@$(call install_fixup, freetype,DEPENDS,)
 	@$(call install_fixup, freetype,DESCRIPTION,missing)
 
-	@$(call install_copy, freetype, 0, 0, 0644, \
-		$(FREETYPE_DIR)/objs/.libs/libfreetype.so.6.3.18, \
-		/usr/lib/libfreetype.so.6.3.18)
-	@$(call install_link, freetype, libfreetype.so.6.3.18, /usr/lib/libfreetype.so.6)
-	@$(call install_link, freetype, libfreetype.so.6.3.18, /usr/lib/libfreetype.so)
+	@$(call install_copy, freetype, 0, 0, 0644, -, /usr/lib/libfreetype.so.6.3.19)
+	@$(call install_link, freetype, libfreetype.so.6.3.19, /usr/lib/libfreetype.so.6)
+	@$(call install_link, freetype, libfreetype.so.6.3.19, /usr/lib/libfreetype.so)
 
 	@$(call install_finish, freetype)
 
