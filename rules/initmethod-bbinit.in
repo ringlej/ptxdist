@@ -52,31 +52,31 @@ config INITMETHOD_BBINIT_LINK_ALSA_UTILS
 	string
 	depends on ALSA_UTILS_STARTSCRIPT
 	prompt "alsa-utils"
-	default ""
+	default "S21alsa-utils"
 
 config INITMETHOD_BBINIT_LINK_HTTPD
 	string
 	depends on APACHE2_STARTSCRIPT
 	prompt "httpd (apache)"
-	default ""
+	default "S91apache-2"
 
 config INITMETHOD_BBINIT_LINK_CHRONY
 	string
 	depends on CHRONY_STARTSCRIPT
 	prompt "chrony"
-	default ""
+	default "S20chrony"
 
 config INITMETHOD_BBINIT_LINK_CONNMAN
 	string
 	depends on CONNMAN_STARTSCRIPT
 	prompt "connman"
-	default ""
+	default "S26connman"
 
 config INITMETHOD_BBINIT_LINK_CVS
 	string
 	depends on CVS_STARTSCRIPT
 	prompt "cvs"
-	default ""
+	default "S95cvs"
 
 config INITMETHOD_BBINIT_LINK_DBUS
 	string
@@ -88,7 +88,7 @@ config INITMETHOD_BBINIT_LINK_DNSMASQ
 	string
 	depends on DNSMASQ_STARTSCRIPT
 	prompt "dnsmasq"
-	default ""
+	default "S24dnsmasq"
 
 config INITMETHOD_BBINIT_LINK_DROPBEAR
 	string
@@ -112,7 +112,7 @@ config INITMETHOD_BBINIT_LINK_MYSQL
 	string
 	depends on MYSQL_STARTSCRIPT
 	prompt "mysql"
-	default ""
+	default "S95mysql"
 
 config INITMETHOD_BBINIT_LINK_NFSD
 	string
@@ -124,13 +124,13 @@ config INITMETHOD_BBINIT_LINK_NTP
 	string
 	depends on NTP
 	prompt "ntp"
-	default ""
+	default "S20ntp"
 
 config INITMETHOD_BBINIT_LINK_NTPCLIENT
 	string
 	depends on NTPCLIENT
 	prompt "ntpclient"
-	default ""
+	default "S20ntpclient"
 
 config INITMETHOD_BBINIT_LINK_OPENSSH
 	string
@@ -172,7 +172,7 @@ config INITMETHOD_BBINIT_LINK_SAMBA
 	string
 	depends on SAMBA
 	prompt "samba"
-	default ""
+	default "S95samba"
 
 config INITMETHOD_BBINIT_LINK_SYSLOG_NG
 	string
