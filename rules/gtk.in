@@ -60,9 +60,9 @@ config GTK_LOADER_JPEG
 	bool
 	prompt "jpeg"
 
-config GTK_LOADER_JPEG2000
-	bool
-	prompt "jpeg 2000"
+#config GTK_LOADER_JPEG2000
+#	bool
+#	prompt "jpeg 2000"
 
 config GTK_LOADER_PNM
 	bool
