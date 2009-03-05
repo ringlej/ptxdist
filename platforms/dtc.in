@@ -23,7 +23,7 @@ menuconfig DTC
 	select HOST_DTC
 	select KERNEL
 	default y
-	prompt "Build device tree	       "
+	prompt "Build device tree             "
 	help
 	  Select this to build a device tree for your board.
 	  You will find the device tree binary blob under
