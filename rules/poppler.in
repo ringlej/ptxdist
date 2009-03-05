@@ -5,7 +5,7 @@ menuconfig POPPLER
 	prompt "poppler                       "
 	select GLIB	if POPPLER_GLIB
 	select LIBJPEG	if POPPLER_JPEG
-#	select CAIRO	if POPPLER_CAIRO
+	select CAIRO	if POPPLER_CAIRO
 	select ZLIB	if POPPLER_ZLIB
 	help
 	  Poppler is a PDF rendering library based on the xpdf-3.0 code base.
@@ -32,13 +32,11 @@ config POPPLER_GLIB
 	help
 	  build poppler glib wrapper.
 
-# FIXME: creates a recursive dependency CAIRO -> POPPLER -> CAIRO
-#
-#config POPPLER_CAIRO
-#	bool
-#	prompt "enable poppler cairo graphics backend"
-#	help
-#	  built cairo graphics backend
+config POPPLER_CAIRO
+	bool
+	prompt "enable poppler cairo graphics backend"
+	help
+	  built cairo graphics backend
 
 config POPPLER_JPEG
 	bool
