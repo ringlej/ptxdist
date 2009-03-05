@@ -50,32 +50,6 @@ HOST_PIXMAN_ENV 	:= $(HOST_ENV)
 #
 HOST_PIXMAN_AUTOCONF	:= $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-pixman.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_PIXMAN_DIR)/config.cache)
-	cd $(HOST_PIXMAN_DIR) && \
-		$(HOST_PIXMAN_PATH) $(HOST_PIXMAN_ENV) \
-		./configure $(HOST_PIXMAN_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-pixman.compile:
-	@$(call targetinfo)
-	cd $(HOST_PIXMAN_DIR) && $(HOST_PIXMAN_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-pixman.install:
-	@$(call targetinfo)
-	@$(call install, HOST_PIXMAN,,h)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
