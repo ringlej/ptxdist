@@ -39,14 +39,9 @@ $(GTK_SOURCE):
 GTK_PATH	:= PATH=$(CROSS_PATH)
 
 # cups-config otherwhise picks up the host version
-# don't use := here, it doesn't expand the right thing!
-GTK_ENV = \
+GTK_ENV := \
 	$(CROSS_ENV) \
-	ac_cv_path_CUPS_CONFIG=no \
-	ac_cv_path_GLIB_GENMARSHAL=$(HOST_GLIB_DIR)/bin/glib-genmarshal \
-	ac_cv_path_GTK_UPDATE_ICON_CACHE=$(HOST_GLIB_DIR)/bin/gtk-update-icon-cache \
-	ac_cv_path_GDK_PIXBUF_CSOURCE=$(HOST_GLIB_DIR)/bin/gdk-pixbuf-csource
-
+	ac_cv_path_CUPS_CONFIG=no
 
 GTK_LOADER-$(PTXCONF_GTK_LOADER_PNG)	+= png
 GTK_LOADER-$(PTXCONF_GTK_LOADER_BMP)	+= bmp
