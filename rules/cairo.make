@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
-# Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,34 +28,13 @@ CAIRO_DIR	:= $(BUILDDIR)/$(CAIRO)
 # Get
 # ----------------------------------------------------------------------------
 
-cairo_get: $(STATEDIR)/cairo.get
-
-$(STATEDIR)/cairo.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(CAIRO_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, CAIRO)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-cairo_extract: $(STATEDIR)/cairo.extract
-
-$(STATEDIR)/cairo.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(CAIRO_DIR))
-	@$(call extract, CAIRO)
-	@$(call patchin, CAIRO)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-cairo_prepare: $(STATEDIR)/cairo.prepare
 
 CAIRO_PATH	:= PATH=$(CROSS_PATH)
 CAIRO_ENV 	:= $(CROSS_ENV)
@@ -135,44 +114,12 @@ endif
 
 #  --with-x                use the X Window System
 
-$(STATEDIR)/cairo.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(CAIRO_DIR)/config.cache)
-	cd $(CAIRO_DIR) && \
-		$(CAIRO_PATH) $(CAIRO_ENV) \
-		./configure $(CAIRO_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-cairo_compile: $(STATEDIR)/cairo.compile
-
-$(STATEDIR)/cairo.compile:
-	@$(call targetinfo, $@)
-	cd $(CAIRO_DIR) && $(CAIRO_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-cairo_install: $(STATEDIR)/cairo.install
-
-$(STATEDIR)/cairo.install:
-	@$(call targetinfo, $@)
-	@$(call install, CAIRO)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-cairo_targetinstall: $(STATEDIR)/cairo.targetinstall
-
 $(STATEDIR)/cairo.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, cairo)
 	@$(call install_fixup,cairo,PACKAGE,cairo)
@@ -183,13 +130,13 @@ $(STATEDIR)/cairo.targetinstall:
 	@$(call install_fixup,cairo,DEPENDS,)
 	@$(call install_fixup,cairo,DESCRIPTION,missing)
 
-	@$(call install_copy, cairo, 0, 0, 0644, $(CAIRO_DIR)/src/.libs/libcairo.so.2.10800.6, /usr/lib/libcairo.so.2.10800.6)
+	@$(call install_copy, cairo, 0, 0, 0644, -, /usr/lib/libcairo.so.2.10800.6)
 	@$(call install_link, cairo, libcairo.so.2.10800.6, /usr/lib/libcairo.so.2)
 	@$(call install_link, cairo, libcairo.so.2.10800.6, /usr/lib/libcairo.so)
 
 	@$(call install_finish,cairo)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
