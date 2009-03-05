@@ -33,17 +33,6 @@ $(PANGOMM_SOURCE):
 	@$(call get, PANGOMM)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/pangomm.extract:
-	@$(call targetinfo)
-	@$(call clean, $(PANGOMM_DIR))
-	@$(call extract, PANGOMM)
-	@$(call patchin, PANGOMM)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -54,32 +43,6 @@ PANGOMM_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 PANGOMM_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/pangomm.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(PANGOMM_DIR)/config.cache)
-	cd $(PANGOMM_DIR) && \
-		$(PANGOMM_PATH) $(PANGOMM_ENV) \
-		./configure $(PANGOMM_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/pangomm.compile:
-	@$(call targetinfo)
-	cd $(PANGOMM_DIR) && $(PANGOMM_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/pangomm.install:
-	@$(call targetinfo)
-	@$(call install, PANGOMM)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
