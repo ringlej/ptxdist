@@ -104,7 +104,7 @@ $(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
 #
 # create the JFFS2 image
 #
-$(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir
+$(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install
 	@echo -n "Creating root.jffs2 from working dir..."
 	@cd $(WORKDIR);							\
 	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\

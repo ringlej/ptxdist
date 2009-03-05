@@ -10,12 +10,6 @@
 
 virtual-cross-tools_install: $(STATEDIR)/virtual-cross-tools.install
 
-
-ifdef PTXCONF_IMAGE_JFFS2
-$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-mtd-utils.install
-endif
-
-
 ifdef PTXCONF_HOST_FAKEROOT
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-fakeroot.install
 endif
