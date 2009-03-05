@@ -196,15 +196,15 @@ endif
 ifdef PTXCONF_UDEV__EXTRA_VOLUME_ID
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/vol_id)
 
-	@$(call install_copy, udev, 0, 0, 0644, -, /lib/libvolume_id.so.1.0.8)
-	@$(call install_link, udev, libvolume_id.so.1.0.8, /lib/libvolume_id.so.1)
-	@$(call install_link, udev, libvolume_id.so.1.0.8, /lib/libvolume_id.so)
+	@$(call install_copy, udev, 0, 0, 0644, -, /lib/libvolume_id.so.1.0.9)
+	@$(call install_link, udev, libvolume_id.so.1.0.9, /lib/libvolume_id.so.1)
+	@$(call install_link, udev, libvolume_id.so.1.0.9, /lib/libvolume_id.so)
 endif
 
 ifdef PTXCONF_UDEV__LIBUDEV
-	@$(call install_copy, udev, 0, 0, 0644, -, /lib/libudev.so.0.0.8)
-	@$(call install_link, udev, libudev.so.0.0.8, /lib/libudev.so.0)
-	@$(call install_link, udev, libudev.so.0.0.8, /lib/libudev.so)
+	@$(call install_copy, udev, 0, 0, 0644, -, /lib/libudev.so.0.0.9)
+	@$(call install_link, udev, libudev.so.0.0.9, /lib/libudev.so.0)
+	@$(call install_link, udev, libudev.so.0.0.9, /lib/libudev.so)
 endif
 
 	@$(call install_finish, udev)
