@@ -1,0 +1,16 @@
+---
+ Makefile.am |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: gtk+-2.10.12/Makefile.am
+===================================================================
+--- gtk+-2.10.12.orig/Makefile.am
++++ gtk+-2.10.12/Makefile.am
+@@ -1,6 +1,6 @@
+ ## Makefile.am for GTK+
+ 
+-SRC_SUBDIRS = gdk-pixbuf gdk gtk modules demos tests perf contrib
++SRC_SUBDIRS = gdk-pixbuf gdk gtk modules tests perf contrib
+ SUBDIRS = po po-properties $(SRC_SUBDIRS) docs m4macros
+ 
+ # require automake 1.4
