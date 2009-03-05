@@ -12,8 +12,6 @@ menuconfig CAIRO
 
 	select LIBPNG		if CAIRO_PNG
 
-	select POPPLER		if CAIRO_PDF
-
 	select PIXMAN
 
 	prompt "cairo                         "
