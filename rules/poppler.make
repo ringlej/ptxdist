@@ -102,7 +102,7 @@ $(STATEDIR)/poppler.targetinstall:
 	@$(call install_fixup, poppler, DEPENDS,)
 	@$(call install_fixup, poppler, DESCRIPTION, missing)
 
-	@$(call install_copy, poppler, 0, 0, 0755, -, /usr/lib/libpoppler.so.4.0.0)
+	@$(call install_copy, poppler, 0, 0, 0644, -, /usr/lib/libpoppler.so.4.0.0)
 	@$(call install_link, poppler, libpoppler.so.4.0.0, /usr/lib/libpoppler.so.4)
 	@$(call install_link, poppler, libpoppler.so.4.0.0, /usr/lib/libpoppler.so)
 
@@ -113,7 +113,7 @@ ifdef PTXCONF_POPPLER_BIN
 endif
 
 ifdef PTXCONF_POPPLER_GLIB
-	@$(call install_copy, poppler, 0, 0, 0755, -, /usr/lib/libpoppler-glib.so.4.0.0)
+	@$(call install_copy, poppler, 0, 0, 0644, -, /usr/lib/libpoppler-glib.so.4.0.0)
 	@$(call install_link, poppler, libpoppler-glib.so.4.0.0, /usr/lib/libpoppler-glib.so.4)
 	@$(call install_link, poppler, libpoppler-glib.so.4.0.0, /usr/lib/libpoppler-glib.so)
 endif
