@@ -3,6 +3,9 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: discuss the templeate rules and their content with mkl to shrink them or
+    to adapt them to the current ptxdist behaviour
+
 [ ] mkl: remove inetd.conf leftovers
 
     [frogger@hardanger:rules]$ wcgrep inetd.conf|grep -v "inetd.conf.d"|grep -v postinst
