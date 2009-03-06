@@ -57,7 +57,7 @@ $(STATEDIR)/lite.targetinstall:
 	@$(call install_fixup, lite,VERSION,$(LITE_VERSION))
 	@$(call install_fixup, lite,SECTION,base)
 	@$(call install_fixup, lite,AUTHOR,"Denis Oliver Kropp <dok\@directfb.org>")
-	@$(call install_fixup, lite,DEPENDS,directfb)
+	@$(call install_fixup, lite,DEPENDS,)
 	@$(call install_fixup, lite,DESCRIPTION,missing)
 
 	@$(call install_copy, lite, 0, 0, 0755, \
