@@ -59,6 +59,8 @@ Prio A
 
 [ ] mol: discuss UIDs and GIDs of other important system users
 
+[ ] some_autotool_fan: shebang-line of awk-scripts should use the $AWK value obtained from configure.
+
 
 Prio B
 ------
