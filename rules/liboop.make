@@ -42,7 +42,15 @@ LIBOOP_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBOOP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBOOP_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-shared \
+	--enable-static \
+	--without-adns \
+	--without-readline \
+	--without-glib \
+	--without-tcl \
+	--without-libwww
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -70,14 +78,6 @@ $(STATEDIR)/liboop.targetinstall:
 	@$(call install_fixup, liboop,AUTHOR,"Marc Kleine-Budde <mkl\@pengutronix.de>")
 	@$(call install_fixup, liboop,DEPENDS,)
 	@$(call install_fixup, liboop,DESCRIPTION,missing)
-
-	@$(call install_copy, liboop, 0, 0, 0644, \
-		$(LIBOOP_DIR)/.libs/liboop-glib2.so.0.0.0, \
-		/usr/lib/liboop-glib2.so.0.0.0)
-	@$(call install_link, liboop, liboop-glib2.so.0.0.0, \
-		/usr/lib/liboop-glib2.so.0)
-	@$(call install_link, liboop, liboop-glib2.so.0.0.0, \
-		/usr/lib/liboop-glib2.so)
 
 	@$(call install_copy, liboop, 0, 0, 0644, \
 		$(LIBOOP_DIR)/.libs/liboop.so.4.0.1, \
