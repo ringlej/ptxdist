@@ -115,7 +115,7 @@ $(STATEDIR)/cfgsh.targetinstall: $(cfgsh_targetinstall_deps_default)
 	@$(call install_fixup, cfgsh,VERSION,$(CFGSH_VERSION))
 	@$(call install_fixup, cfgsh,SECTION,base)
 	@$(call install_fixup, cfgsh,AUTHOR,"Gilad Ben-Yossef <gilad\@codefidence.com>")
-	@$(call install_fixup, cfgsh,DEPENDS, readline)
+	@$(call install_fixup, cfgsh,DEPENDS,)
 	@$(call install_fixup, cfgsh,DESCRIPTION,missing)
 
 	@$(call install_copy, cfgsh, 0, 0, 0644, $(CFGSH_DIR)/cfgsh, /bin/cfgsh)
