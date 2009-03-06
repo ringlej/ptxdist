@@ -62,7 +62,7 @@ endif
 #
 # autoconf
 #
-DIRECTFB_AUTOCONF := \
+DIRECTFB_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-osx \
 	--disable-network \
