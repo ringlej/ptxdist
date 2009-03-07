@@ -3,5 +3,7 @@
 config LIBGDBUS
 	tristate
 	prompt "libgdbus"
+	select GLIB
+	select DBUS
 	help
 	  libgdbus is a library for simple dbus integration with glib.
