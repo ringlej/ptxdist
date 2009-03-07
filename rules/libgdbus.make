@@ -33,17 +33,6 @@ $(LIBGDBUS_SOURCE):
 	@$(call get, LIBGDBUS)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libgdbus.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBGDBUS_DIR))
-	@$(call extract, LIBGDBUS)
-	@$(call patchin, LIBGDBUS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -59,32 +48,6 @@ LIBGDBUS_AUTOCONF := \
 	--disable-debug \
 	--enable-pie \
 	--with-gnu-ld
-
-$(STATEDIR)/libgdbus.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBGDBUS_DIR)/config.cache)
-	cd $(LIBGDBUS_DIR) && \
-		$(LIBGDBUS_PATH) $(LIBGDBUS_ENV) \
-		./configure $(LIBGDBUS_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libgdbus.compile:
-	@$(call targetinfo)
-	cd $(LIBGDBUS_DIR) && $(LIBGDBUS_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libgdbus.install:
-	@$(call targetinfo)
-	@$(call install, LIBGDBUS)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
