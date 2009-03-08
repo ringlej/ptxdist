@@ -168,7 +168,6 @@ config NTP_ARLIB
 	help
 	  FIXME: This item needs to be documented
 
-endif
 
 source "generated/networking_ntp.in"
 
@@ -222,6 +221,7 @@ config NTP_NTPQ
 	help
 	  FIXME: This item needs to be documented
 
+endif
 
 comment "NTP conflicts with OpenNTPD"
 	depends on NTP && OPENNTPD
