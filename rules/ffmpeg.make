@@ -186,7 +186,9 @@ ifdef PTXCONF_ARCH_ARM
 	--disable-mmx \
 	--disable-iwmmxt
  else
+ ifdef PTXCONF_FFMPEG
  $(warning Please define the config options for this CPU type!)
+ endif
  endif
  endif
  endif
