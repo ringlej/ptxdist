@@ -127,6 +127,7 @@ config SDL_ARTS
 	bool
 	prompt "SDL Arts Support"
 	depends on SDL_AUDIO
+	depends on BROKEN
 	help
 	  SDL-arts is a plugin for the SDL library that allows
 	  it to output sound using the aRts sound daemon
@@ -143,6 +144,7 @@ config SDL_NAS
 	bool
 	prompt "SDL NAS Support"
 	depends on SDL_AUDIO
+	depends on BROKEN
 	help
 	  The Network Audio System is a network transparent,
 	  client/server audio transport system. It can be
@@ -213,6 +215,7 @@ config SDL_AALIB
 	bool
 	prompt "AALib Support"
 	depends on SDL_VIDEO
+	depends on BROKEN
 	help
 	  AAlib is an portable ascii art GFX library.
 
@@ -220,6 +223,7 @@ config SDL_OPENGL
 	bool
 	prompt "OpenGL Support"
 	depends on SDL_VIDEO
+	depends on BROKEN
 	help
 	  OpenGL is a multi-platform software interface to
 	  graphics hardware, supporting rendering and imaging
