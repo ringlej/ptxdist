@@ -204,9 +204,6 @@ endif
 ifdef PTXCONF_NTP_ZYFER
 NTP_AUTOCONF += --enable-ZYFER
 endif
-ifdef PTXCONF_NTP_PARSE_CLOCKS
-NTP_AUTOCONF += --enable-parse-clocks
-endif
 ifdef PTXCONF_NTP_COMPUTIME
 NTP_AUTOCONF += --enable-COMPUTIME
 endif
