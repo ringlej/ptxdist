@@ -203,7 +203,6 @@ $(IMAGEDIR)/initrd.gz: $(STATEDIR)/image_working_dir
 images: world $(SEL_ROOTFS-y)
 	@echo "Clean up temp working directory"
 	@rm -rf $(WORKDIR) $(STATEDIR)/image_working_dir
-	@$(call touch)
 
 #
 # trick to supress the message:
