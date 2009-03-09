@@ -113,7 +113,8 @@ $(STATEDIR)/poppler.targetinstall:
 	@$(call install_link, poppler, libpoppler.so.4.0.0, /usr/lib/libpoppler.so)
 
 ifdef PTXCONF_POPPLER_BIN
-	@for i in pdffonts  pdfimages  pdfinfo  pdftohtml  pdftoppm  pdftops  pdftotext; do\
+	@cd $(PKGDIR)/$(POPPLER)/usr/bin/ && \
+	for i in *; do\
 		$(call install_copy, poppler, 0, 0, 0755, -, /usr/bin/$$i); \
 	done
 endif
