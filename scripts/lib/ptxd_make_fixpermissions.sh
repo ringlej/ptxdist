@@ -113,7 +113,7 @@ ptxd_make_fixpermissions() {
 	return
     fi
 
-cat<<EOF
+cat <<EOF
 
 
 
@@ -133,7 +133,7 @@ error: creation of device node(s) failed.
 EOF
 	    return 1
 	}
-	echo 
+	echo
 	rm "${fixscript}"
     else
 	cat >&2 <<EOF
