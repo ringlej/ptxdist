@@ -2,7 +2,6 @@
 
 menuconfig DIRECTFB
 	tristate
-	select KERNEL
 	prompt "directfb                      "
 
 	select HOST_DIRECTFB
