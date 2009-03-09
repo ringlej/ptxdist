@@ -21,12 +21,6 @@ config POPPLER_BIN
 	  pdffonts, pdfimages, pdfinfo, pdftoabw, pdftohtml, pdftoppm, pdftops,
 	  pdftotext.
 
-config POPPLER_X
-	bool
-	prompt "enable X support"
-	help
-	  build poppler with X support.
-
 config POPPLER_GLIB
 	bool
 	prompt "enable poppler glib wrapper"

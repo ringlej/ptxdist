@@ -48,13 +48,8 @@ POPPLER_AUTOCONF := \
 	--disable-abiword-output \
 	--disable-poppler-qt \
 	--disable-poppler-qt4 \
-	--disable-gtk-test
-
-ifdef PTXCONF_POPPLER_X
-POPPLER_AUTOCONF += --with-x
-else
-POPPLER_AUTOCONF += --without-x
-endif
+	--disable-gtk-test \
+	--without-x
 
 ifdef PTXCONF_POPPLER_BIN
 POPPLER_AUTOCONF += --enable-utils
