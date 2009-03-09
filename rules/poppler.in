@@ -3,6 +3,7 @@
 menuconfig POPPLER
 	tristate
 	prompt "poppler                       "
+	select FONTCONFIG
 	select GLIB	if POPPLER_GLIB
 	select LIBJPEG	if POPPLER_JPEG
 	select CAIRO	if POPPLER_CAIRO
