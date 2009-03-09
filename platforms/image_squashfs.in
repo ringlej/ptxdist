@@ -15,7 +15,7 @@ if IMAGE_SQUASHFS
 
 config IMAGE_SQUASHFS_BLOCK_SIZE
 	string
-	default "${FLASH_BLOCKSIZE}"
+	default "${PTXCONF_FLASH_BLOCKSIZE}"
 	prompt "Block size"
 	help
 	  This allows the compression data block size to be selected, both "K" and "M"
