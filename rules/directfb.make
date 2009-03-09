@@ -229,10 +229,10 @@ ifdef PTXCONF_DIRECTFB_INPUT_PS2MOUSE
 		$(DIRECTFB_MODULE_DIRECTORY)/inputdrivers/libdirectfb_ps2mouse.so)
 endif
 
-#ifdef PTXCONF_DIRECTFB_INPUT_TSLIB
-#	@$(call install_copy, directfb, 0, 0, 0644, -, \
-#		$(DIRECTFB_MODULE_DIRECTORY)/inputdrivers/libdirectfb_tslib.so)
-#endif
+ifdef PTXCONF_DIRECTFB_INPUT_TSLIB
+	@$(call install_copy, directfb, 0, 0, 0644, -, \
+		$(DIRECTFB_MODULE_DIRECTORY)/inputdrivers/libdirectfb_tslib.so)
+endif
 
 ifdef PTXCONF_DIRECTFB_FONT_FREETYPE
 	@$(call install_copy, directfb, 0, 0, 0644, -, \
