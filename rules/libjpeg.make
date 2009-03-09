@@ -37,8 +37,6 @@ $(LIBJPEG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-libjpeg_prepare: $(STATEDIR)/libjpeg.prepare
-
 LIBJPEG_PATH	:= PATH=$(CROSS_PATH)
 LIBJPEG_ENV 	:= $(CROSS_ENV)
 
@@ -59,11 +57,11 @@ $(STATEDIR)/libjpeg.targetinstall:
 	@$(call install_fixup, libjpeg,PRIORITY,optional)
 	@$(call install_fixup, libjpeg,VERSION,$(LIBJPEG_VERSION))
 	@$(call install_fixup, libjpeg,SECTION,base)
-	@$(call install_fixup, libjpeg,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libjpeg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libjpeg,DEPENDS,)
 	@$(call install_fixup, libjpeg,DESCRIPTION,missing)
 
-	@$(call install_copy, libjpeg, 0, 0, 0644, $(LIBJPEG_DIR)/.libs/libjpeg.so.62.0.0, /usr/lib/libjpeg.so.62.0.0)
+	@$(call install_copy, libjpeg, 0, 0, 0644, -, /usr/lib/libjpeg.so.62.0.0)
 	@$(call install_link, libjpeg, libjpeg.so.62.0.0, /usr/lib/libjpeg.so.62)
 	@$(call install_link, libjpeg, libjpeg.so.62.0.0, /usr/lib/libjpeg.so)
 
