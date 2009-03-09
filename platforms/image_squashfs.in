@@ -3,7 +3,7 @@
 menuconfig IMAGE_SQUASHFS
 	bool
 	select HOST_SQUASHFS_TOOLS
-	prompt "Generate images/root.squashfs    "
+	prompt "Generate images/root.squashfs "
 	help
 	  Build a squashfs image of the root filesystem. This image can be stored
 	  linearly into target's flash device at the start of the desired
