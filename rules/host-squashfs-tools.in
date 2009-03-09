@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_SQUASHFS_TOOLS
+	tristate
+	prompt "squashfs tools"
+	select host-zlib

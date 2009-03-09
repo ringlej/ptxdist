@@ -1,0 +1,32 @@
+## SECTION=images
+
+menuconfig IMAGE_SQUASHFS
+	bool
+	select HOST_SQUASHFS_TOOLS
+	prompt "Generate images/root.squashfs    "
+	help
+	  Build a squashfs image of the root filesystem. This image can be stored
+	  linearly into target's flash device at the start of the desired
+	  partition. You should erase the whole partition first if the image
+	  is smaller than partition's size. If not, garbage data in the remaining
+	  space could confuse the filesystem driver.
+
+if IMAGE_SQUASHFS
+
+config IMAGE_SQUASHFS_BLOCK_SIZE
+	string
+	default "${FLASH_BLOCKSIZE}"
+	prompt "Block size"
+	help
+	  This allows the compression data block size to be selected, both "K" and "M"
+	  postfixes are supported, this can be either 4K, 8K, 16K, 32K, 64K, 128K,
+	  256K, 512K or 1M bytes.
+
+config IMAGE_SQUASHFS_EXTRA_ARGS
+	string
+	default ""
+	prompt "extra arguments passed to mksquashfs"
+	help
+	  You can add extra arguments for mksquashfs here
+
+endif

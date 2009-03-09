@@ -6,7 +6,7 @@ source "rules/host-mtd-utils.in"
 source "rules/host-liblzo.in"
 source "rules/host-umkimage.in"
 source "rules/host-mkelfImage.in"
-
+source "rules/host-squashfs-tools.in"
 
 # common
 source "rules/host-zlib.in"

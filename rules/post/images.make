@@ -78,6 +78,7 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_HD)		+= $(IMAGEDIR)/hd.img
 SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2_GZIP)	+= $(IMAGEDIR)/root.ext2.gz
 SEL_ROOTFS-$(PTXCONF_IMAGE_UIMAGE)	+= $(IMAGEDIR)/uRamdisk
 SEL_ROOTFS-$(PTXCONF_IMAGE_CPIO)	+= $(IMAGEDIR)/initrd.gz
+SEL_ROOTFS-$(PTXCONF_IMAGE_SQUASHFS)	+= $(IMAGEDIR)/root.squashfs
 
 #
 # extract all current ipkgs into the working directory
@@ -114,6 +115,24 @@ $(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
 		echo -n "$(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS) ";		\
 		echo -n "-o $@" )					\
+	) | $(FAKEROOT) --
+	@echo "done."
+
+#
+# create the squashfs image
+#
+$(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squashfs-tools.install
+	@echo -n "Creating root.squashfs from working dir..."
+	@cd $(WORKDIR);							\
+	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
+	(								\
+		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/mksquashfs ";	\
+		echo -n "$(WORKDIR) ";					\
+		echo -n "$@ ";						\
+		echo -n "-noappend ";					\
+		echo -n "-b $(PTXCONF_IMAGE_SQUASHFS_BLOCK_SIZE) ";	\
+		echo -n "$(call ptx/ifdef, PTXCONF_ENDIAN_BIG, -be, -le) "; \
+		echo -n $(PTXCONF_IMAGE_SQUASHFS_EXTRA_ARGS) )	\
 	) | $(FAKEROOT) --
 	@echo "done."
 
