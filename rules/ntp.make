@@ -54,10 +54,21 @@ NTP_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-NTP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--without-rpath \
+	--disable-dependency-tracking
+
+ifdef PTXCONF_NTP_SELECT_CLOCK_DRIVERS
+NTP_AUTOCONF += --disable-all-clocks
+else
+NTP_AUTOCONF += --enable-all-clocks
+endif
 
 # NTP: options, we need lots of options ;-)
-
+# Note: Only if '--disable-all-clocks' is given, the additional clock driver
+# switches makes sense (else most of the clock drivers are enabled
+# by default)
+#
 ifdef PTXCONF_NTP_CLOCKCTL
 NTP_AUTOCONF += --enable-clockctl
 endif
@@ -72,9 +83,6 @@ NTP_AUTOCONF += --enable-BANCOMM
 endif
 ifdef PTXCONF_NTP_GPSVME
 NTP_AUTOCONF += --enable-GPSVME
-endif
-ifdef PTXCONF_NTP_ALL_CLOCKS
-NTP_AUTOCONF += --enable-all-clocks
 endif
 ifdef PTXCONF_NTP_ACTS
 NTP_AUTOCONF += --enable-ACTS

@@ -2,232 +2,197 @@
 
 # --- non-PARSE clocks ---
 
-menuconfig NTP_ALL_CLOCKS
+menuconfig NTP_NONE_PARSE_CLOCKS
 	bool
-	prompt "include all suitable non-PARSE clocks"
-	default y
-	depends on NTP
+	prompt "select non-PARSE clock drivers"
+	depends on NTP_SELECT_CLOCK_DRIVERS
+
+if NTP_NONE_PARSE_CLOCKS
 
 config NTP_ACTS
 	bool
 	prompt "ACTS modem service"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_ARBITER
 	bool
 	prompt "Arbiter 1088A/B GPS receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_ARCRON_MSF
 	bool
 	prompt "Arcron MSF receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_AS2201
 	bool
 	prompt "Austron 2200A/2201A GPS receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_ATOM
 	bool
 	prompt "ATOM PPS interface"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_CHRONOLOG
 	bool
 	prompt "Chrono-log K-series WWVB receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_CHU
 	bool
 	prompt "CHU modem/decoder"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_AUDIO_CHU
 	bool
 	prompt "CHU audio/decoder"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_DATUM
 	bool
 	prompt "Datum Programmable Time System"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_DUMBCLOCK
 	bool
 	prompt "Dumb generic hh:mm:ss local clock"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_FG
 	bool
 	prompt "Forum Graphic GPS"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_HEATH
 	bool
 	prompt "Heath GC-1000 WWV/WWVH receiver "
-	depends on NTP_ALL_CLOCKS
 
 config NTP_HOPFSERIAL
 	bool
 	prompt "hopf serial clock device"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_HOPFPCI
 	bool
 	prompt "hopf 6039 PCI board"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_HPGPS
 	bool
 	prompt "HP 58503A GPS receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_IRIG
 	bool
 	prompt "IRIG audio decoder "
-	depends on NTP_ALL_CLOCKS
 
 config NTP_JJY
 	bool
 	prompt "JJY receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_JUPITER
 	bool
 	prompt "Rockwell Jupiter GPS receiver"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_LEITCH
 	bool
 	prompt "Leitch CSD 5300 Master Clock System Driver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_LOCAL_CLOCK
 	bool
 	prompt "local clock reference"
 	default y
-	depends on NTP_ALL_CLOCKS
+	help
+	  Enables the driver for the internal PC CMOS clock (mostly unreliable)
 
 config NTP_MSFEES
 	bool
 	prompt "EES M201 MSF receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_MX4200
 	bool
 	prompt "Magnavox MX4200 GPS receiver "
-	depends on NTP_ALL_CLOCKS
 
 config NTP_NEOCLOCK4X
 	bool
 	prompt "NeoClock4X DCF77 / TDF receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_NMEA
 	bool
 	prompt "NMEA GPS receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_ONCORE
 	bool
 	prompt "Motorola VP/UT Oncore GPS receiver"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_PALISADE
 	bool
 	prompt "Palisade clock"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_PCF
 	bool
 	prompt "Conrad parallel port radio clock"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_PST
 	bool
 	prompt "PST/Traconex 1020 WWV/WWVH receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_PTBACTS
 	bool
 	prompt "PTB modem service"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_RIPENCC
 	bool
 	prompt "RIPENCC specific Trimble driver"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_SHM
 	bool
 	prompt "SHM clock attached thru shared memory"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_SPECTRACOM
 	bool
 	prompt "Spectracom 8170/Netclock/2 WWVB receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_TPRO
 	bool
 	prompt "KSI/Odetics TPRO/S GPS receiver/IRIG interface [BROKEN]"
-	depends on NTP_ALL_CLOCKS
 	depends on BROKEN
 
 config NTP_TRAK
 	bool
 	prompt "TRAK 8810 GPS receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_TRUETIME
 	bool
 	prompt "Kinemetrics/TrueTime receivers"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_TT560
 	bool
 	prompt "TrueTime 560 IRIG-B decoder [BROKEN]"
-	depends on NTP_ALL_CLOCKS
 	depends on BROKEN
 
 config NTP_ULINK
 	bool
 	prompt "Ultralink WWVB receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
 
 config NTP_USNO
 	bool
 	prompt "USNO modem service"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_WWV
 	bool
 	prompt "WWV Audio receiver"
-	depends on NTP_ALL_CLOCKS
 
 config NTP_ZYFER
 	bool
 	prompt "Zyfer GPStarplus receiver"
 	default y
-	depends on NTP_ALL_CLOCKS
+
+endif

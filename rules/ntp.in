@@ -168,6 +168,14 @@ config NTP_ARLIB
 	help
 	  FIXME: This item needs to be documented
 
+comment "Clock drivers"
+
+config NTP_SELECT_CLOCK_DRIVERS
+	bool
+	prompt "Select clock drivers"
+	help
+	  Enabling this entry will only build a set of selected clock drivers.
+	  Else all clock drivers are included into the ntpd.
 
 source "generated/networking_ntp.in"
 
