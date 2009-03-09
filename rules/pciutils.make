@@ -2,6 +2,7 @@
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
+# Copyright (C) 2009 by Wolfram Sang, Pengutronix
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,10 +18,10 @@ PACKAGES-$(PTXCONF_HAS_PCI)-$(PTXCONF_PCIUTILS) += pciutils
 #
 # Paths and names
 #
-PCIUTILS_VERSION	:= 2.2.1
+PCIUTILS_VERSION	:= 3.1.2
 PCIUTILS		:= pciutils-$(PCIUTILS_VERSION)
 PCIUTILS_SUFFIX		:= tar.bz2
-PCIUTILS_URL		:= ftp://ftp.kernel.org/pub/software/utils/pciutils/$(PCIUTILS).$(PCIUTILS_SUFFIX)
+PCIUTILS_URL		:= http://ftp.kernel.org/pub/software/utils/pciutils/$(PCIUTILS).$(PCIUTILS_SUFFIX)
 PCIUTILS_SOURCE		:= $(SRCDIR)/$(PCIUTILS).$(PCIUTILS_SUFFIX)
 PCIUTILS_DIR		:= $(BUILDDIR)/$(PCIUTILS)
 
@@ -62,9 +63,15 @@ PCIUTILS_PATH	:=  PATH=$(CROSS_PATH)
 PCIUTILS_ENV 	:=  $(CROSS_ENV)
 
 PCIUTILS_ENV += PREFIX=/usr
-PCIUTILS_ENV += HOST=i686--linux
-PCIUTILS_ENV += RELEASE=2.6.15
-
+PCIUTILS_ENV += HOST=$(PTXCONF_ARCH_STRING)--linux
+PCIUTILS_ENV += RELEASE=$(PTXCONF_KERNEL_VERSION)
+# FIXME: Could be an option depending on libresolv
+PCIUTILS_ENV += DNS=no
+ifdef PTXCONF_PCIUTILS_COMPRESS
+PCIUTILS_ENV += ZLIB=yes
+else
+PCIUTILS_ENV += ZLIB=no
+endif
 #
 # autoconf
 #
@@ -82,7 +89,7 @@ pciutils_compile: $(STATEDIR)/pciutils.compile
 
 $(STATEDIR)/pciutils.compile: $(pciutils_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(PCIUTILS_DIR) && $(PCIUTILS_PATH) make $(PCIUTILS_ENV)
+	cd $(PCIUTILS_DIR) && $(PCIUTILS_PATH) $(MAKE) $(PCIUTILS_ENV)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -115,7 +122,12 @@ $(STATEDIR)/pciutils.targetinstall: $(pciutils_targetinstall_deps_default)
 
 	@$(call install_copy, pciutils, 0, 0, 0755, $(PCIUTILS_DIR)/lspci, /usr/bin/lspci)
 	@$(call install_copy, pciutils, 0, 0, 0755, $(PCIUTILS_DIR)/setpci, /usr/bin/setpci)
+ifdef PTXCONF_PCIUTILS_COMPRESS
+	[ -f $(PCIUTILS_DIR)/pci.ids.gz ] || gzip --best -c $(PCIUTILS_DIR)/pci.ids > $(PCIUTILS_DIR)/pci.ids.gz
+	@$(call install_copy, pciutils, 0, 0, 0644, $(PCIUTILS_DIR)/pci.ids.gz, /usr/share/pci.ids.gz, n)
+else
 	@$(call install_copy, pciutils, 0, 0, 0644, $(PCIUTILS_DIR)/pci.ids, /usr/share/pci.ids, n)
+endif
 
 	@$(call install_finish,pciutils)
 

@@ -1,8 +1,20 @@
 ## SECTION=shell_and_console
-config PCIUTILS
+menuconfig PCIUTILS
 	tristate
-	prompt "pciutils"
+	prompt "pciutils                      "
 	help
 	  The PCI Utilities package contains a library for portable access to PCI bus
 	  configuration registers and several utilities based on this library.
 
+if PCIUTILS
+
+config PCIUTILS_COMPRESS
+	depends on ZLIB
+	bool
+	default y
+	prompt "compress pci_ids"
+	help
+	  Save storage space by compressing the pci-id database. Access will be a
+	  little bit slower then.
+
+endif
