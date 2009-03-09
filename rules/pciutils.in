@@ -1,5 +1,6 @@
 ## SECTION=shell_and_console
 menuconfig PCIUTILS
+	select ZLIB if PCIUTILS_COMPRESS
 	tristate
 	prompt "pciutils                      "
 	help
@@ -9,7 +10,6 @@ menuconfig PCIUTILS
 if PCIUTILS
 
 config PCIUTILS_COMPRESS
-	depends on ZLIB
 	bool
 	default y
 	prompt "compress pci_ids"
