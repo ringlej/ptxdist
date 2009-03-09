@@ -170,11 +170,12 @@ config NTP_ARLIB
 
 comment "Clock drivers"
 
-config NTP_SELECT_CLOCK_DRIVERS
+config NTP_ALL_CLOCK_DRIVERS
 	bool
-	prompt "Select clock drivers"
+	prompt "Build all clock drivers"
+	default y
 	help
-	  Enabling this entry will only build a set of selected clock drivers.
+	  Disabling this entry will only build a set of selected clock drivers.
 	  Else all clock drivers are included into the ntpd.
 
 source "generated/networking_ntp.in"

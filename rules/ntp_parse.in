@@ -2,12 +2,9 @@
 
 # --- PARSE clocks ---
 
-menuconfig NTP_PARSE_CLOCKS
-	bool
-	prompt "select PARSE clock drivers    "
-	depends on NTP_SELECT_CLOCK_DRIVERS
+if !NTP_ALL_CLOCK_DRIVERS
 
-if NTP_PARSE_CLOCKS
+menu "select PARSE clock drivers    "
 
 config NTP_COMPUTIME
 	bool
@@ -29,7 +26,7 @@ config NTP_RAWDCF
 	bool
 	prompt "DCF77 raw time code"
 	help
-	  Enables the driver for a simple DCF77 forwarded to a UART port.
+	  Enables the driver for a simple DCF77 signal forwarded to a UART port.
 
 config NTP_RCC8000
 	bool
@@ -54,5 +51,7 @@ config NTP_WHARTON
 config NTP_VARITEXT
 	bool
 	prompt "VARITEXT clock"
+
+endmenu
 
 endif

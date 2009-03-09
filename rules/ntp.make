@@ -58,10 +58,10 @@ NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--without-rpath \
 	--disable-dependency-tracking
 
-ifdef PTXCONF_NTP_SELECT_CLOCK_DRIVERS
-NTP_AUTOCONF += --disable-all-clocks
-else
+ifdef PTXCONF_NTP_ALL_CLOCK_DRIVERS
 NTP_AUTOCONF += --enable-all-clocks
+else
+NTP_AUTOCONF += --disable-all-clocks
 endif
 
 # NTP: options, we need lots of options ;-)

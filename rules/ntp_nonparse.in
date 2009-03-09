@@ -2,12 +2,11 @@
 
 # --- non-PARSE clocks ---
 
-menuconfig NTP_NONE_PARSE_CLOCKS
-	bool
-	prompt "select non-PARSE clock drivers"
-	depends on NTP_SELECT_CLOCK_DRIVERS
+if !NTP_ALL_CLOCK_DRIVERS
 
-if NTP_NONE_PARSE_CLOCKS
+menu "select non-PARSE clock drivers"
+
+#if NTP_NONE_PARSE_CLOCKS
 
 config NTP_ACTS
 	bool
@@ -16,17 +15,14 @@ config NTP_ACTS
 config NTP_ARBITER
 	bool
 	prompt "Arbiter 1088A/B GPS receiver"
-	default y
 
 config NTP_ARCRON_MSF
 	bool
 	prompt "Arcron MSF receiver"
-	default y
 
 config NTP_AS2201
 	bool
 	prompt "Austron 2200A/2201A GPS receiver"
-	default y
 
 config NTP_ATOM
 	bool
@@ -35,12 +31,10 @@ config NTP_ATOM
 config NTP_CHRONOLOG
 	bool
 	prompt "Chrono-log K-series WWVB receiver"
-	default y
 
 config NTP_CHU
 	bool
 	prompt "CHU modem/decoder"
-	default y
 
 config NTP_AUDIO_CHU
 	bool
@@ -53,12 +47,10 @@ config NTP_DATUM
 config NTP_DUMBCLOCK
 	bool
 	prompt "Dumb generic hh:mm:ss local clock"
-	default y
 
 config NTP_FG
 	bool
 	prompt "Forum Graphic GPS"
-	default y
 
 config NTP_HEATH
 	bool
@@ -67,17 +59,14 @@ config NTP_HEATH
 config NTP_HOPFSERIAL
 	bool
 	prompt "hopf serial clock device"
-	default y
 
 config NTP_HOPFPCI
 	bool
 	prompt "hopf 6039 PCI board"
-	default y
 
 config NTP_HPGPS
 	bool
 	prompt "HP 58503A GPS receiver"
-	default y
 
 config NTP_IRIG
 	bool
@@ -86,7 +75,6 @@ config NTP_IRIG
 config NTP_JJY
 	bool
 	prompt "JJY receiver"
-	default y
 
 config NTP_JUPITER
 	bool
@@ -95,19 +83,18 @@ config NTP_JUPITER
 config NTP_LEITCH
 	bool
 	prompt "Leitch CSD 5300 Master Clock System Driver"
-	default y
 
 config NTP_LOCAL_CLOCK
 	bool
 	prompt "local clock reference"
 	default y
 	help
-	  Enables the driver for the internal PC CMOS clock (mostly unreliable)
+	  Enables the driver for the internal PC CMOS clock. This clock
+	  is mostly unreliable, but suitable as a fall back time source.
 
 config NTP_MSFEES
 	bool
 	prompt "EES M201 MSF receiver"
-	default y
 
 config NTP_MX4200
 	bool
@@ -116,12 +103,10 @@ config NTP_MX4200
 config NTP_NEOCLOCK4X
 	bool
 	prompt "NeoClock4X DCF77 / TDF receiver"
-	default y
 
 config NTP_NMEA
 	bool
 	prompt "NMEA GPS receiver"
-	default y
 
 config NTP_ONCORE
 	bool
@@ -134,12 +119,10 @@ config NTP_PALISADE
 config NTP_PCF
 	bool
 	prompt "Conrad parallel port radio clock"
-	default y
 
 config NTP_PST
 	bool
 	prompt "PST/Traconex 1020 WWV/WWVH receiver"
-	default y
 
 config NTP_PTBACTS
 	bool
@@ -156,7 +139,6 @@ config NTP_SHM
 config NTP_SPECTRACOM
 	bool
 	prompt "Spectracom 8170/Netclock/2 WWVB receiver"
-	default y
 
 config NTP_TPRO
 	bool
@@ -166,7 +148,6 @@ config NTP_TPRO
 config NTP_TRAK
 	bool
 	prompt "TRAK 8810 GPS receiver"
-	default y
 
 config NTP_TRUETIME
 	bool
@@ -180,7 +161,6 @@ config NTP_TT560
 config NTP_ULINK
 	bool
 	prompt "Ultralink WWVB receiver"
-	default y
 
 config NTP_USNO
 	bool
@@ -193,6 +173,7 @@ config NTP_WWV
 config NTP_ZYFER
 	bool
 	prompt "Zyfer GPStarplus receiver"
-	default y
+
+endmenu
 
 endif
