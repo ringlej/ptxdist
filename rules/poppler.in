@@ -28,6 +28,9 @@ config POPPLER_GLIB
 	help
 	  build poppler glib wrapper.
 
+comment "glibc wrapper needs at least one graphics backend"
+	depends on POPPLER_GLIB && !(POPPLER_CAIRO || POPPLER_SPLASH)
+
 config POPPLER_CAIRO
 	bool
 	prompt "enable poppler cairo graphics backend"
