@@ -46,7 +46,6 @@ LIBGDBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-gtk-doc \
 	--disable-debug \
-	--enable-pie \
 	--with-gnu-ld
 
 # ----------------------------------------------------------------------------
