@@ -41,7 +41,7 @@ SYSROOT := $(PTXCONF_SYSROOT_TARGET)
 # prepare the search path
 # In order to work correctly in cross path all local cross tools must be find first!
 #
-CROSS_PATH := $(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/sbin:$(PTXCONF_SYSROOT_CROSS)/lib/udev:$$PATH
+CROSS_PATH := $(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/sbin:$$PATH
 
 # ----------------------------------------------------------------------------
 # Environment
