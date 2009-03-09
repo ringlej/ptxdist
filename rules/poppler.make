@@ -46,9 +46,10 @@ POPPLER_ENV 	:= $(CROSS_ENV)
 POPPLER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-abiword-output \
+	--disable-gdk \
+	--disable-gtk-test \
 	--disable-poppler-qt \
 	--disable-poppler-qt4 \
-	--disable-gtk-test \
 	--without-x
 
 ifdef PTXCONF_POPPLER_BIN
@@ -73,6 +74,12 @@ ifdef PTXCONF_POPPLER_CAIRO
 POPPLER_AUTOCONF += --enable-cairo-output
 else
 POPPLER_AUTOCONF += --disable-cairo-output
+endif
+
+ifdef PTXCONF_POPPLER_SPLASH
+POPPLER_AUTOCONF += --enable-splash-output
+else
+POPPLER_AUTOCONF += --disable-splash-output
 endif
 
 ifdef PTXCONF_POPPLER_GLIB
