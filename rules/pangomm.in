@@ -3,6 +3,7 @@
 config PANGOMM
 	tristate
 	select GLIBMM
+	select CAIROMM
 	prompt "pangomm"
 	help
 	  c++ bindings for pango
