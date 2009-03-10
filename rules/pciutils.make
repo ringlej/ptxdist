@@ -38,6 +38,8 @@ $(PCIUTILS_SOURCE):
 # ----------------------------------------------------------------------------
 
 PCIUTILS_PATH	:= PATH=$(CROSS_PATH)
+PCIUTILS_COMPILE_ENV	:= $(CROSS_ENV)
+
 PCIUTILS_MAKEVARS := \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	PREFIX=/usr \
