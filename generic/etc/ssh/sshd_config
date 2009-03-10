@@ -102,4 +102,4 @@ PermitRootLogin yes
 #Banner /some/path
 
 # override default of no subsystems
-Subsystem	sftp	/usr/libexec/sftp-server
+Subsystem	sftp	/usr/sbin/sftp-server
