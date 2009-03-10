@@ -28,34 +28,13 @@ U_BOOT_DIR	:= $(BUILDDIR)/$(U_BOOT)
 # Get
 # ----------------------------------------------------------------------------
 
-u-boot_get: $(STATEDIR)/u-boot.get
-
-$(STATEDIR)/u-boot.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(U_BOOT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, U_BOOT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-u-boot_extract: $(STATEDIR)/u-boot.extract
-
-$(STATEDIR)/u-boot.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(U_BOOT_DIR))
-	@$(call extract, U_BOOT)
-	@$(call patchin, U_BOOT)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-u-boot_prepare: $(STATEDIR)/u-boot.prepare
 
 U_BOOT_PATH	:= PATH=$(CROSS_PATH)
 U_BOOT_ENV 	:= CROSS_COMPILE=$(COMPILER_PREFIX)
@@ -66,49 +45,42 @@ U_BOOT_ENV 	:= CROSS_COMPILE=$(COMPILER_PREFIX)
 U_BOOT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/u-boot.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(U_BOOT_DIR)/config.cache)
+	@$(call targetinfo)
 	cd $(U_BOOT_DIR) && \
 		$(U_BOOT_PATH) $(U_BOOT_ENV) \
 		$(MAKE) $(PTXCONF_U_BOOT_CONFIG)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-u-boot_compile: $(STATEDIR)/u-boot.compile
-
 $(STATEDIR)/u-boot.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 # release 1.2.0 seems not be able to massive build in parallel
 	@cd $(U_BOOT_DIR) && \
 		$(U_BOOT_PATH) $(U_BOOT_ENV) \
 		$(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-u-boot_install: $(STATEDIR)/u-boot.install
-
 $(STATEDIR)/u-boot.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-u-boot_targetinstall: $(STATEDIR)/u-boot.targetinstall
-
 $(STATEDIR)/u-boot.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@install -D -m644 $(U_BOOT_DIR)/u-boot.bin $(IMAGEDIR)/u-boot.bin
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
