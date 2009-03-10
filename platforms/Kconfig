@@ -45,6 +45,8 @@ source "platforms/at91bootstrap.in"
 endmenu
 
 
+source "platforms/flash.in"
+
 menu "image creation options        "
 source "platforms/image_ipkg.in"
 source "platforms/image_tgz.in"
@@ -55,8 +57,6 @@ source "platforms/image_cpio.in"
 source "platforms/image_ext2.in"
 source "platforms/image_squashfs.in"
 endmenu
-
-source "platforms/flash.in"
 
 source "platforms/hosttools.in"
 source "platforms/crosstools.in"
