@@ -1,8 +1,7 @@
 # -*-makefile-*-
 #
-# $Id$
-#
 # Copyright (C) 2004 by Ladislav Michl
+# Copyright (C) 2009 by Juergen Beisert <j.beisert@pengtronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,138 +17,63 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION		= 3.5.6
-SQLITE			= sqlite-$(SQLITE_VERSION)
-SQLITE_SUFFIX		= tar.gz
-SQLITE_URL		= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
-SQLITE_SOURCE		= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
-SQLITE_DIR		= $(BUILDDIR)/$(SQLITE)
+SQLITE_VERSION	= 3.6.11
+SQLITE		= sqlite-$(SQLITE_VERSION)
+SQLITE_SUFFIX	= tar.gz
+SQLITE_URL	= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
+SQLITE_SOURCE	= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
+SQLITE_DIR	= $(BUILDDIR)/$(SQLITE)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-sqlite_get: $(STATEDIR)/sqlite.get
-
-$(STATEDIR)/sqlite.get: $(sqlite_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(SQLITE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, SQLITE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-sqlite_extract: $(STATEDIR)/sqlite.extract
-
-$(STATEDIR)/sqlite.extract: $(sqlite_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(SQLITE_DIR))
-	@$(call extract, SQLITE)
-	@$(call patchin, SQLITE)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-sqlite_prepare: $(STATEDIR)/sqlite.prepare
+SQLITE_PATH	:= PATH=$(CROSS_PATH)
+SQLITE_ENV 	:= $(CROSS_ENV)
+SQLITE_AUTOCONF	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-tempstore=never \
+	--enable-releasemode
 
-SQLITE_PATH	= PATH=$(CROSS_PATH)
-SQLITE_ENV 	= $(CROSS_ENV)
-SQLITE_MK	= $(SQLITE_DIR)/Makefile.PTXdist
-
-ifdef PTXCONF_SQLITE_ISO8859
-SQLITE_ENCODING	= ISO8859
-endif
-ifdef PTXCONF_SQLITE_UTF8
-SQLITE_ENCODING	= UTF8
-endif
 ifdef PTXCONF_SQLITE_THREADSAFE
-SQLITE_THREADSAFE = -DTHREADSAFE=1
+SQLITE_AUTOCONF += --enable-threadsafe
+else
+SQLITE_AUTOCONF += --disable-threadsafe
 endif
+
 ifdef PTXCONF_SQLITE_DISABLE_LFS
-SQLITE_DISABLE_LFS = -DSQLITE_DISABLE_LFS
+SQLITE_AUTOCONF += --disable-largefile
+else
+SQLITE_AUTOCONF += --enable-largefile
 endif
 
-SQLITE_CFLAGS = $(call remove_quotes,$(TARGET_CFLAGS)) -fpic
-SQLITE_LDFLAGS = $(call remove_quotes,$(TARGET_LDFLAGS)) -shared -o libsqlite3.so
+ifdef PTXCONF_SQLITE_TCL
+SQLITE_AUTOCONF += --enable-tcl
+else
+SQLITE_AUTOCONF += --disable-tcl
+endif
 
-$(STATEDIR)/sqlite.prepare: $(sqlite_prepare_deps_default)
-	@$(call targetinfo, $@)
-	# Create Makefile
-	echo "TOP = $(SQLITE_DIR)"				>  $(SQLITE_MK)
-	echo "BCC = $(HOSTCC)"					>> $(SQLITE_MK)
-	echo "USLEEP = -DHAVE_USLEEP=1"				>> $(SQLITE_MK)
-	echo "THREADSAFE = $(SQLITE_THREADSAFE)"		>> $(SQLITE_MK)
-	echo "THREADLIB = "					>> $(SQLITE_MK)
-	echo "OPTS = -DNDEBUG=1 $(SQLITE_DISABLE_LFS)"		>> $(SQLITE_MK)
-	echo "EXE = "						>> $(SQLITE_MK)
-	echo "TCC = $(CROSS_CC) $(SQLITE_CFLAGS)"		>> $(SQLITE_MK)
-	echo "AR = $(CROSS_AR) cr"				>> $(SQLITE_MK)
-	echo "RANLIB = $(CROSS_RANLIB)"				>> $(SQLITE_MK)
-	echo "TCL_FLAGS = -DNO_TCL=1"				>> $(SQLITE_MK)
-	echo "LIBTCL = "					>> $(SQLITE_MK)
-	echo "READLINE_FLAGS = "				>> $(SQLITE_MK)
-	echo "LIBREADLINE = "					>> $(SQLITE_MK)
-	echo "ENCODING = $(SQLITE_ENCODING)"			>> $(SQLITE_MK)
-	echo "NAWK = awk"					>> $(SQLITE_MK)
-	echo 'include $$(TOP)/main.mk'				>> $(SQLITE_MK)
-	echo 'libsqlite:   $$(LIBOBJ) libsqlite3.a'		>> $(SQLITE_MK)
-	echo -e '\t$$(TCCX) $(SQLITE_LDFLAGS) $$(LIBOBJ)'	>> $(SQLITE_MK)
-	@$(call touch, $@)
-
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-sqlite_compile: $(STATEDIR)/sqlite.compile
-
-$(STATEDIR)/sqlite.compile: $(sqlite_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(SQLITE_DIR) && $(SQLITE_PATH) make -f $(SQLITE_MK) libsqlite
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-sqlite_install: $(STATEDIR)/sqlite.install
-
-$(STATEDIR)/sqlite.install: $(sqlite_install_deps_default)
-	@$(call targetinfo, $@)
-	install -d $(PKGDIR)/$(SQLITE)/usr/include
-	install -d $(SYSROOT)/usr/include
-	install -d $(PKGDIR)/$(SQLITE)/usr/lib
-	install -d $(SYSROOT)/usr/lib
-	cp $(SQLITE_DIR)/sqlite3.h \
-		$(PKGDIR)/$(SQLITE)/usr/include
-	cp $(SQLITE_DIR)/sqlite3.h \
-		$(SYSROOT)/usr/include
-	cp $(SQLITE_DIR)/libsqlite3.a \
-		$(PKGDIR)/$(SQLITE)/usr/lib
-	cp $(SQLITE_DIR)/libsqlite3.a \
-		$(SYSROOT)/usr/lib
-	cp $(SQLITE_DIR)/libsqlite3.so \
-		$(PKGDIR)/$(SQLITE)/usr/lib
-	cp $(SQLITE_DIR)/libsqlite3.so \
-		$(SYSROOT)/usr/lib
-	@$(call touch, $@)
+ifdef PTXCONF_SQLITE_READLINE
+SQLITE_AUTOCONF += --enable-readline
+else
+SQLITE_AUTOCONF += --disable-readline
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-sqlite_targetinstall: $(STATEDIR)/sqlite.targetinstall
-
-$(STATEDIR)/sqlite.targetinstall: $(sqlite_targetinstall_deps_default)
-	@$(call targetinfo, $@)
-	install -d $(ROOTDIR)/usr/lib
+$(STATEDIR)/sqlite.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, sqlite)
 	@$(call install_fixup, sqlite,PACKAGE,sqlite)
@@ -160,8 +84,23 @@ $(STATEDIR)/sqlite.targetinstall: $(sqlite_targetinstall_deps_default)
 	@$(call install_fixup, sqlite,DEPENDS,)
 	@$(call install_fixup, sqlite,DESCRIPTION,missing)
 
-	@$(call install_copy, sqlite, 0, 0, 0644, $(SQLITE_DIR)/libsqlite3.so, /usr/lib/libsqlite3.so)
+	@$(call install_copy, sqlite, 0, 0, 0644, -, \
+		/usr/lib/libsqlite3-3.6.11.so.0.8.6)
+	@$(call install_link, sqlite, libsqlite3-3.6.11.so.0.8.6, \
+		/usr/lib/libsqlite3.so)
+	@$(call install_link, sqlite, libsqlite3-3.6.11.so.0.8.6, \
+		/usr/lib/libsqlite3-3.6.11.so.0)
 
+ifdef PTXCONF_SQLITE_TOOL
+	@$(call install_copy, sqlite, 0, 0, 0755, -, /usr/bin/sqlite3)
+endif
+
+ifdef PTXCONF_SQLITE_TCL
+	@$(call install_copy, sqlite, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/sqlite3/libtclsqlite3.so)
+	@$(call install_copy, sqlite, 0, 0, 0644, -, \
+		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/sqlite3/pkgIndex.tcl)
+endif
 	@$(call install_finish, sqlite)
 
 	@$(call touch, $@)
@@ -171,7 +110,8 @@ $(STATEDIR)/sqlite.targetinstall: $(sqlite_targetinstall_deps_default)
 # ----------------------------------------------------------------------------
 
 sqlite_clean:
-	rm -rf $(STATEDIR)/sqlite.* $(SQLITE_DIR)
+	rm -rf $(STATEDIR)/sqlite.*
 	rm -rf $(PKGDIR)/sqlite_*
+	rm -rf $(SQLITE_DIR)
 
 # vim: syntax=make

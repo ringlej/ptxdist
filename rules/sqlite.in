@@ -2,21 +2,29 @@
 menuconfig SQLITE
 	tristate
 	prompt "sqlite                        "
+	select TCL if SQLITE_TCL
+	select READLINE if SQLITE_READLINE
+	help
+	  SQLite is a software library that implements a self-contained,
+	  serverless, zero-configuration, transactional SQL database engine.
+	  Note: This package needs a host tclsh to be built.
 
-if SQLITE	
+if SQLITE
 
-choice
-	prompt "Assume text encoding"
-	default ISO8859
+comment "build options"
 
-	config SQLITE_ISO8859
-		bool
- 		prompt "ISO8859"
-
-	config SQLITE_UTF8
-		bool
- 		prompt "UTF-8"
-endchoice
+#choice
+#	prompt "Assume text encoding"
+#	default ISO8859
+#
+#	config SQLITE_ISO8859
+#		bool
+#		prompt "ISO8859"
+#
+#	config SQLITE_UTF8
+#		bool
+#		prompt "UTF-8"
+#endchoice
 
 config SQLITE_DISABLE_LFS
 	bool
@@ -25,5 +33,25 @@ config SQLITE_DISABLE_LFS
 config SQLITE_THREADSAFE
 	bool
 	prompt "Safe for use within a multi-threaded program"
+
+config SQLITE_READLINE
+	bool
+	prompt "use readline"
+	help
+	  Enable readline support
+
+config SQLITE_TCL
+	bool
+	prompt "build tcl extension"
+	help
+	  Build the TCL extension
+
+comment "install options"
+
+config SQLITE_TOOL
+	bool
+	prompt "install sqlite"
+	help
+	  Enable this entry to also install the 'sqlite' tool.
 
 endif
