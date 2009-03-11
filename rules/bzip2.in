@@ -1,8 +1,8 @@
 ## SECTION=shell_and_console
 
-config BZIP2
+menuconfig BZIP2
 	tristate
-	prompt "bzip2"
+	prompt "bzip2                         "
 	help
 	  bzip2 is a freely available, patent free, high-quality data
 	  compressor. The code is organised as a library with a
@@ -10,15 +10,17 @@ config BZIP2
 	  of the library.
 
 if BZIP2
-	config BZIP2__BZIP2
+
+config BZIP2__BZIP2
 	bool
 	prompt "install bzip2 binary"
 
-	config BZIP2__BZIP2RECOVER
+config BZIP2__BZIP2RECOVER
 	bool
 	prompt "install bzip2recover binary"
 
-	config BZIP2__LIBBZ2
+config BZIP2__LIBBZ2
 	bool
 	prompt "install libbz2 library"
+
 endif
