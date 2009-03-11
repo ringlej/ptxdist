@@ -165,7 +165,6 @@ config SETUP_CHECK_EXIT_ON_ERROR
 	  Use bash' "set -e" feature within ptxdist. Which enables
 	  quite aggressive error checking. Don't turn this on until
 	  you know what you're doing.
-	  
 
 config SETUP_CCACHE
 	bool "use ccache"
