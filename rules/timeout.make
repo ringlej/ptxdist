@@ -12,40 +12,34 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_TIMEOUT) += host-timeout
+PACKAGES-$(PTXCONF_TIMEOUT) += timeout
 
 #
 # Paths and names
 #
-HOST_TIMEOUT_DIR	= $(HOST_BUILDDIR)/$(TIMEOUT)
+TIMEOUT_VERSION	:= 1.18
+TIMEOUT		:= tct-$(TIMEOUT_VERSION)
+TIMEOUT_SUFFIX	:= tar.gz
+TIMEOUT_URL	:= http://www.porcupine.org/forensics/$(TIMEOUT).$(TIMEOUT_SUFFIX)
+TIMEOUT_SOURCE	:= $(SRCDIR)/$(TIMEOUT).$(TIMEOUT_SUFFIX)
+TIMEOUT_DIR	:= $(BUILDDIR)/$(TIMEOUT)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/host-timeout.get: $(STATEDIR)/timeout.get
+$(TIMEOUT_SOURCE):
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-timeout.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_TIMEOUT_DIR))
-	@$(call extract, TIMEOUT, $(HOST_BUILDDIR))
-	@$(call patchin, TIMEOUT, $(HOST_TIMEOUT_DIR))
-	@$(call touch)
+	@$(call get, TIMEOUT)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_TIMEOUT_PATH	:= PATH=$(HOST_PATH)
-HOST_TIMEOUT_ENV 	:= $(HOST_ENV)
+TIMEOUT_PATH	:= PATH=$(CROSS_PATH)
+TIMEOUT_ENV 	:= $(CROSS_ENV)
 
-$(STATEDIR)/host-timeout.prepare:
+$(STATEDIR)/timeout.prepare:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -53,26 +47,48 @@ $(STATEDIR)/host-timeout.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/host-timeout.compile:
+$(STATEDIR)/timeout.compile:
 	@$(call targetinfo)
-	cd $(HOST_TIMEOUT_DIR)/src/misc && $(HOST_TIMEOUT_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN) ../../bin/timeout
+	cd $(TIMEOUT_DIR)/src/misc && $(TIMEOUT_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN) ../../bin/timeout
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/host-timeout.install:
+$(STATEDIR)/timeout.install:
 	@$(call targetinfo)
-	$(INSTALL) -m 755 -D $(HOST_TIMEOUT_DIR)/bin/timeout $(PTXCONF_SYSROOT_HOST)/bin/timeout
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/timeout.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init, timeout)
+	@$(call install_fixup, timeout,PACKAGE,timeout)
+	@$(call install_fixup, timeout,PRIORITY,optional)
+	@$(call install_fixup, timeout,VERSION,$(TIMEOUT_VERSION))
+	@$(call install_fixup, timeout,SECTION,base)
+	@$(call install_fixup, timeout,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
+	@$(call install_fixup, timeout,DEPENDS,)
+	@$(call install_fixup, timeout,DESCRIPTION,missing)
+
+	@$(call install_copy, timeout, 0, 0, 0755, $(TIMEOUT_DIR)/bin/timeout, /usr/bin/timeout)
+
+	@$(call install_finish, timeout)
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-host-timeout_clean:
-	rm -rf $(STATEDIR)/host-timeout.*
-	rm -rf $(HOST_TIMEOUT_DIR)
+timeout_clean:
+	rm -rf $(STATEDIR)/timeout.*
+	rm -rf $(PKGDIR)/timeout_*
+	rm -rf $(TIMEOUT_DIR)
 
 # vim: syntax=make
