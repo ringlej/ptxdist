@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2002      by Pengutronix e.K., Hildesheim, Germany
 # Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
-# Copyright (C) 2005-2008 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2005-2009 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -48,8 +48,6 @@ $(STATEDIR)/glibc.prepare:
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
-
-glibc_compile: $(STATEDIR)/glibc.compile
 
 $(STATEDIR)/glibc.compile:
 	@$(call targetinfo)
@@ -188,6 +186,8 @@ endif
 # ----------------------------------------------------------------------------
 
 glibc_clean:
-	-rm -rf $(STATEDIR)/glibc*
+	rm -rf $(STATEDIR)/glibc.*
+	rm -rf $(PKGDIR)/glibc_*
+
 
 # vim: syntax=make
