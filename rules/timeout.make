@@ -37,7 +37,8 @@ $(TIMEOUT_SOURCE):
 # ----------------------------------------------------------------------------
 
 TIMEOUT_PATH	:= PATH=$(CROSS_PATH)
-TIMEOUT_ENV 	:= $(CROSS_ENV)
+
+TIMEOUT_MAKEVARS := $(CROSS_ENV_CC)
 
 $(STATEDIR)/timeout.prepare:
 	@$(call targetinfo)
@@ -49,7 +50,9 @@ $(STATEDIR)/timeout.prepare:
 
 $(STATEDIR)/timeout.compile:
 	@$(call targetinfo)
-	cd $(TIMEOUT_DIR)/src/misc && $(TIMEOUT_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN) ../../bin/timeout
+	cd $(TIMEOUT_DIR)/src/misc && $(TIMEOUT_PATH) \
+		$(MAKE) $(PARALLELMFLAGS_BROKEN) $(TIMEOUT_MAKEVARS) \
+		../../bin/timeout
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
