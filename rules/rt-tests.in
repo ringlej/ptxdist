@@ -1,7 +1,6 @@
 ## SECTION=test_suites
 menuconfig RT_TESTS
 	tristate
-	select GLIBC
 	select LIBC_PTHREAD
 	select LIBC_RT
 	prompt "rt-tests                      "
