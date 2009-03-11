@@ -8,8 +8,6 @@
 # see the README file.
 #
 
-virtual-cross-tools_install: $(STATEDIR)/virtual-cross-tools.install
-
 ifdef PTXCONF_HOST_FAKEROOT
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-fakeroot.install
 endif
@@ -23,16 +21,14 @@ $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/cross-pkg-config-wrapper.in
 endif
 
 $(STATEDIR)/virtual-cross-tools.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
-
-virtual-host-tools_install: $(STATEDIR)/virtual-host-tools.install
 
 ifdef PTXCONF_HOST_PKG_CONFIG
 $(STATEDIR)/virtual-host-tools.install: $(STATEDIR)/host-pkg-config.install
 endif
 
 $(STATEDIR)/virtual-host-tools.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
