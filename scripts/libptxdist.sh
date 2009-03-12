@@ -354,6 +354,8 @@ ptxd_make_log() {
 
 #
 #
+# dump current callstack
+# wait for keypress
 #
 ptxd_dumpstack()
 {
