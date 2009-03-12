@@ -360,6 +360,29 @@ ptxd_make_log() {
 
 
 #
+# replaces @MAGIC@ with MAGIC from environment
+#
+# $1		input file
+# stdout:	output
+#
+ptxd_replace_magic() {
+	awk '
+$0 ~ /@[A-Z0-9_]+@/ {
+	while (match($0, "@[A-Z0-9_]+@")) {
+		var = substr($0, RSTART+1, RLENGTH-2);
+		gsub("@" var "@", ENVIRON[var]);
+	}
+}
+
+{
+	print;
+}' "${1}"
+
+}
+export -f ptxd_replace_magic
+
+
+
 #
 # dump current callstack
 # wait for keypress
