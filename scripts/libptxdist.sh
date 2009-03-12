@@ -322,7 +322,9 @@ ptxd_kconfig() {
 
 
 #
-#
+# call make,
+# source shell libraries wich are used in make
+# ("scripts/lib/ptxd_make_"*.sh)
 #
 ptxd_make() {
 	for lib in "${SCRIPTSDIR}/lib/ptxd_make_"*.sh; do
@@ -331,6 +333,11 @@ ptxd_make() {
 	"${PTXCONF_SETUP_HOST_MAKE}" ${PTX_MAKE_ARGS} ${PTXDIST_PARALLELMFLAGS_EXTERN} -f "${RULESDIR}/other/Toplevel.make" "${@}" || return
 }
 
+#
+# call make and log it
+#
+# supress stdout in quiet mode
+#
 ptxd_make_log() {
 	if [ -z "${PTXDIST_QUIET}" ]; then
 		{
