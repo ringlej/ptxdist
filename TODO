@@ -3,9 +3,6 @@ TODO before 2.0.0
 
 Prio A
 
-[ ] jbe: It seems now be possible to install a /etc/rc.d/*telnetd link to
-    /etc/init.d/telned without intalling a /etc/init.d/telnetd
-
 [ ] rsc: check jvisu, it has a FIXME that ant may be needed as a host
     tool. Remove, use the same mechanism as with Perl::XML
 
@@ -527,6 +524,9 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: It seems now be possible to install a /etc/rc.d/*telnetd link to
+    /etc/init.d/telned without intalling a /etc/init.d/telnetd
 
 [x] Sisyphus:
 
