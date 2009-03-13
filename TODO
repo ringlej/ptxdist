@@ -3,6 +3,12 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: Running 'ptxdist go' with an enabled but not yet configured
+    kernel should give a reasonable error message. It should not just
+    fail while downloading a nonexisting kernel.
+    (happens when ptxconfig components forcing a kernel not yet configured
+     in the platformconfig)
+
 [ ] rsc: check jvisu, it has a FIXME that ant may be needed as a host
     tool. Remove, use the same mechanism as with Perl::XML
 
