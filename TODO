@@ -3,6 +3,9 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: It seems now be possible to install a /etc/rc.d/*telnetd link to
+    /etc/rc.d/telned without intalling a /etc/rc.d/telnetd
+
 [ ] rsc: check jvisu, it has a FIXME that ant may be needed as a host
     tool. Remove, use the same mechanism as with Perl::XML
 
