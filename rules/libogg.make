@@ -33,17 +33,6 @@ $(LIBOGG_SOURCE):
 	@$(call get, LIBOGG)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libogg.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBOGG_DIR))
-	@$(call extract, LIBOGG)
-	@$(call patchin, LIBOGG)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -54,32 +43,6 @@ LIBOGG_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 LIBOGG_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/libogg.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBOGG_DIR)/config.cache)
-	cd $(LIBOGG_DIR) && \
-		$(LIBOGG_PATH) $(LIBOGG_ENV) \
-		./configure $(LIBOGG_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libogg.compile:
-	@$(call targetinfo)
-	cd $(LIBOGG_DIR) && $(LIBOGG_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libogg.install:
-	@$(call targetinfo)
-	@$(call install, LIBOGG)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -97,9 +60,7 @@ $(STATEDIR)/libogg.targetinstall:
 	@$(call install_fixup, libogg,DEPENDS,)
 	@$(call install_fixup, libogg,DESCRIPTION,missing)
 
-	@$(call install_copy, libogg, 0, 0, 0644, \
-		$(LIBOGG_DIR)/src/.libs/libogg.so.0.5.3, \
-		/usr/lib/libogg.so.0.5.3)
+	@$(call install_copy, libogg, 0, 0, 0644, -, /usr/lib/libogg.so.0.5.3)
 	@$(call install_link, libogg, libogg.so.0.5.3, /usr/lib/libogg.so.0)
 	@$(call install_link, libogg, libogg.so.0.5.3, /usr/lib/libogg.so)
 
