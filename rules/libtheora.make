@@ -2,6 +2,7 @@
 # $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -90,9 +91,9 @@ else
 LIBTHEORA_AUTOCONF += --disable-float
 endif
 ifdef PTXCONF_LIBTHEORA__ENCODING
-LIBTHEORA_AUTOCONF += --enable-encoding
+LIBTHEORA_AUTOCONF += --enable-encode
 else
-LIBTHEORA_AUTOCONF += --disable-encoding
+LIBTHEORA_AUTOCONF += --disable-encode
 endif
 
 $(STATEDIR)/libtheora.prepare:
