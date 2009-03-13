@@ -1,4 +1,4 @@
-## SECTION=multimedia_tslib
+## SECTION=multimedia_libs
 
 menuconfig TSLIB
 	tristate

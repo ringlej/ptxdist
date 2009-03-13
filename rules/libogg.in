@@ -1,4 +1,4 @@
-## SECTION=multimedia_xiph
+## SECTION=multimedia_libs
 
 config LIBOGG
 	tristate

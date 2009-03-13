@@ -62,10 +62,8 @@ menu "tools                         "
 source "generated/multimedia_tools.in"
 endmenu
 
-source "generated/multimedia_tslib.in"
-
-menu "xiph codecs                   "
-source "generated/multimedia_xiph.in"
+menu "libs                          "
+source "generated/multimedia_libs.in"
 endmenu
 
 menuconfig XORG
