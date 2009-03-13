@@ -40,8 +40,6 @@ endmenu
 
 menu "gtk+ & friends                "
 source "generated/multimedia_gtk.in"
-#comment "engines & themes"
-#source "generated/multimedia_gtk_themes.in"
 endmenu
 
 source "generated/multimedia_mplayer.in"
