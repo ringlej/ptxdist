@@ -33,17 +33,6 @@ $(LIBVORBIS_SOURCE):
 	@$(call get, LIBVORBIS)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libvorbis.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBVORBIS_DIR))
-	@$(call extract, LIBVORBIS)
-	@$(call patchin, LIBVORBIS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -57,32 +46,6 @@ LIBVORBIS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-docs \
 	--disable-oggtest
-
-$(STATEDIR)/libvorbis.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBVORBIS_DIR)/config.cache)
-	cd $(LIBVORBIS_DIR) && \
-		$(LIBVORBIS_PATH) $(LIBVORBIS_ENV) \
-		./configure $(LIBVORBIS_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libvorbis.compile:
-	@$(call targetinfo)
-	cd $(LIBVORBIS_DIR) && $(LIBVORBIS_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libvorbis.install:
-	@$(call targetinfo)
-	@$(call install, LIBVORBIS)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -100,21 +63,15 @@ $(STATEDIR)/libvorbis.targetinstall:
 	@$(call install_fixup, libvorbis,DEPENDS,)
 	@$(call install_fixup, libvorbis,DESCRIPTION,missing)
 
-	@$(call install_copy, libvorbis, 0, 0, 0644, \
-		$(LIBVORBIS_DIR)/lib/.libs/libvorbis.so.0.4.0, \
-		/usr/lib/libvorbis.so.0.4.0)
+	@$(call install_copy, libvorbis, 0, 0, 0644, -,	/usr/lib/libvorbis.so.0.4.0)
 	@$(call install_link, libvorbis, libvorbis.so.0.4.0, /usr/lib/libvorbis.so.0)
 	@$(call install_link, libvorbis, libvorbis.so.0.4.0, /usr/lib/libvorbis.so)
 
-	@$(call install_copy, libvorbis, 0, 0, 0644, \
-		$(LIBVORBIS_DIR)/lib/.libs/libvorbisenc.so.2.0.3, \
-		/usr/lib/libvorbisenc.so.2.0.3)
+	@$(call install_copy, libvorbis, 0, 0, 0644, -,	/usr/lib/libvorbisenc.so.2.0.3)
 	@$(call install_link, libvorbis, libvorbisenc.so.2.0.3, /usr/lib/libvorbisenc.so.2)
 	@$(call install_link, libvorbis, libvorbisenc.so.2.0.3, /usr/lib/libvorbisenc.so)
 
-	@$(call install_copy, libvorbis, 0, 0, 0644, \
-		$(LIBVORBIS_DIR)/lib/.libs/libvorbisfile.so.3.2.0, \
-		/usr/lib/libvorbisfile.so.3.2.0)
+	@$(call install_copy, libvorbis, 0, 0, 0644, -, /usr/lib/libvorbisfile.so.3.2.0)
 	@$(call install_link, libvorbis, libvorbisfile.so.3.2.0, /usr/lib/libvorbisfile.so.3)
 	@$(call install_link, libvorbis, libvorbisfile.so.3.2.0, /usr/lib/libvorbisfile.so)
 
