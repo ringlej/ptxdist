@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2003 by Ixia Corporation (www.ixiacom.com)
 #               2006 by Randall Loomis
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,7 +19,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_GENEXT2FS) += host-genext2fs
 #
 # Paths and names
 #
-HOST_GENEXT2FS_VERSION	:= 1.4rc1
+HOST_GENEXT2FS_VERSION	:= 1.4.1
 HOST_GENEXT2FS		:= genext2fs-$(HOST_GENEXT2FS_VERSION)
 HOST_GENEXT2FS_SUFFIX	:= tar.gz
 HOST_GENEXT2FS_URL	:= $(PTXCONF_SETUP_SFMIRROR)/genext2fs/$(HOST_GENEXT2FS).$(HOST_GENEXT2FS_SUFFIX)
