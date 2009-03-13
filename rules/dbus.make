@@ -118,6 +118,11 @@ $(STATEDIR)/dbus.targetinstall:
 	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/event.d/)
 
 #	#
+#	# create session.d directory, which is needed to launch a session bus
+#	#
+	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/session.d/)
+
+#	#
 #	# use the default /etc/dbus-1/system.conf config file
 #	#
 ifdef PTXCONF_ROOTFS_GENERIC_DBUS_SYSTEM_CONF

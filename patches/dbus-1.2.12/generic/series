@@ -1,3 +1,4 @@
 dbus-1.2.12-dummy-check-doctype.diff
 dbus-1.2.1-config-parser.diff
+dbus-1.2.12-move-machine-id.diff
 dbus-1.2.1-autoreconf.diff
