@@ -34,17 +34,6 @@ $(LIBTHEORA_SOURCE):
 	@$(call get, LIBTHEORA)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libtheora.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBTHEORA_DIR))
-	@$(call extract, LIBTHEORA)
-	@$(call patchin, LIBTHEORA)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -75,52 +64,30 @@ LIBTHEORA_AUTOCONF += --enable-ogg
 else
 LIBTHEORA_AUTOCONF += --disable-ogg
 endif
+
 ifdef PTXCONF_LIBTHEORA__VORBIS
 LIBTHEORA_AUTOCONF += --enable-vorbis
 else
 LIBTHEORA_AUTOCONF += --disable-vorbis
 endif
+
 ifdef PTXCONF_LIBTHEORA__SDL
 LIBTHEORA_AUTOCONF += --enable-sdl
 else
 LIBTHEORA_AUTOCONF += --disable-sdl
 endif
+
 ifdef PTXCONF_LIBTHEORA__FLOAT
 LIBTHEORA_AUTOCONF += --enable-float
 else
 LIBTHEORA_AUTOCONF += --disable-float
 endif
+
 ifdef PTXCONF_LIBTHEORA__ENCODING
 LIBTHEORA_AUTOCONF += --enable-encode
 else
 LIBTHEORA_AUTOCONF += --disable-encode
 endif
-
-$(STATEDIR)/libtheora.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBTHEORA_DIR)/config.cache)
-	cd $(LIBTHEORA_DIR) && \
-		$(LIBTHEORA_PATH) $(LIBTHEORA_ENV) \
-		./configure $(LIBTHEORA_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libtheora.compile:
-	@$(call targetinfo)
-	cd $(LIBTHEORA_DIR) && $(LIBTHEORA_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libtheora.install:
-	@$(call targetinfo)
-	@$(call install, LIBTHEORA)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -134,25 +101,19 @@ $(STATEDIR)/libtheora.targetinstall:
 	@$(call install_fixup, libtheora,PRIORITY,optional)
 	@$(call install_fixup, libtheora,VERSION,$(LIBTHEORA_VERSION))
 	@$(call install_fixup, libtheora,SECTION,base)
-	@$(call install_fixup, libtheora,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libtheora,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libtheora,DEPENDS,)
 	@$(call install_fixup, libtheora,DESCRIPTION,missing)
 
-	@$(call install_copy, libtheora, 0, 0, 0644, \
-		$(LIBTHEORA_DIR)/lib/.libs/libtheora.so.0.3.4, \
-		/usr/lib/libtheora.so.0.3.4)
+	@$(call install_copy, libtheora, 0, 0, 0644, -, /usr/lib/libtheora.so.0.3.4)
 	@$(call install_link, libtheora, libtheora.so.0.3.4, /usr/lib/libtheora.so.0)
 	@$(call install_link, libtheora, libtheora.so.0.3.4, /usr/lib/libtheora.so)
 
-	@$(call install_copy, libtheora, 0, 0, 0644, \
-		$(LIBTHEORA_DIR)/lib/.libs/libtheoradec.so.1.0.1, \
-		/usr/lib/libtheoradec.so.1.0.1)
+	@$(call install_copy, libtheora, 0, 0, 0644, -,	/usr/lib/libtheoradec.so.1.0.1)
 	@$(call install_link, libtheora, libtheoradec.so.1.0.1, /usr/lib/libtheoradec.so.1)
 	@$(call install_link, libtheora, libtheoradec.so.1.0.1, /usr/lib/libtheoradec.so)
 
-	@$(call install_copy, libtheora, 0, 0, 0644, \
-		$(LIBTHEORA_DIR)/lib/.libs/libtheoraenc.so.1.0.1, \
-		/usr/lib/libtheoraenc.so.1.0.1)
+	@$(call install_copy, libtheora, 0, 0, 0644, -, /usr/lib/libtheoraenc.so.1.0.1)
 	@$(call install_link, libtheora, libtheoraenc.so.1.0.1, /usr/lib/libtheoraenc.so.1)
 	@$(call install_link, libtheora, libtheoraenc.so.1.0.1, /usr/lib/libtheoraenc.so)
 
