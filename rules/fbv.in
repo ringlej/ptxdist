@@ -3,6 +3,7 @@
 config FBV
 	tristate
 	select LIBPNG if FBV_PNG
+	depends on BROKEN
 	prompt "fbv"
 	help
 	  fbv is a very simple graphic file viewer for the framebuffer console,
