@@ -138,9 +138,6 @@ endif
 ifdef PTXCONF_BUSYBOX_CROND
 	@$(call install_copy, busybox, 0, 0, 0755, /etc/cron)
 	@$(call install_copy, busybox, 0, 0, 0755, /var/spool/cron/crontabs/)
-#	# FIXME: looks like this needs more work
-	@$(call install_alternative, busybox, 0, 0, 0644, /var/spool/cron/crontabs/root, n)
-	@$(call install_alternative, busybox, 0, 0, 0644, /etc/cron.daily, n)
 endif
 
 	@$(call install_finish, busybox)
