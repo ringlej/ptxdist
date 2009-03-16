@@ -11,6 +11,9 @@ menuconfig JVISU
 	  Java applet runs in every JDK-1.4.x enabled web browser
 	  High performance due to optimized communication channels
 	  Easily adaptable to field devices with well known protocols
+	  To build this package make sure you already installed a SUN
+	  JAVA SDK and setup the path to this installation directory
+	  in the "JAVA SDK" menu entry when running "ptxdist setup"
 
 config JVISU_APPLET
 	bool
