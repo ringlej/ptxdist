@@ -3,7 +3,6 @@
 config FBV
 	tristate
 	select LIBPNG if FBV_PNG
-	depends on BROKEN
 	prompt "fbv"
 	help
 	  fbv is a very simple graphic file viewer for the framebuffer console,
@@ -20,14 +19,17 @@ config FBV_PNG
 
 config FBV_UNGIF
 	bool
+	depends on BROKEN
 	prompt "(un)gif support"
 
 config FBV_JPEG
 	bool
+	depends on BROKEN
 	prompt "jpeg support"
 
 config FBV_BMP
 	bool
+	depends on BROKEN
 	prompt "bmp support"
 
 endif

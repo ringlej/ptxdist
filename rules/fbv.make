@@ -17,10 +17,11 @@ PACKAGES-$(PTXCONF_FBV) += fbv
 #
 # Paths and names
 #
-FBV_VERSION	:= 1.0b
+FBV_VERSION	:= 1.0b-ptx3
 FBV		:= fbv-$(FBV_VERSION)
-FBV_SUFFIX	:= tar.gz
-FBV_URL		:= http://s-tech.elsat.net.pl/fbv/$(FBV).$(FBV_SUFFIX)
+FBV_SUFFIX	:= tar.bz2
+FBV_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBV).$(FBV_SUFFIX)
+#FBV_URL	:= http://s-tech.elsat.net.pl/fbv/$(FBV).$(FBV_SUFFIX)
 FBV_SOURCE	:= $(SRCDIR)/$(FBV).$(FBV_SUFFIX)
 FBV_DIR		:= $(BUILDDIR)/$(FBV)
 
