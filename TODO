@@ -3,14 +3,6 @@ TODO before 2.0.0
 
 Prio A
 
-[ ] jbe: running ptxdist with
-      ptxdist --ptxconfig=configs/ptxconfig \
-      --platformconfig=configs/<platform>/platformconfig \
-      --toolchain=/opt/OSELAS.Toolchain-1.99.3/<toolchain>
-    works for "go" and "images". But not for "test setenv".
-    It returns immediately without an error message.
-    But the Logfile shows a "(exit value: 1)"
-
 [ ] rsc: if 'ptxdist setup' points to the wrong JDK, jvisu claims that
     it needs a set JAVA_HOME. A better error message would involve 'ptxdist
     setup'.
