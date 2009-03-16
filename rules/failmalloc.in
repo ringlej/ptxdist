@@ -1,0 +1,10 @@
+## SECTION=debug_tools
+config FAILMALLOC
+	tristate
+	prompt "failmalloc"
+	help
+	  The idea behind failmalloc is to demonstrate what really happens if
+	  memory allocation fails. Refer http://www.nongnu.org/failmalloc/ for
+	  further details and how to use it. This library can be used on demand
+	  with the LD_PRELOAD mechanism.
+
