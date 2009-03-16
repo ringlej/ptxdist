@@ -175,12 +175,6 @@ Before Release
 TODO before 2.1.0
 =================
 
-[ ] jbe: Running 'ptxdist go' with an enabled but not yet configured
-    kernel should give a reasonable error message. It should not just
-    fail while downloading a nonexisting kernel.
-    (happens when ptxconfig components forcing a kernel not yet configured
-     in the platformconfig)
-
 [ ] lfu: some mountable devices are available after udev has started.
     hence we need an extra mount script to mount all entries in fstab
     instead out of rcS.
@@ -521,6 +515,14 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: Running 'ptxdist go' with an enabled but not yet configured
+    kernel should give a reasonable error message. It should not just
+    fail while downloading a nonexisting kernel.
+    (happens when ptxconfig components forcing a kernel not yet configured
+    in the platformconfig)
+
+    Update 20090316 rsc: error message added
 
 [x] rsc: check jvisu, it has a FIXME that ant may be needed as a host
     tool. Remove, use the same mechanism as with Perl::XML
