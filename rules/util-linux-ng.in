@@ -125,4 +125,26 @@ config UTIL_LINUX_NG_SETTERM
 	  setterm - set terminal attributes like terminal name, cursor
 	  blinking and beeper sound
 
+config UTIL_LINUX_NG_CHRT
+	bool
+	prompt "chrt"
+	depends on !BUSYBOX_CHRT || ALLYES
+	help
+	  chrt manipulates the real-time attributes of a process.
+
+comment "chrt from busybox selected"
+	depends on BUSYBOX_CHRT
+
+config UTIL_LINUX_NG_IONICE
+	bool
+	prompt "ionice"
+	help
+	  ionice gets/sets the program io scheduling class and priority.
+
+config UTIL_LINUX_NG_TASKSET
+	bool
+	prompt "taskset"
+	help
+	  taskset retrieves or sets a process's CPU affinity.
+
 endif

@@ -63,7 +63,6 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-rename \
 	--disable-reset \
 	--disable-login-utils \
-	--disable-schedutils \
 	--disable-wall \
 	--disable-write \
 	--disable-chsh-only-listed \
@@ -98,7 +97,7 @@ $(STATEDIR)/util-linux-ng.targetinstall:
 	@$(call install_fixup, util-linux-ng,PRIORITY,optional)
 	@$(call install_fixup, util-linux-ng,VERSION,$(UTIL_LINUX_NG_VERSION))
 	@$(call install_fixup, util-linux-ng,SECTION,base)
-	@$(call install_fixup, util-linux-ng,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, util-linux-ng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, util-linux-ng,DEPENDS,)
 	@$(call install_fixup, util-linux-ng,DESCRIPTION,missing)
 
@@ -132,6 +131,16 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_SETTERM
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/misc-utils/setterm, /usr/bin/setterm)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_CHRT
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/schedutils/chrt, /usr/bin/chrt)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_IONICE
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/schedutils/ionice, /usr/bin/ionice)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_TASKSET
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/schedutils/taskset, /usr/bin/taskset)
+endif
+
 
 	@$(call install_finish, util-linux-ng)
 

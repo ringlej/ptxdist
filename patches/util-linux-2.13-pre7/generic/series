@@ -1,5 +1,0 @@
-util-linux-2.13-pre7-conditional-iosched.diff
-util-linux-2.13-pre7-umount.diff -p0
-util-linux-2.13-pre7-remove-page_h.diff
-util-linux-2.13-pre7-autoreconf.diff
-remove_nls_dependency.diff -p0
