@@ -10,6 +10,7 @@ This Patch fixes the following warnings:
  chkfont.c:458: warning: incompatible implicit declaration of built-in function 'free'
  chkfont.c:460: warning: incompatible implicit declaration of built-in function 'exit'
 
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
 ---
  chkfont.c |    1 +
  1 file changed, 1 insertion(+)
