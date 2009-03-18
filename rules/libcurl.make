@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (C) 2008 by Daniel Schnell
-#		2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#		2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.19.3
+LIBCURL_VERSION	:= 7.19.4
 LIBCURL		:= curl-$(LIBCURL_VERSION)
 LIBCURL_SUFFIX	:= tar.gz
 LIBCURL_URL	:= http://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
