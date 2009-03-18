@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2004 by Robert Schwebel
-#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBPCRE) += libpcre
 #
 # Paths and names
 #
-LIBPCRE_VERSION	:= 7.7
+LIBPCRE_VERSION	:= 7.8
 LIBPCRE		:= pcre-$(LIBPCRE_VERSION)
 LIBPCRE_SUFFIX	:= tar.bz2
 LIBPCRE_URL	:= $(PTXCONF_SETUP_SFMIRROR)/pcre/$(LIBPCRE).$(LIBPCRE_SUFFIX)
@@ -53,7 +53,6 @@ $(STATEDIR)/libpcre.install:
 	@$(call install, LIBPCRE)
 
 	cp $(LIBPCRE_DIR)/pcre-config $(PTXCONF_SYSROOT_CROSS)/bin/pcre-config
-	chmod a+x $(PTXCONF_SYSROOT_CROSS)/bin/pcre-config
 
 	@$(call touch)
 
