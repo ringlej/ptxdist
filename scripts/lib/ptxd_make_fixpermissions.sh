@@ -10,7 +10,7 @@ ptxd_make_fixpermissions_generate() {
 	    rm -rf -- "${file}" &&
 	    mknod  -- "${file}" ${type} ${major_should} ${minor_should} &&
 	    chown  -- ${uid_should}\:${gid_should} "${file}" &&
-	    chmod  -- ${prm_should}		   "${file}" || return
+	    chmod  -- ${prm_should}		   "${file}" || exit
 
 EOF
 	    ;;
