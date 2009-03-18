@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2003      by Benedikt Spranger <b.spranger@pengutronix.de>
 # Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
-# Copyright (C) 2003-2008 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003-2009 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_OPROFILE) += oprofile
 #
 # Paths and names
 #
-OPROFILE_VERSION	:= 0.9.3
+OPROFILE_VERSION	:= 0.9.4
 OPROFILE		:= oprofile-$(OPROFILE_VERSION)
 OPROFILE_SUFFIX		:= tar.gz
 OPROFILE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/oprofile/$(OPROFILE).$(OPROFILE_SUFFIX)
