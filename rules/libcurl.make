@@ -135,10 +135,10 @@ $(STATEDIR)/libcurl.targetinstall:
 	@$(call install_fixup, libcurl,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBCURL__CURL
-	@$(call install_copy, libcurl, 0, 0, 0755, $(LIBCURL_DIR)/src/curl, /usr/bin/curl)
+	@$(call install_copy, libcurl, 0, 0, 0755, -, /usr/bin/curl)
 endif
 
-	@$(call install_copy, libcurl, 0, 0, 0644, $(LIBCURL_DIR)/lib/.libs/libcurl.so.4.1.1, /usr/lib/libcurl.so.4.1.1)
+	@$(call install_copy, libcurl, 0, 0, 0644, -, /usr/lib/libcurl.so.4.1.1)
 	@$(call install_link, libcurl, libcurl.so.4.1.1, /usr/lib/libcurl.so.4)
 	@$(call install_link, libcurl, libcurl.so.4, /usr/lib/libcurl.so)
 
