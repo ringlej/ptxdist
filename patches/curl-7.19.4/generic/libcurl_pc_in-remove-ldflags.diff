@@ -1,0 +1,25 @@
+From: Marc Kleine-Budde
+Subject: don't include LDFLAGS int pkg-config libs
+
+curl saves the LDFLAGS set during configure into its pkg-config file.
+So -Wl stuff ends up in the .pc file, which is really bad, and breaks
+if there are multiple -Wl in our LDFLAGS (which are in PTXdist)
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de
+
+---
+ libcurl.pc.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: curl-7.19.4/libcurl.pc.in
+===================================================================
+--- curl-7.19.4.orig/libcurl.pc.in
++++ curl-7.19.4/libcurl.pc.in
+@@ -35,6 +35,6 @@ Name: libcurl
+ URL: http://curl.haxx.se/
+ Description: Library to transfer files with ftp, http, etc.
+ Version: @VERSION@
+-Libs: -L${libdir} -lcurl @LDFLAGS@ @LIBS@
++Libs: -L${libdir} -lcurl @LIBS@
+ Libs.private: @LIBCURL_LIBS@ @LIBS@
+ Cflags: -I${includedir}
