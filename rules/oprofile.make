@@ -70,38 +70,26 @@ $(STATEDIR)/oprofile.targetinstall:
 	@$(call install_fixup, oprofile,PRIORITY,optional)
 	@$(call install_fixup, oprofile,VERSION,$(OPROFILE_VERSION))
 	@$(call install_fixup, oprofile,SECTION,base)
-	@$(call install_fixup, oprofile,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, oprofile,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, oprofile,DEPENDS,)
 	@$(call install_fixup, oprofile,DESCRIPTION,missing)
 
-	@$(call install_copy, oprofile, 0, 0, 0755, \
-		$(OPROFILE_DIR)/utils/opcontrol, \
-		/usr/bin/opcontrol, 0 \
-	)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, \
+		/usr/bin/opcontrol)
 
-	@$(call install_copy, oprofile, 0, 0, 0755, \
-		$(OPROFILE_DIR)/utils/ophelp, \
-		/usr/bin/ophelp \
-	)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, \
+		/usr/bin/ophelp)
 
-	@$(call install_copy, oprofile, 0, 0, 0755, \
-		$(OPROFILE_DIR)/pp/opreport, \
-		/usr/bin/opreport \
-	)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, \
+		/usr/bin/opreport)
 
-	@$(call install_copy, oprofile, 0, 0, 0755, \
-		$(OPROFILE_DIR)/daemon/oprofiled, \
-		/usr/bin/oprofiled \
-	)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, \
+		/usr/bin/oprofiled)
 
-	@cd $(OPROFILE_DIR)/events && \
-	find . \
-		-name "events" -o -name "unit_masks" | \
-		while read file; do \
-		$(call install_copy, oprofile, 0, 0, 0755, \
-			$(OPROFILE_DIR)/events/$$file, \
-			/usr/share/oprofile/$$file, 0 \
-		) \
+	@cd $(PKGDIR)/$(OPROFILE)/usr/share/oprofile && \
+	find . -type f | while read file; do \
+		$(call install_copy, oprofile, 0, 0, 0644, -, \
+			/usr/share/oprofile/$$file) \
 	done
 
 	@$(call install_finish, oprofile)
