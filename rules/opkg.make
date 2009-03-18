@@ -33,17 +33,6 @@ $(OPKG_SOURCE):
 	@$(call get, OPKG)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/opkg.extract:
-	@$(call targetinfo)
-	@$(call clean, $(OPKG_DIR))
-	@$(call extract, OPKG)
-	@$(call patchin, OPKG)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -56,32 +45,6 @@ OPKG_ENV 	:= $(CROSS_ENV)
 OPKG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-gpg
-
-$(STATEDIR)/opkg.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(OPKG_DIR)/config.cache)
-	cd $(OPKG_DIR) && \
-		$(OPKG_PATH) $(OPKG_ENV) \
-		./configure $(OPKG_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/opkg.compile:
-	@$(call targetinfo)
-	cd $(OPKG_DIR) && $(OPKG_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/opkg.install:
-	@$(call targetinfo)
-	@$(call install, OPKG)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -99,8 +62,8 @@ $(STATEDIR)/opkg.targetinstall:
 	@$(call install_fixup, opkg,DEPENDS,)
 	@$(call install_fixup, opkg,DESCRIPTION,missing)
 
-	# makes only sense when we --enable-gpg
-	# @$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg-key)
+#	# makes only sense when we --enable-gpg
+#	# @$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg-key)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/update-alternatives)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg-cl)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/ldconfig)
@@ -110,7 +73,7 @@ $(STATEDIR)/opkg.targetinstall:
 	@$(call install_link, opkg, libopkg.so.0.0.0, /usr/lib/libopkg.so.0)
 	@$(call install_link, opkg, libopkg.so.0.0.0, /usr/lib/libopkg.so)
 
-	# opkg tries to write to the OPKG_STATE_DIR_PREFIX, which is /usr/lib/opkg
+#	# opkg tries to write to the OPKG_STATE_DIR_PREFIX, which is /usr/lib/opkg
 	@$(call install_link, opkg, /tmp, /usr/lib/opkg)
 
 	@$(call install_finish, opkg)
