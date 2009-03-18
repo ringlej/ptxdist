@@ -73,15 +73,15 @@ endif
 menuconfig SDL_AUDIO
 	bool
 	prompt "SDL Audio Support           "
-	depends on SDL
 	default y
 	help
 	  FIXME
 
+if SDL_AUDIO
+
 config SDL_OSS
 	bool
 	prompt "SDL OSS Support"
-	depends on SDL_AUDIO
 	help
 	  Open Sound System (OSS) is the first attempt in
 	  unifying the digital audio architecture for UNIX.
@@ -91,7 +91,6 @@ config SDL_OSS
 config SDL_ALSA
 	bool
 	prompt "SDL ALSA Support"
-	depends on SDL_AUDIO
 	default y
 	help
 	  The Advanced Linux Sound Architecture (ALSA)
@@ -101,7 +100,6 @@ config SDL_ALSA
 config SDL_ALSA_SHARED
 	bool
 	prompt "SDL ALSA Shared library"
-	depends on SDL_AUDIO
 	depends on SDL_ALSA
 	default y
 	help
@@ -110,7 +108,6 @@ config SDL_ALSA_SHARED
 config SDL_ESD
 	bool
 	prompt "SDL ESD Support"
-	depends on SDL_AUDIO
 	depends on BROKEN
 	help
 	  ESound Audio Daemon
@@ -118,7 +115,6 @@ config SDL_ESD
 config SDL_ESD_SHARED
 	bool
 	prompt "SDL ESD Shared library"
-	depends on SDL_AUDIO
 	depends on SDL_ESD
 	help
 	  FIXME
@@ -126,7 +122,6 @@ config SDL_ESD_SHARED
 config SDL_ARTS
 	bool
 	prompt "SDL Arts Support"
-	depends on SDL_AUDIO
 	depends on BROKEN
 	help
 	  SDL-arts is a plugin for the SDL library that allows
@@ -135,7 +130,6 @@ config SDL_ARTS
 config SDL_ARTS_SHARED
 	bool
 	prompt "SDL Arts Shared library"
-	depends on SDL_AUDIO
 	depends on SDL_ARTS
 	help
 	  FIXME
@@ -143,7 +137,6 @@ config SDL_ARTS_SHARED
 config SDL_NAS
 	bool
 	prompt "SDL NAS Support"
-	depends on SDL_AUDIO
 	depends on BROKEN
 	help
 	  The Network Audio System is a network transparent,
@@ -153,9 +146,10 @@ config SDL_NAS
 config SDL_DISKAUDIO
 	bool
 	prompt "SDL Disk Audio Support"
-	depends on SDL_AUDIO
 	help
 	  FIXME
+
+endif
 
 menuconfig SDL_VIDEO
 	bool
@@ -165,10 +159,11 @@ menuconfig SDL_VIDEO
 	help
 	  FIXME
 
+if SDL_VIDEO
+
 config SDL_NANOX
 	bool
 	prompt "NanoX Support"
-	depends on SDL_VIDEO
 	depends on BROKEN
 	help
 	  The Nano-X Window System is an Open Source project
@@ -196,14 +191,13 @@ config SDL_XORG_XINERAMA
 config SDL_FBCON
 	bool
 	prompt "SDL fbcon support"
-	depends on SDL_VIDEO
 	help
 	  Framebuffer console
 
 config SDL_DIRECTFB
 	bool
 	prompt "DirectFB Support"
-	depends on SDL_VIDEO
+	default y
 	help
 	  DirectFB is a thin library that provides hardware
 	  graphics acceleration, input device handling and
@@ -214,7 +208,6 @@ config SDL_DIRECTFB
 config SDL_AALIB
 	bool
 	prompt "AALib Support"
-	depends on SDL_VIDEO
 	depends on BROKEN
 	help
 	  AAlib is an portable ascii art GFX library.
@@ -222,12 +215,13 @@ config SDL_AALIB
 config SDL_OPENGL
 	bool
 	prompt "OpenGL Support"
-	depends on SDL_VIDEO
 	depends on BROKEN
 	help
 	  OpenGL is a multi-platform software interface to
 	  graphics hardware, supporting rendering and imaging
 	  operations.
+
+endif
 
 config SDL_EVENT
 	bool

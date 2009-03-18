@@ -299,14 +299,12 @@ $(STATEDIR)/sdl.targetinstall:
 	@$(call install_fixup, sdl,PRIORITY,optional)
 	@$(call install_fixup, sdl,VERSION,$(SDL_VERSION))
 	@$(call install_fixup, sdl,SECTION,base)
-	@$(call install_fixup, sdl,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, sdl,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, sdl,DEPENDS,)
 	@$(call install_fixup, sdl,DESCRIPTION,missing)
 
 ifdef PTXCONF_SDL_SHARED
-	@$(call install_copy, sdl, 0, 0, 0644, \
-		$(SDL_DIR)/build/.libs/libSDL-1.2.so.0.11.2, \
-		/usr/lib/libSDL-1.2.so.0.11.2)
+	@$(call install_copy, sdl, 0, 0, 0644, -, /usr/lib/libSDL-1.2.so.0.11.2)
 
 	@$(call install_link, sdl, \
 		libSDL-1.2.so.0.11.2, \
