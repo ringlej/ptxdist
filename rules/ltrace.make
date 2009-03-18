@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
-# Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LTRACE) += ltrace
 #
 # Paths and names
 #
-LTRACE_VERSION	:= 0.5
+LTRACE_VERSION	:= 0.5.1
 LTRACE_SUFFIX	:= orig.tar.gz
 LTRACE		:= ltrace-$(LTRACE_VERSION)
 LTRACE_TARBALL	:= ltrace_$(LTRACE_VERSION).$(LTRACE_SUFFIX)
@@ -39,9 +39,7 @@ $(LTRACE_SOURCE):
 
 LTRACE_PATH	:= PATH=$(CROSS_PATH)
 LTRACE_ENV 	:= $(CROSS_ENV)
-LTRACE_MAKEVARS	:= \
-	OS=linux-gnu \
-	ARCH=$(PTXCONF_ARCH_STRING)
+LTRACE_MAKEVARS	:= ARCH=$(PTXCONF_ARCH_STRING)
 
 #
 # autoconf
