@@ -36,8 +36,6 @@ $(HTOP_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-htop_prepare: $(STATEDIR)/htop.prepare
-
 HTOP_PATH	:= PATH=$(CROSS_PATH)
 HTOP_ENV 	:= \
 	$(CROSS_ENV) \
@@ -61,11 +59,11 @@ $(STATEDIR)/htop.targetinstall:
 	@$(call install_fixup, htop,PRIORITY,optional)
 	@$(call install_fixup, htop,VERSION,$(HTOP_VERSION))
 	@$(call install_fixup, htop,SECTION,base)
-	@$(call install_fixup, htop,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, htop,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, htop,DEPENDS,)
 	@$(call install_fixup, htop,DESCRIPTION,missing)
 
-	@$(call install_copy, htop, 0, 0, 0755, $(HTOP_DIR)/htop, /usr/bin/htop)
+	@$(call install_copy, htop, 0, 0, 0755, -, /usr/bin/htop)
 
 	@$(call install_finish, htop)
 
