@@ -3,7 +3,6 @@
 config OPROFILE
 	tristate
 	select LIBPOPT
-	select KERNEL
 	select KERNEL_VMLINUX
 	select BUSYBOX_DIRNAME
 	select BUSYBOX_ID

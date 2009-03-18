@@ -55,7 +55,7 @@ $(STATEDIR)/oprofile.prepare:
 	@$(call clean, $(OPROFILE_DIR)/config.cache)
 	cd $(OPROFILE_DIR) && \
 		$(OPROFILE_PATH) $(OPROFILE_ENV) \
-		./configure $(OPROFILE_AUTOCONF) --with-linux=$(KERNEL_DIR)
+		./configure $(OPROFILE_AUTOCONF)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
