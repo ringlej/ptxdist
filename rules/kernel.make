@@ -56,7 +56,7 @@ $(warning *** This feature is mainly for developers, who to want have their kern
 $(warning *** outside of ptxdist. You can turn it off by deselecting "Local kernel tree":)
 $(warning *** "ptxdist platformconfig" -> "Linux kernel" -> "Local kernel tree")
 $(warning ***)
-$(warning *** If you want to use the feature, please enter a propper prefix)
+$(warning *** If you want to use the feature, please enter a proper prefix)
 $(warning *** to your kernel tree)
 $(warning *** "ptxdist setup" -> "Source Directories")
 $(warning ***                 -> "Prefix for kernel trees")
