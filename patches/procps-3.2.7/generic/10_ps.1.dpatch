@@ -1,0 +1,46 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 10_ps.1.dpatch by  <csmall@debian.org>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: ps.1 normal indent widths
+## DP: pri field explained #465761
+## DP: --no-heading comment is an alias for --no-headers
+
+@DPATCH@
+diff -urNad procps-3.2.7~/ps/ps.1 procps-3.2.7/ps/ps.1
+--- procps-3.2.7~/ps/ps.1	2008-04-07 09:13:00.000000000 +1000
++++ procps-3.2.7/ps/ps.1	2008-04-07 09:59:52.000000000 +1000
+@@ -18,12 +18,6 @@
+ .nh
+ .if n .ss 12 0
+ .\"
+-.\" See /usr/share/groff/current/tmac/an-old.tmac for what these do.
+-.\" Setting them to zero provides extra space, but only do that for
+-.\" plain text output. PostScript and such will remain indented.
+-.if n .nr IN 0n
+-.if n .nr an-prevailing-indent 0n
+-.\"
+ .\"
+ .\" ColSize is used for the format spec table.
+ .\" It's the left margin, minus the right, minus
+@@ -588,7 +582,8 @@
+ repeat header lines, one per page of output
+ 
+ .opt \-\-no\-headers
+-print no header line at all
++print no header line at all. \-\-no\-heading is an alias for this
++option.
+ 
+ .opt \-\-lines \ n
+ set screen height
+@@ -1139,6 +1134,10 @@
+ parent process ID.
+ T}
+ 
++pri	PRI	T{
++priority of the process. Higher number means lower priority
++T}
++
+ psr	PSR	T{
+ processor that process is currently assigned to.
+ T}

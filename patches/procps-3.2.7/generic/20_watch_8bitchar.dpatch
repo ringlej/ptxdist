@@ -1,0 +1,19 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 20_watch_8bitchar.dpatch by  <csmall@debian.org>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Make char unsigned
+
+@DPATCH@
+diff -urNad procps-3.2.7~/watch.c procps-3.2.7/watch.c
+--- procps-3.2.7~/watch.c	2006-06-17 19:18:38.000000000 +1000
++++ procps-3.2.7/watch.c	2006-06-26 08:47:57.000000000 +1000
+@@ -297,7 +297,7 @@
+ 				move(y, x);
+ 				if (option_differences) {
+ 					int oldch = inch();
+-					char oldc = oldch & A_CHARTEXT;
++					unsigned char oldc = oldch & A_CHARTEXT;
+ 					attr = !first_screen
+ 					    && (c != oldc
+ 						||
