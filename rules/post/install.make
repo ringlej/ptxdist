@@ -140,7 +140,9 @@ install_alternative =									\
 	GRP=$(strip $(3));								\
 	PER=$(strip $(4));								\
 	FILE=$(strip $(5));								\
-	if [ -f $(PTXDIST_WORKSPACE)/projectroot$$FILE ]; then				\
+	if [ -f $(PTXDIST_WORKSPACE)/projectroot$$FILE$(PTXDIST_PLATFORMSUFFIX) ]; then	\
+		SRC=$(PTXDIST_WORKSPACE)/projectroot$$FILE$(PTXDIST_PLATFORMSUFFIX);	\
+	elif [ -f $(PTXDIST_WORKSPACE)/projectroot$$FILE ]; then			\
 		SRC=$(PTXDIST_WORKSPACE)/projectroot$$FILE;				\
 	else										\
 		SRC=$(PTXDIST_TOPDIR)/generic$$FILE;					\
