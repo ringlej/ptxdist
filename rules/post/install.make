@@ -31,7 +31,7 @@ install_copy = 											\
 	SRC="$(strip $(5))";									\
 	DST="$(strip $(6))";									\
 	STRIP="$(strip $(7))";									\
-	PKG_PKGDIR="$(PKGDIR)/$($(call uppercase, $(1)))";					\
+	PKG_PKGDIR="$(PKGDIR)/$($(PTX_MAP_TO_PACKAGE_$(notdir $(basename $(basename $@)))))";	\
 												\
 	if [ "$$SRC" = "-" ]; then								\
 		SRC=$${PKG_PKGDIR}/$$DST;							\
