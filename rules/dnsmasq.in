@@ -6,6 +6,7 @@ menuconfig DNSMASQ
 	tristate
 	prompt "dnsmasq                       "
 	select DBUS if DNSMASQ_DBUS
+	select ROOTFS_VAR_LIB
 	help
 	  A small caching DNS proxy and DHCP server.
 
