@@ -34,17 +34,6 @@ $(LTRACE_SOURCE):
 	@$(call get, LTRACE)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ltrace.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LTRACE_DIR))
-	@$(call extract, LTRACE)
-	@$(call patchin, LTRACE)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -58,15 +47,6 @@ LTRACE_MAKEVARS	:= \
 # autoconf
 #
 LTRACE_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ltrace.install:
-	@$(call targetinfo)
-	@$(call install, LTRACE)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -84,7 +64,7 @@ $(STATEDIR)/ltrace.targetinstall:
 	@$(call install_fixup, ltrace,DEPENDS,)
 	@$(call install_fixup, ltrace,DESCRIPTION,missing)
 
-	@$(call install_copy, ltrace, 0, 0, 0755, $(LTRACE_DIR)/ltrace, /usr/bin/ltrace)
+	@$(call install_copy, ltrace, 0, 0, 0755, -, /usr/bin/ltrace)
 
 	@$(call install_finish, ltrace)
 
