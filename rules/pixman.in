@@ -1,4 +1,4 @@
-## SECTION=multimedia_xorg_support_libs
+## SECTION=multimedia_libs
 
 config PIXMAN
 	tristate
