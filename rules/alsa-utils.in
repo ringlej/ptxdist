@@ -25,7 +25,7 @@ config ALSA_UTILS_STARTSCRIPT
 	default y
 	prompt "install /etc/init.d/alsa-utils"
 
-config ALSA_UTILS__SOUND_STATE
+config ALSA_UTILS_ASOUND_STATE
 	bool
 	prompt "install /etc/asound.state from projectroot"
 	help

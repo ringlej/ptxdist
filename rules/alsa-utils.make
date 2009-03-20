@@ -92,7 +92,7 @@ ifdef PTXCONF_ALSA_UTILS_STARTSCRIPT
 endif
 endif
 
-ifdef PTXCONF_ALSA_UTILS__SOUND_STATE
+ifdef PTXCONF_ALSA_UTILS_ASOUND_STATE
         @$(call install_copy, alsa-utils, 0, 0, 0644, \
                 $(PTXDIST_WORKSPACE)/projectroot/etc/asound.state, \
                 /etc/asound.state)
