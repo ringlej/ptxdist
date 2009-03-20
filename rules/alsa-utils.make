@@ -91,6 +91,12 @@ ifdef PTXCONF_ALSA_UTILS_STARTSCRIPT
 	@$(call install_alternative, alsa-utils, 0, 0, 0755, /etc/init.d/alsa-utils, n)
 endif
 endif
+
+ifdef PTXCONF_ALSA_UTILS__SOUND_STATE
+        @$(call install_copy, alsa-utils, 0, 0, 0644, \
+                $(PTXDIST_WORKSPACE)/projectroot/etc/asound.state, \
+                /etc/asound.state)
+endif
 	@$(call install_finish, alsa-utils)
 
 	@$(call touch)
