@@ -68,11 +68,9 @@ config SDL_CPUINFO
 	help
 	  FIXME
 
-endif
-
 menuconfig SDL_AUDIO
 	bool
-	prompt "SDL Audio Support           "
+	prompt "SDL Audio Support            "
 	default y
 	help
 	  FIXME
@@ -154,7 +152,6 @@ endif
 menuconfig SDL_VIDEO
 	bool
 	prompt "SDL Video Support           "
-	depends on SDL
 	default y
 	help
 	  FIXME
@@ -173,7 +170,6 @@ config SDL_NANOX
 menuconfig SDL_XORG
 	bool
 	prompt "Xorg Support                "
-	depends on SDL_VIDEO
 	help
 	  X.Org provides an open source implementation of the
 	  X Window System.
@@ -226,7 +222,6 @@ endif
 config SDL_EVENT
 	bool
 	prompt "SDL Event Support"
-	depends on SDL
 	default y
 	help
 	  FIXME
@@ -234,14 +229,12 @@ config SDL_EVENT
 config SDL_JOYSTICK
 	bool
 	prompt "SDL Joystick Support"
-	depends on SDL
 	help
 	  FIXME
 
 config SDL_CDROM
 	bool
 	prompt "SDL CDROM Support"
-	depends on SDL
 	help
 	  FIXME
 
@@ -249,7 +242,6 @@ config SDL_CDROM
 menuconfig SDL_THREADS
 	bool
 	prompt "SDL Thread Support          "
-	depends on SDL
 	default y
 	help
 	  Turn on multithreading support
@@ -261,3 +253,6 @@ config SDL_PTH
 	default y
 	help
 	  Turn on support for GNU Portable Threads
+
+endif
+
