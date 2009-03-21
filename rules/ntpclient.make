@@ -9,8 +9,8 @@ PACKAGES-$(PTXCONF_NTPCLIENT) += ntpclient
 #
 # Paths and names
 #
-NTPCLIENT_VERSION	= 2003_194
-NTPCLIENT		= ntpclient
+NTPCLIENT_VERSION	= 365
+NTPCLIENT		= ntpclient_2007
 NTPCLIENT_SUFFIX	= tar.gz
 NTPCLIENT_URL		= http://doolittle.icarus.com/ntpclient/$(NTPCLIENT)_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
 NTPCLIENT_SOURCE	= $(SRCDIR)/$(NTPCLIENT)_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
@@ -21,12 +21,6 @@ NTPCLIENT_DIR		= $(BUILDDIR)/$(NTPCLIENT)
 # Get
 # ----------------------------------------------------------------------------
 
-ntpclient_get: $(STATEDIR)/ntpclient.get
-
-$(STATEDIR)/ntpclient.get: $(ntpclient_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(NTPCLIENT_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, NTPCLIENT)
@@ -35,12 +29,11 @@ $(NTPCLIENT_SOURCE):
 # Extract
 # ----------------------------------------------------------------------------
 
-ntpclient_extract: $(STATEDIR)/ntpclient.extract
-
-$(STATEDIR)/ntpclient.extract: $(ntpclient_extract_deps_default)
+$(STATEDIR)/ntpclient.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(NTPCLIENT_DIR))
 	@$(call extract, NTPCLIENT)
+	@mv $(BUILDDIR)/ntpclient-2007 $(BUILDDIR)/ntpclient_2007
 	@$(call patchin, NTPCLIENT)
 	@$(call touch, $@)
 
@@ -48,12 +41,10 @@ $(STATEDIR)/ntpclient.extract: $(ntpclient_extract_deps_default)
 # Prepare
 # ----------------------------------------------------------------------------
 
-ntpclient_prepare: $(STATEDIR)/ntpclient.prepare
+NTPCLIENT_PATH	:=  PATH=$(CROSS_PATH)
+#NTPCLIENT_ENV 	:=  $(CROSS_ENV)
 
-NTPCLIENT_PATH	=  PATH=$(CROSS_PATH)
-NTPCLIENT_ENV 	=  $(CROSS_ENV)
-
-$(STATEDIR)/ntpclient.prepare: $(ntpclient_prepare_deps_default)
+$(STATEDIR)/ntpclient.prepare:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -61,27 +52,35 @@ $(STATEDIR)/ntpclient.prepare: $(ntpclient_prepare_deps_default)
 # Compile
 # ----------------------------------------------------------------------------
 
-ntpclient_compile: $(STATEDIR)/ntpclient.compile
+NTPCLIENT_MAKEVARS := \
+	CC="$(CROSS_CC)" \
+	CPPFLAGS='$(CROSS_CPPFLAGS)' \
+	LDFLAGS='$(CROSS_LDFLAGS)'
+
+NTPCLIENT_CFLAGS :=
+
+ifdef PTXCONF_NTPCLIENT_BUILD_DEBUG
+NTPCLIENT_CFLAGS += -DENABLE_DEBUG
+endif
+
+ifdef PTXCONF_NTPCLIENT_BUILD_REPLAY_OPTION
+NTPCLIENT_CFLAGS += -DENABLE_REPLAY
+endif
 
 ifdef PTXCONF_NTPCLIENT_BUILD_NTPCLIENT
-NTPCLIENT_TARGETS += ntpclient
+NTPCLIENT_MAKEVARS += ntpclient
 endif
 ifdef PTXCONF_NTPCLIENT_BUILD_ADJTIMEX
-NTPCLIENT_TARGETS += adjtimex
+NTPCLIENT_MAKEVARS += adjtimex
 endif
 
-$(STATEDIR)/ntpclient.compile: $(ntpclient_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(NTPCLIENT_DIR) && $(NTPCLIENT_ENV) $(NTPCLIENT_PATH) make $(NTPCLIENT_TARGETS)
-	@$(call touch, $@)
+NTPCLIENT_MAKEVARS += CFLAGS='-O2 $(NTPCLIENT_CFLAGS)'
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-ntpclient_install: $(STATEDIR)/ntpclient.install
-
-$(STATEDIR)/ntpclient.install: $(ntpclient_install_deps_default)
+$(STATEDIR)/ntpclient.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -89,9 +88,7 @@ $(STATEDIR)/ntpclient.install: $(ntpclient_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ntpclient_targetinstall: $(STATEDIR)/ntpclient.targetinstall
-
-$(STATEDIR)/ntpclient.targetinstall: $(ntpclient_targetinstall_deps_default)
+$(STATEDIR)/ntpclient.targetinstall:
 	@$(call targetinfo, $@)
 	@$(call install_init, ntpclient)
 	@$(call install_fixup, ntpclient,PACKAGE,ntpclient)
@@ -111,9 +108,9 @@ ifdef PTXCONF_NTPCLIENT_BUILD_ADJTIMEX
 		$(NTPCLIENT_DIR)/adjtimex, /sbin/adjtimex)
 endif
 
-	#
-	# busybox init: start script
-	#
+#
+# busybox init: start script
+#
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_NTPCLIENT_STARTSCRIPT

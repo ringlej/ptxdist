@@ -1,0 +1,29 @@
+From: Juergen Beisert <juergen@kreuzholzen.de>
+Subject: Use the correct macro name to parametrize make's standard rule
+
+To add libraries to be linked, the 'LDLIBS' is the correct macro name.
+'LDFAGS' is for paths etc.
+
+Make's standard rule to compile a C file into an executable is:
+
+$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $< $(LDLIBS) -o $@
+
+Signed-off-by: Juergen Beisert <juergen@kreuzholzen.de>
+
+---
+ Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: Makefile
+===================================================================
+--- Makefile.orig
++++ Makefile
+@@ -14,7 +14,7 @@ CFLAGS += -DENABLE_DEBUG
+ CFLAGS += -DENABLE_REPLAY
+ # CFLAGS += -DUSE_OBSOLETE_GETTIMEOFDAY
+ 
+-LDFLAGS += -lrt
++LDLIBS += -lrt
+ 
+ all: ntpclient
+ 

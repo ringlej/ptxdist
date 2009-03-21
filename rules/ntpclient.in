@@ -2,6 +2,7 @@
 menuconfig NTPCLIENT
 	tristate
 	prompt "ntpclient                     "
+	select LIBC_RT if NTPCLIENT_BUILD_NTPCLIENT
 	help
 	  ntpclient is a small and efficient client to the NTP protocol.
 
@@ -22,6 +23,20 @@ menuconfig NTPCLIENT
 if NTPCLIENT
 
 comment "build options   ---"
+
+config NTPCLIENT_BUILD_DEBUG
+	bool
+	prompt "add debug output"
+	help
+	  Make the program more noisy
+
+config NTPCLIENT_BUILD_REPLAY_OPTION
+	bool
+	prompt "add replay option"
+	help
+	  Replay analysis code based on stdin. More intended for debugging.
+
+comment "install options   ---"
 
 config NTPCLIENT_BUILD_NTPCLIENT
 	bool
