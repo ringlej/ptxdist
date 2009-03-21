@@ -102,6 +102,24 @@ config INITMETHOD_BBINIT_LINK_INETD
 	prompt "inetd"
 	default "S95inetd"
 
+config INITMETHOD_BBINIT_LINK_SYSLOGD
+	string
+	depends on BUSYBOX_SYSLOGD_STARTSCRIPT
+	prompt "syslogd"
+	default "S08syslog"
+
+config INITMETHOD_BBINIT_LINK_CROND
+	string
+	depends on BUSYBOX_CROND_STARTSCRIPT
+	prompt "crond"
+	default "S10crond"
+
+config INITMETHOD_BBINIT_LINK_TIMEKEEPER
+	string
+	depends on BUSYBOX_HWCLOCK_STARTSCRIPT
+	prompt "timekeeper"
+	default "S12timekeeping"
+
 config INITMETHOD_BBINIT_LINK_LIGHTTPD
 	string
 	depends on LIGHTTPD_STARTSCRIPT

@@ -185,6 +185,21 @@ ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_INETD)),)
 		../init.d/inetd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_INETD))
 endif
+ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOGD)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/syslogd, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOGD))
+endif
+ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_CROND)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/crond, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOGD))
+endif
+ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_TIMEKEEPER)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/timekeeping, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOGD))
+endif
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_LIGHTTPD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/lighttpd, \
