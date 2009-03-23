@@ -9,16 +9,6 @@ Prio A
     include this menu into it. This should avoid a local "Kconfig" copy
     in each ptxdist project for such a simple addition.
 
-[x] jbe: SDL menu: Unsure if SDL mixer and SDL image must depend on SDL?
-
-    mkl: no they must select SDL
-
-[x] rsc: if 'ptxdist setup' points to the wrong JDK, jvisu claims that
-    it needs a set JAVA_HOME. A better error message would involve 'ptxdist
-    setup'.
-
-    mkl: fixed by mol
-
 [ ] mkl: remove inetd.conf leftovers
 
     [frogger@hardanger:rules]$ wcgrep inetd.conf|grep -v "inetd.conf.d"|grep -v postinst
@@ -527,6 +517,16 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: SDL menu: Unsure if SDL mixer and SDL image must depend on SDL?
+
+    mkl: no they must select SDL
+
+[x] rsc: if 'ptxdist setup' points to the wrong JDK, jvisu claims that
+    it needs a set JAVA_HOME. A better error message would involve 'ptxdist
+    setup'.
+
+    mkl: fixed by mol
 
 [x] jbe: Running 'ptxdist go' with an enabled but not yet configured
     kernel should give a reasonable error message. It should not just
