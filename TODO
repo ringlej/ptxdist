@@ -9,7 +9,9 @@ Prio A
     include this menu into it. This should avoid a local "Kconfig" copy
     in each ptxdist project for such a simple addition.
 
-[ ] jbe: SDL menu: Unsure if SDL mixer and SDL image must depend on SDL?
+[x] jbe: SDL menu: Unsure if SDL mixer and SDL image must depend on SDL?
+
+    mkl: no they must select SDL
 
 [ ] rsc: if 'ptxdist setup' points to the wrong JDK, jvisu claims that
     it needs a set JAVA_HOME. A better error message would involve 'ptxdist
