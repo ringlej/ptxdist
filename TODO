@@ -1,13 +1,5 @@
-TODO before 2.0.0
-=================
-
-Prio A
-
-[ ] jbe: If someone adds a project local menu (*.in) file and uses
-    'project_specific' as its SECTION name ptxdist should automatically
-    generate an additional submenu "Project Specific Configuration" and
-    include this menu into it. This should avoid a local "Kconfig" copy
-    in each ptxdist project for such a simple addition.
+TODO before 1.99.13
+===================
 
 [ ] mkl: remove inetd.conf leftovers
 
@@ -21,10 +13,24 @@ Prio A
     ./rsync.in:69:            the /etc/inetd.conf a line like this:
     ./rsync.in:95:    This string is added to inetd's configuration /etc/inetd.conf. @CONFIG@
 
+[ ] mkl: fix startscript leftovers
+
 [ ] mkl:
 
     16:46 < ringlej>  /opt/tools/lib/ptxdist-1.99.11/config/collection/Kconfig:10: can't open file "generated/ptx_collection.in"
     16:47 < ringlej> That was it. I had none marked as "M"
+
+
+TODO before 2.0.0
+=================
+
+Prio A
+
+[ ] jbe: If someone adds a project local menu (*.in) file and uses
+    'project_specific' as its SECTION name ptxdist should automatically
+    generate an additional submenu "Project Specific Configuration" and
+    include this menu into it. This should avoid a local "Kconfig" copy
+    in each ptxdist project for such a simple addition.
 
 [ ] mkl/jbe: The 'ps' command from the procps package outputs
             "Unknown HZ value! (xx) Assume 100."
@@ -36,6 +42,12 @@ Prio A
       collect2: ld returned 1 exit status
       cannot find -lpanelw
       collect2: ld returned 1 exit status
+
+[ ] rsc: dbus-python doesn't compile, needs either python-config or asks
+    python for -I and -L paths.
+
+    While being there, we should update to python-2.6, because this is
+    the stable series we want to have in ptxdist-2.0.
 
 [ ] rsc: 'ptxdist images' for the i586 target sometimes does not work,
     the generated image is incorrect and grub stops booting.
