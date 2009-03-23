@@ -3,6 +3,12 @@ TODO before 2.0.0
 
 Prio A
 
+[ ] jbe: If someone adds a project local menu (*.in) file and uses
+    'project_specific' as its SECTION name ptxdist should automatically
+    generate an additional submenu "Project Specific Configuration" and
+    include this menu into it. This should avoid a local "Kconfig" copy
+    in each ptxdist project for such a simple addition.
+
 [ ] jbe: SDL menu: Unsure if SDL mixer and SDL image must depend on SDL?
 
 [ ] rsc: if 'ptxdist setup' points to the wrong JDK, jvisu claims that
