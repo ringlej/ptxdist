@@ -165,6 +165,7 @@ endif
 
 ifdef PTXCONF_UDEV__EXTRA_FIRMWARE
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/firmware.sh)
+	@$(call install_copy, udev, 0, 0, 0644, -, /lib/udev/rules.d/50-firmware.rules,n)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_FLOPPY
