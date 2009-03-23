@@ -13,9 +13,11 @@ Prio A
 
     mkl: no they must select SDL
 
-[ ] rsc: if 'ptxdist setup' points to the wrong JDK, jvisu claims that
+[x] rsc: if 'ptxdist setup' points to the wrong JDK, jvisu claims that
     it needs a set JAVA_HOME. A better error message would involve 'ptxdist
     setup'.
+
+    mkl: fixed by mol
 
 [ ] mkl: remove inetd.conf leftovers
 
