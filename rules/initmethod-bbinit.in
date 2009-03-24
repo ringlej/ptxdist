@@ -5,6 +5,7 @@ if INITMETHOD_BBINIT
 config INITMETHOD_BBINIT_ETC_INITD_BANNER
 	bool
 	default y
+	depends on FIGLET
 	prompt "install /etc/init.d/banner"
 	help
 	  This Option adds a specific vendor string to
