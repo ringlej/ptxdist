@@ -193,7 +193,7 @@ $(STATEDIR)/kernel.install:
 $(STATEDIR)/kernel.targetinstall:
 	@$(call targetinfo)
 
-	# we _always_ need the kernel in the image dir
+#	# we _always_ need the kernel in the image dir
 	@for i in $(KERNEL_IMAGE_PATH); do				\
 		if [ -f $$i ]; then					\
 			install -m 644 $$i $(IMAGEDIR)/linuximage;	\
@@ -265,7 +265,7 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 
 	@cd $(KERNEL_PKGDIR) && \
 		find lib -type f | while read file; do \
-			$(call install_copy, kernel-modules, 0, 0, 0644, $(KERNEL_PKGDIR)/$${file}, /$${file}, n) \
+			$(call install_copy, kernel-modules, 0, 0, 0644, -, /$${file}, n) \
 	done
 
 	@$(call install_finish, kernel-modules)
@@ -280,7 +280,7 @@ endif
 kernel_clean:
 	rm -rf $(STATEDIR)/kernel.*
 	rm -rf $(PKGDIR)/kernel_*
-	if [ -L $(KERNEL_DIR) ]; then			\
+	@if [ -L $(KERNEL_DIR) ]; then			\
 		pushd $(KERNEL_DIR);			\
 		quilt pop -af;				\
 		rm -rf series patches .pc;		\
