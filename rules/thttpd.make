@@ -53,7 +53,7 @@ $(STATEDIR)/thttpd.compile:
 	@$(call targetinfo, $@)
 	cd $(THTTPD_DIR) && $(THTTPD_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch, $@)
-# $(THTTPD_ENV)
+
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
