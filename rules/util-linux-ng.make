@@ -39,6 +39,7 @@ $(UTIL_LINUX_NG_SOURCE):
 UTIL_LINUX_NG_PATH	:= PATH=$(CROSS_PATH)
 UTIL_LINUX_NG_ENV 	:= \
 	$(CROSS_ENV) \
+	$(call ptx/ncurses, PTXCONF_UTIL_LINUX_NG_USES_NCURSES) \
 	ac_cv_lib_termcap_tgetnum=no \
 	ac_cv_path_BLKID=no \
 	ac_cv_path_PERL=no \
@@ -49,6 +50,7 @@ UTIL_LINUX_NG_ENV 	:= \
 #
 UTIL_LINUX_NG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--disable-nls \
 	--disable-rpath \
 	--disable-agetty \
@@ -76,14 +78,6 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--without-selinux \
 	--without-audit \
 	--with-fsprobe=blkid
-
-ifdef PTXCONF_UTIL_LINUX_NG_USES_NCURSES
-UTIL_LINUX_NG_AUTOCONF	+= --with-ncurses
-UTIL_LINUX_NG_ENV	+= $(CROSS_ENV_AC_NCURSES)
-else
-UTIL_LINUX_NG_AUTOCONF	+= --without-ncurses
-UTIL_LINUX_NG_ENV	+= $(CROSS_ENV_AC_NO_NCURSES)
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
