@@ -116,7 +116,7 @@ $(STATEDIR)/glib.targetinstall:
 	@$(call install_fixup,glib,PRIORITY,optional)
 	@$(call install_fixup,glib,VERSION,$(GLIB_VERSION))
 	@$(call install_fixup,glib,SECTION,base)
-	@$(call install_fixup,glib,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,glib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,glib,DEPENDS,)
 	@$(call install_fixup,glib,DESCRIPTION,missing)
 
@@ -129,7 +129,7 @@ $(STATEDIR)/glib.targetinstall:
 
 	@$(call install_copy, glib, 0, 0, 0755, /usr/lib/gio/modules)
 
-	for i in libgio libglib libgmodule libgobject libgthread; do \
+	@for i in libgio libglib libgmodule libgobject libgthread; do \
 		$(call install_copy, glib, 0, 0, 0644, -, /usr/lib/$$i-2.0.so.$(GLIB_LIB_VERSION)); \
 		$(call install_link, glib, $$i-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/$$i-2.0.so.0); \
 		$(call install_link, glib, $$i-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/$$i-2.0.so); \
