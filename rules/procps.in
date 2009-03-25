@@ -14,7 +14,9 @@ config PROCPS_TOP
 	prompt "top"
 	depends on !BUSYBOX_TOP || ALLYES
 	help
-	  FIXME: This item needs to be documented
+	  The  top  program provides a dynamic real-time view of a running
+	  system.
+	  Note: This command enlarges your system by the ncurses library.
 
 comment "top is disabled by busybox top"
 	depends on BUSYBOX_TOP
@@ -24,6 +26,7 @@ config PROCPS_SLABTOP
 	prompt "slabtop"
 	help
 	  display kernel slab cache information in real time
+	  Note: This command enlarges your system by the ncurses library.
 
 config PROCPS_SYSCTL
 	bool
