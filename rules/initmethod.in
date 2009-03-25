@@ -1,6 +1,10 @@
 ## SECTION=rootfs
 
-menu "init                          "
+menuconfig INITMETHOD
+	bool  "init                          "
+	default y
+
+if INITMETHOD
 
 choice
 	prompt "init method"
@@ -27,4 +31,4 @@ endchoice
 
 source "generated/initmethod.in"
 
-endmenu
+endif
