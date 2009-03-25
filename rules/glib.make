@@ -56,6 +56,10 @@ GLIB_ENV 	:= \
 #
 # autoconf
 #
+GLIB_AUTOCONF_LIBICONV-$(PTXCONF_GLIB__LIBICONV_CLIB)	+= no
+GLIB_AUTOCONF_LIBICONV-$(PTXCONF_GLIB__LIBICONV_GNU)	+= gnu
+GLIB_AUTOCONF_LIBICONV-$(PTXCONF_GLIB__LIBICONV_NATIVE)	+= native
+
 GLIB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-threads \
@@ -72,14 +76,8 @@ GLIB_AUTOCONF := \
 	--disable-fam \
 	--disable-xattr \
 	--with-gnu-ld \
-	--with-pcre=internal
-
-ifdef PTXCONF_GLIB__LIBICONV_GNU
-GLIB_AUTOCONF += --with-libiconv=gnu
-endif
-ifdef PTXCONF_GLIB__LIBICONV_NATIVE
-GLIB_AUTOCONF += --with-libiconv=native
-endif
+	--with-pcre=internal \
+	--with-libiconv=$(GLIB_AUTOCONF_LIBICONV-y)
 
 #  --enable-debug=[no/minimum/yes]
 #                          turn on debugging [default=minimum]

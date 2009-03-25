@@ -31,7 +31,11 @@ endchoice
 
 choice
 	prompt "iconv variant  "
-	default GLIB__LIBICONV_GNU
+	default GLIB__LIBICONV_CLIB
+
+	config GLIB__LIBICONV_CLIB
+		bool
+		prompt "c library     "
 
 	config GLIB__LIBICONV_GNU
 		bool
@@ -39,7 +43,7 @@ choice
 
 	config GLIB__LIBICONV_NATIVE
 		bool
-		prompt "native        "
+		prompt "native (mingw)"
 
 endchoice
 
