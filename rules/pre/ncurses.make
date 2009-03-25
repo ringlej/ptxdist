@@ -31,5 +31,16 @@ CROSS_ENV_AC_NO_NCURSES := \
 	ac_cv_prog_ncurses5_config=no \
 	ac_cv_prog_ncursesw5_config=no
 
+#
+# $(call ptx/ncurses, PTXCONF_SYMBOL) returns env with ncurses hint or not
+# depending on the symbol is defined or not
+#
+# $(call ptx/ncurses, PTXCONF_SYMBOL)
+#                     $1
+#
+define ptx/ncurses
+$(call ptx/ifdef, $(1), $(CROSS_ENV_AC_NCURSES), $(CROSS_ENV_AC_NO_NCURSES))
+endef
+
 
 # vim: syntax=make
