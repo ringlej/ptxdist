@@ -38,6 +38,14 @@ $(PROCPS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
+# build only the required parts
+PROCPS_ALL-$(PTXCONF_PROCPS_TOP)	+= $(SYSROOT)/usr/bin/top
+PROCPS_ALL-$(PTXCONF_PROCPS_SLABTOP)	+= $(SYSROOT)/usr/bin/slabtop
+PROCPS_ALL-$(PTXCONF_PROCPS_SYSCTL)	+= $(SYSROOT)/sbin/sysctl
+PROCPS_ALL-$(PTXCONF_PROCPS_PS)		+= $(SYSROOT)/bin/ps
+PROCPS_ALL-$(PTXCONF_PROCPS_W)		+= $(SYSROOT)/usr/bin/w
+PROCPS_ALL-$(PTXCONF_PROCPS_PGREP)	+= $(SYSROOT)/usr/bin/pgrep
+
 PROCPS_PATH	:= PATH=$(CROSS_PATH)
 PROCPS_MAKEVARS	:= \
 	CC="$(CROSS_CC)" \
@@ -45,9 +53,19 @@ PROCPS_MAKEVARS	:= \
 	CPPFLAGS='$(CROSS_CPPFLAGS)' \
 	LDFLAGS='$(CROSS_LDFLAGS)' \
 	lib64=lib \
-	ldconfig=true
+	ldconfig=true \
+	MANFILES="" \
+	BINFILES="$(PROCPS_ALL-y)"
 
 $(STATEDIR)/procps.prepare:
+	@$(call targetinfo)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/procps.install:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -67,25 +85,32 @@ $(STATEDIR)/procps.targetinstall:
 	@$(call install_fixup, procps,DEPENDS,)
 	@$(call install_fixup, procps,DESCRIPTION,missing)
 
-	@$(call install_copy, procps, 0, 0, 0644, -, /lib/libproc-3.2.7.so)
+	@$(call install_copy, procps, 0, 0, 0644, \
+		$(PROCPS_DIR)/proc/libproc-3.2.7.so, /lib/libproc-3.2.7.so)
 
 ifdef PTXCONF_PROCPS_TOP
-	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/top)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/top, \
+		/usr/bin/top)
 endif
 ifdef PTXCONF_PROCPS_SLABTOP
-	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/slabtop)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/slabtop, \
+		/usr/bin/slabtop)
 endif
 ifdef PTXCONF_PROCPS_SYSCTL
-	@$(call install_copy, procps, 0, 0, 0755, -, /sbin/sysctl)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/sysctl, \
+		/sbin/sysctl)
 endif
 ifdef PTXCONF_PROCPS_PS
-	@$(call install_copy, procps, 0, 0, 0755, -, /bin/ps)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/ps/ps, \
+		/bin/ps)
 endif
 ifdef PTXCONF_PROCPS_W
-	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/w)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/w, \
+		/usr/bin/w)
 endif
 ifdef PTXCONF_PROCPS_PGREP
-	@$(call install_copy, procps, 0, 0, 0755, -, /usr/bin/pgrep)
+	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/pgrep, \
+		/usr/bin/pgrep)
 endif
 	@$(call install_finish, procps)
 
