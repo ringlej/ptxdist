@@ -42,5 +42,4 @@ define ptx/endis
 $(call ptx/ifdef, $(1), enable, disable)
 endef
 
-
 # vim: syntax=make
