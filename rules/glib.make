@@ -127,7 +127,7 @@ $(STATEDIR)/glib.targetinstall:
 	# /usr/bin/glib-mkenums
 	# /usr/bin/gtester
 
-	@$(call install_copy, glib, 0, 0, 0644, /usr/lib/gio/modules)
+	@$(call install_copy, glib, 0, 0, 0755, /usr/lib/gio/modules)
 
 	for i in libgio libglib libgmodule libgobject libgthread; do \
 		$(call install_copy, glib, 0, 0, 0644, -, /usr/lib/$$i-2.0.so.$(GLIB_LIB_VERSION)); \
