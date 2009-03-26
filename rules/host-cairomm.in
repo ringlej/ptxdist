@@ -3,6 +3,7 @@
 config HOST_CAIROMM
 	tristate
 	select HOST_CAIRO
+	select HOST_LIBSIGCPP
 	prompt "cairomm"
 	help
 	  cairomm is a C++ wrapper for the cairo graphics library. It offers all
