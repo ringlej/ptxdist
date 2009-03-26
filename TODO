@@ -1,6 +1,10 @@
 TODO before 1.99.13
 ===================
 
+[ ] Dioptik: freetype 2.3.8 web link is dead
+    From the freetype website "Don't use this version! This is a bugfix release
+    for the 2.3 series. All users should upgrade. See this page for the release notes."
+
 [ ] mkl: remove inetd.conf leftovers
 
     [frogger@hardanger:rules]$ wcgrep inetd.conf|grep -v "inetd.conf.d"|grep -v postinst
