@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003-2006 by Robert Schwebel <r.schwebel@pengutronix.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +18,7 @@ PACKAGES-$(PTXCONF_FREETYPE) += freetype
 #
 # Paths and names
 #
-FREETYPE_VERSION	:= 2.3.8
+FREETYPE_VERSION	:= 2.3.9
 FREETYPE		:= freetype-$(FREETYPE_VERSION)
 FREETYPE_SUFFIX		:= tar.bz2
 FREETYPE_URL		:= http://download.savannah.gnu.org/releases/freetype/$(FREETYPE).$(FREETYPE_SUFFIX)
@@ -67,7 +68,7 @@ $(STATEDIR)/freetype.targetinstall:
 	@$(call install_fixup, freetype,PRIORITY,optional)
 	@$(call install_fixup, freetype,VERSION,$(FREETYPE_VERSION))
 	@$(call install_fixup, freetype,SECTION,base)
-	@$(call install_fixup, freetype,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, freetype,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, freetype,DEPENDS,)
 	@$(call install_fixup, freetype,DESCRIPTION,missing)
 
