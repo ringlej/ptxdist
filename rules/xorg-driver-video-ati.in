@@ -5,10 +5,17 @@
 menuconfig XORG_DRIVER_VIDEO_ATI
 	tristate
 	depends on XORG_DRIVER_VIDEO
+
 	select XORG_SERVER
 	select XORG_SERVER_XORG
 	select XORG_PROTO_X
 	select XORG_PROTO_FONTS
+
+	select LIBDRM			if XORG_DRIVER_VIDEO_ATI_DRI
+	select MESALIB			if XORG_DRIVER_VIDEO_ATI_DRI
+	select XORG_PROTO_GL		if XORG_DRIVER_VIDEO_ATI_DRI
+	select XORG_PROTO_XF86DRI	if XORG_DRIVER_VIDEO_ATI_DRI
+
 	prompt "Ati"
 	help
 	  This is the video driver for ATI cards for the modular Xorg server.
@@ -23,12 +30,8 @@ comment "X.org ATI Driver"
 config XORG_DRIVER_VIDEO_ATI_DRI
 	bool
 	depends on XORG_DRIVER_VIDEO_ATI
-	select LIBDRM
-	select MESALIB
-	select XORG_PROTO_GL
 	select XORG_SERVER_EXT_GLX
 	select XORG_SERVER_EXT_DRI
-	select XORG_PROTO_XF86DRI
         prompt "Enable DRI"
         help
           --enable-dri
