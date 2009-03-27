@@ -72,9 +72,9 @@ $(STATEDIR)/freetype.targetinstall:
 	@$(call install_fixup, freetype,DEPENDS,)
 	@$(call install_fixup, freetype,DESCRIPTION,missing)
 
-	@$(call install_copy, freetype, 0, 0, 0644, -, /usr/lib/libfreetype.so.6.3.19)
-	@$(call install_link, freetype, libfreetype.so.6.3.19, /usr/lib/libfreetype.so.6)
-	@$(call install_link, freetype, libfreetype.so.6.3.19, /usr/lib/libfreetype.so)
+	@$(call install_copy, freetype, 0, 0, 0644, -, /usr/lib/libfreetype.so.6.3.20)
+	@$(call install_link, freetype, libfreetype.so.6.3.20, /usr/lib/libfreetype.so.6)
+	@$(call install_link, freetype, libfreetype.so.6.3.20, /usr/lib/libfreetype.so)
 
 	@$(call install_finish, freetype)
 
