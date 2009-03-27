@@ -1,6 +1,6 @@
 ## SECTION=multimedia_xorg
 
-menu "Xorg Support Libraries        "
+menu "xorg support libraries        "
 source "generated/multimedia_xorg_support_libs.in"
 endmenu
 
