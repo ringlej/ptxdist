@@ -1,0 +1,23 @@
+Subject: The <net/bpf.h> include file does not exist an more
+From: Juergen Beisert <jbe@pengutronix.de>
+
+The <net/bpf.h> include file does not exist an more. Simply removed.
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ libpcap_stuff.c |    1 -
+ 1 file changed, 1 deletion(-)
+
+Index: libpcap_stuff.c
+===================================================================
+--- libpcap_stuff.c.orig
++++ libpcap_stuff.c
+@@ -17,7 +17,6 @@
+ #include <stdlib.h>
+ #include <sys/ioctl.h>
+ #include <pcap.h>
+-#include <net/bpf.h>
+ 
+ #include "globals.h"
+ 

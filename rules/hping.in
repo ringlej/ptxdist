@@ -1,0 +1,24 @@
+## SECTION=networking
+config HPING
+	tristate
+	select TCL if HPING_TCL
+	select LIBC_M if HPING_TCL
+	select LIBC_PTHREAD if HPING_TCL
+	select LIBPCAP
+	prompt "hping"
+	help
+	  hping is a command-line oriented TCP/IP packet assembler/analyzer.
+	  The interface is inspired to the ping(8) unix command, but hping
+	  isn't only able to send ICMP echo requests. It supports TCP, UDP,
+	  ICMP and RAW-IP protocols, has a traceroute mode, the ability to
+	  send files between a covered channel, and many other features.
+
+if HPING
+config HPING_TCL
+	prompt "Add TCL support"
+	depends on BROKEN
+	bool
+	help
+	  Add the Tcl scripting engine feature
+
+endif

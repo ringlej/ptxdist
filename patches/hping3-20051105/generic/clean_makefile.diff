@@ -1,0 +1,71 @@
+Subject: Don't be smarter than make
+From: Juergen Beisert <jbe@pengutronix.de>
+
+Simplify the makefile and use embedded rules.
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ Makefile.in |   27 ++++++++++++---------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
+
+Index: Makefile.in
+===================================================================
+--- Makefile.in.orig
++++ Makefile.in
+@@ -9,7 +9,7 @@
+ CC= gcc
+ AR=/usr/bin/ar
+ RANLIB=/usr/bin/ranlib
+-CCOPT= -O2 -Wall @PCAP_INCLUDE@ @TCL_INC@ @USE_TCL@
++CFLAGS= -O2 -Wall @PCAP_INCLUDE@ @TCL_INC@ @USE_TCL@
+ DEBUG= -g
+ #uncomment the following if you need libpcap based build under linux
+ #(not raccomanded)
+@@ -50,21 +50,18 @@ libars.a: $(ARSOBJ)
+ 	$(RANLIB) $@
+ 
+ hping3: byteorder.h $(OBJ)
+-	$(CC) -o hping3 $(CCOPT) $(DEBUG) $(OBJ) -L/usr/local/lib $(PCAP) @SOLARISLIB@ @TCL_LIB@
++	$(CC) -o hping3 $(LDFLAGS) $(DEBUG) $(OBJ) $(PCAP) $(LDLIBS) @SOLARISLIB@ @TCL_LIB@
+ 	@echo
+-	./hping3 -v
+-	@echo "use \`make strip' to strip hping3 binary"
+-	@echo "use \`make install' to install hping3"
++#	./hping3 -v
++#	@echo "use \`make strip' to strip hping3 binary"
++#	@echo "use \`make install' to install hping3"
+ 
+ hping3-static: byteorder.h $(OBJ)
+-	$(CC) -static -o hping3-static $(CCOPT) $(DEBUG) $(OBJ) -L/usr/local/lib $(PCAP) @SOLARISLIB@ @TCL_LIB@ -ldl
++	$(CC) -static -o hping3-static $(LDFLAGS) $(CCOPT) $(DEBUG) $(OBJ) $(PCAP) $(LDLIBS) @SOLARISLIB@ @TCL_LIB@ -ldl
+ 
+ byteorder.h:
+ 	./configure
+ 
+-.c.o:
+-	$(CC) -c $(CCOPT) $(DEBUG) $(COMPILE_TIME) $<
+-
+ clean:
+ 	rm -rf hping3 *.o libars.a
+ 
+@@ -72,13 +69,13 @@ distclean:
+ 	rm -rf hping3 *.o byteorder byteorder.h systype.h Makefile libars.a .depend
+ 
+ install: hping3
+-	cp -f hping3 /usr/sbin/
+-	chmod 755 /usr/sbin/hping3
+-	ln -s /usr/sbin/hping3 /usr/sbin/hping
+-	ln -s /usr/sbin/hping3 /usr/sbin/hping2
++	cp -f hping3 $(DESTDIR)/usr/sbin/
++	chmod 755 $(DESTDIR)/usr/sbin/hping3
++	ln -sf $(DESTDIR)/usr/sbin/hping3 $(DESTDIR)/usr/sbin/hping
++	ln -sf $(DESTDIR)/usr/sbin/hping3 $(DESTDIR)/usr/sbin/hping2
+ 	@if [ -d ${INSTALL_MANPATH}/man8 ]; then \
+-		cp ./docs/hping3.8 ${INSTALL_MANPATH}/man8; \
+-		chmod 644 ${INSTALL_MANPATH}/man8/hping3.8; \
++		cp ./docs/hping3.8 $(DESTDIR)/${INSTALL_MANPATH}/man8; \
++		chmod 644 $(DESTDIR)/${INSTALL_MANPATH}/man8/hping3.8; \
+ 	else \
+ 		echo "@@@@@@ WARNING @@@@@@"; \
+ 		echo "Can't install the man page: ${INSTALL_MANPATH}/man8 does not exist"; \
