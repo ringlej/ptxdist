@@ -1,0 +1,75 @@
+Subject: Endianess detection should not happen at host side...
+From: Juergen Beisert <jbe@pengutronix.de>
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ bytesex.h |    3 ++-
+ configure |   20 ++------------------
+ hping2.h  |    2 +-
+ 3 files changed, 5 insertions(+), 20 deletions(-)
+
+Index: configure
+===================================================================
+--- configure.orig
++++ configure
+@@ -15,30 +15,14 @@ fi
+ 
+ CC=${CC:=cc}
+ 
+-echo build byteorder.c...
+-$CC byteorder.c -o byteorder || exit 1
+-
+ INSTALL_MANPATH=`echo $MANPATH|cut -f1 -d:`
+ if [ "$INSTALL_MANPATH" = "" ]; then
+ 	INSTALL_MANPATH="/usr/local/man"
+ fi
+-BYTEORDER=`./byteorder -m`
+-
+-echo create byteorder.h...
+-cat > byteorder.h <<EOF
+-#ifndef __BYTEORDER_H
+-#define __BYTEORDER_H
+ 
+-EOF
+-echo \#ifndef $BYTEORDER >> byteorder.h
+-echo \#define $BYTEORDER >> byteorder.h
+-echo \#endif /\* $BYTEORDER \*/ >> byteorder.h
+-cat >> byteorder.h <<EOF
+-
+-#endif /* __BYTEORDER_H */
+-EOF
++# CONFIGOSTYPE=`uname -s | tr [a-z] [A-Z]`
++CONFIGOSTYPE=LINUX
+ 
+-CONFIGOSTYPE=`uname -s | tr [a-z] [A-Z]`
+ if [ ! "$CONFIGOSTYPE" ]; then
+ 	CONFIGOSTYPE=UNKNOWN
+ fi
+Index: hping2.h
+===================================================================
+--- hping2.h.orig
++++ hping2.h
+@@ -17,7 +17,7 @@
+ #include <sys/socket.h>
+ #include <netinet/in.h>
+ #include <limits.h>
+-#include "byteorder.h"
++#include <asm/byteorder.h>
+ #include "systype.h"
+ #include "fixtypes.h"
+ 
+Index: bytesex.h
+===================================================================
+--- bytesex.h.orig
++++ bytesex.h
+@@ -9,7 +9,8 @@
+ 
+ #if 	defined(__i386__) \
+ 	|| defined(__alpha__) \
+-	|| (defined(__mips__) && (defined(MIPSEL) || defined (__MIPSEL__)))
++	|| (defined(__mips__) && (defined(MIPSEL) || defined (__MIPSEL__))) \
++	|| defined(__ARMEL__)
+ #define BYTE_ORDER_LITTLE_ENDIAN
+ #elif 	defined(__mc68000__) \
+ 	|| defined (__sparc__) \
