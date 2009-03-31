@@ -30,28 +30,15 @@ PV_DIR		:= $(BUILDDIR)/$(PV)
 
 PV_PATH	:= PATH=$(CROSS_PATH)
 PV_ENV 	:= $(CROSS_ENV)
+PV_MAKEVARS := $(CROSS_ENV_LD)
 
 #
 # autoconf
 #
-PV_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/pv.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(PV_DIR)/config.cache)
-	cd $(PV_DIR) && \
-		$(PV_PATH) $(PV_ENV) \
-		./configure $(PV_AUTOCONF) --disable-nls --enable-debugging
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/pv.compile:
-	@$(call targetinfo)
-	cd $(PV_DIR) && $(PV_PATH) $(MAKE) LD=$(CROSS_LD) $(PARALLELMFLAGS)
-	@$(call touch)
+PV_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-nls \
+	--enable-debugging
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -69,7 +56,7 @@ $(STATEDIR)/pv.targetinstall:
 	@$(call install_fixup, pv,DEPENDS,)
 	@$(call install_fixup, pv,DESCRIPTION,missing)
 
-	@$(call install_copy, pv, 0, 0, 0755, $(PV_DIR)/pv, /usr/bin/pv)
+	@$(call install_copy, pv, 0, 0, 0755, -, /usr/bin/pv)
 
 	@$(call install_finish, pv)
 
