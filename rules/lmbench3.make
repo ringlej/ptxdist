@@ -17,19 +17,31 @@ PACKAGES-$(PTXCONF_LMBENCH) += lmbench
 #
 # Paths and names
 #
-LMBENCH_VERSION	:= 3
-LMBENCH		:= LMbench$(LMBENCH_VERSION)
+LMBENCH_VERSION	:= 3.0-a9
+LMBENCH		:= lmbench-$(LMBENCH_VERSION)
 LMBENCH_SUFFIX	:= tgz
-LMBENCH_URL	:= http://www.tux.org/pub/benchmarks/System/lmbench/$(LMBENCH).$(LMBENCH_SUFFIX)
+LMBENCH_URL	:= $(PTXCONF_SETUP_SFMIRROR)/lmbench/$(LMBENCH).$(LMBENCH_SUFFIX)
 LMBENCH_SOURCE	:= $(SRCDIR)/$(LMBENCH).$(LMBENCH_SUFFIX)
 LMBENCH_DIR	:= $(BUILDDIR)/$(LMBENCH)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(LMBENCH_SOURCE):
+	@$(call targetinfo)
+	@$(call get, LMBENCH)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 LMBENCH_PATH	:= PATH=$(CROSS_PATH)
-LMBENCH_ENV 	:= $(CROSS_ENV)
+LMBENCH_ENV 	:= \
+	$(CROSS_ENV) \
+	OS=$(PTXCONF_GNU_TARGET) \
+	MAKE=$(MAKE) \
+	TARGET=linux
 
 $(STATEDIR)/lmbench.prepare:
 	@$(call targetinfo)
@@ -41,10 +53,7 @@ $(STATEDIR)/lmbench.prepare:
 
 $(STATEDIR)/lmbench.compile:
 	@$(call targetinfo)
-	cd $(LMBENCH_DIR)/src && $(LMBENCH_PATH) $(MAKE) \
-		CFLAGS="-O2" TARGET=linux MAKE=make \
-		CC=$(PTXCONF_COMPILER_PREFIX)gcc O=. \
-		OS=$(PTXCONF_GNU_TARGET) all $(PARALLELMFLAGS)
+	cd $(LMBENCH_DIR) && $(LMBENCH_PATH) $(LMBENCH_ENV) $(LMBENCH_DIR)/scripts/build
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
