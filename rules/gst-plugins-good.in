@@ -7,6 +7,7 @@ menuconfig GST_PLUGINS_GOOD
 	select GSTREAMER
 	select GST_PLUGINS_BASE
 	select LIBPNG		if GST_PLUGINS_GOOD__LIBPNG
+	select LIBJPEG		if GST_PLUGINS_GOOD__JPEG
 	prompt "gst-plugins-good              "
 	help
 	  A set of good-quality plug-ins for gstreamer
@@ -276,7 +277,6 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD__JPEG
 		bool
-		depends on GST_PLUGINS_GOOD__BROKEN
 		prompt "jpeg"
 
 	config GST_PLUGINS_GOOD__LIBCACA

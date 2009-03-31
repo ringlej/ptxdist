@@ -382,6 +382,7 @@ GST_PLUGINS_GOOD_AUTOCONF += --disable-hal
 endif
 ifdef PTXCONF_GST_PLUGINS_GOOD__JPEG
 GST_PLUGINS_GOOD_AUTOCONF += --enable-jpeg
+GST_PLUGINS_GOOD_INSTALL  += /usr/lib/gstreamer-0.10/libgstjpeg.so
 else
 GST_PLUGINS_GOOD_AUTOCONF += --disable-jpeg
 endif
