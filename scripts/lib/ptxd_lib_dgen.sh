@@ -73,13 +73,15 @@ EOF
 	if [ -e "${dgen_platformconfig}" ]; then
 	    echo "${dgen_platformconfig}"
 	fi
-    } | { 
+    } | {
+	xargs cat
+    } | {
 	export \
 	    PTX_MAP_ALL \
 	    PTX_MAP_ALL_MAKE \
 	    PTX_MAP_DEPS \
 	    PTX_DGEN_DEPS_POST
-	xargs "${PTX_LIBDIR}/ptxd_lib_dgen.awk"
+	"${PTX_LIBDIR}/ptxd_lib_dgen.awk"
     }
     check_pipe_status
 }
