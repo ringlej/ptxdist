@@ -27,79 +27,42 @@ CPUFREQUTILS_DIR	:= $(BUILDDIR)/$(CPUFREQUTILS)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/cpufrequtils.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(CPUFREQUTILS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, CPUFREQUTILS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cpufrequtils.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(CPUFREQUTILS_DIR))
-	@$(call extract, CPUFREQUTILS)
-	@$(call patchin, CPUFREQUTILS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-CPUFREQUTILS_PATH	:= PATH=$(CROSS_PATH)
-CPUFREQUTILS_ENV 	:= \
-	$(CROSS_ENV) \
+CPUFREQUTILS_PATH := PATH=$(CROSS_PATH)
+CPUFREQUTILS_COMPILE_ENV := $(CROSS_ENV)
+CPUFREQUTILS_MAKEVARS := \
 	NLS=false \
-	V=true
+	V=true \
+	STRIPCMD=/bin/true
 
 $(STATEDIR)/cpufrequtils.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-# FIXME: Uses /usr/bin/libtool
-# FIXME: Uses /usr/bin/install
-
-$(STATEDIR)/cpufrequtils.compile:
-	@$(call targetinfo, $@)
-	cd $(CPUFREQUTILS_DIR) && $(CPUFREQUTILS_PATH) $(CPUFREQUTILS_ENV) \
-		$(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cpufrequtils.install:
-	@$(call targetinfo, $@)
-	@$(call install, CPUFREQUTILS)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/cpufrequtils.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, cpufrequtils)
 	@$(call install_fixup, cpufrequtils,PACKAGE,cpufrequtils)
 	@$(call install_fixup, cpufrequtils,PRIORITY,optional)
 	@$(call install_fixup, cpufrequtils,VERSION,$(CPUFREQUTILS_VERSION))
 	@$(call install_fixup, cpufrequtils,SECTION,base)
-	@$(call install_fixup, cpufrequtils,AUTHOR,"Juergen Beisert <j.beisert\@pengutronix.de>")
+	@$(call install_fixup, cpufrequtils,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
 	@$(call install_fixup, cpufrequtils,DEPENDS,)
 	@$(call install_fixup, cpufrequtils,DESCRIPTION,missing)
 
-	@$(call install_copy, cpufrequtils, 0, 0, 0755, \
-		$(CPUFREQUTILS_DIR)/.libs/libcpufreq.so.0.0.0, \
+	@$(call install_copy, cpufrequtils, 0, 0, 0644, -, \
 		/usr/lib/libcpufreq.so.0.0.0)
 	@$(call install_link, cpufrequtils, \
 		libcpufreq.so.0.0.0, \
@@ -109,17 +72,15 @@ $(STATEDIR)/cpufrequtils.targetinstall:
 		/usr/lib/libconfuse.so)
 
 ifdef PTXCONF_CPUFREQUTILS_FREQ_INFO
-	@$(call install_copy, cpufrequtils, 0, 0, 0755, \
-		$(CPUFREQUTILS_DIR)/cpufreq-info, /usr/bin/cpufreq-info)
+	@$(call install_copy, cpufrequtils, 0, 0, 0755, -, /usr/bin/cpufreq-info)
 endif
 ifdef PTXCONF_CPUFREQUTILS_FREQ_SET
-	@$(call install_copy, cpufrequtils, 0, 0, 0755, \
-		$(CPUFREQUTILS_DIR)/cpufreq-set, /usr/bin/cpufreq-set)
+	@$(call install_copy, cpufrequtils, 0, 0, 0755, -, /usr/bin/cpufreq-set)
 endif
 
 	@$(call install_finish, cpufrequtils)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
