@@ -217,7 +217,7 @@ dnl Check for wget
 AC_PATH_PROGS(WGET, wget,, $PATH)
 if test -z "$WGET"; then
 	AC_MSG_ERROR([wget could not be found, please install])
-fi 
+fi
 
 dnl Check for tar
 AC_PATH_PROGS(TAR, tar,, $PATH)
@@ -327,7 +327,7 @@ if test -e "$PYTHON_CONFDIR/Makefile"; then
 else
 	AC_MSG_RESULT(no)
 	AC_MSG_ERROR([some python development files could not be found, you are
-		      likely using suse or redhat system as host. In this case 
+		      likely using suse or redhat system as host. In this case
 		      please install the python-devel packages])
 fi
 
@@ -362,8 +362,8 @@ elif $PATCH --version 2>&1 | grep -q "patch 2.0" >/dev/null 2>&1; then
 Sorry, the version of patch you are using can cause severe problems when a patch
 creates a directory.  $PACKAGE_NAME may well function correctly with this version
 of patch or small problems could creep in.
-Please consider upgrading your patch to a more recent version, if you already 
-have a more recent version of patch then you can supply its path with the 
+Please consider upgrading your patch to a more recent version, if you already
+have a more recent version of patch then you can supply its path with the
 '--with-patch=' option.
 ])
 else
