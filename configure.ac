@@ -251,6 +251,19 @@ case "$FIND_VERSION" in
 esac
 AC_MSG_RESULT([$FIND_VERSION])
 
+dnl Check for xargs
+AC_PATH_PROGS(XARGS, xargs,, $PATH)
+if test -z "$XARGS"; then
+	AC_MSG_ERROR([xargs could not be found, please install])
+fi
+
+AC_MSG_CHECKING([if xargs -r works as expected])
+echo | ${XARGS} -r false
+if test $? -ne 0; then
+	AC_MSG_ERROR([xargs with "-r" support needed, please install GNU xargs (unsually located in the "findutils" package])
+fi
+AC_MSG_RESULT([ok])
+
 dnl Check for sort
 AC_PATH_PROGS(SORT, sort,, $PATH)
 if test -z "$SORT"; then
