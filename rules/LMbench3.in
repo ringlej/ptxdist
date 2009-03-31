@@ -1,0 +1,10 @@
+## SECTION=test_suites
+
+config LMBENCH
+	tristate
+	depends on BROKEN
+	select LIBC_M
+	prompt "lmbench"
+	help
+	  Various tools for performance analysis
+
