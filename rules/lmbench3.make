@@ -44,7 +44,7 @@ $(STATEDIR)/lmbench.compile:
 	cd $(LMBENCH_DIR)/src && $(LMBENCH_PATH) $(MAKE) \
 		CFLAGS="-O2" TARGET=linux MAKE=make \
 		CC=$(PTXCONF_COMPILER_PREFIX)gcc O=. \
-		OS=$(arm-v5te-linux-gnueabi) all $(PARALLELMFLAGS)
+		OS=$(PTXCONF_GNU_TARGET) all $(PARALLELMFLAGS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
