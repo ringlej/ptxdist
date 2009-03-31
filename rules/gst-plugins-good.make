@@ -303,10 +303,10 @@ else
 GST_PLUGINS_GOOD_AUTOCONF += --disable-osx_video
 endif
 ifdef PTXCONF_GST_PLUGINS_GOOD__V4L2
-GST_PLUGINS_GOOD_AUTOCONF += --enable-v4l2
+GST_PLUGINS_GOOD_AUTOCONF += --enable-gst_v4l2
 GST_PLUGINS_GOOD_INSTALL  += /usr/lib/gstreamer-0.10/libgstvideo4linux2.so
 else
-GST_PLUGINS_GOOD_AUTOCONF += --disable-v4l2
+GST_PLUGINS_GOOD_AUTOCONF += --disable-gst_v4l2
 endif
 ifdef PTXCONF_GST_PLUGINS_GOOD__X
 GST_PLUGINS_GOOD_AUTOCONF += --enable-x
