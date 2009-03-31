@@ -80,7 +80,7 @@ $(STATEDIR)/lmbench.targetinstall:
 	@$(call install_fixup, lmbench,DEPENDS,)
 	@$(call install_fixup, lmbench,DESCRIPTION,missing)
 
-	@cd $(LMBENCH_DIR)/src; \
+	@cd $(LMBENCH_DIR)/bin/$(PTXCONF_GNU_TARGET); \
 	for file in `find . -perm -u+x ! -type d`; do \
 		PER=`stat -c "%a" $$file` \
 		$(call install_copy, lmbench, 0, 0, $$PER, \
