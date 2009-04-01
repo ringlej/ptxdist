@@ -121,7 +121,7 @@ $(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 #
 # create the squashfs image
 #
-IMAGE_SQUASHFS_EXTRA_ARGS:= \
+IMAGE_SQUASHFS_EXTRA_ARGS := \
 	$(call ptx/ifdef, PTXCONF_HOST_SQUASHFS_TOOLS_V3X, $(call ptx/ifdef, PTXCONF_ENDIAN_BIG, -be, -le), ) \
 	$(PTXCONF_IMAGE_SQUASHFS_EXTRA_ARGS)
 
