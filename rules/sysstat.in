@@ -1,0 +1,22 @@
+## SECTION=debug_tools
+
+config SYSSTAT
+	tristate
+	prompt "sysstat"
+	help
+	  The sysstat package contains the following system
+	  performance tools:
+
+	  * sar - collects and reports system activity information;
+	  * iostat - reports CPU utilization and I/O statistics for disks;
+	  * mpstat - reports global and per-processor statistics;
+	  * pidstat - reports statistics for Linux tasks (processes);
+	  * sadf - displays data collected by sar in various formats.
+
+	  The statistics reported by sar concern I/O transfer rates,
+	  paging activity, process-related activities, interrupts,
+	  network activity, memory and swap space utilization, CPU
+	  utilization, kernel activities and TTY statistics, among
+	  others. Both UP and SMP machines are fully supported.
+
+	  Homepage: http://pagesperso-orange.fr/sebastien.godard/
