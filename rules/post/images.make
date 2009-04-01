@@ -121,6 +121,10 @@ $(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 #
 # create the squashfs image
 #
+IMAGE_SQUASHFS_EXTRA_ARGS:= \
+	$(call ptx/ifdef, PTXCONF_HOST_SQUASHFS_TOOLS_V3X, $(call ptx/ifdef, PTXCONF_ENDIAN_BIG, -be, -le), ) \
+	$(PTXCONF_IMAGE_SQUASHFS_EXTRA_ARGS)
+
 $(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squashfs-tools.install
 	@echo -n "Creating root.squashfs from working dir..."
 	@cd $(WORKDIR);							\
@@ -131,8 +135,7 @@ $(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squash
 		echo -n "$@ ";						\
 		echo -n "-noappend ";					\
 		echo -n "-b $(PTXCONF_IMAGE_SQUASHFS_BLOCK_SIZE) ";	\
-		echo -n "$(call ptx/ifdef, PTXCONF_ENDIAN_BIG, -be, -le) "; \
-		echo -n $(PTXCONF_IMAGE_SQUASHFS_EXTRA_ARGS) )	\
+		echo -n $(IMAGE_SQUASHFS_EXTRA_ARGS) )	\
 	) | $(FAKEROOT) --
 	@echo "done."
 
