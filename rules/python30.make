@@ -176,10 +176,10 @@ $(STATEDIR)/python30.targetinstall:
 		oldsharedinstall DESTDIR=$(PYTHON30_INST_TMP)
 
 	# remove redundant files
-	find $(PYTHON30_INST_TMP)/usr/lib/python2.4 -name "*.py"  | xargs rm -f
-	find $(PYTHON30_INST_TMP)/usr/lib/python2.4 -name "*.pyo" | xargs rm -f
-	rm -fr $(PYTHON30_INST_TMP)/usr/lib/python2.4/config
-	rm -fr $(PYTHON30_INST_TMP)/usr/lib/python2.4/test
+	find $(PYTHON30_INST_TMP)/usr/lib/python3.0 -name "*.py"  | xargs rm -f
+	find $(PYTHON30_INST_TMP)/usr/lib/python3.0 -name "*.pyo" | xargs rm -f
+	rm -fr $(PYTHON30_INST_TMP)/usr/lib/python3.0/config
+	rm -fr $(PYTHON30_INST_TMP)/usr/lib/python3.0/test
 
 	files=$$(cd $(PYTHON30_INST_TMP) && find -type f | sed "s/^\.//"); \
 	for i in $$files; do \
