@@ -5,7 +5,7 @@ config HOST_GTKMM
 	select HOST_GLIBMM
 	select HOST_ATK
 	select HOST_CAIROMM
-	select HOST_PANGO
+	select HOST_PANGOMM
 	select HOST_GTK
 	prompt "gtkmm"
 	help

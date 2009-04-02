@@ -1,0 +1,68 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: add python path for cross compiling
+
+When cross compiling dbus-python, we need to build a python for the
+"build" machine and one for the "host" system. The current test for
+python headers incorrectly grabs up the "build" headers, although this
+package is built for the "host" machine.
+
+This patch adds a "--with-python-includes=<path>" switch, which makes it
+possible to overwrite the autodetected path with a pre-known one. Thus
+it is possible for cross build systems like ptxdist, buildroot etc. to
+set an already known path while cross compiling.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ m4/am-check-python-headers.m4 |   38 +++++++++++++++++++++++---------------
+ 1 file changed, 23 insertions(+), 15 deletions(-)
+
+Index: dbus-python-0.83.0/m4/am-check-python-headers.m4
+===================================================================
+--- dbus-python-0.83.0.orig/m4/am-check-python-headers.m4
++++ dbus-python-0.83.0/m4/am-check-python-headers.m4
+@@ -5,21 +5,29 @@ AC_DEFUN([AM_CHECK_PYTHON_HEADERS],
+ [AC_REQUIRE([AM_PATH_PYTHON])
+ dnl deduce PYTHON_INCLUDES
+ 
+-AC_MSG_CHECKING(for Python headers using $PYTHON-config --includes)
+-PYTHON_INCLUDES=`$PYTHON-config --includes`
+-if test $? = 0; then
+-  AC_MSG_RESULT($PYTHON_INCLUDES)
+-else
+-  AC_MSG_RESULT([failed, will try another way])
+-  py_prefix=`$PYTHON -c "import sys; print sys.prefix"`
+-  py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`
+-  AC_MSG_CHECKING(for Python headers in $py_prefix and $py_exec_prefix)
+-  PYTHON_INCLUDES="-I${py_prefix}/include/python${PYTHON_VERSION}"
+-  if test "$py_prefix" != "$py_exec_prefix"; then
+-    PYTHON_INCLUDES="$PYTHON_INCLUDES -I${py_exec_prefix}/include/python${PYTHON_VERSION}"
+-  fi
+-  AC_MSG_RESULT($PYTHON_INCLUDES)
+-fi
++AC_ARG_WITH(python_includes, AC_HELP_STRING(
++  [--with-python-includes], [set python include path manually]),
++  [
++    PYTHON_INCLUDES="-I${withval}/python${PYTHON_VERSION}"
++    AC_MSG_NOTICE([Using manually defined python include path])
++  ],[
++    AC_MSG_CHECKING(for Python headers using $PYTHON-config --includes)
++    PYTHON_INCLUDES=`$PYTHON-config --includes`
++    if test $? = 0; then
++      AC_MSG_RESULT($PYTHON_INCLUDES)
++    else
++      AC_MSG_RESULT([failed, will try another way])
++      py_prefix=`$PYTHON -c "import sys; print sys.prefix"`
++      py_exec_prefix=`$PYTHON -c "import sys; print sys.exec_prefix"`
++      AC_MSG_CHECKING(for Python headers in $py_prefix and $py_exec_prefix)
++      PYTHON_INCLUDES="-I${py_prefix}/include/python${PYTHON_VERSION}"
++      if test "$py_prefix" != "$py_exec_prefix"; then
++        PYTHON_INCLUDES="$PYTHON_INCLUDES -I${py_exec_prefix}/include/python${PYTHON_VERSION}"
++      fi
++      AC_MSG_RESULT($PYTHON_INCLUDES)
++    fi
++  ]
++)
+ 
+ AC_MSG_CHECKING(whether those headers are sufficient)
+ AC_SUBST(PYTHON_INCLUDES)

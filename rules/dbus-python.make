@@ -33,6 +33,22 @@ $(DBUS_PYTHON_SOURCE):
 	@$(call get, DBUS_PYTHON)
 
 # ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/dbus-python.extract:
+	@$(call targetinfo)
+	@$(call clean, $(DBUS_PYTHON_DIR))
+	@$(call extract, DBUS_PYTHON)
+	@$(call patchin, DBUS_PYTHON)
+	# touch autoconf files in correct order
+	cd $(DBUS_PYTHON_DIR); \
+	touch aclocal.m4; \
+	find . -name "Makefile.in" | xargs touch; \
+	touch config.h.in
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -45,7 +61,8 @@ DBUS_PYTHON_ENV 	:= $(CROSS_ENV)
 DBUS_PYTHON_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-html-docs \
-	--disable-api-docs
+	--disable-api-docs \
+	--with-python-includes=$(SYSROOT)/usr/include
 
 # ----------------------------------------------------------------------------
 # Target-Install
