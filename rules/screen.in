@@ -7,10 +7,10 @@ menuconfig SCREEN
 	  Screen is a full-screen window manager that multiplexes a physical
 	  terminal between several processes, typically interactive shells.
 
-config SCREEN_CONFIG_FILE
+config SCREEN_ETC_SCREENRC
 	depends on SCREEN
-	string
-	prompt "file for /etc/screenrc"
-	default "${PTXDIST_TOPDIR}/generic/etc/screenrc"
+	bool
+	prompt "install /etc/screenrc"
 	help
-	  which file to install as /etc/screenrc
+	  If enabled, it installs the "./projectroot/etc/screenrc" file if
+	  present, else a generic one from the ptxdist directory.

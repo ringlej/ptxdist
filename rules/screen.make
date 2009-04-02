@@ -64,9 +64,9 @@ $(STATEDIR)/screen.targetinstall:
 
 	@$(call install_copy, screen, 0, 0, 0755, $(SCREEN_DIR)/screen, /usr/bin/screen)
 
-	@if [ -n "$(PTXCONF_SCREEN_CONFIG_FILE)" ]; then \
-		$(call install_copy, screen, 0, 0, 0755, $(PTXCONF_SCREEN_CONFIG_FILE), /etc/screenrc, n); \
-	fi
+ifdef PTXCONF_SCREEN_ETC_SCREENRC
+	@$(call install_alternative, screen, 0, 0, 0644, /etc/screenrc, n)
+endif
 
 	@$(call install_finish,screen)
 
