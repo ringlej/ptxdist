@@ -2,6 +2,7 @@
 # $Id: template 6487 2006-12-07 20:55:55Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +18,7 @@ PACKAGES-$(PTXCONF_FFTW) += fftw
 #
 # Paths and names
 #
-FFTW_VERSION	:= 3.2
+FFTW_VERSION	:= 3.2.1
 FFTW		:= fftw-$(FFTW_VERSION)
 FFTW_SUFFIX	:= tar.gz
 FFTW_SOURCE	:= $(SRCDIR)/$(FFTW).$(FFTW_SUFFIX)
@@ -60,13 +61,13 @@ $(STATEDIR)/fftw.targetinstall:
 	@$(call install_fixup, fftw,PRIORITY,optional)
 	@$(call install_fixup, fftw,VERSION,$(FFTW_VERSION))
 	@$(call install_fixup, fftw,SECTION,base)
-	@$(call install_fixup, fftw,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, fftw,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, fftw,DEPENDS,)
 	@$(call install_fixup, fftw,DESCRIPTION,missing)
 
-	@$(call install_copy, fftw, 0, 0, 0644, $(FFTW_DIR)/.libs/libfftw3.so.3.2.2, /usr/lib/libfftw3.so.3.2.2)
-	@$(call install_link, fftw, libfftw3.so.3.2.2, /usr/lib/libfftw3.so.3)
-	@$(call install_link, fftw, libfftw3.so.3.2.2, /usr/lib/libfftw3.so)
+	@$(call install_copy, fftw, 0, 0, 0644, -, /usr/lib/libfftw3.so.3.2.3)
+	@$(call install_link, fftw, libfftw3.so.3.2.3, /usr/lib/libfftw3.so.3)
+	@$(call install_link, fftw, libfftw3.so.3.2.3, /usr/lib/libfftw3.so)
 
 	@$(call install_finish, fftw)
 
