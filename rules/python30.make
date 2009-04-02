@@ -70,13 +70,9 @@ PYTHON30_AUTOCONF := \
 	--with-doc-strings \
 	--with-pymalloc \
 	--without-wctype-functions \
-	--without-fpectl
+	--without-fpectl \
+	--disable-ipv6
 
-ifdef PTXCONF_PYTHON30__IPV6
-PYTHON30_AUTOCONF += --enable-ipv6
-else
-PYTHON30_AUTOCONF += --disable-ipv6
-endif
 ifdef PTXCONF_ARCH_X86
 PYTHON30_AUTOCONF += --with-tsc
 else

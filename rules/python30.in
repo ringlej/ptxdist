@@ -11,11 +11,11 @@ menuconfig PYTHON30
 	  for integration with other languages and tools, comes with extensive
 	  standard libraries, and can be learned in a few days.
 
-if PYTHON30
-
-config PYTHON30__IPV6
-	bool
-	prompt "ip v6 support"
-
-endif
+#if PYTHON30
+#
+#config PYTHON30__IPV6
+#	bool
+#	prompt "ip v6 support"
+#
+#endif
 
