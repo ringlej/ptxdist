@@ -20,9 +20,11 @@ PACKAGES-$(PTXCONF_FFTW) += fftw
 FFTW_VERSION	:= 3.2
 FFTW		:= fftw-$(FFTW_VERSION)
 FFTW_SUFFIX	:= tar.gz
-FFTW_URL	:= http://www.fftw.org/$(FFTW).$(FFTW_SUFFIX)
 FFTW_SOURCE	:= $(SRCDIR)/$(FFTW).$(FFTW_SUFFIX)
 FFTW_DIR	:= $(BUILDDIR)/$(FFTW)
+FFTW_URL	:= \
+	http://www.fftw.org/$(FFTW).$(FFTW_SUFFIX) \
+	ftp://ftp.fftw.org/pub/fftw/old/$(FFTW).$(FFTW_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
