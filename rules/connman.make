@@ -33,22 +33,10 @@ $(CONNMAN_SOURCE):
 	@$(call get, CONNMAN)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/connman.extract:
-	@$(call targetinfo)
-	@$(call clean, $(CONNMAN_DIR))
-	@$(call extract, CONNMAN)
-	@$(call patchin, CONNMAN)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 CONNMAN_PATH	:= PATH=$(CROSS_PATH)
-
 CONNMAN_ENV 	:= $(CROSS_ENV)
 
 #
@@ -177,10 +165,10 @@ $(STATEDIR)/connman.targetinstall:
 	@$(call install_fixup, connman,DEPENDS,)
 	@$(call install_fixup, connman,DESCRIPTION,missing)
 
-	# binary
+#	# binary
 	@$(call install_copy, connman, 0, 0, 0755, -, /usr/sbin/connmand)
 
-	# dirs
+#	# dirs
 	@$(call install_copy, connman, 0, 0, 0755, /usr/lib/connman)
 	@$(call install_copy, connman, 0, 0, 0755, /usr/lib/connman/scripts)
 	@$(call install_copy, connman, 0, 0, 0755, /usr/lib/connman/plugins)
@@ -191,12 +179,12 @@ ifdef PTXCONF_CONNMAN_STARTSCRIPT
 endif
 endif
 
-	# dbus config
+#	# dbus config
 	@$(call install_copy, connman, 0, 0, 0644, -, /etc/dbus-1/system.d/connman.conf)
 
-	#
-	# plugins
-	#
+#	#
+#	# plugins
+#	#
 ifdef PTXCONF_CONNMAN_ETHERNET
 	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/ethernet.so)
 endif
@@ -237,12 +225,12 @@ ifdef PTXCONF_CONNMAN_WIMAX
 	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/wimax.so)
 endif
 
-	# command line client
+#	# command line client
 ifdef PTXCONF_CONNMAN_CLIENT
 	@$(call install_copy, connman, 0, 0, 0755, $(CONNMAN_DIR)/client/cm, /usr/sbin/cm)
 endif
 
-	# python tests
+#	# python tests
 ifdef PTXCONF_CONNMAN_TESTS
 	for i in \
 		connect-network \
