@@ -185,9 +185,6 @@ endif
 #	#
 #	# plugins
 #	#
-ifdef PTXCONF_CONNMAN_ETHERNET
-	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/ethernet.so)
-endif
 ifdef PTXCONF_CONNMAN_BLUETOOTH
 	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/bluetooth.so)
 endif
@@ -198,6 +195,9 @@ ifdef PTXCONF_CONNMAN_DHCLIENT
 endif
 ifdef PTXCONF_CONNMAN_DNSPROXY
 	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/dnsproxy.so)
+endif
+ifdef PTXCONF_CONNMAN_ETHERNET
+	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/ethernet.so)
 endif
 ifdef PTXCONF_CONNMAN_FAKE
 	@$(call install_copy, connman, 0, 0, 0644, -, /usr/lib/connman/plugins/fake.so)

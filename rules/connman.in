@@ -19,13 +19,45 @@ if CONNMAN
 
 menu "plugins"
 
-	config CONNMAN_LOOPBACK
+	config CONNMAN_BLUETOOTH
 		bool
-		prompt "loopback support"
+		prompt "bluetooth support"
+
+	config CONNMAN_DHCLIENT
+		bool
+		prompt "dhclient support"
+
+	config CONNMAN_DNSPROXY
+		bool
+		prompt "dnsproxy support"
 
 	config CONNMAN_ETHERNET
 		bool
 		prompt "ethernet support"
+
+	config CONNMAN_FAKE
+		bool
+		prompt "fake support"
+
+	config CONNMAN_HSO
+		bool
+		prompt "hso support"
+
+	config CONNMAN_LOOPBACK
+		bool
+		prompt "loopback support"
+
+	config CONNMAN_POLKIT
+		bool
+		prompt "polkit support"
+
+	config CONNMAN_RESOLVCONF
+		bool
+		prompt "resolvconf support"
+
+	config CONNMAN_UDHCP
+		bool
+		prompt "udhcp support"
 
 	config CONNMAN_WIFI
 		bool
@@ -35,25 +67,6 @@ menu "plugins"
 		bool
 		prompt "wimax support"
 
-	config CONNMAN_BLUETOOTH
-		bool
-		prompt "bluetooth support"
-
-	config CONNMAN_UDHCP
-		bool
-		prompt "udhcp support"
-
-	config CONNMAN_DHCLIENT
-		bool
-		prompt "dhclient support"
-
-	config CONNMAN_RESOLVCONF
-		bool
-		prompt "resolvconf support"
-
-	config CONNMAN_DNSPROXY
-		bool
-		prompt "dnsproxy support"
 
 	config CONNMAN_NOVATEL
 		bool
@@ -67,10 +80,6 @@ menu "plugins"
 		depends on BROKEN
 		prompt "huawei support"
 
-	config CONNMAN_HSO
-		bool
-		prompt "hso support"
-
 	config CONNMAN_PPP
 		bool
 		# FIXME needs ppp headers
@@ -81,14 +90,6 @@ menu "plugins"
 		bool
 		select UDEV__LIBUDEV
 		prompt "udev support"
-
-	config CONNMAN_POLKIT
-		bool
-		prompt "polkit support"
-
-	config CONNMAN_FAKE
-		bool
-		prompt "fake support"
 
 endmenu
 
