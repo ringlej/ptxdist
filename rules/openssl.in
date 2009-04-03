@@ -8,6 +8,13 @@ menuconfig OPENSSL
 	  and Transport Layer Security (TLS v1) protocols as well
 	  as a full-strength general purpose cryptography library.
 
+config OPENSSL_BIN
+	bool "build openssl tools"
+	default y
+	depends on OPENSSL
+	help
+	  Whether to build and install OpenSSL binary.
+
 config OPENSSL_SHARED
 	bool "build shared lib"
 	default y

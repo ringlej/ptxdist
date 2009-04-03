@@ -150,6 +150,10 @@ $(STATEDIR)/openssl.targetinstall:
 	@$(call install_fixup, openssl,DEPENDS,)
 	@$(call install_fixup, openssl,DESCRIPTION,missing)
 
+ifdef PTXCONF_OPENSSL_BIN
+	@$(call install_copy, openssl, 0, 0, 0755, $(OPENSSL_DIR)/apps/openssl, /usr/bin/openssl)
+endif
+
 ifdef PTXCONF_OPENSSL_SHARED
 	@$(call install_copy, openssl, 0, 0, 0644, $(OPENSSL_DIR)/libssl.so.0.9.7, /usr/lib/libssl.so.0.9.7)
 	@$(call install_link, openssl, libssl.so.0.9.7, /usr/lib/libssl.so.0)
