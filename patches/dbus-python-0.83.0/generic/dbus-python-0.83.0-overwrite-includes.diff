@@ -14,6 +14,9 @@ set an already known path while cross compiling.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+
+Filed as: http://bugs.freedesktop.org/show_bug.cgi?id=21017
+
  m4/am-check-python-headers.m4 |   38 +++++++++++++++++++++++---------------
  1 file changed, 23 insertions(+), 15 deletions(-)
 
