@@ -6,6 +6,10 @@ autom4te.cache/
 Makefile
 .done
 
+*.orig
+*~
+\#*#
+
 platforms/ptxdist-version.in
 rules/ptxdist-version.in
 
