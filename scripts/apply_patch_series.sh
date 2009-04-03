@@ -79,13 +79,19 @@ do_classic() {
 			;;
 		esac;
 
-		echo "applying $abspatch"
+		echo "applying $abspatch (without quilt)"
 		if [ $patchpara ] && [ `echo $patchpara | egrep '\-p[0-9]+'` ] ;then
 			$CAT "$abspatch" | patch $patchpara || exit 1
 		else
 			$CAT "$abspatch" | patch -p1 || exit 1
 		fi
 	done
+
+	if test -e patches; then
+		ln -s "${PATCHESPATH}" _ptx_patches
+	else
+		ln -s "${PATCHESPATH}" patches
+	fi
 }
 
 #
