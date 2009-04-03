@@ -237,6 +237,9 @@ ifdef PTXCONF_NCURSES_TERMCAP
 	@$(call install_copy, ncurses, 0, 0, 0644, \
 		$(SYSROOT)/usr/share/terminfo/l/linux, \
 		/usr/share/terminfo/l/linux, n);
+	@$(call install_copy, ncurses, 0, 0, 0644,
+		$(SYSROOT)/usr/share/terminfo/s/screen, \
+		/usr/share/terminfo/s/screen, n);
 endif
 
 	@$(call install_finish, ncurses)

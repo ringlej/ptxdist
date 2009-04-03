@@ -51,6 +51,7 @@ config NCURSES_TERMCAP
 		- vt200
 		- ansi
 		- linux
+		- screen
 
 config NCURSES_FORM
 	bool "Install libform on the target"
