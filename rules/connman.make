@@ -37,7 +37,9 @@ $(CONNMAN_SOURCE):
 # ----------------------------------------------------------------------------
 
 CONNMAN_PATH	:= PATH=$(CROSS_PATH)
-CONNMAN_ENV 	:= $(CROSS_ENV)
+CONNMAN_ENV 	:= \
+	$(CROSS_ENV) \
+	PTXDIST_PKG_CONFIG_VAR_NO_SYSROOT=y
 
 #
 # autoconf
@@ -134,20 +136,6 @@ CONNMAN_AUTOCONF += --enable-fake
 else
 CONNMAN_AUTOCONF += --disable-fake
 endif
-
-$(STATEDIR)/connman.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(CONNMAN_DIR)/config.cache)
-	cd $(CONNMAN_DIR) && \
-		$(CONNMAN_PATH) $(CONNMAN_ENV) \
-		./configure $(CONNMAN_AUTOCONF) DBUS_DATADIR=/etc
-	# FIXME hack alert: configure.ac determines the sysconfdir, but
-	# our pkg-config-wrapper leaks the host path in
-	cd $(CONNMAN_DIR) && for i in $$(find . -name "Makefile"); do \
-		sed -i -e "s/^DBUS_DATADIR =.*$$/DBUS_DATADIR = \/etc/g" $$i; \
-	done
-	sed -i -e "s/^dbusdir =.*$$/dbusdir = \/etc\/dbus-1\/system.d/g" $(CONNMAN_DIR)/src/Makefile
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
