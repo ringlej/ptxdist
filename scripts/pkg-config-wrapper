@@ -12,13 +12,13 @@ check_pipe_status() {
 }
 
 if test -z "${SYSROOT}"; then
-    (
-	echo
-	echo
-	echo "pkg-config: missing \$SYSROOT environment variable"
-	echo
-	echo
-    ) >&2
+    cat >&2 <<EOF
+
+
+pkg-config: missing \$SYSROOT environment variable"
+
+
+EOF
     exit 1
 fi
 
@@ -26,12 +26,12 @@ export PKG_CONFIG_LIBDIR="${SYSROOT}/lib/pkgconfig:${SYSROOT}/usr/lib/pkgconfig"
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
 unset PKG_CONFIG_PATH
-
-found_var=false
+unset found_var
 for ((i = 1; i <= ${#}; i++)); do
     case "${!i}" in
 	--variable*)
 	    found_var=true
+	    break
 	    ;;
 	*)
 	    ;;
@@ -39,23 +39,26 @@ for ((i = 1; i <= ${#}; i++)); do
 done
 
 
-if ${found_var}; then
-#
-# if someone asks for a variable, if it looks like a path (starting with /)
-# prefix it with sysroot
-#
-    "${PKG_CONFIG}" "${@}" |
-    sed -e "s~^/~${SYSROOT}/~"
+if [ -n "${found_var}" ]; then
+    #
+    # if someone asks for a variable, if it looks like a path (starting with /)
+    # prefix it with sysroot
+    #
+    if [ -n "${PTXDIST_PKG_CONFIG_VAR_NO_SYSROOT}" ]; then
+	exec "${PKG_CONFIG}" "${@}"
+    else
+	"${PKG_CONFIG}" "${@}" | sed -e "s~^/~${SYSROOT}/~"
+	check_pipe_status
+    fi
 else
-#
-# 1) protect already given sysroot
-# 2) add sysroot symbol to all absolute paths
-# 3) replace sysroot sign to sysroot path
-#
-    ${PKG_CONFIG} "${@}" |
+    #
+    # 1) protect already given sysroot
+    # 2) add sysroot symbol to all absolute paths
+    # 3) replace sysroot sign to sysroot path
+    #
+    "${PKG_CONFIG}" "${@}" |
     sed -e "s~\-L/*${SYSROOT}/*~-L=/~g; s~\-I/*${SYSROOT}/*~-I=/~g;" \
 	-e "s~\-L/~-L=/~g; s~\-I/~-I=/~g;"                       \
 	-e "s~\-L\=~-L${SYSROOT}~g; s~\-I\=~-I${SYSROOT}~g;"
+    check_pipe_status
 fi
-
-check_pipe_status
