@@ -1,9 +1,9 @@
 ## SECTION=shell_and_console
+
 menuconfig PCMCIAUTILS
 	tristate
 	prompt "pcmcia utils                  "
-	select SYSFSUTILS
-	select SYSFSUTILS_LIB
+	select LIBSYSFS
 	help
 	  PCMCIAutils contains hotplug scripts and initialization tools
 	  necessary to allow the PCMCIA subsystem to behave (almost) as
