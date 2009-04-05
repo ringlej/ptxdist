@@ -1,7 +1,8 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003 by Werner Schmitt mail2ws@gmx.de
+# Copyright (C) 2003 by Werner Schmitt <mail2ws@gmx.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -23,7 +24,6 @@ DB41_SUFFIX	:= tar.gz
 DB41_URL	:= http://download.oracle.com/berkeley-db/$(DB41).$(DB41_SUFFIX)
 DB41_SOURCE	:= $(SRCDIR)/$(DB41).$(DB41_SUFFIX)
 DB41_DIR	:= $(BUILDDIR)/$(DB41)
-DB41_PKGDIR	:= $(PKGDIR)/$(DB41)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -70,8 +70,7 @@ $(STATEDIR)/db41.compile:
 
 $(STATEDIR)/db41.install:
 	@$(call targetinfo)
-	$(DB41_PATH) $(MAKE) -C $(DB41_DIR)/dist install DESTDIR=$(SYSROOT)
-	$(DB41_PATH) $(MAKE) -C $(DB41_DIR)/dist install DESTDIR=$(DB41_PKGDIR)
+	@$(call install, DB41, $(DB41_DIR)/dist)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -86,19 +85,30 @@ $(STATEDIR)/db41.targetinstall:
 	@$(call install_fixup, db41,PRIORITY,optional)
 	@$(call install_fixup, db41,VERSION,$(DB41_VERSION))
 	@$(call install_fixup, db41,SECTION,base)
-	@$(call install_fixup, db41,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, db41,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, db41,DEPENDS,)
 	@$(call install_fixup, db41,DESCRIPTION,missing)
 
-	cd $(DB41_PKGDIR)/usr/bin && for file in db_*; do \
-		$(call install_copy, db41, 0, 0, 0755, $(DB41_PKGDIR)/usr/bin/$$file, /usr/bin/$$file); \
+	@for file in \
+		db_archive \
+		db_checkpoint \
+		db_deadlock \
+		db_dump \
+		db_load \
+		db_printlog \
+		db_recover \
+		db_stat \
+		db_upgrade \
+		db_verify \
+		;do \
+		$(call install_copy, db41, 0, 0, 0755, -, /usr/bin/$$file); \
 	done
 
-	@$(call install_copy, db41, 0, 0, 0644, $(DB41_PKGDIR)/usr/lib/libdb-4.1.so, /usr/lib/libdb-4.1.so)
+	@$(call install_copy, db41, 0, 0, 0644, -, /usr/lib/libdb-4.1.so)
 	@$(call install_link, db41, libdb-4.1.so, /usr/lib/libdb-4.so)
 	@$(call install_link, db41, libdb-4.1.so, /usr/lib/libdb.so)
 
-	@$(call install_copy, db41, 0, 0, 0644, $(DB41_PKGDIR)/usr/lib/libdb_cxx-4.1.so, /usr/lib/libdb_cxx-4.1.so)
+	@$(call install_copy, db41, 0, 0, 0644, -, /usr/lib/libdb_cxx-4.1.so)
 	@$(call install_link, db41, libdb_cxx-4.1.so, /usr/lib/libdb_cxx-4.so)
 	@$(call install_link, db41, libdb_cxx-4.1.so, /usr/lib/libdb_cxx.so)
 
