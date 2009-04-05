@@ -13,6 +13,7 @@ if WIRELESS
 
 config WIRELESS_SHARED
 	bool "Build shared"
+	default y
 	help
 	  Building shared version of wireless tools and
 	  installing a shared library libiw.so onto target.
