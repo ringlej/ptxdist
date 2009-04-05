@@ -2,6 +2,7 @@
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,83 +29,51 @@ HACKBENCH_DIR		:= $(BUILDDIR)/$(HACKBENCH)
 # Get
 # ----------------------------------------------------------------------------
 
-hackbench_get: $(STATEDIR)/hackbench.get
-
-$(STATEDIR)/hackbench.get: $(hackbench_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(HACKBENCH_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, HACKBENCH)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-hackbench_extract: $(STATEDIR)/hackbench.extract
-
-$(STATEDIR)/hackbench.extract: $(hackbench_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HACKBENCH_DIR))
-	@$(call extract, HACKBENCH)
-	@$(call patchin, HACKBENCH)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-hackbench_prepare: $(STATEDIR)/hackbench.prepare
-
 HACKBENCH_PATH	:= PATH=$(CROSS_PATH)
 HACKBENCH_ENV 	:= $(CROSS_ENV)
 
-#
-# autoconf
-#
-HACKBENCH_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/hackbench.prepare: $(hackbench_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/hackbench.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-hackbench_compile: $(STATEDIR)/hackbench.compile
-
-$(STATEDIR)/hackbench.compile: $(hackbench_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/hackbench.compile:
+	@$(call targetinfo)
 	cd $(HACKBENCH_DIR) && $(HACKBENCH_PATH) CC=$(CROSS_CC) $(MAKE) $(PARALLELMFLAGS) hackbench
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-hackbench_install: $(STATEDIR)/hackbench.install
-
-$(STATEDIR)/hackbench.install: $(hackbench_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/hackbench.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-hackbench_targetinstall: $(STATEDIR)/hackbench.targetinstall
-
-$(STATEDIR)/hackbench.targetinstall: $(hackbench_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/hackbench.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, hackbench)
 	@$(call install_fixup, hackbench,PACKAGE,hackbench)
 	@$(call install_fixup, hackbench,PRIORITY,optional)
 	@$(call install_fixup, hackbench,VERSION,$(HACKBENCH_VERSION))
 	@$(call install_fixup, hackbench,SECTION,base)
-	@$(call install_fixup, hackbench,AUTHOR,"Michael Olbrich <m.olbrich\@pengutronix.de>")
+	@$(call install_fixup, hackbench,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, hackbench,DEPENDS,)
 	@$(call install_fixup, hackbench,DESCRIPTION,missing)
 
@@ -112,7 +81,7 @@ $(STATEDIR)/hackbench.targetinstall: $(hackbench_targetinstall_deps_default)
 
 	@$(call install_finish, hackbench)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
