@@ -135,67 +135,67 @@ config INITMETHOD_BBINIT_LINK_MYSQL
 
 config INITMETHOD_BBINIT_LINK_NFSD
 	string
-	depends on NFSD
+	depends on NFSUTILS_NFSD_STARTSCRIPT
 	prompt "nfsd"
 	default "S95nfsd"
 
 config INITMETHOD_BBINIT_LINK_NTP
 	string
-	depends on NTP
+	depends on NTP_NTPD_STARTSCRIPT
 	prompt "ntp"
 	default "S20ntp"
 
 config INITMETHOD_BBINIT_LINK_NTPCLIENT
 	string
-	depends on NTPCLIENT
+	depends on NTPCLIENT_STARTSCRIPT
 	prompt "ntpclient"
 	default "S20ntpclient"
 
 config INITMETHOD_BBINIT_LINK_OPENSSH
 	string
-	depends on OPENSSH
+	depends on OPENSSH_SSHD_STARTSCRIPT
 	prompt "openssh"
 	default "S16openssh"
 
-config INITMETHOD_BBINIT_LINK_PORTMAPD
+config INITMETHOD_BBINIT_LINK_PORTMAP
 	string
-	depends on PORTMAPD
-	prompt "portmapd"
+	depends on PORTMAP_STARTSCRIPT
+	prompt "portmap"
 	default ""
 
 config INITMETHOD_BBINIT_LINK_PPPD
 	string
-	depends on PPPD
+	depends on PPP_STARTSCRIPT
 	prompt "pppd"
 	default ""
 
 config INITMETHOD_BBINIT_LINK_PROFTPD
 	string
-	depends on PROFTPD
+	depends on PROFTPD_STARTSCRIPT
 	prompt "proftpd"
 	default "S91proftpd"
 
 config INITMETHOD_BBINIT_LINK_PUREFTPD
 	string
-	depends on PUREFTPD
+	depends on PUREFTPD_STARTSCRIPT
 	prompt "pureftpd"
 	default "S91pureftpd"
 
 config INITMETHOD_BBINIT_LINK_RSYNCD
 	string
-	depends on RSYNCD
+	depends on RSYNC_STARTSCRIPT || RSYNC3_STARTSCRIPT
 	prompt "rsyncd"
 	default "S20rsyncd"
 
 config INITMETHOD_BBINIT_LINK_SAMBA
 	string
-	depends on SAMBA
+	depends on SAMBA_STARTSCRIPT
 	prompt "samba"
 	default "S95samba"
 
 config INITMETHOD_BBINIT_LINK_SYSLOG_NG
 	string
-	depends on SYSLOG_NG
+	depends on SYSLOGNG_STARTSCRIPT
 	prompt "syslog-ng"
 	default "S10syslogd"
 
@@ -207,13 +207,13 @@ config INITMETHOD_BBINIT_LINK_TELNETD
 
 config INITMETHOD_BBINIT_LINK_THTTPD
 	string
-	depends on THTTPD
+	depends on THTTPD_STARTSCRIPT
 	prompt "thttpd"
 	default "S91thttpd"
 
 config INITMETHOD_BBINIT_LINK_UDEV
 	string
-	depends on UDEV
+	depends on UDEV_STARTSCRIPT
 	prompt "udev"
 	default "S00udev"
 
