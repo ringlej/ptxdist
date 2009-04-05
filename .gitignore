@@ -7,11 +7,13 @@ Makefile
 .done
 
 *.orig
+*.swp
 *~
 \#*#
 
 platforms/ptxdist-version.in
 rules/ptxdist-version.in
+rules/logfile
 
 scripts/ptxdist_version.sh
 scripts/kconfig/conf
