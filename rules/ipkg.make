@@ -89,7 +89,7 @@ endif
 ifdef PTXCONF_IPKG_GENERIC_IPKG_CONF
 	@$(call install_copy, ipkg, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
-	$(call install_replace, ipkg, /etc/ipkg.conf, @SRC@, \
+	@$(call install_replace, ipkg, /etc/ipkg.conf, @SRC@, \
 		$(PTXCONF_IPKG_GENERIC_IPKG_CONF_URL))
 	@$(call install_replace, ipkg, /etc/ipkg.conf, @ARCH@, \
 		$(PTXDIST_IPKG_ARCH_STRING))
