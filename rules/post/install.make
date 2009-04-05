@@ -93,7 +93,7 @@ install_copy = 											\
 		(0 | n | no)									\
 			;;									\
 		(*)											\
-			file "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST" | grep -q "not stripped";		\
+			file "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST" | egrep -q ":.*executable.*stripped";	\
 				case "$$?" in								\
 				(0)									\
 				$(CROSS_STRIP) -R .note -R .comment "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST";\
@@ -108,7 +108,7 @@ install_copy = 											\
 				fi;									\
 				;;									\
 				(1)									\
-				echo "no unstripped binary - skipping";					\
+				echo "no binary - skipping";						\
 				;;									\
 				esac;									\
 			;;										\
