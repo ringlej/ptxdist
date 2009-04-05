@@ -28,7 +28,6 @@ UDEV_URL := \
 	http://www.eu.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX) \
 	http://www.us.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -85,9 +84,9 @@ $(STATEDIR)/udev.targetinstall:
 	@$(call install_fixup, udev,DEPENDS,)
 	@$(call install_fixup, udev,DESCRIPTION,missing)
 
-	#
-	# binaries
-	#
+#	#
+#	# binaries
+#	#
 
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevd)
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevadm)
@@ -95,9 +94,9 @@ ifdef PTXCONF_UDEV__INSTALL_TEST_UDEV
 	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev/test-udev, /sbin/test-udev)
 endif
 
-	#
-	# default rules
-	#
+#	#
+#	# default rules
+#	#
 
 ifdef PTXCONF_UDEV__DEFAULT_RULES
 	@cd $(UDEV_DIR)/rules/rules.d; \
@@ -107,17 +106,13 @@ ifdef PTXCONF_UDEV__DEFAULT_RULES
 endif
 
 ifdef PTXCONF_UDEV__COMMON_RULES
-	$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-alsa.rules, \
+	$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/udev/rules.d/40-alsa.rules, n);
-	$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-isdn.rules, \
+	$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/udev/rules.d/40-isdn.rules, n);
-	$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/64-device-mapper.rules, \
+	$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/udev/rules.d/64-device-mapper.rules, n);
-	$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/64-md-raid.rules, \
+	$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/udev/rules.d/64-md-raid.rules, n);
 endif
 
@@ -128,25 +123,25 @@ ifdef PTXCONF_UDEV__CUST_RULES
 	done
 endif
 
-	#
-	# startup script
-	#
+#	#
+#	# startup script
+#	#
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_UDEV_STARTSCRIPT
 	@$(call install_alternative, udev, 0, 0, 0755, /etc/init.d/udev)
 endif
 endif
 
-	#
-	# Install a configuration on demand only
-	#
+#	#
+#	# Install a configuration on demand only
+#	#
 ifdef PTXCONF_UDEV__ETC_CONF
 	@$(call install_alternative, udev, 0, 0, 0644, /etc/udev/udev.conf)
 endif
 
-	#
-	# utilities from extra/
-	#
+#	#
+#	# utilities from extra/
+#	#
 ifdef PTXCONF_UDEV__EXTRA_ATA_ID
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/ata_id)
 endif
