@@ -90,7 +90,9 @@ $(STATEDIR)/syslogng.targetinstall:
 		$(SYSLOGNG_DIR)/src/syslog-ng, /sbin/syslog-ng)
 
 #	# config
+ifdef PTXCONF_SYSLOGNG_CONFIG
 	@$(call install_alternative, syslogng, 0, 0, 0644, /etc/syslog-ng.conf, n)
+endif
 
 #	# bb init: start scripts
 ifdef PTXCONF_INITMETHOD_BBINIT

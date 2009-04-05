@@ -14,19 +14,6 @@ menuconfig SYSLOGNG
 
 if SYSLOGNG
 
-# disabled. Feature implementations are broken
-#config SYSLOGNG_SUNSTREAMS
-#	bool
-#	prompt "sun streams support"
-#	help
-#	  Support for Sun STREAMS.
-#
-#config SYSLOGNG_SUNDOOR
-#	bool
-#	prompt "sun door support"
-#	help
-#	  Support for Sun door
-
 config SYSLOGNG__IPV6
 	bool
 	prompt "Support ipv6"
@@ -56,38 +43,23 @@ config SYSLOGNG__SPOOF_SOURCE
 
 comment "runtime options   ---"
 
-config ROOTFS_ETC_SYSLOGNG_CONFIG
+config SYSLOGNG_CONFIG
 	bool
 	default y
 	prompt "Install configuration file"
 	help
-	  Installs a /etc/syslog-ng.conf from a selectable source.
-
-	choice
-		prompt "Kind of configuration file"
-		depends on ROOTFS_ETC_SYSLOGNG_CONFIG
-		default ROOTFS_ETC_SYSLOGNG_CONFIG_DEFAULT
-
-		config ROOTFS_ETC_SYSLOGNG_CONFIG_DEFAULT
-			bool
-			prompt "Use generic"
-			help
-			  Installs a generic /etc/syslog-ng.conf.
-			  See <ptxdist-install>/generic/etc/syslog-ng.conf
-
-		config ROOTFS_ETC_SYSLOGNG_CONFIG_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined syslog-ng.conf file. PTXdist
-			  uses file projectroot/etc/syslog-ng.conf in your local
-			  project
-
-	endchoice
+	  Installs (if present) the "./projectroot/etc/syslog-ng.conf"
+	  file from your workspace, otherwise a generic one from the
+	  ptxdist installation
+	  ("<PTXDIST>/generic/etc/syslog-ng.conf").
 
 config SYSLOGNG_STARTSCRIPT
 	bool
 	default y
-	prompt "install /etc/init.d/syslog-ng"
+
+	  Installs (if present) the
+	  "./projectroot/etc/init.d/syslog-ng" startscript from your
+	  workspace, otherwise a generic one from the ptxdist
+	  installation ("<PTXDIST>/generic/etc/init.d/syslog-ng").
 
 endif
