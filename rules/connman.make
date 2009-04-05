@@ -220,7 +220,7 @@ endif
 
 #	# python tests
 ifdef PTXCONF_CONNMAN_TESTS
-	for i in \
+	@for i in \
 		connect-network \
 		create-network \
 		debug-connman \
