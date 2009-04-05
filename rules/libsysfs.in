@@ -1,0 +1,10 @@
+## SECTION=system_libraries
+
+config LIBSYSFS
+	tristate
+	prompt "libsysfs"
+	help
+	  Sysfs is a virtual file system in Linux kernel 2.5+ that
+	  provides a tree of system devices. libsysfs provides a
+	  stable programming interface to sysfs and eases querying
+	  system devices and their attributes.
