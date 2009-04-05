@@ -1,0 +1,109 @@
+From: http://ftp.de.debian.org/debian/pool/main/b/bing/bing_1.1.3-2.diff.gz
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+--- bing-1.1.3.orig/bing.c
++++ bing-1.1.3/bing.c
+@@ -104,7 +104,9 @@
+ #include <math.h>
+ 
+ /* More specific includes/declarations */
++#ifndef __GNU__
+ #include <limits.h>
++#endif /* __GNU__ */
+ #include <ctype.h>
+ #include <string.h>
+ #include <memory.h>
+@@ -152,7 +154,9 @@
+  * standard libraries.
+  */
+ #include <netinet/ip.h>
++#ifndef __GNU__
+ #include <netinet/ip_var.h>
++#endif /* __GNU__ */
+ #include <netinet/ip_icmp.h>
+ 
+ #include "mod_icmp.h"
+@@ -320,9 +324,7 @@
+ 
+ struct hoststats {
+ 	/* Host info */
+-	char hnamebuf[MAXHOSTNAMELEN];
+ 	char *hostname;
+-	struct sockaddr_in whereto;
+ 	struct sockaddr_in *to;
+ 	struct timestats *ts;
+ };
+@@ -365,28 +367,19 @@
+ 	struct hoststats *hs;
+ 	char *target;
+ {
+-	struct hostent *hp;
++	struct addrinfo hints, *ai;
++	int r;
+ 
+-	hs->to = &hs->whereto;
+-
+-	memset((char *)hs->to, 0, sizeof(struct sockaddr_in));
+-	hs->to->sin_family = AF_INET;
+-	hs->to->sin_addr.s_addr = inet_addr(target);
+-	if (hs->to->sin_addr.s_addr != (u_int)-1)
+-		hs->hostname = target;
+-	else {
+-		hp = gethostbyname(target);
+-		if (!hp) {
+-			(void)fprintf(stderr,
+-			    "bing: unknown host %s\n", target);
+-			exit(1);
+-		}
+-		hs->to->sin_family = hp->h_addrtype;
+-		memcpy((caddr_t)&hs->to->sin_addr, hp->h_addr, hp->h_length);
+-		strncpy(hs->hnamebuf, hp->h_name, sizeof(hs->hnamebuf) - 1);
+-		hs->hnamebuf[sizeof(hs->hnamebuf)-1] = '\0';
+-		hs->hostname = hs->hnamebuf;
++	memset(&hints, 0, sizeof hints);
++	hints.ai_family = AF_INET;
++	hints.ai_flags = AI_CANONNAME;
++	if((r = getaddrinfo(target, NULL, &hints, &ai))) {
++		fprintf(stderr, "bing: couldn't resolve %s: %s\n",
++				target, gai_strerror(r));
++		exit(1);
+ 	}
++	hs->to = (struct sockaddr_in *) ai->ai_addr;
++	hs->hostname = ai->ai_canonname;
+ }
+ 
+ void randomfill(bp, len, seed)
+@@ -677,18 +670,22 @@
+ pr_addr(l)
+ 	u_long l;
+ {
+-	struct hostent *hp;
+-	static char buf[80];
++	static char buf[MAXHOSTNAMELEN+19];
++	struct sockaddr_in sa;
++	int r;
++
++	sa.sin_family = AF_INET;
++	sa.sin_port = 0;
++	memcpy(&sa.sin_addr, &l, sizeof l);
++
++	r = getnameinfo((struct sockaddr *) &sa, sizeof sa, buf, sizeof buf,
++			NULL, 0, (options & F_NUMERIC) ? NI_NUMERICHOST : 0);
++	if(r) {
++		fprintf(stderr, "bing: getaddrinfo: %s\n", gai_strerror(r));
++		exit(1);
++	}
+ 
+-	if ((options & F_NUMERIC) ||
+-	    !(hp = gethostbyaddr((char *)&l, 4, AF_INET)))
+-	    (void)snprintf(snfargs(buf, sizeof(buf), "%s"), 
+-			   inet_ntoa(*(struct in_addr *)&l));
+-	else
+-	    (void)snprintf(snfargs(buf, sizeof(buf), "%s (%s)"),
+-			   hp->h_name,
+-			   inet_ntoa(*(struct in_addr *)&l));
+-	return(buf);
++	return buf;
+ }
+ 
+ /*
