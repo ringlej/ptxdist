@@ -5,4 +5,8 @@ config UPSTART
 	select DBUS
 	prompt "upstart"
 	help
-	  FIXME
+	  upstart is a replacement for the /sbin/init daemon which
+	  handles starting of tasks and services during boot, stopping
+	  them during shutdown and supervising them while the system
+	  is running.
+
