@@ -91,22 +91,20 @@ $(STATEDIR)/dbus.targetinstall:
 	@$(call install_fixup,dbus,DEPENDS,)
 	@$(call install_fixup,dbus,DESCRIPTION,missing)
 
-	@$(call install_copy, dbus, 0, 0, 0755, $(DBUS_DIR)/bus/dbus-daemon, \
+	@$(call install_copy, dbus, 0, 0, 0755, -, \
 		/usr/bin/dbus-daemon)
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/dbus-cleanup-sockets, \
+	@$(call install_copy, dbus, 0, 0, 0755, -, \
 		/usr/bin/dbus-cleanup-sockets)
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/dbus-launch, /usr/bin/dbus-launch)
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/dbus-monitor, /usr/bin/dbus-monitor)
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/dbus-send, /usr/bin/dbus-send)
-	@$(call install_copy, dbus, 0, 0, 0755, \
-		$(DBUS_DIR)/tools/dbus-uuidgen, /usr/bin/dbus-uuidgen)
+	@$(call install_copy, dbus, 0, 0, 0755, -, \
+		/usr/bin/dbus-launch)
+	@$(call install_copy, dbus, 0, 0, 0755, -, \
+		/usr/bin/dbus-monitor)
+	@$(call install_copy, dbus, 0, 0, 0755, -, \
+		/usr/bin/dbus-send)
+	@$(call install_copy, dbus, 0, 0, 0755, -, \
+		/usr/bin/dbus-uuidgen)
 
-	@$(call install_copy, dbus, 0, 0, 0644, \
-		$(DBUS_DIR)/dbus/.libs/libdbus-1.so.3.4.0, \
+	@$(call install_copy, dbus, 0, 0, 0644, -, \
 		/usr/lib/libdbus-1.so.3.4.0)
 	@$(call install_link, dbus, libdbus-1.so.3.4.0, /usr/lib/libdbus-1.so.3)
 	@$(call install_link, dbus, libdbus-1.so.3.4.0, /usr/lib/libdbus-1.so)
@@ -126,8 +124,8 @@ $(STATEDIR)/dbus.targetinstall:
 #	# use the default /etc/dbus-1/system.conf config file
 #	#
 ifdef PTXCONF_ROOTFS_GENERIC_DBUS_SYSTEM_CONF
-	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/system.conf, \
-		/etc/dbus-1/system.conf,n)
+	@$(call install_copy, dbus, 0, 0, 0644, -, \
+		/etc/dbus-1/system.conf)
 endif
 
 #	#
@@ -137,15 +135,15 @@ ifdef PTXCONF_ROOTFS_USER_DBUS_SYSTEM_CONF
 	@echo "installing user system config file..."
 	@$(call install_copy, dbus, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/dbus-1/system.conf, \
-		/etc/dbus-1/system.conf,n)
+		/etc/dbus-1/system.conf)
 endif
 
 #	#
 #	# use the default /etc/dbus-1/session.conf config file
 #	#
 ifdef PTXCONF_ROOTFS_GENERIC_DBUS_SESSION_CONF
-	@$(call install_copy, dbus, 0, 0, 0644, $(DBUS_DIR)/bus/session.conf, \
-		/etc/dbus-1/session.conf,n)
+	@$(call install_copy, dbus, 0, 0, 0644, -, \
+		/etc/dbus-1/session.conf)
 endif
 
 #	#
@@ -155,7 +153,7 @@ ifdef PTXCONF_ROOTFS_USER_DBUS_SESSION_CONF
 	@echo "installing user session config file..."
 	@$(call install_copy, dbus, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/dbus-1/session.conf, \
-		/etc/dbus-1/session.conf,n)
+		/etc/dbus-1/session.conf)
 endif
 
 
