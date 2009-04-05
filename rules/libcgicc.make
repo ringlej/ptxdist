@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2005 by Alessio Igor Bogani
-#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,13 +18,12 @@ PACKAGES-$(PTXCONF_LIBCGICC) += libcgicc
 #
 # Paths and names
 #
-LIBCGICC_VERSION	:= 3.2.7
+LIBCGICC_VERSION	:= 3.2.8-ptx1
 LIBCGICC		:= cgicc-$(LIBCGICC_VERSION)
 LIBCGICC_SUFFIX		:= tar.gz
 LIBCGICC_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/cgicc/$(LIBCGICC).$(LIBCGICC_SUFFIX)
 LIBCGICC_SOURCE		:= $(SRCDIR)/$(LIBCGICC).$(LIBCGICC_SUFFIX)
 LIBCGICC_DIR		:= $(BUILDDIR)/$(LIBCGICC)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -58,11 +57,11 @@ $(STATEDIR)/libcgicc.targetinstall:
 	@$(call install_fixup, libcgicc,PRIORITY,optional)
 	@$(call install_fixup, libcgicc,VERSION,$(LIBCGICC_VERSION))
 	@$(call install_fixup, libcgicc,SECTION,base)
-	@$(call install_fixup, libcgicc,AUTHOR,"Carsten Schlote <c.schlote\@konzeptpark.de>")
+	@$(call install_fixup, libcgicc,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
 	@$(call install_fixup, libcgicc,DEPENDS,)
 	@$(call install_fixup, libcgicc,DESCRIPTION,missing)
 
-	@$(call install_copy, libcgicc, 0,0, 644, $(LIBCGICC_DIR)/cgicc/.libs/libcgicc.so.5.0.2, /usr/lib/libcgicc.so.5.0.2)
+	@$(call install_copy, libcgicc, 0,0, 644, -, /usr/lib/libcgicc.so.5.0.2)
 	@$(call install_link, libcgicc, libcgicc.so.5.0.2, /usr/lib/libcgicc.so.5)
 	@$(call install_link, libcgicc, libcgicc.so.5.0.2, /usr/lib/libcgicc.so)
 
