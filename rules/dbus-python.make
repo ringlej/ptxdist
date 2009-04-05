@@ -41,7 +41,7 @@ $(STATEDIR)/dbus-python.extract:
 	@$(call clean, $(DBUS_PYTHON_DIR))
 	@$(call extract, DBUS_PYTHON)
 	@$(call patchin, DBUS_PYTHON)
-	# touch autoconf files in correct order
+#	# touch autoconf files in correct order
 	cd $(DBUS_PYTHON_DIR); \
 	touch aclocal.m4; \
 	find . -name "Makefile.in" | xargs touch; \
@@ -81,7 +81,7 @@ $(STATEDIR)/dbus-python.targetinstall:
 	@$(call install_fixup, dbus-python,DESCRIPTION,missing)
 
 
-	for i in \
+	@for i in \
 		/usr/lib/python2.4/site-packages/dbus_bindings.pyc \
 		/usr/lib/python2.4/site-packages/dbus/bus.pyc \
 		/usr/lib/python2.4/site-packages/dbus/connection.pyc \
@@ -105,10 +105,10 @@ $(STATEDIR)/dbus-python.targetinstall:
 		$(call install_copy, dbus-python, 0, 0, 0644, -, $$i); \
 	done
 
-	$(call install_copy, dbus-python, 0, 0, 0644, -, \
+	@$(call install_copy, dbus-python, 0, 0, 0644, -, \
 		/usr/lib/python2.4/site-packages/_dbus_bindings.so)
 
-	$(call install_copy, dbus-python, 0, 0, 0644, -, \
+	@$(call install_copy, dbus-python, 0, 0, 0644, -, \
 		/usr/lib/python2.4/site-packages/_dbus_glib_bindings.so)
 
 	@$(call install_finish, dbus-python)
