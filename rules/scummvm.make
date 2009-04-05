@@ -39,6 +39,8 @@ $(SCUMMVM_SOURCE):
 SCUMMVM_PATH	:= PATH=$(CROSS_PATH)
 SCUMMVM_ENV 	:= $(CROSS_ENV)
 
+SCUMMVM_MAKEVARS := AS=$(CROSS_AS)
+
 #
 # autoconf
 #
@@ -52,9 +54,6 @@ $(STATEDIR)/scummvm.prepare:
 		$(SCUMMVM_PATH) $(SCUMMVM_ENV) \
 		./configure $(SCUMMVM_AUTOCONF)
 	@$(call touch)
-
-# as is not detected is configure
-SCUMMVM_MAKEVARS := AS=$(CROSS_AS)
 
 $(STATEDIR)/scummvm.install:
 	@$(call targetinfo)
@@ -72,11 +71,11 @@ $(STATEDIR)/scummvm.targetinstall:
 	@$(call install_fixup, scummvm,PRIORITY,optional)
 	@$(call install_fixup, scummvm,VERSION,$(SCUMMVM_VERSION))
 	@$(call install_fixup, scummvm,SECTION,base)
-	@$(call install_fixup, scummvm,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, scummvm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, scummvm,DEPENDS,)
 	@$(call install_fixup, scummvm,DESCRIPTION,missing)
 
-	@$(call install_copy, scummvm, 0, 0, 0755, $(SCUMMVM_DIR)/scummvm, /usr/bin/scummvm)
+	@$(call install_copy, scummvm, 0, 0, 0755, -, /usr/bin/scummvm)
 
 	@$(call install_finish, scummvm)
 
