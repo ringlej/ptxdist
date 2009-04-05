@@ -33,17 +33,6 @@ $(HAL_SOURCE):
 	@$(call get, HAL)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/hal.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HAL_DIR))
-	@$(call extract, HAL)
-	@$(call patchin, HAL)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -136,8 +125,8 @@ $(STATEDIR)/hal.targetinstall:
 	@$(call install_fixup, hal,DEPENDS,)
 	@$(call install_fixup, hal,DESCRIPTION,missing)
 
-	# binaries
-	for i in \
+#	# binaries
+	@for i in \
 		/usr/bin/hal-is-caller-locked-out \
 		/usr/bin/hal-set-property \
 		/usr/bin/hal-device \
@@ -180,8 +169,8 @@ $(STATEDIR)/hal.targetinstall:
 		$(call install_copy, hal, 0, 0, 0755, -, $$i); \
 	done
 
-	# non-binaries
-	for i in \
+#	# non-binaries
+	@for i in \
 		/usr/share/hal/fdi/fdi.dtd \
 		/usr/share/hal/fdi/policy/10osvendor/30-wol.fdi \
 		/usr/share/hal/fdi/policy/10osvendor/10-laptop-panel-mgmt-policy.fdi \
@@ -198,7 +187,7 @@ $(STATEDIR)/hal.targetinstall:
 		$(call install_copy, hal, 0, 0, 0644, -, $$i); \
 	done
 
-	# libs
+#	# libs
 	@$(call install_copy, hal, 0, 0, 0644, -, /usr/lib/libhal.so.1.0.0)
 	@$(call install_link, hal, libhal.so.1.0.0, /usr/lib/libhal.so.1)
 	@$(call install_link, hal, libhal.so.1.0.0, /usr/lib/libhal.so)
@@ -207,8 +196,8 @@ $(STATEDIR)/hal.targetinstall:
 	@$(call install_link, hal, libhal-storage.so.1.0.0, /usr/lib/libhal.so.1)
 	@$(call install_link, hal, libhal-storage.so.1.0.0, /usr/lib/libhal.so)
 
-	# scripts
-	for i in \
+#	# scripts
+	@for i in \
 		/usr/lib/hal/scripts/hal-dockstation-undock \
 		/usr/lib/hal/scripts/hal-system-lcd-get-brightness \
 		/usr/lib/hal/scripts/hal-system-killswitch-set-power \
@@ -249,7 +238,7 @@ $(STATEDIR)/hal.targetinstall:
 		$(call install_copy, hal, 0, 0, 0644, -, $$i); \
 	done
 
-	# directories
+#	# directories
 	@$(call install_copy, hal, 0, 0, 0755, /usr/share/hal/fdi/information/20thirdparty)
 	@$(call install_copy, hal, 0, 0, 0755, /usr/share/hal/fdi/preprobe/10osvendor)
 	@$(call install_copy, hal, 0, 0, 0755, /usr/share/hal/fdi/preprobe/20thirdparty)
@@ -262,7 +251,7 @@ $(STATEDIR)/hal.targetinstall:
 	@$(call install_copy, hal, 0, 0, 0755, /etc/hal/fdi/information)
 	@$(call install_copy, hal, 0, 0, 0755, /etc/hal/fdi/preprobe)
 
-	# config files
+#	# config files
 	@$(call install_copy, hal, 0, 0, 0644, -, /etc/udev/rules.d/90-hal.rules)
 	@$(call install_copy, hal, 0, 0, 0644, -, /etc/dbus-1/system.d/hal.conf)
 
