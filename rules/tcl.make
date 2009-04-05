@@ -1,3 +1,4 @@
+# -*-makefile-*-
 #
 # Copyright (C) 2009 by Juergen Beisert
 #
@@ -32,17 +33,6 @@ TCL_DIR		:= $(BUILDDIR)/$(TCL)
 $(TCL_SOURCE):
 	@$(call targetinfo)
 	@$(call get, TCL)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/tcl.extract:
-	@$(call targetinfo)
-	@$(call clean, $(TCL_DIR))
-	@$(call extract, TCL)
-	@$(call patchin, TCL)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -116,7 +106,7 @@ $(STATEDIR)/tcl.compile:
 
 $(STATEDIR)/tcl.install:
 	@$(call targetinfo)
-	@$(call install, TCL, $(TCL_DIR)/unix, DESTDIR=$(PTXCONF_SYSROOT_TARGET) install)
+	@$(call install, TCL, $(TCL_DIR)/unix)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
