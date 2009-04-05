@@ -1486,7 +1486,7 @@ parse_second()
 
 	if [ $# -eq 0 ]; then
 		usage
-		exit 0
+		exit
 	fi
 
 	local kernellink="${PTXDIST_WORKSPACE}/.kernel"
@@ -1499,12 +1499,12 @@ parse_second()
 ######## --*
 		--version|version)
 			echo "${PTXDIST_VERSION_FULL}"
-			exit 0
+			exit
 			;;
 
 		--help|help)
 			usage
-			exit 0
+			exit
 			;;
 
 ######## standard target, directly into make
@@ -1517,7 +1517,7 @@ parse_second()
 				local cmd_post=".post"
 			fi
 			ptxd_make_log "${STATEDIR}/${1}.${cmd}${cmd_post}"
-			exit 0
+			exit ${?}
 			;;
 
 ######## *config, *setup, toolchain
@@ -1610,7 +1610,7 @@ parse_second()
 			check_config || return
 			check_deps
 			clean "${1}"
-			exit 0
+			exit
 			;;
 		clone)
 			if [ $# -ne 2 ]; then
@@ -1619,7 +1619,7 @@ parse_second()
 			fi
 
 			clone "${1}" "${2}"
-			exit 0
+			exit
 			;;
 		distclean)
 			clean
@@ -1642,12 +1642,12 @@ parse_second()
 			rm -f -- "${PTX_LOGFILE}" "${PTXDIST_WORKSPACE}/logfile"
 
 			echo
-			exit 0
+			exit
 			;;
 		drop)
 			check_config || return
 			drop "${1}" "${2}"
-			exit 0
+			exit
 			;;
 		export_src)
 			if [ -z "${1}" ]; then
@@ -1665,7 +1665,7 @@ parse_second()
 			check_config || return
 			check_deps
 			ptxd_make_log export_src EXPORTDIR="${1}"
-			exit 0
+			exit
 			;;
 		get)
 			check_config || return
@@ -1676,7 +1676,7 @@ parse_second()
 				check_if_selected "${1}" || return
 				ptxd_make_log "${STATEDIR}/${1}.get"
 			fi
-			exit 0
+			exit
 			;;
 		go|images)
 			do_${cmd}
@@ -1685,7 +1685,7 @@ parse_second()
 		make)
 			check_premake || return
 			ptxd_make_log "${1}"
-			exit 0
+			exit
 			;;
 		menu)
 			if [ \! -x "$(which dialog 2>/dev/null)" ]; then
@@ -1696,7 +1696,7 @@ parse_second()
 			fi
 			PTX_MENU=true
 			while menu; do true; done
-			exit 0
+			exit
 			;;
 
 		newpacket)
@@ -1723,11 +1723,11 @@ parse_second()
 					exit 1
 				}
 			fi
-			exit 0
+			exit
 			;;
 		projects)
 			projects
-			exit 0
+			exit
 			;;
 		test)
 			check_config || return
@@ -1741,7 +1741,7 @@ parse_second()
 			#	# FIXME
 			#	echo "available tests:"
 			#	find $PTXDIST_WORKSPACE/tests -maxdepth 1 -type f -exec basename {} \;
-			#	exit 0
+			#	exit
 			#fi
 
 			for tst in \
