@@ -44,21 +44,10 @@ DIRECTFB_ENV 	= \
 	$(CROSS_ENV) \
 	DIRECTFB_CSOURCE=$(HOST_DIRECTFB_DIR)/tools/directfb-csource
 
-ifdef PTXCONF_DIRECTFB_INPUT_KEYBOARD
-DIRECTFB_INPUT += keyboard
-endif
-
-ifdef PTXCONF_DIRECTFB_INPUT_LINUXINPUT
-DIRECTFB_INPUT += linuxinput
-endif
-
-ifdef PTXCONF_DIRECTFB_INPUT_PS2MOUSE
-DIRECTFB_INPUT += ps2mouse
-endif
-
-ifdef PTXCONF_DIRECTFB_INPUT_TSLIB
-DIRECTFB_INPUT += tslib
-endif
+DIRECTFB_INPUT-$(PTXCONF_DIRECTFB_INPUT_KEYBOARD)	+= keyboard
+DIRECTFB_INPUT-$(PTXCONF_DIRECTFB_INPUT_LINUXINPUT)	+= linuxinput
+DIRECTFB_INPUT-$(PTXCONF_DIRECTFB_INPUT_PS2MOUSE)	+= ps2mouse
+DIRECTFB_INPUT-$(PTXCONF_DIRECTFB_INPUT_TSLIB)		+= tslib
 
 #
 # autoconf
@@ -76,7 +65,7 @@ DIRECTFB_AUTOCONF := \
 	--disable-video4linux \
 	--disable-video4linux2 \
 	--with-gfxdrivers=none \
-	--with-inputdrivers=$(subst $(space),$(comma),$(DIRECTFB_INPUT)) \
+	--with-inputdrivers=$(subst $(space),$(comma),$(DIRECTFB_INPUT-y)) \
 	--enable-fbdev \
 	--disable-x11
 
@@ -170,7 +159,7 @@ $(STATEDIR)/directfb.targetinstall:
 	@$(call install_fixup,directfb,PRIORITY,optional)
 	@$(call install_fixup,directfb,VERSION,$(DIRECTFB_VERSION))
 	@$(call install_fixup,directfb,SECTION,base)
-	@$(call install_fixup,directfb,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,directfb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,directfb,DEPENDS,)
 	@$(call install_fixup,directfb,DESCRIPTION,missing)
 
