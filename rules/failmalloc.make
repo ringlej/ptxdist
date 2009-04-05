@@ -33,17 +33,6 @@ $(FAILMALLOC_SOURCE):
 	@$(call get, FAILMALLOC)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/failmalloc.extract:
-	@$(call targetinfo)
-	@$(call clean, $(FAILMALLOC_DIR))
-	@$(call extract, FAILMALLOC)
-	@$(call patchin, FAILMALLOC)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -53,35 +42,10 @@ FAILMALLOC_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-FAILMALLOC_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+FAILMALLOC_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--enable-static=no \
 	--disable-dependency-tracking
-
-$(STATEDIR)/failmalloc.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(FAILMALLOC_DIR)/config.cache)
-	cd $(FAILMALLOC_DIR) && \
-		$(FAILMALLOC_PATH) $(FAILMALLOC_ENV) \
-		./configure $(FAILMALLOC_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/failmalloc.compile:
-	@$(call targetinfo)
-	cd $(FAILMALLOC_DIR) && $(FAILMALLOC_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/failmalloc.install:
-	@$(call targetinfo)
-	@$(call install, FAILMALLOC)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
