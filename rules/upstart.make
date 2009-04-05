@@ -33,17 +33,6 @@ $(UPSTART_SOURCE):
 	@$(call get, UPSTART)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/upstart.extract:
-	@$(call targetinfo)
-	@$(call clean, $(UPSTART_DIR))
-	@$(call extract, UPSTART)
-	@$(call patchin, UPSTART)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -70,32 +59,6 @@ UPSTART_AUTOCONF := \
 	--without-libiconv-prefix \
 	--with-included-gettext \
 	--without-libintl-prefix
-
-$(STATEDIR)/upstart.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(UPSTART_DIR)/config.cache)
-	cd $(UPSTART_DIR) && \
-		$(UPSTART_PATH) $(UPSTART_ENV) \
-		./configure $(UPSTART_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/upstart.compile:
-	@$(call targetinfo)
-	cd $(UPSTART_DIR) && $(UPSTART_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/upstart.install:
-	@$(call targetinfo)
-	@$(call install, UPSTART)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
