@@ -1,6 +1,9 @@
-Adapt makefile for Linux
+From: Wolfram Sang <w.sang@pengutronix.de>
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: Adapt makefile for Linux, add destdir support
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
 # 20081124: wsa: there is no upstream anymore :(
 
@@ -57,5 +60,5 @@ Index: Makefile
  install: bing unix/bing.8
 -	$(INSTALL) -m 644 -o man -g man unix/bing.8 $(MANDIR)/man8
 -	$(INSTALL) -m 4555 -o root -g staff bing $(BINDIR)
-+	$(INSTALL) -m 644 unix/bing.8 $(MANDIR)/man8
-+	$(INSTALL) -m 4555 -o root bing $(BINDIR)
++	$(INSTALL) -m 644 unix/bing.8 $(DESTDIR)$(MANDIR)/man8
++	$(INSTALL) -m 4555 -o root bing $(DESTDIR)$(BINDIR)

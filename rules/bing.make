@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2003 by Robert Schwebel
 # Copyright (C) 2008 by Wolfram Sang, Pengutronix e.K.
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -39,19 +40,12 @@ $(BING_SOURCE):
 # ----------------------------------------------------------------------------
 
 BING_PATH	:= PATH=$(CROSS_PATH)
-BING_ENV 	:= $(CROSS_ENV) PREFIX=$(SYSROOT)/usr
+BING_ENV 	:= $(CROSS_ENV)
+
+BING_MAKEVARS	:= $(CROSS_ENV_CC)
 
 $(STATEDIR)/bing.prepare:
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/bing.compile:
-	@$(call targetinfo)
-	cd $(BING_DIR) && $(BING_ENV) $(BING_PATH) $(MAKE)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -66,10 +60,10 @@ $(STATEDIR)/bing.targetinstall:
 	@$(call install_fixup, bing,PRIORITY,optional)
 	@$(call install_fixup, bing,VERSION,$(BING_VERSION))
 	@$(call install_fixup, bing,SECTION,base)
-	@$(call install_fixup, bing,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, bing,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, bing,DEPENDS,)
 	@$(call install_fixup, bing,DESCRIPTION,missing)
-	@$(call install_copy, bing, 0, 0, 0755, $(BING_DIR)/bing, /usr/sbin/bing)
+	@$(call install_copy, bing, 0, 0, 0755, -, /usr/sbin/bing)
 	@$(call install_finish, bing)
 
 	@$(call touch)
