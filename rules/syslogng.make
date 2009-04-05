@@ -2,7 +2,7 @@
 # $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
-#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -81,23 +81,20 @@ $(STATEDIR)/syslogng.targetinstall:
 	@$(call install_fixup, syslogng,PRIORITY,optional)
 	@$(call install_fixup, syslogng,VERSION,$(SYSLOGNG_VERSION))
 	@$(call install_fixup, syslogng,SECTION,base)
-	@$(call install_fixup, syslogng,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, syslogng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, syslogng,DEPENDS,)
 	@$(call install_fixup, syslogng,DESCRIPTION,missing)
 
-	# binary
+#	# binary
 	@$(call install_copy, syslogng, 0, 0, 0755, \
 		$(SYSLOGNG_DIR)/src/syslog-ng, /sbin/syslog-ng)
 
-	# config
+#	# config
 	@$(call install_alternative, syslogng, 0, 0, 0644, /etc/syslog-ng.conf, n)
 
-	#
-	# bb init: start scripts
-	#
-
+#	# bb init: start scripts
 ifdef PTXCONF_INITMETHOD_BBINIT
-ifdef PTXCONF_SYSLOGNG
+ifdef PTXCONF_SYSLOGNG_STARTSCRIPT
 	@$(call install_alternative, syslogng, 0, 0, 0755, /etc/init.d/syslog-ng, n)
 endif
 endif
