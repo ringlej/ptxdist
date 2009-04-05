@@ -62,7 +62,7 @@ endif
 ifdef PTXCONF_DBUS_XML_LIBXML2
 DBUS_AUTOCONF += --with-xml=libxml
 endif
-ifdef PTXCONF_DBUS__SELINUX
+ifdef PTXCONF_DBUS_SELINUX
 DBUS_AUTOCONF += --enable-selinux
 else
 DBUS_AUTOCONF += --disable-selinux
@@ -121,41 +121,17 @@ $(STATEDIR)/dbus.targetinstall:
 	@$(call install_copy, dbus, 0, 0, 0755, /etc/dbus-1/session.d/)
 
 #	#
-#	# use the default /etc/dbus-1/system.conf config file
+#	# install /etc/dbus-1/system.conf config file
 #	#
-ifdef PTXCONF_ROOTFS_GENERIC_DBUS_SYSTEM_CONF
-	@$(call install_copy, dbus, 0, 0, 0644, -, \
-		/etc/dbus-1/system.conf)
+ifdef PTXCONF_ROOTFS_DBUS_SYSTEM_CONF
+	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/system.conf, n)
+	@$(call install_replace, dbus, /etc/dbus-1/system.conf, @DBUS_USER@, $(PTXCONF_DBUS_USER))
 endif
 
 #	#
-#	# use the users /etc/dbus-1/system.conf config file from projectroot/etc/dbus-1/system.conf
+#	# instal /etc/dbus-1/session.conf config file
 #	#
-ifdef PTXCONF_ROOTFS_USER_DBUS_SYSTEM_CONF
-	@echo "installing user system config file..."
-	@$(call install_copy, dbus, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/dbus-1/system.conf, \
-		/etc/dbus-1/system.conf)
-endif
-
-#	#
-#	# use the default /etc/dbus-1/session.conf config file
-#	#
-ifdef PTXCONF_ROOTFS_GENERIC_DBUS_SESSION_CONF
-	@$(call install_copy, dbus, 0, 0, 0644, -, \
-		/etc/dbus-1/session.conf)
-endif
-
-#	#
-#	# use the user's /etc/dbus-1/session.conf config file from projectroot/etc/dbus-1/session.conf
-#	#
-ifdef PTXCONF_ROOTFS_USER_DBUS_SESSION_CONF
-	@echo "installing user session config file..."
-	@$(call install_copy, dbus, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/dbus-1/session.conf, \
-		/etc/dbus-1/session.conf)
-endif
-
+	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/session.conf, n)
 
 #	#
 #	# busybox init: start script

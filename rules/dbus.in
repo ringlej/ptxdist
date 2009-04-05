@@ -15,7 +15,7 @@ menuconfig DBUS
 
 if DBUS
 
-config DBUS__SELINUX
+config DBUS_SELINUX
 	prompt "selinux support [BROKEN]"
 	depends on BROKEN
 	bool
@@ -48,65 +48,25 @@ config DBUS_X
 	help
 	  Enable this option to build dbus with support for X.
 
-config ROOTFS_DBUS_SYSTEM_CONF
+config DBUS_SYSTEM_CONF
 	bool
-	prompt "/etc/dbus-1/system.conf"
+	prompt "install /etc/dbus-1/system.conf"
 	default y
 	help
-	  Installs a /etc/dbus-1/system.conf file from a selectable source.
+	  Installs (if present) the
+	  "./projectroot/etc/dbus-1/system.conf" file from your
+	  workspace, otherwise a generic one from the ptxdist
+	  directory.
 
-	choice
-		prompt "Kind of /etc/dbus-1/system.conf"
-		depends on ROOTFS_DBUS_SYSTEM_CONF
-		default ROOTFS_GENERIC_DBUS_SYSTEM_CONF
-
-		config ROOTFS_GENERIC_DBUS_SYSTEM_CONF
-			bool
-			prompt "Use generic"
-			help
-			  This uses the generic configuration file for your dbus which is
-			  shipped with the sources. This configuration is likely to fail
-			  because it is thought for a desktop PC.
-
-		config ROOTFS_USER_DBUS_SYSTEM_CONF
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined /etc/dbus-1/system.conf. PTXdist
-			  uses file projectroot/etc/dbus-1/system.conf in your local
-			  project.
-
-	endchoice
-
-config ROOTFS_DBUS_SESSION_CONF
+config DBUS_SESSION_CONF
 	bool
-	prompt "/etc/dbus-1/session.conf"
+	prompt "install /etc/dbus-1/session.conf"
 	default y
 	help
-	  Installs a /etc/dbus-1/session.conf file from a selectable source.
-
-	choice
-		prompt "Kind of /etc/dbus-1/session.conf"
-		depends on ROOTFS_DBUS_SESSION_CONF
-		default ROOTFS_GENERIC_DBUS_SESSION_CONF
-
-		config ROOTFS_GENERIC_DBUS_SESSION_CONF
-			bool
-			prompt "Use generic"
-			help
-	  	  This uses the generic configuration file for your dbus which is
-				shipped with the sources. This configuration is likely to fail
-				because it is thought for a desktop PC.
-
-		config ROOTFS_USER_DBUS_SESSION_CONF
-			bool
-			prompt "User defined"
-			help
-				This uses a user defined /etc/dbus-1/session.conf. PTXdist
-				uses file projectroot/etc/dbus-1/session.conf in your local
-				project.
-
-	endchoice
+	  Installs (if present) the
+	  "./projectroot/etc/dbus-1/session.conf" file from your
+	  workspace, otherwise a generic one from the ptxdist
+	  directory.
 
 #   --enable-tests          enable unit test code
 #   --enable-ansi           enable -ansi -pedantic gcc flags
