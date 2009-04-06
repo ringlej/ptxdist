@@ -3,6 +3,7 @@ menuconfig PPP
 	tristate
 	prompt "ppp                           "
 	select LIBC_DL
+	select ROOTFS_VAR_RUN
 	select LIBPCAP if PPP_FILTER
 	select LIBPCAP_IPV6 if (PPP_IPV6 && PPP_FILTER)
 	select OPENSSL if PPP_SRP
@@ -106,7 +107,7 @@ config PPP_OE
 	prompt "ppp over ethernet"
 	help
 	  Enable this if you are using a DSL modem connected via ethernet to
-	  your host.
+	  your host (so called 'PPP over Ethernet'=PPPoE).
 
 config PPP_MINCONN
 	bool
@@ -173,9 +174,25 @@ config PPP_INST_PPPSTATS
 	  The pppstats utility reports PPP-related statistics at regular
 	  intervals for a specified PPP interface.
 
-config PPP_STARTSCRIPT
+config PPPD
 	bool
+	select BUSYBOX_START_STOP_DAEMON if BUSYBOX
+	select BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS if BUSYBOX
+	select BUSYBOX_KILL if BUSYBOX
+	select BUSYBOX_FEATURE_START_STOP_DAEMON_FANCY if BUSYBOX
+	select BUSYBOX_TEST if BUSYBOX
+	select BUSYBOX_SLEEP if BUSYBOX
 	default y
 	prompt "install /etc/init.d/pppd"
+
+config PPPD_INTF
+	string
+	prompt "interface"
+	default "eth1"
+	depends on PPPD
+	help
+	  This entry can be used to parametrize the startup script. 'eth1' can
+	  be useful for a PPP over Ethernet connection, 'ttyS0' for a simple
+	  modem connection.
 
 endif

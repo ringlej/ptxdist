@@ -1,4 +1,54 @@
 #!/bin/sh
+#
+DAEMON=/usr/sbin/pppd
+PIDFILE=/var/run/pppd.pid
 
-echo "$0: FIXME implement me"
+# define the interface used for the connection
+DAEMON_OPTS=@PPPD_INTF@
 
+do_start() {
+	start-stop-daemon --start --oknodo \
+		--pidfile $PIDFILE --exec $DAEMON -- $DAEMON_OPTS
+}
+
+do_stop() {
+	start-stop-daemon --stop --oknodo --quiet \
+		--pidfile $PIDFILE --exec $DAEMON
+}
+
+case "${1}" in
+	start)
+		echo "Starting pppd..."
+		do_start || echo "failed"
+		;;
+
+	stop)
+		echo "Stopping pppd..."
+		do_stop  || echo "failed"
+		;;
+
+	restart)
+		echo "Restarting $DESC"
+		do_stop
+		sleep 1
+		do_start
+		;;
+
+	status)
+		if [ -e $PIDFILE ]; then
+			echo "running"
+		else
+			echo "not running"
+		fi
+		;;
+
+	hangup)
+		test -e $PIDFILE || echo "not running"
+		kill -s SIGHUP `cat $PIDFILE`
+		;;
+
+	*)
+		echo "Usage: ${0} {start|stop|restart|status|hangup}"
+		exit 1
+		;;
+esac

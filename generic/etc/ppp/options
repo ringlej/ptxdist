@@ -1,1 +1,47 @@
-lock
+#
+# This is a template setup to run the pppd as a PPPoE dial in on demand server
+#
+# TODO: define the hangup time in seconds
+idle 600
+
+noipdefault
+
+# TODO: Add your account name here
+user my_account
+
+# keep the password from occuring in the log files
+hide-password
+
+#
+# Use the PPPoE plugin
+#
+plugin rp-pppoe.so
+
+# nothing special required to start the connection
+connect /bin/true
+
+# accept new IPs for the involved interfaces
+ipcp-accept-remote
+ipcp-accept-local
+
+# add a default route to be able to do the job on demand
+defaultroute
+
+# dial in only on demand
+demand
+
+# alter kernel settings
+ktune
+
+# the peer does not need to authenticate itself
+noauth
+
+# use the reported peer's DNS at host side
+usepeerdns
+
+#
+# To define a hangup time we must define what counts as activity and whats
+# garbage. Established connections are counting, other packets from the
+# internet do not.
+#
+active-filter 'outbound and not icmp[0] == 3 and not tcp[13] & 4 != 0'

@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
-# Copyright (C) 2008 by Juergen Beisert <juergen@kreuzholzen.de>
+# Copyright (C) 2008...2009 by Juergen Beisert <juergen@kreuzholzen.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -36,22 +36,14 @@ $(PPP_SOURCE):
 	@$(call get, PPP)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ppp.extract:
-	@$(call targetinfo)
-	@$(call clean, $(PPP_DIR))
-	@$(call extract, PPP)
-	@$(call patchin, PPP)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 PPP_PATH	:= PATH=$(CROSS_PATH)
-PPP_ENV		:= CROSS=$(CROSS_ENV)
+PPP_ENV		:= $(CROSS_ENV) \
+	TARGET_OS=Linux \
+	TARGET_OS_VER=$(PTXCONF_KERNEL_VERSION) \
+	TARGET_OS_ARCH=$(PTXCONF_KERNEL_ARCH_STRING)
 
 #
 # path to where the shared library based plugins get installed
@@ -61,7 +53,8 @@ PPP_SHARED_INST_PATH := /usr/lib/pppd/$(PPP_VERSION)
 
 $(STATEDIR)/ppp.prepare:
 	@$(call targetinfo)
-	cd $(PPP_DIR) && $(PPP_PATH) $(PPP_ENV) ./configure
+	@cd $(PPP_DIR) && $(PPP_PATH) $(PPP_ENV) \
+		./configure --prefix=/usr --sysconfdir=/etc
 
 # FIXME: Should also be entries in the menu
 	@$(call disable_sh,$(PPP_DIR)/pppd/Makefile,MPPE=y)
@@ -128,7 +121,7 @@ endif
 $(STATEDIR)/ppp.compile:
 	@$(call targetinfo)
 	cd $(PPP_DIR) && \
-		$(PPP_PATH) $(MAKE) $(PPP_ENV) $(PARALLELMFLAGS_BROKEN)
+		$(PPP_PATH) $(PPP_ENV) $(MAKE) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -151,7 +144,7 @@ $(STATEDIR)/ppp.targetinstall:
 	@$(call install_fixup, ppp,PRIORITY,optional)
 	@$(call install_fixup, ppp,VERSION,$(PPP_VERSION))
 	@$(call install_fixup, ppp,SECTION,base)
-	@$(call install_fixup, ppp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ppp,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, ppp,DEPENDS,)
 	@$(call install_fixup, ppp,DESCRIPTION,missing)
 
@@ -163,7 +156,7 @@ ifdef PTXCONF_PPP_INST_CHAT
 		$(PPP_DIR)/chat/chat, /usr/sbin/chat)
 endif
 
-	# install configuration files
+#	# install configuration files
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options, n)
 	@$(call install_alternative, ppp, 0, 0, 0750, /etc/ppp/ip-up, n)
 	@$(call install_alternative, ppp, 0, 0, 0750, /etc/ppp/ip-down, n)
@@ -171,13 +164,15 @@ endif
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options.ttyS0, n)
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/pap-secrets, n)
 
-	#
-	# busybox init
-	#
+#	#
+#	# busybox init
+#	#
 
 ifdef PTXCONF_INITMETHOD_BBINIT
-ifdef PTXCONF_PPP_STARTSCRIPT
-	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/pppd, n)
+ifdef PTXCONF_PPPD
+	@$(call install_alternative, ppp, 0, 0, 0755, /etc/init.d/pppd, n)
+	@$(call install_replace, ppp, /etc/init.d/pppd, \
+		@PPPD_INTF@, $(PTXCONF_PPPD_INTF))
 endif
 endif
 
