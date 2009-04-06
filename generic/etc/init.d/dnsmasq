@@ -2,13 +2,31 @@
 #
 # /etc/init.d/dnsmasq
 #
-# $Id:$
+# $Id$
 #
+PIDFILE=/var/run/dnsmasq.pid
+
 case $1 in
 
 	start)
+		test -e $PIDFILE || echo "already running"
 		echo "dnsmasq starting"
 		/usr/sbin/dnsmasq
+		;;
+
+	stop)
+		test -e $PIDFILE || echo "not running"
+		kill -s SIGTERM `cat $PIDFILE`
+		;;
+
+	reload)
+		test -e $PIDFILE || echo "not running"
+		kill -s SIGHUP `cat $PIDFILE`
+		;;
+
+	*)
+		echo "Usage: ${0} {start|stop|reload}"
+		exit 1
 		;;
 
 esac
