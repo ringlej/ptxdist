@@ -56,7 +56,7 @@ config SYSLOGNG_CONFIG
 config SYSLOGNG_STARTSCRIPT
 	bool
 	default y
-
+	help
 	  Installs (if present) the
 	  "./projectroot/etc/init.d/syslog-ng" startscript from your
 	  workspace, otherwise a generic one from the ptxdist
