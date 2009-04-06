@@ -1,50 +1,56 @@
 #!/bin/sh
 #
 DAEMON=/usr/sbin/pppd
-PIDFILE=/var/run/pppd.pid
+PIDFILE=/var/run/ppp0.pid
 
 # define the interface used for the connection
 DAEMON_OPTS=@PPPD_INTF@
 
-do_start() {
-	start-stop-daemon --start --oknodo \
-		--pidfile $PIDFILE --exec $DAEMON -- $DAEMON_OPTS
-}
-
-do_stop() {
-	start-stop-daemon --stop --oknodo --quiet \
-		--pidfile $PIDFILE --exec $DAEMON
-}
-
 case "${1}" in
 	start)
+		if [ -e $PIDFILE ]; then
+			echo "pppd already running"
+			exit 1
+		fi
 		echo "Starting pppd..."
-		do_start || echo "failed"
+		$DAEMON $DAEMON_OPTS || echo "failed"
 		;;
 
 	stop)
+		if [ ! -e $PIDFILE ]; then
+			echo "pppd not running"
+			exit 1
+		fi
 		echo "Stopping pppd..."
-		do_stop  || echo "failed"
+		kill -s SIGTERM `cat $PIDFILE` || echo "failed"
 		;;
 
 	restart)
-		echo "Restarting $DESC"
-		do_stop
+		if [ ! -e $PIDFILE ]; then
+			echo "pppd not running"
+			exit 1
+		fi
+		echo "Restarting pppd..."
+		kill -s SIGTERM `cat $PIDFILE` || echo "failed"
 		sleep 1
-		do_start
+		$DAEMON $DAEMON_OPTS || echo "failed"
 		;;
 
 	status)
 		if [ -e $PIDFILE ]; then
-			echo "running"
+			echo "pppd running"
 		else
-			echo "not running"
+			echo "pppd not running"
 		fi
 		;;
 
 	hangup)
-		test -e $PIDFILE || echo "not running"
-		kill -s SIGHUP `cat $PIDFILE`
+		if [ ! -e $PIDFILE ]; then
+			echo "pppd not running"
+			exit 1
+		fi
+		echo "pppd hanging up"
+		kill -s SIGHUP `cat $PIDFILE` || echo "failed"
 		;;
 
 	*)
