@@ -271,7 +271,8 @@ all_on_board() {
 	then
 		test_begin
 		checking "for local real rsh availability"
-		rsh 2>&1 | grep -q "usage: rsh"
+		# not all 'rsh' of this world starting a sentence with lower case
+		rsh 2>&1 | grep -q "sage: rsh"
 		result fatal
 		test_end
 	fi
