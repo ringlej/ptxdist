@@ -48,6 +48,7 @@ UDEV_ENV 	:= $(CROSS_ENV)
 #
 UDEV_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
+	--disable-dependency-tracking \
 	--enable-shared
 
 ifdef PTXCONF_UDEV__DEBUG
