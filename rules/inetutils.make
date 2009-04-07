@@ -216,6 +216,14 @@ ifdef PTXCONF_INETUTILS_SYSLOGD
 	@$(call install_copy, inetutils, 0, 0, 0755, \
 		$(INETUTILS_DIR)/syslogd/syslogd, /sbin/syslogd)
 endif
+ifdef PTXCONF_INETUTILS_SYSLOGD_STARTSRCIPT
+	@$(call install_alternative, inetutils, 0, 0, 0755, \
+		/etc/init.d/syslogd, n)
+endif
+ifdef PTXCONF_INETUTILS_SYSLOGD_CONFIG
+	@$(call install_alternative, inetutils, 0, 0, 0644, \
+		/etc/syslog.conf, n)
+endif
 ifdef PTXCONF_INETUTILS_TFTPD
 	@$(call install_copy, inetutils, 0, 0, 0755, \
 		$(INETUTILS_DIR)/tftpd/tftpd, /sbin/tftpd)
