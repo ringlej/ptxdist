@@ -169,7 +169,7 @@ endif
 #	#
 
 ifdef PTXCONF_INITMETHOD_BBINIT
-ifdef PTXCONF_PPPD
+ifdef PTXCONF_PPP_STARTSCRIPT
 	@$(call install_alternative, ppp, 0, 0, 0755, /etc/init.d/pppd, n)
 	@$(call install_replace, ppp, /etc/init.d/pppd, \
 		@PPPD_INTF@, $(PTXCONF_PPPD_INTF))

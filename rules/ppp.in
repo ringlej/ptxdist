@@ -174,19 +174,21 @@ config PPP_INST_PPPSTATS
 	  The pppstats utility reports PPP-related statistics at regular
 	  intervals for a specified PPP interface.
 
-config PPPD
+config PPP_STARTSCRIPT
 	bool
 	select BUSYBOX_KILL if BUSYBOX
 	select BUSYBOX_TEST if BUSYBOX
 	select BUSYBOX_SLEEP if BUSYBOX
 	default y
 	prompt "install /etc/init.d/pppd"
+	help
+	  Install this script to be able to run this service at system startup
 
 config PPPD_INTF
 	string
 	prompt "interface"
 	default "eth1"
-	depends on PPPD
+	depends on PPP_STARTSCRIPT
 	help
 	  This entry can be used to parametrize the startup script. 'eth1' can
 	  be useful for a PPP over Ethernet connection, 'ttyS0' for a simple

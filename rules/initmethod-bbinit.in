@@ -167,7 +167,7 @@ config INITMETHOD_BBINIT_LINK_PPPD
 	string
 	depends on PPP_STARTSCRIPT
 	prompt "pppd"
-	default ""
+	default "S09pppd"
 
 config INITMETHOD_BBINIT_LINK_PROFTPD
 	string
