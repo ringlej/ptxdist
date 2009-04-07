@@ -80,7 +80,7 @@ $(STATEDIR)/udev.targetinstall:
 	@$(call install_fixup, udev,PRIORITY,optional)
 	@$(call install_fixup, udev,VERSION,$(UDEV_VERSION))
 	@$(call install_fixup, udev,SECTION,base)
-	@$(call install_fixup, udev,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, udev,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, udev,DEPENDS,)
 	@$(call install_fixup, udev,DESCRIPTION,missing)
 
@@ -91,7 +91,8 @@ $(STATEDIR)/udev.targetinstall:
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevd)
 	@$(call install_copy, udev, 0, 0, 0755, -, /sbin/udevadm)
 ifdef PTXCONF_UDEV__INSTALL_TEST_UDEV
-	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev/test-udev, /sbin/test-udev)
+	@$(call install_copy, udev, 0, 0, 0755, $(UDEV_DIR)/udev/test-udev, \
+		/sbin/test-udev)
 endif
 
 #	#
@@ -101,7 +102,9 @@ endif
 ifdef PTXCONF_UDEV__DEFAULT_RULES
 	@cd $(UDEV_DIR)/rules/rules.d; \
 	for file in *; do \
-		$(call install_copy, udev, 0, 0, 0644, $(UDEV_DIR)/rules/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
+		$(call install_copy, udev, 0, 0, 0644, \
+			$(UDEV_DIR)/rules/rules.d/$$file, \
+			/lib/udev/rules.d/$$file, n); \
 	done
 endif
 
@@ -119,7 +122,9 @@ endif
 ifdef PTXCONF_UDEV__CUST_RULES
 	@cd $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/; \
 	for file in *; do \
-		$(call install_copy, udev, 0, 0, 0644, $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
+		$(call install_copy, udev, 0, 0, 0644, \
+			$(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/$$file, \
+			/lib/udev/rules.d/$$file, n); \
 	done
 endif
 
@@ -160,16 +165,19 @@ endif
 
 ifdef PTXCONF_UDEV__EXTRA_FIRMWARE
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/firmware.sh)
-	@$(call install_copy, udev, 0, 0, 0644, -, /lib/udev/rules.d/50-firmware.rules,n)
+	@$(call install_copy, udev, 0, 0, 0644, -, \
+		/lib/udev/rules.d/50-firmware.rules,n)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_FLOPPY
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/create_floppy_devices)
+	@$(call install_copy, udev, 0, 0, 0755, -, \
+		/lib/udev/create_floppy_devices)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_FSTAB_IMPORT
 	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/fstab_import)
-	@$(call install_copy, udev, 0, 0, 0644, -, /lib/udev/rules.d/79-fstab_import.rules)
+	@$(call install_copy, udev, 0, 0, 0644, -, \
+		/lib/udev/rules.d/79-fstab_import.rules)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_PATH_ID
@@ -177,7 +185,8 @@ ifdef PTXCONF_UDEV__EXTRA_PATH_ID
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_RULE_GENERATOR
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/rule_generator.functions)
+	@$(call install_copy, udev, 0, 0, 0755, -, \
+		/lib/udev/rule_generator.functions)
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_SCSI_ID
