@@ -117,9 +117,9 @@ ifdef PTXCONF_UDEV__COMMON_RULES
 endif
 
 ifdef PTXCONF_UDEV__CUST_RULES
-	@cd $(PTXDIST_WORKSPACE)/lib/udev/rules.d/; \
+	@cd $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/; \
 	for file in *; do \
-		$(call install_copy, udev, 0, 0, 0644, $(PTXDIST_WORKSPACE)/lib/udev/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
+		$(call install_copy, udev, 0, 0, 0644, $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/$$file, /lib/udev/rules.d/$$file, n); \
 	done
 endif
 
