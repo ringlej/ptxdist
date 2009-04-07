@@ -38,9 +38,19 @@ $(DNSMASQ_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-DNSMASQ_PATH :=  PATH=$(CROSS_PATH)
-DNSMASQ_COMPILE_ENV :=  $(CROSS_ENV)
-DNSMASQ_MAKEVARS := PREFIX=/usr
+DNSMASQ_PATH := PATH=$(CROSS_PATH)
+DNSMASQ_COMPILE_ENV := $(CROSS_ENV)
+
+DNSMASQ_COPT :=
+
+ifndef PTXCONF_DNSMASQ_TFTP
+DNSMASQ_COPT += -DNO_TFTP
+endif
+ifndef PTXCONF_DNSMASQ_IPV6
+DNSMASQ_COPT += -DNO_IPV6
+endif
+
+DNSMASQ_MAKEVARS := PREFIX=/usr AWK=awk COPTS='$(DNSMASQ_COPT)'
 
 $(STATEDIR)/dnsmasq.prepare:
 	@$(call targetinfo)

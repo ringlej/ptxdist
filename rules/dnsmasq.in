@@ -35,6 +35,18 @@ config DNSMASQ_DBUS
 	  option. You also have to enable it at runtime. FIXME: Show how,
 	  see DBUS document in dnsmasq packet
 
+config DNSMASQ_TFTP
+	bool
+	prompt "include TFTP"
+	help
+	  This includes TFTP services into dnsmasq
+
+config DNSMASQ_IPV6
+	bool
+	prompt "enable IPv6"
+	help
+	  This includes IPv6 support into dnsmasq
+
 comment "runtime options   ---"
 
 choice
