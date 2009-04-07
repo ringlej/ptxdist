@@ -57,9 +57,9 @@ UDEV_AUTOCONF	+= --disable-debug
 endif
 
 ifdef PTXCONF_UDEV__SELINUX
-UDEV_AUTOCONF	+= --enable-selinux
+UDEV_AUTOCONF	+= --with-selinux
 else
-UDEV_AUTOCONF	+= --disable-selinux
+UDEV_AUTOCONF	+= --without-selinux
 endif
 
 ifdef PTXCONF_UDEV__SYSLOG
