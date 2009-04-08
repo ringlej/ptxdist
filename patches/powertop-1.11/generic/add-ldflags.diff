@@ -1,0 +1,22 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: use LDFLAGS during linking
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: powertop-1.11/Makefile
+===================================================================
+--- powertop-1.11.orig/Makefile
++++ powertop-1.11/Makefile
+@@ -20,7 +20,7 @@ OBJS = powertop.o config.o process.o mis
+ 	
+ 
+ powertop: $(OBJS) Makefile powertop.h
+-	$(CC) ${CFLAGS}  $(OBJS) -lncursesw -o powertop
++	$(CC) ${CFLAGS} $(LDFLAGS) $(OBJS) -lncursesw -o powertop
+ 	@(cd po/ && $(MAKE))
+ 
+ powertop.1.gz: powertop.1
