@@ -67,7 +67,7 @@ $(STATEDIR)/bustle.targetinstall:
 	@$(call install_fixup, bustle,DEPENDS,)
 	@$(call install_fixup, bustle,DESCRIPTION,missing)
 
-	@$(call install_copy, bustle, 0, 0, 0755, $(BUSTLE_DIR)/foobar, /dev/null)
+	@$(call install_copy, bustle, 0, 0, 0755, $(BUSTLE_DIR)/bustle-dbus-monitor, /usr/bin/bustle-dbus-monitor)
 
 	@$(call install_finish, bustle)
 
