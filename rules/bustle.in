@@ -1,0 +1,15 @@
+## SECTION=middleware
+
+config BUSTLE
+	tristate
+	prompt "bustle"
+	select DBUS
+	select GLIB
+	help
+	  Bustle is a tool to chart and provide timing information of
+	  D-Bus calls for profiling and debugging purposes. It is
+	  intended to replace reading the cryptic output of
+	  dbus-monitor. Calls are displayed using Message Sequence
+	  Charts, a succinct way of representing entities and
+	  interactions over time. It can also output data in Graphviz
+	  format.
