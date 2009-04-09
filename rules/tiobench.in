@@ -1,0 +1,9 @@
+## SECTION=test_suites
+
+config TIOBENCH
+	tristate
+	prompt "tiotest"
+	help
+	  Threaded I/O bench for Linux (or any *nix system with POSIX threads
+	  support library)
+

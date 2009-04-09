@@ -1,0 +1,26 @@
+Subject: Output help if no parameters are given
+From: Juergen Beisert <j.beisert@pengutronix.de>
+
+Output a help, if a user omit any parameter instead of silently start the
+job and do something.
+
+Signed-off-by: Juergen Beisert <j.beisert@pengutronix.de>
+
+---
+ tiotest.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+Index: tiotest.c
+===================================================================
+--- tiotest.c.orig
++++ tiotest.c
+@@ -112,6 +112,9 @@ void parse_args( ArgumentOptions* args, 
+ 	int c;
+ 	int once = 0;
+ 
++	if (argc == 1)
++		print_help_and_exit();
++
+ 	while (1)
+ 	{
+ 		c = getopt( argc, argv, "f:b:d:t:r:D:k:o:hLRTWSOc");
