@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
-# Copyright (C) 2009 by Juergen Beisert
+# Copyright (C) 2009 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -33,18 +33,37 @@ $(LMBENCH_SOURCE):
 	@$(call get, LMBENCH)
 
 # ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/lmbench.extract:
+	@$(call targetinfo)
+	@$(call clean, $(LMBENCH_DIR))
+	@$(call extract, LMBENCH)
+	@$(call patchin, LMBENCH)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 LMBENCH_PATH	:= PATH=$(CROSS_PATH)
-LMBENCH_ENV 	:= \
-	$(CROSS_ENV) \
-	OS=$(PTXCONF_GNU_TARGET) \
-	MAKE=$(MAKE) \
-	TARGET=linux
+LMBENCH_ENV 	:= $(CROSS_ENV)
+
+#
+# autoconf
+#
+LMBENCH_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug
 
 $(STATEDIR)/lmbench.prepare:
 	@$(call targetinfo)
+	@$(call clean, $(LMBENCH_DIR)/config.cache)
+	chmod +x $(LMBENCH_DIR)/configure
+	cd $(LMBENCH_DIR) && \
+		$(LMBENCH_PATH) $(LMBENCH_ENV) \
+		./configure $(LMBENCH_AUTOCONF)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -53,7 +72,7 @@ $(STATEDIR)/lmbench.prepare:
 
 $(STATEDIR)/lmbench.compile:
 	@$(call targetinfo)
-	cd $(LMBENCH_DIR) && $(LMBENCH_PATH) $(LMBENCH_ENV) $(LMBENCH_DIR)/scripts/build
+	cd $(LMBENCH_DIR) && $(LMBENCH_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -62,6 +81,7 @@ $(STATEDIR)/lmbench.compile:
 
 $(STATEDIR)/lmbench.install:
 	@$(call targetinfo)
+	@$(call install, LMBENCH)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -76,17 +96,61 @@ $(STATEDIR)/lmbench.targetinstall:
 	@$(call install_fixup, lmbench,PRIORITY,optional)
 	@$(call install_fixup, lmbench,VERSION,$(LMBENCH_VERSION))
 	@$(call install_fixup, lmbench,SECTION,base)
-	@$(call install_fixup, lmbench,AUTHOR,"Juergen Beisert <jbe@pengutronix.de>")
+	@$(call install_fixup, lmbench,AUTHOR,"Robert Schwebel")
 	@$(call install_fixup, lmbench,DEPENDS,)
 	@$(call install_fixup, lmbench,DESCRIPTION,missing)
 
-	@cd $(LMBENCH_DIR)/bin/$(PTXCONF_GNU_TARGET); \
-	for file in `find . -perm -u+x ! -type d`; do \
-		PER=`stat -c "%a" $$file` \
-		$(call install_copy, lmbench, 0, 0, $$PER, \
-			$$file, \
-			/usr/sbin/$$file) \
+	for file in \
+		/usr/bin/par_mem \
+		/usr/bin/lat_tcp \
+		/usr/bin/par_ops \
+		/usr/bin/lat_mmap \
+		/usr/bin/hello \
+		/usr/bin/bw_unix \
+		/usr/bin/lat_syscall \
+		/usr/bin/lat_sem \
+		/usr/bin/lat_fs \
+		/usr/bin/loop_o \
+		/usr/bin/lat_fcntl \
+		/usr/bin/lat_unix \
+		/usr/bin/bw_tcp \
+		/usr/bin/lat_rpc \
+		/usr/bin/lat_unix_connect \
+		/usr/bin/bw_file_rd \
+		/usr/bin/disk \
+		/usr/bin/lat_mem_rd \
+		/usr/bin/lat_select \
+		/usr/bin/lat_connect \
+		/usr/bin/lat_fifo \
+		/usr/bin/line \
+		/usr/bin/timing_o \
+		/usr/bin/lat_ctx \
+		/usr/bin/bw_mem \
+		/usr/bin/lat_sig \
+		/usr/bin/lat_pipe \
+		/usr/bin/lat_pagefault \
+		/usr/bin/lmhttp \
+		/usr/bin/tlb \
+		/usr/bin/bw_pipe \
+		/usr/bin/mhz \
+		/usr/bin/lat_http \
+		/usr/bin/msleep \
+		/usr/bin/lat_ops \
+		/usr/bin/lat_udp \
+		/usr/bin/stream \
+		/usr/bin/enough \
+		/usr/bin/flushdisk \
+		/usr/bin/lmdd \
+		/usr/bin/lat_proc \
+		/usr/bin/bw_mmap_rd \
+		/usr/bin/memsize \
+	; do \
+		$(call install_copy, lmbench, 0, 0, 0755, -, $$file); \
 	done
+
+	@$(call install_copy, lmbench, 0, 0, 0644, -, /usr/lib/liblmbench.so.0.0.0)
+	@$(call install_link, lmbench, liblmbench.so.0.0.0, /usr/lib/liblmbench.so.0)
+	@$(call install_link, lmbench, liblmbench.so.0.0.0, /usr/lib/liblmbench.so)
 
 	@$(call install_finish, lmbench)
 

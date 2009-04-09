@@ -2,7 +2,6 @@
 
 config LMBENCH
 	tristate
-	depends on BROKEN
 	select LIBC_M
 	prompt "lmbench"
 	help

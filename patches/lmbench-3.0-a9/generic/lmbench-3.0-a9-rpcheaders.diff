@@ -1,0 +1,29 @@
+--- lmbench-3.0-a9-orig/src/lib_tcp.c	2006-06-27 18:27:19.000000000 +0200
++++ lmbench-3.0-a9/src/lib_tcp.c	2009-04-09 17:56:50.000000000 +0200
+@@ -7,6 +7,7 @@
+  */
+ #define		_LIB /* bench.h needs this */
+ #include	"bench.h"
++#include	<rpc/pmap_clnt.h>
+ 
+ /*
+  * Get a TCP socket, bind it, figure out the port,
+@@ -148,7 +149,7 @@
+ 	fprintf(stderr, "Client port %d\n", sockport(sock));
+ #endif
+ 	sock_optimize(sock, rdwr);
+-	if (!h || host != save_host || prog != save_prog) {
++	if (!h || host != save_host || prog != (int)save_prog) {
+ 		save_host = host;	/* XXX - counting on them not
+ 					 * changing it - benchmark only.
+ 					 */
+--- lmbench-3.0-a9-orig/src/lib_udp.c	2006-06-27 18:27:20.000000000 +0200
++++ lmbench-3.0-a9/src/lib_udp.c	2009-04-09 17:57:19.000000000 +0200
+@@ -7,6 +7,7 @@
+  */
+ #define		_LIB /* bench.h needs this */
+ #include	"bench.h"
++#include	<rpc/pmap_clnt.h>
+ 
+ /*
+  * Get a UDP socket, bind it, figure out the port,

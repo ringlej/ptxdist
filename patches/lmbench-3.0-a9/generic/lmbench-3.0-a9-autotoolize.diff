@@ -1,0 +1,268 @@
+---
+ Makefile.am     |    3 +
+ autogen.sh      |   22 ++++++++++
+ configure.ac    |  116 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/Makefile.am |  100 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 241 insertions(+)
+
+Index: lmbench-3.0-a9/Makefile.am
+===================================================================
+--- /dev/null
++++ lmbench-3.0-a9/Makefile.am
+@@ -0,0 +1,3 @@
++SUBDIRS = \
++	src
++
+Index: lmbench-3.0-a9/autogen.sh
+===================================================================
+--- /dev/null
++++ lmbench-3.0-a9/autogen.sh
+@@ -0,0 +1,22 @@
++#!/bin/bash
++
++#
++# usage:
++#
++# banner <target name>
++#
++banner() {
++	echo
++	TG=`echo $1 | sed -e "s,/.*/,,g"`
++	LINE=`echo $TG |sed -e "s/./-/g"`
++	echo $LINE
++	echo $TG
++	echo $LINE
++	echo
++}
++
++banner "autoreconf"
++
++autoreconf --force --install --symlink -Wall || exit $?
++
++banner "Finished"
+Index: lmbench-3.0-a9/configure.ac
+===================================================================
+--- /dev/null
++++ lmbench-3.0-a9/configure.ac
+@@ -0,0 +1,116 @@
++AC_PREREQ(2.59)
++
++AC_INIT([lmbench], [trunk], [bugs@pengutronix.de])
++AC_CONFIG_SRCDIR([src/lmdd.c])
++AC_CANONICAL_BUILD
++AC_CANONICAL_HOST
++
++AM_MAINTAINER_MODE
++
++CFLAGS="${CFLAGS} -W -Wall"
++
++#
++# libtool library versioning stuff
++#
++# Library code modified:            REVISION++
++# Interfaces changed/added/removed: CURRENT++   REVISION=0
++# Interfaces added:                 AGE++
++# Interfaces removed:               AGE=0
++LT_CURRENT=0
++LT_REVISION=0
++LT_AGE=0
++AC_SUBST(LT_CURRENT)
++AC_SUBST(LT_REVISION)
++AC_SUBST(LT_AGE)
++
++
++#
++# Checks for programs.
++#
++AC_PROG_CC
++AC_PROG_LIBTOOL
++
++AM_INIT_AUTOMAKE([foreign no-exeext dist-bzip2])
++
++
++##
++# libstiebel
++##
++#REQUIRES_LIBSTIEBEL="libstiebel >= 0.0.3"
++#AC_SUBST(REQUIRES_LIBSTIEBEL)
++#PKG_CHECK_MODULES(libstiebel, $REQUIRES_LIBSTIEBEL)
++
++##
++# libpv
++##
++#REQUIRES_LIBPV="libpv >= 1.2.10"
++#AC_SUBST(REQUIRES_LIBPV)
++#PKG_CHECK_MODULES(libpv, $REQUIRES_LIBPV)
++
++
++#
++# Debugging
++#
++AC_MSG_CHECKING([whether to enable debugging])
++AC_ARG_ENABLE(debug,
++    AS_HELP_STRING([--enable-debug], [enable debugging @<:@default=yes@:>@]),
++	[case "$enableval" in
++	y | yes) CONFIG_DEBUG=yes ;;
++        *) CONFIG_DEBUG=no ;;
++    esac],
++    [CONFIG_DEBUG=yes])
++AC_MSG_RESULT([${CONFIG_DEBUG}])
++if test "${CONFIG_DEBUG}" = "yes"; then
++    CFLAGS="${CFLAGS} -Werror -Wsign-compare -Wfloat-equal -Wformat-security -g -O1"
++    AC_DEFINE(DEBUG, 1, [debugging])
++else
++    CFLAGS="${CFLAGS} -O2"
++fi
++
++
++#
++# header file checks
++#
++
++AC_CHECK_HEADER([pmap_clnt.h],[CFLAGS="${CFLAGS} -DHAVE_pmap_clnt_h"])
++
++
++#
++# type checks
++#
++
++AC_CHECK_TYPE([uint],[CFLAGS="${CFLAGS} -DHAVE_uint"])
++AC_CHECK_TYPE([uint64],[CFLAGS="${CFLAGS} -DHAVE_uint64"])
++AC_CHECK_TYPE([uint64_t],[CFLAGS="${CFLAGS} -DHAVE_uint64_t"])
++AC_CHECK_TYPE([int64],[CFLAGS="${CFLAGS} -DHAVE_int64"])
++AC_CHECK_TYPE([int64_t],[CFLAGS="${CFLAGS} -DHAVE_int64_t"])
++AC_CHECK_TYPE([socklen_t],[CFLAGS="${CFLAGS} -DHAVE_socklen_t"])
++AC_CHECK_TYPE([off64_t],[CFLAGS="${CFLAGS} -DHAVE_off64_t"])
++
++AC_COMPILE_IFELSE(
++[
++	#include <stdlib.h>
++        main() { srand48(973); return (int)(1.0E9 * drand48()); }
++],
++[CFLAGS="${CFLAGS} -DHAVE_DRAND48"])
++
++AC_COMPILE_IFELSE(
++[
++	#include <stdlib.h>
++        main() { srand(973); return (10 * rand()) / RAND_MAX; }
++],
++[CFLAGS="${CFLAGS} -DHAVE_RAND"])
++
++AC_COMPILE_IFELSE(
++[
++	#include <stdlib.h>
++        main() { srandom(973); return (10 * random()) / RAND_MAX; }
++],
++[CFLAGS="${CFLAGS} -DHAVE_RANDOM"])
++
++AC_CONFIG_FILES([
++	Makefile
++	src/Makefile
++])
++AC_OUTPUT
++
+Index: lmbench-3.0-a9/src/Makefile.am
+===================================================================
+--- /dev/null
++++ lmbench-3.0-a9/src/Makefile.am
+@@ -0,0 +1,100 @@
++bin_PROGRAMS = \
++	bw_file_rd \
++	bw_mem \
++	bw_file_rd \
++	bw_mem \
++	bw_mmap_rd \
++	bw_pipe \
++	bw_tcp \
++	bw_unix \
++	hello \
++	lat_select \
++	lat_pipe \
++	lat_rpc \
++	lat_syscall \
++	lat_tcp	\
++	lat_udp \
++	lat_mmap \
++	mhz \
++	lat_proc \
++	lat_pagefault \
++	lat_connect \
++	lat_fs \
++	lat_sig \
++	lat_mem_rd \
++	lat_ctx	\
++	lat_sem \
++	memsize \
++	lat_unix \
++	lmdd \
++	timing_o \
++	enough \
++	msleep \
++	loop_o \
++	lat_fifo \
++	lmhttp \
++	lat_http \
++	lat_fcntl \
++	disk \
++	lat_unix_connect \
++	flushdisk \
++	lat_ops \
++	line \
++	tlb \
++	par_mem \
++	par_ops \
++	stream
++
++flushdisk_CPPFLAGS = \
++	-DMAIN
++
++LDADD = \
++	liblmbench.la
++
++lib_LTLIBRARIES = \
++        liblmbench.la
++
++AM_CPPFLAGS = \
++	-I$(top_srcdir)/include \
++	-I$(top_builddir)/include
++#	$(libpv_CFLAGS) \
++#	$(libstiebel_CFLAGS)
++
++EXTRA_DIST = \
++	autogen.sh
++
++MAINTAINERCLEANFILES = \
++	configure \
++	aclocal.m4 \
++	Makefile.in
++
++#pkgconfigdir = $(libdir)/pkgconfig
++#pkgconfig_DATA = libactor-@name@.pc
++
++#
++# library
++#
++
++#include_HEADERS = \
++#	libactor-@name@.h
++
++liblmbench_la_SOURCES = \
++	lib_tcp.c \
++	lib_udp.c \
++	lib_unix.c \
++	lib_timing.c \
++	lib_mem.c \
++	lib_stats.c \
++	lib_debug.c \
++	lib_sched.c \
++	getopt.c
++
++liblmbench_la_LDFLAGS = \
++        -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
++	-Wl,-no-undefined \
++	-lm
++
++#libactor_@name@_la_LIBADD = \
++#	$(libpv_LIBS) \
++#	$(libstiebel_LIBS)
++

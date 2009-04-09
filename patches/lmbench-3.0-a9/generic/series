@@ -1,0 +1,4 @@
+lmbench-3.0-a9-remove-old-buildsystem.diff
+lmbench-3.0-a9-autotoolize.diff
+lmbench-3.0-a9-rpcheaders.diff
+lmbench-3.0-a9-autogen.diff.bz2
