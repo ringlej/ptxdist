@@ -1,10 +1,10 @@
 ## SECTION=shell_and_console
+
 menuconfig CPUFREQUTILS
 	tristate
 	prompt "cpufrequtils                  "
 	select CROSS_LIBTOOL
-	select SYSFSUTILS
-	select SYSFSUTILS_LIB
+	select LIBSYSFS
 	help
 	  To make access to the Linux kernel cpufreq subsystem easier for
 	  users and cpufreq userspace tools, a cpufrequtils package was
