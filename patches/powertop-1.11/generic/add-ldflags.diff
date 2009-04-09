@@ -1,7 +1,16 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Subject: use LDFLAGS during linking
 
+powertop fails to link, if ncursesw isn't in the
+standard library search path.
+
+It fails even if the LDFLAGS have the appropriate -L.
+This patch add LDFLAGS to the linker invocation.
+
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+send upstream to power@bughost.org
+should appear here soon: http://www.bughost.org/pipermail/power/2009-April/thread.html
 
 ---
  Makefile |    2 +-
