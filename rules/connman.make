@@ -168,7 +168,7 @@ endif
 endif
 
 #	# dbus config
-	@$(call install_copy, connman, 0, 0, 0644, -, /etc/dbus-1/system.d/connman.conf)
+	@$(call install_alternative, connman, 0, 0, 0644, /etc/dbus-1/system.d/connman.conf)
 
 #	#
 #	# plugins
