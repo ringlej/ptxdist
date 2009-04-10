@@ -1,6 +1,11 @@
 TODO before 1.99.13
 ===================
 
+[ ] jbe: tcpdump fails when IPv6 is enabled:
+    checking getaddrinfo bug... buggy
+    Fatal: You must get working getaddrinfo() function.
+           or you can specify "--disable-ipv6".
+
 [ ] jbe: libmad tries to re-generate the configure script and fails if system's
     version is not the correct one
     [...]
