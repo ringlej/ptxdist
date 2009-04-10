@@ -72,7 +72,7 @@ $(STATEDIR)/iptables.targetinstall:
 	@$(call install_copy, iptables, 0, 0, 0644, -, \
 		/usr/lib/libxtables.so.1.0.0)
 	@$(call install_link, iptables, libxtables.so.1.0.0, /usr/lib/libxtables.so)
-	@$(call install_link, iptables, libxtables.so.1.0.0, /usr/lib/libiptc.so.1)
+	@$(call install_link, iptables, libxtables.so.1.0.0, /usr/lib/libxtables.so.1)
 
 # IPv6 part
 ifdef PTXCONF_IPTABLES_INSTALL_IPV6_TOOLS
