@@ -1,0 +1,8 @@
+## SECTION=test_suites
+
+config IOZONE
+	tristate
+	prompt "iozone"
+	help
+	  IOzone is a filesystem benchmark tool. The benchmark generates
+          and measures a variety of file operations.
