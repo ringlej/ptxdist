@@ -67,10 +67,13 @@ ptxd_make_extract() {
 
     case "${packet_source}" in
 	*gz)
-	    local extract=gzip
+	    local extract="gzip -dc"
 	    ;;
 	*bz2)
-	    local extract=bzip2
+	    local extract="bzip2 -dc"
+	    ;;
+	*tar)
+	    local extract=cat
 	    ;;
 	*zip)
 	    echo "$(basename "${packet_source}")" >> "${STATEDIR}/packetlist"
@@ -86,7 +89,7 @@ ptxd_make_extract() {
     esac
 
     echo "$(basename "${packet_source}")" >> "${STATEDIR}/packetlist"
-    ${extract} -dc "${packet_source}" | tar -C "${dest}" -xf -
+    ${extract} "${packet_source}" | tar -C "${dest}" -xf -
 
     if ! check_pipe_status; then
 	cat >&2 <<EOF
