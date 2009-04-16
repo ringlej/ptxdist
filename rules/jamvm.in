@@ -1,0 +1,21 @@
+## SECTION=bytecode_engines
+
+menuconfig JAMVM
+	tristate
+	select ZLIB
+	select LIBFFI if JAMVM_USE_LIBFFI
+	prompt "jamvm"
+	help
+	  JamVM is a new Java Virtual Machine conforming to the JVM specification
+	  edition 2 (blue book). It is extremely small. Unlike other small VMs it
+	  supports the full spec, inc. object finalisation and JNI.
+
+if JAMVM
+
+config JAMVM_USE_LIBFFI
+	bool
+	prompt "use libffi"
+	help
+	  "enable libffi support"
+
+endif
