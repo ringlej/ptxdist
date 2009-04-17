@@ -12,16 +12,19 @@ This patch marks comments with *** comment ***
 
 Cc: MatÄj Laitl <strohel@gmail.com>
 Signed-off-by: Sam Ravnborg <sam@ravnborg.org>
----
+
+reversed patch
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
- scripts/kconfig/mconf.c |    8 --------
+ mconf.c |    8 --------
  1 file changed, 8 deletions(-)
 
-Index: ptxdist-trunk/scripts/kconfig/mconf.c
+Index: kconfig/mconf.c
 ===================================================================
---- ptxdist-trunk.orig/scripts/kconfig/mconf.c
-+++ ptxdist-trunk/scripts/kconfig/mconf.c
+--- kconfig.orig/mconf.c
++++ kconfig/mconf.c
 @@ -439,14 +439,6 @@ static void build_conf(struct menu *menu
  				if (single_menu_mode && menu->data)
  					goto conf_childs;

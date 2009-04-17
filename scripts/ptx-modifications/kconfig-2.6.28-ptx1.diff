@@ -1,25 +1,19 @@
-diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap-2.6/scripts/kconfig/check.sh ptxdist-trunk/scripts/kconfig/check.sh
---- linux-omap-2.6/scripts/kconfig/check.sh	2008-02-28 16:53:22.000000000 +0100
-+++ ptxdist-trunk/scripts/kconfig/check.sh	1970-01-01 01:00:00.000000000 +0100
-@@ -1,14 +0,0 @@
--#!/bin/sh
--# Needed for systems without gettext
--$* -xc -o /dev/null - > /dev/null 2>&1 << EOF
--#include <libintl.h>
--int main()
--{
--	gettext("");
--	return 0;
--}
--EOF
--if [ ! "$?" -eq "0"  ]; then
--	echo -DKBUILD_NO_NLS;
--fi
--
-diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap-2.6/scripts/kconfig/conf.c ptxdist-trunk/scripts/kconfig/conf.c
---- linux-omap-2.6/scripts/kconfig/conf.c	2008-11-13 12:40:30.000000000 +0100
-+++ ptxdist-trunk/scripts/kconfig/conf.c	2009-01-05 12:42:42.000000000 +0100
-@@ -428,21 +428,56 @@
+---
+ README.PTX |   12 ++++++++++
+ conf.c     |   41 ++++++++++++++++++++++++++++++++++-
+ confdata.c |   71 +++++++++++++++++++++++++++++--------------------------------
+ gconf.c    |    4 +--
+ lkc.h      |    6 +++++
+ mconf.c    |   59 ++++++++++++++++++++++----------------------------
+ symbol.c   |   15 ------------
+ zconf.y    |    2 -
+ 8 files changed, 121 insertions(+), 89 deletions(-)
+
+Index: kconfig/conf.c
+===================================================================
+--- kconfig.orig/conf.c
++++ kconfig/conf.c
+@@ -428,21 +428,56 @@ static void check_conf(struct menu *menu
  		check_conf(child);
  }
  
@@ -77,7 +71,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  		case 's':
  			input_mode = ask_silent;
  			sync_kconfig = 1;
-@@ -511,6 +546,8 @@
+@@ -511,6 +546,8 @@ int main(int ac, char **av)
  	case ask_all:
  	case ask_new:
  		conf_read(NULL);
@@ -86,7 +80,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  		break;
  	case set_no:
  	case set_mod:
-@@ -588,10 +625,12 @@
+@@ -588,10 +625,12 @@ int main(int ac, char **av)
  			fprintf(stderr, _("\n*** Error during writing of the kernel configuration.\n\n"));
  			exit(1);
  		}
@@ -99,10 +93,11 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  	} else {
  		if (conf_write(NULL)) {
  			fprintf(stderr, _("\n*** Error during writing of the kernel configuration.\n\n"));
-diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap-2.6/scripts/kconfig/confdata.c ptxdist-trunk/scripts/kconfig/confdata.c
---- linux-omap-2.6/scripts/kconfig/confdata.c	2008-10-30 23:57:07.000000000 +0100
-+++ ptxdist-trunk/scripts/kconfig/confdata.c	2009-01-04 22:55:44.000000000 +0100
-@@ -21,7 +21,7 @@
+Index: kconfig/confdata.c
+===================================================================
+--- kconfig.orig/confdata.c
++++ kconfig/confdata.c
+@@ -21,7 +21,7 @@ static void conf_warning(const char *fmt
  static const char *conf_filename;
  static int conf_lineno, conf_warnings, conf_unsaved;
  
@@ -111,7 +106,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  
  static void conf_warning(const char *fmt, ...)
  {
-@@ -212,22 +212,22 @@
+@@ -212,22 +212,22 @@ load:
  		sym = NULL;
  		switch (line[0]) {
  		case '#':
@@ -138,7 +133,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  				if (sym->type == S_UNKNOWN)
  					sym->type = S_BOOLEAN;
  			}
-@@ -244,12 +244,12 @@
+@@ -244,12 +244,12 @@ load:
  				;
  			}
  			break;
@@ -154,7 +149,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  			if (!p)
  				continue;
  			*p++ = 0;
-@@ -260,13 +260,13 @@
+@@ -260,13 +260,13 @@ load:
  					*p2 = 0;
  			}
  			if (def == S_DEF_USER) {
@@ -170,7 +165,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  				if (sym->type == S_UNKNOWN)
  					sym->type = S_OTHER;
  			}
-@@ -436,8 +436,6 @@
+@@ -436,8 +436,6 @@ int conf_write(const char *name)
  	if (!out)
  		return 1;
  
@@ -179,7 +174,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  	time(&now);
  	env = getenv("KCONFIG_NOTIMESTAMP");
  	if (env && *env)
-@@ -445,10 +443,10 @@
+@@ -445,10 +443,10 @@ int conf_write(const char *name)
  
  	fprintf(out, _("#\n"
  		       "# Automatically generated make config: don't edit\n"
@@ -192,7 +187,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  		     use_timestamp ? "# " : "",
  		     use_timestamp ? ctime(&now) : "");
  
-@@ -482,19 +480,19 @@
+@@ -482,19 +480,19 @@ int conf_write(const char *name)
  			case S_TRISTATE:
  				switch (sym_get_tristate_value(sym)) {
  				case no:
@@ -216,7 +211,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  				while (1) {
  					l = strcspn(str, "\"\\");
  					if (l) {
-@@ -510,12 +508,12 @@
+@@ -510,12 +508,12 @@ int conf_write(const char *name)
  			case S_HEX:
  				str = sym_get_string_value(sym);
  				if (str[0] != '0' || (str[1] != 'x' && str[1] != 'X')) {
@@ -231,7 +226,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  				break;
  			}
  		}
-@@ -553,6 +551,7 @@
+@@ -553,6 +551,7 @@ int conf_write(const char *name)
  	return 0;
  }
  
@@ -239,7 +234,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  int conf_split_config(void)
  {
  	char *name, path[128];
-@@ -692,22 +691,19 @@
+@@ -692,22 +691,19 @@ int conf_write_autoconf(void)
  		return 1;
  	}
  
@@ -266,7 +261,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  
  	for_all_symbols(i, sym) {
  		sym_calc_value(sym);
-@@ -720,19 +716,19 @@
+@@ -720,19 +716,19 @@ int conf_write_autoconf(void)
  			case no:
  				break;
  			case mod:
@@ -292,7 +287,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  			while (1) {
  				l = strcspn(str, "\"\\");
  				if (l) {
-@@ -752,14 +748,14 @@
+@@ -752,14 +748,14 @@ int conf_write_autoconf(void)
  		case S_HEX:
  			str = sym_get_string_value(sym);
  			if (str[0] != '0' || (str[1] != 'x' && str[1] != 'X')) {
@@ -311,7 +306,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  			break;
  		default:
  			break;
-@@ -785,6 +781,7 @@
+@@ -785,6 +781,7 @@ int conf_write_autoconf(void)
  
  	return 0;
  }
@@ -319,10 +314,11 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  
  static int sym_change_count;
  static void (*conf_changed_callback)(void);
-diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap-2.6/scripts/kconfig/gconf.c ptxdist-trunk/scripts/kconfig/gconf.c
---- linux-omap-2.6/scripts/kconfig/gconf.c	2008-02-28 16:53:22.000000000 +0100
-+++ ptxdist-trunk/scripts/kconfig/gconf.c	2009-01-04 22:55:44.000000000 +0100
-@@ -266,8 +266,8 @@
+Index: kconfig/gconf.c
+===================================================================
+--- kconfig.orig/gconf.c
++++ kconfig/gconf.c
+@@ -266,8 +266,8 @@ void init_main_window(const gchar * glad
  					  /*"style", PANGO_STYLE_OBLIQUE, */
  					  NULL);
  
@@ -333,10 +329,11 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  	gtk_window_set_title(GTK_WINDOW(main_wnd), title);
  
  	gtk_widget_show(main_wnd);
-diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap-2.6/scripts/kconfig/lkc.h ptxdist-trunk/scripts/kconfig/lkc.h
---- linux-omap-2.6/scripts/kconfig/lkc.h	2008-08-12 11:13:34.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/lkc.h	2009-01-04 22:55:44.000000000 +0100
-@@ -31,6 +31,12 @@
+Index: kconfig/lkc.h
+===================================================================
+--- kconfig.orig/lkc.h
++++ kconfig/lkc.h
+@@ -31,6 +31,12 @@ extern "C" {
  
  #define SRCTREE "srctree"
  
@@ -349,9 +346,10 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  #define PACKAGE "linux"
  #define LOCALEDIR "/usr/share/locale"
  
-diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap-2.6/scripts/kconfig/mconf.c ptxdist-trunk/scripts/kconfig/mconf.c
---- linux-omap-2.6/scripts/kconfig/mconf.c	2008-08-04 20:58:35.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/mconf.c	2009-01-06 11:06:16.000000000 +0100
+Index: kconfig/mconf.c
+===================================================================
+--- kconfig.orig/mconf.c
++++ kconfig/mconf.c
 @@ -25,10 +25,7 @@
  static const char mconf_readme[] = N_(
  "Overview\n"
@@ -364,7 +362,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  "entered in as decimal or hexadecimal numbers or possibly text.\n"
  "\n"
  "Menu items beginning with following braces represent features that\n"
-@@ -115,7 +112,7 @@
+@@ -115,7 +112,7 @@ static const char mconf_readme[] = N_(
  "-----------------------------\n"
  "Menuconfig supports the use of alternate configuration files for\n"
  "those who, for various reasons, find it necessary to switch\n"
@@ -373,7 +371,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  "\n"
  "At the end of the main menu you will find two options.  One is\n"
  "for saving the current configuration to a file of your choosing.\n"
-@@ -148,7 +145,7 @@
+@@ -148,7 +145,7 @@ static const char mconf_readme[] = N_(
  "\n"
  "Optional personality available\n"
  "------------------------------\n"
@@ -382,7 +380,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  "menu, rather than the default multimenu hierarchy, run the menuconfig\n"
  "with MENUCONFIG_MODE environment variable set to single_menu. Example:\n"
  "\n"
-@@ -200,18 +197,18 @@
+@@ -200,18 +197,18 @@ setmod_text[] = N_(
  	"This feature depends on another which has been configured as a module.\n"
  	"As a result, this feature will be built as a module."),
  nohelp_text[] = N_(
@@ -404,7 +402,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  	"to modify that configuration.\n"
  	"\n"
  	"If you are uncertain, then you have probably never used alternate\n"
-@@ -221,7 +218,7 @@
+@@ -221,7 +218,7 @@ save_config_text[] = N_(
  	"as an alternate.  Leave blank to abort."),
  save_config_help[] = N_(
  	"\n"
@@ -413,7 +411,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  	"configurations available on a single machine.\n"
  	"\n"
  	"Entering a file name here will allow you to later retrieve, modify\n"
-@@ -232,7 +229,7 @@
+@@ -232,7 +229,7 @@ save_config_help[] = N_(
  	"leave this blank.\n"),
  search_help[] = N_(
  	"\n"
@@ -422,7 +420,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  	"Regular expressions are allowed.\n"
  	"Example: search for \"^FOO\"\n"
  	"Result:\n"
-@@ -249,7 +246,7 @@
+@@ -249,7 +246,7 @@ search_help[] = N_(
  	"Selected by: BAR\n"
  	"-----------------------------------------------------------------\n"
  	"o The line 'Prompt:' shows the text used in the menu structure for\n"
@@ -431,7 +429,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  	"o The 'Defined at' line tell at what file / line number the symbol\n"
  	"  is defined\n"
  	"o The 'Depends on:' line tell what symbols needs to be defined for\n"
-@@ -265,9 +262,9 @@
+@@ -265,9 +262,9 @@ search_help[] = N_(
  	"Only relevant lines are shown.\n"
  	"\n\n"
  	"Search examples:\n"
@@ -444,7 +442,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  	"\n");
  
  static int indent;
-@@ -362,13 +359,9 @@
+@@ -362,13 +359,9 @@ static void set_config_filename(const ch
  {
  	static char menu_backtitle[PATH_MAX+128];
  	int size;
@@ -460,7 +458,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  	if (size >= sizeof(menu_backtitle))
  		menu_backtitle[sizeof(menu_backtitle)-1] = '\0';
  	set_dialog_backtitle(menu_backtitle);
-@@ -388,8 +381,8 @@
+@@ -388,8 +381,8 @@ static void search_conf(void)
  again:
  	dialog_clear();
  	dres = dialog_inputbox(_("Search Configuration Parameter"),
@@ -471,7 +469,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  			      10, 75, "");
  	switch (dres) {
  	case 0:
-@@ -401,10 +394,10 @@
+@@ -401,10 +394,10 @@ again:
  		return;
  	}
  
@@ -485,7 +483,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  
  	sym_arr = sym_re_search(dialog_input);
  	res = get_relations_str(sym_arr);
-@@ -704,7 +697,7 @@
+@@ -704,7 +697,7 @@ static void show_help(struct menu *menu)
  	if (menu_has_help(menu))
  	{
  		if (sym->name) {
@@ -494,7 +492,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  			str_append(&help, _(menu_get_help(menu)));
  			str_append(&help, "\n");
  		}
-@@ -894,7 +887,7 @@
+@@ -894,7 +887,7 @@ int main(int ac, char **av)
  		if (conf_get_changed())
  			res = dialog_yesno(NULL,
  					   _("Do you wish to save your "
@@ -503,7 +501,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  					     "<ESC><ESC> to continue."),
  					   6, 60);
  		else
-@@ -906,20 +899,20 @@
+@@ -906,20 +899,20 @@ int main(int ac, char **av)
  	case 0:
  		if (conf_write(filename)) {
  			fprintf(stderr, _("\n\n"
@@ -529,9 +527,10 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  			"\n\n"));
  	}
  
-diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap-2.6/scripts/kconfig/README.PTX ptxdist-trunk/scripts/kconfig/README.PTX
---- linux-omap-2.6/scripts/kconfig/README.PTX	1970-01-01 01:00:00.000000000 +0100
-+++ ptxdist-trunk/scripts/kconfig/README.PTX	2009-01-04 22:55:44.000000000 +0100
+Index: kconfig/README.PTX
+===================================================================
+--- /dev/null
++++ kconfig/README.PTX
 @@ -0,0 +1,12 @@
 +README.PTX
 +==========
@@ -545,9 +544,10 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
 +
 +Robert Schwebel <r.schwebel@pengutronix.de>
 +
-diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap-2.6/scripts/kconfig/symbol.c ptxdist-trunk/scripts/kconfig/symbol.c
---- linux-omap-2.6/scripts/kconfig/symbol.c	2008-08-04 20:58:35.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/symbol.c	2009-01-04 22:55:44.000000000 +0100
+Index: kconfig/symbol.c
+===================================================================
+--- kconfig.orig/symbol.c
++++ kconfig/symbol.c
 @@ -7,7 +7,6 @@
  #include <stdlib.h>
  #include <string.h>
@@ -556,7 +556,7 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  
  #define LKC_DIRECT_LINK
  #include "lkc.h"
-@@ -45,20 +44,6 @@
+@@ -45,20 +44,6 @@ void sym_add_default(struct symbol *sym,
  
  void sym_init(void)
  {
@@ -577,10 +577,11 @@ diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap
  }
  
  enum symbol_type sym_get_type(struct symbol *sym)
-diff -Naur -x .svn -x .gitignore -x conf -x mconf -x '*.o' -x '*.cmd' linux-omap-2.6/scripts/kconfig/zconf.y ptxdist-trunk/scripts/kconfig/zconf.y
---- linux-omap-2.6/scripts/kconfig/zconf.y	2008-08-04 20:58:35.000000000 +0200
-+++ ptxdist-trunk/scripts/kconfig/zconf.y	2009-01-04 22:55:44.000000000 +0100
-@@ -476,7 +476,7 @@
+Index: kconfig/zconf.y
+===================================================================
+--- kconfig.orig/zconf.y
++++ kconfig/zconf.y
+@@ -476,7 +476,7 @@ void conf_parse(const char *name)
  	modules_sym = sym_lookup(NULL, 0);
  	modules_sym->type = S_BOOLEAN;
  	modules_sym->flags |= SYMBOL_AUTO;
