@@ -91,7 +91,7 @@ menu "binaries                      "
 
 config E2FSPROGS_INSTALL_CHATTR
 	bool
-	select E2FSPROGS_LIBCOMM_ERR
+	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
 	prompt "chattr"
 	help
@@ -99,7 +99,7 @@ config E2FSPROGS_INSTALL_CHATTR
 
 config E2FSPROGS_INSTALL_LSATTR
 	bool
-	select E2FSPROGS_LIBCOMM_ERR
+	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
 	prompt "lsattr"
 	help
@@ -126,7 +126,7 @@ config E2FSPROGS_INSTALL_BLKID
 	bool
 	select E2FSPROGS_LIBBLKID
 	select E2FSPROGS_LIBCOM_ERR
-	select E2FSPROBS_LIBEXT2FS
+	select E2FSPROGS_LIBEXT2FS
 	select E2FSPROGS_LIBUUID
 	prompt "blkid"
 	help
@@ -200,7 +200,7 @@ config E2FSPROGS_INSTALL_E2LABEL
 	select E2FSPROGS_LIBBLKID
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
-	select E2FSPROBS_LIBEXT2FS
+	select E2FSPROGS_LIBEXT2FS
 	select E2FSPROGS_LIBUUID
 	prompt "e2label"
 	help
@@ -209,7 +209,7 @@ config E2FSPROGS_INSTALL_E2LABEL
 config E2FSPROGS_INSTALL_E2UNDO
 	bool
 	select E2FSPROGS_LIBCOM_ERR
-	select E2FSPROBS_LIBEXT2FS
+	select E2FSPROGS_LIBEXT2FS
 	prompt "e2undo"
 	help
 	  Enable support for e2undo program.
@@ -225,7 +225,7 @@ config E2FSPROGS_INSTALL_FINDFS
 	select E2FSPROGS_LIBBLKID
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
-	select E2FSPROBS_LIBEXT2FS
+	select E2FSPROGS_LIBEXT2FS
 	select E2FSPROGS_LIBUUID
 	prompt "findfs"
 	help
@@ -290,7 +290,7 @@ config E2FSPROGS_INSTALL_RESIZE2FS
 	bool
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
-	select E2FSPROBS_LIBEXT2FS
+	select E2FSPROGS_LIBEXT2FS
 	prompt "resize2fs"
 	help
 	  Enable support for resize2fs program.
@@ -300,7 +300,7 @@ config E2FSPROGS_INSTALL_TUNE2FS
 	select E2FSPROGS_LIBBLKID
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
-	select E2FSPROBS_LIBEXT2FS
+	select E2FSPROGS_LIBEXT2FS
 	select E2FSPROGS_LIBUUID
 	prompt "tune2fs"
 	help
@@ -308,7 +308,7 @@ config E2FSPROGS_INSTALL_TUNE2FS
 
 config E2FSPROGS_INSTALL_UUIDD
 	bool
-	select E2FSPROGS_LIBUUIDD
+	select E2FSPROGS_LIBUUID
 	prompt "uuid"
 	help
 	  Enable support for uuid program.
