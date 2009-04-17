@@ -2,4 +2,4 @@
 
 config HOST_SQUASHFS_TOOLS
 	tristate
-	select host-zlib
+	select HOST_ZLIB
