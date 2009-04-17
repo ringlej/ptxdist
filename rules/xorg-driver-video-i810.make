@@ -2,6 +2,7 @@
 # $Id: template 5616 2006-06-02 13:50:47Z rsc $
 #
 # Copyright (C) 2006 by Erwin Rol
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,34 +29,13 @@ XORG_DRIVER_VIDEO_I810_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_I810)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-driver-video-i810_get: $(STATEDIR)/xorg-driver-video-i810.get
-
-$(STATEDIR)/xorg-driver-video-i810.get: $(xorg-driver-video-i810_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_DRIVER_VIDEO_I810_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_DRIVER_VIDEO_I810)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-i810_extract: $(STATEDIR)/xorg-driver-video-i810.extract
-
-$(STATEDIR)/xorg-driver-video-i810.extract: $(xorg-driver-video-i810_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_DRIVER_VIDEO_I810_DIR))
-	@$(call extract, XORG_DRIVER_VIDEO_I810)
-	@$(call patchin, XORG_DRIVER_VIDEO_I810)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-xorg-driver-video-i810_prepare: $(STATEDIR)/xorg-driver-video-i810.prepare
 
 XORG_DRIVER_VIDEO_I810_PATH	:= PATH=$(CROSS_PATH)
 XORG_DRIVER_VIDEO_I810_ENV 	:= \
@@ -81,51 +61,19 @@ XORG_DRIVER_VIDEO_I810_ENV += \
 	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/dristruct.h)=no
 endif
 
-$(STATEDIR)/xorg-driver-video-i810.prepare: $(xorg-driver-video-i810_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_DRIVER_VIDEO_I810_DIR)/config.cache)
-	cd $(XORG_DRIVER_VIDEO_I810_DIR) && \
-		$(XORG_DRIVER_VIDEO_I810_PATH) $(XORG_DRIVER_VIDEO_I810_ENV) \
-		./configure $(XORG_DRIVER_VIDEO_I810_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-i810_compile: $(STATEDIR)/xorg-driver-video-i810.compile
-
-$(STATEDIR)/xorg-driver-video-i810.compile: $(xorg-driver-video-i810_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_DRIVER_VIDEO_I810_DIR) && $(XORG_DRIVER_VIDEO_I810_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-i810_install: $(STATEDIR)/xorg-driver-video-i810.install
-
-$(STATEDIR)/xorg-driver-video-i810.install: $(xorg-driver-video-i810_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_DRIVER_VIDEO_I810)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-driver-video-i810_targetinstall: $(STATEDIR)/xorg-driver-video-i810.targetinstall
-
-$(STATEDIR)/xorg-driver-video-i810.targetinstall: $(xorg-driver-video-i810_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-driver-video-i810.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-video-i810)
 	@$(call install_fixup,xorg-driver-video-i810,PACKAGE,xorg-driver-video-i810)
 	@$(call install_fixup,xorg-driver-video-i810,PRIORITY,optional)
 	@$(call install_fixup,xorg-driver-video-i810,VERSION,$(XORG_DRIVER_VIDEO_I810_VERSION))
 	@$(call install_fixup,xorg-driver-video-i810,SECTION,base)
-	@$(call install_fixup,xorg-driver-video-i810,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,xorg-driver-video-i810,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,xorg-driver-video-i810,DEPENDS,)
 	@$(call install_fixup,xorg-driver-video-i810,DESCRIPTION,missing)
 
@@ -143,7 +91,7 @@ $(STATEDIR)/xorg-driver-video-i810.targetinstall: $(xorg-driver-video-i810_targe
 
 	@$(call install_finish,xorg-driver-video-i810)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
