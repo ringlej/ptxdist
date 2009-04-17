@@ -28,28 +28,9 @@ LIBXCB_DIR		:= $(BUILDDIR)/$(LIBXCB)
 # Get
 # ----------------------------------------------------------------------------
 
-libxcb_get: $(STATEDIR)/libxcb.get
-
-$(STATEDIR)/libxcb.get: $(libxcb_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBXCB_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBXCB)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libxcb_extract: $(STATEDIR)/libxcb.extract
-
-$(STATEDIR)/libxcb.extract: $(libxcb_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBXCB_DIR))
-	@$(call extract, LIBXCB)
-	@$(call patchin, LIBXCB)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -72,51 +53,19 @@ LIBXCB_AUTOCONF := \
 # What's here detected depends on the build order!
 #
 
-$(STATEDIR)/libxcb.prepare: $(libxcb_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBXCB_DIR)/config.cache)
-	cd $(LIBXCB_DIR) && \
-		$(LIBXCB_PATH) $(LIBXCB_ENV) \
-		./configure $(LIBXCB_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libxcb_compile: $(STATEDIR)/libxcb.compile
-
-$(STATEDIR)/libxcb.compile: $(libxcb_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBXCB_DIR) && $(LIBXCB_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libxcb_install: $(STATEDIR)/libxcb.install
-
-$(STATEDIR)/libxcb.install: $(libxcb_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBXCB)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libxcb_targetinstall: $(STATEDIR)/libxcb.targetinstall
-
-$(STATEDIR)/libxcb.targetinstall: $(libxcb_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/libxcb.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, libxcb)
 	@$(call install_fixup, libxcb,PACKAGE,libxcb)
 	@$(call install_fixup, libxcb,PRIORITY,optional)
 	@$(call install_fixup, libxcb,VERSION,$(LIBXCB_VERSION))
 	@$(call install_fixup, libxcb,SECTION,base)
-	@$(call install_fixup, libxcb,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libxcb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libxcb,DEPENDS,)
 	@$(call install_fixup, libxcb,DESCRIPTION,missing)
 
@@ -233,7 +182,7 @@ $(STATEDIR)/libxcb.targetinstall: $(libxcb_targetinstall_deps_default)
 
 	@$(call install_finish, libxcb)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
