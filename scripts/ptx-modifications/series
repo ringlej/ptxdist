@@ -3,3 +3,4 @@
 # this patches applied.
 kconfig-2.6.28-ptx1.diff
 linux-2.6.git-48874077ddd6c0c444758059af2cf77c10204ece.diff
+linux-2.6.git-603d49885e023d1f68c627c2a2db599fb40eefec.diff
