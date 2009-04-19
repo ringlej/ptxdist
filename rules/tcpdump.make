@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_TCPDUMP) += tcpdump
 #
 # Paths and names
 #
-TCPDUMP_VERSION	:= 3.9.5
+TCPDUMP_VERSION	:= 4.0.0
 TCPDUMP		:= tcpdump-$(TCPDUMP_VERSION)
 TCPDUMP_SUFFIX	:= tar.gz
 TCPDUMP_URL	:= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
@@ -84,7 +84,7 @@ $(STATEDIR)/tcpdump.targetinstall:
 	@$(call install_fixup, tcpdump,DEPENDS,)
 	@$(call install_fixup, tcpdump,DESCRIPTION,missing)
 
-	@$(call install_copy, tcpdump, 0, 0, 0755, $(TCPDUMP_DIR)/tcpdump, /usr/sbin/tcpdump)
+	@$(call install_copy, tcpdump, 0, 0, 0755, -, /usr/sbin/tcpdump)
 
 	@$(call install_finish, tcpdump)
 
