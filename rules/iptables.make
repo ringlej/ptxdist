@@ -19,12 +19,12 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	= 1.4.3
-IPTABLES		= iptables-$(IPTABLES_VERSION)
-IPTABLES_SUFFIX		= tar.bz2
-IPTABLES_URL		= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
-IPTABLES_SOURCE		= $(SRCDIR)/$(IPTABLES).$(IPTABLES_SUFFIX)
-IPTABLES_DIR		= $(BUILDDIR)/$(IPTABLES)
+IPTABLES_VERSION	:= 1.4.3
+IPTABLES		:= iptables-$(IPTABLES_VERSION)
+IPTABLES_SUFFIX		:= tar.bz2
+IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
+IPTABLES_SOURCE		:= $(SRCDIR)/$(IPTABLES).$(IPTABLES_SUFFIX)
+IPTABLES_DIR		:= $(BUILDDIR)/$(IPTABLES)
 
 
 # ----------------------------------------------------------------------------
@@ -32,15 +32,15 @@ IPTABLES_DIR		= $(BUILDDIR)/$(IPTABLES)
 # ----------------------------------------------------------------------------
 
 $(IPTABLES_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, IPTABLES)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-IPTABLES_PATH	=  PATH=$(CROSS_PATH)
-IPTABLES_ENV 	=  $(CROSS_ENV)
+IPTABLES_PATH	:=  PATH=$(CROSS_PATH)
+IPTABLES_ENV	:=  $(CROSS_ENV)
 IPTABLES_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking \
@@ -52,7 +52,7 @@ IPTABLES_AUTOCONF = \
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/iptables.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, iptables)
 	@$(call install_fixup, iptables,PACKAGE,iptables)
@@ -92,8 +92,7 @@ endif
 # install the IPv6 relevant shared feature libraries
 	@cd $(IPTABLES_DIR)/extensions && \
 		for file in libip6t_*.so; do \
-			$(call install_copy, iptables, 0, 0, 0644, \
-				$(IPTABLES_DIR)/extensions/$$file, \
+			$(call install_copy, iptables, 0, 0, 0644, -, \
 				/usr/lib/$$file); \
 		done
 
@@ -116,14 +115,13 @@ endif
 # install all shared feature libraries to get full runtime support
 	@cd $(IPTABLES_DIR)/extensions && \
 		for file in libipt_*.so libxt_*.so; do \
-			$(call install_copy, iptables, 0, 0, 0644, \
-				$(IPTABLES_DIR)/extensions/$$file, \
+			$(call install_copy, iptables, 0, 0, 0644, -,\
 				/usr/lib/$$file); \
 		done
 
 	@$(call install_finish, iptables)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
