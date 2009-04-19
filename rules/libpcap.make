@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2003-2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,11 +17,10 @@ PACKAGES-$(PTXCONF_LIBPCAP) += libpcap
 #
 # Paths and names
 #
-LIBPCAP_VERSION	:= 0.9.5
+LIBPCAP_VERSION	:= 1.0.0
 LIBPCAP		:= libpcap-$(LIBPCAP_VERSION)
 LIBPCAP_SUFFIX	:= tar.gz
-LIBPCAP_URL	:= http://www.tcpdump.org/release/$(LIBPCAP).$(LIBPCAP_SUFFIX) \
-		   http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBPCAP).$(LIBPCAP_SUFFIX)
+LIBPCAP_URL	:= http://www.tcpdump.org/release/$(LIBPCAP).$(LIBPCAP_SUFFIX)
 LIBPCAP_SOURCE	:= $(SRCDIR)/$(LIBPCAP).$(LIBPCAP_SUFFIX)
 LIBPCAP_DIR	:= $(BUILDDIR)/$(LIBPCAP)
 

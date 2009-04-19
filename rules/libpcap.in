@@ -20,9 +20,12 @@ menuconfig LIBPCAP
 	   implemented in the kernel, e.g. tcpdump. If you want them to work,
 	   choose Y.
 
+if LIBPCAP
+
 config LIBPCAP_IPV6
 	bool
-	depends on LIBPCAP
 	prompt "build IPv6-capable version"
 	help
 	  Enable this if you require ipv6 support.
+
+endif
