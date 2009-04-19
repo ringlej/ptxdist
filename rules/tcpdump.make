@@ -45,7 +45,8 @@ TCPDUMP_ENV 	:= $(CROSS_ENV)
 #
 TCPDUMP_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
-	ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR)
+	ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR) \
+	td_cv_buggygetaddrinfo=no
 
 # FIXME: Unsupported switches yet
 #  --with-user=USERNAME    drop privileges by default to USERNAME
