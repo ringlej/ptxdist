@@ -22,9 +22,11 @@ TODO before 1.99.13
     Doesn't work, because it does not create any *.log files, which logrotate tries
     to handle.
 
-[ ] Dioptik: freetype 2.3.8 web link is dead
+[x] Dioptik: freetype 2.3.8 web link is dead
     From the freetype website "Don't use this version! This is a bugfix release
     for the 2.3 series. All users should upgrade. See this page for the release notes."
+
+    Update: 20090417 mkl: done
 
 [ ] mkl: remove inetd.conf leftovers
 
