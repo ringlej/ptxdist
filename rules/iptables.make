@@ -123,6 +123,10 @@ ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_XML
 	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/bin/iptables-xml)
 endif
 
+ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_APPLY
+	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/iptables-apply, /usr/sbin/iptables-apply)
+endif
+
 	@$(call install_finish, iptables)
 
 	@$(call touch)

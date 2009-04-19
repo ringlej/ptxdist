@@ -84,9 +84,13 @@ config IPTABLES_INSTALL_IPTABLES_XML
 	  easily manipulatable XML format to STDOUT. Use I/O-redirection
 	  provided by your shell to write to a file.
 
+comment "iptables-apply depends on bash"
+	depends on !BASH
+
 config IPTABLES_INSTALL_IPTABLES_APPLY
 	bool
 	prompt "install iptables-apply"
+	depends on BASH
 	help
 	  iptables-apply will try to apply a new ruleset (as output by
 	  iptables-save/read by iptables-restore) to iptables, then prompt the
