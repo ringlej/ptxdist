@@ -93,7 +93,7 @@ install_copy = 											\
 		(0 | n | no)									\
 			;;									\
 		(*)											\
-			file "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST" | egrep -q ":.*executable.*stripped";	\
+			file "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST" | egrep -q ":.*(executable|shared object).*stripped";	\
 				case "$$?" in								\
 				(0)									\
 				$(CROSS_STRIP) -R .note -R .comment "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST";\
