@@ -119,6 +119,10 @@ endif
 				/usr/lib/$$file); \
 		done
 
+ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_XML
+	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/bin/iptables-xml)
+endif
+
 	@$(call install_finish, iptables)
 
 	@$(call touch)
