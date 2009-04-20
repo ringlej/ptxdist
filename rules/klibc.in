@@ -206,15 +206,15 @@ config KLIBC_DYNAMIC_LIB
 	  This adds the shared klibc.so to be used for dynamically linked commands. It's the
 	  regular way to get smaller executables. It gets installed into /lib/klibc.so
 
+if KLIBC_DYNAMIC_LIB
+
 #comment "Select shared linked commands to install"
-#	depends on KLIBC_DYNAMIC_LIB
 
 ######
 comment "Static cat command is selected!"
-	depends on KLIBC_STATIC_CAT && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_CAT
 
 config KLIBC_SHARED_CAT
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_CAT
 	bool
 	prompt "cat"
@@ -223,10 +223,9 @@ config KLIBC_SHARED_CAT
 
 ######
 comment "Static chroot command is selected!"
-	depends on KLIBC_STATIC_CHROOT && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_CHROOT
 
 config KLIBC_SHARED_CHROOT
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_CHROOT
 	bool
 	prompt "chroot"
@@ -235,10 +234,9 @@ config KLIBC_SHARED_CHROOT
 
 ######
 comment "Static cpio command is selected!"
-	depends on KLIBC_STATIC_CPIO && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_CPIO
 
 config KLIBC_SHARED_CPIO
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_CPIO
 	bool
 	prompt "cpio"
@@ -247,10 +245,9 @@ config KLIBC_SHARED_CPIO
 
 ######
 comment "Static dd command is selected!"
-	depends on KLIBC_STATIC_DD && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_DD
 
 config KLIBC_SHARED_DD
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_DD
 	bool
 	prompt "dd"
@@ -259,10 +256,9 @@ config KLIBC_SHARED_DD
 
 ######
 comment "Static dmesg command is selected!"
-	depends on KLIBC_STATIC_DMESG && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_DMESG
 
 config KLIBC_SHARED_DMESG
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_DMESG
 	bool
 	prompt "dmesg"
@@ -271,10 +267,9 @@ config KLIBC_SHARED_DMESG
 
 ######
 comment "Static false command is selected!"
-	depends on KLIBC_STATIC_FALSE && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_FALSE
 
 config KLIBC_SHARED_FALSE
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_FALSE
 	bool
 	prompt "false"
@@ -283,10 +278,9 @@ config KLIBC_SHARED_FALSE
 
 ######
 comment "Static halt command is selected!"
-	depends on KLIBC_STATIC_HALT && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_HALT
 
 config KLIBC_SHARED_HALT
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_HALT
 	bool
 	prompt "halt"
@@ -295,10 +289,9 @@ config KLIBC_SHARED_HALT
 
 ######
 comment "Static kill command is selected!"
-	depends on KLIBC_STATIC_KILL && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_KILL
 
 config KLIBC_SHARED_KILL
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_KILL
 	bool
 	prompt "kill"
@@ -307,10 +300,9 @@ config KLIBC_SHARED_KILL
 
 ######
 comment "Static ln command is selected!"
-	depends on KLIBC_STATIC_LN && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_LN
 
 config KLIBC_SHARED_LN
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_LN
 	bool
 	prompt "ln"
@@ -319,10 +311,9 @@ config KLIBC_SHARED_LN
 
 ######
 comment "Static minips command is selected!"
-	depends on KLIBC_STATIC_MINIPS && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_MINIPS
 
 config KLIBC_SHARED_MINIPS
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_MINIPS
 	bool
 	prompt "minips"
@@ -331,10 +322,9 @@ config KLIBC_SHARED_MINIPS
 
 ######
 comment "Static mkdir command is selected!"
-	depends on KLIBC_STATIC_MKDIR && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_MKDIR
 
 config KLIBC_SHARED_MKDIR
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_MKDIR
 	bool
 	prompt "mkdir"
@@ -343,10 +333,9 @@ config KLIBC_SHARED_MKDIR
 
 ######
 comment "Static mkfifo command is selected!"
-	depends on KLIBC_STATIC_MKFIFO && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_MKFIFO
 
 config KLIBC_SHARED_MKFIFO
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_MKFIFO
 	bool
 	prompt "mkfifo"
@@ -355,10 +344,9 @@ config KLIBC_SHARED_MKFIFO
 
 ######
 comment "Static mknod command is selected!"
-	depends on KLIBC_STATIC_MKNOD && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_MKNOD
 
 config KLIBC_SHARED_MKNOD
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_MKNOD
 	bool
 	prompt "mknod"
@@ -367,10 +355,9 @@ config KLIBC_SHARED_MKNOD
 
 ######
 comment "Static mount command is selected!"
-	depends on KLIBC_STATIC_MOUNT && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_MOUNT
 
 config KLIBC_SHARED_MOUNT
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_MOUNT
 	bool
 	prompt "mount"
@@ -379,10 +366,9 @@ config KLIBC_SHARED_MOUNT
 
 ######
 comment "Static nuke command is selected!"
-	depends on KLIBC_STATIC_NUKE && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_NUKE
 
 config KLIBC_SHARED_NUKE
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_NUKE
 	bool
 	prompt "nuke"
@@ -391,10 +377,9 @@ config KLIBC_SHARED_NUKE
 
 ######
 comment "Static pivot_root command is selected!"
-	depends on KLIBC_STATIC_PIVOT_ROOT && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_PIVOT_ROOT
 
 config KLIBC_SHARED_PIVOT_ROOT
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_PIVOT_ROOT
 	bool
 	prompt "pivot_root"
@@ -403,10 +388,9 @@ config KLIBC_SHARED_PIVOT_ROOT
 
 ######
 comment "Static readlink command is selected!"
-	depends on KLIBC_STATIC_READLINK && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_READLINK
 
 config KLIBC_SHARED_READLINK
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_READLINK
 	bool
 	prompt "readlink"
@@ -415,10 +399,9 @@ config KLIBC_SHARED_READLINK
 
 ######
 comment "Static run-init command is selected!"
-	depends on KLIBC_STATIC_RUN_INIT && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_RUN_INIT
 
 config KLIBC_SHARED_RUN_INIT
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_RUN_INIT
 	bool
 	prompt "run-init"
@@ -427,10 +410,9 @@ config KLIBC_SHARED_RUN_INIT
 
 ######
 comment "Static sleep command is selected!"
-	depends on KLIBC_STATIC_SLEEP && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_SLEEP
 
 config KLIBC_SHARED_SLEEP
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_SLEEP
 	bool
 	prompt "sleep"
@@ -439,10 +421,9 @@ config KLIBC_SHARED_SLEEP
 
 ######
 comment "Static sync command is selected!"
-	depends on KLIBC_STATIC_SYNC && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_SYNC
 
 config KLIBC_SHARED_SYNC
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_SYNC
 	bool
 	prompt "sync"
@@ -451,10 +432,9 @@ config KLIBC_SHARED_SYNC
 
 ######
 comment "Static true command is selected!"
-	depends on KLIBC_STATIC_TRUE && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_TRUE
 
 config KLIBC_SHARED_TRUE
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_TRUE
 	bool
 	prompt "true"
@@ -463,10 +443,9 @@ config KLIBC_SHARED_TRUE
 
 ######
 comment "Static umount command is selected!"
-	depends on KLIBC_STATIC_UMOUNT && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_UMOUNT
 
 config KLIBC_SHARED_UMOUNT
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_UMOUNT
 	bool
 	prompt "umount"
@@ -475,15 +454,16 @@ config KLIBC_SHARED_UMOUNT
 
 ######
 comment "Static uname command is selected!"
-	depends on KLIBC_STATIC_UNAME && KLIBC_DYNAMIC_LIB
+	depends on KLIBC_STATIC_UNAME
 
 config KLIBC_SHARED_UNAME
-	depends on KLIBC_DYNAMIC_LIB
 	depends on !KLIBC_STATIC_UNAME
 	bool
 	prompt "uname"
 	help
 	  This is a shared "uname" command. It gets installed into /bin/uname
+
+endif
 
 config KLIBC_INIT
 	string
