@@ -116,14 +116,23 @@ endif
 ifdef PTXCONF_KLIBC_STATIC_CHROOT
 	echo "file /bin/chroot $(KLIBC_BINSRC)/utils/static/chroot 755 0 0" >> $(KLIBC_CONTROL)
 endif
+ifdef PTXCONF_KLIBC_STATIC_CPIO
+	echo "file /bin/cpio $(KLIBC_BINSRC)/utils/static/cpio 755 0 0" >> $(KLIBC_CONTROL)
+endif
 ifdef PTXCONF_KLIBC_STATIC_DD
 	echo "file /bin/dd $(KLIBC_BINSRC)/utils/static/dd 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_STATIC_DMESG
+	echo "file /bin/dmesg $(KLIBC_BINSRC)/utils/static/dmesg 755 0 0" >> $(KLIBC_CONTROL)
 endif
 ifdef PTXCONF_KLIBC_STATIC_FALSE
 	echo "file /bin/false $(KLIBC_BINSRC)/utils/static/false 755 0 0" >> $(KLIBC_CONTROL)
 endif
-ifdef PTXCONF_KLIBC_STATIC_INSMOD
-	echo "file /bin/insmod $(KLIBC_BINSRC)/utils/static/insmod 755 0 0" >> $(KLIBC_CONTROL)
+ifdef PTXCONF_KLIBC_STATIC_HALT
+	echo "file /bin/halt $(KLIBC_BINSRC)/utils/static/halt 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_STATIC_KILL
+	echo "file /bin/kill $(KLIBC_BINSRC)/utils/static/kill 755 0 0" >> $(KLIBC_CONTROL)
 endif
 ifdef PTXCONF_KLIBC_STATIC_LN
 	echo "file /bin/ln $(KLIBC_BINSRC)/utils/static/ln 755 0 0" >> $(KLIBC_CONTROL)
@@ -137,6 +146,9 @@ endif
 ifdef PTXCONF_KLIBC_STATIC_MKFIFO
 	echo "file /bin/mkfifo $(KLIBC_BINSRC)/utils/static/mkfifo 755 0 0" >> $(KLIBC_CONTROL)
 endif
+ifdef PTXCONF_KLIBC_STATIC_MKNOD
+	echo "file /bin/mknod $(KLIBC_BINSRC)/utils/static/mknod 755 0 0" >> $(KLIBC_CONTROL)
+endif
 ifdef PTXCONF_KLIBC_STATIC_MOUNT
 	echo "file /bin/mount $(KLIBC_BINSRC)/utils/static/mount 755 0 0" >> $(KLIBC_CONTROL)
 endif
@@ -146,8 +158,17 @@ endif
 ifdef PTXCONF_KLIBC_STATIC_PIVOT_ROOT
 	echo "file /bin/pivot_root $(KLIBC_BINSRC)/utils/static/pivot_root 755 0 0" >> $(KLIBC_CONTROL)
 endif
+ifdef PTXCONF_KLIBC_STATIC_READLINK
+	echo "file /bin/readlink $(KLIBC_BINSRC)/utils/static/readlink 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_STATIC_RUN_INIT
+	echo "file /bin/run-init $(KLIBC_BINSRC)/kinit/run-init/static/run-init 755 0 0" >> $(KLIBC_CONTROL)
+endif
 ifdef PTXCONF_KLIBC_STATIC_SLEEP
 	echo "file /bin/sleep $(KLIBC_BINSRC)/utils/static/sleep 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_STATIC_SYNC
+	echo "file /bin/sync $(KLIBC_BINSRC)/utils/static/sync 755 0 0" >> $(KLIBC_CONTROL)
 endif
 ifdef PTXCONF_KLIBC_STATIC_TRUE
 	echo "file /bin/true $(KLIBC_BINSRC)/utils/static/true 755 0 0" >> $(KLIBC_CONTROL)
@@ -176,10 +197,74 @@ ifdef PTXCONF_KLIBC_DYNAMIC_LIB
 	echo "file /lib/klibc.so $(KLIBC_BINSRC)/utils/klibc/klibc.so 755 0 0" >> $(KLIBC_CONTROL)
 endif
 ifdef PTXCONF_KLIBC_SHARED_CAT
-	echo "file /bin/sh $(KLIBC_BINSRC)/usr/dash/sh 755 0 0" >> $(KLIBC_CONTROL)
+	echo "file /bin/cat $(KLIBC_BINSRC)/utils/shared/cat 755 0 0" >> $(KLIBC_CONTROL)
 endif
-
-# FIXME: add remaining possible commands
+ifdef PTXCONF_KLIBC_SHARED_CHROOT
+	echo "file /bin/chroot $(KLIBC_BINSRC)/utils/shared/chroot 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_CPIO
+	echo "file /bin/cpio $(KLIBC_BINSRC)/utils/shared/cpio 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_DD
+	echo "file /bin/dd $(KLIBC_BINSRC)/utils/shared/dd 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_DMESG
+	echo "file /bin/dmesg $(KLIBC_BINSRC)/utils/shared/dmesg 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_FALSE
+	echo "file /bin/false $(KLIBC_BINSRC)/utils/shared/false 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_HALT
+	echo "file /bin/halt $(KLIBC_BINSRC)/utils/shared/halt 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_KILL
+	echo "file /bin/kill $(KLIBC_BINSRC)/utils/shared/kill 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_LN
+	echo "file /bin/ln $(KLIBC_BINSRC)/utils/shared/ln 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_MINIPS
+	echo "file /bin/minips $(KLIBC_BINSRC)/utils/shared/minips 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_MKDIR
+	echo "file /bin/mkdir $(KLIBC_BINSRC)/utils/shared/mkdir 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_MKFIFO
+	echo "file /bin/mkfifo $(KLIBC_BINSRC)/utils/shared/mkfifo 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_MKNOD
+	echo "file /bin/mknod $(KLIBC_BINSRC)/utils/shared/mknod 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_MOUNT
+	echo "file /bin/mount $(KLIBC_BINSRC)/utils/shared/mount 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_NUKE
+	echo "file /bin/nuke $(KLIBC_BINSRC)/utils/shared/nuke 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_PIVOT_ROOT
+	echo "file /bin/pivot_root $(KLIBC_BINSRC)/utils/shared/pivot_root 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_READLINK
+	echo "file /bin/readlink $(KLIBC_BINSRC)/utils/shared/readlink 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_RUN_INIT
+	echo "file /bin/run-init $(KLIBC_BINSRC)/kinit/run-init/shared/run-init 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_SLEEP
+	echo "file /bin/sleep $(KLIBC_BINSRC)/utils/shared/sleep 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_SYNC
+	echo "file /bin/sync $(KLIBC_BINSRC)/utils/shared/sync 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_TRUE
+	echo "file /bin/true $(KLIBC_BINSRC)/utils/shared/true 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_UMOUNT
+	echo "file /bin/umount $(KLIBC_BINSRC)/utils/shared/umount 755 0 0" >> $(KLIBC_CONTROL)
+endif
+ifdef PTXCONF_KLIBC_SHARED_UNAME
+	echo "file /bin/uname $(KLIBC_BINSRC)/utils/shared/uname 755 0 0" >> $(KLIBC_CONTROL)
+endif
 
 #
 # add the link when enabled

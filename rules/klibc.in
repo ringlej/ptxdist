@@ -60,6 +60,11 @@ config KLIBC_STATIC_CHROOT
 	help
 	  This is a statically linked "chroot" command. It gets installed into /bin/chroot
 
+config KLIBC_STATIC_CPIO
+	bool
+	prompt "cpio"
+	help
+	  This is a statically linked "cpio" command. It gets installed into /bin/cpio
 
 config KLIBC_STATIC_DD
 	bool
@@ -67,17 +72,29 @@ config KLIBC_STATIC_DD
 	help
 	  This is a statically linked "dd" command. It gets installed into /bin/dd
 
+config KLIBC_STATIC_DMESG
+	bool
+	prompt "dmesg"
+	help
+	  This is a statically linked "dmesg" command. It gets installed into /bin/dmesg
+
 config KLIBC_STATIC_FALSE
 	bool
 	prompt "false"
 	help
 	  This is a statically linked "false" command. It gets installed into /bin/false
 
-config KLIBC_STATIC_INSMOD
+config KLIBC_STATIC_HALT
 	bool
-	prompt "insmod"
+	prompt "halt"
 	help
-	  This is a statically linked "insmod" command. It gets installed into /bin/insmod
+	  This is a statically linked "halt" command. It gets installed into /bin/halt
+
+config KLIBC_STATIC_KILL
+	bool
+	prompt "kill"
+	help
+	  This is a statically linked "kill" command. It gets installed into /bin/kill
 
 config KLIBC_STATIC_LN
 	bool
@@ -103,6 +120,12 @@ config KLIBC_STATIC_MKFIFO
 	help
 	  This is a statically linked "mkfifo" command. It gets installed into /bin/mkfifo
 
+config KLIBC_STATIC_MKNOD
+	bool
+	prompt "mknod"
+	help
+	  This is a statically linked "mknod" command. It gets installed into /bin/mknod
+
 config KLIBC_STATIC_MOUNT
 	bool
 	prompt "mount"
@@ -117,15 +140,44 @@ config KLIBC_STATIC_NUKE
 
 config KLIBC_STATIC_PIVOT_ROOT
 	bool
-	prompt "pivot-root"
+	prompt "pivot_root"
 	help
 	  This is a statically linked "pivot_root" command. It gets installed into /bin/pivot_root
+
+config KLIBC_STATIC_READLINK
+	bool
+	prompt "readlink"
+	help
+	  This is a statically linked "readlink" command. It gets installed into /bin/readlink
+
+config KLIBC_STATIC_RUN_INIT
+	bool
+	prompt "run-init"
+	default y
+	help
+	  It will be installed into /bin/run-init.
+	  Usage: exec run-init [-c /dev/console] /real-root /sbin/init "$@"
+
+	  This program should be called as the last thing in a shell script
+	  acting as /init in an initramfs; it does the following:
+
+	   - Delete all files in the initramfs;
+	   - Remounts /real-root onto the root filesystem;
+	   - Chroots;
+	   - Opens /dev/console;
+	   - Spawns the specified init program (with arguments.)
 
 config KLIBC_STATIC_SLEEP
 	bool
 	prompt "sleep"
 	help
 	  This is a statically linked "sleep" command. It gets installed into /bin/sleep
+
+config KLIBC_STATIC_SYNC
+	bool
+	prompt "sync"
+	help
+	  This is a statically linked "sync" command. It gets installed into /bin/sync
 
 config KLIBC_STATIC_TRUE
 	bool
@@ -183,6 +235,18 @@ config KLIBC_SHARED_CHROOT
 	  This is a shared "chroot" command. It gets installed into /bin/chroot
 
 ######
+comment "Static cpio command is selected!"
+	depends on KLIBC_STATIC_CPIO && KLIBC_DYNAMIC_LIB
+
+config KLIBC_SHARED_CPIO
+	depends on KLIBC_DYNAMIC_LIB
+	depends on !KLIBC_STATIC_CPIO
+	bool
+	prompt "cpio"
+	help
+	  This is a shared "cpio" command. It gets installed into /bin/cpio
+
+######
 comment "Static dd command is selected!"
 	depends on KLIBC_STATIC_DD && KLIBC_DYNAMIC_LIB
 
@@ -193,6 +257,18 @@ config KLIBC_SHARED_DD
 	prompt "dd"
 	help
 	  This is a shared "dd" command. It gets installed into /bin/dd
+
+######
+comment "Static dmesg command is selected!"
+	depends on KLIBC_STATIC_DMESG && KLIBC_DYNAMIC_LIB
+
+config KLIBC_SHARED_DMESG
+	depends on KLIBC_DYNAMIC_LIB
+	depends on !KLIBC_STATIC_DMESG
+	bool
+	prompt "dmesg"
+	help
+	  This is a shared "dmesg" command. It gets installed into /bin/dmesg
 
 ######
 comment "Static false command is selected!"
@@ -207,16 +283,28 @@ config KLIBC_SHARED_FALSE
 	  This is a shared "false" command. It gets installed into /bin/false
 
 ######
-comment "Static insmod command is selected!"
-	depends on KLIBC_STATIC_INSMOD && KLIBC_DYNAMIC_LIB
+comment "Static halt command is selected!"
+	depends on KLIBC_STATIC_HALT && KLIBC_DYNAMIC_LIB
 
-config KLIBC_SHARED_INSMOD
+config KLIBC_SHARED_HALT
 	depends on KLIBC_DYNAMIC_LIB
-	depends on !KLIBC_STATIC_INSMOD
+	depends on !KLIBC_STATIC_HALT
 	bool
-	prompt "insmod"
+	prompt "halt"
 	help
-	  This is a shared "insmod" command. It gets installed into /bin/insmod
+	  This is a shared "halt" command. It gets installed into /bin/halt
+
+######
+comment "Static kill command is selected!"
+	depends on KLIBC_STATIC_KILL && KLIBC_DYNAMIC_LIB
+
+config KLIBC_SHARED_KILL
+	depends on KLIBC_DYNAMIC_LIB
+	depends on !KLIBC_STATIC_KILL
+	bool
+	prompt "kill"
+	help
+	  This is a shared "kill" command. It gets installed into /bin/kill
 
 ######
 comment "Static ln command is selected!"
@@ -267,6 +355,18 @@ config KLIBC_SHARED_MKFIFO
 	  This is a shared "mkfifo" command. It gets installed into /bin/mkfifo
 
 ######
+comment "Static mknod command is selected!"
+	depends on KLIBC_STATIC_MKNOD && KLIBC_DYNAMIC_LIB
+
+config KLIBC_SHARED_MKNOD
+	depends on KLIBC_DYNAMIC_LIB
+	depends on !KLIBC_STATIC_MKNOD
+	bool
+	prompt "mknod"
+	help
+	  This is a shared "mknod" command. It gets installed into /bin/mknod
+
+######
 comment "Static mount command is selected!"
 	depends on KLIBC_STATIC_MOUNT && KLIBC_DYNAMIC_LIB
 
@@ -303,6 +403,30 @@ config KLIBC_SHARED_PIVOT_ROOT
 	  This is a shared "pivot_root" command. It gets installed into /bin/pivot_root
 
 ######
+comment "Static readlink command is selected!"
+	depends on KLIBC_STATIC_READLINK && KLIBC_DYNAMIC_LIB
+
+config KLIBC_SHARED_READLINK
+	depends on KLIBC_DYNAMIC_LIB
+	depends on !KLIBC_STATIC_READLINK
+	bool
+	prompt "readlink"
+	help
+	  This is a shared "readlink" command. It gets installed into /bin/readlink
+
+######
+comment "Static run-init command is selected!"
+	depends on KLIBC_STATIC_RUN_INIT && KLIBC_DYNAMIC_LIB
+
+config KLIBC_SHARED_RUN_INIT
+	depends on KLIBC_DYNAMIC_LIB
+	depends on !KLIBC_STATIC_RUN_INIT
+	bool
+	prompt "run-init"
+	help
+	  This is a shared "run-init" command. It gets installed into /bin/run-init
+
+######
 comment "Static sleep command is selected!"
 	depends on KLIBC_STATIC_SLEEP && KLIBC_DYNAMIC_LIB
 
@@ -313,6 +437,18 @@ config KLIBC_SHARED_SLEEP
 	prompt "sleep"
 	help
 	  This is a shared "sleep" command. It gets installed into /bin/sleep
+
+######
+comment "Static sync command is selected!"
+	depends on KLIBC_STATIC_SYNC && KLIBC_DYNAMIC_LIB
+
+config KLIBC_SHARED_SYNC
+	depends on KLIBC_DYNAMIC_LIB
+	depends on !KLIBC_STATIC_SYNC
+	bool
+	prompt "sync"
+	help
+	  This is a shared "sync" command. It gets installed into /bin/sync
 
 ######
 comment "Static true command is selected!"
