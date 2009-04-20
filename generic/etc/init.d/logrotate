@@ -1,32 +1,33 @@
 #!/bin/sh
 
 #
-# /etc/init.d/logrotate - Minimal Log Rotator for /var/log/*.{log,err} 
+# /etc/init.d/logrotate - Minimal Log Rotator for /var/log/{messages,*.{log,err}}
 #
 
 PREFIX="logrotate: "
-LOGDIR="/var/log/"
+LOGDIR="/tmp/var/log"
 MAXFILES="8"
-PATTERNS="*.err *.log"
+PATTERNS="*.err *.log messages"
 
 my_exit(){
-echo "${PREFIX}${1}"
-exit $2
+	echo "${PREFIX}${1}"
+	exit $2
 }
 
 logrotate(){
-	cd $LOGDIR
-	# Rotate Backups for *.log and *.err.files
-	for filename in $PATTERNS; do
-		echo "${PREFIX}rotation for $filename ... "
-		for i in `seq $MAXFILES -1 1` ; do
-  			if [ -e "$filename.$i" ]
+	cd "${LOGDIR}"
+	# rotate backups for log files
+	for filename in ${PATTERNS}; do
+		[ -e "${filename}" ] &&
+		echo "${PREFIX}rotation for ${filename} ... " &&
+		for i in `seq $(( MAXFILES - 1 ))  -1 1` ; do
+			if [ -e "${filename}.${i}" ]
 			then
-    			f=$i; let f++
-    				mv -f $filename.$i $filename.$f
-  			fi
-		done
-		[ -e "$filename" ] && mv  -f $filename $filename.1
+				j=$(( i + 1 ))
+				mv -f ${filename}.${i} ${filename}.${j}
+			fi
+		done &&
+		mv -f ${filename} ${filename}.1
 	done
 }
 
@@ -36,19 +37,13 @@ logrotate(){
 
 [ -d "$LOGDIR" ] || my_exit "Logdir $LOGDIR missing" 1
 
-case $1 in 
+case $1 in
 
-	start)
-		echo "${PREFIX}Starting subsystem"
-		logrotate
-		;;
-	stop)
-		echo "${PREFIX}Stopping subsystem"
+	start|stop)
+		echo "${PREFIX}rotating in $LOGDIR"
 		logrotate
 		;;
 	*)
 		echo "Usage: $0 [start|stop]"
 		;;
 esac
-
-
