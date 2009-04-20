@@ -1,0 +1,10 @@
+## SECTION=host_gtk
+
+config HOST_PANGOMM
+	tristate
+	select PANGO
+	select GLIBMM
+	select CAIROMM
+	prompt "pangomm"
+	help
+	  c++ bindings for pango
