@@ -42,6 +42,11 @@ LIBPCAP_ENV  := \
 	$(CROSS_ENV) \
 	ac_cv_linux_vers=2
 
+LIBPCAP_COMPILE_ENV := \
+	$(CROSS_ENV_CFLAGS) \
+	$(CROSS_ENV_CPPFLAGS) \
+	$(CROSS_ENV_LDFLAGS)
+
 #
 # autoconf
 #
@@ -52,7 +57,6 @@ LIBPCAP_AUTOCONF := \
 	--disable-yydebug \
 	--without-dag \
 	--without-septel
-
 
 ifdef PTXCONF_ARCH_MINGW
 LIBPCAP_AUTOCONF += --with-pcap=null
