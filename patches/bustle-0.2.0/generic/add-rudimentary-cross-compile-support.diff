@@ -5,7 +5,7 @@ This patch adds rudimentary cross compilation support.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
-sent upstream: 20090409
+applied upstream: 20090415
 
 ---
  Makefile |    3 ++-
