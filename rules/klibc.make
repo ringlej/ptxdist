@@ -26,6 +26,10 @@ KLIBC_URL	:= \
 KLIBC_SOURCE	:= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)
 KLIBC_DIR	:= $(BUILDDIR)/$(KLIBC)
 
+ifdef PTXCONF_KLIBC
+$(STATEDIR)/kernel.compile: $(STATEDIR)/klibc.install
+endif
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -41,7 +45,7 @@ $(KLIBC_SOURCE):
 KLIBC_PATH	:= PATH=$(CROSS_PATH)
 KLIBC_ENV 	:= $(CROSS_ENV)
 
-$(STATEDIR)/klibc.prepare:
+$(STATEDIR)/klibc.prepare: $(STATEDIR)/kernel.prepare
 	@$(call targetinfo)
 	echo > $(KLIBC_DIR)/defconfig
 	echo "CONFIG_KLIBC=y" >> $(KLIBC_DIR)/defconfig
