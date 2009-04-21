@@ -38,10 +38,10 @@ _ptxdist_completion()
 		[ $COMP_CWORD -lt 3 ] && _filedir
 		;;
 	get|extract|prepare|compile|install|targetinstall|tags)
-		COMPREPLY=( $( compgen -W "${opts} $( ptxdist print PACKAGES_SELECTED )" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${opts} $( ptxdist print PTX_PACKAGES_SELECTED )" -- $cur ) )
 		;;
 	clean)
-		COMPREPLY=( $( compgen -W "${opts} $( ptxdist print PACKAGES_SELECTED ) root" -- $cur ) )
+		COMPREPLY=( $( compgen -W "${opts} $( ptxdist print PTX_PACKAGES_SELECTED ) root" -- $cur ) )
 		;;
 	drop)
 		COMPREPLY=( $( compgen -W "${opts} $( pushd $(ptxdist print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
