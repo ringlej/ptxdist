@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GPSD) += gpsd
 #
 # Paths and names
 #
-GPSD_VERSION	:= 2.37
+GPSD_VERSION	:= 2.39
 GPSD		:= gpsd-$(GPSD_VERSION)
 GPSD_SUFFIX	:= tar.gz
 GPSD_URL	:= http://download.berlios.de/gpsd/$(GPSD).$(GPSD_SUFFIX)
@@ -44,7 +44,8 @@ GPSD_ENV 	:= $(CROSS_ENV)
 #
 GPSD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--without-x
+	--without-x \
+	--enable-dependency-tracking
 
 ifdef PTXCONF_GPSD_PYTHON
 GPSD_AUTOCONF += --enable-python
@@ -204,7 +205,7 @@ endif
 
 $(STATEDIR)/gpsd.compile:
 	@$(call targetinfo)
-	cd $(GPSD_DIR) && $(GPSD_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
+	cd $(GPSD_DIR) && $(GPSD_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -224,10 +225,10 @@ $(STATEDIR)/gpsd.targetinstall:
 	@$(call install_fixup, gpsd,DESCRIPTION,missing)
 
 	@$(call install_copy, gpsd, 0, 0, 0644, \
-		$(GPSD_DIR)/.libs/libgps.so.17.0.0, \
-		/usr/lib/libgps.so.17.0.0)
-	@$(call install_link, gpsd, libgps.so.17.0.0, /usr/lib/libgps.so)
-	@$(call install_link, gpsd, libgps.so.17.0.0, /usr/lib/libgps.so.17)
+		$(GPSD_DIR)/.libs/libgps.so.18.0.0, \
+		/usr/lib/libgps.so.18.0.0)
+	@$(call install_link, gpsd, libgps.so.18.0.0, /usr/lib/libgps.so)
+	@$(call install_link, gpsd, libgps.so.18.0.0, /usr/lib/libgps.so.18)
 
 ifdef PTXCONF_GPSD_GPSD
 	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpsd, /usr/sbin/gpsd)
@@ -247,8 +248,8 @@ endif
 ifdef PTXCONF_GPSD_CGPS
 	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/cgps, /usr/bin/cgps)
 endif
-ifdef PTXCONF_GPSD_SIRFMON
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/sirfmon, /usr/bin/sirfmon)
+ifdef PTXCONF_GPSD_GPSMON
+	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpsmon, /usr/bin/gpsmon)
 endif
 ifdef PTXCONF_GPSD_DRIVER_RTCM104
 	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/rtcmdecode, /usr/bin/rtcmdecode)

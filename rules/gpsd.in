@@ -172,9 +172,9 @@ menu "install options"
 		help
 		  FIXME
 
-	config GPSD_SIRFMON
+	config GPSD_GPSMON
 		bool
-		prompt "sirfmon"
+		prompt "gpsmon"
 		select NCURSES
 		help
 		  FIXME
