@@ -187,10 +187,16 @@ else
 GPSD_AUTOCONF += --disable-gpsclock
 endif
 
-ifdef PTXCONF_GPSD_DRIVER_RTCM104
-GPSD_AUTOCONF += --enable-rtcm104
+ifdef PTXCONF_GPSD_DRIVER_RTCM104V2
+GPSD_AUTOCONF += --enable-rtcm104v2
 else
-GPSD_AUTOCONF += --disable-rtcm104
+GPSD_AUTOCONF += --disable-rtcm104v2
+endif
+
+ifdef PTXCONF_GPSD_DRIVER_RTCM104V3
+GPSD_AUTOCONF += --enable-rtcm104v3
+else
+GPSD_AUTOCONF += --disable-rtcm104v3
 endif
 
 ifdef PTXCONF_GPSD_DRIVER_NTRIP

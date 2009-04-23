@@ -124,9 +124,13 @@ menu "drivers"
 		bool
 		prompt "gpsclock"
 
-	config GPSD_DRIVER_RTCM104
+	config GPSD_DRIVER_RTCM104V2
 		bool
-		prompt "rtcm104"
+		prompt "rtcm104v2"
+
+	config GPSD_DRIVER_RTCM104V3
+		bool
+		prompt "rtcm104v3"
 
 	config GPSD_DRIVER_NTRIP
 		bool
