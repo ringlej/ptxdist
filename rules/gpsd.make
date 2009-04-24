@@ -205,6 +205,24 @@ else
 GPSD_AUTOCONF += --disable-ntrip
 endif
 
+ifdef PTXCONF_GPSD_DRIVER_SUPERSTAR2
+GPSD_AUTOCONF += --enable-superstar2
+else
+GPSD_AUTOCONF += --disable-superstar2
+endif
+
+ifdef PTXCONF_GPSD_DRIVER_OCEANSERVER
+GPSD_AUTOCONF += --enable-oceanserver
+else
+GPSD_AUTOCONF += --disable-oceanserver
+endif
+
+ifdef PTXCONF_GPSD_DRIVER_MKT3301
+GPSD_AUTOCONF += --enable-mkt3301
+else
+GPSD_AUTOCONF += --disable-mkt3301
+endif
+
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------

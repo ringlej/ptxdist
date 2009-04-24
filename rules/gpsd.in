@@ -124,12 +124,41 @@ menu "drivers"
 		bool
 		prompt "gpsclock"
 
+	config GPSD_DRIVER_SUPERSTAR2
+		bool
+		prompt "superstar2"
+
+	config GPSD_DRIVER_OCEANSERVER
+		bool
+		prompt "oceanserver"
+
+	config GPSD_DRIVER_MKT3301
+		bool
+		prompt "mkt3301"
+
 	config GPSD_DRIVER_RTCM104V2
 		bool
+		depends on \
+			GPSD_DRIVER_EARTHMATE || \
+			GPSD_DRIVER_EVERMORE || \
+			GPSD_DRIVER_GARMIN || \
+			GPSD_DRIVER_ITRAX || \
+			GPSD_DRIVER_SIRF || \
+			GPSD_DRIVER_SUPERSTAR2 || \
+			GPSD_DRIVER_TSIP || \
+			GPSD_DRIVER_NAVCOM
 		prompt "rtcm104v2"
 
 	config GPSD_DRIVER_RTCM104V3
 		bool
+		depends on \
+			GPSD_DRIVER_EARTHMATE || \
+			GPSD_DRIVER_EVERMORE || \
+			GPSD_DRIVER_GARMIN || \
+			GPSD_DRIVER_ITRAX || \
+			GPSD_DRIVER_SIRF || \
+			GPSD_DRIVER_TSIP || \
+			GPSD_DRIVER_NAVCOM
 		prompt "rtcm104v3"
 
 	config GPSD_DRIVER_NTRIP
