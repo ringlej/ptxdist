@@ -1,2 +1,3 @@
 fix-core-compiling-with-nmea-disabled.patch
-0001-fix-autotool-bug.patch
+fix-autotool-bug.patch
+fix-link-breakage-if-some-drivers-are-not-enabled.patch -p0

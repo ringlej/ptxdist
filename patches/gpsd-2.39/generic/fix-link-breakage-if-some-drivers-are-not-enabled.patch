@@ -1,0 +1,47 @@
+From dbc28fc8a50f47329ce7e579e35629318f95bf4b Mon Sep 17 00:00:00 2001
+From: Luotao Fu <l.fu@pengutronix.de>
+Date: Thu, 23 Apr 2009 18:18:54 +0200
+Subject: [PATCH] fix link breakage if some drivers are not enabled
+
+rtcm*_unpack and rtcm*_dump functions are only declared if the rtcm drivers are
+enabled during configuration. The same for aivdm. If these drivers are not
+enable. Linking will fail due to unknow reference. Add some ifdefs to avoid
+this. This is ugly ifdef hell. It'd be way eleganter to change the structures in
+driver code and put some function pointer checking in here. Due to lack of time
+I only did this quick hack. Better ideas are highly welcome.
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+---
+ gpsdecode.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
+
+Index: gpsdecode.c
+===================================================================
+--- gpsdecode.c.orig
++++ gpsdecode.c
+@@ -57,19 +57,25 @@ static void decode(FILE *fpin, FILE *fpo
+ 	else if (lexer.type == COMMENT_PACKET)
+ 	    continue;
+ 	else if (lexer.type == RTCM2_PACKET) {
++#if defined(RTCM104V2_ENABLE)
+ 	    rtcm2_unpack(&rtcm2, (char *)lexer.isgps.buf);
+ 	    rtcm2_dump(&rtcm2, buf, sizeof(buf));
+ 	    (void)fputs(buf, fpout);
++#endif
+ 	}
+ 	else if (lexer.type == RTCM3_PACKET) {
++#if defined(RTCM104V3_ENABLE)
+ 	    rtcm3_unpack(&rtcm3, (char *)lexer.outbuffer);
+ 	    rtcm3_dump(&rtcm3, stdout);
++#endif
+ 	}
+ 	else if (lexer.type == AIVDM_PACKET) {
++#if defined(aivdm_dump)
+ 	    /*@ -uniondef */
+ 	    if (aivdm_decode((char *)lexer.outbuffer, lexer.outbuflen, &aivdm))
+ 		aivdm_dump(&aivdm.decoded, scaled, labeled, stdout);
+ 	    /*@ +uniondef */
++#endif
+ 	}
+     }
+ }
