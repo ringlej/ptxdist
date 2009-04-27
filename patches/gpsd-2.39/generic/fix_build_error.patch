@@ -1,0 +1,26 @@
+From: Juergen Beisert <jbeisert@pengutronix.de>
+Subject: [PATCH] fix a simple compile error
+
+This fixes the following compile error:
+
+.libs/drivers.o drivers.c:938: error: expected '}' before ';' token
+
+Signed-off-by: Juergen Beisert <jbeisert@pengutronix.de>
+
+---
+ drivers.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: drivers.c
+===================================================================
+--- drivers.c.orig
++++ drivers.c
+@@ -935,7 +935,7 @@ static gps_mask_t garmintxt_parse_input(
+ 
+ static const struct gps_type_t garmintxt = {
+     .type_name     = "Garmin Simple Text",		/* full name of type */
+-    .packet_type   = RTCM2_PACKET;	/* associated lexer packet type */
++    .packet_type   = RTCM2_PACKET,	/* associated lexer packet type */
+     .trigger       = NULL,		/* no recognition string */
+     .channels      = 0,			/* not used */
+     .probe_wakeup  = NULL,		/* no wakeup to be done before hunt */
