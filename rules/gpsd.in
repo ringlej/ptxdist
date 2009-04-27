@@ -193,9 +193,9 @@ menu "install options"
 		help
 		  FIXME
 
-	config GPSD_CGPXLOGGER
+	config GPSD_GPXLOGGER
 		bool
-		prompt "cgpxlogger"
+		prompt "gpxlogger"
 		help
 		  FIXME
 

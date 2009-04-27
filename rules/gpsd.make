@@ -266,8 +266,8 @@ endif
 ifdef PTXCONF_GPSD_GPSFLASH
 	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpsflash, /usr/bin/gpsflash)
 endif
-ifdef PTXCONF_GPSD_CGXLOGGER
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/cgpxlogger, /usr/bin/cgxlogger)
+ifdef PTXCONF_GPSD_GPXLOGGER
+	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpxlogger, /usr/bin/gpxlogger)
 endif
 ifdef PTXCONF_GPSD_CGPS
 	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/cgps, /usr/bin/cgps)
