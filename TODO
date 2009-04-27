@@ -2,7 +2,14 @@ TODO before 1.99.13
 ===================
 
 [ ] rsc: python-3.0 breaks in install stage; it worked before, so find out
-    what made this fail.
+    what made this fail:
+
+    target: python30.targetinstall
+    [...]
+    line 217
+    b"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890")
+                                                                     ^
+    SyntaxError: invalid syntax
 
 [x] jbe: INITMETHOD_BBINIT_ETC_INITD_LOGROTATE makes no sence with busybox's syslog.
     Doesn't work, because it does not create any *.log files, which logrotate tries
