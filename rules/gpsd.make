@@ -275,8 +275,8 @@ endif
 ifdef PTXCONF_GPSD_GPSMON
 	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpsmon, /usr/bin/gpsmon)
 endif
-ifdef PTXCONF_GPSD_DRIVER_RTCM104
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/rtcmdecode, /usr/bin/rtcmdecode)
+ifdef PTXCONF_GPSD_GPSDECODE
+	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpsdecode, /usr/bin/gpsdecode)
 endif
 
 	@$(call install_finish, gpsd)

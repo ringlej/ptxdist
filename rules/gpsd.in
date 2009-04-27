@@ -211,6 +211,14 @@ menu "install options"
 		select NCURSES
 		help
 		  FIXME
+
+	config GPSD_GPSDECODE
+		bool
+		depends on GPSD_DRIVER_RTCM104V2
+		prompt "gpsdecode"
+		help
+		  FIXME
+
 endmenu
 
 endif
