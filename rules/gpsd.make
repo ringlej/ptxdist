@@ -56,7 +56,7 @@ endif
 ifdef PTXCONF_GPSD_PROFILING
 GPSD_AUTOCONF += --enable-profiling
 else
-GPSD_AUTOCONF += --disable-disable-profiling
+GPSD_AUTOCONF += --disable-profiling
 endif
 
 ifdef PTXCONF_GPSD_NTPSHM
