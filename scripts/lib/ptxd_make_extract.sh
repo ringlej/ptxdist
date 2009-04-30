@@ -89,7 +89,7 @@ ptxd_make_extract() {
     esac
 
     echo "$(basename "${packet_source}")" >> "${STATEDIR}/packetlist"
-    ${extract} "${packet_source}" | tar -C "${dest}" -xif -
+    ${extract} "${packet_source}" | tar -C "${dest}" -xf -
 
     if ! check_pipe_status; then
 	cat >&2 <<EOF
