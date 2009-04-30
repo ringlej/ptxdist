@@ -65,15 +65,26 @@ ptxd_make_extract() {
     echo "extract: archive=${packet_source}"
     echo "extract: dest=${dest}"
 
+    local filter
+
     case "${packet_source}" in
 	*gz)
-	    local extract="gzip -dc"
+	    filter="--gzip"
 	    ;;
 	*bz2)
-	    local extract="bzip2 -dc"
+	    filter="--bzip2"
+	    ;;
+	*lzma)
+	    filter="--lzma"
+	    ;;
+	*xz)
+	    filter="--xz"
+	    ;;
+	*lzop)
+	    filter="--lzop"
 	    ;;
 	*tar)
-	    local extract=cat
+	    # none
 	    ;;
 	*zip)
 	    echo "$(basename "${packet_source}")" >> "${STATEDIR}/packetlist"
@@ -89,9 +100,8 @@ ptxd_make_extract() {
     esac
 
     echo "$(basename "${packet_source}")" >> "${STATEDIR}/packetlist"
-    ${extract} "${packet_source}" | tar -C "${dest}" -xf -
-
-    if ! check_pipe_status; then
+    tar -C "${dest}" "${filter}" -x -f "${packet_source}" ||
+    {
 	cat >&2 <<EOF
 
 
@@ -100,7 +110,7 @@ error: extracting '${packet_source}' failed
 
 EOF
 	return 1
-    fi
+    }
 }
 
 export -f ptxd_make_extract
