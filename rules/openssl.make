@@ -64,6 +64,20 @@ ifdef PTXCONF_ARCH_SPARC
 	OPENSSL_THUD := linux-sparc
 endif
 
+ifdef PTXCONF_ARCH_SH
+ifeq ($(PTXCONF_ARCH_SH_SH3)$(PTXCONF_ENDIAN_LITTLE),yy)
+	OPENSSL_THUD := linux-sh3
+endif
+ifeq ($(PTXCONF_ARCH_SH_SH3)$(PTXCONF_ENDIAN_BIG),yy)
+	OPENSSL_THUD := linux-sh3eb
+endif
+ifeq ($(PTXCONF_ARCH_SH_SH4)$(PTXCONF_ENDIAN_LITTLE),yy)
+	OPENSSL_THUD := linux-sh4
+endif
+ifeq ($(PTXCONF_ARCH_SH_SH4)$(PTXCONF_ENDIAN_BIG),yy)
+	OPENSSL_THUD := linux-sh4eb
+endif
+endif
 
 # ----------------------------------------------------------------------------
 # Get
