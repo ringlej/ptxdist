@@ -272,12 +272,12 @@ endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_APACHE2_STARTSCRIPT
-	@$(call install_alternative, apache2, 0, 0, 0755, /etc/init.d/httpd, n)
+	@$(call install_alternative, apache2, 0, 0, 0755, /etc/init.d/apache2, n)
 
 	# replace some placeholders
-	@$(call install_replace, apache2, /etc/init.d/httpd, \
+	@$(call install_replace, apache2, /etc/init.d/apache2, \
 		@APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )
-	@$(call install_replace, apache2, /etc/init.d/httpd, \
+	@$(call install_replace, apache2, /etc/init.d/apache2, \
 		@LOGPATH@,  $(PTXCONF_APACHE2_LOGDIR) )
 endif
 endif

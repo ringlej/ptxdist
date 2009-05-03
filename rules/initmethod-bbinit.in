@@ -59,7 +59,7 @@ config INITMETHOD_BBINIT_LINK_HTTPD
 	string
 	depends on APACHE2_STARTSCRIPT
 	prompt "httpd (apache)"
-	default "S91apache-2"
+	default "S91apache2"
 
 config INITMETHOD_BBINIT_LINK_CHRONY
 	string

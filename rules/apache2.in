@@ -165,7 +165,7 @@ config APACHE2_CUSTOMERRORS
 config APACHE2_STARTSCRIPT
 	bool
 	default y
-	prompt "install /etc/init.d/httpd"
+	prompt "install /etc/init.d/apache2"
 
 endif
 

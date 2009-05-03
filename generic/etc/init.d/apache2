@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# /etc/init.d/httpd
+# /etc/init.d/apache2
 #
 # $Id:$
 #

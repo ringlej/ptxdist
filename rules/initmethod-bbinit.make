@@ -143,7 +143,7 @@ endif
 
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_HTTPD)),)
 	@$(call install_link, initmethod-bbinit, \
-		../init.d/httpd, \
+		../init.d/apache2, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_HTTPD))
 endif
 
