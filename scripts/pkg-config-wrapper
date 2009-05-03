@@ -25,8 +25,26 @@ fi
 export PKG_CONFIG_LIBDIR="${SYSROOT}/lib/pkgconfig:${SYSROOT}/usr/lib/pkgconfig"
 export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
-unset PKG_CONFIG_PATH
 unset found_var
+
+if [ -n "${PKG_CONFIG_PATH}" ]; then
+    orig_ifs="${IFS}"
+    IFS=':'
+    pkg_config_path_array=( ${PKG_CONFIG_PATH} )
+    IFS="${orig_ifs}"
+    unset orig_ifs
+
+    PKG_CONFIG_PATH="${SYSROOT}${pkg_config_path_array[0]}"
+    unset pkg_config_path_array[0]
+
+    for p in "${pkg_config_path_array[@]}"; do
+	PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:${SYSROOT}${p}"
+    done
+
+    unset p
+    unset pkg_config_path_array
+fi
+
 for ((i = 1; i <= ${#}; i++)); do
     case "${!i}" in
 	--variable*)
@@ -41,8 +59,8 @@ done
 
 if [ -n "${found_var}" ]; then
     #
-    # if someone asks for a variable, if it looks like a path (starting with /)
-    # prefix it with sysroot
+    # if someone asks for a variable, if it looks like a path
+    # (starting with /) prefix it with sysroot
     #
     if [ -n "${PTXDIST_PKG_CONFIG_VAR_NO_SYSROOT}" ]; then
 	exec "${PKG_CONFIG}" "${@}"
