@@ -77,10 +77,9 @@ $(STATEDIR)/minicom.targetinstall:
 	@$(call install_copy, minicom, 0, 0, 0755, $(MINICOM_DIR)/src/runscript, /usr/bin/runscript)
 	@$(call install_copy, minicom, 0, 0, 0755, $(MINICOM_DIR)/src/ascii-xfr, /usr/bin/ascii-xfr)
 
-ifdef PTXCONF_MINICOM_ETC_MINIRC_DFL
-	@$(call install_alternate, minicom, 0, 0, 0644, /etc/minirc.dfl, n)
+ifdef PTXCONF_MINICOM_DEFCONFIG
+	@$(call install_alternative, minicom, 0, 0, 0644, /etc/minirc.dfl, n)
 endif
-
 	@$(call install_finish, minicom)
 
 	@$(call touch)

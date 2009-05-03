@@ -13,7 +13,7 @@ menuconfig MINICOM
 
 if MINICOM
 
-config MINICOM_CONFIGFILES
+config MINICOM_DEFCONFIG
 	bool
 	prompt "install default config file"
 	help
