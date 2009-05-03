@@ -42,6 +42,13 @@ config	NFSUTILS_V3
 	  See RFC1813 for Details:
 	  http://www.ietf.org/rfc/rfc1813.txt
 
+config	NFSUTILS_V4
+	bool
+	depends on BROKEN
+	prompt "Enable support for NFSv4"
+	help
+          Enable support for version 4 of the NFS protocol.
+
 config	NFSUTILS_SECURE_STATD
 	bool
 	prompt "Only lockd can use statd (security)"
@@ -83,6 +90,10 @@ config	NFSUTILS_INSTALL_EXPORTFS
 config	NFSUTILS_INSTALL_MOUNTD
 	bool
 	prompt "Install /sbin/mountd"
+
+config  NFSUTILS_INSTALL_MOUNT
+	bool
+	prompt "Install mount/umount"
 
 config	NFSUTILS_INSTALL_NFSD
 	bool
