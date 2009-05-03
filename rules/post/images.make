@@ -106,7 +106,7 @@ $(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
 # create the JFFS2 image
 #
 $(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install
-	@echo -n "Creating root.jffs2 from working dir..."
+	@echo -n "Creating root.jffs2 from working dir... (--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS))"
 	@cd $(WORKDIR);							\
 	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
 	(								\
