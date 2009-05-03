@@ -20,6 +20,7 @@ PACKAGES-$(PTXCONF_OPKG) += opkg
 OPKG_VERSION	:= r180
 OPKG		:= opkg-$(OPKG_VERSION)
 OPKG_SUFFIX	:= tar.gz
+#                  http://code.google.com/p/opkg/
 OPKG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(OPKG).$(OPKG_SUFFIX)
 OPKG_SOURCE	:= $(SRCDIR)/$(OPKG).$(OPKG_SUFFIX)
 OPKG_DIR	:= $(BUILDDIR)/$(OPKG)
