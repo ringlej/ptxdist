@@ -63,7 +63,7 @@ $(STATEDIR)/xorg-lib-xdmcp.targetinstall:
 	@$(call install_fixup, xorg-lib-xdmcp,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xdmcp,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xdmcp, 0, 0, 0644, - \
+	@$(call install_copy, xorg-lib-xdmcp, 0, 0, 0644, -, \
 		$(XORG_LIBDIR)/libXdmcp.so.6.0.0)
 
 	@$(call install_link, xorg-lib-xdmcp, \
