@@ -1,6 +1,11 @@
 TODO before 1.99.13
 ===================
 
+[ ] jbe: slang.compile fails while compiling png-module.c
+    [...]
+    pcre-module.c:6:18: error: pcre.h: No such file or directory
+    [...]
+
 [ ] jbe: classpath.compile fails
     [...]
     ../external/sax/org/xml/sax/helpers/NewInstance.java:70: warning: non-varargs call of
