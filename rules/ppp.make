@@ -156,13 +156,15 @@ ifdef PTXCONF_PPP_INST_CHAT
 		$(PPP_DIR)/chat/chat, /usr/sbin/chat)
 endif
 
-#	# install configuration files
+ifdef PTXCONF_PPP_INST_DEFAULT_CONFIG_FILES
+#	# install configuration files (on demand only)
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options, n)
 	@$(call install_alternative, ppp, 0, 0, 0750, /etc/ppp/ip-up, n)
 	@$(call install_alternative, ppp, 0, 0, 0750, /etc/ppp/ip-down, n)
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options.server, n)
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options.ttyS0, n)
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/pap-secrets, n)
+endif
 
 #	#
 #	# busybox init

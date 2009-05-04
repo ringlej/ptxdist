@@ -184,6 +184,13 @@ config PPP_STARTSCRIPT
 	help
 	  Install this script to be able to run this service at system startup
 
+config PPP_INST_DEFAULT_CONFIG_FILES
+        bool
+        default y
+        prompt "install /etc/ppp/* configuration files (options,ip-up, etc.)"
+        help
+          Install the default ppp configuration files in /etc/ppp.
+
 config PPPD_INTF
 	string
 	prompt "interface"
