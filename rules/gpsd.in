@@ -2,7 +2,7 @@
 menuconfig GPSD
 	tristate
 	select NCURSES if GPSD_CGPS
-	select NCURSES if GPSD_SIFRMON
+	select NCURSES if GPSD_GPSMON
 	select DBUS_GLIB if GPSD_DBUS
 	prompt "gpsd                          "
 	help
