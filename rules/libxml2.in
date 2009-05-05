@@ -4,7 +4,7 @@ menuconfig LIBXML2
 	tristate
 	prompt "libxml2                       "
 	select ZLIB	if LIBXML2_ZLIB
-#	select PYTHON24	if LIBXML2_PYTHON	# FIXME
+	select PYTHON	if LIBXML2_PYTHON
 	help
 	  Libxml2 is a XML C parser and toolkit. XML itself is a
 	  metalanguage to design markup languages, i.e. text
@@ -147,6 +147,7 @@ config LIBXML2_PUSH
 config LIBXML2_PYTHON
 	bool
 	prompt "Python bindings"
+	depends on BROKEN
 	help
 	  Build Python bindings if found.
 
