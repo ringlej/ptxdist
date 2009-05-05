@@ -10,6 +10,7 @@ Makefile
 *.swp
 *~
 \#*#
+.\#*
 
 platforms/ptxdist-version.in
 rules/ptxdist-version.in
