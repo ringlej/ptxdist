@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBFFI) += libffi
 #
 # Paths and names
 #
-LIBFFI_VERSION	:= 3.0.7
+LIBFFI_VERSION	:= 3.0.8
 LIBFFI		:= libffi-$(LIBFFI_VERSION)
 LIBFFI_SUFFIX	:= tar.gz
 LIBFFI_URL	:= ftp://sourceware.org/pub/libffi/$(LIBFFI).$(LIBFFI_SUFFIX)
@@ -70,9 +70,8 @@ $(STATEDIR)/libffi.targetinstall:
 	@$(call install_fixup, libffi,DEPENDS,)
 	@$(call install_fixup, libffi,DESCRIPTION,missing)
 
-	@$(call install_copy, libffi, 0, 0, 0644, \
-		$(LIBFFI_DIR)/.libs/libffi.so.5.0.8, \
-		/usr/lib/libffi.so.5.0.8)
+	@$(call install_copy, libffi, 0, 0, 0644, -, \
+		/usr/lib/libffi.so.5.0.9)
 	@$(call install_link, libffi, libffi.so.5.0.8, /usr/lib/libffi.so.5)
 	@$(call install_link, libffi, libffi.so.5.0.8, /usr/lib/libffi.so)
 
