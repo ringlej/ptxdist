@@ -4,7 +4,7 @@ menuconfig JAMVM
 	tristate
 	select ZLIB
 	select LIBFFI if JAMVM_USE_LIBFFI
-	prompt "jamvm"
+	prompt "jamvm                         "
 	help
 	  JamVM is a new Java Virtual Machine conforming to the JVM specification
 	  edition 2 (blue book). It is extremely small. Unlike other small VMs it
