@@ -13,7 +13,7 @@ if PROFTPD
 config PROFTPD_PAM
 	bool
 	prompt "PAM support"
-	dependa on BROKEN
+	depend on BROKEN
 	help
 	  FIXME: This item needs to be documented
 
