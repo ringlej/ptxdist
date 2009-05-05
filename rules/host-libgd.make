@@ -52,7 +52,7 @@ HOST_LIBGD_AUTOCONF	:= \
 	$(HOST_AUTOCONF) \
 	--without-x \
 	--without-jpeg \
-	--with-png=$(SYSROOT_HOST) \
+	--with-png=$(PTXCONF_SYSROOT_HOST) \
 	--without-xpm \
 	--without-freetype \
 	--without-fontconfig
