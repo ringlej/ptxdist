@@ -55,10 +55,6 @@ $(STATEDIR)/scummvm.prepare:
 		./configure $(SCUMMVM_AUTOCONF)
 	@$(call touch)
 
-$(STATEDIR)/scummvm.install:
-	@$(call targetinfo)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
