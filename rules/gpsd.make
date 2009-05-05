@@ -2,6 +2,7 @@
 # $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by J.Kilb
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -44,8 +45,7 @@ GPSD_ENV 	:= $(CROSS_ENV)
 #
 GPSD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--without-x \
-	--enable-dependency-tracking
+	--without-x
 
 ifdef PTXCONF_GPSD_PYTHON
 GPSD_AUTOCONF += --enable-python
@@ -224,15 +224,6 @@ GPSD_AUTOCONF += --disable-mkt3301
 endif
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gpsd.compile:
-	@$(call targetinfo)
-	cd $(GPSD_DIR) && $(GPSD_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -244,7 +235,7 @@ $(STATEDIR)/gpsd.targetinstall:
 	@$(call install_fixup, gpsd,PRIORITY,optional)
 	@$(call install_fixup, gpsd,VERSION,$(GPSD_VERSION))
 	@$(call install_fixup, gpsd,SECTION,base)
-	@$(call install_fixup, gpsd,AUTHOR,"Jürgen Kilb <j.kilb\@phytec.de>")
+	@$(call install_fixup, gpsd,AUTHOR,"Jürgen Kilb <j.kilb@phytec.de>")
 	@$(call install_fixup, gpsd,DEPENDS,)
 	@$(call install_fixup, gpsd,DESCRIPTION,missing)
 
@@ -255,28 +246,28 @@ $(STATEDIR)/gpsd.targetinstall:
 	@$(call install_link, gpsd, libgps.so.18.0.0, /usr/lib/libgps.so.18)
 
 ifdef PTXCONF_GPSD_GPSD
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpsd, /usr/sbin/gpsd)
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/sbin/gpsd)
 endif
 ifdef PTXCONF_GPSD_GPSCTL
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpsctl, /usr/bin/gpsctl)
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpsctl)
 endif
 ifdef PTXCONF_GPSD_GPSPIPE
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpspipe, /usr/bin/gpspipe)
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpspipe)
 endif
 ifdef PTXCONF_GPSD_GPSFLASH
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpsflash, /usr/bin/gpsflash)
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpsflash)
 endif
 ifdef PTXCONF_GPSD_GPXLOGGER
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpxlogger, /usr/bin/gpxlogger)
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpxlogger)
 endif
 ifdef PTXCONF_GPSD_CGPS
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/cgps, /usr/bin/cgps)
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/cgps)
 endif
 ifdef PTXCONF_GPSD_GPSMON
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpsmon, /usr/bin/gpsmon)
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpsmon)
 endif
 ifdef PTXCONF_GPSD_GPSDECODE
-	@$(call install_copy, gpsd, 0, 0, 0755, $(GPSD_DIR)/gpsdecode, /usr/bin/gpsdecode)
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpsdecode)
 endif
 
 	@$(call install_finish, gpsd)
