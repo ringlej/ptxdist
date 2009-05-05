@@ -2,6 +2,7 @@
 # $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2008 by Robert Schwebel <r.schwebel@pengutronix.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -33,17 +34,6 @@ $(LIBFFI_SOURCE):
 	@$(call get, LIBFFI)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libffi.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBFFI_DIR))
-	@$(call extract, LIBFFI)
-	@$(call patchin, LIBFFI)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -54,23 +44,6 @@ LIBFFI_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 LIBFFI_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/libffi.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBFFI_DIR)/config.cache)
-	cd $(LIBFFI_DIR) && \
-		$(LIBFFI_PATH) $(LIBFFI_ENV) \
-		./configure $(LIBFFI_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libffi.compile:
-	@$(call targetinfo)
-	cd $(LIBFFI_DIR) && $(LIBFFI_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
