@@ -2,6 +2,7 @@
 # $Id: apache2.make,v 1.10 2006/10/02 08:38:47 michl Exp $
 #
 # Copyright (C) 2005 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -79,12 +80,12 @@ $(STATEDIR)/apache2.prepare:
 		$(APACHE2_PATH) $(APACHE2_ENV) \
 		./configure $(APACHE2_AUTOCONF)
 
-	#
-	# Tweak, Tweak ...
-	#
-	# The original object files are also used for other binaries, so
-	# we generate a dummy dependency here
-	#
+#	#
+#	# Tweak, Tweak ...
+#	#
+#	# The original object files are also used for other binaries, so
+#	# we generate a dummy dependency here
+#	#
 	perl -i -p -e "s/^gen_test_char_OBJECTS =.*$$/gen_test_char_OBJECTS = dummy.lo/g" $(APACHE2_DIR)/server/Makefile
 
 	@$(call touch)
@@ -96,12 +97,12 @@ $(STATEDIR)/apache2.prepare:
 $(STATEDIR)/apache2.compile:
 	@$(call targetinfo)
 
-	#
-	# Tweak, tweak...
-	#
-	# These files are run during compilation, so they have to be
-	# compiled for the host, not for the target
-	#
+#	#
+#	# Tweak, tweak...
+#	#
+#	# These files are run during compilation, so they have to be
+#	# compiled for the host, not for the target
+#	#
 	touch $(APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims.lo
 	cp $(HOST_APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims $(APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims
 	touch $(APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims
@@ -146,14 +147,14 @@ $(STATEDIR)/apache2.targetinstall:
 	@$(call install_fixup, apache2,PRIORITY,optional)
 	@$(call install_fixup, apache2,VERSION,$(APACHE2_VERSION))
 	@$(call install_fixup, apache2,SECTION,base)
-	@$(call install_fixup, apache2,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, apache2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, apache2,DEPENDS,)
 	@$(call install_fixup, apache2,DESCRIPTION,missing)
 
-	# the server binary
+#	# the server binary
 	@$(call install_copy, apache2, 0, 0, 0755, $(APACHE2_DIR)/httpd, /usr/sbin/apache2)
 
-	# and some needed shared libraries
+#	# and some needed shared libraries
 	@$(call install_copy, apache2, 0, 0, 0644, \
 		$(APACHE2_DIR)/srclib/apr-util/.libs/libaprutil-0.so.0.9.12, \
 		/usr/lib/libaprutil-0.so.0.9.12)
@@ -170,7 +171,7 @@ ifneq ($(PTXCONF_APACHE2_SERVERROOT),"")
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT))
 
 ifdef PTXCONF_APACHE2_PUBLICDOMAINICONS
-	# TODO: are all icons required?
+#	# TODO: are all icons required?
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons)
 	@cd $(APACHE2_DIR)/docs/icons; \
 	for i in *.gif *.png; do \
@@ -258,23 +259,23 @@ endif
 endif
 endif
 
-	#
-	# create the log dir if enabled
-	#
+#	#
+#	# create the log dir if enabled
+#	#
 
 ifneq ($(PTXCONF_APACHE2_LOGDIR),"")
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_LOGDIR))
 endif
 
-	#
-	# busybox init: startscript
-	#
+#	#
+#	# busybox init: startscript
+#	#
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_APACHE2_STARTSCRIPT
 	@$(call install_alternative, apache2, 0, 0, 0755, /etc/init.d/apache2, n)
 
-	# replace some placeholders
+#	# replace some placeholders
 	@$(call install_replace, apache2, /etc/init.d/apache2, \
 		@APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )
 	@$(call install_replace, apache2, /etc/init.d/apache2, \
