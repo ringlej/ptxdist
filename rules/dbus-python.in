@@ -2,7 +2,7 @@
 
 config DBUS_PYTHON
 	tristate
-	select PYTHON24
+	select PYTHON
 	select DBUS
 	select DBUS_GLIB
 	prompt "dbus-python"

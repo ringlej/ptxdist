@@ -23,6 +23,7 @@ DBUS_PYTHON_SUFFIX	:= tar.gz
 DBUS_PYTHON_URL		:= http://dbus.freedesktop.org/releases/dbus-python/$(DBUS_PYTHON).$(DBUS_PYTHON_SUFFIX)
 DBUS_PYTHON_SOURCE	:= $(SRCDIR)/$(DBUS_PYTHON).$(DBUS_PYTHON_SUFFIX)
 DBUS_PYTHON_DIR		:= $(BUILDDIR)/$(DBUS_PYTHON)
+DBUS_PYTHON_PKGDIR	:= $(PKGDIR)/$(DBUS_PYTHON)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,22 +32,6 @@ DBUS_PYTHON_DIR		:= $(BUILDDIR)/$(DBUS_PYTHON)
 $(DBUS_PYTHON_SOURCE):
 	@$(call targetinfo)
 	@$(call get, DBUS_PYTHON)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dbus-python.extract:
-	@$(call targetinfo)
-	@$(call clean, $(DBUS_PYTHON_DIR))
-	@$(call extract, DBUS_PYTHON)
-	@$(call patchin, DBUS_PYTHON)
-#	# touch autoconf files in correct order
-	cd $(DBUS_PYTHON_DIR); \
-	touch aclocal.m4; \
-	find . -name "Makefile.in" | xargs touch; \
-	touch config.h.in
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -61,8 +46,7 @@ DBUS_PYTHON_ENV 	:= $(CROSS_ENV)
 DBUS_PYTHON_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-html-docs \
-	--disable-api-docs \
-	--with-python-includes=$(SYSROOT)/usr/include
+	--disable-api-docs
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -80,36 +64,12 @@ $(STATEDIR)/dbus-python.targetinstall:
 	@$(call install_fixup, dbus-python,DEPENDS,)
 	@$(call install_fixup, dbus-python,DESCRIPTION,missing)
 
-
-	@for i in \
-		/usr/lib/python2.4/site-packages/dbus_bindings.pyc \
-		/usr/lib/python2.4/site-packages/dbus/bus.pyc \
-		/usr/lib/python2.4/site-packages/dbus/connection.pyc \
-		/usr/lib/python2.4/site-packages/dbus/dbus_bindings.pyc \
-		/usr/lib/python2.4/site-packages/dbus/_dbus.pyc \
-		/usr/lib/python2.4/site-packages/dbus/decorators.pyc \
-		/usr/lib/python2.4/site-packages/dbus/exceptions.pyc \
-		/usr/lib/python2.4/site-packages/dbus/_expat_introspect_parser.pyc \
-		/usr/lib/python2.4/site-packages/dbus/glib.pyc \
-		/usr/lib/python2.4/site-packages/dbus/gobject_service.pyc \
-		/usr/lib/python2.4/site-packages/dbus/__init__.pyc \
-		/usr/lib/python2.4/site-packages/dbus/lowlevel.pyc \
-		/usr/lib/python2.4/site-packages/dbus/mainloop/glib.pyc \
-		/usr/lib/python2.4/site-packages/dbus/mainloop/__init__.pyc \
-		/usr/lib/python2.4/site-packages/dbus/proxies.pyc \
-		/usr/lib/python2.4/site-packages/dbus/server.pyc \
-		/usr/lib/python2.4/site-packages/dbus/service.pyc \
-		/usr/lib/python2.4/site-packages/dbus/types.pyc \
-		/usr/lib/python2.4/site-packages/dbus/_version.pyc \
-	; do \
-		$(call install_copy, dbus-python, 0, 0, 0644, -, $$i); \
+	@cd "$(DBUS_PYTHON_PKGDIR)"; \
+		find ./usr/lib/python$(PYTHON_MAJORMINOR) \
+		\( -name "*.so" -o -name "*.pyc" \) | \
+		while read file; do \
+		$(call install_copy, dbus-python, 0, 0, 0644, -, $${file##.}); \
 	done
-
-	@$(call install_copy, dbus-python, 0, 0, 0644, -, \
-		/usr/lib/python2.4/site-packages/_dbus_bindings.so)
-
-	@$(call install_copy, dbus-python, 0, 0, 0644, -, \
-		/usr/lib/python2.4/site-packages/_dbus_glib_bindings.so)
 
 	@$(call install_finish, dbus-python)
 
