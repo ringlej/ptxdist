@@ -7,6 +7,7 @@ menuconfig CONNMAN
 	select DBUS
 	select UDEV		if CONNMAN_UDEV
 	select POLICYKIT	if CONNMAN_POLKIT
+	select DBUS_PYTHON	if CONNMAN_TESTS
 	select GLIB
 	prompt "connman                       "
 	help
@@ -107,7 +108,6 @@ config CONNMAN_CLIENT
 
 config CONNMAN_TESTS
 	bool
-	select DBUS_PYTHON
 	prompt "install test programs"
 
 config CONNMAN_STARTSCRIPT
