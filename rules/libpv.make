@@ -87,9 +87,8 @@ endif
 	@$(call install_link, libpv, libpv.so.8.2.0, /usr/lib/libpv.so)
 
 ifdef PTXCONF_LIBPV_PYTHON
-	@$(call install_copy, libpv, 0, 0, 0644, \
-		$(SYSROOT)/usr/lib/python2.4/site-packages/libpv.so, \
-		/usr/lib/python2.4/site-packages/libpv.so)
+	@$(call install_copy, libpv, 0, 0, 0644, -, \
+		/usr/lib/python$(PYTHON_MAJORMINOR)/site-packages/libpv.so)
 endif
 
 	@$(call install_finish, libpv)
