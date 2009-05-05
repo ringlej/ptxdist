@@ -33,17 +33,6 @@ $(JAMVM_SOURCE):
 	@$(call get, JAMVM)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/jamvm.extract:
-	@$(call targetinfo)
-	@$(call clean, $(JAMVM_DIR))
-	@$(call extract, JAMVM)
-	@$(call patchin, JAMVM)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -86,32 +75,6 @@ endif
 # - --enable-int-prefetch should be enabled on powerpc
 # - --enable-int-inlining should be enabled on x86_64, i386 and powerpc
 
-$(STATEDIR)/jamvm.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(JAMVM_DIR)/config.cache)
-	cd $(JAMVM_DIR) && \
-		$(JAMVM_PATH) $(JAMVM_ENV) \
-		./configure $(JAMVM_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/jamvm.compile:
-	@$(call targetinfo)
-	cd $(JAMVM_DIR) && $(JAMVM_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/jamvm.install:
-	@$(call targetinfo)
-	@$(call install, JAMVM)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -130,10 +93,11 @@ $(STATEDIR)/jamvm.targetinstall:
 
 	@$(call install_copy, jamvm, 0, 0, 0755, -, /usr/bin/jamvm)
 	@$(call install_copy, jamvm, 0, 0, 0644, -, /usr/share/jamvm/classes.zip)
+
 	@$(call install_copy, jamvm, 0, 0, 0644, -, /usr/lib/libjvm.so.0.0.0)
 	@$(call install_link, jamvm, libjvm.so.0.0.0, /usr/lib/libjvm.so.0)
 	@$(call install_link, jamvm, libjvm.so.0.0.0, /usr/lib/libjvm.so)
-	# FIXME: /usr/lib/rt.jar
+#	# FIXME: /usr/lib/rt.jar
 
 	@$(call install_finish, jamvm)
 
