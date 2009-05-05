@@ -1,9 +1,10 @@
 ## SECTION=system_libraries
 menuconfig GPSD
 	tristate
-	select NCURSES if GPSD_CGPS
-	select NCURSES if GPSD_GPSMON
-	select DBUS_GLIB if GPSD_DBUS
+	select NCURSES		if GPSD_CGPS
+	select NCURSES		if GPSD_GPSMON
+	select DBUS_GLIB	if GPSD_DBUS
+	select PYTHON		if GPSD_PYTHON
 	prompt "gpsd                          "
 	help
 	  gpsd is a daemon that listens to a GPS or Loran receiver
@@ -15,11 +16,9 @@ menuconfig GPSD
 
 if GPSD
 
-config GPSD_PYTHON_BINDINGS
+config GPSD_PYTHON
 	bool
 	prompt "python bindings"
-	depends on BROKEN
-	select PYTHON24
 	help
 	  Enables the python bindings.
 

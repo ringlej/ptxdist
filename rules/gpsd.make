@@ -24,6 +24,7 @@ GPSD_SUFFIX	:= tar.gz
 GPSD_URL	:= http://download.berlios.de/gpsd/$(GPSD).$(GPSD_SUFFIX)
 GPSD_SOURCE	:= $(SRCDIR)/$(GPSD).$(GPSD_SUFFIX)
 GPSD_DIR	:= $(BUILDDIR)/$(GPSD)
+GPSD_PKGDIR	:= $(PKGDIR)/$(GPSD)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -268,6 +269,15 @@ ifdef PTXCONF_GPSD_GPSMON
 endif
 ifdef PTXCONF_GPSD_GPSDECODE
 	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpsdecode)
+endif
+
+ifdef PTXCONF_GPSD_PYTHON
+	@cd $(GPSD_PKGDIR) && \
+		find ./usr/lib/python$(PYTHON_MAJORMINOR) \
+		-name "*.so" -o -name "*.pyc" | \
+		while read file; do \
+		$(call install_copy, gpsd, 0, 0, 644, -, $${file##.}); \
+	done
 endif
 
 	@$(call install_finish, gpsd)
