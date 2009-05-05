@@ -4,8 +4,7 @@ config APACHE2_MOD_PYTHON
 	tristate
 	prompt "apache2 mod_python"
 	select APACHE2
-	select HOST_APACHE2
-	select PYTHON24
+	select PYTHON
 	help
 	  This module adds the python script language to the server
 	  to support dynamic website generation

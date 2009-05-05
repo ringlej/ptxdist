@@ -1,3 +1,4 @@
 configure.in-apache-version.diff
+fix-python-module-installation.diff
 mod_python-3.3.1-python-headers.diff
 mod_python-3.3.1-autogen.diff

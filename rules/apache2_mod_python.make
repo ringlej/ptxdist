@@ -2,6 +2,7 @@
 # $Id: template 2922 2005-07-11 19:17:53Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -23,6 +24,7 @@ APACHE2_MOD_PYTHON_SUFFIX	:= tgz
 APACHE2_MOD_PYTHON_URL		:= http://apache.easy-webs.de/httpd/modpython/$(APACHE2_MOD_PYTHON).$(APACHE2_MOD_PYTHON_SUFFIX)
 APACHE2_MOD_PYTHON_SOURCE	:= $(SRCDIR)/$(APACHE2_MOD_PYTHON).$(APACHE2_MOD_PYTHON_SUFFIX)
 APACHE2_MOD_PYTHON_DIR		:= $(BUILDDIR)/$(APACHE2_MOD_PYTHON)
+APACHE2_MOD_PYTHON_PKGDIR	:= $(PKGDIR)/$(APACHE2_MOD_PYTHON)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -45,16 +47,7 @@ APACHE2_MOD_PYTHON_ENV 	:=  $(CROSS_ENV)
 APACHE2_MOD_PYTHON_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-apxs=$(SYSROOT)/usr/bin/apxs \
-	--with-python=$(PTXCONF_SYSROOT_HOST)/bin/python \
-	--with-python-includes=$(SYSROOT)/usr
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/apache2_mod_python.install:
-	@$(call targetinfo)
-	@$(call touch)
+	--with-python=$(PTXCONF_SYSROOT_CROSS)/bin/python
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -68,20 +61,19 @@ $(STATEDIR)/apache2_mod_python.targetinstall:
 	@$(call install_fixup, apache2_mod_python,PRIORITY,optional)
 	@$(call install_fixup, apache2_mod_python,VERSION,$(APACHE2_MOD_PYTHON_VERSION))
 	@$(call install_fixup, apache2_mod_python,SECTION,base)
-	@$(call install_fixup, apache2_mod_python,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, apache2_mod_python,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, apache2_mod_python,DEPENDS,)
 	@$(call install_fixup, apache2_mod_python,DESCRIPTION,missing)
 
 	@$(call install_copy, apache2_mod_python, 0, 0, 0644, \
-		$(APACHE2_MOD_PYTHON_DIR)/src/.libs/mod_python.so, \
+		$(APACHE2_MOD_PYTHON_PKGDIR)/mod_python.so, \
 		/usr/share/apache2/libexec/mod_python.so)
 
-	@$(call install_copy, apache2_mod_python, 0, 0, 0755, \
-		/usr/lib/python2.4/mod_python)
-
-	cd $(APACHE2_MOD_PYTHON_DIR)/lib/python/mod_python && \
-	for i in *; do \
-		$(call install_copy, apache2_mod_python, 0, 0, 0644, $$i, /usr/lib/python2.4/mod_python/$$i,n); \
+	@cd $(APACHE2_MOD_PYTHON_PKGDIR) && \
+		find ./usr/lib/python$(PYTHON_MAJORMINOR) \
+		-name "*.so" -o -name "*.pyc" | \
+		while read file; do \
+		$(call install_copy, apache2_mod_python, 0, 0, 644, -, $${file##.}); \
 	done
 
 	@$(call install_finish, apache2_mod_python)
