@@ -73,6 +73,10 @@ $(STATEDIR)/scummvm.targetinstall:
 
 	@$(call install_copy, scummvm, 0, 0, 0755, -, /usr/bin/scummvm)
 
+	@$(call install_copy, scummvm, 0, 0, 0644, -, /usr/share/scummvm/classic080.ini)
+	@$(call install_copy, scummvm, 0, 0, 0644, -, /usr/share/scummvm/modern.ini)
+	@$(call install_copy, scummvm, 0, 0, 0644, -, /usr/share/scummvm/modern.zip)
+
 	@$(call install_finish, scummvm)
 
 	@$(call touch)
