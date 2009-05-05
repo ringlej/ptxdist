@@ -1,0 +1,48 @@
+## SECTION=scripting_languages
+
+menuconfig PYTHON
+	tristate "python                        "
+	select LIBC_DL
+	select LIBC_UTIL
+	select LIBC_PTHREAD
+	select HOST_PYTHON
+	select GCCLIBS_CXX
+	help
+	  Python is a dynamic object-oriented programming
+	  language that can be used for many kinds of
+	  software development. It offers strong support
+	  for integration with other languages and tools,
+	  comes with extensive standard libraries, and
+	  can be learned in a few days.
+
+if PYTHON
+
+choice
+	prompt "python version"
+
+	config PYTHON_26
+		bool "2.6.x"
+
+#	config PYTHON_3
+#		bool "3.x"
+
+endchoice
+
+config PYTHON_SYMLINK
+	bool
+	prompt "install symbolic link /usr/bin/python"
+	default y
+
+config PYTHON_LIBTK
+	bool
+	prompt "Include lib-tk packages"
+
+config PYTHON_IDLELIB
+	bool
+	prompt "Include idlelib packages"
+
+config PYTHON_DISTUTILS
+	bool
+	prompt "Include distutils packages"
+
+endif
