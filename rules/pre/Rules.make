@@ -61,8 +61,8 @@ TARGET_LDFLAGS		:= \
 	$(PTXCONF_TARGET_EXTRA_LDFLAGS) \
 	-L$(SYSROOT)/lib \
 	-L$(SYSROOT)/usr/lib \
-	-Wl,-rpath-link -Wl,$(SYSROOT)/lib \
-	-Wl,-rpath-link -Wl,$(SYSROOT)/usr/lib
+	-Wl,-rpath-link -Wl,-L$(SYSROOT)/lib \
+	-Wl,-rpath-link -Wl,-L$(SYSROOT)/usr/lib
 
 
 # Environment variables for toolchain components
