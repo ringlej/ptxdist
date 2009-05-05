@@ -3,6 +3,8 @@
 config DBUS_PYTHON
 	tristate
 	select PYTHON24
+	select DBUS
+	select DBUS_GLIB
 	prompt "dbus-python"
 	help
 	  Python bindings for dbus.
