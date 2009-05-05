@@ -4,6 +4,10 @@ config SCUMMVM
 	prompt "scummvm"
 	select ALSA_LIB
 	select SDL
+	select SDL_JOYSTICK
+	select LIBC_M
+	select LIBC_PTHREAD
+	select GCCLIBS_CXX
 	select CROSS_NASM
 	help
 	  FIXME
