@@ -271,6 +271,16 @@ ifdef PTXCONF_GPSD_GPSDECODE
 	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpsdecode)
 endif
 
+ifdef PTXCONF_GPSD_GPSCAT
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpscat)
+endif
+ifdef PTXCONF_GPSD_GPSFAKE
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpsfake)
+endif
+ifdef PTXCONF_GPSD_GPSPROF
+	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/bin/gpsprof)
+endif
+
 ifdef PTXCONF_GPSD_PYTHON
 	@cd $(GPSD_PKGDIR) && \
 		find ./usr/lib/python$(PYTHON_MAJORMINOR) \

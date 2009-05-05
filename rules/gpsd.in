@@ -218,6 +218,24 @@ menu "install options"
 		help
 		  FIXME
 
+	config GPSD_GPSCAT
+		bool "gpscat"
+		select GPSD_PYTHON
+		help
+		  FIXME
+
+	config GPSD_GPSFAKE
+		bool "gpsfake"
+		select GPSD_PYTHON
+		help
+		  FIXME
+
+	config GPSD_GPSPROF
+		bool "gpsprof"
+		select GPSD_PYTHON
+		help
+		  FIXME
+
 endmenu
 
 endif
