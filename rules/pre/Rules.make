@@ -231,6 +231,7 @@ CROSS_ENV_AC := \
 	ac_cv_func_setvbuf_reversed=no \
 	ac_cv_func_vsnprintf_c99=yes \
 	ac_cv_have_abstract_sockets=yes \
+	ac_cv_lib_c_inet_aton=yes \
 	ac_cv_sizeof_long_double=$(PTXCONF_SIZEOF_LONG_DOUBLE) \
 	ac_cv_sizeof_long_long=8 \
 	ac_cv_sysv_ipc=yes \
