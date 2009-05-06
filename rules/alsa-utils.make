@@ -2,6 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -21,8 +22,8 @@ ALSA_UTILS_VERSION	:= 1.0.18
 ALSA_UTILS		:= alsa-utils-$(ALSA_UTILS_VERSION)
 ALSA_UTILS_SUFFIX	:= tar.bz2
 ALSA_UTILS_URL		:= \
-	ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX) \
-	http://gd.tuwien.ac.at/opsys/linux/alsa/utils/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX)
+	http://dl.ambiweb.de/mirrors/ftp.alsa-project.org/utils/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX) \
+	ftp://ftp.alsa-project.org/pub/utils/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX)
 ALSA_UTILS_SOURCE	:= $(SRCDIR)/$(ALSA_UTILS).$(ALSA_UTILS_SUFFIX)
 ALSA_UTILS_DIR		:= $(BUILDDIR)/$(ALSA_UTILS)
 
@@ -67,24 +68,24 @@ $(STATEDIR)/alsa-utils.targetinstall:
 	@$(call install_fixup, alsa-utils, PRIORITY, optional)
 	@$(call install_fixup, alsa-utils, VERSION, $(ALSA_UTILS_VERSION))
 	@$(call install_fixup, alsa-utils, SECTION, base)
-	@$(call install_fixup, alsa-utils, AUTHOR, "Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, alsa-utils, AUTHOR, "Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, alsa-utils, DEPENDS,)
 	@$(call install_fixup, alsa-utils, DESCRIPTION, missing)
 
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/alsactl/alsactl, /usr/sbin/alsactl)
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/alsamixer/alsamixer, /usr/bin/alsamixer)
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/amidi/amidi, /usr/bin/amidi)
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/amixer/amixer, /usr/bin/amixer)
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/aplay/aplay, /usr/bin/aplay)
-	# link arecord aplay
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/sbin/alsactl)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/alsamixer)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/amidi)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/amixer)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/aplay)
+#	# link arecord aplay
 	@$(call install_link, alsa-utils, aplay, /usr/bin/arecord)
 
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/iecset/iecset, /usr/bin/iecset)
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aconnect/aconnect, /usr/bin/aconnect)
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aplaymidi/aplaymidi, /usr/bin/aplaymidi)
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aplaymidi/arecordmidi, /usr/bin/arecordmidi)
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aseqdump/aseqdump, /usr/bin/aseqdump)
-	@$(call install_copy, alsa-utils, 0, 0, 0755, $(ALSA_UTILS_DIR)/seq/aseqnet/aseqnet, /usr/bin/aseqnet)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/iecset)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/aconnect)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/aplaymidi)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/arecordmidi)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/aseqdump)
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/aseqnet)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_ALSA_UTILS_STARTSCRIPT
