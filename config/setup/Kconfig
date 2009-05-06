@@ -73,6 +73,31 @@ endmenu
 
 menu "Mirrors           "
 
+config PTXMIRROR_ONLY
+	bool
+	default n
+	prompt "Only use PTXdist Mirror to download packages"
+	help
+	  Set this to y if you only want to download packages from PTXCONF_SETUP_PTXMIRROR
+
+config SETUP_PTXMIRROR
+	string
+	default "http://www.pengutronix.de/software/ptxdist/temporary-src"
+	prompt "PTXdist Mirror"
+	help
+	  Enter the fallback mirror for all packages here.
+
+if !PTXMIRROR_ONLY
+
+########################################################################
+# WARNING!                                                             #
+#                                                                      #
+# if you add a new mirror here, don't forget to regenerate the default #
+# configfile:                                                          #
+# "config/setup/ptxdistrc.default"                                     #
+#                                                                      #
+########################################################################
+
 config SETUP_DEBMIRROR
 	string
 	default "http://ftp.uni-kl.de/debian"
@@ -102,12 +127,7 @@ config SETUP_XORGMIRROR
 	help
 	  For all x.org related packages enter an available mirror here.
 
-config SETUP_PTXMIRROR
-	string
-	default "http://www.pengutronix.de/software/ptxdist/temporary-src"
-	prompt "PTXdist Mirror"
-	help
-	  Enter the fallback mirror for all packages here.
+endif
 
 endmenu
 

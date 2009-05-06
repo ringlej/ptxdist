@@ -105,8 +105,11 @@ ptxd_make_get() {
 			fi
 			;;
 		http://*|https://*|ftp://*)
-			# keep original URL
-			argv[${#argv[@]}]="${url}"
+			# restrict donwload only to the PTXMIRROR
+			if [ -z "${PTXCONF_PTXMIRROR_ONLY}" ]; then
+				# keep original URL
+				argv[${#argv[@]}]="${url}"
+			fi
 
 			# add mirror to URLs, but only once
 			if ! ${mrd}; then
