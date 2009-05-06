@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.14.2
+UTIL_LINUX_NG_VERSION	:= 2.15
 UTIL_LINUX_NG		:= util-linux-ng-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.bz2
-UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.14/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
+UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.15/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 
@@ -51,10 +51,16 @@ UTIL_LINUX_NG_ENV 	:= \
 UTIL_LINUX_NG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
+	--enable-shared \
+	--enable-static \
+	--enable-largefile \
 	--disable-nls \
 	--disable-rpath \
+	--disable-arch \
 	--disable-agetty \
 	--disable-cramfs \
+	--disable-elvtune \
+	--disable-fsck \
 	--disable-init \
 	--disable-kill \
 	--disable-last \
@@ -64,12 +70,14 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-rdev \
 	--disable-rename \
 	--disable-reset \
+	--enable-schedutils \
 	--disable-login-utils \
 	--disable-wall \
 	--disable-write \
 	--disable-chsh-only-listed \
 	--disable-login-chown-vcs \
 	--disable-login-stat-mail \
+	--disable-makeinstall-chown \
 	--disable-pg-bell \
 	--disable-require-password \
 	--disable-use-tty-group \
@@ -134,7 +142,6 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_TASKSET
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/schedutils/taskset, /usr/bin/taskset)
 endif
-
 
 	@$(call install_finish, util-linux-ng)
 
