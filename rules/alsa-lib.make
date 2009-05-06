@@ -2,6 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -115,7 +116,6 @@ endif
 # --with-aload-devdir=dir
 # --with-pcm-plugins=<list>
 
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -128,14 +128,13 @@ $(STATEDIR)/alsa-lib.targetinstall:
 	@$(call install_fixup, alsa-lib, PRIORITY,optional)
 	@$(call install_fixup, alsa-lib, VERSION,$(ALSA_LIB_VERSION))
 	@$(call install_fixup, alsa-lib, SECTION,base)
-	@$(call install_fixup, alsa-lib, AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, alsa-lib, AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, alsa-lib, DEPENDS,)
 	@$(call install_fixup, alsa-lib, DESCRIPTION,missing)
 
 ifdef PTXCONF_ALSA_LIB_LIGHT
-	@$(call install_copy, alsa-lib, 0, 0, 0644, \
-		$(ALSA_LIB_DIR)/src/.libs/libsalsa.so.0.0.1, \
-		/usr/lib/libsalsa.so.0.0.1 )
+	@$(call install_copy, alsa-lib, 0, 0, 0644, -, \
+		/usr/lib/libsalsa.so.0.0.1)
 
 	@$(call install_link, alsa-lib, \
 		libsalsa.so.0.0.1, \
@@ -149,10 +148,10 @@ ifdef PTXCONF_ALSA_LIB_LIGHT
 		libsalsa.so, \
 		/usr/lib/libasound.so)
 endif
+
 ifdef PTXCONF_ALSA_LIB_FULL
-	@$(call install_copy, alsa-lib, 0, 0, 0644, \
-		$(ALSA_LIB_DIR)/src/.libs/libasound.so.2.0.0, \
-		/usr/lib/libasound.so.2.0.0 )
+	@$(call install_copy, alsa-lib, 0, 0, 0644, -, \
+		/usr/lib/libasound.so.2.0.0)
 
 	@$(call install_link, alsa-lib, \
 		libasound.so.2.0.0, \
@@ -179,24 +178,24 @@ ifdef PTXCONF_ALSA_LIB_MIXER
 endif
 
 	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/alsa.conf, \
-		/usr/share/alsa/alsa.conf, n)
+		0, 0, 0644, -, \
+		/usr/share/alsa/alsa.conf)
 
 	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/pcm/default.conf, \
-		/usr/share/alsa/pcm/default.conf, n)
+		0, 0, 0644, -, \
+		/usr/share/alsa/pcm/default.conf)
 
 	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/cards/aliases.conf, \
-		/usr/share/alsa/cards/aliases.conf, n)
+		0, 0, 0644, -, \
+		/usr/share/alsa/cards/aliases.conf)
 
 	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/pcm/dmix.conf, \
-		/usr/share/alsa/pcm/dmix.conf, n)
+		0, 0, 0644, -, \
+		/usr/share/alsa/pcm/dmix.conf)
 
 	@$(call install_copy, alsa-lib, \
-		0, 0, 0644, $(ALSA_LIB_DIR)/src/conf/pcm/dsnoop.conf, \
-		/usr/share/alsa/pcm/dsnoop.conf, n)
+		0, 0, 0644, -, \
+		/usr/share/alsa/pcm/dsnoop.conf)
 endif
 
 	@$(call install_finish, alsa-lib)
