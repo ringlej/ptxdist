@@ -443,7 +443,7 @@ extract =							\
 # $1: Packet Label; this macro gets $1_URL
 #
 get =								\
-	ptxd_make_get $($(strip $(1))_URL)
+	ptxd_make_get "$($(strip $(1))_URL)"
 
 
 #

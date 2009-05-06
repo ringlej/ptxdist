@@ -1,7 +1,74 @@
 #!/bin/bash
 
+
+#
+# in env:
+#
+# ${url}	: the url to download
+# ${opts[]}	: an array of options
+#
+ptxd_make_get_http() {
+	set -- "${opts[@]}"
+	unset opts
+
+	#
+	# scan for valid options
+	#
+	while [ ${#} -ne 0 ]; do
+		local opt="${1}"
+		shift
+
+		case "${opt}" in
+			no-check-certificate)
+				opts[${#opts[@]}]="--${opt}"
+				;;
+			*)
+				ptxd_bailout "invalid option '${opt}' to ${FUNCNAME}"
+				;;
+		esac
+	done
+	unset opt
+
+	#
+	# download to temporary file first, move it to correct
+	# file name after successfull download
+	#
+	local file="${url##*/}"
+
+	# remove any pending or half downloaded files
+	rm -f -- "${PTXDIST_SRCDIR}/${file}."*
+
+	local temp_file="$(mktemp "${PTXDIST_SRCDIR}/${file}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
+	wget \
+	    --passive-ftp \
+	    --progress=bar:force \
+	    --timeout=30 \
+	    --tries=5 \
+	    ${PTXDIST_QUIET:+--quiet} \
+	    "${opts[@]}" \
+	    -O "${temp_file}" \
+	    "${url}" && {
+		chmod 644 -- "${temp_file}" &&
+		mv -- "${temp_file}" "${PTXDIST_SRCDIR}/${file}"
+		return
+	}
+
+	rm -f -- "${temp_file}"
+
+	# return with failure, we didn't manage to download the file
+	return 1
+}
+export -f ptxd_make_get_http
+
+
+
 #
 # $@: possible download URLs, seperated by space
+#
+# options seperated from URLs by ";"
+#
+# valid options:
+# - no-check-certificate	don't check server certificate (https only)
 #
 ptxd_make_get() {
 	local orig_argv=( "${@}" )
@@ -14,6 +81,11 @@ ptxd_make_get() {
 		echo
 		exit 1
 	fi
+
+	#
+	# split by spaces, etc
+	#
+	set -- ${@}
 
 	while [ ${#} -gt 0 ]; do
 		local url="${1}"
@@ -32,8 +104,7 @@ ptxd_make_get() {
 				mrd=true
 			fi
 			;;
-		http://*|ftp://*)
-
+		http://*|https://*|ftp://*)
 			# keep original URL
 			argv[${#argv[@]}]="${url}"
 
@@ -52,34 +123,24 @@ ptxd_make_get() {
 	set -- "${argv[@]}"
 
 	while [ ${#} -ne 0 ]; do
-		local url="${1}"
+		#
+		# strip options which are seperated by ";" form the
+		# URL, store in "opts" array
+		#
+		local orig_ifs="${IFS}"
+		IFS=";"
+		local -a opts=( ${1} )
+		IFS="${orig_ifs}"
+		unset orig_ifs
+
+		local url="${opts[0]}"
+		unset opts[0]
+
 		shift
 
 		case "${url}" in
-		http://*|ftp://*)
-			#
-			# download to temporary file first,
-			# and move it to correct file name after successfull download
-			#
-			local file="${url##*/}"
-
-			# download any pending half downloaded files
-			rm -f -- "${PTXDIST_SRCDIR}/${file}."*
-
-			local temp_file="$(mktemp "${PTXDIST_SRCDIR}/${file}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
-			wget \
-			    --passive-ftp \
-			    --progress=bar:force \
-			    --timeout=30 \
-			    --tries=5 \
-			    ${PTXDIST_QUIET:+--quiet} \
-			    -O "${temp_file}" \
-			    "${url}" && {
-				chmod 644 -- "${temp_file}" && \
-				mv -- "${temp_file}" "${PTXDIST_SRCDIR}/${file}"
-				return
-			}
-			rm -f -- "${temp_file}"
+		http://*|https://|ftp://*)
+			ptxd_make_get_http && return
 			;;
 		file*)
 			local thing="${url/file:\/\///}"
