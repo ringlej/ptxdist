@@ -81,9 +81,13 @@ $(STATEDIR)/python.install:
 	@ln -sf "python$(PYTHON_MAJORMINOR)" \
 		"$(PTXCONF_SYSROOT_CROSS)/bin/python"
 
-	@sed -e "s:$(PTXCONF_SYSROOT_HOST):$(PTXCONF_SYSROOT_CROSS):" \
-		"$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR)-config" > \
-		"$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)-config"
+	@echo "#!/bin/sh" \
+		> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)-config"
+	@echo "exec \
+		\"$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)\" \
+		\"$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR)-config\" \
+		\"\$${@}\"" \
+		>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)-config"
 	@chmod a+x "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)-config"
 	@ln -sf "python$(PYTHON_MAJORMINOR)-config" \
 		"$(PTXCONF_SYSROOT_CROSS)/bin/python-config"
