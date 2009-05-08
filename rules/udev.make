@@ -128,12 +128,14 @@ ifdef PTXCONF_UDEV__COMMON_RULES
 endif
 
 ifdef PTXCONF_UDEV__CUST_RULES
-	@cd $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/; \
-	for file in *; do \
-		$(call install_copy, udev, 0, 0, 0644, \
-			$(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/$$file, \
-			/lib/udev/rules.d/$$file, n); \
-	done
+	@if [ -d $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/ ]; then \
+		cd $(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/; \
+		for file in `find . -type f`; do \
+			$(call install_copy, udev, 0, 0, 0644, \
+				$(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/$$file, \
+				/lib/udev/rules.d/$$file, n); \
+		done; \
+	fi
 endif
 
 #	#
@@ -172,7 +174,7 @@ ifdef PTXCONF_UDEV__EXTRA_EDD_ID
 endif
 
 ifdef PTXCONF_UDEV__EXTRA_FIRMWARE
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/firmware.sh)
+	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/firmware.sh, n)
 	@$(call install_copy, udev, 0, 0, 0644, -, \
 		/lib/udev/rules.d/50-firmware.rules,n)
 endif
