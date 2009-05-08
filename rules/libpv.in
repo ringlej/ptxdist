@@ -5,10 +5,10 @@ menuconfig LIBPV
 	prompt "libpv                         "
 	select LIBLIST
 	select LIBC_PTHREAD
-	select LIBXMLCONFIG if !LIBPV_XML_EXPAT
-	select EXPAT if LIBPV_XML_EXPAT
-	select PYTHON24 if LIBPV_PYTHON
-	select LIBMQUEUE if LIBPV_NEEDS_LIBMQUEUE
+	select LIBXMLCONFIG	if !LIBPV_XML_EXPAT
+	select EXPAT		if LIBPV_XML_EXPAT
+	select PYTHON		if LIBPV_PYTHON
+	select LIBMQUEUE	if LIBPV_NEEDS_LIBMQUEUE
 	help
 	  libpv.so is a library that implements a user space shared memory for
 	  automation applications. The shared memory is being described by an
