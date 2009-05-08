@@ -1,4 +1,41 @@
 #!/bin/sh
 
-exit
+DAEMON=/usr/sbin/acpid
+PIDFILE=/var/run/acpid.pid
+
+case $1 in
+start)
+	echo "starting acpid"
+
+	# don't use acpid if proc/acpi is not there.
+	if [ ! -e /proc/acpi/event ]; then
+		echo "failed"
+		echo "error: proc/acpi/event not here"
+		exit 1
+	fi
+
+	# Start the acpid daemon to continually
+	# watch for, and act on, acpievents
+	echo -n "Starting acpid..."
+	start-stop-daemon --start --oknodo \
+		--pidfile $PIDFILE --exec $DAEMON -- $DAEMON_OPTS
+
+	if [ "$?" = "0" ]; then
+		echo "done"
+		exit 0
+	else
+		echo "failed"
+		exit 1
+	fi
+
+	;;
+stop)
+	echo "Stopping acpid"
+	start-stop-daemon --stop --oknodo --quiet \
+		--pidfile $PIDFILE --exec $DAEMON
+	;;
+*)
+	echo "usage: $0 [start|stop]"
+	;;
+esac
 
