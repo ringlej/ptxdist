@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2005 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBPV) += libpv
 #
 # Paths and names
 #
-LIBPV_VERSION	= 1.2.10
+LIBPV_VERSION	= 1.3.0
 LIBPV		= libpv-$(LIBPV_VERSION)
 LIBPV_SUFFIX	= tar.bz2
 LIBPV_URL	= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
@@ -44,8 +44,10 @@ LIBPV_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBPV_AUTOCONF := \
+LIBPV_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
+	--enable-shared \
+	--enable-static \
 	--disable-debug
 
 ifdef PTXCONF_LIBPV_EVENT
@@ -58,6 +60,12 @@ ifdef PTXCONF_LIBPV_PYTHON
 LIBPV_AUTOCONF += --enable-python
 else
 LIBPV_AUTOCONF += --disable-python
+endif
+
+ifdef PTXCONF_LIBPV_XML_EXPAT
+LIBPV_AUTOCONF += --with-expat
+else
+LIBPV_AUTOCONF += --without-expat
 endif
 
 # ----------------------------------------------------------------------------
@@ -77,14 +85,12 @@ $(STATEDIR)/libpv.targetinstall:
 	@$(call install_fixup, libpv,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBPV_PVTOOL
-	@$(call install_copy, libpv, 0, 0, 0755, -, /usr/bin/pvtool)
+	@$(call install_copy, libpv, 0, 0, 0755, $(LIBPV_DIR)/src/pvtool, /usr/bin/pvtool)
 endif
 
-	@$(call install_copy, libpv, 0, 0, 0644, -, \
-		/usr/lib/libpv.so.8.2.0)
-
-	@$(call install_link, libpv, libpv.so.8.2.0, /usr/lib/libpv.so.8)
-	@$(call install_link, libpv, libpv.so.8.2.0, /usr/lib/libpv.so)
+	@$(call install_copy, libpv, 0, 0, 0644, - , /usr/lib/libpv.so.11.0.0)
+	@$(call install_link, libpv, libpv.so.11.0.0, /usr/lib/libpv.so.11)
+	@$(call install_link, libpv, libpv.so.11.0.0, /usr/lib/libpv.so)
 
 ifdef PTXCONF_LIBPV_PYTHON
 	@$(call install_copy, libpv, 0, 0, 0644, -, \
