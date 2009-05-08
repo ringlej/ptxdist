@@ -135,6 +135,10 @@ ifdef PTXCONF_UDEV__CUST_RULES
 				$(PTXDIST_WORKSPACE)/projectroot/lib/udev/rules.d/$$file, \
 				/lib/udev/rules.d/$$file, n); \
 		done; \
+	else \
+		echo "UDEV__CUST_RULES is enabled but Directory containing" \
+			"customized udev rules is missing!"; \
+		exit 1; \
 	fi
 endif
 
