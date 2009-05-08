@@ -1,0 +1,21 @@
+## SECTION=shell_and_console
+
+menuconfig ACPID
+	tristate
+	prompt "acpid                         "
+	help
+	 a configurable ACPI policy daemon for Linux
+
+if ACPID
+
+config ACPID_STARTSCRIPT
+        bool
+        default y
+        prompt "install /etc/init.d/acpid"
+
+config ACPID_POWEROFF
+        bool
+        default y
+        prompt "install /etc/acpi/events/power_button"
+endif
+

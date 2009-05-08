@@ -1,0 +1,106 @@
+# -*-makefile-*-
+# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
+#
+# Copyright (C) 2009 by Jan Weitzel
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_ACPID) += acpid
+
+#
+# Paths and names
+#
+ACPID_VERSION		:= 1.0.10
+ACPID			:= acpid-$(ACPID_VERSION)
+ACPID_SUFFIX		:= tar.gz
+ACPID_URL		:= $(PTXCONF_SETUP_SFMIRROR)/acpid/$(ACPID).$(ACPID_SUFFIX)
+ACPID_SOURCE		:= $(SRCDIR)/$(ACPID).$(ACPID_SUFFIX)
+ACPID_DIR		:= $(BUILDDIR)/$(ACPID)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(ACPID_SOURCE):
+	@$(call targetinfo)
+	@$(call get, ACPID)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+ACPID_PATH	:= PATH=$(CROSS_PATH)
+ACPID_ENV 	:= $(CROSS_ENV)
+ACPID_MAKEVARS	:= CC=$(CROSS_CC)
+
+$(STATEDIR)/acpid.prepare:
+	@$(call targetinfo)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/acpid.compile:
+	@$(call targetinfo)
+	cd $(ACPID_DIR) && $(ACPID_PATH) $(MAKE) \
+		$(ACPID_MAKEVARS) $(PARALLELMFLAGS)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/acpid.install:
+	@$(call targetinfo)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/acpid.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init,  acpid)
+	@$(call install_fixup, acpid,PACKAGE,acpid)
+	@$(call install_fixup, acpid,PRIORITY,optional)
+	@$(call install_fixup, acpid,VERSION,$(ACPID_VERSION))
+	@$(call install_fixup, acpid,SECTION,base)
+	@$(call install_fixup, acpid,AUTHOR,"Jan Weitzel <j.weitzel@phytec.de>, Juergen Kilb <j.kilb@phytec.de>")
+	@$(call install_fixup, acpid,DEPENDS,)
+	@$(call install_fixup, acpid,DESCRIPTION,missing)
+
+	@$(call install_copy, acpid, 0, 0, 0750, $(ACPID_DIR)/acpid, /usr/sbin/acpid)
+	@$(call install_copy, acpid, 0, 0, 0755, $(ACPID_DIR)/acpi_listen, /usr/bin/acpi_listen)
+	@$(call install_copy, acpid, 0, 0, 0755, $(ACPID_DIR)/samples/sample.conf, /etc/acpi/events/sample.conf)
+
+ifdef PTXCONF_ACPID_POWEROFF
+	@$(call install_alternative, acpid, 0, 0, 0755, /etc/acpi/events/power_button, n)
+endif
+
+ifdef PTXCONF_ACPID_STARTSCRIPT
+	@$(call install_alternative, acpid, 0, 0, 0755, /etc/init.d/acpid, n)
+endif
+
+	@$(call install_finish, acpid)
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+acpid_clean:
+	rm -rf $(STATEDIR)/acpid.*
+	rm -rf $(PKGDIR)/acpid_*
+	rm -rf $(ACPID_DIR)
+
+# vim: syntax=make
