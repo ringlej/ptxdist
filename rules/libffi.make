@@ -21,9 +21,12 @@ PACKAGES-$(PTXCONF_LIBFFI) += libffi
 LIBFFI_VERSION	:= 3.0.8
 LIBFFI		:= libffi-$(LIBFFI_VERSION)
 LIBFFI_SUFFIX	:= tar.gz
-LIBFFI_URL	:= ftp://sourceware.org/pub/libffi/$(LIBFFI).$(LIBFFI_SUFFIX)
 LIBFFI_SOURCE	:= $(SRCDIR)/$(LIBFFI).$(LIBFFI_SUFFIX)
 LIBFFI_DIR	:= $(BUILDDIR)/$(LIBFFI)
+
+LIBFFI_URL	:= \
+	http://ftp.gwdg.de/pub/linux/sources.redhat.com/libffi/$(LIBFFI).$(LIBFFI_SUFFIX) \
+	ftp://sourceware.org/pub/libffi/$(LIBFFI).$(LIBFFI_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
