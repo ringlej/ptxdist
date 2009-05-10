@@ -80,7 +80,7 @@ $(STATEDIR)/sqlite.targetinstall:
 	@$(call install_fixup, sqlite,PRIORITY,optional)
 	@$(call install_fixup, sqlite,VERSION,$(SQLITE_VERSION))
 	@$(call install_fixup, sqlite,SECTION,base)
-	@$(call install_fixup, sqlite,AUTHOR,"Ladislav Michl <ladis\@linux-mips.org>")
+	@$(call install_fixup, sqlite,AUTHOR,"Ladislav Michl <ladis@linux-mips.org>")
 	@$(call install_fixup, sqlite,DEPENDS,)
 	@$(call install_fixup, sqlite,DESCRIPTION,missing)
 
@@ -103,7 +103,7 @@ ifdef PTXCONF_SQLITE_TCL
 endif
 	@$(call install_finish, sqlite)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
