@@ -38,7 +38,12 @@ $(SQLITE_SOURCE):
 # ----------------------------------------------------------------------------
 
 SQLITE_PATH	:= PATH=$(CROSS_PATH)
-SQLITE_ENV 	:= $(CROSS_ENV)
+
+# don't use := here!
+SQLITE_ENV 	= \
+	$(CROSS_ENV) \
+	TCLLIBDIR=/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/sqlite3
+
 SQLITE_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-tempstore=never \
@@ -57,7 +62,9 @@ SQLITE_AUTOCONF += --enable-largefile
 endif
 
 ifdef PTXCONF_SQLITE_TCL
-SQLITE_AUTOCONF += --enable-tcl
+SQLITE_AUTOCONF += \
+	--enable-tcl \
+	--with-tcl="$(SYSROOT)/usr/lib"
 else
 SQLITE_AUTOCONF += --disable-tcl
 endif
