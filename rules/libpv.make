@@ -44,7 +44,7 @@ LIBPV_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBPV_AUTOCONF = \
+LIBPV_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-shared \
 	--enable-static \
@@ -85,10 +85,12 @@ $(STATEDIR)/libpv.targetinstall:
 	@$(call install_fixup, libpv,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBPV_PVTOOL
-	@$(call install_copy, libpv, 0, 0, 0755, $(LIBPV_DIR)/src/pvtool, /usr/bin/pvtool)
+	@$(call install_copy, libpv, 0, 0, 0755, -, \
+		/usr/bin/pvtool)
 endif
 
-	@$(call install_copy, libpv, 0, 0, 0644, - , /usr/lib/libpv.so.11.0.0)
+	@$(call install_copy, libpv, 0, 0, 0644, - , \
+		/usr/lib/libpv.so.11.0.0)
 	@$(call install_link, libpv, libpv.so.11.0.0, /usr/lib/libpv.so.11)
 	@$(call install_link, libpv, libpv.so.11.0.0, /usr/lib/libpv.so)
 
