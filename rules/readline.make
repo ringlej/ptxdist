@@ -44,7 +44,7 @@ READLINE_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 READLINE_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
+	$(CROSS_AUTOCONF_ROOT) \
 	--enable-shared \
 	--disable-static\
 	--disable-multibyte
