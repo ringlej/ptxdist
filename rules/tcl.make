@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_TCL) += tcl
 #
 TCL_MAJOR	:= 8
 TCL_MINOR	:= 5
-TCL_PL		:= 6
+TCL_PL		:= 7
 TCL_VERSION	:= $(TCL_MAJOR).$(TCL_MINOR).$(TCL_PL)
 TCL		:= tcl$(TCL_VERSION)
 TCL_SUFFIX	:= -src.tar.gz
@@ -134,7 +134,7 @@ $(STATEDIR)/tcl.targetinstall:
 ifdef PTXCONF_TCL_TESTING
 	@$(call install_copy, tcl, 0, 0, 0755, /usr/lib/tcl$(TCL_MAJOR))
 	@$(call install_copy, tcl, 0, 0, 0644, -, \
-		/usr/lib/tcl$(TCL_MAJOR)/$(TCL_MAJOR).$(TCL_MINOR)/tcltest-2.3.0.tm)
+		/usr/lib/tcl$(TCL_MAJOR)/$(TCL_MAJOR).$(TCL_MINOR)/tcltest-2.3.1.tm)
 	@$(call install_copy, tcl, 0, 0, 0644, -, \
 		/usr/lib/tcl$(TCL_MAJOR)/$(TCL_MAJOR).$(TCL_MINOR)/msgcat-1.4.2.tm)
 

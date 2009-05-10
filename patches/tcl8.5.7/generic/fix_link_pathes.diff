@@ -15,7 +15,7 @@ Index: unix/configure
 ===================================================================
 --- unix/configure.orig
 +++ unix/configure
-@@ -18830,7 +18830,7 @@ else
+@@ -18911,7 +18911,7 @@ else
              TCL_LIB_FLAG="-ltcl`echo ${TCL_VERSION} | tr -d .`"
          fi
          TCL_BUILD_LIB_SPEC="-L`pwd | sed -e 's/ /\\\\ /g'` ${TCL_LIB_FLAG}"
@@ -24,9 +24,9 @@ Index: unix/configure
      else
          TCL_BUILD_EXP_FILE="lib.exp"
          eval "TCL_EXP_FILE=libtcl${TCL_EXPORT_FILE_SUFFIX}"
-@@ -18863,9 +18863,9 @@ if test "$FRAMEWORK_BUILD" = "1" ; then
+@@ -18944,9 +18944,9 @@ if test "$FRAMEWORK_BUILD" = "1" ; then
      test -z "$TCL_MODULE_PATH"  && \
- 	TCL_MODULE_PATH="~/Library/Tcl /Library/Tcl /Network/Library/Tcl /System/Library/Tcl"
+ 	TCL_MODULE_PATH="~/Library/Tcl /Library/Tcl /System/Library/Tcl"
  elif test "$prefix/lib" != "$libdir"; then
 -    TCL_PACKAGE_PATH="${libdir} ${prefix}/lib ${TCL_PACKAGE_PATH}"
 +    TCL_PACKAGE_PATH="$SYSROOT${libdir} ${prefix}/lib ${TCL_PACKAGE_PATH}"
@@ -36,7 +36,7 @@ Index: unix/configure
  fi
  
  #--------------------------------------------------------------------
-@@ -18887,12 +18887,12 @@ else
+@@ -18968,12 +18968,12 @@ else
  fi
  
  TCL_BUILD_STUB_LIB_SPEC="-L`pwd | sed -e 's/ /\\\\ /g'` ${TCL_STUB_LIB_FLAG}"
