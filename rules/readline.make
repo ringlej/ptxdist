@@ -2,7 +2,7 @@
 # $Id: template-make 7759 2008-02-12 21:05:07Z mkl $
 #
 # Copyright (C) 2004 by Sascha Hauer
-#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -79,11 +79,12 @@ $(STATEDIR)/readline.targetinstall:
 	@$(call install_fixup, readline,PRIORITY,optional)
 	@$(call install_fixup, readline,VERSION,$(READLINE_VERSION))
 	@$(call install_fixup, readline,SECTION,base)
-	@$(call install_fixup, readline,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, readline,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, readline,DEPENDS,)
 	@$(call install_fixup, readline,DESCRIPTION,missing)
 
-	@$(call install_copy, readline, 0, 0, 0644, $(READLINE_DIR)/shlib/libreadline.so.5.2, /lib/libreadline.so.5.2)
+	@$(call install_copy, readline, 0, 0, 0644, -, \
+		/lib/libreadline.so.5.2)
 	@$(call install_link, readline, libreadline.so.5.2, /lib/libreadline.so.5)
 	@$(call install_link, readline, libreadline.so.5.2, /lib/libreadline.so)
 
