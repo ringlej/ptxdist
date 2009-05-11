@@ -15,16 +15,16 @@
  ltmain.sh |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: liboil-0.3.15/ltmain.sh
+Index: liboil-0.3.16/ltmain.sh
 ===================================================================
---- liboil-0.3.15.orig/ltmain.sh
-+++ liboil-0.3.15/ltmain.sh
-@@ -2605,7 +2605,7 @@ EOF
- 	   { test "$use_static_libs" = no || test -z "$old_library"; }; then
- 	  if test "$installed" = no; then
- 	    notinst_deplibs="$notinst_deplibs $lib"
--	    need_relink=yes
-+	    #need_relink=no
- 	  fi
- 	  # This is a shared library
- 
+--- liboil-0.3.16.orig/ltmain.sh
++++ liboil-0.3.16/ltmain.sh
+@@ -5040,7 +5040,7 @@ func_mode_link ()
+ 	  *)
+ 	    if test "$installed" = no; then
+ 	      notinst_deplibs="$notinst_deplibs $lib"
+-	      need_relink=yes
++	      #need_relink=yes
+ 	    fi
+ 	    ;;
+ 	  esac
