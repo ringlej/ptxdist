@@ -24,6 +24,7 @@ LIGHTTPD_SUFFIX		:= tar.bz2
 LIGHTTPD_URL		:= http://www.lighttpd.net/download/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_SOURCE		:= $(SRCDIR)/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_DIR		:= $(BUILDDIR)/$(LIGHTTPD)
+LIGHTTPD_PKGDIR		:= $(PKGDIR)/$(LIGHTTPD)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -158,25 +159,22 @@ $(STATEDIR)/lighttpd.targetinstall:
 	@$(call install_fixup, lighttpd,PRIORITY,optional)
 	@$(call install_fixup, lighttpd,VERSION,$(LIGHTTPD_VERSION))
 	@$(call install_fixup, lighttpd,SECTION,base)
-	@$(call install_fixup, lighttpd,AUTHOR,"Daniel Schnell <danielsch\@marel.com>")
+	@$(call install_fixup, lighttpd,AUTHOR,"Daniel Schnell <danielsch@marel.com>")
 	@$(call install_fixup, lighttpd,DEPENDS,)
 	@$(call install_fixup, lighttpd,DESCRIPTION,missing)
 
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/lighttpd, \
+	@$(call install_copy, lighttpd, 0, 0, 0755, -, \
 		/usr/sbin/lighttpd)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/lighttpd-angel, \
+	@$(call install_copy, lighttpd, 0, 0, 0755, -, \
 		/usr/sbin/lighttpd-angel)
-	@$(call install_copy, lighttpd, 0, 0, 0755, $(LIGHTTPD_DIR)/src/spawn-fcgi, \
+	@$(call install_copy, lighttpd, 0, 0, 0755, -, \
 		/usr/bin/spawn-fcgi)
 
-	@cd $(LIGHTTPD_DIR)/src/.libs && \
-	find . \
-		-name "*.so" | \
+	@cd $(LIGHTTPD_PKGDIR) && \
+		find ./usr/lib -name "*.so" | \
 		while read file; do \
-		$(call install_copy, lighttpd, 0, 0, 0644, \
-			$(LIGHTTPD_DIR)/src/.libs/$$file, \
-			/usr/lib/$${file##*/} \
-		) \
+		$(call install_copy, lighttpd, 0, 0, 0644, -, \
+			$${file##.}) \
 	done
 
 #	#
