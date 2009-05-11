@@ -3,4 +3,5 @@ fix-link-breakage-if-some-drivers-are-not-enabled.patch -p0
 fix_build_error.patch -p0
 fix-autotool-bug.patch -p0
 configure_ac-fix-python.diff
+gpsd-2.39-fixup-parallel-build-for-python.diff
 fix-autotool-bug_generated_files.patch -p0

@@ -1,0 +1,28 @@
+---
+ Makefile.am |    9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+Index: gpsd-2.39/Makefile.am
+===================================================================
+--- gpsd-2.39.orig/Makefile.am
++++ gpsd-2.39/Makefile.am
+@@ -187,12 +187,17 @@ if HAVE_PYTHON
+ PYEXTENSIONS = gpspacket.so gpslib.so
+ noinst_SCRIPTS = gpspacket.so gpslib.so setup.py
+ 
+-gpspacket.so gpslib.so: gpspacket.c gpslib.c libgps.la
++.PHONY: build_python_ext
++build_python_ext: gpspacket.c gpslib.c libgps.la
+ 	(pwd="`pwd`"; cd $(srcdir) && $(PYTHON) setup.py build_ext --build-lib "$$pwd" --build-temp "$$pwd/build" --include-dirs "$$pwd")
+-endif
++
++gpspacket.so: build_python_ext
++gpslib.so: build_python_ext
++
+ # Clean up after Python
+ clean-local:
+ 	rm -rf build
++endif
+ 
+ #
+ # Build test_gpsmm

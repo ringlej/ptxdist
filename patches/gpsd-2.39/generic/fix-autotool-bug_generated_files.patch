@@ -27,12 +27,12 @@ Signed-off-by: FIXME
  configure        |34833 ++++++++++++++++++++++++++++++-------------------------
  gpsd_config.h.in |    4 
  ltmain.sh        |12750 +++++++++-----------
- Makefile.in      |   14 
+ Makefile.in      |   26 -
  aclocal.m4       |   17 
  autogen.sh       |    5 
- configure        | 1311 ++++++++++++++++++++++---------------------------------
+ configure        | 1337 ++++++++++++++++++++++---------------------------------
  gpsd_config.h.in |    3 
- 5 files changed, 552 insertions(+), 798 deletions(-)
+ 5 files changed, 574 insertions(+), 814 deletions(-)
  mode change 100755 => 100644 ltmain.sh
 
 Index: Makefile.in
@@ -80,6 +80,34 @@ Index: Makefile.in
  .PRECIOUS: Makefile
  Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
  	@case '$?' in \
+@@ -1516,6 +1514,7 @@ maintainer-clean-generic:
+ 	@echo "This command is intended for maintainers to use"
+ 	@echo "it deletes files that may require special tools to rebuild."
+ 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
++@HAVE_PYTHON_FALSE@clean-local:
+ clean: clean-am
+ 
+ clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
+@@ -1629,11 +1628,16 @@ gpsd.h: gpsd.h-head gpsd.h-tail gpsd_con
+ 	grep ENABLE gpsd_config.h >>gpsd.h
+ 	cat $(srcdir)/gpsd.h-tail >>gpsd.h
+ 
+-@HAVE_PYTHON_TRUE@gpspacket.so gpslib.so: gpspacket.c gpslib.c libgps.la
++@HAVE_PYTHON_TRUE@.PHONY: build_python_ext
++@HAVE_PYTHON_TRUE@build_python_ext: gpspacket.c gpslib.c libgps.la
+ @HAVE_PYTHON_TRUE@	(pwd="`pwd`"; cd $(srcdir) && $(PYTHON) setup.py build_ext --build-lib "$$pwd" --build-temp "$$pwd/build" --include-dirs "$$pwd")
++
++@HAVE_PYTHON_TRUE@gpspacket.so: build_python_ext
++@HAVE_PYTHON_TRUE@gpslib.so: build_python_ext
++
+ # Clean up after Python
+-clean-local:
+-	rm -rf build
++@HAVE_PYTHON_TRUE@clean-local:
++@HAVE_PYTHON_TRUE@	rm -rf build
+ 
+ @HAVE_XSLT_PROCESSOR_TRUE@.xml.1:
+ @HAVE_XSLT_PROCESSOR_TRUE@	$(MANGENERATOR) $(MANFLAGS) $(MANTARGET) $<
 Index: aclocal.m4
 ===================================================================
 --- aclocal.m4.orig
@@ -1626,6 +1654,33 @@ Index: configure
     if (exit $ac_status) && test -s out/conftest2.$ac_objext
     then
       # The compiler can only warn and ignore the option if not recognized
+@@ -8664,7 +8411,7 @@ _LT_EOF
+ 
+         if test "x$supports_anon_versioning" = xyes; then
+           archive_expsym_cmds='echo "{ global:" > $output_objdir/$libname.ver~
+-	    cat $export_symbols | sed -e "s/\(.*\)/\1;/" >> $output_objdir/$libname.ver~
++	    cat $export_symbols | sed -e "s/\(.*\)/'"$ac_symprfx"'\1;/" >> $output_objdir/$libname.ver~
+ 	    echo "local: *; };" >> $output_objdir/$libname.ver~
+ 	    $CC '"$tmp_sharedflag""$tmp_addflag"' $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-version-script ${wl}$output_objdir/$libname.ver -o $lib'
+         fi
+@@ -8678,7 +8425,7 @@ _LT_EOF
+ 	  archive_cmds='$LD -shared $libobjs $deplibs $compiler_flags -soname $soname -o $lib'
+ 	  if test "x$supports_anon_versioning" = xyes; then
+ 	    archive_expsym_cmds='echo "{ global:" > $output_objdir/$libname.ver~
+-	      cat $export_symbols | sed -e "s/\(.*\)/\1;/" >> $output_objdir/$libname.ver~
++	      cat $export_symbols | sed -e "s/\(.*\)/'"$ac_symprfx"'\1;/" >> $output_objdir/$libname.ver~
+ 	      echo "local: *; };" >> $output_objdir/$libname.ver~
+ 	      $LD -shared $libobjs $deplibs $compiler_flags -soname $soname -version-script $output_objdir/$libname.ver -o $lib'
+ 	  fi
+@@ -9812,7 +9559,7 @@ version_type=none
+ dynamic_linker="$host_os ld.so"
+ sys_lib_dlsearch_path_spec="/lib /usr/lib"
+ need_lib_prefix=unknown
+-hardcode_into_libs=no
++hardcode_into_libs="no"
+ 
+ # when you set need_version to no, make sure it does not cause -set_version
+ # flags to be left without arguments
 @@ -11152,7 +10899,7 @@ else
    lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
    lt_status=$lt_dlunknown
@@ -1644,6 +1699,15 @@ Index: configure
  #include "confdefs.h"
  
  #if HAVE_DLFCN_H
+@@ -13553,7 +13300,7 @@ if test -z "$aix_libpath"; then aix_libp
+ 	    archive_cmds_CXX='$CC -qmkshrobj $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+ 	    if test "x$supports_anon_versioning" = xyes; then
+ 	      archive_expsym_cmds_CXX='echo "{ global:" > $output_objdir/$libname.ver~
+-		cat $export_symbols | sed -e "s/\(.*\)/\1;/" >> $output_objdir/$libname.ver~
++		cat $export_symbols | sed -e "s/\(.*\)/'"$ac_symprfx"'\1;/" >> $output_objdir/$libname.ver~
+ 		echo "local: *; };" >> $output_objdir/$libname.ver~
+ 		$CC -qmkshrobj $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-version-script ${wl}$output_objdir/$libname.ver -o $lib'
+ 	    fi
 @@ -14451,11 +14198,11 @@ else
     -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
     -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
@@ -1686,6 +1750,35 @@ Index: configure
     if (exit $ac_status) && test -s out/conftest2.$ac_objext
     then
       # The compiler can only warn and ignore the option if not recognized
+@@ -14841,7 +14588,7 @@ version_type=none
+ dynamic_linker="$host_os ld.so"
+ sys_lib_dlsearch_path_spec="/lib /usr/lib"
+ need_lib_prefix=unknown
+-hardcode_into_libs=no
++hardcode_into_libs="no"
+ 
+ # when you set need_version to no, make sure it does not cause -set_version
+ # flags to be left without arguments
+@@ -25554,8 +25301,8 @@ module_expsym_cmds='`$ECHO "X$module_exp
+ with_gnu_ld='`$ECHO "X$with_gnu_ld" | $Xsed -e "$delay_single_quote_subst"`'
+ allow_undefined_flag='`$ECHO "X$allow_undefined_flag" | $Xsed -e "$delay_single_quote_subst"`'
+ no_undefined_flag='`$ECHO "X$no_undefined_flag" | $Xsed -e "$delay_single_quote_subst"`'
+-hardcode_libdir_flag_spec='`$ECHO "X$hardcode_libdir_flag_spec" | $Xsed -e "$delay_single_quote_subst"`'
+-hardcode_libdir_flag_spec_ld='`$ECHO "X$hardcode_libdir_flag_spec_ld" | $Xsed -e "$delay_single_quote_subst"`'
++hardcode_libdir_flag_spec=""
++hardcode_libdir_flag_spec_ld=""
+ hardcode_libdir_separator='`$ECHO "X$hardcode_libdir_separator" | $Xsed -e "$delay_single_quote_subst"`'
+ hardcode_direct='`$ECHO "X$hardcode_direct" | $Xsed -e "$delay_single_quote_subst"`'
+ hardcode_direct_absolute='`$ECHO "X$hardcode_direct_absolute" | $Xsed -e "$delay_single_quote_subst"`'
+@@ -25585,7 +25332,7 @@ postinstall_cmds='`$ECHO "X$postinstall_
+ postuninstall_cmds='`$ECHO "X$postuninstall_cmds" | $Xsed -e "$delay_single_quote_subst"`'
+ finish_cmds='`$ECHO "X$finish_cmds" | $Xsed -e "$delay_single_quote_subst"`'
+ finish_eval='`$ECHO "X$finish_eval" | $Xsed -e "$delay_single_quote_subst"`'
+-hardcode_into_libs='`$ECHO "X$hardcode_into_libs" | $Xsed -e "$delay_single_quote_subst"`'
++hardcode_into_libs="no"
+ sys_lib_search_path_spec='`$ECHO "X$sys_lib_search_path_spec" | $Xsed -e "$delay_single_quote_subst"`'
+ sys_lib_dlsearch_path_spec='`$ECHO "X$sys_lib_dlsearch_path_spec" | $Xsed -e "$delay_single_quote_subst"`'
+ hardcode_action='`$ECHO "X$hardcode_action" | $Xsed -e "$delay_single_quote_subst"`'
 @@ -25954,15 +25701,6 @@ am__leading_dot!$am__leading_dot$ac_deli
  AMTAR!$AMTAR$ac_delim
  am__tar!$am__tar$ac_delim
@@ -1747,3 +1840,40 @@ Index: configure
      break
    elif $ac_last_try; then
      { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
+@@ -26916,7 +26661,7 @@ finish_cmds=$lt_finish_cmds
+ finish_eval=$lt_finish_eval
+ 
+ # Whether we should hardcode library paths into libraries.
+-hardcode_into_libs=$hardcode_into_libs
++hardcode_into_libs="no"
+ 
+ # Compile-time system search path for libraries.
+ sys_lib_search_path_spec=$lt_sys_lib_search_path_spec
+@@ -27006,11 +26751,11 @@ no_undefined_flag=$lt_no_undefined_flag
+ 
+ # Flag to hardcode \$libdir into a binary during linking.
+ # This must work even if \$libdir does not exist
+-hardcode_libdir_flag_spec=$lt_hardcode_libdir_flag_spec
++hardcode_libdir_flag_spec=""
+ 
+ # If ld is used when linking, flag to hardcode \$libdir into a binary
+ # during linking.  This must work even if \$libdir does not exist.
+-hardcode_libdir_flag_spec_ld=$lt_hardcode_libdir_flag_spec_ld
++hardcode_libdir_flag_spec_ld=""
+ 
+ # Whether we need a single "-rpath" flag with a separated argument.
+ hardcode_libdir_separator=$lt_hardcode_libdir_separator
+@@ -27391,11 +27136,11 @@ no_undefined_flag=$lt_no_undefined_flag_
+ 
+ # Flag to hardcode \$libdir into a binary during linking.
+ # This must work even if \$libdir does not exist
+-hardcode_libdir_flag_spec=$lt_hardcode_libdir_flag_spec_CXX
++hardcode_libdir_flag_spec=""
+ 
+ # If ld is used when linking, flag to hardcode \$libdir into a binary
+ # during linking.  This must work even if \$libdir does not exist.
+-hardcode_libdir_flag_spec_ld=$lt_hardcode_libdir_flag_spec_ld_CXX
++hardcode_libdir_flag_spec_ld=""
+ 
+ # Whether we need a single "-rpath" flag with a separated argument.
+ hardcode_libdir_separator=$lt_hardcode_libdir_separator_CXX
