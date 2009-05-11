@@ -28,24 +28,16 @@ PORTMAP_DIR	:= $(BUILDDIR)/$(PORTMAP)
 # Get
 # ----------------------------------------------------------------------------
 
-portmap_get: $(STATEDIR)/portmap.get
-
-$(STATEDIR)/portmap.get: $(portmap_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(PORTMAP_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, PORTMAP)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-portmap_extract: $(STATEDIR)/portmap.extract
-
-$(STATEDIR)/portmap.extract: $(portmap_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/portmap.extract:
+	@$(call targetinfo)
 	@$(call clean, $(PORTMAP_DIR))
 	@$(call extract, PORTMAP)
 	@$(call patchin, PORTMAP)
@@ -55,23 +47,19 @@ $(STATEDIR)/portmap.extract: $(portmap_extract_deps_default)
 #ifndef PTXCONF_TCPWRAPPER
 #	sed -i -e 's/$$(WRAP_DIR)\/libwrap.a//' $(PORTMAP_DIR)/Makefile
 #endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-portmap_prepare: $(STATEDIR)/portmap.prepare
-
 $(STATEDIR)/portmap.prepare: $(portmap_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
-
-portmap_compile: $(STATEDIR)/portmap.compile
 
 PORTMAP_ENV		= $(CROSS_ENV)
 PORTMAP_PATH		= PATH=$(CROSS_PATH)
@@ -80,37 +68,33 @@ ifdef PTXCONF_TCPWRAPPER
 PORTMAP_MAKEVARS	= WRAP_DIR=$(SYSROOT)/lib
 endif
 
-$(STATEDIR)/portmap.compile: $(portmap_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/portmap.compile:
+	@$(call targetinfo)
 	cd $(PORTMAP_DIR) && 						\
 		$(PORTMAP_ENV) $(PORTMAP_PATH) make $(PORTMAP_MAKEVARS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-portmap_install: $(STATEDIR)/portmap.install
-
-$(STATEDIR)/portmap.install: $(portmap_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/portmap.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-portmap_targetinstall: $(STATEDIR)/portmap.targetinstall
-
-$(STATEDIR)/portmap.targetinstall: $(portmap_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/portmap.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, portmap)
 	@$(call install_fixup, portmap,PACKAGE,portmap)
 	@$(call install_fixup, portmap,PRIORITY,optional)
 	@$(call install_fixup, portmap,VERSION,$(PORTMAP_VERSION))
 	@$(call install_fixup, portmap,SECTION,base)
-	@$(call install_fixup, portmap,AUTHOR,"Juergen Beisert <jbeisert\@netscape.net>")
+	@$(call install_fixup, portmap,AUTHOR,"Juergen Beisert <jbeisert@netscape.net>")
 	@$(call install_fixup, portmap,DEPENDS,)
 	@$(call install_fixup, portmap,DESCRIPTION,missing)
 
@@ -118,26 +102,24 @@ $(STATEDIR)/portmap.targetinstall: $(portmap_targetinstall_deps_default)
 		$(PORTMAP_DIR)/portmap, \
 		/sbin/portmap)
 
-	#
-	# busybox init
-	#
-
+#	#
+#	# busybox init
+#	#
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_PORTMAP_STARTSCRIPT
 	@$(call install_alternative, portmap, 0, 0, 0755, /etc/init.d/portmapd, n)
 endif
 endif
 
-	#
-	# /etc/inetd.conf sniplet
-	#
-
+#	#
+#	# /etc/inetd.conf sniplet
+#	#
 ifdef PTXCONF_PORTMAP_INETD_SERVER
 	@$(call install_alternative, portmap, 0, 0, 0644, /etc/inetd.conf.d/portmap, n)
 endif
 
 	@$(call install_finish, portmap)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
