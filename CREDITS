@@ -11,8 +11,8 @@ E: j.beisert@pengutronix.de
 W: http://www.pengutronix.de
 D: Maintainer
 S: Pengutronix
-S: Hannoversche Strasse 2
-S: 31134 Hildesheim
+S: Peiner Strasse 6-8
+S: 31137 Hildesheim
 S: Germany
 
 N: Gilad Ben-Yossef
@@ -49,8 +49,8 @@ N: Bjoern Buerger
 E: b.buerger@pengutronix.de
 D: Maintainer
 S: Pengutronix
-S: Hannoversche Strasse 2
-S: 31134 Hildesheim
+S: Peiner Strasse 6-8
+S: 31137 Hildesheim
 S: Germany
 
 N: Marco Cavallini
@@ -100,8 +100,8 @@ E: s.hauer@pengutronix.de
 W: http://www.pengutronix.de
 D: Maintainer
 S: Pengutronix
-S: Hannoversche Strasse 2
-S: 31134 Hildesheim
+S: Peiner Strasse 6-8
+S: 31137 Hildesheim
 S: Germany
 
 N: Martin Hejnfelt
@@ -133,9 +133,8 @@ S: Phytec Messtechnik GmbH
 N: Marc Kleine-Budde
 E: m.kleine-budde@pengutronix.de
 D: Maintainer
-S: Pengutronix
-S: Hannoversche Strasse 2
-S: 31134 Hildesheim
+S: Peiner Strasse 6-8
+S: 31137 Hildesheim
 S: Germany
 
 N: Denis Oliver Kropp
@@ -198,8 +197,8 @@ E: w.sang@pengutronix.de
 W: http://www.pengutronix.de
 D: Developer
 S: Pengutronix
-S: Hannoversche Strasse 2
-S: 31134 Hildesheim
+S: Peiner Strasse 6-8
+S: 31137 Hildesheim
 S: Germany
 
 N: Werner Schmitt
@@ -219,8 +218,8 @@ E: r.schwebel@pengutronix.de
 W: http://www.pengutronix.de
 D: Project Leader, Maintainer, Release Manager
 S: Pengutronix
-S: Hannoversche Strasse 2
-S: 31134 Hildesheim
+S: Peiner Strasse 6-8
+S: 31137 Hildesheim
 S: Germany
 
 N: Tom St
