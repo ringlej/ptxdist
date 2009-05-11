@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_NMAP) += nmap
 #
 # Paths and names
 #
-NMAP_VERSION	:= 4.62
+NMAP_VERSION	:= 4.85BETA8
 NMAP		:= nmap-$(NMAP_VERSION)
 NMAP_SUFFIX	:= tar.bz2
 NMAP_URL	:= http://nmap.org/dist/$(NMAP).$(NMAP_SUFFIX)
