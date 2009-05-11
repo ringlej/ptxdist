@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 Ixia Corporation (www.ixiacom.com), by Milan Bobde
-#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -56,13 +56,13 @@ NMAP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-optimizer-dbg \
 	--disable-yydebug
 
-ifdef PTXCONF_NMAP__IPV6
+ifdef PTXCONF_NMAP_IPV6
 NMAP_AUTOCONF += --enable-ipv6
 else
 NMAP_AUTOCONF += --disable-ipv6
 endif
 
-ifdef PTXCONF_NMAP__OPENSSL
+ifdef PTXCONF_NMAP_OPENSSL
 NMAP_AUTOCONF += --with-openssl=$(SYSROOT)
 else
 NMAP_AUTOCONF += --without-openssl
@@ -86,19 +86,26 @@ $(STATEDIR)/nmap.targetinstall:
 	@$(call install_fixup, nmap,PRIORITY,optional)
 	@$(call install_fixup, nmap,VERSION,$(NMAP_VERSION))
 	@$(call install_fixup, nmap,SECTION,base)
-	@$(call install_fixup, nmap,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, nmap,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, nmap,DEPENDS,)
 	@$(call install_fixup, nmap,DESCRIPTION,missing)
 
-	@$(call install_copy, nmap, 0, 0, 0755, $(NMAP_DIR)/nmap, /usr/bin/nmap)
+	@$(call install_copy, nmap, 0, 0, 0755, -, \
+		/usr/bin/nmap)
 
-ifdef PTXCONF_NMAP__SERVICES
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-mac-prefixes,	/usr/share/nmap/nmap-mac-prefixes, n)
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-os-db,		/usr/share/nmap/nmap-os-db, n)
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-protocols,	/usr/share/nmap/nmap-protocols, n)
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-rpc,		/usr/share/nmap/nmap-rpc, n)
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-service-probes,/usr/share/nmap/nmap-service-probes, n)
-	@$(call install_copy, nmap, 0, 0, 0644, $(NMAP_DIR)/nmap-services,	/usr/share/nmap/nmap-services, n)
+ifdef PTXCONF_NMAP_SERVICES
+	@$(call install_copy, nmap, 0, 0, 0644, -, \
+		/usr/share/nmap/nmap-mac-prefixes)
+	@$(call install_copy, nmap, 0, 0, 0644, -, \
+		/usr/share/nmap/nmap-os-db)
+	@$(call install_copy, nmap, 0, 0, 0644, -, \
+		/usr/share/nmap/nmap-protocols)
+	@$(call install_copy, nmap, 0, 0, 0644, -, \
+		/usr/share/nmap/nmap-rpc)
+	@$(call install_copy, nmap, 0, 0, 0644, -, \
+		/usr/share/nmap/nmap-service-probes)
+	@$(call install_copy, nmap, 0, 0, 0644, -, \
+		/usr/share/nmap/nmap-services)
 endif
 	@$(call install_finish, nmap)
 	@$(call touch)

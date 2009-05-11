@@ -2,7 +2,7 @@
 menuconfig NMAP
 	tristate
 	prompt "nmap                          "
-	select OPENSSL if NMAP__OPENSSL
+	select OPENSSL if NMAP_OPENSSL
 	select OPENSSL
 	select LIBPCRE
 	select GCCLIBS_CXX
@@ -15,13 +15,13 @@ menuconfig NMAP
 
 if NMAP
 
-config NMAP__OPENSSL
+config NMAP_OPENSSL
        bool "openssl support"
 
-config NMAP__IPV6
+config NMAP_IPV6
        bool "ipv6 support (in included libpcap)"
 
-config NMAP__SERVICES
+config NMAP_SERVICES
 	bool "Install nmap-services"
 	default y
 	help
