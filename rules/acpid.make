@@ -45,16 +45,6 @@ $(STATEDIR)/acpid.prepare:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/acpid.compile:
-	@$(call targetinfo)
-	cd $(ACPID_DIR) && $(ACPID_PATH) $(MAKE) \
-		$(ACPID_MAKEVARS) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
@@ -78,16 +68,16 @@ $(STATEDIR)/acpid.targetinstall:
 	@$(call install_fixup, acpid,DEPENDS,)
 	@$(call install_fixup, acpid,DESCRIPTION,missing)
 
-	@$(call install_copy, acpid, 0, 0, 0750, $(ACPID_DIR)/acpid, /usr/sbin/acpid)
+	@$(call install_copy, acpid, 0, 0, 0755, $(ACPID_DIR)/acpid, /usr/sbin/acpid)
 	@$(call install_copy, acpid, 0, 0, 0755, $(ACPID_DIR)/acpi_listen, /usr/bin/acpi_listen)
-	@$(call install_copy, acpid, 0, 0, 0755, $(ACPID_DIR)/samples/sample.conf, /etc/acpi/events/sample.conf)
+	@$(call install_copy, acpid, 0, 0, 0644, $(ACPID_DIR)/samples/sample.conf, /etc/acpi/events/sample.conf)
 
 ifdef PTXCONF_ACPID_POWEROFF
-	@$(call install_alternative, acpid, 0, 0, 0755, /etc/acpi/events/power_button, n)
+	@$(call install_alternative, acpid, 0, 0, 0755, /etc/acpi/events/power_button)
 endif
 
 ifdef PTXCONF_ACPID_STARTSCRIPT
-	@$(call install_alternative, acpid, 0, 0, 0755, /etc/init.d/acpid, n)
+	@$(call install_alternative, acpid, 0, 0, 0755, /etc/init.d/acpid)
 endif
 
 	@$(call install_finish, acpid)
