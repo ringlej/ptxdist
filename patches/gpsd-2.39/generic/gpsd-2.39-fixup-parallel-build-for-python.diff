@@ -1,3 +1,13 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [PATCH] fix parallel build
+
+The build system has a race with the creation of the python bindings; if
+both targets of the "gpspacket.so gpslib.so:" rule are started at the
+same time, the build "sometimes" breaks; this can be triggered with only
+a few cycles when built with -j16 on a 8-way box.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  Makefile.am |    9 +++++++--
  1 file changed, 7 insertions(+), 2 deletions(-)
