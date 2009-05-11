@@ -41,7 +41,11 @@ LIBUSB1_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBUSB1_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBUSB1_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-log \
+	--disable-debug-log \
+	--disable-examples-build
 
 ifdef PTXCONF_LIBUSB1_DEBUG_LOG
 LIBUSB1_AUTOCONF += --enable-debug-log
@@ -65,16 +69,16 @@ $(STATEDIR)/libusb1.targetinstall:
 	@$(call targetinfo)
 
 ifndef PTXCONF_LIBUSB1_BUILD_STATIC
-	@$(call install_init, libusb1)
+	@$(call install_init,  libusb1)
 	@$(call install_fixup, libusb1,PACKAGE,libusb1)
 	@$(call install_fixup, libusb1,PRIORITY,optional)
 	@$(call install_fixup, libusb1,VERSION,$(LIBUSB1_VERSION))
 	@$(call install_fixup, libusb1,SECTION,base)
-	@$(call install_fixup, libusb1,AUTHOR,"Juergen Beisert <juergen\@kreuzholzen.de>")
+	@$(call install_fixup, libusb1,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
 	@$(call install_fixup, libusb1,DEPENDS,)
 	@$(call install_fixup, libusb1,DESCRIPTION,missing)
 
-	@$(call install_copy, libusb1, 0, 0, 0644, $(LIBUSB1_DIR)/libusb/.libs/libusb-1.0.so.0.0.0, /usr/lib/libusb-1.0.so.0.0.0 )
+	@$(call install_copy, libusb1, 0, 0, 0644, -, /usr/lib/libusb-1.0.so.0.0.0 )
 	@$(call install_link, libusb1, libusb-1.0.so.0.0.0, /usr/lib/libusb-1.0.so.0)
 	@$(call install_link, libusb1, libusb-1.0.so.0.0.0, /usr/lib/libusb-1.0.so)
 
