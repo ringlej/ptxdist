@@ -1,5 +1,5 @@
 ## SECTION=system_libraries
-menuconfig LIBUSB1
+menuconfig LIBUSB
 	tristate
 	prompt "libusb-1.x                    "
 	help
@@ -8,23 +8,23 @@ menuconfig LIBUSB1
 	  Note: libusb-1.x is not binary compatible with its precedessor
 	  libusb-0.x!
 
-if LIBUSB1
+if LIBUSB
 
-config LIBUSB1_DISABLE_LOG
+config LIBUSB_DISABLE_LOG
 	bool
 	prompt "Disable all log"
 	default y
 	help
 	  Disable all logging
 
-config LIBUSB1_DEBUG_LOG
+config LIBUSB_DEBUG_LOG
 	bool
 	prompt "Enable debug log"
-	depends on !LIBUSB1_DISABLE_LOG
+	depends on !LIBUSB_DISABLE_LOG
 	help
 	  Enable full debug logging
 
-config LIBUSB1_BUILD_STATIC
+config LIBUSB_BUILD_STATIC
 	bool
 	prompt "Build static only"
 	help
