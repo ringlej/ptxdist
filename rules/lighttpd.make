@@ -178,11 +178,21 @@ $(STATEDIR)/lighttpd.targetinstall:
 	done
 
 #	#
-#	# config
+#	# configs
 #	#
-	@$(call install_alternative, lighttpd, 0, 0, 0644, /etc/lighttpd/lighttpd.conf, n)
-#	# FIXME: withoug PTXCONF_PHP5_SAPI_CGI, we want to install
-#	# $(PTXDIST_TOPDIR)/generic/etc/lighttpd/lighttpd-no_php.conf instead?
+	@$(call install_alternative, lighttpd, 0, 0, 0644, /etc/lighttpd/lighttpd.conf)
+
+	@$(call install_replace, lighttpd, /etc/lighttpd/lighttpd.conf, \
+		@CGI@, $(call ptx/ifdef, PTXCONF_PHP5_SAPI_CGI,,#))
+
+	@$(call install_replace, lighttpd, /etc/lighttpd/lighttpd.conf, \
+		@NOCGI@, $(call ptx/ifdef, PTXCONF_PHP5_SAPI_CGI,#,))
+
+ifdef PTXCONF_PHP5_SAPI_CGI
+	@$(call install_copy, lighttpd, 12, 102, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/mod_fastcgi.conf, \
+		/etc/lighttpd/mod_fastcgi.conf, n)
+endif
 
 #	#
 #	# busybox init: start script
@@ -192,12 +202,6 @@ ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_LIGHTTPD_STARTSCRIPT
 	@$(call install_alternative, lighttpd, 0, 0, 0755, /etc/init.d/lighttpd, n)
 endif
-endif
-
-ifdef PTXCONF_PHP5_SAPI_CGI
-	@$(call install_copy, lighttpd, 12, 102, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/mod_fastcgi.conf, \
-		/etc/lighttpd/mod_fastcgi.conf, n)
 endif
 
 ifdef PTXCONF_LIGHTTPD__GENERIC_SITE
