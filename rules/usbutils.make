@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_USBUTILS) += usbutils
 #
 # Paths and names
 #
-USBUTILS_VERSION	:= 0.73
+USBUTILS_VERSION	:= 0.82
 USBUTILS		:= usbutils-$(USBUTILS_VERSION)
 USBUTILS_SUFFIX		:= tar.gz
 USBUTILS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/linux-usb/$(USBUTILS).$(USBUTILS_SUFFIX)
@@ -63,7 +63,10 @@ USBUTILS_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-USBUTILS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+USBUTILS_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-largefile \
+	--disable-zlib
 
 $(STATEDIR)/usbutils.prepare: $(usbutils_prepare_deps_default)
 	@$(call targetinfo, $@)

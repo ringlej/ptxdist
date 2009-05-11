@@ -1,6 +1,6 @@
 ## SECTION=shell_and_console
 menuconfig USBUTILS
-	select LIBUSB
+	select LIBUSB_COMPAT
 	tristate
 	prompt "usbutils                      "
 	help
