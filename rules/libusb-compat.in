@@ -2,7 +2,7 @@
 
 config LIBUSB_COMPAT
 	tristate
-	select LIBUSB1
+	select LIBUSB
 	prompt "libusb-compat"
 	help
 	  libusb-0.1 compatibility layer ontop of libusb-1
