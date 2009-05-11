@@ -70,7 +70,6 @@ $(STATEDIR)/acpid.targetinstall:
 
 	@$(call install_copy, acpid, 0, 0, 0755, $(ACPID_DIR)/acpid, /usr/sbin/acpid)
 	@$(call install_copy, acpid, 0, 0, 0755, $(ACPID_DIR)/acpi_listen, /usr/bin/acpi_listen)
-	@$(call install_copy, acpid, 0, 0, 0644, $(ACPID_DIR)/samples/sample.conf, /etc/acpi/events/sample.conf)
 
 ifdef PTXCONF_ACPID_POWEROFF
 	@$(call install_alternative, acpid, 0, 0, 0755, /etc/acpi/events/power_button)
