@@ -6,6 +6,23 @@ N: David R Bacon
 E: dbacon@cis.ksu.edu
 D: Developer
 
+N: Juergen Beisert
+E: j.beisert@pengutronix.de
+W: http://www.pengutronix.de
+D: Maintainer
+S: Pengutronix
+S: Hannoversche Strasse 2
+S: 31134 Hildesheim
+S: Germany
+
+N: Gilad Ben-Yossef
+E: gilad@codefidence.com
+D: Developer
+
+N: Enrik Berkhan
+E: Enrik.Berkhan@ge.com
+D: Developer
+
 N: Kai-Uwe Bloem
 E: kai-uwe.bloem@auerswald.de
 W: http://www.auerswald.de
@@ -49,8 +66,21 @@ N: Vince Chen
 E: chen@glimmerglass.com
 D: Developer
 
+N: Gilbert Forkel
+E: gilbert@ulixes.erlangen.ccc.de
+D: Developer
+
 N: Brandon Fosdick
 E: bfosdick@dash.net
+D: Developer
+
+N: Jean-Philippe Francois
+E: jp.francois@cynove.com
+D: Developer
+
+N: Christian Gagneraud
+E: chgans@free.fr
+E: chgans@gna.org
 D: Developer
 
 N: Guillaume Gourat
@@ -74,25 +104,11 @@ S: Hannoversche Strasse 2
 S: 31134 Hildesheim
 S: Germany
 
+N: Martin Hejnfelt
+E: <mh@newtec.dk>
+D: Developer
 N: Roland Hostettler
 E: r.hostettler@gmx.ch
-D: Developer
-
-N: Marc Kleine-Budde
-E: m.kleine-budde@pengutronix.de
-D: Maintainer
-S: Pengutronix
-S: Hannoversche Strasse 2
-S: 31134 Hildesheim
-S: Germany
-
-N: Denis Oliver Kropp
-E: dok@directfb.org
-D: Developer
-
-N: Christian Gagneraud
-E: chgans@free.fr
-E: chgans@gna.org
 D: Developer
 
 N: Roland Hostettler
@@ -114,13 +130,21 @@ E: j.kilb@phytec.de
 D: Developer
 S: Phytec Messtechnik GmbH
 
+N: Marc Kleine-Budde
+E: m.kleine-budde@pengutronix.de
+D: Maintainer
+S: Pengutronix
+S: Hannoversche Strasse 2
+S: 31134 Hildesheim
+S: Germany
+
+N: Denis Oliver Kropp
+E: dok@directfb.org
+D: Developer
+
 N: Claudio Leonel
 E: cls@elaxys.com.br
 D: Developer
-
-N: Ladislav Michl
-E: ladis@linux-mips.org
-D: Maintainer
 
 N: Shahar Livne
 E: livnes@gmail.com
@@ -128,6 +152,14 @@ D: Developer
 
 N: Randall Loomis
 E: rloomis@solectek.com
+D: Developer
+
+N: Ladislav Michl
+E: ladis@linux-mips.org
+D: Maintainer
+
+N: Marek Moeckel
+E: marek@discarded-ideas.org
 D: Developer
 
 N: Jiri Nesladek
@@ -139,6 +171,14 @@ D: Developer
 
 N: Oscar Peredo
 E: oscar@exis.cl
+D: Developer
+
+N: Ryan Raasch
+E: <ryan.raasch@gmail.com>
+D: Developer
+
+N: Jon Ringle
+E: <jon@ringle.org>
 D: Developer
 
 N: Chuck Robey
@@ -153,16 +193,21 @@ N: Ulf Samuelsson
 E: ulf@atmel.com
 D: Developer
 
+N: Wolfram Sang
+E: w.sang@pengutronix.de
+W: http://www.pengutronix.de
+D: Developer
+S: Pengutronix
+S: Hannoversche Strasse 2
+S: 31134 Hildesheim
+S: Germany
+
 N: Werner Schmitt
 E: mail2ws@gmx.de
 D: Developer
 
 N: Daniel Schnell
 E: daniel.schnell@marel.com
-D: Developer
-
-N: Tom St
-E: t.st1@gmx.net
 D: Developer
 
 N: Britta Schwebel
@@ -177,6 +222,10 @@ S: Pengutronix
 S: Hannoversche Strasse 2
 S: 31134 Hildesheim
 S: Germany
+
+N: Tom St
+E: t.st1@gmx.net
+D: Developer
 
 N: Jochen Striepe
 E: jochen@tolot.escape.de
@@ -206,51 +255,3 @@ N: Mike Wakerly
 E: mike.wakerly@gmail.com
 D: Developer
 
-N: Gilad Ben-Yossef
-E: gilad@codefidence.com
-D: Developer
-
-N: Juergen Beisert
-E: j.beisert@pengutronix.de
-W: http://www.pengutronix.de
-D: Maintainer
-S: Pengutronix
-S: Hannoversche Strasse 2
-S: 31134 Hildesheim
-S: Germany
-
-N: Gilbert Forkel
-E: gilbert@ulixes.erlangen.ccc.de
-
-N: Wolfram Sang
-E: w.sang@pengutronix.de
-W: http://www.pengutronix.de
-D: Developer
-S: Pengutronix
-S: Hannoversche Strasse 2
-S: 31134 Hildesheim
-S: Germany
-
-N: Marek Moeckel
-E: marek@discarded-ideas.org
-D: Developer
-
-N: Enrik Berkhan
-E: Enrik.Berkhan@ge.com
-D: Developer
-
-N: Jean-Philippe Francois
-E: jp.francois@cynove.com
-D: Developer
-
-N: Jon Ringle
-E: <jon@ringle.org>
-D: Developer
-
-N: Ryan Raasch
-E: <ryan.raasch@gmail.com>
-D: Developer
-
-N: Martin Hejnfelt
-E: <mh@newtec.dk>
-D: Developer
