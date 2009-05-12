@@ -37,38 +37,16 @@ $(HPING_SOURCE):
 # ----------------------------------------------------------------------------
 
 HPING_PATH	:= PATH=$(CROSS_PATH)
-HPING_ENV 	:= $(CROSS_ENV)
+HPING_ENV 	:= \
+	$(CROSS_ENV) \
+	MANPATH=/usr/man
+
+HPING_MAKEVARS	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 HPING_AUTOCONF := --no-tcl
-
-$(STATEDIR)/hping.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(HPING_DIR)/config.cache)
-	cd $(HPING_DIR) && \
-		$(HPING_PATH) $(HPING_ENV) MANPATH=/usr/man \
-		./configure $(HPING_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/hping.compile:
-	@$(call targetinfo)
-	cd $(HPING_DIR) && $(HPING_PATH) $(MAKE) $(HPING_ENV) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/hping.install:
-	@$(call targetinfo)
-	@$(call install, HPING)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
