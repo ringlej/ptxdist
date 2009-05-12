@@ -53,14 +53,14 @@ $(STATEDIR)/fcgi.targetinstall:
 	@$(call install_fixup, fcgi,PRIORITY,optional)
 	@$(call install_fixup, fcgi,VERSION,$(FCGI_VERSION))
 	@$(call install_fixup, fcgi,SECTION,base)
-	@$(call install_fixup, fcgi,AUTHOR,"Daniel Schnell <danielsch\@marel.com>")
+	@$(call install_fixup, fcgi,AUTHOR,"Daniel Schnell <danielsch@marel.com>")
 	@$(call install_fixup, fcgi,DEPENDS,)
 	@$(call install_fixup, fcgi,DESCRIPTION,missing)
 
-	@$(call install_copy, fcgi, 0, 0, 0755, $(FCGI_DIR)/cgi-fcgi/cgi-fcgi, \
+	@$(call install_copy, fcgi, 0, 0, 0755, -, \
 		/usr/bin/cgi-fcgi)
 
-	@$(call install_copy, fcgi, 0, 0, 0644, $(FCGI_DIR)/libfcgi/.libs/libfcgi.so.0.0.0, \
+	@$(call install_copy, fcgi, 0, 0, 0644, -, \
 		/usr/lib/libfcgi.so.0.0.0)
 	@$(call install_link,  fcgi, libfcgi.so.0.0.0, /usr/lib/libfcgi.so.0)
 	@$(call install_link,  fcgi, libfcgi.so.0, /usr/lib/libfcgi.so)
