@@ -28,47 +28,25 @@ OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
 # Get
 # ----------------------------------------------------------------------------
 
-openssh_get: $(STATEDIR)/openssh.get
-
-$(STATEDIR)/openssh.get: $(openssh_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(OPENSSH_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, OPENSSH)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-openssh_extract: $(STATEDIR)/openssh.extract
-
-$(STATEDIR)/openssh.extract: $(openssh_extract_deps_default)
-	@$(call targetinfo, openssh.extract)
-	@$(call clean, $(OPENSSH_DIR))
-	@$(call extract, OPENSSH)
-	@$(call patchin, OPENSSH)
-
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-openssh_prepare: $(STATEDIR)/openssh.prepare
+OPENSSH_PATH	:= PATH=$(CROSS_PATH)
 
-OPENSSH_PATH	= PATH=$(CROSS_PATH)
-
-# openssh is a little F*CKED up, is won't compile without LD=gcc in environment
-# perhaps someone should fix this....
-OPENSSH_ENV	= $(CROSS_ENV) \
+# openssh won't compile without LD=gcc in environment
+OPENSSH_ENV	:= \
+	$(CROSS_ENV) \
 	LD=$(COMPILER_PREFIX)gcc
 
 #
 # autoconf
 #
-OPENSSH_AUTOCONF = \
+OPENSSH_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--libexecdir=/usr/sbin \
 	--sysconfdir=/etc/ssh \
@@ -83,49 +61,28 @@ OPENSSH_AUTOCONF = \
 	--disable-wtmp \
 	--disable-wtmpx
 
-$(STATEDIR)/openssh.prepare: $(openssh_prepare_deps_default)
-	@$(call targetinfo, openssh.prepare)
-	cd $(OPENSSH_DIR) && \
-		$(OPENSSH_PATH) $(OPENSSH_ENV) \
-		./configure $(OPENSSH_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-openssh_compile: $(STATEDIR)/openssh.compile
-
-$(STATEDIR)/openssh.compile: $(openssh_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(OPENSSH_DIR) && $(OPENSSH_PATH) make
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-openssh_install: $(STATEDIR)/openssh.install
 
-$(STATEDIR)/openssh.install: $(openssh_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/openssh.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-openssh_targetinstall: $(STATEDIR)/openssh.targetinstall
-
-$(STATEDIR)/openssh.targetinstall: $(openssh_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/openssh.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, openssh)
 	@$(call install_fixup, openssh,PACKAGE,openssh)
 	@$(call install_fixup, openssh,PRIORITY,optional)
 	@$(call install_fixup, openssh,VERSION,$(OPENSSH_VERSION))
 	@$(call install_fixup, openssh,SECTION,base)
-	@$(call install_fixup, openssh,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, openssh,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, openssh,DEPENDS,)
 	@$(call install_fixup, openssh,DESCRIPTION,missing)
 
@@ -140,10 +97,11 @@ ifdef PTXCONF_OPENSSH_SSHD
 	@$(call install_alternative, openssh, 0, 0, 0644, /etc/ssh/sshd_config)
 	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/sshd, \
 		/usr/sbin/sshd)
+endif
+
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_OPENSSH_SSHD_STARTSCRIPT
 	@$(call install_alternative, openssh, 0, 0, 0755, /etc/init.d/openssh, n)
-endif
 endif
 endif
 
@@ -164,7 +122,7 @@ endif
 
 	@$(call install_finish, openssh)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
