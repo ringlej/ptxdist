@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2007 by Marc Kleine-Buddde <mkl@pengutronix.de>
+# Copyright (C) 2007, 2009 by Marc Kleine-Buddde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -36,8 +36,6 @@ $(GLADE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-glade_prepare: $(STATEDIR)/glade.prepare
-
 GLADE_PATH	:= PATH=$(CROSS_PATH)
 GLADE_ENV 	:= $(CROSS_ENV)
 
@@ -62,11 +60,12 @@ $(STATEDIR)/glade.targetinstall:
 	@$(call install_fixup, glade,PRIORITY,optional)
 	@$(call install_fixup, glade,VERSION,$(GLADE_VERSION))
 	@$(call install_fixup, glade,SECTION,base)
-	@$(call install_fixup, glade,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, glade,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, glade,DEPENDS,)
 	@$(call install_fixup, glade,DESCRIPTION,missing)
 
-	@$(call install_copy, glade, 0, 0, 0755, $(GLADE_DIR)/src/glade-3, /usr/bin/glade-3)
+	@$(call install_copy, glade, 0, 0, 0755, -, \
+		/usr/bin/glade-3)
 
 	@$(call install_finish, glade)
 
