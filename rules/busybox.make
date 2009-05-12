@@ -83,7 +83,7 @@ $(STATEDIR)/busybox.targetinstall:
 	@$(call install_fixup, busybox,PRIORITY,optional)
 	@$(call install_fixup, busybox,VERSION,$(BUSYBOX_VERSION))
 	@$(call install_fixup, busybox,SECTION,base)
-	@$(call install_fixup, busybox,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, busybox,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, busybox,DEPENDS,)
 	@$(call install_fixup, busybox,DESCRIPTION,missing)
 
@@ -92,12 +92,18 @@ ifdef PTXCONF_BUSYBOX_FEATURE_SUID
 else
 	@$(call install_copy, busybox, 0, 0, 755, $(BUSYBOX_DIR)/busybox, /bin/busybox)
 endif
-	@for file in `cat $(BUSYBOX_DIR)/busybox.links`; do	\
-		$(call install_link, busybox, /bin/busybox, $$file);	\
+	@cat $(BUSYBOX_DIR)/busybox.links | while read link; do		\
+		case "$${link}" in					\
+		(/*/*/*) to="../../bin/busybox" ;;			\
+		(/bin/*) to="busybox" ;;				\
+		(/*/*)	 to="../bin/busybox" ;;				\
+		(/*)     to="bin/busybox" ;;				\
+		esac;							\
+		$(call install_link, busybox, "$${to}", "$${link}");	\
 	done
 
 ifdef PTXCONF_BUSYBOX_TELNETD_INETD
-	@$(call install_alternative, busybox, 0, 0, 0644, /etc/inetd.conf.d/telnetd, n)
+	@$(call install_alternative, busybox, 0, 0, 0644, /etc/inetd.conf.d/telnetd)
 endif
 
 #	#
@@ -106,7 +112,7 @@ endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_BUSYBOX_INETD_STARTSCRIPT
-	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/inetd, n)
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/inetd)
 endif
 
 ifdef PTXCONF_BUSYBOX_TELNETD_STARTSCRIPT
