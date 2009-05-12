@@ -1,11 +1,10 @@
 From: Luotao Fu <l.fu@pengutronix.de>
-Date: Mon, 6 Apr 2009 15:35:34 +0200
 Subject: [PATCH] fix core compiling with nmea disabled
 
 struct nmea is only defined in the driver union if NMEA_ENABLED is set.
-libpgsd_core however acquires if the ignore_trailing_edge in nmea is set or not
-carelessly if NMEA_ENABLED is set. Add an additional ifdef of NMEA_ENABLE to fix
-this.
+libpgsd_core however acquires if the ignore_trailing_edge in nmea is set
+or not carelessly if NMEA_ENABLED is set. Add an additional ifdef of
+NMEA_ENABLE to fix this.
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
