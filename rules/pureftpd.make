@@ -120,7 +120,7 @@ $(STATEDIR)/pureftpd.targetinstall:
 	@$(call install_fixup,pureftpd,PRIORITY,optional)
 	@$(call install_fixup,pureftpd,VERSION,$(PUREFTPD_VERSION))
 	@$(call install_fixup,pureftpd,SECTION,base)
-	@$(call install_fixup,pureftpd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,pureftpd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,pureftpd,DEPENDS,)
 	@$(call install_fixup,pureftpd,DESCRIPTION,missing)
 
@@ -128,7 +128,7 @@ $(STATEDIR)/pureftpd.targetinstall:
 		$(PUREFTPD_DIR)/src/pure-ftpd, \
 		/usr/sbin/pure-ftpd)
 
-	@$(call install_alternative, pureftpd, 0, 0, 0644, /etc/pure-ftpd.conf, n)
+	@$(call install_alternative, pureftpd, 0, 0, 0644, /etc/pure-ftpd.conf)
 
 ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 	@$(call install_copy, pureftpd, 0, 0, 0755, \
@@ -136,13 +136,12 @@ ifdef PTXCONF_PUREFTPD_UPLOADSCRIPT
 		/usr/sbin/pure-uploadscript, n)
 endif
 
-	#
-	# busybox init
-	#
-
+#	#
+#	# busybox init
+#	#
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_PUREFTPD_STARTSCRIPT
-	@$(call install_alternative, pureftpd, 0, 0, 0755, /etc/init.d/pureftpd, n)
+	@$(call install_alternative, pureftpd, 0, 0, 0755, /etc/init.d/pureftpd)
 endif
 endif
 
