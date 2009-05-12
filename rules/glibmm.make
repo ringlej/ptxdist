@@ -2,6 +2,7 @@
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -56,19 +57,23 @@ $(STATEDIR)/glibmm.targetinstall:
 	@$(call install_fixup, glibmm,PRIORITY,optional)
 	@$(call install_fixup, glibmm,VERSION,$(GLIBMM_VERSION))
 	@$(call install_fixup, glibmm,SECTION,base)
-	@$(call install_fixup, glibmm,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, glibmm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, glibmm,DEPENDS,)
 	@$(call install_fixup, glibmm,DESCRIPTION,missing)
 
-	@$(call install_copy, glibmm, 0, 0, 0644, \
-		$(GLIBMM_DIR)/glib/glibmm/.libs/libglibmm-2.4.so.1.2.0, \
+	@$(call install_copy, glibmm, 0, 0, 0644, -, \
 		/usr/lib/libglibmm-2.4.so.1.2.0)
-
 	@$(call install_link, glibmm, \
 		libglibmm-2.4.so.1.2.0, /usr/lib/libglibmm-2.4.so.1)
-
 	@$(call install_link, glibmm, \
 		libglibmm-2.4.so.1.2.0, /usr/lib/libglibmm-2.4.so)
+
+	@$(call install_copy, glibmm, 0, 0, 0644, -, \
+		/usr/lib/libgiomm-2.4.so.1.2.0)
+	@$(call install_link, glibmm, \
+		libgiomm-2.4.so.1.2.0, /usr/lib/libgiomm-2.4.so.1)
+	@$(call install_link, glibmm, \
+		libgiomm-2.4.so.1.2.0, /usr/lib/libgiomm-2.4.so)
 
 	@$(call install_finish, glibmm)
 
