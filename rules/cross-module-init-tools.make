@@ -69,7 +69,7 @@ $(STATEDIR)/cross-module-init-tools.compile:
 
 $(STATEDIR)/cross-module-init-tools.install:
 	@$(call targetinfo)
-	install -D -m 755 $(CROSS_MODULE_INIT_TOOLS_DIR)/depmod $(PTXCONF_SYSROOT_CROSS)/sbin/$(PTXCONF_GNU_TARGET)-depmod
+	install -D -m 755 $(CROSS_MODULE_INIT_TOOLS_DIR)/build/depmod $(PTXCONF_SYSROOT_CROSS)/sbin/$(PTXCONF_GNU_TARGET)-depmod
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
