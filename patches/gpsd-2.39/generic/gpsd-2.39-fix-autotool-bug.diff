@@ -20,8 +20,8 @@ Signed-off-by: FIXME
 
 Index: configure.ac
 ===================================================================
---- configure.ac.orig
-+++ configure.ac
+--- a/configure.ac.orig
++++ b/configure.ac
 @@ -5,6 +5,27 @@ dnl AC_PREFIX_PROGRAM(gcc)
  AM_CONFIG_HEADER(gpsd_config.h)
  AC_LANG([C])
