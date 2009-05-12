@@ -1,5 +1,5 @@
 gpsd-2.39-fix-core-compiling-with-nmea-disabled.patch
-fix-link-breakage-if-some-drivers-are-not-enabled.patch -p0
+gpsd-2.39-fix-link-breakage-if-some-drivers-are-not-enabled.patch -p0
 fix_build_error.patch -p0
 fix-autotool-bug.patch -p0
 configure_ac-fix-python.diff
