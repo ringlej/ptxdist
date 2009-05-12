@@ -45,7 +45,7 @@ CHRONY_ENV 	:=  $(CROSS_ENV)
 #
 CHRONY_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable readline
+	--disable-readline
 
 # ----------------------------------------------------------------------------
 # Target-Install
