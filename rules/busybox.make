@@ -122,7 +122,7 @@ ifdef PTXCONF_BUSYBOX_CROND_STARTSCRIPT
 endif
 
 ifdef PTXCONF_BUSYBOX_HWCLOCK_STARTSCRIPT
-	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/timekeeping, n)
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/hwclock, n)
 endif
 endif # PTXCONF_INITMETHOD_BBINIT
 

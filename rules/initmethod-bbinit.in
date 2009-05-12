@@ -115,11 +115,11 @@ config INITMETHOD_BBINIT_LINK_CROND
 	prompt "crond"
 	default "S10crond"
 
-config INITMETHOD_BBINIT_LINK_TIMEKEEPER
+config INITMETHOD_BBINIT_LINK_HWCLOCK
 	string
 	depends on BUSYBOX_HWCLOCK_STARTSCRIPT
-	prompt "timekeeper"
-	default "S12timekeeping"
+	prompt "hwclock"
+	default "S12hwclock"
 
 config INITMETHOD_BBINIT_LINK_LIGHTTPD
 	string

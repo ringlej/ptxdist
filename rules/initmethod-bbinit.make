@@ -195,10 +195,10 @@ ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_CROND)),)
 		../init.d/crond, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOGD))
 endif
-ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_TIMEKEEPER)),)
+ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK)),)
 	@$(call install_link, initmethod-bbinit, \
-		../init.d/timekeeping, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOGD))
+		../init.d/hwclock, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK))
 endif
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_LIGHTTPD)),)
 	@$(call install_link, initmethod-bbinit, \
