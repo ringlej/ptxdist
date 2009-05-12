@@ -1,10 +1,12 @@
 TODO before 1.99.13
 ===================
 
-[ ] jbe: slang.compile fails while compiling png-module.c
+[x] jbe: slang.compile fails while compiling png-module.c
     [...]
     pcre-module.c:6:18: error: pcre.h: No such file or directory
     [...]
+
+    update 20090512: mkl: should work now
 
 [ ] jbe: classpath.compile fails
     [...]
@@ -49,7 +51,9 @@ TODO before 1.99.13
     ./rsync.in:69:            the /etc/inetd.conf a line like this:
     ./rsync.in:95:    This string is added to inetd's configuration /etc/inetd.conf. @CONFIG@
 
-[ ] mkl: fix startscript leftovers
+[x] mkl: fix startscript leftovers
+
+    update: 20090512: mkl: done
 
 [ ] mkl:
 
@@ -73,17 +77,19 @@ Prio A
     on a recently started system. Doing it later again, this message does
     not occur again. Kernel detection failure?
 
-[ ] jbe: phyton24 states this but does not stop the build (in the install stage):
+[x] jbe: phyton24 states this but does not stop the build (in the install stage):
       cannot find -lncursesw
       collect2: ld returned 1 exit status
       cannot find -lpanelw
       collect2: ld returned 1 exit status
 
-[ ] rsc: dbus-python doesn't compile, needs either python-config or asks
+[x] rsc: dbus-python doesn't compile, needs either python-config or asks
     python for -I and -L paths.
 
     While being there, we should update to python-2.6, because this is
     the stable series we want to have in ptxdist-2.0.
+
+    update 20090512: should work now
 
 [ ] rsc: 'ptxdist images' for the i586 target sometimes does not work,
     the generated image is incorrect and grub stops booting.
