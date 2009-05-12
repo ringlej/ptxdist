@@ -34,17 +34,6 @@ $(LTP_BASE_SOURCE):
 	@$(call get, LTP_BASE)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ltp_base.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LTP_BASE_DIR))
-	@$(call extract, LTP_BASE)
-	@$(call patchin, LTP_BASE)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -54,34 +43,9 @@ LTP_BASE_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LTP_BASE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+LTP_BASE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking
-
-$(STATEDIR)/ltp_base.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LTP_BASE_DIR)/config.cache)
-	cd $(LTP_BASE_DIR) && \
-		$(LTP_BASE_PATH) $(LTP_BASE_ENV) \
-		./configure $(LTP_BASE_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ltp_base.compile:
-	@$(call targetinfo)
-	cd $(LTP_BASE_DIR) && $(LTP_BASE_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ltp_base.install:
-	@$(call targetinfo)
-	@$(call install, LTP_BASE)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -95,7 +59,7 @@ $(STATEDIR)/ltp_base.targetinstall:
 	@$(call install_fixup, ltp_base,PRIORITY,optional)
 	@$(call install_fixup, ltp_base,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp_base,SECTION,base)
-	@$(call install_fixup, ltp_base,AUTHOR,"Juergen Beisert\@pengutronix.de")
+	@$(call install_fixup, ltp_base,AUTHOR,"Juergen Beisert@pengutronix.de")
 	@$(call install_fixup, ltp_base,DEPENDS,)
 	@$(call install_fixup, ltp_base,DESCRIPTION,missing)
 
