@@ -2,7 +2,7 @@
 # $Id: pppd.make 3876 2006-01-12 20:18:48Z rsc $
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
-#             GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
+#                       GYRO net GmbH <info@gyro-net.de>, Hannover, Germany
 # Copyright (C) 2008...2009 by Juergen Beisert <juergen@kreuzholzen.de>
 #
 # See CREDITS for details about who has contributed to this project.
@@ -156,8 +156,8 @@ ifdef PTXCONF_PPP_INST_CHAT
 		$(PPP_DIR)/chat/chat, /usr/sbin/chat)
 endif
 
-ifdef PTXCONF_PPP_INST_DEFAULT_CONFIG_FILES
 #	# install configuration files (on demand only)
+ifdef PTXCONF_PPP_INST_DEFAULT_CONFIG_FILES
 	@$(call install_alternative, ppp, 0, 0, 0600, /etc/ppp/options, n)
 	@$(call install_alternative, ppp, 0, 0, 0750, /etc/ppp/ip-up, n)
 	@$(call install_alternative, ppp, 0, 0, 0750, /etc/ppp/ip-down, n)
@@ -169,7 +169,6 @@ endif
 #	#
 #	# busybox init
 #	#
-
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_PPP_STARTSCRIPT
 	@$(call install_alternative, ppp, 0, 0, 0755, /etc/init.d/pppd, n)
