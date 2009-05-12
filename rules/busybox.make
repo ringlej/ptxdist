@@ -96,7 +96,7 @@ endif
 		$(call install_link, busybox, /bin/busybox, $$file);	\
 	done
 
-ifdef BUSYBOX_TELNETD_INETD
+ifdef PTXCONF_BUSYBOX_TELNETD_INETD
 	@$(call install_alternative, busybox, 0, 0, 0644, /etc/inetd.conf.d/telnetd, n)
 endif
 
