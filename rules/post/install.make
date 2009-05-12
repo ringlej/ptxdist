@@ -21,7 +21,7 @@
 #     $5: "-": source is taken from $(PKG_PKGDIR)/$destination
 #     $6: destination;
 #
-# $7: strip (for files; y|n); default is to strip
+# binaries are stripped automatically
 #
 install_copy = 											\
 	PACKET="$(strip $(1))";									\
@@ -108,7 +108,6 @@ install_copy = 											\
 				fi;									\
 				;;									\
 				(1)									\
-				echo "no binary - skipping";						\
 				;;									\
 				esac;									\
 			;;										\
