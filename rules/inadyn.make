@@ -2,6 +2,7 @@
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2008 by Juergen Beisert
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -20,8 +21,7 @@ PACKAGES-$(PTXCONF_INADYN) += inadyn
 INADYN_VERSION	:= 1.96.2
 INADYN		:= inadyn-$(INADYN_VERSION)
 INADYN_SUFFIX	:= tar.bz2
-INADYN_URL	:= http://cdn.dyndns.com/$(INADYN).$(INADYN_SUFFIX) \
-		   http://www.pengutronix.de/software/ptxdist/temporary-src/$(INADYN).$(INADYN_SUFFIX)
+INADYN_URL	:= http://cdn.dyndns.com/$(INADYN).$(INADYN_SUFFIX)
 INADYN_SOURCE	:= $(SRCDIR)/$(INADYN).$(INADYN_SUFFIX)
 INADYN_DIR	:= $(BUILDDIR)/$(INADYN)
 
@@ -78,7 +78,7 @@ $(STATEDIR)/inadyn.install:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/inadyn.targetinstall: $(inadyn_targetinstall_deps_default)
+$(STATEDIR)/inadyn.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, inadyn)
@@ -86,14 +86,14 @@ $(STATEDIR)/inadyn.targetinstall: $(inadyn_targetinstall_deps_default)
 	@$(call install_fixup, inadyn,PRIORITY,optional)
 	@$(call install_fixup, inadyn,VERSION,$(INADYN_VERSION))
 	@$(call install_fixup, inadyn,SECTION,base)
-	@$(call install_fixup, inadyn,AUTHOR,"Juergen Beisert <juergen\@kreuzholzen.de>")
+	@$(call install_fixup, inadyn,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
 	@$(call install_fixup, inadyn,DEPENDS,)
 	@$(call install_fixup, inadyn,DESCRIPTION,missing)
 
 	@$(call install_copy, inadyn, 0, 0, 0755, \
 		$(INADYN_DIR)/bin/linux/inadyn, /sbin/inadyn)
 
-	@$(call install_alternative, inadyn, 0, 0, 0600, /etc/inadyn.conf, n)
+	@$(call install_alternative, inadyn, 0, 0, 0600, /etc/inadyn.conf)
 
 	@$(call install_finish, inadyn)
 
