@@ -57,11 +57,12 @@ $(STATEDIR)/liboil.targetinstall:
 	@$(call install_fixup,liboil,PRIORITY,optional)
 	@$(call install_fixup,liboil,VERSION,$(LIBOIL_VERSION))
 	@$(call install_fixup,liboil,SECTION,base)
-	@$(call install_fixup,liboil,AUTHOR,"Guillaume GOURAT <guillaume.gourat\@nexvision.fr>")
+	@$(call install_fixup,liboil,AUTHOR,"Guillaume GOURAT <guillaume.gourat@nexvision.fr>")
 	@$(call install_fixup,liboil,DEPENDS,)
 	@$(call install_fixup,liboil,DESCRIPTION,missing)
 
-	@$(call install_copy, liboil, 0, 0, 0644, $(LIBOIL_DIR)/liboil/.libs/liboil-0.3.so.0.3.0, /usr/lib/liboil-0.3.so.0.3.0, y)
+	@$(call install_copy, liboil, 0, 0, 0644, -, \
+		/usr/lib/liboil-0.3.so.0.3.0)
 	@$(call install_link, liboil, liboil-0.3.so.0.3.0, /usr/lib/liboil-0.3.so.0)
 	@$(call install_link, liboil, liboil-0.3.so.0.3.0, /usr/lib/liboil-0.3.so)
 
