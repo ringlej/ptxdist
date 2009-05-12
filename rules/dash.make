@@ -2,6 +2,7 @@
 # $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -32,7 +33,6 @@ $(DASH_SOURCE):
 	@$(call targetinfo)
 	@$(call get, DASH)
 
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
@@ -59,11 +59,12 @@ $(STATEDIR)/dash.targetinstall:
 	@$(call install_fixup, dash,PRIORITY,optional)
 	@$(call install_fixup, dash,VERSION,$(DASH_VERSION))
 	@$(call install_fixup, dash,SECTION,base)
-	@$(call install_fixup, dash,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, dash,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, dash,DEPENDS,)
 	@$(call install_fixup, dash,DESCRIPTION,missing)
 
-	@$(call install_copy, dash, 0, 0, 0755, $(DASH_DIR)/src/dash, /bin/dash)
+	@$(call install_copy, dash, 0, 0, 0755, -, \
+		/bin/dash)
 
 	@$(call install_finish, dash)
 
