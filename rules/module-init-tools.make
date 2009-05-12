@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2005 Ladislav Michl <ladis@linux-mips.org>
 #               2006, 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_MODULE_INIT_TOOLS) += module-init-tools
 #
 # Paths and names
 #
-MODULE_INIT_TOOLS_VERSION	:= 3.5
+MODULE_INIT_TOOLS_VERSION	:= 3.8
 MODULE_INIT_TOOLS		:= module-init-tools-$(MODULE_INIT_TOOLS_VERSION)
 MODULE_INIT_TOOLS_SUFFIX	:= tar.bz2
 MODULE_INIT_TOOLS_URL		:= http://www.kernel.org/pub/linux/utils/kernel/module-init-tools/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
@@ -58,27 +58,29 @@ $(STATEDIR)/module-init-tools.targetinstall:
 	@$(call install_fixup, module-init-tools,PRIORITY,optional)
 	@$(call install_fixup, module-init-tools,VERSION,$(MODULE_INIT_TOOLS_VERSION))
 	@$(call install_fixup, module-init-tools,SECTION,base)
-	@$(call install_fixup, module-init-tools,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, module-init-tools,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, module-init-tools,DEPENDS,)
 	@$(call install_fixup, module-init-tools,DESCRIPTION,missing)
 
 ifdef PTXCONF_MODULE_INIT_TOOLS_INSMOD
-	@$(call install_copy, module-init-tools, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/insmod, /sbin/insmod) 
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/insmod)
+	#@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/insmod.static)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_RMMOD
-	@$(call install_copy, module-init-tools, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/rmmod, /sbin/rmmod)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/rmmod)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_LSMOD
-	@$(call install_copy, module-init-tools, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/lsmod, /bin/lsmod)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/bin/lsmod)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_MODINFO
-	@$(call install_copy, module-init-tools, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/modinfo, /sbin/modinfo)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/modinfo)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_MODPROBE
-	@$(call install_copy, module-init-tools, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/modprobe, /sbin/modprobe)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/modprobe)
+	@$(call install_copy, module-init-tools, 0, 0, 0644, -, /usr/sbin/generate-modprobe.conf)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_DEPMOD
-	@$(call install_copy, module-init-tools, 0, 0, 0755, $(MODULE_INIT_TOOLS_DIR)/depmod, /sbin/depmod)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/depmod)
 endif
 
 	@$(call install_finish, module-init-tools)
