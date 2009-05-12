@@ -2,7 +2,8 @@
 # $Id: template 1681 2004-09-01 18:12:49Z  $
 #
 # Copyright (C) 2004 by Sascha Hauer
-#          
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,100 +18,73 @@ PACKAGES-$(PTXCONF_FBTEST) += fbtest
 #
 # Paths and names
 #
-FBTEST_VERSION	= 20041102-1
-FBTEST		= fbtest-$(FBTEST_VERSION)
-FBTEST_SUFFIX	= tar.gz
-FBTEST_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBTEST).$(FBTEST_SUFFIX)
-FBTEST_SOURCE	= $(SRCDIR)/$(FBTEST).$(FBTEST_SUFFIX)
-FBTEST_DIR	= $(BUILDDIR)/$(FBTEST)
+FBTEST_VERSION	:= 20041102-1
+FBTEST		:= fbtest-$(FBTEST_VERSION)
+FBTEST_SUFFIX	:= tar.gz
+FBTEST_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBTEST).$(FBTEST_SUFFIX)
+FBTEST_SOURCE	:= $(SRCDIR)/$(FBTEST).$(FBTEST_SUFFIX)
+FBTEST_DIR	:= $(BUILDDIR)/$(FBTEST)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-fbtest_get: $(STATEDIR)/fbtest.get
-
-$(STATEDIR)/fbtest.get: $(fbtest_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(FBTEST_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, FBTEST)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-fbtest_extract: $(STATEDIR)/fbtest.extract
-
-$(STATEDIR)/fbtest.extract: $(fbtest_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FBTEST_DIR))
-	@$(call extract, FBTEST)
-	@$(call patchin, FBTEST)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-fbtest_prepare: $(STATEDIR)/fbtest.prepare
+FBTEST_PATH	:=  PATH=$(CROSS_PATH)
+FBTEST_ENV 	:=  $(CROSS_ENV)
+FBTEST_COMPILE_ENV := CROSS_COMPILE=$(COMPILER_PREFIX)
 
-FBTEST_PATH	=  PATH=$(CROSS_PATH)
-FBTEST_ENV 	=  $(CROSS_ENV)
-
-$(STATEDIR)/fbtest.prepare: $(fbtest_prepare_deps_default)
-	@$(call touch, $@)
+$(STATEDIR)/fbtest.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-fbtest_compile: $(STATEDIR)/fbtest.compile
-
-$(STATEDIR)/fbtest.compile: $(fbtest_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(FBTEST_DIR) && $(FBTEST_ENV) $(FBTEST_PATH) \
-		CROSS_COMPILE=$(COMPILER_PREFIX) make
-	@$(call touch, $@)
+$(STATEDIR)/fbtest.compile:
+	@$(call targetinfo)
+	cd $(FBTEST_DIR) && $(FBTEST_COMPILE_ENV) $(FBTEST_PATH) \
+		$(MAKE) $(PARALLELMFLAGS_BROKEN)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-fbtest_install: $(STATEDIR)/fbtest.install
-
-$(STATEDIR)/fbtest.install: $(fbtest_install_deps_default)
-	@$(call targetinfo, $@)
-	# FIXME
-	#$(call install, FBTEST)
-	@$(call touch, $@)
+$(STATEDIR)/fbtest.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-fbtest_targetinstall: $(STATEDIR)/fbtest.targetinstall
-
-$(STATEDIR)/fbtest.targetinstall: $(fbtest_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/fbtest.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, fbtest)
 	@$(call install_fixup, fbtest,PACKAGE,fbtest)
 	@$(call install_fixup, fbtest,PRIORITY,optional)
 	@$(call install_fixup, fbtest,VERSION,$(FBTEST_VERSION))
 	@$(call install_fixup, fbtest,SECTION,base)
-	@$(call install_fixup, fbtest,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, fbtest,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, fbtest,DEPENDS,)
 	@$(call install_fixup, fbtest,DESCRIPTION,missing)
-	
+
 	@$(call install_copy, fbtest, 0, 0, 0755, $(FBTEST_DIR)/$(COMPILER_PREFIX)fbtest, /sbin/fbtest)
 
 	@$(call install_finish, fbtest)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
