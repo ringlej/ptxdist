@@ -44,7 +44,7 @@ MODULE_INIT_TOOLS_MAKEVARS := MAN5="" MAN8=""
 #
 # autoconf
 #
-MODULE_INIT_TOOLS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+MODULE_INIT_TOOLS_AUTOCONF := $(CROSS_AUTOCONF_ROOT)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -63,24 +63,23 @@ $(STATEDIR)/module-init-tools.targetinstall:
 	@$(call install_fixup, module-init-tools,DESCRIPTION,missing)
 
 ifdef PTXCONF_MODULE_INIT_TOOLS_INSMOD
-	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/insmod)
-	#@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/insmod.static)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /sbin/insmod)
+#	#@$(call install_copy, module-init-tools, 0, 0, 0755, -, /sbin/insmod.static)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_RMMOD
-	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/rmmod)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /sbin/rmmod)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_LSMOD
-	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/bin/lsmod)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /bin/lsmod)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_MODINFO
-	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/modinfo)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /sbin/modinfo)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_MODPROBE
-	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/modprobe)
-	@$(call install_copy, module-init-tools, 0, 0, 0644, -, /usr/sbin/generate-modprobe.conf)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /sbin/modprobe)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_DEPMOD
-	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /usr/sbin/depmod)
+	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /sbin/depmod)
 endif
 
 	@$(call install_finish, module-init-tools)
