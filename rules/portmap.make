@@ -2,6 +2,8 @@
 # $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -33,27 +35,10 @@ $(PORTMAP_SOURCE):
 	@$(call get, PORTMAP)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/portmap.extract:
-	@$(call targetinfo)
-	@$(call clean, $(PORTMAP_DIR))
-	@$(call extract, PORTMAP)
-	@$(call patchin, PORTMAP)
-#
-# Attention: TCP-Wrapper will be ignored and not used!
-#
-#ifndef PTXCONF_TCPWRAPPER
-#	sed -i -e 's/$$(WRAP_DIR)\/libwrap.a//' $(PORTMAP_DIR)/Makefile
-#endif
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/portmap.prepare: $(portmap_prepare_deps_default)
+$(STATEDIR)/portmap.prepare:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -63,16 +48,6 @@ $(STATEDIR)/portmap.prepare: $(portmap_prepare_deps_default)
 
 PORTMAP_ENV		= $(CROSS_ENV)
 PORTMAP_PATH		= PATH=$(CROSS_PATH)
-
-ifdef PTXCONF_TCPWRAPPER
-PORTMAP_MAKEVARS	= WRAP_DIR=$(SYSROOT)/lib
-endif
-
-$(STATEDIR)/portmap.compile:
-	@$(call targetinfo)
-	cd $(PORTMAP_DIR) && 						\
-		$(PORTMAP_ENV) $(PORTMAP_PATH) make $(PORTMAP_MAKEVARS)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -99,8 +74,7 @@ $(STATEDIR)/portmap.targetinstall:
 	@$(call install_fixup, portmap,DESCRIPTION,missing)
 
 	@$(call install_copy, portmap, 0, 0, 0755, \
-		$(PORTMAP_DIR)/portmap, \
-		/sbin/portmap)
+		$(PORTMAP_DIR)/portmap, /sbin/portmap)
 
 #	#
 #	# busybox init
