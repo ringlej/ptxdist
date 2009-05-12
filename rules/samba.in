@@ -163,6 +163,7 @@ if SAMBA
 	config SAMBA_STARTSCRIPT
 		bool
 		default y
+		depends on SAMBA_SERVER
 		prompt "install /etc/init.d/samba"
 
 endif
