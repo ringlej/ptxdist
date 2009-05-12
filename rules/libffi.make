@@ -76,8 +76,8 @@ $(STATEDIR)/libffi.targetinstall:
 
 	@$(call install_copy, libffi, 0, 0, 0644, -, \
 		/usr/lib/libffi.so.5.0.9)
-	@$(call install_link, libffi, libffi.so.5.0.8, /usr/lib/libffi.so.5)
-	@$(call install_link, libffi, libffi.so.5.0.8, /usr/lib/libffi.so)
+	@$(call install_link, libffi, libffi.so.5.0.9, /usr/lib/libffi.so.5)
+	@$(call install_link, libffi, libffi.so.5.0.9, /usr/lib/libffi.so)
 
 	@$(call install_finish, libffi)
 
