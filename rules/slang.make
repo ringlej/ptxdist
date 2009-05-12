@@ -2,7 +2,8 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
-# Copyright (C) 2007 by Robert Schwebel
+#               2007 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,8 +19,8 @@ PACKAGES-$(PTXCONF_SLANG) += slang
 #
 # Paths and names
 #
-SLANG_MAJORV	:= 2
-SLANG_VERSION	:= $(SLANG_MAJORV).1.2
+SLANG_MAJOR	:= 2
+SLANG_VERSION	:= $(SLANG_MAJOR).1.2
 SLANG		:= slang-$(SLANG_VERSION)
 SLANG_SUFFIX	:= tar.bz2
 SLANG_URL	:= ftp://space.mit.edu/pub/davis/slang/v2.1/$(SLANG).$(SLANG_SUFFIX)
@@ -40,15 +41,15 @@ $(SLANG_SOURCE):
 
 SLANG_PATH	:= PATH=$(CROSS_PATH)
 SLANG_ENV 	:= $(CROSS_ENV)
-SLANG_MAKEVARS	:= SLANG_INST_LIB=
 
 #
 # autoconf
 #
 SLANG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--with-png=$(SYSROOT)/usr \
-	--with-iconv=$(SYSROOT)/usr
+	--without-png \
+	--without-iconv \
+	--without-pcre
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -56,7 +57,7 @@ SLANG_AUTOCONF := \
 
 $(STATEDIR)/slang.compile:
 	@$(call targetinfo)
-	cd $(SLANG_DIR) && $(SLANG_PATH) $(MAKE) elf $(PARALLELMFLAGS)
+	cd $(SLANG_DIR) && $(SLANG_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -75,10 +76,9 @@ $(STATEDIR)/slang.targetinstall:
 	@$(call install_fixup, slang,DEPENDS,)
 	@$(call install_fixup, slang,DESCRIPTION,missing)
 
-	@$(call install_copy, slang, 0, 0, 0644, \
-		$(SLANG_DIR)/src/elfobjs/libslang.so.$(SLANG_VERSION), \
+	@$(call install_copy, slang, 0, 0, 0644, -, \
 		/usr/lib/libslang.so.$(SLANG_VERSION))
-	@$(call install_link, slang, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so.$(SLANG_MAJORV))
+	@$(call install_link, slang, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so.$(SLANG_MAJOR))
 	@$(call install_link, slang, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so)
 
 	@$(call install_finish, slang)

@@ -2,8 +2,6 @@
 config SLANG
 	tristate
 	prompt "s-lang"
-	select LIBPNG
-	select LIBICONV
 	help
 	  S-Lang is a C programmer's library that includes routines
 	  for the rapid development of sophisticated, user friendly,
