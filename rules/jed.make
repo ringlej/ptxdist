@@ -35,22 +35,13 @@ $(JED_SOURCE):
 	@$(call get, JED)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/jed.extract:
-	@$(call targetinfo)
-	@$(call clean, $(JED_DIR))
-	@$(call extract, JED)
-	@$(call patchin, JED)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 JED_PATH	:= PATH=$(CROSS_PATH)
-JED_ENV 	:= $(CROSS_ENV)
+JED_ENV 	:= \
+	$(CROSS_ENV) \
+	JED_ROOT=/usr/share/jed
 
 #
 # autoconf
@@ -59,36 +50,6 @@ JED_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-slang=$(SYSROOT)/usr \
 	--without-x
-
-# FIXME: may also work with x
-#	--with-x-includes=$(SYSROOT)/usr/lib \
-#	--with-x-libs=$(SYSROOT)/usr/lib
-
-$(STATEDIR)/jed.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(JED_DIR)/config.cache)
-	cd $(JED_DIR) && \
-		$(JED_PATH) $(JED_ENV) \
-		./configure $(JED_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/jed.compile:
-	@$(call targetinfo)
-	cd $(JED_DIR) && $(JED_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/jed.install:
-	@$(call targetinfo)
-	@$(call install, JED)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -106,7 +67,8 @@ $(STATEDIR)/jed.targetinstall:
 	@$(call install_fixup, jed,DEPENDS,)
 	@$(call install_fixup, jed,DESCRIPTION,missing)
 
-	@$(call install_copy, jed, 0, 0, 0755, $(JED_DIR)/src/objs/jed, /usr/bin/jed)
+	@$(call install_copy, jed, 0, 0, 0755, -, \
+		/usr/bin/jed)
 
 	@$(call install_finish, jed)
 
