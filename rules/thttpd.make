@@ -50,9 +50,9 @@ THTTPD_AUTOCONF :=  $(CROSS_AUTOCONF_USR)
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/thttpd.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(THTTPD_DIR) && $(THTTPD_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
