@@ -107,7 +107,7 @@ config INITMETHOD_BBINIT_LINK_SYSLOGD
 	string
 	depends on BUSYBOX_SYSLOGD_STARTSCRIPT || INETUTILS_SYSLOGD_STARTSRCIPT
 	prompt "syslogd"
-	default "S08syslog"
+	default "S08syslogd"
 
 config INITMETHOD_BBINIT_LINK_CROND
 	string
