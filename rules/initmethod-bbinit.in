@@ -55,10 +55,10 @@ config INITMETHOD_BBINIT_LINK_ALSA_UTILS
 	prompt "alsa-utils"
 	default "S21alsa-utils"
 
-config INITMETHOD_BBINIT_LINK_HTTPD
+config INITMETHOD_BBINIT_LINK_APACHE2
 	string
 	depends on APACHE2_STARTSCRIPT
-	prompt "httpd (apache)"
+	prompt "apache2"
 	default "S91apache2"
 
 config INITMETHOD_BBINIT_LINK_CHRONY

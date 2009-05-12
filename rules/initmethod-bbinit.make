@@ -141,10 +141,10 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_ALSA_UTILS)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_ALSA_UTILS))
 endif
 
-ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_HTTPD)),)
+ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_APACHE2)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/apache2, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_HTTPD))
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_APACHE2))
 endif
 
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_CHRONY)),)
