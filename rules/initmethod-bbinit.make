@@ -170,136 +170,163 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DBUS)),)
 		../init.d/dbus, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DBUS))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DNSMASQ)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/dnsmasq, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DNSMASQ))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DROPBEAR)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/dropbear, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DROPBEAR))
 endif
+
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_INETD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/inetd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_INETD))
 endif
+
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOGD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/syslogd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOGD))
 endif
+
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_CROND)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/crond, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_CROND))
 endif
+
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/hwclock, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK))
 endif
+
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_LIGHTTPD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/lighttpd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_LIGHTTPD))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_MYSQL)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/mysql, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_MYSQL))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_NFSD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/nfsd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_NFSD))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_NTP)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/ntp, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_NTP))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_NTPCLIENT)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/ntpclient, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_NTPCLIENT))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_OPENSSH)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/openssh, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_OPENSSH))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_PORTMAP)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/portmapd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_PORTMAP))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_PPPD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/pppd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_PPPD))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_PROFTPD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/proftpd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_PROFTPD))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_PUREFTPD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/pureftpd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_PUREFTPD))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_RSYNCD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/rsyncd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_RSYNCD))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_SAMBA)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/samba, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SAMBA))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOG_NG)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/syslog-ng, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOG_NG))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_TELNETD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/telnetd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_TELNETD))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_THTTPD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/thttpd, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_THTTPD))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_UDEV)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/udev, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_UDEV))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_BANNER)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/banner, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_BANNER))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_LOGROTATE)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/logrotate, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_LOGROTATE))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_MODULES)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/modules, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_MODULES))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_NETWORKING)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/networking, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_NETWORKING))
 endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_ACPID)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/acpid, \
