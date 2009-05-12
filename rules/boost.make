@@ -2,6 +2,7 @@
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -36,8 +37,6 @@ $(BOOST_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-boost_prepare: $(STATEDIR)/boost.prepare
-
 BOOST_PATH	:=  PATH=$(CROSS_PATH)
 BOOST_ENV 	:=  $(CROSS_ENV)
 
@@ -59,46 +58,26 @@ BOOST_JAM	:= \
 # boost doesn't provide "no library" choice. If the library list is empty, it
 # goes for all libraries. We start at least with date_time lib here to avoid
 # this
-BOOST_LIBRARIES	:= date_time
+BOOST_LIBRARIES-y				:= date_time
 
-ifdef PTXCONF_BOOST_FILESYSTEM
-BOOST_LIBRARIES += filesystem system
-endif
-ifdef PTXCONF_BOOST_REGEX
-BOOST_LIBRARIES += regex
-endif
-ifdef PTXCONF_BOOST_THREAD
-BOOST_LIBRARIES += thread
-endif
-ifdef PTXCONF_BOOST_PROGRAM_OPTIONS
-BOOST_LIBRARIES += program_options
-endif
-ifdef PTXCONF_BOOST_SERIALIZATION
-BOOST_LIBRARIES += serialization
-endif
-ifdef PTXCONF_BOOST_SIGNALS
-BOOST_LIBRARIES += signals
-endif
-ifdef PTXCONF_BOOST_IOSTREAMS
-BOOST_LIBRARIES += iostreams
-endif
-ifdef PTXCONF_BOOST_WAVE
-BOOST_LIBRARIES += wave
-endif
-ifdef PTXCONF_BOOST_TEST
-BOOST_LIBRARIES += test
-endif
-ifdef PTXCONF_BOOST_GRAPH
-BOOST_LIBRARIES += graph
-endif
+BOOST_LIBRARIES-$(PTXCONF_BOOST_FILESYSTEM)	+= filesystem system
+BOOST_LIBRARIES-$(PTXCONF_BOOST_REGEX)		+= regex
+BOOST_LIBRARIES-$(PTXCONF_BOOST_THREAD)		+= thread
+BOOST_LIBRARIES-$(PTXCONF_BOOST_PROGRAM_OPTIONS) += program_options
+BOOST_LIBRARIES-$(PTXCONF_BOOST_SERIALIZATION)	+= serialization
+BOOST_LIBRARIES-$(PTXCONF_BOOST_SIGNALS)	+= signals
+BOOST_LIBRARIES-$(PTXCONF_BOOST_IOSTREAMS)	+= iostreams
+BOOST_LIBRARIES-$(PTXCONF_BOOST_WAVE)		+= wave
+BOOST_LIBRARIES-$(PTXCONF_BOOST_TEST)		+= test
+BOOST_LIBRARIES-$(PTXCONF_BOOST_GRAPH)		+= graph
 
 BOOST_CONF := \
 	--with-bjam="$(BOOST_JAM)" \
 	--prefix="$(SYSROOT)/usr" \
-	--with-libraries="$(subst $(space),$(comma),$(BOOST_LIBRARIES))" \
+	--with-libraries="$(subst $(space),$(comma),$(BOOST_LIBRARIES-y))" \
 	--without-icu
 
-$(STATEDIR)/boost.prepare: $(boost_prepare_deps_default)
+$(STATEDIR)/boost.prepare:
 	@$(call targetinfo)
 	@cd $(BOOST_DIR)/tools/jam/src && \
 		sh build.sh gcc && mv bin.*/bjam .; \
@@ -125,9 +104,9 @@ $(STATEDIR)/boost.install:
 # date_time is append to libraries list as minimum, however we only install it
 # to target if it is really selected
 ifndef PTXCONF_BOOST_DATE_TIME
-BOOST_INST_LIBRARIES := $$( echo $(BOOST_LIBRARIES) | sed "s/date_time //g" )
+BOOST_INST_LIBRARIES := $(filter-out date_time,$(BOOST_LIBRARIES-y))
 else
-BOOST_INST_LIBRARIES := $(BOOST_LIBRARIES)
+BOOST_INST_LIBRARIES := $(BOOST_LIBRARIES-y)
 endif
 
 $(STATEDIR)/boost.targetinstall:
@@ -138,7 +117,7 @@ $(STATEDIR)/boost.targetinstall:
 	@$(call install_fixup,boost,PRIORITY,optional)
 	@$(call install_fixup,boost,VERSION,$(BOOST_VERSION))
 	@$(call install_fixup,boost,SECTION,base)
-	@$(call install_fixup,boost,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,boost,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,boost,DEPENDS,)
 	@$(call install_fixup,boost,DESCRIPTION,missing)
 
