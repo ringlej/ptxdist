@@ -11,10 +11,10 @@ Signed-off-by: Juergen Beisert <jbeisert@pengutronix.de>
  drivers.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: drivers.c
+Index: gpsd-2.39/drivers.c
 ===================================================================
---- drivers.c.orig
-+++ drivers.c
+--- gpsd-2.39/drivers.c.orig
++++ gpsd-2.39/drivers.c
 @@ -935,7 +935,7 @@ static gps_mask_t garmintxt_parse_input(
  
  static const struct gps_type_t garmintxt = {

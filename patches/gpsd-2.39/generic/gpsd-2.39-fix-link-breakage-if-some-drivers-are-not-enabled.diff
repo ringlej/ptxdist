@@ -15,10 +15,10 @@ Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
  gpsdecode.c |    6 ++++++
  1 file changed, 6 insertions(+)
 
-Index: gpsdecode.c
+Index: gpsd-2.39/gpsdecode.c
 ===================================================================
---- gpsdecode.c.orig
-+++ gpsdecode.c
+--- gpsd-2.39/gpsdecode.c.orig
++++ gpsd-2.39/gpsdecode.c
 @@ -57,19 +57,25 @@ static void decode(FILE *fpin, FILE *fpo
  	else if (lexer.type == COMMENT_PACKET)
  	    continue;
