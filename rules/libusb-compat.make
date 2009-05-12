@@ -33,17 +33,6 @@ $(LIBUSB_COMPAT_SOURCE):
 	@$(call get, LIBUSB_COMPAT)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libusb-compat.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBUSB_COMPAT_DIR))
-	@$(call extract, LIBUSB_COMPAT)
-	@$(call patchin, LIBUSB_COMPAT)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -54,32 +43,6 @@ LIBUSB_COMPAT_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 LIBUSB_COMPAT_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/libusb-compat.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBUSB_COMPAT_DIR)/config.cache)
-	cd $(LIBUSB_COMPAT_DIR) && \
-		$(LIBUSB_COMPAT_PATH) $(LIBUSB_COMPAT_ENV) \
-		./configure $(LIBUSB_COMPAT_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libusb-compat.compile:
-	@$(call targetinfo)
-	cd $(LIBUSB_COMPAT_DIR) && $(LIBUSB_COMPAT_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libusb-compat.install:
-	@$(call targetinfo)
-	@$(call install, LIBUSB_COMPAT)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
