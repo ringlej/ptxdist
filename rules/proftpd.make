@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -40,6 +41,11 @@ $(PROFTPD_SOURCE):
 PROFTPD_PATH		:= PATH=$(CROSS_PATH)
 PROFTPD_ENV		:= $(CROSS_ENV)
 
+PROFTPD_COMPILE_ENV	:= $(CROSS_ENV_CC_FOR_BUILD)
+
+#
+# autoconf
+#
 PROFTPD_AUTOCONF	:= $(CROSS_AUTOCONF_USR)
 
 ifdef PTXCONF_PROFTPD_PAM
