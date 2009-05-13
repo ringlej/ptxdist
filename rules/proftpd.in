@@ -26,6 +26,7 @@ config PROFTPD_SENDFILE
 config PROFTPD_SHADOW
 	bool
 	prompt "shadow support"
+	default y
 	help
 	  FIXME: This item needs to be documented
 
@@ -33,6 +34,7 @@ config PROFTPD_AUTOSHADOW
 	bool
 	prompt "autoshadow support"
 	depends on PROFTPD_SHADOW
+	default y
 	help
 	  FIXME: This item needs to be documented
 

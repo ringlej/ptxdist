@@ -18,13 +18,12 @@ PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 #
 # Paths and names
 #
-PROFTPD_VERSION		:= 1.3.2rc3
+PROFTPD_VERSION		:= 1.3.2
 PROFTPD			:= proftpd-$(PROFTPD_VERSION)
 PROFTPD_SUFFIX		:= tar.gz
 PROFTPD_URL		:= ftp://ftp.proftpd.org/distrib/source/$(PROFTPD).$(PROFTPD_SUFFIX)
 PROFTPD_SOURCE		:= $(SRCDIR)/$(PROFTPD).$(PROFTPD_SUFFIX)
 PROFTPD_DIR		:= $(BUILDDIR)/$(PROFTPD)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -49,9 +48,9 @@ PROFTPD_COMPILE_ENV	:= $(CROSS_ENV_CC_FOR_BUILD)
 PROFTPD_AUTOCONF	:= $(CROSS_AUTOCONF_USR)
 
 ifdef PTXCONF_PROFTPD_PAM
-PROFTPD_AUTOCONF += --enable-pam
+PROFTPD_AUTOCONF += --enable-auth-pam
 else
-PROFTPD_AUTOCONF += --disable-pam
+PROFTPD_AUTOCONF += --disable-auth-pam
 endif
 
 ifdef PTXCONF_PROFTPD_SENDFILE
@@ -73,14 +72,6 @@ PROFTPD_AUTOCONF += --disable-autoshadow
 endif
 
 # ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/proftpd.install:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -96,8 +87,7 @@ $(STATEDIR)/proftpd.targetinstall:
 	@$(call install_fixup, proftpd,DEPENDS,)
 	@$(call install_fixup, proftpd,DESCRIPTION,missing)
 
-	@$(call install_copy, proftpd, 0, 0, 0755, \
-		$(PROFTPD_DIR)/proftpd, \
+	@$(call install_copy, proftpd, 0, 0, 0755, -, \
 		/usr/sbin/proftpd)
 
 	@$(call install_alternative, proftpd, 0, 0, 0644, /etc/proftpd.conf, n)
