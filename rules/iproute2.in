@@ -1,8 +1,9 @@
 ## SECTION=networking
+
 config IPROUTE2
 	tristate
 	prompt "iproute2"
-	select DB44
+	select DB
 	select LIBC_DL
 	select LIBC_M
 	select LIBC_RESOLV

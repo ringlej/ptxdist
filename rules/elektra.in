@@ -3,7 +3,7 @@ menuconfig ELEKTRA
 	tristate
 	depends on BROKEN
 	prompt "elektra                       "
-	select DB44 if ELEKTRA__BERKELEYDB
+	select DB if ELEKTRA__BERKELEYDB
 	help
 	  Elektra is a universal hierarchical configuration store, with related
 	  goals like GConf and the Windows Registry. It allows programs to read
