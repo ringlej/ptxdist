@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# Bootchart logger script
+#
+# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
+# based on: Bootchart logger script from
+#
+# Ziga Mahkovec <ziga.mahkovec@klika.si>
+#
+# This script is used for data collection for the bootchart boot
+# performance visualization tool (http://www.bootchart.org).
+#
+# To profile the boot process, bootchartd should be called instead of
+# /sbin/init.  Modify the kernel command line to include
+# init=/sbin/bootchartd or rdinit=/sbin/bootchartd if you use an
+# initrd
+#
+# bootchartd will then start itself in background and exec /sbin/init
+# or /init in case of an inird (or an alternative init process if
+# specified using bootchart_init=)
+#
+
+PATH="/sbin:/bin:/usr/sbin:/usr/bin"
+VERSION="0.9"
+
+LOG_DIR="/bc"
+OUT_DIR="/var/log"
+HZ=10
+
+mount proc /proc -t proc
+
+{
+    mount -n -t tmpfs -o size=8M none "$LOG_DIR"
+    /lib/bootchart/collector ${HZ} "${LOG_DIR}"
+    /lib/bootchart/gather "${OUT_DIR}/bootchart.tgz" "${LOG_DIR}"
+} &
+
+# from kernel:/init/main.c
+for init in \
+    "/sbin/init" \
+    "/etc/init" \
+    "/bin/init" \
+    "/bin/sh"; do
+    if [ -x "$init" ]; then
+	exec "${init}" "$@"
+    fi
+done

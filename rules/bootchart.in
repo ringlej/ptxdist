@@ -1,0 +1,16 @@
+## SECTION=debug_tools
+
+config BOOTCHART
+	tristate
+	prompt "bootchart"
+	help
+	  Bootchart allows you to audit the boot sequence of your
+	  computer and generate a pretty chart of the processes run,
+	  including how long they took and how much CPU and I/O they
+	  used.
+
+	  The auditing is performed by adding a script to the top of
+	  your initramfs which lives inside is own tiny filesystem
+	  during the boot process and monitors the rest of the system
+	  booting
+
