@@ -77,6 +77,9 @@ $(STATEDIR)/readline.targetinstall:
 	@$(call install_link, readline, libreadline.so.5.2, /lib/libreadline.so.5)
 	@$(call install_link, readline, libreadline.so.5.2, /lib/libreadline.so)
 
+ifdef PTXCONF_READLINE_ETC_INPUTRC
+	@$(call install_alternative, readline, 0, 0, 0644, /etc/inputrc, n)
+endif
 	@$(call install_finish, readline)
 
 	@$(call touch)

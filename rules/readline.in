@@ -33,3 +33,11 @@ choice
 		  Links the readline library against the ncurses library
 
 endchoice
+
+config READLINE_ETC_INPUTRC
+	depends on READLINE
+	bool
+	prompt "install /etc/inputrc"
+	help
+	  If enabled, it installs the "./projectroot/etc/inputrc" file if
+	  present, else a generic one from the ptxdist directory.
