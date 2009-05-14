@@ -1,0 +1,42 @@
+## SECTION=system_libraries
+
+menuconfig DB
+	tristate
+	prompt "berkeley db                   "
+	help
+	  FIXME
+
+if DB
+
+choice
+	prompt "db version"
+
+	config DB_41
+		bool "4.1.x"
+
+	config DB_44
+		bool "4.4.x"
+endchoice
+
+config DB_UTIL
+	bool
+	prompt "install db_* tools on target"
+	help
+	  v4.x Berkeley Database Tools
+
+	  This package provides different tools for manipulating databases
+ 	  in the Berkeley v4.x database format, and includes:
+
+	  db_archive:	 write the pathnames of the log files no longer in use.
+	  db_checkpoint: daemon process to monitor the database log and
+	  		 checkpoint it periodically.
+	  db_deadlock:	 traverse the database environment lock region and
+ 	  		 abort lock requests when a deadlock is detected.
+	  db_load:	 loads (and creates) a database from standard input.
+	  db_dump:	 read a database file and write it in a format understood by
+ 	  db_printlog: 	 dump log files in human readable format.
+	  db_stat: 	 display statistics for Berkeley DB environments.
+	  db_upgrade: 	 upgrades the version of files and the
+	  		 databases they contain.
+	  db_verify: 	 check the structure of files and their databases.
+endif
