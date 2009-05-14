@@ -7,6 +7,13 @@ menuconfig PYTHON
 	select LIBC_PTHREAD
 	select HOST_PYTHON
 	select GCCLIBS_CXX
+	select NCURSES		if PYTHON_NCURSES
+	select SQLITE		if PYTHON_SQLITE
+	select BZIP2		if PYTHON_BZ2
+	select BZIP2__LIBBZ2	if PYTHON_BZ2
+	select ZLIB		if PYTHON_ZLIB
+	select READLINE		if PYTHON_READLINE
+	select DB		if PYTHON_DB
 	help
 	  Python is a dynamic object-oriented programming
 	  language that can be used for many kinds of
@@ -28,6 +35,24 @@ choice
 		depends on BROKEN
 
 endchoice
+
+config PYTHON_NCURSES
+	bool "ncurses bindings"
+
+config PYTHON_SQLITE
+	bool "sqlite bindings"
+
+config PYTHON_BZ2
+	bool "libbz2 bindings"
+
+config PYTHON_ZLIB
+	bool "zlib bindings"
+
+config PYTHON_READLINE
+	bool "readline bindings"
+
+config PYTHON_DB
+	bool "db bindings"
 
 config PYTHON_SYMLINK
 	bool
