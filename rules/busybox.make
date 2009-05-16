@@ -116,19 +116,19 @@ ifdef PTXCONF_BUSYBOX_INETD_STARTSCRIPT
 endif
 
 ifdef PTXCONF_BUSYBOX_TELNETD_STARTSCRIPT
-	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/telnetd, n)
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/telnetd)
 endif
 
 ifdef PTXCONF_BUSYBOX_SYSLOGD_STARTSCRIPT
-	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/syslogd, n)
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/syslogd)
 endif
 
 ifdef PTXCONF_BUSYBOX_CROND_STARTSCRIPT
-	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/crond, n)
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/crond)
 endif
 
 ifdef PTXCONF_BUSYBOX_HWCLOCK_STARTSCRIPT
-	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/hwclock, n)
+	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/hwclock)
 endif
 endif # PTXCONF_INITMETHOD_BBINIT
 
@@ -137,7 +137,7 @@ endif # PTXCONF_INITMETHOD_BBINIT
 #	#
 
 ifdef PTXCONF_BUSYBOX_APP_UDHCPC
-	@$(call install_alternative, busybox, 0, 0, 0754, /etc/udhcpc.script, n)
+	@$(call install_alternative, busybox, 0, 0, 0754, /etc/udhcpc.script)
 	@$(call install_link, busybox, /etc/udhcpc.script, /usr/share/udhcpc/default.script)
 endif
 
