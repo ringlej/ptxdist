@@ -3,6 +3,5 @@
 config FBTEST
 	tristate
 	prompt "fbtest"
-	select LIBNETPBM
 	help
 	  fbtest is a program used for framebuffer devices.
