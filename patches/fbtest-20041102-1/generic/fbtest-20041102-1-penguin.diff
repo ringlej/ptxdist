@@ -1,21 +1,20 @@
-#
-# Submitted-By: Sascha Hauer, 2006-02-28
-# Committed-By: Sascha Hauer
-#
-# Error:
-#
-# fbtest compiles pnmtohex for the host. pnmtohex generates
-# penguin.c from penguin.ppm. pnmtohex needs libnetpbm which
-# is very painful to compile.
-#
-# Description:
-#
-# provide a pre-generated penguin.c to get rid of this dependency
-#
-# State:
-#
-# not intended to go upstream
-#
+From: Sascha Hauer <sha@pengutronix.de>
+Subject: provide a pre-generated penguin.c to get rid of this dependency
+
+fbtest compiles pnmtohex for the host. pnmtohex generates
+penguin.c from penguin.ppm. pnmtohex needs libnetpbm which
+is very painful to compile.
+
+[mkl: added std patch header]
+[mkl: don't delete penguin.c on clean]
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ Makefile         |    2 
+ images/Makefile  |    3 
+ images/penguin.c |  605 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 606 insertions(+), 4 deletions(-)
 
 Index: fbtest-20041102-1/images/penguin.c
 ===================================================================
@@ -640,3 +639,14 @@ Index: fbtest-20041102-1/Makefile
  
  include $(TOPDIR)/Rules.make
  
+Index: fbtest-20041102-1/images/Makefile
+===================================================================
+--- fbtest-20041102-1.orig/images/Makefile
++++ fbtest-20041102-1/images/Makefile
+@@ -19,6 +19,3 @@ include $(TOPDIR)/Rules.make
+ %.c:	%.pnm
+ 	../pnmtohex/pnmtohex $< $* > $@
+ 
+-clean::
+-	$(RM) $(SRCS)
+-
