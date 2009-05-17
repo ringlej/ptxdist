@@ -2,6 +2,7 @@
 # $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -52,27 +53,12 @@ $(STATEDIR)/rt-tests.extract:
 RT_TESTS_PATH	:= PATH=$(CROSS_PATH)
 RT_TESTS_ENV 	:= $(CROSS_ENV)
 
+RT_TESTS_MAKEVARS := \
+	$(CROSS_ENV_CC) \
+	prefix=/usr
+
 $(STATEDIR)/rt-tests.prepare:
 	@$(call targetinfo)
-	@$(call clean, $(RT_TESTS_DIR)/config.cache)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/rt-tests.compile:
-	@$(call targetinfo)
-	cd $(RT_TESTS_DIR) && $(RT_TESTS_PATH) $(MAKE) $(PARALLELMFLAGS) CC=$(CROSS_CC)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/rt-tests.install:
-	@$(call targetinfo)
-	@$(call install, RT_TESTS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -91,19 +77,22 @@ $(STATEDIR)/rt-tests.targetinstall:
 	@$(call install_fixup, rt-tests,DEPENDS,)
 	@$(call install_fixup, rt-tests,DESCRIPTION,missing)
 
-ifdef PTXCONF_RT_TESTS_CYCLICTEST
-	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/cyclictest, /usr/bin/cyclictest)
-endif
-ifdef PTXCONF_RT_TESTS_SIGNALTEST
-	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/signaltest, /usr/bin/signaltest)
-endif
 ifdef PTXCONF_RT_TESTS_CLASSICPI
-	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/classic_pi, /usr/bin/classic_pi)
+	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/classic_pi)
+endif
+ifdef PTXCONF_RT_TESTS_CYCLICTEST
+	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/cyclictest)
 endif
 ifdef PTXCONF_RT_TESTS_PI_STRESS
-	@$(call install_copy, rt-tests, 0, 0, 0755, $(RT_TESTS_DIR)/pi_stress, /usr/bin/pi_stress)
+	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/pi_stress)
 endif
-
+ifdef PTXCONF_RT_TESTS_SIGNALTEST
+	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/signaltest)
+endif
 	@$(call install_finish, rt-tests)
 
 	@$(call touch)
