@@ -273,6 +273,13 @@ install_link =									\
 	rm -fr $(ROOTDIR)$$DST;							\
 	rm -fr $(ROOTDIR_DEBUG)$$DST;						\
 	echo "install_link: src=$$SRC dst=$$DST "; 				\
+	case "$${SRC}" in							\
+	(/*)									\
+		echo "Error: absolute link detected, please fix!";		\
+		exit 1;								\
+	(*)									\
+		;;								\
+	esac;									\
 	install -d `dirname $(ROOTDIR)$$DST`;					\
 	install -d `dirname $(ROOTDIR_DEBUG)$$DST`;				\
 	ln -sf $$SRC $(ROOTDIR)$$DST; 						\
