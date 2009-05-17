@@ -138,7 +138,7 @@ endif # PTXCONF_INITMETHOD_BBINIT
 
 ifdef PTXCONF_BUSYBOX_APP_UDHCPC
 	@$(call install_alternative, busybox, 0, 0, 0754, /etc/udhcpc.script)
-	@$(call install_link, busybox, /etc/udhcpc.script, /usr/share/udhcpc/default.script)
+	@$(call install_link, busybox, ../../../etc/udhcpc.script, /usr/share/udhcpc/default.script)
 endif
 
 ifdef PTXCONF_BUSYBOX_CROND
