@@ -24,8 +24,8 @@ define setenv_uboot_v1 {
 		assign input \freplace(\v(input),\13,,)
 		# if no '=' then continue
 		if not match \m(input) *=* goto out
-		# extract part before '=' (from \m(input) the first word, allow '_')
-		assign envvar \fword(\m(input),1,,_)
+		# extract part before '=' (from \m(input) the first word, allow '_-')
+		assign envvar \fword(\m(input),1,,_-)
 		# skip special keywords
 		if not = \farraylook(^\m(envvar)$,&s) -1 goto out
 		# put setenv-command into array
