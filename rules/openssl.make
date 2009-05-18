@@ -124,7 +124,7 @@ $(STATEDIR)/openssl.compile:
 # generate openssl.pc with correct path inside
 #
 	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) $(MAKE) INSTALLTOP=$(SYSROOT) openssl.pc
-	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) $(MAKE) $(OPENSSL_MAKEVARS) $(PARALLELMFLAGS)
+	cd $(OPENSSL_DIR) && $(OPENSSL_PATH) $(MAKE) $(OPENSSL_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
