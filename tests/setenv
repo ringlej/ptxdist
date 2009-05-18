@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ ! -e "${PTXDIST_BOARDSETUP}" ]; then
-	echo "Please run 'ptxdist boardsetup' first!"
+	echo "Please run 'ptxdist boardsetup' first!" >&2
 	exit 1
 fi
 
@@ -10,7 +10,7 @@ if [ ! -r "${CONFFILE}.in" ]; then
 	if [ -r "`dirname "${CONFFILE}"`/config.in" ]; then
 		CONFFILE="`dirname "${CONFFILE}"`/config"
 	else
-		echo "Config file for uboot environment is missing!"
+		echo "Config file for uboot environment is missing!" >&2
 		exit 1
 	fi
 fi
