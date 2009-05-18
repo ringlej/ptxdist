@@ -44,7 +44,7 @@ DASH_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 DASH_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
+	$(CROSS_AUTOCONF_ROOT) \
 	--with-libedit=no
 
 # ----------------------------------------------------------------------------
@@ -63,8 +63,7 @@ $(STATEDIR)/dash.targetinstall:
 	@$(call install_fixup, dash,DEPENDS,)
 	@$(call install_fixup, dash,DESCRIPTION,missing)
 
-	@$(call install_copy, dash, 0, 0, 0755, -, \
-		/bin/dash)
+	@$(call install_copy, dash, 0, 0, 0755, -, /bin/dash)
 
 	@$(call install_finish, dash)
 
