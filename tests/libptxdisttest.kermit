@@ -88,20 +88,23 @@ define ptx_uboot_enter_shell {
 
 	ptx_test_start "Logging into U-Boot"
 
-	minput 120 "U-Boot 1" "U-Boot 2"
+	# Determine U-Boot version; 20yy.m is treated as V1.
+	# tried to match all V1 signatures with \fpattern, failed badly :(
+	minput 120 "U-Boot 1." "U-Boot 2." "U-Boot 20"
 :eval_again
 	ptx_check_fail "waiting for u-boot-signature"
 	lineout
-	.uboot_version := \v(minput)
-	if = \m(uboot_version) 2 {
+	if = \v(minput) 2 {
 		.uboot_prompt = "uboot:"
+		.uboot_version = 2
 	} else {
-		.uboot_prompt = "uboot> "
+		.uboot_prompt = "uboot>"
+		.uboot_version = 1
 	}
 	# sometimes there are caches for serial inputs containing old data
 	# make sure we act on the newest one
-	minput 120 "U-Boot 1" "U-Boot 2" \m(uboot_prompt)
-	if not = \v(minput) 3 goto eval_again
+	minput 120 "U-Boot 1." "U-Boot 2." "U-Boot 20" \m(uboot_prompt)
+	if not = \v(minput) 4 goto eval_again
 	ptx_test_end
 }
 
@@ -115,10 +118,8 @@ define ptx_uboot_exec {
 
 	if = \m(uboot_version) 2 {
 		ptx_lineout "echo result: $?"
-		input 10 \fpattern(^result: 0$)
-
+		input 10 \fpattern(result: 0)
 		ptx_check_fail "returncode from '\%2' is not 0"
-
 		input 10 \m(uboot_prompt)
 	}
 }
