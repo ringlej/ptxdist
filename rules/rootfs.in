@@ -296,8 +296,9 @@ config ROOTFS_PROFILE
 	bool
 	prompt "install /etc/profile"
 	help
-	  If enabled, it installs the "./projectroot/etc/profile" file if
-	  present, else a generic one from the ptxdist directory.
+	  If enabled, it installs "./projectroot/etc/profile" (for init-shells)
+	  and "./projectroot/etc/profile.environment" (for sub-shells) files if
+	  present, else generic ones from the ptxdist directory.
 
 config ROOTFS_PROTOCOLS
 	bool

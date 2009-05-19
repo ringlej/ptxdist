@@ -188,6 +188,7 @@ ifdef PTXCONF_ROOTFS_NSSWITCH_CONF
 endif
 ifdef PTXCONF_ROOTFS_PROFILE
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/profile, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/profile.environment, n)
 endif
 ifdef PTXCONF_ROOTFS_PROTOCOLS
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/protocols, n)

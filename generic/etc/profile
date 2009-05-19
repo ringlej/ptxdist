@@ -1,8 +1,5 @@
+# /etc/profile - config for init-shell
 #
-# /etc/profile
-#
-
-export PATH="$PATH:/usr/bin:/bin:/sbin"
 export HISTFILE=/tmp/.ash_history.$USER.$PPID
 
 # This fixes the backspace when telnetting in.
@@ -10,23 +7,11 @@ if [ "$TERM" != "linux" ]; then
         stty erase ^H
 fi
 
-PS1="\\u@\\h:\\w "
-PS2=" >"
-PS4="+ "
-
-alias vim='vi'
-alias l='ls -l'
-alias ll='ls -al'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias md='mkdir'
-alias rd='rmdir'
-
-# source this file for subsequent shells too
-export ENV=/etc/profile
+# source this file for subsequent shells, too
+# (will also be sourced for init-shell)
+export ENV=/etc/profile.environment
 
 # Exec local profile
-
 if [ -e "/etc/profile.local" ]; then
 	echo "running /etc/profile.local"
 	. /etc/profile.local
