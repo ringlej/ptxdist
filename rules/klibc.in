@@ -83,11 +83,23 @@ config KLIBC_STATIC_FALSE
 	help
 	  This is a statically linked "false" command. It gets installed into /bin/false
 
+config KLIBC_STATIC_FSTYPE
+	bool
+	prompt "fstype"
+	help
+	  This is a statically linked "fstype" command. It gets installed into /bin/fstype
+
 config KLIBC_STATIC_HALT
 	bool
 	prompt "halt"
 	help
 	  This is a statically linked "halt" command. It gets installed into /bin/halt
+
+config KLIBC_STATIC_IPCONFIG
+	bool
+	prompt "ipconfig"
+	help
+	  This is a statically linked "ipconfig" command. It gets installed into /bin/ipconfig
 
 config KLIBC_STATIC_KILL
 	bool
@@ -131,6 +143,12 @@ config KLIBC_STATIC_MOUNT
 	help
 	  This is a statically linked "mount" command. It gets installed into /bin/mount
 
+config KLIBC_STATIC_NFSMOUNT
+	bool
+	prompt "nfsmount"
+	help
+	  This is a statically linked "nfsmount" command. It gets installed into /bin/nfsmount
+
 config KLIBC_STATIC_NUKE
 	bool
 	prompt "nuke"
@@ -143,11 +161,29 @@ config KLIBC_STATIC_PIVOT_ROOT
 	help
 	  This is a statically linked "pivot_root" command. It gets installed into /bin/pivot_root
 
+config KLIBC_STATIC_POWEROFF
+	bool
+	prompt "poweroff"
+	help
+	  This is a statically linked "poweroff" command. It gets installed into /bin/poweroff
+
 config KLIBC_STATIC_READLINK
 	bool
 	prompt "readlink"
 	help
 	  This is a statically linked "readlink" command. It gets installed into /bin/readlink
+
+config KLIBC_STATIC_REBOOT
+	bool
+	prompt "reboot"
+	help
+	  This is a statically linked "reboot" command. It gets installed into /bin/reboot
+
+config KLIBC_STATIC_RESUME
+	bool
+	prompt "resume"
+	help
+	  This is a statically linked "resume" command. It gets installed into /bin/resume
 
 config KLIBC_STATIC_RUN_INIT
 	bool
@@ -277,6 +313,16 @@ config KLIBC_SHARED_FALSE
 	  This is a shared "false" command. It gets installed into /bin/false
 
 ######
+comment "Static fstype command is selected!"
+	depends on KLIBC_STATIC_FSTYPE
+
+config KLIBC_SHARED_FSTYPE
+	bool
+	prompt "fstype"
+	help
+	  This is a shared "fstype" command. It gets installed into /bin/fstype
+
+######
 comment "Static halt command is selected!"
 	depends on KLIBC_STATIC_HALT
 
@@ -286,6 +332,16 @@ config KLIBC_SHARED_HALT
 	prompt "halt"
 	help
 	  This is a shared "halt" command. It gets installed into /bin/halt
+
+######
+comment "Static ipconfig command is selected!"
+	depends on KLIBC_STATIC_IPCONFIG
+
+config KLIBC_SHARED_IPCONFIG
+	bool
+	prompt "ipconfig"
+	help
+	  This is a shared "ipconfig" command. It gets installed into /bin/ipconfig
 
 ######
 comment "Static kill command is selected!"
@@ -365,6 +421,16 @@ config KLIBC_SHARED_MOUNT
 	  This is a shared "mount" command. It gets installed into /bin/mount
 
 ######
+comment "Static nfsmount command is selected!"
+	depends on KLIBC_STATIC_NFSMOUNT
+
+config KLIBC_SHARED_NFSMOUNT
+	bool
+	prompt "nfsmount"
+	help
+	  This is a shared "nfsmount" command. It gets installed into /bin/nfsmount
+
+######
 comment "Static nuke command is selected!"
 	depends on KLIBC_STATIC_NUKE
 
@@ -387,6 +453,16 @@ config KLIBC_SHARED_PIVOT_ROOT
 	  This is a shared "pivot_root" command. It gets installed into /bin/pivot_root
 
 ######
+comment "Static poweroff command is selected!"
+	depends on KLIBC_STATIC_POWEROFF
+
+config KLIBC_SHARED_POWEROFF
+	bool
+	prompt "poweroff"
+	help
+	  This is a shared "poweroff" command. It gets installed into /bin/poweroff
+
+######
 comment "Static readlink command is selected!"
 	depends on KLIBC_STATIC_READLINK
 
@@ -396,6 +472,26 @@ config KLIBC_SHARED_READLINK
 	prompt "readlink"
 	help
 	  This is a shared "readlink" command. It gets installed into /bin/readlink
+
+######
+comment "Static reboot command is selected!"
+	depends on KLIBC_STATIC_REBOOT
+
+config KLIBC_SHARED_REBOOT
+	bool
+	prompt "reboot"
+	help
+	  This is a shared "reboot" command. It gets installed into /bin/reboot
+
+######
+comment "Static resume command is selected!"
+	depends on KLIBC_STATIC_RESUME
+
+config KLIBC_SHARED_RESUME
+	bool
+	prompt "resume"
+	help
+	  This is a shared "resume" command. It gets installed into /bin/resume
 
 ######
 comment "Static run-init command is selected!"
