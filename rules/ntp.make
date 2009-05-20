@@ -34,17 +34,6 @@ $(NTP_SOURCE):
 	@$(call get, NTP)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ntp.extract:
-	@$(call targetinfo)
-	@$(call clean, $(NTP_DIR))
-	@$(call extract, NTP)
-	@$(call patchin, NTP)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -301,35 +290,6 @@ $(STATEDIR)/ntp.prepare:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ntp.compile:
-	@$(call targetinfo)
-
-#	# ntp-4.2.0 tries to build ntpdc/ntpdc-layout for the target but
-#	# trys to run it on the build machine - this is wrong...
-#	perl -i -p -e "s/^CC =/CC ?=/g" $(NTP_DIR)/ntpdc/Makefile
-#	perl -i -p -e "s/^LDFLAGS =/LDFLAGS ?=/g" $(NTP_DIR)/ntpdc/Makefile
-#	perl -i -p -e "s/^CFLAGS =/CFLAGS ?=/g" $(NTP_DIR)/ntpdc/Makefile
-#	cd $(NTP_DIR)/ntpdc && CC=$(HOSTCC) CFLAGS='' LDFLAGS='' make ntpdc-layout
-#
-#	# now build the rest
-#	cd $(NTP_DIR) && $(NTP_ENV) $(NTP_PATH) make
-
-	cd $(NTP_DIR) && $(NTP_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ntp.install:
-	@$(call targetinfo)
-	@$(call install, NTP)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -345,55 +305,50 @@ $(STATEDIR)/ntp.targetinstall:
 	@$(call install_fixup, ntp,DEPENDS,)
 	@$(call install_fixup, ntp,DESCRIPTION,missing)
 
-	#
-	# ntpdate
-	#
-
+#	#
+#	# ntpdate
+#	#
 ifdef PTXCONF_NTP_NTPDATE
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpdate/ntpdate, /usr/sbin/ntpdate)
 endif
 
-	#
-	# ntp server
-	#
-
+#	#
+#	# ntp server
+#	#
 ifdef PTXCONF_NTP_NTPD
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpd/ntpd, /usr/sbin/ntpd)
-	@$(call install_alternative, ntp, 0, 0, 0644, /etc/ntp-server.conf, n)
+	@$(call install_alternative, ntp, 0, 0, 0644, /etc/ntp-server.conf)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_NTP_NTPD_STARTSCRIPT
-	@$(call install_alternative, ntp, 0, 0, 0755, /etc/init.d/ntp, n)
+	@$(call install_alternative, ntp, 0, 0, 0755, /etc/init.d/ntp)
 endif
 endif
 endif
 
-	#
-	# ntpdc
-	#
-
+#	#
+#	# ntpdc
+#	#
 ifdef PTXCONF_NTP_NTPDC
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpdc/ntpdc, /usr/sbin/ntpdc)
-	@$(call install_alternative, ntp, 0, 0, 0644, /etc/ntp-client.conf, n)
+	@$(call install_alternative, ntp, 0, 0, 0644, /etc/ntp-client.conf)
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_NTP_NTPC_STARTSCRIPT
-	@$(call install_alternative, ntp, 0, 0, 0755, /etc/init.d/ntp-client, n)
+	@$(call install_alternative, ntp, 0, 0, 0755, /etc/init.d/ntp-client)
 endif
 endif
 endif
 
-	#
-	# ntpq
-	#
-
+#	#
+#	# ntpq
+#	#
 ifdef PTXCONF_NTP_NTPQ
 	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpq/ntpq, /usr/sbin/ntpq)
 endif
 
-	#
-	# other files
-	#
-
+#	#
+#	# other files
+#	#
 	@$(call install_copy, ntp, 0, 0, 0755, /var/log/ntpstats/)
 	@$(call install_copy, ntp, 0, 0, 0755, /var/lib/ntp)
 

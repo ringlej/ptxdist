@@ -2,9 +2,6 @@
 
 menuconfig NTP
 	tristate
-	# FIXME:
-	# gcc     -o ntpdc-layout  ntpdc-layout.o  -lelf
-	# /usr/bin/ld: cannot find -lelf
 	prompt "ntp                           "
 	select OPENSSL if NTP_CRYPTO
 	help
