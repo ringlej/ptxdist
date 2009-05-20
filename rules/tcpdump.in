@@ -3,7 +3,7 @@ menuconfig TCPDUMP
 	tristate
 	prompt "tcpdump                       "
 	select LIBPCAP
-	select OPENSSL if TCPDUMP_DISABLE_CRYPTO
+	select OPENSSL if TCPDUMP_ENABLE_CRYPTO
 	help
 	  Tcpdump  prints out the headers of packets on a network interface
 	  that match the boolean expression.  It can also be run with
