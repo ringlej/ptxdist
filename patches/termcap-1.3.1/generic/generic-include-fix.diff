@@ -1,11 +1,17 @@
-#
-# with this patch the includes get installed into <prefix>/include
-# not just /usr/include
-#
-diff -ruN termcap-1.3.1-orig/Makefile.in termcap-1.3.1/Makefile.in
---- termcap-1.3.1-orig/Makefile.in	Thu Aug 17 02:54:29 1995
-+++ termcap-1.3.1/Makefile.in	Fri Nov 14 15:49:14 2003
-@@ -46,7 +46,7 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: add DESTDIR support
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ Makefile.in |   26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+Index: termcap-1.3.1/Makefile.in
+===================================================================
+--- termcap-1.3.1.orig/Makefile.in
++++ termcap-1.3.1/Makefile.in
+@@ -46,7 +46,7 @@ includedir = $(prefix)/include
  # so compilers besides gcc can find it by default.
  # If it is empty or not defined, termcap.h will only be installed in
  # includedir. 
@@ -14,3 +20,46 @@ diff -ruN termcap-1.3.1-orig/Makefile.in termcap-1.3.1/Makefile.in
  
  # Directory in which to install the documentation info files.
  infodir = $(prefix)/info
+@@ -72,30 +72,30 @@ all:	libtermcap.a info
+ 	$(CC) -c $(CPPFLAGS) $(DEFS) -I. -I$(srcdir) $(CFLAGS) $<
+ 
+ install: all installdirs @installdata@
+-	$(INSTALL_DATA) libtermcap.a $(libdir)/libtermcap.a
+-	-$(RANLIB) $(libdir)/libtermcap.a
+-	cd $(srcdir); $(INSTALL_DATA) termcap.h $(includedir)/termcap.h
++	$(INSTALL_DATA) libtermcap.a $(DESTDIR)$(libdir)/libtermcap.a
++	-$(RANLIB) $(DESTDIR)$(libdir)/libtermcap.a
++	cd $(srcdir); $(INSTALL_DATA) termcap.h $(DESTDIR)$(includedir)/termcap.h
+ 	-cd $(srcdir); test -z "$(oldincludedir)" || \
+-	  $(INSTALL_DATA) termcap.h $(oldincludedir)/termcap.h
++	  $(INSTALL_DATA) termcap.h $(DESTDIR)$(oldincludedir)/termcap.h
+ 	cd $(srcdir); for f in termcap.info*; \
+-	do $(INSTALL_DATA) $$f $(infodir)/$$f; done
++	do $(INSTALL_DATA) $$f $(DESTDIR)$(infodir)/$$f; done
+ 
+ uninstall: @uninstalldata@
+-	rm -f $(libdir)/libtermcap.a $(includedir)/termcap.h
+-	test -z "$(oldincludedir)" || rm -f $(oldincludedir)/termcap.h
+-	rm -f $(infodir)/termcap.info*
++	rm -f $(DESTDIR)$(libdir)/libtermcap.a $(DESTDIR)$(includedir)/termcap.h
++	test -z "$(oldincludedir)" || rm -f $(DESTDIR)$(oldincludedir)/termcap.h
++	rm -f $(DESTDIR)$(infodir)/termcap.info*
+ 
+ # These are separate targets to avoid trashing the user's existing
+ # termcap file unexpectedly.
+ install-data:
+-	$(INSTALL_DATA) ${srcdir}/termcap.src ${termcapfile}
++	$(INSTALL_DATA) ${srcdir}/termcap.src $(DESTDIR)${termcapfile}
+ 
+ uninstall-data:
+-	rm -f ${termcapfile}
++	rm -f $(DESTDIR)${termcapfile}
+ 
+ installdirs:
+-	$(SHELL) ${srcdir}/mkinstalldirs $(bindir) $(libdir) \
+-	$(includedir) $(infodir)
++	$(SHELL) ${srcdir}/mkinstalldirs $(DESTDIR)$(bindir) $(DESTDIR)$(libdir) \
++	$(DESTDIR)$(includedir) $(DESTDIR)$(infodir) $(DESTDIR)/etc
+ 
+ Makefile: Makefile.in config.status
+ 	$(SHELL) config.status
