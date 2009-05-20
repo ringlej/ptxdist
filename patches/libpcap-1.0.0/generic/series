@@ -1,1 +1,3 @@
 Makefile_in-add-flags.diff
+static-fix.diff
+link-force-overwrite.diff

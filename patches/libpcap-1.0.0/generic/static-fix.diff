@@ -1,0 +1,90 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: compile static lib without -fPIC
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile.in |   26 ++++++++++++++------------
+ 1 file changed, 14 insertions(+), 12 deletions(-)
+
+Index: libpcap-1.0.0/Makefile.in
+===================================================================
+--- libpcap-1.0.0.orig/Makefile.in
++++ libpcap-1.0.0/Makefile.in
+@@ -73,9 +73,13 @@ YACC = @V_YACC@
+ # Explicitly define compilation rule since SunOS 4's make doesn't like gcc.
+ # Also, gcc does not remove the .o before forking 'as', which can be a
+ # problem if you don't own the file but can write to the directory.
+-.c.o:
++%.o: %.c
+ 	@rm -f $@
+-	$(CC) $(CFLAGS) -c $(srcdir)/$*.c
++	$(CC) $(filter-out -fPIC,$(CFLAGS)) -c $(srcdir)/$*.c -o $@
++
++%.do: %.c
++	@rm -f $@
++	$(CC) $(CFLAGS) -c $(srcdir)/$*.c -o $@
+ 
+ PSRC =	pcap-@V_PCAP@.c @USB_SRC@ @BT_SRC@
+ FSRC =  fad-@V_FINDALLDEVS@.c
+@@ -90,6 +94,7 @@ SRC =	$(PSRC) $(FSRC) $(CSRC) $(SSRC) $(
+ # We would like to say "OBJ = $(SRC:.c=.o)" but Ultrix's make cannot
+ # hack the extra indirection
+ OBJ =	$(PSRC:.c=.o) $(FSRC:.c=.o) $(CSRC:.c=.o) $(SSRC:.c=.o) $(GENSRC:.c=.o) $(LIBOBJS)
++DOBJ =	$(PSRC:.c=.do) $(FSRC:.c=.do) $(CSRC:.c=.do) $(SSRC:.c=.do) $(GENSRC:.c=.do) $(LIBOBJS:.o=.do)
+ HDR = \
+ 	acconfig.h \
+ 	arcnet.h \
+@@ -122,7 +127,7 @@ TAGHDR = \
+ TAGFILES = \
+ 	$(SRC) $(HDR) $(TAGHDR)
+ 
+-CLEANFILES = $(OBJ) libpcap.a $(GENSRC) $(GENHDR) lex.yy.c
++CLEANFILES = $(OBJ) $(DOBJ) libpcap.a libpcap.$(DYEXT) $(GENSRC) $(GENHDR) lex.yy.c
+ 
+ MAN1 = pcap-config.1
+ 
+@@ -324,9 +329,9 @@ shared: libpcap.$(DYEXT)
+ # XXX - this works with GNU ld, but won't necessarily work with native
+ # ld on, for example, various SVR4-flavored platforms, or Digital UNIX.
+ #
+-libpcap.so: $(OBJ)
++libpcap.so: $(DOBJ)
+ 	@rm -f $@
+-	$(CC) $(LDFLAGS) -shared -Wl,-soname,$@.1 -o $@.`cat $(srcdir)/VERSION` $(OBJ) $(DAGLIBS)
++	$(CC) $(LDFLAGS) -shared -Wl,-soname,$@.1 -o $@.`cat $(srcdir)/VERSION` $(DOBJ) $(DAGLIBS)
+ 
+ #
+ # The following rule succeeds, but the result is untested.
+@@ -349,7 +354,6 @@ scanner.c: $(srcdir)/scanner.l
+ 	./runlex.sh $(LEX) -o$@ $<
+ 
+ scanner.o: scanner.c tokdefs.h
+-	$(CC) $(CFLAGS) -c scanner.c
+ 
+ pcap.o: version.h
+ 
+@@ -362,10 +366,11 @@ grammar.c: $(srcdir)/grammar.y
+ 
+ grammar.o: grammar.c
+ 	@rm -f $@
+-	$(CC) $(CFLAGS) -Dyylval=pcap_lval -c grammar.c
++	$(CC) $(filter-out -fPIC,$(CFLAGS)) -Dyylval=pcap_lval -c grammar.c -o $@
+ 
+-version.o: version.c
+-	$(CC) $(CFLAGS) -c version.c
++grammar.do: grammar.c
++	@rm -f $@
++	$(CC) $(CFLAGS) -Dyylval=pcap_lval -c grammar.c -o $@
+ 
+ snprintf.o: $(srcdir)/missing/snprintf.c
+ 	$(CC) $(CFLAGS) -o $@ -c $(srcdir)/missing/snprintf.c
+@@ -389,9 +394,6 @@ bpf_filter.c: $(srcdir)/bpf/net/bpf_filt
+ 	rm -f bpf_filter.c
+ 	ln -s $(srcdir)/bpf/net/bpf_filter.c bpf_filter.c
+ 
+-bpf_filter.o: bpf_filter.c
+-	$(CC) $(CFLAGS) -c bpf_filter.c
+-
+ #
+ # Generate the pcap-config script.
+ #

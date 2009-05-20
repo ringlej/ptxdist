@@ -1,15 +1,15 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: add CFLAGS and CPPFLAGS to Makefile.in
+Subject: add CFLAGS, CPPFLAGS and LDFLAGS to Makefile.in
 
 the build system is autoconf but not automake :(
-It doesn't care about CFLAGS or CPPFLAGS from outside.
+It doesn't care about CFLAGS, CPPFLAGS or LDFLAGS from outside.
 This patch adds them.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
- Makefile.in |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Makefile.in |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 Index: libpcap-1.0.0/Makefile.in
 ===================================================================
@@ -24,3 +24,12 @@ Index: libpcap-1.0.0/Makefile.in
  
  INSTALL = @INSTALL@
  INSTALL_PROGRAM = @INSTALL_PROGRAM@
+@@ -326,7 +326,7 @@ shared: libpcap.$(DYEXT)
+ #
+ libpcap.so: $(OBJ)
+ 	@rm -f $@
+-	$(CC) -shared -Wl,-soname,$@.1 -o $@.`cat $(srcdir)/VERSION` $(OBJ) $(DAGLIBS)
++	$(CC) $(LDFLAGS) -shared -Wl,-soname,$@.1 -o $@.`cat $(srcdir)/VERSION` $(OBJ) $(DAGLIBS)
+ 
+ #
+ # The following rule succeeds, but the result is untested.
