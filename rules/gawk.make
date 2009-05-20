@@ -61,7 +61,7 @@ $(STATEDIR)/gawk.targetinstall:
 	@$(call install_fixup, gawk,DESCRIPTION,missing)
 
 	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/gawk, /usr/bin/gawk)
-	@$(call install_link, gawk, /usr/bin/gawk, /usr/bin/awk)
+	@$(call install_link, gawk, gawk, /usr/bin/awk)
 
 ifdef PTXCONF_GAWK_PGAWK
 	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/pgawk, /usr/bin/pgawk)
