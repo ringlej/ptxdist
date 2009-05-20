@@ -75,7 +75,7 @@ $(STATEDIR)/opkg.targetinstall:
 	@$(call install_link, opkg, libopkg.so.0.0.0, /usr/lib/libopkg.so)
 
 #	# opkg tries to write to the OPKG_STATE_DIR_PREFIX, which is /usr/lib/opkg
-	@$(call install_link, opkg, /tmp, /usr/lib/opkg)
+	@$(call install_link, opkg, ../../tmp, /usr/lib/opkg)
 
 	@$(call install_finish, opkg)
 
