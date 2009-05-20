@@ -1,0 +1,28 @@
+---
+ scripts/libpng-config.in |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+Index: scripts/libpng-config.in
+===================================================================
+--- scripts/libpng-config.in.orig
++++ scripts/libpng-config.in
+@@ -15,8 +15,8 @@ libdir="@libdir@"
+ includedir="@includedir@/libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@"
+ libs="-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@"
+ all_libs="-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@ @LIBS@"
+-I_opts="-I${includedir}"
+-L_opts="-L${libdir}"
++I_opts="-I${SYSROOT}${includedir}"
++L_opts="-L${SYSROOT}${libdir}"
+ R_opts=""
+ cppflags=""
+ ccopts="@LIBPNG_NO_MMX@"
+@@ -56,7 +56,7 @@ while test $# -gt 0; do
+     case "$1" in
+ 
+     --prefix)
+-        echo ${prefix}
++        echo ${SYSROOT}${prefix}
+         ;;
+ 
+     --version)
