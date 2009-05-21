@@ -74,7 +74,7 @@ config APACHE2_INSTALL_CONFIG
 			prompt "User defined"
 			help
 			  This uses a user defined httpd.conf file.
-			  PTXdist uses file projectroot/httpd.conf in your
+			  PTXdist uses file projectroot/etc/apache2/httpd.conf in your
 			  local project
 	endchoice
 

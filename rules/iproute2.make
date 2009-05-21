@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_IPROUTE2) += iproute2
 #
 # Paths and names
 #
-IPROUTE2_VERSION	:= 2.6.23
+IPROUTE2_VERSION	:= 2.6.29-1
 IPROUTE2		:= iproute2-$(IPROUTE2_VERSION)
 IPROUTE2_SUFFIX		:= tar.bz2
 IPROUTE2_URL		:= http://developer.osdl.org/dev/iproute2/download/$(IPROUTE2).$(IPROUTE2_SUFFIX)
@@ -111,32 +111,20 @@ $(STATEDIR)/iproute2.targetinstall: $(iproute2_targetinstall_deps_default)
 	@$(call install_fixup,iproute2,DEPENDS,)
 	@$(call install_fixup,iproute2,DESCRIPTION,missing)
 
+ifdef PTXCONF_IPROUTE2_IP
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/ip/ip, \
 		/sbin/ip )
+endif
+ifdef PTXCONF_IPROUTE2_RTMON
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/ip/rtmon, \
 		/sbin/rtmon)
+endif
+ifdef PTXCONF_IPROUTE2_TC
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/tc/tc, \
 		/sbin/tc)
-
-	@$(call install_copy, iproute2, 0, 0, 0755, \
-		$(IPROUTE2_DIR)/misc/arpd, \
-		/usr/sbin/arpd )
-	@$(call install_copy, iproute2, 0, 0, 0755, \
-		$(IPROUTE2_DIR)/misc/lnstat, \
-		/usr/sbin/lnstat )
-	@$(call install_copy, iproute2, 0, 0, 0755, \
-		$(IPROUTE2_DIR)/misc/nstat, \
-		/usr/sbin/nstat )
-	@$(call install_copy, iproute2, 0, 0, 0755, \
-		$(IPROUTE2_DIR)/misc/rtacct, \
-		/usr/sbin/rtacct )
-	@$(call install_copy, iproute2, 0, 0, 0755, \
-		$(IPROUTE2_DIR)/misc/ss, \
-		/usr/sbin/ss )
-
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/normal.dist, \
 		/usr/lib/tc/normal.dist,n)
@@ -148,6 +136,32 @@ $(STATEDIR)/iproute2.targetinstall: $(iproute2_targetinstall_deps_default)
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/paretonormal.dist, \
 		/usr/lib/tc/paretonormal.dist,n)
+endif
+ifdef PTXCONF_IPROUTE2_ARPD
+	@$(call install_copy, iproute2, 0, 0, 0755, \
+		$(IPROUTE2_DIR)/misc/arpd, \
+		/usr/sbin/arpd )
+endif
+ifdef PTXCONF_IPROUTE2_LNSTAT
+	@$(call install_copy, iproute2, 0, 0, 0755, \
+		$(IPROUTE2_DIR)/misc/lnstat, \
+		/usr/sbin/lnstat )
+endif
+ifdef PTXCONF_IPROUTE2_NSTAT
+	@$(call install_copy, iproute2, 0, 0, 0755, \
+		$(IPROUTE2_DIR)/misc/nstat, \
+		/usr/sbin/nstat )
+endif
+ifdef PTXCONF_IPROUTE2_RTACCT
+	@$(call install_copy, iproute2, 0, 0, 0755, \
+		$(IPROUTE2_DIR)/misc/rtacct, \
+		/usr/sbin/rtacct )
+endif
+ifdef PTXCONF_IPROUTE2_SS
+	@$(call install_copy, iproute2, 0, 0, 0755, \
+		$(IPROUTE2_DIR)/misc/ss, \
+		/usr/sbin/ss )
+endif
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/ematch_map, \

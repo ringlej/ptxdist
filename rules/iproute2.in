@@ -1,17 +1,50 @@
 ## SECTION=networking
 
-config IPROUTE2
+menuconfig IPROUTE2
 	tristate
 	prompt "iproute2"
-	select DB
+	select DB if IPROUTE2_ARPD
 	select LIBC_DL
 	select LIBC_M
 	select LIBC_RESOLV
-	# arpd.c:(.text+0x1428): undefined reference to `__db185_open'
-#	depends on BROKEN
 	help
-	  Iproute2 is a collection of utilities for
-	  controlling TCP/IP networking and traffic
-	  control in Linux.
+	  Iproute2 is a collection of utilities for controlling TCP/IP networking
+	  apnd traffic control in Linux.
 
+if IPROUTE2
+
+config IPROUTE2_IP
+	bool
+	prompt "ip"
+
+config IPROUTE2_RTMON
+	bool
+	prompt "rtmon"
+
+config IPROUTE2_TC
+	bool
+	prompt "tc"
+
+config IPROUTE2_ARPD
+	bool
+	select DB_44
+	prompt "arpd"
+
+config IPROUTE2_LNSTAT
+	bool
+	prompt "lnstat"
+
+config IPROUTE2_NSTAT
+	bool
+	prompt "nstat"
+
+config IPROUTE2_RTACCT
+	bool
+	prompt "rtacct"
+
+config IPROUTE2_SS
+	bool
+	prompt "ss"
+
+endif
 
