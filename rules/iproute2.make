@@ -94,8 +94,7 @@ ifdef PTXCONF_IPROUTE2_TC
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/normal.dist, \
 		/usr/lib/tc/normal.dist,n)
-endif
-ifdef PTXCONF_IPROUTE2_ARPD
+
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/pareto.dist, \
 		/usr/lib/tc/pareto.dist,n)
