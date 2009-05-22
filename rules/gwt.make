@@ -67,14 +67,12 @@ $(STATEDIR)/gwt.targetinstall:
 	@$(call install_fixup, gwt,DEPENDS,)
 	@$(call install_fixup, gwt,DESCRIPTION,missing)
 
-	@$(call install_copy, gwt, 0, 0, 0644, -,\
-		 /usr/lib/libgwt.so.1.0.0)
+	@$(call install_copy, gwt, 0, 0, 0644, -, /usr/lib/libgwt.so.1.0.0)
 	@$(call install_link, gwt, libgwt.so.1.0.0, /usr/lib/libgwt.so.1)
 	@$(call install_link, gwt, libgwt.so.1.0.0, /usr/lib/libgwt.so)
 
 ifdef PTXCONF_GWT_GWTMM
-	@$(call install_copy, gwt, 0, 0, 0644, , \
-		/usr/lib/libgwtmm.so.1.0.0)
+	@$(call install_copy, gwt, 0, 0, 0644, -, /usr/lib/libgwtmm.so.1.0.0)
 	@$(call install_link, gwt, libgwtmm.so.1.0.0, /usr/lib/libgwtmm.so.1)
 	@$(call install_link, gwt, libgwtmm.so.1.0.0, /usr/lib/libgwtmm.so)
 endif
