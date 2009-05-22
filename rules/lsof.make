@@ -38,7 +38,11 @@ $(LSOF_SOURCE):
 # ----------------------------------------------------------------------------
 
 LSOF_PATH	:= PATH=$(CROSS_PATH)
-LSOF_ENV 	:= $(CROSS_ENV)
+
+LSOF_ENV 	:= \
+	$(CROSS_ENV) \
+	LINUX_HASSELINUX=N
+
 LSOF_MAKEVARS	:= \
 	$(CROSS_ENV_CC) \
 	DEBUG=-O2
