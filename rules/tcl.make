@@ -125,9 +125,10 @@ $(STATEDIR)/tcl.targetinstall:
 
 	@$(call install_copy, tcl, 0, 0, 0755, -, \
 		/usr/bin/tclsh$(TCL_MAJOR).$(TCL_MINOR))
-# a simplified link is very useful
+
+	# a simplified link is very useful
 	@$(call install_link, tcl, \
-		/usr/bin/tclsh$(TCL_MAJOR).$(TCL_MINOR), /usr/bin/tclsh)
+		tclsh$(TCL_MAJOR).$(TCL_MINOR), /usr/bin/tclsh)
 
 	@$(call install_copy, tcl, 0, 0, 0644, -, /usr/lib/libtcl8.5.so)
 
