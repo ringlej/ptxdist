@@ -46,8 +46,15 @@ $(STATEDIR)/portmap.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-PORTMAP_ENV		= $(CROSS_ENV)
-PORTMAP_PATH		= PATH=$(CROSS_PATH)
+PORTMAP_ENV		:= $(CROSS_ENV)
+PORTMAP_PATH		:= PATH=$(CROSS_PATH)
+PORTMAP_MAKEVARS	:= CC=$(CROSS_CC)
+
+$(STATEDIR)/portmap.compile:
+	@$(call targetinfo)
+	cd $(PORTMAP_DIR) &&                                            \
+		$(PORTMAP_ENV) $(PORTMAP_PATH) make $(PORTMAP_MAKEVARS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
