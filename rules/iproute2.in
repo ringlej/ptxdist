@@ -1,8 +1,7 @@
 ## SECTION=networking
-
 menuconfig IPROUTE2
 	tristate
-	prompt "iproute2"
+	prompt "iproute2                      "
 	select DB if IPROUTE2_ARPD
 	select LIBC_DL
 	select LIBC_M
@@ -27,8 +26,10 @@ config IPROUTE2_TC
 
 config IPROUTE2_ARPD
 	bool
-	select DB_44
 	prompt "arpd"
+	help
+	  Enabling this extry will enlarge your system by the berkely
+	  DB4.x library.
 
 config IPROUTE2_LNSTAT
 	bool
@@ -47,4 +48,3 @@ config IPROUTE2_SS
 	prompt "ss"
 
 endif
-

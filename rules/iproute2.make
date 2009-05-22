@@ -2,6 +2,7 @@
 # $Id: template 5616 2006-06-02 13:50:47Z rsc $
 #
 # Copyright (C) 2006 by Erwin Rol
+# Copyright (C) 2009 by Robert Schwebel/Juergen Beisert
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,68 +29,35 @@ IPROUTE2_DIR		:= $(BUILDDIR)/$(IPROUTE2)
 # Get
 # ----------------------------------------------------------------------------
 
-iproute2_get: $(STATEDIR)/iproute2.get
-
-$(STATEDIR)/iproute2.get: $(iproute2_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(IPROUTE2_SOURCE):
 	@$(call targetinfo, $@)
 	@$(call get, IPROUTE2)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-iproute2_extract: $(STATEDIR)/iproute2.extract
-
-$(STATEDIR)/iproute2.extract: $(iproute2_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(IPROUTE2_DIR))
-	@$(call extract, IPROUTE2)
-	@$(call patchin, IPROUTE2)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-iproute2_prepare: $(STATEDIR)/iproute2.prepare
-
 IPROUTE2_PATH	:=  PATH=$(CROSS_PATH)
 IPROUTE2_ENV 	:=  $(CROSS_ENV)
-IPROUTE2_MAKEVARS = $(call remove_quotes, $(CROSS_ENV_CC) CFLAGS='$(CROSS_CPPFLAGS) -D_GNU_SOURCE -O2 -Wstrict-prototypes -Wall -I../include -DRESOLVE_HOSTNAMES' LDFLAGS='$(CROSS_LDFLAGS) -L../lib -lnetlink -lutil' DBM_INCLUDE=$(SYSROOT)/usr/include)
+IPROUTE2_MAKEVARS = \
+	CC=$(PTXCONF_GNU_TARGET)-gcc \
+	CROSS_CPPFLAGS='$(CROSS_CPPFLAGS) ' \
+	LDFLAGS='$(CROSS_LDFLAGS)' \
+	DBM_INCLUDE=$(SYSROOT)/usr/include
 
-#
-# autoconf
-#
-IPROUTE2_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/iproute2.prepare: $(iproute2_prepare_deps_default)
+$(STATEDIR)/iproute2.prepare:
 	@$(call targetinfo, $@)
-	@$(call clean, $(IPROUTE2_DIR)/config.cache)
-	touch $(IPROUTE2_DIR)/Config
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-iproute2_compile: $(STATEDIR)/iproute2.compile
-
-$(STATEDIR)/iproute2.compile: $(iproute2_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(IPROUTE2_DIR) && $(IPROUTE2_PATH) make $(IPROUTE2_MAKEVARS)
+	@touch $(IPROUTE2_DIR)/Config
+ifdef PTXCONF_IPROUTE2_ARPD
+	@echo BUILD_ARPD=y >> $(IPROUTE2_DIR)/Config
+endif
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-iproute2_install: $(STATEDIR)/iproute2.install
-
-$(STATEDIR)/iproute2.install: $(iproute2_install_deps_default)
+$(STATEDIR)/iproute2.install:
 	@$(call targetinfo, $@)
 	@$(call touch, $@)
 
@@ -97,9 +65,7 @@ $(STATEDIR)/iproute2.install: $(iproute2_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-iproute2_targetinstall: $(STATEDIR)/iproute2.targetinstall
-
-$(STATEDIR)/iproute2.targetinstall: $(iproute2_targetinstall_deps_default)
+$(STATEDIR)/iproute2.targetinstall:
 	@$(call targetinfo, $@)
 
 	@$(call install_init, iproute2)
@@ -107,7 +73,7 @@ $(STATEDIR)/iproute2.targetinstall: $(iproute2_targetinstall_deps_default)
 	@$(call install_fixup,iproute2,PRIORITY,optional)
 	@$(call install_fixup,iproute2,VERSION,$(IPROUTE2_VERSION))
 	@$(call install_fixup,iproute2,SECTION,base)
-	@$(call install_fixup,iproute2,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,iproute2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,iproute2,DEPENDS,)
 	@$(call install_fixup,iproute2,DESCRIPTION,missing)
 
@@ -128,7 +94,8 @@ ifdef PTXCONF_IPROUTE2_TC
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/normal.dist, \
 		/usr/lib/tc/normal.dist,n)
-
+endif
+ifdef PTXCONF_IPROUTE2_ARPD
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/pareto.dist, \
 		/usr/lib/tc/pareto.dist,n)
