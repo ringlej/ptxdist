@@ -4,6 +4,7 @@
 
 config LTP_BASE
 	tristate
+	depends on BROKEN
 	select LIBC_M
 	select LIBC_PTHREAD
 	default y if LTP
