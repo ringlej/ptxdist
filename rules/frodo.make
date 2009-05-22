@@ -95,7 +95,7 @@ $(STATEDIR)/frodo.targetinstall:
 	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/Kernal ROM, /home/Kernal ROM, n)
 
 	@$(call install_alternative, frodo, 0, 0, 0644, /etc/frodorc, n)
-	@$(call install_link, frodo, /etc/frodorc, /home/.frodorc)
+	@$(call install_link, frodo, ../etc/frodorc, /home/.frodorc)
 
 	@$(call install_finish, frodo)
 
