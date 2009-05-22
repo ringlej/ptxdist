@@ -69,6 +69,14 @@ ifdef PTXCONF_SAMBA_SMBFS
 SAMBA_AUTOCONF += --with-smbmount
 endif
 
+$(STATEDIR)/samba.prepare:
+	@$(call targetinfo)
+	@$(call clean, $(SAMBA_DIR)/config.cache)
+	cd $(SAMBA_DIR)/source && \
+		$(SAMBA_PATH) $(SAMBA_ENV) \
+		./configure $(SAMBA_AUTOCONF)
+	@$(call touch, $@)
+
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
