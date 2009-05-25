@@ -2,6 +2,7 @@
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -58,13 +59,12 @@ $(STATEDIR)/argtable2.targetinstall:
 	@$(call install_fixup, argtable2,PRIORITY,optional)
 	@$(call install_fixup, argtable2,VERSION,$(ARGTABLE2_VERSION))
 	@$(call install_fixup, argtable2,SECTION,base)
-	@$(call install_fixup, argtable2,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, argtable2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, argtable2,DEPENDS,)
 	@$(call install_fixup, argtable2,DESCRIPTION,missing)
 
-	@$(call install_copy, argtable2, 0, 0, 0644, \
-		$(ARGTABLE2_DIR)/src/.libs/libargtable2.so.0.1.4, \
-		/usr/lib/libargtable2.so.0.1.2)
+	@$(call install_copy, argtable2, 0, 0, 0644, -, \
+		/usr/lib/libargtable2.so.0.1.4)
 	@$(call install_link, argtable2, libargtable2.so.0.1.4, /usr/lib/libargtable2.so.0)
 	@$(call install_link, argtable2, libargtable2.so.0.1.4, /usr/lib/libargtable2.so)
 
