@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_ARGTABLE2) += argtable2
 #
 # Paths and names
 #
-ARGTABLE2_VERSION	:= 9
+ARGTABLE2_VERSION	:= 11
 ARGTABLE2		:= argtable2-$(ARGTABLE2_VERSION)
 ARGTABLE2_SUFFIX	:= tar.gz
 ARGTABLE2_URL		:= $(PTXCONF_SETUP_SFMIRROR)/argtable/$(ARGTABLE2).$(ARGTABLE2_SUFFIX)
@@ -64,9 +64,9 @@ $(STATEDIR)/argtable2.targetinstall:
 	@$(call install_fixup, argtable2,DESCRIPTION,missing)
 
 	@$(call install_copy, argtable2, 0, 0, 0644, -, \
-		/usr/lib/libargtable2.so.0.1.4)
-	@$(call install_link, argtable2, libargtable2.so.0.1.4, /usr/lib/libargtable2.so.0)
-	@$(call install_link, argtable2, libargtable2.so.0.1.4, /usr/lib/libargtable2.so)
+		/usr/lib/libargtable2.so.0.1.6)
+	@$(call install_link, argtable2, libargtable2.so.0.1.6, /usr/lib/libargtable2.so.0)
+	@$(call install_link, argtable2, libargtable2.so.0.1.6, /usr/lib/libargtable2.so)
 
 	@$(call install_finish, argtable2)
 
