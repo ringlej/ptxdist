@@ -6,6 +6,8 @@ menuconfig LIGHTTPD
 	select BZIP2		if LIGHTTPD__BZ2LIB
 	select BZIP2__LIBBZ2	if LIGHTTPD__BZ2LIB
 	select LIBPCRE		if LIGHTTPD__PCRE
+	select OPENSSL		if LIGHTTPD__OPENSSL
+	select OPENSSL_SHARED	if LIGHTTPD__OPENSSL
 	help
 	  Security, speed, compliance, and flexibility -- all of
 	  these describe lighttpd (pron. lighty) which is rapidly
@@ -62,7 +64,7 @@ config LIGHTTPD__ATTR
 
 config LIGHTTPD__OPENSSL
 	bool
-#	prompt "openssl support"
+	prompt "openssl support"
 	help
 	  Include openssl support.
 
@@ -75,7 +77,7 @@ config LIGHTTPD__KERBEROS
 
 config LIGHTTPD__PCRE
 	bool
-	select LIBPCRE 
+	select LIBPCRE
 	prompt "pcre support"
 	help
 	  Enable pcre support.
