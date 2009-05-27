@@ -1116,7 +1116,7 @@ parse_first()
 	unset PTX_MAKE_ARGS
 	unset PTX_DEBUG
 	unset PTX_FORCE
-	unset PTX_FORCE_DOWNLOAD
+	unset PTXDIST_FORCE_DOWNLOAD
 	unset PTX_SLEDGEHAMMER
 
 	set -- "${PTXDIST_ARGS_FULL[@]}"
