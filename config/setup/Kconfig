@@ -73,12 +73,12 @@ endmenu
 
 menu "Mirrors           "
 
-config PTXMIRROR_ONLY
+config SETUP_PTXMIRROR_ONLY
 	bool
-	default n
 	prompt "Only use PTXdist Mirror to download packages"
 	help
-	  Set this to y if you only want to download packages from PTXCONF_SETUP_PTXMIRROR
+	  Set this to y if you only want to download packages from
+	  PTXCONF_SETUP_PTXMIRROR
 
 config SETUP_PTXMIRROR
 	string
@@ -87,7 +87,7 @@ config SETUP_PTXMIRROR
 	help
 	  Enter the fallback mirror for all packages here.
 
-if !PTXMIRROR_ONLY
+if !SETUP_PTXMIRROR_ONLY
 
 ########################################################################
 # WARNING!                                                             #
@@ -127,7 +127,7 @@ config SETUP_XORGMIRROR
 	help
 	  For all x.org related packages enter an available mirror here.
 
-endif
+endif	# !SETUP_PTXMIRROR_ONLY
 
 endmenu
 
