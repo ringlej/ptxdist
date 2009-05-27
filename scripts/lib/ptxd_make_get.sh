@@ -61,6 +61,28 @@ ptxd_make_get_http() {
 export -f ptxd_make_get_http
 
 
+#
+# check if download is disabled
+#
+# in env:
+#
+# ${url}	: the url to download
+#
+ptxd_make_get_downlaod_permitted() {
+	if [ -n "${PTXCONF_SETUP_NO_DOWNLOAD}" -a -z "${PTXDIST_FORCE_DOWNLOAD}" ]; then
+		cat >&2 <<EOF
+
+error: automatically download prohibited
+
+Please download '${url}'
+manually into '${PTXDIST_SRCDIR}'
+
+EOF
+		exit 1
+	fi
+}
+export -f ptxd_make_get_downlaod_permitted
+
 
 #
 # $@: possible download URLs, seperated by space
@@ -143,6 +165,7 @@ ptxd_make_get() {
 
 		case "${url}" in
 		http://*|https://|ftp://*)
+			ptxd_make_get_downlaod_permitted &&
 			ptxd_make_get_http && return
 			;;
 		file*)

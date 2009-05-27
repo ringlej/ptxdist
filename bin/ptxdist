@@ -785,6 +785,7 @@ Overwrite defaults:
   --collectionconfig=<config>	use specified collectionconfig
   --toolchain=<toolchain>	use specified toolchain
   --force			select config even if MOJO is missing
+  --force-download		allow downloading, even if disabled by setup
 
 Options:
 
@@ -1115,6 +1116,7 @@ parse_first()
 	unset PTX_MAKE_ARGS
 	unset PTX_DEBUG
 	unset PTX_FORCE
+	unset PTX_FORCE_DOWNLOAD
 	unset PTX_SLEDGEHAMMER
 
 	set -- "${PTXDIST_ARGS_FULL[@]}"
@@ -1132,6 +1134,9 @@ parse_first()
 			;;
 		-f|--force)
 			PTX_FORCE=true
+			;;
+		--force-download)
+			PTXDIST_FORCE_DOWNLOAD=true
 			;;
 		--sledgehammer)
 			PTX_SLEDGEHAMMER=true
@@ -2123,7 +2128,8 @@ setup_export() {
 		\
 		PTXDIST_PARALLELMFLAGS_INTERN \
 		\
-		PTXDIST_QUIET
+		PTXDIST_QUIET \
+		PTXDIST_FORCE_DOWNLOAD
 }
 
 

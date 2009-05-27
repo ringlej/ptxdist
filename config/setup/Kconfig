@@ -5,6 +5,11 @@
 
 mainmenu "Setup"
 
+config INVISIBLE
+	bool
+	help
+	  don't delete this, it's to keep some menus in shape :)
+
 comment "PTXDIST Setup Menu"
 
 menu "Proxies           "
@@ -71,7 +76,20 @@ config SETUP_KERNELDIR_PREFIX
 
 endmenu
 
-menu "Mirrors           "
+menu "Source Download   "
+
+config SETUP_NO_DOWNLOAD
+	bool "Do not download sources automatically"
+	help
+	  Set this to y to disable automatic download at all.
+
+	  Note: this can be overwritten by adding the option
+	  "--force-download" to the ptxdist call.
+
+comment ""
+	depends on INVISIBLE
+
+if !SETUP_NO_DOWNLOAD
 
 config SETUP_PTXMIRROR_ONLY
 	bool
@@ -128,6 +146,7 @@ config SETUP_XORGMIRROR
 	  For all x.org related packages enter an available mirror here.
 
 endif	# !SETUP_PTXMIRROR_ONLY
+endif	# !SETUP_NO_DOWNLOAD
 
 endmenu
 
