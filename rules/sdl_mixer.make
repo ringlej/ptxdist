@@ -2,6 +2,7 @@
 # $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
 # Copyright (C) 2008 by Marek Moeckel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -42,7 +43,8 @@ SDL_MIXER_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-SDL_MIXER_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+SDL_MIXER_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--with-sdl-prefix=$(SYSROOT)/usr \
 	--disable-music-mp3
 
@@ -58,12 +60,11 @@ $(STATEDIR)/sdl_mixer.targetinstall:
 	@$(call install_fixup, sdl_mixer,PRIORITY,optional)
 	@$(call install_fixup, sdl_mixer,VERSION,$(SDL_MIXER_VERSION))
 	@$(call install_fixup, sdl_mixer,SECTION,base)
-	@$(call install_fixup, sdl_mixer,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, sdl_mixer,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, sdl_mixer,DEPENDS,)
 	@$(call install_fixup, sdl_mixer,DESCRIPTION,missing)
 
-	@$(call install_copy, sdl_mixer, 0, 0, 0644, \
-		$(SDL_MIXER_DIR)/build/.libs/libSDL_mixer-1.2.so.0.2.6, \
+	@$(call install_copy, sdl_mixer, 0, 0, 0644, -, \
 		/usr/lib/libSDL_mixer-1.2.so.0.2.6)
 
 	@$(call install_link, sdl_mixer, libSDL_mixer-1.2.so.0.2.6, /usr/lib/libSDL_mixer-1.2.so.0)
