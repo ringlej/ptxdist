@@ -42,4 +42,15 @@ define ptx/endis
 $(call ptx/ifdef, $(1), enable, disable)
 endef
 
+#
+# $(call ptx/wwo, PTXCONF_SYMBOL) returns "with" or "without"
+# depending on the symbol is defined or not
+#
+# $(call ptx/wwo, PTXCONF_SYMBOL)
+#                     $1
+#
+define ptx/wwo
+$(call ptx/ifdef, $(1), with, without)
+endef
+
 # vim: syntax=make
