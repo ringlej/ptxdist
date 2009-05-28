@@ -10,16 +10,16 @@ menuconfig LIBIODBC
 	 industry standard for developing solutions that are language,
 	 platform and database independent.
 
+if LIBIODBC
+
 config LIBIODBC_GUI
 	bool
-	depends on LIBIODBC
 	prompt "gui"
 	help
 	 build GUI applications
 
 choice
 	prompt "driver manager version"
-	depends on LIBIODBC
 	help
 	  Specify which driver manager version we should be compatible with.
 
@@ -35,3 +35,4 @@ choice
 
 endchoice
 
+endif

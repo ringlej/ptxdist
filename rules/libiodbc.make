@@ -28,20 +28,9 @@ LIBIODBC_DIR		:= $(BUILDDIR)/$(LIBIODBC)
 # Get
 # ----------------------------------------------------------------------------
 
-#$(LIBIODBC_SOURCE):
-#	@$(call targetinfo)
-#	@$(call get, LIBIODBC)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/libiodbc.extract:
-#	@$(call targetinfo)
-#	@$(call clean, $(LIBIODBC_DIR))
-#	@$(call extract, LIBIODBC)
-#	@$(call patchin, LIBIODBC)
-#	@$(call touch)
+$(LIBIODBC_SOURCE):
+	@$(call targetinfo)
+	@$(call get, LIBIODBC)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -70,24 +59,6 @@ LIBIODBC_AUTOCONF += --enable-odbc3
 else
 LIBIODBC_AUTOCONF += --disable-odbc3
 endif
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/libiodbc.compile:
-#	@$(call targetinfo)
-#	cd $(LIBIODBC_DIR) && $(LIBIODBC_PATH) $(MAKE) $(PARALLELMFLAGS)
-#	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/libiodbc.install:
-#	@$(call targetinfo)
-#	@$(call install, LIBIODBC)
-#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
