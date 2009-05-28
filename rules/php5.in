@@ -52,8 +52,6 @@ config PHP5_SAPI_APXS2FILTER
 
 config PHP5_SAPI_APXS2
 	bool
-	# with apache support, 'make install' breaks
-	depends on BROKEN
 	prompt "apache mod_php (apxs2)"
 	help
 	  Build shared Apache 2.0 Handler module.

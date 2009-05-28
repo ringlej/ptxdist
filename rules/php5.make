@@ -273,6 +273,9 @@ endif
 
 $(STATEDIR)/php5.install:
 	@$(call targetinfo)
+ifdef PTXCONF_PHP5_SAPI_APXS2
+	cp "$(SYSROOT)/etc/httpd.conf" "$(PHP5_PKGDIR)/etc"
+endif
 	cd $(PHP5_DIR) && \
 		$(PHP5_PATH) \
 		make install \
