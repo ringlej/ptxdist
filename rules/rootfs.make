@@ -2,6 +2,8 @@
 # $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -73,10 +75,9 @@ $(STATEDIR)/rootfs.targetinstall:
 	@$(call install_fixup, rootfs,DEPENDS,)
 	@$(call install_fixup, rootfs,DESCRIPTION,missing)
 
-	#
-	# install directories in rootfs
-	#
-
+#	#
+#	# install directories in rootfs
+#	#
 ifdef PTXCONF_ROOTFS_DEV
 	@$(call install_copy, rootfs, 0, 0, 0755, /dev)
 endif
@@ -151,51 +152,50 @@ ifdef PTXCONF_ROOTFS_VAR_LIB
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/lib)
 endif
 
-	#
-	# install files in rootfs
-	#
-
+#	#
+#	# install files in rootfs
+#	#
 ifdef PTXCONF_ROOTFS_PASSWD
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/passwd, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/passwd)
 endif
 ifdef PTXCONF_ROOTFS_SHADOW
 	@$(call install_alternative, rootfs, 0, 0, 0640, /etc/shadow, n)
 	@$(call install_alternative, rootfs, 0, 0, 0600, /etc/shadow-, n)
 endif
 ifdef PTXCONF_ROOTFS_GROUP
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/group, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/group)
 endif
 ifdef PTXCONF_ROOTFS_GSHADOW
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/gshadow, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/gshadow)
 endif
 ifdef PTXCONF_ROOTFS_FSTAB
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/fstab, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/fstab)
 endif
 ifdef PTXCONF_ROOTFS_MTAB
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/mtab, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/mtab)
 endif
 ifdef PTXCONF_ROOTFS_HOSTNAME
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/hostname, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/hostname)
 	@$(call install_replace, rootfs, /etc/hostname, \
 		@HOSTNAME@, \
 		$(call remove_quotes,$(PTXCONF_ROOTFS_ETC_HOSTNAME)))
 endif
 ifdef PTXCONF_ROOTFS_HOSTS
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/hosts, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/hosts)
 endif
 ifdef PTXCONF_ROOTFS_NSSWITCH_CONF
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/nsswitch.conf, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/nsswitch.conf)
 endif
 ifdef PTXCONF_ROOTFS_PROFILE
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/profile, n)
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/profile.environment, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/profile)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/profile.environment)
 endif
 ifdef PTXCONF_ROOTFS_PROTOCOLS
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/protocols, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/protocols)
 endif
 ifdef PTXCONF_ROOTFS_RESOLV
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/resolv.conf, n)
-	# replace either by PTXCONF_BOARDSETUP_GATEWAY or nothing if not defined
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/resolv.conf)
+#	# replace either by PTXCONF_BOARDSETUP_GATEWAY or nothing if not defined
 ifneq ($(PTXCONF_BOARDSETUP_GATEWAY),)
 	@$(call install_replace, rootfs, /etc/resolv.conf, \
 		@NAMESERVER_LINE@, \
@@ -205,7 +205,7 @@ else
 endif
 endif
 ifdef PTXCONF_ROOTFS_SERVICES
-	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/services, n)
+	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/services)
 endif
 
 	@$(call install_finish, rootfs)
