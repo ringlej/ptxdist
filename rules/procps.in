@@ -60,6 +60,11 @@ config PROCPS_W
 config PROCPS_PGREP
 	bool
 	prompt "pgrep"
+	depends on !BUSYBOX_PS || ALLYES
 	help
 	  look up processes based on name and other attributes
+
+comment "pgrep is disabled by busybox pgrep"
+	depends on BUSYBOX_PGREP
+
 endif
