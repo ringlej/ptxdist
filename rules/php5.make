@@ -2,6 +2,7 @@
 # $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006-2008 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -20,43 +21,25 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 PHP5_VERSION	:= 5.2.4
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
-PHP5_URL	:= http://museum.php.net/php5/$(PHP5).$(PHP5_SUFFIX)
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
 PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
 PHP5_PKGDIR	:= $(PKGDIR)/$(PHP5)
+
+PHP5_URL	:= \
+	http://de.php.net/distributions/$(PHP5).$(PHP5_SUFFIX) \
+	http://museum.php.net/php5/$(PHP5).$(PHP5_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-php5_get: $(STATEDIR)/php5.get
-
-$(STATEDIR)/php5.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(PHP5_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, PHP5)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-php5_extract: $(STATEDIR)/php5.extract
-
-$(STATEDIR)/php5.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(PHP5_DIR))
-	@$(call extract, PHP5)
-	@$(call patchin, PHP5)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-php5_prepare: $(STATEDIR)/php5.prepare
 
 PHP5_PATH	:= PATH=$(CROSS_PATH)
 PHP5_ENV 	:= $(CROSS_ENV)
@@ -84,10 +67,6 @@ else
 PHP5_AUTOCONF += --without-aolserver
 endif
 
-# default off, we don't support apache1 any more
-# PHP5_AUTOCONF += --without-apxs
-# PHP5_AUTOCONF += --without-apache
-
 ifdef PTXCONF_PHP5_SAPI_MOD_CHARSET
 PHP5_AUTOCONF += --with-mod_charset
 else
@@ -105,10 +84,6 @@ PHP5_AUTOCONF += --with-apxs2=$(SYSROOT)/usr/bin/apxs
 else
 # PHP5_AUTOCONF += --without-apxs2
 endif
-
-# default off, we don't support apache1 any more
-# PHP5_AUTOCONF += --without-apache-hooks
-# PHP5_AUTOCONF += --without-apache-hooks-static
 
 ifdef PTXCONF_PHP5_SAPI_CAUDIUM
 PHP5_AUTOCONF += --with-caudium
@@ -292,33 +267,12 @@ else
 PHP5_AUTOCONF += --without-pear
 endif
 
-$(STATEDIR)/php5.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(PHP5_DIR)/config.cache)
-	cd $(PHP5_DIR) && \
-		$(PHP5_PATH) $(PHP5_ENV) \
-		./configure $(PHP5_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-php5_compile: $(STATEDIR)/php5.compile
-
-$(STATEDIR)/php5.compile:
-	@$(call targetinfo, $@)
-	cd $(PHP5_DIR) && $(PHP5_PATH) $(MAKE) CC=$(CROSS_CC) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-php5_install: $(STATEDIR)/php5.install
-
 $(STATEDIR)/php5.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(PHP5_DIR) && \
 		$(PHP5_PATH) \
 		make install \
@@ -329,23 +283,21 @@ $(STATEDIR)/php5.install:
 		INSTALL_ROOT=$(PHP5_PKGDIR)
 	install -m 755 -D $(PHP5_DIR)/scripts/php-config $(SYSROOT)/bin/php-config
 	install -m 755 -D $(PHP5_DIR)/scripts/phpize $(SYSROOT)/bin/phpize
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-php5_targetinstall: $(STATEDIR)/php5.targetinstall
-
 $(STATEDIR)/php5.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, php5)
 	@$(call install_fixup,php5,PACKAGE,php5)
 	@$(call install_fixup,php5,PRIORITY,optional)
 	@$(call install_fixup,php5,VERSION,$(PHP5_VERSION))
 	@$(call install_fixup,php5,SECTION,base)
-	@$(call install_fixup,php5,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,php5,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,php5,DEPENDS,)
 	@$(call install_fixup,php5,DESCRIPTION,missing)
 
@@ -363,18 +315,18 @@ endif
 
 ifdef PTXCONF_ROOTFS_GENERIC_PHP5_INI
 	@$(call install_copy, php5, 0, 0, 0644, $(PHP5_DIR)/php.ini-recommended, \
-		/etc/php5/php.ini, n)
+		/etc/php5/php.ini)
 endif
 
 ifdef PTXCONF_ROOTFS_USER_PHP5_INI
 	@$(call install_copy, php5, 0, 0, 0644, \
 		$(PTXDIST_WORKSPACE)/projectroot/etc/php5/php.ini, \
-		/etc/php5/php.ini,n)
+		/etc/php5/php.ini)
 endif
 
 	@$(call install_finish,php5)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
