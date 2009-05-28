@@ -313,15 +313,8 @@ ifdef PTXCONF_PHP5_SAPI_CGI
 	@$(call install_copy, php5, 0, 0, 0755, $(PHP5_DIR)/sapi/cgi/php-cgi, /usr/bin/php5-cgi)
 endif
 
-ifdef PTXCONF_ROOTFS_GENERIC_PHP5_INI
-	@$(call install_copy, php5, 0, 0, 0644, $(PHP5_DIR)/php.ini-recommended, \
-		/etc/php5/php.ini)
-endif
-
-ifdef PTXCONF_ROOTFS_USER_PHP5_INI
-	@$(call install_copy, php5, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/php5/php.ini, \
-		/etc/php5/php.ini)
+ifdef PTXCONF_PHP5_INI
+	@$(call install_alternative, php5, 0, 0, 0644, /etc/php5/php.ini)
 endif
 
 	@$(call install_finish,php5)

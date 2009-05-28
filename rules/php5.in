@@ -13,6 +13,16 @@ menuconfig PHP5
 
 if PHP5
 
+config PHP5_INI
+	bool
+	prompt "install /etc/php5/php.ini"
+	default y
+	help
+	  Installs (if present) the
+	  "./projectroot/etc/php5/php.ini" file from your
+	  workspace, otherwise a generic one from the ptxdist
+	  directory.
+
 # ----------------------------------------------------------------------------
 # SAPI Modules
 # ----------------------------------------------------------------------------
@@ -220,35 +230,6 @@ endmenu
 # ----------------------------------------------------------------------------
 # General Settings
 # ----------------------------------------------------------------------------
-
-config ROOTFS_PHP5_INI
-	bool
-	prompt "/etc/php5/php.ini"
-	default y
-	help
-	  Installs a /etc/php5/php.ini file from a selectable source.
-
-choice
-	prompt "Kind of /etc/php5/php.ini"
-	depends on ROOTFS_PHP5_INI
-	default ROOTFS_GENERIC_PHP5_INI
-
-		config ROOTFS_GENERIC_PHP5_INI
-			bool
-			prompt "Use generic"
-			help
-			  This uses the recommended generic configuration
-			  file (php.ini-recommended) which is shipped with
-			  source of PHP5.
-
-		config ROOTFS_USER_PHP5_INI
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined /etc/php5/php.ini. PTXdist
-			  uses file projectroot/etc/php5/php.ini in your local
-			  project.
-endchoice
 
 menuconfig PHP5_XML
 	bool
