@@ -78,6 +78,17 @@ Please download '${url}'
 manually into '${PTXDIST_SRCDIR}'
 
 EOF
+		set -- ${orig_argv[@]}
+		if [ $# -ne 1 ]; then
+			cat >&2 <<EOF
+If this URL doesn't work, you may try these ones:
+EOF
+			while [ ${#} -ne 0 ]; do
+				[ "${1}" != "${url}" ] && echo "'${1}'" >&2
+				shift
+			done
+			echo
+		fi
 		exit 1
 	fi
 }
