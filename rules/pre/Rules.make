@@ -10,7 +10,7 @@
 
 # FIXME: cleanup
 
-GNU_BUILD	:= $(shell $(SCRIPTSDIR)/external/config.guess)
+GNU_BUILD	:= $(shell $(SCRIPTSDIR)/autoconf/config.guess)
 GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 
 HOSTCC		:= $(PTXCONF_SETUP_HOST_CC)
