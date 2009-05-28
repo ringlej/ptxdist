@@ -280,6 +280,12 @@ else
 PHP5_AUTOCONF += --without-mysql
 endif
 
+ifdef PTXCONF_PHP5_EXT_SOAP
+PHP5_AUTOCONF += --enable-soap
+else
+PHP5_AUTOCONF += --disable-soap
+endif
+
 ifdef PTXCONF_PHP5_EXT_PEAR
 PHP5_AUTOCONF += --with-pear=FIXME
 else

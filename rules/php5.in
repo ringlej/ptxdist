@@ -6,6 +6,7 @@ menuconfig PHP5
 	prompt "php5                          "
 	select APACHE2	if PHP5_SAPI_APXS2
 	select MYSQL	if PHP5_EXT_MYSQL
+	select PHP5_XML	if PHP5_EXT_SOAP
 	select LIBXML2	if PHP5_XML_LIBXML2
 
 if PHP5
@@ -441,7 +442,7 @@ config PHP5_EXT_MYSQL
 	bool
 	prompt "mysql"
 	help
-	  Enably MySQL database support for PHP.
+	  Enable MySQL database support for PHP.
 
 #  --with-mysql[=DIR]      Include MySQL support. DIR is the MySQL base directory
 #  --with-mysql-sock[=DIR]   MySQL: Location of the MySQL unix socket pointer.
@@ -547,6 +548,13 @@ config PHP5_EXT_MYSQL
 #  --with-openssl-dir[=DIR]  SNMP: openssl install prefix
 #  --enable-ucd-snmp-hack  SNMP: Enable UCD SNMP hack
 #  --enable-soap           Enable SOAP support
+
+config PHP5_EXT_SOAP
+	bool
+	prompt "soap"
+	help
+	  Enable SOAP support for PHP.
+
 #  --enable-sockets        Enable sockets support
 #  --disable-spl           Disable Standard PHP Library
 #  --without-sqlite        Do not include sqlite support.
