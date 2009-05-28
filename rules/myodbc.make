@@ -18,10 +18,8 @@ PACKAGES-$(PTXCONF_MYODBC) += myodbc
 # Paths and names
 #
 MYODBC_VERSION	:= 3.51.27r695
-#MYODBC_VERSION	:= 5.1.5r1144
 MYODBC		:= mysql-connector-odbc-$(MYODBC_VERSION)
 MYODBC_SUFFIX	:= tar.gz
-#MYODBC_URL	:= http://mysql.cbn.net.id/Downloads/Connector-ODBC/5.1/$(MYODBC).$(MYODBC_SUFFIX)
 MYODBC_URL	:= http://mysql.cbn.net.id/Downloads/Connector-ODBC/3.51/$(MYODBC).$(MYODBC_SUFFIX)
 MYODBC_SOURCE	:= $(SRCDIR)/$(MYODBC).$(MYODBC_SUFFIX)
 MYODBC_DIR	:= $(BUILDDIR)/$(MYODBC)
@@ -33,17 +31,6 @@ MYODBC_DIR	:= $(BUILDDIR)/$(MYODBC)
 $(MYODBC_SOURCE):
 	@$(call targetinfo)
 	@$(call get, MYODBC)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/myodbc.extract:
-#	@$(call targetinfo)
-#	@$(call clean, $(MYODBC_DIR))
-#	@$(call extract, MYODBC)
-#	@$(call patchin, MYODBC)
-#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -62,32 +49,6 @@ MYODBC_AUTOCONF := \
 	--enable-myodbc3i \
 	--disable-gui \
 	--with-ltdl-path=$(SYSROOT)
-
-#$(STATEDIR)/myodbc.prepare:
-#	@$(call targetinfo)
-#	@$(call clean, $(MYODBC_DIR)/config.cache)
-#	cd $(MYODBC_DIR) && \
-#		$(MYODBC_PATH) $(MYODBC_ENV) \
-#		./configure $(MYODBC_AUTOCONF)
-#	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/myodbc.compile:
-#	@$(call targetinfo)
-#	cd $(MYODBC_DIR) && $(MYODBC_PATH) $(MAKE) $(PARALLELMFLAGS)
-#	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/myodbc.install:
-#	@$(call targetinfo)
-#	@$(call install, MYODBC)
-#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
