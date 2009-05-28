@@ -3,7 +3,7 @@ Subject: fix parallel build
 
 We have to create the objects dir before saving gcc's output into it.
 
-Signed-off-by: Marc Kleie-Budde <mkl@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  Makefile.in |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
