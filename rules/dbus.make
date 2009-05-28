@@ -123,15 +123,17 @@ $(STATEDIR)/dbus.targetinstall:
 #	#
 #	# install /etc/dbus-1/system.conf config file
 #	#
-ifdef PTXCONF_ROOTFS_DBUS_SYSTEM_CONF
-	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/system.conf, n)
+ifdef PTXCONF_DBUS_SYSTEM_CONF
+	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/system.conf)
 	@$(call install_replace, dbus, /etc/dbus-1/system.conf, @DBUS_USER@, $(PTXCONF_DBUS_USER))
 endif
 
 #	#
 #	# instal /etc/dbus-1/session.conf config file
 #	#
-	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/session.conf, n)
+ifdef PTXCONF_DBUS_SESSION_CONF
+	@$(call install_alternative, dbus, 0, 0, 0644, /etc/dbus-1/session.conf)
+endif
 
 #	#
 #	# busybox init: start script
