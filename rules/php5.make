@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 #
 # Paths and names
 #
-PHP5_VERSION	:= 5.2.4
+PHP5_VERSION	:= 5.2.9
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
