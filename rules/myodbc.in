@@ -1,0 +1,12 @@
+## SECTION=system_libraries
+
+config MYODBC
+	select LIBLTDL
+	select MYSQL
+	select LIBIODBC
+	bool
+	default n
+	prompt "myodbc"
+	help
+	  mysql odbc connector
+
