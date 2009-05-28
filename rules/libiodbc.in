@@ -1,0 +1,37 @@
+## SECTION=system_libraries
+
+menuconfig LIBIODBC
+	bool
+	prompt "libiodbc                      "
+	help
+	 iODBC is the acronym for Independent Open DataBase Connectivity,
+	 an Open Source platform independent implementation of both the
+	 ODBC and X/Open specifications. It is rapidly emerging as the
+	 industry standard for developing solutions that are language,
+	 platform and database independent.
+
+config LIBIODBC_GUI
+	bool
+	depends on LIBIODBC
+	prompt "gui"
+	help
+	 build GUI applications
+
+choice
+	prompt "driver manager version"
+	depends on LIBIODBC
+	help
+	  Specify which driver manager version we should be compatible with.
+
+	config LIBIODBC_DRIVER_VERSION_3
+		bool "3.x"
+		help
+		  build ODBC 3.x compatible driver manager
+
+	config LIBIODBC_DRIVER_VERSION_2
+		bool "2.x"
+		help
+		  build ODBC 2.x compatible driver manager
+
+endchoice
+
