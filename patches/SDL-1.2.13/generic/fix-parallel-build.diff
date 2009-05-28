@@ -1,0 +1,23 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: fix parallel build
+
+We have to create the objects dir before saving gcc's output into it.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: SDL-1.2.13/Makefile.in
+===================================================================
+--- SDL-1.2.13.orig/Makefile.in
++++ SDL-1.2.13/Makefile.in
+@@ -75,7 +75,7 @@ depend:
+ 
+ include $(depend)
+ 
+-$(objects)/$(TARGET): $(OBJECTS)
++$(objects)/$(TARGET): $(OBJECTS) $(objects)
+ 	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJECTS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS)
+ 
+ $(objects)/$(SDLMAIN_TARGET): $(SDLMAIN_OBJECTS)

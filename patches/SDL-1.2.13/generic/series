@@ -1,1 +1,2 @@
 SDL-1.2.10-sdl-config.in.diff
+fix-parallel-build.diff
