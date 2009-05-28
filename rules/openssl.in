@@ -10,7 +10,6 @@ menuconfig OPENSSL
 
 config OPENSSL_BIN
 	bool "build openssl tools"
-	default y
 	depends on OPENSSL
 	help
 	  Whether to build and install OpenSSL binary.
