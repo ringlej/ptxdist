@@ -1,0 +1,8 @@
+## SECTION=networking
+
+config AVAHI
+	tristate
+	depends on BROKEN
+	prompt "avahi"
+	help
+	  Avahi is a system which facilitates service discovery on a local network.
