@@ -1,4 +1,3 @@
 #!/bin/sh
 
-aclocal
-autoconf
+autoreconf -f -i

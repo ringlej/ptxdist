@@ -12,8 +12,10 @@
 ifndef CURSES_LOC
 CURSES_LOC := <ncurses.h>
 endif
-CFLAGS += "-DCURSES_LOC=$(CURSES_LOC)"
-CFLAGS += -DKBUILD_NO_NLS
+
+CPPFLAGS += \
+	-DCURSES_LOC="$(CURSES_LOC)" \
+	-DKBUILD_NO_NLS
 
 ifndef MCONF_LIBS
 MCONF_LIBS := -lncurses
@@ -42,19 +44,19 @@ mconf-objs := \
 	$(lxdialog-objs)
 
 conf: $(conf-objs)
-	$(CC) $^ -o $@ $(conf-libs)
+	$(CC) $^ $(LDFLAGS) -o $@ $(conf-libs)
 
 mconf: $(mconf-objs)
-	$(CC) $^ -o $@ $(mconf-libs)
+	$(CC) $^ $(LDFLAGS) -o $@ $(mconf-libs)
 
 %.moc: %.h
 	$(MOC) -i $< -o $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 %.o: %.cc
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
 %.moc: %.h
 	$(KC_QT_MOC) -i $< -o $@

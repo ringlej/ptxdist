@@ -2,33 +2,29 @@ dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl Most parts of this configure script have been borrowed from quilt.
 dnl
+AC_PREREQ(2.59)
 
 AC_INIT([ptxdist],[1.99.svn],[ptxdist@pengutronix.de])
-AC_CONFIG_AUX_DIR(autoconf)
-AC_PREREQ(2.59)
-AC_REVISION ($Revision: 1.38 $)
-
-PACKAGE_RELEASE=1
-AC_SUBST(PACKAGE_RELEASE)
+AC_CONFIG_AUX_DIR(scripts/autoconf)
+AC_CANONICAL_BUILD
+AC_CANONICAL_HOST
 
 dnl
 dnl Check if the user has extracted the patches archive
 dnl
-
 AC_MSG_CHECKING(for ptxdist patches)
 if test -d `dirname $0`/patches
 then
 	AC_MSG_RESULT(yes)
 else
 	AC_MSG_RESULT(no)
-	AC_MSG_ERROR([install the ptxdist-patches archive into the same directory as ptxdist.],[1])
+	AC_MSG_ERROR([install the ptxdist-patches archive into the same directory as ptxdist.])
 fi
 
 
 dnl
 dnl Check header files, mostly for lxdialog & kconfig
 dnl
-
 AC_HEADER_STDC
 
 AC_CHECK_HEADER([regex.h], [], AC_MSG_ERROR([Cannot find regex.h.]))
@@ -38,7 +34,7 @@ AC_SEARCH_LIBS(regcomp, [regex gnuregex],,
 CONF_LIBS=${LIBS}
 AC_SUBST(CONF_LIBS)
 
-AC_SEARCH_LIBS(mvaddch, [ncurses curses pdcurses], CURSES_LIB=$ac_lib,
+AC_SEARCH_LIBS(mvaddch, [ncurses curses pdcurses], [CURSES_LIB=$ac_lib],
 	[AC_MSG_ERROR([ncurses development library not found, please install libncurses-dev])])
 MCONF_LIBS=${LIBS}
 AC_SUBST(MCONF_LIBS)
@@ -70,8 +66,7 @@ fi
 
 dnl Check for Bourne-Again Shell
 unset BASH  # bash sets this itself!
-AC_ARG_WITH(bash, AC_HELP_STRING(
-    [--with-bash], [name of the bash executable to use]),
+AC_ARG_WITH(bash, AS_HELP_STRING([--with-bash],[name of the bash executable to use]),
     [
 	BASH="$withval"
 	AC_SUBST(BASH)
@@ -312,8 +307,7 @@ AC_PATH_PROGS(GCC, gcc,, $PATH)
 dnl
 dnl Checks for python, needed for ipkg-utils
 dnl
-AC_ARG_WITH(python, AC_HELP_STRING(
-    [--with-python], [name of the python executable to use]),
+AC_ARG_WITH(python, AS_HELP_STRING([--with-python],[name of the python executable to use]),
     [
 	PYTHON="$withval"
 	AC_SUBST(PYTHON)
@@ -345,8 +339,7 @@ else
 fi
 
 dnl Check for patch
-AC_ARG_WITH(patch, AC_HELP_STRING(
-    [--with-patch], [name of the patch executable to use]),
+AC_ARG_WITH(patch, AS_HELP_STRING([--with-patch],[name of the patch executable to use]),
     [
 	PATCH="$withval"
 	AC_SUBST(PATCH)

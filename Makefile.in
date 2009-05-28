@@ -1,47 +1,67 @@
-prefix     := @prefix@
-abs_srcdir := @abs_srcdir@
-libdir     := ${prefix}/lib
-bindir     := ${prefix}/bin
-version    := @PACKAGE_VERSION@
-instdir    := ${libdir}/ptxdist-${version}
+prefix		:= @prefix@
+exec_prefix	:= @exec_prefix@
+abs_srcdir 	:= @abs_srcdir@
+libdir	 	:= @libdir@
+bindir	 	:= @bindir@
+version		:= @PACKAGE_VERSION@
+instdir		:= $(libdir)/ptxdist-$(version)
 
-# make sure we use bash, even if the user has some other standard shell
-SHELL=bash
+CC		:= @CC@
+CXX		:= @CXX@
+CFLAGS		:= @CFLAGS@
+CXXFLAGS	:= @CXXFLAGS@
+CPPFLAGS	:= @CPPFLAGS@
+LDFLAGS		:= @LDFLAGS@
+
+SHELL		:= @BASH@
+
 export SHELL
 
 all:
-	@echo "building conf..."
-	cd "${abs_srcdir}/scripts/kconfig" && \
-		${MAKE} conf "CONF_LIBS=@CONF_LIBS@"
-	@echo "building mconf..."
-	cd "${abs_srcdir}/scripts/kconfig" && \
-		${MAKE} mconf CURSES_LOC='@CURSES_LOC@' "MCONF_LIBS=@MCONF_LIBS@"
+	@echo "building conf and mconf ..."
+	@CC="$(CC)" \
+	CXX="$(CXX)" \
+	CFLAGS="$(CFLAGS)" \
+	CXXFLAGS="$(CXXFLAGS)" \
+	CPPFLAGS="$(CPPFLAGS)" \
+	LDFLAGS="$(LDFLAGS)" \
+	$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" \
+		CONF_LIBS="@CONF_LIBS@" \
+		MCONF_LIBS="@MCONF_LIBS@" \
+		CURSES_LOC="@CURSES_LOC@" \
+		conf mconf
 	@echo "done."
 	@touch .done
 
 install: all
-	@echo "installing PTXdist to ${DESTDIR}${prefix}..."
-	@rm -fr ${DESTDIR}${instdir}
-	@mkdir -p ${DESTDIR}${instdir}
-	@test -d ${DESTDIR}${instdir} || exit 1
-	@touch ${DESTDIR}${instdir} || exit 1
-	@echo "installing PTXdist to ${DESTDIR}${prefix}/bin..."
-	tar -C ${abs_srcdir} -cf - --exclude .git --exclude .svn --exclude state --exclude debian --exclude .pc . | tar -o -C ${DESTDIR}${instdir} -xvf -
-	@mkdir -p ${DESTDIR}${prefix}/bin
-	@rm -f ${DESTDIR}${prefix}/bin/ptxdist
-	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist-${version}
-	@ln -sf ${instdir}/bin/ptxdist ${DESTDIR}${prefix}/bin/ptxdist
-	-@[ -d "@BASH_COMPLETION_DIR@" ] && cp scripts/bash_completion "@BASH_COMPLETION_DIR@/ptxdist"
+	@echo "installing PTXdist to $(DESTDIR)$(prefix)..."
+	@rm -fr   "$(DESTDIR)$(instdir)"
+	@mkdir -p "$(DESTDIR)$(instdir)"
+	@tar -C $(abs_srcdir) -cf - \
+		--exclude .git \
+		--exclude .pc \
+		--exclude .svn \
+		--exclude debian \
+		--exclude state \
+		. | \
+		tar -o -C "$(DESTDIR)$(instdir)" -xvf -
+
+	@mkdir -p "$(DESTDIR)$(bindir)"
+	@rm -f    "$(DESTDIR)$(bindir)/ptxdist"
+	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist-$(version)"
+	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/bin/ptxdist"
+	-@[ -d "@BASH_COMPLETION_DIR@" ] && \
+		cp scripts/bash_completion "@BASH_COMPLETION_DIR@/ptxdist"
 
 clean:
-	@cd "${abs_srcdir}/scripts/kconfig" && ${MAKE} clean
 	@rm -f .done
+	@$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" clean
 
 dist:
 	PTXDIST_TOPDIR=$(shell pwd); \
 	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`; \
 	cp -a $$PTXDIST_TOPDIR $$tmpdir/ptxdist-$(version); \
-	cd $$tmpdir/ptxdist-$(version); ${MAKE} distclean; \
+	cd $$tmpdir/ptxdist-$(version); $(MAKE) distclean; \
 	find $$tmpdir/ptxdist-$(version) -name ".svn" | xargs rm -fr; \
 	rm -f $$tmpdir/ptxdist-$(version)/.done; \
 	cd $$tmpdir; \
@@ -67,4 +87,3 @@ distclean: clean
 
 maintainer-clean: distclean
 	rm -f configure
-
