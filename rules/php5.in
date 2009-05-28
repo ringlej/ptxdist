@@ -5,9 +5,11 @@ menuconfig PHP5
 	tristate
 	prompt "php5                          "
 	select APACHE2	if PHP5_SAPI_APXS2
+	select LIBXML2	if PHP5_XML_LIBXML2
+	select LIBXSLT	if PHP5_XML_LIBXML2_XSLT
+	select LIBICONV	if PHP5_EXT_ICONV
 	select MYSQL	if PHP5_EXT_MYSQL
 	select PHP5_XML	if PHP5_EXT_SOAP
-	select LIBXML2	if PHP5_XML_LIBXML2
 
 if PHP5
 
@@ -261,21 +263,20 @@ choice
 
 	config PHP5_XML_LIBXML2
 		bool "libxml2"
-		select LIBXML2
 		help
 		  Use libxml2 as xml backend.
 endchoice
 
+if PHP5_XML_LIBXML2
+
 config PHP5_XML_LIBXML2_READER
 	bool
-	depends on PHP5_XML_LIBXML2
 	prompt "xml reader support"
 	help
 	  XMLReader support
 
 config PHP5_XML_LIBXML2_WRITER
 	bool
-	depends on PHP5_XML_LIBXML2
 	select LIBXML2_WRITER
 	prompt "xml writer support"
 	help
@@ -283,7 +284,6 @@ config PHP5_XML_LIBXML2_WRITER
 
 config PHP5_XML_LIBXML2_DOM
 	bool
-	depends on PHP5_XML_LIBXML2
 	select LIBXML2_DOM
 	prompt "DOM support"
 	help
@@ -291,20 +291,19 @@ config PHP5_XML_LIBXML2_DOM
 
 config PHP5_XML_LIBXML2_XSLT
 	bool
-	depends on PHP5_XML
-	select LIBXSLT
 	prompt "xslt support"
 	help
 	  XMLWriter support
 
 config PHP5_XML_LIBXML2_SIMPLEXML
 	bool
-	depends on PHP5_XML
 	prompt "simple xml support"
 	help
 	  simple xml support
 
-endif
+endif	# PHP5_XML_LIBXML2
+
+endif	# PHP5_XML
 
 #
 # [ ] --disable-simplexml     Disable SimpleXML support
@@ -410,7 +409,6 @@ menu "Extensions                  "
 
 config PHP5_EXT_ICONV
 	bool
-	select LIBICONV
 	prompt "iconv"
 	help
 	  iconv
