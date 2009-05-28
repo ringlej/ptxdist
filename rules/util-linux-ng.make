@@ -50,7 +50,7 @@ UTIL_LINUX_NG_ENV 	:= \
 #
 UTIL_LINUX_NG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--$(call ptx/endis, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
+	--$(call ptx/wwo, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--enable-shared \
 	--enable-static \
 	--enable-largefile \
