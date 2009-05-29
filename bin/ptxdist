@@ -1606,6 +1606,12 @@ parse_second()
 			;;
 ######## the rest of it
 
+		moo)
+			local cow="55555555555555555555555D5X5XX5XXX555XXX555XXX55D254X535X5P5T5X5P5T5X5P5D252525252525IXS525IXS52D2X252X252X2PXXXT5PXXXT5D55555555555555555555555D"
+			echo "${cow}" | tr "PTXDIST2345" "\\\\\ _\\n\\(\\)/|\`\' "
+			exit
+			;;
+
 		bash)
 			check_premake || return
 			"${@}"
