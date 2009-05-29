@@ -27,6 +27,6 @@ awk 'match($0, "@[A-Z0-9_]+@") { var=substr($0,RSTART+1,RLENGTH-2); gsub("@"var"
 PTXDIST_SETENV_U_BOOT_V2_ENV="$(mktemp "${PTXCONF_BOARDSETUP_TFTP_PATH}/u-boot-v2-environment.XXXXXX")"
 chmod 644 "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
 
-"${PTXDIST_WORKSPACE}/tests/kwrapper" setenv "${CONFFILE}" "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
+"${PTXDIST_TOPDIR}/tests/kwrapper" setenv "${CONFFILE}" "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
 
 rm -rf "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
