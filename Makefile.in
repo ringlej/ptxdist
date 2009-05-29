@@ -49,7 +49,7 @@ install: all
 	@mkdir -p "$(DESTDIR)$(bindir)"
 	@rm -f    "$(DESTDIR)$(bindir)/ptxdist"
 	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist-$(version)"
-	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/bin/ptxdist"
+	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist"
 	-@[ -d "@BASH_COMPLETION_DIR@" ] && \
 		cp scripts/bash_completion "@BASH_COMPLETION_DIR@/ptxdist"
 
