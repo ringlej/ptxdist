@@ -1,0 +1,18 @@
+From: Wolfram Sang <w.sang@pengutronix.de>
+Subject: Make script work with /bin/sh
+
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+---
+ client/scripts/linux |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: client/scripts/linux
+===================================================================
+--- client/scripts/linux.orig
++++ client/scripts/linux
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ # dhclient-script for Linux. Dan Halbert, March, 1997.
+ # Updated for Linux 2.[12] by Brian J. Murrell, January 1999.
+ # No guarantees about this. I'm a novice at the details of Linux
