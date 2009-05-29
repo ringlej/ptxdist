@@ -261,6 +261,12 @@ else
 PHP5_AUTOCONF += --disable-soap
 endif
 
+ifdef PTXCONF_PHP5_EXT_SOCKETS
+PHP5_AUTOCONF += --enable-sockets
+else
+PHP5_AUTOCONF += --disable-sockets
+endif
+
 ifdef PTXCONF_PHP5_EXT_PEAR
 PHP5_AUTOCONF += --with-pear=FIXME
 else

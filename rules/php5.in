@@ -533,6 +533,13 @@ config PHP5_EXT_SOAP
 	  Enable SOAP support for PHP.
 
 #  --enable-sockets        Enable sockets support
+
+config PHP5_EXT_SOCKETS
+  bool
+  prompt "sockets"
+  help
+    Enable sockets support for PHP.
+
 #  --disable-spl           Disable Standard PHP Library
 #  --without-sqlite        Do not include sqlite support.
 #                          Use --with-sqlite=DIR to specify DIR where
