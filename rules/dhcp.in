@@ -22,6 +22,17 @@ config DHCP_SERVER
 	help
 		FIXME
 
+config DHCP_DHCPD_CONF
+	bool "Install /etc/dhcpd.conf"
+	depends on DHCP_SERVER
+	default y
+	help
+	  Installs (if present) the "./projectroot/etc/dhcpd.conf"
+	  file from your workspace, otherwise a generic one from the
+	  ptxdist installation
+	  ("<PTXDIST>/generic/etc/dhcpd.conf").
+
+
 config DHCP_CLIENT
 	bool
 	prompt "DHCP Client dhclient"
@@ -30,34 +41,27 @@ config DHCP_CLIENT
 	  with an IP adress. It also handles a lease refresh if it
 	  expires.
 
-config DHCP_CLIENT_CONFIG
-	bool
-	depends on DHCP_CLIENT
-	prompt "Install /etc/dhclient.conf"
+if DHCP_CLIENT
+
+config DHCP_DHCLIENT_CONF
+	bool "Install /etc/dhclient.conf"
+	default y
 	help
-	  PTXdist installs a /etc/dhclient.conf from a selectable source.
+	  Installs (if present) the "./projectroot/etc/dhclient.conf"
+	  file from your workspace, otherwise a generic one from the
+	  ptxdist installation
+	  ("<PTXDIST>/generic/etc/dhclient.conf").
 
-choice
-	prompt "Kind of dhclient.conf"
-	default DHCP_CLIENT_CONFIG_DEFAULT
-	depends on DHCP_CLIENT_CONFIG
+config DHCP_DHCLIENT_SCRIPT
+	bool "Install /etc/dhclient-script"
+	depends on DHCP_DHCLIENT_CONF
+	help
+	  Installs (if present) the "./projectroot/etc/dhclient-script"
+	  file from your workspace, otherwise a generic one from the
+	  ptxdist installation
+	  ("<PTXDIST>/generic/etc/dhclient-script").
 
-	config DHCP_CLIENT_CONFIG_DEFAULT
-		bool
-		prompt "Use generic"
-		help
-		  Installs a generic /etc/dhclient.conf from the dhcp package.
-		  See <build-target/dhcp-?.?.?/client/dhclient.conf
-
-	config DHCP_CLIENT_CONFIG_USER
-		bool
-		prompt "User defined"
-		help
-		  This uses a user defined /etc/dhclient.conf file. PTXdist
-		  uses files projectroot/etc/dhclient.conf in your local
-		  project
-
-endchoice
+endif
 
 config DHCP_RELAY
 	bool

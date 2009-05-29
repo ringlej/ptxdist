@@ -18,13 +18,15 @@ PACKAGES-$(PTXCONF_DHCP) += dhcp
 #
 # Paths and names
 #
-DHCP_VERSION	= 4.1.0
-DHCP		= dhcp-$(DHCP_VERSION)
-DHCP_SUFFIX	= tar.gz
-DHCP_URL	= http://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX) \
-		  http://ftp.isc.org/isc/dhcp/dhcp-4.1-history/$(DHCP).$(DHCP_SUFFIX)
-DHCP_SOURCE	= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
-DHCP_DIR	= $(BUILDDIR)/$(DHCP)
+DHCP_VERSION	:= 4.1.0
+DHCP		:= dhcp-$(DHCP_VERSION)
+DHCP_SUFFIX	:= tar.gz
+DHCP_SOURCE	:= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
+DHCP_DIR	:= $(BUILDDIR)/$(DHCP)
+
+DHCP_URL := \
+	http://ftp.isc.org/isc/dhcp/$(DHCP).$(DHCP_SUFFIX) \
+	http://ftp.isc.org/isc/dhcp/dhcp-4.1-history/$(DHCP).$(DHCP_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -34,66 +36,72 @@ $(DHCP_SOURCE):
 	@$(call targetinfo)
 	@$(call get, DHCP)
 
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 DHCP_PATH	:= PATH=$(CROSS_PATH)
-DHCP_ENV 	:= $(CROSS_ENV) \
-		   ac_cv_file__dev_random=yes
-DHCP_AUTOCONF	:= $(CROSS_AUTOCONF_USR) \
-		   --disable-dhcpv6
-#                   ^ sorry bbu ;)
+DHCP_ENV 	:= \
+	$(CROSS_ENV) \
+	ac_cv_file__dev_random=yes
+
+#
+# autoconf
+#
+DHCP_AUTOCONF := \
+	$(CROSS_AUTOCONF_ROOT) \
+	--disable-dhcpv6
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/dhcp.targetinstall:
-
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, dhcp)
 	@$(call install_fixup, dhcp,PACKAGE,dhcp)
 	@$(call install_fixup, dhcp,PRIORITY,optional)
 	@$(call install_fixup, dhcp,VERSION,$(DHCP_VERSION))
 	@$(call install_fixup, dhcp,SECTION,base)
-	@$(call install_fixup, dhcp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, dhcp,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, dhcp,DEPENDS,)
 	@$(call install_fixup, dhcp,DESCRIPTION,missing)
 
 ifdef PTXCONF_DHCP_SERVER
-	@$(call install_copy, dhcp, 0, 0, 0755, \
-		$(DHCP_DIR)/server/dhcpd, /sbin/dhcpd)
+	@$(call install_copy, dhcp, 0, 0, 0755, -, \
+		/sbin/dhcpd)
+endif
+
+ifdef PTXCONF_DHCP_DHCPD_CONF
+	@$(call install_alternative, dhcp, 0, 0, 0644, /etc/dhcpd.conf)
 endif
 
 ifdef PTXCONF_DHCP_CLIENT
-	@$(call install_copy, dhcp, 0, 0, 0755, \
-		$(DHCP_DIR)/client/dhclient, /sbin/dhclient)
+	@$(call install_copy, dhcp, 0, 0, 0755, /var/db)
 	@$(call install_copy, dhcp, 0, 0, 0755, /var/state/dhcp )
 
-ifdef PTXCONF_DHCP_CLIENT_CONFIG_DEFAULT
-	@$(call install_copy, dhcp, 0, 0, 0755, \
-		$(DHCP_DIR)/client/dhclient.conf, /etc/dhclient.conf, n)
+	@$(call install_copy, dhcp, 0, 0, 0755, -, \
+		/sbin/dhclient)
+
 endif
-ifdef PTXCONF_DHCP_CLIENT_CONFIG_USER
-	@$(call install_copy, dhcp, 0, 0, 0755, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/dhclient.conf, \
-		/etc/dhclient.conf, n)
+
+ifdef PTXCONF_DHCP_DHCLIENT_SCRIPT
+	@$(call install_alternative, dhcp, 0, 0, 0755, /etc/dhclient-script)
 endif
-	@$(call install_copy, dhcp, 0, 0, 0755, /var/db)
-	@$(call install_copy, dhcp, 0, 0, 0755, \
-		$(DHCP_DIR)/client/scripts/linux, /etc/dhclient-script, n)
+
+ifdef PTXCONF_DHCP_DHCLIENT_CONF
+	@$(call install_alternative, dhcp, 0, 0, 0644, /etc/dhclient.conf)
 endif
 
 ifdef PTXCONF_DHCP_RELAY
-	@$(call install_copy, dhcp, 0, 0, 0755, $(DHCP_DIR)/relay/dhcrelay, /sbin/dhcrelay)
+	@$(call install_copy, dhcp, 0, 0, 0755, -, \
+		/sbin/dhcrelay)
 endif
 
 	@$(call install_finish, dhcp)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
