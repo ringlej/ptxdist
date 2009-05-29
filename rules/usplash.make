@@ -2,6 +2,7 @@
 # $Id: template-make 7759 2008-02-12 21:05:07Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -91,7 +92,7 @@ $(STATEDIR)/usplash.targetinstall:
 	@$(call install_fixup, usplash,PRIORITY,optional)
 	@$(call install_fixup, usplash,VERSION,$(USPLASH_VERSION))
 	@$(call install_fixup, usplash,SECTION,base)
-	@$(call install_fixup, usplash,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, usplash,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, usplash,DEPENDS,)
 	@$(call install_fixup, usplash,DESCRIPTION,missing)
 
@@ -100,7 +101,7 @@ $(STATEDIR)/usplash.targetinstall:
 	@$(call install_copy, usplash, 0, 0, 0755, $(USPLASH_DIR)/usplash_down, /sbin/usplash_down)
 	@$(call install_copy, usplash, 0, 0, 0755, $(USPLASH_DIR)/update-usplash-theme, /sbin/update-usplash-theme)
 	@$(call install_copy, usplash, 0, 0, 0644, $(USPLASH_DIR)/.libs/libusplash.so.0, /lib/libusplash.so.0)
-	@$(call install_link, usplash, /lib/libusplash.so.0, /lib/libusplash.so)
+	@$(call install_link, usplash, libusplash.so.0, /lib/libusplash.so)
 
 	@$(call install_finish, usplash)
 
