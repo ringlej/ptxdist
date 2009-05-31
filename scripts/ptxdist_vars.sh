@@ -23,6 +23,9 @@ IMAGEDIR=${PTXDIST_PLATFORMDIR}/images
 ROOTDIR=${PTXDIST_PLATFORMDIR}/root
 ROOTDIR_DEBUG=${PTXDIST_PLATFORMDIR}/root-debug
 
+# we put generated config files here
+PTXDIST_GEN_CONFIG_DIR=${STATEDIR}/config
+
 # generated files by "dgen"
 PTX_DGEN_DEPS_PRE=${STATEDIR}/ptx_dgen_deps.pre
 PTX_DGEN_DEPS_POST=${STATEDIR}/ptx_dgen_deps.post

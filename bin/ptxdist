@@ -444,6 +444,7 @@ check_dirs() {
 		"${ROOTDIR}" \
 		"${ROOTDIR_DEBUG}" \
 		"${PTXDIST_SRCDIR}" \
+	        "${PTXDIST_GEN_CONFIG_DIR}" \
 		; do
 		if [ \! -d "${dir}" ]; then
 			mkdir -m 755 -p "${dir}" || ptxd_bailout "cannot create dir: '${dir}'"
