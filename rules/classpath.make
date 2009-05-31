@@ -28,7 +28,7 @@ endif
 CLASSPATH_VERSION	:= 0.98
 CLASSPATH		:= classpath-$(CLASSPATH_VERSION)
 CLASSPATH_SUFFIX	:= tar.gz
-CLASSPATH_URL		:= ftp://ftp.gnu.org/gnu/classpath/$(CLASSPATH).$(CLASSPATH_SUFFIX)
+CLASSPATH_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/classpath/$(CLASSPATH).$(CLASSPATH_SUFFIX)
 CLASSPATH_SOURCE	:= $(SRCDIR)/$(CLASSPATH).$(CLASSPATH_SUFFIX)
 CLASSPATH_DIR		:= $(BUILDDIR)/$(CLASSPATH)
 
@@ -39,17 +39,6 @@ CLASSPATH_DIR		:= $(BUILDDIR)/$(CLASSPATH)
 $(CLASSPATH_SOURCE):
 	@$(call targetinfo)
 	@$(call get, CLASSPATH)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/classpath.extract:
-	@$(call targetinfo)
-	@$(call clean, $(CLASSPATH_DIR))
-	@$(call extract, CLASSPATH)
-	@$(call patchin, CLASSPATH)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -130,32 +119,6 @@ CLASSPATH_AUTOCONF := \
 #   --with-escher=ABS.PATH  specify path to escher dir or JAR for X peers
 #
 
-$(STATEDIR)/classpath.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(CLASSPATH_DIR)/config.cache)
-	cd $(CLASSPATH_DIR) && \
-		$(CLASSPATH_PATH) $(CLASSPATH_ENV) \
-		./configure $(CLASSPATH_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/classpath.compile:
-	@$(call targetinfo)
-	cd $(CLASSPATH_DIR) && $(CLASSPATH_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/classpath.install:
-	@$(call targetinfo)
-	@$(call install, CLASSPATH)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -185,8 +148,8 @@ $(STATEDIR)/classpath.targetinstall:
 		/usr/bin/gappletviewer \
 		/usr/bin/gkeytool \
 		/usr/bin/gserialver \
-		/usr/bin/gorbd; \
-	do \
+		/usr/bin/gorbd \
+		;do \
 		@$(call install_copy, classpath, 0, 0, 0755, -, $$i); \
 	done
 
