@@ -19,10 +19,10 @@ PACKAGES-$(PTXCONF_IOZONE) += iozone
 #
 IOZONE_VERSION	:= 321
 IOZONE		:= iozone3_$(IOZONE_VERSION)
-IOZONE_SUFFIX		:= tar
-IOZONE_URL		:= http://www.iozone.org/src/current/$(IOZONE).$(IOZONE_SUFFIX)
-IOZONE_SOURCE		:= $(SRCDIR)/$(IOZONE).$(IOZONE_SUFFIX)
-IOZONE_DIR		:= $(BUILDDIR)/$(IOZONE)
+IOZONE_SUFFIX	:= tar
+IOZONE_URL	:= http://www.iozone.org/src/current/$(IOZONE).$(IOZONE_SUFFIX)
+IOZONE_SOURCE	:= $(SRCDIR)/$(IOZONE).$(IOZONE_SUFFIX)
+IOZONE_DIR	:= $(BUILDDIR)/$(IOZONE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,17 +31,6 @@ IOZONE_DIR		:= $(BUILDDIR)/$(IOZONE)
 $(IOZONE_SOURCE):
 	@$(call targetinfo)
 	@$(call get, IOZONE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/iozone.extract:
-	@$(call targetinfo)
-	@$(call clean, $(IOZONE_DIR))
-	@$(call extract, IOZONE)
-	@$(call patchin, IOZONE)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -53,8 +42,9 @@ IOZONE_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-IOZONE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-			--disable-debug
+IOZONE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug
 
 $(STATEDIR)/iozone.prepare:
 	@$(call targetinfo)
@@ -63,24 +53,6 @@ $(STATEDIR)/iozone.prepare:
 	cd $(IOZONE_DIR) && \
 		$(IOZONE_PATH) $(IOZONE_ENV) \
 		./configure $(IOZONE_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/iozone.compile:
-	@$(call targetinfo)
-	cd $(IOZONE_DIR) && $(IOZONE_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/iozone.install:
-	@$(call targetinfo)
-	@$(call install, IOZONE)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -99,8 +71,8 @@ $(STATEDIR)/iozone.targetinstall:
 	@$(call install_fixup, iozone,DEPENDS,)
 	@$(call install_fixup, iozone,DESCRIPTION,missing)
 
-	@$(call install_copy, iozone, 0, 0, 0755, $(IOZONE_DIR)/src/current/iozone, /usr/bin/iozone)
-	@$(call install_copy, iozone, 0, 0, 0755, $(IOZONE_DIR)/src/current/fileop, /usr/bin/fileop)
+	@$(call install_copy, iozone, 0, 0, 0755, -, /usr/bin/iozone)
+	@$(call install_copy, iozone, 0, 0, 0755, -, /usr/bin/fileop)
 
 	@$(call install_finish, iozone)
 
