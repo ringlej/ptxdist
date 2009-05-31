@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBICONV) += libiconv
 #
 # Paths and names
 #
-LIBICONV_VERSION	:= 1.12
+LIBICONV_VERSION	:= 1.13
 LIBICONV		:= libiconv-$(LIBICONV_VERSION)
 LIBICONV_SUFFIX		:= tar.gz
 LIBICONV_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/libiconv/$(LIBICONV).$(LIBICONV_SUFFIX)
@@ -66,12 +66,11 @@ $(STATEDIR)/libiconv.targetinstall:
 	@$(call install_fixup,libiconv,DEPENDS,)
 	@$(call install_fixup,libiconv,DESCRIPTION,missing)
 
-	@$(call install_copy, libiconv, 0, 0, 0644, \
-		$(LIBICONV_DIR)/lib/.libs/libiconv.so.2.4.0, \
-		/usr/lib/libiconv.so.2.4.0)
+	@$(call install_copy, libiconv, 0, 0, 0644, -, \
+		/usr/lib/libiconv.so.2.5.0)
 
-	@$(call install_link, libiconv, libiconv.so.2.4.0, /usr/lib/libiconv.so.2)
-	@$(call install_link, libiconv, libiconv.so.2.4.0, /usr/lib/libiconv.so)
+	@$(call install_link, libiconv, libiconv.so.2.5.0, /usr/lib/libiconv.so.2)
+	@$(call install_link, libiconv, libiconv.so.2.5.0, /usr/lib/libiconv.so)
 
 	@$(call install_finish,libiconv)
 

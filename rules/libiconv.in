@@ -1,9 +1,9 @@
 ## SECTION=system_libraries
+
 menuconfig LIBICONV
 	tristate
 	prompt "libiconv                      "
 	help
-
 	  libiconv converts traditional character encodings
 	  to/from UNICODE. It is for you if your application
 	  needs to support multiple character encodings, but
