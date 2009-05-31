@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.2.12
+DBUS_VERSION	:= 1.2.14
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -62,6 +62,7 @@ endif
 ifdef PTXCONF_DBUS_XML_LIBXML2
 DBUS_AUTOCONF += --with-xml=libxml
 endif
+
 ifdef PTXCONF_DBUS_SELINUX
 DBUS_AUTOCONF += --enable-selinux
 else

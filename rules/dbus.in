@@ -1,5 +1,4 @@
 ## SECTION=middleware
-# dbus configuration
 
 menuconfig DBUS
 	tristate
@@ -8,10 +7,19 @@ menuconfig DBUS
 	select LIBXML2		if DBUS_XML_LIBXML2
 	select XORG_LIB_X11	if DBUS_X
 	help
-	  D-Bus is a message bus system, a simple way for applications
-	  to talk to one another. For details see the project homepage:
+	  D-Bus is a message bus, used for sending messages between
+	  applications. Conceptually, it fits somewhere in between raw
+	  sockets and CORBA in terms of complexity.
 
-	  http://www.freedesktop.org/wiki/Software_2fdbus
+	  D-Bus supports broadcast messages, asynchronous messages
+	  (thus decreasing latency), authentication, and more. It is
+	  designed to be low-overhead; messages are sent using a
+	  binary protocol, not using XML. D-Bus also supports a method
+	  call mapping for its messages, but it is not required; this
+	  makes using the system quite simple.
+
+	  It comes with several bindings, including GLib, Python, Qt
+	  and Java.
 
 if DBUS
 
@@ -22,6 +30,7 @@ config DBUS_SELINUX
 
 choice
 	prompt "xml library       "
+	default DBUS_XML_EXPAT
 
 	config DBUS_XML_EXPAT
 		bool

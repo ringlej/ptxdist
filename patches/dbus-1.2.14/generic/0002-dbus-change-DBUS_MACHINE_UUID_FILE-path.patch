@@ -1,5 +1,7 @@
+From 0abe80a736147a55fbae630aaf3b7bd70493b74a Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: dbus: change DBUS_MACHINE_UUID_FILE path
+Date: Sun, 31 May 2009 09:38:33 +0200
+Subject: [PATCH 2/3] dbus: change DBUS_MACHINE_UUID_FILE path
 
 Change the path for DBUS_MACHINE_UUID_FILE from /var/lib/dbus/machine-id
 to /var/run/dbus/machine-id. This is necessary because /var/lib may be a
@@ -8,14 +10,14 @@ This is a special situation in our BSPs. This patch is not intended for
 upstream.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  dbus/Makefile.am  |    2 +-
  tools/Makefile.am |    2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
-Index: b/dbus/Makefile.am
-===================================================================
+diff --git a/dbus/Makefile.am b/dbus/Makefile.am
+index e966a43..c015ffe 100644
 --- a/dbus/Makefile.am
 +++ b/dbus/Makefile.am
 @@ -2,7 +2,7 @@
@@ -27,8 +29,8 @@ Index: b/dbus/Makefile.am
  	-DDBUS_SYSTEM_CONFIG_FILE=\""$(configdir)/system.conf"\"			\
  	-DDBUS_SESSION_CONFIG_FILE=\""$(configdir)/session.conf"\"
  
-Index: b/tools/Makefile.am
-===================================================================
+diff --git a/tools/Makefile.am b/tools/Makefile.am
+index 9fad7a7..e347afc 100644
 --- a/tools/Makefile.am
 +++ b/tools/Makefile.am
 @@ -1,6 +1,6 @@
@@ -39,3 +41,6 @@ Index: b/tools/Makefile.am
  
  bin_PROGRAMS=dbus-send dbus-monitor dbus-launch dbus-cleanup-sockets dbus-uuidgen
  
+-- 
+1.6.3.1
+
