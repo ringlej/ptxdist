@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2002-2008 by The PTXdist Team - See CREDITS for Details
+# Copyright (C) 2002-2009 by The PTXdist Team - See CREDITS for Details
 #
 
 # make sure bash is used to execute commands from makefiles
@@ -22,7 +22,7 @@ include $(PTXDIST_PTXCONFIG)
 
 # might be non existent
 ifneq ($(wildcard $(PTXDIST_PLATFORMCONFIG)),)
--include $(PTXDIST_PLATFORMCONFIG)
+include $(PTXDIST_PLATFORMCONFIG)
 endif
 
 # might be non existent
