@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 5709 2006-06-09 13:55:00Z mkl $
 #
-# Copyright (C) 2006-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006-2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,24 +28,9 @@ LIBICONV_DIR		:= $(BUILDDIR)/$(LIBICONV)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/libiconv.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBICONV_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBICONV)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libiconv.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBICONV_DIR))
-	@$(call extract, LIBICONV)
-	@$(call patchin, LIBICONV)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -65,45 +50,19 @@ ifdef PTXCONF_LIBICONV_EXTRA_ENCODINGS
 LIBICONV_AUTOCONF += --enable-extra-encodings
 endif
 
-$(STATEDIR)/libiconv.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBICONV_DIR)/config.cache)
-	cd $(LIBICONV_DIR) && \
-		$(LIBICONV_PATH) $(LIBICONV_ENV) \
-		./configure $(LIBICONV_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libiconv.compile:
-	@$(call targetinfo, $@)
-	cd $(LIBICONV_DIR) && $(LIBICONV_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libiconv.install:
-	@$(call targetinfo, $@)
-	@$(call install, LIBICONV)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/libiconv.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, libiconv)
 	@$(call install_fixup,libiconv,PACKAGE,libiconv)
 	@$(call install_fixup,libiconv,PRIORITY,optional)
 	@$(call install_fixup,libiconv,VERSION,$(LIBICONV_VERSION))
 	@$(call install_fixup,libiconv,SECTION,base)
-	@$(call install_fixup,libiconv,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,libiconv,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,libiconv,DEPENDS,)
 	@$(call install_fixup,libiconv,DESCRIPTION,missing)
 
@@ -116,7 +75,7 @@ $(STATEDIR)/libiconv.targetinstall:
 
 	@$(call install_finish,libiconv)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
