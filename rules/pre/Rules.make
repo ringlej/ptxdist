@@ -251,9 +251,6 @@ ifndef PTXCONF_HAVE_MMU
 CROSS_ENV_AC += ac_cv_func_fork=no
 endif
 
-CROSS_ENV_DESTDIR := \
-	DESTDIR=$(SYSROOT)
-
 #
 # We want to use DESTDIR and --prefix=/usr, to get no build paths in our
 # binaries. Unfortunately, not all packages support this, especially
@@ -281,7 +278,6 @@ CROSS_ENV := \
 	$(CROSS_ENV_FLAGS) \
 	$(CROSS_ENV_PKG_CONFIG) \
 	$(CROSS_ENV_AC) \
-	$(CROSS_ENV_DESTDIR) \
 	$(CROSS_ENV_LIBRARY_PATH)
 
 CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR) $(CROSS_AUTOCONF_ARCH)
