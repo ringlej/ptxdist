@@ -481,6 +481,7 @@ install = \
 	if [ "$(strip $(3))" = "h" ]; then				\
 		cd $$BUILDDIR &&					\
 			$($(strip $(1))_ENV)				\
+			$($(strip $(1))_COMPILE_ENV)			\
 			$($(strip $(1))_PATH)				\
 			$(MAKE) install $(PARALLELMFLAGS_BROKEN) $(4)	\
 			$($(strip $(1))_MAKEVARS)			\
@@ -489,6 +490,7 @@ install = \
 	else								\
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
+			$($(strip $(1))_COMPILE_ENV)			\
 			$($(strip $(1))_PATH)				\
 			$(MAKE) $(PARALLELMFLAGS_BROKEN) install $(4)	\
 			$($(strip $(1))_MAKEVARS)			\
