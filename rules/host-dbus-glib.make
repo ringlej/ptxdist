@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2007 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -50,10 +51,11 @@ HOST_DBUS_GLIB_ENV 	:= $(HOST_ENV)
 #
 HOST_DBUS_GLIB_AUTOCONF := \
 	$(HOST_AUTOCONF) \
-	--disable-tests \
+	--disable-bash-completion \
 	--disable-doxygen-docs \
 	--disable-gcov \
-	--disable-gtk-doc
+	--disable-gtk-doc \
+	--disable-tests
 
 # ----------------------------------------------------------------------------
 # Clean
