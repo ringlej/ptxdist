@@ -67,7 +67,7 @@ $(STATEDIR)/myodbc.targetinstall:
 	@$(call install_fixup, myodbc,DESCRIPTION,missing)
 
 	@$(call install_copy, myodbc, 0, 0, 0644, -, /usr/lib/libmyodbc3_r-3.51.27.so)
-	@$(call install_link, myodbc, libmyodbc3_r-3.51.27.37, /usr/lib/libmyodbc3_r.so)
+	@$(call install_link, myodbc, libmyodbc3_r-3.51.27.so, /usr/lib/libmyodbc3_r.so)
 
 	@$(call install_copy, myodbc, 0, 0, 0644, -, /usr/lib/libmyodbc3-3.51.27.so)
 	@$(call install_link, myodbc, libmyodbc3-3.51.27.so, /usr/lib/libmyodbc3.so)
