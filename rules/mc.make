@@ -2,6 +2,7 @@
 # $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -29,34 +30,13 @@ MC_DIR		:= $(BUILDDIR)/$(MC)
 # Get
 # ----------------------------------------------------------------------------
 
-mc_get: $(STATEDIR)/mc.get
-
-$(STATEDIR)/mc.get: $(mc_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(MC_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, MC)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-mc_extract: $(STATEDIR)/mc.extract
-
-$(STATEDIR)/mc.extract: $(mc_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(MC_DIR))
-	@$(call extract, MC)
-	@$(call patchin, MC)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-mc_prepare: $(STATEDIR)/mc.prepare
 
 MC_PATH	:=  PATH=$(CROSS_PATH)
 MC_ENV 	:=  $(CROSS_ENV)
@@ -78,58 +58,36 @@ ifdef PTXCONF_MC_USES_SLANG
 MC_AUTOCONF += --with-screen=slang
 endif
 
-$(STATEDIR)/mc.prepare: $(mc_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(MC_DIR)/config.cache)
-	cd $(MC_DIR) && \
-		$(MC_PATH) $(MC_ENV) \
-		./configure $(MC_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-mc_compile: $(STATEDIR)/mc.compile
-
-$(STATEDIR)/mc.compile: $(mc_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(MC_DIR) && $(MC_PATH) make
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-mc_install: $(STATEDIR)/mc.install
-
-$(STATEDIR)/mc.install: $(mc_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/mc.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-mc_targetinstall: $(STATEDIR)/mc.targetinstall
-
-$(STATEDIR)/mc.targetinstall: $(mc_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/mc.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, mc)
 	@$(call install_fixup,mc,PACKAGE,mc)
 	@$(call install_fixup,mc,PRIORITY,optional)
 	@$(call install_fixup,mc,VERSION,$(MC_VERSION))
 	@$(call install_fixup,mc,SECTION,base)
-	@$(call install_fixup,mc,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,mc,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,mc,DEPENDS,)
 	@$(call install_fixup,mc,DESCRIPTION,missing)
 
-	@$(call install_copy, mc, 0, 0, 0755, $(MC_DIR)/src/mc, /usr/bin/mc)
+	@$(call install_copy, mc, 0, 0, 0755, -, \
+		/usr/bin/mc)
 
 	@$(call install_finish,mc)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
