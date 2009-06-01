@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_MODULE_INIT_TOOLS) += module-init-tools
 #
 # Paths and names
 #
-MODULE_INIT_TOOLS_VERSION	:= 3.8
+MODULE_INIT_TOOLS_VERSION	:= 3.9
 MODULE_INIT_TOOLS		:= module-init-tools-$(MODULE_INIT_TOOLS_VERSION)
 MODULE_INIT_TOOLS_SUFFIX	:= tar.bz2
 MODULE_INIT_TOOLS_URL		:= http://www.kernel.org/pub/linux/utils/kernel/module-init-tools/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
@@ -39,7 +39,6 @@ $(MODULE_INIT_TOOLS_SOURCE):
 
 MODULE_INIT_TOOLS_PATH	:= PATH=$(CROSS_PATH)
 MODULE_INIT_TOOLS_ENV 	:= $(CROSS_ENV)
-MODULE_INIT_TOOLS_MAKEVARS := MAN5="" MAN8=""
 
 #
 # autoconf
@@ -64,7 +63,6 @@ $(STATEDIR)/module-init-tools.targetinstall:
 
 ifdef PTXCONF_MODULE_INIT_TOOLS_INSMOD
 	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /sbin/insmod)
-#	#@$(call install_copy, module-init-tools, 0, 0, 0755, -, /sbin/insmod.static)
 endif
 ifdef PTXCONF_MODULE_INIT_TOOLS_RMMOD
 	@$(call install_copy, module-init-tools, 0, 0, 0755, -, /sbin/rmmod)
