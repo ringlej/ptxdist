@@ -328,9 +328,11 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_NETWORKING)),)
 endif
 
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_ACPID)),)
+ifdef PTXCONF_ARCH_X86
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/acpid, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_ACPID))
+endif
 endif
 	@$(call install_finish, initmethod-bbinit)
 
