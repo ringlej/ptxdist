@@ -82,7 +82,7 @@ $(STATEDIR)/mc.targetinstall:
 	@$(call install_fixup,mc,DEPENDS,)
 	@$(call install_fixup,mc,DESCRIPTION,missing)
 
-	@$(call install_copy, mc, 0, 0, 0755, -, \
+	@$(call install_copy, mc, 0, 0, 0755, $(MC_DIR)/src/mc, \
 		/usr/bin/mc)
 
 	@$(call install_finish,mc)
