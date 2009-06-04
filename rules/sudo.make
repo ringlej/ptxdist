@@ -191,16 +191,7 @@ $(STATEDIR)/sudo.targetinstall: $(sudo_targetinstall_deps_default)
 		/usr/libexec/sudo_noexec.so)
 
 ifdef PTXCONF_SUDO__ETC_SUDOERS
-ifdef PTXCONF_SUDO__ETC_SUDOERS_DEFAULT
-	@$(call install_copy, sudo, 0, 0, 0440, \
-		$(SUDO_DIR)/sudoers, \
-		/etc/sudoers, n)
-endif
-ifdef PTXCONF_SUDO__ETC_SUDOERS_USER
-	@$(call install_copy, sudo, 0, 0, 0440, \
-		${PTXDIST_WORKSPACE}/projectroot/etc/sudoers, \
-		/etc/sudoers, n)
-endif
+	@$(call install_alternative, sudo, 0, 0, 0440, /etc/sudoers, n)
 endif
 	@$(call install_finish, sudo)
 

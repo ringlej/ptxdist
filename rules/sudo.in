@@ -23,25 +23,4 @@ config SUDO__ETC_SUDOERS
 	help
 	  Installs /etc/sudoers from a selectable source
 
-	choice
-		prompt "Kind of sudoers"
-		default SUDO__ETC_SUDOERS_DEFAULT
-		depends on SUDO__ETC_SUDOERS
-
-		config SUDO__ETC_SUDOERS_DEFAULT
-			bool
-			prompt "Use generic"
-			help
-			  Installs a generic /etc/sudoers file from the
-			  sources.
-
-		config SUDO__ETC_SUDOERS_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined /etc/sudoers file. PTXdist
-			  uses file projectroot/etc/sudoers in your local project.
-
-	endchoice
-
 endif
