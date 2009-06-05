@@ -1,6 +1,9 @@
 TODO before 1.99.13
 ===================
 
+[ ] jbe: dropbaer's init script seems to fail to do a simple "restart". For example
+    if one changes the SSH portnumber in the script and try a restart, nothing changes!
+
 [ ] rsc: iproute2 -> arpd needs db-44, but the select DB_44 does not work.
 
 [ ] jbe: if one starts ptxdsit with the --ptxconfig=<...> option and the
