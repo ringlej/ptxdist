@@ -72,7 +72,7 @@ ptxd_make_get_downlaod_permitted() {
 	if [ -n "${PTXCONF_SETUP_NO_DOWNLOAD}" -a -z "${PTXDIST_FORCE_DOWNLOAD}" ]; then
 		cat >&2 <<EOF
 
-error: automatically download prohibited
+error: automatic download prohibited
 
 Please download '${url}'
 manually into '${PTXDIST_SRCDIR}'
