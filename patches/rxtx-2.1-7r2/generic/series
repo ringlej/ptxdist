@@ -1,0 +1,3 @@
+fix_enable_macros.diff -p0
+fix_enable_macros_autogen.diff -p0
+disable_checking_UTS_REALEASE.diff -p0

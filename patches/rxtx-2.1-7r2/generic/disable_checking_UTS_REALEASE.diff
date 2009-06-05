@@ -1,0 +1,141 @@
+Subject: disable UTS_RELEASE check
+From: Luotao Fu <l.fu@pengutronix.de>
+
+UTS_RELEASE is checked in runtime if the target kernel version matches the one
+of the compile machine. This is useless for crosscompiling. UTS_RELEASE is
+deprecated any way. Hence we kick it out.
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+---
+ CNI/SerialImp.c   |   17 -----------------
+ src/I2CImp.c      |   13 -------------
+ src/RS485Imp.c    |   13 -------------
+ src/RawImp.c      |   13 -------------
+ src/SerialImp.cpp |   14 --------------
+ 5 files changed, 70 deletions(-)
+
+Index: CNI/SerialImp.c
+===================================================================
+--- CNI/SerialImp.c.orig
++++ CNI/SerialImp.c
+@@ -237,23 +237,6 @@ void gnu::io::RXTXPort::Initialize(
+ #if DEBUG_TIMING
+ 	gettimeofday(&seloop, NULL);
+ #endif /* DEBUG_TIMING */
+-#if defined(DEBUG) && defined(__linux__)
+-	/* Lets let people who upgraded kernels know they may have problems */
+-	if (uname (&name) == -1)
+-	{
+-		report( "RXTX WARNING:  cannot get system name\n" );
+-		LEAVE( "RXTXPort:Initialize" );
+-		return;
+-	}
+-	if(strcmp(name.release,UTS_RELEASE)!=0)
+-	{
+-		sprintf( message, LINUX_KERNEL_VERSION_ERROR, UTS_RELEASE,
+-			name.release );
+-		report( message );
+-		getchar();
+-	}
+-	LEAVE( "RXTXPort:Initialize" );
+-#endif /* DEBUG && __linux__ */
+ }
+ 
+ /*----------------------------------------------------------
+Index: src/RS485Imp.c
+===================================================================
+--- src/RS485Imp.c.orig
++++ src/RS485Imp.c
+@@ -86,19 +86,6 @@ JNIEXPORT void JNICALL Java_gnu_io_RS485
+ 	sigaction( SIGIO, NULL, &handler );
+ 	if( !handler.sa_handler ) signal( SIGIO, SIG_IGN );
+ #endif /* !__FreeBSD__ */
+-#if defined(__linux__) 
+-	/* Lets let people who upgraded kernels know they may have problems */
+-	if (uname (&name) == -1)
+-	{
+-		fprintf(stderr,"RXTX WARNING:  cannot get system name\n");
+-		return;
+-	}
+-	if(strcmp(name.release,UTS_RELEASE)!=0)
+-	{
+-		fprintf(stderr, "\n\n\nRXTX WARNING:  This library was compiled to run with OS release %s and you are currently running OS release %s.  In some cases this can be a problem.  Try recompiling RXTX if you notice strange behavior.  If you just compiled RXTX make sure /usr/include/linux is a symbolic link to the include files that came with the kernel source and not an older copy.\n\n\npress enter to continue\n",UTS_RELEASE,name.release);
+-		getchar();
+-	}
+-#endif /* __linux__ */
+ #endif /* WIN32 */
+ }
+ 
+Index: src/SerialImp.cpp
+===================================================================
+--- src/SerialImp.cpp.orig
++++ src/SerialImp.cpp
+@@ -101,20 +101,6 @@ JNIEXPORT void JNICALL RXTXPort(Initiali
+ 	sigaction( SIGIO, NULL, &handler );
+ 	if( !handler.sa_handler ) signal( SIGIO, SIG_IGN );
+ #endif /* !__FreeBSD__ */
+-#ifdef DEBUG
+-	/* Lets let people who upgraded kernels know they may have problems */
+-	if (uname (&name) == -1)
+-	{
+-		report("RXTX WARNING:  cannot get system name\n");
+-		return;
+-	}
+-	if(!strcmp(name.release,UTS_RELEASE))
+-	{
+-		fprintf(stderr, LINUX_KERNEL_VERSION_ERROR, UTS_RELEASE,
+-			name.release);
+-		getchar();
+-	}
+-#endif /* DEBUG */
+ #endif /* __BEOS__ */
+ #endif /* WIN32 */
+ }
+Index: src/I2CImp.c
+===================================================================
+--- src/I2CImp.c.orig
++++ src/I2CImp.c
+@@ -86,19 +86,6 @@ JNIEXPORT void JNICALL Java_gnu_io_I2CPo
+ 	sigaction( SIGIO, NULL, &handler );
+ 	if( !handler.sa_handler ) signal( SIGIO, SIG_IGN );
+ #endif /* !__FreeBSD__ */
+-#if defined(__linux__) 
+-	/* Lets let people who upgraded kernels know they may have problems */
+-	if (uname (&name) == -1)
+-	{
+-		fprintf(stderr,"RXTX WARNING:  cannot get system name\n");
+-		return;
+-	}
+-	if(strcmp(name.release,UTS_RELEASE)!=0)
+-	{
+-		fprintf(stderr, "\n\n\nRXTX WARNING:  This library was compiled to run with OS release %s and you are currently running OS release %s.  In some cases this can be a problem.  Try recompiling RXTX if you notice strange behavior.  If you just compiled RXTX make sure /usr/include/linux is a symbolic link to the include files that came with the kernel source and not an older copy.\n\n\npress enter to continue\n",UTS_RELEASE,name.release);
+-		getchar();
+-	}
+-#endif /* __linux__ */
+ #endif /* WIN32 */
+ }
+ 
+Index: src/RawImp.c
+===================================================================
+--- src/RawImp.c.orig
++++ src/RawImp.c
+@@ -230,19 +230,6 @@ JNIEXPORT void JNICALL Java_gnu_io_RawPo
+ 	sigaction( SIGIO, NULL, &handler );
+ 	if( !handler.sa_handler ) signal( SIGIO, SIG_IGN );
+ #endif /* !__FreeBSD__ */
+-#if defined(__linux__) 
+-	/* Lets let people who upgraded kernels know they may have problems */
+-	if (uname (&name) == -1)
+-	{
+-		fprintf(stderr,"RXTX WARNING:  cannot get system name\n");
+-		return;
+-	}
+-	if(strcmp(name.release,UTS_RELEASE)!=0)
+-	{
+-		fprintf(stderr, "\n\n\nRXTX WARNING:  This library was compiled to run with OS release %s and you are currently running OS release %s.  In some cases this can be a problem.  Try recompiling RXTX if you notice strange behavior.  If you just compiled RXTX make sure /usr/include/linux is a symbolic link to the include files that came with the kernel source and not an older copy.\n\n\npress enter to continue\n",UTS_RELEASE,name.release);
+-		getchar();
+-	}
+-#endif /* __linux__ */
+ #endif /* WIN32 */
+ }
+ 

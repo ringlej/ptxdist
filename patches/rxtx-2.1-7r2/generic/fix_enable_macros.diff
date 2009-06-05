@@ -1,0 +1,33 @@
+Subject: fix enable macros
+From: Luotao Fu <l.fu@pengutronix.de>
+
+configure misses enable_ prefix while checking for AC_ARG_ENABLE defined
+variables, which means that e.g. liblock can never be disabled. fix it here.
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+---
+ configure.in |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: configure.in
+===================================================================
+--- configure.in.orig
++++ configure.in
+@@ -106,7 +106,7 @@ AC_ARG_ENABLE(PRINTER,
+ 
+ AC_ARG_ENABLE(lockfiles,
+ 	[  --disable-lockfiles     disable lock files (experimental) [default=no]],
+-	if test x$lockfiles = xyes; then 
++	if test x$enable_lockfiles = xyes; then
+ 		echo "Using lock files"
+ 	else
+ 		echo "Disabling lock files"
+@@ -115,7 +115,7 @@ AC_ARG_ENABLE(lockfiles,
+ )
+ AC_ARG_ENABLE(liblock,
+ 	[  --enable-liblock[=x]     enable liblock [default=no]],
+-	if test "x$liblock" != "xno"; then 
++	if test "x$enable_liblock" != "xno"; then
+ 		echo "Using liblock"
+ 		CFLAGS=$CFLAGS" -DLIBLOCKDEV"
+ 		LDFLAGS=$LDFLAGS" -llockdev"
