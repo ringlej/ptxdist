@@ -2,4 +2,10 @@
 
 config HOST_GLIB
 	tristate
-	select HOST_LIBICONV
+# Note: glib detects a useable iconv() implementation by its own
+#       On a standard GNU glibc based system there is no need to
+#       build and link against libiconv. Reactivate this dependency
+#       if it fails on a system. But also change this documentation
+#       in this case!
+#	select HOST_LIBICONV
+

@@ -48,11 +48,12 @@ HOST_GLIB_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-# libiconv: hardcode to libiconv (gnu), because 'no' does not work
+# 'iconv' feature: configure tests for this feature in the glibc first. If not
+#                  found it checks for iconv library in the next step. On most
+#                  hosts 'iconv' should be present in the regular host glibc.
 #
 HOST_GLIB_AUTOCONF := \
-	$(HOST_AUTOCONF) \
-	--with-libiconv=gnu
+	$(HOST_AUTOCONF)
 
 # ----------------------------------------------------------------------------
 # Clean
