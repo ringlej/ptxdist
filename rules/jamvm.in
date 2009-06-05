@@ -18,4 +18,57 @@ config JAMVM_USE_LIBFFI
 	help
 	  "enable libffi support"
 
+menuconfig JAMVM_TRACE
+	bool
+	prompt "enable debug tracers"
+	help
+	  enable some tracers for debuggin purpose
+
+if JAMVM_TRACE
+
+config JAMVM_TRACE_ALL
+	bool
+	select JAMVM_TRACE_GC
+	select JAMVM_TRACE_ALLOC
+	select JAMVM_TRACE_FNLZ
+	select JAMVM_TRACE_DLL
+	select JAMVM_TRACE_LOCK
+	select JAMVM_TRACE_THREAD
+	select JAMVM_TRACE_DIRECT
+	select JAMVM_TRACE_INLINING
+	prompt "enalbe all tracers"
+
+config JAMVM_TRACE_GC
+	bool
+	prompt "gc tracing"
+
+config JAMVM_TRACE_ALLOC
+	bool
+	prompt "alloc tracing"
+
+config JAMVM_TRACE_FNLZ
+	bool
+	prompt "fnlz tracing"
+
+config JAMVM_TRACE_DLL
+	bool
+	prompt "dll tracing"
+
+config JAMVM_TRACE_LOCK
+	bool
+	prompt "object locking tracing"
+
+config JAMVM_TRACE_THREAD
+	bool
+	prompt "thread creation tracing"
+
+config JAMVM_TRACE_DIRECT
+	bool
+	prompt "interpreter direct-mode tracing"
+
+config JAMVM_TRACE_INLINING
+	bool
+	prompt "interpeter inlining tracing"
+endif
+
 endif

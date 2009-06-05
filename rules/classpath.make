@@ -83,7 +83,7 @@ CLASSPATH_AUTOCONF := \
 	--disable-rpath \
 	--disable-maintainer-mode \
 	--disable-debug \
-	--disable-load-library \
+	--enable-load-library \
 	--disable-java-lang-system-explicit-initialization \
 	--disable-examples \
 	--enable-tools \
