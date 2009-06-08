@@ -101,8 +101,8 @@ Prio B
 
 [ ] jbe: same in canfestival.compile
 
-[ ] jbe: Can we also provide a "Bare Metall" platform project to show how to use
-    ptxdist2 for non Linux targets?
+[ ] jbe, rsc -> mgr: provide a "bare metal" project for Stellaris/Cortex-M3,
+    to show how to use ptxdist-2 for non-Linux targets.
 
 [ ] jbe: udev seems to load kernel modules by its own. How to disable it?
 
