@@ -20,21 +20,6 @@ TODO before 1.99.14
 
 [ ] rsc: iproute2 -> arpd needs db-44, but the select DB_44 does not work.
 
-[ ] jbe: classpath.compile fails
-    [...]
-    ../external/sax/org/xml/sax/helpers/NewInstance.java:70: warning: non-varargs call of
-            varargs method with inexact argument type for last parameter;
-    cast to java.lang.Object for a varargs call
-    cast to java.lang.Object[] for a non-varargs call and to suppress this warning
-        return (ClassLoader) m.invoke(Thread.currentThread(), null);
-                                                              ^
-    Note: * uses or overrides a deprecated API.
-    Note: Recompile with -Xlint:deprecation for details.
-    Note: Some input files use unchecked or unsafe operations.
-    Note: Recompile with -Xlint:unchecked for details.
-    8 errors
-    2 warnings
-
 [ ] rsc: python-3.0 breaks in install stage; it worked before, so find out
     what made this fail:
 
@@ -542,6 +527,25 @@ Test suite components to be added
 
 DONE
 ====
+
+[-] jbe: classpath.compile fails
+    [...]
+    ../external/sax/org/xml/sax/helpers/NewInstance.java:70: warning: non-varargs call of
+            varargs method with inexact argument type for last parameter;
+    cast to java.lang.Object for a varargs call
+    cast to java.lang.Object[] for a non-varargs call and to suppress this warning
+        return (ClassLoader) m.invoke(Thread.currentThread(), null);
+                                                              ^
+    Note: * uses or overrides a deprecated API.
+    Note: Recompile with -Xlint:deprecation for details.
+    Note: Some input files use unchecked or unsafe operations.
+    Note: Recompile with -Xlint:unchecked for details.
+    8 errors
+    2 warnings
+
+    Update 20090603 rsc: not reproducable, tested on i586 and arm1136.
+    Please add proper info how to reproduce in case this problem does still
+    persist.
 
 [x] jbe: phyton24 states this but does not stop the build (in the install stage):
       cannot find -lncursesw
