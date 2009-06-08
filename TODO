@@ -82,10 +82,12 @@ TODO before 1.99.14
 
     update: 20090512: mkl: done
 
-[ ] mkl:
+[x] mkl:
 
     16:46 < ringlej>  /opt/tools/lib/ptxdist-1.99.11/config/collection/Kconfig:10: can't open file "generated/ptx_collection.in"
     16:47 < ringlej> That was it. I had none marked as "M"
+
+    Update 20090603 rsc: fixed
 
 
 TODO before 2.0.0

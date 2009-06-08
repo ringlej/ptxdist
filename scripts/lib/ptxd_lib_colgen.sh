@@ -50,6 +50,8 @@ ptxd_colgen_generate_sections()
 		printf "\n"						> col_all_in;
 		close(col_all_in);
 
+		printf "" > col_in;
+
 		for (i = 1; i <= n; i++) {
 			pkg = sorted[i];
 			pkg_lc = module_pkgs[pkg];
