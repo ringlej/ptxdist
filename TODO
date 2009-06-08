@@ -18,8 +18,6 @@ TODO before 1.99.14
 [ ] jbe: dropbaer's init script seems to fail to do a simple "restart". For example
     if one changes the SSH portnumber in the script and try a restart, nothing changes!
 
-[ ] rsc: iproute2 -> arpd needs db-44, but the select DB_44 does not work.
-
 [ ] rsc: python-3.0 breaks in install stage; it worked before, so find out
     what made this fail:
 
@@ -527,6 +525,10 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] rsc: iproute2 -> arpd needs db-44, but the select DB_44 does not work.
+
+    Update 20090603 rsc: seems to be fixed in trunk, close.
 
 [-] jbe: classpath.compile fails
     [...]
