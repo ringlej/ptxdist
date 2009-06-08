@@ -20,21 +20,6 @@ TODO before 1.99.14
 
 [ ] rsc: iproute2 -> arpd needs db-44, but the select DB_44 does not work.
 
-[x] jbe: if one starts ptxdist with the --ptxconfig=<...> option and the
-    given path and filename is at least in the form "selected/ptxconfig"
-    (was a typo here, should be "selected_ptxconfig") ptxdist states:
-    /opt/lib/ptxdist-trunk/scripts/libptxdist.sh: line 415: cd: selected: No such file or directory
-    Should be a more reasonable error message.
-
-    Update 20090603 rsc: fixed
-
-[x] jbe: slang.compile fails while compiling png-module.c
-    [...]
-    pcre-module.c:6:18: error: pcre.h: No such file or directory
-    [...]
-
-    update 20090512: mkl: should work now
-
 [ ] jbe: classpath.compile fails
     [...]
     ../external/sax/org/xml/sax/helpers/NewInstance.java:70: warning: non-varargs call of
@@ -60,37 +45,6 @@ TODO before 1.99.14
                                                                      ^
     SyntaxError: invalid syntax
 
-[x] jbe: INITMETHOD_BBINIT_ETC_INITD_LOGROTATE makes no sence with busybox's syslog.
-    Doesn't work, because it does not create any *.log files, which logrotate tries
-    to handle.
-
-    20090420: update mkl: handles now messages, *.log, *.err
-
-[x] mkl: remove inetd.conf leftovers
-
-    [frogger@hardanger:rules]$ wcgrep inetd.conf|grep -v "inetd.conf.d"|grep -v postinst
-    ./fam.in:52:              the /etc/inetd.conf a line like this:
-    ./dnsmasq.in:47:                 /etc/inetd.conf a line like this:
-    ./dnsmasq.in:71:          This string is added to inetd's configuration /etc/inetd.conf.
-    ./portmap.make:132:     # /etc/inetd.conf sniplet
-    ./cvs.in:124:     This string is added to inetd's configuration /etc/inetd.conf. @ROOT@
-    ./rsync.make:108:       # /etc/inetd.conf sniplet
-    ./rsync.in:69:            the /etc/inetd.conf a line like this:
-    ./rsync.in:95:    This string is added to inetd's configuration /etc/inetd.conf. @CONFIG@
-
-    Update 20090603 rsc: done
-
-[x] mkl: fix startscript leftovers
-
-    update: 20090512: mkl: done
-
-[x] mkl:
-
-    16:46 < ringlej>  /opt/tools/lib/ptxdist-1.99.11/config/collection/Kconfig:10: can't open file "generated/ptx_collection.in"
-    16:47 < ringlej> That was it. I had none marked as "M"
-
-    Update 20090603 rsc: fixed
-
 
 TODO before 2.0.0
 =================
@@ -107,20 +61,6 @@ Prio A
             "Unknown HZ value! (xx) Assume 100."
     on a recently started system. Doing it later again, this message does
     not occur again. Kernel detection failure?
-
-[x] jbe: phyton24 states this but does not stop the build (in the install stage):
-      cannot find -lncursesw
-      collect2: ld returned 1 exit status
-      cannot find -lpanelw
-      collect2: ld returned 1 exit status
-
-[x] rsc: dbus-python doesn't compile, needs either python-config or asks
-    python for -I and -L paths.
-
-    While being there, we should update to python-2.6, because this is
-    the stable series we want to have in ptxdist-2.0.
-
-    update 20090512: should work now
 
 [ ] rsc: 'ptxdist images' for the i586 target sometimes does not work,
     the generated image is incorrect and grub stops booting.
@@ -602,6 +542,83 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: phyton24 states this but does not stop the build (in the install stage):
+      cannot find -lncursesw
+      collect2: ld returned 1 exit status
+      cannot find -lpanelw
+      collect2: ld returned 1 exit status
+
+[x] rsc: dbus-python doesn't compile, needs either python-config or asks
+    python for -I and -L paths.
+
+    While being there, we should update to python-2.6, because this is
+    the stable series we want to have in ptxdist-2.0.
+
+    update 20090512: should work now
+
+[x] jbe: INITMETHOD_BBINIT_ETC_INITD_LOGROTATE makes no sence with busybox's syslog.
+    Doesn't work, because it does not create any *.log files, which logrotate tries
+    to handle.
+
+    20090420: update mkl: handles now messages, *.log, *.err
+
+[x] mkl: remove inetd.conf leftovers
+
+    [frogger@hardanger:rules]$ wcgrep inetd.conf|grep -v "inetd.conf.d"|grep -v postinst
+    ./fam.in:52:              the /etc/inetd.conf a line like this:
+    ./dnsmasq.in:47:                 /etc/inetd.conf a line like this:
+    ./dnsmasq.in:71:          This string is added to inetd's configuration /etc/inetd.conf.
+    ./portmap.make:132:     # /etc/inetd.conf sniplet
+    ./cvs.in:124:     This string is added to inetd's configuration /etc/inetd.conf. @ROOT@
+    ./rsync.make:108:       # /etc/inetd.conf sniplet
+    ./rsync.in:69:            the /etc/inetd.conf a line like this:
+    ./rsync.in:95:    This string is added to inetd's configuration /etc/inetd.conf. @CONFIG@
+
+    Update 20090603 rsc: done
+
+[x] mkl: fix startscript leftovers
+
+    update: 20090512: mkl: done
+
+[x] mkl:
+
+    16:46 < ringlej>  /opt/tools/lib/ptxdist-1.99.11/config/collection/Kconfig:10: can't open file "generated/ptx_collection.in"
+    16:47 < ringlej> That was it. I had none marked as "M"
+
+    Update 20090603 rsc: fixed
+
+[x] jbe: if one starts ptxdist with the --ptxconfig=<...> option and the
+    given path and filename is at least in the form "selected/ptxconfig"
+    (was a typo here, should be "selected_ptxconfig") ptxdist states:
+    /opt/lib/ptxdist-trunk/scripts/libptxdist.sh: line 415: cd: selected: No such file or directory
+    Should be a more reasonable error message.
+
+    Update 20090603 rsc: fixed
+
+[x] jbe: slang.compile fails while compiling png-module.c
+    [...]
+    pcre-module.c:6:18: error: pcre.h: No such file or directory
+    [...]
+
+    update 20090512: mkl: should work now
+
+[x] mkl: fix startscript leftovers
+
+    update: 20090512: mkl: done
+
+[x] jbe: INITMETHOD_BBINIT_ETC_INITD_LOGROTATE makes no sence with busybox's syslog.
+    Doesn't work, because it does not create any *.log files, which logrotate tries
+    to handle.
+
+    20090420: update mkl: handles now messages, *.log, *.err
+
+[x] jbe: slang.compile fails while compiling png-module.c
+    [...]
+    pcre-module.c:6:18: error: pcre.h: No such file or directory
+    [...]
+
+    update 20090512: mkl: should work now
 
 [-] jbe: libmad tries to re-generate the configure script and fails if system's
     version is not the correct one
