@@ -20,7 +20,7 @@ TODO before 1.99.13
 
 [ ] rsc: iproute2 -> arpd needs db-44, but the select DB_44 does not work.
 
-[ ] jbe: if one starts ptxdsit with the --ptxconfig=<...> option and the
+[ ] jbe: if one starts ptxdist with the --ptxconfig=<...> option and the
     given path and filename is at least in the form "selected/ptxconfig"
     (was a typo here, should be "selected_ptxconfig") ptxdist states:
     /opt/lib/ptxdist-trunk/scripts/libptxdist.sh: line 415: cd: selected: No such file or directory
