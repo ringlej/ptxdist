@@ -104,10 +104,6 @@ endif
 endif
 endif
 
-	#
-	# /etc/inetd.conf sniplet
-	#
-
 ifdef PTXCONF_RSYNC_INETD_SERVER
 	@$(call install_alternative, rsync, 0, 0, 0644, /etc/inetd.conf.d/rsync, n)
 	@$(call install_replace, rsync, /etc/inetd.conf.d/rsync, \

@@ -83,18 +83,15 @@ $(STATEDIR)/portmap.targetinstall:
 	@$(call install_copy, portmap, 0, 0, 0755, \
 		$(PORTMAP_DIR)/portmap, /sbin/portmap)
 
-#	#
-#	# busybox init
-#	#
+	#
+	# busybox init
+	#
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_PORTMAP_STARTSCRIPT
 	@$(call install_alternative, portmap, 0, 0, 0755, /etc/init.d/portmapd, n)
 endif
 endif
 
-#	#
-#	# /etc/inetd.conf sniplet
-#	#
 ifdef PTXCONF_PORTMAP_INETD_SERVER
 	@$(call install_alternative, portmap, 0, 0, 0644, /etc/inetd.conf.d/portmap, n)
 endif

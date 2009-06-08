@@ -65,9 +65,11 @@ choice
 		bool
 		prompt "inetd driven"
 		help
-		  This installs a startup configuration for rsync from inetd. It adds to
-		  the /etc/inetd.conf a line like this:
+		  Install a inetd rule for rsync. This option adds the following line
+		  to /etc/inetd.conf.d/rsync:
+
 		  rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@
+
 		  Note: You must enable one of the two possible inet daemons: There is
 		  one embedded in busybox and one in packet inetutils.
 
@@ -92,8 +94,8 @@ config RSYNC_INETD_STRING
 	prompt "inetd service entry"
 	default "rsync stream tcp nowait root /usr/bin/rsync rsyncd --daemon @CONFIG@"
 	help
-	  This string is added to inetd's configuration /etc/inetd.conf. @CONFIG@
-	  in this string will be replaced with the --config option, and the
+	  This string is added to the inetd configuration /etc/inetd.conf.d/rsync.
+          @CONFIG@ in this string will be replaced with the --config option, and the
 	  path given above for configuration
 
 endif

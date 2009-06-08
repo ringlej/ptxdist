@@ -130,10 +130,11 @@ choice
 		bool
 		prompt "inetd"
 		help
-		  cvs server will be started on demand from inetd. This installs
-		  a startup configuration for cvs from inetd. It adds to the
-		  /etc/inetd.conf a line like this:
+		  Install a inetd rule for cvs. This option adds the following line
+		  to /etc/inetd.conf.d/cvs:
+
 		  cvs stream tcp nowait root /usr/bin/cvs cvsd -f --allow-root=/srv/cvsroot pserver
+
 		  Note: You must enable one of the two possible inet daemons:
 		  There is one embedded in busybox and one in packet inetutils.
 endchoice

@@ -56,15 +56,16 @@ choice
 		bool
 		prompt "inetd driven"
 		help
-		 dnsmasq will be started on demand from inetd. This installs
-		 a startup configuration for dnsmasq from inetd. It adds to the
-		 /etc/inetd.conf a line like this:
-		 domain stream tcp nowait root /sbin/dnsmasq domain
-		 Note: You must enable one of the two possible inet daemons:
-		 There is one embedded in busybox and one in packet inetutils.
-		 Note: If you want to use dnsmasq's DHCP feature, you can't
-		 run it from inetd. In this case you need the standalone
-		 startscript!
+		  Install a inetd rule for dnsmasq. This option adds the following line
+		  to /etc/inetd.conf.d/dnsmasq:
+
+		  domain stream tcp nowait root /sbin/dnsmasq domain
+
+		  Note: You must enable one of the two possible inet daemons:
+		  There is one embedded in busybox and one in packet inetutils.
+		  Note: If you want to use dnsmasq's DHCP feature, you can't
+		  run it from inetd. In this case you need the standalone
+		  startscript!
 
 	config DNSMASQ_STARTSCRIPT
 		bool

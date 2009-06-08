@@ -48,9 +48,11 @@ choice
 		bool
 		prompt "inetd driven"
 		help
-		  This installs a startup configuration for famd from inetd. It adds to
-		  the /etc/inetd.conf a line like this:
-		   sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf
+		  Install a inetd rule for famd. This option adds the following line
+		  to /etc/inetd.conf.d/fam:
+
+		  sgi_fam/1-2 stream  rpc/tcp wait root /usr/sbin/famd famd -c /etc/fam.conf
+
 		  Note: You must enable one of the two possible inet daemons: There is
 		  one embedded in busybox and one in packet inetutils.
 
