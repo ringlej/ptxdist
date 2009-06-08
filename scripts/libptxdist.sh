@@ -412,6 +412,7 @@ ptxd_abspath() {
 	fi
 
 	dn=`dirname $1`
+	[ ! -d "$dn" ] && ptxd_bailout "directory \"$dn\" does not exist"
 	echo `cd $dn && pwd`/`basename $1`
 }
 export -f ptxd_abspath

@@ -1143,19 +1143,19 @@ parse_first()
 			PTX_SLEDGEHAMMER=true
 			;;
 		--ptxconfig=*)
-			PTXDIST_PTXCONFIG="$(ptxd_abspath "${arg#*=}")"
+			PTXDIST_PTXCONFIG="$(ptxd_abspath "${arg#*=}")" || exit 1
 			PTX_ptxconfig_SET=true
 			;;
 		--platformconfig=*)
-			PTXDIST_PLATFORMCONFIG="$(ptxd_abspath "${arg#*=}")"
+			PTXDIST_PLATFORMCONFIG="$(ptxd_abspath "${arg#*=}")" || exit 1
 			PTX_platformconfig_SET=true
 			;;
 		--collectionconfig=*)
-			PTXDIST_COLLECTIONCONFIG="$(ptxd_abspath "${arg#*=}")"
+			PTXDIST_COLLECTIONCONFIG="$(ptxd_abspath "${arg#*=}")" || exit 1
 			PTX_collectionconfig_SET=true
 			;;
 		--toolchain=*)
-			PTXDIST_TOOLCHAIN="$(ptxd_abspath "${arg#*=}")"
+			PTXDIST_TOOLCHAIN="$(ptxd_abspath "${arg#*=}")" || exit 1
 			PTX_toolchain_SET=true
 			;;
 		--j-intern=*)
@@ -1228,7 +1228,7 @@ do_config()
 		local file_dotconfig="${3}"
 
 		if [ -n "${file_dotconfig}" ]; then
-			file_dotconfig="$(ptxd_abspath "${file_dotconfig}")"
+			file_dotconfig="$(ptxd_abspath "${file_dotconfig}")" || exit 1
 		else
 			file_dotconfig="${PTXDIST_COLLECTIONCONFIG}"
 			if [ \! -e "${file_dotconfig}" ]; then
