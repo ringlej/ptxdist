@@ -365,6 +365,6 @@ install_finish =								\
 	PTXCONF_IMAGE_IPKG_EXTRA_ARGS="$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)";	\
 	ptxd_make_install_finish						\
 		-p '$(strip $(1))'						\
-		-l $$PACKET_LICENSE
+		-l "$$PACKET_LICENSE"
 
 # vim: syntax=make

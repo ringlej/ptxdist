@@ -17,18 +17,14 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 #
 # Paths and names
 #
-@PACKET@		:= @packet@
-@PACKET@_URL		:= @URL@/$(@PACKET@)
-@PACKET@_SOURCE		:=
+@PACKET@_VERSION	:= @VERSION@
+@PACKET@		:= @packet@-$(@PACKET@_VERSION)
+@PACKET@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
 @PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
-
-$(STATEDIR)/@packet@.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -37,9 +33,12 @@ $(STATEDIR)/@packet@.get:
 $(STATEDIR)/@packet@.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
-	@$(call extract, @PACKET@)
-	@$(call patchin, @PACKET@)
-	@$(call touch, $@)
+ifdef PTXCONF_@PACKET@_TRUNK
+	cd $(@PACKET@_SRCDIR) && sh autogen.sh
+endif
+	@$(call patchin, @PACKET@, $(@PACKET@_SRCDIR))
+	mkdir -p $(@PACKET@_DIR)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -48,18 +47,28 @@ $(STATEDIR)/@packet@.extract:
 @PACKET@_PATH	:= PATH=$(CROSS_PATH)
 @PACKET@_ENV 	:= $(CROSS_ENV)
 
+#
+# autoconf
+#
+@PACKET@_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR)
+
 $(STATEDIR)/@packet@.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call clean, $(@PACKET@_DIR)/config.cache)
+	cd $(@PACKET@_DIR) && \
+		$(@PACKET@_PATH) $(@PACKET@_ENV) \
+		$(@PACKET@_SRCDIR)/configure $(@PACKET@_AUTOCONF)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -67,7 +76,8 @@ $(STATEDIR)/@packet@.compile:
 
 $(STATEDIR)/@packet@.install:
 	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call install, @PACKET@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -76,21 +86,39 @@ $(STATEDIR)/@packet@.install:
 $(STATEDIR)/@packet@.targetinstall:
 	@$(call targetinfo, $@)
 
-	@$(call install_init, @packet@)
-	@$(call install_fixup,@packet@,PACKAGE,@packet@)
-	@$(call install_fixup,@packet@,PRIORITY,optional)
-	@$(call install_fixup,@packet@,VERSION,0)
-	@$(call install_fixup,@packet@,SECTION,base)
-	@$(call install_fixup,@packet@,AUTHOR,"@AUTHOR@")
-	@$(call install_fixup,@packet@,DEPENDS,)
-	@$(call install_fixup,@packet@,DESCRIPTION,missing)
-#
-# TODO: Add here all files that should be copied to the target
-# Note: Add everything before(!) call to macro install_finish
-#
-	@$(call install_copy, @packet@, 0, 0, 0755, $(@PACKET@_DIR)/foobar, /dev/null)
+	@$(call install_init,  @packet@)
+	@$(call install_fixup, @packet@, PACKAGE, @packet@)
+	@$(call install_fixup, @packet@, PRIORITY, optional)
+	@$(call install_fixup, @packet@, VERSION, @VERSION@)
+	@$(call install_fixup, @packet@, SECTION, base)
+	@$(call install_fixup, @packet@, AUTHOR, "@AUTHOR@")
+	@$(call install_fixup, @packet@, DEPENDS,)
+	@$(call install_fixup, @packet@, DESCRIPTION, missing)
 
-	@$(call install_finish,@packet@)
+	#
+	# example code:; copy all libraries, links and binaries
+	#
+
+	@for i in $(shell cd $(PKGDIR)/$(@PACKET@) && find bin sbin usr/bin usr/sbin -type f); do \
+		$(call install_copy, @packet@, 0, 0, 0755, -, /$$i); \
+	done
+	@for i in $(shell cd $(PKGDIR)/$(@PACKET@) && find lib usr/lib -name "*.so*"); do \
+		$(call install_copy, @packet@, 0, 0, 0644, -, /$$i); \
+	done
+	@links="$(shell cd $(PKGDIR)/$(@PACKET@) && find lib usr/lib -type l)"; \
+	if [ -n "$$links" ]; then \
+		for i in $$links; do \
+			from="`readlink $(PKGDIR)/$(@PACKET@)/$$i`"; \
+			to="/$$i"; \
+			$(call install_link, @packet@, $$from, $$to); \
+		done; \
+	fi
+
+	#
+	# FIXME: add all necessary things here
+	#
+
+	@$(call install_finish, @packet@)
 
 	@$(call touch, $@)
 
@@ -100,6 +128,7 @@ $(STATEDIR)/@packet@.targetinstall:
 
 @packet@_clean:
 	rm -rf $(STATEDIR)/@packet@.*
-	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) $(MAKE) clean
+	rm -rf $(PKGDIR)/@packet@_*
+	rm -rf $(@PACKET@_DIR)
 
 # vim: syntax=make

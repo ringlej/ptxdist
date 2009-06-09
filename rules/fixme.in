@@ -1,0 +1,8 @@
+## SECTION=fixme
+
+#
+# This file does only exist to create a defined entry in the "fixme"
+# section, so that the toplevel Kconfig can include generated/fixme.in
+# even if no package is in that category.
+#
+

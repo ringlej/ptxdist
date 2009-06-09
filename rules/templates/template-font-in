@@ -1,3 +1,5 @@
+## SECTION=fixme
+
 config @PACKET@
 	bool
 	select XORG_FONTS

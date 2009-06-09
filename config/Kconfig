@@ -16,6 +16,8 @@ config PTXCONF
 	help
 	  This is the Pengutronix Distribution Build System.
 
+source "generated/fixme.in"
+
 comment "------------------------------------"
 
 menu "Project Name & Version        "
