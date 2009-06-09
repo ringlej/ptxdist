@@ -67,7 +67,6 @@ GNUPG_ENV 	= $(CROSS_ENV)
 GNUPG_AUTOCONF = $(CROSS_AUTOCONF_USR) \
 	--disable-asm \
 	--disable-card-support \
-	--disable-gnupg-iconv \
 	--disable-exec \
 	--disable-idea \
 	--enable-cast5 \
@@ -90,6 +89,12 @@ GNUPG_AUTOCONF = $(CROSS_AUTOCONF_USR) \
 	--disable-nls \
 	--disable-rpath \
 	--disable-regex
+
+ifdef PTXCONF_ICONV
+GNUPG_AUTOCONF += --enable-gnupg-iconv
+else
+GNUPG_AUTOCONF += --disable-gnupg-iconv
+endif
 
 $(STATEDIR)/gnupg.prepare: $(gnupg_prepare_deps_default)
 	@$(call targetinfo, $@)

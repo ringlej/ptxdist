@@ -7,7 +7,6 @@ menuconfig PHP5
 	select APACHE2	if PHP5_SAPI_APXS2
 	select LIBXML2	if PHP5_XML_LIBXML2
 	select LIBXSLT	if PHP5_XML_LIBXML2_XSLT
-	select LIBICONV	if PHP5_EXT_ICONV
 	select MYSQL	if PHP5_EXT_MYSQL
 	select PHP5_XML	if PHP5_EXT_SOAP
 
@@ -385,13 +384,6 @@ menu "Extensions                  "
 #  --disable-hash           Disable hash support
 #  --with-hwapi[=DIR]      Include official Hyperwave API support
 #  --without-iconv[=DIR]   Exclude iconv support
-
-config PHP5_EXT_ICONV
-	bool
-	prompt "iconv"
-	help
-	  iconv
-
 #  --with-imap[=DIR]       Include IMAP support. DIR is the c-client install prefix
 #  --with-kerberos[=DIR]     IMAP: Include Kerberos support. DIR is the Kerberos install prefix
 #  --with-imap-ssl[=DIR]     IMAP: Include SSL support. DIR is the OpenSSL install prefix

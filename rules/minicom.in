@@ -3,13 +3,10 @@
 menuconfig MINICOM
 	tristate
 	prompt "minicom                       "
-	select LIBICONV
 	select NCURSES
         help
           This adds MiniCom to your root filesystem. Useful for serial
           communication and testing.
-
-          Selecting this module will also compile libiconv and ncurses.
 
 if MINICOM
 

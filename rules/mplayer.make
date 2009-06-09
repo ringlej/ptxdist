@@ -84,6 +84,13 @@ MPLAYER_AUTOCONF := \
         --with-extraincdir=$(SYSROOT)/include \
         --with-extralibdir=$(SYSROOT)/lib \
         --extra-libs='-Wl,-rpath-link -Wl,$(strip $(SYSROOT))/usr/lib'
+
+ifdef PTXCONF_ICONV
+MPLAYER_AUTOCONF += --enable-iconv
+else
+MPLAYER_AUTOCONF += --disable-iconv
+endif
+
 #
 # video out
 #
@@ -137,7 +144,6 @@ MPLAYER_AUTOCONF += \
 	--disable-linux-devfs \
 	--disable-termcap \
 	--disable-termios \
-	--disable-iconv \
 	--disable-langinfo \
 	--disable-lirc \
 	--disable-lircc \

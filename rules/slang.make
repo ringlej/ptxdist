@@ -48,8 +48,10 @@ SLANG_ENV 	:= $(CROSS_ENV)
 SLANG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--without-png \
-	--without-iconv \
 	--without-pcre
+
+# FIXME: iconv support is broken (at least for glibc-iconv)
+SLANG_AUTOCONF += --without-iconv
 
 # ----------------------------------------------------------------------------
 # Compile

@@ -53,7 +53,8 @@ HOST_GLIB_ENV 	:= $(HOST_ENV)
 #                  hosts 'iconv' should be present in the regular host glibc.
 #
 HOST_GLIB_AUTOCONF := \
-	$(HOST_AUTOCONF)
+	$(HOST_AUTOCONF) \
+	--with-libiconv=gnu
 
 # ----------------------------------------------------------------------------
 # Clean

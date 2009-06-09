@@ -251,6 +251,12 @@ ifndef PTXCONF_HAS_MMU
 CROSS_ENV_AC += ac_cv_func_fork=no
 endif
 
+ifdef PTXCONF_ICONV
+CROSS_ENV_AC += ac_cv_func_iconv_open=yes
+else
+CROSS_ENV_AC += ac_cv_func_iconv_open=no
+endif
+
 #
 # We want to use DESTDIR and --prefix=/usr, to get no build paths in our
 # binaries. Unfortunately, not all packages support this, especially

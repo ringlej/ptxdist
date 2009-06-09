@@ -64,11 +64,12 @@ XMLSTARLET_ENV 	=  $(CROSS_ENV)
 #
 # autoconf
 #
+# Don't set --with-libiconv-prefix (not necessary for libc-iconv)
+#
 XMLSTARLET_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--with-libxml-prefix=$(SYSROOT)/usr \
-	--with-libxslt-prefix=$(SYSROOT)/usr \
-	--with-libiconv-prefix=$(SYSROOT)/usr
+	--with-libxslt-prefix=$(SYSROOT)/usr
 
 $(STATEDIR)/xmlstarlet.prepare: $(xmlstarlet_prepare_deps_default)
 	@$(call targetinfo, $@)

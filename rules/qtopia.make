@@ -81,6 +81,10 @@ endif
 #
 # Important: Use "-no-fast" here. Otherwise qmake will be called during
 # the compile stage when the environment is not properly set!
+#
+# FIXME: when PTXCONF_ICONV is set, we have libc iconv support, check
+# if this works with -iconv
+#
 QTOPIA_AUTOCONF := \
 	-release \
 	-no-fast \

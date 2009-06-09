@@ -56,9 +56,9 @@ GLIB_ENV 	:= \
 #
 # autoconf
 #
-GLIB_AUTOCONF_LIBICONV-$(PTXCONF_GLIB__LIBICONV_CLIB)	+= no
-GLIB_AUTOCONF_LIBICONV-$(PTXCONF_GLIB__LIBICONV_GNU)	+= gnu
-GLIB_AUTOCONF_LIBICONV-$(PTXCONF_GLIB__LIBICONV_NATIVE)	+= native
+# --with-libiconv=no does also find the libc iconv implementation! So it
+# is the right choice for no locales and locales-via-libc
+#
 
 GLIB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
@@ -77,7 +77,7 @@ GLIB_AUTOCONF := \
 	--disable-xattr \
 	--with-gnu-ld \
 	--with-pcre=internal \
-	--with-libiconv=$(GLIB_AUTOCONF_LIBICONV-y)
+	--with-libiconv=no
 
 #  --enable-debug=[no/minimum/yes]
 #                          turn on debugging [default=minimum]

@@ -48,7 +48,6 @@ menuconfig SAMBA
 #   --with-smbtorture4-path=PATH    The path to a samba4 smbtorture for make test (none)
 #   --with-profiling-data   Include gathering source code profile information (default=no)
 #   --with-readline=DIR     Look for readline include/libs in DIR (default=auto)
-#   --with-libiconv=BASEDIR Use libiconv in BASEDIR/lib and BASEDIR/include (default=auto)
 #   --with-smbwrapper       Include SMB wrapper support (default=no)
 #   --with-afs              Include AFS clear-text auth support (default=no)
 #   --with-fake-kaserver    Include AFS fake-kaserver support (default=no)

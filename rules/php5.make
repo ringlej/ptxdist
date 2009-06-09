@@ -50,7 +50,11 @@ PHP5_ENV 	:= $(CROSS_ENV)
 PHP5_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-config-file-path=/etc/php5 \
-	--without-pdo-sqlite
+	--without-pdo-sqlite \
+	--without-iconv
+
+
+# FIXME: configure is broken beyond repair for glibc-libiconv
 
 # FIXME: PHP Data Objects -> sqlite doesn't link correctly
 
@@ -239,12 +243,6 @@ ifdef PTXCONF_PHP5_XML_LIBXML2_SIMPLEXML
 PHP5_AUTOCONF += --enable-simplexml
 else
 PHP5_AUTOCONF += --disable-simplexml
-endif
-
-ifdef PTXCONF_PHP5_EXT_ICONV
-PHP5_AUTOCONF += --with-iconv=$(SYSROOT)/usr
-else
-PHP5_AUTOCONF += --without-iconv
 endif
 
 ifdef PTXCONF_PHP5_EXT_MYSQL

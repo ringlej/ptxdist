@@ -340,8 +340,6 @@ if GST_PLUGINS_GOOD
 
 endif
 
-#  --with-libiconv-prefix=DIR  search for libiconv in DIR/include and DIR/lib
-#  --without-libiconv-prefix     don't search for libiconv in includedir and libdir
 #  --with-libintl-prefix=DIR  search for libintl in DIR/include and DIR/lib
 #  --without-libintl-prefix     don't search for libintl in includedir and libdir
 #  --with-pkg-config-path  colon-separated list of pkg-config(1) dirs

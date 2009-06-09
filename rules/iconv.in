@@ -1,0 +1,15 @@
+## SECTION=core
+
+config ICONV
+	bool
+	default y
+	prompt "iconv support"
+	help
+	  Build a system with iconv support in the C library. iconv
+	  provides a set of functions which convert between different
+	  encodings.
+
+	  There are different methods how to provide iconv support:
+	  glibc has an own implementation and there is libiconv. When
+	  activated, ptxdist uses the iconv support from glibc.
+

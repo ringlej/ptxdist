@@ -93,7 +93,8 @@ CLASSPATH_AUTOCONF := \
 	--with-pic \
 	--without-x \
 	--with-glibj=zip \
-	--with-gjdoc=no
+	--with-gjdoc=no \
+	--without-libiconv-prefix
 
 #
 # FIXME:
@@ -106,8 +107,6 @@ CLASSPATH_AUTOCONF := \
 #                           default='${libdir}/${PACKAGE}'
 #   --with-antlr-jar=file   Use ANTLR from the specified jar file
 #   --with-tags[=TAGS]      include additional configurations [automatic]
-#   --with-libiconv-prefix[=DIR]  search for libiconv in DIR/include and DIR/lib
-#   --without-libiconv-prefix     don't search for libiconv in includedir and libdir
 #   --with-javah            specify path or name of a javah-like program
 #   --with-vm-classes       specify path to VM override source files
 #   --with-ecj-jar=ABS.PATH specify jar file containing the Eclipse Java

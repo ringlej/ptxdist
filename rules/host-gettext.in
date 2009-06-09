@@ -2,7 +2,6 @@
 
 config HOST_GETTEXT
 	tristate
-#	select HOST_LIBICONV if ARCH_MINGW
 	help
 	  The gettext program translates a natural language
 	  message into the user's language, by looking up

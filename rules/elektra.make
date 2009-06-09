@@ -73,7 +73,7 @@ ELEKTRA_AUTOCONF := \
 	--enable-shared \
 	--disable-static \
 	--disable-fast-install \
-	--disable-iconv \
+	--without-libiconv-prefix \
 	--disable-rpath \
 	--disable-xmltest \
 	--disable-gconf \
@@ -84,6 +84,12 @@ ifdef PTXCONF_ELEKTRA__DEBUG
 ELEKTRA_AUTOCONF += --enable-debug
 else
 #ELEKTRA_AUTOCONF += --disable-debug
+endif
+
+ifdef PTXCONF_ICONV
+ELEKTRA_AUTOCONF += --enable-iconv
+else
+ELEKTRA_AUTOCONF += --disable-iconv
 endif
 
 #

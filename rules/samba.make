@@ -69,6 +69,12 @@ ifdef PTXCONF_SAMBA_SMBFS
 SAMBA_AUTOCONF += --with-smbmount
 endif
 
+ifdef PTXCONF_ICONV
+SAMBA_AUTOCONF += --with-libiconv=yes
+else
+SAMBA_AUTOCONF += --without-libiconv
+endif
+
 $(STATEDIR)/samba.prepare:
 	@$(call targetinfo)
 	@$(call clean, $(SAMBA_DIR)/config.cache)

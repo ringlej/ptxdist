@@ -88,15 +88,6 @@ config LIBXML2_HTTP
 	help
 	  Add HTTP support.
 
-config LIBXML2_ICONV
-	bool
-	# FIXME: doesn't pick up correct LDADD flags
-	depends on BROKEN
-	default y
-	prompt "ICONV support"
-	help
-	  Add ICONV support.
-
 config LIBXML2_ISO8859X
 	bool
 	default y

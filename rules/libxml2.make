@@ -44,9 +44,17 @@ LIBXML2_ENV	:= $(CROSS_ENV)
 #
 # autoconf
 #
+# --with-iconv=yes -> does the right thing for libc-iconv
+#
 LIBXML2_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--oldincludedir=$(SYSROOT)/usr/include
+
+ifdef PTXCONF_ICONV
+LIBXML2_AUTOCONF += --with-iconv=yes
+else
+LIBXML2_AUTOCONF += --with-iconv=no
+endif
 
 ifdef PTXCONF_LIBXML2_C14N
 LIBXML2_AUTOCONF += --with-c14n
@@ -100,12 +108,6 @@ ifdef PTXCONF_LIBXML2_HTTP
 LIBXML2_AUTOCONF += --with-http
 else
 LIBXML2_AUTOCONF += --without-http
-endif
-
-ifdef PTXCONF_LIBXML2_ICONV
-LIBXML2_AUTOCONF += --with-iconv
-else
-LIBXML2_AUTOCONF += --without-iconv
 endif
 
 ifdef PTXCONF_LIBXML2_ISO8859X

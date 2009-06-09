@@ -1,7 +1,6 @@
 ## SECTION=disk_and_file
 menuconfig FUSE
 	tristate
-	select LIBICONV
 	prompt "fuse                          "
 	help
 	  utilities for filesystems in userspace

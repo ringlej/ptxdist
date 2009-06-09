@@ -42,6 +42,8 @@ GST_PLUGINS_GOOD_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
+# --without-libiconv-prefix -> we use libc iconv
+#
 GST_PLUGINS_GOOD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-rpath \
@@ -55,7 +57,8 @@ GST_PLUGINS_GOOD_AUTOCONF := \
 	--enable-experimental \
 	--disable-schemas-install \
 	--disable-gtk-doc \
-	--disable-gconftool
+	--disable-gconftool \
+	--without-libiconv-prefix
 
 #
 # FIXME: what about these? They are built but I don't know which option
