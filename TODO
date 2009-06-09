@@ -40,7 +40,10 @@ TODO before 2.0.0
 [ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks in.
     We want a whitelist instead of the current blacklist.
 
-[ ] rsc: add bbu's "get" script
+[ ] rsc: add bbu's "get" script.
+
+[ ] rsc: add "ptxdist happy-customer-package". Add all needed software,
+    toolchain packages and EULA.
 
 [ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
     this "class" mechanism and make sure it produces sane output. Check
