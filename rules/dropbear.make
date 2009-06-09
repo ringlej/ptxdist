@@ -48,7 +48,9 @@ DROPBEAR_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-nls
 
-ifdef PTXCONF_DROPBEAR_DIS_ZLIB
+ifdef PTXCONF_DROPBEAR_ZLIB
+DROPBEAR_AUTOCONF	+= --enable-zlib
+else
 DROPBEAR_AUTOCONF	+= --disable-zlib
 endif
 

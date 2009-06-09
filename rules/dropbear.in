@@ -1,9 +1,11 @@
 ## SECTION=networking
 menuconfig DROPBEAR
 	tristate
-	prompt "dropbear ssh-server           "
+	prompt "dropbear                      "
 	select ZLIB
 	select LIBC_UTIL
+	select LIBC_CRYPT
+	select INITMETHOD
 	help
 	  dropbear is a SSH 2 server and client designed
 	  to be small enough to be used in small memory
@@ -18,9 +20,9 @@ menuconfig DROPBEAR
 
 if DROPBEAR
 
-config DROPBEAR_DIS_ZLIB
+config DROPBEAR_ZLIB
 	bool
-	prompt "Don't include zlib support"
+	prompt "zlib support"
 	help
 	  Disable compresion in Dropbear by dropping use of
 	  zlib.
