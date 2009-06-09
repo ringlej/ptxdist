@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_FAM) += fam
 FAM_VERSION	:= 2.7.0
 FAM		:= fam-$(FAM_VERSION)
 FAM_SUFFIX	:= tar.gz
-FAM_URL		:= ftp://oss.sgi.com/projects/fam/download/stable//$(FAM).$(FAM_SUFFIX)
+FAM_URL		:= ftp://oss.sgi.com/projects/fam/download/stable/$(FAM).$(FAM_SUFFIX)
 FAM_SOURCE	:= $(SRCDIR)/$(FAM).$(FAM_SUFFIX)
 FAM_DIR		:= $(BUILDDIR)/$(FAM)
 
