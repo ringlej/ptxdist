@@ -9,9 +9,6 @@ TODO before 1.99.14
     even if disabled and link against it.  (for example if libiconv is
     already built by accident)
 
-[ ] jbe: dropbaer's init script seems to fail to do a simple "restart". For example
-    if one changes the SSH portnumber in the script and try a restart, nothing changes!
-
 [ ] rsc: python-3.0 breaks in install stage; it worked before, so find out
     what made this fail:
 
@@ -512,8 +509,14 @@ Test suite components to be added
 DONE
 ====
 
+
 [X] jbe: Running "ptxdist menu" shows always a "u-boot-v2" entry that fails
     if called even if the platformconfig do not use u-boot-v2
+
+[x] jbe: dropbear's init script seems to fail to do a simple "restart". For example
+    if one changes the SSH portnumber in the script and try a restart, nothing changes!
+
+    Update 20090609 rsc: fixed
 
 [x] jbe: the libiconv package fails to build, if a libiconv library is
     present on the host system (for example in /usr/lib). In this case it
