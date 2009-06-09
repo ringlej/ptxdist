@@ -3,12 +3,15 @@
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
 ## DP: Cleanup of manual page
+## DP: cumulative is a parameter not option #527193
 
 @DPATCH@
-diff -urNad procps-3.2.7~/watch.1 procps-3.2.7/watch.1
---- procps-3.2.7~/watch.1	2008-04-07 11:12:26.000000000 +1000
-+++ procps-3.2.7/watch.1	2008-04-07 11:20:26.000000000 +1000
-@@ -2,44 +2,53 @@
+diff -urNad procps-3.2.8~/watch.1 procps-3.2.8/watch.1
+--- procps-3.2.8~/watch.1	2009-05-11 22:40:13.000000000 +1000
++++ procps-3.2.8/watch.1	2009-05-11 22:46:33.000000000 +1000
+@@ -1,45 +1,54 @@
+-.TH WATCH 1 "1999 Apr 3" " " "Linux User's Manual"
++.TH WATCH 1 "2009 May 11" " " "Linux User's Manual"
  .SH NAME
  watch \- execute a program periodically, showing output fullscreen
  .SH SYNOPSIS
@@ -44,11 +47,13 @@ diff -urNad procps-3.2.7~/watch.1 procps-3.2.7/watch.1
 +.B \-d
  or
 -.I --differences
-+.B \-\-differences
- flag will highlight the differences between successive updates.  The 
+-flag will highlight the differences between successive updates.  The 
 -.I --cumulative
-+.B \-\-cumulative
- option makes highlighting "sticky", presenting a running display of all
+-option makes highlighting "sticky", presenting a running display of all
++.B \-\-differences
++flag will highlight the differences between successive updates.  Using
++.B \-\-differences=\fIcumulative\fP
++makes highlighting "sticky", presenting a running display of all
  positions that have ever changed.  The
 -.I -t
 +.B \-t

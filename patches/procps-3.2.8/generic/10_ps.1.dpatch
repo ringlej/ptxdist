@@ -5,11 +5,12 @@
 ## DP: ps.1 normal indent widths
 ## DP: pri field explained #465761
 ## DP: --no-heading comment is an alias for --no-headers
+## DP: Removed setproctitle(1) reference #529045
 
 @DPATCH@
-diff -urNad procps-3.2.7~/ps/ps.1 procps-3.2.7/ps/ps.1
---- procps-3.2.7~/ps/ps.1	2008-04-07 09:13:00.000000000 +1000
-+++ procps-3.2.7/ps/ps.1	2008-04-07 09:59:52.000000000 +1000
+diff -urNad procps-3.2.8~/ps/ps.1 procps-3.2.8/ps/ps.1
+--- procps-3.2.8~/ps/ps.1	2009-05-28 17:40:42.000000000 +1000
++++ procps-3.2.8/ps/ps.1	2009-05-28 17:41:32.000000000 +1000
 @@ -18,12 +18,6 @@
  .nh
  .if n .ss 12 0
@@ -23,6 +24,15 @@ diff -urNad procps-3.2.7~/ps/ps.1 procps-3.2.7/ps/ps.1
  .\"
  .\" ColSize is used for the format spec table.
  .\" It's the left margin, minus the right, minus
+@@ -499,7 +493,7 @@
+ .opt c
+ Show the true command name. This is derived from the name of the
+ executable file, rather than from the argv value. Command arguments
+-and any modifications to them (see\ \fIsetproctitle\fR(3)) are
++and any modifications to them  are
+ thus not shown. This option
+ effectively turns the \fBargs\fR format keyword into the \fBcomm\fR
+ format keyword; it is useful with the \fB\-f\fR format option and with
 @@ -588,7 +582,8 @@
  repeat header lines, one per page of output
  
@@ -33,7 +43,7 @@ diff -urNad procps-3.2.7~/ps/ps.1 procps-3.2.7/ps/ps.1
  
  .opt \-\-lines \ n
  set screen height
-@@ -1139,6 +1134,10 @@
+@@ -1159,6 +1154,10 @@
  parent process ID.
  T}
  

@@ -19,7 +19,7 @@ diff -urNad procps-3.2.7~/proc/readproc.c procps-3.2.7/proc/readproc.c
  	sprintf(path, "/proc/%d", pid);
 diff -urNad procps-3.2.7~/pwdx.c procps-3.2.7/pwdx.c
 --- procps-3.2.7~/pwdx.c	2006-06-17 19:29:06.000000000 +1000
-+++ procps-3.2.7/pwdx.c	2008-09-09 15:01:36.000000000 +1000
++++ procps-3.2.7/pwdx.c 	2009-03-11 19:56:58.466099226 +0100
 @@ -35,7 +35,6 @@
  
  int main(int argc, char* argv[])
@@ -51,24 +51,26 @@ diff -urNad procps-3.2.7~/pwdx.c procps-3.2.7/pwdx.c
            
            // At this point, all arguments are in the form /proc/nnnn
            // or nnnn, so a simple check based on the first char is
-@@ -82,7 +86,12 @@
- 
+@@ -83,13 +87,21 @@
            // buf contains /proc/nnnn/cwd symlink name on entry, the
            // target of that symlink on return
 -          if ((len = readlink(buf, buf, PATH_MAX)) < 0) {
-+          while ((len = readlink(buf, pathbuf, alloclen) == alloclen)) {
++          while ((len = readlink(buf, pathbuf, alloclen)) == alloclen) {
 +               alloclen *= 2;
-+               s = pathbuf = realloc(pathbuf, alloclen);
-+          }  
++               pathbuf = realloc(pathbuf, alloclen);
++          }
 +
 +          if (len < 0) {
                 s = strerror(errno == ENOENT ? ESRCH : errno);
            } else {
-                buf[len] = 0;
-@@ -91,5 +100,7 @@
+-               buf[len] = 0;
++               pathbuf[len] = 0;
++               s = pathbuf;
+           }
+
            printf("%s: %s\n", argv[i], s);
       }
- 
+
 +     free(pathbuf);
 +
       return 0;

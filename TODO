@@ -26,10 +26,12 @@ TODO before 1.99.14
 TODO before 2.0.0
 =================
 
-[ ] mkl/jbe: The 'ps' command from the procps package outputs
+[x] mkl/jbe: The 'ps' command from the procps package outputs
             "Unknown HZ value! (xx) Assume 100."
     on a recently started system. Doing it later again, this message does
     not occur again. Kernel detection failure?
+
+    Update 20090609: (mkl) fixed
 
 [ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks in.
     We want a whitelist instead of the current blacklist.

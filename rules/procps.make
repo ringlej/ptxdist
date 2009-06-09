@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_PROCPS) += procps
 #
 # Paths and names
 #
-PROCPS_VERSION	:= 3.2.7
+PROCPS_VERSION	:= 3.2.8
 PROCPS		:= procps-$(PROCPS_VERSION)
 PROCPS_SUFFIX	:= tar.gz
 PROCPS_URL	:= http://procps.sourceforge.net/$(PROCPS).$(PROCPS_SUFFIX)
@@ -86,7 +86,7 @@ $(STATEDIR)/procps.targetinstall:
 	@$(call install_fixup, procps,DESCRIPTION,missing)
 
 	@$(call install_copy, procps, 0, 0, 0644, \
-		$(PROCPS_DIR)/proc/libproc-3.2.7.so, /lib/libproc-3.2.7.so)
+		$(PROCPS_DIR)/proc/libproc-3.2.8.so, /lib/libproc-3.2.8.so)
 
 ifdef PTXCONF_PROCPS_TOP
 	@$(call install_copy, procps, 0, 0, 0755, $(PROCPS_DIR)/top, \

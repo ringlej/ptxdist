@@ -6,14 +6,10 @@
 ## DP: Adds -errexit flag now too #183346
 
 @DPATCH@
-diff -urNad procps-3.2.7~/watch.1 procps-3.2.7/watch.1
---- procps-3.2.7~/watch.1	2009-01-11 12:11:47.000000000 +1100
-+++ procps-3.2.7/watch.1	2009-01-11 12:18:31.000000000 +1100
-@@ -1,13 +1,16 @@
--.TH WATCH 1 "1999 Apr 3" " " "Linux User's Manual"
-+.TH WATCH 1 "2008 Jan 8" " " "Linux User's Manual"
- .SH NAME
- watch \- execute a program periodically, showing output fullscreen
+diff -urNad procps-3.2.8~/watch.1 procps-3.2.8/watch.1
+--- procps-3.2.8~/watch.1	2009-05-28 17:27:41.000000000 +1000
++++ procps-3.2.8/watch.1	2009-05-28 17:28:28.000000000 +1000
+@@ -4,10 +4,13 @@
  .SH SYNOPSIS
  .na
  .B watch
@@ -81,9 +77,9 @@ diff -urNad procps-3.2.7~/watch.1 procps-3.2.7/watch.1
 -Mike Coleman <mkc@acm.org> in 1999.
 +Mike Coleman <mkc@acm.org> in 1999.  The beep, exec, and error handling 
 +features were added by Morty Abzug <morty@frakir.org> in 2008.
-diff -urNad procps-3.2.7~/watch.c procps-3.2.7/watch.c
---- procps-3.2.7~/watch.c	2009-01-11 12:11:47.000000000 +1100
-+++ procps-3.2.7/watch.c	2009-01-11 12:21:50.000000000 +1100
+diff -urNad procps-3.2.8~/watch.c procps-3.2.8/watch.c
+--- procps-3.2.8~/watch.c	2009-05-28 17:27:41.000000000 +1000
++++ procps-3.2.8/watch.c	2009-05-28 17:27:42.000000000 +1000
 @@ -8,6 +8,7 @@
   * Mike Coleman <mkc@acm.org>.
   *
