@@ -1,15 +1,13 @@
 #!/bin/sh
-#
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/sbin/dropbear
 NAME=dropbear
-DESC="Dropbear SSH server"
 
 DROPBEAR_PORT=22
 DROPBEAR_EXTRA_ARGS=
 
-set -e
+. /lib/init/initmethod-bbinit-functions.sh
 
 # test ! -h /var/service/dropbear || exit 0
 
@@ -23,55 +21,84 @@ test -n "$DROPBEAR_RSAKEY" || \
 test -n "$DROPBEAR_DSSKEY" || \
   DROPBEAR_DSSKEY=$DROPBEAR_DSSKEY_DEFAULT
 test -n "$DROPBEAR_KEYTYPES" || \
-  DROPBEAR_KEYTYPES="rsa dsa"
+  DROPBEAR_KEYTYPES="rsa dss"
 
-gen_keys() {
-for t in $DROPBEAR_KEYTYPES; do
-  case $t in
-    rsa)
-        test -f $DROPBEAR_RSAKEY || dropbearkey -t rsa -f $DROPBEAR_RSAKEY
-	;;
-    dsa)
-        test -f $DROPBEAR_DSSKEY || dropbearkey -t dss -f $DROPBEAR_DSSKEY
-	;;
-  esac
-done
+gen_key() {
+
+    key_type=$1
+    key_file=$2
+
+    mount_root_rw || exit
+    rm -f $key_file > /dev/null 2>&1
+
+    echo -n "generating $key_type key..."
+    dropbearkey -t $key_type -f $key_file > /dev/null 2>&1
+
+    if [ "$?" = "0" ]; then
+        echo "done"
+    else
+        echo "failed"
+        mount_root_restore
+        exit 1
+    fi
+
+    mount_root_restore || exit
+
 }
 
+dropbear_start() {
+
+    # create keys if necessary
+    [ \! -f "$DROPBEAR_RSAKEY" ] && gen_key rsa "$DROPBEAR_RSAKEY"
+    [ \! -f "$DROPBEAR_DSSKEY" ] && gen_key dss "$DROPBEAR_DSSKEY"
+
+    KEY_ARGS=""
+    test -f $DROPBEAR_DSSKEY && KEY_ARGS="$KEY_ARGS -d $DROPBEAR_DSSKEY"
+    test -f $DROPBEAR_RSAKEY && KEY_ARGS="$KEY_ARGS -r $DROPBEAR_RSAKEY"
+
+    echo -n "starting dropbear..."
+
+    start-stop-daemon -S -x "$DAEMON" --oknodo -- \
+        $KEY_ARGS -p "$DROPBEAR_PORT" $DROPBEAR_EXTRA_ARGS > /dev/null 2>&1
+
+    if [ "$?" = "0" ]; then
+        echo "done"
+    else
+        echo "failed"
+        exit 1
+    fi
+}
+
+dropbear_stop() {
+
+    echo -n "stopping dropbear..."
+
+    start-stop-daemon -K -x "$DAEMON" --oknodo > /dev/null 2>&1
+
+    if [ "$?" = "0" ]; then
+        echo "done"
+    else
+        echo "failed"
+        exit 1
+    fi
+}
+
+
 case "$1" in
-  start)
-	echo -n "Starting $DESC: "
-	gen_keys
-	KEY_ARGS=""
-	test -f $DROPBEAR_DSSKEY && KEY_ARGS="$KEY_ARGS -d $DROPBEAR_DSSKEY"
-	test -f $DROPBEAR_RSAKEY && KEY_ARGS="$KEY_ARGS -r $DROPBEAR_RSAKEY"
-	start-stop-daemon -S \
-	  -x "$DAEMON" -- $KEY_ARGS \
-	    -p "$DROPBEAR_PORT" $DROPBEAR_EXTRA_ARGS
-	echo "$NAME."
-	;;
-  stop)
-	echo -n "Stopping $DESC: "
-	start-stop-daemon -K -x "$DAEMON"
-	echo "$NAME."
-	;;
-  restart|force-reload)
-	echo -n "Restarting $DESC: "
-	start-stop-daemon -K -x "$DAEMON"
-	sleep 1
-	KEY_ARGS=""
-	test -f $DROPBEAR_DSSKEY && KEY_ARGS="$KEY_ARGS -d $DROPBEAR_DSSKEY"
-	test -f $DROPBEAR_RSAKEY && KEY_ARGS="$KEY_ARGS -r $DROPBEAR_RSAKEY"
-	start-stop-daemon -S \
-	  -x "$DAEMON" -- $KEY_ARGS \
-	    -p "$DROPBEAR_PORT" $DROPBEAR_EXTRA_ARGS
-	echo "$NAME."
-	;;
-  *)
-	N=/etc/init.d/$NAME
-	echo "Usage: $N {start|stop|restart|force-reload}" >&2
-	exit 1
-	;;
+start)
+    dropbear_start;;
+stop)
+    dropbear_stop;;
+restart|force-reload)
+    dropbear_stop
+    dropbear_start
+    ;;
+*)
+    N=/etc/init.d/$NAME
+    echo "usage: $N {start|stop|restart|force-reload}" >&2
+    exit 1
+    ;;
 esac
 
 exit 0
+
