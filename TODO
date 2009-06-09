@@ -37,8 +37,6 @@ TODO before 2.0.0
     on a recently started system. Doing it later again, this message does
     not occur again. Kernel detection failure?
 
-[ ] bbu: default path to generic projects seems not to work
-
 [ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks in.
     We want a whitelist instead of the current blacklist.
 
@@ -510,6 +508,10 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] bbu: default path to generic projects seems not to work
+
+    Update 20090603 rsc: please provide test case, seems to work here.
 
 [-] jbe: if ipkg building crashes, PTXdist doesn't break. rsc: see
     pipeline error fixing in scripts/libptxdist.sh
