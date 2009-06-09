@@ -32,21 +32,10 @@ TODO before 1.99.14
 TODO before 2.0.0
 =================
 
-Prio A
-
-[ ] jbe: If someone adds a project local menu (*.in) file and uses
-    'project_specific' as its SECTION name ptxdist should automatically
-    generate an additional submenu "Project Specific Configuration" and
-    include this menu into it. This should avoid a local "Kconfig" copy
-    in each ptxdist project for such a simple addition.
-
 [ ] mkl/jbe: The 'ps' command from the procps package outputs
             "Unknown HZ value! (xx) Assume 100."
     on a recently started system. Doing it later again, this message does
     not occur again. Kernel detection failure?
-
-[ ] rsc: 'ptxdist images' for the i586 target sometimes does not work,
-    the generated image is incorrect and grub stops booting.
 
 [ ] bbu: default path to generic projects seems not to work
 
@@ -78,19 +67,10 @@ Prio A
 
 [ ] some_autotool_fan: shebang-line of awk-scripts should use the $AWK value obtained from configure.
 
-
-Prio B
-------
-
-[ ] jbe: same in canfestival.compile
-
 [ ] jbe, rsc -> mgr: provide a "bare metal" project for Stellaris/Cortex-M3,
     to show how to use ptxdist-2 for non-Linux targets.
 
 [ ] jbe: udev seems to load kernel modules by its own. How to disable it?
-
-Prio C
-------
 
 [ ] jbe: Would it be possible to omit the "ptxconfig" and "platformconfig" menu entries
     when run "ptxdist menu" when the "selected_ptxconfig" and "selected_platformconfig"
@@ -113,6 +93,9 @@ Prio C
 
 [ ] jbe: most of the time thttpd does not respond to the USR1 signal.
 	  - the start/stop script fails to stop this service
+
+[ ] ipkg with dependecies
+
 
 Unclear
 -------
@@ -172,38 +155,48 @@ Before Release
 [ ] update ChangeLog
     http://ch.tudelft.nl/~arthur/svn2cl/
 
-[ ] jbe: Generic projects must be audited carefully prior any release. For the
-	 0.10.6 release, ARM and PowerPC projects where updated, but the x86
-	 project was/is still on 0.10.5!
+[ ] jbe, rsc: provide demo projects for ptxdist-2.0.0, including website
+    documentation, maybe even elinux.org docs
 
 [ ] bbu: check ptxdist first-time-usage scenario for chicken-egg problems
-         e.g. if you don´t set sane defaults for PTXCONF_SETUP_PROJECTPATH,
-	 ptxdist won´t find its own projects.
-
+    e.g. if you don´t set sane defaults for PTXCONF_SETUP_PROJECTPATH,
+    ptxdist won´t find its own projects.
 
 
 TODO before 2.1.0
 =================
+
+[ ] rsc: 'ptxdist images' for the i586 target sometimes does not work,
+    the generated image is incorrect and grub stops booting.
+
+[ ] jbe: If someone adds a project local menu (*.in) file and uses
+    'project_specific' as its SECTION name ptxdist should automatically
+    generate an additional submenu "Project Specific Configuration" and
+    include this menu into it. This should avoid a local "Kconfig" copy
+    in each ptxdist project for such a simple addition.
 
 [ ] lfu: some mountable devices are available after udev has started.
     hence we need an extra mount script to mount all entries in fstab
     instead out of rcS.
 
 [ ] jbe: mplayer.compile: It seems very PXA specific now?
-     i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
-      vo_pxa.c: In function 'draw_osd':
-      vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
-      vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
-      [...]
-      vo_pxa.c: In function 'config':
-      vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
-      vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
-      [...]
-      make[2]: *** [vo_pxa.o] Error 1
-      make[2]: Leaving directory `[...]/platform-i586/build-target/MPlayer-1.0rc2/libvo'
-      --> menu contains pxa specific stuff. Maybe this should be modified?
+
+    i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
+    vo_pxa.c: In function 'draw_osd':
+    vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
+    vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
+    [...]
+    vo_pxa.c: In function 'config':
+    vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
+    vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
+    [...]
+    make[2]: *** [vo_pxa.o] Error 1
+    make[2]: Leaving directory `[...]/platform-i586/build-target/MPlayer-1.0rc2/libvo'
+
+    --> menu contains pxa specific stuff. Maybe this should be modified?
 
     Even with disabled PXA specific options a build for x86 still fails:
+
     libvo/libvo.a(video_out.o):(.data+0x20): undefined reference to `video_out_x11'
     libvo/libvo.a(video_out.o):(.data+0x24): undefined reference to `video_out_xover'
     libvo/libvo.a(video_out.o):(.data+0x28): undefined reference to `video_out_pxa'
@@ -219,9 +212,7 @@ TODO before 2.1.0
     $ ptxdist kernelconfig
     <bla>/rules/ffmpeg.make:189: Please define the config options for this CPU type!
 
-[ ] ipkg with dependecies
-
-[ ] rsc: fix python 3.0
+[ ] rsc: fix python 3.x
 
 [ ] jbe: Would there be a solution to supress sysroot-* folders for target system
     (for example bare metall) that do not need a Unix filesystem?
@@ -241,15 +232,15 @@ TODO before 2.1.0
     no
     [...anything proceeds...]
 
-[ ] jbe: working with hd.img is very delicate. The incomplete partition table
-	 confuses the linux kernel, so any rewrite of the image after done
-	 one time fails with "no space left on device". Also fdisk fails
-	 when trying to repair this partition table. Only Windows can
-	 rewrite the partition table in this case. After this, also Linux
-	 is able to write to the hard disk again!
-	 But the BIOS and Kernel on target side are successfull. Problem
-	 happend on SUSE-10.1 on host side and an USB to IDE adapter
-	 to initial write the hd.img to the harddisk.
+[ ] jbe: working with hd.img is very delicate. The incomplete partition
+    table confuses the linux kernel, so any rewrite of the image after done
+    one time fails with "no space left on device". Also fdisk fails when
+    trying to repair this partition table. Only Windows can rewrite the
+    partition table in this case. After this, also Linux is able to write to
+    the hard disk again!  But the BIOS and Kernel on target side are
+    successfull. Problem happend on SUSE-10.1 on host side and an USB to IDE
+    adapter to initial write the hd.img to the harddisk.
+
 
 TODO somewhen
 =============
@@ -262,55 +253,47 @@ TODO somewhen
 [ ] rsc: add sparse support
 
 [ ] mol: bash configure --enable-job-control does not work when cross compiling
-         posible fix in:
-         https://iocaste.extern.pengutronix.de/svn/oselas/bsp/johndeere/OSELAS.BSP-JohnDeere-ComPC-trunk/rules/bash.make
-         explained here:
-         http://www.mail-archive.com/bug-bash%40gnu.org/msg03107.html
+    posible fix in:
+    https://iocaste.extern.pengutronix.de/svn/oselas/bsp/johndeere/OSELAS.BSP-JohnDeere-ComPC-trunk/rules/bash.make
+    explained here:
+    http://www.mail-archive.com/bug-bash%40gnu.org/msg03107.html
 
 [ ] bbu: add more real GNU coreutils
 
 [ ] jbe: review samba configure stage. For a non-root and cross-compile run it
-	seems to omit many tests and switches of many features in the final
-	application.
-	-> check if samba_cv_HAVE_IFACE_IFCONF=yes and samba_cv_HAVE_MMAP=yes
-	   can be used all over all architectures as defaults
+    seems to omit many tests and switches of many features in the final
+    application. Check if samba_cv_HAVE_IFACE_IFCONF=yes and samba_cv_HAVE_MMAP=yes
+    can be used all over all architectures as defaults
 
-[ ] bbu: add minimal documentation for internal vars (useful for customer makefiles)
-	-> see manual (not quickstart)
+[ ] bbu: add minimal documentation for internal vars (useful for
+    customer makefiles) -> see manual (not quickstart)
 
 [ ] jbe: samba fails to run with:
-	[...]
-	sys_gethostbyname: Unknown host. eth0
-	can't determine netmask for eth0
-	WARNING: no network interfaces found
-	[...]
-	Seems to be a failure with current glibc
 
-[ ] rsc: find out why iproute2 needs berkeley-db
+    sys_gethostbyname: Unknown host. eth0
+    can't determine netmask for eth0
+    WARNING: no network interfaces found
+
+    Seems to be a failure with current glibc
 
 [ ] rsc: xorg-app-xkbcomp needs xorg-lib-xkbfile, but dependency doesn't
-         work
+    work
 
 [ ] rsc: xorg-data-xkbdata needs xkbcomp on the host - otherwhise we get
-         a circular dependency ...
+    a circular dependency ...
 
 [ ] jbe: alsa-lib creates funny pathes at the install stage
 
 [ ] jbe: org-server fails if no xkbfile is selected
 
-[ ] jbe: audit BROKEN marked packages
+[ ] jbe: audit packages which are marked to be BROKEN
 
 [ ] lfu: often used config files for X like xorg.conf or xinitrd shall be
-	integrated into ptxdist generic files. the installation shall follow
-	the scheme of other rootfs configuration files
-
-[ ] bbu: Discuss the whole definition of "package". At the moment,
-	 most package options are scattered across two or more
-	 *.in or *.make files, making "drop-in replacements" nearly
-	 impossible.
+    integrated into ptxdist generic files. the installation shall follow
+    the scheme of other rootfs configuration files
 
 [ ] jbe: audit all packages if they change the target CPU (with --march
-         or --mtune); openssl does so
+    or --mtune); openssl does so
 
 [ ] jbe: uRamdisk should be built from ipkg packages instead of root/ content!
 
@@ -323,27 +306,31 @@ TODO somewhen
 [ ] jbe: more help texts
 
 [ ] bbu: reimplement cuckoo-test
-	 - files w/ wrong build-arch
-	 - missing libs
-	 - statistics
-	 - stripped / non stripped files
+
+    - files w/ wrong build-arch
+    - missing libs
+    - statistics
+    - stripped / non stripped files
 
 [ ] bbu: reimplement generic pre- and post-flight checks
-	 - dependency checks
-	 - cuckoo-test
-	 - user defined checks
-	 - package tests
-	 - in-system test -> ltp
+
+    - dependency checks
+    - cuckoo-test
+    - user defined checks
+    - package tests
+    - in-system test -> ltp
 
 [ ] bbu: generic logging aproach w/ single and combined logs
-	 - combined log for normal use
-	 - build-logs per package, test-suite, etc would
-	   support features like
-	   	- "quiet build", while still providing the full error
-		   output of the failing target
-		- helpdesk notification fetaures
-	 	- build statistics
-	 	- better support for GUI driven builds
+
+    - combined log for normal use
+
+    - build-logs per package, test-suite, etc would support features like
+
+      - "quiet build", while still providing the full error
+        output of the failing target
+      - helpdesk notification fetaures
+      - build statistics
+      - better support for GUI driven builds
 
 [ ] bbu,rsc,mkl: brain storming session
 
@@ -435,9 +422,6 @@ TODO somewhen
 		- Draw the big picture :-)
 		- Create Roadmap
 
-[ ] jbe: if ipkg building crashes, PTXdist doesn't break. rsc: see
-    pipeline error fixing in scripts/libptxdist.sh
-
 [ ] rsc: ChangeLog automatism:
     http://www.simios.org/node/266?PHPSESSID=a736cf6396ad789e0148d9690761e733
 
@@ -467,64 +451,74 @@ TODO somewhen
     in "state/"
 
 [ ] Tree Structure
-    RSC: Find sane place for generic files from projects/generic
-    ERO: Make subdirectories, e.g. for x.org stuff. Might use symlinks
+    rsc: Find sane place for generic files from projects/generic
+    ero: Make subdirectories, e.g. for x.org stuff. Might use symlinks
     to avoid changing the scripts.
-    SHA: push make and in files into subdirs, add patches to that dirs
+    sha: push make and in files into subdirs, add patches to that dirs
     as well.
 
-[ ] RSC: add some useful statistics at the end of build (root size, image
+[ ] rsc: add some useful statistics at the end of build (root size, image
     size etc.).
 
-[ ] RSC: add checksums for download
+[ ] rsc: add checksums for download
 
 Interesting packets
 ===================
 
-[ ] RSC: http://cryptmount.sourceforge.net/
-[ ] RSC: http://www.nongnu.org/failmalloc/
-[ ] RSC: http://stapgui.sourceforge.net
-[ ] RSC: http://home.eol.ca/~parkw/index.html
-[ ] RSC: http://podgorny.cz/moin/UnionFsFuse
-[ ] RSC: http://perso.wanadoo.fr/sebastien.godard/
-[ ] RSC: http://clpbar.sourceforge.net/
-[ ] RSC: http://xmlrpc-c.sourceforge.net/
-[ ] RSC: http://www.vanheusden.com/httping/
-[ ] RSC: http://urunlevel.sourceforge.net/
-[ ] RSC: http://www.freshmeat.net/projects/bootutils
-[ ] RSC: ethtool: http://sourceforge.net/project/showfiles.php?group_id=3242&package_id=19201
-[ ] RSC: ntpclient: http://doolittle.faludi.com/ntpclient/
-[ ] RSC: openntpd: http://www.openntpd.org/
-[ ] RSC: http://www.reportlab.com/ftp/
-[ ] RSC: http://rlib.sicompos.com/
-[ ] RSC: MatrixSSL
-[ ] MKL: lilo, tinylogin targetinstall (RSC: find out what MKL means here)
-[ ] RSC: finish integration of zebra
-[ ] RSC: install e2fsck
-[ ] RSC: LTT-ng
+[ ] rsc: http://cryptmount.sourceforge.net/
+[ ] rsc: http://www.nongnu.org/failmalloc/
+[ ] rsc: http://stapgui.sourceforge.net
+[ ] rsc: http://home.eol.ca/~parkw/index.html
+[ ] rsc: http://podgorny.cz/moin/UnionFsFuse
+[ ] rsc: http://perso.wanadoo.fr/sebastien.godard/
+[ ] rsc: http://clpbar.sourceforge.net/
+[ ] rsc: http://xmlrpc-c.sourceforge.net/
+[ ] rsc: http://www.vanheusden.com/httping/
+[ ] rsc: http://urunlevel.sourceforge.net/
+[ ] rsc: http://www.freshmeat.net/projects/bootutils
+[ ] rsc: ethtool: http://sourceforge.net/project/showfiles.php?group_id=3242&package_id=19201
+[ ] rsc: ntpclient: http://doolittle.faludi.com/ntpclient/
+[ ] rsc: openntpd: http://www.openntpd.org/
+[ ] rsc: http://www.reportlab.com/ftp/
+[ ] rsc: http://rlib.sicompos.com/
+[ ] rsc: MatrixSSL
+[ ] mkl: lilo, tinylogin targetinstall (rsc: find out what MKL means here)
+[ ] rsc: finish integration of quagga
+[ ] rsc: install e2fsck
+[ ] rsc: LTT-ng
 
 
 Test suite components to be added
 =================================
 
-[ ] RSC: http://ltp.sourceforge.net/tooltable.php
-[ ] RSC: Add more test suite stuff:
+[ ] rsc: http://ltp.sourceforge.net/tooltable.php
+[ ] rsc: Add more test suite stuff:
     http://gcc.gnu.org/install/test.html
     http://www.plumhall.com/stec.html
-[ ] RSC: lmbench
-[ ] RSC: add regression tests from crosstool
-[ ] RSC: look at Herbert Poetzl's cross test stuff:
-       	 20040224182505.GA25038@MAIL.13thfloor.at
-         Update: seems to have disappeared.
-[ ] RSC: look at Linux Kernel Headers project:
-    http://ep09.pld-linux.org/~mmazur/linux-libc-headers/
-[ ] RSC: audit for LSB compatiblity; are there any handable tests for
+[ ] rsc: lmbench
+[ ] rsc: audit for LSB compatiblity; are there any handable tests for
     checking compliance?
-[ ] RSC: have a look at http://asic-linux.com.mx/~izto/checkinstall/
+[ ] rsc: have a look at http://asic-linux.com.mx/~izto/checkinstall/
 
 
 DONE
 ====
+
+[-] jbe: if ipkg building crashes, PTXdist doesn't break. rsc: see
+    pipeline error fixing in scripts/libptxdist.sh
+
+    Update 20090603 rsc: we need a testcase, bug closed.
+
+[x] bbu: Discuss the whole definition of "package". At the moment,
+    most package options are scattered across two or more
+    *.in or *.make files, making "drop-in replacements" nearly
+    impossible.
+
+    Update 20090603 rsc: obsoleted by package model in ptxdist 2.0.
+
+[x] rsc: find out why iproute2 needs berkeley-db
+
+    Update 20090603 rsc: fixed with recent iproute2 patches from jbe
 
 [x] rsc: iproute2 -> arpd needs db-44, but the select DB_44 does not work.
 
