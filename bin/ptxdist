@@ -42,11 +42,15 @@ menu_select() {
 menu() {
 	local kernel_version="$(ptxd_get_ptxconf PTXCONF_KERNEL_VERSION)"
 	local u_boot_v2_version="$(ptxd_get_ptxconf PTXCONF_U_BOOT_V2_VERSION)"
+	declare -a u_boot_v2_string
 	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
 	local ptxconfig cmd
 
 	kernel_version="${kernel_version:-none}"
-	u_boot_v2_version="${u_boot_v2_version:-none}"
+
+	if [ -n "${u_boot_v2_version}" ]; then
+		u_boot_v2_string=("u-boot-v2" "Configure U-Boot-v2 (${u_boot_v2_version})")
+	fi
 
 	ptxconfig="$(readlink -e "${PTXDIST_PTXCONFIG}")"
 	ptxconfig="${ptxconfig#${PTXDIST_WORKSPACE}/}"
@@ -69,7 +73,7 @@ menu() {
 		"menuconfig"		"Configure Software Platform" \
 		"platformconfig"	"Configure Hardware Platform" \
 		"kernel"		"Configure Kernel (${kernel_version})" \
-		"u-boot-v2"		"Configure U-Boot-v2 (${u_boot_v2_version})" \
+		"${u_boot_v2_string[@]}" \
 		"--------------"	"--------------------------------------------" \
 		"select"		"Select Software Platform (${ptxconfig})" \
 		"platform"		"Select Hardware Platform (${platform})" \

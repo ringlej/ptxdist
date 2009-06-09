@@ -88,9 +88,6 @@ TODO before 2.0.0
 
     -> integrate --force into dialogs
 
-[ ] jbe: Running "ptxdist menu" shows always a "u-boot-v2" entry that fails
-    if called even if the platformconfig do not use u-boot-v2
-
 [ ] jbe: most of the time thttpd does not respond to the USR1 signal.
 	  - the start/stop script fails to stop this service
 
@@ -514,6 +511,9 @@ Test suite components to be added
 
 DONE
 ====
+
+[X] jbe: Running "ptxdist menu" shows always a "u-boot-v2" entry that fails
+    if called even if the platformconfig do not use u-boot-v2
 
 [x] jbe: the libiconv package fails to build, if a libiconv library is
     present on the host system (for example in /usr/lib). In this case it
