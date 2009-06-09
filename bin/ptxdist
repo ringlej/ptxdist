@@ -1,9 +1,7 @@
 #!/bin/bash
 
-export LANG=C
-export LC_ALL=POSIX
-export LC_CTYPE=POSIX
-export CDPATH=
+LANG=C
+LC_ALL=POSIX
 
 PTXDIST_ARGS_FULL=("${@}")
 PROMPT="ptxdist: "
@@ -1215,12 +1213,6 @@ parse_first()
 	PTX_collectionconfig_SET="false"
 	PTX_toolchain_SET="false"
 
-	unset PTX_MAKE_ARGS
-	unset PTX_DEBUG
-	unset PTX_FORCE
-	unset PTXDIST_FORCE_DOWNLOAD
-	unset PTX_SLEDGEHAMMER
-
 	set -- "${PTXDIST_ARGS_FULL[@]}"
 	while [ ${#} -ne 0 ]; do
 		arg="${1}"
@@ -1937,6 +1929,38 @@ setup_topdir() {
 }
 
 
+
+#
+# cleanup environment
+#
+#
+setup_env() {
+	#
+	# here some ugly hard coded values:
+	#
+	source "${PTXDIST_TOPDIR}/scripts/ptxdist_version.sh" &&
+
+	local ptxrc="${HOME}/.ptxdistrc.${PTXDIST_VERSION_FULL}"
+	if [ -e "${ptxrc}" ]; then
+		source "${ptxrc}"
+	fi || return
+
+	# let shell split by IFS
+	set -- ${PTXCONF_SETUP_ENV_WHITELIST}
+	whitelist="${@}"
+	whitelist="${whitelist:+|}${whitelist/ /|}"
+
+	unset $(/usr/bin/env | \
+		sed -n -e "s/^\([^=[:space:]]\+\)=.*$/\1/p" | \
+		egrep -v "^(PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|http_proxy|ftp_proxy${whitelist})$" )
+
+	######## the environment is clean now ########
+
+	export LANG=C
+	export LC_ALL=POSIX
+}
+
+
 #
 # deletes ptxdist's temporary storage
 # closes logfile
@@ -2021,8 +2045,6 @@ setup_libs_early() {
 #      PTXDIST_PTXRC
 #
 setup_config() {
-	local cpus pmf_intern
-
 	eval PTXDIST_PTXRC_DEFAULT="${PTXDIST_PTXRC_DEFAULT}"
 	PTXDIST_PTXRC="${PTXDIST_PTXRC_DEFAULT}"
 
@@ -2036,7 +2058,7 @@ setup_config() {
 	#
 	# source default values first, let the user overwrite them
 	#
-	ptxd_source_kconfig "${rc_default}" || return
+	ptxd_source_kconfig "${rc_default}" &&
 	ptxd_source_kconfig "${rc_user}" || return
 
 	#
@@ -2087,7 +2109,7 @@ setup_config() {
 	else
 		cpus=1
 	fi
-	pmf_intern="-j$(( $cpus * 2 ))"
+	local pmf_intern="-j$(( $cpus * 2 ))"
 
 	#
 	# user may override these, via cmdline
@@ -2125,8 +2147,6 @@ setup_platform() {
 
 	if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 		cfg_dir="$(dirname "$(readlink -f "${PTXDIST_PLATFORMCONFIG}")")" || return
-	else
-		unset cfg_dir
 	fi
 
 	PTXDIST_PLATFORMCONFIGDIR="${cfg_dir}"
@@ -2251,6 +2271,7 @@ main() {
 	check_path &&
 
 	setup_topdir &&
+	setup_env &&
 	setup_traps &&
 	setup_libs_early &&
 	# ---  libs are available from here ---
