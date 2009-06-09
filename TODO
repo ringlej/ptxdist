@@ -23,13 +23,6 @@ TODO before 1.99.14
 TODO before 2.0.0
 =================
 
-[x] mkl/jbe: The 'ps' command from the procps package outputs
-            "Unknown HZ value! (xx) Assume 100."
-    on a recently started system. Doing it later again, this message does
-    not occur again. Kernel detection failure?
-
-    Update 20090609: (mkl) fixed
-
 [ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks in.
     We want a whitelist instead of the current blacklist.
 
@@ -509,9 +502,15 @@ Test suite components to be added
 DONE
 ====
 
-
 [X] jbe: Running "ptxdist menu" shows always a "u-boot-v2" entry that fails
     if called even if the platformconfig do not use u-boot-v2
+
+[x] mkl/jbe: The 'ps' command from the procps package outputs
+            "Unknown HZ value! (xx) Assume 100."
+    on a recently started system. Doing it later again, this message does
+    not occur again. Kernel detection failure?
+
+    Update 20090609: (mkl) fixed
 
 [x] jbe: dropbear's init script seems to fail to do a simple "restart". For example
     if one changes the SSH portnumber in the script and try a restart, nothing changes!
