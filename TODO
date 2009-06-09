@@ -59,9 +59,12 @@ TODO before 2.0.0
     jbe: discuss the templeate rules and their content with mkl to shrink them or
     to adapt them to the current ptxdist behaviour
 
-[ ] mol: discuss UID of user "rpcuser"
+[ ] mol, rsc: improve user database concept. Especially for the system
+    users we currently have the problem how to generate system users which
+    are only necessary for certain services. Maybe some kind of
+    /etc/passwd.d/* mechanism could be a solution? Discuss with team.
 
-[ ] mol: discuss UIDs and GIDs of other important system users
+    Discuss UUID/GID of "rpcuser" and other important system users
 
 [ ] some_autotool_fan: shebang-line of awk-scripts should use the $AWK value obtained from configure.
 
