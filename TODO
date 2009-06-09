@@ -156,7 +156,14 @@ Before Release
     http://ch.tudelft.nl/~arthur/svn2cl/
 
 [ ] jbe, rsc: provide demo projects for ptxdist-2.0.0, including website
-    documentation, maybe even elinux.org docs
+    documentation, maybe even elinux.org docs.
+
+    Release tarballs in a way that they can be installed with ptxdist, which
+    means that they have to be installed into the "projects/" directory in
+    the toplevel dir, to be able to clone them.
+
+    Provide debian packages of ptxdist, ptxdist-patches, toolchains and
+    demo directories.
 
 [ ] bbu: check ptxdist first-time-usage scenario for chicken-egg problems
     e.g. if you don´t set sane defaults for PTXCONF_SETUP_PROJECTPATH,
