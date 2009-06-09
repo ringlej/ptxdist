@@ -1,19 +1,21 @@
 TODO before 1.99.14
 ===================
 
-[ ] host-glib can be build against the iconv() in the host's glibc. There is no need for a
-    host-libiconv!
+[ ] jbe: host-glib can be build against the iconv() in the host's glibc.
+    There is no need for a host-libiconv!
 
-[ ] the libiconv package fails to build, if a libiconv library is present on the host system
-    (for example in /usr/lib). In this case it tries to link against this library, instead
-    of its own. In one link step:
+[ ] jbe: the libiconv package fails to build, if a libiconv library is
+    present on the host system (for example in /usr/lib). In this case it
+    tries to link against this library, instead of its own. In one link
+    step:
        ../srclib/libicrt.a /usr/lib/libiconv.so
     versus (if no libiconv is present on the host)
        ../srclib/libicrt.a ../lib/.libs/libiconv.so
 
-[ ] fuse can be build without libiconv. The glibc iconv() works for it. But its configure
-    is so stupid, it continues to detect a libiconv even if disabled and link against it.
-    (for example if libiconv is already built by accident)
+[ ] jbe: fuse can be build without libiconv. The glibc iconv() works for
+    it. But its configure is so stupid, it continues to detect a libiconv
+    even if disabled and link against it.  (for example if libiconv is
+    already built by accident)
 
 [ ] jbe: dropbaer's init script seems to fail to do a simple "restart". For example
     if one changes the SSH portnumber in the script and try a restart, nothing changes!
