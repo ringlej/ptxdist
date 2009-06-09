@@ -360,9 +360,11 @@ install_fixup =							\
 # $1: packet label
 #
 install_finish =								\
-	FAKEROOT="$(FAKEROOT)"							\
-	PTXCONF_IMAGE_IPKG_EXTRA_ARGS="$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)"	\
+	PACKET_LICENSE=$($(PTX_MAP_TO_PACKAGE_$(strip $(1)))_LICENSE);		\
+	FAKEROOT="$(FAKEROOT)";							\
+	PTXCONF_IMAGE_IPKG_EXTRA_ARGS="$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)";	\
 	ptxd_make_install_finish						\
-		-p '$(strip $(1))'
+		-p '$(strip $(1))'						\
+		-l $$PACKET_LICENSE
 
 # vim: syntax=make

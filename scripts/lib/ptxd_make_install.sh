@@ -161,7 +161,7 @@ ptxd_make_install_finish() {
     . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return
 
     local opt
-    while getopts "p:" opt; do
+    while getopts "p:l:" opt; do
 	case "${opt}" in
 	    p)
 		local packet="${OPTARG}"
@@ -171,6 +171,9 @@ ptxd_make_install_finish() {
 		;;
 	    t)
 		local replace_to="${OPTARG}"
+		;;
+            l)
+                local license="${OPTARG}"
 		;;
 	    *)
 		return 1
@@ -191,7 +194,12 @@ ptxd_make_install_finish() {
 	return
     fi
 
-    echo -n "install_finish:	creating package directory ... "
+    [ -z "${license}" ] && license="unknown"
+    echo -n "install_finish:    collecting license ..."
+    echo ${license} > "${STATEDIR}/${packet}.license"
+    echo "done."
+
+    echo -n "install_finish:    creating package directory ... "
     (
 	echo "pushd \"${PKGDIR}/${packet}.tmp/ipkg\""
 	ptxd_dopermissions "${STATEDIR}/${packet}.perms"

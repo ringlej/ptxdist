@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_MEMEDIT) += memedit
 # Paths and names
 #
 MEMEDIT_VERSION	:= 0.7
+MEMEDIT_LICENSE	:= GPLv2
 MEMEDIT		:= memedit-$(MEMEDIT_VERSION)
 MEMEDIT_SUFFIX	:= tar.gz
 MEMEDIT_URL	:= http://www.pengutronix.de/software/memedit/downloads/$(MEMEDIT).$(MEMEDIT_SUFFIX)
