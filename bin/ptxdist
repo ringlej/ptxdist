@@ -1589,7 +1589,7 @@ parse_second()
 	#
 	# use args from first stage parser, prepared for us
 	#
-	set --	"${PTXDIST_ARGS_SECOND[@]}"
+	set -- "${PTXDIST_ARGS_SECOND[@]}"
 
 	if [ $# -eq 0 ]; then
 		usage
@@ -1624,14 +1624,14 @@ parse_second()
 				local cmd_post=".post"
 			fi
 			ptxd_make_log "${STATEDIR}/${1}.${cmd}${cmd_post}"
-			exit ${?}
+			exit
 			;;
 
 ######## *config, *setup, toolchain
 
 		menuconfig|oldconfig|allmodconfig|allyesconfig|allnoconfig)
 			do_config "${cmd}" "${@}"
-			exit ${?}
+			exit
 			;;
 
 		platformconfig)
@@ -1650,12 +1650,12 @@ parse_second()
 
 		kernelconfig)
 			do_config menuconfig kernel
-			exit ${?}
+			exit
 			;;
 
 		u_boot_config)
 			do_config menuconfig u-boot-v2
-			exit ${?}
+			exit
 			;;
 
 		boardsetup)
@@ -1664,18 +1664,18 @@ parse_second()
 				mkdir -- "${HOME}/.ptxdist"
 			fi
 			do_config menuconfig board
-			exit ${?}
+			exit
 			;;
 
 		setup)
 			do_config menuconfig user
-			exit ${?}
+			exit
 			;;
 
 
 		select|ptx)
 			do_select ptxconfig "${1}"
-			exit ${?}
+			exit
 			;;
 
 		platform)
@@ -1694,17 +1694,17 @@ parse_second()
 
 		collection)
 			do_select collectionconfig "${1}"
-			exit ${?}
+			exit
 			;;
 
 		toolchain)
 			do_select_toolchain "${1}"
-			exit ${?}
+			exit
 			;;
 
 		migrate)
 			do_migrate
-			exit ${?}
+			exit
 			;;
 ######## the rest of it
 
@@ -1717,7 +1717,7 @@ parse_second()
 		bash)
 			check_premake || return
 			"${@}"
-			return
+			exit
 			;;
 		clean)
 			check_config || return
@@ -1793,7 +1793,7 @@ parse_second()
 			;;
 		go|images)
 			do_${cmd}
-			exit $?
+			exit
 			;;
 		make)
 			check_premake || return
@@ -1822,7 +1822,7 @@ parse_second()
 #				exit 1
 #			fi
 			newpacket "${1}"
-			exit ${?}
+			exit
 			;;
 		print)
 			check_config || return
@@ -2246,28 +2246,36 @@ setup_export() {
 # main()
 ########################################################################
 
-setup_topdir		|| ptxd_bailout "fatal error"
-setup_traps		|| ptxd_bailout "fatal error"
-setup_libs_early	|| ptxd_bailout "fatal error"
-# ---  libs are available from here ---
-setup_config		|| ptxd_bailout "fatal error"
-# --- errexit feature may be active ---
-parse_first		|| ptxd_bailout "fatal error"
-# --- vars to config files are setup ---
-setup_platform		|| ptxd_bailout "fatal error"
-# --- platformdir and other *dirs are available from here ---
-# --- all variables are defined now ---
-setup_libs		|| ptxd_bailout "fatal error"
-setup_path		|| ptxd_bailout "fatal error"
-# --- path is now set ---
-setup_logfile		|| ptxd_bailout "fatal error"
-# -- logfile is ready
-setup_export		|| ptxd_bailout "fatal error"
-# -- all important vars are exported
+main() {
+	check_uid &&
+	check_path &&
 
-check_uid
-check_path
+	setup_topdir &&
+	setup_traps &&
+	setup_libs_early &&
+	# ---  libs are available from here ---
 
-parse_second
+	setup_config &&
+	# --- errexit feature may be active ---
 
-exit 1
+	parse_first &&
+	# --- vars to config files are setup ---
+
+	setup_platform &&
+	# --- platformdir and other *dirs are available from here ---
+	# --- all variables are defined now ---
+
+	setup_libs &&
+	setup_path &&
+	# --- path is now set ---
+
+	setup_logfile &&
+	# -- logfile is ready
+
+	setup_export &&
+	# -- all important vars are exported
+
+	parse_second
+}
+
+main "${@}" || { echo  "PTXdist: fatal error ... cannot start, sorry!"; exit; }
