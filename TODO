@@ -104,6 +104,10 @@ TODO before 2.0.0
 Unclear
 -------
 
+[ ] rsc: GDB__VERSION: shouldn't this be taken from the toolchain, in
+    order to be consistent with the gdb which is provided there? Discuss
+    with mkl.
+
 [ ] bbu, lfu, rsc, sha: "bspfix feature"
 
     Usecase:
