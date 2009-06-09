@@ -88,6 +88,7 @@ $(STATEDIR)/initmethod-bbinit.targetinstall:
 		@CONSOLE@, $(PTXCONF_CONSOLE_NAME))
 	@$(call install_replace, initmethod-bbinit, /etc/inittab, \
 		@SPEED@, $(PTXCONF_CONSOLE_SPEED))
+	@$(call install_alternative, initmethod-bbinit, 0, 0, 0755, /lib/init/initmethod-bbinit-functions.sh)
 
 #	#
 #	# start scripts
