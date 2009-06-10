@@ -385,6 +385,22 @@ export -f ptxd_replace_magic
 
 
 #
+# returns the concatination of two variables,
+# the seperator can be specified, space is default
+#
+# $1	variable the will hold the concatinated value
+# $2	first part
+# $3	second part
+# $4	separator (optional, space is default)
+#
+ptxd_var_concat() {
+    eval "${1}"=\"${2}${2:+${3:+${4:- }}}${3}\"
+}
+export -f ptxd_var_concat
+
+
+
+#
 # dump current callstack
 # wait for keypress
 #
