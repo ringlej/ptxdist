@@ -1,0 +1,115 @@
+# -*-makefile-*-
+# $Id$
+#
+# Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_DFU_UTIL) += dfu-util
+
+#
+# Paths and names
+#
+DFU_UTIL_VERSION	:= 5118
+DFU_UTIL		:= dfu-util-$(DFU_UTIL_VERSION)
+DFU_UTIL_SUFFIX		:= tar.gz
+DFU_UTIL_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(DFU_UTIL).$(DFU_UTIL_SUFFIX)
+DFU_UTIL_SOURCE		:= $(SRCDIR)/$(DFU_UTIL).$(DFU_UTIL_SUFFIX)
+DFU_UTIL_DIR		:= $(BUILDDIR)/$(DFU_UTIL)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(DFU_UTIL_SOURCE):
+	@$(call targetinfo)
+	@$(call get, DFU_UTIL)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/dfu-util.extract:
+	@$(call targetinfo)
+	@$(call clean, $(DFU_UTIL_DIR))
+	@$(call extract, DFU_UTIL)
+	@$(call patchin, DFU_UTIL)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+DFU_UTIL_PATH	:= PATH=$(CROSS_PATH)
+DFU_UTIL_ENV 	:= $(CROSS_ENV)
+
+#
+# autoconf
+#
+DFU_UTIL_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+$(STATEDIR)/dfu-util.prepare:
+	@$(call targetinfo)
+	@$(call clean, $(DFU_UTIL_DIR)/config.cache)
+	cd $(DFU_UTIL_DIR) && \
+		$(DFU_UTIL_PATH) $(DFU_UTIL_ENV) \
+		./configure $(DFU_UTIL_AUTOCONF)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/dfu-util.compile:
+	@$(call targetinfo)
+	cd $(DFU_UTIL_DIR) && $(DFU_UTIL_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/dfu-util.install:
+	@$(call targetinfo)
+	@$(call install, DFU_UTIL)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/dfu-util.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init, dfu-util)
+	@$(call install_fixup, dfu-util,PACKAGE,dfu-util)
+	@$(call install_fixup, dfu-util,PRIORITY,optional)
+	@$(call install_fixup, dfu-util,VERSION,$(DFU_UTIL_VERSION))
+	@$(call install_fixup, dfu-util,SECTION,base)
+	@$(call install_fixup, dfu-util,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, dfu-util,DEPENDS,)
+	@$(call install_fixup, dfu-util,DESCRIPTION,missing)
+
+	@$(call install_copy, dfu-util, 0, 0, 0755, -, /usr/bin/dfu-util)
+
+	@$(call install_finish, dfu-util)
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+dfu-util_clean:
+	rm -rf $(STATEDIR)/dfu-util.*
+	rm -rf $(PKGDIR)/dfu-util_*
+	rm -rf $(DFU_UTIL_DIR)
+
+# vim: syntax=make

@@ -1,0 +1,8 @@
+## SECTION=shell_and_console
+
+config DFU_UTIL
+	tristate
+	select LIBUSB_COMPAT
+	prompt "dfu-util"
+	help
+	  FIXME
