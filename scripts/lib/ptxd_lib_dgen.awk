@@ -34,7 +34,6 @@ $1 ~ /^[A-Z_]*PACKAGES/ {
 	print "PTX_MAP_TO_PACKAGE_"  pkg "="   PKG		> PTX_MAP_ALL_MAKE;
 
 	next;
-#	nextfile; FIXME
 }
 
 $1 ~ /^PTX_MAP_DEP/ {
@@ -61,7 +60,9 @@ $1 ~ /^PTX_MAP_DEP/ {
 		next;
 
 	DEPS[PKG] = PKG_DEPS;
-	print "PTX_MAP_DEP_" PKG "=" PKG_DEPS > PTX_MAP_DEPS;
+	print "PTX_MAP_DEP_" PKG "=" PKG_DEPS			> PTX_MAP_DEPS;
+
+	next;
 }
 
 $1 ~ /^PTXCONF_/ && $2 ~ /^[ym]$/ {
@@ -74,43 +75,61 @@ $1 ~ /^PTXCONF_/ && $2 ~ /^[ym]$/ {
 }
 
 END {
+	# for all pacakges
 	for (PKG in pkgs) {
-		print "$(STATEDIR)/" pkgs[PKG] ".get: $(" PKG "_SOURCE)" > PTX_DGEN_DEPS_POST;
+		# .get rules
+		# in order to download sources of not selected pkgs
+		#
+		print "$(STATEDIR)/" pkgs[PKG] ".get: $(" PKG "_SOURCE)"					> PTX_DGEN_DEPS_POST;
 	}
 
+	# just for active ones
 	for (PKG in pkgs_active_DEPS) {
-		print "$(STATEDIR)/" pkgs[PKG] ".extract:		$(STATEDIR)/" pkgs[PKG] ".get"		> PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".tags:			$(STATEDIR)/" pkgs[PKG] ".prepare"	> PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".compile:		$(STATEDIR)/" pkgs[PKG] ".prepare"	> PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".install:		$(STATEDIR)/" pkgs[PKG] ".compile"	> PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".targetinstall.post:	$(STATEDIR)/" pkgs[PKG] ".targetinstall" > PTX_DGEN_DEPS_POST;
+		#
+		# default deps
+		#
+		print "$(STATEDIR)/" pkgs[PKG] ".extract: "            "$(STATEDIR)/" pkgs[PKG] ".get"           > PTX_DGEN_DEPS_POST;
+		print "$(STATEDIR)/" pkgs[PKG] ".prepare: "            "$(STATEDIR)/" pkgs[PKG] ".extract"       > PTX_DGEN_DEPS_POST;
+		print "$(STATEDIR)/" pkgs[PKG] ".tags: "               "$(STATEDIR)/" pkgs[PKG] ".prepare"       > PTX_DGEN_DEPS_POST;
+		print "$(STATEDIR)/" pkgs[PKG] ".compile: "            "$(STATEDIR)/" pkgs[PKG] ".prepare"       > PTX_DGEN_DEPS_POST;
+		print "$(STATEDIR)/" pkgs[PKG] ".install: "            "$(STATEDIR)/" pkgs[PKG] ".compile"       > PTX_DGEN_DEPS_POST;
+		print "$(STATEDIR)/" pkgs[PKG] ".targetinstall: "      "$(STATEDIR)/" pkgs[PKG] ".install"       > PTX_DGEN_DEPS_POST;
+		print "$(STATEDIR)/" pkgs[PKG] ".targetinstall.post: " "$(STATEDIR)/" pkgs[PKG] ".targetinstall" > PTX_DGEN_DEPS_POST;
 
-		deps_prepare       = "$(STATEDIR)/" pkgs[PKG] ".extract";
-		deps_targetinstall = "$(STATEDIR)/" pkgs[PKG] ".install";
-
+		#
+		# add dep to pkgs we depend on
+		#
 		n = split(DEPS[PKG], DEP, ":");
-		for (j = 1; j <= n; j++) {
-#			print PKG ": " DEP[j];
+		for (i = 1; i <= n; i++) {
+			print \
+				"$(STATEDIR)/" pkgs[PKG]    ".prepare: " \
+				"$(STATEDIR)/" pkgs[DEP[i]] ".install"		> PTX_DGEN_DEPS_POST;
 
-			if (!(DEP[j] in pkgs )) {
-				print "BUG: not pkg:", DEP[j];
-				exit 1;
-			}
+			#
+			# only target packages have targetinstall rules
+			#
+			if (pkgs[DEP[i]] ~ /^host-|^cross-/)
+				continue;
 
-			deps_prepare = deps_prepare " $(STATEDIR)/" pkgs[DEP[j]] ".install";
-
-			if (pkgs[DEP[j]] !~ /^host-|^cross-/)
-				deps_targetinstall = deps_targetinstall " $(STATEDIR)/" pkgs[DEP[j]] ".targetinstall";
+			print \
+				"$(STATEDIR)/" pkgs[PKG]    ".targetinstall: " \
+				"$(STATEDIR)/" pkgs[DEP[i]] ".targetinstall"	> PTX_DGEN_DEPS_POST;
 		}
 
+		#
+		# add deps to virtual pkgs
+		#
 		if (pkgs[PKG] ~ /^host-pkg-config$/)
-			print "$(STATEDIR)/" pkgs[PKG] ".prepare: " deps_prepare > PTX_DGEN_DEPS_POST;
-		else if (pkgs[PKG] ~ /^host-|^cross-/)
-			print "$(STATEDIR)/" pkgs[PKG] ".prepare: " deps_prepare " $(STATEDIR)/virtual-host-tools.install" > PTX_DGEN_DEPS_POST;
-		else
-			print "$(STATEDIR)/" pkgs[PKG] ".prepare: " deps_prepare " $(STATEDIR)/virtual-cross-tools.install" > PTX_DGEN_DEPS_POST;
+			continue;
 
-		print "$(STATEDIR)/" pkgs[PKG] ".targetinstall: " deps_targetinstall > PTX_DGEN_DEPS_POST;
+		if (pkgs[PKG] ~ /^host-|^cross-/)
+			virtual = "virtual-host-tools";
+		else
+			virtual = "virtual-cross-tools";
+
+		print \
+			"$(STATEDIR)/" pkgs[PKG] ".prepare: " \
+			"$(STATEDIR)/" virtual   ".install"			> PTX_DGEN_DEPS_POST;
 	}
 
 	close(PTX_MAP_ALL);

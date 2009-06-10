@@ -16,7 +16,7 @@ ptxd_dgen_configdeps() {
 	config[1]=platform
     fi
 
-    (
+    {
 	for ((i = 0; i < ${#config[@]}; i++)); do
 	    ptxd_kconfig dep "${config[i]}" || {
 		ptxd_dialog_msgbox \
@@ -25,7 +25,7 @@ ptxd_dgen_configdeps() {
 		return 1
 	    }
 	done
-    ) | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_DEP_\1=\2~p" > "${PTX_MAP_DEPS}.tmp"
+    } | sed -ne "s~DEP:\([^:]*\):\(.*\)~PTX_MAP_DEP_\1=\2~p" > "${PTX_MAP_DEPS}.tmp"
     check_pipe_status || return
 }
 
@@ -33,7 +33,7 @@ ptxd_dgen_configdeps() {
 # FIXME: gawk it
 #
 ptxd_dgen_rulesfiles() {
-   (
+   {
 	if test -d "${PROJECTRULESDIR}"; then
 	    find "${PROJECTRULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
@@ -46,7 +46,7 @@ ptxd_dgen_rulesfiles() {
 	    find "${RULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
 	fi
-    ) > "${PTX_DGEN_RULESFILES}"
+    } > "${PTX_DGEN_RULESFILES}"
 
     sed -e "s/\(.*\)/include \1/" "${PTX_DGEN_RULESFILES}" > "${PTX_DGEN_RULESFILES_MAKE}"
 }
@@ -89,10 +89,9 @@ EOF
 
 
 ptxd_dgen() {
-    if [ \! -e "${STATEDIR}" ]; then
-	mkdir -p "${STATEDIR}" || return
-    fi
-    mkdir -p -- "${PTX_DGEN_DIR}" || return
+    mkdir -p -- \
+	"${STATEDIR}" \
+	"${PTX_DGEN_DIR}" || return
 
     ptxd_dgen_configdeps &&
     ptxd_dgen_rulesfiles &&
