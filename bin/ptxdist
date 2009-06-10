@@ -1156,8 +1156,8 @@ newpacket() {
 		mkdir -p "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}"
 		tar -C "${template_src}" -cf - --exclude .svn . | \
 			tar -C "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" -xvf -
-		(cd "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" && sh wizzard.sh ${packet})
-		rm -f ${PTXDIST_WORKSPACE}/local_src/${packet}-${version}/wizzard.sh
+		(cd "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" && sh wizard.sh ${packet})
+		rm -f ${PTXDIST_WORKSPACE}/local_src/${packet}-${version}/wizard.sh
 		;;
 	esac
 
