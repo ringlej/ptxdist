@@ -280,6 +280,9 @@ CROSS_ENV := \
 CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR) $(CROSS_AUTOCONF_ARCH)
 CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) $(CROSS_AUTOCONF_ARCH)
 
+CROSS_CMAKE_USR	 := -DCMAKE_INSTALL_PREFIX=/usr
+CROSS_CMAKE_ROOT := -DCMAKE_INSTALL_PREFIX=/
+
 # ----------------------------------------------------------------------------
 # HOST stuff
 # ----------------------------------------------------------------------------
