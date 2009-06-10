@@ -613,8 +613,6 @@ check_deps() {
 	ptxd_kgen || ptxd_bailout "error in kgen"
 	ptxd_dgen || ptxd_bailout "error in dgen"
 	ptxd_cfgchg || ptxd_bailout "error in cfgchg"
-#	ptxd_create_autoconf_cache "${STATEDIR}/autoconf.cache" || ptxd_bailout "error in create_config_cache.sh"
-	touch "${STATEDIR}/autoconf.cache"
 }
 
 

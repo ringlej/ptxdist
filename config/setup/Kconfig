@@ -186,11 +186,24 @@ menu "Developer Options "
 #config SETUP_CHECK_OMIT_SPACES
 #	bool "don't check for spaces in important directories"
 
+
 config SETUP_ENV_WHITELIST
 	string "environment variable whitelist"
 	help
 	  PTXdist clears the environment by default. Specify here a
 	  space seprated list of environment variables to preserve.
+
+
+config SETUP_COMMON_CACHE
+	bool "use common configure cache"
+	help
+	  Use only one configure cache file for host and for target
+	  packages, instead of a cache for each programm. This can
+	  speed up compilation, but may breaks things badly.
+
+	  This is a developer option, you probably don't want to
+	  enable this.
+
 
 config SETUP_GEN_DEP_TREE
 	bool "generate dependency graphs"
@@ -211,12 +224,14 @@ config SETUP_CHECK_EXIT_ON_ERROR
 	  quite aggressive error checking. Don't turn this on until
 	  you know what you're doing.
 
+
 config SETUP_CCACHE
 	bool "use ccache"
 	help
 	  ccache is a compiler cache. It speeds up re-compilation of
 	  C/C++ code by caching previous compiles and detecting when
 	  the same compile is being done again.
+
 
 config SETUP_HOST_CC
 	prompt "host CC"
