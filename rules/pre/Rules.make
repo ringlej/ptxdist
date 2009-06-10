@@ -494,13 +494,13 @@ install = \
 			$($(strip $(1))_PATH)				\
 			$(MAKE) $(PARALLELMFLAGS_BROKEN) install $(4)	\
 			$($(strip $(1))_MAKEVARS)			\
-			DESTDIR=$(PTXDIST_SYSROOT);"			\
+			DESTDIR=$(PTXDIST_SYSROOT_TARGET);"			\
 			| $(FAKEROOT) --;				\
 		$(CHECK_PIPE_STATUS)					\
 									\
-		sed -i -e "/^dependency_libs/s:\( \)\(/lib\|/usr/lib\):\1${SYSROOT}\2:g"		\
-			-e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${SYSROOT}\2:g"		\
-			`find ${SYSROOT} -name "*.la"`;			\
+		sed -i -e "/^dependency_libs/s:\( \)\(/lib\|/usr/lib\):\1$(PTXDIST_SYSROOT_TARGET)\2:g"		\
+			-e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1$(PTXDIST_SYSROOT_TARGET)\2:g"		\
+			`find $(PTXDIST_SYSROOT_TARGET) -name "*.la"`;			\
 									\
 		if [ -e "$$PKG_PKGDIR" ]; then				\
 			rm -rf "$${PKG_PKGDIR}";			\
@@ -510,7 +510,7 @@ install = \
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
-			LIBDIR=$(PTXDIST_SYSROOT)			\
+			LIBDIR=$(PTXDIST_SYSROOT_TARGET)			\
 			$(MAKE) $(PARALLELMFLAGS_BROKEN) install $(4)	\
 			$($(strip $(1))_MAKEVARS)			\
 			DESTDIR=$$PKG_PKGDIR;"				\
