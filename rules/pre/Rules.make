@@ -16,7 +16,7 @@ GNU_HOST	:= $(shell echo $(GNU_BUILD) | sed s/-[a-zA-Z0-9_]*-/-host-/)
 HOSTCC		:= $(PTXCONF_SETUP_HOST_CC)
 HOSTCXX		:= $(PTXCONF_SETUP_HOST_CXX)
 INSTALL		:= install
-FAKEROOT	:= $(PTXCONF_SYSROOT_HOST)/bin/fakeroot -l $(PTXCONF_SYSROOT_HOST)/lib/libfakeroot.so
+FAKEROOT	:= $(PTXDIST_SYSROOT_HOST)/bin/fakeroot -l $(PTXDIST_SYSROOT_HOST)/lib/libfakeroot.so
 
 CHECK_PIPE_STATUS := \
 	for i in  "$${PIPESTATUS[@]}"; do [ $$i -gt 0 ] && {			\
@@ -28,20 +28,10 @@ CHECK_PIPE_STATUS := \
 	done;									\
 	true;
 
-# ----------------------------------------------------------------------------
-# Paths and other stuff
-# ----------------------------------------------------------------------------
-
 #
-# SYSROOT is the directory stuff is being installed into on the host
+# prepare the search path when cross compiling
 #
-SYSROOT := $(PTXCONF_SYSROOT_TARGET)
-
-#
-# prepare the search path
-# In order to work correctly in cross path all local cross tools must be find first!
-#
-CROSS_PATH := $(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/sbin:$$PATH
+CROSS_PATH := $(PTXDIST_SYSROOT_CROSS)/bin:$(PTXDIST_SYSROOT_CROSS)/sbin:$$PATH
 
 # ----------------------------------------------------------------------------
 # Environment
@@ -54,15 +44,15 @@ TARGET_CFLAGS		:= $(PTXCONF_TARGET_EXTRA_CFLAGS)
 TARGET_CXXFLAGS		:= $(PTXCONF_TARGET_EXTRA_CXXFLAGS)
 TARGET_CPPFLAGS		:= \
 	$(PTXCONF_TARGET_EXTRA_CPPFLAGS) \
-	-isystem $(SYSROOT)/include \
-	-isystem $(SYSROOT)/usr/include
+	-isystem $(PTXDIST_SYSROOT_TARGET)/include \
+	-isystem $(PTXDIST_SYSROOT_TARGET)/usr/include
 
 TARGET_LDFLAGS		:= \
 	$(PTXCONF_TARGET_EXTRA_LDFLAGS) \
-	-L$(SYSROOT)/lib \
-	-L$(SYSROOT)/usr/lib \
-	-Wl,-rpath-link -Wl,$(SYSROOT)/lib \
-	-Wl,-rpath-link -Wl,$(SYSROOT)/usr/lib
+	-L$(PTXDIST_SYSROOT_TARGET)/lib \
+	-L$(PTXDIST_SYSROOT_TARGET)/usr/lib \
+	-Wl,-rpath-link -Wl,$(PTXDIST_SYSROOT_TARGET)/lib \
+	-Wl,-rpath-link -Wl,$(PTXDIST_SYSROOT_TARGET)/usr/lib
 
 
 # Environment variables for toolchain components
@@ -190,16 +180,17 @@ CROSS_ENV_PROGS := \
 	$(CROSS_ENV_LINK_FOR_BUILD)
 
 #
-# prepare to use pkg-config with wrapper which takes care of $(SYSROOT).
-# The wrapper's magic doesn't work when pkg-config strips out /usr/lib
-# and other system libs/cflags, so we leave them in; the wrapper
-# replaces them by proper $(SYSROOT) correspondees.
+# prepare to use pkg-config with wrapper which takes care of
+# $(PTXDIST_SYSROOT_TARGET).  The wrapper's magic doesn't work when
+# pkg-config strips out /usr/lib and other system libs/cflags, so we
+# leave them in; the wrapper replaces them by proper
+# $(PTXDIST_SYSROOT_TARGET) correspondees.
 #
 
 CROSS_ENV_PKG_CONFIG := \
-	SYSROOT="$(SYSROOT)" \
+	SYSROOT="$(PTXDIST_SYSROOT_TARGET)" \
 	PKG_CONFIG_PATH="$(PTXCONF_PKG_CONFIG_PATH)" \
-	PKG_CONFIG="$(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config"
+	PKG_CONFIG="$(PTXDIST_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config"
 
 CROSS_ENV_FLAGS := \
 	$(CROSS_ENV_CFLAGS) \
@@ -277,7 +268,7 @@ CROSS_AUTOCONF_ARCH := \
 	--host=$(PTXCONF_GNU_TARGET) --build=$(GNU_HOST)
 
 CROSS_AUTOCONF_BROKEN_USR := \
-	$(CROSS_AUTOCONF_ARCH) --prefix=$(SYSROOT)
+	$(CROSS_AUTOCONF_ARCH) --prefix=$(PTXDIST_SYSROOT_TARGET)
 
 CROSS_ENV := \
 	$(CROSS_ENV_PROGS) \
@@ -299,14 +290,14 @@ HOSTCXX_ENV	:= CXX=$(HOSTCXX)
 
 HOST_PATH	:= $$PATH
 
-HOST_CPPFLAGS	:= -I$(PTXCONF_SYSROOT_HOST)/include
-HOST_LDFLAGS	:= -L$(PTXCONF_SYSROOT_HOST)/lib -Wl,-rpath -Wl,$(PTXCONF_SYSROOT_HOST)/lib
+HOST_CPPFLAGS	:= -I$(PTXDIST_SYSROOT_HOST)/include
+HOST_LDFLAGS	:= -L$(PTXDIST_SYSROOT_HOST)/lib -Wl,-rpath -Wl,$(PTXDIST_SYSROOT_HOST)/lib
 
 HOST_ENV_CC		:= CC="$(HOSTCC)"
 HOST_ENV_CXX		:= CXX="$(HOSTCXX)"
 HOST_ENV_CPPFLAGS	:= CPPFLAGS="$(HOST_CPPFLAGS)"
 HOST_ENV_LDFLAGS	:= LDFLAGS="$(HOST_LDFLAGS)"
-HOST_ENV_PKG_CONFIG	:= PKG_CONFIG_PATH="" PKG_CONFIG_LIBDIR="$(PTXCONF_SYSROOT_HOST)/lib/pkgconfig"
+HOST_ENV_PKG_CONFIG	:= PKG_CONFIG_PATH="" PKG_CONFIG_LIBDIR="$(PTXDIST_SYSROOT_HOST)/lib/pkgconfig"
 
 HOST_ENV	:= \
 	$(HOST_ENV_CC) \
@@ -316,7 +307,7 @@ HOST_ENV	:= \
 	$(HOST_ENV_PKG_CONFIG)
 
 
-HOST_AUTOCONF  := --prefix=$(PTXCONF_SYSROOT_HOST)
+HOST_AUTOCONF  := --prefix=$(PTXDIST_SYSROOT_HOST)
 
 # ----------------------------------------------------------------------------
 # Convenience macros
@@ -405,7 +396,7 @@ add_locale =							\
 	fi;							\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)			\
 	$(SCRIPTSDIR)/make_locale.sh 				\
-		-e $(PTXCONF_SYSROOT_HOST)/bin/localedef 	\
+		-e $(PTXDIST_SYSROOT_HOST)/bin/localedef 	\
 		-f $$CHARMAP -i $$LOCALE_DEF 			\
 		-p $$PREF 					\
 		-n $$LOCALE_NAME				\
@@ -500,7 +491,7 @@ install = \
 			$($(strip $(1))_PATH)				\
 			$(MAKE) $(PARALLELMFLAGS_BROKEN) install $(4)	\
 			$($(strip $(1))_MAKEVARS)			\
-			DESTDIR=$(SYSROOT);"				\
+			DESTDIR=$(PTXDIST_SYSROOT);"			\
 			| $(FAKEROOT) --;				\
 		$(CHECK_PIPE_STATUS)					\
 									\
@@ -516,7 +507,7 @@ install = \
 		cd $$BUILDDIR &&					\
 			echo "$($(strip $(1))_ENV)			\
 			$($(strip $(1))_PATH)				\
-			LIBDIR=$(SYSROOT)				\
+			LIBDIR=$(PTXDIST_SYSROOT)			\
 			$(MAKE) $(PARALLELMFLAGS_BROKEN) install $(4)	\
 			$($(strip $(1))_MAKEVARS)			\
 			DESTDIR=$$PKG_PKGDIR;"				\
