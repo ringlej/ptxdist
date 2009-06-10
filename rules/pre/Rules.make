@@ -659,10 +659,10 @@ patchin =											\
 												\
 	if $${APPLY_PATCH}; then								\
 		patch_dirs="$(PROJECTPATCHDIR)/$$PACKET_NAME/generic				\
-		            $(PTXDIST_PLATFORMCONFIGDIR)/patches/$$PACKET_NAME/generic		\
-		            $(PATCHDIR)/$$PACKET_NAME/generic					\
 			    $(PROJECTPATCHDIR)/$$PACKET_NAME					\
+		            $(PTXDIST_PLATFORMCONFIGDIR)/patches/$$PACKET_NAME/generic		\
 		            $(PTXDIST_PLATFORMCONFIGDIR)/patches/$$PACKET_NAME			\
+		            $(PATCHDIR)/$$PACKET_NAME/generic					\
 		            $(PATCHDIR)/$$PACKET_NAME";						\
 												\
 		for dir in $$patch_dirs; do							\
