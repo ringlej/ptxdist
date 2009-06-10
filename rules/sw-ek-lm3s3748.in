@@ -10,7 +10,7 @@ if SW_EK_LM3S3748
 
 config SW_EK_LM3S3748_BOOTLOADER
 	bool
-	prompt "bootloader
+	prompt "bootloader"
 	help
 	  Build the DFU (Device Firmware Update) bootloader for the
 	  LM3S3748.
