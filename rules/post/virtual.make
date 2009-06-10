@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) 2003-2007 by Marc Kleine-Budde <kleine-budde@gmx.de>
+# Copyright (C) 2003-2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -19,6 +19,8 @@ endif
 ifdef PTXCONF_CROSS_PKG_CONFIG_WRAPPER
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/cross-pkg-config-wrapper.install
 endif
+
+$(STATEDIR)/virtual-cross-tools.install: $(PTXDIST_CMAKE_TOOLCHAIN)
 
 $(STATEDIR)/virtual-cross-tools.install:
 	@$(call targetinfo)
