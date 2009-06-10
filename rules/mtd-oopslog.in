@@ -1,0 +1,7 @@
+## SECTION=shell_and_console
+
+config MTD_OOPSLOG
+	tristate
+	prompt "mtd-oopslog"
+	help
+	  Displays the output of an mtd-console
