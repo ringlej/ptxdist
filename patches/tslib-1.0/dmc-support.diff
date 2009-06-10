@@ -1,3 +1,9 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: plugin to support dmc touchscreens
+
+Plugin for dmc touchscreens. Based on the xf86-input-dmc xorg input driver.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  configure.ac        |    9 +++
  plugins/Makefile.am |   10 +++

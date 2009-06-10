@@ -1,3 +1,10 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: environment variable for device open flags
+
+Adds support for the environment variable TSLIB_TSDEVICEFLAGS
+to configure the flags used to open the device file.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  src/ts_open.c |   11 +++++++++++
  1 file changed, 11 insertions(+)
