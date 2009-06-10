@@ -1082,7 +1082,7 @@ newpacket() {
 	esac
 
 	case "$action" in
-	host,target,cross)
+	host|target|cross)
 		echo -n "${PROMPT}enter URL of basedir....: "
 		read url
 		echo -n "${PROMPT}enter suffix............: "
