@@ -21,7 +21,8 @@ TODO before 2.0.0
 
     Discuss UUID/GID of "rpcuser" and other important system users
 
-[ ] some_autotool_fan: shebang-line of awk-scripts should use the $AWK value obtained from configure.
+[ ] some_autotool_fan: shebang-line of awk-scripts should use the $AWK
+    value obtained from configure.
 
 [ ] jbe, rsc -> mgr: provide a "bare metal" project for Stellaris/Cortex-M3,
     to show how to use ptxdist-2 for non-Linux targets.
