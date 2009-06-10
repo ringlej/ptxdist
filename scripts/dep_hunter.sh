@@ -13,7 +13,7 @@
 
 PTXDIST=${PTXDIST:-ptxdist}
 
-packages=$(${PTXDIST} print PACKAGES | grep "PACKAGES is" | sed "s/PACKAGES is \"\(.*\)\"$/\1/")
+packages=$(${PTXDIST} print PACKAGES)
 
 for i in $packages; do
 	# only build if logfile does not exist to be able to restart the script
