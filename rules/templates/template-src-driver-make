@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id$
 #
-# Copyright (C) @YEAR@ by @AUTHOR@
+# Copyright (C) 2009 by rsc
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,27 +17,14 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 #
 # Paths and names and versions
 #
-@PACKET@		:= @packet_filename@
-@PACKET@_VERSION	:= @VERSION@
-@PACKET@_URL		:= @URL@/$(@PACKET@)
-@PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@)
+@PACKET@_VERSION	:= 1.2.3
+@PACKET@		:= @packet@-$(@PACKET@_VERSION)
+@PACKET@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
 @PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
 
 ifdef PTXCONF_@PACKET@
 $(STATEDIR)/kernel.targetinstall.post: $(STATEDIR)/@packet@.targetinstall
 endif
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/@packet@.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-$(@PACKET@_SOURCE):
-	@$(call targetinfo, $@)
-	@$(call get, @PACKET@)
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -46,8 +33,8 @@ $(@PACKET@_SOURCE):
 $(STATEDIR)/@packet@.extract:
 	@$(call targetinfo, $@)
 	@$(call clean, $(@PACKET@_DIR))
-	@$(call extract, @PACKET@)
-	@$(call patchin, @PACKET@)
+	#@$(call patchin, @PACKET@, $(@PACKET@_SRCDIR))
+	mkdir -p $(@PACKET@_DIR)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -67,7 +54,14 @@ $(STATEDIR)/@packet@.prepare:
 
 $(STATEDIR)/@packet@.compile:
 	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS)
+	# The kernel cannot build an out-of-tree driver out-of-tree :-)
+	# So we make a local copy.
+	rm -fr $(@PACKET@_DIR)
+	cp -a $(@PACKET@_SRCDIR) $(@PACKET@_DIR)
+	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) \
+		-C $(KERNEL_DIR) \
+		M=$(@PACKET@_DIR) \
+		modules
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -84,7 +78,10 @@ $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 
 $(STATEDIR)/@packet@.targetinstall:
 	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) modules_install
+	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) \
+		-C $(KERNEL_DIR) \
+		M=$(@PACKET@_DIR) \
+		modules_install
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -93,6 +90,6 @@ $(STATEDIR)/@packet@.targetinstall:
 
 @packet@_clean:
 	rm -rf $(STATEDIR)/@packet@.*
-	cd $(@PACKET@_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) clean
+	rm -fr $(@PACKET@_DIR)
 
 # vim: syntax=make

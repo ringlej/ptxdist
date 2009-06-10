@@ -1000,8 +1000,9 @@ newpacket() {
 		class=
 		autoconf_class=
 		;;
-	kernel_driver)
-		template=template-driver
+	src-linux-driver)
+		template=template-src-driver
+		template_src="${PTXDIST_TOPDIR}/rules/templates/src-linux-driver"
 		class=
 		autoconf_class=
 		;;
@@ -1027,7 +1028,7 @@ newpacket() {
 		echo "  src-autoconf-lib         create autotoolized library"
 		echo "  src-autoconf-proglib     create autotoolized binary+library"
 		echo "  src-plain-make           create binary with plain makefile"
-		echo "  kernel_driver            "
+		echo "  src-linux-driver         create a linux kernel driver"
 		echo "  font"
 		echo "  simple"
 		echo
@@ -1089,7 +1090,7 @@ newpacket() {
 		;;
 	esac
 
-	# FIXME: guess automatically
+	# FIXME: get address from 'ptxdist setup'
 	echo -n "${PROMPT}enter packet author.....: "
 	read author
 

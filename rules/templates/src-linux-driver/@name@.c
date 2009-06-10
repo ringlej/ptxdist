@@ -1,6 +1,5 @@
 /*
- * File: module-template.c
- * Description: Small demo, how to write a Linux kernel module
+ * This is a demo Linux kernel module.
  */
 
 #include <linux/kernel.h>
@@ -40,4 +39,3 @@ module_exit(template_cleanup);
 MODULE_DESCRIPTION("Small module, demo only, not very useful.");
 MODULE_LICENSE("GPL");
 
-/* end of file module-template.c */
