@@ -7,9 +7,6 @@ TODO before 1.99.14
 TODO before 2.0.0
 =================
 
-[ ] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks in.
-    We want a whitelist instead of the current blacklist.
-
 [ ] rsc: add bbu's "get" script.
 
 [ ] rsc: add "ptxdist happy-customer-package". Add all needed software,
@@ -485,6 +482,11 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks in.
+    We want a whitelist instead of the current blacklist.
+
+    Update 20090610 mkl: done
 
 [x] jbe: fuse can be build without libiconv. The glibc iconv() works for
     it. But its configure is so stupid, it continues to detect a libiconv
