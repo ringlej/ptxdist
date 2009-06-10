@@ -55,7 +55,6 @@ TODO before 2.0.0
 [ ] jbe, rsc -> mgr: provide a "bare metal" project for Stellaris/Cortex-M3,
     to show how to use ptxdist-2 for non-Linux targets.
 
-[ ] jbe: udev seems to load kernel modules by its own. How to disable it?
 
 [ ] jbe: Shown pathes are much too long in "ptxconfig" and "platformconfig"
     while running "ptxdist menu"
@@ -468,6 +467,11 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: udev seems to load kernel modules by its own. How to disable it?
+
+    20090610 lfu: the 80-drivers rule causes such behaviour. We don't install it
+    to target, since it's mostly useless for embedded targets.
 
 [x] bbu, lfu, rsc, sha: "collections"
 
