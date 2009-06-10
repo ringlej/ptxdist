@@ -2,6 +2,7 @@
 
 menuconfig ACPID
 	tristate
+	select BUSYBOX_START_STOP_DAEMON if ACPID_STARTSCRIPT
 	prompt "acpid                         "
 	help
 	 a configurable ACPI policy daemon for Linux

@@ -9,6 +9,7 @@ menuconfig CONNMAN
 	select POLICYKIT	if CONNMAN_POLKIT
 	select DBUS_PYTHON	if CONNMAN_TESTS
 	select GLIB
+	select BUSYBOX_START_STOP_DAEMON if CONNMAN_STARTSCRIPT
 	prompt "connman                       "
 	help
 	  The Connection Manager project provides a daemon for

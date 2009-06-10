@@ -8,6 +8,7 @@ menuconfig LIGHTTPD
 	select LIBPCRE		if LIGHTTPD__PCRE
 	select OPENSSL		if LIGHTTPD__OPENSSL
 	select OPENSSL_SHARED	if LIGHTTPD__OPENSSL
+	select BUSYBOX_START_STOP_DAEMON if LIGHTTPD_STARTSCRIPT
 	help
 	  Security, speed, compliance, and flexibility -- all of
 	  these describe lighttpd (pron. lighty) which is rapidly

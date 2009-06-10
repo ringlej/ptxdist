@@ -6,6 +6,7 @@ menuconfig SAMBA
 	prompt "samba                         "
 	select LIBC_NSL
 	select LIBC_RESOLV
+	select BUSYBOX_START_STOP_DAEMON if SAMBA_STARTSCRIPT
 	help
 	  Samba is an Open Source/Free Software suite that has, since
 	  1992, provided file and print services to all manner of

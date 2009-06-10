@@ -6,6 +6,7 @@ menuconfig OPENSSH
 	select LIBC_RESOLV
 	select LIBC_NSL
 	select LIBC_DL
+	select BUSYBOX_START_STOP_DAEMON if OPENSSH_SSHD_STARTSCRIPT
 	prompt "openssh                       "
 	help
 	  ssh (Secure Shell) is a program for logging into a remote machine and

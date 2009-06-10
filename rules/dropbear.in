@@ -6,6 +6,7 @@ menuconfig DROPBEAR
 	select LIBC_UTIL
 	select LIBC_CRYPT
 	select INITMETHOD
+	select BUSYBOX_START_STOP_DAEMON if DROPBEAR_STARTSCRIPT
 	help
 	  dropbear is a SSH 2 server and client designed
 	  to be small enough to be used in small memory
