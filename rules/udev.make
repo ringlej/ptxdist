@@ -99,10 +99,10 @@ endif
 #	#
 #	# default rules
 #	#
-
+# install everything apart of drivers rule.
 ifdef PTXCONF_UDEV__DEFAULT_RULES
 	@cd $(UDEV_DIR)/rules/rules.d; \
-	for file in *; do \
+	for file in `find . -type f ! -name "*drivers*"`; do \
 		$(call install_copy, udev, 0, 0, 0644, \
 			$(UDEV_DIR)/rules/rules.d/$$file, \
 			/lib/udev/rules.d/$$file, n); \
