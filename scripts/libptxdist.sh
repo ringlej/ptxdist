@@ -497,6 +497,7 @@ export -f ptxd_bailout
 ptxd_warning() {
 	echo "${PREFIX}warning: $1" >&2
 }
+export -f ptxd_warning
 
 
 #
