@@ -1,15 +1,7 @@
 TODO before 1.99.14
 ===================
 
-[ ] rsc: python-3.0 breaks in install stage; it worked before, so find out
-    what made this fail:
-
-    target: python30.targetinstall
-    [...]
-    line 217
-    b"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890")
-                                                                     ^
-    SyntaxError: invalid syntax
+[ ] rsc: port python 2.6 patches to 3.x -> mkl
 
 
 TODO before 2.0.0
