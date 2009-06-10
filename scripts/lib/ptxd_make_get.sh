@@ -69,8 +69,8 @@ export -f ptxd_make_get_http
 # ${url}	: the url to download
 #
 ptxd_make_get_downlaod_permitted() {
-	if [ -n "${PTXCONF_SETUP_NO_DOWNLOAD}" -a -z "${PTXDIST_FORCE_DOWNLOAD}" ]; then
-		cat >&2 <<EOF
+	if [ -n "${PTXCONF_SETUP_NO_DOWNLOAD}" -a -z "${PTXDIST_FORCE_DOWNLOAD}" ]; then {
+		cat <<EOF
 
 error: automatic download prohibited
 
@@ -80,16 +80,14 @@ manually into '${PTXDIST_SRCDIR}'
 EOF
 		set -- ${orig_argv[@]}
 		if [ $# -ne 1 ]; then
-			cat >&2 <<EOF
-If this URL doesn't work, you may try these ones:
-EOF
+			echo "If this URL doesn't work, you may try these ones:"
 			while [ ${#} -ne 0 ]; do
-				[ "${1}" != "${url}" ] && echo "'${1}'" >&2
+				[ "${1}" != "${url}" ] && echo "'${1}'"
 				shift
 			done
 			echo
 		fi
-		exit 1
+		exit 1; } >&2
 	fi
 }
 export -f ptxd_make_get_downlaod_permitted
