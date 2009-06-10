@@ -1,11 +1,6 @@
 TODO before 1.99.14
 ===================
 
-[ ] jbe: fuse can be build without libiconv. The glibc iconv() works for
-    it. But its configure is so stupid, it continues to detect a libiconv
-    even if disabled and link against it.  (for example if libiconv is
-    already built by accident)
-
 [ ] rsc: python-3.0 breaks in install stage; it worked before, so find out
     what made this fail:
 
@@ -498,6 +493,13 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] jbe: fuse can be build without libiconv. The glibc iconv() works for
+    it. But its configure is so stupid, it continues to detect a libiconv
+    even if disabled and link against it.  (for example if libiconv is
+    already built by accident)
+
+    Update 20090610 rsc: done
 
 [x] jbe: host-glib can be build against the iconv() in the host's glibc.
     There is no need for a host-libiconv!

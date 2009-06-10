@@ -49,7 +49,8 @@ FUSE_AUTOCONF = \
 	--disable-example \
 	--disable-mtab \
 	--disable-rpath \
-	--disable-kernel-module
+	--disable-kernel-module \
+	--without-libiconv-prefix
 
 ifdef PTXCONF_FUSE__LIB
 FUSE_AUTOCONF += --enable-lib
