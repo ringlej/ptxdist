@@ -1239,19 +1239,19 @@ parse_first()
 			PTX_SLEDGEHAMMER=true
 			;;
 		--ptxconfig=*)
-			PTXDIST_PTXCONFIG="$(ptxd_abspath "${arg#*=}")" || exit 1
+			PTXDIST_PTXCONFIG="$(ptxd_abspath "${arg#*=}")" &&
 			PTX_ptxconfig_SET=true
 			;;
 		--platformconfig=*)
-			PTXDIST_PLATFORMCONFIG="$(ptxd_abspath "${arg#*=}")" || exit 1
+			PTXDIST_PLATFORMCONFIG="$(ptxd_abspath "${arg#*=}")" &&
 			PTX_platformconfig_SET=true
 			;;
 		--collectionconfig=*)
-			PTXDIST_COLLECTIONCONFIG="$(ptxd_abspath "${arg#*=}")" || exit 1
+			PTXDIST_COLLECTIONCONFIG="$(ptxd_abspath "${arg#*=}")" &&
 			PTX_collectionconfig_SET=true
 			;;
 		--toolchain=*)
-			PTXDIST_TOOLCHAIN="$(ptxd_abspath "${arg#*=}")" || exit 1
+			PTXDIST_TOOLCHAIN="$(ptxd_abspath "${arg#*=}")" &&
 			PTX_toolchain_SET=true
 			;;
 		--j-intern=*)
@@ -1272,7 +1272,7 @@ parse_first()
 		*)
 			PTXDIST_ARGS_SECOND[${#PTXDIST_ARGS_SECOND[@]}]="${arg}"
 			;;
-		esac
+		esac || return
 	done
 }
 
