@@ -49,9 +49,6 @@ TODO before 2.0.0
 
     Discuss UUID/GID of "rpcuser" and other important system users
 
-[ ] some_autotool_fan: shebang-line of awk-scripts should use the $AWK
-    value obtained from configure.
-
 [ ] jbe, rsc -> mgr: provide a "bare metal" project for Stellaris/Cortex-M3,
     to show how to use ptxdist-2 for non-Linux targets.
 
@@ -467,6 +464,11 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] some_autotool_fan: shebang-line of awk-scripts should use the $AWK
+    value obtained from configure.
+    20090610 wsa: we hardcoded gawk where needed. configure checks now
+    		  for gawk explicitly.
 
 [x] jbe: udev seems to load kernel modules by its own. How to disable it?
 
