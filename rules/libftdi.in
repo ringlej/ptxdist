@@ -1,0 +1,21 @@
+## SECTION=system_libraries
+
+menuconfig LIBFTDI
+	tristate
+	prompt "libftdi                   "
+	select LIBUSB_COMPAT
+	select BOOST if LIBFTDI_CPP_WRAPPER
+	help
+	  Library to handle the FTDI devices. At least required by the
+	  FTDI EEPROM tool.
+
+if LIBFTDI
+
+config LIBFTDI_CPP_WRAPPER
+	bool
+	prompt "enable C++ wrapper"
+	help
+	  Needs library boost
+
+endif
+
