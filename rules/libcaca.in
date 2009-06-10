@@ -1,0 +1,36 @@
+## SECTION=multimedia_libs
+
+menuconfig LIBCACA
+	tristate "libcaca                       "
+	select NCURSES		if LIBCACA_NCURSES
+	select XORG_LIB_X11	if LIBCACA_X11
+	help
+	  libcaca is the Colour AsCii Art library. It provides high
+	  level functions for colour text drawing, simple primitives
+	  for line, polygon and ellipse drawing, as well as powerful
+	  image to text conversion routines.
+
+if LIBCACA
+
+config LIBCACA_NCURSES
+	bool "ncurses graphics backend"
+	default y
+	help
+	  ncurses graphics support
+
+config LIBCACA_X11
+	bool "X11 graphics backend"
+	help
+	  X11 support
+
+#config LIBCACA_GL
+#	bool "OpenGL graphics backend"
+#	help
+#	  OpenGL support
+
+config LIBCACA_CXX
+	bool "C++ bindings"
+	help
+	  select this, if you want to use libcaca from C++ progamms
+
+endif
