@@ -1807,14 +1807,13 @@ parse_second()
 			;;
 
 		newpacket)
-			check_config || return
-#			# test if we are in a rules dir
-#			if [ "$(basename $(pwd))" != "rules" ]; then
-#				echo
-#				echo "${PROMPT}error: newpacket command only allowed in a rules dir"
-#				echo
-#				exit 1
-#			fi
+			if [ \! -d "rules" ]; then
+				echo
+				echo "${PROMPT}error: no rules/ directory found"
+				echo "${PROMPT}error: please call from a workspace or ptxdist directory"
+				echo
+				exit 1
+			fi
 			newpacket "${1}"
 			exit
 			;;
