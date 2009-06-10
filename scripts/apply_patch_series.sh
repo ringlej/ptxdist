@@ -87,6 +87,7 @@ do_classic() {
 		fi
 	done
 
+	[ $? -gt 0 ] && exit 1
 	if test -e patches; then
 		ln -s "${PATCHESPATH}" _ptx_patches
 	else
