@@ -1,4 +1,9 @@
-## SECTION=libc_glibc
+## SECTION=libc
+
+config GLIBC
+	tristate
+
+if GLIBC
 
 menu "glibc                         "
 
@@ -201,5 +206,6 @@ config GLIBC_GCONV_ZH
 	  and GB18030
 
 endmenu
-
 endmenu
+
+endif

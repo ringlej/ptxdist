@@ -1,11 +1,11 @@
-## SECTION=libc_uclibc
+## SECTION=libc
+
+config UCLIBC
+	tristate
+
+if UCLIBC
 
 menu "uClibc                        "
-
-config UCLIBC_VERSION
-	prompt "uClibc Version"
-	string
-	default "0.9.27"
 
 comment	"Install options"
 
@@ -83,3 +83,5 @@ config UCLIBC_UTIL
 	  utilities.
 
 endmenu
+
+endif
