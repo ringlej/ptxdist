@@ -17,8 +17,8 @@ DEP_OUTPUT	:= $(STATEDIR)/depend.out
 # --- world ---
 
 WORLD_PACKAGES_TARGET 	:= $(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(PACKAGES)))
-WORLD_PACKAGES_HOST	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(HOST_PACKAGES)))
-WORLD_PACKAGES_CROSS	:= $(addprefix $(STATEDIR)/,$(addsuffix .install,$(CROSS_PACKAGES)))
+WORLD_PACKAGES_HOST	:= $(addprefix $(STATEDIR)/,$(addsuffix .install.post,$(HOST_PACKAGES)))
+WORLD_PACKAGES_CROSS	:= $(addprefix $(STATEDIR)/,$(addsuffix .install.post,$(CROSS_PACKAGES)))
 
 $(STATEDIR)/world.targetinstall: \
 	$(WORLD_PACKAGES_TARGET) \
@@ -132,6 +132,10 @@ $(STATEDIR)/%.extract:
 $(STATEDIR)/%.compile:
 	@$(call targetinfo)
 	$(call world/compile/simple, $(PTX_MAP_TO_PACKAGE_$(*)))
+	@$(call touch)
+
+$(STATEDIR)/%.install.post:
+	@$(call targetinfo)
 	@$(call touch)
 
 $(STATEDIR)/%.targetinstall.post:

@@ -80,6 +80,7 @@ EOF
 	    PTX_MAP_ALL \
 	    PTX_MAP_ALL_MAKE \
 	    PTX_MAP_DEPS \
+	    PTX_DGEN_DEPS_PRE \
 	    PTX_DGEN_DEPS_POST
 	"${PTX_LIBDIR}/ptxd_lib_dgen.awk"
     }

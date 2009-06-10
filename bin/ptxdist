@@ -1615,9 +1615,10 @@ parse_second()
 			check_premake || return
 			check_if_selected "${1}" || return
 
-			if [ "${cmd}" = "targetinstall" ]; then
-				local cmd_post=".post"
-			fi
+			case "${cmd}" in
+			    install|targetinstall) local cmd_post=".post" ;;
+			esac
+
 			ptxd_make_log "${STATEDIR}/${1}.${cmd}${cmd_post}"
 			exit
 			;;

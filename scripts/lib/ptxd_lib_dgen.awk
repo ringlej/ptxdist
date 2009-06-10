@@ -6,6 +6,7 @@ BEGIN {
 	PTX_MAP_ALL        = ENVIRON["PTX_MAP_ALL"];
 	PTX_MAP_ALL_MAKE   = ENVIRON["PTX_MAP_ALL_MAKE"];
 	PTX_MAP_DEPS       = ENVIRON["PTX_MAP_DEPS"];
+	PTX_DGEN_DEPS_PRE  = ENVIRON["PTX_DGEN_DEPS_PRE"];
 	PTX_DGEN_DEPS_POST = ENVIRON["PTX_DGEN_DEPS_POST"];
 }
 
@@ -81,6 +82,12 @@ END {
 		# in order to download sources of not selected pkgs
 		#
 		print "$(STATEDIR)/" pkgs[PKG] ".get: $(" PKG "_SOURCE)"					> PTX_DGEN_DEPS_POST;
+
+		#
+		# post install hooks
+		#
+		stage = "install";
+		print PKG "_HOOK_POST_" toupper(stage) " := $(STATEDIR)/" pkgs[PKG] "." stage ".post"		> PTX_DGEN_DEPS_PRE;
 	}
 
 	# just for active ones
@@ -93,7 +100,8 @@ END {
 		print "$(STATEDIR)/" pkgs[PKG] ".tags: "               "$(STATEDIR)/" pkgs[PKG] ".prepare"       > PTX_DGEN_DEPS_POST;
 		print "$(STATEDIR)/" pkgs[PKG] ".compile: "            "$(STATEDIR)/" pkgs[PKG] ".prepare"       > PTX_DGEN_DEPS_POST;
 		print "$(STATEDIR)/" pkgs[PKG] ".install: "            "$(STATEDIR)/" pkgs[PKG] ".compile"       > PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".targetinstall: "      "$(STATEDIR)/" pkgs[PKG] ".install"       > PTX_DGEN_DEPS_POST;
+		print "$(STATEDIR)/" pkgs[PKG] ".install.post: "       "$(STATEDIR)/" pkgs[PKG] ".install"       > PTX_DGEN_DEPS_POST;
+		print "$(STATEDIR)/" pkgs[PKG] ".targetinstall: "      "$(STATEDIR)/" pkgs[PKG] ".install.post"  > PTX_DGEN_DEPS_POST;
 		print "$(STATEDIR)/" pkgs[PKG] ".targetinstall.post: " "$(STATEDIR)/" pkgs[PKG] ".targetinstall" > PTX_DGEN_DEPS_POST;
 
 		#
@@ -135,5 +143,6 @@ END {
 	close(PTX_MAP_ALL);
 	close(PTX_MAP_ALL_MAKE);
 	close(PTX_MAP_DEPS);
+	close(PTX_DGEN_DEPS_PRE);
 	close(PTX_DGEN_DEPS_POST);
 }

@@ -42,7 +42,7 @@ ifneq ($(wildcard $(PROJECTPRERULESDIR)/*.make),)
 include $(wildcard $(PROJECTPRERULESDIR)/*.make)
 endif
 
-#include $(PTX_DGEN_DEPS_PRE)
+include $(PTX_DGEN_DEPS_PRE)
 include $(PTX_DGEN_RULESFILES_MAKE)
 include $(PTX_DGEN_DEPS_POST)
 
