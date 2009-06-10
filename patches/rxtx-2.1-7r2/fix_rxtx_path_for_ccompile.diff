@@ -1,0 +1,28 @@
+From: Luotao Fu <luotao@alea.kikihome>
+Date: Thu, 11 Jun 2009 00:35:26 +0200
+Subject: [PATCH] fix rxtx_path for crosscompile
+
+RXTX_PATH is guessed by configure script. If
+a. jdk version is unknown
+b. crosscompiling
+c. JAVA_HOME is set
+the RXTX_PATH won't be set, which leads to an empty -rpath and finally
+librxtxSerial fails to link impSerial.o object. This means that the whole thing
+would be badly broken since this way the jni would fail to find bunch of symbols
+during initialisation. This patch introduces a CROSS_RXTX_PATH environment
+variable.  This fixes the problem during cross compiling only.
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+
+Index: rxtx-2.1-7r2/configure.in
+===================================================================
+--- rxtx-2.1-7r2.orig/configure.in	2009-06-10 23:34:04.000000000 +0200
++++ rxtx-2.1-7r2/configure.in	2009-06-10 23:45:53.000000000 +0200
+@@ -506,6 +506,7 @@
+ 		#echo ----------------------------
+ 	case $target_os in 
+ 	linux*)
++		RXTX_PATH=$CROSS_RXTX_PATH
+ 	;;
+ 	beos*)
+ 		TARGETLIB="\$(target_triplet)/librxtxSerial.la"

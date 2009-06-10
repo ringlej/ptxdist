@@ -55,14 +55,11 @@ $(STATEDIR)/rxtx.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-RXTX_PATH	:= PATH=$(CROSS_PATH)
 RXTX_ENV 	:= \
 	$(CROSS_ENV) \
 	JAVA_HOME=$(PTXCONF_SETUP_JAVA_SDK) \
-	JPATH=$(PTXCONF_SETUP_JAVA_SDK) \
-	JAVAC=$(PTXCONF_SETUP_JAVA_SDK)/bin/javac \
-	JAVA=$(PTXCONF_SETUP_JAVA_SDK)/bin/java \
-	CLASSPATH=$(PTXCONF_SETUP_JAVA_SDK)/jre/lib
+	CLASSPATH=$(PTXCONF_SETUP_JAVA_SDK)/jre/lib \
+	CROSS_RXTX_PATH=/usr/lib
 
 #
 # autoconf
@@ -78,8 +75,8 @@ $(STATEDIR)/rxtx.prepare:
 	@$(call targetinfo)
 	@$(call clean, $(RXTX_DIR)/config.cache)
 	cd $(RXTX_DIR) && \
-		$(RXTX_PATH) $(RXTX_ENV) \
-		./configure $(RXTX_AUTOCONF)
+		$(RXTX_ENV) \
+		./configure $(RXTX_AUTOCONF) 
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -88,7 +85,8 @@ $(STATEDIR)/rxtx.prepare:
 
 $(STATEDIR)/rxtx.compile:
 	@$(call targetinfo)
-	cd $(RXTX_DIR) && $(RXTX_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $(RXTX_DIR) && \
+	 $(MAKE) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -97,6 +95,11 @@ $(STATEDIR)/rxtx.compile:
 
 $(STATEDIR)/rxtx.install:
 	@$(call targetinfo)
+#
+# make install of rxtx is quite broken. it doesn't refer to --prefix, as given
+# priorly while configuring. Instead of that it tries to put himself in
+# RXTX_PATH. Henc we deactivate the install stage here
+#
 #	@$(call install, RXTX)
 	@$(call touch)
 
