@@ -1,11 +1,9 @@
-TODO before 1.99.14
-===================
-
-[ ] rsc: port python 2.6 patches to 3.x -> mkl
-
-
 TODO before 2.0.0
 =================
+
+[ ] ipkg with dependecies
+
+[ ] rsc: port python 2.6 patches to 3.x -> mkl
 
 [ ] rsc: add "ptxdist happy-customer-package". Add all needed software,
     toolchain packages and EULA. May need bbu's "get" script.
@@ -29,11 +27,6 @@ TODO before 2.0.0
 
 [ ] jbe: udev seems to load kernel modules by its own. How to disable it?
 
-[ ] jbe: Would it be possible to omit the "ptxconfig" and "platformconfig" menu entries
-    when run "ptxdist menu" when the "selected_ptxconfig" and "selected_platformconfig"
-    are real files than links (or not exist yet)? If they are real files, the project
-    is a single platform one. There is no need for this step!
-
 [ ] jbe: Shown pathes are much too long in "ptxconfig" and "platformconfig"
     while running "ptxdist menu"
 
@@ -48,8 +41,6 @@ TODO before 2.0.0
 [ ] jbe: most of the time thttpd does not respond to the USR1 signal.
 	  - the start/stop script fails to stop this service
 
-[ ] ipkg with dependecies
-
 
 Unclear
 -------
@@ -57,6 +48,9 @@ Unclear
 [ ] rsc: GDB__VERSION: shouldn't this be taken from the toolchain, in
     order to be consistent with the gdb which is provided there? Discuss
     with mkl.
+
+[ ] rsc: multi stage BSPs: platform team releases a BSP, users use it.
+    May involve 'apt-get install OSELAS.BSP-phyCORE-12'
 
 [ ] bbu, lfu, rsc, sha: "bspfix feature"
 
@@ -77,30 +71,6 @@ Unclear
     * customer: can make his own changes ontop of our releases; changes
       are easy to move forward
 
-[ ] bbu, lfu, rsc, sha: "packet sets"
-
-    Observations / Ideas:
-
-    * "modularity" doesn't fit our needs; we don't only want to build
-      the base packages plus all modules; it is more something like:
-      "build minimum set", or "build minimu set + feature x"
-
-    * "packet sets" are lists of packages
-
-    Use Cases:
-
-    * "ptxdist --pkgset=base go" builds the package set "base"
-    * "ptxdist --pkgset=headless_rt go" builds the package set "headless_rt"
-    * "ptxdist --pkgset=all go" builds all selected packages
-    * "ptxdist pkgset <pkgset>" creates "selected_pkgset" and makes it
-      the default for subsequent commands
-      FIXME: find location for pkgset files
-
-    Necessary:
-
-    * separate "targetinstall" stage from "ipkg -> root/image"
-    * How to call this?
-    * API? "ptxdist --pkgset=<pkgset> foobar" installs root/ and image.blub from ipkgs
 
 Before Release
 --------------
@@ -468,6 +438,37 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] bbu, lfu, rsc, sha: "collections"
+
+    Observations / Ideas:
+
+    * "modularity" doesn't fit our needs; we don't only want to build
+      the base packages plus all modules; it is more something like:
+      "build minimum set", or "build minimu set + feature x"
+
+    * "collections" are lists of packages
+
+    Use Cases:
+
+    * "ptxdist --collectionconfig=base go" builds the package set "base"
+    * "ptxdist --collectionconfig=headless_rt go" builds the package set "headless_rt"
+    * "ptxdist --collectionconfig=all go" builds all selected packages
+    * "ptxdist collection <pkgset>" creates "selected_collection" and makes it
+      the default for subsequent commands
+
+    Necessary:
+
+    * separate "targetinstall" stage from "ipkg -> root/image"
+    * How to call this?
+    * API? "ptxdist --pkgset=<pkgset> foobar" installs root/ and image.blub from ipkgs
+
+[x] jbe: Would it be possible to omit the "ptxconfig" and "platformconfig" menu entries
+    when run "ptxdist menu" when the "selected_ptxconfig" and "selected_platformconfig"
+    are real files than links (or not exist yet)? If they are real files, the project
+    is a single platform one. There is no need for this step!
+
+    Update 2009610 mkl: done
 
 [x] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
     this "class" mechanism and make sure it produces sane output. Check
