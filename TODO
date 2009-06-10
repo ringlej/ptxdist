@@ -5,8 +5,38 @@ TODO before 2.0.0
 
 [ ] rsc: port python 2.6 patches to 3.x -> mkl
 
-[ ] rsc: add "ptxdist happy-customer-package". Add all needed software,
-    toolchain packages and EULA. May need bbu's "get" script.
+[ ] rsc: add "ptxdist export_bsp <dir>", similar to
+    "ptxdist export_src <dir>".
+
+    Structure:
+
+    <dir>/README.txt
+    <dir>/LICENSE.txt
+    <dir>/Autostart.bat (optional)
+    <dir>/index.html (optional)
+    <dir>/install.sh
+    <dir>/documentation/
+    <dir>/images/oselas.bsp-phytec-phycore-12-root-full.jffs2 (optional)
+    <dir>/images/oselas.bsp-phytec-phycore-12-root-headless.jffs2 (optional)
+    <dir>/keys/ (optional)
+    <dir>/packages/<platform>/foo_1.2.3_armel.ipk (optional)
+    <dir>/sources/public/md5sums
+    <dir>/sources/public/foo-1.2.3.tar.gz
+    <dir>/sources/public/foo-1.2.3.tar.gz.md5 (optional)
+    <dir>/sources/public/foo-1.2.3.tar.gz.asc (optional)
+    <dir>/sources/private/bar-0.0.1.tar.gz
+    <dir>/sources/unknown/baz-42.23.0.tar.bz2
+    <dir>/oselas/ptxdist-1.99.12.tar.gz
+    <dir>/oselas/ptxdist-1.99.12-patches.tar.gz
+    <dir>/oselas/oselas.bsp-phytec-phycore-12.tar.gz
+    <dir>/oselas/oselas.toolcahin-1.99.3.2.tar.gz
+    <dir>/oselas/oselas.toolchain-1.99.3-arm-v5te-linux-gnueabi-gcc-4.3.2-java-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized_i386.tar.bz2
+    <dir>/oselas/oselas.toolchain-1.99.3-arm-v5te-linux-gnueabi-gcc-4.3.2-java-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized_i386.tar.deb
+
+    - take care of all platforms: configs/*/platformconfig
+    - images: images for all collections
+    - for all optional packages: ask back if images, ipkgs etc. shall
+      be bundled (with --force)
 
 [ ] rsc: verify 'ptxdist newpacket' mechanics. Check all use cases,
     especially when creating new packages in ptxdist itself (not in the
