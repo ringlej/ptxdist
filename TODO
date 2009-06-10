@@ -7,27 +7,12 @@ TODO before 1.99.14
 TODO before 2.0.0
 =================
 
-[ ] rsc: add bbu's "get" script.
-
 [ ] rsc: add "ptxdist happy-customer-package". Add all needed software,
-    toolchain packages and EULA.
+    toolchain packages and EULA. May need bbu's "get" script.
 
-[ ] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
-    this "class" mechanism and make sure it produces sane output. Check
-    with mkl.
-
-    Example: ptxdist newpacket host-existing-target:
-
-    - asks for version number, which should be derived from existing
-      target version
-    - asks for URL, but we want to use the download mechanics from
-      target
-    - should output warning that you have to change := into = for
-      corresponding target packet
-      mkl: this is not true!
-
-    jbe: discuss the templeate rules and their content with mkl to shrink them or
-    to adapt them to the current ptxdist behaviour
+[ ] rsc: verify 'ptxdist newpacket' mechanics. Check all use cases,
+    especially when creating new packages in ptxdist itself (not in the
+    project). Workspace check needs more sophistication.
 
 [ ] mol, rsc: improve user database concept. Especially for the system
     users we currently have the problem how to generate system users which
@@ -482,6 +467,23 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] rsc: fix 'ptxdist newpacket host'; find out what mkl intended with
+    this "class" mechanism and make sure it produces sane output. Check
+    with mkl.
+
+    Example: ptxdist newpacket host-existing-target:
+
+    - asks for version number, which should be derived from existing
+      target version
+    - asks for URL, but we want to use the download mechanics from
+      target
+    - should output warning that you have to change := into = for
+      corresponding target packet
+      mkl: this is not true!
+
+    jbe: discuss the templeate rules and their content with mkl to shrink them or
+    to adapt them to the current ptxdist behaviour
 
 [x] mkl/jbe: Host's environment variable PKG_CONFIG_PATH leaks in.
     We want a whitelist instead of the current blacklist.
