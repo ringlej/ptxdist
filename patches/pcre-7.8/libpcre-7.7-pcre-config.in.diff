@@ -3,6 +3,8 @@ From: Luotao Fu <l.fu@pengutronix.de>
   pcre-config is not sysroot aware and returns host directories while
   crosscompiling. This patch fixes this issue
 
+Not intended for upstream.
+
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
  pcre-config.in |   10 +++++-----
