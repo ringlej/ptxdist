@@ -277,6 +277,10 @@ endif
 
 $(STATEDIR)/php5.install:
 	@$(call targetinfo)
+
+	@$(call clean, $(PHP5_PKGDIR))
+	@mkdir -p -- "$(PHP5_PKGDIR)/etc"
+
 ifdef PTXCONF_PHP5_SAPI_APXS2
 	cp "$(SYSROOT)/etc/httpd.conf" "$(PHP5_PKGDIR)/etc"
 endif
