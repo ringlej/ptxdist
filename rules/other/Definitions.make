@@ -17,7 +17,7 @@ quote:="#"
 
 
 remove_quotes = $(strip $(subst $(quote),,$(1)))
-add_quote = $(subst $(quote),\$(quote),$(1))
+add_quote = $(strip $(subst $(quote),\$(quote),$(1)))
 
 
 tr_sh = $(strip $(shell echo $(1) | sed 'y%*+%pp%;s%[^_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]%_%g'))
