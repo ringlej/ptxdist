@@ -1,0 +1,13 @@
+## SECTION=bare_metal_stellaris
+
+config STELLARIS_GNU_TARGET
+	string
+	prompt "stellaris gnu target"
+	default "arm-cortexm3-eabi"
+	help
+	  configure the stellaris gnu target
+
+config STELLARIS_CC
+	string
+	default "${PTXCONF_STELLARIS_GNU_TARGET}-gcc"
+

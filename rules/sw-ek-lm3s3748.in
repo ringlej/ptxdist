@@ -1,0 +1,19 @@
+## SECTION=bare_metal_stellaris
+
+config SW_EK_LM3S3748
+	tristate
+	prompt "sw-ek-lm3s3748"
+	help
+	  Software Development Kit for the Stellaris LM3S3748.
+
+if SW_EK_LM3S3748
+
+config SW_EK_LM3S3748_BOOTLOADER
+	bool
+	prompt "bootloader
+	help
+	  Build the DFU (Device Firmware Update) bootloader for the
+	  LM3S3748.
+
+endif
+

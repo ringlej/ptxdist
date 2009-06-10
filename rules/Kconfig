@@ -104,3 +104,9 @@ menu "Graphics & Multimedia         "
 source "generated/graphics_and_multimedia.in"
 endmenu
 
+comment "------------------------------------"
+
+menu "Bare Metal                    "
+source "generated/bare_metal.in"
+endmenu
+

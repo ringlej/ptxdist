@@ -1,0 +1,6 @@
+## SECTION=bare_metal
+
+menu "Stellaris                     "
+source "generated/bare_metal_stellaris.in"
+endmenu
+
