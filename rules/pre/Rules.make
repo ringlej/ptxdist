@@ -612,6 +612,8 @@ disable_sh =						\
 # if the variable PTXCONF_$(PACKET_LABEL)_SERIES exists, the
 # series file from this variable is used instead of "series"
 # This macro skips if $1 points to a local directory.
+# 'generic'-directories are obsolete and just supported for
+# backwards compatibility.
 #
 # $1: packet label; $($(1)_NAME) -> identifier
 # $2: path to source tree
@@ -658,7 +660,10 @@ patchin =											\
 	if $${APPLY_PATCH}; then								\
 		patch_dirs="$(PROJECTPATCHDIR)/$$PACKET_NAME/generic				\
 		            $(PTXDIST_PLATFORMCONFIGDIR)/patches/$$PACKET_NAME/generic		\
-		            $(PATCHDIR)/$$PACKET_NAME/generic";					\
+		            $(PATCHDIR)/$$PACKET_NAME/generic					\
+			    $(PROJECTPATCHDIR)/$$PACKET_NAME					\
+		            $(PTXDIST_PLATFORMCONFIGDIR)/patches/$$PACKET_NAME			\
+		            $(PATCHDIR)/$$PACKET_NAME";						\
 												\
 		for dir in $$patch_dirs; do							\
 			if [ -d $$dir ]; then							\
