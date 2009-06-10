@@ -45,7 +45,9 @@ LIBUSB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-log \
 	--disable-debug-log \
-	--disable-examples-build
+	--disable-examples-build \
+	--enable-static \
+	--enable-shared
 
 ifdef PTXCONF_LIBUSB_DEBUG_LOG
 LIBUSB_AUTOCONF += --enable-debug-log
@@ -53,12 +55,6 @@ endif
 
 ifdef PTXCONF_LIBUSB_DISABLE_LOG
 LIBUSB_AUTOCONF += --disable-log
-endif
-
-ifdef PTXCONF_LIBUSB_BUILD_STATIC
-LIBUSB_AUTOCONF += --enable-shared=no
-else
-LIBUSB_AUTOCONF += --enable-static=no
 endif
 
 # ----------------------------------------------------------------------------
