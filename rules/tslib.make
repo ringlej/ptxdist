@@ -75,6 +75,7 @@ ifdef PTXCONF_TSLIB_TS_TEST
 endif
 
 	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/plugins/.libs/input.so, /usr/lib/ts/input.so)
+	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/plugins/.libs/dmc.so, /usr/lib/ts/dmc.so)
 	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/plugins/.libs/pthres.so, /usr/lib/ts/pthres.so)
 	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/plugins/.libs/variance.so, /usr/lib/ts/variance.so)
 	@$(call install_copy, tslib, 0, 0, 0644, $(TSLIB_DIR)/plugins/.libs/dejitter.so, /usr/lib/ts/dejitter.so)

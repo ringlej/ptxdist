@@ -2,3 +2,7 @@ tslib-1.0_link_plugins_against_libts.patch
 ts_test_add_quit_button.diff -p0
 tests_assume_input_api.diff -p0
 tests_clear_screen_at_end.diff -p0
+dmc-support.diff
+add-open-env.diff
+fix-autotools.diff
+autoreconf.diff
