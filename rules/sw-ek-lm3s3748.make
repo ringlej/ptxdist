@@ -44,17 +44,6 @@ $(SW_EK_LM3S3748_SOURCE):
 	@$(call get, SW_EK_LM3S3748)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/sw-ek-lm3s3748.extract:
-	@$(call targetinfo)
-	@$(call clean, $(SW_EK_LM3S3748_DIR))
-	@$(call extract, SW_EK_LM3S3748)
-	@$(call patchin, SW_EK_LM3S3748)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -71,10 +60,10 @@ $(STATEDIR)/sw-ek-lm3s3748.prepare:
 
 $(STATEDIR)/sw-ek-lm3s3748.compile:
 	@$(call targetinfo)
-	# build static libraries
+#	# build static libraries
 	cd $(SW_EK_LM3S3748_DIR) && $(SW_EK_LM3S3748_PATH) $(MAKE) \
 		$(SW_EK_LM3S3748_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
-	# build bootloader
+#	# build bootloader
 ifdef PTXCONF_SW_EK_LM3S3748_BOOTLOADER
 	cd $(SW_EK_LM3S3748_DIR)/boards/ek-lm3s3748/boot_usb/ && $(MAKE) \
 		$(SW_EK_LM3S3748_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
@@ -87,7 +76,8 @@ endif
 
 $(STATEDIR)/sw-ek-lm3s3748.install:
 	@$(call targetinfo)
-	# install static libraries
+
+#	# install static libraries
 	mkdir -p $(PTXDIST_PLATFORMDIR)/sysroot-stellaris/lib
 	cp $(SW_EK_LM3S3748_DIR)/usblib/gcc/libusb.a \
 		$(PTXDIST_PLATFORMDIR)/sysroot-stellaris/lib/libusb.a
@@ -95,7 +85,8 @@ $(STATEDIR)/sw-ek-lm3s3748.install:
 		$(PTXDIST_PLATFORMDIR)/sysroot-stellaris/lib/libgr.a
 	cp $(SW_EK_LM3S3748_DIR)/driverlib/gcc/libdriver.a \
 		$(PTXDIST_PLATFORMDIR)/sysroot-stellaris/lib/libdriver.a
-	# install header files
+
+#	# install header files
 	mkdir -p $(PTXDIST_PLATFORMDIR)/sysroot-stellaris/include
 	cd $(SW_EK_LM3S3748_DIR) && \
 	for i in `find . -name "*.h"`; do \
