@@ -1,6 +1,8 @@
 ## SECTION=bare_metal
 
-menu "Stellaris                     "
-source "generated/bare_metal_stellaris.in"
-endmenu
+menuconfig STELLARIS
+	bool "Stellaris                     "
 
+if STELLARIS
+source "generated/bare_metal_stellaris.in"
+endif
