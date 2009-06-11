@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PTX_DGEN_DIR="${PTXDIST_TEMPDIR}/dgen"
+export PTXDIST_DGEN_DIR="${PTXDIST_TEMPDIR}/dgen"
 
 #
 # generates:
@@ -61,8 +61,8 @@ ptxd_dgen_rulesfiles() {
 # PTX_MAP_TO_PACKAGE_<package>="<PACKAGE>"
 #
 ptxd_dgen_map_all() {
-    local dgen_ptxconfig="${PTX_DGEN_DIR}/ptxconfig"
-    local dgen_platformconfig="${PTX_DGEN_DIR}/platformconfig"
+    local dgen_ptxconfig="${PTXDIST_DGEN_DIR}/ptxconfig"
+    local dgen_platformconfig="${PTXDIST_DGEN_DIR}/platformconfig"
 
     {
 	cat "${PTX_DGEN_RULESFILES}"
@@ -92,7 +92,7 @@ EOF
 ptxd_dgen() {
     mkdir -p -- \
 	"${STATEDIR}" \
-	"${PTX_DGEN_DIR}" || return
+	"${PTXDIST_DGEN_DIR}" || return
 
     ptxd_dgen_configdeps &&
     ptxd_dgen_rulesfiles &&

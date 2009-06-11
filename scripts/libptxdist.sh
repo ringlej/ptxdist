@@ -296,7 +296,7 @@ ptxd_kconfig() {
 	dep)
 		copy_back="false"
 		yes "" | "${conf}" -O "${file_kconfig}" &&
-		cp -- ".config" "${PTX_DGEN_DIR}/${part}config"
+		cp -- ".config" "${PTXDIST_DGEN_DIR}/${part}config"
 		;;
 	*)
 		echo
