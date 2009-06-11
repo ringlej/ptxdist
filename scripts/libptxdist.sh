@@ -122,7 +122,8 @@ ptxd_source_kconfig() {
 # get a symbol from the ptx or platformconfig
 #
 ptxd_get_ptxconf() {
-	unset ${1}
+	unset "${1}" 2>/dev/null || true
+
 	if test -f "${PTXDIST_PLATFORMCONFIG}"; then
 		source "${PTXDIST_PLATFORMCONFIG}" || \
 		ptxd_bailout "unable to source '${PTXDIST_PLATFORMCONFIG}' (maybe svn conflict?)"
