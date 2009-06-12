@@ -13,7 +13,8 @@ mv "@name@.c" "${NAME}.c"
 
 for i in \
 	configure.ac \
-	Makefile.am \
+	link.ld \
+	Makefile.in \
 	${NAME}.c \
 ; do
 	sed -i -e "s/\@name\@/${NAME}/g" $i

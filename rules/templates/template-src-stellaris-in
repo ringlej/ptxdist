@@ -1,0 +1,18 @@
+## SECTION=fixme
+
+config @PACKET@
+	bool
+	select SW_EK_LM3S3748
+	prompt "@packet@"
+	help
+	  FIXME
+
+if @PACKET@
+
+config @PACKET@_TRUNK
+	bool
+	prompt "use trunk"
+	help
+	  Build trunk instead of latest release.
+
+endif

@@ -1,3 +1,6 @@
+srcdir=@srcdir@
+top_builddir=@top_builddir@
+
 CFLAGS=@CFLAGS@
 CC=@CC@
 OBJCOPY=@OBJCOPY@
@@ -7,11 +10,11 @@ DFUWRAP=@DFUWRAP@
 
 INCLUDES="-I@STELLARIS_SDK@"
 
-%.o: %.c
+%.o: ${srcdir}/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 %.elf:
-	$(CC) -Wl,-T -Wl,link.ld -Wl,--entry -Wl,ResetISR -Wl,--gc-sections -o $@ $^ ${LIBC_A} ${LIBGCC_A}
+	$(CC) -Wl,-T -Wl,${srcdir}/link.ld -Wl,--entry -Wl,stellaris_reset -Wl,--gc-sections -o $@ $^ ${LIBC_A} ${LIBGCC_A}
 
 %.bin: %.elf
 	${OBJCOPY} -O binary $< $@

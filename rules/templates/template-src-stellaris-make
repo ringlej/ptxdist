@@ -1,0 +1,128 @@
+# -*-makefile-*-
+# $Id$
+#
+# Copyright (C) @YEAR@ @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+
+ifdef PTXCONF_@PACKET@
+ifneq ($(shell test -h $(PTXDIST_WORKSPACE)/selected_toolchain_stellaris && echo ok),ok)
+    $(warning *** selected_toolchain_stellaris must point to a valid stellaris toolchain)
+    $(error )
+endif
+ifneq ($(shell test -x $(PTXDIST_WORKSPACE)/selected_toolchain_stellaris/$(PTXCONF_STELLARIS_CC) && echo ok),ok)
+    $(warning *** $(PTXDIST_WORKSPACE)/selected_toolchain_stellaris/$(PTXCONF_STELLARIS_CC) not found)
+    $(error )
+endif
+endif
+
+#
+# Paths and names
+#
+@PACKET@_VERSION	:= trunk
+@PACKET@		:= @packet@-$(@PACKET@_VERSION)
+@PACKET@_SRCDIR	:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
+@PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@packet@.extract:
+	@$(call targetinfo, $@)
+	@$(call clean, $(@PACKET@_DIR))
+ifdef PTXCONF_@PACKET@_TRUNK
+	cd $(@PACKET@_SRCDIR) && sh autogen.sh
+endif
+	@$(call patchin, @PACKET@, $(@PACKET@_SRCDIR))
+	mkdir -p $(@PACKET@_DIR)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+@PACKET@_PATH	:= \
+	PATH=$(PTXDIST_WORKSPACE)/selected_toolchain_stellaris:$$PATH
+
+#
+# autoconf
+#
+@PACKET@_AUTOCONF = \
+	--host=arm-cortexm3-eabi \
+	--build=i686-unknown-linux-gnu \
+	--with-stellaris-sdk=$(SW_EK_LM3S3748_DIR) \
+	--with-dfuwrap=$(SW_EK_LM3S3748_DIR)/tools/dfuwrap/dfuwrap
+
+$(STATEDIR)/@packet@.prepare:
+	@$(call targetinfo)
+	@$(call clean, $(@PACKET@_DIR)/config.cache)
+	cd $(@PACKET@_DIR) && \
+		$(@PACKET@_PATH) $(@PACKET@_SRCDIR)/configure $(@PACKET@_AUTOCONF)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@packet@.compile:
+	@$(call targetinfo)
+	cd $(@PACKET@_DIR) && \
+		$(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@packet@.install:
+	@$(call targetinfo, $@)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@packet@.targetinstall:
+	@$(call targetinfo, $@)
+
+	@$(call install_init,  @packet@)
+	@$(call install_fixup, @packet@, PACKAGE, @packet@)
+	@$(call install_fixup, @packet@, PRIORITY, optional)
+	@$(call install_fixup, @packet@, VERSION, trunk)
+	@$(call install_fixup, @packet@, SECTION, base)
+	@$(call install_fixup, @packet@, AUTHOR, "@AUTHOR@")
+	@$(call install_fixup, @packet@, DEPENDS,)
+	@$(call install_fixup, @packet@, DESCRIPTION, missing)
+
+	@$(call install_copy, @packet@, 0, 0, 0644, \
+		$(@PACKET@_DIR)/@packet@.dfu, \
+		/lib/firmware/@packet@.dfu)
+
+	@$(call install_finish, @packet@)
+
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+@packet@_clean:
+	rm -rf $(STATEDIR)/@packet@.*
+	rm -rf $(PKGDIR)/@packet@_*
+	rm -rf $(@PACKET@_DIR)
+
+# vim: syntax=make
