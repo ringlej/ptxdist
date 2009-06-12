@@ -46,6 +46,8 @@ HOST_CMAKE_ENV 	:= $(HOST_ENV)
 #
 HOST_CMAKE_AUTOCONF := $(HOST_AUTOCONF)
 
+$(STATEDIR)/host-cmake.install.post: $(PTXDIST_CMAKE_TOOLCHAIN)
+
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
