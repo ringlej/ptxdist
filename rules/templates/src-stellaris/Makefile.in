@@ -1,0 +1,50 @@
+CFLAGS=@CFLAGS@
+CC=@CC@
+OBJCOPY=@OBJCOPY@
+LIBC_A=@LIBC_A@
+LIBGCC_A=@LIBGCC_A@
+DFUWRAP=@DFUWRAP@
+
+INCLUDES="-I@STELLARIS_SDK@"
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+%.elf:
+	$(CC) -Wl,-T -Wl,link.ld -Wl,--entry -Wl,ResetISR -Wl,--gc-sections -o $@ $^ ${LIBC_A} ${LIBGCC_A}
+
+%.bin: %.elf
+	${OBJCOPY} -O binary $< $@
+
+%.dfu: %.bin
+	$(DFUWRAP) -x -i $< -o $@ -a 0x1800 > /dev/null
+
+TARGETS_ALL = @name@.elf
+ifneq ($(DFUWRAP),)
+TARGETS_ALL += @name@.dfu
+endif
+
+all: $(TARGETS_ALL)
+
+@name@.elf: @name@.o startup_gcc.o
+
+.PHONY: clean
+
+clean:
+	@echo -n cleaning up ...
+	@rm -fr \
+		*.o \
+		*.d \
+		*.elf \
+		*.map \
+		.deps \
+		autom4te.cache \
+		config.log \
+		configure
+	@echo done
+
+distclean: clean
+	@rm -fr \
+		Makefile \
+		config.status
+

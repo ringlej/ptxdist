@@ -2,6 +2,7 @@
 
 menuconfig SW_EK_LM3S3748
 	tristate
+	select DFU_UTIL if SW_EK_LM3S3748_BOOTLOADER
 	prompt "sw-ek-lm3s3748                "
 	help
 	  Software Development Kit for the Stellaris LM3S3748.

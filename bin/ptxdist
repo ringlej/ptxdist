@@ -1000,6 +1000,12 @@ newpacket() {
 		class=
 		autoconf_class=
 		;;
+	src-stellaris)
+		template=template-src-stellaris
+		template_src="${PTXDIST_TOPDIR}/rules/templates/src-stellaris"
+		class=
+		autoconf_class=
+		;;
 	src-linux-driver)
 		template=template-src-driver
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-linux-driver"
@@ -1029,6 +1035,7 @@ newpacket() {
 		echo "  src-autoconf-proglib     create autotoolized binary+library"
 		echo "  src-plain-make           create binary with plain makefile"
 		echo "  src-linux-driver         create a linux kernel driver"
+		echo "  src-stellaris            create stellaris firmware"
 		echo "  font"
 		echo "  simple"
 		echo

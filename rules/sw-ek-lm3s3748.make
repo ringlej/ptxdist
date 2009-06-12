@@ -68,6 +68,14 @@ ifdef PTXCONF_SW_EK_LM3S3748_BOOTLOADER
 	cd $(SW_EK_LM3S3748_DIR)/boards/ek-lm3s3748/boot_usb/ && $(MAKE) \
 		$(SW_EK_LM3S3748_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
 endif
+#	# hacky, hacky
+	#cd $(SW_EK_LM3S3748_DIR)/boards/ek-lm3s3748/blinky/ && $(MAKE) \
+	#	$(SW_EK_LM3S3748_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
+
+#	# dfu wrapper (host tool)
+	cd $(SW_EK_LM3S3748_DIR)/tools/dfuwrap && $(MAKE) \
+		$(HOST_ENV) $(PARALLELMFLAGS_BROKEN)
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
