@@ -101,8 +101,10 @@ END {
 		print "$(STATEDIR)/" pkgs[PKG] ".compile: "            "$(STATEDIR)/" pkgs[PKG] ".prepare"       > PTX_DGEN_DEPS_POST;
 		print "$(STATEDIR)/" pkgs[PKG] ".install: "            "$(STATEDIR)/" pkgs[PKG] ".compile"       > PTX_DGEN_DEPS_POST;
 		print "$(STATEDIR)/" pkgs[PKG] ".install.post: "       "$(STATEDIR)/" pkgs[PKG] ".install"       > PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".targetinstall: "      "$(STATEDIR)/" pkgs[PKG] ".install.post"  > PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".targetinstall.post: " "$(STATEDIR)/" pkgs[PKG] ".targetinstall" > PTX_DGEN_DEPS_POST;
+		if (!(pkgs[PKG] ~ /^host-|^cross-/)) {
+			print "$(STATEDIR)/" pkgs[PKG] ".targetinstall: "      "$(STATEDIR)/" pkgs[PKG] ".install.post"  > PTX_DGEN_DEPS_POST;
+			print "$(STATEDIR)/" pkgs[PKG] ".targetinstall.post: " "$(STATEDIR)/" pkgs[PKG] ".targetinstall" > PTX_DGEN_DEPS_POST;
+		}
 
 		#
 		# add dep to pkgs we depend on
@@ -111,7 +113,7 @@ END {
 		for (i = 1; i <= n; i++) {
 			print \
 				"$(STATEDIR)/" pkgs[PKG]    ".prepare: " \
-				"$(STATEDIR)/" pkgs[DEP[i]] ".install"		> PTX_DGEN_DEPS_POST;
+				"$(STATEDIR)/" pkgs[DEP[i]] ".install.post"	> PTX_DGEN_DEPS_POST;
 
 			#
 			# only target packages have targetinstall rules
