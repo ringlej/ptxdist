@@ -436,26 +436,19 @@ Interesting packets
 ===================
 
 [ ] rsc: http://cryptmount.sourceforge.net/
-[ ] rsc: http://www.nongnu.org/failmalloc/
 [ ] rsc: http://stapgui.sourceforge.net
-[ ] rsc: http://home.eol.ca/~parkw/index.html
+[ ] rsc: bashdiff: http://home.eol.ca/~parkw/index.html
 [ ] rsc: http://podgorny.cz/moin/UnionFsFuse
-[ ] rsc: http://perso.wanadoo.fr/sebastien.godard/
 [ ] rsc: http://clpbar.sourceforge.net/
 [ ] rsc: http://xmlrpc-c.sourceforge.net/
 [ ] rsc: http://www.vanheusden.com/httping/
 [ ] rsc: http://urunlevel.sourceforge.net/
 [ ] rsc: http://www.freshmeat.net/projects/bootutils
-[ ] rsc: ethtool: http://sourceforge.net/project/showfiles.php?group_id=3242&package_id=19201
-[ ] rsc: ntpclient: http://doolittle.faludi.com/ntpclient/
-[ ] rsc: openntpd: http://www.openntpd.org/
 [ ] rsc: http://www.reportlab.com/ftp/
 [ ] rsc: http://rlib.sicompos.com/
 [ ] rsc: MatrixSSL
 [ ] mkl: lilo, tinylogin targetinstall (rsc: find out what MKL means here)
 [ ] rsc: finish integration of quagga
-[ ] rsc: install e2fsck
-[ ] rsc: LTT-ng
 
 
 Test suite components to be added
@@ -473,6 +466,14 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] rsc: http://www.nongnu.org/failmalloc/
+[x] rsc: sysstat: http://perso.wanadoo.fr/sebastien.godard/
+[x] rsc: ethtool: http://sourceforge.net/project/showfiles.php?group_id=3242&package_id=19201
+[x] rsc: ntpclient: http://doolittle.faludi.com/ntpclient/
+[x] rsc: openntpd: http://www.openntpd.org/
+[x] rsc: install e2fsck
+[x] rsc: LTT-ng
 
 [x] some_autotool_fan: shebang-line of awk-scripts should use the $AWK
     value obtained from configure.
