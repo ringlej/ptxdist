@@ -1055,13 +1055,14 @@ newpacket() {
 	[ -f "${PTXDIST_WORKSPACE}/rules/${packet_name}.make" ] && exists=1
 	[ -f "${PTXDIST_TOPDIR}/rules/${packet_name}.make" ] && exists=1
 
-	if [ "$action" = "host" ]  && [ -n $exists ]; then
+	if [ "$action" = "host" ]  && [ -n "$exists" ]; then
 		action=host-existing-target
 		template=template-class-existing-target
 		class=host-
 		autoconf_class=HOST_
 	fi
-	if [ "$action" = "cross" ] && [ -n $exists ]; then
+
+	if [ "$action" = "cross" ] && [ -n "$exists" ]; then
 		action=cross-existing-target
 		template=template-class-existing-target
 		class=cross-
