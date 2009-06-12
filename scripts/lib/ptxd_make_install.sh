@@ -201,10 +201,10 @@ ptxd_make_install_finish() {
 
     echo -n "install_finish:    creating package directory ... "
     (
-	echo "pushd \"${PKGDIR}/${packet}.tmp/ipkg\""
+	echo "pushd \"${PKGDIR}/${packet}.tmp/ipkg\" &&"
 	ptxd_dopermissions "${STATEDIR}/${packet}.perms"
-	echo "popd"
-	echo "echo \"install_finish:	packaging ipkg packet ... \""
+	echo "popd &&"
+	echo "echo \"install_finish:	packaging ipkg packet ... \" &&"
 	echo "ipkg-build ${PTXCONF_IMAGE_IPKG_EXTRA_ARGS} \"${PKGDIR}/${packet}.tmp/ipkg\" \"${PKGDIR}\""
     ) | ${FAKEROOT} -- 2>&1
     check_pipe_status || return
