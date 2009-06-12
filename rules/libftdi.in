@@ -2,7 +2,7 @@
 
 menuconfig LIBFTDI
 	tristate
-	prompt "libftdi                   "
+	prompt "libftdi                       "
 	select LIBUSB_COMPAT
 	select BOOST if LIBFTDI_CPP_WRAPPER
 	help
