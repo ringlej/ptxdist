@@ -1,150 +1,261 @@
 #!/usr/bin/gawk -f
+#
+# Copyright (C) 2006, 2007, 2008 by the PTXdist project
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 BEGIN {
 	FS = "[[:space:]]*[+]=[[:space:]]*|=";
 
-	PTX_MAP_ALL        = ENVIRON["PTX_MAP_ALL"];
-	PTX_MAP_ALL_MAKE   = ENVIRON["PTX_MAP_ALL_MAKE"];
-	PTX_MAP_DEPS       = ENVIRON["PTX_MAP_DEPS"];
-	PTX_DGEN_DEPS_PRE  = ENVIRON["PTX_DGEN_DEPS_PRE"];
-	PTX_DGEN_DEPS_POST = ENVIRON["PTX_DGEN_DEPS_POST"];
+	MAP_ALL			= ENVIRON["PTX_MAP_ALL"];
+	MAP_ALL_MAKE		= ENVIRON["PTX_MAP_ALL_MAKE"];
+	MAP_DEPS		= ENVIRON["PTX_MAP_DEPS"];
+	DGEN_DEPS_PRE		= ENVIRON["PTX_DGEN_DEPS_PRE"];
+	DGEN_DEPS_POST		= ENVIRON["PTX_DGEN_DEPS_POST"];
+	DGEN_RULESFILES_MAKE	= ENVIRON["PTX_DGEN_RULESFILES_MAKE"];
 }
 
+#
+# remember ARGIND of current file
+#
+FNR == 1 {
+	move_argc = ARGIND;
+}
+
+
+
+#
+# skip comments and empty lines
+#
 /^\#|^$/ {
 	next;
 }
 
-$1 ~ /^[A-Z_]*PACKAGES/ {
-	PKG = gensub(/^[A-Z_]*PACKAGES-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", $1);
-	PKG = gensub(/^[A-Z0-9_]*-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", PKG);
 
-	pkg = $2;
-	if (pkg ~ /[A-Z]+/) {
-		print \
-			"\n" \
-			"error: upper case chars in package '" pkg "' detected, please fix!\n" \
-			"\n\n"
-			exit 1
-			}
 
-	pkgs[PKG] = pkg;
+#
+# handle "include <MAKEFILE>" lines:
+#
+# add "<MAKEFILE>" to argv array after the file that includes
+# "<MAKEFILE>"
+#
+$0 ~ /^include[[:space:]]+.*\.make$/ {
+	move_argc++;
 
-	print "PTX_MAP_TO_FILENAME_" PKG "=\"" FILENAME "\""	> PTX_MAP_ALL;
-	print "PTX_MAP_TO_package_"  PKG "=\"" pkg "\""		> PTX_MAP_ALL;
+	for (i = ARGC; i > move_argc; i--)
+		ARGV[i] = ARGV[i - 1];
 
-	print "PTX_MAP_TO_PACKAGE_"  pkg "="   PKG		> PTX_MAP_ALL_MAKE;
+	ARGV[i] = gensub(/^include[[:space:]]+/, "", "g");
+	ARGC++;
 
 	next;
 }
 
-$1 ~ /^PTX_MAP_DEP/ {
-	PKG = gensub(/PTX_MAP_DEP_/, "", "g", $1);
 
-	n = split($2, DEP, ":");
+#
+# parse "PACKAGES-$(PTXCONF_PKG) += pkg" lines, i.e. rules-files from
+# rules/*.make. Setup mapping between upper and lower case pkg names
+#
+# out:
+# PKG_to_pkg		array that maps from upper case to lower case pkg name
+# pkg_to_PKG		array that maps from lower case to upper case pkg name
+# PKG_to_filename	array that maps from upper case pkg name to filename
+#
+$1 ~ /^[A-Z_]*PACKAGES/ {
+	this_PKG = gensub(/^[A-Z_]*PACKAGES-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", $1);
+	this_PKG = gensub(/^[A-Z0-9_]*-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", this_PKG);
+
+	this_pkg = $2;
+	if (this_pkg ~ /[A-Z]+/) {
+		print \
+			"\n" \
+			"error: upper case chars in package '" this_pkg "' detected, please fix!\n" \
+			"\n\n"
+		exit 1
+	}
+
+	PKG_to_pkg[this_PKG] = this_pkg;
+	pkg_to_PKG[this_pkg] = this_PKG;
+	PKG_to_filename[this_PKG] = FILENAME;
+
+	print "PTX_MAP_TO_package_" this_PKG "=\"" this_pkg "\""	> MAP_ALL;
+	print "PTX_MAP_TO_PACKAGE_" this_pkg "="   this_PKG		> MAP_ALL_MAKE;
+
+	next;
+}
+
+
+#
+# parses "PTX_MAP_DEP_PKG=FOO" lines, which are the raw dependencies
+# generated from kconfig. these deps usually contain non pkg symbols,
+# these are filtered out here.
+#
+$1 ~ /^PTX_MAP_DEP/ {
+	this_PKG = gensub(/PTX_MAP_DEP_/, "", "g", $1);
+
+	# no pkg
+	if (!(this_PKG in PKG_to_pkg))
+		next;
+
+	this_DEP = $2
+	n = split($2, this_DEP_array, ":");
+
+	# no deps
 	if (n == 0)
 		next;
 
 	found = 0;
 	for (i = 1; i <= n; i++) {
-		if (DEP[i] in pkgs) {
+		this_DEP = this_DEP_array[i];
+
+		if (this_DEP in PKG_to_pkg) {
+			this_dep = PKG_to_pkg[this_DEP];
+
 			if (found == 0) {
 				found = 1;
-				PKG_DEPS = DEP[i];
+				this_PKG_DEP = this_DEP;
+				this_PKG_dep = this_dep;
 			} else {
-				PKG_DEPS = PKG_DEPS ":" DEP[i];
+				this_PKG_DEP = this_PKG_DEP ":" this_DEP;
+				this_PKG_dep = this_PKG_dep ":" this_dep;
 			}
 		}
-
 	}
 
+	# no deps to pkgs
 	if (found == 0)
 		next;
 
-	DEPS[PKG] = PKG_DEPS;
-	print "PTX_MAP_DEP_" PKG "=" PKG_DEPS			> PTX_MAP_DEPS;
+	PKG_to_DEP[this_PKG] = this_PKG_DEP;
+	print "PTX_MAP_DEP_" this_PKG "=" this_PKG_DEP		> MAP_DEPS;
+	print "PTX_MAP_dep_" this_PKG "=" this_PKG_dep		> MAP_DEPS;
+
+	print "PTX_MAP_dep_" this_PKG "=" gensub(/:/, " ", "g",  this_PKG_dep) \
+								> MAP_ALL_MAKE;
 
 	next;
 }
 
+
+#
+# parse the ptx- and platformconfig
+# record yes and module packages
+#
 $1 ~ /^PTXCONF_/ && $2 ~ /^[ym]$/ {
-	PKG = gensub(/^PTXCONF_/, "", "g", $1);
+	this_PKG = gensub(/^PTXCONF_/, "", "g", $1);
 
-	if (PKG in pkgs)
-		pkgs_active_DEPS[PKG] = DEPS[PKG];
+	if (this_PKG in PKG_to_pkg)
+		active_PKG_to_pkg[this_PKG] = PKG_to_pkg[this_PKG];
 
 	next;
 }
+
+
+#
+# generate common stuff
+#
+# in:
+# $1: uppercase pkg name
+#
+function import_PKG(this_PKG,	this_pkg) {
+	this_pkg = PKG_to_pkg[this_PKG];
+
+	#
+	# include this rules file
+	#
+	print "include " PKG_to_filename[this_PKG]			> DGEN_RULESFILES_MAKE;
+
+	#
+	# .get rule
+	#
+	print "$(STATEDIR)/" this_pkg ".get: $(" this_PKG "_SOURCE)"	> DGEN_DEPS_POST;
+
+	#
+	# post install hooks
+	#
+	stage = "install";
+	print this_PKG "_HOOK_POST_" toupper(stage) \
+		" := $(STATEDIR)/" this_pkg "." stage ".post"		> DGEN_DEPS_PRE;
+
+	#
+	# define ${PKG}_PKGDIR
+	#
+	if (this_pkg !~ /^host-|^cross-/)
+		print this_PKG "_PKGDIR = $(PKGDIR)/$(" this_PKG ")"	> DGEN_DEPS_PRE;
+}
+
 
 END {
-	# for all pacakges
-	for (PKG in pkgs) {
-		# .get rules
-		# in order to download sources of not selected pkgs
-		#
-		print "$(STATEDIR)/" pkgs[PKG] ".get: $(" PKG "_SOURCE)"					> PTX_DGEN_DEPS_POST;
+	# for all pkgs
+	for (this_PKG in PKG_to_pkg)
+		import_PKG(this_PKG);
 
-		#
-		# post install hooks
-		#
-		stage = "install";
-		print PKG "_HOOK_POST_" toupper(stage) " := $(STATEDIR)/" pkgs[PKG] "." stage ".post"		> PTX_DGEN_DEPS_PRE;
-	}
+	# for active pkgs
+	for (this_PKG in active_PKG_to_pkg) {
+		this_pkg = PKG_to_pkg[this_PKG];
 
-	# just for active ones
-	for (PKG in pkgs_active_DEPS) {
 		#
 		# default deps
 		#
-		print "$(STATEDIR)/" pkgs[PKG] ".extract: "            "$(STATEDIR)/" pkgs[PKG] ".get"           > PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".prepare: "            "$(STATEDIR)/" pkgs[PKG] ".extract"       > PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".tags: "               "$(STATEDIR)/" pkgs[PKG] ".prepare"       > PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".compile: "            "$(STATEDIR)/" pkgs[PKG] ".prepare"       > PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".install: "            "$(STATEDIR)/" pkgs[PKG] ".compile"       > PTX_DGEN_DEPS_POST;
-		print "$(STATEDIR)/" pkgs[PKG] ".install.post: "       "$(STATEDIR)/" pkgs[PKG] ".install"       > PTX_DGEN_DEPS_POST;
-		if (!(pkgs[PKG] ~ /^host-|^cross-/)) {
-			print "$(STATEDIR)/" pkgs[PKG] ".targetinstall: "      "$(STATEDIR)/" pkgs[PKG] ".install.post"  > PTX_DGEN_DEPS_POST;
-			print "$(STATEDIR)/" pkgs[PKG] ".targetinstall.post: " "$(STATEDIR)/" pkgs[PKG] ".targetinstall" > PTX_DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".extract: "            "$(STATEDIR)/" this_pkg ".get"		> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".prepare: "            "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".tags: "               "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".compile: "            "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".install: "            "$(STATEDIR)/" this_pkg ".compile"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".install.post: "       "$(STATEDIR)/" this_pkg ".install"	> DGEN_DEPS_POST;
+		if (!(this_pkg ~ /^host-|^cross-/)) {
+			print "$(STATEDIR)/" this_pkg ".targetinstall: "      "$(STATEDIR)/" this_pkg ".install.post"	> DGEN_DEPS_POST;
+			print "$(STATEDIR)/" this_pkg ".targetinstall.post: " "$(STATEDIR)/" this_pkg ".targetinstall"	> DGEN_DEPS_POST;
 		}
 
 		#
 		# add dep to pkgs we depend on
 		#
-		n = split(DEPS[PKG], DEP, ":");
+		this_PKG_DEPS = PKG_to_DEP[this_PKG];
+		n = split(this_PKG_DEPS, this_DEP_array, ":");
 		for (i = 1; i <= n; i++) {
+			this_dep = PKG_to_pkg[this_DEP_array[i]]
+
 			print \
-				"$(STATEDIR)/" pkgs[PKG]    ".prepare: " \
-				"$(STATEDIR)/" pkgs[DEP[i]] ".install.post"	> PTX_DGEN_DEPS_POST;
+				"$(STATEDIR)/" this_pkg	".prepare: " \
+				"$(STATEDIR)/" this_dep	".install.post"		> DGEN_DEPS_POST;
 
 			#
 			# only target packages have targetinstall rules
 			#
-			if (pkgs[DEP[i]] ~ /^host-|^cross-/)
+			if (this_dep ~ /^host-|^cross-/)
 				continue;
 
 			print \
-				"$(STATEDIR)/" pkgs[PKG]    ".targetinstall: " \
-				"$(STATEDIR)/" pkgs[DEP[i]] ".targetinstall"	> PTX_DGEN_DEPS_POST;
+				"$(STATEDIR)/" this_pkg ".targetinstall: " \
+				"$(STATEDIR)/" this_dep ".targetinstall"	> DGEN_DEPS_POST;
 		}
 
 		#
 		# add deps to virtual pkgs
 		#
-		if (pkgs[PKG] ~ /^host-pkg-config$/)
+		if (this_pkg ~ /^host-pkg-config$/)
 			continue;
 
-		if (pkgs[PKG] ~ /^host-|^cross-/)
+		if (this_pkg ~ /^host-|^cross-/)
 			virtual = "virtual-host-tools";
 		else
 			virtual = "virtual-cross-tools";
 
 		print \
-			"$(STATEDIR)/" pkgs[PKG] ".prepare: " \
-			"$(STATEDIR)/" virtual   ".install"			> PTX_DGEN_DEPS_POST;
+			"$(STATEDIR)/" this_pkg ".prepare: " \
+			"$(STATEDIR)/" virtual  ".install"			> DGEN_DEPS_POST;
 	}
 
-	close(PTX_MAP_ALL);
-	close(PTX_MAP_ALL_MAKE);
-	close(PTX_MAP_DEPS);
-	close(PTX_DGEN_DEPS_PRE);
-	close(PTX_DGEN_DEPS_POST);
+	close(MAP_ALL);
+	close(MAP_ALL_MAKE);
+	close(MAP_DEPS);
+	close(DGEN_DEPS_PRE);
+	close(DGEN_DEPS_POST);
+	close(DGEN_RULESFILES_MAKE);
 }

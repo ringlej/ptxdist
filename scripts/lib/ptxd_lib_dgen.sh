@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006, 2007 by the PTXdist project
+#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -19,7 +20,6 @@ ptxd_dgen_configdeps() {
     local i
     local config[0]=ptx
 
-    
     if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 	config[1]=platform
     fi
@@ -41,10 +41,10 @@ ptxd_dgen_configdeps() {
 # FIXME: gawk it
 #
 ptxd_dgen_rulesfiles() {
-   {
+    {
 	if test -d "${PROJECTRULESDIR}"; then
 	    find "${PROJECTRULESDIR}" \
-		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
+		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" &&
 	    find "${RULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" \
 		`find "${PROJECTRULESDIR}" \
@@ -54,9 +54,8 @@ ptxd_dgen_rulesfiles() {
 	    find "${RULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
 	fi
-    } > "${PTX_DGEN_RULESFILES}"
-
-    sed -e "s/\(.*\)/include \1/" "${PTX_DGEN_RULESFILES}" > "${PTX_DGEN_RULESFILES_MAKE}"
+    } | sed -e "s/\(.*\)/include \1/" > "${PTX_DGEN_RULESFILES_MAKE}.tmp"
+    check_pipe_status
 }
 
 
@@ -73,24 +72,21 @@ ptxd_dgen_map_all() {
     local dgen_platformconfig="${PTXDIST_DGEN_DIR}/platformconfig"
 
     {
-	cat "${PTX_DGEN_RULESFILES}"
-	cat <<EOF
-	"${PTX_MAP_DEPS}.tmp"
-	"${dgen_ptxconfig}"
-EOF
+	echo "${PTX_DGEN_RULESFILES_MAKE}.tmp"
+	echo "${PTX_MAP_DEPS}.tmp"
+	echo "${dgen_ptxconfig}"
 	if [ -e "${dgen_platformconfig}" ]; then
 	    echo "${dgen_platformconfig}"
 	fi
-    } | {
-	xargs cat
     } | {
 	export \
 	    PTX_MAP_ALL \
 	    PTX_MAP_ALL_MAKE \
 	    PTX_MAP_DEPS \
 	    PTX_DGEN_DEPS_PRE \
-	    PTX_DGEN_DEPS_POST
-	"${PTXDIST_LIB_DIR}/ptxd_lib_dgen.awk"
+	    PTX_DGEN_DEPS_POST \
+	    PTX_DGEN_RULESFILES_MAKE
+	xargs gawk -f "${PTXDIST_LIB_DIR}/ptxd_lib_dgen.awk"
     }
     check_pipe_status
 }

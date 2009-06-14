@@ -29,8 +29,7 @@ PTXDIST_GEN_CONFIG_DIR=${STATEDIR}/config
 # generated files by "dgen"
 PTX_DGEN_DEPS_PRE=${STATEDIR}/ptx_dgen_deps.pre
 PTX_DGEN_DEPS_POST=${STATEDIR}/ptx_dgen_deps.post
-PTX_DGEN_RULESFILES=${STATEDIR}/ptx_dgen_rulesfiles
-PTX_DGEN_RULESFILES_MAKE=${PTX_DGEN_RULESFILES}.make
+PTX_DGEN_RULESFILES_MAKE=${STATEDIR}/ptx_dgen_rulesfiles.make
 
 PTX_MAP_ALL=${STATEDIR}/ptx_map_all.sh
 PTX_MAP_ALL_MAKE=${PTX_MAP_ALL}.make
