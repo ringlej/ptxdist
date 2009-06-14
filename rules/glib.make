@@ -118,12 +118,12 @@ $(STATEDIR)/glib.targetinstall:
 	@$(call install_fixup,glib,DEPENDS,)
 	@$(call install_fixup,glib,DESCRIPTION,missing)
 
-	# /usr/bin/gtester-report
-	# /usr/bin/glib-genmarshal
-	# /usr/bin/glib-gettextize
-	# /usr/bin/gobject-query
-	# /usr/bin/glib-mkenums
-	# /usr/bin/gtester
+#	# /usr/bin/gtester-report
+#	# /usr/bin/glib-genmarshal
+#	# /usr/bin/glib-gettextize
+#	# /usr/bin/gobject-query
+#	# /usr/bin/glib-mkenums
+#	# /usr/bin/gtester
 
 	@$(call install_copy, glib, 0, 0, 0755, /usr/lib/gio/modules)
 
