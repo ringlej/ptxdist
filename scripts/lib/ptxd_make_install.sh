@@ -9,13 +9,6 @@
 # see the README file.
 #
 
-
-ptxd_dopermissions() {
-	"${PTXDIST_LIB_DIR}/ptxd_lib_dopermissions.awk" "${@}"
-}
-export -f ptxd_dopermissions
-
-
 #
 # -p PACKET
 #
