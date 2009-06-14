@@ -45,12 +45,29 @@ ptxd_make_install_init() {
 	return 1
     fi
 
-#     if [ "${packet}" != "${target}" ]; then
-# 	echo
-# 	echo "Error: packet '${packet}' != target '${target}'"
-# 	echo
-# 	return 1
-#     fi
+
+    #
+    # track "pkg name" to "xpkg filename"
+    #
+    local xpkg_map="${STATEDIR}/${target}.xpkg.map"
+    if [ -e "${xpkg_map}" ]; then
+	sed -i -e "/^${packet}$/d" "${xpkg_map}" &&
+
+	if [ -s "${xpkg_map}" ]; then
+	    cat >&2 <<EOF
+
+${PREFIX}warning: more than one ipkg per PTXdist package detected:
+
+pkg:	'${target}'
+ipkg:	'${packet}' and '$(cat "${xpkg_map}")'
+
+
+EOF
+	fi
+    fi &&
+    echo "${packet}" >> "${xpkg_map}" || return
+
+
 
     echo "install_init:	preparing for image creation..."
     local dst="${PKGDIR}/${packet}.tmp"
