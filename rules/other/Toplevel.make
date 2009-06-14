@@ -35,6 +35,8 @@ endif
 # Include all rule files
 # ----------------------------------------------------------------------------
 
+include $(PTX_MAP_ALL_MAKE)
+
 include $(RULESDIR)/other/Namespace.make
 include $(wildcard $(PRERULESDIR)/*.make)
 
@@ -45,8 +47,6 @@ endif
 include $(PTX_DGEN_DEPS_PRE)
 include $(PTX_DGEN_RULESFILES_MAKE)
 include $(PTX_DGEN_DEPS_POST)
-
-include $(PTX_MAP_ALL_MAKE)
 
 #
 # the extended format is:
