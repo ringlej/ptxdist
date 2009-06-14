@@ -1,4 +1,12 @@
 # -*-makefile-*-
+#
+# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 #
 # import kconfig tree from package into ptxdist
@@ -15,6 +23,6 @@
 #
 %_import: $(STATEDIR)/%.extract
 	@$(call targetinfo)
-	@"${PTX_LIBDIR}/ptxd_make_import.awk" "$(*)" "$($(PTX_MAP_TO_PACKAGE_$(*))_KCONFIG)"
+	@"${PTXDIST_LIB_DIR}/ptxd_make_import.awk" "$(*)" "$($(PTX_MAP_TO_PACKAGE_$(*))_KCONFIG)"
 
 # vim: syntax=make

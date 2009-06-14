@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 export PTXDIST_DGEN_DIR="${PTXDIST_TEMPDIR}/dgen"
 
@@ -82,7 +90,7 @@ EOF
 	    PTX_MAP_DEPS \
 	    PTX_DGEN_DEPS_PRE \
 	    PTX_DGEN_DEPS_POST
-	"${PTX_LIBDIR}/ptxd_lib_dgen.awk"
+	"${PTXDIST_LIB_DIR}/ptxd_lib_dgen.awk"
     }
     check_pipe_status
 }
