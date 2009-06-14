@@ -4,9 +4,7 @@ config MYODBC
 	select LIBLTDL
 	select MYSQL
 	select LIBIODBC
-	bool
-	default n
-	prompt "myodbc"
+	tristate "myodbc"
 	help
 	  mysql odbc connector
 
