@@ -5,6 +5,6 @@ Section:  	@SECTION@
 Architecture:	@ARCH@
 Maintainer:	@AUTHOR@
 Depends:	@DEPENDS@
-Source: 	http://www.pengutronix.de/software/ptxdist_de.html
+Source: 	http://www.ptxdist.org/
 Description:	@DESCRIPTION@
 
