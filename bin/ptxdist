@@ -630,10 +630,16 @@ check_if_selected() {
 
 	local configvar="PTXCONF_$(ptxd_name_to_NAME "${1}")"	# FIXME
 	ptxd_get_ptxconf "${configvar}" > /dev/null || {
-		ptxd_dialog_msgbox \
-			"${PROMPT}error: '${1}' is not selected in\n" \
-			"	${PTXDIST_PTXCONFIG}"
-		return 1
+		if [ $? -eq 2 ]; then
+			ptxd_dialog_msgbox \
+				"${PROMPT}error: '${1}' is not a valid package name"
+			return 1
+		else
+			ptxd_dialog_msgbox \
+				"${PROMPT}error: '${1}' is not selected in\n" \
+				"	${PTXDIST_PTXCONFIG}"
+			return 1
+		fi
 	}
 }
 

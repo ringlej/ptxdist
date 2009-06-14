@@ -3,12 +3,19 @@ TODO before 2.0.0
 
 [ ] http://www.osadl.org/Single-View.111+M52e8d0c2b2f.0.html
 
-[ ] rsc@thebe:OSELAS.BSP-Phytec-phyCORE-trunk$ ./p compile sw-ek-lm3s3748.compile
+[x] rsc@thebe:OSELAS.BSP-Phytec-phyCORE-trunk$ ./p compile sw-ek-lm3s3748.compile
     /home/rsc/git/ptxdist/scripts/libptxdist.sh: line 125: unset: `PTXCONF_SW_EK_LM3S3748.COMPILE': not a valid identifier
     ptxdist: error: 'sw-ek-lm3s3748.compile' is not selected in
             /home/rsc/svn/oselas/bsp/phytec/phyCORE/OSELAS.BSP-Phytec-phyCORE-trunk/selected_ptxconfig
 
     PTXdist: fatal error ... cannot start, sorry!
+
+    update: 20090614 mkl:
+
+	[frogger@hardanger:OSELAS.BSP-Pengutronix-AllYes-trunk]$ ./p compile sw-ek-lm3s3748.compile
+	ptxdist: error: 'sw-ek-lm3s3748.compile' is not a valid package name
+
+	PTXdist: fatal error ... cannot start, sorry!
 
 [ ] ipkg with dependecies
 
