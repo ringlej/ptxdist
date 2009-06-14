@@ -1,7 +1,8 @@
 ## SECTION=system_libraries
+
 config EXPAT
 	tristate
-	prompt "expat XML parser library"
+	prompt "expat"
 	help
 	  This is an XML parsing library, written in C
 
