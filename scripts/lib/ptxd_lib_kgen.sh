@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 export PTX_KGEN_DIR="${PTXDIST_TEMPDIR}/kgen"
 
@@ -53,25 +61,23 @@ ptxd_kgen_generate_sections()
 	for dir in "${PTXDIST_OVERWRITE_DIRS_LSB[@]}"; do
 	    if [ \! -d "${dir}/rules" ]; then
 		continue
-	    fi
+	    fi &&
 
 	    if [ -z "$(find "${dir}/rules" -name *.in)" ]; then
 		continue
-	    fi
+	    fi &&
 
 	    grep -R -H -e "^##[[:space:]]*SECTION=" "${dir}/rules/"*.in
 	done
-    ) | ptxd_kgen_awk
+    ) | ptxd_kgen_awk &&
+    check_pipe_status
 }
 
 
 ptxd_kgen()
 {
-    if [ -e "${PTX_KGEN_DIR}" ]; then
-	rm -rf "${PTX_KGEN_DIR}"
-    fi
-
-    mkdir -p "${PTX_KGEN_DIR}"
+    rm -rf "${PTX_KGEN_DIR}" &&
+    mkdir -p "${PTX_KGEN_DIR}" &&
 
     ptxd_kgen_generate_sections
 }
