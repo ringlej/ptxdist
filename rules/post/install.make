@@ -1,4 +1,13 @@
 # -*-makefile-*-
+#
+# Copyright (C) 2005, 2006, 2007 Robert Schwebel <r.schwebel@pengutronix.de>
+#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 #
 # install_copy
@@ -351,20 +360,14 @@ install_fixup =							\
 		-f '$(strip $(2))'				\
 		-t '$(strip $(3))'
 
-
 #
 # install_finish
 #
-# Finishes ipkg packet creation
+# finishes packet creation
 #
 # $1: packet label
 #
-install_finish =								\
-	PACKET_LICENSE=$($(PTX_MAP_TO_PACKAGE_$(strip $(1)))_LICENSE);		\
-	FAKEROOT="$(FAKEROOT)";							\
-	PTXCONF_IMAGE_IPKG_EXTRA_ARGS="$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)";	\
-	ptxd_make_install_finish						\
-		-p '$(strip $(1))'						\
-		-l "$$PACKET_LICENSE"
+install_finish = \
+	$(call xpkg/finish, $(1))
 
 # vim: syntax=make
