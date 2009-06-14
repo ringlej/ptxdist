@@ -423,13 +423,13 @@ check_dirs_prefix() {
 #
 check_dirs() {
 	local ptxconf_sysroot_target ptxconf_sysroot_host ptxconf_sysroot_cross
-	local dir testfile_upper testfile_lower
 
 	ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)" &&
 	ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)" &&
 	ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)" || return
 
 	# check for r/w and create standard directory layout
+	local dir
 	for dir in \
 		"${ptxconf_sysroot_host}" \
 		"${ptxconf_sysroot_cross}" \
@@ -458,10 +458,8 @@ check_dirs() {
 
 	# create dir for ccache links
 	if [ -n "${PTX_CCACHE_DIR}" ]; then
-		if [ -e "${PTX_CCACHE_DIR}" ]; then
-			rm -rf -- "${PTX_CCACHE_DIR}" || ptxd_bailout "deleting of dir failed: '${PTX_CCACHE_DIR}'"
-		fi
-		mkdir -p "${PTX_CCACHE_DIR}" || ptxd_bailout "cannot create dir: '${PTX_CCACHE_DIR}'"
+		rm -rf -- "${PTX_CCACHE_DIR}" &&
+		mkdir -p -- "${PTX_CCACHE_DIR}" || ptxd_bailout "cannot create dir: '${PTX_CCACHE_DIR}'"
 	fi
 
 	# check for case sensitive file system
@@ -470,8 +468,8 @@ check_dirs() {
 		"${CROSS_BUILDDIR}" \
 		"${HOST_BUILDDIR}" \
 		; do
-		testfile_lower="${dir}/.secret-world-domination-project"
-		testfile_upper="${dir}/.Secret-World-Domination-Project"
+		local testfile_lower="${dir}/.secret-world-domination-project"
+		local testfile_upper="${dir}/.Secret-World-Domination-Project"
 
 		echo lower > "${testfile_lower}"
 		echo upper > "${testfile_upper}"
