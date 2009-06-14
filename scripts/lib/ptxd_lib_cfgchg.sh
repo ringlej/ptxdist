@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 ptxd_cfgchg_generate()
 {
@@ -42,6 +50,7 @@ ptxd_cfgchg_generate()
 
 		for (pkg in pkgs_opt_changed) {
 			printf "'"${STATEDIR}/"'" pkgs_opt_changed[pkg] ".prepare\0";
+			printf "'"${STATEDIR}/"'" pkgs_opt_changed[pkg] ".xpkg.map\0";
 		}
 	}
 
