@@ -158,10 +158,7 @@ ptxd_make_install_fixup() {
 	    replace_to="${replace_to}${PTXCONF_PROJECT_BUILD}"
 	    ;;
 	DEPENDS)
-	    if [ -n "${replace_to}" ]; then
-		echo "we depend on nothing, don't we?"
-		return 1
-	    fi
+	    return
 	    ;;
     esac
 
