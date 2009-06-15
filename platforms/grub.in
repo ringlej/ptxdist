@@ -16,6 +16,13 @@ config GRUB_MENU_LST
 	  Set this to the file you wish to install as
 	  /boot/grub/menu.lst
 
+config GRUB_ROOTFS_DEVICE
+	string
+	prompt "Device of rootfs"
+	default "/dev/sda1"
+	help
+	  Set the device file of the storage device with your rootfs here.
+
 config GRUB_MD5
 	bool
 	prompt "md5 passwords"

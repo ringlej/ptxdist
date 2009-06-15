@@ -433,6 +433,7 @@ $(STATEDIR)/grub.targetinstall:
 		sed -i -e "s/@ROOTFS@/$${PTXCONF_BOARDSETUP_ROOTFS}/g" $$tmpfile; \
 		sed -i -e "s,@TFTP_PATH@,$${PTXCONF_BOARDSETUP_TFTP_PATH},g" $$tmpfile; \
 		sed -i -e "s,@NFSROOT_PATH@,$${PTXCONF_BOARDSETUP_NFSROOT_PATH},g" $$tmpfile; \
+		sed -i -e "s,@ROOTDEV@,${PTXCONF_GRUB_ROOTFS_DEVICE},g" $$tmpfile; \
 		$(call install_copy, grub, 0, 0, 0644, $$tmpfile, /boot/grub/menu.lst, n); \
 		rm $$tmpfile; \
 	fi
