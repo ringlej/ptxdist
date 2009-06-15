@@ -135,7 +135,7 @@ $(STATEDIR)/classpath.targetinstall:
 	@$(call install_fixup, classpath,DESCRIPTION,missing)
 
 
-	for i in \
+	@for i in \
 		/usr/bin/grmid \
 		/usr/bin/gjavah \
 		/usr/bin/gtnameserv \
@@ -149,7 +149,7 @@ $(STATEDIR)/classpath.targetinstall:
 		/usr/bin/gserialver \
 		/usr/bin/gorbd \
 		;do \
-		@$(call install_copy, classpath, 0, 0, 0755, -, $$i); \
+		$(call install_copy, classpath, 0, 0, 0755, -, $$i); \
 	done
 
 	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/share/classpath/glibj.zip)
