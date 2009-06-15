@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-$(STATEDIR)/%.compile-deactivated:
+$(STATEDIR)/%.compile:
 	@$(call targetinfo)
 	@$(call world/compile, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)

@@ -10,12 +10,9 @@
 
 DEP_OUTPUT	:= $(STATEDIR)/depend.out
 
-
-
 ### --- internal ---
 
 # --- world ---
-
 WORLD_PACKAGES_TARGET 	:= $(addprefix $(STATEDIR)/,$(addsuffix .targetinstall.post,$(PACKAGES)))
 WORLD_PACKAGES_HOST	:= $(addprefix $(STATEDIR)/,$(addsuffix .install.post,$(HOST_PACKAGES)))
 WORLD_PACKAGES_CROSS	:= $(addprefix $(STATEDIR)/,$(addsuffix .install.post,$(CROSS_PACKAGES)))
@@ -59,13 +56,7 @@ $(WORLD_DEP_TREE_PS): $(DEP_OUTPUT) $(STATEDIR)/world.targetinstall
 		$(SCRIPTSDIR)/makedeptree | dot -Tps > $@
 
 
-
 ### --- for CROSS packages only ---
-
-$(STATEDIR)/cross-%.prepare:
-	@$(call targetinfo)
-	$(call world/prepare/host, $(PTX_MAP_TO_PACKAGE_cross-$(*)))
-	@$(call touch)
 
 $(STATEDIR)/cross-%.extract:
 	@$(call targetinfo)
@@ -74,19 +65,8 @@ $(STATEDIR)/cross-%.extract:
 	@$(call patchin, $(PTX_MAP_TO_PACKAGE_cross-$(*)), $($(PTX_MAP_TO_PACKAGE_cross-$(*))_DIR))
 	@$(call touch)
 
-$(STATEDIR)/cross-%.install:
-	@$(call targetinfo)
-	@$(call install, $(PTX_MAP_TO_PACKAGE_cross-$(*)),,h)
-	@$(call touch)
-
-
 
 ### --- for HOST packages only ---
-
-$(STATEDIR)/host-%.prepare:
-	@$(call targetinfo)
-	$(call world/prepare/host, $(PTX_MAP_TO_PACKAGE_host-$(*)))
-	@$(call touch)
 
 $(STATEDIR)/host-%.extract:
 	@$(call targetinfo)
@@ -95,32 +75,8 @@ $(STATEDIR)/host-%.extract:
 	@$(call patchin, $(PTX_MAP_TO_PACKAGE_host-$(*)), $($(PTX_MAP_TO_PACKAGE_host-$(*))_DIR))
 	@$(call touch)
 
-$(STATEDIR)/host-%.install:
-	@$(call targetinfo)
-	@$(call install, $(PTX_MAP_TO_PACKAGE_host-$(*)),,h)
-	@$(call touch)
 
-
-
-### --- for target packages only ---
-
-$(STATEDIR)/%.prepare:
-	@$(call targetinfo)
-	$(call world/prepare/target, $(PTX_MAP_TO_PACKAGE_$(*)))
-	@$(call touch)
-
-$(STATEDIR)/%.install:
-	@$(call targetinfo)
-	@$(call install, $(PTX_MAP_TO_PACKAGE_$(*)))
-	@$(call touch)
-
-
-
-# --- for all pacakges ---
-
-$(STATEDIR)/%.get:
-	@$(call targetinfo)
-	@$(call touch)
+### --- for TARGET packages only ---
 
 $(STATEDIR)/%.extract:
 	@$(call targetinfo)
@@ -129,10 +85,8 @@ $(STATEDIR)/%.extract:
 	@$(call patchin, $(PTX_MAP_TO_PACKAGE_$(*)), $($(PTX_MAP_TO_PACKAGE_$(*))_DIR))
 	@$(call touch)
 
-$(STATEDIR)/%.compile:
-	@$(call targetinfo)
-	$(call world/compile/simple, $(PTX_MAP_TO_PACKAGE_$(*)))
-	@$(call touch)
+
+### --- for ALL pacakges ---
 
 $(STATEDIR)/%.install.post:
 	@$(call targetinfo)
@@ -141,7 +95,6 @@ $(STATEDIR)/%.install.post:
 $(STATEDIR)/%.targetinstall.post:
 	@$(call targetinfo)
 	@$(call touch)
-
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:

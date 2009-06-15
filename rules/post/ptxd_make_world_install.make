@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-$(STATEDIR)/%.install-deactivated:
+$(STATEDIR)/%.install:
 	@$(call targetinfo)
 	@$(call world/install, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
@@ -28,7 +28,7 @@ world/install = \
 # $3: optional: "h" = install as a host tool
 # $4: optional: args to pass to make install call
 #
-install-deactivated = \
+install = \
 	pkg_deprecated_install_builddir="$(call ptx/escape, $(2))"	\
 	pkg_deprecated_install_hosttool="$(call ptx/escape, $(3))"	\
 	pkg_deprecated_install_opt="$(call ptx/escape, $(4))"		\

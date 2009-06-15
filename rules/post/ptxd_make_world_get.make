@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-$(STATEDIR)/%.get-deactivated:
+$(STATEDIR)/%.get:
 	@$(call targetinfo)
 	@$(call world/get, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)

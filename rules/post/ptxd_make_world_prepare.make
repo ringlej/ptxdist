@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-$(STATEDIR)/%.prepare-deactivated:
+$(STATEDIR)/%.prepare:
 	@$(call targetinfo)
 	@$(call world/prepare, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
