@@ -4,10 +4,9 @@ menuconfig GRUB
 	help
 	  Grub - The GRand Unified Bootloader
 
-comment "Config Options"
-	depends on GRUB
-
 if GRUB
+
+comment "Config Options"
 
 config GRUB_MENU_LST
 	string

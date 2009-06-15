@@ -1,7 +1,6 @@
 # -*-makefile-*-
-# $Id$
 #
-# Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2002-2009 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -21,7 +20,6 @@ GRUB			:= grub-$(GRUB_VERSION)
 GRUB_URL		:= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
 GRUB_SOURCE		:= $(SRCDIR)/$(GRUB).tar.gz
 GRUB_DIR		:= $(BUILDDIR)/$(GRUB)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -43,11 +41,11 @@ GRUB_PATH	:= PATH=$(CROSS_PATH)
 
 GRUB_ENV	:= $(CROSS_ENV) CFLAGS=''
 
-GRUB_AUTOCONF :=  $(CROSS_AUTOCONF_USR) \
-	--without-curses
-GRUB_AUTOCONF += --target=$(PTXCONF_GNU_TARGET)
-# FIXME FIXME FIXME
-GRUB_AUTOCONF += --prefix=$(PTXCONF_SYSROOT_TARGET)
+GRUB_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--without-curses \
+	--target=$(PTXCONF_GNU_TARGET) \
+	--prefix=$(PTXCONF_SYSROOT_TARGET)
 
 ifdef PTXCONF_GRUB_EXT2FS
 GRUB_AUTOCONF += --enable-ext2fs
