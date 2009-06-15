@@ -1,0 +1,17 @@
+---
+ qwtconfig.pri |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/qwtconfig.pri
+===================================================================
+--- a/qwtconfig.pri
++++ b/qwtconfig.pri
+@@ -8,7 +8,7 @@ VER_PAT      = 0
+ VERSION      = $${VER_MAJ}.$${VER_MIN}.$${VER_PAT}
+ 
+ unix {
+-    INSTALLBASE    = /usr/local/qwt-5.2.0
++    INSTALLBASE    = /usr
+ }
+ 
+ win32 {

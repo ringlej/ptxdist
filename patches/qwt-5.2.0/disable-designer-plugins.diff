@@ -1,0 +1,17 @@
+---
+ qwtconfig.pri |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/qwtconfig.pri
+===================================================================
+--- a/qwtconfig.pri
++++ b/qwtconfig.pri
+@@ -114,7 +114,7 @@ CONFIG     += QwtWidgets
+ # Otherwise you have to build it from the designer directory.
+ ######################################################################
+ 
+-CONFIG     += QwtDesigner
++#CONFIG     += QwtDesigner
+ 
+ ######################################################################
+ # If you want to auto build the examples, enable the line below

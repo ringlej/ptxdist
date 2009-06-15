@@ -1,0 +1,8 @@
+## SECTION=qt
+
+config QWT
+	tristate
+	prompt "qwt"
+	select QT4
+	help
+	  FIXME

@@ -1,45 +1,46 @@
 ## SECTION=qt
 
-menuconfig QTOPIA
+menuconfig QT4
 	tristate
-	select TSLIB	if QTOPIA_MOUSE_TSLIB
-	select DBUS	if QTOPIA_DBUS_LOAD || QTOPIA_DBUS_LINK
-	select ZLIB	if QTOPIA_ZLIB_SYSTEM
-	select FREETYPE	if QTOPIA_FREETYPE_SYSTEM
-	select LIBPNG	if QTOPIA_PNG_SYSTEM
-	select LIBJPEG	if QTOPIA_JPG_SYSTEM
-	select DIRECTFB	if QTOPIA_GFX_DIRECTFB_PLUGIN
+	select TSLIB		if QT4_MOUSE_TSLIB
+	select DBUS		if QT4_DBUS_LOAD || QT4_DBUS_LINK
+	select GLIB		if QT4_GLIB
+	select ZLIB		if QT4_ZLIB_SYSTEM
+	select FREETYPE		if QT4_FREETYPE_SYSTEM
+	select LIBPNG		if QT4_PNG_SYSTEM
+	select LIBJPEG		if QT4_JPG_SYSTEM
+	select DIRECTFB		if QT4_GFX_DIRECTFB_PLUGIN
+	select GSTREAMER	if QT4_BUILD_PHONON
+	select GST_PLUGINS_BASE	if QT4_BUILD_PHONON
+	select OPENSSL		if QT4_OPENSSL
 # libsvga is currently not in ptxdist
-#	select LIBSVGA	if QTOPIA_GFX_SVGA_PLUGIN
-	prompt "QTopia Core                   "
+#	select LIBSVGA		if QT4_GFX_SVGA_PLUGIN
+	prompt "Qt Embedded                   "
 	help
-	  QTopia Core is Trolltech's Widget Library formerly known as
-	  QT Embedded.
+	  Qt Embedded is Trolltech's Widget Library for Embedded Linux.
+
+if QT4
 
 menu "build options               "
-	depends on QTOPIA
 
-config QTOPIA_SHARED
+config QT4_SHARED
 	bool
 	prompt "build shared libraries"
-	depends on QTOPIA
 	help
-	  If selected the shared QTopia Core Libraries are built
+	  If selected the shared Qt Embedded Libraries are built
 	  and installed.
 
 endmenu
 
 menu "graphics driver             "
-	depends on QTOPIA
 
 choice
 	prompt "ahi                 "
-	depends on QTOPIA
-	default QTOPIA_GFX_AHI_NONE
+	default QT4_GFX_AHI_NONE
 	help
 	  FIXME
 
-	config QTOPIA_GFX_AHI_NONE
+	config QT4_GFX_AHI_NONE
 		bool
 		prompt "none   "
 		help
@@ -47,7 +48,7 @@ choice
 
 # only as plugin
 
-	config QTOPIA_GFX_AHI_PLUGIN
+	config QT4_GFX_AHI_PLUGIN
 		bool
 		prompt "plugin "
 		depends on BROKEN
@@ -57,12 +58,11 @@ endchoice
 
 choice
 	prompt "DirectFB            "
-	depends on QTOPIA
-	default QTOPIA_GFX_DIRECTFB_NONE
+	default QT4_GFX_DIRECTFB_NONE
 	help
 	  Accelerated driver using DirectFB
 
-	config QTOPIA_GFX_DIRECTFB_NONE
+	config QT4_GFX_DIRECTFB_NONE
 		bool
 		prompt "none   "
 		help
@@ -70,7 +70,7 @@ choice
 
 # only as plugin
 
-	config QTOPIA_GFX_DIRECTFB_PLUGIN
+	config QT4_GFX_DIRECTFB_PLUGIN
 		bool
 		prompt "plugin "
 		help
@@ -79,24 +79,23 @@ endchoice
 
 choice
 	prompt "LinuxFb             "
-	depends on QTOPIA
-	default QTOPIA_GFX_LINUXFB_NONE
+	default QT4_GFX_LINUXFB_NONE
 	help
 	  Unaccelerated linux frambuffer driver
 
-	config QTOPIA_GFX_LINUXFB_NONE
+	config QT4_GFX_LINUXFB_NONE
 		bool
 		prompt "none   "
 		help
 		  Don't build the driver
 
-	config QTOPIA_GFX_LINUXFB_BUILTIN
+	config QT4_GFX_LINUXFB_BUILTIN
 		bool
 		prompt "builtin"
 		help
 		  Link the driver into QtGui
 
-	config QTOPIA_GFX_LINUXFB_PLUGIN
+	config QT4_GFX_LINUXFB_PLUGIN
 		bool
 		prompt "plugin "
 		help
@@ -104,26 +103,47 @@ choice
 endchoice
 
 choice
-	prompt "Qt Virtual Fb       "
-	depends on QTOPIA
-	default QTOPIA_GFX_QVFB_NONE
+	prompt "PowerVR             "
+	default QT4_GFX_POWERVR_NONE
 	help
-	  The Qt Virtual Framebuffer can be used to test qtopia applications.
-	  It must be used in combination with the QVFb tool which is part of Qt/X11
+	  FIXME
 
-	config QTOPIA_GFX_QVFB_NONE
+	config QT4_GFX_POWERVR_NONE
 		bool
 		prompt "none   "
 		help
 		  Don't build the driver
 
-	config QTOPIA_GFX_QVFB_BUILTIN
+# only as plugin
+
+	config QT4_GFX_POWERVR_PLUGIN
+		bool
+		prompt "plugin "
+		depends on BROKEN
+		help
+		  Load the driver at runtime
+endchoice
+
+choice
+	prompt "Qt Virtual Fb       "
+	default QT4_GFX_QVFB_NONE
+	help
+	  The Qt Virtual Framebuffer can be used to test Qt Embedded applications.
+	  It must be used in combination with the QVFb tool which is part of Qt/X11
+
+	config QT4_GFX_QVFB_NONE
+		bool
+		prompt "none   "
+		help
+		  Don't build the driver
+
+	config QT4_GFX_QVFB_BUILTIN
 		bool
 		prompt "builtin"
 		help
 		  Link the driver into QtGui
 
-	config QTOPIA_GFX_QVFB_PLUGIN
+	config QT4_GFX_QVFB_PLUGIN
 		bool
 		prompt "plugin "
 		help
@@ -132,14 +152,13 @@ endchoice
 
 choice
 	prompt "SVGA                "
-	depends on QTOPIA
 	depends on BROKEN
-	default QTOPIA_GFX_SVGA_NONE
+	default QT4_GFX_SVGA_NONE
 	help
 	  Unaccelerated driver using svgalib.
 
 
-	config QTOPIA_GFX_SVGA_NONE
+	config QT4_GFX_SVGA_NONE
 		bool
 		prompt "none   "
 		help
@@ -147,7 +166,7 @@ choice
 
 # only as plugin
 
-	config QTOPIA_GFX_SVGA_PLUGIN
+	config QT4_GFX_SVGA_PLUGIN
 		bool
 		prompt "plugin "
 		depends on BROKEN
@@ -157,26 +176,25 @@ endchoice
 
 choice
 	prompt "VNC                 "
-	depends on QTOPIA
-	default QTOPIA_GFX_VNC_NONE
+	default QT4_GFX_VNC_NONE
 	help
 	  The VNC driver provides a VNC server. It can also be used in
 	  combination with other drivers.
 
 
-	config QTOPIA_GFX_VNC_NONE
+	config QT4_GFX_VNC_NONE
 		bool
 		prompt "none   "
 		help
 		  Don't build the driver
 
-	config QTOPIA_GFX_VNC_BUILTIN
+	config QT4_GFX_VNC_BUILTIN
 		bool
 		prompt "builtin"
 		help
 		  Link the driver into QtGui
 
-	config QTOPIA_GFX_VNC_PLUGIN
+	config QT4_GFX_VNC_PLUGIN
 		bool
 		prompt "plugin "
 		help
@@ -185,26 +203,25 @@ endchoice
 
 choice
 	prompt "Transformed         "
-	depends on QTOPIA
-	default QTOPIA_GFX_TRANSFORMED_NONE
+	default QT4_GFX_TRANSFORMED_NONE
 	help
 	  Transformed is a meta driver that delegates the drawing to another driver
 	  after rotating the contents
 
 
-	config QTOPIA_GFX_TRANSFORMED_NONE
+	config QT4_GFX_TRANSFORMED_NONE
 		bool
 		prompt "none   "
 		help
 		  Don't build the driver
 
-	config QTOPIA_GFX_TRANSFORMED_BUILTIN
+	config QT4_GFX_TRANSFORMED_BUILTIN
 		bool
 		prompt "builtin"
 		help
 		  Link the driver into QtGui
 
-	config QTOPIA_GFX_TRANSFORMED_PLUGIN
+	config QT4_GFX_TRANSFORMED_PLUGIN
 		bool
 		prompt "plugin "
 		help
@@ -213,19 +230,18 @@ endchoice
 
 choice
 	prompt "Multi               "
-	depends on QTOPIA
-	default QTOPIA_GFX_MULTISCREEN_NONE
+	default QT4_GFX_MULTISCREEN_NONE
 	help
 	  Multi is a meta driver that delegates the drawing to multiple other
 	  drivers.
 
-	config QTOPIA_GFX_MULTISCREEN_NONE
+	config QT4_GFX_MULTISCREEN_NONE
 		bool
 		prompt "none   "
 		help
 		  Don't build the driver
 
-	config QTOPIA_GFX_MULTISCREEN_BUILTIN
+	config QT4_GFX_MULTISCREEN_BUILTIN
 		bool
 		prompt "builtin"
 		help
@@ -236,10 +252,9 @@ endchoice
 
 choice
 	prompt "hybrid              "
-	depends on QTOPIA
-	default QTOPIA_GFX_HYBRID_NONE
+	default QT4_GFX_HYBRID_NONE
 
-	config QTOPIA_GFX_HYBRID_NONE
+	config QT4_GFX_HYBRID_NONE
 		bool
 		prompt "none   "
 		help
@@ -247,7 +262,7 @@ choice
 
 # only as plugin
 
-	config QTOPIA_GFX_HYBRID_PLUGIN
+	config QT4_GFX_HYBRID_PLUGIN
 		bool
 		prompt "plugin [BROKEN]"
 		# needs GLES/egl.h and others
@@ -259,118 +274,101 @@ endchoice
 endmenu
 
 menu "keyboard drivers            "
-	depends on QTOPIA
 
-config QTOPIA_KBD_TTY
+config QT4_KBD_TTY
 	bool
 	prompt "tty"
-	depends on QTOPIA
 	help
 	  Generic console (tty) driver
 
-config QTOPIA_KBD_USB
+config QT4_KBD_USB
 	bool
 	prompt "USB"
-	depends on QTOPIA
 	help
 	  Generic usb keyboard driver
 
-config QTOPIA_KBD_SL5000
+config QT4_KBD_SL5000
 	bool
 	prompt "SL5000 [BROKEN]"
-	depends on QTOPIA
 	# needs asm/sharp_char.h
 	depends on BROKEN
 
-config QTOPIA_KBD_YOPY
+config QT4_KBD_YOPY
 	bool
 	prompt "Yopy [BROKEN]"
-	depends on QTOPIA
 	# needs linux/yopy_button.h
 	depends on BROKEN
 
-config QTOPIA_KBD_VR41XX
+config QT4_KBD_VR41XX
 	bool
 	prompt "Vr41XX"
-	depends on QTOPIA
 
-config QTOPIA_KBD_QVFB
+config QT4_KBD_QVFB
 	bool
 	prompt "Qt Virtual Frambuffer"
-	depends on QTOPIA
 	help
 	  Keyboard driver for the Qt Virtual Frambuffer
 
 endmenu
 
 menu "mouse drivers               "
-	depends on QTOPIA
 
-config QTOPIA_MOUSE_PC
+config QT4_MOUSE_PC
 	bool
 	prompt "Generic Mouse Driver"
-	depends on QTOPIA
 	help
 	  Generic driver for the MouseMan, IntelliMouse, Microsoft and MouseSystems
 	  protocols.
 
-config QTOPIA_MOUSE_BUS
+config QT4_MOUSE_BUS
 	bool
 	prompt "Bus"
-	depends on QTOPIA
 
-config QTOPIA_MOUSE_LINUXTP
+config QT4_MOUSE_LINUXTP
 	bool
 	prompt "Linux Touch Panel"
-	depends on QTOPIA
 
-config QTOPIA_MOUSE_YOPY
+config QT4_MOUSE_YOPY
 	bool
 	prompt "Yopy"
-	depends on QTOPIA
 
-config QTOPIA_MOUSE_VR41XX
+config QT4_MOUSE_VR41XX
 	bool
 	prompt "NEC Vr41XX"
-	depends on QTOPIA
 
-config QTOPIA_MOUSE_TSLIB
+config QT4_MOUSE_TSLIB
 	bool
 	prompt "Tslib"
-	depends on QTOPIA
 	help
 	  Driver for the universal touch screen library, tslib.
 
-config QTOPIA_MOUSE_QVFB
+config QT4_MOUSE_QVFB
 	bool
 	prompt "Qt Virtual Frambuffer"
-	depends on QTOPIA
 	help
 	  Mouse driver for the Qt Virtual Frambuffer
 
 endmenu
 
 # prepare the build system to build the examples
-config QTOPIA_PREPARE_EXAMPLES
+# selected by QT4_EXAMPLES
+config QT4_PREPARE_EXAMPLES
 	bool
-	depends on QTOPIA
 
 menu "feature options             "
-	depends on QTOPIA
 
 choice
 	prompt "zlib support       "
-	depends on QTOPIA
-	default QTOPIA_ZLIB_SYSTEM
+	default QT4_ZLIB_SYSTEM
 	help
 	  zlib support is required for at least the PNG graphic format
 
-config QTOPIA_ZLIB_INTERNAL
+config QT4_ZLIB_INTERNAL
 	bool "internal"
 	help
 	  This uses the embedded zlib support
 
-config QTOPIA_ZLIB_SYSTEM
+config QT4_ZLIB_SYSTEM
 	bool "system  "
 	help
 	  Use system's zlib
@@ -378,22 +376,21 @@ endchoice
 
 choice
 	prompt "freetype support   "
-	depends on QTOPIA
-	default QTOPIA_FREETYPE_SYSTEM
+	default QT4_FREETYPE_SYSTEM
 	help
 	  Control freetype support
 
-config QTOPIA_FREETYPE_NONE
+config QT4_FREETYPE_NONE
 	bool "none    "
 	help
 	 This disables freeetype support entirely
 
-config QTOPIA_FREETYPE_INTERNAL
+config QT4_FREETYPE_INTERNAL
 	bool "internal"
 	help
 	  This uses the embedded freetype support
 
-config QTOPIA_FREETYPE_SYSTEM
+config QT4_FREETYPE_SYSTEM
 	bool "system  "
 	help
 	  Use system's freetype
@@ -401,17 +398,16 @@ endchoice
 
 choice
 	prompt "ICO support        "
-	depends on QTOPIA
-	default QTOPIA_ICO_NONE
+	default QT4_ICO_NONE
 	help
 	  Control support for the ICO File Format
 
-config QTOPIA_ICO_NONE
+config QT4_ICO_NONE
 	bool "none    "
 	help
 	 This disables entirely any ICO support
 
-config QTOPIA_ICO_INTERNAL
+config QT4_ICO_INTERNAL
 	bool "internal"
 	help
 	  This uses the embedded ICO support
@@ -419,22 +415,21 @@ endchoice
 
 choice
 	prompt "PNG support        "
-	depends on QTOPIA && !QTOPIA_ZLIB_NONE
-	default QTOPIA_PNG_SYSTEM
+	default QT4_PNG_SYSTEM
 	help
 	  Control support for the Portable Network Graphics format
 
-config QTOPIA_PNG_NONE
+config QT4_PNG_NONE
 	bool "none    "
 	help
 	 This disables entirely any PNG support
 
-config QTOPIA_PNG_INTERNAL
+config QT4_PNG_INTERNAL
 	bool "internal"
 	help
 	  This uses the embedded PNG support
 
-config QTOPIA_PNG_SYSTEM
+config QT4_PNG_SYSTEM
 	bool "system  "
 	help
 	  Use system's PNG library
@@ -442,23 +437,22 @@ endchoice
 
 choice
 	prompt "MNG support        "
-	depends on QTOPIA
-	default QTOPIA_MNG_NONE
+	default QT4_MNG_NONE
 	help
 	  Control support for the Multiple-image Network Graphics format
 
-config QTOPIA_MNG_NONE
+config QT4_MNG_NONE
 	bool "none    "
 	help
 	 This disables entirely any MNG support
 
-config QTOPIA_MNG_INTERNAL
+config QT4_MNG_INTERNAL
 	bool "internal"
 	help
 	  This uses the embedded MNG support
 
 # there is currently no support for MNG in ptxdist
-#config QTOPIA_MNG_SYSTEM
+#config QT4_MNG_SYSTEM
 #	bool "system  "
 #	help
 #	  Use system's MNG library
@@ -467,23 +461,22 @@ endchoice
 
 choice
 	prompt "TIFF support       "
-	depends on QTOPIA
-	default QTOPIA_TIFF_NONE
+	default QT4_TIFF_NONE
 	help
 	  Control support for the Tag Image File Format
 
-config QTOPIA_TIFF_NONE
+config QT4_TIFF_NONE
 	bool "none    "
 	help
 	 This disables entirely any TIFF support
 
-config QTOPIA_TIFF_INTERNAL
+config QT4_TIFF_INTERNAL
 	bool "internal"
 	help
 	  This uses the embedded TIFF support
 
 # there is currently no support for TIFF in ptxdist
-#config QTOPIA_TIFF_SYSTEM
+#config QT4_TIFF_SYSTEM
 #	bool "system  "
 #	help
 #	  Use system's TIFF library
@@ -492,17 +485,16 @@ endchoice
 
 choice
 	prompt "GIF support        "
-	depends on QTOPIA
-	default QTOPIA_GIF_NONE
+	default QT4_GIF_NONE
 	help
 	  Control support for the "Graphics Interchange Format" format
 
-config QTOPIA_GIF_NONE
+config QT4_GIF_NONE
 	bool "none    "
 	help
 	 This disables entirely any GIF support
 
-config QTOPIA_GIF_INTERNAL
+config QT4_GIF_INTERNAL
 	bool "internal"
 	help
 	  This uses the embedded GIF support
@@ -511,82 +503,90 @@ endchoice
 
 choice
 	prompt "JPG support        "
-	depends on QTOPIA
-	default QTOPIA_JPG_NONE
+	default QT4_JPG_NONE
 
-config QTOPIA_JPG_NONE
+config QT4_JPG_NONE
 	bool "none    "
 	help
 	 This disables entirely any JPG support
 
-config QTOPIA_JPG_INTERNAL
+config QT4_JPG_INTERNAL
 	bool "internal"
 	help
 	  This uses the embedded JPG support
 
-config QTOPIA_JPG_SYSTEM
+config QT4_JPG_SYSTEM
 	bool "system  "
 	help
 	  Use system's JPG library
 
 endchoice
 
-config QTOPIA_STL
+config QT4_STL
 	bool
 	prompt "stl support"
-	depends on QTOPIA
 	help
-	  Add QTopia support for standard template library.
+	  Add Qt support for standard template library.
+
+config QT4_GLIB
+	bool
+	prompt "glib support"
+	help
+	  Add Qt support for glib.
+
+config QT4_OPENSSL
+	bool
+	prompt "openssl support"
+	depends on BROKEN
+	help
+	  Add Qt support for openssl.
 
 choice
 	prompt "dbus support       "
-	depends on QTOPIA
-	default QTOPIA_DBUS_LOAD
+	default QT4_DBUS_LOAD
 	help
-	  Qtopia dbus support.
+	  Qt dbus support.
 
-config QTOPIA_DBUS_NONE
+config QT4_DBUS_NONE
 	bool "none    "
 	help
-	  Disable Qtopia dbus support.
+	  Disable Qt bus support.
 
-config QTOPIA_DBUS_LOAD
+config QT4_DBUS_LOAD
 	bool "load    "
-	select QTOPIA_BUILD_XML
+	select QT4_BUILD_XML
+	select QT4_BUILD_SCRIPT
 	help
-	  Build Qtopia dbus support and dynamically load libdbus-1.
+	  Build Qt dbus support and dynamically load libdbus-1.
 
-config QTOPIA_DBUS_LINK
+config QT4_DBUS_LINK
 	bool "link    "
-	select QTOPIA_BUILD_XML
+	select QT4_BUILD_XML
+	select QT4_BUILD_SCRIPT
 	help
-	  Build Qtopia dbus support and link to libdbus-1.
+	  Build Qt dbus support and link to libdbus-1.
 endchoice
 
 endmenu
 
 menu "optional libraries          "
-	depends on QTOPIA
 
-config QTOPIA_BUILD_GUI
+config QT4_BUILD_GUI
 	bool
-	select QTOPIA_BUILD_UIC
-	depends on QTOPIA
+	select QT4_BUILD_UIC
 	prompt "QtGui"
 	help
 	  The QtGui module provides the classes necessary for a graphical user interface.
 
-config QTOPIA_BUILD_NETWORK
+config QT4_BUILD_NETWORK
 	bool
-	depends on QTOPIA
 	prompt "QtNetwork"
 	help
 	  The QtNetwork module offers classes that allow you to write TCP/IP
 	  clients and servers.
 
-config QTOPIA_BUILD_SQL
+config QT4_BUILD_SQL
 	bool
-	depends on QTOPIA
 	prompt "QtSql"
 	help
 	  The QtSql module helps you provide seamless database integration
@@ -598,38 +598,34 @@ config QTOPIA_BUILD_SQL
 	   - UI Layer:      These classes link the data from a database to
 	                    data-aware widgets.
 
-config QTOPIA_BUILD_SCRIPT
+config QT4_BUILD_SCRIPT
 	bool
 	default y
-	depends on QTOPIA
 	prompt "QtScript"
 	help
 	  The QtScript module provides classes for making Qt applications scriptable.
 	  Qt Script is based on the ECMAScript scripting language, as defined in
 	  standard ECMA-262.
 
-config QTOPIA_BUILD_SVG
+config QT4_BUILD_SVG
 	bool
 	default y
-	depends on QTOPIA
-	select QTOPIA_BUILD_XML
-	select QTOPIA_BUILD_GUI
+	select QT4_BUILD_XML
+	select QT4_BUILD_GUI
 	prompt "QtSvg"
 	help
 	  The QtSvg module provides classes for displaying the contents of SVG files.
 
-config QTOPIA_BUILD_XML
+config QT4_BUILD_XML
 	bool
-	depends on QTOPIA
 	prompt "QtXml"
 	help
 	  The QtXml module provides a stream reader and writer for XML documents,
 	  and C++ implementations of SAX and DOM.
 
-config QTOPIA_BUILD_DESIGNERLIBS
+config QT4_BUILD_DESIGNERLIBS
 	bool
-	depends on QTOPIA
-	select QTOPIA_BUILD_XML
+	select QT4_BUILD_XML
 	prompt "Qt Designer Libraries"
 	help
 	  This option enables two libraries:
@@ -640,52 +636,58 @@ config QTOPIA_BUILD_DESIGNERLIBS
 	                at run-time using the information stored in .ui files or specified
 	                plugin paths
 
-config QTOPIA_BUILD_ASSISTANTLIB
+config QT4_BUILD_ASSISTANTLIB
 	bool
-	select QTOPIA_BUILD_NETWORK
-	depends on QTOPIA
+	select QT4_BUILD_NETWORK
+	select QT4_BUILD_XML
+	select QT4_BUILD_SQL
 	prompt "QtAssistant"
 	help
 	  The QtAssistant module provides a means of launching Qt Assistant to provide
 	  online help.
 
-config QTOPIA_BUILD_QTESTLIB
+config QT4_BUILD_QTESTLIB
 	bool
-	depends on QTOPIA
 	prompt "QtTest"
 	help
 	  he QtTest module provides classes for unit testing Qt applications and libraries.
 
-config QTOPIA_BUILD_QTXMLPATTERNS
+config QT4_BUILD_QTXMLPATTERNS
 	bool
-	select QTOPIA_BUILD_NETWORK
-	depends on QTOPIA
+	select QT4_BUILD_NETWORK
 	prompt "QtXmlPatterns"
 	help
 	  XQuery 1.0 and XPath 2.0 support for Qt
 
-config QTOPIA_BUILD_PHONON
+config QT4_BUILD_PHONON
 	bool
-	select QTOPIA_BUILD_GUI
-	depends on QTOPIA
-	depends on BROKEN
+	select QT4_BUILD_GUI
+	select QT4_GLIB
 	prompt "Phonon"
 	help
 	  Phonon is a cross-platform multimedia framework that enables the use
 	  of audio and video content in Qt applications.
 
-config QTOPIA_BUILD_WEBKIT
+config QT4_BUILD_WEBKIT
 	bool
-	select QTOPIA_BUILD_XML
-	select QTOPIA_BUILD_GUI
-	select QTOPIA_BUILD_NETWORK
-	select QTOPIA_BUILD_SQL
-	depends on QTOPIA
+	select QT4_BUILD_XML
+	select QT4_BUILD_GUI
+	select QT4_BUILD_NETWORK
+	select QT4_BUILD_SQL
 	prompt "Webkit"
 	help
 	  QtWebKit provides a Web browser engine that makes it easy to embed
 	  content from the World Wide Web into your Qt application. At the
 	  same time Web content can be enhanced with native controls.
+
+config QT4_BUILD_SCRIPTTOOLS
+	bool
+	select QT4_BUILD_GUI
+	select QT4_BUILD_SCRIPT
+	prompt "ScriptTools"
+	help
+	  QtScriptTools provides additional components for applications that
+	  use Qt Script.
 
 endmenu
 
@@ -694,11 +696,9 @@ endmenu
 #
 
 menu "Host side tools             "
-	depends on QTOPIA
 
-config QTOPIA_BUILD_UIC
+config QT4_BUILD_UIC
 	bool
-	depends on QTOPIA
 	default y
 	prompt "uic"
 	help
@@ -708,47 +708,48 @@ config QTOPIA_BUILD_UIC
 endmenu
 
 menu "Install Fonts               "
-	depends on QTOPIA
 
-	config QTOPIA_FONT_DEJAVU
+	config QT4_FONT_DEJAVU
 		bool
 		prompt "DejaVu"
 
-	config QTOPIA_FONT_UT
+	config QT4_FONT_UT
 		bool
 		prompt "UT"
 
-	config QTOPIA_FONT_VERA
+	config QT4_FONT_VERA
 		bool
 		prompt "Vera"
 
-	config QTOPIA_FONT_C0
+	config QT4_FONT_C0
 		bool
 		prompt "c0"
 
-	config QTOPIA_FONT_COUR
+	config QT4_FONT_COUR
 		bool
 		prompt "cour"
 
-	config QTOPIA_FONT_CURSOR
+	config QT4_FONT_CURSOR
 		bool
 		prompt "cursor"
 
-	config QTOPIA_FONT_FIXED
+	config QT4_FONT_FIXED
 		bool
 		prompt "fixed"
 
-	config QTOPIA_FONT_HELVETICA
+	config QT4_FONT_HELVETICA
 		bool
 		prompt "helvetica"
 
-	config QTOPIA_FONT_JAPANESE
+	config QT4_FONT_JAPANESE
 		bool
 		prompt "japanese"
 
-	config QTOPIA_FONT_L04
+	config QT4_FONT_L04
 		bool
 		prompt "l04"
 
 endmenu
+
+endif
 
