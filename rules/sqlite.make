@@ -2,6 +2,8 @@
 #
 # Copyright (C) 2004 by Ladislav Michl
 # Copyright (C) 2009 by Juergen Beisert <j.beisert@pengtronix.de>
+# Copyright (C) 2009 by Erwin Rol <erwin@erwinrol.com>
+#
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +19,7 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION	= 3.6.13
+SQLITE_VERSION	= 3.6.15
 SQLITE		= sqlite-$(SQLITE_VERSION)
 SQLITE_SUFFIX	= tar.gz
 SQLITE_URL	= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
@@ -46,13 +48,45 @@ SQLITE_ENV 	= \
 
 SQLITE_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-tempstore=never \
-	--enable-releasemode
+	--enable-releasemode \
+	--disable-amalgamation
+
+
+ifdef PTXCONF_SQLITE_TEMPSTORE_NEVER
+SQLITE_AUTOCONF += --enable-tempstore=never
+endif
+ifdef PTXCONF_SQLITE_TEMPSTORE_NO
+SQLITE_AUTOCONF += --enable-tempstore=no
+endif
+ifdef PTXCONF_SQLITE_TEMPSTORE_YES
+SQLITE_AUTOCONF += --enable-tempstore=yes
+endif
+ifdef PTXCONF_SQLITE_TEMPSTORE_ALWAYS
+SQLITE_AUTOCONF += --enable-tempstore=always
+endif
 
 ifdef PTXCONF_SQLITE_THREADSAFE
 SQLITE_AUTOCONF += --enable-threadsafe
 else
 SQLITE_AUTOCONF += --disable-threadsafe
+endif
+
+ifdef PTXCONF_SQLITE_CROSS_THREAD_CONNECTIONS
+SQLITE_AUTOCONF += --enable-cross-thread-connections
+else
+SQLITE_AUTOCONF += --disable-cross-thread-connections
+endif
+
+ifdef PTXCONF_SQLITE_THREAD_OVERRIDE_LOCKS
+SQLITE_AUTOCONF += --enable-threads-override-locks
+else
+SQLITE_AUTOCONF += --disable-threads-override-locks
+endif
+
+ifdef PTXCONF_SQLITE_LOAD_EXTENTION
+SQLITE_AUTOCONF += --enable-load-extension
+else
+SQLITE_AUTOCONF += --disable-load-extension
 endif
 
 ifdef PTXCONF_SQLITE_DISABLE_LFS
