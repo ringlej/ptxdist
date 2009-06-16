@@ -8,6 +8,15 @@ menuconfig LIBPCRE
 
 if LIBPCRE
 
+config LIBPCRE__ENABLE_NEWLINE_IS_ANYCRLF
+       bool "Enable NL is any CRLF"
+
+config LIBPCRE__ENABLE_PCREGREP_LIBZ
+       bool "Enable grep libz"
+
+config LIBPCRE__ENABLE_UTF8
+       bool "Enable UTF8"
+
 config LIBPCRE__LIBPCREPOSIX
        bool "install libpcreposix"
 

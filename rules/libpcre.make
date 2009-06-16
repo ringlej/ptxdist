@@ -43,6 +43,15 @@ LIBPCRE_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 LIBPCRE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+ifdef PTXCONF_LIBPCRE__ENABLE_NEWLINE_IS_ANYCRLF
+LIBPCRE_AUTOCONF += --enable-newline-is-anycrlf
+endif
+ifdef PTXCONF_LIBPCRE__ENABLE_PCREGREP_LIBZ
+LIBPCRE_AUTOCONF += --enable-pcregrep-libz
+endif
+ifdef PTXCONF_LIBPCRE__ENABLE_UTF8
+LIBPCRE_AUTOCONF += --enable-utf8
+endif
 
 # ----------------------------------------------------------------------------
 # Install
