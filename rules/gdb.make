@@ -2,7 +2,8 @@
 # $Id$
 #
 # Copyright (C) 2002-2008 by Pengutronix e.K., Hildesheim, Germany
-# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+#               2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -21,10 +22,13 @@ PACKAGES-$(PTXCONF_GDB) += gdb
 GDB_VERSION	:= $(call remove_quotes,$(PTXCONF_GDB__VERSION))
 GDB		:= gdb-$(GDB_VERSION)
 GDB_SUFFIX	:= tar.bz2
-GDB_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/gdb/$(GDB).$(GDB_SUFFIX)
 GDB_SOURCE	:= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
 GDB_DIR		:= $(BUILDDIR)/$(GDB)
 GDB_BUILDDIR	:= $(BUILDDIR)/$(GDB)-build
+
+GDB_URL		:= \
+	$(PTXCONF_SETUP_GNUMIRROR)/gdb/$(GDB).$(GDB_SUFFIX) \
+	ftp://sourceware.org/pub/gdb/snapshots/current/$(CROSS_GDB).$(CROSS_GDB_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
