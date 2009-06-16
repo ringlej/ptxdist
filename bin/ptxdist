@@ -659,17 +659,21 @@ check_if_selected() {
 
 #
 # runs the standard tests before calling into make:
-# - check_config
-# - check_dirs
-# - check_compiler
-# - check_deps
 #
-check_premake_compiler()
+check_premake()
 {
 	check_config &&
 	check_dirs &&
-	check_compiler &&
-	check_deps || return
+	check_deps
+}
+
+#
+# runs the standard tests before calling into make + compiler check
+#
+check_premake_compiler()
+{
+	check_premake &&
+	check_compiler
 }
 
 
@@ -1364,11 +1368,11 @@ do_config()
 		ptxd_kconfig "${config}" "${part}" "${file_dotconfig}"
 		;;
 	*)
-		check_if_selected "${part}" || return
+		check_if_selected "${part}" &&
 
-		ptxd_dialog_infobox "${PROMPT}Checking dependencies. This may take some seconds."
-		check_deps || return
+		ptxd_dialog_infobox "${PROMPT}Checking dependencies. This may take some seconds." &&
 
+		check_premake &&
 		ptxd_make "${part}_${config}"
 		;;
 	esac
@@ -1798,14 +1802,13 @@ parse_second()
 				echo
 				exit 1
 			fi
-			check_config || return
-			check_deps
+			check_premake &&
 			ptxd_make_log export_src EXPORTDIR="${1}"
 			exit
 			;;
 		get)
-			check_config || return
-			check_deps
+			check_premake &&
+
 			if [ $# -eq 0 ]; then
 				ptxd_make_log get
 			else
