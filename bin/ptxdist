@@ -182,6 +182,8 @@ check_path() {
 #
 # check a ptxdist version against a configfile version.
 #
+# as long as we're not 2.0 (i.e. stable) the versions _must_ match
+#
 # - The ptxdist major version has to be equal to the configfile major version
 # - The ptxdist minor version has to be equal to the configfile minor version
 # - The ptxdist micro version has to greater than or equal to the configfile
@@ -193,6 +195,18 @@ check_version() {
 	if [ -n "${PTX_FORCE}" ]; then
 		return 0
 	fi
+
+	####################################################################
+	# as long as we're not 2.0 (i.e. stable) the versions _must_ match #
+	####################################################################
+
+	if [ "${1}" = "${PTXDIST_VERSION_FULL}" ]; then
+		return
+	else
+		return 1
+	fi
+
+	exit 1	# not reached
 
 	local ifs_old="${IFS}"
 	IFS=.
