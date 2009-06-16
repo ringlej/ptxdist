@@ -1,0 +1,31 @@
+## SECTION=games
+
+menuconfig MMPONG
+	tristate
+	select HOST_CMAKE
+	select LIBCACA	if MMPONG_CACA
+	select SDL	if MMPONG_GL
+	prompt "mmpong                        "
+	help
+	  mmpong is an ATARI-pong-like multiplayer game, where a
+	  moving ball reflects on impact from paddles on the left and
+	  right sides of the screen.  A special feature of this
+	  variant is the ability to play the game with far more than
+	  two players. Players are split into two teams, and the
+	  position of each team's paddle is determined by the mean
+	  value of the positions of all the players' paddles on the
+	  team. mmpong supports a number of different paddle profiles
+	  (like flat or round).
+
+if MMPONG
+
+config MMPONG_CACA
+	bool "libcaca interface"
+
+#config MMPONG_GL
+#	bool "gl interface"
+
+config MMPONG_SERVER
+	bool "install mmpong server"
+
+endif
