@@ -72,6 +72,17 @@ PROFTPD_AUTOCONF += --disable-autoshadow
 endif
 
 # ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/proftpd.compile:
+	@$(call targetinfo)
+	cd $(PROFTPD_DIR) && \
+		$(PROFTPD_PATH) $(PROFTPD_ENV) \
+		$(MAKE) $(PARALLELMFLAGS_BROKEN)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -90,14 +101,14 @@ $(STATEDIR)/proftpd.targetinstall:
 	@$(call install_copy, proftpd, 0, 0, 0755, -, \
 		/usr/sbin/proftpd)
 
-	@$(call install_alternative, proftpd, 0, 0, 0644, /etc/proftpd.conf, n)
+	@$(call install_alternative, proftpd, 0, 0, 0644, /etc/proftpd.conf)
 
 #	#
 #	# busybox init
 #	#
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_PROFTPD_STARTSCRIPT
-	@$(call install_alternative, proftpd, 0, 0, 0755, /etc/init.d/proftpd, n)
+	@$(call install_alternative, proftpd, 0, 0, 0755, /etc/init.d/proftpd)
 endif
 endif
 
