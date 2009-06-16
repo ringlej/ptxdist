@@ -1557,6 +1557,8 @@ do_select_toolchain() {
 #
 do_migrate()
 {
+	local PTX_FORCE=true
+
 	local part
 	for part in ptx platform; do
 		do_config oldconfig "${part}" || return
