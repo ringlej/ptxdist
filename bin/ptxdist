@@ -650,7 +650,7 @@ check_if_selected() {
 # - check_compiler
 # - check_deps
 #
-check_premake()
+check_premake_compiler()
 {
 	check_config &&
 	check_dirs &&
@@ -1570,7 +1570,7 @@ do_migrate()
 #
 do_go()
 {
-	check_premake || return
+	check_premake_compiler || return
 	ptxd_make_log world
 }
 
@@ -1581,7 +1581,7 @@ do_go()
 #
 do_images()
 {
-	check_premake &&
+	check_premake_compiler &&
 	ptxd_make_log images_world &&
 	ptxd_make_log images || return
 }
@@ -1623,7 +1623,7 @@ parse_second()
 ######## standard target, directly into make
 
 		extract|prepare|compile|install|targetinstall|tags)
-			check_premake || return
+			check_premake_compiler || return
 			check_if_selected "${1}" || return
 
 			case "${cmd}" in
@@ -1722,7 +1722,7 @@ parse_second()
 			;;
 
 		bash)
-			check_premake || return
+			check_premake_compiler || return
 			"${@}"
 			exit
 			;;
@@ -1803,7 +1803,7 @@ parse_second()
 			exit
 			;;
 		make)
-			check_premake || return
+			check_premake_compiler || return
 			ptxd_make_log "${1}"
 			exit
 			;;
