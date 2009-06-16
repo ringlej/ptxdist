@@ -2162,10 +2162,11 @@ setup_config() {
 #      "*DIR"	correct directory definitions
 #
 setup_platform() {
-	local cfg_dir
-	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
-	local project="$(ptxd_get_ptxconf PTXCONF_PROJECT)"
-	local project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"
+	local platform project project_version
+
+	platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)" &&
+	project="$(ptxd_get_ptxconf PTXCONF_PROJECT)" &&
+	project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)" || return
 
 	if [ -n "${platform}" ]; then
 		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${platform}"
@@ -2178,6 +2179,7 @@ setup_platform() {
 	# reread vars with correct PTXDIST_PLATFORMDIR
 	source "${SCRIPTSDIR}/ptxdist_vars.sh" || return
 
+	local cfg_dir
 	if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 		cfg_dir="$(dirname "$(readlink -f "${PTXDIST_PLATFORMCONFIG}")")" || return
 	fi
