@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_RT_TESTS) += rt-tests
 #
 # Paths and names
 #
-RT_TESTS_VERSION	:= 0.40
+RT_TESTS_VERSION	:= 0.42
 RT_TESTS		:= rt-tests-$(RT_TESTS_VERSION)
 RT_TESTS_SUFFIX		:= tar.bz2
 RT_TESTS_URL		:= http://www.kernel.org/pub/linux/kernel/people/clrkwllms/rt-tests/$(RT_TESTS).$(RT_TESTS_SUFFIX)
@@ -56,10 +56,6 @@ RT_TESTS_ENV 	:= $(CROSS_ENV)
 RT_TESTS_MAKEVARS := \
 	$(CROSS_ENV_CC) \
 	prefix=/usr
-
-$(STATEDIR)/rt-tests.prepare:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
