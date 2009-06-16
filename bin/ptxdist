@@ -27,8 +27,8 @@ menu_select() {
 	local config="${1}"
 	local "${config}"
 
-	check_nonstandard "${config}" || return
-	ptxd_dialog_fselect "${config}" || return
+	check_nonstandard "${config}" &&
+	ptxd_dialog_fselect "${config}" &&
 
 	do_select "${config}" "${!config}"
 }
@@ -344,7 +344,7 @@ check_config() {
 
 	_check_config_ptx &&
 	_check_config_platform &&
-	_check_config_collection || return
+	_check_config_collection
 }
 
 
@@ -849,7 +849,7 @@ clean() {
 
 	# we want to clean a single package
 	if [ -n "${1}" ]; then
-		check_if_selected "${1}" || return
+		check_if_selected "${1}" &&
 		ptxd_make_log "${1}_clean"
 		return
 	fi
@@ -1460,9 +1460,9 @@ do_select()
 	# re-read config files and
 	# export changed variables
 	#
-	setup_platform
-	setup_path
-	setup_logfile
+	setup_platform &&
+	setup_path &&
+	setup_logfile &&
 	setup_export
 }
 
@@ -1563,7 +1563,7 @@ do_select_toolchain() {
 			"	This should never happen, please contact the\n" \
 			"	Pengutronix Department of Illegal File Removement."
 		exit 1
-	fi
+	fi &&
 
 	ln -sf "${toolchain}" "${PTXDIST_TOOLCHAIN_DEFAULT}"
 }
@@ -1590,7 +1590,7 @@ do_migrate()
 #
 do_go()
 {
-	check_premake_compiler || return
+	check_premake_compiler &&
 	ptxd_make_log world
 }
 
@@ -1603,7 +1603,7 @@ do_images()
 {
 	check_premake_compiler &&
 	ptxd_make_log images_world &&
-	ptxd_make_log images || return
+	ptxd_make_log images
 }
 
 ##################################################################
@@ -1643,12 +1643,12 @@ parse_second()
 ######## standard target, directly into make
 
 		extract|prepare|compile|install|targetinstall|tags)
-			check_premake_compiler || return
-			check_if_selected "${1}" || return
+			check_premake_compiler &&
+			check_if_selected "${1}" &&
 
 			case "${cmd}" in
 			    install|targetinstall) local cmd_post=".post" ;;
-			esac
+			esac &&
 
 			ptxd_make_log "${STATEDIR}/${1}.${cmd}${cmd_post}"
 			exit
@@ -1742,13 +1742,13 @@ parse_second()
 			;;
 
 		bash)
-			check_premake_compiler || return
+			check_premake_compiler &&
 			"${@}"
 			exit
 			;;
 		clean)
-			check_config || return
-			check_deps
+			check_config &&
+			check_deps &&
 			clean "${1}"
 			exit
 			;;
@@ -1785,7 +1785,7 @@ parse_second()
 			exit
 			;;
 		drop)
-			check_config || return
+			check_config &&
 			drop "${1}" "${2}"
 			exit
 			;;
@@ -1812,7 +1812,7 @@ parse_second()
 			if [ $# -eq 0 ]; then
 				ptxd_make_log get
 			else
-				check_if_selected "${1}" || return
+				check_if_selected "${1}" &&
 				ptxd_make_log "${STATEDIR}/${1}.get"
 			fi
 			exit
@@ -1822,7 +1822,7 @@ parse_second()
 			exit
 			;;
 		make)
-			check_premake_compiler || return
+			check_premake_compiler &&
 			ptxd_make_log "${1}"
 			exit
 			;;
@@ -1850,7 +1850,7 @@ parse_second()
 			exit
 			;;
 		print)
-			check_config || return
+			check_config &&
 			if [ -z "${1}" ]; then
 				exit 1
 			elif [ -n "${!1}" ]; then
@@ -1938,7 +1938,7 @@ parse_second()
 setup_topdir() {
 	local ptxdist topdir
 
-	ptxdist="$(readlink -f "${0}")" || return
+	ptxdist="$(readlink -f "${0}")" &&
 	topdir="$(cd "$(dirname "${ptxdist}")"/.. && pwd)" || return
 
 	#
@@ -2333,4 +2333,4 @@ main() {
 	parse_second
 }
 
-main "${@}" || { echo  "PTXdist: fatal error ... cannot start, sorry!"; exit; }
+main "${@}" || { echo  "PTXdist: fatal error ... cannot start, sorry!"; exit 1; }
