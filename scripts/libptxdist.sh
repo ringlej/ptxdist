@@ -123,14 +123,15 @@ ptxd_source_kconfig() {
 #
 # return:
 # 1: symbol not found
-# 2: symbol is not valid
+# 2: symbol invalid
+# 3: config file broken
 #
 ptxd_get_ptxconf() {
 	unset "${1}" 2>/dev/null || return 2
 
 	if test -f "${PTXDIST_PLATFORMCONFIG}"; then
 		source "${PTXDIST_PLATFORMCONFIG}" || \
-		ptxd_bailout "unable to source '${PTXDIST_PLATFORMCONFIG}' (maybe svn/git conflict?)"
+		ptxd_bailout "unable to source '${PTXDIST_PLATFORMCONFIG}' (maybe svn/git conflict?)" 3
 	fi
 	if [ -n "${!1}" ]; then
 		echo "${!1}"
@@ -139,7 +140,7 @@ ptxd_get_ptxconf() {
 
 	if test -f "${PTXDIST_PTXCONFIG}"; then
 		source "${PTXDIST_PTXCONFIG}"  || \
-		ptxd_bailout "unable to source '${PTXDIST_PTXCONFIG}' (maybe svn conflict?)"
+		ptxd_bailout "unable to source '${PTXDIST_PTXCONFIG}' (maybe svn conflict?)" 3
 	fi
 	if [ -n "${!1}" ]; then
 		echo "${!1}"
@@ -500,11 +501,13 @@ ptxd_debug "Debugging is enabled - Turn off with PTX_DEBUG=false"
 # print out error message and exit with status 1
 #
 # $1: error message
+# $2: optional exit value (1 is default)
+#
 # ${PREFIX}: to be printed before message
 #
 ptxd_bailout() {
 	echo "${PREFIX}error: $1" >&2
-	exit 1
+	exit ${2:-1}
 }
 export -f ptxd_bailout
 

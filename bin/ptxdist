@@ -2164,9 +2164,10 @@ setup_config() {
 setup_platform() {
 	local platform project project_version
 
-	platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)" &&
-	project="$(ptxd_get_ptxconf PTXCONF_PROJECT)" &&
-	project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)" || return
+	# ptxd_get_ptxconf's return value is
+	platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)" || [ ${?} -eq 1 ] &&
+	project="$(ptxd_get_ptxconf PTXCONF_PROJECT)" || [ ${?} -eq 1 ] &&
+	project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)" || [ ${?} -eq 1 ] || return
 
 	if [ -n "${platform}" ]; then
 		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${platform}"
