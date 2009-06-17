@@ -33,17 +33,6 @@ $(AVAHI_SOURCE):
 	@$(call get, AVAHI)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/avahi.extract:
-	@$(call targetinfo)
-	@$(call clean, $(AVAHI_DIR))
-	@$(call extract, AVAHI)
-	@$(call patchin, AVAHI)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -111,32 +100,6 @@ AVAHI_AUTOCONF += \
 #                          to put unix:path= at the start. Only needed for very
 #                          old D-Bus releases
 
-$(STATEDIR)/avahi.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(AVAHI_DIR)/config.cache)
-	cd $(AVAHI_DIR) && \
-		$(AVAHI_PATH) $(AVAHI_ENV) \
-		./configure $(AVAHI_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/avahi.compile:
-	@$(call targetinfo)
-	cd $(AVAHI_DIR) && $(AVAHI_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/avahi.install:
-	@$(call targetinfo)
-	@$(call install, AVAHI)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -163,9 +126,9 @@ $(STATEDIR)/avahi.targetinstall:
 	@$(call install_link, avahi, libavahi-common.so.6.0.1, /usr/lib/libavahi-common.so.3)
 	@$(call install_link, avahi, libavahi-common.so.6.0.1, /usr/lib/libavahi-common.so)
 
-	# FIXME: looks like wrong prefix? Untested anyway...
-	#/usr/var/run
-	#/usr/lib/avahi
+#	# FIXME: looks like wrong prefix? Untested anyway...
+#	#/usr/var/run
+#	#/usr/lib/avahi
 
 	@$(call install_finish, avahi)
 
