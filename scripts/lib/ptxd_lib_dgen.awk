@@ -44,7 +44,7 @@ FNR == 1 {
 # add "<MAKEFILE>" to argv array after the file that includes
 # "<MAKEFILE>"
 #
-$0 ~ /^include[[:space:]]+.*\.make$/ {
+$0 ~ /^include[[:space:]]+\/.*\.make$/ {
 	move_argc++;
 
 	for (i = ARGC; i > move_argc; i--)
