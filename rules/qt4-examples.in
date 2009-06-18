@@ -677,6 +677,7 @@ if QT4_EXAMPLES__OPENGL
 config QT4_EXAMPLES__2DPAINTING
 	bool
 	prompt "2dpainting"
+	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
@@ -684,36 +685,42 @@ config QT4_EXAMPLES__FRAMEBUFFEROBJECT
 	bool
 	prompt "framebufferobject"
 	select QT4_BUILD_SVG
+	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES__FRAMEBUFFEROBJECT2
 	bool
 	prompt "framebufferobject2"
+	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES__GRABBER
 	bool
 	prompt "grabber"
+	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES__HELLOGL
 	bool
 	prompt "hellogl"
+	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES__OVERPAINTING
 	bool
 	prompt "overpainting"
+	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES__PBUFFERS
 	bool
 	prompt "pbuffers"
+	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
@@ -721,18 +728,21 @@ config QT4_EXAMPLES__PBUFFERS2
 	bool
 	prompt "pbuffers2"
 	select QT4_BUILD_SVG
+	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES__SAMPLEBUFFERS
 	bool
 	prompt "samplebuffers"
+	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES__TEXTURES
 	bool
 	prompt "textures"
+	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
@@ -1184,53 +1194,11 @@ config QT4_EXAMPLES__UNDOFRAMEWORK
 endif
 
 
-menuconfig QT4_EXAMPLES__TUTORIALS/ADDRESSBOOK_FR
+menuconfig QT4_EXAMPLES__TUTORIALS
 	tristate
 	prompt "tutorials"
 
-if QT4_EXAMPLES__TUTORIALS/ADDRESSBOOK_FR
-
-config QT4_EXAMPLES__PART1
-	bool
-	prompt "part1"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__PART2
-	bool
-	prompt "part2"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__PART3
-	bool
-	prompt "part3"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__PART4
-	bool
-	prompt "part4"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__PART5
-	bool
-	prompt "part5"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__PART6
-	bool
-	prompt "part6"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__PART7
-	bool
-	prompt "part7"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
+if QT4_EXAMPLES__TUTORIALS
 
 config QT4_EXAMPLES__PART1
 	bool

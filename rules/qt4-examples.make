@@ -30,7 +30,7 @@ endif
 
 ifdef PTXCONF_QT4_EXAMPLES__COMPLEXPONG
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/dbus/complexpingpong/complexpong, \
+		$(QT4_DIR)/examples/dbus/complexpingpong/complexping, \
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/complexpong)
 endif
 
@@ -48,7 +48,7 @@ endif
 
 ifdef PTXCONF_QT4_EXAMPLES__PING
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/dbus/pingpong/ping, \
+		$(QT4_DIR)/examples/dbus/pingpong/pong, \
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/ping)
 endif
 
@@ -846,7 +846,7 @@ endif
 
 ifdef PTXCONF_QT4_EXAMPLES__ECHOPLUGIN
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tools/echoplugin/echowindow/echoplugin, \
+		$(QT4_DIR)/examples/tools/echoplugin/echowindow/../echoplugin, \
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/echoplugin)
 endif
 
@@ -876,7 +876,7 @@ endif
 
 ifdef PTXCONF_QT4_EXAMPLES__STYLEPLUGIN
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tools/styleplugin/stylewindow/styleplugin, \
+		$(QT4_DIR)/examples/tools/styleplugin/stylewindow/../styleplugin, \
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/styleplugin)
 endif
 
@@ -890,48 +890,6 @@ ifdef PTXCONF_QT4_EXAMPLES__UNDOFRAMEWORK
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
 		$(QT4_DIR)/examples/tools/undoframework/undoframework, \
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/undoframework)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__PART1
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tutorials/addressbook-fr/part1/part1, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/part1)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__PART2
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tutorials/addressbook-fr/part2/part2, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/part2)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__PART3
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tutorials/addressbook-fr/part3/part3, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/part3)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__PART4
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tutorials/addressbook-fr/part4/part4, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/part4)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__PART5
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tutorials/addressbook-fr/part5/part5, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/part5)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__PART6
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tutorials/addressbook-fr/part6/part6, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/part6)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__PART7
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tutorials/addressbook-fr/part7/part7, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/part7)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES__PART1
