@@ -82,16 +82,6 @@ config QT4_EXAMPLES__PONG
 	select QT4_BUILD_XML
 	select QT4_BUILD_NETWORK
 
-
-endif
-
-
-menuconfig QT4_EXAMPLES__DBUS/REMOTECONTROLLEDCAR
-	tristate
-	prompt "dbus/remotecontrolledcar"
-
-if QT4_EXAMPLES__DBUS/REMOTECONTROLLEDCAR
-
 config QT4_EXAMPLES__CAR
 	bool
 	prompt "car"
@@ -204,12 +194,6 @@ config QT4_EXAMPLES__LICENSEWIZARD
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SIPDIALOG
-	bool
-	prompt "sipdialog"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
 config QT4_EXAMPLES__STANDARDDIALOGS
 	bool
 	prompt "standarddialogs"
@@ -318,22 +302,6 @@ config QT4_EXAMPLES__ELASTICNODES
 config QT4_EXAMPLES__PADNAVIGATOR
 	bool
 	prompt "padnavigator"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__PORTEDASTEROIDS
-	bool
-	prompt "portedasteroids"
-	select QT4_BUILD_SQL
-	select QT4_BUILD_XML
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__PORTEDCANVAS
-	bool
-	prompt "portedcanvas"
-	select QT4_BUILD_SQL
-	select QT4_BUILD_XML
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
@@ -684,12 +652,6 @@ config QT4_EXAMPLES__NETWORK_CHAT
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SECURESOCKETCLIENT
-	bool
-	prompt "securesocketclient"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
 config QT4_EXAMPLES__THREADEDFORTUNESERVER
 	bool
 	prompt "threadedfortuneserver"
@@ -740,18 +702,6 @@ config QT4_EXAMPLES__GRABBER
 config QT4_EXAMPLES__HELLOGL
 	bool
 	prompt "hellogl"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__HELLOGL_ES
-	bool
-	prompt "hellogl_es"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__HELLOGL_ES2
-	bool
-	prompt "hellogl_es2"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
@@ -870,22 +820,6 @@ config QT4_EXAMPLES__MUSICPLAYER
 	prompt "musicplayer"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	select QT4_BUILD_XML
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-
-endif
-
-
-menuconfig QT4_EXAMPLES__QMAKE
-	tristate
-	prompt "qmake"
-
-if QT4_EXAMPLES__QMAKE
-
-config QT4_EXAMPLES__PRECOMPILE
-	bool
-	prompt "precompile"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
@@ -1045,16 +979,6 @@ menuconfig QT4_EXAMPLES__SCRIPT
 
 if QT4_EXAMPLES__SCRIPT
 
-config QT4_EXAMPLES__CALCULATOR
-	bool
-	prompt "calculator"
-	select QT4_BUILD_SCRIPTTOOLS
-	select QT4_BUILD_SCRIPT
-	select QT4_BUILD_DESIGNERLIBS
-	select QT4_BUILD_XML
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
 config QT4_EXAMPLES__CONTEXT2D
 	bool
 	prompt "context2d"
@@ -1091,23 +1015,6 @@ config QT4_EXAMPLES__QSCRIPT
 	bool
 	prompt "qscript"
 	select QT4_BUILD_SCRIPT
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__QSDBG
-	bool
-	prompt "qsdbg"
-	select QT4_BUILD_SCRIPT
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__QSTETRIX
-	bool
-	prompt "qstetrix"
-	select QT4_BUILD_SCRIPTTOOLS
-	select QT4_BUILD_SCRIPT
-	select QT4_BUILD_DESIGNERLIBS
-	select QT4_BUILD_XML
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
@@ -1187,12 +1094,6 @@ config QT4_EXAMPLES__MANDELBROT
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__QUEUEDCUSTOMTYPE
-	bool
-	prompt "queuedcustomtype"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
 config QT4_EXAMPLES__SEMAPHORES
 	bool
 	prompt "semaphores"
@@ -1231,43 +1132,11 @@ config QT4_EXAMPLES__CUSTOMCOMPLETER
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CUSTOMTYPE
-	bool
-	prompt "customtype"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-config QT4_EXAMPLES__CUSTOMTYPESENDING
-	bool
-	prompt "customtypesending"
-	select QT4_BUILD_GUI
-	select QT4_BUILD_NETWORK
-
-
-endif
-
-
-menuconfig QT4_EXAMPLES__TOOLS/ECHOPLUGIN
-	tristate
-	prompt "tools/echoplugin"
-
-if QT4_EXAMPLES__TOOLS/ECHOPLUGIN
-
 config QT4_EXAMPLES__ECHOPLUGIN
 	bool
 	prompt "echoplugin"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
-
-
-endif
-
-
-menuconfig QT4_EXAMPLES__TOOLS
-	tristate
-	prompt "tools"
-
-if QT4_EXAMPLES__TOOLS
 
 config QT4_EXAMPLES__I18N
 	bool
@@ -1293,31 +1162,11 @@ config QT4_EXAMPLES__SETTINGSEDITOR
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-
-endif
-
-
-menuconfig QT4_EXAMPLES__TOOLS/STYLEPLUGIN
-	tristate
-	prompt "tools/styleplugin"
-
-if QT4_EXAMPLES__TOOLS/STYLEPLUGIN
-
 config QT4_EXAMPLES__STYLEPLUGIN
 	bool
 	prompt "styleplugin"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
-
-
-endif
-
-
-menuconfig QT4_EXAMPLES__TOOLS
-	tristate
-	prompt "tools"
-
-if QT4_EXAMPLES__TOOLS
 
 config QT4_EXAMPLES__TREEMODELCOMPLETER
 	bool
@@ -1337,7 +1186,7 @@ endif
 
 menuconfig QT4_EXAMPLES__TUTORIALS/ADDRESSBOOK_FR
 	tristate
-	prompt "tutorials/addressbook-fr"
+	prompt "tutorials"
 
 if QT4_EXAMPLES__TUTORIALS/ADDRESSBOOK_FR
 
@@ -1382,16 +1231,6 @@ config QT4_EXAMPLES__PART7
 	prompt "part7"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
-
-
-endif
-
-
-menuconfig QT4_EXAMPLES__TUTORIALS/ADDRESSBOOK
-	tristate
-	prompt "tutorials/addressbook"
-
-if QT4_EXAMPLES__TUTORIALS/ADDRESSBOOK
 
 config QT4_EXAMPLES__PART1
 	bool

@@ -130,12 +130,6 @@ ifdef PTXCONF_QT4_EXAMPLES__LICENSEWIZARD
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/licensewizard)
 endif
 
-ifdef PTXCONF_QT4_EXAMPLES__SIPDIALOG
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/dialogs/sipdialog/sipdialog, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/sipdialog)
-endif
-
 ifdef PTXCONF_QT4_EXAMPLES__STANDARDDIALOGS
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
 		$(QT4_DIR)/examples/dialogs/standarddialogs/standarddialogs, \
@@ -224,18 +218,6 @@ ifdef PTXCONF_QT4_EXAMPLES__PADNAVIGATOR
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
 		$(QT4_DIR)/examples/graphicsview/padnavigator/padnavigator, \
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/padnavigator)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__PORTEDASTEROIDS
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/graphicsview/portedasteroids/portedasteroids, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/portedasteroids)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__PORTEDCANVAS
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/graphicsview/portedcanvas/portedcanvas, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/portedcanvas)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES__CONTEXTSENSITIVEHELP
@@ -514,12 +496,6 @@ ifdef PTXCONF_QT4_EXAMPLES__NETWORK_CHAT
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/network-chat)
 endif
 
-ifdef PTXCONF_QT4_EXAMPLES__SECURESOCKETCLIENT
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/network/securesocketclient/securesocketclient, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/securesocketclient)
-endif
-
 ifdef PTXCONF_QT4_EXAMPLES__THREADEDFORTUNESERVER
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
 		$(QT4_DIR)/examples/network/threadedfortuneserver/threadedfortuneserver, \
@@ -560,18 +536,6 @@ ifdef PTXCONF_QT4_EXAMPLES__HELLOGL
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
 		$(QT4_DIR)/examples/opengl/hellogl/hellogl, \
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/hellogl)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__HELLOGL_ES
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/opengl/hellogl_es/hellogl_es, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/hellogl_es)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__HELLOGL_ES2
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/opengl/hellogl_es2/hellogl_es2, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/hellogl_es2)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES__OVERPAINTING
@@ -662,12 +626,6 @@ ifdef PTXCONF_QT4_EXAMPLES__MUSICPLAYER
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
 		$(QT4_DIR)/examples/phonon/musicplayer/musicplayer, \
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/musicplayer)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__PRECOMPILE
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/qmake/precompile/precompile, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/precompile)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES__IMAGESCALING
@@ -772,12 +730,6 @@ ifdef PTXCONF_QT4_EXAMPLES__TEXTOBJECT
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/textobject)
 endif
 
-ifdef PTXCONF_QT4_EXAMPLES__CALCULATOR
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/script/calculator/calculator, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/calculator)
-endif
-
 ifdef PTXCONF_QT4_EXAMPLES__CONTEXT2D
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
 		$(QT4_DIR)/examples/script/context2d/context2d, \
@@ -812,18 +764,6 @@ ifdef PTXCONF_QT4_EXAMPLES__QSCRIPT
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
 		$(QT4_DIR)/examples/script/qscript/qscript, \
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/qscript)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__QSDBG
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/script/qsdbg/qsdbg, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/qsdbg)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__QSTETRIX
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/script/qstetrix/qstetrix, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/qstetrix)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES__CACHEDTABLE
@@ -874,12 +814,6 @@ ifdef PTXCONF_QT4_EXAMPLES__MANDELBROT
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/mandelbrot)
 endif
 
-ifdef PTXCONF_QT4_EXAMPLES__QUEUEDCUSTOMTYPE
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/threads/queuedcustomtype/queuedcustomtype, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/queuedcustomtype)
-endif
-
 ifdef PTXCONF_QT4_EXAMPLES__SEMAPHORES
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
 		$(QT4_DIR)/examples/threads/semaphores/semaphores, \
@@ -908,18 +842,6 @@ ifdef PTXCONF_QT4_EXAMPLES__CUSTOMCOMPLETER
 	@$(call install_copy, qt4-examples, 0, 0, 0644, \
 		$(QT4_DIR)/examples/tools/customcompleter/customcompleter, \
 		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/customcompleter)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__CUSTOMTYPE
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tools/customtype/customtype, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/customtype)
-endif
-
-ifdef PTXCONF_QT4_EXAMPLES__CUSTOMTYPESENDING
-	@$(call install_copy, qt4-examples, 0, 0, 0644, \
-		$(QT4_DIR)/examples/tools/customtypesending/customtypesending, \
-		$(PTXCONF_QT4_EXAMPLES__INSTALL_DIR)/customtypesending)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES__ECHOPLUGIN
