@@ -23,6 +23,7 @@ QT4_URL		:= ftp://ftp.trolltech.com/qt/source/$(QT4).$(QT4_SUFFIX)
 QT4_SOURCE	:= $(SRCDIR)/$(QT4).$(QT4_SUFFIX)
 QT4_DIR		:= $(BUILDDIR)/$(QT4)
 
+include $(PTXDIST_TOPDIR)/rules/qt4-examples.make
 
 # ----------------------------------------------------------------------------
 # Get
