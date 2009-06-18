@@ -358,7 +358,8 @@ install_fixup =							\
 	ptxd_make_install_fixup					\
 		-p '$(strip $(1))'				\
 		-f '$(strip $(2))'				\
-		-t '$(strip $(3))'
+		-t '$(strip $(3))'				\
+		-s '$(@)'
 
 #
 # install_finish

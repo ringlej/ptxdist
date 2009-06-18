@@ -38,30 +38,6 @@ ptxd_make_install_init() {
 	return 1
     fi
 
-
-    #
-    # track "pkg name" to "xpkg filename"
-    #
-    local xpkg_map="${STATEDIR}/${target}.xpkg.map"
-    if [ -e "${xpkg_map}" ]; then
-	sed -i -e "/^${packet}$/d" "${xpkg_map}" &&
-
-	if [ -s "${xpkg_map}" ]; then
-	    cat >&2 <<EOF
-
-${PREFIX}warning: more than one ipkg per PTXdist package detected:
-
-pkg:	'${target}'
-ipkg:	'${packet}' and '$(cat "${xpkg_map}")'
-
-
-EOF
-	fi
-    fi &&
-    echo "${packet}" >> "${xpkg_map}" || return
-
-
-
     echo "install_init:	preparing for image creation..."
     local dst="${PKGDIR}/${packet}.tmp"
 
@@ -123,7 +99,7 @@ ptxd_make_install_fixup() {
     . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return
 
     local opt
-    while getopts "p:f:t:" opt; do
+    while getopts "p:f:t:s:" opt; do
 	case "${opt}" in
 	    p)
 		local packet="${OPTARG}"
@@ -133,6 +109,10 @@ ptxd_make_install_fixup() {
 		;;
 	    t)
 		local replace_to="${OPTARG}"
+		;;
+	    s)
+		local target="${OPTARG##*/}"
+		target="${target%%.targetinstall*}"
 		;;
 	    *)
 		return 1
@@ -153,6 +133,29 @@ ptxd_make_install_fixup() {
 	    ;;
 	PACKAGE)
 	    replace_to="`echo ${replace_to} | sed -e 's/_/-/g'`"
+
+	    #
+	    # track "pkg name" to "xpkg filename"
+	    #
+	    local xpkg_map="${STATEDIR}/${target}.xpkg.map"
+	    if [ -e "${xpkg_map}" ]; then
+		sed -i -e "/^${replace_to}$/d" "${xpkg_map}" &&
+
+		if [ -s "${xpkg_map}" ]; then
+		    cat >&2 <<EOF
+
+${PREFIX}warning: more than one ipkg per PTXdist package detected:
+
+pkg:	'${target}'
+ipkg:	'${replace_to}' and '$(cat "${xpkg_map}")'
+
+
+EOF
+		fi
+	    fi &&
+	    echo "${replace_to}" >> "${xpkg_map}" || return
+
+
 	    ;;
 	VERSION)
 	    replace_to="${replace_to}${PTXCONF_PROJECT_BUILD}"
