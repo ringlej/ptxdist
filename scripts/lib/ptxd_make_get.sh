@@ -68,7 +68,7 @@ export -f ptxd_make_get_http
 #
 # ${url}	: the url to download
 #
-ptxd_make_get_downlaod_permitted() {
+ptxd_make_get_download_permitted() {
 	if [ -n "${PTXCONF_SETUP_NO_DOWNLOAD}" -a -z "${PTXDIST_FORCE_DOWNLOAD}" ]; then {
 		cat <<EOF
 
@@ -90,7 +90,7 @@ EOF
 		exit 1; } >&2
 	fi
 }
-export -f ptxd_make_get_downlaod_permitted
+export -f ptxd_make_get_download_permitted
 
 
 #
@@ -174,7 +174,7 @@ ptxd_make_get() {
 
 		case "${url}" in
 		http://*|https://*|ftp://*)
-			ptxd_make_get_downlaod_permitted &&
+			ptxd_make_get_download_permitted &&
 			ptxd_make_get_http && return
 			;;
 		file*)
