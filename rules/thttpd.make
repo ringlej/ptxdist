@@ -83,7 +83,7 @@ $(STATEDIR)/thttpd.targetinstall:
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_THTTPD_STARTSCRIPT
-	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/thttpd, n)
+	@$(call install_alternative, thttpd, 0, 0, 0755, /etc/init.d/thttpd, n)
 endif
 endif
 
