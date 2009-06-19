@@ -131,6 +131,18 @@ $1 ~ /^PTX_MAP_DEP/ {
 		this_DEP = this_DEP_array[i];
 
 		if (this_DEP in PKG_to_pkg) {
+			if (this_DEP ~ /^BASE$/) {
+				base_PKG_to_pkg[this_PKG] = PKG_to_pkg[this_PKG];
+
+				if (!("BASE" in PKG_to_DEP)) {
+					PKG_to_DEP["BASE"] = this_PKG;
+				} else{
+					PKG_to_DEP["BASE"] = PKG_to_DEP["BASE"] ":" this_PKG;
+				}
+
+				continue;
+			}
+
 			this_dep = PKG_to_pkg[this_DEP];
 
 			if (found == 0) {
@@ -261,8 +273,12 @@ END {
 
 		if (this_pkg ~ /^host-|^cross-/)
 			virtual = "virtual-host-tools";
-		else
-			virtual = "virtual-cross-tools";
+		else {
+			if (this_PKG in base_PKG_to_pkg || this_pkg ~ /^base$/)
+				virtual = "virtual-cross-tools";
+			else
+				virtual = "base";
+		}
 
 		print \
 			"$(STATEDIR)/" this_pkg ".prepare: " \
