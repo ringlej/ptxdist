@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
-# Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -47,6 +47,13 @@ SCUMMVM_MAKEVARS := AS=$(CROSS_AS)
 SCUMMVM_AUTOCONF := \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--prefix=/usr
+
+$(STATEDIR)/scummvm.prepare:
+	@$(call targetinfo)
+	cd $(SCUMMVM_DIR) && \
+		$(SCUMMVM_PATH) $(SCUMMVM_ENV) \
+		./configure $(SCUMMVM_AUTOCONF)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
