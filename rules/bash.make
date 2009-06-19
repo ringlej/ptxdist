@@ -22,6 +22,7 @@ BASH_SUFFIX	:= tar.gz
 BASH_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/bash/$(BASH).$(BASH_SUFFIX)
 BASH_SOURCE	:= $(SRCDIR)/$(BASH).$(BASH_SUFFIX)
 BASH_DIR	:= $(BUILDDIR)/$(BASH)
+BASH_MAKE_PAR	:= NO
 
 
 # ----------------------------------------------------------------------------
