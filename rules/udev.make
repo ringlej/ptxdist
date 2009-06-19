@@ -113,16 +113,16 @@ ifdef PTXCONF_UDEV__COMMON_RULES
 #
 # these rules are not installed by default
 #
-	$(call install_copy, udev, 0, 0, 0644, \
+	@$(call install_copy, udev, 0, 0, 0644, \
 		$(UDEV_DIR)/rules/packages/40-alsa.rules, \
 		/lib/udev/rules.d/40-alsa.rules, n);
-	$(call install_copy, udev, 0, 0, 0644, \
+	@$(call install_copy, udev, 0, 0, 0644, \
 		$(UDEV_DIR)/rules/packages/40-isdn.rules, \
 		/lib/udev/rules.d/40-isdn.rules, n);
-	$(call install_copy, udev, 0, 0, 0644, \
+	@$(call install_copy, udev, 0, 0, 0644, \
 		$(UDEV_DIR)/rules/packages/64-device-mapper.rules, \
 		/lib/udev/rules.d/64-device-mapper.rules, n);
-	$(call install_copy, udev, 0, 0, 0644, \
+	@$(call install_copy, udev, 0, 0, 0644, \
 		$(UDEV_DIR)/rules/packages/64-md-raid.rules, \
 		/lib/udev/rules.d/64-md-raid.rules, n);
 endif
