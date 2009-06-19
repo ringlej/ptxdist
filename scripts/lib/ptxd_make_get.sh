@@ -173,7 +173,7 @@ ptxd_make_get() {
 		shift
 
 		case "${url}" in
-		http://*|https://|ftp://*)
+		http://*|https://*|ftp://*)
 			ptxd_make_get_downlaod_permitted &&
 			ptxd_make_get_http && return
 			;;
