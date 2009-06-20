@@ -45,6 +45,16 @@ config INITMETHOD_BBINIT_ETC_INITD_NETWORKING
 	  To run this script you will need the shell commands 'grep',
 	  'ifup'/'ifdown' and 'ifconfig'
 
+config INITMETHOD_BBINIT_ETC_INITD_RT_SET_BANDWIDTH
+	bool
+	prompt "install /etc/init.d/rt-set-bandwidth"
+	select ROOTFS_VAR
+	select ROOTFS_VAR_RUN
+	default y
+	help
+	  The /etc/init.d/rt-set-bandwidth script configures the bandwidth feature
+	  of linux-rt. Default is to disable it.
+
 menu "service startup configuration "
 
 config INITMETHOD_BBINIT_LINK_ALSA_UTILS
@@ -244,6 +254,13 @@ config INITMETHOD_BBINIT_ACPID
 	depends on ACPID_STARTSCRIPT
 	prompt "acpid"
 	default "S10acpid"
+
+config INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH
+	string
+	depends on INITMETHOD_BBINIT_ETC_INITD_RT_SET_BANDWIDTH
+	prompt "rt-set-bandwidth"
+	default "S03rt-set-bandwidth"
+
 endmenu
 
 endif

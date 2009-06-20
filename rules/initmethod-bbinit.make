@@ -133,6 +133,10 @@ ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_NETWORKING
 	@$(call install_copy, initmethod-bbinit, 0, 0, 0755, /etc/network/if-pre-up.d)
 endif
 
+ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_RT_SET_BANDWIDTH
+	@$(call install_alternative, initmethod-bbinit, 0, 0, 0755, /etc/init.d/rt-set-bandwidth, n)
+endif
+
 #	#
 #	# collect start links
 #	#
@@ -334,6 +338,13 @@ ifdef PTXCONF_ARCH_X86
 		../init.d/acpid, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_ACPID))
 endif
+
+ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/rt-set-bandwidth, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH))
+endif
+
 endif
 	@$(call install_finish, initmethod-bbinit)
 

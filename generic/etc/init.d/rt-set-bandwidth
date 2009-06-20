@@ -1,0 +1,36 @@
+#! /bin/sh
+#
+# set bandwidth throttling of rt
+# this default script will disable it since it seems the right choice for embedded systems.
+# use this file as a template for custom settings (think about the period, too) and put it 
+# into projectroot.
+
+set -e
+runtime=/proc/sys/kernel/sched_rt_runtime_us
+runtime_orig=/var/run/sched_rt_runtime_us.orig
+
+case $1 in
+	start)
+		if [ -f "${runtime}" -a -w "${runtime}" ]; then
+			cp "${runtime}" "${runtime_orig}"
+			# Customize your value(s) here
+			echo "-1" > "${runtime}"
+		else
+			echo "WARNING: Disabling RT-bandwidth was requested, but there are access problems with ${runtime}!"
+			exit 1
+		fi
+		;;
+	stop)
+		if [ -f "${runtime_orig}" ]; then
+			cp "${runtime_orig}" "${runtime}"
+		else
+			echo "WARNING: Restoring RT-bandwidth was requested, but original value was not found!"
+		fi
+		;;
+	*)
+		echo "Usage: $0 {start|stop}"
+		exit 1
+		;;
+esac
+
+exit 0
