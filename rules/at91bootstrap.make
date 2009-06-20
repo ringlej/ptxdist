@@ -76,7 +76,7 @@ $(STATEDIR)/at91bootstrap.install:
 
 $(STATEDIR)/at91bootstrap.targetinstall:
 	@$(call targetinfo)
-	@cp $(AT91BOOTSTRAP_BOARDDIR)/$(AT91BOOTSTRAP_BOOTMEDIA)_${PTXCONF_AT91BOOTSTRAP_CONFIG}.bin \
+	@cp $(AT91BOOTSTRAP_BOARDDIR)/$(AT91BOOTSTRAP_BOOTMEDIA-y)_${PTXCONF_AT91BOOTSTRAP_CONFIG}.bin \
 		$(IMAGEDIR)/at91bootstrap.bin
 	@$(call touch)
 
