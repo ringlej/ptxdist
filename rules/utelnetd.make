@@ -78,7 +78,7 @@ $(STATEDIR)/utelnetd.targetinstall:
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_UTELNETD_STARTSCRIPT
-	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/telnetd, n)
+	@$(call install_alternative, utelnetd, 0, 0, 0755, /etc/init.d/telnetd, n)
 endif
 endif
 
