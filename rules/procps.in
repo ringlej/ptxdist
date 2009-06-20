@@ -32,12 +32,12 @@ config PROCPS_SLABTOP
 config PROCPS_SYSCTL
 	bool
 	prompt "sysctl"
-	depends on !BUSYBOX_SYSCTL || ALLYES
+	depends on !BUSYBOX_BB_SYSCTL || ALLYES
 	help
 	  configure kernel parameters at runtime
 
 comment "sysctl is disabled by busybox sysctl"
-	depends on BUSYBOX_SYSCTL
+	depends on BUSYBOX_BB_SYSCTL
 
 config PROCPS_PS
 	bool
