@@ -189,20 +189,32 @@ config GLIBC_I18N_RAWDATA
 
 menu "Install gconv libraries       "
 
+config GLIBC_GCONF_BASE
+	bool
+
 config GLIBC_GCONV_DEF
 	bool
 	prompt "default gconv modules"
+	select GLIBC_GCONF_BASE
 	default y
 	help
 	  install the iso8859-1 (Latin Alphabet No.1) and the iso8859-15 (Latin
 	  Alphabet No.9) encoding modules into gconv, this should be ok for most
 	  western languages
 
+config GLIBC_GCONV_UTF
+	bool
+	prompt "gconv modules for UTF"
+	select GLIBC_GCONF_BASE
+	help
+	  install the gconv modules for UTF conversion
+
 config GLIBC_GCONV_ZH
 	bool
 	prompt "gconv modules for chinese language"
+	select GLIBC_GCONF_BASE
 	help
-	  install the gconv modules for chinese language, including BIG5, GB2312
+	  install the gconv modules for chinese language, including BIG5
 	  and GB18030
 
 endmenu
