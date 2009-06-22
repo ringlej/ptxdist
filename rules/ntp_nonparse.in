@@ -11,6 +11,8 @@ menu "select non-PARSE clock drivers"
 config NTP_ACTS
 	bool
 	prompt "ACTS modem service"
+	help
+	  NIST dialup clock
 
 config NTP_ARBITER
 	bool
@@ -135,6 +137,9 @@ config NTP_RIPENCC
 config NTP_SHM
 	bool
 	prompt "SHM clock attached thru shared memory"
+	help
+	  Clock attached through shared memory (runs in a
+	  separate program).
 
 config NTP_SPECTRACOM
 	bool
