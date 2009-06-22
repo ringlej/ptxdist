@@ -284,8 +284,8 @@ endif
 # ----------------------------------------------------------------------------
 
 kernel_clean:
-	rm -rf $(STATEDIR)/kernel.*
-	rm -rf $(PKGDIR)/kernel_*
+	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-modules.*
+	rm -rf $(PKGDIR)/kernel_* $(PKGDIR)/kernel-modules_*
 	@if [ -L $(KERNEL_DIR) ]; then			\
 		pushd $(KERNEL_DIR);			\
 		quilt pop -af;				\
