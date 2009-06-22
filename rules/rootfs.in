@@ -218,6 +218,15 @@ config ROOTFS_VAR_LIB
 	  If you are going to run an NFS server with file locking
 	  support this folder must be persistent!
 
+config ROOTFS_VAR_CACHE
+	depends on ROOTFS_VAR
+	bool
+	prompt "/var/cache"
+	help
+	  Create a /var/cache directory in the root filesystem.
+	  Unless you want to mount a tmpfs on /var you should
+	  say yes here.
+
 # ----------------------------------------------------------------------------
 
 endmenu

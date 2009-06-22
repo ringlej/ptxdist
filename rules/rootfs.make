@@ -151,6 +151,9 @@ endif
 ifdef PTXCONF_ROOTFS_VAR_LIB
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/lib)
 endif
+ifdef PTXCONF_ROOTFS_VAR_CACHE
+	@$(call install_copy, rootfs, 0, 0, 0755, /var/cache)
+endif
 
 #	#
 #	# install files in rootfs
