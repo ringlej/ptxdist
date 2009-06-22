@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 #
 # Paths and names and versions
 #
-@PACKET@_VERSION	:= 1.2.3
+@PACKET@_VERSION	:= @VERSION@
 @PACKET@		:= @packet@-$(@PACKET@_VERSION)
 @PACKET@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
 @PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
