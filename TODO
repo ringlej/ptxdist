@@ -50,7 +50,7 @@ TODO before 2.0.0
     <dir>/oselas/ptxdist-1.99.12.tar.gz
     <dir>/oselas/ptxdist-1.99.12-patches.tar.gz
     <dir>/oselas/oselas.bsp-phytec-phycore-12.tar.gz
-    <dir>/oselas/oselas.toolcahin-1.99.3.2.tar.gz
+    <dir>/oselas/oselas.toolchain-1.99.3.2.tar.gz
     <dir>/oselas/oselas.toolchain-1.99.3-arm-v5te-linux-gnueabi-gcc-4.3.2-java-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized_i386.tar.bz2
     <dir>/oselas/oselas.toolchain-1.99.3-arm-v5te-linux-gnueabi-gcc-4.3.2-java-glibc-2.8-binutils-2.18-kernel-2.6.27-sanitized_i386.tar.deb
 
