@@ -373,7 +373,7 @@ ptxd_make_log() {
 # stdout:	output
 #
 ptxd_replace_magic() {
-	awk '
+	gawk '
 $0 ~ /@[A-Z0-9_]+@/ {
 	while (match($0, "@[A-Z0-9_]+@")) {
 		var = substr($0, RSTART+1, RLENGTH-2);
@@ -399,8 +399,9 @@ export -f ptxd_replace_magic
 # $3	second part
 # $4	separator (optional, space is default)
 #
-ptxd_var_concat() {
-    eval "${1}"=\"${2//\"/\\\"}${2:+${3:+${4:- }}}${3//\"/\\\"}\" || exit
+ptxd_var_concat()
+{
+	eval "${1}"=\"${2//\"/\\\"}${2:+${3:+${4:- }}}${3//\"/\\\"}\" || exit
 }
 export -f ptxd_var_concat
 
