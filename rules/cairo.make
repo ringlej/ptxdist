@@ -63,7 +63,9 @@ CAIRO_AUTOCONF := \
 ifdef PTXCONF_CAIRO_XLIB
 CAIRO_AUTOCONF += --enable-xlib
 else
-CAIRO_AUTOCONF += --disable-xlib
+CAIRO_AUTOCONF += \
+	--disable-xlib \
+	--without-x
 endif
 
 ifdef PTXCONF_CAIRO_WIN32
