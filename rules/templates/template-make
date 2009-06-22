@@ -88,7 +88,7 @@ $(STATEDIR)/@packet@.install:
 $(STATEDIR)/@packet@.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, @packet@)
+	@$(call install_init,  @packet@)
 	@$(call install_fixup, @packet@,PACKAGE,@packetdash@)
 	@$(call install_fixup, @packet@,PRIORITY,optional)
 	@$(call install_fixup, @packet@,VERSION,$(@PACKET@_VERSION))
