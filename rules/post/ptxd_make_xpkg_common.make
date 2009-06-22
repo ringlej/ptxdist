@@ -9,12 +9,12 @@
 #
 
 #
-# $1: PKG, uppercase pkg name
-# $2: xpkg label
+# $1: xpkg label
+# $2: PKG, uppercase pkg name
 #
 xpkg/env/impl = \
-	$(call world/env, $(1)) \
-	pkg_xpkg="$(call ptx/escape,$(2))" \
+	$(call world/env, $(2)) \
+	pkg_xpkg="$(call ptx/escape,$(1))" \
 	pkg_ipkg_extra_args=$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS) \
 	pkg_xpkg_type="ipkg"
 
@@ -22,6 +22,6 @@ xpkg/env/impl = \
 # $1: xpkg label
 #
 xpkg/env = \
-	$(call xpkg/env/impl, $(PTX_MAP_TO_PACKAGE_$(notdir $(basename $(basename $(@))))), $(strip $(1)))
+	$(call xpkg/env/impl, $(strip $(1)), $(PTX_MAP_TO_PACKAGE_$(notdir $(basename $(basename $(@))))))
 
 # vim: syntax=make
