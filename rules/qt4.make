@@ -447,14 +447,13 @@ $(STATEDIR)/qt4.prepare: $(qt4_prepare_deps_default)
 	@$(call targetinfo, $@)
 	@$(call clean, $(QT4_DIR)/config.cache)
 
-	cd $(QT4_DIR) && $(QT4_PATH) $(QT4_ENV) $(MAKE) \
+	@rm -f $(QT4_DIR)/bin/qt.conf
+	@cd $(QT4_DIR) && $(QT4_PATH) $(QT4_ENV) $(MAKE) \
 		confclean || true
 
-	cd $(QT4_DIR) && \
+	@cd $(QT4_DIR) && \
 		$(QT4_PATH) $(QT4_ENV) \
 		./configure $(QT4_AUTOCONF)
-	@# qmake needs this to build other packages
-	@echo -e "[Paths]\nPrefix=/usr\nHeaders=$(SYSROOT)/usr/include\nBinaries=$(QT4_DIR)/bin\nLibraries=$(SYSROOT)/usr/lib" > $(QT4_DIR)/bin/qt.conf
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
@@ -543,6 +542,8 @@ $(STATEDIR)/qt4.install: $(qt4_install_deps_default)
 		$(QT4_INSTALL_TARGETS) $(QT4_MAKEVARS)
 	# put a link for qmake where other packages can find it
 	@ln -sf $(QT4_DIR)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake
+	@# qmake needs this to build other packages
+	@echo -e "[Paths]\nPrefix=/usr\nHeaders=$(SYSROOT)/usr/include\nBinaries=$(QT4_DIR)/bin\nLibraries=$(SYSROOT)/usr/lib" > $(QT4_DIR)/bin/qt.conf
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
