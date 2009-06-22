@@ -31,7 +31,7 @@ config NTP_DEBUGGING
 	bool
 	prompt "include debugging code"
 	help
-	  FIXME: This item needs to be documented
+	  Include a lot of debugging code.
 
 config NTP_DST_MINUTES
 	int
@@ -63,7 +63,7 @@ config NTP_ACCURATE_ADJTIME
 	bool
 	prompt "the adjtime () call is accurate"
 	help
-	  FIXME: This item needs to be documented
+	  The adjtime() call is accurate.
 
 config NTP_TICK_FORCE
 	bool
@@ -133,7 +133,7 @@ config NTP_KERNEL_FLL_BUG
 	bool
 	prompt "if we should avoid a kernel FLL bug"
 	help
-	  FIXME: This item needs to be documented
+	  If we should avoid a (Solaris) kernel FLL bug.
 
 config NTP_IRIG_SAWTOOTH
 	bool
@@ -217,7 +217,7 @@ config NTP_NTPDC
 config NTP_NTPC_STARTSCRIPT
 	bool
 	default y
-	depends on NTP_NTPC
+	depends on NTP_NTPDC
 	prompt "install /etc/init.d/ntp-client"
 
 config NTP_NTPQ
@@ -225,7 +225,8 @@ config NTP_NTPQ
 	prompt "install ntpq"
 	depends on NTP
 	help
-	  FIXME: This item needs to be documented
+	  The ntpq utility program is used to monitor NTP daemon ntpd
+	  operations and determine performance.
 
 endif
 
