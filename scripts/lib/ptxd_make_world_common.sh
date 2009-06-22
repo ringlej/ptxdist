@@ -46,7 +46,9 @@ export -f ptxd_make_world_init_deprecation_check
 # (wich is still WIP)
 #
 ptxd_make_world_init_compat() {
-    ptxd_make_world_init_deprecation_check || return
+    if [ "${pkg_stage}" = "prepare" ]; then
+	ptxd_make_world_init_deprecation_check || return
+    fi
 
     # build_dir
     if [ -n "${pkg_deprecated_install_builddir}" -a -n "${pkg_deprecated_builddir}" -a \
@@ -144,6 +146,11 @@ ptxd_make_world_init() {
 	*)              pkg_type="target" ;;
     esac
 
+    #
+    # stage
+    #
+    pkg_stage="${pkg_stamp#*.}"
+    pkg_stage="${pkg_stage%%.*}"
     ptxd_make_world_init_compat || return
 
 
