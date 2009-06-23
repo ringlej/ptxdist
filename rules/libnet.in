@@ -1,4 +1,5 @@
 ## SECTION=networking
+
 config LIBNET
 	tristate
 	prompt "libnet"
@@ -9,4 +10,3 @@ config LIBNET
 	  many features that are common in some network
 	  protocols are not available with Libnet, such as
 	  streaming via TCP/IP.
-

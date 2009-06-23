@@ -7,9 +7,9 @@ This fails when cross-compiling. Use autoconf stuff instead.
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 
 ---
- autogen.sh |    8 
- configure  | 1035 ++++++++++++++++++++++++++++++++++++++++++++++---------------
- 2 files changed, 801 insertions(+), 242 deletions(-)
+ autogen.sh   |    8 ++++++++
+ configure.in |   12 +++++++++++-
+ 2 files changed, 19 insertions(+), 1 deletion(-)
 
 Index: b/autogen.sh
 ===================================================================
@@ -42,11 +42,11 @@ Index: b/configure.in
  
 -AC_LIBNET_ENDIAN_CHECK
 +AC_C_BIGENDIAN([
-+    AC_DEFINE(LIBNET_BIG_ENDIAN)
++    AC_DEFINE([LIBNET_BIG_ENDIAN], [1], [big endian])
 +    ENDIANESS="LIBNET_BIG_ENDIAN"
 +    LIBNET_CONFIG_DEFINES="$LIBNET_CONFIG_DEFINES -DLIBNET_BIG_ENDIAN"
 +],[
-+    AC_DEFINE(LIBNET_LIL_ENDIAN)
++    AC_DEFINE([LIBNET_LIL_ENDIAN], [1], [little endian])
 +    ENDIANESS="LIBNET_LIL_ENDIAN"
 +    LIBNET_CONFIG_DEFINES="$LIBNET_CONFIG_DEFINES -DLIBNET_LIL_ENDIAN"
 +], AC_MSG_WARN(cannot detect endianess. try setting ac_cv_c_bigendian to yes or no))
