@@ -47,8 +47,6 @@ LIBXSLT_ENV 	:= $(CROSS_ENV)
 #
 LIBXSLT_AUTOCONF := \
 	 $(CROSS_AUTOCONF_USR) \
-	--with-libxml-libs-prefix=$(SYSROOT)/usr/lib \
-	--with-libxml-include-prefix=$(SYSROOT)/usr/include \
 	--without-python
 
 ifdef PTXCONF_LIBXSLT_CRYPTO
@@ -66,11 +64,11 @@ endif
 ifdef PTXCONF_LIBXSLT_DEBUG
 LIBXSLT_AUTOCONF += \
 	--with-debug \
-	--with-debugger
+	--with-with_debugger
 else
 LIBXSLT_AUTOCONF += \
 	--without-debug \
-	--without-debugger
+	--with-with_debugger=no
 endif
 
 
