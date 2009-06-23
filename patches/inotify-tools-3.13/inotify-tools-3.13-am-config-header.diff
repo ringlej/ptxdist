@@ -1,0 +1,26 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: inotify-tools: update configure.ac
+
+configure.ac:8: warning: The macro `AM_CONFIG_HEADER' is obsolete.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ configure.ac |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: inotify-tools-3.13/configure.ac
+===================================================================
+--- inotify-tools-3.13.orig/configure.ac
++++ inotify-tools-3.13/configure.ac
+@@ -5,8 +5,8 @@ AC_PREREQ(2.59)
+ AC_INIT([inotify-tools], [3.13], [rohan@mcgovern.id.au])
+ AM_INIT_AUTOMAKE
+ AC_CONFIG_SRCDIR([src/inotifywait.c])
+-AM_CONFIG_HEADER([config.h])
+-AM_CONFIG_HEADER([libinotifytools/src/inotifytools/inotify.h])
++AC_CONFIG_HEADERS([config.h])
++AC_CONFIG_HEADERS([libinotifytools/src/inotifytools/inotify.h])
+ AC_DEFINE([_GNU_SOURCE], [], [For a few GNU-specific functions])
+ AC_PROG_MAKE_SET
+ 

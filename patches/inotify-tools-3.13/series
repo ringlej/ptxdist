@@ -1,2 +1,4 @@
 inotify-tools-3.13-configure-compile_ifelse.diff
-inotify-tools-3.13-autoreconf.diff.bz2
+inotify-tools-3.13-am-config-header.diff
+inotify-tools-3.13-ac-prog-libtool.diff
+inotify-tools-3.13-m4-macro-dir.diff
