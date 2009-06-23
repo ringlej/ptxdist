@@ -41,9 +41,16 @@ $(LIBXSLT_SOURCE):
 
 LIBXSLT_PATH	:= PATH=$(CROSS_PATH)
 
+#
+# FIXME:
+#
+# without the RM definition, I get tons of "cannot remove conftest*"
+#
+
 LIBXSLT_ENV = \
 	$(CROSS_ENV) \
-	XML_CONFIG=$(LIBXML2_DIR)/xml2-config
+	XML_CONFIG=$(LIBXML2_DIR)/xml2-config \
+	RM='/bin/rm -f'
 
 #
 # autoconf
