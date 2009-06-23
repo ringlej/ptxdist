@@ -1,10 +1,9 @@
-fix_double_qualification.diff 
-configurable_pkgconfig.diff 
-box_pack_child_with_responseid.diff 
+fix_double_qualification.diff
+configurable_pkgconfig.diff
+box_pack_child_with_responseid.diff
 fix-glade-only.diff
 fix-table-attach.diff
 fix-alignment-writer.diff
 gettext-param.diff
 gwt-support.diff
-autoreconf.diff
 fix-for-new-gcc.diff
