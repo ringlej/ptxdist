@@ -1,24 +1,12 @@
-#
-# Submitted-By: Robert Schwebel, 2005-12-25
-# Committed-By: Robert Schwebel
-#
-# Adapted for 1.1.24 Enrik Berkhan
-#
-# Error:
-#
-# libxslt has a self-built xml2-config mechanism. This patch replaces
-# all the libxml2 detection stuff by proper use of pkg-config. In result
-# this does also work in SYSROOTed environments, with
-# pkg-config-wrapper.
-#
-# Description:
-#
-# -
-#
-# State:
-#
-# discuss with upstream
-#
+libxslt: use pkg-config for libxml2 detection
+
+libxslt has a self-built xml2-config mechanism. This patch replaces all
+the libxml2 detection stuff by proper use of pkg-config. In result this
+does also work in SYSROOTed environments, with pkg-config-wrapper.
+
+Adapted to 1.1.24 by Enrik Berkhan
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
  configure.in              |  124 ++++------------------------------------------
