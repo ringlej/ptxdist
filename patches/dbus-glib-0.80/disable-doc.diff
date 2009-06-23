@@ -1,0 +1,51 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: disable docs
+
+To run autoreconf we would need the gtk autoconf macros.  This patch disables
+docs in the toplevel Makefile.am and configure.in. This way autoreconf does
+_not_ need the macros. We don't build the docs anyway, so this is ok here.
+
+This patch is not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.am  |    2 +-
+ configure.ac |    6 ------
+ 2 files changed, 1 insertion(+), 7 deletions(-)
+
+Index: b/Makefile.am
+===================================================================
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,6 +1,6 @@
+ GLIB_PC=dbus-glib-1.pc
+ 
+-SUBDIRS=dbus tools test doc
++SUBDIRS=dbus tools test
+ DIST_SUBDIRS=dbus tools test doc m4
+ 
+ pkgconfigdir = $(libdir)/pkgconfig
+Index: b/configure.ac
+===================================================================
+--- a/configure.ac
++++ b/configure.ac
+@@ -710,9 +710,6 @@ DBUS_GLIB_TOOL_LIBS="$XML_LIBS $INTLLIBS
+ AC_SUBST(DBUS_GLIB_TOOL_CFLAGS)
+ AC_SUBST(DBUS_GLIB_TOOL_LIBS)
+ 
+-### gtk-doc Documentation
+-GTK_DOC_CHECK(1.4)
+-
+ ### Doxygen Documentation
+ 
+ AC_PATH_PROG(DOXYGEN, doxygen, no)
+@@ -835,9 +832,6 @@ AM_CONDITIONAL(USE_INTROSPECT_XML, $use_
+ AC_OUTPUT([
+ Makefile
+ m4/Makefile
+-doc/Makefile
+-doc/reference/Makefile
+-doc/reference/version.xml
+ dbus/Makefile
+ dbus/examples/Makefile
+ dbus/examples/statemachine/Makefile

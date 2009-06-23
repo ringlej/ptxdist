@@ -1,2 +1,2 @@
 0001-add-with-dbus-binding-tool-option-to-use-an-external.patch
-0002-hand-picked-autoreconf.patch
+disable-doc.diff
