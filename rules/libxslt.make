@@ -40,7 +40,10 @@ $(LIBXSLT_SOURCE):
 # ----------------------------------------------------------------------------
 
 LIBXSLT_PATH	:= PATH=$(CROSS_PATH)
-LIBXSLT_ENV 	:= $(CROSS_ENV)
+
+LIBXSLT_ENV = \
+	$(CROSS_ENV) \
+	XML_CONFIG=$(LIBXML2_DIR)/xml2-config
 
 #
 # autoconf
