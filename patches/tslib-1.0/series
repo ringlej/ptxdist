@@ -5,4 +5,3 @@ tests_clear_screen_at_end.diff -p0
 dmc-support.diff
 add-open-env.diff
 fix-autotools.diff
-autoreconf.diff
