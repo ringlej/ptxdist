@@ -1,3 +1,8 @@
 optimize.diff
 amd64-64bit.diff
-autoconf.diff.bz2
+libmad-0.15.1b-autotool-updates.diff
+libmad-0.15.1b-autotool-lt-init.diff
+libmad-0.15.1b-autotool-as-help-string.diff
+libmad-0.15.1b-autotool-automake-m4.diff
+libmad-0.15.1b-new-files.diff
+libmad-0.15.1b-am-config-header.diff

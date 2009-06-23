@@ -1,0 +1,23 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+configure.ac:66: warning: The macro `AC_PROG_LIBTOOL' is obsolete.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ configure.ac |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: libmad-0.15.1b/configure.ac
+===================================================================
+--- libmad-0.15.1b.orig/configure.ac
++++ libmad-0.15.1b/configure.ac
+@@ -63,7 +63,7 @@ dnl Support for libtool.
+ 
+ dnl AC_DISABLE_SHARED
+ dnl AC_LIBTOOL_WIN32_DLL
+-AC_PROG_LIBTOOL
++LT_INIT
+ 
+ AC_SUBST(LIBTOOL_DEPS)
+ 

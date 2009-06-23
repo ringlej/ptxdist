@@ -1,0 +1,36 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: libmad: add missing files
+
+Makefile.am: required file `./NEWS' not found
+Makefile.am: required file `./AUTHORS' not found
+Makefile.am: required file `./ChangeLog' not found
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ AUTHORS   |    2 ++
+ ChangeLog |    2 ++
+ NEWS      |    2 ++
+ 3 files changed, 6 insertions(+)
+
+Index: libmad-0.15.1b/AUTHORS
+===================================================================
+--- /dev/null
++++ libmad-0.15.1b/AUTHORS
+@@ -0,0 +1,2 @@
++
++
+Index: libmad-0.15.1b/ChangeLog
+===================================================================
+--- /dev/null
++++ libmad-0.15.1b/ChangeLog
+@@ -0,0 +1,2 @@
++
++
+Index: libmad-0.15.1b/NEWS
+===================================================================
+--- /dev/null
++++ libmad-0.15.1b/NEWS
+@@ -0,0 +1,2 @@
++
++

@@ -1,0 +1,24 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: libmad: update autoconf
+
+configure.ac:32: warning: The macro `AM_CONFIG_HEADER' is obsolete.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ configure.ac |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: libmad-0.15.1b/configure.ac
+===================================================================
+--- libmad-0.15.1b.orig/configure.ac
++++ libmad-0.15.1b/configure.ac
+@@ -29,7 +29,7 @@ AC_CONFIG_MACRO_DIR([m4])
+ 
+ AM_INIT_AUTOMAKE
+ 
+-AM_CONFIG_HEADER([config.h])
++AC_CONFIG_HEADERS([config.h])
+ 
+ dnl System type.
+ 

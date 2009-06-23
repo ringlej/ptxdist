@@ -1,0 +1,24 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: libmad: update Makefile.am
+
+libtoolize: Consider adding `-I m4' to ACLOCAL_AMFLAGS in Makefile.am.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.am |    2 ++
+ 1 file changed, 2 insertions(+)
+
+Index: libmad-0.15.1b/Makefile.am
+===================================================================
+--- libmad-0.15.1b.orig/Makefile.am
++++ libmad-0.15.1b/Makefile.am
+@@ -24,6 +24,8 @@
+ SUBDIRS =		
+ DIST_SUBDIRS =		msvc++
+ 
++ACLOCAL_AMFLAGS =	-I m4
++
+ lib_LTLIBRARIES =	libmad.la
+ include_HEADERS =	mad.h
+ 
