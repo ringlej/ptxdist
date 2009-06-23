@@ -626,6 +626,12 @@ patchin =											\
 		fi;										\
 	fi;											\
 												\
+	autogen_sh="$${patch_dir}/autogen.sh";							\
+	if [ -x "$${autogen_sh}" ]; then							\
+		echo "PATCHIN: running autogen"; 						\
+		( cd "$${PACKET_DIR}" &&"$${autogen_sh}" ) || exit 1;				\
+	fi; 											\
+												\
 	case "$(notdir $@)" in									\
 		(host-*|cross-*)	exit 0;;						\
 	esac;											\
