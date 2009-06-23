@@ -1,0 +1,5 @@
+## SECTION=hosttools_noprompt
+
+config HOST_AUTOTOOLS_LIBTOOL
+	bool
+	default y
