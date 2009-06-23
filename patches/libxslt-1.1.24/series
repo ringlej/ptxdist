@@ -1,1 +1,2 @@
 libxslt-1.1.24-pkgconfig.diff -p0
+libxslt-1.1.24-exsltconfig.diff
