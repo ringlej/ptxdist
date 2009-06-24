@@ -35,7 +35,7 @@ ptxd_make_extract() {
 
     case "${packet_url}" in
 	file://*)
-	    local thing="${packet_url/file:\/\///}"
+	    local thing="${packet_url//file:\/\//}"
 	    if [ -d "${thing}" ]; then
 		echo "local directory instead of tar file, linking build dir"
 		ln -sf "$(ptxd_abspath "${thing}")" "${packet_dir}"
