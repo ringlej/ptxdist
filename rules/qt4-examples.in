@@ -10,19 +10,19 @@ menuconfig QT4_EXAMPLES
 
 if QT4_EXAMPLES
 
-config QT4_EXAMPLES__INSTALL_DIR
+config QT4_EXAMPLES_INSTALL_DIR
 	string
 	default "/usr/bin/qt4-examples"
 	prompt "install dir"
 
 
-menuconfig QT4_EXAMPLES__ASSISTANT
+menuconfig QT4_EXAMPLES_ASSISTANT
 	tristate
 	prompt "assistant"
 
-if QT4_EXAMPLES__ASSISTANT
+if QT4_EXAMPLES_ASSISTANT
 
-config QT4_EXAMPLES__SIMPLETEXTVIEWER
+config QT4_EXAMPLES_SIMPLETEXTVIEWER
 	bool
 	prompt "simpletextviewer"
 	select QT4_BUILD_ASSISTANTLIB
@@ -33,27 +33,27 @@ config QT4_EXAMPLES__SIMPLETEXTVIEWER
 endif
 
 
-menuconfig QT4_EXAMPLES__DBUS
+menuconfig QT4_EXAMPLES_DBUS
 	tristate
 	prompt "dbus"
 
-if QT4_EXAMPLES__DBUS
+if QT4_EXAMPLES_DBUS
 
-config QT4_EXAMPLES__COMPLEXPING
+config QT4_EXAMPLES_COMPLEXPING
 	bool
 	prompt "complexping"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	select QT4_BUILD_XML
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__COMPLEXPONG
+config QT4_EXAMPLES_COMPLEXPONG
 	bool
 	prompt "complexpong"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	select QT4_BUILD_XML
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DBUS_CHAT
+config QT4_EXAMPLES_DBUS_CHAT
 	bool
 	prompt "dbus-chat"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
@@ -61,28 +61,28 @@ config QT4_EXAMPLES__DBUS_CHAT
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__LISTNAMES
+config QT4_EXAMPLES_LISTNAMES
 	bool
 	prompt "listnames"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	select QT4_BUILD_XML
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PING
+config QT4_EXAMPLES_PING
 	bool
 	prompt "ping"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	select QT4_BUILD_XML
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PONG
+config QT4_EXAMPLES_PONG
 	bool
 	prompt "pong"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	select QT4_BUILD_XML
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CAR
+config QT4_EXAMPLES_CAR
 	bool
 	prompt "car"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
@@ -90,7 +90,7 @@ config QT4_EXAMPLES__CAR
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CONTROLLER
+config QT4_EXAMPLES_CONTROLLER
 	bool
 	prompt "controller"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
@@ -102,13 +102,13 @@ config QT4_EXAMPLES__CONTROLLER
 endif
 
 
-menuconfig QT4_EXAMPLES__DESIGNER
+menuconfig QT4_EXAMPLES_DESIGNER
 	tristate
 	prompt "designer"
 
-if QT4_EXAMPLES__DESIGNER
+if QT4_EXAMPLES_DESIGNER
 
-config QT4_EXAMPLES__CALCULATORBUILDER
+config QT4_EXAMPLES_CALCULATORBUILDER
 	bool
 	prompt "calculatorbuilder"
 	select QT4_BUILD_DESIGNERLIBS
@@ -116,13 +116,13 @@ config QT4_EXAMPLES__CALCULATORBUILDER
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CALCULATORFORM
+config QT4_EXAMPLES_CALCULATORFORM
 	bool
 	prompt "calculatorform"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__WORLDTIMECLOCKBUILDER
+config QT4_EXAMPLES_WORLDTIMECLOCKBUILDER
 	bool
 	prompt "worldtimeclockbuilder"
 	select QT4_BUILD_DESIGNERLIBS
@@ -134,19 +134,19 @@ config QT4_EXAMPLES__WORLDTIMECLOCKBUILDER
 endif
 
 
-menuconfig QT4_EXAMPLES__DESKTOP
+menuconfig QT4_EXAMPLES_DESKTOP
 	tristate
 	prompt "desktop"
 
-if QT4_EXAMPLES__DESKTOP
+if QT4_EXAMPLES_DESKTOP
 
-config QT4_EXAMPLES__SCREENSHOT
+config QT4_EXAMPLES_SCREENSHOT
 	bool
 	prompt "screenshot"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SYSTRAY
+config QT4_EXAMPLES_SYSTRAY
 	bool
 	prompt "systray"
 	select QT4_BUILD_SVG
@@ -158,55 +158,55 @@ config QT4_EXAMPLES__SYSTRAY
 endif
 
 
-menuconfig QT4_EXAMPLES__DIALOGS
+menuconfig QT4_EXAMPLES_DIALOGS
 	tristate
 	prompt "dialogs"
 
-if QT4_EXAMPLES__DIALOGS
+if QT4_EXAMPLES_DIALOGS
 
-config QT4_EXAMPLES__CLASSWIZARD
+config QT4_EXAMPLES_CLASSWIZARD
 	bool
 	prompt "classwizard"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CONFIGDIALOG
+config QT4_EXAMPLES_CONFIGDIALOG
 	bool
 	prompt "configdialog"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__EXTENSION
+config QT4_EXAMPLES_EXTENSION
 	bool
 	prompt "extension"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__FINDFILES
+config QT4_EXAMPLES_FINDFILES
 	bool
 	prompt "findfiles"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__LICENSEWIZARD
+config QT4_EXAMPLES_LICENSEWIZARD
 	bool
 	prompt "licensewizard"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__STANDARDDIALOGS
+config QT4_EXAMPLES_STANDARDDIALOGS
 	bool
 	prompt "standarddialogs"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TABDIALOG
+config QT4_EXAMPLES_TABDIALOG
 	bool
 	prompt "tabdialog"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TRIVIALWIZARD
+config QT4_EXAMPLES_TRIVIALWIZARD
 	bool
 	prompt "trivialwizard"
 	select QT4_BUILD_GUI
@@ -216,44 +216,44 @@ config QT4_EXAMPLES__TRIVIALWIZARD
 endif
 
 
-menuconfig QT4_EXAMPLES__DRAGANDDROP
+menuconfig QT4_EXAMPLES_DRAGANDDROP
 	tristate
 	prompt "draganddrop"
 
-if QT4_EXAMPLES__DRAGANDDROP
+if QT4_EXAMPLES_DRAGANDDROP
 
-config QT4_EXAMPLES__DELAYEDENCODING
+config QT4_EXAMPLES_DELAYEDENCODING
 	bool
 	prompt "delayedencoding"
 	select QT4_BUILD_SVG
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DRAGGABLEICONS
+config QT4_EXAMPLES_DRAGGABLEICONS
 	bool
 	prompt "draggableicons"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DRAGGABLETEXT
+config QT4_EXAMPLES_DRAGGABLETEXT
 	bool
 	prompt "draggabletext"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DROPSITE
+config QT4_EXAMPLES_DROPSITE
 	bool
 	prompt "dropsite"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__FRIDGEMAGNETS
+config QT4_EXAMPLES_FRIDGEMAGNETS
 	bool
 	prompt "fridgemagnets"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PUZZLE
+config QT4_EXAMPLES_PUZZLE
 	bool
 	prompt "puzzle"
 	select QT4_BUILD_GUI
@@ -263,43 +263,43 @@ config QT4_EXAMPLES__PUZZLE
 endif
 
 
-menuconfig QT4_EXAMPLES__GRAPHICSVIEW
+menuconfig QT4_EXAMPLES_GRAPHICSVIEW
 	tristate
 	prompt "graphicsview"
 
-if QT4_EXAMPLES__GRAPHICSVIEW
+if QT4_EXAMPLES_GRAPHICSVIEW
 
-config QT4_EXAMPLES__BASICGRAPHICSLAYOUTS
+config QT4_EXAMPLES_BASICGRAPHICSLAYOUTS
 	bool
 	prompt "basicgraphicslayouts"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__COLLIDINGMICE
+config QT4_EXAMPLES_COLLIDINGMICE
 	bool
 	prompt "collidingmice"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DIAGRAMSCENE
+config QT4_EXAMPLES_DIAGRAMSCENE
 	bool
 	prompt "diagramscene"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DRAGDROPROBOT
+config QT4_EXAMPLES_DRAGDROPROBOT
 	bool
 	prompt "dragdroprobot"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__ELASTICNODES
+config QT4_EXAMPLES_ELASTICNODES
 	bool
 	prompt "elasticnodes"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PADNAVIGATOR
+config QT4_EXAMPLES_PADNAVIGATOR
 	bool
 	prompt "padnavigator"
 	select QT4_BUILD_GUI
@@ -309,13 +309,13 @@ config QT4_EXAMPLES__PADNAVIGATOR
 endif
 
 
-menuconfig QT4_EXAMPLES__HELP
+menuconfig QT4_EXAMPLES_HELP
 	tristate
 	prompt "help"
 
-if QT4_EXAMPLES__HELP
+if QT4_EXAMPLES_HELP
 
-config QT4_EXAMPLES__CONTEXTSENSITIVEHELP
+config QT4_EXAMPLES_CONTEXTSENSITIVEHELP
 	bool
 	prompt "contextsensitivehelp"
 	select QT4_BUILD_SQL
@@ -323,13 +323,13 @@ config QT4_EXAMPLES__CONTEXTSENSITIVEHELP
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__REMOTECONTROL
+config QT4_EXAMPLES_REMOTECONTROL
 	bool
 	prompt "remotecontrol"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SIMPLETEXTVIEWER
+config QT4_EXAMPLES_SIMPLETEXTVIEWER
 	bool
 	prompt "simpletextviewer"
 	select QT4_BUILD_GUI
@@ -339,25 +339,25 @@ config QT4_EXAMPLES__SIMPLETEXTVIEWER
 endif
 
 
-menuconfig QT4_EXAMPLES__IPC
+menuconfig QT4_EXAMPLES_IPC
 	tristate
 	prompt "ipc"
 
-if QT4_EXAMPLES__IPC
+if QT4_EXAMPLES_IPC
 
-config QT4_EXAMPLES__LOCALFORTUNECLIENT
+config QT4_EXAMPLES_LOCALFORTUNECLIENT
 	bool
 	prompt "localfortuneclient"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__LOCALFORTUNESERVER
+config QT4_EXAMPLES_LOCALFORTUNESERVER
 	bool
 	prompt "localfortuneserver"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SHAREDMEMORY
+config QT4_EXAMPLES_SHAREDMEMORY
 	bool
 	prompt "sharedmemory"
 	select QT4_BUILD_GUI
@@ -367,104 +367,104 @@ config QT4_EXAMPLES__SHAREDMEMORY
 endif
 
 
-menuconfig QT4_EXAMPLES__ITEMVIEWS
+menuconfig QT4_EXAMPLES_ITEMVIEWS
 	tristate
 	prompt "itemviews"
 
-if QT4_EXAMPLES__ITEMVIEWS
+if QT4_EXAMPLES_ITEMVIEWS
 
-config QT4_EXAMPLES__ADDRESSBOOK
+config QT4_EXAMPLES_ADDRESSBOOK
 	bool
 	prompt "addressbook"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__BASICSORTFILTERMODEL
+config QT4_EXAMPLES_BASICSORTFILTERMODEL
 	bool
 	prompt "basicsortfiltermodel"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CHART
+config QT4_EXAMPLES_CHART
 	bool
 	prompt "chart"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__COLOREDITORFACTORY
+config QT4_EXAMPLES_COLOREDITORFACTORY
 	bool
 	prompt "coloreditorfactory"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__COMBOWIDGETMAPPER
+config QT4_EXAMPLES_COMBOWIDGETMAPPER
 	bool
 	prompt "combowidgetmapper"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CUSTOMSORTFILTERMODEL
+config QT4_EXAMPLES_CUSTOMSORTFILTERMODEL
 	bool
 	prompt "customsortfiltermodel"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DIRVIEW
+config QT4_EXAMPLES_DIRVIEW
 	bool
 	prompt "dirview"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__EDITABLETREEMODEL
+config QT4_EXAMPLES_EDITABLETREEMODEL
 	bool
 	prompt "editabletreemodel"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__FETCHMORE
+config QT4_EXAMPLES_FETCHMORE
 	bool
 	prompt "fetchmore"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PIXELATOR
+config QT4_EXAMPLES_PIXELATOR
 	bool
 	prompt "pixelator"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PUZZLE
+config QT4_EXAMPLES_PUZZLE
 	bool
 	prompt "puzzle"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SIMPLEDOMMODEL
+config QT4_EXAMPLES_SIMPLEDOMMODEL
 	bool
 	prompt "simpledommodel"
 	select QT4_BUILD_XML
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SIMPLETREEMODEL
+config QT4_EXAMPLES_SIMPLETREEMODEL
 	bool
 	prompt "simpletreemodel"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SIMPLEWIDGETMAPPER
+config QT4_EXAMPLES_SIMPLEWIDGETMAPPER
 	bool
 	prompt "simplewidgetmapper"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SPINBOXDELEGATE
+config QT4_EXAMPLES_SPINBOXDELEGATE
 	bool
 	prompt "spinboxdelegate"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__STARDELEGATE
+config QT4_EXAMPLES_STARDELEGATE
 	bool
 	prompt "stardelegate"
 	select QT4_BUILD_GUI
@@ -474,31 +474,31 @@ config QT4_EXAMPLES__STARDELEGATE
 endif
 
 
-menuconfig QT4_EXAMPLES__LAYOUTS
+menuconfig QT4_EXAMPLES_LAYOUTS
 	tristate
 	prompt "layouts"
 
-if QT4_EXAMPLES__LAYOUTS
+if QT4_EXAMPLES_LAYOUTS
 
-config QT4_EXAMPLES__BASICLAYOUTS
+config QT4_EXAMPLES_BASICLAYOUTS
 	bool
 	prompt "basiclayouts"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__BORDERLAYOUT
+config QT4_EXAMPLES_BORDERLAYOUT
 	bool
 	prompt "borderlayout"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DYNAMICLAYOUTS
+config QT4_EXAMPLES_DYNAMICLAYOUTS
 	bool
 	prompt "dynamiclayouts"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__FLOWLAYOUT
+config QT4_EXAMPLES_FLOWLAYOUT
 	bool
 	prompt "flowlayout"
 	select QT4_BUILD_GUI
@@ -508,25 +508,25 @@ config QT4_EXAMPLES__FLOWLAYOUT
 endif
 
 
-menuconfig QT4_EXAMPLES__LINGUIST
+menuconfig QT4_EXAMPLES_LINGUIST
 	tristate
 	prompt "linguist"
 
-if QT4_EXAMPLES__LINGUIST
+if QT4_EXAMPLES_LINGUIST
 
-config QT4_EXAMPLES__ARROWPAD
+config QT4_EXAMPLES_ARROWPAD
 	bool
 	prompt "arrowpad"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__HELLOTR
+config QT4_EXAMPLES_HELLOTR
 	bool
 	prompt "hellotr"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TROLLPRINT
+config QT4_EXAMPLES_TROLLPRINT
 	bool
 	prompt "trollprint"
 	select QT4_BUILD_GUI
@@ -536,43 +536,43 @@ config QT4_EXAMPLES__TROLLPRINT
 endif
 
 
-menuconfig QT4_EXAMPLES__MAINWINDOWS
+menuconfig QT4_EXAMPLES_MAINWINDOWS
 	tristate
 	prompt "mainwindows"
 
-if QT4_EXAMPLES__MAINWINDOWS
+if QT4_EXAMPLES_MAINWINDOWS
 
-config QT4_EXAMPLES__APPLICATION
+config QT4_EXAMPLES_APPLICATION
 	bool
 	prompt "application"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DOCKWIDGETS
+config QT4_EXAMPLES_DOCKWIDGETS
 	bool
 	prompt "dockwidgets"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__MDI
+config QT4_EXAMPLES_MDI
 	bool
 	prompt "mdi"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__MENUS
+config QT4_EXAMPLES_MENUS
 	bool
 	prompt "menus"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__RECENTFILES
+config QT4_EXAMPLES_RECENTFILES
 	bool
 	prompt "recentfiles"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SDI
+config QT4_EXAMPLES_SDI
 	bool
 	prompt "sdi"
 	select QT4_BUILD_GUI
@@ -582,83 +582,83 @@ config QT4_EXAMPLES__SDI
 endif
 
 
-menuconfig QT4_EXAMPLES__NETWORK
+menuconfig QT4_EXAMPLES_NETWORK
 	tristate
 	prompt "network"
 
-if QT4_EXAMPLES__NETWORK
+if QT4_EXAMPLES_NETWORK
 
-config QT4_EXAMPLES__BLOCKINGFORTUNECLIENT
+config QT4_EXAMPLES_BLOCKINGFORTUNECLIENT
 	bool
 	prompt "blockingfortuneclient"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__BROADCASTRECEIVER
+config QT4_EXAMPLES_BROADCASTRECEIVER
 	bool
 	prompt "broadcastreceiver"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__BROADCASTSENDER
+config QT4_EXAMPLES_BROADCASTSENDER
 	bool
 	prompt "broadcastsender"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DOWNLOAD
+config QT4_EXAMPLES_DOWNLOAD
 	bool
 	prompt "download"
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DOWNLOADMANAGER
+config QT4_EXAMPLES_DOWNLOADMANAGER
 	bool
 	prompt "downloadmanager"
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__FORTUNECLIENT
+config QT4_EXAMPLES_FORTUNECLIENT
 	bool
 	prompt "fortuneclient"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__FORTUNESERVER
+config QT4_EXAMPLES_FORTUNESERVER
 	bool
 	prompt "fortuneserver"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__FTP
+config QT4_EXAMPLES_FTP
 	bool
 	prompt "ftp"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__HTTP
+config QT4_EXAMPLES_HTTP
 	bool
 	prompt "http"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__LOOPBACK
+config QT4_EXAMPLES_LOOPBACK
 	bool
 	prompt "loopback"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__NETWORK_CHAT
+config QT4_EXAMPLES_NETWORK_CHAT
 	bool
 	prompt "network-chat"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__THREADEDFORTUNESERVER
+config QT4_EXAMPLES_THREADEDFORTUNESERVER
 	bool
 	prompt "threadedfortuneserver"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TORRENT
+config QT4_EXAMPLES_TORRENT
 	bool
 	prompt "torrent"
 	select QT4_BUILD_GUI
@@ -668,20 +668,20 @@ config QT4_EXAMPLES__TORRENT
 endif
 
 
-menuconfig QT4_EXAMPLES__OPENGL
+menuconfig QT4_EXAMPLES_OPENGL
 	tristate
 	prompt "opengl"
 
-if QT4_EXAMPLES__OPENGL
+if QT4_EXAMPLES_OPENGL
 
-config QT4_EXAMPLES__2DPAINTING
+config QT4_EXAMPLES_2DPAINTING
 	bool
 	prompt "2dpainting"
 	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__FRAMEBUFFEROBJECT
+config QT4_EXAMPLES_FRAMEBUFFEROBJECT
 	bool
 	prompt "framebufferobject"
 	select QT4_BUILD_SVG
@@ -689,42 +689,42 @@ config QT4_EXAMPLES__FRAMEBUFFEROBJECT
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__FRAMEBUFFEROBJECT2
+config QT4_EXAMPLES_FRAMEBUFFEROBJECT2
 	bool
 	prompt "framebufferobject2"
 	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__GRABBER
+config QT4_EXAMPLES_GRABBER
 	bool
 	prompt "grabber"
 	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__HELLOGL
+config QT4_EXAMPLES_HELLOGL
 	bool
 	prompt "hellogl"
 	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__OVERPAINTING
+config QT4_EXAMPLES_OVERPAINTING
 	bool
 	prompt "overpainting"
 	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PBUFFERS
+config QT4_EXAMPLES_PBUFFERS
 	bool
 	prompt "pbuffers"
 	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PBUFFERS2
+config QT4_EXAMPLES_PBUFFERS2
 	bool
 	prompt "pbuffers2"
 	select QT4_BUILD_SVG
@@ -732,14 +732,14 @@ config QT4_EXAMPLES__PBUFFERS2
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SAMPLEBUFFERS
+config QT4_EXAMPLES_SAMPLEBUFFERS
 	bool
 	prompt "samplebuffers"
 	depends on BROKEN
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TEXTURES
+config QT4_EXAMPLES_TEXTURES
 	bool
 	prompt "textures"
 	depends on BROKEN
@@ -750,50 +750,50 @@ config QT4_EXAMPLES__TEXTURES
 endif
 
 
-menuconfig QT4_EXAMPLES__PAINTING
+menuconfig QT4_EXAMPLES_PAINTING
 	tristate
 	prompt "painting"
 
-if QT4_EXAMPLES__PAINTING
+if QT4_EXAMPLES_PAINTING
 
-config QT4_EXAMPLES__BASICDRAWING
+config QT4_EXAMPLES_BASICDRAWING
 	bool
 	prompt "basicdrawing"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CONCENTRICCIRCLES
+config QT4_EXAMPLES_CONCENTRICCIRCLES
 	bool
 	prompt "concentriccircles"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__FONTSAMPLER
+config QT4_EXAMPLES_FONTSAMPLER
 	bool
 	prompt "fontsampler"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__IMAGECOMPOSITION
+config QT4_EXAMPLES_IMAGECOMPOSITION
 	bool
 	prompt "imagecomposition"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PAINTERPATHS
+config QT4_EXAMPLES_PAINTERPATHS
 	bool
 	prompt "painterpaths"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SVGGENERATOR
+config QT4_EXAMPLES_SVGGENERATOR
 	bool
 	prompt "svggenerator"
 	select QT4_BUILD_SVG
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SVGVIEWER
+config QT4_EXAMPLES_SVGVIEWER
 	bool
 	prompt "svgviewer"
 	select QT4_BUILD_SVG
@@ -801,7 +801,7 @@ config QT4_EXAMPLES__SVGVIEWER
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TRANSFORMATIONS
+config QT4_EXAMPLES_TRANSFORMATIONS
 	bool
 	prompt "transformations"
 	select QT4_BUILD_GUI
@@ -811,13 +811,13 @@ config QT4_EXAMPLES__TRANSFORMATIONS
 endif
 
 
-menuconfig QT4_EXAMPLES__PHONON
+menuconfig QT4_EXAMPLES_PHONON
 	tristate
 	prompt "phonon"
 
-if QT4_EXAMPLES__PHONON
+if QT4_EXAMPLES_PHONON
 
-config QT4_EXAMPLES__CAPABILITIES
+config QT4_EXAMPLES_CAPABILITIES
 	bool
 	prompt "capabilities"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
@@ -825,7 +825,7 @@ config QT4_EXAMPLES__CAPABILITIES
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__MUSICPLAYER
+config QT4_EXAMPLES_MUSICPLAYER
 	bool
 	prompt "musicplayer"
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
@@ -837,37 +837,37 @@ config QT4_EXAMPLES__MUSICPLAYER
 endif
 
 
-menuconfig QT4_EXAMPLES__QTCONCURRENT
+menuconfig QT4_EXAMPLES_QTCONCURRENT
 	tristate
 	prompt "qtconcurrent"
 
-if QT4_EXAMPLES__QTCONCURRENT
+if QT4_EXAMPLES_QTCONCURRENT
 
-config QT4_EXAMPLES__IMAGESCALING
+config QT4_EXAMPLES_IMAGESCALING
 	bool
 	prompt "imagescaling"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__MAPDEMO
+config QT4_EXAMPLES_MAPDEMO
 	bool
 	prompt "mapdemo"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PROGRESSDIALOG
+config QT4_EXAMPLES_PROGRESSDIALOG
 	bool
 	prompt "progressdialog"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__RUNFUNCTION
+config QT4_EXAMPLES_RUNFUNCTION
 	bool
 	prompt "runfunction"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__WORDCOUNT
+config QT4_EXAMPLES_WORDCOUNT
 	bool
 	prompt "wordcount"
 	select QT4_BUILD_GUI
@@ -877,41 +877,41 @@ config QT4_EXAMPLES__WORDCOUNT
 endif
 
 
-menuconfig QT4_EXAMPLES__QTESTLIB
+menuconfig QT4_EXAMPLES_QTESTLIB
 	tristate
 	prompt "qtestlib"
 
-if QT4_EXAMPLES__QTESTLIB
+if QT4_EXAMPLES_QTESTLIB
 
-config QT4_EXAMPLES__TUTORIAL1
+config QT4_EXAMPLES_TUTORIAL1
 	bool
 	prompt "tutorial1"
 	select QT4_BUILD_QTESTLIB
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TUTORIAL2
+config QT4_EXAMPLES_TUTORIAL2
 	bool
 	prompt "tutorial2"
 	select QT4_BUILD_QTESTLIB
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TUTORIAL3
+config QT4_EXAMPLES_TUTORIAL3
 	bool
 	prompt "tutorial3"
 	select QT4_BUILD_QTESTLIB
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TUTORIAL4
+config QT4_EXAMPLES_TUTORIAL4
 	bool
 	prompt "tutorial4"
 	select QT4_BUILD_QTESTLIB
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TUTORIAL5
+config QT4_EXAMPLES_TUTORIAL5
 	bool
 	prompt "tutorial5"
 	select QT4_BUILD_QTESTLIB
@@ -922,23 +922,23 @@ config QT4_EXAMPLES__TUTORIAL5
 endif
 
 
-menuconfig QT4_EXAMPLES__QWS
+menuconfig QT4_EXAMPLES_QWS
 	tristate
 	prompt "qws"
 
-if QT4_EXAMPLES__QWS
+if QT4_EXAMPLES_QWS
 
-config QT4_EXAMPLES__FRAMEBUFFER
+config QT4_EXAMPLES_FRAMEBUFFER
 	bool
 	prompt "framebuffer"
 
-config QT4_EXAMPLES__MOUSECALIBRATION
+config QT4_EXAMPLES_MOUSECALIBRATION
 	bool
 	prompt "mousecalibration"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SIMPLEDECORATION
+config QT4_EXAMPLES_SIMPLEDECORATION
 	bool
 	prompt "simpledecoration"
 	select QT4_BUILD_GUI
@@ -948,31 +948,31 @@ config QT4_EXAMPLES__SIMPLEDECORATION
 endif
 
 
-menuconfig QT4_EXAMPLES__RICHTEXT
+menuconfig QT4_EXAMPLES_RICHTEXT
 	tristate
 	prompt "richtext"
 
-if QT4_EXAMPLES__RICHTEXT
+if QT4_EXAMPLES_RICHTEXT
 
-config QT4_EXAMPLES__CALENDAR
+config QT4_EXAMPLES_CALENDAR
 	bool
 	prompt "calendar"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__ORDERFORM
+config QT4_EXAMPLES_ORDERFORM
 	bool
 	prompt "orderform"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SYNTAXHIGHLIGHTER
+config QT4_EXAMPLES_SYNTAXHIGHLIGHTER
 	bool
 	prompt "syntaxhighlighter"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TEXTOBJECT
+config QT4_EXAMPLES_TEXTOBJECT
 	bool
 	prompt "textobject"
 	select QT4_BUILD_SVG
@@ -983,13 +983,13 @@ config QT4_EXAMPLES__TEXTOBJECT
 endif
 
 
-menuconfig QT4_EXAMPLES__SCRIPT
+menuconfig QT4_EXAMPLES_SCRIPT
 	tristate
 	prompt "script"
 
-if QT4_EXAMPLES__SCRIPT
+if QT4_EXAMPLES_SCRIPT
 
-config QT4_EXAMPLES__CONTEXT2D
+config QT4_EXAMPLES_CONTEXT2D
 	bool
 	prompt "context2d"
 	select QT4_BUILD_SCRIPTTOOLS
@@ -997,31 +997,31 @@ config QT4_EXAMPLES__CONTEXT2D
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CUSTOMCLASS
+config QT4_EXAMPLES_CUSTOMCLASS
 	bool
 	prompt "customclass"
 	select QT4_BUILD_SCRIPT
 
-config QT4_EXAMPLES__DEFAULTPROTOTYPES
+config QT4_EXAMPLES_DEFAULTPROTOTYPES
 	bool
 	prompt "defaultprototypes"
 	select QT4_BUILD_SCRIPT
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__HELLOSCRIPT
+config QT4_EXAMPLES_HELLOSCRIPT
 	bool
 	prompt "helloscript"
 	select QT4_BUILD_SCRIPT
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__MARSHAL
+config QT4_EXAMPLES_MARSHAL
 	bool
 	prompt "marshal"
 	select QT4_BUILD_SCRIPT
 
-config QT4_EXAMPLES__QSCRIPT
+config QT4_EXAMPLES_QSCRIPT
 	bool
 	prompt "qscript"
 	select QT4_BUILD_SCRIPT
@@ -1032,27 +1032,27 @@ config QT4_EXAMPLES__QSCRIPT
 endif
 
 
-menuconfig QT4_EXAMPLES__SQL
+menuconfig QT4_EXAMPLES_SQL
 	tristate
 	prompt "sql"
 
-if QT4_EXAMPLES__SQL
+if QT4_EXAMPLES_SQL
 
-config QT4_EXAMPLES__CACHEDTABLE
+config QT4_EXAMPLES_CACHEDTABLE
 	bool
 	prompt "cachedtable"
 	select QT4_BUILD_SQL
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DRILLDOWN
+config QT4_EXAMPLES_DRILLDOWN
 	bool
 	prompt "drilldown"
 	select QT4_BUILD_SQL
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__MASTERDETAIL
+config QT4_EXAMPLES_MASTERDETAIL
 	bool
 	prompt "masterdetail"
 	select QT4_BUILD_SQL
@@ -1060,28 +1060,28 @@ config QT4_EXAMPLES__MASTERDETAIL
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__QUERYMODEL
+config QT4_EXAMPLES_QUERYMODEL
 	bool
 	prompt "querymodel"
 	select QT4_BUILD_SQL
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__RELATIONALTABLEMODEL
+config QT4_EXAMPLES_RELATIONALTABLEMODEL
 	bool
 	prompt "relationaltablemodel"
 	select QT4_BUILD_SQL
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SQLWIDGETMAPPER
+config QT4_EXAMPLES_SQLWIDGETMAPPER
 	bool
 	prompt "sqlwidgetmapper"
 	select QT4_BUILD_SQL
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TABLEMODEL
+config QT4_EXAMPLES_TABLEMODEL
 	bool
 	prompt "tablemodel"
 	select QT4_BUILD_SQL
@@ -1092,23 +1092,23 @@ config QT4_EXAMPLES__TABLEMODEL
 endif
 
 
-menuconfig QT4_EXAMPLES__THREADS
+menuconfig QT4_EXAMPLES_THREADS
 	tristate
 	prompt "threads"
 
-if QT4_EXAMPLES__THREADS
+if QT4_EXAMPLES_THREADS
 
-config QT4_EXAMPLES__MANDELBROT
+config QT4_EXAMPLES_MANDELBROT
 	bool
 	prompt "mandelbrot"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SEMAPHORES
+config QT4_EXAMPLES_SEMAPHORES
 	bool
 	prompt "semaphores"
 
-config QT4_EXAMPLES__WAITCONDITIONS
+config QT4_EXAMPLES_WAITCONDITIONS
 	bool
 	prompt "waitconditions"
 	select QT4_BUILD_GUI
@@ -1118,73 +1118,73 @@ config QT4_EXAMPLES__WAITCONDITIONS
 endif
 
 
-menuconfig QT4_EXAMPLES__TOOLS
+menuconfig QT4_EXAMPLES_TOOLS
 	tristate
 	prompt "tools"
 
-if QT4_EXAMPLES__TOOLS
+if QT4_EXAMPLES_TOOLS
 
-config QT4_EXAMPLES__CODECS
+config QT4_EXAMPLES_CODECS
 	bool
 	prompt "codecs"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__COMPLETER
+config QT4_EXAMPLES_COMPLETER
 	bool
 	prompt "completer"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CUSTOMCOMPLETER
+config QT4_EXAMPLES_CUSTOMCOMPLETER
 	bool
 	prompt "customcompleter"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__ECHOPLUGIN
+config QT4_EXAMPLES_ECHOPLUGIN
 	bool
 	prompt "echoplugin"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__I18N
+config QT4_EXAMPLES_I18N
 	bool
 	prompt "i18n"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PLUGANDPAINT
+config QT4_EXAMPLES_PLUGANDPAINT
 	bool
 	prompt "plugandpaint"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__REGEXP
+config QT4_EXAMPLES_REGEXP
 	bool
 	prompt "regexp"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SETTINGSEDITOR
+config QT4_EXAMPLES_SETTINGSEDITOR
 	bool
 	prompt "settingseditor"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__STYLEPLUGIN
+config QT4_EXAMPLES_STYLEPLUGIN
 	bool
 	prompt "styleplugin"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TREEMODELCOMPLETER
+config QT4_EXAMPLES_TREEMODELCOMPLETER
 	bool
 	prompt "treemodelcompleter"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__UNDOFRAMEWORK
+config QT4_EXAMPLES_UNDOFRAMEWORK
 	bool
 	prompt "undoframework"
 	select QT4_BUILD_GUI
@@ -1194,49 +1194,49 @@ config QT4_EXAMPLES__UNDOFRAMEWORK
 endif
 
 
-menuconfig QT4_EXAMPLES__TUTORIALS
+menuconfig QT4_EXAMPLES_TUTORIALS
 	tristate
 	prompt "tutorials"
 
-if QT4_EXAMPLES__TUTORIALS
+if QT4_EXAMPLES_TUTORIALS
 
-config QT4_EXAMPLES__PART1
+config QT4_EXAMPLES_PART1
 	bool
 	prompt "part1"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PART2
+config QT4_EXAMPLES_PART2
 	bool
 	prompt "part2"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PART3
+config QT4_EXAMPLES_PART3
 	bool
 	prompt "part3"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PART4
+config QT4_EXAMPLES_PART4
 	bool
 	prompt "part4"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PART5
+config QT4_EXAMPLES_PART5
 	bool
 	prompt "part5"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PART6
+config QT4_EXAMPLES_PART6
 	bool
 	prompt "part6"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PART7
+config QT4_EXAMPLES_PART7
 	bool
 	prompt "part7"
 	select QT4_BUILD_GUI
@@ -1246,19 +1246,19 @@ config QT4_EXAMPLES__PART7
 endif
 
 
-menuconfig QT4_EXAMPLES__UITOOLS
+menuconfig QT4_EXAMPLES_UITOOLS
 	tristate
 	prompt "uitools"
 
-if QT4_EXAMPLES__UITOOLS
+if QT4_EXAMPLES_UITOOLS
 
-config QT4_EXAMPLES__MULTIPLEINHERITANCE
+config QT4_EXAMPLES_MULTIPLEINHERITANCE
 	bool
 	prompt "multipleinheritance"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TEXTFINDER
+config QT4_EXAMPLES_TEXTFINDER
 	bool
 	prompt "textfinder"
 	select QT4_BUILD_DESIGNERLIBS
@@ -1270,13 +1270,13 @@ config QT4_EXAMPLES__TEXTFINDER
 endif
 
 
-menuconfig QT4_EXAMPLES__WEBKIT
+menuconfig QT4_EXAMPLES_WEBKIT
 	tristate
 	prompt "webkit"
 
-if QT4_EXAMPLES__WEBKIT
+if QT4_EXAMPLES_WEBKIT
 
-config QT4_EXAMPLES__FORMEXTRACTOR
+config QT4_EXAMPLES_FORMEXTRACTOR
 	bool
 	prompt "formExtractor"
 	select QT4_BUILD_WEBKIT
@@ -1285,7 +1285,7 @@ config QT4_EXAMPLES__FORMEXTRACTOR
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__PREVIEWER
+config QT4_EXAMPLES_PREVIEWER
 	bool
 	prompt "previewer"
 	select QT4_BUILD_WEBKIT
@@ -1298,145 +1298,145 @@ config QT4_EXAMPLES__PREVIEWER
 endif
 
 
-menuconfig QT4_EXAMPLES__WIDGETS
+menuconfig QT4_EXAMPLES_WIDGETS
 	tristate
 	prompt "widgets"
 
-if QT4_EXAMPLES__WIDGETS
+if QT4_EXAMPLES_WIDGETS
 
-config QT4_EXAMPLES__ANALOGCLOCK
+config QT4_EXAMPLES_ANALOGCLOCK
 	bool
 	prompt "analogclock"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CALCULATOR
+config QT4_EXAMPLES_CALCULATOR
 	bool
 	prompt "calculator"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CALENDARWIDGET
+config QT4_EXAMPLES_CALENDARWIDGET
 	bool
 	prompt "calendarwidget"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CHARACTERMAP
+config QT4_EXAMPLES_CHARACTERMAP
 	bool
 	prompt "charactermap"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__CODEEDITOR
+config QT4_EXAMPLES_CODEEDITOR
 	bool
 	prompt "codeeditor"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__DIGITALCLOCK
+config QT4_EXAMPLES_DIGITALCLOCK
 	bool
 	prompt "digitalclock"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__GROUPBOX
+config QT4_EXAMPLES_GROUPBOX
 	bool
 	prompt "groupbox"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__ICONS
+config QT4_EXAMPLES_ICONS
 	bool
 	prompt "icons"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__IMAGEVIEWER
+config QT4_EXAMPLES_IMAGEVIEWER
 	bool
 	prompt "imageviewer"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__LINEEDITS
+config QT4_EXAMPLES_LINEEDITS
 	bool
 	prompt "lineedits"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__MOVIE
+config QT4_EXAMPLES_MOVIE
 	bool
 	prompt "movie"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SCRIBBLE
+config QT4_EXAMPLES_SCRIBBLE
 	bool
 	prompt "scribble"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SHAPEDCLOCK
+config QT4_EXAMPLES_SHAPEDCLOCK
 	bool
 	prompt "shapedclock"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SLIDERS
+config QT4_EXAMPLES_SLIDERS
 	bool
 	prompt "sliders"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SPINBOXES
+config QT4_EXAMPLES_SPINBOXES
 	bool
 	prompt "spinboxes"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__STYLES
+config QT4_EXAMPLES_STYLES
 	bool
 	prompt "styles"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__STYLESHEET
+config QT4_EXAMPLES_STYLESHEET
 	bool
 	prompt "stylesheet"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TABLET
+config QT4_EXAMPLES_TABLET
 	bool
 	prompt "tablet"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TETRIX
+config QT4_EXAMPLES_TETRIX
 	bool
 	prompt "tetrix"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TOOLTIPS
+config QT4_EXAMPLES_TOOLTIPS
 	bool
 	prompt "tooltips"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__VALIDATORS
+config QT4_EXAMPLES_VALIDATORS
 	bool
 	prompt "validators"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__WIGGLY
+config QT4_EXAMPLES_WIGGLY
 	bool
 	prompt "wiggly"
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__WINDOWFLAGS
+config QT4_EXAMPLES_WINDOWFLAGS
 	bool
 	prompt "windowflags"
 	select QT4_BUILD_GUI
@@ -1446,41 +1446,41 @@ config QT4_EXAMPLES__WINDOWFLAGS
 endif
 
 
-menuconfig QT4_EXAMPLES__XML
+menuconfig QT4_EXAMPLES_XML
 	tristate
 	prompt "xml"
 
-if QT4_EXAMPLES__XML
+if QT4_EXAMPLES_XML
 
-config QT4_EXAMPLES__DOMBOOKMARKS
+config QT4_EXAMPLES_DOMBOOKMARKS
 	bool
 	prompt "dombookmarks"
 	select QT4_BUILD_XML
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__RSSLISTING
+config QT4_EXAMPLES_RSSLISTING
 	bool
 	prompt "rsslisting"
 	select QT4_BUILD_XML
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__SAXBOOKMARKS
+config QT4_EXAMPLES_SAXBOOKMARKS
 	bool
 	prompt "saxbookmarks"
 	select QT4_BUILD_XML
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__STREAMBOOKMARKS
+config QT4_EXAMPLES_STREAMBOOKMARKS
 	bool
 	prompt "streambookmarks"
 	select QT4_BUILD_XML
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__XMLSTREAMLINT
+config QT4_EXAMPLES_XMLSTREAMLINT
 	bool
 	prompt "xmlstreamlint"
 	select QT4_BUILD_XML
@@ -1490,20 +1490,20 @@ config QT4_EXAMPLES__XMLSTREAMLINT
 endif
 
 
-menuconfig QT4_EXAMPLES__XMLPATTERNS
+menuconfig QT4_EXAMPLES_XMLPATTERNS
 	tristate
 	prompt "xmlpatterns"
 
-if QT4_EXAMPLES__XMLPATTERNS
+if QT4_EXAMPLES_XMLPATTERNS
 
-config QT4_EXAMPLES__FILETREE
+config QT4_EXAMPLES_FILETREE
 	bool
 	prompt "filetree"
 	select QT4_BUILD_QTXMLPATTERNS
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__QOBJECTXMLMODEL
+config QT4_EXAMPLES_QOBJECTXMLMODEL
 	bool
 	prompt "qobjectxmlmodel"
 	select QT4_BUILD_WEBKIT
@@ -1513,14 +1513,14 @@ config QT4_EXAMPLES__QOBJECTXMLMODEL
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__RECIPES
+config QT4_EXAMPLES_RECIPES
 	bool
 	prompt "recipes"
 	select QT4_BUILD_QTXMLPATTERNS
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
-config QT4_EXAMPLES__TRAFFICINFO
+config QT4_EXAMPLES_TRAFFICINFO
 	bool
 	prompt "trafficinfo"
 	select QT4_BUILD_QTXMLPATTERNS
