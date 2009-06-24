@@ -3,10 +3,19 @@ menuconfig PROFTPD
 	tristate
 	prompt "proftpd                       "
 	help
-	  A powerful replacement for wu-ftpd, this File Transfer Protocol
- 	  daemon supports hidden directories, virtual hosts, and
-	  per-directory ".ftpaccess" files.  It uses a single main
-	  configuration file, with a syntax similar to Apache.
+	  versatile, virtual-hosting FTP daemon
+
+	  ProFTPd is a powerful replacement for wu-ftpd. This File
+	  Transfer Protocol daemon supports hidden directories,
+	  virtual hosts, and per-directory ".ftpaccess" files. It uses
+	  a single main configuration file, with a syntax similar to
+	  Apache.
+
+	  Because of the advanced design, anonymous-FTP directories
+	  can have an arbitrary internal structure (bin, lib, etc, and
+	  special files are not needed). Advanced features such as
+	  multiple password files and upload/download ratios are also
+	  supported.
 
 if PROFTPD
 
