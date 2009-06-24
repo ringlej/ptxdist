@@ -46,52 +46,51 @@ LIGHTTPD_ENV 	:= $(CROSS_ENV)
 #
 LIGHTTPD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--without-valgrind \
-	--prefix=/usr
+	--without-valgrind
 
-ifdef PTXCONF_LIGHTTPD__ZLIB
+ifdef PTXCONF_LIGHTTPD_ZLIB
 LIGHTTPD_AUTOCONF += --with-zlib=$(SYSROOT)/usr
 else
 LIGHTTPD_AUTOCONF += --without-zlib
 endif
 
-ifdef PTXCONF_LIGHTTPD__BZ2LIB
+ifdef PTXCONF_LIGHTTPD_BZ2LIB
 LIGHTTPD_AUTOCONF += --with-bzip2=$(SYSROOT)/usr
 else
 LIGHTTPD_AUTOCONF += --without-bzip2
 endif
 
-ifdef PTXCONF_LIGHTTPD__LFS
+ifdef PTXCONF_LIGHTTPD_LFS
 LIGHTTPD_AUTOCONF += --enable-lfs
 else
 LIGHTTPD_AUTOCONF += --disable-lfs
 endif
 
-ifdef PTXCONF_LIGHTTPD__IPV6
+ifdef PTXCONF_LIGHTTPD_IPV6
 LIGHTTPD_AUTOCONF += --enable-ipv6
 else
 LIGHTTPD_AUTOCONF += --disable-ipv6
 endif
 
-ifdef PTXCONF_LIGHTTPD__MYSQL
+ifdef PTXCONF_LIGHTTPD_MYSQL
 LIGHTTPD_AUTOCONF += --with-mysql=FIXME
 else
 LIGHTTPD_AUTOCONF += --without-mysql
 endif
 
-ifdef PTXCONF_LIGHTTPD__LDAP
+ifdef PTXCONF_LIGHTTPD_LDAP
 LIGHTTPD_AUTOCONF += --with-ldap=FIXME
 else
 LIGHTTPD_AUTOCONF += --without-ldap
 endif
 
-ifdef PTXCONF_LIGHTTPD__ATTR
+ifdef PTXCONF_LIGHTTPD_ATTR
 LIGHTTPD_AUTOCONF += --with-attr=FIXME
 else
 LIGHTTPD_AUTOCONF += --without-attr
 endif
 
-ifdef PTXCONF_LIGHTTPD__OPENSSL
+ifdef PTXCONF_LIGHTTPD_OPENSSL
 LIGHTTPD_AUTOCONF += --with-openssl=FIXME
 # --with-openssl-includes=DIR OpenSSL includes
 # --with-openssl-libs=DIR OpenSSL libraries
@@ -99,49 +98,49 @@ else
 LIGHTTPD_AUTOCONF += --without-openssl
 endif
 
-ifdef PTXCONF_LIGHTTPD__KERBEROS
+ifdef PTXCONF_LIGHTTPD_KERBEROS
 LIGHTTPD_AUTOCONF += --with-kerberos=FIXME
 else
 LIGHTTPD_AUTOCONF += --without-kerberos
 endif
 
-ifdef PTXCONF_LIGHTTPD__PCRE
+ifdef PTXCONF_LIGHTTPD_PCRE
 LIGHTTPD_AUTOCONF += --with-pcre
 else
 LIGHTTPD_AUTOCONF += --without-pcre
 endif
 
-ifdef PTXCONF_LIGHTTPD__FAM
+ifdef PTXCONF_LIGHTTPD_FAM
 LIGHTTPD_AUTOCONF += --with-fam=FIXME
 else
 LIGHTTPD_AUTOCONF += --without-fam
 endif
 
-ifdef PTXCONF_LIGHTTPD__WEBDAV_PROPS
+ifdef PTXCONF_LIGHTTPD_WEBDAV_PROPS
 LIGHTTPD_AUTOCONF += --with-webdav-props=FIXME
 else
 LIGHTTPD_AUTOCONF += --without-webdav-props
 endif
 
-ifdef PTXCONF_LIGHTTPD__WEBDAV_LOCKS
+ifdef PTXCONF_LIGHTTPD_WEBDAV_LOCKS
 LIGHTTPD_AUTOCONF += --with-webdav-locks=FIXME
 else
 LIGHTTPD_AUTOCONF += --without-webdav-locks
 endif
 
-ifdef PTXCONF_LIGHTTPD__GDBM
+ifdef PTXCONF_LIGHTTPD_GDBM
 LIGHTTPD_AUTOCONF += --with-gdbm=FIXME
 else
 LIGHTTPD_AUTOCONF += --without-gdbm
 endif
 
-ifdef PTXCONF_LIGHTTPD__MEMCACHE
+ifdef PTXCONF_LIGHTTPD_MEMCACHE
 LIGHTTPD_AUTOCONF += --with-memcache=FIXME
 else
 LIGHTTPD_AUTOCONF += --without-memcache
 endif
 
-ifdef PTXCONF_LIGHTTPD__LUA
+ifdef PTXCONF_LIGHTTPD_LUA
 LIGHTTPD_AUTOCONF += --with-lua=FIXME
 else
 LIGHTTPD_AUTOCONF += --without-lua
@@ -191,7 +190,7 @@ $(STATEDIR)/lighttpd.targetinstall:
 ifdef PTXCONF_PHP5_SAPI_CGI
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/lighttpd/mod_fastcgi.conf, \
-		/etc/lighttpd/mod_fastcgi.conf, n)
+		/etc/lighttpd/mod_fastcgi.conf)
 endif
 
 #	#
@@ -200,27 +199,27 @@ endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_LIGHTTPD_STARTSCRIPT
-	@$(call install_alternative, lighttpd, 0, 0, 0755, /etc/init.d/lighttpd, n)
+	@$(call install_alternative, lighttpd, 0, 0, 0755, /etc/init.d/lighttpd)
 endif
 endif
 
-ifdef PTXCONF_LIGHTTPD__GENERIC_SITE
+ifdef PTXCONF_LIGHTTPD_GENERIC_SITE
 ifdef PTXCONF_PHP5_SAPI_CGI
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/var/www/lighttpd.html, \
-		/var/www/index.html, n)
+		/var/www/index.html)
 
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/var/www/bottles.php, \
-		/var/www/bottles.php, n)
+		/var/www/bottles.php)
 
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/var/www/more_bottles.php, \
-		/var/www/more_bottles.php, n)
+		/var/www/more_bottles.php)
 else
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
 		$(PTXDIST_TOPDIR)/generic/var/www/httpd.html, \
-		/var/www/index.html, n)
+		/var/www/index.html)
 endif
 endif
 

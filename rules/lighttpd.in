@@ -2,12 +2,12 @@
 menuconfig LIGHTTPD
 	tristate
 	prompt "lighttpd                      "
-	select ZLIB		if LIGHTTPD__ZLIB
-	select BZIP2		if LIGHTTPD__BZ2LIB
-	select BZIP2__LIBBZ2	if LIGHTTPD__BZ2LIB
-	select LIBPCRE		if LIGHTTPD__PCRE
-	select OPENSSL		if LIGHTTPD__OPENSSL
-	select OPENSSL_SHARED	if LIGHTTPD__OPENSSL
+	select ZLIB		if LIGHTTPD_ZLIB
+	select BZIP2		if LIGHTTPD_BZ2LIB
+	select BZIP2__LIBBZ2	if LIGHTTPD_BZ2LIB
+	select LIBPCRE		if LIGHTTPD_PCRE
+	select OPENSSL		if LIGHTTPD_OPENSSL
+	select OPENSSL_SHARED	if LIGHTTPD_OPENSSL
 	select BUSYBOX_START_STOP_DAEMON if LIGHTTPD_STARTSCRIPT
 	help
 	  Security, speed, compliance, and flexibility -- all of
@@ -22,98 +22,98 @@ menuconfig LIGHTTPD
 
 if LIGHTTPD
 
-config LIGHTTPD__ZLIB
+config LIGHTTPD_ZLIB
 	bool
 	prompt "zlib support"
 	help
 	  Enable zlib support for mod_compress.
 
-config LIGHTTPD__BZ2LIB
+config LIGHTTPD_BZ2LIB
 	bool
 	prompt "bz2lib support"
 	help
 	  Enable bzip2 support for mod_compress.
 
-config LIGHTTPD__LFS
+config LIGHTTPD_LFS
 	bool
 	prompt "large file system support"
 	help
 	  Turn on Large File System.
 
-config LIGHTTPD__IPV6
+config LIGHTTPD_IPV6
 	bool
-	prompt "ip v6 support"
+	prompt "IPv6 support"
 	help
 	  Enable IPv6 support.
 
-config LIGHTTPD__MYSQL
+config LIGHTTPD_MYSQL
 	bool
 #	prompt "MySQL support"
 	help
 
-config LIGHTTPD__LDAP
+config LIGHTTPD_LDAP
 	bool
 #	prompt "ldap"
 	help
 	  Enable LDAP support.
 
-config LIGHTTPD__ATTR
+config LIGHTTPD_ATTR
 	bool
 #	prompt "extended attribute support"
 	help
 	  Enable extended attribute support.
 
-config LIGHTTPD__OPENSSL
+config LIGHTTPD_OPENSSL
 	bool
 	prompt "openssl support"
 	help
 	  Include openssl support.
 
-config LIGHTTPD__KERBEROS
+config LIGHTTPD_KERBEROS
 	bool
-	select LIGHTTPD__OPENSSL
+	select LIGHTTPD_OPENSSL
 #	prompt "kerberos5 support"
 	help
 	  Use Kerberos5 support with OpenSSL.
 
-config LIGHTTPD__PCRE
+config LIGHTTPD_PCRE
 	bool
 	select LIBPCRE
 	prompt "pcre support"
 	help
 	  Enable pcre support.
 
-config LIGHTTPD__FAM
+config LIGHTTPD_FAM
 	bool
 #	prompt "fam"
 	help
 	  fam/gamin for reducing number of stat() calls.
 
-config LIGHTTPD__WEBDAV_PROPS
+config LIGHTTPD_WEBDAV_PROPS
 	bool
 #	prompt "properties in mod_webdav"
 	help
 	  properties in mod_webdav
 
-config LIGHTTPD__WEBDAV_LOCKS
+config LIGHTTPD_WEBDAV_LOCKS
 	bool
 #	prompt "locks in mod_webdav"
 	help
 	  locks in mod_webdav
 
-config LIGHTTPD__GDBM
+config LIGHTTPD_GDBM
 	bool
 #	prompt "gdbm storage for mod_trigger_b4_dl"
 	help
 	  gdbm storage for mod_trigger_b4_dl
 
-config LIGHTTPD__MEMCACHE
+config LIGHTTPD_MEMCACHE
 	bool
 #	prompt "memcached storage for mod_trigger_b4_dl"
 	help
 	  memcached storage for mod_trigger_b4_dl
 
-config LIGHTTPD__LUA
+config LIGHTTPD_LUA
 	bool
 #	prompt "lua engine for mod_cml"
 	help
@@ -124,7 +124,7 @@ config LIGHTTPD_STARTSCRIPT
 	default y
 	prompt "install /etc/init.d/lighttpd"
 
-config LIGHTTPD__GENERIC_SITE
+config LIGHTTPD_GENERIC_SITE
 	bool
 	default y
 	prompt "Populate a generic website"
