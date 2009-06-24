@@ -2,6 +2,7 @@
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Carsten Schlote <c.schlote@konzeptpark.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -73,14 +74,16 @@ $(STATEDIR)/liblzo.targetinstall:
 	@$(call install_fixup, liblzo,DESCRIPTION,missing)
 
   ifdef PTXCONF_LIBLZO_SHARED
-	@$(call install_copy, liblzo, 0, 0, 0644, $(LIBLZO_DIR)/src/.libs/liblzo2.so.2.0.0, /usr/lib/liblzo2.so.2.0.0)
+	@$(call install_copy, liblzo, 0, 0, 0644, -, \
+		/usr/lib/liblzo2.so.2.0.0)
 
 	@$(call install_link, liblzo, liblzo2.so.2.0.0, /usr/lib/liblzo2.so.2)
 	@$(call install_link, liblzo, liblzo2.so.2.0.0, /usr/lib/liblzo2.so)
   endif
 
   ifdef PTXCONF_LIBLZO_STATIC
-	@$(call install_copy, liblzo, 0, 0, 0644, $(LIBLZO_DIR)/src/liblzo2.la, /usr/lib/liblzo2.la)
+	@$(call install_copy, liblzo, 0, 0, 0644, -, \
+		/usr/lib/liblzo2.la)
   endif
 
 	@$(call install_finish, liblzo)
