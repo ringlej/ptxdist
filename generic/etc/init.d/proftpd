@@ -2,21 +2,13 @@
 #
 # /etc/init.d/proftpd
 # Start the proftpd FTP daemon.
-# 
+#
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 DAEMON=/usr/sbin/proftpd
 NAME=proftpd
 
-# Defaults
-RUN="no"
-OPTIONS=""
-
-PIDFILE=`grep -i 'pidfile' /etc/proftpd.conf | awk '{print($2)}'`
-if [ "x$PIDFILE" = "x" ];
-then
-	PIDFILE=/var/run/proftpd.pid
-fi
+PIDFILE=/var/run/proftpd.pid
 
 # Read config (will override defaults)
 [ -r /etc/default/proftpd ] && . /etc/default/proftpd
@@ -24,70 +16,68 @@ fi
 trap "" 1
 trap "" 15
 
-test -f $DAEMON || exit 0
-
-#
-# Servertype could be inetd|standalone.
-#
-if egrep -qi "^[[:space:]]*ServerType.*standalone" /etc/proftpd.conf
-then
-	RUN="yes"
-fi
-
-start(){
-  $DAEMON $OPTIONS
+start()
+{
+    start-stop-daemon --start --quiet --pidfile "$PIDFILE" --oknodo --exec $DAEMON -- $OPTIONS
 }
 
-stop(){
-if [ -e "$PIDFILE" ]; then
-  kill `cat $PIDFILE` || { kill -9 `cat $PIDFILE` ; echo "process killed" ; rm -f $PIDFILE; echo "pidfile removed"; }
-else
-  echo "pid file not found - process not running"
-fi
+signal()
+{
+    start-stop-daemon --stop --signal ${1} --quiet --pidfile "$PIDFILE"
 }
+
 
 case "$1" in
     start)
-	if [ "x$RUN" = "xyes" ] ; then
-	    echo -n "Starting ProFTPD ftp daemon: "
-	    start 
+	if [ \! -d /var/run/proftpd ]; then
+	    mkdir -p /var/run/proftpd
+	fi
+	echo -n "Starting $NAME... "
+	if start; then
 	    echo "Done"
 	else
-	    	echo "ProFTPd is configured to be started from inetd. Check your configuration."
+	    echo "failed"
+	    exit 1
 	fi
 	;;
 
     stop)
-	if [ "x$RUN" = "xyes" ] ; then
-	    echo -n "Stopping ProFTPD ftp daemon: "
-	    stop
+	echo -n "Stopping $NAME... "
+	if signal TERM; then
 	    echo "Done"
 	else
-		echo "ProFTPd is configured to be started from inetd. Check your configuration."
+	    echo "Failed"
+	    exit 1
 	fi
 	;;
 
     reload)
-	echo -n "Reloading $NAME configuration..."
-	if [ -e "$PIDFILE" ]; then                                                                                           
-	   kill -HUP `cat $PIDFILE`
-	   echo " done."
+	echo -n "Reloading $NAME configuration... "
+	if signal HUP; then
+	    echo "done"
 	else
-	   echo "pid file not found - process not running" 
+	    echo "Failed"
+	    exit 1
 	fi
 	;;
 
     force-reload|restart)
-	if [ "x$RUN" = "xyes" ] ; then
-	    echo -n "Restarting ProFTPD ftp daemon."
-	    stop
+	echo -n "Restarting $NAME..."
+	if signal TERM; then
 	    echo -n "."
-	    sleep 2
-	    echo -n "."
-	    start
+	else
+	    echo "Failed"
+	    exit 1
+	fi
+
+	sleep 2
+	echo -n "."
+
+	if start; then
 	    echo " done."
 	else
-		echo "ProFTPd is configured to be started from inetd. Check your configuration."
+	    echo "Failed"
+	    exit 1
 	fi
 	;;
 
@@ -96,5 +86,3 @@ case "$1" in
 	exit 1
 	;;
 esac
-
-exit 0
