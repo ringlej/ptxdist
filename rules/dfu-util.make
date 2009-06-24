@@ -33,17 +33,6 @@ $(DFU_UTIL_SOURCE):
 	@$(call get, DFU_UTIL)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dfu-util.extract:
-	@$(call targetinfo)
-	@$(call clean, $(DFU_UTIL_DIR))
-	@$(call extract, DFU_UTIL)
-	@$(call patchin, DFU_UTIL)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -54,32 +43,6 @@ DFU_UTIL_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 DFU_UTIL_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/dfu-util.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(DFU_UTIL_DIR)/config.cache)
-	cd $(DFU_UTIL_DIR) && \
-		$(DFU_UTIL_PATH) $(DFU_UTIL_ENV) \
-		./configure $(DFU_UTIL_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dfu-util.compile:
-	@$(call targetinfo)
-	cd $(DFU_UTIL_DIR) && $(DFU_UTIL_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dfu-util.install:
-	@$(call targetinfo)
-	@$(call install, DFU_UTIL)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
