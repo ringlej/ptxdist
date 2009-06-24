@@ -10,15 +10,19 @@ menuconfig LIGHTTPD
 	select OPENSSL_SHARED	if LIGHTTPD_OPENSSL
 	select BUSYBOX_START_STOP_DAEMON if LIGHTTPD_STARTSCRIPT
 	help
-	  Security, speed, compliance, and flexibility -- all of
-	  these describe lighttpd (pron. lighty) which is rapidly
-	  redefining efficiency of a webserver; as it is designed
-	  and optimized for high performance environments.
-	  With a small memory footprint compared to other web-servers,
-	  effective management of the cpu-load, and advanced feature
-	  set (FastCGI, SCGI, Auth, Output-Compression,
-	  URL-Rewriting and many more) lighttpd is the perfect solution
-	  for every server that is suffering load problems.is a small,
+	  A fast webserver with minimal memory footprint
+
+	  lighttpd is a small webserver and fast webserver developed
+	  with security in mind and a lot of features. It has support
+	  for
+	  * CGI, FastCGI and SSI
+	  * virtual hosts
+	  * URL rewriting
+	  * authentication (plain files, htpasswd, ldap)
+	  * transparent content compression
+	  * conditional configuration
+	  and configuration is straight-forward and easy.
+
 
 if LIGHTTPD
 
