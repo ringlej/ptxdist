@@ -5,7 +5,7 @@
 #
 
 PREFIX="logrotate: "
-LOGDIR="/tmp/var/log"
+LOGDIR="/var/log"
 MAXFILES="8"
 PATTERNS="*.err *.log messages"
 
@@ -20,7 +20,7 @@ logrotate(){
 	for filename in ${PATTERNS}; do
 		[ -e "${filename}" ] &&
 		echo "${PREFIX}rotation for ${filename} ... " &&
-		for i in `seq $(( MAXFILES - 1 ))  -1 1` ; do
+		for i in `seq $(( MAXFILES - 1 )) -1 1` ; do
 			if [ -e "${filename}.${i}" ]
 			then
 				j=$(( i + 1 ))
