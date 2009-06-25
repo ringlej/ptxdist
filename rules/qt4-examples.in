@@ -634,6 +634,12 @@ config QT4_EXAMPLES_FTP
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
+config QT4_EXAMPLES_GOOGLESUGGEST
+	bool
+	prompt "googlesuggest"
+	select QT4_BUILD_GUI
+	select QT4_BUILD_NETWORK
+
 config QT4_EXAMPLES_HTTP
 	bool
 	prompt "http"
@@ -1276,9 +1282,27 @@ menuconfig QT4_EXAMPLES_WEBKIT
 
 if QT4_EXAMPLES_WEBKIT
 
+config QT4_EXAMPLES_FANCYBROWSER
+	bool
+	prompt "fancybrowser"
+	select QT4_BUILD_WEBKIT
+	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
+	select QT4_BUILD_XML
+	select QT4_BUILD_GUI
+	select QT4_BUILD_NETWORK
+
 config QT4_EXAMPLES_FORMEXTRACTOR
 	bool
 	prompt "formExtractor"
+	select QT4_BUILD_WEBKIT
+	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
+	select QT4_BUILD_XML
+	select QT4_BUILD_GUI
+	select QT4_BUILD_NETWORK
+
+config QT4_EXAMPLES_GOOGLECHAT
+	bool
+	prompt "googlechat"
 	select QT4_BUILD_WEBKIT
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	select QT4_BUILD_XML

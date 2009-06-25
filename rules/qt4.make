@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_QT4) += qt4
 #
 # Paths and names
 #
-QT4_VERSION	:= 4.5.1
+QT4_VERSION	:= 4.5.2
 QT4		:= qt-embedded-linux-opensource-src-$(QT4_VERSION)
 QT4_SUFFIX	:= tar.bz2
-QT4_URL		:= ftp://ftp.trolltech.com/qt/source/$(QT4).$(QT4_SUFFIX)
+QT4_URL		:= http://get.qtsoftware.com/qt/source/$(QT4).$(QT4_SUFFIX)
 QT4_SOURCE	:= $(SRCDIR)/$(QT4).$(QT4_SUFFIX)
 QT4_DIR		:= $(BUILDDIR)/$(QT4)
 
@@ -126,7 +126,6 @@ QT4_INSTALL_TARGETS = install_mkspecs install_qmake
 
 ifdef PTXCONF_QT4_PREPARE_EXAMPLES
 QT4_AUTOCONF += -make examples -make demos
-QT4_INSTALL_TARGETS += sub-examples-install_subtargets
 else
 QT4_AUTOCONF += -nomake examples -nomake demos
 endif
@@ -525,8 +524,11 @@ ifneq ($(strip $(QT4_BUILD_TOOLS_TARGETS)), )
 		$(PARALLELMFLAGS) $(QT4_BUILD_TOOLS_TARGETS)
 endif
 ifdef PTXCONF_QT4_PREPARE_EXAMPLES
+	# FIXME: use "-k" and " || true" for now.
+	# some examples will may fail to build because of missing libraries
+	# these cannot be installed but all are built
 	cd $(QT4_DIR) && $(QT4_PATH) $(QT4_ENV) $(MAKE) \
-		$(PARALLELMFLAGS) sub-examples
+		$(PARALLELMFLAGS) -k sub-examples || true
 endif
 	@$(call touch, $@)
 
@@ -552,7 +554,7 @@ $(STATEDIR)/qt4.install: $(qt4_install_deps_default)
 
 qt4_targetinstall: $(STATEDIR)/qt4.targetinstall
 
-QT_VERSION_L3 := 4.5.1
+QT_VERSION_L3 := 4.5.2
 QT_VERSION_L2 := 4.5
 QT_VERSION_L1 := 4
 

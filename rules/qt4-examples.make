@@ -478,6 +478,12 @@ ifdef PTXCONF_QT4_EXAMPLES_FTP
 		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/ftp)
 endif
 
+ifdef PTXCONF_QT4_EXAMPLES_GOOGLESUGGEST
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)/examples/network/googlesuggest/googlesuggest, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/googlesuggest)
+endif
+
 ifdef PTXCONF_QT4_EXAMPLES_HTTP
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
 		$(QT4_DIR)/examples/network/http/http, \
@@ -946,10 +952,22 @@ ifdef PTXCONF_QT4_EXAMPLES_TEXTFINDER
 		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/textfinder)
 endif
 
+ifdef PTXCONF_QT4_EXAMPLES_FANCYBROWSER
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)/examples/webkit/fancybrowser/fancybrowser, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/fancybrowser)
+endif
+
 ifdef PTXCONF_QT4_EXAMPLES_FORMEXTRACTOR
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
 		$(QT4_DIR)/examples/webkit/formextractor/formExtractor, \
 		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/formExtractor)
+endif
+
+ifdef PTXCONF_QT4_EXAMPLES_GOOGLECHAT
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)/examples/webkit/googlechat/googlechat, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/googlechat)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES_PREVIEWER
