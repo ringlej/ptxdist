@@ -190,9 +190,13 @@ TODO before 2.1.0
 [ ] jbe: all test scripts should check if their interaction with the filesystem
     where successfull. If a file copy to /tftpboot fails, it should *not* continue.
 
-[ ] ringlej. When the architecture is arm-ixp-big this message occurs:
+[x] ringlej. When the architecture is arm-ixp-big this message occurs:
     $ ptxdist kernelconfig
     <bla>/rules/ffmpeg.make:189: Please define the config options for this CPU type!
+
+    20090625: fixed with:
+	git: 2724dc0cd74b716b1ef770d847a5509291ce4bef
+	svn: 10028
 
 [ ] rsc: fix python 3.x
 
