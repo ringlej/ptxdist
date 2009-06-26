@@ -25,53 +25,43 @@ CROSS_PKG_CONFIG_WRAPPER_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_PKG_CONFIG_WRAPPER)
 # Get
 # ----------------------------------------------------------------------------
 
-cross-pkg-config-wrapper_get: $(STATEDIR)/cross-pkg-config-wrapper.get
-
-$(STATEDIR)/cross-pkg-config-wrapper.get: $(cross-pkg-config-wrapper_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/cross-pkg-config-wrapper.get:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-cross-pkg-config-wrapper_extract: $(STATEDIR)/cross-pkg-config-wrapper.extract
-
-$(STATEDIR)/cross-pkg-config-wrapper.extract: $(cross-pkg-config-wrapper_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/cross-pkg-config-wrapper.extract:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-cross-pkg-config-wrapper_prepare: $(STATEDIR)/cross-pkg-config-wrapper.prepare
-
-$(STATEDIR)/cross-pkg-config-wrapper.prepare: $(cross-pkg-config-wrapper_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/cross-pkg-config-wrapper.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-cross-pkg-config-wrapper_compile: $(STATEDIR)/cross-pkg-config-wrapper.compile
-
-$(STATEDIR)/cross-pkg-config-wrapper.compile: $(cross-pkg-config-wrapper_compile_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/cross-pkg-config-wrapper.compile:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-cross-pkg-config-wrapper_install: $(STATEDIR)/cross-pkg-config-wrapper.install
-
-$(STATEDIR)/cross-pkg-config-wrapper.install: $(cross-pkg-config-wrapper_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/cross-pkg-config-wrapper.install:
+	@$(call targetinfo)
 	install -D -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_SYSROOT_CROSS)/bin/pkg-config
 	install -D -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
