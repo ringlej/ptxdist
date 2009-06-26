@@ -21,10 +21,27 @@ BEGIN {
 }
 
 #
-# remember ARGIND of current file
+# called when a new file is opened
 #
 FNR == 1 {
+	#
+	# remember ARGIND of current file
+	#
 	move_argc = ARGIND;
+
+	#
+	# "include" all mafile files which are _not_ pkgs explicidly
+	# the make files which are actually pkgs will be "include"d
+	# in the END rule
+	#
+	if (old_filename && old_filename ~ /.+\/rules\/.+\.make/ && !is_pkg)
+		print "include "old_filename				> DGEN_RULESFILES_MAKE;
+
+	# remember the current opened file
+	old_filename = FILENAME;
+
+	# will be set later, if makefile belongs to a pkg
+	is_pkg = "";
 }
 
 
@@ -70,7 +87,7 @@ $1 ~ /^[A-Z_]*PACKAGES/ {
 	this_PKG = gensub(/^[A-Z_]*PACKAGES-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", $1);
 	this_PKG = gensub(/^[A-Z0-9_]*-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", this_PKG);
 
-	this_pkg = $2;
+	is_pkg = this_pkg = $2;
 	if (this_pkg ~ /[A-Z]+/) {
 		print \
 			"\n" \
