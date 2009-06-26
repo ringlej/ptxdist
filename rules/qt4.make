@@ -27,25 +27,17 @@ QT4_DIR		:= $(BUILDDIR)/$(QT4)
 # Get
 # ----------------------------------------------------------------------------
 
-qt4_get: $(STATEDIR)/qt4.get
-
-$(STATEDIR)/qt4.get: $(qt4_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(QT4_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, QT4)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-qt4_extract: $(STATEDIR)/qt4.extract
-
-$(STATEDIR)/qt4.extract: $(qt4_extract_deps_default)
-	@$(call targetinfo, $@)
-	#@$(call clean, $(QT4_DIR))
+$(STATEDIR)/qt4.extract:
+	@$(call targetinfo)
+#	#@$(call clean, $(QT4_DIR))
 	@$(call extract, QT4)
 	@$(call patchin, QT4)
 	@for file in $(QT4_DIR)/mkspecs/qws/linux-ptx-g++/*.in; do \
@@ -55,13 +47,11 @@ $(STATEDIR)/qt4.extract: $(qt4_extract_deps_default)
 		    -e "s#@LDFLAGS@#$(strip $(CROSS_LDFLAGS))#g" \
 		    $$file > $${file%%.in}; \
 	done
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-qt4_prepare: $(STATEDIR)/qt4.prepare
 
 # don't use CROSS_ENV. Qt uses mkspecs for instead.
 QT4_ENV		:= $(CROSS_ENV_FLAGS) $(CROSS_ENV_PKG_CONFIG)
@@ -440,8 +430,8 @@ ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK)$(PTXCONF_QT4_BUILD_DESIG
 QT4_BUILD_TOOLS_TARGETS = sub-tools
 endif
 
-$(STATEDIR)/qt4.prepare: $(qt4_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/qt4.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(QT4_DIR)/config.cache)
 
 	@rm -f $(QT4_DIR)/bin/qt.conf
@@ -451,7 +441,7 @@ $(STATEDIR)/qt4.prepare: $(qt4_prepare_deps_default)
 	@cd $(QT4_DIR) && \
 		$(QT4_PATH) $(QT4_ENV) \
 		./configure $(QT4_AUTOCONF)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -505,66 +495,60 @@ QT4_BUILD_TARGETS += sub-testlib
 QT4_INSTALL_TARGETS += sub-testlib-install_subtargets
 endif
 
-qt4_compile: $(STATEDIR)/qt4.compile
-
-$(STATEDIR)/qt4.compile: $(qt4_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/qt4.compile:
+	@$(call targetinfo)
 ifneq ($(strip $(QT4_BUILD_TARGETS)), )
 	cd $(QT4_DIR) && $(QT4_PATH) $(QT4_ENV) $(MAKE) \
 		$(PARALLELMFLAGS) $(QT4_BUILD_TARGETS)
 endif
 
-	# These targets don't have the correct dependencies.
-	# We have to build them later
+#	# These targets don't have the correct dependencies.
+#	# We have to build them later
 	echo $(QT4_BUILD_TOOLS_TARGETS)
 ifneq ($(strip $(QT4_BUILD_TOOLS_TARGETS)), )
 	cd $(QT4_DIR) && $(QT4_PATH) $(QT4_ENV) $(MAKE) \
 		$(PARALLELMFLAGS) $(QT4_BUILD_TOOLS_TARGETS)
 endif
 ifdef PTXCONF_QT4_PREPARE_EXAMPLES
-	# FIXME: use "-k" and " || true" for now.
-	# some examples will may fail to build because of missing libraries
-	# these cannot be installed but all are built
+#	# FIXME: use "-k" and " || true" for now.
+#	# some examples will may fail to build because of missing libraries
+#	# these cannot be installed but all are built
 	cd $(QT4_DIR) && $(QT4_PATH) $(QT4_ENV) $(MAKE) \
 		$(PARALLELMFLAGS) -k sub-examples || true
 endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-qt4_install: $(STATEDIR)/qt4.install
-
-$(STATEDIR)/qt4.install: $(qt4_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/qt4.install:
+	@$(call targetinfo)
 	@cd $(QT4_DIR) && $(QT4_PATH) $(MAKE) \
 		$(QT4_INSTALL_TARGETS) $(QT4_MAKEVARS)
-	# put a link for qmake where other packages can find it
+#	# put a link for qmake where other packages can find it
 	@ln -sf $(QT4_DIR)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake
 	@# qmake needs this to build other packages
 	@echo -e "[Paths]\nPrefix=/usr\nHeaders=$(SYSROOT)/usr/include\nBinaries=$(QT4_DIR)/bin\nLibraries=$(SYSROOT)/usr/lib" > $(QT4_DIR)/bin/qt.conf
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-qt4_targetinstall: $(STATEDIR)/qt4.targetinstall
-
 QT_VERSION_L3 := 4.5.2
 QT_VERSION_L2 := 4.5
 QT_VERSION_L1 := 4
 
-$(STATEDIR)/qt4.targetinstall: $(qt4_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/qt4.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, qt4)
 	@$(call install_fixup,qt4,PACKAGE,qt4)
 	@$(call install_fixup,qt4,PRIORITY,optional)
 	@$(call install_fixup,qt4,VERSION,$(QT4_VERSION))
 	@$(call install_fixup,qt4,SECTION,base)
-	@$(call install_fixup,qt4,AUTHOR,"Juergen Beisertl <j.beisert\@pengutronix.de>")
+	@$(call install_fixup,qt4,AUTHOR,"Juergen Beisertl <j.beisert@pengutronix.de>")
 	@$(call install_fixup,qt4,DEPENDS,)
 	@$(call install_fixup,qt4,DESCRIPTION,missing)
 
@@ -933,7 +917,7 @@ endif
 
 	@$(call install_finish,qt4)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
