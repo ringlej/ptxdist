@@ -50,6 +50,8 @@ export -f ptxd_make_xpkg_deps
 # function to create a generic package
 #
 ptxd_make_xpkg_finish() {
+    . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return
+
     ptxd_make_xpkg_init || return
 
     #
@@ -86,6 +88,17 @@ ptxd_make_xpkg_finish() {
 	return 1
     else
 	echo "done."
+    fi
+
+    #
+    # post install
+    #
+    if [ -f "${PTXDIST_WORKSPACE}/rules/${pkg_xpkg}.postinst" ]; then
+	echo "xpkg_finish:	running postinst"
+	DESTDIR="${ROOTDIR}" /bin/sh "${PTXDIST_WORKSPACE}/rules/${pkg_xpkg}.postinst"
+    elif [ -f "${PTXDIST_TOPDIR}/rules/${pkg_xpkg}.postinst" ]; then
+	echo "xpkg_finish:	running postinst"
+	DESTDIR="${ROOTDIR}" /bin/sh "${PTXDIST_TOPDIR}/rules/${pkg_xpkg}.postinst"
     fi
 
     return
