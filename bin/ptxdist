@@ -196,17 +196,22 @@ check_version() {
 		return 0
 	fi
 
-	####################################################################
-	# as long as we're not 2.0 (i.e. stable) the versions _must_ match #
-	####################################################################
+	#
+	# the toolchain project is a bit more relaxed, new ptxdists
+	# can build it, too
+	#
+	if ! ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null; then
+		####################################################################
+		# as long as we're not 2.0 (i.e. stable) the versions _must_ match #
+		# (for normal BSPs)						   #
+		####################################################################
 
-	if [ "${1}" = "${PTXDIST_VERSION_FULL}" ]; then
-		return
-	else
-		return 1
+		if [ "${1}" = "${PTXDIST_VERSION_FULL}" ]; then
+			return
+		else
+			return 1
+		fi
 	fi
-
-	exit 1	# not reached
 
 	local ifs_old="${IFS}"
 	IFS=.
