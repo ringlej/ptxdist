@@ -56,21 +56,24 @@ ptxd_kgen_awk()
 ptxd_kgen_generate_sections()
 {
     local dir
-
     (
 	for dir in "${PTXDIST_OVERWRITE_DIRS_LSB[@]}"; do
 	    if [ \! -d "${dir}/rules" ]; then
 		continue
-	    fi &&
+	    fi
 
 	    if [ -z "$(find "${dir}/rules" -name *.in)" ]; then
 		continue
-	    fi &&
+	    fi
 
-	    grep -R -H -e "^##[[:space:]]*SECTION=" "${dir}/rules/"*.in
+	    #
+	    # if there aren't any "SECTION"s in the .in-files, grep
+	    # has a negative return value. but this is no error, so
+	    # use "|| true" here
+	    #
+	    grep -R -H -e "^##[[:space:]]*SECTION=" "${dir}/rules/"*.in || true
 	done
-    ) | ptxd_kgen_awk &&
-    check_pipe_status
+    ) | ptxd_kgen_awk
 }
 
 
