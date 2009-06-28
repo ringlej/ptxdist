@@ -62,7 +62,8 @@ ptxd_init_sysroot_toolchain() {
 ptxd_make_init() {
     ptxd_init_arch &&
 
-    if ptxd_get_ptxconf PTXCONF_LIBC > /dev/null; then
+    if ptxd_get_ptxconf PTXCONF_LIBC > /dev/null &&
+	! ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN > /dev/null; then
 	ptxd_init_sysroot_toolchain || return
     fi
 }
