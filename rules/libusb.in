@@ -1,12 +1,16 @@
 ## SECTION=system_libraries
+
 menuconfig LIBUSB
 	tristate
 	select LIBC_RT
 	select LIBC_PTHREAD
 	prompt "libusb-1.x                    "
 	help
-	  Library to enable user space application programs to
-	  communicate with USB devices.
+	  userspace USB programming library
+
+	  Library for programming USB applications without the
+	  knowledge of Linux kernel internals.
+
 	  Note: libusb-1.x is not binary compatible with its precedessor
 	  libusb-0.x!
 
