@@ -89,8 +89,6 @@ config GRUB_AUTO_LINUX_MEM_OPT
 	help
 	  pass Linux mem= option automatically
 
-if !GRUB_DISKLESS
-
 comment "File System Support"
 
 config GRUB_FFS
@@ -153,8 +151,6 @@ config GRUB_ISO9660
 	prompt "iso9660   filesystem"
 	help
 	  ISO9660 support in Stage 2
-
-endif
 
 comment "Network Card Support"
 
