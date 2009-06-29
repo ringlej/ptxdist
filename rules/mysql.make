@@ -2,6 +2,7 @@
 # $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
+# Copyright (C) 2009 by Juergen Beisert <j.beisert@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -341,7 +342,21 @@ $(STATEDIR)/mysql.targetinstall:
 	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/client/mysql_upgrade, /usr/bin/mysql_upgrade)
 	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/client/mysqlcheck, /usr/bin/mysqlcheck)
 	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/client/mysqldump, /usr/bin/mysqldump)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/libmysql/.libs/libmysqlclient.so.15, /usr/lib/libmysqlclient.so.15)
+
+	@$(call install_copy, mysql, 0, 0, 0755, -, \
+		/usr/lib/mysql/libmysqlclient.so.15.0.0)
+	@$(call install_link, mysql, libmysqlclient.so.15.0.0, \
+		/usr/lib/mysql/libmysqlclient.so.15)
+	@$(call install_link, mysql, libmysqlclient.so.15.0.0, \
+		/usr/lib/mysql/libmysqlclient.so)
+
+#	# libmyodbc3_r-3.51.27.so uses this library:
+	@$(call install_copy, mysql, 0, 0, 0755, -, \
+		/usr/lib/mysql/libmysqlclient_r.so.15.0.0)
+	@$(call install_link, mysql, libmysqlclient_r.so.15.0.0, \
+		/usr/lib/mysql/libmysqlclient_r.so.15)
+	@$(call install_link, mysql, libmysqlclient_r.so.15.0.0, \
+		/usr/lib/mysql/libmysqlclient_r.so)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_MYSQL_STARTSCRIPT
