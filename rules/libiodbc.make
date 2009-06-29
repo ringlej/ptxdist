@@ -47,13 +47,14 @@ LIBIODBC_ENV 	:= $(CROSS_ENV)
 LIBIODBC_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-libodbc \
-	--disable-gtktest \
 	--enable-pthreads
 
 ifdef PTXCONF_LIBIODBC_GUI
 LIBIODBC_AUTOCONF += --enable-gui
 else
-LIBIODBC_AUTOCONF += --disable-gui
+LIBIODBC_AUTOCONF += \
+	--disable-gui \
+	--disable-gtktest
 endif
 
 ifdef PTXCONF_LIBIODBC_DRIVER_VERSION_3

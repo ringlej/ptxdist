@@ -3,6 +3,7 @@
 menuconfig LIBIODBC
 	bool
 	prompt "libiodbc                      "
+	select GTK if LIBIODBC_GUI
 	help
 	 iODBC is the acronym for Independent Open DataBase Connectivity,
 	 an Open Source platform independent implementation of both the
