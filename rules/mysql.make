@@ -343,7 +343,7 @@ $(STATEDIR)/mysql.targetinstall:
 	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/client/mysqlcheck, /usr/bin/mysqlcheck)
 	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/client/mysqldump, /usr/bin/mysqldump)
 
-	@$(call install_copy, mysql, 0, 0, 0755, -, \
+	@$(call install_copy, mysql, 0, 0, 0644, -, \
 		/usr/lib/mysql/libmysqlclient.so.15.0.0)
 	@$(call install_link, mysql, libmysqlclient.so.15.0.0, \
 		/usr/lib/mysql/libmysqlclient.so.15)
@@ -351,7 +351,7 @@ $(STATEDIR)/mysql.targetinstall:
 		/usr/lib/mysql/libmysqlclient.so)
 
 #	# libmyodbc3_r-3.51.27.so uses this library:
-	@$(call install_copy, mysql, 0, 0, 0755, -, \
+	@$(call install_copy, mysql, 0, 0, 0644, -, \
 		/usr/lib/mysql/libmysqlclient_r.so.15.0.0)
 	@$(call install_link, mysql, libmysqlclient_r.so.15.0.0, \
 		/usr/lib/mysql/libmysqlclient_r.so.15)
