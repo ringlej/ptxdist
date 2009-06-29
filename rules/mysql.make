@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
 # Copyright (C) 2009 by Juergen Beisert <j.beisert@pengutronix.de>
@@ -24,6 +23,7 @@ MYSQL_SUFFIX	:= tar.gz
 MYSQL_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(MYSQL).$(MYSQL_SUFFIX)
 MYSQL_SOURCE	:= $(SRCDIR)/$(MYSQL).$(MYSQL_SUFFIX)
 MYSQL_DIR	:= $(BUILDDIR)/$(MYSQL)
+MYSQL_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
