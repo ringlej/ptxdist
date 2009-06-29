@@ -1,4 +1,5 @@
 ## SECTION=networking
+
 menuconfig IPROUTE2
 	tristate
 	prompt "iproute2                      "
@@ -7,8 +8,15 @@ menuconfig IPROUTE2
 	select LIBC_M
 	select LIBC_RESOLV
 	help
-	  Iproute2 is a collection of utilities for controlling TCP/IP networking
-	  apnd traffic control in Linux.
+	  Networking and traffic control tools
+
+	  The iproute suite, also known as iproute2, is a collection
+	  of utilities for networking and traffic control.
+
+	  These tools communicate with the Linux kernel via the
+	  (rt)netlink interface, providing advanced features not
+	  available through the legacy net-tools commands 'ifconfig'
+	  and 'route'.
 
 if IPROUTE2
 
