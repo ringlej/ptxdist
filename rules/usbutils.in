@@ -1,10 +1,21 @@
 ## SECTION=shell_and_console
+
 menuconfig USBUTILS
 	select LIBUSB_COMPAT
 	tristate
 	prompt "usbutils                      "
 	help
-	  usbutils
+	  Linux USB utilities
+
+	  This package contains the lsusb utility for inspecting the
+	  devices connected to the USB bus. It shows a graphical
+	  representation of the devices that are currently plugged
+	  in, showing the topology of the USB bus. It also displays
+	  information on each individual device on the bus.
+
+	  More information can be found at the Linux USB web site
+	  http://www.linux-usb.org/usbutils
+
 
 config USBUTILS_LSUSB
 	bool
@@ -12,8 +23,12 @@ config USBUTILS_LSUSB
 	prompt "lsusb"
 	help
 	  lsusb - list the devices connected to a host
-	  Note: To use lsusb don't forget to enable kernel's
-	  usb filesystem and to mount it at runtime at /proc/bus/usb.
-	  An entry like "usbfs /proc/bus/usb usbfs devgid=14,devmode=0660 0  0"
+
+	  Note: To use lsusb don't forget to enable kernel's usb
+	  filesystem and to mount it at runtime at /proc/bus/usb. An
+	  entry like:
+
+	  "usbfs /proc/bus/usb usbfs devgid=14,devmode=0660 0 0"
+
 	  in the /etc/fstab does the job.
 
