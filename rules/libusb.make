@@ -22,6 +22,7 @@ LIBUSB_SUFFIX	:= tar.bz2
 LIBUSB_URL	:= $(PTXCONF_SETUP_SFMIRROR)/libusb/$(LIBUSB).$(LIBUSB_SUFFIX)
 LIBUSB_SOURCE	:= $(SRCDIR)/$(LIBUSB).$(LIBUSB_SUFFIX)
 LIBUSB_DIR	:= $(BUILDDIR)/$(LIBUSB)
+LIBUSB_LICENSE	:= LGPLv2.1
 
 # ----------------------------------------------------------------------------
 # Get
