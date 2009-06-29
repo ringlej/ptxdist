@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5616 2006-06-02 13:50:47Z rsc $
 #
 # Copyright (C) 2006 by Erwin Rol
 # Copyright (C) 2009 by Robert Schwebel/Juergen Beisert
@@ -30,7 +29,7 @@ IPROUTE2_DIR		:= $(BUILDDIR)/$(IPROUTE2)
 # ----------------------------------------------------------------------------
 
 $(IPROUTE2_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, IPROUTE2)
 
 # ----------------------------------------------------------------------------
@@ -46,27 +45,27 @@ IPROUTE2_MAKEVARS = \
 	DBM_INCLUDE=$(SYSROOT)/usr/include
 
 $(STATEDIR)/iproute2.prepare:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@touch $(IPROUTE2_DIR)/Config
 ifdef PTXCONF_IPROUTE2_ARPD
 	@echo BUILD_ARPD=y >> $(IPROUTE2_DIR)/Config
 endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/iproute2.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/iproute2.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, iproute2)
 	@$(call install_fixup,iproute2,PACKAGE,iproute2)
@@ -93,15 +92,15 @@ ifdef PTXCONF_IPROUTE2_TC
 		/sbin/tc)
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/normal.dist, \
-		/usr/lib/tc/normal.dist,n)
+		/usr/lib/tc/normal.dist)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/pareto.dist, \
-		/usr/lib/tc/pareto.dist,n)
+		/usr/lib/tc/pareto.dist)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/netem/paretonormal.dist, \
-		/usr/lib/tc/paretonormal.dist,n)
+		/usr/lib/tc/paretonormal.dist)
 endif
 ifdef PTXCONF_IPROUTE2_ARPD
 	@$(call install_copy, iproute2, 0, 0, 0755, \
@@ -131,31 +130,31 @@ endif
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/ematch_map, \
-		/etc/iproute2/ematch_map,n)
+		/etc/iproute2/ematch_map)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_dsfield, \
-		/etc/iproute2/rt_dsfield,n)
+		/etc/iproute2/rt_dsfield)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_protos, \
-		/etc/iproute2/rt_protos,n)
+		/etc/iproute2/rt_protos)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_realms, \
-		/etc/iproute2/rt_realms,n)
+		/etc/iproute2/rt_realms)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_scopes, \
-		/etc/iproute2/rt_scopes,n)
+		/etc/iproute2/rt_scopes)
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_tables, \
-		/etc/iproute2/rt_tables,n)
+		/etc/iproute2/rt_tables)
 
 	@$(call install_finish,iproute2)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
