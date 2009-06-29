@@ -23,6 +23,7 @@ IPROUTE2_SUFFIX		:= tar.bz2
 IPROUTE2_URL		:= http://developer.osdl.org/dev/iproute2/download/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_SOURCE		:= $(SRCDIR)/$(IPROUTE2).$(IPROUTE2_SUFFIX)
 IPROUTE2_DIR		:= $(BUILDDIR)/$(IPROUTE2)
+IPROUTE2_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
