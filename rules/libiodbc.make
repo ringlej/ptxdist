@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBIODBC) += libiodbc
 #
 # Paths and names
 #
-LIBIODBC_VERSION	:= 3.52.5
+LIBIODBC_VERSION	:= 3.52.6
 LIBIODBC		:= libiodbc-$(LIBIODBC_VERSION)
 LIBIODBC_SUFFIX		:= tar.gz
 LIBIODBC_URL		:= $(PTXCONF_SETUP_SFMIRROR)/iodbc/$(LIBIODBC).$(LIBIODBC_SUFFIX)
@@ -79,17 +79,17 @@ $(STATEDIR)/libiodbc.targetinstall:
 	@$(call install_fixup, libiodbc,DESCRIPTION,missing)
 
 	@$(call install_copy, libiodbc, 0, 0, 0644, -, \
-		/usr/lib/libiodbc.so.2.1.17)
-	@$(call install_link, libiodbc, libiodbc.so.2.1.17, \
+		/usr/lib/libiodbc.so.2.1.18)
+	@$(call install_link, libiodbc, libiodbc.so.2.1.18, \
 		/usr/lib/libiodbc.so.2)
-	@$(call install_link, libiodbc, libiodbc.so.2.1.17, \
+	@$(call install_link, libiodbc, libiodbc.so.2.1.18, \
 		/usr/lib/libiodbc.so)
 
 	@$(call install_copy, libiodbc, 0, 0, 0644, -, \
-		/usr/lib/libiodbcinst.so.2.1.17)
-	@$(call install_link, libiodbc, libiodbcinst.so.2.1.17, \
+		/usr/lib/libiodbcinst.so.2.1.18)
+	@$(call install_link, libiodbc, libiodbcinst.so.2.1.18, \
 		/usr/lib/libiodbcinst.so.2)
-	@$(call install_link, libiodbc, libiodbcinst.so.2.1.17, \
+	@$(call install_link, libiodbc, libiodbcinst.so.2.1.18, \
 		/usr/lib/libiodbcinst.so)
 
 	@$(call install_finish, libiodbc)
