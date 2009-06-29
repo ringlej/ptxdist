@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Sascha Hauer
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -24,6 +23,7 @@ USBUTILS_SUFFIX		:= tar.gz
 USBUTILS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/linux-usb/$(USBUTILS).$(USBUTILS_SUFFIX)
 USBUTILS_SOURCE		:= $(SRCDIR)/$(USBUTILS).$(USBUTILS_SUFFIX)
 USBUTILS_DIR		:= $(BUILDDIR)/$(USBUTILS)
+USBUTILS_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
