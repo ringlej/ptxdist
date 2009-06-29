@@ -5,11 +5,20 @@ menuconfig LIBIODBC
 	prompt "libiodbc                      "
 	select GTK if LIBIODBC_GUI
 	help
-	 iODBC is the acronym for Independent Open DataBase Connectivity,
-	 an Open Source platform independent implementation of both the
-	 ODBC and X/Open specifications. It is rapidly emerging as the
-	 industry standard for developing solutions that are language,
-	 platform and database independent.
+	  iODBC Driver Manager
+
+	  iODBC (intrinsic Open Database Connectivity) driver manager
+	  is compatible with ODBC 2.x and 3.x specification and
+	  performs exact the jobs of a ODBC driver manager
+	  (i.e. driver loading, Parameters and function sequence
+	  checking, driver's function invoking, etc). Any ODBC driver
+	  works with ODBC 2.0 and 3.x driver manager will also work
+	  with iODBC driver manager and vice versa.
+
+	  Applications (using ODBC function calls) linked with iODBC
+	  driver manager will be able to simultaneously access
+	  different type of data sources within one process through
+	  suitable iODBC drivers.
 
 if LIBIODBC
 
