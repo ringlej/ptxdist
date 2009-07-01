@@ -3,7 +3,7 @@
 menu "gdb                           "
 
 # must be before GDB - used by gdb & gdbserver
-config GDB__VERSION
+config GDB_VERSION
        string "gdb version"
        default 6.8
        depends on GDB || GDBSERVER
