@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002-2007 by Pengutronix e.K., Hildesheim, Germany
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -38,8 +37,6 @@ $(ZLIB_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-zlib_prepare: $(STATEDIR)/zlib.prepare
-
 ZLIB_PATH	:= PATH=$(CROSS_PATH)
 ZLIB_ENV 	:= $(CROSS_ENV)
 
@@ -67,12 +64,12 @@ ifndef PTXCONF_ZLIB_STATIC
 	@$(call install_fixup, zlib,PRIORITY,optional)
 	@$(call install_fixup, zlib,VERSION,$(ZLIB_VERSION))
 	@$(call install_fixup, zlib,SECTION,base)
-	@$(call install_fixup, zlib,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, zlib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, zlib,DEPENDS,)
 	@$(call install_fixup, zlib,DESCRIPTION,missing)
 
-	@$(call install_copy, zlib, 0, 0, 0644, \
-		$(ZLIB_DIR)/.libs/libz.so.1.2.3, /usr/lib/libz.so.1.2.3)
+	@$(call install_copy, zlib, 0, 0, 0644, -, \
+		/usr/lib/libz.so.1.2.3)
 	@$(call install_link, zlib, libz.so.1.2.3, /usr/lib/libz.so.1)
 	@$(call install_link, zlib, libz.so.1.2.3, /usr/lib/libz.so)
 
