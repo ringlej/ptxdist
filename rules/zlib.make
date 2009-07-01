@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2002-2007 by Pengutronix e.K., Hildesheim, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -23,6 +24,7 @@ ZLIB_SUFFIX	:= tar.bz2
 ZLIB_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(ZLIB).$(ZLIB_SUFFIX)
 ZLIB_SOURCE	:= $(SRCDIR)/$(ZLIB).$(ZLIB_SUFFIX)
 ZLIB_DIR	:= $(BUILDDIR)/$(ZLIB)
+ZLIB_LICENSE	:= zlib
 
 # ----------------------------------------------------------------------------
 # Get
