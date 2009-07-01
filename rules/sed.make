@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by KOAN sas, by Marco Cavallini <m.cavallini@koansoftware.com>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,9 +17,9 @@ PACKAGES-$(PTXCONF_SED) += sed
 #
 # Paths and names
 #
-SED_VERSION	:= 4.1.5
+SED_VERSION	:= 4.2.1
 SED		:= sed-$(SED_VERSION)
-SED_SUFFIX	:= tar.gz
+SED_SUFFIX	:= tar.bz2
 SED_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/sed/$(SED).$(SED_SUFFIX)
 SED_SOURCE	:= $(SRCDIR)/$(SED).$(SED_SUFFIX)
 SED_DIR		:= $(BUILDDIR)/$(SED)
