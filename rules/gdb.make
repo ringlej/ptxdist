@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_GDB) += gdb
 #
 # Paths and names
 #
-GDB_VERSION	:= $(call remove_quotes,$(PTXCONF_GDB__VERSION))
+GDB_VERSION	:= $(call remove_quotes,$(PTXCONF_GDB_VERSION))
 GDB		:= gdb-$(GDB_VERSION)
 GDB_SUFFIX	:= tar.bz2
 GDB_SOURCE	:= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
@@ -56,7 +56,7 @@ GDB_ENV		:= \
 	$(CROSS_ENV) \
 	$(CROSS_ENV_FLAGS_FOR_TARGET)
 
-ifndef PTXCONF_GDB__SHARED
+ifndef PTXCONF_GDB_SHARED
 GDB_MAKEVARS	:=  LDFLAGS=-static
 endif
 
