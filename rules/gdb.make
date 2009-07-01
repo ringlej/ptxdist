@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002-2008 by Pengutronix e.K., Hildesheim, Germany
 #               2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
@@ -68,32 +67,6 @@ GDB_AUTOCONF := \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-build-sysroot=$(SYSROOT)
 
-$(STATEDIR)/gdb.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(GDB_BUILDDIR))
-	mkdir -p $(GDB_BUILDDIR)
-	cd $(GDB_BUILDDIR) && \
-		$(GDB_PATH) $(GDB_ENV) \
-		$(GDB_DIR)/configure $(GDB_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gdb.compile:
-	@$(call targetinfo)
-	cd $(GDB_BUILDDIR) && $(GDB_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gdb.install:
-	@$(call targetinfo)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -106,11 +79,11 @@ $(STATEDIR)/gdb.targetinstall:
 	@$(call install_fixup, gdb,PRIORITY,optional)
 	@$(call install_fixup, gdb,VERSION,$(GDB_VERSION))
 	@$(call install_fixup, gdb,SECTION,base)
-	@$(call install_fixup, gdb,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gdb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gdb,DEPENDS,)
 	@$(call install_fixup, gdb,DESCRIPTION,missing)
 
-	@$(call install_copy, gdb, 0, 0, 0755, $(GDB_BUILDDIR)/gdb/gdb, /usr/bin/gdb)
+	@$(call install_copy, gdb, 0, 0, 0755, -, /usr/bin/gdb)
 
 	@$(call install_finish, gdb)
 	@$(call touch)
