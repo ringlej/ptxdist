@@ -23,6 +23,7 @@ SED_SUFFIX	:= tar.bz2
 SED_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/sed/$(SED).$(SED_SUFFIX)
 SED_SOURCE	:= $(SRCDIR)/$(SED).$(SED_SUFFIX)
 SED_DIR		:= $(BUILDDIR)/$(SED)
+SED_LICENSE	:= GPLv3
 
 # ----------------------------------------------------------------------------
 # Get
@@ -35,8 +36,6 @@ $(SED_SOURCE):
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-sed_prepare: $(STATEDIR)/sed.prepare
 
 SED_PATH	:= PATH=$(CROSS_PATH)
 SED_ENV 	:= $(CROSS_ENV)
@@ -58,11 +57,12 @@ $(STATEDIR)/sed.targetinstall:
 	@$(call install_fixup, sed,PRIORITY,optional)
 	@$(call install_fixup, sed,VERSION,$(SED_VERSION))
 	@$(call install_fixup, sed,SECTION,base)
-	@$(call install_fixup, sed,AUTHOR,"Marco Cavallini <m.cavallini\@koansoftware.com>")
+	@$(call install_fixup, sed,AUTHOR,"Marco Cavallini <m.cavallini@koansoftware.com>")
 	@$(call install_fixup, sed,DEPENDS,)
 	@$(call install_fixup, sed,DESCRIPTION,missing)
 
-	@$(call install_copy, sed, 0, 0, 0755, $(SED_DIR)/sed/sed, /usr/bin/sed)
+	@$(call install_copy, sed, 0, 0, 0755, -, \
+		/usr/bin/sed)
 
 	@$(call install_finish, sed)
 
