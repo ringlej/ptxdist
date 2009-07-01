@@ -42,7 +42,7 @@ $(STATEDIR)/gdbserver.extract: $(STATEDIR)/gdb.extract
 GDBSERVER_PATH	:= $(GDB_PATH)
 GDBSERVER_ENV	:= $(GDB_ENV)
 
-ifndef PTXCONF_GDBSERVER__SHARED
+ifndef PTXCONF_GDBSERVER_SHARED
 GDBSERVER_ENV	+=  LDFLAGS=-static
 endif
 

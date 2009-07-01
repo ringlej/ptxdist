@@ -10,7 +10,7 @@ menuconfig GDBSERVER
 
 if GDBSERVER
 
-config GDBSERVER__SHARED
+config GDBSERVER_SHARED
 	bool "shared gdbserver"
 	default y
 	select LIBC_THREAD_DB
