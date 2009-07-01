@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_GDBSERVER) += gdbserver
 
 GDBSERVER		= gdbserver-$(GDB_VERSION)
 GDBSERVER_BUILDDIR	= $(BUILDDIR)/$(GDB)-server-build
+GDBSERVER_LICENSE	:= GPLv3+
 
 # ----------------------------------------------------------------------------
 # Get
