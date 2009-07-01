@@ -1,9 +1,12 @@
 ## SECTION=shell_and_console
+
 config SED
 	tristate
 	depends on !BUSYBOX_SED || ALLYES
 	prompt "sed"
 	help
+	  The GNU sed stream editor
+
 	  sed reads the specified files or the standard input if no
 	  files are specified, makes editing changes according to a
 	  list of commands, and writes the results to the standard
