@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id$
 #
-# Copyright (C) 2002-2008 by Pengutronix e.K., Hildesheim, Germany
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+#               2002-2008 by Pengutronix e.K., Hildesheim, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -62,23 +62,6 @@ $(STATEDIR)/gdbserver.prepare:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gdbserver.compile:
-	@$(call targetinfo)
-	cd $(GDBSERVER_BUILDDIR) && $(GDBSERVER_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gdbserver.install:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -90,11 +73,12 @@ $(STATEDIR)/gdbserver.targetinstall:
 	@$(call install_fixup, gdbserver,PRIORITY,optional)
 	@$(call install_fixup, gdbserver,VERSION,$(GDB_VERSION))
 	@$(call install_fixup, gdbserver,SECTION,base)
-	@$(call install_fixup, gdbserver,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gdbserver,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gdbserver,DEPENDS,)
 	@$(call install_fixup, gdbserver,DESCRIPTION,missing)
 
-	@$(call install_copy, gdbserver, 0, 0, 0755, $(GDBSERVER_BUILDDIR)/gdbserver, /usr/bin/gdbserver)
+	@$(call install_copy, gdbserver, 0, 0, 0755, \
+		$(GDBSERVER_BUILDDIR)/gdbserver, /usr/bin/gdbserver)
 
 	@$(call install_finish, gdbserver)
 
