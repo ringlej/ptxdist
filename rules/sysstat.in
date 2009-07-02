@@ -4,6 +4,8 @@ config SYSSTAT
 	tristate
 	prompt "sysstat"
 	help
+	  sar, iostat and mpstat - system performance tools for Linux
+
 	  The sysstat package contains the following system
 	  performance tools:
 
