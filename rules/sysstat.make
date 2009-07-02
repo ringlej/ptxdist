@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -17,7 +16,7 @@ PACKAGES-$(PTXCONF_SYSSTAT) += sysstat
 #
 # Paths and names
 #
-SYSSTAT_VERSION	:= 9.0.1
+SYSSTAT_VERSION	:= 9.0.3
 SYSSTAT		:= sysstat-$(SYSSTAT_VERSION)
 SYSSTAT_SUFFIX	:= tar.gz
 SYSSTAT_URL	:= http://pagesperso-orange.fr/sebastien.godard/$(SYSSTAT).$(SYSSTAT_SUFFIX)
