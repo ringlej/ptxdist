@@ -43,6 +43,7 @@ SYSSTAT_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 SYSSTAT_AUTOCONF := $(CROSS_AUTOCONF_USR)
+SYSSTAT_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
