@@ -15,13 +15,19 @@ config LIBUSB_DISABLE_LOG
 	prompt "Disable all log"
 	default y
 	help
-	  Disable all logging
+	  Disable all logging. Even if an application setup the debug level
+	  to a value other than 0, this library will not output any messages.
+	  If this menu entry is not enabled, an application or the environment
+	  variable LIBUSB_DEBUG can setup the debug message level at runtime.
+	  Refer http://libusb.sourceforge.net/api-1.0/group__lib.htm function
+	  libusb_set_debug()
 
 config LIBUSB_DEBUG_LOG
 	bool
 	prompt "Enable debug log"
 	depends on !LIBUSB_DISABLE_LOG
 	help
-	  Enable full debug logging
+	  Enable full debug logging. This will always output debug messages,
+	  there is no way to disable them at runtime.
 
 endif
