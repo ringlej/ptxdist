@@ -321,7 +321,7 @@ ifdef PTXCONF_NTP_NTPD
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_NTP_NTPD_STARTSCRIPT
-	@$(call install_alternative, ntp, 0, 0, 0755, /etc/init.d/ntp)
+	@$(call install_alternative, ntp, 0, 0, 0755, /etc/init.d/ntp-server)
 endif
 endif
 endif
