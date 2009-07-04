@@ -1,6 +1,8 @@
 ## SECTION=system_libraries
 menuconfig LIBUSB
 	tristate
+	select LIBC_RT
+	select LIBC_PTHREAD
 	prompt "libusb-1.x                    "
 	help
 	  Library to enable user space application programs to
