@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+# This is a ntp-client init.d script which ist called by init(1) with
+# [start|stop] as argument
+
+PATH=/sbin:/bin:/usr/bin
+BINARY=/usr/sbin/ntpdc
+PIDFILE="/var/run/ntpdc.pid"
+CONFIG="/etc/ntp-client.conf"
+
+HARD=false
+
+# --- nothing to change after this line ---
+
+test -f $BINARY || { echo "$BINARY not found" >&2 ; exit 0; }
+
+start_proc() {
+	echo -n "Starting NTP client: ntpdc ..."
+	test -f "$PIDFILE" && { echo "pid-file exists" >&2 ; exit 0; }
+	$BINARY -p $PIDFILE -c $CONFIG
+	echo "DONE"
+}
+
+stop_proc() {
+	echo -n "Stopping NTP client: ntpdc ..."
+	test -f "$PIDFILE"
+	case $? in
+		0)
+			kill `cat $PIDFILE` && rm -f $PIDFILE
+			;;
+		*)
+			if [ "$HARD" = "true" ] ; then killall ntpd; fi
+			;;
+	esac
+	echo "DONE"
+}
+
+
+case "$1" in
+        start)
+        	start_proc
+		;;
+	stop)
+		stop_proc
+		;;
+        restart|force-reload)
+                echo -n "Restarting NTP client: ntpdc... "
+                stop_proc
+		sleep 2
+                start_proc
+		echo "done."
+                ;;
+        reload)
+                echo "Not supported" >&2
+                exit 1
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart|force-reload}"
+                exit 1
+                ;;
+esac
+
+exit 0
+

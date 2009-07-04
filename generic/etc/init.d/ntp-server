@@ -7,19 +7,7 @@
 PATH=/sbin:/bin:/usr/bin
 BINARY=/usr/sbin/ntpd
 PIDFILE="/var/run/ntpd.pid"
-
-case "`basename $0`" in
-	*ntp-client)
-		CONFIG="/etc/ntp-client.conf"
-		;;
-	*ntp-server)
-		CONFIG="/etc/ntp-server.conf"
-		;;
-	*)
-		echo "script has to be ntp-client or ntp-server"
-		exit 1
-		;;
-esac
+CONFIG="/etc/ntp-server.conf"
 
 HARD=false
 
