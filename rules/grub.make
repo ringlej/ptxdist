@@ -45,7 +45,7 @@ GRUB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--without-curses \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(PTXCONF_SYSROOT_TARGET)
+	--prefix=/usr
 
 ifdef PTXCONF_GRUB_EXT2FS
 GRUB_AUTOCONF += --enable-ext2fs
