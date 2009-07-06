@@ -45,6 +45,9 @@ define ptx_init {
 	set input case observe
 	set input buffer-length 16384
 
+	# Mark as unset
+	.uboot_version = 0
+
 	ptx_print "==============================="
 	ptx_print "Please power on your board now!"
 	ptx_print "==============================="
