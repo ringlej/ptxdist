@@ -1,0 +1,22 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: don't let host's libiconv leak into during install process
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ src/Makefile.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: libiconv-1.13.1/src/Makefile.in
+===================================================================
+--- libiconv-1.13.1.orig/src/Makefile.in
++++ libiconv-1.13.1/src/Makefile.in
+@@ -113,7 +113,7 @@ install : all force
+ 	if [ ! -d $(DESTDIR)$(bindir) ] ; then $(mkinstalldirs) $(DESTDIR)$(bindir) ; fi
+ 	case "@host_os@" in \
+ 	  hpux*) $(CC) $(LDFLAGS) $(CFLAGS) $(iconv_LDFLAGS) iconv.@OBJEXT@ ../srclib/libicrt.a -L$(DESTDIR)$(libdir) -liconv @LIBINTL@ $(OBJECTS_RES_@WOE32@) `if test -n '$(DESTDIR)'; then echo " -Wl,+b -Wl,$(libdir)"; fi` -o iconv$(EXEEXT);; \
+-	  *) $(LIBTOOL_LINK) $(CC) $(LDFLAGS) $(CFLAGS) $(iconv_LDFLAGS) iconv.@OBJEXT@ ../srclib/libicrt.a $(DESTDIR)$(libdir)/libiconv.la @LTLIBINTL@ $(OBJECTS_RES_@WOE32@) -o iconv$(EXEEXT);; \
++	  *) $(LIBTOOL_LINK) $(CC) $(LDFLAGS) $(CFLAGS) $(iconv_LDFLAGS) iconv.@OBJEXT@ ../srclib/libicrt.a ../lib/libiconv.la @LTLIBINTL@ $(OBJECTS_RES_@WOE32@) -o iconv$(EXEEXT);; \
+ 	esac
+ 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL_INSTALL) $(INSTALL_PROGRAM) iconv$(EXEEXT) $(DESTDIR)$(bindir)/iconv$(EXEEXT)
+ 
