@@ -29,6 +29,7 @@ BEGIN {
 
 	prefix_lc = tolower(prefix);
 	prefix = toupper(prefix_lc) "_";
+	prefix = gensub(/-/, "_", "g", prefix);
 
 	prefix_file = "config/" prefix_lc;
 	in_path = gensub(/^(.*)\/.*$/, "\\1", "g", in_file);
