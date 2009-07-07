@@ -1,0 +1,7 @@
+## SECTION=multimedia_xorg_proto
+
+config DRI2PROTO
+	tristate
+	prompt "dri2proto"
+	help
+	  FIXME
