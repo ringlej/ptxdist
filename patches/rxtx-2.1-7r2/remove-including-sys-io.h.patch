@@ -1,0 +1,41 @@
+From: Luotao Fu <l.fu@pengutronix.de>
+Subject: [PATCH] remove including sys/io.h
+
+sys/io.h is actually not used. Besides it doesn't exist in e.g. powerpc
+platform. Including this causes only trouble. Hence we remove this.
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+---
+ src/RawImp.c   |    3 ---
+ src/portmode.c |    1 -
+ 2 files changed, 0 insertions(+), 4 deletions(-)
+
+diff --git a/src/RawImp.c b/src/RawImp.c
+index 75aa1e8..cc6f946 100644
+--- a/src/RawImp.c
++++ b/src/RawImp.c
+@@ -61,9 +61,6 @@
+ #	include <linux/serial.h>
+ #	include <linux/version.h>
+ #endif
+-#ifndef __APPLE__  /* dima */
+-#include <sys/io.h>
+-#endif /* dima */
+ 
+ extern int errno;
+ #include "I2CImp.h"
+diff --git a/src/portmode.c b/src/portmode.c
+index 7a19866..bb63312 100644
+--- a/src/portmode.c
++++ b/src/portmode.c
+@@ -26,7 +26,6 @@ This is just a quick test to see if the stuff is working.
+ 
+ */
+ 
+-#include <sys/io.h>
+ #include <linux/ppdev.h>
+ #include <sys/ioctl.h>
+ #include <sys/types.h>
+-- 
+1.6.3.1
+
