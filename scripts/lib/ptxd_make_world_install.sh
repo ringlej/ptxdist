@@ -37,7 +37,7 @@ export -f ptxd_make_world_install_pkg
 # Perform standard install actions
 #
 ptxd_make_world_install_target() {
-    rm -rf -- "${pkg_pkgdir}}" &&
+    rm -rf -- "${pkg_pkgdir}" &&
     mkdir -p -- "${pkg_pkgdir}"/{etc,{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}} &&
 
     ptxd_make_world_install_pkg "${pkg_pkgdir}" || return
