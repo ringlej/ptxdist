@@ -68,8 +68,8 @@ $(STATEDIR)/cpufrequtils.targetinstall:
 		libcpufreq.so.0.0.0, \
 		/usr/lib/libcpufreq.so.0)
 	@$(call install_link, cpufrequtils, \
-		libconfuse.so.0, \
-		/usr/lib/libconfuse.so)
+		libcpufreq.so.0.0.0, \
+		/usr/lib/libcpufreq.so)
 
 ifdef PTXCONF_CPUFREQUTILS_FREQ_INFO
 	@$(call install_copy, cpufrequtils, 0, 0, 0755, -, /usr/bin/cpufreq-info)
