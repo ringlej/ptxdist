@@ -58,7 +58,7 @@ config NTP_KMEM
 	bool
 	prompt "read /dev/kmem for tick and/or tickadj"
 	help
-	  FIXME: This item needs to be documented
+	  This feature seems only required on non Linux based systems
 
 config NTP_ACCURATE_ADJTIME
 	bool
@@ -110,13 +110,15 @@ config NTP_SLEW_ALWAYS
 	bool
 	prompt "always slew the time"
 	help
-	  FIXME: This item needs to be documented
+	  Slew the clock back into line by making gradual adjustments to the
+	  clock over a couple of minutes.
 
 config NTP_STEP_SLEW
 	bool
 	prompt "step and slew the time"
 	help
-	  FIXME: This item needs to be documented
+	  Slew the clock back into line by making step adjustments to the
+	  clock over a couple of minutes.
 
 config NTP_NTPDATE_STEP
 	bool
