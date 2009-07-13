@@ -1000,6 +1000,12 @@ newpacket() {
 		class=cross-
 		autoconf_class=HOST_CROSS_
 		;;
+	src-cmake-prog)
+		template=template-src-cmake
+		template_src="${PTXDIST_TOPDIR}/rules/templates/src-cmake-prog"
+		class=
+		cmake_class=
+		;;
 	src-autoconf-prog)
 		template=template-src-autoconf
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-autoconf-prog"
@@ -1048,6 +1054,7 @@ newpacket() {
 		echo "  target                   create package for embedded target"
 		echo "  cross                    create cross development package"
 		echo
+		echo "  src-cmake-prog           create cmake binary"
 		echo "  src-autoconf-prog        create autotoolized binary"
 		echo "  src-autoconf-lib         create autotoolized library"
 		echo "  src-autoconf-proglib     create autotoolized binary+library"

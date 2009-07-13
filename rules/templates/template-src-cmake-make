@@ -1,0 +1,88 @@
+# -*-makefile-*-
+# $Id$
+#
+# Copyright (C) @YEAR@ by @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+
+#
+# Paths and names
+#
+@PACKET@_VERSION	:= @VERSION@
+@PACKET@		:= @packet@-$(@PACKET@_VERSION)
+@PACKET@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
+@PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+@PACKET@_PATH	:= PATH=$(CROSS_PATH)
+@PACKET@_ENV 	:= $(CROSS_ENV)
+
+#
+# cmake
+#
+@PACKET@_CMAKE := \
+	$(CROSS_CMAKE_USR)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@packet@.install:
+	@$(call targetinfo, $@)
+	@$(call install, @PACKET@)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@packet@.targetinstall:
+	@$(call targetinfo, $@)
+
+	@$(call install_init,  @packet@)
+	@$(call install_fixup, @packet@, PACKAGE, @packet@)
+	@$(call install_fixup, @packet@, PRIORITY, optional)
+	@$(call install_fixup, @packet@, VERSION, @VERSION@)
+	@$(call install_fixup, @packet@, SECTION, base)
+	@$(call install_fixup, @packet@, AUTHOR, "@AUTHOR@")
+	@$(call install_fixup, @packet@, DEPENDS,)
+	@$(call install_fixup, @packet@, DESCRIPTION, missing)
+
+	#
+	# example code:; copy all binaries
+	#
+
+	@for i in $(shell cd $(PKGDIR)/$(@PACKET@) && find bin sbin usr/bin usr/sbin -type f); do \
+		$(call install_copy, @packet@, 0, 0, 0755, -, /$$i); \
+	done
+
+	#
+	# FIXME: add all necessary things here
+	#
+
+	@$(call install_finish, @packet@)
+
+	@$(call touch, $@)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+@packet@_clean:
+	rm -rf $(STATEDIR)/@packet@.*
+	rm -rf $(PKGDIR)/@packet@_*
+	rm -rf $(@PACKET@_DIR)
+
+# vim: syntax=make

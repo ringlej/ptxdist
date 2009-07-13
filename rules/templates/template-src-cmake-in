@@ -1,0 +1,18 @@
+## SECTION=fixme
+
+config @PACKET@
+	bool
+	prompt "@packet@"
+	select HOST_CMAKE
+	help
+	  FIXME
+
+if @PACKET@
+
+config @PACKET@_TRUNK
+	bool
+	prompt "use trunk"
+	help
+	  Build trunk instead of latest release.
+
+endif
