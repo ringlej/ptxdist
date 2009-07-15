@@ -22,6 +22,7 @@ LIBELF_SUFFIX	:= tar.gz
 LIBELF_URL	:= http://www.mr511.de/software/$(LIBELF).$(LIBELF_SUFFIX)
 LIBELF_SOURCE	:= $(SRCDIR)/$(LIBELF).$(LIBELF_SUFFIX)
 LIBELF_DIR	:= $(BUILDDIR)/$(LIBELF)
+LIBELF_LICENSE	:= LGPL
 
 # ----------------------------------------------------------------------------
 # Get
