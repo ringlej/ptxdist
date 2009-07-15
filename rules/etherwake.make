@@ -24,6 +24,7 @@ ETHERWAKE_TARBALL	:= etherwake_$(ETHERWAKE_VERSION).orig.$(ETHERWAKE_SUFFIX)
 ETHERWAKE_URL		:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/e/etherwake/$(ETHERWAKE_TARBALL)
 ETHERWAKE_SOURCE	:= $(SRCDIR)/$(ETHERWAKE_TARBALL)
 ETHERWAKE_DIR		:= $(BUILDDIR)/$(ETHERWAKE)
+ETHERWAKE_LICENSE	:= GPL
 
 # ----------------------------------------------------------------------------
 # Get
