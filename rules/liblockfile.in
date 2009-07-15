@@ -1,8 +1,8 @@
 ## SECTION=disk_and_file
+
 config LIBLOCKFILE
 	tristate
-	depends on BROKEN
-	prompt "liblockfile, dotlockfile [BROKEN]"
+	prompt "liblockfile, dotlockfile"
 	help
 	  Dotlockfile is a command line utility to safely create,
 	  test and remove lockfiles. Lockfiles are created in an
