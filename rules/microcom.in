@@ -1,0 +1,9 @@
+## SECTION=networking
+
+config MICROCOM
+	tristate
+	prompt "microcom"
+	help
+	  minimalistic terminal program
+
+	  It doesn't work with modem though.
