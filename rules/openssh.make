@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,12 +17,13 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 #
 # Paths and names
 #
-OPENSSH_VERSION		= 4.3p2
-OPENSSH			= openssh-$(OPENSSH_VERSION)
-OPENSSH_URL 		= ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/$(OPENSSH).tar.gz
-OPENSSH_SOURCE		= $(SRCDIR)/$(OPENSSH).tar.gz
-OPENSSH_DIR 		= $(BUILDDIR)/$(OPENSSH)
-
+OPENSSH_VERSION	:= 5.2p1
+OPENSSH		:= openssh-$(OPENSSH_VERSION)
+OPENSSH_SUFFIX	:= tar.gz
+OPENSSH_URL	:= http://openssh.linux-mirror.org/portable/$(OPENSSH).$(OPENSSH_SUFFIX)
+OPENSSH_SOURCE	:= $(SRCDIR)/$(OPENSSH).$(OPENSSH_SUFFIX)
+OPENSSH_DIR	:= $(BUILDDIR)/$(OPENSSH)
+OPENSSH_LICENSE	:= BSD
 
 # ----------------------------------------------------------------------------
 # Get
@@ -37,17 +38,18 @@ $(OPENSSH_SOURCE):
 # ----------------------------------------------------------------------------
 
 OPENSSH_PATH	:= PATH=$(CROSS_PATH)
-
-# openssh won't compile without LD=gcc in environment
-OPENSSH_ENV	:= \
+OPENSSH_ENV 	:= \
 	$(CROSS_ENV) \
 	LD=$(COMPILER_PREFIX)gcc
+
+OPENSSH_MAKEVARS := STRIP_OPT=
 
 #
 # autoconf
 #
 OPENSSH_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--with-zlib=$(SYSROOT) \
 	--libexecdir=/usr/sbin \
 	--sysconfdir=/etc/ssh \
 	--with-privsep-path=/var/run/sshd \
@@ -59,16 +61,9 @@ OPENSSH_AUTOCONF := \
 	--disable-utmp \
 	--disable-utmpx \
 	--disable-wtmp \
-	--disable-wtmpx
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-
-$(STATEDIR)/openssh.install:
-	@$(call targetinfo)
-	@$(call touch)
+	--disable-wtmpx \
+	--disable-pututline \
+	--disable-pututxline
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -77,46 +72,52 @@ $(STATEDIR)/openssh.install:
 $(STATEDIR)/openssh.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, openssh)
+	@$(call install_init,  openssh)
 	@$(call install_fixup, openssh,PACKAGE,openssh)
 	@$(call install_fixup, openssh,PRIORITY,optional)
 	@$(call install_fixup, openssh,VERSION,$(OPENSSH_VERSION))
 	@$(call install_fixup, openssh,SECTION,base)
-	@$(call install_fixup, openssh,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, openssh,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, openssh,DEPENDS,)
 	@$(call install_fixup, openssh,DESCRIPTION,missing)
 
 ifdef PTXCONF_OPENSSH_SSH
 	@$(call install_alternative, openssh, 0, 0, 0644, /etc/ssh/ssh_config)
-	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/ssh, /usr/bin/ssh)
+	@$(call install_copy, openssh, 0, 0, 0755, -, \
+		/usr/bin/ssh)
 endif
 
 ifdef PTXCONF_OPENSSH_SSHD
-	@$(call install_copy, openssh, 0, 0, 0644, $(OPENSSH_DIR)/moduli.out, \
-		/etc/ssh/moduli, n)
 	@$(call install_alternative, openssh, 0, 0, 0644, /etc/ssh/sshd_config)
-	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/sshd, \
+	@$(call install_copy, openssh, 0, 0, 0644, -, \
+		/etc/ssh/moduli)
+	@$(call install_copy, openssh, 0, 0, 0755, -, \
 		/usr/sbin/sshd)
 endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_OPENSSH_SSHD_STARTSCRIPT
-	@$(call install_alternative, openssh, 0, 0, 0755, /etc/init.d/openssh, n)
+	@$(call install_alternative, openssh, 0, 0, 0755, /etc/init.d/openssh)
 endif
 endif
 
 ifdef PTXCONF_OPENSSH_SCP
-	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/scp, \
+	@$(call install_copy, openssh, 0, 0, 0755, -, \
 		/usr/bin/scp)
 endif
 
+ifdef PTXCONF_OPENSSH_SFTP
+	@$(call install_copy, openssh, 0, 0, 0755, -, \
+		/usr/bin/sftp)
+endif
+
 ifdef PTXCONF_OPENSSH_SFTP_SERVER
-	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/sftp-server, \
+	@$(call install_copy, openssh, 0, 0, 0755, -, \
 		/usr/sbin/sftp-server)
 endif
 
 ifdef PTXCONF_OPENSSH_KEYGEN
-	@$(call install_copy, openssh, 0, 0, 0755, $(OPENSSH_DIR)/ssh-keygen, \
+	@$(call install_copy, openssh, 0, 0, 0755, -, \
 		/usr/bin/ssh-keygen)
 endif
 

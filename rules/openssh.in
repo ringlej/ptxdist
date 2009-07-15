@@ -1,4 +1,5 @@
 ## SECTION=networking
+
 menuconfig OPENSSH
 	tristate
 	select ZLIB
@@ -9,13 +10,16 @@ menuconfig OPENSSH
 	select BUSYBOX_START_STOP_DAEMON if OPENSSH_SSHD_STARTSCRIPT
 	prompt "openssh                       "
 	help
-	  ssh (Secure Shell) is a program for logging into a remote machine and
-	  for executing commands on a remote machine. It provides secure
-	  encrypted communications between two untrusted hosts over an insecure
-	  network.  X11 connections and arbitrary TCP/IP ports can also be
-	  forwarded over the secure channel. It is intended as a replacement
-	  for rlogin, rsh and rcp, and can be used to provide applications with
-	  a secure communication channel.
+	  secure shell client/server, an rlogin/rsh/rcp replacement
+
+	  ssh (Secure Shell) is a program for logging into a remote
+	  machine and for executing commands on a remote machine. It
+	  provides secure encrypted communications between two
+	  untrusted hosts over an insecure network.  X11 connections
+	  and arbitrary TCP/IP ports can also be forwarded over the
+	  secure channel. It is intended as a replacement for rlogin,
+	  rsh and rcp, and can be used to provide applications with a
+	  secure communication channel.
 
 if OPENSSH
 
@@ -42,10 +46,15 @@ config OPENSSH_SCP
 	help
 	  Install the secure copy program (scp) on the target
 
+config OPENSSH_SFTP
+	bool "sftp (client)"
+	help
+	  Install the secure ftp client (sftp) on the target
+
 config OPENSSH_SFTP_SERVER
 	bool "sftp-server"
 	help
-	  Install the secure ftp program (sftp) on the target
+	  Install the secure ftp server (sftp) on the target
 
 config OPENSSH_KEYGEN
 	bool "ssh-keygen"
