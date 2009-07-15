@@ -1,0 +1,37 @@
+From 6daf3aad32f86549e2c5033e67d8541a20b89b2f Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 7 Jul 2009 19:17:40 +0200
+Subject: [PATCH 6/8] [configure.in] fix off_t test
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ source/configure.in |   12 ++++++++----
+ 1 files changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/source/configure.in b/source/configure.in
+index 164dbcb..6094b87 100644
+--- a/source/configure.in
++++ b/source/configure.in
+@@ -1962,11 +1962,15 @@ if test x"$samba_cv_SIZEOF_TIME_T" = x"yes"; then
+     AC_DEFINE(SIZEOF_TIME_T,8,[The size of the 'time_t' type])
+ fi
+ 
++
++AC_CHECK_SIZEOF(off_t)
+ AC_CACHE_CHECK([for 64 bit off_t],samba_cv_SIZEOF_OFF_T,[
+-AC_TRY_RUN([#include <stdio.h>
+-#include <sys/stat.h>
+-main() { exit((sizeof(off_t) == 8) ? 0 : 1); }],
+-samba_cv_SIZEOF_OFF_T=yes,samba_cv_SIZEOF_OFF_T=no,samba_cv_SIZEOF_OFF_T=cross)])
++if test $ac_cv_sizeof_off_t -eq 8; then
++    samba_cv_SIZEOF_OFF_T=yes
++else
++    samba_cv_SIZEOF_OFF_T=no
++fi
++])
+ if test x"$samba_cv_SIZEOF_OFF_T" = x"yes"; then
+     AC_DEFINE(SIZEOF_OFF_T,8,[The size of the 'off_t' type])
+ fi
+-- 
+1.6.3.3
+

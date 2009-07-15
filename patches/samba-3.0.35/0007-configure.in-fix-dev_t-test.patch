@@ -1,0 +1,39 @@
+From 803cbd7cf45052396ef929167bfa15ad6e8fc7bc Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 7 Jul 2009 19:17:52 +0200
+Subject: [PATCH 7/8] [configure.in] fix dev_t test
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ source/configure.in |   14 ++++++--------
+ 1 files changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/source/configure.in b/source/configure.in
+index 6094b87..8b01ed4 100644
+--- a/source/configure.in
++++ b/source/configure.in
+@@ -2014,15 +2014,13 @@ if test x"$samba_cv_HAVE_INO64_T" = x"yes"; then
+     AC_DEFINE(HAVE_INO64_T,1,[Whether the 'ino64_t' type is available])
+ fi
+ 
++AC_CHECK_SIZEOF(dev_t)
+ AC_CACHE_CHECK([for 64 bit dev_t],samba_cv_SIZEOF_DEV_T,[
+-AC_TRY_RUN([
+-#if defined(HAVE_UNISTD_H)
+-#include <unistd.h>
+-#endif
+-#include <stdio.h>
+-#include <sys/stat.h>
+-main() { exit((sizeof(dev_t) == 8) ? 0 : 1); }],
+-samba_cv_SIZEOF_DEV_T=yes,samba_cv_SIZEOF_DEV_T=no,samba_cv_SIZEOF_DEV_T=cross)])
++if test $ac_cv_sizeof_dev_t -eq 8; then
++    samba_cv_SIZEOF_DEV_T=yes
++else
++    samba_cv_SIZEOF_DEV_T=no
++fi])
+ if test x"$samba_cv_SIZEOF_DEV_T" = x"yes"; then
+     AC_DEFINE(SIZEOF_DEV_T,8,[The size of the 'dev_t' type])
+ fi
+-- 
+1.6.3.3
+

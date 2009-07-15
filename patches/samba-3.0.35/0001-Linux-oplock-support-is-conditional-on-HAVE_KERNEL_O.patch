@@ -1,0 +1,31 @@
+From d8d84cd7082a95e673a7efc285879dd412b78b4c Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Tue, 7 Jul 2009 15:56:56 +0200
+Subject: [PATCH 1/8] Linux oplock support is conditional on HAVE_KERNEL_OPLOCKS_LINUX, not plain old LINUX.
+
+http://websvn.samba.org/cgi-bin/viewcvs.cgi?view=rev&root=samba&rev=23962
+---
+ source/modules/vfs_default.c |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/source/modules/vfs_default.c b/source/modules/vfs_default.c
+index 4cc6e88..1f8fb63 100644
+--- a/source/modules/vfs_default.c
++++ b/source/modules/vfs_default.c
+@@ -813,10 +813,11 @@ static int vfswrap_linux_setlease(vfs_handle_struct *handle, files_struct *fsp,
+ 
+ 	START_PROFILE(syscall_linux_setlease);
+ 
+-#ifdef LINUX
++#ifdef HAVE_KERNEL_OPLOCKS_LINUX
+ 	/* first set the signal handler */
+-	if(linux_set_lease_sighandler(fd) == -1)
++	if(linux_set_lease_sighandler(fd) == -1) {
+ 		return -1;
++	}
+ 
+ 	result = linux_setlease(fd, leasetype);
+ #else
+-- 
+1.6.3.3
+

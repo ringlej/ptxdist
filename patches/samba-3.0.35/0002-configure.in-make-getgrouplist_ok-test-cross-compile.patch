@@ -1,12 +1,18 @@
+From 9130b57a196e2cf316230409b7e1d4a4eab56fed Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Tue, 7 Jul 2009 15:56:55 +0200
+Subject: [PATCH 2/8] [configure.in] make getgrouplist_ok test cross compile save
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  source/configure.in |    8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ 1 files changed, 6 insertions(+), 2 deletions(-)
 
-Index: source/configure.in
-===================================================================
---- source/configure.in.orig
-+++ source/configure.in
-@@ -1386,7 +1386,7 @@ AC_DEFINE(HAVE_PRCTL, 1, [Whether prctl 
+diff --git a/source/configure.in b/source/configure.in
+index 1e4ea0f..192a9d9 100644
+--- a/source/configure.in
++++ b/source/configure.in
+@@ -1389,7 +1389,7 @@ AC_DEFINE(HAVE_PRCTL, 1, [Whether prctl is available]),[])
  case "$host_os" in
      *linux*)
         # glibc <= 2.3.2 has a broken getgrouplist
@@ -15,7 +21,7 @@ Index: source/configure.in
  #include <unistd.h>
  #include <sys/utsname.h>
  main() {
-@@ -1402,10 +1402,14 @@ main() {
+@@ -1405,10 +1405,14 @@ main() {
  #endif
         exit(0);
  }
@@ -31,3 +37,6 @@ Index: source/configure.in
         ;;
      *)
         AC_CHECK_FUNCS(getgrouplist)
+-- 
+1.6.3.3
+

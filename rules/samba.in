@@ -1,11 +1,11 @@
 ## SECTION=disk_and_file
-# samba configuration
 
 menuconfig SAMBA
 	tristate
 	prompt "samba                         "
 	select LIBC_NSL
 	select LIBC_RESOLV
+	select READLINE
 	select BUSYBOX_START_STOP_DAEMON if SAMBA_STARTSCRIPT
 	help
 	  Samba is an Open Source/Free Software suite that has, since
@@ -84,86 +84,71 @@ menuconfig SAMBA
 
 if SAMBA
 
-	config SAMBA_COMMON
-		bool
-		default y
-		prompt "Samba common files"
-		help
-		  Install smbd daemon on target.
+config SAMBA_COMMON
+	bool
+	default y
+	prompt "Samba common files"
+	help
+	  Install common samba files.
 
-	config ROOTFS_ETC_SAMBA_CONFIG
-		bool
-		depends on SAMBA_SERVER
-	choice
-		prompt "Kind of samba config file"
-		depends on SAMBA_COMMON
-		default ROOTFS_ETC_SAMBA_CONFIG_DEFAULT
+config SAMBA_SMB_CONF
+	bool
+	default y
+	prompt "install /etc/samba/smb.conf"
 
-		config ROOTFS_ETC_SAMBA_CONFIG_DEFAULT
-			bool
-			prompt "Use generic"
-			help
-			  Installs a generic /etc/samba/smb.conf file.
+config SAMBA_SERVER
+	bool
+	select SAMBA_COMMON
+	prompt "Samba server"
+	help
+	  Installs samba server. ATTENTION: You need rw access to your
+	  rootfs before starting the samba server!
 
-		config ROOTFS_ETC_SAMBA_CONFIG_USER
-			bool
-			prompt "User defined"
-			help
-			  This uses a user defined config file. Will use
-			  the file out of projectroot/etc/samba/smb.conf
-	endchoice
+if SAMBA_SERVER
 
-	config SAMBA_SERVER
-		bool
-		select SAMBA_COMMON
-		prompt "Samba server"
-		help
-		  Installs samba server. ATTENTION: You need rw access to your
-		  rootfs before starting the samba server!
+config SAMBA_SECRETS_USER
+	bool
+	prompt "User defined smb password Database"
+	help
+	  This will install the /etc/samba/secrets.tdb from
+	  projectroot/etc/samba/secrets.tdb. If you wish to run samba
+	  in user security level and use you own userdatabase. You will
+	  have to enable this. If you say n here. The samba server will
+	  generates his own secrets.tdb after initialisation.
+endif
 
-	config ROOTFS_ETC_SAMBA_SECRETS_USER
-		bool
-		depends on SAMBA_SERVER
-		prompt "User defined smb password Database"
-		help
-		  This will install the /etc/samba/secrets.tdb from
-		  projectroot/etc/samba/secrets.tdb. If you wish to run samba
-		  in user security level and use you own userdatabase. You will
-		  have to enable this. If you say n here. The samba server will
-		  generates his own secrets.tdb after initialisation.
+config SAMBA_CLIENT
+	bool
+	select SAMBA_COMMON
+	prompt "Samba client"
+	help
+	  Installs some client components of the Samba suite.
 
-	config SAMBA_CLIENT
-		bool
-		select SAMBA_COMMON
-		prompt "Samba client"
-		help
-		  Installs some client components of the Samba suite.
+config SAMBA_LIBCLIENT
+	bool
+	select SAMBA_COMMON
+	prompt "Samba client library"
+	help
+	  Installs the libsmbclient shared library.
 
-	config SAMBA_LIBCLIENT
-		bool
-		select SAMBA_COMMON
-		prompt "Samba client library"
-		help
-		  Installs the libsmbclient shared library.
+config SAMBA_SMBFS
+	bool
+	select SAMBA_COMMON
+	prompt "Samba file system"
+	help
+	  Enables the sytem to mount windows share via SMB protocol
 
-	config SAMBA_SMBFS
-		bool
-		select SAMBA_COMMON
-		prompt "Samba file system"
-		help
-		  Enables the sytem to mount windows share via SMB protocol
+config SAMBA_CUPS
+	bool
+	depends on BROKEN
+	prompt "cups support"
+	help
+	  Turn on CUPS support
 
-	config SAMBA_CUPS
-		bool
-		depends on BROKEN
-		prompt "cups support"
-		help
-		  Turn on CUPS support
-
-	config SAMBA_STARTSCRIPT
-		bool
-		default y
-		depends on SAMBA_SERVER
-		prompt "install /etc/init.d/samba"
+config SAMBA_STARTSCRIPT
+	bool
+	default y
+	depends on SAMBA_SERVER
+	prompt "install /etc/init.d/samba"
 
 endif

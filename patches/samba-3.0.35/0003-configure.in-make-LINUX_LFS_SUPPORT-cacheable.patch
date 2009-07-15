@@ -1,0 +1,45 @@
+From 793f69e2c8a23e202e0155e5341a3c756e573c6e Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 7 Jul 2009 17:09:09 +0200
+Subject: [PATCH 3/8] [configure.in] make LINUX_LFS_SUPPORT cacheable
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ source/configure.in |    9 ++++-----
+ 1 files changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/source/configure.in b/source/configure.in
+index 192a9d9..701622d 100644
+--- a/source/configure.in
++++ b/source/configure.in
+@@ -768,7 +768,7 @@ exit(1);
+ # Tests for linux LFS support. Need kernel 2.4 and glibc2.2 or greater support.
+ #
+     *linux*)
+-        AC_MSG_CHECKING([for LFS support])
++        AC_CACHE_CHECK([for LFS support], [samba_cv_LINUX_LFS_SUPPORT],[
+         old_CPPFLAGS="$CPPFLAGS"
+         CPPFLAGS="-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE $CPPFLAGS"
+        AC_TRY_RUN([
+@@ -807,15 +807,14 @@ main() {
+        exit(1);
+ #endif
+ }
+-], [LINUX_LFS_SUPPORT=yes], [LINUX_LFS_SUPPORT=no], [LINUX_LFS_SUPPORT=cross])
+-	CPPFLAGS="$old_CPPFLAGS"
+-	if test x$LINUX_LFS_SUPPORT = xyes ; then
++], [samba_cv_LINUX_LFS_SUPPORT=yes], [samba_cv_LINUX_LFS_SUPPORT=no], [samba_cv_LINUX_LFS_SUPPORT=cross])
++	CPPFLAGS="$old_CPPFLAGS"])
++	if test x$samba_cv_LINUX_LFS_SUPPORT = xyes ; then
+ 		CPPFLAGS="-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE $CPPFLAGS"
+ 		AC_DEFINE(_LARGEFILE64_SOURCE, 1, [Whether to enable large file support])
+ 		AC_DEFINE(_FILE_OFFSET_BITS, 64, [File offset bits])
+ 		AC_DEFINE(_GNU_SOURCE, 1, [Whether to use GNU libc extensions])
+ 	fi
+-	AC_MSG_RESULT([$LINUX_LFS_SUPPORT])
+ 	;;
+ 
+ #
+-- 
+1.6.3.3
+

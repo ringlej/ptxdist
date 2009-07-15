@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6487 2006-12-07 20:55:55Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,12 +17,16 @@ PACKAGES-$(PTXCONF_SAMBA) += samba
 #
 # Paths and names
 #
-SAMBA_VERSION	:= 3.0.33
+SAMBA_VERSION	:= 3.0.35
 SAMBA		:= samba-$(SAMBA_VERSION)
 SAMBA_SUFFIX	:= tar.gz
-SAMBA_URL	:= http://us5.samba.org/samba/ftp/old-versions/$(SAMBA).$(SAMBA_SUFFIX)
 SAMBA_SOURCE	:= $(SRCDIR)/$(SAMBA).$(SAMBA_SUFFIX)
 SAMBA_DIR	:= $(BUILDDIR)/$(SAMBA)
+SAMBA_LICENSE	:= GPLv2
+
+SAMBA_URL	:= \
+	http://www.samba.org/samba/ftp/stable/$(SAMBA).$(SAMBA_SUFFIX) \
+	http://www.samba.org/samba/ftp/old-versions/$(SAMBA).$(SAMBA_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -39,25 +43,64 @@ $(SAMBA_SOURCE):
 SAMBA_PATH	:= PATH=$(CROSS_PATH)
 SAMBA_ENV	:= \
 	$(CROSS_ENV) \
-	SMB_BUILD_CC_NEGATIVE_ENUM_VALUES=no \
+	CFLAGS=-O2 \
+	libreplace_cv_READDIR_NEEDED=no \
+	samba_cv_HAVE_BROKEN_FCNTL64_LOCKS=no \
+	samba_cv_HAVE_BROKEN_GETGROUPS=no \
+	samba_cv_HAVE_C99_VSNPRINTF=yes \
+	samba_cv_HAVE_DEVICE_MAJOR_FN=yes \
+	samba_cv_HAVE_DEVICE_MINOR_FN=yes \
+	samba_cv_HAVE_FCNTL_LOCK=yes \
+	samba_cv_HAVE_FTRUNCATE_EXTEND=yes \
 	samba_cv_HAVE_GETTIMEOFDAY_TZ=yes \
-	samba_cv_USE_SETRESUID=yes \
+	samba_cv_HAVE_IFACE_AIX=no \
 	samba_cv_HAVE_IFACE_IFCONF=yes \
-	samba_cv_HAVE_IFACE_IFREQ=yes
+	samba_cv_HAVE_IFACE_IFREQ=yes \
+	samba_cv_HAVE_KERNEL_CHANGE_NOTIFY=yes \
+	samba_cv_HAVE_KERNEL_OPLOCKS_LINUX=yes \
+	samba_cv_HAVE_KERNEL_SHARE_MODES=yes \
+	samba_cv_HAVE_MAKEDEV=yes \
+	samba_cv_HAVE_MMAP=yes \
+	samba_cv_HAVE_NATIVE_ICONV=yes \
+	samba_cv_HAVE_SECURE_MKSTEMP=yes \
+	samba_cv_HAVE_STRUCT_FLOCK64=yes \
+	samba_cv_HAVE_TRUNCATED_SALT=no \
+	samba_cv_HAVE_WORKING_AF_LOCAL=yes \
+	samba_cv_LINUX_LFS_SUPPORT=yes \
+	samba_cv_REALPATH_TAKES_NULL=yes \
+	samba_cv_REPLACE_INET_NTOA=no \
+	samba_cv_USE_SETRESUID=yes \
+	samba_cv_USE_SETREUID=yes \
+	samba_cv_have_longlong=yes \
+	samba_cv_have_setresgid=yes \
+	samba_cv_have_setresuid=yes
 
 #
 # autoconf
 #
 SAMBA_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--sysconfdir=/etc/samba \
-	--libdir=/etc/samba \
-	--with-lockdir=/var/lock \
-	--with-piddir=/var/lock \
+	--disable-pie \
+	--libdir=/usr/lib/samba \
+	--localstatedir=/var \
+	--sysconfdir=/etc \
 	--with-configdir=/etc/samba \
+	--with-libdir=/usr/lib \
+	--with-libsmbclient \
+	--with-lockdir=/var/lock \
 	--with-logfilebase=/var/log \
-	--with-libdir=/etc/samba \
-	--with-privatedir=/etc/samba
+	--with-piddir=/var/run \
+	--with-privatedir=/etc/samba \
+	--with-readline \
+	--with-rootsbindir=/sbin \
+	--with-syslog \
+	--without-ads \
+	--without-automount \
+	--without-krb5 \
+	--without-ldap \
+	--without-pam \
+	--without-utmp \
+	--without-winbind
 
 ifdef PTXCONF_SAMBA_CUPS
 SAMBA_AUTOCONF += --enable-cups
@@ -70,38 +113,13 @@ SAMBA_AUTOCONF += --with-smbmount
 endif
 
 ifdef PTXCONF_ICONV
-SAMBA_AUTOCONF += --with-libiconv=yes
+SAMBA_AUTOCONF += --with-libiconv=$(SYSROOT)/usr
 else
 SAMBA_AUTOCONF += --without-libiconv
 endif
 
-$(STATEDIR)/samba.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(SAMBA_DIR)/config.cache)
-	cd $(SAMBA_DIR)/source && \
-		$(SAMBA_PATH) $(SAMBA_ENV) \
-		./configure $(SAMBA_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/samba.compile:
-	@$(call targetinfo)
-	cd $(SAMBA_DIR)/source && $(SAMBA_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
-
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/samba.install:
-	@$(call targetinfo)
-	cd $(SAMBA_DIR)/source && $(SAMBA_PATH) $(MAKE) install DESTDIR=$(SYSROOT)
-	cd $(SAMBA_DIR)/source && $(SAMBA_PATH) $(MAKE) install DESTDIR=$(PKGDIR)/$(SAMBA)
-	@$(call touch)
+SAMBA_SUBDIR := source
+SAMBA_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -115,45 +133,52 @@ $(STATEDIR)/samba.targetinstall:
 	@$(call install_fixup, samba,PRIORITY,optional)
 	@$(call install_fixup, samba,VERSION,$(SAMBA_VERSION))
 	@$(call install_fixup, samba,SECTION,base)
-	@$(call install_fixup, samba,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, samba,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, samba,DEPENDS,)
 	@$(call install_fixup, samba,DESCRIPTION,missing)
 
 	@$(call install_copy, samba, 0, 0, 0755, /etc/samba)
 
 ifdef PTXCONF_SAMBA_COMMON
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/nmblookup, /usr/bin/nmblookup)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/net, /usr/bin/net)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbpasswd, /usr/bin/smbpasswd)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/testparm, /usr/bin/testparm)
-	@$(call install_copy, samba, 0, 0, 0644, $(SAMBA_DIR)/source/codepages/lowcase.dat, /etc/samba/lowcase.dat,n)
-	@$(call install_copy, samba, 0, 0, 0644, $(SAMBA_DIR)/source/codepages/upcase.dat, /etc/samba/upcase.dat,n)
-	@$(call install_copy, samba, 0, 0, 0644, $(SAMBA_DIR)/source/codepages/valid.dat, /etc/samba/valid.dat,n)
-endif
-
-ifdef PTXCONF_ROOTFS_ETC_SAMBA_CONFIG_DEFAULT
-	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/samba/smb.conf, \
-		/etc/samba/smb.conf, n)
-endif
-ifdef PTXCONF_ROOTFS_ETC_SAMBA_CONFIG_USER
-	@$(call install_copy, rootfs, 0, 0, 0644, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/samba/smb.conf,\
-		/etc/samba/smb.conf, n)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/nmblookup)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/net)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbpasswd)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/testparm)
+	@$(call install_copy, samba, 0, 0, 0644, -, \
+		/usr/lib/lowcase.dat)
+	@$(call install_copy, samba, 0, 0, 0644, -, \
+		/usr/lib/upcase.dat)
+	@$(call install_copy, samba, 0, 0, 0644, -, \
+		/usr/lib/valid.dat)
 endif
 
 ifdef PTXCONF_SAMBA_SERVER
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbd, /usr/sbin/smbd)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/nmbd, /usr/sbin/nmbd)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/pdbedit, /usr/sbin/pdbedit)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbcontrol, /usr/sbin/smbcontrol)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbstatus, /usr/sbin/smbstatus)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/tdbbackup, /usr/sbin/tdbbackup)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/sbin/smbd)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/sbin/nmbd)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/pdbedit)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbcontrol)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbstatus)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/tdbbackup)
 endif
-ifdef PTXCONF_ROOTFS_ETC_SAMBA_SECRETS_USER
-	@$(call install_copy, rootfs, 0, 0, 0600, \
-		$(PTXDIST_WORKSPACE)/projectroot/etc/samba/secrets.tdb,\
-		/etc/samba/secrets.tdb, n)
+
+ifdef PTXCONF_SAMBA_SMB_CONF
+	@$(call install_alternative, samba, 0, 0, 0644, \
+		/etc/samba/smb.conf)
+endif
+
+ifdef PTXCONF_SAMBA_SECRETS_USER
+	@$(call install_alternative, samba, 0, 0, 0600, \
+		/etc/samba/secrets.tdb)
 endif
 
 #	#
@@ -161,26 +186,33 @@ endif
 #	#
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_SAMBA_STARTSCRIPT
-	@$(call install_alternative, samba, 0, 0, 0755, /etc/init.d/samba, n)
+	@$(call install_alternative, samba, 0, 0, 0755, /etc/init.d/samba)
 endif
 endif
 
 ifdef PTXCONF_SAMBA_CLIENT
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbcacls, /usr/bin/smbcacls)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbcquotas, /usr/bin/smbcquotas)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbtree, /usr/bin/smbtree)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbclient, /usr/bin/smbclient)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/rpcclient, /usr/bin/rpcclient)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbcacls)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbcquotas)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbtree)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbclient)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/rpcclient)
 endif
 
 ifdef PTXCONF_SAMBA_LIBCLIENT
-	@$(call install_copy, samba, 0, 0, 0644, $(SAMBA_DIR)/source/bin/libsmbclient.so, /usr/lib/libsmbclient.so.0)
-	@$(call install_link, samba, libsmbclient.so.0, /usr/lib/libsmbclient.so.0.1)
+	@$(call install_copy, samba, 0, 0, 0644, -, \
+		/usr/lib/libsmbclient.so)
 endif
 
 ifdef PTXCONF_SAMBA_SMBFS
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbmount, /usr/bin/smbmount)
-	@$(call install_copy, samba, 0, 0, 0755, $(SAMBA_DIR)/source/bin/smbumount, /usr/bin/smbumount)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbmount)
+	@$(call install_copy, samba, 0, 0, 0755, -, \
+		/usr/bin/smbumount)
 endif
 
 	@$(call install_finish, samba)
