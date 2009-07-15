@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 1681 2004-09-01 18:12:49Z  $
 #
-# Copyright (C) 2004 by BSP
+# Copyright (C) 2004 by Benedikt Spranger
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -21,12 +21,9 @@ ETHERWAKE_VERSION	:= 1.09
 ETHERWAKE_SUFFIX	:= tar.gz
 ETHERWAKE		:= etherwake-$(ETHERWAKE_VERSION).orig
 ETHERWAKE_TARBALL	:= etherwake_$(ETHERWAKE_VERSION).orig.$(ETHERWAKE_SUFFIX)
+ETHERWAKE_URL		:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/e/etherwake/$(ETHERWAKE_TARBALL)
 ETHERWAKE_SOURCE	:= $(SRCDIR)/$(ETHERWAKE_TARBALL)
 ETHERWAKE_DIR		:= $(BUILDDIR)/$(ETHERWAKE)
-
-ETHERWAKE_URL := \
-	$(PTXCONF_SETUP_DEBMIRROR)/pool/main/e/etherwake/$(ETHERWAKE_TARBALL) \
-	http://www.pengutronix.de/software/ptxdist/temporary-src/$(ETHERWAKE_TARBALL)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -45,10 +42,6 @@ ETHERWAKE_ENV 	:= $(CROSS_ENV)
 
 ETHERWAKE_MAKEVARS := CC=$(CROSS_CC)
 
-$(STATEDIR)/etherwake.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -61,11 +54,12 @@ $(STATEDIR)/etherwake.targetinstall:
 	@$(call install_fixup, etherwake,PRIORITY,optional)
 	@$(call install_fixup, etherwake,VERSION,$(ETHERWAKE_VERSION))
 	@$(call install_fixup, etherwake,SECTION,base)
-	@$(call install_fixup, etherwake,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, etherwake,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, etherwake,DEPENDS,)
 	@$(call install_fixup, etherwake,DESCRIPTION,missing)
 
-	@$(call install_copy, etherwake, 0, 0, 0755, $(ETHERWAKE_DIR)/etherwake, /usr/sbin/etherwake)
+	@$(call install_copy, etherwake, 0, 0, 0755, -, \
+		/usr/sbin/etherwake)
 
 	@$(call install_finish, etherwake)
 
