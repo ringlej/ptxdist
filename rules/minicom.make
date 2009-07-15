@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Carsten Schlote <c.schlote@konzeptpark.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -49,15 +50,6 @@ MINICOM_AUTOCONF := \
 	--disable-music
 
 # ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/minicom.install:
-	@$(call targetinfo)
-	@$(call install, MINICOM)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -78,7 +70,7 @@ $(STATEDIR)/minicom.targetinstall:
 	@$(call install_copy, minicom, 0, 0, 0755, $(MINICOM_DIR)/src/ascii-xfr, /usr/bin/ascii-xfr)
 
 ifdef PTXCONF_MINICOM_DEFCONFIG
-	@$(call install_alternative, minicom, 0, 0, 0644, /etc/minirc.dfl, n)
+	@$(call install_alternative, minicom, 0, 0, 0644, /etc/minirc.dfl)
 endif
 	@$(call install_finish, minicom)
 
