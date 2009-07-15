@@ -1,8 +1,7 @@
 ## SECTION=shell_and_console
 
 menuconfig KILLPROC
-	bool
-	prompt "killproc utils"
+	tristate "killproc                      "
 	help
 	  Utilities for starting and stopping of programs.
 
