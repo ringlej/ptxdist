@@ -22,6 +22,7 @@ TERMCAP_SUFFIX	:= tar.gz
 TERMCAP_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/termcap/$(TERMCAP).$(TERMCAP_SUFFIX)
 TERMCAP_SOURCE	:= $(SRCDIR)/$(TERMCAP).$(TERMCAP_SUFFIX)
 TERMCAP_DIR	:= $(BUILDDIR)/$(TERMCAP)
+TERMCAP_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
