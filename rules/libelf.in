@@ -1,8 +1,11 @@
 ## SECTION=system_libraries
+
 config LIBELF
 	tristate
 	prompt "libelf"
 	help
+	  an ELF object file access library
+
 	  The elf library provides routines to access, and manipulate,
 	  Elf object files. It is still not complete, but is required
 	  for a number of programs, such as Eli (a state of the art

@@ -1,7 +1,6 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
-# Copyright (C) 2006, 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006, 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -43,7 +42,8 @@ LIBELF_ENV 	:= \
 	ac_cv_func_mmap_fixed_mapped=yes \
 	libelf_cv_working_memmove=yes \
 	mr_cv_coffee_machine='author is a tee drinker'
-LIBELF_MAKEVARS	:= instroot=$(SYSROOT)
+
+LIBELF_MAKEVARS	:= instroot=$(PKGDIR)/$(LIBELF)
 
 #
 # autoconf
@@ -69,8 +69,8 @@ $(STATEDIR)/libelf.targetinstall:
 	@$(call install_fixup, libelf,DEPENDS,)
 	@$(call install_fixup, libelf,DESCRIPTION,missing)
 
-	@$(call install_copy, libelf, 0, 0, 0644, \
-		$(LIBELF_DIR)/lib/libelf.so.0.8.10, /usr/lib/libelf.so.0.8.10)
+	@$(call install_copy, libelf, 0, 0, 0644, -, \
+		/usr/lib/libelf.so.0.8.10)
 	@$(call install_link, libelf, libelf.so.0.8.10, /usr/lib/libelf.so.0)
 	@$(call install_link, libelf, libelf.so.0.8.10, /usr/lib/libelf.so)
 
