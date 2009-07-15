@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003, 2004, 2009 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #          
@@ -17,13 +16,12 @@ PACKAGES-$(PTXCONF_TERMCAP) += termcap
 #
 # Paths and names
 #
-TERMCAP_VERSION	= 1.3.1
-TERMCAP		= termcap-$(TERMCAP_VERSION)
-TERMCAP_SUFFIX	= tar.gz
-TERMCAP_URL	= $(PTXCONF_SETUP_GNUMIRROR)/termcap/$(TERMCAP).$(TERMCAP_SUFFIX)
-TERMCAP_SOURCE	= $(SRCDIR)/$(TERMCAP).$(TERMCAP_SUFFIX)
-TERMCAP_DIR	= $(BUILDDIR)/$(TERMCAP)
-
+TERMCAP_VERSION	:= 1.3.1
+TERMCAP		:= termcap-$(TERMCAP_VERSION)
+TERMCAP_SUFFIX	:= tar.gz
+TERMCAP_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/termcap/$(TERMCAP).$(TERMCAP_SUFFIX)
+TERMCAP_SOURCE	:= $(SRCDIR)/$(TERMCAP).$(TERMCAP_SUFFIX)
+TERMCAP_DIR	:= $(BUILDDIR)/$(TERMCAP)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -37,13 +35,13 @@ $(TERMCAP_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-TERMCAP_PATH	=  PATH=$(CROSS_PATH)
-TERMCAP_ENV 	=  $(CROSS_ENV)
+TERMCAP_PATH	:= PATH=$(CROSS_PATH)
+TERMCAP_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-TERMCAP_AUTOCONF = \
+TERMCAP_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
 	--enable-install-termcap
 
@@ -64,7 +62,7 @@ $(STATEDIR)/termcap.targetinstall:
 	@$(call install_fixup, termcap,DESCRIPTION,missing)
 
 ifdef PTXCONF_TERMCAP_TERMCAP
-	@$(call install_copy, termcap, 0, 0, 0755, $(TERMCAP_DIR)/termcap.src, /etc/termcap.src,n)
+	@$(call install_copy, termcap, 0, 0, 0755, $(TERMCAP_DIR)/termcap.src, /etc/termcap.src)
 endif
 	@$(call install_finish, termcap)
 
