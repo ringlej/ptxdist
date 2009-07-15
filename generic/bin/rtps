@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:14,comm

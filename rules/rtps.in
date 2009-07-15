@@ -1,0 +1,12 @@
+## SECTION=debug_tools
+
+config RTPS
+	tristate
+	prompt "rtps"
+	select PROCPS
+	select PROCPS_PS
+	help
+	  display (rt-) information about the active processes
+
+	  this is just a wrapper around ps (from the procps package)
+	  with the "right" parameters
