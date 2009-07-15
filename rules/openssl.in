@@ -1,15 +1,27 @@
 ## SECTION=networking
+
 menuconfig OPENSSL
 	tristate
 	prompt "openssl                       "
 	help
+	  Secure Socket Layer (SSL) binary and related cryptographic tools
+
 	  OpenSSL is a robust, commercial-grade, full-featured
 	  toolkit implementing the Secure Sockets Layer (SSL v2/v3)
 	  and Transport Layer Security (TLS v1) protocols as well
 	  as a full-strength general purpose cryptography library.
 
+	  You need it to perform certain cryptographic actions like:
+	  * Creation of RSA, DH and DSA key parameters;
+	  * Creation of X.509 certificates, CSRs and CRLs;
+	  * Calculation of message digests;
+	  * Encryption and decryption with ciphers;
+	  * SSL/TLS client and server tests;
+	  * Handling of S/MIME signed or encrypted mail.
+
+
 config OPENSSL_BIN
-	bool "build openssl tools"
+	bool "install openssl tools"
 	depends on OPENSSL
 	help
 	  Whether to build and install OpenSSL binary.
@@ -20,4 +32,3 @@ config OPENSSL_SHARED
 	depends on OPENSSL
 	help
 	  Whether to build OpenSSL with shared libraries.
-
