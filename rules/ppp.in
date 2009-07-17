@@ -1,15 +1,18 @@
 ## SECTION=networking
+
 menuconfig PPP
 	tristate
 	prompt "ppp                           "
-	select LIBC_DL
 	select ROOTFS_VAR_RUN
-	select LIBPCAP if PPP_FILTER
-	select LIBPCAP_IPV6 if (PPP_IPV6 && PPP_FILTER)
-	select OPENSSL if PPP_SRP
-	select LIBC_RESOLV if PPP_PLUGINS
-        select LIBC_CRYPT if PPP_NEEDS_CRYPT
+	select LIBC_DL
+	select LIBC_RESOLV	if PPP_PLUGINS
+	select LIBC_CRYPT	if PPP_NEEDS_CRYPT
+	select LIBPCAP		if PPP_FILTER
+	select LIBPCAP_IPV6	if PPP_FILTER && PPP_IPV6
+	select OPENSSL		if PPP_SRP
 	help
+	  Point-to-Point Protocol (PPP) - daemon
+
 	  Just like SLIP, PPP is a protocol to send
 	  datagrams across a serial connection, but
 	  addresses a couple of deficiencies of the
@@ -28,20 +31,6 @@ config PPP_IPV6
 	help
 	  Enable IPV6 support
 
-config PPP_MS_CHAP
-	bool
-	prompt "MS-CHAP"
-	select PPP_NEEDS_CRYPT
-	help
-	  support Micro$oft's MS-CHAP authentication protocol
-
-config PPP_SHADOW
-	bool
-	prompt "ppp server: support for shadow passwords"
-	help
-	  Used when your pppd runs as a dialin server. Not required if it
-	  is intended to run as client only.
-
 config PPP_IPX
 	bool
 	prompt "support IPX protocol"
@@ -57,6 +46,12 @@ config PPP_FILTER
 	  there is no traffic on the line. This entry provides the filter
 	  to specify what counts as traffic and what is to be ignored.
 
+config PPP_SRP
+	bool "EAP SRP-SHA1 authentication"
+	depends on BROKEN
+	help
+	  Enable EAP SRP-SHA1 authentication
+
 config PPP_MULTILINK
 	bool
 	prompt "support multilink"
@@ -66,6 +61,45 @@ config PPP_MULTILINK
 	  between a pair of machines into a single 'bundle', which appears as
 	  a single virtual PPP link which has the combined bandwidth of the
 	  individual links.
+
+config PPP_SHADOW
+	bool
+	prompt "ppp server: support for shadow passwords"
+	help
+	  Used when your pppd runs as a dialin server. Not required if it
+	  is intended to run as client only.
+
+config PPP_MS_CHAP
+	bool
+	prompt "MS-CHAP (Microsoft MS-CHAP authentication protocol)"
+	select PPP_NEEDS_CRYPT
+	help
+	  support Micro$oft's MS-CHAP authentication protocol
+
+config PPP_MPPE
+	bool
+	prompt "MPPE (Microsoft Point-to-Point Encryption)"
+	select PPP_MS_CHAP
+	help
+	  support Microsoft Point-to-Point Encryption
+	  for more information see:
+	  RFC 3078 (the protocol)
+	  RFC 3079 (deriving initial session keys)
+
+config PPP_MS_CBCP
+	bool "CBCP (Microsoft proprietary Callback Control Protocol)"
+	help
+	  Enable Micro$oft proprietary Callback Control Protocol
+
+
+config PPP_NEEDS_CRYPT
+	bool
+	# crypt() calls have slipped into pppd; se we enforce 'y' here until this is fixed upstream
+	default y
+
+config PPP_TDB
+	bool
+
 
 menuconfig PPP_PLUGINS
 	bool
@@ -106,8 +140,9 @@ config PPP_OE
 	default y
 	prompt "ppp over ethernet"
 	help
-	  Enable this if you are using a DSL modem connected via ethernet to
-	  your host (so called 'PPP over Ethernet'=PPPoE).
+
+	  Enable this if you are using a DSL modem connected via
+	  ethernet to your host (so called 'PPP over Ethernet' = PPPoE).
 
 config PPP_MINCONN
 	bool
@@ -135,21 +170,6 @@ config PPP_WINBIND
 
 endif
 
-config PPP_NEEDS_CRYPT
-        bool
-	# crypt() calls have slipped into pppd; se we enforce 'y' here until this is fixed upstream
-	default y
-
-config PPP_MS_CBCP
-	bool
-	help
-	  M$ proprietary Callback Control Protocol
-
-config PPP_TDB
-	bool
-
-config PPP_SRP
-	bool
 
 comment "install options"
 
@@ -174,6 +194,11 @@ config PPP_INST_PPPSTATS
 	  The pppstats utility reports PPP-related statistics at regular
 	  intervals for a specified PPP interface.
 
+config PPP_INST_PONOFF
+	bool "install pon/poff"
+	help
+	  FIXME
+
 config PPP_STARTSCRIPT
 	bool
 	select BUSYBOX_KILL if BUSYBOX
@@ -185,11 +210,11 @@ config PPP_STARTSCRIPT
 	  Install this script to be able to run this service at system startup
 
 config PPP_INST_DEFAULT_CONFIG_FILES
-        bool
-        default y
-        prompt "install /etc/ppp/* configuration files (options,ip-up, etc.)"
-        help
-          Install the default ppp configuration files in /etc/ppp.
+	bool
+	default y
+	prompt "install /etc/ppp/* configuration files (options,ip-up, etc.)"
+	help
+	  Install the default ppp configuration files in /etc/ppp.
 
 config PPPD_INTF
 	string
