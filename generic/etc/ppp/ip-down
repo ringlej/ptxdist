@@ -1,7 +1,5 @@
 #!/bin/sh
 #
-# $Id: ip-down,v 1.2 1998/02/10 21:21:55 phil Exp $
-#
 # This script is run by the pppd _after_ the link is brought down.
 # It uses run-parts to run scripts in /etc/ppp/ip-down.d, so to delete
 # routes, unset IP addresses etc. you should create script(s) there.
@@ -22,6 +20,7 @@
 # so the path must be reset
 PATH=/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin
 export PATH
+
 # These variables are for the use of the scripts run by run-parts
 PPP_IFACE="$1"
 PPP_TTY="$2"
@@ -36,7 +35,12 @@ export PPP_IFACE PPP_TTY PPP_SPEED PPP_LOCAL PPP_REMOTE PPP_IPPARAM
 PPP_TTYNAME=`/usr/bin/basename "$2"`
 export PPP_TTYNAME
 
-# Main Script starts here
-run-parts /etc/ppp/ip-down.d
+# If /var/log/ppp-ipupdown.log exists use it for logging.
+if [ -e /var/log/ppp-ipupdown.log ]; then
+  exec >> /var/log/ppp-ipupdown.log 2>&1
+  echo $0 $*
+  echo
+fi
 
-# last line
+run-parts /etc/ppp/ip-down.d \
+  --arg="$1" --arg="$2" --arg="$3" --arg="$4" --arg="$5" --arg="$6"
