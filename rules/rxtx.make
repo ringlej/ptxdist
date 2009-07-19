@@ -30,6 +30,7 @@ RXTX_SUFFIX	:= zip
 RXTX_URL	:= http://rxtx.qbang.org/pub/rxtx/$(RXTX).$(RXTX_SUFFIX)
 RXTX_SOURCE	:= $(SRCDIR)/$(RXTX).$(RXTX_SUFFIX)
 RXTX_DIR	:= $(BUILDDIR)/$(RXTX)
+RXTX_LICENSE	:= LGPLv2.1
 
 # ----------------------------------------------------------------------------
 # Get
