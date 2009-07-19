@@ -33,25 +33,13 @@ $(LIBFTDI_SOURCE):
 	@$(call get, LIBFTDI)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libftdi.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBFTDI_DIR))
-	@$(call extract, LIBFTDI)
-	@$(call patchin, LIBFTDI)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 LIBFTDI_PATH	:= PATH=$(CROSS_PATH)
-
 LIBFTDI_ENV := \
 	$(CROSS_ENV) \
-	ac_cv_path_HAVELIBUSB='$(PTXDIST_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config libusb'
+	ac_cv_path_HAVELIBUSB='$(COMPILER_PREFIX)pkg-config libusb'
 
 #
 # autoconf
@@ -59,37 +47,16 @@ LIBFTDI_ENV := \
 LIBFTDI_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-shared \
-	--disable-static
+	--disable-static \
+	--disable-python-binding
 
-ifndef PTXCONF_LIBFTDI_CPP_WRAPPER
-LIBFTDI_AUTOCONF += --enable-libftdipp=no
+ifdef PTXCONF_LIBFTDI_CPP_WRAPPER
+LIBFTDI_AUTOCONF += --enable-libftdipp
+else
+LIBFTDI_AUTOCONF += \
+	--disable-libftdipp \
+	--without-boost
 endif
-
-$(STATEDIR)/libftdi.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBFTDI_DIR)/config.cache)
-	cd $(LIBFTDI_DIR) && \
-		$(LIBFTDI_PATH) $(LIBFTDI_ENV) \
-		./configure $(LIBFTDI_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libftdi.compile:
-	@$(call targetinfo)
-	cd $(LIBFTDI_DIR) && $(LIBFTDI_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libftdi.install:
-	@$(call targetinfo)
-	@$(call install, LIBFTDI)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install

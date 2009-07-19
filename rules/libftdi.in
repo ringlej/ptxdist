@@ -6,8 +6,15 @@ menuconfig LIBFTDI
 	select LIBUSB_COMPAT
 	select BOOST if LIBFTDI_CPP_WRAPPER
 	help
-	  Library to handle the FTDI devices. At least required by the
-	  FTDI EEPROM tool.
+	  Library to control and program the FTDI USB controller
+
+	  his library could talk to FTDI's FT232 and FT245 type USB
+	  chips from userspace. It uses libusb to communicate with the
+	  chips.
+
+	  Functionalities include the possibility to use the chips in
+	  standard mode, in bitbang mode, and to read or write the
+	  serial EEPROM.
 
 if LIBFTDI
 
