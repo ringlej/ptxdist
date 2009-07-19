@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Carsten Schlote <c.schlote@konzeptpark.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -68,18 +68,20 @@ $(STATEDIR)/libgmp.targetinstall:
 	@$(call install_fixup, libgmp,PRIORITY,optional)
 	@$(call install_fixup, libgmp,VERSION,$(LIBGMP_VERSION))
 	@$(call install_fixup, libgmp,SECTION,base)
-	@$(call install_fixup, libgmp,AUTHOR,"Carsten Schlote <c.schlote\@konzeptpark.de>")
+	@$(call install_fixup, libgmp,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
 	@$(call install_fixup, libgmp,DEPENDS,)
 	@$(call install_fixup, libgmp,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBGMP_SHARED
-	@$(call install_copy, libgmp, 0, 0, 0644, $(LIBGMP_DIR)/.libs/libgmp.so.3.4.4, /usr/lib/libgmp.so.3.4.4)
+	@$(call install_copy, libgmp, 0, 0, 0644, -, \
+		/usr/lib/libgmp.so.3.4.4)
 	@$(call install_link, libgmp, libgmp.so.3.4.4, /usr/lib/libgmp.so.3)
 	@$(call install_link, libgmp, libgmp.so.3.4.4, /usr/lib/libgmp.so)
 endif
 
 ifdef PTXCONF_LIBGMP_STATIC
-	@$(call install_copy, libgmp, 0, 0, 0644, $(LIBGMP_DIR)/libgmp.la, /usr/lib/libgmp.la)
+	@$(call install_copy, libgmp, 0, 0, 0644, -, \
+		/usr/lib/libgmp.la)
 endif
 
 	@$(call install_finish, libgmp)
