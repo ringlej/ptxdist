@@ -23,6 +23,7 @@ LIBGMP_SUFFIX	:= tar.bz2
 LIBGMP_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/gmp/$(LIBGMP).$(LIBGMP_SUFFIX)
 LIBGMP_SOURCE	:= $(SRCDIR)/$(LIBGMP).$(LIBGMP_SUFFIX)
 LIBGMP_DIR	:= $(BUILDDIR)/$(LIBGMP)
+LIBGMP_LICENSE	:= GPLv3, LGPLv3
 
 # ----------------------------------------------------------------------------
 # Get
