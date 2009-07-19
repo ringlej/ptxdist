@@ -92,32 +92,38 @@ $(STATEDIR)/rxtx.targetinstall:
 	@$(call install_fixup, rxtx,DEPENDS,)
 	@$(call install_fixup, rxtx,DESCRIPTION,missing)
 
-	@$(call install_copy, rxtx, 0, 0, 0755, \
+	@$(call install_copy, rxtx, 0, 0, 0644, \
 		$(RXTX_DIR)/$(PTXCONF_GNU_TARGET)/.libs/librxtxI2C-2.1-7.so, \
 		/usr/lib/librxtxI2C-2.1-7.so)
-	@$(call install_copy, rxtx, 0, 0, 0755, \
+	@$(call install_link, rxtx, librxtxI2C-2.1-7.so, /usr/lib/librxtxI2C.so)
+
+
+	@$(call install_copy, rxtx, 0, 0, 0644, \
 		$(RXTX_DIR)/$(PTXCONF_GNU_TARGET)/.libs/librxtxParallel-2.1-7.so, \
 		/usr/lib/librxtxParallel-2.1-7.so)
-	@$(call install_copy, rxtx, 0, 0, 0755, \
+	@$(call install_link, rxtx, librxtxParallel-2.1-7.so, /usr/lib/librxtxParallel.so)
+
+
+	@$(call install_copy, rxtx, 0, 0, 0644, \
 		$(RXTX_DIR)/$(PTXCONF_GNU_TARGET)/.libs/librxtxRaw-2.1-7.so, \
 		/usr/lib/librxtxRaw-2.1-7.so)
-	@$(call install_copy, rxtx, 0, 0, 0755, \
+	@$(call install_link, rxtx, librxtxRaw-2.1-7.so, /usr/lib/librxtxRaw.so)
+
+
+	@$(call install_copy, rxtx, 0, 0, 0644, \
 		$(RXTX_DIR)/$(PTXCONF_GNU_TARGET)/.libs/librxtxRS485-2.1-7.so, \
 		/usr/lib/librxtxRS485-2.1-7.so)
-	@$(call install_copy, rxtx, 0, 0, 0755, \
+	@$(call install_link, rxtx, librxtxRS485-2.1-7.so, /usr/lib/librxtxRS485.so)
+
+
+	@$(call install_copy, rxtx, 0, 0, 0644, \
 		$(RXTX_DIR)/$(PTXCONF_GNU_TARGET)/.libs/librxtxSerial-2.1-7.so, \
 		/usr/lib/librxtxSerial-2.1-7.so)
-
-	@$(call install_link, rxtx, librxtxI2C-2.1-7.so, /usr/lib/librxtxI2C.so)
-	@$(call install_link, rxtx, librxtxParallel-2.1-7.so, /usr/lib/librxtxParallel.so)
-	@$(call install_link, rxtx, librxtxRaw-2.1-7.so, /usr/lib/librxtxRaw.so)
-	@$(call install_link, rxtx, librxtxRS485-2.1-7.so, /usr/lib/librxtxRS485.so)
 	@$(call install_link, rxtx, librxtxSerial-2.1-7.so, /usr/lib/librxtxSerial.so)
 	@$(call install_link, rxtx, ../librxtxSerial-2.1-7.so, /usr/lib/classpath/librxtxSerial.so)
 
-
-	@$(call install_copy, rxtx, 0, 0, 0755, $(RXTX_DIR)/RXTXcomm.jar, \
-		/usr/share/java/RXTXcomm.jar, n)
+	@$(call install_copy, rxtx, 0, 0, 0644, $(RXTX_DIR)/RXTXcomm.jar, \
+		/usr/share/java/RXTXcomm.jar)
 
 	@$(call install_finish, rxtx)
 
