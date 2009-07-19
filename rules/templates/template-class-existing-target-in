@@ -1,6 +1,6 @@
 ## SECTION=fixme
 
-config @PACKET@
+config @CLASS@@PACKET@
 	tristate
 	prompt "@packet@"
 	help

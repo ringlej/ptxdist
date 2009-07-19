@@ -956,37 +956,13 @@ drop() {
 }
 
 newpacket() {
-	local \
-		packet_name \
-		version \
-		url \
-		author \
-		year \
-		suffix \
-		overwrite \
-		template \
-		template_file \
-		template_suffix \
-		template_src \
-		packet_filename \
-		packet_name \
-		packet \
-		PACKET \
-		packetdash \
-		filename \
-		class \
-		CLASS \
-		autoconf_class \
-		action \
-		exists
-
-	action="${1}"
+	local template template_src
+	local class autoconf_class
+	local action="${1}"
 
 	case "${action}" in
 	target)
 		template=template
-		class=
-		autoconf_class=
 		;;
 	host)
 		template=template-class
@@ -998,51 +974,38 @@ newpacket() {
 		class=cross-
 		autoconf_class=HOST_CROSS_
 		;;
+
 	src-cmake-prog)
 		template=template-src-cmake
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-cmake-prog"
-		class=
-		cmake_class=
 		;;
 	src-autoconf-prog)
 		template=template-src-autoconf
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-autoconf-prog"
-		class=
-		autoconf_class=
 		;;
 	src-autoconf-lib)
 		template=template-src-autoconf
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-autoconf-lib"
 		class=
-		autoconf_class=
 		;;
 	src-autoconf-proglib)
 		template=template-src-autoconf
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-autoconf-proglib"
-		class=
-		autoconf_class=
 		;;
 	src-stellaris)
 		template=template-src-stellaris
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-stellaris"
-		class=
-		autoconf_class=
 		;;
 	src-linux-driver)
 		template=template-src-driver
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-linux-driver"
-		class=
-		autoconf_class=
 		;;
 	font)
 		template=template-font
-		class=
-		autoconf_class=
 		;;
 	simple)
 		template=template-file
-		class=
-		autoconf_class=
+
 		;;
 	help|*)
 		echo
@@ -1070,8 +1033,9 @@ newpacket() {
 	# Ask some questions
 	#
 
+	local packet_name
 	echo
-	echo "${PROMPT}creating a new \"${action}\" package:"
+	echo "${PROMPT}creating a new '${action}' package:"
 	echo
 	echo -n "${PROMPT}enter packet name.......: "
 	read packet_name
@@ -1080,31 +1044,23 @@ newpacket() {
 	# for host and cross packages, find out if there is already an
 	# existing target
 	#
-
-	exists=
-	[ -f "${PTXDIST_WORKSPACE}/rules/${packet_name}.make" ] && exists=1
-	[ -f "${PTXDIST_TOPDIR}/rules/${packet_name}.make" ] && exists=1
-
-	if [ "${action}" = "host" ]  && [ -n "${exists}" ]; then
-		action=host-existing-target
-		template=template-class-existing-target
-		class=host-
-		autoconf_class=HOST_
+	if [ -f "${PTXDIST_WORKSPACE}/rules/${packet_name}.make" -o \
+	     -f "${PTXDIST_TOPDIR}/rules/${packet_name}.make" ]; then
+		case "${action}" in
+		    host|cross)
+			action=existing-target
+			template=template-class-existing-target
+			;;
+		esac
 	fi
 
-	if [ "${action}" = "cross" ] && [ -n "${exists}" ]; then
-		action=cross-existing-target
-		template=template-class-existing-target
-		class=cross-
-		autoconf_class=HOST_CROSS_
-	fi
 
 	#
 	# more questions ...
 	#
-
+	local version
 	case "${action}" in
-	host-existing-target|cross-existing-target)
+	existing-target)
 		;;
 	*)
 		echo -n "${PROMPT}enter version number....: "
@@ -1112,6 +1068,7 @@ newpacket() {
 		;;
 	esac
 
+	local url suffix
 	case "${action}" in
 	host|target|cross)
 		echo -n "${PROMPT}enter URL of basedir....: "
@@ -1122,22 +1079,22 @@ newpacket() {
 	esac
 
 	# FIXME: get address from 'ptxdist setup'
+	local author
 	echo -n "${PROMPT}enter packet author.....: "
 	read author
 
-	packet_filename="${packet_name}"
+	local packet_filename="${packet_name}"
+	local packet="$(echo ${packet_name} | tr "[A-Z]" "[a-z]")"
+	local packetdash="$(echo ${packet} | tr "[_]" "[\-]")"
+	local PACKET="$(echo ${packet_name} | tr "[a-z-]" "[A-Z_]")"
+	local CLASS="$(echo ${class} | tr "[a-z-]" "[A-Z_]")"
+	local year="$(date +%Y)"
 
-	packet="$(echo ${packet_name} | tr "[A-Z]" "[a-z]")"
-	packetdash="$(echo ${packet} | tr "[_]" "[\-]")"
-	PACKET="$(echo ${packet_name} | tr "[a-z-]" "[A-Z_]")"
-	CLASS="$(echo ${class} | tr "[a-z-]" "[A-Z_]")"
-
-	year="$(date +%Y)"
-
+	local template_suffix
 	for template_suffix in "make" "in"; do
 
-		template_file="${TEMPLATESDIR}/${template}-${template_suffix}"
-		filename="${PTXDIST_WORKSPACE}/rules/${class}${packet_filename}.${template_suffix}"
+		local template_file="${TEMPLATESDIR}/${template}-${template_suffix}"
+		local filename="${PTXDIST_WORKSPACE}/rules/${class}${packet_filename}.${template_suffix}"
 
 		if [ ! -f "${template_file}" ]; then
 			echo
@@ -1149,6 +1106,7 @@ newpacket() {
 		if [ -f "${filename}" ]; then
 			echo
 			echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n]"
+			local overwrite
 			read overwrite
 			if [ "${overwrite}" != "y" ]; then
 				echo "${PROMPT}aborted."
@@ -1179,12 +1137,17 @@ newpacket() {
 	#
 	case "${action}" in
 	src-*)
-		[ -d "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" ] && return
+		if [ -d "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" ]; then
+			return
+		fi
+
 		echo -e -n "\nlocal_src/${packet}-${version} does not exist, create? [y/n] "
 		[ "$(local r; read r; echo "${r}")" = "y" ] || return
+
 		mkdir -p "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}"
 		tar -C "${template_src}" -cf - --exclude .svn . | \
 			tar -C "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" -xvf -
+
 		(cd "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" && sh wizard.sh ${packet})
 		rm -f ${PTXDIST_WORKSPACE}/local_src/${packet}-${version}/wizard.sh
 		;;
