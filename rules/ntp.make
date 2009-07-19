@@ -44,6 +44,7 @@ NTP_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	--with-binsubdir=sbin \
 	--without-rpath \
 	--disable-dependency-tracking
 
@@ -309,14 +310,16 @@ $(STATEDIR)/ntp.targetinstall:
 #	# ntpdate
 #	#
 ifdef PTXCONF_NTP_NTPDATE
-	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpdate/ntpdate, /usr/sbin/ntpdate)
+	@$(call install_copy, ntp, 0, 0, 0755, -, \
+		/usr/sbin/ntpdate)
 endif
 
 #	#
 #	# ntp server
 #	#
 ifdef PTXCONF_NTP_NTPD
-	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpd/ntpd, /usr/sbin/ntpd)
+	@$(call install_copy, ntp, 0, 0, 0755, -, \
+		/usr/sbin/ntpd)
 	@$(call install_alternative, ntp, 0, 0, 0644, /etc/ntp-server.conf)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
@@ -330,7 +333,8 @@ endif
 #	# ntpdc
 #	#
 ifdef PTXCONF_NTP_NTPDC
-	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpdc/ntpdc, /usr/sbin/ntpdc)
+	@$(call install_copy, ntp, 0, 0, 0755, -, \
+		/usr/sbin/ntpdc)
 	@$(call install_alternative, ntp, 0, 0, 0644, /etc/ntp-client.conf)
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_NTP_NTPC_STARTSCRIPT
@@ -343,7 +347,8 @@ endif
 #	# ntpq
 #	#
 ifdef PTXCONF_NTP_NTPQ
-	@$(call install_copy, ntp, 0, 0, 0755, $(NTP_DIR)/ntpq/ntpq, /usr/sbin/ntpq)
+	@$(call install_copy, ntp, 0, 0, 0755, -, \
+		/usr/bin/ntpq)
 endif
 
 #	#
