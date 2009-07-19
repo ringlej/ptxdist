@@ -62,36 +62,43 @@ endif
 
 ifndef PTXCONF_JAMVM_TRACE
 JAMVM_AUTOCONF += --disable-trace
-else
+endif
+
 ifdef PTXCONF_JAMVM_TRACE_ALL
 JAMVM_AUTOCONF += --enable-trace
-else
+endif
+
 ifdef PTXCONF_JAMVM_TRACE_GC
 JAMVM_AUTOCONF += --enable-tracegc
 endif
+
 ifdef PTXCONF_JAMVM_TRACE_ALLOC
 JAMVM_AUTOCONF += --enable-tracealloc
 endif
+
 ifdef PTXCONF_JAMVM_TRACE_FNLZ
 JAMVM_AUTOCONF += --enable-tracefnlz
 endif
+
 ifdef PTXCONF_JAMVM_TRACE_DLL
 JAMVM_AUTOCONF += --enable-tracedll
 endif
+
 ifdef PTXCONF_JAMVM_TRACE_LOCK
 JAMVM_AUTOCONF += --enable-tracelock
 endif
+
 ifdef PTXCONF_JAMVM_TRACE_THREAD
 JAMVM_AUTOCONF += --enable-tracethread
 endif
+
 ifdef PTXCONF_JAMVM_TRACE_DIRECT
 JAMVM_AUTOCONF += --enable-tracedirect
 endif
+
 ifdef PTXCONF_JAMVM_TRACE_INLINING
 JAMVM_AUTOCONF += --enable-traceinlining
 endif
-endif #ifdef PTXCONF_JAMVM_TRACE_ALL
-endif #ifndef PTXCONF_JAMVM_TRACE
 
 # FIXME:
 # - --enable-int-caching should be disabled on x86_64
@@ -120,7 +127,6 @@ $(STATEDIR)/jamvm.targetinstall:
 	@$(call install_copy, jamvm, 0, 0, 0644, -, /usr/lib/libjvm.so.0.0.0)
 	@$(call install_link, jamvm, libjvm.so.0.0.0, /usr/lib/libjvm.so.0)
 	@$(call install_link, jamvm, libjvm.so.0.0.0, /usr/lib/libjvm.so)
-#	# FIXME: /usr/lib/rt.jar
 
 	@$(call install_finish, jamvm)
 
