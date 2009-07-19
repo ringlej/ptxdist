@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Luotao Fu <l.fu@pengutronix.de>
 #
@@ -27,10 +26,10 @@ endif
 #
 RXTX_VERSION	:= 2.1-7r2
 RXTX		:= rxtx-$(RXTX_VERSION)
-RXTX_SUFFIX		:= zip
-RXTX_URL		:= http://rxtx.qbang.org/pub/rxtx//$(RXTX).$(RXTX_SUFFIX)
-RXTX_SOURCE		:= $(SRCDIR)/$(RXTX).$(RXTX_SUFFIX)
-RXTX_DIR		:= $(BUILDDIR)/$(RXTX)
+RXTX_SUFFIX	:= zip
+RXTX_URL	:= http://rxtx.qbang.org/pub/rxtx/$(RXTX).$(RXTX_SUFFIX)
+RXTX_SOURCE	:= $(SRCDIR)/$(RXTX).$(RXTX_SUFFIX)
+RXTX_DIR	:= $(BUILDDIR)/$(RXTX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -41,53 +40,27 @@ $(RXTX_SOURCE):
 	@$(call get, RXTX)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/rxtx.extract:
-	@$(call targetinfo)
-	@$(call clean, $(RXTX_DIR))
-	@$(call extract, RXTX)
-	@$(call patchin, RXTX)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
+RXTX_PATH	:= PATH=$(CROSS_PATH)
 RXTX_ENV 	:= \
 	$(CROSS_ENV) \
 	JAVA_HOME=$(PTXCONF_SETUP_JAVA_SDK) \
 	CLASSPATH=$(PTXCONF_SETUP_JAVA_SDK)/jre/lib \
 	CROSS_RXTX_PATH=/usr/lib
+RXTX_MAKE_PAR := NO
 
 #
 # autoconf
 #
-RXTX_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+RXTX_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--enable-static \
 	--enable-shared \
 	--enable-lockfile_server=no \
 	--enable-DEBUG=no \
 	--enable-liblock=no
-
-$(STATEDIR)/rxtx.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(RXTX_DIR)/config.cache)
-	cd $(RXTX_DIR) && \
-		$(RXTX_ENV) \
-		./configure $(RXTX_AUTOCONF) 
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/rxtx.compile:
-	@$(call targetinfo)
-	cd $(RXTX_DIR) && \
-	 $(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -100,7 +73,6 @@ $(STATEDIR)/rxtx.install:
 # priorly while configuring. Instead of that it tries to put himself in
 # RXTX_PATH. Henc we deactivate the install stage here
 #
-#	@$(call install, RXTX)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
