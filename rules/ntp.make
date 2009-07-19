@@ -24,6 +24,7 @@ NTP_SUFFIX	:= tar.gz
 NTP_URL		:= http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/$(NTP).$(NTP_SUFFIX)
 NTP_SOURCE	:= $(SRCDIR)/$(NTP).$(NTP_SUFFIX)
 NTP_DIR		:= $(BUILDDIR)/$(NTP)
+NTP_LICENSE	:= ntp
 
 # ----------------------------------------------------------------------------
 # Get
