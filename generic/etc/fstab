@@ -3,13 +3,14 @@
 #
 
 # special filesystems
-proc	/proc		proc	defaults			0 0
-devpts	/dev/pts	devpts	defaults			0 0
-none	/tmp		tmpfs	defaults,mode=1777,uid=0,gid=0	0 0
-none	/sys		sysfs	defaults			0 0
-usbfs	/proc/bus/usb	usbfs	devgid=14,devmode=0660		0 0
+proc	/proc			proc	defaults			0 0
+debugfs	/sys/kernel/debug	debugfs	defaults,noauto			0 0
+devpts	/dev/pts		devpts	defaults			0 0
+none	/tmp			tmpfs	defaults,mode=1777,uid=0,gid=0	0 0
+none	/sys			sysfs	defaults			0 0
+usbfs	/proc/bus/usb		usbfs	devgid=14,devmode=0660		0 0
 
 # ramdisks
-none	/var/log	tmpfs	defaults,mode=0755,uid=0,gid=0	0 0
-none	/var/run	tmpfs	defaults,mode=0755,uid=0,gid=0	0 0
-none	/var/lock	tmpfs	defaults,mode=0755,uid=0,gid=0	0 0
+none	/var/log		tmpfs	defaults,mode=0755,uid=0,gid=0	0 0
+none	/var/run		tmpfs	defaults,mode=0755,uid=0,gid=0	0 0
+none	/var/lock		tmpfs	defaults,mode=0755,uid=0,gid=0	0 0
