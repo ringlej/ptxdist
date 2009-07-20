@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -20,35 +20,28 @@ HOST_PACKAGES-$(PTXCONF_HOST_E2FSPROGS) += host-e2fsprogs
 HOST_E2FSPROGS		= $(E2FSPROGS)
 HOST_E2FSPROGS_DIR	= $(HOST_BUILDDIR)/$(HOST_E2FSPROGS)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-host-e2fsprogs_get:	$(STATEDIR)/host-e2fsprogs.get
-
 $(STATEDIR)/host-e2fsprogs.get:	$(STATEDIR)/e2fsprogs.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-host-e2fsprogs_extract: $(STATEDIR)/host-e2fsprogs.extract
-
-$(STATEDIR)/host-e2fsprogs.extract: $(host-e2fsprogs_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/host-e2fsprogs.extract:
+	@$(call targetinfo)
 	@$(call clean, $(HOST_E2FSPROGS_DIR))
 	@$(call extract, E2FSPROGS, $(HOST_BUILDDIR))
 	@$(call patchin, E2FSPROGS, $(HOST_E2FSPROGS_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-e2fsprogs_prepare: $(STATEDIR)/host-e2fsprogs.prepare
 
 HOST_E2FSPROGS_PATH	:= PATH=$(HOST_PATH)
 HOST_E2FSPROGS_ENV 	:= $(HOSTCC_ENV)
@@ -57,25 +50,6 @@ HOST_E2FSPROGS_ENV 	:= $(HOSTCC_ENV)
 # autoconf
 #
 HOST_E2FSPROGS_AUTOCONF := $(HOST_AUTOCONF)
-
-$(STATEDIR)/host-e2fsprogs.prepare: $(host-e2fsprogs_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_E2FSPROGS_DIR)/config.cache)
-	cd $(HOST_E2FSPROGS_DIR) && \
-		$(HOST_E2FSPROGS_PATH) $(HOST_E2FSPROGS_ENV) \
-		./configure $(HOST_E2FSPROGS_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-host-e2fsprogs_compile: $(STATEDIR)/host-e2fsprogs.compile
-
-$(STATEDIR)/host-e2fsprogs.compile: $(host-e2fsprogs_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(HOST_E2FSPROGS_DIR) && $(HOST_E2FSPROGS_ENV) $(HOST_E2FSPROGS_PATH) make
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
