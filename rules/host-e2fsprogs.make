@@ -55,12 +55,10 @@ HOST_E2FSPROGS_AUTOCONF := $(HOST_AUTOCONF)
 # Install
 # ----------------------------------------------------------------------------
 
-host-e2fsprogs_install: $(STATEDIR)/host-e2fsprogs.install
-
-$(STATEDIR)/host-e2fsprogs.install: $(host-e2fsprogs_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, HOST_E2FSPROGS,,h)
-	@$(call touch, $@)
+$(STATEDIR)/host-e2fsprogs.install:
+	@$(call targetinfo)
+	@$(call install, HOST_E2FSPROGS,,h,install-libs)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
