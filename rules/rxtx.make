@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_RXTX) += rxtx
 
 ifdef PTXCONF_RXTX
 ifeq ($(shell test -x $(PTXCONF_SETUP_JAVA_SDK)/bin/javac || echo no),no)
-    $(warning *** javac is mandatory to build classpath)
+    $(warning *** javac is mandatory to build rxtx)
     $(warning *** please run 'ptxdist setup' and set the path to the java sdk)
     $(error )
 endif
