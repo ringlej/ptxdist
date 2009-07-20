@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id$
+# $Id: bonniexx.make 9814 2009-02-23 12:04:12Z wsa $
 #
 # Copyright (C) 2004 by Robert Schwebel
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -60,7 +60,7 @@ bonniexx_prepare: $(STATEDIR)/bonniexx.prepare
 
 BONNIEXX_PATH	  =  PATH=$(CROSS_PATH)
 BONNIEXX_ENV 	  =  $(CROSS_ENV)
-BONNIEXX_MAKEVARS =  prefix=$(SYSROOT) 
+BONNIEXX_MAKEVARS =  prefix=$(SYSROOT)
 
 #
 # autoconf without automake :-(
@@ -114,9 +114,9 @@ $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps_default)
 	@$(call install_init, bonniexx)
 	@$(call install_fixup, bonniexx,PACKAGE,bonniexx)
 	@$(call install_fixup, bonniexx,PRIORITY,optional)
-	@$(call install_fixup, bonniexx,VERSION,$(COREUTILS_VERSION))
+	@$(call install_fixup, bonniexx,VERSION,$(BONNIEXX_VERSION))
 	@$(call install_fixup, bonniexx,SECTION,base)
-	@$(call install_fixup, bonniexx,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, bonniexx,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, bonniexx,DEPENDS,)
 	@$(call install_fixup, bonniexx,DESCRIPTION,missing)
 
