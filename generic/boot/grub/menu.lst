@@ -1,13 +1,13 @@
-serial --unit=0 --speed=115200
-terminal --timeout=2 serial console
+serial		--unit=0 --speed=115200
+terminal	--timeout=2 serial console
 
 default		saved
 timeout		2
-color cyan/blue white/blue
+color		cyan/blue white/blue
 
 title		Standalone Boot
 root		(hd0,0)
-kernel		/boot/bzImage root=/dev/hda1 console=ttyS0,115200 ide=nodma
+kernel		/boot/bzImage root=@ROOTDEV@ console=ttyS0,115200 ide=nodma
 savedefault
 
 title		Network Boot
