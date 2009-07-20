@@ -1,11 +1,16 @@
 ## SECTION=shell_and_console
+
 menuconfig MTD_UTILS
 	tristate
 	prompt "mtd-utils                     "
 	select ZLIB
+	select E2FSPROGS
 	select LIBLZO if MTD_UTILS_USE_LIBLZO
 	help
-	  mtdutils is a set of utilities for doing low-level operations on flash devices.
+	  Memory Technology Device Utilities
+
+	  mtdutils is a set of utilities for doing low-level
+	  operations on flash devices.
 
 if MTD_UTILS
 

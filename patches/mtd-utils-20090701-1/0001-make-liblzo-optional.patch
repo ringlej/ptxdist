@@ -1,0 +1,124 @@
+From 76e3b58f84aeeff3be23f19774ee047babbfa539 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 20 Jul 2009 19:37:09 +0200
+Subject: [PATCH] make liblzo optional
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile            |   13 +++++++++++--
+ compr.h             |    2 ++
+ mkfs.ubifs/Makefile |    6 +++++-
+ mkfs.ubifs/compr.c  |   17 +++++++++++++++++
+ 4 files changed, 35 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 577634f..5de9382 100644
+--- a/Makefile
++++ b/Makefile
+@@ -7,6 +7,10 @@ ifeq ($(WITHOUT_XATTR), 1)
+   CPPFLAGS += -DWITHOUT_XATTR
+ endif
+ 
++ifeq ($(WITHOUT_LZO), 1)
++  CPPFLAGS += -DWITHOUT_LZO
++endif
++
+ SUBDIRS = ubi-utils mkfs.ubifs
+ 
+ TARGETS = ftl_format flash_erase flash_eraseall nanddump doc_loadbios \
+@@ -35,11 +39,16 @@ endif
+ $(SYMLINKS):
+ 	ln -sf ../fs/jffs2/$@ $@
+ 
++ifneq ($(WITHOUT_LZO), 1)
++JFFS2_COMPR_LZO_O := compr_lzo.o
++JFFS2_LIB_LZO := -llzo2
++endif
++
+ $(BUILDDIR)/mkfs.jffs2: $(addprefix $(BUILDDIR)/,\
+-	crc32.o compr_rtime.o mkfs.jffs2.o compr_zlib.o compr_lzo.o \
++	crc32.o compr_rtime.o mkfs.jffs2.o compr_zlib.o $(JFFS2_COMPR_LZO_O) \
+ 	compr.o rbtree.o)
+ LDFLAGS_mkfs.jffs2 = $(ZLIBLDFLAGS) $(LZOLDFLAGS)
+-LDLIBS_mkfs.jffs2  = -lz -llzo2
++LDLIBS_mkfs.jffs2  = -lz $(JFFS2_LIB_LZO)
+ 
+ $(BUILDDIR)/flash_eraseall: $(BUILDDIR)/crc32.o $(BUILDDIR)/flash_eraseall.o
+ 
+diff --git a/compr.h b/compr.h
+index 51bf0dd..f373fb6 100644
+--- a/compr.h
++++ b/compr.h
+@@ -18,7 +18,9 @@
+ 
+ #define CONFIG_JFFS2_ZLIB
+ #define CONFIG_JFFS2_RTIME
++#ifndef WITHOUT_LZO
+ #define CONFIG_JFFS2_LZO
++#endif
+ 
+ #define JFFS2_RUBINMIPS_PRIORITY 10
+ #define JFFS2_DYNRUBIN_PRIORITY  20
+diff --git a/mkfs.ubifs/Makefile b/mkfs.ubifs/Makefile
+index a678b0a..d4d897f 100644
+--- a/mkfs.ubifs/Makefile
++++ b/mkfs.ubifs/Makefile
+@@ -5,7 +5,11 @@ ALL_SOURCES=*.[ch] hashtable/*.[ch]
+ 
+ TARGETS = mkfs.ubifs
+ 
+-LDLIBS_mkfs.ubifs = -lz -llzo2 -lm -luuid -L../ubi-utils/ -lubi
++ifneq ($(WITHOUT_LZO), 1)
++mkfs.ubifs_LIBLZO = -llzo2
++endif
++
++LDLIBS_mkfs.ubifs = -lz $(mkfs.ubifs_LIBLZO) -lm -luuid -L../ubi-utils/ -lubi
+ 
+ include ../common.mk
+ 
+diff --git a/mkfs.ubifs/compr.c b/mkfs.ubifs/compr.c
+index e378c5d..55ed1b6 100644
+--- a/mkfs.ubifs/compr.c
++++ b/mkfs.ubifs/compr.c
+@@ -25,7 +25,11 @@
+ #include <stdint.h>
+ #include <string.h>
+ #include <zlib.h>
++#ifndef WITHOUT_LZO
+ #include <lzo/lzo1x.h>
++#else
++#define LZO1X_999_MEM_COMPRESS	0
++#endif
+ #include <linux/types.h>
+ 
+ #include "compr.h"
+@@ -83,6 +87,8 @@ static int zlib_deflate(void *in_buf, size_t in_len, void *out_buf,
+ 	return 0;
+ }
+ 
++
++#ifndef WITHOUT_LZO
+ static int lzo_compress(void *in_buf, size_t in_len, void *out_buf,
+ 			size_t *out_len)
+ {
+@@ -100,6 +106,17 @@ static int lzo_compress(void *in_buf, size_t in_len, void *out_buf,
+ 
+ 	return 0;
+ }
++#else
++static inline int lzo_compress(void *in_buf, size_t in_len, void *out_buf,
++			size_t *out_len)
++{
++	(void)in_buf;
++	(void)in_len;
++	(void)out_buf;
++	(void)out_len;
++	return -1;
++}
++#endif
+ 
+ static int no_compress(void *in_buf, size_t in_len, void *out_buf,
+ 		       size_t *out_len)
+-- 
+1.6.3.3
+
