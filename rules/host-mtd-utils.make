@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003-2008 by Pengutronix e.K., Hildesheim, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -44,29 +44,13 @@ $(STATEDIR)/host-mtd-utils.extract:
 
 HOST_MTD_UTILS_COMPILE_ENV := \
 	$(HOST_ENV) \
-	WITHOUT_XATTR=1 #\
-#	WITHOUT_LZO=1
+	WITHOUT_XATTR=1
 
 HOST_MTD_UTILS_MAKEVARS	:= \
-	PREFIX="$(PTXCONF_SYSROOT_HOST)" \
-	WITHOUT_XATTR=1 #\
-#	WITHOUT_LZO=1
+	PREFIX=$(PTXCONF_SYSROOT_HOST) \
+	BUILDDIR=$(HOST_MTD_UTILS_DIR)
 
-$(STATEDIR)/host-mtd-utils.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-mtd-utils.compile:
-	@$(call targetinfo)
-	cd $(HOST_MTD_UTILS_DIR) && \
-		$(HOST_MTD_UTILS_PATH) \
-		$(HOST_MTD_UTILS_COMPILE_ENV) \
-		$(MAKE) $(HOST_MTD_UTILS_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
+HOST_MTD_UTILS_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Clean

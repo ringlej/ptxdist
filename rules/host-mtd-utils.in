@@ -4,5 +4,4 @@ config HOST_MTD_UTILS
 	tristate
 	select HOST_LIBLZO
 	select HOST_ZLIB
-
-# Newer version need 	select HOST_E2FSPROGS -> libuuid.a
+	select HOST_E2FSPROGS
