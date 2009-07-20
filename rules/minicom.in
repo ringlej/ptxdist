@@ -5,8 +5,11 @@ menuconfig MINICOM
 	prompt "minicom                       "
 	select NCURSES
         help
-          This adds MiniCom to your root filesystem. Useful for serial
-          communication and testing.
+	  friendly menu driven serial communication program
+
+	  Minicom is a clone of the MS-DOS "Telix" communication
+	  program. It emulates ANSI and VT102 terminals, has a dialing
+	  directory and auto zmodem download.
 
 if MINICOM
 
