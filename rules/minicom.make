@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_MINICOM) += minicom
 #
 # Paths and names
 #
-MINICOM_VERSION	:= 2.2
+MINICOM_VERSION	:= 2.3
 MINICOM		:= minicom-$(MINICOM_VERSION)
 MINICOM_SUFFIX	:= tar.gz
-MINICOM_URL	:= http://alioth.debian.org/frs/download.php/1806/$(MINICOM).$(MINICOM_SUFFIX)
+MINICOM_URL	:= http://alioth.debian.org/frs/download.php/2332/$(MINICOM).$(MINICOM_SUFFIX)
 MINICOM_SOURCE	:= $(SRCDIR)/$(MINICOM).$(MINICOM_SUFFIX)
 MINICOM_DIR	:= $(BUILDDIR)/$(MINICOM)
 MINICOM_LICENSE	:= GPLv2
