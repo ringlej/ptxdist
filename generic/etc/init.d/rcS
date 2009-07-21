@@ -2,27 +2,21 @@
 #
 # /etc/init.d/rcS
 #
-# $Id$
-#
 
 mount -t proc none /proc
 
-grep -q "quiet" /proc/cmdline
-if [ "$?" = "0" ]; then
-	OUT=/dev/null
-else
-	OUT=/dev/console
+if grep -q "quiet" /proc/cmdline; then
+	exec 1>/dev/null
 fi
 
-echo -n "mounting filesystems..." 1> $OUT
-mount -a 2>/dev/null 1>$OUT
-echo "done." 1> $OUT
+echo -n "mounting filesystems..."
+mount -a 2>/dev/null
+echo "done."
 
 # loadkmap < /etc/boottime.kmap
 
 # set hostname
 test -e /etc/hostname && hostname -F /etc/hostname
 
-echo "running rc.d services..." 1> $OUT
-run-parts -a start /etc/rc.d 1> $OUT
-
+echo "running rc.d services..."
+run-parts -a start /etc/rc.d
