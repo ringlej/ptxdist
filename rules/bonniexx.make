@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: bonniexx.make 9814 2009-02-23 12:04:12Z wsa $
 #
 # Copyright (C) 2004 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,99 +17,43 @@ PACKAGES-$(PTXCONF_BONNIEXX) += bonniexx
 #
 # Paths and names
 #
-BONNIEXX_VERSION	= 1.03e
-BONNIEXX		= bonnie++-$(BONNIEXX_VERSION)
-BONNIEXX_SUFFIX		= tgz
-BONNIEXX_URL		= http://www.coker.com.au/bonnie++/$(BONNIEXX).$(BONNIEXX_SUFFIX)
-BONNIEXX_SOURCE		= $(SRCDIR)/$(BONNIEXX).$(BONNIEXX_SUFFIX)
-BONNIEXX_DIR		= $(BUILDDIR)/$(BONNIEXX)
-
+BONNIEXX_VERSION	:= 1.03e
+BONNIEXX		:= bonnie++-$(BONNIEXX_VERSION)
+BONNIEXX_SUFFIX		:= tgz
+BONNIEXX_URL		:= http://www.coker.com.au/bonnie++/$(BONNIEXX).$(BONNIEXX_SUFFIX)
+BONNIEXX_SOURCE		:= $(SRCDIR)/$(BONNIEXX).$(BONNIEXX_SUFFIX)
+BONNIEXX_DIR		:= $(BUILDDIR)/$(BONNIEXX)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-bonniexx_get: $(STATEDIR)/bonniexx.get
-
-$(STATEDIR)/bonniexx.get: $(bonniexx_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(BONNIEXX_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, BONNIEXX)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-bonniexx_extract: $(STATEDIR)/bonniexx.extract
-
-$(STATEDIR)/bonniexx.extract: $(bonniexx_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(BONNIEXX_DIR))
-	@$(call extract, BONNIEXX)
-	@$(call patchin, BONNIEXX)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-bonniexx_prepare: $(STATEDIR)/bonniexx.prepare
-
-BONNIEXX_PATH	  =  PATH=$(CROSS_PATH)
-BONNIEXX_ENV 	  =  $(CROSS_ENV)
-BONNIEXX_MAKEVARS =  prefix=$(SYSROOT)
+BONNIEXX_PATH	  := PATH=$(CROSS_PATH)
+BONNIEXX_ENV 	  := $(CROSS_ENV)
 
 #
-# autoconf without automake :-(
+# autoconf
 #
-# - stripping does not work, because bonnie's Makefile uses wrong
-#   install version (for host)
-
-BONNIEXX_AUTOCONF = \
+BONNIEXX_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-stripping
 
-$(STATEDIR)/bonniexx.prepare: $(bonniexx_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(BONNIEXX_DIR)/config.cache)
-	cd $(BONNIEXX_DIR) && \
-		$(BONNIEXX_PATH) $(BONNIEXX_ENV) \
-		./configure $(BONNIEXX_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-bonniexx_compile: $(STATEDIR)/bonniexx.compile
-
-$(STATEDIR)/bonniexx.compile: $(bonniexx_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(BONNIEXX_DIR) && $(BONNIEXX_ENV) $(BONNIEXX_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-bonniexx_install: $(STATEDIR)/bonniexx.install
-
-$(STATEDIR)/bonniexx.install: $(bonniexx_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, BONNIEXX)
-	@$(call touch, $@)
+BONNIEXX_MAKEVARS := prefix=$(PKGDIR)/$(BONNIEXX)/usr
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-bonniexx_targetinstall: $(STATEDIR)/bonniexx.targetinstall
-
-$(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/bonniexx.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, bonniexx)
 	@$(call install_fixup, bonniexx,PACKAGE,bonniexx)
@@ -120,11 +64,12 @@ $(STATEDIR)/bonniexx.targetinstall: $(bonniexx_targetinstall_deps_default)
 	@$(call install_fixup, bonniexx,DEPENDS,)
 	@$(call install_fixup, bonniexx,DESCRIPTION,missing)
 
-	@$(call install_copy, bonniexx, 0, 0, 0755, $(BONNIEXX_DIR)/bonnie++, /usr/bin/bonnie++)
+	@$(call install_copy, bonniexx, 0, 0, 0755, -, \
+		/usr/sbin/bonnie++)
 
 	@$(call install_finish, bonniexx)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
