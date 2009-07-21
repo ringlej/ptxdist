@@ -1,0 +1,91 @@
+menuconfig IMAGE_UBIFS
+	bool
+	select HOST_MTD_UTILS
+	prompt "Generate images/root.ubifs    "
+	help
+	  Build an ubifs image of the root filesystem. Note that this image
+	  is not suitable for raw flash but for usage with the ubiupdatevol
+	  utility. If you are looking for a image for raw flash look at the
+	  root.ubi option below
+
+if IMAGE_UBIFS
+
+config IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE
+	string
+	default "<invalid>"
+	prompt "minimum I/O unit size"
+	help
+	  This option is passed to the -m option of mkfs.ubifs. Gain the
+	  correct value from 'mtdinfo -u' on your target.
+
+config IMAGE_UBIFS_LEB_SIZE
+	string
+	default "<invalid>"
+	prompt "Logical erase block size"
+	help
+	  This option is passed to the -e option of mkfs.ubifs. Gain the
+	  correct value from 'mtdinfo -u' on your target.
+
+config IMAGE_UBIFS_MAX_LEB_COUNT
+	string
+	default "<invalid>"
+	prompt "maximum logical erase block count"
+	help
+	  This option is passed to the -c option of mkfs.ubifs. This specifies
+	  the maximum size of your ubi filesystem in units of logical erase
+	  blocks
+
+config IMAGE_UBIFS_EXTRA_ARGS
+	string
+	default ""
+	prompt "extra arguments passed to mkfs.ubifs"
+	help
+	  If needed you can add extra arguments for mkfs.ubifs here
+	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt)
+
+endif
+
+menuconfig IMAGE_UBI
+	bool
+	select IMAGE_UBIFS
+	prompt "Generate images/root.ubi"
+	help
+	  Build an ubi image of the root filesystem. This image is suitable for
+	  writing to raw flash devices.
+
+if IMAGE_UBI
+
+config IMAGE_UBI_VOLUME_SIZE
+	string
+	prompt "ubi volume size"
+	default "<invalid>"
+	help
+	  ptxdist currently creates ubi images with only one volume in it. Specify
+	  its size here.
+
+config IMAGE_UBI_SUB_PAGE_SIZE
+	string
+	prompt "Sub page size"
+	default "<invalid>"
+	help
+	  This option is passed to the -s option of ubinize. Gain the
+	  correct value from 'mtdinfo -u' on your target.
+
+config IMAGE_UBI_VID_HEADER_OFFSET
+	string
+	prompt "VID header offset"
+	default "<invalid>"
+	help
+	  This option is passed to the -O option of ubinize. Gain the
+	  correct value from 'mtdinfo -u' on your target.
+
+config IMAGE_UBI_PEB_SIZE
+	string
+	prompt "physical eraseblock size"
+	default "<invalid>"
+	help
+	  This option is passed to the -p option of ubinize. Gain the
+	  correct value from 'mtdinfo -u' on your target.
+
+endif
+
