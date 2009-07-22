@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 #
 # figure out arch string for ipkgs
@@ -39,18 +47,27 @@ ptxd_init_arch() {
 #
 ptxd_init_sysroot_toolchain() {
     local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
-    local sysroot
 
-    sysroot="$(echo 'int main(void){return 0;}' | \
+    #
+    # no compiler prefix specified means using plain "gcc"
+    # which comes from the distribution, so no sysroot here
+    #
+    if [ -z "${compiler_prefix}" ]; then
+	PTXDIST_SYSROOT_TOOLCHAIN="/"
+    else
+	local sysroot
+
+	sysroot="$(echo 'int main(void){return 0;}' | \
 	${compiler_prefix}gcc -x c -o /dev/null -v - 2>&1 | \
 	sed -ne "/.*collect2.*/s,.*--sysroot=\([^[:space:]]*\).*,\1,p" && \
 	check_pipe_status)"
 
-    if [ $? -ne 0 -o -z "${sysroot}" ]; then
-	return 1
-    fi
+	if [ $? -ne 0 -o -z "${sysroot}" ]; then
+	    return 1
+	fi
 
-    PTXDIST_SYSROOT_TOOLCHAIN="$(ptxd_abspath "${sysroot}")" || return
+	PTXDIST_SYSROOT_TOOLCHAIN="$(ptxd_abspath "${sysroot}")" || return
+    fi
 
     export PTXDIST_SYSROOT_TOOLCHAIN
 }
