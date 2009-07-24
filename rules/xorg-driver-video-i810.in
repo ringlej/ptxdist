@@ -15,6 +15,7 @@ menuconfig XORG_DRIVER_VIDEO_I810
 	select XORG_PROTO_RENDER
 	select XORG_PROTO_XEXT
 	select XORG_LIB_X11
+	select XORG_PROTO_XINERAMA
 	prompt "Intel i810"
 	help
 	  This is the video driver for Intel cards for the modular Xorg server.
