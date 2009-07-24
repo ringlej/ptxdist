@@ -82,7 +82,6 @@ QT4_AUTOCONF := \
 	-no-sql-mysql \
 	-no-sql-odbc \
 	-no-sql-psql \
-	-no-sql-sqlite \
 	-no-sql-sqlite2 \
 	-no-qt3support \
 	-no-mmx \
@@ -426,6 +425,21 @@ else
 QT4_AUTOCONF += -no-scripttools
 endif
 
+# SQL: SQLITE support
+# if QtSql is deactivated QT4_SQLITE_NONE is also deactivated -- but
+# is the option used if no Sql support is build?
+# this should be checked. As workaround use ifeq
+#ifdef PTXCONF_QT4_SQLITE_NONE
+ifeq ($(PTXCONF_QT4_SQLITE_BUILTIN)$(PTXCONF_QT4_SQLITE_PLUGIN),)
+QT4_AUTOCONF += -no-sql-sqlite
+endif
+ifdef PTXCONF_QT4_SQLITE_BUILTIN
+QT4_AUTOCONF += -qt-sql-sqlite
+endif
+ifdef PTXCONF_QT4_SQLITE_PLUGIN
+QT4_AUTOCONF += -plugin-sql-sqlite
+endif
+
 ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK)$(PTXCONF_QT4_BUILD_DESIGNERLIBS)$(PTXCONF_QT4_BUILD_ASSISTANTLIB),)
 QT4_BUILD_TOOLS_TARGETS = sub-tools
 endif
@@ -588,6 +602,11 @@ ifdef PTXCONF_QT4_BUILD_SQL
 	@$(call install_link, qt4, libQtSql.so.$(QT_VERSION_L3), \
 		/usr/lib/libQtSql.so.$(QT_VERSION_L1))
 endif
+ifdef PTXCONF_QT4_SQLITE_PLUGIN
+	@$(call install_copy, qt4, 0, 0, 0644, \
+		$(QT4_DIR)/plugins/sqldrivers/libqsqlite.$(QT4_PLUGIN_EXT), \
+		/usr/plugins/sqldrivers/libqsqlite.$(QT4_PLUGIN_EXT))
+endif
 ifdef PTXCONF_QT4_BUILD_NETWORK
 	@$(call install_copy, qt4, 0, 0, 0644, \
 		$(QT4_DIR)/lib/libQtNetwork.so.$(QT_VERSION_L3), \
@@ -692,6 +711,17 @@ ifdef PTXCONF_QT4_BUILD_QTXMLPATTERNS
 	@$(call install_link, qt4, libQtXmlPatterns.so.$(QT_VERSION_L3), \
 		/usr/lib/libQtXmlPatterns.so.$(QT_VERSION_L1))
 endif
+ifdef PTXCONF_QT4_BUILD_PHONON
+	@$(call install_copy, qt4, 0, 0, 0644, \
+		$(QT4_DIR)/lib/libphonon.so.4.3.1, \
+		/usr/lib/libphonon.so.4.3.1)
+	@$(call install_link, qt4, libphonon.so.4.3.1, \
+		/usr/lib/libphonon.so.4.3)
+	@$(call install_link, qt4, libphonon.so.4.3.1, \
+		/usr/lib/libphonon.so.4)
+	@$(call install_link, qt4, libphonon.so.4.3.1, \
+		/usr/lib/libphonon.so)
+endif
 endif #PTXCONF_QT4_SHARED
 ifdef PTXCONF_QT4_GFX_LINUXFB_PLUGIN
 	@$(call install_copy, qt4, 0, 0, 0644, \
@@ -755,6 +785,11 @@ ifdef PTXCONF_QT4_BUILD_SVG
 	@$(call install_copy, qt4, 0, 0, 0644, \
 		$(QT4_DIR)/plugins/iconengines/libqsvgicon.$(QT4_PLUGIN_EXT), \
 		/usr/plugins/iconengines/libqsvgicon.$(QT4_PLUGIN_EXT))
+endif
+ifdef PTXCONF_QT4_BUILD_PHONON
+	@$(call install_copy, qt4, 0, 0, 0644, \
+		$(QT4_DIR)/plugins/phonon_backend/libphonon_gstreamer.$(QT4_PLUGIN_EXT), \
+		/usr/plugins/phonon_backend/libphonon_gstreamer.$(QT4_PLUGIN_EXT))
 endif
 
 ifdef PTXCONF_QT4_FONT_DEJAVU

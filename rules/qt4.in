@@ -12,6 +12,7 @@ menuconfig QT4
 	select DIRECTFB		if QT4_GFX_DIRECTFB_PLUGIN
 	select GSTREAMER	if QT4_BUILD_PHONON
 	select GST_PLUGINS_BASE	if QT4_BUILD_PHONON
+	select GST_PLUGINS_BASE__DECODEBIN if QT4_BUILD_PHONON
 	select OPENSSL		if QT4_OPENSSL
 # libsvga is currently not in ptxdist
 #	select LIBSVGA		if QT4_GFX_SVGA_PLUGIN
@@ -585,9 +586,9 @@ config QT4_BUILD_NETWORK
 	  The QtNetwork module offers classes that allow you to write TCP/IP
 	  clients and servers.
 
-config QT4_BUILD_SQL
+menuconfig QT4_BUILD_SQL
 	bool
-	prompt "QtSql"
+	prompt "QtSql                         "
 	help
 	  The QtSql module helps you provide seamless database integration
 	  to your Qt applications.
@@ -597,6 +598,31 @@ config QT4_BUILD_SQL
 	   - SQL API Layer: Provides a Qt API for SQL
 	   - UI Layer:      These classes link the data from a database to
 	                    data-aware widgets.
+
+if QT4_BUILD_SQL
+
+choice
+	prompt "SQLITE support    "
+	default QT4_SQLITE_NONE
+
+config QT4_SQLITE_NONE
+	bool "none   "
+	help
+	 This disables entirely any SQLITE support
+
+config QT4_SQLITE_BUILTIN
+	bool "builtin"
+	help
+	  Link the driver into QtSql
+
+config QT4_SQLITE_PLUGIN
+	bool "plugin "
+	help
+	  Load the driver at runtime
+endchoice
+
+endif # QT4_BUILD_SQL
+
 
 config QT4_BUILD_SCRIPT
 	bool
