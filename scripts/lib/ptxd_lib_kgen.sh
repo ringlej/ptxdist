@@ -62,7 +62,7 @@ ptxd_kgen_generate_sections()
 		continue
 	    fi
 
-	    if [ -z "$(find "${dir}/rules" -name *.in)" ]; then
+	    if [ -z "$(find "${dir}/rules/" -name *.in)" ]; then
 		continue
 	    fi
 
