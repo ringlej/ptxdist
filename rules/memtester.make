@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 2922 2005-07-11 19:17:53Z rsc $
 #
 # Copyright (C) 2005 by Sascha Hauer
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -37,22 +37,12 @@ $(MEMTESTER_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-MEMTESTER_PATH	:=  PATH=$(CROSS_PATH)
-MEMTESTER_ENV 	:=  $(CROSS_ENV)
+MEMTESTER_PATH := PATH=$(CROSS_PATH)
+MEMTESTER_COMPILE_ENV := $(CROSS_ENV)
 
 $(STATEDIR)/memtester.prepare:
 	@$(call targetinfo)
-	echo "all: memtester" > $(MEMTESTER_DIR)/Makefile.ptxdist
-	echo "memtester: tests.o memtester.o" >> $(MEMTESTER_DIR)/Makefile.ptxdist
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/memtester.compile:
-	@$(call targetinfo)
-	cd $(MEMTESTER_DIR) && $(MEMTESTER_ENV) $(MEMTESTER_PATH) make -f Makefile.ptxdist
+	@echo "memtester: tests.o memtester.o" > $(MEMTESTER_DIR)/Makefile
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -75,7 +65,7 @@ $(STATEDIR)/memtester.targetinstall:
 	@$(call install_fixup, memtester,PRIORITY,optional)
 	@$(call install_fixup, memtester,VERSION,$(MEMTESTER_VERSION))
 	@$(call install_fixup, memtester,SECTION,base)
-	@$(call install_fixup, memtester,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, memtester,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, memtester,DEPENDS,)
 	@$(call install_fixup, memtester,DESCRIPTION,missing)
 
