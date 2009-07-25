@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2008 by Juergen Beisert
+#               2009 Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
