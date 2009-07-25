@@ -38,7 +38,6 @@ $(QT4_SOURCE):
 
 $(STATEDIR)/qt4.extract:
 	@$(call targetinfo)
-#	#@$(call clean, $(QT4_DIR))
 	@$(call extract, QT4)
 	@$(call patchin, QT4)
 	@for file in $(QT4_DIR)/mkspecs/qws/linux-ptx-g++/*.in; do \
@@ -57,7 +56,7 @@ $(STATEDIR)/qt4.extract:
 # don't use CROSS_ENV. Qt uses mkspecs for instead.
 QT4_ENV		:= $(CROSS_ENV_FLAGS) $(CROSS_ENV_PKG_CONFIG)
 QT4_PATH	:= PATH=$(CROSS_PATH)
-QT4_MAKEVARS	:= INSTALL_ROOT=$(SYSROOT)
+QT4_MAKEVARS	:= INSTALL_ROOT=$(PKG_DIR)/$(QT4)
 
 # With the introduction of platformconfigs PTXCONF_ARCH was
 # renamed to PTXCONF_ARCH_STRING.
@@ -539,11 +538,11 @@ endif
 
 $(STATEDIR)/qt4.install:
 	@$(call targetinfo)
-	@cd $(QT4_DIR) && $(QT4_PATH) $(MAKE) \
-		$(QT4_INSTALL_TARGETS) $(QT4_MAKEVARS)
+	@$(call install, QT4,,,$(QT4_INSTALL_TARGETS))
+
 #	# put a link for qmake where other packages can find it
 	@ln -sf $(QT4_DIR)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake
-	@# qmake needs this to build other packages
+#	# qmake needs this to build other packages
 	@echo -e "[Paths]\nPrefix=/usr\nHeaders=$(SYSROOT)/usr/include\nBinaries=$(QT4_DIR)/bin\nLibraries=$(SYSROOT)/usr/lib" > $(QT4_DIR)/bin/qt.conf
 	@$(call touch)
 
