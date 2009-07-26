@@ -20,6 +20,6 @@ ptxd_make_cmake_toolchain() {
 	SYSROOT_TOOLCHAIN="${PTXDIST_SYSROOT_TOOLCHAIN}" \
 	SYSROOT_TARGET="${SYSROOT}" \
 	\
-	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/toolchain-template.cmake" > "${1}"
+	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/cmake/toolchain.cmake.in" > "${1}"
 }
 export -f ptxd_make_cmake_toolchain
