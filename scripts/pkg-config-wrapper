@@ -1,30 +1,10 @@
 #!/bin/bash
 
-PKG_CONFIG_ARRAY=(`type -a -P pkg-config`)
+declare -a PKG_CONFIG_ARRAY
+PKG_CONFIG_ARRAY=( $(type -a -P pkg-config) )
 PKG_CONFIG="${PKG_CONFIG_ARRAY[1]}"
 
-check_pipe_status() {
-    for i in  "${PIPESTATUS[@]}"; do
-	if test $i -ne 0; then
-	    exit $i
-	fi
-    done
-}
-
-if test -z "${SYSROOT}"; then
-    cat >&2 <<EOF
-
-
-pkg-config: missing \$SYSROOT environment variable"
-
-
-EOF
-    exit 1
-fi
-
-export PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1
-export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
-unset found_var
+exec "${PKG_CONFIG}" "${@}"
 
 for ((i = 1; i <= ${#}; i++)); do
     case "${!i}" in

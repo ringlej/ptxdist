@@ -31,6 +31,7 @@ ptxd_make_world_install_pkg() {
 export -f ptxd_make_world_install_pkg
 
 
+
 #
 # install
 #
@@ -54,8 +55,14 @@ ptxd_make_world_install_target() {
 
     # prefix paths in la files with sysroot
     find "${pkg_pkgdir}" -name "*.la" -print0 | xargs -r -0 -- \
-	sed -i -e "/^dependency_libs/s:\( \)\(/lib\|/usr/lib\):\1${PTXDIST_SYSROOT_TARGET}\2:g" \
+	sed -i \
+	-e "/^dependency_libs/s:\( \)\(/lib\|/usr/lib\):\1${PTXDIST_SYSROOT_TARGET}\2:g" \
 	-e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${PTXDIST_SYSROOT_TARGET}\2:g" &&
+    check_pipe_status &&
+
+    # make pkgconfig's pc files relocatable
+    find "${pkg_pkgdir}" -name "*.pc" -print0 | \
+	xargs -r -0 gawk -f "${PTXDIST_LIB_DIR}/ptxd_make_world_install_mangle_pc.awk"
     check_pipe_status &&
 
     cp -dprf -- "${pkg_pkgdir}"/* "${PTXDIST_SYSROOT_TARGET}"
