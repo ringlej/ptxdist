@@ -346,36 +346,27 @@ check_config() {
 
 
 #
-# run different checks on the given directory prefix and creates a
-# default layout of directories
+# first create and then run some tests on given directory
 #
-check_dirs_prefix() {
-	local testfile
+# $1:	the directory to create
+#
+check_dirs_mkdir() {
+	local dir="${1}"
 
-	local prefix="${1}"
-
-	if [ -z "${prefix}" ]; then
+	# check for spaces
+	if echo "${dir}" | grep -q " "; then
 		echo
-		echo
-		echo "${PROMPT}check_dirs_prefix(): error prefix is not defined"
-		echo
-		echo
-		exit 1
-	fi
-
-	if echo "${prefix}" | grep -q " "; then
-		echo
-		echo "error: some important dir ('${prefix}')"
+		echo "error: some important dir ('${dir}')"
 		echo "	     contains spaces, this will probably not work, sorry"
 		echo
 		exit 1
 	fi
 
-	if [ ! -d "${prefix}" ]; then
-		mkdir -p "${prefix}" 2> /dev/null
-		if [ ${?} -ne 0 ]; then
+	# create dir if not exiting
+	if [ ! -d "${dir}" ]; then
+		if ! mkdir -m755 -p -- "${dir}" 2> /dev/null; then
 			echo
-			echo "error: '${prefix}'"
+			echo "error: '${dir}'"
 			echo "	     does not exist and cannot be created!"
 			echo "	     Please create that dir with write permissions for you."
 			echo
@@ -385,20 +376,19 @@ check_dirs_prefix() {
 				exit 1
 			fi
 			echo
-			echo sudo mkdir -p "${prefix}"
-			sudo mkdir -p "${prefix}"
-			echo
-			echo sudo chown $UID "${prefix}"
-			sudo chown $UID "${prefix}"
+			echo sudo mkdir -p "${dir}"
+			sudo mkdir -p "${dir}"
+			echo sudo chown $UID "${dir}"
+			sudo chown $UID "${dir}"
 		fi
 	fi
 
-	testfile="${prefix}/.secret-world-domination-project"
-	touch "${testfile}" 2> /dev/null
-	if [ ${?} -ne 0 ]; then
+	# test r/w
+	local testfile="${dir}/.secret-world-domination-project"
+	if ! touch "${testfile}" 2> /dev/null; then
 		echo
-		echo "error: '${prefix}'"
-		echo "	     does exist, but is not writeable."
+		echo "error: '${dir}'"
+		echo "	     does exist, but is not writable."
 		echo "	     Change the permissions and try again."
 		echo
 		read -t 5 -p "press enter to let sudo do the job!"
@@ -407,23 +397,20 @@ check_dirs_prefix() {
 			exit 1
 		fi
 		echo
-		echo sudo chown $UID "${prefix}"
-		sudo chown $UID "${prefix}"
-		echo sudo chmod u+w "${prefix}"
-		sudo chmod u+w "${prefix}"
+		echo sudo chown $UID "${dir}"
+		sudo chown $UID "${dir}"
+		echo sudo chmod u+w "${dir}"
+		sudo chmod u+w "${dir}"
 
-		touch "${testfile}" 2> /dev/null
-		if [ ${?} -ne 0 ]; then
+		if ! touch "${testfile}" 2> /dev/null; then
 			echo
-			echo "error: cannot make '${prefix}' writeable, giving up"
+			echo "error: cannot make '${dir}' writable, giving up"
 			echo
 			exit 1
 		fi
 	fi
 
 	rm -- "${testfile}"
-
-	mkdir -p "${prefix}"/{etc,lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 }
 
 
@@ -441,12 +428,22 @@ check_dirs() {
 	# check for r/w and create standard directory layout
 	local dir
 	for dir in \
+		"${PTXDIST_PLATFORMDIR}" \
+		"${ptxconf_sysroot_host}" \
+		"${ptxconf_sysroot_cross}" \
+		"${ptxconf_sysroot_target}" \
+		; do
+		check_dirs_mkdir "${dir}"
+	done
+
+	# create standard direcory layout
+	for dir in \
 		"${ptxconf_sysroot_host}" \
 		"${ptxconf_sysroot_cross}" \
 		"${ptxconf_sysroot_target}" \
 		"${ptxconf_sysroot_target}/usr" \
 		; do
-		check_dirs_prefix "${dir}"
+		mkdir -m755 -p -- "${dir}"/{etc,lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 	done
 
 	# create build and output dirs
@@ -462,7 +459,7 @@ check_dirs() {
 	        "${PTXDIST_GEN_CONFIG_DIR}" \
 		; do
 		if [ \! -d "${dir}" ]; then
-			mkdir -m 755 -p "${dir}" || ptxd_bailout "cannot create dir: '${dir}'"
+			mkdir -m 755 -p -- "${dir}" || ptxd_bailout "cannot create dir: '${dir}'"
 		fi
 	done
 
