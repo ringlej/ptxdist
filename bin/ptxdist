@@ -2162,18 +2162,37 @@ setup_config() {
 #      "*DIR"	correct directory definitions
 #
 setup_platform() {
-	local platform project project_version
+	local platform platform_version project project_version production
 
 	# ptxd_get_ptxconf's return value is
-	platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)" || [ ${?} -eq 1 ] &&
-	project="$(ptxd_get_ptxconf PTXCONF_PROJECT)" || [ ${?} -eq 1 ] &&
-	project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)" || [ ${?} -eq 1 ] || return
+	platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"				|| [ ${?} -eq 1 ] &&
+	project="$(ptxd_get_ptxconf PTXCONF_PROJECT)"				|| [ ${?} -eq 1 ] &&
+	project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"		|| [ ${?} -eq 1 ] &&
+	production="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION)"	|| [ ${?} -eq 1 ] || return
+
+	local prefix
+	if [ -n "${production}" ]; then
+		if ! prefix="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION_PREFIX)"; then
+			ptxd_dialog_msgbox \
+			    "error: 'production' release is activated, but the config symbol\n" \
+			    "       PROJECT_BUILD_PRODUCTION_PREFIX is empty.\n" \
+			    "\n" \
+			    "       Please do 'ptxdist menuconfig',\n" \
+			    "       navigate into the submenu 'Project Name & Version'\n" \
+			    "       and enter a production prefix, \n" \
+			    "       or choose: 'Build Type (development)'."
+			return 1
+		fi
+		platform_version="$(ptxd_get_ptxconf PTXCONF_PLATFORM_VERSION)"
+	else
+		prefix="${PTXDIST_WORKSPACE}"
+	fi
 
 	if [ -n "${platform}" ]; then
-		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}/platform-${platform}"
+		PTXDIST_PLATFORMDIR="${prefix}/platform-${platform}${platform_version}"
 		PTXDIST_PLATFORMSUFFIX=".${platform}"
 	else
-		PTXDIST_PLATFORMDIR="${PTXDIST_WORKSPACE}"
+		PTXDIST_PLATFORMDIR="${prefix}"
 		PTXDIST_PLATFORMSUFFIX=""
 	fi
 
