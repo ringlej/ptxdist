@@ -2245,11 +2245,22 @@ setup_logfile()
 {
 	local logdir="${PTX_LOGFILE%/*}"
 
-	if [ ! -d "${logdir}" ]; then
-		mkdir -p ${logdir} || ptxd_bailout "cannot create dir: ${logdir}"
+	if [ -e "${logdir}" -a \! -w "${logdir}" -o \
+		\! -d "${logdir}" ] && ! mkdir -p "${logdir}" 2>/dev/null; then
+		#
+		# small hack:
+		#
+		# if we cannot create the logdir and it's outside the
+		# workspace, it will be created later with the sudo
+		# helper, so don't bailout in this case.
+		#
+		case "${logdir}" in
+		"${PTXDIST_WORKSPACE}"*) ptxd_bailout "cannot create logdir: '${logdir}'" ;;
+		*) return ;;
+		esac
 	fi
 
-	if [ ! -e "${PTX_LOGFILE}" ]; then
+	if [ \! -e "${PTX_LOGFILE}" ]; then
 		# let emacs outline mode be compatible to vi's fold mode
 		echo -e "# -*- mode:outline; outline-regexp:\"{""{{\" -*-\n" > "${PTX_LOGFILE}"
 	fi
