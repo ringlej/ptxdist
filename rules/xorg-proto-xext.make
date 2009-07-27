@@ -2,7 +2,8 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#           (C) 2009 by Robert Schwebel
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +18,10 @@ PACKAGES-$(PTXCONF_XORG_PROTO_XEXT) += xorg-proto-xext
 #
 # Paths and names
 #
-XORG_PROTO_XEXT_VERSION := 7.0.2
+XORG_PROTO_XEXT_VERSION := 7.0.5
 XORG_PROTO_XEXT		:= xextproto-$(XORG_PROTO_XEXT_VERSION)
 XORG_PROTO_XEXT_SUFFIX	:= tar.bz2
-XORG_PROTO_XEXT_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/proto/$(XORG_PROTO_XEXT).$(XORG_PROTO_XEXT_SUFFIX)
+XORG_PROTO_XEXT_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/proto/$(XORG_PROTO_XEXT).$(XORG_PROTO_XEXT_SUFFIX)
 XORG_PROTO_XEXT_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XEXT).$(XORG_PROTO_XEXT_SUFFIX)
 XORG_PROTO_XEXT_DIR	:= $(BUILDDIR)/$(XORG_PROTO_XEXT)
 
