@@ -1,6 +1,7 @@
 #!/bin/sh
-# ipkg wrapper - log when installing / removing things 
-# 
+#
+# ipkg wrapper - log when installing / removing things
+#
 
 [ -e "/etc/ipkg_log_wrapper.cf" ] && . /etc/ipkg_log_wrapper.cf
 
