@@ -2,7 +2,8 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#           (C) 2009 by Robert Schwebel
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +18,10 @@ PACKAGES-$(PTXCONF_XORG_PROTO_RANDR) += xorg-proto-randr
 #
 # Paths and names
 #
-XORG_PROTO_RANDR_VERSION:= 1.2.1
+XORG_PROTO_RANDR_VERSION:= 1.3.0
 XORG_PROTO_RANDR	:= randrproto-$(XORG_PROTO_RANDR_VERSION)
 XORG_PROTO_RANDR_SUFFIX	:= tar.bz2
-XORG_PROTO_RANDR_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/proto/$(XORG_PROTO_RANDR).$(XORG_PROTO_RANDR_SUFFIX)
+XORG_PROTO_RANDR_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/proto/$(XORG_PROTO_RANDR).$(XORG_PROTO_RANDR_SUFFIX)
 XORG_PROTO_RANDR_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_RANDR).$(XORG_PROTO_RANDR_SUFFIX)
 XORG_PROTO_RANDR_DIR	:= $(BUILDDIR)/$(XORG_PROTO_RANDR)
 
