@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_XP) += xorg-lib-xp
 XORG_LIB_XP_VERSION	:= 1.0.0
 XORG_LIB_XP		:= libXp-$(XORG_LIB_XP_VERSION)
 XORG_LIB_XP_SUFFIX	:= tar.bz2
-XORG_LIB_XP_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/lib//$(XORG_LIB_XP).$(XORG_LIB_XP_SUFFIX)
+XORG_LIB_XP_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_XP).$(XORG_LIB_XP_SUFFIX)
 XORG_LIB_XP_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XP).$(XORG_LIB_XP_SUFFIX)
 XORG_LIB_XP_DIR		:= $(BUILDDIR)/$(XORG_LIB_XP)
 
