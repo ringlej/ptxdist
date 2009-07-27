@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_LIB_XAW) += xorg-lib-xaw
 #
 # Paths and names
 #
-XORG_LIB_XAW_VERSION	:= 1.0.4
+XORG_LIB_XAW_VERSION	:= 1.0.6
 XORG_LIB_XAW		:= libXaw-$(XORG_LIB_XAW_VERSION)
 XORG_LIB_XAW_SUFFIX	:= tar.bz2
-XORG_LIB_XAW_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/lib/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
+XORG_LIB_XAW_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
 XORG_LIB_XAW_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
 XORG_LIB_XAW_DIR	:= $(BUILDDIR)/$(XORG_LIB_XAW)
 
@@ -77,12 +77,6 @@ ifdef PTXCONF_XORG_LIB_XAW_V7
 XORG_LIB_XAW_AUTOCONF += --enable-xaw7
 else
 XORG_LIB_XAW_AUTOCONF += --disable-xaw7
-endif
-
-ifdef PTXCONF_XORG_LIB_XAW_V8
-XORG_LIB_XAW_AUTOCONF += --enable-xaw8
-else
-XORG_LIB_XAW_AUTOCONF += --disable-xaw8
 endif
 
 $(STATEDIR)/xorg-lib-xaw.prepare: $(xorg-lib-xaw_prepare_deps_default)
@@ -169,23 +163,6 @@ ifdef PTXCONF_XORG_LIB_XAW_V7
 		$(XORG_LIBDIR)/libXaw.so.7)
 endif
 
-ifdef PTXCONF_XORG_LIB_XAW_V8
-	@$(call install_copy, xorg-lib-xaw, 0, 0, 0644, \
-		$(XORG_LIB_XAW_DIR)/src/.libs/libXaw8.so.8.0.0, \
-		$(XORG_LIBDIR)/libXaw8.so.8.0.0)
-
-	@$(call install_link, xorg-lib-xaw, \
-		libXaw8.so.8.0.0, \
-		$(XORG_LIBDIR)/libXaw8.so.8)
-
-	@$(call install_link, xorg-lib-xaw, \
-		libXaw8.so.8.0.0, \
-		$(XORG_LIBDIR)/libXaw8.so)
-
-	@$(call install_link, xorg-lib-xaw, \
-		libXaw8.so.8.0.0, \
-		$(XORG_LIBDIR)/libXaw.so.8)
-endif
 	@$(call install_finish, xorg-lib-xaw)
 
 	@$(call touch, $@)

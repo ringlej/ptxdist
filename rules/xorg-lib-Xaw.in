@@ -8,8 +8,7 @@ menuconfig XORG_LIB_XAW
 	select XORG_LIB_XPM
 	select XORG_LIB_XEXT
 	select XORG_PROTO_X
-	select XORG_LIB_XP if XORG_LIB_XAW_V8
-	select XORG_PROTO_PRINT if XORG_LIB_XAW_V8
+	select XORG_LIB_XAW_V7 if !XORG_LIB_XAW_V6
 	prompt "libXaw                        "
 	help
 	  Xaw is the X Athena Widget Set. At least one of the releases must be
@@ -25,14 +24,7 @@ config XORG_LIB_XAW_V6
 config XORG_LIB_XAW_V7
 	depends on XORG_LIB_XAW
 	bool
-	prompt "Build version 7 (old)"
+	prompt "Build version 7"
 	help
 	  If you need release 7 of this library, enable it
 
-config XORG_LIB_XAW_V8
-	depends on XORG_LIB_XAW
-	bool
-	default y
-	prompt "Build version 8"
-	help
-	  If you need the current release, enable it
