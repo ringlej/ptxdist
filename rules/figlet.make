@@ -23,6 +23,7 @@ FIGLET_SUFFIX		:= tar.gz
 FIGLET_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FIGLET).$(FIGLET_SUFFIX)
 FIGLET_SOURCE		:= $(SRCDIR)/$(FIGLET).$(FIGLET_SUFFIX)
 FIGLET_DIR		:= $(BUILDDIR)/$(FIGLET)
+FIGLET_LICENSE		:= figlet
 
 # ----------------------------------------------------------------------------
 # Get
@@ -61,8 +62,10 @@ $(STATEDIR)/figlet.targetinstall:
 	@$(call install_fixup, figlet,DEPENDS,)
 	@$(call install_fixup, figlet,DESCRIPTION,missing)
 
-	@$(call install_copy, figlet, 0, 0, 0755, $(FIGLET_DIR)/figlet, /usr/sbin/figlet)
-	@$(call install_copy, figlet, 0, 0, 0644, $(FIGLET_DIR)/fonts/standard.flf, /usr/share/figlet/standard.flf, n)
+	@$(call install_copy, figlet, 0, 0, 0755, -, \
+		/usr/bin/figlet)
+	@$(call install_copy, figlet, 0, 0, 0644, $(FIGLET_DIR)/fonts/standard.flf, \
+		/usr/share/figlet/standard.flf)
 
 	@$(call install_finish, figlet)
 
