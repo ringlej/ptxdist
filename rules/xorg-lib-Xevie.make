@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_XEVIE) += xorg-lib-xevie
 XORG_LIB_XEVIE_VERSION	:= 1.0.2
 XORG_LIB_XEVIE		:= libXevie-$(XORG_LIB_XEVIE_VERSION)
 XORG_LIB_XEVIE_SUFFIX	:= tar.bz2
-XORG_LIB_XEVIE_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/lib/$(XORG_LIB_XEVIE).$(XORG_LIB_XEVIE_SUFFIX)
+XORG_LIB_XEVIE_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_XEVIE).$(XORG_LIB_XEVIE_SUFFIX)
 XORG_LIB_XEVIE_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XEVIE).$(XORG_LIB_XEVIE_SUFFIX)
 XORG_LIB_XEVIE_DIR	:= $(BUILDDIR)/$(XORG_LIB_XEVIE)
 
