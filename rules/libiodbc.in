@@ -1,8 +1,7 @@
 ## SECTION=system_libraries
 
 menuconfig LIBIODBC
-	bool
-	prompt "libiodbc                      "
+	tristate "libiodbc                      "
 	select GTK if LIBIODBC_GUI
 	help
 	  iODBC Driver Manager
