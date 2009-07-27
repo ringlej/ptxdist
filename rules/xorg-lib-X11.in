@@ -33,7 +33,7 @@ config XORG_LIB_X11_XCB_LOW_LEVEL
 	prompt "use XCB for low level protocol implementation"
 	help
 	  FIXME
-	
+
 config XORG_LIB_X11_XF86BIGFONT
 	depends on XORG_LIB_X11
 	bool
