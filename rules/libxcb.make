@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBXCB) += libxcb
 #
 # Paths and names
 #
-LIBXCB_VERSION		:= 1.1
+LIBXCB_VERSION		:= 1.4
 LIBXCB			:= libxcb-$(LIBXCB_VERSION)
 LIBXCB_SUFFIX		:= tar.bz2
 LIBXCB_URL		:= http://xcb.freedesktop.org/dist/$(LIBXCB).$(LIBXCB_SUFFIX)
@@ -89,11 +89,11 @@ $(STATEDIR)/libxcb.targetinstall:
 		/usr/lib/libxcb-glx.so.0.0.0)
 	@$(call install_link, libxcb, libxcb-glx.so.0.0.0, /usr/lib/libxcb-glx.so.0)
 	@$(call install_link, libxcb, libxcb-glx.so.0.0.0, /usr/lib/libxcb-glx.so)
-	@$(call install_copy, libxcb, 0, 0, 0644, \
-		$(LIBXCB_DIR)/src/.libs/libxcb-randr.so.0.0.0, \
-		/usr/lib/libxcb-randr.so.0.0.0)
-	@$(call install_link, libxcb, libxcb-randr.so.0.0.0, /usr/lib/libxcb-randr.so.0)
-	@$(call install_link, libxcb, libxcb-randr.so.0.0.0, /usr/lib/libxcb-randr.so)
+
+	@$(call install_copy, libxcb, 0, 0, 0644, -, /usr/lib/libxcb-randr.so.0.1.0)
+	@$(call install_link, libxcb, libxcb-randr.so.0.1.0, /usr/lib/libxcb-randr.so.0)
+	@$(call install_link, libxcb, libxcb-randr.so.0.1.0, /usr/lib/libxcb-randr.so)
+
 	@$(call install_copy, libxcb, 0, 0, 0644, \
 		$(LIBXCB_DIR)/src/.libs/libxcb-record.so.0.0.0, \
 		/usr/lib/libxcb-record.so.0.0.0)
@@ -149,11 +149,11 @@ $(STATEDIR)/libxcb.targetinstall:
 		/usr/lib/libxcb-xinerama.so.0.0.0)
 	@$(call install_link, libxcb, libxcb-xinerama.so.0.0.0, /usr/lib/libxcb-xinerama.so.0)
 	@$(call install_link, libxcb, libxcb-xinerama.so.0.0.0, /usr/lib/libxcb-xinerama.so)
-	@$(call install_copy, libxcb, 0, 0, 0644, \
-		$(LIBXCB_DIR)/src/.libs/libxcb-xlib.so.0.0.0, \
-		/usr/lib/libxcb-xlib.so.0.0.0)
-	@$(call install_link, libxcb, libxcb-xlib.so.0.0.0, /usr/lib/libxcb-xlib.so.0)
-	@$(call install_link, libxcb, libxcb-xlib.so.0.0.0, /usr/lib/libxcb-xlib.so)
+#	@$(call install_copy, libxcb, 0, 0, 0644, \
+#		$(LIBXCB_DIR)/src/.libs/libxcb-xlib.so.0.0.0, \
+#		/usr/lib/libxcb-xlib.so.0.0.0)
+#	@$(call install_link, libxcb, libxcb-xlib.so.0.0.0, /usr/lib/libxcb-xlib.so.0)
+#	@$(call install_link, libxcb, libxcb-xlib.so.0.0.0, /usr/lib/libxcb-xlib.so)
 	@$(call install_copy, libxcb, 0, 0, 0644, \
 		$(LIBXCB_DIR)/src/.libs/libxcb-xprint.so.0.0.0, \
 		/usr/lib/libxcb-xprint.so.0.0.0)
@@ -174,11 +174,10 @@ $(STATEDIR)/libxcb.targetinstall:
 		/usr/lib/libxcb-xvmc.so.0.0.0)
 	@$(call install_link, libxcb, libxcb-xvmc.so.0.0.0, /usr/lib/libxcb-xvmc.so.0)
 	@$(call install_link, libxcb, libxcb-xvmc.so.0.0.0, /usr/lib/libxcb-xvmc.so)
-	@$(call install_copy, libxcb, 0, 0, 0644, \
-		$(LIBXCB_DIR)/src/.libs/libxcb.so.1.0.0, \
-		/usr/lib/libxcb.so.1.0.0)
-	@$(call install_link, libxcb, libxcb.so.1.0.0, /usr/lib/libxcb.so.1)
-	@$(call install_link, libxcb, libxcb.so.1.0.0, /usr/lib/libxcb.so)
+
+	@$(call install_copy, libxcb, 0, 0, 0644, -, /usr/lib/libxcb.so.1.1.0)
+	@$(call install_link, libxcb, libxcb.so.1.1.0, /usr/lib/libxcb.so.1)
+	@$(call install_link, libxcb, libxcb.so.1.1.0, /usr/lib/libxcb.so)
 
 	@$(call install_finish, libxcb)
 
