@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_ARCH_PPC)-$(PTXCONF_XORG_DRIVER_VIDEO_ATI) += xorg-driver-vid
 #
 # Paths and names
 #
-XORG_DRIVER_VIDEO_ATI_VERSION	:= 6.6.1
+XORG_DRIVER_VIDEO_ATI_VERSION	:= 6.12.2
 XORG_DRIVER_VIDEO_ATI		:= xf86-video-ati-$(XORG_DRIVER_VIDEO_ATI_VERSION)
 XORG_DRIVER_VIDEO_ATI_SUFFIX	:= tar.bz2
 XORG_DRIVER_VIDEO_ATI_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/driver/$(XORG_DRIVER_VIDEO_ATI).$(XORG_DRIVER_VIDEO_ATI_SUFFIX)
@@ -67,7 +67,7 @@ XORG_DRIVER_VIDEO_ATI_ENV 	:=  $(CROSS_ENV)
 #
 XORG_DRIVER_VIDEO_ATI_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-ifdef PTXCONF_XORG_DRIVER_VIDEO_ATI_DRI 
+ifdef PTXCONF_XORG_DRIVER_VIDEO_ATI_DRI
 XORG_DRIVER_VIDEO_ATI_AUTOCONF += --enable-dri
 else
 XORG_DRIVER_VIDEO_ATI_AUTOCONF += --disable-dri
