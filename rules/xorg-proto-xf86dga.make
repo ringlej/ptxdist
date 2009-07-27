@@ -2,7 +2,8 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#           (C) 2009 by Robert Schwebel
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +21,7 @@ PACKAGES-$(PTXCONF_XORG_PROTO_XF86DGA) += xorg-proto-xf86dga
 XORG_PROTO_XF86DGA_VERSION	:= 2.0.3
 XORG_PROTO_XF86DGA		:= xf86dgaproto-$(XORG_PROTO_XF86DGA_VERSION)
 XORG_PROTO_XF86DGA_SUFFIX	:= tar.bz2
-XORG_PROTO_XF86DGA_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/proto/$(XORG_PROTO_XF86DGA).$(XORG_PROTO_XF86DGA_SUFFIX)
+XORG_PROTO_XF86DGA_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/proto/$(XORG_PROTO_XF86DGA).$(XORG_PROTO_XF86DGA_SUFFIX)
 XORG_PROTO_XF86DGA_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86DGA).$(XORG_PROTO_XF86DGA_SUFFIX)
 XORG_PROTO_XF86DGA_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XF86DGA)
 
