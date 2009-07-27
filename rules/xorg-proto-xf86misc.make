@@ -2,7 +2,8 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#           (C) 2009 by Robert Schwebel
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +21,7 @@ PACKAGES-$(PTXCONF_XORG_PROTO_XF86MISC) += xorg-proto-xf86misc
 XORG_PROTO_XF86MISC_VERSION	:= 0.9.2
 XORG_PROTO_XF86MISC		:= xf86miscproto-$(XORG_PROTO_XF86MISC_VERSION)
 XORG_PROTO_XF86MISC_SUFFIX	:= tar.bz2
-XORG_PROTO_XF86MISC_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/proto/$(XORG_PROTO_XF86MISC).$(XORG_PROTO_XF86MISC_SUFFIX)
+XORG_PROTO_XF86MISC_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/proto/$(XORG_PROTO_XF86MISC).$(XORG_PROTO_XF86MISC_SUFFIX)
 XORG_PROTO_XF86MISC_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_XF86MISC).$(XORG_PROTO_XF86MISC_SUFFIX)
 XORG_PROTO_XF86MISC_DIR		:= $(BUILDDIR)/$(XORG_PROTO_XF86MISC)
 
