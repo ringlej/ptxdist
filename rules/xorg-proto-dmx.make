@@ -2,7 +2,8 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#           (C) 2009 by Robert Schwebel
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +21,7 @@ PACKAGES-$(PTXCONF_XORG_PROTO_DMX) += xorg-proto-dmx
 XORG_PROTO_DMX_VERSION	:= 2.2.2
 XORG_PROTO_DMX		:= dmxproto-$(XORG_PROTO_DMX_VERSION)
 XORG_PROTO_DMX_SUFFIX	:= tar.bz2
-XORG_PROTO_DMX_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/proto/$(XORG_PROTO_DMX).$(XORG_PROTO_DMX_SUFFIX)
+XORG_PROTO_DMX_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/proto/$(XORG_PROTO_DMX).$(XORG_PROTO_DMX_SUFFIX)
 XORG_PROTO_DMX_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_DMX).$(XORG_PROTO_DMX_SUFFIX)
 XORG_PROTO_DMX_DIR	:= $(BUILDDIR)/$(XORG_PROTO_DMX)
 
