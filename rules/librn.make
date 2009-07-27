@@ -1,8 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 Ixia Corporation, by Milan Bobde
-#		2005-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#		2005-2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -29,34 +28,13 @@ LIBRN_DIR	:= $(BUILDDIR)/$(LIBRN)
 # Get
 # ----------------------------------------------------------------------------
 
-librn_get: $(STATEDIR)/librn.get
-
-$(STATEDIR)/librn.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBRN_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBRN)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-librn_extract: $(STATEDIR)/librn.extract
-
-$(STATEDIR)/librn.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBRN_DIR))
-	@$(call extract, LIBRN)
-	@$(call patchin, LIBRN)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-librn_prepare: $(STATEDIR)/librn.prepare
 
 LIBRN_PATH	:= PATH=$(CROSS_PATH)
 LIBRN_ENV 	:= $(CROSS_ENV)
@@ -68,61 +46,30 @@ LIBRN_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-debug
 
-$(STATEDIR)/librn.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBRN_DIR)/config.cache)
-	cd $(LIBRN_DIR) && \
-		$(LIBRN_PATH) $(LIBRN_ENV) \
-		./configure $(LIBRN_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-librn_compile: $(STATEDIR)/librn.compile
-
-$(STATEDIR)/librn.compile:
-	@$(call targetinfo, $@)
-	cd $(LIBRN_DIR) && $(LIBRN_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-librn_install: $(STATEDIR)/librn.install
-
-$(STATEDIR)/librn.install:
-	@$(call targetinfo, $@)
-	@$(call install, LIBRN)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-librn_targetinstall: $(STATEDIR)/librn.targetinstall
-
 $(STATEDIR)/librn.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, librn)
 	@$(call install_fixup, librn,PACKAGE,librn)
 	@$(call install_fixup, librn,PRIORITY,optional)
 	@$(call install_fixup, librn,VERSION,$(LIBRN_VERSION))
 	@$(call install_fixup, librn,SECTION,base)
-	@$(call install_fixup, librn,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, librn,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, librn,DEPENDS,)
 	@$(call install_fixup, librn,DESCRIPTION,missing)
 
-	@$(call install_copy, librn, 0, 0, 0644, $(LIBRN_DIR)/src/.libs/librn.so.2.0.0, /usr/lib/librn.so.2.0.0)
+	@$(call install_copy, librn, 0, 0, 0644, -, \
+		/usr/lib/librn.so.2.0.0)
 	@$(call install_link, librn, librn.so.2.0.0, /usr/lib/librn.so.2)
 	@$(call install_link, librn, librn.so.2.0.0, /usr/lib/librn.so)
 
 	@$(call install_finish, librn)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
