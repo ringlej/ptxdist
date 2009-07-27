@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_XFIXES) += xorg-lib-xfixes
 XORG_LIB_XFIXES_VERSION	:= 4.0.3
 XORG_LIB_XFIXES		:= libXfixes-$(XORG_LIB_XFIXES_VERSION)
 XORG_LIB_XFIXES_SUFFIX	:= tar.bz2
-XORG_LIB_XFIXES_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/lib/$(XORG_LIB_XFIXES).$(XORG_LIB_XFIXES_SUFFIX)
+XORG_LIB_XFIXES_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_XFIXES).$(XORG_LIB_XFIXES_SUFFIX)
 XORG_LIB_XFIXES_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XFIXES).$(XORG_LIB_XFIXES_SUFFIX)
 XORG_LIB_XFIXES_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFIXES)
 
