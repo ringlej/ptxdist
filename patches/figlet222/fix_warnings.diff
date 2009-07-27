@@ -1,3 +1,6 @@
+From: Wolfram Sang <w.sang@pengutronix.de>
+Subject: fix warnings
+
 This Patch fixes the following warnings:
 
  chkfont.c:68: warning: incompatible implicit declaration of built-in function 'malloc'

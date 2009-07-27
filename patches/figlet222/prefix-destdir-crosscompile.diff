@@ -1,14 +1,23 @@
-Improve makefile to allow cross-compilation
+From: Wolfram Sang <w.sang@pengutronix.de>
+Subject: Improve makefile to allow cross-compilation
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+[mkl: add CPP and LDFLAGS]
+Singed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Makefile |   29 +++++++++++++++--------------
- 1 file changed, 15 insertions(+), 14 deletions(-)
+ Makefile |   35 ++++++++++++++++++-----------------
+ 1 file changed, 18 insertions(+), 17 deletions(-)
 
 Index: Makefile
 ===================================================================
 --- Makefile.orig
 +++ Makefile
+@@ -1,4 +1,4 @@
+-# Makefile for figlet version 2.2.2 (05 July 2005) 
++# Makefile for figlet version 2.2.2 (05 July 2005)
+ # adapted from Makefile for figlet version 2.2 (15 Oct 1996)
+ # Copyright 1993, 1994,1995 Glenn Chappell and Ian Chai
+ # Copyright 1996, 1997, 1998, 1999, 2000, 2001 John Cowan
 @@ -11,19 +11,20 @@
  # Don't change this even if your shell is different. The only reason
  # for changing this is if sh is not in the same place.
@@ -16,7 +25,7 @@ Index: Makefile
 -CC = gcc
 -CFLAGS = -g
 +CC ?= gcc
-+CFLAGS ?= -g
++CFLAGS ?= -g -O2
  
 +prefix = /usr/local
  # Where the executables should be put
@@ -36,7 +45,21 @@ Index: Makefile
  
  # The filename of the font to be used if no other is specified
  #   (standard.flf is recommended, but any other can be used).
-@@ -52,11 +53,11 @@ clean:
+@@ -40,23 +41,23 @@ SOURCES = figlet.c zipio.c crc.c inflate
+ all: figlet chkfont
+ 
+ figlet: $(SOURCES)
+-	$(CC) $(CFLAGS) -DDEFAULTFONTDIR=\"$(DEFAULTFONTDIR)\" \
++	$(CC) $(CFLAGS) $(LDFLAGS) $(CPPFLAGS) -DDEFAULTFONTDIR=\"$(DEFAULTFONTDIR)\" \
+ 	   -DDEFAULTFONTFILE=\"$(DEFAULTFONTFILE)\" \
+ 	   $(SOURCES) -o figlet
+ 	chmod a+x figlet
+ 
+ chkfont: chkfont.c
+-	$(CC) $(CFLAGS) -o chkfont chkfont.c
++	$(CC) $(CFLAGS) $(LDFLAGS) -o chkfont chkfont.c
+ 
+ clean:
  	rm -f *.o figlet chkfont
  
  install: figlet chkfont
