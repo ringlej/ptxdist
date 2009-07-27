@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_LIB_XRANDR) += xorg-lib-xrandr
 #
 # Paths and names
 #
-XORG_LIB_XRANDR_VERSION	:= 1.2.2
+XORG_LIB_XRANDR_VERSION	:= 1.3.0
 XORG_LIB_XRANDR		:= libXrandr-$(XORG_LIB_XRANDR_VERSION)
 XORG_LIB_XRANDR_SUFFIX	:= tar.bz2
-XORG_LIB_XRANDR_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/lib/$(XORG_LIB_XRANDR).$(XORG_LIB_XRANDR_SUFFIX)
+XORG_LIB_XRANDR_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_XRANDR).$(XORG_LIB_XRANDR_SUFFIX)
 XORG_LIB_XRANDR_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XRANDR).$(XORG_LIB_XRANDR_SUFFIX)
 XORG_LIB_XRANDR_DIR	:= $(BUILDDIR)/$(XORG_LIB_XRANDR)
 
