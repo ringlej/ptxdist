@@ -2,7 +2,8 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#           (C) 2009 by Robert Schwebel
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +18,10 @@ PACKAGES-$(PTXCONF_XORG_PROTO_GL) += xorg-proto-gl
 #
 # Paths and names
 #
-XORG_PROTO_GL_VERSION 	:= 1.4.8
+XORG_PROTO_GL_VERSION 	:= 1.4.10
 XORG_PROTO_GL		:= glproto-$(XORG_PROTO_GL_VERSION)
 XORG_PROTO_GL_SUFFIX	:= tar.bz2
-XORG_PROTO_GL_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/proto/$(XORG_PROTO_GL).$(XORG_PROTO_GL_SUFFIX)
+XORG_PROTO_GL_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/proto/$(XORG_PROTO_GL).$(XORG_PROTO_GL_SUFFIX)
 XORG_PROTO_GL_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_GL).$(XORG_PROTO_GL_SUFFIX)
 XORG_PROTO_GL_DIR	:= $(BUILDDIR)/$(XORG_PROTO_GL)
 
