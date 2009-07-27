@@ -2,7 +2,8 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#           (C) 2009 by Robert Schwebel
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +21,7 @@ PACKAGES-$(PTXCONF_XORG_PROTO_TRAP) += xorg-proto-trap
 XORG_PROTO_TRAP_VERSION := 3.4.3
 XORG_PROTO_TRAP		:= trapproto-$(XORG_PROTO_TRAP_VERSION)
 XORG_PROTO_TRAP_SUFFIX	:= tar.bz2
-XORG_PROTO_TRAP_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/proto/$(XORG_PROTO_TRAP).$(XORG_PROTO_TRAP_SUFFIX)
+XORG_PROTO_TRAP_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/proto/$(XORG_PROTO_TRAP).$(XORG_PROTO_TRAP_SUFFIX)
 XORG_PROTO_TRAP_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_TRAP).$(XORG_PROTO_TRAP_SUFFIX)
 XORG_PROTO_TRAP_DIR	:= $(BUILDDIR)/$(XORG_PROTO_TRAP)
 
