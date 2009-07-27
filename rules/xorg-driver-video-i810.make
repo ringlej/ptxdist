@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2006 by Erwin Rol
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_XORG_DRIVER_VIDEO_I810) += xorg-driver-vi
 #
 # Paths and names
 #
-XORG_DRIVER_VIDEO_I810_VERSION	:= 1.6.5
+XORG_DRIVER_VIDEO_I810_VERSION	:= 1.7.4
 XORG_DRIVER_VIDEO_I810		:= xf86-video-i810-$(XORG_DRIVER_VIDEO_I810_VERSION)
 XORG_DRIVER_VIDEO_I810_SUFFIX	:= tar.bz2
 XORG_DRIVER_VIDEO_I810_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/driver/$(XORG_DRIVER_VIDEO_I810).$(XORG_DRIVER_VIDEO_I810_SUFFIX)
