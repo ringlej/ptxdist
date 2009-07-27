@@ -2,7 +2,8 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#           (C) 2009 by Robert Schwebel
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +18,10 @@ PACKAGES-$(PTXCONF_XORG_PROTO_APPLEWM) += xorg-proto-applewm
 #
 # Paths and names
 #
-XORG_PROTO_APPLEWM_VERSION	:= 1.0.3
+XORG_PROTO_APPLEWM_VERSION	:= 1.3.0
 XORG_PROTO_APPLEWM		:= applewmproto-$(XORG_PROTO_APPLEWM_VERSION)
 XORG_PROTO_APPLEWM_SUFFIX	:= tar.bz2
-XORG_PROTO_APPLEWM_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/proto/$(XORG_PROTO_APPLEWM).$(XORG_PROTO_APPLEWM_SUFFIX)
+XORG_PROTO_APPLEWM_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/proto/$(XORG_PROTO_APPLEWM).$(XORG_PROTO_APPLEWM_SUFFIX)
 XORG_PROTO_APPLEWM_SOURCE	:= $(SRCDIR)/$(XORG_PROTO_APPLEWM).$(XORG_PROTO_APPLEWM_SUFFIX)
 XORG_PROTO_APPLEWM_DIR		:= $(BUILDDIR)/$(XORG_PROTO_APPLEWM)
 
