@@ -23,7 +23,7 @@ HEXEDIT_SUFFIX	:= src.tgz
 HEXEDIT_URL	:= http://rigaux.org/$(HEXEDIT).$(HEXEDIT_SUFFIX)
 HEXEDIT_SOURCE	:= $(SRCDIR)/$(HEXEDIT).$(HEXEDIT_SUFFIX)
 HEXEDIT_DIR	:= $(BUILDDIR)/$(HEXEDIT)
-
+HEXEDIT_LICENSE	:= GPLv2+
 
 # ----------------------------------------------------------------------------
 # Get
