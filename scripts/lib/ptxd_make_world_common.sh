@@ -100,8 +100,7 @@ ptxd_make_world_init_compat() {
 
 
     # install_opt
-    pkg_install_opt="${pkg_deprecated_makevars}"
-    ptxd_var_concat pkg_install_opt "${pkg_install_opt}" "${pkg_deprecated_install_opt}"
+    pkg_install_opt="${pkg_deprecated_makevars}${pkg_deprecated_makevars:+${pkg_deprecated_install_opt:+ }}${pkg_deprecated_install_opt}"
 }
 export -f ptxd_make_world_init_compat
 
