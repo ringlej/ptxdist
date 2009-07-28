@@ -2,7 +2,7 @@
 # $Id: template 4761 2006-02-24 17:35:57Z sha $
 #
 # Copyright (C) 2006 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_XORG_DATA_XBITMAPS) += xorg-data-xbitmaps
 XORG_DATA_XBITMAPS_VERSION	:= 1.0.1
 XORG_DATA_XBITMAPS		:= xbitmaps-$(XORG_DATA_XBITMAPS_VERSION)
 XORG_DATA_XBITMAPS_SUFFIX	:= tar.bz2
-XORG_DATA_XBITMAPS_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/data/$(XORG_DATA_XBITMAPS).$(XORG_DATA_XBITMAPS_SUFFIX)
+XORG_DATA_XBITMAPS_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/data/$(XORG_DATA_XBITMAPS).$(XORG_DATA_XBITMAPS_SUFFIX)
 XORG_DATA_XBITMAPS_SOURCE	:= $(SRCDIR)/$(XORG_DATA_XBITMAPS).$(XORG_DATA_XBITMAPS_SUFFIX)
 XORG_DATA_XBITMAPS_DIR		:= $(BUILDDIR)/$(XORG_DATA_XBITMAPS)
 
