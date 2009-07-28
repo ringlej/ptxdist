@@ -230,6 +230,17 @@ CROSS_ENV_AC += ac_cv_func_iconv_open=no
 endif
 
 #
+# CROSS_ENV is the environment usually set for all configure and
+# compile calls in the packet makefiles.
+#
+CROSS_ENV := \
+	$(CROSS_ENV_PROGS) \
+	$(CROSS_ENV_FLAGS) \
+	$(CROSS_ENV_PKG_CONFIG) \
+	$(CROSS_ENV_AC)
+
+
+#
 # We want to use DESTDIR and --prefix=/usr, to get no build paths in our
 # binaries. Unfortunately, not all packages support this, especially
 # libtool based packets seem to be broken. See for example:
@@ -246,19 +257,10 @@ CROSS_AUTOCONF_SYSROOT_ROOT := \
 	--prefix=
 
 CROSS_AUTOCONF_ARCH := \
-	--host=$(PTXCONF_GNU_TARGET) --build=$(GNU_HOST)
+	--host=$(PTXCONF_GNU_TARGET) \
+	--build=$(GNU_HOST)
 
-CROSS_AUTOCONF_BROKEN_USR := \
-	$(CROSS_AUTOCONF_ARCH) --prefix=$(PTXDIST_SYSROOT_TARGET)
-
-CROSS_ENV := \
-	$(CROSS_ENV_PROGS) \
-	$(CROSS_ENV_FLAGS) \
-	$(CROSS_ENV_PKG_CONFIG) \
-	$(CROSS_ENV_AC) \
-	$(CROSS_ENV_LIBRARY_PATH)
-
-CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR) $(CROSS_AUTOCONF_ARCH)
+CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR)  $(CROSS_AUTOCONF_ARCH)
 CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) $(CROSS_AUTOCONF_ARCH)
 
 CROSS_CMAKE_USR	 := -DCMAKE_INSTALL_PREFIX=/usr
