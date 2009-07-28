@@ -1,0 +1,40 @@
+## SECTION=multimedia_xorg_driver_video
+
+# configuration for xorg-driver-video-i810
+
+menuconfig XORG_DRIVER_VIDEO_INTEL
+	tristate
+	depends on XORG_DRIVER_VIDEO
+	select XORG_SERVER
+	select XORG_SERVER_XORG
+	select LIBDRM
+#	select XORG_PROTO_X
+#	select XORG_PROTO_FONTS
+#	select XORG_LIB_XVMC
+#	select XORG_PROTO_FONTS
+#	select XORG_PROTO_RANDR
+#	select XORG_PROTO_RENDER
+#	select XORG_PROTO_XEXT
+#	select XORG_LIB_X11
+#	select XORG_PROTO_XINERAMA
+	prompt "Intel"
+	help
+	  This is the video driver for Intel cards for the modular Xorg server.
+
+if XORG_DRIVER_VIDEO_INTEL
+
+comment "X.org Intel Driver"
+
+config XORG_DRIVER_VIDEO_INTEL_DRI
+	bool
+	select MESALIB
+	select XORG_PROTO_GL
+	select XORG_SERVER_EXT_GLX
+	select XORG_SERVER_EXT_DRI
+	select XORG_PROTO_XF86DRI
+        prompt "Enable DRI"
+        help
+          --enable-dri
+
+endif
+
