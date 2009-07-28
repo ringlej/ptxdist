@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # This file contains global macro and environment definitions.
 #
@@ -32,6 +31,7 @@ CHECK_PIPE_STATUS := \
 # prepare the search path when cross compiling
 #
 CROSS_PATH := $(PTXDIST_SYSROOT_CROSS)/bin:$(PTXDIST_SYSROOT_CROSS)/sbin:$$PATH
+
 
 # ----------------------------------------------------------------------------
 # Environment
@@ -286,10 +286,6 @@ CROSS_CMAKE_ROOT := -DCMAKE_INSTALL_PREFIX=/
 # ----------------------------------------------------------------------------
 # HOST stuff
 # ----------------------------------------------------------------------------
-
-# FIXME: obsolete (mkl)
-HOSTCC_ENV	:= CC=$(HOSTCC)
-HOSTCXX_ENV	:= CXX=$(HOSTCXX)
 
 HOST_PATH	:= $$PATH
 
