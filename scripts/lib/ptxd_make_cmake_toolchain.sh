@@ -6,7 +6,7 @@ export PTXDIST_CMAKE_TOOLCHAIN
 #
 # generate cmake toolchain file from template
 #
-# stdout: cmake toolchain file
+# $1:	cmake toolchain file
 #
 # FIXME: take care about non linux
 #
@@ -17,8 +17,7 @@ ptxd_make_cmake_toolchain() {
 	CC="$(which "${CC}")" \
 	CXX="$(which "${CXX}")" \
 	\
-	SYSROOT_TOOLCHAIN="${PTXDIST_SYSROOT_TOOLCHAIN}" \
-	SYSROOT_TARGET="${SYSROOT}" \
+	SYSROOT="${PTXDIST_PATH_SYSROOT_ALL//:/ }" \
 	\
 	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/cmake/toolchain.cmake.in" > "${1}"
 }
