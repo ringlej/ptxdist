@@ -1,8 +1,8 @@
 # -*-makefile-*-
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
-# Copyright (C) 2006 by Erwin rol
-#          
+# Copyright (C) 2006 by Erwin Rol
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_XORG_DRIVER_INPUT_EVDEV) += xorg-driver-input-evdev
 #
 # Paths and names
 #
-XORG_DRIVER_INPUT_EVDEV_VERSION	:= 1.1.5
+XORG_DRIVER_INPUT_EVDEV_VERSION	:= 2.2.2
 XORG_DRIVER_INPUT_EVDEV		:= xf86-input-evdev-$(XORG_DRIVER_INPUT_EVDEV_VERSION)
 XORG_DRIVER_INPUT_EVDEV_SUFFIX	:= tar.bz2
 XORG_DRIVER_INPUT_EVDEV_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/driver/$(XORG_DRIVER_INPUT_EVDEV).$(XORG_DRIVER_INPUT_EVDEV_SUFFIX)
@@ -114,7 +114,7 @@ $(STATEDIR)/xorg-driver-input-evdev.targetinstall: $(xorg-driver-input-evdev_tar
 	@$(call install_fixup, xorg-driver-input-evdev,DEPENDS,)
 	@$(call install_fixup, xorg-driver-input-evdev,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-driver-input-evdev, 0, 0, 0755, $(XORG_DRIVER_INPUT_EVDEV_DIR)/src/.libs/evdev_drv.so, /usr/lib/xorg/modules/evdev_drv.so)	
+	@$(call install_copy, xorg-driver-input-evdev, 0, 0, 0755, $(XORG_DRIVER_INPUT_EVDEV_DIR)/src/.libs/evdev_drv.so, /usr/lib/xorg/modules/evdev_drv.so)
 
 	@$(call install_finish, xorg-driver-input-evdev)
 
