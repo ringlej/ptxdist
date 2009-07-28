@@ -2,7 +2,7 @@
 # $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Luotao Fu <lfu@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_XORG_APP_XRDB) += xorg-app-xrdb
 #
 # Paths and names
 #
-XORG_APP_XRDB_VERSION	:= 1.0.4
+XORG_APP_XRDB_VERSION	:= 1.0.5
 XORG_APP_XRDB		:= xrdb-$(XORG_APP_XRDB_VERSION)
-XORG_APP_XRDB_SUFFIX		:= tar.bz2
-XORG_APP_XRDB_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/app/$(XORG_APP_XRDB).$(XORG_APP_XRDB_SUFFIX)
-XORG_APP_XRDB_SOURCE		:= $(SRCDIR)/$(XORG_APP_XRDB).$(XORG_APP_XRDB_SUFFIX)
-XORG_APP_XRDB_DIR		:= $(BUILDDIR)/$(XORG_APP_XRDB)
+XORG_APP_XRDB_SUFFIX	:= tar.bz2
+XORG_APP_XRDB_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/app/$(XORG_APP_XRDB).$(XORG_APP_XRDB_SUFFIX)
+XORG_APP_XRDB_SOURCE	:= $(SRCDIR)/$(XORG_APP_XRDB).$(XORG_APP_XRDB_SUFFIX)
+XORG_APP_XRDB_DIR	:= $(BUILDDIR)/$(XORG_APP_XRDB)
 
 # ----------------------------------------------------------------------------
 # Get
