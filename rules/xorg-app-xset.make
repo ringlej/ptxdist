@@ -2,7 +2,7 @@
 # $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Luotao Fu <lfu@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_XORG_APP_XSET) += xorg-app-xset
 #
 # Paths and names
 #
-XORG_APP_XSET_VERSION	:= 1.0.3
+XORG_APP_XSET_VERSION	:= 1.0.4
 XORG_APP_XSET		:= xset-$(XORG_APP_XSET_VERSION)
-XORG_APP_XSET_SUFFIX		:= tar.bz2
-XORG_APP_XSET_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/app/$(XORG_APP_XSET).$(XORG_APP_XSET_SUFFIX)
-XORG_APP_XSET_SOURCE		:= $(SRCDIR)/$(XORG_APP_XSET).$(XORG_APP_XSET_SUFFIX)
-XORG_APP_XSET_DIR		:= $(BUILDDIR)/$(XORG_APP_XSET)
+XORG_APP_XSET_SUFFIX	:= tar.bz2
+XORG_APP_XSET_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/app/$(XORG_APP_XSET).$(XORG_APP_XSET_SUFFIX)
+XORG_APP_XSET_SOURCE	:= $(SRCDIR)/$(XORG_APP_XSET).$(XORG_APP_XSET_SUFFIX)
+XORG_APP_XSET_DIR	:= $(BUILDDIR)/$(XORG_APP_XSET)
 
 # ----------------------------------------------------------------------------
 # Get
