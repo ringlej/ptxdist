@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_XORG_DRIVER_INPUT_VOID) += xorg-driver-input-void
 #
 # Paths and names
 #
-XORG_DRIVER_INPUT_VOID_VERSION	:= 1.1.1
+XORG_DRIVER_INPUT_VOID_VERSION	:= 1.2.0
 XORG_DRIVER_INPUT_VOID		:= xf86-input-void-$(XORG_DRIVER_INPUT_VOID_VERSION)
 XORG_DRIVER_INPUT_VOID_SUFFIX	:= tar.bz2
 XORG_DRIVER_INPUT_VOID_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/driver/$(XORG_DRIVER_INPUT_VOID).$(XORG_DRIVER_INPUT_VOID_SUFFIX)
