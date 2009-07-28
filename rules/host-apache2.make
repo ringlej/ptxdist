@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -45,8 +44,7 @@ $(STATEDIR)/host-apache2.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_APACHE2_PATH	:= PATH=$(HOST_PATH)
-HOST_APACHE2_ENV 	:= $(HOSTCC_ENV)
+HOST_APACHE2_ENV 	:= $(HOST_ENV)
 
 #
 # autoconf
@@ -59,9 +57,9 @@ HOST_APACHE2_AUTOCONF := $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-apache2.compile:
 	@$(call targetinfo)
-	cd $(HOST_APACHE2_DIR)/srclib/apr-util/uri && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) make
-	cd $(HOST_APACHE2_DIR)/srclib/pcre && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) make dftables
-	cd $(HOST_APACHE2_DIR)/server && $(HOST_APACHE2_ENV) $(HOST_APACHE2_PATH) make gen_test_char
+	cd $(HOST_APACHE2_DIR)/srclib/apr-util/uri && $(HOST_APACHE2_ENV) $(MAKE)
+	cd $(HOST_APACHE2_DIR)/srclib/pcre && $(HOST_APACHE2_ENV) $(MAKE) dftables
+	cd $(HOST_APACHE2_DIR)/server && $(HOST_APACHE2_ENV) $(MAKE) gen_test_char
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
