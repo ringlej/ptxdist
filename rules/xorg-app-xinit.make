@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_APP_XINIT) += xorg-app-xinit
 #
 # Paths and names
 #
-XORG_APP_XINIT_VERSION	:= 1.0.5
+XORG_APP_XINIT_VERSION	:= 1.1.1
 XORG_APP_XINIT		:= xinit-$(XORG_APP_XINIT_VERSION)
 XORG_APP_XINIT_SUFFIX	:= tar.bz2
-XORG_APP_XINIT_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/app/$(XORG_APP_XINIT).$(XORG_APP_XINIT_SUFFIX)
+XORG_APP_XINIT_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/app/$(XORG_APP_XINIT).$(XORG_APP_XINIT_SUFFIX)
 XORG_APP_XINIT_SOURCE	:= $(SRCDIR)/$(XORG_APP_XINIT).$(XORG_APP_XINIT_SUFFIX)
 XORG_APP_XINIT_DIR	:= $(BUILDDIR)/$(XORG_APP_XINIT)
 
@@ -59,7 +59,7 @@ $(STATEDIR)/xorg-app-xinit.extract: $(xorg-app-xinit_extract_deps_default)
 xorg-app-xinit_prepare: $(STATEDIR)/xorg-app-xinit.prepare
 
 XORG_APP_XINIT_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_XINIT_ENV 	:=  $(CROSS_ENV) 
+XORG_APP_XINIT_ENV 	:=  $(CROSS_ENV)
 XORG_APP_XINIT_MAKEVARS :=  XINITDIR=/etc/X11/xinit \
 			RAWCPP=$(COMPILER_PREFIX)cpp
 	#FIXME: damm ugly hack, should fix cpp check in configure instead
@@ -106,7 +106,7 @@ xorg-app-xinit_compile: $(STATEDIR)/xorg-app-xinit.compile
 
 $(STATEDIR)/xorg-app-xinit.compile: $(xorg-app-xinit_compile_deps_default)
 	@$(call targetinfo, $@)
-	cd $(XORG_APP_XINIT_DIR) && $(XORG_APP_XINIT_PATH) $(MAKE) $(XORG_APP_XINIT_MAKEVARS) 
+	cd $(XORG_APP_XINIT_DIR) && $(XORG_APP_XINIT_PATH) $(MAKE) $(XORG_APP_XINIT_MAKEVARS)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
