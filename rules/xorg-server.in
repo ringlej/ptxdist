@@ -144,6 +144,9 @@ menuconfig XORG_SERVER
 	# are enabled.
 	select XORG_LIB_XFONT_FONTSERVER if XORG_SERVER_QUIRKS
 
+#	# FIXME: do we need this on all platforms?
+	select LIBPCIACCESS
+
 config XORG_SERVER_QUIRKS
 	bool
 	depends on XORG_SERVER
