@@ -67,7 +67,8 @@ XORG_LIB_SM_ENV 	:= $(CROSS_ENV)
 XORG_LIB_SM_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
-	--disable-dependency-tracking
+	--disable-dependency-tracking \
+	--with-libuuid=no
 
 $(STATEDIR)/xorg-lib-sm.prepare: $(xorg-lib-sm_prepare_deps_default)
 	@$(call targetinfo, $@)
