@@ -96,7 +96,7 @@ $(STATEDIR)/initmethod-bbinit.targetinstall:
 ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_BANNER
 	@$(call install_alternative, initmethod-bbinit, 0, 0, 0755, /etc/init.d/banner, n)
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@VENDOR@, $(PTXCONF_ROOTFS_ETC_VENDOR))
+		@VENDOR@, $(PTXCONF_PROJECT_VENDOR))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
 		@PROJECT@, $(PTXCONF_PROJECT))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
