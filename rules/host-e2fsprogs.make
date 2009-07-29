@@ -43,8 +43,7 @@ $(STATEDIR)/host-e2fsprogs.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_E2FSPROGS_PATH	:= PATH=$(HOST_PATH)
-HOST_E2FSPROGS_ENV 	:= $(HOSTCC_ENV)
+HOST_E2FSPROGS_ENV 	:= $(HOST_ENV)
 
 #
 # autoconf

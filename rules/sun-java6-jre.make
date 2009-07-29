@@ -29,7 +29,7 @@ SUN_JAVA6_JRE_DIR		:= $(BUILDDIR)/$(SUN_JAVA6_JRE)
 
 $(SUN_JAVA6_JRE_SOURCE):
 	@$(call targetinfo)
-	@$(PTX_WGET) --output-document=$(SUN_JAVA6_JRE_SOURCE) $(SUN_JAVA6_JRE_URL)
+	@wget --output-document=$(SUN_JAVA6_JRE_SOURCE) $(SUN_JAVA6_JRE_URL)
 
 # ----------------------------------------------------------------------------
 # Extract

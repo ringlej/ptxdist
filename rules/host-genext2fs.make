@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation (www.ixiacom.com)
 #               2006 by Randall Loomis
@@ -26,7 +25,6 @@ HOST_GENEXT2FS_URL	:= $(PTXCONF_SETUP_SFMIRROR)/genext2fs/$(HOST_GENEXT2FS).$(HO
 HOST_GENEXT2FS_SOURCE	:= $(SRCDIR)/$(HOST_GENEXT2FS).$(HOST_GENEXT2FS_SUFFIX)
 HOST_GENEXT2FS_DIR	:= $(HOST_BUILDDIR)/$(HOST_GENEXT2FS)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -39,8 +37,7 @@ $(HOST_GENEXT2FS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_GENEXT2FS_PATH	:= PATH=$(HOST_PATH)
-HOST_GENEXT2FS_ENV 	:= $(HOSTCC_ENV)
+HOST_GENEXT2FS_ENV 	:= $(HOST_ENV)
 
 #
 # autoconf

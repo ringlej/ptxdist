@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003-2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -25,6 +24,7 @@ BUSYBOX_SOURCE	:= $(SRCDIR)/$(BUSYBOX).$(BUSYBOX_SUFFIX)
 BUSYBOX_DIR	:= $(BUILDDIR)/$(BUSYBOX)
 BUSYBOX_PKGDIR	:= $(PKGDIR)/$(BUSYBOX)
 BUSYBOX_KCONFIG	:= $(BUSYBOX_DIR)/Config.in
+BUSYBOX_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
@@ -49,13 +49,13 @@ BUSYBOX_MAKEVARS := \
 $(STATEDIR)/busybox.prepare:
 	@$(call targetinfo)
 
-	cd $(BUSYBOX_DIR) && \
+	@cd $(BUSYBOX_DIR) && \
 		$(BUSYBOX_PATH) $(BUSYBOX_ENV) \
 		$(MAKE) distclean $(BUSYBOX_MAKEVARS)
-	grep -e PTXCONF_BUSYBOX_ $(PTXDIST_PTXCONFIG) | \
+	@grep -e PTXCONF_BUSYBOX_ $(PTXDIST_PTXCONFIG) | \
 		sed -e 's/PTXCONF_BUSYBOX_/CONFIG_/g' > $(BUSYBOX_DIR)/.config
 
-	$(call ptx/oldconfig, BUSYBOX)
+	@$(call ptx/oldconfig, BUSYBOX)
 
 	@$(call touch)
 
@@ -88,9 +88,9 @@ $(STATEDIR)/busybox.targetinstall:
 	@$(call install_fixup, busybox,DESCRIPTION,missing)
 
 ifdef PTXCONF_BUSYBOX_FEATURE_SUID
-	@$(call install_copy, busybox, 0, 0, 4755, $(BUSYBOX_DIR)/busybox, /bin/busybox)
+	@$(call install_copy, busybox, 0, 0, 4755, -, /bin/busybox)
 else
-	@$(call install_copy, busybox, 0, 0, 755, $(BUSYBOX_DIR)/busybox, /bin/busybox)
+	@$(call install_copy, busybox, 0, 0, 755, -, /bin/busybox)
 endif
 	@cat $(BUSYBOX_DIR)/busybox.links | while read link; do		\
 		case "$${link}" in					\

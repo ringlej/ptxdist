@@ -1,9 +1,0 @@
-## SECTION=hosttools_noprompt
-
-config HOST_SLIRP
-	tristate
-	depends on BROKEN
-	prompt "slirp"
-	help
-	  Slirp is a SLIP/PPP terminal emulator. For more details see
-	  the project homepage: http://slirp.sourceforge.net/

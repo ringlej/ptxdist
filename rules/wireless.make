@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -51,11 +50,11 @@ endif
 # Compile
 # ----------------------------------------------------------------------------
 
-WIRELESS_PATH	:=  PATH=$(CROSS_PATH)
-WIRELESS_ENV 	:=  $(CROSS_ENV)
+WIRELESS_PATH	:= PATH=$(CROSS_PATH)
+WIRELESS_ENV 	:= $(CROSS_ENV)
 
 WIRELESS_MAKEVARS := \
-	CC=${CROSS_CC} \
+	$(CROSS_ENV_CC) \
 	PREFIX=/usr
 
 # ----------------------------------------------------------------------------

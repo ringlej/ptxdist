@@ -403,7 +403,7 @@ ptxd_var_concat()
 {
 	eval "${1}"=\"${2//\"/\\\"}${2:+${3:+${4:- }}}${3//\"/\\\"}\" || exit
 }
-export -f ptxd_var_concat
+#export -f ptxd_var_concat
 
 
 
