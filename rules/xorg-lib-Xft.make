@@ -115,15 +115,15 @@ $(STATEDIR)/xorg-lib-xft.targetinstall: $(xorg-lib-xft_targetinstall_deps_defaul
 	@$(call install_fixup, xorg-lib-xft,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xft, 0, 0, 0644, \
-		$(XORG_LIB_XFT_DIR)/src/.libs/libXft.so.2.1.2, \
-		$(XORG_LIBDIR)/libXft.so.2.1.2)
+		$(XORG_LIB_XFT_DIR)/src/.libs/libXft.so.2.1.13, \
+		$(XORG_LIBDIR)/libXft.so.2.1.13)
 
 	@$(call install_link, xorg-lib-xft, \
-		libXft.so.2.1.2, \
+		libXft.so.2.1.13, \
 		$(XORG_LIBDIR)/libXft.so.2)
 
 	@$(call install_link, xorg-lib-xft, \
-		libXft.so.2.1.2, \
+		libXft.so.2.1.13, \
 		$(XORG_LIBDIR)/libXft.so)
 
 	@$(call install_finish, xorg-lib-xft)
