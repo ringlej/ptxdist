@@ -116,15 +116,15 @@ $(STATEDIR)/xorg-lib-xrandr.targetinstall: $(xorg-lib-xrandr_targetinstall_deps_
 	@$(call install_fixup, xorg-lib-xrandr,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xrandr, 0, 0, 0644, \
-		$(XORG_LIB_XRANDR_DIR)/src/.libs/libXrandr.so.2.1.0, \
-		$(XORG_LIBDIR)/libXrandr.so.2.1.0)
+		$(XORG_LIB_XRANDR_DIR)/src/.libs/libXrandr.so.2.2.0, \
+		$(XORG_LIBDIR)/libXrandr.so.2.2.0)
 
 	@$(call install_link, xorg-lib-xrandr, \
-		libXrandr.so.2.1.0, \
+		libXrandr.so.2.2.0, \
 		$(XORG_LIBDIR)/libXrandr.so.2)
 
 	@$(call install_link, xorg-lib-xrandr, \
-		libXrandr.so.2.1.0, \
+		libXrandr.so.2.2.0, \
 		$(XORG_LIBDIR)/libXrandr.so)
 
 	@$(call install_finish, xorg-lib-xrandr)
