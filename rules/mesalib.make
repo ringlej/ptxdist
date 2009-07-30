@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 7.4.4
+MESALIB_VERSION	:= 7.5
 MESALIB		:= MesaLib-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.bz2
 MESALIB_URL	:= $(PTXCONF_SETUP_SFMIRROR)/mesa3d/$(MESALIB).$(MESALIB_SUFFIX)
@@ -102,7 +102,8 @@ endif
 
 $(STATEDIR)/mesalib.compile:
 	@$(call targetinfo)
-	cd $(MESALIB_DIR) && $(MESALIB_PATH) $(MAKE) $(CROSS_ENV_CC_FOR_BUILD) SYSROOT=$(SYSROOT) $(PARALLELMFLAGS)
+	cd $(MESALIB_DIR) && $(MESALIB_PATH) \
+		$(MAKE) $(CROSS_ENV_CC_FOR_BUILD) SYSROOT=$(SYSROOT) $(PARALLELMFLAGS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -126,7 +127,7 @@ ifdef PTXCONF_MESALIB_DRIVER_DRI
 ifdef PTXCONF_MESALIB_DRI_I915
 	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/lib/i915_dri.so, /usr/lib/dri/i915_dri.so)
 endif
-ifdef PTXCONF_MESALIB_DRI_SWRAST	
+ifdef PTXCONF_MESALIB_DRI_SWRAST
 	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/lib/swrast_dri.so, /usr/lib/dri/swrast_dri.so)
 endif
 ifdef PTXCONF_MESALIB_DRI_I810
@@ -153,7 +154,7 @@ endif
 ifdef PTXCONF_MESALIB_DRI_RADEON
 	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/lib/radeon_dri.so, /usr/lib/dri/radeon_dri.so)
 endif
-ifdef PTXCONF_MESALIB_DRI_S3V	
+ifdef PTXCONF_MESALIB_DRI_S3V
 	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/lib/s3v_dri.so, /usr/lib/dri/s3v_dri.so)
 endif
 ifdef PTXCONF_MESALIB_DRI_SAVAGE
@@ -176,20 +177,20 @@ ifdef PTXCONF_MESALIB_DRI_FFB
 endif
 
 endif
-	
+
 ifndef PTXCONF_MESALIB_DRIVER_OSMESA
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/lib/libGL.so.1.2, /usr/lib/libGL.so.1.2
+	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/lib/libGL.so.1.2, /usr/lib/libGL.so.1.2)
 	@$(call install_link, mesalib, libGL.so.1.2, /usr/lib/libGL.so.1)
 	@$(call install_link, mesalib, libGL.so.1.2, /usr/lib/libGL.so)
 endif
 
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/lib/libGLU.so.1.3.070402, /usr/lib/libGLU.so.1.3.070404)
-	@$(call install_link, mesalib, libGLU.so.1.3.070404, /usr/lib/libGLU.so.1)
-	@$(call install_link, mesalib, libGLU.so.1.3.070404, /usr/lib/libGLU.so)
+	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/lib/libGLU.so.1.3.070500, /usr/lib/libGLU.so.1.3.070500)
+	@$(call install_link, mesalib, libGLU.so.1.3.070500, /usr/lib/libGLU.so.1)
+	@$(call install_link, mesalib, libGLU.so.1.3.070500, /usr/lib/libGLU.so)
 
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/lib/libOSMesa.so.7.4.4, /usr/lib/libOSMesa.so.7.4.4)
-	@$(call install_link, mesalib, libOSMesa.so.7.4.4, /usr/lib/libOSMesa.so.7)
-	@$(call install_link, mesalib, libOSMesa.so.7.4.4, /usr/lib/libOSMesa.so)
+	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/lib/libOSMesa.so.7.5.0, /usr/lib/libOSMesa.so.7.5.0)
+	@$(call install_link, mesalib, libOSMesa.so.7.5.0, /usr/lib/libOSMesa.so.7)
+	@$(call install_link, mesalib, libOSMesa.so.7.5.0, /usr/lib/libOSMesa.so)
 
 	@$(call install_finish, mesalib)
 

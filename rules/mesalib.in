@@ -2,132 +2,115 @@
 
 menuconfig MESALIB
 	tristate
-	prompt "MesaLib"
+	prompt "mesa                          "
 	select LIBDRM
-	select DRI2PROTO	
-	select XORG_LIB_X11
-	select XORG_LIB_XEXT
-	select XORG_LIB_XXF86VM
+	select DRI2PROTO
+#	select XORG_LIB_X11
+#	select XORG_LIB_XEXT
+#	select XORG_LIB_XXF86VM
 	select XORG_LIB_XDAMAGE
-	select XORG_LIB_XFIXES
-	select XORG_PROTO_GL
+#	select XORG_LIB_XFIXES
+#	select XORG_PROTO_GL
 	help
 	  Mesa is a 3-D graphics library with an API which is very
 	  similar to that of OpenGL. See the project homepage for
-	  details: 
+	  details:
 
 		http://www.mesa3d.org/
 
-choice 
+if MESALIB
+
+choice
 	depends on MESALIB
-	prompt "Select Driver"
+	prompt "backend driver"
 
 
-config MESALIB_DRIVER_XLIB
-	bool
-	prompt "Xlib"
+	config MESALIB_DRIVER_XLIB
+		bool
+		prompt "xlib"
 
-config MESALIB_DRIVER_DRI
-	bool
-	prompt "DRI"
+	config MESALIB_DRIVER_DRI
+		bool
+		prompt "dri"
 
-config MESALIB_DRIVER_OSMESA
-	bool
-	prompt "OSMesa"
+	config MESALIB_DRIVER_OSMESA
+		bool
+		prompt "osmesa"
 
-endchoice 
+endchoice
 
 if MESALIB_DRIVER_DRI
 
-menuconfig MESALIB_DRI_DRIVERS
-	depends on MESALIB
-	bool "DRI Drivers"
+comment "dri drivers"
 
 config MESALIB_DRI_I915
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "i915 DRI Driver"
-	
+	prompt "i915"
+
 
 config MESALIB_DRI_SWRAST
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "swrast DRI Driver"
+	prompt "swrast"
 
 config MESALIB_DRI_I810
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "i810 DRI Driver"
+	prompt "i810"
 
 config MESALIB_DRI_I965
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "i965 DRI Driver"
+	prompt "i965"
 
 config MESALIB_DRI_MACH64
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "mach64 DRI Driver"
+	prompt "mach64"
 
 config MESALIB_DRI_MGA
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "mga DRI Driver"
+	prompt "mga"
 
 config MESALIB_DRI_R128
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "r128 DRI Driver"
+	prompt "r128"
 
 config MESALIB_DRI_R200
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "r200 DRI Driver"
+	prompt "r200"
 
 config MESALIB_DRI_R300
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "r300 DRI Driver"
+	prompt "r300"
 
 config MESALIB_DRI_RADEON
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "radeon DRI Driver"
+	prompt "radeon"
 
 config MESALIB_DRI_S3V
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "s3v DRI Driver"
+	prompt "s3v"
 
 config MESALIB_DRI_SAVAGE
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "savage DRI Driver"
+	prompt "savage"
 
 config MESALIB_DRI_SIS
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "sis DRI Driver"
+	prompt "sis"
 
 config MESALIB_DRI_TDFX
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "tdfx DRI Driver"
+	prompt "tdfx"
 
 config MESALIB_DRI_TRIDENT
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "trident DRI Driver"
+	prompt "trident"
 
 config MESALIB_DRI_UNICHROME
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "unichrome DRI Driver"
+	prompt "unichrome"
 
 config MESALIB_DRI_FFB
-	depends on MESALIB_DRI_DRIVERS
 	bool
-	prompt "ffb DRI Driver"
+	prompt "ffb"
 
 endif
-
+endif
