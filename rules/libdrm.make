@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBDRM) += libdrm
 #
 # Paths and names
 #
-LIBDRM_VERSION	:= 2.3.0
+LIBDRM_VERSION	:= 2.4.12
 LIBDRM		:= libdrm-$(LIBDRM_VERSION)
 LIBDRM_SUFFIX	:= tar.gz
 LIBDRM_URL	:= http://dri.freedesktop.org/libdrm/$(LIBDRM).$(LIBDRM_SUFFIX)
@@ -115,11 +115,11 @@ $(STATEDIR)/libdrm.targetinstall: $(libdrm_targetinstall_deps_default)
 	@$(call install_fixup, libdrm,DESCRIPTION,missing)
 
 	@$(call install_copy, libdrm, 0, 0, 0755, \
-		$(LIBDRM_DIR)/libdrm/.libs/libdrm.so.2.3.0, \
-		/usr/lib/libdrm.so.2.3.0)
+		$(LIBDRM_DIR)/libdrm/.libs/libdrm.so.2.4.0, \
+		/usr/lib/libdrm.so.2.4.0)
 
-	@$(call install_link, libdrm, libdrm.so.2.3.0, /usr/lib/libdrm.so.2)
-	@$(call install_link, libdrm, libdrm.so.2.3.0, /usr/lib/libdrm.so)
+	@$(call install_link, libdrm, libdrm.so.2.4.0, /usr/lib/libdrm.so.2)
+	@$(call install_link, libdrm, libdrm.so.2.4.0, /usr/lib/libdrm.so)
 
 	@$(call install_finish, libdrm)
 

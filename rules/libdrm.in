@@ -5,5 +5,5 @@ config LIBDRM
 	prompt "libdrm"
 	help
 	  This library provides an user-level interface to the DRM
-	  device. It is needed for x.org. 
+	  device. It is needed for x.org.
 
