@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Erwin Rol
+# Copyright (C) 2009 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -19,9 +19,9 @@ PACKAGES-$(PTXCONF_DRI2PROTO) += dri2proto
 #
 DRI2PROTO_VERSION	:= 2.0
 DRI2PROTO		:= dri2proto-$(DRI2PROTO_VERSION)
-DRI2PROTO_SUFFIX		:= tar.bz2
-DRI2PROTO_URL		:= http://ftp.gwdg.de/pub/x11/x.org/pub/individual/proto//$(DRI2PROTO).$(DRI2PROTO_SUFFIX)
-DRI2PROTO_SOURCE		:= $(SRCDIR)/$(DRI2PROTO).$(DRI2PROTO_SUFFIX)
+DRI2PROTO_SUFFIX	:= tar.bz2
+DRI2PROTO_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/proto/$(DRI2PROTO).$(DRI2PROTO_SUFFIX)
+DRI2PROTO_SOURCE	:= $(SRCDIR)/$(DRI2PROTO).$(DRI2PROTO_SUFFIX)
 DRI2PROTO_DIR		:= $(BUILDDIR)/$(DRI2PROTO)
 
 # ----------------------------------------------------------------------------
