@@ -39,14 +39,13 @@ menuconfig XORG_SERVER
 
 	select LIBC_DL
 	select PIXMAN
+	select OPENSSL
 #
 # Required on demand
 #
 	select XORG_LIB_XXF86VM if XORG_SERVER_EXT_XV
 
 	select XORG_LIB_XRES if XORG_SERVER_EXT_XRES
-
-	select XORG_LIB_XP if XORG_SERVER_XPRINT
 
 	select XORG_LIB_XXF86MISC if XORG_SERVER_EXT_XF86MISC
 
@@ -70,7 +69,6 @@ menuconfig XORG_SERVER
 	select XORG_LIB_XTST
 	select XORG_LIB_XEXT
 	select XORG_PROTO_FONTCACHE
-	select XORG_PROTO_PRINT
 #
 	select XORG_PROTO_XF86DRI if XORG_SERVER_EXT_DRI
 #
@@ -86,8 +84,6 @@ menuconfig XORG_SERVER
 	select XORG_LIB_XCOMPOSITE if XORG_SERVER_EXT_COMPOSITE
 #	select XORG_PROTO_COMPOSITE if XORG_SERVER_EXT_COMPOSITE
 #
-	select XORG_LIB_XTRAP if XORG_SERVER_EXT_XTRAP
-#	select XORG_PROTO_TRAP if XORG_SERVER_EXT_XTRAP
 #
 	select XORG_PROTO_RECORD if XORG_SERVER_EXT_RECORD
 #
@@ -201,14 +197,6 @@ config XORG_SERVER_XWIN
 	help
 	  X Server for the Cygwin environment on Microsoft Windows
 
-config XORG_SERVER_XPRINT
-	bool
-	depends on XORG_SERVER
-	prompt "Xprint server and extension"
-	help
-	  Support the Xprint extension on this server. This lets application
-	  render to a non to non-display devices.
-
 config XORG_SERVER_XEPHYR
 	bool
 	depends on XORG_SERVER
@@ -317,14 +305,6 @@ config XORG_SERVER_EXT_XRES
 	default y
 	help
 	  --enable-xres
-
-config XORG_SERVER_EXT_XTRAP
-	depends on XORG_SERVER
-	bool
-	prompt "XTrap extension"
-	default y
-	help
-	  --enable-xtrap
 
 config XORG_SERVER_EXT_RECORD
 	depends on XORG_SERVER

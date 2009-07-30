@@ -93,13 +93,6 @@ XORG_SERVER_AUTOCONF += --disable-xres
 endif
 
 # default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_XTRAP
-XORG_SERVER_AUTOCONF += --enable-xtrap
-else
-XORG_SERVER_AUTOCONF += --disable-xtrap
-endif
-
-# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_RECORD
 XORG_SERVER_AUTOCONF += --enable-record
 else
@@ -294,15 +287,6 @@ else
 XORG_SERVER_AUTOCONF += --disable-xephyr
 endif
 
-ifdef PTXCONF_XORG_SERVER_XPRINT
-XORG_SERVER_AUTOCONF += --enable-xprint
-# xprint FreeType backend have to be disabled in the x.org contribution due to
-# licence troubels
-XORG_SERVER_AUTOCONF += --disable-freetype
-else
-XORG_SERVER_AUTOCONF += --disable-xprint
-endif
-
 ifdef PTXCONF_XORG_SERVER_OPT_INSTALL_SETUID
 XORG_SERVER_AUTOCONF += --enable-install-setuid
 else
@@ -405,9 +389,6 @@ endif
 ifdef PTXCONF_XORG_SERVER_XNEST
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xnest/Xnest, $(XORG_PREFIX)/bin/Xnest)
 endif
-ifdef PTXCONF_XORG_SERVER_XPRINT
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xprint/Xprt, $(XORG_PREFIX)/bin/Xprt)
-endif
 ifdef PTXCONF_XORG_SERVER_XWIN
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xwin/Xwin, $(XORG_PREFIX)/bin/Xwin)
 endif
@@ -458,10 +439,6 @@ endif
 ifdef PTXCONF_XORG_SERVER_EXT_XRES
 endif
 
-ifdef PTXCONF_XORG_SERVER_EXT_XTRAP
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libxtrap.so ,/usr/lib/xorg/modules/extensions/libxtrap.so)
-endif
-
 ifdef PTXCONF_XORG_SERVER_EXT_RECORD
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/librecord.so ,/usr/lib/xorg/modules/extensions/librecord.so)
 endif
@@ -485,7 +462,6 @@ ifdef PTXCONF_XORG_SERVER_EXT_XDMCP_AUTH_1
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_GLX
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libGLcore.so, /usr/lib/xorg/modules/extensions/libGLcore.so)
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libglx.so ,/usr/lib/xorg/modules/extensions/libglx.so)
 endif
 
