@@ -57,7 +57,7 @@ $(STATEDIR)/qt4.extract:
 # don't use CROSS_ENV. Qt uses mkspecs for instead.
 QT4_ENV		:= $(CROSS_ENV_FLAGS) $(CROSS_ENV_PKG_CONFIG)
 QT4_PATH	:= PATH=$(CROSS_PATH)
-QT4_MAKEVARS	:= INSTALL_ROOT=$(PKG_DIR)/$(QT4)
+QT4_MAKEVARS	:= INSTALL_ROOT=$(PKGDIR)/$(QT4)
 
 # With the introduction of platformconfigs PTXCONF_ARCH was
 # renamed to PTXCONF_ARCH_STRING.
