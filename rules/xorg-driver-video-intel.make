@@ -83,8 +83,8 @@ $(STATEDIR)/xorg-driver-video-intel.targetinstall:
 	@$(call install_fixup,xorg-driver-video-intel,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0755, \
-		$(XORG_DRIVER_VIDEO_INTEL_DIR)/src/.libs/i810_drv.so, \
-		/usr/lib/xorg/modules/i810_drv.so)
+		$(XORG_DRIVER_VIDEO_INTEL_DIR)/src/.libs/intel_drv.so, \
+		/usr/lib/xorg/modules/intel_drv.so)
 
 	@$(call install_finish,xorg-driver-video-intel)
 

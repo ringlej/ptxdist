@@ -71,6 +71,7 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_FONTCACHE
 #
 	select XORG_PROTO_XF86DRI if XORG_SERVER_EXT_DRI
+	select DRI2PROTO if XORG_SERVER_EXT_DRI2
 #
 # when OpenGL is enabled, MesaLib is required
 #
@@ -379,6 +380,17 @@ config XORG_SERVER_EXT_DRI
 	prompt "DRI extension"
 	help
 	  Enable support for the Direct Rendering Infrastructure to get 3D
+	  accelerations support. This is meaningless if you don't have DRI
+	  support in your kernel for your hardware.
+	  Currently the build scripts needs DRI disabled when crosscompiling,
+	  else they try to detect the DRI hardware on your host.
+
+config XORG_SERVER_EXT_DRI2
+	depends on XORG_SERVER
+	bool
+	prompt "DRI2 extension"
+	help
+	  Enable support for the Direct Rendering Infrastructure 2 to get 3D
 	  accelerations support. This is meaningless if you don't have DRI
 	  support in your kernel for your hardware.
 	  Currently the build scripts needs DRI disabled when crosscompiling,
