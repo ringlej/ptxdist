@@ -158,6 +158,16 @@ XORG_SERVER_AUTOCONF += --disable-dri
 XORG_SERVER_ENV		+= ac_cv_header_linux_agpgart_h=no
 endif
 
+# default is auto
+ifdef PTXCONF_XORG_SERVER_EXT_DRI2
+XORG_SERVER_AUTOCONF += --enable-dri2
+else
+XORG_SERVER_AUTOCONF += --disable-dri2
+# if DRI is disabled we do not have AGP
+# FIXME: right var?
+XORG_SERVER_ENV		+= ac_cv_header_linux_agpgart_h=no
+endif
+
 # default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
 XORG_SERVER_AUTOCONF += --enable-xinerama
