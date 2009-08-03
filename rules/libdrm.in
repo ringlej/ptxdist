@@ -3,6 +3,7 @@
 config LIBDRM
 	tristate
 	prompt "libdrm"
+	select LIBPTHREAD_STUBS
 	help
 	  This library provides an user-level interface to the DRM
 	  device. It is needed for x.org.
