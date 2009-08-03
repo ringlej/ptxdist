@@ -1,8 +1,8 @@
 Subject: fix compile error due to API change
 From: Erwin Rol <erwin@erwinrol.com>
 
-The new Xserver has a chnaged API, this patch adds a ifdef to 
-beable to compile the driver for old and new Xservers.
+The new Xserver has a changed API, this patch adds an ifdef to be able
+to compile the driver for old and new Xservers.
 
 Signed-off-by:  Erwin Rol <erwin@erwinrol.com>
 
