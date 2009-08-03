@@ -6,11 +6,18 @@ assumes it can not use the gen_matypes tool. But we fixed
 the gen_matypes so now the test is not needed anymore.
 
 Signed-off-by: Erwin Rol <erwin@erwinrol.com>
+[mkl: ported to Mesa-7.5]
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
+---
+ configure.ac |   16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
---- Mesa-7.4.2/configure.ac.orig	2009-06-11 17:32:59.000000000 +0200
-+++ Mesa-7.4.2/configure.ac	2009-06-11 17:33:36.000000000 +0200
-@@ -259,14 +259,14 @@
+Index: Mesa-7.5/configure.ac
+===================================================================
+--- Mesa-7.5.orig/configure.ac
++++ Mesa-7.5/configure.ac
+@@ -269,14 +269,14 @@ GLAPI_ASM_SOURCES=""
  AC_MSG_CHECKING([whether to enable assembly])
  test "x$enable_asm" = xno && AC_MSG_RESULT([no])
  # disable if cross compiling on x86/x86_64 since we must run gen_matypes

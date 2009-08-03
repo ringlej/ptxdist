@@ -1,0 +1,4 @@
+configure.ac.diff
+configure.diff
+add-destdir-support.diff
+add-linker-to-mklib.diff
