@@ -131,6 +131,10 @@ ifdef PTXCONF_MTD_UTILS_MKJFFS2
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/mkfs.jffs2)
 endif
+ifdef PTXCONF_MTD_UTILS_SUMTOOL
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/sumtool)
+endif
 
 ifdef PTXCONF_MTD_UTILS_UBIATTACH
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \

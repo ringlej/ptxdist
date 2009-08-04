@@ -130,6 +130,15 @@ config MTD_UTILS_MKJFFS2
 	help
 	  Build a JFFS2 image in a file, from a given directory tree.
 
+config MTD_UTILS_SUMTOOL
+	bool
+	prompt "sumtool"
+	help
+	  Sumtool can be used to generate EBS(Erase Block Summary)
+	  information for a jffs2 image. This way we can do faster
+	  filesystem mount. To use this the JFFS2_SUMMARY option must
+	  be enabled in kernel.
+	  
 comment "ubi utils"
 
 config MTD_UTILS_UBIATTACH
