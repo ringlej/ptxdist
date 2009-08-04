@@ -121,6 +121,15 @@ $(STATEDIR)/libdrm.targetinstall: $(libdrm_targetinstall_deps_default)
 	@$(call install_link, libdrm, libdrm.so.2.4.0, /usr/lib/libdrm.so.2)
 	@$(call install_link, libdrm, libdrm.so.2.4.0, /usr/lib/libdrm.so)
 
+ifdef PTXCONF_XORG_DRIVER_VIDEO_INTEL_DRI
+	@$(call install_copy, libdrm, 0, 0, 0755, \
+		$(LIBDRM_DIR)/libdrm/intel/.libs/libdrm_intel.so.1.0.0, \
+		/usr/lib/libdrm_intel.so.1.0.0)
+
+	@$(call install_link, libdrm, libdrm_intel.so.1.0.0, /usr/lib/libdrm_intel.so.1)
+	@$(call install_link, libdrm, libdrm_intel.so.1.0.0, /usr/lib/libdrm_intel.so)
+endif
+
 	@$(call install_finish, libdrm)
 
 	@$(call touch, $@)
