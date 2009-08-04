@@ -13,6 +13,7 @@ $(PTXDIST_CMAKE_TOOLCHAIN):
 world/env/impl = \
 	MAKE="$(call ptx/escape,$(MAKE))"					\
 	PTXDIST_SYSROOT_TARGET="$(call ptx/escape,$(PTXDIST_SYSROOT_TARGET))"	\
+	PTXDIST_SYSROOT_HOST="$(call ptx/escape,$(PTXDIST_SYSROOT_HOST))"	\
 	ptx_state_dir="$(call ptx/escape,$(STATEDIR))"				\
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\

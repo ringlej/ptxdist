@@ -15,6 +15,7 @@ ptxd_make_world_compile() {
 
     eval \
 	"${pkg_path}" \
+	"${pkg_env}" \
 	"${pkg_make_env}" \
 	"${MAKE}" -C "${pkg_build_dir}" \
 	"${pkg_make_opt}" \

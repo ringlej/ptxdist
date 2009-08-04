@@ -41,6 +41,7 @@ ptxd_make_world_prepare_cmake() {
 
     eval \
 	"${pkg_path}" \
+	"${pkg_env}" \
 	"${pkg_cmake_env}" \
 	cmake \
 	-DCMAKE_TOOLCHAIN_FILE="${PTXDIST_CMAKE_TOOLCHAIN}" \
@@ -72,6 +73,7 @@ ptxd_make_world_prepare_conf() {
 
     eval \
 	"${pkg_path}" \
+	"${pkg_env}" \
 	"${pkg_conf_env}" \
 	"${pkg_conf_dir}/configure" \
 	"${pkg_conf_opt}" \

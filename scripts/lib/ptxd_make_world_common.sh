@@ -101,6 +101,12 @@ ptxd_make_world_init_compat() {
 
     # install_opt
     pkg_install_opt="${pkg_deprecated_makevars}${pkg_deprecated_makevars:+${pkg_deprecated_install_opt:+ }}${pkg_deprecated_install_opt}"
+
+    # pkg_env
+    case "${pkg_type}" in
+	target)     pkg_env="${PTXDIST_CROSS_ENV_PKG_CONFIG}" ;;
+	host|cross) pkg_env="PKG_CONFIG_LIBDIR='${PTXDIST_SYSROOT_HOST}/lib/pkgconfig'" ;;
+    esac
 }
 export -f ptxd_make_world_init_compat
 
@@ -151,7 +157,6 @@ ptxd_make_world_init() {
     pkg_stage="${pkg_stamp#*.}"
     pkg_stage="${pkg_stage%%.*}"
     ptxd_make_world_init_compat || return
-
 
     #
     # conf dir

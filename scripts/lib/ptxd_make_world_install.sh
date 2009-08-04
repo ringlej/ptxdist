@@ -19,6 +19,7 @@
 ptxd_make_world_install_pkg() {
     "${echo:-echo}" \
 	"${pkg_path}" \
+	"${pkg_env}" \
 	"${pkg_make_env}" \
 	"${pkg_install_env}" \
 	"${MAKE}" \
