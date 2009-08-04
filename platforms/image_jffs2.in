@@ -29,4 +29,21 @@ config IMAGE_JFFS2_EXTRA_ARGS
 	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt or
 	  -b to create a big endian filesystem on a little endian host)
 
+config IMAGE_JFFS2_SUM
+	bool
+	prompt "Generate images/root.sum.jffs2   "
+	help
+	  Build an extra jffs2 image with summary information to enable
+	  faster filesystem mount. To use this the JFFS2_SUMMARY option
+	  must be enabled in target kernel.
+
+config IMAGE_JFFS2_SUM_EXTRA_ARGS
+	string
+	depends on IMAGE_JFFS2_SUM
+	default ""
+	prompt "extra arguments passed to sumtool"
+	help
+	  If needed you can add extra arguments for sumtool here
+	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt or
+	  -b to create a big endian filesystem on a little endian host)
 endif
