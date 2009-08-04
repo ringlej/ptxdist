@@ -479,6 +479,10 @@ ifdef PTXCONF_XORG_SERVER_EXT_DRI
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dri/.libs/libdri.so, /usr/lib/xorg/modules/extensions/libdri.so)
 endif
 
+ifdef PTXCONF_XORG_SERVER_EXT_DRI2
+	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dri2/.libs/libdri2.so, /usr/lib/xorg/modules/extensions/libdri2.so)
+endif
+
 ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
 
 endif
