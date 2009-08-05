@@ -75,6 +75,36 @@ ptxd_init_sysroot_toolchain() {
 
 
 #
+# figure out if we use a production BSP
+#
+# out:
+# sysroot_production
+#
+ptxd_init_get_sysroot_production() {
+    local prefix
+
+    prefix="$(ptxd_get_ptxconf PTXCONF_PROJECT_USE_PRODUCTION_PREFIX)" || return
+
+    local platform platform_version
+    platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+    platform_version="$(ptxd_get_ptxconf PTXCONF_PLATFORM_VERSION)"
+
+    if [ -n "${platform}" ]; then
+	prefix="${prefix}/platform-${platform}${platform_version}"
+    else
+	: # nothing to do for non-platform BSPs
+    fi
+
+    # FIXME: HACK we hardcode "sysroot-target" here
+    sysroot_production="${prefix}/sysroot-target"
+
+    PTXDIST_PROD_PLATFORMDIR="${prefix}"
+    export PTXDIST_PROD_PLATFORMDIR
+}
+
+
+
+#
 # gather all sysroots
 #
 # out:
@@ -86,6 +116,12 @@ ptxd_init_sysroot_toolchain() {
 ptxd_init_ptxdist_path() {
     local sysroot="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
     local sysroot_prefix="${sysroot}:${sysroot}/usr"
+
+    local sysroot_production
+    if ptxd_init_get_sysroot_production; then
+	sysroot="${sysroot}:${sysroot_production}"
+	sysroot_prefix="${sysroot_prefix}:${sysroot_production}:${sysroot_production}/usr"
+    fi
 
     local sysroot_all="${sysroot}"
     local sysroot_prefix_all="${sysroot_prefix}"
