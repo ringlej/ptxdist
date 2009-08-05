@@ -3,7 +3,7 @@
 # /etc/init.d/banner
 #
 
-FIGLET="/usr/sbin/figlet"
+FIGLET="/usr/bin/figlet"
 FIGLET_FONTS="/usr/share/figlet"
 PATH=/sbin:/bin:/usr/bin
 
