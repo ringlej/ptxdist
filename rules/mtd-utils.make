@@ -172,6 +172,10 @@ ifdef PTXCONF_MTD_UTILS_UBINIZE
 	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
 		/usr/sbin/ubinize)
 endif
+ifdef PTXCONF_MTD_UTILS_MTDINFO
+	@$(call install_copy, mtd-utils, 0, 0, 0755, -, \
+		/usr/sbin/mtdinfo)
+endif
 
 	@$(call install_finish, mtd-utils)
 

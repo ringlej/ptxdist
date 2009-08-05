@@ -195,4 +195,10 @@ config MTD_UTILS_UBIUPDATEVOL
 	help
 	  Updates a volume with data from file
 
+config MTD_UTILS_MTDINFO
+	bool
+	prompt "mtdinfo"
+	help
+	  Print UBI specific information about mtd devices
+
 endif
