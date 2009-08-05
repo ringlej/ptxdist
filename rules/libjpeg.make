@@ -1,8 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2006 by Erwin Rol
-# Copyright (C) 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2007, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,11 +17,12 @@ PACKAGES-$(PTXCONF_LIBJPEG) += libjpeg
 #
 # Paths and names
 #
-LIBJPEG_VERSION	:= 6b-ptx1
-LIBJPEG		:= libjpeg-$(LIBJPEG_VERSION)
-LIBJPEG_SUFFIX	:= tar.bz2
-LIBJPEG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBJPEG).$(LIBJPEG_SUFFIX)
-LIBJPEG_SOURCE	:= $(SRCDIR)/$(LIBJPEG).$(LIBJPEG_SUFFIX)
+LIBJPEG_VERSION	:= 7
+LIBJPEG_SUFFIX	:= tar.gz
+LIBJPEG		:= jpeg-$(LIBJPEG_VERSION)
+LIBJPEG_TARBALL	:= jpegsrc.v$(LIBJPEG_VERSION).$(LIBJPEG_SUFFIX)
+LIBJPEG_URL	:= http://ijg.org/files/$(LIBJPEG_TARBALL)
+LIBJPEG_SOURCE	:= $(SRCDIR)/$(LIBJPEG_TARBALL)
 LIBJPEG_DIR	:= $(BUILDDIR)/$(LIBJPEG)
 
 # ----------------------------------------------------------------------------
@@ -61,9 +61,10 @@ $(STATEDIR)/libjpeg.targetinstall:
 	@$(call install_fixup, libjpeg,DEPENDS,)
 	@$(call install_fixup, libjpeg,DESCRIPTION,missing)
 
-	@$(call install_copy, libjpeg, 0, 0, 0644, -, /usr/lib/libjpeg.so.62.0.0)
-	@$(call install_link, libjpeg, libjpeg.so.62.0.0, /usr/lib/libjpeg.so.62)
-	@$(call install_link, libjpeg, libjpeg.so.62.0.0, /usr/lib/libjpeg.so)
+	@$(call install_copy, libjpeg, 0, 0, 0644, -, \
+		/usr/lib/libjpeg.so.7.0.0)
+	@$(call install_link, libjpeg, libjpeg.so.7.0.0, /usr/lib/libjpeg.so.7)
+	@$(call install_link, libjpeg, libjpeg.so.7.0.0, /usr/lib/libjpeg.so)
 
 	@$(call install_finish, libjpeg)
 
