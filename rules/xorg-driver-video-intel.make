@@ -85,6 +85,21 @@ $(STATEDIR)/xorg-driver-video-intel.targetinstall:
 	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/drivers/intel_drv.so)
 
+	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/drivers/sil164.so)
+
+	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/drivers/ch7xxx.so)
+
+	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/drivers/ch7017.so)
+
+	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/drivers/tfp410.so)
+
+	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/drivers/ivch.so)
+
 	@$(call install_finish,xorg-driver-video-intel)
 
 	@$(call touch)
