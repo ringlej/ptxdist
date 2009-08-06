@@ -179,9 +179,9 @@ endif
 endif
 
 ifndef PTXCONF_MESALIB_DRIVER_OSMESA
-	@$(call install_copy, mesalib, 0, 0, 0644, $(MESALIB_DIR)/lib/libGL.so.1.2, /usr/lib/libGL.so.1.2)
-	@$(call install_link, mesalib, libGL.so.1.2, /usr/lib/libGL.so.1)
-	@$(call install_link, mesalib, libGL.so.1.2, /usr/lib/libGL.so)
+	@$(call install_copy, mesalib, 0, 0, 0644, $(MESALIB_DIR)/lib/libGL.so.1.5.070500, /usr/lib/libGL.so.1.5.070500)
+	@$(call install_link, mesalib, libGL.so.1.5.070500, /usr/lib/libGL.so.1)
+	@$(call install_link, mesalib, libGL.so.1.5.070500, /usr/lib/libGL.so)
 endif
 
 	@$(call install_copy, mesalib, 0, 0, 0644, $(MESALIB_DIR)/lib/libGLU.so.1.3.070500, /usr/lib/libGLU.so.1.3.070500)
