@@ -55,7 +55,10 @@ HOST_XORG_LIB_X11_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_XORG_LIB_X11_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_XORG_LIB_X11_AUTOCONF	:= \
+	$(HOST_AUTOCONF) \
+	--disable-man-pages \
+	--disable-specs
 
 $(STATEDIR)/host-xorg-lib-x11.prepare: $(host-xorg-lib-x11_prepare_deps_default)
 	@$(call targetinfo, $@)

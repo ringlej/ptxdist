@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_X11) += xorg-lib-x11
 #
 # Paths and names
 #
-XORG_LIB_X11_VERSION	:= 1.2.2
+XORG_LIB_X11_VERSION	:= 1.3.2
 XORG_LIB_X11		:= libX11-$(XORG_LIB_X11_VERSION)
 XORG_LIB_X11_SUFFIX	:= tar.bz2
 XORG_LIB_X11_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_X11).$(XORG_LIB_X11_SUFFIX)
@@ -78,6 +78,7 @@ XORG_LIB_X11_AUTOCONF := \
 	--disable-malloc0returnsnull \
 	--disable-dependency-tracking \
 	--disable-man-pages \
+	--disable-specs \
 	--enable-xthreads \
 	--enable-xcms \
 	--enable-composecache
@@ -174,15 +175,15 @@ $(STATEDIR)/xorg-lib-x11.targetinstall: $(xorg-lib-x11_targetinstall_deps_defaul
 	@$(call install_fixup, xorg-lib-x11,DEPENDS,)
 	@$(call install_fixup, xorg-lib-x11,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -,\
-		$(XORG_LIBDIR)/libX11.so.6.2.0)
+	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
+		$(XORG_LIBDIR)/libX11.so.6.3.0)
 
 	@$(call install_link, xorg-lib-x11, \
-		libX11.so.6.2.0, \
+		libX11.so.6.3.0, \
 		$(XORG_LIBDIR)/libX11.so.6)
 
 	@$(call install_link, xorg-lib-x11, \
-		libX11.so.6.2.0, \
+		libX11.so.6.3.0, \
 		$(XORG_LIBDIR)/libX11.so)
 
 	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
