@@ -67,8 +67,6 @@ MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_FFB)		+= ffb
 
 MESALIB_AUTOCONF   := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-32-bit \
-	--disable-64-bit \
 	--disable-static \
 	--enable-shared \
 	--disable-debug \
@@ -85,6 +83,14 @@ MESALIB_AUTOCONF   := \
 	--with-driver=$(subst $(space),$(comma),$(MESALIB_DRIVERS-y)) \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y))
 
+# the 32/64 bit options result in CFLAGS -> -m32 and -m64 which seem
+# only to be available on x86
+
+ifdef PTXCONF_ARCH_X86
+MESALIB_AUTOCONF += \
+	--enable-32-bit \
+	--disable-64-bit
+endif
 
 ifdef PTXCONF_MESALIB_DRIVER_XLIB
 	MESALIB_AUTOCONF += --enable-gl-osmesa
