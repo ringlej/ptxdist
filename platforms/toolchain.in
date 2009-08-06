@@ -3,7 +3,7 @@ menu "toolchain                     "
 config CROSSCHAIN_VENDOR
 	string
 	prompt "check for specific toolchain vendor"
-	default ""
+	default "OSELAS.Toolchain-1.99.3"
 	help
 	  Add here an unique vendor string to ensure this project will
 	  be build with the correct toolchain.
