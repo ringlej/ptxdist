@@ -1,45 +1,16 @@
 #
 # config/Kconfig: Main menu structure definition
-# Copyright (C) Robert Schwebel <r.schwebel@pengutronix.de> 2002, 2003, 2004
+# Copyright (C) 2002-2006, 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
 
 mainmenu "Configuration"
 
-# We need this: otherwhise kconfig doesn't handle tristate entries!!
 config MODULES
-        bool
-        default y
-
-config PTXCONF
 	bool
 	default y
-	help
-	  This is the Pengutronix Distribution Build System.
 
 source "generated/fixme.in"
 
-comment "------------------------------------"
-
-menu "Project Name & Version        "
-
-comment "Project Name & Version        "
-
-config PROJECT
-	string
-	prompt "project name        "
-	help
-	  Name of this project; each PTXdist "Project" specifies a unique
-	  configuration for an embedded Linux project.
-
-	  Usually you don't have to set this config option; change it
-	  only if you want to have some non-default name.
-
-config PROJECT_VERSION
-	string
-	prompt "project version     "
-	help
-	  Version of this project.
-
-endmenu
+source "generated/project_name.in"
 
 source "rules/Kconfig"

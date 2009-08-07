@@ -1,0 +1,27 @@
+## SECTION=project_name
+#
+# rules/project-name.in
+#
+# Copyright (C) 2002-2006, 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
+#
+
+comment "------------------------------------"
+
+menu "Project Name & Version        "
+
+comment "Project Name & Version        "
+
+config PROJECT
+	string
+	prompt "Project Name"
+	help
+	  Name of this project; each PTXdist "Project" specifies a
+	  unique configuration for an embedded Linux project.
+
+config PROJECT_VERSION
+	string
+	prompt "Project Version"
+	default "-trunk"
+	help
+	  The Version of your Project.
+endmenu
