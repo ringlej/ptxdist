@@ -11,6 +11,13 @@ menu "Project Name & Version        "
 
 comment "Project Name & Version        "
 
+config PROJECT_VENDOR
+	string
+	prompt "Vendor Name"
+	help
+	  Type in here your favorite vendorname. It gets displayed
+	  whenever your system starts.
+
 config PROJECT
 	string
 	prompt "Project Name"
