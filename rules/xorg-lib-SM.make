@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_SM) += xorg-lib-sm
 #
 # Paths and names
 #
-XORG_LIB_SM_VERSION	:= 1.1.0
+XORG_LIB_SM_VERSION	:= 1.1.1
 XORG_LIB_SM		:= libSM-$(XORG_LIB_SM_VERSION)
 XORG_LIB_SM_SUFFIX	:= tar.bz2
 XORG_LIB_SM_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_SM).$(XORG_LIB_SM_SUFFIX)
@@ -119,15 +119,15 @@ $(STATEDIR)/xorg-lib-sm.targetinstall: $(xorg-lib-sm_targetinstall_deps_default)
 	@$(call install_fixup, xorg-lib-sm,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-sm, 0, 0, 0644, \
-		$(XORG_LIB_SM_DIR)/src/.libs/libSM.so.6.0.0, \
-		$(XORG_LIBDIR)/libSM.so.6.0.0)
+		$(XORG_LIB_SM_DIR)/src/.libs/libSM.so.6.0.1, \
+		$(XORG_LIBDIR)/libSM.so.6.0.1)
 
 	@$(call install_link, xorg-lib-sm, \
-		libSM.so.6.0.0, \
+		libSM.so.6.0.1, \
 		$(XORG_LIBDIR)/libSM.so.6)
 
 	@$(call install_link, xorg-lib-sm, \
-		libSM.so.6.0.0, \
+		libSM.so.6.0.1, \
 		$(XORG_LIBDIR)/libSM.so)
 
 	@$(call install_finish, xorg-lib-sm)
