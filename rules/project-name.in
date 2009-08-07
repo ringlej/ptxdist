@@ -31,4 +31,76 @@ config PROJECT_VERSION
 	default "-trunk"
 	help
 	  The Version of your Project.
+
+comment "------------------------------------"
+
+choice
+	prompt "Build Type"
+	default PROJECT_BUILD_DEVEL
+
+config PROJECT_BUILD_DEVEL
+	bool
+	prompt "development"
+	help
+	  Perform a development build, which installs everything into
+	  "${PTXDIST_WORKSPACE}/platform-<PLATFORM>".
+
+	  This is the default. If unsure select this.
+
+config PROJECT_BUILD_PRODUCTION
+	bool
+	prompt "production"
+	help
+	  Perform a production build, which installs everything into
+	  central, system wide location.
+
+endchoice
+
+
+choice
+	prompt "location"
+	depends on PROJECT_BUILD_PRODUCTION
+	default PROJECT_BUILD_PRODUCTION_PREFIX_DEFAULT_CHOICE
+
+config PROJECT_BUILD_PRODUCTION_PREFIX_DEFAULT_CHOICE
+	bool
+	prompt "default"
+	help
+	  Build pre-built production relase to the default
+	  location. It will be composed of:
+	  - project vendor,
+	  - project name and
+	  - project version.
+
+	  The path will look like this:
+
+	  "/opt/OSELAS.BSP/Pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference-trunk"
+
+	  This is the default. If unsure select this.
+
+
+config PROJECT_BUILD_PRODUCTION_PREFIX_CUSTOM_CHOICE
+	bool
+	prompt "custom"
+	help
+	  Build production relase and place it in an individual
+	  location.
+
+endchoice
+
+
+config PROJECT_BUILD_PRODUCTION_PREFIX_CUSTOM
+	string
+	prompt "custom location"
+	depends on PROJECT_BUILD_PRODUCTION_PREFIX_CUSTOM_CHOICE
+	help
+	  Specify the location where to place your production relase.
+
+config PROJECT_BUILD_PRODUCTION_PREFIX
+	string
+	default "/opt/OSELAS.BSP/${PTXCONF_PROJECT_VENDOR}/OSELAS.BSP-${PTXCONF_PROJECT_VENDOR}-${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}" \
+		if PROJECT_BUILD_PRODUCTION_PREFIX_DEFAULT_CHOICE
+	default "${PTXCONF_PROJECT_BUILD_PRODUCTION_PREFIX_CUSTOM}" \
+		if PROJECT_BUILD_PRODUCTION_PREFIX_CUSTOM_CHOICE
+
 endmenu
