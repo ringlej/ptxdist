@@ -103,16 +103,6 @@ ifdef PTXCONF_MESALIB_DRIVER_OSMESA
 endif
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/mesalib.compile:
-	@$(call targetinfo)
-	cd $(MESALIB_DIR) && $(MESALIB_PATH) \
-		$(MAKE) $(CROSS_ENV_CC_FOR_BUILD) SYSROOT=$(SYSROOT) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
