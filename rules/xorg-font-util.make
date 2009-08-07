@@ -2,7 +2,8 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+# Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +18,10 @@ PACKAGES-$(PTXCONF_XORG_FONT_UTIL) += xorg-font-util
 #
 # Paths and names
 #
-XORG_FONT_UTIL_VERSION	:= 1.0.1
+XORG_FONT_UTIL_VERSION	:= 1.1.1
 XORG_FONT_UTIL		:= font-util-$(XORG_FONT_UTIL_VERSION)
 XORG_FONT_UTIL_SUFFIX	:= tar.bz2
-XORG_FONT_UTIL_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/font/$(XORG_FONT_UTIL).$(XORG_FONT_UTIL_SUFFIX)
+XORG_FONT_UTIL_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/font/$(XORG_FONT_UTIL).$(XORG_FONT_UTIL_SUFFIX)
 XORG_FONT_UTIL_SOURCE	:= $(SRCDIR)/$(XORG_FONT_UTIL).$(XORG_FONT_UTIL_SUFFIX)
 XORG_FONT_UTIL_DIR	:= $(BUILDDIR)/$(XORG_FONT_UTIL)
 
