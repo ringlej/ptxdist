@@ -106,6 +106,9 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
+MESALIB_GL_VERSION-$(PTXCONF_MESALIB_DRIVER_DRI)  := 1.2
+MESALIB_GL_VERSION-$(PTXCONF_MESALIB_DRIVER_XLIB) := 1.5.070500
+
 $(STATEDIR)/mesalib.targetinstall:
 	@$(call targetinfo)
 
@@ -175,9 +178,10 @@ endif
 endif
 
 ifndef PTXCONF_MESALIB_DRIVER_OSMESA
-	@$(call install_copy, mesalib, 0, 0, 0644, $(MESALIB_DIR)/lib/libGL.so.1.5.070500, /usr/lib/libGL.so.1.5.070500)
-	@$(call install_link, mesalib, libGL.so.1.5.070500, /usr/lib/libGL.so.1)
-	@$(call install_link, mesalib, libGL.so.1.5.070500, /usr/lib/libGL.so)
+	@$(call install_copy, mesalib, 0, 0, 0644, -, \
+		 /usr/lib/libGL.so.$(MESALIB_GL_VERSION-y))
+	@$(call install_link, mesalib, libGL.so.$(MESALIB_GL_VERSION-y), /usr/lib/libGL.so.1)
+	@$(call install_link, mesalib, libGL.so.$(MESALIB_GL_VERSION-y), /usr/lib/libGL.so)
 endif
 
 	@$(call install_copy, mesalib, 0, 0, 0644, $(MESALIB_DIR)/lib/libGLU.so.1.3.070500, /usr/lib/libGLU.so.1.3.070500)
