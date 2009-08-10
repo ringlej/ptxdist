@@ -74,9 +74,10 @@ menuconfig XORG_SERVER
 #
 # when OpenGL is enabled, MesaLib is required
 #
-	select XORG_PROTO_GL	if XORG_SERVER_EXT_GLX
-	select MESALIB		if XORG_SERVER_EXT_GLX
-	select LIBDRM		if XORG_SERVER_EXT_GLX
+	select XORG_PROTO_GL		if XORG_SERVER_EXT_GLX
+	select MESALIB			if XORG_SERVER_EXT_GLX
+	select MESALIB_DRIVER_DRI	if XORG_SERVER_EXT_GLX
+	select LIBDRM			if XORG_SERVER_EXT_GLX
 #
 #	select XORG_PROTO_XV
 	select XORG_LIB_XV if XORG_SERVER_EXT_XV
