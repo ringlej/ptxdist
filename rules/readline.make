@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 7759 2008-02-12 21:05:07Z mkl $
 #
 # Copyright (C) 2004 by Sascha Hauer
 #               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -78,7 +77,7 @@ $(STATEDIR)/readline.targetinstall:
 	@$(call install_link, readline, libreadline.so.5.2, /lib/libreadline.so)
 
 ifdef PTXCONF_READLINE_ETC_INPUTRC
-	@$(call install_alternative, readline, 0, 0, 0644, /etc/inputrc, n)
+	@$(call install_alternative, readline, 0, 0, 0644, /etc/inputrc)
 endif
 	@$(call install_finish, readline)
 
