@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5616 2006-06-02 13:50:47Z rsc $
 #
 # Copyright (C) 2006 by Erwin Rol
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -82,8 +81,7 @@ $(STATEDIR)/xorg-driver-video-intel.targetinstall:
 	@$(call install_fixup,xorg-driver-video-intel,DEPENDS,)
 	@$(call install_fixup,xorg-driver-video-intel,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0755, \
-		$(XORG_DRIVER_VIDEO_INTEL_DIR)/src/.libs/intel_drv.so, \
+	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, \
 		/usr/lib/xorg/modules/intel_drv.so)
 
 	@$(call install_finish,xorg-driver-video-intel)
