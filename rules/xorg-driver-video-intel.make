@@ -81,7 +81,7 @@ $(STATEDIR)/xorg-driver-video-intel.targetinstall:
 	@$(call install_fixup,xorg-driver-video-intel,DEPENDS,)
 	@$(call install_fixup,xorg-driver-video-intel,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, \
+	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/intel_drv.so)
 
 	@$(call install_finish,xorg-driver-video-intel)
