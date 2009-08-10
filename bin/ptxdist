@@ -3,6 +3,8 @@
 LANG=C
 LC_ALL=POSIX
 
+declare -a PTXDIST_ARGS_FULL
+declare -a PTXDIST_ARGS_SECOND PTX_MAKE_ARGS
 PTXDIST_ARGS_FULL=("${@}")
 PROMPT="ptxdist: "
 
@@ -41,7 +43,7 @@ menu() {
 	local ptxconfig="$(readlink -e "${PTXDIST_PTXCONFIG}")"
 	ptxconfig="${ptxconfig#${PTXDIST_WORKSPACE}/}"
 
-	declare -a menu
+	local -a menu
 	if ! ptxd_get_ptxconf PTXCONF_NO_PLATFORM > /dev/null; then
 		menu=( "${menu[@]}"	"platformconfig"	"Configure Hardware Platform" )
 	fi
@@ -1252,11 +1254,11 @@ parse_first()
 
 		case "${arg}" in
 		-d|--debug)
-			PTX_MAKE_ARGS="${PTX_MAKE_ARGS} --debug=make"
+			PTX_MAKE_ARGS[${#PTX_MAKE_ARGS[@]}]="--debug=make"
 			PTX_DEBUG=true
 			;;
 		-k)
-			PTX_MAKE_ARGS="${PTX_MAKE_ARGS} -k"
+			PTX_MAKE_ARGS[${#PTX_MAKE_ARGS[@]}]="-k"
 			;;
 		-f|--force)
 			PTX_FORCE=true
