@@ -204,13 +204,6 @@ XORG_SERVER_AUTOCONF += --disable-xevie
 endif
 
 # default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_LBX
-XORG_SERVER_AUTOCONF += --enable-lbx
-else
-XORG_SERVER_AUTOCONF += --disable-lbx
-endif
-
-# default is enabled
 ifdef PTXCONF_XORG_SERVER_EXT_APPGROUP
 XORG_SERVER_AUTOCONF += --enable-appgroup
 else

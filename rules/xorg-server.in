@@ -62,7 +62,6 @@ menuconfig XORG_SERVER
 	select XORG_PROTO_FONTS
 	select XORG_PROTO_INPUT
 	select XORG_LIB_XI
-	select XORG_LIB_LBXUTIL if XORG_SERVER_EXT_LBX
 	select XORG_LIB_XFONTCACHE
 	select XORG_LIB_XT
 	select XORG_LIB_XMU
@@ -431,13 +430,6 @@ config XORG_SERVER_EXT_XEVIE
 	prompt "XEvIE extension"
 	help
 	  --enable-xevie
-
-config XORG_SERVER_EXT_LBX
-	depends on XORG_SERVER
-	bool
-	prompt "LBX extension"
-	help
-	  --enable-lbx
 
 config XORG_SERVER_EXT_APPGROUP
 	depends on XORG_SERVER
