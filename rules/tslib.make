@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2005 by Sascha Hauer
 #               2007-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -37,8 +36,6 @@ $(TSLIB_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-tslib_prepare: $(STATEDIR)/tslib.prepare
-
 TSLIB_PATH	:= PATH=$(CROSS_PATH)
 TSLIB_ENV 	:= $(CROSS_ENV)
 
@@ -59,7 +56,7 @@ $(STATEDIR)/tslib.targetinstall:
 	@$(call install_fixup, tslib,PRIORITY,optional)
 	@$(call install_fixup, tslib,VERSION,$(TSLIB_VERSION))
 	@$(call install_fixup, tslib,SECTION,base)
-	@$(call install_fixup, tslib,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, tslib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, tslib,DEPENDS,)
 	@$(call install_fixup, tslib,DESCRIPTION,missing)
 
