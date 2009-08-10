@@ -3,10 +3,13 @@
 menuconfig XORG_DRIVER_INPUT
         bool "xorg input drivers            "
 
+if XORG_DRIVER_INPUT
 source "generated/multimedia_xorg_driver_input.in"
+endif
 
 menuconfig XORG_DRIVER_VIDEO
         bool "xorg video drivers            "
 
+if XORG_DRIVER_VIDEO
 source "generated/multimedia_xorg_driver_video.in"
-
+endif
