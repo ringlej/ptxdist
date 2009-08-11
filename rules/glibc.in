@@ -7,6 +7,7 @@ config GLIBC
 if GLIBC
 
 menu "glibc                         "
+	depends on !PROJECT_USE_PRODUCTION
 
 comment	"Install options"
 
