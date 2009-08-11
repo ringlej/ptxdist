@@ -91,15 +91,15 @@ ifdef PTXCONF_IPROUTE2_TC
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/tc/tc, \
 		/sbin/tc)
-	@$(call install_copy, iproute2, 0, 0, 0755, \
+	@$(call install_copy, iproute2, 0, 0, 0644, \
 		$(IPROUTE2_DIR)/netem/normal.dist, \
 		/usr/lib/tc/normal.dist)
 
-	@$(call install_copy, iproute2, 0, 0, 0755, \
+	@$(call install_copy, iproute2, 0, 0, 0644, \
 		$(IPROUTE2_DIR)/netem/pareto.dist, \
 		/usr/lib/tc/pareto.dist)
 
-	@$(call install_copy, iproute2, 0, 0, 0755, \
+	@$(call install_copy, iproute2, 0, 0, 0644, \
 		$(IPROUTE2_DIR)/netem/paretonormal.dist, \
 		/usr/lib/tc/paretonormal.dist)
 endif
@@ -129,27 +129,27 @@ ifdef PTXCONF_IPROUTE2_SS
 		/usr/sbin/ss)
 endif
 
-	@$(call install_copy, iproute2, 0, 0, 0755, \
+	@$(call install_copy, iproute2, 0, 0, 0644, \
 		$(IPROUTE2_DIR)/etc/iproute2/ematch_map, \
 		/etc/iproute2/ematch_map)
 
-	@$(call install_copy, iproute2, 0, 0, 0755, \
+	@$(call install_copy, iproute2, 0, 0, 0644, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_dsfield, \
 		/etc/iproute2/rt_dsfield)
 
-	@$(call install_copy, iproute2, 0, 0, 0755, \
+	@$(call install_copy, iproute2, 0, 0, 0644, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_protos, \
 		/etc/iproute2/rt_protos)
 
-	@$(call install_copy, iproute2, 0, 0, 0755, \
+	@$(call install_copy, iproute2, 0, 0, 0644, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_realms, \
 		/etc/iproute2/rt_realms)
 
-	@$(call install_copy, iproute2, 0, 0, 0755, \
+	@$(call install_copy, iproute2, 0, 0, 0644, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_scopes, \
 		/etc/iproute2/rt_scopes)
 
-	@$(call install_copy, iproute2, 0, 0, 0755, \
+	@$(call install_copy, iproute2, 0, 0, 0644, \
 		$(IPROUTE2_DIR)/etc/iproute2/rt_tables, \
 		/etc/iproute2/rt_tables)
 
