@@ -76,7 +76,8 @@ menuconfig XORG_SERVER
 #
 	select XORG_PROTO_GL		if XORG_SERVER_EXT_GLX
 	select MESALIB			if XORG_SERVER_EXT_GLX
-	select MESALIB_DRIVER_DRI	if XORG_SERVER_EXT_GLX
+# select to choice values doesn't work, see mesalib.in for workaround
+#	select MESALIB_DRIVER_DRI	if XORG_SERVER_EXT_GLX
 	select LIBDRM			if XORG_SERVER_EXT_GLX
 #
 #	select XORG_PROTO_XV

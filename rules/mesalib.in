@@ -27,6 +27,7 @@ choice
 
 
 	config MESALIB_DRIVER_XLIB
+		depends on !XORG_SERVER_EXT_GLX
 		bool
 		prompt "xlib"
 
@@ -35,6 +36,7 @@ choice
 		prompt "dri"
 
 	config MESALIB_DRIVER_OSMESA
+		depends on !XORG_SERVER_EXT_GLX
 		bool
 		prompt "osmesa"
 
