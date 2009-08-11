@@ -45,31 +45,13 @@ KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 endif
 
 #
-# Some configuration stuff for the different kernel image formats
+# support the different kernel image formats
 #
-ifdef PTXCONF_KERNEL_IMAGE_Z
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/zImage
-endif
-
-ifdef PTXCONF_KERNEL_IMAGE_BZ
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/bzImage
-endif
-
-ifdef PTXCONF_KERNEL_IMAGE_U
-KERNEL_IMAGE_PATH	:= \
-	$(KERNEL_DIR)/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/images/uImage \
-	$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/images/vmlinux.UBoot
-endif
-
-ifdef PTXCONF_KERNEL_IMAGE_VM
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/vmImage
-endif
-
-ifdef PTXCONF_KERNEL_IMAGE_VMLINUX
-KERNEL_IMAGE_PATH	:= $(KERNEL_DIR)/vmlinux
-endif
+KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_BZ)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/bzImage
+KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_U)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/uImage
+KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_VM)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/vmImage
+KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_Z)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/zImage
+KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_VMLINUX) += $(KERNEL_DIR)/vmlinux
 
 # ----------------------------------------------------------------------------
 # Get
@@ -172,7 +154,7 @@ $(STATEDIR)/kernel.targetinstall:
 	@$(call targetinfo)
 
 #	# we _always_ need the kernel in the image dir
-	@for i in $(KERNEL_IMAGE_PATH); do				\
+	@for i in $(KERNEL_IMAGE_PATH-y); do				\
 		if [ -f $$i ]; then					\
 			install -m 644 $$i $(IMAGEDIR)/linuximage;	\
 		fi;							\
@@ -194,7 +176,7 @@ ifneq ($(or $(PTXCONF_KERNEL_INSTALL),$(PTXCONF_KERNEL_VMLINUX)),)
 	@$(call install_fixup, kernel, DESCRIPTION,missing)
 
 ifdef PTXCONF_KERNEL_INSTALL
-	@for i in $(KERNEL_IMAGE_PATH); do 				\
+	@for i in $(KERNEL_IMAGE_PATH-y); do 				\
 		if [ -f $$i ]; then					\
 			$(call install_copy, kernel, 0, 0, 0644, $$i, /boot/$(KERNEL_IMAGE), n); \
 		fi;							\
