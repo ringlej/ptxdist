@@ -37,9 +37,9 @@ $(IPROUTE2_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-IPROUTE2_PATH	:=  PATH=$(CROSS_PATH)
-IPROUTE2_ENV 	:=  $(CROSS_ENV)
-IPROUTE2_MAKEVARS = \
+IPROUTE2_PATH	:= PATH=$(CROSS_PATH)
+IPROUTE2_ENV 	:= $(CROSS_ENV)
+IPROUTE2_MAKEVARS := \
 	CC=$(PTXCONF_GNU_TARGET)-gcc \
 	CROSS_CPPFLAGS='$(CROSS_CPPFLAGS) -g' \
 	LDFLAGS='$(CROSS_LDFLAGS) -g -rdynamic' \
@@ -80,7 +80,7 @@ $(STATEDIR)/iproute2.targetinstall:
 ifdef PTXCONF_IPROUTE2_IP
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/ip/ip, \
-		/sbin/ip )
+		/sbin/ip)
 endif
 ifdef PTXCONF_IPROUTE2_RTMON
 	@$(call install_copy, iproute2, 0, 0, 0755, \
@@ -106,27 +106,27 @@ endif
 ifdef PTXCONF_IPROUTE2_ARPD
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/misc/arpd, \
-		/usr/sbin/arpd )
+		/usr/sbin/arpd)
 endif
 ifdef PTXCONF_IPROUTE2_LNSTAT
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/misc/lnstat, \
-		/usr/sbin/lnstat )
+		/usr/sbin/lnstat)
 endif
 ifdef PTXCONF_IPROUTE2_NSTAT
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/misc/nstat, \
-		/usr/sbin/nstat )
+		/usr/sbin/nstat)
 endif
 ifdef PTXCONF_IPROUTE2_RTACCT
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/misc/rtacct, \
-		/usr/sbin/rtacct )
+		/usr/sbin/rtacct)
 endif
 ifdef PTXCONF_IPROUTE2_SS
 	@$(call install_copy, iproute2, 0, 0, 0755, \
 		$(IPROUTE2_DIR)/misc/ss, \
-		/usr/sbin/ss )
+		/usr/sbin/ss)
 endif
 
 	@$(call install_copy, iproute2, 0, 0, 0755, \
