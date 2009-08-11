@@ -94,6 +94,8 @@ endif
 
 KERNEL_IMAGE	:= $(PTXCONF_KERNEL_IMAGE)
 
+ifndef PTXCONF_PROJECT_USE_PRODUCTION
+
 ifdef PTXCONF_KERNEL
 $(KERNEL_CONFIG):
 	@echo
@@ -147,6 +149,7 @@ $(STATEDIR)/kernel.compile:
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
 	@$(call touch)
+endif
 
 # ----------------------------------------------------------------------------
 # Install
@@ -248,6 +251,8 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
+ifndef PTXCONF_PROJECT_USE_PRODUCTION
+
 kernel_clean:
 	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-modules.*
 	rm -rf $(PKGDIR)/kernel_* $(PKGDIR)/kernel-modules_*
@@ -277,5 +282,7 @@ kernel_oldconfig kernel_menuconfig: $(STATEDIR)/kernel.extract
 	else \
 		cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG); \
 	fi
+
+endif
 
 # vim: syntax=make
