@@ -1,9 +1,8 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002      by Pengutronix e.K., Hildesheim, Germany
-# Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
-# Copyright (C) 2005-2009 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix e.K., Hildesheim, Germany
+#               2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
+#               2005-2009 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -73,7 +72,7 @@ $(STATEDIR)/glibc.targetinstall:
 	@$(call install_fixup, glibc,PRIORITY,optional)
 	@$(call install_fixup, glibc,VERSION,$(GLIBC_VERSION))
 	@$(call install_fixup, glibc,SECTION,base)
-	@$(call install_fixup, glibc,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, glibc,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, glibc,DEPENDS,)
 	@$(call install_fixup, glibc,DESCRIPTION,missing)
 
@@ -148,7 +147,7 @@ endif
 
 ifdef PTXCONF_GLIBC_GCONF_BASE
 	@$(call install_copy, glibc, 0, 0, 0755, /usr/lib/gconv)
-	@$(call install_copy_toolchain_lib, glibc, gconv/gconv-modules, /usr/lib/gconv, n)
+	@$(call install_copy_toolchain_lib, glibc, gconv/gconv-modules, /usr/lib/gconv)
 endif
 
 ifdef PTXCONF_GLIBC_GCONV_DEF
@@ -177,13 +176,13 @@ ifdef PTXCONF_GLIBC_I18N_BIN_LOCALEDEF
 endif
 
 ifdef PTXCONF_GLIBC_I18N_RAWDATA
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/*,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/*,,n)
-	@$(call install_copy_toolchain_usr, glibc, share/locale/locale.alias,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/charmaps/*)
+	@$(call install_copy_toolchain_usr, glibc, share/i18n/locales/*)
+	@$(call install_copy_toolchain_usr, glibc, share/locale/locale.alias)
 endif
 
 ifdef PTXCONF_LOCALES
-	@$(call install_copy_toolchain_usr, glibc, share/locale/locale.alias,,n)
+	@$(call install_copy_toolchain_usr, glibc, share/locale/locale.alias)
 endif
 
 # Zonefiles are BROKEN
