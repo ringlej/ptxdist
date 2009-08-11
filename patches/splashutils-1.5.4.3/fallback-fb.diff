@@ -1,0 +1,26 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: use /dev/fb0 if no framebuffer is associated with the tty
+
+Usually in ptxdist the only used tty is the serial console.
+Detecting the correct framebuffer from tty0 does not work.
+This patch adds a fallback to fb0.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/libfbsplashrender.c |    3 +++
+ 1 file changed, 3 insertions(+)
+
+Index: b/src/libfbsplashrender.c
+===================================================================
+--- a/src/libfbsplashrender.c
++++ b/src/libfbsplashrender.c
+@@ -89,6 +89,9 @@ static int fb_init(int tty, bool create)
+ 
+ 	ioctl(fd_fb0, FBIOGET_CON2FBMAP, &con2fb);
+ 
++	if (con2fb.framebuffer == -1)
++		con2fb.framebuffer = 0;
++
+ 	if (con2fb.framebuffer == fb)
+ 		return 0;
+ 

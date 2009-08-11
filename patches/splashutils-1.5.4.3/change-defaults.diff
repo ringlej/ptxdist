@@ -1,0 +1,45 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: change defaults
+
+* Enable by default.
+* Theme and message from ptxconfig
+Not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ scripts/splash-functions.sh.in |   10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+Index: b/scripts/splash-functions.sh.in
+===================================================================
+--- a/scripts/splash-functions.sh.in
++++ b/scripts/splash-functions.sh.in
+@@ -137,15 +137,15 @@ splash_setup() {
+ 	fi
+ 
+ 	export SPLASH_EFFECTS=""
+-	export SPLASH_SANITY=""
++	export SPLASH_SANITY="insane"
+ 	export SPLASH_TEXTBOX="no"
+-	export SPLASH_MODE_REQ="off"
++	export SPLASH_MODE_REQ="silent"
+ 	export SPLASH_PROFILE="off"
+-	export SPLASH_THEME="default"
++	export SPLASH_THEME="@PTXCONF_SPLASHUTILS_THEME@"
+ 	export SPLASH_TTY="16"
+ 	export SPLASH_KDMODE="TEXT"
+ 	export SPLASH_AUTOVERBOSE="0"
+-	export SPLASH_BOOT_MESSAGE="Booting the system (\$progress%)... Press F2 for verbose mode."
++	export SPLASH_BOOT_MESSAGE="@PTXCONF_SPLASHUTILS_BOOTMSG@"
+ 	export SPLASH_SHUTDOWN_MESSAGE="Shutting down the system (\$progress%)... Press F2 for verbose mode."
+ 	export SPLASH_REBOOT_MESSAGE="Rebooting the system (\$progress%)... Press F2 for verbose mode."
+ 	export SPLASH_XSERVICE="xdm"
+@@ -261,8 +261,6 @@ splash_start() {
+ 
+ 	splash_comm_send "set autoverbose ${SPLASH_AUTOVERBOSE}"
+ 
+-	splash_set_event_dev
+-
+ 	return 0
+ }
+ 

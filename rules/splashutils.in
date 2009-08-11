@@ -1,0 +1,46 @@
+## SECTION=multimedia_framebuffer
+
+menuconfig SPLASHUTILS
+	tristate
+	prompt "splashutils                   "
+	select LIBJPEG
+	select BUSYBOX_PIDOF
+	select BUSYBOX_MKFIFO
+	select LIBPNG if SPLASHUTILS_PNG
+	select LIBMNG if SPLASHUTILS_MNG
+	select FREETYPE if SPLASHUTILS_TTF
+	help
+	  FIXME
+
+if SPLASHUTILS
+
+config SPLASHUTILS_THEME
+	string
+	prompt "theme name"
+	default "default"
+	help
+	  Name of the theme to use.
+
+config SPLASHUTILS_BOOTMSG
+	string
+	prompt "boot message"
+	default "Booting the system (\$progress%)..."
+
+config SPLASHUTILS_PNG
+	bool
+	prompt "PNG support"
+	help
+	  Support for images in PNG format.
+
+config SPLASHUTILS_MNG
+	bool
+	prompt "MNG support"
+	help
+	  Support for animations in MNG format.
+
+config SPLASHUTILS_TTF
+	bool
+	prompt "TrueType Font support"
+
+endif
+

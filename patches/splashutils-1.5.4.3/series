@@ -1,0 +1,5 @@
+fallback-fb.diff
+cache-in-tmpfs.diff
+change-defaults.diff
+fix-build.diff
+autoreconf.diff

@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: don't try to build not included libs
+
+splashutils wants to build its own libpng, libjpeg, etc.
+This patch drops the subdir. As a result splashutils will
+link against the libs provided by ptxdist.
+Not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.am |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/Makefile.am
+===================================================================
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,4 +1,4 @@
+-SUBDIRS = libs src docs misc scripts
++SUBDIRS = src docs misc scripts
+ ACLOCAL_AMFLAGS = -I m4
+ 
+ include common.mk

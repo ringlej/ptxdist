@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# This is an splashutils daemon init.d script which ist called by init(1) with [start|stop] as argument
+#
+
+PATH=/sbin:/bin:/usr/bin
+FUCNTIONS=/sbin/splash-functions.sh
+
+# --- nothing to change after this line ---
+
+. $FUCNTIONS
+
+mkdir -p /var/run/splash/cache/
+
+start_proc() {
+	echo -n "starting splashutils daemon..."
+	splash_start || (echo failed; exit 1)
+	echo "done"
+}
+
+stop_proc() {
+	echo -n "stopping splashutils daemon..."
+	splash_exit
+	echo "done"
+}
+
+
+case "$1" in
+        start)
+        	start_proc
+		;;
+	stop)
+		stop_proc
+		;;
+        restart|force-reload)
+                echo -n "restarting splashutils daemon..."
+                stop_proc
+		sleep 2
+                start_proc
+		echo "done"
+                ;;
+        reload)
+                echo "Not supported" >&2
+                exit 1
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart|force-reload}"
+                exit 1
+                ;;
+esac
+
+exit 0
+

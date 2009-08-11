@@ -1,0 +1,41 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: move cachedir to /var/run/splash/
+
+fbsplash needs a writeable cachedir. This patch moves it
+to a location that is on tmpfs in ptxdist.
+Not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ scripts/splash-functions.sh.in |    4 ++--
+ src/fbsplash.h.in              |    2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+Index: b/scripts/splash-functions.sh.in
+===================================================================
+--- a/scripts/splash-functions.sh.in
++++ b/scripts/splash-functions.sh.in
+@@ -22,8 +22,8 @@
+ # default value.
+ export spl_cachesize="4096"
+ export spl_cachetype="tmpfs"
+-export spl_cachedir="@libdir@/splash/cache"
+-export spl_tmpdir="@libdir@/splash/tmp"
++export spl_cachedir="/var/run/splash/cache"
++export spl_tmpdir="/var/run/splash/tmp"
+ export spl_fifo="${spl_cachedir}/.splash"
+ export spl_pidfile="${spl_cachedir}/daemon.pid"
+ export spl_util="@bindir@/splash_util.static"
+Index: b/src/fbsplash.h.in
+===================================================================
+--- a/src/fbsplash.h.in
++++ b/src/fbsplash.h.in
+@@ -7,7 +7,7 @@
+ #include <linux/input.h>
+ 
+ #define FBSPLASH_DIR		"@libdir@/splash"
+-#define FBSPLASH_CACHEDIR	FBSPLASH_DIR"/cache"
++#define FBSPLASH_CACHEDIR	"/var/run/splash/cache"
+ #define FBSPLASH_PIDFILE	FBSPLASH_CACHEDIR"/daemon.pid"
+ #define FBSPLASH_PROFILE	FBSPLASH_CACHEDIR"/profile"
+ #define FBSPLASH_DAEMON		"@sbindir@/fbsplashd.static"
