@@ -14,27 +14,16 @@
 #
 PACKAGES-$(PTXCONF_KERNEL) += kernel
 
-ifdef PTXCONF_KERNEL
-ifeq ($(PTXCONF_KERNEL_VERSION),)
-    $(warning *** PTXCONF_KERNEL_VERSION is empty)
-    $(warning *** please run 'ptxdist platformconfig' and activate the kernel)
-    $(error )
-endif
-endif
 
 #
 # handle special compilers
 #
 ifdef PTXCONF_KERNEL
-    ifneq ($(PTXCONF_COMPILER_PREFIX),$(PTXCONF_COMPILER_PREFIX_KERNEL))
-        ifeq ($(wildcard .ktoolchain/$(PTXCONF_COMPILER_PREFIX_KERNEL)gcc),)
-            $(warning *** no .ktoolchain link found. Please create a link)
-            $(warning *** .ktoolchain to the bin directory of your $(PTXCONF_COMPILER_PREFIX_KERNEL) toolchain)
-            $(error )
-        endif
-    KERNEL_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.ktoolchain/
-    endif
+ifneq ($(PTXCONF_COMPILER_PREFIX),$(PTXCONF_COMPILER_PREFIX_KERNEL))
+	KERNEL_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.ktoolchain/
 endif
+endif
+
 
 #
 # Paths and names
@@ -47,23 +36,6 @@ KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_K
 
 ifdef PTXCONF_KERNEL_LOCAL_FLAG
 KERNEL_URL		:= file://$(PTXCONF_SETUP_KERNELDIR_PREFIX)/$(KERNEL_VERSION)
-ifeq ($(PTXCONF_SETUP_KERNELDIR_PREFIX),)
-$(warning ***)
-$(warning *** PTXCONF_KERNEL_LOCAL_FLAG feature activated, but)
-$(warning *** PTXCONF_SETUP_KERNELDIR_PREFIX is unset!)
-$(warning ***)
-$(warning *** This feature is mainly for developers, who to want have their kernel sources)
-$(warning *** outside of ptxdist. You can turn it off by deselecting "Local kernel tree":)
-$(warning *** "ptxdist platformconfig" -> "Linux kernel" -> "Local kernel tree")
-$(warning ***)
-$(warning *** If you want to use the feature, please enter a proper prefix)
-$(warning *** to your kernel tree)
-$(warning *** "ptxdist setup" -> "Source Directories")
-$(warning ***                 -> "Prefix for kernel trees")
-$(warning *** and specify where to look for your kernel tree)
-$(warning ***)
-$(error )
-endif
 else
 KERNEL_URL		:= \
 	http://www.kernel.org/pub/linux/kernel/v$(KERNEL_VERSION_MAJOR).$(KERNEL_VERSION_MINOR)/$(KERNEL).$(KERNEL_SUFFIX) \
