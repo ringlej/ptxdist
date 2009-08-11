@@ -1,7 +1,6 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2007, 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2007, 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,68 +27,41 @@ WINE_DIR	:= $(BUILDDIR)/$(WINE)
 # Get
 # ----------------------------------------------------------------------------
 
-wine_get: $(STATEDIR)/wine.get
-
-$(STATEDIR)/wine.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(WINE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, WINE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-wine_extract: $(STATEDIR)/wine.extract
-
-$(STATEDIR)/wine.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(WINE_DIR))
-	@$(call extract, WINE)
-	@$(call patchin, WINE)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-wine_prepare: $(STATEDIR)/wine.prepare
-
 $(STATEDIR)/wine.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-wine_compile: $(STATEDIR)/wine.compile
-
 $(STATEDIR)/wine.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-wine_install: $(STATEDIR)/wine.install
-
 $(STATEDIR)/wine.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	install -m644 $(WINE_DIR)/include/usp10.h $(SYSROOT)/usr/include/
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-wine_targetinstall: $(STATEDIR)/wine.targetinstall
-
 $(STATEDIR)/wine.targetinstall:
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
