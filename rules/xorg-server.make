@@ -50,19 +50,190 @@ XORG_SERVER_ENV 	:=  $(CROSS_ENV) \
 #
 # autoconf
 #
-# don't put a := here! MESALIB_DIR won't get expanded then
+# use "=" here
 XORG_SERVER_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
-	--disable-dependency-tracking \
-	--localstatedir=/var \
+	--enable-option-checking \
+	--disable-maintainer-mode \
+	--enable-dependency-tracking \
+	--enable-large-file \
+	--disable-werror \
+	--disable-debug \
+	--disable-builddocs \
+	--disable-config-dbus \
 	--disable-config-hal \
-	--disable-config-dbus
-#
-# if no value is given ignore the "--datadir" switch
-#
-ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
-	XORG_SERVER_AUTOCONF += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--disable-xfree86-utils \
+	--disable-xquartz \
+	--disable-standalone-xpbproxy \
+	--localstatedir=/var
+
+# FIXME
+# - what is XORG_OPTIONS_TRANS?
+# --enable-shared
+# --enable-static
+# --enable-install-libxf86config
+
+# FIXME new options
+
+ifdef PTXCONF_XORG_SERVER_NULL_ROOT_CURSOR
+XORG_SERVER_AUTOCONF += --enable-null-root-cursor
+else
+XORG_SERVER_AUTOCONF += --disable-null-root-cursor
+endif
+
+ifdef PTXCONF_XORG_SERVER_AIGLX
+XORG_SERVER_AUTOCONF += --enable-aiglx
+else
+XORG_SERVER_AUTOCONF += --disable-aiglx
+endif
+
+ifdef PTXCONF_XORG_SERVER_OPT_GLX_TLS
+XORG_SERVER_AUTOCONF += --enable-glx-tls
+else
+XORG_SERVER_AUTOCONF += --disable-glx-tls
+endif
+
+ifdef PTXCONF_XORG_SERVER_STRING_REGISTRY
+XORG_SERVER_AUTOCONF += --enable-registry
+else
+XORG_SERVER_AUTOCONF += --disable-registry
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_COMPOSITE
+XORG_SERVER_AUTOCONF += --enable-composite
+else
+XORG_SERVER_AUTOCONF += --disable-composite
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_SHM
+XORG_SERVER_AUTOCONF += --enable-shm
+else
+XORG_SERVER_AUTOCONF += --disable-shm
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_XRES
+XORG_SERVER_AUTOCONF += --enable-xres
+else
+XORG_SERVER_AUTOCONF += --disable-xres
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_RECORD
+XORG_SERVER_AUTOCONF += --enable-record
+else
+XORG_SERVER_AUTOCONF += --disable-record
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_XV
+XORG_SERVER_AUTOCONF += --enable-xv
+else
+XORG_SERVER_AUTOCONF += --disable-xv
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_XVMC
+XORG_SERVER_AUTOCONF += --enable-xvmc
+else
+XORG_SERVER_AUTOCONF += --disable-xvmc
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_DGA
+XORG_SERVER_AUTOCONF += --enable-dga
+else
+XORG_SERVER_AUTOCONF += --disable-dga
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_SCREENSAVER
+XORG_SERVER_AUTOCONF += --enable-screensaver
+else
+XORG_SERVER_AUTOCONF += --disable-screensaver
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_XDMCP
+XORG_SERVER_AUTOCONF += --enable-xdmcp
+else
+XORG_SERVER_AUTOCONF += --disable-xdmcp
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_XDMCP_AUTH_1
+XORG_SERVER_AUTOCONF += --enable-xdmcp-auth-1
+else
+XORG_SERVER_AUTOCONF += --disable-xdmcp-auth-1
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_GLX
+XORG_SERVER_AUTOCONF += --enable-glx
+else
+XORG_SERVER_AUTOCONF += --disable-glx
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_DRI
+XORG_SERVER_AUTOCONF += --enable-dri
+else
+XORG_SERVER_AUTOCONF += --disable-dri
+# if DRI is disabled we do not have AGP
+XORG_SERVER_ENV		+= ac_cv_header_linux_agpgart_h=no
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_DRI2
+XORG_SERVER_AUTOCONF += --enable-dri2
+else
+XORG_SERVER_AUTOCONF += --disable-dri2
+# if DRI is disabled we do not have AGP
+XORG_SERVER_ENV		+= ac_cv_header_linux_agpgart_h=no
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
+XORG_SERVER_AUTOCONF += --enable-xinerama
+else
+XORG_SERVER_AUTOCONF += --disable-xinerama
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_XF86VIDMODE
+XORG_SERVER_AUTOCONF += --enable-xf86vidmode
+else
+XORG_SERVER_AUTOCONF += --disable-xf86vidmode
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_XACE
+XORG_SERVER_AUTOCONF += --enable-xace
+else
+XORG_SERVER_AUTOCONF += --disable-xace
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_XSELINUX
+XORG_SERVER_AUTOCONF += --enable-xselinux
+else
+XORG_SERVER_AUTOCONF += --disable-xselinux
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_XCSECURITY
+XORG_SERVER_AUTOCONF += --enable-xcsecurity
+else
+XORG_SERVER_AUTOCONF += --disable-xcsecurity
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_CALIBRATE
+XORG_SERVER_AUTOCONF += --enable-xcalibrate
+else
+XORG_SERVER_AUTOCONF += --disable-xcalibrate
+endif
+
+ifdef PTXCONF_XORG_SERVER_TSLIB
+XORG_SERVER_AUTOCONF += --enable-tslib
+else
+XORG_SERVER_AUTOCONF += --disable-tslib
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_MULTIBUFFER
+XORG_SERVER_AUTOCONF += --enable-multibuffer
+else
+XORG_SERVER_AUTOCONF += --disable-multibuffer
+endif
+
+ifdef PTXCONF_XORG_SERVER_EXT_DBE
+XORG_SERVER_AUTOCONF += --enable-dbe
+else
+XORG_SERVER_AUTOCONF += --disable-dbe
 endif
 
 ifdef PTXCONF_XORG_LIB_X11_XF86BIGFONT
@@ -71,189 +242,12 @@ else
 XORG_SERVER_AUTOCONF += --disable-xf86bigfont
 endif
 
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_COMPOSITE
-XORG_SERVER_AUTOCONF += --enable-composite
+ifdef PTXCONF_XORG_SERVER_EXT_DPMS
+XORG_SERVER_AUTOCONF += --enable-dpms
 else
-XORG_SERVER_AUTOCONF += --disable-composite
+XORG_SERVER_AUTOCONF += --disable-dpms
 endif
 
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_SHM
-XORG_SERVER_AUTOCONF += --enable-shm
-else
-XORG_SERVER_AUTOCONF += --disable-shm
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_XRES
-XORG_SERVER_AUTOCONF += --enable-xres
-else
-XORG_SERVER_AUTOCONF += --disable-xres
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_RECORD
-XORG_SERVER_AUTOCONF += --enable-record
-else
-XORG_SERVER_AUTOCONF += --disable-record
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_XV
-XORG_SERVER_AUTOCONF += --enable-xv
-else
-XORG_SERVER_AUTOCONF += --disable-xv
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_XVMC
-XORG_SERVER_AUTOCONF += --enable-xvmc
-else
-XORG_SERVER_AUTOCONF += --disable-xvmc
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_DGA
-XORG_SERVER_AUTOCONF += --enable-dga
-else
-XORG_SERVER_AUTOCONF += --disable-dga
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_SCREENSAVER
-XORG_SERVER_AUTOCONF += --enable-screensaver
-else
-XORG_SERVER_AUTOCONF += --disable-screensaver
-endif
-
-# default is auto
-ifdef PTXCONF_XORG_SERVER_EXT_XDMCP
-XORG_SERVER_AUTOCONF += --enable-xdmcp
-else
-XORG_SERVER_AUTOCONF += --disable-xdmcp
-endif
-
-# default is auto
-ifdef PTXCONF_XORG_SERVER_EXT_XDMCP_AUTH_1
-XORG_SERVER_AUTOCONF += --enable-xdmcp-auth-1
-else
-XORG_SERVER_AUTOCONF += --disable-xdmcp-auth-1
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_GLX
-XORG_SERVER_AUTOCONF += --enable-glx
-else
-XORG_SERVER_AUTOCONF += --disable-glx
-endif
-
-# default is auto
-ifdef PTXCONF_XORG_SERVER_EXT_DRI
-XORG_SERVER_AUTOCONF += --enable-dri
-else
-XORG_SERVER_AUTOCONF += --disable-dri
-# if DRI is disabled we do not have AGP
-# FIXME: right var?
-XORG_SERVER_ENV		+= ac_cv_header_linux_agpgart_h=no
-endif
-
-# default is auto
-ifdef PTXCONF_XORG_SERVER_EXT_DRI2
-XORG_SERVER_AUTOCONF += --enable-dri2
-else
-XORG_SERVER_AUTOCONF += --disable-dri2
-# if DRI is disabled we do not have AGP
-# FIXME: right var?
-XORG_SERVER_ENV		+= ac_cv_header_linux_agpgart_h=no
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
-XORG_SERVER_AUTOCONF += --enable-xinerama
-else
-XORG_SERVER_AUTOCONF += --disable-xinerama
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_XF86VIDMODE
-XORG_SERVER_AUTOCONF += --enable-xf86vidmode
-else
-XORG_SERVER_AUTOCONF += --disable-xf86vidmode
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_XF86MISC
-XORG_SERVER_AUTOCONF += --enable-xf86misc
-else
-XORG_SERVER_AUTOCONF += --disable-xf86misc
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_XCSECURITY
-XORG_SERVER_AUTOCONF += --enable-xcsecurity
-else
-XORG_SERVER_AUTOCONF += --disable-xcsecurity
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_XEVIE
-XORG_SERVER_AUTOCONF += --enable-xevie
-else
-XORG_SERVER_AUTOCONF += --disable-xevie
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_APPGROUP
-XORG_SERVER_AUTOCONF += --enable-appgroup
-else
-XORG_SERVER_AUTOCONF += --disable-appgroup
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_CUP
-XORG_SERVER_AUTOCONF += --enable-cup
-else
-XORG_SERVER_AUTOCONF += --disable-cup
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_EVI
-XORG_SERVER_AUTOCONF += --enable-evi
-else
-XORG_SERVER_AUTOCONF += --disable-evi
-endif
-
-# default is disabled
-ifdef PTXCONF_XORG_SERVER_EXT_MULTIBUFFER
-XORG_SERVER_AUTOCONF += --enable-multibuffer
-else
-XORG_SERVER_AUTOCONF += --disable-multibuffer
-endif
-
-# default is disabled
-ifdef PTXCONF_XORG_SERVER_EXT_FONTCACHE
-XORG_SERVER_AUTOCONF += --enable-fontcache
-else
-XORG_SERVER_AUTOCONF += --disable-fontcache
-endif
-
-# default is enabled
-ifdef PTXCONF_XORG_SERVER_EXT_DBE
-XORG_SERVER_AUTOCONF += --enable-dbe
-else
-XORG_SERVER_AUTOCONF += --disable-dbe
-endif
-
-# default is enabled
-ifdef PTXCONF_FREETYPE
-XORG_SERVER_AUTOCONF += --enable-freetype
-else
-XORG_SERVER_AUTOCONF += --disable-freetype
-endif
-#
-# what kind of server to be built
-#
 ifdef PTXCONF_XORG_SERVER_XORG
 XORG_SERVER_AUTOCONF += --enable-xorg
 else
@@ -284,10 +278,34 @@ else
 XORG_SERVER_AUTOCONF += --disable-xwin
 endif
 
+ifdef PTXCONF_XORG_SERVER_KDRIVE
+XORG_SERVER_AUTOCONF += --enable-kdrive
+else
+XORG_SERVER_AUTOCONF += --disable-kdrive
+endif
+
 ifdef PTXCONF_XORG_SERVER_XEPHYR
 XORG_SERVER_AUTOCONF += --enable-xephyr
 else
 XORG_SERVER_AUTOCONF += --disable-xephyr
+endif
+
+ifdef PTXCONF_XORG_SERVER_XSDL
+XORG_SERVER_AUTOCONF += --enable-xsdl
+else
+XORG_SERVER_AUTOCONF += --disable-xsdl
+endif
+
+ifdef PTXCONF_XORG_SERVER_FAKE
+XORG_SERVER_AUTOCONF += --enable-fake
+else
+XORG_SERVER_AUTOCONF += --disable-fake
+endif
+
+ifdef PTXCONF_XORG_SERVER_XFBDEV
+XORG_SERVER_AUTOCONF += --enable-xfbdev
+else
+XORG_SERVER_AUTOCONF += --disable-xfbdev
 endif
 
 ifdef PTXCONF_XORG_SERVER_OPT_INSTALL_SETUID
@@ -302,70 +320,89 @@ else
 XORG_SERVER_AUTOCONF += --disable-secure-rpc
 endif
 
-ifdef PTXCONF_XORG_SERVER_OPT_XORGCFG
-XORG_SERVER_AUTOCONF += --enable-xorgcfg
-else
-XORG_SERVER_AUTOCONF += --disable-xorgcfg
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_KBD_MODE
-XORG_SERVER_AUTOCONF += --enable-kbd_mode
-else
-XORG_SERVER_AUTOCONF += --disable-kbd_mode
-endif
-
-ifdef PTXCONF_MESALIB
-XORG_SERVER_AUTOCONF += --with-mesa-source=$(MESALIB_DIR)
-endif
-
-# default is on
-# Note: A given "--enable-dpms" disables it!
-# There is an error in the configure script.
-# --enable-dpms and --disable-dpms both are setting the wrong variable
-# So its disabled by default. Only if no switch is given, DPMS will be enabled
-# Its fixed in the git version, so in the next release it should handle correctly
 #
-ifndef PTXCONF_XORG_SERVER_EXT_DPMS
-XORG_SERVER_AUTOCONF += --disable-dpms
+# FIXME rsc: what's the reason for this hack?
+#
+
+# if no value is given ignore the "--datadir" switch
+ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
+	XORG_SERVER_AUTOCONF += --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+endif
+
+#
+# FIXME rsc: old options from older xorg-server versions. Still needed/possible?
+#
+#
+#
+#ifdef PTXCONF_XORG_SERVER_EXT_XF86MISC
+#XORG_SERVER_AUTOCONF += --enable-xf86misc
 #else
-#XORG_SERVER_AUTOCONF += --enable-dpms # FIXME workaround!
-endif
-
-ifdef PTXCONF_XORG_SERVER_INT10_VM86
-XORG_SERVER_AUTOCONF += --with-int10=vm86
-endif
-
-ifdef PTXCONF_XORG_SERVER_INT10_X86EMU
-XORG_SERVER_AUTOCONF += --with-int10=x86emu
-endif
-
-ifdef PTXCONF_XORG_SERVER_INT10_VM86
-XORG_SERVER_AUTOCONF += --with-int10=stub
-endif
-
-# FIXME: What does it *really* mean?
-#XORG_SERVER_AUTOCONF += --disable-xinput
+#XORG_SERVER_AUTOCONF += --disable-xf86misc
+#endif
 #
-# unhandled yet
+#ifdef PTXCONF_XORG_SERVER_EXT_XEVIE
+#XORG_SERVER_AUTOCONF += --enable-xevie
+#else
+#XORG_SERVER_AUTOCONF += --disable-xevie
+#endif
 #
-# --with-fontdir=/my/path/to/my/fonts
-# Default is: FONTDIR="${libdir}/X11/fonts"
+#ifdef PTXCONF_XORG_SERVER_EXT_APPGROUP
+#XORG_SERVER_AUTOCONF += --enable-appgroup
+#else
+#XORG_SERVER_AUTOCONF += --disable-appgroup
+#endif
 #
-# --with-default-font-path=path1,path2,path3
-# Default is: DEFAULT_FONT_PATH="${FONTDIR}/misc/,${FONTDIR}/TTF/,\
-# ${FONTDIR}/OTF, ${FONTDIR}/Type1/,${FONTDIR}/CID/,${FONTDIR}/100dpi/,\
-# ${FONTDIR}/75dpi/"
-# FIXME: should be overwritten for small X-Servers!
+#ifdef PTXCONF_XORG_SERVER_EXT_CUP
+#XORG_SERVER_AUTOCONF += --enable-cup
+#else
+#XORG_SERVER_AUTOCONF += --disable-cup
+#endif
 #
-# --with-xkb-path=/path/to/my/mappings
-# Default is: XKBPATH="${datadir}/X11/xkb"
+#ifdef PTXCONF_XORG_SERVER_EXT_EVI
+#XORG_SERVER_AUTOCONF += --enable-evi
+#else
+#XORG_SERVER_AUTOCONF += --disable-evi
+#endif
 #
-# --with-xkb-output=/path/to/my/compiled/mappings
-# Default is: XKBOUTPUT="compiled" (results in $XKBPATH/$XKBOUTPUT)
+#ifdef PTXCONF_XORG_SERVER_EXT_FONTCACHE
+#XORG_SERVER_AUTOCONF += --enable-fontcache
+#else
+#XORG_SERVER_AUTOCONF += --disable-fontcache
+#endif
 #
-# --with-rgb-path=/path/to/my/rgb-settings
-# Default is: RGBPATH="${datadir}/X11/rgb"
+#ifdef PTXCONF_FREETYPE
+#XORG_SERVER_AUTOCONF += --enable-freetype
+#else
+#XORG_SERVER_AUTOCONF += --disable-freetype
+#endif
 #
+#ifdef PTXCONF_XORG_SERVER_OPT_XORGCFG
+#XORG_SERVER_AUTOCONF += --enable-xorgcfg
+#else
+#XORG_SERVER_AUTOCONF += --disable-xorgcfg
+#endif
+#
+#ifdef PTXCONF_XORG_SERVER_OPT_KBD_MODE
+#XORG_SERVER_AUTOCONF += --enable-kbd_mode
+#else
+#XORG_SERVER_AUTOCONF += --disable-kbd_mode
+#endif
+#
+#ifdef PTXCONF_MESALIB
+#XORG_SERVER_AUTOCONF += --with-mesa-source=$(MESALIB_DIR)
+#endif
+#
+#ifdef PTXCONF_XORG_SERVER_INT10_VM86
+#XORG_SERVER_AUTOCONF += --with-int10=vm86
+#endif
+#
+#ifdef PTXCONF_XORG_SERVER_INT10_X86EMU
+#XORG_SERVER_AUTOCONF += --with-int10=x86emu
+#endif
+#
+#ifdef PTXCONF_XORG_SERVER_INT10_VM86
+#XORG_SERVER_AUTOCONF += --with-int10=stub
+#endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -536,3 +573,4 @@ xorg-server_clean:
 	rm -rf $(XORG_SERVER_DIR)
 
 # vim: syntax=make
+
