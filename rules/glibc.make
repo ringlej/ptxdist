@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_GLIBC) += glibc
 # Paths and names
 #
 GLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_GLIBC_VERSION))
+GLIBC_LICENSE	:= GPLv2, LGPLv2.1
 
 # ----------------------------------------------------------------------------
 # Get
