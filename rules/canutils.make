@@ -2,6 +2,7 @@
 # $Id: template 2516 2005-04-25 10:29:55Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
+#               2009 by Marc Kleine-Budde <mkl@pengutroinx.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -44,15 +45,6 @@ CANUTILS_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 CANUTILS_AUTOCONF := $(CROSS_AUTOCONF_ROOT)
-
-$(STATEDIR)/canutils.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(CANUTILS_DIR)/config.cache)
-	cd $(CANUTILS_DIR) && \
-		$(CANUTILS_PATH) $(CANUTILS_ENV) \
-		CPPFLAGS="-I${KERNEL_DIR}/include $${CPPFLAGS}" \
-		./configure $(CANUTILS_AUTOCONF)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install

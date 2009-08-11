@@ -1,8 +1,8 @@
 ## SECTION=communication
+
 menuconfig CANUTILS
 	tristate
 	prompt "canutils                      "
-	select KERNEL
 	help
 	  The canutils package contains tools to configure
 	  and test the Socket CAN framework.
