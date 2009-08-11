@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2516 2005-04-25 10:29:55Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutroinx.de>
@@ -70,24 +69,29 @@ $(STATEDIR)/canutils.targetinstall:
 	@$(call install_fixup, canutils,PRIORITY,optional)
 	@$(call install_fixup, canutils,VERSION,$(CANUTILS_VERSION))
 	@$(call install_fixup, canutils,SECTION,base)
-	@$(call install_fixup, canutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, canutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, canutils,DEPENDS,)
 	@$(call install_fixup, canutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_CANUTILS_CANCONFIG
-	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/canconfig, /sbin/canconfig)
+	@$(call install_copy, canutils, 0, 0, 0755, -, \
+		/sbin/canconfig)
 endif
 ifdef PTXCONF_CANUTILS_CANECHO
-	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/canecho,   /bin/canecho)
+	@$(call install_copy, canutils, 0, 0, 0755, -, \
+		/bin/canecho)
 endif
 ifdef PTXCONF_CANUTILS_CANDUMP
-	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/candump,   /bin/candump)
+	@$(call install_copy, canutils, 0, 0, 0755, -, \
+		/bin/candump)
 endif
 ifdef PTXCONF_CANUTILS_CANSEND
-	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/cansend,   /bin/cansend)
+	@$(call install_copy, canutils, 0, 0, 0755, -, \
+		/bin/cansend)
 endif
 ifdef PTXCONF_CANUTILS_CANSEQUENCE
-	@$(call install_copy, canutils, 0, 0, 0755, $(CANUTILS_DIR)/src/cansequence, /bin/cansequence)
+	@$(call install_copy, canutils, 0, 0, 0755, -, \
+		/bin/cansequence)
 endif
 	@$(call install_finish, canutils)
 	@$(call touch)
