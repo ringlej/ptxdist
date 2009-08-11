@@ -46,6 +46,7 @@ XORG_DRIVER_VIDEO_INTEL_ENV 	:= \
 #
 XORG_DRIVER_VIDEO_INTEL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	--with-xorg-module-dir=/usr/lib/xorg/modules \
 	--disable-video-debug \
 	--disable-debug \
 	--disable-xvmc \
@@ -82,7 +83,7 @@ $(STATEDIR)/xorg-driver-video-intel.targetinstall:
 	@$(call install_fixup,xorg-driver-video-intel,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/intel_drv.so)
+		/usr/lib/xorg/modules/drivers/intel_drv.so)
 
 	@$(call install_finish,xorg-driver-video-intel)
 
