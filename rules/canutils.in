@@ -3,6 +3,7 @@
 menuconfig CANUTILS
 	tristate
 	prompt "canutils                      "
+	select KERNEL	if CANUTILS_BSP_KERNEL
 	help
 	  The canutils package contains tools to configure
 	  and test the Socket CAN framework.
@@ -13,6 +14,17 @@ config CANUTILS_VERSION
 	prompt "Version"
 	string
 	default "3.0.2"
+
+config CANUTILS_BSP_KERNEL
+	bool "use BSP's kernel headers instead of toolchain's"
+	help
+	  Select this if you're using a toolchain based on a
+	  kernel < 2.6.25. This kernel doesn't provide the
+	  necessary headers.
+
+	  On the other hand, don't select it for BSP
+	  kernels > 2.6.30, otherwise compilation breaks with:
+	  "error: asm/bitsperlong.h: No such file or directory"
 
 config CANUTILS_CANCONFIG
 	bool

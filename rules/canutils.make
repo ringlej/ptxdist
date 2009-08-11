@@ -41,10 +41,23 @@ $(CANUTILS_SOURCE):
 CANUTILS_PATH	:= PATH=$(CROSS_PATH)
 CANUTILS_ENV 	:= $(CROSS_ENV)
 
+ifdef PTXCONF_CANUTILS_BSP_KERNEL
+# don't use := here
+CANUTILS_CPPFLAGS = CPPFLAGS="-I${KERNEL_DIR}/include $${CPPFLAGS}"
+endif
+
 #
 # autoconf
 #
 CANUTILS_AUTOCONF := $(CROSS_AUTOCONF_ROOT)
+
+$(STATEDIR)/canutils.prepare:
+	@$(call targetinfo)
+	@$(call clean, $(CANUTILS_DIR)/config.cache)
+	cd $(CANUTILS_DIR) && \
+		$(CANUTILS_PATH) $(CANUTILS_ENV) $(CANUTILS_CPPFLAGS) \
+		./configure $(CANUTILS_AUTOCONF)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
