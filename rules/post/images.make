@@ -32,12 +32,19 @@ endif
 # generate the list of source permission files
 #
 PERMISSION_FILES := $(foreach pkg, $(PACKAGES), $(wildcard $(STATEDIR)/$(pkg)*.perms))
+ifdef PTXDIST_PROD_PLATFORMDIR
+PERMISSION_FILES += $(wildcard $(PTXDIST_PROD_PLATFORMDIR)/state/*.perms)
+endif
 
 #
 # list of all ipkgs being selected for the root image
 # UGLY: Just these files have '_' substituted to '-'; the permission files above have NOT.
 #	Consistency would be nicer, but when fixing, change for side-effects carefully!
 IPKG_FILES := $(foreach pkg, $(PACKAGES), $(wildcard $(PKGDIR)/$(subst _,-,$(pkg))*.ipk))
+
+ifdef PTXDIST_PROD_PLATFORMDIR
+IPKG_FILES += $(wildcard $(PTXDIST_PROD_PLATFORMDIR)/packages/*.ipk)
+endif
 
 #
 # create one file with all permissions from all permission source files
