@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002-2009 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -16,7 +15,7 @@ PACKAGES-$(PTXCONF_KERNEL) += kernel
 
 
 #
-# handle special compilers
+# handle special compiler
 #
 ifdef PTXCONF_KERNEL
 ifneq ($(PTXCONF_COMPILER_PREFIX),$(PTXCONF_COMPILER_PREFIX_KERNEL))
@@ -183,11 +182,12 @@ ifdef PTXCONF_KERNEL_INSTALL
 	done
 endif
 
-ifdef PTXCONF_KERNEL_VMLINUX
+
 #
 # install the ELF kernel image for debugging purpose
 # e.g. oprofile
 #
+ifdef PTXCONF_KERNEL_VMLINUX
 	@$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_DIR)/vmlinux, /boot/vmlinux, n)
 endif
 
@@ -219,7 +219,7 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@$(call install_fixup, kernel-modules, PRIORITY,optional)
 	@$(call install_fixup, kernel-modules, VERSION,$(KERNEL_VERSION))
 	@$(call install_fixup, kernel-modules, SECTION,base)
-	@$(call install_fixup, kernel-modules, AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, kernel-modules, AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, kernel-modules, DEPENDS,)
 	@$(call install_fixup, kernel-modules, DESCRIPTION,missing)
 
@@ -266,6 +266,5 @@ kernel_oldconfig kernel_menuconfig: $(STATEDIR)/kernel.extract
 	else \
 		cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG); \
 	fi
-
 
 # vim: syntax=make
