@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION	= 3.6.15
+SQLITE_VERSION	= 3.6.17
 SQLITE		= sqlite-$(SQLITE_VERSION)
 SQLITE_SUFFIX	= tar.gz
 SQLITE_URL	= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
@@ -44,7 +44,8 @@ SQLITE_PATH	:= PATH=$(CROSS_PATH)
 # don't use := here!
 SQLITE_ENV 	= \
 	$(CROSS_ENV) \
-	TCLLIBDIR=/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/sqlite3
+	TCLLIBDIR=/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/sqlite3 \
+	LDFLAGS=-ldl
 
 SQLITE_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_USR) \

@@ -2,6 +2,7 @@
 menuconfig SQLITE
 	tristate
 	prompt "sqlite                        "
+	select LIBC_DL
 	select TCL	if SQLITE_TCL
 	select READLINE	if SQLITE_READLINE
 	help
