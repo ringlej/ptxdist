@@ -23,13 +23,23 @@ ifneq ($(PTXCONF_COMPILER_PREFIX),$(PTXCONF_COMPILER_PREFIX_KERNEL))
 endif
 endif
 
+#
+# when using a production release,
+# we use the precompiled kernel from /opt
+#
+ifdef PTXCONF_PROJECT_USE_PRODUCTION
+KERNEL_BDIR		:= $(PTXDIST_PROD_PLATFORMDIR)/build-target
+else
+KERNEL_BDIR		:= $(BUILDDIR)
+endif
+
 
 #
 # Paths and names
 #
 KERNEL			:= linux-$(KERNEL_VERSION)
 KERNEL_SUFFIX		:= tar.bz2
-KERNEL_DIR		:= $(BUILDDIR)/$(KERNEL)
+KERNEL_DIR		:= $(KERNEL_BDIR)/$(KERNEL)
 KERNEL_PKGDIR		:= $(PKGDIR)/$(KERNEL)
 KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
 KERNEL_LICENSE		:= GPLv2
