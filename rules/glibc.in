@@ -9,10 +9,19 @@ menu "glibc                         "
 
 comment	"Install options"
 
+config GLIBC_LD
+	bool
+	help
+	  This is the dynamic loader (e.g.: "/lib/ld-2.8.90.so")
+
+	  You don't want to deselect this, unless you have a pure
+	  static system. This is why this options hasn't a prompt.
+
 config GLIBC_C
 	bool
 	default y
 	prompt "Install libc"
+	select GLIBC_LD
 	help
 	  Any Unix-like operating system needs a C library:
 	  the library which defines the "system calls" and
