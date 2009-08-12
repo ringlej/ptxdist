@@ -4,6 +4,8 @@
 
 config XORG_DRIVER_VIDEO_VGA
 	tristate
+	# generic.c:53:20: error: xf4bpp.h: No such file or directory
+	depends on BROKEN
 	depends on XORG_DRIVER_VIDEO
 	select XORG_SERVER
 	select XORG_SERVER_XORG
