@@ -40,6 +40,7 @@ $(LTRACE_SOURCE):
 LTRACE_PATH	:= PATH=$(CROSS_PATH)
 LTRACE_ENV 	:= $(CROSS_ENV)
 LTRACE_MAKEVARS	:= ARCH=$(PTXCONF_ARCH_STRING)
+LTRACE_MAKE_PAR	:= NO
 
 #
 # autoconf
@@ -53,7 +54,7 @@ LTRACE_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/ltrace.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, ltrace)
+	@$(call install_init,  ltrace)
 	@$(call install_fixup, ltrace,PACKAGE,ltrace)
 	@$(call install_fixup, ltrace,PRIORITY,optional)
 	@$(call install_fixup, ltrace,VERSION,$(LTRACE_VERSION))
