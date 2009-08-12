@@ -38,8 +38,9 @@ $(LIBIODBC_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBIODBC_PATH	:= PATH=$(CROSS_PATH)
-LIBIODBC_ENV 	:= $(CROSS_ENV)
+LIBIODBC_PATH		:= PATH=$(CROSS_PATH)
+LIBIODBC_ENV 		:= $(CROSS_ENV)
+LIBIODBC_MAKE_PAR	:= NO
 
 #
 # autoconf
