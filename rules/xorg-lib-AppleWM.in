@@ -2,6 +2,8 @@
 
 config XORG_LIB_APPLEWM
 	tristate
+	# ../libtool: line 463: CDPATH: command not found
+	depends on BROKEN
 	select XORG_PROTO_APPLEWM
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
