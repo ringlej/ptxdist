@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -19,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBPNG) += libpng
 #
 # Paths and names
 #
-LIBPNG_VERSION	:= 1.2.37
+LIBPNG_VERSION	:= 1.2.39
 LIBPNG		:= libpng-$(LIBPNG_VERSION)
 LIBPNG_SUFFIX	:= tar.bz2
 LIBPNG_URL	:= $(PTXCONF_SETUP_SFMIRROR)/libpng/$(LIBPNG).$(LIBPNG_SUFFIX)
@@ -71,14 +70,14 @@ $(STATEDIR)/libpng.targetinstall:
 	@$(call install_fixup, libpng,PRIORITY,optional)
 	@$(call install_fixup, libpng,VERSION,$(LIBPNG_VERSION))
 	@$(call install_fixup, libpng,SECTION,base)
-	@$(call install_fixup, libpng,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libpng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libpng,DEPENDS,)
 	@$(call install_fixup, libpng,DESCRIPTION,missing)
 
 	@$(call install_copy, libpng, 0, 0, 0644, -, \
-		/usr/lib/libpng12.so.0.37.0)
-	@$(call install_link, libpng, libpng12.so.0.37.0, /usr/lib/libpng12.so.0)
-	@$(call install_link, libpng, libpng12.so.0.37.0, /usr/lib/libpng12.so)
+		/usr/lib/libpng12.so.0.39.0)
+	@$(call install_link, libpng, libpng12.so.0.39.0, /usr/lib/libpng12.so.0)
+	@$(call install_link, libpng, libpng12.so.0.39.0, /usr/lib/libpng12.so)
 
 	@$(call install_finish, libpng)
 
