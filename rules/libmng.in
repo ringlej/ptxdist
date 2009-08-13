@@ -1,0 +1,25 @@
+## SECTION=system_libraries
+
+config LIBMNG
+	tristate
+	prompt "libmng"
+	select ZLIB
+	select LCMS if LIBMNG_LCMS
+	select LIBJPEG if LIBMNG_JPEG
+	help
+	  libmng is the official MNG reference library.
+	  MNG (Multiple-image Network Graphics) is a public graphics file
+	  format for animated images.
+
+if LIBMNG
+
+config LIBMNG_JPEG
+	bool
+	prompt "jpeg support"
+
+config LIBMNG_LCMS
+	bool
+	prompt "lcms support"
+
+endif
+
