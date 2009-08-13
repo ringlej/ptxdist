@@ -24,6 +24,7 @@ LIBPNG_SUFFIX	:= tar.bz2
 LIBPNG_URL	:= $(PTXCONF_SETUP_SFMIRROR)/libpng/$(LIBPNG).$(LIBPNG_SUFFIX)
 LIBPNG_SOURCE	:= $(SRCDIR)/$(LIBPNG).$(LIBPNG_SUFFIX)
 LIBPNG_DIR	:= $(BUILDDIR)/$(LIBPNG)
+LIBPNG_LICENSE	:= libpng
 
 # ----------------------------------------------------------------------------
 # Get
