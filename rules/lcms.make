@@ -42,7 +42,12 @@ LCMS_ENV	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LCMS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LCMS_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--without-tiff \
+	--without-zlib \
+	--without-jpeg \
+	--without-python
 
 # ----------------------------------------------------------------------------
 # Target-Install
