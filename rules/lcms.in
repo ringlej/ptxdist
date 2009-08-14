@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config LCMS
+	tristate
+	prompt "lcms"
+	help
+	  FIXME
