@@ -117,5 +117,114 @@ config MESALIB_DRI_FFB
 	prompt "ffb"
 
 endif
+
+menuconfig MESALIB_TOOLS
+	bool
+	prompt "tools"
+
+if MESALIB_TOOLS
+
+config MESALIB_TOOLS_CORENDER
+	bool
+	prompt "corender"
+
+config MESALIB_TOOLS_GLSYNC
+	bool
+	prompt "glsync"
+
+config MESALIB_TOOLS_GLTHREADS
+	bool
+	prompt "glthreads"
+
+config MESALIB_TOOLS_GLXCONTEXTS
+	bool
+	prompt "glxcontexts"
+
+config MESALIB_TOOLS_GLXDEMO
+	bool
+	prompt "glxdemo"
+
+config MESALIB_TOOLS_GLXGEARS
+	bool
+	prompt "glxgears"
+
+config MESALIB_TOOLS_GLXGEARS_FBCONFIG
+	bool
+	prompt "glxgears_fbconfig"
+
+config MESALIB_TOOLS_GLXGEARS_PIXMAP
+	bool
+	prompt "glxgears_pixmap"
+
+config MESALIB_TOOLS_GLXHEADS
+	bool
+	prompt "glxheads"
+
+config MESALIB_TOOLS_GLXINFO
+	bool
+	prompt "glxinfo"
+
+config MESALIB_TOOLS_GLXPBDEMO
+	bool
+	prompt "glxpbdemo"
+
+config MESALIB_TOOLS_GLXPIXMAP
+	bool
+	prompt "glxpixmap"
+
+config MESALIB_TOOLS_GLXSNOOP
+	bool
+	prompt "glxsnoop"
+
+config MESALIB_TOOLS_GLXSWAPCONTROL
+	bool
+	prompt "glxswapcontrol"
+
+config MESALIB_TOOLS_MANYWIN
+	bool
+	prompt "manywin"
+
+config MESALIB_TOOLS_OFFSET
+	bool
+	prompt "offset"
+
+config MESALIB_TOOLS_OVERLAY
+	bool
+	prompt "overlay"
+
+config MESALIB_TOOLS_PBDEMO
+	bool
+	prompt "pbdemo"
+
+config MESALIB_TOOLS_PBINFO
+	bool
+	prompt "pbinfo"
+
+config MESALIB_TOOLS_SHAREDTEX
+	bool
+	prompt "sharedtex"
+
+config MESALIB_TOOLS_SHAREDTEX_MT
+	bool
+	prompt "sharedtex_mt"
+
+config MESALIB_TOOLS_TEXTURE_FROM_PIXMAP
+	bool
+	prompt "texture_from_pixmap"
+
+config MESALIB_TOOLS_WINCOPY
+	bool
+	prompt "wincopy"
+
+config MESALIB_TOOLS_XFONT
+	bool
+	prompt "xfont"
+
+config MESALIB_TOOLS_XROTFONTDEMO
+	bool
+	prompt "xrotfontdemo"
+
+endif
+
 endif
 
