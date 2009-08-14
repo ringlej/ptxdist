@@ -1,0 +1,10 @@
+## SECTION=shell_and_console
+
+config PS3_UTILS
+	tristate
+	prompt "ps3-utils"
+	help
+	  Utilities for running Linux on the PS3 game console.
+
+	  The ps3-utils package is a set of system administration utilities for
+	  the PS3 game console.
