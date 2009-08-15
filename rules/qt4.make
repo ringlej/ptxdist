@@ -97,7 +97,7 @@ QT4_AUTOCONF := \
 	-force-pkg-config \
 	-embedded $(QT4_ARCH) \
 	-qt-decoration-styled \
-	-depths 8,16 \
+	-depths all \
 	-prefix /usr \
 	-no-armfpa \
 	-xplatform qws/linux-ptx-g++ \
