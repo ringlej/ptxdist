@@ -421,20 +421,25 @@ $(STATEDIR)/xorg-server.targetinstall:
 	@$(call install_fixup, xorg-server,DESCRIPTION,missing)
 
 ifdef PTXCONF_XORG_SERVER_XVFB
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/vfb/Xvfb, $(XORG_PREFIX)/bin/Xvfb)
+	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
+		$(XORG_PREFIX)/bin/Xvfb)
 endif
 ifdef PTXCONF_XORG_SERVER_DMX
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/dmx/Xdmx, $(XORG_PREFIX)/bin/Xdmx)
+	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
+		$(XORG_PREFIX)/bin/Xdmx)
 endif
 ifdef PTXCONF_XORG_SERVER_XNEST
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xnest/Xnest, $(XORG_PREFIX)/bin/Xnest)
+	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
+		$(XORG_PREFIX)/bin/Xnest)
 endif
 ifdef PTXCONF_XORG_SERVER_XWIN
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xwin/Xwin, $(XORG_PREFIX)/bin/Xwin)
+	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
+		$(XORG_PREFIX)/bin/Xwin)
 endif
 
 ifdef PTXCONF_XORG_SERVER_XORG
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/Xorg, $(XORG_PREFIX)/bin/Xorg)
+	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
+		$(XORG_PREFIX)/bin/Xorg)
 	@$(call install_link, xorg-server, Xorg, /usr/bin/X)
 ifdef PTXCONF_XORG_DRIVER_VIDEO
 	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/fbdevhw/.libs/libfbdevhw.so, $(XORG_PREFIX)/lib/xorg/modules/linux/libfbdevhw.so)
