@@ -73,8 +73,7 @@ ifndef PTXCONF_LIBPCIACCESS_STATIC
 	@$(call install_fixup, libpciaccess,DEPENDS,)
 	@$(call install_fixup, libpciaccess,DESCRIPTION,missing)
 
-	@$(call install_copy, libpciaccess, 0, 0, 0644, \
-		$(LIBPCIACCESS_DIR)/src/.libs/libpciaccess.so.0.10.2, \
+	@$(call install_copy, libpciaccess, 0, 0, 0644, -, \
 		/usr/lib/libpciaccess.so.0.10.2)
 	@$(call install_link, libpciaccess, libpciaccess.so.0.10.2, \
 		/usr/lib/libpciaccess.so.0)
