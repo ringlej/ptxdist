@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
@@ -36,15 +35,16 @@ $(XORG_SERVER_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-server_prepare: $(STATEDIR)/xorg-server.prepare
-
-XORG_SERVER_PATH	:=  PATH=$(CROSS_PATH)
-XORG_SERVER_ENV 	:=  $(CROSS_ENV) \
+XORG_SERVER_PATH	:= PATH=$(CROSS_PATH)
+XORG_SERVER_ENV 	:= $(CROSS_ENV) \
 	ac_cv_sys_linker_h=yes \
 	ac_cv_file__usr_share_sgml_X11_defs_ent=no
 
-# FIXME: not all processors upports MTRR. Geode GX1 not for example. But it
-# is a 586 clone. configure decides always to support mtrr!
+#
+# FIXME: not all processors upports MTRR. Geode GX1 not for
+# example. But it is a 586 clone. configure decides always to support
+# mtrr!
+#
 # XORG_SERVER_ENV		+= ac_cv_asm_mtrr_h=no
 
 #
@@ -416,7 +416,7 @@ $(STATEDIR)/xorg-server.targetinstall:
 	@$(call install_fixup, xorg-server,PRIORITY,optional)
 	@$(call install_fixup, xorg-server,VERSION,$(XORG_SERVER_VERSION))
 	@$(call install_fixup, xorg-server,SECTION,base)
-	@$(call install_fixup, xorg-server,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xorg-server,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, xorg-server,DEPENDS,)
 	@$(call install_fixup, xorg-server,DESCRIPTION,missing)
 
