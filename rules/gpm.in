@@ -1,0 +1,8 @@
+## SECTION=system_libraries
+
+config GPM
+	tristate
+	prompt "gpm"
+	select NCURSES
+	help
+	  Console-based mouse driver
