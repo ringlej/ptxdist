@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config JSON_C
+	tristate
+	prompt "json-c"
+	help
+	  json bindings in C
