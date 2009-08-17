@@ -2,7 +2,7 @@
 # $Id: template 4761 2006-02-24 17:35:57Z sha $
 #
 # Copyright (C) 2006 by Sascha Hauer
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XTERM) += xterm
 #
 # Paths and names
 #
-XTERM_VERSION	:= 224
+XTERM_VERSION	:= 250
 XTERM		:= xterm-$(XTERM_VERSION)
 XTERM_SUFFIX	:= tgz
-XTERM_URL	:= ftp://invisible-island.net/xterm//$(XTERM).$(XTERM_SUFFIX)
+XTERM_URL	:= ftp://invisible-island.net/xterm/$(XTERM).$(XTERM_SUFFIX)
 XTERM_SOURCE	:= $(SRCDIR)/$(XTERM).$(XTERM_SUFFIX)
 XTERM_DIR	:= $(BUILDDIR)/$(XTERM)
 
