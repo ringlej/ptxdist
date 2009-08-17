@@ -441,39 +441,68 @@ ifdef PTXCONF_XORG_SERVER_XORG
 	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
 		$(XORG_PREFIX)/bin/Xorg)
 	@$(call install_link, xorg-server, Xorg, /usr/bin/X)
-ifdef PTXCONF_XORG_DRIVER_VIDEO
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/fbdevhw/.libs/libfbdevhw.so, $(XORG_PREFIX)/lib/xorg/modules/linux/libfbdevhw.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb16.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb16.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libcfb24.so, $(XORG_PREFIX)/lib/xorg/modules/libcfb24.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/ddc/.libs/libddc.so, $(XORG_PREFIX)/lib/xorg/modules/libddc.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/exa/.libs/libexa.so, $(XORG_PREFIX)/lib/xorg/modules/libexa.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libfb.so, $(XORG_PREFIX)/lib/xorg/modules/libfb.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/libi2c.so, $(XORG_PREFIX)/lib/xorg/modules/libi2c.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/int10/.libs/libint10.so, $(XORG_PREFIX)/lib/xorg/modules/libint10.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/liblayer.so, $(XORG_PREFIX)/lib/xorg/modules/liblayer.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/rac/.libs/librac.so, $(XORG_PREFIX)/lib/xorg/modules/librac.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/ramdac/.libs/libramdac.so, $(XORG_PREFIX)/lib/xorg/modules/libramdac.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/shadowfb/.libs/libshadowfb.so, $(XORG_PREFIX)/lib/xorg/modules/libshadowfb.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libshadow.so, $(XORG_PREFIX)/lib/xorg/modules/libshadow.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/vbe/.libs/libvbe.so, $(XORG_PREFIX)/lib/xorg/modules/libvbe.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/vgahw/.libs/libvgahw.so, $(XORG_PREFIX)/lib/xorg/modules/libvgahw.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/xaa/.libs/libxaa.so, $(XORG_PREFIX)/lib/xorg/modules/libxaa.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/xf8_16bpp/.libs/libxf8_16bpp.so, $(XORG_PREFIX)/lib/xorg/modules/libxf8_16bpp.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/xf8_32wid/.libs/libxf8_32wid.so, $(XORG_PREFIX)/lib/xorg/modules/libxf8_32wid.so)
-endif
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/extmod/.libs/libextmod.so ,/usr/lib/xorg/modules/extensions/libextmod.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libdbe.so ,/usr/lib/xorg/modules/extensions/libdbe.so)
 
-#	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libbitmap.so ,/usr/lib/xorg/modules/fonts/libbitmap.so)
+ifdef PTXCONF_XORG_DRIVER_VIDEO
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/linux/libfbdevhw.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+#		$(XORG_PREFIX)/lib/xorg/modules/libcfb16.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+#		$(XORG_PREFIX)/lib/xorg/modules/libcfb24.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+#		$(XORG_PREFIX)/lib/xorg/modules/libddc.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libexa.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libfb.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+#		$(XORG_PREFIX)/lib/xorg/modules/libi2c.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libint10.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+#		$(XORG_PREFIX)/lib/xorg/modules/liblayer.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+#		$(XORG_PREFIX)/lib/xorg/modules/librac.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0644, -,
+#		$(XORG_PREFIX)/lib/xorg/modules/libramdac.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libshadowfb.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libshadow.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libvbe.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libvgahw.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libxaa.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		$(XORG_PREFIX)/lib/xorg/modules/libxf8_16bpp.so)
+#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+#		$(XORG_PREFIX)/lib/xorg/modules/libxf8_32wid.so)
+endif
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/extensions/libextmod.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/extensions/libdbe.so)
+
+#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+#		/usr/lib/xorg/modules/fonts/libbitmap.so)
 
 # FIXME: Should be included on demand only
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/bt829_drv.so ,/usr/lib/xorg/modules/multimedia/bt829_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/tda8425_drv.so ,/usr/lib/xorg/modules/multimedia/tda8425_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/tda9850_drv.so ,/usr/lib/xorg/modules/multimedia/tda9850_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/uda1380_drv.so ,/usr/lib/xorg/modules/multimedia/uda1380_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/fi1236_drv.so ,/usr/lib/xorg/modules/multimedia/fi1236_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/msp3430_drv.so ,/usr/lib/xorg/modules/multimedia/msp3430_drv.so)
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/i2c/.libs/tda9885_drv.so ,/usr/lib/xorg/modules/multimedia/tda9885_drv.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/multimedia/bt829_drv.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/multimedia/tda8425_drv.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/multimedia/tda9850_drv.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, - ,\
+		/usr/lib/xorg/modules/multimedia/uda1380_drv.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/multimedia/fi1236_drv.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, - ,\
+		/usr/lib/xorg/modules/multimedia/msp3430_drv.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/multimedia/tda9885_drv.so)
 
 ifdef PTXCONF_XORG_SERVER_EXT_COMPOSITE
 endif
@@ -485,7 +514,8 @@ ifdef PTXCONF_XORG_SERVER_EXT_XRES
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_RECORD
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/librecord.so ,/usr/lib/xorg/modules/extensions/librecord.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/extensions/librecord.so)
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_XV
@@ -507,15 +537,18 @@ ifdef PTXCONF_XORG_SERVER_EXT_XDMCP_AUTH_1
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_GLX
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dixmods/.libs/libglx.so ,/usr/lib/xorg/modules/extensions/libglx.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/extensions/libglx.so)
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_DRI
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dri/.libs/libdri.so, /usr/lib/xorg/modules/extensions/libdri.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/extensions/libdri.so)
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_DRI2
-	@$(call install_copy, xorg-server, 0, 0, 0755, $(XORG_SERVER_DIR)/hw/xfree86/dri2/.libs/libdri2.so, /usr/lib/xorg/modules/extensions/libdri2.so)
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/usr/lib/xorg/modules/extensions/libdri2.so)
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
