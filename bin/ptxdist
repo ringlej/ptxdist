@@ -2156,6 +2156,26 @@ setup_config() {
 
 
 #
+# this function defines which args are allowed in case of a broken
+# config during "setup_platform"
+#
+setup_platform_continue_with_broken_config()
+{
+	set -- "${PTXDIST_ARGS_FULL[@]}"
+	while [ ${#} -ne 0 ]; do
+		local arg="${1}"
+		shift
+
+		case "${arg}" in
+		menuconfig|select) return ;;
+		*) return 1 ;;
+		esac
+	done
+}
+
+
+
+#
 # setup PTXDIST_PLATFORMDIR properly
 #
 # out: PTXDIST_PLATFORMDIR
@@ -2175,15 +2195,20 @@ setup_platform() {
 	local prefix
 	if [ -n "${production}" ]; then
 		if ! prefix="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION_PREFIX)"; then
-			ptxd_dialog_msgbox \
-			    "error: 'production' release is activated, but the config symbol\n" \
-			    "       PROJECT_BUILD_PRODUCTION_PREFIX is empty.\n" \
-			    "\n" \
-			    "       Please do 'ptxdist menuconfig',\n" \
-			    "       navigate into the submenu 'Project Name & Version'\n" \
-			    "       and enter a production prefix, \n" \
-			    "       or choose: 'Build Type (development)'."
-			return 1
+			if setup_platform_continue_with_broken_config; then
+				# use default
+				prefix="${PTXDIST_WORKSPACE}"
+			else
+				ptxd_dialog_msgbox \
+				    "error: 'production' release is activated, but the config symbol\n" \
+				    "       PROJECT_BUILD_PRODUCTION_PREFIX is empty.\n" \
+				    "\n" \
+				    "       Please do 'ptxdist menuconfig',\n" \
+				    "       navigate into the submenu 'Project Name & Version'\n" \
+				    "       and enter a production prefix, \n" \
+				    "       or choose: 'Build Type (development)'."
+				return 1
+			fi
 		fi
 		platform_version="$(ptxd_get_ptxconf PTXCONF_PLATFORM_VERSION)"
 	else
