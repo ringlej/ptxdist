@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2006 by Robert Schwebel
+# Copyright (C) 2006, 2009 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
