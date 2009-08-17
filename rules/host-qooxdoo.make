@@ -1,7 +1,6 @@
 # -*-makefile-*-
-# $Id$
 #
-# Copyright (C) 2009 by 
+# Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
