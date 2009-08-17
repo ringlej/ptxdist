@@ -22,7 +22,7 @@ MICROCOM_SUFFIX		:= tar.gz
 MICROCOM_URL		:= http://www.pengutronix.de/software/microcom/download/$(MICROCOM).$(MICROCOM_SUFFIX)
 MICROCOM_SOURCE		:= $(SRCDIR)/$(MICROCOM).$(MICROCOM_SUFFIX)
 MICROCOM_DIR		:= $(BUILDDIR)/$(MICROCOM)
-MICROCOM_LICENCE	:= GPLv2
+MICROCOM_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
