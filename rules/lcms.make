@@ -66,8 +66,8 @@ $(STATEDIR)/lcms.targetinstall:
 	@$(call install_fixup, lcms,DESCRIPTION,missing)
 
 	@$(call install_copy, lcms, 0, 0, 0644, -, /usr/lib/liblcms.so.1.0.18)
-	@$(call install_link, lcms, liblcms.so.1.0.0, /usr/lib/liblcms.so.1)
-	@$(call install_link, lcms, liblcms.so.1.0.0, /usr/lib/liblcms.so)
+	@$(call install_link, lcms, liblcms.so.1.0.18, /usr/lib/liblcms.so.1)
+	@$(call install_link, lcms, liblcms.so.1.0.18, /usr/lib/liblcms.so)
 
 	@$(call install_finish, lcms)
 
