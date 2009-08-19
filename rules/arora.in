@@ -1,0 +1,8 @@
+## SECTION=qt
+
+config ARORA
+	tristate
+	prompt "arora"
+	select QT4
+	help
+	  FIXME
