@@ -138,6 +138,14 @@ choice
 		help
 		 This is the target to get the kernel image as an ELF. Mostly
 		 used for debugging purposes.
+
+	config KERNEL_IMAGE_RAW
+		bool
+		prompt "Image"
+		depends on ARCH_ARM
+		help
+		 This is the target to get the kernel image as an raw uncompressed
+		 binary file.
 endchoice
 
 
@@ -179,6 +187,7 @@ config KERNEL_IMAGE
 	default "uImage"  if KERNEL_IMAGE_U
 	default "vmImage" if KERNEL_IMAGE_VM
 	default "vmlinux" if KERNEL_IMAGE_VMLINUX
+	default "Image"   if KERNEL_IMAGE_RAW
 
 comment "Development features"
 	depends on KERNEL
