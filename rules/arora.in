@@ -4,5 +4,6 @@ config ARORA
 	tristate
 	prompt "arora"
 	select QT4
+	select QT4_BUILD_WEBKIT
 	help
 	  FIXME
