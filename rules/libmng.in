@@ -13,10 +13,6 @@ config LIBMNG
 
 if LIBMNG
 
-config LIBMNG_JPEG
-	bool
-	prompt "jpeg support"
-
 config LIBMNG_LCMS
 	bool
 	prompt "lcms support"

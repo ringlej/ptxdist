@@ -54,13 +54,9 @@ LIBMNG_ENV	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBMNG_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-ifdef PTXCONF_LIBMNG_JPEG
-LIBMNG_AUTOCONF += --with-jpeg
-else
-LIBMNG_AUTOCONF += --without-jpeg
-endif
+LIBMNG_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-jpeg
 
 ifdef PTXCONF_LIBMNG_LCMS
 LIBMNG_AUTOCONF += --with-lcms
