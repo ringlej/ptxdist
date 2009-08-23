@@ -1310,6 +1310,11 @@ parse_first()
 	    ! -e "${PTXDIST_PTXCONFIG}" -a -e "${PTXDIST_PTXCONFIG_FALLBACK}" ]; then
 		PTXDIST_PTXCONFIG="${PTXDIST_PTXCONFIG_FALLBACK}"
 	fi
+	if [ "${PTXDIST_PLATFORMCONFIG}" = "${PTXDIST_PLATFORMCONFIG_DEFAULT}" \
+	    -a ! -e "${PTXDIST_PLATFORMCONFIG}" -a \
+	    $(ls "${PTXDIST_WORKSPACE}"/configs/*/platformconfig | wc -l) -eq 1 ]; then
+		PTXDIST_PLATFORMCONFIG=$(ls "${PTXDIST_WORKSPACE}"/configs/*/platformconfig)
+	fi
 }
 
 
