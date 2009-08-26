@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_XI) += xorg-lib-xi
 #
 # Paths and names
 #
-XORG_LIB_XI_VERSION	:= 1.2.1
+XORG_LIB_XI_VERSION	:= 1.3
 XORG_LIB_XI		:= libXi-$(XORG_LIB_XI_VERSION)
 XORG_LIB_XI_SUFFIX	:= tar.bz2
 XORG_LIB_XI_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_XI).$(XORG_LIB_XI_SUFFIX)
@@ -116,16 +116,15 @@ $(STATEDIR)/xorg-lib-xi.targetinstall: $(xorg-lib-xi_targetinstall_deps_default)
 	@$(call install_fixup, xorg-lib-xi,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xi,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xi, 0, 0, 0644, \
-		$(XORG_LIB_XI_DIR)/src/.libs/libXi.so.6.0.0, \
-		$(XORG_LIBDIR)/libXi.so.6.0.0)
+	@$(call install_copy, xorg-lib-xi, 0, 0, 0644, -, \
+		$(XORG_LIBDIR)/libXi.so.6.1.0)
 
 	@$(call install_link, xorg-lib-xi, \
-		libXi.so.6.0.0, \
+		libXi.so.6.1.0, \
 		$(XORG_LIBDIR)/libXi.so.6)
 
 	@$(call install_link, xorg-lib-xi, \
-		libXi.so.6.0.0, \
+		libXi.so.6.1.0, \
 		$(XORG_LIBDIR)/libXi.so)
 
 	@$(call install_finish, xorg-lib-xi)
