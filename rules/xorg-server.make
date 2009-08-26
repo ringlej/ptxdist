@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_XORG_SERVER) += xorg-server
 #
 # Paths and names
 #
-XORG_SERVER_VERSION	:= 1.6.3
+XORG_SERVER_VERSION	:= 1.7.1
 XORG_SERVER		:= xorg-server-$(XORG_SERVER_VERSION)
 XORG_SERVER_SUFFIX	:= tar.bz2
 XORG_SERVER_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
@@ -482,8 +482,10 @@ ifdef PTXCONF_XORG_DRIVER_VIDEO
 endif
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/extensions/libextmod.so)
+ifdef PTXCONF_XORG_SERVER_EXT_DBE
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/extensions/libdbe.so)
+endif
 
 #	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 #		/usr/lib/xorg/modules/fonts/libbitmap.so)
@@ -583,9 +585,6 @@ ifdef PTXCONF_XORG_SERVER_EXT_MULTIBUFFER
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_FONTCACHE
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_DBE
 endif
 
 ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC

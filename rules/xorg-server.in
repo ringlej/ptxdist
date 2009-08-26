@@ -118,7 +118,7 @@ menuconfig XORG_SERVER
 
 	# FIXME: xorg fails in dix subdirectory if no connection to font servers
 	# are enabled.
-	#select XORG_LIB_XFONT_FONTSERVER
+	select XORG_LIB_XFONT_FONTSERVER
 
 
 if XORG_SERVER
