@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Michael Olbrich <m.olbrich@pengutronix.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -25,7 +25,6 @@ ARORA_SOURCE	:= $(SRCDIR)/$(ARORA).$(ARORA_SUFFIX)
 ARORA_DIR	:= $(BUILDDIR)/$(ARORA)
 ARORA_PKGDIR	:= $(PKGDIR)/$(ARORA)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -33,7 +32,6 @@ ARORA_PKGDIR	:= $(PKGDIR)/$(ARORA)
 $(ARORA_SOURCE):
 	@$(call targetinfo)
 	@$(call get, ARORA)
-
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -55,7 +53,7 @@ $(STATEDIR)/arora.prepare:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/arora.targetinstall: $(arora_targetinstall_deps_default)
+$(STATEDIR)/arora.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, arora)
