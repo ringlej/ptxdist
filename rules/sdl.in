@@ -170,6 +170,7 @@ config SDL_NANOX
 menuconfig SDL_XORG
 	bool
 	prompt "Xorg Support                "
+	depends on !XORG_SERVER_XSDL
 	help
 	  X.Org provides an open source implementation of the
 	  X Window System.
