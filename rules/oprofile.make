@@ -1,9 +1,8 @@
 # -*-makefile-*-
-# $Id$
 #
-# Copyright (C) 2003      by Benedikt Spranger <b.spranger@pengutronix.de>
-# Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
-# Copyright (C) 2003-2009 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
+#               2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+#               2003-2009 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -49,14 +48,6 @@ OPROFILE_AUTOCONF := \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-kernel-support \
 	--without-x
-
-$(STATEDIR)/oprofile.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(OPROFILE_DIR)/config.cache)
-	cd $(OPROFILE_DIR) && \
-		$(OPROFILE_PATH) $(OPROFILE_ENV) \
-		./configure $(OPROFILE_AUTOCONF)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
