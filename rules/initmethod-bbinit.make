@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -19,9 +18,6 @@ PACKAGES-$(PTXCONF_INITMETHOD_BBINIT) += initmethod-bbinit
 #
 INITMETHOD_BBINIT_VERSION	:= 1.0.0
 INITMETHOD_BBINIT		:= initmethod-bbinit-$(INITMETHOD_BBINIT_VERSION)
-INITMETHOD_BBINIT_SUFFIX	:=
-INITMETHOD_BBINIT_URL		:=
-INITMETHOD_BBINIT_SOURCE	:=
 INITMETHOD_BBINIT_DIR		:= $(BUILDDIR)/$(INITMETHOD_BBINIT)
 
 # ----------------------------------------------------------------------------
