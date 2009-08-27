@@ -11,7 +11,7 @@ config OPROFILE
 	select BUSYBOX_PRINTF
 	select BINUTILS
 	select BINUTILS_OBJDUMP
-	prompt "oprofile tools"
+	prompt "oprofile"
 	help
 	  oprofile user space executables including opcontrol, opreport and others
 
