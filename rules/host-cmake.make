@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2006 by Erwin Rol
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -24,7 +23,6 @@ HOST_CMAKE_SUFFIX	:= tar.gz
 HOST_CMAKE_URL		:= http://www.cmake.org/files/v2.6/$(HOST_CMAKE).$(HOST_CMAKE_SUFFIX)
 HOST_CMAKE_SOURCE	:= $(SRCDIR)/$(HOST_CMAKE).$(HOST_CMAKE_SUFFIX)
 HOST_CMAKE_DIR		:= $(HOST_BUILDDIR)/$(HOST_CMAKE)
-
 
 # ----------------------------------------------------------------------------
 # Get
