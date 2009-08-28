@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_LIBPCIACCESS) += libpciaccess
 #
 # Paths and names
 #
-LIBPCIACCESS_VERSION	:= 0.10.6
+LIBPCIACCESS_VERSION	:= 0.10.9
 LIBPCIACCESS		:= libpciaccess-$(LIBPCIACCESS_VERSION)
 LIBPCIACCESS_SUFFIX	:= tar.bz2
 LIBPCIACCESS_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(LIBPCIACCESS).$(LIBPCIACCESS_SUFFIX)
@@ -74,10 +74,10 @@ ifndef PTXCONF_LIBPCIACCESS_STATIC
 	@$(call install_fixup, libpciaccess,DESCRIPTION,missing)
 
 	@$(call install_copy, libpciaccess, 0, 0, 0644, -, \
-		/usr/lib/libpciaccess.so.0.10.2)
-	@$(call install_link, libpciaccess, libpciaccess.so.0.10.2, \
+		/usr/lib/libpciaccess.so.0.10.8)
+	@$(call install_link, libpciaccess, libpciaccess.so.0.10.8, \
 		/usr/lib/libpciaccess.so.0)
-	@$(call install_link, libpciaccess, libpciaccess.so.0.10.2, \
+	@$(call install_link, libpciaccess, libpciaccess.so.0.10.8, \
 		/usr/lib/libpciaccess.so)
 
 	@$(call install_finish, libpciaccess)
