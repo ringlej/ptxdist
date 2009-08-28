@@ -1415,7 +1415,7 @@ do_select()
 {
 	local type="${1}"
 	local file="${2}"
-	local dest_ptr="PTXDIST_$(echo "${type}" | tr 'a-z' 'A-Z')"
+	local dest_ptr="PTXDIST_$(echo "${type}" | tr 'a-z' 'A-Z')_DEFAULT"
 	local dest_file="$(readlink -e "${!dest_ptr}")"
 	local magic="PTXCONF__${type}_MAGIC__=y"
 
