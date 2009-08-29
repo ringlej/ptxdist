@@ -1317,6 +1317,13 @@ parse_first()
 	    \! -e "${PTXDIST_PLATFORMCONFIG}" -a -e "${PTXDIST_PLATFORMCONFIG_FALLBACK}" ]; then
 		PTXDIST_PLATFORMCONFIG="${PTXDIST_PLATFORMCONFIG_FALLBACK}"
 	fi
+
+	if [ "${PTX_toolchain_SET}" = "false" -a \! -e "${PTXDIST_TOOLCHAIN_DEFAULT}" ]; then
+		local -a toolchain
+		if do_select_toolchain_guess 2>/dev/null; then
+			PTXDIST_TOOLCHAIN="${toolchain}"
+		fi
+	fi
 }
 
 
