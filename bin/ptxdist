@@ -1480,6 +1480,89 @@ do_select()
 
 
 
+#
+# guess and find the toolchain
+#
+# out: $toolchain: path to toolchain
+#
+do_select_toolchain_guess()
+{
+	if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
+		ptxd_dialog_msgbox \
+			"error: cannot guess toolchain, no platform selected.\n" \
+			"	try 'ptxdist platform <platformconfig>' first\n" \
+			"	or use 'ptxdist toolchain </path/to/toolchain>'"
+		return 1
+	fi
+
+	# minimal requirements
+	local vendor="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
+	local target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
+	local gcc_version="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
+
+	if [ -z "${vendor}" -o \
+	    -z "${target}" -o \
+	    -z "${gcc_version}" ]; then
+		ptxd_dialog_msgbox \
+			"info: insufficient information in your platformconfig file\n" \
+			"      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
+		return 1
+	fi
+
+	# gcc
+	local gcc="gcc-${gcc_version}-"
+
+	# java
+	local java="$(ptxd_get_ptxconf PTXCONF_GCCLIBS_GCJ)"
+	java="${java:+java-}"
+
+	# libc
+	local glibc_version="$(ptxd_get_ptxconf PTXCONF_GLIBC_VERSION)"
+	local uclibc_version="$(ptxd_get_ptxconf PTXCONF_UCLIBC_VERSION)"
+
+	if [ -n "${glibc_version}" ]; then
+		libc="glibc-${glibc_version}-"
+	elif [ -n "${uclibc_version}" ]; then
+		libc="glibc-${uclibc_version}-"
+	else
+		libc=""
+	fi
+
+	local hint="/opt/${vendor}/${target}/${gcc}${java}${libc}*/bin"
+
+	# let the shell expand the "*" in the hint, put it into an array
+	toolchain=($(ls -d ${hint} 2>/dev/null))
+
+	# number of items in array == number of found toolchains
+	local num="${#toolchain[@]}"
+
+	if [ ${num} -eq 0 ]; then
+		ptxd_dialog_msgbox \
+			"error: sorry, no toolchain found, matching\n" \
+			"	${hint}" \
+		        "\n" \
+			"      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
+
+		return 1
+	elif [ ${num} -ne 1 ]; then
+		local old_ifs="${IFS}"
+		IFS="
+"
+		toolchain="${toolchain[*]}"
+		IFS="${old_ifs}"
+
+		ptxd_dialog_msgbox \
+			"error: more than one toolchain found, matching\n" \
+			"	'${hint}':\n\n" \
+			"${toolchain}" \
+		        "\n" \
+			"      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
+
+		return 1
+	fi
+}
+
+
 do_select_toolchain() {
 	local toolchain="${1}"
 
@@ -1489,73 +1572,7 @@ do_select_toolchain() {
 	# guess the toolchain if path is omitted
 	#
 	if [ -z "${toolchain}" ]; then
-		if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
-			ptxd_dialog_msgbox \
-				"error: cannot guess toolchain, no platform selected.\n" \
-				"	try 'ptxdist platform <platformconfig>' first\n" \
-				"	or use 'ptxdist toolchain </path/to/toolchain>'"
-			return 1
-		fi
-
-		# minimal requirements
-		local vendor="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_VENDOR)"
-		local target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
-		local gcc_version="$(ptxd_get_ptxconf PTXCONF_CROSSCHAIN_CHECK)"
-
-		if [ -z "${vendor}" -o \
-		    -z "${target}" -o \
-		    -z "${gcc_version}" ]; then
-			ptxd_dialog_msgbox \
-				"info: insufficient information in your ptxconfig file\n" \
-				"      please use 'ptxdist toolchain </path/to/toolchain>' to select your toolchain"
-			return 1
-		fi
-
-		# gcc
-		local gcc="gcc-${gcc_version}-"
-
-		# java
-		local java="$(ptxd_get_ptxconf PTXCONF_GCCLIBS_GCJ)"
-		java="${java:+java-}"
-
-		# libc
-		local glibc_version="$(ptxd_get_ptxconf PTXCONF_GLIBC_VERSION)"
-		local uclibc_version="$(ptxd_get_ptxconf PTXCONF_UCLIBC_VERSION)"
-
-		if [ -n "${glibc_version}" ]; then
-			libc="glibc-${glibc_version}-"
-		elif [ -n "${uclibc_version}" ]; then
-			libc="glibc-${uclibc_version}-"
-		else
-			libc=""
-		fi
-
-		local hint="/opt/${vendor}/${target}/${gcc}${java}${libc}*/bin"
-
-		# let the shell expand the "*" in the hint, put it into an array
-		toolchain=($(ls -d ${hint} 2>/dev/null))
-
-		# number of items in array == number of found toolchains
-		local num="${#toolchain[@]}"
-
-		if [ ${num} -eq 0 ]; then
-			ptxd_dialog_msgbox \
-				"error: sorry, no toolchain found, matching\n" \
-				"	${hint}"
-			return 1
-		elif [ ${num} -ne 1 ]; then
-			local old_ifs="${IFS}"
-			IFS="
-"
-			toolchain="${toolchain[*]}"
-			IFS="${old_ifs}"
-
-			ptxd_dialog_msgbox \
-				"error: more than one toolchain found, matching\n" \
-				"	'${hint}':\n\n" \
-				"${toolchain}"
-			return 1
-		fi
+		do_select_toolchain_guess || return
 	fi
 
 	if [ ! -d "${toolchain}" ]; then
