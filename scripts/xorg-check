@@ -1,0 +1,31 @@
+#!/bin/bash
+
+RESULTS="xorg-results.txt"
+
+cleanup() {
+	rm -fr platform-*
+}
+
+build() {
+	./p targetinstall $1
+	result=$?
+	printf "%02i %s" $result $1 >> $RESULTS
+	if [ "$result" != "0" ]; then
+		mv platform-*/logfile $1.log
+	fi
+}
+
+rm -f $RESULTS
+
+#
+# all xorg packages start with xorg-*.make
+#
+for i in $(find $(dirname $(readlink p))/../rules -name xorg-*.make | grep -v "xorg-dirs.make"); do
+
+	packet=$(echo $i | sed -e "s,^.*rules/\(.*\)\.make,\1,g");
+
+	cleanup
+	build $packet
+
+done
+
