@@ -1,6 +1,8 @@
 TODO before 2.0.0
 =================
 
+[ ] add roadmap
+
 [ ] http://www.osadl.org/Single-View.111+M52e8d0c2b2f.0.html
 
 [x] rsc@thebe:OSELAS.BSP-Phytec-phyCORE-trunk$ ./p compile sw-ek-lm3s3748.compile
