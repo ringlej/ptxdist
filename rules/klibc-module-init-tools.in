@@ -1,0 +1,52 @@
+## SECTION=initramfs
+# klibc-module-init-tools configuration
+
+menuconfig KLIBC_MODULE_INIT_TOOLS
+	bool
+	select KLIBC
+	prompt "klibc-module-init-tools       "
+	help
+	  This package contains a set of programs for loading, inserting
+	  and removing kernel modules for Linux (versions 2.5.48 and
+	  above). The programs here are linked against klibc and will
+	  be a part of the initramfs image in the Linux kernel.
+
+if KLIBC_MODULE_INIT_TOOLS
+
+config KLIBC_MODULE_INIT_TOOLS_INSMOD
+	bool
+	prompt "Install insmod in initramfs image"
+	help
+	  simple program to insert a module into the Linux Kernel
+
+config KLIBC_MODULE_INIT_TOOLS_RMMOD
+	bool
+	prompt "Install rmmod in initramfs image"
+	help
+	  simple program to remove a module from the Linux Kernel
+
+config KLIBC_MODULE_INIT_TOOLS_LSMOD
+	bool
+	prompt "Install lsmod in initramfs image"
+	help
+	  program to show the status of modules in the Linux Kernel
+
+config KLIBC_MODULE_INIT_TOOLS_MODINFO
+	bool
+	prompt "Install modinfo in initramfs image"
+	help
+	  program to show information about a Linux Kernel module
+
+config KLIBC_MODULE_INIT_TOOLS_MODPROBE
+	bool
+	prompt "Install modprobe in initramfs image"
+	help
+	  program to add and remove modules from the Linux Kernel
+
+config KLIBC_MODULE_INIT_TOOLS_DEPMOD
+	bool
+	prompt "Install depmod in initramfs image"
+	help
+	  program to generate modules.dep and map files
+
+endif
