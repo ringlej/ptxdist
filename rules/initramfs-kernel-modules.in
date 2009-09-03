@@ -1,0 +1,29 @@
+## SECTION=initramfs
+
+menuconfig INITRAMFS_KERNEL_MODULES
+	bool
+	prompt "initramfs-kernel-modules      "
+	select KLIBC
+
+if INITRAMFS_KERNEL_MODULES
+
+choice
+	prompt "install kernel modules"
+	help
+	  FIXME
+
+config INITRAMFS_KERNEL_MODULES_ALL
+	bool
+	prompt "all"
+	help
+	  FIXME
+
+config INITRAMFS_KERNEL_MODULES_USER_SPEC
+	bool
+	prompt "list from $(PTXDIST_WORKSPACE)/initramfs_modules"
+	help
+	  FIXME
+
+endchoice
+
+endif
