@@ -23,6 +23,15 @@ HOST_QOOXDOO_URL	:= $(PTXCONF_SETUP_SFMIRROR)/qooxdoo/$(HOST_QOOXDOO).$(HOST_QOO
 HOST_QOOXDOO_SOURCE	:= $(SRCDIR)/$(HOST_QOOXDOO).$(HOST_QOOXDOO_SUFFIX)
 HOST_QOOXDOO_DIR	:= $(HOST_BUILDDIR)/$(HOST_QOOXDOO)
 HOST_QOOXDOO_LICENSE	:= LGPLv2.1
+HOST_QOOXDOO_PYTHON	:= $(shell which python)
+
+ifdef PTXCONF_HOST_QOOXDOO
+ifeq ($(HOST_QOOXDOO_PYTHON),)
+    $(warning *** python is mandatory to build qooxdoo projects)
+    $(warning *** please install python)
+    $(error )
+endif
+endif
 
 # ----------------------------------------------------------------------------
 # Get
