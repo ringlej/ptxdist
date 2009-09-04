@@ -5,7 +5,7 @@ config LIBMNG
 	prompt "libmng"
 	select ZLIB
 	select LCMS if LIBMNG_LCMS
-	select LIBJPEG if LIBMNG_JPEG
+	select LIBJPEG
 	help
 	  libmng is the official MNG reference library.
 	  MNG (Multiple-image Network Graphics) is a public graphics file
