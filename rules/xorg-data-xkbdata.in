@@ -3,9 +3,9 @@
 config XORG_DATA_XKBDATA
 	tristate
 	depends on XORG_APP
-	depends on XORG_LIB_X11
 	prompt "xkbdata"
 	depends on XORG_KEYBOARD_MAPPING_SUPPORT
+	select XORG_LIB_X11
 	help
 	  These files are required to setup various keyboard mappings.
 	  The tool xkbcomp on the target needs these files, to configure
