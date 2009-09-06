@@ -1,0 +1,103 @@
+#!/bin/sh
+#
+# This is a zeroconf init.d script which ist called by init(1) with [start|stop] as argument
+# Mi 22. Jul 21:46:28 CEST 2009
+
+PATH=/sbin:/bin:/usr/bin
+BINARY=/usr/sbin/avahi-autoipd
+OPTIONS="--force-bind -D"
+INTERFACES="eth0"
+
+test -f $BINARY || { echo "$BINARY not found" >&2 ; exit 0; }
+
+start_proc(){
+   for i in $INTERFACES; do
+     $BINARY $OPTIONS $i
+     case $? in
+	0)
+	echo " [+] $i (zeroconf)"
+	;;
+	*)
+	echo " [!] $i (zeroconf)"
+ 	;;
+    esac
+   done
+}
+
+stop_proc(){
+   for i in $INTERFACES; do
+     $BINARY --kill $i
+          case $? in
+        0)
+        echo " [-] $i (zeroconf)"
+        ;;
+	*)
+	echo " [!] $i (zeroconf)"
+ 	;;
+     esac
+   done
+}
+
+refresh_proc(){
+   for i in $INTERFACES; do
+     $BINARY --refresh $i
+          case $? in
+        0)
+        echo " [*] $i (zeroconf)"
+        ;;
+	*)
+	echo " [!] $i (zeroconf)"
+ 	;;
+     esac
+   done
+}
+
+check_proc(){
+   for i in $INTERFACES; do
+     $BINARY --check $i
+          case $? in
+        0)
+        echo " [+] $i (zeroconf)"
+        ;;
+	*)
+	echo " [-] $i (zeroconf)"
+	;;
+     esac
+   done
+}
+
+
+
+case "$1" in
+        start)
+        	start_proc
+		;;
+	stop)
+		stop_proc
+		;;
+        restart|force-reload)
+                stop_proc
+		sleep 2
+                start_proc
+                ;;
+        reload)
+                refresh_proc
+		;;
+	status)
+		check_proc
+		;;
+        *)
+                echo "Usage: $0 {start|stop|status|reload|restart|force-reload}"
+                echo ""
+                echo "Status Flags:"
+                echo "[+] -> started"
+                echo "[-] -> not started"
+                echo "[*] -> reloaded"
+                echo "[!] -> error - please debug without -D option"
+                echo ""
+                exit 1
+                ;;
+esac
+
+exit 0
+

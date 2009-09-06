@@ -1,0 +1,101 @@
+#!/bin/sh
+#
+# This is a avahi-daemon init.d script which is called by init(1) with [start|stop] as argument
+# Mi 22. Jul 21:46:28 CEST 2009
+
+#set -e
+PATH=/sbin:/bin:/usr/bin
+BINARY=/usr/sbin/avahi-daemon
+OPTIONS="-D"
+
+test -f $BINARY || { echo "$BINARY not found" >&2 ; exit 0; }
+test -f /etc/default/avahi-daemon && . /etc/default/avahi-daemon
+
+start_proc(){
+$BINARY -c && return 0
+$BINARY -D
+case $? in
+	0)
+	echo " [+] (avahi-daemon)"
+	;;
+	*)
+	echo " [!] (avahi-daemon)"
+	;;
+esac
+}
+
+stop_proc(){
+if $BINARY -c ; then 
+   $BINARY -k 
+	case $? in
+	0)
+	echo " [-] (avahi-daemon)"
+	;;
+	*)
+	echo " [!] (avahi-daemon)"
+	;;
+	esac
+fi
+}
+
+refresh_proc(){
+if $BINARY -c ; then 
+   $BINARY -r 
+	case $? in
+	0)
+	echo " [*] (avahi-daemon)"
+	;;
+	*)
+	echo " [!] (avahi-daemon)"
+	;;
+	esac
+fi
+}
+
+check_proc(){
+$BINARY -c
+case $? in
+	0)
+	echo " [+] (avahi-daemon)"
+	;;
+	*)
+	echo " [-] (avahi-daemon)"
+	;;
+esac
+}
+
+
+
+case "$1" in
+	start)
+		start_proc
+		;;
+	stop)
+		stop_proc
+		;;
+	restart|force-reload)
+		stop_proc
+		sleep 2
+		start_proc
+		;;
+	reload)
+		refresh_proc
+		;;
+	status)
+		check_proc
+		;;
+	*)
+		echo "Usage: $0 {start|stop|status|reload|restart|force-reload}"
+		echo ""
+		echo "Status Flags:"
+		echo "[+] -> started"
+		echo "[-] -> not started"
+		echo "[*] -> reloaded"
+		echo "[!] -> error - please debug without -D option"
+		echo ""
+		exit 1
+		;;
+esac
+
+exit 0
+
