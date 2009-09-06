@@ -54,6 +54,9 @@ endmenu
 
 menu "Networking Tools              "
 source "generated/networking.in"
+menu "IPv4 -> IPv6 Transition Tools "
+source "generated/networking_ipv6_transition.in"
+endmenu
 endmenu
 
 menu "Disk and File Utilities       "
