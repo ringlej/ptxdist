@@ -98,7 +98,8 @@ ifdef PTXCONF_GLIBC_RT
 endif
 
 ifdef PTXCONF_GLIBC_DL
-	@$(call install_copy_toolchain_lib, glibc, libdl.so)
+	@$(call install_copy_toolchain_lib, glibc, libdl.so.2)
+	@$(call install_link, glibc, ../../lib/libdl.so.2, /usr/lib/libdl.so)
 endif
 
 ifdef PTXCONF_GLIBC_CRYPT
