@@ -6,13 +6,13 @@ config PTRTD
 	help
 	  This is a Portable Transport Relay Translator Daemon (pTRTd)
 	  as specified by RFC 3142 (tcp, udp)
-	  
-	  Beware: This is rather old vodoo, last upstream update was 
-	  in 2002. This ptxdist package ist provided primarily for 
-	  test environments, ipv6 transition planing, etc. 
-	  
+
+	  Beware: This is rather old vodoo, last upstream update was
+	  in 2002. This ptxdist package ist provided primarily for
+	  test environments, ipv6 transition planing, etc.
+
 	  DO NOT USE PTRTD EXCEPT IN AN ISOLATED NETWORK.
-	  
+
 	  References:
 	  http://www.litech.org/ptrtd/		(now unsupported)
 	  http://jk.fr.eu.org/debian/unstable/  (updated version)

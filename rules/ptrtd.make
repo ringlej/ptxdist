@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_PTRTD) += ptrtd
 #
 # We use the updated version from http://jk.fr.eu.org/debian/
 # rather than the original from http://www.litech.org/ptrtd/
-# although the archive is badly packaged (extracts to a 
+# although the archive is badly packaged (extracts to a
 # different directory name).
 #
 
