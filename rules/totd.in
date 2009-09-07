@@ -5,19 +5,19 @@ config TOTD
 	prompt "totd"
 	help
 	  This is the Trick Or Treat Daemon (TOTD)
-	  
-	  Totd is a DNS proxy for IPv4/IPv6 translation, 
+
+	  Totd is a DNS proxy for IPv4/IPv6 translation,
 	  developed by the Vermicelli Project (Norway)
-	  and can be used as a DNS-ALG for NAT-PT or 
+	  and can be used as a DNS-ALG for NAT-PT or
 	  pTRTd based setups.
 
-	  Beware: This is rather old vodoo, last upstream update was 
-	  in 2005. This ptxdist package ist provided primarily for 
-	  test environments, ipv6 transition planing, etc. 
-	  
+	  Beware: This is rather old vodoo, last upstream update was
+	  in 2005. This ptxdist package ist provided primarily for
+	  test environments, ipv6 transition planing, etc.
+
 	  The Debian Project has a slightly older version of this
 	  package at http://packages.qa.debian.org/t/totd.html with
 	  some patches (resolvconf integration, l10n, etc)
-	  	  
+
 	  References:
 	  http://www.vermicelli.pasta.cs.uit.no/
