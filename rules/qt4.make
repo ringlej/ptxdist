@@ -544,7 +544,7 @@ $(STATEDIR)/qt4.install:
 #	# put a link for qmake where other packages can find it
 	@ln -sf $(QT4_DIR)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake
 #	# qmake needs this to build other packages
-	@echo -e "[Paths]\nPrefix=/usr\nHeaders=$(SYSROOT)/usr/include\nBinaries=$(QT4_DIR)/bin\nLibraries=$(SYSROOT)/usr/lib" > $(QT4_DIR)/bin/qt.conf
+	@echo -e "[Paths]\nPrefix=/usr\nHeaders=$(SYSROOT)/usr/include\nBinaries=$(PTXDIST_SYSROOT_HOST)/bin\nLibraries=$(SYSROOT)/usr/lib" > $(QT4_DIR)/bin/qt.conf
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

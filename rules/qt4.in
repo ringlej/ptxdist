@@ -2,6 +2,7 @@
 
 menuconfig QT4
 	tristate
+	select HOST_QT4
 	select TSLIB		if QT4_MOUSE_TSLIB
 	select DBUS		if QT4_DBUS_LOAD || QT4_DBUS_LINK
 	select GLIB		if QT4_GLIB
