@@ -2,4 +2,5 @@
 
 config HOST_QT4
 	bool
-	
+	select HOST_DBUS
+

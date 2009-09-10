@@ -143,11 +143,11 @@ $(STATEDIR)/host-qt4.prepare:
 $(STATEDIR)/host-qt4.compile:
 	@$(call targetinfo)
 	@cd $(HOST_QT4_DIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
-		sub-gui sub-dbus sub-sql
-	@cd $(HOST_QT4_DIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		sub-moc sub-rcc sub-uic
-	@cd $(HOST_QT4_DIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
-		sub-tools
+	@cd $(HOST_QT4_DIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
+		$(MAKE) $(PARALLELMFLAGS)
+	@cd $(HOST_QT4_DIR)/tools/qdbus && $(HOST_QT4_PATH) \
+		$(MAKE) $(PARALLELMFLAGS) sub-qdbusxml2cpp sub-qdbuscpp2xml
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -157,13 +157,18 @@ $(STATEDIR)/host-qt4.compile:
 HOST_QT4_INSTALL_TARGETS := \
 	sub-moc-install_subtargets \
 	sub-rcc-install_subtargets \
-	sub-uic-install_subtargets \
-	sub-tools-install_subtargets
+	sub-uic-install_subtargets
 
 $(STATEDIR)/host-qt4.install:
 	@$(call targetinfo)
 	@cd $(HOST_QT4_DIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		$(HOST_QT4_INSTALL_TARGETS) $(HOST_QT4_MAKEVARS)
+	@cd $(HOST_QT4_DIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
+		$(MAKE) $(PARALLELMFLAGS) install $(HOST_QT4_MAKEVARS)
+	@cd $(HOST_QT4_DIR)/tools/qdbus && $(HOST_QT4_PATH) \
+		$(MAKE) $(PARALLELMFLAGS) $(HOST_QT4_MAKEVARS) \
+		sub-qdbusxml2cpp-install_subtargets \
+		sub-qdbuscpp2xml-install_subtargets
 	@$(call touch)
 # ----------------------------------------------------------------------------
 # Clean
