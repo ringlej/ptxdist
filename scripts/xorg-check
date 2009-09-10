@@ -9,7 +9,7 @@ cleanup() {
 build() {
 	./p targetinstall $1
 	result=$?
-	printf "%02i %s" $result $1 >> $RESULTS
+	printf "%02i %s\n" $result $1 >> $RESULTS
 	if [ "$result" != "0" ]; then
 		mv platform-*/logfile $1.log
 	fi
