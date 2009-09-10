@@ -539,7 +539,8 @@ endif
 
 $(STATEDIR)/qt4.install:
 	@$(call targetinfo)
-	@$(call install, QT4,,,$(QT4_INSTALL_TARGETS))
+	@cd $(QT4_DIR) && $(QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
+		$(QT4_INSTALL_TARGETS) $(QT4_MAKEVARS)
 
 #	# put a link for qmake where other packages can find it
 	@ln -sf $(QT4_DIR)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake
