@@ -143,7 +143,7 @@ $(STATEDIR)/host-qt4.prepare:
 $(STATEDIR)/host-qt4.compile:
 	@$(call targetinfo)
 	@cd $(HOST_QT4_DIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
-		sub-moc sub-rcc sub-uic
+		sub-xml sub-network sub-dbus sub-moc sub-rcc sub-uic
 	@cd $(HOST_QT4_DIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
 	@cd $(HOST_QT4_DIR)/tools/qdbus && $(HOST_QT4_PATH) \
