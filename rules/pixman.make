@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_PIXMAN) += pixman
 #
 # Paths and names
 #
-PIXMAN_VERSION	:= 0.15.12
+PIXMAN_VERSION	:= 0.16.0
 PIXMAN		:= pixman-$(PIXMAN_VERSION)
 PIXMAN_SUFFIX	:= tar.bz2
 PIXMAN_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(PIXMAN).$(PIXMAN_SUFFIX)
@@ -42,7 +42,20 @@ PIXMAN_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-PIXMAN_AUTOCONF := $(CROSS_AUTOCONF_USR)
+PIXMAN_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-timers \
+	--disable-gtk \
+	--disable-vmx \
+	--disable-arm-simd \
+	--disable-arm-neon \
+	--disable-gcc-inline-asm
+
+ifdef PTXCONF_ARCH_X86
+PIXMAN_AUTOCONF += --enable-mmx --enable-sse2
+else
+PIXMAN_AUTOCONF += --disable-mmx --disable-sse2
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -60,9 +73,9 @@ $(STATEDIR)/pixman.targetinstall:
 	@$(call install_fixup, pixman,DEPENDS,)
 	@$(call install_fixup, pixman,DESCRIPTION,missing)
 
-	@$(call install_copy, pixman, 0, 0, 0644, -, /usr/lib/libpixman-1.so.0.15.12)
-	@$(call install_link, pixman, libpixman-1.so.0.15.12, /usr/lib/libpixman-1.so.0)
-	@$(call install_link, pixman, libpixman-1.so.0.15.12, /usr/lib/libpixman-1.so)
+	@$(call install_copy, pixman, 0, 0, 0644, -, /usr/lib/libpixman-1.so.0.16.0)
+	@$(call install_link, pixman, libpixman-1.so.0.16.0, /usr/lib/libpixman-1.so.0)
+	@$(call install_link, pixman, libpixman-1.so.0.16.0, /usr/lib/libpixman-1.so)
 
 	@$(call install_finish, pixman)
 
