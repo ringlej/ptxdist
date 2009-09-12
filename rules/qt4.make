@@ -541,6 +541,8 @@ $(STATEDIR)/qt4.install:
 	@$(call targetinfo)
 	@cd $(QT4_DIR) && $(QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		$(QT4_INSTALL_TARGETS) $(QT4_MAKEVARS)
+	@cd $(QT4_DIR) && $(QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
+		$(QT4_INSTALL_TARGETS) INSTALL_ROOT=$(SYSROOT)
 
 #	# put a link for qmake where other packages can find it
 	@ln -sf $(QT4_DIR)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake
