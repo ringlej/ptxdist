@@ -670,7 +670,7 @@ ifdef PTXCONF_QT4_BUILD_ASSISTANTLIB
 	@$(call install_link, qt4, libQtHelp.so.$(QT_VERSION_L3), \
 		/usr/lib/libQtHelp.so.$(QT_VERSION_L1))
 endif
-ifdef PTXCONF_QT4_DBUS_LOAD
+ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK),)
 	@$(call install_copy, qt4, 0, 0, 0644, \
 		$(QT4_DIR)/lib/libQtDBus.so.$(QT_VERSION_L3), \
 		/usr/lib/libQtDBus.so.$(QT_VERSION_L3))
@@ -752,7 +752,7 @@ ifdef PTXCONF_QT4_GFX_QVFB_PLUGIN
 		$(QT4_DIR)/plugins/gfxdrivers/libqscreenvfb.$(QT4_PLUGIN_EXT), \
 		/usr/plugins/gfxdrivers/libqscreenvfb.$(QT4_PLUGIN_EXT))
 endif
-ifdef PTXCONF_QT4_DBUS_LOAD
+ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK),)
 	@$(call install_copy, qt4, 0, 0, 0644, \
 		$(QT4_DIR)/plugins/script/libqtscriptdbus.$(QT4_PLUGIN_EXT), \
 		/usr/plugins/script/libqtscriptdbus.$(QT4_PLUGIN_EXT))
