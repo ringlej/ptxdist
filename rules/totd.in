@@ -2,6 +2,7 @@
 
 config TOTD
 	tristate
+	depends on BROKEN
 	prompt "totd"
 	help
 	  This is the Trick Or Treat Daemon (TOTD)
