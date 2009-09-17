@@ -1,35 +1,57 @@
 Subject: use AC_CHECK_HEADER instead of AC_CHECK_FILE
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 
-AC_CHECK_FILE is not possible when cross-compiling. Use AC_CHECK_HEADER
-instead. It's the correct way to check for header files.
+AC_CHECK_FILE is not possible when cross-compiling. Use AC_CHECK_HEADER /
+AC_PREPROC_IFELSE instead.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- configure.ac |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ configure.ac |   28 +++++++++++++++++-----------
+ 1 file changed, 17 insertions(+), 11 deletions(-)
 
 Index: b/configure.ac
 ===================================================================
 --- a/configure.ac
 +++ b/configure.ac
-@@ -84,14 +84,14 @@ sdkdir=$(pkg-config --variable=sdkdir xo
+@@ -83,17 +83,6 @@ sdkdir=$(pkg-config --variable=sdkdir xo
+ # Checks for header files.
  AC_HEADER_STDC
  
- if test "$DRI" != no; then
+-if test "$DRI" != no; then
 -	AC_CHECK_FILE([${sdkdir}/dri.h],
-+	AC_CHECK_HEADER([${sdkdir}/dri.h],
-                       [have_dri_h="yes"], [have_dri_h="no"])
+-                      [have_dri_h="yes"], [have_dri_h="no"])
 -	AC_CHECK_FILE([${sdkdir}/sarea.h],
-+	AC_CHECK_HEADER([${sdkdir}/sarea.h],
-                       [have_sarea_h="yes"], [have_sarea_h="no"])
+-                      [have_sarea_h="yes"], [have_sarea_h="no"])
 -	AC_CHECK_FILE([${sdkdir}/dristruct.h],
-+	AC_CHECK_HEADER([${sdkdir}/dristruct.h],
-                       [have_dristruct_h="yes"], [have_dristruct_h="no"])
+-                      [have_dristruct_h="yes"], [have_dristruct_h="no"])
 -	AC_CHECK_FILE([${sdkdir}/damage.h],
 -                      [have_damage_h="yes"], [have_damage_h="no"])
-+	AC_CHECK_HEADER([${sdkdir}/damage.h],
-+                      [have_damage_h="yes"], [have_damage_h="no"],[${sdkdir}/region.h])
+-fi
+-
+ AC_MSG_CHECKING([whether to include DRI support])
+ if test x$DRI = xauto; then
+ 	if test "$have_dri_h" = yes -a \
+@@ -116,6 +105,23 @@ if test "$DRI" = yes; then
+ 	fi
  fi
  
- AC_MSG_CHECKING([whether to include DRI support])
++if test "$DRI" != no; then
++	save_CPPFLAGS="$CPPFLAGS"
++	CPPFLAGS="$XORG_CFLAGS $DRI_CFLAGS"
++	AC_CHECK_HEADER([dri.h],
++                      [have_dri_h="yes"], [have_dri_h="no"],[-])
++	AC_CHECK_HEADER([sarea.h],
++                      [have_sarea_h="yes"], [have_sarea_h="no"],[-])
++	AC_PREPROC_IFELSE([AC_LANG_PROGRAM([[
++#include <xorg-server.h>
++#include <dristruct.h>
++                      ]])],
++                      [have_dristruct_h="yes"], [have_dristruct_h="no"],[-])
++	AC_CHECK_HEADER([damage.h],
++                      [have_damage_h="yes"], [have_damage_h="no"],[-])
++	CPPFLAGS="$save_CPPFLAGS"
++fi
++
+ save_CFLAGS="$CFLAGS"
+ CFLAGS="$XORG_CFLAGS"
+ AC_CHECK_HEADER(xf86Modes.h,[XMODES=yes],[XMODES=no],[#include "xorg-server.h"])

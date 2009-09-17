@@ -122,8 +122,6 @@ $(STATEDIR)/xorg-driver-video-ati.targetinstall: $(xorg-driver-video-ati_targeti
 	@$(call install_fixup, xorg-driver-video-ati,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-ati, 0, 0, 0755, $(XORG_DRIVER_VIDEO_ATI_DIR)/src/.libs/ati_drv.so, /usr/lib/xorg/modules/ati_drv.so)
-	@$(call install_copy, xorg-driver-video-ati, 0, 0, 0755, $(XORG_DRIVER_VIDEO_ATI_DIR)/src/.libs/atimisc_drv.so, /usr/lib/xorg/modules/atimisc_drv.so)
-	@$(call install_copy, xorg-driver-video-ati, 0, 0, 0755, $(XORG_DRIVER_VIDEO_ATI_DIR)/src/.libs/r128_drv.so, /usr/lib/xorg/modules/r128_drv.so)
 	@$(call install_copy, xorg-driver-video-ati, 0, 0, 0755, $(XORG_DRIVER_VIDEO_ATI_DIR)/src/.libs/radeon_drv.so, /usr/lib/xorg/modules/radeon_drv.so)
 	@$(call install_copy, xorg-driver-video-ati, 0, 0, 0755, $(XORG_DRIVER_VIDEO_ATI_DIR)/src/.libs/theatre200_drv.so, /usr/lib/xorg/modules/theatre200_drv.so)
 	@$(call install_copy, xorg-driver-video-ati, 0, 0, 0755, $(XORG_DRIVER_VIDEO_ATI_DIR)/src/.libs/theatre_detect_drv.so, /usr/lib/xorg/modules/theatre_detect_drv.so)
