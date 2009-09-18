@@ -2,11 +2,11 @@
  configure.ac |   28 +++++++++++++---------------
  1 file changed, 13 insertions(+), 15 deletions(-)
 
-Index: owfs-2.7p7/configure.ac
+Index: owfs-2.7p26/configure.ac
 ===================================================================
---- owfs-2.7p7.orig/configure.ac
-+++ owfs-2.7p7/configure.ac
-@@ -936,18 +936,16 @@ AC_SUBST(LD_EXTRALIBS)
+--- owfs-2.7p26.orig/configure.ac
++++ owfs-2.7p26/configure.ac
+@@ -940,18 +940,16 @@ AC_SUBST(LD_EXTRALIBS)
  AC_SUBST(OSLIBS)
  AC_MSG_WARN([LD_EXTRALIBS=${LD_EXTRALIBS} OSLIBS=${OSLIBS}])
  
@@ -35,16 +35,16 @@ Index: owfs-2.7p7/configure.ac
  
  #Check owfs
  AC_MSG_CHECKING([if owfs is enabled])
-@@ -974,9 +972,9 @@ if test "${ENABLE_OWFS}" != "false" ; th
-     save_CPPFLAGS="$CPPFLAGS"
-     save_LDFLAGS="$LDFLAGS"
-     FUSE_FLAGS="-DFUSE_USE_VERSION=26"
--    FUSE_INCLUDES="-I${fuse_include_path}"
--    FUSE_LIBS="-L${fuse_lib_path}"
--    LD_EXTRALIBS="$save_LD_EXTRALIBS -Wl,--rpath -Wl,${fuse_lib_path}"
-+    FUSE_INCLUDES="${fuse_CFLAGS}"
-+    FUSE_LIBS="${fuse_LIBS}"
-+    LD_EXTRALIBS="$save_LD_EXTRALIBS ${fuse_LIBS}"
-     CPPFLAGS="$save_CPPFLAGS -D_FILE_OFFSET_BITS=64 $FUSE_FLAGS $FUSE_INCLUDES"
-     LDFLAGS="$save_LDFLAGS $FUSE_LIBS"
+@@ -978,9 +976,9 @@ if test "${ENABLE_OWFS}" != "false" ; th
+ 	save_CPPFLAGS="$CPPFLAGS"
+ 	save_LDFLAGS="$LDFLAGS"
+ 	FUSE_FLAGS="-DFUSE_USE_VERSION=26"
+-	FUSE_INCLUDES="-I${fuse_include_path}"
+-	FUSE_LIBS="-L${fuse_lib_path}"
+-	LD_EXTRALIBS="$save_LD_EXTRALIBS -Wl,--rpath -Wl,${fuse_lib_path}"
++	FUSE_INCLUDES="${fuse_CFLAGS}"
++	FUSE_LIBS="${fuse_LIBS}"
++	LD_EXTRALIBS="$save_LD_EXTRALIBS ${fuse_LIBS}"
+ 	CPPFLAGS="$save_CPPFLAGS -D_FILE_OFFSET_BITS=64 $FUSE_FLAGS $FUSE_INCLUDES"
+ 	LDFLAGS="$save_LDFLAGS $FUSE_LIBS"
  

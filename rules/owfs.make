@@ -17,12 +17,13 @@ PACKAGES-$(PTXCONF_OWFS) += owfs
 #
 # Paths and names
 #
-OWFS_VERSION	:= 2.7p7
+OWFS_VERSION	:= 2.7p26
 OWFS		:= owfs-$(OWFS_VERSION)
 OWFS_SUFFIX	:= tar.gz
 OWFS_URL	:= $(PTXCONF_SETUP_SFMIRROR)/owfs/$(OWFS).$(OWFS_SUFFIX)
 OWFS_SOURCE	:= $(SRCDIR)/$(OWFS).$(OWFS_SUFFIX)
 OWFS_DIR	:= $(BUILDDIR)/$(OWFS)
+OWFS_LICENSE	:= GPLv2+, LGPLv2+
 
 # ----------------------------------------------------------------------------
 # Get
@@ -158,10 +159,10 @@ $(STATEDIR)/owfs.targetinstall:
 	@$(call install_fixup, owfs,DESCRIPTION,missing)
 
 	@$(call install_copy, owfs, 0, 0, 0644, \
-		$(PKGDIR)/$(OWFS)/usr/lib/libow-2.7.so.7.0.0, \
-		/usr/lib/libow-2.7.so.7.0.0)
-	@$(call install_link, owfs, libow-2.7.so.7.0.0, /usr/lib/libow-2.7.so.7)
-	@$(call install_link, owfs, libow-2.7.so.7.0.0, /usr/lib/libow-2.7.so)
+		$(PKGDIR)/$(OWFS)/usr/lib/libow-2.7.so.26.0.0, \
+		/usr/lib/libow-2.7.so.26.0.0)
+	@$(call install_link, owfs, libow-2.7.so.26.0.0, /usr/lib/libow-2.7.so.26)
+	@$(call install_link, owfs, libow-2.7.so.26.0.0, /usr/lib/libow-2.7.so)
 
 ifdef PTXCONF_OWFS__OWFS
 	@$(call install_copy, owfs, 0, 0, 0755, \
