@@ -129,7 +129,7 @@ $(STATEDIR)/cvs.targetinstall:
 
 ifdef PTXCONF_CVS_INETD
 	@$(call install_alternative, cvs, 0, 0, 0644, /etc/inetd.conf.d/cvs, n)
-ifneq ($(call remove_quotes, $(PTXCONF_CVS_SERVER_REPOSITORY),)
+ifneq ($(call remove_quotes, $(PTXCONF_CVS_SERVER_REPOSITORY)),)
 #	# add info about repository's root
 	@$(call install_replace, cvs, /etc/inetd.conf.d/cvs, \
 		@ROOT@, \
