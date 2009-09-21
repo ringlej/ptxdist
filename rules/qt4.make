@@ -19,8 +19,8 @@ PACKAGES-$(PTXCONF_QT4) += qt4
 #
 QT4_VERSION	:= 4.5.2
 QT4		:= qt-embedded-linux-opensource-src-$(QT4_VERSION)
-QT4_SUFFIX	:= tar.bz2
-QT4_URL		:= http://get.qtsoftware.com/qt/source/$(QT4).$(QT4_SUFFIX)
+QT4_SUFFIX	:= tar.gz
+QT4_URL		:= http://get.qt.nokia.com/qt/source/$(QT4).$(QT4_SUFFIX)
 QT4_SOURCE	:= $(SRCDIR)/$(QT4).$(QT4_SUFFIX)
 QT4_DIR		:= $(BUILDDIR)/$(QT4)
 QT4_LICENSE	:= GPL3, LGPLv2.1
