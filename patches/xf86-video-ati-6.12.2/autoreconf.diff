@@ -1,7 +1,7 @@
 ---
  aclocal.m4 | 2502 ++++++++++++++++++++++++++++++-------------------------------
- configure  |  296 ++++---
- 2 files changed, 1444 insertions(+), 1354 deletions(-)
+ configure  |  348 +++++---
+ 2 files changed, 1470 insertions(+), 1380 deletions(-)
 
 Index: b/aclocal.m4
 ===================================================================
@@ -2699,11 +2699,23 @@ Index: b/configure
 ===================================================================
 --- a/configure
 +++ b/configure
-@@ -21382,109 +21382,6 @@ _ACEOF
- fi
+@@ -879,10 +879,10 @@ LIBTOOL
+ PKG_CONFIG
+ XORG_CFLAGS
+ XORG_LIBS
+-DRI_TRUE
+-DRI_FALSE
+ DRI_CFLAGS
+ DRI_LIBS
++DRI_TRUE
++DRI_FALSE
+ XMODES_TRUE
+ XMODES_FALSE
+ XMODES_CFLAGS
+@@ -21383,131 +21383,6 @@ fi
  
  
--if test "$DRI" != no; then
+ if test "$DRI" != no; then
 -	as_ac_File=`echo "ac_cv_file_${sdkdir}/dri.h" | $as_tr_sh`
 -{ echo "$as_me:$LINENO: checking for ${sdkdir}/dri.h" >&5
 -echo $ECHO_N "checking for ${sdkdir}/dri.h... $ECHO_C" >&6; }
@@ -2806,14 +2818,36 @@ Index: b/configure
 -
 -fi
 -
- { echo "$as_me:$LINENO: checking whether to include DRI support" >&5
- echo $ECHO_N "checking whether to include DRI support... $ECHO_C" >&6; }
- if test x$DRI = xauto; then
-@@ -21638,6 +21535,199 @@ _ACEOF
- 	fi
- fi
+-{ echo "$as_me:$LINENO: checking whether to include DRI support" >&5
+-echo $ECHO_N "checking whether to include DRI support... $ECHO_C" >&6; }
+-if test x$DRI = xauto; then
+-	if test "$have_dri_h" = yes -a \
+-                "$have_sarea_h" = yes -a \
+-                "$have_dristruct_h" = yes; then
+-		DRI="yes"
+-	else
+-		DRI="no"
+-	fi
+-fi
+-{ echo "$as_me:$LINENO: result: $DRI" >&5
+-echo "${ECHO_T}$DRI" >&6; }
+-
+- if test x$DRI = xyes; then
+-  DRI_TRUE=
+-  DRI_FALSE='#'
+-else
+-  DRI_TRUE='#'
+-  DRI_FALSE=
+-fi
+-
+-if test "$DRI" = yes; then
  
-+if test "$DRI" != no; then
+ pkg_failed=no
+ { echo "$as_me:$LINENO: checking for DRI" >&5
+@@ -21619,6 +21494,221 @@ else
+ echo "${ECHO_T}yes" >&6; }
+ 	:
+ fi
 +	save_CPPFLAGS="$CPPFLAGS"
 +	CPPFLAGS="$XORG_CFLAGS $DRI_CFLAGS"
 +	{ echo "$as_me:$LINENO: checking for dri.h" >&5
@@ -3006,6 +3040,42 @@ Index: b/configure
 +	CPPFLAGS="$save_CPPFLAGS"
 +fi
 +
- save_CFLAGS="$CFLAGS"
- CFLAGS="$XORG_CFLAGS"
- { echo "$as_me:$LINENO: checking for xf86Modes.h" >&5
++{ echo "$as_me:$LINENO: checking whether to include DRI support" >&5
++echo $ECHO_N "checking whether to include DRI support... $ECHO_C" >&6; }
++if test x$DRI = xauto; then
++	if test "$have_dri_h" = yes -a \
++                "$have_sarea_h" = yes -a \
++                "$have_dristruct_h" = yes; then
++		DRI="yes"
++	else
++		DRI="no"
++	fi
++fi
++{ echo "$as_me:$LINENO: result: $DRI" >&5
++echo "${ECHO_T}$DRI" >&6; }
++
++ if test x$DRI = xyes; then
++  DRI_TRUE=
++  DRI_FALSE='#'
++else
++  DRI_TRUE='#'
++  DRI_FALSE=
++fi
++
++if test "$DRI" = yes; then
+ 
+ cat >>confdefs.h <<\_ACEOF
+ #define XF86DRI 1
+@@ -24090,10 +24180,10 @@ LIBTOOL!$LIBTOOL$ac_delim
+ PKG_CONFIG!$PKG_CONFIG$ac_delim
+ XORG_CFLAGS!$XORG_CFLAGS$ac_delim
+ XORG_LIBS!$XORG_LIBS$ac_delim
+-DRI_TRUE!$DRI_TRUE$ac_delim
+-DRI_FALSE!$DRI_FALSE$ac_delim
+ DRI_CFLAGS!$DRI_CFLAGS$ac_delim
+ DRI_LIBS!$DRI_LIBS$ac_delim
++DRI_TRUE!$DRI_TRUE$ac_delim
++DRI_FALSE!$DRI_FALSE$ac_delim
+ XMODES_TRUE!$XMODES_TRUE$ac_delim
+ XMODES_FALSE!$XMODES_FALSE$ac_delim
+ XMODES_CFLAGS!$XMODES_CFLAGS$ac_delim
