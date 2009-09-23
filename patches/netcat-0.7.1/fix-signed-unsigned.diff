@@ -1,0 +1,28 @@
+Subject: fix signed/unsigned bug.
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+The code assumed that 'char' is unsigned:
+char c;
+(c >> 7) == -1 or 0
+This is not true on all platforms. If 'char' is signed we get:
+(c >> 7) == 1 or 0
+Fix: use 'signed char c;' instead.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/flagset.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/src/flagset.c
+===================================================================
+--- a/src/flagset.c
++++ b/src/flagset.c
+@@ -134,7 +134,7 @@ unsigned short netcat_flag_next(unsigned
+ 
+ int netcat_flag_count(void)
+ {
+-  register char c;
++  register signed char c;
+   register int i;
+   int ret = 0;
+ 
