@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_XORG_APP_XDM) += xorg-app-xdm
 #
 # Paths and names
 #
-XORG_APP_XDM_VERSION	:= 1.1.8
+XORG_APP_XDM_VERSION	:= 1.1.9
 XORG_APP_XDM		:= xdm-$(XORG_APP_XDM_VERSION)
 XORG_APP_XDM_SUFFIX	:= tar.bz2
 XORG_APP_XDM_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/app/$(XORG_APP_XDM).$(XORG_APP_XDM_SUFFIX)
@@ -69,7 +69,9 @@ XORG_APP_XDM_AUTOCONF := \
 	$(XORG_OPTIONS_TRANS) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
 	--disable-dependency-tracking \
-	--with-random-device=$(XORG_APP_XDM_DEV_RANDOM)
+	--with-random-device=$(XORG_APP_XDM_DEV_RANDOM) \
+	--with-utmp-file=/var/run/utmp \
+	--with-wtmp-file=/var/log/wtmp
 
 ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
 XORG_APP_XDM_AUTOCONF += --enable-secure-rpc
