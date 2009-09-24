@@ -20,5 +20,17 @@ if GST_PLUGINS_BAD
 		bool
 		prompt "bayer filter"
 
+	config GST_PLUGINS_BAD__MPEGDEMUX
+		bool
+		prompt "mpeg demuxer"
+
+	config GST_PLUGINS_BAD__MPEG4VIDEOPARSE
+		bool
+		prompt "mpeg4 video parser"
+
+	config GST_PLUGINS_BAD__H264PARSE
+		bool
+		prompt "h264 parser"
+
 endif
 

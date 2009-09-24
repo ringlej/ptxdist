@@ -101,6 +101,26 @@ else
 GST_PLUGINS_BADD_AUTOCONF += --disable-bayer
 endif
 
+ifdef PTXCONF_GST_PLUGINS_BAD__MPEG4VIDEOPARSE
+GST_PLUGINS_BAD_AUTOCONF += --enable-mpeg4videoparse
+GST_PLUGINS_BAD_INSTALL  += /usr/lib/gstreamer-0.10/libgstmpeg4videoparse.so
+else
+GST_PLUGINS_BADD_AUTOCONF += --disable-mpeg4videoparse
+endif
+
+ifdef PTXCONF_GST_PLUGINS_BAD__H264PARSE
+GST_PLUGINS_BAD_AUTOCONF += --enable-h264parse
+GST_PLUGINS_BAD_INSTALL  += /usr/lib/gstreamer-0.10/libgsth264parse.so
+else
+GST_PLUGINS_BADD_AUTOCONF += --disable-h264parse
+endif
+
+ifdef PTXCONF_GST_PLUGINS_BAD__MPEGDEMUX
+GST_PLUGINS_BAD_AUTOCONF += --enable-mpegdemux
+GST_PLUGINS_BAD_INSTALL  += /usr/lib/gstreamer-0.10/libgstmpegdemux.so
+else
+GST_PLUGINS_BADD_AUTOCONF += --disable-mpegdemux
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
