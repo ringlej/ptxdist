@@ -1,0 +1,6 @@
+## SECTION=networking
+
+config JSVC
+	tristate
+	help
+	  Application to launch java daemons.

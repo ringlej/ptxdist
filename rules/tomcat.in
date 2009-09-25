@@ -1,0 +1,10 @@
+## SECTION=networking
+
+config TOMCAT
+	tristate
+	select JSVC
+	prompt "tomcat"
+	help
+	  Apache Tomcat is an open source software implementation of the Java
+	  Servlet and JavaServer Pages technologies.
+
