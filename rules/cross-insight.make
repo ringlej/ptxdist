@@ -46,6 +46,16 @@ CROSS_INSIGHT_AUTOCONF	:= --target=$(PTXCONF_GNU_TARGET) \
 	--prefix=$(PTXCONF_SYSROOT_CROSS)
 
 # ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/cross-insight.compile:
+	@$(call targetinfo)
+	cd $(CROSS_INSIGHT_DIR) && $(CROSS_INSIGHT_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cd $(CROSS_INSIGHT_DIR) && $(CROSS_INSIGHT_PATH) $(MAKE) $(PARALLELMFLAGS)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
