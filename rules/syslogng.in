@@ -7,26 +7,26 @@ menuconfig SYSLOGNG
 	select EVENTLOG
 	select GLIB
 	select LIBC_RT
-	select LIBNET
-	select TCPWRAPPER	if SYSLOGNG__TCP_WRAPPER
+	select LIBNET		if SYSLOGNG_SPOOF_SOURCE
+	select TCPWRAPPER	if SYSLOGNG_TCP_WRAPPER
 	help
 	  The next generation syslog daemon.
 
 if SYSLOGNG
 
-config SYSLOGNG__IPV6
+config SYSLOGNG_IPV6
 	bool
 	prompt "Support ipv6"
 	help
 	  Enable ipv6 support, otherwise ipv4 is supported only
 
-config SYSLOGNG__TCP_WRAPPER
+config SYSLOGNG_TCP_WRAPPER
 	bool
 	prompt "tcpwrapper support"
 	help
 	  Support /etc/hosts.deny and /etc/hosts.allow.
 
-config SYSLOGNG__SPOOF_SOURCE
+config SYSLOGNG_SPOOF_SOURCE
 	bool
 	prompt "spoof_source feature"
 	help

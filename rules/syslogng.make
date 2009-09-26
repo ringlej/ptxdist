@@ -45,26 +45,27 @@ SYSLOGNG_ENV 	:= $(CROSS_ENV)
 #
 SYSLOGNG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--with-libnet=$(SYSROOT)/usr/bin \
 	--enable-dynamic-linking \
 	--disable-debug \
 	--disable-sun-streams \
 	--disable-sun-door
 
-ifdef PTXCONF_SYSLOGNG__IPV6
+ifdef PTXCONF_SYSLOGNG_IPV6
 SYSLOGNG_AUTOCONF += --enable-ipv6
 else
 SYSLOGNG_AUTOCONF += --disable-ipv6
 endif
 
-ifdef PTXCONF_SYSLOGNG__TCP_WRAPPER
+ifdef PTXCONF_SYSLOGNG_TCP_WRAPPER
 SYSLOGNG_AUTOCONF += --enable-tcp-wrapper
 else
 SYSLOGNG_AUTOCONF += --disable-tcp-wrapper
 endif
 
-ifdef PTXCONF_SYSLOGNG__SPOOF_SOURCE
-SYSLOGNG_AUTOCONF += --enable-spoof-source
+ifdef PTXCONF_SYSLOGNG_SPOOF_SOURCE
+SYSLOGNG_AUTOCONF += \
+	--enable-spoof-source \
+	--with-libnet=$(SYSROOT)/usr/bin
 else
 SYSLOGNG_AUTOCONF += --disable-spoof-source
 endif
