@@ -19,4 +19,4 @@ Index: libusb-1.0.1/libusb-1.0.pc.in
 -Libs: -L${libdir} -lusb-1.0
 +Libs: -L${libdir} -lusb-1.0 -lrt -lpthread
  Cflags: -I${includedir}/libusb-1.0
- 
+

@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_LIBUSB) += libusb
 #
 # Paths and names
 #
-LIBUSB_VERSION	:= 1.0.2
+LIBUSB_VERSION	:= 1.0.3
 LIBUSB		:= libusb-$(LIBUSB_VERSION)
 LIBUSB_SUFFIX	:= tar.bz2
 LIBUSB_URL	:= $(PTXCONF_SETUP_SFMIRROR)/libusb/$(LIBUSB).$(LIBUSB_SUFFIX)
@@ -56,6 +56,8 @@ endif
 
 ifdef PTXCONF_LIBUSB_DISABLE_LOG
 LIBUSB_AUTOCONF += --disable-log
+else
+LIBUSB_AUTOCONF += --enable-log
 endif
 
 # ----------------------------------------------------------------------------
