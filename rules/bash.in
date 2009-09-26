@@ -40,11 +40,14 @@ config BASH_ALIASES
 	  The shell maintains a list of aliases that may be
 	  set  and unset with the alias and unalias builtin commands
 
-#config BASH_ARITHMETIC_FOR
-#	bool
-#	prompt "Enable arithmetic for command"
-#	depends on BASH
-#	help "This does currently (bash-2.05b) not work properly and is deactivated in bash.make!"
+config BASH_ARITHMETIC_FOR
+	bool
+	prompt "Enable arithmetic for command"
+	depends on BASH
+	help
+	  Include support for the alternate form of the for command that
+	  behaves like the C language for statement.
+	  This does not work properly in bash-2.05b!
 
 config BASH_ARRAY
 	bool
