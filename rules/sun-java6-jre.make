@@ -103,10 +103,8 @@ $(STATEDIR)/sun-java6-jre.targetinstall:
 		if [ $$fgid -eq $$gid ]; then fgid=0; fi;														\
 		ft=$$( LANG=C stat -c %F $(SUN_JAVA6_JRE_DIR)/$$i );													\
 		case "$$ft" in																		\
-		"regular file")																		\
-			$(call install_copy, sun-java6-jre, $$fuid, $$fgid, $$fperm, $(SUN_JAVA6_JRE_DIR)/$$i, $(PTXCONF_SUN_JAVA6_JRE_TARGET_PREFIX)/$$i);; 		\
-		"regular empty file")																	\
-			$(call install_copy, sun-java6-jre, $$fuid, $$fgid, $$fperm, ${PTXDIST_WORKSPACE}/projectroot/empty, $(PTXCONF_SUN_JAVA6_JRE_TARGET_PREFIX)/$$i);; \
+		"regular file"|"regular empty file")															\
+			$(call install_copy, sun-java6-jre, $$fuid, $$fgid, $$fperm, $(SUN_JAVA6_JRE_DIR)/$$i, $(PTXCONF_SUN_JAVA6_JRE_TARGET_PREFIX)/$$i);;		\
 		"directory")																		\
 			$(call install_copy, sun-java6-jre, $$fuid, $$fgid, $$fperm, $(PTXCONF_SUN_JAVA6_JRE_TARGET_PREFIX)/$$i);; 					\
 		"symbolic link")																	\
