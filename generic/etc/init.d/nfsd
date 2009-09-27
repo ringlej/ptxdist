@@ -8,15 +8,15 @@ case "$1" in
 		/bin/mount -t nfsd none /proc/fs/nfsd >/dev/null 2>&1
 
 		echo "Starting NFS mountd..."
-		/usr/sbin/mountd
+		/sbin/rpc.mountd
 
 		echo "Starting NFS nfsd..."
-		/usr/sbin/rpc.nfsd -p 2049 3
+		/sbin/rpc.nfsd -p 2049 3
 
 		echo "Starting NFS statd..."
-		/usr/sbin/rpc.statd
+		/sbin/rpc.statd
 
 		echo "Exporting NFS Filesystems..."
-		/usr/sbin/exportfs -ra >/dev/null 2>&1
+		/sbin/exportfs -ra >/dev/null 2>&1
 		;;
 esac
