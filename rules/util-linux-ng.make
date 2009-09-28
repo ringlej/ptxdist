@@ -84,8 +84,7 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--without-pam \
 	--without-slang \
 	--without-selinux \
-	--without-audit \
-	--with-fsprobe=blkid
+	--without-audit
 
 # ----------------------------------------------------------------------------
 # Target-Install
