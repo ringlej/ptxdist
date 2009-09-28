@@ -25,6 +25,13 @@ if PPP
 
 comment "build features"
 
+config PPP_SUID
+	bool
+	prompt "make pppd binary SUID"
+	help
+	  Makes the pppd binary SUID for ruMakes the pppd binary SUID
+	  for Makes the pppd binary SUID for running as a server.
+
 config PPP_IPV6
 	bool
 	prompt "enable ipv6 support"

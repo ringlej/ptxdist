@@ -158,8 +158,13 @@ $(STATEDIR)/ppp.targetinstall:
 	@$(call install_fixup, ppp,DEPENDS,)
 	@$(call install_fixup, ppp,DESCRIPTION,missing)
 
+ifdef PTXCONFIG_PPP_SUID
+	@$(call install_copy, ppp, 0, 0, 4755, \
+		$(PPP_DIR)/pppd/pppd, /usr/sbin/pppd)
+else
 	@$(call install_copy, ppp, 0, 0, 0755, \
 		$(PPP_DIR)/pppd/pppd, /usr/sbin/pppd)
+endif
 
 ifdef PTXCONF_PPP_INST_CHAT
 	@$(call install_copy, ppp, 0, 0, 0755, \
