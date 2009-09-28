@@ -1,0 +1,24 @@
+Subject: fix linking problem
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+libblkid gets the wrong linker path. This results in link errors for e2fsck.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ lib/blkid/Makefile.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/lib/blkid/Makefile.in
+===================================================================
+--- a/lib/blkid/Makefile.in
++++ b/lib/blkid/Makefile.in
+@@ -37,7 +37,7 @@ ELF_SO_VERSION = 1
+ ELF_IMAGE = libblkid
+ ELF_MYDIR = blkid
+ ELF_INSTALL_DIR = $(root_libdir)
+-ELF_OTHER_LIBS = -L../.. -luuid
++ELF_OTHER_LIBS = -L.. -luuid
+ 
+ BSDLIB_VERSION = 2.0
+ BSDLIB_IMAGE = libblkid
