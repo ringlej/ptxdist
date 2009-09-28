@@ -18,7 +18,7 @@ Index: b/lib/blkid/Makefile.in
  ELF_MYDIR = blkid
  ELF_INSTALL_DIR = $(root_libdir)
 -ELF_OTHER_LIBS = -L../.. -luuid
-+ELF_OTHER_LIBS = -L.. -luuid
++ELF_OTHER_LIBS = ../../libuuid.so
  
  BSDLIB_VERSION = 2.0
  BSDLIB_IMAGE = libblkid

@@ -1,4 +1,0 @@
-coldfire-v4e-compilefix.patch
-e2fsprogs-1.41.1-libe2fsprogs-libs.diff
-e2fsprogs-1.41.1-fix-library-links.diff -p0
-fix-libblkid-linking.diff
