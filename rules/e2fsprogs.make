@@ -56,7 +56,7 @@ E2FSPROGS_AUTOCONF := \
 	--disable-rpath \
 	--disable-testio-debug \
 	--disable-tls \
-	--disable-uuid \
+	--disable-uuidd \
 	--enable-elf-shlibs \
 	--enable-htree
 
