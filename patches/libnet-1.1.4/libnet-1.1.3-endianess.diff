@@ -1,0 +1,56 @@
+Subject: fix endianess check for cross-compiling
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+The original check tries to run a program to check the endianess.
+This fails when cross-compiling. Use autoconf stuff instead.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ autogen.sh |    8 
+ configure  | 1035 ++++++++++++++++++++++++++++++++++++++++++++++---------------
+ 2 files changed, 801 insertions(+), 242 deletions(-)
+
+Index: b/autogen.sh
+===================================================================
+--- /dev/null
++++ b/autogen.sh
+@@ -0,0 +1,8 @@
++rm -fr autom4te.cache
++libtoolize --copy --force
++aclocal -I .
++#autoheader
++automake -a -c --foreign
++autoconf
++rm -fr autom4te.cache
++
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -6,6 +6,7 @@ dnl All rights reserved.
+ dnl
+ dnl Process this file with autoconf to produce a configure script.
+ 
++AC_PREREQ(2.52)
+ AC_INIT(libnet, 1.1.4)
+ AC_MSG_RESULT(beginning autoconfiguration process for libnet-${PACKAGE_VERSION} ...)
+ AC_CANONICAL_SYSTEM
+@@ -29,7 +30,16 @@ dnl
+ dnl And some custom things
+ dnl
+ 
+-AC_LIBNET_ENDIAN_CHECK
++AC_C_BIGENDIAN([
++    AC_DEFINE(LIBNET_BIG_ENDIAN)
++    ENDIANESS="LIBNET_BIG_ENDIAN"
++    LIBNET_CONFIG_DEFINES="$LIBNET_CONFIG_DEFINES -DLIBNET_BIG_ENDIAN"
++],[
++    AC_DEFINE(LIBNET_LIL_ENDIAN)
++    ENDIANESS="LIBNET_LIL_ENDIAN"
++    LIBNET_CONFIG_DEFINES="$LIBNET_CONFIG_DEFINES -DLIBNET_LIL_ENDIAN"
++], AC_MSG_WARN(cannot detect endianess. try setting ac_cv_c_bigendian to yes or no))
++
+ AC_LBL_UNALIGNED_ACCESS
+ dnl AC_LBL_LIBRARY_NET
+ 
