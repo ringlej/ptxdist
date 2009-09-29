@@ -219,7 +219,7 @@ ptxd_init_cross_env() {
 
     IFS=":"
     export PTXDIST_CROSS_ENV_PKG_CONFIG="PKG_CONFIG_PATH='${pkg_path[*]}' PKG_CONFIG_LIBDIR='${pkg_libdir[*]}'"
-    IFS="${orig_ifs}"
+    IFS="${orig_IFS}"
 }
 
 
