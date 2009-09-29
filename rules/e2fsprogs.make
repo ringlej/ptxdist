@@ -56,7 +56,6 @@ E2FSPROGS_AUTOCONF := \
 	--disable-rpath \
 	--disable-testio-debug \
 	--disable-tls \
-	--disable-uuidd \
 	--enable-elf-shlibs \
 	--enable-htree
 
@@ -78,10 +77,16 @@ else
 E2FSPROGS_AUTOCONF += --disable-resizer
 endif
 
-ifdef PTXCONF_E2FSPROGS_FSCK
+ifdef PTXCONF_E2FSPROGS_INSTALL_E2FSCK
 E2FSPROGS_AUTOCONF += --enable-fsck
 else
 E2FSPROGS_AUTOCONF += --disable-fsck
+endif
+
+ifdef PTXCONF_E2FSPROGS_INSTALL_UUIDD
+E2FSPROGS_AUTOCONF += --enable-uuidd
+else
+E2FSPROGS_AUTOCONF += --disable-uuidd
 endif
 
 # ----------------------------------------------------------------------------
