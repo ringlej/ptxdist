@@ -1,0 +1,72 @@
+## SECTION=networking
+
+menuconfig LINKS
+	tristate
+	prompt "links"
+	select NCURSES
+	select OPENSSL if LINKS_SSL
+#	select OPENSSL_SHARED
+	select GPM if LINKS_GPM
+	select LIBPNG if LINKS_PNG
+	select LIBJPEG if LINKS_JPEG
+	select XORG_LIB_XEXT if LINKS_X
+	select DIRECTFB if LINKS_DIRECTFB
+	select SDL if LINKS_SDL
+#	select SDL_SHARED
+	select ZLIB if LINKS_ZLIB
+	select BZIP2 if LINKS_BZIP2
+	help
+	  links is a fast lightweight text and graphic web-browser
+
+if LINKS
+
+config LINKS_SSL
+	bool
+	prompt "support for SSL"
+
+config LINKS_GPM
+	bool
+	prompt "support for GPM"
+
+config LINKS_PNG
+	bool
+	prompt "support for png"
+
+config LINKS_JPEG
+	bool
+	prompt "support for jpeg"
+
+config LINKS_FBCON
+	bool
+	select LINKS_PNG
+	select LINKS_JPEG
+	select LINKS_GPM
+	prompt "support for fbcon"
+
+config LINKS_TIFF
+	bool
+	depends on BROKEN # no libtiff in ptxdist yet
+	prompt "support for tiff"
+
+config LINKS_X
+	bool
+	select LINKS_PNG
+	prompt "support for X"
+
+config LINKS_DIRECTFB
+	bool
+	select LINKS_PNG
+	prompt "support for DirectFB"
+
+config LINKS_SDL
+	bool
+	prompt "support for SDL"
+
+config LINKS_ZLIB
+	bool
+	prompt "support for zlib"
+
+config LINKS_BZIP2
+	bool
+	prompt "support for bzip2"
+endif
