@@ -7,8 +7,6 @@ DAEMON_NMB=/usr/sbin/nmbd
 NAME=samba
 DESC="Samba server"
 
-set -e
-
 case "$1" in
   start)
 	echo -n "Starting $DESC: "
