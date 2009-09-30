@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config SPARSEHASH
+	tristate
+	prompt "sparsehash"
+	help
+	  An extremely memory-efficient hash_map implementation.
