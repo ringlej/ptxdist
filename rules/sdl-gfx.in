@@ -1,0 +1,11 @@
+## SECTION=multimedia_sdl
+
+config SDL_GFX
+	tristate
+	select SDL
+	prompt "SDL gfx"
+	help
+	  SDL graphics drawing primitives and other support functions wrapped up
+	  in an addon library for the Simple Direct Media (SDL) cross-platform
+	  API layer.
+
