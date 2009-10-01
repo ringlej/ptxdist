@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_LIBMODBUS) += libmodbus
 #
 # Paths and names
 #
-LIBMODBUS_VERSION	= 1.0.1
+LIBMODBUS_VERSION	= 2.0.3
 LIBMODBUS		= libmodbus-$(LIBMODBUS_VERSION)
 LIBMODBUS_SUFFIX	= tar.gz
-LIBMODBUS_URL		= http://www.pengutronix.de/software/libmodbus/download/v1.0/$(LIBMODBUS).$(LIBMODBUS_SUFFIX)
+LIBMODBUS_URL		= http://launchpad.net/libmodbus/trunk/2.0.3/+download/$(LIBMODBUS).$(LIBMODBUS_SUFFIX)
 LIBMODBUS_SOURCE	= $(SRCDIR)/$(LIBMODBUS).$(LIBMODBUS_SUFFIX)
 LIBMODBUS_DIR		= $(BUILDDIR)/$(LIBMODBUS)
 
@@ -110,16 +110,16 @@ $(STATEDIR)/libmodbus.targetinstall: $(libmodbus_targetinstall_deps_default)
 	@$(call install_fixup, libmodbus,PRIORITY,optional)
 	@$(call install_fixup, libmodbus,VERSION,$(LIBMODBUS_VERSION))
 	@$(call install_fixup, libmodbus,SECTION,base)
-	@$(call install_fixup, libmodbus,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libmodbus,AUTHOR,"Josef Holzmayr <holzmayr\@rsi-elektrotechnik.de>")
 	@$(call install_fixup, libmodbus,DEPENDS,)
 	@$(call install_fixup, libmodbus,DESCRIPTION,missing)
 
 	@$(call install_copy, libmodbus, 0, 0, 0644, \
-		$(LIBMODBUS_DIR)/src/.libs/libmodbus.so.0.0.0, \
-		/usr/lib/libmodbus.so.0.0.0, y)
+		$(LIBMODBUS_DIR)/modbus/.libs/libmodbus.so.2.0.0, \
+		/usr/lib/libmodbus.so.2.0.0, y)
 
-	@$(call install_link, libmodbus, libmodbus.so.0.0.0, /usr/lib/libmodbus.so.0)
-	@$(call install_link, libmodbus, libmodbus.so.0.0.0, /usr/lib/libmodbus.so)
+	@$(call install_link, libmodbus, libmodbus.so.2.0.0, /usr/lib/libmodbus.so.2)
+	@$(call install_link, libmodbus, libmodbus.so.2.0.0, /usr/lib/libmodbus.so)
 
 	@$(call install_finish, libmodbus)
 
