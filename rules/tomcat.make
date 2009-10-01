@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_TOMCAT) += tomcat
 #
 # Paths and names
 #
-TOMCAT_VERSION	:= 6.0.20
-TOMCAT		:= apache-tomcat-$(TOMCAT_VERSION)
+TOMCAT_VERSION	:= 5.0.30
+TOMCAT		:= jakarta-tomcat-$(TOMCAT_VERSION)
 TOMCAT_SUFFIX	:= tar.gz
-TOMCAT_URL	:= http://apache.lauf-forum.at/tomcat/tomcat-6/v6.0.20/bin/$(TOMCAT).$(TOMCAT_SUFFIX)
+TOMCAT_URL	:= http://archive.apache.org/dist/tomcat/tomcat-5/v5.0.30/bin/$(TOMCAT).$(TOMCAT_SUFFIX)
 TOMCAT_SOURCE	:= $(SRCDIR)/$(TOMCAT).$(TOMCAT_SUFFIX)
 TOMCAT_DIR	:= $(BUILDDIR)/$(TOMCAT)
 
@@ -89,19 +89,27 @@ $(STATEDIR)/tomcat.targetinstall:
 
 	@$(call install_copy, tomcat, 0, 0, 0755, $(TOMCAT_PREFIX)/bin)
 	@$(call install_copy, tomcat, 0, 0, 0755, $(TOMCAT_PREFIX)/conf)
-	@$(call install_copy, tomcat, 0, 0, 0755, $(TOMCAT_PREFIX)/lib)
+	@$(call install_copy, tomcat, 0, 0, 0755, $(TOMCAT_PREFIX)/common/lib)
+	@$(call install_copy, tomcat, 0, 0, 0755, $(TOMCAT_PREFIX)/server/lib)
 	@$(call install_copy, tomcat, 0, 0, 0755, $(TOMCAT_PREFIX)/webapps)
+	@$(call install_link, tomcat, ../../tmp/tomcat/work, $(TOMCAT_PREFIX)/work)
+	@$(call install_link, tomcat, ../../tmp/tomcat/temp, $(TOMCAT_PREFIX)/temp)
+	@$(call install_link, tomcat, ../../tmp/tomcat/logs, $(TOMCAT_PREFIX)/logs)
 
-	@cd $(TOMCAT_DIR) && for prog in bin/*.sh; do			\
-		$(call install_copy, tomcat, 0, 0, 0755,		\
-			$(TOMCAT_DIR)/$$prog,				\
-			$(TOMCAT_PREFIX)/$$prog,n);			\
-	done
-	@cd $(TOMCAT_DIR) && for file in bin/*.jar conf/* lib/*; do	\
+	@cd $(TOMCAT_DIR) && for file in bin/*.jar common/lib/*.jar	\
+				server/lib/*.jar; do			\
 		$(call install_copy, tomcat, 0, 0, 0644,		\
 			$(TOMCAT_DIR)/$$file,				\
 			$(TOMCAT_PREFIX)/$$file,n);			\
 	done
+	@$(call install_copy, tomcat, 0, 0, 0644, \
+		$(TOMCAT_DIR)/conf/web.xml, \
+		$(TOMCAT_PREFIX)/conf/web.xml)
+	@$(call install_copy, tomcat, 0, 0, 0644, \
+		$(TOMCAT_DIR)/conf/server-minimal.xml, \
+		$(TOMCAT_PREFIX)/conf/server.xml)
+
+	@$(call install_alternative, tomcat, 0, 0, 0755, /etc/init.d/tomcat)
 
 	@$(call install_finish, tomcat)
 
