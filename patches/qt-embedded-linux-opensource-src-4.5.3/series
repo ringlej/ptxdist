@@ -1,6 +1,6 @@
 ptx-mkspec.diff
 remove-ordered.diff
-fix-configure-disable.diff
+#fix-configure-disable.diff
 qt-embedded-linux-opensource-src-4.5.0-fix-prl-paths.diff
 hide-cursor-at-startup.diff
 # SCRIPT_LIB is not marked in QT_CONFIG, checking the define with isEmpty or

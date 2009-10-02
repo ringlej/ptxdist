@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_QT4) += qt4
 #
 # Paths and names
 #
-QT4_VERSION	:= 4.5.2
+QT4_VERSION	:= 4.5.3
 QT4		:= qt-embedded-linux-opensource-src-$(QT4_VERSION)
 QT4_SUFFIX	:= tar.gz
 QT4_URL		:= http://get.qt.nokia.com/qt/source/$(QT4).$(QT4_SUFFIX)
@@ -554,7 +554,7 @@ $(STATEDIR)/qt4.install:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-QT_VERSION_L3 := 4.5.2
+QT_VERSION_L3 := 4.5.3
 QT_VERSION_L2 := 4.5
 QT_VERSION_L1 := 4
 
