@@ -86,7 +86,7 @@ $(STATEDIR)/rsync3.targetinstall:
 		/usr/bin/rsync)
 
 	@$(call install_alternative, rsync3, 0, 0, 0644, /etc/rsyncd.conf, n)
-	@$(call install_alternative, rsync3, 0, 0, 0644, /etc/rsyncd.secrets, n)
+	@$(call install_alternative, rsync3, 0, 0, 0640, /etc/rsyncd.secrets, n)
 
 	#
 	# busybox init
