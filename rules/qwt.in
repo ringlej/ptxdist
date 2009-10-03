@@ -4,5 +4,6 @@ config QWT
 	tristate
 	prompt "qwt"
 	select QT4
+	select QT4_BUILD_GUI
 	help
 	  FIXME
