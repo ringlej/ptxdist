@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_SDPARM) += sdparm
 #
 # Paths and names
 #
-SDPARM_VERSION	:= 1.03
+SDPARM_VERSION	:= 1.04
 SDPARM		:= sdparm-$(SDPARM_VERSION)
 SDPARM_SUFFIX	:= tgz
 SDPARM_URL	:= http://sg.danny.cz/sg/p/$(SDPARM).$(SDPARM_SUFFIX)
