@@ -427,6 +427,12 @@ config QT4_EXAMPLES_FETCHMORE
 	select QT4_BUILD_GUI
 	select QT4_BUILD_NETWORK
 
+config QT4_EXAMPLES_FROZENCOLUMN
+	bool
+	prompt "frozencolumn"
+	select QT4_BUILD_GUI
+	select QT4_BUILD_NETWORK
+
 config QT4_EXAMPLES_PIXELATOR
 	bool
 	prompt "pixelator"
@@ -1293,7 +1299,7 @@ config QT4_EXAMPLES_FANCYBROWSER
 
 config QT4_EXAMPLES_FORMEXTRACTOR
 	bool
-	prompt "formExtractor"
+	prompt "formextractor"
 	select QT4_BUILD_WEBKIT
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	select QT4_BUILD_XML

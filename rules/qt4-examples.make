@@ -310,6 +310,12 @@ ifdef PTXCONF_QT4_EXAMPLES_FETCHMORE
 		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/fetchmore)
 endif
 
+ifdef PTXCONF_QT4_EXAMPLES_FROZENCOLUMN
+	@$(call install_copy, qt4-examples, 0, 0, 0755, \
+		$(QT4_DIR)/examples/itemviews/frozencolumn/frozencolumn, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/frozencolumn)
+endif
+
 ifdef PTXCONF_QT4_EXAMPLES_PIXELATOR
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
 		$(QT4_DIR)/examples/itemviews/pixelator/pixelator, \
@@ -960,8 +966,8 @@ endif
 
 ifdef PTXCONF_QT4_EXAMPLES_FORMEXTRACTOR
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
-		$(QT4_DIR)/examples/webkit/formextractor/formExtractor, \
-		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/formExtractor)
+		$(QT4_DIR)/examples/webkit/formextractor/formextractor, \
+		$(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)/formextractor)
 endif
 
 ifdef PTXCONF_QT4_EXAMPLES_GOOGLECHAT
