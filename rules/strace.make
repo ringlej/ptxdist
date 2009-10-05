@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
 #           (C) 2003-2008 by Pengutronix e.K., Hildesheim, Germany
@@ -64,7 +63,7 @@ $(STATEDIR)/strace.targetinstall:
 	@$(call install_fixup, strace,PRIORITY,optional)
 	@$(call install_fixup, strace,VERSION,$(STRACE_VERSION))
 	@$(call install_fixup, strace,SECTION,base)
-	@$(call install_fixup, strace,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, strace,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, strace,DEPENDS,)
 	@$(call install_fixup, strace,DESCRIPTION,missing)
 
