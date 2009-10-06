@@ -1,9 +1,0 @@
-#!/bin/bash
-
-svn2cl \
-	--strip-prefix \
-	--reparagraph \
-	--authors=scripts/changelog-authors.xml \
-	--group-by-day \
-	-r HEAD:6493 \
-	https://iocaste.penguin.de/svn/ptxdist/branches/ptxdist-0.10.6-branch

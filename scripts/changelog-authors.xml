@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="iso8859-1"?>
-<authors>
-  <author uid="rsc"> Robert Schwebel &lt;r.schwebel@pengutronix.de&gt; </author>
-  <author uid="mkl"> Marc Kleine-Budde &lt;m.kleine-budde@pengutronix.de&gt; </author>
-  <author uid="sha"> Sascha Hauer &lt;s.hauer@pengutronix.de&gt; </author>
-  <author uid="lfu"> Luotao Fu &lt;l.fu@pengutronix.de&gt; </author>
-  <author uid="jbe"> Juergen Beisert &lt;j.beisert@pengutronix.de&gt; </author>
-  <author uid="bbu"> Bjoern Buerger &lt;b.buerger@pengutronix.de&gt; </author>
-</authors>
