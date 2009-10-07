@@ -186,35 +186,35 @@ init(){
 		# get all package labels 
 		# (PACKAGES-y contains all activated packages)
 		# (PACKAGES- contains all deactivated packages)
-		YESPACKAGES=`$PTXDIST print PACKAGES-y | grep "^PACKAGES" | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
-		MODPACKAGES=`$PTXDIST print PACKAGES-m | grep "^PACKAGES" | sed -e s/'PACKAGES-m is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
-		NOPACKAGES=`$PTXDIST print PACKAGES- | grep "^PACKAGES" | sed -e s/'PACKAGES- is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		YESPACKAGES=`$PTXDIST print PACKAGES-y`
+		MODPACKAGES=`$PTXDIST print PACKAGES-m`
+		NOPACKAGES=`$PTXDIST print PACKAGES-`
 	elif [ "$1" = "active" ]; then
 		# get only configured builtin package labels 
 		# (PACKAGES-y contains all active builtin packages)
-		YESPACKAGES=`$PTXDIST print PACKAGES-y | grep "^PACKAGES" | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		YESPACKAGES=`$PTXDIST print PACKAGES-y`
 		MODPACKAGES=""
 		NOPACKAGES=""
 	elif [ "$1" = "modules" ]; then
 		# get only configured MODULE package labels 
 		# (PACKAGES-m contains all module packages)
 		YESPACKAGES=""
-		MODPACKAGES=`$PTXDIST print PACKAGES-m | grep "^PACKAGES" | sed -e s/'PACKAGES-m is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+		MODPACKAGES=`$PTXDIST print PACKAGES-m`
 		NOPACKAGES=""
         else
                 # get all configured builtin and module package labels 
                 # (PACKAGES-y contains all activated packages)
-                YESPACKAGES=`$PTXDIST print PACKAGES-y | grep "^PACKAGES" | sed -e s/'PACKAGES-y is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
-                MODPACKAGES=`$PTXDIST print PACKAGES-m | grep "^PACKAGES" | sed -e s/'PACKAGES-m is "'//g -e s/\"//g | tr "a-z-" "A-Z_"`
+                YESPACKAGES=`$PTXDIST print PACKAGES-y`
+                MODPACKAGES=`$PTXDIST print PACKAGES-m`
                 NOPACKAGES=""
 	fi
-	PACKAGES="$YESPACKAGES $MODPACKAGES $NOPACKAGES"
+	PACKAGES="$(echo $YESPACKAGES $MODPACKAGES $NOPACKAGES | tr "[a-z-]" "[A-Z_]")"
 }
 
 create_url_list(){
 	echo "creating list of download URLS for `echo $PACKAGES | wc -w` packages (This may take a while!)"
 	for target in $PACKAGES; do
-		$PTXDIST print ${target}_URL 2>> $TMPDIR/errors | grep "\ is\ " | $SED -e s/.*is\ \"//g -e s/\"//g >> $TMPDIR/urllist
+		$PTXDIST print ${target}_URL 2>> $TMPDIR/errors | sed -e 's/  */\n/' >> $TMPDIR/urllist
 		echo -n "."
 	done
 	echo "done"
