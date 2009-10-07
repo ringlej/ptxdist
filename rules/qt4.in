@@ -576,6 +576,7 @@ menu "optional libraries          "
 config QT4_BUILD_GUI
 	bool
 	select QT4_BUILD_UIC
+	select QT4_BUILD_NETWORK
 	prompt "QtGui"
 	help
 	  The QtGui module provides the classes necessary for a graphical user interface.
