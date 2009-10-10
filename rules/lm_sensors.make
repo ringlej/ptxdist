@@ -23,6 +23,7 @@ LM_SENSORS_SUFFIX	:= tar.bz2
 LM_SENSORS_URL		:= http://dl.lm-sensors.org/lm-sensors/releases/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
 LM_SENSORS_SOURCE	:= $(SRCDIR)/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
 LM_SENSORS_DIR		:= $(BUILDDIR)/$(LM_SENSORS)
+LM_SENSORS_LICENSE	:= GPLv2+
 
 # ----------------------------------------------------------------------------
 # Get
