@@ -1,0 +1,10 @@
+## SECTION=shell_and_console
+
+config LM_SENSORS
+	tristate
+	prompt "lm_sensors"
+	help
+	  Lm-sensors is a hardware health monitoring package for Linux.
+	  It contains a library (libsensors) providing generic access to hwmon
+	  devices and a simple application dumping the readings of all
+	  available sensor chips.
