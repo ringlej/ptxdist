@@ -19,9 +19,9 @@ PACKAGES-$(PTXCONF_LM_SENSORS) += lm_sensors
 #
 LM_SENSORS_VERSION	:= 3.1.1
 LM_SENSORS		:= lm_sensors-$(LM_SENSORS_VERSION)
-LM_SENSORS_SUFFIX		:= tar.bz2
+LM_SENSORS_SUFFIX	:= tar.bz2
 LM_SENSORS_URL		:= http://dl.lm-sensors.org/lm-sensors/releases/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
-LM_SENSORS_SOURCE		:= $(SRCDIR)/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
+LM_SENSORS_SOURCE	:= $(SRCDIR)/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
 LM_SENSORS_DIR		:= $(BUILDDIR)/$(LM_SENSORS)
 
 # ----------------------------------------------------------------------------
@@ -80,17 +80,17 @@ $(STATEDIR)/lm_sensors.install:
 $(STATEDIR)/lm_sensors.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, lm_sensors)
+	@$(call install_init,  lm_sensors)
 	@$(call install_fixup, lm_sensors,PACKAGE,lm-sensors)
 	@$(call install_fixup, lm_sensors,PRIORITY,optional)
 	@$(call install_fixup, lm_sensors,VERSION,$(LM_SENSORS_VERSION))
 	@$(call install_fixup, lm_sensors,SECTION,base)
-	@$(call install_fixup, lm_sensors,AUTHOR,"Uwe Kleine-König")
+	@$(call install_fixup, lm_sensors,AUTHOR,"Uwe Kleine-König <u.kleine-koenig@pengutronix.de>")
 	@$(call install_fixup, lm_sensors,DEPENDS,)
 	@$(call install_fixup, lm_sensors,DESCRIPTION,missing)
 
 	@$(call install_copy, lm_sensors, 0, 0, 0755, $(LM_SENSORS_DIR)/prog/sensors/sensors, /usr/bin/sensors)
-	@$(call install_copy, lm_sensors, 0, 0, 0644, $(LM_SENSORS_DIR)/etc/sensors.conf.default, /etc/sensors3.conf) 
+	@$(call install_copy, lm_sensors, 0, 0, 0644, $(LM_SENSORS_DIR)/etc/sensors.conf.default, /etc/sensors3.conf)
 	@$(call install_copy, lm_sensors, 0, 0, 0755, $(LM_SENSORS_DIR)/lib/libsensors.so.4.2.0, /usr/lib/libsensors.so.4.2.0)
 	@$(call install_link, lm_sensors, libsensors.so.4.2.0, /usr/lib/libsensors.so.4)
 	@$(call install_link, lm_sensors, libsensors.so.4.2.0, /usr/lib/libsensors.so)
