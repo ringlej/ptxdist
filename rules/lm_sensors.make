@@ -49,7 +49,11 @@ $(STATEDIR)/lm_sensors.extract:
 
 LM_SENSORS_PATH	:= PATH=$(CROSS_PATH)
 LM_SENSORS_ENV 	:= $(CROSS_ENV)
-LM_SENSORS_MAKEVARS := PREFIX=/usr $(CROSS_ENV_CC)
+
+LM_SENSORS_MAKEVARS := \
+	PREFIX=/usr \
+	LIBICONV="" \
+	$(CROSS_ENV_CC)
 
 $(STATEDIR)/lm_sensors.prepare:
 	@$(call targetinfo)
