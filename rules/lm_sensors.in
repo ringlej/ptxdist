@@ -8,3 +8,27 @@ config LM_SENSORS
 	  It contains a library (libsensors) providing generic access to hwmon
 	  devices and a simple application dumping the readings of all
 	  available sensor chips.
+
+if LM_SENSORS
+
+config LM_SENSORS_FANCONTROL
+	bool
+	prompt "install fancontrol"
+
+config LM_SENSORS_SENSORS_DETECT
+	bool
+	prompt "install sensors-detect"
+
+config LM_SENSORS_ISASET
+	bool
+	prompt "install isaset"
+
+config LM_SENSORS_ISADUMP
+	bool
+	prompt "install isadump"
+
+config LM_SENSORS_PWMCONFIG
+	bool
+	prompt "install pwmconfig"
+
+endif

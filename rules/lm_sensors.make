@@ -93,12 +93,30 @@ $(STATEDIR)/lm_sensors.targetinstall:
 	@$(call install_fixup, lm_sensors,DEPENDS,)
 	@$(call install_fixup, lm_sensors,DESCRIPTION,missing)
 
-	@$(call install_copy, lm_sensors, 0, 0, 0755, $(LM_SENSORS_DIR)/prog/sensors/sensors, /usr/bin/sensors)
-	@$(call install_copy, lm_sensors, 0, 0, 0644, $(LM_SENSORS_DIR)/etc/sensors.conf.default, /etc/sensors3.conf)
-	@$(call install_copy, lm_sensors, 0, 0, 0755, $(LM_SENSORS_DIR)/lib/libsensors.so.4.2.0, /usr/lib/libsensors.so.4.2.0)
+	@$(call install_copy, lm_sensors, 0, 0, 0644, -, /usr/lib/libsensors.so.4.2.0)
 	@$(call install_link, lm_sensors, libsensors.so.4.2.0, /usr/lib/libsensors.so.4)
 	@$(call install_link, lm_sensors, libsensors.so.4.2.0, /usr/lib/libsensors.so)
 
+	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/bin/sensors)
+	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/bin/sensors-conf-convert)
+
+	@$(call install_copy, lm_sensors, 0, 0, 0644, -, /etc/sensors3.conf)
+
+ifdef PTXCONF_LM_SENSORS_FANCONTROL
+	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/fancontrol)
+endif
+ifdef PTXCONF_LM_SENSORS_SENSORS_DETECT
+	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/sensors-detect)
+endif
+ifdef PTXCONF_LM_SENSORS_ISASET
+	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/isaset)
+endif
+ifdef PTXCONF_LM_SENSORS_ISADUMP
+	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/isadump)
+endif
+ifdef PTXCONF_LM_SENSORS_PWMCONFIG
+	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/pwmconfig)
+endif
 	@$(call install_finish, lm_sensors)
 
 	@$(call touch)
