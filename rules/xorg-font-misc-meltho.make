@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_FONT_MISC_MELTHO) += xorg-font-misc-meltho
 #
 # Paths and names
 #
-XORG_FONT_MISC_MELTHO_VERSION	:= 1.0.0
+XORG_FONT_MISC_MELTHO_VERSION	:= 1.0.1
 XORG_FONT_MISC_MELTHO		:= font-misc-meltho-$(XORG_FONT_MISC_MELTHO_VERSION)
 XORG_FONT_MISC_MELTHO_SUFFIX	:= tar.bz2
-XORG_FONT_MISC_MELTHO_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/font/$(XORG_FONT_MISC_MELTHO).$(XORG_FONT_MISC_MELTHO_SUFFIX)
+XORG_FONT_MISC_MELTHO_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/font/$(XORG_FONT_MISC_MELTHO).$(XORG_FONT_MISC_MELTHO_SUFFIX)
 XORG_FONT_MISC_MELTHO_SOURCE	:= $(SRCDIR)/$(XORG_FONT_MISC_MELTHO).$(XORG_FONT_MISC_MELTHO_SUFFIX)
 XORG_FONT_MISC_MELTHO_DIR	:= $(BUILDDIR)/$(XORG_FONT_MISC_MELTHO)
 

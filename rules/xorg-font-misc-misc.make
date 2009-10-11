@@ -2,7 +2,7 @@
 # $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_XORG_FONT_MISC_MISC) += xorg-font-misc-misc
 #
 # Paths and names
 #
-XORG_FONT_MISC_MISC_VERSION	:= 1.0.0
+XORG_FONT_MISC_MISC_VERSION	:= 1.1.0
 XORG_FONT_MISC_MISC		:= font-misc-misc-$(XORG_FONT_MISC_MISC_VERSION)
 XORG_FONT_MISC_MISC_SUFFIX	:= tar.bz2
-XORG_FONT_MISC_MISC_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/X11R7.3/src/font/$(XORG_FONT_MISC_MISC).$(XORG_FONT_MISC_MISC_SUFFIX)
+XORG_FONT_MISC_MISC_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/font/$(XORG_FONT_MISC_MISC).$(XORG_FONT_MISC_MISC_SUFFIX)
 XORG_FONT_MISC_MISC_SOURCE	:= $(SRCDIR)/$(XORG_FONT_MISC_MISC).$(XORG_FONT_MISC_MISC_SUFFIX)
 XORG_FONT_MISC_MISC_DIR		:= $(BUILDDIR)/$(XORG_FONT_MISC_MISC)
 
