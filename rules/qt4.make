@@ -539,6 +539,7 @@ endif
 
 $(STATEDIR)/qt4.install:
 	@$(call targetinfo)
+	@cd $(QT4_DIR)/lib/pkgconfig && sed -i 's,prefix=/usr,prefix=$${pcfiledir}/../..,' *.pc
 	@cd $(QT4_DIR) && $(QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		$(QT4_INSTALL_TARGETS) $(QT4_MAKEVARS)
 	@cd $(QT4_DIR) && $(QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
