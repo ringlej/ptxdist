@@ -29,34 +29,13 @@ XORG_FONT_ALIAS_DIR	:= $(BUILDDIR)/$(XORG_FONT_ALIAS)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-font-alias_get: $(STATEDIR)/xorg-font-alias.get
-
-$(STATEDIR)/xorg-font-alias.get: $(xorg-font-alias_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_FONT_ALIAS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_FONT_ALIAS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-font-alias_extract: $(STATEDIR)/xorg-font-alias.extract
-
-$(STATEDIR)/xorg-font-alias.extract: $(xorg-font-alias_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_ALIAS_DIR))
-	@$(call extract, XORG_FONT_ALIAS)
-	@$(call patchin, XORG_FONT_ALIAS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-xorg-font-alias_prepare: $(STATEDIR)/xorg-font-alias.prepare
 
 XORG_FONT_ALIAS_PATH	:=  PATH=$(CROSS_PATH)
 XORG_FONT_ALIAS_ENV 	:=  $(CROSS_ENV)
@@ -66,37 +45,7 @@ XORG_FONT_ALIAS_ENV 	:=  $(CROSS_ENV)
 #
 XORG_FONT_ALIAS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--with-top-fontdir=$(XORG_FONTDIR)
-
-$(STATEDIR)/xorg-font-alias.prepare: $(xorg-font-alias_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_ALIAS_DIR)/config.cache)
-	cd $(XORG_FONT_ALIAS_DIR) && \
-		$(XORG_FONT_ALIAS_PATH) $(XORG_FONT_ALIAS_ENV) \
-		./configure $(XORG_FONT_ALIAS_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-font-alias_compile: $(STATEDIR)/xorg-font-alias.compile
-
-$(STATEDIR)/xorg-font-alias.compile: $(xorg-font-alias_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_FONT_ALIAS_DIR) && $(XORG_FONT_ALIAS_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-font-alias_install: $(STATEDIR)/xorg-font-alias.install
-
-$(STATEDIR)/xorg-font-alias.install: $(xorg-font-alias_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_ALIAS)
-	@$(call touch, $@)
+	--with-fontrootdir=$(XORG_FONTDIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -105,7 +54,7 @@ $(STATEDIR)/xorg-font-alias.install: $(xorg-font-alias_install_deps_default)
 xorg-font-alias_targetinstall: $(STATEDIR)/xorg-font-alias.targetinstall
 
 $(STATEDIR)/xorg-font-alias.targetinstall: $(xorg-font-alias_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init,  xorg-font-alias)
 	@$(call install_fixup, xorg-font-alias,PACKAGE,xorg-font-alias)
@@ -127,7 +76,7 @@ $(STATEDIR)/xorg-font-alias.targetinstall: $(xorg-font-alias_targetinstall_deps_
 
 	@$(call install_finish, xorg-font-alias)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
