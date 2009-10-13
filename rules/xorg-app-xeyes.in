@@ -7,6 +7,7 @@ config XORG_APP_XEYES
 	select XORG_LIB_XT
 	select XORG_LIB_SM
 	select XORG_LIB_ICE
+	select XORG_LIB_XRENDER
 	prompt "xorg xeyes"
 	help
 	  Nice gimmick. Two eyes are following the mouse cursor....
