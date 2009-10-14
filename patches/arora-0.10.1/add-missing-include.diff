@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: add missing include
+
+QHash is not defined otherwise.
+Already upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/network/networkaccessmanager.h |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: b/src/network/networkaccessmanager.h
+===================================================================
+--- a/src/network/networkaccessmanager.h
++++ b/src/network/networkaccessmanager.h
+@@ -65,6 +65,7 @@
+ 
+ #include <qnetworkaccessmanager.h>
+ #include <qsslconfiguration.h>
++#include <qhash.h>
+ #include "networkaccessmanagerproxy.h"
+ 
+ class SchemeAccessHandler;

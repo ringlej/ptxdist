@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_ARORA) += arora
 #
 # Paths and names
 #
-ARORA_VERSION	:= 0.8.0
+ARORA_VERSION	:= 0.10.1
 ARORA		:= arora-$(ARORA_VERSION)
 ARORA_SUFFIX	:= tar.gz
 ARORA_URL	:= http://arora.googlecode.com/files/$(ARORA).$(ARORA_SUFFIX)
@@ -36,17 +36,6 @@ $(ARORA_SOURCE):
 
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/arora.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(ARORA_DIR))
-	@$(call extract, ARORA)
-	@$(call patchin, ARORA)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -63,20 +52,11 @@ $(STATEDIR)/arora.prepare:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/arora.compile:
-	@$(call targetinfo)
-	cd $(ARORA_DIR) && $(ARORA_PATH) make
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/arora.targetinstall: $(arora_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, arora)
 	@$(call install_fixup, arora,PACKAGE,arora)
@@ -91,7 +71,7 @@ $(STATEDIR)/arora.targetinstall: $(arora_targetinstall_deps_default)
 
 	@$(call install_finish, arora)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
