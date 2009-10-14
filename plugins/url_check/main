@@ -55,7 +55,7 @@ LINKCHECKER_BIN="linkchecker"
 URL_CHECKER="$LINKCHECKER_BIN --no-warnings"
 # URL_CHECKER="wget --spider"
 
-PTXCONFIG="ptxconfig"
+PTXCONFIG="selected_ptxconfig"
 
 logdir="`dirname $0`/log"
 logfile="$logdir/url_check_log"
@@ -178,8 +178,12 @@ done
 init(){
 	# choose the right ptxdist version:
 	echo "PATH is $PATH"
-	PTXDIST=$(echo `$GREP PTXCONF_CONFIGFILE_VERSION $PTXCONFIG` \; echo "ptxdist-\$PTXCONF_CONFIGFILE_VERSION" | sh)
-	which $PTXDIST || PTXDIST=ptxdist
+	PTXDIST_VERSION=$(echo `$GREP PTXCONF_CONFIGFILE_VERSION $PTXCONFIG` \; echo "\$PTXCONF_CONFIGFILE_VERSION" | sh)
+	PTXDIST=$(dirname $0)/../../bin/ptxdist
+	if [ "$($PTXDIST --version)" != "$PTXDIST_VERSION" ]; then
+		PTXDIST=ptxdist-$PTXDIST_VERSION
+		which $PTXDIST || PTXDIST=ptxdist
+	fi
 	PTXDIST_BIN="`$WHICH $PTXDIST`"
 	ptx_debug "PTXDIST is: $PTXDIST ($PTXDIST_BIN)"
 	if [ "$1" = "all" ]; then
