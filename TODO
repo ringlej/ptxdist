@@ -233,6 +233,9 @@ TODO before 2.1.0
 TODO somewhen
 =============
 
+[ ] download strategy: oe can be configured to download from a central
+    server first and only fallback to the internet if packet is not there
+
 [ ] rsc: license management:
 
     - generate license dependency graph (based on objdump info?)
