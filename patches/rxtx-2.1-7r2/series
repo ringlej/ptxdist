@@ -1,6 +1,4 @@
 fix_enable_macros.diff -p0
-fix_enable_macros_autogen.diff -p0
 disable_checking_UTS_REALEASE.diff -p0
 fix_rxtx_path_for_ccompile.diff
-fix_rxtx_path_for_ccompile_autogen.diff
 remove-including-sys-io.h.patch
