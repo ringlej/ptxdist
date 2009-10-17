@@ -1,3 +1,2 @@
 0001-dbus-daemon-launch-helper-fix-build-with-libxml.patch
 0002-dbus-change-DBUS_MACHINE_UUID_FILE-path.patch
-0003-hand-picked-autoreconf.patch
