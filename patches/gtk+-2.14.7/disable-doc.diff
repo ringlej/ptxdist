@@ -1,0 +1,50 @@
+---
+ Makefile.am  |    2 +-
+ configure.in |   14 --------------
+ 2 files changed, 1 insertion(+), 15 deletions(-)
+
+Index: b/Makefile.am
+===================================================================
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -2,7 +2,7 @@
+ include $(top_srcdir)/Makefile.decl
+ 
+ SRC_SUBDIRS = gdk-pixbuf gdk gtk modules tests perf contrib
+-SUBDIRS = po po-properties $(SRC_SUBDIRS) docs m4macros
++SUBDIRS = po po-properties $(SRC_SUBDIRS) m4macros
+ 
+ # require automake 1.4
+ AUTOMAKE_OPTIONS = 1.7
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -1906,8 +1906,6 @@ fi
+ # Checks for gtk-doc and docbook-tools
+ ##################################################
+ 
+-GTK_DOC_CHECK([1.8])
+-
+ AC_CHECK_PROG(DB2HTML, db2html, true, false)
+ AM_CONDITIONAL(HAVE_DOCBOOK, $DB2HTML)
+ 
+@@ -2039,18 +2037,6 @@ demos/Makefile
+ demos/gtk-demo/Makefile
+ demos/gtk-demo/geninclude.pl
+ tests/Makefile
+-docs/Makefile
+-docs/reference/Makefile
+-docs/reference/gdk-pixbuf/Makefile
+-docs/reference/gdk-pixbuf/version.xml
+-docs/reference/gdk/Makefile
+-docs/reference/gdk/version.xml
+-docs/reference/gtk/Makefile
+-docs/reference/gtk/version.xml
+-docs/reference/libgail-util/Makefile
+-docs/faq/Makefile
+-docs/tools/Makefile
+-docs/tutorial/Makefile
+ gdk-pixbuf/Makefile
+ gdk-pixbuf/gdk_pixbuf.rc
+ gdk-pixbuf/gdk-pixbuf-features.h
