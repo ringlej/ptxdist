@@ -6,4 +6,3 @@ configure_ac-realpath-cacheable.diff
 configure_ac-md5-cacheable.diff
 configure_ac-sha1-cacheable.diff
 configure_ac-virtuozzo-cacheable.diff
-pure-ftpd-1.0.21-autogen.diff.bz2
