@@ -5,4 +5,3 @@
 0005-configure.in-fix-time_t-detection.patch
 0006-configure.in-fix-off_t-test.patch
 0007-configure.in-fix-dev_t-test.patch
-0008-configure-autoreconf-i-f-I-lib-replace.patch
