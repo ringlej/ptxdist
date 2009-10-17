@@ -5,20 +5,6 @@ TODO before 2.0.0
 
 [ ] http://www.osadl.org/Single-View.111+M52e8d0c2b2f.0.html
 
-[x] rsc@thebe:OSELAS.BSP-Phytec-phyCORE-trunk$ ./p compile sw-ek-lm3s3748.compile
-    /home/rsc/git/ptxdist/scripts/libptxdist.sh: line 125: unset: `PTXCONF_SW_EK_LM3S3748.COMPILE': not a valid identifier
-    ptxdist: error: 'sw-ek-lm3s3748.compile' is not selected in
-            /home/rsc/svn/oselas/bsp/phytec/phyCORE/OSELAS.BSP-Phytec-phyCORE-trunk/selected_ptxconfig
-
-    PTXdist: fatal error ... cannot start, sorry!
-
-    update: 20090614 mkl:
-
-	[frogger@hardanger:OSELAS.BSP-Pengutronix-AllYes-trunk]$ ./p compile sw-ek-lm3s3748.compile
-	ptxdist: error: 'sw-ek-lm3s3748.compile' is not a valid package name
-
-	PTXdist: fatal error ... cannot start, sorry!
-
 [.] ipkg with dependecies
 
     update: 20090614 mkl:
@@ -75,7 +61,6 @@ TODO before 2.0.0
 [ ] jbe, rsc -> mgr: provide a "bare metal" project for Stellaris/Cortex-M3,
     to show how to use ptxdist-2 for non-Linux targets.
 
-
 [ ] jbe: Shown pathes are much too long in "ptxconfig" and "platformconfig"
     while running "ptxdist menu"
 
@@ -129,8 +114,7 @@ Before Release
 
 [ ] rsc: run dependency hunter and fix all remaining dependency problems
 
-[ ] update ChangeLog
-    http://ch.tudelft.nl/~arthur/svn2cl/
+[ ] update ChangeLog from git
 
 [ ] jbe, rsc: provide demo projects for ptxdist-2.0.0, including website
     documentation, maybe even elinux.org docs.
@@ -192,14 +176,6 @@ TODO before 2.1.0
 [ ] jbe: all test scripts should check if their interaction with the filesystem
     where successfull. If a file copy to /tftpboot fails, it should *not* continue.
 
-[x] ringlej. When the architecture is arm-ixp-big this message occurs:
-    $ ptxdist kernelconfig
-    <bla>/rules/ffmpeg.make:189: Please define the config options for this CPU type!
-
-    20090625: fixed with:
-	git: 2724dc0cd74b716b1ef770d847a5509291ce4bef
-	svn: 10028
-
 [ ] rsc: fix python 3.x
 
 [ ] jbe: Would there be a solution to supress sysroot-* folders for target system
@@ -210,6 +186,9 @@ TODO before 2.1.0
     needs a special component of the UDEV. Currently it does not work.
     Duplicating symbols in both config files may work, but it will be
     "BROKEN BY DESIGN".
+
+    Update 20091017 rsc: Would it be possible to add that platform specific
+    package in the platform?
 
 [ ] rsc: configure continues, even if a test breaks. Example:
     checking lex library... sed: couldn't write 76 items to stdout: No space left on device
@@ -410,9 +389,6 @@ TODO somewhen
 		- Draw the big picture :-)
 		- Create Roadmap
 
-[ ] rsc: ChangeLog automatism:
-    http://www.simios.org/node/266?PHPSESSID=a736cf6396ad789e0148d9690761e733
-
 [ ] mol: add possibility to 'ptxdist print' more than one variable in
     one make call  bbu: maybe some kind of "ptxdist env" as in env(1) ?
 
@@ -500,6 +476,28 @@ DONE
 
     Update 20091019 rsc: The community has found that we already have this
     feature :-)
+
+[x] ringlej. When the architecture is arm-ixp-big this message occurs:
+    $ ptxdist kernelconfig
+    <bla>/rules/ffmpeg.make:189: Please define the config options for this CPU type!
+
+    20090625: fixed with:
+	git: 2724dc0cd74b716b1ef770d847a5509291ce4bef
+	svn: 10028
+
+[x] rsc@thebe:OSELAS.BSP-Phytec-phyCORE-trunk$ ./p compile sw-ek-lm3s3748.compile
+    /home/rsc/git/ptxdist/scripts/libptxdist.sh: line 125: unset: `PTXCONF_SW_EK_LM3S3748.COMPILE': not a valid identifier
+    ptxdist: error: 'sw-ek-lm3s3748.compile' is not selected in
+            /home/rsc/svn/oselas/bsp/phytec/phyCORE/OSELAS.BSP-Phytec-phyCORE-trunk/selected_ptxconfig
+
+    PTXdist: fatal error ... cannot start, sorry!
+
+    update: 20090614 mkl:
+
+	[frogger@hardanger:OSELAS.BSP-Pengutronix-AllYes-trunk]$ ./p compile sw-ek-lm3s3748.compile
+	ptxdist: error: 'sw-ek-lm3s3748.compile' is not a valid package name
+
+	PTXdist: fatal error ... cannot start, sorry!
 
 [x] some_autotool_fan: shebang-line of awk-scripts should use the $AWK
     value obtained from configure.
@@ -1593,6 +1591,4 @@ TODO.rsc
 	[ ] add configure switch for glib detection
 	[ ] if connecting dbus doesn't work, we get no output; seems
 	    like daemon() doesn't connect to syslog first
-
-[ ] http://sreadahead.googlecode.com/files/sreadahead-1.0.tar.gz
 
