@@ -66,7 +66,8 @@ XORG_SERVER_AUTOCONF = \
 	--disable-xfree86-utils \
 	--disable-xquartz \
 	--disable-standalone-xpbproxy \
-	--localstatedir=/var
+	--localstatedir=/var \
+	--with-xkb-output=/tmp
 
 # FIXME
 # - what is XORG_OPTIONS_TRANS?

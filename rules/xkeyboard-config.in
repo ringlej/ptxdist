@@ -1,0 +1,8 @@
+## SECTION=multimedia_xorg_data
+
+config XKEYBOARD_CONFIG
+	tristate
+	prompt "xkeyboard-config"
+	select HOST_INTLTOOL
+	help
+	  FIXME
