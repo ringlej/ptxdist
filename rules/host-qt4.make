@@ -159,6 +159,9 @@ $(STATEDIR)/host-qt4.compile:
 # ----------------------------------------------------------------------------
 
 HOST_QT4_INSTALL_TARGETS := \
+	sub-xml-install_subtargets \
+	sub-dbus-install_subtargets \
+	sub-network-install_subtargets \
 	sub-moc-install_subtargets \
 	sub-rcc-install_subtargets \
 	sub-uic-install_subtargets
