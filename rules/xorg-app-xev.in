@@ -1,0 +1,13 @@
+## SECTION=multimedia_xorg_app
+
+config XORG_APP_XEV
+	tristate
+	prompt "xorg xev"
+	help
+	  Xev creates a window and then asks the X server to send it events
+	  whenever anything happens to the window (such as it being moved,
+	  resized, typed in, clicked in, etc.). You can also attach it to
+	  an existing window. It is useful for seeing what causes events to
+	  occur and to display the information that they contain; it is
+	  essentially a debugging and development tool, and should not be
+	  needed in normal usage.
