@@ -23,6 +23,8 @@ HOST_AUTOTOOLS_LIBTOOL_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/libtool/$(HOST_AUTOTOOL
 HOST_AUTOTOOLS_LIBTOOL_SOURCE	:= $(SRCDIR)/$(HOST_AUTOTOOLS_LIBTOOL)a.$(HOST_AUTOTOOLS_LIBTOOL_SUFFIX)
 HOST_AUTOTOOLS_LIBTOOL_DIR	:= $(HOST_BUILDDIR)/$(HOST_AUTOTOOLS_LIBTOOL)
 
+$(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-libtool.install.post
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

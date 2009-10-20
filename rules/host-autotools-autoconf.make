@@ -23,6 +23,8 @@ HOST_AUTOTOOLS_AUTOCONF_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/autoconf/$(HOST_AUTOTO
 HOST_AUTOTOOLS_AUTOCONF_SOURCE	:= $(SRCDIR)/$(HOST_AUTOTOOLS_AUTOCONF).$(HOST_AUTOTOOLS_AUTOCONF_SUFFIX)
 HOST_AUTOTOOLS_AUTOCONF_DIR	:= $(HOST_BUILDDIR)/$(HOST_AUTOTOOLS_AUTOCONF)
 
+$(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-autoconf.install.post
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

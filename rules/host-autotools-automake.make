@@ -23,6 +23,8 @@ HOST_AUTOTOOLS_AUTOMAKE_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/automake/$(HOST_AUTOTO
 HOST_AUTOTOOLS_AUTOMAKE_SOURCE	:= $(SRCDIR)/$(HOST_AUTOTOOLS_AUTOMAKE).$(HOST_AUTOTOOLS_AUTOMAKE_SUFFIX)
 HOST_AUTOTOOLS_AUTOMAKE_DIR	:= $(HOST_BUILDDIR)/$(HOST_AUTOTOOLS_AUTOMAKE)
 
+$(STATEDIR)/autogen-tools: $(STATEDIR)/host-autotools-automake.install.post
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
