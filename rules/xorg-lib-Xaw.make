@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_XAW) += xorg-lib-xaw
 #
 # Paths and names
 #
-XORG_LIB_XAW_VERSION	:= 1.0.6
+XORG_LIB_XAW_VERSION	:= 1.0.7
 XORG_LIB_XAW		:= libXaw-$(XORG_LIB_XAW_VERSION)
 XORG_LIB_XAW_SUFFIX	:= tar.bz2
 XORG_LIB_XAW_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_XAW).$(XORG_LIB_XAW_SUFFIX)
@@ -65,7 +65,8 @@ XORG_LIB_XAW_ENV 	:=  $(CROSS_ENV)
 # autoconf
 #
 XORG_LIB_XAW_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking
+	--disable-dependency-tracking \
+	--disable-docs
 
 ifdef PTXCONF_XORG_LIB_XAW_V6
 XORG_LIB_XAW_AUTOCONF += --enable-xaw6
