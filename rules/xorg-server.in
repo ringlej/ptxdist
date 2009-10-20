@@ -4,6 +4,7 @@ menuconfig XORG_SERVER
 	tristate
 	prompt "xorg server                   "
 
+	select HOST_XORG_SERVER
 	#
 	# required dependencies, according to REQUIRED_MODULES
 	# and REQUIRED_LIBS in conrigure.ac:
