@@ -6,15 +6,15 @@ Plugin for dmc touchscreens. Based on the xf86-input-dmc xorg input driver.
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  configure.ac        |    9 +++
- plugins/Makefile.am |   10 +++
- plugins/dmc-raw.c   |  131 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 150 insertions(+)
+ plugins/Makefile.am |   10 ++++
+ plugins/dmc-raw.c   |  130 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 149 insertions(+)
 
 Index: b/plugins/dmc-raw.c
 ===================================================================
 --- /dev/null
 +++ b/plugins/dmc-raw.c
-@@ -0,0 +1,131 @@
+@@ -0,0 +1,130 @@
 +
 +#include <stdlib.h>
 +#include <stdio.h>
@@ -96,7 +96,6 @@ Index: b/plugins/dmc-raw.c
 +
 +	for (i = 0; i < nr; ++i) {
 +		if ((ret = read(ts->fd, buf, 1)) != 1) {
-+			--i;
 +			break;
 +		}
 +		if (buf[0] == 0x10) {
