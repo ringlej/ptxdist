@@ -1,19 +1,15 @@
-#
-# Submitted-By: Robert Schwebel, 2006-10-27
-# Committed-By: Robert Schwebel
-#
-# Error:
-#
-# Wireshark tries to run host-built files on the build machine.
-#
-# Description:
-#
-# http://bugs.wireshark.org/bugzilla/show_bug.cgi?id=1185
-#
-# State:
-# 
-# Filed a bugzilla entry, see above.
-#
+Subject: [patch] fix CC_FOR_BUILD problem
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Some tools for the "build" machine are by accident built for the "host"
+box. Add CC_FOR_BUILD mechanics.
+
+Description:
+http://bugs.wireshark.org/bugzilla/show_bug.cgi?id=1185
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
 
 Index: Makefile.am
 ===================================================================
