@@ -1,6 +1,10 @@
-ts_test: clear screen on exit
+Subject: ts_test: clear screen on exit
+From: Wolfram Sang <w.sang@pengutronix.de>
+
+Make sure that ts_test clears the screen on exit.
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+
 ---
 # 20081124: wsa: sent upstream as RFC.
 

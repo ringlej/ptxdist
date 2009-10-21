@@ -1,6 +1,10 @@
-tests: assume INPUT_API for tests, so /den/input/event0 is read as default
+Subject: tests: assume INPUT_API for tests, so /den/input/event0 is read as default
+From: Wolfram Sang <w.sang@pengutronix.de>
+
+Subject says it all.
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+
 ---
 # 20081124: wsa: already sent upstream. got improved & applied.
 

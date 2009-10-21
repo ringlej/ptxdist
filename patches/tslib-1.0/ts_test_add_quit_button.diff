@@ -1,6 +1,10 @@
-ts_test: add quit button
+Subject: ts_test: add quit button
+From: Wolfram Sang <w.sang@pengutronix.de>
+
+Add a quit button to ts_test.
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+
 ---
 # 20081124: wsa: already sent upstream. applied.
 
