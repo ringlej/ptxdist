@@ -1,3 +1,11 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: directfb: remove asm based memcopy for powerpc
+
+The hand made asm memcopy for powerpc is obsolete these days, so remove
+it.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  lib/direct/Makefile.in |    6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
