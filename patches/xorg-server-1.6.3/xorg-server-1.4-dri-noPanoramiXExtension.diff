@@ -1,3 +1,12 @@
+Subject: FIXME
+From: FIXME
+
+FIXME: find out what this patch is about
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+
 Index: xorg-server-1.6.3/hw/xfree86/dri/dri.c
 ===================================================================
 --- xorg-server-1.6.3.orig/hw/xfree86/dri/dri.c	2009-08-04 11:16:00.000000000 +0200
