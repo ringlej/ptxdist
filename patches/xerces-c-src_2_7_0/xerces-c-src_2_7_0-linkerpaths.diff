@@ -1,22 +1,17 @@
-#
-# Submitted-By: Robert Schwebel, 2007-03-19
-# Committed-By: Robert Schwebel
-#
-# Error:
-#
-# /../arm-v4t-linux-gnueabi/bin/ld: cannot find -lxerces-c
-# collect2: ld returned 1 exit status
-# make[2]: *** [.../build-target/xerces-c-src_2_7_0/l
-# ib/libxerces-depdom.so.27.0] Error 1
-#
-# Description:
-#
-# The makefiles are not SYSROOT aware.
-#
-# State:
-#
-# unknown
-#
+Subject: [patch] xerces-c: make makefile sysroot aware
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Without this patch, we get the following error:
+
+/../arm-v4t-linux-gnueabi/bin/ld: cannot find -lxerces-c
+collect2: ld returned 1 exit status
+make[2]: *** [.../build-target/xerces-c-src_2_7_0/lib/libxerces-depdom.so.27.0] Error 1
+
+This patch makes Makefile.incl $SYSROOT aware.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
 
 Index: xerces-c-src_2_7_0/src/xercesc/Makefile.incl
 ===================================================================
