@@ -22,3 +22,4 @@ remove_arpd.diff -p0
 0021-iproute2-Fixes-an-issue-with-cross-compilation.patch
 0022-iproute2-Support-for-the-CAN-netlink.patch
 0023-fix-handling-of-GRED-DPs-args.patch
+0024-add-include-linux-if_arp.h.patch
