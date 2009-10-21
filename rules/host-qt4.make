@@ -52,11 +52,7 @@ HOST_QT4_AUTOCONF := \
 	-no-sql-sqlite \
 	-no-sql-sqlite2 \
 	-no-qt3support \
-	-no-mmx \
-	-no-3dnow \
-	-no-sse \
-	-no-sse2 \
-	-no-optimized-qmake \
+	-optimized-qmake \
 	-no-nis \
 	-no-cups \
 	-no-iconv \
@@ -67,6 +63,7 @@ HOST_QT4_AUTOCONF := \
 	-make tools \
 	-nomake examples \
 	-nomake demos \
+	-nomake docs \
 	-no-libpng \
 	-no-libmng \
 	-no-libtiff \
@@ -82,6 +79,7 @@ HOST_QT4_AUTOCONF := \
 	-no-phonon \
 	-no-phonon-backend \
 	-no-webkit \
+	-no-script \
 	-no-scripttools \
 	-no-gfx-linuxfb \
 	-no-gfx-transformed \
@@ -89,18 +87,15 @@ HOST_QT4_AUTOCONF := \
 	-no-gfx-vnc \
 	-no-gfx-multiscreen \
 	-no-kbd-tty \
-	-no-kbd-usb \
-	-no-kbd-sl5000 \
-	-no-kbd-yopy \
-	-no-kbd-vr41xx \
+	-no-kbd-linuxinput \
+	-no-kbd-qnx \
 	-no-kbd-qvfb \
 	-no-mouse-pc \
-	-no-mouse-bus \
 	-no-mouse-linuxtp \
-	-no-mouse-yopy \
-	-no-mouse-vr41xx \
+	-no-mouse-linuxinput \
 	-no-mouse-tslib \
-	-no-mouse-qvfb
+	-no-mouse-qvfb \
+	-no-mouse-qnx
 
 # ----------------------------------------------------------------------------
 # Compile

@@ -1,0 +1,52 @@
+Subject: mkspec for ptxdist
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+Add a mkspec for ptxdist:
+- qplatformdefs.h
+    Include the generic qplatformdefs.h
+- qmake.conf.in
+    Used to generate qmake.conf with the correct toolchain.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ mkspecs/qws/linux-ptx-g++/qmake.conf.in   |   25 +++++++++++++++++++++++++
+ mkspecs/qws/linux-ptx-g++/qplatformdefs.h |    2 ++
+ 2 files changed, 27 insertions(+)
+
+Index: b/mkspecs/qws/linux-ptx-g++/qmake.conf.in
+===================================================================
+--- /dev/null
++++ b/mkspecs/qws/linux-ptx-g++/qmake.conf.in
+@@ -0,0 +1,25 @@
++#
++# qmake configuration for linux-ptx-g++
++#
++
++
++include(../../common/g++.conf)
++include(../../common/linux.conf)
++include(../../common/qws.conf)
++
++# modifications to g++.conf
++QMAKE_CC                = @COMPILER_PREFIX@gcc
++QMAKE_CXX               = @COMPILER_PREFIX@g++
++QMAKE_INCDIR            = @INCDIR@
++QMAKE_LIBDIR            = @LIBDIR@
++
++QMAKE_LINK              = @COMPILER_PREFIX@g++
++QMAKE_LINK_SHLIB        = @COMPILER_PREFIX@g++
++QMAKE_LFLAGS            = @LDFLAGS@
++
++# modifications to linux.conf
++QMAKE_AR                = @COMPILER_PREFIX@ar cqs
++QMAKE_OBJCOPY           = @COMPILER_PREFIX@objcopy
++QMAKE_STRIP             = @COMPILER_PREFIX@strip
++
++load(qt_config)
+Index: b/mkspecs/qws/linux-ptx-g++/qplatformdefs.h
+===================================================================
+--- /dev/null
++++ b/mkspecs/qws/linux-ptx-g++/qplatformdefs.h
+@@ -0,0 +1,2 @@
++
++#include "../../linux-g++/qplatformdefs.h"

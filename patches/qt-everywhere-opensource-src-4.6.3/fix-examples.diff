@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: add missing subdir
+
+"widgets" is missing from SUBDIRS and wont be commpiled.
+
+This patch addes it.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ examples/tutorials/tutorials.pro |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: b/examples/tutorials/tutorials.pro
+===================================================================
+--- a/examples/tutorials/tutorials.pro
++++ b/examples/tutorials/tutorials.pro
+@@ -1,5 +1,6 @@
+ TEMPLATE      = subdirs
+ SUBDIRS       = \
++                widgets \
+                 addressbook
+ 
+ # install

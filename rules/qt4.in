@@ -14,6 +14,7 @@ menuconfig QT4
 	select GSTREAMER	if QT4_BUILD_PHONON
 	select GST_PLUGINS_BASE	if QT4_BUILD_PHONON
 	select OPENSSL		if QT4_OPENSSL
+	select ALSA_LIB		if QT4_BUILD_MULTIMEDIA
 # libsvga is currently not in ptxdist
 #	select LIBSVGA		if QT4_GFX_SVGA_PLUGIN
 	prompt "Qt Embedded                   "
@@ -282,27 +283,11 @@ config QT4_KBD_TTY
 	help
 	  Generic console (tty) driver
 
-config QT4_KBD_USB
+config QT4_KBD_INPUT
 	bool
-	prompt "USB"
+	prompt "Linux Input"
 	help
-	  Generic usb keyboard driver
-
-config QT4_KBD_SL5000
-	bool
-	prompt "SL5000 [BROKEN]"
-	# needs asm/sharp_char.h
-	depends on BROKEN
-
-config QT4_KBD_YOPY
-	bool
-	prompt "Yopy [BROKEN]"
-	# needs linux/yopy_button.h
-	depends on BROKEN
-
-config QT4_KBD_VR41XX
-	bool
-	prompt "Vr41XX"
+	  Generic Linux Input driver
 
 config QT4_KBD_QVFB
 	bool
@@ -321,21 +306,13 @@ config QT4_MOUSE_PC
 	  Generic driver for the MouseMan, IntelliMouse, Microsoft and MouseSystems
 	  protocols.
 
-config QT4_MOUSE_BUS
+config QT4_MOUSE_INPUT
 	bool
-	prompt "Bus"
+	prompt "Linux Input"
 
 config QT4_MOUSE_LINUXTP
 	bool
 	prompt "Linux Touch Panel"
-
-config QT4_MOUSE_YOPY
-	bool
-	prompt "Yopy"
-
-config QT4_MOUSE_VR41XX
-	bool
-	prompt "NEC Vr41XX"
 
 config QT4_MOUSE_TSLIB
 	bool
@@ -538,7 +515,6 @@ config QT4_GLIB
 config QT4_OPENSSL
 	bool
 	prompt "openssl support"
-	depends on BROKEN
 	help
 	  Add Qt support for openssl.
 
@@ -684,6 +660,16 @@ config QT4_BUILD_QTXMLPATTERNS
 	prompt "QtXmlPatterns"
 	help
 	  XQuery 1.0 and XPath 2.0 support for Qt
+
+config QT4_BUILD_MULTIMEDIA
+	bool
+	select QT4_BUILD_GUI
+	select QT4_BUILD_NETWORK
+	prompt "Multimedia"
+	help
+	  The Multimedia API provides media playback and playlist support for
+	  Qt Applications. Play music and movies through a single interface
+	  with selectable output for movies to widgets or graphics view.
 
 config QT4_BUILD_PHONON
 	bool

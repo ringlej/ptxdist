@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_QT4) += qt4
 #
 # Paths and names
 #
-QT4_VERSION	:= 4.5.3
-QT4		:= qt-embedded-linux-opensource-src-$(QT4_VERSION)
+QT4_VERSION	:= 4.6.3
+QT4		:= qt-everywhere-opensource-src-$(QT4_VERSION)
 QT4_SUFFIX	:= tar.gz
 QT4_URL		:= http://get.qt.nokia.com/qt/source/$(QT4).$(QT4_SUFFIX)
 QT4_SOURCE	:= $(SRCDIR)/$(QT4).$(QT4_SUFFIX)
@@ -56,9 +56,9 @@ $(STATEDIR)/qt4.extract:
 # ----------------------------------------------------------------------------
 
 # don't use CROSS_ENV. Qt uses mkspecs for instead.
-QT4_ENV		:= $(CROSS_ENV_FLAGS) $(CROSS_ENV_PKG_CONFIG)
+QT4_ENV		:= $(CROSS_ENV_PKG_CONFIG)
 QT4_PATH	:= PATH=$(CROSS_PATH)
-QT4_INSTALL_OPT	:= INSTALL_ROOT=$(QT4_PKGDIR) -i
+QT4_INSTALL_OPT	:= INSTALL_ROOT=$(QT4_PKGDIR)
 
 ifdef PTXCONF_ARCH_ARM_V6
 QT4_ARCH = armv6
@@ -75,6 +75,7 @@ QT4_AUTOCONF := \
 	-opensource \
 	-confirm-license \
 	-release \
+	-no-rpath \
 	-no-fast \
 	-no-largefile \
 	-no-accessibility \
@@ -88,11 +89,12 @@ QT4_AUTOCONF := \
 	-no-3dnow \
 	-no-sse \
 	-no-sse2 \
+	-no-neon \
 	-no-optimized-qmake \
 	-no-nis \
 	-no-cups \
-	-no-iconv \
 	-pch \
+	-reduce-relocations \
 	-force-pkg-config \
 	-embedded $(QT4_ARCH) \
 	-qt-decoration-styled \
@@ -101,7 +103,13 @@ QT4_AUTOCONF := \
 	-no-armfpa \
 	-xplatform qws/linux-ptx-g++ \
 	-make libs \
-	-make tools
+	-nomake docs
+
+ifdef PTXCONF_ICONV
+QT4_AUTOCONF += -iconv
+else
+QT4_AUTOCONF += -no-iconv
+endif
 
 # -make libs tools examples demos docs translations
 
@@ -116,7 +124,6 @@ QT4_AUTOCONF += -make examples -make demos
 ifneq ($(strip $(PTXCONF_QT4_EXAMPLES_INSTALL_DIR)),)
 QT4_AUTOCONF += -examplesdir $(strip $(PTXCONF_QT4_EXAMPLES_INSTALL_DIR))
 endif
-QT4_INSTALL_OPT += sub-examples-install_subtargets
 else
 QT4_AUTOCONF += -nomake examples -nomake demos
 endif
@@ -205,32 +212,11 @@ else
 QT4_AUTOCONF += -no-kbd-tty
 endif
 
-# usb keyboard driver
-ifdef PTXCONF_QT4_KBD_USB
-QT4_AUTOCONF += -qt-kbd-usb
+# input keyboard driver
+ifdef PTXCONF_QT4_KBD_INPUT
+QT4_AUTOCONF += -qt-kbd-linuxinput
 else
-QT4_AUTOCONF += -no-kbd-usb
-endif
-
-# sl5000 keyboard driver
-ifdef PTXCONF_QT4_KBD_SL5000
-QT4_AUTOCONF += -qt-kbd-sl5000
-else
-QT4_AUTOCONF += -no-kbd-sl5000
-endif
-
-# yopy keyboard driver
-ifdef PTXCONF_QT4_KBD_YOPY
-QT4_AUTOCONF += -qt-kbd-yopy
-else
-QT4_AUTOCONF += -no-kbd-yopy
-endif
-
-# vr41xx keyboard driver
-ifdef PTXCONF_QT4_KBD_VR41XX
-QT4_AUTOCONF += -qt-kbd-vr41xx
-else
-QT4_AUTOCONF += -no-kbd-vr41xx
+QT4_AUTOCONF += -no-kbd-linuxinput
 endif
 
 # qvfb keyboard driver
@@ -247,11 +233,11 @@ else
 QT4_AUTOCONF += -no-mouse-pc
 endif
 
-# bus mouse driver
-ifdef PTXCONF_QT4_MOUSE_BUS
-QT4_AUTOCONF += -qt-mouse-bus
+# pc mouse driver
+ifdef PTXCONF_QT4_MOUSE_INPUT
+QT4_AUTOCONF += -qt-mouse-linuxinput
 else
-QT4_AUTOCONF += -no-mouse-bus
+QT4_AUTOCONF += -no-mouse-linuxinput
 endif
 
 # linuxtp mouse driver
@@ -259,20 +245,6 @@ ifdef PTXCONF_QT4_MOUSE_LINUXTP
 QT4_AUTOCONF += -qt-mouse-linuxtp
 else
 QT4_AUTOCONF += -no-mouse-linuxtp
-endif
-
-# yopy mouse driver
-ifdef PTXCONF_QT4_MOUSE_YOPY
-QT4_AUTOCONF += -qt-mouse-yopy
-else
-QT4_AUTOCONF += -no-mouse-yopy
-endif
-
-# vr41xx mouse driver
-ifdef PTXCONF_QT4_MOUSE_VR41XX
-QT4_AUTOCONF += -qt-mouse-vr41xx
-else
-QT4_AUTOCONF += -no-mouse-vr41xx
 endif
 
 # tslib mouse driver
@@ -407,6 +379,13 @@ QT4_INSTALL_OPT += sub-xmlpatterns-install_subtargets
 else
 QT4_AUTOCONF += -no-xmlpatterns -no-exceptions
 endif
+ifdef PTXCONF_QT4_BUILD_MULTIMEDIA
+QT4_AUTOCONF += -multimedia -audio-backend
+QT4_BUILD_TARGETS += sub-multimedia
+QT4_INSTALL_OPT += sub-multimedia-install_subtargets
+else
+QT4_AUTOCONF += -no-multimedia -no-audio-backend
+endif
 ifdef PTXCONF_QT4_BUILD_PHONON
 QT4_AUTOCONF += -phonon -phonon-backend
 QT4_BUILD_TARGETS += sub-phonon
@@ -444,9 +423,12 @@ ifdef PTXCONF_QT4_SQLITE_PLUGIN
 QT4_AUTOCONF += -plugin-sql-sqlite
 endif
 
-ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK)$(PTXCONF_QT4_BUILD_DESIGNERLIBS)$(PTXCONF_QT4_BUILD_ASSISTANTLIB),)
+ifneq ($(PTXCONF_QT4_BUILD_DESIGNERLIBS)$(PTXCONF_QT4_BUILD_ASSISTANTLIB),)
+QT4_AUTOCONF += -make tools
 QT4_BUILD_TOOLS_TARGETS = sub-tools
 QT4_INSTALL_OPT += sub-tools-install_subtargets
+else
+QT4_AUTOCONF += -nomake tools
 endif
 
 # ----------------------------------------------------------------------------
@@ -485,12 +467,18 @@ QT4_BUILD_TARGETS += sub-network
 QT4_INSTALL_OPT += sub-network-install_subtargets
 endif
 ifdef PTXCONF_QT4_BUILD_SVG
+QT4_AUTOCONF += -svg
 QT4_BUILD_TARGETS += sub-svg
 QT4_INSTALL_OPT += sub-svg-install_subtargets
+else
+QT4_AUTOCONF += -no-svg
 endif
 ifdef PTXCONF_QT4_BUILD_SCRIPT
+QT4_AUTOCONF += -script
 QT4_BUILD_TARGETS += sub-script
 QT4_INSTALL_OPT += sub-script-install_subtargets
+else
+QT4_AUTOCONF += -no-script
 endif
 ifdef PTXCONF_QT4_BUILD_QTESTLIB
 QT4_BUILD_TARGETS += sub-testlib
@@ -512,7 +500,7 @@ ifdef PTXCONF_QT4_PREPARE_EXAMPLES
 #	# FIXME: use "-k" and " || true" for now.
 #	# some examples will may fail to build because of missing libraries
 #	# these cannot be installed but all are built
-	@$(call compile, QT4, sub-examples) || true
+	@$(call compile, QT4, -k sub-examples) || true
 endif
 	@$(call touch)
 
@@ -533,8 +521,8 @@ $(STATEDIR)/qt4.install:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-QT_VERSION_L3 := 4.5.3
-QT_VERSION_L2 := 4.5
+QT_VERSION_L3 := $(QT4_VERSION)
+QT_VERSION_L2 := 4.6
 QT_VERSION_L1 := 4
 
 $(STATEDIR)/qt4.targetinstall:
@@ -676,6 +664,14 @@ ifdef PTXCONF_QT4_BUILD_QTXMLPATTERNS
 		/usr/lib/libQtXmlPatterns.so.$(QT_VERSION_L2))
 	@$(call install_link, qt4, libQtXmlPatterns.so.$(QT_VERSION_L3), \
 		/usr/lib/libQtXmlPatterns.so.$(QT_VERSION_L1))
+endif
+ifdef PTXCONF_QT4_BUILD_MULTIMEDIA
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/lib/libQtMultimedia.so.$(QT_VERSION_L3))
+	@$(call install_link, qt4, libQtMultimedia.so.$(QT_VERSION_L3), \
+		/usr/lib/libQtMultimedia.so.$(QT_VERSION_L2))
+	@$(call install_link, qt4, libQtMultimedia.so.$(QT_VERSION_L3), \
+		/usr/lib/libQtMultimedia.so.$(QT_VERSION_L1))
 endif
 ifdef PTXCONF_QT4_BUILD_PHONON
 	@$(call install_copy, qt4, 0, 0, 0644, -, \

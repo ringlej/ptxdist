@@ -1,7 +1,18 @@
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: fix bootstrap during cross compilation if host lacks zlib
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: fix zlib handling for host tools
 
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+The host-tools build system is broken. It uses the zlib switch for the
+target to determine if the system or internal zlib should be used.
+This breaks if we select system zlib for the target and there is no zlib.h
+installed on the build system.
+It is also not possible to add aditional include paths for host tools.
+
+With this patch the host-tools always use the internal zlib when
+cross-compiling.
+Fixed upstream for Qt 4.7
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
 ---
  src/tools/bootstrap/bootstrap.pri |    2 +-
  src/tools/bootstrap/bootstrap.pro |    2 +-
