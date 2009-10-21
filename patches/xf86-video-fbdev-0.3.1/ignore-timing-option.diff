@@ -1,16 +1,13 @@
-#
-# Submitted-By: Sascha Hauer, 2006-03-24
-# Committed-By: Sascha Hauer
-#
-# Error:
-#
-# Xorg tries to set the timing values in the framebuffer device.
-# Add an option to tell X to leave the timing values untouched
-#
-# State:
-# 
-# <upstream state of this problem>
-#
+Subject: [patch] xf86-video-fbdev: add option to leave timings alone
+From: Sascha Hauer <s.hauer@pengutronix.de>
+
+Xorg tries to set the timing values in the framebuffer device. Add an
+option to tell X to leave the timing values untouched.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+
+---
+
 Index: xf86-video-fbdev-0.3.1/src/fbdev.c
 ===================================================================
 --- xf86-video-fbdev-0.3.1.orig/src/fbdev.c	2006-12-29 12:39:35.000000000 +0100
