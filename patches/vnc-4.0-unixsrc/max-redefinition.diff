@@ -1,21 +1,13 @@
-# 
-# Submitted:
-#
-# Robert Schwebel, 2004-11-1
-# Benedikt Spranger, 2004-11-1
-#
-# Error: 
-#
-# stl_bvector.h:823: error: expected unqualified-id before '(' token
-#
-# Description: 
-#
-# http://gcc.gnu.org/bugzilla/show_bug.cgi?id=16605
-#
-# State:
-# 
-# should be sent to the realvnc maintainers
-#
+Subject: [patch] vnc: fix STL bug
+From: Benedikt Spranger <bugs@pengutronix.de>
+
+We get this error (http://gcc.gnu.org/bugzilla/show_bug.cgi?id=16605):
+
+stl_bvector.h:823: error: expected unqualified-id before '(' token
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
 
 diff -urN vnc-4.0-unixsrc/rfb/Rect.h vnc-4.0-unixsrc-rsc/rfb/Rect.h
 --- vnc-4.0-unixsrc/rfb/Rect.h	2003-06-30 22:50:25.000000000 +0200
