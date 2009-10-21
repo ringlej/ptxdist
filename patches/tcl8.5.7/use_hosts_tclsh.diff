@@ -1,7 +1,14 @@
+Subject: [patch] don't use cross compiled tools
+From: Juergen Beisert <juergen@kreuzholzen.de>
+
 Force the install stage to use the host's TCL shell instead
 of its own. This fails badly while cross compiling.
 
 Disadvantage: You need a proper TCL interpreter on the host
+
+FIXME: looks like we need a proper host-tcl
+
+Signed-off-by: Juergen Beisert <juergen@kreuzholzen.de>
 ---
  unix/Makefile.in |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
