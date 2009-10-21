@@ -5,6 +5,7 @@ menuconfig XORG_SERVER
 	prompt "xorg server                   "
 
 	select HOST_XORG_SERVER
+	select HOST_XORG_UTIL_MACROS
 	#
 	# required dependencies, according to REQUIRED_MODULES
 	# and REQUIRED_LIBS in conrigure.ac:
