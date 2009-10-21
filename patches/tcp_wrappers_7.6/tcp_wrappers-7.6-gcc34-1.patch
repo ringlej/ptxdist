@@ -1,21 +1,17 @@
-# 
-# Submitted-By: Robert Schwebel, 2006-01-02
-# Committed-By: Robert Schwebel
-#
-# Error: 
-#
-# scaffold.c:28: error: conflicting types for 'malloc'
-# scaffold.c:28: error: conflicting types for 'malloc'
-#
-# Description: 
-#
-# Patch taken from LFS:
-# http://www.linuxfromscratch.org/patches/downloads/tcp_wrappers/tcp_wrappers-7.6-gcc34-1.patch
-#
-# State:
-# 
-# unknown 
-#
+Subject: [patch] fix 'conflicting types' bug
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Fix this:
+
+scaffold.c:28: error: conflicting types for 'malloc'
+scaffold.c:28: error: conflicting types for 'malloc'
+
+This patch was taken from LFS:
+http://www.linuxfromscratch.org/patches/downloads/tcp_wrappers/tcp_wrappers-7.6-gcc34-1.patch
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
 
 diff -aur tcp_wrappers_7.6/scaffold.c tcp_wrappers_7.6-new/scaffold.c
 --- tcp_wrappers_7.6/scaffold.c	1997-03-21 10:27:24.000000000 -0800
