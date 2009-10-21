@@ -1,3 +1,12 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [patch] add config option for convert tools
+
+Add a configure option to enable the ???-to-usplash tools. When we cross
+build for embedded systems, we might want to disable these tools (they
+would have to be built for the "build" machine otherwhise).
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  Makefile.am      |   12 ++++++++++--
  bogl/Makefile.am |   29 ++++++++++++++++++++---------

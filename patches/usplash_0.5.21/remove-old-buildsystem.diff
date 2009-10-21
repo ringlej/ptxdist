@@ -1,3 +1,12 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [patch] remove old non-cross build system
+
+Remove the old build system which is not able to cross build the tools.
+This patch is a preparation for a next patch which adds an autotool
+based set of build scripts.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  Makefile               |   91 ----------
  bogl/Makefile          |  120 -------------

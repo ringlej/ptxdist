@@ -1,3 +1,11 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [patch] add autotool based build system
+
+In order to be able to cross build usplash, add an autotools based build
+system.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  Makefile.am             |   50 ++++++++++++++
  autogen.sh              |   22 ++++++
