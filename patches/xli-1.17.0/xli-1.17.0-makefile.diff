@@ -1,3 +1,13 @@
+Subject: xli: makefile is not sysroot and generic compiler aware
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Use $(SYSROOT) in front of paths and $(CC) for the compiler.
+Additionally, add some required libraries.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+
 Index: Makefile.std
 ===================================================================
 --- Makefile.std.orig

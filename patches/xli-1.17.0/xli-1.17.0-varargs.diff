@@ -1,3 +1,13 @@
+Subject: xli: use stdargs instead of varargs
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Use stdarg.h instead of varargs.h, which is correct for recent
+toolchains.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+
 Index: rlelib.c
 ===================================================================
 --- rlelib.c.orig
