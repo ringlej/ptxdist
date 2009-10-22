@@ -54,6 +54,7 @@ LM_SENSORS_ENV 	:= $(CROSS_ENV)
 LM_SENSORS_MAKEVARS := \
 	PREFIX=/usr \
 	LIBICONV="" \
+	MACHINE=$(PTXCONF_ARCH_STRING) \
 	$(CROSS_ENV_CC)
 
 $(STATEDIR)/lm_sensors.prepare:
@@ -109,14 +110,17 @@ endif
 ifdef PTXCONF_LM_SENSORS_SENSORS_DETECT
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/sensors-detect)
 endif
+ifdef PTXCONF_LM_SENSORS_PWMCONFIG
+	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/pwmconfig)
+endif
+
+ifdef PTXCONF_ARCH_X86
 ifdef PTXCONF_LM_SENSORS_ISASET
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/isaset)
 endif
 ifdef PTXCONF_LM_SENSORS_ISADUMP
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/isadump)
 endif
-ifdef PTXCONF_LM_SENSORS_PWMCONFIG
-	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/sbin/pwmconfig)
 endif
 	@$(call install_finish, lm_sensors)
 
