@@ -1,3 +1,10 @@
+Subject: [patch] attr: make attr DESTDIR aware
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Make DESTDIR aware and use correct libtool commands.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  include/buildmacros |    8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
