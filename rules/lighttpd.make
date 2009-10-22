@@ -91,9 +91,7 @@ LIGHTTPD_AUTOCONF += --without-attr
 endif
 
 ifdef PTXCONF_LIGHTTPD_OPENSSL
-LIGHTTPD_AUTOCONF += --with-openssl=FIXME
-# --with-openssl-includes=DIR OpenSSL includes
-# --with-openssl-libs=DIR OpenSSL libraries
+LIGHTTPD_AUTOCONF += --with-openssl
 else
 LIGHTTPD_AUTOCONF += --without-openssl
 endif
