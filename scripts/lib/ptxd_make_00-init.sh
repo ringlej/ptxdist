@@ -180,42 +180,35 @@ ptxd_init_cross_env() {
 
     #
     # PKG_CONFIG_LIBDIR contains the default pkg-config search
-    # directories. Set it to the last two components of
-    # PTXDIST_PATH_SYSROOT_PREFIX. Which is allways searched last.
+    # directories. Set it to the components of
+    # PTXDIST_PATH_SYSROOT_PREFIX.
+    #
+
+    # add <DIR>/lib/pkgconfig and <DIR>/share/pkgconfig
+    local -a pkg_libdir=( "${prefix[@]/%//lib/pkgconfig}" "${prefix[@]/%//share/pkgconfig}" )
+
     #
     # PKG_CONFIG_PATH contains additional pkg-config search
-    # directories, all remaining components of
-    # PTXDIST_PATH_SYSROOT_PREFIX are added to this. It's searched
-    # before searching the path specified in _LIBDIR
+    # directories. It's searched before searching the path specified
+    # in _LIBDIR.
     #
 
-    # add <DIR>/lib/pkgconfig
-    local -a pkg_path=( "${prefix[@]/%//lib/pkgconfig}" )
-
     #
-    # if we have additional pkg_config_path defined in our ptxconfig
-    # prefix them with sysroot and add to pkg_path, too.
+    # If we have pkg_config_path defined in our ptxconfig,
+    # prefix them with sysroot and add to pkg_path.
     #
     # FIXME: we only take care of normal sysroot for now, no support
     #        for production releases, though.
     #
+    local -a pkg_path
     local -a opt_pkg_path
     if opt_pkg_path=( $(ptxd_get_ptxconf PTXCONF_PKG_CONFIG_PATH) ); then
 	IFS=":"
 	local -a sysroot=( ${PTXDIST_PATH_SYSROOT} )
 	IFS="${orig_IFS}"
 
-	pkg_path=( "${opt_pkg_path[@]/#/${sysroot[0]}}" "${pkg_path[@]}" )
+	pkg_path=( "${opt_pkg_path[@]/#/${sysroot[0]}}" )
     fi
-
-    # last two go into pkg_libdir, the rest stays in pkg_path
-    local -i n=${#pkg_path[@]}
-    local -i n1=$(( --n ))
-    local -i n2=$(( --n ))
-    local -a pkg_libdir=( "${pkg_path[n2]}" "${pkg_path[n1]}" )
-
-    # remove last two
-    unset pkg_path[n2] pkg_path[n1]
 
     IFS=":"
     export PTXDIST_CROSS_ENV_PKG_CONFIG="PKG_CONFIG_PATH='${pkg_path[*]}' PKG_CONFIG_LIBDIR='${pkg_libdir[*]}'"
