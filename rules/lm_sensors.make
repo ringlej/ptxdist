@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Uwe Kleine-König
 #
@@ -34,17 +33,6 @@ $(LM_SENSORS_SOURCE):
 	@$(call get, LM_SENSORS)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/lm_sensors.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LM_SENSORS_DIR))
-	@$(call extract, LM_SENSORS)
-	@$(call patchin, LM_SENSORS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -62,24 +50,6 @@ $(STATEDIR)/lm_sensors.prepare:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/lm_sensors.compile:
-	@$(call targetinfo)
-	cd $(LM_SENSORS_DIR) && $(LM_SENSORS_PATH) $(MAKE) $(PARALLELMFLAGS) $(LM_SENSORS_MAKEVARS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/lm_sensors.install:
-	@$(call targetinfo)
-	@$(call install, LM_SENSORS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -91,7 +61,7 @@ $(STATEDIR)/lm_sensors.targetinstall:
 	@$(call install_fixup, lm_sensors,PRIORITY,optional)
 	@$(call install_fixup, lm_sensors,VERSION,$(LM_SENSORS_VERSION))
 	@$(call install_fixup, lm_sensors,SECTION,base)
-	@$(call install_fixup, lm_sensors,AUTHOR,"Uwe Kleine-König <u.kleine-koenig@pengutronix.de>")
+	@$(call install_fixup, lm_sensors,AUTHOR,"Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>")
 	@$(call install_fixup, lm_sensors,DEPENDS,)
 	@$(call install_fixup, lm_sensors,DESCRIPTION,missing)
 
