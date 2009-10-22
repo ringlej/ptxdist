@@ -169,7 +169,7 @@ check_uid() {
 # remove "." from the PATH
 #
 check_path() {
-	PATH="$(echo $PATH | sed -e "s/:\.$//" -e "s/^\.://" -e "s/:\.://")"
+	PATH="$(echo "${PATH}" | sed -e "s/:\.$//" -e "s/^\.://" -e "s/:\.://")"
 }
 
 
@@ -382,8 +382,8 @@ check_dirs_mkdir() {
 			echo
 			echo sudo mkdir -p "${dir}"
 			sudo mkdir -p "${dir}"
-			echo sudo chown $UID "${dir}"
-			sudo chown $UID "${dir}"
+			echo sudo chown "${UID}" "${dir}"
+			sudo chown "${UID}" "${dir}"
 		fi
 	fi
 
@@ -401,8 +401,8 @@ check_dirs_mkdir() {
 			exit 1
 		fi
 		echo
-		echo sudo chown $UID "${dir}"
-		sudo chown $UID "${dir}"
+		echo sudo chown "${UID}" "${dir}"
+		sudo chown "${UID}" "${dir}"
 		echo sudo chmod u+w "${dir}"
 		sudo chmod u+w "${dir}"
 
@@ -569,7 +569,7 @@ check_compiler() {
 
 		# both vendor strings are present. Check them
 		local vendor_is="$(source "${vendor_def}" && echo ${PTXCONF_PROJECT})"
-		if [ "$vendor_is" != "$vendor_should" ]; then
+		if [ "${vendor_is}" != "${vendor_should}" ]; then
 			echo
 			echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
 			echo "${PROMPT}error: specified: ${vendor_should}"
@@ -639,7 +639,7 @@ check_if_selected() {
 
 	local configvar="PTXCONF_$(ptxd_name_to_NAME "${1}")"	# FIXME
 	ptxd_get_ptxconf "${configvar}" > /dev/null || {
-		if [ $? -eq 2 ]; then
+		if [ ${?} -eq 2 ]; then
 			ptxd_dialog_msgbox \
 				"${PROMPT}error: '${1}' is not a valid package name"
 			return 1
@@ -677,9 +677,9 @@ check_premake_compiler()
 clone() {
 	local projectdir
 
-	if [ -d "$2" ]; then
+	if [ -d "${2}" ]; then
 		echo
-		echo "${PROMPT}error: directory $2 does already exist"
+		echo "${PROMPT}error: directory ${2} does already exist"
 		echo
 		exit 1
 	fi
@@ -689,9 +689,9 @@ clone() {
 
 	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
 
-		echo "${PROMPT}scanning $projectdir..."
+		echo "${PROMPT}scanning ${projectdir}..."
 
-		if [ -d "${projectdir}/$1" ] ; then
+		if [ -d "${projectdir}/${1}" ] ; then
 
 			mkdir -p "${2}"
 			tar -C "${projectdir}/${1}" -cf - \
@@ -706,7 +706,7 @@ clone() {
 	done
 	IFS="${ifs_old}"
 
-	echo "${PROMPT}project $1 is to be cloned, but could not be found"
+	echo "${PROMPT}project ${1} is to be cloned, but could not be found"
 	echo
 }
 
@@ -923,7 +923,7 @@ clean() {
 		"${PTXDIST_COLLECTIONCONFIG}" \
 		; do
 		local cfg="$(readlink -e "${cfg}")"
-		if [ $? -ne 0 -a -e "${cfg}.old" ]; then
+		if [ ${?} -ne 0 -a -e "${cfg}.old" ]; then
 			rm -f -- "${cfg}.old"
 		fi
 	done
@@ -938,7 +938,7 @@ clean() {
 drop() {
 	local statefile
 
-	if [ -z "$2" ]; then
+	if [ -z "${2}" ]; then
 		statefile="${1}"
 	else
 		statefile="${1}.${2}"
@@ -983,9 +983,9 @@ newpacket() {
 		action \
 		exists
 
-	action=$1
+	action="${1}"
 
-	case "$action" in
+	case "${action}" in
 	target)
 		template=template
 		class=
@@ -1088,14 +1088,14 @@ newpacket() {
 	[ -f "${PTXDIST_WORKSPACE}/rules/${packet_name}.make" ] && exists=1
 	[ -f "${PTXDIST_TOPDIR}/rules/${packet_name}.make" ] && exists=1
 
-	if [ "$action" = "host" ]  && [ -n "$exists" ]; then
+	if [ "${action}" = "host" ]  && [ -n "${exists}" ]; then
 		action=host-existing-target
 		template=template-class-existing-target
 		class=host-
 		autoconf_class=HOST_
 	fi
 
-	if [ "$action" = "cross" ] && [ -n "$exists" ]; then
+	if [ "${action}" = "cross" ] && [ -n "${exists}" ]; then
 		action=cross-existing-target
 		template=template-class-existing-target
 		class=cross-
@@ -1106,7 +1106,7 @@ newpacket() {
 	# more questions ...
 	#
 
-	case "$action" in
+	case "${action}" in
 	host-existing-target|cross-existing-target)
 		;;
 	*)
@@ -1115,7 +1115,7 @@ newpacket() {
 		;;
 	esac
 
-	case "$action" in
+	case "${action}" in
 	host|target|cross)
 		echo -n "${PROMPT}enter URL of basedir....: "
 		read url
@@ -1153,7 +1153,7 @@ newpacket() {
 			echo
 			echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n]"
 			read overwrite
-			if [ "$overwrite" != "y" ]; then
+			if [ "${overwrite}" != "y" ]; then
 				echo "${PROMPT}aborted."
 				echo
 				exit
@@ -1180,12 +1180,11 @@ newpacket() {
 	#
 	# for local src-* packages, check if we have to create a template
 	#
-
-	case "$action" in
+	case "${action}" in
 	src-*)
 		[ -d "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" ] && return
 		echo -e -n "\nlocal_src/${packet}-${version} does not exist, create? [y/n] "
-		[ "$(local r; read r; echo $r)" = "y" ] || return
+		[ "$(local r; read r; echo "${r}")" = "y" ] || return
 		mkdir -p "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}"
 		tar -C "${template_src}" -cf - --exclude .svn . | \
 			tar -C "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" -xvf -
@@ -1201,7 +1200,7 @@ projects() {
 	local ifs_old projects projectdir
 	echo
 	echo "${PROMPT}searching for projects:"
-	ifs_old="$IFS"
+	ifs_old="${IFS}"
 	IFS=:
 	projects=
 	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
@@ -1212,13 +1211,13 @@ projects() {
 			echo "${PROMPT}please check PTXCONF_SETUP_PROJECTPATH in 'ptxdist setup'"
 			exit 1
 		fi
-		projects="$projects $(cd ${projectdir} && find .  -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;)"
+		projects="${projects} $(cd ${projectdir} && find .  -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;)"
 	done
-	IFS=$ifs_old
-	projects=$(echo $projects | sort -u)
+	IFS="${ifs_old}"
+	projects=$(echo ${projects} | sort -u)
 	echo
 	echo "---------------------- Available PTXdist Projects: ----------------------------"
-	for i in $projects; do echo $i; done
+	for i in ${projects}; do echo ${i}; done
 	echo "-------------------------------------------------------------------------------"
 	echo
 }
@@ -1398,8 +1397,8 @@ do_config()
 		;;
 	esac
 
-	local retval=$?
-	if [ $retval -ne 0 ]; then
+	local retval=${?}
+	if [ ${retval} -ne 0 ]; then
 		echo
 		echo "${PROMPT}'${part} ${config}' returned with an error"
 		echo
@@ -1408,7 +1407,7 @@ do_config()
 		fi
 	fi
 
-	return $retval
+	return ${retval}
 }
 
 
@@ -1655,14 +1654,14 @@ parse_second()
 	#
 	set -- "${PTXDIST_ARGS_SECOND[@]}"
 
-	if [ $# -eq 0 ]; then
+	if [ ${#} -eq 0 ]; then
 		usage
 		exit
 	fi
 
 	local kernellink="${PTXDIST_WORKSPACE}/.kernel"
 
-	while [ $# -ne 0 ]; do
+	while [ ${#} -ne 0 ]; do
 		local cmd="${1}"
 		shift
 
@@ -1810,7 +1809,7 @@ parse_second()
 			exit
 			;;
 		clone)
-			if [ $# -ne 2 ]; then
+			if [ ${#} -ne 2 ]; then
 				usage
 				exit 1
 			fi
@@ -1855,7 +1854,7 @@ parse_second()
 			fi
 			if [ ! -d "${1}" ]; then
 				echo
-				echo "${PROMPT}error: directory '$1' does not exist!"
+				echo "${PROMPT}error: directory '${1}' does not exist!"
 				echo
 				exit 1
 			fi
@@ -1866,7 +1865,7 @@ parse_second()
 		get)
 			check_premake &&
 
-			if [ $# -eq 0 ]; then
+			if [ ${#} -eq 0 ]; then
 				ptxd_make_log get
 			else
 				check_if_selected "${1}" &&
@@ -1928,15 +1927,15 @@ parse_second()
 		test)
 			check_config || return
 
-			if [ -z "$1" ]; then
+			if [ -z "${1}" ]; then
 			#	echo "No test given. try ptxdist test help for a list of available tests"
 				echo "No test given."
 				exit 1
 			fi
-			#if [ "$1" = help ]; then
+			#if [ "${1}" = help ]; then
 			#	# FIXME
 			#	echo "available tests:"
-			#	find $PTXDIST_WORKSPACE/tests -maxdepth 1 -type f -exec basename {} \;
+			#	find ${PTXDIST_WORKSPACE}/tests -maxdepth 1 -type f -exec basename {} \;
 			#	exit
 			#fi
 
@@ -1960,7 +1959,7 @@ parse_second()
 			done
 
 			echo
-			echo "${PROMPT}error: test '$1' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
+			echo "${PROMPT}error: test '${1}' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
 			echo
 			exit 1
 			;;
@@ -2201,13 +2200,13 @@ setup_config() {
 
 	if [ -r /proc/cpuinfo ]; then
 		cpus="$(egrep '^(processor|cpu	)' /proc/cpuinfo | wc -l)"
-		if [ $cpus -eq 0 ]; then
+		if [ ${cpus} -eq 0 ]; then
 			cpus=1
 		fi
 	else
 		cpus=1
 	fi
-	local pmf_intern="-j$(( $cpus * 2 ))"
+	local pmf_intern="-j$(( ${cpus} * 2 ))"
 
 	#
 	# user may override these, via cmdline
