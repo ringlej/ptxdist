@@ -1681,14 +1681,33 @@ parse_second()
 ######## standard target, directly into make
 
 		extract|prepare|compile|install|targetinstall|tags)
+			local cmd_post
+			local pkg="${1}"
+
 			check_premake_compiler &&
-			check_if_selected "${1}" &&
+			check_if_selected "${pkg}" &&
 
 			case "${cmd}" in
-			    install|targetinstall) local cmd_post=".post" ;;
+			    install)
+				cmd_post=".post"
+				;;
+
+			    targetinstall)
+				cmd_post=".post"
+
+				case "${pkg}" in
+				    host-*|cross-*)
+					ptxd_dialog_msgbox \
+					    "error: 'host' or 'cross' packages cannot be '${cmd}'!\n" \
+					    "\n" \
+					    "       You probably want to do: 'ptxdist install ${pkg}'"
+					return 1
+					;;
+				esac
+				;;
 			esac &&
 
-			ptxd_make_log "${STATEDIR}/${1}.${cmd}${cmd_post}"
+			ptxd_make_log "${STATEDIR}/${pkg}.${cmd}${cmd_post}"
 			exit
 			;;
 
