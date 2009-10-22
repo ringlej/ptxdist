@@ -1,2 +1,2 @@
-xf86-video-dummy-0.3.2-sysroot.diff
+xf86-video-dummy-0.3.2-fix-includes.diff
 xf86-video-dummy-0.3.2-autogen.diff
