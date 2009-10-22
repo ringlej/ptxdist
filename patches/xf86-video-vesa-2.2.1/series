@@ -1,3 +1,2 @@
-xf86-video-vesa-2.2.1-missing-Xproto.diff
-xf86-video-vesa-2.2.1-sysroot.diff
+xf86-video-vesa-2.2.1-fix-includes.diff
 xf86-video-vesa-2.2.1-autoreconf.diff
