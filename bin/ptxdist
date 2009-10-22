@@ -793,10 +793,7 @@ Misc:
   version			print out ptxdist version
   test <testname>		run tests
   newpacket <type>		create a new packet Makefile in a rules dir
-				<type> can be one of:
-				target, host, host-existing-target,
-				cross, cross-existing-target, source,
-				kernel_driver, font, simple
+				use 'newpacket help' for a longer description
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
   export_src <target dir>	export all source archives needed for this
@@ -1047,9 +1044,9 @@ newpacket() {
 		class=
 		autoconf_class=
 		;;
-	*)
+	help|*)
 		echo
-		echo "usage: 'ptxdist newpacket <class>', where class is:"
+		echo "usage: 'ptxdist newpacket <type>', where type is:"
 		echo
 		echo "  host                     create package for development host"
 		echo "  target                   create package for embedded target"
