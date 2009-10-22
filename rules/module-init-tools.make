@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_MODULE_INIT_TOOLS) += module-init-tools
 #
 # Paths and names
 #
-MODULE_INIT_TOOLS_VERSION	:= 3.9
+MODULE_INIT_TOOLS_VERSION	:= 3.11
 MODULE_INIT_TOOLS		:= module-init-tools-$(MODULE_INIT_TOOLS_VERSION)
 MODULE_INIT_TOOLS_SUFFIX	:= tar.bz2
 MODULE_INIT_TOOLS_URL		:= http://www.kernel.org/pub/linux/utils/kernel/module-init-tools/$(MODULE_INIT_TOOLS).$(MODULE_INIT_TOOLS_SUFFIX)
