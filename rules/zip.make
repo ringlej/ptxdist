@@ -17,12 +17,11 @@ PACKAGES-$(PTXCONF_ZIP) += zip
 # Paths and names
 # (zip is packaged a bit unusual way, that's why two version variables exist)
 #
-ZIP_VERSION	:= 2.32
-ZIP_AVERSION	:= 232
-ZIP_ARCHIVE	:= zip$(ZIP_AVERSION).tgz
-ZIP		:= zip-$(ZIP_VERSION)
-# Hint: new versions may be found here: http://surfnet.dl.sourceforge.net/sourceforge/infozip/zip30.zip
-ZIP_URL		:= http://www.mirrorservice.org/sites/ftp.info-zip.org/pub/infozip/src/$(ZIP_ARCHIVE)
+ZIP_VERSION	:= 3.0
+ZIP_AVERSION	:= 30
+ZIP_ARCHIVE	:= zip$(ZIP_AVERSION).tar.gz
+ZIP		:= zip$(ZIP_AVERSION)
+ZIP_URL		:= http://surfnet.dl.sourceforge.net/sourceforge/infozip/$(ZIP_ARCHIVE)
 ZIP_SOURCE	:= $(SRCDIR)/$(ZIP_ARCHIVE)
 ZIP_DIR		:= $(BUILDDIR)/$(ZIP)
 

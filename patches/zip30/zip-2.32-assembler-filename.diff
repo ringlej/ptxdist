@@ -11,11 +11,11 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  unix/Makefile |    6 ++----
  1 file changed, 2 insertions(+), 4 deletions(-)
 
-Index: zip-2.32/unix/Makefile
+Index: zip30/unix/Makefile
 ===================================================================
---- zip-2.32.orig/unix/Makefile
-+++ zip-2.32/unix/Makefile
-@@ -89,14 +89,12 @@ zipup.o: unix/zipup.h
+--- zip30.orig/unix/Makefile
++++ zip30/unix/Makefile
+@@ -103,14 +103,12 @@ zipup.o: unix/zipup.h
  
  match.o: match.S
  	$(CPP) match.S > _match.s
