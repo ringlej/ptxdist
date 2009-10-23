@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6576 2006-12-24 13:06:25Z mkl $
 #
 # Copyright (C) @YEAR@ by @AUTHOR@
 #
@@ -23,6 +22,7 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 @PACKET@_URL		:= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
 @PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
 @PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
+@PACKET@_LICENSE	:= unknown
 
 ifdef PTXCONF_@PACKET@
 $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/@packet@.targetinstall
@@ -32,24 +32,9 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(@PACKET@_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, @PACKET@)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/@packet@.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_DIR))
-	@$(call extract, @PACKET@)
-	@$(call patchin, @PACKET@)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -65,38 +50,12 @@ $(STATEDIR)/@packet@.extract:
 	$(CROSS_AUTOCONF_USR) \
 	--with-fontdir=$(XORG_FONTDIR)/truetype
 
-
-$(STATEDIR)/@packet@.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(@PACKET@_DIR)/config.cache)
-	cd $(@PACKET@_DIR) && \
-		$(@PACKET@_PATH) $(@PACKET@_ENV) \
-		./configure $(@PACKET@_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/@packet@.compile:
-	@$(call targetinfo, $@)
-	cd $(@PACKET@_DIR) && $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/@packet@.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
 
@@ -107,7 +66,7 @@ $(STATEDIR)/@packet@.targetinstall:
 		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
 	done
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

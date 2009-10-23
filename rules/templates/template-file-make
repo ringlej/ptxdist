@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) @YEAR@ by @AUTHOR@
 #
@@ -19,39 +18,39 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.extract:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/@packet@.install:
+	@$(call targetinfo)
 
 # FIXME: rsc: this needs a proper SYSROOT description!
 #
@@ -69,14 +68,14 @@ $(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
 #	Example for a target library file:
 #		@cp frasel.so $(PTXCONF_GNU_TARGET)/lib
 #
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 #
 # TODO: To build your own packet, if this step requires one
 #	@$(call install_init, @packet@)
@@ -95,7 +94,7 @@ $(STATEDIR)/@packet@.targetinstall:
 #
 #	@$(call install_finish,@packet@)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

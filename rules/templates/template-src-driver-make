@@ -1,7 +1,6 @@
 # -*-makefile-*-
-# $Id$
 #
-# Copyright (C) 2009 by rsc
+# Copyright (C) 2009 by @YEAR@ @AUTHOR@
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -21,6 +20,7 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 @PACKET@		:= @packet@-$(@PACKET@_VERSION)
 @PACKET@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
 @PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
+@PACKET@_LICENSE	:= unknown
 
 ifdef PTXCONF_@PACKET@
 $(STATEDIR)/kernel.targetinstall.post: $(STATEDIR)/@packet@.targetinstall
@@ -31,11 +31,11 @@ endif
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(@PACKET@_DIR))
-	#@$(call patchin, @PACKET@, $(@PACKET@_SRCDIR))
+	@$(call patchin, @PACKET@, $(@PACKET@_SRCDIR))
 	mkdir -p $(@PACKET@_DIR)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -45,44 +45,44 @@ $(STATEDIR)/@packet@.extract:
 @PACKET@_ENV 	:= $(CROSS_ENV)
 
 $(STATEDIR)/@packet@.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.compile:
-	@$(call targetinfo, $@)
-	# The kernel cannot build an out-of-tree driver out-of-tree :-)
-	# So we make a local copy.
+	@$(call targetinfo)
+#	# The kernel cannot build an out-of-tree driver out-of-tree :-)
+#	# So we make a local copy.
 	rm -fr $(@PACKET@_DIR)
 	cp -a $(@PACKET@_SRCDIR) $(@PACKET@_DIR)
 	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) \
 		-C $(KERNEL_DIR) \
 		M=$(@PACKET@_DIR) \
 		modules
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.install: $(@packet@_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/@packet@.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) \
 		-C $(KERNEL_DIR) \
 		M=$(@PACKET@_DIR) \
 		modules_install
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

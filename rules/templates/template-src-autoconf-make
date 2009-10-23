@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) @YEAR@ by @AUTHOR@
 #
@@ -21,6 +20,7 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 @PACKET@		:= @packet@-$(@PACKET@_VERSION)
 @PACKET@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
 @PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
+@PACKET@_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,7 +31,7 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(@PACKET@_DIR))
 ifdef PTXCONF_@PACKET@_TRUNK
 	cd $(@PACKET@_SRCDIR) && sh autogen.sh
@@ -53,38 +53,38 @@ endif
 @PACKET@_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/@packet@.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(@PACKET@_DIR)/config.cache)
-	cd $(@PACKET@_DIR) && \
-		$(@PACKET@_PATH) $(@PACKET@_ENV) \
-		$(@PACKET@_SRCDIR)/configure $(@PACKET@_AUTOCONF)
-	@$(call touch)
+#$(STATEDIR)/@packet@.prepare:
+#	@$(call targetinfo)
+#	@$(call clean, $(@PACKET@_DIR)/config.cache)
+#	cd $(@PACKET@_DIR) && \
+#		$(@PACKET@_PATH) $(@PACKET@_ENV) \
+#		$(@PACKET@_SRCDIR)/configure $(@PACKET@_AUTOCONF)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.compile:
-	@$(call targetinfo)
-	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
+#$(STATEDIR)/@packet@.compile:
+#	@$(call targetinfo)
+#	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.install:
-	@$(call targetinfo, $@)
-	@$(call install, @PACKET@)
-	@$(call touch)
+#$(STATEDIR)/@packet@.install:
+#	@$(call targetinfo)
+#	@$(call install, @PACKET@)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init,  @packet@)
 	@$(call install_fixup, @packet@, PACKAGE, @packet@)
@@ -95,9 +95,9 @@ $(STATEDIR)/@packet@.targetinstall:
 	@$(call install_fixup, @packet@, DEPENDS,)
 	@$(call install_fixup, @packet@, DESCRIPTION, missing)
 
-	#
-	# example code:; copy all libraries, links and binaries
-	#
+#	#
+#	# example code:; copy all libraries, links and binaries
+#	#
 
 	@for i in $(shell cd $(PKGDIR)/$(@PACKET@) && find bin sbin usr/bin usr/sbin -type f); do \
 		$(call install_copy, @packet@, 0, 0, 0755, -, /$$i); \
@@ -114,13 +114,13 @@ $(STATEDIR)/@packet@.targetinstall:
 		done; \
 	fi
 
-	#
-	# FIXME: add all necessary things here
-	#
+#	#
+#	# FIXME: add all necessary things here
+#	#
 
 	@$(call install_finish, @packet@)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

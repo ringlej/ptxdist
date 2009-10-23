@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) @YEAR@ by @AUTHOR@
 #
@@ -50,31 +49,31 @@ $(STATEDIR)/@class@@packet@.extract:
 #
 @CLASS@@PACKET@_AUTOCONF	:= $(@AUTOCONF_CLASS@AUTOCONF)
 
-$(STATEDIR)/@class@@packet@.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
-	cd $(@CLASS@@PACKET@_DIR) && \
-		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
-		./configure $(@CLASS@@PACKET@_AUTOCONF)
-	@$(call touch)
+#$(STATEDIR)/@class@@packet@.prepare:
+#	@$(call targetinfo)
+#	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
+#	cd $(@CLASS@@PACKET@_DIR) && \
+#		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
+#		./configure $(@CLASS@@PACKET@_AUTOCONF)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@class@@packet@.compile:
-	@$(call targetinfo)
-	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
+#$(STATEDIR)/@class@@packet@.compile:
+#	@$(call targetinfo)
+#	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@class@@packet@.install:
-	@$(call targetinfo)
-	@$(call install, @CLASS@@PACKET@,,h)
-	@$(call touch)
+#$(STATEDIR)/@class@@packet@.install:
+#	@$(call targetinfo)
+#	@$(call install, @CLASS@@PACKET@)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

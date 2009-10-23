@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) @YEAR@ by @AUTHOR@
 #
@@ -21,6 +20,15 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 @PACKET@		:= @packet@-$(@PACKET@_VERSION)
 @PACKET@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
 @PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
+@PACKET@_LICENSE	:= unknown
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(@PACKET@_SOURCE):
+	@$(call targetinfo)
+	@$(call get, @PACKET@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -36,20 +44,11 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 	$(CROSS_CMAKE_USR)
 
 # ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/@packet@.install:
-	@$(call targetinfo, $@)
-	@$(call install, @PACKET@)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init,  @packet@)
 	@$(call install_fixup, @packet@, PACKAGE, @packet@)
@@ -60,21 +59,21 @@ $(STATEDIR)/@packet@.targetinstall:
 	@$(call install_fixup, @packet@, DEPENDS,)
 	@$(call install_fixup, @packet@, DESCRIPTION, missing)
 
-	#
-	# example code:; copy all binaries
-	#
+#	#
+#	# example code:; copy all binaries
+#	#
 
 	@for i in $(shell cd $(PKGDIR)/$(@PACKET@) && find bin sbin usr/bin usr/sbin -type f); do \
 		$(call install_copy, @packet@, 0, 0, 0755, -, /$$i); \
 	done
 
-	#
-	# FIXME: add all necessary things here
-	#
+#	#
+#	# FIXME: add all necessary things here
+#	#
 
 	@$(call install_finish, @packet@)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

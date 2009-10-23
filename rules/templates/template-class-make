@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) @YEAR@ by @AUTHOR@
 #
@@ -28,62 +27,47 @@
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@class@@packet@.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(@CLASS@@PACKET@_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, @CLASS@@PACKET@)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/@class@@packet@.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(@CLASS@@PACKET@_DIR))
-	@$(call extract, @CLASS@@PACKET@, $(@CLASS@BUILDDIR))
-	@$(call patchin, @CLASS@@PACKET@, $(@CLASS@@PACKET@_DIR))
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-@CLASS@@PACKET@_PATH	:= PATH=$(@CLASS@PATH)
-@CLASS@@PACKET@_ENV 	:= $(@CLASS@ENV)
+@CLASS@@PACKET@_PATH	:= PATH=$(@AUTOCONF_CLASS@PATH)
+@CLASS@@PACKET@_ENV 	:= $(@AUTOCONF_CLASS@ENV)
 
 #
 # autoconf
 #
 @CLASS@@PACKET@_AUTOCONF	:= $(@AUTOCONF_CLASS@AUTOCONF)
 
-$(STATEDIR)/@class@@packet@.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
-	cd $(@CLASS@@PACKET@_DIR) && \
-		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
-		./configure $(@CLASS@@PACKET@_AUTOCONF)
-	@$(call touch, $@)
+#$(STATEDIR)/@class@@packet@.prepare:
+#	@$(call targetinfo)
+#	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
+#	cd $(@CLASS@@PACKET@_DIR) && \
+#		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
+#		./configure $(@CLASS@@PACKET@_AUTOCONF)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@class@@packet@.compile:
-	@$(call targetinfo, $@)
-	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+#$(STATEDIR)/@class@@packet@.compile:
+#	@$(call targetinfo)
+#	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@class@@packet@.install:
-	@$(call targetinfo, $@)
-	@$(call install, @CLASS@@PACKET@,,h)
-	@$(call touch, $@)
+#$(STATEDIR)/@class@@packet@.install:
+#	@$(call targetinfo)
+#	@$(call install, @CLASS@@PACKET@)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) @YEAR@ @AUTHOR@
 #
@@ -30,8 +29,9 @@ endif
 #
 @PACKET@_VERSION	:= trunk
 @PACKET@		:= @packet@-$(@PACKET@_VERSION)
-@PACKET@_SRCDIR	:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
+@PACKET@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
 @PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
+@PACKET@_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
 # Get
@@ -42,7 +42,7 @@ endif
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(@PACKET@_DIR))
 ifdef PTXCONF_@PACKET@_TRUNK
 	cd $(@PACKET@_SRCDIR) && sh autogen.sh
@@ -78,18 +78,18 @@ $(STATEDIR)/@packet@.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.compile:
-	@$(call targetinfo)
-	cd $(@PACKET@_DIR) && \
-		$(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
+#$(STATEDIR)/@packet@.compile:
+#	@$(call targetinfo)
+#	cd $(@PACKET@_DIR) && \
+#		$(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -97,7 +97,7 @@ $(STATEDIR)/@packet@.install:
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init,  @packet@)
 	@$(call install_fixup, @packet@, PACKAGE, @packet@)
@@ -114,7 +114,7 @@ $(STATEDIR)/@packet@.targetinstall:
 
 	@$(call install_finish, @packet@)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
