@@ -23,6 +23,7 @@ QT4_SUFFIX	:= tar.gz
 QT4_URL		:= http://get.qt.nokia.com/qt/source/$(QT4).$(QT4_SUFFIX)
 QT4_SOURCE	:= $(SRCDIR)/$(QT4).$(QT4_SUFFIX)
 QT4_DIR		:= $(BUILDDIR)/$(QT4)
+QT4_PKGDIR	:= $(PKGDIR)/$(QT4)
 QT4_LICENSE	:= GPL3, LGPLv2.1
 
 # ----------------------------------------------------------------------------
@@ -57,7 +58,7 @@ $(STATEDIR)/qt4.extract:
 # don't use CROSS_ENV. Qt uses mkspecs for instead.
 QT4_ENV		:= $(CROSS_ENV_FLAGS) $(CROSS_ENV_PKG_CONFIG)
 QT4_PATH	:= PATH=$(CROSS_PATH)
-QT4_MAKEVARS	:= INSTALL_ROOT=$(PKGDIR)/$(QT4)
+QT4_MAKEVARS	:= INSTALL_ROOT=$(QT4_PKGDIR)
 
 # With the introduction of platformconfigs PTXCONF_ARCH was
 # renamed to PTXCONF_ARCH_STRING.
@@ -542,13 +543,26 @@ $(STATEDIR)/qt4.install:
 	@cd $(QT4_DIR)/lib/pkgconfig && sed -i 's,prefix=/usr,prefix=$${pcfiledir}/../..,' *.pc
 	@cd $(QT4_DIR) && $(QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		$(QT4_INSTALL_TARGETS) $(QT4_MAKEVARS)
-	@cd $(QT4_DIR) && $(QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
-		$(QT4_INSTALL_TARGETS) INSTALL_ROOT=$(SYSROOT)
+
+###
+### from ptxd_make_world_install_target:
+###
+
+	find "$(QT4_PKGDIR)" -name "*.la" -print0 | xargs -r -0 -- \
+		sed -i \
+		-e "/^dependency_libs/s:\( \)\(/lib\|/usr/lib\):\1$(SYSROOT)\2:g" \
+		-e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1$(SYSROOT)\2:g" && \
+	check_pipe_status && \
+	find "$(QT4_PKGDIR)" -name "*.pc" -print0 | \
+		xargs -r -0 gawk -f "$(PTXDIST_LIB_DIR)/ptxd_make_world_install_mangle_pc.awk" && \
+	check_pipe_status && \
+	cp -dprf -- "$(QT4_PKGDIR)"/* "$(SYSROOT)"
 
 #	# put a link for qmake where other packages can find it
 	@ln -sf $(QT4_DIR)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake
 #	# qmake needs this to build other packages
 	@echo -e "[Paths]\nPrefix=/usr\nHeaders=$(SYSROOT)/usr/include\nBinaries=$(PTXDIST_SYSROOT_HOST)/bin\nLibraries=$(SYSROOT)/usr/lib" > $(QT4_DIR)/bin/qt.conf
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
