@@ -52,7 +52,9 @@ LIBFTDI_AUTOCONF := \
 	--disable-python-binding
 
 ifdef PTXCONF_LIBFTDI_CPP_WRAPPER
-LIBFTDI_AUTOCONF += --enable-libftdipp
+LIBFTDI_AUTOCONF += \
+	--enable-libftdipp \
+	 --with-boost=$(SYSROOT)/usr
 else
 LIBFTDI_AUTOCONF += \
 	--disable-libftdipp \
