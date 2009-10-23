@@ -105,7 +105,7 @@ ptxd_make_world_init_compat() {
     # pkg_env
     case "${pkg_type}" in
 	target)     pkg_env="${PTXDIST_CROSS_ENV_PKG_CONFIG}" ;;
-	host|cross) pkg_env="PKG_CONFIG_LIBDIR='${PTXDIST_SYSROOT_HOST}/lib/pkgconfig'" ;;
+	host|cross) pkg_env="PKG_CONFIG_LIBDIR='${PTXDIST_SYSROOT_HOST}/lib/pkgconfig:${PTXDIST_SYSROOT_HOST}/share/pkgconfig'" ;;
     esac
 }
 export -f ptxd_make_world_init_compat
