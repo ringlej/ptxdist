@@ -1,0 +1,6 @@
+## SECTION=hosttools_noprompt
+
+config HOST_AUTOTOOLS_AUTOMAKE
+	bool
+	default y
+	select HOST_AUTOTOOLS_AUTOCONF
