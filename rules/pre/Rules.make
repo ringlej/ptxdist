@@ -175,7 +175,7 @@ CROSS_ENV_PROGS := \
 
 #
 # prepare to use pkg-config with wrapper which takes care of
-# $(PTXDIST_SYSROOT_TARGET).  The wrapper's magic doesn't work when
+# $(PTXDIST_SYSROOT_TARGET). The wrapper's magic doesn't work when
 # pkg-config strips out /usr/lib and other system libs/cflags, so we
 # leave them in; the wrapper replaces them by proper
 # $(PTXDIST_SYSROOT_TARGET) correspondees.
@@ -264,7 +264,7 @@ CROSS_AUTOCONF_USR  := $(CROSS_AUTOCONF_SYSROOT_USR)  $(CROSS_AUTOCONF_ARCH)
 CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) $(CROSS_AUTOCONF_ARCH)
 
 CROSS_CMAKE_USR	 := -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
-CROSS_CMAKE_ROOT := -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+CROSS_CMAKE_ROOT := -DCMAKE_INSTALL_PREFIX=/    -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
 
 # ----------------------------------------------------------------------------
 # HOST stuff
