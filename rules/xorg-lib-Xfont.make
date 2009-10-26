@@ -78,12 +78,6 @@ else
 XORG_LIB_XFONT_AUTOCONF	+= --disable-freetype
 endif
 
-ifdef PTXCONF_XORG_LIB_XFONT_FONTCACHE
-XORG_LIB_XFONT_AUTOCONF	+= --enable-fontcache
-else
-XORG_LIB_XFONT_AUTOCONF	+= --disable-fontcache
-endif
-
 ifdef PTXCONF_XORG_LIB_XFONT_FONTSERVER
 XORG_LIB_XFONT_AUTOCONF	+= --enable-fc
 else

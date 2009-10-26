@@ -13,7 +13,6 @@ menuconfig XORG_LIB_XFONT
 	select XORG_LIB_XTRANS
 	select ZLIB			if XORG_LIB_XFONT_BUILTIN_FONTS
 	select FREETYPE			if XORG_LIB_XFONT_FREETYPE
-	select XORG_PROTO_FONTCACHE	if XORG_LIB_XFONT_FONTCACHE
 	default y if XORG_LIB_X11
 	prompt "libXfont                      "
 	help
@@ -27,15 +26,6 @@ config XORG_LIB_XFONT_FREETYPE
 	prompt "Use freetype as rendering library"
 	help
 	  This will enable freetype 2.x library.
-
-config XORG_LIB_XFONT_FONTCACHE
-	depends on XORG_LIB_XFONT
-	depends on XORG_LIB_XFONTCACHE
-	bool
-	default y
-	prompt "Use fontcache"
-	help
-	 This will enable fontcache support
 
 config XORG_LIB_XFONT_FONTSERVER
 	depends on XORG_LIB_XFONT

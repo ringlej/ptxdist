@@ -56,8 +56,7 @@ HOST_XORG_LIB_XFONT_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_LIB_XFONT_AUTOCONF := \
 	$(HOST_AUTOCONF) \
-	--disable-freetype \
-	--disable-fontcache
+	--disable-freetype
 
 $(STATEDIR)/host-xorg-lib-xfont.prepare: $(host-xorg-lib-xfont_prepare_deps_default)
 	@$(call targetinfo, $@)

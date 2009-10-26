@@ -1,6 +1,0 @@
-## SECTION=multimedia_xorg_proto
-
-config XORG_PROTO_FONTCACHE
-	tristate
-	help
-	  FIXME

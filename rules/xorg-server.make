@@ -365,12 +365,6 @@ endif
 #XORG_SERVER_AUTOCONF += --disable-evi
 #endif
 #
-#ifdef PTXCONF_XORG_SERVER_EXT_FONTCACHE
-#XORG_SERVER_AUTOCONF += --enable-fontcache
-#else
-#XORG_SERVER_AUTOCONF += --disable-fontcache
-#endif
-#
 #ifdef PTXCONF_FREETYPE
 #XORG_SERVER_AUTOCONF += --enable-freetype
 #else
@@ -583,9 +577,6 @@ ifdef PTXCONF_XORG_SERVER_EXT_EVI
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_MULTIBUFFER
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_FONTCACHE
 endif
 
 ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
