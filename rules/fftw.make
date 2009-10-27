@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_FFTW) += fftw
 #
 # Paths and names
 #
-FFTW_VERSION	:= 3.2.1
+FFTW_VERSION	:= 3.2.2
 FFTW		:= fftw-$(FFTW_VERSION)
 FFTW_SUFFIX	:= tar.gz
 FFTW_SOURCE	:= $(SRCDIR)/$(FFTW).$(FFTW_SUFFIX)
@@ -65,9 +65,9 @@ $(STATEDIR)/fftw.targetinstall:
 	@$(call install_fixup, fftw,DEPENDS,)
 	@$(call install_fixup, fftw,DESCRIPTION,missing)
 
-	@$(call install_copy, fftw, 0, 0, 0644, -, /usr/lib/libfftw3.so.3.2.3)
-	@$(call install_link, fftw, libfftw3.so.3.2.3, /usr/lib/libfftw3.so.3)
-	@$(call install_link, fftw, libfftw3.so.3.2.3, /usr/lib/libfftw3.so)
+	@$(call install_copy, fftw, 0, 0, 0644, -, /usr/lib/libfftw3.so.3.2.4)
+	@$(call install_link, fftw, libfftw3.so.3.2.4, /usr/lib/libfftw3.so.3)
+	@$(call install_link, fftw, libfftw3.so.3.2.4, /usr/lib/libfftw3.so)
 
 	@$(call install_finish, fftw)
 
