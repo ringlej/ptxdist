@@ -19,6 +19,11 @@ HOST_PACKAGES-$(PTXCONF_HOST_GLIB) += host-glib
 #
 HOST_GLIB_DIR	= $(HOST_BUILDDIR)/$(GLIB)
 
+ifdef PTXCONF_HOST_GLIB
+$(STATEDIR)/autogen-tools: $(STATEDIR)/host-glib.install
+endif
+
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
