@@ -3,6 +3,7 @@ menuconfig LIBPCRE
 	tristate
 	prompt "libpcre                       "
 	select GCCLIBS_CXX if LIBPCRE__LIBPCRECPP
+       select ZLIB if LIBPCRE__ENABLE_PCREGREP_LIBZ
 	help
 	  Perl Compatible Regluar Expressions Library
 
