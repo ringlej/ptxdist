@@ -13,14 +13,17 @@
 
 PTXDIST=${PTXDIST:-ptxdist}
 
-packages=$(${PTXDIST} print PACKAGES)
+packages="$(${PTXDIST} print PACKAGES-y) $(${PTXDIST} print PACKAGES-m)"
+platform="platform-$(${PTXDIST} print PTXCONF_PLATFORM)"
+
+logfile="$platform/logfile"
 
 for i in $packages; do
 	# only build if logfile does not exist to be able to restart the script
 	if [ ! -f logfile-$i ]; then
-		echo $i > logfile;
+		echo $i > $logfile;
 		${PTXDIST} clean
-		${PTXDIST} install $i
-		mv logfile logfile-$i
+		${PTXDIST} install $i || echo $i >> failed
+		mv $logfile logfile-$i
 	fi
 done
