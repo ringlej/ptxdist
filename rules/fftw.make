@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6487 2006-12-07 20:55:55Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
