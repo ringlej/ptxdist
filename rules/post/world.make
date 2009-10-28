@@ -76,6 +76,26 @@ $(STATEDIR)/host-%.extract:
 	@$(call touch)
 
 
+### --- for KLIBC packages only ---
+
+$(STATEDIR)/klibc-%.extract:
+	@$(call targetinfo)
+	@$(call clean, $($(PTX_MAP_TO_PACKAGE_klibc-$(*))_DIR))
+	@$(call extract, $(PTX_MAP_TO_PACKAGE_klibc-$(*)), $(KLIBC_BUILDDIR))
+	@$(call patchin, $(PTX_MAP_TO_PACKAGE_klibc-$(*)), $($(PTX_MAP_TO_PACKAGE_klibc-$(*))_DIR))
+	@$(call touch)
+
+
+### --- for INITRAMFS packages only ---
+
+$(STATEDIR)/initramfs-%.extract:
+	@$(call targetinfo)
+	@$(call clean, $($(PTX_MAP_TO_PACKAGE_initramfs-$(*))_DIR))
+	@$(call extract, $(PTX_MAP_TO_PACKAGE_initramfs-$(*)), $(KLIBC_BUILDDIR))
+	@$(call patchin, $(PTX_MAP_TO_PACKAGE_initramfs-$(*)), $($(PTX_MAP_TO_PACKAGE_initramfs-$(*))_DIR))
+	@$(call touch)
+
+
 ### --- for TARGET packages only ---
 
 $(STATEDIR)/%.extract:

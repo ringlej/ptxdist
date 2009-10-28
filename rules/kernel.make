@@ -147,6 +147,9 @@ $(STATEDIR)/kernel.tags:
 
 $(STATEDIR)/kernel.compile:
 	@$(call targetinfo)
+	@rm -f \
+		$(KERNEL_DIR)/usr/initramfs_data.cpio.* \
+		$(KERNEL_DIR)/usr/.initramfs_data.cpio.d
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
 	@$(call touch)
