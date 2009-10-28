@@ -1,9 +1,9 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #           (C) 2008 by Wolfram Sang <w.sang@pengutronix.de>
-# See CREDITS for details about who has contributed to this project. 
+#
+# See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
