@@ -72,31 +72,7 @@ else
 TCL_AUTOCONF += --disable-threads
 endif
 
-$(STATEDIR)/tcl.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(TCL_DIR)/unix/config.cache)
-	cd $(TCL_DIR)/unix && \
-		$(TCL_PATH) $(TCL_ENV) \
-		./configure $(TCL_AUTOCONF) $(TCL_ACONF_VAR)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/tcl.compile:
-	@$(call targetinfo)
-	cd $(TCL_DIR)/unix && $(TCL_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/tcl.install:
-	@$(call targetinfo)
-	@$(call install, TCL, $(TCL_DIR)/unix)
-	@$(call touch)
+TCL_SUBDIR := unix
 
 # ----------------------------------------------------------------------------
 # Target-Install
