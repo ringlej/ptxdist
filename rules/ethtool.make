@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Sascha Hauer
 #
@@ -17,45 +16,25 @@ PACKAGES-$(PTXCONF_ETHTOOL) += ethtool
 #
 # Paths and names
 #
-ETHTOOL_VERSION	:= 6
-ETHTOOL		:= ethtool-$(ETHTOOL_VERSION)
+ETHTOOL_VERSION	:= 6+20090323.orig
 ETHTOOL_SUFFIX	:= tar.gz
-ETHTOOL_URL	:= $(PTXCONF_SETUP_SFMIRROR)/gkernel/$(ETHTOOL).$(ETHTOOL_SUFFIX)
-ETHTOOL_SOURCE	:= $(SRCDIR)/$(ETHTOOL).$(ETHTOOL_SUFFIX)
+ETHTOOL		:= ethtool-$(ETHTOOL_VERSION)
+ETHTOOL_TARBALL	:= ethtool_$(ETHTOOL_VERSION).$(ETHTOOL_SUFFIX)
+ETHTOOL_URL	:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/e/ethtool/$(ETHTOOL_TARBALL)
+ETHTOOL_SOURCE	:= $(SRCDIR)/$(ETHTOOL_TARBALL)
 ETHTOOL_DIR	:= $(BUILDDIR)/$(ETHTOOL)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-ethtool_get: $(STATEDIR)/ethtool.get
-
-$(STATEDIR)/ethtool.get: $(ethtool_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(ETHTOOL_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, ETHTOOL)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-ethtool_extract: $(STATEDIR)/ethtool.extract
-
-$(STATEDIR)/ethtool.extract: $(ethtool_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(ETHTOOL_DIR))
-	@$(call extract, ETHTOOL)
-	@$(call patchin, ETHTOOL)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-ethtool_prepare: $(STATEDIR)/ethtool.prepare
 
 ETHTOOL_PATH	:= PATH=$(CROSS_PATH)
 ETHTOOL_ENV 	:= $(CROSS_ENV)
@@ -65,50 +44,28 @@ ETHTOOL_ENV 	:= $(CROSS_ENV)
 #
 ETHTOOL_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/ethtool.prepare: $(ethtool_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(ETHTOOL_DIR)/config.cache)
-	cd $(ETHTOOL_DIR) && \
-		$(ETHTOOL_PATH) $(ETHTOOL_ENV) \
-		./configure $(ETHTOOL_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-ethtool_compile: $(STATEDIR)/ethtool.compile
-
-$(STATEDIR)/ethtool.compile: $(ethtool_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(ETHTOOL_DIR) && $(ETHTOOL_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-ethtool_install: $(STATEDIR)/ethtool.install
-
-$(STATEDIR)/ethtool.install: $(ethtool_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/ethtool.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ethtool_targetinstall: $(STATEDIR)/ethtool.targetinstall
 
-$(STATEDIR)/ethtool.targetinstall: $(ethtool_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/ethtool.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, ethtool)
 	@$(call install_fixup, ethtool,PACKAGE,ethtool)
 	@$(call install_fixup, ethtool,PRIORITY,optional)
 	@$(call install_fixup, ethtool,VERSION,$(ETHTOOL_VERSION))
 	@$(call install_fixup, ethtool,SECTION,base)
-	@$(call install_fixup, ethtool,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ethtool,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, ethtool,DEPENDS,)
 	@$(call install_fixup, ethtool,DESCRIPTION,missing)
 
@@ -116,7 +73,7 @@ $(STATEDIR)/ethtool.targetinstall: $(ethtool_targetinstall_deps_default)
 
 	@$(call install_finish, ethtool)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

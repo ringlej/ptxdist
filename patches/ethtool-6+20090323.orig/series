@@ -1,0 +1,10 @@
+#
+# these patches come from
+# http://ftp.de.debian.org/debian/pool/main/e/ethtool/ethtool_6+20090323-2.diff.gz
+#
+001_remove_support_for_rx_hashing_by_port.patch
+002_update_ethtool-copy-h.patch
+003_decode_port_other.patch
+004_report_link_partner_advertising.patch
+005_report_pause_autonegotiation_flags.patch
+006_use_asm-types-h.patch
