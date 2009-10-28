@@ -197,6 +197,9 @@ $(STATEDIR)/xorg-lib-x11.targetinstall: $(xorg-lib-x11_targetinstall_deps_defaul
 		libX11-xcb.so.1.0.0, \
 		$(XORG_LIBDIR)/libX11-xcb.so)
 
+	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
+		/usr/lib/X11/XKeysymDB)
+
 ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE
 	@$(call install_copy, xorg-lib-x11, 0, 0, 0755, /usr/lib/X11/locale)
 	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, \
