@@ -974,6 +974,11 @@ newpacket() {
 		class=cross-
 		autoconf_class=HOST_CROSS_
 		;;
+	klibc)
+		template=template-klibc
+		template_src="${PTXDIST_TOPDIR}/rules/templates/src-cmake-prog"
+		class=klibc-
+		;;
 
 	src-cmake-prog)
 		template=template-src-cmake
@@ -1014,6 +1019,7 @@ newpacket() {
 		echo "  host                     create package for development host"
 		echo "  target                   create package for embedded target"
 		echo "  cross                    create cross development package"
+		echo "  klibc                    create package for initramfs built against klibc"
 		echo
 		echo "  src-cmake-prog           create cmake binary"
 		echo "  src-autoconf-prog        create autotoolized binary"
@@ -1032,7 +1038,6 @@ newpacket() {
 	#
 	# Ask some questions
 	#
-
 	local packet_name
 	echo
 	echo "${PROMPT}creating a new '${action}' package:"
@@ -1048,8 +1053,12 @@ newpacket() {
 	     -f "${PTXDIST_TOPDIR}/rules/${packet_name}.make" ]; then
 		case "${action}" in
 		    host|cross)
-			action=existing-target
+			action=class-existing-target
 			template=template-class-existing-target
+			;;
+		    klibc)
+			action=klibc-existing-target
+			template=template-klibc-existing-target
 			;;
 		esac
 	fi
@@ -1060,7 +1069,7 @@ newpacket() {
 	#
 	local version
 	case "${action}" in
-	existing-target)
+	*-existing-target)
 		;;
 	*)
 		echo -n "${PROMPT}enter version number....: "
@@ -1070,7 +1079,7 @@ newpacket() {
 
 	local url suffix
 	case "${action}" in
-	host|target|cross)
+	host|target|cross|klibc)
 		echo -n "${PROMPT}enter URL of basedir....: "
 		read url
 		echo -n "${PROMPT}enter suffix............: "

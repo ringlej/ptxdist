@@ -1,0 +1,95 @@
+# -*-makefile-*-
+#
+# Copyright (C) @YEAR@ by @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+
+#
+# Paths and names
+#
+@PACKET@_VERSION	:= @VERSION@
+@PACKET@		:= @packet_filename@-$(@PACKET@_VERSION)
+@PACKET@_SUFFIX		:= @SUFFIX@
+@PACKET@_URL		:= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
+@PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
+@PACKET@_DIR		:= $(KLIBC_BUILDDIR)/$(@PACKET@)
+
+ifdef PTXCONF_@PACKET@
+$(STATEDIR)/kernel.compile: $(STATEDIR)/@packet@.targetinstall
+endif
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(@PACKET@_SOURCE):
+	@$(call targetinfo)
+	@$(call get, @PACKET@)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+@PACKET@_PATH	:= PATH=$(CROSS_PATH)
+@PACKET@_ENV 	:= $(KLIBC_ENV)
+
+#
+# autoconf
+#
+@PACKET@_AUTOCONF := $(KLIBC_AUTOCONF)
+
+#$(STATEDIR)/@packet@.prepare:
+#	@$(call targetinfo)
+#	@$(call clean, $(@PACKET@_DIR)/config.cache)
+#	cd $(@PACKET@_DIR) && \
+#		$(@PACKET@_PATH) $(@PACKET@_ENV) \
+#		./configure $(@PACKET@_AUTOCONF)
+#	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+#$(STATEDIR)/@packet@.compile:
+#	@$(call targetinfo)
+#	cd $(@PACKET@_DIR) && $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+#	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+#$(STATEDIR)/@packet@.install:
+#	@$(call targetinfo)
+#	@$(call install, @PACKET@)
+#	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@packet@.targetinstall:
+	@$(call targetinfo)
+	@$(call install_initramfs, @packet@, 0, 0, 0755, $(@PACKET@_DIR)/foobar, /foobar);
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+@packet@_clean:
+	rm -rf $(STATEDIR)/@packet@.*
+	rm -rf $(PKGDIR)/@packet@{-,_}*
+	rm -rf $(@PACKET@_DIR)
+
+# vim: syntax=make

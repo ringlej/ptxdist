@@ -1,0 +1,8 @@
+## SECTION=initramfs
+
+config @PACKET@
+	bool
+	prompt "@packet@"
+	select KLIBC
+	help
+	  FIXME

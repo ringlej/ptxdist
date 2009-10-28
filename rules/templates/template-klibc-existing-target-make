@@ -1,0 +1,101 @@
+# -*-makefile-*-
+#
+# Copyright (C) @YEAR@ by @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_@CLASS@@PACKET@) += @class@@packet@
+
+#
+# Paths and names
+#
+@CLASS@@PACKET@	= @class@$(@PACKET@)
+@CLASS@@PACKET@_DIR	= $(@CLASS@BUILDDIR)/$(@PACKET@)
+
+ifdef PTXCONF_@CLASS@@PACKET@
+$(STATEDIR)/kernel.compile: $(STATEDIR)/@class@@packet@.targetinstall
+endif
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@class@@packet@.get: $(STATEDIR)/@packet@.get
+	@$(call targetinfo)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@class@@packet@.extract:
+	@$(call targetinfo)
+	@$(call clean, $(@CLASS@@PACKET@_DIR))
+	@$(call extract, @PACKET@, $(@CLASS@BUILDDIR))
+	@$(call patchin, @CLASS@@PACKET@, $(@CLASS@@PACKET@_DIR))
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+@CLASS@@PACKET@_PATH	:= PATH=$(@CLASS@PATH)
+@CLASS@@PACKET@_ENV 	:= $(@CLASS@ENV)
+
+#
+# autoconf
+#
+@CLASS@@PACKET@_AUTOCONF	:= $(@AUTOCONF_CLASS@AUTOCONF)
+
+#$(STATEDIR)/@class@@packet@.prepare:
+#	@$(call targetinfo)
+#	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
+#	cd $(@CLASS@@PACKET@_DIR) && \
+#		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
+#		./configure $(@CLASS@@PACKET@_AUTOCONF)
+#	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+#$(STATEDIR)/@class@@packet@.compile:
+#	@$(call targetinfo)
+#	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+#	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+#$(STATEDIR)/@class@@packet@.install:
+#	@$(call targetinfo)
+#	@$(call install, @CLASS@@PACKET@)
+#	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@class@@packet@.targetinstall:
+	@$(call targetinfo)
+	@$(call install_initramfs, @class@@packet@, 0, 0, 0755, $(@CLASS@@PACKET@_DIR)/foobar, /foobar);
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+@class@@packet@_clean:
+	rm -rf $(STATEDIR)/@class@@packet@.*
+	rm -rf $(PKGDIR)/@class@@packet@{-,_}*
+	rm -rf $(@CLASS@@PACKET@_DIR)
+
+# vim: syntax=make
