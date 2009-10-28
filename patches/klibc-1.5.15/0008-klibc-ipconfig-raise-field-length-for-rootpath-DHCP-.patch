@@ -1,0 +1,32 @@
+From 848a8ce349331cd74021cc3b8ea43f9e47c14e50 Mon Sep 17 00:00:00 2001
+From: maximilian attems <max@stro.at>
+Date: Fri, 5 Sep 2008 22:38:22 +0200
+Subject: [PATCH 08/21] [klibc] ipconfig: raise field length for rootpath DHCP option
+
+ipconfig would cut off after 40 bytes, use 256 bytes.
+This is indeed way too short for dotted-decimal IP adresses
+up to 15 byes long and several NFS mount options.
+fixes http://bugs.debian.org/497800
+
+Reported-by: "Christopher Huhn, GSI" <C.Huhn@gsi.de>
+Signed-off-by: maximilian attems <max@stro.at>
+---
+ usr/kinit/ipconfig/netdev.h |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/usr/kinit/ipconfig/netdev.h b/usr/kinit/ipconfig/netdev.h
+index fb6640a..1091943 100644
+--- a/usr/kinit/ipconfig/netdev.h
++++ b/usr/kinit/ipconfig/netdev.h
+@@ -4,7 +4,7 @@
+ #include <sys/utsname.h>
+ #include <net/if.h>
+ 
+-#define BPLEN		40
++#define BPLEN		256
+ #define FNLEN		128			/* from DHCP  RFC 2131 */
+ 
+ struct netdev {
+-- 
+1.6.5
+

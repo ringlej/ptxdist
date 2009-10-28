@@ -1,0 +1,26 @@
+From 7199462a5dee51bf83db3ea6cc753b9864c26623 Mon Sep 17 00:00:00 2001
+From: Jon Ringle <jon@ringle.org>
+Date: Thu, 29 Oct 2009 16:27:13 +0100
+Subject: [PATCH 19/21] define "__socklen_t_defined"
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ usr/include/sys/socket.h |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/usr/include/sys/socket.h b/usr/include/sys/socket.h
+index 7d47087..d7d4ce4 100644
+--- a/usr/include/sys/socket.h
++++ b/usr/include/sys/socket.h
+@@ -28,6 +28,7 @@
+ #endif
+ 
+ typedef int socklen_t;
++#define __socklen_t_defined 1
+ 
+ __extern int socket(int, int, int);
+ __extern int bind(int, struct sockaddr *, int);
+-- 
+1.6.5
+

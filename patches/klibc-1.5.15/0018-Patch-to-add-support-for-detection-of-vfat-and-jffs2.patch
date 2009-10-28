@@ -1,0 +1,58 @@
+From 6b24aece3e313aece16ce60255e918963b0905b3 Mon Sep 17 00:00:00 2001
+From: Jon Ringle <jon@ringle.org>
+Date: Thu, 29 Oct 2009 16:27:11 +0100
+Subject: [PATCH 18/21] Patch to add support for detection of vfat and jffs2 images.
+
+Obtained from openembedded:
+http://cgit.openembedded.org/cgit.cgi/openembedded/tree/recipes/klibc/klibc-1.5.15/fstype-sane-vfat-and-jffs2-for-1.5.patch
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+[mkl: fixed compiler warnings]
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ usr/kinit/fstype/fstype.c |   22 ++++++++++++++++++++++
+ 1 files changed, 22 insertions(+), 0 deletions(-)
+
+diff --git a/usr/kinit/fstype/fstype.c b/usr/kinit/fstype/fstype.c
+index 69e0e30..d06bcd1 100644
+--- a/usr/kinit/fstype/fstype.c
++++ b/usr/kinit/fstype/fstype.c
+@@ -59,6 +59,26 @@
+ /* Swap needs the definition of block size */
+ #include "swap_fs.h"
+ 
++static int jffs2_image(const void *buf, unsigned long long *bytes)
++{
++	const unsigned char *cbuf = buf;
++
++	if (cbuf[0] == 0x85 && cbuf[1] == 0x19)
++		return 1;
++
++	return 0;
++}
++
++static int vfat_image(const void *buf, unsigned long long *bytes)
++{
++	if (!strncmp(buf + 54, "FAT12   ", 8)
++	    || !strncmp(buf + 54, "FAT16   ", 8)
++	    || !strncmp(buf + 82, "FAT32   ", 8))
++		return 1;
++
++	return 0;
++}
++
+ static int gzip_image(const void *buf, unsigned long long *bytes)
+ {
+ 	const unsigned char *p = buf;
+@@ -492,6 +512,8 @@ static struct imagetype images[] = {
+ 	{1, "minix", minix_image},
+ 	{1, "nilfs2", nilfs2_image},
+ 	{2, "ocfs2", ocfs2_image},
++	{0, "jffs2", jffs2_image},
++	{0, "vfat", vfat_image},
+ 	{8, "reiserfs", reiserfs_image},
+ 	{64, "reiserfs", reiserfs_image},
+ 	{64, "reiser4", reiser4_image},
+-- 
+1.6.5
+

@@ -1,0 +1,35 @@
+From e9e9c8de22d279face697eb50dd4d9b2f45b3b1d Mon Sep 17 00:00:00 2001
+From: Jon Ringle <jon@ringle.org>
+Date: Fri, 30 Oct 2009 09:06:05 -0400
+Subject: [PATCH 22/22] define MNTPROC_MNT and MNTPROC_UMNT
+
+MNTPROC_MNT and MNTPROC_UMNT are no longer defined in linux-2.6.31
+Hack around this by restoring the old definitions.
+
+http://thread.gmane.org/gmane.linux.nfs/28059
+suggests that a better fix is in progress.
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+---
+ usr/kinit/nfsmount/mount.c |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+diff --git a/usr/kinit/nfsmount/mount.c b/usr/kinit/nfsmount/mount.c
+index a55af91..1182ae5 100644
+--- a/usr/kinit/nfsmount/mount.c
++++ b/usr/kinit/nfsmount/mount.c
+@@ -12,6 +12,11 @@
+ #include "nfsmount.h"
+ #include "sunrpc.h"
+ 
++#ifndef MNTPROC_MNT
++#define MNTPROC_MNT  1
++#define MNTPROC_UMNT 3
++#endif
++
+ static uint32_t mount_port;
+ 
+ struct mount_call {
+-- 
+1.6.5.rc2
+

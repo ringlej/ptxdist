@@ -1,0 +1,84 @@
+From 9452ae7af97f5d3af466104570a6a1dea5e973ad Mon Sep 17 00:00:00 2001
+From: maximilian attems <max@stro.at>
+Date: Sat, 16 Aug 2008 00:47:10 +0200
+Subject: [PATCH 02/21] [klibc] Add initial mntent.h with setmntent() and endmntent()
+
+Signed-off-by: maximilian attems <max@stro.at>
+---
+ usr/include/mntent.h  |   17 +++++++++++++++++
+ usr/klibc/Kbuild      |    3 ++-
+ usr/klibc/endmntent.c |    9 +++++++++
+ usr/klibc/setmntent.c |    7 +++++++
+ 4 files changed, 35 insertions(+), 1 deletions(-)
+ create mode 100644 usr/include/mntent.h
+ create mode 100644 usr/klibc/endmntent.c
+ create mode 100644 usr/klibc/setmntent.c
+
+diff --git a/usr/include/mntent.h b/usr/include/mntent.h
+new file mode 100644
+index 0000000..ca6b211
+--- /dev/null
++++ b/usr/include/mntent.h
+@@ -0,0 +1,17 @@
++#ifndef _MNTENT_H
++#define _MNTENT_H       1
++
++struct mntent {
++	char *mnt_fsname;	/* name of mounted file system */
++	char *mnt_dir;		/* file system path prefix */
++	char *mnt_type;		/* mount type (see mntent.h) */
++	char *mnt_opts;		/* mount options (see mntent.h) */
++	int   mnt_freq;		/* dump frequency in days */
++	int   mnt_passno;	/* pass number on parallel fsck */
++};
++
++extern FILE *setmntent(const char *, const char *);
++
++extern int endmntent(FILE *fp);
++
++#endif  /* mntent.h */
+diff --git a/usr/klibc/Kbuild b/usr/klibc/Kbuild
+index eb04267..842a79f 100644
+--- a/usr/klibc/Kbuild
++++ b/usr/klibc/Kbuild
+@@ -56,7 +56,8 @@ klib-y := vsnprintf.o snprintf.o vsprintf.o sprintf.o \
+ 	  ctype/ispunct.o ctype/isspace.o ctype/isupper.o \
+ 	  ctype/isxdigit.o ctype/tolower.o ctype/toupper.o \
+ 	  userdb/getgrgid.o userdb/getgrnam.o userdb/getpwnam.o \
+-	  userdb/getpwuid.o userdb/root_group.o userdb/root_user.o
++	  userdb/getpwuid.o userdb/root_group.o userdb/root_user.o \
++	  setmntent.o endmntent.o
+ 
+ klib-$(CONFIG_KLIBC_ERRLIST) += errlist.o
+ 
+diff --git a/usr/klibc/endmntent.c b/usr/klibc/endmntent.c
+new file mode 100644
+index 0000000..419c317
+--- /dev/null
++++ b/usr/klibc/endmntent.c
+@@ -0,0 +1,9 @@
++#include <stdio.h>
++#include <mntent.h>
++
++int endmntent(FILE *fp)
++{
++	if (fp)
++		fclose(fp);
++	return 1;
++}
+diff --git a/usr/klibc/setmntent.c b/usr/klibc/setmntent.c
+new file mode 100644
+index 0000000..d23e141
+--- /dev/null
++++ b/usr/klibc/setmntent.c
+@@ -0,0 +1,7 @@
++#include <stdio.h>
++#include <mntent.h>
++
++FILE *setmntent(const char *filename, const char *type)
++{
++	return fopen(filename, type);
++}
+-- 
+1.6.5
+
