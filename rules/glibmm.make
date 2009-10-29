@@ -18,10 +18,10 @@ PACKAGES-$(PTXCONF_GLIBMM) += glibmm
 #
 # Paths and names
 #
-GLIBMM_VERSION	:= 2.18.1
+GLIBMM_VERSION	:= 2.22.1
 GLIBMM		:= glibmm-$(GLIBMM_VERSION)
 GLIBMM_SUFFIX	:= tar.bz2
-GLIBMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/glibmm/2.18/$(GLIBMM).$(GLIBMM_SUFFIX)
+GLIBMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/glibmm/2.22/$(GLIBMM).$(GLIBMM_SUFFIX)
 GLIBMM_SOURCE	:= $(SRCDIR)/$(GLIBMM).$(GLIBMM_SUFFIX)
 GLIBMM_DIR	:= $(BUILDDIR)/$(GLIBMM)
 
