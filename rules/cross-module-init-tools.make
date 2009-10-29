@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2006 by Marc Kleine-Budde <mkl@pengutronix.de>
 #          
@@ -41,8 +40,6 @@ $(STATEDIR)/cross-module-init-tools.extract:
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-cross-module-init-tools_prepare: $(STATEDIR)/cross-module-init-tools.prepare
 
 CROSS_MODULE_INIT_TOOLS_PATH := PATH=$(CROSS_PATH)
 CROSS_MODULE_INIT_TOOLS_ENV  := $(HOST_ENV)
