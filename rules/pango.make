@@ -19,10 +19,10 @@ PACKAGES-$(PTXCONF_PANGO) += pango
 #
 # Paths and names
 #
-PANGO_VERSION	:= 1.24.2
+PANGO_VERSION	:= 1.26.0
 PANGO		:= pango-$(PANGO_VERSION)
 PANGO_SUFFIX	:= tar.bz2
-PANGO_URL	:= http://ftp.gnome.org/pub/GNOME/sources/pango/1.24/$(PANGO).$(PANGO_SUFFIX)
+PANGO_URL	:= http://ftp.gnome.org/pub/GNOME/sources/pango/1.26/$(PANGO).$(PANGO_SUFFIX)
 PANGO_SOURCE	:= $(SRCDIR)/$(PANGO).$(PANGO_SUFFIX)
 PANGO_DIR	:= $(BUILDDIR)/$(PANGO)
 
@@ -84,19 +84,19 @@ $(STATEDIR)/pango.targetinstall:
 	@$(call install_fixup,pango,DESCRIPTION,missing)
 
 	@$(call install_copy, pango, 0, 0, 0644, -, \
-		/usr/lib/libpango-1.0.so.0.2400.2)
-	@$(call install_link, pango, libpango-1.0.so.0.2400.2, /usr/lib/libpango-1.0.so.0)
-	@$(call install_link, pango, libpango-1.0.so.0.2400.2, /usr/lib/libpango-1.0.so)
+		/usr/lib/libpango-1.0.so.0.2600.0)
+	@$(call install_link, pango, libpango-1.0.so.0.2600.0, /usr/lib/libpango-1.0.so.0)
+	@$(call install_link, pango, libpango-1.0.so.0.2600.0, /usr/lib/libpango-1.0.so)
 
 	@$(call install_copy, pango, 0, 0, 0644, -, \
-		/usr/lib/libpangoft2-1.0.so.0.2400.2)
-	@$(call install_link, pango, libpangoft2-1.0.so.0.2400.2, /usr/lib/libpangoft2-1.0.so.0)
-	@$(call install_link, pango, libpangoft2-1.0.so.0.2400.2, /usr/lib/libpangoft2-1.0.so)
+		/usr/lib/libpangoft2-1.0.so.0.2600.0)
+	@$(call install_link, pango, libpangoft2-1.0.so.0.2600.0, /usr/lib/libpangoft2-1.0.so.0)
+	@$(call install_link, pango, libpangoft2-1.0.so.0.2600.0, /usr/lib/libpangoft2-1.0.so)
 
 	@$(call install_copy, pango, 0, 0, 0644, -, \
-		/usr/lib/libpangocairo-1.0.so.0.2400.2)
-	@$(call install_link, pango, libpangocairo-1.0.so.0.2400.2, /usr/lib/libpangocairo-1.0.so.0)
-	@$(call install_link, pango, libpangocairo-1.0.so.0.2400.2, /usr/lib/libpangocairo-1.0.so)
+		/usr/lib/libpangocairo-1.0.so.0.2600.0)
+	@$(call install_link, pango, libpangocairo-1.0.so.0.2600.0, /usr/lib/libpangocairo-1.0.so.0)
+	@$(call install_link, pango, libpangocairo-1.0.so.0.2600.0, /usr/lib/libpangocairo-1.0.so)
 
 	@$(call install_finish,pango)
 
