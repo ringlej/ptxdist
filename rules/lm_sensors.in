@@ -1,8 +1,8 @@
 ## SECTION=shell_and_console
 
-config LM_SENSORS
+menuconfig LM_SENSORS
 	tristate
-	prompt "lm_sensors"
+	prompt "lm_sensors                    "
 	select BASH if LM_SENSORS_FANCONTROL || LM_SENSORS_PWMCONFIG
 	help
 	  Lm-sensors is a hardware health monitoring package for Linux.
