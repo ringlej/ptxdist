@@ -20,16 +20,16 @@ Index: b/configure.in
 ===================================================================
 --- a/configure.in
 +++ b/configure.in
-@@ -1906,8 +1906,6 @@ fi
+@@ -1970,8 +1970,6 @@ fi
  # Checks for gtk-doc and docbook-tools
  ##################################################
  
--GTK_DOC_CHECK([1.8])
+-GTK_DOC_CHECK([1.11])
 -
  AC_CHECK_PROG(DB2HTML, db2html, true, false)
  AM_CONDITIONAL(HAVE_DOCBOOK, $DB2HTML)
  
-@@ -2039,18 +2037,6 @@ demos/Makefile
+@@ -2103,18 +2101,6 @@ demos/Makefile
  demos/gtk-demo/Makefile
  demos/gtk-demo/geninclude.pl
  tests/Makefile

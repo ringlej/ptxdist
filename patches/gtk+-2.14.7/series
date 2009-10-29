@@ -1,5 +1,0 @@
-gtk+-2.14.7-update-to-r22400.diff -p0
-gtk+-2.10.11-iconcache.diff
-gtk+-2.10.12-no-demos.diff
-gtk+-2.14.6-directfb-disable-d_debug_at.diff
-disable-doc.diff

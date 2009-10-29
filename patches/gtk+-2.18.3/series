@@ -1,0 +1,3 @@
+gtk+-2.10.11-iconcache.diff
+gtk+-2.10.12-no-demos.diff
+disable-doc.diff

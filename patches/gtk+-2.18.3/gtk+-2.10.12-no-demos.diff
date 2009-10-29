@@ -2,12 +2,13 @@
  Makefile.am |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Index: gtk+-2.10.12/Makefile.am
+Index: b/Makefile.am
 ===================================================================
---- gtk+-2.10.12.orig/Makefile.am
-+++ gtk+-2.10.12/Makefile.am
-@@ -1,6 +1,6 @@
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,7 +1,7 @@
  ## Makefile.am for GTK+
+ include $(top_srcdir)/Makefile.decl
  
 -SRC_SUBDIRS = gdk-pixbuf gdk gtk modules demos tests perf contrib
 +SRC_SUBDIRS = gdk-pixbuf gdk gtk modules tests perf contrib
