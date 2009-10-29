@@ -19,10 +19,10 @@ PACKAGES-$(PTXCONF_ATK) += atk
 #
 # Paths and names
 #
-ATK_VERSION	:= 1.24.0
+ATK_VERSION	:= 1.28.0
 ATK		:= atk-$(ATK_VERSION)
 ATK_SUFFIX	:= tar.bz2
-ATK_URL		:= http://ftp.gnome.org/pub/gnome/sources/atk/1.24/$(ATK).$(ATK_SUFFIX)
+ATK_URL		:= http://ftp.gnome.org/pub/gnome/sources/atk/1.28/$(ATK).$(ATK_SUFFIX)
 ATK_SOURCE	:= $(SRCDIR)/$(ATK).$(ATK_SUFFIX)
 ATK_DIR		:= $(BUILDDIR)/$(ATK)
 
@@ -118,11 +118,10 @@ $(STATEDIR)/atk.targetinstall:
 	@$(call install_fixup,atk,DEPENDS,)
 	@$(call install_fixup,atk,DESCRIPTION,missing)
 
-	@$(call install_copy, atk, 0, 0, 0644, \
-		$(ATK_DIR)/atk/.libs/libatk-1.0.so.0.2409.1, \
-		/usr/lib/libatk-1.0.so.0.2409.1)
-	@$(call install_link, atk, libatk-1.0.so.0.2409.1, /usr/lib/libatk-1.0.so.0)
-	@$(call install_link, atk, libatk-1.0.so.0.2409.1, /usr/lib/libatk-1.0.so)
+	@$(call install_copy, atk, 0, 0, 0644, -, \
+		/usr/lib/libatk-1.0.so.0.2809.1)
+	@$(call install_link, atk, libatk-1.0.so.0.2809.1, /usr/lib/libatk-1.0.so.0)
+	@$(call install_link, atk, libatk-1.0.so.0.2809.1, /usr/lib/libatk-1.0.so)
 
 	@$(call install_finish,atk)
 
