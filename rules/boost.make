@@ -73,7 +73,7 @@ BOOST_LIBRARIES-$(PTXCONF_BOOST_GRAPH)		+= graph
 
 BOOST_CONF := \
 	--with-bjam="$(BOOST_JAM)" \
-	--prefix="$(SYSROOT)/usr" \
+	--prefix="$(PKGDIR)/$(BOOST)/usr" \
 	--with-libraries="$(subst $(space),$(comma),$(BOOST_LIBRARIES-y))" \
 	--without-icu
 
@@ -127,43 +127,43 @@ $(STATEDIR)/boost.targetinstall:
 	@for BOOST_LIB in $(BOOST_INST_LIBRARIES); do \
 		read BOOST_LIB <<< $$BOOST_LIB; \
 		if [ ! -z $(PTXCONF_BOOST_INST_NOMT_DBG) ]; then \
-			for SO_FILE in `find $(BOOST_DIR)/bin.v2/libs/$$BOOST_LIB/ \
-				 -name "*.so.*" -type f -path "*debug*" ! -path "*threading*"`; do \
-				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
+			for SO_FILE in `find $(BOOST_PKGDIR) -name "libboost_$$BOOST_LIB*.so.*" \
+				 -type f -name "*-d-*" ! -name "*-mt-*"`; do \
+				$(call install_copy, boost, 0, 0, 0644, -,\
 					/usr/lib/$$(basename $$SO_FILE)); \
-			        $(call install_link, boost, \
-		                	$$(basename $$SO_FILE), \
-			        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+				$(call install_link, boost, \
+					$$(basename $$SO_FILE), \
+					/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
 			done; \
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_NOMT_RED) ]; then \
-			for SO_FILE in `find $(BOOST_DIR)/bin.v2/libs/$$BOOST_LIB/ \
-				 -name "*.so.*" -type f -path "*profile*" ! -path "*threading*"`; do \
-				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
+			for SO_FILE in `find $(BOOST_PKGDIR) -name "libboost_$$BOOST_LIB*.so.*" \
+				 -type f ! -name "*-d-*" ! -name "*-mt-*"`; do \
+				$(call install_copy, boost, 0, 0, 0644, -,\
 					/usr/lib/$$(basename $$SO_FILE)); \
-			        $(call install_link, boost, \
-		                	$$(basename $$SO_FILE), \
-			        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+				$(call install_link, boost, \
+					$$(basename $$SO_FILE), \
+					/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
 			done; \
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_MT_DBG) ]; then \
-			for SO_FILE in `find $(BOOST_DIR)/bin.v2/libs/$$BOOST_LIB/ \
-				 -name "*.so.*" -type f -path "*debug*" -path "*threading*"`; do \
-				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
+			for SO_FILE in `find $(BOOST_PKGDIR) -name "libboost_$$BOOST_LIB*.so.*" \
+				  -type f -name "*-d-*" -name "*-mt-*"`; do \
+				$(call install_copy, boost, 0, 0, 0644, -,\
 					/usr/lib/$$(basename $$SO_FILE)); \
-			        $(call install_link, boost, \
-		                	$$(basename $$SO_FILE), \
-			        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+				$(call install_link, boost, \
+					$$(basename $$SO_FILE), \
+					/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
 			done; \
 		fi; \
 		if [ ! -z $(PTXCONF_BOOST_INST_MT_RED) ]; then \
-			for SO_FILE in `find $(BOOST_DIR)/bin.v2/libs/$$BOOST_LIB/ \
-				 -name "*.so.*" -type f -path "*profile*" -path "*threading*"`; do \
-				$(call install_copy, boost, 0, 0, 0644, $$SO_FILE,\
+			for SO_FILE in `find $(BOOST_PKGDIR) -name "libboost_$$BOOST_LIB*.so.*" \
+				 -type f ! -name "*-d-*" -name "*-mt-*"`; do \
+				$(call install_copy, boost, 0, 0, 0644, -,\
 					/usr/lib/$$(basename $$SO_FILE)); \
-			        $(call install_link, boost, \
-		                	$$(basename $$SO_FILE), \
-			        	/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
+				$(call install_link, boost, \
+					$$(basename $$SO_FILE), \
+					/usr/lib/$$(echo `basename $$SO_FILE` | cut -f 1 -d .).so); \
 			done; \
 		fi; \
 	done
