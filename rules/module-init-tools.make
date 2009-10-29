@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2005 Ladislav Michl <ladis@linux-mips.org>
 #               2006, 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
