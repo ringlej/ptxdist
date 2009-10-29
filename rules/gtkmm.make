@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_GTKMM) += gtkmm
 #
 # Paths and names
 #
-GTKMM_VERSION	:= 2.14.3
+GTKMM_VERSION	:= 2.18.2
 GTKMM		:= gtkmm-$(GTKMM_VERSION)
 GTKMM_SUFFIX	:= tar.bz2
-GTKMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.14/$(GTKMM).$(GTKMM_SUFFIX)
+GTKMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.18/$(GTKMM).$(GTKMM_SUFFIX)
 GTKMM_SOURCE	:= $(SRCDIR)/$(GTKMM).$(GTKMM_SUFFIX)
 GTKMM_DIR	:= $(BUILDDIR)/$(GTKMM)
 
@@ -61,40 +61,40 @@ $(STATEDIR)/gtkmm.targetinstall:
 	@$(call install_fixup, gtkmm,DESCRIPTION,missing)
 
 	@$(call install_copy, gtkmm, 0, 0, 0644, \
-		$(GTKMM_DIR)/gtk/gtkmm/.libs/libgtkmm-2.4.so.1.0.30, \
-		/usr/lib/libgtkmm-2.4.so.1.0.30)
+		$(GTKMM_DIR)/gtk/gtkmm/.libs/libgtkmm-2.4.so.1.1.0, \
+		/usr/lib/libgtkmm-2.4.so.1.1.0)
 
 	@$(call install_link, gtkmm, \
-		libgtkmm-2.4.so.1.0.30, /usr/lib/libgtkmm-2.4.so.1)
+		libgtkmm-2.4.so.1.1.0, /usr/lib/libgtkmm-2.4.so.1)
 
 	@$(call install_link, gtkmm, \
-		libgtkmm-2.4.so.1.0.30, /usr/lib/libgtkmm-2.4.so)
+		libgtkmm-2.4.so.1.1.0, /usr/lib/libgtkmm-2.4.so)
 
 	@$(call install_copy, gtkmm, 0, 0, 0644, \
-		$(GTKMM_DIR)/gdk/gdkmm/.libs/libgdkmm-2.4.so.1.0.30, \
-		/usr/lib/libgdkmm-2.4.so.1.0.30)
+		$(GTKMM_DIR)/gdk/gdkmm/.libs/libgdkmm-2.4.so.1.1.0, \
+		/usr/lib/libgdkmm-2.4.so.1.1.0)
 
 	@$(call install_link, gtkmm, \
-		libgdkmm-2.4.so.1.0.30, /usr/lib/libgdkmm-2.4.so.1)
+		libgdkmm-2.4.so.1.1.0, /usr/lib/libgdkmm-2.4.so.1)
 
 	@$(call install_link, gtkmm, \
-		libgdkmm-2.4.so.1.0.30, /usr/lib/libgdkmm-2.4.so)
+		libgdkmm-2.4.so.1.1.0, /usr/lib/libgdkmm-2.4.so)
 
 	@$(call install_copy, gtkmm, 0, 0, 0644, \
-		$(GTKMM_DIR)/atk/atkmm/.libs/libatkmm-1.6.so.1.0.30, \
-		/usr/lib/libatkmm-1.6.so.1.0.30)
+		$(GTKMM_DIR)/atk/atkmm/.libs/libatkmm-1.6.so.1.1.0, \
+		/usr/lib/libatkmm-1.6.so.1.1.0)
 
 	@$(call install_link, gtkmm, \
-		libatkmm-1.6.so.1.0.30, /usr/lib/libatkmm-1.6.so.1)
+		libatkmm-1.6.so.1.1.0, /usr/lib/libatkmm-1.6.so.1)
 
 	@$(call install_link, gtkmm, \
-		libatkmm-1.6.so.1.0.30, /usr/lib/libatkmm-1.6.so)
+		libatkmm-1.6.so.1.1.0, /usr/lib/libatkmm-1.6.so)
 
 	@$(call install_link, gtkmm, \
-		libpangomm-1.4.so.1.0.30, /usr/lib/libpangomm-1.4.so.1)
+		libpangomm-1.4.so.1.1.0, /usr/lib/libpangomm-1.4.so.1)
 
 	@$(call install_link, gtkmm, \
-		libpangomm-1.4.so.1.0.30, /usr/lib/libpangomm-1.4.so)
+		libpangomm-1.4.so.1.1.0, /usr/lib/libpangomm-1.4.so)
 
 	@$(call install_finish, gtkmm)
 
