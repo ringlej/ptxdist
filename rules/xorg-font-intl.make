@@ -23,6 +23,7 @@ XORG_FONT_INTL_SUFFIX	:= tar.gz
 XORG_FONT_INTL_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/intlfonts/$(XORG_FONT_INTL).$(XORG_FONT_INTL_SUFFIX)
 XORG_FONT_INTL_SOURCE	:= $(SRCDIR)/$(XORG_FONT_INTL).$(XORG_FONT_INTL_SUFFIX)
 XORG_FONT_INTL_DIR	:= $(BUILDDIR)/$(XORG_FONT_INTL)
+XORG_FONT_INTL_PKGDIR	:= $(PKGDIR)/$(XORG_FONT_INTL)
 
 ifdef PTXCONF_XORG_FONT_INTL
 $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-intl.targetinstall
@@ -32,34 +33,13 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-font-intl_get: $(STATEDIR)/xorg-font-intl.get
-
-$(STATEDIR)/xorg-font-intl.get: $(xorg-font-intl_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_FONT_INTL_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_FONT_INTL)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-font-intl_extract: $(STATEDIR)/xorg-font-intl.extract
-
-$(STATEDIR)/xorg-font-intl.extract: $(xorg-font-intl_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_INTL_DIR))
-	@$(call extract, XORG_FONT_INTL)
-	@$(call patchin, XORG_FONT_INTL)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-xorg-font-intl_prepare: $(STATEDIR)/xorg-font-intl.prepare
 
 XORG_FONT_INTL_PATH	:= PATH=$(CROSS_PATH)
 XORG_FONT_INTL_ENV 	:= $(CROSS_ENV)
@@ -73,7 +53,7 @@ XORG_FONT_INTL_MAKEVARS += SUBDIRS+=Chinese SUBDIRS_X+=Chinese.X
 endif
 
 ifdef PTXCONF_XORG_FONT_INTL_CHIN_BIG
-XORG_FONT_INTL_MAKEVARS += SUBDIRS_BIG+=Chinese.BIG 
+XORG_FONT_INTL_MAKEVARS += SUBDIRS_BIG+=Chinese.BIG
 endif
 
 ifdef PTXCONF_XORG_FONT_INTL_JAP
@@ -94,54 +74,22 @@ endif
 XORG_FONT_INTL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-compress \
-	--with-fontdir=$(XORG_FONT_INTL_DIR)/install \
+	--with-fontdir=$(XORG_FONT_INTL_PKGDIR) \
 	--without-bdf
-
-$(STATEDIR)/xorg-font-intl.prepare: $(xorg-font-intl_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_INTL_DIR)/config.cache)
-	cd $(XORG_FONT_INTL_DIR) && \
-		$(XORG_FONT_INTL_PATH) $(XORG_FONT_INTL_ENV) \
-		./configure $(XORG_FONT_INTL_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-font-intl_compile: $(STATEDIR)/xorg-font-intl.compile
-
-$(STATEDIR)/xorg-font-intl.compile: $(xorg-font-intl_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_FONT_INTL_DIR) && $(XORG_FONT_INTL_PATH) $(MAKE) $(XORG_FONT_INTL_MAKEVARS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-font-intl_install: $(STATEDIR)/xorg-font-intl.install
-
-$(STATEDIR)/xorg-font-intl.install: $(xorg-font-intl_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_FONT_INTL)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-font-intl_targetinstall: $(STATEDIR)/xorg-font-intl.targetinstall
-
-$(STATEDIR)/xorg-font-intl.targetinstall: $(xorg-font-intl_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-font-intl.targetinstall:
+	@$(call targetinfo)
 
 	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/misc
 
 # FIXME: font.alias handling
 # FIXME: what about truetype and type1
 
-	@find $(XORG_FONT_INTL_DIR) \
+	@find $(XORG_FONT_INTL_PKGDIR) \
 		-name "*.pcf.gz" \
 		| \
 		while read file; do \
@@ -149,7 +97,7 @@ $(STATEDIR)/xorg-font-intl.targetinstall: $(xorg-font-intl_targetinstall_deps_de
 	done
 
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
