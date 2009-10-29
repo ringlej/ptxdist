@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_PANGOMM) += pangomm
 #
 # Paths and names
 #
-PANGOMM_VERSION	:= 2.14.1
+PANGOMM_VERSION	:= 2.26.0
 PANGOMM		:= pangomm-$(PANGOMM_VERSION)
 PANGOMM_SUFFIX	:= tar.bz2
-PANGOMM_URL	:= http://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.14/$(PANGOMM).$(PANGOMM_SUFFIX)
+PANGOMM_URL	:= http://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.26/$(PANGOMM).$(PANGOMM_SUFFIX)
 PANGOMM_SOURCE	:= $(SRCDIR)/$(PANGOMM).$(PANGOMM_SUFFIX)
 PANGOMM_DIR	:= $(BUILDDIR)/$(PANGOMM)
 
