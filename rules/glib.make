@@ -18,12 +18,7 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #
 # Paths and names
 #
-ifdef PTXCONF_GLIB__VERSION_2_18
-GLIB_VERSION	:= 2.18.4
-endif
-ifdef PTXCONF_GLIB__VERSION_2_19
-GLIB_VERSION	:= 2.19.10
-endif
+GLIB_VERSION	:= 2.22.2
 
 GLIB		:= glib-$(GLIB_VERSION)
 GLIB_SUFFIX	:= tar.bz2
@@ -32,7 +27,7 @@ GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
 GLIB_URL	:= \
 	http://ftp.gtk.org/pub/glib/2.18/glib-$(GLIB_VERSION).$(GLIB_SUFFIX) \
-	http://ftp.gtk.org/pub/glib/2.19/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
+	http://ftp.gtk.org/pub/glib/2.22/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -99,12 +94,7 @@ GLIB_AUTOCONF := \
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ifdef PTXCONF_GLIB__VERSION_2_18
-GLIB_LIB_VERSION := 0.1800.4
-endif
-ifdef PTXCONF_GLIB__VERSION_2_19
-GLIB_LIB_VERSION := 0.1910.0
-endif
+GLIB_LIB_VERSION := 0.2200.2
 
 $(STATEDIR)/glib.targetinstall:
 	@$(call targetinfo)

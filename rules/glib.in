@@ -16,20 +16,6 @@ menuconfig GLIB
 if GLIB
 
 choice
-	prompt "version"
-	default GLIB__VERSION_2_19
-
-	config GLIB__VERSION_2_19
-		bool
-		prompt "2.19 (devel)"
-
-	config GLIB__VERSION_2_18
-		bool
-		prompt "2.18 (stable)"
-
-endchoice
-
-choice
 	prompt "gettext variant"
 	default GLIB__GETTEXT_NONE
 
