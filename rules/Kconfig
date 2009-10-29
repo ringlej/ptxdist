@@ -38,6 +38,10 @@ menu "Core (libc, locales)          "
 source "generated/core.in"
 endmenu
 
+menu "Core (initramfs)              "
+source "generated/initramfs.in"
+endmenu
+
 comment "------------------------------------"
 
 menu "Shell & Console Tools         "
