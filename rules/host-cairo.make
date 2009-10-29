@@ -60,7 +60,7 @@ HOST_CAIRO_AUTOCONF := \
 	--disable-xcb \
 	--disable-beos \
 	--disable-glitz \
-	--disable-svg \
+	--enable-svg \
 	--disable-atsui \
 	--enable-xlib \
 	--disable-directfb \
