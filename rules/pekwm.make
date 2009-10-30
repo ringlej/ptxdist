@@ -29,28 +29,9 @@ PEKWM_DIR	:= $(BUILDDIR)/$(PEKWM)
 # Get
 # ----------------------------------------------------------------------------
 
-pekwm_get: $(STATEDIR)/pekwm.get
-
-$(STATEDIR)/pekwm.get: $(pekwm_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(PEKWM_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, PEKWM)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-pekwm_extract: $(STATEDIR)/pekwm.extract
-
-$(STATEDIR)/pekwm.extract: $(pekwm_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(PEKWM_DIR))
-	@$(call extract, PEKWM)
-	@$(call patchin, PEKWM)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -69,36 +50,6 @@ PEKWM_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--x-libraries=$(SYSROOT)/usr/lib \
 	--disable-xft
 
-$(STATEDIR)/pekwm.prepare: $(pekwm_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(PEKWM_DIR)/config.cache)
-	cd $(PEKWM_DIR) && \
-		$(PEKWM_PATH) $(PEKWM_ENV) \
-		./configure $(PEKWM_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-pekwm_compile: $(STATEDIR)/pekwm.compile
-
-$(STATEDIR)/pekwm.compile: $(pekwm_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(PEKWM_DIR) && $(PEKWM_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-pekwm_install: $(STATEDIR)/pekwm.install
-
-$(STATEDIR)/pekwm.install: $(pekwm_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, PEKWM)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -106,7 +57,7 @@ $(STATEDIR)/pekwm.install: $(pekwm_install_deps_default)
 pekwm_targetinstall: $(STATEDIR)/pekwm.targetinstall
 
 $(STATEDIR)/pekwm.targetinstall: $(pekwm_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, pekwm)
 	@$(call install_fixup,pekwm,PACKAGE,pekwm)
@@ -117,11 +68,22 @@ $(STATEDIR)/pekwm.targetinstall: $(pekwm_targetinstall_deps_default)
 	@$(call install_fixup,pekwm,DEPENDS,)
 	@$(call install_fixup,pekwm,DESCRIPTION,missing)
 
-	@$(call install_copy, pekwm, 0, 0, 0755, $(PEKWM_DIR)/src/pekwm, $(XORG_BINDIR)/pekwm)
+	@$(call install_copy, pekwm, 0, 0, 0755, -, /usr/bin/pekwm)
+
+ifdef PTXCONF_PEKWM_INSTALL_CONFIG
+	@for file in /etc/pekwm/{autoproperties,config,keys,menu,mouse,start,vars}; do \
+		$(call install_copy, pekwm, 0, 0, 0755, -, $$file); \
+	done
+endif
+
+ifdef  PTXCONF_PEKWM_INSTALL_THEME
+	@$(call install_copy, pekwm, 0, 0, 0755, -, \
+		/usr/share/pekwm/themes/default/theme)
+endif
 
 	@$(call install_finish,pekwm)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

@@ -16,3 +16,21 @@ config PEKWM
 	  much expanded feature-set, including window grouping
 	  (similar to ion, pwm, or fluxbox), autoproperties, xinerama,
 	  keygrabber that supports keychains, and much more.
+
+if PEKWM
+
+config PEKWM_INSTALL_CONFIG
+	bool
+	prompt "install default config"
+	help
+	  install the default configuration files to /etc/pekwm
+
+config PEKWM_INSTALL_THEME
+	bool
+	prompt "install default theme"
+	help
+	  install the default pekwm theme. Without theme there will be
+	  no menus or titlebar.
+
+endif
+
