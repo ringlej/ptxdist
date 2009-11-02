@@ -17,15 +17,15 @@ PACKAGES-$(PTXCONF_ATTR) += attr
 #
 # Paths and names
 #
-ATTR_VERSION	:= 2.4.43
+ATTR_VERSION	:= 2.4.44
 ATTR		:= attr-$(ATTR_VERSION)
 ATTR_SUFFIX	:= tar.gz
-ATTR_SOURCE	:= $(SRCDIR)/attr_$(ATTR_VERSION)-1.$(ATTR_SUFFIX)
+ATTR_SOURCE	:= $(SRCDIR)/$(ATTR).src.$(ATTR_SUFFIX)
 ATTR_DIR	:= $(BUILDDIR)/$(ATTR)
 
 ATTR_URL	:= \
-	ftp://oss.sgi.com/projects/xfs/cmd_tars/attr_$(ATTR_VERSION)-1.$(ATTR_SUFFIX) \
-	ftp://oss.sgi.com/projects/xfs/previous/cmd_tars/attr_$(ATTR_VERSION)-1.$(ATTR_SUFFIX)
+	ftp://oss.sgi.com/projects/xfs/cmd_tars/$(ATTR).src.$(ATTR_SUFFIX) \
+	ftp://oss.sgi.com/projects/xfs/previous/cmd_tars/$(ATTR).src.$(ATTR_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get

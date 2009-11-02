@@ -13,16 +13,16 @@ Index: b/include/buildmacros
 ===================================================================
 --- a/include/buildmacros
 +++ b/include/buildmacros
-@@ -27,7 +27,7 @@ OBJECTS = $(ASFILES:.s=.o) \
+@@ -40,7 +40,7 @@ OBJECTS = $(ASFILES:.s=.o) \
  	  $(LFILES:.l=.o) \
  	  $(YFILES:%.y=%.tab.o)
  
--INSTALL	= $(TOPDIR)/install-sh -o $(PKG_USER) -g $(PKG_GROUP)
-+INSTALL	= DIST_ROOT=$(DESTDIR) $(TOPDIR)/install-sh -o $(PKG_USER) -g $(PKG_GROUP)
+-INSTALL	= $(TOPDIR)/include/install-sh -o $(PKG_USER) -g $(PKG_GROUP)
++INSTALL	= DIST_ROOT=$(DESTDIR) $(TOPDIR)/include/install-sh -o $(PKG_USER) -g $(PKG_GROUP)
  
  SHELL = /bin/sh
  IMAGES_DIR = $(TOPDIR)/all-images
-@@ -42,10 +42,10 @@ LIBNAME = $(basename $(LTLIBRARY))
+@@ -55,10 +55,10 @@ LIBNAME = $(basename $(LTLIBRARY))
  LTOBJECTS = $(OBJECTS:.o=.lo)
  LTVERSION = $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
  
