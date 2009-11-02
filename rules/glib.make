@@ -25,9 +25,7 @@ GLIB_SUFFIX	:= tar.bz2
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
 GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
-GLIB_URL	:= \
-	http://ftp.gtk.org/pub/glib/2.18/glib-$(GLIB_VERSION).$(GLIB_SUFFIX) \
-	http://ftp.gtk.org/pub/glib/2.22/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
+GLIB_URL	:= http://ftp.gtk.org/pub/glib/2.22/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
