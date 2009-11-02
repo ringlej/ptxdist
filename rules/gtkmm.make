@@ -60,8 +60,7 @@ $(STATEDIR)/gtkmm.targetinstall:
 	@$(call install_fixup, gtkmm,DEPENDS,)
 	@$(call install_fixup, gtkmm,DESCRIPTION,missing)
 
-	@$(call install_copy, gtkmm, 0, 0, 0644, \
-		$(GTKMM_DIR)/gtk/gtkmm/.libs/libgtkmm-2.4.so.1.1.0, \
+	@$(call install_copy, gtkmm, 0, 0, 0644, -, \
 		/usr/lib/libgtkmm-2.4.so.1.1.0)
 
 	@$(call install_link, gtkmm, \
@@ -70,8 +69,7 @@ $(STATEDIR)/gtkmm.targetinstall:
 	@$(call install_link, gtkmm, \
 		libgtkmm-2.4.so.1.1.0, /usr/lib/libgtkmm-2.4.so)
 
-	@$(call install_copy, gtkmm, 0, 0, 0644, \
-		$(GTKMM_DIR)/gdk/gdkmm/.libs/libgdkmm-2.4.so.1.1.0, \
+	@$(call install_copy, gtkmm, 0, 0, 0644, -, \
 		/usr/lib/libgdkmm-2.4.so.1.1.0)
 
 	@$(call install_link, gtkmm, \
@@ -80,8 +78,7 @@ $(STATEDIR)/gtkmm.targetinstall:
 	@$(call install_link, gtkmm, \
 		libgdkmm-2.4.so.1.1.0, /usr/lib/libgdkmm-2.4.so)
 
-	@$(call install_copy, gtkmm, 0, 0, 0644, \
-		$(GTKMM_DIR)/atk/atkmm/.libs/libatkmm-1.6.so.1.1.0, \
+	@$(call install_copy, gtkmm, 0, 0, 0644, -, \
 		/usr/lib/libatkmm-1.6.so.1.1.0)
 
 	@$(call install_link, gtkmm, \
@@ -89,12 +86,6 @@ $(STATEDIR)/gtkmm.targetinstall:
 
 	@$(call install_link, gtkmm, \
 		libatkmm-1.6.so.1.1.0, /usr/lib/libatkmm-1.6.so)
-
-	@$(call install_link, gtkmm, \
-		libpangomm-1.4.so.1.1.0, /usr/lib/libpangomm-1.4.so.1)
-
-	@$(call install_link, gtkmm, \
-		libpangomm-1.4.so.1.1.0, /usr/lib/libpangomm-1.4.so)
 
 	@$(call install_finish, gtkmm)
 
