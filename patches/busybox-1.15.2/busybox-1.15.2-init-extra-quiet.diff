@@ -17,17 +17,21 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ported to busybox-1.13.2
 
-Signed-ogg-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+ported to busybox-1.15.2
+
+Signed-off-by: Ladislav Michl <ladis@linux-mips.org>
 
 ---
- init/init.c |    6 ++++++
- 1 file changed, 6 insertions(+)
+ init.c |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 Index: busybox-1.13.2/init/init.c
 ===================================================================
 --- busybox-1.13.2.orig/init/init.c
 +++ busybox-1.13.2/init/init.c
-@@ -152,16 +152,22 @@ static void message(int where, const cha
+@@ -148,17 +148,19 @@ static void message(int where, const cha
  				}
  			}
  		}
@@ -39,14 +43,12 @@ Index: busybox-1.13.2/init/init.c
  		}
 +#endif
  	}
+ #endif
  
  	if (where & L_CONSOLE) {
  		/* Send console messages to console so people will see them. */
-+#if 0
- 		full_write(STDERR_FILENO, msg, l);
-+#else
+-		full_write(STDERR_FILENO, msg, l);
 +		full_write(STDOUT_FILENO, msg, l);
-+#endif
  	}
  }
  

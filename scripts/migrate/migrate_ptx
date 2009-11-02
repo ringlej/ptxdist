@@ -34,7 +34,14 @@ s/^\(\(# \)\?PTXCONF_BUSYBOX\)_FEATURE_DF_INODE\(.*$\)/\1_FEATURE_DF_FANCY\3/
 # to     : ptxdist-1.99.11
 # symbol : PTXCONF_ROOTFS_UDEV__DEFAULT_RULES	-> PTXCONF_UDEV__DEFAULT_RULES
 # symbol : PTXCONF_ROOTFS_ETC_UDEV__CONF	-> PTXCONF_UDEV__ETC_CONF
-
+#
 s/^\(\(# \)\?PTXCONF_\)ROOTFS_UDEV__DEFAULT_RULES\(.*$\)/\1UDEV__DEFAULT_RULES\3/
 s/^\(\(# \)\?PTXCONF_\)ROOTFS_ETC_UDEV__CONF\(.*$\)/\1UDEV__ETC_CONF\3/
 
+#
+# from	 : ptxdist-1.99.19
+# to	 : ptxdist-1.99.20
+# symbol : BUSYBOX_GETOPT_LONG	-> BUSYBOX_LONG_OPTS
+# reason : update busybox 1.13.2 -> 1.15.2
+#
+s/^\(\(# \)\?PTXCONF_BUSYBOX\)_GETOPT_LONG\(.*$\)/\1_LONG_OPTS\3/

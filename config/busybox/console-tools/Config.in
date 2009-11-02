@@ -91,7 +91,7 @@ config BUSYBOX_SETCONSOLE
 config BUSYBOX_FEATURE_SETCONSOLE_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BUSYBOX_SETCONSOLE && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_SETCONSOLE && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the setconsole applet.
 

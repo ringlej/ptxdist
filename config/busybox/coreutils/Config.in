@@ -189,7 +189,7 @@ config BUSYBOX_ECHO
 config BUSYBOX_FEATURE_FANCY_ECHO
 	bool "Enable echo options (-n and -e)"
 	default y
-	depends on BUSYBOX_ECHO || BUSYBOX_ASH_BUILTIN_ECHO
+	depends on BUSYBOX_ECHO || BUSYBOX_ASH_BUILTIN_ECHO || BUSYBOX_HUSH
 	help
 	  This adds options (-n and -e) to echo.
 
@@ -204,7 +204,7 @@ config BUSYBOX_ENV
 config BUSYBOX_FEATURE_ENV_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BUSYBOX_ENV && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_ENV && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the env applet.
 
@@ -217,7 +217,7 @@ config BUSYBOX_EXPAND
 config BUSYBOX_FEATURE_EXPAND_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BUSYBOX_EXPAND && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_EXPAND && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the expand applet.
 
@@ -248,6 +248,12 @@ config BUSYBOX_FOLD
 	default n
 	help
 	  Wrap text to fit a specific width.
+
+config BUSYBOX_FSYNC
+	bool "fsync"
+	default n
+	help
+	  fsync is used to flush file-related cached blocks to disk.
 
 config BUSYBOX_HEAD
 	bool "head"
@@ -285,7 +291,7 @@ config BUSYBOX_INSTALL
 config BUSYBOX_FEATURE_INSTALL_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BUSYBOX_INSTALL && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_INSTALL && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the install applet.
 
@@ -358,7 +364,7 @@ config BUSYBOX_FEATURE_LS_USERNAME
 config BUSYBOX_FEATURE_LS_COLOR
 	bool "Allow use of color to identify file types"
 	default y
-	depends on BUSYBOX_LS && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_LS && BUSYBOX_LONG_OPTS
 	help
 	  This enables the --color option to ls.
 
@@ -388,7 +394,7 @@ config BUSYBOX_MKDIR
 config BUSYBOX_FEATURE_MKDIR_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BUSYBOX_MKDIR && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_MKDIR && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the mkdir applet.
 
@@ -415,7 +421,7 @@ config BUSYBOX_MV
 config BUSYBOX_FEATURE_MV_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BUSYBOX_MV && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_MV && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the mv applet.
 
@@ -492,7 +498,7 @@ config BUSYBOX_RMDIR
 config BUSYBOX_FEATURE_RMDIR_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BUSYBOX_RMDIR && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_RMDIR && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the rmdir applet, including
 	  --ignore-fail-on-non-empty for compatibility with GNU rmdir.
@@ -508,6 +514,18 @@ config BUSYBOX_SHA1SUM
 	default n
 	help
 	  Compute and check SHA1 message digest
+
+config BUSYBOX_SHA256SUM
+	bool "sha256sum"
+	default n
+	help
+	  Compute and check SHA256 message digest
+
+config BUSYBOX_SHA512SUM
+	bool "sha512sum"
+	default n
+	help
+	  Compute and check SHA512 message digest
 
 config BUSYBOX_SLEEP
 	bool "sleep"
@@ -617,7 +635,7 @@ config BUSYBOX_TAIL
 	  from files.
 
 config BUSYBOX_FEATURE_FANCY_TAIL
-	bool "Enable extra tail options (-q, -s, and -v)"
+	bool "Enable extra tail options (-q, -s, -v, and -F)"
 	default y
 	depends on BUSYBOX_TAIL
 	help
@@ -649,7 +667,7 @@ config BUSYBOX_TEST
 config BUSYBOX_FEATURE_TEST_64
 	bool "Extend test to 64 bit"
 	default n
-	depends on BUSYBOX_TEST || BUSYBOX_ASH_BUILTIN_TEST
+	depends on BUSYBOX_TEST || BUSYBOX_ASH_BUILTIN_TEST || BUSYBOX_HUSH
 	help
 	  Enable 64-bit support in test.
 
@@ -714,7 +732,7 @@ config BUSYBOX_UNEXPAND
 config BUSYBOX_FEATURE_UNEXPAND_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BUSYBOX_UNEXPAND && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_UNEXPAND && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the unexpand applet.
 
@@ -754,7 +772,7 @@ config BUSYBOX_FEATURE_WC_LARGE
 	default n
 	depends on BUSYBOX_WC
 	help
-	  Use "unsigned long long" in wc for count variables.
+	  Use "unsigned long long" in wc for counter variables.
 
 config BUSYBOX_WHO
 	bool "who"

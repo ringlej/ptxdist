@@ -16,7 +16,7 @@ config BUSYBOX_CHCON
 config BUSYBOX_FEATURE_CHCON_LONG_OPTIONS
 	bool "Enable long options"
 	default y
-	depends on BUSYBOX_CHCON && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_CHCON && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the chcon applet.
 
@@ -67,7 +67,7 @@ config BUSYBOX_RUNCON
 config BUSYBOX_FEATURE_RUNCON_LONG_OPTIONS
 	bool "Enable long options"
 	default y
-	depends on BUSYBOX_RUNCON && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_RUNCON && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the runcon applet.
 

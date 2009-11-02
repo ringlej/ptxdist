@@ -12,8 +12,19 @@ config BUSYBOX_FEATURE_IPV6
 	  Enable IPv6 support in busybox.
 	  This adds IPv6 support in the networking applets.
 
+config BUSYBOX_FEATURE_UNIX_LOCAL
+	bool "Enable Unix domain socket support (usually not needed)"
+	default n
+	help
+	  Enable Unix domain socket support in all busybox networking
+	  applets.  Address of the form local:/path/to/unix/socket
+	  will be recognized.
+
+	  This extension is almost never used in real world usage.
+	  You most likely want to say N.
+
 config BUSYBOX_FEATURE_PREFER_IPV4_ADDRESS
-	bool "Preferentially use IPv4 addresses from DNS queries"
+	bool "Prefer IPv4 addresses from DNS queries"
 	default y
 	depends on BUSYBOX_FEATURE_IPV6
 	help
@@ -93,6 +104,19 @@ config BUSYBOX_FAKEIDENTD
 	  fakeidentd listens on the ident port and returns a predefined
 	  fake value on any query.
 
+config BUSYBOX_FTPD
+	bool "ftpd"
+	default n
+	help
+	  simple FTP daemon. You have to run it via inetd.
+
+config BUSYBOX_FEATURE_FTP_WRITE
+	bool "Enable upload commands"
+	default y
+	depends on BUSYBOX_FTPD
+	help
+	  Enable all kinds of FTP upload commands (-w option)
+
 config BUSYBOX_FTPGET
 	bool "ftpget"
 	default n
@@ -108,7 +132,7 @@ config BUSYBOX_FTPPUT
 config BUSYBOX_FEATURE_FTPGETPUT_LONG_OPTIONS
 	bool "Enable long options in ftpget/ftpput"
 	default n
-	depends on BUSYBOX_GETOPT_LONG && (BUSYBOX_FTPGET || BUSYBOX_FTPPUT)
+	depends on BUSYBOX_LONG_OPTS && (BUSYBOX_FTPGET || BUSYBOX_FTPPUT)
 	help
 	  Support long options for the ftpget/ftpput applet.
 
@@ -141,14 +165,6 @@ config BUSYBOX_FEATURE_HTTPD_USE_SENDFILE
 	  When enabled, httpd will use the kernel sendfile() function
 	  instead of read/write loop.
 
-config BUSYBOX_FEATURE_HTTPD_RELOAD_CONFIG_SIGHUP
-	bool "Support reloading of global config file on HUP signal"
-	default n
-	depends on BUSYBOX_HTTPD
-	help
-	  This option enables processing of SIGHUP to reload cached
-	  configuration settings.
-
 config BUSYBOX_FEATURE_HTTPD_SETUID
 	bool "Enable -u <user> option"
 	default n
@@ -174,14 +190,6 @@ config BUSYBOX_FEATURE_HTTPD_AUTH_MD5
 	help
 	  Enables basic per URL authentication from /etc/httpd.conf
 	  using md5 passwords.
-
-config BUSYBOX_FEATURE_HTTPD_CONFIG_WITH_MIME_TYPES
-	bool "Support loading additional MIME types at run-time"
-	default n
-	depends on BUSYBOX_HTTPD
-	help
-	  This option enables support for additional MIME types at
-	  run-time to be specified in the configuration file.
 
 config BUSYBOX_FEATURE_HTTPD_CGI
 	bool "Support Common Gateway Interface (CGI)"
@@ -298,6 +306,12 @@ config BUSYBOX_IFENSLAVE
 	help
 	  Userspace application to bind several interfaces
 	  to a logical interface (use with kernel bonding driver).
+
+config BUSYBOX_IFPLUGD
+	bool "ifplugd"
+	default n
+	help
+	  Network interface plug detection daemon.
 
 config BUSYBOX_IFUPDOWN
 	bool "ifupdown"
@@ -564,7 +578,7 @@ config BUSYBOX_FEATURE_IPCALC_FANCY
 config BUSYBOX_FEATURE_IPCALC_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BUSYBOX_IPCALC && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_IPCALC && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the ipcalc applet.
 
@@ -821,24 +835,23 @@ config BUSYBOX_FEATURE_TFTP_BLOCKSIZE
 config BUSYBOX_TFTP_DEBUG
 	bool "Enable debug"
 	default n
-	depends on BUSYBOX_TFTP
+	depends on BUSYBOX_TFTP || BUSYBOX_TFTPD
 	help
-	  Enable debug settings for tftp. This is useful if you're running
-	  into problems with tftp as the protocol doesn't help you much when
-	  you run into problems.
+	  Make tftp[d] print debugging messages on stderr.
+	  This is useful if you are diagnosing a bug in tftp[d].
 
 config BUSYBOX_TRACEROUTE
 	bool "traceroute"
 	default n
 	help
-	  Utility to trace the route of IP packets
+	  Utility to trace the route of IP packets.
 
 config BUSYBOX_FEATURE_TRACEROUTE_VERBOSE
 	bool "Enable verbose output"
 	default n
 	depends on BUSYBOX_TRACEROUTE
 	help
-	  Add some verbosity to traceroute. This includes amongst other things
+	  Add some verbosity to traceroute. This includes among other things
 	  hostnames and ICMP response types.
 
 config BUSYBOX_FEATURE_TRACEROUTE_SOURCE_ROUTE
@@ -854,9 +867,18 @@ config BUSYBOX_FEATURE_TRACEROUTE_USE_ICMP
 	default n
 	depends on BUSYBOX_TRACEROUTE
 	help
-	  Add feature to allow for ICMP ECHO instead of UDP datagrams.
+	  Add option -I to use ICMP ECHO instead of UDP datagrams.
 
 source config/busybox/networking/udhcp/Config.in
+
+config BUSYBOX_IFUPDOWN_UDHCPC_CMD_OPTIONS
+	string "ifup udhcpc command line options"
+	default "-BUSYBOX_R -n"
+	depends on BUSYBOX_IFUPDOWN && BUSYBOX_APP_UDHCPC
+	help
+	  Command line options to pass to udhcpc from ifup.
+	  Intended to alter options not available in /etc/network/interfaces.
+	  (IE: --syslog --background etc...)
 
 config BUSYBOX_VCONFIG
 	bool "vconfig"
@@ -888,7 +910,7 @@ config BUSYBOX_FEATURE_WGET_AUTHENTICATION
 config BUSYBOX_FEATURE_WGET_LONG_OPTIONS
 	bool "Enable long options"
 	default n
-	depends on BUSYBOX_WGET && BUSYBOX_GETOPT_LONG
+	depends on BUSYBOX_WGET && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the wget applet.
 
@@ -910,6 +932,20 @@ config BUSYBOX_TCPSVD
 	help
 	  tcpsvd listens on a TCP port and runs a program for each new
 	  connection.
+
+config BUSYBOX_TUNCTL
+	bool "tunctl"
+	default n
+	help
+	  tunctl creates or deletes tun devices.
+
+config BUSYBOX_FEATURE_TUNCTL_UG
+	bool "Support owner:group assignment"
+	default n
+	depends on BUSYBOX_TUNCTL
+	help
+	  Allow to specify owner and group of newly created interface.
+	  340 bytes of pure bloat. Say no here.
 
 config BUSYBOX_UDPSVD
 	bool "udpsvd"
