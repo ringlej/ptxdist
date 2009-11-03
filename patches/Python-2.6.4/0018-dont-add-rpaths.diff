@@ -1,0 +1,32 @@
+---
+ setup.py |    3 ---
+ 1 file changed, 3 deletions(-)
+
+Index: b/setup.py
+===================================================================
+--- a/setup.py
++++ b/setup.py
+@@ -893,7 +893,6 @@ class PyBuildExt(build_ext):
+             exts.append(Extension('_bsddb', ['_bsddb.c'],
+                                   depends = ['bsddb.h'],
+                                   library_dirs=dblib_dir,
+-                                  runtime_library_dirs=dblib_dir,
+                                   include_dirs=db_incs,
+                                   libraries=dblibs))
+         else:
+@@ -995,7 +994,6 @@ class PyBuildExt(build_ext):
+                                   include_dirs=["Modules/_sqlite",
+                                                 sqlite_incdir],
+                                   library_dirs=sqlite_libdir,
+-                                  runtime_library_dirs=sqlite_libdir,
+                                   extra_link_args=sqlite_extra_link_args,
+                                   libraries=["sqlite3",]))
+         else:
+@@ -1065,7 +1063,6 @@ class PyBuildExt(build_ext):
+             elif db_incs is not None:
+                 exts.append( Extension('dbm', ['dbmmodule.c'],
+                                        library_dirs=dblib_dir,
+-                                       runtime_library_dirs=dblib_dir,
+                                        include_dirs=db_incs,
+                                        define_macros=[('HAVE_BERKDB_H',None),
+                                                       ('DB_DBM_HSEARCH',None)],

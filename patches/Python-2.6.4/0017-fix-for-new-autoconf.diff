@@ -1,0 +1,19 @@
+---
+ configure.in |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -1362,8 +1362,9 @@ AC_CHECK_SIZEOF(fpos_t, 4)
+ AC_CHECK_SIZEOF(size_t, 4)
+ AC_CHECK_SIZEOF(pid_t, 4)
+ 
++AC_TYPE_LONG_LONG_INT
+ AC_CHECK_SIZEOF(long long)
+-if test "$ac_cv_type_long_long" = "yes" ; then
++if test "$ac_cv_type_long_long_int" = "yes" ; then
+   AC_DEFINE(HAVE_LONG_LONG, 1, [Define this if you have the type long long.])
+ fi
+ 

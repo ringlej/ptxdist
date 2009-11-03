@@ -10,13 +10,13 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  Lib/plat-linux2/IN.py  |    2 +
- Modules/socketmodule.c |   90 ++++++++++++++++++++++++++++++++++++++++++++++++
+ Modules/socketmodule.c |   89 +++++++++++++++++++++++++++++++++++++++++++++++++
  Modules/socketmodule.h |   11 ++++++
  configure.in           |   13 +++++++
- 4 files changed, 116 insertions(+), 0 deletions(-)
+ 4 files changed, 115 insertions(+)
 
-diff --git a/Lib/plat-linux2/IN.py b/Lib/plat-linux2/IN.py
-index ad307f6..f72ae88 100644
+Index: b/Lib/plat-linux2/IN.py
+===================================================================
 --- a/Lib/plat-linux2/IN.py
 +++ b/Lib/plat-linux2/IN.py
 @@ -384,6 +384,7 @@ PF_SNA = 22
@@ -35,11 +35,11 @@ index ad307f6..f72ae88 100644
  AF_BLUETOOTH = PF_BLUETOOTH
  AF_MAX = PF_MAX
  SOL_RAW = 255
-diff --git a/Modules/socketmodule.c b/Modules/socketmodule.c
-index ca10fb5..02fe1e1 100644
+Index: b/Modules/socketmodule.c
+===================================================================
 --- a/Modules/socketmodule.c
 +++ b/Modules/socketmodule.c
-@@ -417,6 +417,10 @@ const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
+@@ -417,6 +417,10 @@ const char *inet_ntop(int af, const void
  
  #define	SAS2SA(x)	((struct sockaddr *)(x))
  
@@ -50,7 +50,7 @@ index ca10fb5..02fe1e1 100644
  /*
   * Constants for getnameinfo()
   */
-@@ -1041,6 +1045,22 @@ makesockaddr(int sockfd, struct sockaddr *addr, int addrlen, int proto)
+@@ -1041,6 +1045,22 @@ makesockaddr(int sockfd, struct sockaddr
  	}
  #endif
  
@@ -73,7 +73,7 @@ index ca10fb5..02fe1e1 100644
  #ifdef USE_BLUETOOTH
  	case AF_BLUETOOTH:
  		switch (proto) {
-@@ -1300,6 +1320,29 @@ getsockaddrarg(PySocketSockObject *s, PyObject *args,
+@@ -1300,6 +1320,28 @@ getsockaddrarg(PySocketSockObject *s, Py
  	}
  #endif
  
@@ -83,7 +83,7 @@ index ca10fb5..02fe1e1 100644
 +		struct sockaddr_can* addr;
 +		struct ifreq ifr;
 +		char *interfaceName;
-+		addr=&(s->sock_addr.can);
++		addr = (struct sockaddr_can*)addr_ret;
 +		if (!PyArg_Parse(args, "s", &interfaceName))
 +			return 0;
 +		strncpy(ifr.ifr_name, interfaceName, sizeof(ifr.ifr_name));
@@ -94,7 +94,6 @@ index ca10fb5..02fe1e1 100644
 +		}
 +		addr->can_family = AF_CAN;
 +		addr->can_ifindex = ifr.ifr_ifindex;
-+		*addr_ret = (struct sockaddr *) addr;
 +		*len_ret = sizeof *addr;
 +		return 1;
 +	}
@@ -103,7 +102,7 @@ index ca10fb5..02fe1e1 100644
  #ifdef USE_BLUETOOTH
  	case AF_BLUETOOTH:
  	{
-@@ -1530,6 +1573,14 @@ getsockaddrlen(PySocketSockObject *s, socklen_t *len_ret)
+@@ -1530,6 +1572,14 @@ getsockaddrlen(PySocketSockObject *s, so
  	}
  #endif
  
@@ -118,7 +117,7 @@ index ca10fb5..02fe1e1 100644
  #ifdef USE_BLUETOOTH
  	case AF_BLUETOOTH:
  	{
-@@ -4559,6 +4610,10 @@ init_socket(void)
+@@ -4559,6 +4609,10 @@ init_socket(void)
  	PyModule_AddIntConstant(m, "AF_LLC", AF_LLC);
  #endif
  
@@ -129,7 +128,7 @@ index ca10fb5..02fe1e1 100644
  #ifdef USE_BLUETOOTH
  	PyModule_AddIntConstant(m, "AF_BLUETOOTH", AF_BLUETOOTH);
  	PyModule_AddIntConstant(m, "BTPROTO_L2CAP", BTPROTO_L2CAP);
-@@ -4892,6 +4947,41 @@ init_socket(void)
+@@ -4892,6 +4946,41 @@ init_socket(void)
  	PyModule_AddIntConstant(m, "IPPROTO_MAX", IPPROTO_MAX);
  #endif
  
@@ -171,8 +170,8 @@ index ca10fb5..02fe1e1 100644
  	/* Some port configuration */
  #ifdef	IPPORT_RESERVED
  	PyModule_AddIntConstant(m, "IPPORT_RESERVED", IPPORT_RESERVED);
-diff --git a/Modules/socketmodule.h b/Modules/socketmodule.h
-index ef8d0fc..56c0cbc 100644
+Index: b/Modules/socketmodule.h
+===================================================================
 --- a/Modules/socketmodule.h
 +++ b/Modules/socketmodule.h
 @@ -55,6 +55,14 @@ typedef int socklen_t;
@@ -200,8 +199,8 @@ index ef8d0fc..56c0cbc 100644
  #ifdef HAVE_BLUETOOTH_BLUETOOTH_H
  	struct sockaddr_l2 bt_l2;
  	struct sockaddr_rc bt_rc;
-diff --git a/configure.in b/configure.in
-index 106e6a7..311311b 100644
+Index: b/configure.in
+===================================================================
 --- a/configure.in
 +++ b/configure.in
 @@ -1261,6 +1261,19 @@ AC_CHECK_HEADERS(linux/netlink.h,,,[
@@ -224,6 +223,3 @@ index 106e6a7..311311b 100644
  # checks for typedefs
  was_it_defined=no
  AC_MSG_CHECKING(for clock_t in time.h)
--- 
-1.5.6.3
-

@@ -14,4 +14,5 @@
 0014-setup.py-skip-import-check-while-cross-compiling.patch
 0015-add-cross-compilation-support.patch
 0016-provide-wrapper-for-cross-python.patch
-0017-autoregen.patch
+0017-fix-for-new-autoconf.diff
+0018-dont-add-rpaths.diff
