@@ -47,7 +47,9 @@ ATTR_ENV 	:= \
 #
 # autoconf
 #
-ATTR_AUTOCONF := $(CROSS_AUTOCONF_USR)
+ATTR_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-shared
 
 ifdef PTXCONF_ATTR_GETTEXT
 ATTR_AUTOCONF += --enable-gettext
