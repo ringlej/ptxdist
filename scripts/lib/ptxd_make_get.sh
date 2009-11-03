@@ -102,9 +102,11 @@ export -f ptxd_make_get_download_permitted
 # - no-check-certificate	don't check server certificate (https only)
 #
 ptxd_make_get() {
-	local orig_argv=( "${@}" )
 	local -a argv
 	local mrd=false		# is mirror already part of urls?
+
+	local -a orig_argv
+	orig_argv=( "${@}" )
 
 	if [ -z "${1}" ]; then
 		echo
@@ -163,7 +165,8 @@ ptxd_make_get() {
 		#
 		local orig_ifs="${IFS}"
 		IFS=";"
-		local -a opts=( ${1} )
+		local -a opts
+		opts=( ${1} )
 		IFS="${orig_ifs}"
 		unset orig_ifs
 

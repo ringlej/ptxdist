@@ -12,7 +12,8 @@
 # check for deprecated vars and print them
 #
 ptxd_make_world_init_deprecation_check() {
-    local -a dep=(
+    local -a dep
+    dep=(
 	pkg_deprecated_install_builddir
 	pkg_deprecated_install_hosttool
 	pkg_deprecated_install_opt

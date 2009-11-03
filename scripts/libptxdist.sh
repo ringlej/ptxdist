@@ -55,7 +55,8 @@ _ptxd_dialog_box() {
 
 	local old_ifs="${IFS}"
 	local IFS=''
-	local msg="${*}"
+	local msg
+	msg="${*}"
 	IFS="${old_ifs}"
 
 	if [ -n "${PTX_MENU}" ]; then
@@ -78,7 +79,8 @@ ptxd_dialog_msgbox() {
 ptxd_dialog_yesno() {
 	local old_ifs="${IFS}"
 	local IFS=''
-	local msg="${*}"
+	local msg
+	msg="${*}"
 	IFS="${old_ifs}"
 
 	local answer
