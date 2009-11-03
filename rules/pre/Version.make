@@ -9,11 +9,6 @@
 # see the README file.
 #
 
-KERNEL_VERSION		:= $(call remove_quotes,$(PTXCONF_KERNEL_VERSION))
-_version_temp		:= $(subst ., ,$(KERNEL_VERSION))
-KERNEL_VERSION_MAJOR	:= $(word 1,$(_version_temp))
-KERNEL_VERSION_MINOR	:= $(word 2,$(_version_temp))
-
 GCC_VERSION		:= $(call remove_quotes,$(PTXCONF_CROSSCHAIN_CHECK))
 _version_temp		:= $(subst ., ,$(GCC_VERSION))
 GCC_VERSION_MAJOR	:= $(word 1,$(_version_temp))
