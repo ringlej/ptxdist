@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2922 2005-07-11 19:17:53Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -24,7 +23,6 @@ APACHE2_MOD_PYTHON_SUFFIX	:= tgz
 APACHE2_MOD_PYTHON_URL		:= http://apache.easy-webs.de/httpd/modpython/$(APACHE2_MOD_PYTHON).$(APACHE2_MOD_PYTHON_SUFFIX)
 APACHE2_MOD_PYTHON_SOURCE	:= $(SRCDIR)/$(APACHE2_MOD_PYTHON).$(APACHE2_MOD_PYTHON_SUFFIX)
 APACHE2_MOD_PYTHON_DIR		:= $(BUILDDIR)/$(APACHE2_MOD_PYTHON)
-APACHE2_MOD_PYTHON_PKGDIR	:= $(PKGDIR)/$(APACHE2_MOD_PYTHON)
 
 # ----------------------------------------------------------------------------
 # Get
