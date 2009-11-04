@@ -94,11 +94,12 @@ ptxd_make_world_init_compat() {
 
 
     # makevars
-    if [ -n "${pkg_deprecated_makevars}" -a -n "${pkg_make_opt}" ]; then
-	ptxd_bailout "${FUNCNAME}: <PKG>_MAKEVARS is incompatibel with <PKG>_MAKE_OPT"
+    if [ -n "${pkg_deprecated_makevars}" ]; then
+	if [ -n "${pkg_make_opt}" ]; then
+	    ptxd_bailout "${FUNCNAME}: <PKG>_MAKEVARS is incompatibel with <PKG>_MAKE_OPT"
+	fi
+	pkg_make_opt="${pkg_deprecated_makevars}"
     fi
-    pkg_make_opt="${pkg_deprecated_makevars}"
-
 
     # install_opt
     pkg_install_opt="${pkg_deprecated_makevars}${pkg_deprecated_makevars:+${pkg_deprecated_install_opt:+ }}${pkg_deprecated_install_opt}"
