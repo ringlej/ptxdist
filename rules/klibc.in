@@ -3,189 +3,261 @@
 #
 # rules/klibc.in
 #
-
 menuconfig KLIBC
 	bool
-	depends on KERNEL
 	prompt "klibc                         "
 	help
-	  This feature contains a collection of programs that are linked against
-	  klibc. These duplicate some of the functionality of a regular Linux
-	  toolset, but are typically much smaller than their full-function
-	  counterparts. They are intended for inclusion in initramfs images and
-	  can do the network configuration outside the kernel and someting
+	  This feature contains a collection of programs that are
+	  linked against klibc. These duplicate some of the
+	  functionality of a regular Linux toolset, but are typically
+	  much smaller than their full-function counterparts. They are
+	  intended for inclusion in initramfs images and can do the
+	  network configuration outside the kernel and someting
 	  special before mounting the final root filesystem.
-	  This will create a control file only at
-	     ${PTXDIST_WORKSPACE}/build-target/$(KLIBC_DIR)/initramfs_spec
-	  The real initramfs will be built by the kernel itself from this control
-	  file. So in order to use this feature you have to enter this control
-	  filename into the kernel feature -> initramfs entry field.
-	  When you enter the name as showing above you will be path and
-	  version independend.
 
 if KLIBC
 
-#
-# statically linked part
-#
-comment "Select components to install"
+choice
+	prompt "link klibc programs"
+	help
+	  You can select how to link the klibc programs.
+
+	  There are two possibilities, either links shared or
+	  static. When linking statically the klibc is linked into
+	  each program. Select this if you only have a few
+	  programs. On the other hand if you have many tools a
+	  dynamically linked klibc saves some space.
+
+config KLIBC_SHARED
+	bool "shared"
+
+config KLIBC_STATIC
+	bool "static"
+
+endchoice
+
+config KLIBC_DASH
+	bool
+	prompt "dash"
+	help
+	  install a minimum shell (dash) under /bin/sh
+
+config KLIBC_INIT
+	string
+	prompt "create a link from /init to the specified program"
+	default "/kinit"
+	help
+	  A kernel will always start /init in the initramfs if not
+	  otherwise specified (see kernel parameter "init="). With
+	  this link ist possible to start any program you like.
+
+config KLIBC_USER_SPEC
+	bool
+	prompt "parse project specific initramfs_spec"
+	help
+	  parse the spec file which is expected to live in
+	  ${PTXDIST_WORKSPACE}/initramfs_spec. The format is the same
+	  as described in the kernelsource under
+
+	  Documentation/early-userspace/README.
+
+	  Files described in this file can either have an absolute or
+	  a relative path (relative to ${PTXDIST_WORKSPACE}).
+
+menu "klibc utils"
+
+config KLIBC_CAT
+	bool
+	prompt "cat"
+	help
+	  This is a "cat" command. It gets installed into /bin/cat
+
+config KLIBC_CHROOT
+	bool
+	prompt "chroot"
+	help
+	  This is a "chroot" command. It gets installed into /bin/chroot
+
+config KLIBC_CPIO
+	bool
+	prompt "cpio"
+	help
+	  This is a "cpio" command. It gets installed into /bin/cpio
+
+config KLIBC_DD
+	bool
+	prompt "dd"
+	help
+	  This is a "dd" command. It gets installed into /bin/dd
+
+config KLIBC_DMESG
+	bool
+	prompt "dmesg"
+	help
+	  This is a "dmesg" command. It gets installed into /bin/dmesg
+
+config KLIBC_FALSE
+	bool
+	prompt "false"
+	help
+	  This is a "false" command. It gets installed into /bin/false
+
+config KLIBC_HALT
+	bool
+	prompt "halt"
+	help
+	  This is a "halt" command. It gets installed into /bin/halt
+
+config KLIBC_KILL
+	bool
+	prompt "kill"
+	help
+	  This is a "kill" command. It gets installed into /bin/kill
+
+config KLIBC_LN
+	bool
+	prompt "ln"
+	help
+	  This is a "ln" command. It gets installed into /bin/ln
+
+config KLIBC_LS
+	bool
+	prompt "ls"
+	help
+	  This is a "ls" command. It gets installed into /bin/ln
+
+config KLIBC_MINIPS
+	bool
+	prompt "minips"
+	help
+	  This is a "minips" command. It gets installed into /bin/minips
+
+config KLIBC_MKDIR
+	bool
+	prompt "mkdir"
+	help
+	  This is a "mkdir" command. It gets installed into /bin/mkdir
+
+config KLIBC_MKFIFO
+	bool
+	prompt "mkfifo"
+	help
+	  This is a "mkfifo" command. It gets installed into /bin/mkfifo
+
+config KLIBC_MKNOD
+	bool
+	prompt "mknod"
+	help
+	  This is a "mknod" command. It gets installed into /bin/mknod
+
+config KLIBC_MOUNT
+	bool
+	prompt "mount"
+	help
+	  This is a "mount" command. It gets installed into /bin/mount
+
+config KLIBC_NUKE
+	bool
+	prompt "nuke"
+	help
+	  This is a "nuke" command. It gets installed into /bin/nuke
+
+config KLIBC_PIVOT_ROOT
+	bool
+	prompt "pivot_root"
+	help
+	  This is a "pivot_root" command. It gets installed into /bin/pivot_root
+
+config KLIBC_POWEROFF
+	bool
+	prompt "poweroff"
+	help
+	  This is a "poweroff" command. It gets installed into /bin/poweroff
+
+config KLIBC_READLINK
+	bool
+	prompt "readlink"
+	help
+	  This is a "readlink" command. It gets installed into /bin/readlink
+
+config KLIBC_REBOOT
+	bool
+	prompt "reboot"
+	help
+	  This is a "reboot" command. It gets installed into /bin/reboot
+
+config KLIBC_SLEEP
+	bool
+	prompt "sleep"
+	help
+	  This is a "sleep" command. It gets installed into /bin/sleep
+
+config KLIBC_SYNC
+	bool
+	prompt "sync"
+	help
+	  This is a "sync" command. It gets installed into /bin/sync
+
+config KLIBC_TRUE
+	bool
+	prompt "true"
+	help
+	  This is a "true" command. It gets installed into /bin/true
+
+config KLIBC_UMOUNT
+	bool
+	prompt "umount"
+	help
+	  This is a "umount" command. It gets installed into /bin/umount
+
+config KLIBC_UNAME
+	bool
+	prompt "uname"
+	help
+	  This is a "uname" command. It gets installed into /bin/uname
+
+endmenu
+
+
+menu "klibc init"
+
+config KLIBC_FSTYPE
+	bool
+	prompt "fstype"
+	help
+	  This is a "fstype" command. It gets installed into /bin/fstype
+
+config KLIBC_IPCONFIG
+	bool
+	prompt "ipconfig"
+	help
+	  This is a "ipconfig" command. It gets installed into /bin/ipconfig
 
 config KLIBC_KINIT
 	bool
 	prompt "kinit"
 	default y
 	help
-	  It will be installed into /kinit and is intended to configure the network
-	  and mounting NFS based filesystems. It will be controlled by the standard kernel
-	  command line, anything else in /arch.cmd and anything else after a -- parameter.
-	  All three parts gets combined into one parameter list and will be used for
-	  configuration.
+	  It will be installed into /kinit and is intended to
+	  configure the network and mounting NFS based filesystems. It
+	  will be controlled by the standard kernel command line,
+	  anything else in /arch.cmd and anything else after a --
+	  parameter.  All three parts gets combined into one parameter
+	  list and will be used for configuration.
 
-config KLIBC_STATIC_DASH
-	bool
-	prompt "dash"
-	help
-	  install a minimum shell (dash) under /bin/sh
-
-config KLIBC_STATIC_CAT
-	bool
-	prompt "cat"
-	help
-	  This is a statically linked "cat" command. It gets installed into /bin/cat
-
-config KLIBC_STATIC_CHROOT
-	bool
-	prompt "chroot"
-	help
-	  This is a statically linked "chroot" command. It gets installed into /bin/chroot
-
-config KLIBC_STATIC_CPIO
-	bool
-	prompt "cpio"
-	help
-	  This is a statically linked "cpio" command. It gets installed into /bin/cpio
-
-config KLIBC_STATIC_DD
-	bool
-	prompt "dd"
-	help
-	  This is a statically linked "dd" command. It gets installed into /bin/dd
-
-config KLIBC_STATIC_DMESG
-	bool
-	prompt "dmesg"
-	help
-	  This is a statically linked "dmesg" command. It gets installed into /bin/dmesg
-
-config KLIBC_STATIC_FALSE
-	bool
-	prompt "false"
-	help
-	  This is a statically linked "false" command. It gets installed into /bin/false
-
-config KLIBC_STATIC_FSTYPE
-	bool
-	prompt "fstype"
-	help
-	  This is a statically linked "fstype" command. It gets installed into /bin/fstype
-
-config KLIBC_STATIC_HALT
-	bool
-	prompt "halt"
-	help
-	  This is a statically linked "halt" command. It gets installed into /bin/halt
-
-config KLIBC_STATIC_IPCONFIG
-	bool
-	prompt "ipconfig"
-	help
-	  This is a statically linked "ipconfig" command. It gets installed into /bin/ipconfig
-
-config KLIBC_STATIC_KILL
-	bool
-	prompt "kill"
-	help
-	  This is a statically linked "kill" command. It gets installed into /bin/kill
-
-config KLIBC_STATIC_LN
-	bool
-	prompt "ln"
-	help
-	  This is a statically linked "ln" command. It gets installed into /bin/ln
-
-config KLIBC_STATIC_MINIPS
-	bool
-	prompt "minips"
-	help
-	  This is a statically linked "minips" command. It gets installed into /bin/minips
-
-config KLIBC_STATIC_MKDIR
-	bool
-	prompt "mkdir"
-	help
-	  This is a statically linked "mkdir" command. It gets installed into /bin/mkdir
-
-config KLIBC_STATIC_MKFIFO
-	bool
-	prompt "mkfifo"
-	help
-	  This is a statically linked "mkfifo" command. It gets installed into /bin/mkfifo
-
-config KLIBC_STATIC_MKNOD
-	bool
-	prompt "mknod"
-	help
-	  This is a statically linked "mknod" command. It gets installed into /bin/mknod
-
-config KLIBC_STATIC_MOUNT
-	bool
-	prompt "mount"
-	help
-	  This is a statically linked "mount" command. It gets installed into /bin/mount
-
-config KLIBC_STATIC_NFSMOUNT
+config KLIBC_NFSMOUNT
 	bool
 	prompt "nfsmount"
 	help
-	  This is a statically linked "nfsmount" command. It gets installed into /bin/nfsmount
+	  This is a "nfsmount" command. It gets installed into /bin/nfsmount
 
-config KLIBC_STATIC_NUKE
-	bool
-	prompt "nuke"
-	help
-	  This is a statically linked "nuke" command. It gets installed into /bin/nuke
-
-config KLIBC_STATIC_PIVOT_ROOT
-	bool
-	prompt "pivot_root"
-	help
-	  This is a statically linked "pivot_root" command. It gets installed into /bin/pivot_root
-
-config KLIBC_STATIC_POWEROFF
-	bool
-	prompt "poweroff"
-	help
-	  This is a statically linked "poweroff" command. It gets installed into /bin/poweroff
-
-config KLIBC_STATIC_READLINK
-	bool
-	prompt "readlink"
-	help
-	  This is a statically linked "readlink" command. It gets installed into /bin/readlink
-
-config KLIBC_STATIC_REBOOT
-	bool
-	prompt "reboot"
-	help
-	  This is a statically linked "reboot" command. It gets installed into /bin/reboot
-
-config KLIBC_STATIC_RESUME
+config KLIBC_RESUME
 	bool
 	prompt "resume"
 	help
-	  This is a statically linked "resume" command. It gets installed into /bin/resume
+	  This is a "resume" command. It gets installed into /bin/resume
 
-config KLIBC_STATIC_RUN_INIT
+config KLIBC_RUN_INIT
 	bool
 	prompt "run-init"
 	default y
@@ -193,8 +265,9 @@ config KLIBC_STATIC_RUN_INIT
 	  It will be installed into /bin/run-init.
 	  Usage: exec run-init [-c /dev/console] /real-root /sbin/init "$@"
 
-	  This program should be called as the last thing in a shell script
-	  acting as /init in an initramfs; it does the following:
+	  This program should be called as the last thing in a shell
+	  script acting as /init in an initramfs; it does the
+	  following:
 
 	   - Delete all files in the initramfs;
 	   - Remounts /real-root onto the root filesystem;
@@ -202,412 +275,7 @@ config KLIBC_STATIC_RUN_INIT
 	   - Opens /dev/console;
 	   - Spawns the specified init program (with arguments.)
 
-config KLIBC_STATIC_SLEEP
-	bool
-	prompt "sleep"
-	help
-	  This is a statically linked "sleep" command. It gets installed into /bin/sleep
-
-config KLIBC_STATIC_SYNC
-	bool
-	prompt "sync"
-	help
-	  This is a statically linked "sync" command. It gets installed into /bin/sync
-
-config KLIBC_STATIC_TRUE
-	bool
-	prompt "true"
-	help
-	  This is a statically linked "true" command. It gets installed into /bin/true
-
-config KLIBC_STATIC_UMOUNT
-	bool
-	prompt "umount"
-	help
-	  This is a statically linked "umount" command. It gets installed into /bin/umount
-
-config KLIBC_STATIC_UNAME
-	bool
-	prompt "uname"
-	help
-	  This is a statically linked "uname" command. It gets installed into /bin/uname
-
-#
-# dynamic part
-#
-config KLIBC_DYNAMIC_LIB
-	bool
-	prompt "Shared library support"
-	help
-	  This adds the shared klibc.so to be used for dynamically linked commands. It's the
-	  regular way to get smaller executables. It gets installed into /lib/klibc.so
-
-if KLIBC_DYNAMIC_LIB
-
-#comment "Select shared linked commands to install"
-
-######
-comment "Static cat command is selected!"
-	depends on KLIBC_STATIC_CAT
-
-config KLIBC_SHARED_CAT
-	depends on !KLIBC_STATIC_CAT
-	bool
-	prompt "cat"
-	help
-	  This is a shared "cat" command. It gets installed into /bin/cat
-
-######
-comment "Static chroot command is selected!"
-	depends on KLIBC_STATIC_CHROOT
-
-config KLIBC_SHARED_CHROOT
-	depends on !KLIBC_STATIC_CHROOT
-	bool
-	prompt "chroot"
-	help
-	  This is a shared "chroot" command. It gets installed into /bin/chroot
-
-######
-comment "Static cpio command is selected!"
-	depends on KLIBC_STATIC_CPIO
-
-config KLIBC_SHARED_CPIO
-	depends on !KLIBC_STATIC_CPIO
-	bool
-	prompt "cpio"
-	help
-	  This is a shared "cpio" command. It gets installed into /bin/cpio
-
-######
-comment "Static dd command is selected!"
-	depends on KLIBC_STATIC_DD
-
-config KLIBC_SHARED_DD
-	depends on !KLIBC_STATIC_DD
-	bool
-	prompt "dd"
-	help
-	  This is a shared "dd" command. It gets installed into /bin/dd
-
-######
-comment "Static dmesg command is selected!"
-	depends on KLIBC_STATIC_DMESG
-
-config KLIBC_SHARED_DMESG
-	depends on !KLIBC_STATIC_DMESG
-	bool
-	prompt "dmesg"
-	help
-	  This is a shared "dmesg" command. It gets installed into /bin/dmesg
-
-######
-comment "Static false command is selected!"
-	depends on KLIBC_STATIC_FALSE
-
-config KLIBC_SHARED_FALSE
-	depends on !KLIBC_STATIC_FALSE
-	bool
-	prompt "false"
-	help
-	  This is a shared "false" command. It gets installed into /bin/false
-
-######
-comment "Static fstype command is selected!"
-	depends on KLIBC_STATIC_FSTYPE
-
-config KLIBC_SHARED_FSTYPE
-	bool
-	prompt "fstype"
-	help
-	  This is a shared "fstype" command. It gets installed into /bin/fstype
-
-######
-comment "Static halt command is selected!"
-	depends on KLIBC_STATIC_HALT
-
-config KLIBC_SHARED_HALT
-	depends on !KLIBC_STATIC_HALT
-	bool
-	prompt "halt"
-	help
-	  This is a shared "halt" command. It gets installed into /bin/halt
-
-######
-comment "Static ipconfig command is selected!"
-	depends on KLIBC_STATIC_IPCONFIG
-
-config KLIBC_SHARED_IPCONFIG
-	bool
-	prompt "ipconfig"
-	help
-	  This is a shared "ipconfig" command. It gets installed into /bin/ipconfig
-
-######
-comment "Static kill command is selected!"
-	depends on KLIBC_STATIC_KILL
-
-config KLIBC_SHARED_KILL
-	depends on !KLIBC_STATIC_KILL
-	bool
-	prompt "kill"
-	help
-	  This is a shared "kill" command. It gets installed into /bin/kill
-
-######
-comment "Static ln command is selected!"
-	depends on KLIBC_STATIC_LN
-
-config KLIBC_SHARED_LN
-	depends on !KLIBC_STATIC_LN
-	bool
-	prompt "ln"
-	help
-	  This is a shared "ln" command. It gets installed into /bin/ln
-
-######
-comment "Static minips command is selected!"
-	depends on KLIBC_STATIC_MINIPS
-
-config KLIBC_SHARED_MINIPS
-	depends on !KLIBC_STATIC_MINIPS
-	bool
-	prompt "minips"
-	help
-	  This is a shared "minips" command. It gets installed into /bin/minips
-
-######
-comment "Static mkdir command is selected!"
-	depends on KLIBC_STATIC_MKDIR
-
-config KLIBC_SHARED_MKDIR
-	depends on !KLIBC_STATIC_MKDIR
-	bool
-	prompt "mkdir"
-	help
-	  This is a shared "mkdir" command. It gets installed into /bin/mkdir
-
-######
-comment "Static mkfifo command is selected!"
-	depends on KLIBC_STATIC_MKFIFO
-
-config KLIBC_SHARED_MKFIFO
-	depends on !KLIBC_STATIC_MKFIFO
-	bool
-	prompt "mkfifo"
-	help
-	  This is a shared "mkfifo" command. It gets installed into /bin/mkfifo
-
-######
-comment "Static mknod command is selected!"
-	depends on KLIBC_STATIC_MKNOD
-
-config KLIBC_SHARED_MKNOD
-	depends on !KLIBC_STATIC_MKNOD
-	bool
-	prompt "mknod"
-	help
-	  This is a shared "mknod" command. It gets installed into /bin/mknod
-
-######
-comment "Static mount command is selected!"
-	depends on KLIBC_STATIC_MOUNT
-
-config KLIBC_SHARED_MOUNT
-	depends on !KLIBC_STATIC_MOUNT
-	bool
-	prompt "mount"
-	help
-	  This is a shared "mount" command. It gets installed into /bin/mount
-
-######
-comment "Static nfsmount command is selected!"
-	depends on KLIBC_STATIC_NFSMOUNT
-
-config KLIBC_SHARED_NFSMOUNT
-	bool
-	prompt "nfsmount"
-	help
-	  This is a shared "nfsmount" command. It gets installed into /bin/nfsmount
-
-######
-comment "Static nuke command is selected!"
-	depends on KLIBC_STATIC_NUKE
-
-config KLIBC_SHARED_NUKE
-	depends on !KLIBC_STATIC_NUKE
-	bool
-	prompt "nuke"
-	help
-	  This is a shared "nuke" command. It gets installed into /bin/nuke
-
-######
-comment "Static pivot_root command is selected!"
-	depends on KLIBC_STATIC_PIVOT_ROOT
-
-config KLIBC_SHARED_PIVOT_ROOT
-	depends on !KLIBC_STATIC_PIVOT_ROOT
-	bool
-	prompt "pivot_root"
-	help
-	  This is a shared "pivot_root" command. It gets installed into /bin/pivot_root
-
-######
-comment "Static poweroff command is selected!"
-	depends on KLIBC_STATIC_POWEROFF
-
-config KLIBC_SHARED_POWEROFF
-	bool
-	prompt "poweroff"
-	help
-	  This is a shared "poweroff" command. It gets installed into /bin/poweroff
-
-######
-comment "Static readlink command is selected!"
-	depends on KLIBC_STATIC_READLINK
-
-config KLIBC_SHARED_READLINK
-	depends on !KLIBC_STATIC_READLINK
-	bool
-	prompt "readlink"
-	help
-	  This is a shared "readlink" command. It gets installed into /bin/readlink
-
-######
-comment "Static reboot command is selected!"
-	depends on KLIBC_STATIC_REBOOT
-
-config KLIBC_SHARED_REBOOT
-	bool
-	prompt "reboot"
-	help
-	  This is a shared "reboot" command. It gets installed into /bin/reboot
-
-######
-comment "Static resume command is selected!"
-	depends on KLIBC_STATIC_RESUME
-
-config KLIBC_SHARED_RESUME
-	bool
-	prompt "resume"
-	help
-	  This is a shared "resume" command. It gets installed into /bin/resume
-
-######
-comment "Static run-init command is selected!"
-	depends on KLIBC_STATIC_RUN_INIT
-
-config KLIBC_SHARED_RUN_INIT
-	depends on !KLIBC_STATIC_RUN_INIT
-	bool
-	prompt "run-init"
-	help
-	  This is a shared "run-init" command. It gets installed into /bin/run-init
-
-######
-comment "Static sleep command is selected!"
-	depends on KLIBC_STATIC_SLEEP
-
-config KLIBC_SHARED_SLEEP
-	depends on !KLIBC_STATIC_SLEEP
-	bool
-	prompt "sleep"
-	help
-	  This is a shared "sleep" command. It gets installed into /bin/sleep
-
-######
-comment "Static sync command is selected!"
-	depends on KLIBC_STATIC_SYNC
-
-config KLIBC_SHARED_SYNC
-	depends on !KLIBC_STATIC_SYNC
-	bool
-	prompt "sync"
-	help
-	  This is a shared "sync" command. It gets installed into /bin/sync
-
-######
-comment "Static true command is selected!"
-	depends on KLIBC_STATIC_TRUE
-
-config KLIBC_SHARED_TRUE
-	depends on !KLIBC_STATIC_TRUE
-	bool
-	prompt "true"
-	help
-	  This is a shared "true" command. It gets installed into /bin/true
-
-######
-comment "Static umount command is selected!"
-	depends on KLIBC_STATIC_UMOUNT
-
-config KLIBC_SHARED_UMOUNT
-	depends on !KLIBC_STATIC_UMOUNT
-	bool
-	prompt "umount"
-	help
-	  This is a shared "umount" command. It gets installed into /bin/umount
-
-######
-comment "Static uname command is selected!"
-	depends on KLIBC_STATIC_UNAME
-
-config KLIBC_SHARED_UNAME
-	depends on !KLIBC_STATIC_UNAME
-	bool
-	prompt "uname"
-	help
-	  This is a shared "uname" command. It gets installed into /bin/uname
-
-endif
-
-config KLIBC_INIT
-	string
-	prompt "create a link from /init to the specified program"
-	default "/kinit"
-	help
-	  A kernel will always start /init in the initramfs if not otherwise specified
-	  (see kernel parameter "init="). With this link ist possible to start any program
-	  you like.
-
-config KLIBC_USER_SPEC
-	bool
-	prompt "parse project specific initramfs_spec"
-	help
-	  parse the spec file which is expected to live in
-	  ${PTXDIST_WORKSPACE}/initramfs_spec. The format is the same as
-	  described in the kernelsource under
-
-	  Documentation/early-userspace/README.
-
-	  Files described in this file can either have an absolute or a relative path
-	  (relative to ${PTXDIST_WORKSPACE}).
-
-
-#config KLIBC_FSTYPE
-#	bool
-#	prompt "Install fstype into initramfs"
-#	help
-#	  FIXME: This item needs to be documented
-
-#config KLIBC_PRINTF
-#	bool
-#	prompt "Install printf into initramfs"
-#	help
-#	  FIXME: This item needs to be documented
-
-#config KLIBC_RUN_INIT
-#	bool
-#	prompt "Install run-init into initramfs"
-#	help
-#	  FIXME: This item needs to be documented
-
-
-#config KLIBC_NFSMOUNT
-#	bool
-#	prompt "Install nfsmount into initramfs"
-#	help
-#	  FIXME: This item needs to be documented
+endmenu
 
 endif
 
