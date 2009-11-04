@@ -28,3 +28,5 @@ GLIBC_VERSION_MICRO	:= $(word 3,$(_version_temp))
 
 PTXDIST_FULLVERSION	:= $(call remove_quotes,ptxdist-$(PTXDIST_VERSION_FULL)$(PTXCONF_PROJECT_VERSION))
 _version_temp		:=
+
+# vim: syntax=make
