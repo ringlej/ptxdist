@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -23,7 +22,6 @@ XKEYBOARD_CONFIG_SUFFIX		:= tar.bz2
 XKEYBOARD_CONFIG_URL		:= http://xlibs.freedesktop.org/xkbdesc//$(XKEYBOARD_CONFIG).$(XKEYBOARD_CONFIG_SUFFIX)
 XKEYBOARD_CONFIG_SOURCE		:= $(SRCDIR)/$(XKEYBOARD_CONFIG).$(XKEYBOARD_CONFIG_SUFFIX)
 XKEYBOARD_CONFIG_DIR		:= $(BUILDDIR)/$(XKEYBOARD_CONFIG)
-XKEYBOARD_CONFIG_PKGDIR		:= $(PKGDIR)/$(XKEYBOARD_CONFIG)
 
 # ----------------------------------------------------------------------------
 # Get
