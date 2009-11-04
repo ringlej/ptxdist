@@ -42,7 +42,9 @@ $(STATEDIR)/qt4.extract:
 	@$(call targetinfo)
 	@$(call extract, QT4)
 	@$(call patchin, QT4)
-	@for file in $(QT4_DIR)/mkspecs/qws/linux-ptx-g++/*.in; do \
+	@for file in \
+			$(QT4_DIR)/mkspecs/qws/linux-ptx-g++/*.in \
+			$(QT4_DIR)/mkspecs/linux-ptx-g++/*.in; do \
 		sed -e "s,@COMPILER_PREFIX@,$(COMPILER_PREFIX),g" \
 		    -e "s,@INCDIR@,$(SYSROOT)/include $(SYSROOT)/usr/include,g" \
 		    -e "s,@LIBDIR@,$(SYSROOT)/lib $(SYSROOT)/usr/lib,g" \
@@ -96,12 +98,8 @@ QT4_AUTOCONF := \
 	-pch \
 	-reduce-relocations \
 	-force-pkg-config \
-	-embedded $(QT4_ARCH) \
-	-qt-decoration-styled \
-	-depths all \
 	-prefix /usr \
 	-no-armfpa \
-	-xplatform qws/linux-ptx-g++ \
 	-make libs \
 	-nomake docs
 
@@ -109,6 +107,25 @@ ifdef PTXCONF_ICONV
 QT4_AUTOCONF += -iconv
 else
 QT4_AUTOCONF += -no-iconv
+endif
+
+ifdef PTXCONF_QT4_PLATFORM_EMBEDDED
+QT4_AUTOCONF += \
+	-embedded $(QT4_ARCH) \
+	-qt-decoration-styled \
+	-depths all \
+	-xplatform qws/linux-ptx-g++
+endif
+
+ifdef PTXCONF_QT4_PLATFORM_X11
+QT4_AUTOCONF += \
+	-x11 \
+	-arch $(QT4_ARCH) \
+	-xplatform linux-ptx-g++ \
+	-no-gtkstyle \
+	-no-nas-sound \
+	-no-opengl \
+	-no-openvg
 endif
 
 # -make libs tools examples demos docs translations
@@ -127,6 +144,8 @@ endif
 else
 QT4_AUTOCONF += -nomake examples -nomake demos
 endif
+
+ifdef PTXCONF_QT4_PLATFORM_EMBEDDED
 
 # ahi graphics driver
 ifdef PTXCONF_QT4_GFX_AHI_PLUGIN
@@ -260,6 +279,84 @@ QT4_AUTOCONF += -qt-mouse-qvfb
 else
 QT4_AUTOCONF += -no-mouse-qvfb
 endif
+
+endif # PTXCONF_QT4_PLATFORM_EMBEDDED
+
+ifdef PTXCONF_QT4_PLATFORM_X11
+
+ifdef PTXCONF_QT4_X11_SM
+QT4_AUTOCONF += -sm
+else
+QT4_AUTOCONF += -no-sm
+endif
+
+ifdef PTXCONF_QT4_X11_XSHAPE
+QT4_AUTOCONF += -xshape
+else
+QT4_AUTOCONF += -no-xshape
+endif
+
+ifdef PTXCONF_QT4_X11_XSYNC
+QT4_AUTOCONF += -xsync
+else
+QT4_AUTOCONF += -no-xsync
+endif
+
+ifdef PTXCONF_QT4_X11_XINERAMA
+QT4_AUTOCONF += -xinerama
+else
+QT4_AUTOCONF += -no-xinerama
+endif
+
+ifdef PTXCONF_QT4_X11_XCURSOR
+QT4_AUTOCONF += -xcursor
+else
+QT4_AUTOCONF += -no-xcursor
+endif
+
+ifdef PTXCONF_QT4_X11_XFIXES
+QT4_AUTOCONF += -xfixes
+else
+QT4_AUTOCONF += -no-xfixes
+endif
+
+ifdef PTXCONF_QT4_X11_XRANDR
+QT4_AUTOCONF += -xrandr
+else
+QT4_AUTOCONF += -no-xrandr
+endif
+
+ifdef PTXCONF_QT4_X11_XRENDER
+QT4_AUTOCONF += -xrender
+else
+QT4_AUTOCONF += -no-xrender
+endif
+
+ifdef PTXCONF_QT4_X11_MITSHM
+QT4_AUTOCONF += -mitshm
+else
+QT4_AUTOCONF += -no-mitshm
+endif
+
+ifdef PTXCONF_QT4_X11_FONTCONFIG
+QT4_AUTOCONF += -fontconfig
+else
+QT4_AUTOCONF += -no-fontconfig
+endif
+
+ifdef PTXCONF_QT4_X11_XINPUT
+QT4_AUTOCONF += -xinput
+else
+QT4_AUTOCONF += -no-xinput
+endif
+
+ifdef PTXCONF_QT4_X11_XKB
+QT4_AUTOCONF += -xkb
+else
+QT4_AUTOCONF += -no-xkb
+endif
+
+endif # PTXCONF_QT4_PLATFORM_X11
 
 # PNG support
 ifdef PTXCONF_QT4_PNG_NONE

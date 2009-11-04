@@ -17,6 +17,22 @@ menuconfig QT4
 	select ALSA_LIB		if QT4_BUILD_MULTIMEDIA
 # libsvga is currently not in ptxdist
 #	select LIBSVGA		if QT4_GFX_SVGA_PLUGIN
+
+	select XORG_LIB_X11		if QT4_X11
+	select XORG_LIB_SM		if QT4_X11_SM
+	select XORG_PROTO_XEXT		if QT4_X11_XSHAPE
+	select XORG_PROTO_XEXT		if QT4_X11_XSYNC
+	select XORG_LIB_XINERAMA	if QT4_X11_XINERAMA
+	select XORG_LIB_XCURSOR		if QT4_X11_XCURSOR
+	select XORG_LIB_XFIXES		if QT4_X11_XFIXES
+	select XORG_LIB_XRANDR		if QT4_X11_XRANDR
+	select XORG_LIB_XRENDER		if QT4_X11_XRENDER
+	select XORG_PROTO_XEXT		if QT4_X11_MITSHM
+	select FONTCONFIG		if QT4_X11_FONTCONFIG
+	select FREETYPE			if QT4_X11_FONTCONFIG
+	select XORG_PROTO_INPUT		if QT4_X11_XINPUT
+	select XORG_LIB_XI		if QT4_X11_XINPUT
+
 	prompt "Qt Embedded                   "
 	help
 	  Qt Embedded is Trolltech's Widget Library for Embedded Linux.
@@ -32,7 +48,26 @@ config QT4_SHARED
 	  If selected the shared Qt Embedded Libraries are built
 	  and installed.
 
+choice
+	prompt "platform            "
+	default QT4_PLATFORM_EMBEDDED
+
+	config QT4_PLATFORM_EMBEDDED
+		bool
+		prompt "embedded"
+		help
+		  Build Qt for embedded
+
+	config QT4_PLATFORM_X11
+		bool
+		prompt "X11     "
+		help
+		  Build Qt for X11
+endchoice
+
 endmenu
+
+if QT4_PLATFORM_EMBEDDED
 
 menu "graphics driver             "
 
@@ -327,6 +362,104 @@ config QT4_MOUSE_QVFB
 	  Mouse driver for the Qt Virtual Frambuffer
 
 endmenu
+
+endif # QT4_PLATFORM_EMBEDDED
+
+if QT4_PLATFORM_X11
+
+menu "X11 feature options         "
+
+config QT4_X11_SM
+	bool
+	prompt "X Session Management"
+	help
+	  Support X Session Management, links in -lSM -lICE.
+
+config QT4_X11_XSHAPE
+	bool
+	prompt "XShape"
+	help
+	  Compile XShape support. Requires X11/extensions/shape.h.
+
+config QT4_X11_XSYNC
+	bool
+	prompt "XSync"
+	help
+	  Compile XSync support. Requires X11/extensions/sync.h.
+
+config QT4_X11_XINERAMA
+	bool
+	prompt "Xinerama"
+	help
+	  Compile Xinerama support. Requires X11/extensions/Xinerama.h
+	  and libXinerama. By default, Xinerama support will be compiled if
+	  available and the shared libraries are dynamically loaded at
+	  runtime.
+
+config QT4_X11_XCURSOR
+	bool
+	prompt "Xcursor"
+	help
+	  Compile Xcursor support. Requires X11/Xcursor/Xcursor.h and
+	  libXcursor. By default, Xcursor support will be compiled if
+	  available and the shared libraries are dynamically loaded
+	  at runtime.
+
+config QT4_X11_XFIXES
+	bool
+	prompt "Xfixes"
+	help
+	  Compile Xfixes support.  Requires X11/extensions/Xfixes.h and
+	  libXfixes.  By default, Xfixes support will be compiled if
+	  available and the shared libraries are dynamically loaded at
+	  runtime.
+
+config QT4_X11_XRANDR
+	bool
+	prompt "Xrandr"
+	help
+	  Compile Xrandr support.  Requires X11/extensions/Xrandr.h
+	  and libXrandr.
+
+config QT4_X11_XRENDER
+	bool
+	prompt "Xrender"
+	help
+	  Compile Xrender support.  Requires X11/extensions/Xrender.h
+	  and libXrender.
+
+config QT4_X11_MITSHM
+	bool
+	prompt "MIT-SHM"
+	help
+	  Compile MIT-SHM support.  Requires sys/ipc.h, sys/shm.h
+	  and X11/extensions/XShm.h
+
+config QT4_X11_FONTCONFIG
+	bool
+	prompt "FontConfig"
+	help
+	  Compile FontConfig (anti-aliased font) support. Requires
+	  fontconfig/fontconfig.h, libfontconfig, freetype.h and
+	  libfreetype.
+
+config QT4_X11_XINPUT
+	bool
+	prompt "Xinput"
+	help
+	  ompile Xinput support. This also enabled tablet support
+	  which requires IRIX with wacom.h and libXi or XFree86 with
+	  X11/extensions/XInput.h and libXi.
+
+config QT4_X11_XKB
+	bool
+	prompt "XKB"
+	help
+	  Compile XKB (X KeyBoard extension) support.
+
+endmenu
+
+endif # QT4_PLATFORM_X11
 
 # prepare the build system to build the examples
 # selected by QT4_EXAMPLES
@@ -703,6 +836,8 @@ config QT4_BUILD_SCRIPTTOOLS
 
 endmenu
 
+if QT4_PLATFORM_EMBEDDED
+
 menu "Install Fonts               "
 
 	config QT4_FONT_DEJAVU
@@ -746,6 +881,8 @@ menu "Install Fonts               "
 		prompt "l04"
 
 endmenu
+
+endif
 
 endif
 

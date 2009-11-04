@@ -151,7 +151,11 @@ $(STATEDIR)/host-qt4.install.post:
 #	add wrapper script that sets the correct QMAKESPEC
 	@rm -f $(PTXDIST_SYSROOT_CROSS)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake-cross
 	@cp $(HOST_QT4_PKGDIR)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake-cross
+ifdef PTXCONF_QT4_PLATFORM_EMBEDDED
 	@echo -e '#!/bin/sh\nexport QMAKESPEC=qws/linux-ptx-g++\nexec $(PTXDIST_SYSROOT_CROSS)/bin/qmake-cross "$$@"\n' > $(PTXDIST_SYSROOT_CROSS)/bin/qmake
+else
+	@echo -e '#!/bin/sh\nexport QMAKESPEC=linux-ptx-g++\nexec $(PTXDIST_SYSROOT_CROSS)/bin/qmake-cross "$$@"\n' > $(PTXDIST_SYSROOT_CROSS)/bin/qmake
+endif
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qmake
 	@echo -e "[Paths]\nPrefix=$(SYSROOT)/usr\nBinaries=$(PTXCONF_SYSROOT_HOST)/bin" > $(PTXDIST_SYSROOT_CROSS)/bin/qt.conf
 	@$(call touch)
