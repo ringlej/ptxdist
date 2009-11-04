@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Markus Messmer
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -56,15 +56,6 @@ $(STATEDIR)/canfestival.prepare:
 	cd $(CANFESTIVAL_DIR) && \
 		$(CANFESTIVAL_PATH) $(CANFESTIVAL_ENV) \
 		./configure $(CANFESTIVAL_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/canfestival.compile:
-	@$(call targetinfo)
-	cd $(CANFESTIVAL_DIR) && $(CANFESTIVAL_PATH) $(MAKE) $(PARALLELMFLAGS) $(CANFESTIVAL_MAKEVARS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
