@@ -41,10 +41,10 @@ $(IPTABLES_SOURCE):
 
 IPTABLES_PATH	:=  PATH=$(CROSS_PATH)
 IPTABLES_ENV	:=  $(CROSS_ENV)
-IPTABLES_AUTOCONF = \
+IPTABLES_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking \
-	--with-kernel=$(KERNEL_DIR) \
+	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--with-xtlibdir=/usr/lib
 
 # ----------------------------------------------------------------------------
