@@ -15,4 +15,7 @@ KERNEL_VERSION_MAJOR	:= $(word 1,$(_version_temp))
 KERNEL_VERSION_MINOR	:= $(word 2,$(_version_temp))
 _version_temp		:=
 
+KERNEL_HEADERS_DIR	:= $(PTXDIST_SYSROOT_TARGET)/kernel-headers
+KERNEL_HEADERS_INCLUDE_DIR := $(KERNEL_HEADERS_DIR)/include
+
 # vim: syntax=make

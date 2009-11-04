@@ -158,6 +158,20 @@ endif
 
 $(STATEDIR)/kernel.install:
 	@$(call targetinfo)
+	@rm -rf "$(KERNEL_HEADERS_DIR)"
+	@cd $(KERNEL_DIR) && \
+	if $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) help | \
+		grep headers_install > /dev/null 2>&1; then \
+		$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) headers_install INSTALL_HDR_PATH=$(KERNEL_HEADERS_DIR); \
+	else \
+		mkdir -p $(KERNEL_HEADERS_INCLUDE_DIR)/asm; \
+		cp -r \
+			$(KERNEL_DIR)/include/linux \
+			$(KERNEL_DIR)/include/asm/* \
+			$(KERNEL_DIR)/include/asm-generic \
+			$(KERNEL_HEADERS_INCLUDE_DIR); \
+	fi
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
