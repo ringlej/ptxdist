@@ -186,6 +186,9 @@ CROSS_ENV_PKG_CONFIG := \
 	PKG_CONFIG="$(PTXDIST_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config"
 
 CROSS_ENV_AC := \
+	ac_cv_file__proc_self_exe=yes \
+	ac_cv_file__proc_self_fd=yes \
+	ac_cv_file__proc_self_maps=yes \
 	ac_cv_func_dcgettext=yes \
 	ac_cv_func_getpgrp_void=yes \
 	ac_cv_func_getrlimit=yes \
