@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 1681 2004-09-01 18:12:49Z  $
 #
-# Copyright (C) 2004 by BSP
+# Copyright (C) 2004 by Benedikt Spranger
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -24,7 +24,6 @@ MII_DIAG_TARBALL	:= mii-diag_$(MII_DIAG_VERSION).orig.$(MII_DIAG_SUFFIX)
 MII_DIAG_URL		:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/m/mii-diag/$(MII_DIAG_TARBALL)
 MII_DIAG_SOURCE		:= $(SRCDIR)/$(MII_DIAG_TARBALL)
 MII_DIAG_DIR		:= $(BUILDDIR)/$(MII_DIAG)
-MII_DIAG_PKGDIR		:= $(PKGDIR)/$(MII_DIAG)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -41,20 +40,11 @@ $(MII_DIAG_SOURCE):
 MII_DIAG_PATH	:= PATH=$(CROSS_PATH)
 MII_DIAG_ENV 	:= $(CROSS_ENV)
 
-MII_DIAG_MAKEVARS := $(CROSS_ENV_CC) mii-diag
+MII_DIAG_MAKE_OPT := $(CROSS_ENV_CC) mii-diag
+MII_DIAG_INSTALL_OPT := install-mii-diag
 
 $(STATEDIR)/mii-diag.prepare:
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/mii-diag.install:
-	@$(call targetinfo)
-	cd $(MII_DIAG_DIR) && $(MAKE) DESTDIR=$(SYSROOT) install-mii-diag
-	cd $(MII_DIAG_DIR) && $(MAKE) DESTDIR=$(MII_DIAG_PKGDIR) install-mii-diag
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -69,11 +59,11 @@ $(STATEDIR)/mii-diag.targetinstall:
 	@$(call install_fixup, mii-diag,PRIORITY,optional)
 	@$(call install_fixup, mii-diag,VERSION,$(MII_DIAG_VERSION))
 	@$(call install_fixup, mii-diag,SECTION,base)
-	@$(call install_fixup, mii-diag,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, mii-diag,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, mii-diag,DEPENDS,)
 	@$(call install_fixup, mii-diag,DESCRIPTION,missing)
 
-	@$(call install_copy, mii-diag, 0, 0, 0755, $(MII_DIAG_DIR)/mii-diag, /usr/sbin/mii-diag)
+	@$(call install_copy, mii-diag, 0, 0, 0755, -, /usr/sbin/mii-diag)
 
 	@$(call install_finish, mii-diag)
 
