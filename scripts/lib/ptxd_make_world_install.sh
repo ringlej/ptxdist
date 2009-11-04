@@ -83,7 +83,7 @@ export -f ptxd_make_world_install_target
 # for cross pkg
 #
 ptxd_make_world_install_cross() {
-    ptxd_make_world_install_pkg
+    ptxd_make_world_install_host
 }
 export -f ptxd_make_world_install_cross
 
