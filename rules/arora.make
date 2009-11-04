@@ -23,7 +23,6 @@ ARORA_SUFFIX	:= tar.gz
 ARORA_URL	:= http://arora.googlecode.com/files/$(ARORA).$(ARORA_SUFFIX)
 ARORA_SOURCE	:= $(SRCDIR)/$(ARORA).$(ARORA_SUFFIX)
 ARORA_DIR	:= $(BUILDDIR)/$(ARORA)
-ARORA_PKGDIR	:= $(PKGDIR)/$(ARORA)
 
 # ----------------------------------------------------------------------------
 # Get
