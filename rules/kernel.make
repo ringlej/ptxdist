@@ -147,7 +147,7 @@ $(STATEDIR)/kernel.tags:
 
 $(STATEDIR)/kernel.compile:
 	@$(call targetinfo)
-	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
+	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
 	@$(call touch)
 endif
@@ -214,7 +214,7 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@if test -e $(KERNEL_PKGDIR); then \
 		rm -rf $(KERNEL_PKGDIR); \
 	fi
-	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(MAKE) \
+	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) modules_install
 endif
 
@@ -257,12 +257,12 @@ ifndef PTXCONF_PROJECT_USE_PRODUCTION
 kernel_clean:
 	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-modules.*
 	rm -rf $(PKGDIR)/kernel_* $(PKGDIR)/kernel-modules_*
-	@if [ -L $(KERNEL_DIR) ]; then			\
-		pushd $(KERNEL_DIR);			\
-		quilt pop -af;				\
-		rm -rf series patches .pc;		\
-		$(MAKE) $(KERNEL_MAKEVARS) distclean;	\
-		popd; 					\
+	@if [ -L $(KERNEL_DIR) ]; then \
+		pushd $(KERNEL_DIR); \
+		quilt pop -af; \
+		rm -rf series patches .pc; \
+		$(KERNE_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) distclean; \
+		popd; \
 	fi
 	rm -rf $(KERNEL_DIR)
 
