@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2005 by Shahar Livne <shahar@livnex.com>
-#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_ARCH_PPC)-$(PTXCONF_VALGRIND) += valgrind
 #
 # Paths and names
 #
-VALGRIND_VERSION	:= 3.4.0
+VALGRIND_VERSION	:= 3.5.0
 VALGRIND		:= valgrind-$(VALGRIND_VERSION)
 VALGRIND_SUFFIX		:= tar.bz2
 VALGRIND_URL		:= http://valgrind.org/downloads/$(VALGRIND).$(VALGRIND_SUFFIX)
@@ -60,20 +60,21 @@ $(STATEDIR)/valgrind.targetinstall:
 	@$(call install_fixup, valgrind,PRIORITY,optional)
 	@$(call install_fixup, valgrind,VERSION,$(VALGRIND_VERSION))
 	@$(call install_fixup, valgrind,SECTION,base)
-	@$(call install_fixup, valgrind,AUTHOR,"Shahar Livne <shahar\@livnex.com>")
+	@$(call install_fixup, valgrind,AUTHOR,"Shahar Livne <shahar@livnex.com>")
 	@$(call install_fixup, valgrind,DEPENDS,)
 	@$(call install_fixup, valgrind,DESCRIPTION,missing)
 
-	@$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_DIR)/coregrind/valgrind, /usr/bin/valgrind)
+	@$(call install_copy, valgrind, 0, 0, 0755, -, /usr/bin/valgrind)
 
 	@cd $(VALGRIND_PKGDIR) && \
-		find usr/lib/valgrind -name "*.supp" | while read file; do \
-		$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_PKGDIR)/$$file, /$$file, n) \
+		find usr/lib/valgrind -name "*.supp" -o -name "*.so" | while read file; do \
+		$(call install_copy, valgrind, 0, 0, 0644, -, /$$file, n) \
 	done
 
 	@cd $(VALGRIND_PKGDIR) && \
-		find usr/lib/valgrind -mindepth 2 -type f \! -wholename "*.a" | while read file; do \
-		$(call install_copy, valgrind, 0, 0, 0755, $(VALGRIND_PKGDIR)/$$file, /$$file) \
+		find usr/lib/valgrind -type f \
+			\! -wholename "*.a" \! -wholename "*.supp" \! -wholename "*.so" | while read file; do \
+		$(call install_copy, valgrind, 0, 0, 0755, -, /$$file) \
 	done
 
 	@$(call install_finish, valgrind)
