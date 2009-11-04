@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by J.Kilb
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -24,7 +23,6 @@ GPSD_SUFFIX	:= tar.gz
 GPSD_URL	:= http://download.berlios.de/gpsd/$(GPSD).$(GPSD_SUFFIX)
 GPSD_SOURCE	:= $(SRCDIR)/$(GPSD).$(GPSD_SUFFIX)
 GPSD_DIR	:= $(BUILDDIR)/$(GPSD)
-GPSD_PKGDIR	:= $(PKGDIR)/$(GPSD)
 
 # ----------------------------------------------------------------------------
 # Get
