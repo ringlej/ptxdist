@@ -4,6 +4,7 @@ menuconfig IPTABLES
 	tristate
 	prompt "iptables                      "
 	select KERNEL
+	select LIBC_DL
 	help
 	  Iptables  is used to set up, maintain, and inspect the
 	  tables of IP packet filter rules in the Linux kernel.
@@ -18,67 +19,70 @@ config IPTABLES_INSTALL_IPV6_TOOLS
 	prompt "IPv6 tools"
 
 if IPTABLES_INSTALL_IPV6_TOOLS
-config IPTABLES_INSTALL_IP6TABLES
-	bool
-	prompt "install ip6tables"
-	help
-	  Install the IPv6 Version of iptables
 
 config IPTABLES_INSTALL_IP6TABLES_MULTI
 	bool
-	prompt "install ip6tables-multi"
+
+config IPTABLES_INSTALL_IP6TABLES
+	select IPTABLES_INSTALL_IP6TABLES_MULTI
+	bool "install ip6tables"
 	help
-	  FIXME
+	  Install the IPv6 Version of iptables
 
 config IPTABLES_INSTALL_IP6TABLES_RESTORE
-	bool
-	prompt "install ip6tables-restore"
+	select IPTABLES_INSTALL_IP6TABLES_MULTI
+	bool "install ip6tables-restore"
 	help
 	  The ip6tables-restore command is used to restore
 	  the ip6tables rule-set that was saved with the
 	  ip6tables-save command.
 
 config IPTABLES_INSTALL_IP6TABLES_SAVE
-	bool
-	prompt "install ip6tables-save"
+	select IPTABLES_INSTALL_IP6TABLES_MULTI
+	bool "install ip6tables-save"
 	help
 	  The ip6tables-save command is a tool to save the current rule-set
 	  into a file that ip6tables-restore can use.
 
 endif
 
-config IPTABLES_INSTALL_IPTABLES
+
+config IPTABLES_INSTALL_IPV4_TOOLS
 	bool
-	prompt "install iptables"
-	help
-	  install the IPv4 Version of iptables
+	prompt "IPv4 tools"
+
+if IPTABLES_INSTALL_IPV4_TOOLS
 
 config IPTABLES_INSTALL_IPTABLES_MULTI
 	bool
-	prompt "install iptables-multi"
+
+config IPTABLES_INSTALL_IPTABLES
+	select IPTABLES_INSTALL_IPTABLES_MULTI
+	bool "install iptables"
 	help
-	  FIXME
+	  install the IPv4 Version of iptables
 
 config IPTABLES_INSTALL_IPTABLES_RESTORE
-	bool
-	prompt "install iptables-restore"
+	select IPTABLES_INSTALL_IPTABLES_MULTI
+	bool "install iptables-restore"
 	help
 	  The iptables-restore command is used to restore
 	  the iptables rule-set that was saved with the
 	  iptables-save command.
 
 config IPTABLES_INSTALL_IPTABLES_SAVE
-	bool
-	prompt "install iptables-save"
+	select IPTABLES_INSTALL_IPTABLES_MULTI
+	bool "install iptables-save"
 	help
 	  The iptables-save command is a tool to save
 	  the current rule-set into a file that
 	  iptables-restore can use.
 
+endif
+
 config IPTABLES_INSTALL_IPTABLES_XML
-	bool
-	prompt "install iptables-xml"
-	depends on IPTABLES_INSTALL_IPTABLES_SAVE || IPTABLES_INSTALL_IP6TABLES_SAVE
+	select IPTABLES_INSTALL_IPTABLES_MULTI
+	bool "install iptables-xml"
 	help
 	  iptables-xml is used to convert the output of iptables-save into an
 	  easily manipulatable XML format to STDOUT. Use I/O-redirection
