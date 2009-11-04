@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006-2008 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -23,7 +22,6 @@ PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
 PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
-PHP5_PKGDIR	:= $(PKGDIR)/$(PHP5)
 
 PHP5_URL	:= \
 	http://de.php.net/distributions/$(PHP5).$(PHP5_SUFFIX) \
