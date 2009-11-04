@@ -101,8 +101,27 @@ ptxd_make_world_init_compat() {
 	pkg_make_opt="${pkg_deprecated_makevars}"
     fi
 
+
     # install_opt
-    pkg_install_opt="${pkg_deprecated_makevars}${pkg_deprecated_makevars:+${pkg_deprecated_install_opt:+ }}${pkg_deprecated_install_opt}"
+    if [ -z "${pkg_install_opt}" ]; then
+	pkg_install_opt="install"
+
+	# deprecared_makevars
+	pkg_install_opt="${pkg_install_opt}${pkg_deprecated_makevars:+ }${pkg_deprecated_makevars}"
+
+	# deprecared_install_opt
+	pkg_install_opt="${pkg_install_opt}${pkg_deprecated_install_opt:+ }${pkg_deprecated_install_opt}"
+    else
+	if [ -n "${pkg_deprecated_makevars}" -o -n "${pkg_deprecated_install_opt}" ]; then
+	    ptxd_bailout "${FUNCNAME}: <PKG>_MAKEVARS is incompatibel with <PKG>_INSTALL_OPT"
+	fi
+    fi
+
+    # DESTDIR
+    case "${pkg_type}" in
+	target)     pkg_install_opt="DESTDIR=\"${pkg_pkgdir}\" ${pkg_install_opt}"
+    esac
+
 
     # pkg_env
     case "${pkg_type}" in

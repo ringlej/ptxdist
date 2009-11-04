@@ -8,8 +8,6 @@
 #
 
 #
-# $1:	destdir
-#
 # in:
 # $echo		optional
 # $fakeroot	optional
@@ -25,8 +23,8 @@ ptxd_make_world_install_pkg() {
 	"${MAKE}" \
 	-C "${pkg_build_dir}" \
 	"${pkg_install_opt}" \
-	install -j1 \
-	DESTDIR="${1}" | "${fakeroot:-fakeroot}" --
+	-j1 \
+	| "${fakeroot:-fakeroot}" --
     check_pipe_status
 }
 export -f ptxd_make_world_install_pkg
