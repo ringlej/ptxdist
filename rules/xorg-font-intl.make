@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6487 2006-12-07 20:55:55Z rsc $
 #
 # Copyright (C) 2006 by Luotao Fu <lfu@pengutronix.de>
 #
@@ -23,7 +22,6 @@ XORG_FONT_INTL_SUFFIX	:= tar.gz
 XORG_FONT_INTL_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/intlfonts/$(XORG_FONT_INTL).$(XORG_FONT_INTL_SUFFIX)
 XORG_FONT_INTL_SOURCE	:= $(SRCDIR)/$(XORG_FONT_INTL).$(XORG_FONT_INTL_SUFFIX)
 XORG_FONT_INTL_DIR	:= $(BUILDDIR)/$(XORG_FONT_INTL)
-XORG_FONT_INTL_PKGDIR	:= $(PKGDIR)/$(XORG_FONT_INTL)
 
 ifdef PTXCONF_XORG_FONT_INTL
 $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/xorg-font-intl.targetinstall
