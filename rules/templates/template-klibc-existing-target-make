@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_@CLASS@@PACKET@) += @class@@packet@
 @CLASS@@PACKET@_DIR	= $(@CLASS@BUILDDIR)/$(@PACKET@)
 
 ifdef PTXCONF_@CLASS@@PACKET@
-$(STATEDIR)/kernel.compile: $(STATEDIR)/@class@@packet@.targetinstall
+$(STATEDIR)/klibc.targetinstall.post: $(STATEDIR)/@class@@packet@.targetinstall
 endif
 
 # ----------------------------------------------------------------------------
