@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -23,7 +22,6 @@ DBUS_PYTHON_SUFFIX	:= tar.gz
 DBUS_PYTHON_URL		:= http://dbus.freedesktop.org/releases/dbus-python/$(DBUS_PYTHON).$(DBUS_PYTHON_SUFFIX)
 DBUS_PYTHON_SOURCE	:= $(SRCDIR)/$(DBUS_PYTHON).$(DBUS_PYTHON_SUFFIX)
 DBUS_PYTHON_DIR		:= $(BUILDDIR)/$(DBUS_PYTHON)
-DBUS_PYTHON_PKGDIR	:= $(PKGDIR)/$(DBUS_PYTHON)
 
 # ----------------------------------------------------------------------------
 # Get
