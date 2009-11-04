@@ -24,7 +24,6 @@ OPENSSL_SUFFIX	:= tar.gz
 OPENSSL_URL	:= http://openssl.org/source//$(OPENSSL).$(OPENSSL_SUFFIX)
 OPENSSL_SOURCE	:= $(SRCDIR)/$(OPENSSL).$(OPENSSL_SUFFIX)
 OPENSSL_DIR	:= $(BUILDDIR)/$(OPENSSL)
-OPENSSL_PKGDIR	:= $(PKGDIR)/$(OPENSSL)
 OPENSSL_LICENSE	:= openssl
 
 # ----------------------------------------------------------------------------
