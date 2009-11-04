@@ -126,7 +126,7 @@ endif
 ifdef PTXCONF_KLIBC
 # Don't keep expanded $(KLIBC_CONTROL) in $(KERNEL_CONFIG) because
 # it contains local workdir path that is not relevant to other developers.
-	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"<Automatically set by PTXDist>\",g' \
+	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"#<Automatically set by PTXDist>\",g' \
 		$(KERNEL_CONFIG)
 endif
 	@$(call touch)
