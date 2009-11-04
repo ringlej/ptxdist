@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: valgrind.make $
 #
 # Copyright (C) 2005 by Shahar Livne <shahar@livnex.com>
 #               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -25,7 +24,7 @@ VALGRIND_SUFFIX		:= tar.bz2
 VALGRIND_URL		:= http://valgrind.org/downloads/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_SOURCE		:= $(SRCDIR)/$(VALGRIND).$(VALGRIND_SUFFIX)
 VALGRIND_DIR		:= $(BUILDDIR)/$(VALGRIND)
-VALGRIND_PKGDIR		:= $(PKGDIR)/$(VALGRIND)
+VALGRIND_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
