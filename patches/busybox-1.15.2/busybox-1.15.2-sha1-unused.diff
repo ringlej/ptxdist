@@ -1,0 +1,31 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: don't fail on BE platform with CONFIG_WERROR active
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ libbb/sha1.c |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+Index: busybox-1.15.2/libbb/sha1.c
+===================================================================
+--- busybox-1.15.2.orig/libbb/sha1.c
++++ busybox-1.15.2/libbb/sha1.c
+@@ -410,6 +410,8 @@ void FAST_FUNC sha1_end(void *resbuf, sh
+ {
+ 	unsigned i, pad, in_buf;
+ 
++	(void)i;
++
+ 	in_buf = ctx->total64 & 63;
+ 	/* Pad the buffer to the next 64-byte boundary with 0x80,0,0,0... */
+ 	ctx->wbuffer[in_buf++] = 0x80;
+@@ -445,6 +447,8 @@ void FAST_FUNC sha512_end(void *resbuf, 
+ {
+ 	unsigned i, pad, in_buf;
+ 
++	(void)i;
++
+ 	in_buf = ctx->total64[0] & 127;
+ 	/* Pad the buffer to the next 128-byte boundary with 0x80,0,0,0...
+ 	 * (FIPS 180-2:5.1.2)

@@ -1,3 +1,4 @@
 busybox-1.15.2-init-extra-quiet.diff
 reactivate-check-for-tty.diff
 busybox-1.13.2-fdisk-osf-unused.diff
+busybox-1.15.2-sha1-unused.diff
