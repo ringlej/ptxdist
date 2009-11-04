@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Daniel Schnell
 #		2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -24,7 +23,6 @@ LIGHTTPD_SUFFIX		:= tar.bz2
 LIGHTTPD_URL		:= http://www.lighttpd.net/download/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_SOURCE		:= $(SRCDIR)/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_DIR		:= $(BUILDDIR)/$(LIGHTTPD)
-LIGHTTPD_PKGDIR		:= $(PKGDIR)/$(LIGHTTPD)
 
 # ----------------------------------------------------------------------------
 # Get
