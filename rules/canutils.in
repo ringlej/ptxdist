@@ -22,10 +22,6 @@ config CANUTILS_BSP_KERNEL
 	  kernel < 2.6.25. This kernel doesn't provide the
 	  necessary headers.
 
-	  On the other hand, don't select it for BSP
-	  kernels > 2.6.30, otherwise compilation breaks with:
-	  "error: asm/bitsperlong.h: No such file or directory"
-
 config CANUTILS_CANCONFIG
 	bool
 	prompt "canconfig"
