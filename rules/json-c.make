@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -23,7 +22,6 @@ JSON_C_SUFFIX		:= tar.gz
 JSON_C_URL		:= http://oss.metaparadigm.com/json-c/$(JSON_C).$(JSON_C_SUFFIX)
 JSON_C_SOURCE		:= $(SRCDIR)/$(JSON_C).$(JSON_C_SUFFIX)
 JSON_C_DIR		:= $(BUILDDIR)/$(JSON_C)
-JSON_C_PKGDIR		:= $(PKGDIR)/$(JSON_C)
 JSON_C_LICENSE		:= MIT
 
 # ----------------------------------------------------------------------------
@@ -33,7 +31,6 @@ JSON_C_LICENSE		:= MIT
 $(JSON_C_SOURCE):
 	@$(call targetinfo)
 	@$(call get, JSON_C)
-
 
 # ----------------------------------------------------------------------------
 # Prepare
