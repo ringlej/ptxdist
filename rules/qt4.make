@@ -449,7 +449,6 @@ $(STATEDIR)/qt4.prepare:
 	@$(call targetinfo)
 	@$(call clean, $(QT4_DIR)/config.cache)
 
-	@rm -f $(QT4_DIR)/bin/qt.conf
 	@cd $(QT4_DIR) && $(QT4_PATH) $(QT4_ENV) $(MAKE) \
 		confclean || true
 
@@ -477,10 +476,6 @@ QT4_INSTALL_TARGETS += sub-corelib-install_subtargets
 QT4_BUILD_TARGETS += sub-plugins
 QT4_INSTALL_TARGETS += sub-plugins-install_subtargets
 
-ifdef PTXCONF_QT4_BUILD_UIC
-QT4_BUILD_TARGETS += sub-uic
-QT4_INSTALL_TARGETS += sub-uic-install_subtargets
-endif
 ifdef PTXCONF_QT4_BUILD_XML
 QT4_BUILD_TARGETS += sub-xml
 QT4_INSTALL_TARGETS += sub-xml-install_subtargets
@@ -556,11 +551,6 @@ $(STATEDIR)/qt4.install:
 		xargs -r -0 gawk -f "$(PTXDIST_LIB_DIR)/ptxd_make_world_install_mangle_pc.awk" && \
 	check_pipe_status && \
 	cp -dprf -- "$(QT4_PKGDIR)"/* "$(SYSROOT)"
-
-#	# put a link for qmake where other packages can find it
-	@ln -sf $(QT4_DIR)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake
-#	# qmake needs this to build other packages
-	@echo -e "[Paths]\nPrefix=/usr\nHeaders=$(SYSROOT)/usr/include\nBinaries=$(PTXDIST_SYSROOT_HOST)/bin\nLibraries=$(SYSROOT)/usr/lib" > $(QT4_DIR)/bin/qt.conf
 
 	@$(call touch)
 
