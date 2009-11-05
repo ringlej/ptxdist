@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002-2009 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -22,7 +21,6 @@ NCURSES_SUFFIX	:= tar.gz
 NCURSES_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/ncurses/$(NCURSES).$(NCURSES_SUFFIX)
 NCURSES_SOURCE	:= $(SRCDIR)/$(NCURSES).$(NCURSES_SUFFIX)
 NCURSES_DIR	:= $(BUILDDIR)/$(NCURSES)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -124,6 +122,10 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_NCURSES_WIDE_CHAR
+NCURSES_WIDE := w
+endif
+
 $(STATEDIR)/ncurses.targetinstall:
 	@$(call targetinfo)
 
@@ -136,110 +138,75 @@ $(STATEDIR)/ncurses.targetinstall:
 	@$(call install_fixup, ncurses,DEPENDS,)
 	@$(call install_fixup, ncurses,DESCRIPTION,missing)
 
-ifdef PTXCONF_NCURSES_WIDE_CHAR
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libncursesw.so.5.6, /lib/libncursesw.so.5.6)
-	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncursesw.so.5)
-	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncursesw.so)
+	@$(call install_copy, ncurses, 0, 0, 0644, -, \
+		/lib/libncurses$(NCURSES_WIDE).so.5.6)
+	@$(call install_link, ncurses, libncurses$(NCURSES_WIDE).so.5.6, \
+		/lib/libncurses$(NCURSES_WIDE).so.5)
+	@$(call install_link, ncurses, libncurses$(NCURSES_WIDE).so.5.6, \
+		/lib/libncurses$(NCURSES_WIDE).so)
+
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
-# for backward compatibility
-# only needed if any application is linked against the non wide variant
-# Note: Should not happen, if it is compiled by ptxdist!
+	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncurses.so.5.6)
 	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncurses.so.5)
 	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncurses.so)
 endif
-else
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libncurses.so.5.6, /lib/libncurses.so.5.6)
-	@$(call install_link, ncurses, libncurses.so.5.6, /lib/libncurses.so.5)
-	@$(call install_link, ncurses, libncurses.so.5.6, /lib/libncurses.so)
-endif
+
 
 ifdef PTXCONF_NCURSES_FORM
-ifdef PTXCONF_NCURSES_WIDE_CHAR
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libformw.so.5.6, /lib/libformw.so.5.6)
-	@$(call install_link, ncurses, libformw.so.5.6, /lib/libformw.so.5)
-	@$(call install_link, ncurses, libformw.so.5.6, /lib/libformw.so)
+	@$(call install_copy, ncurses, 0, 0, 0644, -, \
+		/lib/libform$(NCURSES_WIDE).so.5.6)
+	@$(call install_link, ncurses, libform$(NCURSES_WIDE).so.5.6, \
+		/lib/libform$(NCURSES_WIDE).so.5)
+	@$(call install_link, ncurses, libform$(NCURSES_WIDE).so.5.6, \
+		/lib/libform$(NCURSES_WIDE).so)
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so.5.6)
 	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so.5)
 	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so)
 endif
-else
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libform.so.5.6, /lib/libform.so.5.6)
-	@$(call install_link, ncurses, libform.so.5.6, /lib/libform.so.5)
-	@$(call install_link, ncurses, libform.so.5.6, /lib/libform.so)
-endif
 endif
 
+
 ifdef PTXCONF_NCURSES_MENU
-ifdef PTXCONF_NCURSES_WIDE_CHAR
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libmenuw.so.5.6, /lib/libmenuw.so.5.6)
-	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenuw.so.5)
-	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenuw.so)
+	@$(call install_copy, ncurses, 0, 0, 0644, -, \
+		/lib/libmenu$(NCURSES_WIDE).so.5.6)
+	@$(call install_link, ncurses, libmenu$(NCURSES_WIDE).so.5.6, \
+		/lib/libmenu$(NCURSES_WIDE).so.5)
+	@$(call install_link, ncurses, libmenu$(NCURSES_WIDE).so.5.6, \
+		/lib/libmenu$(NCURSES_WIDE).so)
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so.5.6)
 	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so.5)
 	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so)
 endif
-else
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libmenu.so.5.6, /lib/libmenu.so.5.6)
-	@$(call install_link, ncurses, libmenu.so.5.6, /lib/libmenu.so.5)
-	@$(call install_link, ncurses, libmenu.so.5.6, /lib/libmenu.so)
-endif
 endif
 
+
 ifdef PTXCONF_NCURSES_PANEL
-ifdef PTXCONF_NCURSES_WIDE_CHAR
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libpanelw.so.5.6, /lib/libpanelw.so.5.6)
-	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanelw.so.5)
-	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanelw.so)
+	@$(call install_copy, ncurses, 0, 0, 0644, -, \
+		/lib/libpanel$(NCURSES_WIDE).so.5.6)
+	@$(call install_link, ncurses, libpanel$(NCURSES_WIDE).so.5.6, \
+		/lib/libpanel$(NCURSES_WIDE).so.5)
+	@$(call install_link, ncurses, libpanel$(NCURSES_WIDE).so.5.6, \
+		/lib/libpanel$(NCURSES_WIDE).so)
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so.5.6)
 	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so.5)
 	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so)
 endif
-else
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(NCURSES_DIR)/lib/libpanel.so.5.6, /lib/libpanel.so.5.6)
-	@$(call install_link, ncurses, libpanel.so.5.6, /lib/libpanel.so.5)
-	@$(call install_link, ncurses, libpanel.so.5.6, /lib/libpanel.so)
-endif
 endif
 
+
 ifdef PTXCONF_NCURSES_TERMCAP
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(SYSROOT)/usr/share/terminfo/x/xterm, \
-		/usr/share/terminfo/x/xterm, n);
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(SYSROOT)/usr/share/terminfo/x/xterm-color, \
-		/usr/share/terminfo/x/xterm-color, n);
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(SYSROOT)/usr/share/terminfo/x/xterm-xfree86, \
-		/usr/share/terminfo/x/xterm-xfree86, n);
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(SYSROOT)/usr/share/terminfo/v/vt100, \
-		/usr/share/terminfo/v/vt100, n);
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(SYSROOT)/usr/share/terminfo/v/vt102, \
-		/usr/share/terminfo/v/vt102, n);
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(SYSROOT)/usr/share/terminfo/v/vt200, \
-		/usr/share/terminfo/v/vt200, n);
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(SYSROOT)/usr/share/terminfo/a/ansi, \
-		/usr/share/terminfo/a/ansi, n);
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(SYSROOT)/usr/share/terminfo/l/linux, \
-		/usr/share/terminfo/l/linux, n);
-	@$(call install_copy, ncurses, 0, 0, 0644, \
-		$(SYSROOT)/usr/share/terminfo/s/screen, \
-		/usr/share/terminfo/s/screen, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/x/xterm, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/x/xterm-color, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/x/xterm-xfree86, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/v/vt100, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/v/vt102, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/v/vt200, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/a/ansi, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/l/linux, n);
+	@$(call install_copy, ncurses, 0, 0, 0644, -, /usr/share/terminfo/s/screen, n);
 endif
 
 	@$(call install_finish, ncurses)
