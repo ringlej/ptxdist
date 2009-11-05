@@ -12,18 +12,15 @@
 #
 # touch
 #
-ifndef PTXDIST_QUIET
-touch =										\
-	target="$(strip $(@))";							\
-	touch "$${target}";							\
-	echo "Finished target $${target\#\#*/}"
-else
-touch =										\
-	target="$(strip $(@))";							\
-	touch "$${target}";							\
-	target="$${target\#\#*/}";						\
-	echo "finished: $(PTX_COLOR_GREEN)$${target}$(PTX_COLOR_OFF)" >&2;	\
-	echo "Finished target $${target}"
+ifdef PTXDIST_QUIET
+_touch_opt_output := echo "finished: $(PTX_COLOR_GREEN)$${target}$(PTX_COLOR_OFF)" >&2;
 endif
+
+touch =						\
+	target="$(strip $(@))";			\
+	touch "$${target}";			\
+	target="$${target\#\#*/}";		\
+	$(_touch_opt_output)			\
+	echo "finished target $${target}"
 
 # vim: syntax=make
