@@ -13,6 +13,10 @@ $(STATEDIR)/%.install:
 	@$(call world/install, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
 
+$(STATEDIR)/%.install.post:
+	@$(call targetinfo)
+	@$(call touch)
+
 #
 # world/install
 #

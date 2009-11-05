@@ -58,10 +58,6 @@ $(WORLD_DEP_TREE_PS): $(DEP_OUTPUT) $(STATEDIR)/world.targetinstall
 
 ### --- for ALL pacakges ---
 
-$(STATEDIR)/%.install.post:
-	@$(call targetinfo)
-	@$(call touch)
-
 $(STATEDIR)/%.targetinstall.post:
 	@$(call targetinfo)
 	@$(call touch)
