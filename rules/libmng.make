@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -33,18 +32,6 @@ $(LIBMNG_SOURCE):
 	@$(call get, LIBMNG)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libmng.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBMNG_DIR))
-	@$(call extract, LIBMNG)
-	@$(call patchin, LIBMNG)
-	@cd $(LIBMNG_DIR); chmod +x configure config.sub config.guess
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -63,7 +50,6 @@ LIBMNG_AUTOCONF += --with-lcms
 else
 LIBMNG_AUTOCONF += --without-lcms
 endif
-
 
 # ----------------------------------------------------------------------------
 # Target-Install
