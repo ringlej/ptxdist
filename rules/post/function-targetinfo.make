@@ -14,36 +14,18 @@
 #
 # Print out the targetinfo line on the terminal
 #
-ifndef PTXDIST_QUIET
-targetinfo = 									\
-	target="$(strip $(@))";							\
-	target="target: $${target\#\#*/}";					\
-	echo -e "\n$${target//?/-}\n$${target}\n$${target//?/-}\n";		\
-	echo $@ : $^ | sed 							\
-		-e "s@$(SRCDIR)@@g"						\
-		-e "s@$(STATEDIR)@@g"						\
-		-e "s@$(RULESDIR)@@g"						\
-		-e "s@$(PROJECTRULESDIR)@@g"					\
-		-e "s@$(PTXDIST_PLATFORMCONFIGDIR)@@g"				\
-		-e "s@$(PTXDIST_WORKSPACE)@@g"					\
-		-e "s@$(PTXDIST_TOPDIR)@@g" 					\
-		-e "s@/@@g" >> $(DEP_OUTPUT)
-else
-targetinfo = 									\
-	target="$(strip $(@))";							\
-	target="$${target\#\#*/}";						\
-	echo "started : $(PTX_COLOR_BLUE)$${target}$(PTX_COLOR_OFF)" >&2;	\
-	target="target: $${target}";						\
-	echo -e "\n$${target//?/-}\n$${target}\n$${target//?/-}\n";		\
-	echo $@ : $^ | sed 							\
-		-e "s@$(SRCDIR)@@g"						\
-		-e "s@$(STATEDIR)@@g"						\
-		-e "s@$(RULESDIR)@@g"						\
-		-e "s@$(PROJECTRULESDIR)@@g"					\
-		-e "s@$(PTXDIST_PLATFORMCONFIGDIR)@@g"				\
-		-e "s@$(PTXDIST_WORKSPACE)@@g"					\
-		-e "s@$(PTXDIST_TOPDIR)@@g" 					\
-		-e "s@/@@g" >> $(DEP_OUTPUT)
+ifdef PTXDIST_QUIET
+_targetinfo_opt_output := echo "started : $(PTX_COLOR_BLUE)$${target}$(PTX_COLOR_OFF)" >&2;
 endif
+
+targetinfo = 								\
+	target="$(strip $(@))";						\
+	target="$${target\#\#*/}";					\
+	dep="$(strip $^)";						\
+	dep="$${dep\#\#*/}";						\
+	echo "$${target} : $${dep}" >> $(DEP_OUTPUT);			\
+	$(_targetinfo_opt_output)					\
+	target="target: $${target\#\#*/}";				\
+	echo -e "\n$${target//?/-}\n$${target}\n$${target//?/-}\n";	\
 
 # vim: syntax=make
