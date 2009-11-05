@@ -2020,7 +2020,7 @@ setup_env() {
 
 	unset $(/usr/bin/env | \
 		sed -n -e "s/^\([^=[:space:]]\+\)=.*$/\1/p" | \
-		egrep -v "^(PTX_AUTOBUILD_DESTDIR|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|http_proxy|ftp_proxy${whitelist})$" )
+		egrep -v "^(PTX_AUTOBUILD_DESTDIR|CCACHE_.*|PWD|HOME|USER|PATH|TERM|COLUMNS|LINES|DISPLAY|http_proxy|ftp_proxy${whitelist})$" )
 
 	######## the environment is clean now ########
 
