@@ -780,7 +780,7 @@ Build Actions:
   clean <package>		cleanup packet
   autobuild			search for "autobuild" scripts and run them
   drop <package>.<stage>	mark a stage of a packet as unbuilt
-  tags <package>		try to build tags of the packet
+  tags <package>		try to build tags for the packet
 
   images			build images for target system
 

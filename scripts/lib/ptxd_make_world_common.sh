@@ -123,6 +123,14 @@ ptxd_make_world_init_compat() {
     esac
 
 
+    #
+    # pkg_tags_opt
+    #
+    # default: "tags"
+    #
+    pkg_tags_opt="${pkg_tags_opt:-tags}"
+
+
     # pkg_env
     case "${pkg_type}" in
 	target)     pkg_env="${PTXDIST_CROSS_ENV_PKG_CONFIG}" ;;

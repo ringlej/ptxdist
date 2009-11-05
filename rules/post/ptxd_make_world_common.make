@@ -30,6 +30,8 @@ world/env/impl = \
 	pkg_dir="$(call ptx/escape,$($(1)_DIR))"				\
 	pkg_subdir="$(call ptx/escape,$($(1)_SUBDIR))"				\
 										\
+	pkg_tags_opt="$(call ptx/escape,$($(1)_TAGS_OPT))"			\
+										\
 	pkg_build_oot="$(call ptx/escape,$($(1)_BUILD_OOT))"			\
 	pkg_build_dir="$(call ptx/escape,$($(1)_BUILD_DIR))"			\
 										\
