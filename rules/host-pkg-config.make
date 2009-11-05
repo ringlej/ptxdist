@@ -1,7 +1,6 @@
 # -*-makefile-*-
-# $Id$
 #
-# Copyright (C) 2006-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006-2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -35,8 +34,6 @@ $(HOST_PKG_CONFIG_SOURCE):
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-pkg-config_prepare: $(STATEDIR)/host-pkg-config.prepare
 
 HOST_PKG_CONFIG_PATH	:= PATH=$(HOST_PATH)
 HOST_PKG_CONFIG_ENV 	:= $(HOST_ENV)
