@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002-2008 by Pengutronix e.K., Hildesheim, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -24,7 +24,6 @@ E2FSPROGS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_S
 E2FSPROGS_SOURCE	:= $(SRCDIR)/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
 E2FSPROGS_DIR		:= $(BUILDDIR)/$(E2FSPROGS)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -37,8 +36,8 @@ $(E2FSPROGS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-E2FSPROGS_PATH	:=  PATH=$(CROSS_PATH)
-E2FSPROGS_ENV 	:=  $(CROSS_ENV)
+E2FSPROGS_PATH	:= PATH=$(CROSS_PATH)
+E2FSPROGS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -110,46 +109,51 @@ $(STATEDIR)/e2fsprogs.targetinstall:
 	@$(call install_fixup,e2fsprogs,PRIORITY,optional)
 	@$(call install_fixup,e2fsprogs,VERSION,$(E2FSPROGS_VERSION))
 	@$(call install_fixup,e2fsprogs,SECTION,base)
-	@$(call install_fixup,e2fsprogs,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,e2fsprogs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,e2fsprogs,DEPENDS,)
 	@$(call install_fixup,e2fsprogs,DESCRIPTION,missing)
 
 #	#
 #	# libraries
 #	#
-
 ifdef PTXCONF_E2FSPROGS_LIBBLKID
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libblkid.so.1.0, /usr/lib/libblkid.so.1.0)
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
+		/usr/lib/libblkid.so.1.0)
 	@$(call install_link, e2fsprogs, libblkid.so.1.0, /usr/lib/libblkid.so.1)
 	@$(call install_link, e2fsprogs, libblkid.so.1.0, /usr/lib/libblkid.so)
 endif
 
 ifdef PTXCONF_E2FSPROGS_LIBCOM_ERR
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libcom_err.so.2.1, /usr/lib/libcom_err.so.2.1)
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
+		/usr/lib/libcom_err.so.2.1)
 	@$(call install_link, e2fsprogs, libcom_err.so.2.1, /usr/lib/libcom_err.so.2)
 	@$(call install_link, e2fsprogs, libcom_err.so.2.1, /usr/lib/libcom_err.so)
 endif
 
 ifdef PTXCONF_E2FSPROGS_LIBE2P
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libe2p.so.2.3, /usr/lib/libe2p.so.2.3)
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
+		/usr/lib/libe2p.so.2.3)
 	@$(call install_link, e2fsprogs, libe2p.so.2.3, /usr/lib/libe2p.so.2)
 	@$(call install_link, e2fsprogs, libe2p.so.2.3, /usr/lib/libe2p.so)
 endif
 
 ifdef PTXCONF_E2FSPROGS_LIBEXT2FS
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libext2fs.so.2.4, /usr/lib/libext2fs.so.2.4)
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
+		/usr/lib/libext2fs.so.2.4)
 	@$(call install_link, e2fsprogs, libext2fs.so.2.4, /usr/lib/libext2fs.so.2)
 	@$(call install_link, e2fsprogs, libext2fs.so.2.4, /usr/lib/libext2fs.so)
 endif
 
 ifdef PTXCONF_E2FSPROGS_LIBSS
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libss.so.2.0, /usr/lib/libss.so.2.0)
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
+		/usr/lib/libss.so.2.0)
 	@$(call install_link, e2fsprogs, libss.so.2.0, /usr/lib/libss.so.2)
 	@$(call install_link, e2fsprogs, libss.so.2.0, /usr/lib/libss.so)
 endif
 
 ifdef PTXCONF_E2FSPROGS_LIBUUID
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, $(E2FSPROGS_DIR)/lib/libuuid.so.1.2, /usr/lib/libuuid.so.1.2)
+	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
+		/usr/lib/libuuid.so.1.2)
 	@$(call install_link, e2fsprogs, libuuid.so.1.2, /usr/lib/libuuid.so.1)
 	@$(call install_link, e2fsprogs, libuuid.so.1.2, /usr/lib/libuuid.so)
 endif
