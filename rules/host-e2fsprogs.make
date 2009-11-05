@@ -49,15 +49,7 @@ HOST_E2FSPROGS_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_E2FSPROGS_AUTOCONF := $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-e2fsprogs.install:
-	@$(call targetinfo)
-	@$(call install, HOST_E2FSPROGS,,h,install-libs)
-	@$(call touch)
+HOST_E2FSPROGS_INSTALL_OPT := install install-libs
 
 # ----------------------------------------------------------------------------
 # Clean
