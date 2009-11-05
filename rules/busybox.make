@@ -45,6 +45,8 @@ BUSYBOX_MAKEVARS := \
 	CROSS_COMPILE=$(COMPILER_PREFIX) \
 	HOSTCC=$(HOSTCC)
 
+BUSYBOX_TAGS_OPT := TAGS tags
+
 $(STATEDIR)/busybox.prepare:
 	@$(call targetinfo)
 
