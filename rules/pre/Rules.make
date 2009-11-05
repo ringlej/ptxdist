@@ -311,24 +311,6 @@ HOST_CROSS_AUTOCONF := --prefix=$(PTXDIST_SYSROOT_CROSS)
 # Convenience macros
 # ----------------------------------------------------------------------------
 
-
-#
-# touch with prefix-creation
-#
-ifndef PTXDIST_QUIET
-touch =										\
-	target="$(strip $(@))";							\
-	touch "$${target}";							\
-	echo "Finished target $${target\#\#*/}"
-else
-touch =										\
-	target="$(strip $(@))";							\
-	touch "$${target}";							\
-	target="$${target\#\#*/}";						\
-	echo "finished: $(PTX_COLOR_GREEN)$${target}$(PTX_COLOR_OFF)" >&2;	\
-	echo "Finished target $${target}"
-endif
-
 #
 # add_locale
 #
