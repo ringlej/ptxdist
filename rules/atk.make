@@ -1,9 +1,8 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003-2006 Robert Schwebel <r.schwebel@pengutronix.de>
 #                         Pengutronix <info@pengutronix.de>, Germany
-#                         Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -30,34 +29,13 @@ ATK_DIR		:= $(BUILDDIR)/$(ATK)
 # Get
 # ----------------------------------------------------------------------------
 
-atk_get: $(STATEDIR)/atk.get
-
-$(STATEDIR)/atk.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(ATK_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, ATK)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-atk_extract: $(STATEDIR)/atk.extract
-
-$(STATEDIR)/atk.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(ATK_DIR))
-	@$(call extract, ATK)
-	@$(call patchin, ATK)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-atk_prepare: $(STATEDIR)/atk.prepare
 
 ATK_PATH	:= PATH=$(CROSS_PATH)
 ATK_ENV		:= $(CROSS_ENV)
@@ -70,51 +48,19 @@ ATK_AUTOCONF := \
 	--enable-static \
 	--disable-glibtest
 
-$(STATEDIR)/atk.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(ATK_DIR)/config.cache)
-	cd $(ATK_DIR) && \
-		$(ATK_PATH) $(ATK_ENV) \
-		./configure $(ATK_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-atk_compile: $(STATEDIR)/atk.compile
-
-$(STATEDIR)/atk.compile:
-	@$(call targetinfo, $@)
-	cd $(ATK_DIR) && $(ATK_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-atk_install: $(STATEDIR)/atk.install
-
-$(STATEDIR)/atk.install:
-	@$(call targetinfo, $@)
-	@$(call install, ATK)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-atk_targetinstall: $(STATEDIR)/atk.targetinstall
-
 $(STATEDIR)/atk.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, atk)
 	@$(call install_fixup,atk,PACKAGE,atk)
 	@$(call install_fixup,atk,PRIORITY,optional)
 	@$(call install_fixup,atk,VERSION,$(ATK_VERSION))
 	@$(call install_fixup,atk,SECTION,base)
-	@$(call install_fixup,atk,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,atk,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,atk,DEPENDS,)
 	@$(call install_fixup,atk,DESCRIPTION,missing)
 
@@ -125,7 +71,7 @@ $(STATEDIR)/atk.targetinstall:
 
 	@$(call install_finish,atk)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
