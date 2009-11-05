@@ -56,56 +56,6 @@ $(WORLD_DEP_TREE_PS): $(DEP_OUTPUT) $(STATEDIR)/world.targetinstall
 		$(SCRIPTSDIR)/makedeptree | dot -Tps > $@
 
 
-### --- for CROSS packages only ---
-
-$(STATEDIR)/cross-%.extract:
-	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_TO_PACKAGE_cross-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_cross-$(*)), $(CROSS_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_cross-$(*)), $($(PTX_MAP_TO_PACKAGE_cross-$(*))_DIR))
-	@$(call touch)
-
-
-### --- for HOST packages only ---
-
-$(STATEDIR)/host-%.extract:
-	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_TO_PACKAGE_host-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_host-$(*)), $(HOST_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_host-$(*)), $($(PTX_MAP_TO_PACKAGE_host-$(*))_DIR))
-	@$(call touch)
-
-
-### --- for KLIBC packages only ---
-
-$(STATEDIR)/klibc-%.extract:
-	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_TO_PACKAGE_klibc-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_klibc-$(*)), $(KLIBC_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_klibc-$(*)), $($(PTX_MAP_TO_PACKAGE_klibc-$(*))_DIR))
-	@$(call touch)
-
-
-### --- for INITRAMFS packages only ---
-
-$(STATEDIR)/initramfs-%.extract:
-	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_TO_PACKAGE_initramfs-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_initramfs-$(*)), $(KLIBC_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_initramfs-$(*)), $($(PTX_MAP_TO_PACKAGE_initramfs-$(*))_DIR))
-	@$(call touch)
-
-
-### --- for TARGET packages only ---
-
-$(STATEDIR)/%.extract:
-	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_TO_PACKAGE_$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_$(*)))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_$(*)), $($(PTX_MAP_TO_PACKAGE_$(*))_DIR))
-	@$(call touch)
-
-
 ### --- for ALL pacakges ---
 
 $(STATEDIR)/%.install.post:
