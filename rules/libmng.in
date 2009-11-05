@@ -1,10 +1,10 @@
 ## SECTION=system_libraries
 
-config LIBMNG
+menuconfig LIBMNG
 	tristate
-	prompt "libmng"
+	prompt "libmng                        "
 	select ZLIB
-	select LCMS if LIBMNG_LCMS
+	select LCMS		if LIBMNG_LCMS
 	select LIBJPEG
 	help
 	  libmng is the official MNG reference library.
