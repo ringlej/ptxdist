@@ -1668,7 +1668,7 @@ parse_second()
 				case "${pkg}" in
 				    host-*|cross-*)
 					ptxd_dialog_msgbox \
-					    "error: 'host' or 'cross' packages cannot be '${cmd}'!\n" \
+					    "error: 'host' or 'cross' packages cannot be '${cmd}'ed!\n" \
 					    "\n" \
 					    "       You probably want to do: 'ptxdist install ${pkg}'"
 					return 1
