@@ -88,14 +88,7 @@ else
 E2FSPROGS_AUTOCONF += --disable-uuidd
 endif
 
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/e2fsprogs.install:
-	@$(call targetinfo)
-	@$(call install, E2FSPROGS,,,install-libs)
-	@$(call touch)
+E2FSPROGS_INSTALL_OPT := install install-libs
 
 # ----------------------------------------------------------------------------
 # Target-Install
