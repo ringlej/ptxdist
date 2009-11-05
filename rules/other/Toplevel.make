@@ -7,6 +7,7 @@
 SHELL=bash
 export SHELL
 
+PHONY := all FORCE
 all:
 	@echo "ptxdist: error: please use 'ptxdist' instead of calling make directly."
 	@exit 1
@@ -97,8 +98,10 @@ endif
 # just the "print" target
 # ----------------------------------------------------------------------------
 
-print-%:
+print-%: FORCE
 	@[ "$(origin $(*))" != "undefined" ] && echo "$($(*))"
+
+.PHONY: $(PHONY)
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:

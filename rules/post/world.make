@@ -24,7 +24,7 @@ $(STATEDIR)/world.targetinstall: \
 	@echo $@ : $^ | sed  -e 's:[^ ]*/\([^ ]\):\1:g' >> $(DEP_OUTPUT)
 	@$(call touch)
 
-.PHONY: world
+PHONY += world
 world: $(STATEDIR)/world.targetinstall
 
 
