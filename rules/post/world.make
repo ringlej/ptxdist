@@ -55,12 +55,4 @@ $(WORLD_DEP_TREE_PS): $(DEP_OUTPUT) $(STATEDIR)/world.targetinstall
 	@sort $< | uniq | \
 		$(SCRIPTSDIR)/makedeptree | dot -Tps > $@
 
-
-### --- for ALL pacakges ---
-
-$(STATEDIR)/%.targetinstall.post:
-	@$(call targetinfo)
-	@$(call touch)
-
-# vim600:set foldmethod=marker:
-# vim600:set syntax=make:
+# vim: syntax=make
