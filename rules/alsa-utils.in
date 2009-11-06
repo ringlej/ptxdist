@@ -30,5 +30,12 @@ config ALSA_UTILS_ASOUND_STATE
 	prompt "install /etc/asound.state from projectroot"
 	help
 	  install a default asound.state file from the projectroot
+
+config ALSA_UTILS_ALSAMIXER
+	bool
+	prompt "alsamixer"
+	help
+	  Build the alsamixer tool.
+
 endif
 

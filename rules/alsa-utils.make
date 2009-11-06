@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_ALSA_UTILS) += alsa-utils
 #
 # Paths and names
 #
-ALSA_UTILS_VERSION	:= 1.0.19
+ALSA_UTILS_VERSION	:= 1.0.21
 ALSA_UTILS		:= alsa-utils-$(ALSA_UTILS_VERSION)
 ALSA_UTILS_SUFFIX	:= tar.bz2
 ALSA_UTILS_URL		:= \
@@ -49,12 +49,17 @@ ALSA_UTILS_ENV 	:=  $(CROSS_ENV)
 ALSA_UTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(CROSS_ENV_AC_NCURSES) \
-	--disable-dependency-tracking \
 	--disable-nls \
-	--disable-alsatest
+	--disable-rpath \
+	--disable-alsatest \
+	--disable-xmlto \
+	--disable-largefile
 
-# switches that should be controlled
-# --disable-alsamixer
+ifdef PTXCONF_ALSA_UTILS_ALSAMIXER
+ALSA_UTILS_AUTOCONF += --enable-alsamixer
+else
+ALSA_UTILS_AUTOCONF += --disable-alsamixer
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -86,6 +91,10 @@ $(STATEDIR)/alsa-utils.targetinstall:
 	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/arecordmidi)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/aseqdump)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/aseqnet)
+
+ifdef PTXCONF_ALSA_UTILS_ALSAMIXER
+	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/alsamixer)
+endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_ALSA_UTILS_STARTSCRIPT
