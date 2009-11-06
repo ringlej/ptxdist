@@ -48,7 +48,7 @@ ptxd_make_world_install_target() {
     check_pipe_status &&
 
     if [ \! -e "${pkg_pkgdir}" ]; then
-	ptxd_warning "PKG doesn't install anything to '${pkg_pkgdir}'"
+	ptxd_warning "PKG didn't install anything to '${pkg_pkgdir}'"
 	return
     fi &&
 
