@@ -48,7 +48,7 @@ endif
 menuconfig IMAGE_UBI
 	bool
 	select IMAGE_UBIFS
-	prompt "Generate images/root.ubi"
+	prompt "Generate images/root.ubi      "
 	help
 	  Build an ubi image of the root filesystem. This image is suitable for
 	  writing to raw flash devices.
