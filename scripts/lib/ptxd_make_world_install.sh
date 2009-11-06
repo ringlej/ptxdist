@@ -70,15 +70,6 @@ export -f ptxd_make_world_install_target
 
 
 #
-# for cross pkg
-#
-ptxd_make_world_install_cross() {
-    ptxd_make_world_install_host
-}
-export -f ptxd_make_world_install_cross
-
-
-#
 # for host pkgs
 #
 ptxd_make_world_install_host() {
@@ -99,6 +90,10 @@ export -f ptxd_make_world_install_host
 #
 ptxd_make_world_install() {
     ptxd_make_world_init &&
-    ptxd_make_world_install_"${pkg_type}"
+
+    case "${pkg_type}" in
+	target) ptxd_make_world_install_target ;;
+	*)      ptxd_make_world_install_host ;;
+    esac
 }
 export -f ptxd_make_world_install
