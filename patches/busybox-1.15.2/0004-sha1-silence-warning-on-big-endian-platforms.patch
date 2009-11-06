@@ -1,0 +1,43 @@
+From 0983b05310b756f0c928910ca2f606fbca1feb63 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 6 Nov 2009 09:19:58 +0100
+Subject: [PATCH 4/5] [sha1] silence warning on big endian platforms
+
+Silence this warning, which crashes when CONFIG_WERROR is active:
+
+cc1: warnings being treated as errors
+libbb/sha1.c: In function 'sha1_end':
+libbb/sha1.c:411: error: unused variable 'i'
+libbb/sha1.c: In function 'sha512_end':
+libbb/sha1.c:446: error: unused variable 'i'
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ libbb/sha1.c |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/libbb/sha1.c b/libbb/sha1.c
+index ea645b7..964ff3c 100644
+--- a/libbb/sha1.c
++++ b/libbb/sha1.c
+@@ -410,6 +410,8 @@ void FAST_FUNC sha1_end(void *resbuf, sha1_ctx_t *ctx)
+ {
+ 	unsigned i, pad, in_buf;
+ 
++	(void)i;
++
+ 	in_buf = ctx->total64 & 63;
+ 	/* Pad the buffer to the next 64-byte boundary with 0x80,0,0,0... */
+ 	ctx->wbuffer[in_buf++] = 0x80;
+@@ -445,6 +447,8 @@ void FAST_FUNC sha512_end(void *resbuf, sha512_ctx_t *ctx)
+ {
+ 	unsigned i, pad, in_buf;
+ 
++	(void)i;
++
+ 	in_buf = ctx->total64[0] & 127;
+ 	/* Pad the buffer to the next 128-byte boundary with 0x80,0,0,0...
+ 	 * (FIPS 180-2:5.1.2)
+-- 
+1.6.5.2
+

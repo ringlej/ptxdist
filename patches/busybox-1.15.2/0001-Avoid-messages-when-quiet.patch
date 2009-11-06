@@ -1,5 +1,7 @@
-Subject: Avoid messages when quiet
+From 6ead51e58524d4bc7349d9a6405b172a680f1442 Mon Sep 17 00:00:00 2001
 From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 6 Nov 2009 09:19:57 +0100
+Subject: [PATCH 1/5] Avoid messages when quiet
 
 I've tried to use busybox with CONFIG_FEATURE_EXTRA_QUIET, but init's
 startup banner does still appear. I don't understand the intended logic
@@ -22,16 +24,15 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ported to busybox-1.15.2
 
 Signed-off-by: Ladislav Michl <ladis@linux-mips.org>
-
 ---
- init.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ init/init.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
 
-Index: busybox-1.13.2/init/init.c
-===================================================================
---- busybox-1.13.2.orig/init/init.c
-+++ busybox-1.13.2/init/init.c
-@@ -148,17 +148,19 @@ static void message(int where, const cha
+diff --git a/init/init.c b/init/init.c
+index 35f64cf..13896bb 100644
+--- a/init/init.c
++++ b/init/init.c
+@@ -148,17 +148,19 @@ static void message(int where, const char *fmt, ...)
  				}
  			}
  		}
@@ -52,3 +53,6 @@ Index: busybox-1.13.2/init/init.c
  	}
  }
  
+-- 
+1.6.5.2
+

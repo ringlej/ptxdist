@@ -1,5 +1,7 @@
-Subject: reactivate check for tty
-From: Marc Kleine-Budde <mkl@pengutronix.de
+From a884ec095ec9dcc4e25abb68838fb6bd120639b4 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 6 Nov 2009 09:19:58 +0100
+Subject: [PATCH 2/5] reactivate check for tty
 
 The busybox crew switched of the test for a tty in silentoldconfig,
 we use this feature to break when oldconfig needs interaction
@@ -8,15 +10,14 @@ in automated build.
 This patch reactivates this feature.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-
 ---
  scripts/kconfig/conf.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
-Index: busybox-1.13.2/scripts/kconfig/conf.c
-===================================================================
---- busybox-1.13.2.orig/scripts/kconfig/conf.c
-+++ busybox-1.13.2/scripts/kconfig/conf.c
+diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
+index 9befa2b..e65e25c 100644
+--- a/scripts/kconfig/conf.c
++++ b/scripts/kconfig/conf.c
 @@ -503,7 +503,7 @@ int main(int ac, char **av)
  			break;
  		case 's':
@@ -26,3 +27,6 @@ Index: busybox-1.13.2/scripts/kconfig/conf.c
  			break;
  		case 'd':
  			input_mode = set_default;
+-- 
+1.6.5.2
+
