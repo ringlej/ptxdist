@@ -5,7 +5,7 @@ curl saves the LDFLAGS set during configure into its pkg-config file.
 So -Wl stuff ends up in the .pc file, which is really bad, and breaks
 if there are multiple -Wl in our LDFLAGS (which are in PTXdist)
 
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
  libcurl.pc.in |    2 +-
