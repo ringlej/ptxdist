@@ -78,7 +78,6 @@ $(STATEDIR)/alsa-utils.targetinstall:
 	@$(call install_fixup, alsa-utils, DESCRIPTION, missing)
 
 	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/sbin/alsactl)
-	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/alsamixer)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/amidi)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/amixer)
 	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/bin/aplay)
