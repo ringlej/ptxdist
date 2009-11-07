@@ -12,6 +12,7 @@ BEGIN {
 	FS = "([[:space:]]|=)[[:space:]]*";
 
 	SYSROOT	= ENVIRON["PTXDIST_SYSROOT_TARGET"];
+	pkg_pkgdir	=ENVIRON["pkg_pkgdir"];
 
 	# quote "+" and "/"
 	q_pkg_pkgdir = gensub(/([+/])/, "\\\\\\1", "g", ENVIRON["pkg_pkgdir"]);
@@ -64,7 +65,7 @@ $1 ~ /^(includedir|libdir)$/ {
 
 
 $1 ~ /^(Libs(\.private)?|Cflags):$/ {
-	this_regex = "(-[LI])" SYSROOT;
+	this_regex = "(-[LI])(" SYSROOT "|" pkg_pkgdir")";
 
 	#
 	# replace absolute path by relative ones
