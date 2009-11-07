@@ -119,7 +119,7 @@ ptxd_make_world_init_compat() {
 
     # DESTDIR
     case "${pkg_type}" in
-	target) pkg_install_opt="DESTDIR=\"${pkg_pkgdir}\" ${pkg_install_opt}" ;;
+	target) pkg_install_opt="DESTDIR=\"${pkg_pkg_dir}\" ${pkg_install_opt}" ;;
 	*)      pkg_install_opt="DESTDIR=\"\" ${pkg_install_opt}" ;;
     esac
 

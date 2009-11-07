@@ -12,10 +12,10 @@ BEGIN {
 	FS = "([[:space:]]|=)[[:space:]]*";
 
 	SYSROOT	= ENVIRON["PTXDIST_SYSROOT_TARGET"];
-	pkg_pkgdir	=ENVIRON["pkg_pkgdir"];
+	pkg_pkg_dir = ENVIRON["pkg_pkg_dir"];
 
 	# quote "+" and "/"
-	q_pkg_pkgdir = gensub(/([+/])/, "\\\\\\1", "g", ENVIRON["pkg_pkgdir"]);
+	q_pkg_pkg_dir = gensub(/([+/])/, "\\\\\\1", "g", ENVIRON["pkg_pkg_dir"]);
 
 	replace["prefix"]	= "${pcfiledir}/../..";
 	replace["exec_prefix"]	= "${prefix}";
@@ -25,10 +25,10 @@ BEGIN {
 
 
 FNR == 1 {
-	this_regex = "^" q_pkg_pkgdir "(.*)lib\\/pkgconfig\\/.*";
+	this_regex = "^" q_pkg_pkg_dir "(.*)lib\\/pkgconfig\\/.*";
 
 	#
-	# first remove pkg_pkgdir
+	# first remove pkg_pkg_dir
 	#
 	prefix = gensub(this_regex, "\\1", "", FILENAME);
 	replace[prefix "include"] = replace["includedir"];
@@ -65,7 +65,7 @@ $1 ~ /^(includedir|libdir)$/ {
 
 
 $1 ~ /^(Libs(\.private)?|Cflags):$/ {
-	this_regex = "(-[LI])(" SYSROOT "|" pkg_pkgdir")";
+	this_regex = "(-[LI])(" SYSROOT "|" pkg_pkg_dir")";
 
 	#
 	# replace absolute path by relative ones

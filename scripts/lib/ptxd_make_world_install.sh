@@ -37,34 +37,34 @@ export -f ptxd_make_world_install_pkg
 # Perform standard install actions
 #
 ptxd_make_world_install_target() {
-    rm -rf -- "${pkg_pkgdir}" &&
-    mkdir -p -- "${pkg_pkgdir}"/{etc,{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}} &&
+    rm -rf -- "${pkg_pkg_dir}" &&
+    mkdir -p -- "${pkg_pkg_dir}"/{etc,{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}} &&
 
-    ptxd_make_world_install_pkg "${pkg_pkgdir}" || return
+    ptxd_make_world_install_pkg "${pkg_pkg_dir}" || return
 
     # remove empty dirs
-    find "${pkg_pkgdir}" -type d -print0 | xargs -r -0 -- \
+    find "${pkg_pkg_dir}" -type d -print0 | xargs -r -0 -- \
 	rmdir --ignore-fail-on-non-empty -p -- &&
     check_pipe_status &&
 
-    if [ \! -e "${pkg_pkgdir}" ]; then
-	ptxd_warning "PKG didn't install anything to '${pkg_pkgdir}'"
+    if [ \! -e "${pkg_pkg_dir}" ]; then
+	ptxd_warning "PKG didn't install anything to '${pkg_pkg_dir}'"
 	return
     fi &&
 
     # prefix paths in la files with sysroot
-    find "${pkg_pkgdir}" -name "*.la" -print0 | xargs -r -0 -- \
+    find "${pkg_pkg_dir}" -name "*.la" -print0 | xargs -r -0 -- \
 	sed -i \
 	-e "/^dependency_libs/s:\( \)\(/lib\|/usr/lib\):\1${pkg_sysroot_dir}\2:g" \
 	-e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${pkg_sysroot_dir}\2:g" &&
     check_pipe_status &&
 
     # make pkgconfig's pc files relocatable
-    find "${pkg_pkgdir}" -name "*.pc" -print0 | \
+    find "${pkg_pkg_dir}" -name "*.pc" -print0 | \
 	xargs -r -0 gawk -f "${PTXDIST_LIB_DIR}/ptxd_make_world_install_mangle_pc.awk" &&
     check_pipe_status &&
 
-    cp -dprf -- "${pkg_pkgdir}"/* "${pkg_sysroot_dir}"
+    cp -dprf -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}"
 }
 export -f ptxd_make_world_install_target
 
