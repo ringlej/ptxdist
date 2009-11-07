@@ -4,6 +4,8 @@ Subject: Add ${SYSROOT} capability
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
+# rsc: https://savannah.gnu.org/patch/index.php?6971
+
  src/ccgnu2-config.in |    6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
