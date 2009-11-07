@@ -40,69 +40,59 @@ endchoice
 config ALSA_LIB_RESMGR
 	bool
 	depends on BROKEN
-	prompt "build resmgr"
+	prompt "resmgr"
 	help
 	  support resmgr (optional component)
 
 config ALSA_LIB_READ
 	bool
 	default y
-	prompt "build read support"
+	prompt "read support"
 	help
 	  Reading /dev/aload* is the default. Disable it on demand
 
 config ALSA_LIB_MIXER
 	bool
 	default y
-	prompt "build mixer"
+	prompt "mixer"
 	help
 	  Disable the mixer component if you do not need it
 
 config ALSA_LIB_PCM
 	bool
 	default y
-	prompt "build pcm"
+	prompt "pcm"
 	help
 	  Disable the PCM component if you do not need it
 
 config ALSA_LIB_RAWMIDI
 	bool
 	default y
-	prompt "build raw midi support"
+	prompt "raw midi support"
 	help
 	  Disable the raw MIDI component if you do not need it
 
 config ALSA_LIB_HWDEP
 	bool
 	default y
-	prompt "build hwdep"
+	prompt "hwdep"
 	help
 	  Disable the hwdep component if you do not need it
 
 config ALSA_LIB_SEQ
 	bool
 	default y
-	prompt "build sequencer"
+	prompt "sequencer"
 	help
 	  Disable the sequencer component if you do not need it
 
-config ALSA_LIB_INSTR
+config ALSA_LIB_ALISP
 	bool
 	default y
-	prompt "build intrument support"
+	prompt "alisp"
 	help
-	  Disable the instrument component if you do not need it
+	  Disable the sequencer component if you do not need it
 
-config ALSA_LIB_STATIC
-	bool
-	prompt "Build static library only"
-	depends on BROKEN
-	help
-	  This will build the static library only. On architectures with
-	  a low register count (like ia32) this makes sense, due to
-	  allowing the compiler to use one additional register and
-	  speeding up things (if only one application uses this library)
-	  Note: This feature does not work yet. For example the esound
-	  daemon fails to link due to missing exported functions.
 
 endif
+

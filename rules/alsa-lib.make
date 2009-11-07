@@ -21,7 +21,7 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 ALSA_LIB_SUFFIX		:= tar.bz2
 
 ifdef PTXCONF_ALSA_LIB_FULL
-ALSA_LIB_VERSION	:= 1.0.19
+ALSA_LIB_VERSION	:= 1.0.21a
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_URL		:= \
 	http://dl.ambiweb.de/mirrors/ftp.alsa-project.org/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX) \
@@ -55,51 +55,80 @@ ALSA_LIB_ENV 	:=  $(CROSS_ENV)
 #
 # autoconf
 #
-ALSA_LIB_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
+ALSA_LIB_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-static \
+	--enable-shared \
+	--enable-fast-install \
+	--enable-libtool-lock \
+	--enable-symbolic-functions \
+	--disable-debug \
+	--disable-old-symbols \
 	--disable-python \
-	--with-debug=no
-
-ifdef PTXCONF_ALSA_LIB_STATIC
-ALSA_LIB_AUTOCONF += --enable-static --disable-shared
-else
-ALSA_LIB_AUTOCONF += --enable-static
-endif
+	--with-pythonlibs='-lpthread -lm -ldl -lpython2.6' \
+	--with-pythonincludes='-I$(SYSROOT)/usr/include/python' \
+	--with-tmpdir=/tmp \
+	--with-debug=no \
+	--with-libdl \
+	--with-pthread \
+	--with-librt \
+	--with-alsa-devdir=/dev/snd \
+	--with-aload-devdir=/dev \
+	--with-versioned
 
 ifdef PTXCONF_ALSA_LIB_RESMGR
 ALSA_LIB_AUTOCONF += --enable-resmgr
+else
+ALSA_LIB_AUTOCONF += --disable-resmgr
 endif
 
-ifndef PTXCONF_ALSA_LIB_READ
+ifdef PTXCONF_ALSA_LIB_READ
+ALSA_LIB_AUTOCONF += --enable-aload
+else
 ALSA_LIB_AUTOCONF += --disable-aload
 endif
 
-ifndef PTXCONF_ALSA_LIB_MIXER
+ifdef PTXCONF_ALSA_LIB_MIXER
+ALSA_LIB_AUTOCONF += --enable-mixer
+else
 ALSA_LIB_AUTOCONF += --disable-mixer
 endif
 
-ifndef PTXCONF_ALSA_LIB_PCM
+ifdef PTXCONF_ALSA_LIB_PCM
+ALSA_LIB_AUTOCONF += --enable-pcm
+ALSA_LIB_AUTOCONF += --with-pcm-plugins=all
+else
 ALSA_LIB_AUTOCONF += --disable-pcm
 endif
 
-ifndef PTXCONF_ALSA_LIB_RAWMIDI
+ifdef PTXCONF_ALSA_LIB_RAWMIDI
+ALSA_LIB_AUTOCONF += --enable-rawmidi
+else
 ALSA_LIB_AUTOCONF += --disable-rawmidi
 endif
 
-ifndef PTXCONF_ALSA_LIB_HWDEP
-ALSA_LIB_AUTOCONF += --disable-hwdep
-else
+ifdef PTXCONF_ALSA_LIB_HWDEP
 ALSA_LIB_AUTOCONF += --enable-hwdep
-endif
-
-ifndef PTXCONF_ALSA_LIB_SEQ
-ALSA_LIB_AUTOCONF += --disable-seq
 else
-ALSA_LIB_AUTOCONF += --enable-seq
+ALSA_LIB_AUTOCONF += --disable-hwdep
 endif
 
-ifndef PTXCONF_ALSA_LIB_INSTR
-ALSA_LIB_AUTOCONF += --disable-instr
+ifdef PTXCONF_ALSA_LIB_SEQ
+ALSA_LIB_AUTOCONF += --enable-seq
+else
+ALSA_LIB_AUTOCONF += --disable-seq
+endif
+
+ifdef PTXCONF_ALSA_LIB_ALISP
+ALSA_LIB_AUTOCONF += --enable-alisp
+else
+ALSA_LIB_AUTOCONF += --disable-alisp
+endif
+
+ifdef PTXCONF_HAS_HARDFLOAT
+ALSA_LIB_AUTOCONF += --with-softfloat=no
+else
+ALSA_LIB_AUTOCONF += --with-softfloat
 endif
 
 ifdef PTXCONF_ALSA_LIB_LIGHT
@@ -113,10 +142,10 @@ ALSA_LIB_AUTOCONF += --enable-everyhing \
 endif
 
 # unhandled, yet
-# --with-softfloat
-# --with-alsa-devdir=dir
-# --with-aload-devdir=dir
-# --with-pcm-plugins=<list>
+# --with-configdir=dir    path where ALSA config files are stored
+#  --with-plugindir=dir    path where ALSA plugin files are stored
+#  --with-ctl-plugins=<list>
+#                          build control plugins (default = all)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -125,7 +154,7 @@ endif
 $(STATEDIR)/alsa-lib.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, alsa-lib)
+	@$(call install_init,  alsa-lib)
 	@$(call install_fixup, alsa-lib, PACKAGE, alsa-lib)
 	@$(call install_fixup, alsa-lib, PRIORITY,optional)
 	@$(call install_fixup, alsa-lib, VERSION,$(ALSA_LIB_VERSION))
