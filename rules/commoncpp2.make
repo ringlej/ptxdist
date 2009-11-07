@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_COMMONCPP2) += commoncpp2
 #
 # Paths and names
 #
-COMMONCPP2_VERSION	:= 1.6.3
+COMMONCPP2_VERSION	:= 1.7.3
 COMMONCPP2		:= commoncpp2-$(COMMONCPP2_VERSION)
 COMMONCPP2_SUFFIX	:= tar.gz
 COMMONCPP2_SOURCE	:= $(SRCDIR)/$(COMMONCPP2).$(COMMONCPP2_SUFFIX)
@@ -93,19 +93,13 @@ $(STATEDIR)/commoncpp2.targetinstall:
 	@$(call install_fixup, commoncpp2,DEPENDS,)
 	@$(call install_fixup, commoncpp2,DESCRIPTION,missing)
 
-	@$(call install_copy, commoncpp2, 0, 0, 0644, \
-		$(COMMONCPP2_DIR)/src/.libs/libccgnu2-1.6.so.0.0.2, \
-		/usr/lib/libccgnu2-1.6.so.0.0.2)
+	@$(call install_copy, commoncpp2, 0, 0, 0644, -, /usr/lib/libccgnu2-1.7.so.0.0.3)
+	@$(call install_link, commoncpp2, libccgnu2-1.7.so.0.0.3, /usr/lib/libccgnu2-1.7.so.0)
+	@$(call install_link, commoncpp2, libccgnu2-1.7.so.0.0.3, /usr/lib/libccgnu2.so)
 
-	@$(call install_link, commoncpp2, libccgnu2-1.6.so.0.0.2, /usr/lib/libccgnu2-1.6.so.0)
-	@$(call install_link, commoncpp2, libccgnu2-1.6.so.0.0.2, /usr/lib/libccgnu2.so)
-
-	@$(call install_copy, commoncpp2, 0, 0, 0644, \
-		$(COMMONCPP2_DIR)/src/.libs/libccext2-1.6.so.0.0.2, \
-		/usr/lib/libccext2-1.6.so.0.0.2)
-
-	@$(call install_link, commoncpp2, libccext2-1.6.so.0.0.2, /usr/lib/libccext2-1.6.so.1)
-	@$(call install_link, commoncpp2, libccext2-1.6.so.0.0.2, /usr/lib/libccext2.so)
+	@$(call install_copy, commoncpp2, 0, 0, 0644, -, /usr/lib/libccext2-1.7.so.0.0.3)
+	@$(call install_link, commoncpp2, libccext2-1.7.so.0.0.3, /usr/lib/libccext2-1.7.so.1)
+	@$(call install_link, commoncpp2, libccext2-1.7.so.0.0.3, /usr/lib/libccext2.so)
 
 	@$(call install_finish, commoncpp2)
 
