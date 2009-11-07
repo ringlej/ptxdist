@@ -17,13 +17,15 @@ HOST_PACKAGES-$(PTXCONF_HOST_QT4) += host-qt4
 #
 # Paths and names
 #
-HOST_QT4_DIR	= $(HOST_BUILDDIR)/$(QT4)
+HOST_QT4_DIR		= $(HOST_BUILDDIR)/$(QT4)
+HOST_QT4_BUILDDIR	= $(HOST_BUILDDIR)/$(QT4)-build
+HOST_QT4_BUILD_OOT	:= YES
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/host-qt4.get: $(STATEDIR)/qt4.get
+$(STATEDIR)/host-qt4.get: $(QT4_SOURCE)
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -121,19 +123,6 @@ HOST_QT4_AUTOCONF := \
 	-no-mouse-tslib \
 	-no-mouse-qvfb
 
-
-$(STATEDIR)/host-qt4.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_QT4_DIR)/config.cache)
-
-	@cd $(HOST_QT4_DIR) && $(HOST_QT4_PATH) $(HOST_QT4_ENV) $(MAKE) \
-		confclean || true
-
-	@cd $(HOST_QT4_DIR) && \
-		$(HOST_QT4_PATH) $(HOST_QT4_ENV) \
-		./configure $(HOST_QT4_AUTOCONF)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
@@ -141,15 +130,15 @@ $(STATEDIR)/host-qt4.prepare:
 
 $(STATEDIR)/host-qt4.compile:
 	@$(call targetinfo)
-	@cd $(HOST_QT4_DIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
+	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		sub-tools-bootstrap
-	@cd $(HOST_QT4_DIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
+	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		sub-xml sub-dbus sub-moc sub-rcc sub-uic
-	@cd $(HOST_QT4_DIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
+	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		sub-network
-	@cd $(HOST_QT4_DIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
+	@cd $(HOST_QT4_BUILDDIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
-	@cd $(HOST_QT4_DIR)/tools/qdbus && $(HOST_QT4_PATH) \
+	@cd $(HOST_QT4_BUILDDIR)/tools/qdbus && $(HOST_QT4_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) sub-qdbusxml2cpp sub-qdbuscpp2xml
 	@$(call touch)
 
@@ -169,11 +158,11 @@ HOST_QT4_INSTALL_TARGETS := \
 
 $(STATEDIR)/host-qt4.install:
 	@$(call targetinfo)
-	@cd $(HOST_QT4_DIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
+	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		$(HOST_QT4_INSTALL_TARGETS) $(HOST_QT4_MAKEVARS)
-	@cd $(HOST_QT4_DIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
+	@cd $(HOST_QT4_BUILDDIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) install $(HOST_QT4_MAKEVARS)
-	@cd $(HOST_QT4_DIR)/tools/qdbus && $(HOST_QT4_PATH) \
+	@cd $(HOST_QT4_BUILDDIR)/tools/qdbus && $(HOST_QT4_PATH) \
 		$(MAKE) $(PARALLELMFLAGS) $(HOST_QT4_MAKEVARS) \
 		sub-qdbusxml2cpp-install_subtargets \
 		sub-qdbuscpp2xml-install_subtargets
@@ -193,5 +182,6 @@ $(STATEDIR)/host-qt4.install:
 host-qt4_clean:
 	rm -rf $(STATEDIR)/host-qt4.*
 	rm -rf $(HOST_QT4_DIR)
+	rm -rf $(HOST_QT4_BUILDDIR)
 
 # vim: syntax=make
