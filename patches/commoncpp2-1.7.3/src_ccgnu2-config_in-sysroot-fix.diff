@@ -1,7 +1,7 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Subject: Add ${SYSROOT} capability
 
-Signed-off-by: Marc Kleine-Budde <ml@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
  src/ccgnu2-config.in |    6 +++---
