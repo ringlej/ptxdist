@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIGHTTPD) += lighttpd
 #
 # Paths and names
 #
-LIGHTTPD_VERSION	:= 1.4.22
+LIGHTTPD_VERSION	:= 1.4.24
 LIGHTTPD		:= lighttpd-$(LIGHTTPD_VERSION)
 LIGHTTPD_SUFFIX		:= tar.bz2
 LIGHTTPD_URL		:= http://www.lighttpd.net/download/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
@@ -162,8 +162,6 @@ $(STATEDIR)/lighttpd.targetinstall:
 		/usr/sbin/lighttpd)
 	@$(call install_copy, lighttpd, 0, 0, 0755, -, \
 		/usr/sbin/lighttpd-angel)
-	@$(call install_copy, lighttpd, 0, 0, 0755, -, \
-		/usr/bin/spawn-fcgi)
 
 	@cd $(LIGHTTPD_PKGDIR) && \
 		find ./usr/lib -name "*.so" | \
