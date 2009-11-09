@@ -55,29 +55,29 @@ export -f ptxd_make_world_prepare_cmake
 # prepare for autoconf based pkgs
 #
 ptxd_make_world_prepare_conf() {
-    local pkg_cache_file cache_src
-
-    case "${pkg_type}" in
-	host|cross) cache_src="${PTXDIST_AUTOCONF_CACHE_HOST}"   ;;
-	target)     cache_src="${PTXDIST_AUTOCONF_CACHE_TARGET}" ;;
-    esac &&
-
-    if [ -n "${PTXCONF_SETUP_COMMON_CACHE}" ]; then
-	# use common cache
-	pkg_cache_file="${cache_src}"
-    else
-	# use individual cache
-	pkg_cache_file="${pkg_build_dir}/config.cache"
-	cp -- "${cache_src}" "${pkg_cache_file}"
-    fi &&
+#    local pkg_cache_file cache_src
+#
+#    case "${pkg_type}" in
+#	host|cross) cache_src="${PTXDIST_AUTOCONF_CACHE_HOST}"   ;;
+#	target)     cache_src="${PTXDIST_AUTOCONF_CACHE_TARGET}" ;;
+#    esac &&
+#
+#    if [ -n "${PTXCONF_SETUP_COMMON_CACHE}" ]; then
+#	# use common cache
+#	pkg_cache_file="${cache_src}"
+#    else
+#	# use individual cache
+#	pkg_cache_file="${pkg_build_dir}/config.cache"
+#	cp -- "${cache_src}" "${pkg_cache_file}"
+#    fi &&
 
     eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_conf_env}" \
 	"${pkg_conf_dir}/configure" \
-	"${pkg_conf_opt}" \
-	--cache-file="${pkg_cache_file}"
+	"${pkg_conf_opt}"
+#	--cache-file="${pkg_cache_file}"
 }
 export -f ptxd_make_world_prepare_conf
 
