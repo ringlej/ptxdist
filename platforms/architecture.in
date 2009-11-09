@@ -239,6 +239,21 @@ choice
 		depends on ARCH_SUPPORTS_ENDIAN_LITTLE
 endchoice
 
+
+#
+# ARM Architecture Version
+#
+config ARCH_ARM_V6
+	bool "arm architecture version >= ARMv6"
+	depends on ARCH_ARM
+	help
+	  This options enables optimisation for ARMv6 cores.
+
+	  Select this if you have an arm processor with an
+	  architecture version of ARMv6 or newer. Which is the case
+	  for the ARM11 and Cortex A Cores.
+
+
 #
 # hardware / software floating point
 #
@@ -299,4 +314,3 @@ source "platforms/toolchain_options.in"
 source "platforms/paths.in"
 
 endmenu
-
