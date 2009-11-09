@@ -54,7 +54,7 @@ ptxd_make_world_init_compat() {
     # build_dir
     if [ -n "${pkg_deprecated_install_builddir}" -a -n "${pkg_deprecated_builddir}" -a \
 	"${pkg_deprecated_install_builddir}" != "${pkg_deprecated_builddir}" -o \
-	-n "${pkg_build_dir}" -a \
+	-n "${pkg_build_dir}" -a -n "${pkg_deprecated_builddir}" -a \
 	"${pkg_build_dir}" != "${pkg_deprecated_builddir}" ]; then
 	ptxd_bailout "${FUNCNAME}: build dir inconsistency detected!"
     fi
