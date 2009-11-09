@@ -60,10 +60,8 @@ QT4_ENV		:= $(CROSS_ENV_FLAGS) $(CROSS_ENV_PKG_CONFIG)
 QT4_PATH	:= PATH=$(CROSS_PATH)
 QT4_INSTALL_OPT	:= INSTALL_ROOT=$(QT4_PKGDIR)
 
-# With the introduction of platformconfigs PTXCONF_ARCH was
-# renamed to PTXCONF_ARCH_STRING.
-ifdef PTXCONF_ARCH
-QT4_ARCH = $(call remove_quotes, $(PTXCONF_ARCH))
+ifdef PTXCONF_ARCH_ARM_V6
+QT4_ARCH = armv6
 else
 QT4_ARCH = $(call remove_quotes, $(PTXCONF_ARCH_STRING))
 endif
