@@ -4,4 +4,5 @@ tests_assume_input_api.diff -p0
 tests_clear_screen_at_end.diff -p0
 dmc-support.diff
 add-open-env.diff
+egalax.diff
 fix-autotools.diff
