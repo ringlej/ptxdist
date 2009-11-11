@@ -6,7 +6,7 @@ case $1 in
 
 	start)
 		echo "ntpclient starting"
-		/usr/sbin/ntpclient -i 600 -l -h @HOST@ &
+		/usr/sbin/ntpclient -i 600 -l -h @HOST@ > /dev/null &
 		;;
 
 esac
