@@ -61,7 +61,7 @@ comment "runtime options   ---"
 config NTPCLIENT_STARTSCRIPT
 	bool
 	default y
-	prompt "install /etc/init.d/nfsclient"
+	prompt "install /etc/init.d/ntpclient"
 
 config NTPCLIENT_NTPSERVER_NAME
 	depends on NTPCLIENT_STARTSCRIPT
