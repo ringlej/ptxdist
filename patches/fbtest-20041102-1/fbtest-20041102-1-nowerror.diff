@@ -1,7 +1,12 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Subject: Don't use -Werror
+
 Remove the -Werror flag to compile it with gcc4. Yes I know, a real fix
 different ;)
 
-sha
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+
+---
 
 diff -urN fbtest-20041102-1.orig/Rules.make fbtest-20041102-1/Rules.make
 --- fbtest-20041102-1.orig/Rules.make	2003-01-20 13:58:47.000000000 +0100

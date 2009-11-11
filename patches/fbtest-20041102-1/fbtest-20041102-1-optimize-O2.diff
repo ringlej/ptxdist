@@ -1,32 +1,30 @@
-#
-# Submitted-By: Robert Schwebel, 2007-03-19
-# Committed-By: Robert Schwebel
-#
-# Error:
-#
-# arm-v4t-linux-gnueabi-gcc -c -Wall -I../include  -O3 -fomit-frame-pointer -o directcolor.o directcolor.c
-# directcolor.c: In function 'directcolor_update_cmap':
-# directcolor.c:154: error: unrecognizable insn:
-# (insn 275 117 273 13 (set (reg:HI 14 lr)
-#         (mem/s:HI (plus:SI (mult:SI (reg/v:SI 1 r1 [orig:112 i ] [112])
-#                     (const_int 16 [0x10]))
-#                 (reg:SI 6 r6 [orig:120 clut.21 ] [120])) [11 <variable>.r+0 S4 A32])) -1 (nil)
-#     (nil))
-# directcolor.c:154: internal compiler error: in extract_insn, at recog.c:2084
-# Please submit a full bug report,
-# with preprocessed source if appropriate.
-# See <URL:http://gcc.gnu.org/bugs.html> for instructions.
-# make[2]: *** [directcolor.o] Error 1
-#
-# Description:
-#
-# http://gcc.gnu.org/bugzilla/show_bug.cgi?id=28675
-#
-# State:
-#
-# Reported to upstream, not closed yet. This patch is just an intermediate fix
-# to let PTXdist compile again, not a fix for the problem. 
-#
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: Workaround for a gcc compiler bug
+
+With older or unpatched gccs, we get this error:
+
+arm-v4t-linux-gnueabi-gcc -c -Wall -I../include  -O3 -fomit-frame-pointer -o directcolor.o directcolor.c
+directcolor.c: In function 'directcolor_update_cmap':
+directcolor.c:154: error: unrecognizable insn:
+(insn 275 117 273 13 (set (reg:HI 14 lr)
+        (mem/s:HI (plus:SI (mult:SI (reg/v:SI 1 r1 [orig:112 i ] [112])
+                    (const_int 16 [0x10]))
+                (reg:SI 6 r6 [orig:120 clut.21 ] [120])) [11 <variable>.r+0 S4 A32])) -1 (nil)
+    (nil))
+directcolor.c:154: internal compiler error: in extract_insn, at recog.c:2084
+Please submit a full bug report,
+with preprocessed source if appropriate.
+See <URL:http://gcc.gnu.org/bugs.html> for instructions.
+make[2]: *** [directcolor.o] Error 1
+
+The bug is described here:
+http://gcc.gnu.org/bugzilla/show_bug.cgi?id=28675
+
+It is closed in recent 4.1, 4.2 and later versions of gcc.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
 
 Index: fbtest-20041102-1/Rules.make
 ===================================================================
