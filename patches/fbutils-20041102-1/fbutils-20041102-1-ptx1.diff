@@ -1,3 +1,12 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: FIXME
+
+Patch needs cleanup.
+
+Not-Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+
 diff -urN fbutils-20041102-1/Rules.config fbutils-20041102-1-ptx/Rules.config
 --- fbutils-20041102-1/Rules.config	2001-08-06 19:28:23.000000000 +0200
 +++ fbutils-20041102-1-ptx/Rules.config	2004-11-02 10:49:23.000000000 +0100

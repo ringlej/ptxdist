@@ -1,23 +1,19 @@
-#
-# Submitted-By: Robert Schwebel, 2007-01-05
-# Committed-By: Robert Schwebel
-#
-# Error:
-#
-# make[2]: Entering directory `.../fbutils-20041102-1/fbcmap'
-# arm-v4t-linux-gnueabi-g++ -Wall -I../include -O2  -M -E *.C > .depend
-# arm-v4t-linux-gnueabi-g++ -Wall -I../include -O2  -c fbcmap.C -o fbcmap.o
-# fbcmap.C: In function 'int main(int, char**)':
-# fbcmap.C:118: error: expected primary-expression before '?' token
-#
-# Description:
-#
-# Seems like the GNU extension ">?" for MAX isn't supported any more
-#
-# State:
-#
-# no idea where to find upstream
-#
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: remove obsolete gnu extension
+
+make[2]: Entering directory `.../fbutils-20041102-1/fbcmap'
+arm-v4t-linux-gnueabi-g++ -Wall -I../include -O2  -M -E *.C > .depend
+arm-v4t-linux-gnueabi-g++ -Wall -I../include -O2  -c fbcmap.C -o fbcmap.o
+fbcmap.C: In function 'int main(int, char**)':
+fbcmap.C:118: error: expected primary-expression before '?' token
+
+Seems like the GNU extension ">?" for MAX isn't supported any more
+
+No idea where to find the current upstream...
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
 
 diff -urN fbutils-20041102-1/fbcmap/fbcmap.C fbutils-20041102-1-ptx1/fbcmap/fbcmap.C
 --- fbutils-20041102-1/fbcmap/fbcmap.C	2007-01-05 11:47:22.000000000 +0100
@@ -35,19 +31,17 @@ diff -urN fbutils-20041102-1/fbcmap/fbcmap.C fbutils-20041102-1-ptx1/fbcmap/fbcm
  
  bool Opt_version = false;
  bool Opt_verbose = false;
-@@ -115,8 +121,9 @@
+@@ -115,8 +121,7 @@
  	    break;
  
  	case FB_VISUAL_DIRECTCOLOR:
 -	    numcolorcells = 1<<(var.red.length >? var.green.length >?
 -				var.blue.length);
-+//	    numcolorcells = 1<<(var.red.length >? var.green.length >?
-+//				var.blue.length);
 +	    numcolorcells = 1<<(MAX(MAX(var.red.length,var.green.length),var.blue.length));
  	    break;
  
  	case FB_VISUAL_PSEUDOCOLOR:
-@@ -145,7 +152,7 @@
+@@ -145,7 +150,7 @@
  	}
  	cmap.Set(fb);
      } else if (!strcmp(Opt_command, "vga")) {
