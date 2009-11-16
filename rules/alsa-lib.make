@@ -125,9 +125,7 @@ else
 ALSA_LIB_AUTOCONF += --disable-alisp
 endif
 
-ifdef PTXCONF_HAS_HARDFLOAT
-ALSA_LIB_AUTOCONF += --with-softfloat=no
-else
+ifndef PTXCONF_HAS_HARDFLOAT
 ALSA_LIB_AUTOCONF += --with-softfloat
 endif
 
