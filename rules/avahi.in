@@ -5,10 +5,10 @@ menuconfig AVAHI
 	select HOST_INTLTOOL
 	select LIBDAEMON
 	select EXPAT
-	select QT4 if AVAHI_QT4
-	select DBUS if AVAHI_DBUS
-	select GTK if AVAHI_GTK
-	select LIBGLADE if AVAHI_GTK
+	select QT4	if AVAHI_QT4
+	select DBUS	if AVAHI_DBUS
+	select GTK	if AVAHI_GTK
+	select LIBGLADE	if AVAHI_GTK
 	prompt "avahi                         "
 	help
 	  Avahi is a system which facilitates service discovery on a local network.
@@ -63,6 +63,7 @@ config AVAHI_DBUS
 	  --enable-dbus
 
 if AVAHI_DBUS
+
 config AVAHI_DBUS_SYS
         string
         prompt "Path to D-Bus system.d directory"
@@ -78,6 +79,7 @@ config AVAHI_DBUS_SOCKET
           Enter the Path to the D-Bus system socket, you probably want
           to put unix:path= at the start. Only needed for very
           old D-Bus releases
+
 endif
 
 config AVAHI_DAEMON
@@ -87,6 +89,7 @@ config AVAHI_DAEMON
 	  Install the avahi-daemon program
 
 if AVAHI_DAEMON
+
 config AVAHI_USER
         string
         prompt "user for running the avahi (mDNS/DNS-SD) daemon"
@@ -113,6 +116,7 @@ config AVAHI_SERVICES
 	prompt "avahi services"
 	help
 	  install avahi service descriptions
+
 endif
 
 config AVAHI_DNSCONFD
@@ -134,6 +138,7 @@ config AVAHI_AUTOIP
 	  Please check: You need CONFIG_FILE_LOCKING=y in your Kernel Config.
 
 if AVAHI_AUTOIP
+
 config AVAHI_AUTOIP_USER
         string
         prompt "user for running the avahi autoip (IPv4LL) daemon"
