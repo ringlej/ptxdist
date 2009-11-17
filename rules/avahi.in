@@ -46,6 +46,16 @@ config AVAHI_GTK
 	help
 	  --enable-gtk
 
+config AVAHI_LIBAVAHI_CLIENT
+	bool
+	prompt "enable avahi-client support"
+	select AVAHI_DBUS
+	select AVAHI_DAEMON
+	help
+	  A simplifying C wrapper around the D-Bus API.
+	  It is recommend using this API in C or C++ progams.
+	  The D-Bus internals are hidden completely.
+
 config AVAHI_DBUS
 	bool
 	prompt "enable dbus support"

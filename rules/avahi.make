@@ -163,6 +163,12 @@ ifdef PTXCONF_AVAHI_QT4
 	@$(call install_link, avahi, libavahi-qt4.so.1.0.2, /usr/lib/libavahi-qt4.so)
 endif
 
+ifdef PTXCONF_AVAHI_LIBAVAHI_CLIENT
+	@$(call install_copy, avahi, 0, 0, 0644, -, /usr/lib/libavahi-client.so.3.2.5)
+	@$(call install_link, avahi, libavahi-client.so.3.2.5, /usr/lib/libavahi-client.so.3)
+	@$(call install_link, avahi, libavahi-client.so.3.2.5, /usr/lib/libavahi-client.so)
+endif
+
 ifdef PTXCONF_AVAHI_DAEMON
 #	avahi daemon (avahi mDNS/DNS-SD Implementation)
 #	depends on expat
