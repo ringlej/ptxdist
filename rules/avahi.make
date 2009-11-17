@@ -157,6 +157,10 @@ $(STATEDIR)/avahi.targetinstall:
 	@$(call install_link, avahi, libavahi-common.so.3.5.1, /usr/lib/libavahi-common.so.3)
 	@$(call install_link, avahi, libavahi-common.so.3.5.1, /usr/lib/libavahi-common.so)
 
+ifdef PTXCONF_AVAHI_DBUS
+	@$(call install_alternative, avahi, 0, 0, 0644, $(PTXCONF_AVAHI_DBUS_SYS)/avahi-dbus.conf)
+endif
+
 ifdef PTXCONF_AVAHI_QT4
 	@$(call install_copy, avahi, 0, 0, 0644, -, /usr/lib/libavahi-qt4.so.1.0.2)
 	@$(call install_link, avahi, libavahi-qt4.so.1.0.2, /usr/lib/libavahi-qt4.so.1)
