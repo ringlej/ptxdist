@@ -11,6 +11,9 @@ https://sourceforge.net/tracker/?func=detail&aid=2893592&group_id=976&atid=10097
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
+# 20091117: rsc: applied in upstream! \o/
+# 20091106: rsc: added to bug tracker
+
  libcurl.pc.in |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
