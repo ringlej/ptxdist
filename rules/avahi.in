@@ -56,7 +56,7 @@ config AVAHI_LIBAVAHI_CLIENT
 	  It is recommend using this API in C or C++ progams.
 	  The D-Bus internals are hidden completely.
 
-config AVAHI_DBUS
+menuconfig AVAHI_DBUS
 	bool
 	prompt "enable dbus support"
 	help
@@ -82,7 +82,7 @@ config AVAHI_DBUS_SOCKET
 
 endif
 
-config AVAHI_DAEMON
+menuconfig AVAHI_DAEMON
 	bool
 	prompt "avahi-daemon"
 	help
@@ -130,7 +130,7 @@ config AVAHI_DNSCONFD
 	  configuring unicast DNS servers in a DHCP-like fashion 
 	  with mDNS.
 
-config AVAHI_AUTOIP
+menuconfig AVAHI_AUTOIP
 	bool
 	prompt "avahi-autoipd"
 	help
