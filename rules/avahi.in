@@ -66,14 +66,14 @@ if AVAHI_DBUS
 config AVAHI_DBUS_SYS
         string
         prompt "Path to D-Bus system.d directory"
-        default "unconfigured"
+        default "/etc/dbus-1/system.d"
         help
           Enter the Path to the D-Bus system.d directory
 
 config AVAHI_DBUS_SOCKET
         string
         prompt "Path to the D-Bus system socket"
-        default "unconfigured"
+        default "unix:path=/var/run/dbus/system_bus_socket"
         help
           Enter the Path to the D-Bus system socket, you probably want
           to put unix:path= at the start. Only needed for very
