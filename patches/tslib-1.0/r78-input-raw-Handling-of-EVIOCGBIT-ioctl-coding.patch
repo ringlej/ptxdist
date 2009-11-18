@@ -1,0 +1,53 @@
+From 16a7c3815c90edce575336bd0da871a9bc606b6b Mon Sep 17 00:00:00 2001
+From: kergoth <kergoth@a933c7a4-9bf7-0310-9141-a2e45189604d>
+Date: Wed, 30 Sep 2009 21:25:09 +0000
+Subject: [PATCH 30/30] input-raw: Handling of EVIOCGBIT() ioctl coding
+
+Correct the coding of ioctl() when using EVIOCGBIT() macro.
+Indeed, instead of a number of bits, this field requires
+a size in bytes.
+This bug is described in the Linux kernel drivers/input/evdev.c
+file and in this webpage:
+http://userweb.kernel.org/~dtor/eviocgbit-bug.html
+
+Signed-off-by: Nicolas Ferre <nicolas.ferre@atmel.com>
+Signed-off-by: Chris Larson <clarson@mvista.com>
+
+git-svn-id: svn://svn.berlios.de/tslib/trunk/tslib@78 a933c7a4-9bf7-0310-9141-a2e45189604d
+---
+ plugins/input-raw.c |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/plugins/input-raw.c b/plugins/input-raw.c
+index d75afef..6bca86b 100644
+--- a/plugins/input-raw.c
++++ b/plugins/input-raw.c
+@@ -84,14 +84,14 @@ static int check_fd(struct tslib_input *i)
+ 		return -1;
+ 	}
+ 
+-	if ( (ioctl(ts->fd, EVIOCGBIT(0, EV_CNT), evbit) < 0) ||
++	if ( (ioctl(ts->fd, EVIOCGBIT(0, sizeof(evbit)), evbit) < 0) ||
+ 		!(evbit[BIT_WORD(EV_ABS)] & BIT_MASK(EV_ABS)) ||
+ 		!(evbit[BIT_WORD(EV_KEY)] & BIT_MASK(EV_KEY)) ) {
+ 		fprintf(stderr, "tslib: Selected device is not a touchscreen (must support ABS and KEY event types)\n");
+ 		return -1;
+ 	}
+ 
+-	if ((ioctl(ts->fd, EVIOCGBIT(EV_ABS, ABS_CNT), absbit)) < 0 ||
++	if ((ioctl(ts->fd, EVIOCGBIT(EV_ABS, sizeof(absbit)), absbit)) < 0 ||
+ 		!(absbit[BIT_WORD(ABS_X)] & BIT_MASK(ABS_X)) ||
+ 		!(absbit[BIT_WORD(ABS_Y)] & BIT_MASK(ABS_Y))) {
+ 		fprintf(stderr, "tslib: Selected device is not a touchscreen (must support ABS_X and ABS_Y events)\n");
+@@ -106,7 +106,7 @@ static int check_fd(struct tslib_input *i)
+ 	if (!(absbit[BIT_WORD(ABS_PRESSURE)] & BIT_MASK(ABS_PRESSURE))) {
+ 		i->current_p = 255;
+ 
+-		if ((ioctl(ts->fd, EVIOCGBIT(EV_KEY, KEY_CNT), keybit) < 0) ||
++		if ((ioctl(ts->fd, EVIOCGBIT(EV_KEY, sizeof(keybit)), keybit) < 0) ||
+ 			!(keybit[BIT_WORD(BTN_TOUCH)] & BIT_MASK(BTN_TOUCH)) ) {
+ 			fprintf(stderr, "tslib: Selected device is not a touchscreen (must support BTN_TOUCH events)\n");
+ 			return -1;
+-- 
+1.6.5.2
+

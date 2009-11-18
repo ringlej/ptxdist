@@ -1,0 +1,31 @@
+From 77dcc76c59d6faa4ea384107fe2414cad1000d55 Mon Sep 17 00:00:00 2001
+From: kergoth <kergoth@a933c7a4-9bf7-0310-9141-a2e45189604d>
+Date: Sun, 22 Mar 2009 02:20:07 +0000
+Subject: [PATCH 23/30] Fix regularly reported absbit/keybit copy/paste bug.
+
+Sorry for the delay, folks, I've been busy switching to my new position within
+MontaVista.
+
+Signed-off-by: Chris Larson <clarson@kergoth.com>
+
+git-svn-id: svn://svn.berlios.de/tslib/trunk/tslib@71 a933c7a4-9bf7-0310-9141-a2e45189604d
+---
+ plugins/input-raw.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/plugins/input-raw.c b/plugins/input-raw.c
+index 855525e..5c4e0ca 100644
+--- a/plugins/input-raw.c
++++ b/plugins/input-raw.c
+@@ -107,7 +107,7 @@ static int check_fd(struct tslib_input *i)
+ 		i->current_p = 255;
+ 
+ 		if ((ioctl(ts->fd, EVIOCGBIT(EV_KEY, KEY_CNT), keybit) < 0) ||
+-			!(absbit[BIT_WORD(BTN_TOUCH)] & BIT_MASK(BTN_TOUCH)) ) {
++			!(keybit[BIT_WORD(BTN_TOUCH)] & BIT_MASK(BTN_TOUCH)) ) {
+ 			fprintf(stderr, "selected device uses is not a touchscreen (must support BTN_TOUCH events)\n");
+ 			return -1;
+ 		}
+-- 
+1.6.5.2
+

@@ -1,0 +1,42 @@
+From 34cd525d9cf190d0d89a60f7483327f8d21bfb80 Mon Sep 17 00:00:00 2001
+From: kergoth <kergoth@a933c7a4-9bf7-0310-9141-a2e45189604d>
+Date: Tue, 24 Mar 2009 18:05:15 +0000
+Subject: [PATCH 27/30] Rely on SYN-Events when pen is lifted
+
+when the input-raw module of tslib relies on SYN-Events, it should not report
+a BTN_TOUCH to upper layers before the corresponding EV_SYN was seen.
+
+This prevents seeing two pen up events as described in my posting from
+Jan, 14 2009.
+
+Signed-off-by: Michael Heimpold <michael.heimpold@s2000.tu-chemnitz.de>
+Signed-off-by: Chris Larson <clarson@kergoth.com>
+
+git-svn-id: svn://svn.berlios.de/tslib/trunk/tslib@75 a933c7a4-9bf7-0310-9141-a2e45189604d
+---
+ plugins/input-raw.c |    9 +++------
+ 1 files changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/plugins/input-raw.c b/plugins/input-raw.c
+index a22390d..d75afef 100644
+--- a/plugins/input-raw.c
++++ b/plugins/input-raw.c
+@@ -156,12 +156,9 @@ static int ts_input_read(struct tslib_module_info *inf,
+ 				case BTN_TOUCH:
+ 					if (ev.value == 0) {
+ 						/* pen up */
+-						samp->x = 0;
+-						samp->y = 0;
+-						samp->pressure = 0;
+-						samp->tv = ev.time;
+-						samp++;
+-						total++;
++						i->current_x = 0;
++						i->current_y = 0;
++						i->current_p = 0;
+ 					}
+ 					break;
+ 				}
+-- 
+1.6.5.2
+

@@ -1,0 +1,28 @@
+From b63e56db2659a82f33999266635e8288bf80d236 Mon Sep 17 00:00:00 2001
+From: kergoth <kergoth@a933c7a4-9bf7-0310-9141-a2e45189604d>
+Date: Thu, 20 Nov 2008 16:15:27 +0000
+Subject: [PATCH 19/30] Kill old unused ts_read_raw_module.c
+
+Signed-off-by: Chris Larson <clarson@kergoth.com>
+
+git-svn-id: svn://svn.berlios.de/tslib/trunk/tslib@67 a933c7a4-9bf7-0310-9141-a2e45189604d
+---
+ plugins/input-raw.c      |    2 +-
+ src/ts_read_raw_module.c |  190 ----------------------------------------------
+ 2 files changed, 1 insertions(+), 191 deletions(-)
+ delete mode 100644 src/ts_read_raw_module.c
+
+src/ts_read_raw_module.c isn't included in the upstream tarball.  So this diff
+doesn't match upstream's change. [ukl]
+
+Index: tslib-1.0/plugins/input-raw.c
+===================================================================
+--- tslib-1.0.orig/plugins/input-raw.c	2009-11-11 22:40:03.000000000 +0100
++++ tslib-1.0/plugins/input-raw.c	2009-11-11 22:42:55.000000000 +0100
+@@ -1,5 +1,5 @@
+ /*
+- *  tslib/src/ts_read_raw_module.c
++ *  tslib/plugins/input-raw.c
+  *
+  *  Original version:
+  *  Copyright (C) 2001 Russell King.

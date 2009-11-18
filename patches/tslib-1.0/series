@@ -6,3 +6,13 @@ dmc-support.diff
 add-open-env.diff
 egalax.diff
 fix-autotools.diff
+r52-This-patch-adds-support-for-EVIOCGRAB-on-the-input-d.patch
+r57-Fix-use-with-devices-that-can-t-measure-pressure-cou.patch
+r62-Cleanup-and-kill-syntax-errors-introduced-by-copying.patch
+r64-BTN_TOUCH-is-only-required-when-the-device-isn-t-abl.patch
+r66-Define-the-_CNT-macros-if-needed.patch
+r67-Kill-old-unused-ts_read_raw_module.c.patch
+r71-Fix-regularly-reported-absbit-keybit-copy-paste-bug.patch
+r73-Prefix-correct-some-error-messages-in-input-raw-modu.patch
+r75-Rely-on-SYN-Events-when-pen-is-lifted.patch
+r78-input-raw-Handling-of-EVIOCGBIT-ioctl-coding.patch

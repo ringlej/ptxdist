@@ -1,0 +1,36 @@
+From b2b509ecaee7b449a093c512c78acd180ad53f78 Mon Sep 17 00:00:00 2001
+From: kergoth <kergoth@a933c7a4-9bf7-0310-9141-a2e45189604d>
+Date: Tue, 18 Nov 2008 15:47:57 +0000
+Subject: [PATCH 18/30] Define the _CNT macros if needed.
+
+EV_CNT & friends weren't added to linux/input.h until 2.6.24-rc1.
+
+
+git-svn-id: svn://svn.berlios.de/tslib/trunk/tslib@66 a933c7a4-9bf7-0310-9141-a2e45189604d
+---
+ plugins/input-raw.c |    9 +++++++++
+ 1 files changed, 9 insertions(+), 0 deletions(-)
+
+diff --git a/plugins/input-raw.c b/plugins/input-raw.c
+index d342dc7..2f7f454 100644
+--- a/plugins/input-raw.c
++++ b/plugins/input-raw.c
+@@ -31,6 +31,15 @@
+ #ifndef EV_SYN /* 2.4 kernel headers */
+ # define EV_SYN 0x00
+ #endif
++#ifndef EV_CNT
++# define EV_CNT (EV_MAX+1)
++#endif
++#ifndef ABS_CNT
++# define ABS_CNT (ABS_MAX+1)
++#endif
++#ifndef KEY_CNT
++# define KEY_CNT (KEY_MAX+1)
++#endif
+ 
+ #include "tslib-private.h"
+ 
+-- 
+1.6.5.2
+
