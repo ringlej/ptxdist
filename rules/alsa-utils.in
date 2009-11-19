@@ -34,6 +34,9 @@ config ALSA_UTILS_ASOUND_STATE
 config ALSA_UTILS_ALSAMIXER
 	bool
 	prompt "alsamixer"
+	select NCURSES_FORM
+	select NCURSES_MENU
+	select NCURSES_PANEL
 	help
 	  Build the alsamixer tool.
 
