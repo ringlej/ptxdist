@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2680 2005-05-27 10:29:43Z rsc $
 #
 # Copyright (C) 2005 by Steven Scholz <steven.scholz@imc-berlin.de>
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -50,6 +49,8 @@ PCMCIAUTILS_MAKEVARS := \
 	V=1 \
 	STRIP=echo \
 	$(call ptx/ifdef, PTXCONF_PCMCIAUTILS_STARTUP, STARTUP=true, STARTUP=false)
+
+PCMCIAUTILS_MAKE_PAR := NO
 
 $(STATEDIR)/pcmciautils.prepare:
 	@$(call targetinfo)
