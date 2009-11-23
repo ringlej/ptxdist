@@ -216,30 +216,41 @@ init(){
 }
 
 create_url_list(){
-	echo "creating list of download URLS for `echo $PACKAGES | wc -w` packages (This may take a while!)"
-	for target in $PACKAGES; do
-		$PTXDIST print ${target}_URL 2>> $TMPDIR/errors | sed -e 's/  */\n/' >> $TMPDIR/urllist
-		echo -n "."
-	done
+	echo "creating list of download URLS for `echo $PACKAGES | wc -w` packages"
+	targets=`for target in $PACKAGES; do echo print-${target}_URL; done | sort -u`
+	$PTXDIST make -i ${targets} 2>> $TMPDIR/errors > $TMPDIR/urllist
 	echo "done"
 }
 
 test_urls(){
 	egrep -v "^#|^$|^[[:space:]]" $TMPDIR/urllist \
 	| while read line; do
-		$URL_CHECKER $line >$TMPDIR/errormsg 2>&1
-		case $? in
-			0)
+		local count_ok=0
+		local count_fail=0
+		rm -f $TMPDIR/errormsg
+		for url in $line; do
+			$URL_CHECKER $url >>$TMPDIR/errormsg 2>&1
+			case $? in
+				0)
+				count_ok=$[count_ok+1]
+				;;
+				*)
+				count_fail=$[count_fail+1]
+				;;
+			esac
+		done
+		if [ $count_fail -eq 0 ]; then
 			echo " [  OK  ] $line"
-			;;
-			*)
-			echo ""
+		elif [ $count_ok  -eq 0 ]; then
 			echo " [ FAIL ] $line"
+			echo ""
 			echo ""
 			$CAT $TMPDIR/errormsg | $GREP -A 10 "Start checking at"
 			echo ""
-			;;
-		esac
+		else
+			local count=$[count_ok+$count_fail]
+			echo " [ $count_ok/$count  ] $line"
+		fi
 	done
 }
 
