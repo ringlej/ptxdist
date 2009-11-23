@@ -1850,7 +1850,7 @@ parse_second()
 			;;
 		make)
 			check_premake_compiler &&
-			ptxd_make_log "${1}"
+			ptxd_make_log "${@}"
 			exit
 			;;
 		menu)
