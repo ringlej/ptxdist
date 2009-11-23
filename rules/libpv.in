@@ -8,7 +8,6 @@ menuconfig LIBPV
 	select LIBXMLCONFIG	if !LIBPV_XML_EXPAT
 	select EXPAT		if LIBPV_XML_EXPAT
 	select PYTHON		if LIBPV_PYTHON
-	select LIBMQUEUE	if LIBPV_NEEDS_LIBMQUEUE
 	help
 	  libpv.so is a library that implements a user space shared memory for
 	  automation applications. The shared memory is being described by an
@@ -26,16 +25,6 @@ config LIBPV_EVENT
 	  This switch enables support for the libpv event mechanism. If
 	  enabled it is possible to be notified when process variables have
 	  changed.
-
-config LIBPV_NEEDS_LIBMQUEUE
-	bool
-	prompt "Posix Message Queue support for kernel 2.6"
-	depends on LIBPV_EVENT
-	help
-	 Enable this switch if your glibc doesn't yet support the new Posix
-	 Message Queues the kernel 2.6 already supports. This is
-	 mostly the case on older glibc revisions prior 2.3.5. Newer
-	 glibc revisions supports this feature natively.
 
 config LIBPV_PYTHON
 	bool
