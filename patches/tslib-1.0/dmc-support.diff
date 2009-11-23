@@ -73,8 +73,7 @@ Index: b/plugins/dmc-raw.c
 +		goto fail;
 +	}
 +	if (buf[0] != 0x6) {
-+		perror("dmc return");
-+		goto fail;
++		fprintf(stderr, "dmc: got wrong return value. The touchscreen may not work.\n");
 +	}
 +	if (write(fd, "\x31", 1) != 1) {
 +		perror("dmc write");
@@ -96,6 +95,7 @@ Index: b/plugins/dmc-raw.c
 +
 +	for (i = 0; i < nr; ++i) {
 +		if ((ret = read(ts->fd, buf, 1)) != 1) {
++			--i;
 +			break;
 +		}
 +		if (buf[0] == 0x10) {
