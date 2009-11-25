@@ -1,7 +1,8 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2003      by Auerswald GmbH & Co. KG, Schandelah, Germany
-#           (C) 2003-2008 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
+#               2003-2008 by Pengutronix e.K., Hildesheim, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +18,7 @@ PACKAGES-$(PTXCONF_STRACE) += strace
 #
 # Paths and names
 #
-STRACE_VERSION	:= 4.5.18
+STRACE_VERSION	:= 4.5.19
 STRACE		:= strace-$(STRACE_VERSION)
 STRACE_SUFFIX	:= tar.bz2
 STRACE_URL	:= $(PTXCONF_SETUP_SFMIRROR)/strace/$(STRACE).$(STRACE_SUFFIX)
@@ -67,7 +68,7 @@ $(STATEDIR)/strace.targetinstall:
 	@$(call install_fixup, strace,DEPENDS,)
 	@$(call install_fixup, strace,DESCRIPTION,missing)
 
-	@$(call install_copy, strace, 0, 0, 0755, $(STRACE_DIR)/strace, /usr/bin/strace)
+	@$(call install_copy, strace, 0, 0, 0755, -, /usr/bin/strace)
 
 	@$(call install_finish, strace)
 
