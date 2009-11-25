@@ -39,8 +39,7 @@ $(ARORA_SOURCE):
 ARORA_PATH	:=  PATH=$(CROSS_PATH)
 ARORA_ENV	:=  \
 	$(CROSS_ENV) \
-	INSTALL_ROOT=$(ARORA_PKGDIR) \
-	QMAKESPEC=$(SYSROOT)/usr/mkspecs/qws/linux-ptx-g++
+	INSTALL_ROOT=$(ARORA_PKGDIR)
 
 $(STATEDIR)/arora.prepare:
 	@$(call targetinfo)
