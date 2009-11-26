@@ -124,7 +124,6 @@ QT4_AUTOCONF += \
 	-xplatform linux-ptx-g++ \
 	-no-gtkstyle \
 	-no-nas-sound \
-	-no-opengl \
 	-no-openvg
 endif
 
@@ -170,7 +169,7 @@ endif
 
 # powervr graphics driver
 ifdef PTXCONF_QT4_GFX_POWERVR_PLUGIN
-QT4_AUTOCONF += -plugin-powervr-ahi
+QT4_AUTOCONF += -plugin-gfx-powervr
 endif
 
 # svga graphics driver
@@ -459,6 +458,22 @@ QT4_AUTOCONF += -dbus-linked
 endif
 ifdef PTXCONF_QT4_DBUS_NONE
 QT4_AUTOCONF += -no-qdbus
+endif
+
+ifdef PTXCONF_QT4_OPENGL_DESKTOP
+QT4_AUTOCONF += -opengl
+endif
+ifdef PTXCONF_QT4_OPENGL_ES1
+QT4_AUTOCONF += -opengl es1
+endif
+ifdef PTXCONF_QT4_OPENGL_ES1CL
+QT4_AUTOCONF += -opengl es1cl
+endif
+ifdef PTXCONF_QT4_OPENGL_ES2
+QT4_AUTOCONF += -opengl es2
+endif
+ifdef PTXCONF_QT4_OPENGL_NONE
+QT4_AUTOCONF += -no-opengl
 endif
 
 ifdef PTXCONF_QT4_SHARED
@@ -800,6 +815,18 @@ endif
 ifdef PTXCONF_QT4_GFX_QVFB_PLUGIN
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
 		/usr/plugins/gfxdrivers/libqscreenvfb.$(QT4_PLUGIN_EXT))
+endif
+ifdef PTXCONF_QT4_GFX_POWERVR_PLUGIN
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/plugins/gfxdrivers/libqgfxpvregl.$(QT4_PLUGIN_EXT))
+	@$(call install_copy, qt4, 0, 0, 0644, -, \
+		/usr/lib/libpvrQWSWSEGL.so.1.0.0)
+	@$(call install_link, qt4, libpvrQWSWSEGL.so.1.0.0, \
+		/usr/lib/libpvrQWSWSEGL.so.1.0)
+	@$(call install_link, qt4, libpvrQWSWSEGL.so.1.0.0, \
+		/usr/lib/libpvrQWSWSEGL.so.1)
+	@$(call install_link, qt4, libpvrQWSWSEGL.so.1.0.0, \
+		/usr/lib/libpvrQWSWSEGL.so)
 endif
 ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK),)
 	@$(call install_copy, qt4, 0, 0, 0644, -, \

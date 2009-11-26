@@ -14,6 +14,7 @@ menuconfig QT4
 	select GSTREAMER	if QT4_BUILD_PHONON
 	select GST_PLUGINS_BASE	if QT4_BUILD_PHONON
 	select OPENSSL		if QT4_OPENSSL
+	select MESALIB		if QT4_OPENGL_DESKTOP
 	select ALSA_LIB		if QT4_BUILD_MULTIMEDIA
 # libsvga is currently not in ptxdist
 #	select LIBSVGA		if QT4_GFX_SVGA_PLUGIN
@@ -156,7 +157,6 @@ choice
 	config QT4_GFX_POWERVR_PLUGIN
 		bool
 		prompt "plugin "
-		depends on BROKEN
 		help
 		  Load the driver at runtime
 endchoice
@@ -678,6 +678,30 @@ config QT4_DBUS_LINK
 endchoice
 
 endmenu
+
+choice
+	prompt "OpenGL support  "
+	help
+	  Add Qt support for OpenGL
+
+config QT4_OPENGL_NONE
+	bool "none     "
+
+config QT4_OPENGL_DESKTOP
+	bool "Desktop  "
+	depends on QT4_PLATFORM_X11
+
+config QT4_OPENGL_ES1
+	bool "ES 1.x   "
+
+config QT4_OPENGL_ES1CL
+	bool "ES 1.x CL"
+
+config QT4_OPENGL_ES2
+	bool "ES 2.x   "
+
+endchoice
+
 
 menu "optional libraries          "
 
