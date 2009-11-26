@@ -1,0 +1,88 @@
+## SECTION=networking
+
+menuconfig WPA_SUPPLICANT
+	tristate
+	prompt "wpa_supplicant"
+	select OPENSSL
+	select LIBNL
+	help
+	  IEEE 802.1X/WPA supplicant for secure wireless transfers
+
+if WPA_SUPPLICANT
+
+menu "wpa_supplicant drivers"
+
+config WPA_SUPPLICANT_DRIVER_HOSTAP
+	bool
+	prompt "HOSTAP"
+	help
+	  TBD
+
+config WPA_SUPPLICANT_DRIVER_HERMES
+	bool
+	prompt "HERMES"
+	depends on BROKEN
+	help
+	  TBD
+
+config WPA_SUPPLICANT_DRIVER_MADWIFI
+	bool
+	prompt "MADWIFI"
+	depends on BROKEN
+	help
+	  TBD
+
+config WPA_SUPPLICANT_DRIVER_ATMEL
+	bool
+	prompt "ATMEL"
+	help
+	  TBD
+
+config WPA_SUPPLICANT_DRIVER_WEXT
+	bool
+	prompt "WEXT"
+	help
+	  TBD
+
+config WPA_SUPPLICANT_DRIVER_RALINK
+	bool
+	prompt "RALINK"
+	help
+	  TBD
+
+config WPA_SUPPLICANT_DRIVER_NDISWRAPPER
+	bool
+	prompt "NDISWRAPPER"
+	help
+	  TBD
+
+config WPA_SUPPLICANT_DRIVER_BROADCOM
+	bool
+	prompt "BROADCOM"
+	depends on BROKEN
+	help
+	  TBD
+
+config WPA_SUPPLICANT_DRIVER_IPW
+	bool
+	prompt "IPW"
+	help
+	  TBD
+
+config WPA_SUPPLICANT_DRIVER_BSD
+	bool
+	prompt "BSD"
+	depends on BROKEN
+	help
+	  TBD
+
+config WPA_SUPPLICANT_DRIVER_NDIS
+	bool
+	prompt "NDIS"
+	depends on BROKEN
+	help
+	  TBD
+
+endmenu
+
+endif
