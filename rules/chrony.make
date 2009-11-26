@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2680 2005-05-27 10:29:43Z rsc $
 #
 # Copyright (C) 2005 by Bjoern Buerger <b.buerger@pengutronix.de>
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
