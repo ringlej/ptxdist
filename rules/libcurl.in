@@ -36,7 +36,6 @@ config LIBCURL_FILE
 
 config LIBCURL_SSL
        bool "ssl"
-       depends on BROKEN
 
 config LIBCURL_CRYPTO_AUTH
        bool "cryptographic authentication"
