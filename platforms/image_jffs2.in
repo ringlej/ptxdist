@@ -26,8 +26,9 @@ config IMAGE_JFFS2_EXTRA_ARGS
 	prompt "extra arguments passed to mkfs.jffs2"
 	help
 	  If needed you can add extra arguments for mkfs.jffs2 here
-	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt or
-	  -b to create a big endian filesystem on a little endian host)
+	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt,
+	  -b to create a big endian filesystem on a little endian host or
+	  -c if targeting NAND flash)
 
 config IMAGE_JFFS2_SUM
 	bool
@@ -44,6 +45,4 @@ config IMAGE_JFFS2_SUM_EXTRA_ARGS
 	prompt "extra arguments passed to sumtool"
 	help
 	  If needed you can add extra arguments for sumtool here
-	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt or
-	  -b to create a big endian filesystem on a little endian host)
 endif
