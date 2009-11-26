@@ -76,43 +76,43 @@ LIBCURL_AUTOCONF := \
 	--without-ca-path \
 	--without-libidn
 
-ifdef PTXCONF_LIBCURL__HTTP
+ifdef PTXCONF_LIBCURL_HTTP
 LIBCURL_AUTOCONF += --enable-http
 else
 LIBCURL_AUTOCONF += --disable-http
 endif
 
-ifdef PTXCONF_LIBCURL__COOKIES
+ifdef PTXCONF_LIBCURL_COOKIES
 LIBCURL_AUTOCONF += --enable-cookies
 else
 LIBCURL_AUTOCONF += --disable-cookies
 endif
 
-ifdef PTXCONF_LIBCURL__FTP
+ifdef PTXCONF_LIBCURL_FTP
 LIBCURL_AUTOCONF += --enable-ftp
 else
 LIBCURL_AUTOCONF += --disable-ftp
 endif
 
-ifdef PTXCONF_LIBCURL__FILE
+ifdef PTXCONF_LIBCURL_FILE
 LIBCURL_AUTOCONF += --enable-file
 else
 LIBCURL_AUTOCONF += --disable-file
 endif
 
-ifdef PTXCONF_LIBCURL__SSL
+ifdef PTXCONF_LIBCURL_SSL
 LIBCURL_AUTOCONF += --with-ssl=$(SYSROOT)
 else
 LIBCURL_AUTOCONF += --without-ssl
 endif
 
-ifdef PTXCONF_LIBCURL__CRYPTO_AUTH
+ifdef PTXCONF_LIBCURL_CRYPTO_AUTH
 LIBCURL_AUTOCONF += --enable-crypto-auth
 else
 LIBCURL_AUTOCONF += --disable-crypto-auth
 endif
 
-ifdef PTXCONF_LIBCURL__IPV6
+ifdef PTXCONF_LIBCURL_IPV6
 LIBCURL_AUTOCONF += --enable-ipv6
 else
 LIBCURL_AUTOCONF += --disable-ipv6
@@ -134,7 +134,7 @@ $(STATEDIR)/libcurl.targetinstall:
 	@$(call install_fixup, libcurl,DEPENDS,)
 	@$(call install_fixup, libcurl,DESCRIPTION,missing)
 
-ifdef PTXCONF_LIBCURL__CURL
+ifdef PTXCONF_LIBCURL_CURL
 	@$(call install_copy, libcurl, 0, 0, 0755, -, /usr/bin/curl)
 endif
 
