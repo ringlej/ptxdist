@@ -1,9 +1,11 @@
 ## SECTION=networking
+
 menuconfig LIBCURL
 	tristate
 	prompt "libcurl                       "
 	select ZLIB
 	select OPENSSL	if LIBCURL_SSL
+	select LIBSSH2	if LIBCURL_LIBSSH2
 	help
 	curl is a command line tool for transferring files with URL syntax, supporting
 	FTP, FTPS, HTTP, HTTPS, SCP, SFTP, TFTP, TELNET, DICT, LDAP, LDAPS and FILE.
@@ -38,6 +40,9 @@ config LIBCURL_SSL
 
 config LIBCURL_CRYPTO_AUTH
        bool "cryptographic authentication"
+
+config LIBCURL_LIBSSH2
+       bool "scp/sftp (via libssh2)"
 
 config LIBCURL_IPV6
        bool "ipv6"
