@@ -2,7 +2,7 @@
 
 menuconfig TSLIB
 	tristate
-	prompt "tslib (touch library)         "
+	prompt "tslib                         "
 	help
 	  Tslib is an abstraction layer for touchscreen panel events,
 	  as well as a filter stack for the manipulation of those
