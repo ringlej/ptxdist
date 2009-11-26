@@ -1,7 +1,5 @@
 # -*-makefile-*-
 #
-# $Id$
-#
 # Copyright (C) 2008 by Daniel Schnell
 #		2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -25,7 +23,6 @@ LIBCURL_SUFFIX	:= tar.gz
 LIBCURL_URL	:= http://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_SOURCE	:= $(SRCDIR)/$(LIBCURL).$(LIBCURL_SUFFIX)
 LIBCURL_DIR	:= $(BUILDDIR)/$(LIBCURL)
-
 
 # ----------------------------------------------------------------------------
 # Get
