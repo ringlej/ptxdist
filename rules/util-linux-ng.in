@@ -147,4 +147,11 @@ config UTIL_LINUX_NG_TASKSET
 	help
 	  taskset retrieves or sets a process's CPU affinity.
 
+config UTIL_LINUX_NG_MCOOKIE
+	bool
+	prompt "mcookie"
+	help
+	  mcookie generates a 128-bit random hexadecimal number for
+	  use with the X authority system.
+
 endif

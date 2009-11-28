@@ -23,6 +23,7 @@ UTIL_LINUX_NG_SUFFIX	:= tar.bz2
 UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.16/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
+UTIL_LINUX_NG_LICENSE	:= GPLv2+
 
 # ----------------------------------------------------------------------------
 # Get
@@ -104,43 +105,46 @@ $(STATEDIR)/util-linux-ng.targetinstall:
 	@$(call install_fixup, util-linux-ng,DESCRIPTION,missing)
 
 ifdef PTXCONF_UTIL_LINUX_NG_MKSWAP
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/disk-utils/mkswap, /sbin/mkswap)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/mkswap)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_SWAPON
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/mount/swapon, /sbin/swapon)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/swapon)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_MOUNT
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/mount/mount, /bin/mount)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/mount)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_UMOUNT
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/mount/umount, /bin/umount)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/umount)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_IPCS
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/sys-utils/ipcs, /usr/bin/ipcs)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ipcs)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_READPROFILE
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/sys-utils/readprofile, /usr/sbin/readprofile)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/sbin/readprofile)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_FDISK
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/fdisk/fdisk, /usr/sbin/fdisk)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/fdisk)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_SFDISK
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/fdisk/sfdisk, /usr/sbin/sfdisk)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/sfdisk)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_CFDISK
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/fdisk/cfdisk, /usr/sbin/cfdisk)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/cfdisk)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_SETTERM
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/misc-utils/setterm, /usr/bin/setterm)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/setterm)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_CHRT
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/schedutils/chrt, /usr/bin/chrt)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/chrt)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_IONICE
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/schedutils/ionice, /usr/bin/ionice)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ionice)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_TASKSET
-	@$(call install_copy, util-linux-ng, 0, 0, 0755, $(UTIL_LINUX_NG_DIR)/schedutils/taskset, /usr/bin/taskset)
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/taskset)
+endif
+ifdef PTXCONF_UTIL_LINUX_NG_MCOOKIE
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/mcookie)
 endif
 
 	@$(call install_finish, util-linux-ng)
