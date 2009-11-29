@@ -11,6 +11,9 @@ in libxml2.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+#20091129: rsc: submitted to upstream:
+#          https://sourceforge.net/tracker/?func=detail&aid=2905712&group_id=66612&atid=515108
+
  src/xml_trans.c |    3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
