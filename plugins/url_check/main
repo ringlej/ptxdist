@@ -219,6 +219,13 @@ create_url_list(){
 	echo "creating list of download URLS for `echo $PACKAGES | wc -w` packages"
 	targets=`for target in $PACKAGES; do echo print-${target}_URL; done | sort -u`
 	$PTXDIST make -i ${targets} 2>> $TMPDIR/errors > $TMPDIR/urllist
+	if [ `cat "$TMPDIR/urllist" | wc -l` = "0" ]; then
+		echo "Fast listing failed. This may take a while!"
+		for target in $PACKAGES; do
+			$PTXDIST print ${target}_URL 2>> $TMPDIR/errors | sed -e 's/  */\n/' >> $TMPDIR/urllist
+			echo -n "."
+		done
+	fi
 	echo "done"
 }
 
