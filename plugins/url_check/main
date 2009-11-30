@@ -222,7 +222,7 @@ create_url_list(){
 	if [ `cat "$TMPDIR/urllist" | wc -l` = "0" ]; then
 		echo "Fast listing failed. This may take a while!"
 		for target in $PACKAGES; do
-			$PTXDIST print ${target}_URL 2>> $TMPDIR/errors | sed -e 's/  */\n/' >> $TMPDIR/urllist
+			$PTXDIST print ${target}_URL 2>> $TMPDIR/errors >> $TMPDIR/urllist
 			echo -n "."
 		done
 	fi
