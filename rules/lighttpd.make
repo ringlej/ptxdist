@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_LIGHTTPD) += lighttpd
 LIGHTTPD_VERSION	:= 1.4.25
 LIGHTTPD		:= lighttpd-$(LIGHTTPD_VERSION)
 LIGHTTPD_SUFFIX		:= tar.bz2
-LIGHTTPD_URL		:= http://www.lighttpd.net/download/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
+LIGHTTPD_URL		:= http://download.lighttpd.net/lighttpd/releases-1.4.x/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_SOURCE		:= $(SRCDIR)/$(LIGHTTPD).$(LIGHTTPD_SUFFIX)
 LIGHTTPD_DIR		:= $(BUILDDIR)/$(LIGHTTPD)
 
