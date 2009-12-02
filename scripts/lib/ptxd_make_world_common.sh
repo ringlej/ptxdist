@@ -127,9 +127,9 @@ ptxd_make_world_init_compat() {
     #
     # pkg_tags_opt
     #
-    # default: "tags"
+    # default: "tags ctags"
     #
-    pkg_tags_opt="${pkg_tags_opt:-tags}"
+    pkg_tags_opt="${pkg_tags_opt:-tags ctags}"
 
 
     #
