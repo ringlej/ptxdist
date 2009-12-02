@@ -1,6 +1,6 @@
 ## SECTION=hosttools_noprompt
 
 config HOST_QT4
-	bool
+	tristate
 	select HOST_DBUS
 
