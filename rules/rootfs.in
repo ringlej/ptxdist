@@ -217,6 +217,22 @@ config ROOTFS_VAR_CACHE
 	  Unless you want to mount a tmpfs on /var you should
 	  say yes here.
 
+config ROOTFS_VAR_SPOOL
+	bool
+	prompt "/var/spool"
+	help
+	  Create a /var/spool directory in the root filesystem.
+	  Unless you want to mount a tmpfs on /var you should
+	  say yes here.
+
+config ROOTFS_VAR_SPOOL_CRON
+	bool
+	prompt "/var/spool/cron"
+	help
+	  Create a /var/spool/cron directory in the root filesystem.
+	  Unless you want to mount a tmpfs on /var you should
+	  say yes here.
+
 endif # ROOTFS_VAR
 endif # ROOTFS
 

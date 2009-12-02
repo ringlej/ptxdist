@@ -153,6 +153,13 @@ endif
 ifdef PTXCONF_ROOTFS_VAR_CACHE
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/cache)
 endif
+ifdef PTXCONF_ROOTFS_VAR_SPOOL
+	@$(call install_copy, rootfs, 0, 0, 0755, /var/spool)
+endif
+ifdef PTXCONF_ROOTFS_VAR_SPOOL_CRON
+	@$(call install_copy, rootfs, 0, 0, 0755, /var/spool/cron)
+endif
+
 
 #	#
 #	# install files in rootfs
