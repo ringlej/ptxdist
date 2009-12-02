@@ -15,8 +15,9 @@ config ROOTFS
 	  other directories are may be required on demand. This menu entry here
 	  gives you the ability to create them.
 
+if ROOTFS
+
 config ROOTFS_DEV
-	depends on ROOTFS
 	bool
 	prompt "/dev"
 	default y
@@ -36,7 +37,6 @@ config ROOTFS_DEV_INITIAL
 	  say yes here
 
 config ROOTFS_HOME
-	depends on ROOTFS
 	bool
 	prompt "/home"
 	default y
@@ -46,7 +46,6 @@ config ROOTFS_HOME
 	  additional subdirectories here and also provide the permission info.
 
 config ROOTFS_HOME_ROOT
-	depends on ROOTFS
 	bool
 	prompt "/root"
 	default y
@@ -56,7 +55,6 @@ config ROOTFS_HOME_ROOT
 # Media Mountpoints
 
 menuconfig ROOTFS_MEDIA
-	depends on ROOTFS
 	bool
 	prompt "/media                      "
 
@@ -133,7 +131,6 @@ config ROOTFS_MEDIA10
 # ok, that's all for /media.
 
 config ROOTFS_MNT
-	depends on ROOTFS
 	bool
 	prompt "/mnt"
 	default y
@@ -142,7 +139,6 @@ config ROOTFS_MNT
 	  always a good idea to select this entry.
 
 config ROOTFS_PROC
-	depends on ROOTFS
 	bool
 	prompt "/proc"
 	default y
@@ -151,7 +147,6 @@ config ROOTFS_PROC
 	  You should say yes here.
 
 config ROOTFS_SYS
-	depends on ROOTFS
 	bool
 	prompt "/sys"
 	default y
@@ -160,7 +155,6 @@ config ROOTFS_SYS
 	  2.6 kernel users should say yes here.
 
 config ROOTFS_TMP
-	depends on ROOTFS
 	bool
 	prompt "/tmp"
 	default y
@@ -169,7 +163,6 @@ config ROOTFS_TMP
 	  You should say yes here.
 
 config ROOTFS_VAR
-	depends on ROOTFS
 	bool
 	prompt "/var"
 	default y
@@ -177,8 +170,9 @@ config ROOTFS_VAR
 	  Create a /var directory in the root filesystem.
 	  You should say yes here.
 
+if ROOTFS_VAR
+
 config ROOTFS_VAR_RUN
-	depends on ROOTFS_VAR
 	bool
 	prompt "/var/run"
 	default y
@@ -188,7 +182,6 @@ config ROOTFS_VAR_RUN
 	  say yes here.
 
 config ROOTFS_VAR_LOG
-	depends on ROOTFS_VAR
 	bool
 	prompt "/var/log"
 	default y
@@ -198,7 +191,6 @@ config ROOTFS_VAR_LOG
 	  say yes here.
 
 config ROOTFS_VAR_LOCK
-	depends on ROOTFS_VAR
 	bool
 	prompt "/var/lock"
 	default y
@@ -208,7 +200,6 @@ config ROOTFS_VAR_LOCK
 	  say yes here.
 
 config ROOTFS_VAR_LIB
-	depends on ROOTFS_VAR
 	bool
 	prompt "/var/lib"
 	help
@@ -219,13 +210,15 @@ config ROOTFS_VAR_LIB
 	  support this folder must be persistent!
 
 config ROOTFS_VAR_CACHE
-	depends on ROOTFS_VAR
 	bool
 	prompt "/var/cache"
 	help
 	  Create a /var/cache directory in the root filesystem.
 	  Unless you want to mount a tmpfs on /var you should
 	  say yes here.
+
+endif # ROOTFS_VAR
+endif # ROOTFS
 
 # ----------------------------------------------------------------------------
 
