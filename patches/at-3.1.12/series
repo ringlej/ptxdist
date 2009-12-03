@@ -1,0 +1,5 @@
+0001-configure.ac-remove-manual-compiler-check-with-AC_TR.patch
+0002-configure.ac-convert-AC_TRY_COMPILE-AC_COMPILE_IFELS.patch
+0003-Makefile.in-add-LDFLAGS-to-linking-stage.patch
+0004-Makefile.in-don-t-strip-during-make-install.patch
+0005-Makefile.in-replace-IROOT-by-DESTDIR.patch

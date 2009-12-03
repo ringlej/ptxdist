@@ -1,0 +1,37 @@
+#!/bin/sh
+
+#
+# atd
+#
+PATH=/usr/bin:/usr/sbin:/bin:/sbin
+
+PREFIX="atd: "
+ATD="/usr/sbin/atd"
+PIDFILE=/var/run/atd.pid
+
+case $1 in
+    start)
+	echo "${PREFIX}starting"
+
+	if start-stop-daemon -S -q -o -x ${ATD} -p ${PIDFILE}; then
+	    echo "${PREFIX}done"
+	else
+	    echo "${PREFIX}error, could not start server"
+	fi
+	;;
+
+    stop)
+	echo "${PREFIX}stoppping"
+
+	if start-stop-daemon -K -q -o -x ${ATD} -p ${PIDFILE}; then
+	    echo "${PREFIX}done"
+	else
+	    echo "${PREFIX}error, could not stop server"
+	fi
+	;;
+
+    *)
+	echo "${PREFIX}usage: ${0} [start|stop]"
+	exit 1
+	;;
+esac

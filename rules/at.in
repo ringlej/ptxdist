@@ -1,0 +1,77 @@
+## SECTION=shell_and_console
+
+menuconfig AT
+	tristate
+	prompt "at                            "
+	select FLEX
+	select ROOTFS_VAR_SPOOL
+	select ROOTFS_VAR_SPOOL_CRON
+	select BUSYBOX_START_STOP_DAEMON			if AT_STARTSCRIPT
+	select BUSYBOX_FEATURE_START_STOP_DAEMON_FANCY		if AT_STARTSCRIPT
+	help
+	  Delayed job execution and batch processing
+
+	  At and batch read shell commands from standard input storing
+	  them as a job to be scheduled for execution in the future.
+
+	  Use
+	  at    to run the job at a specified time
+	  batch to run the job when system load levels permit
+
+if AT
+
+config AT_MAIL
+	bool "use 'sendmail' to send output of at jobs"
+	help
+	  Select this to send the output of the at job via mail.
+
+config AT_SENDMAIL
+	string
+	prompt "command to send mail"
+	default "/usr/sbin/sendmail"
+	depends on AT_MAIL
+	help
+	  this command is used to send the mail.
+	  The default is "/usr/sbin/sendmail"
+
+config AT_ATD
+	bool "install atd"
+	default y
+	help
+	  install the at daemon.
+
+config AT_STARTSCRIPT
+	bool "install /etc/init.d/atd"
+	default y
+	depends on AT_ATD
+
+config AT_AT
+	bool "install at"
+	default y
+	help
+	  executes commands at a specified time
+
+config AT_ATQ
+	bool "install atq"
+	select AT_AT
+	default y
+	help
+	  lists the user's pending jobs, unless the user is the
+          superuser; in that case, everybody's jobs are listed.
+
+config AT_ATRM
+	bool "install atrm"
+	select AT_AT
+	default y
+	help
+	  deletes jobs, identified by their job number.
+
+config AT_BATCH
+	bool "install batch"
+	select AT_AT
+	help
+	  executes commands when system load levels permit; in other
+          words, when the load average drops below 1.5, or the value
+          specified in the invocation of atd.
+
+endif

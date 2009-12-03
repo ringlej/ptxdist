@@ -69,6 +69,12 @@ config INITMETHOD_BBINIT_LINK_APACHE2
 	prompt "apache2"
 	default "S91apache2"
 
+config INITMETHOD_BBINIT_LINK_AT
+	string
+	depends on AT_STARTSCRIPT
+	prompt "atd"
+	default "S90atd"
+
 config INITMETHOD_BBINIT_LINK_CHRONY
 	string
 	depends on CHRONY_STARTSCRIPT
