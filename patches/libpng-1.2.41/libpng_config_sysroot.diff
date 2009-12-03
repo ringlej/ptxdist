@@ -7,11 +7,11 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  scripts/libpng-config.in |    6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-Index: scripts/libpng-config.in
+Index: libpng-1.2.41/scripts/libpng-config.in
 ===================================================================
---- scripts/libpng-config.in.orig
-+++ scripts/libpng-config.in
-@@ -15,8 +15,8 @@ libdir="@libdir@"
+--- libpng-1.2.41.orig/scripts/libpng-config.in
++++ libpng-1.2.41/scripts/libpng-config.in
+@@ -18,8 +18,8 @@ libdir="@libdir@"
  includedir="@includedir@/libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@"
  libs="-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@"
  all_libs="-lpng@PNGLIB_MAJOR@@PNGLIB_MINOR@ @LIBS@"
@@ -22,7 +22,7 @@ Index: scripts/libpng-config.in
  R_opts=""
  cppflags=""
  ccopts="@LIBPNG_NO_MMX@"
-@@ -56,7 +56,7 @@ while test $# -gt 0; do
+@@ -59,7 +59,7 @@ while test $# -gt 0; do
      case "$1" in
  
      --prefix)
