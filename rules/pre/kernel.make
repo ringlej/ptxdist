@@ -11,8 +11,10 @@
 
 KERNEL_VERSION		:= $(call remove_quotes,$(PTXCONF_KERNEL_VERSION))
 _version_temp		:= $(subst ., ,$(KERNEL_VERSION))
+_version_temp		:= $(subst -, ,$(_version_temp))
 KERNEL_VERSION_MAJOR	:= $(word 1,$(_version_temp))
 KERNEL_VERSION_MINOR	:= $(word 2,$(_version_temp))
+KERNEL_VERSION_MICRO	:= $(word 3,$(_version_temp))
 _version_temp		:=
 
 KERNEL_HEADERS_DIR	:= $(PTXDIST_SYSROOT_TARGET)/kernel-headers
