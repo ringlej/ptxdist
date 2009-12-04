@@ -77,8 +77,8 @@ $(STATEDIR)/libpng.targetinstall:
 
 	@$(call install_copy, libpng, 0, 0, 0644, -, \
 		/usr/lib/libpng12.so.0.41.0)
-	@$(call install_link, libpng, libpng12.so.0.39.0, /usr/lib/libpng12.so.0)
-	@$(call install_link, libpng, libpng12.so.0.39.0, /usr/lib/libpng12.so)
+	@$(call install_link, libpng, libpng12.so.0.41.0, /usr/lib/libpng12.so.0)
+	@$(call install_link, libpng, libpng12.so.0.41.0, /usr/lib/libpng12.so)
 
 	@$(call install_finish, libpng)
 
