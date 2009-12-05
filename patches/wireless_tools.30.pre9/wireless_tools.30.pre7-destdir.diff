@@ -6,6 +6,10 @@ The Makefile is not DESTDIR aware. Fix it.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+
+#20091205: rsc: mailed patch to the upstream maintainer:
+#          Jean Tourrilhes <jt@hpl.hp.com>
+
  Makefile |    8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 

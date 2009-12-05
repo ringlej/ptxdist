@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_WIRELESS) += wireless
 # Paths and names
 #
 WIRELESS_VERSION	:= 30
-WIRELESS_VERSION_PRE	:= pre8
+WIRELESS_VERSION_PRE	:= pre9
 WIRELESS		:= wireless_tools.$(WIRELESS_VERSION).$(WIRELESS_VERSION_PRE)
 WIRELESS_SUFFIX		:= tar.gz
 WIRELESS_URL		:= http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/$(WIRELESS).$(WIRELESS_SUFFIX)
