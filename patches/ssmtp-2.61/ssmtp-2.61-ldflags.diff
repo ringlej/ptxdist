@@ -1,3 +1,11 @@
+Subject: [PATCH] use LDFLAGS for linking
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Please use LDFLAGS, not CFLAGS, for linking. This makes it possible to
+overwrite the variable from the outside and do the correct thing.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 diff -urN ssmtp-2.61-orig/Makefile.in ssmtp-2.61/Makefile.in
 --- ssmtp-2.61-orig/Makefile.in	2006-03-04 23:19:04.000000000 +0100
 +++ ssmtp-2.61/Makefile.in	2006-03-04 23:19:36.000000000 +0100
