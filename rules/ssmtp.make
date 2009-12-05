@@ -2,7 +2,7 @@
 # $Id:$
 #
 # Copyright (C) 2005 by Steven Scholz <steven.scholz@imc-berlin.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_SSMTP) += ssmtp
 #
 # Paths and names
 #
-SSMTP_VERSION		= 2.61
+SSMTP_VERSION		= 2.64
 SSMTP			= ssmtp-$(SSMTP_VERSION)
-SSMTP_SUFFIX		= tar.gz
-SSMTP_SRC		= ssmtp_$(SSMTP_VERSION).orig.$(SSMTP_SUFFIX) 
+SSMTP_SUFFIX		= tar.bz2
+SSMTP_SRC		= ssmtp_$(SSMTP_VERSION).orig.$(SSMTP_SUFFIX)
 SSMTP_URL		= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP_SRC)
 SSMTP_SOURCE		= $(SRCDIR)/$(SSMTP_SRC)
 SSMTP_DIR		= $(BUILDDIR)/ssmtp-$(SSMTP_VERSION)

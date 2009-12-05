@@ -1,8 +1,7 @@
 ## SECTION=communication
 menuconfig SSMTP
 	tristate
-	prompt "ssmtp [BROKEN]                "
-	depends on BROKEN
+	prompt "ssmtp                         "
 	select OPENSSL
 	help
 	  ssmtp is a small program which can be used to send emails.
@@ -12,27 +11,27 @@ if SSMTP
 
 config SSMTP_REWRITE_DOMAIN
 	bool
-	prompt "support for rewriting the sending domain"
+	prompt "domain rewriting support"
 	default y
 	help
-	  FIXME: This item needs to be documented
+	  Support for rewriting the sending domain.
 
 config SSMTP_SSL
 	bool
-	prompt "support for secure connection to mail server (needs SSL shared libraries)"
+	prompt "ssl support"
 	help
-	  FIXME: This item needs to be documented
+	  Support for secure connection to mail server (needs SSL shared libraries).
 
 config SSMTP_INET6
 	bool
-	prompt "support for IPv6 transport"
+	prompt "ipv6 support"
 	help
-	  FIXME: This item needs to be documented
+	  Support for IPv6 transport.
 
 config SSMTP_MD5AUTH
 	bool
-	prompt "support for MD5 authentication"
+	prompt "md5sum support"
 	help
-	  FIXME: This item needs to be documented
+	  Support for MD5 authentication.
 
 endif
