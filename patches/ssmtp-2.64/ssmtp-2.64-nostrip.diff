@@ -1,0 +1,25 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Using install -s doesn't work when cross building:
+
+strip: Unable to recognise the format of the input file `/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/packages/ssmtp-2.64/usr/sbin/ssmtp'
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: ssmtp-2.64/Makefile.in
+===================================================================
+--- ssmtp-2.64.orig/Makefile.in
++++ ssmtp-2.64/Makefile.in
+@@ -47,7 +47,7 @@ all: ssmtp
+ .PHONY: install
+ install: ssmtp $(GEN_CONFIG)
+ 	$(INSTALL) -d -m 755 $(DESTDIR)$(bindir)
+-	$(INSTALL) -s -m 755 ssmtp $(DESTDIR)$(bindir)/ssmtp
++	$(INSTALL) -m 755 ssmtp $(DESTDIR)$(bindir)/ssmtp
+ 	$(INSTALL) -d -m 755 $(DESTDIR)$(mandir)
+ 	$(INSTALL) -m 644 $(srcdir)/ssmtp.8 $(DESTDIR)$(mandir)/ssmtp.8
+ 	$(INSTALL) -d -m 755 $(DESTDIR)$(SSMTPCONFDIR)

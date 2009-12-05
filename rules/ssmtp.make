@@ -25,7 +25,6 @@ SSMTP_URL		:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/ssmtp/$(SSMTP_SRC)
 SSMTP_SOURCE		:= $(SRCDIR)/$(SSMTP_SRC)
 SSMTP_DIR		:= $(BUILDDIR)/ssmtp-$(SSMTP_VERSION)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -41,31 +40,18 @@ $(SSMTP_SOURCE):
 	@$(call get, SSMTP)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-ssmtp_extract: $(STATEDIR)/ssmtp.extract
-
-$(STATEDIR)/ssmtp.extract: $(ssmtp_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(SSMTP_DIR))
-	@$(call extract, SSMTP)
-	@$(call patchin, SSMTP)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-ssmtp_prepare: $(STATEDIR)/ssmtp.prepare
+#ssmtp_prepare: $(STATEDIR)/ssmtp.prepare
 
-SSMTP_PATH	=  PATH=$(CROSS_PATH)
-SSMTP_ENV 	=  $(CROSS_ENV)
+SSMTP_PATH := PATH=$(CROSS_PATH)
+SSMTP_ENV := $(CROSS_ENV)
 
 #
 # autoconf
 #
-SSMTP_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+SSMTP_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 ifndef PTXCONF_SSMTP_REWRITE_DOMAIN
 SSMTP_AUTOCONF  += --disable-rewrite-domain
@@ -82,14 +68,6 @@ endif
 ifdef PTXCONF_SSMTP_MD5AUTH
 SSMTP_AUTOCONF  += --enable-md5auth
 endif
-
-$(STATEDIR)/ssmtp.prepare: $(ssmtp_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(SSMTP_DIR)/config.cache)
-	cd $(SSMTP_DIR) && \
-		$(SSMTP_PATH) $(SSMTP_ENV) \
-		./configure $(SSMTP_AUTOCONF)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -111,8 +89,8 @@ ssmtp_install: $(STATEDIR)/ssmtp.install
 
 $(STATEDIR)/ssmtp.install: $(ssmtp_install_deps_default)
 	@$(call targetinfo, $@)
-	# FIXME
-	#@$(call install, SSMTP)
+#	# FIXME - make install needs the localhost + smtp port from stdin
+#	#@$(call install, SSMTP)
 	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------

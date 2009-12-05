@@ -1,1 +1,3 @@
 ssmtp-2.61-ldflags.diff
+ssmtp-2.64-destdir.diff
+ssmtp-2.64-nostrip.diff
