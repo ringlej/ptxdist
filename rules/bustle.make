@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -23,6 +22,7 @@ BUSTLE_SUFFIX	:= tar.gz
 BUSTLE_URL	:= http://www.willthompson.co.uk/bustle/releases/$(BUSTLE).$(BUSTLE_SUFFIX)
 BUSTLE_SOURCE	:= $(SRCDIR)/$(BUSTLE).$(BUSTLE_SUFFIX)
 BUSTLE_DIR	:= $(BUILDDIR)/$(BUSTLE)
+BUSTLE_LICENSE	:= GPLv2+, LGPLv2.1+
 
 # ----------------------------------------------------------------------------
 # Get
