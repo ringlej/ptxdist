@@ -82,9 +82,9 @@ ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES_MULTI
 	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/ip6tables-multi)
 
 	@$(call install_copy, iptables, 0, 0, 0644, -, \
-		/usr/lib/libip4tc.so.0.0.0)
-	@$(call install_link, iptables, libip4tc.so.0.0.0, /usr/lib/libip4tc.so)
-	@$(call install_link, iptables, libip4tc.so.0.0.0, /usr/lib/libip4tc.so.0)
+		/usr/lib/libip6tc.so.0.0.0)
+	@$(call install_link, iptables, libip6tc.so.0.0.0, /usr/lib/libip6tc.so)
+	@$(call install_link, iptables, libip6tc.so.0.0.0, /usr/lib/libip6tc.so.0)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES
@@ -113,9 +113,9 @@ ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_MULTI
 	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/iptables-multi)
 
 	@$(call install_copy, iptables, 0, 0, 0644, -, \
-		/usr/lib/libip6tc.so.0.0.0)
-	@$(call install_link, iptables, libip6tc.so.0.0.0, /usr/lib/libip6tc.so)
-	@$(call install_link, iptables, libip6tc.so.0.0.0, /usr/lib/libip6tc.so.0)
+		/usr/lib/libip4tc.so.0.0.0)
+	@$(call install_link, iptables, libip4tc.so.0.0.0, /usr/lib/libip4tc.so)
+	@$(call install_link, iptables, libip4tc.so.0.0.0, /usr/lib/libip4tc.so.0)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES
