@@ -277,7 +277,7 @@ kernel_clean:
 		pushd $(KERNEL_DIR); \
 		quilt pop -af; \
 		rm -rf series patches .pc; \
-		$(KERNE_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) distclean; \
+		$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) distclean; \
 		popd; \
 	fi
 	rm -rf $(KERNEL_DIR)
