@@ -4,7 +4,6 @@ config BUSTLE
 	tristate
 	prompt "bustle"
 	select DBUS
-	select GLIB
 	help
 	  Bustle is a tool to chart and provide timing information of
 	  D-Bus calls for profiling and debugging purposes. It is
