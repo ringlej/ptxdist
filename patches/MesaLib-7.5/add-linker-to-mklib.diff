@@ -2,7 +2,11 @@ From: Marc Kleine-Budde <mkl@pengutronix.de>
 Subject: add linker option to mklib call
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
+# 20091107 rsc: https://bugs.freedesktop.org/show_bug.cgi?id=25500
+
  src/gallium/winsys/drm/Makefile.template |    1 +
  1 file changed, 1 insertion(+)
 
