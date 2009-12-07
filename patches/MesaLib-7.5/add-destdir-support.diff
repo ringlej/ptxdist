@@ -2,8 +2,11 @@ Subject: add DESTDIR support to src/gallium/winsys/xlib/Makefile
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+# 20091207 rsc: https://bugs.freedesktop.org/show_bug.cgi?id=25499
+
  src/gallium/winsys/xlib/Makefile |    8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
