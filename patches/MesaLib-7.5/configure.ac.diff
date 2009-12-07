@@ -1,15 +1,17 @@
 Subject: remove crosscompile check
 From: Erwin Rol <erwin@erwinrol.com>
 
-When cross compiling it refuses to use assembly since it 
-assumes it can not use the gen_matypes tool. But we fixed 
-the gen_matypes so now the test is not needed anymore.
+When cross compiling it refuses to use assembly since it assumes it can
+not use the gen_matypes tool. But we fixed the gen_matypes so now the
+test is not needed anymore.
 
 Signed-off-by: Erwin Rol <erwin@erwinrol.com>
-[mkl: ported to Mesa-7.5]
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
+v1: written by Erwin Rol
+v2: ported to Mesa-7.5 by Marc Kleine-Budde
+
  configure.ac |   16 ++++++++--------
  1 file changed, 8 insertions(+), 8 deletions(-)
 
