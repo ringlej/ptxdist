@@ -9,36 +9,40 @@ Postponed
 [ ] CanFestival-3-20081204-1
 [ ] DirectFB-1.3.0
 [ ] DirectFB-examples-1.2.0
+[ ] bing_src-1.1.3
+[ ] Python-2.6.4
+[ ] TraceToolkit-0.9.5
+[ ] bzip2-1.0.5
 
 Not for Upstream
 ----------------
 
 [ ] Frodo-4.1b
 
-Not Ready
----------
+Not Ready, needs work
+---------------------
 
 [ ] MPlayer-1.0rc2
+[ ] blackbox-0.70.1
+[ ] cpufrequtils-006
+[ ] cvs-1.11.22
+[ ] db-4.1.25.NC
+[ ] dbus-glib-0.80
+[ ] dejagnu-1.4.3
 
-TODO
-----
+Ready for Upstream
+------------------
 
 [ ] PolicyKit-0.9
-[ ] Python-2.6.4
 [ ] SDL-1.2.13
 [ ] SDL_mixer-1.2.8
-[ ] TraceToolkit-0.9.5
-[ ] acpid-1.0.10
 [ ] alsa-lib-1.0.21a
+[ ] acpid-1.0.10
 [ ] arora-0.10.1
 [ ] at-3.1.12
 [ ] atop-1.23
 [ ] attr-2.4.44
-[ ] autogen.sh
-[ ] bing_src-1.1.3
-[ ] blackbox-0.70.1
 [ ] busybox-1.15.2
-[ ] bzip2-1.0.5
 [ ] cbmbasic
 [ ] cgicc-3.2.7
 [ ] chrony-1.23
@@ -46,14 +50,13 @@ TODO
 [ ] commoncpp2-1.7.3
 [ ] confuse-2.6
 [ ] coreutils-5.2.1
-[ ] cpufrequtils-006
 [ ] curl-7.19.7
-[ ] cvs-1.11.22
-[ ] db-4.1.25.NC
 [ ] dbus-1.2.14
-[ ] dbus-glib-0.80
-[ ] dejagnu-1.4.3
 [ ] e2fsprogs-1.41.9
+
+TODO
+----
+
 [ ] efax-0.9
 [ ] elektra-0.7.0-r1618
 [ ] etherwake-1.09.orig
