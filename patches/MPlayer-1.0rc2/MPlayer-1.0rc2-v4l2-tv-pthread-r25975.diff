@@ -3,6 +3,8 @@ Subject: Disable v4l2 if pthreads are not available, fixes bug #1015.
 This patch is from the upstream MPlayer repository, coming from here:
 http://svn.mplayerhq.hu/mplayer/trunk/configure?r1=25946&r2=25975
 
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  configure |    4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
