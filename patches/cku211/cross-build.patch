@@ -2,14 +2,15 @@ Subject: Enable cross build
 From: Gary Thomas <gary@mlbassoc.com>
 
 Minor Makefile changes to allow package to be cross-built for targets.
+In addition, we make the install stage fully DESTDIR aware.
 
 Signed-off-by: Gary Thomas <gary@mlbassoc.com>
-
-made install stage fully DESTDIR aware
-
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
+# 20081123 Garry Thomas: created patch
+# 20090105 mkl: made install stage fully DESTDIR aware
+
  makefile |   47 +++++++++++++++++++++++------------------------
  1 file changed, 23 insertions(+), 24 deletions(-)
 
