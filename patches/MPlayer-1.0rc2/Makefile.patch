@@ -7,8 +7,6 @@ Signed-off-by: FIXME Get Sign From OE <r.schwebel@pengutronix.de>
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
-
----
  Makefile |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
