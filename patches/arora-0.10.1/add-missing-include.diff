@@ -2,10 +2,12 @@ From: Michael Olbrich <m.olbrich@pengutronix.de>
 Subject: add missing include
 
 QHash is not defined otherwise.
-Already upstream.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
 ---
+# 20091014 mol: this patch is already upstream.
+
  src/network/networkaccessmanager.h |    1 +
  1 file changed, 1 insertion(+)
 

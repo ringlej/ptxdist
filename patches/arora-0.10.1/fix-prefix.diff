@@ -6,6 +6,9 @@ This patch changes this to /usr.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
+# 20091210 rsc: is this patch ready for upstream, or should it be solved
+#          differently?
+
  install.pri |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
