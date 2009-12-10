@@ -4,7 +4,8 @@ From: Wolfram Sang <ninja@the-dreams.de>
 Signed-off-by: Wolfram Sang <ninja@the-dreams.de>
 
 # ---
-# Already sent mainline and accepted.
+# 20091210 rsc: check if there is another upstream version
+# 20081127 wsa: already sent mainline and accepted.
 
 Index: basic/runtime.c
 ===================================================================
