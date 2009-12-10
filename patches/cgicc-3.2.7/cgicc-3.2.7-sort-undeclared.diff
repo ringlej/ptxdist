@@ -11,9 +11,9 @@ Fix it.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
-Upstream Status: https://savannah.gnu.org/bugs/?25212
-
 ---
+# 20091210 rsc: Upstream Status: https://savannah.gnu.org/bugs/?25212
+
  demo/cardgame.cpp |    3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 

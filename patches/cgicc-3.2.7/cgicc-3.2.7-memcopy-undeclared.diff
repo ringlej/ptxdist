@@ -11,9 +11,10 @@ make[2]: *** [dns.o] Error 1
 Fix it.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-Upstream-status: https://savannah.gnu.org/bugs/?25211
 
 ---
+# 20091210 rsc: Upstream-status: https://savannah.gnu.org/bugs/?25211
+
  demo/dns.cpp |    1 +
  1 file changed, 1 insertion(+)
 
