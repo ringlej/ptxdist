@@ -1,21 +1,16 @@
-# 
-# Submitted-By: Robert Schwebel, 2006-02-27
-# Committed-By: Robert Schwebel
-#
-# Error: 
-#
-# Unspecified include paths are leaking in. 
-#
-# Description: 
-#
-# I'm not sure how somebody can invent such a braindamaged mechanism...
-# Note: prefix is specifying the run path, which isn't necessarily the
-# install path. 
-#
-# State:
-# 
-# Make configure.ac patch for upstream (not done yet). 
-#
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: avoid that unspecified include paths leak into the build system
+
+The makefiles expect that "prefix" specifies "where to install", but
+this is not true. "prefix" specifies the run-time path in the final
+system.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+
+# 20091210 rsc: needs a proper fix for configure.ac, so not ready for
+#          upstream yet.
 
 diff -urN blackbox-0.70.1/configure blackbox-0.70.1-ptx/configure
 --- blackbox-0.70.1/configure	2005-11-03 09:27:16.000000000 +0100
