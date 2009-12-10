@@ -16,15 +16,13 @@ The second part of the patch changes the file descriptor to stdout
 instead of stderr. Init doesn't print out errors.
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
-ported to busybox-1.13.2
-
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-
-ported to busybox-1.15.2
-
 Signed-off-by: Ladislav Michl <ladis@linux-mips.org>
 ---
+
+# 20090104 mkl: ported to busybox 1.13.2
+# 20091102 lmi: ported to busybox 1.15.2
+
  init/init.c |    4 +++-
  1 files changed, 3 insertions(+), 1 deletions(-)
 
