@@ -6,7 +6,8 @@ Makefile is not $(DESTDIR) aware, this patch adds some $(DESTDIR)s.
 Signed-off-by: Markus Messmer <mme@pengutronix.de>
 
 ---
-# datum: 16.12.08 mme: könnte auch upstream
+# 20081216 mme: ready for upstream, should be posted
+
 Index: CanFestival-3-20080926/drivers/timers_unix/Makefile.in
 ===================================================================
 --- CanFestival-3-20080926.orig/drivers/timers_unix/Makefile.in	2008-09-26 12:22:50.000000000 +0200

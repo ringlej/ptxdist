@@ -4,6 +4,8 @@ From: Markus Messmer <mme@pengutronix.de>
 The can identifier does not need to get switched when compiling for big endian
 machines.
 
+FIXME rsc: needs to be made architecture independend.
+
 Signed-off-by: Markus Messmer <mme@pengutronix.de>
 
 ---

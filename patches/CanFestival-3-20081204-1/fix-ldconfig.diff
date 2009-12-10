@@ -6,7 +6,9 @@ Installing fails due to ldconfig failure when running as non root user.
 Signed-off-by: Markus Messmer <mme@pengutronix.de>
 
 ---
-# datum: 16.12.08 mme: nur ein hack um den ptxdist lauf nicht abzubrechen
+
+# 20081216 mme: this is only a hack, not for upstream
+
 Index: CanFestival-3-20080926/Makefile.in
 ===================================================================
 --- CanFestival-3-20080926.orig/Makefile.in	2008-09-26 11:39:51.000000000 +0200
