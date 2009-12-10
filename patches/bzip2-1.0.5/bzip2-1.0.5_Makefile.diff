@@ -1,8 +1,14 @@
-Subject: various fixes in Makefile
-From: debian
-  This one fixes various problems in the makefile and disables compile time test.	
+Subject: [patch] fixup Makefile
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+
+This patch fixes various problems in the makefile and disables compile
+time test. It was taken from Debinan.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+# 20091210 rsc: needs probably another look before going mainline
+
  Makefile |   73 +++++++++++++++++++++++++++++++++++----------------------------
  1 file changed, 41 insertions(+), 32 deletions(-)
 
