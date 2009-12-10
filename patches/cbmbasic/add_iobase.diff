@@ -1,7 +1,9 @@
-Add IOBASE and pseudo-timer (will give RND-functionality)
+Subject: Add IOBASE and pseudo-timer (will give RND-functionality)
+From: Wolfram Sang <ninja@the-dreams.de>
 
 Signed-off-by: Wolfram Sang <ninja@the-dreams.de>
 
+# ---
 # Already sent mainline and accepted.
 
 Index: basic/runtime.c
