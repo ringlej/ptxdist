@@ -1,10 +1,12 @@
 From: http://patch-tracking.debian.net/patch/series/dl/acpid/1.0.10-2/netlink.diff
-Subject: netlink support for ACPID
+Subject: acpid: add netlink support
 
-[mkl: quilt refresh'ed]
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
+
+# 20090511 mkl: quilt refresh'ed
+
  Changelog         |    8 
  Makefile          |    3 
  README-NETLINK    |   12 +
