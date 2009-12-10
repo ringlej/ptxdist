@@ -1,10 +1,11 @@
-Subject: mplayer: Allow more than one search patch for libs and includes
+Subject: MPlayer: Allow more than one search path for libs and includes
 
 Its useful to allow more than one additional path given to configure to let
 it search at the right places fpr libaries and files to include.
 Some libraries are intstalled to lib/, most are to be found in usr/lib/.
 
-This patch is useful for ptxdist.
+This patch makes it easier for cross build systems to feed the right
+paths into the MPlayer makefiles.
 
 Signed-off-by: Juergen Beisert <jbeisert@kreuzholzen.de>
 
