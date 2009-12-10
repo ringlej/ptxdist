@@ -1,3 +1,14 @@
+Subject: [patch] make install stage destdir-aware
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+This patch makes the install stage DESTDIR aware. The DESTDIR variable
+is used to specify where the result of the installation shall go to and
+is usually used for distribution building.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+
 Index: db-4.1.25.NC/dist/Makefile.in
 ===================================================================
 --- db-4.1.25.NC.orig/dist/Makefile.in
