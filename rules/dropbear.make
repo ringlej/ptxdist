@@ -106,7 +106,7 @@ ifdef PTXCONF_DROPBEAR_DIS_X11
 	$(call disable_c, $(DROPBEAR_DIR)/options.h,ENABLE_X11FWD)
 else
 	@echo "ptxdist: enabling x11 forwarding"
-	$(call enable_c, $(DROPBEAR_DIR)/options.h,ENSABLE_X11FWD)
+	$(call enable_c, $(DROPBEAR_DIR)/options.h,ENABLE_X11FWD)
 endif
 
 ifdef PTXCONF_DROPBEAR_DIS_TCP
