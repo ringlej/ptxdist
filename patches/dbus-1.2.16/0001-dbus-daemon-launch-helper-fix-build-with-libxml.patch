@@ -13,6 +13,8 @@ config parser.
 Signed-off-by: Peter Korsgaard <jacmet@sunsite.dk>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
+# 20091211 rsc: mailed to dbus mailing list
+
  bus/config-parser-trivial.c |    8 ++++++++
  1 files changed, 8 insertions(+), 0 deletions(-)
 
