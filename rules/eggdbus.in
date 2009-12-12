@@ -1,0 +1,11 @@
+## SECTION=middleware
+
+config EGGDBUS
+	tristate
+	prompt "eggdbus"
+	select GLIB
+	select DBUS
+	select DBUS_GLIB
+	select HOST_EGGDBUS
+	help
+	  DBus bindings for GObject

@@ -1,0 +1,44 @@
+Subject: [patch] build tests only when not cross compiling
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+When building the tests, the makefiles try to run
+eggdbus-glib-genmarshal and eggdbus-binding-tool, but this doesn't
+really make any sense when cross compiling.
+
+The patch below disables the tests completely when cross compiling.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ configure.ac    |    2 ++
+ src/Makefile.am |    6 +++++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+Index: eggdbus-0.6/configure.ac
+===================================================================
+--- eggdbus-0.6.orig/configure.ac
++++ eggdbus-0.6/configure.ac
+@@ -44,6 +44,8 @@ AC_ARG_WITH(eggdbus-tools,
+ ])
+ AC_SUBST(EGGDBUS_TOOLS)
+ 
++AM_CONDITIONAL([CROSS_COMPILE], [test "$(cross_compiling)" = "yes"])
++
+ #### gcc warning flags
+ 
+ if test "x$GCC" = "xyes"; then
+Index: eggdbus-0.6/src/Makefile.am
+===================================================================
+--- eggdbus-0.6.orig/src/Makefile.am
++++ eggdbus-0.6/src/Makefile.am
+@@ -1,5 +1,9 @@
+ 
+-SUBDIRS = eggdbus tests
++if CROSS_COMPILE
++TESTDIR=tests
++endif
++
++SUBDIRS = eggdbus $(TESTDIR)
+ 
+ clean-local :
+ 	rm -f *~

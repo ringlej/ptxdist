@@ -1,0 +1,7 @@
+## SECTION=hosttools_noprompt
+
+config HOST_EGGDBUS
+	tristate
+	select HOST_GLIB
+	select HOST_DBUS
+	select HOST_DBUS_GLIB
