@@ -25,7 +25,8 @@ ATTR_DIR	:= $(BUILDDIR)/$(ATTR)
 
 ATTR_URL	:= \
 	ftp://oss.sgi.com/projects/xfs/cmd_tars/$(ATTR).src.$(ATTR_SUFFIX) \
-	ftp://oss.sgi.com/projects/xfs/previous/cmd_tars/$(ATTR).src.$(ATTR_SUFFIX)
+	ftp://oss.sgi.com/projects/xfs/previous/cmd_tars/$(ATTR).src.$(ATTR_SUFFIX) \
+	ftp://oss.sgi.com/projects/xfs/cmd_tars-oct_09/$(ATTR).src.$(ATTR_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
