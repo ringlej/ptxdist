@@ -6,6 +6,8 @@ Make DESTDIR aware and use correct libtool commands.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+# 20091213 rsc: submitted as https://savannah.nongnu.org/bugs/index.php?28281
+
  include/buildmacros |    8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
