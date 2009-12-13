@@ -1,7 +1,8 @@
 Submitted, Pending
 ------------------
 
-[x] MesaLib-7.5
+[ ] MesaLib-7.5
+[ ] atop-1.23
 
 Postponed
 ---------
@@ -29,6 +30,7 @@ Not Ready, needs work
 [ ] db-4.1.25.NC
 [ ] dbus-glib-0.80
 [ ] dejagnu-1.4.3
+[ ] dbus-1.2.14
 
 Ready for Upstream
 ------------------
@@ -40,7 +42,6 @@ Ready for Upstream
 [ ] acpid-1.0.10
 [ ] arora-0.10.1
 [ ] at-3.1.12
-[ ] atop-1.23
 [ ] attr-2.4.44
 [ ] busybox-1.15.2
 [ ] cbmbasic
@@ -51,7 +52,6 @@ Ready for Upstream
 [ ] confuse-2.6
 [ ] coreutils-5.2.1
 [ ] curl-7.19.7
-[ ] dbus-1.2.14
 [ ] e2fsprogs-1.41.9
 
 TODO
