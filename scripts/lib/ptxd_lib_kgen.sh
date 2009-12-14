@@ -20,6 +20,7 @@ PTXDIST_OVERWRITE_DIRS_LSB=( "${PTXDIST_TOPDIR}" "${PTXDIST_WORKSPACE}" "${PTXDI
 
 ptxd_kgen_awk()
 {
+    kgen_part="${kgen_part}" \
     gawk '
 	BEGIN {
 	    FS = ":##[[:space:]]*SECTION=|[[:space:]]*$";
@@ -43,7 +44,7 @@ ptxd_kgen_awk()
 		section = sep[1];
 		pkg = sep[2];
 
-		output = "'"${PTX_KGEN_DIR}"'" "/" section ".in";
+		output = "'"${PTX_KGEN_DIR}/${kgen_part}"'" "/" section ".in";
 
 #		print output ":", "source \"" file "\""
 		print "source \"" file "\"" > output
@@ -58,11 +59,11 @@ ptxd_kgen_generate_sections()
     local dir
     {
 	for dir in "${PTXDIST_OVERWRITE_DIRS_LSB[@]}"; do
-	    if [ \! -d "${dir}/rules" ]; then
+	    if [ \! -d "${dir}/${kgen_part_dir}" ]; then
 		continue
 	    fi
 
-	    find "${dir}/rules/" -name *.in -print0
+	    find "${dir}/${kgen_part_dir}/" -name *.in -print0
 	done
     } | {
 	#
@@ -79,8 +80,32 @@ ptxd_kgen_generate_sections()
 
 ptxd_kgen()
 {
-    rm -rf "${PTX_KGEN_DIR}" &&
-    mkdir -p "${PTX_KGEN_DIR}" &&
+    local kgen_part="${1}"
+    local kgen_part_dir="${part}"
+
+    if [ ${#} -ne 1 ]; then
+	cat <<EOF
+
+${PROMPT}error: '${FUNCNAME}' needs one parameter
+
+EOF
+	exit 1
+    fi
+
+    # transmogrify part into subdir
+    case "${kgen_part}" in
+	ptx)	  kgen_part_dir="rules" ;;
+	platform) kgen_part_dir="platforms" ;;
+	*) cat <<EOF
+
+${PROMPT}error: '${FUNCNAME}' doesn't support '${part}, yet'
+
+EOF
+	    exit 1
+    esac
+
+    rm -rf "${PTX_KGEN_DIR}/${kgen_part}" &&
+    mkdir -p "${PTX_KGEN_DIR}/${kgen_part}" &&
 
     ptxd_kgen_generate_sections
 }

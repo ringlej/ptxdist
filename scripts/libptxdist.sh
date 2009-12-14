@@ -262,7 +262,7 @@ ptxd_kconfig() {
 	ln -sf "${PTXDIST_TOPDIR}/config" &&
 	ln -sf "${PTXDIST_TOPDIR}/platforms" &&
 	ln -sf "${PTXDIST_WORKSPACE}" workspace &&
-	ln -sf "${PTX_KGEN_DIR}" generated || return
+	ln -sf "${PTX_KGEN_DIR}/${part}" generated || return
 
 	if [ -e "${file_dotconfig}" ]; then
 		cp -- "${file_dotconfig}" ".config" || return
