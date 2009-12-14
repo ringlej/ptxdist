@@ -309,8 +309,6 @@ config ARCH_STRING
 
 # ----------------------------------------------------------------------------
 
-source "platforms/toolchain.in"
-source "platforms/toolchain_options.in"
-source "platforms/paths.in"
+source "generated/architecture_options.in"
 
 endmenu

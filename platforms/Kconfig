@@ -38,25 +38,14 @@ source "platforms/console.in"
 
 
 menu "bootloaders                   "
-source "platforms/grub.in"
-source "platforms/u-boot.in"
-source "platforms/u-boot-v2.in"
-source "platforms/at91bootstrap.in"
+source "generated/bootloader.in"
 endmenu
 
 
 source "platforms/flash.in"
 
 menu "image creation options        "
-source "platforms/image_ipkg.in"
-source "platforms/image_tgz.in"
-source "platforms/image_hd.in"
-source "platforms/image_jffs2.in"
-source "platforms/image_ubi.in"
-source "platforms/image_uimage.in"
-source "platforms/image_cpio.in"
-source "platforms/image_ext2.in"
-source "platforms/image_squashfs.in"
+source "generated/image.in"
 endmenu
 
 source "platforms/hosttools.in"
