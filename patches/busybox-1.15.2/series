@@ -1,4 +1,5 @@
-0001-Avoid-messages-when-quiet.patch
+0001-init-make-FEATURE_EXTRA_QUIET-more-consistent.-1-b.patch
+0001-init-revert-quiet-logic.patch
 0002-reactivate-check-for-tty.patch
 0003-fdisk_osf-silence-warning.patch
 0004-sha1-silence-warning-on-big-endian-platforms.patch
