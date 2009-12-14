@@ -197,9 +197,7 @@ ptxd_kconfig() {
 	local part="${2}"
 	local copy_back="true"
 
-	if [ "${config}" != "dep" ]; then
-		ptxd_kgen || ptxd_bailout "error in kgen"
-	fi
+	ptxd_kgen "${part}" || ptxd_bailout "error in kgen"
 
 	local file_kconfig file_dotconfig
 

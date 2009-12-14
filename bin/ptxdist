@@ -621,7 +621,6 @@ check_compiler() {
 # checks if the dependencies are allright (make for the poor)
 #
 check_deps() {
-	ptxd_kgen || ptxd_bailout "error in kgen"
 	ptxd_dgen || ptxd_bailout "error in dgen"
 	ptxd_cfgchg || ptxd_bailout "error in cfgchg"
 }
