@@ -1,3 +1,5 @@
+## SECTION=architecture_options
+
 menu "toolchain                     "
 
 config CROSSCHAIN_VENDOR

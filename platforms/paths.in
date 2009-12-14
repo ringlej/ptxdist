@@ -1,3 +1,5 @@
+## SECTION=architecture_options
+
 menu "paths & directories           "
 
 config SYSROOT_TARGET

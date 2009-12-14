@@ -1,3 +1,5 @@
+## SECTION=architecture_options
+
 menu "extra toolchain options       "
 
 config TARGET_EXTRA_CPPFLAGS

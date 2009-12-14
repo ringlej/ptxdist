@@ -1,3 +1,5 @@
+## SECTION=image
+
 menuconfig IMAGE_EXT2
 	bool
 	select HOST_GENEXT2FS

@@ -1,3 +1,5 @@
+## SECTION=bootloader
+
 menuconfig U_BOOT_V2
 	prompt "U-Boot V2                     "
         bool

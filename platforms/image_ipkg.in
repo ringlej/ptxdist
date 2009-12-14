@@ -1,3 +1,5 @@
+## SECTION=image
+
 menu "ipkg options                  "
 
 config IMAGE_IPKG_IMAGE_FROM_REPOSITORY

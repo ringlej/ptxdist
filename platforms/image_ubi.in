@@ -1,3 +1,5 @@
+## SECTION=image
+
 menuconfig IMAGE_UBIFS
 	bool
 	select HOST_MTD_UTILS

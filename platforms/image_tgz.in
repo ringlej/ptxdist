@@ -1,3 +1,5 @@
+## SECTION=image
+
 config IMAGE_TGZ
 	bool
 	prompt "Generate images/root.tgz"
