@@ -5,14 +5,14 @@ menuconfig KERNEL
 	select CROSS_MODULE_INIT_TOOLS	if KERNEL_MODULES
 	prompt "Linux kernel                  "
 
+if KERNEL
+
 config KERNEL_INSTALL
 	bool
 	prompt "install kernel into /boot"
-	depends on KERNEL
 
 config KERNEL_MODULES
 	bool
-	depends on KERNEL
 	default y
 	prompt "build kernel-modules"
 
@@ -20,24 +20,20 @@ config KERNEL_MODULES_INSTALL
 	bool
 	default y
 	prompt "Install modules into /lib/modules"
-	depends on KERNEL
 	depends on KERNEL_MODULES
 
 config KERNEL_MODULES_BUILD
-	depends on KERNEL
 	depends on KERNEL_MODULES
 	string
 	default "modules"
 
 config KERNEL_VERSION
-	depends on KERNEL
 	prompt "kernel version"
 	string
 	default "2.6.25"
 
 choice
 	prompt "kernel architecture "
-	depends on KERNEL
 	depends on ARCH_PPC || ARCH_X86
 	default KERNEL_ARCH_POWERPC	if ARCH_PPC
 	default KERNEL_ARCH_X86		if ARCH_X86
@@ -77,7 +73,6 @@ choice
 endchoice
 
 config KERNEL_ARCH_STRING
-	depends on KERNEL
 	string
 	default "arm"			if ARCH_ARM
 	default "armnommu"		if ARCH_ARM && !HAS_MMU
@@ -98,7 +93,6 @@ config KERNEL_ARCH_STRING
 	default "x86_64"		if KERNEL_ARCH_X86_64
 
 choice
-	depends on KERNEL
 	prompt "Image Type          "
 	default KERNEL_IMAGE_BZ
 
@@ -142,7 +136,6 @@ choice
 	config KERNEL_IMAGE_RAW
 		bool
 		prompt "Image"
-		depends on ARCH_ARM
 		help
 		 This is the target to get the kernel image as an raw uncompressed
 		 binary file.
@@ -150,10 +143,8 @@ endchoice
 
 
 menu "patching & configuration      "
-	depends on KERNEL
 
 config KERNEL_SERIES
-	depends on KERNEL
 	prompt "patch series file"
 	string
 	default "series${PTXDIST_PLATFORMSUFFIX}"
@@ -165,7 +156,6 @@ config KERNEL_SERIES
 	  are then being applied to the kernel.
 
 config KERNEL_CONFIG
-	depends on KERNEL
 	prompt "kernel config file"
 	string
 	default "kernelconfig-${PTXCONF_KERNEL_VERSION}"
@@ -190,13 +180,11 @@ config KERNEL_IMAGE
 	default "Image"   if KERNEL_IMAGE_RAW
 
 comment "Development features"
-	depends on KERNEL
 
 config KERNEL_EXTRA_MAKEVARS
 	string
 	default "CONFIG_DEBUG_SECTION_MISMATCH=y"
 	prompt "Additional kbuild options"
-	depends on KERNEL
 	help
 	  Specify extra parameters for the kernel build system here. Useful
 	  options include:
@@ -216,7 +204,6 @@ config KERNEL_EXTRA_MAKEVARS
 	  Increase verbosity when compiling
 
 config KERNEL_LOCAL_FLAG
-	depends on KERNEL
 	prompt "Local kernel tree"
 	bool
 	help
@@ -229,7 +216,6 @@ config KERNEL_LOCAL_FLAG
 	  patches against a git-tree.
 	  
 config KERNEL_SYMLINK_IN_PROJECTDIR
-	depends on KERNEL
 	prompt "Symlink to kernel tree"
 	bool
 	help
@@ -239,3 +225,4 @@ config KERNEL_SYMLINK_IN_PROJECTDIR
 	  an unselected kernel. Note that the link may be invalid unless you have 
 	  extracted the specified kernel version.
 
+endif	# KERNEL
