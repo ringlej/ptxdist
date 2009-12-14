@@ -3,6 +3,7 @@ Submitted, Pending
 
 [ ] MesaLib-7.5
 [ ] atop-1.23
+[ ] attr-2.4.44
 
 Postponed
 ---------
@@ -36,13 +37,14 @@ Ready for Upstream
 ------------------
 
 [ ] PolicyKit-0.9
+    # complicated: later policy kit versions require eggdbus, which
+    # needs gobject-introspection, which needs host support + python...
 [ ] SDL-1.2.13
 [ ] SDL_mixer-1.2.8
 [ ] alsa-lib-1.0.21a
 [ ] acpid-1.0.10
 [ ] arora-0.10.1
 [ ] at-3.1.12
-[ ] attr-2.4.44
 [ ] busybox-1.15.2
 [ ] cbmbasic
 [ ] cgicc-3.2.7
