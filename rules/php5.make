@@ -24,8 +24,10 @@ PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
 PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
 
 PHP5_URL	:= \
-	http://de.php.net/distributions/$(PHP5).$(PHP5_SUFFIX) \
 	http://museum.php.net/php5/$(PHP5).$(PHP5_SUFFIX)
+
+# This is the primary URL, but they remove old revisions from there :-(
+#	http://de.php.net/distributions/$(PHP5).$(PHP5_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
