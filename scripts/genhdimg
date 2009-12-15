@@ -42,7 +42,19 @@ pad() {
 		echo "warning: $from truncated. Need $fromsize bytes, but have only $(($blocks * 512))!"
 	fi
 
-	cat $from /dev/zero | dd bs=512 count=$(($blocks)) >> "$to" 2>/dev/null
+	tosize=$(stat -c "%s" "$to")
+	toblocks_before=$(( $tosize / 512 ))
+
+	dd if="$from" bs=512 count=$blocks conv=sync >> "$to" 2> /dev/null
+
+	tosize=$(stat -c "%s" "$to")
+	toblocks=$(( $tosize / 512 ))
+
+	blocksleft=$(( $blocks - $toblocks + $toblocks_before ))
+
+	if [ $blocksleft -gt 0 ]; then
+		dd if=/dev/zero bs=512 count=$blocksleft >> "$to" 2>/dev/null
+	fi
 }
 
 
