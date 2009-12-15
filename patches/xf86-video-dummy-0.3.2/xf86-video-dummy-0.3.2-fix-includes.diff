@@ -6,6 +6,8 @@ when cross-compiling with DESTDIR and prefix=/usr
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 
+# 20091215 mol: this patch is already upstream: 86a7baa4156dc9569b7dde51b3042b7fd8093821
+
 ---
  configure.ac |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
