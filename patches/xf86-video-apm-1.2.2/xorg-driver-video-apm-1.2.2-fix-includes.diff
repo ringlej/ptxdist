@@ -4,6 +4,8 @@ Subject: remove wrong include path.
 Don't use $(prefix)/include as include path. It can break things
 when cross-compiling with DESTDIR and prefix=/usr
 
+# 20091215 mol: this patch is already upstream: 8337651f91372ec6f16c1bdc7fe2c9af2d450db8
+
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 
 ---
