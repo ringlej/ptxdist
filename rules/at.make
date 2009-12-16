@@ -57,7 +57,7 @@ AT_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--with-daemon_groupname=root \
 	SENDMAIL=$(AT_SENDMAIL)
 
-AT_BUILD_PAR := NO
+AT_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
