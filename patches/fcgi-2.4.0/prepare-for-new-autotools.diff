@@ -1,4 +1,4 @@
-Subject: prepare for new autotools 
+Subject: prepare for new autotools
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 
 we need AM_INIT_AUTOMAKE([foreign]) or automake fails with missing files
