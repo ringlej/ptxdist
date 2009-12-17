@@ -23,7 +23,7 @@ EFAX_SUFFIX		= tar.gz
 EFAX_URL		= ftp://ftp.metalab.unc.edu/pub/Linux/apps/serialcomm/fax/$(EFAX).$(EFAX_SUFFIX)
 EFAX_SOURCE		= $(SRCDIR)/$(EFAX).$(EFAX_SUFFIX)
 EFAX_DIR		= $(BUILDDIR)/$(EFAX)
-
+EFAX_LICENSE		:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
