@@ -15,6 +15,13 @@ Postponed
 [ ] Python-2.6.4
 [ ] TraceToolkit-0.9.5
 [ ] bzip2-1.0.5
+[ ] elektra-0.7.0-r1618
+[ ] etherwake-1.09.orig
+[ ] ethtool-6+20090323.orig
+[ ] grub-0.97
+    # real solution: finish barebox, obsolete grub :-)
+[ ] hal-0.5.12rc1
+    # need newer version first
 
 Not for Upstream
 ----------------
@@ -32,13 +39,44 @@ Not Ready, needs work
 [ ] dbus-glib-0.80
 [ ] dejagnu-1.4.3
 [ ] dbus-1.2.14
+[ ] efax-0.9
+[ ] fbgrab-1.0
+    # check with upstream if autotoolization plus dependency checking
+    # would be an option
+[ ] fbtest-20041102-1
+    # check if upstream has changed, adapt patches
+[ ] ffmpeg-r12314
+[ ] flash-0.9.5
+    # find out what this patch actually does
+[ ] fltk-1.1.6
+    # check for new version first
+[ ] gdb-6.8
+    # check new version first
+[ ] glademm-2.6.0
+    # check for new version first
+[ ] gst-plugins-bad-0.10.10
+    # check new version first
+[ ] gst-plugins-base-0.10.22
+    # check new version first
+[ ] gtk+-2.18.3
+    # check new version first
 
 Ready for Upstream
 ------------------
 
+[ ] fbutils-20041102-1
+    # two easy targets, one is not ready yet
+[ ] fcgi-2.4.0
+    # looks like an easy target
+[ ] figlet222
+    # looks like an easy target
 [ ] PolicyKit-0.9
     # complicated: later policy kit versions require eggdbus, which
     # needs gobject-introspection, which needs host support + python...
+[ ] font-alias-1.0.1
+    # discuss with lfu before posting
+[ ] freetype-2.3.9
+    # looks like an easy target
 [ ] SDL-1.2.13
 [ ] SDL_mixer-1.2.8
 [ ] alsa-lib-1.0.21a
@@ -55,34 +93,16 @@ Ready for Upstream
 [ ] coreutils-5.2.1
 [ ] curl-7.19.7
 [ ] e2fsprogs-1.41.9
+[ ] genpart-1.0.1
+    # looks like an easy target
+[ ] gnuplot-4.2.4
+    # looks like an easy target
+[ ] gpsd-2.39
+    # looks like an easy target, one patch not ready but anyway
 
 TODO
 ----
 
-[ ] efax-0.9
-[ ] elektra-0.7.0-r1618
-[ ] etherwake-1.09.orig
-[ ] ethtool-6+20090323.orig
-[ ] fbgrab-1.0
-[ ] fbtest-20041102-1
-[ ] fbutils-20041102-1
-[ ] fcgi-2.4.0
-[ ] ffmpeg-r12314
-[ ] figlet222
-[ ] flash-0.9.5
-[ ] fltk-1.1.6
-[ ] font-alias-1.0.1
-[ ] freetype-2.3.9
-[ ] gdb-6.8
-[ ] genpart-1.0.1
-[ ] glademm-2.6.0
-[ ] gnuplot-4.2.4
-[ ] gpsd-2.39
-[ ] grub-0.97
-[ ] gst-plugins-bad-0.10.10
-[ ] gst-plugins-base-0.10.22
-[ ] gtk+-2.18.3
-[ ] hal-0.5.12rc1
 [ ] hexedit-1.2.12
 [ ] hpanel-0.3.2
 [ ] hping3-20051105
