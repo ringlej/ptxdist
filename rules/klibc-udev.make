@@ -91,6 +91,7 @@ $(STATEDIR)/klibc-udev.targetinstall:
 	@$(call install_initramfs, klibc-udev, 0, 0, 0755, -, /sbin/udevadm);
 	@$(call install_initramfs, klibc-udev, 0, 0, 0755, /etc/udev);
 	@$(call install_initramfs, klibc-udev, 0, 0, 0755, /lib/udev);
+	@$(call install_initramfs, klibc-udev, 0, 0, 0755, /lib/udev/rules.d);
 ifdef PTXCONF_KLIBC_UDEV_INSTALL_TEST_UDEV
 	@$(call install_initramfs, klibc-udev, 0, 0, 0755, $(KLIBC_UDEV_DIR)/udev/test-udev, \
 		/sbin/test-udev);
