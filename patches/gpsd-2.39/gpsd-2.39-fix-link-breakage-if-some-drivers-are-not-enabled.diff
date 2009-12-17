@@ -5,7 +5,7 @@ Subject: [PATCH] fix link breakage if some drivers are not enabled
 
 rtcm*_unpack and rtcm*_dump functions are only declared if the rtcm drivers are
 enabled during configuration. The same for aivdm. If these drivers are not
-enable. Linking will fail due to unknow reference. Add some ifdefs to avoid
+enabled, linking will fail due to unknow reference. Add some ifdefs to avoid
 this. This is ugly ifdef hell. It'd be way eleganter to change the structures in
 driver code and put some function pointer checking in here. Due to lack of time
 I only did this quick hack. Better ideas are highly welcome.
