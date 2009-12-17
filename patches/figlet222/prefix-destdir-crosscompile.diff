@@ -1,10 +1,16 @@
 From: Wolfram Sang <w.sang@pengutronix.de>
-Subject: Improve makefile to allow cross-compilation
+Subject: [patch] Improve makefile to allow cross-compilation
 
 Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
-[mkl: add CPP and LDFLAGS]
 Singed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
 ---
+v1:
+  initial patch
+
+v2:
+  mkl has added CPP and LDFLAGS
+
  Makefile |   35 ++++++++++++++++++-----------------
  1 file changed, 18 insertions(+), 17 deletions(-)
 
