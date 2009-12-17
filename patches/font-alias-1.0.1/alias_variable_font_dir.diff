@@ -1,7 +1,13 @@
-Luotao Fu <lfu@pengutronix.de> 02.02.2007
-variable fonts point to helvectica, which only exists in 75dpi and 100dpi directories
-Hence if application queue for variable it may fail.
-FIXME: resolvable with fontconfig?
+From: Luotao Fu <l.fu@pengutronix.de>
+Subject: [patch] add 'variable' to 100dpi and 75dpi fonts.alias
+
+The "variable" font point to helvectica, which only exists in 75dpi and
+100dpi directories. Hence if an application queries for that variable it
+may fail.
+
+FIXME: is this resolvable with fontconfig?
+
+Signed-off-by: FIXME
 ---
  100dpi/fonts.alias |    1 +
  75dpi/fonts.alias  |    1 +
