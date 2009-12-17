@@ -1,23 +1,14 @@
-#
-# Submitted-By: Marc Kleine-Budde, 2006-02-28
-# Committed-By: Marc Kleine-Budde
-#
-# Error:
-#
-# freetype-config is not $SYSROOT aware
-#
-# Description: 
-#
-# this patch adds $SYSROOT support to freetype-config
-#
-# State:
-# 
-# not commited, but should be :)
-#
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [patch] make freetype-config $SYSROOT aware
+
+Currently, freetype-config is not $SYSROOT aware, which is fixed by this
+patch.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
-# builds/unix/freetype-config.in |   22 +++++++++++-----------
-# 1 file changed, 11 insertions(+), 11 deletions(-)
-#
+ builds/unix/freetype-config.in |   22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
 Index: freetype-2.3.9/builds/unix/freetype-config.in
 ===================================================================
 --- freetype-2.3.9.orig/builds/unix/freetype-config.in
