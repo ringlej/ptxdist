@@ -21,7 +21,7 @@ world/env/impl = \
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
 										\
 	pkg_stamp="$(notdir $(@))"						\
-	pkg_pkg_dir="$(call ptx/escape,$(PKGDIR)/$($(1)))"			\
+	pkg_pkg_dir="$(call ptx/escape,$($(1)_PKGDIR))"				\
 	pkg_license="$(call ptx/escape,$($(1)_LICENSE))"			\
 	pkg_deps="$(call ptx/escape,$(PTX_MAP_dep_$(1)))"			\
 										\
