@@ -99,7 +99,7 @@ EOF
 	board|user) return 0 ;;
 	*) cat <<EOF
 
-${PROMPT}error: '${FUNCNAME}' doesn't support '${part}, yet'
+${PROMPT}error: '${FUNCNAME}' doesn't support '${part}', yet
 
 EOF
 	    exit 1
