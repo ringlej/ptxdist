@@ -55,7 +55,6 @@ OPENSSH_AUTOCONF := \
 	--with-privsep-path=/var/run/sshd \
 	--with-rand-helper=no \
 	--without-pam \
-	--with-ipv4-default \
 	--disable-etc-default-login \
 	--disable-lastlog \
 	--disable-utmp \
