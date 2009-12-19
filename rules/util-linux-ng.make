@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 7626 2007-11-26 10:27:03Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
 #
