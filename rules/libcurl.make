@@ -66,7 +66,6 @@ LIBCURL_AUTOCONF := \
 	--without-krb4 \
 	--without-spnego \
 	--without-gssapi \
-	--without-libssh2 \
 	--without-gnutls \
 	--without-nss \
 	--without-ca-bundle \
@@ -107,6 +106,12 @@ ifdef PTXCONF_LIBCURL_CRYPTO_AUTH
 LIBCURL_AUTOCONF += --enable-crypto-auth
 else
 LIBCURL_AUTOCONF += --disable-crypto-auth
+endif
+
+ifdef PTXCONF_LIBCURL_LIBSSH2
+LIBCURL_AUTOCONF += --with-libssh2
+else
+LIBCURL_AUTOCONF += --without-libssh2
 endif
 
 ifdef PTXCONF_LIBCURL_IPV6
