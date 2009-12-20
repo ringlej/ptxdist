@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2606 2005-05-10 21:49:41Z rsc $
 #
 # Copyright (C) 2005 by Steven Scholz <steven.scholz@imc-berlin.de>
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -25,7 +24,6 @@ DOSFSTOOLS_SRC		:= $(DOSFSTOOLS).$(DOSFSTOOLS_SUFFIX)
 DOSFSTOOLS_URL		:= http://www.daniel-baumann.ch/software/dosfstools/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_SOURCE	:= $(SRCDIR)/$(DOSFSTOOLS_SRC)
 DOSFSTOOLS_DIR		:= $(BUILDDIR)/$(DOSFSTOOLS)
-
 
 # ----------------------------------------------------------------------------
 # Get
