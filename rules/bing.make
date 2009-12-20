@@ -1,8 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel
-# Copyright (C) 2008 by Wolfram Sang, Pengutronix e.K.
+#               2008 by Wolfram Sang, Pengutronix e.K.
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
@@ -25,7 +24,6 @@ BING_SUFFIX	:= tar.gz
 BING_URL	:= http://fgouget.free.fr/bing/$(BING).$(BING_SUFFIX)
 BING_SOURCE	:= $(SRCDIR)/$(BING).$(BING_SUFFIX)
 BING_DIR	:= $(BUILDDIR)/$(BING)
-
 
 # ----------------------------------------------------------------------------
 # Get
