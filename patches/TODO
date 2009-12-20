@@ -4,6 +4,7 @@ Submitted, Pending
 [ ] MesaLib-7.5
 [ ] atop-1.23
 [ ] attr-2.4.44
+[x] genpart-1.0.1
 
 Postponed
 ---------
@@ -93,8 +94,6 @@ Ready for Upstream
 [ ] coreutils-5.2.1
 [ ] curl-7.19.7
 [ ] e2fsprogs-1.41.9
-[ ] genpart-1.0.1
-    # looks like an easy target
 [ ] gnuplot-4.2.4
     # looks like an easy target
 [ ] gpsd-2.39
