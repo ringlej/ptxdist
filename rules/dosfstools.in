@@ -45,3 +45,8 @@ config DOSFSTOOLS_DOSFSCK_VFAT
 	help
 	  VFAT Format - Long Filenames, big files, etc.
 
+config DOSFSTOOLS_DOSFSLABEL
+	bool
+	prompt "dosfslabel"
+	help
+	  set or get a MS-DOS filesystem label

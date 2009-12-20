@@ -91,6 +91,11 @@ ifdef PTXCONF_DOSFSTOOLS_DOSFSCK_VFAT
 	@$(call install_link, dosfstools, dosfsck, /sbin/fsck.vfat)
 endif
 
+ifdef PTXCONF_DOSFSTOOLS_DOSFSLABEL
+	@$(call install_copy, dosfstools, 0, 0, 0755, -, \
+		/sbin/dosfslabel)
+endif
+
 	@$(call install_finish, dosfstools)
 
 	@$(call touch)
