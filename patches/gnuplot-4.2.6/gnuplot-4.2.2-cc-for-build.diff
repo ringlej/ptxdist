@@ -8,6 +8,8 @@ CC_FOR_BUILD.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+# 20091222 rsc: https://sourceforge.net/tracker/?func=detail&aid=2918992&group_id=2055&atid=302055
+
  configure.in     |   40 ++++++++++++++++++++++++++++++++++++++++
  docs/Makefile.in |    2 +-
  2 files changed, 41 insertions(+), 1 deletion(-)
