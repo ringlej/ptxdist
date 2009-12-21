@@ -443,7 +443,9 @@ $(STATEDIR)/initng.targetinstall: $(initng_targetinstall_deps_default)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/runlevel/librunlevel.so, /lib/initng/librunlevel.so)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/daemon/libdaemon.so, /lib/initng/libdaemon.so)
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/service/libservice.so, /lib/initng/libservice.so)
+ifdef PTXCONF_INITNG_LOCKFILE
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/lockfile/liblockfile.so, /lib/initng/liblockfile.so)
+endif
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/plugins/sysreq/libsysreq.so, /lib/initng/libsysreq.so)
 
 	@$(call install_copy, initng, 0, 0, 0755, $(INITNG_DIR)/build/src/initng, /sbin/initng)
