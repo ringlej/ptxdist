@@ -6,6 +6,8 @@ patch.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
+# 20091221 rsc: submitted as https://savannah.nongnu.org/patch/index.php?7040
+
  builds/unix/freetype-config.in |   22 +++++++++++-----------
  1 file changed, 11 insertions(+), 11 deletions(-)
 
