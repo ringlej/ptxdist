@@ -222,7 +222,11 @@ CROSS_ENV_AC := \
 	glib_cv_long_long_format="ll" \
 	gt_cv_func_gettext_libintl=yes
 
-ifndef PTXCONF_HAS_MMU
+ifdef PTXCONF_HAS_MMU
+CROSS_ENV_AC += \
+	ac_cv_func_fork=yes \
+	ac_cv_func_fork_works=yes
+else
 CROSS_ENV_AC += ac_cv_func_fork=no
 endif
 
