@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 7626 2007-11-26 10:27:03Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
 #
@@ -70,7 +69,7 @@ $(STATEDIR)/attr.targetinstall:
 	@$(call install_fixup, attr,PRIORITY,optional)
 	@$(call install_fixup, attr,VERSION,$(ATTR_VERSION))
 	@$(call install_fixup, attr,SECTION,base)
-	@$(call install_fixup, attr,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, attr,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, attr,DEPENDS,)
 	@$(call install_fixup, attr,DESCRIPTION,missing)
 
