@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_CHRONY) += chrony
 CHRONY_VERSION	:= 1.23
 CHRONY		:= chrony-$(CHRONY_VERSION)
 CHRONY_SUFFIX	:= tar.gz
-CHRONY_URL	:= http://chrony.sunsite.dk/download/$(CHRONY).$(CHRONY_SUFFIX)
+CHRONY_URL	:= http://download.tuxfamily.org/chrony/$(CHRONY).$(CHRONY_SUFFIX)
 CHRONY_SOURCE	:= $(SRCDIR)/$(CHRONY).$(CHRONY_SUFFIX)
 CHRONY_DIR	:= $(BUILDDIR)/$(CHRONY)
 
