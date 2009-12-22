@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_LIBELF) += libelf
 #
 # Paths and names
 #
-LIBELF_VERSION	:= 0.8.12
+LIBELF_VERSION	:= 0.8.13
 LIBELF		:= libelf-$(LIBELF_VERSION)
 LIBELF_SUFFIX	:= tar.gz
 LIBELF_URL	:= http://www.mr511.de/software/$(LIBELF).$(LIBELF_SUFFIX)
@@ -71,9 +71,9 @@ $(STATEDIR)/libelf.targetinstall:
 	@$(call install_fixup, libelf,DESCRIPTION,missing)
 
 	@$(call install_copy, libelf, 0, 0, 0644, -, \
-		/usr/lib/libelf.so.0.8.12)
-	@$(call install_link, libelf, libelf.so.0.8.12, /usr/lib/libelf.so.0)
-	@$(call install_link, libelf, libelf.so.0.8.12, /usr/lib/libelf.so)
+		/usr/lib/libelf.so.0.8.13)
+	@$(call install_link, libelf, libelf.so.0.8.13, /usr/lib/libelf.so.0)
+	@$(call install_link, libelf, libelf.so.0.8.13, /usr/lib/libelf.so)
 
 	@$(call install_finish, libelf)
 
