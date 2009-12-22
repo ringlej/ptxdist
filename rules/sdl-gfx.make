@@ -11,8 +11,7 @@ PACKAGES-$(PTXCONF_SDL_GFX) += sdl-gfx
 SDL_GFX_VERSION	:= 2.0.19
 SDL_GFX		:= SDL_gfx-$(SDL_GFX_VERSION)
 SDL_GFX_SUFFIX	:= tar.gz
-#SDL_GFX_URL	:= http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL_GFX).$(SDL_GFX_SUFFIX)
-SDL_GFX_URL	:= http://mirrors.kernel.org/gentoo/distfiles/$(SDL_GFX).$(SDL_GFX_SUFFIX)
+SDL_GFX_URL	:= http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL_GFX).$(SDL_GFX_SUFFIX)
 SDL_GFX_SOURCE	:= $(SRCDIR)/$(SDL_GFX).$(SDL_GFX_SUFFIX)
 SDL_GFX_DIR	:= $(BUILDDIR)/$(SDL_GFX)
 
