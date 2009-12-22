@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -93,8 +92,9 @@ ALSA_LIB_AUTOCONF += --disable-mixer
 endif
 
 ifdef PTXCONF_ALSA_LIB_PCM
-ALSA_LIB_AUTOCONF += --enable-pcm
-ALSA_LIB_AUTOCONF += --with-pcm-plugins=all
+ALSA_LIB_AUTOCONF += \
+	--enable-pcm \
+	--with-pcm-plugins=all
 else
 ALSA_LIB_AUTOCONF += --disable-pcm
 endif
@@ -128,7 +128,8 @@ ALSA_LIB_AUTOCONF += --with-softfloat
 endif
 
 ifdef PTXCONF_ALSA_LIB_LIGHT
-ALSA_LIB_AUTOCONF += --enable-everyhing \
+ALSA_LIB_AUTOCONF += \
+	--enable-everyhing \
 	--enable-tlv \
 	--enable-timer \
 	--enable-conf \
