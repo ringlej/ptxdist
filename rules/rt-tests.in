@@ -1,11 +1,17 @@
 ## SECTION=test_suites
+
 menuconfig RT_TESTS
 	tristate
 	select LIBC_PTHREAD
 	select LIBC_RT
 	prompt "rt-tests                      "
 	help
-	  FIXME
+	  Test programs for rt kernels
+
+	  rt-tests contains a set of programs that test and measure
+	  various components of "realtime" kernel behavior, such as
+	  timer latency, signal latency and the functioning of
+	  priority-inheritance mutexes.
 
 if RT_TESTS
 
