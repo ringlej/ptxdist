@@ -65,8 +65,6 @@ ALSA_LIB_AUTOCONF := \
 	--disable-debug \
 	--disable-old-symbols \
 	--disable-python \
-	--with-pythonlibs='-lpthread -lm -ldl -lpython2.6' \
-	--with-pythonincludes='-I$(SYSROOT)/usr/include/python' \
 	--with-tmpdir=/tmp \
 	--with-debug=no \
 	--with-libdl \
