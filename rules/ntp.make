@@ -1,8 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
-# Copyright (C) 2009 by Robert Schwebel
+#               2009 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -57,6 +56,7 @@ else
 NTP_AUTOCONF += --disable-all-clocks
 endif
 
+#
 # NTP: options, we need lots of options ;-)
 # Note: Only if '--disable-all-clocks' is given, the additional clock driver
 # switches makes sense (else most of the clock drivers are enabled
@@ -286,14 +286,6 @@ ifdef PTXCONF_NTP_ARLIB
 NTP_AUTOCONF += --enable-arlib
 endif
 
-$(STATEDIR)/ntp.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(NTP_DIR)/config.cache)
-	cd $(NTP_DIR) && \
-		$(NTP_PATH) $(NTP_ENV) \
-		./configure $(NTP_AUTOCONF)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -325,11 +317,11 @@ ifdef PTXCONF_NTP_NTPD
 	@$(call install_copy, ntp, 0, 0, 0755, -, \
 		/usr/sbin/ntpd)
 	@$(call install_alternative, ntp, 0, 0, 0644, /etc/ntp-server.conf)
+endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_NTP_NTPD_STARTSCRIPT
 	@$(call install_alternative, ntp, 0, 0, 0755, /etc/init.d/ntp-server)
-endif
 endif
 endif
 
@@ -340,10 +332,11 @@ ifdef PTXCONF_NTP_NTPDC
 	@$(call install_copy, ntp, 0, 0, 0755, -, \
 		/usr/sbin/ntpdc)
 	@$(call install_alternative, ntp, 0, 0, 0644, /etc/ntp-client.conf)
+endif
+
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_NTP_NTPC_STARTSCRIPT
 	@$(call install_alternative, ntp, 0, 0, 0755, /etc/init.d/ntp-client)
-endif
 endif
 endif
 
@@ -356,9 +349,9 @@ ifdef PTXCONF_NTP_NTPQ
 endif
 
 #	#
-#	# other files
+#	# other dirs
 #	#
-	@$(call install_copy, ntp, 0, 0, 0755, /var/log/ntpstats/)
+	@$(call install_copy, ntp, 0, 0, 0755, /var/log/ntpstats)
 	@$(call install_copy, ntp, 0, 0, 0755, /var/lib/ntp)
 
 	@$(call install_finish, ntp)
