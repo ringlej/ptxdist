@@ -1,4 +1,13 @@
+# -*-makefile-*-
+#
 # Copyright (C) 2009 by Markus Rathgeb <rathgeb.markus@googlemail.com>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
 
 #
 # We provide this package
@@ -14,7 +23,6 @@ SDL_GFX_SUFFIX	:= tar.gz
 SDL_GFX_URL	:= http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL_GFX).$(SDL_GFX_SUFFIX)
 SDL_GFX_SOURCE	:= $(SRCDIR)/$(SDL_GFX).$(SDL_GFX_SUFFIX)
 SDL_GFX_DIR	:= $(BUILDDIR)/$(SDL_GFX)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -53,7 +61,7 @@ $(STATEDIR)/sdl-gfx.targetinstall:
 	@$(call install_fixup, sdl-gfx,PRIORITY,optional)
 	@$(call install_fixup, sdl-gfx,VERSION,$(SDL_GFX_VERSION))
 	@$(call install_fixup, sdl-gfx,SECTION,base)
-	@$(call install_fixup, sdl-gfx,AUTHOR,"Markus Rathgeb <rathgeb.markus\@googlemail.com>")
+	@$(call install_fixup, sdl-gfx,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
 	@$(call install_fixup, sdl-gfx,DEPENDS,)
 	@$(call install_fixup, sdl-gfx,DESCRIPTION,missing)
 
