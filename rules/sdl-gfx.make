@@ -8,7 +8,7 @@ PACKAGES-$(PTXCONF_SDL_GFX) += sdl-gfx
 #
 # Paths and names
 #
-SDL_GFX_VERSION	:= 2.0.19
+SDL_GFX_VERSION	:= 2.0.20
 SDL_GFX		:= SDL_gfx-$(SDL_GFX_VERSION)
 SDL_GFX_SUFFIX	:= tar.gz
 SDL_GFX_URL	:= http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL_GFX).$(SDL_GFX_SUFFIX)
@@ -58,10 +58,10 @@ $(STATEDIR)/sdl-gfx.targetinstall:
 	@$(call install_fixup, sdl-gfx,DESCRIPTION,missing)
 
 	@$(call install_copy, sdl-gfx, 0, 0, 0644, -, \
-		/usr/lib/libSDL_gfx.so.13.5.1)
-	@$(call install_link, sdl-gfx, libSDL_gfx.so.13.5.1, \
+		/usr/lib/libSDL_gfx.so.13.5.2)
+	@$(call install_link, sdl-gfx, libSDL_gfx.so.13.5.2, \
 		/usr/lib/libSDL_gfx.so.13)
-	@$(call install_link, sdl-gfx, libSDL_gfx.so.13.5.1, \
+	@$(call install_link, sdl-gfx, libSDL_gfx.so.13.5.2, \
 		/usr/lib/libSDL_gfx.so)
 
 	@$(call install_finish, sdl-gfx)
