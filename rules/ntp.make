@@ -39,15 +39,17 @@ $(NTP_SOURCE):
 # ----------------------------------------------------------------------------
 
 NTP_PATH	:= PATH=$(CROSS_PATH)
-NTP_ENV 	:= $(CROSS_ENV)
+NTP_ENV 	:= \
+	$(CROSS_ENV) \
+	libopts_cv_test_dev_zero=yes
 
 #
 # autoconf
 #
 NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--with-binsubdir=sbin \
-	--without-rpath \
-	--disable-dependency-tracking
+	--without-lineeditlibs \
+	--without-net-snmp-config
 
 ifdef PTXCONF_NTP_ALL_CLOCK_DRIVERS
 NTP_AUTOCONF += --enable-all-clocks
@@ -268,9 +270,10 @@ ifdef PTXCONF_NTP_NIST
 NTP_AUTOCONF += --enable-nist
 endif
 ifdef PTXCONF_NTP_CRYPTO
-NTP_AUTOCONF += --enable-crypto \
-	--with-openssl-libdir=$(OPENSSL_DIR) \
-	--with-openssl-incdir=$(OPENSSL_DIR)
+NTP_AUTOCONF += \
+	--enable-crypto \
+	--with-openssl-libdir=$(PTXDIST_SYSROOT_TARGET)/usr/lib \
+	--with-openssl-incdir=$(PTXDIST_SYSROOT_TARGET)/usr/include
 else
 NTP_AUTOCONF += --disable-crypto \
 	--without-openssl-libdir \
