@@ -1,7 +1,6 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
-# Copyright (C) 2008 by Erwin Rol
+# Copyright (C) 2008, 2009 by Erwin Rol
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +16,7 @@ PACKAGES-$(PTXCONF_LIBMICROHTTPD) += libmicrohttpd
 #
 # Paths and names
 #
-LIBMICROHTTPD_VERSION	:= 0.4.0pre0
+LIBMICROHTTPD_VERSION	:= 0.4.4
 LIBMICROHTTPD		:= libmicrohttpd-$(LIBMICROHTTPD_VERSION)
 LIBMICROHTTPD_SUFFIX	:= tar.gz
 LIBMICROHTTPD_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/libmicrohttpd/$(LIBMICROHTTPD).$(LIBMICROHTTPD_SUFFIX)
@@ -61,12 +60,11 @@ $(STATEDIR)/libmicrohttpd.targetinstall:
 	@$(call install_fixup, libmicrohttpd,DESCRIPTION,missing)
 
 	@$(call install_copy, libmicrohttpd, 0, 0, 0644, -, \
-		/usr/lib/libmicrohttpd.so.4.0.3)
-	@$(call install_link, libmicrohttpd, libmicrohttpd.so.4.0.3, \
-		/usr/lib/libmicrohttpd.so.4)
-	@$(call install_link, libmicrohttpd, libmicrohttpd.so.4.0.3, \
+		/usr/lib/libmicrohttpd.so.5.2.0)
+	@$(call install_link, libmicrohttpd, libmicrohttpd.so.5.2.0, \
+		/usr/lib/libmicrohttpd.so.5)
+	@$(call install_link, libmicrohttpd, libmicrohttpd.so.5.2.0, \
 		/usr/lib/libmicrohttpd.so)
-
 
 	@$(call install_finish, libmicrohttpd)
 
