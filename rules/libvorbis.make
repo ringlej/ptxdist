@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBVORBIS) += libvorbis
 #
 # Paths and names
 #
-LIBVORBIS_VERSION	:= 1.2.0
+LIBVORBIS_VERSION	:= 1.2.3
 LIBVORBIS		:= libvorbis-$(LIBVORBIS_VERSION)
 LIBVORBIS_SUFFIX	:= tar.gz
 LIBVORBIS_URL		:= http://downloads.xiph.org/releases/vorbis/$(LIBVORBIS).$(LIBVORBIS_SUFFIX)
@@ -63,17 +63,17 @@ $(STATEDIR)/libvorbis.targetinstall:
 	@$(call install_fixup, libvorbis,DEPENDS,)
 	@$(call install_fixup, libvorbis,DESCRIPTION,missing)
 
-	@$(call install_copy, libvorbis, 0, 0, 0644, -,	/usr/lib/libvorbis.so.0.4.0)
-	@$(call install_link, libvorbis, libvorbis.so.0.4.0, /usr/lib/libvorbis.so.0)
-	@$(call install_link, libvorbis, libvorbis.so.0.4.0, /usr/lib/libvorbis.so)
+	@$(call install_copy, libvorbis, 0, 0, 0644, -,	/usr/lib/libvorbis.so.0.4.3)
+	@$(call install_link, libvorbis, libvorbis.so.0.4.3, /usr/lib/libvorbis.so.0)
+	@$(call install_link, libvorbis, libvorbis.so.0.4.3, /usr/lib/libvorbis.so)
 
-	@$(call install_copy, libvorbis, 0, 0, 0644, -,	/usr/lib/libvorbisenc.so.2.0.3)
-	@$(call install_link, libvorbis, libvorbisenc.so.2.0.3, /usr/lib/libvorbisenc.so.2)
-	@$(call install_link, libvorbis, libvorbisenc.so.2.0.3, /usr/lib/libvorbisenc.so)
+	@$(call install_copy, libvorbis, 0, 0, 0644, -,	/usr/lib/libvorbisenc.so.2.0.6)
+	@$(call install_link, libvorbis, libvorbisenc.so.2.0.6, /usr/lib/libvorbisenc.so.2)
+	@$(call install_link, libvorbis, libvorbisenc.so.2.0.6, /usr/lib/libvorbisenc.so)
 
-	@$(call install_copy, libvorbis, 0, 0, 0644, -, /usr/lib/libvorbisfile.so.3.2.0)
-	@$(call install_link, libvorbis, libvorbisfile.so.3.2.0, /usr/lib/libvorbisfile.so.3)
-	@$(call install_link, libvorbis, libvorbisfile.so.3.2.0, /usr/lib/libvorbisfile.so)
+	@$(call install_copy, libvorbis, 0, 0, 0644, -, /usr/lib/libvorbisfile.so.3.3.2)
+	@$(call install_link, libvorbis, libvorbisfile.so.3.3.2, /usr/lib/libvorbisfile.so.3)
+	@$(call install_link, libvorbis, libvorbisfile.so.3.3.2, /usr/lib/libvorbisfile.so)
 
 	@$(call install_finish, libvorbis)
 
