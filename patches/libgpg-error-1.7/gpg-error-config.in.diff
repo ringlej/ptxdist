@@ -1,0 +1,36 @@
+From: Erwin Rol <erwin@erwinrol.com>
+Subject: Enable SYSROOT support in gpg-error-config
+
+Enable SYSROOT support in gpg-error-config script to prevent pulling
+in /usr/lib and /usr/include
+
+Signed-off-by: Erwin Rol <erwin@erwinrol.com>
+[mkl: make it work correctly]
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ src/gpg-error-config.in |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+Index: libgpg-error-1.7/src/gpg-error-config.in
+===================================================================
+--- libgpg-error-1.7.orig/src/gpg-error-config.in
++++ libgpg-error-1.7/src/gpg-error-config.in
+@@ -57,13 +57,13 @@ while test $# -gt 0; do
+ 	    exit 0
+ 	    ;;
+         --cflags)
+-	    if test "x$includedir" != "x/usr/include" -a "x$includedir" != "x/include"; then
+-		output="$output -I$includedir"
++	    if test "x${SYSROOT}$includedir" != "x/usr/include" -a "x${SYSROOT}$includedir" != "x/include"; then
++		output="$output -I${SYSROOT}$includedir"
+ 	    fi
+ 	    ;;
+ 	--libs)
+-	    if test "x$libdir" != "x/usr/lib" -a "x$libdir" != "x/lib"; then
+-		output="$output -L$libdir"
++	    if test "x${SYSROOT}$libdir" != "x/usr/lib" -a "x${SYSROOT}$libdir" != "x/lib"; then
++		output="$output -L${SYSROOT}$libdir"
+ 	    fi
+ 	    output="$output -lgpg-error"
+ 	    ;;
