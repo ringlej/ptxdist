@@ -1,7 +1,41 @@
 ## SECTION=networking
-config LIBMICROHTTPD
+
+menuconfig LIBMICROHTTPD
 	tristate
-	prompt "libmicrohttpd"
+	select LIBGCRYPT if LIBMICROHTTPD_HTTPS
+	prompt "libmicrohttpd                 "
+	help
+	  Library embedding HTTP server functionality
+
+	  libmicrohttpd is a small C library for embedding HTTP server
+	  functionality into applications. It will be used in future
+	  GNUnet versions as part of the HTTP transport.
+
+if LIBMICROHTTPD
+
+config LIBMICROHTTPD_LARGEFILE
+	bool
+	prompt "Large file support"
+	default y
 	help
 	  FIXME
 
+config LIBMICROHTTPD_HTTPS
+	bool
+	prompt "HTTPS support"
+	help
+	  FIXME
+
+config LIBMICROHTTPD_CLIENT_SIDE
+	bool
+	prompt "Client side support"
+	help
+	  FIXME
+
+config LIBMICROHTTPD_MESSAGES
+	bool
+	prompt "Messages"
+	help
+	  FIXME
+
+endif

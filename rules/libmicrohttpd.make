@@ -41,7 +41,34 @@ LIBMICROHTTPD_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBMICROHTTPD_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBMICROHTTPD_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-curl \
+	--disable-coverage
+
+ifdef PTXCONF_LIBMICROHTTPD_LARGEFILE
+LIBMICROHTTPD_AUTOCONF += --enable-largefile
+else
+LIBMICROHTTPD_AUTOCONF += --disable-largefile
+endif
+
+ifdef PTXCONF_LIBMICROHTTPD_HTTPS
+LIBMICROHTTPD_AUTOCONF += --enable-https
+else
+LIBMICROHTTPD_AUTOCONF += --disable-https
+endif
+
+ifdef PTXCONF_LIBMICROHTTPD_CLIENT_SIDE
+LIBMICROHTTPD_AUTOCONF += --enable-client-side
+else
+LIBMICROHTTPD_AUTOCONF += --disable-client-side
+endif
+
+ifdef PTXCONF_LIBMICROHTTPD_MESSAGES
+LIBMICROHTTPD_AUTOCONF += --enable-messages
+else
+LIBMICROHTTPD_AUTOCONF += --disable-messages
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
