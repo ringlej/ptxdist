@@ -1,0 +1,40 @@
+From: Erwin Rol <erwin@erwinrol.com>
+Subject: Enable SYSROOT support in libgcrypt-config
+
+Enable SYSROOT support in libgcrypt-config script to prevent pulling
+in /usr/lib and /usr/include
+
+Signed-off-by: Erwin Rol <erwin@erwinrol.com>
+[mkl: some cleanups in libgcrypt-config]
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+---
+ src/libgcrypt-config.in |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+Index: libgcrypt-1.4.5/src/libgcrypt-config.in
+===================================================================
+--- libgcrypt-1.4.5.orig/src/libgcrypt-config.in
++++ libgcrypt-1.4.5/src/libgcrypt-config.in
+@@ -126,8 +126,8 @@ if test "$echo_cflags" = "yes"; then
+     cflags_final="$cflags"
+ 
+     # Set up `includes'.
+-    if test "x$includedir" != "x/usr/include" -a "x$includedir" != "x/include"; then
+-	includes="-I$includedir"
++    if test "x${SYSROOT}$includedir" != "x/usr/include" -a "x${SYSROOT}$includedir" != "x/include"; then
++	includes="-I${SYSROOT}$includedir"
+     fi
+     # Set up `cflags_final'.
+     cflags_final="$cflags_final $gpg_error_cflags"
+@@ -146,8 +146,8 @@ if test "$echo_libs" = "yes"; then
+     libs_final="$libs"
+ 
+     # Set up `libdirs'.
+-    if test "x$libdir" != "x/usr/lib" -a "x$libdir" != "x/lib"; then
+-	libdirs="-L$libdir"
++    if test "x${SYSROOT}$libdir" != "x/usr/lib" -a "x${SYSROOT}$libdir" != "x/lib"; then
++	libdirs="-L${SYSROOT}$libdir"
+     fi
+ 
+     # Set up `libs_final'.
