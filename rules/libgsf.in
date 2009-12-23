@@ -1,0 +1,55 @@
+## SECTION=system_libraries
+
+menuconfig LIBGSF
+	tristate
+	prompt "libgsf                        "
+	select ZLIB
+	select LIBXML2
+	select BZIP2		if LIBGSF_BZ2
+	select BZIP2__LIBBZ2	if LIBGSF_BZ2
+	select GLIB		if LIBGSF_GIO
+	select PYTHON		if LIBGSF_PYTHON
+	select HOST_INTLTOOL	if LIBGSF_NLS
+	help
+	  Structured File Library
+
+	  The GNOME Structured File Library library aims to provide an
+	  efficient extensible I/O abstraction for dealing with
+	  different structured file formats.
+
+if LIBGSF
+
+config LIBGSF_LARGEFILE
+	bool
+	prompt "largefile support"
+	default y
+	help
+	  FIXME
+
+config LIBGSF_NLS
+	bool
+	prompt "NLS Support"
+	help
+	  FIXME
+
+config LIBGSF_PYTHON
+	bool
+	depends on BROKEN
+	prompt "Python support"
+	help
+	  FIXME
+
+config LIBGSF_BZ2
+	bool
+	prompt "bz2 support"
+	help
+	  FIXME
+
+config LIBGSF_GIO
+	bool
+	prompt "GIO support"
+	help
+	  FIXME
+
+endif
+
