@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBOGG) += libogg
 #
 # Paths and names
 #
-LIBOGG_VERSION	:= 1.1.3
+LIBOGG_VERSION	:= 1.1.4
 LIBOGG		:= libogg-$(LIBOGG_VERSION)
 LIBOGG_SUFFIX	:= tar.gz
 LIBOGG_URL	:= http://downloads.xiph.org/releases/ogg/$(LIBOGG).$(LIBOGG_SUFFIX)
@@ -60,9 +60,9 @@ $(STATEDIR)/libogg.targetinstall:
 	@$(call install_fixup, libogg,DEPENDS,)
 	@$(call install_fixup, libogg,DESCRIPTION,missing)
 
-	@$(call install_copy, libogg, 0, 0, 0644, -, /usr/lib/libogg.so.0.5.3)
-	@$(call install_link, libogg, libogg.so.0.5.3, /usr/lib/libogg.so.0)
-	@$(call install_link, libogg, libogg.so.0.5.3, /usr/lib/libogg.so)
+	@$(call install_copy, libogg, 0, 0, 0644, -, /usr/lib/libogg.so.0.6.0)
+	@$(call install_link, libogg, libogg.so.0.6.0, /usr/lib/libogg.so.0)
+	@$(call install_link, libogg, libogg.so.0.6.0, /usr/lib/libogg.so)
 
 	@$(call install_finish, libogg)
 
