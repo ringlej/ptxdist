@@ -1,0 +1,42 @@
+## SECTION=multimedia_gtk
+
+menuconfig LIBCROCO
+	tristate
+	prompt "libcroco                      "
+	select LIBXML2
+	select GLIB
+	help
+	  a generic Cascading Style Sheet (CSS) parsing and
+	  manipulation toolkit
+
+	  Services provided by Libcroco:
+
+	  * A parser module that provides o A SAC like api. SAC stands
+            for Simple Api for CSS. SAC is an event driven api wich
+            resembles SAX in the xml world.
+
+	  * A CSSOM like api. CSSOM stands for Cascading Style Sheet
+            Object Model.
+
+	    The libcroco parser implements the CSS Level 2
+	    specification, the CSS forward compatibility rules and the
+	    CSS cascading rules.
+
+	  * A CSS2 selection engine Given an xml element node (that
+            obviously comes from an xml document) and a stylesheet
+            cascade, the Libcroco selection engine can evaluate the
+            css selectors of the cascade and return the style
+            properties associated to the xml element node.
+
+	  Note that the xml manipulation toolkit used by the libcroco
+	    selection engine at the moment is libxml2.
+
+if LIBCROCO
+
+config LIBCROCO_CHECKS
+	bool
+	prompt "Enable runtime checks"
+	help
+	  FIXME
+
+endif
