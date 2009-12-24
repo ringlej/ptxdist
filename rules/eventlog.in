@@ -1,5 +1,6 @@
 ## SECTION=networking
+
 config EVENTLOG
-	bool
+	tristate
 	help
 	  Part of syslog-ng.
