@@ -420,18 +420,20 @@ ptxd_var_concat()
 # dump current callstack
 # wait for keypress
 #
-ptxd_dumpstack()
-{
+ptxd_dumpstack() {
 	local i=0
 
-	echo '############# stackdump #############' >&2
-	while caller $i >&2; do
-		let i++
-	done
-	echo '######## any key to continue ########' >&2
+	{
+		echo '############# stackdump #############'
+		while caller $i; do
+			let i++
+		done
+		echo '######## any key to continue ########'
+	} >&2
 
 	read
 }
+
 
 
 #
