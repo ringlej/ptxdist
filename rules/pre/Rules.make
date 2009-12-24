@@ -185,6 +185,10 @@ CROSS_ENV_PKG_CONFIG := \
 	$(PTXDIST_CROSS_ENV_PKG_CONFIG) \
 	PKG_CONFIG="$(PTXDIST_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config"
 
+#
+# The ac_cv_* variables are needed to tell configure scripts not to
+# use AC_TRY_RUN and run cross compiled things on the development host
+#
 CROSS_ENV_AC := \
 	ac_cv_file__proc_self_exe=yes \
 	ac_cv_file__proc_self_fd=yes \
