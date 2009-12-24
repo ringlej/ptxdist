@@ -19,10 +19,10 @@ PACKAGES-$(PTXCONF_WPA_SUPPLICANT) += wpa_supplicant
 WPA_SUPPLICANT_NAME	:= wpa_supplicant
 WPA_SUPPLICANT_VERSION	:= 0.6.9
 WPA_SUPPLICANT		:= $(WPA_SUPPLICANT_NAME)-$(WPA_SUPPLICANT_VERSION)
-WPA_SUPPLICANT_SUFFIX		:= tar.gz
-WPA_SUPPLICANT_URL		:= http://hostap.epitest.fi/releases/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
-WPA_SUPPLICANT_SOURCE		:= $(SRCDIR)/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
-WPA_SUPPLICANT_DIR		:= $(BUILDDIR)/$(WPA_SUPPLICANT)/$(WPA_SUPPLICANT_NAME)
+WPA_SUPPLICANT_SUFFIX	:= tar.gz
+WPA_SUPPLICANT_URL	:= http://hostap.epitest.fi/releases/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
+WPA_SUPPLICANT_SOURCE	:= $(SRCDIR)/$(WPA_SUPPLICANT).$(WPA_SUPPLICANT_SUFFIX)
+WPA_SUPPLICANT_DIR	:= $(BUILDDIR)/$(WPA_SUPPLICANT)/$(WPA_SUPPLICANT_NAME)
 WPA_SUPPLICANT_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
@@ -51,29 +51,27 @@ WPA_SUPPLICANT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/wpa_supplicant.prepare:
 	@$(call targetinfo)
 
-	cd $(WPA_SUPPLICANT_DIR) && \
-		$(WPA_SUPPLICANT_PATH) $(WPA_SUPPLICANT_ENV)
-	  @rm -f $(WPA_SUPPLICANT_DIR)/.config
-	  @echo "CC=$(CROSS_CC)" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CFLAGS += -I$(SYSROOT)/include" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CFLAGS += -I$(SYSROOT)/usr/include" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "LDFLAGS += -L$(SYSROOT)/lib" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "LDFLAGS += -L$(SYSROOT)/usr/lib" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_BACKEND=file" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_CTRL_IFACE=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_EAP_GTC=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_EAP_LEAP=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_EAP_MD5=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_EAP_MSCHAPV2=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_EAP_OTP=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_EAP_PEAP=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_EAP_TLS=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_EAP_TTLS=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_IEEE8021X_EAPOL=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_PEERKEY=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_PKCS12=y" >> $(WPA_SUPPLICANT_DIR)/.config && \
-	  echo "CONFIG_SMARTCARD=y" >> $(WPA_SUPPLICANT_DIR)/.config
-	  @grep -e PTXCONF_WPA_SUPPLICANT_ $(PTXDIST_PTXCONFIG) | \
+	@echo "CC=$(CROSS_CC)"				>  $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CFLAGS += -I$(PTXDIST_SYSROOT_TARGET)/include"		>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CFLAGS += -I$(PTXDIST_SYSROOT_TARGET)/usr/include"	>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "LDFLAGS += -L$(PTXDIST_SYSROOT_TARGET)/lib"		>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "LDFLAGS += -L$(PTXDIST_SYSROOT_TARGET)/usr/lib"		>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_BACKEND=file"			>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_CTRL_IFACE=y"			>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_EAP_GTC=y"				>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_EAP_LEAP=y"			>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_EAP_MD5=y"				>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_EAP_MSCHAPV2=y"			>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_EAP_OTP=y"				>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_EAP_PEAP=y"			>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_EAP_TLS=y"				>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_EAP_TTLS=y"			>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_IEEE8021X_EAPOL=y"			>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_PEERKEY=y"				>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_PKCS12=y"				>> $(WPA_SUPPLICANT_DIR)/.config && \
+	echo "CONFIG_SMARTCARD=y"			>> $(WPA_SUPPLICANT_DIR)/.config
+
+	@grep -e PTXCONF_WPA_SUPPLICANT_ $(PTXDIST_PTXCONFIG) | \
 		sed -e 's/PTXCONF_WPA_SUPPLICANT_/CONFIG_/g' >> $(WPA_SUPPLICANT_DIR)/.config
 
 	@$(call touch)

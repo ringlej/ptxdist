@@ -2,7 +2,7 @@
 
 menuconfig WPA_SUPPLICANT
 	tristate
-	prompt "wpa_supplicant"
+	prompt "wpa_supplicant                "
 	select OPENSSL
 	select LIBNL
 	help
@@ -10,79 +10,75 @@ menuconfig WPA_SUPPLICANT
 
 if WPA_SUPPLICANT
 
-menu "wpa_supplicant drivers"
-
 config WPA_SUPPLICANT_DRIVER_HOSTAP
 	bool
-	prompt "HOSTAP"
+	prompt "hostap"
 	help
 	  TBD
 
 config WPA_SUPPLICANT_DRIVER_HERMES
 	bool
-	prompt "HERMES"
+	prompt "hermes"
 	depends on BROKEN
 	help
 	  TBD
 
 config WPA_SUPPLICANT_DRIVER_MADWIFI
 	bool
-	prompt "MADWIFI"
+	prompt "madwifi"
 	depends on BROKEN
 	help
 	  TBD
 
 config WPA_SUPPLICANT_DRIVER_ATMEL
 	bool
-	prompt "ATMEL"
+	prompt "atmel"
 	help
 	  TBD
 
 config WPA_SUPPLICANT_DRIVER_WEXT
 	bool
-	prompt "WEXT"
+	prompt "wext"
 	help
 	  TBD
 
 config WPA_SUPPLICANT_DRIVER_RALINK
 	bool
-	prompt "RALINK"
+	prompt "ralink"
 	help
 	  TBD
 
 config WPA_SUPPLICANT_DRIVER_NDISWRAPPER
 	bool
-	prompt "NDISWRAPPER"
+	prompt "ndiswrapper"
 	help
 	  TBD
 
 config WPA_SUPPLICANT_DRIVER_BROADCOM
 	bool
-	prompt "BROADCOM"
+	prompt "broadcom"
 	depends on BROKEN
 	help
 	  TBD
 
 config WPA_SUPPLICANT_DRIVER_IPW
 	bool
-	prompt "IPW"
+	prompt "ipw"
 	help
 	  TBD
 
 config WPA_SUPPLICANT_DRIVER_BSD
 	bool
-	prompt "BSD"
+	prompt "bsd"
 	depends on BROKEN
 	help
 	  TBD
 
 config WPA_SUPPLICANT_DRIVER_NDIS
 	bool
-	prompt "NDIS"
+	prompt "ndis"
 	depends on BROKEN
 	help
 	  TBD
-
-endmenu
 
 endif
