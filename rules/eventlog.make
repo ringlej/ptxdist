@@ -1,7 +1,6 @@
 # -*-makefile-*-
-# $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
-# Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -56,21 +55,18 @@ $(STATEDIR)/eventlog.targetinstall:
 	@$(call install_fixup, eventlog,PRIORITY,optional)
 	@$(call install_fixup, eventlog,VERSION,$(EVENTLOG_VERSION))
 	@$(call install_fixup, eventlog,SECTION,base)
-	@$(call install_fixup, eventlog,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, eventlog,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, eventlog,DEPENDS,)
 	@$(call install_fixup, eventlog,DESCRIPTION,missing)
 
-	@$(call install_copy, eventlog, 0, 0, 0644, \
-		$(EVENTLOG_DIR)/src/.libs/libevtlog.so.0.0.0, \
+	@$(call install_copy, eventlog, 0, 0, 0644, -, \
 		/usr/lib/libevtlog.so.0.0.0)
 
 	@$(call install_link, eventlog, \
-		libevtlog.so.0.0.0, \
-		/usr/lib/libevtlog.so.0)
+		libevtlog.so.0.0.0, /usr/lib/libevtlog.so.0)
 
 	@$(call install_link, eventlog, \
-		libevtlog.so.0.0.0, \
-		/usr/lib/libevtlog.so)
+		libevtlog.so.0.0.0, /usr/lib/libevtlog.so)
 
 	@$(call install_finish, eventlog)
 
