@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_DBUS_GLIB) += dbus-glib
 #
 # Paths and names
 #
-DBUS_GLIB_VERSION	:= 0.80
+DBUS_GLIB_VERSION	:= 0.82
 DBUS_GLIB		:= dbus-glib-$(DBUS_GLIB_VERSION)
 DBUS_GLIB_SUFFIX	:= tar.gz
 DBUS_GLIB_URL		:= http://dbus.freedesktop.org/releases/dbus-glib/$(DBUS_GLIB).$(DBUS_GLIB_SUFFIX)
