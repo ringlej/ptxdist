@@ -24,7 +24,7 @@ LIBIODBC_SUFFIX		:= tar.gz
 LIBIODBC_URL		:= $(PTXCONF_SETUP_SFMIRROR)/iodbc/$(LIBIODBC).$(LIBIODBC_SUFFIX)
 LIBIODBC_SOURCE		:= $(SRCDIR)/$(LIBIODBC).$(LIBIODBC_SUFFIX)
 LIBIODBC_DIR		:= $(BUILDDIR)/$(LIBIODBC)
-LIBIOBDC_LICENSE	:= "LGPLv2, BSD"
+LIBIOBDC_LICENSE	:= LGPLv2, BSD
 
 # ----------------------------------------------------------------------------
 # Get
