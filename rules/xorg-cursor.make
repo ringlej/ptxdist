@@ -1,7 +1,7 @@
 # -*-makefile-*-
 # $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
-# Copyright (C) 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2007, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -25,71 +25,59 @@ XORG_CURSOR_DIR		:= $(BUILDDIR)/$(XORG_CURSOR)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-cursor_get: $(STATEDIR)/xorg-cursor.get
-
-$(STATEDIR)/xorg-cursor.get: $(xorg-cursor_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/xorg-cursor.get:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-xorg-cursor_extract: $(STATEDIR)/xorg-cursor.extract
-
-$(STATEDIR)/xorg-cursor.extract: $(xorg-cursor_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-cursor.extract:
+	@$(call targetinfo)
 	@$(call clean, $(XORG_CURSOR_DIR))
 	@mkdir -p $(XORG_CURSOR_DIR)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-cursor_prepare: $(STATEDIR)/xorg-cursor.prepare
-
-$(STATEDIR)/xorg-cursor.prepare: $(xorg-cursor_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/xorg-cursor.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-cursor_compile: $(STATEDIR)/xorg-cursor.compile
-
-$(STATEDIR)/xorg-cursor.compile: $(xorg-cursor_compile_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-cursor.compile:
+	@$(call targetinfo)
 	echo "[Icon Theme]"                          >  $(XORG_CURSOR_DIR)/index.theme
 	echo "Inherits=$(PTXCONF_XORG_CURSOR_THEME)" >> $(XORG_CURSOR_DIR)/index.theme
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-cursor_install: $(STATEDIR)/xorg-cursor.install
-
-$(STATEDIR)/xorg-cursor.install: $(xorg-cursor_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/xorg-cursor.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-cursor_targetinstall: $(STATEDIR)/xorg-cursor.targetinstall
-
-$(STATEDIR)/xorg-cursor.targetinstall: $(xorg-cursor_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-cursor.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-cursor)
 	@$(call install_fixup, xorg-cursor,PACKAGE,xorg-cursor)
 	@$(call install_fixup, xorg-cursor,PRIORITY,optional)
 	@$(call install_fixup, xorg-cursor,VERSION,$(XORG_CURSOR_VERSION))
 	@$(call install_fixup, xorg-cursor,SECTION,base)
-	@$(call install_fixup, xorg-cursor,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xorg-cursor,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, xorg-cursor,DEPENDS,)
 	@$(call install_fixup, xorg-cursor,DESCRIPTION,missing)
 
@@ -98,7 +86,7 @@ $(STATEDIR)/xorg-cursor.targetinstall: $(xorg-cursor_targetinstall_deps_default)
 
 	@$(call install_finish, xorg-cursor)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
