@@ -133,7 +133,7 @@ ptxd_get_ptxconf() {
 
 	if test -f "${PTXDIST_PLATFORMCONFIG}"; then
 		source "${PTXDIST_PLATFORMCONFIG}" || \
-		ptxd_bailout "unable to source '${PTXDIST_PLATFORMCONFIG}' (maybe svn/git conflict?)" 3
+		ptxd_bailout "unable to source '${PTXDIST_PLATFORMCONFIG}' (maybe git conflict?)" 3
 	fi
 	if [ -n "${!1}" ]; then
 		echo "${!1}"
@@ -142,7 +142,7 @@ ptxd_get_ptxconf() {
 
 	if test -f "${PTXDIST_PTXCONFIG}"; then
 		source "${PTXDIST_PTXCONFIG}"  || \
-		ptxd_bailout "unable to source '${PTXDIST_PTXCONFIG}' (maybe svn conflict?)" 3
+		ptxd_bailout "unable to source '${PTXDIST_PTXCONFIG}' (maybe git conflict?)" 3
 	fi
 	if [ -n "${!1}" ]; then
 		echo "${!1}"
