@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
-# Copyright (C) 2006 by Marc Kleine-Budde
+#               2006, 2009 by Marc Kleine-Budde
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -25,7 +25,6 @@ LIBPOPT_URL	:= http://rpm5.org/files/popt/$(LIBPOPT).$(LIBPOPT_SUFFIX)
 LIBPOPT_SOURCE	:= $(SRCDIR)/$(LIBPOPT).$(LIBPOPT_SUFFIX)
 LIBPOPT_DIR	:= $(BUILDDIR)/$(LIBPOPT)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -40,11 +39,6 @@ $(LIBPOPT_SOURCE):
 
 LIBPOPT_PATH	:=  PATH=$(CROSS_PATH)
 LIBPOPT_ENV 	:=  $(CROSS_ENV)
-
-ifndef PTXCONF_LIBPOPT_NLS
-# uggly hack: configure script sees "no" if we set this go ":"
-LIBPOPT_ENV	+= ac_cv_path_XGETTEXT=:
-endif
 
 #
 # autoconf
@@ -70,11 +64,11 @@ $(STATEDIR)/libpopt.targetinstall:
 	@$(call install_fixup,libpopt,PRIORITY,optional)
 	@$(call install_fixup,libpopt,VERSION,$(LIBPOPT_VERSION))
 	@$(call install_fixup,libpopt,SECTION,base)
-	@$(call install_fixup,libpopt,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,libpopt,DEPENDS,)
+	@$(call install_fixup,libpopt,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,libpopt,DESCRIPTION,missing)
 
-	@$(call install_copy, libpopt, 0, 0, 0644, $(LIBPOPT_DIR)/.libs/libpopt.so.0.0.0, /usr/lib/libpopt.so.0.0.0)
+	@$(call install_copy, libpopt, 0, 0, 0644, -, \
+		/usr/lib/libpopt.so.0.0.0)
 	@$(call install_link, libpopt, libpopt.so.0.0.0, /usr/lib/libpopt.so.0)
 	@$(call install_link, libpopt, libpopt.so.0.0.0, /usr/lib/libpopt.so)
 
