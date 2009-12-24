@@ -271,7 +271,11 @@ ptxd_kconfig() {
 	local conf="${PTXDIST_TOPDIR}/scripts/kconfig/conf"
 	local mconf="${PTXDIST_TOPDIR}/scripts/kconfig/mconf"
 
-	export KCONFIG_NOTIMESTAMP="1"
+	export \
+	    KCONFIG_NOTIMESTAMP="1" \
+	    PROJECT="ptxdist" \
+	    FULLVERSION="${PTXDIST_VERSION_FULL}"
+
 	case "${config}" in
 	menuconfig)
 		"${mconf}" "${file_kconfig}"
@@ -312,7 +316,10 @@ ptxd_kconfig() {
 	esac
 
 	local retval=${?}
-	unset KCONFIG_NOTIMESTAMP
+	unset \
+	    KCONFIG_NOTIMESTAMP \
+	    PROJECT \
+	    FULLVERSION
 
 	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
 		cp -- .config "${file_dotconfig}" || return

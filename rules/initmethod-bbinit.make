@@ -98,15 +98,15 @@ ifdef PTXCONF_INITMETHOD_BBINIT_ETC_INITD_BANNER
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
 		@PRJVERSION@, $(PTXCONF_PROJECT_VERSION))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@VERSION@, $(VERSION))
+		@VERSION@, $(PTXDIST_VERSION_MAJOR))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@PTXDIST@, $(PROJECT))
+		@PTXDIST@, ptxdist)
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@PATCHLEVEL@, $(PATCHLEVEL))
+		@PATCHLEVEL@, $(PTXDIST_VERSION_MINOR))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@SUBLEVEL@, $(SUBLEVEL))
+		@SUBLEVEL@, $(PTXDIST_VERSION_MICRO))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
-		@EXTRAVERSION@, $(EXTRAVERSION))
+		@EXTRAVERSION@, $(PTXDIST_VERSION_EXTRA))
 	@$(call install_replace, initmethod-bbinit, /etc/init.d/banner, \
 		@DATE@, $(shell date -Iseconds))
 endif

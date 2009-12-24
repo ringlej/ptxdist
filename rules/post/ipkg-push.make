@@ -13,7 +13,7 @@ $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install
 	$(PTXDIST_TOPDIR)/scripts/ipkg-push \
 		--ipkgdir  $(call remove_quotes,$(PKGDIR)) \
 		--repodir  $(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)) \
-		--revision $(call remove_quotes,$(FULLVERSION)) \
+		--revision $(call remove_quotes,$(PTXDIST_VERSION_FULL)) \
 		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
 		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)); \
 	echo; \

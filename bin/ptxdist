@@ -2356,7 +2356,6 @@ setup_logfile()
 # so that they can be used in make
 #
 setup_export() {
-	export PROJECT FULLVERSION VERSION PATCHLEVEL SUBLEVEL EXTRAVERSION		# FIXME: review these
 	export \
 		PATH \
 		\
