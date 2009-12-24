@@ -8,7 +8,6 @@ $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install
 	@$(call targetinfo)
 	( \
 	PATH=$(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/usr/bin:$$PATH; \
-	PATH=$(PTXCONF_SYSROOT_HOST)/bin:$(PTXCONF_SYSROOT_HOST)/usr/bin:$$PATH; \
 	export PATH;  \
 	$(PTXDIST_TOPDIR)/scripts/ipkg-push \
 		--ipkgdir  $(call remove_quotes,$(PKGDIR)) \
