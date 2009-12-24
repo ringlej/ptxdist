@@ -1,6 +1,12 @@
 # -*-makefile-*-
-# $Id: ntpclient.make$
 #
+# Copyright (C) 2003-2009 by Pengutronix e.K., Hildesheim, Germany
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
 #
 # We provide this package
 #
@@ -9,12 +15,12 @@ PACKAGES-$(PTXCONF_NTPCLIENT) += ntpclient
 #
 # Paths and names
 #
-NTPCLIENT_VERSION	= 365
-NTPCLIENT		= ntpclient_2007
-NTPCLIENT_SUFFIX	= tar.gz
-NTPCLIENT_URL		= http://doolittle.icarus.com/ntpclient/$(NTPCLIENT)_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
-NTPCLIENT_SOURCE	= $(SRCDIR)/$(NTPCLIENT)_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
-NTPCLIENT_DIR		= $(BUILDDIR)/$(NTPCLIENT)
+NTPCLIENT_VERSION	:= 365
+NTPCLIENT		:= ntpclient_2007
+NTPCLIENT_SUFFIX	:= tar.gz
+NTPCLIENT_URL		:= http://doolittle.icarus.com/ntpclient/$(NTPCLIENT)_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
+NTPCLIENT_SOURCE	:= $(SRCDIR)/$(NTPCLIENT)_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
+NTPCLIENT_DIR		:= $(BUILDDIR)/$(NTPCLIENT)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -41,11 +47,6 @@ $(STATEDIR)/ntpclient.extract:
 # ----------------------------------------------------------------------------
 
 NTPCLIENT_PATH	:=  PATH=$(CROSS_PATH)
-#NTPCLIENT_ENV 	:=  $(CROSS_ENV)
-
-$(STATEDIR)/ntpclient.prepare:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -69,6 +70,7 @@ endif
 ifdef PTXCONF_NTPCLIENT_BUILD_NTPCLIENT
 NTPCLIENT_MAKEVARS += ntpclient
 endif
+
 ifdef PTXCONF_NTPCLIENT_BUILD_ADJTIMEX
 NTPCLIENT_MAKEVARS += adjtimex
 endif
