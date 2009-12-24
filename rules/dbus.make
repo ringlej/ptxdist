@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2006 by Roland Hostettler
 #               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -143,7 +142,7 @@ endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_DBUS_STARTSCRIPT
-	@$(call install_alternative, dbus, 0, 0, 0755, /etc/init.d/dbus, n)
+	@$(call install_alternative, dbus, 0, 0, 0755, /etc/init.d/dbus)
 endif
 endif
 
