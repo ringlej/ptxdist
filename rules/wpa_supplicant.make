@@ -38,7 +38,10 @@ $(WPA_SUPPLICANT_SOURCE):
 # ----------------------------------------------------------------------------
 
 WPA_SUPPLICANT_PATH	:= PATH=$(CROSS_PATH)
-WPA_SUPPLICANT_ENV 	:= $(CROSS_ENV)
+WPA_SUPPLICANT_ENV 	:= \
+	$(CROSS_ENV) \
+	LIBDIR=/lib \
+	BINDIR=/sbin
 
 #
 # autoconf
@@ -91,8 +94,10 @@ $(STATEDIR)/wpa_supplicant.targetinstall:
 	@$(call install_fixup, wpa_supplicant,DEPENDS,)
 	@$(call install_fixup, wpa_supplicant,DESCRIPTION,missing)
 
-	@$(call install_copy, wpa_supplicant, 0, 0, 0755, $(WPA_SUPPLICANT_DIR)/wpa_supplicant, /usr/sbin/wpa_supplicant)
-	@$(call install_copy, wpa_supplicant, 0, 0, 0755, $(WPA_SUPPLICANT_DIR)/wpa_cli, /usr/bin/wpa_cli)
+	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
+		/sbin/wpa_supplicant)
+	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \
+		/sbin/wpa_cli)
 
 	@$(call install_finish, wpa_supplicant)
 
