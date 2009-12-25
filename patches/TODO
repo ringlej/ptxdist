@@ -6,6 +6,8 @@ Submitted, Pending
 [ ] attr-2.4.44
 [x] cbmbasic
 [x] coreutils-8.2
+[ ] commoncpp2-1.7.3
+[x] chrony-1.23
 [x] curl-7.19.7
 [x] genpart-1.0.1
 [x] gnuplot-4.2.4
@@ -24,6 +26,9 @@ Submitted, Pending
 [x] xf86-video-ati-6.12.4
 [x] xf86-video-dummy-0.3.2
 [x] xf86-video-vesa-2.2.1
+[ ] figlet222
+[ ] freetype-2.3.9
+[ ] gnuplot-4.2.4
 
 Postponed
 ---------
@@ -46,6 +51,9 @@ Postponed
     # upstream is dead since 2004 :(
 [ ] xli-1.17.0
     # upstream is dead since... don't ask. BSD might have a newer version. Well...
+[ ] fcgi-2.4.0
+    # looks like an easy target, but upstream has no repository and no
+    # sane bug feedback system
 
 Not for Upstream
 ----------------
@@ -56,13 +64,21 @@ Not Ready, needs work
 ---------------------
 
 [ ] MPlayer-1.0rc2
+[ ] acpid-1.0.10
+    # this is a big netlink patch
 [ ] blackbox-0.70.1
+[ ] cgicc-3.2.7
+    # add configure switch to disable doxygen docu
+[ ] confuse-2.6
+    # needs a proper fix
 [ ] cpufrequtils-006
 [ ] cvs-1.11.22
 [ ] db-4.1.25.NC
 [ ] dbus-glib-0.80
 [ ] dejagnu-1.4.3
 [ ] dbus-1.2.14
+[ ] e2fsprogs-1.41.9
+    # needs comments from mol, which error message etc.
 [ ] efax-0.9
 [ ] fbgrab-1.0
     # check with upstream if autotoolization plus dependency checking
@@ -90,6 +106,9 @@ Not Ready, needs work
     # remove_asm is missing description and sob from mkl
 [ ] netkit-ftp-0.17
     # no upstream, import debian patches?
+[ ] PolicyKit-0.9
+    # complicated: later policy kit versions require eggdbus, which
+    # needs gobject-introspection, which needs host support + python...
 [ ] proftpd-1.3.2
 
 Obsolete (not needed anymore as PTXdist improved)
@@ -102,30 +121,14 @@ Ready for Upstream
 
 [ ] fbutils-20041102-1
     # two easy targets, one is not ready yet
-[ ] fcgi-2.4.0
-    # looks like an easy target
-[ ] figlet222
-    # looks like an easy target
-[ ] PolicyKit-0.9
-    # complicated: later policy kit versions require eggdbus, which
-    # needs gobject-introspection, which needs host support + python...
 [ ] font-alias-1.0.1
     # discuss with lfu before posting
-[ ] freetype-2.3.9
-    # looks like an easy target
 [ ] SDL-1.2.13
 [ ] SDL_mixer-1.2.8
-[ ] alsa-lib-1.0.21a
-[ ] acpid-1.0.10
 [ ] arora-0.10.1
 [ ] at-3.1.12
 [ ] busybox-1.15.2
-[ ] cgicc-3.2.7
-[ ] chrony-1.23
 [ ] cku211
-[ ] commoncpp2-1.7.3
-[ ] confuse-2.6
-[ ] e2fsprogs-1.41.9
 [ ] gpsd-2.39
     # looks like an easy target, one patch not ready but anyway
 
