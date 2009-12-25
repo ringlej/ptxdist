@@ -46,26 +46,26 @@ config COMPILER_PREFIX
 	prompt "compiler prefix"
 	default "${PTXCONF_GNU_TARGET}-"
 	help
-	 This is the prefix used to create the correct cross compiler name. If the
-	 prefix is equal to the GNU Target you can use "${PTXCONF_GNU_TARGET}-" to
-	 use it.
+	  This is the prefix used to create the correct cross compiler
+	  name. If the prefix is equal to the GNU Target you can use
+	  "${PTXCONF_GNU_TARGET}-" to use it.
 
 config COMPILER_PREFIX_KERNEL
 	string
 	prompt "compiler prefix (kernel)"
 	default "${PTXCONF_COMPILER_PREFIX}"
 	help
-	 This is the prefix used to create the correct cross compiler
-	 name used to compile the kernel. If the prefix equals the
-	 normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
+	  This is the prefix used to create the correct cross compiler
+	  name used to compile the kernel. If the prefix equals the
+	  normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
 
 config COMPILER_PREFIX_UBOOT
 	string
 	prompt "compiler prefix (u-boot)"
 	default "${PTXCONF_COMPILER_PREFIX}"
 	help
-	 This is the prefix used to create the correct cross compiler
-	 name used to compile the u-boot. If the prefix equals the
-	 normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
+	  This is the prefix used to create the correct cross compiler
+	  name used to compile the u-boot. If the prefix equals
+	  the normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
 
 endmenu
