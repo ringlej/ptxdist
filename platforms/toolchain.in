@@ -59,13 +59,13 @@ config COMPILER_PREFIX_KERNEL
 	  name used to compile the kernel. If the prefix equals the
 	  normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
 
-config COMPILER_PREFIX_UBOOT
+config COMPILER_PREFIX_BOOTLOADER
 	string
-	prompt "compiler prefix (u-boot)"
+	prompt "compiler prefix (bootloader)"
 	default "${PTXCONF_COMPILER_PREFIX}"
 	help
 	  This is the prefix used to create the correct cross compiler
-	  name used to compile the u-boot. If the prefix equals
+	  name used to compile the bootloader. If the prefix equals
 	  the normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
 
 endmenu

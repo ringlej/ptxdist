@@ -1,0 +1,9 @@
+#!/bin/sed -f
+
+#
+# from   : ptxdist-1.99.20
+# to     : ptxdist-1.99.21
+# symbol : PTXCONF_COMPILER_PREFIX_UBOOT -> PTXCONF_COMPILER_PREFIX_BOOTLOADER
+# reason : more generic special compiler handling
+#
+s/^\(\(# \)\?PTXCONF\)_COMPILER_PREFIX_UBOOT\(.*$\)/\1_COMPILER_PREFIX_BOOTLOADER\3/
