@@ -11,15 +11,15 @@ better decided in the configure step.
 Signed-off-by: Juergen Beisert <j.beisert@pengutronix.de>
 
 ---
- Makefile.in |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ Makefile.in |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Index: cgicc-3.2.7/Makefile.in
+Index: cgicc-3.2.9/Makefile.in
 ===================================================================
---- cgicc-3.2.7.orig/Makefile.in
-+++ cgicc-3.2.7/Makefile.in
-@@ -69,7 +69,7 @@ aclocalDATA_INSTALL = $(INSTALL_DATA)
- DATA = $(aclocal_DATA)
+--- cgicc-3.2.9.orig/Makefile.in
++++ cgicc-3.2.9/Makefile.in
+@@ -88,7 +88,7 @@ AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGE
+ 	distdir dist dist-all distcheck
  ETAGS = etags
  CTAGS = ctags
 -DIST_SUBDIRS = cgicc doc support demo contrib
@@ -27,7 +27,7 @@ Index: cgicc-3.2.7/Makefile.in
  DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
  distdir = $(PACKAGE)-$(VERSION)
  top_distdir = $(distdir)
-@@ -194,7 +194,7 @@ AUTOMAKE_OPTIONS = check-news dist-bzip2
+@@ -249,7 +249,7 @@ AUTOMAKE_OPTIONS = check-news dist-bzip2
  @DEMOS_FALSE@DEMO = 
  @DEMOS_TRUE@DEMO = demo contrib
  ACLOCAL_AMFLAGS = 
@@ -36,12 +36,3 @@ Index: cgicc-3.2.7/Makefile.in
  CLEANFILES = *~
  MAINTAINERCLEANFILES = aclocal.m4 cgicc-*.tar.*
  EXTRA_DIST = BUGS README.WIN COPYING.DOC example win
-@@ -410,7 +410,7 @@ distdir: $(DISTFILES)
- 	esac
- 	$(am__remove_distdir)
- 	mkdir $(distdir)
--	$(mkdir_p) $(distdir)/cgicc $(distdir)/doc $(distdir)/support
-+	$(mkdir_p) $(distdir)/cgicc $(distdir)/support
- 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
- 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
- 	list='$(DISTFILES)'; for file in $$list; do \
