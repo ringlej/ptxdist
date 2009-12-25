@@ -1,8 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Sascha Hauer
-#               2008 by Marc Kleine-Budde
+#               2008, 2009 by Marc Kleine-Budde
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -45,24 +44,9 @@ U_BOOT_V2_CONFIG	:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/u-boot-v2.get:
-	@$(call targetinfo)
-	@$(call touch)
-
 $(U_BOOT_V2_SOURCE):
 	@$(call targetinfo)
 	@$(call get, U_BOOT_V2)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/u-boot-v2.extract:
-	@$(call targetinfo)
-	@$(call clean, $(U_BOOT_V2_DIR))
-	@$(call extract, U_BOOT_V2)
-	@$(call patchin, U_BOOT_V2)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -71,7 +55,6 @@ $(STATEDIR)/u-boot-v2.extract:
 U_BOOT_V2_PATH	:= PATH=$(CROSS_PATH)
 U_BOOT_V2_ENV 	:= KCONFIG_NOTIMESTAMP=1
 U_BOOT_V2_MAKEVARS := \
-	$(PARALLELMFLAGS) \
 	HOSTCC=$(HOSTCC) \
 	ARCH=$(PTXCONF_U_BOOT_V2_ARCH_STRING) \
 	CROSS_COMPILE=$(U_BOOT_V2_TOOLCHAIN_LINK)$(PTXCONF_COMPILER_PREFIX_UBOOT)
@@ -98,23 +81,12 @@ $(STATEDIR)/u-boot-v2.prepare: $(U_BOOT_V2_CONFIG)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/u-boot-v2.compile:
-	@$(call targetinfo)
-	cd $(U_BOOT_V2_DIR) && $(U_BOOT_V2_PATH) $(MAKE) $(U_BOOT_V2_MAKEVARS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/u-boot-v2.install:
 	@$(call targetinfo)
-
-	install -D -m755 $(U_BOOT_V2_DIR)/scripts/ubootenv $(PTXCONF_SYSROOT_HOST)/bin/ubootenv
-
+	@install -D -m755 $(U_BOOT_V2_DIR)/scripts/ubootenv $(PTXCONF_SYSROOT_HOST)/bin/ubootenv
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -123,9 +95,7 @@ $(STATEDIR)/u-boot-v2.install:
 
 $(STATEDIR)/u-boot-v2.targetinstall:
 	@$(call targetinfo)
-
-	install -D -m644 $(U_BOOT_V2_DIR)/uboot.bin $(IMAGEDIR)/u-boot-v2-image
-
+	@install -D -m644 $(U_BOOT_V2_DIR)/uboot.bin $(IMAGEDIR)/u-boot-v2-image
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -135,6 +105,7 @@ $(STATEDIR)/u-boot-v2.targetinstall:
 u-boot-v2_clean:
 	rm -rf $(STATEDIR)/u-boot-v2.*
 	rm -rf $(PKGDIR)/u-boot-v2_*
+	rm -rf $(IMAGEDIR)/u-boot-v2-image
 	rm -rf $(U_BOOT_V2_DIR)
 
 # ----------------------------------------------------------------------------
