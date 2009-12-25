@@ -1,3 +1,2 @@
 0001-Makefile.in-use-CPPFLAGS.patch
 0002-Makefile.in-add-DESTDIR-support.patch
-0003-Makefile.in-don-t-strip-during-install.patch
