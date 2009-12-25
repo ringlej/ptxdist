@@ -77,7 +77,6 @@ $(STATEDIR)/fbgrab.prepare: $(fbgrab_prepare_deps_default)
 
 FBGRAB_MAKEVARS = \
 	CC=$(COMPILER_PREFIX)gcc \
-	STRIP=$(COMPILER_PREFIX)strip \
 	LDFLAGS='`pkg-config --libs libpng` `pkg-config --libs libz` $(CROSS_LDFLAGS)'
 
 fbgrab_compile: $(STATEDIR)/fbgrab.compile
