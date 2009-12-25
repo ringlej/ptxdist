@@ -2,7 +2,7 @@
 
 menuconfig U_BOOT_V2
 	prompt "U-Boot V2                     "
-        bool
+	bool
 
 config U_BOOT_V2_VERSION
 	prompt "u-boot-v2 version"
