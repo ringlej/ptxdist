@@ -8,6 +8,10 @@
 # see the README file.
 #
 
+ifdef PTXCONF_CROSS_DUMMY_STRIP
+$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/cross-dummy-strip.install
+endif
+
 ifdef PTXCONF_HOST_FAKEROOT
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-fakeroot.install
 endif

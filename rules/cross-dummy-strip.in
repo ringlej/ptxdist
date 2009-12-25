@@ -1,0 +1,8 @@
+## SECTION=crosstools
+
+config CROSS_DUMMY_STRIP
+	bool
+	default y
+	help
+	  Dummy, no-op strip to prevent leak-in of the host strip-version.
+	  Always selected.
