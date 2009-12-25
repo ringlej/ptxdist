@@ -1,0 +1,31 @@
+## SECTION=bootloader
+
+menuconfig BAREBOX
+	select BOOTLOADER
+	prompt "barebox                       "
+	bool
+	help
+	  The famous bootloader formerly known as U-Boot V2.
+
+if BAREBOX
+
+config BAREBOX_VERSION
+	prompt "barebox version"
+	string
+	default "2009.12.0"
+
+config BAREBOX_CONFIG
+	prompt "config file"
+	string
+	default "barebox.config"
+	help
+	  This entry specifies the .config file used to compile
+	  barebox.
+
+config BAREBOX_ARCH_STRING
+	string
+	default "arm"			if ARCH_ARM
+	default "blackfin"		if ARCH_BLACKFIN
+	default "ppc"			if ARCH_PPC
+
+endif
