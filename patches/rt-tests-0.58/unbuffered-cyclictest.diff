@@ -7,11 +7,11 @@ This patch adds an command line option to force the output to always be
 unbuffered.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-Singed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
-
-mkl: ported to 0.58
+# mkl: ported to 0.58
+# wsa: 20091225: sent upstream, http://article.gmane.org/gmane.linux.rt.user/5428
 
  src/cyclictest/cyclictest.c |    5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)
