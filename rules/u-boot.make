@@ -37,7 +37,7 @@ $(U_BOOT_SOURCE):
 # ----------------------------------------------------------------------------
 
 U_BOOT_PATH	:= PATH=$(CROSS_PATH)
-U_BOOT_ENV 	:= CROSS_COMPILE=$(COMPILER_PREFIX)
+U_BOOT_ENV 	:= CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE)
 U_BOOT_MAKE_PAR	:= NO
 
 $(STATEDIR)/u-boot.prepare:

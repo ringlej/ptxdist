@@ -1,8 +1,9 @@
 ## SECTION=bootloader
 
 menuconfig U_BOOT
-	bool
+	select BOOTLOADER
 	prompt "U-Boot                        "
+	bool
 
 if U_BOOT
 
