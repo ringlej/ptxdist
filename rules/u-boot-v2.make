@@ -15,20 +15,6 @@
 PACKAGES-$(PTXCONF_U_BOOT_V2) += u-boot-v2
 
 #
-# handle special compilers
-#
-ifdef PTXCONF_U_BOOT_V2
-    ifneq ($(PTXCONF_COMPILER_PREFIX),$(PTXCONF_COMPILER_PREFIX_UBOOT))
-        ifeq ($(wildcard .utoolchain/$(PTXCONF_COMPILER_PREFIX_UBOOT)gcc),)
-            $(warning *** no .utoolchain link found. Please create a link)
-            $(warning *** .utoolchain to the bin directory of your $(PTXCONF_COMPILER_PREFIX_UBOOT) toolchain)
-            $(error )
-        endif
-        U_BOOT_V2_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/.utoolchain/
-    endif
-endif
-
-#
 # Paths and names
 #
 U_BOOT_V2_VERSION	:= $(call remove_quotes,$(PTXCONF_U_BOOT_V2_VERSION))
@@ -57,7 +43,7 @@ U_BOOT_V2_ENV 	:= KCONFIG_NOTIMESTAMP=1
 U_BOOT_V2_MAKEVARS := \
 	HOSTCC=$(HOSTCC) \
 	ARCH=$(PTXCONF_U_BOOT_V2_ARCH_STRING) \
-	CROSS_COMPILE=$(U_BOOT_V2_TOOLCHAIN_LINK)$(PTXCONF_COMPILER_PREFIX_UBOOT)
+	CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE)
 
 ifdef PTXCONF_U_BOOT_V2
 $(U_BOOT_V2_CONFIG):

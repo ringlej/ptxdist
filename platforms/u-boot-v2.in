@@ -1,6 +1,7 @@
 ## SECTION=bootloader
 
 menuconfig U_BOOT_V2
+	select BOOTLOADER
 	prompt "U-Boot V2                     "
 	bool
 
