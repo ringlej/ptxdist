@@ -60,6 +60,11 @@ menu() {
 		menu=( "${menu[@]}"	"u-boot-v2"		"Configure U-Boot-v2 (${u_boot_v2_version})" )
 	fi
 
+	local barebox_version="$(ptxd_get_ptxconf PTXCONF_BAREBOX_VERSION)"
+	if [ -n "${barebox_version}" ]; then
+		menu=( "${menu[@]}"	"barebox"		"Configure barebox (${barebox_version})" )
+	fi
+
 	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
 	if [ -z "${platform}" -a -e "${PTXDIST_PLATFORMCONFIG}" ]; then
 		platform="$(readlink -e "${PTXDIST_PLATFORMCONFIG}")"
@@ -110,7 +115,7 @@ menu() {
 		menu_select "${cmd}"
 		;;
 
-	ptx|platform|kernel|u-boot-v2|board|user)
+	ptx|platform|kernel|u-boot-v2|barebox|board|user)
 		do_config menuconfig "${cmd}"
 		# FIXME: reread user config file
 		;;
