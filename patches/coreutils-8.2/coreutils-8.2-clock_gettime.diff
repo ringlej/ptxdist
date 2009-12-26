@@ -18,6 +18,9 @@ We need $(LIB_CLOCK_GETTIME) to link the tac tool.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+
+# 20091226 rsc: mailed to bug-coreutils@gnu.org
+
  src/Makefile.am |    1 +
  1 file changed, 1 insertion(+)
 
