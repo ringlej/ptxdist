@@ -1,0 +1,34 @@
+From 99b9fc3eeff6b8d7544ae9657f026f1c0ed77e57 Mon Sep 17 00:00:00 2001
+From: Eric Blake <ebb9@byu.net>
+Date: Sat, 26 Dec 2009 10:37:44 -0700
+Subject: [PATCH] tac: supply link dependency
+
+* src/Makefile.am (tac_LDADD): Add LIB_GETHRXTIME.
+* THANKS: Update.
+Reported by Robert Schwebel.
+---
+ src/Makefile.am |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 208cb6c..86d78f7 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -325,12 +325,13 @@ ls_LDADD += $(LIB_CLOCK_GETTIME)
+ pr_LDADD += $(LIB_CLOCK_GETTIME)
+ touch_LDADD += $(LIB_CLOCK_GETTIME)
+
+-# for gethrxtime, randint, randread, gen_tempname
++# for gethrxtime, randint, randread, gen_tempname, mkstemp
+ dd_LDADD += $(LIB_GETHRXTIME)
+ mktemp_LDADD += $(LIB_GETHRXTIME)
+ shred_LDADD += $(LIB_GETHRXTIME)
+ shuf_LDADD += $(LIB_GETHRXTIME)
+ sort_LDADD += $(LIB_GETHRXTIME)
++tac_LDADD += $(LIB_GETHRXTIME)
+
+ # for cap_get_file
+ ls_LDADD += $(LIB_CAP)
+-- 
+1.6.4.2
+
