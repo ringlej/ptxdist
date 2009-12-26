@@ -2,19 +2,17 @@
 
 menuconfig LINKS
 	tristate
-	prompt "links"
+	prompt "links                         "
 	select NCURSES
-	select OPENSSL if LINKS_SSL
-#	select OPENSSL_SHARED
-	select GPM if LINKS_GPM
-	select LIBPNG if LINKS_PNG
-	select LIBJPEG if LINKS_JPEG
-	select XORG_LIB_XEXT if LINKS_X
-	select DIRECTFB if LINKS_DIRECTFB
-	select SDL if LINKS_SDL
-#	select SDL_SHARED
-	select ZLIB if LINKS_ZLIB
-	select BZIP2 if LINKS_BZIP2
+	select OPENSSL		if LINKS_SSL
+	select GPM		if LINKS_GPM
+	select LIBPNG		if LINKS_PNG
+	select LIBJPEG		if LINKS_JPEG
+	select XORG_LIB_XEXT	if LINKS_X
+	select DIRECTFB		if LINKS_DIRECTFB
+	select SDL		if LINKS_SDL
+	select ZLIB		if LINKS_ZLIB
+	select BZIP2		if LINKS_BZIP2
 	help
 	  links is a fast lightweight text and graphic web-browser
 

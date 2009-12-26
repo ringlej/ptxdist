@@ -1,5 +1,12 @@
+# -*-makefile-*-
+#
 # Copyright (C) 2009 by Markus Rathgeb <rathgeb.markus@googlemail.com>
-
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 PACKAGES-$(PTXCONF_LINKS) += links
 
@@ -14,7 +21,6 @@ LINKS_URL	:= http://links.twibright.com/download/$(LINKS).$(LINKS_SUFFIX)
 LINKS_SOURCE	:= $(SRCDIR)/$(LINKS).$(LINKS_SUFFIX)
 LINKS_DIR	:= $(BUILDDIR)/$(LINKS)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -24,14 +30,8 @@ $(LINKS_SOURCE):
 	@$(call get, LINKS)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-links_prepare: $(STATEDIR)/links.prepare
 
 LINKS_PATH     := PATH=$(CROSS_PATH)
 LINKS_ENV      := $(CROSS_ENV)
@@ -128,7 +128,7 @@ $(STATEDIR)/links.targetinstall:
 	@$(call install_fixup, links,PRIORITY,optional)
 	@$(call install_fixup, links,VERSION,$(LINKS_VERSION))
 	@$(call install_fixup, links,SECTION,base)
-	@$(call install_fixup, links,AUTHOR,"Markus Rathgeb <rathgeb.markus\@googlemail.com>")
+	@$(call install_fixup, links,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
 	@$(call install_fixup, links,DEPENDS,)
 	@$(call install_fixup, links,DESCRIPTION,missing)
 
