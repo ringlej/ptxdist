@@ -1,0 +1,35 @@
+Subject: [patch] tac needs $(LIB_CLOCK_GETTIME)
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+I get this linker error:
+
+make[4]: Entering directory `/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/build-target/coreutils-8.2/src'
+arm-1136jfs-linux-gnueabi-gcc -std=gnu99   -g -O2  -L/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/sysroot-target/lib -L/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/sysroot-target/usr/lib -Wl,-rpath-link -Wl,/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/sysroot-target/lib -Wl,-rpath-link -Wl,/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/sysroot-target/usr/lib -Wl,--as-needed -o tac tac.o libver.a ../lib/libcoreutils.a  ../lib/libcoreutils.a 
+../lib/libcoreutils.a(gethrxtime.o): In function `gethrxtime':
+/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/build-target/coreutils-8.2/lib/gethrxtime.c:46: undefined reference to `clock_gettime'
+../lib/libcoreutils.a(gettime.o): In function `gettime':
+/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/build-target/coreutils-8.2/lib/gettime.c:36: undefined reference to `clock_gettime'
+collect2: ld returned 1 exit status
+make[4]: Leaving directory `/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/build-target/coreutils-8.2/src'
+make[4]: *** [tac] Error 1
+
+We need $(LIB_CLOCK_GETTIME) to link the tac tool.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ src/Makefile.am |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: coreutils-8.2/src/Makefile.am
+===================================================================
+--- coreutils-8.2.orig/src/Makefile.am
++++ coreutils-8.2/src/Makefile.am
+@@ -323,6 +323,7 @@ date_LDADD += $(LIB_CLOCK_GETTIME)
+ ginstall_LDADD += $(LIB_CLOCK_GETTIME)
+ ls_LDADD += $(LIB_CLOCK_GETTIME)
+ pr_LDADD += $(LIB_CLOCK_GETTIME)
++tac_LDADD += $(LIB_CLOCK_GETTIME)
+ touch_LDADD += $(LIB_CLOCK_GETTIME)
+ 
+ # for gethrxtime, randint, randread, gen_tempname

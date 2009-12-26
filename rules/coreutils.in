@@ -7,42 +7,29 @@ menuconfig COREUTILS
 
 if COREUTILS
 
-config COREUTILS_CP
+config COREUTILS_ECHO
 	bool
-	prompt "cp"
-	depends on !BUSYBOX_CP || ALLYES
-	help
-	  copy files and directories
+	prompt "echo"
 
-comment "BusyBox' cp is selected!"
-	depends on BUSYBOX_CP
-
-config COREUTILS_DD
+config COREUTILS_STAT
 	bool
-	prompt "dd"
-	depends on !BUSYBOX_DD || ALLYES
-	help
-	  convert and copy a file
+	prompt "stat"
 
-comment "BusyBox' dd is selected!"
-	depends on COREUTILS && BUSYBOX_DD
-
-config COREUTILS_MD5SUM
+config COREUTILS_DATE
 	bool
-	prompt "md5sum"
-	depends on !BUSYBOX_MD5SUM || ALLYES
-	help
-	  compute and check MD5 message digest
+	prompt "date"
 
-comment "BusyBox' md5sum is selected!"
-	depends on BUSYBOX_MD5SUM
-
-config COREUTILS_READLINK
+config COREUTILS_HOSTID
 	bool
-	prompt "readlink"
-	depends on !BUSYBOX_READLINK || ALLYES
-	help
-	  the readlink tool
+	prompt "hostid"
+
+config COREUTILS_UNAME
+	bool
+	prompt "uname"
+
+config COREUTILS_DIRCOLORS
+	bool
+	prompt "dircolors"
 
 config COREUTILS_SEQ
 	bool
@@ -54,4 +41,394 @@ config COREUTILS_SEQ
 comment "BusyBox' seq is selected!"
 	depends on BUSYBOX_SEQ
 
+config COREUTILS_NOHUP
+	bool
+	prompt "nohup"
+
+config COREUTILS_GROUPS
+	bool
+	prompt "groups"
+
+config COREUTILS_SHA224SUM
+	bool
+	prompt "sha224sum"
+
+config COREUTILS_EXPR
+	bool
+	prompt "expr"
+
+config COREUTILS_TRUNCATE
+	bool
+	prompt "truncate"
+
+config COREUTILS_CHCON
+	bool
+	prompt "chcon"
+
+config COREUTILS_PRINTF
+	bool
+	prompt "printf"
+
+config COREUTILS_RMDIR
+	bool
+	prompt "rmdir"
+
+config COREUTILS_PRINTENV
+	bool
+	prompt "printenv"
+
+config COREUTILS_EXPAND
+	bool
+	prompt "expand"
+
+config COREUTILS_CHMOD
+	bool
+	prompt "chmod"
+
+config COREUTILS_CHOWN
+	bool
+	prompt "chown"
+
+config COREUTILS_SHA512SUM
+	bool
+	prompt "sha512sum"
+
+config COREUTILS_UNIQ
+	bool
+	prompt "uniq"
+
+config COREUTILS_INSTALL
+	bool
+	prompt "install"
+
+config COREUTILS_TTY
+	bool
+	prompt "tty"
+
+config COREUTILS_SHA384SUM
+	bool
+	prompt "sha384sum"
+
+config COREUTILS_CUT
+	bool
+	prompt "cut"
+
+config COREUTILS_SHRED
+	bool
+	prompt "shred"
+
+config COREUTILS_OD
+	bool
+	prompt "od"
+
+config COREUTILS_CHGRP
+	bool
+	prompt "chgrp"
+
+config COREUTILS_DIR
+	bool
+	prompt "dir"
+
+config COREUTILS_MKFIFO
+	bool
+	prompt "mkfifo"
+
+config COREUTILS_CHROOT
+	bool
+	prompt "chroot"
+
+config COREUTILS_LN
+	bool
+	prompt "ln"
+
+config COREUTILS_SUM
+	bool
+	prompt "sum"
+
+config COREUTILS_USERS
+	bool
+	prompt "users"
+
+config COREUTILS_TOUCH
+	bool
+	prompt "touch"
+
+config COREUTILS_PASTE
+	bool
+	prompt "paste"
+
+config COREUTILS_MKNOD
+	bool
+	prompt "mknod"
+
+config COREUTILS_TSORT
+	bool
+	prompt "tsort"
+
+config COREUTILS_MKTEMP
+	bool
+	prompt "mktemp"
+
+config COREUTILS_RUNCON
+	bool
+	prompt "runcon"
+
+config COREUTILS_READLINK
+	bool
+	prompt "readlink"
+	depends on !BUSYBOX_READLINK || ALLYES
+	help
+	  the readlink tool
+
+config COREUTILS_TAC
+	bool
+	prompt "tac"
+
+config COREUTILS_MD5SUM
+	bool
+	prompt "md5sum"
+	depends on !BUSYBOX_MD5SUM || ALLYES
+	help
+	  compute and check MD5 message digest
+
+comment "BusyBox' md5sum is selected!"
+	depends on BUSYBOX_MD5SUM
+
+config COREUTILS_DD
+	bool
+	prompt "dd"
+	depends on !BUSYBOX_DD || ALLYES
+	help
+	  convert and copy a file
+
+comment "BusyBox' dd is selected!"
+	depends on COREUTILS && BUSYBOX_DD
+
+config COREUTILS_YES
+	bool
+	prompt "yes"
+
+config COREUTILS_FACTOR
+	bool
+	prompt "factor"
+
+config COREUTILS_JOIN
+	bool
+	prompt "join"
+
+config COREUTILS_PWD
+	bool
+	prompt "pwd"
+
+config COREUTILS_SHUF
+	bool
+	prompt "shuf"
+
+config COREUTILS_SHA1SUM
+	bool
+	prompt "sha1sum"
+
+config COREUTILS_TR
+	bool
+	prompt "tr"
+
+config COREUTILS_CSPLIT
+	bool
+	prompt "csplit"
+
+config COREUTILS_DU
+	bool
+	prompt "du"
+
+config COREUTILS_TAIL
+	bool
+	prompt "tail"
+
+config COREUTILS_PTX
+	bool
+	prompt "ptx"
+
+config COREUTILS_BASE64
+	bool
+	prompt "base64"
+
+config COREUTILS_TIMEOUT
+	bool
+	prompt "timeout"
+
+config COREUTILS_SORT
+	bool
+	prompt "sort"
+
+config COREUTILS_FALSE
+	bool
+	prompt "false"
+
+config COREUTILS_DIRNAME
+	bool
+	prompt "dirname"
+
+config COREUTILS_TEST
+	bool
+	prompt "test"
+
+config COREUTILS_FMT
+	bool
+	prompt "fmt"
+
+config COREUTILS_STDBUF
+	bool
+	prompt "stdbuf"
+
+config COREUTILS_PINKY
+	bool
+	prompt "pinky"
+
+config COREUTILS_BASENAME
+	bool
+	prompt "basename"
+
+config COREUTILS_ID
+	bool
+	prompt "id"
+
+config COREUTILS_LINK
+	bool
+	prompt "link"
+
+config COREUTILS_SLEEP
+	bool
+	prompt "sleep"
+
+config COREUTILS_SHA256SUM
+	bool
+	prompt "sha256sum"
+
+config COREUTILS_ENV
+	bool
+	prompt "env"
+
+config COREUTILS_WHO
+	bool
+	prompt "who"
+
+config COREUTILS_LOGNAME
+	bool
+	prompt "logname"
+
+config COREUTILS_WHOAMI
+	bool
+	prompt "whoami"
+
+config COREUTILS_STTY
+	bool
+	prompt "stty"
+
+config COREUTILS_PATHCHK
+	bool
+	prompt "pathchk"
+
+config COREUTILS_NL
+	bool
+	prompt "nl"
+
+config COREUTILS_WC
+	bool
+	prompt "wc"
+
+config COREUTILS_UNLINK
+	bool
+	prompt "unlink"
+
+config COREUTILS_UNEXPAND
+	bool
+	prompt "unexpand"
+
+config COREUTILS_NPROC
+	bool
+	prompt "nproc"
+
+config COREUTILS_VDIR
+	bool
+	prompt "vdir"
+
+config COREUTILS_SYNC
+	bool
+	prompt "sync"
+
+config COREUTILS_RM
+	bool
+	prompt "rm"
+
+config COREUTILS_CKSUM
+	bool
+	prompt "cksum"
+
+config COREUTILS_TEE
+	bool
+	prompt "tee"
+
+config COREUTILS_MKDIR
+	bool
+	prompt "mkdir"
+
+config COREUTILS_MV
+	bool
+	prompt "mv"
+
+config COREUTILS_LS
+	bool
+	prompt "ls"
+
+config COREUTILS_HEAD
+	bool
+	prompt "head"
+
+config COREUTILS_TRUE
+	bool
+	prompt "true"
+
+config COREUTILS_CAT
+	bool
+	prompt "cat"
+
+config COREUTILS_KILL
+	bool
+	prompt "kill"
+
+config COREUTILS_CP
+	bool
+	prompt "cp"
+	depends on !BUSYBOX_CP || ALLYES
+	help
+	  copy files and directories
+
+comment "BusyBox' cp is selected!"
+	depends on BUSYBOX_CP
+
+config COREUTILS_COMM
+	bool
+	prompt "comm"
+
+config COREUTILS_SPLIT
+	bool
+	prompt "split"
+
+config COREUTILS_FOLD
+	bool
+	prompt "fold"
+
+config COREUTILS_PR
+	bool
+	prompt "pr"
+
+config COREUTILS_UPTIME
+	bool
+	prompt "uptime"
+
+config COREUTILS_NICE
+	bool
+	prompt "nice"
+
 endif
+
