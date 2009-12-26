@@ -77,6 +77,11 @@ Not Ready, needs work
 [ ] gtk+-2.18.3
     # check new version first
 
+Obsolete (not needed anymore as PTXdist improved)
+-------------------------------------------------
+[-] nmap-4.85BETA8
+[-] scummvm-0.11.1
+
 Ready for Upstream
 ------------------
 
@@ -167,7 +172,6 @@ TODO
 [ ] netpbm-10.31
 [ ] nfs-utils-1.1.6
 [ ] nickel-1.1.0
-[ ] nmap-4.85BETA8
 [ ] ntpclient_2007
 [ ] openssl-0.9.8l
 [ ] owfs-2.7p26
@@ -186,7 +190,6 @@ TODO
 [ ] sablevm-1.13
 [ ] samba-3.0.37
 [ ] screen-4.0.2
-[ ] scummvm-0.11.1
 [ ] setmixer_27DEC94ds1.orig
 [ ] slang-2.1.2
 [ ] splashutils-1.5.4.3
