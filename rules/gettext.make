@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003-2008 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                            Pengutronix <info@pengutronix.de>, Germany
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -29,24 +29,9 @@ GETTEXT_DIR	:= $(BUILDDIR)/$(GETTEXT)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/gettext.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(GETTEXT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, GETTEXT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gettext.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(GETTEXT_DIR))
-	@$(call extract, GETTEXT)
-	@$(call patchin, GETTEXT)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -64,70 +49,33 @@ GETTEXT_AUTOCONF := \
 	--disable-native-java \
 	--disable-csharp
 
-$(STATEDIR)/gettext.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(GETTEXT_DIR)/config.cache)
-	cd $(GETTEXT_DIR) && \
-		$(GETTEXT_PATH) $(GETTEXT_ENV) \
-		./configure $(GETTEXT_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gettext.compile:
-	@$(call targetinfo, $@)
-	cd $(GETTEXT_DIR) && $(GETTEXT_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gettext.install:
-	@$(call targetinfo, $@)
-	@$(call install, GETTEXT)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/gettext.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, gettext)
 	@$(call install_fixup, gettext,PACKAGE,gettext)
 	@$(call install_fixup, gettext,PRIORITY,optional)
 	@$(call install_fixup, gettext,VERSION,$(GETTEXT_VERSION))
 	@$(call install_fixup, gettext,SECTION,base)
-	@$(call install_fixup, gettext,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gettext,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gettext,DEPENDS,)
 	@$(call install_fixup, gettext,DESCRIPTION,missing)
 
-	@$(call install_copy, gettext, 0, 0, 0755, $(GETTEXT_DIR)/gettext-tools/src/xgettext, /usr/bin/xgettext)
-	@$(call install_copy, gettext, 0, 0, 0755, $(GETTEXT_DIR)/gettext-runtime/src/gettext, /usr/bin/gettext)
+	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/xgettext)
+	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/gettext)
 
-	@$(call install_copy, gettext, 0, 0, 0644, \
-		$(GETTEXT_DIR)/gettext-tools/gnulib-lib/.libs/libgettextlib-0.16.1.so, \
-		/usr/lib/libgettextlib-0.16.1.so)
-
-	@$(call install_copy, gettext, 0, 0, 0644, \
-		$(GETTEXT_DIR)/gettext-runtime/libasprintf/.libs/libasprintf.so.0.0.0, \
-		/usr/lib/libasprintf.so.0.0.0)
-
-	@$(call install_copy, gettext, 0, 0, 0644, \
-		$(GETTEXT_DIR)/gettext-tools/libgettextpo/.libs/libgettextpo.so.0.3.0, \
-		/usr/lib/libgettextpo.so.0.3.0)
-
-	@$(call install_copy, gettext, 0, 0, 0644, \
-		$(GETTEXT_DIR)/gettext-tools/src/.libs/libgettextsrc-0.16.1.so, \
-		/usr/lib/libgettextsrc-0.16.1.so)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextlib-0.16.1.so)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libasprintf.so.0.0.0)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextpo.so.0.3.0)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextsrc-0.16.1.so)
 
 	@$(call install_finish, gettext)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
