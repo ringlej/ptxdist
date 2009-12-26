@@ -2,6 +2,7 @@
 menuconfig COREUTILS
 	tristate
 	prompt "gnu coreutils                 "
+	select HOST_GETTEXT	# as long as we need to autoreconf
 	help
 	  This package contains some of the The GNU Core Utilities
 
