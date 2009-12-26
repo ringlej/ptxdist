@@ -28,7 +28,7 @@ ptxd_dialog_fselect() {
 	exec 4>&1
 	while [ -d "${_select}" -o \! -e "${_select}" ]; do
 		# FIXME take care about real links
-		_select="$(readlink -e ${_select})"
+		_select="$(readlink -f ${_select})"
 		_select="${_select}/$(eval ${PTX_DIALOG} \
 			--clear \
 			--output-fd 3 \
@@ -324,7 +324,7 @@ ptxd_kconfig() {
 	if [ ${retval} -eq 0 -a "${copy_back}" = "true" ]; then
 		cp -- .config "${file_dotconfig}" || return
 		if [ -f .config.old ]; then
-			cp -- .config.old "$(readlink -e "${file_dotconfig}").old" || return
+			cp -- .config.old "$(readlink -f "${file_dotconfig}").old" || return
 		fi
 	fi
 

@@ -42,7 +42,7 @@ menu_select() {
 # le menu
 #
 menu() {
-	local ptxconfig="$(readlink -e "${PTXDIST_PTXCONFIG}")"
+	local ptxconfig="$(readlink -f "${PTXDIST_PTXCONFIG}")"
 	ptxconfig="${ptxconfig#${PTXDIST_WORKSPACE}/}"
 
 	local -a menu
@@ -67,7 +67,7 @@ menu() {
 
 	local platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
 	if [ -z "${platform}" -a -e "${PTXDIST_PLATFORMCONFIG}" ]; then
-		platform="$(readlink -e "${PTXDIST_PLATFORMCONFIG}")"
+		platform="$(readlink -f "${PTXDIST_PLATFORMCONFIG}")"
 		platform="${platform#${PTXDIST_WORKSPACE}/}"
 	fi
 
@@ -925,7 +925,7 @@ clean() {
 		"${PTXDIST_PLATFORMCONFIG}" \
 		"${PTXDIST_COLLECTIONCONFIG}" \
 		; do
-		local cfg="$(readlink -e "${cfg}")"
+		local cfg="$(readlink -f "${cfg}")"
 		if [ ${?} -ne 0 -a -e "${cfg}.old" ]; then
 			rm -f -- "${cfg}.old"
 		fi
@@ -1399,7 +1399,7 @@ do_select()
 	local type="${1}"
 	local file="${2}"
 	local dest_ptr="PTXDIST_$(echo "${type}" | tr 'a-z' 'A-Z')_DEFAULT"
-	local dest_file="$(readlink -e "${!dest_ptr}")"
+	local dest_file="$(readlink -f "${!dest_ptr}")"
 	local magic="PTXCONF__${type}_MAGIC__=y"
 
 	check_nonstandard "${type}" || return
