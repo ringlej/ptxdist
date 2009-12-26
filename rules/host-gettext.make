@@ -17,27 +17,20 @@ HOST_PACKAGES-$(PTXCONF_HOST_GETTEXT) += host-gettext
 #
 # Paths and names
 #
-HOST_GETTEXT_DIR	= $(HOST_BUILDDIR)/$(GETTEXT)
+HOST_GETTEXT_VERSION	:= 0.17
+HOST_GETTEXT		:= gettext-$(HOST_GETTEXT_VERSION)
+HOST_GETTEXT_SUFFIX	:= tar.gz
+HOST_GETTEXT_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/gettext/$(HOST_GETTEXT).$(HOST_GETTEXT_SUFFIX)
+HOST_GETTEXT_SOURCE	:= $(SRCDIR)/$(HOST_GETTEXT).$(HOST_GETTEXT_SUFFIX)
+HOST_GETTEXT_DIR	:= $(HOST_BUILDDIR)/$(HOST_GETTEXT)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/host-gettext.get: $(STATEDIR)/gettext.get
+$(HOST_GETTEXT_SOURCE):
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-
-$(STATEDIR)/host-gettext.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_GETTEXT_DIR))
-	@$(call extract, GETTEXT, $(HOST_BUILDDIR))
-	@$(call patchin, GETTEXT, $(HOST_GETTEXT_DIR))
-	@$(call touch)
+	@$(call get, HOST_GETTEXT)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -50,9 +43,13 @@ HOST_GETTEXT_ENV 	:= $(HOST_ENV)
 #
 HOST_GETTEXT_AUTOCONF := \
 	$(HOST_AUTOCONF) \
+	--disable-csharp \
 	--disable-java \
+	--disable-libasprintf \
 	--disable-native-java \
-	--disable-csharp
+	--disable-openmp \
+	--enable-relocatable \
+	--without-emacs
 
 # ----------------------------------------------------------------------------
 # Clean
