@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2008 by Robert Schwebel <r.schwebel@pengutronix.de>
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
