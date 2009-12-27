@@ -1,10 +1,21 @@
 ## SECTION=shell_and_console
+
 menuconfig COREUTILS
 	tristate
 	prompt "gnu coreutils                 "
 	select HOST_GETTEXT	# as long as we need to autoreconf
 	help
-	  This package contains some of the The GNU Core Utilities
+	  This package contains the essential basic system utilities.
+
+	  Specifically, this package includes:
+	  basename cat chgrp chmod chown chroot cksum comm cp csplit
+	  cut date dd df dir dircolors dirname du echo env expand expr
+	  factor false fmt fold groups head hostid id install join
+	  link ln logname ls md5sum mkdir mkfifo mknod mv nice nl
+	  nohup od paste pathchk pinky pr printenv printf ptx pwd
+	  readlink rm rmdir sha1sum seq shred sleep sort split stat
+	  stty sum sync tac tail tee test touch tr true tsort tty
+	  uname unexpand uniq unlink users vdir wc who whoami yes
 
 if COREUTILS
 
