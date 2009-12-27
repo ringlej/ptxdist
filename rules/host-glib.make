@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Luotao Fu <lfu@pengutronix.de>
 #
@@ -22,7 +21,6 @@ HOST_GLIB_DIR	= $(HOST_BUILDDIR)/$(GLIB)
 ifdef PTXCONF_HOST_GLIB
 $(STATEDIR)/autogen-tools: $(STATEDIR)/host-glib.install
 endif
-
 
 # ----------------------------------------------------------------------------
 # Get
