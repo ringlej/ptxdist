@@ -37,10 +37,8 @@ config KEXEC_TOOLS_KEXEC
 
 config KEXEC_TOOLS_KDUMP
 	bool
-	depends on BROKEN
 	prompt "Install kdump"
 	help
 	  FIXME
 
 endif
-
