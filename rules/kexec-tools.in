@@ -1,4 +1,5 @@
 ## SECTION=shell_and_console
+
 menuconfig KEXEC_TOOLS
 	tristate
 	select ZLIB if KEXEC_TOOLS_ZLIB

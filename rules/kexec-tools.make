@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by Erwin Rol
+#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -74,16 +74,16 @@ $(STATEDIR)/kexec-tools.targetinstall:
 	@$(call install_fixup, kexec-tools,PRIORITY,optional)
 	@$(call install_fixup, kexec-tools,VERSION,$(KEXEC_TOOLS_VERSION))
 	@$(call install_fixup, kexec-tools,SECTION,base)
-	@$(call install_fixup, kexec-tools,AUTHOR,"Erwin Rol <erwin\@erwinrol.com>")
+	@$(call install_fixup, kexec-tools,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
 	@$(call install_fixup, kexec-tools,DEPENDS,)
 	@$(call install_fixup, kexec-tools,DESCRIPTION,missing)
 
 ifdef PTXCONF_KEXEC_TOOLS_KEXEC
-	@$(call install_copy, kexec-tools, 0, 0, 0755, $(KEXEC_TOOLS_DIR)/build/sbin/kexec, /sbin/kexec)
+	@$(call install_copy, kexec-tools, 0, 0, 0755, -, /sbin/kexec)
 endif
 
 ifdef PTXCONF_KEXEC_TOOLS_KDUMP
-	@$(call install_copy, kexec-tools, 0, 0, 0755, $(KEXEC_TOOLS_DIR)/build/sbin/kdump, /sbin/kdump)
+	@$(call install_copy, kexec-tools, 0, 0, 0755, -, /sbin/kdump)
 endif
 
 	@$(call install_finish, kexec-tools)
