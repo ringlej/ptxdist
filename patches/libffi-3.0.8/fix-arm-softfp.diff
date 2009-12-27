@@ -3,57 +3,68 @@ Subject: unsupported asm instructions in libffi/src/arm/sysv.S
 
 See: "http://gcc.gnu.org/bugzilla/show_bug.cgi?id=40242"
 
+Cherry-picked from: http://gcc.gnu.org/viewcvs?view=revision&revision=152079
+
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>:
 
 ---
- src/arm/sysv.S |   18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+ src/arm/sysv.S |   23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
 Index: libffi-3.0.8/src/arm/sysv.S
 ===================================================================
 --- libffi-3.0.8.orig/src/arm/sysv.S
 +++ libffi-3.0.8/src/arm/sysv.S
-@@ -34,6 +34,10 @@
- #define CONCAT1(a, b) CONCAT2(a, b)
- #define CONCAT2(a, b) a ## b
+@@ -67,11 +67,18 @@
  
-+#if defined(__SOFTFP__) || defined(__VFP_FP__)
-+#define __PASS_INT__
+ #if defined(__ARM_ARCH_6__) || defined(__ARM_ARCH_6J__) \
+         || defined(__ARM_ARCH_6K__) || defined(__ARM_ARCH_6Z__) \
+-        || defined(__ARM_ARCH_6ZK__)
++        || defined(__ARM_ARCH_6ZK__) || defined(__ARM_ARCH_6T2__) \
++	|| defined(__ARM_ARCH_6M__)
+ # undef __ARM_ARCH__
+ # define __ARM_ARCH__ 6
+ #endif
+ 
++#if defined(__ARM_ARCH_7__) || defined(__ARM_ARCH_7A__) \
++        || defined(__ARM_ARCH_7R__) || defined(__ARM_ARCH_7M__)
++# undef __ARM_ARCH__
++# define __ARM_ARCH__ 7
 +#endif
 +
- /* Use the right prefix for global labels.  */
- #define CNAME(x) CONCAT1 (__USER_LABEL_PREFIX__, x)
- #else
-@@ -189,7 +193,7 @@ ARM_FUNC_START ffi_call_SYSV
+ #if __ARM_ARCH__ >= 5
+ # define call_reg(x)	blx	x
+ #elif defined (__ARM_ARCH_4T__)
+@@ -189,7 +196,7 @@ ARM_FUNC_START ffi_call_SYSV
  
  @ return INT
  	cmp	r3, #FFI_TYPE_INT
 -#ifdef __SOFTFP__
-+#ifdef __PASS_INT__
++#if defined(__SOFTFP__) || defined(__ARM_EABI__)
  	cmpne	r3, #FFI_TYPE_FLOAT
  #endif
  	streq	r0, [r2]
-@@ -197,12 +201,12 @@ ARM_FUNC_START ffi_call_SYSV
+@@ -197,12 +204,12 @@ ARM_FUNC_START ffi_call_SYSV
  
  	@ return INT64
  	cmp	r3, #FFI_TYPE_SINT64
 -#ifdef __SOFTFP__
-+#ifdef __PASS_INT__
++#if defined(__SOFTFP__) || defined(__ARM_EABI__)
  	cmpne	r3, #FFI_TYPE_DOUBLE
  #endif
  	stmeqia	r2, {r0, r1}
  
 -#ifndef __SOFTFP__
-+#ifndef __PASS_INT__
++#if !defined(__SOFTFP__) && !defined(__ARM_EABI__)
  	beq	LSYM(Lepilogue)
  
  @ return FLOAT
-@@ -245,21 +249,21 @@ ARM_FUNC_START ffi_closure_SYSV
+@@ -245,21 +252,21 @@ ARM_FUNC_START ffi_closure_SYSV
  	beq	.Lretint
  
  	cmp	r0, #FFI_TYPE_FLOAT
 -#ifdef __SOFTFP__
-+#ifdef __PASS_INT__
++#if defined(__SOFTFP__) || defined(__ARM_EABI__)
  	beq	.Lretint
  #else
  	beq	.Lretfloat
@@ -61,7 +72,7 @@ Index: libffi-3.0.8/src/arm/sysv.S
  
  	cmp	r0, #FFI_TYPE_DOUBLE
 -#ifdef __SOFTFP__
-+#ifdef __PASS_INT__
++#if defined(__SOFTFP__) || defined(__ARM_EABI__)
  	beq	.Lretlonglong
  #else
  	beq	.Lretdouble
@@ -69,16 +80,16 @@ Index: libffi-3.0.8/src/arm/sysv.S
  
  	cmp	r0, #FFI_TYPE_LONGDOUBLE
 -#ifdef __SOFTFP__
-+#ifdef __PASS_INT__
++#if defined(__SOFTFP__) || defined(__ARM_EABI__)
  	beq	.Lretlonglong
  #else
  	beq	.Lretlongdouble
-@@ -278,7 +282,7 @@ ARM_FUNC_START ffi_closure_SYSV
+@@ -278,7 +285,7 @@ ARM_FUNC_START ffi_closure_SYSV
  	ldr	r1, [sp, #4]
  	b	.Lclosure_epilogue
  
 -#ifndef __SOFTFP__
-+#ifndef __PASS_INT__
++#if !defined(__SOFTFP__) && !defined(__ARM_EABI__)
  .Lretfloat:
  	ldfs	f0, [sp]
  	b	.Lclosure_epilogue
