@@ -8,6 +8,8 @@ LDLIBS instead of LDFLAGS fixes this issue.
 Signed-off-by: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
 
 ---
+# wsa: 20091227: Equivalent fix? http://git.kernel.org/?p=linux/kernel/git/horms/kexec-tools.git;a=commit;h=6abf3ba5dc63ef670010927d5572d38c3ce2a587
+
  kexec/Makefile |    4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 

@@ -5,6 +5,9 @@ Subject: Makefile is trying to compile host tool with cross compiler
 Singed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
+# wsa: 20091227: OE uses BUILD_CC here, buildroot doesn't have such a patch (why?)
+#		 How to solve for upstream?
+
  lib/libcap/Makefile |    6 +++++-
  1 file changed, 5 insertions(+), 1 deletion(-)
 

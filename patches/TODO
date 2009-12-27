@@ -8,12 +8,17 @@ Submitted, Pending
 [ ] coreutils-8.2
 [x] curl-7.19.7
 [x] genpart-1.0.1
+[x] libffi-3.0.8
 [-] libnl-1.1
 [ ] pcmciautils-015
+[-] pekwm-0.1.4
 [x] poppler-0.10.4
 [ ] powertop-1.11
 [ ] rt-tests-0.50
 [-] tcpdump-4.0.0
+[ ] tiobench-0.3.3
+[ ] wireless_tools.30.pre9
+[x] wireshark-0.99.3a
 [x] xf86-video-apm-1.2.2
 [x] xf86-video-ati-6.12.4
 [x] xf86-video-dummy-0.3.2
@@ -38,6 +43,8 @@ Postponed
     # need newer version first
 [ ] netcat-0.7.1
     # upstream is dead since 2004 :(
+[ ] xli-1.17.0
+    # upstream is dead since... don't ask. BSD might have a newer version. Well...
 
 Not for Upstream
 ----------------
@@ -76,6 +83,13 @@ Not Ready, needs work
     # check new version first
 [ ] gtk+-2.18.3
     # check new version first
+[ ] kexec-tools-2.0.0
+    # link-order might have been fixed in 2.0.1 already:
+	http://git.kernel.org/?p=linux/kernel/git/horms/kexec-tools.git;a=commit;h=6abf3ba5dc63ef670010927d5572d38c3ce2a587
+    # remove_asm is missing description and sob from mkl
+[ ] netkit-ftp-0.17
+    # no upstream, import debian patches?
+[ ] proftpd-1.3.2
 
 Obsolete (not needed anymore as PTXdist improved)
 -------------------------------------------------
@@ -132,13 +146,11 @@ TODO
 [ ] ipkg-utils-050831
 [ ] iproute2-2.6.29-1
 [ ] jed-0.99-18
-[ ] kexec-tools-2.0.0
 [ ] klibc-1.5.15
 [ ] klibc-module-init-tools-3.11
 [ ] klibc-udev-140
 [ ] libcgi-1.0
 [ ] libdbus-c++-r9139
-[ ] libffi-3.0.8
 [ ] libiconv-1.13.1
 [ ] liblbxutil-1.0.1
 [ ] liblockfile-1.08
@@ -168,7 +180,6 @@ TODO
 [ ] mtd-utils-20090701-1
 [ ] mysql-5.1.14-beta
 [ ] ncurses-5.6
-[ ] netkit-ftp-0.17
 [ ] netpbm-10.31
 [ ] nfs-utils-1.1.6
 [ ] nickel-1.1.0
@@ -176,12 +187,10 @@ TODO
 [ ] openssl-0.9.8l
 [ ] owfs-2.7p26
 [ ] pcre-7.8
-[ ] pekwm-0.1.4
 [ ] portmap_5beta
 [ ] ppp-2.4.4
 [ ] prelink-0.0.20071009
 [ ] procps-3.2.8
-[ ] proftpd-1.3.2
 [ ] pure-ftpd-1.0.21
 [ ] qt-embedded-linux-opensource-src-4.5.3
 [ ] qwt-5.2.0
@@ -198,14 +207,10 @@ TODO
 [ ] tcl8.5.7
 [ ] tcp_wrappers_7.6
 [ ] termcap-1.3.1
-[ ] tiobench-0.3.3
 [ ] tslib-1.0
 [ ] usplash_0.5.21
-[ ] wireless_tools.30.pre9
-[ ] wireshark-0.99.3a
 [ ] xawtv-3.95
 [ ] xerces-c-src_2_7_0
 [ ] xf86-video-fbdev-0.4.1
-[ ] xli-1.17.0
 [ ] xmlstarlet-1.0.1
 [ ] zip30
