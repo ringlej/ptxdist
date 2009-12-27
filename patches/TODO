@@ -5,9 +5,10 @@ Submitted, Pending
 [ ] atop-1.23
 [ ] attr-2.4.44
 [x] cbmbasic
-[ ] coreutils-8.2
+[x] coreutils-8.2
 [x] curl-7.19.7
 [x] genpart-1.0.1
+[x] gnuplot-4.2.4
 [x] libffi-3.0.8
 [-] libnl-1.1
 [ ] pcmciautils-015
@@ -125,8 +126,6 @@ Ready for Upstream
 [ ] commoncpp2-1.7.3
 [ ] confuse-2.6
 [ ] e2fsprogs-1.41.9
-[ ] gnuplot-4.2.4
-    # looks like an easy target
 [ ] gpsd-2.39
     # looks like an easy target, one patch not ready but anyway
 
