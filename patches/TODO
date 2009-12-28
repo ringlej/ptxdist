@@ -12,6 +12,7 @@ Submitted, Pending
 [x] genpart-1.0.1
 [x] gnuplot-4.2.4
 [ ] hexedit-1.2.12
+[ ] inotify-tools-3.13
 [x] libffi-3.0.8
 [-] libnl-1.1
 [ ] pcmciautils-015
@@ -140,10 +141,12 @@ TODO
 
 [ ] hpanel-0.3.2
 [ ] hping3-20051105
+    # upstream seams dead
 [ ] httpd-2.0.58
 [ ] ifplugd-0.28
+    # upstream seams dead
 [ ] inadyn-1.96.2
-[ ] inotify-tools-3.13
+    # upstream homepage has disappeared
 [ ] iozone3_321
 [ ] iperf-2.0.4
 [ ] ipkg-0.99.163
