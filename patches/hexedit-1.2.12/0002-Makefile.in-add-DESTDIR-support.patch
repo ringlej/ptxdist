@@ -9,6 +9,8 @@ makefiles.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
+# 20091228 rsc: mailed to pixel@rigaux.org
+
  Makefile.in |    8 ++++----
  1 files changed, 4 insertions(+), 4 deletions(-)
 
