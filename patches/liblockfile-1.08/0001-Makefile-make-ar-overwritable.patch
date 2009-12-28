@@ -1,25 +1,21 @@
 From a1c4d6082291b660ce4fda90f65d791e2fc84081 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Wed, 15 Jul 2009 21:57:59 +0200
-Subject: [PATCH] [Makefile] make ar overwritable
+Subject: [PATCH] [Makefile] make ar overwritable (for cross-builds)
+
+[wsa: Simplified a bit]
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+
 ---
- Makefile.in |    3 ++-
- 1 files changed, 2 insertions(+), 1 deletions(-)
+ Makefile.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/Makefile.in b/Makefile.in
 index 7ae5406..84fc5b7 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -10,6 +10,7 @@ NVER	= 0.1
- CFLAGS		= @CFLAGS@ -I.
- LDFLAGS		= @LDFLAGS@
- CC		= @CC@
-+AR		= ar
- 
- prefix		= @prefix@
- exec_prefix	= @exec_prefix@
 @@ -29,7 +30,7 @@ shared:		liblockfile.so dotlockfile
  nfslib:		nfslock.so.$(VER)
  
