@@ -19,10 +19,10 @@ PACKAGES-$(PTXCONF_HPANEL) += hpanel
 #
 HPANEL_VERSION	:= 0.3.2
 HPANEL		:= hpanel-$(HPANEL_VERSION)
-HPANEL_SUFFIX		:= tar.gz
-HPANEL_URL		:= http://www.phrat.de/$(HPANEL).$(HPANEL_SUFFIX)
-HPANEL_SOURCE		:= $(SRCDIR)/$(HPANEL).$(HPANEL_SUFFIX)
-HPANEL_DIR		:= $(BUILDDIR)/$(HPANEL)
+HPANEL_SUFFIX	:= tar.gz
+HPANEL_URL	:= http://www.phrat.de/$(HPANEL).$(HPANEL_SUFFIX)
+HPANEL_SOURCE	:= $(SRCDIR)/$(HPANEL).$(HPANEL_SUFFIX)
+HPANEL_DIR	:= $(BUILDDIR)/$(HPANEL)
 
 # ----------------------------------------------------------------------------
 # Get
