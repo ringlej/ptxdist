@@ -3,6 +3,10 @@ From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Mon, 27 Jul 2009 22:15:31 +0200
 Subject: [PATCH 2/3] [Makefile.in] add DESTDIR support
 
+Distributions usually use DESTDIR to specify that 'make install' shall
+install into a temporary directory. Add DESTDIR support to the
+makefiles.
+
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  Makefile.in |    8 ++++----
