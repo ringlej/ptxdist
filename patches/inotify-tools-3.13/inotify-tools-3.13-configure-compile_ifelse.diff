@@ -7,6 +7,8 @@ possible. This patch uses the AC_COMPILE_IFELSE instead.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
+# 20091228 rsc: mailed to radu.voicilas@gmail.com
+
  configure.ac |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 

@@ -6,6 +6,8 @@ configure.ac:8: warning: The macro `AM_CONFIG_HEADER' is obsolete.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+# 20091228 rsc: mailed to radu.voicilas@gmail.com
+
  configure.ac |    4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 

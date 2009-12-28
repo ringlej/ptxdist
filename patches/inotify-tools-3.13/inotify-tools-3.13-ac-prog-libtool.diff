@@ -6,6 +6,8 @@ aclocal.m4:123: AC_PROG_LIBTOOL is expanded from...
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+# 20091228 rsc: mailed to radu.voicilas@gmail.com
+
  configure.ac |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 

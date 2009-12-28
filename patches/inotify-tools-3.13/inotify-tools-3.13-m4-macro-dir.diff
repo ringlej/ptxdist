@@ -9,6 +9,8 @@ libtoolize: Consider adding `-I m4' to ACLOCAL_AMFLAGS in Makefile.am.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+# 20091228 rsc: mailed to radu.voicilas@gmail.com
+
  Makefile.am  |    1 +
  configure.ac |    1 +
  2 files changed, 2 insertions(+)
