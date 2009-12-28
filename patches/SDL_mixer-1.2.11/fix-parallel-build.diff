@@ -1,0 +1,47 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: fix parallel build
+
+We have to create the objects dir before saving gcc's output into it.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Robert Schwebel <rsc@pengutronix.de>
+---
+V2:
+  rsc: ported to 1.2.11
+
+V1:
+  mkl: patch for 1.2.8
+
+ Makefile.in |    8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+Index: SDL_mixer-1.2.11/Makefile.in
+===================================================================
+--- SDL_mixer-1.2.11.orig/Makefile.in
++++ SDL_mixer-1.2.11/Makefile.in
+@@ -71,13 +71,13 @@ $(objects):
+ -include $(PLAYMUS_OBJECTS:.lo=.d)
+ @PLAYMUS_DEPENDS@
+ 
+-$(objects)/$(TARGET): $(OBJECTS) $(VERSION_OBJECTS)
++$(objects)/$(TARGET): $(OBJECTS) $(VERSION_OBJECTS) $(objects)
+ 	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJECTS) $(VERSION_OBJECTS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS)
+ 
+-$(objects)/playwave$(EXE): $(objects)/playwave.lo $(objects)/$(TARGET)
++$(objects)/playwave$(EXE): $(objects)/playwave.lo $(objects)/$(TARGET) $(objects)
+ 	$(LIBTOOL) --mode=link $(CC) -o $@ $(objects)/playwave.lo $(SDL_CFLAGS) $(SDL_LIBS) $(objects)/$(TARGET)
+ 
+-$(objects)/playmus$(EXE): $(objects)/playmus.lo $(objects)/$(TARGET)
++$(objects)/playmus$(EXE): $(objects)/playmus.lo $(objects)/$(TARGET) $(objects)
+ 	$(LIBTOOL) --mode=link $(CC) -o $@ $(objects)/playmus.lo $(SDL_CFLAGS) $(SDL_LIBS) $(objects)/$(TARGET)
+ 
+ install: all install-hdrs install-lib #install-bin
+@@ -92,7 +92,7 @@ install-hdrs:
+ install-lib: $(objects) $(objects)/$(TARGET)
+ 	$(SHELL) $(auxdir)/mkinstalldirs $(libdir)
+ 	$(LIBTOOL) --mode=install $(INSTALL) $(objects)/$(TARGET) $(libdir)/$(TARGET)
+-install-bin:
++install-bin: $(objects)
+ 	$(SHELL) $(auxdir)/mkinstalldirs $(bindir)
+ 	$(LIBTOOL) --mode=install $(INSTALL) -m 755 $(objects)/playwave$(EXE) $(bindir)/playwave$(EXE)
+ 	$(LIBTOOL) --mode=install $(INSTALL) -m 755 $(objects)/playmus$(EXE) $(bindir)/playmus$(EXE)

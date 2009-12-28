@@ -17,12 +17,13 @@ PACKAGES-$(PTXCONF_SDL_MIXER) += sdl_mixer
 #
 # Paths and names
 #
-SDL_MIXER_VERSION	:= 1.2.8
+SDL_MIXER_VERSION	:= 1.2.11
 SDL_MIXER		:= SDL_mixer-$(SDL_MIXER_VERSION)
 SDL_MIXER_SUFFIX	:= tar.gz
 SDL_MIXER_URL		:= http://www.libsdl.org/projects/SDL_mixer/release/$(SDL_MIXER).$(SDL_MIXER_SUFFIX)
 SDL_MIXER_SOURCE	:= $(SRCDIR)/$(SDL_MIXER).$(SDL_MIXER_SUFFIX)
 SDL_MIXER_DIR		:= $(BUILDDIR)/$(SDL_MIXER)
+SDL_MIXER_LICENSE	:= LGPLv2.1
 
 # ----------------------------------------------------------------------------
 # Get
@@ -54,7 +55,7 @@ SDL_MIXER_AUTOCONF := \
 $(STATEDIR)/sdl_mixer.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, sdl_mixer)
+	@$(call install_init,  sdl_mixer)
 	@$(call install_fixup, sdl_mixer,PACKAGE,sdl-mixer)
 	@$(call install_fixup, sdl_mixer,PRIORITY,optional)
 	@$(call install_fixup, sdl_mixer,VERSION,$(SDL_MIXER_VERSION))
@@ -64,9 +65,9 @@ $(STATEDIR)/sdl_mixer.targetinstall:
 	@$(call install_fixup, sdl_mixer,DESCRIPTION,missing)
 
 	@$(call install_copy, sdl_mixer, 0, 0, 0644, -, \
-		/usr/lib/libSDL_mixer-1.2.so.0.2.6)
+		/usr/lib/libSDL_mixer-1.2.so.0.10.1)
 
-	@$(call install_link, sdl_mixer, libSDL_mixer-1.2.so.0.2.6, /usr/lib/libSDL_mixer-1.2.so.0)
+	@$(call install_link, sdl_mixer, libSDL_mixer-1.2.so.0.10.1, /usr/lib/libSDL_mixer-1.2.so.0)
 	@$(call install_link, sdl_mixer, libSDL_mixer-1.2.so.0, /usr/lib/libSDL_mixer.so)
 
 	@$(call install_finish, sdl_mixer)
