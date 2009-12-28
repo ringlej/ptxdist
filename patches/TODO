@@ -11,6 +11,7 @@ Submitted, Pending
 [x] curl-7.19.7
 [x] genpart-1.0.1
 [x] gnuplot-4.2.4
+[ ] hexedit-1.2.12
 [x] libffi-3.0.8
 [-] libnl-1.1
 [ ] pcmciautils-015
@@ -114,6 +115,8 @@ Not Ready, needs work
     # complicated: later policy kit versions require eggdbus, which
     # needs gobject-introspection, which needs host support + python...
 [ ] proftpd-1.3.2
+[x] SDL-1.2.13
+    # mkl should investigate the first patch
 
 
 Obsolete (not needed anymore as PTXdist improved)
@@ -124,8 +127,7 @@ Obsolete (not needed anymore as PTXdist improved)
 Ready for Upstream
 ------------------
 
-[ ] SDL-1.2.13
-[ ] SDL_mixer-1.2.8
+[ ] SDL_mixer-1.2.11
 [ ] arora-0.10.1
 [ ] at-3.1.12
 [ ] busybox-1.15.2
@@ -136,7 +138,6 @@ Ready for Upstream
 TODO
 ----
 
-[ ] hexedit-1.2.12
 [ ] hpanel-0.3.2
 [ ] hping3-20051105
 [ ] httpd-2.0.58
