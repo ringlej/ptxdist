@@ -60,6 +60,7 @@ Not for Upstream
 ----------------
 
 [ ] Frodo-4.1b
+[ ] iozone3_321
 
 Not Ready, needs work
 ---------------------
@@ -145,7 +146,6 @@ TODO
     # upstream seems dead
 [ ] inadyn-1.96.2
     # upstream homepage has disappeared
-[ ] iozone3_321
 [ ] iperf-2.0.4
 [ ] ipkg-0.99.163
 [ ] ipkg-utils-050831
