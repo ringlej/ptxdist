@@ -11,28 +11,26 @@ Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
  Makefile.am             |    3 +
  autogen.sh              |   22 +++++++++
- configure.ac            |  111 +++++++++++++++++++++++++++++++++++++++++++++++
+ configure.ac            |  111 ++++++++++++++++++++++++++++++++++++++++++++++++
  src/current/Makefile.am |   28 ++++++++++++
- 4 files changed, 164 insertions(+), 0 deletions(-)
+ 4 files changed, 164 insertions(+)
  create mode 100644 Makefile.am
  create mode 100755 autogen.sh
  create mode 100644 configure.ac
  create mode 100644 src/current/Makefile.am
 
-diff --git a/Makefile.am b/Makefile.am
-new file mode 100644
-index 0000000..8f3fad5
+Index: iozone3_327/Makefile.am
+===================================================================
 --- /dev/null
-+++ b/Makefile.am
++++ iozone3_327/Makefile.am
 @@ -0,0 +1,3 @@
 +SUBDIRS = \
 +	src/current
 +
-diff --git a/autogen.sh b/autogen.sh
-new file mode 100755
-index 0000000..29db9c9
+Index: iozone3_327/autogen.sh
+===================================================================
 --- /dev/null
-+++ b/autogen.sh
++++ iozone3_327/autogen.sh
 @@ -0,0 +1,22 @@
 +#!/bin/bash
 +
@@ -56,11 +54,10 @@ index 0000000..29db9c9
 +autoreconf --force --install --symlink -Wall || exit $?
 +
 +banner "Finished"
-diff --git a/configure.ac b/configure.ac
-new file mode 100644
-index 0000000..2b427d5
+Index: iozone3_327/configure.ac
+===================================================================
 --- /dev/null
-+++ b/configure.ac
++++ iozone3_327/configure.ac
 @@ -0,0 +1,111 @@
 +AC_PREREQ(2.59)
 +
@@ -173,11 +170,10 @@ index 0000000..2b427d5
 +])
 +AC_OUTPUT
 +
-diff --git a/src/current/Makefile.am b/src/current/Makefile.am
-new file mode 100644
-index 0000000..a41bc6a
+Index: iozone3_327/src/current/Makefile.am
+===================================================================
 --- /dev/null
-+++ b/src/current/Makefile.am
++++ iozone3_327/src/current/Makefile.am
 @@ -0,0 +1,28 @@
 +bin_PROGRAMS = \
 +	fileop \
@@ -207,6 +203,3 @@ index 0000000..a41bc6a
 +iozone_LDADD = \
 +	-lpthread \
 +	-lrt
--- 
-1.6.2.1
-

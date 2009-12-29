@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_IOZONE) += iozone
 #
 # Paths and names
 #
-IOZONE_VERSION	:= 321
+IOZONE_VERSION	:= 327
 IOZONE		:= iozone3_$(IOZONE_VERSION)
 IOZONE_SUFFIX	:= tar
 IOZONE_URL	:= http://www.iozone.org/src/current/$(IOZONE).$(IOZONE_SUFFIX)
