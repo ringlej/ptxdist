@@ -12,6 +12,8 @@ The message is correct, but does not help...
 Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
 
 ---
+# wsa: 20091230: fixed upstream: http://netpbm.svn.sourceforge.net/viewvc/netpbm?view=rev&revision=118
+
  buildtools/libopt.c |    4 ----
  1 file changed, 4 deletions(-)
 

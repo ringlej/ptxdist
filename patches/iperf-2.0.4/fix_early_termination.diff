@@ -15,7 +15,12 @@ What happens: At the end of the test, the iperf process on machine foo exits.
 What *should* happen: At the end of the test, the iperf process on machine
 should keep running, listening for new connections.
 
+===
+
 Patch form L. Gabriel Somlo on the iperf maillist 2009-01-21
+More precisely: http://sourceforge.net/tracker/index.php?func=detail&aid=1983829&group_id=128336&atid=711371
+
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
 
 ---
  src/Client.cpp |    8 ++++----

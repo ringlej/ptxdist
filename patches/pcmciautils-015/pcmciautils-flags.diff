@@ -4,6 +4,7 @@ Subject: don't overwrite CFLAGS, use CPP flags during compilation
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
 # wsa: 20091224: Sent upstream: http://lists.infradead.org/pipermail/linux-pcmcia/2009-December/006676.html
+# wsa: 20091230: applied upstream \o/ : http://git.kernel.org/?p=linux/pcmcia/pcmciautils.git;a=commitdiff;h=d399c1fac7f640453c7dbd83ae459164686099de
 
  Makefile |    4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)

@@ -5,6 +5,7 @@ Submitted, Pending
 [ ] atop-1.23
 [ ] attr-2.4.44
 [x] cbmbasic
+# bug in source-release of 1.0, wait for fixed release
 [x] coreutils-8.2
 [ ] commoncpp2-1.7.3
 [x] chrony-1.23
@@ -15,13 +16,18 @@ Submitted, Pending
 [x] gnuplot-4.2.4
 [ ] hexedit-1.2.12
 [ ] inotify-tools-3.13
+[ ] iperf-2.0.4
 [x] libffi-3.0.8
 [-] libnet-1.1.4
+[ ] liblockfile-1.08
 [-] libnl-1.1
-[ ] pcmciautils-015
+[-] netpbm-10.31
+[x] nfs-utils-1.1.6
+[x] pcmciautils-015
 [-] pekwm-0.1.4
 [x] poppler-0.10.4
 [x] powertop-1.11
+[ ] readline-5.2
 [x] rt-tests-0.50
 [-] tcpdump-4.0.0
 [ ] tiobench-0.3.3
@@ -63,6 +69,7 @@ Not for Upstream
 [ ] Frodo-4.1b
 [ ] iozone3_321
 [ ] jed-0.99-18
+[ ] pcre-7.8
 
 Not Ready, needs work
 ---------------------
@@ -108,14 +115,27 @@ Not Ready, needs work
     # check new version first
 [ ] gtk+-2.18.3
     # check new version first
+[ ] liboil-0.3.16
+    # upstream is alive; ask mol if patch is interesting, rewrite patch header
+[ ] mkelfImage-2.7
+    # one patch is missing the description
 [ ] netkit-ftp-0.17
     # no upstream, import debian patches?
+[ ] nickel-1.1.0
+    # patch is missing the description
 [ ] PolicyKit-0.9
     # complicated: later policy kit versions require eggdbus, which
     # needs gobject-introspection, which needs host support + python...
 [ ] proftpd-1.3.2
 [x] SDL-1.2.13
     # mkl should investigate the first patch
+[ ] setmixer_27DEC94ds1.orig
+    # throw packet away? we have ALSA these days...
+[ ] slang-2.1.2
+    # upstream is alive and has not fixed the issue. Our patch is a hack, however...
+[ ] ssmtp-2.64
+    # one patch is missing the description
+    # upstream is here: http://packages.qa.debian.org/s/ssmtp.html
 
 
 Obsolete (not needed anymore as PTXdist improved)
@@ -135,10 +155,11 @@ Ready for Upstream
     # looks like an easy target, one patch not ready but anyway
 [ ] iproute2-2.6.29-1
     # one easy patch left (remove duplicate limits.h)
-[ ] liblockfile-1.08
 [ ] libcgi-1.0
     # patches are cleaned up, mailed rafael@insanecorp.com in order to
     # find out if he is interested in patches (upstream seems to be dead)
+[ ] libiconv-1.13.1
+    # let mkl post it
 
 TODO
 ----
@@ -151,19 +172,17 @@ TODO
     # upstream seems dead
 [ ] inadyn-1.96.2
     # upstream homepage has disappeared
-[ ] iperf-2.0.4
 [ ] ipkg-0.99.163
 [ ] ipkg-utils-050831
 [ ] klibc-1.5.15
 [ ] klibc-module-init-tools-3.11
 [ ] klibc-udev-140
 [ ] libdbus-c++-r9139
-[ ] libiconv-1.13.1
 [ ] liblbxutil-1.0.1
 [ ] libmad-0.15.1b
     # 20091229 rsc: asked if support@underbit.com is interested in patches
 [ ] libmng-1.0.10
-[ ] liboil-0.3.16
+# upstream is silent for years
 [ ] libpcap-1.0.0
 [ ] libpng-1.2.41
 [ ] libtheora-1.0
@@ -180,19 +199,14 @@ TODO
 [ ] madplay-0.15.2b
 [ ] memtest-0.0.4
 [ ] mii-diag-2.11.orig
-[ ] mkelfImage-2.7
 [ ] mknbi-1.4.4
 [ ] mod_python-3.3.1
 [ ] mtd-utils-20090701-1
 [ ] mysql-5.1.14-beta
 [ ] ncurses-5.6
-[ ] netpbm-10.31
-[ ] nfs-utils-1.1.6
-[ ] nickel-1.1.0
 [ ] ntpclient_2007
 [ ] openssl-0.9.8l
 [ ] owfs-2.7p26
-[ ] pcre-7.8
 [ ] portmap_5beta
 [ ] ppp-2.4.4
 [ ] prelink-0.0.20071009
@@ -200,15 +214,11 @@ TODO
 [ ] pure-ftpd-1.0.21
 [ ] qt-embedded-linux-opensource-src-4.5.3
 [ ] qwt-5.2.0
-[ ] readline-5.2
 [ ] rxtx-2.1-7r2
 [ ] sablevm-1.13
 [ ] samba-3.0.37
 [ ] screen-4.0.2
-[ ] setmixer_27DEC94ds1.orig
-[ ] slang-2.1.2
 [ ] splashutils-1.5.4.3
-[ ] ssmtp-2.64
 [ ] supertux-0.1.3
 [ ] tcl8.5.7
 [ ] tcp_wrappers_7.6
