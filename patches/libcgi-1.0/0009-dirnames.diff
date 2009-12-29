@@ -1,25 +1,31 @@
+Subject: [patch] use standard directory names
+
+In usual makefiles, directory names are written in lower case.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  Makefile.in |   36 ++++++++++++++++++------------------
  1 file changed, 18 insertions(+), 18 deletions(-)
 
-Index: Makefile.in
+Index: libcgi-1.0/Makefile.in
 ===================================================================
---- Makefile.in.orig
-+++ Makefile.in
+--- libcgi-1.0.orig/Makefile.in
++++ libcgi-1.0/Makefile.in
 @@ -6,9 +6,9 @@ prefix = @prefix@
  exec_prefix = @exec_prefix@
  
- SHAREDOPT = -shared -fPIC,-Wl,-soname,libcgi.so.0
+ SHAREDOPT = -shared -shared -fPIC,-Wl,-soname,libcgi.so.0
 -LIBDIR = $(prefix)/lib
--INCDIR = $(prefix)/include/libcgi/
+-INCDIR = $(prefix)/include/libcgi
 -MANDIR	= $(prefix)/man/man3
 +libdir = $(prefix)/lib
-+incdir = $(prefix)/include/libcgi/
++incdir = $(prefix)/include/libcgi
 +mandir	= $(prefix)/man/man3
  SHELL = /bin/sh
  EXTRA_LIBS = 
  
-@@ -48,7 +48,7 @@ all: src/libcgi.so src/libcgi.a
+@@ -49,7 +49,7 @@ all: src/libcgi.so src/libcgi.a
  
  
  shared: src/libcgi.so
@@ -28,7 +34,7 @@ Index: Makefile.in
  
  src/libcgi.a: $(OBJS)
  	$(AR) rc src/libcgi.a $(OBJS)
-@@ -57,10 +57,10 @@ src/libcgi.so: $(SHOBJS)
+@@ -58,10 +58,10 @@ src/libcgi.so: $(SHOBJS)
  	$(CC) $(SHAREDOPT) -o src/libcgi.so $(SHOBJS) $(EXTRA_LIBS)
  
  install:
@@ -41,8 +47,8 @@ Index: Makefile.in
 +	$(INSTALL) -m 0644 src/cgi.h $(DESTDIR)/$(incdir)/cgi.h
 +	$(INSTALL) -m 0644 src/session.h $(DESTDIR)/$(incdir)/session.h
  
- 
  src/error.o: src/error.c src/error.h
+ src/cgi.o: src/cgi.c src/cgi.h
 @@ -79,16 +79,16 @@ clean:
  	find src/ -name *.so -exec rm -f {} \;
  
@@ -56,17 +62,17 @@ Index: Makefile.in
 +	rm -f $(incdir)/session.h
 +	rm -f $(mandir)/libcgi*
  
- #install_man:
--#	cp doc/man/man3/libcgi_base64.3 $(MANDIR)
--#	cp doc/man/man3/libcgi_cgi.3 $(MANDIR)
--#	cp doc/man/man3/libcgi_general.3 $(MANDIR)
--#	cp doc/man/man3/libcgi_string.3 $(MANDIR)
--#	cp doc/man/man3/libcgi_session.3 $(MANDIR)
--#	cp doc/man/man3/libcgi_cookie.3 $(MANDIR)
-+#	cp doc/man/man3/libcgi_base64.3 $(mandir)
-+#	cp doc/man/man3/libcgi_cgi.3 $(mandir)
-+#	cp doc/man/man3/libcgi_general.3 $(mandir)
-+#	cp doc/man/man3/libcgi_string.3 $(mandir)
-+#	cp doc/man/man3/libcgi_session.3 $(mandir)
-+#	cp doc/man/man3/libcgi_cookie.3 $(mandir)
+ install_man:
+-	cp doc/man/man3/libcgi_base64.3 $(DESTDIR)$(MANDIR)
+-	cp doc/man/man3/libcgi_cgi.3 $(DESTDIR)$(MANDIR)
+-	cp doc/man/man3/libcgi_general.3 $(DESTDIR)$(MANDIR)
+-	cp doc/man/man3/libcgi_string.3 $(DESTDIR)$(MANDIR)
+-	cp doc/man/man3/libcgi_session.3 $(DESTDIR)$(MANDIR)
+-	cp doc/man/man3/libcgi_cookie.3 $(DESTDIR)$(MANDIR)
++	cp doc/man/man3/libcgi_base64.3 $(DESTDIR)$(mandir)
++	cp doc/man/man3/libcgi_cgi.3 $(DESTDIR)$(mandir)
++	cp doc/man/man3/libcgi_general.3 $(DESTDIR)$(mandir)
++	cp doc/man/man3/libcgi_string.3 $(DESTDIR)$(mandir)
++	cp doc/man/man3/libcgi_session.3 $(DESTDIR)$(mandir)
++	cp doc/man/man3/libcgi_cookie.3 $(DESTDIR)$(mandir)
  

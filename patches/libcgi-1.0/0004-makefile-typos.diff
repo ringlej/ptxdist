@@ -1,0 +1,24 @@
+Subject: [patch] cleanup build line
+
+Put rules on separate line.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.in |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Index: libcgi-1.0/Makefile.in
+===================================================================
+--- libcgi-1.0.orig/Makefile.in
++++ libcgi-1.0/Makefile.in
+@@ -20,7 +20,8 @@ OBJS = src/error.o src/cgi.o src/session
+ 
+ SHOBJS = $(OBJS:.o=.sh.o)
+ 
+-.c.o: $(CC) $(FLAGS) -c $<
++%.o: %.c
++	$(CC) $(FLAGS) -c $*.c -o $@
+ 
+ %.sh.o: %.c
+ 	$(CC) $(FLAGS) -fPIC -c $*.c -o $@

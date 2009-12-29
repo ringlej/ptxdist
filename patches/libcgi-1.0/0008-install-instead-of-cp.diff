@@ -1,0 +1,50 @@
+Subject: [patch] use install instead of cp
+
+Use install, not cp. It is able to create directories and apply proper
+permissions to them.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.in |   17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
+
+Index: libcgi-1.0/Makefile.in
+===================================================================
+--- libcgi-1.0.orig/Makefile.in
++++ libcgi-1.0/Makefile.in
+@@ -1,6 +1,6 @@
+-INSTALL = @INSTALL@
+-INSTALL_PROGRAM = @INSTALL_PROGRAM@
+-INSTALL_DATA = @INSTALL_DATA@
++INSTALL = @INSTALL@ -D
++INSTALL_PROGRAM = @INSTALL_PROGRAM@ -D
++INSTALL_DATA = @INSTALL_DATA@ -D
+ 
+ prefix = @prefix@
+ exec_prefix = @exec_prefix@
+@@ -49,7 +49,7 @@ all: src/libcgi.so src/libcgi.a
+ 
+ 
+ shared: src/libcgi.so
+-	cp src/libcgi.so $(DESTDIR)$(LIBDIR)
++	$(INSTALL) -m 0644 src/libcgi.so $(DESTDIR)$(LIBDIR)
+ 
+ src/libcgi.a: $(OBJS)
+ 	$(AR) rc src/libcgi.a $(OBJS)
+@@ -58,11 +58,10 @@ src/libcgi.so: $(SHOBJS)
+ 	$(CC) $(SHAREDOPT) -o src/libcgi.so $(SHOBJS) $(EXTRA_LIBS)
+ 
+ install:
+-	cp src/libcgi.a $(DESTDIR)$(LIBDIR)
+-	cp src/libcgi.so $(DESTDIR)$(LIBDIR)
+-	cp src/cgi.h $(DESTDIR)$(INCDIR)
+-	cp src/session.h $(DESTDIR)$(INCDIR)
+-
++	$(INSTALL) -m 0644 src/libcgi.a $(DESTDIR)/$(LIBDIR)/libcgi.a
++	$(INSTALL) -m 0644 src/libcgi.so $(DESTDIR)/$(LIBDIR)/libcgi.so
++	$(INSTALL) -m 0644 src/cgi.h $(DESTDIR)/$(INCDIR)/cgi.h
++	$(INSTALL) -m 0644 src/session.h $(DESTDIR)/$(INCDIR)/session.h
+ 
+ src/error.o: src/error.c src/error.h
+ src/cgi.o: src/cgi.c src/cgi.h

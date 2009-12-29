@@ -1,0 +1,56 @@
+Subject: [patch] cleanup compiler flags for shared lib
+
+Separate building of shared and non-shared objects.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.in |   15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+Index: libcgi-1.0/Makefile.in
+===================================================================
+--- libcgi-1.0.orig/Makefile.in
++++ libcgi-1.0/Makefile.in
+@@ -5,7 +5,7 @@ INSTALL_DATA = @INSTALL_DATA@
+ prefix = @prefix@
+ exec_prefix = @exec_prefix@
+ 
+-SHAREDOPT = -shared
++SHAREDOPT = -shared -shared -fPIC,-Wl,-soname,libcgi.so.0
+ LIBDIR = $(prefix)/lib
+ INCDIR = $(prefix)/include/libcgi
+ MANDIR	= $(prefix)/man/man3
+@@ -13,14 +13,19 @@ SHELL = /bin/sh
+ EXTRA_LIBS = 
+ 
+ INCS =  -Isrc
+-FLAGS = -Wall -fpic
++FLAGS = -Wall -D_REENTRANT
+ 
+ OBJS = src/error.o src/cgi.o src/session.o src/base64.o src/md5.o \
+ 	src/string.o src/general.o src/list.o src/cookie.o
+ 
++SHOBJS = $(OBJS:.o=.sh.o)
++
+ .c.o: $(CC) $(FLAGS) -c $<
+ 
+-all: $(OBJS) src/libcgi.so
++%.sh.o: %.c
++	$(CC) $(FLAGS) -fPIC -c $*.c -o $@
++
++all: src/libcgi.so src/libcgi.a
+ 
+ 	@echo ""
+ 	@echo ""
+@@ -48,8 +53,8 @@ shared: src/libcgi.so
+ src/libcgi.a: $(OBJS)
+ 	$(AR) rc src/libcgi.a $(OBJS)
+ 
+-src/libcgi.so: src/libcgi.a
+-	$(CC) $(SHAREDOPT) -o src/libcgi.so $(OBJS) $(EXTRA_LIBS)
++src/libcgi.so: $(SHOBJS)
++	$(CC) $(SHAREDOPT) -o src/libcgi.so $(SHOBJS) $(EXTRA_LIBS)
+ 
+ install:
+ 	cp src/libcgi.a $(LIBDIR)

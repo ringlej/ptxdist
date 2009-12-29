@@ -1,0 +1,23 @@
+Subject: [patch] install into separate directory
+
+Usually, libcgi header files are installed into /usr/include/libcgi/.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: libcgi-1.0/Makefile.in
+===================================================================
+--- libcgi-1.0.orig/Makefile.in
++++ libcgi-1.0/Makefile.in
+@@ -7,7 +7,7 @@ exec_prefix = @exec_prefix@
+ 
+ SHAREDOPT = -shared
+ LIBDIR = $(prefix)/lib
+-INCDIR = $(prefix)/include
++INCDIR = $(prefix)/include/libcgi
+ MANDIR	= $(prefix)/man/man3
+ SHELL = /bin/sh
+ EXTRA_LIBS = 

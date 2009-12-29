@@ -1,0 +1,25 @@
+Subject: [patch] wrong variable
+
+We use a wrong variable here.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+
+---
+ src/string.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: libcgi-1.0/src/string.c
+===================================================================
+--- libcgi-1.0.orig/src/string.c
++++ libcgi-1.0/src/string.c
+@@ -584,7 +584,7 @@ char *make_string(char *s, ...)
+ 
+ 	va_start(ptr, s);
+ 
+-	va_copy(bkp, str);
++	va_copy(bkp, ptr);
+ 	len = strlen(s);
+ 
+ 	while (*str) {

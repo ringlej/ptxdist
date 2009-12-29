@@ -1,0 +1,25 @@
+Subject: [patch] copy-past error in hextable
+
+Looks like a copy-paste error.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+
+---
+ src/cgi.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: libcgi-1.0/src/cgi.c
+===================================================================
+--- libcgi-1.0.orig/src/cgi.c
++++ libcgi-1.0/src/cgi.c
+@@ -336,7 +336,7 @@ void init_hex_table()
+ 	hextable['b'] = 11;
+ 	hextable['c'] = 12;
+ 	hextable['d'] = 13;
+-	hextable['e'] = 13;
++	hextable['e'] = 14;
+ 	hextable['f'] = 15;
+ 	hextable['A'] = 10;
+ 	hextable['B'] = 11;

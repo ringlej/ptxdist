@@ -1,18 +1,10 @@
-# 
-# Submitted-By: Guillaume GOURAT, 2007-07-26
-# Committed-By: Guillaume GOURAT, 2007-07-26
-#
-# Description: 
-#
-# patch from the debian libcgi package
-# http://packages.debian.org/stable/libdevel/libcgi-dev
-#
+0001-makefile-incdir.diff
+0002-makefile-shobjects.diff
+0003-makefile-destdir.diff
+0004-makefile-typos.diff
+0005-makefile-clean.diff
+0006-hextable-typo.diff
+0007-wrong-variable.diff
+0008-install-instead-of-cp.diff
+0009-dirnames.diff
 
-libcgi-1.0-debianpatches.diff
-libcgi-1.0-makefile-destdir.diff -p0
-libcgi-1.0-typo.diff
-libcgi-1.0-wrong-variable.diff
-libcgi-1.0-create-dirs-on-install.diff -p0
-libcgi-1.0-install-instead-of-cp.diff -p0
-libcgi-libdir.diff -p0
-libcgi-1.0-makefile-autogen.diff -p0

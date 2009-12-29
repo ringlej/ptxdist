@@ -1,0 +1,25 @@
+Subject: [patch] cleanup clean target
+
+Remove all generated files. While being there, fix a typo.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.in |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Index: libcgi-1.0/Makefile.in
+===================================================================
+--- libcgi-1.0.orig/Makefile.in
++++ libcgi-1.0/Makefile.in
+@@ -75,8 +75,9 @@ src/general.o: src/general.c
+ src/list.o: src/list.c
+ 
+ clean:
+-	find src/ -name *.*o -exec rm -f {} \;
++	find src/ -name *.o -exec rm -f {} \;
+ 	find src/ -name *.a -exec rm -f {} \;
++	find src/ -name *.so -exec rm -f {} \;
+ 
+ uninstall: clean
+ 	rm -f $(LIBDIR)/libcgi.*
