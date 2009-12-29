@@ -135,6 +135,9 @@ Ready for Upstream
 [ ] iproute2-2.6.29-1
     # one easy patch left (remove duplicate limits.h)
 [ ] liblockfile-1.08
+[ ] libcgi-1.0
+    # patches are cleaned up, mailed rafael@insanecorp.com in order to
+    # find out if he is interested in patches (upstream seems to be dead)
 
 TODO
 ----
@@ -153,7 +156,6 @@ TODO
 [ ] klibc-1.5.15
 [ ] klibc-module-init-tools-3.11
 [ ] klibc-udev-140
-[ ] libcgi-1.0
 [ ] libdbus-c++-r9139
 [ ] libiconv-1.13.1
 [ ] liblbxutil-1.0.1
