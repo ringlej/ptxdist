@@ -18,8 +18,9 @@ Submitted, Pending
 [ ] inotify-tools-3.13
 [ ] iperf-2.0.4
 [x] libffi-3.0.8
-[-] libnet-1.1.4
 [ ] liblockfile-1.08
+[-] libnet-1.1.4
+[ ] libpng-1.2.41
 [-] libnl-1.1
 [-] netpbm-10.31
 [x] nfs-utils-1.1.6
@@ -186,7 +187,6 @@ TODO
 [ ] libmng-1.0.10
 # upstream is silent for years
 [ ] libpcap-1.0.0
-[ ] libpng-1.2.41
 [ ] libtheora-1.0
 [ ] libusb-1.0.3
 [ ] libusb-compat-0.1.3
