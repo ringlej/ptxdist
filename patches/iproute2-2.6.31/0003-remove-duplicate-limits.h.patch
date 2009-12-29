@@ -1,0 +1,21 @@
+From 52d6a850505d70a699fc89604986c45b0cd0c54e Mon Sep 17 00:00:00 2001
+From: Stephen Hemminger <stephen.hemminger@vyatta.com>
+Date: Fri, 27 Mar 2009 11:07:46 -0700
+Subject: [PATCH 03/23] remove duplicate limits.h
+
+---
+ tc/m_xt.c |    1 -
+ 1 file changed, 1 deletion(-)
+
+Index: iproute2-2.6.31/tc/m_xt.c
+===================================================================
+--- iproute2-2.6.31.orig/tc/m_xt.c
++++ iproute2-2.6.31/tc/m_xt.c
+@@ -15,7 +15,6 @@
+ #include <netinet/in.h>
+ #include <arpa/inet.h>
+ #include <net/if.h>
+-#include <limits.h>
+ #include <linux/netfilter.h>
+ #include <linux/netfilter_ipv4/ip_tables.h>
+ #include <xtables.h>
