@@ -23,6 +23,7 @@ LIBCGI_SUFFIX	:= tar.gz
 LIBCGI_URL	:= $(PTXCONF_SETUP_SFMIRROR)/libcgi/$(LIBCGI).$(LIBCGI_SUFFIX)
 LIBCGI_SOURCE	:= $(SRCDIR)/$(LIBCGI).$(LIBCGI_SUFFIX)
 LIBCGI_DIR	:= $(BUILDDIR)/$(LIBCGI)
+LIBCGI_LICENSE	:= LGPLv2.1
 
 # ----------------------------------------------------------------------------
 # Get
