@@ -160,6 +160,7 @@ TODO
 [ ] libiconv-1.13.1
 [ ] liblbxutil-1.0.1
 [ ] libmad-0.15.1b
+    # 20091229 rsc: asked if support@underbit.com is interested in patches
 [ ] libmng-1.0.10
 [ ] libnet-1.1.4
 [ ] liboil-0.3.16
