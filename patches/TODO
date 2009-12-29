@@ -9,6 +9,8 @@ Submitted, Pending
 [ ] commoncpp2-1.7.3
 [x] chrony-1.23
 [x] curl-7.19.7
+[ ] figlet222
+[ ] freetype-2.3.9
 [x] genpart-1.0.1
 [x] gnuplot-4.2.4
 [ ] hexedit-1.2.12
@@ -18,7 +20,7 @@ Submitted, Pending
 [ ] pcmciautils-015
 [-] pekwm-0.1.4
 [x] poppler-0.10.4
-[ ] powertop-1.11
+[x] powertop-1.11
 [ ] rt-tests-0.50
 [-] tcpdump-4.0.0
 [ ] tiobench-0.3.3
@@ -28,9 +30,6 @@ Submitted, Pending
 [x] xf86-video-ati-6.12.4
 [x] xf86-video-dummy-0.3.2
 [x] xf86-video-vesa-2.2.1
-[ ] figlet222
-[ ] freetype-2.3.9
-[ ] gnuplot-4.2.4
 
 Postponed
 ---------
@@ -45,6 +44,9 @@ Postponed
 [ ] elektra-0.7.0-r1618
 [ ] etherwake-1.09.orig
 [ ] ethtool-6+20090323.orig
+[ ] fcgi-2.4.0
+    # looks like an easy target, but upstream has no repository and no
+    # sane bug feedback system
 [ ] grub-0.97
     # real solution: finish barebox, obsolete grub :-)
 [ ] hal-0.5.12rc1
@@ -53,9 +55,6 @@ Postponed
     # upstream is dead since 2004 :(
 [ ] xli-1.17.0
     # upstream is dead since... don't ask. BSD might have a newer version. Well...
-[ ] fcgi-2.4.0
-    # looks like an easy target, but upstream has no repository and no
-    # sane bug feedback system
 
 Not for Upstream
 ----------------
@@ -106,10 +105,6 @@ Not Ready, needs work
     # check new version first
 [ ] gtk+-2.18.3
     # check new version first
-[ ] kexec-tools-2.0.0
-    # link-order might have been fixed in 2.0.1 already:
-	http://git.kernel.org/?p=linux/kernel/git/horms/kexec-tools.git;a=commit;h=6abf3ba5dc63ef670010927d5572d38c3ce2a587
-    # remove_asm is missing description and sob from mkl
 [ ] netkit-ftp-0.17
     # no upstream, import debian patches?
 [ ] PolicyKit-0.9
@@ -135,16 +130,17 @@ Ready for Upstream
 [ ] cku211
 [ ] gpsd-2.39
     # looks like an easy target, one patch not ready but anyway
+[ ] liblockfile-1.08
 
 TODO
 ----
 
 [ ] hpanel-0.3.2
 [ ] hping3-20051105
-    # upstream seams dead
+    # upstream seems dead
 [ ] httpd-2.0.58
 [ ] ifplugd-0.28
-    # upstream seams dead
+    # upstream seems dead
 [ ] inadyn-1.96.2
     # upstream homepage has disappeared
 [ ] iozone3_321
@@ -160,7 +156,6 @@ TODO
 [ ] libdbus-c++-r9139
 [ ] libiconv-1.13.1
 [ ] liblbxutil-1.0.1
-[ ] liblockfile-1.08
 [ ] libmad-0.15.1b
 [ ] libmng-1.0.10
 [ ] libnet-1.1.4
