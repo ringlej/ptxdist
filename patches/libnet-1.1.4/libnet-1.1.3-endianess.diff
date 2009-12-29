@@ -7,6 +7,9 @@ This fails when cross-compiling. Use autoconf stuff instead.
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 
 ---
+# 20091229 rsc: there's already a similar patch in the libnet git, so we
+# wait for a new release
+
  autogen.sh   |    8 ++++++++
  configure.in |   12 +++++++++++-
  2 files changed, 19 insertions(+), 1 deletion(-)
