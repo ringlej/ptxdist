@@ -61,6 +61,7 @@ Not for Upstream
 
 [ ] Frodo-4.1b
 [ ] iozone3_321
+[ ] jed-0.99-18
 
 Not Ready, needs work
 ---------------------
@@ -149,7 +150,6 @@ TODO
 [ ] iperf-2.0.4
 [ ] ipkg-0.99.163
 [ ] ipkg-utils-050831
-[ ] jed-0.99-18
 [ ] klibc-1.5.15
 [ ] klibc-module-init-tools-3.11
 [ ] klibc-udev-140
