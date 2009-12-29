@@ -16,6 +16,7 @@ Submitted, Pending
 [ ] hexedit-1.2.12
 [ ] inotify-tools-3.13
 [x] libffi-3.0.8
+[-] libnet-1.1.4
 [-] libnl-1.1
 [ ] pcmciautils-015
 [-] pekwm-0.1.4
@@ -162,7 +163,6 @@ TODO
 [ ] libmad-0.15.1b
     # 20091229 rsc: asked if support@underbit.com is interested in patches
 [ ] libmng-1.0.10
-[ ] libnet-1.1.4
 [ ] liboil-0.3.16
 [ ] libpcap-1.0.0
 [ ] libpng-1.2.41
