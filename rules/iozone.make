@@ -23,6 +23,7 @@ IOZONE_SUFFIX	:= tar
 IOZONE_URL	:= http://www.iozone.org/src/current/$(IOZONE).$(IOZONE_SUFFIX)
 IOZONE_SOURCE	:= $(SRCDIR)/$(IOZONE).$(IOZONE_SUFFIX)
 IOZONE_DIR	:= $(BUILDDIR)/$(IOZONE)
+IOZONE_LICENSE	:= Freeware
 
 # ----------------------------------------------------------------------------
 # Get
