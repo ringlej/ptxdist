@@ -156,8 +156,10 @@ Ready for Upstream
 [ ] iproute2-2.6.29-1
     # one easy patch left (remove duplicate limits.h)
 [ ] libcgi-1.0
-    # patches are cleaned up, mailed rafael@insanecorp.com in order to
-    # find out if he is interested in patches (upstream seems to be dead)
+    # 20091229 rsc: he is not interested any more
+    # 20091229 rsc: patches are cleaned up, mailed rafael@insanecorp.com
+    # in order to find out if he is interested in patches (upstream
+    # seems to be dead)
 [ ] libiconv-1.13.1
     # let mkl post it
 
