@@ -84,6 +84,6 @@ Index: Makefile
 +	install -m 755 -D chkfont $(DESTDIR)$(BINDIR)/chkfont
 +	install -m 755 -D figlist $(DESTDIR)$(BINDIR)/figlist
 +	install -m 755 -D showfigfonts $(DESTDIR)$(BINDIR)/showfigfonts
-+	for FILE in fonts/*.fl[fc]; do \
++	cd fonts && for FILE in *.fl[fc]; do \
 +		install -m 644 -D $$FILE $(DESTDIR)$(DEFAULTFONTDIR)/$$FILE; \
 +	done

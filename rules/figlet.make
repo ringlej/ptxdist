@@ -34,17 +34,12 @@ $(FIGLET_SOURCE):
 	@$(call get, FIGLET)
 
 # ----------------------------------------------------------------------------
-# Prepare
+# Compile
 # ----------------------------------------------------------------------------
 
-FIGLET_PATH	:=  PATH=$(CROSS_PATH)
-
-FIGLET_COMPILE_ENV := $(CROSS_ENV)
-FIGLET_MAKEVARS := prefix=/usr
-
-$(STATEDIR)/figlet.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+FIGLET_PATH		:= PATH=$(CROSS_PATH)
+FIGLET_MAKE_ENV		:= $(CROSS_ENV)
+FIGLET_INSTALL_OPT	:= prefix=/usr install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -64,7 +59,7 @@ $(STATEDIR)/figlet.targetinstall:
 
 	@$(call install_copy, figlet, 0, 0, 0755, -, \
 		/usr/bin/figlet)
-	@$(call install_copy, figlet, 0, 0, 0644, $(FIGLET_DIR)/fonts/standard.flf, \
+	@$(call install_copy, figlet, 0, 0, 0644, -, \
 		/usr/share/figlet/standard.flf)
 
 	@$(call install_finish, figlet)
