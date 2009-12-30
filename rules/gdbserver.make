@@ -51,7 +51,6 @@ endif
 #
 GDBSERVER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--target=$(PTXCONF_GNU_TARGET) \
 	--with-build-sysroot=$(SYSROOT)
 
 $(STATEDIR)/gdbserver.prepare:
@@ -78,8 +77,8 @@ $(STATEDIR)/gdbserver.targetinstall:
 	@$(call install_fixup, gdbserver,DEPENDS,)
 	@$(call install_fixup, gdbserver,DESCRIPTION,missing)
 
-	@$(call install_copy, gdbserver, 0, 0, 0755, \
-		$(GDBSERVER_BUILDDIR)/gdbserver, /usr/bin/gdbserver)
+	@$(call install_copy, gdbserver, 0, 0, 0755, -, \
+		/usr/bin/gdbserver)
 
 	@$(call install_finish, gdbserver)
 
