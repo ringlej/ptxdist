@@ -23,6 +23,7 @@ QWT_SUFFIX	:= tar.bz2
 QWT_URL		:= $(PTXCONF_SETUP_SFMIRROR)/qwt/$(QWT).$(QWT_SUFFIX)
 QWT_SOURCE	:= $(SRCDIR)/$(QWT).$(QWT_SUFFIX)
 QWT_DIR		:= $(BUILDDIR)/$(QWT)
+QWT_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Get
@@ -33,17 +34,6 @@ $(QWT_SOURCE):
 	@$(call get, QWT)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/qwt.extract:
-	@$(call targetinfo)
-	@$(call clean, $(QWT_DIR))
-	@$(call extract, QWT)
-	@$(call patchin, QWT)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -51,36 +41,13 @@ QWT_PATH	:= PATH=$(CROSS_PATH)
 
 QWT_ENV = \
 	$(CROSS_ENV) \
-	INSTALL_ROOT=$(SYSROOT) \
+	INSTALL_ROOT=$(QWT_PKGDIR) \
 	QMAKESPEC=$(QT4_DIR)/mkspecs/qws/linux-ptx-g++
-
-#
-# autoconf
-#
-QWT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/qwt.prepare:
 	@$(call targetinfo)
 	cd $(QWT_DIR) && \
 		$(QWT_PATH) $(QWT_ENV) qmake -recursive
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/qwt.compile:
-	@$(call targetinfo)
-	cd $(QWT_DIR) && $(QWT_PATH) $(QWT_ENV) $(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/qwt.install:
-	@$(call targetinfo)
-	cd $(QWT_DIR) && $(QWT_PATH) $(QWT_ENV) $(MAKE) install
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -99,8 +66,7 @@ $(STATEDIR)/qwt.targetinstall:
 	@$(call install_fixup, qwt,DEPENDS,)
 	@$(call install_fixup, qwt,DESCRIPTION,missing)
 
-	@$(call install_copy, qwt, 0, 0, 0644, \
-		$(QWT_DIR)/lib/libqwt.so.5.2.0, \
+	@$(call install_copy, qwt, 0, 0, 0644, -, \
 		/usr/lib/libqwt.so.5.2.0)
 	@$(call install_link, qwt, libqwt.so.5.2.0, \
 		/usr/lib/libqwt.so.5.2)
