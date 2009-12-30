@@ -61,8 +61,8 @@ $(STATEDIR)/prelink.targetinstall:
 	@$(call install_fixup, prelink,DEPENDS,)
 	@$(call install_fixup, prelink,DESCRIPTION,missing)
 
-	@$(call install_copy, prelink, 0, 0, 0644, $(PTXDIST_TOPDIR)/generic/etc/prelink.conf, /etc/prelink.conf)
-	@$(call install_copy, prelink, 0, 0, 0755, $(PRELINK_DIR)/src/prelink, /usr/sbin/prelink)
+	@$(call install_alternative, prelink, 0, 0, 0644, /etc/prelink.conf)
+	@$(call install_copy, prelink, 0, 0, 0755, -, /usr/sbin/prelink)
 
 	@$(call install_finish, prelink)
 
