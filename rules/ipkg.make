@@ -45,6 +45,17 @@ IPKG_ENV 	:= $(CROSS_ENV)
 IPKG_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/ipkg.install:
+	@$(call targetinfo)
+	@$(call install, IPKG)
+	@install -m 755 $(IPKG_DIR)/ipkg_extract_test $(IPKG_PKGDIR)/usr/bin/
+	@install -m 755 $(IPKG_DIR)/ipkg_hash_test $(IPKG_PKGDIR)/usr/bin/
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -60,28 +71,29 @@ $(STATEDIR)/ipkg.targetinstall:
 	@$(call install_fixup, ipkg,DEPENDS,)
 	@$(call install_fixup, ipkg,DESCRIPTION,missing)
 
-	@$(call install_copy, ipkg, 0, 0, 0644, \
-		$(IPKG_DIR)/.libs/libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0.0)
+	@$(call install_copy, ipkg, 0, 0, 0644, -, \
+		/usr/lib/libipkg.so.0.0.0)
 	@$(call install_link, ipkg, libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0)
 	@$(call install_link, ipkg, libipkg.so.0.0.0, /usr/lib/libipkg.so.0)
 
 ifdef PTXCONF_IPKG_LOG_WRAPPER
-	@$(call install_copy, ipkg, 0, 0, 0755, \
-		$(IPKG_DIR)/ipkg-cl, /usr/bin/ipkg-cl)
+	@$(call install_copy, ipkg, 0, 0, 0755, -, \
+		/usr/bin/ipkg-cl)
 	@$(call install_copy, ipkg, 0, 0, 0755, \
 		$(PTXDIST_TOPDIR)/generic/bin/ipkg_log_wrapper, \
 		/usr/bin/ipkg, n)
 else
-	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/ipkg-cl, \
+	@$(call install_copy, ipkg, 0, 0, 0755, \
+		$(IPKG_PKGDIR)/usr/bin/ipkg-cl, \
 		/usr/bin/ipkg)
 endif
 
 ifdef PTXCONF_IPKG_EXTRACT_TEST
-	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/ipkg_extract_test, \
+	@$(call install_copy, ipkg, 0, 0, 0755, -, \
 		/usr/bin/ipkg_extract_test)
 endif
 ifdef PTXCONF_IPKG_HASH_TEST
-	@$(call install_copy, ipkg, 0, 0, 0755, $(IPKG_DIR)/ipkg_hash_test, \
+	@$(call install_copy, ipkg, 0, 0, 0755, -, \
 		/usr/bin/ipkg_hash_test)
 endif
 
