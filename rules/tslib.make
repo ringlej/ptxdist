@@ -71,10 +71,10 @@ $(STATEDIR)/tslib.targetinstall:
 		/usr/lib/libts-0.0.so.0)
 
 ifdef PTXCONF_TSLIB_TS_CALIBRATE
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/ts_calibrate, /usr/bin/ts_calibrate)
+	@$(call install_copy, tslib, 0, 0, 0755, -, /usr/bin/ts_calibrate)
 endif
 ifdef PTXCONF_TSLIB_TS_TEST
-	@$(call install_copy, tslib, 0, 0, 0755, $(TSLIB_DIR)/tests/ts_test, /usr/bin/ts_test)
+	@$(call install_copy, tslib, 0, 0, 0755, -, /usr/bin/ts_test)
 endif
 
 	@cd $(TSLIB_PKGDIR) && for plugin in `find usr/lib/ts -name "*.so"`; do \
