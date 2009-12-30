@@ -144,9 +144,11 @@ ptxd_make_world_init_compat() {
     #
     case "${pkg_stamp}" in
 	initramfs-*|klibc-*) pkg_sysroot_dir="${PTXDIST_SYSROOT_TARGET}/usr/lib/klibc" ;;
-	host-*|cross-*)      pkg_sysroot_dir="";;
+	host-*)              pkg_sysroot_dir="${PTXDIST_SYSROOT_HOST}" ;;
+	cross-*)             pkg_sysroot_dir="${PTXDIST_SYSROOT_CROSS}" ;;
 	*)                   pkg_sysroot_dir="${PTXDIST_SYSROOT_TARGET}" ;;
     esac
+    export pkg_sysroot_dir
 
 
     # pkg_env

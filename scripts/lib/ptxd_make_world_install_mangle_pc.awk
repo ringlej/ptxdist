@@ -11,7 +11,7 @@
 BEGIN {
 	FS = "([[:space:]]|=)[[:space:]]*";
 
-	SYSROOT	= ENVIRON["PTXDIST_SYSROOT_TARGET"];
+	SYSROOT	= ENVIRON["pkg_sysroot_dir"];
 	pkg_pkg_dir = ENVIRON["pkg_pkg_dir"];
 
 	# quote "+" and "/"
