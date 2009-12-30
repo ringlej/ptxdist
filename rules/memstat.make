@@ -62,8 +62,8 @@ $(STATEDIR)/memstat.targetinstall:
 	@$(call install_fixup, memstat,DEPENDS,)
 	@$(call install_fixup, memstat,DESCRIPTION,missing)
 
-	@$(call install_copy, memstat, 0, 0, 0644, $(MEMSTAT_DIR)/memstat.conf, /etc/memstat.conf, n)
-	@$(call install_copy, memstat, 0, 0, 0755, $(MEMSTAT_DIR)/memstat, /usr/bin/memstat)
+	@$(call install_copy, memstat, 0, 0, 0644, -, /etc/memstat.conf, n)
+	@$(call install_copy, memstat, 0, 0, 0755, -, /usr/bin/memstat)
 
 	@$(call install_finish, memstat)
 
