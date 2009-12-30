@@ -1,0 +1,40 @@
+Subject: Make the buildsystem be gracious to us.
+
+Signed-off-by: Juergen Beisert juergen@kreuzholzen.de
+[refreshed for iproute2-2.6.31]
+Signed-off-by: Jon Ringle <jon@ringle.org>
+
+---
+ Makefile      |    2 +-
+ misc/Makefile |    6 +++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+--- iproute2-2.6.31.orig/misc/Makefile	2009-12-26 13:26:44.000000000 -0500
++++ iproute2-2.6.31/misc/Makefile	2009-11-08 23:48:39.000000000 -0500
+@@ -1,10 +1,14 @@
+ SSOBJ=ss.o ssfilter.o
+ LNSTATOBJ=lnstat.o lnstat_util.o
+ 
+-TARGETS=ss nstat ifstat rtacct arpd lnstat
++TARGETS=ss nstat ifstat rtacct lnstat
+ 
+ include ../Config
+ 
++ifdef BUILD_ARPD
++TARGETS += arpd
++endif
++
+ all: $(TARGETS)
+ 
+ ss: $(SSOBJ) $(LIBUTIL)
+--- iproute2-2.6.31.orig/Makefile	2009-12-26 13:26:44.000000000 -0500
++++ iproute2-2.6.31/Makefile	2009-11-08 23:48:40.000000000 -0500
+@@ -30,7 +25,7 @@
+ CC = gcc
+ HOSTCC = gcc
+ CCOPTS = -D_GNU_SOURCE -O2 -Wstrict-prototypes -Wall
+-CFLAGS = $(CCOPTS) -I../include $(DEFINES)
++CFLAGS = $(CROSS_CPPFLAGS) $(CCOPTS) -I../include $(DEFINES)
+ YACCFLAGS = -d -t -v
+ 
+ LDLIBS += -L../lib -lnetlink -lutil
