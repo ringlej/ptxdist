@@ -1,0 +1,39 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: make dbus-1.pc relocatable
+
+Don't use expanded paths in dbus-1.pc.in
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.in |    2 +-
+ dbus-1.pc.in |    4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -1330,7 +1330,7 @@ AC_DEFINE_UNQUOTED(DBUS_DATADIR,"$DBUS_D
+ 
+ #### Directory to install dbus-daemon
+ if test -z "$with_dbus_daemondir" ; then
+-    DBUS_DAEMONDIR=$EXPANDED_BINDIR
++    DBUS_DAEMONDIR=$bindir
+ else
+     DBUS_DAEMONDIR=$with_dbus_daemondir
+ fi
+Index: b/dbus-1.pc.in
+===================================================================
+--- a/dbus-1.pc.in
++++ b/dbus-1.pc.in
+@@ -3,8 +3,8 @@ exec_prefix=@exec_prefix@
+ libdir=@libdir@
+ includedir=@includedir@
+ system_bus_default_address=@DBUS_SYSTEM_BUS_DEFAULT_ADDRESS@
+-sysconfdir=@EXPANDED_SYSCONFDIR@
+-session_bus_services_dir=@EXPANDED_DATADIR@/dbus-1/services
++sysconfdir=@sysconfdir@
++session_bus_services_dir=@datadir@/dbus-1/services
+ daemondir=@DBUS_DAEMONDIR@
+ 
+ Name: dbus
