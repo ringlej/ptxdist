@@ -411,12 +411,16 @@ $(STATEDIR)/grub.targetinstall:
 	@$(call install_fixup, grub,PRIORITY,optional)
 	@$(call install_fixup, grub,VERSION,$(GRUB_VERSION))
 	@$(call install_fixup, grub,SECTION,base)
-	@$(call install_fixup, grub,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, grub,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, grub,DEPENDS,)
 	@$(call install_fixup, grub,DESCRIPTION,missing)
 
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage1/stage1, /boot/grub/stage1, n)
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2, /boot/grub/stage2, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/stage1, \
+		/boot/grub/stage1, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/stage2, \
+		/boot/grub/stage2, n)
 
 	@if [ -n $(PTXCONF_GRUB_MENU_LST) ]; then \
 		if [ -f $(PTXDIST_BOARDSETUP) ]; then \
@@ -439,43 +443,70 @@ $(STATEDIR)/grub.targetinstall:
 	fi
 
 ifdef PTXCONF_GRUB_ISO9660
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/iso9660_stage1_5, /boot/grub/iso9660_stage1_5, n)
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/stage2_eltorito, /boot/grub/stage2_eltorito, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/iso9660_stage1_5, \
+		/boot/grub/iso9660_stage1_5, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/stage2_eltorito, \
+		/boot/grub/stage2_eltorito, n)
 endif
 
 ifdef PTXCONF_GRUB_EXT2FS
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/e2fs_stage1_5, /boot/grub/e2fs_stage1_5, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/e2fs_stage1_5, \
+		/boot/grub/e2fs_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_FAT
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/fat_stage1_5, /boot/grub/fat_stage1_5, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/fat_stage1_5, \
+		/boot/grub/fat_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_FFS
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/ffs_stage1_5, /boot/grub/ffs_stage1_5, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/ffs_stage1_5, \
+		/boot/grub/ffs_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_JFS
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/jfs_stage1_5, /boot/grub/jfs_stage1_5, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/jfs_stage1_5, \
+		/boot/grub/jfs_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_MINIX
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/minix_stage1_5, /boot/grub/minix_stage1_5, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/minix_stage1_5, \
+		/boot/grub/minix_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_REISERFS
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/reiserfs_stage1_5, /boot/grub/reiserfs_stage1_5, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/reiserfs_stage1_5, \
+		/boot/grub/reiserfs_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_UFS2
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/ufs2_stage1_5, /boot/grub/ufs2_stage1_5, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/ufs2_stage1_5, \
+		/boot/grub/ufs2_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_VSTAFS
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/vstafs_stage1_5, /boot/grub/vstafs_stage1_5, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/vstafs_stage1_5, \
+		/boot/grub/vstafs_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_XFS
-	@$(call install_copy, grub, 0, 0, 0644, $(GRUB_DIR)/stage2/xfs_stage1_5, /boot/grub/xfs_stage1_5, n)
+	@$(call install_copy, grub, 0, 0, 0644, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/xfs_stage1_5, \
+		/boot/grub/xfs_stage1_5, n)
 endif
 
-	@$(call install_copy, grub, 0, 0, 0755, $(GRUB_DIR)/grub/grub, /usr/sbin/grub)
-	@$(call install_copy, grub, 0, 0, 0755, $(GRUB_DIR)/util/grub-set-default, /usr/sbin/grub-set-default, n)
+	@$(call install_copy, grub, 0, 0, 0755, -, /usr/sbin/grub)
+	@$(call install_copy, grub, 0, 0, 0755, -, \
+		/usr/sbin/grub-set-default, n)
 ifdef PTXCONF_GRUB_DISKLESS
-	@$(call install_copy, grub, 0, 0, 0755, $(GRUB_DIR)/stage2/nbgrub, /usr/sbin/nbgrub, n)
-	@$(call install_copy, grub, 0, 0, 0755, $(GRUB_DIR)/stage2/pxegrub, /usr/sbin/pxegrub, n)
+	@$(call install_copy, grub, 0, 0, 0755, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/nbgrub, \
+		/usr/sbin/nbgrub, n)
+	@$(call install_copy, grub, 0, 0, 0755, \
+		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/pxegrub, \
+		/usr/sbin/pxegrub, n)
 endif
 
 	@$(call install_finish, grub)
