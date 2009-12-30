@@ -78,10 +78,13 @@ $(STATEDIR)/pciutils.targetinstall:
 	@$(call install_copy, pciutils, 0, 0, 0755, -, /usr/bin/lspci)
 	@$(call install_copy, pciutils, 0, 0, 0755, -, /usr/bin/setpci)
 ifdef PTXCONF_PCIUTILS_COMPRESS
-	[ -f $(PCIUTILS_DIR)/pci.ids.gz ] || gzip --best -c $(PCIUTILS_DIR)/pci.ids > $(PCIUTILS_DIR)/pci.ids.gz
-	@$(call install_copy, pciutils, 0, 0, 0644, $(PCIUTILS_DIR)/pci.ids.gz, /usr/share/pci.ids.gz, n)
+	@$(call install_copy, pciutils, 0, 0, 0644, -, \
+		/usr/share/pci.ids.gz, n)
 else
-	@$(call install_copy, pciutils, 0, 0, 0644, $(PCIUTILS_DIR)/pci.ids, /usr/share/pci.ids, n)
+	@gunzip -c $(PCIUTILS_PKGDIR)/usr/share/pci.ids.gz > \
+		$(PCIUTILS_PKGDIR)/usr/share/pci.ids
+	@$(call install_copy, pciutils, 0, 0, 0644, -, \
+		/usr/share/pci.ids, n)
 endif
 
 	@$(call install_finish,pciutils)
