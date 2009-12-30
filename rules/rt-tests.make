@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2008 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009 by Wolfram Sang <w.sang@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,7 +19,8 @@ PACKAGES-$(PTXCONF_RT_TESTS) += rt-tests
 #
 # Paths and names
 #
-RT_TESTS_VERSION	:= 0.58
+RT_TESTS_VERSION	:= 0.60
+RT_TESTS_LICENSE	:= GPLv2, GPLv2+
 RT_TESTS		:= rt-tests-$(RT_TESTS_VERSION)
 RT_TESTS_SUFFIX		:= tar.bz2
 RT_TESTS_URL		:= http://www.kernel.org/pub/linux/kernel/people/clrkwllms/rt-tests/$(RT_TESTS).$(RT_TESTS_SUFFIX)
@@ -73,10 +75,6 @@ $(STATEDIR)/rt-tests.targetinstall:
 	@$(call install_fixup, rt-tests,DEPENDS,)
 	@$(call install_fixup, rt-tests,DESCRIPTION,missing)
 
-ifdef PTXCONF_RT_TESTS_CLASSICPI
-	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
-		/usr/bin/classic_pi)
-endif
 ifdef PTXCONF_RT_TESTS_CYCLICTEST
 	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
 		/usr/bin/cyclictest)

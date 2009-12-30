@@ -28,12 +28,6 @@ config RT_TESTS_SIGNALTEST
 	help
 	  signal test program
 
-config RT_TESTS_CLASSICPI
-	bool
-	prompt "classic_pi"
-	help
-	  priority inheritance test
-
 config RT_TESTS_PI_STRESS
 	bool
 	prompt "pi_stress"
