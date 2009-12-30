@@ -62,9 +62,8 @@ $(STATEDIR)/urshd.targetinstall:
 	@$(call install_fixup, urshd,DEPENDS,)
 	@$(call install_fixup, urshd,DESCRIPTION,missing)
 
-	@$(call install_copy, urshd, 0, 0, 0755, \
-		$(URSHD_DIR)/src/urshd, \
-		/usr/sbin/urshd)
+	@$(call install_copy, urshd, 0, 0, 0755, -, \
+		/usr/bin/urshd)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_URSHD_STARSCRIPT
