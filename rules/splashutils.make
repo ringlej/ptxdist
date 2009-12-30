@@ -73,12 +73,11 @@ endif
 
 $(STATEDIR)/splashutils.install:
 	@$(call targetinfo)
-	. ${PTXDIST_PTXCONFIG};		\
-	cd $(SPLASHUTILS_DIR);		\
+	@$(call install, SPLASHUTILS)
+	. ${PTXDIST_PTXCONFIG}; \
 	sed -e "s/@PTXCONF_SPLASHUTILS_THEME@/$$PTXCONF_SPLASHUTILS_THEME/g" \
 	    -e "s/@PTXCONF_SPLASHUTILS_BOOTMSG@/$$PTXCONF_SPLASHUTILS_BOOTMSG/" \
-		-i scripts/splash-functions.sh
-	@$(call install, SPLASHUTILS)
+		-i $(SPLASHUTILS_PKGDIR)/sbin/splash-functions.sh
 	@$(call touch)
 # ----------------------------------------------------------------------------
 # Target-Install
