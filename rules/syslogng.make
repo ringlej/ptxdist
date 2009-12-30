@@ -44,7 +44,7 @@ SYSLOGNG_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 SYSLOGNG_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
+	$(CROSS_AUTOCONF_ROOT) \
 	--enable-dynamic-linking \
 	--disable-debug \
 	--disable-sun-streams \
@@ -87,8 +87,8 @@ $(STATEDIR)/syslogng.targetinstall:
 	@$(call install_fixup, syslogng,DESCRIPTION,missing)
 
 #	# binary
-	@$(call install_copy, syslogng, 0, 0, 0755, \
-		$(SYSLOGNG_DIR)/src/syslog-ng, /sbin/syslog-ng)
+	@$(call install_copy, syslogng, 0, 0, 0755, -, \
+		/sbin/syslog-ng)
 
 #	# config
 ifdef PTXCONF_SYSLOGNG_CONFIG
