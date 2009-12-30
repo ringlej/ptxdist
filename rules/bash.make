@@ -189,7 +189,7 @@ $(STATEDIR)/bash.targetinstall:
 	@$(call install_fixup, bash,DEPENDS,)
 	@$(call install_fixup, bash,DESCRIPTION,missing)
 
-	@$(call install_copy, bash, 0, 0, 0755, $(BASH_DIR)/bash, /bin/bash)
+	@$(call install_copy, bash, 0, 0, 0755, -, /bin/bash)
 	@$(call install_link, bash, bash, /bin/sh)
 
 	@$(call install_finish, bash)
