@@ -29,71 +29,27 @@ FBUTILS_DIR	= $(BUILDDIR)/$(FBUTILS)
 # Get
 # ----------------------------------------------------------------------------
 
-fbutils_get: $(STATEDIR)/fbutils.get
-
-$(STATEDIR)/fbutils.get: $(fbutils_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(FBUTILS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, FBUTILS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-fbutils_extract: $(STATEDIR)/fbutils.extract
-
-$(STATEDIR)/fbutils.extract: $(fbutils_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FBUTILS_DIR))
-	@$(call extract, FBUTILS)
-	@$(call patchin, FBUTILS)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-fbutils_prepare: $(STATEDIR)/fbutils.prepare
+FBUTILS_PATH		=  PATH=$(CROSS_PATH)
+FBUTILS_MAKE_ENV 	=  $(CROSS_ENV)
 
-FBUTILS_PATH	=  PATH=$(CROSS_PATH)
-FBUTILS_ENV 	=  $(CROSS_ENV)
-
-$(STATEDIR)/fbutils.prepare: $(fbutils_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-fbutils_compile: $(STATEDIR)/fbutils.compile
-
-$(STATEDIR)/fbutils.compile: $(fbutils_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(FBUTILS_DIR) && $(FBUTILS_ENV) $(FBUTILS_PATH) make $(FBUTILS_MAKEVARS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-fbutils_install: $(STATEDIR)/fbutils.install
-
-$(STATEDIR)/fbutils.install: $(fbutils_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/fbutils.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-fbutils_targetinstall: $(STATEDIR)/fbutils.targetinstall
-
-$(STATEDIR)/fbutils.targetinstall: $(fbutils_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/fbutils.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, fbutils)
 	@$(call install_fixup, fbutils,PACKAGE,fbutils)
@@ -105,23 +61,20 @@ $(STATEDIR)/fbutils.targetinstall: $(fbutils_targetinstall_deps_default)
 	@$(call install_fixup, fbutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_FBUTILS_FBSET
-	@$(call install_copy, fbutils, 0, 0, 0755, $(FBUTILS_DIR)/fbset/fbset, /sbin/fbset)
+	@$(call install_copy, fbutils, 0, 0, 0755, -, /usr/sbin/fbset)
 endif
 ifdef PTXCONF_FBUTILS_FBCMAP
-	@$(call install_copy, fbutils, 0, 0, 0755, $(FBUTILS_DIR)/fbcmap/fbcmap, /sbin/fbcmap)
+	@$(call install_copy, fbutils, 0, 0, 0755, -, /usr/sbin/fbcmap)
 endif
 ifdef PTXCONF_FBUTILS_FBCONVERT
-	@$(call install_copy, fbutils, 0, 0, 0755, $(FBUTILS_DIR)/fbconvert/fbconvert, /sbin/fbconvert)
-endif
-ifdef PTXCONF_FBUTILS_FBCONVERT
-	@$(call install_copy, fbutils, 0, 0, 0755, $(FBUTILS_DIR)/fbconvert/fbconvert, /sbin/fbconvert)
+	@$(call install_copy, fbutils, 0, 0, 0755, -, /usr/sbin/fbconvert)
 endif
 ifdef PTXCONF_FBUTILS_CON2FBMAP
-	@$(call install_copy, fbutils, 0, 0, 0755, $(FBUTILS_DIR)/con2fbmap/con2fbmap, /sbin/con2fbmap)
+	@$(call install_copy, fbutils, 0, 0, 0755, -, /usr/sbin/con2fbmap)
 endif
 	@$(call install_finish, fbutils)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

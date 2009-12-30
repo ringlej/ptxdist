@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: install fbconvert
+
+install fbconvert during 'make install'
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ Makefile |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: b/Makefile
+===================================================================
+--- a/Makefile
++++ b/Makefile
+@@ -17,6 +17,7 @@ install:
+ 		$(INSTALL) fbset/fbset $(DESTDIR)/usr/sbin/fbset
+ 		$(INSTALL) fbcmap/fbcmap $(DESTDIR)/usr/sbin/fbcmap
+ 		$(INSTALL) con2fbmap/con2fbmap $(DESTDIR)/usr/sbin/con2fbmap
++		$(INSTALL) fbconvert/fbconvert $(DESTDIR)/usr/sbin/fbconvert
+ 		$(INSTALL) -D -p etc/modes $(DESTDIR)/etc/fb/modes
+ 
+ include Rules.build
