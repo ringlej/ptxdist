@@ -32,26 +32,9 @@ $(HOST_GENPART_SOURCE):
 	@$(call get, HOST_GENPART)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-genpart.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_GENPART_DIR))
-	@$(call extract, HOST_GENPART, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_GENPART, $(HOST_GENPART_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_GENPART_PATH	:= PATH=$(HOST_PATH)
-HOST_GENPART_ENV 	:= $(HOST_ENV)
-
-#
-# autoconf
-#
-HOST_GENPART_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_GENPART_CONF_TOOL	:= autoconf
 
 # vim: syntax=make
