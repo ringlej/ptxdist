@@ -37,7 +37,7 @@ $(HOST_IPKG_UTILS_SOURCE):
 # ----------------------------------------------------------------------------
 
 HOST_IPKG_UTILS_CONF_TOOL := NO
-HOST_IPKG_UTILS_MAKE_OPT := PREFIX=$(PTXCONF_SYSROOT_HOST) $(HOST_ENV_CC)
+HOST_IPKG_UTILS_MAKE_OPT := PREFIX=$(HOST_IPKG_UTILS_PKGDIR) $(HOST_ENV_CC)
 HOST_IPKG_UTILS_INSTALL_OPT := $(HOST_IPKG_UTILS_MAKE_OPT) install
 
 # vim: syntax=make
