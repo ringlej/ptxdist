@@ -29,34 +29,13 @@ DAEMONIZE_DIR		= $(BUILDDIR)/$(DAEMONIZE)
 # Get
 # ----------------------------------------------------------------------------
 
-daemonize_get: $(STATEDIR)/daemonize.get
-
-$(STATEDIR)/daemonize.get: $(daemonize_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(DAEMONIZE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, DAEMONIZE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-daemonize_extract: $(STATEDIR)/daemonize.extract
-
-$(STATEDIR)/daemonize.extract: $(daemonize_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(DAEMONIZE_DIR))
-	@$(call extract, DAEMONIZE)
-	@$(call patchin, DAEMONIZE)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-daemonize_prepare: $(STATEDIR)/daemonize.prepare
 
 DAEMONIZE_PATH	:=  PATH=$(CROSS_PATH)
 DAEMONIZE_ENV 	:=  $(CROSS_ENV)
@@ -66,59 +45,28 @@ DAEMONIZE_ENV 	:=  $(CROSS_ENV)
 #
 DAEMONIZE_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/daemonize.prepare: $(daemonize_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(DAEMONIZE_DIR)/config.cache)
-	cd $(DAEMONIZE_DIR) && \
-		$(DAEMONIZE_PATH) $(DAEMONIZE_ENV) \
-		./configure $(DAEMONIZE_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-daemonize_compile: $(STATEDIR)/daemonize.compile
-
-$(STATEDIR)/daemonize.compile: $(daemonize_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(DAEMONIZE_DIR) && $(DAEMONIZE_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-daemonize_install: $(STATEDIR)/daemonize.install
-
-$(STATEDIR)/daemonize.install: $(daemonize_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-daemonize_targetinstall: $(STATEDIR)/daemonize.targetinstall
-
-$(STATEDIR)/daemonize.targetinstall: $(daemonize_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/daemonize.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, daemonize)
 	@$(call install_fixup,daemonize,PACKAGE,daemonize)
 	@$(call install_fixup,daemonize,PRIORITY,optional)
 	@$(call install_fixup,daemonize,VERSION,$(DAEMONIZE_VERSION))
 	@$(call install_fixup,daemonize,SECTION,base)
-	@$(call install_fixup,daemonize,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,daemonize,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,daemonize,DEPENDS,)
 	@$(call install_fixup,daemonize,DESCRIPTION,missing)
 
-	@$(call install_copy, daemonize, 0, 0, 0755, \
-		$(DAEMONIZE_DIR)/daemonize, /usr/sbin/daemonize)
+	@$(call install_copy, daemonize, 0, 0, 0755, -, \
+		/usr/sbin/daemonize)
 
 	@$(call install_finish,daemonize)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

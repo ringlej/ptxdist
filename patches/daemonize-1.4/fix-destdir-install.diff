@@ -1,0 +1,22 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: install to DESTDIR
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ Makefile.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/Makefile.in
+===================================================================
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -7,7 +7,7 @@ srcdir		= @srcdir@
+ VPATH		= @srcdir@
+ INSTALL_PREFIX	= @prefix@
+ INSTALL		= @INSTALL@
+-INSTALL_SBIN	= $(INSTALL_PREFIX)/sbin
++INSTALL_SBIN	= $(DESTDIR)$(INSTALL_PREFIX)/sbin
+ MISSING_SOURCES	= @LOCAL_MISSING_SOURCES@
+ MISSING_OBJECTS = $(MISSING_SOURCES:.c=.o)
+ CC		= @CC@
