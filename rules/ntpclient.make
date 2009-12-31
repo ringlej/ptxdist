@@ -52,7 +52,7 @@ NTPCLIENT_PATH	:=  PATH=$(CROSS_PATH)
 # Compile
 # ----------------------------------------------------------------------------
 
-NTPCLIENT_MAKEVARS := \
+NTPCLIENT_MAKE_OPT := \
 	CC="$(CROSS_CC)" \
 	CPPFLAGS='$(CROSS_CPPFLAGS)' \
 	LDFLAGS='$(CROSS_LDFLAGS)'
@@ -68,22 +68,15 @@ NTPCLIENT_CFLAGS += -DENABLE_REPLAY
 endif
 
 ifdef PTXCONF_NTPCLIENT_BUILD_NTPCLIENT
-NTPCLIENT_MAKEVARS += ntpclient
+NTPCLIENT_MAKE_OPT += ntpclient
 endif
 
 ifdef PTXCONF_NTPCLIENT_BUILD_ADJTIMEX
-NTPCLIENT_MAKEVARS += adjtimex
+NTPCLIENT_MAKE_OPT += adjtimex
+NTPCLIENT_INSTALL_OPT := install install_adjtimex
 endif
 
-NTPCLIENT_MAKEVARS += CFLAGS='-O2 $(NTPCLIENT_CFLAGS)'
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ntpclient.install:
-	@$(call targetinfo)
-	@$(call touch)
+NTPCLIENT_MAKE_OPT += CFLAGS='-O2 $(NTPCLIENT_CFLAGS)'
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -101,12 +94,12 @@ $(STATEDIR)/ntpclient.targetinstall:
 	@$(call install_fixup, ntpclient,DESCRIPTION,missing)
 
 ifdef PTXCONF_NTPCLIENT_BUILD_NTPCLIENT
-	@$(call install_copy, ntpclient, 0, 0, 0755, \
-		$(NTPCLIENT_DIR)/ntpclient, /usr/sbin/ntpclient)
+	@$(call install_copy, ntpclient, 0, 0, 0755, -, \
+		/usr/sbin/ntpclient)
 endif
 ifdef PTXCONF_NTPCLIENT_BUILD_ADJTIMEX
-	@$(call install_copy, ntpclient, 0, 0, 0755, \
-		$(NTPCLIENT_DIR)/adjtimex, /sbin/adjtimex)
+	@$(call install_copy, ntpclient, 0, 0, 0755, -, \
+		/sbin/adjtimex)
 endif
 
 #

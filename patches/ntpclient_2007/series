@@ -1,3 +1,4 @@
 fix_library.diff -p0
 avoid_warnings.diff -p0
 
+add-install-target.diff

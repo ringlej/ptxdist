@@ -1,0 +1,20 @@
+---
+ Makefile |    6 ++++++
+ 1 file changed, 6 insertions(+)
+
+Index: b/Makefile
+===================================================================
+--- a/Makefile
++++ b/Makefile
+@@ -27,5 +27,11 @@ ntpclient.o phaselock.o: ntpclient.h
+ 
+ adjtimex: adjtimex.o
+ 
++install: all
++	install -c ntpclient $(DESTDIR)/usr/sbin/ntpclient
++
++install_adjtimex: adjtimex
++	install -c adjtimex $(DESTDIR)/sbin/adjtimex
++
+ clean:
+ 	rm -f ntpclient adjtimex *.o
