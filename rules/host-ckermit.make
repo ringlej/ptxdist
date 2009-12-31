@@ -16,7 +16,9 @@ HOST_PACKAGES-$(PTXCONF_HOST_CKERMIT) += host-ckermit
 #
 # Paths and names
 #
-HOST_CKERMIT_DIR	= $(HOST_BUILDDIR)/$(CKERMIT)
+HOST_CKERMIT_DIR		= $(HOST_BUILDDIR)/$(CKERMIT)
+HOST_CKERMIT_MAKE_OPT		:= linuxnc
+HOST_CKERMIT_INSTALL_OPT	:= install prefix=
 
 # ----------------------------------------------------------------------------
 # Extract
@@ -26,7 +28,7 @@ $(STATEDIR)/host-ckermit.extract:
 	@$(call targetinfo)
 	@$(call clean, $(HOST_CKERMIT_DIR))
 	mkdir -p $(HOST_CKERMIT_DIR)
-	@$(call extract, CKERMIT, $(HOST_BUILDDIR)/$(CKERMIT))
+	@$(call extract, CKERMIT, $(HOST_CKERMIT_DIR))
 	@$(call patchin, CKERMIT, $(HOST_CKERMIT_DIR))
 	@$(call touch)
 
@@ -42,22 +44,13 @@ $(STATEDIR)/host-ckermit.prepare:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-ckermit.compile:
-	@$(call targetinfo)
-	cd $(HOST_CKERMIT_DIR) && \
-		$(HOST_CKERMIT_PATH) $(MAKE) linuxnc $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-ckermit.install:
 	@$(call targetinfo)
-	cp $(HOST_CKERMIT_DIR)/wermit $(PTXCONF_SYSROOT_HOST)/bin/ckermit
+	@$(call install, HOST_CKERMIT)
+	@ln -sf kermit $(HOST_CKERMIT_PKGDIR)/bin/ckermit
 	@$(call touch)
 
 # vim: syntax=make
