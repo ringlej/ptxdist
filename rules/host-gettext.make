@@ -25,7 +25,7 @@ HOST_GETTEXT_SOURCE	:= $(SRCDIR)/$(HOST_GETTEXT).$(HOST_GETTEXT_SUFFIX)
 HOST_GETTEXT_DIR	:= $(HOST_BUILDDIR)/$(HOST_GETTEXT)
 
 ifdef PTXCONF_HOST_GETTEXT
-$(STATEDIR)/autogen-tools: $(STATEDIR)/host-gettext.install
+$(STATEDIR)/autogen-tools: $(STATEDIR)/host-gettext.install.post
 endif
 
 # ----------------------------------------------------------------------------
