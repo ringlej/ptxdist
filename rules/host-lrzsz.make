@@ -13,30 +13,10 @@
 #
 HOST_PACKAGES-$(PTXCONF_HOST_LRZSZ) += host-lrzsz
 
-#
-# Paths and names
-#
-HOST_LRZSZ_DIR	= $(HOST_BUILDDIR)/$(LRZSZ)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_LRZSZ_PATH	:= PATH=$(HOST_PATH)
-HOST_LRZSZ_ENV 	:= $(HOST_ENV)
-
-#
-# autoconf
-#
-HOST_LRZSZ_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-lrzsz.install:
-	@$(call targetinfo)
-	@$(call install, HOST_LRZSZ,,h)
-	@$(call touch)
+HOST_LRZSZ_CONF_TOOL	:= autoconf
 
 # vim: syntax=make
