@@ -1,0 +1,26 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: don't install stuff that was not built
+
+We don't built everything in ptxdist. This Patch makes sure that
+'make install' won't fail if 'skill' or 'pgrep' is not there.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: b/Makefile
+===================================================================
+--- a/Makefile
++++ b/Makefile
+@@ -228,8 +228,8 @@ $(MANFILES) : all
+ 	$(install) --mode a=r $(notdir $@) $@
+ 
+ install: $(filter-out $(SKIP) $(addprefix $(DESTDIR),$(SKIP)),$(INSTALL))
+-	cd $(usr/bin) && $(ln_f) skill snice
+-	cd $(usr/proc/bin) && $(ln_f) pgrep pkill
++	cd $(usr/bin) && test ! -f skill || $(ln_f) skill snice
++	cd $(usr/proc/bin) && test ! -f pgrep || $(ln_f) pgrep pkill
+ 
+ ############ prog.c --> prog.o
+ 

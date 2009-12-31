@@ -49,3 +49,4 @@
 60_top_nohz.dpatch
 65_fix_partition_format.dpatch
 fix-unknown-HZ-arm-diff
+fix-install.diff
