@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBXSLT) += libxslt
 #
 # Paths and names
 #
-LIBXSLT_VERSION	:= 1.1.24
+LIBXSLT_VERSION	:= 1.1.26
 LIBXSLT		:= libxslt-$(LIBXSLT_VERSION)
 LIBXSLT_SUFFIX	:= tar.gz
 LIBXSLT_SOURCE	:= $(SRCDIR)/$(LIBXSLT).$(LIBXSLT_SUFFIX)
@@ -26,6 +26,8 @@ LIBXSLT_DIR	:= $(BUILDDIR)/$(LIBXSLT)
 LIBXSLT_URL	:= \
 	ftp://xmlsoft.org/libxslt/$(LIBXSLT).$(LIBXSLT_SUFFIX) \
 	ftp://xmlsoft.org/libxslt/old/$(LIBXSLT).$(LIBXSLT_SUFFIX)
+
+LIBXSLT_LICENSE	:= MIT
 
 # ----------------------------------------------------------------------------
 # Get
@@ -110,18 +112,18 @@ $(STATEDIR)/libxslt.targetinstall:
 
 ifdef PTXCONF_LIBXSLT_LIBXSLT
 	@$(call install_copy, libxslt, 0, 0, 0644, \
-		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.24, \
-		/usr/lib/libxslt.so.1.1.24)
-	@$(call install_link, libxslt, libxslt.so.1.1.24, /usr/lib/libxslt.so.1)
-	@$(call install_link, libxslt, libxslt.so.1.1.24, /usr/lib/libxslt.so)
+		$(LIBXSLT_DIR)/libxslt/.libs/libxslt.so.1.1.26, \
+		/usr/lib/libxslt.so.1.1.26)
+	@$(call install_link, libxslt, libxslt.so.1.1.26, /usr/lib/libxslt.so.1)
+	@$(call install_link, libxslt, libxslt.so.1.1.26, /usr/lib/libxslt.so)
 endif
 
 ifdef PTXCONF_LIBXSLT_LIBEXSLT
 	@$(call install_copy, libxslt, 0, 0, 0644, \
-		$(LIBXSLT_DIR)/libexslt/.libs/libexslt.so.0.8.13, \
-		/usr/lib/libexslt.so.0.8.13)
-	@$(call install_link, libxslt, libexslt.so.0.8.13, /usr/lib/libexslt.so.0)
-	@$(call install_link, libxslt, libexslt.so.0.8.13, /usr/lib/libexslt.so)
+		$(LIBXSLT_DIR)/libexslt/.libs/libexslt.so.0.8.15, \
+		/usr/lib/libexslt.so.0.8.15)
+	@$(call install_link, libxslt, libexslt.so.0.8.15, /usr/lib/libexslt.so.0)
+	@$(call install_link, libxslt, libexslt.so.0.8.15, /usr/lib/libexslt.so)
 endif
 
 ifdef PTXCONF_LIBXSLT_XSLTPROC

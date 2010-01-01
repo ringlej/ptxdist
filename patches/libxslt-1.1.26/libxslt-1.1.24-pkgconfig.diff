@@ -19,18 +19,18 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 Index: configure.in
 ===================================================================
---- configure.in.orig	2008-05-13 17:40:31.000000000 +0200
-+++ configure.in	2008-12-05 22:35:28.000000000 +0100
-@@ -75,7 +75,7 @@ VERSION=${LIBXSLT_VERSION}
+--- configure.in.orig
++++ configure.in
+@@ -84,7 +84,7 @@ VERSION=${LIBXSLT_VERSION}
  
  AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
  
 -# AM_MAINTAINER_MODE
 +AM_MAINTAINER_MODE
  
- AC_ARG_WITH(html-dir, [  --with-html-dir=PATH path to installed docs ])
- 
-@@ -338,115 +338,15 @@ else
+ dnl
+ dnl Specific dir for HTML output ?
+@@ -450,115 +450,15 @@ else
  fi
  AC_SUBST(WITH_DEBUGGER)
  
@@ -154,7 +154,7 @@ Index: configure.in
  
  AC_SUBST(CFLAGS)
  AC_SUBST(CPPFLAGS)
-@@ -525,8 +425,6 @@ AC_SUBST(WIN32_EXTRA_LDFLAGS)
+@@ -641,8 +541,6 @@ AC_SUBST(WIN32_EXTRA_LDFLAGS)
  AC_SUBST(XSLTPROCDV)
  AC_SUBST(PYTHONSODV)
  AC_SUBST(XML_CONFIG)
@@ -163,7 +163,7 @@ Index: configure.in
  AC_SUBST(PYTHON)
  AC_SUBST(PYTHON_VERSION)
  AC_SUBST(PYTHON_INCLUDES)
-@@ -534,7 +432,7 @@ AC_SUBST(PYTHON_SITE_PACKAGES)
+@@ -650,7 +548,7 @@ AC_SUBST(PYTHON_SITE_PACKAGES)
  
  XSLT_LIBDIR='-L${libdir}'
  XSLT_INCLUDEDIR='-I${includedir}'
@@ -172,7 +172,7 @@ Index: configure.in
  AC_SUBST(XSLT_LIBDIR)
  AC_SUBST(XSLT_INCLUDEDIR)
  AC_SUBST(XSLT_LIBS)
-@@ -546,7 +444,7 @@ AC_SUBST(EXSLT_LIBDIR)
+@@ -662,7 +560,7 @@ AC_SUBST(EXSLT_LIBDIR)
  AC_SUBST(EXSLT_INCLUDEDIR)
  AC_SUBST(EXSLT_LIBS)
  
@@ -183,8 +183,8 @@ Index: configure.in
  AC_SUBST(M_LIBS)
 Index: libexslt/Makefile.am
 ===================================================================
---- libexslt/Makefile.am.orig	2007-01-03 16:11:57.000000000 +0100
-+++ libexslt/Makefile.am	2008-12-05 22:35:28.000000000 +0100
+--- libexslt/Makefile.am.orig
++++ libexslt/Makefile.am
 @@ -1,6 +1,6 @@
  INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/libxslt -I$(top_srcdir)/libexslt \
  	   -I$(top_builddir) -I$(top_builddir)/libxslt \
@@ -195,8 +195,8 @@ Index: libexslt/Makefile.am
  
 Index: libxslt/Makefile.am
 ===================================================================
---- libxslt/Makefile.am.orig	2007-01-03 16:11:57.000000000 +0100
-+++ libxslt/Makefile.am	2008-12-05 22:41:12.000000000 +0100
+--- libxslt/Makefile.am.orig
++++ libxslt/Makefile.am
 @@ -1,4 +1,4 @@
 -INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/libxslt $(LIBXML_CFLAGS)
 +INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/libxslt $(LIBXML2_CFLAGS)
@@ -205,8 +205,8 @@ Index: libxslt/Makefile.am
  
 Index: python/Makefile.am
 ===================================================================
---- python/Makefile.am.orig	2007-01-03 16:11:42.000000000 +0100
-+++ python/Makefile.am	2008-12-05 22:35:28.000000000 +0100
+--- python/Makefile.am.orig
++++ python/Makefile.am
 @@ -5,7 +5,7 @@ SUBDIRS= . tests
  
  INCLUDES = \
@@ -218,8 +218,8 @@ Index: python/Makefile.am
  	-I../libexslt
 Index: tests/plugins/Makefile.am
 ===================================================================
---- tests/plugins/Makefile.am.orig	2007-01-03 16:11:47.000000000 +0100
-+++ tests/plugins/Makefile.am	2008-12-05 22:35:28.000000000 +0100
+--- tests/plugins/Makefile.am.orig
++++ tests/plugins/Makefile.am
 @@ -5,7 +5,7 @@ $(top_builddir)/xsltproc/xsltproc:
  
  EXTRA_DIST = plugin.out	plugin.xml plugin.xsl
@@ -240,8 +240,8 @@ Index: tests/plugins/Makefile.am
  xmlsoft_org_xslt_testplugin_la_LDFLAGS = -module -avoid-version -rpath $(plugindir)
 Index: xsltproc/Makefile.am
 ===================================================================
---- xsltproc/Makefile.am.orig	2007-01-03 16:11:56.000000000 +0100
-+++ xsltproc/Makefile.am	2008-12-05 22:35:28.000000000 +0100
+--- xsltproc/Makefile.am.orig
++++ xsltproc/Makefile.am
 @@ -1,6 +1,6 @@
  INCLUDES = -I$(top_srcdir) -I$(top_srcdir)/libxslt -I$(top_srcdir)/libexslt \
             -I$(top_builddir) -I$(top_builddir)/libxslt \
@@ -250,7 +250,7 @@ Index: xsltproc/Makefile.am
  
  EXTRA_PROGRAMS=
  bin_PROGRAMS = xsltproc $(XSLTPROCDV)
-@@ -17,10 +17,10 @@ DEPS = $(top_builddir)/libxslt/libxslt.l
+@@ -24,12 +24,12 @@ DEPS = $(top_builddir)/libxslt/libxslt.l
  LDADDS = @STATIC_BINARIES@ \
           $(top_builddir)/libxslt/libxslt.la \
           $(top_builddir)/libexslt/libexslt.la \
@@ -263,3 +263,5 @@ Index: xsltproc/Makefile.am
 -	$(CC) $(CFLAGS) -o xsltproc xsltproc.o ../libexslt/.libs/libexslt.a ../libxslt/.libs/libxslt.a @LIBXML_LIBS@ $(EXTRA_LIBS) $(LIBGCRYPT_LIBS)
 +	$(CC) $(CFLAGS) -o xsltproc xsltproc.o ../libexslt/.libs/libexslt.a ../libxslt/.libs/libxslt.a @LIBXML2_LIBS@ $(EXTRA_LIBS) $(LIBGCRYPT_LIBS)
  
+ tests: testThreads
+ 	@echo '## Running testThreads'
