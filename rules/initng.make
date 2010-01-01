@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -24,42 +24,20 @@ INITNG_URL	:= http://download.initng.org/initng/v0.6/$(INITNG).$(INITNG_SUFFIX)
 INITNG_SOURCE	:= $(SRCDIR)/$(INITNG).$(INITNG_SUFFIX)
 INITNG_DIR	:= $(BUILDDIR)/$(INITNG)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-initng_get: $(STATEDIR)/initng.get
-
-$(STATEDIR)/initng.get: $(initng_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(INITNG_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, INITNG)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-initng_extract: $(STATEDIR)/initng.extract
-
-$(STATEDIR)/initng.extract: $(initng_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(INITNG_DIR))
-	@$(call extract, INITNG)
-	@$(call patchin, INITNG)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-initng_prepare: $(STATEDIR)/initng.prepare
-
-INITNG_PATH	:=  PATH=$(CROSS_PATH)
-INITNG_ENV 	:=  $(CROSS_ENV)
+INITNG_PATH	:= PATH=$(CROSS_PATH)
+INITNG_ENV 	:= $(CROSS_ENV)
 
 #
 # CMake options
@@ -422,17 +400,15 @@ $(STATEDIR)/initng.install: $(initng_install_deps_default)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-initng_targetinstall: $(STATEDIR)/initng.targetinstall
-
-$(STATEDIR)/initng.targetinstall: $(initng_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/initng.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, initng)
 	@$(call install_fixup,initng,PACKAGE,initng)
 	@$(call install_fixup,initng,PRIORITY,optional)
 	@$(call install_fixup,initng,VERSION,$(INITNG_VERSION))
 	@$(call install_fixup,initng,SECTION,base)
-	@$(call install_fixup,initng,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup,initng,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup,initng,DEPENDS,)
 	@$(call install_fixup,initng,DESCRIPTION,missing)
 
@@ -642,7 +618,7 @@ ifdef PTXCONF_INITNG_CRITICAL
 endif
 	@$(call install_finish,initng)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
