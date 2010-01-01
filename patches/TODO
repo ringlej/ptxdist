@@ -22,6 +22,7 @@ Submitted, Pending
 [-] libnet-1.1.4
 [ ] libpng-1.2.41
 [-] libnl-1.1
+[ ] libusb-1.0.3
 [-] netpbm-10.31
 [x] nfs-utils-1.1.6
 [x] pcmciautils-015
@@ -188,7 +189,6 @@ TODO
 # upstream is silent for years
 [ ] libpcap-1.0.0
 [ ] libtheora-1.0
-[ ] libusb-1.0.3
 [ ] libusb-compat-0.1.3
 [ ] libx86-1.1
 [ ] libxml2-2.6.32

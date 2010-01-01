@@ -5,6 +5,8 @@ Add missing dependencies.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+# 20100101 rsc: added as http://libusb.org/ticket/24
+
  libusb-1.0.pc.in |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
