@@ -76,11 +76,11 @@ endif
 ifdef PTXCONF_LIBXSLT_DEBUG
 LIBXSLT_AUTOCONF += \
 	--with-debug \
-	--with-with_debugger
+	--with-debugger
 else
 LIBXSLT_AUTOCONF += \
 	--without-debug \
-	--with-with_debugger=no
+	--without-debugger
 endif
 
 
