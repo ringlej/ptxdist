@@ -28,34 +28,13 @@ GMAKE_DIR	:= $(BUILDDIR)/$(GMAKE)
 # Get
 # ----------------------------------------------------------------------------
 
-gmake_get: $(STATEDIR)/gmake.get
-
-$(STATEDIR)/gmake.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(GMAKE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, GMAKE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-gmake_extract: $(STATEDIR)/gmake.extract
-
-$(STATEDIR)/gmake.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(GMAKE_DIR))
-	@$(call extract, GMAKE)
-	@$(call patchin, GMAKE)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-gmake_prepare: $(STATEDIR)/gmake.prepare
 
 GMAKE_PATH	:= PATH=$(CROSS_PATH)
 GMAKE_ENV 	:= $(CROSS_ENV)
@@ -69,59 +48,27 @@ GMAKE_AUTOCONF := \
 	--disable-rpath \
 	--without-libintl-prefix
 
-$(STATEDIR)/gmake.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(GMAKE_DIR)/config.cache)
-	cd $(GMAKE_DIR) && \
-		$(GMAKE_PATH) $(GMAKE_ENV) \
-		./configure $(GMAKE_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-gmake_compile: $(STATEDIR)/gmake.compile
-
-$(STATEDIR)/gmake.compile:
-	@$(call targetinfo, $@)
-	cd $(GMAKE_DIR) && $(GMAKE_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-gmake_install: $(STATEDIR)/gmake.install
-
-$(STATEDIR)/gmake.install:
-	@$(call targetinfo, $@)
-	@$(call install, GMAKE)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-gmake_targetinstall: $(STATEDIR)/gmake.targetinstall
-
 $(STATEDIR)/gmake.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, gmake)
 	@$(call install_fixup, gmake,PACKAGE,gmake)
 	@$(call install_fixup, gmake,PRIORITY,optional)
 	@$(call install_fixup, gmake,VERSION,$(GMAKE_VERSION))
 	@$(call install_fixup, gmake,SECTION,base)
-	@$(call install_fixup, gmake,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gmake,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gmake,DEPENDS,)
 	@$(call install_fixup, gmake,DESCRIPTION,missing)
 
-	@$(call install_copy, gmake, 0, 0, 0755, $(GMAKE_DIR)/make, /usr/bin/make)
+	@$(call install_copy, gmake, 0, 0, 0755, -, /usr/bin/make)
 
 	@$(call install_finish, gmake)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
