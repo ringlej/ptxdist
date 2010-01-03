@@ -75,6 +75,18 @@ endif
 TCL_SUBDIR := unix
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/tcl.install:
+	@$(call targetinfo)
+	@$(call install, TCL)
+	@mkdir -p $(TCL_PKGDIR)/usr/share/tcl-tests
+	@cd $(TCL_DIR)/tests && \
+		install -m 644 * $(TCL_PKGDIR)/usr/share/tcl-tests/
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -132,11 +144,11 @@ ifdef PTXCONF_TCL_TESTING
 
 # avoid a subdirectory hell. Install them where also the other scripts are
 	@$(call install_copy, tcl, 0, 0, 0644, \
-		$(TCL_DIR)/library/opt/optparse.tcl, \
+		$(TCL_PKGDIR)/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/opt0.4/optparse.tcl, \
 		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/optparse.tcl)
 
 	@$(call install_copy, tcl, 0, 0, 0644, \
-		$(TCL_DIR)/library/opt/pkgIndex.tcl, \
+		$(TCL_PKGDIR)/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/opt0.4/pkgIndex.tcl, \
 		/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/pkgIndex.tcl)
 endif
 
@@ -160,21 +172,18 @@ ifndef PTXCONF_TCL_TESTING
 		/usr/lib/tcl8.5/encoding/big5.enc)
 else
 # install all code pages
-	@cd $(TCL_DIR)/library/encoding; \
+	@cd $(TCL_PKGDIR)/usr/lib/tcl8.5/encoding; \
 	for file in * ; do \
-		$(call install_copy, tcl, 0, 0, 0644, \
-			$(TCL_DIR)/library/encoding/$$file, \
+		$(call install_copy, tcl, 0, 0, 0644, -, \
 			/usr/lib/tcl8.5/encoding/$$file); \
-        done
+	done
 # copy all tests to the target
 	@$(call install_copy, tcl, 0, 0, 0755, /usr/share/tcl-tests)
-	@cd $(TCL_DIR)/tests; \
+	@cd $(TCL_PKGDIR)/usr/share/tcl-tests && \
 	for file in * ; do \
-		PER=`stat -c "%a" $$file` \
-		$(call install_copy, tcl, 0, 0, $$PER, \
-			$(TCL_DIR)/tests/$$file, \
+		$(call install_copy, tcl, 0, 0, 644, -, \
 			/usr/share/tcl-tests/$$file); \
-        done
+	done
 
 # unresolved tests:
 # Test file error: EscapeToUtfProc: invalid sub table
