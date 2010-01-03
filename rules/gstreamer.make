@@ -33,17 +33,6 @@ $(GSTREAMER_SOURCE):
 	@$(call get, GSTREAMER)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gstreamer.extract:
-	@$(call targetinfo)
-	@$(call clean, $(GSTREAMER_DIR))
-	@$(call extract, GSTREAMER)
-	@$(call patchin, GSTREAMER)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -102,33 +91,6 @@ else
 GSTREAMER_AUTOCONF += --disable-net
 endif
 
-
-$(STATEDIR)/gstreamer.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(GSTREAMER_DIR)/config.cache)
-	cd $(GSTREAMER_DIR) && \
-		$(GSTREAMER_PATH) $(GSTREAMER_ENV) \
-		./configure $(GSTREAMER_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gstreamer.compile:
-	@$(call targetinfo)
-	cd $(GSTREAMER_DIR) && $(GSTREAMER_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gstreamer.install:
-	@$(call targetinfo)
-	@$(call install, GSTREAMER)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -141,82 +103,69 @@ $(STATEDIR)/gstreamer.targetinstall:
 	@$(call install_fixup, gstreamer,PRIORITY,optional)
 	@$(call install_fixup, gstreamer,VERSION,$(GSTREAMER_VERSION))
 	@$(call install_fixup, gstreamer,SECTION,base)
-	@$(call install_fixup, gstreamer,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gstreamer,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gstreamer,DEPENDS,)
 	@$(call install_fixup, gstreamer,DESCRIPTION,missing)
 
 ifdef PTXCONF_GSTREAMER__INSTALL_TYPEFIND
-	@$(call install_copy, gstreamer, 0, 0, 0755, \
-		$(GSTREAMER_DIR)/tools/gst-typefind, \
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-typefind)
 endif
 ifdef PTXCONF_GSTREAMER__INSTALL_INSPECT
-	@$(call install_copy, gstreamer, 0, 0, 0755, \
-		$(GSTREAMER_DIR)/tools/gst-inspect, \
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-inspect)
-	@$(call install_copy, gstreamer, 0, 0, 0755, \
-		$(GSTREAMER_DIR)/tools/gst-inspect-0.10, \
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-inspect-0.10)
 endif
 ifdef PTXCONF_GSTREAMER__INSTALL_XMLINSPECT
-	@$(call install_copy, gstreamer, 0, 0, 0755, \
-		$(GSTREAMER_DIR)/tools/gst-xmlinspect, \
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-xmlinspect)
 endif
 ifdef PTXCONF_GSTREAMER__INSTALL_XMLLAUNCH
-	@$(call install_copy, gstreamer, 0, 0, 0755, \
-		$(GSTREAMER_DIR)/tools/gst-xmllaunch, \
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-xmllaunch)
 endif
 ifdef PTXCONF_GSTREAMER__INSTALL_LAUNCH
-	@$(call install_copy, gstreamer, 0, 0, 0755, \
-		$(GSTREAMER_DIR)/tools/gst-launch, \
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-launch)
-	@$(call install_copy, gstreamer, 0, 0, 0755, \
-		$(GSTREAMER_DIR)/tools/gst-launch-0.10, \
+	@$(call install_copy, gstreamer, 0, 0, 0755, -, \
 		/usr/bin/gst-launch-0.10)
 endif
 ifdef PTXCONF_GSTREAMER__NETDIST
-	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/libs/gst/net/.libs/libgstnet-0.10.so.0.19.0, \
-		/usr/lib/libgstnet-0.10.so.0.17.0)
+	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
+		/usr/lib/libgstnet-0.10.so.0.19.0)
 	@$(call install_link, gstreamer, \
-		libgstnet-0.10.so.0.17.0, \
+		libgstnet-0.10.so.0.19.0, \
 		/usr/lib/libgstnet-0.10.so.0)
 	@$(call install_link, gstreamer, \
-		libgstnet-0.10.so.0.17.0, \
+		libgstnet-0.10.so.0.19.0, \
 		/usr/lib/libgstnet-0.10.so)
 endif
-	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/libs/gst/controller/.libs/libgstcontroller-0.10.so.0.19.0, \
-		/usr/lib/libgstcontroller-0.10.so.0.17.0)
+	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
+		/usr/lib/libgstcontroller-0.10.so.0.19.0)
 	@$(call install_link, gstreamer, \
-		libgstcontroller-0.10.so.0.17.0, \
+		libgstcontroller-0.10.so.0.19.0, \
 		/usr/lib/libgstcontroller-0.10.so.0)
 	@$(call install_link, gstreamer, \
-		libgstcontroller-0.10.so.0.17.0, \
+		libgstcontroller-0.10.so.0.19.0, \
 		/usr/lib/libgstcontroller-0.10.so)
 
-	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/gst/.libs/libgstreamer-0.10.so.0.19.0, \
-		/usr/lib/libgstreamer-0.10.so.0.17.0)
+	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
+		/usr/lib/libgstreamer-0.10.so.0.19.0)
 	@$(call install_link, gstreamer, \
-		libgstreamer-0.10.so.0.17.0, \
+		libgstreamer-0.10.so.0.19.0, \
 		/usr/lib/libgstreamer-0.10.so.0)
 	@$(call install_link, gstreamer, \
-		libgstreamer-0.10.so.0.17.0, \
+		libgstreamer-0.10.so.0.19.0, \
 		/usr/lib/libgstreamer-0.10.so)
 
-	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/plugins/elements/.libs/libgstcoreelements.so, \
+	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstcoreelements.so)
 
-	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/plugins/indexers/.libs/libgstcoreindexers.so, \
+	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstcoreindexers.so)
 
-	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/libs/gst/dataprotocol/.libs/libgstdataprotocol-0.10.so.0.19.0, \
+	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
 		/usr/lib/libgstdataprotocol-0.10.so.0.19.0)
 	@$(call install_link, gstreamer, \
 		libgstdataprotocol-0.10.so.0.19.0, \
@@ -225,8 +174,7 @@ endif
 		libgstdataprotocol-0.10.so.0.19.0, \
 		/usr/lib/libgstdataprotocol-0.10.so)
 
-	@$(call install_copy, gstreamer, 0, 0, 0644, \
-		$(GSTREAMER_DIR)/libs/gst/base/.libs/libgstbase-0.10.so.0.19.0, \
+	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
 		/usr/lib/libgstbase-0.10.so.0.19.0)
 	@$(call install_link, gstreamer, \
 		libgstbase-0.10.so.0.19.0, \
