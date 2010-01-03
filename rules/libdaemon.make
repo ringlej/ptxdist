@@ -29,34 +29,13 @@ LIBDAEMON_DIR		:= $(BUILDDIR)/$(LIBDAEMON)
 # Get
 # ----------------------------------------------------------------------------
 
-libdaemon_get: $(STATEDIR)/libdaemon.get
-
-$(STATEDIR)/libdaemon.get: $(libdaemon_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(LIBDAEMON_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, LIBDAEMON)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-libdaemon_extract: $(STATEDIR)/libdaemon.extract
-
-$(STATEDIR)/libdaemon.extract: $(libdaemon_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBDAEMON_DIR))
-	@$(call extract, LIBDAEMON)
-	@$(call patchin, LIBDAEMON)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-libdaemon_prepare: $(STATEDIR)/libdaemon.prepare
 
 LIBDAEMON_PATH	:=  PATH=$(CROSS_PATH)
 LIBDAEMON_ENV 	:=  $(CROSS_ENV)
@@ -68,56 +47,23 @@ LIBDAEMON_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-lynx
 
-$(STATEDIR)/libdaemon.prepare: $(libdaemon_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(LIBDAEMON_DIR)/config.cache)
-	cd $(LIBDAEMON_DIR) && \
-		$(LIBDAEMON_PATH) $(LIBDAEMON_ENV) \
-		./configure $(LIBDAEMON_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-libdaemon_compile: $(STATEDIR)/libdaemon.compile
-
-$(STATEDIR)/libdaemon.compile: $(libdaemon_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(LIBDAEMON_DIR) && $(LIBDAEMON_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-libdaemon_install: $(STATEDIR)/libdaemon.install
-
-$(STATEDIR)/libdaemon.install: $(libdaemon_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, LIBDAEMON)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-libdaemon_targetinstall: $(STATEDIR)/libdaemon.targetinstall
-
 $(STATEDIR)/libdaemon.targetinstall: $(libdaemon_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, libdaemon)
 	@$(call install_fixup,libdaemon,PACKAGE,libdaemon)
 	@$(call install_fixup,libdaemon,PRIORITY,optional)
 	@$(call install_fixup,libdaemon,VERSION,$(LIBDAEMON_VERSION))
 	@$(call install_fixup,libdaemon,SECTION,base)
-	@$(call install_fixup,libdaemon,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,libdaemon,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,libdaemon,DEPENDS,)
 	@$(call install_fixup,libdaemon,DESCRIPTION,missing)
 
-	@$(call install_copy, libdaemon, 0, 0, 0644, \
-		$(LIBDAEMON_DIR)/libdaemon/.libs/libdaemon.so.0.3.1, \
+	@$(call install_copy, libdaemon, 0, 0, 0644, -, \
 		/usr/lib/libdaemon.so.0.3.1)
 
 	@$(call install_link, libdaemon, \
@@ -130,7 +76,7 @@ $(STATEDIR)/libdaemon.targetinstall: $(libdaemon_targetinstall_deps_default)
 
 	@$(call install_finish,libdaemon)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
