@@ -318,33 +318,33 @@ $(STATEDIR)/mysql.targetinstall:
 #	# install server stuff
 #	# --------------------
 
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/sql/mysqld, /usr/libexec/mysqld)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/scripts/mysqld_safe, /usr/bin/mysqld_safe,n)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/libexec/mysqld)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysqld_safe,n)
 
 #	# FIXME: need more languages?
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/sql/share/english/errmsg.sys, /usr/share/mysql/english/errmsg.sys,n)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/share/mysql/english/errmsg.sys,n)
 
 #	# install management scripts
 #	# --------------------------
 #	# install_db:
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/scripts/mysql_install_db, /usr/bin/mysql_install_db,n)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/extra/my_print_defaults, /usr/bin/my_print_defaults)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/scripts/fill_help_tables.sql, /usr/share/mysql/fill_help_tables.sql,n)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/scripts/mysql_fix_privilege_tables.sql, /usr/share/mysql/mysql_fix_privilege_tables.sql,n)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/extra/resolveip, /usr/bin/resolveip)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/scripts/mysql_create_system_tables, /usr/bin/mysql_create_system_tables)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysql_install_db,n)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/my_print_defaults)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/share/mysql/fill_help_tables.sql,n)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/share/mysql/mysql_fix_privilege_tables.sql,n)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/resolveip)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysql_create_system_tables)
 
 
 #	# install client stuff
 #	# --------------------------
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/client/mysql, /usr/bin/mysql)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/client/mysqladmin, /usr/bin/mysqladmin)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/client/mysql_upgrade, /usr/bin/mysql_upgrade)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/client/mysqlcheck, /usr/bin/mysqlcheck)
-	@$(call install_copy, mysql, 0, 0, 0755, $(MYSQL_DIR)/client/mysqldump, /usr/bin/mysqldump)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysql)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysqladmin)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysql_upgrade)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysqlcheck)
+	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysqldump)
 
 	@$(call install_copy, mysql, 0, 0, 0644, \
-		$(MYSQL_DIR)/libmysql/.libs/libmysqlclient.so.15.0.0, \
+		$(MYSQL_PKGDIR)/usr/lib/mysql/libmysqlclient.so.15.0.0, \
 		/usr/lib/libmysqlclient.so.15.0.0)
 	@$(call install_link, mysql, libmysqlclient.so.15.0.0, \
 		/usr/lib/libmysqlclient.so.15)
@@ -353,7 +353,7 @@ $(STATEDIR)/mysql.targetinstall:
 
 #	# libmyodbc3_r-3.51.27.so uses this library:
 	@$(call install_copy, mysql, 0, 0, 0644, \
-		$(MYSQL_DIR)/libmysql_r/.libs/libmysqlclient_r.so.15.0.0, \
+		$(MYSQL_PKGDIR)/usr/lib/mysql/libmysqlclient_r.so.15.0.0, \
 		/usr/lib/libmysqlclient_r.so.15.0.0)
 	@$(call install_link, mysql, libmysqlclient_r.so.15.0.0, \
 		/usr/lib/libmysqlclient_r.so.15)
