@@ -241,18 +241,8 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dropbear.compile:
-	@$(call targetinfo)
-	@cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) $(MAKE)
-
-ifdef PTXCONF_DROPBEAR_SCP
-	@cd $(DROPBEAR_DIR) && $(DROPBEAR_ENV) $(DROPBEAR_PATH) $(MAKE) scp
-endif
-	@$(call touch)
+DROPBEAR_MAKE_OPT	:= all scp
+DROPBEAR_INSTALL_OPT	:= install inst_scp
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -266,28 +256,28 @@ $(STATEDIR)/dropbear.targetinstall:
 	@$(call install_fixup, dropbear,PRIORITY,optional)
 	@$(call install_fixup, dropbear,VERSION,$(DROPBEAR_VERSION))
 	@$(call install_fixup, dropbear,SECTION,base)
-	@$(call install_fixup, dropbear,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, dropbear,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, dropbear,DEPENDS,)
 	@$(call install_fixup, dropbear,DESCRIPTION,missing)
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR
-	@$(call install_copy, dropbear, 0, 0, 0755, \
-		$(DROPBEAR_DIR)/dropbear, /usr/sbin/dropbear)
+	@$(call install_copy, dropbear, 0, 0, 0755, -, \
+		/usr/sbin/dropbear)
 endif
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR_KEY
-	@$(call install_copy, dropbear, 0, 0, 0755, \
-		$(DROPBEAR_DIR)/dropbearkey, /usr/sbin/dropbearkey)
+	@$(call install_copy, dropbear, 0, 0, 0755, -, \
+		/usr/bin/dropbearkey)
 endif
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR_CONVERT
-	@$(call install_copy, dropbear, 0, 0, 0755, \
-		$(DROPBEAR_DIR)/dropbearconvert, /usr/sbin/dropbearconvert)
+	@$(call install_copy, dropbear, 0, 0, 0755, -, \
+		/usr/bin/dropbearconvert)
 endif
 
 ifdef PTXCONF_DROPBEAR_SCP
-	@$(call install_copy, dropbear, 0, 0, 0755, \
-		$(DROPBEAR_DIR)/scp, /usr/bin/scp)
+	@$(call install_copy, dropbear, 0, 0, 0755, -, \
+		/usr/bin/scp)
 endif
 
 #	#
