@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_XTERM) += xterm
 #
 # Paths and names
 #
-XTERM_VERSION	:= 250
+XTERM_VERSION	:= 253
 XTERM		:= xterm-$(XTERM_VERSION)
 XTERM_SUFFIX	:= tgz
 XTERM_URL	:= ftp://invisible-island.net/xterm/$(XTERM).$(XTERM_SUFFIX)
@@ -29,28 +29,9 @@ XTERM_DIR	:= $(BUILDDIR)/$(XTERM)
 # Get
 # ----------------------------------------------------------------------------
 
-xterm_get: $(STATEDIR)/xterm.get
-
-$(STATEDIR)/xterm.get: $(xterm_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XTERM_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XTERM)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xterm_extract: $(STATEDIR)/xterm.extract
-
-$(STATEDIR)/xterm.extract: $(xterm_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XTERM_DIR))
-	@$(call extract, XTERM)
-	@$(call patchin, XTERM)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -68,59 +49,27 @@ XTERM_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-freetype
 
-$(STATEDIR)/xterm.prepare: $(xterm_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XTERM_DIR)/config.cache)
-	cd $(XTERM_DIR) && \
-		$(XTERM_PATH) $(XTERM_ENV) \
-		./configure $(XTERM_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xterm_compile: $(STATEDIR)/xterm.compile
-
-$(STATEDIR)/xterm.compile: $(xterm_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XTERM_DIR) && $(XTERM_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xterm_install: $(STATEDIR)/xterm.install
-
-$(STATEDIR)/xterm.install: $(xterm_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XTERM)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xterm_targetinstall: $(STATEDIR)/xterm.targetinstall
-
 $(STATEDIR)/xterm.targetinstall: $(xterm_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, xterm)
 	@$(call install_fixup,xterm,PACKAGE,xterm)
 	@$(call install_fixup,xterm,PRIORITY,optional)
 	@$(call install_fixup,xterm,VERSION,$(XTERM_VERSION))
 	@$(call install_fixup,xterm,SECTION,base)
-	@$(call install_fixup,xterm,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,xterm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,xterm,DEPENDS,)
 	@$(call install_fixup,xterm,DESCRIPTION,missing)
 
-	@$(call install_copy, xterm, 0, 0, 0755, $(XTERM_DIR)/xterm, $(XORG_BINDIR)/xterm)
+	@$(call install_copy, xterm, 0, 0, 0755, -, $(XORG_BINDIR)/xterm)
 
 	@$(call install_finish,xterm)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
