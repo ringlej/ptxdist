@@ -73,9 +73,9 @@ $(STATEDIR)/attr.targetinstall:
 	@$(call install_fixup, attr,DEPENDS,)
 	@$(call install_fixup, attr,DESCRIPTION,missing)
 
-	@$(call install_copy, attr, 0, 0, 0755, $(ATTR_DIR)/attr/attr, /usr/bin/attr)
-	@$(call install_copy, attr, 0, 0, 0755, $(ATTR_DIR)/setfattr/setfattr, /usr/bin/setfattr)
-	@$(call install_copy, attr, 0, 0, 0755, $(ATTR_DIR)/getfattr/getfattr, /usr/bin/getfattr)
+	@$(call install_copy, attr, 0, 0, 0755, -, /usr/bin/attr)
+	@$(call install_copy, attr, 0, 0, 0755, -, /usr/bin/setfattr)
+	@$(call install_copy, attr, 0, 0, 0755, -, /usr/bin/getfattr)
 
 	@$(call install_finish, attr)
 
