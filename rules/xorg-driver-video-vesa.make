@@ -28,34 +28,13 @@ XORG_DRIVER_VIDEO_VESA_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_VIDEO_VESA)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-driver-video-vesa_get: $(STATEDIR)/xorg-driver-video-vesa.get
-
-$(STATEDIR)/xorg-driver-video-vesa.get: $(xorg-driver-video-vesa_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_DRIVER_VIDEO_VESA_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_DRIVER_VIDEO_VESA)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-vesa_extract: $(STATEDIR)/xorg-driver-video-vesa.extract
-
-$(STATEDIR)/xorg-driver-video-vesa.extract: $(xorg-driver-video-vesa_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_DRIVER_VIDEO_VESA_DIR))
-	@$(call extract, XORG_DRIVER_VIDEO_VESA)
-	@$(call patchin, XORG_DRIVER_VIDEO_VESA)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-xorg-driver-video-vesa_prepare: $(STATEDIR)/xorg-driver-video-vesa.prepare
 
 XORG_DRIVER_VIDEO_VESA_PATH	:=  PATH=$(CROSS_PATH)
 XORG_DRIVER_VIDEO_VESA_ENV 	:=  $(CROSS_ENV)
@@ -65,61 +44,28 @@ XORG_DRIVER_VIDEO_VESA_ENV 	:=  $(CROSS_ENV)
 #
 XORG_DRIVER_VIDEO_VESA_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xorg-driver-video-vesa.prepare: $(xorg-driver-video-vesa_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_DRIVER_VIDEO_VESA_DIR)/config.cache)
-	cd $(XORG_DRIVER_VIDEO_VESA_DIR) && \
-		$(XORG_DRIVER_VIDEO_VESA_PATH) $(XORG_DRIVER_VIDEO_VESA_ENV) \
-		./configure $(XORG_DRIVER_VIDEO_VESA_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-vesa_compile: $(STATEDIR)/xorg-driver-video-vesa.compile
-
-$(STATEDIR)/xorg-driver-video-vesa.compile: $(xorg-driver-video-vesa_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_DRIVER_VIDEO_VESA_DIR) && $(XORG_DRIVER_VIDEO_VESA_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-vesa_install: $(STATEDIR)/xorg-driver-video-vesa.install
-
-$(STATEDIR)/xorg-driver-video-vesa.install: $(xorg-driver-video-vesa_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_DRIVER_VIDEO_VESA)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-driver-video-vesa_targetinstall: $(STATEDIR)/xorg-driver-video-vesa.targetinstall
-
-$(STATEDIR)/xorg-driver-video-vesa.targetinstall: $(xorg-driver-video-vesa_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-driver-video-vesa.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-video-vesa)
 	@$(call install_fixup,xorg-driver-video-vesa,PACKAGE,xorg-driver-video-vesa)
 	@$(call install_fixup,xorg-driver-video-vesa,PRIORITY,optional)
 	@$(call install_fixup,xorg-driver-video-vesa,VERSION,$(XORG_DRIVER_VIDEO_VESA_VERSION))
 	@$(call install_fixup,xorg-driver-video-vesa,SECTION,base)
-	@$(call install_fixup,xorg-driver-video-vesa,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,xorg-driver-video-vesa,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,xorg-driver-video-vesa,DEPENDS,)
 	@$(call install_fixup,xorg-driver-video-vesa,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-driver-video-vesa, 0, 0, 0755, \
-		$(XORG_DRIVER_VIDEO_VESA_DIR)/src/.libs/vesa_drv.so, \
-		/usr/lib/xorg/modules/vesa_drv.so)
+	@$(call install_copy, xorg-driver-video-vesa, 0, 0, 0755, -, \
+		/usr/lib/xorg/modules/drivers/vesa_drv.so)
 
 	@$(call install_finish,xorg-driver-video-vesa)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
