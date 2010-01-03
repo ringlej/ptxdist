@@ -212,6 +212,8 @@ TODO before 2.1.0
 TODO somewhen
 =============
 
+[ ] rsc: evaluate http://dolt.freedesktop.org
+
 [ ] rsc: license management:
 
     - generate license dependency graph (based on objdump info?)
