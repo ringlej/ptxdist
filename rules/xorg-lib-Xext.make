@@ -29,28 +29,9 @@ XORG_LIB_XEXT_DIR	:= $(BUILDDIR)/$(XORG_LIB_XEXT)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-xext_get: $(STATEDIR)/xorg-lib-xext.get
-
-$(STATEDIR)/xorg-lib-xext.get: $(xorg-lib-xext_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_LIB_XEXT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_LIB_XEXT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-lib-xext_extract: $(STATEDIR)/xorg-lib-xext.extract
-
-$(STATEDIR)/xorg-lib-xext.extract: $(xorg-lib-xext_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XEXT_DIR))
-	@$(call extract, XORG_LIB_XEXT)
-	@$(call patchin, XORG_LIB_XEXT)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -68,44 +49,12 @@ XORG_LIB_XEXT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 XORG_LIB_XEXT_AUTOCONF += --disable-malloc0returnsnull
 
-$(STATEDIR)/xorg-lib-xext.prepare: $(xorg-lib-xext_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XEXT_DIR)/config.cache)
-	cd $(XORG_LIB_XEXT_DIR) && \
-		$(XORG_LIB_XEXT_PATH) $(XORG_LIB_XEXT_ENV) \
-		./configure $(XORG_LIB_XEXT_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-lib-xext_compile: $(STATEDIR)/xorg-lib-xext.compile
-
-$(STATEDIR)/xorg-lib-xext.compile: $(xorg-lib-xext_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XEXT_DIR) && $(XORG_LIB_XEXT_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-lib-xext_install: $(STATEDIR)/xorg-lib-xext.install
-
-$(STATEDIR)/xorg-lib-xext.install: $(xorg-lib-xext_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_LIB_XEXT)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xext_targetinstall: $(STATEDIR)/xorg-lib-xext.targetinstall
-
-$(STATEDIR)/xorg-lib-xext.targetinstall: $(xorg-lib-xext_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-lib-xext.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xext)
 	@$(call install_fixup, xorg-lib-xext,PACKAGE,xorg-lib-xext)
@@ -116,8 +65,7 @@ $(STATEDIR)/xorg-lib-xext.targetinstall: $(xorg-lib-xext_targetinstall_deps_defa
 	@$(call install_fixup, xorg-lib-xext,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xext,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xext, 0, 0, 0644, \
-		$(XORG_LIB_XEXT_DIR)/src/.libs/libXext.so.6.4.0, \
+	@$(call install_copy, xorg-lib-xext, 0, 0, 0644, -, \
 		$(XORG_LIBDIR)/libXext.so.6.4.0)
 
 	@$(call install_link, xorg-lib-xext, \
@@ -130,7 +78,7 @@ $(STATEDIR)/xorg-lib-xext.targetinstall: $(xorg-lib-xext_targetinstall_deps_defa
 
 	@$(call install_finish, xorg-lib-xext)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
