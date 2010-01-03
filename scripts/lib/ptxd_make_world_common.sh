@@ -87,10 +87,12 @@ ptxd_make_world_init_compat() {
 
 
     # compile_env
-    if [ -n "${pkg_deprecated_compile_env}" -a -n "${pkg_make_env}" ]; then
-	ptxd_bailout "${FUNCNAME}: <PKG>_COMPILE_ENV is incompatibel with <PKG>_MAKE_ENV"
+    if [ -n "${pkg_deprecated_compile_env}" ]; then
+	if [ -n "${pkg_make_env}" ]; then
+	    ptxd_bailout "${FUNCNAME}: <PKG>_COMPILE_ENV is incompatibel with <PKG>_MAKE_ENV"
+	fi
+	pkg_make_env="${pkg_deprecated_compile_env}"
     fi
-    pkg_make_env="${pkg_deprecated_compile_env}"
 
 
     # makevars
