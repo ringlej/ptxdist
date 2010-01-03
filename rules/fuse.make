@@ -76,26 +76,24 @@ $(STATEDIR)/fuse.targetinstall:
 	@$(call install_fixup, fuse,PRIORITY,optional)
 	@$(call install_fixup, fuse,VERSION,$(FUSE_VERSION))
 	@$(call install_fixup, fuse,SECTION,base)
-	@$(call install_fixup, fuse,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, fuse,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, fuse,DEPENDS,)
 	@$(call install_fixup, fuse,DESCRIPTION,missing)
 
 ifdef PTXCONF_FUSE__LIB
-	@$(call install_copy, fuse, 0, 0, 0644, \
-		$(FUSE_DIR)/lib/.libs/libfuse.so.2.7.4, \
+	@$(call install_copy, fuse, 0, 0, 0644, -, \
 		/usr/lib/libfuse.so.2.7.4)
 	@$(call install_link, fuse, libfuse.so.2.7.4, /usr/lib/libfuse.so)
 	@$(call install_link, fuse, libfuse.so.2.7.4, /usr/lib/libfuse.so.2)
 
-	@$(call install_copy, fuse, 0, 0, 0644, \
-		$(FUSE_DIR)/lib/.libs/libulockmgr.so.1.0.1, \
+	@$(call install_copy, fuse, 0, 0, 0644, -, \
 		/usr/lib/libulockmgr.so.1.0.1)
 	@$(call install_link, fuse, libulockmgr.so.1.0.1, /usr/lib/libulockmgr.so)
 	@$(call install_link, fuse, libulockmgr.so.1.0.1, /usr/lib/libulockmgr.so.1)
 endif
 ifdef PTXCONF_FUSE__UTIL
-	@$(call install_copy, fuse, 0, 0, 0755, $(FUSE_DIR)/util/fusermount, /usr/bin/fusermount)
-	@$(call install_copy, fuse, 0, 0, 0755, $(FUSE_DIR)/util/ulockmgr_server, /usr/bin/ulockmgr_server)
+	@$(call install_copy, fuse, 0, 0, 0755, -, /usr/bin/fusermount)
+	@$(call install_copy, fuse, 0, 0, 0755, -, /usr/bin/ulockmgr_server)
 endif
 	@$(call install_finish, fuse)
 
