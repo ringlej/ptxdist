@@ -33,17 +33,6 @@ $(LIBMICROHTTPD_SOURCE):
 	@$(call get, LIBMICROHTTPD)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libmicrohttpd.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBMICROHTTPD_DIR))
-	@$(call extract, LIBMICROHTTPD)
-	@$(call patchin, LIBMICROHTTPD)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -54,32 +43,6 @@ LIBMICROHTTPD_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 LIBMICROHTTPD_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/libmicrohttpd.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBMICROHTTPD_DIR)/config.cache)
-	cd $(LIBMICROHTTPD_DIR) && \
-		$(LIBMICROHTTPD_PATH) $(LIBMICROHTTPD_ENV) \
-		./configure $(LIBMICROHTTPD_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libmicrohttpd.compile:
-	@$(call targetinfo)
-	cd $(LIBMICROHTTPD_DIR) && $(LIBMICROHTTPD_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libmicrohttpd.install:
-	@$(call targetinfo)
-	@$(call install, LIBMICROHTTPD)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -97,11 +60,12 @@ $(STATEDIR)/libmicrohttpd.targetinstall:
 	@$(call install_fixup, libmicrohttpd,DEPENDS,)
 	@$(call install_fixup, libmicrohttpd,DESCRIPTION,missing)
 
-	@$(call install_copy, libmicrohttpd, 0, 0, 0644, \
-		$(LIBMICROHTTPD_DIR)/src/daemon/.libs/libmicrohttpd.so.4.0.3, \
+	@$(call install_copy, libmicrohttpd, 0, 0, 0644, -, \
 		/usr/lib/libmicrohttpd.so.4.0.3)
-	@$(call install_link, libmicrohttpd, libmicrohttpd.so.4.0.3, /usr/lib/libmicrohttpd.so.4)
-	@$(call install_link, libmicrohttpd, libmicrohttpd.so.4.0.3, /usr/lib/libmicrohttpd.so)
+	@$(call install_link, libmicrohttpd, libmicrohttpd.so.4.0.3, \
+		/usr/lib/libmicrohttpd.so.4)
+	@$(call install_link, libmicrohttpd, libmicrohttpd.so.4.0.3, \
+		/usr/lib/libmicrohttpd.so)
 
 
 	@$(call install_finish, libmicrohttpd)
