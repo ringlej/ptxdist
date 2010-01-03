@@ -63,8 +63,7 @@ $(STATEDIR)/libid3tag.targetinstall:
 	@$(call install_fixup, libid3tag,DEPENDS,)
 	@$(call install_fixup, libid3tag,DESCRIPTION,missing)
 
-	@$(call install_copy, libid3tag, 0, 0, 0644, \
-		$(LIBID3TAG_DIR)/.libs/libid3tag.so.0.3.0, \
+	@$(call install_copy, libid3tag, 0, 0, 0644, -, \
 		/usr/lib/libid3tag.so.0.3.0)
 	@$(call install_link, libid3tag, libid3tag.so.0.3.0, /usr/lib/libid3tag.so.0)
 	@$(call install_link, libid3tag, libid3tag.so.0.3.0, /usr/lib/libid3tag.so)
