@@ -58,12 +58,12 @@ $(STATEDIR)/gtk-engine-experience.targetinstall:
 	@$(call install_fixup, gtk-engine-experience,PRIORITY,optional)
 	@$(call install_fixup, gtk-engine-experience,VERSION,$(GTK_ENGINE_EXPERIENCE_VERSION))
 	@$(call install_fixup, gtk-engine-experience,SECTION,base)
-	@$(call install_fixup, gtk-engine-experience,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gtk-engine-experience,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gtk-engine-experience,DEPENDS,)
 	@$(call install_fixup, gtk-engine-experience,DESCRIPTION,missing)
 
 	@$(call install_copy, gtk-engine-experience, 0, 0, 0644, \
-		$(GTK_ENGINE_EXPERIENCE_DIR)/src/.libs/libexperience.so, \
+		$(GTK_ENGINE_EXPERIENCE_PKGDIR)/usr/lib/gtk-2.0/2.10.0/engines/libexperience.so, \
 		/usr/lib/gtk-2.0/engines/libexperience.so)
 
 	@$(call install_finish, gtk-engine-experience)
