@@ -60,7 +60,7 @@ $(STATEDIR)/iperf.targetinstall:
 	@$(call install_fixup, iperf,DEPENDS,)
 	@$(call install_fixup, iperf,DESCRIPTION,missing)
 
-	@$(call install_copy, iperf, 0, 0, 0755, $(IPERF_DIR)/src/iperf, /usr/bin/iperf)
+	@$(call install_copy, iperf, 0, 0, 0755, -, /usr/bin/iperf)
 
 	@$(call install_finish, iperf)
 
