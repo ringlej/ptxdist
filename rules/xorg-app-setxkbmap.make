@@ -29,34 +29,13 @@ XORG_APP_SETXKBMAP_DIR		:= $(BUILDDIR)/$(XORG_APP_SETXKBMAP)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-app-setxkbmap_get: $(STATEDIR)/xorg-app-setxkbmap.get
-
-$(STATEDIR)/xorg-app-setxkbmap.get: $(xorg-app-setxkbmap_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_APP_SETXKBMAP_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_APP_SETXKBMAP)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-app-setxkbmap_extract: $(STATEDIR)/xorg-app-setxkbmap.extract
-
-$(STATEDIR)/xorg-app-setxkbmap.extract: $(xorg-app-setxkbmap_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_APP_SETXKBMAP_DIR))
-	@$(call extract, XORG_APP_SETXKBMAP)
-	@$(call patchin, XORG_APP_SETXKBMAP)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-xorg-app-setxkbmap_prepare: $(STATEDIR)/xorg-app-setxkbmap.prepare
 
 XORG_APP_SETXKBMAP_PATH	:=  PATH=$(CROSS_PATH)
 XORG_APP_SETXKBMAP_ENV 	:=  $(CROSS_ENV)
@@ -68,45 +47,12 @@ XORG_APP_SETXKBMAP_ENV 	:=  $(CROSS_ENV)
 XORG_APP_SETXKBMAP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
-$(STATEDIR)/xorg-app-setxkbmap.prepare: $(xorg-app-setxkbmap_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_APP_SETXKBMAP_DIR)/config.cache)
-	@echo "selecting the correct search path in X-Server and setxkbmap is still missing"
-	cd $(XORG_APP_SETXKBMAP_DIR) && \
-		$(XORG_APP_SETXKBMAP_PATH) $(XORG_APP_SETXKBMAP_ENV) \
-		./configure $(XORG_APP_SETXKBMAP_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-app-setxkbmap_compile: $(STATEDIR)/xorg-app-setxkbmap.compile
-
-$(STATEDIR)/xorg-app-setxkbmap.compile: $(xorg-app-setxkbmap_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_APP_SETXKBMAP_DIR) && $(XORG_APP_SETXKBMAP_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-app-setxkbmap_install: $(STATEDIR)/xorg-app-setxkbmap.install
-
-$(STATEDIR)/xorg-app-setxkbmap.install: $(xorg-app-setxkbmap_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_APP_SETXKBMAP)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-app-setxkbmap_targetinstall: $(STATEDIR)/xorg-app-setxkbmap.targetinstall
-
-$(STATEDIR)/xorg-app-setxkbmap.targetinstall: $(xorg-app-setxkbmap_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-app-setxkbmap.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-setxkbmap)
 	@$(call install_fixup, xorg-app-setxkbmap,PACKAGE,xorg-app-setxkbmap)
@@ -117,12 +63,12 @@ $(STATEDIR)/xorg-app-setxkbmap.targetinstall: $(xorg-app-setxkbmap_targetinstall
 	@$(call install_fixup, xorg-app-setxkbmap,DEPENDS,)
 	@$(call install_fixup, xorg-app-setxkbmap,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-app-setxkbmap,  0, 0, 0755, \
-		$(XORG_APP_SETXKBMAP_DIR)/setxkbmap, /usr/bin/setxkbmap)
+	@$(call install_copy, xorg-app-setxkbmap,  0, 0, 0755, -, \
+		/usr/bin/setxkbmap)
 
 	@$(call install_finish, xorg-app-setxkbmap)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
