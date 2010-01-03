@@ -110,20 +110,20 @@ $(STATEDIR)/less.targetinstall:
 	@$(call install_fixup, less,PRIORITY,optional)
 	@$(call install_fixup, less,VERSION,$(LESS_VERSION))
 	@$(call install_fixup, less,SECTION,base)
-	@$(call install_fixup, less,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, less,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, less,DEPENDS,)
 	@$(call install_fixup, less,DESCRIPTION,missing)
 
 ifdef PTXCONF_LESS_BIN
-	@$(call install_copy, less, 0, 0, 0755, $(LESS_DIR)/less, /usr/bin/less)
+	@$(call install_copy, less, 0, 0, 0755, -, /usr/bin/less)
 endif
 
 ifdef PTXCONF_LESS_KEY
-	@$(call install_copy, less, 0, 0, 0755, $(LESS_DIR)/lesskey, /usr/bin/lesskey)
+	@$(call install_copy, less, 0, 0, 0755, -, /usr/bin/lesskey)
 endif
 
 ifdef PTXCONF_LESS_ECHO
-	@$(call install_copy, less, 0, 0, 0755, $(LESS_DIR)/lessecho, /usr/bin/lessecho)
+	@$(call install_copy, less, 0, 0, 0755, -, /usr/bin/lessecho)
 endif
 
 	@$(call install_finish, less)
