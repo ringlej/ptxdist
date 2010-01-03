@@ -68,32 +68,32 @@ $(STATEDIR)/lsh.targetinstall:
 	@$(call install_fixup, lsh,PRIORITY,optional)
 	@$(call install_fixup, lsh,VERSION,$(LSH_VERSION))
 	@$(call install_fixup, lsh,SECTION,base)
-	@$(call install_fixup, lsh,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, lsh,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, lsh,DEPENDS,)
 	@$(call install_fixup, lsh,DESCRIPTION,missing)
 
 ifdef PTXCONF_LSH_EXECUV
-	@$(call install_copy, lsh, 0, 0, 0755, $(LSH_DIR)/src/lsh-execuv, /sbin/lsh-execuv)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /sbin/lsh-execuv)
 endif
 
 ifdef PTXCONF_LSH_LSHD
-	@$(call install_copy, lsh, 0, 0, 0755, $(LSH_DIR)/src/lshd, /sbin/lshd)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /sbin/lshd)
 endif
 
 ifdef PTXCONF_LSH_SFTPD
-	@$(call install_copy, lsh, 0, 0, 0755, $(LSH_DIR)/src/sftp/sftp-server, /sbin/sftp-server)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /sbin/sftp-server)
 endif
 
 ifdef PTXCONF_LSH_MAKESEED
-	@$(call install_copy, lsh, 0, 0, 0755, $(LSH_DIR)/src/lsh-make-seed, /bin/lsh-make-seed)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /bin/lsh-make-seed)
 endif
 
 ifdef PTXCONF_LSH_WRITEKEY
-	@$(call install_copy, lsh, 0, 0, 0755, $(LSH_DIR)/src/lsh-writekey, /sbin/lsh-writekey)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /bin/lsh-writekey)
 endif
 
 ifdef PTXCONF_LSH_KEYGEN
-	@$(call install_copy, lsh, 0, 0, 0755, $(LSH_DIR)/src/lsh-keygen, /sbin/lsh-keygen)
+	@$(call install_copy, lsh, 0, 0, 0755, -, /bin/lsh-keygen)
 endif
 	@$(call install_finish, lsh)
 	@$(call touch)
