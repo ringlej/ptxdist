@@ -29,28 +29,9 @@ XORG_LIB_XFONT_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFONT)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-xfont_get: $(STATEDIR)/xorg-lib-xfont.get
-
-$(STATEDIR)/xorg-lib-xfont.get: $(xorg-lib-xfont_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_LIB_XFONT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_LIB_XFONT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-lib-xfont_extract: $(STATEDIR)/xorg-lib-xfont.extract
-
-$(STATEDIR)/xorg-lib-xfont.extract: $(xorg-lib-xfont_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XFONT_DIR))
-	@$(call extract, XORG_LIB_XFONT)
-	@$(call patchin, XORG_LIB_XFONT)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -126,36 +107,6 @@ else
 XORG_LIB_XFONT_AUTOCONF	+= --disable-builtins
 endif
 
-$(STATEDIR)/xorg-lib-xfont.prepare: $(xorg-lib-xfont_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XFONT_DIR)/config.cache)
-	cd $(XORG_LIB_XFONT_DIR) && \
-		$(XORG_LIB_XFONT_PATH) $(XORG_LIB_XFONT_ENV) \
-		./configure $(XORG_LIB_XFONT_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-lib-xfont_compile: $(STATEDIR)/xorg-lib-xfont.compile
-
-$(STATEDIR)/xorg-lib-xfont.compile: $(xorg-lib-xfont_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XFONT_DIR) && $(XORG_LIB_XFONT_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-lib-xfont_install: $(STATEDIR)/xorg-lib-xfont.install
-
-$(STATEDIR)/xorg-lib-xfont.install: $(xorg-lib-xfont_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_LIB_XFONT)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -163,19 +114,18 @@ $(STATEDIR)/xorg-lib-xfont.install: $(xorg-lib-xfont_install_deps_default)
 xorg-lib-xfont_targetinstall: $(STATEDIR)/xorg-lib-xfont.targetinstall
 
 $(STATEDIR)/xorg-lib-xfont.targetinstall: $(xorg-lib-xfont_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xfont)
 	@$(call install_fixup, xorg-lib-xfont,PACKAGE,xorg-lib-xfont)
 	@$(call install_fixup, xorg-lib-xfont,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-xfont,VERSION,$(XORG_LIB_XFONT_VERSION))
 	@$(call install_fixup, xorg-lib-xfont,SECTION,base)
-	@$(call install_fixup, xorg-lib-xfont,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xfont,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xfont,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xfont,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xfont, 0, 0, 0644, \
-		$(XORG_LIB_XFONT_DIR)/src/.libs/libXfont.so.1.4.1, \
+	@$(call install_copy, xorg-lib-xfont, 0, 0, 0644, -, \
 		$(XORG_LIBDIR)/libXfont.so.1.4.1)
 
 	@$(call install_link, xorg-lib-xfont, \
@@ -188,7 +138,7 @@ $(STATEDIR)/xorg-lib-xfont.targetinstall: $(xorg-lib-xfont_targetinstall_deps_de
 
 	@$(call install_finish, xorg-lib-xfont)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
