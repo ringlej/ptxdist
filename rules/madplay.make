@@ -64,11 +64,11 @@ $(STATEDIR)/madplay.targetinstall:
 	@$(call install_fixup, madplay,PRIORITY,optional)
 	@$(call install_fixup, madplay,VERSION,$(MADPLAY_VERSION))
 	@$(call install_fixup, madplay,SECTION,base)
-	@$(call install_fixup, madplay,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, madplay,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, madplay,DEPENDS,)
 	@$(call install_fixup, madplay,DESCRIPTION,missing)
 
-	@$(call install_copy, madplay, 0, 0, 0755, $(MADPLAY_DIR)/madplay, \
+	@$(call install_copy, madplay, 0, 0, 0755, -, \
 		/usr/bin/madplay)
 
 	@$(call install_finish, madplay)
