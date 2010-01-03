@@ -35,21 +35,8 @@ $(POP3SPAM_SOURCE):
 	@$(call get, POP3SPAM)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/pop3spam.extract:
-	@$(call targetinfo)
-	@$(call clean, $(POP3SPAM_DIR))
-	@$(call extract, POP3SPAM)
-	@$(call patchin, POP3SPAM)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-pop3spam_prepare: $(STATEDIR)/pop3spam.prepare
 
 POP3SPAM_PATH	:= PATH=$(CROSS_PATH)
 POP3SPAM_ENV 	:= $(CROSS_ENV)
@@ -71,11 +58,11 @@ $(STATEDIR)/pop3spam.targetinstall:
 	@$(call install_fixup, pop3spam,PRIORITY,optional)
 	@$(call install_fixup, pop3spam,VERSION,$(POP3SPAM_VERSION))
 	@$(call install_fixup, pop3spam,SECTION,base)
-	@$(call install_fixup, pop3spam,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, pop3spam,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, pop3spam,DEPENDS,)
 	@$(call install_fixup, pop3spam,DESCRIPTION,missing)
 
-	@$(call install_copy, pop3spam, 0, 0, 0755, $(POP3SPAM_DIR)/src/pop3spam, /usr/bin/pop3spam)
+	@$(call install_copy, pop3spam, 0, 0, 0755, -, /usr/bin/pop3spam)
 
 	@$(call install_finish, pop3spam)
 	@$(call touch)
