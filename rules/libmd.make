@@ -33,17 +33,6 @@ $(LIBMD_SOURCE):
 	@$(call get, LIBMD)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libmd.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBMD_DIR))
-	@$(call extract, LIBMD)
-	@$(call patchin, LIBMD)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -67,32 +56,6 @@ endif
 #LIBMD_AUTOCONF += --enable-doc
 #endif
 
-$(STATEDIR)/libmd.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBMD_DIR)/config.cache)
-	cd $(LIBMD_DIR) && \
-		$(LIBMD_PATH) $(LIBMD_ENV) \
-		./configure $(LIBMD_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libmd.compile:
-	@$(call targetinfo)
-	cd $(LIBMD_DIR) && $(LIBMD_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libmd.install:
-	@$(call targetinfo)
-	@$(call install, LIBMD)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -106,12 +69,12 @@ ifndef PTXCONF_LIBMD_STATIC
 	@$(call install_fixup, libmd,PRIORITY,optional)
 	@$(call install_fixup, libmd,VERSION,$(LIBMD_VERSION))
 	@$(call install_fixup, libmd,SECTION,base)
-	@$(call install_fixup, libmd,AUTHOR,"Juergen Beisert <jbe\@pengutronix.de>")
+	@$(call install_fixup, libmd,AUTHOR,"Juergen Beisert <jbe@pengutronix.de>")
 	@$(call install_fixup, libmd,DEPENDS,)
 	@$(call install_fixup, libmd,DESCRIPTION,missing)
 
-	@$(call install_copy, libmd, 0, 0, 0644, \
-		$(LIBMD_DIR)/src/.libs/libmd.so.1.0.0, /usr/lib/libmd.so.1.0.0)
+	@$(call install_copy, libmd, 0, 0, 0644, -, \
+		/usr/lib/libmd.so.1.0.0)
 	@$(call install_link, libmd, libmd.so.1.0.0, /usr/lib/libmd.so.1)
 	@$(call install_link, libmd, libmd.so.1.0.0, /usr/lib/libmd.so)
 
