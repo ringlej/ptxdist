@@ -29,28 +29,9 @@ XORG_LIB_XMU_DIR	:= $(BUILDDIR)/$(XORG_LIB_XMU)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-xmu_get: $(STATEDIR)/xorg-lib-xmu.get
-
-$(STATEDIR)/xorg-lib-xmu.get: $(xorg-lib-xmu_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_LIB_XMU_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_LIB_XMU)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-lib-xmu_extract: $(STATEDIR)/xorg-lib-xmu.extract
-
-$(STATEDIR)/xorg-lib-xmu.extract: $(xorg-lib-xmu_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XMU_DIR))
-	@$(call extract, XORG_LIB_XMU)
-	@$(call patchin, XORG_LIB_XMU)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -69,44 +50,12 @@ XORG_LIB_XMU_AUTOCONF := \
 	$(XORG_OPTIONS_TRANS) \
 	--disable-dependency-tracking
 
-$(STATEDIR)/xorg-lib-xmu.prepare: $(xorg-lib-xmu_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XMU_DIR)/config.cache)
-	cd $(XORG_LIB_XMU_DIR) && \
-		$(XORG_LIB_XMU_PATH) $(XORG_LIB_XMU_ENV) \
-		./configure $(XORG_LIB_XMU_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-lib-xmu_compile: $(STATEDIR)/xorg-lib-xmu.compile
-
-$(STATEDIR)/xorg-lib-xmu.compile: $(xorg-lib-xmu_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XMU_DIR) && $(XORG_LIB_XMU_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-lib-xmu_install: $(STATEDIR)/xorg-lib-xmu.install
-
-$(STATEDIR)/xorg-lib-xmu.install: $(xorg-lib-xmu_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_LIB_XMU)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xmu_targetinstall: $(STATEDIR)/xorg-lib-xmu.targetinstall
-
 $(STATEDIR)/xorg-lib-xmu.targetinstall: $(xorg-lib-xmu_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xmu)
 	@$(call install_fixup, xorg-lib-xmu,PACKAGE,xorg-lib-xmu)
@@ -117,8 +66,7 @@ $(STATEDIR)/xorg-lib-xmu.targetinstall: $(xorg-lib-xmu_targetinstall_deps_defaul
 	@$(call install_fixup, xorg-lib-xmu,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xmu,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xmu, 0, 0, 0644, \
-		$(XORG_LIB_XMU_DIR)/src/.libs/libXmu.so.6.2.0, \
+	@$(call install_copy, xorg-lib-xmu, 0, 0, 0644, -, \
 		$(XORG_LIBDIR)/libXmu.so.6.2.0)
 
 	@$(call install_link, xorg-lib-xmu, \
@@ -129,8 +77,7 @@ $(STATEDIR)/xorg-lib-xmu.targetinstall: $(xorg-lib-xmu_targetinstall_deps_defaul
 		libXmu.so.6.2.0, \
 		$(XORG_LIBDIR)/libXmu.so)
 
-	@$(call install_copy, xorg-lib-xmu, 0, 0, 0644, \
-		$(XORG_LIB_XMU_DIR)/src/.libs/libXmuu.so.1.0.0, \
+	@$(call install_copy, xorg-lib-xmu, 0, 0, 0644, -, \
 		$(XORG_LIBDIR)/libXmuu.so.1.0.0)
 
 	@$(call install_link, xorg-lib-xmu, \
@@ -143,7 +90,7 @@ $(STATEDIR)/xorg-lib-xmu.targetinstall: $(xorg-lib-xmu_targetinstall_deps_defaul
 
 	@$(call install_finish, xorg-lib-xmu)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
