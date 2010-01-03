@@ -52,16 +52,7 @@ LIBOOP_AUTOCONF := \
 	--without-tcl \
 	--without-libwww
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-liboop_compile: $(STATEDIR)/liboop.compile
-
-$(STATEDIR)/liboop.compile: $(liboop_compile_deps_default)
-	@$(call targetinfo)
-	cd $(LIBOOP_DIR) && $(LIBOOP_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
+LIBOOP_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -75,12 +66,11 @@ $(STATEDIR)/liboop.targetinstall:
 	@$(call install_fixup, liboop,PRIORITY,optional)
 	@$(call install_fixup, liboop,VERSION,$(LIBOOP_VERSION))
 	@$(call install_fixup, liboop,SECTION,base)
-	@$(call install_fixup, liboop,AUTHOR,"Marc Kleine-Budde <mkl\@pengutronix.de>")
+	@$(call install_fixup, liboop,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, liboop,DEPENDS,)
 	@$(call install_fixup, liboop,DESCRIPTION,missing)
 
-	@$(call install_copy, liboop, 0, 0, 0644, \
-		$(LIBOOP_DIR)/.libs/liboop.so.4.0.1, \
+	@$(call install_copy, liboop, 0, 0, 0644, -, \
 		/usr/lib/liboop.so.4.0.1)
 	@$(call install_link, liboop, liboop.so.4.0.1, /usr/lib/liboop.so.4)
 	@$(call install_link, liboop, liboop.so.4.0.1, /usr/lib/liboop.so)
