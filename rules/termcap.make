@@ -63,7 +63,7 @@ $(STATEDIR)/termcap.targetinstall:
 	@$(call install_fixup, termcap,DESCRIPTION,missing)
 
 ifdef PTXCONF_TERMCAP_TERMCAP
-	@$(call install_copy, termcap, 0, 0, 0755, $(TERMCAP_DIR)/termcap.src, /etc/termcap.src)
+	@$(call install_copy, termcap, 0, 0, 0755, -, /etc/termcap)
 endif
 	@$(call install_finish, termcap)
 
