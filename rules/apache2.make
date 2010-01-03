@@ -152,17 +152,16 @@ $(STATEDIR)/apache2.targetinstall:
 	@$(call install_fixup, apache2,DESCRIPTION,missing)
 
 #	# the server binary
-	@$(call install_copy, apache2, 0, 0, 0755, $(APACHE2_DIR)/httpd, /usr/sbin/apache2)
+	@$(call install_copy, apache2, 0, 0, 0755, \
+		$(APACHE2_PKGDIR)/usr/bin/httpd, /usr/sbin/apache2)
 
 #	# and some needed shared libraries
-	@$(call install_copy, apache2, 0, 0, 0644, \
-		$(APACHE2_DIR)/srclib/apr-util/.libs/libaprutil-0.so.0.9.12, \
+	@$(call install_copy, apache2, 0, 0, 0644, -, \
 		/usr/lib/libaprutil-0.so.0.9.12)
 	@$(call install_link, apache2, libaprutil-0.so.0.9.12, /usr/lib/libaprutil-0.so.0.9)
 	@$(call install_link, apache2, libaprutil-0.so.0.9.12, /usr/lib/libaprutil-0.so.0)
 
-	@$(call install_copy, apache2, 0, 0, 0644, \
-		$(APACHE2_DIR)/srclib/apr/.libs/libapr-0.so.0.9.12, \
+	@$(call install_copy, apache2, 0, 0, 0644, -, \
 		/usr/lib/libapr-0.so.0.9.12)
 	@$(call install_link, apache2, libapr-0.so.0.9.12, /usr/lib/libapr-0.so.0.9)
 	@$(call install_link, apache2, libapr-0.so.0.9.12, /usr/lib/libapr-0.so.0)
@@ -173,24 +172,24 @@ ifneq ($(PTXCONF_APACHE2_SERVERROOT),"")
 ifdef PTXCONF_APACHE2_PUBLICDOMAINICONS
 #	# TODO: are all icons required?
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons)
-	@cd $(APACHE2_DIR)/docs/icons; \
+	@cd $(APACHE2_PKGDIR)/usr/icons; \
 	for i in *.gif *.png; do \
 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i, n); \
 	done
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons/small)
-	@cd $(APACHE2_DIR)/docs/icons/small; \
+	@cd $(APACHE2_PKGDIR)/usr/icons/small; \
 	for i in *.gif *.png; do \
 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i, n); \
 	done
 endif
 ifdef PTXCONF_APACHE2_CUSTOMERRORS
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/error)
-	@cd $(APACHE2_DIR)/docs/error; \
+	@cd $(APACHE2_PKGDIR)/usr/error; \
 	for i in *.html.var; do \
 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/error/$$i, n); \
 	done
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/error/include)
-	@cd $(APACHE2_DIR)/docs/error/include; \
+	@cd $(APACHE2_PKGDIR)/usr/error/include; \
 	for i in *.html; do \
 		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/error/include/$$i, n); \
 	done
@@ -204,10 +203,10 @@ endif
 #
 	@$(call install_copy, apache2, 12, 102, 0755, $(PTXCONF_APACHE2_SERVERROOT)/conf)
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(APACHE2_DIR)/docs/conf/magic, \
+		$(APACHE2_PKGDIR)/etc/magic, \
 		$(PTXCONF_APACHE2_SERVERROOT)/conf/magic, n)
 	@$(call install_copy, apache2, 12, 102, 0644, \
-		$(APACHE2_DIR)/docs/conf/mime.types, \
+		$(APACHE2_PKGDIR)/etc/mime.types, \
 		$(PTXCONF_APACHE2_SERVERROOT)/conf/mime.types, n)
 
 endif
