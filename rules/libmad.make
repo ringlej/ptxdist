@@ -72,8 +72,7 @@ $(STATEDIR)/libmad.targetinstall:
 	@$(call install_fixup, libmad,DEPENDS,)
 	@$(call install_fixup, libmad,DESCRIPTION,missing)
 
-	@$(call install_copy, libmad, 0, 0, 0644, \
-		$(LIBMAD_DIR)/.libs/libmad.so.0.2.1, \
+	@$(call install_copy, libmad, 0, 0, 0644, -, \
 		/usr/lib/libmad.so.0.2.1)
 	@$(call install_link, libmad, libmad.so.0.2.1, /usr/lib/libmad.so.0)
 	@$(call install_link, libmad, libmad.so.0.2.1, /usr/lib/libmad.so)
