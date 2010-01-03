@@ -29,28 +29,9 @@ XORG_LIB_SM_DIR		:= $(BUILDDIR)/$(XORG_LIB_SM)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-sm_get: $(STATEDIR)/xorg-lib-sm.get
-
-$(STATEDIR)/xorg-lib-sm.get: $(xorg-lib-sm_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_LIB_SM_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_LIB_SM)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-lib-sm_extract: $(STATEDIR)/xorg-lib-sm.extract
-
-$(STATEDIR)/xorg-lib-sm.extract: $(xorg-lib-sm_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_SM_DIR))
-	@$(call extract, XORG_LIB_SM)
-	@$(call patchin, XORG_LIB_SM)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -70,44 +51,12 @@ XORG_LIB_SM_AUTOCONF := \
 	--disable-dependency-tracking \
 	--with-libuuid=no
 
-$(STATEDIR)/xorg-lib-sm.prepare: $(xorg-lib-sm_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_SM_DIR)/config.cache)
-	cd $(XORG_LIB_SM_DIR) && \
-		$(XORG_LIB_SM_PATH) $(XORG_LIB_SM_ENV) \
-		./configure $(XORG_LIB_SM_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-lib-sm_compile: $(STATEDIR)/xorg-lib-sm.compile
-
-$(STATEDIR)/xorg-lib-sm.compile: $(xorg-lib-sm_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_LIB_SM_DIR) && $(XORG_LIB_SM_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-lib-sm_install: $(STATEDIR)/xorg-lib-sm.install
-
-$(STATEDIR)/xorg-lib-sm.install: $(xorg-lib-sm_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_LIB_SM)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-sm_targetinstall: $(STATEDIR)/xorg-lib-sm.targetinstall
-
-$(STATEDIR)/xorg-lib-sm.targetinstall: $(xorg-lib-sm_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-lib-sm.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-sm)
 	@$(call install_fixup, xorg-lib-sm,PACKAGE,xorg-lib-sm)
@@ -118,8 +67,7 @@ $(STATEDIR)/xorg-lib-sm.targetinstall: $(xorg-lib-sm_targetinstall_deps_default)
 	@$(call install_fixup, xorg-lib-sm,DEPENDS,)
 	@$(call install_fixup, xorg-lib-sm,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-sm, 0, 0, 0644, \
-		$(XORG_LIB_SM_DIR)/src/.libs/libSM.so.6.0.1, \
+	@$(call install_copy, xorg-lib-sm, 0, 0, 0644, -, \
 		$(XORG_LIBDIR)/libSM.so.6.0.1)
 
 	@$(call install_link, xorg-lib-sm, \
@@ -132,7 +80,7 @@ $(STATEDIR)/xorg-lib-sm.targetinstall: $(xorg-lib-sm_targetinstall_deps_default)
 
 	@$(call install_finish, xorg-lib-sm)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
