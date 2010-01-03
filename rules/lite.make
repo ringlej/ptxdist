@@ -56,56 +56,45 @@ $(STATEDIR)/lite.targetinstall:
 	@$(call install_fixup, lite,PRIORITY,optional)
 	@$(call install_fixup, lite,VERSION,$(LITE_VERSION))
 	@$(call install_fixup, lite,SECTION,base)
-	@$(call install_fixup, lite,AUTHOR,"Denis Oliver Kropp <dok\@directfb.org>")
+	@$(call install_fixup, lite,AUTHOR,"Denis Oliver Kropp <dok@directfb.org>")
 	@$(call install_fixup, lite,DEPENDS,)
 	@$(call install_fixup, lite,DESCRIPTION,missing)
 
-	@$(call install_copy, lite, 0, 0, 0755, \
-		$(LITE_DIR)/lite/.libs/liblite.so.3.0.5, \
+	@$(call install_copy, lite, 0, 0, 0755, -, \
 		/usr/lib/liblite.so.3.0.5)
 
 	@$(call install_link, lite, liblite.so.3.0.5, /usr/lib/liblite.so.3)
 
-	@$(call install_copy, lite, 0, 0, 0755, \
-		$(LITE_DIR)/leck/.libs/libleck.so.3.0.5, \
+	@$(call install_copy, lite, 0, 0, 0755, -, \
 		/usr/lib/libleck.so.3.0.5)
 
 	@$(call install_link, lite, libleck.so.3.0.5, /usr/lib/libleck.so.3)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/data/cursor.png, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/LiTE/cursor.png, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/data/links.png, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/LiTE/links.png, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/data/obenlinks.png, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/LiTE/obenlinks.png, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/data/oben.png, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/LiTE/oben.png, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/data/obenrechts.png, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/LiTE/obenrechts.png, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/data/rechts.png, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/LiTE/rechts.png, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/data/untenlinks.png, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/LiTE/untenlinks.png, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/data/unten.png, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/LiTE/unten.png, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/data/untenrechts.png, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/LiTE/untenrechts.png, n)
 
 
@@ -125,8 +114,7 @@ $(STATEDIR)/lite.targetinstall:
 		lite_textlisttest;	\
 			do		\
 					\
-		$(call install_copy, lite, 0, 0, 0755, \
-			$(LITE_DIR)/examples/$$i, \
+		$(call install_copy, lite, 0, 0, 0755, -, \
 			/usr/bin/$$i) \
 	done
 
@@ -150,34 +138,27 @@ $(STATEDIR)/lite.targetinstall:
 		scrollbar.png;			\
 			do			\
 						\
-		$(call install_copy, lite, 0, 0, 0644, \
-			$(LITE_DIR)/examples/$$i, \
+		$(call install_copy, lite, 0, 0, 0644, -, \
 			/usr/share/LiTE/examples/$$i, n) \
 	done
 
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/fonts/vera.ttf, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/fonts/truetype/vera.ttf, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/fonts/verabd.ttf, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/fonts/truetype/verabd.ttf, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/fonts/verabi.ttf, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/fonts/truetype/verabi.ttf, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/fonts/verai.ttf, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/fonts/truetype/verai.ttf, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/fonts/decker.ttf, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/fonts/truetype/decker.ttf, n)
 
-	@$(call install_copy, lite, 0, 0, 0644, \
-		$(LITE_DIR)/fonts/whiterabbit.ttf, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/fonts/truetype/whiterabbit.ttf, n)
 
 
