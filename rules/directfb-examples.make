@@ -76,29 +76,20 @@ $(STATEDIR)/directfb-examples.targetinstall:
 	@$(call install_fixup, directfb-examples,DESCRIPTION,missing)
 
 # installs the binaries
-	@cd $(DIRECTFB_EXAMPLES_DIR)/src && \
-	find . -perm /u+x -type f ! -name "*.[h|c]" | \
+	@cd $(DIRECTFB_EXAMPLES_PKGDIR)/usr/bin && \
+	find . -perm /u+x -type f | \
 		while read file; do \
-		$(call install_copy, directfb-examples, 0, 0, 0755, \
-			$(DIRECTFB_EXAMPLES_DIR)/src/$$file, \
+		$(call install_copy, directfb-examples, 0, 0, 0755, -, \
 			/usr/bin/$${file##*/} \
 		) \
 	done
 
 # install the datafiles
-	@cd $(DIRECTFB_EXAMPLES_DIR)/data && \
-	find . -type f -a ! -name "*akefile*" -a ! -name "*.ttf" | \
+	@cd $(DIRECTFB_EXAMPLES_PKGDIR)/usr/share/directfb-examples && \
+	find . -type f | \
 		while read file; do \
-		$(call install_copy, directfb-examples, 0, 0, 0644, \
-			$(DIRECTFB_EXAMPLES_DIR)/data/$$file, \
-			/usr/share/directfb-examples/$${file##*/}, n \
-		) \
-	done; \
-	find . -type f -a ! -name "*akefile*" -a -name "*.ttf" | \
-		while read file; do \
-		$(call install_copy, directfb-examples, 0, 0, 0644, \
-			$(DIRECTFB_EXAMPLES_DIR)/data/$$file, \
-			/usr/share/directfb-examples/fonts/$${file##*/}, n \
+		$(call install_copy, directfb-examples, 0, 0, 0644, -, \
+			/usr/share/directfb-examples/$${file##./}, n \
 		) \
 	done
 
