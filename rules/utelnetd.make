@@ -64,12 +64,11 @@ $(STATEDIR)/utelnetd.targetinstall:
 	@$(call install_fixup, utelnetd,PRIORITY,optional)
 	@$(call install_fixup, utelnetd,VERSION,$(UTELNETD_VERSION))
 	@$(call install_fixup, utelnetd,SECTION,base)
-	@$(call install_fixup, utelnetd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, utelnetd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, utelnetd,DEPENDS,)
 	@$(call install_fixup, utelnetd,DESCRIPTION,missing)
 
-	@$(call install_copy, utelnetd, 0, 0, 0755, \
-		$(UTELNETD_DIR)/utelnetd, \
+	@$(call install_copy, utelnetd, 0, 0, 0755, -, \
 		/sbin/utelnetd)
 
 	#
