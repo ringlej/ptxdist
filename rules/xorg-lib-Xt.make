@@ -29,28 +29,9 @@ XORG_LIB_XT_DIR		:= $(BUILDDIR)/$(XORG_LIB_XT)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-xt_get: $(STATEDIR)/xorg-lib-xt.get
-
-$(STATEDIR)/xorg-lib-xt.get: $(xorg-lib-xt_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_LIB_XT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_LIB_XT)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-lib-xt_extract: $(STATEDIR)/xorg-lib-xt.extract
-
-$(STATEDIR)/xorg-lib-xt.extract: $(xorg-lib-xt_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XT_DIR))
-	@$(call extract, XORG_LIB_XT)
-	@$(call patchin, XORG_LIB_XT)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -75,44 +56,12 @@ else
 XORG_LIB_XT_AUTOCONF += --disable-xkb
 endif
 
-$(STATEDIR)/xorg-lib-xt.prepare: $(xorg-lib-xt_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XT_DIR)/config.cache)
-	cd $(XORG_LIB_XT_DIR) && \
-		$(XORG_LIB_XT_PATH) $(XORG_LIB_XT_ENV) \
-		./configure $(XORG_LIB_XT_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-lib-xt_compile: $(STATEDIR)/xorg-lib-xt.compile
-
-$(STATEDIR)/xorg-lib-xt.compile: $(xorg-lib-xt_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XT_DIR) && $(XORG_LIB_XT_PATH) $(MAKE) $(PARALLELMFLAGS) $(CROSS_ENV_CC_FOR_BUILD)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-lib-xt_install: $(STATEDIR)/xorg-lib-xt.install
-
-$(STATEDIR)/xorg-lib-xt.install: $(xorg-lib-xt_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_LIB_XT)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xt_targetinstall: $(STATEDIR)/xorg-lib-xt.targetinstall
-
-$(STATEDIR)/xorg-lib-xt.targetinstall: $(xorg-lib-xt_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-lib-xt.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xt)
 	@$(call install_fixup, xorg-lib-xt,PACKAGE,xorg-lib-xt)
@@ -123,8 +72,7 @@ $(STATEDIR)/xorg-lib-xt.targetinstall: $(xorg-lib-xt_targetinstall_deps_default)
 	@$(call install_fixup, xorg-lib-xt,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xt,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xt, 0, 0, 0644, \
-		$(XORG_LIB_XT_DIR)/src/.libs/libXt.so.6.0.0, \
+	@$(call install_copy, xorg-lib-xt, 0, 0, 0644, -, \
 		$(XORG_LIBDIR)/libXt.so.6.0.0)
 
 	@$(call install_link, xorg-lib-xt, \
@@ -137,7 +85,7 @@ $(STATEDIR)/xorg-lib-xt.targetinstall: $(xorg-lib-xt_targetinstall_deps_default)
 
 	@$(call install_finish, xorg-lib-xt)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
