@@ -51,9 +51,7 @@ XORG_FONT_ALIAS_AUTOCONF := \
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-font-alias_targetinstall: $(STATEDIR)/xorg-font-alias.targetinstall
-
-$(STATEDIR)/xorg-font-alias.targetinstall: $(xorg-font-alias_targetinstall_deps_default)
+$(STATEDIR)/xorg-font-alias.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  xorg-font-alias)
@@ -61,18 +59,18 @@ $(STATEDIR)/xorg-font-alias.targetinstall: $(xorg-font-alias_targetinstall_deps_
 	@$(call install_fixup, xorg-font-alias,PRIORITY,optional)
 	@$(call install_fixup, xorg-font-alias,VERSION,$(XORG_FONT_ALIAS_VERSION))
 	@$(call install_fixup, xorg-font-alias,SECTION,base)
-	@$(call install_fixup, xorg-font-alias,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-font-alias,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-font-alias,DEPENDS,)
 	@$(call install_fixup, xorg-font-alias,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, \
-		$(XORG_FONT_ALIAS_DIR)/100dpi/fonts.alias, $(XORG_FONTDIR)/100dpi/fonts.alias, n)
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, \
-		$(XORG_FONT_ALIAS_DIR)/75dpi/fonts.alias, $(XORG_FONTDIR)/75dpi/fonts.alias, n)
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, \
-		$(XORG_FONT_ALIAS_DIR)/cyrillic/fonts.alias, $(XORG_FONTDIR)/cyrillic/fonts.alias, n)
-	@$(call install_copy, xorg-font-alias, 0, 0, 0644, \
-		$(XORG_FONT_ALIAS_DIR)/misc/fonts.alias, $(XORG_FONTDIR)/misc/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, - ,\
+		$(XORG_FONTDIR)/100dpi/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, -, \
+		$(XORG_FONTDIR)/75dpi/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, -, \
+		$(XORG_FONTDIR)/cyrillic/fonts.alias, n)
+	@$(call install_copy, xorg-font-alias, 0, 0, 0644, -, \
+		$(XORG_FONTDIR)/misc/fonts.alias, n)
 
 	@$(call install_finish, xorg-font-alias)
 
