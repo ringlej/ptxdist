@@ -33,22 +33,12 @@ $(BZIP2_SOURCE):
 	@$(call get, BZIP2)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/bzip2.extract:
-	@$(call targetinfo)
-	@$(call clean, $(BZIP2_DIR))
-	@$(call extract, BZIP2)
-	@$(call patchin, BZIP2)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-BZIP2_PATH	:= PATH=$(CROSS_PATH)
-BZIP2_ENV 	:= $(CROSS_ENV)
+BZIP2_PATH		:= PATH=$(CROSS_PATH)
+BZIP2_MAKE_OPT		:= $(CROSS_ENV_CC)
+BZIP2_INSTALL_OPT	:= PREFIX=/usr install
 
 #
 # autoconf
@@ -57,27 +47,6 @@ BZIP2_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/bzip2.prepare:
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/bzip2.compile:
-	@$(call targetinfo)
-	cd $(BZIP2_DIR) && $(BZIP2_PATH) $(MAKE) $(PARALLELMFLAGS) $(CROSS_ENV_CC)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/bzip2.install:
-	@$(call targetinfo)
-	cp $(BZIP2_DIR)/libbz2.a $(SYSROOT)/lib/libbz2.a
-	cp $(BZIP2_DIR)/bzlib.h $(SYSROOT)/usr/include/bzlib.h
-	cp $(BZIP2_DIR)/libbz2.so.1.0.4 $(SYSROOT)/lib/libbz2.so.1.0.4
-	ln -sf libbz2.so.1.0.4 $(SYSROOT)/usr/libbz2.so.1.0
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -97,16 +66,16 @@ $(STATEDIR)/bzip2.targetinstall:
 	@$(call install_fixup, bzip2,DESCRIPTION,missing)
 
 ifdef PTXCONF_BZIP2__LIBBZ2
-	@$(call install_copy, bzip2, 0, 0, 0755, $(BZIP2_DIR)/libbz2.so.1.0.4, /lib/libbz2.so.1.0.4)
-	@$(call install_link, bzip2, libbz2.so.1.0.4, /lib/libbz2.so.1.0)
+	@$(call install_copy, bzip2, 0, 0, 0755, -, /usr/lib/libbz2.so.1.0.4)
+	@$(call install_link, bzip2, libbz2.so.1.0.4, /usr/lib/libbz2.so.1.0)
 endif
 
 ifdef PTXCONF_BZIP2__BZIP2
-	@$(call install_copy, bzip2, 0, 0, 0755, $(BZIP2_DIR)/bzip2, /usr/bin/bzip2)
+	@$(call install_copy, bzip2, 0, 0, 0755, -, /usr/bin/bzip2)
 endif
 
 ifdef PTXCONF_BZIP2__BZIP2RECOVER
-	@$(call install_copy, bzip2, 0, 0, 0755, $(BZIP2_DIR)/bzip2recover, /usr/bin/bzip2recover)
+	@$(call install_copy, bzip2, 0, 0, 0755, -, /usr/bin/bzip2recover)
 endif
 
 	@$(call install_finish, bzip2)
