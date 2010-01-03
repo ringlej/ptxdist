@@ -72,8 +72,7 @@ $(STATEDIR)/dnsmasq.targetinstall:
 	@$(call install_fixup, dnsmasq,DEPENDS,)
 	@$(call install_fixup, dnsmasq,DESCRIPTION,missing)
 
-	@$(call install_copy, dnsmasq, 0, 0, 0755, \
-		$(DNSMASQ_DIR)/src/dnsmasq, \
+	@$(call install_copy, dnsmasq, 0, 0, 0755, -, \
 		/usr/sbin/dnsmasq)
 
 ifdef PTXCONF_DNSMASQ_INETD
