@@ -52,20 +52,13 @@ FONTCONFIG_AUTOCONF := \
 	--with-default-fonts=$(XORG_FONTDIR) \
 	--with-arch=$(PTXCONF_ARCH_STRING)
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/fontconfig.compile:
-	@$(call targetinfo)
-	#
-	# parallel build is broken: in fc-case/, two header files are generated.
-	# It *should* work, because the generated files are marked with BUILT_SOURCES,
-	# so they should be built before any other target. However, we've seen cases
-	# where the touch happened *after* fc-case.c was compiled -> bang
-	#
-	cd $(FONTCONFIG_DIR) && $(FONTCONFIG_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
+#
+# parallel build is broken: in fc-case/, two header files are generated.
+# It *should* work, because the generated files are marked with BUILT_SOURCES,
+# so they should be built before any other target. However, we've seen cases
+# where the touch happened *after* fc-case.c was compiled -> bang
+#
+FONTCONFIG_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -79,12 +72,11 @@ $(STATEDIR)/fontconfig.targetinstall:
 	@$(call install_fixup,fontconfig,PRIORITY,optional)
 	@$(call install_fixup,fontconfig,VERSION,$(FONTCONFIG_VERSION))
 	@$(call install_fixup,fontconfig,SECTION,base)
-	@$(call install_fixup,fontconfig,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,fontconfig,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,fontconfig,DEPENDS,)
 	@$(call install_fixup,fontconfig,DESCRIPTION,missing)
 
-	@$(call install_copy, fontconfig, 0, 0, 0644, \
-		$(FONTCONFIG_DIR)/src/.libs/libfontconfig.so.1.3.0, \
+	@$(call install_copy, fontconfig, 0, 0, 0644, -, \
 		/usr/lib/libfontconfig.so.1.3.0)
 
 	@$(call install_link, fontconfig, \
@@ -96,8 +88,7 @@ $(STATEDIR)/fontconfig.targetinstall:
 		/usr/lib/libfontconfig.so)
 
 ifdef PTXCONF_FONTCONFIG_CONFS
-	@$(call install_copy, fontconfig, 0, 0, 0644, \
-		$(FONTCONFIG_DIR)/fonts.conf, \
+	@$(call install_copy, fontconfig, 0, 0, 0644, -, \
 		/etc/fonts/fonts.conf,n)
 
 # 	@$(call install_copy, fontconfig, 0, 0, 0644, \
@@ -110,16 +101,13 @@ ifdef PTXCONF_FONTCONFIG_CONFS
 endif
 
 ifdef PTXCONF_FONTCONFIG_UTILS
-	@$(call install_copy, fontconfig, 0, 0, 0755, \
-		$(FONTCONFIG_DIR)/fc-cache/fc-cache, \
+	@$(call install_copy, fontconfig, 0, 0, 0755, -, \
 		/usr/bin/fc-cache)
 
-	@$(call install_copy, fontconfig, 0, 0, 0755, \
-		$(FONTCONFIG_DIR)/fc-list/fc-list, \
+	@$(call install_copy, fontconfig, 0, 0, 0755, -, \
 		/usr/bin/fc-list)
 
-	@$(call install_copy, fontconfig, 0, 0, 0755, \
-		$(FONTCONFIG_DIR)/fc-match/fc-match, \
+	@$(call install_copy, fontconfig, 0, 0, 0755, -, \
 		/usr/bin/fc-match)
 endif
 
