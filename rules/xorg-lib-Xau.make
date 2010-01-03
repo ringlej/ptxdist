@@ -29,34 +29,13 @@ XORG_LIB_XAU_DIR	:= $(BUILDDIR)/$(XORG_LIB_XAU)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-lib-xau_get: $(STATEDIR)/xorg-lib-xau.get
-
-$(STATEDIR)/xorg-lib-xau.get: $(xorg-lib-xau_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_LIB_XAU_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_LIB_XAU)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-lib-xau_extract: $(STATEDIR)/xorg-lib-xau.extract
-
-$(STATEDIR)/xorg-lib-xau.extract: $(xorg-lib-xau_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XAU_DIR))
-	@$(call extract, XORG_LIB_XAU)
-	@$(call patchin, XORG_LIB_XAU)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-xorg-lib-xau_prepare: $(STATEDIR)/xorg-lib-xau.prepare
 
 XORG_LIB_XAU_PATH	:=  PATH=$(CROSS_PATH)
 XORG_LIB_XAU_ENV 	:=  $(CROSS_ENV)
@@ -73,44 +52,12 @@ else
 XORG_LIB_XAU_AUTOCONF += --disable-xthreads
 endif
 
-$(STATEDIR)/xorg-lib-xau.prepare: $(xorg-lib-xau_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_LIB_XAU_DIR)/config.cache)
-	cd $(XORG_LIB_XAU_DIR) && \
-		$(XORG_LIB_XAU_PATH) $(XORG_LIB_XAU_ENV) \
-		./configure $(XORG_LIB_XAU_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-lib-xau_compile: $(STATEDIR)/xorg-lib-xau.compile
-
-$(STATEDIR)/xorg-lib-xau.compile: $(xorg-lib-xau_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_LIB_XAU_DIR) && $(XORG_LIB_XAU_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-lib-xau_install: $(STATEDIR)/xorg-lib-xau.install
-
-$(STATEDIR)/xorg-lib-xau.install: $(xorg-lib-xau_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_LIB_XAU)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xau_targetinstall: $(STATEDIR)/xorg-lib-xau.targetinstall
-
-$(STATEDIR)/xorg-lib-xau.targetinstall: $(xorg-lib-xau_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-lib-xau.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xau)
 	@$(call install_fixup, xorg-lib-xau,PACKAGE,xorg-lib-xau)
@@ -121,8 +68,7 @@ $(STATEDIR)/xorg-lib-xau.targetinstall: $(xorg-lib-xau_targetinstall_deps_defaul
 	@$(call install_fixup, xorg-lib-xau,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xau,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xau, 0, 0, 0644, \
-		$(XORG_LIB_XAU_DIR)/.libs/libXau.so.6.0.0, \
+	@$(call install_copy, xorg-lib-xau, 0, 0, 0644, -, \
 		$(XORG_LIBDIR)/libXau.so.6.0.0)
 
 	@$(call install_link, xorg-lib-xau, \
@@ -135,7 +81,7 @@ $(STATEDIR)/xorg-lib-xau.targetinstall: $(xorg-lib-xau_targetinstall_deps_defaul
 
 	@$(call install_finish, xorg-lib-xau)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
