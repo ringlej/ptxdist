@@ -118,7 +118,7 @@ endif
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/gnuplot.compile: $(gnuplot_compile_deps_default)
+$(STATEDIR)/gnuplot.compile:
 	@$(call targetinfo)
 	cd $(GNUPLOT_DIR)/src && $(GNUPLOT_PATH) $(MAKE) gnuplot $(PARALLELMFLAGS)
 	@$(call touch)
@@ -135,14 +135,14 @@ $(STATEDIR)/gnuplot.targetinstall:
 	@$(call install_fixup, gnuplot,PRIORITY,optional)
 	@$(call install_fixup, gnuplot,VERSION,$(GNUPLOT_VERSION))
 	@$(call install_fixup, gnuplot,SECTION,base)
-	@$(call install_fixup, gnuplot,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gnuplot,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gnuplot,DEPENDS,)
 	@$(call install_fixup, gnuplot,DESCRIPTION,missing)
 
-	@$(call install_copy, gnuplot, 0, 0, 0755, $(GNUPLOT_DIR)/src/gnuplot, /usr/bin/gnuplot)
+	@$(call install_copy, gnuplot, 0, 0, 0755, -, /usr/bin/gnuplot)
 
 ifdef PTXCONF_GNUPLOT_X
-	@$(call install_copy, gnuplot, 0, 0, 0755, $(GNUPLOT_DIR)/src/gnuplot_x11, /usr/libexec/gnuplot/4.0/gnuplot_x11)
+	@$(call install_copy, gnuplot, 0, 0, 0755, -, /usr/libexec/gnuplot/4.2/gnuplot_x11)
 endif
 
 	@$(call install_finish, gnuplot)
