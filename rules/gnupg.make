@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_GNUPG) += gnupg
 #
 # Paths and names
 #
-GNUPG_VERSION	= 1.4.1
+GNUPG_VERSION	= 1.4.10
 GNUPG		= gnupg-$(GNUPG_VERSION)
 GNUPG_SUFFIX	= tar.bz2
 GNUPG_URL	= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
@@ -29,34 +29,13 @@ GNUPG_DIR	= $(BUILDDIR)/$(GNUPG)
 # Get
 # ----------------------------------------------------------------------------
 
-gnupg_get: $(STATEDIR)/gnupg.get
-
-$(STATEDIR)/gnupg.get: $(gnupg_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(GNUPG_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, GNUPG)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-gnupg_extract: $(STATEDIR)/gnupg.extract
-
-$(STATEDIR)/gnupg.extract: $(gnupg_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(GNUPG_DIR))
-	@$(call extract, GNUPG)
-	@$(call patchin, GNUPG)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-gnupg_prepare: $(STATEDIR)/gnupg.prepare
 
 GNUPG_PATH	= PATH=$(CROSS_PATH)
 GNUPG_ENV 	= $(CROSS_ENV)
@@ -96,59 +75,27 @@ else
 GNUPG_AUTOCONF += --disable-gnupg-iconv
 endif
 
-$(STATEDIR)/gnupg.prepare: $(gnupg_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(GNUPG_DIR)/config.cache)
-	cd $(GNUPG_DIR) && \
-		$(GNUPG_PATH) $(GNUPG_ENV) \
-		./configure $(GNUPG_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-gnupg_compile: $(STATEDIR)/gnupg.compile
-
-$(STATEDIR)/gnupg.compile: $(gnupg_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(GNUPG_DIR) && $(GNUPG_ENV) $(GNUPG_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-gnupg_install: $(STATEDIR)/gnupg.install
-
-$(STATEDIR)/gnupg.install: $(gnupg_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, GNUPG)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-gnupg_targetinstall: $(STATEDIR)/gnupg.targetinstall
-
-$(STATEDIR)/gnupg.targetinstall: $(gnupg_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/gnupg.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, gnupg)
 	@$(call install_fixup, gnupg,PACKAGE,gnupg)
 	@$(call install_fixup, gnupg,PRIORITY,optional)
 	@$(call install_fixup, gnupg,VERSION,$(GNUPG_VERSION))
 	@$(call install_fixup, gnupg,SECTION,base)
-	@$(call install_fixup, gnupg,AUTHOR,"Jiri Nesladek <nesladek\@2n.cz>")
+	@$(call install_fixup, gnupg,AUTHOR,"Jiri Nesladek <nesladek@2n.cz>")
 	@$(call install_fixup, gnupg,DEPENDS,)
 	@$(call install_fixup, gnupg,DESCRIPTION,missing)
 
-	@$(call install_copy, gnupg, 0, 0, 0755, $(GNUPG_DIR)/g10/gpg, /usr/bin/gpg)
+	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpg)
 
 	@$(call install_finish, gnupg)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
