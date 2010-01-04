@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Robert Schwebel
+#               2010 Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -33,17 +33,6 @@ $(LIBSIGCPP_SOURCE):
 	@$(call get, LIBSIGCPP)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libsigcpp.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBSIGCPP_DIR))
-	@$(call extract, LIBSIGCPP)
-	@$(call patchin, LIBSIGCPP)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -67,12 +56,11 @@ $(STATEDIR)/libsigcpp.targetinstall:
 	@$(call install_fixup, libsigcpp,PRIORITY,optional)
 	@$(call install_fixup, libsigcpp,VERSION,$(LIBSIGCPP_VERSION))
 	@$(call install_fixup, libsigcpp,SECTION,base)
-	@$(call install_fixup, libsigcpp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libsigcpp,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libsigcpp,DEPENDS,)
 	@$(call install_fixup, libsigcpp,DESCRIPTION,missing)
 
-	@$(call install_copy, libsigcpp, 0, 0, 0644, \
-		$(LIBSIGCPP_DIR)/sigc++/.libs/libsigc-2.0.so, \
+	@$(call install_copy, libsigcpp, 0, 0, 0644, -, \
 		/usr/lib/libsigc-2.0.so.0.0.0)
 	@$(call install_link, libsigcpp, libsigc-2.0.so.0.0.0, /usr/lib/libsigc-2.0.so.0)
 	@$(call install_link, libsigcpp, libsigc-2.0.so.0.0.0, /usr/lib/libsigc-2.0.so)
