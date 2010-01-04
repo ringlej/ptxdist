@@ -1,0 +1,40 @@
+Subject: install tools
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+Add make targets to install the tools.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ Makefile.opts.in |    1 +
+ src/Makefile     |    6 ++++--
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+Index: b/Makefile.opts.in
+===================================================================
+--- a/Makefile.opts.in
++++ b/Makefile.opts.in
+@@ -21,6 +21,7 @@ LIBNL_LIB        := @LIBNL_LIB@
+ prefix           := @prefix@
+ exec_prefix      := @exec_prefix@
+ libdir           := @libdir@
++sbindir          := @sbindir@
+ includedir       := @includedir@
+ mandir           := @mandir@
+ sysconfdir       := @sysconfdir@
+Index: b/src/Makefile
+===================================================================
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -39,7 +39,9 @@ clean:
+ 
+ distclean: clean
+ 
+-install:
+-	@true
++install: $(TOOLS:=-install)
++
++%-install: %
++	install -C $< $(DESTDIR)$(sbindir)/
+ 
+ include ../Makefile.rules

@@ -2,6 +2,7 @@
 # $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
+#               2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -33,17 +34,6 @@ $(LIBNL_SOURCE):
 	@$(call get, LIBNL)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libnl.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBNL_DIR))
-	@$(call extract, LIBNL)
-	@$(call patchin, LIBNL)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -54,32 +44,6 @@ LIBNL_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 LIBNL_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/libnl.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBNL_DIR)/config.cache)
-	cd $(LIBNL_DIR) && \
-		$(LIBNL_PATH) $(LIBNL_ENV) \
-		./configure $(LIBNL_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libnl.compile:
-	@$(call targetinfo)
-	cd $(LIBNL_DIR) && $(LIBNL_PATH) $(MAKE) $(PARALLELMFLAGS) CC=$(CROSS_CC)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libnl.install:
-	@$(call targetinfo)
-	@$(call install, LIBNL)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -102,7 +66,7 @@ $(STATEDIR)/libnl.targetinstall:
 	@$(call install_link, libnl, libnl.so.1.1, /usr/lib/libnl.so)
 
 ifdef PTXCONF_LIBNL_MONITOR
-	@$(call install_copy, libnl, 0, 0, 0755, $(LIBNL_DIR)/src/nl-monitor, /usr/sbin/nl-monitor)
+	@$(call install_copy, libnl, 0, 0, 0755, -, /usr/sbin/nl-monitor)
 endif
 
 # genl-ctrl-dump
