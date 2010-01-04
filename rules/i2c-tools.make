@@ -38,7 +38,7 @@ $(I2C_TOOLS_SOURCE):
 
 I2C_TOOLS_PATH	:= PATH=$(CROSS_PATH)
 I2C_TOOLS_ENV 	:= $(CROSS_ENV)
-I2C_TOOLS_MAKEVARS := prefix=/usr $(CROSS_ENV_CC)
+I2C_TOOLS_MAKEVARS := prefix= $(CROSS_ENV_CC)
 
 $(STATEDIR)/i2c-tools.prepare:
 	@$(call targetinfo)
@@ -70,10 +70,10 @@ $(STATEDIR)/i2c-tools.targetinstall:
 	@$(call install_fixup, i2c-tools,DEPENDS,)
 	@$(call install_fixup, i2c-tools,DESCRIPTION,missing)
 
-	@$(call install_copy, i2c-tools, 0, 0, 0755, $(I2C_TOOLS_DIR)/tools/i2cdetect, /sbin/i2cdetect)
-	@$(call install_copy, i2c-tools, 0, 0, 0755, $(I2C_TOOLS_DIR)/tools/i2cdump, /sbin/i2cdump)
-	@$(call install_copy, i2c-tools, 0, 0, 0755, $(I2C_TOOLS_DIR)/tools/i2cset, /sbin/i2cset)
-	@$(call install_copy, i2c-tools, 0, 0, 0755, $(I2C_TOOLS_DIR)/tools/i2cget, /sbin/i2cget)
+	@$(call install_copy, i2c-tools, 0, 0, 0755, -, /sbin/i2cdetect)
+	@$(call install_copy, i2c-tools, 0, 0, 0755, -, /sbin/i2cdump)
+	@$(call install_copy, i2c-tools, 0, 0, 0755, -, /sbin/i2cset)
+	@$(call install_copy, i2c-tools, 0, 0, 0755, -, /sbin/i2cget)
 
 	@$(call install_finish, i2c-tools)
 
