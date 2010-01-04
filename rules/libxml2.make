@@ -277,12 +277,11 @@ $(STATEDIR)/libxml2.targetinstall:
 	@$(call install_fixup, libxml2,PRIORITY,optional)
 	@$(call install_fixup, libxml2,VERSION,$(LIBXML2_VERSION))
 	@$(call install_fixup, libxml2,SECTION,base)
-	@$(call install_fixup, libxml2,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libxml2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libxml2,DEPENDS,)
 	@$(call install_fixup, libxml2,DESCRIPTION,missing)
 
-	@$(call install_copy, libxml2, 0, 0, 0644, \
-		$(LIBXML2_DIR)/.libs/libxml2.so.2.7.6, \
+	@$(call install_copy, libxml2, 0, 0, 0644, -, \
 		/usr/lib/libxml2.so.2.7.6, y)
 	@$(call install_link, libxml2, libxml2.so.2.7.6,  /usr/lib/libxml2.so.2)
 	@$(call install_link, libxml2, libxml2.so.2.7.6, /usr/lib/libxml2.so)
