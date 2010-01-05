@@ -2,6 +2,7 @@ menuconfig KERNEL
 	bool
 	default y
 	select HOST_UMKIMAGE		if KERNEL_IMAGE_U
+	select HOST_XZ			if KERNEL_XZ
 	select CROSS_MODULE_INIT_TOOLS	if KERNEL_MODULES
 	prompt "Linux kernel                  "
 
@@ -149,6 +150,18 @@ config KERNEL_IMAGE
 	default "vmImage" if KERNEL_IMAGE_VM
 	default "vmlinux" if KERNEL_IMAGE_VMLINUX
 	default "Image"   if KERNEL_IMAGE_RAW
+
+
+config KERNEL_XZ
+	prompt "build xz-utils hosttool"
+	bool
+	help
+	  Select this if you're going to build your kernel compressed
+	  with lzma and your host system is lacking the proper tools.
+	  ("xz-utils" or the deprecated "lzma" package)
+
+	  Select this if you're unsure, as it won't hurt. It just
+	  increases the build time.
 
 
 menu "patching & configuration      "
