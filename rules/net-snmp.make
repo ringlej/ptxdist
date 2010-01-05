@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id: net-snmp.make$
 #
 # Copyright (C) 2006 by Randall Loomis <rloomis@solectek.com>
-#          
+#               2010 Michael Olbrich <m.olbrich@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -209,20 +209,11 @@ endif
 ##NET_SNMP_AUTOCONF	+= --with-sys-contact=root@localhost
 ##NET_SNMP_AUTOCONF	+= --with-sys-location=unknown
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/net-snmp.compile:
-	@$(call targetinfo, $@)
-	$(NET_SNMP_PATH) make -C $(NET_SNMP_DIR) $(NET_SNMP_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch, $@)
+NET_SNMP_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-net-snmp_targetinstall:	$(STATEDIR)/net-snmp.targetinstall
 
 NET_SNMP_LIBMAJOR := 10
 NET_SNMP_LIBMINOR := 0.1
@@ -278,8 +269,7 @@ $(STATEDIR)/net-snmp.targetinstall:
 	@$(call install_fixup, net-snmp,DESCRIPTION,missing)
 
 ifdef PTXCONF_NET_SNMP_AGENT
-	@$(call install_copy, net-snmp, 0, 0, 0644, \
-		$(NET_SNMP_DIR)/agent/.libs/libnetsnmpagent.so.$(NET_SNMP_LIBVER), \
+	@$(call install_copy, net-snmp, 0, 0, 0644, -, \
 		/usr/lib/libnetsnmpagent.so.$(NET_SNMP_LIBVER))
 	@$(call install_link, net-snmp, libnetsnmpagent.so.$(NET_SNMP_LIBVER), \
 		/usr/lib/libnetsnmpagent.so.$(NET_SNMP_LIBMAJOR))
@@ -287,8 +277,7 @@ ifdef PTXCONF_NET_SNMP_AGENT
 		/usr/lib/libnetsnmpagent.so)
 
 # agent mib libs
-	@$(call install_copy, net-snmp, 0, 0, 0644, \
-		$(NET_SNMP_DIR)/agent/.libs/libnetsnmpmibs.so.$(NET_SNMP_LIBVER), \
+	@$(call install_copy, net-snmp, 0, 0, 0644, -, \
 		/usr/lib/libnetsnmpmibs.so.$(NET_SNMP_LIBVER))
 	@$(call install_link, net-snmp, libnetsnmpmibs.so.$(NET_SNMP_LIBVER), \
 		/usr/lib/libnetsnmpmibs.so.$(NET_SNMP_LIBMAJOR))
@@ -296,12 +285,11 @@ ifdef PTXCONF_NET_SNMP_AGENT
 		/usr/lib/libnetsnmpmibs.so)
 
 # agent binary
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/agent/snmpd, \
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, \
 		/usr/sbin/snmpd)
 
 # agent helper libs
-	@$(call install_copy, net-snmp, 0, 0, 0644, \
-		$(NET_SNMP_DIR)/agent/helpers/.libs/libnetsnmphelpers.so.$(NET_SNMP_LIBVER), \
+	@$(call install_copy, net-snmp, 0, 0, 0644, -, \
 		/usr/lib/libnetsnmphelpers.so.$(NET_SNMP_LIBVER))
 	@$(call install_link, net-snmp, libnetsnmphelpers.so.$(NET_SNMP_LIBVER), \
 		/usr/lib/libnetsnmphelpers.so.$(NET_SNMP_LIBMAJOR))
@@ -311,8 +299,7 @@ endif
 
 ifdef PTXCONF_NET_SNMP_APPLICATIONS
 # apps libs
-	@$(call install_copy, net-snmp, 0, 0, 0644, \
-		$(NET_SNMP_DIR)/apps/.libs/libnetsnmptrapd.so.$(NET_SNMP_LIBVER), \
+	@$(call install_copy, net-snmp, 0, 0, 0644, -, \
 		/usr/lib/libnetsnmptrapd.so.$(NET_SNMP_LIBVER))
 	@$(call install_link, net-snmp, libnetsnmptrapd.so.$(NET_SNMP_LIBVER), \
 		/usr/lib/libnetsnmptrapd.so.$(NET_SNMP_LIBMAJOR))
@@ -324,31 +311,30 @@ ifdef PTXCONF_NET_SNMP_APPLICATIONS
 ##	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/lt-snmpget, /usr/bin/lt-snmpget)
 ##	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/.libs/lt-snmpwalk, /usr/bin/lt-snmpwalk)
 ##endif
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpbulkget, /usr/bin/snmpbulkget)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpbulkwalk, /usr/bin/snmpbulkwalk)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpdelta, /usr/bin/snmpdelta)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpdf, /usr/bin/snmpdf)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpget, /usr/bin/snmpget)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpgetnext, /usr/bin/snmpgetnext)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpset, /usr/bin/snmpset)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpstatus, /usr/bin/snmpstatus)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmptable, /usr/bin/snmptable)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmptest, /usr/bin/snmptest)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmptranslate, /usr/bin/snmptranslate)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmptrap, /usr/bin/snmptrap)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmptrapd, /usr/bin/snmptrapd)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpusm, /usr/bin/snmpusm)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpvacm, /usr/bin/snmpvacm)
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpwalk, /usr/bin/snmpwalk)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpbulkget)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpbulkwalk)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpdelta)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpdf)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpget)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpgetnext)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpset)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpstatus)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmptable)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmptest)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmptranslate)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmptrap)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/sbin/snmptrapd)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpusm)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpvacm)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpwalk)
 
 # apps snmpstat
-	@$(call install_copy, net-snmp, 0, 0, 0755, $(NET_SNMP_DIR)/apps/snmpnetstat/snmpnetstat, /usr/bin/snmpnetstat)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/bin/snmpnetstat)
 
 endif
 
 # snmplib
-	@$(call install_copy, net-snmp, 0, 0, 0644, \
-		$(NET_SNMP_DIR)/snmplib/.libs/libnetsnmp.so.$(NET_SNMP_LIBVER), \
+	@$(call install_copy, net-snmp, 0, 0, 0644, -, \
 		/usr/lib/libnetsnmp.so.$(NET_SNMP_LIBVER))
 	@$(call install_link, net-snmp, libnetsnmp.so.$(NET_SNMP_LIBVER), \
 		/usr/lib/libnetsnmp.so.$(NET_SNMP_LIBMAJOR))
@@ -359,8 +345,7 @@ endif
 ifdef PTXCONF_NET_SNMP_MIBS
 
 	@for i in $(NET_SNMP_MIBS) ; do \
-		$(call install_copy, net-snmp, 0, 0, 0644, \
-		$(NET_SNMP_DIR)/mibs/$$i, \
+		$(call install_copy, net-snmp, 0, 0, 0644, -, \
 		$(call remove_quotes,$(PTXCONF_NET_SNMP_MIB_INSTALL_DIR))/$$i, n) ; \
 	done
 endif
