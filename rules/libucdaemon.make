@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 7626 2007-11-26 10:27:03Z mkl $
 #
 # Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -56,16 +55,17 @@ $(STATEDIR)/libucdaemon.targetinstall:
 	@$(call install_fixup, libucdaemon,PRIORITY,optional)
 	@$(call install_fixup, libucdaemon,VERSION,$(LIBUCDAEMON_VERSION))
 	@$(call install_fixup, libucdaemon,SECTION,base)
-	@$(call install_fixup, libucdaemon,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libucdaemon,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libucdaemon,DEPENDS,)
 	@$(call install_fixup, libucdaemon,DESCRIPTION,missing)
 
-	@$(call install_copy, libucdaemon, 0, 0, 0644, \
-		$(LIBUCDAEMON_DIR)/src/.libs/libucdaemon.so.0.0.0, \
+	@$(call install_copy, libucdaemon, 0, 0, 0644, -, \
 		/usr/lib/libucdaemon.so.0.0.0)
 
-	@$(call install_link, libucdaemon, libucdaemon.so.0.0.0, /usr/lib/libucdaemon.so.0)
-	@$(call install_link, libucdaemon, libucdaemon.so.0.0.0, /usr/lib/libucdaemon.so)
+	@$(call install_link, libucdaemon, libucdaemon.so.0.0.0, \
+		/usr/lib/libucdaemon.so.0)
+	@$(call install_link, libucdaemon, libucdaemon.so.0.0.0, \
+		/usr/lib/libucdaemon.so)
 
 	@$(call install_finish, libucdaemon)
 
