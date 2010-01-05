@@ -31,15 +31,6 @@ endif
 endif
 
 
-ifneq ($(PTXCONF_COMPILER_PREFIX),$(PTXCONF_COMPILER_PREFIX_KERNEL))
-ifeq ($(wildcard .ktoolchain/$(PTXCONF_COMPILER_PREFIX_KERNEL)gcc),)
-    $(warning *** no .ktoolchain link found. Please create a link)
-    $(warning *** .ktoolchain to the bin directory of your $(PTXCONF_COMPILER_PREFIX_KERNEL) toolchain)
-    $(error )
-endif
-endif
-
-
 ifeq ($(PTXCONF_KERNEL_VERSION),)
     $(warning *** PTXCONF_KERNEL_VERSION is empty)
     $(warning *** please run 'ptxdist platformconfig' and activate the kernel)
