@@ -77,12 +77,11 @@ $(STATEDIR)/rsync3.targetinstall:
 	@$(call install_fixup, rsync3,PRIORITY,optional)
 	@$(call install_fixup, rsync3,VERSION,$(RSYNC3_VERSION))
 	@$(call install_fixup, rsync3,SECTION,base)
-	@$(call install_fixup, rsync3,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, rsync3,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, rsync3,DEPENDS,)
 	@$(call install_fixup, rsync3,DESCRIPTION,missing)
 
-	@$(call install_copy, rsync3, 0, 0, 0755, \
-		$(RSYNC3_DIR)/rsync, \
+	@$(call install_copy, rsync3, 0, 0, 0755, -, \
 		/usr/bin/rsync)
 
 	@$(call install_alternative, rsync3, 0, 0, 0644, /etc/rsyncd.conf, n)
