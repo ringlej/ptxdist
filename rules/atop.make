@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: atop.make 6158 2006-10-16 14:26:15Z rsc $
 #
 # Copyright (C) 2008 by Remy Bohmer, Netherlands
 #
@@ -59,7 +58,7 @@ $(STATEDIR)/atop.targetinstall:
 	@$(call install_fixup, atop,DEPENDS,)
 	@$(call install_fixup, atop,DESCRIPTION,missing)
 
-	@$(call install_copy, atop, 0, 0, 0755, $(ATOP_DIR)/atop, /usr/bin/atop)
+	@$(call install_copy, atop, 0, 0, 0755, -, /usr/bin/atop)
 
 	@$(call install_finish, atop)
 
