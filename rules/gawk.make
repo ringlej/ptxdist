@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation, By Milan Bobde
 #
@@ -56,21 +55,21 @@ $(STATEDIR)/gawk.targetinstall:
 	@$(call install_fixup, gawk,PRIORITY,optional)
 	@$(call install_fixup, gawk,VERSION,$(GAWK_VERSION))
 	@$(call install_fixup, gawk,SECTION,base)
-	@$(call install_fixup, gawk,AUTHOR,"Carsten Schlote <schlote\@konzeptpark.de>")
+	@$(call install_fixup, gawk,AUTHOR,"Carsten Schlote <schlote@konzeptpark.de>")
 	@$(call install_fixup, gawk,DEPENDS,)
 	@$(call install_fixup, gawk,DESCRIPTION,missing)
 
-	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/gawk, /usr/bin/gawk)
+	@$(call install_copy, gawk, 0, 0, 0755, -, /usr/bin/gawk)
 	@$(call install_link, gawk, gawk, /usr/bin/awk)
 
 ifdef PTXCONF_GAWK_PGAWK
-	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/pgawk, /usr/bin/pgawk)
+	@$(call install_copy, gawk, 0, 0, 0755, -, /usr/bin/pgawk)
 endif
 
 ifdef PTXCONF_GAWK_AWKLIB
-	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/awklib/igawk, /usr/bin/igawk)
-	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/awklib/pwcat, /usr/libexec/gawk/pwcat)
-	@$(call install_copy, gawk, 0, 0, 0755, $(GAWK_DIR)/awklib/grcat, /usr/libexec/gawk/grcat)
+	@$(call install_copy, gawk, 0, 0, 0755, -, /usr/bin/igawk)
+	@$(call install_copy, gawk, 0, 0, 0755, -, /usr/libexec/awk/pwcat)
+	@$(call install_copy, gawk, 0, 0, 0755, -, /usr/libexec/awk/grcat)
 endif
 
 	@$(call install_finish, gawk)
