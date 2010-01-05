@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by University of Illinois
+#               2010 Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -27,33 +28,13 @@ HASERL_DIR	:= $(BUILDDIR)/$(HASERL)
 # Get
 # ----------------------------------------------------------------------------
 
-haserl_get: $(STATEDIR)/haserl.get
-
-$(STATEDIR)/haserl.get: $(haserl_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(HASERL_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, HASERL)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-haserl_extract: $(STATEDIR)/haserl.extract
-
-$(STATEDIR)/haserl.extract: $(haserl_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HASERL_DIR))
-	@$(call extract, HASERL)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-haserl_prepare: $(STATEDIR)/haserl.prepare
 
 HASERL_PATH	:=  PATH=$(CROSS_PATH)
 HASERL_ENV 	:=  $(CROSS_ENV)
@@ -63,44 +44,12 @@ HASERL_ENV 	:=  $(CROSS_ENV)
 #
 HASERL_AUTOCONF = $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/haserl.prepare: $(haserl_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HASERL_DIR)/config.cache)
-	cd $(HASERL_DIR) && \
-		$(HASERL_PATH) $(HASERL_ENV) \
-		./configure $(HASERL_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-haserl_compile: $(STATEDIR)/haserl.compile
-
-$(STATEDIR)/haserl.compile: $(haserl_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(HASERL_DIR) && $(HASERL_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-haserl_install: $(STATEDIR)/haserl.install
-
-$(STATEDIR)/haserl.install: $(haserl_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, HASERL)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-haserl_targetinstall: $(STATEDIR)/haserl.targetinstall
-
-$(STATEDIR)/haserl.targetinstall: $(haserl_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/haserl.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, haserl)
 	@$(call install_fixup,haserl,PACKAGE,haserl)
@@ -111,11 +60,11 @@ $(STATEDIR)/haserl.targetinstall: $(haserl_targetinstall_deps_default)
 	@$(call install_fixup,haserl,DEPENDS,)
 	@$(call install_fixup,haserl,DESCRIPTION,missing)
 
-	@$(call install_copy, haserl, 0, 0, 0755, $(HASERL_DIR)/src/haserl, /usr/bin/haserl)
+	@$(call install_copy, haserl, 0, 0, 0755, -, /usr/bin/haserl)
 
 	@$(call install_finish,haserl)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
