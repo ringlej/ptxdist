@@ -67,10 +67,10 @@ $(STATEDIR)/lua.targetinstall:
 	@$(call install_fixup, lua,DESCRIPTION,missing)
 
 ifdef PTXCONF_LUA_INSTALL_LUA
-	@$(call install_copy, lua, 0, 0, 0755, $(LUA_DIR)/src/lua, /usr/bin/lua)
+	@$(call install_copy, lua, 0, 0, 0755, -, /usr/bin/lua)
 endif
 ifdef PTXCONF_LUA_INSTALL_LUAC
-	@$(call install_copy, lua, 0, 0, 0755, $(LUA_DIR)/src/luac, /usr/bin/luac)
+	@$(call install_copy, lua, 0, 0, 0755, -, /usr/bin/luac)
 endif
 ifdef PTXCONF_LUA_INSTALL_LIBLUA
 	@$(call install_copy, lua, 0, 0, 0644, -, \
