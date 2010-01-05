@@ -47,16 +47,8 @@ CANFESTIVAL_AUTOCONF := \
 	--can=socket
 
 ifdef PTXCONF_ENDIAN_BIG
-	CANFESTIVAL_AUTOCONF += --CANOPEN_BIG_ENDIAN=1
+CANFESTIVAL_AUTOCONF += --CANOPEN_BIG_ENDIAN=1
 endif
-
-$(STATEDIR)/canfestival.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(CANFESTIVAL_DIR)/config.cache)
-	cd $(CANFESTIVAL_DIR) && \
-		$(CANFESTIVAL_PATH) $(CANFESTIVAL_ENV) \
-		./configure $(CANFESTIVAL_AUTOCONF)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -87,8 +79,7 @@ $(STATEDIR)/canfestival.targetinstall:
 	@$(call install_fixup, canfestival,DEPENDS,)
 	@$(call install_fixup, canfestival,DESCRIPTION,missing)
 
-	@$(call install_copy, canfestival, 0, 0, 0644, \
-		$(CANFESTIVAL_DIR)/drivers/can_socket/libcanfestival_can_socket.so, \
+	@$(call install_copy, canfestival, 0, 0, 0644, -, \
 		/usr/lib/libcanfestival_can_socket.so)
 
 	@$(call install_finish, canfestival)
