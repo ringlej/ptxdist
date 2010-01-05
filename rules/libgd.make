@@ -97,8 +97,8 @@ $(STATEDIR)/libgd.targetinstall:
 	@$(call install_fixup, libgd,DEPENDS,)
 	@$(call install_fixup, libgd,DESCRIPTION,missing)
 
-	@$(call install_copy, libgd, 0, 0, 0644,\
-		$(LIBGD_DIR)/.libs/libgd.so.2.0.0, /usr/lib/libgd.so.2.0.0)
+	@$(call install_copy, libgd, 0, 0, 0644, -, \
+		/usr/lib/libgd.so.2.0.0)
 	@$(call install_link, libgd, libgd.so.2.0.0, /usr/lib/libgd.so.2)
 	@$(call install_link, libgd, libgd.so.2.0.0, /usr/lib/libgd.so)
 
