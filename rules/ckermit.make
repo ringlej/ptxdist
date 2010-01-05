@@ -87,7 +87,8 @@ $(STATEDIR)/ckermit.targetinstall:
 	@$(call install_fixup, ckermit,DEPENDS,)
 	@$(call install_fixup, ckermit,DESCRIPTION,missing)
 
-	@$(call install_copy, ckermit, 0, 0, 0755, $(CKERMIT_DIR)/wermit, /usr/bin/ckermit)
+	@$(call install_copy, ckermit, 0, 0, 0755, \
+		$(CKERMIT_PKGDIR)/usr/bin/kermit, /usr/bin/ckermit)
 
 	@$(call install_finish, ckermit)
 
