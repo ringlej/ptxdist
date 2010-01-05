@@ -67,7 +67,8 @@ $(STATEDIR)/xmlstarlet.targetinstall:
 	@$(call install_fixup, xmlstarlet,DEPENDS,)
 	@$(call install_fixup, xmlstarlet,DESCRIPTION,missing)
 
-	@$(call install_copy, xmlstarlet, 0, 0, 0755, $(XMLSTARLET_DIR)/src/xml, /usr/bin/xmlstarlet)
+	@$(call install_copy, xmlstarlet, 0, 0, 0755, \
+		$(XMLSTARLET_PKGDIR)/usr/bin/xml, /usr/bin/xmlstarlet)
 
 	@$(call install_finish, xmlstarlet)
 
