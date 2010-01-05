@@ -63,19 +63,19 @@ diff --git a/mkfs.ubifs/Makefile b/mkfs.ubifs/Makefile
 index a678b0a..d4d897f 100644
 --- a/mkfs.ubifs/Makefile
 +++ b/mkfs.ubifs/Makefile
-@@ -5,7 +5,11 @@ ALL_SOURCES=*.[ch] hashtable/*.[ch]
+@@ -6,7 +6,11 @@
  
  TARGETS = mkfs.ubifs
  
--LDLIBS_mkfs.ubifs = -lz -llzo2 -lm -luuid -L../ubi-utils/ -lubi
+-LDLIBS_mkfs.ubifs = -lz -llzo2 -lm -luuid -L$(BUILDDIR)/../ubi-utils/ -lubi
 +ifneq ($(WITHOUT_LZO), 1)
 +mkfs.ubifs_LIBLZO = -llzo2
 +endif
 +
-+LDLIBS_mkfs.ubifs = -lz $(mkfs.ubifs_LIBLZO) -lm -luuid -L../ubi-utils/ -lubi
++LDLIBS_mkfs.ubifs = -lz $(mkfs.ubifs_LIBLZO) -lm -luuid -L$(BUILDDIR)/../ubi-utils/ -lubi
+ LDLIBS_mkfs.ubifs += $(ZLIBLDFLAGS) $(LZOLDFLAGS)
  
  include ../common.mk
- 
 diff --git a/mkfs.ubifs/compr.c b/mkfs.ubifs/compr.c
 index e378c5d..55ed1b6 100644
 --- a/mkfs.ubifs/compr.c
