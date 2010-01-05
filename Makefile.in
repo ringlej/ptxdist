@@ -60,21 +60,26 @@ clean:
 	@$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" clean
 
 dist:
-	PTXDIST_TOPDIR=$(shell pwd); \
-	tmpdir=`mktemp -d /tmp/ptxdist.XXXXXX`; \
-	cp -a $$PTXDIST_TOPDIR $$tmpdir/ptxdist-$(version); \
-	cd $$tmpdir/ptxdist-$(version); $(MAKE) distclean; \
-	find $$tmpdir/ptxdist-$(version) -name ".svn" | xargs rm -fr; \
-	rm -f $$tmpdir/ptxdist-$(version)/.done; \
-	cd $$tmpdir; \
-	tar -zcf ptxdist-$(version)-patches.tgz ptxdist-$(version)/patches; \
-	rm -fr ptxdist-$(version)/patches; \
-	tar -zcf ptxdist-$(version).tgz ptxdist-$(version); \
-	cd $$PTXDIST_TOPDIR; \
-	mv $$tmpdir/ptxdist-$(version).tgz .; \
-	mv $$tmpdir/ptxdist-$(version)-patches.tgz .; \
-	rm -fr $$tmpdir; \
-	ls -l ptxdist-*
+	@rm -rf "$(project)"
+	git archive "$(project)" --prefix="$(project)"/ | tar x
+	cd "$(project)" && ./autogen.sh
+	tar -cz \
+		--exclude ".svn" \
+		--exclude ".git" \
+		--exclude ".pc" \
+		--exclude "$(project)/autom4te.cache" \
+		--exclude "$(project)/patches" \
+		-f "$(project).tgz" \
+		"$(project)"
+	md5sum "$(project).tgz" > "$(project).tgz.md5"
+	tar -cz \
+		--exclude ".svn" \
+		--exclude ".git" \
+		--exclude ".pc" \
+		--exclude "$(project)/autom4te.cache" \
+		-f "$(project)-patches.tgz" \
+		"$(project)/patches"
+	md5sum "$(project)-patches.tgz" > "$(project)-patches.tgz.md5"
 
 distclean: clean
 	rm -fr Makefile
