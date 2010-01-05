@@ -56,16 +56,16 @@ $(STATEDIR)/uttt.targetinstall:
 	@$(call install_fixup, uttt,PRIORITY,optional)
 	@$(call install_fixup, uttt,VERSION,$(UTTT_VERSION))
 	@$(call install_fixup, uttt,SECTION,base)
-	@$(call install_fixup, uttt,AUTHOR,"Luotao Fu <l.fu\@pengutronix.de>")
+	@$(call install_fixup, uttt,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
 	@$(call install_fixup, uttt,DEPENDS,)
 	@$(call install_fixup, uttt,DESCRIPTION,missing)
 
 ifdef PTXCONF_UTTT_TTT
-	@$(call install_copy, uttt, 0, 0, 0755, $(UTTT_DIR)/src/ttt, /usr/bin/ttt)
+	@$(call install_copy, uttt, 0, 0, 0755, -, /usr/bin/ttt)
 endif
 
 ifdef PTXCONF_UTTT_CONNECT4
-	@$(call install_copy, uttt, 0, 0, 0755, $(UTTT_DIR)/src/connect4, /usr/bin/connect4)
+	@$(call install_copy, uttt, 0, 0, 0755, -, /usr/bin/connect4)
 endif
 
 	@$(call install_finish, uttt)
