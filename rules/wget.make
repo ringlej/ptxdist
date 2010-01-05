@@ -60,11 +60,11 @@ $(STATEDIR)/wget.targetinstall:
 	@$(call install_fixup, wget,PRIORITY,optional)
 	@$(call install_fixup, wget,VERSION,$(WGET_VERSION))
 	@$(call install_fixup, wget,SECTION,base)
-	@$(call install_fixup, wget,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, wget,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, wget,DEPENDS,)
 	@$(call install_fixup, wget,DESCRIPTION,missing)
 
-	@$(call install_copy, wget, 0, 0, 0755, $(WGET_DIR)/src/wget, /usr/bin/wget)
+	@$(call install_copy, wget, 0, 0, 0755, -, /usr/bin/wget)
 
 	@$(call install_finish, wget)
 
