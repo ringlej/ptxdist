@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2008 by Brandon Fosdick <bfosdick@dash.net>
 #
@@ -56,20 +55,17 @@ $(STATEDIR)/inotify-tools.targetinstall:
 	@$(call install_fixup,inotify-tools,PRIORITY,optional)
 	@$(call install_fixup,inotify-tools,VERSION,$(INOTIFY_TOOLS_VERSION))
 	@$(call install_fixup,inotify-tools,SECTION,base)
-	@$(call install_fixup,inotify-tools,AUTHOR,"Brandon Fosdick <bfosdick\@dash.net>")
+	@$(call install_fixup,inotify-tools,AUTHOR,"Brandon Fosdick <bfosdick@dash.net>")
 	@$(call install_fixup,inotify-tools,DEPENDS,)
 	@$(call install_fixup,inotify-tools,DESCRIPTION,missing)
 
-	@$(call install_copy, inotify-tools, 0, 0, 0755, \
-		$(INOTIFY_TOOLS_DIR)/src/inotifywait, \
+	@$(call install_copy, inotify-tools, 0, 0, 0755, -, \
 		/usr/bin/inotifywait)
 
-	@$(call install_copy, inotify-tools, 0, 0, 0755, \
-		$(INOTIFY_TOOLS_DIR)/src/inotifywatch, \
+	@$(call install_copy, inotify-tools, 0, 0, 0755, -, \
 		/usr/bin/inotifywait)
 
-	@$(call install_copy, inotify-tools, 0, 0, 0644, \
-		$(INOTIFY_TOOLS_DIR)/libinotifytools/src/.libs/libinotifytools.so.0.4.1, \
+	@$(call install_copy, inotify-tools, 0, 0, 0644, -, \
 		/usr/lib/libinotifytools.so.0.4.1)
 
 	@$(call install_link, inotify-tools, \
@@ -93,3 +89,4 @@ inotify-tools_clean:
 	rm -rf $(PKGDIR)/inotify-tools_*
 	rm -rf $(INOTIFY_TOOLS_DIR)
 
+# vim: syntax=make
