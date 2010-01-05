@@ -174,7 +174,7 @@ ifdef PTXCONF_CVS_SERVER_POPULATE_CVSROOT
 endif
 endif
 
-	@$(call install_copy, cvs, 0, 0, 0755, $(CVS_DIR)/src/cvs, /usr/bin/cvs)
+	@$(call install_copy, cvs, 0, 0, 0755, -, /usr/bin/cvs)
 
 	@$(call install_finish,cvs)
 
