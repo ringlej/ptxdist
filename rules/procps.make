@@ -90,6 +90,8 @@ endif
 ifdef PTXCONF_PROCPS_SYSCTL
 	@$(call install_copy, procps, 0, 0, 0755, -, \
 		/sbin/sysctl)
+
+	@$(call install_alternative, procps, 0, 0, 0644, /etc/sysctl.conf, n)
 endif
 ifdef PTXCONF_PROCPS_PS
 	@$(call install_copy, procps, 0, 0, 0755, -, \
