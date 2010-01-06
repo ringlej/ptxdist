@@ -107,6 +107,7 @@ ifdef PTXCONF_UTIL_LINUX_NG_MKSWAP
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_SWAPON
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/swapon)
+	@$(call install_link, util-linux-ng, swapon, /sbin/swapoff)
 endif
 ifdef PTXCONF_UTIL_LINUX_NG_MOUNT
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /bin/mount)
