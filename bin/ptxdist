@@ -17,7 +17,7 @@ PTXDIST_PLATFORMCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_platformconfig'
 PTXDIST_PLATFORMCONFIG_FALLBACK='${PTXDIST_WORKSPACE}/configs/*/platformconfig'
 PTXDIST_COLLECTIONCONFIG_DEFAULT='${PTXDIST_WORKSPACE}/selected_collectionconfig'
 PTXDIST_TOOLCHAIN_DEFAULT='${PTXDIST_WORKSPACE}/selected_toolchain'
-PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdistrc.${PTXDIST_VERSION_FULL}'
+PTXDIST_PTXRC_DEFAULT='${HOME}/.ptxdist/ptxdistrc-${PTXDIST_VERSION_PTXRC}'
 
 
 #
@@ -1718,9 +1718,6 @@ parse_second()
 
 		boardsetup)
 			check_config
-			if [ \! -d "${HOME}/.ptxdist" ]; then
-				mkdir -- "${HOME}/.ptxdist"
-			fi
 			do_config menuconfig board
 			exit
 			;;
@@ -2007,12 +2004,14 @@ setup_topdir() {
 #
 #
 setup_env() {
+	local ptxrc
+
 	#
-	# here some ugly hard coded values:
+	# here an ugly hard coded value:
 	#
 	source "${PTXDIST_TOPDIR}/scripts/ptxdist_version.sh" &&
+	eval ptxrc="${PTXDIST_PTXRC_DEFAULT}" &&
 
-	local ptxrc="${HOME}/.ptxdistrc.${PTXDIST_VERSION_FULL}"
 	if [ -e "${ptxrc}" ]; then
 		source "${ptxrc}"
 	fi || return
@@ -2124,6 +2123,8 @@ setup_config() {
 	local rc_default="${PTXDIST_TOPDIR}/config/setup/ptxdistrc.default"
 
 	if [ \! -e "${rc_user}" ]; then
+		local rc_user_dir="${rc_user%/*}"
+		mkdir -p -- "${rc_user_dir}" &&
 		cp -- "${rc_default}" "${rc_user}" || return
 	fi
 
