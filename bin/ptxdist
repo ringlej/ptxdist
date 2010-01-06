@@ -180,57 +180,57 @@ check_path() {
 
 
 #
-# check a ptxdist version against a configfile version.
+# check ptxdist version against configfile version
 #
-# as long as we're not 2.0 (i.e. stable) the versions _must_ match
+# $1: config file version
 #
-# - The ptxdist major version has to be equal to the configfile major version
-# - The ptxdist minor version has to be equal to the configfile minor version
-# - The ptxdist micro version has to greater than or equal to the configfile
-#   micro version
-# - If the configfile has no micro version stop here and assume
-#   everything is ok (this means '1.0' 'can build with 1.0.x').
+# return:
+# 0: ptxdist and config file are compatible
+# 1: ptxdist and config file are incompatible
 #
 check_version() {
-	if [ -n "${PTX_FORCE}" ]; then
+	#
+	# if config file and ptxdist match return success
+	# (or if beeing forced)
+	#
+	if [ "${1}" = "${PTXDIST_VERSION_CFG_FULL}" -o \
+	    -n "${PTX_FORCE}" ]; then
 		return 0
 	fi
 
-	#
-	# the toolchain project is a bit more relaxed, new ptxdists
-	# can build it, too
-	#
-	if ! ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null; then
-		####################################################################
-		# as long as we're not 2.0 (i.e. stable) the versions _must_ match #
-		# (for normal BSPs)						   #
-		####################################################################
+	local config_full="${1/-/.}"
+	local ifs_old="${IFS}"
+	IFS=.
+	set -- ${config_full}
+	IFS="${ifs_old}"
 
-		if [ "${1}" = "${PTXDIST_VERSION_FULL}" ]; then
-			return
-		else
-			return 1
+	local config_year="${1}"
+	local config_month="${2}"
+	local config_bugfix="${3}"
+	local config_scm="${4:+-$4}"
+
+	if ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null; then
+		#
+		# let ptxdist build 1.99.x toolchain projects, too
+		#
+		if [ "${config_year}.${config_month}" = "1.99" -a \
+		    "${config_bugfix}" != "svn" ]; then
+			return 0
 		fi
 	fi
 
-	local ifs_old="${IFS}"
-	IFS=.
-	set -- ${1}
-	IFS="${ifs_old}"
-
-	local config_major="${1}"
-	local config_minor="${2}"
-	local config_micro="${3}"
-
-	if   [ "${PTXDIST_VERSION_MAJOR}" != "${config_major}" ]; then
+	#
+	# we're doing timed releases now, so year and month _must_
+	# match scm (source code management) must match, too
+	#
+	# the "bugfix" level of ptxdist must be greater or equal to
+	# the "bugfix" level of the config file
+	#
+	if [ "${PTXDIST_VERSION_YEAR}.${PTXDIST_VERSION_MONTH}${PTXDIST_VERSION_CFG_SCM}" != \
+		"${config_year}.${config_month}${config_scm}" ]; then
 		return 1
-	elif [ "${PTXDIST_VERSION_MINOR}" != "${config_minor}" ]; then
-		return 1
-	elif [                            -z "${config_micro}" -o \
-	       "${PTXDIST_VERSION_MICRO}"  = "${config_micro}" ]; then
+	elif [ ${PTXDIST_VERSION_BUGFIX} -ge ${config_bugfix} ] >/dev/null 2>&1; then
 		return 0
-	elif [ ${PTXDIST_VERSION_MICRO}  -ge  ${config_micro} ] >/dev/null 2>&1; then
-		return 0	# fails if one is "svn"
 	fi
 
 	return 1
