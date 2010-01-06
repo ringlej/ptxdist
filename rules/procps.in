@@ -1,9 +1,11 @@
 ## SECTION=shell_and_console
+
 menuconfig PROCPS
 	tristate
 	prompt "procps                        "
-	select NCURSES if PROCPS_TOP
-	select NCURSES if PROCPS_SLABTOP
+	select GCCLIBS_GCC_S
+	select NCURSES		if PROCPS_TOP
+	select NCURSES		if PROCPS_SLABTOP
 	help
 	  The procps package contains a set of system utilities that provide
 	   system information.
