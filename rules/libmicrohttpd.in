@@ -2,6 +2,7 @@
 
 menuconfig LIBMICROHTTPD
 	tristate
+	select LIBC_PTHREAD
 	select LIBGCRYPT if LIBMICROHTTPD_HTTPS
 	prompt "libmicrohttpd                 "
 	help
