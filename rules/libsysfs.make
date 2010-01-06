@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -63,6 +62,10 @@ $(STATEDIR)/libsysfs.targetinstall:
 	@$(call install_copy, libsysfs, 0,0, 644, -, /usr/lib/libsysfs.so.2.0.1)
 	@$(call install_link, libsysfs, libsysfs.so.2.0.1, /usr/lib/libsysfs.so.2)
 	@$(call install_link, libsysfs, libsysfs.so.2.0.1, /usr/lib/libsysfs.so)
+
+ifdef PTXCONF_LIBSYSFS_SYSTOOL
+	@$(call install_copy, libsysfs, 0, 0, 0775, -, /usr/bin/systool)
+endif
 
 	@$(call install_finish, libsysfs)
 
