@@ -984,6 +984,7 @@ newpacket() {
 		template=template-klibc
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-cmake-prog"
 		class=klibc-
+		autoconf_class=KLIBC_
 		;;
 
 	src-cmake-prog)
