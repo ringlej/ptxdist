@@ -1,5 +1,0 @@
-## SECTION=ptxdist_version
-
-config CONFIGFILE_VERSION
-	string
-	default "@PACKAGE_VERSION@"

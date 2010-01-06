@@ -1,0 +1,9 @@
+## SECTION=ptxdist_version
+
+config CONFIGFILE_VERSION_DEFAULT
+	string
+	option env="PTXDIST_VERSION_CFG_FULL"
+
+config CONFIGFILE_VERSION
+	string
+	default CONFIGFILE_VERSION_DEFAULT

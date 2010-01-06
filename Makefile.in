@@ -77,8 +77,6 @@ dist:
 distclean: clean
 	rm -fr Makefile
 	rm -fr build-stamp
-	rm -f  rules/ptxdist-version.in
-	rm -f  scripts/ptxdist_version.sh
 	rm -fr config.log config.status autom4te.cache
 
 maintainer-clean: distclean

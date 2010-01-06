@@ -1,3 +1,0 @@
-config PLATFORMCONFIG_VERSION
-	string
-	default "@PACKAGE_VERSION@"
