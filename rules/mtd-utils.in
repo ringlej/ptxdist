@@ -139,7 +139,13 @@ config MTD_UTILS_SUMTOOL
 	  filesystem mount. To use this the JFFS2_SUMMARY option must
 	  be enabled in kernel.
 	  
-comment "ubi utils"
+menuconfig MTD_UTILS_UBI_UTILS
+	bool
+	prompt "ubi utils"
+	help
+	  Build UBI Utils
+
+if MTD_UTILS_UBI_UTILS
 
 config MTD_UTILS_UBIATTACH
 	bool
@@ -194,6 +200,14 @@ config MTD_UTILS_UBIUPDATEVOL
 	prompt "ubiupdatevol"
 	help
 	  Updates a volume with data from file
+
+config MTD_UTILS_MKFS_UBIFS
+	bool
+	prompt "mkfs.ubifs"
+	help
+	  Create ubifs filesystems
+
+endif
 
 config MTD_UTILS_MTDINFO
 	bool
