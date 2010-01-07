@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_PCMCIAUTILS) += pcmciautils
 #
 # Paths and names
 #
-PCMCIAUTILS_VERSION	:= 015
+PCMCIAUTILS_VERSION	:= 017
 PCMCIAUTILS		:= pcmciautils-$(PCMCIAUTILS_VERSION)
 PCMCIAUTILS_SUFFIX	:= tar.gz
 PCMCIAUTILS_URL		:= http://www.kernel.org/pub/linux/utils/kernel/pcmcia/$(PCMCIAUTILS).$(PCMCIAUTILS_SUFFIX)
@@ -78,12 +78,12 @@ $(STATEDIR)/pcmciautils.targetinstall:
 	@$(call install_link, pcmciautils, pccardctl, /sbin/lspcmcia)
 
 	@$(call install_copy, pcmciautils, 0, 0, 0755, -, \
-		/sbin/pcmcia-check-broken-cis);
+		/lib/udev/pcmcia-check-broken-cis);
 
 ifdef PTXCONF_PCMCIAUTILS_STARTUP
 #	# install-socket-tools
 	@$(call install_copy, pcmciautils, 0, 0, 0755, -, \
-		/sbin/pcmcia-socket-startup);
+		/lib/udev/pcmcia-socket-startup);
 endif
 	@$(call install_finish, pcmciautils)
 	@$(call touch)
