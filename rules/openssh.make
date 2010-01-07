@@ -42,8 +42,6 @@ OPENSSH_ENV 	:= \
 	$(CROSS_ENV) \
 	LD=$(COMPILER_PREFIX)gcc
 
-OPENSSH_MAKEVARS := STRIP_OPT=
-
 #
 # autoconf
 #
