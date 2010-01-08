@@ -1,6 +1,0 @@
-## SECTION=hosttools_noprompt
-
-config HOST_QTE
-	tristate
-	help
-	  Trolltech Embedded Qt GUI Library
