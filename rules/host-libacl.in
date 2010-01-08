@@ -1,5 +1,0 @@
-## SECTION=hosttools_noprompt
-
-config HOST_LIBACL
-	tristate
-	select HOST_ATTR
