@@ -47,7 +47,7 @@ HOST_ATTR_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_ATTR_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_ATTR_AUTOCONF := $(HOST_AUTOCONF)
 
 # ----------------------------------------------------------------------------
 # Clean
