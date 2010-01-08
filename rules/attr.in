@@ -5,11 +5,12 @@ menuconfig ATTR
 	select HOST_GETTEXT if ATTR_GETTEXT
 	prompt "attr                          "
 	help
+	  Utilities for manipulating filesystem extended attributes
 
-	  This is the extended attributes project for the ext2 and ext3
-	  filesystems. For reference, have a look at the project homepage:
-
-	  http://acl.bestbits.at/
+	  A set of tools for manipulating extended attributes on
+	  filesystem objects, in particular getfattr(1) and
+	  setfattr(1). An attr(1) command is also provided which is
+	  largely compatible with the SGI IRIX tool of the same name.
 
 config ATTR_SHARED
 	bool
