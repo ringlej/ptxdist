@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2006, 2007, 2008 by the PTXdist project
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -212,12 +213,23 @@ function import_PKG(this_PKG,	this_pkg) {
 		" := $(STATEDIR)/" this_pkg "." stage ".post"		> DGEN_DEPS_PRE;
 
 	#
-	# define ${PKG}_PKGDIR
+	# things depending on target or host-, cross- package
 	#
 	if (this_pkg !~ /^host-|^cross-/)
-		print this_PKG "_PKGDIR = $(PKGDIR)/$(" this_PKG ")"	> DGEN_DEPS_PRE;
-}
+		# target packages
 
+		# define ${PKG}_PKGDIR
+		print this_PKG "_PKGDIR = $(PKGDIR)/$(" this_PKG ")"	> DGEN_DEPS_PRE;
+	else {
+		# host, cross packages
+
+		target_PKG = gensub(/^HOST_|^CROSS_/, "", "", this_PKG);
+
+		# define default ${PKG} & ${PKG}_SOURCE
+		print this_PKG " = $(" target_PKG ")"			> DGEN_DEPS_PRE;
+		print this_PKG "_SOURCE = $(" target_PKG "_SOURCE)"	> DGEN_DEPS_PRE;
+	}
+}
 
 END {
 	# for all pkgs
