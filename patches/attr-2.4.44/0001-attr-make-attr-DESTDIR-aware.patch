@@ -1,0 +1,32 @@
+From ab16f079fc3c0014da5c7455d47eda24dad192c4 Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Fri, 8 Jan 2010 17:22:45 +0100
+Subject: [PATCH] buildmacros: use correct libtool commands
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+[mkl: remove broken DESTDIR support]
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ include/buildmacros |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/buildmacros b/include/buildmacros
+index ab89182..71ce471 100644
+--- a/include/buildmacros
++++ b/include/buildmacros
+@@ -55,10 +55,10 @@ LIBNAME = $(basename $(LTLIBRARY))
+ LTOBJECTS = $(OBJECTS:.o=.lo)
+ LTVERSION = $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+ 
+-LTLINK = $(LIBTOOL) --mode=link $(CC)
++LTLINK = $(LIBTOOL) --tag=CC --mode=link $(CC)
+ LTEXEC = $(LIBTOOL) --mode=execute
+ LTINSTALL = $(LIBTOOL) --mode=install $(INSTALL)
+-LTCOMPILE = $(LIBTOOL) --mode=compile $(CCF)
++LTCOMPILE = $(LIBTOOL) --tag=CC --mode=compile $(CCF)
+ 
+ ifeq ($(ENABLE_SHARED),yes)
+ LTLDFLAGS += -rpath $(PKG_LIB_DIR)
+-- 
+1.6.5.7
+

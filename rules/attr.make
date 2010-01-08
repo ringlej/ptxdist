@@ -40,9 +40,11 @@ $(ATTR_SOURCE):
 # ----------------------------------------------------------------------------
 
 ATTR_PATH	:= PATH=$(CROSS_PATH)
-ATTR_ENV 	:= \
-	$(CROSS_ENV) \
-	LIBTOOL=$(PTXCONF_SYSROOT_CROSS)/bin/libtool
+ATTR_ENV 	:= $(CROSS_ENV) \
+
+ATTR_INSTALL_OPT := \
+	DIST_ROOT=$(ATTR_PKGDIR) \
+	install
 
 #
 # autoconf

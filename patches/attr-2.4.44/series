@@ -1,4 +1,1 @@
-
-
-
-fix-buildsystem.diff
+0001-attr-make-attr-DESTDIR-aware.patch

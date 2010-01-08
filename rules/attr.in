@@ -1,7 +1,7 @@
 ## SECTION=disk_and_file
+
 menuconfig ATTR
 	tristate
-	select CROSS_LIBTOOL
 	select HOST_GETTEXT if ATTR_GETTEXT
 	prompt "attr                          "
 	help
