@@ -63,13 +63,14 @@ ptxd_make_world_init_compat() {
 
 
     # env
-    if [ -n "${pkg_deprecated_env}" -a \
-	\( -n "${pkg_conf_env}" -o -n "${pkg_make_env}" \) ]; then
-	ptxd_bailout "${FUNCNAME}: <PKG>_ENV is incompatibel with <PKG>_CONF_ENV or <PKG>_MAKE_ENV"
+    if [ -n "${pkg_deprecated_env}" ]; then
+	if [ -n "${pkg_conf_env}" -o -n "${pkg_make_env}" ]; then
+	    ptxd_bailout "${FUNCNAME}: <PKG>_ENV is incompatibel with <PKG>_CONF_ENV or <PKG>_MAKE_ENV"
+	fi
+	pkg_conf_env="${pkg_deprecated_env}"
+	pkg_cmake_env="${pkg_deprecated_env}"
+	pkg_install_env="${pkg_deprecated_env}"
     fi
-    pkg_conf_env="${pkg_deprecated_env}"
-    pkg_cmake_env="${pkg_deprecated_env}"
-    pkg_install_env="${pkg_deprecated_env}"
 
 
     # autoconf
