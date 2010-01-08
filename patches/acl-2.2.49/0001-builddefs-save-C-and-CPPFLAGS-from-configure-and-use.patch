@@ -1,0 +1,35 @@
+From 73f89685f3d90c823f5b818970200953fbeb186e Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 8 Jan 2010 20:10:08 +0100
+Subject: [PATCH 1/2] builddefs: save C and CPPFLAGS from configure and use them
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ include/builddefs.in |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+diff --git a/include/builddefs.in b/include/builddefs.in
+index d054a56..2fd0001 100644
+--- a/include/builddefs.in
++++ b/include/builddefs.in
+@@ -11,6 +11,8 @@ DEBUG = @debug_build@
+ OPTIMIZER = @opt_build@
+ MALLOCLIB = @malloc_lib@
+ LOADERFLAGS = @LDFLAGS@
++CFLAGS = @CFLAGS@
++CPPFLAGS = @CPPFLAGS@
+ 
+ LIBACL = $(TOPDIR)/libacl/libacl.la
+ LIBATTR = @libattr@
+@@ -84,7 +86,7 @@ GCFLAGS = $(OPTIMIZER) $(DEBUG) -funsigned-char -fno-strict-aliasing -Wall \
+ 	  -DPACKAGE=\"$(PKG_NAME)\" -I$(TOPDIR)/include
+ 
+ # Global, Platform, Local CFLAGS
+-CFLAGS += $(GCFLAGS) $(PCFLAGS) $(LCFLAGS)
++CFLAGS += $(GCFLAGS) $(PCFLAGS) $(LCFLAGS) $(CPPFLAGS)
+ 
+ include $(TOPDIR)/include/buildmacros
+ 
+-- 
+1.6.5.7
+
