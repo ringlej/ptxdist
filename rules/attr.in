@@ -12,11 +12,15 @@ menuconfig ATTR
 	  setfattr(1). An attr(1) command is also provided which is
 	  largely compatible with the SGI IRIX tool of the same name.
 
+config ATTR_TOOLS
+	bool
+	prompt "install tools"
+
 config ATTR_SHARED
 	bool
 	depends on ATTR
 	default y
-	prompt "Install shared lib"
+	prompt "install shared lib"
 
 config ATTR_GETTEXT
 	bool

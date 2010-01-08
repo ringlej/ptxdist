@@ -42,7 +42,7 @@ $(ATTR_SOURCE):
 # ----------------------------------------------------------------------------
 
 ATTR_PATH	:= PATH=$(CROSS_PATH)
-ATTR_ENV 	:= $(CROSS_ENV) \
+ATTR_ENV 	:= $(CROSS_ENV)
 
 ATTR_INSTALL_OPT := \
 	DIST_ROOT=$(ATTR_PKGDIR) \
@@ -85,11 +85,13 @@ $(STATEDIR)/attr.targetinstall:
 	@$(call install_fixup, attr,DEPENDS,)
 	@$(call install_fixup, attr,DESCRIPTION,missing)
 
+ifdef PTXCONF_ATTR_TOOLS
 	@$(call install_copy, attr, 0, 0, 0755, -, /usr/bin/attr)
 	@$(call install_copy, attr, 0, 0, 0755, -, /usr/bin/setfattr)
 	@$(call install_copy, attr, 0, 0, 0755, -, /usr/bin/getfattr)
+endif
 
-ifdef	PTXCONF_ATTR_SHARED
+ifdef PTXCONF_ATTR_SHARED
 	@$(call install_copy, attr, 0, 0, 0644, -, /usr/lib/libattr.so.1.1.0)
 	@$(call install_link, attr, libattr.so.1.1.0, /usr/lib/libattr.so.1)
 	@$(call install_link, attr, libattr.so.1.1.0, /usr/lib/libattr.so)
