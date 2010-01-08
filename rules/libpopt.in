@@ -1,9 +1,19 @@
 ## SECTION=system_libraries
+
 menuconfig LIBPOPT
 	tristate
 	prompt "libpopt                       "
 	help
-	  FIXME: This item needs to be documented
+	  lib for parsing cmdline parameters
+
+	  Popt was heavily influenced by the getopt() and
+	  getopt_long() functions, but it allows more powerful
+	  argument expansion. It can parse arbitrary argv[] style
+	  arrays and automatically set variables based on command line
+	  arguments. It also allows command line arguments to be
+	  aliased via configuration files and includes utility
+	  functions for parsing arbitrary strings into argv[] arrays
+	  using shell-like rules.
 
 config LIBPOPT_NLS
 	bool
