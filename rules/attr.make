@@ -23,6 +23,8 @@ ATTR_SOURCE	:= $(SRCDIR)/$(ATTR).src.$(ATTR_SUFFIX)
 ATTR_DIR	:= $(BUILDDIR)/$(ATTR)
 
 ATTR_URL	:= \
+	http://mirrors.zerg.biz/nongnu/attr/$(ATTR).src.$(ATTR_SUFFIX) \
+	http://mirror.dknss.com/nongnu/attr/$(ATTR).src.$(ATTR_SUFFIX) \
 	ftp://oss.sgi.com/projects/xfs/cmd_tars/$(ATTR).src.$(ATTR_SUFFIX) \
 	ftp://oss.sgi.com/projects/xfs/previous/cmd_tars/$(ATTR).src.$(ATTR_SUFFIX) \
 	ftp://oss.sgi.com/projects/xfs/cmd_tars-oct_09/$(ATTR).src.$(ATTR_SUFFIX)
