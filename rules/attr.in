@@ -11,6 +11,12 @@ menuconfig ATTR
 
 	  http://acl.bestbits.at/
 
+config ATTR_SHARED
+	bool
+	depends on ATTR
+	default y
+	prompt "Install shared lib"
+
 config ATTR_GETTEXT
 	bool
 	depends on ATTR

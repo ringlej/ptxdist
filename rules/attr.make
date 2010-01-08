@@ -44,14 +44,22 @@ ATTR_ENV 	:= $(CROSS_ENV) \
 
 ATTR_INSTALL_OPT := \
 	DIST_ROOT=$(ATTR_PKGDIR) \
-	install
+	install \
+	install-lib \
+	install-dev
 
 #
 # autoconf
 #
 ATTR_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-shared
+	--libexecdir=/usr/lib
+
+ifdef PTXCONF_ATTR_SHARED
+ATTR_AUTOCONF += --enable-shared
+else
+ATTR_AUTOCONF += --disable-shared
+endif
 
 ifdef PTXCONF_ATTR_GETTEXT
 ATTR_AUTOCONF += --enable-gettext
@@ -79,6 +87,11 @@ $(STATEDIR)/attr.targetinstall:
 	@$(call install_copy, attr, 0, 0, 0755, -, /usr/bin/setfattr)
 	@$(call install_copy, attr, 0, 0, 0755, -, /usr/bin/getfattr)
 
+ifdef	PTXCONF_ATTR_SHARED
+	@$(call install_copy, attr, 0, 0, 0644, -, /usr/lib/libattr.so.1.1.0)
+	@$(call install_link, attr, libattr.so.1.1.0, /usr/lib/libattr.so.1)
+	@$(call install_link, attr, libattr.so.1.1.0, /usr/lib/libattr.so)
+endif
 	@$(call install_finish, attr)
 
 	@$(call touch)
@@ -89,7 +102,7 @@ $(STATEDIR)/attr.targetinstall:
 
 attr_clean:
 	rm -rf $(STATEDIR)/attr.*
-	rm -rf $(PKGDIR)/attr_*
+	rm -rf $(ATTR_PKGDIR)/*
 	rm -rf $(ATTR_DIR)
 
 # vim: syntax=make
