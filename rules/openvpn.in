@@ -1,0 +1,37 @@
+## SECTION=networking
+
+menuconfig OPENVPN
+	tristate
+	prompt "openvpn                       "
+	select OPENSSL
+	select LIBLZO if OPENVPN_LZO
+	help
+	  virtual private network daemon
+
+	  OpenVPN is an application to securely tunnel IP networks
+	  over a single UDP or TCP port. It can be used to access
+	  remote sites, make secure point-to-point connections,
+	  enhance wireless security, etc.
+
+
+	  OpenVPN uses all of the encryption, authentication, and
+	  certification features provided by the OpenSSL library (any
+	  cipher, key size, or HMAC digest).
+
+	  OpenVPN may use static, pre-shared keys or TLS-based dynamic
+	  key exchange. It also supports VPNs with dynamic endpoints
+	  (DHCP or dial-up clients), tunnels over NAT or
+	  connection-oriented stateful firewalls (such as Linux's
+	  iptables).
+
+if OPENVPN
+
+config OPENVPN_LZO
+	bool
+	prompt "Enable LZO compression"
+	help
+	  This enables the LZO compression code. Selecting this option
+	  will select the LZO library as well.
+	  If unsure, say N.
+
+endif
