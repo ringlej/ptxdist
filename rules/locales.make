@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Luotao Fu <lfu@pengutronix.de>
 #
@@ -25,40 +24,36 @@ LOCALES_DIR		:= $(BUILDDIR)/$(LOCALES)
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/locales.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/locales.extract:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/locales.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/locales.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/locales.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call clean, $(LOCALES_DIR))
 	@mkdir -p $(LOCALES_DIR)/usr/lib/locale
@@ -91,21 +86,21 @@ ifdef PTXCONF_LOCALES_ZH_HK
 	@$(call add_locale, zh_HK, zh_HK, BIG5-HKSCS, $(LOCALES_DIR))
 endif
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/locales.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, locales)
 	@$(call install_fixup, locales,PACKAGE,locales)
 	@$(call install_fixup, locales,PRIORITY,optional)
 	@$(call install_fixup, locales,VERSION,$(LOCALES_VERSION))
 	@$(call install_fixup, locales,SECTION,base)
-	@$(call install_fixup, locales,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, locales,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, locales,DEPENDS,)
 	@$(call install_fixup, locales,DESCRIPTION,missing)
 
@@ -113,7 +108,7 @@ $(STATEDIR)/locales.targetinstall:
 		/usr/lib/locale/locale-archive, n);
 	@$(call install_finish, locales)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
