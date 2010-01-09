@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2006 by Juergen Beisert
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -30,34 +30,24 @@ HOST_MKELFIMAGE_DIR	:= $(HOST_BUILDDIR)/$(HOST_MKELFIMAGE)
 # Get
 # ----------------------------------------------------------------------------
 
-host-mkelfimage_get: $(STATEDIR)/host-mkelfimage.get
-
-$(STATEDIR)/host-mkelfimage.get: $(host-mkelfimage_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(HOST_MKELFIMAGE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, HOST_MKELFIMAGE)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-host-mkelfimage_extract: $(STATEDIR)/host-mkelfimage.extract
-
-$(STATEDIR)/host-mkelfimage.extract: $(host-mkelfimage_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/host-mkelfimage.extract:
+	@$(call targetinfo)
 	@$(call clean, $(HOST_MKELFIMAGE_DIR))
 	@$(call extract, HOST_MKELFIMAGE, $(HOST_BUILDDIR))
 	@$(call patchin, HOST_MKELFIMAGE, $(HOST_MKELFIMAGE_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-mkelfimage_prepare: $(STATEDIR)/host-mkelfimage.prepare
 
 HOST_MKELFIMAGE_PATH	:= PATH=$(HOST_PATH)
 HOST_MKELFIMAGE_ENV 	:= $(HOST_ENV)
@@ -67,37 +57,7 @@ HOST_MKELFIMAGE_ENV 	:= $(HOST_ENV)
 #
 HOST_MKELFIMAGE_AUTOCONF	:= $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-mkelfimage.prepare: $(host-mkelfimage_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_MKELFIMAGE_DIR)/config.cache)
-	cd $(HOST_MKELFIMAGE_DIR) && \
-		$(HOST_MKELFIMAGE_PATH) $(HOST_MKELFIMAGE_ENV) \
-		./configure $(HOST_MKELFIMAGE_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-host-mkelfimage_compile: $(STATEDIR)/host-mkelfimage.compile
-
-
-$(STATEDIR)/host-mkelfimage.compile: $(host-mkelfimage_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(HOST_MKELFIMAGE_DIR) && $(HOST_MKELFIMAGE_PATH) make \
-		MY_CPPFLAGS="$(HOST_CPPFLAGS)" LDFLAGS="$(HOST_LDFLAGS)"
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-host-mkelfimage_install: $(STATEDIR)/host-mkelfimage.install
-
-$(STATEDIR)/host-mkelfimage.install: $(host-mkelfimage_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, HOST_MKELFIMAGE,,h)
-	@$(call touch, $@)
+HOST_MKELFIMAGE_MAKE_OPT := MY_CPPFLAGS="$(HOST_CPPFLAGS)" LDFLAGS="$(HOST_LDFLAGS)"
 
 # ----------------------------------------------------------------------------
 # Clean
