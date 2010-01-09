@@ -2,7 +2,7 @@
 
 menuconfig RAWREC
 	tristate
-	prompt "rawrec/rawplay                "
+	prompt "rawrec/rawplay"
 	help
 	 rawrec and rawplay are GPL'd utilities designed to provide
 	 the user with a simple way of recording or playing raw audio data from
@@ -11,20 +11,3 @@ menuconfig RAWREC
 
 	 Details: http://rawrec.sourceforge.net
 
-if RAWREC
-
-config RAWREC_RAWREC
-	bool
-	prompt "rawrec"
-	help
-	  rawrec - a simple audio recording tool
-	  http://rawrec.sourceforge.net
-
-config RAWREC_RAWPLAY
-	bool
-	prompt "rawplay"
-	help
-	  rawplay - a simple audio player tool
-	  http://rawrec.sourceforge.net
-
-endif
