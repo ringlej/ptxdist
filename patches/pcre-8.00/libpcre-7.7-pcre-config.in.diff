@@ -7,8 +7,8 @@ Not intended for upstream.
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
- pcre-config.in |   10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ pcre-config.in |   12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 Index: pcre-config.in
 ===================================================================
@@ -27,14 +27,16 @@ Index: pcre-config.in
    ;;
  esac
  
-@@ -50,15 +50,15 @@ while test $# -gt 0; do
+@@ -49,16 +49,16 @@ while test $# -gt 0; do
+       echo @PACKAGE_VERSION@
        ;;
      --cflags | --cflags-posix)
-       if test @includedir@ != /usr/include ; then
+-      if test @includedir@ != /usr/include ; then
 -        includes=-I@includedir@
++      if test ${SYSROOT}@includedir@ != /usr/include ; then
 +        includes=-I${SYSROOT}@includedir@
        fi
-       echo $includes
+       echo $includes @PCRE_STATIC_CFLAG@
        ;;
      --libs-posix)
 -      echo -L@libdir@$libR -lpcreposix -lpcre
