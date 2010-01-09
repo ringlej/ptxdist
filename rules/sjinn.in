@@ -1,4 +1,5 @@
 ## SECTION=communication
+
 config SJINN
 	tristate
 	prompt "sjinn"
