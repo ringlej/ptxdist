@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: apache2.make,v 1.10 2006/10/02 08:38:47 michl Exp $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -24,7 +23,6 @@ APACHE2_SUFFIX	:= tar.bz2
 APACHE2_URL	:= http://archive.apache.org/dist/httpd/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_SOURCE	:= $(SRCDIR)/$(APACHE2).$(APACHE2_SUFFIX)
 APACHE2_DIR	:= $(BUILDDIR)/$(APACHE2)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -63,9 +61,11 @@ APACHE2_AUTOCONF := \
 ifdef PTXCONF_APACHE2_MPM_PREFORK
 APACHE2_AUTOCONF += --with-mpm=prefork
 endif
+
 ifdef PTXCONF_APACHE2_MPM_PERCHILD
 APACHE2_AUTOCONF += --with-mpm=perchild
 endif
+
 ifdef PTXCONF_APACHE2_MPM_WORKER
 APACHE2_AUTOCONF += --with-mpm=worker
 endif
