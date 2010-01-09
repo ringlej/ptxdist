@@ -20,7 +20,7 @@ if MGETTY
 config MGETTY_CONFIG
 	prompt "Name of policy.h file to be used"
 	string
-	default "${PTXDIST_PLATFORMDIR}/build-target/mgetty-1.1.30/policy.h-dist"
+	default "${MGETTY_DIR}/policy.h-dist"
 	help
 	  FIXME: This item needs to be documented
 

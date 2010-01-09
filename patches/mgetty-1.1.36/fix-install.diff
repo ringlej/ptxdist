@@ -1,0 +1,205 @@
+Subject: [PATCH] fix install
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+prefix all paths with DESTDIR when installing.
+install all necessary stuff
+don't chown dirs
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ Makefile          |   77 ++++++++++++++++++++++++++++--------------------------
+ callback/Makefile |    4 +-
+ fax/Makefile      |   25 ++++++++---------
+ g3/Makefile       |    4 +-
+ 4 files changed, 57 insertions(+), 53 deletions(-)
+
+Index: b/Makefile
+===================================================================
+--- a/Makefile
++++ b/Makefile
+@@ -580,56 +580,54 @@ install.bin: mgetty sendfax newslock \
+ #
+ # binaries
+ #
+-	-test -d $(BINDIR)  || ( ./mkidirs $(BINDIR)  ; chmod 755 $(BINDIR)  )
+-	$(INSTALL) -m 755 newslock $(BINDIR)
++	-test -d $(DESTDIR)$(BINDIR)  || ( ./mkidirs $(DESTDIR)$(BINDIR)  ; chmod 755 $(DESTDIR)$(BINDIR)  )
++	$(INSTALL) -m 755 newslock $(DESTDIR)$(BINDIR)
+ 
+-	-test -d $(SBINDIR) || ( ./mkidirs $(SBINDIR) ; chmod 755 $(SBINDIR) )
+-	-mv -f $(SBINDIR)/mgetty $(SBINDIR)/mgetty.old
+-	-mv -f $(SBINDIR)/sendfax $(SBINDIR)/sendfax.old
+-	$(INSTALL) -s -m 700 mgetty $(SBINDIR)
+-	$(INSTALL) -s -m 755 sendfax $(SBINDIR)
++	-test -d $(DESTDIR)$(SBINDIR) || ( ./mkidirs $(DESTDIR)$(SBINDIR) ; chmod 755 $(DESTDIR)$(SBINDIR) )
++	-mv -f $(DESTDIR)$(SBINDIR)/mgetty $(DESTDIR)$(SBINDIR)/mgetty.old
++	-mv -f $(DESTDIR)$(SBINDIR)/sendfax $(DESTDIR)$(SBINDIR)/sendfax.old
++	$(INSTALL) -s -m 700 mgetty $(DESTDIR)$(SBINDIR)
++	$(INSTALL) -s -m 755 sendfax $(DESTDIR)$(SBINDIR)
+ #
+ # data files + directories
+ #
+-	test -d $(LIBDIR)  || \
+-		( ./mkidirs $(LIBDIR) &&  chmod 755 $(LIBDIR) )
+-	test -d $(CONFDIR) || \
+-		( ./mkidirs $(CONFDIR) && chmod 755 $(CONFDIR))
+-	test -f $(CONFDIR)/login.config || \
+-		$(INSTALL) -o root -m 600 login.config $(CONFDIR)/
+-	test -f $(CONFDIR)/mgetty.config || \
+-		$(INSTALL) -o root -m 600 mgetty.config $(CONFDIR)/
+-	test -f $(CONFDIR)/sendfax.config || \
+-		$(INSTALL) -o root -m 644 sendfax.config $(CONFDIR)/
+-	test -f $(CONFDIR)/dialin.config || \
+-		$(INSTALL) -o root -m 600 dialin.config $(CONFDIR)/
+-	test -f $(CONFDIR)/faxrunq.config || \
+-		$(INSTALL) -o root -m 644 faxrunq.config $(CONFDIR)/
++	test -d $(DESTDIR)$(LIBDIR)  || \
++		( ./mkidirs $(DESTDIR)$(LIBDIR) &&  chmod 755 $(DESTDIR)$(LIBDIR) )
++	test -d $(DESTDIR)$(CONFDIR) || \
++		( ./mkidirs $(DESTDIR)$(CONFDIR) && chmod 755 $(DESTDIR)$(CONFDIR))
++	test -f $(DESTDIR)$(CONFDIR)/login.config || \
++		$(INSTALL) -o root -m 600 login.config $(DESTDIR)$(CONFDIR)/
++	test -f $(DESTDIR)$(CONFDIR)/mgetty.config || \
++		$(INSTALL) -o root -m 600 mgetty.config $(DESTDIR)$(CONFDIR)/
++	test -f $(DESTDIR)$(CONFDIR)/sendfax.config || \
++		$(INSTALL) -o root -m 644 sendfax.config $(DESTDIR)$(CONFDIR)/
++	test -f $(DESTDIR)$(CONFDIR)/dialin.config || \
++		$(INSTALL) -o root -m 600 dialin.config $(DESTDIR)$(CONFDIR)/
++	test -f $(DESTDIR)$(CONFDIR)/faxrunq.config || \
++		$(INSTALL) -o root -m 644 faxrunq.config $(DESTDIR)$(CONFDIR)/
+ #
+ # test for outdated stuff
+ #
+-	-@if test -f $(LIBDIR)/mgetty.login ; \
++	-@if test -f $(DESTDIR)$(LIBDIR)/mgetty.login ; \
+ 	then \
+-	    echo "WARNING: the format of $(LIBDIR)/mgetty.login has " ;\
++	    echo "WARNING: the format of $(DESTDIR)$(LIBDIR)/mgetty.login has " ;\
+ 	    echo "been changed. Because of this, to avoid confusions, it's called " ;\
+-	    echo "$(CONFDIR)/login.config now." ;\
++	    echo "$(DESTDIR)$(CONFDIR)/login.config now." ;\
+ 	    echo "" ;\
+ 	fi
+ #
+ # fax spool directories
+ #
+-	test -d $(spool) || \
+-		( mkdir $(spool) && chmod 755 $(spool) )
+-	test -d $(FAX_SPOOL) || \
+-		( mkdir $(FAX_SPOOL) && \
+-		  chown $(FAX_OUT_USER) $(FAX_SPOOL) && \
+-		  chmod 755 $(FAX_SPOOL) )
+-	test -d $(FAX_SPOOL_IN) || \
+-		( mkdir $(FAX_SPOOL_IN) && chmod 755 $(FAX_SPOOL_IN) )
+-	test -d $(FAX_SPOOL_OUT) || \
+-		  mkdir $(FAX_SPOOL_OUT)
+-	chown $(FAX_OUT_USER) $(FAX_SPOOL_OUT)
+-	chmod 755 $(FAX_SPOOL_OUT)
++	test -d $(DESTDIR)$(spool) || \
++		( ./mkidirs $(DESTDIR)$(spool) && chmod 755 $(DESTDIR)$(spool) )
++	test -d $(DESTDIR)$(FAX_SPOOL) || \
++		( ./mkidirs $(DESTDIR)$(FAX_SPOOL) && \
++		  chmod 755 $(DESTDIR)$(FAX_SPOOL) )
++	test -d $(DESTDIR)$(FAX_SPOOL_IN) || \
++		( ./mkidirs $(DESTDIR)$(FAX_SPOOL_IN) && chmod 755 $(DESTDIR)$(FAX_SPOOL_IN) )
++	test -d $(DESTDIR)$(FAX_SPOOL_OUT) || \
++		  ./mkidirs $(DESTDIR)$(FAX_SPOOL_OUT)
++	chmod 755 $(DESTDIR)$(FAX_SPOOL_OUT)
+ #
+ # g3 tool programs
+ #
+@@ -644,6 +642,13 @@ install.bin: mgetty sendfax newslock \
+ 				BINDIR=$(BINDIR) SBINDIR=$(SBINDIR) \
+ 				LIBDIR=$(LIBDIR) CONFDIR=$(CONFDIR)
+ #
++# callback
++#
++	cd callback ; $(MAKE) install INSTALL="$(INSTALL)" \
++				FAX_OUT_USER=$(FAX_OUT_USER) \
++				BINDIR=$(BINDIR) SBINDIR=$(SBINDIR) \
++				LIBDIR=$(LIBDIR) CONFDIR=$(CONFDIR)
++#
+ # compatibility
+ #
+ 	if [ ! -z "$(INSTALL_MECHO)" ] ; then \
+Index: b/g3/Makefile
+===================================================================
+--- a/g3/Makefile
++++ b/g3/Makefile
+@@ -37,12 +37,12 @@ install: all
+ # install programs
+ #
+ 	for f in $(G3_PROGRAMS) ; do \
+-		$(INSTALL) -s -m 755 $$f $(BINDIR) ; \
++		$(INSTALL) -s -m 755 $$f $(DESTDIR)$(BINDIR) ; \
+ 	done
+ #
+ # make symlink for "g3topbm" (so third-party fax viewers won't fail)
+ #
+-	-cd $(BINDIR) ; \
++	-cd $(DESTDIR)$(BINDIR) ; \
+ 	test -x g3topbm || ln -s g32pbm g3topbm
+ 
+ 
+Index: b/fax/Makefile
+===================================================================
+--- a/fax/Makefile
++++ b/fax/Makefile
+@@ -53,25 +53,24 @@ install: all
+ # programs / scripts
+ #
+ 	-for i in $(FAX_SCRIPTS); do \
+-		mv -f $(BINDIR)/$$i $(BINDIR)/$$i.old 2>/dev/null ; \
+-		$(INSTALL) -m 755 $$i $(BINDIR) ; \
++		mv -f $(DESTDIR)$(BINDIR)/$$i $(DESTDIR)$(BINDIR)/$$i.old 2>/dev/null ; \
++		$(INSTALL) -m 755 $$i $(DESTDIR)$(BINDIR) ; \
+ 	done
+-	$(INSTALL) -m 755 faxrunqd $(SBINDIR)
+-	$(INSTALL) faxq-helper $(LIBDIR)
+-	chown $(FAX_OUT_USER) $(LIBDIR)/faxq-helper
+-	chmod 4711 $(LIBDIR)/faxq-helper
++	$(INSTALL) -m 755 faxrunqd $(DESTDIR)$(SBINDIR)
++	$(INSTALL) faxq-helper $(DESTDIR)$(LIBDIR)
++	chmod 4711 $(DESTDIR)$(LIBDIR)/faxq-helper
+ #
+ # data files
+ #
+-	$(INSTALL) -m 644 cour25.pbm $(LIBDIR)
+-	$(INSTALL) -m 644 cour25n.pbm $(LIBDIR)
+-	-test -f $(CONFDIR)/faxheader || \
+-		$(INSTALL) -m 644 faxheader $(CONFDIR)
++	$(INSTALL) -m 644 cour25.pbm $(DESTDIR)$(LIBDIR)
++	$(INSTALL) -m 644 cour25n.pbm $(DESTDIR)$(LIBDIR)
++	-test -f $(DESTDIR)$(CONFDIR)/faxheader || \
++		$(INSTALL) -m 644 faxheader $(DESTDIR)$(CONFDIR)
+ #
+ # /etc/magic
+ #
+-	-@test -r /etc/magic && \
+-	    if grep "string.*P1" /etc/magic >/dev/null ; then : ; \
++	-@test -r $(DESTDIR)/etc/magic && \
++	    if grep "string.*P1" $(DESTDIR)/etc/magic >/dev/null ; then : ; \
+ 	    else \
+ 		echo "WARNING: no PBM magic (string P1) found in /etc/magic" ; \
+ 		echo "         maybe you should append the definitions in \`\`fax/etc-magic''." ; \
+@@ -79,4 +78,4 @@ install: all
+ #
+ # faxspool.rules sample file
+ #
+-	$(INSTALL) -m 644 faxspool.rules $(CONFDIR)/faxspool.rules.sample
++	$(INSTALL) -m 644 faxspool.rules $(DESTDIR)$(CONFDIR)/faxspool.rules.sample
+Index: b/callback/Makefile
+===================================================================
+--- a/callback/Makefile
++++ b/callback/Makefile
+@@ -37,7 +37,7 @@ clean:
+ # install programs
+ #
+ install: all
+-	$(INSTALL) -s -m 700 -o root callback $(SBINDIR)
+-	$(INSTALL) -s -m 4711 -o root ct $(BINDIR)
++	$(INSTALL) -s -m 700 -o root callback $(DESTDIR)$(SBINDIR)
++	$(INSTALL) -s -m 4711 -o root ct $(DESTDIR)$(BINDIR)
+ 
+ # source modules
