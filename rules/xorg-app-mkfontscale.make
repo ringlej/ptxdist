@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006 by Sascha Hauer
-#               2010 Michael Olbrich <m.olbrich@pengutronix.de>
+#               2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
