@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 3502 2005-12-11 12:46:17Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #               2008, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -69,7 +68,7 @@ $(STATEDIR)/commoncpp2.targetinstall:
 	@$(call install_fixup, commoncpp2,PRIORITY,optional)
 	@$(call install_fixup, commoncpp2,VERSION,$(COMMONCPP2_VERSION))
 	@$(call install_fixup, commoncpp2,SECTION,base)
-	@$(call install_fixup, commoncpp2,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, commoncpp2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, commoncpp2,DEPENDS,)
 	@$(call install_fixup, commoncpp2,DESCRIPTION,missing)
 
