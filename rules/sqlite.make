@@ -4,7 +4,6 @@
 # Copyright (C) 2009 by Juergen Beisert <j.beisert@pengtronix.de>
 # Copyright (C) 2009 by Erwin Rol <erwin@erwinrol.com>
 #
-#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -25,7 +24,6 @@ SQLITE_SUFFIX	= tar.gz
 SQLITE_URL	= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
 SQLITE_SOURCE	= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
 SQLITE_DIR	= $(BUILDDIR)/$(SQLITE)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -52,16 +50,18 @@ SQLITE_AUTOCONF	:= \
 	--enable-releasemode \
 	--disable-amalgamation
 
-
 ifdef PTXCONF_SQLITE_TEMPSTORE_NEVER
 SQLITE_AUTOCONF += --enable-tempstore=never
 endif
+
 ifdef PTXCONF_SQLITE_TEMPSTORE_NO
 SQLITE_AUTOCONF += --enable-tempstore=no
 endif
+
 ifdef PTXCONF_SQLITE_TEMPSTORE_YES
 SQLITE_AUTOCONF += --enable-tempstore=yes
 endif
+
 ifdef PTXCONF_SQLITE_TEMPSTORE_ALWAYS
 SQLITE_AUTOCONF += --enable-tempstore=always
 endif
