@@ -1,9 +1,6 @@
 ## SECTION=networking
 menuconfig WIRESHARK
 	tristate
-	depends on BROKEN
-	# incorrectly runs libgnutls-config from the host while trying
-	# to find out where tls is
 	prompt "wireshark                     "
 	select LIBPCAP
 	select GLIB

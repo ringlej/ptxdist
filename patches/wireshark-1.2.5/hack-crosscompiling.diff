@@ -1,0 +1,112 @@
+Subject: remove AC_TRY_RUN tests
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+AC_TRY_RUN does not work when cross-compiling.
+The other test result seems to break the build, so I guess
+this is save for us.
+
+Not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ configure.in |   78 -----------------------------------------------------------
+ 1 file changed, 78 deletions(-)
+
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -1404,92 +1404,14 @@ AC_SUBST(STRNCASECMP_O)
+ 
+ AC_CHECK_FUNCS(mkstemp mkdtemp)
+ 
+-#
+-# XXX - if inet_aton isn't found, the build fails, with a complaint from
+-# libtool about inet_aton.lo not being a valid libtool object.  We
+-# probably have to handle it - and all the other replacement functions that
+-# get built into libwireshark - differently.
+-#
+-AC_SEARCH_LIBS(inet_aton, [socket nsl], have_inet_aton=yes,
+-    have_inet_aton=no)
+-if test "$have_inet_aton" = no; then
+-  INET_ATON_C="inet_aton.c"
+-  INET_ATON_O="inet_aton.o"
+-  INET_ATON_LO="inet_aton.lo"
+-  AC_DEFINE(NEED_INET_ATON_H, 1, [Define if inet/aton.h needs to be included])
+-else
+-  INET_ATON_C=""
+-  INET_ATON_O=""
+-  INET_ATON_LO=""
+-fi
+ AC_SUBST(INET_ATON_C)
+ AC_SUBST(INET_ATON_O)
+ AC_SUBST(INET_ATON_LO)
+ 
+-AC_SEARCH_LIBS(inet_pton, [socket nsl], [
+-  dnl check for pre-BIND82 inet_pton() bug.
+-  AC_MSG_CHECKING(for broken inet_pton)
+-  AC_TRY_RUN([#include <sys/types.h>
+-#include <sys/socket.h>
+-#include <netinet/in.h>
+-#include <arpa/inet.h>
+-int main()
+-{
+-#ifdef AF_INET6
+-  char buf[16];
+-  /* this should return 0 (error) */
+-  return inet_pton(AF_INET6, "0:1:2:3:4:5:6:7:", buf);
+-#else
+-  return 1;
+-#endif
+-}], [AC_MSG_RESULT(ok);
+-have_inet_pton=yes], [AC_MSG_RESULT(broken);
+-have_inet_pton=no], [AC_MSG_RESULT(cross compiling, assume it is broken);
+-have_inet_pton=no])],
+-have_inet_pton=no)
+-if test "$have_inet_pton" = no; then
+-  INET_PTON_C="inet_pton.c"
+-  INET_PTON_O="inet_pton.o"
+-  INET_PTON_LO="inet_pton.lo"
+-else
+-  INET_PTON_C=""
+-  INET_PTON_O=""
+-  INET_PTON_LO=""
+-fi
+ AC_SUBST(INET_PTON_C)
+ AC_SUBST(INET_PTON_O)
+ AC_SUBST(INET_PTON_LO)
+ 
+-AC_SEARCH_LIBS(inet_ntop, [socket nsl], [
+-  AC_MSG_CHECKING([for inet_ntop prototype])
+-  AC_TRY_COMPILE([#include <stdio.h>
+-#include <sys/types.h>
+-#include <sys/socket.h>
+-#include <netinet/in.h>
+-#include <arpa/inet.h>
+-
+-extern const char *inet_ntop(int, const void *, char *, size_t);],, [
+-    AC_MSG_RESULT(yes)
+-    AC_DEFINE(HAVE_INET_NTOP_PROTO, 1,
+-    [Define if inet_ntop() prototype exists])], [
+-    AC_TRY_COMPILE([#include <stdio.h>
+-#include <sys/types.h>
+-#include <sys/socket.h>
+-#include <netinet/in.h>
+-#include <arpa/inet.h>
+-
+-extern const char *inet_ntop(int, const void *, char *, socklen_t);],, [
+-      AC_MSG_RESULT(yes)
+-      AC_DEFINE(HAVE_INET_NTOP_PROTO, 1,
+-      [Define if inet_ntop() prototype exists])], [
+-      AC_MSG_RESULT(no)])])
+-  INET_NTOP_O=""
+-  INET_NTOP_LO=""], [
+-  INET_NTOP_C="inet_ntop.c"
+-  INET_NTOP_O="inet_ntop.o"
+-  INET_NTOP_LO="inet_ntop.lo"
+-  AC_DEFINE(NEED_INET_V6DEFS_H, 1,
+-  [Define if inet/v6defs.h needs to be included])])
+ AC_SUBST(INET_NTOP_C)
+ AC_SUBST(INET_NTOP_O)
+ AC_SUBST(INET_NTOP_LO)
