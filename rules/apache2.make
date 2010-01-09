@@ -47,6 +47,8 @@ APACHE2_ENV 	:=  $(CROSS_ENV) \
 	apr_cv_mutex_robust_shared=no \
 	ac_cv_func_setpgrp_void=yes
 
+APACHE2_BINCONFIG_GLOB := ""
+
 #
 # autoconf
 #

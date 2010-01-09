@@ -43,6 +43,7 @@ $(PHP5_SOURCE):
 
 PHP5_PATH	:= PATH=$(CROSS_PATH)
 PHP5_ENV 	:= $(CROSS_ENV)
+PHP5_BINCONFIG_GLOB := ""
 
 #
 # autoconf

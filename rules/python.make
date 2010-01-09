@@ -55,6 +55,8 @@ PYTHON_ENV 	:= \
 	ac_cv_have_lchflags=no \
 	ac_cv_py_format_size_t=yes
 
+PYTHON_BINCONFIG_GLOB := ""
+
 #
 # autoconf
 #
