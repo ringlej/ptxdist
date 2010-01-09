@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #
@@ -23,7 +22,6 @@ LIBGD_SUFFIX	:= tar.gz
 LIBGD_URL	:= http://www.libgd.org/releases/$(LIBGD).$(LIBGD_SUFFIX)
 LIBGD_SOURCE	:= $(SRCDIR)/$(LIBGD).$(LIBGD_SUFFIX)
 LIBGD_DIR	:= $(BUILDDIR)/$(LIBGD)
-
 
 # ----------------------------------------------------------------------------
 # Get
