@@ -1,0 +1,7 @@
+## SECTION=multimedia_gtk
+
+config GTK2_ENGINES
+	tristate
+	depends on GTK
+	default GTK
+
