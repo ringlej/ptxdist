@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_PROFTPD) += proftpd
 #
 # Paths and names
 #
-PROFTPD_VERSION		:= 1.3.2
+PROFTPD_VERSION		:= 1.3.2c
 PROFTPD			:= proftpd-$(PROFTPD_VERSION)
 PROFTPD_SUFFIX		:= tar.gz
 PROFTPD_URL		:= ftp://ftp.proftpd.org/distrib/source/$(PROFTPD).$(PROFTPD_SUFFIX)
@@ -71,16 +71,7 @@ else
 PROFTPD_AUTOCONF += --disable-autoshadow
 endif
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/proftpd.compile:
-	@$(call targetinfo)
-	cd $(PROFTPD_DIR) && \
-		$(PROFTPD_PATH) $(PROFTPD_ENV) \
-		$(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
+PROFTPD_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
