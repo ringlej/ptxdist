@@ -22,7 +22,7 @@ DIRECTFB_SUFFIX		:= tar.gz
 DIRECTFB_SOURCE		:= $(SRCDIR)/$(DIRECTFB).$(DIRECTFB_SUFFIX)
 DIRECTFB_DIR		:= $(BUILDDIR)/$(DIRECTFB)
 
-DIRECTFB_URL		:= \
+DIRECTFB_URL := \
 	http://www.directfb.org/downloads/Core/DirectFB-1.3/$(DIRECTFB).$(DIRECTFB_SUFFIX) \
 	http://www.directfb.org/downloads/Old/$(DIRECTFB).$(DIRECTFB_SUFFIX)
 
