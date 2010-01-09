@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -33,7 +32,7 @@ endif
 # ----------------------------------------------------------------------------
 
 $(HOST_XORG_UTIL_MACROS_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, HOST_XORG_UTIL_MACROS)
 
 # ----------------------------------------------------------------------------
@@ -41,11 +40,11 @@ $(HOST_XORG_UTIL_MACROS_SOURCE):
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-xorg-util-macros.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(HOST_XORG_UTIL_MACROS_DIR))
 	@$(call extract, HOST_XORG_UTIL_MACROS, $(HOST_BUILDDIR))
 	@$(call patchin, HOST_XORG_UTIL_MACROS, $(HOST_XORG_UTIL_MACROS_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -64,9 +63,9 @@ HOST_XORG_UTIL_MACROS_AUTOCONF	:= $(HOST_AUTOCONF)
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-xorg-util-macros.install:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install, HOST_XORG_UTIL_MACROS,,h)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
