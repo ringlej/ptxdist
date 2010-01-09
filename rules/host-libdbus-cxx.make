@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Robert Schwebel
 #          
@@ -27,19 +26,8 @@ HOST_LIBDBUS_CXX_DIR	= $(HOST_BUILDDIR)/$(HOST_LIBDBUS_CXX)
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-libdbus-cxx.get: $(STATEDIR)/libdbus-cxx.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-libdbus-cxx.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_LIBDBUS_CXX_DIR))
-	@$(call extract, LIBDBUS_CXX, $(HOST_BUILDDIR))
-	@$(call patchin, LIBDBUS_CXX, $(HOST_LIBDBUS_CXX_DIR))
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
