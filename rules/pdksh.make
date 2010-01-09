@@ -1,8 +1,8 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,53 +18,32 @@ PACKAGES-$(PTXCONF_PDKSH) += pdksh
 #
 # Paths and names
 #
-PDKSH_VERSION		= 5.2.14
-PDKSH			= pdksh-$(PDKSH_VERSION)
-PDKSH_SUFFIX		= tar.gz
-PDKSH_URL		= ftp://ftp.cs.mun.ca/pub/pdksh/$(PDKSH).$(PDKSH_SUFFIX)
-PDKSH_SOURCE		= $(SRCDIR)/$(PDKSH).tar.gz
-PDKSH_DIR		= $(BUILDDIR)/$(PDKSH)
+PDKSH_VERSION		:= 5.2.14
+PDKSH			:= pdksh-$(PDKSH_VERSION)
+PDKSH_SUFFIX		:= tar.gz
+PDKSH_URL		:= ftp://ftp.cs.mun.ca/pub/pdksh/$(PDKSH).$(PDKSH_SUFFIX)
+PDKSH_SOURCE		:= $(SRCDIR)/$(PDKSH).tar.gz
+PDKSH_DIR		:= $(BUILDDIR)/$(PDKSH)
 
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-pdksh_get: $(STATEDIR)/pdksh.get
-
-$(STATEDIR)/pdksh.get: $(pdksh_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(PDKSH_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, PDKSH)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-pdksh_extract: $(STATEDIR)/pdksh.extract
-
-$(STATEDIR)/pdksh.extract: $(pdksh_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(PDKSH_DIR))
-	@$(call extract, PDKSH)
-	@$(call patchin, PDKSH)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-pdksh_prepare: $(STATEDIR)/pdksh.prepare
-
-PDKSH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+PDKSH_AUTOCONF := $(CROSS_AUTOCONF_USR)
 PDKSH_AUTOCONF = \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-sanity-checks \
 
-PDKSH_PATH	=  PATH=$(CROSS_PATH)
+PDKSH_PATH	:= PATH=$(CROSS_PATH)
 PDKSH_ENV = \
 	$(CROSS_ENV) \
 	ac_cv_sizeof_long=4 \
@@ -120,57 +99,42 @@ else
 PDKSH_AUTOCONF	+= --disable-brace-expand
 endif
 
-$(STATEDIR)/pdksh.prepare: $(pdksh_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/pdksh.prepare:
+	@$(call targetinfo)
 	mkdir -p $(BUILDDIR)/$(PDKSH)
 	cd $(PDKSH_DIR) && \
 		$(PDKSH_PATH) $(PDKSH_ENV) \
 		$(PDKSH_DIR)/configure $(PDKSH_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-pdksh_compile: $(STATEDIR)/pdksh.compile
-
-$(STATEDIR)/pdksh.compile: $(pdksh_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(PDKSH_DIR) && $(PDKSH_PATH) make
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-pdksh_install: $(STATEDIR)/pdksh.install
-
-$(STATEDIR)/pdksh.install: $(pdksh_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/pdksh.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-pdksh_targetinstall: $(STATEDIR)/pdksh.targetinstall
-
-$(STATEDIR)/pdksh.targetinstall: $(pdksh_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/pdksh.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, pdksh)
 	@$(call install_fixup, pdksh,PACKAGE,pdksh)
 	@$(call install_fixup, pdksh,PRIORITY,optional)
 	@$(call install_fixup, pdksh,VERSION,$(PDKSH_VERSION))
 	@$(call install_fixup, pdksh,SECTION,base)
-	@$(call install_fixup, pdksh,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, pdksh,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, pdksh,DEPENDS,)
 	@$(call install_fixup, pdksh,DESCRIPTION,missing)
 
 	@$(call install_copy, pdksh, 0, 0, 0755, $(PDKSH_DIR)/ksh, /bin/ksh)
 
 	@$(call install_finish, pdksh)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
