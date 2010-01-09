@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Robert Schwebel
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -23,30 +23,13 @@ HOST_PANGO_DIR	= $(HOST_BUILDDIR)/$(PANGO)
 # Get
 # ----------------------------------------------------------------------------
 
-host-pango_get: $(STATEDIR)/host-pango.get
-
 $(STATEDIR)/host-pango.get: $(STATEDIR)/pango.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-host-pango_extract: $(STATEDIR)/host-pango.extract
-
-$(STATEDIR)/host-pango.extract: $(host-pango_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_PANGO_DIR))
-	@$(call extract, PANGO, $(HOST_BUILDDIR))
-	@$(call patchin, PANGO, $(HOST_PANGO_DIR))
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-pango_prepare: $(STATEDIR)/host-pango.prepare
 
 HOST_PANGO_PATH	:= PATH=$(HOST_PATH)
 HOST_PANGO_ENV 	:= $(HOST_ENV)
@@ -101,36 +84,6 @@ HOST_PANGO_AUTOCONF := \
 #else
 #HOST_PANGO_AUTOCONF += --without-x
 #endif
-
-$(STATEDIR)/host-pango.prepare: $(host-pango_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_PANGO_DIR)/config.cache)
-	cd $(HOST_PANGO_DIR) && \
-		$(HOST_PANGO_PATH) $(HOST_PANGO_ENV) \
-		./configure $(HOST_PANGO_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-host-pango_compile: $(STATEDIR)/host-pango.compile
-
-$(STATEDIR)/host-pango.compile: $(host-pango_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(HOST_PANGO_DIR) && $(HOST_PANGO_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-host-pango_install: $(STATEDIR)/host-pango.install
-
-$(STATEDIR)/host-pango.install: $(host-pango_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, HOST_PANGO,,h)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
