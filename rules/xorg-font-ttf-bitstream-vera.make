@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -32,67 +32,40 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-font-ttf-bitstream-vera_get: $(STATEDIR)/xorg-font-ttf-bitstream-vera.get
-
-$(STATEDIR)/xorg-font-ttf-bitstream-vera.get: $(xorg-font-ttf-bitstream-vera_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_FONT_TTF_BITSTREAM_VERA_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_FONT_TTF_BITSTREAM_VERA)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-font-ttf-bitstream-vera_extract: $(STATEDIR)/xorg-font-ttf-bitstream-vera.extract
-
-$(STATEDIR)/xorg-font-ttf-bitstream-vera.extract: $(xorg-font-ttf-bitstream-vera_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_TTF_BITSTREAM_VERA_DIR))
-	@$(call extract, XORG_FONT_TTF_BITSTREAM_VERA)
-	@$(call patchin, XORG_FONT_TTF_BITSTREAM_VERA)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-font-ttf-bitstream-vera_prepare: $(STATEDIR)/xorg-font-ttf-bitstream-vera.prepare
-
-$(STATEDIR)/xorg-font-ttf-bitstream-vera.prepare: $(xorg-font-ttf-bitstream-vera_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/xorg-font-ttf-bitstream-vera.prepare:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-xorg-font-ttf-bitstream-vera_compile: $(STATEDIR)/xorg-font-ttf-bitstream-vera.compile
-
-$(STATEDIR)/xorg-font-ttf-bitstream-vera.compile: $(xorg-font-ttf-bitstream-vera_compile_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/xorg-font-ttf-bitstream-vera.compile:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-font-ttf-bitstream-vera_install: $(STATEDIR)/xorg-font-ttf-bitstream-vera.install
-
-$(STATEDIR)/xorg-font-ttf-bitstream-vera.install: $(xorg-font-ttf-bitstream-vera_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/xorg-font-ttf-bitstream-vera.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-font-ttf-bitstream-vera_targetinstall: $(STATEDIR)/xorg-font-ttf-bitstream-vera.targetinstall
-
-$(STATEDIR)/xorg-font-ttf-bitstream-vera.targetinstall: $(xorg-font-ttf-bitstream-vera_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-font-ttf-bitstream-vera.targetinstall:
+	@$(call targetinfo)
 
 	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
 
@@ -103,7 +76,7 @@ $(STATEDIR)/xorg-font-ttf-bitstream-vera.targetinstall: $(xorg-font-ttf-bitstrea
 		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
 	done
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
