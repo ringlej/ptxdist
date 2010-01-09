@@ -1,0 +1,34 @@
+Subject: make installing non-interactive
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+$(GEN_CONFIG) need user ineraction to create a config file.
+It doesn't work for cross-compiling and we don't need it.
+
+Not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ Makefile.in |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+Index: b/Makefile.in
+===================================================================
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -45,14 +45,13 @@ all: ssmtp
+ 	latex $<
+ 
+ .PHONY: install
+-install: ssmtp $(GEN_CONFIG)
++install: ssmtp
+ 	$(INSTALL) -d -m 755 $(DESTDIR)$(bindir)
+ 	$(INSTALL) -s -m 755 ssmtp $(DESTDIR)$(bindir)/ssmtp
+ 	$(INSTALL) -d -m 755 $(DESTDIR)$(mandir)
+ 	$(INSTALL) -m 644 $(srcdir)/ssmtp.8 $(DESTDIR)$(mandir)/ssmtp.8
+ 	$(INSTALL) -d -m 755 $(DESTDIR)$(SSMTPCONFDIR)
+ 	$(INSTALL) -m 644 $(srcdir)/revaliases $(DESTDIR)$(INSTALLED_REVALIASES_FILE)
+-	$(GEN_CONFIG) $(DESTDIR)$(INSTALLED_CONFIGURATION_FILE)
+ 
+ 
+ .PHONY: install-sendmail

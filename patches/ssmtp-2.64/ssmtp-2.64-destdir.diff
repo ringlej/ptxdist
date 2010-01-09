@@ -1,3 +1,10 @@
+Subject: [PATCH] use DESTDIR when installing
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Prefix all paths with DESTDIR when installing
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  Makefile.in |   40 ++++++++++++++++++++--------------------
  1 file changed, 20 insertions(+), 20 deletions(-)

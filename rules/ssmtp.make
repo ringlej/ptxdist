@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id:$
 #
 # Copyright (C) 2005 by Steven Scholz <steven.scholz@imc-berlin.de>
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -30,29 +30,21 @@ SSMTP_LICENSE		:= GPLv2+
 # Get
 # ----------------------------------------------------------------------------
 
-ssmtp_get: $(STATEDIR)/ssmtp.get
-
-$(STATEDIR)/ssmtp.get: $(ssmtp_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(SSMTP_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, SSMTP)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-#ssmtp_prepare: $(STATEDIR)/ssmtp.prepare
-
 SSMTP_PATH := PATH=$(CROSS_PATH)
-SSMTP_ENV := $(CROSS_ENV)
+SSMTP_CONF_ENV := $(CROSS_ENV)
 
 #
 # autoconf
 #
-SSMTP_AUTOCONF := $(CROSS_AUTOCONF_USR)
+SSMTP_AUTOCONF := $(CROSS_AUTOCONF_ROOT)
 
 ifndef PTXCONF_SSMTP_REWRITE_DOMAIN
 SSMTP_AUTOCONF  += --disable-rewrite-domain
@@ -70,53 +62,30 @@ ifdef PTXCONF_SSMTP_MD5AUTH
 SSMTP_AUTOCONF  += --enable-md5auth
 endif
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-ssmtp_compile: $(STATEDIR)/ssmtp.compile
-
-$(STATEDIR)/ssmtp.compile: $(ssmtp_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(SSMTP_DIR) && \
-		$(SSMTP_ENV) $(SSMTP_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-ssmtp_install: $(STATEDIR)/ssmtp.install
-
-$(STATEDIR)/ssmtp.install: $(ssmtp_install_deps_default)
-	@$(call targetinfo, $@)
-#	# FIXME - make install needs the localhost + smtp port from stdin
-#	#@$(call install, SSMTP)
-	@$(call touch, $@)
+SSMTP_MAKE_ENV := $(CROSS_ENV)
+SSMTP_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ssmtp_targetinstall: $(STATEDIR)/ssmtp.targetinstall
-
-$(STATEDIR)/ssmtp.targetinstall: $(ssmtp_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/ssmtp.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init,  ssmtp)
 	@$(call install_fixup, ssmtp,PACKAGE,ssmtp)
 	@$(call install_fixup, ssmtp,PRIORITY,optional)
 	@$(call install_fixup, ssmtp,VERSION,$(SSMTP_VERSION))
 	@$(call install_fixup, ssmtp,SECTION,base)
-	@$(call install_fixup, ssmtp,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ssmtp,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, ssmtp,DEPENDS,)
 	@$(call install_fixup, ssmtp,DESCRIPTION,missing)
 
-	@$(call install_copy, ssmtp, 0, 0, 0755, $(SSMTP_DIR)/ssmtp, /sbin/ssmtp)
+	@$(call install_copy, ssmtp, 0, 0, 0755, -, /sbin/ssmtp)
 
 	@$(call install_finish, ssmtp)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
