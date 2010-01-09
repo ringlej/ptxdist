@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #               2004-2009 by the ptxdist project
@@ -22,12 +21,13 @@ PACKAGES-$(PTXCONF_LIBXML2) += libxml2
 LIBXML2_VERSION	:= 2.7.6
 LIBXML2		:= libxml2-$(LIBXML2_VERSION)
 LIBXML2_SUFFIX	:= tar.gz
-LIBXML2_URL	:= ftp://xmlsoft.org/libxml2/$(LIBXML2).$(LIBXML2_SUFFIX) \
-		   ftp://xmlsoft.org/libxml2/old/$(LIBXML2).$(LIBXML2_SUFFIX)
 LIBXML2_SOURCE	:= $(SRCDIR)/$(LIBXML2).$(LIBXML2_SUFFIX)
 LIBXML2_DIR	:= $(BUILDDIR)/$(LIBXML2)
 LIBXML2_LICENSE	:= MIT
 
+LIBXML2_URL := \
+	ftp://xmlsoft.org/libxml2/$(LIBXML2).$(LIBXML2_SUFFIX) \
+	ftp://xmlsoft.org/libxml2/old/$(LIBXML2).$(LIBXML2_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -47,13 +47,12 @@ LIBXML2_ENV	:= $(CROSS_ENV)
 #
 # autoconf
 #
-# --with-iconv=yes -> does the right thing for libc-iconv
-#
 LIBXML2_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--oldincludedir=$(SYSROOT)/usr/include
 
 ifdef PTXCONF_ICONV
+# --with-iconv=yes -> does the right thing for libc-iconv
 LIBXML2_AUTOCONF += --with-iconv=yes
 else
 LIBXML2_AUTOCONF += --with-iconv=no
@@ -274,7 +273,7 @@ $(STATEDIR)/libxml2.targetinstall:
 	@$(call install_fixup, libxml2,DESCRIPTION,missing)
 
 	@$(call install_copy, libxml2, 0, 0, 0644, -, \
-		/usr/lib/libxml2.so.2.7.6, y)
+		/usr/lib/libxml2.so.2.7.6)
 	@$(call install_link, libxml2, libxml2.so.2.7.6,  /usr/lib/libxml2.so.2)
 	@$(call install_link, libxml2, libxml2.so.2.7.6, /usr/lib/libxml2.so)
 
