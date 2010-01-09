@@ -83,5 +83,3 @@ endmenu
 menu "xorg window managers          "
 source "generated/x_windowmanagers.in"
 endmenu
-
-source "generated/multimedia_wxwidgets.in"
