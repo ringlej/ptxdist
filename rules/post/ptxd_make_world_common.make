@@ -45,6 +45,7 @@ world/env/impl = \
 	pkg_make_par="$(call ptx/escape,$($(1)_MAKE_PAR))"			\
 										\
 	pkg_install_opt="$(call ptx/escape,$($(1)_INSTALL_OPT))"		\
+	pkg_binconfig_glob="$(call ptx/escape,$($(1)_BINCONFIG_GLOB))"		\
 										\
 	pkg_deprecated_builddir="$(call ptx/escape,$($(1)_BUILDDIR))"		\
 	pkg_deprecated_env="$(call ptx/escape,$($(1)_ENV))"			\

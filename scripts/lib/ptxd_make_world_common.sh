@@ -125,6 +125,13 @@ ptxd_make_world_init_compat() {
 	*)      pkg_install_opt="DESTDIR=\"\" ${pkg_install_opt}" ;;
     esac
 
+    #
+    # pkg_binconfig_glob
+    #
+    # default: "*-config"
+    #
+    pkg_binconfig_glob="${pkg_binconfig_glob:-*-config}"
+
 
     #
     # pkg_tags_opt
