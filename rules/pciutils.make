@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 # Copyright (C) 2009 by Wolfram Sang, Pengutronix
