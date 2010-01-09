@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 3345 2005-11-14 17:14:19Z rsc $
 #
 # Copyright (C) 2005 by Sascha Hauer
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -29,43 +29,22 @@ MPLAYER_DIR	:= $(BUILDDIR)/$(MPLAYER)
 # Get
 # ----------------------------------------------------------------------------
 
-mplayer_get: $(STATEDIR)/mplayer.get
-
-$(STATEDIR)/mplayer.get: $(mplayer_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(MPLAYER_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, MPLAYER)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-mplayer_extract: $(STATEDIR)/mplayer.extract
-
-$(STATEDIR)/mplayer.extract: $(mplayer_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(MPLAYER_DIR))
-	@$(call extract, MPLAYER)
-	@$(call patchin, MPLAYER)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-mplayer_prepare: $(STATEDIR)/mplayer.prepare
-
-MPLAYER_PATH	:= PATH=$(CROSS_PATH)
-MPLAYER_CFLGAS	:=
-MPLAYER_ENV 	:=
+MPLAYER_PATH		:= PATH=$(CROSS_PATH)
+MPLAYER_CFLGAS		:=
+MPLAYER_CONF_ENV	:=
 ifdef PTXCONF_ARCH_X86
-MPLAYER_CFLAGS          += -O2 -fomit-frame-pointer
-MPLAYER_ENV      	+= CFLAGS='$(MPLAYER_CFLAGS)'
+MPLAYER_CFLAGS		+= -O2 -fomit-frame-pointer
+MPLAYER_CONF_ENV	+= CFLAGS='$(MPLAYER_CFLAGS)'
 endif
-MPLAYER_ENV 	+= CC_FOR_BUILD=$(HOSTCC) 
+MPLAYER_CONF_ENV	+= CC_FOR_BUILD=$(HOSTCC) 
 #
 # autoconf
 #
@@ -368,8 +347,8 @@ else
 MPLAYER_AUTOCONF += --disable-pxa --disable-iwmmxt
 endif
 
-$(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/mplayer.prepare:
+	@$(call targetinfo)
 	@$(call clean, $(MPLAYER_DIR)/config.cache)
 	cd $(MPLAYER_DIR) && \
 		$(MPLAYER_PATH) $(MPLAYER_ENV) \
@@ -379,44 +358,29 @@ $(STATEDIR)/mplayer.prepare: $(mplayer_prepare_deps_default)
 	@echo
 #	sed -i -e "s/[ \t]-O4[ \t]/ -O2 /g" $(MPLAYER_DIR)/config.mak
 	@echo
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-mplayer_compile: $(STATEDIR)/mplayer.compile
-
-$(STATEDIR)/mplayer.compile: $(mplayer_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(MPLAYER_DIR) && $(MPLAYER_ENV) $(MPLAYER_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-mplayer_install: $(STATEDIR)/mplayer.install
-
-$(STATEDIR)/mplayer.install: $(mplayer_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/mplayer.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-mplayer_targetinstall: $(STATEDIR)/mplayer.targetinstall
-
-$(STATEDIR)/mplayer.targetinstall: $(mplayer_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/mplayer.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, mplayer)
 	@$(call install_fixup, mplayer,PACKAGE,mplayer)
 	@$(call install_fixup, mplayer,PRIORITY,optional)
 	@$(call install_fixup, mplayer,VERSION,$(MPLAYER_VERSION))
 	@$(call install_fixup, mplayer,SECTION,base)
-	@$(call install_fixup, mplayer,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, mplayer,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, mplayer,DEPENDS,)
 	@$(call install_fixup, mplayer,DESCRIPTION,missing)
 
@@ -424,7 +388,7 @@ $(STATEDIR)/mplayer.targetinstall: $(mplayer_targetinstall_deps_default)
 
 	@$(call install_finish, mplayer)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
