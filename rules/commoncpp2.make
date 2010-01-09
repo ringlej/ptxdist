@@ -2,7 +2,7 @@
 # $Id: template 3502 2005-12-11 12:46:17Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
-#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -42,6 +42,7 @@ $(COMMONCPP2_SOURCE):
 
 COMMONCPP2_PATH	:= PATH=$(CROSS_PATH)
 COMMONCPP2_ENV 	:= $(CROSS_ENV)
+COMMONCPP2_MAKE_PAR := NO
 
 #
 # autoconf
@@ -55,17 +56,6 @@ endif
 ifndef PTXCONF_COMMONCPP2_LIBXML2
 COMMONCPP2_AUTOCONF += --without-libxml2
 endif
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/commoncpp2.compile:
-	@$(call targetinfo, $@)
-	cd $(COMMONCPP2_DIR) && \
-		$(COMMONCPP2_ENV) $(COMMONCPP2_PATH) \
-		make $(PARALLELMFLAGS_BROKEN)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Install
