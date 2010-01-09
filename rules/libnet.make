@@ -1,8 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
-# Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde.de>
-# Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
+# Copyright (C) 2003 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -24,7 +23,6 @@ LIBNET_SUFFIX	:= tar.gz
 LIBNET_URL	:= $(PTXCONF_SETUP_SFMIRROR)/libnet-dev/$(LIBNET).$(LIBNET_SUFFIX)
 LIBNET_SOURCE	:= $(SRCDIR)/$(LIBNET).$(LIBNET_SUFFIX)
 LIBNET_DIR	:= $(BUILDDIR)/$(LIBNET)
-
 
 # ----------------------------------------------------------------------------
 # Get
