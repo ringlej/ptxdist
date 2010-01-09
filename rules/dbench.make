@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2606 2005-05-10 21:49:41Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #
@@ -37,9 +36,10 @@ $(DBENCH_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-DBENCH_PATH	=  PATH=$(CROSS_PATH)
-DBENCH_ENV 	=  $(CROSS_ENV)
-DBENCH_MAKEVARS =  prefix=$(PKGDIR)/$(DBENCH)/usr
+DBENCH_PATH		:= PATH=$(CROSS_PATH)
+DBENCH_CONV_ENV		:= $(CROSS_ENV)
+DBENCH_MAKE_ENV		:= $(CROSS_ENV)
+DBENCH_INSTALL_OPT	:= prefix=$(PKGDIR)/$(DBENCH)/usr install
 
 #
 # autoconf
@@ -58,7 +58,7 @@ $(STATEDIR)/dbench.targetinstall:
 	@$(call install_fixup, dbench,PRIORITY,optional)
 	@$(call install_fixup, dbench,VERSION,$(DBENCH_VERSION))
 	@$(call install_fixup, dbench,SECTION,base)
-	@$(call install_fixup, dbench,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, dbench,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, dbench,DEPENDS,)
 	@$(call install_fixup, dbench,DESCRIPTION,missing)
 
