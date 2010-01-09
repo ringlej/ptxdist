@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -29,37 +29,16 @@ XORG_PROTO_X_DIR	:= $(BUILDDIR)/$(XORG_PROTO_X)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-proto-x_get: $(STATEDIR)/xorg-proto-x.get
-
-$(STATEDIR)/xorg-proto-x.get: $(xorg-proto-x_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_PROTO_X_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_PROTO_X)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-proto-x_extract: $(STATEDIR)/xorg-proto-x.extract
-
-$(STATEDIR)/xorg-proto-x.extract: $(xorg-proto-x_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_PROTO_X_DIR))
-	@$(call extract, XORG_PROTO_X)
-	@$(call patchin, XORG_PROTO_X)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-proto-x_prepare: $(STATEDIR)/xorg-proto-x.prepare
-
-XORG_PROTO_X_PATH	:=  PATH=$(CROSS_PATH)
-XORG_PROTO_X_ENV 	:=  $(CROSS_ENV)
+XORG_PROTO_X_PATH	:= PATH=$(CROSS_PATH)
+XORG_PROTO_X_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -78,45 +57,13 @@ XORG_PROTO_X_AUTOCONF += \
 	--enable-nested-prototypes \
 	--enable-wide-prototypes=no
 
-$(STATEDIR)/xorg-proto-x.prepare: $(xorg-proto-x_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_PROTO_X_DIR)/config.cache)
-	cd $(XORG_PROTO_X_DIR) && \
-		$(XORG_PROTO_X_PATH) $(XORG_PROTO_X_ENV) \
-		./configure $(XORG_PROTO_X_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-proto-x_compile: $(STATEDIR)/xorg-proto-x.compile
-
-$(STATEDIR)/xorg-proto-x.compile: $(xorg-proto-x_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_PROTO_X_DIR) && $(XORG_PROTO_X_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-proto-x_install: $(STATEDIR)/xorg-proto-x.install
-
-$(STATEDIR)/xorg-proto-x.install: $(xorg-proto-x_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_PROTO_X)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-proto-x_targetinstall: $(STATEDIR)/xorg-proto-x.targetinstall
-
-$(STATEDIR)/xorg-proto-x.targetinstall: $(xorg-proto-x_targetinstall_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/xorg-proto-x.targetinstall:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
