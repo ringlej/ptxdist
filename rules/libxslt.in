@@ -12,6 +12,7 @@ menuconfig LIBXSLT
 	select LIBXML2_XPTR
 	select LIBXML2_DOM
 	select LIBXML2_HTML
+	select LIBGCRYPT	if LIBXSLT_CRYPTO
 	help
 	  LibXSLT is a generic XSLT implementation. For details see the
 	  project homepage:
@@ -26,7 +27,6 @@ comment "Compile Options"
 config LIBXSLT_CRYPTO
 	bool
 	prompt "Add crypto support to exslt"
-	depends on BROKEN
 
 config LIBXSLT_PLUGINS
 	bool
