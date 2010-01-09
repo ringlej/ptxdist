@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
