@@ -35,34 +35,12 @@ $(FBTEST_SOURCE):
 	@$(call get, FBTEST)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-FBTEST_PATH	:=  PATH=$(CROSS_PATH)
-FBTEST_ENV 	:=  $(CROSS_ENV)
-FBTEST_COMPILE_ENV := CROSS_COMPILE=$(COMPILER_PREFIX)
-
-$(STATEDIR)/fbtest.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/fbtest.compile:
-	@$(call targetinfo)
-	cd $(FBTEST_DIR) && $(FBTEST_COMPILE_ENV) $(FBTEST_PATH) \
-		$(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/fbtest.install:
-	@$(call targetinfo)
-	@$(call touch)
+FBTEST_PATH	:= PATH=$(CROSS_PATH)
+FBTEST_MAKE_ENV	:= $(CROSS_ENV) CROSS_COMPILE=$(COMPILER_PREFIX)
+FBTEST_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -80,7 +58,7 @@ $(STATEDIR)/fbtest.targetinstall:
 	@$(call install_fixup, fbtest,DEPENDS,)
 	@$(call install_fixup, fbtest,DESCRIPTION,missing)
 
-	@$(call install_copy, fbtest, 0, 0, 0755, $(FBTEST_DIR)/$(COMPILER_PREFIX)fbtest, /sbin/fbtest)
+	@$(call install_copy, fbtest, 0, 0, 0755, -, /sbin/fbtest)
 
 	@$(call install_finish, fbtest)
 

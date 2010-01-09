@@ -2,3 +2,4 @@ fbtest-20041102-1-penguin.diff
 fbtest-20041102-1-nowerror.diff
 fbtest-20041102-1-optimize-O2.diff
 fbtest-20041102-1-page_mask.diff
+fbtest-20041102-1-add-make-install.diff

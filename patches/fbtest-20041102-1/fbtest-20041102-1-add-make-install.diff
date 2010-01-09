@@ -1,0 +1,20 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: add install target
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ Makefile |    3 +++
+ 1 file changed, 3 insertions(+)
+
+Index: b/Makefile
+===================================================================
+--- a/Makefile
++++ b/Makefile
+@@ -10,3 +10,6 @@ SUBDIRS = drawops fonts images visops te
+ 
+ include $(TOPDIR)/Rules.make
+ 
++install:
++	install -c $(TARGET) $(DESTDIR)/sbin/fbtest
++
