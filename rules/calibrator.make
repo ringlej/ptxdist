@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -28,83 +27,39 @@ CALIBRATOR_DIR		:= $(BUILDDIR)/$(CALIBRATOR)
 # Get
 # ----------------------------------------------------------------------------
 
-calibrator_get: $(STATEDIR)/calibrator.get
-
-$(STATEDIR)/calibrator.get: $(calibrator_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(CALIBRATOR_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, CALIBRATOR)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-calibrator_extract: $(STATEDIR)/calibrator.extract
-
-$(STATEDIR)/calibrator.extract: $(calibrator_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(CALIBRATOR_DIR))
-	@$(call extract, CALIBRATOR)
-	@$(call patchin, CALIBRATOR)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-calibrator_prepare: $(STATEDIR)/calibrator.prepare
-
-CALIBRATOR_PATH	:= PATH=$(CROSS_PATH)
-CALIBRATOR_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-CALIBRATOR_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/calibrator.prepare: $(calibrator_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-calibrator_compile: $(STATEDIR)/calibrator.compile
-
-$(STATEDIR)/calibrator.compile: $(calibrator_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(CALIBRATOR_DIR) && $(CALIBRATOR_PATH) CC=$(CROSS_CC) LDFLAGS=-lm $(MAKE) $(PARALLELMFLAGS) calibrator
-	@$(call touch, $@)
+CALIBRATOR_PATH		:= PATH=$(CROSS_PATH)
+CALIBRATOR_MAKE_ENV	:= $(CROSS_ENV) LDFLAGS=-lm
+CALIBRATOR_MAKE_OPT	:= calibrator
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-calibrator_install: $(STATEDIR)/calibrator.install
-
-$(STATEDIR)/calibrator.install: $(calibrator_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/calibrator.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-calibrator_targetinstall: $(STATEDIR)/calibrator.targetinstall
-
-$(STATEDIR)/calibrator.targetinstall: $(calibrator_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/calibrator.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, calibrator)
 	@$(call install_fixup, calibrator,PACKAGE,calibrator)
 	@$(call install_fixup, calibrator,PRIORITY,optional)
 	@$(call install_fixup, calibrator,VERSION,$(CALIBRATOR_VERSION))
 	@$(call install_fixup, calibrator,SECTION,base)
-	@$(call install_fixup, calibrator,AUTHOR,"Michael Olbrich <m.olbrich\@pengutronix.de>")
+	@$(call install_fixup, calibrator,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, calibrator,DEPENDS,)
 	@$(call install_fixup, calibrator,DESCRIPTION,missing)
 
@@ -112,7 +67,7 @@ $(STATEDIR)/calibrator.targetinstall: $(calibrator_targetinstall_deps_default)
 
 	@$(call install_finish, calibrator)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
