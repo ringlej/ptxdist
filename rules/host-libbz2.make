@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Robert Schwebel
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,72 +28,29 @@ HOST_LIBBZ2_DIR		:= $(HOST_BUILDDIR)/$(HOST_LIBBZ2)
 # Get
 # ----------------------------------------------------------------------------
 
-host-libbz2_get: $(STATEDIR)/host-libbz2.get
-
-$(STATEDIR)/host-libbz2.get: $(host-libbz2_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(HOST_LIBBZ2_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, HOST_LIBBZ2)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-host-libbz2_extract: $(STATEDIR)/host-libbz2.extract
-
-$(STATEDIR)/host-libbz2.extract: $(host-libbz2_extract_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/host-libbz2.extract:
+	@$(call targetinfo)
 	@$(call clean, $(HOST_LIBBZ2_DIR))
 	@$(call extract, HOST_LIBBZ2, $(HOST_BUILDDIR))
 	@$(call patchin, HOST_LIBBZ2, $(HOST_LIBBZ2_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-host-libbz2_prepare: $(STATEDIR)/host-libbz2.prepare
-
 HOST_LIBBZ2_PATH	:= PATH=$(HOST_PATH)
 HOST_LIBBZ2_ENV 	:= $(HOST_ENV)
 
-#
-# autoconf
-#
-# HOST_LIBBZ2_AUTOCONF	:= $(HOST_AUTOCONF)
-
-$(STATEDIR)/host-libbz2.prepare: $(host-libbz2_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_LIBBZ2_DIR)/config.cache)
-#	cd $(HOST_LIBBZ2_DIR) && \
-#		$(HOST_LIBBZ2_PATH) $(HOST_LIBBZ2_ENV) \
-#		./configure $(HOST_LIBBZ2_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-host-libbz2_compile: $(STATEDIR)/host-libbz2.compile
-
-$(STATEDIR)/host-libbz2.compile: $(host-libbz2_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(HOST_LIBBZ2_DIR) && $(HOST_LIBBZ2_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-host-libbz2_install: $(STATEDIR)/host-libbz2.install
-
-$(STATEDIR)/host-libbz2.install: $(host-libbz2_install_deps_default)
-	@$(call targetinfo, $@)
-	cd $(HOST_LIBBZ2_DIR) && make install PREFIX=$(PTXCONF_SYSROOT_HOST)
-	@$(call touch, $@)
+HOST_LIBBZ2_INSTALL_OPT := install PREFIX=$(PTXCONF_SYSROOT_HOST)
 
 # ----------------------------------------------------------------------------
 # Clean
