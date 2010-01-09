@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2007 by Ladislav Michl
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -28,95 +29,48 @@ UNZIP_DIR	:= $(BUILDDIR)/$(UNZIP)
 # Get
 # ----------------------------------------------------------------------------
 
-unzip_get: $(STATEDIR)/unzip.get
-
-$(STATEDIR)/unzip.get: $(unzip_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(UNZIP_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, UNZIP)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-unzip_extract: $(STATEDIR)/unzip.extract
-
-$(STATEDIR)/unzip.extract: $(unzip_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(UNZIP_DIR))
-	@$(call extract, UNZIP)
-	@$(call patchin, UNZIP)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-unzip_prepare: $(STATEDIR)/unzip.prepare
-
-UNZIP_PATH	:= PATH=$(CROSS_PATH)
-UNZIP_ENV 	:= $(CROSS_ENV_CC)
-
-$(STATEDIR)/unzip.prepare: $(unzip_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-unzip_compile: $(STATEDIR)/unzip.compile
+UNZIP_PATH		:= PATH=$(CROSS_PATH)
+UNZIP_MAKE_OPT		:= $(CROSS_ENV_CC) -f unix/Makefile generic
 
-$(STATEDIR)/unzip.compile: $(unzip_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(UNZIP_DIR) && $(UNZIP_PATH) \
-		$(MAKE) $(UNZIP_ENV) $(PARALLELMFLAGS) -f unix/Makefile generic
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-unzip_install: $(STATEDIR)/unzip.install
-
-$(STATEDIR)/unzip.install: $(unzip_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+UNZIP_INSTALL_OPT	:= -f unix/Makefile prefix=$(UNZIP_PKGDIR)/usr install
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-unzip_targetinstall: $(STATEDIR)/unzip.targetinstall
-
-$(STATEDIR)/unzip.targetinstall: $(unzip_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/unzip.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, unzip)
 	@$(call install_fixup, unzip,PACKAGE,unzip)
 	@$(call install_fixup, unzip,PRIORITY,optional)
 	@$(call install_fixup, unzip,VERSION,$(UNZIP_VERSION))
 	@$(call install_fixup, unzip,SECTION,base)
-	@$(call install_fixup, unzip,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, unzip,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, unzip,DEPENDS,)
 	@$(call install_fixup, unzip,DESCRIPTION,missing)
 
 ifdef PTXCONF_UNZIP_UNZIP
-	@$(call install_copy, unzip, 0, 0, 0755, $(UNZIP_DIR)/unzip, /usr/bin/unzip)
+	@$(call install_copy, unzip, 0, 0, 0755, -, /usr/bin/unzip)
 endif
 ifdef PTXCONF_UNZIP_FUNZIP
-	@$(call install_copy, unzip, 0, 0, 0755, $(UNZIP_DIR)/funzip, /usr/bin/funzip)
+	@$(call install_copy, unzip, 0, 0, 0755, -, /usr/bin/funzip)
 endif
 ifdef PTXCONF_UNZIP_UNZIPSFX
-	@$(call install_copy, unzip, 0, 0, 0755, $(UNZIP_DIR)/unzipsfx, /usr/bin/unzipsfx)
+	@$(call install_copy, unzip, 0, 0, 0755, -, /usr/bin/unzipsfx)
 endif
 
 	@$(call install_finish, unzip)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
