@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003-2006 by Robert Schwebel <r.schwebel@pengutronix.de>
 #               2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
