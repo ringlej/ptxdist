@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4761 2006-02-24 17:35:57Z sha $
 #
 # Copyright (C) 2006 by Sascha Hauer
 #
@@ -37,8 +36,6 @@ $(XTERM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xterm_prepare: $(STATEDIR)/xterm.prepare
-
 XTERM_PATH	:= PATH=$(CROSS_PATH)
 XTERM_ENV 	:= $(CROSS_ENV)
 
@@ -53,7 +50,7 @@ XTERM_AUTOCONF := \
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/xterm.targetinstall: $(xterm_targetinstall_deps_default)
+$(STATEDIR)/xterm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xterm)
