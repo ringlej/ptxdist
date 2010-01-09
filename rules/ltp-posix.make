@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template-make 7759 2008-02-12 21:05:07Z mkl $
 #
-# Copyright (C) 2008 by 
+# Copyright (C) 2008 by Robert Schwebel <r.schwebel@pengutronix.de>
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,35 +17,26 @@ PACKAGES-$(PTXCONF_LTP_POSIX) += ltp-posix
 #
 # Paths and names
 #
-LTP_POSIX_VERSION	= $(LTP_BASE_VERSION)
-LTP_POSIX		= ltp-posix-$(LTP_BASE_VERSION)
-LTP_POSIX_DIR		= $(LTP_BASE_DIR)/testcases/open_posix_testsuite
+LTP_POSIX_VERSION	:= $(LTP_BASE_VERSION)
+LTP_POSIX		:= ltp-posix-$(LTP_BASE_VERSION)
+LTP_POSIX_DIR		:= $(LTP_BASE_DIR)/testcases/open_posix_testsuite
 LTP_POSIX_PKGDIR	= $(PKGDIR)/$(LTP_POSIX)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-
-#$(STATEDIR)/ltp-posix.get:
-#	@$(call targetinfo, $@)
-#	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/ltp-posix.extract:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/ltp-posix.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -53,10 +44,8 @@ $(STATEDIR)/ltp-posix.prepare:
 
 MFLAGS = LDFLAGS="-D_GNU_SOURCE -lpthread -lrt -lm" $(PARALLELMFLAGS)
 
-ltp-posix_compile: $(STATEDIR)/ltp-posix.compile
-
 $(STATEDIR)/ltp-posix.compile:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@cd $(LTP_POSIX_DIR); $(LTP_ENV) $(MAKE) $(MFLAGS) t0
 ifdef PTXCONF_LTP_POSIX_CONFORMANCE
 	@cd $(LTP_POSIX_DIR); $(LTP_ENV) $(MAKE) $(MFLAGS) build-tests
@@ -67,17 +56,15 @@ endif
 ifdef PTXCONF_LTP_POSIX_STRESS
 	@cd $(LTP_POSIX_DIR); $(LTP_ENV) $(MAKE) $(MFLAGS) stress-make
 endif
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-ltp-posix_install: $(STATEDIR)/ltp-posix.install
-
 $(STATEDIR)/ltp-posix.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -91,17 +78,15 @@ ltp-posix_install_copy = \
 		$(LTP_BASE_BIN_DIR)/posix/$$file)
 
 
-ltp-posix_targetinstall: $(STATEDIR)/ltp-posix.targetinstall
-
 $(STATEDIR)/ltp-posix.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, ltp-posix)
 	@$(call install_fixup, ltp-posix,PACKAGE,ltp-posix)
 	@$(call install_fixup, ltp-posix,PRIORITY,optional)
 	@$(call install_fixup, ltp-posix,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-posix,SECTION,base)
-	@$(call install_fixup, ltp-posix,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ltp-posix,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, ltp-posix,DEPENDS,)
 	@$(call install_fixup, ltp-posix,DESCRIPTION,missing)
 
@@ -130,7 +115,7 @@ endif
 
 	@$(call install_finish, ltp-posix)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
