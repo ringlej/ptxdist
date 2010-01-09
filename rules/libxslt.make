@@ -2,6 +2,7 @@
 # $Id: template 2878 2005-07-03 17:54:38Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -73,16 +74,6 @@ LIBXSLT_AUTOCONF += \
 	--without-debugger
 endif
 
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libxslt.install:
-	@$(call targetinfo)
-	@$(call install, LIBXSLT)
-	@install $(LIBXSLT_DIR)/xslt-config $(PTXCONF_SYSROOT_CROSS)/bin/
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install

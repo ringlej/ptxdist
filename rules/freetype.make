@@ -2,7 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2003-2006 by Robert Schwebel <r.schwebel@pengutronix.de>
-#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -45,17 +45,6 @@ FREETYPE_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 FREETYPE_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/freetype.install:
-	@$(call targetinfo)
-	@$(call install, FREETYPE)
-	$(INSTALL) -m 755 -D $(FREETYPE_DIR)/builds/unix/freetype-config \
-		$(PTXCONF_SYSROOT_CROSS)/bin/freetype-config
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install

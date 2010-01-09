@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2006, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -112,19 +112,6 @@ DIRECTFB_AUTOCONF += --enable-freetype
 else
 DIRECTFB_AUTOCONF += --disable-freetype
 endif
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/directfb.install:
-	@$(call targetinfo)
-	@$(call install, DIRECTFB)
-
-	$(INSTALL) -m 755 -D $(DIRECTFB_DIR)/directfb-config $(PTXCONF_SYSROOT_CROSS)/bin/directfb-config
-
-	@$(call touch)
-
 
 # ----------------------------------------------------------------------------
 # Target-Install

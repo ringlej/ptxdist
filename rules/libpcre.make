@@ -54,18 +54,6 @@ LIBPCRE_AUTOCONF += --enable-utf8
 endif
 
 # ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libpcre.install:
-	@$(call targetinfo)
-	@$(call install, LIBPCRE)
-
-	cp $(LIBPCRE_DIR)/pcre-config $(PTXCONF_SYSROOT_CROSS)/bin/pcre-config
-
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 

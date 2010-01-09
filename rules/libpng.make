@@ -49,17 +49,6 @@ LIBPNG_AUTOCONF := \
 	--without-libpng-compat
 
 # ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libpng.install:
-	@$(call targetinfo)
-	@$(call install, LIBPNG)
-	$(INSTALL) -m 755 -D $(LIBPNG_DIR)/libpng12-config $(PTXCONF_SYSROOT_CROSS)/bin/libpng12-config
-	ln -sf libpng12-config $(PTXCONF_SYSROOT_CROSS)/bin/libpng-config
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 

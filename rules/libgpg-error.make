@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Erwin Rol
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -42,19 +43,6 @@ LIBGPG_ERROR_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 LIBGPG_ERROR_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libgpg-error.install:
-	@$(call targetinfo)
-	@$(call install, LIBGPG_ERROR)
-
-	cp $(LIBGPG_ERROR_DIR)/src/gpg-error-config $(PTXCONF_SYSROOT_CROSS)/bin/gpg-error-config
-	chmod a+x $(PTXCONF_SYSROOT_CROSS)/bin/gpg-error-config
-
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install

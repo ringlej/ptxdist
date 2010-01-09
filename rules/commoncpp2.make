@@ -58,16 +58,6 @@ COMMONCPP2_AUTOCONF += --without-libxml2
 endif
 
 # ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/commoncpp2.install:
-	@$(call targetinfo)
-	@$(call install, COMMONCPP2)
-	install -m755 -D $(COMMONCPP2_DIR)/src/ccgnu2-config $(PTXCONF_SYSROOT_CROSS)/bin/ccgnu2-config
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 

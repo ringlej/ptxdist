@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006 by Erwin Rol
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -272,19 +273,6 @@ SDL_AUTOCONF += \
 	--disable-mintaudio \
 	--disable-video-photon \
 	--enable-input-events
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/sdl.install:
-	@$(call targetinfo)
-	@$(call install, SDL)
-
-	cp $(SDL_DIR)/sdl-config $(PTXCONF_SYSROOT_CROSS)/bin/sdl-config
-	chmod a+x $(PTXCONF_SYSROOT_CROSS)/bin/sdl-config
-
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install

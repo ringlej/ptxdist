@@ -2,6 +2,8 @@
 # $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
+#               2004-2009 by the ptxdist project
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -254,16 +256,6 @@ LIBXML2_AUTOCONF += --with-zlib=$(SYSROOT)/usr
 else
 LIBXML2_AUTOCONF += --without-zlib
 endif
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libxml2.install:
-	@$(call targetinfo)
-	@$(call install, LIBXML2)
-	install -D $(LIBXML2_DIR)/xml2-config $(PTXCONF_SYSROOT_CROSS)/bin/xml2-config
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install

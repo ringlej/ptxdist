@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Erwin Rol
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -53,19 +54,6 @@ LIBGCRYPT_AUTOCONF := \
 # ../src/.libs/libgcrypt.so: undefined reference to `_gcry_mpih_add_n'
 # ../src/.libs/libgcrypt.so: undefined reference to `_gcry_mpih_submul_1'
 #
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libgcrypt.install:
-	@$(call targetinfo)
-	@$(call install, LIBGCRYPT)
-
-	cp $(LIBGCRYPT_DIR)/src/libgcrypt-config $(PTXCONF_SYSROOT_CROSS)/bin/libgcrypt-config
-	chmod a+x $(PTXCONF_SYSROOT_CROSS)/bin/libgcrypt-config
-
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
