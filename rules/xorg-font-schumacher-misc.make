@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -32,80 +32,36 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-font-schumacher-misc_get: $(STATEDIR)/xorg-font-schumacher-misc.get
-
-$(STATEDIR)/xorg-font-schumacher-misc.get: $(xorg-font-schumacher-misc_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_FONT_SCHUMACHER_MISC_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_FONT_SCHUMACHER_MISC)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-font-schumacher-misc_extract: $(STATEDIR)/xorg-font-schumacher-misc.extract
-
-$(STATEDIR)/xorg-font-schumacher-misc.extract: $(xorg-font-schumacher-misc_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_SCHUMACHER_MISC_DIR))
-	@$(call extract, XORG_FONT_SCHUMACHER_MISC)
-	@$(call patchin, XORG_FONT_SCHUMACHER_MISC)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-font-schumacher-misc_prepare: $(STATEDIR)/xorg-font-schumacher-misc.prepare
-
-XORG_FONT_SCHUMACHER_MISC_PATH	:=  PATH=$(CROSS_PATH)
-XORG_FONT_SCHUMACHER_MISC_ENV 	:=  $(CROSS_ENV)
+XORG_FONT_SCHUMACHER_MISC_PATH	:= PATH=$(CROSS_PATH)
+XORG_FONT_SCHUMACHER_MISC_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 XORG_FONT_SCHUMACHER_MISC_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xorg-font-schumacher-misc.prepare: $(xorg-font-schumacher-misc_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_SCHUMACHER_MISC_DIR)/config.cache)
-	cd $(XORG_FONT_SCHUMACHER_MISC_DIR) && \
-		$(XORG_FONT_SCHUMACHER_MISC_PATH) $(XORG_FONT_SCHUMACHER_MISC_ENV) \
-		./configure $(XORG_FONT_SCHUMACHER_MISC_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-font-schumacher-misc_compile: $(STATEDIR)/xorg-font-schumacher-misc.compile
-
-$(STATEDIR)/xorg-font-schumacher-misc.compile: $(xorg-font-schumacher-misc_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_FONT_SCHUMACHER_MISC_DIR) && $(XORG_FONT_SCHUMACHER_MISC_PATH) $(MAKE)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-font-schumacher-misc_install: $(STATEDIR)/xorg-font-schumacher-misc.install
-
-$(STATEDIR)/xorg-font-schumacher-misc.install: $(xorg-font-schumacher-misc_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/xorg-font-schumacher-misc.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-font-schumacher-misc_targetinstall: $(STATEDIR)/xorg-font-schumacher-misc.targetinstall
-
-$(STATEDIR)/xorg-font-schumacher-misc.targetinstall: $(xorg-font-schumacher-misc_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-font-schumacher-misc.targetinstall:
+	@$(call targetinfo)
 
 	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/misc
 
@@ -140,7 +96,7 @@ ifdef PTXCONF_XORG_FONT_SCHUMACHER_MISC_TRANS
 	done
 endif
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
