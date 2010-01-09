@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 3502 2005-12-11 12:46:17Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -37,8 +37,7 @@ $(LIBNETPBM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBNETPBM_PATH	:=  PATH=$(CROSS_PATH)
-LIBNETPBM_ENV 	:=  $(CROSS_ENV)
+LIBNETPBM_PATH	:= PATH=$(CROSS_PATH)
 
 $(STATEDIR)/libnetpbm.prepare:
 	@$(call targetinfo)
@@ -59,26 +58,14 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libnetpbm.compile:
-	@$(call targetinfo)
-	cd $(LIBNETPBM_DIR) && $(LIBNETPBM_ENV) $(LIBNETPBM_PATH) $(MAKE)
-	@$(call touch)
+LIBNETPBM_MAKE_ENV	:= $(CROSS_ENV)
+LIBNETPBM_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/libnetpbm.install:
-	@$(call targetinfo)
-	mkdir -p $(SYSROOT)/usr/lib
-	cp $(LIBNETPBM_DIR)/lib/libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so.10.31
-	ln -sf libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so.10
-	ln -sf libnetpbm.so.10.31 $(SYSROOT)/usr/lib/libnetpbm.so
-	@$(call touch)
+LIBNETPBM_INSTALL_OPT	:= install-run install-dev pkgdir=$(LIBNETPBM_PKGDIR)/usr
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -92,32 +79,29 @@ $(STATEDIR)/libnetpbm.targetinstall:
 	@$(call install_fixup, libnetpbm,PRIORITY,optional)
 	@$(call install_fixup, libnetpbm,VERSION,$(LIBNETPBM_VERSION))
 	@$(call install_fixup, libnetpbm,SECTION,base)
-	@$(call install_fixup, libnetpbm,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libnetpbm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libnetpbm,DEPENDS,)
 	@$(call install_fixup, libnetpbm,DESCRIPTION,missing)
 
-	@$(call install_copy, libnetpbm, 0, 0, 0644, \
-		$(LIBNETPBM_DIR)/lib/libnetpbm.so.10.31, \
+	@$(call install_copy, libnetpbm, 0, 0, 0644, -, \
 		/usr/lib/libnetpbm.so.10.31)
 
-	@$(call install_link, libnetpbm, libnetpbm.so.10.31, /usr/lib/libnetpbm.so.10)
-	@$(call install_link, libnetpbm, libnetpbm.so.10.31, /usr/lib/libnetpbm.so)
+	@$(call install_link, libnetpbm, libnetpbm.so.10.31, \
+		/usr/lib/libnetpbm.so.10)
+	@$(call install_link, libnetpbm, libnetpbm.so.10.31, \
+		/usr/lib/libnetpbm.so)
 
 ifdef PTXCONF_LIBNETPBM_PBM2LJ
-	@$(call install_copy, libnetpbm, 0, 0, 0755, \
-		$(LIBNETPBM_DIR)/converter/pbm/pbmtolj, /usr/bin/pbmtolj)
+	@$(call install_copy, libnetpbm, 0, 0, 0755, -, /usr/bin/pbmtolj)
 endif
 ifdef PTXCONF_LIBNETPBM_PPM2LJ
-	@$(call install_copy, libnetpbm, 0, 0, 0755, \
-		$(LIBNETPBM_DIR)/converter/ppm/ppmtolj, /usr/bin/ppmtolj)
+	@$(call install_copy, libnetpbm, 0, 0, 0755, -, /usr/bin/ppmtolj)
 endif
 ifdef PTXCONF_LIBNETPBM_PNM2XWD
-	@$(call install_copy, libnetpbm, 0, 0, 0755, \
-		$(LIBNETPBM_DIR)/converter/other/pnmtoxwd, /usr/bin/pnmtoxwd)
+	@$(call install_copy, libnetpbm, 0, 0, 0755, -, /usr/bin/pnmtoxwd)
 endif
 ifdef PTXCONF_LIBNETPBM_XWD2PNM
-	@$(call install_copy, libnetpbm, 0, 0, 0755, \
-		$(LIBNETPBM_DIR)/converter/other/xwdtopnm, /usr/bin/xwdtopnm)
+	@$(call install_copy, libnetpbm, 0, 0, 0755, -, /usr/bin/xwdtopnm)
 endif
 	@$(call install_finish, libnetpbm)
 
