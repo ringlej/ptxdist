@@ -1,7 +1,4 @@
 ## SECTION=system_libraries
-#
-# LibXSLT - Options updated as of 1.1.14
-#
 
 menuconfig LIBXSLT
 	tristate
@@ -42,19 +39,18 @@ comment "Install Components"
 config LIBXSLT_LIBXSLT
 	bool
 	prompt "libxslt"
-	default y if LIBXSLT
+	default y
 
 config LIBXSLT_LIBEXSLT
 	bool
 	prompt "libexslt"
-	default y if LIBXSLT
+	default y
 
 config LIBXSLT_XSLTPROC
 	bool
 	prompt "xsltproc"
 	select LIBXSLT_LIBEXSLT
 	select LIBXSLT_LIBXSLT
-	select LIBXML2
 	help
 	  xsltproc is an XML stylesheet processor. See
 	  http://xmlsoft.org/XSLT for details.
