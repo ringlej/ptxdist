@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Robert Schwebel
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -23,30 +23,13 @@ HOST_FONTCONFIG_DIR	= $(HOST_BUILDDIR)/$(FONTCONFIG)
 # Get
 # ----------------------------------------------------------------------------
 
-host-fontconfig_get: $(STATEDIR)/host-fontconfig.get
-
 $(STATEDIR)/host-fontconfig.get: $(STATEDIR)/fontconfig.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-host-fontconfig_extract: $(STATEDIR)/host-fontconfig.extract
-
-$(STATEDIR)/host-fontconfig.extract: $(host-fontconfig_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_FONTCONFIG_DIR))
-	@$(call extract, FONTCONFIG, $(HOST_BUILDDIR))
-	@$(call patchin, FONTCONFIG, $(HOST_FONTCONFIG_DIR))
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-fontconfig_prepare: $(STATEDIR)/host-fontconfig.prepare
 
 HOST_FONTCONFIG_PATH	:= PATH=$(HOST_PATH)
 HOST_FONTCONFIG_ENV 	:= \
@@ -63,35 +46,7 @@ HOST_FONTCONFIG_AUTOCONF := \
 	--with-default-fonts=$(XORG_FONTDIR) \
 	--with-arch=$(PTXCONF_ARCH_STRING)
 
-$(STATEDIR)/host-fontconfig.prepare: $(host-fontconfig_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_FONTCONFIG_DIR)/config.cache)
-	cd $(HOST_FONTCONFIG_DIR) && \
-		$(HOST_FONTCONFIG_PATH) $(HOST_FONTCONFIG_ENV) \
-		./configure $(HOST_FONTCONFIG_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-host-fontconfig_compile: $(STATEDIR)/host-fontconfig.compile
-
-$(STATEDIR)/host-fontconfig.compile: $(host-fontconfig_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(HOST_FONTCONFIG_DIR) && $(HOST_FONTCONFIG_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-host-fontconfig_install: $(STATEDIR)/host-fontconfig.install
-
-$(STATEDIR)/host-fontconfig.install: $(host-fontconfig_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, HOST_FONTCONFIG,,h)
-	@$(call touch, $@)
+HOST_FONTCONFIG_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Clean
