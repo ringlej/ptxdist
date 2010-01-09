@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -32,37 +32,16 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-font-misc-meltho_get: $(STATEDIR)/xorg-font-misc-meltho.get
-
-$(STATEDIR)/xorg-font-misc-meltho.get: $(xorg-font-misc-meltho_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_FONT_MISC_MELTHO_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_FONT_MISC_MELTHO)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-font-misc-meltho_extract: $(STATEDIR)/xorg-font-misc-meltho.extract
-
-$(STATEDIR)/xorg-font-misc-meltho.extract: $(xorg-font-misc-meltho_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_MISC_MELTHO_DIR))
-	@$(call extract, XORG_FONT_MISC_MELTHO)
-	@$(call patchin, XORG_FONT_MISC_MELTHO)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-font-misc-meltho_prepare: $(STATEDIR)/xorg-font-misc-meltho.prepare
-
-XORG_FONT_MISC_MELTHO_PATH	:=  PATH=$(CROSS_PATH)
-XORG_FONT_MISC_MELTHO_ENV 	:=  $(CROSS_ENV)
+XORG_FONT_MISC_MELTHO_PATH	:= PATH=$(CROSS_PATH)
+XORG_FONT_MISC_MELTHO_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -71,43 +50,20 @@ XORG_FONT_MISC_MELTHO_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-fontdir=$(XORG_FONTDIR)/opentype
 
-$(STATEDIR)/xorg-font-misc-meltho.prepare: $(xorg-font-misc-meltho_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_MISC_MELTHO_DIR)/config.cache)
-	cd $(XORG_FONT_MISC_MELTHO_DIR) && \
-		$(XORG_FONT_MISC_MELTHO_PATH) $(XORG_FONT_MISC_MELTHO_ENV) \
-		./configure $(XORG_FONT_MISC_MELTHO_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-font-misc-meltho_compile: $(STATEDIR)/xorg-font-misc-meltho.compile
-
-$(STATEDIR)/xorg-font-misc-meltho.compile: $(xorg-font-misc-meltho_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_FONT_MISC_MELTHO_DIR) && $(XORG_FONT_MISC_MELTHO_PATH) $(MAKE)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-font-misc-meltho_install: $(STATEDIR)/xorg-font-misc-meltho.install
-
-$(STATEDIR)/xorg-font-misc-meltho.install: $(xorg-font-misc-meltho_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/xorg-font-misc-meltho.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-font-misc-meltho_targetinstall: $(STATEDIR)/xorg-font-misc-meltho.targetinstall
-
-$(STATEDIR)/xorg-font-misc-meltho.targetinstall: $(xorg-font-misc-meltho_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-font-misc-meltho.targetinstall:
+	@$(call targetinfo)
 
 	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/opentype
 
@@ -118,7 +74,7 @@ $(STATEDIR)/xorg-font-misc-meltho.targetinstall: $(xorg-font-misc-meltho_targeti
 		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/opentype; \
 	done
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
