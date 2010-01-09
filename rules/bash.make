@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003-2009 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -23,7 +22,6 @@ BASH_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/bash/$(BASH).$(BASH_SUFFIX)
 BASH_SOURCE	:= $(SRCDIR)/$(BASH).$(BASH_SUFFIX)
 BASH_DIR	:= $(BUILDDIR)/$(BASH)
 BASH_MAKE_PAR	:= NO
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -185,7 +183,7 @@ $(STATEDIR)/bash.targetinstall:
 	@$(call install_fixup, bash,PRIORITY,optional)
 	@$(call install_fixup, bash,VERSION,$(BASH_VERSION))
 	@$(call install_fixup, bash,SECTION,base)
-	@$(call install_fixup, bash,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, bash,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, bash,DEPENDS,)
 	@$(call install_fixup, bash,DESCRIPTION,missing)
 
