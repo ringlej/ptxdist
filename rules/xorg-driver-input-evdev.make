@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -29,96 +29,44 @@ XORG_DRIVER_INPUT_EVDEV_DIR	:= $(BUILDDIR)/$(XORG_DRIVER_INPUT_EVDEV)
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-driver-input-evdev_get: $(STATEDIR)/xorg-driver-input-evdev.get
-
-$(STATEDIR)/xorg-driver-input-evdev.get: $(xorg-driver-input-evdev_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_DRIVER_INPUT_EVDEV_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_DRIVER_INPUT_EVDEV)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-driver-input-evdev_extract: $(STATEDIR)/xorg-driver-input-evdev.extract
-
-$(STATEDIR)/xorg-driver-input-evdev.extract: $(xorg-driver-input-evdev_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_DRIVER_INPUT_EVDEV_DIR))
-	@$(call extract, XORG_DRIVER_INPUT_EVDEV)
-	@$(call patchin, XORG_DRIVER_INPUT_EVDEV)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-driver-input-evdev_prepare: $(STATEDIR)/xorg-driver-input-evdev.prepare
-
-XORG_DRIVER_INPUT_EVDEV_PATH	:=  PATH=$(CROSS_PATH)
-XORG_DRIVER_INPUT_EVDEV_ENV 	:=  $(CROSS_ENV)
+XORG_DRIVER_INPUT_EVDEV_PATH	:= PATH=$(CROSS_PATH)
+XORG_DRIVER_INPUT_EVDEV_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 XORG_DRIVER_INPUT_EVDEV_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xorg-driver-input-evdev.prepare: $(xorg-driver-input-evdev_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_DRIVER_INPUT_EVDEV_DIR)/config.cache)
-	cd $(XORG_DRIVER_INPUT_EVDEV_DIR) && \
-		$(XORG_DRIVER_INPUT_EVDEV_PATH) $(XORG_DRIVER_INPUT_EVDEV_ENV) \
-		./configure $(XORG_DRIVER_INPUT_EVDEV_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-driver-input-evdev_compile: $(STATEDIR)/xorg-driver-input-evdev.compile
-
-$(STATEDIR)/xorg-driver-input-evdev.compile: $(xorg-driver-input-evdev_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_DRIVER_INPUT_EVDEV_DIR) && $(XORG_DRIVER_INPUT_EVDEV_PATH) make
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-driver-input-evdev_install: $(STATEDIR)/xorg-driver-input-evdev.install
-
-$(STATEDIR)/xorg-driver-input-evdev.install: $(xorg-driver-input-evdev_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_DRIVER_INPUT_EVDEV)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-driver-input-evdev_targetinstall: $(STATEDIR)/xorg-driver-input-evdev.targetinstall
-
-$(STATEDIR)/xorg-driver-input-evdev.targetinstall: $(xorg-driver-input-evdev_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-driver-input-evdev.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-input-evdev)
 	@$(call install_fixup, xorg-driver-input-evdev,PACKAGE,xorg-driver-input-evdev)
 	@$(call install_fixup, xorg-driver-input-evdev,PRIORITY,optional)
 	@$(call install_fixup, xorg-driver-input-evdev,VERSION,$(XORG_DRIVER_INPUT_EVDEV_VERSION))
 	@$(call install_fixup, xorg-driver-input-evdev,SECTION,base)
-	@$(call install_fixup, xorg-driver-input-evdev,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-driver-input-evdev,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-driver-input-evdev,DEPENDS,)
 	@$(call install_fixup, xorg-driver-input-evdev,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-driver-input-evdev, 0, 0, 0755, $(XORG_DRIVER_INPUT_EVDEV_DIR)/src/.libs/evdev_drv.so, /usr/lib/xorg/modules/evdev_drv.so)
+	@$(call install_copy, xorg-driver-input-evdev, 0, 0, 0755, -, \
+		/usr/lib/xorg/modules/input/evdev_drv.so)
 
 	@$(call install_finish, xorg-driver-input-evdev)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
