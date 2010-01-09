@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -32,37 +32,16 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-font-bh-ttf_get: $(STATEDIR)/xorg-font-bh-ttf.get
-
-$(STATEDIR)/xorg-font-bh-ttf.get: $(xorg-font-bh-ttf_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_FONT_BH_TTF_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_FONT_BH_TTF)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-font-bh-ttf_extract: $(STATEDIR)/xorg-font-bh-ttf.extract
-
-$(STATEDIR)/xorg-font-bh-ttf.extract: $(xorg-font-bh-ttf_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_BH_TTF_DIR))
-	@$(call extract, XORG_FONT_BH_TTF)
-	@$(call patchin, XORG_FONT_BH_TTF)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-font-bh-ttf_prepare: $(STATEDIR)/xorg-font-bh-ttf.prepare
-
-XORG_FONT_BH_TTF_PATH	:=  PATH=$(CROSS_PATH)
-XORG_FONT_BH_TTF_ENV 	:=  $(CROSS_ENV)
+XORG_FONT_BH_TTF_PATH	:= PATH=$(CROSS_PATH)
+XORG_FONT_BH_TTF_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -71,43 +50,20 @@ XORG_FONT_BH_TTF_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-fontdir=$(XORG_FONTDIR)/truetype
 
-$(STATEDIR)/xorg-font-bh-ttf.prepare: $(xorg-font-bh-ttf_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_FONT_BH_TTF_DIR)/config.cache)
-	cd $(XORG_FONT_BH_TTF_DIR) && \
-		$(XORG_FONT_BH_TTF_PATH) $(XORG_FONT_BH_TTF_ENV) \
-		./configure $(XORG_FONT_BH_TTF_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-font-bh-ttf_compile: $(STATEDIR)/xorg-font-bh-ttf.compile
-
-$(STATEDIR)/xorg-font-bh-ttf.compile: $(xorg-font-bh-ttf_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_FONT_BH_TTF_DIR) && $(XORG_FONT_BH_TTF_PATH) $(MAKE)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-xorg-font-bh-ttf_install: $(STATEDIR)/xorg-font-bh-ttf.install
-
-$(STATEDIR)/xorg-font-bh-ttf.install: $(xorg-font-bh-ttf_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+$(STATEDIR)/xorg-font-bh-ttf.install:
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-font-bh-ttf_targetinstall: $(STATEDIR)/xorg-font-bh-ttf.targetinstall
-
-$(STATEDIR)/xorg-font-bh-ttf.targetinstall: $(xorg-font-bh-ttf_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-font-bh-ttf.targetinstall:
+	@$(call targetinfo)
 
 	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
 
@@ -118,7 +74,7 @@ $(STATEDIR)/xorg-font-bh-ttf.targetinstall: $(xorg-font-bh-ttf_targetinstall_dep
 		install -m 644 $${file} $(XORG_FONTS_DIR_INSTALL)/truetype; \
 	done
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
