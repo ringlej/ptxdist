@@ -65,6 +65,12 @@ ptxd_make_world_install_target() {
     check_pipe_status &&
 
     cp -dprf -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}"
+
+    # copy *-config into sysroot_cross
+    local config
+    for config in $(find "${pkg_pkg_dir}" -name "${pkg_binconfig_glob}"); do
+	cp -PR -- "${config}" "${PTXDIST_SYSROOT_CROSS}/bin" || return
+    done
 }
 export -f ptxd_make_world_install_target
 
