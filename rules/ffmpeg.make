@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -29,37 +29,16 @@ FFMPEG_DIR	:= $(BUILDDIR)/$(FFMPEG)
 # Get
 # ----------------------------------------------------------------------------
 
-ffmpeg_get: $(STATEDIR)/ffmpeg.get
-
-$(STATEDIR)/ffmpeg.get: $(ffmpeg_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(FFMPEG_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, FFMPEG)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-ffmpeg_extract: $(STATEDIR)/ffmpeg.extract
-
-$(STATEDIR)/ffmpeg.extract: $(ffmpeg_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FFMPEG_DIR))
-	@$(call extract, FFMPEG)
-	@$(call patchin, FFMPEG)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-ffmpeg_prepare: $(STATEDIR)/ffmpeg.prepare
-
 FFMPEG_PATH	:=  PATH=$(CROSS_PATH):/sbin/
-FFMPEG_ENV 	:=  $(CROSS_ENV)
+FFMPEG_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -436,59 +415,23 @@ endif
 #--disable-muxers         disables all muxers
 #--disable-demuxers       disables all demuxers
 
-
-$(STATEDIR)/ffmpeg.prepare: $(ffmpeg_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(FFMPEG_DIR)/config.cache)
-	cd $(FFMPEG_DIR) && \
-		$(FFMPEG_PATH) $(FFMPEG_ENV) \
-		./configure $(FFMPEG_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-ffmpeg_compile: $(STATEDIR)/ffmpeg.compile
-
-$(STATEDIR)/ffmpeg.compile: $(ffmpeg_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(FFMPEG_DIR) && \
-		$(FFMPEG_PATH) $(FFMPEG_ENV) \
-		make $(FFMPEG_MAKEVARS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-ffmpeg_install: $(STATEDIR)/ffmpeg.install
-
-$(STATEDIR)/ffmpeg.install: $(ffmpeg_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, FFMPEG)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-ffmpeg_targetinstall: $(STATEDIR)/ffmpeg.targetinstall
-
-$(STATEDIR)/ffmpeg.targetinstall: $(ffmpeg_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/ffmpeg.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, ffmpeg)
 	@$(call install_fixup, ffmpeg,PACKAGE,ffmpeg)
 	@$(call install_fixup, ffmpeg,PRIORITY,optional)
 	@$(call install_fixup, ffmpeg,VERSION,$(FFMPEG_VERSION))
 	@$(call install_fixup, ffmpeg,SECTION,base)
-	@$(call install_fixup, ffmpeg,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, ffmpeg,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, ffmpeg,DEPENDS,)
 	@$(call install_fixup, ffmpeg,DESCRIPTION,missing)
 
-	@$(call install_copy, ffmpeg, 0, 0, 0644, \
-		$(FFMPEG_DIR)/libavcodec/libavcodec.so, \
+	@$(call install_copy, ffmpeg, 0, 0, 0644, -, \
 		/usr/lib/libavcodec.so, n)
 	@$(call install_link, ffmpeg, \
 		libavcodec.so, \
@@ -497,8 +440,7 @@ $(STATEDIR)/ffmpeg.targetinstall: $(ffmpeg_targetinstall_deps_default)
 		libavcodec.so, \
 		/usr/lib/libavcodec.so.51.7.0)
 
-	@$(call install_copy, ffmpeg, 0, 0, 0644, \
-		$(FFMPEG_DIR)/libavformat/libavformat.so, \
+	@$(call install_copy, ffmpeg, 0, 0, 0644, -, \
 		/usr/lib/libavformat.so, n)
 	@$(call install_link, ffmpeg, \
 		libavformat.so, \
@@ -507,8 +449,7 @@ $(STATEDIR)/ffmpeg.targetinstall: $(ffmpeg_targetinstall_deps_default)
 		libavformat.so, \
 		/usr/lib/libavformat.so.50.3.0)
 
-	@$(call install_copy, ffmpeg, 0, 0, 0644, \
-		$(FFMPEG_DIR)/libavutil/libavutil.so, \
+	@$(call install_copy, ffmpeg, 0, 0, 0644, -, \
 		/usr/lib/libavutil.so, n)
 	@$(call install_link, ffmpeg, \
 		libavutil.so, \
@@ -518,8 +459,7 @@ $(STATEDIR)/ffmpeg.targetinstall: $(ffmpeg_targetinstall_deps_default)
 		/usr/lib/libavutil.so.49.0.0)
 
 ifdef PTXCONF_FFMPEG_PP
-	@$(call install_copy, ffmpeg, 0, 0, 0644, \
-		$(FFMPEG_DIR)/libpostproc/libpostproc.so, \
+	@$(call install_copy, ffmpeg, 0, 0, 0644, -, \
 		/usr/lib/libpostproc.so, n)
 	@$(call install_link, ffmpeg, \
 		libpostproc.so, \
@@ -531,7 +471,7 @@ endif
 
 	@$(call install_finish, ffmpeg)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
