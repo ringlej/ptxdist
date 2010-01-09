@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Robert Schwebel <r.schwebel@pengutronix.de>
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -23,30 +23,13 @@ HOST_GTK_DIR	= $(HOST_BUILDDIR)/$(GTK)
 # Get
 # ----------------------------------------------------------------------------
 
-host-gtk_get: $(STATEDIR)/host-gtk.get
-
 $(STATEDIR)/host-gtk.get: $(STATEDIR)/gtk.get
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-host-gtk_extract: $(STATEDIR)/host-gtk.extract
-
-$(STATEDIR)/host-gtk.extract: $(host-gtk_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_GTK_DIR))
-	@$(call extract, GTK, $(HOST_BUILDDIR))
-	@$(call patchin, GTK, $(HOST_GTK_DIR))
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-host-gtk_prepare: $(STATEDIR)/host-gtk.prepare
 
 HOST_GTK_PATH	:= PATH=$(HOST_PATH)
 HOST_GTK_ENV 	:= \
@@ -144,36 +127,6 @@ ifdef PTXCONF_HOST_GTK_TARGET_WIN32
 HOST_GTK_AUTOCONF += --with-gdktarget=win32
 endif
 
-
-$(STATEDIR)/host-gtk.prepare: $(host-gtk_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(HOST_GTK_DIR)/config.cache)
-	cd $(HOST_GTK_DIR) && \
-		$(HOST_GTK_PATH) $(HOST_GTK_ENV) \
-		./configure $(HOST_GTK_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-host-gtk_compile: $(STATEDIR)/host-gtk.compile
-
-$(STATEDIR)/host-gtk.compile: $(host-gtk_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(HOST_GTK_DIR) && $(HOST_GTK_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-host-gtk_install: $(STATEDIR)/host-gtk.install
-
-$(STATEDIR)/host-gtk.install: $(host-gtk_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, HOST_GTK,,h)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Clean
