@@ -56,153 +56,153 @@ NET_SNMP_AUTOCONF := \
 	--disable-static
 
 ifdef PTXCONF_ENDIAN_LITTLE
-NET_SNMP_AUTOCONF	+= --with-endianness=little
+NET_SNMP_AUTOCONF += --with-endianness=little
 else
-NET_SNMP_AUTOCONF	+= --with-endianness=big
+NET_SNMP_AUTOCONF += --with-endianness=big
 endif
 
 ifdef PTXCONF_NET_SNMP_MINI_AGENT
-NET_SNMP_AUTOCONF	+= --enable-mini-agent
+NET_SNMP_AUTOCONF += --enable-mini-agent
 else
-NET_SNMP_AUTOCONF	+= --disable-mini-agent
+NET_SNMP_AUTOCONF += --disable-mini-agent
 endif
 
 ifdef PTXCONF_NET_SNMP_AGENT
-NET_SNMP_AUTOCONF	+= --enable-agent
+NET_SNMP_AUTOCONF += --enable-agent
 else
-NET_SNMP_AUTOCONF	+= --disable-agent
+NET_SNMP_AUTOCONF += --disable-agent
 endif
 
 ifdef PTXCONF_NET_SNMP_APPLICATIONS
-NET_SNMP_AUTOCONF	+= --enable-applications
+NET_SNMP_AUTOCONF += --enable-applications
 else
-NET_SNMP_AUTOCONF	+= --disable-applications
+NET_SNMP_AUTOCONF += --disable-applications
 endif
 
 ifdef PTXCONF_NET_SNMP_SCRIPTS
-NET_SNMP_AUTOCONF	+= --enable-scripts
+NET_SNMP_AUTOCONF += --enable-scripts
 else
-NET_SNMP_AUTOCONF	+= --disable-scripts
+NET_SNMP_AUTOCONF += --disable-scripts
 endif
 
 ifdef PTXCONF_NET_SNMP_MIBS
-NET_SNMP_AUTOCONF	+= --enable-mibs
+NET_SNMP_AUTOCONF += --enable-mibs
 else
-NET_SNMP_AUTOCONF	+= --disable-mibs
+NET_SNMP_AUTOCONF += --disable-mibs
 endif
 
 ifdef PTXCONF_NET_SNMP_MIB_LOADING
-NET_SNMP_AUTOCONF	+= --enable-mib-loading
+NET_SNMP_AUTOCONF += --enable-mib-loading
 else
-NET_SNMP_AUTOCONF	+= --disable-mib-loading
+NET_SNMP_AUTOCONF += --disable-mib-loading
 endif
 
 ifdef PTXCONF_NET_SNMP_SNMPV1
-NET_SNMP_AUTOCONF	+= --enable-snmpv1
+NET_SNMP_AUTOCONF += --enable-snmpv1
 else
-NET_SNMP_AUTOCONF	+= --disable-snmpv1
+NET_SNMP_AUTOCONF += --disable-snmpv1
 endif
 
 ifdef PTXCONF_NET_SNMP_SNMPV2C
-NET_SNMP_AUTOCONF	+= --enable-snmpv2c
+NET_SNMP_AUTOCONF += --enable-snmpv2c
 else
-NET_SNMP_AUTOCONF	+= --disable-snmpv2c
+NET_SNMP_AUTOCONF += --disable-snmpv2c
 endif
 
 ifdef PTXCONF_NET_SNMP_DES
-NET_SNMP_AUTOCONF	+= --enable-des
+NET_SNMP_AUTOCONF += --enable-des
 else
-NET_SNMP_AUTOCONF	+= --disable-des
+NET_SNMP_AUTOCONF += --disable-des
 endif
 
 ifdef PTXCONF_NET_SNMP_MD5
-NET_SNMP_AUTOCONF	+= --enable-md5
+NET_SNMP_AUTOCONF += --enable-md5
 else
-NET_SNMP_AUTOCONF	+= --disable-md5
+NET_SNMP_AUTOCONF += --disable-md5
 endif
 
 ifdef PTXCONF_NET_SNMP_SNMPTRAPD
-NET_SNMP_AUTOCONF	+= --enable-snmptrapd-subagent
+NET_SNMP_AUTOCONF += --enable-snmptrapd-subagent
 else
-NET_SNMP_AUTOCONF	+= --disable-snmptrapd-subagent
+NET_SNMP_AUTOCONF += --disable-snmptrapd-subagent
 endif
 
 ifdef PTXCONF_NET_SNMP_IPV6
-NET_SNMP_AUTOCONF	+= --enable-ipv6
+NET_SNMP_AUTOCONF += --enable-ipv6
 else
-NET_SNMP_AUTOCONF	+= --disable-ipv6
+NET_SNMP_AUTOCONF += --disable-ipv6
 endif
 
 ifdef PTXCONF_NET_SNMP_LOCAL_SMUX
-NET_SNMP_AUTOCONF	+= --enable-local-smux
+NET_SNMP_AUTOCONF += --enable-local-smux
 else
-NET_SNMP_AUTOCONF	+= --disable-local-smux
+NET_SNMP_AUTOCONF += --disable-local-smux
 endif
 
 ifdef PTXCONF_NET_SNMP_DEBUGGING
-NET_SNMP_AUTOCONF	+= --enable-debugging
+NET_SNMP_AUTOCONF += --enable-debugging
 else
-NET_SNMP_AUTOCONF	+= --disable-debugging
+NET_SNMP_AUTOCONF += --disable-debugging
 endif
 
 ifdef PTXCONF_NET_SNMP_DEVELOPER
-NET_SNMP_AUTOCONF	+= --enable-developer
+NET_SNMP_AUTOCONF += --enable-developer
 else
-NET_SNMP_AUTOCONF	+= --disable-developer
+NET_SNMP_AUTOCONF += --disable-developer
 endif
 
 ifdef PTXCONF_NET_SNMP_PRIVACY
-NET_SNMP_AUTOCONF	+= --enable-privacy
+NET_SNMP_AUTOCONF += --enable-privacy
 else
-NET_SNMP_AUTOCONF	+= --disable-privacy
+NET_SNMP_AUTOCONF += --disable-privacy
 endif
 
 ifdef PTXCONF_NET_SNMP_INTERNAL_MD5
-NET_SNMP_AUTOCONF	+= --enable-internal-md5
+NET_SNMP_AUTOCONF += --enable-internal-md5
 else
-NET_SNMP_AUTOCONF	+= --disable-internal-md5
+NET_SNMP_AUTOCONF += --disable-internal-md5
 endif
 
 ifdef PTXCONF_NET_SNMP_AGENTX_DOM_SOCK_ONLY
-NET_SNMP_AUTOCONF	+= --enable-agentx-dom-sock-only
+NET_SNMP_AUTOCONF += --enable-agentx-dom-sock-only
 else
-NET_SNMP_AUTOCONF	+= --disable-agentx-dom-sock-only
+NET_SNMP_AUTOCONF += --disable-agentx-dom-sock-only
 endif
 
 ifdef PTXCONF_NET_SNMP_MIB_CONFIG_CHECKING
-NET_SNMP_AUTOCONF	+= --enable-mib-config-checking
+NET_SNMP_AUTOCONF += --enable-mib-config-checking
 else
-NET_SNMP_AUTOCONF	+= --disable-mib-config-checking
+NET_SNMP_AUTOCONF += --disable-mib-config-checking
 endif
 
 ifdef PTXCONF_NET_SNMP_MFD_REWRITES
-NET_SNMP_AUTOCONF	+= --enable-mfd-rewrites
+NET_SNMP_AUTOCONF += --enable-mfd-rewrites
 else
-NET_SNMP_AUTOCONF	+= --disable-mfd-rewrites
+NET_SNMP_AUTOCONF += --disable-mfd-rewrites
 endif
 
 ifdef PTXCONF_NET_SNMP_TESTING_CODE
-NET_SNMP_AUTOCONF	+= --enable-testing-code
+NET_SNMP_AUTOCONF += --enable-testing-code
 else
-NET_SNMP_AUTOCONF	+= --disable-testing-code
+NET_SNMP_AUTOCONF += --disable-testing-code
 endif
 
 ifdef PTXCONF_NET_SNMP_REENTRANT
-NET_SNMP_AUTOCONF	+= --enable-reentrant
+NET_SNMP_AUTOCONF += --enable-reentrant
 else
-NET_SNMP_AUTOCONF	+= --disable-reentrant
+NET_SNMP_AUTOCONF += --disable-reentrant
 endif
 
 ifdef PTXCONF_NET_SNMP_EMBEDDED_PERL
-NET_SNMP_AUTOCONF	+= --enable-embedded-perl
+NET_SNMP_AUTOCONF += --enable-embedded-perl
 else
-NET_SNMP_AUTOCONF	+= --disable-embedded-perl
+NET_SNMP_AUTOCONF += --disable-embedded-perl
 endif
 
 ifdef PTXCONF_NET_SNMP_UCD_COMPAT
-NET_SNMP_AUTOCONF	+= --enable-ucd-snmp-compatibility
+NET_SNMP_AUTOCONF += --enable-ucd-snmp-compatibility
 else
-NET_SNMP_AUTOCONF	+= --disable-ucd-snmp-compatibility
+NET_SNMP_AUTOCONF += --disable-ucd-snmp-compatibility
 endif
 
 ##NET_SNMP_AUTOCONF	+= --with-mib-modules=mibII
@@ -264,7 +264,7 @@ $(STATEDIR)/net-snmp.targetinstall:
 	@$(call install_fixup, net-snmp,PRIORITY,optional)
 	@$(call install_fixup, net-snmp,VERSION,$(NET_SNMP_VERSION))
 	@$(call install_fixup, net-snmp,SECTION,base)
-	@$(call install_fixup, net-snmp,AUTHOR,"Randall Loomis <rloomis\@solectek.com>")
+	@$(call install_fixup, net-snmp,AUTHOR,"Randall Loomis <rloomis@solectek.com>")
 	@$(call install_fixup, net-snmp,DEPENDS,)
 	@$(call install_fixup, net-snmp,DESCRIPTION,missing)
 
@@ -344,7 +344,7 @@ endif
 # MIB files <TODO: install specified set of mib files>
 ifdef PTXCONF_NET_SNMP_MIBS
 
-	@for i in $(NET_SNMP_MIBS) ; do \
+	@for i in $(NET_SNMP_MIBS); do \
 		$(call install_copy, net-snmp, 0, 0, 0644, -, \
 		$(call remove_quotes,$(PTXCONF_NET_SNMP_MIB_INSTALL_DIR))/$$i, n) ; \
 	done
