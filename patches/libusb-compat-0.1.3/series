@@ -1,1 +1,2 @@
-libusb-compat-0.1.0-pkgconfig.diff
+0001-libusb-config-add-SYSROOT-support.patch
+0002-libusb-pc-add-dependency-to-libusb.patch

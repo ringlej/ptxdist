@@ -1,0 +1,29 @@
+From a64149eee40c5d764f0d373b5efb1a5eea7c6bde Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Sat, 9 Jan 2010 23:36:35 +0100
+Subject: [PATCH 2/2] libusb-pc: add dependency to libusb
+
+Add dependency to libusb-1.0; the 'emulated_by' mechanics does not seem to
+work.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ libusb.pc.in |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/libusb.pc.in b/libusb.pc.in
+index 02d67b8..87c4a47 100644
+--- a/libusb.pc.in
++++ b/libusb.pc.in
+@@ -7,6 +7,7 @@ emulated=1
+ emulated_by=libusb-1.0
+ 
+ Name: libusb
++Requires: libusb-1.0
+ Description: USB access library (libusb-1.0 compat wrapper)
+ Version: @LIBUSB01_VERSION@
+ Libs: -L${libdir} -lusb
+-- 
+1.6.6
+
