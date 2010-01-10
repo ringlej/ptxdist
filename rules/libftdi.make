@@ -2,6 +2,7 @@
 # $Id$
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBFTDI) += libftdi
 #
 # Paths and names
 #
-LIBFTDI_VERSION	:= 0.16
+LIBFTDI_VERSION	:= 0.17
 LIBFTDI		:= libftdi-$(LIBFTDI_VERSION)
 LIBFTDI_SUFFIX	:= tar.gz
 LIBFTDI_URL	:= http://www.intra2net.com/en/developer/libftdi/download/$(LIBFTDI).$(LIBFTDI_SUFFIX)
@@ -84,9 +85,9 @@ $(STATEDIR)/libftdi.targetinstall:
 	@$(call install_copy, libftdi, 0, 0, 0755, -, /usr/bin/bitbang_cbus)
 	@$(call install_copy, libftdi, 0, 0, 0755, -, /usr/bin/simple)
 
-	@$(call install_copy, libftdi, 0, 0, 0644, -, /usr/lib/libftdi.so.1.16.0)
-	@$(call install_link, libftdi, libftdi.so.1.16.0, /usr/lib/libftdi.so.1)
-	@$(call install_link, libftdi, libftdi.so.1.16.0, /usr/lib/libftdi.so)
+	@$(call install_copy, libftdi, 0, 0, 0644, -, /usr/lib/libftdi.so.1.17.0)
+	@$(call install_link, libftdi, libftdi.so.1.17.0, /usr/lib/libftdi.so.1)
+	@$(call install_link, libftdi, libftdi.so.1.17.0, /usr/lib/libftdi.so)
 
 	@$(call install_finish, libftdi)
 
