@@ -1,0 +1,28 @@
+From 320c3c9fb9d6c1fa143bf73fc891fc255d78500b Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 9 Jan 2010 19:20:30 +0100
+Subject: [PATCH] croco-config: add SYSROOT support
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ croco-config.in |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/croco-config.in b/croco-config.in
+index 78911ff..a52853a 100644
+--- a/croco-config.in
++++ b/croco-config.in
+@@ -3,8 +3,8 @@
+ prefix=@prefix@
+ exec_prefix=@exec_prefix@
+ exec_prefix_set=no
+-includedir=@includedir@
+-libdir=@libdir@
++includedir=${SYSROOT}@includedir@
++libdir=${SYSROOT}@libdir@
+ 
+ usage()
+ {
+-- 
+1.6.6
+
