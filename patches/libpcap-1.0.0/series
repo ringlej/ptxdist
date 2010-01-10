@@ -1,3 +1,4 @@
-Makefile_in-add-flags.diff
-static-fix.diff
-link-force-overwrite.diff
+0001-add-CFLAGS-CPPFLAGS-and-LDFLAGS-to-Makefile.in.patch
+0002-compile-static-lib-without-fPIC.patch
+0003-creakte-hardlinks-with-force-during-install.patch
+0004-pcap-config-add-SYSROOT-support.patch

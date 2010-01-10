@@ -1,5 +1,7 @@
+From 14c3a49996ec9ba0d92b86e441024a1960557b66 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: creakte hardlinks with force during install
+Date: Sun, 10 Jan 2010 00:47:38 +0100
+Subject: [PATCH 3/4] creakte hardlinks with force during install
 
 Without this patch a repeated "make install" fails,
 because the destination of the links already exists from the
@@ -11,12 +13,12 @@ in order to overwrite it.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  Makefile.in |   18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ 1 files changed, 9 insertions(+), 9 deletions(-)
 
-Index: libpcap-1.0.0/Makefile.in
-===================================================================
---- libpcap-1.0.0.orig/Makefile.in
-+++ libpcap-1.0.0/Makefile.in
+diff --git a/Makefile.in b/Makefile.in
+index d8d12b3..46ef86a 100644
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -454,23 +454,23 @@ install: libpcap.a pcap-config
  	for i in $(MAN3PCAP); do \
  		$(INSTALL_DATA) $(srcdir)/$$i \
@@ -50,3 +52,6 @@ Index: libpcap-1.0.0/Makefile.in
  		 $(DESTDIR)$(mandir)/man3/pcap_getnonblock.3pcap
  	for i in $(MANFILE); do \
  		$(INSTALL_DATA) $(srcdir)/`echo $$i | sed 's/.manfile.in/.manfile/'` \
+-- 
+1.6.6
+

@@ -1,0 +1,30 @@
+From e41188c0eb0cbd906c4c649ea2f13de2d57b79ee Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sun, 10 Jan 2010 00:49:07 +0100
+Subject: [PATCH 4/4] pcap-config: add SYSROOT support
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ pcap-config.in |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pcap-config.in b/pcap-config.in
+index 19f2114..2a127f4 100644
+--- a/pcap-config.in
++++ b/pcap-config.in
+@@ -7,10 +7,10 @@
+ case "$1" in
+ 
+ --cflags)
+-	echo "-I @includedir@"
++	echo "-I ${SYSROOT}@includedir@"
+ 	;;
+ 
+ --libs)
+-	echo "-L @libdir@ -lpcap @DEPLIBS@"
++	echo "-L ${SYSROOT}@libdir@ -lpcap @DEPLIBS@"
+ 	;;
+ esac
+-- 
+1.6.6
+
