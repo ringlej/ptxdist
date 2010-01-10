@@ -80,17 +80,17 @@ $(STATEDIR)/libiodbc.targetinstall:
 	@$(call install_fixup, libiodbc,DESCRIPTION,missing)
 
 	@$(call install_copy, libiodbc, 0, 0, 0644, -, \
-		/usr/lib/libiodbc.so.2.1.18)
-	@$(call install_link, libiodbc, libiodbc.so.2.1.18, \
+		/usr/lib/libiodbc.so.2.1.19)
+	@$(call install_link, libiodbc, libiodbc.so.2.1.19, \
 		/usr/lib/libiodbc.so.2)
-	@$(call install_link, libiodbc, libiodbc.so.2.1.18, \
+	@$(call install_link, libiodbc, libiodbc.so.2.1.19, \
 		/usr/lib/libiodbc.so)
 
 	@$(call install_copy, libiodbc, 0, 0, 0644, -, \
-		/usr/lib/libiodbcinst.so.2.1.18)
-	@$(call install_link, libiodbc, libiodbcinst.so.2.1.18, \
+		/usr/lib/libiodbcinst.so.2.1.19)
+	@$(call install_link, libiodbc, libiodbcinst.so.2.1.19, \
 		/usr/lib/libiodbcinst.so.2)
-	@$(call install_link, libiodbc, libiodbcinst.so.2.1.18, \
+	@$(call install_link, libiodbc, libiodbcinst.so.2.1.19, \
 		/usr/lib/libiodbcinst.so)
 
 	@$(call install_finish, libiodbc)
