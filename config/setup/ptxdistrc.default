@@ -28,7 +28,7 @@ PTXCONF_SETUP_KERNELDIR_PREFIX=""
 # Mirrors           
 #
 PTXCONF_SETUP_DEBMIRROR="http://ftp.uni-kl.de/debian"
-PTXCONF_SETUP_SFMIRROR="http://heanet.dl.sourceforge.net/sourceforge"
+PTXCONF_SETUP_SFMIRROR="http://downloads.sourceforge.net/sourceforge"
 PTXCONF_SETUP_GNUMIRROR="http://ftp.uni-kl.de/pub/gnu"
 PTXCONF_SETUP_XORGMIRROR="http://ftp.gwdg.de/pub/x11/x.org/pub"
 PTXCONF_SETUP_PTXMIRROR="http://www.pengutronix.de/software/ptxdist/temporary-src"
