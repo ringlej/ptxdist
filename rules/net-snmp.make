@@ -17,13 +17,12 @@ PACKAGES-$(PTXCONF_NET_SNMP) += net-snmp
 #
 # Paths and names
 #
-NET_SNMP_VERSION	:= 5.3.1
+NET_SNMP_VERSION	:= 5.3.3
 NET_SNMP		:= net-snmp-$(NET_SNMP_VERSION)
 NET_SNMP_SUFFIX		:= tar.gz
 NET_SNMP_URL		:= $(PTXCONF_SETUP_SFMIRROR)/net-snmp/$(NET_SNMP).$(NET_SNMP_SUFFIX)
 NET_SNMP_SOURCE		:= $(SRCDIR)/$(NET_SNMP).$(NET_SNMP_SUFFIX)
 NET_SNMP_DIR		:= $(BUILDDIR)/$(NET_SNMP)
-
 
 # ----------------------------------------------------------------------------
 # Get
