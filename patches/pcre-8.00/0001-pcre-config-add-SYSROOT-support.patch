@@ -1,32 +1,18 @@
-Subject: make pcre-config sysroot aware
+From 2a3cc3bb6f1bf8b60fd896de8a91d2c7f50b12d6 Mon Sep 17 00:00:00 2001
 From: Luotao Fu <l.fu@pengutronix.de>
-  pcre-config is not sysroot aware and returns host directories while
-  crosscompiling. This patch fixes this issue
-
-Not intended for upstream.
+Date: Sun, 10 Jan 2010 00:50:58 +0100
+Subject: [PATCH] pcre-config: add SYSROOT support
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- pcre-config.in |   12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ pcre-config.in |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
 
-Index: pcre-config.in
-===================================================================
---- pcre-config.in.orig
-+++ pcre-config.in
-@@ -15,10 +15,10 @@ fi
- libR=
- case `uname -s` in
-   *SunOS*)
--  libR=" -R@libdir@"
-+  libR=" -R${SYSROOT}@libdir@"
-   ;;
-   *BSD*)
--  libR=" -Wl,-R@libdir@"
-+  libR=" -Wl,-R${SYSROOT}@libdir@"
-   ;;
- esac
- 
+diff --git a/pcre-config.in b/pcre-config.in
+index a555744..847023f 100644
+--- a/pcre-config.in
++++ b/pcre-config.in
 @@ -49,16 +49,16 @@ while test $# -gt 0; do
        echo @PACKAGE_VERSION@
        ;;
@@ -48,3 +34,6 @@ Index: pcre-config.in
        ;;
      *)
        echo "${usage}" 1>&2
+-- 
+1.6.6
+
