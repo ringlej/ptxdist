@@ -1,4 +1,5 @@
 ## SECTION=networking
+
 config LIBCGICC
 	tristate
 	prompt "libcgicc"
@@ -6,4 +7,3 @@ config LIBCGICC
 	help
 	  cgicc is a C++ class library for writing CGI applications. See
 	  http://www.cgicc.org for more details.
-
