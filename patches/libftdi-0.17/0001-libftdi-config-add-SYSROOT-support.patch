@@ -1,0 +1,35 @@
+From 4ef06a91c6ff2e83010170caa3c52ee51a26c90a Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 9 Jan 2010 23:41:31 +0100
+Subject: [PATCH] libftdi-config: add SYSROOT support
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ libftdi-config.in |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/libftdi-config.in b/libftdi-config.in
+index a71de4e..95b6664 100644
+--- a/libftdi-config.in
++++ b/libftdi-config.in
+@@ -50,8 +50,8 @@ while test $# -gt 0; do
+       exit 0
+       ;;
+     --cflags)
+-      if test "@includedir@" != /usr/include ; then
+-        includes="-I@includedir@"
++      if test "${SYSROOT}@includedir@" != /usr/include ; then
++        includes="-I${SYSROOT}@includedir@"
+       fi
+       echo_cflags=yes
+       ;;
+@@ -75,5 +75,5 @@ if test "$echo_cflags" = "yes"; then
+ 	echo $includes
+ fi
+ if test "$echo_libs" = "yes"; then
+-	echo -L@libdir@ -lftdi @LIBS@
++	echo -L${SYSROOT}@libdir@ -lftdi @LIBS@
+ fi
+-- 
+1.6.6
+
