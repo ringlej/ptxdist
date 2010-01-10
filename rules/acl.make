@@ -40,7 +40,7 @@ ACL_PATH	:= PATH=$(CROSS_PATH)
 ACL_ENV 	:= $(CROSS_ENV)
 
 ACL_INSTALL_OPT := \
-	DIST_ROOT=$(ATTR_PKGDIR) \
+	DIST_ROOT=$(ACL_PKGDIR) \
 	install \
 	install-lib \
 	install-dev
