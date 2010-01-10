@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -53,7 +52,7 @@ LIBFTDI_AUTOCONF := \
 ifdef PTXCONF_LIBFTDI_CPP_WRAPPER
 LIBFTDI_AUTOCONF += \
 	--enable-libftdipp \
-	 --with-boost=$(SYSROOT)/usr
+	--with-boost=$(SYSROOT)/usr
 else
 LIBFTDI_AUTOCONF += \
 	--disable-libftdipp \
