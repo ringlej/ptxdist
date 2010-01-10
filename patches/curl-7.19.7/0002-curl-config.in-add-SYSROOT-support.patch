@@ -1,0 +1,38 @@
+From 9917e03c4d0441a9bc73a7a48664a63cb3beb71d Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 9 Jan 2010 19:25:26 +0100
+Subject: [PATCH 2/2] curl-config.in: add SYSROOT support
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ curl-config.in |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/curl-config.in b/curl-config.in
+index 1c439a1..ff52730 100644
+--- a/curl-config.in
++++ b/curl-config.in
+@@ -122,16 +122,16 @@ while test $# -gt 0; do
+ 	;;
+ 
+     --cflags)
+-       	if test "X@includedir@" = "X/usr/include"; then
++       	if test "X${SYSROOT}@includedir@" = "X/usr/include"; then
+           echo ""
+         else
+-          echo "-I@includedir@"
++          echo "-I${SYSROOT}@includedir@"
+         fi
+        	;;
+ 
+     --libs)
+-	if test "X@libdir@" != "X/usr/lib" -a "X@libdir@" != "X/usr/lib64"; then
+-	   CURLLIBDIR="-L@libdir@ "
++	if test "X${SYSROOT}@libdir@" != "X/usr/lib" -a "X${SYSROOT}@libdir@" != "X/usr/lib64"; then
++	   CURLLIBDIR="-L${SYSROOT}@libdir@ "
+ 	else
+ 	   CURLLIBDIR=""
+ 	fi
+-- 
+1.6.6
+
