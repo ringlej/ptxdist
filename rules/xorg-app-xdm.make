@@ -60,6 +60,7 @@ xorg-app-xdm_prepare: $(STATEDIR)/xorg-app-xdm.prepare
 
 XORG_APP_XDM_PATH	:=  PATH=$(CROSS_PATH)
 XORG_APP_XDM_ENV 	:=  $(CROSS_ENV)
+XORG_APP_XDM_BINCONFIG_GLOB := ""
 
 #
 # autoconf
