@@ -39,9 +39,7 @@ $(LIBFTDI_SOURCE):
 # ----------------------------------------------------------------------------
 
 LIBFTDI_PATH	:= PATH=$(CROSS_PATH)
-LIBFTDI_ENV := \
-	$(CROSS_ENV) \
-	ac_cv_path_HAVELIBUSB='$(COMPILER_PREFIX)pkg-config libusb'
+LIBFTDI_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
