@@ -38,6 +38,7 @@ $(NET_SNMP_SOURCE):
 
 NET_SNMP_PATH	:=  PATH=$(CROSS_PATH)
 NET_SNMP_ENV 	:=  $(CROSS_ENV)
+NET_SNMP_BINCONFIG_GLOB := net-snmp-config
 
 #
 # autoconf
