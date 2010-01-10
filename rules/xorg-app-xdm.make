@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -24,39 +23,17 @@ XORG_APP_XDM_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/app/$(XORG_APP_XDM).$
 XORG_APP_XDM_SOURCE	:= $(SRCDIR)/$(XORG_APP_XDM).$(XORG_APP_XDM_SUFFIX)
 XORG_APP_XDM_DIR	:= $(BUILDDIR)/$(XORG_APP_XDM)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-xorg-app-xdm_get: $(STATEDIR)/xorg-app-xdm.get
-
-$(STATEDIR)/xorg-app-xdm.get: $(xorg-app-xdm_get_deps_default)
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(XORG_APP_XDM_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, XORG_APP_XDM)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-xorg-app-xdm_extract: $(STATEDIR)/xorg-app-xdm.extract
-
-$(STATEDIR)/xorg-app-xdm.extract: $(xorg-app-xdm_extract_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_APP_XDM_DIR))
-	@$(call extract, XORG_APP_XDM)
-	@$(call patchin, XORG_APP_XDM)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-xorg-app-xdm_prepare: $(STATEDIR)/xorg-app-xdm.prepare
 
 XORG_APP_XDM_PATH	:=  PATH=$(CROSS_PATH)
 XORG_APP_XDM_ENV 	:=  $(CROSS_ENV)
@@ -85,58 +62,25 @@ XORG_APP_XDM_AUTOCONF += --disable-xprint	# FIXME XPrint support
 XORG_APP_XDM_AUTOCONF += --enable-dynamic-greeter # Build greeter as dynamically loaded shared object
 XORG_APP_XDM_AUTOCONF += --without-pam		# FXIME
 
-
-$(STATEDIR)/xorg-app-xdm.prepare: $(xorg-app-xdm_prepare_deps_default)
-	@$(call targetinfo, $@)
-	@$(call clean, $(XORG_APP_XDM_DIR)/config.cache)
-	cd $(XORG_APP_XDM_DIR) && \
-		$(XORG_APP_XDM_PATH) $(XORG_APP_XDM_ENV) \
-		./configure $(XORG_APP_XDM_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-xorg-app-xdm_compile: $(STATEDIR)/xorg-app-xdm.compile
-
-$(STATEDIR)/xorg-app-xdm.compile: $(xorg-app-xdm_compile_deps_default)
-	@$(call targetinfo, $@)
-	cd $(XORG_APP_XDM_DIR) && $(XORG_APP_XDM_PATH) $(MAKE)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xorg-app-xdm_install: $(STATEDIR)/xorg-app-xdm.install
-
-$(STATEDIR)/xorg-app-xdm.install: $(xorg-app-xdm_install_deps_default)
-	@$(call targetinfo, $@)
-	@$(call install, XORG_APP_XDM)
-	@$(call touch, $@)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-app-xdm_targetinstall: $(STATEDIR)/xorg-app-xdm.targetinstall
-
-$(STATEDIR)/xorg-app-xdm.targetinstall: $(xorg-app-xdm_targetinstall_deps_default)
-	@$(call targetinfo, $@)
+$(STATEDIR)/xorg-app-xdm.targetinstall:
+	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xdm)
 	@$(call install_fixup, xorg-app-xdm,PACKAGE,xorg-app-xdm)
 	@$(call install_fixup, xorg-app-xdm,PRIORITY,optional)
 	@$(call install_fixup, xorg-app-xdm,VERSION,$(XORG_APP_XDM_VERSION))
 	@$(call install_fixup, xorg-app-xdm,SECTION,base)
-	@$(call install_fixup, xorg-app-xdm,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-app-xdm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-app-xdm,DEPENDS,)
 	@$(call install_fixup, xorg-app-xdm,DESCRIPTION,missing)
 
 	@$(call install_finish, xorg-app-xdm)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
