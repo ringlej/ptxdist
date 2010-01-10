@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -20,10 +19,9 @@ PACKAGES-$(PTXCONF_XORG_LIB_XFT) += xorg-lib-xft
 XORG_LIB_XFT_VERSION	:= 2.1.14
 XORG_LIB_XFT		:= libXft-$(XORG_LIB_XFT_VERSION)
 XORG_LIB_XFT_SUFFIX	:= tar.bz2
-XORG_LIB_XFT_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib//$(XORG_LIB_XFT).$(XORG_LIB_XFT_SUFFIX)
+XORG_LIB_XFT_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_XFT).$(XORG_LIB_XFT_SUFFIX)
 XORG_LIB_XFT_SOURCE	:= $(SRCDIR)/$(XORG_LIB_XFT).$(XORG_LIB_XFT_SUFFIX)
 XORG_LIB_XFT_DIR	:= $(BUILDDIR)/$(XORG_LIB_XFT)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -65,12 +63,10 @@ $(STATEDIR)/xorg-lib-xft.targetinstall:
 		$(XORG_LIBDIR)/libXft.so.2.1.13)
 
 	@$(call install_link, xorg-lib-xft, \
-		libXft.so.2.1.13, \
-		$(XORG_LIBDIR)/libXft.so.2)
+		libXft.so.2.1.13, $(XORG_LIBDIR)/libXft.so.2)
 
 	@$(call install_link, xorg-lib-xft, \
-		libXft.so.2.1.13, \
-		$(XORG_LIBDIR)/libXft.so)
+		libXft.so.2.1.13, $(XORG_LIBDIR)/libXft.so)
 
 	@$(call install_finish, xorg-lib-xft)
 
