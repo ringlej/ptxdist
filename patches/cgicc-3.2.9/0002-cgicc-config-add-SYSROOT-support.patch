@@ -1,0 +1,30 @@
+From 01dc96f2fa73ad30711a82dda59cb1b552ce9782 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 9 Jan 2010 19:05:18 +0100
+Subject: [PATCH 2/2] cgicc-config: add SYSROOT support
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ support/cgicc-config.in |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/support/cgicc-config.in b/support/cgicc-config.in
+index 9ab88be..0708ec8 100644
+--- a/support/cgicc-config.in
++++ b/support/cgicc-config.in
+@@ -66,10 +66,10 @@ while test $# -gt 0; do
+ 	--exec-prefix) echo "$exec_prefix" && exit 0 ;;
+ 
+ 	## Object code dir
+-	--libdir)      echo "$libdir" && exit 0 ;;
++	--libdir)      echo "${SYSROOT}$libdir" && exit 0 ;;
+ 
+ 	## Header file dir
+-	--includedir)  echo "$includedir" && exit 0 ;;
++	--includedir)  echo "${SYSROOT}$includedir" && exit 0 ;;
+ 
+ 	## C++ compiler flags
+ 	--cxxflags)  echo "$cxxflags" && exit 0 ;;
+-- 
+1.6.6
+
