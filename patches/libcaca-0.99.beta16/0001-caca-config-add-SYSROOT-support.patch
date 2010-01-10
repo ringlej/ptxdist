@@ -1,0 +1,39 @@
+From ab8c8298aa0c2403d12fa47054db826bb6242a21 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 9 Jan 2010 17:42:58 +0100
+Subject: [PATCH] caca-config: add SYSROOT support
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ caca-config.in |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/caca-config.in b/caca-config.in
+index c768b99..56274e9 100644
+--- a/caca-config.in
++++ b/caca-config.in
+@@ -102,18 +102,18 @@ fi
+ 
+ if test "$echo_cflags" = "yes"
+ then
+-  cflags="-I$include_dir/"
++  cflags="-I${SYSROOT}$include_dir/"
+   echo $cflags
+ fi
+ 
+ if test "$echo_ldflags" = "yes"
+ then
+-  ldflags="-L$lib_dir"
++  ldflags="-L${SYSROOT}$lib_dir"
+   echo $ldflags
+ fi
+ 
+ if test "$echo_libs" = "yes"
+ then
+-  echo -L@libdir@ $libs
++  echo -L${SYSROOT}@libdir@ $libs
+ fi
+ 
+-- 
+1.6.6
+
