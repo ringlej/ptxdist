@@ -33,17 +33,6 @@ $(HOST_CRAMFS_SOURCE):
 	@$(call get, HOST_CRAMFS)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-cramfs.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_CRAMFS_DIR))
-	@$(call extract, HOST_CRAMFS, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_CRAMFS, $(HOST_CRAMFS_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
