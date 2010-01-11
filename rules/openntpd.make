@@ -54,16 +54,6 @@ OPENNTPD_AUTOCONF += --without-builtin-arc4random
 endif
 
 # ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/openntpd.install:
-	@$(call targetinfo)
-	# FIXME: does not work because of install -s
-	# @$(call install, OPENNTPD)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -79,7 +69,7 @@ $(STATEDIR)/openntpd.targetinstall:
 	@$(call install_fixup, openntpd,DEPENDS,)
 	@$(call install_fixup, openntpd,DESCRIPTION,missing)
 
-	@$(call install_copy, openntpd, 0, 0, 0755, $(OPENNTPD_DIR)/ntpd, /usr/sbin/ntpd)
+	@$(call install_copy, openntpd, 0, 0, 0755, -, /usr/sbin/ntpd)
 
 	#
 	# config
