@@ -3,12 +3,17 @@ From: j.beisert@pengutronix.de
 
 The original makefile assumes fixed pathes to libraries and
 include files. This patch replace them with calls to pkg_config.
-It keeps the debug info in the executable until installing
-and uses make's built in rules.
+Don't strip the binary. targetinstall will do this.
+Install to $(DESTDIR).
 
-Signed-off-by:
-	j.beisert@pengutronix.de
+Signed-off-by: j.beisert@pengutronix.de
 
+---
+ Makefile |   19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+
+Index: b/Makefile
+===================================================================
 --- a/Makefile
 +++ b/Makefile
 @@ -1,13 +1,14 @@
@@ -17,20 +22,20 @@ Signed-off-by:
 -LDFLAGS= -L/usr/X11R6/lib -lX11 -lXpm -lXft
 +.PHONY: install clean
 +
-+CFLAGS=-O2 -g `pkg-config --cflags xft` `pkg-config --cflags xpm` -DCLOCK
-+LDFLAGS=`pkg-config --libs xft` `pkg-config --libs xpm`
++CFLAGS +=-O2 -g `pkg-config --cflags xft` `pkg-config --cflags xpm` -DCLOCK
++LDFLAGS +=`pkg-config --libs xft` `pkg-config --libs xpm`
  PROGNAME=hpanel
-
+ 
 -$(PROGNAME): Makefile hpanel.c hpanel.h icon.xpm
 -	$(CC) $(CFLAGS) $(LDFLAGS) hpanel.c -o $(PROGNAME)
 -	@ls -l $(PROGNAME)
 -	strip $(PROGNAME)
 -	@ls -l $(PROGNAME)
 +$(PROGNAME): hpanel.c
-
+ 
  install:
 -	install $(PROGNAME) /usr/local/bin
-+	install --strip $(PROGNAME) /usr/local/bin
++	install -C $(PROGNAME) $(DESTDIR)/usr/bin
 +
 +clean:
 +	@rm -f $(PROGNAME)

@@ -33,33 +33,14 @@ $(HPANEL_SOURCE):
 	@$(call get, HPANEL)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/hpanel.extract:
-	@$(call targetinfo)
-	@$(call extract, HPANEL)
-	@$(call patchin, HPANEL)
-	rm -f $(HPANEL_DIR)/hpanel
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 HPANEL_PATH	:= PATH=$(CROSS_PATH)
 HPANEL_MAKE_ENV	:= $(CROSS_ENV)
-HPANEL_MAKEVARS	:= \
-	CC="$(CROSS_CC)" \
-	LDFLAGS='`$(CROSS_ENV) eval $$PKG_CONFIG --libs xft` `$(CROSS_ENV) eval $$PKG_CONFIG --libs xpm` $(CROSS_LDFLAGS)'
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/hpanel.install:
-	@$(call targetinfo)
-	@$(call touch)
+# the archive contains the target binary. Remove it with the 'clean' target.
+HPANEL_MAKE_OPT	:= clean hpanel
+HPANEL_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -77,7 +58,7 @@ $(STATEDIR)/hpanel.targetinstall:
 	@$(call install_fixup,hpanel,DEPENDS,)
 	@$(call install_fixup,hpanel,DESCRIPTION,missing)
 
-	@$(call install_copy, hpanel, 0, 0, 0755, $(HPANEL_DIR)/hpanel, /usr/bin/hpanel,y)
+	@$(call install_copy, hpanel, 0, 0, 0755, -, /usr/bin/hpanel)
 
 	@$(call install_finish,hpanel)
 
