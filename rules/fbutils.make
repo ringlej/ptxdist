@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_FBUTILS) += fbutils
 #
 # Paths and names
 #
-FBUTILS_VERSION	= 20041102-1
-FBUTILS		= fbutils-$(FBUTILS_VERSION)
-FBUTILS_SUFFIX	= tar.gz
-FBUTILS_URL	= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBUTILS).$(FBUTILS_SUFFIX)
-FBUTILS_SOURCE	= $(SRCDIR)/$(FBUTILS).$(FBUTILS_SUFFIX)
-FBUTILS_DIR	= $(BUILDDIR)/$(FBUTILS)
+FBUTILS_VERSION	:= 20041102-1
+FBUTILS		:= fbutils-$(FBUTILS_VERSION)
+FBUTILS_SUFFIX	:= tar.gz
+FBUTILS_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBUTILS).$(FBUTILS_SUFFIX)
+FBUTILS_SOURCE	:= $(SRCDIR)/$(FBUTILS).$(FBUTILS_SUFFIX)
+FBUTILS_DIR	:= $(BUILDDIR)/$(FBUTILS)
 
 
 # ----------------------------------------------------------------------------
@@ -34,15 +34,11 @@ $(FBUTILS_SOURCE):
 	@$(call get, FBUTILS)
 
 # ----------------------------------------------------------------------------
-# Prepare
+# Compile
 # ----------------------------------------------------------------------------
 
-FBUTILS_PATH		=  PATH=$(CROSS_PATH)
-FBUTILS_MAKE_ENV 	=  $(CROSS_ENV)
-
-$(STATEDIR)/fbutils.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+FBUTILS_PATH		:= PATH=$(CROSS_PATH)
+FBUTILS_MAKE_ENV	:= $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -56,7 +52,7 @@ $(STATEDIR)/fbutils.targetinstall:
 	@$(call install_fixup, fbutils,PRIORITY,optional)
 	@$(call install_fixup, fbutils,VERSION,$(FBUTILS_VERSION))
 	@$(call install_fixup, fbutils,SECTION,base)
-	@$(call install_fixup, fbutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, fbutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, fbutils,DEPENDS,)
 	@$(call install_fixup, fbutils,DESCRIPTION,missing)
 
