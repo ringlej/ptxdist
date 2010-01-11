@@ -36,7 +36,9 @@ $(FRODO_SOURCE):
 # ----------------------------------------------------------------------------
 
 FRODO_PATH	:= PATH=$(CROSS_PATH)
-FRODO_ENV 	:= $(CROSS_ENV)
+FRODO_CONF_ENV	:= $(CROSS_ENV)
+FRODO_MAKE_ENV	:= $(CROSS_ENV)
+FRODO_SUBDIR	:= Src
 
 #
 # autoconf
@@ -44,23 +46,6 @@ FRODO_ENV 	:= $(CROSS_ENV)
 FRODO_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--without-x
-
-$(STATEDIR)/frodo.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(FRODO_DIR)/config.cache)
-	cd $(FRODO_DIR)/Src && \
-		$(FRODO_PATH) $(FRODO_ENV) \
-		./configure $(FRODO_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/frodo.compile:
-	@$(call targetinfo)
-	cd $(FRODO_DIR)/Src && $(FRODO_ENV) $(FRODO_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
@@ -82,7 +67,7 @@ $(STATEDIR)/frodo.targetinstall:
 	@$(call install_fixup, frodo,PRIORITY,optional)
 	@$(call install_fixup, frodo,VERSION,$(FRODO_VERSION))
 	@$(call install_fixup, frodo,SECTION,base)
-	@$(call install_fixup, frodo,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, frodo,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, frodo,DEPENDS,)
 	@$(call install_fixup, frodo,DESCRIPTION,missing)
 
