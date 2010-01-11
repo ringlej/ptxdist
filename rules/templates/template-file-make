@@ -52,22 +52,43 @@ $(STATEDIR)/@packet@.compile:
 $(STATEDIR)/@packet@.install:
 	@$(call targetinfo)
 
-# FIXME: rsc: this needs a proper SYSROOT description!
 #
-# TODO:	For files that are required at compiletime (headers, libs to link against)
-#	you can copy these files to the sysroot directory.
-#	Use macro $(PTXCONF_SYSROOT_TARGET) for host files and $(PTXCONF_GNU_TARGET)
-#	for target files
+# TODO:
+# If some of the files are required in root filesystem's build process, install
+# these files in the install stage. But use proper variables PTXdist supports
+# to install files, instead of fixed paths. The following variables can be
+# used:
 #
-#	Example for a host header file:
-#		@cp friesel.h $(PTXCONF_SYSROOT_TARGET)/include
-#	Example for a host library file:
-#		@cp friesel.so $(PTXCONF_SYSROOT_TARGET)/lib
-#	Example for a target file:
-#		@cp frasel.h  $(PTXCONF_GNU_TARGET)/include
-#	Example for a target library file:
-#		@cp frasel.so $(PTXCONF_GNU_TARGET)/lib
+# - $(PTXDIST_SYSROOT_TARGET) points to a directory tree
+#   all target relevant libraries and header files are installed to. All
+#   packages built for the target are searching in this directory tree for
+#   header and library files. These files are for compile time only, not for
+#   runtime!
+#   Paths:
+#    - executables: $(PTXDIST_SYSROOT_TARGET)/bin
+#    - header files: $(PTXDIST_SYSROOT_TARGET)/include
+#    - libraries: $(PTXDIST_SYSROOT_TARGET)/lib
 #
+# - $(PTXDIST_SYSROOT_HOST) points to a directory tree all host relevant
+#   executables, libraries and header files are installed to. All packages
+#   built for the host are searching in this directory tree for executables,
+#   header and library files.
+#   Paths:
+#    - executables: $(PTXDIST_SYSROOT_HOST)/bin
+#    - header files: $(PTXDIST_SYSROOT_HOST)/include
+#    - libraries: $(PTXDIST_SYSROOT_HOST)/lib
+#
+# - $(PTXDIST_SYSROOT_CROSS) points to a directory tree all cross relevant
+#   executables, libraries and header files are installed to. All packages
+#   built for the host to create data for the target are searching in this
+#   directory tree for executables, header and library files.
+#   Paths:
+#    - executables: $(PTXDIST_SYSROOT_CROSS)/bin
+#    - header files: $(PTXDIST_SYSROOT_CROSS)/include
+#    - libraries: $(PTXDIST_SYSROOT_CROSS)/lib
+#
+#
+# If no compile time files are reqired, skip this stage
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -81,7 +102,7 @@ $(STATEDIR)/@packet@.targetinstall:
 #	@$(call install_init, @packet@)
 #	@$(call install_fixup,@packet@,PACKAGE,@packet@)
 #	@$(call install_fixup,@packet@,PRIORITY,optional)
-#	@$(call install_fixup,@packet@,VERSION,0)
+#	@$(call install_fixup,@packet@,VERSION,@VERSION@)
 #	@$(call install_fixup,@packet@,SECTION,base)
 #	@$(call install_fixup,@packet@,AUTHOR,"@AUTHOR@")
 #	@$(call install_fixup,@packet@,DEPENDS,)
