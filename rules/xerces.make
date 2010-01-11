@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6487 2006-12-07 20:55:55Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -37,39 +37,18 @@ $(XERCES_SOURCE):
 # ----------------------------------------------------------------------------
 
 XERCES_PATH	:= PATH=$(CROSS_PATH)
-XERCES_ENV 	:= $(CROSS_ENV)
+XERCES_CONF_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-XERCES_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XERCES_AUTOCONF	:= $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/xerces.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(XERCES_DIR)/config.cache)
-	cd $(XERCES_DIR)/src/xercesc && \
-		$(XERCES_PATH) $(XERCES_ENV) \
-		./configure $(XERCES_AUTOCONF)
-	@$(call touch)
+XERCES_SUBDIR	:= src/xercesc
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xerces.compile:
-	@$(call targetinfo)
-	export XERCESCROOT=$(XERCES_DIR); \
-		cd $(XERCES_DIR)/src/xercesc && $(XERCES_PATH) SYSROOT=$(SYSROOT) \
-		$(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xerces.install:
-	@$(call targetinfo)
-	@$(call touch)
+XERCES_MAKE_ENV	:= XERCESCROOT=$(XERCES_DIR)
+XERCES_MAKE_OPT	:= SYSROOT=$(SYSROOT)
+XERCES_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -83,16 +62,17 @@ $(STATEDIR)/xerces.targetinstall:
 	@$(call install_fixup, xerces,PRIORITY,optional)
 	@$(call install_fixup, xerces,VERSION,$(XERCES_VERSION))
 	@$(call install_fixup, xerces,SECTION,base)
-	@$(call install_fixup, xerces,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xerces,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, xerces,DEPENDS,)
 	@$(call install_fixup, xerces,DESCRIPTION,missing)
 
-	@$(call install_copy, xerces, 0, 0, 0644, \
-		$(XERCES_DIR)/lib/libxerces-c.so.27.0, \
+	@$(call install_copy, xerces, 0, 0, 0644, -, \
 		/usr/lib/libxerces-c.so.27.0)
 
-	@$(call install_link, xerces, libxerces-c.so.27.0, /usr/lib/libxerces-c.so.27)
-	@$(call install_link, xerces, libxerces-c.so.27, /usr/lib/libxerces-c.so)
+	@$(call install_link, xerces, libxerces-c.so.27.0, \
+		/usr/lib/libxerces-c.so.27)
+	@$(call install_link, xerces, libxerces-c.so.27, \
+		/usr/lib/libxerces-c.so)
 
 	@$(call install_finish, xerces)
 
