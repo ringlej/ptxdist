@@ -39,13 +39,13 @@ $(PPP_SOURCE):
 # ----------------------------------------------------------------------------
 
 PPP_PATH	:= PATH=$(CROSS_PATH)
-PPP_ENV		:= \
+PPP_CONF_ENV	:= \
 	TARGET_OS=Linux \
 	TARGET_OS_VER=$(PTXCONF_KERNEL_VERSION) \
 	TARGET_OS_ARCH=$(PTXCONF_KERNEL_ARCH_STRING) \
 
-PPP_COMPILE_ENV	:= $(CROSS_ENV)
-PPP_MAKE_PAR := NO
+PPP_MAKE_ENV	:= $(CROSS_ENV)
+PPP_MAKE_PAR	:= NO
 
 #
 # path to where the shared library based plugins get installed
@@ -55,7 +55,7 @@ PPP_SHARED_INST_PATH := /usr/lib/pppd/$(PPP_VERSION)
 
 $(STATEDIR)/ppp.prepare:
 	@$(call targetinfo)
-	@cd $(PPP_DIR) && $(PPP_PATH) $(PPP_ENV) \
+	@cd $(PPP_DIR) && $(PPP_PATH) $(PPP_CONF_ENV) \
 		./configure --prefix=/usr --sysconfdir=/etc
 
 ifdef PTXCONF_PPP_IPV6
@@ -134,13 +134,11 @@ else
 endif
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
 
-$(STATEDIR)/ppp.install:
-	@$(call targetinfo)
-	@$(call touch)
+PPP_INSTALL_OPT := \
+	INSTROOT=$(PPP_PKGDIR) \
+	DESTDIR=$(PPP_PKGDIR)/usr \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -159,16 +157,13 @@ $(STATEDIR)/ppp.targetinstall:
 	@$(call install_fixup, ppp,DESCRIPTION,missing)
 
 ifdef PTXCONFIG_PPP_SUID
-	@$(call install_copy, ppp, 0, 0, 4755, \
-		$(PPP_DIR)/pppd/pppd, /usr/sbin/pppd)
+	@$(call install_copy, ppp, 0, 0, 4755, -, /usr/sbin/pppd)
 else
-	@$(call install_copy, ppp, 0, 0, 0755, \
-		$(PPP_DIR)/pppd/pppd, /usr/sbin/pppd)
+	@$(call install_copy, ppp, 0, 0, 0755, -, /usr/sbin/pppd)
 endif
 
 ifdef PTXCONF_PPP_INST_CHAT
-	@$(call install_copy, ppp, 0, 0, 0755, \
-		$(PPP_DIR)/chat/chat, /usr/sbin/chat)
+	@$(call install_copy, ppp, 0, 0, 0755, -, /usr/sbin/chat)
 endif
 
 ifdef PTXCONF_PPP_INST_DEFAULT_CONFIG_FILES
@@ -193,13 +188,11 @@ endif
 endif
 
 ifdef PTXCONF_PPP_INST_PPPDUMP
-	@$(call install_copy, ppp, 0, 0, 0755, \
-		$(PPP_DIR)/pppdump/pppdump, /usr/sbin/pppdump)
+	@$(call install_copy, ppp, 0, 0, 0755, -, /usr/sbin/pppdump)
 endif
 
 ifdef PTXCONF_PPP_INST_PPPSTATS
-	@$(call install_copy, ppp, 0, 0, 0755, \
-		$(PPP_DIR)/pppstats/pppstats, /usr/sbin/pppstats)
+	@$(call install_copy, ppp, 0, 0, 0755, -, /usr/sbin/pppstats)
 endif
 
 ifdef PTXCONF_PPP_INST_PONOFF
@@ -212,53 +205,43 @@ ifdef PTXCONF_PPP_PLUGINS
 endif
 
 ifdef PTXCONF_PPP_OATM
-	@$(call install_copy, ppp, 0, 0, 0644, \
-		$(PPP_DIR)/pppd/plugins/pppoatm/pppoatm.so, \
+	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/pppoatm.so)
 endif
 ifdef PTXCONF_PPP_RADIUS
-	@$(call install_copy, ppp, 0, 0, 0644, \
-		$(PPP_DIR)/pppd/plugins/radius/radius.so, \
+	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/radius.so)
 endif
 ifdef PTXCONF_PPP_RADATTR
-	@$(call install_copy, ppp, 0, 0, 0644, \
-		$(PPP_DIR)/pppd/plugins/radius/radattr.so, \
+	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/radattr.so)
 endif
 ifdef PTXCONF_PPP_RADREALMS
-	@$(call install_copy, ppp, 0, 0, 0644, \
-		$(PPP_DIR)/pppd/plugins/radius/radrealms.so, \
+	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/radrealms.so)
 endif
 ifdef PTXCONF_PPP_OE
-	@$(call install_copy, ppp, 0, 0, 0644, \
-		$(PPP_DIR)/pppd/plugins/rp-pppoe/rp-pppoe.so, \
+	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/rp-pppoe.so)
 endif
 ifdef PTXCONF_PPP_PLUGIN_RP_PPPOE_DISCOVERY
-	@$(call install_copy, ppp, 0, 0, 0755, \
-	$(PPP_DIR)/pppd/plugins/rp-pppoe/pppoe-discovery, \
+	@$(call install_copy, ppp, 0, 0, 0755, -, \
 		$(PPP_SHARED_INST_PATH)/pppoe-discovery)
 endif
 ifdef PTXCONF_PPP_MINCONN
-	@$(call install_copy, ppp, 0, 0, 0644, \
-		$(PPP_DIR)/pppd/plugins/minconn.so, \
+	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/minconn.so)
 endif
 ifdef PTXCONF_PPP_PASSPROMPT
-	@$(call install_copy, ppp, 0, 0, 0644, \
-		$(PPP_DIR)/pppd/plugins/passprompt.so, \
+	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/passprompt.so)
 endif
 ifdef PTXCONF_PPP_PASSWORDFD
-	@$(call install_copy, ppp, 0, 0, 0644, \
-		$(PPP_DIR)/pppd/plugins/passwordfd.so, \
+	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/passwordfd.so)
 endif
 ifdef PTXCONF_PPP_WINBIND
-	@$(call install_copy, ppp, 0, 0, 0644, \
-		$(PPP_DIR)/pppd/plugins/winbind.so, \
+	@$(call install_copy, ppp, 0, 0, 0644, -, \
 		$(PPP_SHARED_INST_PATH)/winbind.so)
 endif
 	@$(call install_finish, ppp)
