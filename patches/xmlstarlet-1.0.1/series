@@ -1,3 +1,4 @@
 xmlstarlet-1.0.1-test-libxml-debug.diff
 xmlstarlet-1.0.1-missing-semicolon.diff
 xmlstarlet-1.0.1-test-validation.diff
+xmlstarlet-1.0.1-fix-linking.diff
