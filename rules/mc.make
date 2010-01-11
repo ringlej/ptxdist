@@ -58,13 +58,7 @@ ifdef PTXCONF_MC_USES_SLANG
 MC_AUTOCONF += --with-screen=slang
 endif
 
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/mc.install:
-	@$(call targetinfo)
-	@$(call touch)
+MC_INSTALL_OPT := -C src install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -82,8 +76,7 @@ $(STATEDIR)/mc.targetinstall:
 	@$(call install_fixup,mc,DEPENDS,)
 	@$(call install_fixup,mc,DESCRIPTION,missing)
 
-	@$(call install_copy, mc, 0, 0, 0755, $(MC_DIR)/src/mc, \
-		/usr/bin/mc)
+	@$(call install_copy, mc, 0, 0, 0755, -, /usr/bin/mc)
 
 	@$(call install_finish,mc)
 
