@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Ladislav Michl
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -34,33 +35,19 @@ $(ZIP_SOURCE):
 	@$(call get, ZIP)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-ZIP_PATH	:= PATH=$(CROSS_PATH)
-ZIP_MAKEVARS	:= $(CROSS_ENV_CC) $(CROSS_ENV_CPP) $(CROSS_ENV_AS)
-
-$(STATEDIR)/zip.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/zip.compile:
-	@$(call targetinfo)
-	cd $(ZIP_DIR) && $(ZIP_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) $(ZIP_MAKEVARS) -f unix/Makefile generic
-	@$(call touch)
+ZIP_PATH	:= PATH=$(CROSS_PATH)
+ZIP_MAKE_OPT	:= \
+	$(CROSS_ENV_CC) \
+	$(CROSS_ENV_CPP) \
+	$(CROSS_ENV_AS) \
+	-f unix/Makefile generic
 
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/zip.install:
-	@$(call targetinfo)
-	@$(call touch)
+ZIP_INSTALL_OPT	:= \
+	prefix=$(ZIP_PKGDIR)/usr \
+	-f unix/Makefile install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -74,21 +61,21 @@ $(STATEDIR)/zip.targetinstall:
 	@$(call install_fixup, zip,PRIORITY,optional)
 	@$(call install_fixup, zip,VERSION,$(ZIP_VERSION))
 	@$(call install_fixup, zip,SECTION,base)
-	@$(call install_fixup, zip,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, zip,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, zip,DEPENDS,)
 	@$(call install_fixup, zip,DESCRIPTION,missing)
 
 ifdef PTXCONF_ZIP_ZIP
-	@$(call install_copy, zip, 0, 0, 0755, $(ZIP_DIR)/zip, /usr/bin/zip)
+	@$(call install_copy, zip, 0, 0, 0755, -, /usr/bin/zip)
 endif
 ifdef PTXCONF_ZIP_ZIPCLOAK
-	@$(call install_copy, zip, 0, 0, 0755, $(ZIP_DIR)/zipcloak, /usr/bin/zipcloak)
+	@$(call install_copy, zip, 0, 0, 0755, -, /usr/bin/zipcloak)
 endif
 ifdef PTXCONF_ZIP_ZIPNOTE
-	@$(call install_copy, zip, 0, 0, 0755, $(ZIP_DIR)/zipnote, /usr/bin/zipnote)
+	@$(call install_copy, zip, 0, 0, 0755, -, /usr/bin/zipnote)
 endif
 ifdef PTXCONF_ZIP_ZIPSPLIT
-	@$(call install_copy, zip, 0, 0, 0755, $(ZIP_DIR)/zipsplit, /usr/bin/zipsplit)
+	@$(call install_copy, zip, 0, 0, 0755, -, /usr/bin/zipsplit)
 endif
 
 	@$(call install_finish, zip)
