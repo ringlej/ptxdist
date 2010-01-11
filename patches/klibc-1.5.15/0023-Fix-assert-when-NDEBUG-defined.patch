@@ -1,0 +1,29 @@
+From b0ba8b95db106ce750d7c613c42ca1a700ba51cd Mon Sep 17 00:00:00 2001
+From: Jon Ringle <jon@ringle.org>
+Date: Wed, 6 Jan 2010 14:11:52 -0500
+Subject: [PATCH 23/23] Fix assert when NDEBUG defined
+
+Don't use the parameter x in assert(x) if NDEBUG is defined to avoid any
+problems where (x) may contain symbols that are only defined if !NDEBUG
+
+Signed-off-by: Jon Ringle <jon@ringle.org>
+---
+ usr/include/assert.h |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/usr/include/assert.h b/usr/include/assert.h
+index d89e082..e59ed94 100644
+--- a/usr/include/assert.h
++++ b/usr/include/assert.h
+@@ -9,7 +9,7 @@
+ 
+ #ifdef NDEBUG
+ 
+-#define assert(x) ((void)(x))
++#define assert(x) ((void)(0))
+ 
+ #else
+ 
+-- 
+1.6.5.rc2
+
