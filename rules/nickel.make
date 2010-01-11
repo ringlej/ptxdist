@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Robert Schwebel
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -33,53 +33,14 @@ $(NICKEL_SOURCE):
 	@$(call get, NICKEL)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/nickel.extract:
-	@$(call targetinfo)
-	@$(call clean, $(NICKEL_DIR))
-	@$(call extract, NICKEL)
-	@$(call patchin, NICKEL)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-NICKEL_PATH	:= PATH=$(CROSS_PATH)
-NICKEL_ENV 	:= $(CROSS_ENV)
-
-##
-## autoconf
-##
-#NICKEL_AUTOCONF := $(CROSS_AUTOCONF_USR)
-#
-$(STATEDIR)/nickel.prepare:
-#	@$(call targetinfo)
-#	@$(call clean, $(NICKEL_DIR)/config.cache)
-#	cd $(NICKEL_DIR) && \
-#		$(NICKEL_PATH) $(NICKEL_ENV) \
-#		./configure $(NICKEL_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/nickel.compile:
-	@$(call targetinfo)
-	cd $(NICKEL_DIR)/src && $(NICKEL_PATH) $(MAKE) \
-		CC=$(CROSS_CC) LD=$(CROSS_LD) $(PARALLELMFLAGS)
-	@$(call touch)
+NICKEL_PATH	:= PATH=$(CROSS_PATH)
+NICKEL_SUBDIR	:= src
+NICKEL_MAKE_OPT	:= CC=$(CROSS_CC) LD=$(CROSS_LD)
 
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/nickel.install:
-	@$(call targetinfo)
-	@$(call touch)
+NICKEL_INSTALL_OPT := prefix=/usr install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -93,12 +54,11 @@ $(STATEDIR)/nickel.targetinstall:
 	@$(call install_fixup, nickel,PRIORITY,optional)
 	@$(call install_fixup, nickel,VERSION,$(NICKEL_VERSION))
 	@$(call install_fixup, nickel,SECTION,base)
-	@$(call install_fixup, nickel,AUTHOR,"Robert Schwebel <your@email.please>")
+	@$(call install_fixup, nickel,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, nickel,DEPENDS,)
 	@$(call install_fixup, nickel,DESCRIPTION,missing)
 
-	@$(call install_copy, nickel, 0, 0, 0644, \
-		$(NICKEL_DIR)/src/libnickel.so.1.1.0, \
+	@$(call install_copy, nickel, 0, 0, 0644, -, \
 		/usr/lib/libnickel.so.1.1.0)
 	@$(call install_link, nickel,  \
 		libnickel.so.1.1.0, \
