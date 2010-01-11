@@ -28,17 +28,6 @@ $(STATEDIR)/host-libxslt.get: $(STATEDIR)/libxslt.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-libxslt.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_LIBXSLT_DIR))
-	@$(call extract, LIBXSLT, $(HOST_BUILDDIR))
-	@$(call patchin, LIBXSLT, $(HOST_LIBXSLT_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
