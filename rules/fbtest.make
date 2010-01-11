@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 1681 2004-09-01 18:12:49Z  $
 #
 # Copyright (C) 2004 by Sascha Hauer
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
