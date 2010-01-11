@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Robert Schwebel
+#               2010 Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -48,35 +48,13 @@ $(STATEDIR)/xli.extract:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-XLI_PATH	:= PATH=$(CROSS_PATH)
-XLI_ENV 	:= $(CROSS_ENV) EXTRAFLAGS="$(CROSS_CPPFLAGS) $(CROSS_LDFLAGS)"
-XLI_AUTOCONF	:= $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/xli.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/xli.compile:
-	@$(call targetinfo)
-	cd $(XLI_DIR) && $(XLI_PATH) $(XLI_ENV) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
+XLI_PATH	:= PATH=$(CROSS_PATH)
+XLI_MAKE_ENV	:= $(CROSS_ENV) EXTRAFLAGS="$(CROSS_CPPFLAGS) $(CROSS_LDFLAGS)"
 
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-xli_install: $(STATEDIR)/xli.install
-
-$(STATEDIR)/xli.install: $(xli_install_deps_default)
-	@$(call targetinfo)
-	@$(call touch)
+XLI_INSTALL_OPT	:= INSTALLDIR=$(XLI_PKGDIR)/usr/bin install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -90,11 +68,11 @@ $(STATEDIR)/xli.targetinstall:
 	@$(call install_fixup, xli,PRIORITY,optional)
 	@$(call install_fixup, xli,VERSION,$(XLI_VERSION))
 	@$(call install_fixup, xli,SECTION,base)
-	@$(call install_fixup, xli,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xli,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, xli,DEPENDS,)
 	@$(call install_fixup, xli,DESCRIPTION,missing)
 
-	@$(call install_copy, xli, 0, 0, 0755, $(XLI_DIR)/xli, /usr/bin/xli)
+	@$(call install_copy, xli, 0, 0, 0755, -, /usr/bin/xli)
 
 	@$(call install_finish, xli)
 
