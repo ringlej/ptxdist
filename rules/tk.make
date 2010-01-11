@@ -33,27 +33,17 @@ TK_DIR		:= $(BUILDDIR)/$(TK)
 # ----------------------------------------------------------------------------
 
 $(TK_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, TK)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/tk.extract:
-	@$(call targetinfo, $@)
-	@$(call clean, $(TK_DIR))
-	@$(call extract, TK)
-	@$(call patchin, TK)
-	@$(call touch, $@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-TK_PATH	:= PATH=$(CROSS_PATH)
-TK_ENV 	:= $(CROSS_ENV)
-TK_MAKEVARS	 =  CROSS_COMPILE=$(COMPILER_PREFIX)
+TK_PATH		:= PATH=$(CROSS_PATH)
+TK_ENV 		:= $(CROSS_ENV)
+
+TK_MAKE_OPT	:= CROSS_COMPILE=$(COMPILER_PREFIX)
 
 #
 # autoconf
@@ -79,61 +69,31 @@ endif
 
 # 'configure' rejects some tests due to cross compiling
 
+TK_AUTOCONF += tcl_cv_strtod_buggy=ok
+
 # checking system version... Linux-2.6.25.4-ptx <-- it detects host's one!
 TK_AUTOCONF += tcl_cv_sys_version=Linux-$(PTXCONF_KERNEL_VERSION)
-
-# FIXME: Currently it ends up in a compiler badness due to xft returns
-# host paths when someone queries for its paths
-ifdef PTXCONF_TK_XFT
-TK_AUTOCONF += \
-	ac_cv_header_X11_Xft_Xft_h=yes \
-	ac_cv_lib_Xft_FT_New_Face=yes
-endif
 
 # it does not detect the BSP variant of X
 TK_AUTOCONF += \
 	x_includes=$(PTXCONF_SYSROOT_TARGET)/usr/include \
 	x_libraries=$(PTXCONF_SYSROOT_TARGET)/usr/lib
 
-$(STATEDIR)/tk.prepare:
-	@$(call targetinfo, $@)
-	@$(call clean, $(TK_DIR)/unix/config.cache)
-	cd $(TK_DIR)/unix && \
-		$(TK_PATH) $(TK_ENV) \
-		./configure $(TK_AUTOCONF)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/tk.compile:
-	@$(call targetinfo, $@)
-	cd $(TK_DIR)/unix && $(TK_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/tk.install:
-	@$(call targetinfo, $@)
-	@$(call install, TK, $(TK_DIR)/unix, DESTDIR=$(PTXCONF_SYSROOT_TARGET) install)
-	@$(call touch, $@)
+TK_SUBDIR := unix
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/tk.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, tk)
 	@$(call install_fixup, tk,PACKAGE,tk)
 	@$(call install_fixup, tk,PRIORITY,optional)
 	@$(call install_fixup, tk,VERSION,$(TK_VERSION))
 	@$(call install_fixup, tk,SECTION,base)
-	@$(call install_fixup, tk,AUTHOR,"Juergen Beisert <juergen\@kreuzholzen.de>")
+	@$(call install_fixup, tk,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
 	@$(call install_fixup, tk,DEPENDS,)
 	@$(call install_fixup, tk,DESCRIPTION,missing)
 
@@ -145,21 +105,20 @@ ifdef PTXCONF_TK_WISH
 	@$(call install_copy, tk, 0, 0, 0755, -, /usr/bin/wish8.5)
 # a simplified link is very useful
 	@$(call install_link, tk, \
-		/usr/bin/wish$(TK_MAJOR).$(TK_MINOR), /usr/bin/wish)
+		wish$(TK_MAJOR).$(TK_MINOR), /usr/bin/wish)
 endif
 ifdef PTXCONF_TK_TTK
 	@$(call install_copy, tk, 0, 0, 0755, /usr/lib/tk$(TK_MAJOR).$(TK_MINOR)/ttk)
-	cd $(TK_DIR)/library/ttk; \
+	cd $(TK_PKGDIR)/usr/lib/tk$(TK_MAJOR).$(TK_MINOR)/ttk && \
 	for file in *.tcl ; do \
-		$(call install_copy, tk, 0, 0, 0644, \
-			$(TK_DIR)/library/ttk/$$file, \
+		$(call install_copy, tk, 0, 0, 0644, -, \
 			/usr/lib/tk$(TK_MAJOR).$(TK_MINOR)/ttk/$$file, n); \
 	done
 endif
 
 	@$(call install_finish, tk)
 
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean

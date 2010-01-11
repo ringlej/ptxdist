@@ -10,7 +10,6 @@ menuconfig TK
 	select XORG
 	select XORG_LIB_X11
 	select XORG_LIB_XFT if TK_XFT
-	depends on BROKEN
 	help
 	  Tk is a graphical extension to Tcl (Tool Command Language)
 
@@ -33,7 +32,6 @@ config TK_THREADS
 config TK_XFT
 	bool
 	prompt "use freetype/fontconfig/xft"
-	depends on BROKEN
 	help
 	  Use freetype/fontconfig/xft for font handling.
 	  Note: Currently very broken
@@ -41,8 +39,6 @@ config TK_XFT
 config TK_TTK
 	bool
 	prompt "install fancy new widgets"
-	# untested yet
-	depends on BROKEN
 	help
 	  Install the fancy new TTK widgets on the target.
 	  Note: Currently untested
