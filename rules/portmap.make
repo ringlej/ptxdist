@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,11 +19,11 @@ PACKAGES-$(PTXCONF_PORTMAP) += portmap
 #
 # Paths and names
 #
-PORTMAP_VERSION := 5beta
+PORTMAP_VERSION := 6.0
 PORTMAP		:= portmap_$(PORTMAP_VERSION)
-PORTMAP_SUFFIX	:= tar.gz
-PORTMAP_URL	:= ftp://ftp.porcupine.org/pub/security/$(PORTMAP).tar.gz
-PORTMAP_SOURCE	:= $(SRCDIR)/$(PORTMAP).tar.gz
+PORTMAP_SUFFIX	:= tgz
+PORTMAP_URL	:= http://neil.brown.name/portmap/portmap-$(PORTMAP_VERSION).$(PORTMAP_SUFFIX)
+PORTMAP_SOURCE	:= $(SRCDIR)/portmap-$(PORTMAP_VERSION).$(PORTMAP_SUFFIX)
 PORTMAP_DIR	:= $(BUILDDIR)/$(PORTMAP)
 
 
@@ -35,34 +36,14 @@ $(PORTMAP_SOURCE):
 	@$(call get, PORTMAP)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/portmap.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 PORTMAP_ENV		:= $(CROSS_ENV)
 PORTMAP_PATH		:= PATH=$(CROSS_PATH)
-PORTMAP_MAKEVARS	:= CC=$(CROSS_CC)
+PORTMAP_MAKE_OPT	:= CC=$(CROSS_CC) NO_TCP_WRAPPER=yes
 
-$(STATEDIR)/portmap.compile:
-	@$(call targetinfo)
-	cd $(PORTMAP_DIR) &&                                            \
-		$(PORTMAP_ENV) $(PORTMAP_PATH) make $(PORTMAP_MAKEVARS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/portmap.install:
-	@$(call targetinfo)
-	@$(call touch)
+PORTMAP_INSTALL_OPT	:= BASEDIR=$(PORTMAP_PKGDIR) install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -80,8 +61,7 @@ $(STATEDIR)/portmap.targetinstall:
 	@$(call install_fixup, portmap,DEPENDS,)
 	@$(call install_fixup, portmap,DESCRIPTION,missing)
 
-	@$(call install_copy, portmap, 0, 0, 0755, \
-		$(PORTMAP_DIR)/portmap, /sbin/portmap)
+	@$(call install_copy, portmap, 0, 0, 0755, -, /sbin/portmap)
 
 	#
 	# busybox init
