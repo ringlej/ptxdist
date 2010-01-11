@@ -63,18 +63,10 @@ RXTX_AUTOCONF := \
 	--enable-DEBUG=no \
 	--enable-liblock=no
 
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/rxtx.install:
-	@$(call targetinfo)
-#
-# make install of rxtx is quite broken. it doesn't refer to --prefix, as given
-# priorly while configuring. Instead of that it tries to put himself in
-# RXTX_PATH. Henc we deactivate the install stage here
-#
-	@$(call touch)
+RXTX_INSTALL_OPT := \
+	JHOME=$(RXTX_PKGDIR)/usr/lib \
+	RXTX_PATH=$(RXTX_PKGDIR)/usr/lib \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -92,37 +84,33 @@ $(STATEDIR)/rxtx.targetinstall:
 	@$(call install_fixup, rxtx,DEPENDS,)
 	@$(call install_fixup, rxtx,DESCRIPTION,missing)
 
-	@$(call install_copy, rxtx, 0, 0, 0644, \
-		$(RXTX_DIR)/$(PTXCONF_GNU_TARGET)/.libs/librxtxI2C-2.1-7.so, \
+	@$(call install_copy, rxtx, 0, 0, 0644, -, \
 		/usr/lib/librxtxI2C-2.1-7.so)
 	@$(call install_link, rxtx, librxtxI2C-2.1-7.so, /usr/lib/librxtxI2C.so)
 
 
-	@$(call install_copy, rxtx, 0, 0, 0644, \
-		$(RXTX_DIR)/$(PTXCONF_GNU_TARGET)/.libs/librxtxParallel-2.1-7.so, \
+	@$(call install_copy, rxtx, 0, 0, 0644, -, \
 		/usr/lib/librxtxParallel-2.1-7.so)
 	@$(call install_link, rxtx, librxtxParallel-2.1-7.so, /usr/lib/librxtxParallel.so)
 
 
-	@$(call install_copy, rxtx, 0, 0, 0644, \
-		$(RXTX_DIR)/$(PTXCONF_GNU_TARGET)/.libs/librxtxRaw-2.1-7.so, \
+	@$(call install_copy, rxtx, 0, 0, 0644, -, \
 		/usr/lib/librxtxRaw-2.1-7.so)
 	@$(call install_link, rxtx, librxtxRaw-2.1-7.so, /usr/lib/librxtxRaw.so)
 
 
-	@$(call install_copy, rxtx, 0, 0, 0644, \
-		$(RXTX_DIR)/$(PTXCONF_GNU_TARGET)/.libs/librxtxRS485-2.1-7.so, \
+	@$(call install_copy, rxtx, 0, 0, 0644, -, \
 		/usr/lib/librxtxRS485-2.1-7.so)
 	@$(call install_link, rxtx, librxtxRS485-2.1-7.so, /usr/lib/librxtxRS485.so)
 
 
-	@$(call install_copy, rxtx, 0, 0, 0644, \
-		$(RXTX_DIR)/$(PTXCONF_GNU_TARGET)/.libs/librxtxSerial-2.1-7.so, \
+	@$(call install_copy, rxtx, 0, 0, 0644, -, \
 		/usr/lib/librxtxSerial-2.1-7.so)
 	@$(call install_link, rxtx, librxtxSerial-2.1-7.so, /usr/lib/librxtxSerial.so)
 	@$(call install_link, rxtx, ../librxtxSerial-2.1-7.so, /usr/lib/classpath/librxtxSerial.so)
 
-	@$(call install_copy, rxtx, 0, 0, 0644, $(RXTX_DIR)/RXTXcomm.jar, \
+	@$(call install_copy, rxtx, 0, 0, 0644, \
+		$(RXTX_PKGDIR)/usr/lib/RXTXcomm.jar, \
 		/usr/share/java/RXTXcomm.jar)
 
 	@$(call install_finish, rxtx)
