@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2004 by Robert Schwebel <r.schwebel@pengutronix.de>
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -33,37 +34,17 @@ $(EFAX_SOURCE):
 	@$(call get, EFAX)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-EFAX_PATH	:= PATH=$(CROSS_PATH)
-EFAX_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-EFAX_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/efax.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/efax.compile:
-	@$(call targetinfo)
-	cd $(EFAX_DIR) && $(EFAX_ENV) $(EFAX_PATH) make all CC=$(CROSS_CC)
-	@$(call touch)
+EFAX_PATH	:= PATH=$(CROSS_PATH)
+EFAX_MAKE_ENV	:= $(CROSS_ENV)
+EFAX_MAKE_OPT	:= CC=$(CROSS_CC)
 
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/efax.install:
-	@$(call targetinfo)
-	@$(call touch)
+EFAX_INSTALL_OPT := \
+	BINDIR=$(EFAX_PKGDIR)/usr/bin \
+	MANDIR=$(EFAX_PKGDIR)/usr/man \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -81,8 +62,8 @@ $(STATEDIR)/efax.targetinstall:
 	@$(call install_fixup, efax,DEPENDS,)
 	@$(call install_fixup, efax,DESCRIPTION,missing)
 
-	@$(call install_copy, efax, 0, 0, 0755, $(EFAX_DIR)/efax, /usr/bin/efax)
-	@$(call install_copy, efax, 0, 0, 0755, $(EFAX_DIR)/efix, /usr/bin/efix)
+	@$(call install_copy, efax, 0, 0, 0755, -, /usr/bin/efax)
+	@$(call install_copy, efax, 0, 0, 0755, -, /usr/bin/efix)
 
 	@$(call install_finish, efax)
 
