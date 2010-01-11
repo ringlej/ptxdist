@@ -224,10 +224,13 @@ function import_PKG(this_PKG,	this_pkg) {
 		# host, cross packages
 
 		target_PKG = gensub(/^HOST_|^CROSS_/, "", "", this_PKG);
+		this_PKG_type = gensub(/^(HOST_|CROSS_).*/, "\\1", "", this_PKG);
 
-		# define default ${PKG} & ${PKG}_SOURCE
+		# define default ${PKG}, ${PKG}_SOURCE, ${PKG}_DIR
 		print this_PKG " = $(" target_PKG ")"			> DGEN_DEPS_PRE;
 		print this_PKG "_SOURCE = $(" target_PKG "_SOURCE)"	> DGEN_DEPS_PRE;
+		print this_PKG "_DIR = $(" this_PKG_type \
+			"BUILDDIR)/$(" target_PKG ")"			> DGEN_DEPS_PRE;
 	}
 }
 
