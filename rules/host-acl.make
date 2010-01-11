@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Carsten Schlote <c.schlote@konzeptpark.de>
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -41,13 +42,17 @@ $(STATEDIR)/host-acl.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_ACL_PATH	:= PATH=$(HOST_PATH)
-HOST_ACL_ENV 	:= $(HOST_ENV)
+HOST_ACL_ENV := $(HOST_ENV)
 
-#
-# autoconf
-#
-HOST_ACL_AUTOCONF := $(HOST_AUTOCONF)
+HOST_ACL_INSTALL_OPT := \
+	install \
+	install-lib \
+	install-dev
+
+HOST_ACL_AUTOCONF := \
+	$(HOST_AUTOCONF) \
+	--libexecdir=$(PTXDIST_SYSROOT_HOST)/lib \
+	--enable-shared
 
 # ----------------------------------------------------------------------------
 # Clean
