@@ -38,13 +38,6 @@ $(BUSYBOX_SOURCE):
 # ----------------------------------------------------------------------------
 
 BUSYBOX_PATH	:= PATH=$(CROSS_PATH)
-BUSYBOX_ENV 	:= $(CROSS_ENV)
-
-BUSYBOX_MAKEVARS := \
-	ARCH=$(PTXCONF_ARCH_STRING) \
-	CROSS_COMPILE=$(COMPILER_PREFIX) \
-	HOSTCC=$(HOSTCC) \
-	SKIP_STRIP=y
 
 BUSYBOX_TAGS_OPT := TAGS tags
 
@@ -52,8 +45,8 @@ $(STATEDIR)/busybox.prepare:
 	@$(call targetinfo)
 
 	@cd $(BUSYBOX_DIR) && \
-		$(BUSYBOX_PATH) $(BUSYBOX_ENV) \
-		$(MAKE) distclean $(BUSYBOX_MAKEVARS)
+		$(BUSYBOX_PATH)  \
+		$(MAKE) distclean $(BUSYBOX_MAKE_OPT)
 	@grep -e PTXCONF_BUSYBOX_ $(PTXDIST_PTXCONFIG) | \
 		sed -e 's/PTXCONF_BUSYBOX_/CONFIG_/g' > $(BUSYBOX_DIR)/.config
 
@@ -61,17 +54,16 @@ $(STATEDIR)/busybox.prepare:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
+BUSYBOX_MAKE_OPT := \
+	ARCH=$(PTXCONF_ARCH_STRING) \
+	CROSS_COMPILE=$(COMPILER_PREFIX) \
+	HOSTCC=$(HOSTCC) \
+	SKIP_STRIP=y
 
-$(STATEDIR)/busybox.install:
-	@$(call targetinfo)
-	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) $(MAKE) \
-		$(BUSYBOX_MAKEVARS) CONFIG_PREFIX=$(SYSROOT) install
-	cd $(BUSYBOX_DIR) && $(BUSYBOX_PATH) $(MAKE) \
-		$(BUSYBOX_MAKEVARS) CONFIG_PREFIX=$(BUSYBOX_PKGDIR) install
-	@$(call touch)
+BUSYBOX_INSTALL_OPT := \
+	$(BUSYBOX_MAKE_OPT) \
+	CONFIG_PREFIX=$(BUSYBOX_PKGDIR) \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
