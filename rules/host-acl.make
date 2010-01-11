@@ -14,28 +14,12 @@
 #
 HOST_PACKAGES-$(PTXCONF_HOST_ACL) += host-acl
 
-#
-# Paths and names
-#
-HOST_ACL_DIR	= $(HOST_BUILDDIR)/$(ACL)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-acl.get: $(STATEDIR)/acl.get
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-acl.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_ACL_DIR))
-	@$(call extract, ACL, $(HOST_BUILDDIR))
-	@$(call patchin, ACL, $(HOST_ACL_DIR))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
