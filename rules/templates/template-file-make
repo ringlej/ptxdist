@@ -102,7 +102,7 @@ $(STATEDIR)/@packet@.targetinstall:
 #	@$(call install_init, @packet@)
 #	@$(call install_fixup,@packet@,PACKAGE,@packet@)
 #	@$(call install_fixup,@packet@,PRIORITY,optional)
-#	@$(call install_fixup,@packet@,VERSION,0)
+#	@$(call install_fixup,@packet@,VERSION,@VERSION@)
 #	@$(call install_fixup,@packet@,SECTION,base)
 #	@$(call install_fixup,@packet@,AUTHOR,"@AUTHOR@")
 #	@$(call install_fixup,@packet@,DEPENDS,)
