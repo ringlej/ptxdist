@@ -216,7 +216,7 @@ NET_SNMP_MAKE_PAR := NO
 # ----------------------------------------------------------------------------
 
 NET_SNMP_LIBMAJOR := 10
-NET_SNMP_LIBMINOR := 0.1
+NET_SNMP_LIBMINOR := 0.5
 NET_SNMP_LIBVER :=$(NET_SNMP_LIBMAJOR).$(NET_SNMP_LIBMINOR)
 
 NET_SNMP_V1MIBS := RFC1155-SMI.txt RFC1213-MIB.txt RFC-1215.txt
