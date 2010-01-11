@@ -22,3 +22,4 @@
 0022-define-MNTPROC_MNT-and-MNTPROC_UMNT.patch
 0023-Fix-assert-when-NDEBUG-defined.patch
 0024-dummy-ferror.patch
+0025-Fix-arm-signals.patch
