@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -37,30 +37,22 @@ $(THTTPD_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-THTTPD_PATH	:=  PATH=$(CROSS_PATH)
-THTTPD_ENV 	:=  $(CROSS_ENV)
+THTTPD_PATH	:= PATH=$(CROSS_PATH)
+THTTPD_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-THTTPD_AUTOCONF :=  $(CROSS_AUTOCONF_USR)
+THTTPD_AUTOCONF	:= $(CROSS_AUTOCONF_USR)
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
+THTTPD_MAKE_PAR	:= NO
 
-$(STATEDIR)/thttpd.compile:
-	@$(call targetinfo)
-	cd $(THTTPD_DIR) && $(THTTPD_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/thttpd.install:
-	@$(call targetinfo)
-	@$(call touch)
+# DESTDIR is broken. Overwrite prefix instead
+THTTPD_INSTALL_OPT := \
+	DESTDIR= \
+	prefix=$(THTTPD_PKGDIR)/usr \
+	WEBGROUP=root \
+	install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -74,12 +66,11 @@ $(STATEDIR)/thttpd.targetinstall:
 	@$(call install_fixup, thttpd,PRIORITY,optional)
 	@$(call install_fixup, thttpd,VERSION,$(THTTPD_VERSION))
 	@$(call install_fixup, thttpd,SECTION,base)
-	@$(call install_fixup, thttpd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, thttpd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, thttpd,DEPENDS,)
 	@$(call install_fixup, thttpd,DESCRIPTION,missing)
 
-	@$(call install_copy, thttpd, 0, 0, 0755, $(THTTPD_DIR)/thttpd, \
-		/usr/sbin/thttpd)
+	@$(call install_copy, thttpd, 0, 0, 0755, -, /usr/sbin/thttpd)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_THTTPD_STARTSCRIPT
@@ -95,8 +86,7 @@ ifdef PTXCONF_THTTPD__GENERIC_SITE
 endif
 
 ifdef PTXCONF_THTTPD__INSTALL_HTPASSWD
-	@$(call install_copy, thttpd, 0, 0, 0755, \
-		$(THTTPD_DIR)/extras/htpasswd, \
+	@$(call install_copy, thttpd, 0, 0, 0755, -, \
 		/usr/sbin/htpasswd)
 endif
 
