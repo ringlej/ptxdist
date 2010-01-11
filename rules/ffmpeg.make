@@ -37,7 +37,7 @@ $(FFMPEG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-FFMPEG_PATH	:=  PATH=$(CROSS_PATH):/sbin/
+FFMPEG_PATH	:= PATH=$(CROSS_PATH)
 FFMPEG_ENV 	:= $(CROSS_ENV)
 
 #
