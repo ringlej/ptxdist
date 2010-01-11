@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by wschmitt@envicomp.de
 #
@@ -86,8 +85,7 @@ $(STATEDIR)/rsync.targetinstall:
 	@$(call install_fixup, rsync,DEPENDS,)
 	@$(call install_fixup, rsync,DESCRIPTION,missing)
 
-	@$(call install_copy, rsync, 0, 0, 0755, \
-		$(RSYNC_DIR)/rsync, \
+	@$(call install_copy, rsync, 0, 0, 0755, -, \
 		/usr/bin/rsync)
 
 	@$(call install_alternative, rsync, 0, 0, 0644, /etc/rsyncd.conf, n)
