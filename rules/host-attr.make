@@ -14,28 +14,12 @@
 #
 HOST_PACKAGES-$(PTXCONF_HOST_ATTR) += host-attr
 
-#
-# Paths and names
-#
-HOST_ATTR_DIR	= $(HOST_BUILDDIR)/$(ATTR)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-attr.get: $(STATEDIR)/attr.get
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-attr.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_ATTR_DIR))
-	@$(call extract, ATTR, $(HOST_BUILDDIR))
-	@$(call patchin, ATTR, $(HOST_ATTR_DIR))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
