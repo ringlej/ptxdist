@@ -45,14 +45,6 @@ ETHTOOL_ENV 	:= $(CROSS_ENV)
 ETHTOOL_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ethtool.install:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -69,7 +61,7 @@ $(STATEDIR)/ethtool.targetinstall:
 	@$(call install_fixup, ethtool,DEPENDS,)
 	@$(call install_fixup, ethtool,DESCRIPTION,missing)
 
-	@$(call install_copy, ethtool, 0, 0, 0755, $(ETHTOOL_DIR)/ethtool, /usr/sbin/ethtool)
+	@$(call install_copy, ethtool, 0, 0, 0755, -, /usr/sbin/ethtool)
 
 	@$(call install_finish, ethtool)
 
