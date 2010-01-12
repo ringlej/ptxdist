@@ -1,0 +1,40 @@
+From 9c73a6c51b942334a99954959e29de8a0aa6158f Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 11 Jan 2010 19:12:43 +0100
+Subject: [PATCH] Make.Rules: don't overwrite CFLAGS and LDFLAGS
+
+This breaks where libs are in non standard locations, which are supplied
+by LDFLAGS=-L from outside.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Make.Rules |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Make.Rules b/Make.Rules
+index 10fccd0..5f6a804 100644
+--- a/Make.Rules
++++ b/Make.Rules
+@@ -46,7 +46,7 @@ KERNEL_HEADERS := $(topdir)/libcap/include
+ IPATH += -I$(topdir)/libcap/include -I$(KERNEL_HEADERS)
+ 
+ CC := gcc
+-CFLAGS := -O2
++CFLAGS += -O2
+ BUILD_CC := $(CC)
+ BUILD_CFLAGS := $(CFLAGS) $(IPATH)
+ AR := ar
+@@ -56,8 +56,8 @@ WARNINGS=-fPIC -Wall -Wwrite-strings \
+         -Wpointer-arith -Wcast-qual -Wcast-align \
+         -Wstrict-prototypes -Wmissing-prototypes \
+         -Wnested-externs -Winline -Wshadow
+-LD=$(CC) -Wl,-x -shared
+-LDFLAGS := #-g
++LD=$(CC)
++LDFLAGS += -Wl,-x -shared #-g
+ 
+ SYSTEM_HEADERS = /usr/include
+ INCS=$(topdir)/libcap/include/sys/capability.h
+-- 
+1.6.6
+
