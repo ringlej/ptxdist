@@ -122,16 +122,17 @@ $(STATEDIR)/apache2.compile:
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/apache2.install:
+$(STATEDIR)/apache2.install.post:
 	@$(call targetinfo)
-	@$(call install, APACHE2)
+	@$(call world/install.post, APACHE2)
 	sed -i -e "s~\([ =\"]\)\(/usr\)~\1$(SYSROOT)\2~g" \
 		$(SYSROOT)/usr/build/apr_rules.mk \
 		$(SYSROOT)/usr/build/config.nice \
-		$(SYSROOT)/usr/build/config_vars.mk \
 		$(SYSROOT)/usr/bin/apr-config \
 		$(SYSROOT)/usr/bin/apu-config \
 		$(SYSROOT)/usr/bin/apxs
+	sed -i -e "/AP._BINDIR/s~\([ =\"]\)\(/usr\)~\1$(SYSROOT)\2~g" \
+		$(SYSROOT)/usr/build/config_vars.mk
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
