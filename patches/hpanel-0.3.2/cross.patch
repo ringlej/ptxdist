@@ -35,7 +35,7 @@ Index: b/Makefile
  
  install:
 -	install $(PROGNAME) /usr/local/bin
-+	install -C $(PROGNAME) $(DESTDIR)/usr/bin
++	install $(PROGNAME) $(DESTDIR)/usr/bin
 +
 +clean:
 +	@rm -f $(PROGNAME)
