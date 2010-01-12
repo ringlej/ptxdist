@@ -1,4 +1,4 @@
-# bash_completion for PTXdist by Wolfram Sang, Pengutronix e.K., in 2008
+# bash_completion for PTXdist by Wolfram Sang, Pengutronix e.K., in 2008-2010
 # part of PTXdist, so same licence.
 
 if have ptxdist; then
@@ -10,10 +10,10 @@ _ptxdist_completion()
 	COMPREPLY=()
 	cur=( $(_get_cword) )
 
-	opts=' --debug --force --j-extern --j-intern --platformconfig --ptxconfig --quiet --toolchain'
-	cmds=' autobuild boardsetup clean clone compile distclean drop export_src extract get go images install kernelconfig menu menuconfig newpacket oldconfig platform platformconfig prepare print projects ptxdist select setup tags targetinstall test toolchain u_boot_config version'
+	opts=' --collectionconfig --debug --force --force-download --j-extern --j-intern -k --platformconfig --ptxconfig --quiet --toolchain'
+	cmds=' allmodconfig allnoconfig allyesconfig autobuild boardsetup clean clone collection compile distclean drop export_src extract get go images install kernelconfig menu menuconfig migrate newpacket oldconfig platform platformconfig prepare print projects ptxdist select setup tags targetinstall test toolchain u_boot_config version'
 
-	# if no command were given, complete on commands
+	# if no commands were given, complete on commands themselves
 	if [ $COMP_CWORD -eq 1 ]; then
 		COMPREPLY=( $( compgen -W "${cmds} help" -- $cur ) )
 		return 0
@@ -33,7 +33,7 @@ _ptxdist_completion()
 		compgen -f /dummy >/dev/null
 		[ $COMP_CWORD -lt 3 ] && _filedir -d
 		;;
-	select|platform)
+	select|platform|collection)
 		compgen -f /dummy >/dev/null
 		[ $COMP_CWORD -lt 3 ] && _filedir
 		;;
