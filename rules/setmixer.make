@@ -1,7 +1,7 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Sascha Hauer <sascha.hauer@gyro-net.de>
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -38,31 +38,8 @@ $(SETMIXER_SOURCE):
 # ----------------------------------------------------------------------------
 
 SETMIXER_PATH		:= PATH=$(CROSS_PATH)
-SETMIXER_ENV 		:= $(CROSS_ENV)
-SETMIXER_MAKEVARS	:= CC=$(COMPILER_PREFIX)gcc
-
-$(STATEDIR)/setmixer.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(SETMIXER_DIR)/config.cache)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/setmixer.compile:
-	@$(call targetinfo)
-	cd $(SETMIXER_DIR) && \
-		$(SETMIXER_ENV) $(SETMIXER_PATH) $(MAKE) $(SETMIXER_MAKEVARS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/setmixer.install:
-	@$(call targetinfo)
-	@$(call touch)
+SETMIXER_MAKE_ENV	:= $(CROSS_ENV)
+SETMIXER_MAKE_OPT	:= CC=$(CROSS_CC)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -80,7 +57,7 @@ $(STATEDIR)/setmixer.targetinstall:
 	@$(call install_fixup, setmixer,DEPENDS,)
 	@$(call install_fixup, setmixer,DESCRIPTION,missing)
 
-	@$(call install_copy, setmixer, 0, 0, 0755, $(SETMIXER_DIR)/setmixer, /usr/bin/setmixer)
+	@$(call install_copy, setmixer, 0, 0, 0755, -, /usr/bin/setmixer)
 
 	@$(call install_finish, setmixer)
 
