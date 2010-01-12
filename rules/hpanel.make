@@ -32,6 +32,9 @@ $(HPANEL_SOURCE):
 	@$(call targetinfo)
 	@$(call get, HPANEL)
 
+# hpanel has a very broken configure script. Don't use it!
+HPANEL_CONF_TOOL := NO
+
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
