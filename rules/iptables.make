@@ -51,6 +51,17 @@ IPTABLES_AUTOCONF := \
 	--with-xtlibdir=/usr/lib
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/iptables.install:
+	@$(call targetinfo)
+	@$(call install, IPTABLES)
+	install $(IPTABLES_DIR)/iptables-apply $(IPTABLES_PKGDIR)/usr/sbin
+	@$(touch)
+
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -99,7 +110,7 @@ endif
 
 # install the IPv6 relevant shared feature libraries
 ifdef PTXCONF_IPTABLES_INSTALL_IPV6_TOOLS
-	@cd $(IPTABLES_DIR)/extensions && \
+	@cd $(IPTABLES_PKGDIR)/usr/lib && \
 		for file in libip6t_*.so; do \
 			$(call install_copy, iptables, 0, 0, 0644, -, \
 				/usr/lib/$$file); \
@@ -130,7 +141,7 @@ endif
 
 # install all shared feature libraries to get full runtime support
 ifdef PTXCONF_IPTABLES_INSTALL_IPV4_TOOLS
-	@cd $(IPTABLES_DIR)/extensions && \
+	@cd $(IPTABLES_PKGDIR)/usr/lib && \
 		for file in libipt_*.so libxt_*.so; do \
 			$(call install_copy, iptables, 0, 0, 0644, -,\
 				/usr/lib/$$file); \
@@ -142,7 +153,7 @@ ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_XML
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_APPLY
-	@$(call install_copy, iptables, 0, 0, 0755, $(IPTABLES_DIR)/iptables-apply, /usr/sbin/iptables-apply)
+	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/iptables-apply)
 endif
 
 	@$(call install_finish, iptables)
