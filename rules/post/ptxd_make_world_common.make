@@ -19,6 +19,9 @@ world/env/impl = \
 	ptx_state_dir="$(call ptx/escape,$(STATEDIR))"				\
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
+	ptx_conf_opt_autoconf="$(call ptx/escape,$(CROSS_AUTOCONF_USR))"	\
+	ptx_conf_opt_cmake="$(call ptx/escape,$(CROSS_CMAKE_USR))"		\
+	ptx_conf_opt_qmake="$(call ptx/escape,$(CROSS_QMAKE_OPT))"		\
 										\
 	pkg_stamp="$(notdir $(@))"						\
 	pkg_pkg_dir="$(call ptx/escape,$($(1)_PKGDIR))"				\
@@ -38,10 +41,9 @@ world/env/impl = \
 	pkg_build_oot="$(call ptx/escape,$($(1)_BUILD_OOT))"			\
 	pkg_build_dir="$(call ptx/escape,$($(1)_BUILD_DIR))"			\
 										\
+	pkg_conf_tool="$(call ptx/escape,$($(1)_CONF_TOOL))"			\
 	pkg_conf_env="$(call ptx/escape,$($(1)_CONF_ENV))"			\
 	pkg_conf_opt="$(call ptx/escape,$($(1)_CONF_OPT))"			\
-										\
-	pkg_cmake_opt="$(call ptx/escape,$($(1)_CMAKE_OPT))"			\
 										\
 	pkg_make_env="$(call ptx/escape,$($(1)_MAKE_ENV))" 			\
 	pkg_make_opt="$(call ptx/escape,$($(1)_MAKE_OPT))"			\

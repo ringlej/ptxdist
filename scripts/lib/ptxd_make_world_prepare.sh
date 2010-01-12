@@ -11,7 +11,7 @@
 # perform sanity check
 #
 ptxd_make_world_prepare_sanity_check() {
-    if [ -n "${pkg_conf_opt}" -a \! -x "${pkg_conf_dir_abs}/configure" ]; then
+    if [ "${pkg_conf_tool}" = "autoconf" -a \! -x "${pkg_conf_dir_abs}/configure" ]; then
 	cat >&2 <<EOF
 
 error: 'configure' not found or not executable in:
@@ -19,7 +19,7 @@ error: 'configure' not found or not executable in:
 
 EOF
 	exit 1
-    elif [ -n "${pkg_cmake_opt}" -a \! -e "${pkg_conf_dir_abs}/CMakeLists.txt" ]; then
+    elif [ "${pkg_conf_tool}" = "cmake" -a \! -e "${pkg_conf_dir_abs}/CMakeLists.txt" ]; then
 	cat >&2 <<EOF
 
 error: 'CMakeLists.txt' not found in:
@@ -42,13 +42,31 @@ ptxd_make_world_prepare_cmake() {
     eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
-	"${pkg_cmake_env}" \
+	"${pkg_conf_env}" \
 	cmake \
 	-DCMAKE_TOOLCHAIN_FILE="${PTXDIST_CMAKE_TOOLCHAIN}" \
-	"${pkg_cmake_opt}" \
+	"${pkg_conf_opt}" \
 	"${pkg_conf_dir}"
 }
 export -f ptxd_make_world_prepare_cmake
+
+
+#
+# prepare for qmake based pkgs
+#
+ptxd_make_world_prepare_qmake() {
+    [ "${pkg_type}" != "target" ] && \
+	ptxd_bailout "only qmake taget packages are supported"
+
+    eval \
+	"${pkg_path}" \
+	"${pkg_env}" \
+	"${pkg_conf_env}" \
+	qmake \
+	"${pkg_conf_opt}" \
+	"${pkg_conf_dir}"/*.pro
+}
+export -f ptxd_make_world_prepare_qmake
 
 
 #
@@ -96,10 +114,13 @@ ptxd_make_world_prepare() {
     fi
 
     cd -- "${pkg_build_dir}" &&
-    if [ -n "${pkg_cmake_opt}" ]; then
-	ptxd_make_world_prepare_cmake
-    elif [ -n "${pkg_conf_opt}" ]; then
-	ptxd_make_world_prepare_conf
-    fi
+    case "${pkg_conf_tool}" in
+	autoconf) ptxd_make_world_prepare_conf ;;
+	cmake)    ptxd_make_world_prepare_cmake ;;
+	qmake)    ptxd_make_world_prepare_qmake ;;
+	"NO")       echo "prepare stage disabled." ;;
+	"")       echo "No prepare tool found. Do nothing." ;;
+	*)        ptxd_bailout "automatic prepare tool selection failed. Set <PKG>_CONF_TOOL";;
+    esac
 }
 export -f ptxd_make_world_prepare

@@ -68,23 +68,28 @@ ptxd_make_world_init_compat() {
 	    ptxd_bailout "${FUNCNAME}: <PKG>_ENV is incompatibel with <PKG>_CONF_ENV or <PKG>_MAKE_ENV"
 	fi
 	pkg_conf_env="${pkg_deprecated_env}"
-	pkg_cmake_env="${pkg_deprecated_env}"
 	pkg_install_env="${pkg_deprecated_env}"
     fi
 
 
     # autoconf
-    if [ -n "${pkg_deprecated_autoconf}" -a -n "${pkg_conf_opt}" ]; then
-	ptxd_bailout "${FUNCNAME}: <PKG>_AUTOCONF is incompatibel with <PKG>_CONF_OPT"
+    if [ -n "${pkg_deprecated_autoconf}" ]; then
+	if [ -n "${pkg_conf_opt}" ]; then
+	    ptxd_bailout "${FUNCNAME}: <PKG>_AUTOCONF is incompatibel with <PKG>_CONF_OPT"
+	fi
+	pkg_conf_opt="${pkg_deprecated_autoconf}"
+	pkg_conf_tool="autoconf"
     fi
-    pkg_conf_opt="${pkg_deprecated_autoconf}"
 
 
     # cmake
-    if [ -n "${pkg_deprecated_cmake}" -a -n "${pkg_cmake_opt}" ]; then
-	ptxd_bailout "${FUNCNAME}: <PKG>_CMAKE is incompatibel with <PKG>_CMAKE_OPT"
+    if [ -n "${pkg_deprecated_cmake}" ]; then
+	if [ -n "${pkg_conf_opt}" ]; then
+	    ptxd_bailout "${FUNCNAME}: <PKG>_CMAKE is incompatibel with <PKG>_CONF_OPT"
+	fi
+	pkg_conf_opt="${pkg_deprecated_cmake}"
+	pkg_conf_tool="cmake"
     fi
-    pkg_cmake_opt="${pkg_deprecated_cmake}"
 
 
     # compile_env
@@ -222,14 +227,36 @@ ptxd_make_world_init() {
     pkg_conf_dir_abs="${pkg_conf_dir}"
 
     #
+    # prepare tool
+    #
+    if [ -z "${pkg_conf_tool}" ]; then
+	# ${pkg_conf_tool} will be bogus if more than on tool finds a match
+	# -> prepare will complain later
+	if [ -e "${pkg_conf_dir}/configure" ]; then
+	    pkg_conf_tool=${pkg_conf_tool}autoconf
+	fi
+	if [ -e "${pkg_conf_dir}/CMakeLists.txt" ]; then
+	    pkg_conf_tool=${pkg_conf_tool}cmake
+	fi
+	if [ `ls "${pkg_conf_dir}/"*.pro 2>/dev/null | wc -l` = 1 ]; then
+	    pkg_conf_tool=${pkg_conf_tool}qmake
+	fi
+    fi
+    case "${pkg_conf_tool}" in
+	autoconf) pkg_conf_opt="${pkg_conf_opt:-${ptx_conf_opt_autoconf}}";;
+	cmake)    pkg_conf_opt="${pkg_conf_opt:-${ptx_conf_opt_cmake}}";;
+	qmake)    pkg_conf_opt="${pkg_conf_opt:-${ptx_conf_opt_qmake}}";;
+    esac
+
+    #
     # build dir
     #
     if [ -z "${pkg_build_dir}" ]; then
-	if [ -n "${pkg_cmake_opt}" ]; then
+	if [ "${pkg_conf_tool}" = "cmake" ]; then
 	    # cmake based pkg -> _always_ out of tree
 	    pkg_build_dir="${pkg_dir}-build"
 
-	elif [ -n "${pkg_conf_opt}" ]; then
+	elif [ "${pkg_conf_tool}" = "autoconf" ]; then
 	    # autotoolizied pkg
 	    case "${pkg_build_oot}" in
 		"YES") pkg_build_dir="${pkg_dir}-build"	;;

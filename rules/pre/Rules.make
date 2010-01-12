@@ -277,6 +277,8 @@ CROSS_AUTOCONF_ROOT := $(CROSS_AUTOCONF_SYSROOT_ROOT) $(CROSS_AUTOCONF_ARCH)
 CROSS_CMAKE_USR	 := -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
 CROSS_CMAKE_ROOT := -DCMAKE_INSTALL_PREFIX=/    -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
 
+CROSS_QMAKE_OPT := -recursive
+
 # ----------------------------------------------------------------------------
 # HOST stuff
 # ----------------------------------------------------------------------------
