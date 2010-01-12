@@ -36,16 +36,8 @@ $(ARORA_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-ARORA_PATH	:=  PATH=$(CROSS_PATH)
-ARORA_ENV	:=  \
-	$(CROSS_ENV) \
-	INSTALL_ROOT=$(ARORA_PKGDIR)
-
-$(STATEDIR)/arora.prepare:
-	@$(call targetinfo)
-	cd $(ARORA_DIR) && \
-		$(ARORA_PATH) $(ARORA_ENV) qmake -recursive
-	@$(call touch)
+ARORA_PATH	:= PATH=$(CROSS_PATH)
+ARORA_CONF_ENV	:= $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install
