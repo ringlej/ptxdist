@@ -193,6 +193,13 @@ ptxd_make_world_init() {
     ptxd_make_world_init_sanity_check || return
 
     #
+    # sanitize pkg_pkg_dir
+    #
+    if [ "${pkg_pkg_dir}" = "${ptx_pkg_dir}/" ]; then
+	pkg_pkg_dir=""
+    fi
+
+    #
     # type
     #
     case "${pkg_stamp}" in
