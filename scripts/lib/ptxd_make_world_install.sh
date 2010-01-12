@@ -8,13 +8,25 @@
 #
 
 #
-# in:
-# $echo		optional
-# $fakeroot	optional
+# prepare
+#
+# create pkg_pkg_dir and typical subdirs if pkg_pkg_dir is defined
+#
+ptxd_make_world_install_prepare() {
+    ptxd_make_world_init &&
+
+    if [ -z "${pkg_pkg_dir}" ]; then
+	return
+    fi &&
+    rm -rf -- "${pkg_pkg_dir}" &&
+    mkdir -p -- "${pkg_pkg_dir}"/{etc,{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}}
+}
+export -f ptxd_make_world_install_prepare
+
 #
 # FIXME: kick ${pkg_install_env}
 #
-ptxd_make_world_install_pkg() {
+ptxd_make_world_install() {
     local -a fakeargs
     #
     # fakeroot is a host pkg and
@@ -29,6 +41,8 @@ ptxd_make_world_install_pkg() {
 #	fakeargs=( "-s" "${pkg_fake_env}" )
 #    fi
 
+    ptxd_make_world_install_prepare &&
+
     "${echo:-echo}" \
 	"${pkg_path}" \
 	"${pkg_env}" \
@@ -41,23 +55,20 @@ ptxd_make_world_install_pkg() {
 	| "${fakeroot:-fakeroot}" "${fakeargs[@]}" --
     check_pipe_status
 }
-export -f ptxd_make_world_install_pkg
-
+export -f ptxd_make_world_install
 
 
 #
-# install
+# post
 #
-# Perform standard install actions
+# cleanup an copy to sysroot
 #
-ptxd_make_world_install_target() {
-    rm -rf -- "${pkg_pkg_dir}" &&
-    mkdir -p -- "${pkg_pkg_dir}"/{etc,{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}} &&
-
-    ptxd_make_world_install_pkg "${pkg_pkg_dir}" || return
+ptxd_make_world_install_post() {
+    ptxd_make_world_init &&
 
     # remove empty dirs
-    find "${pkg_pkg_dir}" -type d -print0 | xargs -r -0 -- \
+    test \! -e "${pkg_pkg_dir}" || \
+	find "${pkg_pkg_dir}" -type d -print0 | xargs -r -0 -- \
 	rmdir --ignore-fail-on-non-empty -p -- &&
     check_pipe_status &&
 
@@ -86,18 +97,4 @@ ptxd_make_world_install_target() {
 	cp -PR -- "${config}" "${PTXDIST_SYSROOT_CROSS}/bin" || return
     done
 }
-export -f ptxd_make_world_install_target
-
-
-#
-# generic "make install" function
-#
-ptxd_make_world_install() {
-    ptxd_make_world_init &&
-
-    case "${pkg_type}" in
-	target) ptxd_make_world_install_target ;;
-	*)      ptxd_make_world_install_pkg ;;
-    esac
-}
-export -f ptxd_make_world_install
+export -f ptxd_make_world_install_post

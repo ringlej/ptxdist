@@ -16,6 +16,13 @@ world/install = \
 	ptxd_make_world_install
 
 #
+# world/install.post
+#
+world/install.post = \
+	$(call world/env, $1) \
+	ptxd_make_world_install_post
+
+#
 # Perform standard install actions
 #
 # $1: label of the packet
@@ -36,6 +43,7 @@ $(STATEDIR)/%.install:
 
 $(STATEDIR)/%.install.post:
 	@$(call targetinfo)
+	@$(call world/install.post, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
 
 # vim: syntax=make
