@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2922 2005-07-11 19:17:53Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -18,12 +17,12 @@ PACKAGES-$(PTXCONF_LIBPV) += libpv
 #
 # Paths and names
 #
-LIBPV_VERSION	= 1.4.1
-LIBPV		= libpv-$(LIBPV_VERSION)
-LIBPV_SUFFIX	= tar.bz2
-LIBPV_URL	= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
-LIBPV_SOURCE	= $(SRCDIR)/$(LIBPV).$(LIBPV_SUFFIX)
-LIBPV_DIR	= $(BUILDDIR)/$(LIBPV)
+LIBPV_VERSION	:= 1.4.1
+LIBPV		:= libpv-$(LIBPV_VERSION)
+LIBPV_SUFFIX	:= tar.bz2
+LIBPV_URL	:= http://www.pengutronix.de/software/libpv/download/$(LIBPV).$(LIBPV_SUFFIX)
+LIBPV_SOURCE	:= $(SRCDIR)/$(LIBPV).$(LIBPV_SUFFIX)
+LIBPV_DIR	:= $(BUILDDIR)/$(LIBPV)
 
 
 # ----------------------------------------------------------------------------
@@ -102,14 +101,5 @@ endif
 	@$(call install_finish, libpv)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libpv_clean:
-	rm -rf $(STATEDIR)/libpv.*
-	rm -rf $(PKGDIR)/libpv_*
-	rm -rf $(LIBPV_DIR)
 
 # vim: syntax=make
