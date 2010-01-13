@@ -76,9 +76,9 @@ PYTHON_MAKEVARS := \
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/python.install:
+$(STATEDIR)/python.install.post:
 	@$(call targetinfo)
-	@$(call install, PYTHON)
+	@$(call world/install.post, PYTHON)
 
 	@cp "$(PYTHON_DIR)/cross-python-wrapper" "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
 	@chmod a+x "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON_MAJORMINOR)"
