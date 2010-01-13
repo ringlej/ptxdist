@@ -29,17 +29,6 @@ $(STATEDIR)/host-e2fsprogs.get:	$(STATEDIR)/e2fsprogs.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-e2fsprogs.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_E2FSPROGS_DIR))
-	@$(call extract, E2FSPROGS, $(HOST_BUILDDIR))
-	@$(call patchin, E2FSPROGS, $(HOST_E2FSPROGS_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -50,14 +39,6 @@ HOST_E2FSPROGS_ENV 	:= $(HOST_ENV)
 #
 HOST_E2FSPROGS_AUTOCONF := $(HOST_AUTOCONF)
 HOST_E2FSPROGS_INSTALL_OPT := install install-libs
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-e2fsprogs_clean:
-	rm -rf $(STATEDIR)/host-e2fsprogs.*
-	rm -rf $(HOST_E2FSPROGS_DIR)
 
 # vim: syntax=make
 

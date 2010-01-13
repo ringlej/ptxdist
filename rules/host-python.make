@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -25,17 +24,6 @@ HOST_PYTHON_DIR	=  $(HOST_BUILDDIR)/$(PYTHON)
 
 $(STATEDIR)/host-python.get: $(STATEDIR)/python.get
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-python.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_PYTHON_DIR))
-	@$(call extract, PYTHON, $(HOST_BUILDDIR))
-	@$(call patchin, PYTHON, $(HOST_PYTHON_DIR))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -67,13 +55,5 @@ $(STATEDIR)/host-python.install:
 	@$(call install, HOST_PYTHON,,h)
 	install -m 0755 $(HOST_PYTHON_DIR)/Parser/pgen $(PTXCONF_SYSROOT_HOST)/bin
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-python_clean:
-	rm -rf $(STATEDIR)/host-python.*
-	rm -rf $(HOST_PYTHON_DIR)
 
 # vim: syntax=make

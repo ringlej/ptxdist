@@ -28,17 +28,6 @@ $(STATEDIR)/host-zlib.get: $(STATEDIR)/zlib.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-zlib.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_ZLIB_DIR))
-	@$(call extract, ZLIB, $(HOST_BUILDDIR))
-	@$(call patchin, ZLIB, $(HOST_ZLIB_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -49,13 +38,5 @@ HOST_ZLIB_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_ZLIB_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-zlib_clean:
-	rm -rf $(STATEDIR)/host-zlib.*
-	rm -rf $(HOST_ZLIB_DIR)
 
 # vim: syntax=make

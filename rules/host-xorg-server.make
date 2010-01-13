@@ -31,17 +31,6 @@ $(STATEDIR)/host-xorg-server.get: $(STATEDIR)/xorg-server.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-server.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_XORG_SERVER_DIR))
-	@$(call extract, XORG_SERVER, $(HOST_BUILDDIR))
-	@$(call patchin, XORG_SERVER, $(HOST_XORG_SERVER_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -73,13 +62,5 @@ $(STATEDIR)/host-xorg-server.install:
 	@$(call targetinfo)
 	@cd $(HOST_XORG_SERVER_DIR) && cp xorg-server.m4 $(PTXDIST_SYSROOT_HOST)/share/aclocal/
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-server_clean:
-	rm -rf $(STATEDIR)/host-xorg-server.*
-	rm -rf $(HOST_XORG_SERVER_DIR)
 
 # vim: syntax=make

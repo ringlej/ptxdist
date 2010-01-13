@@ -27,17 +27,6 @@ $(STATEDIR)/host-liblzo.get: $(STATEDIR)/liblzo.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-liblzo.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_LIBLZO_DIR))
-	@$(call extract, LIBLZO, $(HOST_BUILDDIR))
-	@$(call patchin, LIBLZO, $(HOST_LIBLZO_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -48,13 +37,5 @@ HOST_LIBLZO_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_LIBLZO_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-liblzo_clean:
-	rm -rf $(STATEDIR)/host-liblzo.*
-	rm -rf $(HOST_LIBLZO_DIR)
 
 # vim: syntax=make

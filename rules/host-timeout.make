@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -25,17 +24,6 @@ HOST_TIMEOUT_DIR	= $(HOST_BUILDDIR)/$(TIMEOUT)
 
 $(STATEDIR)/host-timeout.get: $(STATEDIR)/timeout.get
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-timeout.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_TIMEOUT_DIR))
-	@$(call extract, TIMEOUT, $(HOST_BUILDDIR))
-	@$(call patchin, TIMEOUT, $(HOST_TIMEOUT_DIR))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -66,13 +54,5 @@ $(STATEDIR)/host-timeout.install:
 	@$(call targetinfo)
 	$(INSTALL) -m 755 -D $(HOST_TIMEOUT_DIR)/bin/timeout $(PTXCONF_SYSROOT_HOST)/bin/timeout
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-timeout_clean:
-	rm -rf $(STATEDIR)/host-timeout.*
-	rm -rf $(HOST_TIMEOUT_DIR)
 
 # vim: syntax=make

@@ -28,17 +28,6 @@ $(STATEDIR)/host-mtd-utils.get: $(STATEDIR)/mtd-utils.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-mtd-utils.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_MTD_UTILS_DIR))
-	@$(call extract, MTD_UTILS, $(HOST_BUILDDIR))
-	@$(call patchin, MTD_UTILS, $(HOST_MTD_UTILS_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -53,13 +42,5 @@ HOST_MTD_UTILS_MAKEVARS	= \
 	DESTDIR=/
 
 HOST_MTD_UTILS_MAKE_PAR := NO
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-mtd-utils_clean:
-	rm -rf $(STATEDIR)/host-mtd-utils.*
-	rm -rf $(HOST_MTD_UTILS_DIR)
 
 # vim: syntax=make

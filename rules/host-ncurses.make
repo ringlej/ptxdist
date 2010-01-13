@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2008 by mol@pengutronix.de
 #
@@ -25,17 +24,6 @@ HOST_NCURSES_DIR	= $(HOST_BUILDDIR)/$(NCURSES)
 
 $(STATEDIR)/host-ncurses.get:
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-ncurses.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_NCURSES_DIR))
-	@$(call extract, NCURSES, $(HOST_BUILDDIR))
-	@$(call patchin, NCURSES, $(HOST_NCURSES_DIR))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -77,13 +65,5 @@ $(STATEDIR)/host-ncurses.compile:
 $(STATEDIR)/host-ncurses.install:
 	@$(call targetinfo)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-ncurses_clean:
-	rm -rf $(STATEDIR)/host-ncurses.*
-	rm -rf $(HOST_NCURSES_DIR)
 
 # vim: syntax=make

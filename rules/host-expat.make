@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -32,17 +31,6 @@ $(STATEDIR)/host-expat.get: $(STATEDIR)/expat.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-expat.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_EXPAT_DIR))
-	@$(call extract, EXPAT, $(HOST_BUILDDIR))
-	@$(call patchin, EXPAT, $(HOST_EXPAT_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -53,13 +41,5 @@ HOST_EXPAT_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_EXPAT_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-expat_clean:
-	rm -rf $(STATEDIR)/host-expat.*
-	rm -rf $(HOST_EXPAT_DIR)
 
 # vim: syntax=make

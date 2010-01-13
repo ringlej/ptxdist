@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
@@ -28,17 +27,6 @@ $(STATEDIR)/host-dbus.get: $(STATEDIR)/dbus.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-dbus.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_DBUS_DIR))
-	@$(call extract, DBUS, $(HOST_BUILDDIR))
-	@$(call patchin, DBUS, $(HOST_DBUS_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -54,13 +42,5 @@ HOST_DBUS_AUTOCONF := \
 	--with-xml=expat \
 	--disable-selinux \
 	--disable-libaudit   
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-dbus_clean:
-	rm -rf $(STATEDIR)/host-dbus.*
-	rm -rf $(HOST_DBUS_DIR)
 
 # vim: syntax=make

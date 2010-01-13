@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
@@ -26,17 +25,6 @@ HOST_MYSQL_DIR		= $(HOST_BUILDDIR)/$(HOST_MYSQL)
 
 $(STATEDIR)/host-mysql.get: $(STATEDIR)/mysql.get
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-mysql.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_MYSQL_DIR))
-	@$(call extract, MYSQL, $(HOST_BUILDDIR))
-	@$(call patchin, MYSQL, $(HOST_MYSQL_DIR))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -85,13 +73,5 @@ $(STATEDIR)/host-mysql.compile:
 $(STATEDIR)/host-mysql.install:
 	@$(call targetinfo)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-mysql_clean:
-	rm -rf $(STATEDIR)/host-mysql.*
-	rm -rf $(HOST_MYSQL_DIR)
 
 # vim: syntax=make

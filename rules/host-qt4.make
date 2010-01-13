@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -27,17 +26,6 @@ HOST_QT4_BUILD_OOT	:= YES
 
 $(STATEDIR)/host-qt4.get: $(QT4_SOURCE)
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-qt4.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_QT4_DIR))
-	@$(call extract, QT4, $(HOST_BUILDDIR))
-	@$(call patchin, QT4, $(HOST_QT4_DIR))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -175,13 +163,5 @@ $(STATEDIR)/host-qt4.install:
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qmake
 	@echo -e "[Paths]\nPrefix=$(SYSROOT)/usr\nBinaries=$(PTXCONF_SYSROOT_HOST)/bin" > $(PTXDIST_SYSROOT_CROSS)/bin/qt.conf
 	@$(call touch)
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-qt4_clean:
-	rm -rf $(STATEDIR)/host-qt4.*
-	rm -rf $(HOST_QT4_DIR)
-	rm -rf $(HOST_QT4_BUILDDIR)
 
 # vim: syntax=make

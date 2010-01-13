@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -28,17 +27,6 @@ $(STATEDIR)/host-libpng.get: $(STATEDIR)/libpng.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-libpng.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_LIBPNG_DIR))
-	@$(call extract, LIBPNG, $(HOST_BUILDDIR))
-	@$(call patchin, LIBPNG, $(HOST_LIBPNG_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -49,13 +37,5 @@ HOST_LIBPNG_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_LIBPNG_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libpng_clean:
-	rm -rf $(STATEDIR)/host-libpng.*
-	rm -rf $(HOST_LIBPNG_DIR)
 
 # vim: syntax=make

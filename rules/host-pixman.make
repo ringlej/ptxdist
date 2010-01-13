@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Robert Schwebel
 #
@@ -28,17 +27,6 @@ $(STATEDIR)/host-pixman.get: $(STATEDIR)/pixman.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-pixman.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_PIXMAN_DIR))
-	@$(call extract, PIXMAN, $(HOST_BUILDDIR))
-	@$(call patchin, PIXMAN, $(HOST_PIXMAN_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -49,13 +37,5 @@ HOST_PIXMAN_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_PIXMAN_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-pixman_clean:
-	rm -rf $(STATEDIR)/host-pixman.*
-	rm -rf $(HOST_PIXMAN_DIR)
 
 # vim: syntax=make

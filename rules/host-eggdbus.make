@@ -27,17 +27,6 @@ $(STATEDIR)/host-eggdbus.get: $(STATEDIR)/eggdbus.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-eggdbus.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_EGGDBUS_DIR))
-	@$(call extract, EGGDBUS, $(HOST_BUILDDIR))
-	@$(call patchin, EGGDBUS, $(HOST_EGGDBUS_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -74,13 +63,5 @@ HOST_EGGDBUS_AUTOCONF	:= $(HOST_AUTOCONF)
 #	@$(call targetinfo)
 #	@$(call install, HOST_EGGDBUS)
 #	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-eggdbus_clean:
-	rm -rf $(STATEDIR)/host-eggdbus.*
-	rm -rf $(HOST_EGGDBUS_DIR)
 
 # vim: syntax=make

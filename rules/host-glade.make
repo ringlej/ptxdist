@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -36,17 +35,6 @@ $(STATEDIR)/host-glade.get: $(STATEDIR)/glade.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-glade.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_GLADE_DIR))
-	@$(call extract, GLADE, $(HOST_BUILDDIR))
-	@$(call patchin, GLADE, $(HOST_GLADE_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -57,13 +45,5 @@ HOST_GLADE_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_GLADE_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-glade_clean:
-	rm -rf $(STATEDIR)/host-glade.*
-	rm -rf $(HOST_GLADE_DIR)
 
 # vim: syntax=make

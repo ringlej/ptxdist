@@ -30,17 +30,6 @@ $(STATEDIR)/host-apache2.get: $(STATEDIR)/apache2.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-apache2.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_APACHE2_DIR))
-	@$(call extract, APACHE2, $(HOST_BUILDDIR))
-	@$(call patchin, APACHE2, $(HOST_APACHE2_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -69,13 +58,5 @@ $(STATEDIR)/host-apache2.compile:
 $(STATEDIR)/host-apache2.install:
 	@$(call targetinfo)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-apache2_clean:
-	rm -rf $(STATEDIR)/host-apache2.*
-	rm -rf $(HOST_APACHE2_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2008 by 
 #
@@ -25,17 +24,6 @@ HOST_LIBGD_DIR	= $(HOST_BUILDDIR)/$(LIBGD)
 
 $(STATEDIR)/host-libgd.get: $(STATEDIR)/libgd.get
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-libgd.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_LIBGD_DIR))
-	@$(call extract, LIBGD, $(HOST_BUILDDIR))
-	@$(call patchin, LIBGD, $(HOST_LIBGD_DIR))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -82,13 +70,5 @@ $(STATEDIR)/host-libgd.install:
 	@$(call targetinfo)
 	@$(call install, HOST_LIBGD,,h)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libgd_clean:
-	rm -rf $(STATEDIR)/host-libgd.*
-	rm -rf $(HOST_LIBGD_DIR)
 
 # vim: syntax=make

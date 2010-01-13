@@ -28,17 +28,6 @@ $(STATEDIR)/host-dbus-glib.get: $(STATEDIR)/dbus-glib.get
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-dbus-glib.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_DBUS_GLIB_DIR))
-	@$(call extract, DBUS_GLIB, $(HOST_BUILDDIR))
-	@$(call patchin, DBUS_GLIB, $(HOST_DBUS_GLIB_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -55,13 +44,5 @@ HOST_DBUS_GLIB_AUTOCONF := \
 	--disable-gcov \
 	--disable-gtk-doc \
 	--disable-tests
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-dbus-glib_clean:
-	rm -rf $(STATEDIR)/host-dbus-glib.*
-	rm -rf $(HOST_DBUS_GLIB_DIR)
 
 # vim: syntax=make
