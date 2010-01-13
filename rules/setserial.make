@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2005 by BSP
 #
@@ -17,12 +16,12 @@ PACKAGES-$(PTXCONF_SETSERIAL) += setserial
 #
 # Paths and names
 #
-SETSERIAL_VERSION	= 2.17
-SETSERIAL		= setserial-$(SETSERIAL_VERSION)
-SETSERIAL_SUFFIX	= tar.gz
-SETSERIAL_URL		= $(PTXCONF_SETUP_SFMIRROR)/setserial/$(SETSERIAL).$(SETSERIAL_SUFFIX)
-SETSERIAL_SOURCE	= $(SRCDIR)/$(SETSERIAL).$(SETSERIAL_SUFFIX)
-SETSERIAL_DIR		= $(BUILDDIR)/$(SETSERIAL)
+SETSERIAL_VERSION	:= 2.17
+SETSERIAL		:= setserial-$(SETSERIAL_VERSION)
+SETSERIAL_SUFFIX	:= tar.gz
+SETSERIAL_URL		:= $(PTXCONF_SETUP_SFMIRROR)/setserial/$(SETSERIAL).$(SETSERIAL_SUFFIX)
+SETSERIAL_SOURCE	:= $(SRCDIR)/$(SETSERIAL).$(SETSERIAL_SUFFIX)
+SETSERIAL_DIR		:= $(BUILDDIR)/$(SETSERIAL)
 
 
 # ----------------------------------------------------------------------------
@@ -37,13 +36,13 @@ $(SETSERIAL_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-SETSERIAL_PATH	=  PATH=$(CROSS_PATH)
-SETSERIAL_ENV 	=  $(CROSS_ENV)
+SETSERIAL_PATH	:= PATH=$(CROSS_PATH)
+SETSERIAL_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-SETSERIAL_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+SETSERIAL_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -66,14 +65,5 @@ $(STATEDIR)/setserial.targetinstall:
 	@$(call install_finish, setserial)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-setserial_clean:
-	rm -rf $(STATEDIR)/setserial.*
-	rm -rf $(PKGDIR)/setserial_*
-	rm -rf $(SETSERIAL_DIR)
 
 # vim: syntax=make
