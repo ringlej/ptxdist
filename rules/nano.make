@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_NANO) += nano
 #
 # Paths and names
 #
-NANO_VERSION		= 1.3.10
-NANO			= nano-$(NANO_VERSION)
-NANO_SUFFIX		= tar.gz
-NANO_URL		= http://www.nano-editor.org/dist/v1.3/$(NANO).$(NANO_SUFFIX)
-NANO_SOURCE		= $(SRCDIR)/$(NANO).$(NANO_SUFFIX)
-NANO_DIR		= $(BUILDDIR)/$(NANO)
+NANO_VERSION		:= 1.3.10
+NANO			:= nano-$(NANO_VERSION)
+NANO_SUFFIX		:= tar.gz
+NANO_URL		:= http://www.nano-editor.org/dist/v1.3/$(NANO).$(NANO_SUFFIX)
+NANO_SOURCE		:= $(SRCDIR)/$(NANO).$(NANO_SUFFIX)
+NANO_DIR		:= $(BUILDDIR)/$(NANO)
 
 
 # ----------------------------------------------------------------------------
@@ -37,8 +37,8 @@ $(NANO_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-NANO_PATH	=  PATH=$(CROSS_PATH)
-NANO_ENV 	=  $(CROSS_ENV)
+NANO_PATH	:= PATH=$(CROSS_PATH)
+NANO_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -66,13 +66,5 @@ $(STATEDIR)/nano.targetinstall:
 	@$(call install_finish,nano)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-nano_clean:
-	rm -rf $(STATEDIR)/nano.*
-	rm -rf $(NANO_DIR)
 
 # vim: syntax=make
