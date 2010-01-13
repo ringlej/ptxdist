@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: gnupg.make,v 1.4 2005/04/26 12:16:24 michl Exp $
 #
 # Copyright (C) 2005 by Jiri Nesladek
 #          
@@ -17,12 +16,12 @@ PACKAGES-$(PTXCONF_GNUPG) += gnupg
 #
 # Paths and names
 #
-GNUPG_VERSION	= 1.4.10
-GNUPG		= gnupg-$(GNUPG_VERSION)
-GNUPG_SUFFIX	= tar.bz2
-GNUPG_URL	= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
-GNUPG_SOURCE	= $(SRCDIR)/$(GNUPG).$(GNUPG_SUFFIX)
-GNUPG_DIR	= $(BUILDDIR)/$(GNUPG)
+GNUPG_VERSION	:= 1.4.10
+GNUPG		:= gnupg-$(GNUPG_VERSION)
+GNUPG_SUFFIX	:= tar.bz2
+GNUPG_URL	:= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
+GNUPG_SOURCE	:= $(SRCDIR)/$(GNUPG).$(GNUPG_SUFFIX)
+GNUPG_DIR	:= $(BUILDDIR)/$(GNUPG)
 
 
 # ----------------------------------------------------------------------------
@@ -96,14 +95,5 @@ $(STATEDIR)/gnupg.targetinstall:
 	@$(call install_finish, gnupg)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gnupg_clean:
-	rm -rf $(STATEDIR)/gnupg.*
-	rm -rf $(PKGDIR)/gnupg_*
-	rm -rf $(GNUPG_DIR)
 
 # vim: syntax=make
