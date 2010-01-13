@@ -54,7 +54,7 @@ LIBFFI_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/libffi.install:
 	@$(call targetinfo)
 	@$(call install, LIBFFI)
-	mv "$(SYSROOT)/usr/lib/$(LIBFFI)/include/"* "$(SYSROOT)/usr/include"
+	mv "$(LIBFFI_PKGDIR)/usr/lib/$(LIBFFI)/include/"* "$(LIBFFI_PKGDIR)/usr/include"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
