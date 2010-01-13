@@ -37,8 +37,8 @@ $(XORG_APP_XINIT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_XINIT_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_XINIT_ENV 	:=  $(CROSS_ENV)
+XORG_APP_XINIT_PATH	:= PATH=$(CROSS_PATH)
+XORG_APP_XINIT_ENV 	:= $(CROSS_ENV)
 XORG_APP_XINIT_MAKEVARS :=  XINITDIR=/etc/X11/xinit \
 			RAWCPP=$(COMPILER_PREFIX)cpp
 	#FIXME: damm ugly hack, should fix cpp check in configure instead
@@ -94,14 +94,5 @@ $(STATEDIR)/xorg-app-xinit.targetinstall:
 	@$(call install_finish,xorg-app-xinit)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xinit_clean:
-	rm -rf $(STATEDIR)/xorg-app-xinit.*
-	rm -rf $(PKGDIR)/xorg-app-xinit_*
-	rm -rf $(XORG_APP_XINIT_DIR)
 
 # vim: syntax=make

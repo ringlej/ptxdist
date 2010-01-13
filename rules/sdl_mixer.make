@@ -74,13 +74,4 @@ $(STATEDIR)/sdl_mixer.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sdl_mixer_clean:
-	rm -rf $(STATEDIR)/sdl_mixer.*
-	rm -rf $(PKGDIR)/sdl_mixer_*
-	rm -rf $(SDL_MIXER_DIR)
-
 # vim: syntax=make

@@ -69,13 +69,4 @@ $(STATEDIR)/calibrator.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-calibrator_clean:
-	rm -rf $(STATEDIR)/calibrator.*
-	rm -rf $(PKGDIR)/calibrator_*
-	rm -rf $(CALIBRATOR_DIR)
-
 # vim: syntax=make

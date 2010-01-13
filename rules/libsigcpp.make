@@ -69,13 +69,4 @@ $(STATEDIR)/libsigcpp.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libsigcpp_clean:
-	rm -rf $(STATEDIR)/libsigcpp.*
-	rm -rf $(PKGDIR)/libsigcpp_*
-	rm -rf $(LIBSIGCPP_DIR)
-
 # vim: syntax=make

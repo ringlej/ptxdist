@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #               2007 by Robert Schwebel
@@ -86,14 +85,5 @@ $(STATEDIR)/slang.targetinstall:
 	@$(call install_finish, slang)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-slang_clean:
-	rm -rf $(STATEDIR)/slang.*
-	rm -rf $(PKGDIR)/slang_*
-	rm -rf $(SLANG_DIR)
 
 # vim: syntax=make

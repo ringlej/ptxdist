@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -80,14 +79,5 @@ $(STATEDIR)/libmad.targetinstall:
 	@$(call install_finish, libmad)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libmad_clean:
-	rm -rf $(STATEDIR)/libmad.*
-	rm -rf $(PKGDIR)/libmad_*
-	rm -rf $(LIBMAD_DIR)
 
 # vim: syntax=make

@@ -88,13 +88,4 @@ $(STATEDIR)/ltp-dots.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltp-dots_clean:
-	rm -rf $(STATEDIR)/ltp-dots.*
-	rm -rf $(PKGDIR)/ltp-dots_*
-	rm -rf $(LTP_DOTS_DIR)
-
 # vim: syntax=make

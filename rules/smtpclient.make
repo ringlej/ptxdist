@@ -69,13 +69,4 @@ $(STATEDIR)/smtpclient.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-smtpclient_clean:
-	rm -rf $(STATEDIR)/smtpclient.*
-	rm -rf $(PKGDIR)/smtpclient_*
-	rm -rf $(SMTPCLIENT_DIR)
-
 # vim: syntax=make

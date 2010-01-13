@@ -67,13 +67,4 @@ $(STATEDIR)/xorg-app-xauth.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xauth_clean:
-	rm -rf $(STATEDIR)/xorg-app-xauth.*
-	rm -rf $(PKGDIR)/xorg-app-xauth_*
-	rm -rf $(XORG_APP_XAUTH_DIR)
-
 # vim: syntax=make

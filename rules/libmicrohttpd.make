@@ -97,13 +97,4 @@ $(STATEDIR)/libmicrohttpd.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libmicrohttpd_clean:
-	rm -rf $(STATEDIR)/libmicrohttpd.*
-	rm -rf $(PKGDIR)/libmicrohttpd_*
-	rm -rf $(LIBMICROHTTPD_DIR)
-
 # vim: syntax=make

@@ -68,13 +68,4 @@ $(STATEDIR)/sed.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sed_clean:
-	rm -rf $(STATEDIR)/sed.*
-	rm -rf $(PKGDIR)/sed_*
-	rm -rf $(SED_DIR)
-
 # vim: syntax=make

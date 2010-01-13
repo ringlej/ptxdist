@@ -39,12 +39,4 @@ HOST_XORG_PROTO_KB_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_PROTO_KB_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-proto-kb_clean:
-	rm -rf $(STATEDIR)/host-xorg-proto-kb.*
-	rm -rf $(HOST_XORG_PROTO_KB_DIR)
-
 # vim: syntax=make

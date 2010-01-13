@@ -137,13 +137,4 @@ $(STATEDIR)/ltp-kernel.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltp-kernel_clean:
-	rm -rf $(STATEDIR)/ltp-kernel.*
-	rm -rf $(PKGDIR)/ltp-kernel_*
-	rm -rf $(LTP_KERNEL_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2922 2005-07-11 19:17:53Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
 # 		2008 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -38,8 +37,8 @@ $(LIBXMLCONFIG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBXMLCONFIG_PATH	:=  PATH=$(CROSS_PATH)
-LIBXMLCONFIG_ENV 	:=  $(CROSS_ENV)
+LIBXMLCONFIG_PATH	:= PATH=$(CROSS_PATH)
+LIBXMLCONFIG_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -72,14 +71,5 @@ $(STATEDIR)/libxmlconfig.targetinstall:
 	@$(call install_finish, libxmlconfig)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libxmlconfig_clean:
-	rm -rf $(STATEDIR)/libxmlconfig.*
-	rm -rf $(PKGDIR)/libxmlconfig_*
-	rm -rf $(LIBXMLCONFIG_DIR)
 
 # vim: syntax=make

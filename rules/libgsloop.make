@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 7626 2007-11-26 10:27:03Z mkl $
 #
 # Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -70,14 +69,5 @@ $(STATEDIR)/libgsloop.targetinstall:
 	@$(call install_finish, libgsloop)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libgsloop_clean:
-	rm -rf $(STATEDIR)/libgsloop.*
-	rm -rf $(PKGDIR)/libgsloop_*
-	rm -rf $(LIBGSLOOP_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Juergen Beisert
 #
@@ -84,14 +83,5 @@ $(STATEDIR)/tiobench.targetinstall:
 	@$(call install_finish, tiobench)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-tiobench_clean:
-	rm -rf $(STATEDIR)/tiobench.*
-	rm -rf $(PKGDIR)/tiobench_*
-	rm -rf $(TIOBENCH_DIR)
 
 # vim: syntax=make

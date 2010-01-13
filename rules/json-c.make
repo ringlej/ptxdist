@@ -68,13 +68,4 @@ $(STATEDIR)/json-c.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-json-c_clean:
-	rm -rf $(STATEDIR)/json-c.*
-	rm -rf $(PKGDIR)/json-c_*
-	rm -rf $(JSON_C_DIR)
-
 # vim: syntax=make

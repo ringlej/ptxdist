@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -65,14 +64,5 @@ $(STATEDIR)/xorg-app-xev.targetinstall:
 	@$(call install_finish, xorg-app-xev)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xev_clean:
-	rm -rf $(STATEDIR)/xorg-app-xev.*
-	rm -rf $(PKGDIR)/xorg-app-xev_*
-	rm -rf $(XORG_APP_XEV_DIR)
 
 # vim: syntax=make

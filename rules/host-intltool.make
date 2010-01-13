@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2008 by mol@pengutronix.de
 #
@@ -51,13 +50,5 @@ HOST_INTLTOOL_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_INTLTOOL_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-intltool_clean:
-	rm -rf $(STATEDIR)/host-intltool.*
-	rm -rf $(HOST_INTLTOOL_DIR)
 
 # vim: syntax=make

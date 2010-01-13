@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -72,14 +71,5 @@ $(STATEDIR)/cairomm.targetinstall:
 	@$(call install_finish, cairomm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cairomm_clean:
-	rm -rf $(STATEDIR)/cairomm.*
-	rm -rf $(PKGDIR)/cairomm_*
-	rm -rf $(CAIROMM_DIR)
 
 # vim: syntax=make

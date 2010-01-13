@@ -97,13 +97,4 @@ $(STATEDIR)/libiodbc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libiodbc_clean:
-	rm -rf $(STATEDIR)/libiodbc.*
-	rm -rf $(PKGDIR)/libiodbc_*
-	rm -rf $(LIBIODBC_DIR)
-
 # vim: syntax=make

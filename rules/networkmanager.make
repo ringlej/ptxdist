@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -128,14 +127,5 @@ $(STATEDIR)/networkmanager.targetinstall:
 	@$(call install_finish, networkmanager)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-networkmanager_clean:
-	rm -rf $(STATEDIR)/networkmanager.*
-	rm -rf $(PKGDIR)/networkmanager_*
-	rm -rf $(NETWORKMANAGER_DIR)
 
 # vim: syntax=make

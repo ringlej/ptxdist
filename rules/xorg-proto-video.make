@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-video.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-video_clean:
-	rm -rf $(STATEDIR)/xorg-proto-video.*
-	rm -rf $(PKGDIR)/xorg-proto-video_*
-	rm -rf $(XORG_PROTO_VIDEO_DIR)
-
 # vim: syntax=make
 

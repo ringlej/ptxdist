@@ -136,13 +136,4 @@ $(STATEDIR)/pdksh.targetinstall:
 	@$(call install_finish, pdksh)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-pdksh_clean:
-	rm -rf $(STATEDIR)/pdksh.*
-	rm -rf $(PKGDIR)/pdksh_*
-	rm -rf $(PDKSH_DIR)
-
 # vim: syntax=make

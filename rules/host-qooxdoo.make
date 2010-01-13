@@ -65,12 +65,4 @@ $(STATEDIR)/host-qooxdoo.install:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-qooxdoo_clean:
-	rm -rf $(STATEDIR)/host-qooxdoo.*
-	rm -rf $(HOST_QOOXDOO_DIR)
-
 # vim: syntax=make

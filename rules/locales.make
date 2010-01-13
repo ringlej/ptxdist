@@ -110,13 +110,4 @@ $(STATEDIR)/locales.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-locales_clean:
-	rm -rf $(STATEDIR)/locales.*
-	rm -rf $(PKGDIR)/locales_*
-	rm -rf $(LOCALES_DIR)
-
 # vim: syntax=make

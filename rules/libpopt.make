@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #               2006, 2009 by Marc Kleine-Budde
@@ -37,8 +36,8 @@ $(LIBPOPT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBPOPT_PATH	:=  PATH=$(CROSS_PATH)
-LIBPOPT_ENV 	:=  $(CROSS_ENV)
+LIBPOPT_PATH	:= PATH=$(CROSS_PATH)
+LIBPOPT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -75,14 +74,5 @@ $(STATEDIR)/libpopt.targetinstall:
 	@$(call install_finish,libpopt)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libpopt_clean:
-	rm -rf $(STATEDIR)/libpopt.*
-	rm -rf $(PKGDIR)/libpopt_*
-	rm -rf $(LIBPOPT_DIR)
 
 # vim: syntax=make

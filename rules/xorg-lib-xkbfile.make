@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_LIB_XKBFILE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XKBFILE_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XKBFILE_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XKBFILE_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XKBFILE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -76,14 +75,5 @@ $(STATEDIR)/xorg-lib-xkbfile.targetinstall:
 	@$(call install_finish, xorg-lib-xkbfile)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xkbfile_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xkbfile.*
-	rm -rf $(PKGDIR)/xorg-lib-xkbfile_*
-	rm -rf $(XORG_LIB_XKBFILE_DIR)
 
 # vim: syntax=make

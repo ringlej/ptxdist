@@ -80,13 +80,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-killproc_clean:
-	rm -rf $(STATEDIR)/killproc.*
-	rm -rf $(IMAGEDIR)/killproc_*
-	rm -rf $(KILLPROC_DIR)
-
 # vim: syntax=make

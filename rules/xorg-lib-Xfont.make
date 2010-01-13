@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,10 +36,8 @@ $(XORG_LIB_XFONT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-xfont_prepare: $(STATEDIR)/xorg-lib-xfont.prepare
-
-XORG_LIB_XFONT_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XFONT_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XFONT_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XFONT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -111,9 +108,7 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-lib-xfont_targetinstall: $(STATEDIR)/xorg-lib-xfont.targetinstall
-
-$(STATEDIR)/xorg-lib-xfont.targetinstall: $(xorg-lib-xfont_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xfont.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xfont)
@@ -139,14 +134,5 @@ $(STATEDIR)/xorg-lib-xfont.targetinstall: $(xorg-lib-xfont_targetinstall_deps_de
 	@$(call install_finish, xorg-lib-xfont)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xfont_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xfont.*
-	rm -rf $(PKGDIR)/xorg-lib-xfont_*
-	rm -rf $(XORG_LIB_XFONT_DIR)
 
 # vim: syntax=make

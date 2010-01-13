@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -38,8 +37,8 @@ $(MC_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-MC_PATH	:=  PATH=$(CROSS_PATH)
-MC_ENV 	:=  $(CROSS_ENV)
+MC_PATH	:= PATH=$(CROSS_PATH)
+MC_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -81,14 +80,5 @@ $(STATEDIR)/mc.targetinstall:
 	@$(call install_finish,mc)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-mc_clean:
-	rm -rf $(STATEDIR)/mc.*
-	rm -rf $(PKGDIR)/mc_*
-	rm -rf $(MC_DIR)
 
 # vim: syntax=make

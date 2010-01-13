@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -85,14 +84,5 @@ $(STATEDIR)/bootchart.targetinstall:
 	@$(call install_finish, bootchart)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-bootchart_clean:
-	rm -rf $(STATEDIR)/bootchart.*
-	rm -rf $(PKGDIR)/bootchart_*
-	rm -rf $(BOOTCHART_DIR)
 
 # vim: syntax=make

@@ -41,12 +41,4 @@ HOST_LIBDBUS_CXX_ENV 	:= $(HOST_ENV)
 #
 HOST_LIBDBUS_CXX_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libdbus-cxx_clean:
-	rm -rf $(STATEDIR)/host-libdbus-cxx.*
-	rm -rf $(HOST_LIBDBUS_CXX_DIR)
-
 # vim: syntax=make

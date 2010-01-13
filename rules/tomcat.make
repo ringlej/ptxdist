@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -117,14 +116,5 @@ $(STATEDIR)/tomcat.targetinstall:
 	@$(call install_finish, tomcat)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-tomcat_clean:
-	rm -rf $(STATEDIR)/tomcat.*
-	rm -rf $(PKGDIR)/tomcat_*
-	rm -rf $(TOMCAT_DIR)
 
 # vim: syntax=make

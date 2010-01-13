@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,10 +36,8 @@ $(XORG_LIB_XMU_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-xmu_prepare: $(STATEDIR)/xorg-lib-xmu.prepare
-
-XORG_LIB_XMU_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XMU_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XMU_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XMU_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -54,7 +51,7 @@ XORG_LIB_XMU_AUTOCONF := \
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/xorg-lib-xmu.targetinstall: $(xorg-lib-xmu_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xmu.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xmu)
@@ -62,7 +59,7 @@ $(STATEDIR)/xorg-lib-xmu.targetinstall: $(xorg-lib-xmu_targetinstall_deps_defaul
 	@$(call install_fixup, xorg-lib-xmu,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-xmu,VERSION,$(XORG_LIB_XMU_VERSION))
 	@$(call install_fixup, xorg-lib-xmu,SECTION,base)
-	@$(call install_fixup, xorg-lib-xmu,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xmu,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xmu,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xmu,DESCRIPTION,missing)
 
@@ -91,14 +88,5 @@ $(STATEDIR)/xorg-lib-xmu.targetinstall: $(xorg-lib-xmu_targetinstall_deps_defaul
 	@$(call install_finish, xorg-lib-xmu)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xmu_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xmu.*
-	rm -rf $(PKGDIR)/xorg-lib-xmu_*
-	rm -rf $(XORG_LIB_XMU_DIR)
 
 # vim: syntax=make

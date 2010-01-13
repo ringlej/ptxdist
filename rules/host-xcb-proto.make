@@ -48,12 +48,4 @@ $(STATEDIR)/host-xcb-proto.install:
 	@$(call install, HOST_XCB_PROTO,,h)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xcb-proto_clean:
-	rm -rf $(STATEDIR)/host-xcb-proto.*
-	rm -rf $(HOST_XCB_PROTO_DIR)
-
 # vim: syntax=make

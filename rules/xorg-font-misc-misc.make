@@ -100,13 +100,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-misc-misc_clean:
-	rm -rf $(STATEDIR)/xorg-font-misc-misc.*
-	rm -rf $(PKGDIR)/xorg-font-misc-misc_*
-	rm -rf $(XORG_FONT_MISC_MISC_DIR)
-
 # vim: syntax=make

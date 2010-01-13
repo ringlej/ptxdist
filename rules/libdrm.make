@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(LIBDRM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBDRM_PATH	:=  PATH=$(CROSS_PATH)
-LIBDRM_ENV 	:=  $(CROSS_ENV)
+LIBDRM_PATH	:= PATH=$(CROSS_PATH)
+LIBDRM_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -78,14 +77,5 @@ endif
 	@$(call install_finish, libdrm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libdrm_clean:
-	rm -rf $(STATEDIR)/libdrm.*
-	rm -rf $(PKGDIR)/libdrm_*
-	rm -rf $(LIBDRM_DIR)
 
 # vim: syntax=make

@@ -41,12 +41,4 @@ HOST_XORG_LIB_XFONT_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--disable-freetype
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-lib-xfont_clean:
-	rm -rf $(STATEDIR)/host-xorg-lib-xfont.*
-	rm -rf $(HOST_XORG_LIB_XFONT_DIR)
-
 # vim: syntax=make

@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-xf86dri.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-xf86dri_clean:
-	rm -rf $(STATEDIR)/xorg-proto-xf86dri.*
-	rm -rf $(PKGDIR)/xorg-proto-xf86dri_*
-	rm -rf $(XORG_PROTO_XF86DRI_DIR)
-
 # vim: syntax=make
 

@@ -65,13 +65,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-pnputils_clean:
-	rm -rf $(STATEDIR)/pnputils.*
-	rm -rf $(PKGDIR)/pnputils_*
-	rm -rf $(PNPUTILS_DIR)
-
 # vim: syntax=make

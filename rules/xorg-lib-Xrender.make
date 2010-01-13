@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -78,14 +77,5 @@ $(STATEDIR)/xorg-lib-xrender.targetinstall:
 	@$(call install_finish, xorg-lib-xrender)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xrender_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xrender.*
-	rm -rf $(PKGDIR)/xorg-lib-xrender_*
-	rm -rf $(XORG_LIB_XRENDER_DIR)
 
 # vim: syntax=make

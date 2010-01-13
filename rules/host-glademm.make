@@ -39,12 +39,4 @@ HOST_GLADEMM_ENV 	:= $(HOST_ENV)
 #
 HOST_GLADEMM_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-glademm_clean:
-	rm -rf $(STATEDIR)/host-glademm.*
-	rm -rf $(HOST_GLADEMM_DIR)
-
 # vim: syntax=make

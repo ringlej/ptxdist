@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -68,14 +67,5 @@ $(STATEDIR)/mtr.targetinstall:
 	@$(call install_finish, mtr)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-mtr_clean:
-	rm -rf $(STATEDIR)/mtr.*
-	rm -rf $(PKGDIR)/mtr_*
-	rm -rf $(MTR_DIR)
 
 # vim: syntax=make

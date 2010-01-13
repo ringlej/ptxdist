@@ -78,13 +78,4 @@ $(STATEDIR)/xli.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xli_clean:
-	rm -rf $(STATEDIR)/xli.*
-	rm -rf $(PKGDIR)/xli_*
-	rm -rf $(XLI_DIR)
-
 # vim: syntax=make

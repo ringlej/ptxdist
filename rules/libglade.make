@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -71,14 +70,5 @@ $(STATEDIR)/libglade.targetinstall:
 	@$(call install_finish, libglade)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libglade_clean:
-	rm -rf $(STATEDIR)/libglade.*
-	rm -rf $(PKGDIR)/libglade_*
-	rm -rf $(LIBGLADE_DIR)
 
 # vim: syntax=make

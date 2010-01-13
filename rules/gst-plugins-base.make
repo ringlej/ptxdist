@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
 #
@@ -223,7 +222,7 @@ $(STATEDIR)/gst-plugins-base.targetinstall:
 	@$(call install_fixup, gst-plugins-base,PRIORITY,optional)
 	@$(call install_fixup, gst-plugins-base,VERSION,$(GST_PLUGINS_BASE_VERSION))
 	@$(call install_fixup, gst-plugins-base,SECTION,base)
-	@$(call install_fixup, gst-plugins-base,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gst-plugins-base,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gst-plugins-base,DEPENDS,)
 	@$(call install_fixup, gst-plugins-base,DESCRIPTION,missing)
 
@@ -401,14 +400,5 @@ endif
 	@$(call install_finish, gst-plugins-base)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gst-plugins-base_clean:
-	rm -rf $(STATEDIR)/gst-plugins-base.*
-	rm -rf $(PKGDIR)/gst-plugins-base_*
-	rm -rf $(GST_PLUGINS_BASE_DIR)
 
 # vim: syntax=make

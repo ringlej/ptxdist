@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 1681 2004-09-01 18:12:49Z  $
 #
 # Copyright (C) 2004 by Sascha Hauer
 #          
@@ -72,14 +71,5 @@ endif
 	@$(call install_finish, fbutils)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-fbutils_clean:
-	rm -rf $(STATEDIR)/fbutils.*
-	rm -rf $(PKGDIR)/fbutils_*
-	rm -rf $(FBUTILS_DIR)
 
 # vim: syntax=make

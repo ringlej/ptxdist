@@ -82,13 +82,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cpufrequtils_clean:
-	rm -rf $(STATEDIR)/cpufrequtils.*
-	rm -rf $(PKGDIR)/cpufrequtils_*
-	rm -rf $(CPUFREQUTILS_DIR)
-
 # vim: syntax=make

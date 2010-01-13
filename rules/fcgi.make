@@ -34,8 +34,8 @@ $(FCGI_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-FCGI_PATH	:=  PATH=$(CROSS_PATH)
-FCGI_ENV 	:=  $(CROSS_ENV)
+FCGI_PATH	:= PATH=$(CROSS_PATH)
+FCGI_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -67,14 +67,5 @@ $(STATEDIR)/fcgi.targetinstall:
 
 	@$(call install_finish, fcgi)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-fcgi_clean:
-	rm -rf $(STATEDIR)/fcgi.*
-	rm -rf $(PKGDIR)/fcgi_*
-	rm -rf $(FCGI_DIR)
 
 # vim: syntax=make

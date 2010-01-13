@@ -39,12 +39,4 @@ HOST_LIBSIGCPP_ENV 	:= $(HOST_ENV)
 #
 HOST_LIBSIGCPP_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libsigcpp_clean:
-	rm -rf $(STATEDIR)/host-libsigcpp.*
-	rm -rf $(HOST_LIBSIGCPP_DIR)
-
 # vim: syntax=make

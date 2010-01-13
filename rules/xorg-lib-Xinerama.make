@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_LIB_XINERAMA_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XINERAMA_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XINERAMA_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XINERAMA_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XINERAMA_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -76,14 +75,5 @@ $(STATEDIR)/xorg-lib-xinerama.targetinstall:
 	@$(call install_finish, xorg-lib-xinerama)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xinerama_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xinerama.*
-	rm -rf $(PKGDIR)/xorg-lib-xinerama_*
-	rm -rf $(XORG_LIB_XINERAMA_DIR)
 
 # vim: syntax=make

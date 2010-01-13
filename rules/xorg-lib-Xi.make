@@ -78,13 +78,4 @@ $(STATEDIR)/xorg-lib-xi.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xi_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xi.*
-	rm -rf $(PKGDIR)/xorg-lib-xi_*
-	rm -rf $(XORG_LIB_XI_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Sascha Hauer
 #
@@ -147,14 +146,5 @@ $(STATEDIR)/gst-plugins-bad.targetinstall:
 	@$(call install_finish, gst-plugins-bad)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gst-plugins-bad_clean:
-	rm -rf $(STATEDIR)/gst-plugins-bad.*
-	rm -rf $(PKGDIR)/gst-plugins-bad_*
-	rm -rf $(GST_PLUGINS_BAD_DIR)
 
 # vim: syntax=make

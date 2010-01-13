@@ -73,13 +73,4 @@ $(STATEDIR)/atk.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-atk_clean:
-	rm -rf $(STATEDIR)/atk.*
-	rm -rf $(PKGDIR)/atk_*
-	rm -rf $(ATK_DIR)
-
 # vim: syntax=make

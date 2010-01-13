@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -37,8 +36,8 @@ $(XORG_LIB_XDMCP_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XDMCP_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XDMCP_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XDMCP_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XDMCP_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -77,14 +76,5 @@ $(STATEDIR)/xorg-lib-xdmcp.targetinstall:
 	@$(call install_finish, xorg-lib-xdmcp)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xdmcp_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xdmcp.*
-	rm -rf $(PKGDIR)/xorg-lib-xdmcp_*
-	rm -rf $(XORG_LIB_XDMCP_DIR)
 
 # vim: syntax=make

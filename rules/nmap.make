@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 Ixia Corporation (www.ixiacom.com), by Milan Bobde
 #               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -109,14 +108,5 @@ ifdef PTXCONF_NMAP_SERVICES
 endif
 	@$(call install_finish, nmap)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-nmap_clean:
-	rm -rf $(STATEDIR)/nmap.*
-	rm -rf $(PKGDIR)/nmap_*
-	rm -rf $(NMAP_DIR)
 
 # vim: syntax=make

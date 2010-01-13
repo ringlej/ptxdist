@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -37,8 +36,8 @@ $(BOOST_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-BOOST_PATH	:=  PATH=$(CROSS_PATH)
-BOOST_ENV 	:=  $(CROSS_ENV)
+BOOST_PATH	:= PATH=$(CROSS_PATH)
+BOOST_ENV 	:= $(CROSS_ENV)
 
 # they reinvent their own wheel^Hmake: jam
 # -q: quit on error
@@ -171,14 +170,5 @@ $(STATEDIR)/boost.targetinstall:
 	@$(call install_finish,boost)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-boost_clean:
-	rm -rf $(STATEDIR)/boost.*
-	rm -rf $(PKGDIR)/boost_*
-	rm -rf $(BOOST_DIR)
 
 # vim: syntax=make

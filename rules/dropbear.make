@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Marc Kleine-Budde <kleine-budde@gmx.de> for
 #                       Pengutronix e.K. <info@pengutronix.de>, Germany
@@ -38,8 +37,8 @@ $(DROPBEAR_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-DROPBEAR_PATH	:=  PATH=$(CROSS_PATH)
-DROPBEAR_ENV 	:=  $(CROSS_ENV)
+DROPBEAR_PATH	:= PATH=$(CROSS_PATH)
+DROPBEAR_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -295,14 +294,5 @@ endif
 	@$(call install_finish, dropbear)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-dropbear_clean:
-	rm -rf $(STATEDIR)/dropbear.*
-	rm -rf $(PKGDIR)/dropbear_*
-	rm -rf $(DROPBEAR_DIR)
 
 # vim: syntax=make

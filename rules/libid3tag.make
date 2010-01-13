@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -71,14 +70,5 @@ $(STATEDIR)/libid3tag.targetinstall:
 	@$(call install_finish, libid3tag)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libid3tag_clean:
-	rm -rf $(STATEDIR)/libid3tag.*
-	rm -rf $(PKGDIR)/libid3tag_*
-	rm -rf $(LIBID3TAG_DIR)
 
 # vim: syntax=make

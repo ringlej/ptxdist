@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Juergen Beisert
 #
@@ -81,14 +80,5 @@ ifndef PTXCONF_LIBMD_STATIC
 	@$(call install_finish, libmd)
 endif
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libmd_clean:
-	rm -rf $(STATEDIR)/libmd.*
-	rm -rf $(PKGDIR)/libmd_*
-	rm -rf $(LIBMD_DIR)
 
 # vim: syntax=make

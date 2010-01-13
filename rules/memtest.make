@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #
@@ -73,7 +72,7 @@ $(STATEDIR)/memtest.targetinstall:
 	@$(call install_fixup, memtest,PRIORITY,optional)
 	@$(call install_fixup, memtest,VERSION,$(MEMTEST_VERSION))
 	@$(call install_fixup, memtest,SECTION,base)
-	@$(call install_fixup, memtest,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, memtest,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, memtest,DEPENDS,)
 	@$(call install_fixup, memtest,DESCRIPTION,missing)
 
@@ -82,14 +81,5 @@ $(STATEDIR)/memtest.targetinstall:
 	@$(call install_finish, memtest)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-memtest_clean:
-	rm -rf $(STATEDIR)/memtest.*
-	rm -rf $(PKGDIR)/memtest_*
-	rm -rf $(MEMTEST_DIR)
 
 # vim: syntax=make

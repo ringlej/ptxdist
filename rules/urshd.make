@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 7759 2008-02-12 21:05:07Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
 #
@@ -36,8 +35,6 @@ $(URSHD_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-urshd_prepare: $(STATEDIR)/urshd.prepare
-
 URSHD_PATH	:= PATH=$(CROSS_PATH)
 URSHD_ENV 	:= $(CROSS_ENV)
 
@@ -58,7 +55,7 @@ $(STATEDIR)/urshd.targetinstall:
 	@$(call install_fixup, urshd,PRIORITY,optional)
 	@$(call install_fixup, urshd,VERSION,$(URSHD_VERSION))
 	@$(call install_fixup, urshd,SECTION,base)
-	@$(call install_fixup, urshd,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, urshd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, urshd,DEPENDS,)
 	@$(call install_fixup, urshd,DESCRIPTION,missing)
 
@@ -74,14 +71,5 @@ endif
 	@$(call install_finish, urshd)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-urshd_clean:
-	rm -rf $(STATEDIR)/urshd.*
-	rm -rf $(PKGDIR)/urshd_*
-	rm -rf $(URSHD_DIR)
 
 # vim: syntax=make

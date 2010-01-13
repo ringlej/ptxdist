@@ -39,12 +39,4 @@ HOST_XORG_PROTO_INPUT_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_PROTO_INPUT_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-proto-input_clean:
-	rm -rf $(STATEDIR)/host-xorg-proto-input.*
-	rm -rf $(HOST_XORG_PROTO_INPUT_DIR)
-
 # vim: syntax=make

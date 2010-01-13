@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002, 2003, 2008 by Pengutronix e.K., Hildesheim, Germany
 # See CREDITS for details about who has contributed to this project.
@@ -84,14 +83,5 @@ endif
 	@$(call install_finish, utelnetd)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-utelnetd_clean:
-	rm -rf $(STATEDIR)/utelnetd.*
-	rm -rf $(PKGDIR)/utelnetd_*
-	rm -rf $(UTELNETD_DIR)
 
 # vim: syntax=make

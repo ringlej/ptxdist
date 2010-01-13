@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,10 +36,8 @@ $(XORG_LIB_X11_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-x11_prepare: $(STATEDIR)/xorg-lib-x11.prepare
-
-XORG_LIB_X11_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_X11_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_X11_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_X11_ENV 	:= $(CROSS_ENV)
 
 # configure states: "checking for working mmap...no"
 # is this a correct fix?
@@ -121,7 +118,7 @@ $(STATEDIR)/xorg-lib-x11.targetinstall:
 	@$(call install_fixup, xorg-lib-x11,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-x11,VERSION,$(XORG_LIB_X11_VERSION))
 	@$(call install_fixup, xorg-lib-x11,SECTION,base)
-	@$(call install_fixup, xorg-lib-x11,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-x11,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-x11,DEPENDS,)
 	@$(call install_fixup, xorg-lib-x11,DESCRIPTION,missing)
 
@@ -237,14 +234,5 @@ endif
 	@$(call install_finish, xorg-lib-x11)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-x11_clean:
-	rm -rf $(STATEDIR)/xorg-lib-x11.*
-	rm -rf $(PKGDIR)/xorg-lib-x11_*
-	rm -rf $(XORG_LIB_X11_DIR)
 
 # vim: syntax=make

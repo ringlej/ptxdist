@@ -71,13 +71,4 @@ $(STATEDIR)/nickel.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-nickel_clean:
-	rm -rf $(STATEDIR)/nickel.*
-	rm -rf $(PKGDIR)/nickel_*
-	rm -rf $(NICKEL_DIR)
-
 # vim: syntax=make

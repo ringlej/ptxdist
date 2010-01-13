@@ -35,8 +35,8 @@ $(XORG_APP_XDM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_XDM_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_XDM_ENV 	:=  $(CROSS_ENV)
+XORG_APP_XDM_PATH	:= PATH=$(CROSS_PATH)
+XORG_APP_XDM_ENV 	:= $(CROSS_ENV)
 XORG_APP_XDM_BINCONFIG_GLOB := ""
 
 #
@@ -81,14 +81,5 @@ $(STATEDIR)/xorg-app-xdm.targetinstall:
 	@$(call install_finish, xorg-app-xdm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xdm_clean:
-	rm -rf $(STATEDIR)/xorg-app-xdm.*
-	rm -rf $(PKGDIR)/xorg-app-xdm_*
-	rm -rf $(XORG_APP_XDM_DIR)
 
 # vim: syntax=make

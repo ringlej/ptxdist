@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -71,14 +70,5 @@ $(STATEDIR)/powertop.targetinstall:
 	@$(call install_finish, powertop)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-powertop_clean:
-	rm -rf $(STATEDIR)/powertop.*
-	rm -rf $(PKGDIR)/powertop_*
-	rm -rf $(POWERTOP_DIR)
 
 # vim: syntax=make

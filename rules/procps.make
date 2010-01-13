@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation, by Milan Bobde
 #		2007 by Pengutronix e.K.
@@ -108,14 +107,5 @@ endif
 	@$(call install_finish, procps)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-procps_clean:
-	rm -rf $(STATEDIR)/procps.*
-	rm -rf $(PKGDIR)/procps_*
-	rm -rf $(PROCPS_DIR)
 
 # vim: syntax=make

@@ -67,13 +67,4 @@ $(STATEDIR)/ethtool.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ethtool_clean:
-	rm -rf $(STATEDIR)/ethtool.*
-	rm -rf $(PKGDIR)/ethtool_*
-	rm -rf $(ETHTOOL_DIR)
-
 # vim: syntax=make

@@ -73,14 +73,5 @@ $(STATEDIR)/openvpn.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-openvpn_clean:
-	rm -rf $(STATEDIR)/openvpn.*
-	rm -rf $(OPENVPN_PKGDIR)/*
-	rm -rf $(OPENVPN_DIR)
-
 # vim: syntax=make
 

@@ -37,7 +37,7 @@ $(XORG_DRIVER_INPUT_MOUSE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_DRIVER_INPUT_MOUSE_PATH	:=  PATH=$(CROSS_PATH)
+XORG_DRIVER_INPUT_MOUSE_PATH	:= PATH=$(CROSS_PATH)
 XORG_DRIVER_INPUT_MOUSE_ENV 	:=  $(CROSS_ENV) \
 	ac_cv_file__usr_share_sgml_X11_defs_ent=no
 
@@ -69,14 +69,5 @@ $(STATEDIR)/xorg-driver-input-mouse.targetinstall:
 	@$(call install_finish, xorg-driver-input-mouse)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-driver-input-mouse_clean:
-	rm -rf $(STATEDIR)/xorg-driver-input-mouse.*
-	rm -rf $(PKGDIR)/xorg-driver-input-mouse_*
-	rm -rf $(XORG_DRIVER_INPUT_MOUSE_DIR)
 
 # vim: syntax=make

@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-composite.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-composite_clean:
-	rm -rf $(STATEDIR)/xorg-proto-composite.*
-	rm -rf $(PKGDIR)/xorg-proto-composite_*
-	rm -rf $(XORG_PROTO_COMPOSITE_DIR)
-
 # vim: syntax=make
 

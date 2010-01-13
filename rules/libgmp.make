@@ -89,13 +89,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libgmp_clean:
-	rm -rf $(STATEDIR)/libgmp.*
-	rm -rf $(PKGDIR)/libgmp_*
-	rm -rf $(LIBGMP_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -68,14 +67,5 @@ $(STATEDIR)/ltrace.targetinstall:
 	@$(call install_finish, ltrace)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltrace_clean:
-	rm -rf $(STATEDIR)/ltrace.*
-	rm -rf $(PKGDIR)/ltrace_*
-	rm -rf $(LTRACE_DIR)
 
 # vim: syntax=make

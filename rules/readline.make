@@ -83,13 +83,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-readline_clean:
-	rm -rf $(STATEDIR)/readline.*
-	rm -rf $(PKGDIR)/readline_*
-	rm -rf $(READLINE_DIR)
-
 # vim: syntax=make

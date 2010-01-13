@@ -69,7 +69,7 @@ ifndef PTXCONF_LIBPCIACCESS_STATIC
 	@$(call install_fixup, libpciaccess,PRIORITY,optional)
 	@$(call install_fixup, libpciaccess,VERSION,$(LIBPCIACCESS_VERSION))
 	@$(call install_fixup, libpciaccess,SECTION,base)
-	@$(call install_fixup, libpciaccess,AUTHOR,"Juergen Beisert <j.beisert\@pengutronix.de>")
+	@$(call install_fixup, libpciaccess,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
 	@$(call install_fixup, libpciaccess,DEPENDS,)
 	@$(call install_fixup, libpciaccess,DESCRIPTION,missing)
 
@@ -84,14 +84,5 @@ ifndef PTXCONF_LIBPCIACCESS_STATIC
 endif
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libpciaccess_clean:
-	rm -rf $(STATEDIR)/libpciaccess.*
-	rm -rf $(PKGDIR)/libpciaccess_*
-	rm -rf $(LIBPCIACCESS_DIR)
 
 # vim: syntax=make

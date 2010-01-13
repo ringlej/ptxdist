@@ -39,12 +39,4 @@ HOST_XORG_APP_MKFONTDIR_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_APP_MKFONTDIR_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-app-mkfontdir_clean:
-	rm -rf $(STATEDIR)/host-xorg-app-mkfontdir.*
-	rm -rf $(HOST_XORG_APP_MKFONTDIR_DIR)
-
 # vim: syntax=make

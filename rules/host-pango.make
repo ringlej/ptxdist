@@ -85,12 +85,4 @@ HOST_PANGO_AUTOCONF := \
 #HOST_PANGO_AUTOCONF += --without-x
 #endif
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-pango_clean:
-	rm -rf $(STATEDIR)/host-pango.*
-	rm -rf $(HOST_PANGO_DIR)
-
 # vim: syntax=make

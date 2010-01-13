@@ -39,12 +39,4 @@ HOST_GTK_ENGINE_EXPERIENCE_ENV 	:= $(HOST_ENV)
 #
 HOST_GTK_ENGINE_EXPERIENCE_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-gtk-engine-experience_clean:
-	rm -rf $(STATEDIR)/host-gtk-engine-experience.*
-	rm -rf $(HOST_GTK_ENGINE_EXPERIENCE_DIR)
-
 # vim: syntax=make

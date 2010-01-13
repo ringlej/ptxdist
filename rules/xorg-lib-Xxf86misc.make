@@ -37,8 +37,8 @@ $(XORG_LIB_XXF86MISC_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XXF86MISC_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XXF86MISC_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XXF86MISC_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XXF86MISC_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -77,14 +77,5 @@ $(STATEDIR)/xorg-lib-xxf86misc.targetinstall:
 	@$(call install_finish, xorg-lib-xxf86misc)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xxf86misc_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xxf86misc.*
-	rm -rf $(PKGDIR)/xorg-lib-xxf86misc_*
-	rm -rf $(XORG_LIB_XXF86MISC_DIR)
 
 # vim: syntax=make

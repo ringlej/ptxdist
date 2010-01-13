@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -90,14 +89,5 @@ endif
 	@$(call install_finish, rt-tests)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-rt-tests_clean:
-	rm -rf $(STATEDIR)/rt-tests.*
-	rm -rf $(PKGDIR)/rt-tests_*
-	rm -rf $(RT_TESTS_DIR)
 
 # vim: syntax=make

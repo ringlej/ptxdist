@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by Juergen Beisert
 #
@@ -67,14 +66,5 @@ $(STATEDIR)/sdparm.targetinstall:
 	@$(call install_finish, sdparm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sdparm_clean:
-	rm -rf $(STATEDIR)/sdparm.*
-	rm -rf $(PKGDIR)/sdparm_*
-	rm -rf $(SDPARM_DIR)
 
 # vim: syntax=make

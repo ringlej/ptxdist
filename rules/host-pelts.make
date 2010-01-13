@@ -57,12 +57,4 @@ HOST_PELTS_ENV 	:= $(HOST_ENV)
 #
 HOST_PELTS_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-pelts_clean:
-	rm -rf $(STATEDIR)/host-pelts.*
-	rm -rf $(HOST_PELTS_DIR)
-
 # vim: syntax=make

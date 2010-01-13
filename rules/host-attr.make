@@ -38,12 +38,4 @@ HOST_ATTR_AUTOCONF := \
 	--libexecdir=$(PTXDIST_SYSROOT_HOST)/lib \
 	--enable-shared
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-attr_clean:
-	rm -rf $(STATEDIR)/host-attr.*
-	rm -rf $(HOST_ATTR_DIR)
-
 # vim: syntax=make

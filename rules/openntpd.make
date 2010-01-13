@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2680 2005-05-27 10:29:43Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #
@@ -65,7 +64,7 @@ $(STATEDIR)/openntpd.targetinstall:
 	@$(call install_fixup, openntpd,PRIORITY,optional)
 	@$(call install_fixup, openntpd,VERSION,$(OPENNTPD_VERSION))
 	@$(call install_fixup, openntpd,SECTION,base)
-	@$(call install_fixup, openntpd,AUTHOR,"Carsten Schlote c.schlote\@konzeptpark.de>")
+	@$(call install_fixup, openntpd,AUTHOR,"Carsten Schlote c.schlote@konzeptpark.de>")
 	@$(call install_fixup, openntpd,DEPENDS,)
 	@$(call install_fixup, openntpd,DESCRIPTION,missing)
 
@@ -90,14 +89,5 @@ endif
 	@$(call install_finish, openntpd)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-openntpd_clean:
-	rm -rf $(STATEDIR)/openntpd.*
-	rm -rf $(PKGDIR)/openntpd_*
-	rm -rf $(OPENNTPD_DIR)
 
 # vim: syntax=make

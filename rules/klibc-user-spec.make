@@ -85,11 +85,4 @@ $(STATEDIR)/klibc-user-spec.targetinstall: $(STATEDIR)/klibc.targetinstall
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-klibc-user-spec_clean:
-	rm -rf $(STATEDIR)/klibc-user-spec.*
-
 # vim: syntax=make

@@ -36,8 +36,8 @@ $(XORG_PROTO_XEXT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_PROTO_XEXT_PATH	:=  PATH=$(CROSS_PATH)
-XORG_PROTO_XEXT_ENV 	:=  $(CROSS_ENV)
+XORG_PROTO_XEXT_PATH	:= PATH=$(CROSS_PATH)
+XORG_PROTO_XEXT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -51,15 +51,6 @@ XORG_PROTO_XEXT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/xorg-proto-xext.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-xext_clean:
-	rm -rf $(STATEDIR)/xorg-proto-xext.*
-	rm -rf $(PKGDIR)/xorg-proto-xext_*
-	rm -rf $(XORG_PROTO_XEXT_DIR)
 
 # vim: syntax=make
 

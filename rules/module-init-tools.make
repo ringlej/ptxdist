@@ -84,13 +84,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-module-init-tools_clean:
-	rm -rf $(STATEDIR)/module-init-tools.*
-	rm -rf $(PKGDIR)/module-init-tools_*
-	rm -rf $(MODULE_INIT_TOOLS_DIR)
-
 # vim: syntax=make

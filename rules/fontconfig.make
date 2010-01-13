@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4761 2006-02-24 17:35:57Z sha $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
@@ -37,7 +36,7 @@ $(FONTCONFIG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-FONTCONFIG_PATH	:=  PATH=$(CROSS_PATH)
+FONTCONFIG_PATH	:= PATH=$(CROSS_PATH)
 FONTCONFIG_ENV 	:=  \
 	$(CROSS_ENV) \
 	ac_cv_prog_HASDOCBOOK=no
@@ -114,14 +113,5 @@ endif
 	@$(call install_finish,fontconfig)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-fontconfig_clean:
-	rm -rf $(STATEDIR)/fontconfig.*
-	rm -rf $(PKGDIR)/fontconfig_*
-	rm -rf $(FONTCONFIG_DIR)
 
 # vim: syntax=make

@@ -39,12 +39,4 @@ HOST_XORG_FONT_UTIL_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_FONT_UTIL_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-font-util_clean:
-	rm -rf $(STATEDIR)/host-xorg-font-util.*
-	rm -rf $(HOST_XORG_FONT_UTIL_DIR)
-
 # vim: syntax=make

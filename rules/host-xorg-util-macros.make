@@ -67,12 +67,4 @@ $(STATEDIR)/host-xorg-util-macros.install:
 	@$(call install, HOST_XORG_UTIL_MACROS,,h)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-util-macros_clean:
-	rm -rf $(STATEDIR)/host-xorg-util-macros.*
-	rm -rf $(HOST_XORG_UTIL_MACROS_DIR)
-
 # vim: syntax=make

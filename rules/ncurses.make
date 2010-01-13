@@ -213,12 +213,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ncurses_clean:
-	rm -rf $(STATEDIR)/ncurses.* $(NCURSES_DIR)
-	rm -rf $(PKGDIR)/ncurses_*
-
 # vim: syntax=make

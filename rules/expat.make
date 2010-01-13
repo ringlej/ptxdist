@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -69,14 +68,5 @@ $(STATEDIR)/expat.targetinstall:
 	@$(call install_finish, expat)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-expat_clean:
-	rm -rf $(STATEDIR)/expat.*
-	rm -rf $(PKGDIR)/expat_*
-	rm -rf $(EXPAT_DIR)
 
 # vim: syntax=make

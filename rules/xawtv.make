@@ -108,13 +108,4 @@ $(STATEDIR)/xawtv.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xawtv_clean:
-	rm -rf $(STATEDIR)/xawtv.*
-	rm -rf $(PKGDIR)/xawtv_*
-	rm -rf $(XAWTV_DIR)
-
 # vim: syntax=make

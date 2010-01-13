@@ -78,13 +78,4 @@ $(STATEDIR)/xerces.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xerces_clean:
-	rm -rf $(STATEDIR)/xerces.*
-	rm -rf $(PKGDIR)/xerces_*
-	rm -rf $(XERCES_DIR)
-
 # vim: syntax=make

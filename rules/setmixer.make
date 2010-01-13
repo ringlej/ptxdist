@@ -63,13 +63,4 @@ $(STATEDIR)/setmixer.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-setmixer_clean:
-	rm -rf $(STATEDIR)/setmixer.*
-	rm -rf $(PKGDIR)/setmixer_*
-	rm -rf $(SETMIXER_DIR)
-
 # vim: syntax=make

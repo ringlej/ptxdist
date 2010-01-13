@@ -71,13 +71,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libsysfs_clean:
-	rm -rf $(STATEDIR)/libsysfs.*
-	rm -rf $(PKGDIR)/libsysfs_*
-	rm -rf $(LIBSYSFS_DIR)
-
 # vim: syntax=make

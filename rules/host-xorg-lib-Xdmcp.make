@@ -39,12 +39,4 @@ HOST_XORG_LIB_XDMCP_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_LIB_XDMCP_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-lib-xdmcp_clean:
-	rm -rf $(STATEDIR)/host-xorg-lib-xdmcp.*
-	rm -rf $(HOST_XORG_LIB_XDMCP_DIR)
-
 # vim: syntax=make

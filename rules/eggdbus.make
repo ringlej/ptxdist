@@ -78,13 +78,4 @@ $(STATEDIR)/eggdbus.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-eggdbus_clean:
-	rm -rf $(STATEDIR)/eggdbus.*
-	rm -rf $(PKGDIR)/eggdbus_*
-	rm -rf $(EGGDBUS_DIR)
-
 # vim: syntax=make

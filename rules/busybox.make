@@ -144,13 +144,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-busybox_clean:
-	rm -rf $(STATEDIR)/busybox.*
-	rm -rf $(PKGDIR)/busybox_*
-	rm -rf $(BUSYBOX_DIR)
-
 # vim: syntax=make

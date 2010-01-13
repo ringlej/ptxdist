@@ -36,8 +36,8 @@ $(LIBPCRE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBPCRE_PATH	:=  PATH=$(CROSS_PATH)
-LIBPCRE_ENV 	:=  $(CROSS_ENV)
+LIBPCRE_PATH	:= PATH=$(CROSS_PATH)
+LIBPCRE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -88,14 +88,5 @@ endif
 	@$(call install_finish, libpcre)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libpcre_clean:
-	rm -rf $(STATEDIR)/libpcre.*
-	rm -rf $(PKGDIR)/libpcre_*
-	rm -rf $(LIBPCRE_DIR)
 
 # vim: syntax=make

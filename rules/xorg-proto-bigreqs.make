@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-bigreqs.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-bigreqs_clean:
-	rm -rf $(STATEDIR)/xorg-proto-bigreqs.*
-	rm -rf $(PKGDIR)/xorg-proto-bigreqs_*
-	rm -rf $(XORG_PROTO_BIGREQS_DIR)
-
 # vim: syntax=make
 

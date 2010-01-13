@@ -42,12 +42,4 @@ HOST_GPERF_ENV 	:= $(HOST_ENV)
 #
 HOST_GPERF_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-gperf_clean:
-	rm -rf $(STATEDIR)/host-gperf.*
-	rm -rf $(HOST_GPERF_DIR)
-
 # vim: syntax=make

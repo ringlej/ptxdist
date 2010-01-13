@@ -72,13 +72,4 @@ $(STATEDIR)/eventlog.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-eventlog_clean:
-	rm -rf $(STATEDIR)/eventlog.*
-	rm -rf $(PKGDIR)/eventlog_*
-	rm -rf $(EVENTLOG_DIR)
-
 # vim: syntax=make

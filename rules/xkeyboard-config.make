@@ -75,13 +75,4 @@ $(STATEDIR)/xkeyboard-config.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xkeyboard-config_clean:
-	rm -rf $(STATEDIR)/xkeyboard-config.*
-	rm -rf $(PKGDIR)/xkeyboard-config_*
-	rm -rf $(XKEYBOARD_CONFIG_DIR)
-
 # vim: syntax=make

@@ -69,13 +69,4 @@ $(STATEDIR)/xorg-app-mkfontscale.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-mkfontscale_clean:
-	rm -rf $(STATEDIR)/xorg-app-mkfontscale.*
-	rm -rf $(PKGDIR)/xorg-app-mkfontscale_*
-	rm -rf $(XORG_APP_MKFONTSCALE_DIR)
-
 # vim: syntax=make

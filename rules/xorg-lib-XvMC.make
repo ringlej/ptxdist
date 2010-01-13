@@ -81,13 +81,4 @@ $(STATEDIR)/xorg-lib-xvmc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xvmc_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xvmc.*
-	rm -rf $(PKGDIR)/xorg-lib-xvmc_*
-	rm -rf $(XORG_LIB_XVMC_DIR)
-
 # vim: syntax=make

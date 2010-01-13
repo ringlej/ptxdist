@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_LIB_XV_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XV_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XV_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XV_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XV_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -77,14 +76,5 @@ $(STATEDIR)/xorg-lib-xv.targetinstall:
 	@$(call install_finish, xorg-lib-xv)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xv_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xv.*
-	rm -rf $(PKGDIR)/xorg-lib-xv_*
-	rm -rf $(XORG_LIB_XV_DIR)
 
 # vim: syntax=make

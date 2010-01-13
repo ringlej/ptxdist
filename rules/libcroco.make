@@ -78,13 +78,4 @@ $(STATEDIR)/libcroco.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libcroco_clean:
-	rm -rf $(STATEDIR)/libcroco.*
-	rm -rf $(PKGDIR)/libcroco_*
-	rm -rf $(LIBCROCO_DIR)
-
 # vim: syntax=make

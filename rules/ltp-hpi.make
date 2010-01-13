@@ -88,13 +88,4 @@ $(STATEDIR)/ltp-hpi.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltp-hpi_clean:
-	rm -rf $(STATEDIR)/ltp-hpi.*
-	rm -rf $(PKGDIR)/ltp-hpi_*
-	rm -rf $(LTP_HPI_DIR)
-
 # vim: syntax=make

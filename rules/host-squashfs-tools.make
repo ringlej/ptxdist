@@ -56,12 +56,4 @@ $(STATEDIR)/host-squashfs-tools.compile:
 		$(MAKE) $(HOST_SQUASHFS_TOOLS_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-squashfs-tools_clean:
-	rm -rf $(STATEDIR)/host-squashfs-tools.*
-	rm -rf $(HOST_SQUASHFS_TOOLS_DIR)
-
 # vim: syntax=make

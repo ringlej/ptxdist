@@ -54,13 +54,4 @@ $(STATEDIR)/xorg-font-util.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-util_clean:
-	rm -rf $(STATEDIR)/xorg-font-util.*
-	rm -rf $(PKGDIR)/xorg-font-util_*
-	rm -rf $(XORG_FONT_UTIL_DIR)
-
 # vim: syntax=make

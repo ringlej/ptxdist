@@ -112,13 +112,4 @@ $(STATEDIR)/ptxdist.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ptxdist_clean:
-	rm -rf $(STATEDIR)/ptxdist.*
-	rm -rf $(PKGDIR)/ptxdist_*
-	rm -rf $(PTXDIST_DIR)
-
 # vim: syntax=make

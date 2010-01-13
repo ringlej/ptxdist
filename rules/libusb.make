@@ -85,13 +85,4 @@ ifndef PTXCONF_LIBUSB_BUILD_STATIC
 endif
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libusb_clean:
-	rm -rf $(STATEDIR)/libusb.*
-	rm -rf $(PKGDIR)/libusb_*
-	rm -rf $(LIBUSB_DIR)
-
 # vim: syntax=make

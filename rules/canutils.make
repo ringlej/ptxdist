@@ -96,13 +96,4 @@ endif
 	@$(call install_finish, canutils)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-canutils_clean:
-	rm -rf $(STATEDIR)/canutils.*
-	rm -rf $(PKGDIR)/canutils_*
-	rm -rf $(CANUTILS_DIR)
-
 # vim: syntax=make

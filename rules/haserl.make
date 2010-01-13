@@ -36,8 +36,8 @@ $(HASERL_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-HASERL_PATH	:=  PATH=$(CROSS_PATH)
-HASERL_ENV 	:=  $(CROSS_ENV)
+HASERL_PATH	:= PATH=$(CROSS_PATH)
+HASERL_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -65,15 +65,6 @@ $(STATEDIR)/haserl.targetinstall:
 	@$(call install_finish,haserl)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-haserl_clean:
-	rm -rf $(STATEDIR)/haserl.*
-	rm -rf $(PKGDIR)/haserl_*
-	rm -rf $(HASERL_DIR)
 
 # vim: syntax=make
 

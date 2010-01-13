@@ -59,12 +59,4 @@ HOST_MKELFIMAGE_AUTOCONF	:= $(HOST_AUTOCONF)
 
 HOST_MKELFIMAGE_MAKE_OPT := MY_CPPFLAGS="$(HOST_CPPFLAGS)" LDFLAGS="$(HOST_LDFLAGS)"
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-mkelfimage_clean:
-	rm -rf $(STATEDIR)/host-mkelfimage.*
-	rm -rf $(HOST_MKELFIMAGE_DIR)
-
 # vim: syntax=make

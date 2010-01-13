@@ -44,12 +44,4 @@ HOST_GENEXT2FS_ENV 	:= $(HOST_ENV)
 #
 HOST_GENEXT2FS_AUTOCONF := $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-genext2fs_clean:
-	rm -rf $(STATEDIR)/host-genext2fs.*
-	rm -rf $(HOST_GENEXT2FS_DIR)
-
 # vim: syntax=make

@@ -77,13 +77,4 @@ $(STATEDIR)/gettext.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gettext_clean:
-	rm -rf $(STATEDIR)/gettext.*
-	rm -rf $(PKGDIR)/gettext_*
-	rm -rf $(GETTEXT_DIR)
-
 # vim: syntax=make

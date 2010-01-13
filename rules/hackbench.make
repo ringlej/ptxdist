@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -82,14 +81,5 @@ $(STATEDIR)/hackbench.targetinstall:
 	@$(call install_finish, hackbench)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-hackbench_clean:
-	rm -rf $(STATEDIR)/hackbench.*
-	rm -rf $(PKGDIR)/hackbench_*
-	rm -rf $(HACKBENCH_DIR)
 
 # vim: syntax=make

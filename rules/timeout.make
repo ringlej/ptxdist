@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -84,14 +83,5 @@ $(STATEDIR)/timeout.targetinstall:
 	@$(call install_finish, timeout)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-timeout_clean:
-	rm -rf $(STATEDIR)/timeout.*
-	rm -rf $(PKGDIR)/timeout_*
-	rm -rf $(TIMEOUT_DIR)
 
 # vim: syntax=make

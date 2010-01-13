@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -87,14 +86,5 @@ $(STATEDIR)/xorg-cursor.targetinstall:
 	@$(call install_finish, xorg-cursor)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-cursor_clean:
-	rm -rf $(STATEDIR)/xorg-cursor.*
-	rm -rf $(PKGDIR)/xorg-cursor_*
-	rm -rf $(XORG_CURSOR_DIR)
 
 # vim: syntax=make

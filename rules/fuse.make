@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Luotao Fu <lfu@pengutronix.de>
 #
@@ -98,14 +97,5 @@ endif
 	@$(call install_finish, fuse)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-fuse_clean:
-	rm -rf $(STATEDIR)/fuse.*
-	rm -rf $(PKGDIR)/fuse_*
-	rm -rf $(FUSE_DIR)
 
 # vim: syntax=make

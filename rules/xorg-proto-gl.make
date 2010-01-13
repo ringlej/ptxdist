@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-gl.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-gl_clean:
-	rm -rf $(STATEDIR)/xorg-proto-gl.*
-	rm -rf $(PKGDIR)/xorg-proto-gl_*
-	rm -rf $(XORG_PROTO_GL_DIR)
-
 # vim: syntax=make
 

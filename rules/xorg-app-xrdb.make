@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Luotao Fu <lfu@pengutronix.de>
 #
@@ -66,14 +65,5 @@ $(STATEDIR)/xorg-app-xrdb.targetinstall:
 	@$(call install_finish,xorg-app-xrdb)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xrdb_clean:
-	rm -rf $(STATEDIR)/xorg-app-xrdb.*
-	rm -rf $(PKGDIR)/xorg-app-xrdb_*
-	rm -rf $(XORG_APP_XRDB_DIR)
 
 # vim: syntax=make

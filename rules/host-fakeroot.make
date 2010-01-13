@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #
@@ -46,13 +45,5 @@ HOST_FAKEROOT_ENV 	:= $(HOST_ENV)
 HOST_FAKEROOT_AUTOCONF	:= \
 	$(HOST_AUTOCONF) \
 	--without-po4a
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-fakeroot_clean:
-	rm -rf $(STATEDIR)/host-fakeroot.*
-	rm -rf $(HOST_FAKEROOT_DIR)
 
 # vim: syntax=make

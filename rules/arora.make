@@ -61,13 +61,4 @@ $(STATEDIR)/arora.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-arora_clean:
-	rm -rf $(STATEDIR)/arora.*
-	rm -rf $(PKGDIR)/arora_*
-	rm -rf $(ARORA_DIR)
-
 # vim: syntax=make

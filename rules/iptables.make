@@ -38,8 +38,8 @@ $(IPTABLES_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-IPTABLES_PATH	:=  PATH=$(CROSS_PATH)
-IPTABLES_ENV	:=  $(CROSS_ENV)
+IPTABLES_PATH	:= PATH=$(CROSS_PATH)
+IPTABLES_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -148,14 +148,5 @@ endif
 	@$(call install_finish, iptables)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-iptables_clean:
-	rm -rf $(STATEDIR)/iptables.*
-	rm -rf $(PKGDIR)/iptables_*
-	rm -rf $(IPTABLES_DIR)
 
 # vim: syntax=make

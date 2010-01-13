@@ -58,12 +58,4 @@ $(STATEDIR)/omniorb.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-omniorb_clean:
-	rm -rf $(STATEDIR)/omniorb.*
-	rm -rf $(OMNIORB_DIR)
-
 # vim: syntax=make

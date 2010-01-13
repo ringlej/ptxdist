@@ -37,8 +37,8 @@ $(XORG_LIB_WINDOWSWM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_WINDOWSWM_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_WINDOWSWM_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_WINDOWSWM_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_WINDOWSWM_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -76,14 +76,5 @@ $(STATEDIR)/xorg-lib-windowswm.targetinstall:
 	@$(call install_finish, xorg-lib-windowswm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-windowswm_clean:
-	rm -rf $(STATEDIR)/xorg-lib-windowswm.*
-	rm -rf $(PKGDIR)/xorg-lib-windowswm_*
-	rm -rf $(XORG_LIB_WINDOWSWM_DIR)
 
 # vim: syntax=make

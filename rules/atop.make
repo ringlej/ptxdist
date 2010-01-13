@@ -64,14 +64,4 @@ $(STATEDIR)/atop.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-atop_clean:
-	rm -rf $(STATEDIR)/atop.*
-	rm -rf $(PKGDIR)/atop_*
-	rm -fr $(STATEDIR)/atop-patches.get
-	rm -fr $(ATOP_DIR)
-
 # vim: syntax=make

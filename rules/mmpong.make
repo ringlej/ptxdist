@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -74,14 +73,5 @@ endif
 	@$(call install_finish, mmpong)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-mmpong_clean:
-	rm -rf $(STATEDIR)/mmpong.*
-	rm -rf $(PKGDIR)/mmpong_*
-	rm -rf $(MMPONG_DIR)
 
 # vim: syntax=make

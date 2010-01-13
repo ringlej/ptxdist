@@ -361,14 +361,5 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-initmethod-bbinit_clean:
-	rm -rf $(STATEDIR)/initmethod-bbinit.*
-	rm -rf $(PKGDIR)/initmethod-bbinit_*
-	rm -rf $(INITMETHOD_BBINIT_DIR)
-
 # vim: syntax=make
 

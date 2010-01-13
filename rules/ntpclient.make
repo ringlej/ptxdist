@@ -46,7 +46,7 @@ $(STATEDIR)/ntpclient.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-NTPCLIENT_PATH	:=  PATH=$(CROSS_PATH)
+NTPCLIENT_PATH	:= PATH=$(CROSS_PATH)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -120,14 +120,5 @@ endif
 
 	@$(call install_finish, ntpclient)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ntpclient_clean:
-	rm -rf $(STATEDIR)/ntpclient.*
-	rm -rf $(PKGDIR)/ntpclient_*
-	rm -rf $(NTPCLIENT_DIR)
 
 # vim: syntax=make

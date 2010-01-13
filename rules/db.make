@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Werner Schmitt <mail2ws@gmx.de>
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -142,14 +141,5 @@ endif
 	@$(call install_finish, db)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-db_clean:
-	rm -rf $(STATEDIR)/db.*
-	rm -rf $(PKGDIR)/db_*
-	rm -rf $(DB_DIR)
 
 # vim: syntax=make

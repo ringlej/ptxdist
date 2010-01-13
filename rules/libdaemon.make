@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: libdaemon.make,v 1.7 2007-07-15 19:14:38 michl Exp $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #          
@@ -37,8 +36,8 @@ $(LIBDAEMON_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBDAEMON_PATH	:=  PATH=$(CROSS_PATH)
-LIBDAEMON_ENV 	:=  $(CROSS_ENV)
+LIBDAEMON_PATH	:= PATH=$(CROSS_PATH)
+LIBDAEMON_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -51,7 +50,7 @@ LIBDAEMON_AUTOCONF := \
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/libdaemon.targetinstall: $(libdaemon_targetinstall_deps_default)
+$(STATEDIR)/libdaemon.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libdaemon)
@@ -77,14 +76,5 @@ $(STATEDIR)/libdaemon.targetinstall: $(libdaemon_targetinstall_deps_default)
 	@$(call install_finish,libdaemon)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libdaemon_clean:
-	rm -rf $(STATEDIR)/libdaemon.*
-	rm -rf $(PKGDIR)/libdaemon_*
-	rm -rf $(LIBDAEMON_DIR)
 
 # vim: syntax=make

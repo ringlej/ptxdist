@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-xf86vidmode.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-xf86vidmode_clean:
-	rm -rf $(STATEDIR)/xorg-proto-xf86vidmode.*
-	rm -rf $(PKGDIR)/xorg-proto-xf86vidmode_*
-	rm -rf $(XORG_PROTO_XF86VIDMODE_DIR)
-
 # vim: syntax=make
 

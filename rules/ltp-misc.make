@@ -91,13 +91,4 @@ $(STATEDIR)/ltp-misc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltp-misc_clean:
-	rm -rf $(STATEDIR)/ltp-misc.*
-	rm -rf $(PKGDIR)/ltp-misc_*
-	rm -rf $(LTP_MISC_DIR)
-
 # vim: syntax=make

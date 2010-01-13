@@ -93,13 +93,4 @@ endif
 	@$(call install_finish, thttpd)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-thttpd_clean:
-	rm -rf $(STATEDIR)/thttpd.*
-	rm -rf $(PKGDIR)/thttpd_*
-	rm -rf $(THTTPD_DIR)
-
 # vim: syntax=make

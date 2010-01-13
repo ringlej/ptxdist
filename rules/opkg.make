@@ -80,13 +80,4 @@ $(STATEDIR)/opkg.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-opkg_clean:
-	rm -rf $(STATEDIR)/opkg.*
-	rm -rf $(PKGDIR)/opkg_*
-	rm -rf $(OPKG_DIR)
-
 # vim: syntax=make

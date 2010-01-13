@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
 # Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -56,7 +55,7 @@ $(STATEDIR)/gettext-dummy.targetinstall:
 	@$(call install_fixup, gettext-dummy,PRIORITY,optional)
 	@$(call install_fixup, gettext-dummy,VERSION,$(GETTEXT_DUMMY_VERSION))
 	@$(call install_fixup, gettext-dummy,SECTION,base)
-	@$(call install_fixup, gettext-dummy,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gettext-dummy,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gettext-dummy,DEPENDS,)
 	@$(call install_fixup, gettext-dummy,DESCRIPTION,missing)
 
@@ -70,14 +69,5 @@ $(STATEDIR)/gettext-dummy.targetinstall:
 	@$(call install_finish, gettext-dummy)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gettext-dummy_clean:
-	rm -rf $(STATEDIR)/gettext-dummy.*
-	rm -rf $(PKGDIR)/gettext-dummy_*
-	rm -rf $(GETTEXT_DUMMY_DIR)
 
 # vim: syntax=make

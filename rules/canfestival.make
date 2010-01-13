@@ -86,13 +86,4 @@ $(STATEDIR)/canfestival.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-canfestival_clean:
-	rm -rf $(STATEDIR)/canfestival.*
-	rm -rf $(PKGDIR)/canfestival_*
-	rm -rf $(CANFESTIVAL_DIR)
-
 # vim: syntax=make tabstop=8

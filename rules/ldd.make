@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
 #          
@@ -78,13 +77,5 @@ $(STATEDIR)/ldd.targetinstall:
 	@$(call install_finish,ldd)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ldd_clean:
-	rm -rf $(STATEDIR)/ldd.*
-	rm -rf $(PKGDIR)/ldd_*
 
 # vim: syntax=make

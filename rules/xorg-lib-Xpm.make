@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,10 +36,8 @@ $(XORG_LIB_XPM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-xpm_prepare: $(STATEDIR)/xorg-lib-xpm.prepare
-
-XORG_LIB_XPM_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XPM_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XPM_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XPM_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -52,7 +49,7 @@ XORG_LIB_XPM_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/xorg-lib-xpm.targetinstall: $(xorg-lib-xpm_targetinstall_deps_default)
+$(STATEDIR)/xorg-lib-xpm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xpm)
@@ -60,7 +57,7 @@ $(STATEDIR)/xorg-lib-xpm.targetinstall: $(xorg-lib-xpm_targetinstall_deps_defaul
 	@$(call install_fixup, xorg-lib-xpm,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-xpm,VERSION,$(XORG_LIB_XPM_VERSION))
 	@$(call install_fixup, xorg-lib-xpm,SECTION,base)
-	@$(call install_fixup, xorg-lib-xpm,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xpm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xpm,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xpm,DESCRIPTION,missing)
 
@@ -78,14 +75,5 @@ $(STATEDIR)/xorg-lib-xpm.targetinstall: $(xorg-lib-xpm_targetinstall_deps_defaul
 	@$(call install_finish, xorg-lib-xpm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xpm_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xpm.*
-	rm -rf $(PKGDIR)/xorg-lib-xpm_*
-	rm -rf $(XORG_LIB_XPM_DIR)
 
 # vim: syntax=make

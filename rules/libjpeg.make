@@ -71,13 +71,4 @@ $(STATEDIR)/libjpeg.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libjpeg_clean:
-	rm -rf $(STATEDIR)/libjpeg.*
-	rm -rf $(PKGDIR)/libjpeg_*
-	rm -rf $(LIBJPEG_DIR)
-
 # vim: syntax=make

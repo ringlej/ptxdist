@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -94,14 +93,5 @@ endif
 	@$(call install_finish, libcaca)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libcaca_clean:
-	rm -rf $(STATEDIR)/libcaca.*
-	rm -rf $(PKGDIR)/libcaca_*
-	rm -rf $(LIBCACA_DIR)
 
 # vim: syntax=make

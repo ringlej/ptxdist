@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-damage.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-damage_clean:
-	rm -rf $(STATEDIR)/xorg-proto-damage.*
-	rm -rf $(PKGDIR)/xorg-proto-damage_*
-	rm -rf $(XORG_PROTO_DAMAGE_DIR)
-
 # vim: syntax=make
 

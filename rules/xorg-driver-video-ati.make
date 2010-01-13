@@ -78,13 +78,4 @@ $(STATEDIR)/xorg-driver-video-ati.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-ati_clean:
-	rm -rf $(STATEDIR)/xorg-driver-video-ati.*
-	rm -rf $(PKGDIR)/xorg-driver-video-ati_*
-	rm -rf $(XORG_DRIVER_VIDEO_ATI_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -71,14 +70,5 @@ $(STATEDIR)/libgdbus.targetinstall:
 	@$(call install_finish, libgdbus)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libgdbus_clean:
-	rm -rf $(STATEDIR)/libgdbus.*
-	rm -rf $(PKGDIR)/libgdbus_*
-	rm -rf $(LIBGDBUS_DIR)
 
 # vim: syntax=make

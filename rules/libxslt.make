@@ -112,13 +112,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libxslt_clean:
-	rm -rf $(STATEDIR)/libxslt.*
-	rm -rf $(PKGDIR)/libxslt_*
-	rm -rf $(LIBXSLT_DIR)
-
 # vim: syntax=make

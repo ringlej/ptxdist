@@ -87,13 +87,4 @@ $(STATEDIR)/ssmtp.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ssmtp_clean:
-	rm -rf $(STATEDIR)/ssmtp.*
-	rm -rf $(PKGDIR)/ssmtp_*
-	rm -rf $(SSMTP_DIR)
-
 # vim: syntax=make

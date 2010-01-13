@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -189,14 +188,5 @@ $(STATEDIR)/classpath.targetinstall:
 	@$(call install_finish, classpath)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-classpath_clean:
-	rm -rf $(STATEDIR)/classpath.*
-	rm -rf $(PKGDIR)/classpath_*
-	rm -rf $(CLASSPATH_DIR)
 
 # vim: syntax=make

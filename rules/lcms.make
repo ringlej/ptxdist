@@ -72,13 +72,4 @@ $(STATEDIR)/lcms.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-lcms_clean:
-	rm -rf $(STATEDIR)/lcms.*
-	rm -rf $(PKGDIR)/lcms_*
-	rm -rf $(LCMS_DIR)
-
 # vim: syntax=make

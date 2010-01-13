@@ -71,13 +71,4 @@ $(STATEDIR)/lrzsz.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-lrzsz_clean:
-	rm -rf $(STATEDIR)/lrzsz.*
-	rm -rf $(PKGDIR)/lrzsz_*
-	rm -rf $(LRZSZ_DIR)
-
 # vim: syntax=make

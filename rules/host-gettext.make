@@ -55,12 +55,4 @@ HOST_GETTEXT_AUTOCONF := \
 	--enable-relocatable \
 	--without-emacs
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-gettext_clean:
-	rm -rf $(STATEDIR)/host-gettext.*
-	rm -rf $(HOST_GETTEXT_DIR)
-
 # vim: syntax=make

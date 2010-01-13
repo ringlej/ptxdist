@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -71,7 +70,7 @@ $(STATEDIR)/directfb-examples.targetinstall:
 	@$(call install_fixup, directfb-examples,PRIORITY,optional)
 	@$(call install_fixup, directfb-examples,VERSION,$(DIRECTFB_EXAMPLES_VERSION))
 	@$(call install_fixup, directfb-examples,SECTION,base)
-	@$(call install_fixup, directfb-examples,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, directfb-examples,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, directfb-examples,DEPENDS,)
 	@$(call install_fixup, directfb-examples,DESCRIPTION,missing)
 
@@ -96,14 +95,5 @@ $(STATEDIR)/directfb-examples.targetinstall:
 	@$(call install_finish,directfb-examples)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-directfb-examples_clean:
-	rm -rf $(STATEDIR)/directfb-examples.*
-	rm -rf $(PKGDIR)/directfb-examples_*
-	rm -rf $(DIRECTFB_EXAMPLES_DIR)
 
 # vim: syntax=make

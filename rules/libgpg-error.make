@@ -69,13 +69,4 @@ $(STATEDIR)/libgpg-error.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libgpg-error_clean:
-	rm -rf $(STATEDIR)/libgpg-error.*
-	rm -rf $(PKGDIR)/libgpg-error_*
-	rm -rf $(LIBGPG_ERROR_DIR)
-
 # vim: syntax=make

@@ -43,7 +43,7 @@ LIBMODBUS_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBMODBUS_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+LIBMODBUS_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -70,14 +70,5 @@ $(STATEDIR)/libmodbus.targetinstall:
 	@$(call install_finish, libmodbus)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libmodbus_clean:
-	rm -rf $(STATEDIR)/libmodbus.*
-	rm -rf $(PKGDIR)/libmodbus_*
-	rm -rf $(LIBMODBUS_DIR)
 
 # vim: syntax=make

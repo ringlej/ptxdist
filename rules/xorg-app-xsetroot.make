@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4761 2006-02-24 17:35:57Z sha $
 #
 # Copyright (C) 2006 by Sascha Hauer
 #
@@ -37,8 +36,8 @@ $(XORG_APP_XSETROOT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_XSETROOT_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_XSETROOT_ENV 	:=  $(CROSS_ENV)
+XORG_APP_XSETROOT_PATH	:= PATH=$(CROSS_PATH)
+XORG_APP_XSETROOT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -69,14 +68,5 @@ $(STATEDIR)/xorg-app-xsetroot.targetinstall:
 	@$(call install_finish,xorg-app-xsetroot)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xsetroot_clean:
-	rm -rf $(STATEDIR)/xorg-app-xsetroot.*
-	rm -rf $(PKGDIR)/xorg-app-xsetroot_*
-	rm -rf $(XORG_APP_XSETROOT_DIR)
 
 # vim: syntax=make

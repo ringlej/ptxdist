@@ -69,13 +69,4 @@ $(STATEDIR)/libcgi.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libcgi_clean:
-	rm -rf $(STATEDIR)/libcgi.*
-	rm -rf $(PKGDIR)/libcgi_*
-	rm -rf $(LIBCGI_DIR)
-
 # vim: syntax=make

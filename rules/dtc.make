@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Sascha Hauer
 #
@@ -62,14 +61,5 @@ $(STATEDIR)/dtc.targetinstall:
 	@$(call targetinfo)
 	$(PTXCONF_SYSROOT_HOST)/bin/dtc $(call remove_quotes,$(PTXCONF_DTC_EXTRA_ARGS)) -I dts -O dtb -o $(IMAGEDIR)/oftree $(PTXCONF_DTC_OFTREE_DTS) 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-dtc_clean:
-	rm -rf $(STATEDIR)/dtc.*
-	rm -rf $(PKGDIR)/dtc_*
-	rm -rf $(DTC_DIR)
 
 # vim: syntax=make

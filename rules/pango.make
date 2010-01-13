@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003-2009 Robert Schwebel <r.schwebel@pengutronix.de>
 #                         Pengutronix <info@pengutronix.de>, Germany
@@ -101,14 +100,5 @@ $(STATEDIR)/pango.targetinstall:
 	@$(call install_finish,pango)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-pango_clean:
-	rm -rf $(STATEDIR)/pango.*
-	rm -rf $(PKGDIR)/pango_*
-	rm -rf $(PANGO_DIR)
 
 # vim: syntax=make

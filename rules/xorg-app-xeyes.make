@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
 #
@@ -37,8 +36,8 @@ $(XORG_APP_XEYES_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_XEYES_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_XEYES_ENV 	:=  $(CROSS_ENV)
+XORG_APP_XEYES_PATH	:= PATH=$(CROSS_PATH)
+XORG_APP_XEYES_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -69,14 +68,5 @@ $(STATEDIR)/xorg-app-xeyes.targetinstall:
 	@$(call install_finish, xorg-app-xeyes)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xeyes_clean:
-	rm -rf $(STATEDIR)/xorg-app-xeyes.*
-	rm -rf $(PKGDIR)/xorg-app-xeyes_*
-	rm -rf $(XORG_APP_XEYES_DIR)
 
 # vim: syntax=make

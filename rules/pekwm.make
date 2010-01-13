@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4761 2006-02-24 17:35:57Z sha $
 #
 # Copyright (C) 2006 by Sascha Hauer
 #
@@ -37,10 +36,8 @@ $(PEKWM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-pekwm_prepare: $(STATEDIR)/pekwm.prepare
-
-PEKWM_PATH	:=  PATH=$(CROSS_PATH)
-PEKWM_ENV 	:=  $(CROSS_ENV)
+PEKWM_PATH	:= PATH=$(CROSS_PATH)
+PEKWM_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -54,9 +51,7 @@ PEKWM_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 # Target-Install
 # ----------------------------------------------------------------------------
 
-pekwm_targetinstall: $(STATEDIR)/pekwm.targetinstall
-
-$(STATEDIR)/pekwm.targetinstall: $(pekwm_targetinstall_deps_default)
+$(STATEDIR)/pekwm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pekwm)
@@ -84,14 +79,5 @@ endif
 	@$(call install_finish,pekwm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-pekwm_clean:
-	rm -rf $(STATEDIR)/pekwm.*
-	rm -rf $(PKGDIR)/pekwm_*
-	rm -rf $(PEKWM_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,10 +36,8 @@ $(XORG_LIB_XEXT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-xext_prepare: $(STATEDIR)/xorg-lib-xext.prepare
-
-XORG_LIB_XEXT_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XEXT_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XEXT_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XEXT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -61,7 +58,7 @@ $(STATEDIR)/xorg-lib-xext.targetinstall:
 	@$(call install_fixup, xorg-lib-xext,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-xext,VERSION,$(XORG_LIB_XEXT_VERSION))
 	@$(call install_fixup, xorg-lib-xext,SECTION,base)
-	@$(call install_fixup, xorg-lib-xext,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xext,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xext,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xext,DESCRIPTION,missing)
 
@@ -79,14 +76,5 @@ $(STATEDIR)/xorg-lib-xext.targetinstall:
 	@$(call install_finish, xorg-lib-xext)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xext_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xext.*
-	rm -rf $(PKGDIR)/xorg-lib-xext_*
-	rm -rf $(XORG_LIB_XEXT_DIR)
 
 # vim: syntax=make

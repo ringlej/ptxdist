@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -66,14 +65,5 @@ $(STATEDIR)/pop3spam.targetinstall:
 
 	@$(call install_finish, pop3spam)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-pop3spam_clean:
-	rm -rf $(STATEDIR)/pop3spam.*
-	rm -rf $(PKGDIR)/pop3spam_*
-	rm -rf $(POP3SPAM_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
 # Copyright (C) 2008 by Luotao Fu <l.fu@pengutronix.de>
 #
@@ -71,14 +70,5 @@ endif
 	@$(call install_finish, uttt)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-uttt_clean:
-	rm -rf $(STATEDIR)/uttt.*
-	rm -rf $(PKGDIR)/uttt_*
-	rm -rf $(UTTT_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -317,14 +316,5 @@ endif
 	@$(call install_finish, elektra)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-elektra_clean:
-	rm -rf $(STATEDIR)/elektra.*
-	rm -rf $(PKGDIR)/elektra_*
-	rm -rf $(ELEKTRA_DIR)
 
 # vim: syntax=make

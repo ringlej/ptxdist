@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,10 +36,8 @@ $(XORG_LIB_XAW_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-xaw_prepare: $(STATEDIR)/xorg-lib-xaw.prepare
-
-XORG_LIB_XAW_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XAW_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XAW_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XAW_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -114,14 +111,5 @@ endif
 	@$(call install_finish, xorg-lib-xaw)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xaw_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xaw.*
-	rm -rf $(PKGDIR)/xorg-lib-xaw_*
-	rm -rf $(XORG_LIB_XAW_DIR)
 
 # vim: syntax=make

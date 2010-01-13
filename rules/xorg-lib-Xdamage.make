@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -75,14 +74,5 @@ $(STATEDIR)/xorg-lib-xdamage.targetinstall:
 	@$(call install_finish, xorg-lib-xdamage)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xdamage_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xdamage.*
-	rm -rf $(PKGDIR)/xorg-lib-xdamage_*
-	rm -rf $(XORG_LIB_XDAMAGE_DIR)
 
 # vim: syntax=make

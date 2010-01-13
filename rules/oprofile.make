@@ -87,13 +87,4 @@ $(STATEDIR)/oprofile.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-oprofile_clean:
-	rm -rf $(STATEDIR)/oprofile.*
-	rm -rf $(PKGDIR)/oprofile_*
-	rm -rf $(OPROFILE_DIR)
-
 # vim: syntax=make

@@ -39,12 +39,4 @@ HOST_XORG_LIB_FONTENC_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_LIB_FONTENC_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-lib-fontenc_clean:
-	rm -rf $(STATEDIR)/host-xorg-lib-fontenc.*
-	rm -rf $(HOST_XORG_LIB_FONTENC_DIR)
-
 # vim: syntax=make

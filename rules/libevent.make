@@ -69,13 +69,4 @@ $(STATEDIR)/libevent.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libevent_clean:
-	rm -rf $(STATEDIR)/libevent.*
-	rm -rf $(PKGDIR)/libevent_*
-	rm -rf $(LIBEVENT_DIR)
-
 # vim: syntax=make

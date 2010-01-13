@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2004-2009 by Robert Schwebel
 #
@@ -89,13 +88,5 @@ $(STATEDIR)/tcpdump.targetinstall:
 	@$(call install_finish, tcpdump)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-tcpdump_clean:
-	rm -rf $(STATEDIR)/tcpdump.*
-	rm -rf $(TCPDUMP_DIR)
 
 # vim: syntax=make

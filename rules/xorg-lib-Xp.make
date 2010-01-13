@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_LIB_XP_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XP_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XP_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XP_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XP_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -76,14 +75,5 @@ $(STATEDIR)/xorg-lib-xp.targetinstall:
 	@$(call install_finish, xorg-lib-xp)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xp_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xp.*
-	rm -rf $(PKGDIR)/xorg-lib-xp_*
-	rm -rf $(XORG_LIB_XP_DIR)
 
 # vim: syntax=make

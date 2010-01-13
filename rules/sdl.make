@@ -36,8 +36,8 @@ $(SDL_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-SDL_PATH	:=  PATH=$(CROSS_PATH)
-SDL_ENV 	:=  $(CROSS_ENV)
+SDL_PATH	:= PATH=$(CROSS_PATH)
+SDL_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -305,14 +305,5 @@ endif
 	@$(call install_finish, sdl)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sdl_clean:
-	rm -rf $(STATEDIR)/sdl.*
-	rm -rf $(PKGDIR)/sdl_*
-	rm -rf $(SDL_DIR)
 
 # vim: syntax=make

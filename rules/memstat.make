@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2516 2005-04-25 10:29:55Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #          
@@ -58,7 +57,7 @@ $(STATEDIR)/memstat.targetinstall:
 	@$(call install_fixup, memstat,PRIORITY,optional)
 	@$(call install_fixup, memstat,VERSION,$(MEMSTAT_VERSION))
 	@$(call install_fixup, memstat,SECTION,base)
-	@$(call install_fixup, memstat,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, memstat,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, memstat,DEPENDS,)
 	@$(call install_fixup, memstat,DESCRIPTION,missing)
 
@@ -68,14 +67,5 @@ $(STATEDIR)/memstat.targetinstall:
 	@$(call install_finish, memstat)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-memstat_clean:
-	rm -rf $(STATEDIR)/memstat.*
-	rm -rf $(PKGDIR)/memstat_*
-	rm -rf $(MEMSTAT_DIR)
 
 # vim: syntax=make

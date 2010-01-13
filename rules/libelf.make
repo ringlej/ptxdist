@@ -79,13 +79,4 @@ $(STATEDIR)/libelf.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libelf_clean:
-	rm -rf $(STATEDIR)/libelf.*
-	rm -rf $(PKGDIR)/libelf_*
-	rm -rf $(LIBELF_DIR)
-
 # vim: syntax=make

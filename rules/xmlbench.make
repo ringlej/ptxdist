@@ -85,13 +85,4 @@ $(STATEDIR)/xmlbench.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xmlbench_clean:
-	rm -rf $(STATEDIR)/xmlbench.*
-	rm -rf $(PKGDIR)/xmlbench_*
-	rm -rf $(XMLBENCH_DIR)
-
 # vim: syntax=make

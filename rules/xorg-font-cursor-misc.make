@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-cursor-misc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-cursor-misc_clean:
-	rm -rf $(STATEDIR)/xorg-font-cursor-misc.*
-	rm -rf $(PKGDIR)/xorg-font-cursor-misc_*
-	rm -rf $(XORG_FONT_CURSOR_MISC_DIR)
-
 # vim: syntax=make

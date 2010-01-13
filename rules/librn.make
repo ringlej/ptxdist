@@ -71,13 +71,4 @@ $(STATEDIR)/librn.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-librn_clean:
-	rm -rf $(STATEDIR)/librn.*
-	rm -rf $(PKGDIR)/librn_*
-	rm -rf $(LIBRN_DIR)
-
 # vim: syntax=make

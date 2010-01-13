@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-xf86bigfont.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-xf86bigfont_clean:
-	rm -rf $(STATEDIR)/xorg-proto-xf86bigfont.*
-	rm -rf $(PKGDIR)/xorg-proto-xf86bigfont_*
-	rm -rf $(XORG_PROTO_XF86BIGFONT_DIR)
-
 # vim: syntax=make
 

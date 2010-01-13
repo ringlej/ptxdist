@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2008 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -96,14 +95,5 @@ $(STATEDIR)/cbmbasic.targetinstall:
 	@$(call install_finish, cbmbasic)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cbmbasic_clean:
-	rm -rf $(STATEDIR)/cbmbasic.*
-	rm -rf $(PKGDIR)/cbmbasic_*
-	rm -rf $(CBMBASIC_DIR)
 
 # vim: syntax=make

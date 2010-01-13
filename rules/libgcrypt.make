@@ -80,13 +80,4 @@ $(STATEDIR)/libgcrypt.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libgcrypt_clean:
-	rm -rf $(STATEDIR)/libgcrypt.*
-	rm -rf $(PKGDIR)/libgcrypt_*
-	rm -rf $(LIBGCRYPT_DIR)
-
 # vim: syntax=make

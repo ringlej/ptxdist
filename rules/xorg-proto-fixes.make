@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-fixes.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-fixes_clean:
-	rm -rf $(STATEDIR)/xorg-proto-fixes.*
-	rm -rf $(PKGDIR)/xorg-proto-fixes_*
-	rm -rf $(XORG_PROTO_FIXES_DIR)
-
 # vim: syntax=make
 

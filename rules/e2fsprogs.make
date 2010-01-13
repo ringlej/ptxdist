@@ -263,13 +263,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-e2fsprogs_clean:
-	rm -rf $(STATEDIR)/e2fsprogs.*
-	rm -rf $(PKGDIR)/e2fsprogs_*
-	rm -rf $(E2FSPROGS_DIR)
-
 # vim: syntax=make

@@ -80,13 +80,4 @@ $(STATEDIR)/inotify-tools.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-inotify-tools_clean:
-	rm -rf $(STATEDIR)/inotify-tools.*
-	rm -rf $(PKGDIR)/inotify-tools_*
-	rm -rf $(INOTIFY_TOOLS_DIR)
-
 # vim: syntax=make

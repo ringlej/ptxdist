@@ -72,13 +72,4 @@ $(STATEDIR)/bonniexx.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-bonniexx_clean:
-	rm -rf $(STATEDIR)/bonniexx.*
-	rm -rf $(PKGDIR)/bonniexx_*
-	rm -rf $(BONNIEXX_DIR)
-
 # vim: syntax=make

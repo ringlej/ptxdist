@@ -69,13 +69,4 @@ $(STATEDIR)/mii-diag.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-mii-diag_clean:
-	rm -rf $(STATEDIR)/mii-diag.*
-	rm -rf $(PKGDIR)/mii-diag_*
-	rm -rf $(MII_DIAG_DIR)
-
 # vim: syntax=make

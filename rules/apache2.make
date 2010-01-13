@@ -36,7 +36,7 @@ $(APACHE2_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-APACHE2_PATH	:=  PATH=$(CROSS_PATH)
+APACHE2_PATH	:= PATH=$(CROSS_PATH)
 # FIXME: find a real patch for ac_* apr_* (fix configure script)
 APACHE2_ENV 	:=  $(CROSS_ENV) \
 	ac_cv_sizeof_ssize_t=4 \
@@ -287,14 +287,5 @@ endif
 	@$(call install_finish, apache2)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-apache2_clean:
-	rm -rf $(STATEDIR)/apache2.*
-	rm -rf $(PKGDIR)/apache2_*
-	rm -rf $(APACHE2_DIR)
 
 # vim: syntax=make

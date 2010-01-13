@@ -52,13 +52,4 @@ $(STATEDIR)/xcb-proto.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xcb-proto_clean:
-	rm -rf $(STATEDIR)/xcb-proto.*
-	rm -rf $(PKGDIR)/xcb-proto_*
-	rm -rf $(XCB_PROTO_DIR)
-
 # vim: syntax=make

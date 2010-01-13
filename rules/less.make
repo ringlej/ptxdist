@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Bjoern Buerger <b.buerger@pengutronix.de>
 #
@@ -129,14 +128,5 @@ endif
 	@$(call install_finish, less)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-less_clean:
-	rm -rf $(STATEDIR)/less.*
-	rm -rf $(PKGDIR)/less_*
-	rm -rf $(LESS_DIR)
 
 # vim: syntax=make

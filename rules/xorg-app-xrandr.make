@@ -69,13 +69,4 @@ $(STATEDIR)/xorg-app-xrandr.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xrandr_clean:
-	rm -rf $(STATEDIR)/xorg-app-xrandr.*
-	rm -rf $(PKGDIR)/xorg-app-xrandr_*
-	rm -rf $(XORG_APP_XRANDR_DIR)
-
 # vim: syntax=make

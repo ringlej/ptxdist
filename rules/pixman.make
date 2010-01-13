@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -80,14 +79,5 @@ $(STATEDIR)/pixman.targetinstall:
 	@$(call install_finish, pixman)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-pixman_clean:
-	rm -rf $(STATEDIR)/pixman.*
-	rm -rf $(PKGDIR)/pixman_*
-	rm -rf $(PIXMAN_DIR)
 
 # vim: syntax=make

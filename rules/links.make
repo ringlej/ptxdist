@@ -138,13 +138,4 @@ $(STATEDIR)/links.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-links_clean:
-	rm -rf $(STATEDIR)/links.*
-	rm -rf $(PKGDIR)/links_*
-	rm -rf $(LINKS_DIR)
-
 # vim: syntax=make

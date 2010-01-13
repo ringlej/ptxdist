@@ -66,13 +66,4 @@ $(STATEDIR)/etherwake.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-etherwake_clean:
-	rm -rf $(STATEDIR)/etherwake.*
-	rm -rf $(PKGDIR)/etherwake_*
-	rm -rf $(ETHERWAKE_DIR)
-
 # vim: syntax=make

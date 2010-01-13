@@ -70,13 +70,4 @@ $(STATEDIR)/liblockfile.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-liblockfile_clean:
-	rm -rf $(STATEDIR)/liblockfile.*
-	rm -rf $(PKGDIR)/liblockfile_*
-	rm -rf $(LIBLOCKFILE_DIR)
-
 # vim: syntax=make

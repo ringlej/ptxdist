@@ -82,13 +82,4 @@ ifdef PTXCONF_KLIBC_MODULE_INIT_TOOLS_DEPMOD
 endif
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-klibc-module-init-tools_clean:
-	rm -rf $(STATEDIR)/klibc-module-init-tools.*
-	rm -rf $(PKGDIR)/klibc-module-init-tools*
-	rm -rf $(KLIBC_MODULE_INIT_TOOLS_DIR)
-
 # vim: syntax=make

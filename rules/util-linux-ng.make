@@ -150,13 +150,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-util-linux-ng_clean:
-	rm -rf $(STATEDIR)/util-linux-ng.*
-	rm -rf $(PKGDIR)/util-linux-ng_*
-	rm -rf $(UTIL_LINUX_NG_DIR)
-
 # vim: syntax=make

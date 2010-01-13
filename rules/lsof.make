@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -88,14 +87,5 @@ $(STATEDIR)/lsof.targetinstall:
 	@$(call install_finish, lsof)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-lsof_clean:
-	rm -rf $(STATEDIR)/lsof.*
-	rm -rf $(PKGDIR)/lsof_*
-	rm -rf $(LSOF_DIR)
 
 # vim: syntax=make

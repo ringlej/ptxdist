@@ -72,11 +72,4 @@ $(STATEDIR)/base-pkgs.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-base-pkgs_clean:
-	-rm -rf $(STATEDIR)/base-pkgs.*
-
 # vim: syntax=make

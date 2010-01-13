@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -78,14 +77,5 @@ $(STATEDIR)/glibmm.targetinstall:
 	@$(call install_finish, glibmm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-glibmm_clean:
-	rm -rf $(STATEDIR)/glibmm.*
-	rm -rf $(PKGDIR)/glibmm_*
-	rm -rf $(GLIBMM_DIR)
 
 # vim: syntax=make

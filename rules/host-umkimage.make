@@ -59,12 +59,4 @@ $(STATEDIR)/host-umkimage.install:
 	install $(HOST_UMKIMAGE_DIR)/mkimage $(PTXCONF_SYSROOT_HOST)/bin/mkimage
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-umkimage_clean:
-	rm -rf $(STATEDIR)/host-umkimage.*
-	rm -rf $(HOST_UMKIMAGE_DIR)
-
 # vim: syntax=make

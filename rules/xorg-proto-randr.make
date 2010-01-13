@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-randr.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-randr_clean:
-	rm -rf $(STATEDIR)/xorg-proto-randr.*
-	rm -rf $(PKGDIR)/xorg-proto-randr_*
-	rm -rf $(XORG_PROTO_RANDR_DIR)
-
 # vim: syntax=make
 

@@ -124,13 +124,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-iproute2_clean:
-	rm -rf $(STATEDIR)/iproute2.*
-	rm -rf $(PKGDIR)/iproute2_*
-	rm -rf $(IPROUTE2_DIR)
-
 # vim: syntax=make

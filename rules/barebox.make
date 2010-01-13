@@ -99,10 +99,8 @@ $(STATEDIR)/barebox.targetinstall:
 # ----------------------------------------------------------------------------
 
 barebox_clean:
-	rm -rf $(STATEDIR)/barebox.*
-	rm -rf $(PKGDIR)/barebox_*
+	@$(call clean_pkg)
 	rm -rf $(IMAGEDIR)/barebox-image
-	rm -rf $(BAREBOX_DIR)
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

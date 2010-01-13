@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,10 +36,8 @@ $(XORG_LIB_XT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-xt_prepare: $(STATEDIR)/xorg-lib-xt.prepare
-
-XORG_LIB_XT_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XT_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XT_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -68,7 +65,7 @@ $(STATEDIR)/xorg-lib-xt.targetinstall:
 	@$(call install_fixup, xorg-lib-xt,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-xt,VERSION,$(XORG_LIB_XT_VERSION))
 	@$(call install_fixup, xorg-lib-xt,SECTION,base)
-	@$(call install_fixup, xorg-lib-xt,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xt,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xt,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xt,DESCRIPTION,missing)
 
@@ -86,14 +83,5 @@ $(STATEDIR)/xorg-lib-xt.targetinstall:
 	@$(call install_finish, xorg-lib-xt)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xt_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xt.*
-	rm -rf $(PKGDIR)/xorg-lib-xt_*
-	rm -rf $(XORG_LIB_XT_DIR)
 
 # vim: syntax=make

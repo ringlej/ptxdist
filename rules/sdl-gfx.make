@@ -36,8 +36,8 @@ $(SDL_GFX_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-SDL_GFX_PATH	:=  PATH=$(CROSS_PATH)
-SDL_GFX_ENV 	:=  $(CROSS_ENV)
+SDL_GFX_PATH	:= PATH=$(CROSS_PATH)
+SDL_GFX_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -75,14 +75,5 @@ $(STATEDIR)/sdl-gfx.targetinstall:
 	@$(call install_finish, sdl-gfx)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sdl-gfx_clean:
-	rm -rf $(STATEDIR)/sdl-gfx.*
-	rm -rf $(PKGDIR)/sdl-gfx_*
-	rm -rf $(SDL_GFX_DIR)
 
 # vim: syntax=make

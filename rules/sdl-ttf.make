@@ -28,8 +28,8 @@ $(SDL_TTF_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-SDL_TTF_PATH	:=  PATH=$(CROSS_PATH)
-SDL_TTF_ENV 	:=  $(CROSS_ENV)
+SDL_TTF_PATH	:= PATH=$(CROSS_PATH)
+SDL_TTF_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -53,7 +53,7 @@ $(STATEDIR)/sdl-ttf.targetinstall:
 	@$(call install_fixup, sdl-ttf,PRIORITY,optional)
 	@$(call install_fixup, sdl-ttf,VERSION,$(SDL_TTF_VERSION))
 	@$(call install_fixup, sdl-ttf,SECTION,base)
-	@$(call install_fixup, sdl-ttf,AUTHOR,"Markus Rathgeb <rathgeb.markus\@googlemail.com>")
+	@$(call install_fixup, sdl-ttf,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
 	@$(call install_fixup, sdl-ttf,DEPENDS,)
 	@$(call install_fixup, sdl-ttf,DESCRIPTION,missing)
 
@@ -67,14 +67,5 @@ $(STATEDIR)/sdl-ttf.targetinstall:
 	@$(call install_finish, sdl-ttf)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sdl-ttf_clean:
-	rm -rf $(STATEDIR)/sdl-ttf.*
-	rm -rf $(PKGDIR)/sdl-ttf_*
-	rm -rf $(SDL_TTF_DIR)
 
 # vim: syntax=make

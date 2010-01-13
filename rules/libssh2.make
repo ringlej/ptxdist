@@ -75,13 +75,4 @@ $(STATEDIR)/libssh2.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libssh2_clean:
-	rm -rf $(STATEDIR)/libssh2.*
-	rm -rf $(PKGDIR)/libssh2_*
-	rm -rf $(LIBSSH2_DIR)
-
 # vim: syntax=make

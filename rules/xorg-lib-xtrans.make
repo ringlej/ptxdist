@@ -54,13 +54,4 @@ $(STATEDIR)/xorg-lib-xtrans.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xtrans_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xtrans.*
-	rm -rf $(PKGDIR)/xorg-lib-xtrans_*
-	rm -rf $(XORG_LIB_XTRANS_DIR)
-
 # vim: syntax=make

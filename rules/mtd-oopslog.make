@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Wolfram Sang
 #
@@ -90,14 +89,5 @@ $(STATEDIR)/mtd-oopslog.targetinstall:
 	@$(call install_finish, mtd-oopslog)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-mtd-oopslog_clean:
-	rm -rf $(STATEDIR)/mtd-oopslog.*
-	rm -rf $(PKGDIR)/mtd-oopslog_*
-	rm -rf $(MTD_OOPSLOG_DIR)
 
 # vim: syntax=make

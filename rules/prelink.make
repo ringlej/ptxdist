@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -67,14 +66,5 @@ $(STATEDIR)/prelink.targetinstall:
 	@$(call install_finish, prelink)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-prelink_clean:
-	rm -rf $(STATEDIR)/prelink.*
-	rm -rf $(PKGDIR)/prelink_*
-	rm -rf $(PRELINK_DIR)
 
 # vim: syntax=make

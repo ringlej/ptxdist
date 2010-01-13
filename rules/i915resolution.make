@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5709 2006-06-09 13:55:00Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #          
@@ -36,7 +35,7 @@ $(I915RESOLUTION_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-I915RESOLUTION_PATH	:=  PATH=$(CROSS_PATH)
+I915RESOLUTION_PATH	:= PATH=$(CROSS_PATH)
 I915RESOLUTION_MAKEVARS	:=  $(CROSS_ENV_CC)
 
 $(STATEDIR)/i915resolution.prepare:
@@ -73,14 +72,5 @@ $(STATEDIR)/i915resolution.targetinstall:
 	@$(call install_finish,i915resolution)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-i915resolution_clean:
-	rm -rf $(STATEDIR)/i915resolution.*
-	rm -rf $(PKGDIR)/i915resolution_*
-	rm -rf $(I915RESOLUTION_DIR)
 
 # vim: syntax=make

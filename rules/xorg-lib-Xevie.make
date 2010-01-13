@@ -37,8 +37,8 @@ $(XORG_LIB_XEVIE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XEVIE_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XEVIE_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XEVIE_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XEVIE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -76,14 +76,5 @@ $(STATEDIR)/xorg-lib-xevie.targetinstall:
 	@$(call install_finish, xorg-lib-xevie)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xevie_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xevie.*
-	rm -rf $(PKGDIR)/xorg-lib-xevie_*
-	rm -rf $(XORG_LIB_XEVIE_DIR)
 
 # vim: syntax=make

@@ -74,13 +74,4 @@ $(STATEDIR)/xorg-font-micro-misc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-micro-misc_clean:
-	rm -rf $(STATEDIR)/xorg-font-micro-misc.*
-	rm -rf $(PKGDIR)/xorg-font-micro-misc_*
-	rm -rf $(XORG_FONT_MICRO_MISC_DIR)
-
 # vim: syntax=make

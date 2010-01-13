@@ -47,12 +47,4 @@ HOST_CMAKE_AUTOCONF := $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-cmake.install.post: $(PTXDIST_CMAKE_TOOLCHAIN)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-cmake_clean:
-	rm -rf $(STATEDIR)/host-cmake.*
-	rm -rf $(HOST_CMAKE_DIR)
-
 # vim: syntax=make

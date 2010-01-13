@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
 #
@@ -71,14 +70,5 @@ endif
 	@$(call install_finish,screen)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-screen_clean:
-	rm -rf $(STATEDIR)/screen.*
-	rm -rf $(PKGDIR)/screen_*
-	rm -rf $(SCREEN_DIR)
 
 # vim: syntax=make

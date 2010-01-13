@@ -38,12 +38,4 @@ HOST_ACL_AUTOCONF := \
 	--libexecdir=$(PTXDIST_SYSROOT_HOST)/lib \
 	--enable-shared
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-acl_clean:
-	rm -rf $(STATEDIR)/host-acl.*
-	rm -rf $(HOST_ACL_DIR)
-
 # vim: syntax=make

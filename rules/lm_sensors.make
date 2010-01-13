@@ -96,13 +96,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-lm_sensors_clean:
-	rm -rf $(STATEDIR)/lm_sensors.*
-	rm -rf $(PKGDIR)/lm_sensors_*
-	rm -rf $(LM_SENSORS_DIR)
-
 # vim: syntax=make

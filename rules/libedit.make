@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Erwin Rol
 #
@@ -67,14 +66,5 @@ $(STATEDIR)/libedit.targetinstall:
 	@$(call install_finish, libedit)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libedit_clean:
-	rm -rf $(STATEDIR)/libedit.*
-	rm -rf $(PKGDIR)/libedit_*
-	rm -rf $(LIBEDIT_DIR)
 
 # vim: syntax=make

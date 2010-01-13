@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
 #
@@ -62,14 +61,5 @@ $(STATEDIR)/cross-pkg-config-wrapper.install:
 	install -D -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_SYSROOT_CROSS)/bin/pkg-config
 	install -D -m755 $(SCRIPTSDIR)/pkg-config-wrapper $(PTXCONF_SYSROOT_CROSS)/bin/$(COMPILER_PREFIX)pkg-config
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cross-pkg-config-wrapper_clean:
-	rm -rf $(STATEDIR)/cross-pkg-config-wrapper.*
-	rm -rf $(PKGDIR)/cross-pkg-config-wrapper_*
-	rm -rf $(CROSS_PKG_CONFIG_WRAPPER_DIR)
 
 # vim: syntax=make

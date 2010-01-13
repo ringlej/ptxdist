@@ -93,13 +93,4 @@ $(STATEDIR)/librsvg.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-librsvg_clean:
-	rm -rf $(STATEDIR)/librsvg.*
-	rm -rf $(PKGDIR)/librsvg_*
-	rm -rf $(LIBRSVG_DIR)
-
 # vim: syntax=make

@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-xinerama.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-xinerama_clean:
-	rm -rf $(STATEDIR)/xorg-proto-xinerama.*
-	rm -rf $(PKGDIR)/xorg-proto-xinerama_*
-	rm -rf $(XORG_PROTO_XINERAMA_DIR)
-
 # vim: syntax=make
 

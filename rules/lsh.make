@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002-2008 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -97,14 +96,5 @@ ifdef PTXCONF_LSH_KEYGEN
 endif
 	@$(call install_finish, lsh)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-lsh_clean:
-	rm -rf $(STATEDIR)/lsh.*
-	rm -rf $(PKGDIR)/lsh_*
-	rm -rf $(LSH_DIR)
 
 # vim: syntax=make

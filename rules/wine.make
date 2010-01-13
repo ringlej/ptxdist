@@ -63,13 +63,4 @@ $(STATEDIR)/wine.install:
 $(STATEDIR)/wine.targetinstall:
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-wine_clean:
-	rm -rf $(STATEDIR)/wine.*
-	rm -rf $(PKGDIR)/wine_*
-	rm -rf $(WINE_DIR)
-
 # vim: syntax=make

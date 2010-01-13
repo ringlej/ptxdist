@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -75,14 +74,5 @@ $(STATEDIR)/xorg-lib-xfixes.targetinstall:
 	@$(call install_finish, xorg-lib-xfixes)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xfixes_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xfixes.*
-	rm -rf $(PKGDIR)/xorg-lib-xfixes_*
-	rm -rf $(XORG_LIB_XFIXES_DIR)
 
 # vim: syntax=make

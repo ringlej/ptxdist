@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
 #
@@ -43,13 +42,5 @@ HOST_IPKG_UTILS_MAKEVARS := PREFIX=$(PTXCONF_SYSROOT_HOST)
 $(STATEDIR)/host-ipkg-utils.prepare:
 	@$(call targetinfo)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-ipkg-utils_clean:
-	rm -rf $(STATEDIR)/host-ipkg-utils.*
-	rm -rf $(HOST_IPKG_UTILS_DIR)
 
 # vim: syntax=make

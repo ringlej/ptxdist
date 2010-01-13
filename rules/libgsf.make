@@ -109,13 +109,4 @@ $(STATEDIR)/libgsf.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libgsf_clean:
-	rm -rf $(STATEDIR)/libgsf.*
-	rm -rf $(PKGDIR)/libgsf_*
-	rm -rf $(LIBGSF_DIR)
-
 # vim: syntax=make

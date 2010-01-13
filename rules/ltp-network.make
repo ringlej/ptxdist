@@ -91,13 +91,4 @@ $(STATEDIR)/ltp-network.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltp-network_clean:
-	rm -rf $(STATEDIR)/ltp-network.*
-	rm -rf $(PKGDIR)/ltp-network_*
-	rm -rf $(LTP_NETWORK_DIR)
-
 # vim: syntax=make

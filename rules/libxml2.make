@@ -281,13 +281,4 @@ $(STATEDIR)/libxml2.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libxml2_clean:
-	rm -rf $(STATEDIR)/libxml2.*
-	rm -rf $(PKGDIR)/libxml2_*
-	rm -rf $(LIBXML2_DIR)
-
 # vim: syntax=make

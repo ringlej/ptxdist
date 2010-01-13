@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Robert Schwebel
 #
@@ -56,7 +55,7 @@ $(STATEDIR)/gtkmm.targetinstall:
 	@$(call install_fixup, gtkmm,PRIORITY,optional)
 	@$(call install_fixup, gtkmm,VERSION,$(GTKMM_VERSION))
 	@$(call install_fixup, gtkmm,SECTION,base)
-	@$(call install_fixup, gtkmm,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gtkmm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gtkmm,DEPENDS,)
 	@$(call install_fixup, gtkmm,DESCRIPTION,missing)
 
@@ -90,14 +89,5 @@ $(STATEDIR)/gtkmm.targetinstall:
 	@$(call install_finish, gtkmm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gtkmm_clean:
-	rm -rf $(STATEDIR)/gtkmm.*
-	rm -rf $(PKGDIR)/gtkmm_*
-	rm -rf $(GTKMM_DIR)
 
 # vim: syntax=make

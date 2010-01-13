@@ -80,13 +80,4 @@ $(STATEDIR)/netcat.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-netcat_clean:
-	rm -rf $(STATEDIR)/netcat.*
-	rm -rf $(PKGDIR)/netcat_*
-	rm -rf $(NETCAT_DIR)
-
 # vim: syntax=make

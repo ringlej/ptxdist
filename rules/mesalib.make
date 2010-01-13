@@ -141,7 +141,7 @@ $(STATEDIR)/mesalib.targetinstall:
 	@$(call install_fixup, mesalib,PRIORITY,optional)
 	@$(call install_fixup, mesalib,VERSION,$(MESALIB_VERSION))
 	@$(call install_fixup, mesalib,SECTION,base)
-	@$(call install_fixup, mesalib,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, mesalib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, mesalib,DEPENDS,)
 	@$(call install_fixup, mesalib,DESCRIPTION,missing)
 
@@ -295,15 +295,6 @@ endif
 	@$(call install_finish, mesalib)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-mesalib_clean:
-	rm -rf $(STATEDIR)/mesalib.*
-	rm -rf $(PKGDIR)/mesalib_*
-	rm -fr $(MESALIB_DIR)
 
 
 # vim: syntax=make

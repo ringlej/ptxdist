@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002 by Pengutronix e.K., Hildesheim, Germany
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -78,14 +77,5 @@ endif
 
 	@$(call install_finish, portmap)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-portmap_clean:
-	rm -rf $(STATEDIR)/portmap.*
-	rm -rf $(PKGDIR)/portmap_*
-	rm -rf $(PORTMAP_DIR)
 
 # vim: syntax=make

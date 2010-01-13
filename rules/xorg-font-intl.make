@@ -97,13 +97,4 @@ $(STATEDIR)/xorg-font-intl.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-intl_clean:
-	rm -rf $(STATEDIR)/xorg-font-intl.*
-	rm -rf $(PKGDIR)/xorg-font-intl_*
-	rm -rf $(XORG_FONT_INTL_DIR)
-
 # vim: syntax=make

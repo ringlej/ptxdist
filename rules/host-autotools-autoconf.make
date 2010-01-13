@@ -45,12 +45,4 @@ HOST_AUTOTOOLS_AUTOCONF_ENV 	:= $(HOST_ENV)
 #
 HOST_AUTOTOOLS_AUTOCONF_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-autotools-autoconf_clean:
-	rm -rf $(STATEDIR)/host-autotools-autoconf.*
-	rm -rf $(HOST_AUTOTOOLS_AUTOCONF_DIR)
-
 # vim: syntax=make

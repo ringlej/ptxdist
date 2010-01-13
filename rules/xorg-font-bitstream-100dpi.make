@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-bitstream-100dpi.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-bitstream-100dpi_clean:
-	rm -rf $(STATEDIR)/xorg-font-bitstream-100dpi.*
-	rm -rf $(PKGDIR)/xorg-font-bitstream-100dpi_*
-	rm -rf $(XORG_FONT_BITSTREAM_100DPI_DIR)
-
 # vim: syntax=make

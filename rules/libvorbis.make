@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
 #
@@ -59,7 +58,7 @@ $(STATEDIR)/libvorbis.targetinstall:
 	@$(call install_fixup, libvorbis,PRIORITY,optional)
 	@$(call install_fixup, libvorbis,VERSION,$(LIBVORBIS_VERSION))
 	@$(call install_fixup, libvorbis,SECTION,base)
-	@$(call install_fixup, libvorbis,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libvorbis,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libvorbis,DEPENDS,)
 	@$(call install_fixup, libvorbis,DESCRIPTION,missing)
 
@@ -78,14 +77,5 @@ $(STATEDIR)/libvorbis.targetinstall:
 	@$(call install_finish, libvorbis)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libvorbis_clean:
-	rm -rf $(STATEDIR)/libvorbis.*
-	rm -rf $(PKGDIR)/libvorbis_*
-	rm -rf $(LIBVORBIS_DIR)
 
 # vim: syntax=make

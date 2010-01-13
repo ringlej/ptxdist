@@ -53,12 +53,4 @@ HOST_IPKG_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--disable-shared
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-ipkg_clean:
-	rm -rf $(STATEDIR)/host-ipkg.*
-	rm -rf $(HOST_IPKG_DIR)
-
 # vim: syntax=make

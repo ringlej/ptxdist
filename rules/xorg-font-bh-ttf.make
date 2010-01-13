@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-bh-ttf.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-bh-ttf_clean:
-	rm -rf $(STATEDIR)/xorg-font-bh-ttf.*
-	rm -rf $(PKGDIR)/xorg-font-bh-ttf_*
-	rm -rf $(XORG_FONT_BH_TTF_DIR)
-
 # vim: syntax=make

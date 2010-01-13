@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 10856 2009-06-22 21:57:50Z mkl $
 #
 # Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -125,14 +124,5 @@ $(STATEDIR)/splashutils.targetinstall:
 	@$(call install_finish, splashutils)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-splashutils_clean:
-	rm -rf $(STATEDIR)/splashutils.*
-	rm -rf $(PKGDIR)/splashutils_*
-	rm -rf $(SPLASHUTILS_DIR)
 
 # vim: syntax=make

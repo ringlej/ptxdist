@@ -82,13 +82,4 @@ $(STATEDIR)/libffi.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libffi_clean:
-	rm -rf $(STATEDIR)/libffi.*
-	rm -rf $(PKGDIR)/libffi_*
-	rm -rf $(LIBFFI_DIR)
-
 # vim: syntax=make

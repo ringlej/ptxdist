@@ -43,12 +43,4 @@ HOST_XZ_ENV 	:= $(HOST_ENV)
 #
 HOST_XZ_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xz_clean:
-	rm -rf $(STATEDIR)/host-xz.*
-	rm -rf $(HOST_XZ_DIR)
-
 # vim: syntax=make

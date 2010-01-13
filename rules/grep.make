@@ -72,13 +72,4 @@ $(STATEDIR)/grep.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-grep_clean:
-	rm -rf $(STATEDIR)/grep.*
-	rm -rf $(PKGDIR)/grep_*
-	rm -rf $(GREP_DIR)
-
 # vim: syntax=make

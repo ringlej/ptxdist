@@ -117,13 +117,4 @@ $(STATEDIR)/rxtx.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-rxtx_clean:
-	rm -rf $(STATEDIR)/rxtx.*
-	rm -rf $(PKGDIR)/rxtx_*
-	rm -rf $(RXTX_DIR)
-
 # vim: syntax=make

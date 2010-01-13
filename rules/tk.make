@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Bjoern Buerger <b.buerger@pengutronix.de>
 # Copyright (C) 2009 by Juergen Beisert
@@ -119,14 +118,5 @@ endif
 	@$(call install_finish, tk)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-tk_clean:
-	rm -rf $(STATEDIR)/tk.*
-	rm -rf $(PKGDIR)/tk_*
-	rm -rf $(TK_DIR)
 
 # vim: syntax=make

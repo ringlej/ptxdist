@@ -66,13 +66,4 @@ $(STATEDIR)/bing.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-bing_clean:
-	rm -rf $(STATEDIR)/bing.*
-	rm -rf $(PKGDIR)/bing_*
-	rm -rf $(BING_DIR)
-
 # vim: syntax=make

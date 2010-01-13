@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Juergen Beisert
 #
@@ -69,14 +68,5 @@ $(STATEDIR)/hping.targetinstall:
 	@$(call install_finish, hping)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-hping_clean:
-	rm -rf $(STATEDIR)/hping.*
-	rm -rf $(PKGDIR)/hping_*
-	rm -rf $(HPING_DIR)
 
 # vim: syntax=make

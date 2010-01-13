@@ -75,13 +75,4 @@ $(STATEDIR)/libmng.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libmng_clean:
-	rm -rf $(STATEDIR)/libmng.*
-	rm -rf $(PKGDIR)/libmng_*
-	rm -rf $(LIBMNG_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Robert Schwebel
 #
@@ -69,14 +68,5 @@ $(STATEDIR)/gtk-engine-experience.targetinstall:
 	@$(call install_finish, gtk-engine-experience)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gtk-engine-experience_clean:
-	rm -rf $(STATEDIR)/gtk-engine-experience.*
-	rm -rf $(PKGDIR)/gtk-engine-experience_*
-	rm -rf $(GTK_ENGINE_EXPERIENCE_DIR)
 
 # vim: syntax=make

@@ -81,12 +81,4 @@ $(STATEDIR)/blackbox.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-blackbox_clean:
-	rm -rf $(STATEDIR)/blackbox.*
-	rm -rf $(BLACKBOX_DIR)
-
 # vim: syntax=make

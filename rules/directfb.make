@@ -217,13 +217,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-directfb_clean:
-	rm -rf $(STATEDIR)/directfb.*
-	rm -rf $(PKGDIR)/directfb_*
-	rm -rf $(DIRECTFB_DIR)
-
 # vim: syntax=make

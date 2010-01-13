@@ -78,13 +78,4 @@ $(STATEDIR)/xorg-font-ttf-bitstream-vera.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-ttf-bitstream-vera_clean:
-	rm -rf $(STATEDIR)/xorg-font-ttf-bitstream-vera.*
-	rm -rf $(PKGDIR)/xorg-font-ttf-bitstream-vera_*
-	rm -rf $(XORG_FONT_TTF_BITSTREAM_VERA_DIR)
-
 # vim: syntax=make

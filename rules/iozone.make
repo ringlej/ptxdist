@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Luotao Fu <l.fu@pengutronix.de>
 #
@@ -78,14 +77,5 @@ $(STATEDIR)/iozone.targetinstall:
 	@$(call install_finish, iozone)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-iozone_clean:
-	rm -rf $(STATEDIR)/iozone.*
-	rm -rf $(PKGDIR)/iozone_*
-	rm -rf $(IOZONE_DIR)
 
 # vim: syntax=make

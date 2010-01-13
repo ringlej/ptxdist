@@ -76,7 +76,7 @@ $(STATEDIR)/nanocom.targetinstall:
 	@$(call install_fixup, nanocom,PRIORITY,optional)
 	@$(call install_fixup, nanocom,VERSION,$(NANOCOM_VERSION))
 	@$(call install_fixup, nanocom,SECTION,base)
-	@$(call install_fixup, nanocom,AUTHOR,"Juergen Beisert <juergen\@kreuzholzen.de>")
+	@$(call install_fixup, nanocom,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
 	@$(call install_fixup, nanocom,DEPENDS,)
 	@$(call install_fixup, nanocom,DESCRIPTION,missing)
 
@@ -85,14 +85,5 @@ $(STATEDIR)/nanocom.targetinstall:
 	@$(call install_finish, nanocom)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-nanocom_clean:
-	rm -rf $(STATEDIR)/nanocom.*
-	rm -rf $(PKGDIR)/nanocom_*
-	rm -rf $(NANOCOM_DIR)
 
 # vim: syntax=make

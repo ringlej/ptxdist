@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -61,12 +60,5 @@ $(STATEDIR)/base.install:
 $(STATEDIR)/base.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-base_clean:
-	-rm -rf $(STATEDIR)/base.*
 
 # vim: syntax=make

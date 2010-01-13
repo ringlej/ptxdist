@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
@@ -146,14 +145,5 @@ endif
 	@$(call install_finish, pureftpd)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-pureftpd_clean:
-	rm -rf $(STATEDIR)/pureftpd.*
-	rm -rf $(PKGDIR)/pureftpd_*
-	rm -rf $(PUREFTPD_DIR)
 
 # vim: syntax=make

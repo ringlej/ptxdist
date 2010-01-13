@@ -220,13 +220,4 @@ endif
 	@$(call install_finish, lighttpd)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-lighttpd_clean:
-	rm -rf $(STATEDIR)/lighttpd.*
-	rm -rf $(PKGDIR)/lighttpd_*
-	rm -rf $(LIGHTTPD_DIR)
-
 # vim: syntax=make

@@ -85,13 +85,4 @@ $(STATEDIR)/frodo.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-frodo_clean:
-	rm -rf $(STATEDIR)/frodo.*
-	rm -rf $(PKGDIR)/frodo_*
-	rm -rf $(FRODO_DIR)
-
 # vim: syntax=make

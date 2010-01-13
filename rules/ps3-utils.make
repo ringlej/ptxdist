@@ -71,13 +71,4 @@ $(STATEDIR)/ps3-utils.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ps3-utils_clean:
-	rm -rf $(STATEDIR)/ps3-utils.*
-	rm -rf $(PKGDIR)/ps3-utils_*
-	rm -rf $(PS3_UTILS_DIR)
-
 # vim: syntax=make

@@ -72,13 +72,4 @@ $(STATEDIR)/libnet.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libnet_clean:
-	rm -rf $(STATEDIR)/libnet.*
-	rm -rf $(PKGDIR)/libnet_*
-	rm -rf $(LIBNET_DIR)
-
 # vim: syntax=make

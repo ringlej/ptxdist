@@ -84,13 +84,4 @@ $(STATEDIR)/commoncpp2.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-commoncpp2_clean:
-	rm -rf $(STATEDIR)/commoncpp2.*
-	rm -rf $(PKGDIR)/commoncpp2_*
-	rm -rf $(COMMONCPP2_DIR)
-
 # vim: syntax=make

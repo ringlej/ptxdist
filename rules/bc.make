@@ -66,13 +66,4 @@ $(STATEDIR)/bc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-bc_clean:
-	rm -rf $(STATEDIR)/bc.*
-	rm -rf $(PKGDIR)/bc_*
-	rm -rf $(BC_DIR)
-
 # vim: syntax=make

@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-windowswm.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-windowswm_clean:
-	rm -rf $(STATEDIR)/xorg-proto-windowswm.*
-	rm -rf $(PKGDIR)/xorg-proto-windowswm_*
-	rm -rf $(XORG_PROTO_WINDOWSWM_DIR)
-
 # vim: syntax=make
 

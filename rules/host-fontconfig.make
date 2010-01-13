@@ -48,12 +48,4 @@ HOST_FONTCONFIG_AUTOCONF := \
 
 HOST_FONTCONFIG_MAKE_PAR := NO
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-fontconfig_clean:
-	rm -rf $(STATEDIR)/host-fontconfig.*
-	rm -rf $(HOST_FONTCONFIG_DIR)
-
 # vim: syntax=make

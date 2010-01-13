@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -35,8 +34,6 @@ $(LIBXCB_SOURCE):
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-libxcb_prepare: $(STATEDIR)/libxcb.prepare
 
 LIBXCB_PATH	:= PATH=$(CROSS_PATH)
 LIBXCB_ENV 	:= $(CROSS_ENV) ac_cv_prog_BUILD_DOCS=no
@@ -164,14 +161,5 @@ $(STATEDIR)/libxcb.targetinstall:
 	@$(call install_finish, libxcb)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libxcb_clean:
-	rm -rf $(STATEDIR)/libxcb.*
-	rm -rf $(PKGDIR)/libxcb_*
-	rm -rf $(LIBXCB_DIR)
 
 # vim: syntax=make

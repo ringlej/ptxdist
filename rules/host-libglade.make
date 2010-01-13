@@ -39,12 +39,4 @@ HOST_LIBGLADE_ENV 	:= $(HOST_ENV)
 #
 HOST_LIBGLADE_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libglade_clean:
-	rm -rf $(STATEDIR)/host-libglade.*
-	rm -rf $(HOST_LIBGLADE_DIR)
-
 # vim: syntax=make

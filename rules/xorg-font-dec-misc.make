@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-dec-misc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-dec-misc_clean:
-	rm -rf $(STATEDIR)/xorg-font-dec-misc.*
-	rm -rf $(PKGDIR)/xorg-font-dec-misc_*
-	rm -rf $(XORG_FONT_DEC_MISC_DIR)
-
 # vim: syntax=make

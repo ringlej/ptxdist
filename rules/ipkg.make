@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2224 2005-01-20 15:19:18Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #
@@ -57,7 +56,7 @@ $(STATEDIR)/ipkg.targetinstall:
 	@$(call install_fixup, ipkg,PRIORITY,optional)
 	@$(call install_fixup, ipkg,VERSION,$(IPKG_VERSION))
 	@$(call install_fixup, ipkg,SECTION,base)
-	@$(call install_fixup, ipkg,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, ipkg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, ipkg,DEPENDS,)
 	@$(call install_fixup, ipkg,DESCRIPTION,missing)
 
@@ -98,14 +97,5 @@ endif
 	@$(call install_finish, ipkg)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ipkg_clean:
-	rm -rf $(STATEDIR)/ipkg.*
-	rm -rf $(PKGDIR)/ipkg_*
-	rm -rf $(IPKG_DIR)
 
 # vim: syntax=make

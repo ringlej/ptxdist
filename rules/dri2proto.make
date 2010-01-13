@@ -89,13 +89,4 @@ $(STATEDIR)/dri2proto.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-dri2proto_clean:
-	rm -rf $(STATEDIR)/dri2proto.*
-	rm -rf $(PKGDIR)/dri2proto_*
-	rm -rf $(DRI2PROTO_DIR)
-
 # vim: syntax=make

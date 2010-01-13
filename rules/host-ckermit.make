@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2008 by Wolfram Sang
 #
@@ -68,13 +67,5 @@ $(STATEDIR)/host-ckermit.install:
 	@$(call targetinfo)
 	cp $(HOST_CKERMIT_DIR)/wermit $(PTXCONF_SYSROOT_HOST)/bin/ckermit
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-ckermit_clean:
-	rm -rf $(STATEDIR)/host-ckermit.*
-	rm -rf $(HOST_CKERMIT_DIR)
 
 # vim: syntax=make

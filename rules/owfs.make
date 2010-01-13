@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -173,14 +172,5 @@ endif
 	@$(call install_finish, owfs)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-owfs_clean:
-	rm -rf $(STATEDIR)/owfs.*
-	rm -rf $(PKGDIR)/owfs_*
-	rm -rf $(OWFS_DIR)
 
 # vim: syntax=make

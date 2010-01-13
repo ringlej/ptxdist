@@ -66,13 +66,4 @@ $(STATEDIR)/figlet.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-figlet_clean:
-	rm -rf $(STATEDIR)/figlet.*
-	rm -rf $(PKGDIR)/figlet_*
-	rm -rf $(FIGLET_DIR)
-
 # vim: syntax=make

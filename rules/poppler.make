@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2007 by Luotao Fu <l.fu@pengutronix.de>
 #               2009 by Robert Schwebel
@@ -130,14 +129,5 @@ endif
 	@$(call install_finish, poppler)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-poppler_clean:
-	rm -rf $(STATEDIR)/poppler.*
-	rm -rf $(PKGDIR)/poppler_*
-	rm -rf $(POPPLER_DIR)
 
 # vim: syntax=make

@@ -62,13 +62,4 @@ $(STATEDIR)/hdparm.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-hdparm_clean:
-	rm -rf $(STATEDIR)/hdparm.*
-	rm -rf $(PKGDIR)/hdparm_*
-	rm -rf $(HDPARM_DIR)
-
 # vim: syntax=make

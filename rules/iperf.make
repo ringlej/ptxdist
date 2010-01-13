@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Sascha Hauer
 #
@@ -56,7 +55,7 @@ $(STATEDIR)/iperf.targetinstall:
 	@$(call install_fixup, iperf,PRIORITY,optional)
 	@$(call install_fixup, iperf,VERSION,$(IPERF_VERSION))
 	@$(call install_fixup, iperf,SECTION,base)
-	@$(call install_fixup, iperf,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, iperf,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, iperf,DEPENDS,)
 	@$(call install_fixup, iperf,DESCRIPTION,missing)
 
@@ -65,14 +64,5 @@ $(STATEDIR)/iperf.targetinstall:
 	@$(call install_finish, iperf)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-iperf_clean:
-	rm -rf $(STATEDIR)/iperf.*
-	rm -rf $(PKGDIR)/iperf_*
-	rm -rf $(IPERF_DIR)
 
 # vim: syntax=make

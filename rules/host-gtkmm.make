@@ -39,12 +39,4 @@ HOST_GTKMM_ENV 	:= $(HOST_ENV)
 #
 HOST_GTKMM_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-gtkmm_clean:
-	rm -rf $(STATEDIR)/host-gtkmm.*
-	rm -rf $(HOST_GTKMM_DIR)
-
 # vim: syntax=make

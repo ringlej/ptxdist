@@ -37,8 +37,8 @@ $(XORG_APP_XVINFO_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_XVINFO_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_XVINFO_ENV 	:=  $(CROSS_ENV)
+XORG_APP_XVINFO_PATH	:= PATH=$(CROSS_PATH)
+XORG_APP_XVINFO_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -69,14 +69,5 @@ $(STATEDIR)/xorg-app-xvinfo.targetinstall:
 	@$(call install_finish,xorg-app-xvinfo)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xvinfo_clean:
-	rm -rf $(STATEDIR)/xorg-app-xvinfo.*
-	rm -rf $(PKGDIR)/xorg-app-xvinfo_*
-	rm -rf $(XORG_APP_XVINFO_DIR)
 
 # vim: syntax=make

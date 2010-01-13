@@ -80,13 +80,4 @@ $(STATEDIR)/hexedit.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-hexedit_clean:
-	rm -rf $(STATEDIR)/hexedit.*
-	rm -rf $(PKGDIR)/hexedit_*
-	rm -rf $(HEXEDIT_DIR)
-
 # vim: syntax=make

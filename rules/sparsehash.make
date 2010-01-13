@@ -26,8 +26,8 @@ $(SPARSEHASH_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-SPARSEHASH_PATH	:=  PATH=$(CROSS_PATH)
-SPARSEHASH_ENV 	:=  $(CROSS_ENV)
+SPARSEHASH_PATH	:= PATH=$(CROSS_PATH)
+SPARSEHASH_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -43,14 +43,5 @@ SPARSEHASH_AUTOCONF := \
 $(STATEDIR)/sparsehash.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sparsehash_clean:
-	rm -rf $(STATEDIR)/sparsehash.*
-	rm -rf $(PKGDIR)/sparsehash_*
-	rm -rf $(SPARSEHASH_DIR)
 
 # vim: syntax=make

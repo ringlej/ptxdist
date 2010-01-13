@@ -80,13 +80,4 @@ $(STATEDIR)/scummvm.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-scummvm_clean:
-	rm -rf $(STATEDIR)/scummvm.*
-	rm -rf $(PKGDIR)/scummvm_*
-	rm -rf $(SCUMMVM_DIR)
-
 # vim: syntax=make

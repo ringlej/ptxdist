@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-mutt-misc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-mutt-misc_clean:
-	rm -rf $(STATEDIR)/xorg-font-mutt-misc.*
-	rm -rf $(PKGDIR)/xorg-font-mutt-misc_*
-	rm -rf $(XORG_FONT_MUTT_MISC_DIR)
-
 # vim: syntax=make

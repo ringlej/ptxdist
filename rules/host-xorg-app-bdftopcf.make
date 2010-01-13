@@ -55,12 +55,4 @@ HOST_XORG_APP_BDFTOPCF_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_APP_BDFTOPCF_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-app-bdftopcf_clean:
-	rm -rf $(STATEDIR)/host-xorg-app-bdftopcf.*
-	rm -rf $(HOST_XORG_APP_BDFTOPCF_DIR)
-
 # vim: syntax=make

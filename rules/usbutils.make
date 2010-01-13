@@ -75,13 +75,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-usbutils_clean:
-	rm -rf $(STATEDIR)/usbutils.*
-	rm -rf $(PKGDIR)/usbutils_*
-	rm -rf $(USBUTILS_DIR)
-
 # vim: syntax=make

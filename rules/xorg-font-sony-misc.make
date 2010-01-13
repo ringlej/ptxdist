@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-sony-misc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-sony-misc_clean:
-	rm -rf $(STATEDIR)/xorg-font-sony-misc.*
-	rm -rf $(PKGDIR)/xorg-font-sony-misc_*
-	rm -rf $(XORG_FONT_SONY_MISC_DIR)
-
 # vim: syntax=make

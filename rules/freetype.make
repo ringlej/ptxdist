@@ -69,13 +69,4 @@ $(STATEDIR)/freetype.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-freetype_clean:
-	rm -rf $(STATEDIR)/freetype.*
-	rm -rf $(PKGDIR)/freetype_*
-	rm -rf $(FREETYPE_DIR)
-
 # vim: syntax=make

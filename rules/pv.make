@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Wolfram Sang
 #
@@ -69,14 +68,5 @@ $(STATEDIR)/pv.targetinstall:
 	@$(call install_finish, pv)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-pv_clean:
-	rm -rf $(STATEDIR)/pv.*
-	rm -rf $(PKGDIR)/pv_*
-	rm -rf $(PV_DIR)
 
 # vim: syntax=make

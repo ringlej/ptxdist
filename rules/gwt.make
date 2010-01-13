@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 7626 2007-11-26 10:27:03Z mkl $
 #
 # Copyright (C) 2007 by Luotao Fu <l.fu@pengutronix.de>
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -80,14 +79,5 @@ endif
 	@$(call install_finish, gwt)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gwt_clean:
-	rm -rf $(STATEDIR)/gwt.*
-	rm -rf $(PKGDIR)/gwt_*
-	rm -rf $(GWT_DIR)
 
 # vim: syntax=make

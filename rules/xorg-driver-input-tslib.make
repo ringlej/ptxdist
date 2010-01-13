@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
 #
@@ -37,10 +36,8 @@ $(XORG_DRIVER_INPUT_TSLIB_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-driver-input-tslib_prepare: $(STATEDIR)/xorg-driver-input-tslib.prepare
-
-XORG_DRIVER_INPUT_TSLIB_PATH	:=  PATH=$(CROSS_PATH)
-XORG_DRIVER_INPUT_TSLIB_ENV 	:=  $(CROSS_ENV)
+XORG_DRIVER_INPUT_TSLIB_PATH	:= PATH=$(CROSS_PATH)
+XORG_DRIVER_INPUT_TSLIB_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -51,9 +48,7 @@ XORG_DRIVER_INPUT_TSLIB_AUTOCONF := $(CROSS_AUTOCONF_USR)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-driver-input-tslib_targetinstall: $(STATEDIR)/xorg-driver-input-tslib.targetinstall
-
-$(STATEDIR)/xorg-driver-input-tslib.targetinstall: $(xorg-driver-input-tslib_targetinstall_deps_default)
+$(STATEDIR)/xorg-driver-input-tslib.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-input-tslib)
@@ -61,7 +56,7 @@ $(STATEDIR)/xorg-driver-input-tslib.targetinstall: $(xorg-driver-input-tslib_tar
 	@$(call install_fixup, xorg-driver-input-tslib,PRIORITY,optional)
 	@$(call install_fixup, xorg-driver-input-tslib,VERSION,$(XORG_DRIVER_INPUT_TSLIB_VERSION))
 	@$(call install_fixup, xorg-driver-input-tslib,SECTION,base)
-	@$(call install_fixup, xorg-driver-input-tslib,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-driver-input-tslib,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-driver-input-tslib,DEPENDS,)
 	@$(call install_fixup, xorg-driver-input-tslib,DESCRIPTION,missing)
 
@@ -71,14 +66,5 @@ $(STATEDIR)/xorg-driver-input-tslib.targetinstall: $(xorg-driver-input-tslib_tar
 	@$(call install_finish, xorg-driver-input-tslib)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-driver-input-tslib_clean:
-	rm -rf $(STATEDIR)/xorg-driver-input-tslib.*
-	rm -rf $(PKGDIR)/xorg-driver-input-tslib_*
-	rm -rf $(XORG_DRIVER_INPUT_TSLIB_DIR)
 
 # vim: syntax=make

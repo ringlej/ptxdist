@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Juergen Beisert
 #
@@ -179,14 +178,5 @@ endif
 	@$(call install_finish,cvs)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cvs_clean:
-	rm -rf $(STATEDIR)/cvs.*
-	rm -rf $(PKGDIR)/cvs_*
-	rm -rf $(CVS_DIR)
 
 # vim: syntax=make

@@ -15,8 +15,8 @@
 PACKAGES-$(PTXCONF_ROOTFS) += rootfs
 
 # dummy to make ipkg happy
-ROOTFS_VERSION	= 1.0.0
-ROOTFS_DIR	= $(BUILDDIR)/rootfs
+ROOTFS_VERSION	:= 1.0.0
+ROOTFS_DIR	:= $(BUILDDIR)/rootfs
 
 # ----------------------------------------------------------------------------
 # Get
@@ -219,13 +219,5 @@ endif
 	@$(call install_finish, rootfs)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-rootfs_clean:
-	rm -rf $(STATEDIR)/rootfs.* $(ROOTFS_DIR)
-	rm -rf $(PKGDIR)/rootfs_*
 
 # vim: syntax=make

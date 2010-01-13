@@ -41,12 +41,4 @@ HOST_ATK_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--disable-glibtest
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-atk_clean:
-	rm -rf $(STATEDIR)/host-atk.*
-	rm -rf $(HOST_ATK_DIR)
-
 # vim: syntax=make

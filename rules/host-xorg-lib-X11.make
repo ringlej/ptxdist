@@ -43,12 +43,4 @@ HOST_XORG_LIB_X11_AUTOCONF	:= \
 	--disable-man-pages \
 	--disable-specs
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-lib-x11_clean:
-	rm -rf $(STATEDIR)/host-xorg-lib-x11.*
-	rm -rf $(HOST_XORG_LIB_X11_DIR)
-
 # vim: syntax=make

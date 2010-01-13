@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,6 @@ $(XORG_LIB_ICE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-ice_prepare: $(STATEDIR)/xorg-lib-ice.prepare
-
 XORG_LIB_ICE_PATH	:= PATH=$(CROSS_PATH)
 XORG_LIB_ICE_ENV 	:= $(CROSS_ENV)
 
@@ -62,7 +59,7 @@ $(STATEDIR)/xorg-lib-ice.targetinstall:
 	@$(call install_fixup, xorg-lib-ice,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-ice,VERSION,$(XORG_LIB_ICE_VERSION))
 	@$(call install_fixup, xorg-lib-ice,SECTION,base)
-	@$(call install_fixup, xorg-lib-ice,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-ice,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-ice,DEPENDS,)
 	@$(call install_fixup, xorg-lib-ice,DESCRIPTION,missing)
 
@@ -80,14 +77,5 @@ $(STATEDIR)/xorg-lib-ice.targetinstall:
 	@$(call install_finish, xorg-lib-ice)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-ice_clean:
-	rm -rf $(STATEDIR)/xorg-lib-ice.*
-	rm -rf $(PKGDIR)/xorg-lib-ice_*
-	rm -rf $(XORG_LIB_ICE_DIR)
 
 # vim: syntax=make

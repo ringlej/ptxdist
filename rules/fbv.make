@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -103,14 +102,5 @@ $(STATEDIR)/fbv.targetinstall:
 	@$(call install_finish, fbv)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-fbv_clean:
-	rm -rf $(STATEDIR)/fbv.*
-	rm -rf $(PKGDIR)/fbv_*
-	rm -rf $(FBV_DIR)
 
 # vim: syntax=make

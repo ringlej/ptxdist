@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-dmx.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-dmx_clean:
-	rm -rf $(STATEDIR)/xorg-proto-dmx.*
-	rm -rf $(PKGDIR)/xorg-proto-dmx_*
-	rm -rf $(XORG_PROTO_DMX_DIR)
-
 # vim: syntax=make
 

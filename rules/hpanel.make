@@ -67,13 +67,4 @@ $(STATEDIR)/hpanel.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-hpanel_clean:
-	rm -rf $(STATEDIR)/hpanel.*
-	rm -rf $(PKGDIR)/hpanel_*
-	rm -rf $(HPANEL_DIR)
-
 # vim: syntax=make

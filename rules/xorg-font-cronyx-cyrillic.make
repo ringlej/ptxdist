@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-cronyx-cyrillic.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-cronyx-cyrillic_clean:
-	rm -rf $(STATEDIR)/xorg-font-cronyx-cyrillic.*
-	rm -rf $(PKGDIR)/xorg-font-cronyx-cyrillic_*
-	rm -rf $(XORG_FONT_CRONYX_CYRILLIC_DIR)
-
 # vim: syntax=make

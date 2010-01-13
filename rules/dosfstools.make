@@ -98,13 +98,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-dosfstools_clean:
-	rm -rf $(STATEDIR)/dosfstools.*
-	rm -rf $(PKGDIR)/dosfstools_*
-	rm -rf $(DOSFSTOOLS_DIR)
-
 # vim: syntax=make

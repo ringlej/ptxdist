@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
 #
@@ -56,7 +55,7 @@ $(STATEDIR)/libogg.targetinstall:
 	@$(call install_fixup, libogg,PRIORITY,optional)
 	@$(call install_fixup, libogg,VERSION,$(LIBOGG_VERSION))
 	@$(call install_fixup, libogg,SECTION,base)
-	@$(call install_fixup, libogg,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libogg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libogg,DEPENDS,)
 	@$(call install_fixup, libogg,DESCRIPTION,missing)
 
@@ -67,14 +66,5 @@ $(STATEDIR)/libogg.targetinstall:
 	@$(call install_finish, libogg)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libogg_clean:
-	rm -rf $(STATEDIR)/libogg.*
-	rm -rf $(PKGDIR)/libogg_*
-	rm -rf $(LIBOGG_DIR)
 
 # vim: syntax=make

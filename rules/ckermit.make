@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2005 by Oscar Peredo
 # Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -93,14 +92,5 @@ $(STATEDIR)/ckermit.targetinstall:
 	@$(call install_finish, ckermit)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ckermit_clean:
-	rm -rf $(STATEDIR)/ckermit.*
-	rm -rf $(PKGDIR)/ckermit_*
-	rm -rf $(CKERMIT_DIR)
 
 # vim: syntax=make

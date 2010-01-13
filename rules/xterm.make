@@ -68,13 +68,4 @@ $(STATEDIR)/xterm.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xterm_clean:
-	rm -rf $(STATEDIR)/xterm.*
-	rm -rf $(PKGDIR)/xterm_*
-	rm -rf $(XTERM_DIR)
-
 # vim: syntax=make

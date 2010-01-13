@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -65,14 +64,5 @@ $(STATEDIR)/dfu-util.targetinstall:
 	@$(call install_finish, dfu-util)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-dfu-util_clean:
-	rm -rf $(STATEDIR)/dfu-util.*
-	rm -rf $(PKGDIR)/dfu-util_*
-	rm -rf $(DFU_UTIL_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
 # Copyright (C) 2008 by SuperTux Team
 #
@@ -72,14 +71,5 @@ $(STATEDIR)/supertux.targetinstall:
 	@$(call install_finish, supertux)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-supertux_clean:
-	rm -rf $(STATEDIR)/supertux.*
-	rm -rf $(PKGDIR)/supertux_*
-	rm -rf $(SUPERTUX_DIR)
 
 # vim: syntax=make

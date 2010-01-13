@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-misc-cyrillic.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-misc-cyrillic_clean:
-	rm -rf $(STATEDIR)/xorg-font-misc-cyrillic.*
-	rm -rf $(PKGDIR)/xorg-font-misc-cyrillic_*
-	rm -rf $(XORG_FONT_MISC_CYRILLIC_DIR)
-
 # vim: syntax=make

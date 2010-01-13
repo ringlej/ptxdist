@@ -91,13 +91,4 @@ $(STATEDIR)/php-apc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-php-apc_clean:
-	rm -rf $(STATEDIR)/php-apc.*
-	rm -rf $(PKGDIR)/php-apc_*
-	rm -rf $(PHP_APC_DIR)
-
 # vim: syntax=make

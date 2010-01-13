@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Sascha Hauer
 #
@@ -106,14 +105,5 @@ $(STATEDIR)/libfsl-vpu.targetinstall:
 	@$(call install_finish, libfsl-vpu)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libfsl-vpu_clean:
-	rm -rf $(STATEDIR)/libfsl-vpu.*
-	rm -rf $(PKGDIR)/libfsl-vpu_*
-	rm -rf $(LIBFSL_VPU_DIR)
 
 # vim: syntax=make

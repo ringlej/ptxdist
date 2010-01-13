@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Sascha Hauer
 #
@@ -29,7 +28,7 @@ CROSS_INSIGHT_DIR	:= $(CROSS_BUILDDIR)/$(CROSS_INSIGHT)
 # ----------------------------------------------------------------------------
 
 $(CROSS_INSIGHT_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, CROSS_INSIGHT)
 
 # ----------------------------------------------------------------------------
@@ -54,13 +53,5 @@ $(STATEDIR)/cross-insight.compile:
 	cd $(CROSS_INSIGHT_DIR) && $(CROSS_INSIGHT_PATH) $(MAKE) $(PARALLELMFLAGS)
 	cd $(CROSS_INSIGHT_DIR) && $(CROSS_INSIGHT_PATH) $(MAKE) $(PARALLELMFLAGS)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cross-insight_clean:
-	rm -rf $(STATEDIR)/cross-insight.*
-	rm -rf $(CROSS_INSIGHT_DIR)
 
 # vim: syntax=make

@@ -43,12 +43,4 @@ HOST_PKG_CONFIG_ENV 	:= $(HOST_ENV)
 #
 HOST_PKG_CONFIG_AUTOCONF := $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-pkg-config_clean:
-	rm -rf $(STATEDIR)/host-pkg-config.*
-	rm -rf $(HOST_PKG_CONFIG_DIR)
-
 # vim: syntax=make

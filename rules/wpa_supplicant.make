@@ -101,13 +101,4 @@ $(STATEDIR)/wpa_supplicant.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-wpa_supplicant_clean:
-	rm -rf $(STATEDIR)/wpa_supplicant.*
-	rm -rf $(PKGDIR)/wpa_supplicant_*
-	rm -rf $(BUILDDIR)/$(WPA_SUPPLICANT)
-
 # vim: syntax=make

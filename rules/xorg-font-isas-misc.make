@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-isas-misc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-isas-misc_clean:
-	rm -rf $(STATEDIR)/xorg-font-isas-misc.*
-	rm -rf $(PKGDIR)/xorg-font-isas-misc_*
-	rm -rf $(XORG_FONT_ISAS_MISC_DIR)
-
 # vim: syntax=make

@@ -80,12 +80,4 @@ $(STATEDIR)/libidl068.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libidl068_clean:
-	rm -rf $(STATEDIR)/libidl068.*
-	rm -rf $(LIBIDL068_DIR)
-
 # vim: syntax=make

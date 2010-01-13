@@ -77,13 +77,4 @@ $(STATEDIR)/sysstat.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sysstat_clean:
-	rm -rf $(STATEDIR)/sysstat.*
-	rm -rf $(PKGDIR)/sysstat_*
-	rm -rf $(SYSSTAT_DIR)
-
 # vim: syntax=make

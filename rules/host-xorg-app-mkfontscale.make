@@ -39,12 +39,4 @@ HOST_XORG_APP_MKFONTSCALE_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_APP_MKFONTSCALE_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-app-mkfontscale_clean:
-	rm -rf $(STATEDIR)/host-xorg-app-mkfontscale.*
-	rm -rf $(HOST_XORG_APP_MKFONTSCALE_DIR)
-
 # vim: syntax=make

@@ -371,13 +371,4 @@ $(STATEDIR)/mplayer.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-mplayer_clean:
-	rm -rf $(STATEDIR)/mplayer.*
-	rm -rf $(PKGDIR)/mplayer_*
-	rm -rf $(MPLAYER_DIR)
-
 # vim: syntax=make

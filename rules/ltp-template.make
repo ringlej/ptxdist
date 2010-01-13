@@ -88,13 +88,4 @@ $(STATEDIR)/ltp-template.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltp-template_clean:
-	rm -rf $(STATEDIR)/ltp-template.*
-	rm -rf $(PKGDIR)/ltp-template_*
-	rm -rf $(LTP_TEMPLATE_DIR)
-
 # vim: syntax=make

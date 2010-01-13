@@ -67,13 +67,4 @@ $(STATEDIR)/rawrec.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-rawrec_clean:
-	rm -rf $(STATEDIR)/rawrec.*
-	rm -rf $(PKGDIR)/rawrec_*
-	rm -rf $(RAWREC_DIR)
-
 # vim: syntax=make

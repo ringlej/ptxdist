@@ -59,12 +59,4 @@ $(STATEDIR)/host-dtc.install:
 	cp $(HOST_DTC_DIR)/dtc $(PTXCONF_SYSROOT_HOST)/bin/dtc
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-dtc_clean:
-	rm -rf $(STATEDIR)/host-dtc.*
-	rm -rf $(HOST_DTC_DIR)
-
 # vim: syntax=make

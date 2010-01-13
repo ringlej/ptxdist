@@ -185,13 +185,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-mtd-utils_clean:
-	rm -rf $(STATEDIR)/mtd-utils.*
-	rm -rf $(PKGDIR)/mtd-utils_*
-	rm -rf $(MTD_UTILS_DIR)
-
 # vim: syntax=make

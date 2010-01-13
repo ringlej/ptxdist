@@ -220,13 +220,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-klibc-udev_clean:
-	rm -rf $(STATEDIR)/klibc-udev.*
-	rm -rf $(PKGDIR)/klibc-udev*
-	rm -rf $(KLIBC_UDEV_DIR)
-
 # vim: syntax=make

@@ -81,13 +81,4 @@ $(STATEDIR)/joe.targetinstall:
 	@$(call install_finish, joe)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-joe_clean:
-	rm -rf $(STATEDIR)/joe.*
-	rm -rf $(PKGDIR)/joe_*
-	rm -rf $(JOE_DIR)
-
 # vim: syntax=make

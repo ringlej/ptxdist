@@ -122,13 +122,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-openssh_clean:
-	rm -rf $(STATEDIR)/openssh.*
-	rm -rf $(PKGDIR)/openssh_*
-	rm -rf $(OPENSSH_DIR)
-
 # vim: syntax=make

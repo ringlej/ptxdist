@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Luotao Fu <lfu@pengutronix.de>
 #
@@ -67,14 +66,5 @@ $(STATEDIR)/xorg-app-xset.targetinstall:
 	@$(call install_finish,xorg-app-xset)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xset_clean:
-	rm -rf $(STATEDIR)/xorg-app-xset.*
-	rm -rf $(PKGDIR)/xorg-app-xset_*
-	rm -rf $(XORG_APP_XSET_DIR)
 
 # vim: syntax=make

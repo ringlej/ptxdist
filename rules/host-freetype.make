@@ -39,12 +39,4 @@ HOST_FREETYPE_ENV 	:= $(HOST_ENV)
 #
 HOST_FREETYPE_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-freetype_clean:
-	rm -rf $(STATEDIR)/host-freetype.*
-	rm -rf $(HOST_FREETYPE_DIR)
-
 # vim: syntax=make

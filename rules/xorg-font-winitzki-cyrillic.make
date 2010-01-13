@@ -77,13 +77,4 @@ $(STATEDIR)/xorg-font-winitzki-cyrillic.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-winitzki-cyrillic_clean:
-	rm -rf $(STATEDIR)/xorg-font-winitzki-cyrillic.*
-	rm -rf $(PKGDIR)/xorg-font-winitzki-cyrillic_*
-	rm -rf $(XORG_FONT_WINITZKI_CYRILLIC_DIR)
-
 # vim: syntax=make

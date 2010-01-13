@@ -128,12 +128,4 @@ HOST_GTK_AUTOCONF += --with-gdktarget=win32
 endif
 
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-gtk_clean:
-	rm -rf $(STATEDIR)/host-gtk.*
-	rm -rf $(HOST_GTK_DIR)
-
 # vim: syntax=make

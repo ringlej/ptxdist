@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5616 2006-06-02 13:50:47Z rsc $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -36,8 +35,8 @@ $(XORG_DRIVER_VIDEO_VESA_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_DRIVER_VIDEO_VESA_PATH	:=  PATH=$(CROSS_PATH)
-XORG_DRIVER_VIDEO_VESA_ENV 	:=  $(CROSS_ENV)
+XORG_DRIVER_VIDEO_VESA_PATH	:= PATH=$(CROSS_PATH)
+XORG_DRIVER_VIDEO_VESA_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -66,14 +65,5 @@ $(STATEDIR)/xorg-driver-video-vesa.targetinstall:
 	@$(call install_finish,xorg-driver-video-vesa)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-vesa_clean:
-	rm -rf $(STATEDIR)/xorg-driver-video-vesa.*
-	rm -rf $(PKGDIR)/xorg-driver-video-vesa_*
-	rm -rf $(XORG_DRIVER_VIDEO_VESA_DIR)
 
 # vim: syntax=make

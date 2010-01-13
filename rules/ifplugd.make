@@ -74,13 +74,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ifplugd_clean:
-	rm -rf $(STATEDIR)/ifplugd.*
-	rm -rf $(PKGDIR)/ifplugd_*
-	rm -rf $(IFPLUGD_DIR)
-
 # vim: syntax=make

@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-scrnsaver.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-scrnsaver_clean:
-	rm -rf $(STATEDIR)/xorg-proto-scrnsaver.*
-	rm -rf $(PKGDIR)/xorg-proto-scrnsaver_*
-	rm -rf $(XORG_PROTO_SCRNSAVER_DIR)
-
 # vim: syntax=make
 

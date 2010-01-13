@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2004 by Benedikt Spranger
 # Copyright (C) 2009 by Robert Schwebel
@@ -73,14 +72,5 @@ $(STATEDIR)/jed.targetinstall:
 	@$(call install_finish, jed)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-jed_clean:
-	rm -rf $(STATEDIR)/jed.*
-	rm -rf $(PKGDIR)/jed_*
-	rm -rf $(JED_DIR)
 
 # vim: syntax=make

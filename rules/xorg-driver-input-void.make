@@ -68,13 +68,4 @@ $(STATEDIR)/xorg-driver-input-void.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-driver-input-void_clean:
-	rm -rf $(STATEDIR)/xorg-driver-input-void.*
-	rm -rf $(PKGDIR)/xorg-driver-input-void_*
-	rm -rf $(XORG_DRIVER_INPUT_VOID_DIR)
-
 # vim: syntax=make

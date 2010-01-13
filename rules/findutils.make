@@ -87,13 +87,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-findutils_clean:
-	rm -rf $(STATEDIR)/findutils.*
-	rm -rf $(PKGDIR)/findutils_*
-	rm -rf $(FINDUTILS_DIR)
-
 # vim: syntax=make

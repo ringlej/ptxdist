@@ -36,8 +36,6 @@ $(RSYNC_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-rsync_prepare: $(STATEDIR)/rsync.prepare
-
 RSYNC_PATH	:= PATH=$(CROSS_PATH)
 RSYNC_ENV 	:= \
 	$(CROSS_ENV) \
@@ -81,7 +79,7 @@ $(STATEDIR)/rsync.targetinstall:
 	@$(call install_fixup, rsync,PRIORITY,optional)
 	@$(call install_fixup, rsync,VERSION,$(RSYNC_VERSION))
 	@$(call install_fixup, rsync,SECTION,base)
-	@$(call install_fixup, rsync,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, rsync,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, rsync,DEPENDS,)
 	@$(call install_fixup, rsync,DESCRIPTION,missing)
 
@@ -110,14 +108,5 @@ endif
 
 	@$(call install_finish, rsync)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-rsync_clean:
-	rm -rf $(STATEDIR)/rsync.*
-	rm -rf $(PKGDIR)/rsync_*
-	rm -rf $(RSYNC_DIR)
 
 # vim: syntax=make

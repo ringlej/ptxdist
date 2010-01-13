@@ -247,13 +247,4 @@ endif
 	@$(call install_finish, ppp)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ppp_clean:
-	rm -rf $(STATEDIR)/ppp.*
-	rm -rf $(PKGDIR)/ppp_*
-	rm -rf $(PPP_DIR)
-
 # vim: syntax=make

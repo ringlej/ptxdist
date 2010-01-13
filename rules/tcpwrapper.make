@@ -74,13 +74,4 @@ endif
 	@$(call install_finish, tcpwrapper)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-tcpwrapper_clean:
-	rm -rf $(STATEDIR)/tcpwrapper.*
-	rm -rf $(PKGDIR)/tcpwrapper_*
-	rm -rf $(TCPWRAPPER_DIR)
-
 # vim: syntax=make

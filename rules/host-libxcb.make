@@ -40,12 +40,4 @@ HOST_LIBXCB_AUTOCONF	:= \
 	$(HOST_AUTOCONF) \
 	--disable-build-docs
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libxcb_clean:
-	rm -rf $(STATEDIR)/host-libxcb.*
-	rm -rf $(HOST_LIBXCB_DIR)
-
 # vim: syntax=make

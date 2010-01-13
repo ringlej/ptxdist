@@ -39,12 +39,4 @@ HOST_XORG_PROTO_XCMISC_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_PROTO_XCMISC_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-proto-xcmisc_clean:
-	rm -rf $(STATEDIR)/host-xorg-proto-xcmisc.*
-	rm -rf $(HOST_XORG_PROTO_XCMISC_DIR)
-
 # vim: syntax=make

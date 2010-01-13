@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-daewoo-misc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-daewoo-misc_clean:
-	rm -rf $(STATEDIR)/xorg-font-daewoo-misc.*
-	rm -rf $(PKGDIR)/xorg-font-daewoo-misc_*
-	rm -rf $(XORG_FONT_DAEWOO_MISC_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: rsync3.make 7270 2007-09-03 07:15:35Z rsc $
 #
 # Copyright (C) 2003 by wschmitt@envicomp.de
 #
@@ -98,14 +97,5 @@ endif
 endif
 	@$(call install_finish, rsync3)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-rsync3_clean:
-	rm -rf $(STATEDIR)/rsync3.*
-	rm -rf $(PKGDIR)/rsync3_*
-	rm -rf $(RSYNC3_DIR)
 
 # vim: syntax=make

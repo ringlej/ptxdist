@@ -83,13 +83,4 @@ $(STATEDIR)/netkit-ftp.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-netkit-ftp_clean:
-	rm -rf $(STATEDIR)/netkit-ftp.*
-	rm -rf $(PKGDIR)/netkit-ftp_*
-	rm -rf $(NETKIT_FTP_DIR)
-
 # vim: syntax=make

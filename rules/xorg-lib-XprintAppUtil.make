@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_LIB_XPRINTAPPUTIL_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XPRINTAPPUTIL_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XPRINTAPPUTIL_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XPRINTAPPUTIL_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XPRINTAPPUTIL_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -57,7 +56,7 @@ $(STATEDIR)/xorg-lib-xprintapputil.targetinstall:
 	@$(call install_fixup, xorg-lib-xprintapputil,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-xprintapputil,VERSION,$(XORG_LIB_XPRINTAPPUTIL_VERSION))
 	@$(call install_fixup, xorg-lib-xprintapputil,SECTION,base)
-	@$(call install_fixup, xorg-lib-xprintapputil,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xprintapputil,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xprintapputil,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xprintapputil,DESCRIPTION,missing)
 
@@ -74,14 +73,5 @@ $(STATEDIR)/xorg-lib-xprintapputil.targetinstall:
 	@$(call install_finish, xorg-lib-xprintapputil)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xprintapputil_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xprintapputil.*
-	rm -rf $(PKGDIR)/xorg-lib-xprintapputil_*
-	rm -rf $(XORG_LIB_XPRINTAPPUTIL_DIR)
 
 # vim: syntax=make

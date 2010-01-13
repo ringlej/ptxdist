@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -139,14 +138,5 @@ $(STATEDIR)/cairo.targetinstall:
 	@$(call install_finish,cairo)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cairo_clean:
-	rm -rf $(STATEDIR)/cairo.*
-	rm -rf $(PKGDIR)/cairo_*
-	rm -rf $(CAIRO_DIR)
 
 # vim: syntax=make

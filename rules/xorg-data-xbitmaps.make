@@ -53,13 +53,4 @@ $(STATEDIR)/xorg-data-xbitmaps.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-data-xbitmaps_clean:
-	rm -rf $(STATEDIR)/xorg-data-xbitmaps.*
-	rm -rf $(PKGDIR)/xorg-data-xbitmaps_*
-	rm -rf $(XORG_DATA_XBITMAPS_DIR)
-
 # vim: syntax=make

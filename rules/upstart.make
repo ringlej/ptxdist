@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -96,14 +95,5 @@ $(STATEDIR)/upstart.targetinstall:
 	@$(call install_finish, upstart)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-upstart_clean:
-	rm -rf $(STATEDIR)/upstart.*
-	rm -rf $(PKGDIR)/upstart_*
-	rm -rf $(UPSTART_DIR)
 
 # vim: syntax=make

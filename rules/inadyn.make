@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2008 by Juergen Beisert
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -98,14 +97,5 @@ $(STATEDIR)/inadyn.targetinstall:
 	@$(call install_finish, inadyn)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-inadyn_clean:
-	rm -rf $(STATEDIR)/inadyn.*
-	rm -rf $(PKGDIR)/inadyn_*
-	rm -rf $(INADYN_DIR)
 
 # vim: syntax=make

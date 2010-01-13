@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Robert Schwebel
 #
@@ -68,14 +67,5 @@ $(STATEDIR)/htop.targetinstall:
 	@$(call install_finish, htop)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-htop_clean:
-	rm -rf $(STATEDIR)/htop.*
-	rm -rf $(PKGDIR)/htop_*
-	rm -rf $(HTOP_DIR)
 
 # vim: syntax=make

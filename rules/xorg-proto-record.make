@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-record.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-record_clean:
-	rm -rf $(STATEDIR)/xorg-proto-record.*
-	rm -rf $(PKGDIR)/xorg-proto-record_*
-	rm -rf $(XORG_PROTO_RECORD_DIR)
-
 # vim: syntax=make
 

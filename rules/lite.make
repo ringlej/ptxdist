@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Denis Oliver Kropp
 #
@@ -165,14 +164,5 @@ $(STATEDIR)/lite.targetinstall:
 	@$(call install_finish, lite)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-lite_clean:
-	rm -rf $(STATEDIR)/lite.*
-	rm -rf $(PKGDIR)/lite_*
-	rm -rf $(LITE_DIR)
 
 # vim: syntax=make

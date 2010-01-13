@@ -69,13 +69,4 @@ $(STATEDIR)/microcom.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-microcom_clean:
-	rm -rf $(STATEDIR)/microcom.*
-	rm -rf $(PKGDIR)/microcom_*
-	rm -rf $(MICROCOM_DIR)
-
 # vim: syntax=make

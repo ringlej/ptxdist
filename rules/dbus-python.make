@@ -73,13 +73,4 @@ $(STATEDIR)/dbus-python.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-dbus-python_clean:
-	rm -rf $(STATEDIR)/dbus-python.*
-	rm -rf $(PKGDIR)/dbus-python_*
-	rm -rf $(DBUS_PYTHON_DIR)
-
 # vim: syntax=make

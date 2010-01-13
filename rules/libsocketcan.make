@@ -67,13 +67,4 @@ $(STATEDIR)/libsocketcan.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libsocketcan_clean:
-	rm -rf $(STATEDIR)/libsocketcan.*
-	rm -rf $(PKGDIR)/libsocketcan_*
-	rm -rf $(LIBSOCKETCAN_DIR)
-
 # vim: syntax=make

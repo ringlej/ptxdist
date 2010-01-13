@@ -39,12 +39,4 @@ HOST_XORG_PROTO_X_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_PROTO_X_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-proto-x_clean:
-	rm -rf $(STATEDIR)/host-xorg-proto-x.*
-	rm -rf $(HOST_XORG_PROTO_X_DIR)
-
 # vim: syntax=make

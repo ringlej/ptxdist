@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -39,13 +38,13 @@ $(MEMEDIT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-MEMEDIT_PATH	=  PATH=$(CROSS_PATH)
-MEMEDIT_ENV 	=  $(CROSS_ENV)
+MEMEDIT_PATH	:= PATH=$(CROSS_PATH)
+MEMEDIT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-MEMEDIT_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+MEMEDIT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -69,14 +68,5 @@ $(STATEDIR)/memedit.targetinstall:
 	@$(call install_finish, memedit)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-memedit_clean:
-	rm -rf $(STATEDIR)/memedit.*
-	rm -rf $(PKGDIR)/memedit_*
-	rm -rf $(MEMEDIT_DIR)
 
 # vim: syntax=make

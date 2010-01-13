@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2005 by Robert Schwebel
 #
@@ -100,7 +99,7 @@ $(STATEDIR)/jvisu.targetinstall:
 	@$(call install_fixup, jvisu,PRIORITY,optional)
 	@$(call install_fixup, jvisu,VERSION,$(JVISU_VERSION))
 	@$(call install_fixup, jvisu,SECTION,base)
-	@$(call install_fixup, jvisu,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, jvisu,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, jvisu,DEPENDS,)
 	@$(call install_fixup, jvisu,DESCRIPTION,missing)
 
@@ -112,14 +111,5 @@ endif
 	@$(call install_finish, jvisu)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-jvisu_clean:
-	rm -rf $(STATEDIR)/jvisu.*
-	rm -rf $(PKGDIR)/jvisu_*
-	rm -rf $(JVISU_DIR)
 
 # vim: syntax=make

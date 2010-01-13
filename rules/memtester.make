@@ -75,13 +75,4 @@ $(STATEDIR)/memtester.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-memtester_clean:
-	rm -rf $(STATEDIR)/memtester.*
-	rm -rf $(PKGDIR)/memtester_*
-	rm -rf $(MEMTESTER_DIR)
-
 # vim: syntax=make

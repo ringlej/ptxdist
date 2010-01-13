@@ -110,13 +110,4 @@ $(STATEDIR)/sw-ek-lm3s3748.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sw-ek-lm3s3748_clean:
-	rm -rf $(STATEDIR)/sw-ek-lm3s3748.*
-	rm -rf $(PKGDIR)/sw-ek-lm3s3748_*
-	rm -rf $(SW_EK_LM3S3748_DIR)
-
 # vim: syntax=make

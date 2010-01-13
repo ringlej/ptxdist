@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-render.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-render_clean:
-	rm -rf $(STATEDIR)/xorg-proto-render.*
-	rm -rf $(PKGDIR)/xorg-proto-render_*
-	rm -rf $(XORG_PROTO_RENDER_DIR)
-
 # vim: syntax=make
 

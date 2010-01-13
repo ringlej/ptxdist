@@ -39,12 +39,4 @@ HOST_CAIROMM_ENV 	:= $(HOST_ENV)
 #
 HOST_CAIROMM_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-cairomm_clean:
-	rm -rf $(STATEDIR)/host-cairomm.*
-	rm -rf $(HOST_CAIROMM_DIR)
-
 # vim: syntax=make

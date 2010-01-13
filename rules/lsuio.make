@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by Wolfram Sang
 #
@@ -65,14 +64,5 @@ $(STATEDIR)/lsuio.targetinstall:
 	@$(call install_finish, lsuio)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-lsuio_clean:
-	rm -rf $(STATEDIR)/lsuio.*
-	rm -rf $(PKGDIR)/lsuio_*
-	rm -rf $(LSUIO_DIR)
 
 # vim: syntax=make

@@ -117,13 +117,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sysvinit_clean:
-	rm -rf $(STATEDIR)/sysvinit.*
-	rm -rf $(PKGDIR)/sysvinit_*
-	rm -rf $(SYSVINIT_DIR)
-
 # vim: syntax=make

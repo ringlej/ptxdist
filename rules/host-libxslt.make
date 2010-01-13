@@ -41,12 +41,4 @@ HOST_LIBXSLT_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--without-crypto
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libxslt_clean:
-	rm -rf $(STATEDIR)/host-libxslt.*
-	rm -rf $(HOST_LIBXSLT_DIR)
-
 # vim: syntax=make

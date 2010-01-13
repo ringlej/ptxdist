@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2002, 2003 by Pengutronix e.K., Hildesheim, Germany
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -106,13 +105,5 @@ endif
 	@$(call install_finish, proftpd)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-proftpd_clean:
-	rm -rf $(STATEDIR)/proftpd.* $(PROFTPD_DIR)
-	rm -rf $(PKGDIR)/proftpd_*
 
 # vim: syntax=make

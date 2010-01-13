@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -94,14 +93,5 @@ $(STATEDIR)/mbw.targetinstall:
 	@$(call install_finish, mbw)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-mbw_clean:
-	rm -rf $(STATEDIR)/mbw.*
-	rm -rf $(PKGDIR)/mbw_*
-	rm -rf $(MBW_DIR)
 
 # vim: syntax=make

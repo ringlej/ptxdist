@@ -36,8 +36,8 @@ $(NET_SNMP_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-NET_SNMP_PATH	:=  PATH=$(CROSS_PATH)
-NET_SNMP_ENV 	:=  $(CROSS_ENV)
+NET_SNMP_PATH	:= PATH=$(CROSS_PATH)
+NET_SNMP_ENV 	:= $(CROSS_ENV)
 NET_SNMP_BINCONFIG_GLOB := net-snmp-config
 
 #
@@ -352,13 +352,5 @@ endif
 
 	@$(call install_finish, net-snmp)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-net-snmp_clean:
-	rm -rf $(STATEDIR)/net-snmp.*
-	rm -rf $(NET_SNMP_DIR)
 
 # vim: syntax=make

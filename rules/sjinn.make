@@ -47,8 +47,8 @@ $(STATEDIR)/sjinn.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-SJINN_PATH	:=  PATH=$(CROSS_PATH)
-SJINN_ENV 	:=  $(CROSS_ENV)
+SJINN_PATH	:= PATH=$(CROSS_PATH)
+SJINN_ENV 	:= $(CROSS_ENV)
 
 SJINN_MAKE_OPT := \
 	CC=$(CROSS_CC) \
@@ -83,14 +83,5 @@ $(STATEDIR)/sjinn.targetinstall:
 	@$(call install_finish,sjinn)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sjinn_clean:
-	rm -rf $(STATEDIR)/sjinn.*
-	rm -rf $(PKGDIR)/sjinn_*
-	rm -rf $(SJINN_DIR)
 
 # vim: syntax=make

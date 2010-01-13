@@ -39,12 +39,4 @@ HOST_XORG_PROTO_BIGREQS_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_PROTO_BIGREQS_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-proto-bigreqs_clean:
-	rm -rf $(STATEDIR)/host-xorg-proto-bigreqs.*
-	rm -rf $(HOST_XORG_PROTO_BIGREQS_DIR)
-
 # vim: syntax=make

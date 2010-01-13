@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2516 2005-04-25 10:29:55Z rsc $
 #
 # Copyright (C) 2005-2008 by Robert Schwebel
 #
@@ -69,14 +68,5 @@ $(STATEDIR)/wget.targetinstall:
 	@$(call install_finish, wget)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-wget_clean:
-	rm -rf $(STATEDIR)/wget.*
-	rm -rf $(PKGDIR)/wget_*
-	rm -rf $(WGET_DIR)
 
 # vim: syntax=make

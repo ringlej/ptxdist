@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Juergen Beisert
 #
@@ -73,14 +72,5 @@ $(STATEDIR)/failmalloc.targetinstall:
 	@$(call install_finish, failmalloc)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-failmalloc_clean:
-	rm -rf $(STATEDIR)/failmalloc.*
-	rm -rf $(PKGDIR)/failmalloc_*
-	rm -rf $(FAILMALLOC_DIR)
 
 # vim: syntax=make

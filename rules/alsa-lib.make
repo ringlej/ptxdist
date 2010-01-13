@@ -48,8 +48,8 @@ $(ALSA_LIB_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-ALSA_LIB_PATH	:=  PATH=$(CROSS_PATH)
-ALSA_LIB_ENV 	:=  $(CROSS_ENV)
+ALSA_LIB_PATH	:= PATH=$(CROSS_PATH)
+ALSA_LIB_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -227,14 +227,5 @@ endif
 	@$(call install_finish, alsa-lib)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-alsa-lib_clean:
-	rm -rf $(STATEDIR)/alsa-lib.*
-	rm -rf $(PKGDIR)/alsa-lib_*
-	rm -rf $(ALSA_LIB_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006-2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                            Pengutronix <info@pengutronix.de>, Germany
@@ -124,14 +123,5 @@ $(STATEDIR)/glib.targetinstall:
 	@$(call install_finish,glib)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-glib_clean:
-	rm -rf $(STATEDIR)/glib.*
-	rm -rf $(PKGDIR)/glib_*
-	rm -rf $(GLIB_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Markus Messmer <m.messmer@pengutronix.de>
 #
@@ -95,14 +94,5 @@ $(STATEDIR)/libpvgen.install:
 $(STATEDIR)/libpvgen.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libpvgen_clean:
-	rm -rf $(STATEDIR)/libpvgen.*
-	rm -rf $(PKGDIR)/libpvgen_*
-	rm -rf $(LIBPVGEN_DIR)
 
 # vim: syntax=make

@@ -63,13 +63,4 @@ $(STATEDIR)/fbtest.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-fbtest_clean:
-	rm -rf $(STATEDIR)/fbtest.*
-	rm -rf $(PKGDIR)/fbtest_*
-	rm -rf $(FBTEST_DIR)
-
 # vim: syntax=make

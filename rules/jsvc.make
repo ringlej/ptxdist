@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -83,14 +82,5 @@ $(STATEDIR)/jsvc.targetinstall:
 	@$(call install_finish, jsvc)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-jsvc_clean:
-	rm -rf $(STATEDIR)/jsvc.*
-	rm -rf $(PKGDIR)/jsvc_*
-	rm -rf $(JSVC_DIR)
 
 # vim: syntax=make

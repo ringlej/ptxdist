@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_LIB_XAU_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XAU_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XAU_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XAU_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XAU_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -64,7 +63,7 @@ $(STATEDIR)/xorg-lib-xau.targetinstall:
 	@$(call install_fixup, xorg-lib-xau,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-xau,VERSION,$(XORG_LIB_XAU_VERSION))
 	@$(call install_fixup, xorg-lib-xau,SECTION,base)
-	@$(call install_fixup, xorg-lib-xau,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-xau,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xau,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xau,DESCRIPTION,missing)
 
@@ -82,14 +81,5 @@ $(STATEDIR)/xorg-lib-xau.targetinstall:
 	@$(call install_finish, xorg-lib-xau)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xau_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xau.*
-	rm -rf $(PKGDIR)/xorg-lib-xau_*
-	rm -rf $(XORG_LIB_XAU_DIR)
 
 # vim: syntax=make

@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-resource.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-resource_clean:
-	rm -rf $(STATEDIR)/xorg-proto-resource.*
-	rm -rf $(PKGDIR)/xorg-proto-resource_*
-	rm -rf $(XORG_PROTO_RESOURCE_DIR)
-
 # vim: syntax=make
 

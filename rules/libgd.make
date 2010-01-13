@@ -104,12 +104,4 @@ $(STATEDIR)/libgd.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libgd_clean:
-	rm -rf $(STATEDIR)/libgd.*
-	rm -rf $(LIBGD_DIR)
-
 # vim: syntax=make

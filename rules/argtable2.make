@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Michael Olbrich <m.olbrich@pengutronix.de>
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -71,14 +70,5 @@ $(STATEDIR)/argtable2.targetinstall:
 	@$(call install_finish, argtable2)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-argtable2_clean:
-	rm -rf $(STATEDIR)/argtable2.*
-	rm -rf $(PKGDIR)/argtable2_*
-	rm -rf $(ARGTABLE2_DIR)
 
 # vim: syntax=make

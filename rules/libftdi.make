@@ -90,13 +90,4 @@ $(STATEDIR)/libftdi.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libftdi_clean:
-	rm -rf $(STATEDIR)/libftdi.*
-	rm -rf $(PKGDIR)/libftdi_*
-	rm -rf $(LIBFTDI_DIR)
-
 # vim: syntax=make

@@ -79,12 +79,4 @@ $(STATEDIR)/libpcap.targetinstall:
 # no targetinstall, cause it's a static lib (mkl)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libpcap_clean:
-	rm -rf $(STATEDIR)/libpcap.*
-	rm -rf $(LIBPCAP_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Bjoern Buerger <b.buerger@pengutronix.de>
 #
@@ -103,14 +102,5 @@ $(STATEDIR)/totd.targetinstall:
 	@$(call install_finish, totd)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-totd_clean:
-	rm -rf $(STATEDIR)/totd.*
-	rm -rf $(PKGDIR)/totd_*
-	rm -rf $(TOTD_DIR)
 
 # vim: syntax=make

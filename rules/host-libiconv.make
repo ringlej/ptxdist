@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007-2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #               2009 by Marc Kleine-Budde
@@ -83,13 +82,5 @@ $(STATEDIR)/host-libiconv.install:
 	@$(call targetinfo)
 	@$(call install, HOST_LIBICONV,,h)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libiconv_clean:
-	rm -rf $(STATEDIR)/host-libiconv.*
-	rm -rf $(HOST_LIBICONV_DIR)
 
 # vim: syntax=make

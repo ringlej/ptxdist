@@ -77,13 +77,4 @@ ifndef PTXCONF_ZLIB_STATIC
 endif
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-zlib_clean:
-	rm -rf $(STATEDIR)/zlib.*
-	rm -rf $(PKGDIR)/zlib_*
-	rm -rf $(ZLIB_DIR)
-
 # vim: syntax=make

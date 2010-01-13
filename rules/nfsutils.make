@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5709 2006-06-09 13:55:00Z mkl $
 #
 # Copyright (C) 2003-2006 by Pengutronix e.K., Hildesheim, Germany
 #
@@ -216,14 +215,5 @@ endif
 # /sbin/sm-notify
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-nfsutils_clean:
-	rm -rf $(STATEDIR)/nfsutils.*
-	rm -rf $(PKGDIR)/nfsutils_*
-	rm -rf $(NFSUTILS_DIR)
 
 # vim: syntax=make

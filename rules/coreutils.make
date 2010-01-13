@@ -70,8 +70,8 @@ COREUTILS_AUTOCONF := \
 	--disable-libcap \
 	--disable-nls
 
-COREUTILS_PATH	:=  PATH=$(CROSS_PATH)
-COREUTILS_ENV	:=  $(CROSS_ENV)
+COREUTILS_PATH	:= PATH=$(CROSS_PATH)
+COREUTILS_ENV	:= $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -391,13 +391,5 @@ ifdef PTXCONF_COREUTILS_NICE
 endif
 	@$(call install_finish, coreutils)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-coreutils_clean:
-	rm -rf $(STATEDIR)/coreutils.* $(COREUTILS_DIR)
-	rm -rf $(PKGDIR)/coreutils_*
 
 # vim: syntax=make

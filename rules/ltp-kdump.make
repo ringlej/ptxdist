@@ -88,13 +88,4 @@ $(STATEDIR)/ltp-kdump.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltp-kdump_clean:
-	rm -rf $(STATEDIR)/ltp-kdump.*
-	rm -rf $(PKGDIR)/ltp-kdump_*
-	rm -rf $(LTP_KDUMP_DIR)
-
 # vim: syntax=make

@@ -74,13 +74,4 @@ $(STATEDIR)/xorg-lib-dmx.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-dmx_clean:
-	rm -rf $(STATEDIR)/xorg-lib-dmx.*
-	rm -rf $(PKGDIR)/xorg-lib-dmx_*
-	rm -rf $(XORG_LIB_DMX_DIR)
-
 # vim: syntax=make

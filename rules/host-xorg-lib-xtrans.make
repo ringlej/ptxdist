@@ -39,12 +39,4 @@ HOST_XORG_LIB_XTRANS_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_LIB_XTRANS_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-lib-xtrans_clean:
-	rm -rf $(STATEDIR)/host-xorg-lib-xtrans.*
-	rm -rf $(HOST_XORG_LIB_XTRANS_DIR)
-
 # vim: syntax=make

@@ -104,13 +104,4 @@ $(STATEDIR)/xorg-driver-video-intel.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-intel_clean:
-	rm -rf $(STATEDIR)/xorg-driver-video-intel.*
-	rm -rf $(PKGDIR)/xorg-driver-video-intel_*
-	rm -rf $(XORG_DRIVER_VIDEO_INTEL_DIR)
-
 # vim: syntax=make

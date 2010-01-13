@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 7626 2007-11-26 10:27:03Z mkl $
 #
 # Copyright (C) 2005 by Robert Schwebel
 # 		2008 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -71,14 +70,5 @@ $(STATEDIR)/liblist.targetinstall:
 	@$(call install_finish, liblist)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-liblist_clean:
-	rm -rf $(STATEDIR)/liblist.*
-	rm -rf $(PKGDIR)/liblist_*
-	rm -rf $(LIBLIST_DIR)
 
 # vim: syntax=make

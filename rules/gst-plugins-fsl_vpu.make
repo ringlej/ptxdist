@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8785 2008-08-26 07:48:06Z wsa $
 #
 # Copyright (C) 2008 by Sascha Hauer
 #
@@ -104,14 +103,5 @@ $(STATEDIR)/gst-plugins-fsl_vpu.targetinstall:
 	@$(call install_finish, gst-plugins-fsl_vpu)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gst-plugins-fsl_vpu_clean:
-	rm -rf $(STATEDIR)/gst-plugins-fsl_vpu.*
-	rm -rf $(PKGDIR)/gst-plugins-fsl_vpu_*
-	rm -rf $(GST_PLUGINS_FSL_VPU_DIR)
 
 # vim: syntax=make

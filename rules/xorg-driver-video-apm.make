@@ -70,13 +70,4 @@ $(STATEDIR)/xorg-driver-video-apm.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-apm_clean:
-	rm -rf $(STATEDIR)/xorg-driver-video-apm.*
-	rm -rf $(PKGDIR)/xorg-driver-video-apm_*
-	rm -rf $(XORG_DRIVER_VIDEO_APM_DIR)
-
 # vim: syntax=make

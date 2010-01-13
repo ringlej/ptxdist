@@ -68,13 +68,4 @@ $(STATEDIR)/libusb-compat.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libusb-compat_clean:
-	rm -rf $(STATEDIR)/libusb-compat.*
-	rm -rf $(PKGDIR)/libusb-compat_*
-	rm -rf $(LIBUSB_COMPAT_DIR)
-
 # vim: syntax=make

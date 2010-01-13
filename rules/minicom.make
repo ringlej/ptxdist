@@ -80,13 +80,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-minicom_clean:
-	rm -rf $(STATEDIR)/minicom.*
-	rm -rf $(PKGDIR)/minicom_*
-	rm -rf $(MINICOM_DIR)
-
 # vim: syntax=make

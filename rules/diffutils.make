@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 2922 2005-07-11 19:17:53Z rsc $
 #
 # Copyright (C) 2005 by Sascha Hauer
 #
@@ -77,14 +76,5 @@ endif
 	@$(call install_finish, diffutils)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-diffutils_clean:
-	rm -rf $(STATEDIR)/diffutils.*
-	rm -rf $(PKGDIR)/diffutils_*
-	rm -rf $(DIFFUTILS_DIR)
 
 # vim: syntax=make

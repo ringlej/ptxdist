@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -40,8 +39,6 @@ $(XORG_FONT_ENCODINGS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-font-encodings_prepare: $(STATEDIR)/xorg-font-encodings.prepare
-
 XORG_FONT_ENCODINGS_PATH	:= PATH=$(CROSS_PATH)
 XORG_FONT_ENCODINGS_ENV 	:= $(CROSS_ENV)
 
@@ -56,9 +53,7 @@ XORG_FONT_ENCODINGS_AUTOCONF := \
 # Target-Install
 # ----------------------------------------------------------------------------
 
-xorg-font-encodings_targetinstall: $(STATEDIR)/xorg-font-encodings.targetinstall
-
-$(STATEDIR)/xorg-font-encodings.targetinstall: $(xorg-font-encodings_targetinstall_deps_default)
+$(STATEDIR)/xorg-font-encodings.targetinstall:
 	@$(call targetinfo)
 
 	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/encodings
@@ -74,14 +69,5 @@ $(STATEDIR)/xorg-font-encodings.targetinstall: $(xorg-font-encodings_targetinsta
 	done
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-encodings_clean:
-	rm -rf $(STATEDIR)/xorg-font-encodings.*
-	rm -rf $(PKGDIR)/xorg-font-encodings_*
-	rm -rf $(XORG_FONT_ENCODINGS_DIR)
 
 # vim: syntax=make

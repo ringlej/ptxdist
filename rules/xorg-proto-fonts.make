@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-fonts.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-fonts_clean:
-	rm -rf $(STATEDIR)/xorg-proto-fonts.*
-	rm -rf $(PKGDIR)/xorg-proto-fonts_*
-	rm -rf $(XORG_PROTO_FONTS_DIR)
-
 # vim: syntax=make
 

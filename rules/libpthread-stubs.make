@@ -53,13 +53,4 @@ $(STATEDIR)/libpthread-stubs.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libpthread-stubs_clean:
-	rm -rf $(STATEDIR)/libpthread-stubs.*
-	rm -rf $(PKGDIR)/libpthread-stubs_*
-	rm -rf $(LIBPTHREAD_STUBS_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2009 by Bjoern Buerger <b.buerger@pengutronix.de>
 #
@@ -114,14 +113,5 @@ $(STATEDIR)/ptrtd.targetinstall:
 	@$(call install_finish, ptrtd)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ptrtd_clean:
-	rm -rf $(STATEDIR)/ptrtd.*
-	rm -rf $(PKGDIR)/ptrtd_*
-	rm -rf $(PTRTD_DIR)
 
 # vim: syntax=make

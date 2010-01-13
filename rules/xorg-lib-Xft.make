@@ -35,8 +35,8 @@ $(XORG_LIB_XFT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XFT_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XFT_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XFT_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XFT_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -71,14 +71,5 @@ $(STATEDIR)/xorg-lib-xft.targetinstall:
 	@$(call install_finish, xorg-lib-xft)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xft_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xft.*
-	rm -rf $(PKGDIR)/xorg-lib-xft_*
-	rm -rf $(XORG_LIB_XFT_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(SDL_IMAGE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-SDL_IMAGE_PATH	:=  PATH=$(CROSS_PATH)
-SDL_IMAGE_ENV 	:=  $(CROSS_ENV)
+SDL_IMAGE_PATH	:= PATH=$(CROSS_PATH)
+SDL_IMAGE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -89,14 +88,5 @@ $(STATEDIR)/sdl_image.targetinstall:
 	@$(call install_finish, sdl_image)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sdl_image_clean:
-	rm -rf $(STATEDIR)/sdl_image.*
-	rm -rf $(PKGDIR)/sdl_image_*
-	rm -rf $(SDL_IMAGE_DIR)
 
 # vim: syntax=make

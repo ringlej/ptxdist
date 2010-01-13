@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #
@@ -148,14 +147,5 @@ endif
 	@$(call install_finish, gnuplot)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gnuplot_clean:
-	rm -rf $(STATEDIR)/gnuplot.*
-	rm -rf $(PKGDIR)/gnuplot_*
-	rm -rf $(GNUPLOT_DIR)
 
 # vim: syntax=make

@@ -50,12 +50,4 @@ $(STATEDIR)/host-cramfs.install:
 	cp $(HOST_CRAMFS_DIR)/cramfsck $(PTXCONF_SYSROOT_HOST)/bin
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-cramfs_clean:
-	rm -rf $(STATEDIR)/host-cramfs.*
-	rm -rf $(HOST_CRAMFS_DIR)
-
 # vim: syntax=make

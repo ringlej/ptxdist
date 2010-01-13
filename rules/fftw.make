@@ -72,13 +72,4 @@ $(STATEDIR)/fftw.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-fftw_clean:
-	rm -rf $(STATEDIR)/fftw.*
-	rm -rf $(PKGDIR)/fftw_*
-	rm -rf $(FFTW_DIR)
-
 # vim: syntax=make

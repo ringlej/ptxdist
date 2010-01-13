@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5041 2006-03-09 08:45:49Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel <r.schwebel@pengutronix.de>
 #                       Pengutronix <info@pengutronix.de>, Germany
@@ -69,14 +68,5 @@ $(STATEDIR)/liboil.targetinstall:
 	@$(call install_finish,liboil)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-liboil_clean:
-	rm -rf $(STATEDIR)/liboil.*
-	rm -rf $(PKGDIR)/liboil_*
-	rm -rf $(LIBOIL_DIR)
 
 # vim: syntax=make

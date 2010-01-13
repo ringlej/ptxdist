@@ -54,14 +54,5 @@ $(STATEDIR)/xorg-proto-xcmisc.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-xcmisc_clean:
-	rm -rf $(STATEDIR)/xorg-proto-xcmisc.*
-	rm -rf $(PKGDIR)/xorg-proto-xcmisc_*
-	rm -rf $(XORG_PROTO_XCMISC_DIR)
-
 # vim: syntax=make
 

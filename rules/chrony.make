@@ -36,8 +36,8 @@ $(CHRONY_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-CHRONY_PATH	:=  PATH=$(CROSS_PATH)
-CHRONY_ENV 	:=  $(CROSS_ENV)
+CHRONY_PATH	:= PATH=$(CROSS_PATH)
+CHRONY_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -128,14 +128,5 @@ endif
 	@$(call install_finish, chrony)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-chrony_clean:
-	rm -rf $(STATEDIR)/chrony.*
-	rm -rf $(PKGDIR)/chrony_*
-	rm -rf $(CHRONY_DIR)
 
 # vim: syntax=make

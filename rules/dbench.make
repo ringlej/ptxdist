@@ -44,7 +44,7 @@ DBENCH_INSTALL_OPT	:= prefix=$(PKGDIR)/$(DBENCH)/usr install
 #
 # autoconf
 #
-DBENCH_AUTOCONF =  $(CROSS_AUTOCONF_USR)
+DBENCH_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -78,14 +78,5 @@ endif
 	@$(call install_finish, dbench)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-dbench_clean:
-	rm -rf $(STATEDIR)/dbench.*
-	rm -rf $(PKGDIR)/dbench_*
-	rm -rf $(DBENCH_DIR)
 
 # vim: syntax=make

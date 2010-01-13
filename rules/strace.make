@@ -74,13 +74,4 @@ $(STATEDIR)/strace.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-strace_clean:
-	rm -rf $(STATEDIR)/strace.*
-	rm -rf $(PKGDIR)/strace_*
-	rm -rf $(STRACE_DIR)
-
 # vim: syntax=make

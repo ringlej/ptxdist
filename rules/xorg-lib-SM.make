@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,6 @@ $(XORG_LIB_SM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-xorg-lib-sm_prepare: $(STATEDIR)/xorg-lib-sm.prepare
-
 XORG_LIB_SM_PATH	:= PATH=$(CROSS_PATH)
 XORG_LIB_SM_ENV 	:= $(CROSS_ENV)
 
@@ -63,7 +60,7 @@ $(STATEDIR)/xorg-lib-sm.targetinstall:
 	@$(call install_fixup, xorg-lib-sm,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-sm,VERSION,$(XORG_LIB_SM_VERSION))
 	@$(call install_fixup, xorg-lib-sm,SECTION,base)
-	@$(call install_fixup, xorg-lib-sm,AUTHOR,"Erwin Rol <ero\@pengutronix.de>")
+	@$(call install_fixup, xorg-lib-sm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-sm,DEPENDS,)
 	@$(call install_fixup, xorg-lib-sm,DESCRIPTION,missing)
 
@@ -81,14 +78,5 @@ $(STATEDIR)/xorg-lib-sm.targetinstall:
 	@$(call install_finish, xorg-lib-sm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-sm_clean:
-	rm -rf $(STATEDIR)/xorg-lib-sm.*
-	rm -rf $(PKGDIR)/xorg-lib-sm_*
-	rm -rf $(XORG_LIB_SM_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by 
 #
@@ -52,7 +51,7 @@ $(STATEDIR)/qwt.targetinstall:
 	@$(call install_fixup, qwt,PRIORITY,optional)
 	@$(call install_fixup, qwt,VERSION,$(QWT_VERSION))
 	@$(call install_fixup, qwt,SECTION,base)
-	@$(call install_fixup, qwt,AUTHOR,"Michael Olbrich <m.olbrich\@pengutronix.de>")
+	@$(call install_fixup, qwt,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, qwt,DEPENDS,)
 	@$(call install_fixup, qwt,DESCRIPTION,missing)
 
@@ -66,14 +65,5 @@ $(STATEDIR)/qwt.targetinstall:
 	@$(call install_finish, qwt)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-qwt_clean:
-	rm -rf $(STATEDIR)/qwt.*
-	rm -rf $(PKGDIR)/qwt_*
-	rm -rf $(QWT_DIR)
 
 # vim: syntax=make

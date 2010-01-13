@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Sascha Hauer <sascha.hauer@gyro-net.de>
 #               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -38,13 +37,13 @@ $(MADPLAY_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-MADPLAY_PATH	=  PATH=$(CROSS_PATH)
-MADPLAY_ENV 	=  $(CROSS_ENV)
+MADPLAY_PATH	:= PATH=$(CROSS_PATH)
+MADPLAY_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-MADPLAY_AUTOCONF =  $(CROSS_AUTOCONF_USR) \
+MADPLAY_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-debugging \
 	--disable-profiling \
 	--disable-nls \
@@ -73,14 +72,5 @@ $(STATEDIR)/madplay.targetinstall:
 
 	@$(call install_finish, madplay)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-madplay_clean:
-	rm -rf $(STATEDIR)/madplay.*
-	rm -rf $(PKGDIR)/madplay_*
-	rm -rf $(MADPLAY_DIR)
 
 # vim: syntax=make

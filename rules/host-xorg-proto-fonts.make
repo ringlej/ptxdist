@@ -39,12 +39,4 @@ HOST_XORG_PROTO_FONTS_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_PROTO_FONTS_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-proto-fonts_clean:
-	rm -rf $(STATEDIR)/host-xorg-proto-fonts.*
-	rm -rf $(HOST_XORG_PROTO_FONTS_DIR)
-
 # vim: syntax=make

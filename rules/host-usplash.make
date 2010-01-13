@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2008 by 
 #
@@ -78,13 +77,5 @@ $(STATEDIR)/host-usplash.install:
 	@$(call targetinfo)
 	@$(call install, HOST_USPLASH,,h)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-usplash_clean:
-	rm -rf $(STATEDIR)/host-usplash.*
-	rm -rf $(HOST_USPLASH_DIR)
 
 # vim: syntax=make

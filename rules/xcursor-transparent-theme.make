@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -56,7 +55,7 @@ $(STATEDIR)/xcursor-transparent-theme.targetinstall:
 	@$(call install_fixup, xcursor-transparent-theme,PRIORITY,optional)
 	@$(call install_fixup, xcursor-transparent-theme,VERSION,$(XCURSOR_TRANSPARENT_THEME_VERSION))
 	@$(call install_fixup, xcursor-transparent-theme,SECTION,base)
-	@$(call install_fixup, xcursor-transparent-theme,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xcursor-transparent-theme,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, xcursor-transparent-theme,DEPENDS,)
 	@$(call install_fixup, xcursor-transparent-theme,DESCRIPTION,missing)
 
@@ -73,14 +72,5 @@ $(STATEDIR)/xcursor-transparent-theme.targetinstall:
 	@$(call install_finish, xcursor-transparent-theme)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xcursor-transparent-theme_clean:
-	rm -rf $(STATEDIR)/xcursor-transparent-theme.*
-	rm -rf $(PKGDIR)/xcursor-transparent-theme_*
-	rm -rf $(XCURSOR_TRANSPARENT_THEME_DIR)
 
 # vim: syntax=make

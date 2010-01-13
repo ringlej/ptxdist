@@ -36,8 +36,8 @@ $(APACHE2_MOD_PYTHON_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-APACHE2_MOD_PYTHON_PATH	:=  PATH=$(CROSS_PATH)
-APACHE2_MOD_PYTHON_ENV 	:=  $(CROSS_ENV)
+APACHE2_MOD_PYTHON_PATH	:= PATH=$(CROSS_PATH)
+APACHE2_MOD_PYTHON_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -77,14 +77,5 @@ $(STATEDIR)/apache2_mod_python.targetinstall:
 	@$(call install_finish, apache2_mod_python)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-apache2_mod_python_clean:
-	rm -rf $(STATEDIR)/apache2_mod_python.*
-	rm -rf $(PKGDIR)/apache2_mod_python_*
-	rm -rf $(APACHE2_MOD_PYTHON_DIR)
 
 # vim: syntax=make

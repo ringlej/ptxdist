@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_FONT_ALIAS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_FONT_ALIAS_PATH	:=  PATH=$(CROSS_PATH)
-XORG_FONT_ALIAS_ENV 	:=  $(CROSS_ENV)
+XORG_FONT_ALIAS_PATH	:= PATH=$(CROSS_PATH)
+XORG_FONT_ALIAS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -75,14 +74,5 @@ $(STATEDIR)/xorg-font-alias.targetinstall:
 	@$(call install_finish, xorg-font-alias)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-alias_clean:
-	rm -rf $(STATEDIR)/xorg-font-alias.*
-	rm -rf $(PKGDIR)/xorg-font-alias_*
-	rm -rf $(XORG_FONT_ALIAS_DIR)
 
 # vim: syntax=make

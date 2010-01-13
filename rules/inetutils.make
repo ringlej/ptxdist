@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Ixia Corporation (www.ixiacom.com)
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -182,7 +181,7 @@ $(STATEDIR)/inetutils.targetinstall:
 	@$(call install_fixup, inetutils,PRIORITY,optional)
 	@$(call install_fixup, inetutils,VERSION,$(INETUTILS_VERSION))
 	@$(call install_fixup, inetutils,SECTION,base)
-	@$(call install_fixup, inetutils,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, inetutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, inetutils,DEPENDS,)
 	@$(call install_fixup, inetutils,DESCRIPTION,missing)
 
@@ -252,14 +251,5 @@ endif
 	@$(call install_finish, inetutils)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-inetutils_clean:
-	rm -rf $(STATEDIR)/inetutils.*
-	rm -rf $(PKGDIR)/inetutils_*
-	rm -rf $(INETUTILS_DIR)
 
 # vim: syntax=make

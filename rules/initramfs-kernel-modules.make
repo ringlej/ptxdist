@@ -101,13 +101,4 @@ ifdef PTXCONF_INITRAMFS_KERNEL_MODULES_USER_SPEC
 endif
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-initramfs-kernel-modules_clean:
-	rm -rf $(STATEDIR)/initramfs-kernel-modules.*
-	rm -rf $(PKGDIR)/initramfs-kernel-modules{-,_}*
-	rm -rf $(INITRAMFS_KERNEL_MODULES_DIR)
-
 # vim: syntax=make

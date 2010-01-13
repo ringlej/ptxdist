@@ -37,8 +37,8 @@ $(XORG_LIB_XKBUI_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XKBUI_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XKBUI_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XKBUI_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XKBUI_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -75,14 +75,5 @@ $(STATEDIR)/xorg-lib-xkbui.targetinstall:
 	@$(call install_finish, xorg-lib-xkbui)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xkbui_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xkbui.*
-	rm -rf $(PKGDIR)/xorg-lib-xkbui_*
-	rm -rf $(XORG_LIB_XKBUI_DIR)
 
 # vim: syntax=make

@@ -72,13 +72,4 @@ $(STATEDIR)/gtk2-engines.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gtk2-engines_clean:
-	rm -rf $(STATEDIR)/gtk2-engines.*
-	rm -rf $(PKGDIR)/gtk2-engines_*
-	rm -rf $(GTK2_ENGINES_DIR)
-
 # vim: syntax=make

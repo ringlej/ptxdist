@@ -88,13 +88,4 @@ $(STATEDIR)/ltp-ballista.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltp-ballista_clean:
-	rm -rf $(STATEDIR)/ltp-ballista.*
-	rm -rf $(PKGDIR)/ltp-ballista_*
-	rm -rf $(LTP_BALLISTA_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4761 2006-02-24 17:35:57Z sha $
 #
 # Copyright (C) 2006 by Sascha Hauer
 #
@@ -37,8 +36,8 @@ $(XORG_APP_RGB_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_RGB_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_RGB_ENV 	:=  $(CROSS_ENV)
+XORG_APP_RGB_PATH	:= PATH=$(CROSS_PATH)
+XORG_APP_RGB_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -70,14 +69,5 @@ $(STATEDIR)/xorg-app-rgb.targetinstall:
 	@$(call install_finish,xorg-app-rgb)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-rgb_clean:
-	rm -rf $(STATEDIR)/xorg-app-rgb.*
-	rm -rf $(PKGDIR)/xorg-app-rgb_*
-	rm -rf $(XORG_APP_RGB_DIR)
 
 # vim: syntax=make

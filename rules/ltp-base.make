@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Juergen Beisert
 #
@@ -95,14 +94,5 @@ $(STATEDIR)/ltp_base.targetinstall:
 	@$(call install_finish, ltp_base)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltp_base_clean:
-	rm -rf $(STATEDIR)/ltp_base.*
-	rm -rf $(PKGDIR)/ltp_base_*
-	rm -rf $(LTP_BASE_DIR)
 
 # vim: syntax=make

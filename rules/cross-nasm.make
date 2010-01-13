@@ -45,12 +45,4 @@ CROSS_NASM_AUTOCONF := \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--target=$(PTXCONF_GNU_TARGET)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cross-nasm_clean:
-	rm -rf $(STATEDIR)/cross-nasm.*
-	rm -rf $(CROSS_NASM_DIR)
-
 # vim: syntax=make

@@ -93,13 +93,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-adobe-100dpi_clean:
-	rm -rf $(STATEDIR)/xorg-font-adobe-100dpi.*
-	rm -rf $(PKGDIR)/xorg-font-adobe-100dpi_*
-	rm -rf $(XORG_FONT_ADOBE_100DPI_DIR)
-
 # vim: syntax=make

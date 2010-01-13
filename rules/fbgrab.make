@@ -70,13 +70,4 @@ $(STATEDIR)/fbgrab.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-fbgrab_clean:
-	rm -rf $(STATEDIR)/fbgrab.*
-	rm -rf $(PKGDIR)/fbgrab_*
-	rm -rf $(FBGRAB_DIR)
-
 # vim: syntax=make

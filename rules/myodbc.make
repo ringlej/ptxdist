@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -78,14 +77,5 @@ $(STATEDIR)/myodbc.targetinstall:
 	@$(call install_finish, myodbc)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-myodbc_clean:
-	rm -rf $(STATEDIR)/myodbc.*
-	rm -rf $(PKGDIR)/myodbc_*
-	rm -rf $(MYODBC_DIR)
 
 # vim: syntax=make

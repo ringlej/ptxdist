@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2005 by Robert Schwebel
 #               2007, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -69,14 +68,5 @@ $(STATEDIR)/bluez-libs.targetinstall:
 	@$(call install_finish, bluez-libs)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-bluez-libs_clean:
-	rm -rf $(STATEDIR)/bluez-libs.*
-	rm -rf $(PKGDIR)/bluez-libs_*
-	rm -rf $(BLUEZ_LIBS_DIR)
 
 # vim: syntax=make

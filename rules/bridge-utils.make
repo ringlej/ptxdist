@@ -66,12 +66,4 @@ $(STATEDIR)/bridge-utils.targetinstall:
 	@$(call install_finish, bridge-utils)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-bridge-utils_clean:
-	rm -rf $(STATEDIR)/bridge-utils.*
-	rm -rf $(BRIDGE_UTILS_DIR)
-
 # vim: syntax=make

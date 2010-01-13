@@ -69,13 +69,4 @@ $(STATEDIR)/cross-module-init-tools.install:
 	install -D -m 755 $(CROSS_MODULE_INIT_TOOLS_DIR)/build/depmod $(PTXCONF_SYSROOT_CROSS)/sbin/$(PTXCONF_GNU_TARGET)-depmod
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cross-module-init-tools_clean:
-	rm -rf $(STATEDIR)/cross-module-init-tools.*
-	rm -rf $(PKGDIR)/cross-module-init-tools_*
-	rm -rf $(CROSS_MODULE_INIT_TOOLS_DIR)
-
 # vim: syntax=make

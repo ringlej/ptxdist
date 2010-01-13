@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007, 2009 by Marc Kleine-Buddde <mkl@pengutronix.de>
 #
@@ -75,14 +74,5 @@ $(STATEDIR)/glade.targetinstall:
 	@$(call install_finish, glade)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-glade_clean:
-	rm -rf $(STATEDIR)/glade.*
-	rm -rf $(PKGDIR)/glade_*
-	rm -rf $(GLADE_DIR)
 
 # vim: syntax=make

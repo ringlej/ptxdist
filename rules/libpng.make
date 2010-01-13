@@ -73,13 +73,4 @@ $(STATEDIR)/libpng.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libpng_clean:
-	rm -rf $(STATEDIR)/libpng.*
-	rm -rf $(PKGDIR)/libpng_*
-	rm -rf $(LIBPNG_DIR)
-
 # vim: syntax=make

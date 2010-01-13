@@ -77,13 +77,4 @@ $(STATEDIR)/xorg-font-ibm-type1.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-ibm-type1_clean:
-	rm -rf $(STATEDIR)/xorg-font-ibm-type1.*
-	rm -rf $(PKGDIR)/xorg-font-ibm-type1_*
-	rm -rf $(XORG_FONT_IBM_TYPE1_DIR)
-
 # vim: syntax=make

@@ -65,13 +65,4 @@ $(STATEDIR)/logrotate.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-logrotate_clean:
-	rm -rf $(STATEDIR)/logrotate.*
-	rm -rf $(PKGDIR)/logrotate_*
-	rm -rf $(LOGROTATE_DIR)
-
 # vim: syntax=make

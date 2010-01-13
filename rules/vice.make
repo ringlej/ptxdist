@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -82,7 +81,7 @@ $(STATEDIR)/vice.targetinstall:
 	@$(call install_fixup, vice,PRIORITY,optional)
 	@$(call install_fixup, vice,VERSION,$(VICE_VERSION))
 	@$(call install_fixup, vice,SECTION,base)
-	@$(call install_fixup, vice,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, vice,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, vice,DEPENDS,)
 	@$(call install_fixup, vice,DESCRIPTION,missing)
 
@@ -91,14 +90,5 @@ $(STATEDIR)/vice.targetinstall:
 	@$(call install_finish, vice)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-vice_clean:
-	rm -rf $(STATEDIR)/vice.*
-	rm -rf $(PKGDIR)/vice_*
-	rm -rf $(VICE_DIR)
 
 # vim: syntax=make

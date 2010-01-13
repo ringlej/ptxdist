@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 7759 2008-02-12 21:05:07Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -106,14 +105,5 @@ $(STATEDIR)/usplash.targetinstall:
 	@$(call install_finish, usplash)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-usplash_clean:
-	rm -rf $(STATEDIR)/usplash.*
-	rm -rf $(PKGDIR)/usplash_*
-	rm -rf $(USPLASH_DIR)
 
 # vim: syntax=make

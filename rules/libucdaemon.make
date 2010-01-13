@@ -71,13 +71,4 @@ $(STATEDIR)/libucdaemon.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libucdaemon_clean:
-	rm -rf $(STATEDIR)/libucdaemon.*
-	rm -rf $(PKGDIR)/libucdaemon_*
-	rm -rf $(LIBUCDAEMON_DIR)
-
 # vim: syntax=make

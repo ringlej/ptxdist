@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 5616 2006-06-02 13:50:47Z rsc $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -36,8 +35,8 @@ $(XORG_DRIVER_VIDEO_V4L_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_DRIVER_VIDEO_V4L_PATH	:=  PATH=$(CROSS_PATH)
-XORG_DRIVER_VIDEO_V4L_ENV 	:=  $(CROSS_ENV)
+XORG_DRIVER_VIDEO_V4L_PATH	:= PATH=$(CROSS_PATH)
+XORG_DRIVER_VIDEO_V4L_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -66,14 +65,5 @@ $(STATEDIR)/xorg-driver-video-v4l.targetinstall:
 	@$(call install_finish,xorg-driver-video-v4l)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-v4l_clean:
-	rm -rf $(STATEDIR)/xorg-driver-video-v4l.*
-	rm -rf $(PKGDIR)/xorg-driver-video-v4l_*
-	rm -rf $(XORG_DRIVER_VIDEO_V4L_DIR)
 
 # vim: syntax=make

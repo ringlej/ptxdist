@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Luotao Fu <lfu@pengutronix.de>
 #               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -55,13 +54,5 @@ $(STATEDIR)/host-localedef.install:
 	@$(call targetinfo)
 	cp $(HOST_LOCALEDEF_DIR)/localedef $(PTXCONF_SYSROOT_HOST)/bin
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-localedef_clean:
-	rm -rf $(STATEDIR)/host-localedef.*
-	rm -rf $(HOST_LOCALEDEF_DIR)
 
 # vim: syntax=make

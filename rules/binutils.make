@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
@@ -41,10 +40,8 @@ $(BINUTILS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-binutils_prepare: $(STATEDIR)/binutils.prepare
-
-BINUTILS_PATH	:=  PATH=$(CROSS_PATH)
-BINUTILS_ENV 	:=  $(CROSS_ENV)
+BINUTILS_PATH	:= PATH=$(CROSS_PATH)
+BINUTILS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -87,15 +84,6 @@ endif
 
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-binutils_clean:
-	rm -rf $(STATEDIR)/binutils.*
-	rm -rf $(PKGDIR)/binutils_*
-	rm -rf $(BINUTILS_DIR)
 
 # vim: syntax=make
 

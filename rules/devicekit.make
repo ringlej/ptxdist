@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -119,14 +118,5 @@ $(STATEDIR)/devicekit.targetinstall:
 	@$(call install_finish, devicekit)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-devicekit_clean:
-	rm -rf $(STATEDIR)/devicekit.*
-	rm -rf $(PKGDIR)/devicekit_*
-	rm -rf $(DEVICEKIT_DIR)
 
 # vim: syntax=make

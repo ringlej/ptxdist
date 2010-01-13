@@ -70,13 +70,4 @@ $(STATEDIR)/gpm.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gpm_clean:
-	rm -rf $(STATEDIR)/gpm.*
-	rm -rf $(PKGDIR)/gpm_*
-	rm -rf $(GPM_DIR)
-
 # vim: syntax=make

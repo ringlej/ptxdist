@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_APP_XKBCOMP_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_XKBCOMP_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_XKBCOMP_ENV 	:=  $(CROSS_ENV)
+XORG_APP_XKBCOMP_PATH	:= PATH=$(CROSS_PATH)
+XORG_APP_XKBCOMP_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -69,14 +68,5 @@ $(STATEDIR)/xorg-app-xkbcomp.targetinstall:
 	@$(call install_finish, xorg-app-xkbcomp)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xkbcomp_clean:
-	rm -rf $(STATEDIR)/xorg-app-xkbcomp.*
-	rm -rf $(PKGDIR)/xorg-app-xkbcomp_*
-	rm -rf $(XORG_APP_XKBCOMP_DIR)
 
 # vim: syntax=make

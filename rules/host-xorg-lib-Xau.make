@@ -39,12 +39,4 @@ HOST_XORG_LIB_XAU_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_LIB_XAU_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-xorg-lib-xau_clean:
-	rm -rf $(STATEDIR)/host-xorg-lib-xau.*
-	rm -rf $(HOST_XORG_LIB_XAU_DIR)
-
 # vim: syntax=make

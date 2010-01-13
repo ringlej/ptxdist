@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Sascha Hauer
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -38,8 +37,8 @@ $(XORG_APP_XHOST_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_XHOST_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_XHOST_ENV 	:=  $(CROSS_ENV)
+XORG_APP_XHOST_PATH	:= PATH=$(CROSS_PATH)
+XORG_APP_XHOST_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -67,7 +66,7 @@ $(STATEDIR)/xorg-app-xhost.targetinstall:
 	@$(call install_fixup, xorg-app-xhost,PRIORITY,optional)
 	@$(call install_fixup, xorg-app-xhost,VERSION,$(XORG_APP_XHOST_VERSION))
 	@$(call install_fixup, xorg-app-xhost,SECTION,base)
-	@$(call install_fixup, xorg-app-xhost,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, xorg-app-xhost,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, xorg-app-xhost,DEPENDS,)
 	@$(call install_fixup, xorg-app-xhost,DESCRIPTION,missing)
 
@@ -77,14 +76,5 @@ $(STATEDIR)/xorg-app-xhost.targetinstall:
 	@$(call install_finish, xorg-app-xhost)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-xhost_clean:
-	rm -rf $(STATEDIR)/xorg-app-xhost.*
-	rm -rf $(PKGDIR)/xorg-app-xhost_*
-	rm -rf $(XORG_APP_XHOST_DIR)
 
 # vim: syntax=make

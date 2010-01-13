@@ -90,13 +90,4 @@ $(STATEDIR)/ltp-realtime.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltp-realtime_clean:
-	rm -rf $(STATEDIR)/ltp-realtime.*
-	rm -rf $(PKGDIR)/ltp-realtime_*
-	rm -rf $(LTP_REALTIME_DIR)
-
 # vim: syntax=make

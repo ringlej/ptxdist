@@ -69,13 +69,4 @@ $(STATEDIR)/efax.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-efax_clean:
-	rm -rf $(STATEDIR)/efax.*
-	rm -rf $(PKGDIR)/efax_*
-	rm -rf $(EFAX_DIR)
-
 # vim: syntax=make

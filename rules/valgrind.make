@@ -38,8 +38,8 @@ $(VALGRIND_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-VALGRIND_PATH	:=  PATH=$(CROSS_PATH)
-VALGRIND_ENV 	:=  $(CROSS_ENV)
+VALGRIND_PATH	:= PATH=$(CROSS_PATH)
+VALGRIND_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -80,14 +80,5 @@ $(STATEDIR)/valgrind.targetinstall:
 	@$(call install_finish, valgrind)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-valgrind_clean:
-	rm -rf $(STATEDIR)/valgrind.*
-	rm -rf $(PKGDIR)/valgrind_*
-	rm -rf $(VALGRIND_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -255,14 +254,5 @@ endif
 	@$(call install_finish, connman)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-connman_clean:
-	rm -rf $(STATEDIR)/connman.*
-	rm -rf $(PKGDIR)/connman_*
-	rm -rf $(CONNMAN_DIR)
 
 # vim: syntax=make

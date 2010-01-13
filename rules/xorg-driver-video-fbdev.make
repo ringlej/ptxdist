@@ -68,13 +68,4 @@ $(STATEDIR)/xorg-driver-video-fbdev.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-fbdev_clean:
-	rm -rf $(STATEDIR)/xorg-driver-video-fbdev.*
-	rm -rf $(PKGDIR)/xorg-driver-video-fbdev_*
-	rm -rf $(XORG_DRIVER_VIDEO_FBDEV_DIR)
-
 # vim: syntax=make

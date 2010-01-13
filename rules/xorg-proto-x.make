@@ -65,14 +65,5 @@ $(STATEDIR)/xorg-proto-x.targetinstall:
 	@$(call targetinfo)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-proto-x_clean:
-	rm -rf $(STATEDIR)/xorg-proto-x.*
-	rm -rf $(PKGDIR)/xorg-proto-x_*
-	rm -rf $(XORG_PROTO_X_DIR)
-
 # vim: syntax=make
 

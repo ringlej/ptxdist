@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6487 2006-12-07 20:55:55Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
@@ -36,8 +35,6 @@ $(LIBDBUS_CXX_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-libdbus-cxx_prepare: $(STATEDIR)/libdbus-cxx.prepare
-
 LIBDBUS_CXX_PATH := \
 	PATH=$(CROSS_PATH)
 
@@ -72,7 +69,7 @@ $(STATEDIR)/libdbus-cxx.targetinstall:
 	@$(call install_fixup, libdbus-cxx,PRIORITY,optional)
 	@$(call install_fixup, libdbus-cxx,VERSION,$(LIBDBUS_CXX_VERSION))
 	@$(call install_fixup, libdbus-cxx,SECTION,base)
-	@$(call install_fixup, libdbus-cxx,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, libdbus-cxx,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libdbus-cxx,DEPENDS,)
 	@$(call install_fixup, libdbus-cxx,DESCRIPTION,missing)
 
@@ -85,14 +82,5 @@ $(STATEDIR)/libdbus-cxx.targetinstall:
 	@$(call install_finish, libdbus-cxx)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libdbus-cxx_clean:
-	rm -rf $(STATEDIR)/libdbus-cxx.*
-	rm -rf $(PKGDIR)/libdbus-cxx_*
-	rm -rf $(LIBDBUS_CXX_DIR)
 
 # vim: syntax=make

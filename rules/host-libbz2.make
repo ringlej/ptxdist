@@ -52,12 +52,4 @@ HOST_LIBBZ2_ENV 	:= $(HOST_ENV)
 
 HOST_LIBBZ2_INSTALL_OPT := install PREFIX=$(PTXCONF_SYSROOT_HOST)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libbz2_clean:
-	rm -rf $(STATEDIR)/host-libbz2.*
-	rm -rf $(HOST_LIBBZ2_DIR)
-
 # vim: syntax=make

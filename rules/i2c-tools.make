@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2008 by Carsten Schlote
 #
@@ -66,7 +65,7 @@ $(STATEDIR)/i2c-tools.targetinstall:
 	@$(call install_fixup, i2c-tools,PRIORITY,optional)
 	@$(call install_fixup, i2c-tools,VERSION,$(I2C_TOOLS_VERSION))
 	@$(call install_fixup, i2c-tools,SECTION,base)
-	@$(call install_fixup, i2c-tools,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, i2c-tools,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, i2c-tools,DEPENDS,)
 	@$(call install_fixup, i2c-tools,DESCRIPTION,missing)
 
@@ -78,14 +77,5 @@ $(STATEDIR)/i2c-tools.targetinstall:
 	@$(call install_finish, i2c-tools)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-i2c-tools_clean:
-	rm -rf $(STATEDIR)/i2c-tools.*
-	rm -rf $(PKGDIR)/i2c-tools_*
-	rm -rf $(I2C_TOOLS_DIR)
 
 # vim: syntax=make

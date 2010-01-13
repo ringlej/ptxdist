@@ -82,13 +82,4 @@ ifndef PTXCONF_LIBCONFUSE_STATIC
 endif
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libconfuse_clean:
-	rm -rf $(STATEDIR)/libconfuse.*
-	rm -rf $(PKGDIR)/libconfuse_*
-	rm -rf $(LIBCONFUSE_DIR)
-
 # vim: syntax=make

@@ -76,13 +76,4 @@ $(STATEDIR)/hrtimers-support.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-hrtimers-support_clean:
-	rm -rf $(STATEDIR)/hrtimers-support.*
-	rm -rf $(PKGDIR)/hrtimers-support_*
-	rm -rf $(HRTIMERS_SUPPORT_DIR)
-
 # vim: syntax=make

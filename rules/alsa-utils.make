@@ -39,8 +39,8 @@ $(ALSA_UTILS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-ALSA_UTILS_PATH	:=  PATH=$(CROSS_PATH)
-ALSA_UTILS_ENV 	:=  $(CROSS_ENV)
+ALSA_UTILS_PATH	:= PATH=$(CROSS_PATH)
+ALSA_UTILS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -108,15 +108,6 @@ endif
 	@$(call install_finish, alsa-utils)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-alsa-utils_clean:
-	rm -rf $(STATEDIR)/alsa-utils.*
-	rm -rf $(PKGDIR)/alsa-utils_*
-	rm -rf $(ALSA_UTILS_DIR)
 
 # vim: syntax=make
 

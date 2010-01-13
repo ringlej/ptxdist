@@ -75,13 +75,4 @@ $(STATEDIR)/flex.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-flex_clean:
-	rm -rf $(STATEDIR)/flex.*
-	rm -rf $(PKGDIR)/flex_*
-	rm -rf $(FLEX_DIR)
-
 # vim: syntax=make

@@ -88,13 +88,4 @@ endif
 	@$(call install_finish, pcmciautils)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-pcmciautils_clean:
-	rm -rf $(STATEDIR)/pcmciautils.*
-	rm -rf $(PKGDIR)/pcmciautils_*
-	rm -rf $(PCMCIAUTILS_DIR)
-
 # vim: syntax=make

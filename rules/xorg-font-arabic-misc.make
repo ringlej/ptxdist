@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-arabic-misc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-arabic-misc_clean:
-	rm -rf $(STATEDIR)/xorg-font-arabic-misc.*
-	rm -rf $(PKGDIR)/xorg-font-arabic-misc_*
-	rm -rf $(XORG_FONT_ARABIC_MISC_DIR)
-
 # vim: syntax=make

@@ -70,13 +70,4 @@ $(STATEDIR)/glademm.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-glademm_clean:
-	rm -rf $(STATEDIR)/glademm.*
-	rm -rf $(PKGDIR)/glademm_*
-	rm -rf $(GLADEMM_DIR)
-
 # vim: syntax=make

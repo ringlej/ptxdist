@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-sun-misc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-sun-misc_clean:
-	rm -rf $(STATEDIR)/xorg-font-sun-misc.*
-	rm -rf $(PKGDIR)/xorg-font-sun-misc_*
-	rm -rf $(XORG_FONT_SUN_MISC_DIR)
-
 # vim: syntax=make

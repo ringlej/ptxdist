@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
@@ -67,14 +66,5 @@ $(STATEDIR)/pangomm.targetinstall:
 	@$(call install_finish, pangomm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-pangomm_clean:
-	rm -rf $(STATEDIR)/pangomm.*
-	rm -rf $(PKGDIR)/pangomm_*
-	rm -rf $(PANGOMM_DIR)
 
 # vim: syntax=make

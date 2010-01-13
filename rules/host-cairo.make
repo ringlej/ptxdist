@@ -69,12 +69,4 @@ else
 HOST_CAIRO_AUTOCONF += --disable-png
 endif
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-cairo_clean:
-	rm -rf $(STATEDIR)/host-cairo.*
-	rm -rf $(HOST_CAIRO_DIR)
-
 # vim: syntax=make

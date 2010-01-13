@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -93,14 +92,5 @@ endif
 	@$(call install_finish, dnsmasq)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-dnsmasq_clean:
-	rm -rf $(STATEDIR)/dnsmasq.*
-	rm -rf $(PKGDIR)/dnsmasq_*
-	rm -rf $(DNSMASQ_DIR)
 
 # vim: syntax=make

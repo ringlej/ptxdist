@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8509 2008-06-12 12:45:40Z mkl $
 #
 # Copyright (C) 2008 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -122,14 +121,5 @@ $(STATEDIR)/libtheora.targetinstall:
 	@$(call install_finish, libtheora)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libtheora_clean:
-	rm -rf $(STATEDIR)/libtheora.*
-	rm -rf $(PKGDIR)/libtheora_*
-	rm -rf $(LIBTHEORA_DIR)
 
 # vim: syntax=make

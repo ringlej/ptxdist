@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_LIB_XXF86VM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XXF86VM_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XXF86VM_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XXF86VM_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XXF86VM_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -76,14 +75,5 @@ $(STATEDIR)/xorg-lib-xxf86vm.targetinstall:
 	@$(call install_finish, xorg-lib-xxf86vm)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xxf86vm_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xxf86vm.*
-	rm -rf $(PKGDIR)/xorg-lib-xxf86vm_*
-	rm -rf $(XORG_LIB_XXF86VM_DIR)
 
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
 #
 # Copyright (C) 2009 by Robert Schwebel
 #
@@ -155,14 +154,5 @@ $(STATEDIR)/lmbench.targetinstall:
 	@$(call install_finish, lmbench)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-lmbench_clean:
-	rm -rf $(STATEDIR)/lmbench.*
-	rm -rf $(PKGDIR)/lmbench_*
-	rm -rf $(LMBENCH_DIR)
 
 # vim: syntax=make

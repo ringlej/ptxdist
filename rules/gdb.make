@@ -90,12 +90,4 @@ $(STATEDIR)/gdb.targetinstall:
 	@$(call install_finish, gdb)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gdb_clean:
-	rm -rf $(STATEDIR)/gdb.* $(GDB_DIR)
-	rm -rf $(PKGDIR)/gdb_*
-
 # vim: syntax=make

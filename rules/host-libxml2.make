@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Robert Schwebel
 #               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -33,11 +32,11 @@ $(STATEDIR)/host-libxml2.get: $(STATEDIR)/libxml2.get
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-libxml2.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(HOST_LIBXML2_DIR))
 	@$(call extract, LIBXML2, $(HOST_BUILDDIR))
 	@$(call patchin, LIBXML2, $(HOST_LIBXML2_DIR))
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -50,13 +49,5 @@ HOST_LIBXML2_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_LIBXML2_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libxml2_clean:
-	rm -rf $(STATEDIR)/host-libxml2.*
-	rm -rf $(HOST_LIBXML2_DIR)
 
 # vim: syntax=make

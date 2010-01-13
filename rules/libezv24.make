@@ -37,8 +37,8 @@ $(LIBEZV24_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBEZV24_PATH	:=  PATH=$(CROSS_PATH)
-LIBEZV24_ENV 	:=  $(CROSS_ENV)
+LIBEZV24_PATH	:= PATH=$(CROSS_PATH)
+LIBEZV24_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -73,14 +73,5 @@ $(STATEDIR)/libezv24.targetinstall:
 	@$(call install_finish,libezv24)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libezv24_clean:
-	rm -rf $(STATEDIR)/libezv24.*
-	rm -rf $(PKGDIR)/libezv24_*
-	rm -rf $(LIBEZV24_DIR)
 
 # vim: syntax=make

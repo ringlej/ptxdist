@@ -90,13 +90,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-kexec-tools_clean:
-	rm -rf $(STATEDIR)/kexec-tools.*
-	rm -rf $(PKGDIR)/kexec-tools_*
-	rm -rf $(KEXEC_TOOLS_DIR)
-
 # vim: syntax=make

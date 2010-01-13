@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2008 by Robert Schwebel
 #
@@ -69,14 +68,5 @@ $(STATEDIR)/gmake.targetinstall:
 	@$(call install_finish, gmake)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gmake_clean:
-	rm -rf $(STATEDIR)/gmake.*
-	rm -rf $(PKGDIR)/gmake_*
-	rm -rf $(GMAKE_DIR)
 
 # vim: syntax=make

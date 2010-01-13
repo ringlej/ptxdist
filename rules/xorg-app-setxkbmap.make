@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_APP_SETXKBMAP_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_APP_SETXKBMAP_PATH	:=  PATH=$(CROSS_PATH)
-XORG_APP_SETXKBMAP_ENV 	:=  $(CROSS_ENV)
+XORG_APP_SETXKBMAP_PATH	:= PATH=$(CROSS_PATH)
+XORG_APP_SETXKBMAP_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -69,14 +68,5 @@ $(STATEDIR)/xorg-app-setxkbmap.targetinstall:
 	@$(call install_finish, xorg-app-setxkbmap)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-app-setxkbmap_clean:
-	rm -rf $(STATEDIR)/xorg-app-setxkbmap.*
-	rm -rf $(PKGDIR)/xorg-app-setxkbmap_*
-	rm -rf $(XORG_APP_SETXKBMAP_DIR)
 
 # vim: syntax=make

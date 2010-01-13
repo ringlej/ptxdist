@@ -68,13 +68,4 @@ $(STATEDIR)/xorg-driver-video-dummy.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-driver-video-dummy_clean:
-	rm -rf $(STATEDIR)/xorg-driver-video-dummy.*
-	rm -rf $(PKGDIR)/xorg-driver-video-dummy_*
-	rm -rf $(XORG_DRIVER_VIDEO_DUMMY_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 8008 2008-04-15 07:39:46Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -104,14 +103,5 @@ endif
 	@$(call install_finish, syslogng)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-syslogng_clean:
-	rm -rf $(STATEDIR)/syslogng.*
-	rm -rf $(PKGDIR)/syslogng_*
-	rm -rf $(SYSLOGNG_DIR)
 
 # vim: syntax=make

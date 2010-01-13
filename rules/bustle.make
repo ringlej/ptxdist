@@ -73,13 +73,4 @@ $(STATEDIR)/bustle.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-bustle_clean:
-	rm -rf $(STATEDIR)/bustle.*
-	rm -rf $(PKGDIR)/bustle_*
-	rm -rf $(BUSTLE_DIR)
-
 # vim: syntax=make

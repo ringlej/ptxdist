@@ -89,13 +89,4 @@ $(STATEDIR)/liblzo.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-liblzo_clean:
-	rm -rf $(STATEDIR)/liblzo.*
-	rm -rf $(PKGDIR)/liblzo_*
-	rm -rf $(LIBLZO_DIR)
-
 # vim: syntax=make

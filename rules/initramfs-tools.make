@@ -107,13 +107,4 @@ ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_NFS
 endif
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-initramfs-tools_clean:
-	rm -rf $(STATEDIR)/initramfs-tools.*
-	rm -rf $(PKGDIR)/initramfs-tools{-,_}*
-	rm -rf $(INITRAMFS_TOOLS_DIR)
-
 # vim: syntax=make

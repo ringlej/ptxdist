@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-screen-cyrillic.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-screen-cyrillic_clean:
-	rm -rf $(STATEDIR)/xorg-font-screen-cyrillic.*
-	rm -rf $(PKGDIR)/xorg-font-screen-cyrillic_*
-	rm -rf $(XORG_FONT_SCREEN_CYRILLIC_DIR)
-
 # vim: syntax=make

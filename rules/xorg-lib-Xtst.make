@@ -37,8 +37,8 @@ $(XORG_LIB_XTST_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XTST_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XTST_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XTST_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XTST_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -75,14 +75,5 @@ $(STATEDIR)/xorg-lib-xtst.targetinstall:
 	@$(call install_finish, xorg-lib-xtst)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xtst_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xtst.*
-	rm -rf $(PKGDIR)/xorg-lib-xtst_*
-	rm -rf $(XORG_LIB_XTST_DIR)
 
 # vim: syntax=make

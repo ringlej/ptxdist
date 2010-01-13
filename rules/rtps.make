@@ -78,12 +78,4 @@ $(STATEDIR)/rtps.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-rtps_clean:
-	rm -rf $(STATEDIR)/rtps.*
-	rm -rf $(PKGDIR)/rtps_*
-
 # vim: syntax=make

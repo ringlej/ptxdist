@@ -38,12 +38,4 @@ HOST_LIBPTHREAD_STUBS_ENV 	:= $(HOST_ENV)
 #
 HOST_LIBPTHREAD_STUBS_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-libpthread-stubs_clean:
-	rm -rf $(STATEDIR)/host-libpthread-stubs.*
-	rm -rf $(HOST_LIBPTHREAD_STUBS_DIR)
-
 # vim: syntax=make

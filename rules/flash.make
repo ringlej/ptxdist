@@ -116,13 +116,5 @@ $(STATEDIR)/flash.targetinstall:
 	@$(call install_finish, flash)
 
 	@$(call touch)
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-flash_clean:
-	rm -fr $(STATEDIR)/flash.*
-	rm -fr $(PKGDIR)/flash_*
-	rm -fr $(FLASH_DIR)
 
 # vim: syntax=make

@@ -117,13 +117,4 @@ $(STATEDIR)/fltk.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-fltk_clean:
-	rm -rf $(STATEDIR)/fltk.*
-	rm -rf $(BUILDDIR)/fltk_*
-	rm -rf $(FLTK_DIR)
-
 # vim: syntax=make

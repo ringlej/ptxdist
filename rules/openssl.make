@@ -128,13 +128,4 @@ endif
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-openssl_clean:
-	rm -rf $(STATEDIR)/openssl.*
-	rm -rf $(PKGDIR)/openssl_*
-	rm -rf $(OPENSSL_DIR)
-
 # vim: syntax=make

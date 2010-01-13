@@ -76,13 +76,4 @@ $(STATEDIR)/xorg-font-misc-meltho.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-font-misc-meltho_clean:
-	rm -rf $(STATEDIR)/xorg-font-misc-meltho.*
-	rm -rf $(PKGDIR)/xorg-font-misc-meltho_*
-	rm -rf $(XORG_FONT_MISC_MELTHO_DIR)
-
 # vim: syntax=make

@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003 by Benedikt Spranger
 # Copyright (C) 2009 by Wolfram Sang, Pengutronix
@@ -102,14 +101,5 @@ endif
 	@$(call install_finish, dhcp)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-dhcp_clean:
-	rm -rf $(STATEDIR)/dhcp.*
-	rm -rf $(PKGDIR)/dhcp_*
-	rm -rf $(DHCP_DIR)
 
 # vim: syntax=make

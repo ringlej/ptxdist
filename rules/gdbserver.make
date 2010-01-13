@@ -85,12 +85,4 @@ $(STATEDIR)/gdbserver.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gdbserver_clean:
-	rm -rf $(STATEDIR)/gdbserver.* $(GDBSERVER_BUILDDIR)
-	rm -rf $(PKGDIR)/gdbserver_*
-
 # vim: syntax=make

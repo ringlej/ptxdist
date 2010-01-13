@@ -48,7 +48,7 @@ LTT_CONTROL_AUTOCONF := $(CROSS_AUTOCONF_USR)
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/ltt-control.targetinstall: $(ltt-control_targetinstall_deps_default)
+$(STATEDIR)/ltt-control.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltt-control)
@@ -73,14 +73,5 @@ $(STATEDIR)/ltt-control.targetinstall: $(ltt-control_targetinstall_deps_default)
 	@$(call install_finish, ltt-control)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-ltt-control_clean:
-	rm -rf $(STATEDIR)/ltt-control.*
-	rm -rf $(PKGDIR)/ltt-control_*
-	rm -rf $(LTT_CONTROL_DIR)
 
 # vim: syntax=make

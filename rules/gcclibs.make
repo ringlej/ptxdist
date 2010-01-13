@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2004 by Robert Schwebel
 #                       Marc Kleine-Budde <kleine-budde@gmx.de>
@@ -70,7 +69,7 @@ $(STATEDIR)/gcclibs.targetinstall:
 	@$(call install_fixup, gcclibs,PRIORITY,optional)
 	@$(call install_fixup, gcclibs,VERSION,$(shell $(CROSS_CC) -dumpversion))
 	@$(call install_fixup, gcclibs,SECTION,base)
-	@$(call install_fixup, gcclibs,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gcclibs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gcclibs,DEPENDS,)
 	@$(call install_fixup, gcclibs,DESCRIPTION,missing)
 
@@ -89,12 +88,5 @@ endif
 	@$(call install_finish, gcclibs)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gcclibs_clean:
-	rm -rf $(STATEDIR)/gcclibs.*
 
 # vim: syntax=make

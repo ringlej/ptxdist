@@ -119,13 +119,4 @@ $(STATEDIR)/xorg-fonts.targetinstall.post:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-fonts_clean:
-	rm -rf $(STATEDIR)/xorg-fonts.*
-	rm -rf $(PKGDIR)/xorg-fonts_*
-	rm -rf $(XORG_FONTS_DIR)
-
 # vim: syntax=make

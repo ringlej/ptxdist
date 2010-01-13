@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2008 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
@@ -53,13 +52,5 @@ CROSS_LIBTOOL_AUTOCONF	:= \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--build=$(GNU_HOST)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cross-libtool_clean:
-	rm -rf $(STATEDIR)/cross-libtool.*
-	rm -rf $(CROSS_LIBTOOL_DIR)
 
 # vim: syntax=make

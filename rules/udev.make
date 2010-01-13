@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: udev.make,v 1.15 2007/03/07 14:34:52 michl Exp $
 #
 # Copyright (C) 2005-2008 by Robert Schwebel
 #
@@ -229,14 +228,5 @@ endif
 	@$(call install_finish, udev)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-udev_clean:
-	rm -rf $(STATEDIR)/udev.*
-	rm -rf $(PKGDIR)/udev_*
-	rm -rf $(UDEV_DIR)
 
 # vim: syntax=make

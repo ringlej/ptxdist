@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Robert Schwebel
 #
@@ -83,7 +82,7 @@ $(STATEDIR)/gtk-theme-experience.targetinstall:
 	@$(call install_fixup, gtk-theme-experience,PRIORITY,optional)
 	@$(call install_fixup, gtk-theme-experience,VERSION,$(GTK_THEME_EXPERIENCE_VERSION))
 	@$(call install_fixup, gtk-theme-experience,SECTION,base)
-	@$(call install_fixup, gtk-theme-experience,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, gtk-theme-experience,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gtk-theme-experience,DEPENDS,)
 	@$(call install_fixup, gtk-theme-experience,DESCRIPTION,missing)
 
@@ -134,14 +133,5 @@ endif
 	@$(call install_finish, gtk-theme-experience)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-gtk-theme-experience_clean:
-	rm -rf $(STATEDIR)/gtk-theme-experience.*
-	rm -rf $(PKGDIR)/gtk-theme-experience_*
-	rm -rf $(GTK_THEME_EXPERIENCE_DIR)
 
 # vim: syntax=make

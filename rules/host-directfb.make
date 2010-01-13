@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2007 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
@@ -32,7 +31,7 @@ $(STATEDIR)/host-directfb.get: $(STATEDIR)/directfb.get
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-directfb.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(HOST_DIRECTFB_DIR))
 	@$(call extract, DIRECTFB, $(HOST_BUILDDIR))
 	@$(call patchin, DIRECTFB, $(HOST_DIRECTFB_DIR))
@@ -88,13 +87,5 @@ $(STATEDIR)/host-directfb.compile:
 $(STATEDIR)/host-directfb.install:
 	@$(call targetinfo)
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-directfb_clean:
-	rm -rf $(STATEDIR)/host-directfb.*
-	rm -rf $(HOST_DIRECTFB_DIR)
 
 # vim: syntax=make

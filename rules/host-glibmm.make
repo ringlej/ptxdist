@@ -39,12 +39,4 @@ HOST_GLIBMM_ENV 	:= $(HOST_ENV)
 #
 HOST_GLIBMM_AUTOCONF	:= $(HOST_AUTOCONF)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-host-glibmm_clean:
-	rm -rf $(STATEDIR)/host-glibmm.*
-	rm -rf $(HOST_GLIBMM_DIR)
-
 # vim: syntax=make

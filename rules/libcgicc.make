@@ -68,13 +68,4 @@ $(STATEDIR)/libcgicc.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-libcgicc_clean:
-	rm -rf $(STATEDIR)/libcgicc.*
-	rm -rf $(PKGDIR)/libcgicc_*
-	rm -rf $(LIBCGICC_DIR)
-
 # vim: syntax=make

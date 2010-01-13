@@ -98,13 +98,4 @@ endif
 	@$(call install_finish, wireless)
 
 	@$(call touch)
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-wireless_clean:
-	rm -rf $(STATEDIR)/wireless.*
-	rm -rf $(PKGDIR)/wireless_*
-	rm -rf $(WIRELESS_DIR)
-
 # vim: syntax=make

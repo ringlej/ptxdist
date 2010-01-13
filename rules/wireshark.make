@@ -119,13 +119,4 @@ $(STATEDIR)/wireshark.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-wireshark_clean:
-	rm -rf $(STATEDIR)/wireshark.*
-	rm -rf $(PKGDIR)/wireshark_*
-	rm -rf $(WIRESHARK_DIR)
-
 # vim: syntax=make

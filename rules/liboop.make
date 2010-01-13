@@ -78,13 +78,4 @@ $(STATEDIR)/liboop.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-liboop_clean:
-	rm -rf $(STATEDIR)/liboop.*
-	rm -rf $(PKGDIR)/liboop_*
-	rm -rf $(LIBOOP_DIR)
-
 # vim: syntax=make

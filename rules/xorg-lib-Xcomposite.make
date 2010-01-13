@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4565 2006-02-10 14:23:10Z mkl $
 #
 # Copyright (C) 2006 by Erwin Rol
 #
@@ -37,8 +36,8 @@ $(XORG_LIB_XCOMPOSITE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_LIB_XCOMPOSITE_PATH	:=  PATH=$(CROSS_PATH)
-XORG_LIB_XCOMPOSITE_ENV 	:=  $(CROSS_ENV)
+XORG_LIB_XCOMPOSITE_PATH	:= PATH=$(CROSS_PATH)
+XORG_LIB_XCOMPOSITE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -75,14 +74,5 @@ $(STATEDIR)/xorg-lib-xcomposite.targetinstall:
 	@$(call install_finish, xorg-lib-xcomposite)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-xorg-lib-xcomposite_clean:
-	rm -rf $(STATEDIR)/xorg-lib-xcomposite.*
-	rm -rf $(PKGDIR)/xorg-lib-xcomposite_*
-	rm -rf $(XORG_LIB_XCOMPOSITE_DIR)
 
 # vim: syntax=make

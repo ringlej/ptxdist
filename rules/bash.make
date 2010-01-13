@@ -194,13 +194,4 @@ $(STATEDIR)/bash.targetinstall:
 
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-bash_clean:
-	rm -rf $(STATEDIR)/bash.*
-	rm -rf $(PKGDIR)/bash_*
-	rm -fr $(BASH_DIR)
-
 # vim: syntax=make
