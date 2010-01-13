@@ -18,12 +18,12 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 #
 # Paths and names
 #
-SQLITE_VERSION	= 3.6.17
-SQLITE		= sqlite-$(SQLITE_VERSION)
-SQLITE_SUFFIX	= tar.gz
-SQLITE_URL	= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
-SQLITE_SOURCE	= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
-SQLITE_DIR	= $(BUILDDIR)/$(SQLITE)
+SQLITE_VERSION	:= 3.6.17
+SQLITE		:= sqlite-$(SQLITE_VERSION)
+SQLITE_SUFFIX	:= tar.gz
+SQLITE_URL	:= http://www.sqlite.org/$(SQLITE).$(SQLITE_SUFFIX)
+SQLITE_SOURCE	:= $(SRCDIR)/$(SQLITE).$(SQLITE_SUFFIX)
+SQLITE_DIR	:= $(BUILDDIR)/$(SQLITE)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -146,14 +146,5 @@ endif
 	@$(call install_finish, sqlite)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-sqlite_clean:
-	rm -rf $(STATEDIR)/sqlite.*
-	rm -rf $(PKGDIR)/sqlite_*
-	rm -rf $(SQLITE_DIR)
 
 # vim: syntax=make
