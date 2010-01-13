@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 4937 2006-03-01 17:38:11Z rsc $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #          
@@ -17,12 +16,12 @@ PACKAGES-$(PTXCONF_DAEMONIZE) += daemonize
 #
 # Paths and names
 #
-DAEMONIZE_VERSION	= 1.4
-DAEMONIZE		= daemonize-$(DAEMONIZE_VERSION)
-DAEMONIZE_SUFFIX	= tar.gz
-DAEMONIZE_URL		= http://www.pengutronix.de/software/ptxdist/temporary-src/$(DAEMONIZE).$(DAEMONIZE_SUFFIX)
-DAEMONIZE_SOURCE	= $(SRCDIR)/$(DAEMONIZE).$(DAEMONIZE_SUFFIX)
-DAEMONIZE_DIR		= $(BUILDDIR)/$(DAEMONIZE)
+DAEMONIZE_VERSION	:= 1.4
+DAEMONIZE		:= daemonize-$(DAEMONIZE_VERSION)
+DAEMONIZE_SUFFIX	:= tar.gz
+DAEMONIZE_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(DAEMONIZE).$(DAEMONIZE_SUFFIX)
+DAEMONIZE_SOURCE	:= $(SRCDIR)/$(DAEMONIZE).$(DAEMONIZE_SUFFIX)
+DAEMONIZE_DIR		:= $(BUILDDIR)/$(DAEMONIZE)
 
 
 # ----------------------------------------------------------------------------
@@ -37,8 +36,8 @@ $(DAEMONIZE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-DAEMONIZE_PATH	:=  PATH=$(CROSS_PATH)
-DAEMONIZE_ENV 	:=  $(CROSS_ENV)
+DAEMONIZE_PATH	:= PATH=$(CROSS_PATH)
+DAEMONIZE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -67,14 +66,5 @@ $(STATEDIR)/daemonize.targetinstall:
 	@$(call install_finish,daemonize)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-daemonize_clean:
-	rm -rf $(STATEDIR)/daemonize.*
-	rm -rf $(PKGDIR)/daemonize_*
-	rm -rf $(DAEMONIZE_DIR)
 
 # vim: syntax=make
