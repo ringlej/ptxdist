@@ -1,2 +1,3 @@
 0001-builddefs-save-C-and-CPPFLAGS-from-configure-and-use.patch
 0002-buildmacros-add-tag-CC-to-libtool-invocation.patch
+0003-buildmacros-fix-installation-of-static-libs.patch

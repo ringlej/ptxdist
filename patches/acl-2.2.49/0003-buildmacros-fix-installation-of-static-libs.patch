@@ -1,0 +1,26 @@
+From 7822e78df7402f7dc8e352f03fa9d36511918809 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 13 Jan 2010 15:33:11 +0100
+Subject: [PATCH 3/3] buildmacros: fix installation of static libs
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ include/buildmacros |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/include/buildmacros b/include/buildmacros
+index 71ce471..d9b0734 100644
+--- a/include/buildmacros
++++ b/include/buildmacros
+@@ -99,7 +99,7 @@ endif
+ INSTALL_LTLIB_STATIC = \
+ 	cd $(TOPDIR)/$(LIBNAME)/.libs; \
+ 	../$(INSTALL) -m 755 -d $(PKG_DEVLIB_DIR); \
+-	../$(INSTALL) -m 644 -T old_lib $(LIBNAME).lai $(PKG_DEVLIB_DIR)
++	../$(INSTALL) -m 644 -T old_lib $(LIBNAME).la $(PKG_DEVLIB_DIR)
+ 
+ INSTALL_MAN = \
+ 	@for d in $(MAN_PAGES); do \
+-- 
+1.6.6
+
