@@ -3,7 +3,7 @@
 # this one is important
 SET(CMAKE_SYSTEM_NAME			@SYSTEM_NAME@)
 
-#this one not so much
+# this one not so much
 SET(CMAKE_SYSTEM_VERSION		@SYSTEM_VERSION@)
 
 # specify the cross compiler

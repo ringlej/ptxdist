@@ -45,6 +45,7 @@ HOST_CMAKE_BUILD_OOT := YES
 #
 HOST_CMAKE_AUTOCONF := $(HOST_AUTOCONF)
 
-$(STATEDIR)/host-cmake.install.post: $(PTXDIST_CMAKE_TOOLCHAIN)
+$(STATEDIR)/host-cmake.install.post: \
+	$(PTXDIST_CMAKE_TOOLCHAIN_TARGET)
 
 # vim: syntax=make

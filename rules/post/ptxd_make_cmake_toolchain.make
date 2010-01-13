@@ -8,7 +8,8 @@
 # see the README file.
 #
 
-$(PTXDIST_CMAKE_TOOLCHAIN):
-	@$(CROSS_ENV) ptxd_make_cmake_toolchain "${@}"
+$(PTXDIST_CMAKE_TOOLCHAIN_TARGET):
+	@$(CROSS_ENV) \
+		ptxd_make_cmake_toolchain_target "${@}"
 
 # vim: syntax=make
