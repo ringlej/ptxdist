@@ -17,12 +17,12 @@ PACKAGES-$(PTXCONF_CPPUNIT) += cppunit
 #
 # Paths and names
 #
-CPPUNIT_VERSION	= 1.12.1
-CPPUNIT		= cppunit-$(CPPUNIT_VERSION)
-CPPUNIT_SUFFIX	= tar.gz
-CPPUNIT_URL	= $(PTXCONF_SETUP_SFMIRROR)/cppunit/$(CPPUNIT).$(CPPUNIT_SUFFIX)
-CPPUNIT_SOURCE	= $(SRCDIR)/$(CPPUNIT).$(CPPUNIT_SUFFIX)
-CPPUNIT_DIR	= $(BUILDDIR)/$(CPPUNIT)
+CPPUNIT_VERSION	:= 1.12.1
+CPPUNIT		:= cppunit-$(CPPUNIT_VERSION)
+CPPUNIT_SUFFIX	:= tar.gz
+CPPUNIT_URL	:= $(PTXCONF_SETUP_SFMIRROR)/cppunit/$(CPPUNIT).$(CPPUNIT_SUFFIX)
+CPPUNIT_SOURCE	:= $(SRCDIR)/$(CPPUNIT).$(CPPUNIT_SUFFIX)
+CPPUNIT_DIR	:= $(BUILDDIR)/$(CPPUNIT)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -69,14 +69,5 @@ $(STATEDIR)/cppunit.targetinstall:
 	@$(call install_finish, cppunit)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-cppunit_clean:
-	rm -rf $(STATEDIR)/cppunit.*
-	rm -rf $(PKGDIR)/cppunit_*
-	rm -rf $(CPPUNIT_DIR)
 
 # vim: syntax=make
