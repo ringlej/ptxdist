@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2007 by Luotao Fu <l.fu@pengutronix.de>
 #
@@ -84,12 +83,8 @@ TIMEZONE-$(PTXCONF_TIMEZONE_UNIVERSAL) += "Universal"
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/timezone.get:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
-
 $(TIMEZONE_SOURCE):
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call get, TIMEZONE)
 
 # ----------------------------------------------------------------------------
@@ -97,48 +92,48 @@ $(TIMEZONE_SOURCE):
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/timezone.extract:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call clean, $(TIMEZONE_DIR))
 	@mkdir -p $(TIMEZONE_DIR)
-	@$(call touch, $@)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/timezone.prepare:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/timezone.compile:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/timezone.install:
-	@$(call targetinfo, $@)
-	@$(call touch, $@)
+	@$(call targetinfo)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/timezone.targetinstall:
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 
 	@$(call install_init, timezone)
 	@$(call install_fixup, timezone,PACKAGE,timezone)
 	@$(call install_fixup, timezone,PRIORITY,optional)
 	@$(call install_fixup, timezone,VERSION,$(TIMEZONE_VERSION))
 	@$(call install_fixup, timezone,SECTION,base)
-	@$(call install_fixup, timezone,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, timezone,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, timezone,DEPENDS,)
 	@$(call install_fixup, timezone,DESCRIPTION,missing)
 
@@ -161,15 +156,6 @@ endif
 
 	@$(call install_finish, timezone)
 
-	@$(call touch, $@)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-timezone_clean:
-	rm -rf $(STATEDIR)/timezone.*
-	rm -rf $(PKGDIR)/timezone_*
-	rm -rf $(TIMEZONE_DIR)
+	@$(call touch)
 
 # vim: syntax=make
