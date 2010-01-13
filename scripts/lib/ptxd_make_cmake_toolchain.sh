@@ -11,6 +11,9 @@
 PTXDIST_CMAKE_TOOLCHAIN_TARGET="${PTXDIST_GEN_CONFIG_DIR}/toolchain-target.cmake"
 export PTXDIST_CMAKE_TOOLCHAIN_TARGET
 
+PTXDIST_CMAKE_TOOLCHAIN_HOST="${PTXDIST_GEN_CONFIG_DIR}/toolchain-host.cmake"
+export PTXDIST_CMAKE_TOOLCHAIN_HOST
+
 #
 # generate cmake toolchain file from template
 #
@@ -30,3 +33,20 @@ ptxd_make_cmake_toolchain_target() {
 	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/cmake/toolchain-target.cmake.in" > "${1}"
 }
 export -f ptxd_make_cmake_toolchain_target
+
+
+#
+# generate cmake toolchain file from template
+#
+ptxd_make_cmake_toolchain_host() {
+    CC="$(which "${CC}")" \
+	CXX="$(which "${CXX}")" \
+	\
+	PREFIX_PATH="${PTXDIST_SYSROOT_HOST}" \
+	\
+	INCLUDE_DIRECTORIES="${PTXDIST_SYSROOT_HOST}/include" \
+	LINK_DIRECTORIES="${PTXDIST_SYSROOT_HOST}/lib" \
+	\
+	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/cmake/toolchain-host.cmake.in" > "${1}"
+}
+export -f ptxd_make_cmake_toolchain_host

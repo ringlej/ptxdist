@@ -12,4 +12,9 @@ $(PTXDIST_CMAKE_TOOLCHAIN_TARGET):
 	@$(CROSS_ENV) \
 		ptxd_make_cmake_toolchain_target "${@}"
 
+$(PTXDIST_CMAKE_TOOLCHAIN_HOST):
+	@$(HOST_ENV) \
+		PTXDIST_SYSROOT_HOST="${PTXDIST_SYSROOT_HOST}" \
+		ptxd_make_cmake_toolchain_host "${@}"
+
 # vim: syntax=make

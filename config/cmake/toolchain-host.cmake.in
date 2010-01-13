@@ -1,0 +1,8 @@
+# specify the compiler
+SET(CMAKE_C_COMPILER			@CC@)
+SET(CMAKE_CXX_COMPILER			@CXX@)
+
+# additional search directories
+SET(CMAKE_PREFIX_PATH			@PREFIX_PATH@)
+include_directories(			@INCLUDE_DIRECTORIES@)
+link_directories(			@LINK_DIRECTORIES@)

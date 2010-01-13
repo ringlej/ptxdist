@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006 by Erwin Rol
-#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -46,6 +46,7 @@ HOST_CMAKE_BUILD_OOT := YES
 HOST_CMAKE_AUTOCONF := $(HOST_AUTOCONF)
 
 $(STATEDIR)/host-cmake.install.post: \
-	$(PTXDIST_CMAKE_TOOLCHAIN_TARGET)
+	$(PTXDIST_CMAKE_TOOLCHAIN_TARGET) \
+	$(PTXDIST_CMAKE_TOOLCHAIN_HOST)
 
 # vim: syntax=make
