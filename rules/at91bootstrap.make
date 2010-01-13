@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6655 2007-01-02 12:55:21Z rsc $
 #
 # Copyright (C) 2008 by Remy Bohmer <linux@bohmer.net>
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
@@ -33,14 +32,6 @@ AT91BOOTSTRAP_DIR	:= $(BUILDDIR)/$(AT91BOOTSTRAP)
 $(AT91BOOTSTRAP_SOURCE):
 	@$(call targetinfo)
 	@$(call get, AT91BOOTSTRAP)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/at91bootstrap.prepare:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -85,8 +76,7 @@ $(STATEDIR)/at91bootstrap.targetinstall:
 # ----------------------------------------------------------------------------
 
 at91bootstrap_clean:
-	@rm -rf $(STATEDIR)/at91bootstrap.*
+	@$(call clean_pkg)
 	@rm -rf $(IMAGEDIR)/at91bootstrap_*
-	@rm -rf $(AT91BOOTSTRAP_DIR)
 
 # vim: syntax=make
