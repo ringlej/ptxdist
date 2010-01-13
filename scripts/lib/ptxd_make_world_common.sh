@@ -202,8 +202,9 @@ ptxd_make_world_init() {
     esac
 
     #
-    # stage
+    # label + stage
     #
+    pkg_label="${pkg_stamp%%.*}"
     pkg_stage="${pkg_stamp#*.}"
     pkg_stage="${pkg_stage%%.*}"
     ptxd_make_world_init_compat || return
