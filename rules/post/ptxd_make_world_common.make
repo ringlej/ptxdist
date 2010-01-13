@@ -25,6 +25,7 @@ world/env/impl = \
 	pkg_license="$(call ptx/escape,$($(1)_LICENSE))"			\
 	pkg_deps="$(call ptx/escape,$(PTX_MAP_dep_$(1)))"			\
 										\
+	pkg_pkg="$(call ptx/escape,$($(1)))"					\
 	pkg_path="$(call ptx/escape,$($(1)_PATH))"				\
 	pkg_src="$(call ptx/escape,$($(1)_SOURCE))"				\
 	pkg_url="$(call ptx/escape,$($(1)_URL))"				\
