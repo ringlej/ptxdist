@@ -12,6 +12,8 @@ menuconfig ATTR
 	  setfattr(1). An attr(1) command is also provided which is
 	  largely compatible with the SGI IRIX tool of the same name.
 
+if ATTR
+
 config ATTR_TOOLS
 	bool
 	prompt "install tools"
@@ -27,3 +29,4 @@ config ATTR_GETTEXT
 	depends on ATTR
 	prompt "gettext support"
 
+endif
