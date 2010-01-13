@@ -1,0 +1,10 @@
+## SECTION=hosttools_noprompt
+
+config HOST_CDRKIT
+	tristate
+	select HOST_CMAKE
+	select HOST_LIBCAP
+	select HOST_LIBBZ2
+	prompt "cdrkit"
+	help
+	  FIXME
