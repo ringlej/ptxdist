@@ -8,9 +8,6 @@
 # see the README file.
 #
 
-$(PTXDIST_CMAKE_TOOLCHAIN):
-	@$(CROSS_ENV) ptxd_make_cmake_toolchain "${@}"
-
 world/env/impl = \
 	MAKE="$(call ptx/escape,$(MAKE))"					\
 	PTXDIST_SYSROOT_TARGET="$(call ptx/escape,$(PTXDIST_SYSROOT_TARGET))"	\
