@@ -6,12 +6,14 @@ Subject: [PATCH] buildmacros: use correct libtool commands
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 [mkl: remove broken DESTDIR support]
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+[mol: install .la not .lai for static libs]
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- include/buildmacros |    4 ++--
- 1 files changed, 2 insertions(+), 2 deletions(-)
+ include/buildmacros |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/include/buildmacros b/include/buildmacros
-index ab89182..71ce471 100644
+Index: b/include/buildmacros
+===================================================================
 --- a/include/buildmacros
 +++ b/include/buildmacros
 @@ -55,10 +55,10 @@ LIBNAME = $(basename $(LTLIBRARY))
@@ -27,6 +29,12 @@ index ab89182..71ce471 100644
  
  ifeq ($(ENABLE_SHARED),yes)
  LTLDFLAGS += -rpath $(PKG_LIB_DIR)
--- 
-1.6.5.7
-
+@@ -99,7 +99,7 @@ endif
+ INSTALL_LTLIB_STATIC = \
+ 	cd $(TOPDIR)/$(LIBNAME)/.libs; \
+ 	../$(INSTALL) -m 755 -d $(PKG_DEVLIB_DIR); \
+-	../$(INSTALL) -m 644 -T old_lib $(LIBNAME).lai $(PKG_DEVLIB_DIR)
++	../$(INSTALL) -m 644 -T old_lib $(LIBNAME).la $(PKG_DEVLIB_DIR)
+ 
+ INSTALL_MAN = \
+ 	@for d in $(MAN_PAGES); do \
