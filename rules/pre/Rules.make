@@ -307,6 +307,8 @@ HOST_ENV	:= \
 
 HOST_AUTOCONF  := --prefix=$(PTXDIST_SYSROOT_HOST)
 
+HOST_CMAKE_OPT := -DCMAKE_INSTALL_PREFIX=$(PTXDIST_SYSROOT_HOST) -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+
 # ----------------------------------------------------------------------------
 # HOST_CROSS stuff
 # ----------------------------------------------------------------------------
