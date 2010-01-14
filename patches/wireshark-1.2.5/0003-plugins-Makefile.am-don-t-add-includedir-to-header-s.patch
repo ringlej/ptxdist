@@ -1,0 +1,182 @@
+From e54ab6090f2ebf9353f3b873b73589c4a40b5fc0 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 14 Jan 2010 19:30:30 +0100
+Subject: [PATCH 3/3] plugins/*/Makefile.am: don't add $includedir to header search path
+
+As $includedir is usually /usr/include, host includes leak in.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ plugins/asn1/Makefile.am       |    2 +-
+ plugins/docsis/Makefile.am     |    2 +-
+ plugins/ethercat/Makefile.am   |    2 +-
+ plugins/gryphon/Makefile.am    |    2 +-
+ plugins/irda/Makefile.am       |    2 +-
+ plugins/m2m/Makefile.am        |    2 +-
+ plugins/opcua/Makefile.am      |    2 +-
+ plugins/profinet/Makefile.am   |    2 +-
+ plugins/sercosiii/Makefile.am  |    2 +-
+ plugins/unistim/Makefile.am    |    2 +-
+ plugins/wimax/Makefile.am      |    2 +-
+ plugins/wimaxasncp/Makefile.am |    2 +-
+ 12 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/plugins/asn1/Makefile.am b/plugins/asn1/Makefile.am
+index 8436c4b..835357f 100644
+--- a/plugins/asn1/Makefile.am
++++ b/plugins/asn1/Makefile.am
+@@ -22,7 +22,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/docsis/Makefile.am b/plugins/docsis/Makefile.am
+index 642fc95..4b86138 100644
+--- a/plugins/docsis/Makefile.am
++++ b/plugins/docsis/Makefile.am
+@@ -22,7 +22,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/ethercat/Makefile.am b/plugins/ethercat/Makefile.am
+index d684b28..8f77011 100644
+--- a/plugins/ethercat/Makefile.am
++++ b/plugins/ethercat/Makefile.am
+@@ -22,7 +22,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/gryphon/Makefile.am b/plugins/gryphon/Makefile.am
+index 9d54753..94d103c 100644
+--- a/plugins/gryphon/Makefile.am
++++ b/plugins/gryphon/Makefile.am
+@@ -24,7 +24,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/irda/Makefile.am b/plugins/irda/Makefile.am
+index 78c5a01..462847e 100644
+--- a/plugins/irda/Makefile.am
++++ b/plugins/irda/Makefile.am
+@@ -22,7 +22,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/m2m/Makefile.am b/plugins/m2m/Makefile.am
+index bdbc023..455c450 100644
+--- a/plugins/m2m/Makefile.am
++++ b/plugins/m2m/Makefile.am
+@@ -22,7 +22,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir) -I../wimax
++INCLUDES = -I$(top_srcdir) -I../wimax
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/opcua/Makefile.am b/plugins/opcua/Makefile.am
+index 3e75671..50f474f 100644
+--- a/plugins/opcua/Makefile.am
++++ b/plugins/opcua/Makefile.am
+@@ -23,7 +23,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/profinet/Makefile.am b/plugins/profinet/Makefile.am
+index 65d2105..a396525 100644
+--- a/plugins/profinet/Makefile.am
++++ b/plugins/profinet/Makefile.am
+@@ -22,7 +22,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/sercosiii/Makefile.am b/plugins/sercosiii/Makefile.am
+index f7e682b..a651b01 100644
+--- a/plugins/sercosiii/Makefile.am
++++ b/plugins/sercosiii/Makefile.am
+@@ -22,7 +22,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/unistim/Makefile.am b/plugins/unistim/Makefile.am
+index 2d16716..1d0b0df 100644
+--- a/plugins/unistim/Makefile.am
++++ b/plugins/unistim/Makefile.am
+@@ -23,7 +23,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/wimax/Makefile.am b/plugins/wimax/Makefile.am
+index 764f84c..6783b63 100644
+--- a/plugins/wimax/Makefile.am
++++ b/plugins/wimax/Makefile.am
+@@ -22,7 +22,7 @@
+ # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ #
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+diff --git a/plugins/wimaxasncp/Makefile.am b/plugins/wimaxasncp/Makefile.am
+index f17c871..f51482c 100644
+--- a/plugins/wimaxasncp/Makefile.am
++++ b/plugins/wimaxasncp/Makefile.am
+@@ -25,7 +25,7 @@
+ # lex rules
+ include $(top_srcdir)/Makefile.am.inc
+ 
+-INCLUDES = -I$(top_srcdir) -I$(includedir)
++INCLUDES = -I$(top_srcdir)
+ 
+ include Makefile.common
+ 
+-- 
+1.6.6
+

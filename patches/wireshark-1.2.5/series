@@ -1,2 +1,3 @@
-remove-prefix-from-include-path.diff
-hack-crosscompiling.diff
+0001-remove-prefix-from-search-paths.patch
+0002-remove-AC_TRY_RUN-tests.patch
+0003-plugins-Makefile.am-don-t-add-includedir-to-header-s.patch

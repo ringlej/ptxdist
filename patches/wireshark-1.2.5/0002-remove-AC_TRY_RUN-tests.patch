@@ -1,5 +1,7 @@
-Subject: remove AC_TRY_RUN tests
+From 7d7309967576628677a9b9d75f14e8309bfd6aa1 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 14 Jan 2010 19:33:20 +0100
+Subject: [PATCH 2/3] remove AC_TRY_RUN tests
 
 AC_TRY_RUN does not work when cross-compiling.
 The other test result seems to break the build, so I guess
@@ -8,13 +10,13 @@ this is save for us.
 Not for upstream.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- configure.in |   78 -----------------------------------------------------------
- 1 file changed, 78 deletions(-)
+ configure.in |   78 ----------------------------------------------------------
+ 1 files changed, 0 insertions(+), 78 deletions(-)
 
-Index: b/configure.in
-===================================================================
+diff --git a/configure.in b/configure.in
+index 72ebdda..ccd8ad1 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -1404,92 +1404,14 @@ AC_SUBST(STRNCASECMP_O)
@@ -110,3 +112,6 @@ Index: b/configure.in
  AC_SUBST(INET_NTOP_C)
  AC_SUBST(INET_NTOP_O)
  AC_SUBST(INET_NTOP_LO)
+-- 
+1.6.6
+
