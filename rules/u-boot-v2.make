@@ -89,10 +89,8 @@ $(STATEDIR)/u-boot-v2.targetinstall:
 # ----------------------------------------------------------------------------
 
 u-boot-v2_clean:
-	rm -rf $(STATEDIR)/u-boot-v2.*
-	rm -rf $(PKGDIR)/u-boot-v2_*
+	@$(call clean_pkg)
 	rm -rf $(IMAGEDIR)/u-boot-v2-image
-	rm -rf $(U_BOOT_V2_DIR)
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig
