@@ -5,8 +5,8 @@ ptxd_colgen_generate_sections()
     ptxd_make_log "print-PACKAGES-m" | gawk '
 	BEGIN {
 		FS = "=\"|\"|=";
-		col_in     = "'"${PTX_KGEN_DIR}"'" "/ptx_collection.in";
-		col_all_in = "'"${PTX_KGEN_DIR}"'" "/ptx_collection_all.in";
+		col_in     = "'"${PTX_KGEN_DIR}"'" "/collection/ptx_collection.in";
+		col_all_in = "'"${PTX_KGEN_DIR}"'" "/collection/ptx_collection_all.in";
 	}
 
 	$1 ~ /^PTX_MAP_TO_package/ {
@@ -80,5 +80,6 @@ ptxd_colgen_generate_sections()
 
 ptxd_colgen()
 {
+    mkdir -p "${PTX_KGEN_DIR}/collection" &&
     ptxd_colgen_generate_sections
 }
