@@ -39,6 +39,7 @@ $(FBUTILS_SOURCE):
 
 FBUTILS_PATH		:= PATH=$(CROSS_PATH)
 FBUTILS_MAKE_ENV	:= $(CROSS_ENV)
+FBUTILS_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
