@@ -42,7 +42,7 @@ MMPONG_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-MMPONG_CMAKE	:= $(CROSS_CMAKE_USR)
+MMPONG_CONF_OPT	:= $(CROSS_CMAKE_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
