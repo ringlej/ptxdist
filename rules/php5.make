@@ -287,14 +287,11 @@ ifdef PTXCONF_PHP5_SAPI_APXS2
 endif
 	cd $(PHP5_DIR) && \
 		$(PHP5_PATH) \
-		make install \
-		INSTALL_ROOT=$(SYSROOT)
-	cd $(PHP5_DIR) && \
-		$(PHP5_PATH) \
+		$(PHP5_ENV) \
 		make install \
 		INSTALL_ROOT=$(PHP5_PKGDIR)
-	install -m 755 -D $(PHP5_DIR)/scripts/php-config $(SYSROOT)/bin/php-config
-	install -m 755 -D $(PHP5_DIR)/scripts/phpize $(SYSROOT)/bin/phpize
+	install -m 755 -D "$(PHP5_DIR)/scripts/php-config" "$(PHP5_PKGDIR)/bin/php-config"
+	install -m 755 -D "$(PHP5_DIR)/scripts/phpize" "$(PHP5_PKGDIR)/bin/phpize"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -314,15 +311,17 @@ $(STATEDIR)/php5.targetinstall:
 	@$(call install_fixup,php5,DESCRIPTION,missing)
 
 ifdef PTXCONF_PHP5_SAPI_APXS2
-	@$(call install_copy, php5, 0, 0, 0644, $(PHP5_DIR)/libs/libphp5.so, /usr/lib/apache2/libphp5.so)
+	@$(call install_copy, php5, 0, 0, 0644, -, \
+		/usr/modules/libphp5.so)
 endif
 
 ifdef PTXCONF_PHP5_SAPI_CLI
-	@$(call install_copy, php5, 0, 0, 0755, $(PHP5_DIR)/sapi/cli/php, /usr/bin/php5)
+	@$(call install_copy, php5, 0, 0, 0755, $(PHP5_PKGDIR)/usr/bin/php, \
+		/usr/bin/php5)
 endif
 
 ifdef PTXCONF_PHP5_SAPI_CGI
-	@$(call install_copy, php5, 0, 0, 0755, $(PHP5_DIR)/sapi/cgi/php-cgi, /usr/bin/php5-cgi)
+	@$(call install_copy, php5, 0, 0, 0755, -, /usr/bin/php5-cgi)
 endif
 
 ifdef PTXCONF_PHP5_INI
