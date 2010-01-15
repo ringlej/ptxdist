@@ -41,6 +41,7 @@ ptxd_make_xpkg_init() {
 
     # packaging stuff
     pkg_xpkg_perms="${ptx_state_dir}/${pkg_xpkg}.perms"
+    pkg_xpkg_cmds="${ptx_state_dir}/${pkg_xpkg}.cmds"
     pkg_xpkg_tmp="${ptx_pkg_dir}/${pkg_xpkg}.tmp"
 
     "ptxd_make_${pkg_xpkg_type}_init"

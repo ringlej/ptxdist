@@ -10,6 +10,7 @@
 
 world/env/impl = \
 	MAKE="$(call ptx/escape,$(MAKE))"					\
+	CROSS_STRIP="$(call ptx/escape,$(CROSS_STRIP))"				\
 	PTXDIST_SYSROOT_TARGET="$(call ptx/escape,$(PTXDIST_SYSROOT_TARGET))"	\
 	PTXDIST_SYSROOT_HOST="$(call ptx/escape,$(PTXDIST_SYSROOT_HOST))"	\
 	PTXDIST_SYSROOT_CROSS="$(call ptx/escape,$(PTXDIST_SYSROOT_CROSS))"	\

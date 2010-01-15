@@ -9,6 +9,17 @@
 # see the README file.
 #
 
+install_check =										\
+	CMD="$(strip $(1))";								\
+	if [ ! -f "$(STATEDIR)/$$PACKET.cmds" ]; then					\
+		echo;									\
+		echo "Error: install_init was not called for package '$$PACKET'!";	\
+		echo "This is probably caused by a typo in the package name of:";	\
+		echo "\$$(call $$CMD, $$PACKET, ...)";					\
+		echo;									\
+		exit 1;									\
+	fi
+
 #
 # install_copy
 #
@@ -40,91 +51,11 @@ install_copy = 											\
 	SRC="$(strip $(5))";									\
 	DST="$(strip $(6))";									\
 	STRIP="$(strip $(7))";									\
-	PKG_PKGDIR="$(PKGDIR)/$($(PTX_MAP_TO_PACKAGE_$(notdir $(basename $(basename $@)))))";	\
-												\
-	if [ "$$SRC" = "-" ]; then								\
-		SRC=$${PKG_PKGDIR}/$$DST;							\
-	fi; 											\
-												\
-	PER_NFS=$$(printf "0%o" $$(( 0$${PER} & ~06000 )) );					\
-	PER_NFS_WRITABLE=$$(printf "0%o" $$(( 0$${PER} & ~06000 | 00200 )) );			\
-												\
+	$(call install_check, install_copy);							\
 	if [ -z "$(6)" ]; then									\
-		echo "install_copy:";								\
-		echo "  dir=$$SRC";								\
-		echo "  owner=$$OWN";								\
-		echo "  group=$$GRP";								\
-		echo "  permissions=$$PER";							\
-		$(INSTALL) -d "$(PKGDIR)/$$PACKET.tmp/ipkg/$$SRC";				\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		$(INSTALL) -m $$PER_NFS -d "$(ROOTDIR)/$$SRC";					\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		$(INSTALL) -m $$PER_NFS -d "$(ROOTDIR_DEBUG)/$$SRC";				\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		mkdir -p "$(PKGDIR)/$$PACKET.tmp";						\
-		echo "f:$$SRC:$$OWN:$$GRP:$$PER" >> "$(STATEDIR)/$$PACKET.perms";		\
+		echo "ptxd_install_copy d '$$SRC' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds";\
 	else											\
-		if [ -e "$${SRC}$(PTXDIST_PLATFORMSUFFIX)" ]; then				\
-			SRC="$${SRC}$(PTXDIST_PLATFORMSUFFIX)";					\
-		fi;										\
-		echo "install_copy:";								\
-		echo "  src=$$SRC";								\
-		echo "  dst=$$DST";								\
-		echo "  owner=$$OWN";								\
-		echo "  group=$$GRP";								\
-		echo "  permissions=$$PER"; 							\
-		rm -fr "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST"; 					\
-		$(INSTALL) -D "$$SRC" "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST";			\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		$(INSTALL) -m $$PER_NFS_WRITABLE -D "$$SRC" "$(ROOTDIR)$$DST";			\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		$(INSTALL) -m $$PER_NFS_WRITABLE -D "$$SRC" "$(ROOTDIR_DEBUG)$$DST";		\
-		if [ $$? -ne 0 ]; then								\
-			echo "Error: install_copy failed!";					\
-			exit 1;									\
-		fi;										\
-		case "$$STRIP" in								\
-		(0 | n | no)									\
-			;;									\
-		(*)											\
-			file "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST" | egrep -q ":.*(executable|shared object).*stripped";	\
-				case "$$?" in								\
-				(0)									\
-				$(CROSS_STRIP) -R .note -R .comment "$(PKGDIR)/$$PACKET.tmp/ipkg/$$DST";\
-				if [ $$? -ne 0 ]; then							\
-					echo "Error: install_copy failed!";				\
-					exit 1;								\
-				fi;									\
-				$(CROSS_STRIP) -R .note -R .comment "$(ROOTDIR)$$DST";			\
-				if [ $$? -ne 0 ]; then							\
-					echo "Error: install_copy failed!";				\
-					exit 1;								\
-				fi;									\
-				;;									\
-				(1)									\
-				;;									\
-				esac;									\
-			;;										\
-		esac;											\
-		chmod $$PER_NFS "$(ROOTDIR)$$DST";							\
-		chmod $$PER_NFS "$(ROOTDIR_DEBUG)$$DST";						\
-		mkdir -p "$(PKGDIR)/$$PACKET.tmp";							\
-		echo "f:$$DST:$$OWN:$$GRP:$$PER" >> "$(STATEDIR)/$$PACKET.perms";			\
+		echo "ptxd_install_copy f '$$SRC' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$PACKET.cmds";\
 	fi
 
 #
@@ -148,36 +79,8 @@ install_alternative =									\
 	GRP=$(strip $(3));								\
 	PER=$(strip $(4));								\
 	FILE=$(strip $(5));								\
-	if [ -f $(PTXDIST_WORKSPACE)/projectroot$$FILE$(PTXDIST_PLATFORMSUFFIX) ]; then	\
-		SRC=$(PTXDIST_WORKSPACE)/projectroot$$FILE$(PTXDIST_PLATFORMSUFFIX);	\
-	elif [ -f $(PTXDIST_WORKSPACE)/projectroot$$FILE ]; then			\
-		SRC=$(PTXDIST_WORKSPACE)/projectroot$$FILE;				\
-	else										\
-		SRC=$(PTXDIST_TOPDIR)/generic$$FILE;					\
-	fi;										\
-	echo "install_alternative:";							\
-	echo "  installing $$FILE from $$SRC";						\
-	echo "  owner=$$OWN";								\
-	echo "  group=$$GRP";								\
-	echo "  permissions=$$PER"; 							\
-	rm -fr $(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE; 					\
-	$(INSTALL) -D $$SRC $(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE;				\
-	if [ $$? -ne 0 ]; then								\
-		echo "Error: install_alternative failed!";				\
-		exit 1;									\
-	fi;										\
-	$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR)$$FILE;					\
-	if [ $$? -ne 0 ]; then								\
-		echo "Error: install_alternative failed!";				\
-		exit 1;									\
-	fi;										\
-	$(INSTALL) -m $$PER -D $$SRC $(ROOTDIR_DEBUG)$$FILE;				\
-	if [ $$? -ne 0 ]; then								\
-		echo "Error: install_alternative failed!";				\
-		exit 1;									\
-	fi;										\
-	mkdir -p $(PKGDIR)/$$PACKET.tmp;						\
-	echo "f:$$FILE:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms
+	$(call install_check, install_alternative);					\
+	echo "ptxd_install_alternative '$$FILE' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds"
 
 #
 # install_replace
@@ -195,27 +98,8 @@ install_replace = \
 	FILE=$(strip $(2));									\
 	PLACEHOLDER=$(strip $(3));								\
 	VALUE=$(strip $(4));									\
-	if [ ! -f "$(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE" ]; then 					\
-		echo;										\
-		echo "install_replace: error: file not found: $(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE";\
-		echo;										\
-		exit 1;										\
-	fi;											\
-	if [ ! -f "$(ROOTDIR)/$$FILE" ]; then 							\
-		echo										\
-		echo "install_replace: error: file not found: $(ROOTDIR)/$$FILE";		\
-		echo;										\
-		exit 1;										\
-	fi;											\
-	if [ ! -f "$(ROOTDIR_DEBUG)/$$FILE" ]; then 						\
-		echo										\
-		echo "install_replace: error: file not found: $(ROOTDIR_DEBUG)/$$FILE";		\
-		echo;										\
-		exit 1;										\
-	fi;											\
-	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE;		\
-	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR)/$$FILE;				\
-	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR_DEBUG)/$$FILE
+	$(call install_check, install_replace);							\
+	echo "ptxd_install_replace '$$FILE' '$$PLACEHOLDER' '$$VALUE'" >> "$(STATEDIR)/$$PACKET.cmds"
 
 #
 # install_copy_toolchain_lib
@@ -231,6 +115,7 @@ install_copy_toolchain_lib =									\
 	DST="$(strip $3)";									\
 	STRIP="$(strip $4)";									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
+	$(call install_check, install_copy_toolchain_lib);					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP) PKGDIR="$(PKGDIR)"					\
 		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -l "$${LIB}" $${DST} -s "$${STRIP}"
 
@@ -246,6 +131,7 @@ install_copy_toolchain_dl =									\
 	DST="$(strip $2)";									\
 	STRIP="$(strip $3)";									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
+	$(call install_check, install_copy_toolchain_dl);					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP) PKGDIR="$(PKGDIR)"					\
 		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -l LINKER $${DST} -s "$${STRIP}"
 
@@ -263,6 +149,7 @@ install_copy_toolchain_usr =									\
 	DST="$(strip $3)";									\
 	STRIP="$(strip $4)";									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
+	$(call install_check, install_copy_toolchain_other);					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP) PKGDIR="$(PKGDIR)"					\
 		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -u "$${LIB}" $${DST} -s "$${STRIP}"
 
@@ -279,22 +166,8 @@ install_link =									\
 	PACKET=$(strip $(1));							\
 	SRC=$(strip $(2));							\
 	DST=$(strip $(3));							\
-	rm -fr $(ROOTDIR)$$DST;							\
-	rm -fr $(ROOTDIR_DEBUG)$$DST;						\
-	echo "install_link: src=$$SRC dst=$$DST "; 				\
-	case "$${SRC}" in							\
-	(/*)									\
-		echo "Error: absolute link detected, please fix!";		\
-		exit 1;								\
-	(*)									\
-		;;								\
-	esac;									\
-	install -d `dirname $(ROOTDIR)$$DST`;					\
-	install -d `dirname $(ROOTDIR_DEBUG)$$DST`;				\
-	ln -sf $$SRC $(ROOTDIR)$$DST; 						\
-	ln -sf $$SRC $(ROOTDIR_DEBUG)$$DST; 					\
-	install -d `dirname $(PKGDIR)/$$PACKET.tmp/ipkg$$DST`;			\
-	ln -sf $$SRC $(PKGDIR)/$$PACKET.tmp/ipkg/$$DST
+	$(call install_check, install_link);					\
+	echo "ptxd_install_link '$$SRC' '$$DST'" >> "$(STATEDIR)/$$PACKET.cmds"
 
 #
 # install_node
@@ -319,16 +192,8 @@ install_node =				\
 	MAJ=$(strip $(6));		\
 	MIN=$(strip $(7));		\
 	DEV=$(strip $(8));		\
-	echo "install_node:";		\
-	echo "  owner=$$OWN";		\
-	echo "  group=$$GRP";		\
-	echo "  permissions=$$PER";	\
-	echo "  type=$$TYP";		\
-	echo "  major=$$MAJ";		\
-	echo "  minor=$$MIN";		\
-	echo "  name=$$DEV";		\
-	mkdir -p $(PKGDIR)/$$PACKET.tmp;\
-	echo "n:$$DEV:$$OWN:$$GRP:$$PER:$$TYP:$$MAJ:$$MIN" >> $(STATEDIR)/$$PACKET.perms
+	$(call install_check, install_node);	\
+	echo "ptxd_install_node '$$DEV' '$$OWN' '$$GRP' '$$PER' '$$TYP' '$$MAJ' '$$MIN'" >> "$(STATEDIR)/$$PACKET.cmds"
 
 
 #

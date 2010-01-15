@@ -56,7 +56,7 @@ ptxd_make_xpkg_finish() {
     #
     # no perm file -> no files to package -> exit
     #
-    if [ \! -f "${pkg_xpkg_perms}" ]; then
+    if [ \! -s "${pkg_xpkg_cmds}" ]; then
 	ptxd_warning "Packet '${pkg_xpkg}' is empty. not generating"
 	rm -rf -- "${pkg_xpkg_tmp}"
 
@@ -84,7 +84,7 @@ ptxd_make_xpkg_finish() {
 
     ptxd_make_xpkg_deps || return
 
-    echo -n "xpkg_finish:	creating ${pkg_xpkg_type} package ... " &&
+    echo "xpkg_finish:	creating ${pkg_xpkg_type} package ... " &&
     "ptxd_make_${pkg_xpkg_type}_finish" || ret=$?
     rm -rf "${pkg_xpkg_tmp}"
 

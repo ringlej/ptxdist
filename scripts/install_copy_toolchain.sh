@@ -149,15 +149,6 @@ ptxd_install_toolchain_lib() {
 	# if the user has given us a $dest use it
 	prefix="${dest:-${prefix}}"
 
-	# remove existing libs
-	for dir in \
-	    "${ROOTDIR}" \
-	    "${ROOTDIR_DEBUG}"; do
-
-	    tmp="${dir}${prefix}/${lib}"
-	    test -e "${tmp}" && rm -rf "${tmp}"
-	done
-
 	# do sth. with that found lib, action depends on file type (link or regular)
 	if test -h "${lib_path}"; then		# link
 	    echo "link - ${lib_path}"
@@ -182,17 +173,8 @@ ptxd_install_toolchain_lib() {
 
 	    lnk_prefix="$(ptxd_abs2rel "${prefix}" "${lnk_prefix}")"
 	    lnk_prefix="${lnk_prefix}${lnk_prefix:+/}"
-	    # now install that link into the root and ipkg dirs
-	    for dir in \
-		"${ROOTDIR}" \
-		"${ROOTDIR_DEBUG}" \
-		"${PKGDIR}/${packet}.tmp/ipkg"; do
-
-		if test \! -d "${dir}${prefix}"; then
-		    install -d "${dir}${prefix}"
-		fi
-		ln -sf "${lnk_prefix}${lnk}" "${dir}${prefix}/${lib}"
-	    done
+	    # now remember that link for later
+	    echo "ptxd_install_link \"${lnk_prefix}${lnk}\" \"${prefix}/${lib}\"" >> "${STATEDIR}/${packet}.cmds"
 
 	    lib_path="${lnk_path}"
 	    continue
@@ -227,19 +209,7 @@ ptxd_install_toolchain_lib() {
 
 		perm="$(stat -c %a "${lib_path}")"
 
-		for dir in \
-		    "${ROOTDIR}" \
-		    "${ROOTDIR_DEBUG}" \
-		    "${PKGDIR}/${packet}.tmp/ipkg"; do
-
-		  install -m ${perm} -D "${lib_path}" "${dir}${prefix}/${lib}"
-		done
-
-		if "${strip}"; then
-		    ${STRIP} "${ROOTDIR}${prefix}/${lib}"
-		    ${STRIP} "${PKGDIR}/${packet}.tmp/ipkg${prefix}/${lib}"
-		fi
-		echo "f:${prefix}/${lib}:0:0:${perm}" >> "${STATEDIR}/${packet}.perms"
+		echo "ptxd_install_file \"${lib_path}\" \"${prefix}/${lib}\" 0 0 \"${perm}\" \"${strip}\"" >> "${STATEDIR}/${packet}.cmds"
 
 		# now create some links to that lib
 		# e.g. libstdc++.so.6 -> libstdc++.so.6.6.6
@@ -253,15 +223,7 @@ ptxd_install_toolchain_lib() {
 		    "${lib_v_major}" != "${lib}"; then
 		    echo "extra link - ${prefix}/${lib_v_major}"
 
-		    for dir in \
-			"${ROOTDIR}" \
-			"${ROOTDIR_DEBUG}" \
-			"${PKGDIR}/${packet}.tmp/ipkg"; do
-
-		      if test \! -e "${dir}${prefix}/${lib_v_major}"; then
-			  ln -sf "${lib}" "${dir}${prefix}/${lib_v_major}"
-		      fi
-		    done
+		    echo "ptxd_install_link \"${lib}\" \"${prefix}/${lib_v_major}\"" >> "${STATEDIR}/${packet}.cmds"
 		fi
 	    fi
 	else
@@ -344,19 +306,7 @@ ptxd_install_toolchain_usr() {
 
 	echo "usr - ${usr_dst}"
 
-	for dir in \
-	    "${ROOTDIR}" \
-	    "${ROOTDIR_DEBUG}" \
-	    "${PKGDIR}/${packet}.tmp/ipkg"; do
-
-	  install -m "${usr_perm}" -D "${usr_src}" "${dir}${usr_dst}"
-	done
-
-	if "${strip}"; then
-	    ${STRIP} "${ROOTDIR}${usr_dst}"
-	    ${STRIP} "${PKGDIR}/${packet}.tmp/ipkg${usr_dst}"
-	fi
-	echo "f:${usr_dst}:0:0:${usr_perm}" >> "${STATEDIR}/${packet}.perms"
+	echo "ptxd_install_file \"${usr_src}\" \"${usr_dst}\" 0 0 \"${usr_perm}\" \"${strip}\"" >> "${STATEDIR}/${packet}.cmds"
     done
 }
 
