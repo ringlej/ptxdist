@@ -49,7 +49,9 @@ XAWTV_AUTOCONF := \
 
 XAWTV_MAKE_OPT = \
 	CPPFLAGS="$(CROSS_CPPFLAGS)" \
-	LDFLAGS_CUST="$(CROSS_LDFLAGS)"
+	LDFLAGS_CUST="$(CROSS_LDFLAGS)" \
+	SYSROOT=$(SYSROOT) \
+	verbose=yes
 
 # ----------------------------------------------------------------------------
 # Target-Install
