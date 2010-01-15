@@ -4,7 +4,7 @@ ifdef PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY
 $(STATEDIR)/images: $(STATEDIR)/ipkg-push
 endif
 
-$(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install
+$(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post
 	@$(call targetinfo)
 	( \
 	PATH=$(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/usr/bin:$$PATH; \

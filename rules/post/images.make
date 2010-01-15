@@ -115,7 +115,7 @@ $(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
 #
 # create the JFFS2 image
 #
-$(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install
+$(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
 	@echo -n "Creating root.jffs2 from working dir... (--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS))"
 	@cd $(WORKDIR);							\
 	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
@@ -143,7 +143,7 @@ $(IMAGEDIR)/root.sum.jffs2: $(IMAGEDIR)/root.jffs2
 #
 # create the UBIFS image
 #
-$(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install
+$(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
 	@echo -n "Creating root.ubifs from working dir... (-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) "
 	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_MAX_LEB_COUNT)"
 	@echo -n "$(PTXCONF_IMAGE_UBIFS_EXTRA_ARGS)) "
@@ -163,7 +163,7 @@ $(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 #
 # create the UBI image
 #
-$(IMAGEDIR)/root.ubi: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install $(IMAGEDIR)/root.ubifs
+$(IMAGEDIR)/root.ubi: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post $(IMAGEDIR)/root.ubifs
 	@echo -n "Creating root.ubi from root.ubifs... (-s $(PTXCONF_IMAGE_UBI_SUB_PAGE_SIZE) "
 	@echo -n "-O $(PTXCONF_IMAGE_UBI_VID_HEADER_OFFSET) -p $(PTXCONF_IMAGE_UBI_PEB_SIZE) "
 	@echo -n "-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE)"
@@ -189,7 +189,7 @@ IMAGE_SQUASHFS_EXTRA_ARGS := \
 	$(call ptx/ifdef, PTXCONF_HOST_SQUASHFS_TOOLS_V3X, $(call ptx/ifdef, PTXCONF_ENDIAN_BIG, -be, -le), ) \
 	$(PTXCONF_IMAGE_SQUASHFS_EXTRA_ARGS)
 
-$(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squashfs-tools.install
+$(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squashfs-tools.install.post
 	@echo -n "Creating root.squashfs from working dir..."
 	@cd $(WORKDIR);							\
 	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\

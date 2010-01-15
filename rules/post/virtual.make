@@ -9,19 +9,19 @@
 #
 
 ifdef PTXCONF_CROSS_DUMMY_STRIP
-$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/cross-dummy-strip.install
+$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/cross-dummy-strip.install.post
 endif
 
 ifdef PTXCONF_HOST_FAKEROOT
-$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-fakeroot.install
+$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-fakeroot.install.post
 endif
 
 ifdef PTXCONF_HOST_IPKG_UTILS
-$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-ipkg-utils.install
+$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-ipkg-utils.install.post
 endif
 
 ifdef PTXCONF_CROSS_PKG_CONFIG_WRAPPER
-$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/cross-pkg-config-wrapper.install
+$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/cross-pkg-config-wrapper.install.post
 endif
 
 $(STATEDIR)/virtual-cross-tools.install:
@@ -30,7 +30,7 @@ $(STATEDIR)/virtual-cross-tools.install:
 
 
 ifdef PTXCONF_HOST_PKG_CONFIG
-$(STATEDIR)/virtual-host-tools.install: $(STATEDIR)/host-pkg-config.install
+$(STATEDIR)/virtual-host-tools.install: $(STATEDIR)/host-pkg-config.install.post
 endif
 
 $(STATEDIR)/virtual-host-tools.install:
