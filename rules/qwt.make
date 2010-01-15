@@ -38,17 +38,7 @@ $(QWT_SOURCE):
 # ----------------------------------------------------------------------------
 
 QWT_PATH	:= PATH=$(CROSS_PATH)
-
-QWT_ENV = \
-	$(CROSS_ENV) \
-	INSTALL_ROOT=$(QWT_PKGDIR) \
-	QMAKESPEC=$(QT4_DIR)/mkspecs/qws/linux-ptx-g++
-
-$(STATEDIR)/qwt.prepare:
-	@$(call targetinfo)
-	cd $(QWT_DIR) && \
-		$(QWT_PATH) $(QWT_ENV) qmake -recursive
-	@$(call touch)
+QWT_CONF_ENV	:= $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install
