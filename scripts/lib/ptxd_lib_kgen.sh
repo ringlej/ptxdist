@@ -96,7 +96,7 @@ EOF
     case "${kgen_part}" in
 	ptx)	  kgen_part_dir="rules" ;;
 	platform) kgen_part_dir="platforms" ;;
-	board|user) return 0 ;;
+	board|user|collection) return 0 ;;
 	*) cat <<EOF
 
 ${PROMPT}error: '${FUNCNAME}' doesn't support '${part}', yet
