@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_MPLAYER) += mplayer
+PACKAGES-$(PTXCONF_MPLAYER) += mplayer
 
 #
 # Paths and names
@@ -38,31 +38,28 @@ $(MPLAYER_SOURCE):
 # ----------------------------------------------------------------------------
 
 MPLAYER_PATH		:= PATH=$(CROSS_PATH)
-MPLAYER_CFLGAS		:=
-MPLAYER_CONF_ENV	:=
 ifdef PTXCONF_ARCH_X86
-MPLAYER_CFLAGS		+= -O2 -fomit-frame-pointer
-MPLAYER_CONF_ENV	+= CFLAGS='$(MPLAYER_CFLAGS)'
+MPLAYER_MAKE_ENV	+= CFLAGS='-O2 -fomit-frame-pointer'
 endif
-MPLAYER_CONF_ENV	+= CC_FOR_BUILD=$(HOSTCC) 
 #
 # autoconf
 #
 MPLAYER_AUTOCONF := \
+	--prefix=/usr \
 	--disable-runtime-cpudetection \
 	--enable-cross-compile \
-	--cc=$(PTXCONF_GNU_TARGET)-gcc \
-	--as=$(PTXCONF_GNU_TARGET)-as \
-	--ar=$(PTXCONF_GNU_TARGET)-ar \
+	--cc=$(CROSS_CC) \
+	--as=$(CROSS_AS) \
+	--ar=$(CROSS_AR) \
 	--host-cc=$(HOSTCC) \
-	--ranlib=$(PTXCONF_GNU_TARGET)-ranlib \
+	--ranlib=$(CROSS_RANLIB) \
 	--language=en \
-	--target=$(PTXCONF_ARCH) \
-        --with-extraincdir=$(SYSROOT)/usr/include \
-        --with-extralibdir=$(SYSROOT)/usr/lib \
-        --with-extraincdir=$(SYSROOT)/include \
-        --with-extralibdir=$(SYSROOT)/lib \
-        --extra-libs='-Wl,-rpath-link -Wl,$(strip $(SYSROOT))/usr/lib'
+	--target=$(PTXCONF_GNU_TARGET) \
+	--with-extraincdir=$(SYSROOT)/usr/include \
+	--with-extralibdir=$(SYSROOT)/usr/lib \
+	--with-extraincdir=$(SYSROOT)/include \
+	--with-extralibdir=$(SYSROOT)/lib \
+	--extra-libs='$(CROSS_LDFLAGS)'
 
 ifdef PTXCONF_ICONV
 MPLAYER_AUTOCONF += --enable-iconv
@@ -249,7 +246,6 @@ MPLAYER_AUTOCONF += \
 	--disable-shm \
 	--disable-altivec \
 	--disable-armv5te \
-	--disable-armv6 \
 	--disable-fastmemcpy \
 	--disable-big-endian \
 	--disable-debug \
@@ -347,26 +343,11 @@ else
 MPLAYER_AUTOCONF += --disable-pxa --disable-iwmmxt
 endif
 
-$(STATEDIR)/mplayer.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(MPLAYER_DIR)/config.cache)
-	cd $(MPLAYER_DIR) && \
-		$(MPLAYER_PATH) $(MPLAYER_ENV) \
-		./configure $(MPLAYER_AUTOCONF)
-	@echo 
-	@echo FIXME: this is necessary with gcc 3.4.4 which runs into OOM with -O4
-	@echo
-#	sed -i -e "s/[ \t]-O4[ \t]/ -O2 /g" $(MPLAYER_DIR)/config.mak
-	@echo
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/mplayer.install:
-	@$(call targetinfo)
-	@$(call touch)
+ifdef PTXCONF_ARCH_ARM_V6
+MPLAYER_AUTOCONF += --enable-armv6
+else
+MPLAYER_AUTOCONF += --disable-armv6
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -384,7 +365,7 @@ $(STATEDIR)/mplayer.targetinstall:
 	@$(call install_fixup, mplayer,DEPENDS,)
 	@$(call install_fixup, mplayer,DESCRIPTION,missing)
 
-	@$(call install_copy, mplayer, 0, 0, 0755, $(MPLAYER_DIR)/mplayer, /usr/bin/mplayer)
+	@$(call install_copy, mplayer, 0, 0, 0755, -, /usr/bin/mplayer)
 
 	@$(call install_finish, mplayer)
 

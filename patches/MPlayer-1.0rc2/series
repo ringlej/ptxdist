@@ -1,4 +1,4 @@
-Makefile.patch
+#Makefile.patch
 MPlayer-1.0rc2-pxa-overlay.diff
 
 # PTX patch, superseeded by upstream
