@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_FONT_UTIL) += host-xorg-font-util
 HOST_XORG_FONT_UTIL_DIR	= $(HOST_BUILDDIR)/$(XORG_FONT_UTIL)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-font-util.get: $(STATEDIR)/xorg-font-util.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

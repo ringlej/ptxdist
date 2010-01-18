@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_GTK_ENGINE_EXPERIENCE) += host-gtk-engine-experienc
 HOST_GTK_ENGINE_EXPERIENCE_DIR	= $(HOST_BUILDDIR)/$(GTK_ENGINE_EXPERIENCE)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-gtk-engine-experience.get: $(STATEDIR)/gtk-engine-experience.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

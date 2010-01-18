@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_LIB_FONTENC) += host-xorg-lib-fontenc
 HOST_XORG_LIB_FONTENC_DIR	= $(HOST_BUILDDIR)/$(XORG_LIB_FONTENC)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-lib-fontenc.get: $(STATEDIR)/xorg-lib-fontenc.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

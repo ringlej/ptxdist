@@ -27,25 +27,6 @@ HOST_PELTS_SOURCE	:= $(SRCDIR)/$(HOST_PELTS).$(HOST_PELTS_SUFFIX)
 HOST_PELTS_DIR		:= $(HOST_BUILDDIR)/$(HOST_PELTS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_PELTS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_PELTS)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-pelts.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_PELTS_DIR))
-	@$(call extract, HOST_PELTS, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_PELTS, $(HOST_PELTS_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

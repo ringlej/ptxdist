@@ -19,14 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBPTHREAD_STUBS) += host-libpthread-stubs
 HOST_LIBPTHREAD_STUBS_DIR	= $(HOST_BUILDDIR)/$(LIBPTHREAD_STUBS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-libpthread-stubs.get: $(STATEDIR)/libpthread-stubs.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

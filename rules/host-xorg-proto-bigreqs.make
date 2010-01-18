@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_BIGREQS) += host-xorg-proto-bigreqs
 HOST_XORG_PROTO_BIGREQS_DIR	= $(HOST_BUILDDIR)/$(XORG_PROTO_BIGREQS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-proto-bigreqs.get: $(STATEDIR)/xorg-proto-bigreqs.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_INPUT) += host-xorg-proto-input
 HOST_XORG_PROTO_INPUT_DIR	= $(HOST_BUILDDIR)/$(XORG_PROTO_INPUT)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-proto-input.get: $(STATEDIR)/xorg-proto-input.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

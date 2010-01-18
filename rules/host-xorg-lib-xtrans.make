@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_LIB_XTRANS) += host-xorg-lib-xtrans
 HOST_XORG_LIB_XTRANS_DIR	= $(HOST_BUILDDIR)/$(XORG_LIB_XTRANS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-lib-xtrans.get: $(STATEDIR)/xorg-lib-xtrans.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

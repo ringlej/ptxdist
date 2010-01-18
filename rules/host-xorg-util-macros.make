@@ -36,17 +36,6 @@ $(HOST_XORG_UTIL_MACROS_SOURCE):
 	@$(call get, HOST_XORG_UTIL_MACROS)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-util-macros.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_XORG_UTIL_MACROS_DIR))
-	@$(call extract, HOST_XORG_UTIL_MACROS, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_XORG_UTIL_MACROS, $(HOST_XORG_UTIL_MACROS_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -57,14 +46,5 @@ HOST_XORG_UTIL_MACROS_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_XORG_UTIL_MACROS_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-util-macros.install:
-	@$(call targetinfo)
-	@$(call install, HOST_XORG_UTIL_MACROS,,h)
-	@$(call touch)
 
 # vim: syntax=make

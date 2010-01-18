@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_APP_MKFONTSCALE) += host-xorg-app-mkfontscale
 HOST_XORG_APP_MKFONTSCALE_DIR	= $(HOST_BUILDDIR)/$(XORG_APP_MKFONTSCALE)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-app-mkfontscale.get: $(STATEDIR)/xorg-app-mkfontscale.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

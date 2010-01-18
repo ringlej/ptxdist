@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_FONTS) += host-xorg-proto-fonts
 HOST_XORG_PROTO_FONTS_DIR	= $(HOST_BUILDDIR)/$(XORG_PROTO_FONTS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-proto-fonts.get: $(STATEDIR)/xorg-proto-fonts.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

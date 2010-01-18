@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_KB) += host-xorg-proto-kb
 HOST_XORG_PROTO_KB_DIR	= $(HOST_BUILDDIR)/$(XORG_PROTO_KB)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-proto-kb.get: $(STATEDIR)/xorg-proto-kb.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

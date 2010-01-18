@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XCB_PROTO) += host-xcb-proto
 HOST_XCB_PROTO_DIR	= $(HOST_BUILDDIR)/$(XCB_PROTO)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xcb-proto.get: $(STATEDIR)/xcb-proto.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -38,14 +30,5 @@ HOST_XCB_PROTO_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_XCB_PROTO_AUTOCONF	:= $(HOST_AUTOCONF)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xcb-proto.install:
-	@$(call targetinfo)
-	@$(call install, HOST_XCB_PROTO,,h)
-	@$(call touch)
 
 # vim: syntax=make

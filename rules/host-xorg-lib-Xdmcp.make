@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_LIB_XDMCP) += host-xorg-lib-xdmcp
 HOST_XORG_LIB_XDMCP_DIR	= $(HOST_BUILDDIR)/$(XORG_LIB_XDMCP)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-lib-xdmcp.get: $(STATEDIR)/xorg-lib-xdmcp.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

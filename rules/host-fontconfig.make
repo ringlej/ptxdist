@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_FONTCONFIG) += host-fontconfig
 HOST_FONTCONFIG_DIR	= $(HOST_BUILDDIR)/$(FONTCONFIG)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-fontconfig.get: $(STATEDIR)/fontconfig.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

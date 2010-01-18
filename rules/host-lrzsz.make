@@ -19,25 +19,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_LRZSZ) += host-lrzsz
 HOST_LRZSZ_DIR	= $(HOST_BUILDDIR)/$(LRZSZ)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-lrzsz.get: $(STATEDIR)/lrzsz.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-lrzsz.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_LRZSZ_DIR))
-	@$(call extract, LRZSZ, $(HOST_BUILDDIR))
-	@$(call patchin, LRZSZ, $(HOST_LRZSZ_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

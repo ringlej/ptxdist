@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_LIB_XFONT) += host-xorg-lib-xfont
 HOST_XORG_LIB_XFONT_DIR		= $(HOST_BUILDDIR)/$(XORG_LIB_XFONT)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-lib-xfont.get: $(STATEDIR)/xorg-lib-xfont.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

@@ -20,14 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_PROTO_XCMISC) += host-xorg-proto-xcmisc
 HOST_XORG_PROTO_XCMISC_DIR	= $(HOST_BUILDDIR)/$(XORG_PROTO_XCMISC)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-xorg-proto-xcmisc.get: $(STATEDIR)/xorg-proto-xcmisc.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

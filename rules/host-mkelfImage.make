@@ -27,25 +27,6 @@ HOST_MKELFIMAGE_SOURCE	:= $(SRCDIR)/$(HOST_MKELFIMAGE).$(HOST_MKELFIMAGE_SUFFIX)
 HOST_MKELFIMAGE_DIR	:= $(HOST_BUILDDIR)/$(HOST_MKELFIMAGE)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_MKELFIMAGE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_MKELFIMAGE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-mkelfimage.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_MKELFIMAGE_DIR))
-	@$(call extract, HOST_MKELFIMAGE, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_MKELFIMAGE, $(HOST_MKELFIMAGE_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

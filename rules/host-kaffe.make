@@ -22,28 +22,6 @@ HOST_KAFFE		= $(KAFFE)
 HOST_KAFFE_DIR		= $(HOST_BUILDDIR)/$(HOST_KAFFE)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-#
-# We are depending on the same packet than target's kaffe
-#
-$(STATEDIR)/host-kaffe.get: $(STATEDIR)/kaffe.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-kaffe.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_KAFFE_DIR))
-	@$(call extract, KAFFE, $(HOST_BUILDDIR))
-	@$(call patchin, KAFFE, $(HOST_KAFFE_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 

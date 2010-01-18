@@ -20,25 +20,6 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBXML2) += host-libxml2
 HOST_LIBXML2_DIR	= $(HOST_BUILDDIR)/$(LIBXML2)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-libxml2.get: $(STATEDIR)/libxml2.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-libxml2.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_LIBXML2_DIR))
-	@$(call extract, LIBXML2, $(HOST_BUILDDIR))
-	@$(call patchin, LIBXML2, $(HOST_LIBXML2_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
