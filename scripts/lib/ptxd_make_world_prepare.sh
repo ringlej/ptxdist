@@ -72,7 +72,7 @@ export -f ptxd_make_world_prepare_qmake
 #
 # prepare for autoconf based pkgs
 #
-ptxd_make_world_prepare_conf() {
+ptxd_make_world_prepare_autoconf() {
     eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
@@ -80,7 +80,7 @@ ptxd_make_world_prepare_conf() {
 	"${pkg_conf_dir}/configure" \
 	"${pkg_conf_opt}"
 }
-export -f ptxd_make_world_prepare_conf
+export -f ptxd_make_world_prepare_autoconf
 
 
 #
@@ -98,12 +98,11 @@ ptxd_make_world_prepare() {
 
     cd -- "${pkg_build_dir}" &&
     case "${pkg_conf_tool}" in
-	autoconf) ptxd_make_world_prepare_conf ;;
-	cmake)    ptxd_make_world_prepare_cmake ;;
-	qmake)    ptxd_make_world_prepare_qmake ;;
-	"NO")       echo "prepare stage disabled." ;;
-	"")       echo "No prepare tool found. Do nothing." ;;
-	*)        ptxd_bailout "automatic prepare tool selection failed. Set <PKG>_CONF_TOOL";;
+	autoconf|cmake|qmake)
+	    ptxd_make_world_prepare_"${pkg_conf_tool}" ;;
+	"NO") echo "prepare stage disabled." ;;
+	"")   echo "No prepare tool found. Do nothing." ;;
+	*)    ptxd_bailout "automatic prepare tool selection failed. Set <PKG>_CONF_TOOL";;
     esac
 }
 export -f ptxd_make_world_prepare
