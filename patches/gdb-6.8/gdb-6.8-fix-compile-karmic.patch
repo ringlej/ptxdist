@@ -1,0 +1,27 @@
+From d7931d9affb51de54069b75ae0ae9648ffdd64fc Mon Sep 17 00:00:00 2001
+From: Holger Hans Peter Freyther <zecke@selfish.org>
+Date: Sun, 2 Aug 2009 04:09:03 +0200
+Subject: [PATCH] gdb: Add a patch to fix compilation of gdb 6.8
+
+gcc warns about the subscript_array being uninitialized,
+just memset this area... luckily I can not break much as
+this is for fortran code.
+
+Signed-off-by: Alexander Stein <alexander.stein@systec-electronic.com>
+
+Index: gdb-6.8/gdb/eval.c
+===================================================================
+--- gdb-6.8.orig/gdb/eval.c	2009-08-02 03:25:20.000000000 +0200
++++ gdb-6.8/gdb/eval.c	2009-08-02 03:53:39.000000000 +0200
+@@ -1656,6 +1656,8 @@
+ 	if (nargs != ndimensions)
+ 	  error (_("Wrong number of subscripts"));
+ 
++        memset(&subscript_array, 0, sizeof(subscript_array));
++
+ 	/* Now that we know we have a legal array subscript expression 
+ 	   let us actually find out where this element exists in the array. */
+ 
+-- 
+1.6.1
+
