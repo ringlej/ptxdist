@@ -47,9 +47,9 @@ ptxd_dgen_rulesfiles() {
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" &&
 	    find "${RULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" \
-		`find "${PROJECTRULESDIR}" \
+		$(find "${PROJECTRULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" \
-		-printf "! -name %f "`
+		-printf "! -name %f ")
 	else
 	    find "${RULESDIR}" \
 		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"

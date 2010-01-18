@@ -238,7 +238,7 @@ ptxd_make_world_init() {
 	if [ -e "${pkg_conf_dir}/CMakeLists.txt" ]; then
 	    pkg_conf_tool=${pkg_conf_tool}cmake
 	fi
-	if [ `ls "${pkg_conf_dir}/"*.pro 2>/dev/null | wc -l` = 1 ]; then
+	if [ $(ls "${pkg_conf_dir}/"*.pro 2>/dev/null | wc -l) = 1 ]; then
 	    pkg_conf_tool=${pkg_conf_tool}qmake
 	fi
     fi

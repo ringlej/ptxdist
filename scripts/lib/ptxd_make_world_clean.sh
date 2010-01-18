@@ -15,13 +15,13 @@ ptxd_make_world_clean() {
 
     if [ -f "${ptx_state_dir}/${pkg_label}.xpkg.map" ]; then
 	echo "Deleting ipks:"
-	for name in `cat "${ptx_state_dir}/${pkg_label}.xpkg.map" 2>/dev/null`; do
+	for name in $(cat "${ptx_state_dir}/${pkg_label}.xpkg.map" 2>/dev/null); do
 	    ls "${ptx_pkg_dir}/${name}"_*.ipk
 	    rm -f "${ptx_pkg_dir}/${name}"_*.ipk
 	done
 	echo
     fi
-    if [ -n "`ls "${ptx_state_dir}/${pkg_label}".* 2> /dev/null`" ]; then
+    if [ -n "$(ls "${ptx_state_dir}/${pkg_label}".* 2> /dev/null)" ]; then
 	echo "Deleting stage files:"
 	ls "${ptx_state_dir}/${pkg_label}".*
 	rm -f "${ptx_state_dir}/${pkg_label}".*
