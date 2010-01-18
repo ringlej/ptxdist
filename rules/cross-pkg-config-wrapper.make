@@ -13,13 +13,6 @@
 #
 CROSS_PACKAGES-$(PTXCONF_CROSS_PKG_CONFIG_WRAPPER) += cross-pkg-config-wrapper
 
-#
-# Paths and names
-#
-CROSS_PKG_CONFIG_WRAPPER_VERSION	:= 1.0.0
-CROSS_PKG_CONFIG_WRAPPER		:= pkg-config-wrapper-$(CROSS_PKG_CONFIG_WRAPPER_VERSION)
-CROSS_PKG_CONFIG_WRAPPER_DIR		:= $(CROSS_BUILDDIR)/$(CROSS_PKG_CONFIG_WRAPPER)
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------

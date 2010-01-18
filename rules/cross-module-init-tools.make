@@ -19,25 +19,6 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_MODULE_INIT_TOOLS) += cross-module-init-tools
 CROSS_MODULE_INIT_TOOLS_DIR	= $(CROSS_BUILDDIR)/$(MODULE_INIT_TOOLS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-module-init-tools.get: $(STATEDIR)/module-init-tools.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-module-init-tools.extract:
-	@$(call targetinfo)
-	@$(call clean, $(CROSS_MODULE_INIT_TOOLS_DIR))
-	@$(call extract, MODULE_INIT_TOOLS, $(CROSS_BUILDDIR))
-	@$(call patchin, MODULE_INIT_TOOLS, $(CROSS_MODULE_INIT_TOOLS_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -51,14 +32,7 @@ CROSS_MODULE_INIT_TOOLS_AUTOCONF := \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--target=$(PTXCONF_GNU_TARGET)
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-module-init-tools.compile:
-	@$(call targetinfo)
-	cd $(CROSS_MODULE_INIT_TOOLS_DIR) && $(CROSS_MODULE_INIT_TOOLS_PATH) $(MAKE) depmod
-	@$(call touch)
+CROSS_MODULE_INIT_TOOLS_MAKE_OPT := depmod
 
 # ----------------------------------------------------------------------------
 # Install
