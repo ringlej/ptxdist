@@ -34,19 +34,19 @@ endif
 $(@PACKET@_SOURCE):
 	@$(call targetinfo)
 	@$(call get, @PACKET@)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-@PACKET@_PATH	:= PATH=$(CROSS_PATH)
-@PACKET@_ENV 	:= $(KLIBC_ENV)
+@PACKET@_PATH		:= PATH=$(CROSS_PATH)
+@PACKET@_CONF_ENV	:= $(KLIBC_ENV)
 
 #
 # autoconf
 #
-@PACKET@_AUTOCONF := $(KLIBC_AUTOCONF)
+@PACKET@_CONF_TOOL	:= autoconf
+@PACKET@_CONF_OPT	:= $(KLIBC_AUTOCONF)
 
 #$(STATEDIR)/@packet@.prepare:
 #	@$(call targetinfo)
@@ -87,9 +87,8 @@ $(STATEDIR)/@packet@.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-@packet@_clean:
-	rm -rf $(STATEDIR)/@packet@.*
-	rm -rf $(PKGDIR)/@packet@{-,_}*
-	rm -rf $(@PACKET@_DIR)
+#$(STATEDIR)/@packet@.clean:
+#	@$(call targetinfo)
+#	@$(call clean_pkg, @PACKET@)
 
 # vim: syntax=make

@@ -19,35 +19,28 @@
 @CLASS@@PACKET@_DIR	= $(@CLASS@BUILDDIR)/$(@PACKET@)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/@class@@packet@.get: $(STATEDIR)/@packet@.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@class@@packet@.extract:
-	@$(call targetinfo)
-	@$(call clean, $(@CLASS@@PACKET@_DIR))
-	@$(call extract, @PACKET@, $(@CLASS@BUILDDIR))
-	@$(call patchin, @PACKET@, $(@CLASS@@PACKET@_DIR))
-	@$(call touch)
+#$(STATEDIR)/@class@@packet@.extract:
+#	@$(call targetinfo)
+#	@$(call clean, $(@CLASS@@PACKET@_DIR))
+#	@$(call extract, @PACKET@, $(@CLASS@BUILDDIR))
+#	@$(call patchin, @PACKET@, $(@CLASS@@PACKET@_DIR))
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-@CLASS@@PACKET@_PATH	:= PATH=$(@CLASS@PATH)
-@CLASS@@PACKET@_ENV 	:= $(@CLASS@ENV)
+@CLASS@@PACKET@_PATH		:= PATH=$(@CLASS@PATH)
+@CLASS@@PACKET@_CONF_ENV	:= $(@CLASS@ENV)
 
 #
 # autoconf
 #
-@CLASS@@PACKET@_AUTOCONF	:= $(@AUTOCONF_CLASS@AUTOCONF)
+@CLASS@@PACKET@_CONF_TOOL	:= autoconf
+@CLASS@@PACKET@_CONF_OPT	:= $(@AUTOCONF_CLASS@AUTOCONF)
 
 #$(STATEDIR)/@class@@packet@.prepare:
 #	@$(call targetinfo)
@@ -79,8 +72,8 @@ $(STATEDIR)/@class@@packet@.extract:
 # Clean
 # ----------------------------------------------------------------------------
 
-@class@@packet@_clean:
-	rm -rf $(STATEDIR)/@class@@packet@.*
-	rm -rf $(@CLASS@@PACKET@_DIR)
+#$(STATEDIR)/@class@@packet@.clean:
+#	@$(call targetinfo)
+#	@$(call clean_pkg, @CLASS@@PACKET@)
 
 # vim: syntax=make

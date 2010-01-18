@@ -121,7 +121,8 @@ $(STATEDIR)/@packet@.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-@packet@_clean:
-	rm -rf $(STATEDIR)/@packet@.*
+#$(STATEDIR)/@packet@.clean:
+#	@$(call targetinfo)
+#	@$(call clean_pkg, @PACKET@)
 
 # vim: syntax=make

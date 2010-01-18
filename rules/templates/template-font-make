@@ -40,13 +40,14 @@ $(@PACKET@_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-@PACKET@_PATH	:= PATH=$(CROSS_PATH)
-@PACKET@_ENV 	:= $(CROSS_ENV)
+@PACKET@_PATH		:= PATH=$(CROSS_PATH)
+@PACKET@_CONF_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-@PACKET@_AUTOCONF := \
+@PACKET@_CONF_TOOL	:= autoconf
+@PACKET@_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--with-fontdir=$(XORG_FONTDIR)/truetype
 
@@ -72,9 +73,8 @@ $(STATEDIR)/@packet@.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-@packet@_clean:
-	rm -rf $(STATEDIR)/@packet@.*
-	rm -rf $(PKGDIR)/@packet@_*
-	rm -rf $(@PACKET@_DIR)
+#$(STATEDIR)/@packet@.clean:
+#	@$(call targetinfo)
+#	@$(call clean_pkg, @PACKET@)
 
 # vim: syntax=make
