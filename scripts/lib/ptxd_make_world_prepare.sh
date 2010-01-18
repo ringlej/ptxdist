@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -36,15 +37,23 @@ export -f ptxd_make_world_prepare_sanity_check
 # prepare for cmake based pkgs
 #
 ptxd_make_world_prepare_cmake() {
-    [ "${pkg_type}" != "target" ] && \
-	ptxd_bailout "only cmake taget packages are supported"
+    local pkg_cmake_opt
+
+    case "${pkg_type}" in
+	target)
+	    pkg_cmake_opt="-DCMAKE_TOOLCHAIN_FILE='${PTXDIST_CMAKE_TOOLCHAIN_TARGET}'" ;;
+	host)
+	    pkg_cmake_opt="-DCMAKE_TOOLCHAIN_FILE='${PTXDIST_CMAKE_TOOLCHAIN_HOST}'" ;;
+	cross)
+	    ptxd_bailout "sorry - cmake 'cross' packages are not supported" ;;
+    esac
 
     eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_conf_env}" \
 	cmake \
-	-DCMAKE_TOOLCHAIN_FILE="${PTXDIST_CMAKE_TOOLCHAIN}" \
+	"${pkg_cmake_opt}" \
 	"${pkg_conf_opt}" \
 	"${pkg_conf_dir}"
 }
