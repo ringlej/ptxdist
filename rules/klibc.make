@@ -193,8 +193,9 @@ endif
 # Clean
 # ----------------------------------------------------------------------------
 
-klibc_clean:
-	@$(call clean_pkg)
+$(STATEDIR)/klibc.clean:
+	@$(call targetinfo)
+	@$(call clean_pkg, KLIBC)
 	rm -f $(PTXCONF_SYSROOT_CROSS)/bin/klcc
 	rm -rf $(SYSROOT)/usr/lib/klibc
 	rm -rf $(KLIBC_CONTROL)

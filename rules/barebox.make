@@ -98,8 +98,9 @@ $(STATEDIR)/barebox.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-barebox_clean:
-	@$(call clean_pkg)
+$(STATEDIR)/barbox.clean:
+	@$(call targetinfo)
+	@$(call clean_pkg, BAREBOX)
 	rm -rf $(IMAGEDIR)/barebox-image
 
 # ----------------------------------------------------------------------------

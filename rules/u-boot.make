@@ -68,8 +68,9 @@ $(STATEDIR)/u-boot.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-u-boot_clean:
-	@$(call clean_pkg)
+$(STATEDIR)/u-boot.clean:
+	@$(call targetinfo)
+	@$(call clean_pkg, U_BOOT)
 	@rm -rf $(IMAGEDIR)/u-boot.bin
 
 # vim: syntax=make

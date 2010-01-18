@@ -75,8 +75,9 @@ $(STATEDIR)/at91bootstrap.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-at91bootstrap_clean:
-	@$(call clean_pkg)
+$(STATEDIR)/at91bootstrap.clean:
+	@$(call targetinfo)
+	@$(call clean_pkg, AT91BOOTSTRAP)
 	@rm -rf $(IMAGEDIR)/at91bootstrap_*
 
 # vim: syntax=make

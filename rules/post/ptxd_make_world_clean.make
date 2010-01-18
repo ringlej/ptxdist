@@ -28,7 +28,7 @@ world/clean = \
 # remove all temporary files for the current package
 #
 clean_pkg = \
-	$(call world/clean $(PTX_MAP_TO_PACKAGE_$(*)))
+	$(call world/clean, $(1))
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:

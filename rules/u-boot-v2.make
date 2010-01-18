@@ -88,8 +88,9 @@ $(STATEDIR)/u-boot-v2.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-u-boot-v2_clean:
-	@$(call clean_pkg)
+$(STATEDIR)/u-boot-v2.clean:
+	@$(call targetinfo)
+	@$(call clean_pkg, U_BOOT_V2)
 	rm -rf $(IMAGEDIR)/u-boot-v2-image
 
 # ----------------------------------------------------------------------------
