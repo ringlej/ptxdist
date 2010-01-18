@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -19,9 +20,10 @@ world/env/impl = \
 	ptx_state_dir="$(call ptx/escape,$(STATEDIR))"				\
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
-	ptx_conf_opt_autoconf="$(call ptx/escape,$(CROSS_AUTOCONF_USR))"	\
-	ptx_conf_opt_cmake="$(call ptx/escape,$(CROSS_CMAKE_USR))"		\
-	ptx_conf_opt_qmake="$(call ptx/escape,$(CROSS_QMAKE_OPT))"		\
+										\
+	ptx_conf_opt_autoconf_target="$(call ptx/escape,$(CROSS_AUTOCONF_USR))"	\
+	ptx_conf_opt_cmake_target="$(call ptx/escape,$(CROSS_CMAKE_USR))"	\
+	ptx_conf_opt_qmake_target="$(call ptx/escape,$(CROSS_QMAKE_OPT))"	\
 										\
 	pkg_stamp="$(notdir $(@))"						\
 	pkg_pkg_dir="$(call ptx/escape,$($(1)_PKGDIR))"				\

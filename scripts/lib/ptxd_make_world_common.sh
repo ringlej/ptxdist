@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -242,10 +243,16 @@ ptxd_make_world_init() {
 	    pkg_conf_tool=${pkg_conf_tool}qmake
 	fi
     fi
+
     case "${pkg_conf_tool}" in
-	autoconf) pkg_conf_opt="${pkg_conf_opt:-${ptx_conf_opt_autoconf}}";;
-	cmake)    pkg_conf_opt="${pkg_conf_opt:-${ptx_conf_opt_cmake}}";;
-	qmake)    pkg_conf_opt="${pkg_conf_opt:-${ptx_conf_opt_qmake}}";;
+	autoconf|cmake|qmake)
+	    local conf_opt_ptr="ptx_conf_opt_${pkg_conf_tool}_${pkg_type}"
+
+	    pkg_conf_opt="${pkg_conf_opt:-${!conf_opt_ptr}}"
+
+	    unset conf_opt_ptr
+	    ;;
+	*) ;;
     esac
 
     #
