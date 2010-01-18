@@ -227,10 +227,10 @@ ptxd_make_world_init() {
     pkg_conf_dir_abs="${pkg_conf_dir}"
 
     #
-    # prepare tool
+    # conf tool
     #
     if [ -z "${pkg_conf_tool}" ]; then
-	# ${pkg_conf_tool} will be bogus if more than on tool finds a match
+	# ${pkg_conf_tool} will be bogus if more than one tool finds a match
 	# -> prepare will complain later
 	if [ -e "${pkg_conf_dir}/configure" ]; then
 	    pkg_conf_tool=${pkg_conf_tool}autoconf
