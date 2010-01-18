@@ -17,30 +17,12 @@ PACKAGES-$(PTXCONF_KLIBC_MODULE_INIT_TOOLS) += klibc-module-init-tools
 # Paths and names
 #
 KLIBC_MODULE_INIT_TOOLS		= klibc-$(MODULE_INIT_TOOLS)
+KLIBC_MODULE_INIT_TOOLS_SOURCE	= $(MODULE_INIT_TOOLS_SOURCE)
 KLIBC_MODULE_INIT_TOOLS_DIR	= $(KLIBC_BUILDDIR)/$(MODULE_INIT_TOOLS)
 
 ifdef PTXCONF_KLIBC_MODULE_INIT_TOOLS
 $(STATEDIR)/klibc.targetinstall.post: $(STATEDIR)/klibc-module-init-tools.targetinstall
 endif
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/klibc-module-init-tools.get: $(STATEDIR)/module-init-tools.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/klibc-module-init-tools.extract:
-	@$(call targetinfo)
-	@$(call clean, $(KLIBC_MODULE_INIT_TOOLS_DIR))
-	@$(call extract, MODULE_INIT_TOOLS, $(KLIBC_BUILDDIR))
-	@$(call patchin, KLIBC_MODULE_INIT_TOOLS, $(KLIBC_MODULE_INIT_TOOLS_DIR))
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare

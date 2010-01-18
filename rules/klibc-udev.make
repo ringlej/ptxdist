@@ -16,31 +16,13 @@ PACKAGES-$(PTXCONF_KLIBC_UDEV) += klibc-udev
 #
 # Paths and names
 #
-KLIBC_UDEV	= klibc-$(UDEV)
-KLIBC_UDEV_DIR	= $(KLIBC_BUILDDIR)/$(UDEV)
+KLIBC_UDEV		= klibc-$(UDEV)
+KLIBC_UDEV_SOURCE	= $(UDEV_SOURCE)
+KLIBC_UDEV_DIR		= $(KLIBC_BUILDDIR)/$(UDEV)
 
 ifdef PTXCONF_KLIBC_UDEV
 $(STATEDIR)/klibc.targetinstall.post: $(STATEDIR)/klibc-udev.targetinstall
 endif
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/klibc-udev.get: $(STATEDIR)/udev.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/klibc-udev.extract:
-	@$(call targetinfo)
-	@$(call clean, $(KLIBC_UDEV_DIR))
-	@$(call extract, UDEV, $(KLIBC_BUILDDIR))
-	@$(call patchin, KLIBC_UDEV, $(KLIBC_UDEV_DIR))
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
