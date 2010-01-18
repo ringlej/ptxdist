@@ -25,6 +25,9 @@ world/env/impl = \
 	ptx_conf_opt_cmake_target="$(call ptx/escape,$(CROSS_CMAKE_USR))"	\
 	ptx_conf_opt_qmake_target="$(call ptx/escape,$(CROSS_QMAKE_OPT))"	\
 										\
+	ptx_conf_opt_autoconf_host="$(call ptx/escape,$(HOST_AUTOCONF))"	\
+	ptx_conf_opt_cmake_host="$(call ptx/escape,$(HOST_CMAKE_OPT))"		\
+										\
 	pkg_stamp="$(notdir $(@))"						\
 	pkg_pkg_dir="$(call ptx/escape,$($(1)_PKGDIR))"				\
 	pkg_license="$(call ptx/escape,$($(1)_LICENSE))"			\
