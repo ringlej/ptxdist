@@ -252,22 +252,22 @@ ptxd_make_world_init() {
     # build dir
     #
     if [ -z "${pkg_build_dir}" ]; then
-	if [ "${pkg_conf_tool}" = "cmake" ]; then
-	    # cmake based pkg -> _always_ out of tree
-	    pkg_build_dir="${pkg_dir}-build"
-
-	elif [ "${pkg_conf_tool}" = "autoconf" ]; then
-	    # autotoolizied pkg
-	    case "${pkg_build_oot}" in
-		"YES") pkg_build_dir="${pkg_dir}-build"	;;
-		"NO")  pkg_build_dir="${pkg_conf_dir}"	;;
-		"")    pkg_build_dir="${pkg_conf_dir}"	;;
-		*)     ptxd_bailout "<PKG>_BUILD_OOT: please set to YES or NO" ;;
-	    esac
-	else
-	    # std pkg
-	    pkg_build_dir="${pkg_conf_dir}"
-	fi
+	case "${pkg_conf_tool}" in
+	    cmake)	# cmake based pkg -> _always_ out of tree
+		pkg_build_dir="${pkg_dir}-build"
+		;;
+	    autoconf)	# autotoolizied pkg
+		case "${pkg_build_oot}" in
+		    "YES") pkg_build_dir="${pkg_dir}-build" ;;
+		    "NO")  pkg_build_dir="${pkg_conf_dir}" ;;
+		    "")    pkg_build_dir="${pkg_conf_dir}" ;;
+		    *)     ptxd_bailout "<PKG>_BUILD_OOT: please set to YES or NO" ;;
+		esac
+		;;
+	    *)		# qmake or std pkg
+		pkg_build_dir="${pkg_conf_dir}"
+		;;
+	esac
     fi
 
     #
