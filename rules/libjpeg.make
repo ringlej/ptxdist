@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006 by Erwin Rol
-#               2007, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2007, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBJPEG) += libjpeg
 #
 # Paths and names
 #
-LIBJPEG_VERSION	:= 7
+LIBJPEG_VERSION	:= 8
 LIBJPEG_SUFFIX	:= tar.gz
 LIBJPEG		:= jpeg-$(LIBJPEG_VERSION)
 LIBJPEG_TARBALL	:= jpegsrc.v$(LIBJPEG_VERSION).$(LIBJPEG_SUFFIX)
@@ -63,9 +63,9 @@ $(STATEDIR)/libjpeg.targetinstall:
 	@$(call install_fixup, libjpeg,DESCRIPTION,missing)
 
 	@$(call install_copy, libjpeg, 0, 0, 0644, -, \
-		/usr/lib/libjpeg.so.7.0.0)
-	@$(call install_link, libjpeg, libjpeg.so.7.0.0, /usr/lib/libjpeg.so.7)
-	@$(call install_link, libjpeg, libjpeg.so.7.0.0, /usr/lib/libjpeg.so)
+		/usr/lib/libjpeg.so.8.0.0)
+	@$(call install_link, libjpeg, libjpeg.so.8.0.0, /usr/lib/libjpeg.so.8)
+	@$(call install_link, libjpeg, libjpeg.so.8.0.0, /usr/lib/libjpeg.so)
 
 	@$(call install_finish, libjpeg)
 
