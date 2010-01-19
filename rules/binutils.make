@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006 by Robert Schwebel
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -52,7 +53,8 @@ BINUTILS_AUTOCONF :=  $(CROSS_AUTOCONF_USR) \
 	--disable-nls \
 	--enable-commonbfdlib \
 	--enable-install-libiberty \
-	--disable-multilib
+	--disable-multilib \
+	--disable-werror
 
 # ----------------------------------------------------------------------------
 # Target-Install
