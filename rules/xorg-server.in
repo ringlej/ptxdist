@@ -82,10 +82,6 @@ menuconfig XORG_SERVER
 
 	# FIXME: unclear dependencies
 	#select XORG_LIB_XXF86VM	if XORG_SERVER_EXT_XV
-	#select XORG_LIB_XXF86MISC	if XORG_SERVER_EXT_XF86MISC
-	#select XORG_LIB_XKBUI		if XORG_SERVER_OPT_XORGCFG
-	#select XORG_LIB_XXF86MISC	if XORG_SERVER_OPT_XORGCFG
-	#select XORG_LIB_XAW		if XORG_SERVER_OPT_XORGCFG
 	#select TSLIB			if XORG_SERVER_TSLIB
 	#select XORG_LIB_X11
 	#select XORG_LIB_XAW
@@ -96,7 +92,6 @@ menuconfig XORG_SERVER
 	#select XORG_LIB_XMU
 	#select XORG_LIB_XTST
 	#select XORG_LIB_XKBUI		if XORG_KEYBOARD_MAPPING_SUPPORT
-	#select XORG_PROTO_EVIEEXT	if XORG_SERVER_EXT_XEVIE
 	#select XORG_PROTO_DMX		if XORG_SERVER_EXT_XDMCP
 	# FIXME: find out which config options need this
 	#select GCCLIBS_GCC_S
@@ -195,7 +190,7 @@ config XORG_SERVER_XSDL
 	help
 	  FIXME
 
-config XORG_SERVER_FAKE
+config XORG_SERVER_XFAKE
 	bool
 	depends on BROKEN
 	prompt "fake server"
@@ -325,7 +320,7 @@ config XORG_SERVER_EXT_XDMCP
 	help
 	  --enable-xdmcp
 
-config XORG_SERVER_EXT_XDMCP_AUTH_1
+config XORG_SERVER_EXT_XDM_AUTH_1
 	bool
 	select XORG_SERVER_EXT_XDMCP
 	prompt "xdm-auth-1 extension"

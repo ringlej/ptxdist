@@ -57,9 +57,10 @@ XORG_SERVER_AUTOCONF = \
 	--enable-option-checking \
 	--disable-maintainer-mode \
 	--enable-dependency-tracking \
-	--enable-large-file \
+	--enable-largefile \
 	--disable-werror \
 	--disable-debug \
+	--disable-unit-tests \
 	--disable-builddocs \
 	--disable-config-dbus \
 	--disable-config-hal \
@@ -108,7 +109,7 @@ XORG_SERVER_AUTOCONF += --disable-composite
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_SHM
-XORG_SERVER_AUTOCONF += --enable-shm
+XORG_SERVER_AUTOCONF += --enable-mitshm
 else
 XORG_SERVER_AUTOCONF += --disable-shm
 endif
@@ -155,10 +156,10 @@ else
 XORG_SERVER_AUTOCONF += --disable-xdmcp
 endif
 
-ifdef PTXCONF_XORG_SERVER_EXT_XDMCP_AUTH_1
-XORG_SERVER_AUTOCONF += --enable-xdmcp-auth-1
+ifdef PTXCONF_XORG_SERVER_EXT_XDM_AUTH_1
+XORG_SERVER_AUTOCONF += --enable-xdm-auth-1
 else
-XORG_SERVER_AUTOCONF += --disable-xdmcp-auth-1
+XORG_SERVER_AUTOCONF += --disable-xdm-auth-1
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_GLX
@@ -171,16 +172,12 @@ ifdef PTXCONF_XORG_SERVER_EXT_DRI
 XORG_SERVER_AUTOCONF += --enable-dri
 else
 XORG_SERVER_AUTOCONF += --disable-dri
-# if DRI is disabled we do not have AGP
-XORG_SERVER_ENV		+= ac_cv_header_linux_agpgart_h=no
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_DRI2
 XORG_SERVER_AUTOCONF += --enable-dri2
 else
 XORG_SERVER_AUTOCONF += --disable-dri2
-# if DRI is disabled we do not have AGP
-XORG_SERVER_ENV		+= ac_cv_header_linux_agpgart_h=no
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
@@ -297,10 +294,10 @@ else
 XORG_SERVER_AUTOCONF += --disable-xsdl
 endif
 
-ifdef PTXCONF_XORG_SERVER_FAKE
-XORG_SERVER_AUTOCONF += --enable-fake
+ifdef PTXCONF_XORG_SERVER_XFAKE
+XORG_SERVER_AUTOCONF += --enable-xfake
 else
-XORG_SERVER_AUTOCONF += --disable-fake
+XORG_SERVER_AUTOCONF += --disable-xfake
 endif
 
 ifdef PTXCONF_XORG_SERVER_XFBDEV
@@ -331,61 +328,8 @@ ifneq ($(call remove_quotes,$(PTXCONF_XORG_DEFAULT_DATA_DIR)),)
 endif
 
 #
-# FIXME rsc: old options from older xorg-server versions. Still needed/possible?
+# FIXME mol: what is this int10 stuff for?
 #
-#
-#
-#ifdef PTXCONF_XORG_SERVER_EXT_XF86MISC
-#XORG_SERVER_AUTOCONF += --enable-xf86misc
-#else
-#XORG_SERVER_AUTOCONF += --disable-xf86misc
-#endif
-#
-#ifdef PTXCONF_XORG_SERVER_EXT_XEVIE
-#XORG_SERVER_AUTOCONF += --enable-xevie
-#else
-#XORG_SERVER_AUTOCONF += --disable-xevie
-#endif
-#
-#ifdef PTXCONF_XORG_SERVER_EXT_APPGROUP
-#XORG_SERVER_AUTOCONF += --enable-appgroup
-#else
-#XORG_SERVER_AUTOCONF += --disable-appgroup
-#endif
-#
-#ifdef PTXCONF_XORG_SERVER_EXT_CUP
-#XORG_SERVER_AUTOCONF += --enable-cup
-#else
-#XORG_SERVER_AUTOCONF += --disable-cup
-#endif
-#
-#ifdef PTXCONF_XORG_SERVER_EXT_EVI
-#XORG_SERVER_AUTOCONF += --enable-evi
-#else
-#XORG_SERVER_AUTOCONF += --disable-evi
-#endif
-#
-#ifdef PTXCONF_FREETYPE
-#XORG_SERVER_AUTOCONF += --enable-freetype
-#else
-#XORG_SERVER_AUTOCONF += --disable-freetype
-#endif
-#
-#ifdef PTXCONF_XORG_SERVER_OPT_XORGCFG
-#XORG_SERVER_AUTOCONF += --enable-xorgcfg
-#else
-#XORG_SERVER_AUTOCONF += --disable-xorgcfg
-#endif
-#
-#ifdef PTXCONF_XORG_SERVER_OPT_KBD_MODE
-#XORG_SERVER_AUTOCONF += --enable-kbd_mode
-#else
-#XORG_SERVER_AUTOCONF += --disable-kbd_mode
-#endif
-#
-#ifdef PTXCONF_MESALIB
-#XORG_SERVER_AUTOCONF += --with-mesa-source=$(MESALIB_DIR)
-#endif
 #
 #ifdef PTXCONF_XORG_SERVER_INT10_VM86
 #XORG_SERVER_AUTOCONF += --with-int10=vm86
@@ -440,26 +384,12 @@ ifdef PTXCONF_XORG_SERVER_XORG
 ifdef PTXCONF_XORG_DRIVER_VIDEO
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/linux/libfbdevhw.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-#		$(XORG_PREFIX)/lib/xorg/modules/libcfb16.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-#		$(XORG_PREFIX)/lib/xorg/modules/libcfb24.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-#		$(XORG_PREFIX)/lib/xorg/modules/libddc.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libexa.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libfb.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-#		$(XORG_PREFIX)/lib/xorg/modules/libi2c.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libint10.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-#		$(XORG_PREFIX)/lib/xorg/modules/liblayer.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-#		$(XORG_PREFIX)/lib/xorg/modules/librac.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0644, -,
-#		$(XORG_PREFIX)/lib/xorg/modules/libramdac.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libshadowfb.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
@@ -472,8 +402,6 @@ ifdef PTXCONF_XORG_DRIVER_VIDEO
 		$(XORG_PREFIX)/lib/xorg/modules/libxaa.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libxf8_16bpp.so)
-#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-#		$(XORG_PREFIX)/lib/xorg/modules/libxf8_32wid.so)
 endif
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/extensions/libextmod.so)
@@ -481,9 +409,6 @@ ifdef PTXCONF_XORG_SERVER_EXT_DBE
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/extensions/libdbe.so)
 endif
-
-#	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-#		/usr/lib/xorg/modules/fonts/libbitmap.so)
 
 # FIXME: Should be included on demand only
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
@@ -530,7 +455,7 @@ endif
 ifdef PTXCONF_XORG_SERVER_EXT_XDMCP
 endif
 
-ifdef PTXCONF_XORG_SERVER_EXT_XDMCP_AUTH_1
+ifdef PTXCONF_XORG_SERVER_EXT_XDM_AUTH_1
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_GLX
@@ -549,31 +474,12 @@ ifdef PTXCONF_XORG_SERVER_EXT_DRI2
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
-
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_XF86VIDMODE
 endif
 
-ifdef PTXCONF_XORG_SERVER_EXT_XF86MISC
-endif
-
 ifdef PTXCONF_XORG_SERVER_EXT_XCSECURITY
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_XEVIE
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_LBX
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_APPGROUP
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_CUP
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_EVI
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_MULTIBUFFER
@@ -582,11 +488,6 @@ endif
 ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
 endif
 
-ifdef PTXCONF_XORG_SERVER_OPT_XORGCFG
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_KBD_MODE
-endif
 endif # PTXCONF_XORG_SERVER_XORG
 	@$(call install_finish, xorg-server)
 
