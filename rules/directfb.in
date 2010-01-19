@@ -78,6 +78,7 @@ config DIRECTFB_GFX_CYBER5K
 
 config DIRECTFB_GFX_DAVINCI
 	bool "davinci"
+	depends on BROKEN
 
 config DIRECTFB_GFX_EP9X
 	bool "ep9x"
