@@ -17,7 +17,6 @@ PACKAGES-$(PTXCONF_KLIBC_USER_SPEC) += klibc-user-spec
 # Dummy to keep ipkg happy
 #
 KLIBC_USER_SPEC_VERSION	:= $(KLIBC_VERSION)
-KLIBC_USER_SPEC_DIR	:= $(BUILDDIR)/$(KLIBC)
 
 ifdef PTXCONF_KLIBC_USER_SPEC
 $(STATEDIR)/klibc.targetinstall.post: $(STATEDIR)/klibc-user-spec.targetinstall
