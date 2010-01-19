@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2010 by Erwin Rol <erwin@erwinrol.com>
 # Copyright (C) 2006, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2010 by Erwin Rol <erwin@erwinrol.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -66,7 +66,6 @@ DIRECTFB_GFX-$(PTXCONF_DIRECTFB_GFX_NVIDIA)		+= nvidia
 DIRECTFB_GFX-$(PTXCONF_DIRECTFB_GFX_OMAP)		+= omap
 DIRECTFB_GFX-$(PTXCONF_DIRECTFB_GFX_RADEON)		+= radeon
 DIRECTFB_GFX-$(PTXCONF_DIRECTFB_GFX_SAVAGE)		+= savage
-DIRECTFB_GFX-$(PTXCONF_DIRECTFB_GFX_SH7722)		+= sh7722
 DIRECTFB_GFX-$(PTXCONF_DIRECTFB_GFX_SIS315)		+= sis315
 DIRECTFB_GFX-$(PTXCONF_DIRECTFB_GFX_TDFX)		+= tdfx
 DIRECTFB_GFX-$(PTXCONF_DIRECTFB_GFX_UNICHROME)		+= unichrome

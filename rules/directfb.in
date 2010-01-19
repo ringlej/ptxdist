@@ -115,9 +115,6 @@ config DIRECTFB_GFX_RADEON
 config DIRECTFB_GFX_SAVAGE
 	bool "savage"
 
-config DIRECTFB_GFX_SH7722
-	bool "sh7722"
-
 config DIRECTFB_GFX_SIS315
 	bool "sis315"
 
