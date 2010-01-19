@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Jon Ringle <jon@ringle.org>
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -35,8 +36,8 @@ $(HOST_SQUASHFS_TOOLS_SOURCE):
 # Compile
 # ----------------------------------------------------------------------------
 
-HOST_SQUASHFS_TOOLS_MAKE_ENV	:= $(HOST_ENV)
-HOST_SQUASHFS_TOOLS_MAKE_PAR	:= NO
-HOST_SQUASHFS_TOOLS_MAKE_OPT	:= INSTALL_DIR="$(PTXCONF_SYSROOT_HOST)/sbin"
+HOST_SQUASHFS_TOOLS_MAKE_ENV := $(HOST_ENV)
+HOST_SQUASHFS_TOOLS_MAKE_PAR := NO
+HOST_SQUASHFS_TOOLS_INSTALL_OPT := install INSTALL_DIR="$(PTXCONF_SYSROOT_HOST)/sbin"
 
 # vim: syntax=make
