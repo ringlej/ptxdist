@@ -1,6 +1,8 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2003-2009 by Pengutronix e.K., Hildesheim, Germany
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -16,10 +18,11 @@ PACKAGES-$(PTXCONF_NTPCLIENT) += ntpclient
 # Paths and names
 #
 NTPCLIENT_VERSION	:= 365
-NTPCLIENT		:= ntpclient_2007
 NTPCLIENT_SUFFIX	:= tar.gz
-NTPCLIENT_URL		:= http://doolittle.icarus.com/ntpclient/$(NTPCLIENT)_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
-NTPCLIENT_SOURCE	:= $(SRCDIR)/$(NTPCLIENT)_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
+NTPCLIENT		:= ntpclient-2007
+NTPCLIENT_TARBALL	:= ntpclient_2007_$(NTPCLIENT_VERSION).$(NTPCLIENT_SUFFIX)
+NTPCLIENT_URL		:= http://doolittle.icarus.com/ntpclient/$(NTPCLIENT_TARBALL)
+NTPCLIENT_SOURCE	:= $(SRCDIR)/$(NTPCLIENT_TARBALL)
 NTPCLIENT_DIR		:= $(BUILDDIR)/$(NTPCLIENT)
 
 # ----------------------------------------------------------------------------
@@ -31,27 +34,10 @@ $(NTPCLIENT_SOURCE):
 	@$(call get, NTPCLIENT)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ntpclient.extract:
-	@$(call targetinfo)
-	@$(call clean, $(NTPCLIENT_DIR))
-	@$(call extract, NTPCLIENT)
-	@mv $(BUILDDIR)/ntpclient-2007 $(BUILDDIR)/ntpclient_2007
-	@$(call patchin, NTPCLIENT)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 NTPCLIENT_PATH	:= PATH=$(CROSS_PATH)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
 NTPCLIENT_MAKE_OPT := \
 	CC="$(CROSS_CC)" \
 	CPPFLAGS='$(CROSS_CPPFLAGS)' \
