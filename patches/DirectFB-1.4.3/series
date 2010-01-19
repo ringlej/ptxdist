@@ -1,2 +1,2 @@
-configure.in.patch
-
+0001-fix-X11-detection.patch
+0002-disable-ppc-memcpy-that-needs-kernel-kernel-config-f.patch

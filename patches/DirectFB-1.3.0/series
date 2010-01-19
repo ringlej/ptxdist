@@ -1,2 +1,0 @@
-disable-ppcasm_memcpy_cachable_S.diff
-disable-ppcasm_memcpy_cachable_S-makefile_in.diff

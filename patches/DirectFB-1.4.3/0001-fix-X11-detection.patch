@@ -1,14 +1,16 @@
-Subject: [directfb] fix X11 detection
+From ab900fcc9de2c1e2146cbf56abe95caebeba1caa Mon Sep 17 00:00:00 2001
 From: Erwin Rol <erwin@erwinrol.com>
-X-Git-Url: http://git.directfb.org/?p=core%2FDirectFB.git;a=blobdiff_plain;f=configure.in;fp=configure.in;h=6b7e0bacb1615dc56afffc2d00b6999b11327613;hp=1ca4d6d7cb925eef48b259af5e372c79b90c615d;hb=2dad4f2dde329f4bfc0e9e658b7171ea16d080dd;hpb=b49b12c58b8df83b8127cdebf20c426a70f1bb1b
+Date: Wed, 20 Jan 2010 00:15:56 +0100
+Subject: [PATCH 1/2] fix X11 detection
 
 Use pkgconfig for X11 detection. This diff is simply cherrypicked from
 upstream and should not be needed anymore for the next release
 of directfb.
 
 Signed-off-by: Erwin Rol <erwin@erwinrol.com>
-
 ---
+ configure.in |   14 ++------------
+ 1 files changed, 2 insertions(+), 12 deletions(-)
 
 diff --git a/configure.in b/configure.in
 index 1ca4d6d..6b7e0ba 100644
@@ -35,3 +37,6 @@ index 1ca4d6d..6b7e0ba 100644
  fi
  
  AM_CONDITIONAL(X11_CORE, test "$enable_x11" = "yes")
+-- 
+1.6.6
+
