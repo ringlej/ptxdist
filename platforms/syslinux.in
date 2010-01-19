@@ -1,0 +1,21 @@
+## SECTION=bootloader
+
+config SYSLINUX
+	tristate
+	prompt "syslinux"
+	depends on ARCH_X86
+	select CROSS_NASM
+	help
+	  Bootloader for Linux/i386 using MS-DOS floppies
+
+	  SYSLINUX is a boot loader for the Linux/i386 operating
+	  system which operates off an MS-DOS/Windows FAT
+	  filesystem. It is intended to simplify first-time
+	  installation of Linux, and for creation of rescue and other
+	  special-purpose boot disks.
+
+	  It can also be used as a PXE bootloader during network boots.
+
+	  SYSLINUX is probably not suitable as a general purpose boot
+	  loader. However, SYSLINUX has shown itself to be quite
+	  useful in a number of special-purpose applications.

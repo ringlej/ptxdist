@@ -1,0 +1,37 @@
+From 319a5be6ffaaf19e5e6bb2831edb3ee4763b6875 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 19 Jan 2010 14:02:01 +0100
+Subject: [PATCH] Makefile: don't fail during make install on non mingw platforms
+
+"make install" fails on non mingw platform because "win32/syslinux.exe"
+isn't build.
+
+This patch removes "win32/syslinux.exe" from the "INSTALL_AUX" variable.
+It's already part of "INSTALL_AUX_OPT" allowing the installation to
+fail.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+mkl: mailed upstream as:
+http://syslinux.zytor.com/archives/2010-January/013669.html
+
+---
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index d0f5e71..f429e8c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -67,7 +67,7 @@ INSTALL_SBIN  = extlinux/extlinux
+ # Things to install in /usr/lib/syslinux
+ INSTALL_AUX   =	core/pxelinux.0 gpxe/gpxelinux.0 core/isolinux.bin \
+ 		core/isolinux-debug.bin \
+-		dos/syslinux.com dos/copybs.com win32/syslinux.exe \
++		dos/syslinux.com dos/copybs.com \
+ 		mbr/*.bin $(MODULES)
+ INSTALL_AUX_OPT = win32/syslinux.exe
+ 
+-- 
+1.6.6
+
