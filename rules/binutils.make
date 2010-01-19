@@ -28,7 +28,6 @@ BINUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/binutils/$(BINUTILS).$(BINUTILS_SUFF
 BINUTILS_SOURCE		:= $(SRCDIR)/$(BINUTILS).$(BINUTILS_SUFFIX)
 BINUTILS_DIR		:= $(BUILDDIR)/$(BINUTILS)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -41,13 +40,11 @@ $(BINUTILS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-BINUTILS_PATH	:= PATH=$(CROSS_PATH)
-BINUTILS_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-BINUTILS_AUTOCONF :=  $(CROSS_AUTOCONF_USR) \
+BINUTILS_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--enable-targets=$(PTXCONF_GNU_TARGET) \
 	--disable-nls \
@@ -74,16 +71,13 @@ $(STATEDIR)/binutils.targetinstall:
 
 ifdef PTXCONF_BINUTILS_READELF
 	@$(call install_copy, binutils, 0, 0, 0755, -, \
-		/usr/bin/readelf \
-	)
+		/usr/bin/readelf)
 endif
 ifdef PTXCONF_BINUTILS_OBJDUMP
 	@$(call install_copy, binutils, 0, 0, 0755, -, \
-		/usr/bin/objdump \
-	)
+		/usr/bin/objdump)
 endif
 	@$(call install_finish, binutils)
-
 
 	@$(call touch)
 
