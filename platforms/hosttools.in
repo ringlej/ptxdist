@@ -11,3 +11,4 @@ source "rules/host-xz.in"
 
 # common
 source "rules/host-zlib.in"
+source "rules/cross-nasm.in"

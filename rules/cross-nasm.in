@@ -2,4 +2,3 @@
 
 config CROSS_NASM
 	bool
-	prompt "x86 nasm"
