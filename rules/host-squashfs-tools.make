@@ -20,7 +20,8 @@ HOST_SQUASHFS_TOOLS		:= squashfs$(HOST_SQUASHFS_TOOLS_VERSION)
 HOST_SQUASHFS_TOOLS_SUFFIX	:= tar.gz
 HOST_SQUASHFS_TOOLS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/squashfs/$(HOST_SQUASHFS_TOOLS).$(HOST_SQUASHFS_TOOLS_SUFFIX)
 HOST_SQUASHFS_TOOLS_SOURCE	:= $(SRCDIR)/$(HOST_SQUASHFS_TOOLS).$(HOST_SQUASHFS_TOOLS_SUFFIX)
-HOST_SQUASHFS_TOOLS_DIR		:= $(HOST_BUILDDIR)/$(HOST_SQUASHFS_TOOLS)/squashfs-tools
+HOST_SQUASHFS_TOOLS_DIR		:= $(HOST_BUILDDIR)/$(HOST_SQUASHFS_TOOLS)
+HOST_SQUASHFS_TOOLS_SUBDIR	:= squashfs-tools
 
 # ----------------------------------------------------------------------------
 # Get
@@ -31,29 +32,11 @@ $(HOST_SQUASHFS_TOOLS_SOURCE):
 	@$(call get, HOST_SQUASHFS_TOOLS)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-HOST_SQUASHFS_TOOLS_COMPILE_ENV := \
-	$(HOST_ENV)
-
-HOST_SQUASHFS_TOOLS_MAKEVARS	:= \
-	INSTALL_DIR="$(PTXCONF_SYSROOT_HOST)/sbin"
-
-$(STATEDIR)/host-squashfs-tools.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/host-squashfs-tools.compile:
-	@$(call targetinfo)
-	cd $(HOST_SQUASHFS_TOOLS_DIR) && \
-		$(HOST_SQUASHFS_TOOLS_PATH) \
-		$(HOST_SQUASHFS_TOOLS_COMPILE_ENV) \
-		$(MAKE) $(HOST_SQUASHFS_TOOLS_MAKEVARS) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
+HOST_SQUASHFS_TOOLS_MAKE_ENV	:= $(HOST_ENV)
+HOST_SQUASHFS_TOOLS_MAKE_PAR	:= NO
+HOST_SQUASHFS_TOOLS_MAKE_OPT	:= INSTALL_DIR="$(PTXCONF_SYSROOT_HOST)/sbin"
 
 # vim: syntax=make
