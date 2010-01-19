@@ -1,0 +1,30 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: HACK: remove le16toh usage
+
+le16toh is not supported by OSELAS.Toolchain-1.99.3
+
+Not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ extras/ata_id/ata_id.c |    6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+Index: b/extras/ata_id/ata_id.c
+===================================================================
+--- a/extras/ata_id/ata_id.c
++++ b/extras/ata_id/ata_id.c
+@@ -168,7 +168,11 @@ static void disk_identify_fixup_uint16 (
+ 	uint16_t *p;
+ 
+ 	p = (uint16_t *) identify;
+-	p[offset_words] = le16toh (p[offset_words]);
++#if __BYTE_ORDER == __LITTLE_ENDIAN
++	p[offset_words] = p[offset_words];
++#else
++	p[offset_words] = __bswap_16 (p[offset_words]);
++#endif
+ }
+ 
+ /**

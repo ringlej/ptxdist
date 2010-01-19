@@ -6,7 +6,7 @@ config DEVICEKIT
 	select DBUS
 	select DBUS_GLIB
 	select UDEV
-	select UDEV__LIBUDEV
+	select UDEV_LIBUDEV
 	prompt "devicekit"
 	help
 	  FIXME

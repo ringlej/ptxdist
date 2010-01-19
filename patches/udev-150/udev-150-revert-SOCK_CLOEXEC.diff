@@ -1,0 +1,121 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: HACK: revert 26347a4c5538008318188118872490128f43fcd3 (don't use SOCK_CLOEXEC)
+
+SOCK_CLOEXEC is not defined by the glibc in OSELAS.Toolchain-1.99.3
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+diff --git a/libudev/libudev-monitor.c b/libudev/libudev-monitor.c
+index 96c153f..ee855af 100644
+--- a/libudev/libudev-monitor.c
++++ b/libudev/libudev-monitor.c
+@@ -139,12 +139,13 @@ struct udev_monitor *udev_monitor_new_from_socket(struct udev *udev, const char
+ 		util_strscpy(&udev_monitor->sun.sun_path[1], sizeof(udev_monitor->sun.sun_path)-1, socket_path);
+ 		udev_monitor->addrlen = offsetof(struct sockaddr_un, sun_path) + strlen(socket_path)+1;
+ 	}
+-	udev_monitor->sock = socket(AF_LOCAL, SOCK_DGRAM|SOCK_CLOEXEC, 0);
++	udev_monitor->sock = socket(AF_LOCAL, SOCK_DGRAM, 0);
+ 	if (udev_monitor->sock == -1) {
+ 		err(udev, "error getting socket: %m\n");
+ 		free(udev_monitor);
+ 		return NULL;
+ 	}
++	util_set_fd_cloexec(udev_monitor->sock);
+ 
+ 	dbg(udev, "monitor %p created with '%s'\n", udev_monitor, socket_path);
+ 	return udev_monitor;
+@@ -196,12 +197,13 @@ struct udev_monitor *udev_monitor_new_from_netlink(struct udev *udev, const char
+ 	if (udev_monitor == NULL)
+ 		return NULL;
+ 
+-	udev_monitor->sock = socket(PF_NETLINK, SOCK_DGRAM|SOCK_CLOEXEC, NETLINK_KOBJECT_UEVENT);
++	udev_monitor->sock = socket(PF_NETLINK, SOCK_DGRAM, NETLINK_KOBJECT_UEVENT);
+ 	if (udev_monitor->sock == -1) {
+ 		err(udev, "error getting socket: %m\n");
+ 		free(udev_monitor);
+ 		return NULL;
+ 	}
++	util_set_fd_cloexec(udev_monitor->sock);
+ 
+ 	udev_monitor->snl.nl_family = AF_NETLINK;
+ 	udev_monitor->snl.nl_groups = group;
+diff --git a/libudev/libudev-private.h b/libudev/libudev-private.h
+index c2fff00..6738a9b 100644
+--- a/libudev/libudev-private.h
++++ b/libudev/libudev-private.h
+@@ -204,6 +204,7 @@ size_t util_strscpyl(char *dest, size_t size, const char *src, ...) __attribute_
+ int udev_util_replace_whitespace(const char *str, char *to, size_t len);
+ int udev_util_replace_chars(char *str, const char *white);
+ int udev_util_encode_string(const char *str, char *str_enc, size_t len);
++void util_set_fd_cloexec(int fd);
+ unsigned int util_string_hash32(const char *str);
+ 
+ /* libudev-util-private.c */
+diff --git a/libudev/libudev-util.c b/libudev/libudev-util.c
+index c0209f9..9a656b5 100644
+--- a/libudev/libudev-util.c
++++ b/libudev/libudev-util.c
+@@ -481,6 +481,18 @@ err:
+ 	return -1;
+ }
+ 
++void util_set_fd_cloexec(int fd)
++{
++	int flags;
++
++	flags = fcntl(fd, F_GETFD);
++	if (flags < 0)
++		flags = FD_CLOEXEC;
++	else
++		flags |= FD_CLOEXEC;
++	fcntl(fd, F_SETFD, flags);
++}
++
+ unsigned int util_string_hash32(const char *str)
+ {
+ 	unsigned int hash = 0;
+diff --git a/udev/udev-watch.c b/udev/udev-watch.c
+index d67083b..102e16f 100644
+--- a/udev/udev-watch.c
++++ b/udev/udev-watch.c
+@@ -38,8 +38,10 @@ static int inotify_fd = -1;
+  */
+ int udev_watch_init(struct udev *udev)
+ {
+-	inotify_fd = inotify_init1(IN_CLOEXEC);
+-	if (inotify_fd < 0)
++	inotify_fd = inotify_init();
++	if (inotify_fd >= 0)
++		util_set_fd_cloexec(inotify_fd);
++	else
+ 		err(udev, "inotify_init failed: %m\n");
+ 	return inotify_fd;
+ }
+diff --git a/udev/udevd.c b/udev/udevd.c
+index fe3352c..86936c7 100644
+--- a/udev/udevd.c
++++ b/udev/udevd.c
+@@ -223,6 +223,7 @@ static void worker_new(struct event *event)
+ 	/* allow the main daemon netlink address to send devices to the worker */
+ 	udev_monitor_allow_unicast_sender(worker_monitor, monitor);
+ 	udev_monitor_enable_receiving(worker_monitor);
++	util_set_fd_cloexec(udev_monitor_get_fd(worker_monitor));
+ 
+ 	worker = calloc(1, sizeof(struct worker));
+ 	if (worker == NULL)
+@@ -922,13 +923,14 @@ int main(int argc, char *argv[])
+ 	}
+ 
+ 	/* unnamed socket from workers to the main daemon */
+-	if (socketpair(AF_LOCAL, SOCK_DGRAM|SOCK_CLOEXEC, 0, worker_watch) < 0) {
++	if (socketpair(AF_LOCAL, SOCK_DGRAM, 0, worker_watch) < 0) {
+ 		fprintf(stderr, "error getting socketpair\n");
+ 		err(udev, "error getting socketpair\n");
+ 		rc = 6;
+ 		goto exit;
+ 	}
+ 	pfd[FD_WORKER].fd = worker_watch[READ_END];
++	util_set_fd_cloexec(worker_watch[WRITE_END]);
+ 
+ 	rules = udev_rules_new(udev, resolve_names);
+ 	if (rules == NULL) {

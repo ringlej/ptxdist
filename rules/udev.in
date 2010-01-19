@@ -3,6 +3,14 @@ menuconfig UDEV
 	tristate
 	prompt "udev                          "
 	select ROOTFS_DEV
+	select HOST_GPERF	if UDEV_EXTRA_KEYMAP
+	select GLIB		if UDEV_LIBGUDEV
+	select GLIB		if UDEV_EXTRA_UDEV_ACL
+	select ACL		if UDEV_EXTRA_UDEV_ACL
+	select USBUTILS		if UDEV_EXTRA_USB_DB
+	select LIBUSB_COMPAT	if UDEV_EXTRA_HID2HCI
+	select LIBUSB_COMPAT	if UDEV_EXTRA_MODEM_MODESWITCH
+	select PCIUTILS		if UDEV_EXTRA_PCI_DB
 	help
 	  udev provides a dynamic device directory containing only the files for
 	  actually present devices. It creates or removes device node files in the
@@ -24,7 +32,7 @@ if UDEV
 
 menu "build options                 "
 
-	config UDEV__DEBUG
+	config UDEV_DEBUG
 		bool
 		prompt "enable debug messages"
 		help
@@ -32,12 +40,12 @@ menu "build options                 "
 		  into the udev binaries. The actual level of debugging is specified
 		  in the udev config file (refer entry "udev_log")
 
-	config UDEV__SELINUX
+	config UDEV_SELINUX
 		bool
 		# not supported yet
 		# prompt "enable selinux support"
 
-	config UDEV__SYSLOG
+	config UDEV_SYSLOG
 		bool
 		prompt "syslog support"
 		help
@@ -47,70 +55,198 @@ menu "build options                 "
 
 endmenu
 
-menu "extras                        "
+menu "install options               "
 
-	config UDEV__EXTRA_ATA_ID
+	config UDEV_ETC_CONF
+		bool
+		default y
+		prompt "install udev.conf"
+		help
+		  Installs /etc/udev/udev.conf. If you don't wish to install the
+		  generic udev.conf, just put a copy of your own udev.conf file into
+		  your own projectroot/etc/udev/
+
+	config UDEV_DEFAULT_RULES
+		bool
+		prompt "install default udev rules"
+		help
+		  This will install the generic udev rules files from the udev package
+		  under /lib/udev/rules.d/, except of rules to automatically load
+		  drivers modules.
+
+	config UDEV_DEFAULT_DRIVERS_RULES
+		bool
+		prompt "install default udev driver rules"
+		help
+		  This will install the generic udev drivers rules files from the udev package
+		  under /lib/udev/rules.d/,
+		  These rules are required to automatically load kernel modules on
+		  udev start.
+		  If unsure say Y.
+
+	config UDEV_DEFAULT_KEYMAPS
+		bool
+		prompt "install default keymaps"
+		help
+	  	  This will install some of the common keymaps shipped by udev.
+
+	config UDEV_COMMON_RULES
+		bool
+		prompt "install common udev rules"
+		help
+	  	  This will install some of the common rules shipped by udev, including
+		  rules for sound, isdn, md and device mapper.
+
+	config UDEV_CUST_RULES
+		bool
+		prompt "install customized udev rules"
+		help
+		  This will install the customized udev rules files from
+		  projectroot/lib/udev/rules.d into /lib/udev/rules.d
+
+	config UDEV_LIBUDEV
+		bool
+		prompt "install libudev"
+		help
+		  Install libudev.so on the target.
+
+	config UDEV_LIBGUDEV
+		bool
+		prompt "install libgudev"
+		help
+		  Install libgudev.so on the target.
+
+	config UDEV_STARTSCRIPT
+		bool
+		default y
+		prompt "install /etc/init.d/udev or /etc/init/udev.conf"
+		help
+		  Install the startup magic for either bbinit or upstart.
+		  Select Y here, as this is what you usually want.
+
+endmenu
+
+menuconfig UDEV_EXTRAS
+	bool "extras                        "
+
+if UDEV_EXTRAS
+
+	config UDEV_EXTRA_ATA_ID
 		bool
 		prompt "ata_id"
 		help
 		  udev callout to read product/serial number from ATA drives
 
-	config UDEV__EXTRA_CDROM_ID
+	config UDEV_EXTRA_CDROM_ID
 		bool
 		prompt "cdrom_id"
 		help
 		  udev callout to determine the capabilities of optical drives and media
 
-	config UDEV__EXTRA_COLLECT
+	config UDEV_EXTRA_COLLECT
 		bool
 		prompt "collect"
 		help
 		  Collect variables across events
 
-	config UDEV__EXTRA_EDD_ID
+	config UDEV_EXTRA_EDD_ID
 		bool
 		prompt "edd_id"
 		help
-		  FIXME
+		  Tool to get EDD ID
 
-	config UDEV__EXTRA_FIRMWARE
+	config UDEV_EXTRA_FINDKEYBOARDS
+		bool
+		prompt "findkeyboards"
+		help
+		  Tool to find attached keyboards
+
+	config UDEV_EXTRA_FIRMWARE
 		bool
 		prompt "firmware"
 		help
-	  	  This is a small helper script to load some kind of firmware on demand
+	  	  This is a small helper binary to load some kind of firmware on demand
 
-	config UDEV__EXTRA_FLOPPY
+	config UDEV_EXTRA_FLOPPY
 		bool
-		prompt "floppy"
+		prompt "create_floppy_devices"
 		help
 		  FIXME
 
-	config UDEV__EXTRA_FSTAB_IMPORT
+	config UDEV_EXTRA_FSTAB_IMPORT
 		bool
 		prompt "fstab_import"
 		help
 		  Find matching entry in fstab and export it
 
-	config UDEV__EXTRA_PATH_ID
+	config UDEV_EXTRA_HID2HCI
+		bool
+		prompt "hid2hci"
+		help
+		  Convert HID to HCI IDs
+
+	config UDEV_EXTRA_INPUT_ID
+		bool
+		prompt "input_id"
+		help
+		  FIXME
+
+	config UDEV_EXTRA_KEYBOARD_FORCE_RELEASE
+		bool
+		prompt "keyboard-force-release.sh"
+		help
+		  Keyboard support
+
+	config UDEV_EXTRA_KEYMAP
+		bool
+		prompt "keymap"
+		help
+		  Keymap support
+
+	config UDEV_EXTRA_MODEM_MODESWITCH
+		bool
+		prompt "modem-modeswitch"
+		help
+		  Option UMTS Modem support
+
+	config UDEV_EXTRA_PATH_ID
 		bool
 		prompt "path_id"
 		help
 		  udev callout to create a device path based unique name for a device to
 		  implement the Linux Persistent Device Naming scheme
 
-	config UDEV__EXTRA_RULE_GENERATOR
+	config UDEV_EXTRA_PCI_DB
+		bool
+		prompt "pci-db"
+		help
+		  Name resolution for PCI IDs
+
+	config UDEV_EXTRA_RULE_GENERATOR
 		bool
 		prompt "rule_generator"
 		help
 		  FIXME
 
-	config UDEV__EXTRA_SCSI_ID
+	config UDEV_EXTRA_SCSI_ID
 		bool
 		prompt "scsi_id"
 		help
 		  Used to build unique IDs for an SCSI media to identify it again
 
-	config UDEV__EXTRA_USB_ID
+	config UDEV_EXTRA_UDEV_ACL
+		bool
+		prompt "udev-acl"
+		help
+		  FIXME
+
+	config UDEV_EXTRA_USB_DB
+		bool
+		prompt "usb-db"
+		help
+		  Name resolution for USB IDs
+
+	config UDEV_EXTRA_USB_ID
 		bool
 		prompt "usb_id"
 		help
@@ -118,64 +254,27 @@ menu "extras                        "
 		    USB device. This is required to ensure the same hotplugged device to
 		    appear always at the same device node (via link)
 
-	config UDEV__EXTRA_VOLUME_ID
+	config UDEV_EXTRA_V4L_ID
 		bool
-		prompt "volume_id"
+		prompt "v4l_id"
 		help
 		  FIXME
 
-endmenu
-
-menu "install options               "
-
-	config UDEV__INSTALL_TEST_UDEV
+	config UDEV_EXTRA_WRITE_CD_RULES
 		bool
-		prompt "install test-udev"
+		prompt "write_cd_rules"
 		help
-		  FIXME
+		  This will generate udev-based persistent naming rules for your CD/DVD media
 
-	config UDEV__ETC_CONF
+	config UDEV_EXTRA_WRITE_NET_RULES
 		bool
-		default y
-		prompt "install udev.conf"
+		prompt "write_net_rules"
 		help
-		  Installs /etc/udev/udev.conf. If you don't wish to install the
-		  generic udev.conf, just put a copy of your own udev.conf file into
-		  your own projectroot/etc/udev/ 
-
-	config UDEV__DEFAULT_RULES
-		bool
-		prompt "install default udev rules"
-		help
-		  This will install the generic udev rules files from the udev package
-		  under /lib/udev/rules.d/
-
-	config UDEV__COMMON_RULES
-		bool
-		prompt "install common udev rules"
-		help
-	  	  This will install some of the common rules shipped by udev, including
-		  rules for sound, isdn, md and device mapper.
-
-	config UDEV__CUST_RULES
-		bool
-		prompt "install customized udev rules"
-		help
-		  This will install the customized udev rules files from
-		  projectroot/lib/udev/rules.d into /lib/udev/rules.d
-
-	config UDEV__LIBUDEV
-		bool
-		prompt "install libudev"
-		help
-		  Install libudev.so on the target.
-
-	config UDEV_STARTSCRIPT
-		bool
-		default y
-		prompt "install /etc/init.d/udev"
-
-	endmenu
+		  This will generate udev-based persistent naming rules for your network devices
 
 endif
+
+endif
+
+
 

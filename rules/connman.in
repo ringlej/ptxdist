@@ -98,7 +98,7 @@ menu "plugins"
 
 	config CONNMAN_UDEV
 		bool
-		select UDEV__LIBUDEV
+		select UDEV_LIBUDEV
 		prompt "udev support"
 
 endmenu

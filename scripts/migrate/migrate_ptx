@@ -54,3 +54,11 @@ s/^\(\(# \)\?PTXCONF_BUSYBOX\)_GETOPT_LONG\(.*$\)/\1_LONG_OPTS\3/
 #
 s/^\(\(# \)\?PTXCONF_BZIP2_\)_\(.*$\)/\1\3/
 
+#
+# from   : ptxdist-2010.01.0
+# to     : ptxdist-2010.02.0
+# symbol : UDEV__*	-> UDEV_*
+# reason : cleanup
+#
+s/^\(\(# \)\?PTXCONF_UDEV_\)_\(.*$\)/\1\3/
+
