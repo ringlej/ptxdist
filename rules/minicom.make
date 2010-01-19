@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Carsten Schlote <c.schlote@konzeptpark.de>
-#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_MINICOM) += minicom
 #
 # Paths and names
 #
-MINICOM_VERSION	:= 2.3
+MINICOM_VERSION	:= 2.4
 MINICOM		:= minicom-$(MINICOM_VERSION)
 MINICOM_SUFFIX	:= tar.gz
-MINICOM_URL	:= http://alioth.debian.org/frs/download.php/2332/$(MINICOM).$(MINICOM_SUFFIX)
+MINICOM_URL	:= http://alioth.debian.org/frs/download.php/3195/$(MINICOM).$(MINICOM_SUFFIX)
 MINICOM_SOURCE	:= $(SRCDIR)/$(MINICOM).$(MINICOM_SUFFIX)
 MINICOM_DIR	:= $(BUILDDIR)/$(MINICOM)
 MINICOM_LICENSE	:= GPLv2
