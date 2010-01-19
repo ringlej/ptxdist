@@ -10,6 +10,8 @@ menuconfig DIRECTFB
 	select LIBJPEG if DIRECTFB_IMAGE_JPEG
 	select FREETYPE if DIRECTFB_FONT_FREETYPE
 	select TSLIB if DIRECTFB_INPUT_TSLIB
+	select XORG_LIB_X11 if DIRECTFB_X11
+	select MESALIB if DIRECTFB_GFX_GL
 	help
 	  DirectFB is a thin library that provides hardware
 	  graphics acceleration, input device handling and
@@ -30,15 +32,18 @@ config DIRECTFB_DEBUG
 config DIRECTFB_TRACE
 	bool "build with trace support"
 
-config DIRECTFB_IMAGE_GIF
-	bool "build gif image provider"
 
-config DIRECTFB_IMAGE_PNG
-	bool "build png image provider"
+config DIRECTFB_X11
+	bool "X11 support"
 
-config DIRECTFB_IMAGE_JPEG
-	bool "build jpeg image provider"
+config DIRECTFB_FBDEV
+	bool "Framebuffer Device support"
 
+config DIRECTFB_V4L
+	bool "Video for Linux support"
+
+config DIRECTFB_V4L2
+	bool "Video for Linux v2 support"
 
 config DIRECTFB_FONT_FREETYPE
 	bool "build freetype2 font provider"
@@ -46,6 +51,86 @@ config DIRECTFB_FONT_FREETYPE
 config DIRECTFB_WM_UNIQUE
 	bool "enable unique (wm module)"
 	select DIRECTFB_IMAGE_PNG
+
+menu "image providers             "
+
+config DIRECTFB_IMAGE_GIF
+	bool "gif"
+
+config DIRECTFB_IMAGE_PNG
+	bool "png"
+
+config DIRECTFB_IMAGE_JPEG
+	bool "jpeg"
+
+endmenu
+
+menu "graphics driver             "
+
+config DIRECTFB_GFX_ATI128
+	bool "ati128"
+
+config DIRECTFB_GFX_CLE266
+	bool "cle266"
+
+config DIRECTFB_GFX_CYBER5K
+	bool "cyber5k"
+
+config DIRECTFB_GFX_DAVINCI
+	bool "davinci"
+
+config DIRECTFB_GFX_EP9X
+	bool "ep9x"
+
+config DIRECTFB_GFX_GL
+	bool "OpenGL"
+
+config DIRECTFB_GFX_I810
+	bool "i810"
+
+config DIRECTFB_GFX_I830
+	bool "i830"
+
+config DIRECTFB_GFX_MACH64
+	bool "mach64"
+
+config DIRECTFB_GFX_MATROX
+	bool "matrox"
+
+config DIRECTFB_GFX_NEOMAGIC
+	bool "neomagic"
+
+config DIRECTFB_GFX_NSC
+	bool "nsc"
+
+config DIRECTFB_GFX_NVIDIA
+	bool "nvidia"
+
+config DIRECTFB_GFX_OMAP
+	bool "omap"
+
+config DIRECTFB_GFX_RADEON
+	bool "radeon"
+
+config DIRECTFB_GFX_SAVAGE
+	bool "savage"
+
+config DIRECTFB_GFX_SH7722
+	bool "sh7722"
+
+config DIRECTFB_GFX_SIS315
+	bool "sis315"
+
+config DIRECTFB_GFX_TDFX
+	bool "tdfx"
+
+config DIRECTFB_GFX_UNICHROME
+	bool "unichrome"
+
+config DIRECTFB_GFX_VMWARE
+	bool "vmware"
+
+endmenu
 
 menu "input driver                "
 
