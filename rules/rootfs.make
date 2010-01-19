@@ -16,7 +16,6 @@ PACKAGES-$(PTXCONF_ROOTFS) += rootfs
 
 # dummy to make ipkg happy
 ROOTFS_VERSION	:= 1.0.0
-ROOTFS_DIR	:= $(BUILDDIR)/rootfs
 
 # ----------------------------------------------------------------------------
 # Get
