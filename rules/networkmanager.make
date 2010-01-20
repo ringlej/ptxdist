@@ -32,22 +32,8 @@ $(NETWORKMANAGER_SOURCE):
 	@$(call get, NETWORKMANAGER)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/networkmanager.extract:
-	@$(call targetinfo)
-	@$(call clean, $(NETWORKMANAGER_DIR))
-	@$(call extract, NETWORKMANAGER)
-	@$(call patchin, NETWORKMANAGER)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-NETWORKMANAGER_PATH	:= PATH=$(CROSS_PATH)
-NETWORKMANAGER_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -79,32 +65,6 @@ NETWORKMANAGER_AUTOCONF := \
 #  --with-system-ca-path=/path/to/ssl/certs
 #                          path to system CA certificates
 #  --with-html-dir=PATH    path to installed docs
-
-$(STATEDIR)/networkmanager.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(NETWORKMANAGER_DIR)/config.cache)
-	cd $(NETWORKMANAGER_DIR) && \
-		$(NETWORKMANAGER_PATH) $(NETWORKMANAGER_ENV) \
-		./configure $(NETWORKMANAGER_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/networkmanager.compile:
-	@$(call targetinfo)
-	cd $(NETWORKMANAGER_DIR) && $(NETWORKMANAGER_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/networkmanager.install:
-	@$(call targetinfo)
-	@$(call install, NETWORKMANAGER)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
