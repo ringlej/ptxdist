@@ -5,6 +5,5 @@ config HOST_CDRKIT
 	select HOST_CMAKE
 	select HOST_LIBCAP
 	select HOST_LIBBZ2
-	prompt "cdrkit"
 	help
-	  FIXME
+	  command-line CD/DVD recorder software
