@@ -62,8 +62,8 @@ ptxd_kgen_generate_sections()
 	    if [ \! -d "${dir}/${kgen_part_dir}" ]; then
 		continue
 	    fi
-
-	    find "${dir}/${kgen_part_dir}/" -name *.in -print0
+	    # '! -name ".#*"' filters out emacs's lock files
+	    find "${dir}/${kgen_part_dir}/" -name *.in \! -name ".#*" -print0
 	done
     } | {
 	#
