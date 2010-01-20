@@ -33,53 +33,13 @@ $(FBV_SOURCE):
 	@$(call get, FBV)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/fbv.extract:
-	@$(call targetinfo)
-	@$(call clean, $(FBV_DIR))
-	@$(call extract, FBV)
-	@$(call patchin, FBV)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-FBV_PATH	:= PATH=$(CROSS_PATH)
-FBV_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 FBV_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/fbv.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(FBV_DIR)/config.cache)
-	cd $(FBV_DIR) && \
-		$(FBV_PATH) $(FBV_ENV) \
-		./configure $(FBV_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/fbv.compile:
-	@$(call targetinfo)
-	cd $(FBV_DIR) && $(FBV_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/fbv.install:
-	@$(call targetinfo)
-	@$(call install, FBV)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
