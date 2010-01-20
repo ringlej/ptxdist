@@ -40,53 +40,13 @@ $(PTRTD_SOURCE):
 	@$(call get, PTRTD)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ptrtd.extract:
-	@$(call targetinfo)
-	@$(call clean, $(PTRTD_DIR))
-	@$(call extract, PTRTD)
-	@$(call patchin, PTRTD)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-PTRTD_PATH	:= PATH=$(CROSS_PATH)
-PTRTD_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 PTRTD_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/ptrtd.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(PTRTD_DIR)/config.cache)
-	cd $(PTRTD_DIR) && \
-		$(PTRTD_PATH) $(PTRTD_ENV) \
-		./configure $(PTRTD_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ptrtd.compile:
-	@$(call targetinfo)
-	cd $(PTRTD_DIR) && $(PTRTD_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/ptrtd.install:
-	@$(call targetinfo)
-	@$(call install, PTRTD)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
