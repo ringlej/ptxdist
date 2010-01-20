@@ -95,6 +95,7 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_SQUASHFS)	+= $(IMAGEDIR)/root.squashfs
 #
 # extract all current ipkgs into the working directory
 #
+PHONY += $(STATEDIR)/image_working_dir
 $(STATEDIR)/image_working_dir: $(IPKG_FILES) $(IMAGEDIR)/permissions $(IMAGEDIR)/ipkg.conf
 	@rm -rf $(WORKDIR)
 	@mkdir $(WORKDIR)
