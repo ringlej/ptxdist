@@ -33,53 +33,13 @@ $(TOTD_SOURCE):
 	@$(call get, TOTD)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/totd.extract:
-	@$(call targetinfo)
-	@$(call clean, $(TOTD_DIR))
-	@$(call extract, TOTD)
-	@$(call patchin, TOTD)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-TOTD_PATH	:= PATH=$(CROSS_PATH)
-TOTD_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 TOTD_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/totd.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(TOTD_DIR)/config.cache)
-	cd $(TOTD_DIR) && \
-		$(TOTD_PATH) $(TOTD_ENV) \
-		./configure $(TOTD_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/totd.compile:
-	@$(call targetinfo)
-	cd $(TOTD_DIR) && $(TOTD_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/totd.install:
-	@$(call targetinfo)
-	@$(call install, TOTD)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
