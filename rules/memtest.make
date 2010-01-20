@@ -33,24 +33,11 @@ $(MEMTEST_SOURCE):
 	@$(call get, MEMTEST)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-MEMTEST_PATH	:= PATH=$(CROSS_PATH)
-MEMTEST_ENV 	:= $(CROSS_ENV)
-
-$(STATEDIR)/memtest.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/memtest.compile:
-	@$(call targetinfo)
-	cd $(MEMTEST_DIR) && $(MEMTEST_ENV) $(MEMTEST_PATH) make mtest
-	@$(call touch)
+MEMTEST_MAKE_ENV	:= $(CROSS_ENV)
+MEMTEST_MAKE_OPT	:= mtest
 
 # ----------------------------------------------------------------------------
 # Install
