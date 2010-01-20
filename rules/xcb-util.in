@@ -1,0 +1,10 @@
+## SECTION=multimedia_xorg_app
+
+config XCB_UTIL
+	tristate
+	select XORG_PROTO_X
+	select XCB_PROTO
+	select LIBXCB
+	prompt "xcb-util"
+	help
+	  FIXME

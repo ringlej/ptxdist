@@ -276,11 +276,17 @@ config XORG_SERVER_EXT_XRES
 
 config XORG_SERVER_EXT_RECORD
 	bool
+	depends on BROKEN
 	prompt "record extension"
 	default y
 	help
 	  --enable-record, The record module adds record extension to capture
 	  events that are associated with recording and playback user actions
+	  This option will cause runtime problems;
+	    record: RECORD extension enabled at configure time.
+	    record: This extension is known to be broken, disabling extension now..
+	    record: http://bugs.freedesktop.org/show_bug.cgi?id=20500
+
 
 config XORG_SERVER_EXT_XV
 	bool

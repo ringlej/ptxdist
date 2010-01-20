@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2006 by Erwin Rol
+# Copyright (C) 2006,2010 by Erwin Rol <erwin@erwinrol.com>
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
@@ -47,10 +47,19 @@ XORG_DRIVER_VIDEO_INTEL_ENV 	:= \
 XORG_DRIVER_VIDEO_INTEL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-xorg-module-dir=/usr/lib/xorg/modules \
-	--disable-video-debug \
-	--disable-debug \
-	--disable-xvmc \
-	--enable-shave
+	--disable-video-debug
+
+ifdef PTXCONF_XORG_DRIVER_VIDEO_INTEL_XVMC
+XORG_DRIVER_VIDEO_INTEL_AUTOCONF += --enable-xvmc
+else
+XORG_DRIVER_VIDEO_INTEL_AUTOCONF += --disable-xvmc
+endif
+
+ifdef PTXCONF_XORG_DRIVER_VIDEO_INTEL_KMS_ONLY
+XORG_DRIVER_VIDEO_INTEL_AUTOCONF += --enable-kms-only
+else
+XORG_DRIVER_VIDEO_INTEL_AUTOCONF += --disable-kms-only
+endif
 
 ifdef PTXCONF_XORG_DRIVER_VIDEO_INTEL_DRI
 XORG_DRIVER_VIDEO_INTEL_AUTOCONF += --enable-dri
@@ -85,20 +94,25 @@ $(STATEDIR)/xorg-driver-video-intel.targetinstall:
 	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/drivers/intel_drv.so)
 
+ifdef PTXCONF_XORG_DRIVER_VIDEO_INTEL_XVMC
 	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/drivers/sil164.so)
+		/usr/lib/libI810XvMC.so.1.0.0)
+	@$(call install_link, xorg-driver-video-intel, \
+		libI810XvMC.so.1.0.0, \
+		/usr/lib/libI810XvMC.so.1)
+	@$(call install_link, xorg-driver-video-intel, \
+		libI810XvMC.so.1.0.0, \
+		/usr/lib/libI810XvMC.so)
 
 	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/drivers/ch7xxx.so)
-
-	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/drivers/ch7017.so)
-
-	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/drivers/tfp410.so)
-
-	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
-		/usr/lib/xorg/modules/drivers/ivch.so)
+		/usr/lib/libIntelXvMC.so.1.0.0)
+	@$(call install_link, xorg-driver-video-intel, \
+		libIntelXvMC.so.1.0.0, \
+		/usr/lib/libIntelXvMC.so.1)
+	@$(call install_link, xorg-driver-video-intel, \
+		libIntelXvMC.so.1.0.0, \
+		/usr/lib/libIntelXvMC.so)
+endif
 
 	@$(call install_finish,xorg-driver-video-intel)
 
