@@ -12,6 +12,7 @@ menuconfig XORG_SERVER
 	#
 
 	# protos
+	select XORG_PROTO_RECORD
 	select XORG_PROTO_RANDR
 	select XORG_PROTO_RENDER
 	select XORG_PROTO_FIXES
@@ -69,9 +70,6 @@ menuconfig XORG_SERVER
 
 	# composite triggered
 	select XORG_LIB_XCOMPOSITE	if XORG_SERVER_EXT_COMPOSITE
-
-	# record triggered
-	select XORG_PROTO_RECORD	if XORG_SERVER_EXT_RECORD
 
 	# screensaver triggered
 	select XORG_LIB_XSCRNSAVER	if XORG_SERVER_EXT_SCREENSAVER
