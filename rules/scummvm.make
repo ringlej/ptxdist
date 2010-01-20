@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2008, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_SCUMMVM) += scummvm
 #
 # Paths and names
 #
-SCUMMVM_VERSION	:= 0.11.1
+SCUMMVM_VERSION	:= 1.0.0
 SCUMMVM		:= scummvm-$(SCUMMVM_VERSION)
 SCUMMVM_SUFFIX	:= tar.bz2
 SCUMMVM_URL	:= $(PTXCONF_SETUP_SFMIRROR)/scummvm/$(SCUMMVM).$(SCUMMVM_SUFFIX)
@@ -35,24 +35,12 @@ $(SCUMMVM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-SCUMMVM_PATH	:= PATH=$(CROSS_PATH)
-SCUMMVM_ENV 	:= $(CROSS_ENV)
-
-SCUMMVM_MAKEVARS := AS=$(CROSS_AS)
-
-#
-# autoconf
-#
-SCUMMVM_AUTOCONF := \
+SCUMMVM_CONF_TOOL := autoconf
+SCUMMVM_CONF_OPT := \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--prefix=/usr
 
-$(STATEDIR)/scummvm.prepare:
-	@$(call targetinfo)
-	cd $(SCUMMVM_DIR) && \
-		$(SCUMMVM_PATH) $(SCUMMVM_ENV) \
-		./configure $(SCUMMVM_AUTOCONF)
-	@$(call touch)
+SCUMMVM_MAKE_OPT := $(CROSS_ENV_AS) $(CROSS_ENV_RANLIB) AR="$(CROSS_AR) cru"
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -72,9 +60,9 @@ $(STATEDIR)/scummvm.targetinstall:
 
 	@$(call install_copy, scummvm, 0, 0, 0755, -, /usr/bin/scummvm)
 
-	@$(call install_copy, scummvm, 0, 0, 0644, -, /usr/share/scummvm/classic080.ini)
-	@$(call install_copy, scummvm, 0, 0, 0644, -, /usr/share/scummvm/modern.ini)
-	@$(call install_copy, scummvm, 0, 0, 0644, -, /usr/share/scummvm/modern.zip)
+	@cd $(SCUMMVM_PKGDIR) && pwd && find usr/share/scummvm -type f | while read file; do \
+		$(call install_copy, scummvm, 0, 0, 0644, -, /$$file); \
+	done
 
 	@$(call install_finish, scummvm)
 

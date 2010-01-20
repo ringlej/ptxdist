@@ -3,12 +3,14 @@ config SCUMMVM
 	tristate
 	prompt "scummvm"
 	select ALSA_LIB
-	select SDL
-	select SDL_JOYSTICK
+	select CROSS_NASM
+	select GCCLIBS_CXX
 	select LIBC_M
 	select LIBC_PTHREAD
-	select GCCLIBS_CXX
-	select CROSS_NASM
+	select LIBMAD
+	select SDL
+	select SDL_JOYSTICK
+	select ZLIB
 	help
 	  ScummVM is a program which allows you to run certain classic
 	  graphical point-and-click adventure games, provided you already have
