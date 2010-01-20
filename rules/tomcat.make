@@ -32,22 +32,9 @@ $(TOMCAT_SOURCE):
 	@$(call get, TOMCAT)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/tomcat.extract:
-	@$(call targetinfo)
-	@$(call clean, $(TOMCAT_DIR))
-	@$(call extract, TOMCAT)
-	@$(call patchin, TOMCAT)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-TOMCAT_PATH	:= PATH=$(CROSS_PATH)
-TOMCAT_ENV 	:= $(CROSS_ENV)
 TOMCAT_PREFIX	:= /usr/tomcat
 
 $(STATEDIR)/tomcat.prepare:
