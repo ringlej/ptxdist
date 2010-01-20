@@ -37,20 +37,21 @@ $(I2C_TOOLS_SOURCE):
 
 I2C_TOOLS_PATH	:= PATH=$(CROSS_PATH)
 I2C_TOOLS_ENV 	:= $(CROSS_ENV)
-I2C_TOOLS_MAKEVARS := prefix= $(CROSS_ENV_CC)
+
+I2C_TOOLS_MAKE_OPT := \
+	prefix= \
+	KERNELVERSION=$(KERNEL_VERSION) \
+	$(CROSS_ENV_CC)
+
+# install the header files to include/i2c-tools
+# this way they don't collide with the toolchain's i2c headers
+I2C_TOOLS_INSTALL_OPT := \
+	$(I2C_TOOLS_MAKE_OPT) \
+	incdir="\$$(prefix)/include/i2c-tools" \
+	install
 
 $(STATEDIR)/i2c-tools.prepare:
 	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/i2c-tools.compile:
-	@$(call targetinfo)
-	cd $(I2C_TOOLS_DIR) && \
-		$(I2C_TOOLS_PATH) $(MAKE) $(PARALLELMFLAGS) $(I2C_TOOLS_MAKEVARS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
