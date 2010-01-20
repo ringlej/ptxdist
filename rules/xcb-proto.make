@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_XCB_PROTO) += xcb-proto
 #
 # Paths and names
 #
-XCB_PROTO_VERSION	:= 1.5
+XCB_PROTO_VERSION	:= 1.6
 XCB_PROTO		:= xcb-proto-$(XCB_PROTO_VERSION)
 XCB_PROTO_SUFFIX	:= tar.bz2
 XCB_PROTO_URL		:= http://xcb.freedesktop.org/dist/$(XCB_PROTO).$(XCB_PROTO_SUFFIX)
