@@ -3,8 +3,8 @@
 config LIBBLKID
 	tristate
 	select LIBUUID
-	select E2FSPROGS
-	select E2FSPROGS_LIBBLKID
+	select UTIL_LINUX_NG
+	select UTIL_LINUX_NG_LIBBLKID
 	help
 	  Helper to select the target packet containing a recent libblkid.so
 	  library and its header.

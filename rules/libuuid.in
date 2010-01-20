@@ -2,8 +2,8 @@
 
 config LIBUUID
 	tristate
-	select E2FSPROGS
-	select E2FSPROGS_LIBUUID
+	select UTIL_LINUX_NG
+	select UTIL_LINUX_NG_LIBUUID
 	help
 	  Helper to select the target packet containing a recent libuuid.so
 	  library and its header.
