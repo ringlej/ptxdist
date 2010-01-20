@@ -1,4 +1,4 @@
-## SECTION=hosttools
+## SECTION=hosttools_noprompt
 
 config CROSS_MODULE_INIT_TOOLS
 	bool
