@@ -32,22 +32,8 @@ $(LMBENCH_SOURCE):
 	@$(call get, LMBENCH)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/lmbench.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LMBENCH_DIR))
-	@$(call extract, LMBENCH)
-	@$(call patchin, LMBENCH)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-LMBENCH_PATH	:= PATH=$(CROSS_PATH)
-LMBENCH_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -63,24 +49,6 @@ $(STATEDIR)/lmbench.prepare:
 	cd $(LMBENCH_DIR) && \
 		$(LMBENCH_PATH) $(LMBENCH_ENV) \
 		./configure $(LMBENCH_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/lmbench.compile:
-	@$(call targetinfo)
-	cd $(LMBENCH_DIR) && $(LMBENCH_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/lmbench.install:
-	@$(call targetinfo)
-	@$(call install, LMBENCH)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
