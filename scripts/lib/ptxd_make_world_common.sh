@@ -225,7 +225,7 @@ ptxd_make_world_init() {
     # path
     #
     local path_ptr="ptx_path_${pkg_type}"
-    pkg_path="${pkg_path:-PATH=${!path_ptr}}"
+    pkg_path="${pkg_path:-${!path_ptr:+PATH=${!path_ptr}}}"
     unset path_ptr
 
     #
