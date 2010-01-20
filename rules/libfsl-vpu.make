@@ -32,53 +32,13 @@ $(LIBFSL_VPU_SOURCE):
 	@$(call get, LIBFSL_VPU)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libfsl-vpu.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBFSL_VPU_DIR))
-	@$(call extract, LIBFSL_VPU)
-	@$(call patchin, LIBFSL_VPU)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-LIBFSL_VPU_PATH	:= PATH=$(CROSS_PATH)
-LIBFSL_VPU_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 LIBFSL_VPU_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/libfsl-vpu.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBFSL_VPU_DIR)/config.cache)
-	cd $(LIBFSL_VPU_DIR) && \
-		$(LIBFSL_VPU_PATH) $(LIBFSL_VPU_ENV) \
-		./configure $(LIBFSL_VPU_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libfsl-vpu.compile:
-	@$(call targetinfo)
-	cd $(LIBFSL_VPU_DIR) && $(LIBFSL_VPU_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libfsl-vpu.install:
-	@$(call targetinfo)
-	@$(call install, LIBFSL_VPU)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
