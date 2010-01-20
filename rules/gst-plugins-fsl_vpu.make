@@ -32,53 +32,13 @@ $(GST_PLUGINS_FSL_VPU_SOURCE):
 	@$(call get, GST_PLUGINS_FSL_VPU)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gst-plugins-fsl_vpu.extract:
-	@$(call targetinfo)
-	@$(call clean, $(GST_PLUGINS_FSL_VPU_DIR))
-	@$(call extract, GST_PLUGINS_FSL_VPU)
-	@$(call patchin, GST_PLUGINS_FSL_VPU)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-GST_PLUGINS_FSL_VPU_PATH	:= PATH=$(CROSS_PATH)
-GST_PLUGINS_FSL_VPU_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 GST_PLUGINS_FSL_VPU_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/gst-plugins-fsl_vpu.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(GST_PLUGINS_FSL_VPU_DIR)/config.cache)
-	cd $(GST_PLUGINS_FSL_VPU_DIR) && \
-		$(GST_PLUGINS_FSL_VPU_PATH) $(GST_PLUGINS_FSL_VPU_ENV) \
-		./configure $(GST_PLUGINS_FSL_VPU_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gst-plugins-fsl_vpu.compile:
-	@$(call targetinfo)
-	cd $(GST_PLUGINS_FSL_VPU_DIR) && $(GST_PLUGINS_FSL_VPU_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gst-plugins-fsl_vpu.install:
-	@$(call targetinfo)
-	@$(call install, GST_PLUGINS_FSL_VPU)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
