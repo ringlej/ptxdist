@@ -1,0 +1,13 @@
+## SECTION=system_libraries
+
+config LIBUUID
+	tristate
+	select E2FSPROGS
+	select E2FSPROGS_LIBUUID
+	help
+	  Helper to select the target packet containing a recent libuuid.so
+	  library and its header.
+	  
+	  The following packages provide libuuid:
+	  - e2fsprogs      (older version)
+	  - utils-linux-ng (more recent version)
