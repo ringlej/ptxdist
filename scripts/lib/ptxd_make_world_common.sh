@@ -222,6 +222,13 @@ ptxd_make_world_init() {
     ptxd_make_world_init_compat || return
 
     #
+    # path
+    #
+    local path_ptr="ptx_path_${pkg_type}"
+    pkg_path="${pkg_path:-PATH=${!path_ptr}}"
+    unset path_ptr
+
+    #
     # conf dir
     #
     pkg_conf_dir="${pkg_dir}${pkg_subdir:+/}${pkg_subdir}"

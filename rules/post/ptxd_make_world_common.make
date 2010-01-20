@@ -18,6 +18,7 @@ world/env/impl = \
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
 										\
+	ptx_path_target="${call ptx/escape,$(CROSS_PATH)}"			\
 	ptx_conf_env_target="$(call ptx/escape,$(CROSS_ENV))"			\
 	ptx_conf_opt_autoconf_target="$(call ptx/escape,$(CROSS_AUTOCONF_USR))"	\
 	ptx_conf_opt_cmake_target="$(call ptx/escape,$(CROSS_CMAKE_USR))"	\
