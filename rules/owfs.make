@@ -33,22 +33,8 @@ $(OWFS_SOURCE):
 	@$(call get, OWFS)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/owfs.extract:
-	@$(call targetinfo)
-	@$(call clean, $(OWFS_DIR))
-	@$(call extract, OWFS)
-	@$(call patchin, OWFS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-OWFS_PATH	:= PATH=$(CROSS_PATH)
-OWFS_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -114,32 +100,6 @@ OWFS_AUTOCONF += --enable-owfs
 else
 OWFS_AUTOCONF += --disable-owfs
 endif
-
-$(STATEDIR)/owfs.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(OWFS_DIR)/config.cache)
-	cd $(OWFS_DIR) && \
-		$(OWFS_PATH) $(OWFS_ENV) \
-		./configure $(OWFS_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/owfs.compile:
-	@$(call targetinfo)
-	cd $(OWFS_DIR) && $(OWFS_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/owfs.install:
-	@$(call targetinfo)
-	@$(call install, OWFS)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
