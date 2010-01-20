@@ -36,16 +36,7 @@ $(PEKWM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-PEKWM_PATH	:= PATH=$(CROSS_PATH)
-PEKWM_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-PEKWM_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--x-includes=$(SYSROOT)/usr/include \
-	--x-libraries=$(SYSROOT)/usr/lib \
-	--disable-xft
+PEKWM_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -59,7 +50,7 @@ $(STATEDIR)/pekwm.targetinstall:
 	@$(call install_fixup,pekwm,PRIORITY,optional)
 	@$(call install_fixup,pekwm,VERSION,$(PEKWM_VERSION))
 	@$(call install_fixup,pekwm,SECTION,base)
-	@$(call install_fixup,pekwm,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,pekwm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,pekwm,DEPENDS,)
 	@$(call install_fixup,pekwm,DESCRIPTION,missing)
 
@@ -67,12 +58,12 @@ $(STATEDIR)/pekwm.targetinstall:
 
 ifdef PTXCONF_PEKWM_INSTALL_CONFIG
 	@for file in /etc/pekwm/{autoproperties,config,keys,menu,mouse,start,vars}; do \
-		$(call install_copy, pekwm, 0, 0, 0755, -, $$file); \
+		$(call install_copy, pekwm, 0, 0, 0644, -, $$file); \
 	done
 endif
 
 ifdef  PTXCONF_PEKWM_INSTALL_THEME
-	@$(call install_copy, pekwm, 0, 0, 0755, -, \
+	@$(call install_copy, pekwm, 0, 0, 0644, -, \
 		/usr/share/pekwm/themes/default/theme)
 endif
 

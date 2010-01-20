@@ -7,6 +7,8 @@ config PEKWM
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
 	select XORG_LIB_XPM
+	select LIBJPEG
+	select LIBPNG
 	select GCCLIBS_CXX
 	prompt "pekwm"
 	help
