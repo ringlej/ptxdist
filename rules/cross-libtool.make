@@ -16,33 +16,20 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_LIBTOOL) += cross-libtool
 #
 # Paths and names
 #
+CROSS_LIBTOOL		= $(LIBLTDL)
 CROSS_LIBTOOL_DIR	= $(CROSS_BUILDDIR)/$(LIBLTDL)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-libtool.get: $(STATEDIR)/libltdl.get
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-libtool.extract:
-	@$(call targetinfo)
-	@$(call clean, $(CROSS_LIBTOOL_DIR))
-	@$(call extract, LIBLTDL, $(CROSS_BUILDDIR))
-	@$(call patchin, LIBLTDL, $(CROSS_LIBTOOL_DIR))
-	@$(call touch)
+CROSS_LIBTOOL_SOURCE	= $(LIBLTDL_SOURCE)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-CROSS_LIBTOOL_PATH	:= PATH=$(CROSS_PATH)
-CROSS_LIBTOOL_ENV 	:= $(CROSS_ENV)
+# We really only need the libtool script and it should default to $(CROSS_CC)
+# as compiler. So we configure libtool for the target and only create and
+# install the scripts.
+
+CROSS_LIBTOOL_CONF_ENV := \
+	$(CROSS_ENV)
 
 #
 # autoconf
@@ -52,5 +39,8 @@ CROSS_LIBTOOL_AUTOCONF	:= \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--build=$(GNU_HOST)
+
+CROSS_LIBTOOL_MAKE_OPT		:= libtool libtoolize
+CROSS_LIBTOOL_INSTALL_OPT	:= install-binSCRIPTS
 
 # vim: syntax=make
