@@ -49,14 +49,6 @@ LIBDBUS_CXX_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	--with-build-libdbus-cxx=$(HOST_LIBDBUS_CXX_DIR)
 
-$(STATEDIR)/libdbus-cxx.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBDBUS_CXX_DIR)/config.cache)
-	cd $(LIBDBUS_CXX_DIR) && \
-		$(LIBDBUS_CXX_PATH) $(LIBDBUS_CXX_ENV) \
-		./configure $(LIBDBUS_CXX_AUTOCONF)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
