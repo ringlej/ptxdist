@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006 by Erwin Rol
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,13 +17,12 @@ PACKAGES-$(PTXCONF_LIBDRM) += libdrm
 #
 # Paths and names
 #
-LIBDRM_VERSION	:= 2.4.12
+LIBDRM_VERSION	:= 2.4.17
 LIBDRM		:= libdrm-$(LIBDRM_VERSION)
 LIBDRM_SUFFIX	:= tar.gz
 LIBDRM_URL	:= http://dri.freedesktop.org/libdrm/$(LIBDRM).$(LIBDRM_SUFFIX)
 LIBDRM_SOURCE	:= $(SRCDIR)/$(LIBDRM).$(LIBDRM_SUFFIX)
 LIBDRM_DIR	:= $(BUILDDIR)/$(LIBDRM)
-
 
 # ----------------------------------------------------------------------------
 # Get
