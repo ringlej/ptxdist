@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006 by Sascha Hauer
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,13 +17,12 @@ PACKAGES-$(PTXCONF_PEKWM) += pekwm
 #
 # Paths and names
 #
-PEKWM_VERSION	:= 0.1.4
+PEKWM_VERSION	:= 0.1.11
 PEKWM		:= pekwm-$(PEKWM_VERSION)
 PEKWM_SUFFIX	:= tar.bz2
-PEKWM_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(PEKWM).$(PEKWM_SUFFIX)
+PEKWM_URL	:= http://www.pekwm.org/projects/pekwm/files/$(PEKWM).$(PEKWM_SUFFIX)
 PEKWM_SOURCE	:= $(SRCDIR)/$(PEKWM).$(PEKWM_SUFFIX)
 PEKWM_DIR	:= $(BUILDDIR)/$(PEKWM)
-
 
 # ----------------------------------------------------------------------------
 # Get
