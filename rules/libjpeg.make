@@ -38,13 +38,7 @@ $(LIBJPEG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBJPEG_PATH	:= PATH=$(CROSS_PATH)
-LIBJPEG_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-LIBJPEG_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBJPEG_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
