@@ -2,8 +2,7 @@
 menuconfig NFSUTILS
 	tristate
 	# we need libblkid
-	select E2FSPROGS
-	select E2FSPROGS_LIBBLKID
+	select LIBBLKID
 	select TCPWRAPPER	if NFSUTILS_WITH_TCPWRAPPERS
 	prompt "nfsutils                      "
 	help
