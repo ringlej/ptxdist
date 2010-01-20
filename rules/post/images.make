@@ -1,9 +1,12 @@
 # -*-makefile-*-
-
-# ----------------------------------------------------------------------------
-# Images
-# ----------------------------------------------------------------------------
-
+#
+# Copyright (C) 2003-2010 by the ptxdist project <ptxdist@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 DOPERMISSIONS := '{	\
 	if ($$1 == "f")	\
@@ -266,39 +269,6 @@ $(IMAGEDIR)/initrd.gz: $(STATEDIR)/image_working_dir
 		echo "gzip -9 -n > $@" )				\
 	) | $(FAKEROOT) --
 	@echo "done."
-
-#
-# TODO: Find a way to always find the correct zipped kernel image on every
-# architecture.
-#
-#$(IMAGEDIR)/muimage: $(IMAGEDIR)/initrd.gz $(KERNEL_DIR)/???????
-#	@echo -n "Creating multi content uimage..."
-#	@$(PTXCONF_SYSROOT_HOST)/bin/mkimage -A $(PTXCONF_ARCH_STRING)	\
-#		-O Linux -T multi -C gzip -a 0 -e 0			\
-#		-n 'Multi-File Image'					\
-#		-d $(KERNEL_DIR)/vmlinux.bin.gz:$(IMAGEDIR)/initrd.img	\
-#       	$(IMAGEDIR)/muimage
-#	@echo "done."
-
-
-
-#
-# create all requested images and clean up when done
-#
-.PHONY: images
-images: world $(SEL_ROOTFS-y)
-	@echo "Clean up temp working directory"
-	@rm -rf $(WORKDIR) $(STATEDIR)/image_working_dir $(IMAGEDIR)/ipkg.conf
-
-#
-# trick to supress the message:
-# "make: Nothing to be done for `images_world'."
-#
-.PHONY: images_world images_world_dep
-images_world_dep:
-	@true
-
-images_world: $(STATEDIR)/world.targetinstall images_world_dep
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:
