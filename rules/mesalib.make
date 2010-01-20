@@ -69,18 +69,18 @@ endif
 # Prepare
 # ----------------------------------------------------------------------------
 
-MESALIB_PATH       := PATH=$(CROSS_PATH)
-MESALIB_ENV        := $(CROSS_ENV)
 MESALIB_COMPILE_ENV := $(CROSS_ENV_CC_FOR_BUILD)
 
 MESALIB_DRIVERS-$(PTXCONF_MESALIB_DRIVER_XLIB)		+= xlib
 MESALIB_DRIVERS-$(PTXCONF_MESALIB_DRIVER_DRI)		+= dri
 MESALIB_DRIVERS-$(PTXCONF_MESALIB_DRIVER_OSMESA)	+= osmesa
 
-MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_I915)		+= i915
-MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
+ifndef PTXCONF_ARCH_ARM
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_I810)		+= i810
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_I965)		+= i965
+MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_I915)		+= i915
+endif
+MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_SWRAST)	+= swrast
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_MACH64)	+= mach64
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_MGA)		+= mga
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_R128)		+= r128
@@ -121,6 +121,10 @@ MESALIB_AUTOCONF += \
 	--enable-32-bit \
 	--disable-64-bit
 endif
+ifdef PTXCONF_ARCH_ARM
+MESALIB_AUTOCONF += \
+	--disable-gallium-intel
+endif
 
 ifdef PTXCONF_MESALIB_DRIVER_XLIB
 	MESALIB_AUTOCONF += --enable-gl-osmesa
@@ -153,17 +157,19 @@ $(STATEDIR)/mesalib.targetinstall:
 
 ifdef PTXCONF_MESALIB_DRIVER_DRI
 
+ifndef PTXCONF_ARCH_ARM
 ifdef PTXCONF_MESALIB_DRI_I915
 	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/dri/i915_dri.so)
-endif
-ifdef PTXCONF_MESALIB_DRI_SWRAST
-	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/dri/swrast_dri.so)
 endif
 ifdef PTXCONF_MESALIB_DRI_I810
 	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/dri/i810_dri.so)
 endif
 ifdef PTXCONF_MESALIB_DRI_I965
 	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/dri/i965_dri.so)
+endif
+endif
+ifdef PTXCONF_MESALIB_DRI_SWRAST
+	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/dri/swrast_dri.so)
 endif
 ifdef PTXCONF_MESALIB_DRI_MACH64
 	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/dri/mach64_dri.so)
