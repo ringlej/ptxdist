@@ -33,21 +33,9 @@ $(ELEKTRA_SOURCE):
 	@$(call get, ELEKTRA)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/elektra.extract:
-	@$(call targetinfo)
-	@$(call clean, $(ELEKTRA_DIR))
-	@$(call extract, ELEKTRA)
-	@$(call patchin, ELEKTRA)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-ELEKTRA_PATH	:= PATH=$(CROSS_PATH)
 ELEKTRA_ENV 	:= \
 	$(CROSS_ENV)
 
@@ -163,14 +151,6 @@ endif
 #  --with-xml-prefix=PFX   Prefix where libxml is installed (optional)
 #  --with-xml-exec-prefix=PFX Exec prefix where libxml is installed (optional)
 
-$(STATEDIR)/elektra.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(ELEKTRA_DIR)/config.cache)
-	cd $(ELEKTRA_DIR) && \
-		$(ELEKTRA_PATH) $(ELEKTRA_ENV) \
-		./configure $(ELEKTRA_AUTOCONF)
-	@$(call touch)
-
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
@@ -181,15 +161,6 @@ $(STATEDIR)/elektra.compile:
 		$(ELEKTRA_PATH) $(MAKE) $(PARALLELMFLAGS)
 	cd $(ELEKTRA_DIR)/examples && \
 		$(ELEKTRA_PATH) $(MAKE) check $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/elektra.install:
-	@$(call targetinfo)
-	@$(call install, ELEKTRA)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
