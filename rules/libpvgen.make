@@ -32,22 +32,8 @@ $(LIBPVGEN_SOURCE):
 	@$(call get, LIBPVGEN)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libpvgen.extract:
-	@$(call targetinfo)
-	@$(call clean, $(LIBPVGEN_DIR))
-	@$(call extract, LIBPVGEN)
-	@$(call patchin, LIBPVGEN)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-LIBPVGEN_PATH	:= PATH=$(CROSS_PATH)
-LIBPVGEN_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -55,23 +41,6 @@ LIBPVGEN_ENV 	:= $(CROSS_ENV)
 LIBPVGEN_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-objdictgen-path=$(SYSROOT)/usr/objdictgen
-
-$(STATEDIR)/libpvgen.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(LIBPVGEN_DIR)/config.cache)
-	cd $(LIBPVGEN_DIR) && \
-		$(LIBPVGEN_PATH) $(LIBPVGEN_ENV) \
-		./configure $(LIBPVGEN_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/libpvgen.compile:
-	@$(call targetinfo)
-	cd $(LIBPVGEN_DIR) && $(LIBPVGEN_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
