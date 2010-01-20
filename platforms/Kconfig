@@ -49,4 +49,3 @@ source "generated/image.in"
 endmenu
 
 source "platforms/hosttools.in"
-source "platforms/crosstools.in"
