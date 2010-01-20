@@ -38,8 +38,7 @@ $(OPENSSL_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-OPENSSL_PATH	:= PATH=$(CROSS_PATH)
-OPENSSL_ENV 	:= $(CROSS_ENV)
+OPENSSL_CONF_ENV 	:= $(CROSS_ENV)
 OPENSSL_MAKE_PAR := NO
 
 OPENSSL_ARCH-$(PTXCONF_ARCH_X86_I386)	+= debian-i386
@@ -74,22 +73,22 @@ endif
 #
 # autoconf
 #
-OPENSSL_AUTOCONF := \
+OPENSSL_CONF_OPT := \
 	--prefix=/usr \
 	--openssldir=/usr/lib/ssl \
 	--install_prefix=$(OPENSSL_PKGDIR)
 
 ifdef PTXCONF_OPENSSL_SHARED
-OPENSSL_AUTOCONF += shared
+OPENSSL_CONF_OPT += shared
 else
-OPENSSL_AUTOCONF += no-shared
+OPENSSL_CONF_OPT += no-shared
 endif
 
 $(STATEDIR)/openssl.prepare:
 	@$(call targetinfo)
 	cd $(OPENSSL_DIR) && \
-		$(OPENSSL_PATH) $(OPENSSL_ENV) \
-		./Configure $(OPENSSL_ARCH-y) $(OPENSSL_AUTOCONF)
+		$(OPENSSL_PATH) $(OPENSSL_CONF_ENV) \
+		./Configure $(OPENSSL_ARCH-y) $(OPENSSL_CONF_OPT)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
