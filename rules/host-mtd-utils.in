@@ -4,4 +4,4 @@ config HOST_MTD_UTILS
 	tristate
 	select HOST_LIBLZO
 	select HOST_ZLIB
-	select HOST_E2FSPROGS
+	select HOST_LIBUUID
