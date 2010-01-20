@@ -6,12 +6,12 @@ menuconfig DIRECTFB
 
 	select HOST_DIRECTFB
 	select MENU_XORG_FONTS
-	select LIBPNG if DIRECTFB_IMAGE_PNG
-	select LIBJPEG if DIRECTFB_IMAGE_JPEG
-	select FREETYPE if DIRECTFB_FONT_FREETYPE
-	select TSLIB if DIRECTFB_INPUT_TSLIB
-	select XORG_LIB_X11 if DIRECTFB_X11
-	select MESALIB if DIRECTFB_GFX_GL
+	select LIBPNG		if DIRECTFB_IMAGE_PNG
+	select LIBJPEG		if DIRECTFB_IMAGE_JPEG
+	select FREETYPE		if DIRECTFB_FONT_FREETYPE
+	select TSLIB		if DIRECTFB_INPUT_TSLIB
+	select XORG_LIB_X11	if DIRECTFB_X11
+	select MESALIB		if DIRECTFB_GFX_GL
 	help
 	  DirectFB is a thin library that provides hardware
 	  graphics acceleration, input device handling and
