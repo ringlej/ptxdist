@@ -8,3 +8,11 @@ config LIBDRM
 	  This library provides an user-level interface to the DRM
 	  device. It is needed for x.org.
 
+if LIBDRM
+
+config LIBDRM_INTEL
+	bool
+	prompt "intel KMS support"
+
+endif
+

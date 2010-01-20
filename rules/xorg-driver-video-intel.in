@@ -40,6 +40,7 @@ comment "X.org Intel Driver"
 config XORG_DRIVER_VIDEO_INTEL_DRI
 	bool
         prompt "Enable DRI"
+	select LIBDRM_INTEL
         help
           --enable-dri
 

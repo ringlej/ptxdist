@@ -36,13 +36,18 @@ $(LIBDRM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBDRM_PATH	:= PATH=$(CROSS_PATH)
-LIBDRM_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
 LIBDRM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+
+ifndef PTXCONF_ARCH_ARM
+ifdef PTXCONF_LIBDRM_INTEL
+LIBDRM_AUTOCONF += --enable-intel
+else
+LIBDRM_AUTOCONF += --disable-intel
+endif
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -66,12 +71,14 @@ $(STATEDIR)/libdrm.targetinstall:
 	@$(call install_link, libdrm, libdrm.so.2.4.0, /usr/lib/libdrm.so.2)
 	@$(call install_link, libdrm, libdrm.so.2.4.0, /usr/lib/libdrm.so)
 
-ifdef PTXCONF_XORG_DRIVER_VIDEO_INTEL_DRI
+ifndef PTXCONF_ARCH_ARM
+ifdef PTXCONF_LIBDRM_INTEL
 	@$(call install_copy, libdrm, 0, 0, 0755, -, \
 		/usr/lib/libdrm_intel.so.1.0.0)
 
 	@$(call install_link, libdrm, libdrm_intel.so.1.0.0, /usr/lib/libdrm_intel.so.1)
 	@$(call install_link, libdrm, libdrm_intel.so.1.0.0, /usr/lib/libdrm_intel.so)
+endif
 endif
 
 	@$(call install_finish, libdrm)
