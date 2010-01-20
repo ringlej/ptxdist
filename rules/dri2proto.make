@@ -33,53 +33,13 @@ $(DRI2PROTO_SOURCE):
 	@$(call get, DRI2PROTO)
 
 # ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dri2proto.extract:
-	@$(call targetinfo)
-	@$(call clean, $(DRI2PROTO_DIR))
-	@$(call extract, DRI2PROTO)
-	@$(call patchin, DRI2PROTO)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-DRI2PROTO_PATH	:= PATH=$(CROSS_PATH)
-DRI2PROTO_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 DRI2PROTO_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/dri2proto.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(DRI2PROTO_DIR)/config.cache)
-	cd $(DRI2PROTO_DIR) && \
-		$(DRI2PROTO_PATH) $(DRI2PROTO_ENV) \
-		./configure $(DRI2PROTO_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dri2proto.compile:
-	@$(call targetinfo)
-	cd $(DRI2PROTO_DIR) && $(DRI2PROTO_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/dri2proto.install:
-	@$(call targetinfo)
-	@$(call install, DRI2PROTO)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
