@@ -1,7 +1,8 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2003 by Benedikt Spranger
-# Copyright (C) 2009 by Wolfram Sang, Pengutronix
+#               2009 by Wolfram Sang, Pengutronix
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +18,7 @@ PACKAGES-$(PTXCONF_DHCP) += dhcp
 #
 # Paths and names
 #
-DHCP_VERSION	:= 4.1.0
+DHCP_VERSION	:= 4.1.1
 DHCP		:= dhcp-$(DHCP_VERSION)
 DHCP_SUFFIX	:= tar.gz
 DHCP_SOURCE	:= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
@@ -40,9 +41,6 @@ $(DHCP_SOURCE):
 # ----------------------------------------------------------------------------
 
 DHCP_PATH	:= PATH=$(CROSS_PATH)
-DHCP_ENV 	:= \
-	$(CROSS_ENV) \
-	ac_cv_file__dev_random=yes
 
 #
 # autoconf
