@@ -36,9 +36,9 @@ $(APACHE2_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-APACHE2_PATH	:= PATH=$(CROSS_PATH)
 # FIXME: find a real patch for ac_* apr_* (fix configure script)
-APACHE2_ENV 	:=  $(CROSS_ENV) \
+APACHE2_CONF_ENV := \
+	$(CROSS_ENV) \
 	ac_cv_sizeof_ssize_t=4 \
 	ac_cv_sizeof_size_t=4 \
 	apr_cv_process_shared_works=yes \
@@ -53,21 +53,22 @@ APACHE2_BINCONFIG_GLOB := ""
 # - if we don't specify expat here, apache2 finds the internal one and
 #   installs it into sysroot, which overwrites our installed version
 #
-APACHE2_AUTOCONF := \
+APACHE2_CONF_TOOL := autoconf
+APACHE2_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-so \
 	--with-expat=$(SYSROOT)/usr
 
 ifdef PTXCONF_APACHE2_MPM_PREFORK
-APACHE2_AUTOCONF += --with-mpm=prefork
+APACHE2_CONF_OPT += --with-mpm=prefork
 endif
 
 ifdef PTXCONF_APACHE2_MPM_PERCHILD
-APACHE2_AUTOCONF += --with-mpm=perchild
+APACHE2_CONF_OPT += --with-mpm=perchild
 endif
 
 ifdef PTXCONF_APACHE2_MPM_WORKER
-APACHE2_AUTOCONF += --with-mpm=worker
+APACHE2_CONF_OPT += --with-mpm=worker
 endif
 
 # FIXME
@@ -77,11 +78,7 @@ endif
 
 $(STATEDIR)/apache2.prepare:
 	@$(call targetinfo)
-	@$(call clean, $(APACHE2_DIR)/config.cache)
-	cd $(APACHE2_DIR) && \
-		$(APACHE2_PATH) $(APACHE2_ENV) \
-		./configure $(APACHE2_AUTOCONF)
-
+	@$(call prepare, APACHE2)
 #	#
 #	# Tweak, Tweak ...
 #	#
@@ -117,7 +114,7 @@ $(STATEDIR)/apache2.compile:
 	cp $(HOST_APACHE2_DIR)/server/gen_test_char $(APACHE2_DIR)/server/gen_test_char
 	touch $(APACHE2_DIR)/server/gen_test_char
 
-	cd $(APACHE2_DIR) && $(APACHE2_ENV) $(APACHE2_PATH) $(MAKE)
+	@$(call compile, APACHE2)
 
 	@$(call touch)
 
@@ -176,24 +173,28 @@ ifdef PTXCONF_APACHE2_PUBLICDOMAINICONS
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons)
 	@cd $(APACHE2_PKGDIR)/usr/icons; \
 	for i in *.gif *.png; do \
-		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i, n); \
+		$(call install_copy, apache2, 12,102,0644, $(APACHE2_PKGDIR)/usr/icons/$$i, \
+			$(PTXCONF_APACHE2_SERVERROOT)/icons/$$i, n); \
 	done
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/icons/small)
 	@cd $(APACHE2_PKGDIR)/usr/icons/small; \
 	for i in *.gif *.png; do \
-		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i, n); \
+		$(call install_copy, apache2, 12,102,0644, $(APACHE2_PKGDIR)/usr/icons/small/$$i, \
+			$(PTXCONF_APACHE2_SERVERROOT)/icons/small/$$i, n); \
 	done
 endif
 ifdef PTXCONF_APACHE2_CUSTOMERRORS
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/error)
 	@cd $(APACHE2_PKGDIR)/usr/error; \
 	for i in *.html.var; do \
-		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/error/$$i, n); \
+		$(call install_copy, apache2, 12,102,0644, $(APACHE2_PKGDIR)/usr/error/$$i, \
+			$(PTXCONF_APACHE2_SERVERROOT)/error/$$i, n); \
 	done
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT)/error/include)
 	@cd $(APACHE2_PKGDIR)/usr/error/include; \
 	for i in *.html; do \
-		$(call install_copy, apache2, 12,102,0644,$$i,$(PTXCONF_APACHE2_SERVERROOT)/error/include/$$i, n); \
+		$(call install_copy, apache2, 12,102,0644, $(APACHE2_PKGDIR)/usr/error/include/$$i, \
+			$(PTXCONF_APACHE2_SERVERROOT)/error/include/$$i, n); \
 	done
 endif
 
