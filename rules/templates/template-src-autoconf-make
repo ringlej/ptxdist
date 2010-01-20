@@ -40,23 +40,21 @@ endif
 # Prepare
 # ----------------------------------------------------------------------------
 
-@PACKET@_PATH		:= PATH=$(CROSS_PATH)
-@PACKET@_CONF_ENV	:= $(CROSS_ENV)
+#@PACKET@_CONF_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
 @PACKET@_CONF_TOOL	:= autoconf
-@PACKET@_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_USR)
+#@PACKET@_CONF_OPT	:= $(CROSS_AUTOCONF_USR)
 
-#$(STATEDIR)/@packet@.prepare:
-#	@$(call targetinfo)
-#	@$(call clean, $(@PACKET@_DIR)/config.cache)
-#	cd $(@PACKET@_DIR) && \
-#		$(@PACKET@_PATH) $(@PACKET@_ENV) \
-#		$(@PACKET@_SRCDIR)/configure $(@PACKET@_AUTOCONF)
-#	@$(call touch)
+$(STATEDIR)/@packet@.prepare:
+	@$(call targetinfo)
+	@$(call clean, $(@PACKET@_DIR)/config.cache)
+	cd $(@PACKET@_DIR) && \
+		$(@PACKET@_PATH) $(@PACKET@_CONV_ENV) \
+		$(@PACKET@_SRCDIR)/configure $(@PACKET@_CONV_OPT)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -64,7 +62,7 @@ endif
 
 #$(STATEDIR)/@packet@.compile:
 #	@$(call targetinfo)
-#	cd $(@PACKET@_DIR) && $(@PACKET@_ENV) $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+#	@$(call world/compile, @PACKET@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -73,7 +71,7 @@ endif
 
 #$(STATEDIR)/@packet@.install:
 #	@$(call targetinfo)
-#	@$(call install, @PACKET@)
+#	@$(call world/install, @PACKET@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------

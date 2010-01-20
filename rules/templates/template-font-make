@@ -22,7 +22,6 @@ PACKAGES-$(PTXCONF_@PACKET@) += @packet@
 @PACKET@_URL		:= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
 @PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
 @PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
-@PACKET@_LICENSE	:= unknown
 
 ifdef PTXCONF_@PACKET@
 $(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/@packet@.targetinstall
@@ -39,9 +38,6 @@ $(@PACKET@_SOURCE):
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-@PACKET@_PATH		:= PATH=$(CROSS_PATH)
-@PACKET@_CONF_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -68,13 +64,5 @@ $(STATEDIR)/@packet@.targetinstall:
 	done
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/@packet@.clean:
-#	@$(call targetinfo)
-#	@$(call clean_pkg, @PACKET@)
 
 # vim: syntax=make

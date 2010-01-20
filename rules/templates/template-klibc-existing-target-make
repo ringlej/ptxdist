@@ -39,21 +39,20 @@ endif
 # Prepare
 # ----------------------------------------------------------------------------
 
-@CLASS@@PACKET@_PATH		:= PATH=$(@CLASS@PATH)
-@CLASS@@PACKET@_CONF_ENV	:= $(@CLASS@ENV)
+#@CLASS@@PACKET@_CONF_ENV	:= $(@CLASS@ENV)
 
 #
 # autoconf
 #
 @CLASS@@PACKET@_CONF_TOOL	:= autoconf
-@CLASS@@PACKET@_CONF_OPT	:= $(@AUTOCONF_CLASS@AUTOCONF)
+#@CLASS@@PACKET@_CONF_OPT	:= $(@AUTOCONF_CLASS@AUTOCONF)
 
 #$(STATEDIR)/@class@@packet@.prepare:
 #	@$(call targetinfo)
 #	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
 #	cd $(@CLASS@@PACKET@_DIR) && \
 #		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
-#		./configure $(@CLASS@@PACKET@_AUTOCONF)
+#		./configure $(@CLASS@@PACKET@_CONF_OPT)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -62,7 +61,7 @@ endif
 
 #$(STATEDIR)/@class@@packet@.compile:
 #	@$(call targetinfo)
-#	cd $(@CLASS@@PACKET@_DIR) && $(@CLASS@@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+#	@$(call world/compile, @CLASS@@PACKET@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -71,7 +70,7 @@ endif
 
 #$(STATEDIR)/@class@@packet@.install:
 #	@$(call targetinfo)
-#	@$(call install, @CLASS@@PACKET@)
+#	@$(call world/install, @CLASS@@PACKET@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------

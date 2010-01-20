@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2009 by @YEAR@ @AUTHOR@
+# Copyright (C) @YEAR@ by @AUTHOR@
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -31,20 +31,6 @@ endif
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/@packet@.extract:
-	@$(call targetinfo)
-	@$(call clean, $(@PACKET@_DIR))
-	@$(call patchin, @PACKET@, $(@PACKET@_SRCDIR))
-	mkdir -p $(@PACKET@_DIR)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-@PACKET@_PATH	:= PATH=$(CROSS_PATH)
-@PACKET@_ENV 	:= $(CROSS_ENV)
-
-$(STATEDIR)/@packet@.prepare:
 	@$(call targetinfo)
 	@$(call touch)
 

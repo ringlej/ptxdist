@@ -39,7 +39,6 @@ $(@PACKET@_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-@PACKET@_PATH		:= PATH=$(CROSS_PATH)
 @PACKET@_CONF_ENV	:= $(KLIBC_ENV)
 
 #
@@ -53,7 +52,7 @@ $(@PACKET@_SOURCE):
 #	@$(call clean, $(@PACKET@_DIR)/config.cache)
 #	cd $(@PACKET@_DIR) && \
 #		$(@PACKET@_PATH) $(@PACKET@_ENV) \
-#		./configure $(@PACKET@_AUTOCONF)
+#		./configure $(@PACKET@_CONF_OPT)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -62,7 +61,7 @@ $(@PACKET@_SOURCE):
 
 #$(STATEDIR)/@packet@.compile:
 #	@$(call targetinfo)
-#	cd $(@PACKET@_DIR) && $(@PACKET@_PATH) $(MAKE) $(PARALLELMFLAGS)
+#	@$(call world/compile, @PACKET@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -71,7 +70,7 @@ $(@PACKET@_SOURCE):
 
 #$(STATEDIR)/@packet@.install:
 #	@$(call targetinfo)
-#	@$(call install, @PACKET@)
+#	@$(call world/install, @PACKET@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------

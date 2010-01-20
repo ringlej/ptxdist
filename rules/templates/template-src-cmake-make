@@ -34,15 +34,13 @@ $(@PACKET@_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-@PACKET@_PATH		:= PATH=$(CROSS_PATH)
-@PACKET@_CONF_ENV	:= $(CROSS_ENV)
+#@PACKET@_CONF_ENV	:= $(CROSS_ENV)
 
 #
 # cmake
 #
 @PACKET@_CONF_TOOL	:= cmake
-@PACKET@_CONF_OPT	:= \
-	$(CROSS_CMAKE_USR)
+#@PACKET@_CONF_OPT	:= $(CROSS_CMAKE_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
