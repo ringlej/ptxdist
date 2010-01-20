@@ -17,13 +17,12 @@ PACKAGES-$(PTXCONF_LIBNETPBM) += libnetpbm
 #
 # Paths and names
 #
-LIBNETPBM_VERSION	:= 10.31
+LIBNETPBM_VERSION	:= 10.35.72
 LIBNETPBM		:= netpbm-$(LIBNETPBM_VERSION)
 LIBNETPBM_SUFFIX	:= tgz
 LIBNETPBM_URL		:= $(PTXCONF_SETUP_SFMIRROR)/netpbm/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
 LIBNETPBM_SOURCE	:= $(SRCDIR)/$(LIBNETPBM).$(LIBNETPBM_SUFFIX)
 LIBNETPBM_DIR		:= $(BUILDDIR)/$(LIBNETPBM)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -38,6 +37,9 @@ $(LIBNETPBM_SOURCE):
 # ----------------------------------------------------------------------------
 
 LIBNETPBM_PATH	:= PATH=$(CROSS_PATH)
+LIBNETPBM_MAKE_ENV := $(CROSS_ENV)
+LIBNETPBM_MAKE_PAR := NO
+LIBNETPBM_INSTALL_OPT := install-run install-dev pkgdir=$(LIBNETPBM_PKGDIR)/usr
 
 $(STATEDIR)/libnetpbm.prepare:
 	@$(call targetinfo)
@@ -55,17 +57,7 @@ endif
 	sed -i -e "s,^LD_FOR_BUILD.*,LD_FOR_BUILD=$(HOSTCC),g" $(LIBNETPBM_DIR)/Makefile.config
 	sed -i -e "s,^CFLAGS_FOR_BUILD.*,CFLAGS_FOR_BUILD=,g" $(LIBNETPBM_DIR)/Makefile.config
 	echo "CFLAGS=$(CROSS_CFLAGS) $(CROSS_CPPFLAGS)" >> $(LIBNETPBM_DIR)/Makefile.config
-
 	@$(call touch)
-
-LIBNETPBM_MAKE_ENV	:= $(CROSS_ENV)
-LIBNETPBM_MAKE_PAR	:= NO
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-LIBNETPBM_INSTALL_OPT	:= install-run install-dev pkgdir=$(LIBNETPBM_PKGDIR)/usr
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -84,11 +76,11 @@ $(STATEDIR)/libnetpbm.targetinstall:
 	@$(call install_fixup, libnetpbm,DESCRIPTION,missing)
 
 	@$(call install_copy, libnetpbm, 0, 0, 0644, -, \
-		/usr/lib/libnetpbm.so.10.31)
+		/usr/lib/libnetpbm.so.10.35)
 
-	@$(call install_link, libnetpbm, libnetpbm.so.10.31, \
+	@$(call install_link, libnetpbm, libnetpbm.so.10.35, \
 		/usr/lib/libnetpbm.so.10)
-	@$(call install_link, libnetpbm, libnetpbm.so.10.31, \
+	@$(call install_link, libnetpbm, libnetpbm.so.10.35, \
 		/usr/lib/libnetpbm.so)
 
 ifdef PTXCONF_LIBNETPBM_PBM2LJ
