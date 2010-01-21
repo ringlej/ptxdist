@@ -1,22 +1,22 @@
 ---
  Makefile.am     |    3 +
- autogen.sh      |   22 ++++++++++
- configure.ac    |  116 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- src/Makefile.am |  100 ++++++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 241 insertions(+)
+ autogen.sh      |   22 ++++++++++++
+ configure.ac    |  101 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/Makefile.am |  100 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 226 insertions(+)
 
-Index: lmbench-3.0-a9/Makefile.am
+Index: b/Makefile.am
 ===================================================================
 --- /dev/null
-+++ lmbench-3.0-a9/Makefile.am
++++ b/Makefile.am
 @@ -0,0 +1,3 @@
 +SUBDIRS = \
 +	src
 +
-Index: lmbench-3.0-a9/autogen.sh
+Index: b/autogen.sh
 ===================================================================
 --- /dev/null
-+++ lmbench-3.0-a9/autogen.sh
++++ b/autogen.sh
 @@ -0,0 +1,22 @@
 +#!/bin/bash
 +
@@ -40,11 +40,11 @@ Index: lmbench-3.0-a9/autogen.sh
 +autoreconf --force --install --symlink -Wall || exit $?
 +
 +banner "Finished"
-Index: lmbench-3.0-a9/configure.ac
+Index: b/configure.ac
 ===================================================================
 --- /dev/null
-+++ lmbench-3.0-a9/configure.ac
-@@ -0,0 +1,116 @@
++++ b/configure.ac
+@@ -0,0 +1,101 @@
 +AC_PREREQ(2.59)
 +
 +AC_INIT([lmbench], [trunk], [bugs@pengutronix.de])
@@ -80,32 +80,17 @@ Index: lmbench-3.0-a9/configure.ac
 +AM_INIT_AUTOMAKE([foreign no-exeext dist-bzip2])
 +
 +
-+##
-+# libstiebel
-+##
-+#REQUIRES_LIBSTIEBEL="libstiebel >= 0.0.3"
-+#AC_SUBST(REQUIRES_LIBSTIEBEL)
-+#PKG_CHECK_MODULES(libstiebel, $REQUIRES_LIBSTIEBEL)
-+
-+##
-+# libpv
-+##
-+#REQUIRES_LIBPV="libpv >= 1.2.10"
-+#AC_SUBST(REQUIRES_LIBPV)
-+#PKG_CHECK_MODULES(libpv, $REQUIRES_LIBPV)
-+
-+
 +#
 +# Debugging
 +#
 +AC_MSG_CHECKING([whether to enable debugging])
 +AC_ARG_ENABLE(debug,
-+    AS_HELP_STRING([--enable-debug], [enable debugging @<:@default=yes@:>@]),
++    AS_HELP_STRING([--enable-debug], [enable debugging @<:@default=no@:>@]),
 +	[case "$enableval" in
 +	y | yes) CONFIG_DEBUG=yes ;;
 +        *) CONFIG_DEBUG=no ;;
 +    esac],
-+    [CONFIG_DEBUG=yes])
++    [CONFIG_DEBUG=no])
 +AC_MSG_RESULT([${CONFIG_DEBUG}])
 +if test "${CONFIG_DEBUG}" = "yes"; then
 +    CFLAGS="${CFLAGS} -Werror -Wsign-compare -Wfloat-equal -Wformat-security -g -O1"
@@ -161,10 +146,10 @@ Index: lmbench-3.0-a9/configure.ac
 +])
 +AC_OUTPUT
 +
-Index: lmbench-3.0-a9/src/Makefile.am
+Index: b/src/Makefile.am
 ===================================================================
 --- /dev/null
-+++ lmbench-3.0-a9/src/Makefile.am
++++ b/src/Makefile.am
 @@ -0,0 +1,100 @@
 +bin_PROGRAMS = \
 +	bw_file_rd \

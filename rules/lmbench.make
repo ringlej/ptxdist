@@ -38,17 +38,12 @@ $(LMBENCH_SOURCE):
 #
 # autoconf
 #
-LMBENCH_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-debug
+LMBENCH_CONF_TOOL := autoconf
 
 $(STATEDIR)/lmbench.prepare:
 	@$(call targetinfo)
-	@$(call clean, $(LMBENCH_DIR)/config.cache)
 	chmod +x $(LMBENCH_DIR)/configure
-	cd $(LMBENCH_DIR) && \
-		$(LMBENCH_PATH) $(LMBENCH_ENV) \
-		./configure $(LMBENCH_AUTOCONF)
+	@$(call world/prepare, LMBENCH)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
