@@ -1,0 +1,13 @@
+## SECTION=system_libraries
+
+config POLKIT
+	tristate
+	prompt "policykit-1"
+	select HOST_INTLTOOL
+	select HOST_GTK_DOC
+	select GLIB
+	select DBUS_GLIB
+	select EGGDBUS
+	help
+	  PolicyKit offers an infrastructure for security policies for
+	  dbus applications.
