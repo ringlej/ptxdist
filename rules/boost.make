@@ -36,9 +36,6 @@ $(BOOST_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-BOOST_PATH	:= PATH=$(CROSS_PATH)
-BOOST_ENV 	:= $(CROSS_ENV)
-
 # they reinvent their own wheel^Hmake: jam
 # -q: quit on error
 # -d: debug level, default=1
@@ -70,7 +67,8 @@ BOOST_LIBRARIES-$(PTXCONF_BOOST_WAVE)		+= wave
 BOOST_LIBRARIES-$(PTXCONF_BOOST_TEST)		+= test
 BOOST_LIBRARIES-$(PTXCONF_BOOST_GRAPH)		+= graph
 
-BOOST_CONF := \
+BOOST_CONF_TOOL	:= autoconf
+BOOST_CONF_OPT	:= \
 	--with-bjam="$(BOOST_JAM)" \
 	--prefix="$(PKGDIR)/$(BOOST)/usr" \
 	--with-libraries="$(subst $(space),$(comma),$(BOOST_LIBRARIES-y))" \
@@ -79,11 +77,10 @@ BOOST_CONF := \
 $(STATEDIR)/boost.prepare:
 	@$(call targetinfo)
 	@cd $(BOOST_DIR)/tools/jam/src && \
-		sh build.sh gcc && mv bin.*/bjam .; \
+		sh build.sh gcc && mv bin.*/bjam .
+	@$(call world/prepare, BOOST)
 	cd $(BOOST_DIR) && \
-		$(BOOST_PATH) \
-		./configure $(BOOST_CONF); \
-		echo "using gcc : `PATH=$(CROSS_PATH) $(PTXCONF_COMPILER_PREFIX)g++ -dumpversion` : $(PTXCONF_COMPILER_PREFIX)g++ ;" > $(BOOST_DIR)/user-config.jam
+		echo "using gcc : `PATH=$(CROSS_PATH) $(CROSS_CXX) -dumpversion` : $(CROSS_CXX) ;" > $(BOOST_DIR)/user-config.jam
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
