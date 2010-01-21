@@ -45,25 +45,11 @@ $(STATEDIR)/inadyn.extract:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/inadyn.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-INADYN_PATH	:= PATH=$(CROSS_PATH)
-INADYN_ENV	:= $(CROSS_ENV)
-
-$(STATEDIR)/inadyn.compile:
-	@$(call targetinfo)
-	cd $(INADYN_DIR) && $(INADYN_PATH) $(INADYN_ENV) $(MAKE) \
-		$(INADYN_MAKE) TARGET_ARCH=linux $(PARALLELMFLAGS)
-	@$(call touch)
+INADYN_MAKE_ENV	:= $(CROSS_ENV)
+INADYN_MAKE_OPT	:= TARGET_ARCH=linux
 
 # ----------------------------------------------------------------------------
 # Install
