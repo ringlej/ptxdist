@@ -5,3 +5,4 @@ config HOST_EGGDBUS
 	select HOST_GLIB
 	select HOST_DBUS
 	select HOST_DBUS_GLIB
+	select HOST_GTK_DOC
