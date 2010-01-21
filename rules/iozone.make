@@ -36,23 +36,15 @@ $(IOZONE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-IOZONE_PATH	:= PATH=$(CROSS_PATH)
-IOZONE_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-IOZONE_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-debug
+IOZONE_CONF_TOOL	:= autoconf
 
 $(STATEDIR)/iozone.prepare:
 	@$(call targetinfo)
-	@$(call clean, $(IOZONE_DIR)/config.cache)
 	@chmod +x $(IOZONE_DIR)/configure
-	cd $(IOZONE_DIR) && \
-		$(IOZONE_PATH) $(IOZONE_ENV) \
-		./configure $(IOZONE_AUTOCONF)
+	@$(call world/prepare, IOZONE)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
