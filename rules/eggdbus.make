@@ -36,9 +36,6 @@ $(EGGDBUS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-EGGDBUS_PATH	:= PATH=$(CROSS_PATH)
-EGGDBUS_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
@@ -49,7 +46,7 @@ EGGDBUS_AUTOCONF = \
 	--disable-verbose-mode \
 	--disable-man-pages \
 	--disable-gtk-doc \
-	--with-eggdbus-tools=$(HOST_EGGDBUS_DIR)/src/eggdbus
+	--with-eggdbus-tools=$(PTXCONF_SYSROOT_HOST)/bin
 
 # ----------------------------------------------------------------------------
 # Target-Install

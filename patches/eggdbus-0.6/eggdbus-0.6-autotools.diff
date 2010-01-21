@@ -1,18 +1,17 @@
 ---
  Makefile.am              |    2 ++
- configure.ac             |   17 ++++++++++-------
+ configure.ac             |   15 ++++++++-------
  docs/eggdbus/Makefile.am |    2 +-
  docs/tests/Makefile.am   |    2 +-
- m4/gtk-doc.m4            |   39 +++++++++++++++++++++++++++++++++++++++
  src/eggdbus/Makefile.am  |    2 +-
  src/tests/Makefile.am    |    2 +-
- 7 files changed, 55 insertions(+), 11 deletions(-)
+ 6 files changed, 14 insertions(+), 11 deletions(-)
 
-Index: eggdbus-0.6/configure.ac
+Index: b/configure.ac
 ===================================================================
---- eggdbus-0.6.orig/configure.ac
-+++ eggdbus-0.6/configure.ac
-@@ -1,21 +1,23 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,16 +1,16 @@
  dnl Process this file with autoconf to produce a configure script.
  
 -AC_PREREQ(2.59c)
@@ -35,14 +34,7 @@ Index: eggdbus-0.6/configure.ac
  AC_PROG_MAKE_SET
  AC_PROG_LN_S
  AC_SYS_LARGEFILE
- AM_PROG_CC_C_O
- 
-+AC_CONFIG_MACRO_DIR([m4])
-+
- # Taken from dbus
- AC_ARG_ENABLE(ansi,             [  --enable-ansi           enable -ansi -pedantic gcc flags],enable_ansi=$enableval,enable_ansi=no)
- AC_ARG_ENABLE(verbose-mode,     [  --enable-verbose-mode   support verbose debug mode],enable_verbose_mode=$enableval,enable_verbose_mode=$USE_MAINTAINER_MODE)
-@@ -135,7 +137,7 @@ if test "x$GCC" = "xyes"; then
+@@ -135,7 +135,7 @@ if test "x$GCC" = "xyes"; then
    LDFLAGS="-Wl,--as-needed $LDFLAGS"
  fi
  
@@ -51,7 +43,7 @@ Index: eggdbus-0.6/configure.ac
  Makefile
  eggdbus-1.pc
  src/Makefile
-@@ -147,6 +149,7 @@ docs/man/Makefile
+@@ -147,6 +147,7 @@ docs/man/Makefile
  docs/tests/Makefile
  docs/eggdbus/Makefile
  ])
@@ -59,10 +51,10 @@ Index: eggdbus-0.6/configure.ac
  
  dnl ==========================================================================
  echo "
-Index: eggdbus-0.6/docs/eggdbus/Makefile.am
+Index: b/docs/eggdbus/Makefile.am
 ===================================================================
---- eggdbus-0.6.orig/docs/eggdbus/Makefile.am
-+++ eggdbus-0.6/docs/eggdbus/Makefile.am
+--- a/docs/eggdbus/Makefile.am
++++ b/docs/eggdbus/Makefile.am
 @@ -34,7 +34,7 @@ IGNORE_HFILES= 			\
  
  # CFLAGS and LDFLAGS for compiling scan program. Only needed
@@ -72,10 +64,10 @@ Index: eggdbus-0.6/docs/eggdbus/Makefile.am
  	$(DBUS_GLIB_CFLAGS)						\
  	$(GLIB_CFLAGS)							\
  	$(GIO_CFLAGS)							\
-Index: eggdbus-0.6/docs/tests/Makefile.am
+Index: b/docs/tests/Makefile.am
 ===================================================================
---- eggdbus-0.6.orig/docs/tests/Makefile.am
-+++ eggdbus-0.6/docs/tests/Makefile.am
+--- a/docs/tests/Makefile.am
++++ b/docs/tests/Makefile.am
 @@ -29,7 +29,7 @@ IGNORE_HFILES= 			\
  
  # CFLAGS and LDFLAGS for compiling scan program. Only needed
@@ -85,10 +77,10 @@ Index: eggdbus-0.6/docs/tests/Makefile.am
  	$(DBUS_GLIB_CFLAGS)						\
  	$(GLIB_CFLAGS)							\
  	$(GIO_CFLAGS)							\
-Index: eggdbus-0.6/src/eggdbus/Makefile.am
+Index: b/src/eggdbus/Makefile.am
 ===================================================================
---- eggdbus-0.6.orig/src/eggdbus/Makefile.am
-+++ eggdbus-0.6/src/eggdbus/Makefile.am
+--- a/src/eggdbus/Makefile.am
++++ b/src/eggdbus/Makefile.am
 @@ -1,7 +1,7 @@
  
  NULL =
@@ -98,10 +90,10 @@ Index: eggdbus-0.6/src/eggdbus/Makefile.am
  	-I$(top_builddir)/src                           		\
  	-I$(top_srcdir)/src                             		\
  	-DPACKAGE_LIBEXEC_DIR=\""$(libexecdir)"\"       		\
-Index: eggdbus-0.6/src/tests/Makefile.am
+Index: b/src/tests/Makefile.am
 ===================================================================
---- eggdbus-0.6.orig/src/tests/Makefile.am
-+++ eggdbus-0.6/src/tests/Makefile.am
+--- a/src/tests/Makefile.am
++++ b/src/tests/Makefile.am
 @@ -1,7 +1,7 @@
  
  NULL =
@@ -111,54 +103,10 @@ Index: eggdbus-0.6/src/tests/Makefile.am
  	-I$(top_builddir)/src                           		\
  	-I$(top_srcdir)/src                             		\
  	-DPACKAGE_LIBEXEC_DIR=\""$(libexecdir)"\"       		\
-Index: eggdbus-0.6/m4/gtk-doc.m4
+Index: b/Makefile.am
 ===================================================================
---- /dev/null
-+++ eggdbus-0.6/m4/gtk-doc.m4
-@@ -0,0 +1,39 @@
-+dnl -*- mode: autoconf -*-
-+
-+# serial 1
-+
-+dnl Usage:
-+dnl   GTK_DOC_CHECK([minimum-gtk-doc-version])
-+AC_DEFUN([GTK_DOC_CHECK],
-+[
-+  AC_BEFORE([AC_PROG_LIBTOOL],[$0])dnl setup libtool first
-+  AC_BEFORE([AM_PROG_LIBTOOL],[$0])dnl setup libtool first
-+  dnl for overriding the documentation installation directory
-+  AC_ARG_WITH([html-dir],
-+    AS_HELP_STRING([--with-html-dir=PATH], [path to installed docs]),,
-+    [with_html_dir='${datadir}/gtk-doc/html'])
-+  HTML_DIR="$with_html_dir"
-+  AC_SUBST([HTML_DIR])
-+
-+  dnl enable/disable documentation building
-+  AC_ARG_ENABLE([gtk-doc],
-+    AS_HELP_STRING([--enable-gtk-doc],
-+                   [use gtk-doc to build documentation [[default=no]]]),,
-+    [enable_gtk_doc=no])
-+
-+  if test x$enable_gtk_doc = xyes; then
-+    ifelse([$1],[],
-+      [PKG_CHECK_EXISTS([gtk-doc],,
-+                        AC_MSG_ERROR([gtk-doc not installed and --enable-gtk-doc requested]))],
-+      [PKG_CHECK_EXISTS([gtk-doc >= $1],,
-+                        AC_MSG_ERROR([You need to have gtk-doc >= $1 installed to build gtk-doc]))])
-+  fi
-+
-+  AC_MSG_CHECKING([whether to build gtk-doc documentation])
-+  AC_MSG_RESULT($enable_gtk_doc)
-+
-+  AC_PATH_PROGS(GTKDOC_CHECK,gtkdoc-check,)
-+
-+  AM_CONDITIONAL([ENABLE_GTK_DOC], [test x$enable_gtk_doc = xyes])
-+  AM_CONDITIONAL([GTK_DOC_USE_LIBTOOL], [test -n "$LIBTOOL"])
-+])
-Index: eggdbus-0.6/Makefile.am
-===================================================================
---- eggdbus-0.6.orig/Makefile.am
-+++ eggdbus-0.6/Makefile.am
+--- a/Makefile.am
++++ b/Makefile.am
 @@ -1,5 +1,7 @@
  ## Process this file with automake to produce Makefile.in
  

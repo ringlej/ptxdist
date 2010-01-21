@@ -7,5 +7,6 @@ config EGGDBUS
 	select DBUS
 	select DBUS_GLIB
 	select HOST_EGGDBUS
+	select HOST_GTK_DOC
 	help
 	  DBus bindings for GObject
