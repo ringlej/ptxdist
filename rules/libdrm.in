@@ -1,8 +1,8 @@
 ## SECTION=multimedia_xorg_support_libs
 
-config LIBDRM
+menuconfig LIBDRM
 	tristate
-	prompt "libdrm"
+	prompt "libdrm                        "
 	select LIBPTHREAD_STUBS
 	help
 	  This library provides an user-level interface to the DRM
