@@ -30,6 +30,8 @@ DB_SUFFIX	:= tar.gz
 DB_URL		:= http://download.oracle.com/berkeley-db/$(DB).$(DB_SUFFIX)
 DB_SOURCE	:= $(SRCDIR)/$(DB).$(DB_SUFFIX)
 DB_DIR		:= $(BUILDDIR)/$(DB)
+DB_SUBDIR	:= dist
+DB_BUILDDIR	:= $(DB_DIR)/build_unix
 
 # ----------------------------------------------------------------------------
 # Get
@@ -43,13 +45,11 @@ $(DB_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-DB_PATH	:= PATH=$(CROSS_PATH)
-DB_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-DB_AUTOCONF := \
+DB_CONF_TOOL := autoconf
+DB_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-cryptography \
 	--disable-debug \
@@ -78,36 +78,11 @@ DB_AUTOCONF := \
 	--enable-shared
 
 ifdef PTXCONF_ARCH_ARM
-DB_AUTOCONF += \
+DB_CONF_OPT += \
 	--with-mutex=ARM/gcc-assembly
 endif
 
-
-$(STATEDIR)/db.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(DB_DIR)/config.cache)
-	cd $(DB_DIR)/build_unix && \
-		$(DB_PATH) $(DB_ENV) \
-		../dist/configure $(DB_AUTOCONF)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/db.compile:
-	@$(call targetinfo)
-	cd $(DB_DIR)/build_unix && $(DB_PATH) $(MAKE) $(PARALLELMFLAGS_BROKEN)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/db.install:
-	@$(call targetinfo)
-	@$(call install, DB, $(DB_DIR)/build_unix)
-	@$(call touch)
+DB_MAKE_PAR	:= NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
