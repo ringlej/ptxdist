@@ -2,7 +2,6 @@
 
 config XORG_APP_XRDB
         tristate
-	depends on XORG_APP
 	select XORG_LIB_XMU
 	select XORG_LIB_XT
 	select XORG_LIB_SM

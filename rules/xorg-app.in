@@ -2,8 +2,8 @@
 
 # xorg application configuration
 
-menuconfig XORG_APP
-        bool "xorg applications             "
+menu "xorg applications             "
 
 source "generated/multimedia_xorg_app.in"
 
+endmenu

@@ -1,0 +1,5 @@
+## SECTION=multimedia_xorg
+
+menu "xorg window managers          "
+source "generated/x_windowmanagers.in"
+endmenu

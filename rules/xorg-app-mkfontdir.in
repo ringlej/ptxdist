@@ -2,7 +2,6 @@
 
 config XORG_APP_MKFONTDIR
 	tristate
-	depends on XORG_APP
 	select XORG_APP_MKFONTSCALE
 	prompt "xorg mkfontdir"
 	help
