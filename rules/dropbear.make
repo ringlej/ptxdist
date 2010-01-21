@@ -37,9 +37,6 @@ $(DROPBEAR_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-DROPBEAR_PATH	:= PATH=$(CROSS_PATH)
-DROPBEAR_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
@@ -95,10 +92,7 @@ endif
 
 $(STATEDIR)/dropbear.prepare:
 	@$(call targetinfo)
-	@$(call clean, $(DROPBEAR_BUILDDIR))
-	cd $(DROPBEAR_DIR) && \
-		$(DROPBEAR_PATH) $(DROPBEAR_ENV) \
-		$(DROPBEAR_DIR)/configure $(DROPBEAR_AUTOCONF)
+	@$(call world/prepare, DROPBEAR)
 
 ifdef PTXCONF_DROPBEAR_DIS_X11
 	@echo "ptxdist: disabling x11 forwarding"
