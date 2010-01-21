@@ -35,13 +35,10 @@ $(XCURSOR_TRANSPARENT_THEME_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XCURSOR_TRANSPARENT_THEME_PATH	:= PATH=$(CROSS_PATH)
-XCURSOR_TRANSPARENT_THEME_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-XCURSOR_TRANSPARENT_THEME_AUTOCONF := $(CROSS_AUTOCONF_USR)
+XCURSOR_TRANSPARENT_THEME_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -59,14 +56,16 @@ $(STATEDIR)/xcursor-transparent-theme.targetinstall:
 	@$(call install_fixup, xcursor-transparent-theme,DEPENDS,)
 	@$(call install_fixup, xcursor-transparent-theme,DESCRIPTION,missing)
 
-	cd $(XCURSOR_TRANSPARENT_THEME_PKGDIR);								\
-	find . -type l | while read link; do								\
-		target=$$(readlink $$link);								\
-		target=$${target#$$(cd $$(dirname $$link); pwd)/};					\
-		$(call install_link, xcursor-transparent-theme, $$target, $${link#.});			\
-	done;												\
-	find . -type f | while read file; do								\
-		$(call install_copy, xcursor-transparent-theme, 0, 0, 0644, $$file, $${file#.}, n);	\
+	cd $(XCURSOR_TRANSPARENT_THEME_PKGDIR);				\
+	find . -type l | while read link; do				\
+		target=$$(readlink $$link);				\
+		target=$${target#$$(cd $$(dirname $$link); pwd)/};	\
+		$(call install_link, xcursor-transparent-theme,		\
+			$$target, $${link#.});				\
+	done;								\
+	find . -type f | while read file; do				\
+		$(call install_copy, xcursor-transparent-theme, 0, 0,	\
+			0644, -, $${file#.}, n);			\
 	done
 
 	@$(call install_finish, xcursor-transparent-theme)
