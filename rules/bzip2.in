@@ -11,15 +11,17 @@ menuconfig BZIP2
 
 if BZIP2
 
-config BZIP2__BZIP2
+config BZIP2_BZIP2
 	bool
+	select BZIP2_LIBBZ2
 	prompt "install bzip2 binary"
 
-config BZIP2__BZIP2RECOVER
+config BZIP2_BZIP2RECOVER
 	bool
+	select BZIP2_LIBBZ2
 	prompt "install bzip2recover binary"
 
-config BZIP2__LIBBZ2
+config BZIP2_LIBBZ2
 	bool
 	prompt "install libbz2 library"
 

@@ -35,18 +35,8 @@ $(BZIP2_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-BZIP2_PATH		:= PATH=$(CROSS_PATH)
-BZIP2_MAKE_OPT		:= $(CROSS_ENV_CC)
+BZIP2_MAKE_OPT		:= $(CROSS_ENV)
 BZIP2_INSTALL_OPT	:= PREFIX=/usr install
-
-#
-# autoconf
-#
-BZIP2_AUTOCONF := $(CROSS_AUTOCONF_USR)
-
-$(STATEDIR)/bzip2.prepare:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -64,16 +54,16 @@ $(STATEDIR)/bzip2.targetinstall:
 	@$(call install_fixup, bzip2,DEPENDS,)
 	@$(call install_fixup, bzip2,DESCRIPTION,missing)
 
-ifdef PTXCONF_BZIP2__LIBBZ2
+ifdef PTXCONF_BZIP2_LIBBZ2
 	@$(call install_copy, bzip2, 0, 0, 0755, -, /usr/lib/libbz2.so.1.0.4)
 	@$(call install_link, bzip2, libbz2.so.1.0.4, /usr/lib/libbz2.so.1.0)
 endif
 
-ifdef PTXCONF_BZIP2__BZIP2
+ifdef PTXCONF_BZIP2_BZIP2
 	@$(call install_copy, bzip2, 0, 0, 0755, -, /usr/bin/bzip2)
 endif
 
-ifdef PTXCONF_BZIP2__BZIP2RECOVER
+ifdef PTXCONF_BZIP2_BZIP2RECOVER
 	@$(call install_copy, bzip2, 0, 0, 0755, -, /usr/bin/bzip2recover)
 endif
 

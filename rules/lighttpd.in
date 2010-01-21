@@ -4,7 +4,7 @@ menuconfig LIGHTTPD
 	prompt "lighttpd                      "
 	select ZLIB		if LIGHTTPD_ZLIB
 	select BZIP2		if LIGHTTPD_BZ2LIB
-	select BZIP2__LIBBZ2	if LIGHTTPD_BZ2LIB
+	select BZIP2_LIBBZ2	if LIGHTTPD_BZ2LIB
 	select LIBPCRE		if LIGHTTPD_PCRE
 	select OPENSSL		if LIGHTTPD_OPENSSL
 	select OPENSSL_SHARED	if LIGHTTPD_OPENSSL

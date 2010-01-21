@@ -10,7 +10,7 @@ menuconfig PYTHON
 	select NCURSES		if PYTHON_NCURSES
 	select SQLITE		if PYTHON_SQLITE
 	select BZIP2		if PYTHON_BZ2
-	select BZIP2__LIBBZ2	if PYTHON_BZ2
+	select BZIP2_LIBBZ2	if PYTHON_BZ2
 	select ZLIB		if PYTHON_ZLIB
 	select READLINE		if PYTHON_READLINE
 	select DB		if PYTHON_DB
