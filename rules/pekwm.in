@@ -1,6 +1,6 @@
 ## SECTION=x_windowmanagers
 
-config PEKWM
+menuconfig PEKWM
 	tristate
 	select XORG_LIB_SM
 	select XORG_LIB_ICE
@@ -10,7 +10,7 @@ config PEKWM
 	select LIBJPEG
 	select LIBPNG
 	select GCCLIBS_CXX
-	prompt "pekwm"
+	prompt "pekwm                         "
 	help
 	  The Pek Window Manager is written by Claes Nästen, the code
 	  is based on the aewm++ window manager, but it has evolved
