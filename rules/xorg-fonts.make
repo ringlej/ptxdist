@@ -23,10 +23,6 @@ XORG_FONTS_DIR		:= $(BUILDDIR)/$(XORG_FONTS)
 XORG_FONTS_DIR_INSTALL	:= $(XORG_FONTS_DIR)-install
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
@@ -111,8 +107,9 @@ $(STATEDIR)/xorg-fonts.targetinstall.post:
 
 	@cd $(XORG_FONTS_DIR_INSTALL); \
 	find . -type f | while read file; do \
-		echo $${file}; \
-		$(call install_copy, xorg-fonts, 0, 0, 0644, $$file, $(XORG_FONTDIR)/$$file, n); \
+		$(call install_copy, xorg-fonts, 0, 0, 0644, \
+			$(XORG_FONTS_DIR_INSTALL)/$$file, \
+			$(XORG_FONTDIR)/$$file, n); \
 	done
 
 	@$(call install_finish, xorg-fonts)
