@@ -41,24 +41,11 @@ $(STATEDIR)/mtd-oopslog.extract:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-MTD_OOPSLOG_PATH	:= PATH=$(CROSS_PATH)
-MTD_OOPSLOG_ENV 	:= $(CROSS_ENV)
-
-$(STATEDIR)/mtd-oopslog.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/mtd-oopslog.compile:
-	@$(call targetinfo)
-	@cd $(MTD_OOPSLOG_DIR) && $(MTD_OOPSLOG_PATH) $(MTD_OOPSLOG_ENV) $(MAKE) oopslog
-	@$(call touch)
+MTD_OOPSLOG_MAKE_ENV	:= $(CROSS_ENV)
+MTD_OOPSLOG_MAKE_OPT	:= oopslog
 
 # ----------------------------------------------------------------------------
 # Install
