@@ -38,9 +38,6 @@ $(MGETTY_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-MGETTY_PATH	:= PATH=$(CROSS_PATH)
-MGETTY_ENV 	:= $(CROSS_ENV)
-
 $(STATEDIR)/mgetty.prepare:
 	@$(call targetinfo)
 	cp $(PTXCONF_MGETTY_CONFIG) $(MGETTY_DIR)/policy.h
@@ -54,7 +51,9 @@ MGETTY_DIRS	:= \
 	prefix=/usr \
 	CONFDIR=/etc/mgetty+sendfax
 
+MGETTY_MAKE_PAR	:= NO
 MGETTY_MAKE_OPT	:= \
+	$(CROSS_ENV) \
 	$(MGETTY_DIRS) \
 	bin-all \
 	mgetty.config \
@@ -65,8 +64,7 @@ $(STATEDIR)/mgetty.compile:
 	@$(call targetinfo)
 # FIXME: mol: this should be a host-tool
 	cd $(MGETTY_DIR) && make mksed
-	cd $(MGETTY_DIR) && $(MGETTY_PATH) $(MGETTY_ENV) $(MAKE) \
-		$(PARALLEL_MFLAGS) $(MGETTY_MAKE_OPT) $(MGETTY_ENV)
+	@$(call world/compile, MGETTY)
 	@$(call touch)
 
 MGETTY_INSTALL_OPT := install.bin $(MGETTY_DIRS)
