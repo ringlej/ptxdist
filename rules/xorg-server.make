@@ -35,7 +35,6 @@ $(XORG_SERVER_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-XORG_SERVER_PATH	:= PATH=$(CROSS_PATH)
 XORG_SERVER_ENV 	:= $(CROSS_ENV) \
 	ac_cv_sys_linker_h=yes \
 	ac_cv_file__usr_share_sgml_X11_defs_ent=no
@@ -77,6 +76,12 @@ XORG_SERVER_AUTOCONF = \
 # --enable-install-libxf86config
 
 # FIXME new options
+
+ifdef PTXCONF_XORG_SERVER_UDEV
+XORG_SERVER_AUTOCONF += --enable-config-udev
+else
+XORG_SERVER_AUTOCONF += --disable-config-udev
+endif
 
 ifdef PTXCONF_XORG_SERVER_NULL_ROOT_CURSOR
 XORG_SERVER_AUTOCONF += --enable-null-root-cursor

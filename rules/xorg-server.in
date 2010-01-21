@@ -36,6 +36,10 @@ menuconfig XORG_SERVER
 	select OPENSSL
 	select XORG_LIB_XKBFILE
 
+	# input hotplug with udev
+	select UDEV			if XORG_SERVER_UDEV
+	select UDEV_LIBUDEV		if XORG_SERVER_UDEV
+
 	# glx triggered
 	select XORG_LIB_X11		if XORG_SERVER_EXT_GLX
 	select XORG_PROTO_GL		if XORG_SERVER_EXT_GLX
@@ -252,6 +256,12 @@ config XORG_SERVER_OPT_SECURE_RPC
 config XORG_SERVER_TSLIB
 	bool
 	prompt "tslib"
+	help
+	  FIXME
+
+config XORG_SERVER_UDEV
+	bool
+	prompt "detect input devices via udev"
 	help
 	  FIXME
 
