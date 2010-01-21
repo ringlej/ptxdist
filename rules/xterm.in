@@ -1,4 +1,4 @@
-## SECTION=x_apps
+## SECTION=multimedia_xorg_app
 
 config XTERM
 	tristate

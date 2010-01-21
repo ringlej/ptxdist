@@ -2,7 +2,6 @@
 
 config XORG_APP_SETXKBMAP
 	tristate
-	depends on XORG_APP
 	depends on XORG_KEYBOARD_MAPPING_SUPPORT
 	prompt "xorg setxkbmap"
 	select XORG_APP_XKBCOMP

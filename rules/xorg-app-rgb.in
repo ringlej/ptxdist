@@ -2,7 +2,6 @@
 
 config XORG_APP_RGB
 	tristate
-	depends on XORG_APP
 	select XORG_LIB_X11
 	prompt "xorg rgb"
 	help

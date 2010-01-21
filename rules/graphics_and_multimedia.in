@@ -76,10 +76,3 @@ if XORG
 source "generated/multimedia_xorg.in"
 endif
 
-menu "xorg applications             "
-source "generated/x_apps.in"
-endmenu
-
-menu "xorg window managers          "
-source "generated/x_windowmanagers.in"
-endmenu

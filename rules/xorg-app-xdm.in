@@ -2,7 +2,6 @@
 
 menuconfig XORG_APP_XDM
 	tristate
-	depends on XORG_APP
 	prompt "xorg XDM"
 	select XORG_LIB_XPM
 	select XORG_LIB_XMU
