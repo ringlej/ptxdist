@@ -90,7 +90,8 @@ ifdef PTXCONF_GTK_THEME_EXPERIENCE_PLAIN
 	@cd $(GTK_THEME_EXPERIENCE_DIR)/eXperience && \
 		for f in `find . -type f | grep -v .svn`; do \
 			$(call install_copy, gtk-theme-experience, 0, 0, 0644, \
-			$$f, /usr/share/themes/eXperience/$$f,n) \
+			$(GTK_THEME_EXPERIENCE_DIR)/eXperience/$$f, \
+			/usr/share/themes/eXperience/$$f,n) \
 		done
 endif
 
@@ -99,7 +100,8 @@ ifdef PTXCONF_GTK_THEME_EXPERIENCE_ICE
 	@cd $(GTK_THEME_EXPERIENCE_DIR)/eXperience-ice && \
 		for f in `find . -type f | grep -v .svn`; do \
 			$(call install_copy, gtk-theme-experience, 0, 0, 0644, \
-			$$f, /usr/share/themes/eXperience-ice/$$f,n) \
+			$(GTK_THEME_EXPERIENCE_DIR)/eXperience-ice/$$f, \
+			/usr/share/themes/eXperience-ice/$$f,n) \
 		done
 endif
 
@@ -107,7 +109,8 @@ ifdef PTXCONF_GTK_THEME_EXPERIENCE_OLIVE
 	@cd $(GTK_THEME_EXPERIENCE_DIR)/eXperience-olive && \
 		for f in `find . -type f | grep -v .svn`; do \
 			$(call install_copy, gtk-theme-experience, 0, 0, 0644, \
-			$$f, /usr/share/themes/eXperience-olive/$$f,n) \
+			$(GTK_THEME_EXPERIENCE_DIR)/eXperience-olive/$$f, \
+			/usr/share/themes/eXperience-olive/$$f,n) \
 		done
 endif
 
