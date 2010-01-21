@@ -1,11 +1,9 @@
-config.log
-config.status
-configure
-logfile
-autom4te.cache/
-
-Makefile
-.done
+/config.log
+/config.status
+/configure
+/autom4te.cache/
+/Makefile
+/.done
 
 *.orig
 *.swp
@@ -13,7 +11,7 @@ Makefile
 \#*#
 .\#*
 
-rules/logfile
+logfile
 
 scripts/ptxdist_version.sh
 scripts/kconfig/conf
