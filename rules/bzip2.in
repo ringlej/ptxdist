@@ -18,7 +18,6 @@ config BZIP2_BZIP2
 
 config BZIP2_BZIP2RECOVER
 	bool
-	select BZIP2_LIBBZ2
 	prompt "install bzip2recover binary"
 
 config BZIP2_LIBBZ2
