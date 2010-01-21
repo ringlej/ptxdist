@@ -40,34 +40,18 @@ HOST_USPLASH_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_USPLASH_AUTOCONF	:= $(HOST_AUTOCONF) \
+HOST_USPLASH_CONF_TOOL	:= autoconf
+HOST_USPLASH_CONF_OPT	:= $(HOST_AUTOCONF) \
 	--disable-svga-backend \
 	--enable-convert-tools
 
 $(STATEDIR)/host-usplash.prepare:
 	@$(call targetinfo)
-	@$(call clean, $(HOST_USPLASH_DIR)/config.cache)
-	cd $(HOST_USPLASH_DIR) && \
-		$(HOST_USPLASH_PATH) $(HOST_USPLASH_ENV) \
-		sh ./configure $(HOST_USPLASH_AUTOCONF)
+	@chmod +x $(HOST_USPLASH_DIR)/configure
+	@$(call world/prepare, HOST_USPLASH)
 	@$(call touch)
 
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-usplash.compile:
-	@$(call targetinfo)
-	cd $(HOST_USPLASH_DIR)/bogl && $(HOST_USPLASH_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-usplash.install:
-	@$(call targetinfo)
-	@$(call install, HOST_USPLASH,,h)
-	@$(call touch)
+HOST_USPLASH_MAKE_OPT		:= -C bogl
+HOST_USPLASH_INSTALL_OPT	:= -C bogl install
 
 # vim: syntax=make
