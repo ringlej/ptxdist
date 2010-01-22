@@ -104,6 +104,8 @@ $(STATEDIR)/dbus.targetinstall:
 		/usr/bin/dbus-send)
 	@$(call install_copy, dbus, 0, 0, 0755, -, \
 		/usr/bin/dbus-uuidgen)
+	@$(call install_copy, dbus, 0, 104, 4754, -, \
+		/usr/libexec/dbus-daemon-launch-helper)
 
 	@$(call install_copy, dbus, 0, 0, 0644, -, \
 		/usr/lib/libdbus-1.so.3.4.0)
