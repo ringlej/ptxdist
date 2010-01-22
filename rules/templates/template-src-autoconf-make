@@ -46,7 +46,7 @@ endif
 # autoconf
 #
 @PACKET@_CONF_TOOL	:= autoconf
-#@PACKET@_CONF_OPT	:= $(CROSS_AUTOCONF_USR)
+@PACKET@_CONF_OPT	:= $(CROSS_AUTOCONF_USR)
 
 $(STATEDIR)/@packet@.prepare:
 	@$(call targetinfo)
