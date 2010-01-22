@@ -207,6 +207,21 @@ endmenu
 
 # ----------------------------------------------------------------------------
 
+menu "xorg config files             "
+
+
+config XORG_SERVER_CONFIG_FILES_XORG_CONF
+	bool
+	prompt "/etc/X11/xorg.conf"
+	help
+	  Install a /etc/X11/xorg.conf file from
+	  projectroot or generic
+
+endmenu
+
+
+# ----------------------------------------------------------------------------
+
 menu "xorg options                  "
 
 config XORG_SERVER_OPT_NULL_ROOT_CURSOR
