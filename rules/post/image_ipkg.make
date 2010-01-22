@@ -1,4 +1,12 @@
 # -*-makefile-*-
+#
+# Copyright (C) 2003-2009 by the ptxdist project <ptxdist@pengutronix.de>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 ifdef PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY
 $(STATEDIR)/images: $(STATEDIR)/ipkg-push
@@ -18,5 +26,4 @@ $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post
 	echo; \
 	)
 
-# vim600:set foldmethod=marker:
-# vim600:set syntax=make:
+# vim: syntax=make
