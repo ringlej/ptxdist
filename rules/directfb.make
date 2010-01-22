@@ -193,6 +193,10 @@ $(STATEDIR)/directfb.targetinstall:
 	@$(call install_fixup,directfb,DEPENDS,)
 	@$(call install_fixup,directfb,DESCRIPTION,missing)
 
+ifdef PTXCONF_DIRECTFB_CONFIG_DIRECTFBRC
+	@$(call install_alternative, directfb, 0, 0, 0644, /etc/directfbrc)
+endif
+
 	@$(call install_copy, directfb, 0, 0, 0755, -, /usr/bin/dfbinfo)
 
 	@$(call install_copy, directfb, 0, 0, 0644, -, /usr/lib/libdirectfb-1.4.so.0.3.0)
