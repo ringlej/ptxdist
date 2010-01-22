@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2005, 2006, 2007 Robert Schwebel <r.schwebel@pengutronix.de>
-#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,7 +18,7 @@ ptxd_make_ipkg_finish() {
 
     # replace space with ", "
     dep="${pkg_xpkg_deps[*]}"
-    dep="${dep/ /, }"
+    dep="${dep// /, }"
 
     sed -i -e "s:@DEPENDS@:${dep}:g" "${pkg_ipkg_control}" || return
 
