@@ -1,0 +1,64 @@
+From 1c5e0061551041643689960302212a31263b4a2b Mon Sep 17 00:00:00 2001
+From: the openembedded project <http://openembedded.net/>
+Date: Fri, 22 Jan 2010 11:05:06 +0100
+Subject: [PATCH 2/9] ipkg-py-sane-vercompare
+
+Only in ipkg-utils: ipkg-py-sane-vercompare.patch
+---
+ ipkg.py |   26 ++++++++++++++++++++++----
+ 1 files changed, 22 insertions(+), 4 deletions(-)
+
+diff --git a/ipkg.py b/ipkg.py
+index e175c8d..824ba4d 100644
+--- a/ipkg.py
++++ b/ipkg.py
+@@ -48,9 +48,9 @@ class Version:
+         self.epoch = epoch
+         self.version = version
+ 
+-    def _versioncompare(self, ref):
+-        selfversion = self.version
+-        refversion = ref.version
++    def _versioncompare(self, selfversion, refversion):
++        if not selfversion: selfversion = ""
++        if not refversion: refversion = ""
+         while 1:
+             ## first look for non-numeric version component
+             selfm = re.match('([^0-9]*)(.*)', selfversion)
+@@ -89,7 +89,18 @@ class Version:
+         elif (self.epoch < ref.epoch):
+             return -1
+         else:
+-            return self._versioncompare(ref)
++	    self_ver_comps = re.match(r"(.+?)(-r.+)?$", self.version)
++	    ref_ver_comps = re.match(r"(.+?)(-r.+)?$", ref.version)
++	    #print (self_ver_comps.group(1), self_ver_comps.group(2))
++	    #print (ref_ver_comps.group(1), ref_ver_comps.group(2))
++	    r = self._versioncompare(self_ver_comps.group(1), ref_ver_comps.group(1))
++	    if r == 0:
++		r = self._versioncompare(self_ver_comps.group(2), ref_ver_comps.group(2))
++	    #print "compare: %s vs %s = %d" % (self, ref, r)
++	    return r
++
++    def __str__(self):
++        return str(self.epoch) + ":" + self.version
+ 
+ def parse_version(versionstr):
+     epoch = 0
+@@ -445,6 +456,13 @@ class Packages:
+         return self.packages[key]
+ 
+ if __name__ == "__main__":
++
++    assert Version(0, "1.2.2-r1").compare(Version(0, "1.2.3-r0")) == -1
++    assert Version(0, "1.2.2-r0").compare(Version(0, "1.2.2+cvs20070308-r0")) == -1
++    assert Version(0, "1.2.2+cvs20070308").compare(Version(0, "1.2.2-r0")) == 1
++    assert Version(0, "1.2.2-r0").compare(Version(0, "1.2.2-r0")) == 0
++    assert Version(0, "1.2.2-r5").compare(Version(0, "1.2.2-r0")) == 1
++
+     package = Package()
+ 
+     package.set_package("FooBar")
+-- 
+1.6.6
+

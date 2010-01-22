@@ -1,1 +1,9 @@
-Makefile-prefix.diff
+0001-ipkg-utils-fix.patch
+0002-ipkg-py-sane-vercompare.patch
+0003-ipkg-py-tarfile.patch
+0004-arfile_even_alignment.patch
+0005-ipkg-make-index-track-stamps.patch
+0006-fields_tweaks.patch
+0007-ipkg-env.patch
+0008-ipkg.py-don-t-use-wildcards.patch
+0009-Makefile-add-prefix-to-python-install.patch

@@ -1,0 +1,77 @@
+From d4b08628c7c7f257c7b231ad60958300eed48db8 Mon Sep 17 00:00:00 2001
+From: the openembedded project <http://openembedded.net/>
+Date: Fri, 22 Jan 2010 11:05:16 +0100
+Subject: [PATCH 7/9] ipkg-env
+
+---
+ ipkg-list-fields  |    2 +-
+ ipkg-make-index   |    2 +-
+ ipkg-show-deps    |    2 +-
+ ipkg-unbuild      |    2 +-
+ ipkg-update-index |    2 +-
+ ipkg-upload       |    2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/ipkg-list-fields b/ipkg-list-fields
+index f726ef8..437fcdb 100644
+--- a/ipkg-list-fields
++++ b/ipkg-list-fields
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python
+ 
+ import sys, ipkg
+ 
+diff --git a/ipkg-make-index b/ipkg-make-index
+index 6a49849..a0f6001 100755
+--- a/ipkg-make-index
++++ b/ipkg-make-index
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python
+ # $Id: ipkg-make-index,v 1.22 2005/03/03 16:39:04 jamey Exp $
+ 
+ import sys, os, posixpath
+diff --git a/ipkg-show-deps b/ipkg-show-deps
+index 2e983ac..aa7705d 100755
+--- a/ipkg-show-deps
++++ b/ipkg-show-deps
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python
+ # $Id: ipkg-show-deps,v 1.2 2004/03/06 13:08:33 pb Exp $
+ 
+ import sys, os, posixpath
+diff --git a/ipkg-unbuild b/ipkg-unbuild
+index 661d4f1..7c06300 100755
+--- a/ipkg-unbuild
++++ b/ipkg-unbuild
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python
+ 
+ import sys, os, re
+ 
+diff --git a/ipkg-update-index b/ipkg-update-index
+index f34324a..cc2541c 100755
+--- a/ipkg-update-index
++++ b/ipkg-update-index
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python2.1
++#!/usr/bin/env python
+ 
+ import sys, os
+ from glob import glob
+diff --git a/ipkg-upload b/ipkg-upload
+index 2fe5186..01e5815 100755
+--- a/ipkg-upload
++++ b/ipkg-upload
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python
+ 
+ import sys, os, os.path, re
+ 
+-- 
+1.6.6
+
