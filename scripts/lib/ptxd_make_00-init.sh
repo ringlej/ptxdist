@@ -132,7 +132,7 @@ ptxd_init_ptxdist_path() {
 
     export \
 	PTXDIST_PATH_SYSROOT="${sysroot}" \
-	PTXDIST_PATH_SYSROOT_ALL="${sysroot_all}"
+	PTXDIST_PATH_SYSROOT_ALL="${sysroot_all}" \
 	PTXDIST_PATH_SYSROOT_PREFIX="${sysroot_prefix}" \
 	PTXDIST_PATH_SYSROOT_PREFIX_ALL="${sysroot_prefix_all}"
 }
