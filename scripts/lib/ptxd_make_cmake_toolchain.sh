@@ -22,6 +22,8 @@ export PTXDIST_CMAKE_TOOLCHAIN_HOST
 # FIXME: take care about non linux
 #
 ptxd_make_cmake_toolchain_target() {
+    local sysroot_prefix="${PTXDIST_PATH_SYSROOT_PREFIX}:"
+
     SYSTEM_NAME="Linux" \
 	SYSTEM_VERSION="1" \
 	\
@@ -29,6 +31,8 @@ ptxd_make_cmake_toolchain_target() {
 	CXX="$(which "${CXX}")" \
 	\
 	SYSROOT="${PTXDIST_PATH_SYSROOT_ALL//:/ }" \
+	INCLUDE_DIRECTORIES="${sysroot_prefix//://include }" \
+	LINK_DIRECTORIES="${sysroot_prefix//://lib }" \
 	\
 	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/cmake/toolchain-target.cmake.in" > "${1}"
 }
