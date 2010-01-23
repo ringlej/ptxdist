@@ -1,0 +1,31 @@
+From 7302900f20c3710f487752f69f3f1dadab08ea92 Mon Sep 17 00:00:00 2001
+From: doko@debian.org <doko@debian.org>
+Date: Sun, 24 Jan 2010 00:31:36 +0100
+Subject: [PATCH 4/6] rl-no-rpath.
+
+rl-no-rpath.dpatch by  <doko@debian.org>
+
+from:
+http://ftp.de.debian.org/debian/pool/main/r/readline6/readline6_6.1-1.diff.gz
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ support/shobj-conf |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/support/shobj-conf b/support/shobj-conf
+index 5a63e80..a6960d1 100644
+--- a/support/shobj-conf
++++ b/support/shobj-conf
+@@ -114,7 +114,7 @@ linux*-*|gnu*-*|k*bsd*-gnu-*|freebsd*-gentoo)
+ 	SHOBJ_LD='${CC}'
+ 	SHOBJ_LDFLAGS='-shared -Wl,-soname,$@'
+ 
+-	SHLIB_XLDFLAGS='-Wl,-rpath,$(libdir) -Wl,-soname,`basename $@ $(SHLIB_MINOR)`'
++	SHLIB_XLDFLAGS='-Wl,-soname,`basename $@ $(SHLIB_MINOR)`'
+ 	SHLIB_LIBVERSION='$(SHLIB_LIBSUFF).$(SHLIB_MAJOR)$(SHLIB_MINOR)'
+ 	;;
+ 
+-- 
+1.6.6
+

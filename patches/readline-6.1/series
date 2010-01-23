@@ -1,0 +1,6 @@
+0001-rl-attribute.patch
+0002-rl-header.patch
+0003-rl-no-cross-check.patch
+0004-rl-no-rpath.patch
+0005-rlfe-history.patch
+0006-always-link-against-our-termcap-libraries.patch

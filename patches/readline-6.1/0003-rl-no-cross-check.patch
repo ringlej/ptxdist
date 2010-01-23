@@ -1,0 +1,31 @@
+From 713b0e2b4d4690c9cc8dae9acdb5df55d171b3ef Mon Sep 17 00:00:00 2001
+From: doko@debian.org <doko@debian.org>
+Date: Sun, 24 Jan 2010 00:31:30 +0100
+Subject: [PATCH 3/6] rl-no-cross-check.
+
+rl-no-cross-check.dpatch by  <doko@debian.org>
+
+from:
+http://ftp.de.debian.org/debian/pool/main/r/readline6/readline6_6.1-1.diff.gz
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ configure |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/configure b/configure
+index 868d29e..3bacf88 100755
+--- a/configure
++++ b/configure
+@@ -2538,7 +2538,7 @@ ac_exeext=$ac_cv_exeext
+ $as_echo_n "checking whether the C compiler works... " >&6; }
+ # FIXME: These cross compiler hacks should be removed for Autoconf 3.0
+ # If not cross compiling, check that we can run a simple program.
+-if test "$cross_compiling" != yes; then
++if false && test "$cross_compiling" != yes; then
+   if { ac_try='./$ac_file'
+   { (case "(($ac_try" in
+   *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+-- 
+1.6.6
+

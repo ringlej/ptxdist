@@ -1,0 +1,64 @@
+From 7f075477b0583f318de652092b5d785c0b4455d3 Mon Sep 17 00:00:00 2001
+From: andrew@pimlott.net <andrew@pimlott.net>
+Date: Sun, 24 Jan 2010 00:31:48 +0100
+Subject: [PATCH 5/6] rlfe-history.
+
+rlfe-history.dpatch by  <andrew@pimlott.net>
+
+from:
+http://ftp.de.debian.org/debian/pool/main/r/readline6/readline6_6.1-1.diff.gz
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ examples/rlfe/rlfe.c |   17 +++++++++++------
+ 1 files changed, 11 insertions(+), 6 deletions(-)
+
+diff --git a/examples/rlfe/rlfe.c b/examples/rlfe/rlfe.c
+index eacd5ab..de2c607 100644
+--- a/examples/rlfe/rlfe.c
++++ b/examples/rlfe/rlfe.c
+@@ -154,21 +154,27 @@ struct termios orig_term;
+ static pid_t child = -1;
+ 
+ static void
+-sig_child (int signo)
++finish_up()
+ {
+-  int status;
+-  wait (&status);
+   if (hist_file != 0)
+     {
+       write_history (hist_file);
+       if (hist_size)
+ 	history_truncate_file (hist_file, hist_size);
+     }
+-  DPRINT0 ("(Child process died.)\n");
+   tcsetattr(STDIN_FILENO, TCSANOW, &orig_term);
+   exit (0);
+ }
+ 
++static void
++sig_child (int signo)
++{
++  int status;
++  wait (&status);
++  DPRINT0 ("(Child process died.)\n");
++  finish_up();
++}
++
+ volatile int propagate_sigwinch = 0;
+ 
+ /* sigwinch_handler
+@@ -703,8 +709,7 @@ main(int argc, char** argv)
+ 	  if (count <= 0)
+ 	    {
+ 	      DPRINT0 ("(Connection closed by foreign host.)\n");
+-	      tcsetattr(STDIN_FILENO, TCSANOW, &orig_term);
+-	      exit (0);
++              finish_up();
+ 	    }
+ 	  old_count = buf_count;
+ 
+-- 
+1.6.6
+

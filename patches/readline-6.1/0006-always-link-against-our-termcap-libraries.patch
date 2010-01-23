@@ -1,5 +1,7 @@
+From a3f5ba4366bf698d987277656c51bb6f12d55cf2 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: always link against our $termcap libraries
+Date: Sun, 24 Jan 2010 00:32:08 +0100
+Subject: [PATCH 6/6] always link against our $termcap libraries
 
 This way our $user doesn't need to know wich $termcap library
 we linked against.
@@ -10,13 +12,13 @@ we linked against.
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  shlib/Makefile.in |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
-Index: readline-5.2/shlib/Makefile.in
-===================================================================
---- readline-5.2.orig/shlib/Makefile.in
-+++ readline-5.2/shlib/Makefile.in
-@@ -164,11 +164,11 @@ unsupported:
+diff --git a/shlib/Makefile.in b/shlib/Makefile.in
+index 61724e7..316e2db 100644
+--- a/shlib/Makefile.in
++++ b/shlib/Makefile.in
+@@ -166,11 +166,11 @@ unsupported:
  
  $(SHARED_READLINE):	$(SHARED_OBJ)
  	$(RM) $@
@@ -30,3 +32,6 @@ Index: readline-5.2/shlib/Makefile.in
  
  # Since tilde.c is shared between readline and bash, make sure we compile 
  # it with the right flags when it's built as part of readline
+-- 
+1.6.6
+

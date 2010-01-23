@@ -1,0 +1,51 @@
+From 28a3a685d30096d9567577acc18a890c814cad86 Mon Sep 17 00:00:00 2001
+From: doko@debian.org <doko@debian.org>
+Date: Sun, 24 Jan 2010 00:31:09 +0100
+Subject: [PATCH 1/6] rl-attribute.
+
+rl-attribute.dpatch by  <doko@debian.org>
+
+from:
+http://ftp.de.debian.org/debian/pool/main/r/readline6/readline6_6.1-1.diff.gz
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ readline.h |    2 +-
+ rlstdc.h   |    8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/readline.h b/readline.h
+index 7a4ffaa..a29c600 100644
+--- a/readline.h
++++ b/readline.h
+@@ -376,7 +376,7 @@ extern int rl_reset_line_state PARAMS((void));
+ extern int rl_crlf PARAMS((void));
+ 
+ #if defined (USE_VARARGS) && defined (PREFER_STDARG)
+-extern int rl_message (const char *, ...)  __attribute__((__format__ (printf, 1, 2)));
++extern int rl_message (const char *, ...)  __rl_attribute__((__format__ (printf, 1, 2)));
+ #else
+ extern int rl_message ();
+ #endif
+diff --git a/rlstdc.h b/rlstdc.h
+index a6d2394..59d570b 100644
+--- a/rlstdc.h
++++ b/rlstdc.h
+@@ -36,10 +36,10 @@
+ #  endif
+ #endif
+ 
+-#ifndef __attribute__
+-#  if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 8)
+-#    define __attribute__(x)
+-#  endif
++#if defined(__GNUC__) && __GNUC__ >= 2
++#  define __rl_attribute__(x) __attribute__(x)
++#else
++#  define __rl_attribute__(x)
+ #endif
+ 
+ #endif /* !_RL_STDC_H_ */
+-- 
+1.6.6
+

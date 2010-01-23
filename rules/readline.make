@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2004 by Sascha Hauer
-#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_READLINE) += readline
 #
 # Paths and names
 #
-READLINE_VERSION	:= 5.2
+READLINE_VERSION	:= 6.1
 READLINE		:= readline-$(READLINE_VERSION)
 READLINE_SUFFIX		:= tar.gz
 READLINE_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/readline/$(READLINE).$(READLINE_SUFFIX)
@@ -72,9 +72,9 @@ $(STATEDIR)/readline.targetinstall:
 	@$(call install_fixup, readline,DESCRIPTION,missing)
 
 	@$(call install_copy, readline, 0, 0, 0644, -, \
-		/lib/libreadline.so.5.2)
-	@$(call install_link, readline, libreadline.so.5.2, /lib/libreadline.so.5)
-	@$(call install_link, readline, libreadline.so.5.2, /lib/libreadline.so)
+		/lib/libreadline.so.6.1)
+	@$(call install_link, readline, libreadline.so.6.1, /lib/libreadline.so.6)
+	@$(call install_link, readline, libreadline.so.6.1, /lib/libreadline.so)
 
 ifdef PTXCONF_READLINE_ETC_INPUTRC
 	@$(call install_alternative, readline, 0, 0, 0644, /etc/inputrc)
