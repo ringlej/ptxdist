@@ -12,6 +12,19 @@ menuconfig INITRAMFS_TOOLS
 
 if INITRAMFS_TOOLS
 
+config INITRAMFS_USER_SPEC
+	bool
+	prompt "parse project specific initramfs_spec"
+	help
+	  parse the spec file which is expected to live in
+	  ${PTXDIST_WORKSPACE}/initramfs_spec. The format is the same
+	  as described in the kernelsource under
+
+	  Documentation/early-userspace/README.
+
+	  Files described in this file can either have an absolute or
+	  a relative path (relative to ${PTXDIST_WORKSPACE}).
+
 config INITRAMFS_TOOLS_SCRIPTS_INIT
 	bool "install /scripts/init         "
 	help
