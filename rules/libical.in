@@ -1,0 +1,17 @@
+## SECTION=system_libraries
+
+menuconfig LIBICAL
+	tristate
+	prompt "libical"
+	help
+	  libical is an open source reference implementation of the icalendar data
+	  type and serialization format.
+
+if LIBICAL
+
+config LIBICAL_CXX
+	bool
+	prompt "c++ support"
+
+endif
+
