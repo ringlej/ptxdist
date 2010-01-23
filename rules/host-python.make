@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -46,6 +46,16 @@ $(STATEDIR)/host-python.install:
 	@$(call targetinfo)
 	@$(call install, HOST_PYTHON,,h)
 	install -m 0755 $(HOST_PYTHON_DIR)/Parser/pgen $(PTXCONF_SYSROOT_HOST)/bin
+#
+# remove "python" so that it doesn't interfere with the build
+# machine's python
+#
+# the target build proces will only use python with the
+# python-$(PYTHON_MAJORMINOR)
+#
+	@rm -v \
+		"$(PTXCONF_SYSROOT_HOST)/bin/python" \
+		"$(PTXCONF_SYSROOT_HOST)/bin/python-config"
 	@$(call touch)
 
 # vim: syntax=make
