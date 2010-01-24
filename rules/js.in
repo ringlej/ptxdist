@@ -1,0 +1,8 @@
+## SECTION=scripting_languages
+
+config JS
+	tristate
+	prompt "js (spidermonkey)"
+	help
+	  Spidermonkey is the JavaScript engine of the Mozilla firefox project.
+
