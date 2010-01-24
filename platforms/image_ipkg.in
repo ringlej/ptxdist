@@ -11,6 +11,15 @@ config IMAGE_IPKG_IMAGE_FROM_REPOSITORY
 	  packet files from the IPKG update site (to be specified in
 	  .ptxdistrc) are taken instead.
 
+config IMAGE_IPKG_INDEX
+	bool "generate ipkg.index"
+	default y
+	help
+	  Activating this option generates a ipkg index file
+	  ("Packages") in your PKGDIR. If served by a web or ftp
+	  server it allows ipkg on your target to access your ipkg and
+	  install or update them.
+
 config IMAGE_IPKG_EXTRA_ARGS
 	string
 	default ""

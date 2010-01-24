@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2003-2009 by the ptxdist project <ptxdist@pengutronix.de>
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,5 +19,15 @@ $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post
 		--revision $(call remove_quotes,$(PTXDIST_VERSION_FULL)) \
 		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
 		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION))
+
+
+SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_INDEX) += $(PKGDIR)/Packages
+
+PHONY += $(PKGDIR)/Packages
+$(PKGDIR)/Packages: $(STATEDIR)/host-ipkg-utils.install.post
+	@echo -n "generating ipkg index '$(notdir $@)'..."
+	@$(HOST_ENV) \
+		ipkg-make-index -p "$(@)" "$(PKGDIR)" >/dev/null 2>&1
+	@echo "done"
 
 # vim: syntax=make
