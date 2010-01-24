@@ -298,12 +298,17 @@ HOST_ENV_PKG_CONFIG	:= \
 	PKG_CONFIG_PATH="" \
 	PKG_CONFIG_LIBDIR="$(PTXDIST_SYSROOT_HOST)/lib/pkgconfig:$(PTXDIST_SYSROOT_HOST)/share/pkgconfig"
 
+HOST_ENV_PYTHONPATH	:= \
+	PYTHONPATH="$(shell python -c 'import distutils.sysconfig as sysconfig; \
+		print "%s" % sysconfig.get_python_lib(prefix="'"$(PTXDIST_SYSROOT_HOST)"'")')"
+
 HOST_ENV	:= \
 	$(HOST_ENV_CC) \
 	$(HOST_ENV_CXX) \
 	$(HOST_ENV_CPPFLAGS) \
 	$(HOST_ENV_LDFLAGS) \
-	$(HOST_ENV_PKG_CONFIG)
+	$(HOST_ENV_PKG_CONFIG) \
+	$(HOST_ENV_PYTHONPATH)
 
 
 HOST_AUTOCONF  := --prefix=$(PTXDIST_SYSROOT_HOST)
