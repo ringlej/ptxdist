@@ -1,0 +1,9 @@
+## SECTION=system_libraries
+
+config POCO
+	tristate
+	prompt "poco"
+	help
+	  The POCO C++ Libraries (POrtable COmponents) are open source C++ class
+	  libraries that simplify and accelerate the development of
+	  network-centric, portable applications in C++.

@@ -1,0 +1,38 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [patch] make Linux configuration crosscompile aware
+
+Currently, the "Linux" configuration cannot be cross compiled because
+the compiler is configured unconditionally. We add the CROSS_COMPILE
+prefix: this way it is easily possible to overwrite that variable from
+the commandline and use any cross compiler.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ build/config/Linux |   10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+Index: poco-1.3.6p2/build/config/Linux
+===================================================================
+--- poco-1.3.6p2.orig/build/config/Linux
++++ poco-1.3.6p2/build/config/Linux
+@@ -15,14 +15,14 @@ LINKMODE = SHARED
+ #
+ # Define Tools
+ #
+-CC      = gcc
+-CXX     = g++
++CC      = $(CROSS_COMPILE)gcc
++CXX     = $(CROSS_COMPILE)g++
+ LINK    = $(CXX)
+-LIB     = ar -cr
+-RANLIB  = ranlib
++LIB     = $(CROSS_COMPILE)ar -cr
++RANLIB  = $(CROSS_COMPILE)ranlib
+ SHLIB   = $(CXX) -shared -Wl,-soname,$(notdir $@) -o $@
+ SHLIBLN = $(POCO_BASE)/build/script/shlibln
+-STRIP   = strip
++STRIP   = $(CROSS_COMPILE)strip
+ DEP     = $(POCO_BASE)/build/script/makedepend.gcc 
+ SHELL   = sh
+ RM      = rm -rf
