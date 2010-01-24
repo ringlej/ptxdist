@@ -8,22 +8,15 @@
 # see the README file.
 #
 
-ifdef PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY
-$(STATEDIR)/images: $(STATEDIR)/ipkg-push
-endif
+SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY) += $(STATEDIR)/ipkg-push
 
 $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post
 	@$(call targetinfo)
-	( \
-	PATH=$(PTXCONF_SYSROOT_CROSS)/bin:$(PTXCONF_SYSROOT_CROSS)/usr/bin:$$PATH; \
-	export PATH;  \
 	$(PTXDIST_TOPDIR)/scripts/ipkg-push \
 		--ipkgdir  $(call remove_quotes,$(PKGDIR)) \
 		--repodir  $(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)) \
 		--revision $(call remove_quotes,$(PTXDIST_VERSION_FULL)) \
 		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
-		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)); \
-	echo; \
-	)
+		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION))
 
 # vim: syntax=make
