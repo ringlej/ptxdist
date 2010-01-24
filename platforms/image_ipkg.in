@@ -3,6 +3,7 @@
 menu "ipkg options                  "
 
 config IMAGE_IPKG_IMAGE_FROM_REPOSITORY
+	depends on BROKEN
 	bool
 	prompt "make images: use packets from repository"
 	help
