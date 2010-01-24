@@ -36,12 +36,6 @@ $(READLINE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-READLINE_PATH	:= PATH=$(CROSS_PATH)
-READLINE_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
 READLINE_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
 	--enable-shared \
