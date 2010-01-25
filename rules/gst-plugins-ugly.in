@@ -1,0 +1,108 @@
+## SECTION=multimedia_gstreamer
+
+menuconfig GST_PLUGINS_UGLY
+	tristate
+	select GLIB
+	select GSTREAMER
+	select GST_PLUGINS_BASE
+	select LIBMAD		if GST_PLUGINS_UGLY_MAD
+	select LIBID3TAG	if GST_PLUGINS_UGLY_MAD
+	select LIBMPEG2		if GST_PLUGINS_UGLY_MPEG2DEC
+	prompt "gst-plugins-ugly              "
+	help
+	  GStreamer Ugly Plug-ins is a set of plug-ins that
+	  have good quality and correct functionality, but
+	  distributing them might pose problems. The license
+	  on either the plug-ins or the supporting libraries
+	  might not be how we'd like. The code might be widely
+	  known to present patent problems.
+
+if GST_PLUGINS_UGLY
+
+config GST_PLUGINS_UGLY_ASFDEMUX
+	bool
+	prompt "asfdemux"
+
+config GST_PLUGINS_UGLY_DVDLPCMDEC
+	bool
+	prompt "dvdlpcmdec"
+
+config GST_PLUGINS_UGLY_DVDSUB
+	bool
+	prompt "dvdsub"
+
+config GST_PLUGINS_UGLY_IEC958
+	bool
+	prompt "iec958"
+
+config GST_PLUGINS_UGLY_MPEGAUDIOPARSE
+	bool
+	prompt "mpegaudioparse"
+
+config GST_PLUGINS_UGLY_MPEGSTREAM
+	bool
+	prompt "mpegstream"
+
+config GST_PLUGINS_UGLY_REALMEDIA
+	bool
+	prompt "realmedia"
+
+config GST_PLUGINS_UGLY_SYNAESTHESIA
+	bool
+	prompt "synaesthesia"
+
+config GST_PLUGINS_UGLY_A52DEC
+	bool
+	depends on BROKEN
+	prompt "a52dec"
+
+config GST_PLUGINS_UGLY_AMRNB
+	bool
+	depends on BROKEN
+	prompt "amrnb"
+
+config GST_PLUGINS_UGLY_AMRWBDEC
+	bool
+	depends on BROKEN
+	prompt "amrwbdec"
+
+config GST_PLUGINS_UGLY_CDIO
+	bool
+	depends on BROKEN
+	prompt "cdio"
+
+config GST_PLUGINS_UGLY_DVDREADSRC
+	bool
+	depends on BROKEN
+	prompt "dvdreadsrc"
+
+config GST_PLUGINS_UGLY_LAME
+	bool
+	depends on BROKEN
+	prompt "lame"
+
+config GST_PLUGINS_UGLY_MAD
+	bool
+	prompt "mad"
+
+config GST_PLUGINS_UGLY_MPEG2DEC
+	bool
+	prompt "mpeg2dec"
+
+config GST_PLUGINS_UGLY_SID
+	bool
+	depends on BROKEN
+	prompt "sid"
+
+config ST_PLUGINS_UGLY_TWOLAME
+	bool
+	depends on BROKEN
+	prompt "twolame"
+
+config GST_PLUGINS_UGLY_X264
+	bool
+	depends on BROKEN
+	prompt "x264"
+
+endif
+
