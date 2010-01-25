@@ -1,0 +1,9 @@
+## SECTION=multimedia_libs
+
+config LIBMPEG2
+	tristate
+	prompt "libmpeg2"
+	help
+	  libmpeg2 is a free library for decoding mpeg-2
+	  and mpeg-1 video streams. It is released under
+	  the terms of the GPL license.
