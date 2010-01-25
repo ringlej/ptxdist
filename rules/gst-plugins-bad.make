@@ -1,5 +1,6 @@
 # -*-makefile-*-
 #
+# Copyright (C) 2010 by Erwin Rol <erwin@erwinrol.com>
 # Copyright (C) 2008 by Sascha Hauer
 #
 # See CREDITS for details about who has contributed to this project.
@@ -16,12 +17,13 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BAD) += gst-plugins-bad
 #
 # Paths and names
 #
-GST_PLUGINS_BAD_VERSION	:= 0.10.10
+GST_PLUGINS_BAD_VERSION	:= 0.10.17
 GST_PLUGINS_BAD		:= gst-plugins-bad-$(GST_PLUGINS_BAD_VERSION)
 GST_PLUGINS_BAD_SUFFIX	:= tar.bz2
 GST_PLUGINS_BAD_URL	:= http://gstreamer.freedesktop.org/src/gst-plugins-bad/$(GST_PLUGINS_BAD).$(GST_PLUGINS_BAD_SUFFIX)
 GST_PLUGINS_BAD_SOURCE	:= $(SRCDIR)/$(GST_PLUGINS_BAD).$(GST_PLUGINS_BAD_SUFFIX)
 GST_PLUGINS_BAD_DIR	:= $(BUILDDIR)/$(GST_PLUGINS_BAD)
+
 
 # ----------------------------------------------------------------------------
 # Get
@@ -35,90 +37,142 @@ $(GST_PLUGINS_BAD_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-GST_PLUGINS_BAD_PATH	:= PATH=$(CROSS_PATH)
-GST_PLUGINS_BAD_ENV 	:= $(CROSS_ENV)
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_AACPARSE)	+= aacparse
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_ADPCMDEC)	+= adpcmdec
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_AIFF)		+= aiff
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_AMRPARSE)	+= amrparse
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_ASFMUX)	+= asfmux
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_AUTOCONVERT)	+= autoconvert
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_CAMERABIN)	+= camerabin
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_LEGACYRESAMPLE) += legacyresample
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_BAYER)		+= bayer
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_CDXAPARSE)	+= cdxaparse
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DCCP)		+= dccp
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DEBUGUTILS)	+= debugutils
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DTMF)		+= dtmf
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DVDSPU)	+= dvdspu
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_FESTIVAL)	+= festival
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_FREEZE)	+= freeze
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_FREI0R)	+= frei0r
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_H264PARSE)	+= h264parse
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_HDVPARSE)	+= hdvparse
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_ID3TAG)	+= id3tag
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_LIBRFB)	+= librfb
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_LIVEADDER)	+= liveadder
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MPEGDEMUX)	+= mpegdemux
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MPEGTSMUX)	+= mpegtsmux
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MPEGPSMUX)	+= mpegpsmux
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MPEG4VIDEOPARSE) += mpeg4videoparse
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MPEGVIDEOPARSE) += mpegvideoparse
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MVE)		+= mve
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MXF)		+= mxf
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_NFS)		+= nsf
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_NUVDEMUX)	+= nuvdemux
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_PCAPPARSE)	+= pcapparse
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_PNM)		+= pnm
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_QTMUX)		+= qtmux
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_RAWPARSE)	+= rawparse
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_REAL)		+= real
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_RTPMUX)	+= rtpmux
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SCALETEMPO)	+= scaletempo
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SDP)		+= sdp
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SELECTOR)	+= selector
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SHAPEWIPE)	+= shapewipe
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SIREN)		+= siren
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SPEED)		+= speed
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SUBENC)	+= subenc
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_STEREO)	+= stereo
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_TTA)		+= tta
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_VALVE)		+= valve
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_VIDEOMEASURE)	+= videomeasure
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_VIDEOSIGNAL)	+= videosignal
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_VMNC)		+= vmnc
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DIRECTSOUND)	+= directsound
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DIRECTDRAW)	+= directdraw
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_OSX_VIDEO)	+= osx_video
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_QUICKTIME)	+= quicktime
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_VCD)		+= vcd
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_ALSA)		+= alsa
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_ASSRENDER)	+= assrender
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_AMRWB)		+= amrwb
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_APEXSINK)	+= apexsink
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_BZ2)		+= bz2
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_CDAUDIO)	+= cdaudio
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_CELT)		+= celt
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_COG)		+= cog
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DC1394)	+= dc1394
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DIRECTFB)	+= directfb
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DIRAC)		+= dirac
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DTS)		+= dts
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DIVX)		+= divx
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DVDNAV)	+= dvdnav
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_METADATA)	+= metadata
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_FAAC)		+= faac
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_FAAD)		+= faad
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_FBDEV)		+= fbdev
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_GSM)		+= gsm
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_IVORBIS)	+= ivorbis
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_JACK)		+= jack
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_JP2K)		+= jp2k
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_KATE)		+= kate
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_LADSPA)	+= ladspa
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_LV2)		+= lv2
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_LIBMMS)	+= libmms
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MODPLUG)	+= modplug
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MIMIC)		+= mimic
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MPEG2ENC)	+= mpeg2enc
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MPLEX)		+= mplex
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MUSEPACK)	+= musepack
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MUSICBRAINZ)	+= musicbrainz
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_MYTHTV)	+= mythtv
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_NAS)		+= nas
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_NEON)		+= neon
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_OFA)		+= ofa
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_RSVG)		+= rsvg
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_TIMIDITY)	+= timidity
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_WILDMIDI)	+= wildmidi
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SDL)		+= sdl
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SNDFILE)	+= sndfile
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SOUNDTOUCH)	+= soundtouch
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SPC)		+= spc
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_GME)		+= gme
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SWFDEC)	+= swfdec
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_THEORADEC)	+= theoradec
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_XVID)		+= xvid
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_DVB)		+= dvb
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_OSS4)		+= oss4
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_WININET)	+= wininet
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_ACM)		+= acm
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_VDPAU)		+= vdpau
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_SCHRO)		+= schro
+GST_PLUGINS_BAD_ENABLE-$(PTXCONF_GST_PLUGINS_BAD_ZBAR)		+= zbar
+
 
 #
 # autoconf
 #
-GST_PLUGINS_BAD_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+GST_PLUGINS_BAD_CONF_TOOL	:= autoconf
+GST_PLUGINS_BAD_CONF_OPT	:= \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-nls \
+	--disable-rpath \
+	--disable-debug \
+	--disable-profiling \
+	--disable-valgrind \
+	--disable-gcov \
 	--disable-examples \
-	--disable-quicktime \
-	--disable-vcd \
-	--disable-alsa \
-	--disable-amrwb \
-	--disable-bz2 \
-	--disable-cdaudio \
-	--disable-dc1394 \
-	--disable-directfb \
-	--disable-dirac \
-	--disable-dts \
-	--disable-divx \
-	--disable-dvdnav \
-	--disable-metadata \
-	--disable-faac \
-	--disable-faad \
-	--disable-gsm \
-	--disable-ivorbis \
-	--disable-jack \
-	--disable-ladspa \
-	--disable-libmms \
-	--disable-mpeg2enc \
-	--disable-mplex \
-	--disable-musepack \
-	--disable-musicbrainz \
-	--disable-mythtv \
-	--disable-nas \
-	--disable-neon \
-	--disable-ofa \
-	--disable-timidity \
-	--disable-wildmidi \
-	--disable-sdl \
+	--enable-external \
+	--enable-experimental \
+	--disable-gtk-doc \
 	--disable-sdltest \
-	--disable-sndfile \
-	--disable-soundtouch \
-	--disable-spc \
-	--disable-swfdec \
-	--disable-theoradec \
-	--disable-x264 \
-	--disable-xvid \
-	--disable-dvb \
-	--disable-oss4 \
-	--disable-wininet
+	--enable-shave
 
-ifdef PTXCONF_GST_PLUGINS_BAD__FBDEVSINK
-GST_PLUGINS_BAD_AUTOCONF += --enable-fbdev
-GST_PLUGINS_BAD_INSTALL  += /usr/lib/gstreamer-0.10/libgstfbdevsink.so
-else
-GST_PLUGINS_BADD_AUTOCONF += --disable-fbdev
+ifneq ($(call remove_quotes,$(GST_PLUGINS_BAD_ENABLE-y)),)
+GST_PLUGINS_BAD_CONF_OPT +=  --enable-$(subst $(space),$(space)--enable-,$(strip $(GST_PLUGINS_BAD_ENABLE-y)))
 endif
 
-ifdef PTXCONF_GST_PLUGINS_BAD__BAYER
-GST_PLUGINS_BAD_AUTOCONF += --enable-bayer
-GST_PLUGINS_BAD_INSTALL  += /usr/lib/gstreamer-0.10/libgstbayer.so
-else
-GST_PLUGINS_BADD_AUTOCONF += --disable-bayer
-endif
-
-ifdef PTXCONF_GST_PLUGINS_BAD__MPEG4VIDEOPARSE
-GST_PLUGINS_BAD_AUTOCONF += --enable-mpeg4videoparse
-GST_PLUGINS_BAD_INSTALL  += /usr/lib/gstreamer-0.10/libgstmpeg4videoparse.so
-else
-GST_PLUGINS_BADD_AUTOCONF += --disable-mpeg4videoparse
-endif
-
-ifdef PTXCONF_GST_PLUGINS_BAD__H264PARSE
-GST_PLUGINS_BAD_AUTOCONF += --enable-h264parse
-GST_PLUGINS_BAD_INSTALL  += /usr/lib/gstreamer-0.10/libgsth264parse.so
-else
-GST_PLUGINS_BADD_AUTOCONF += --disable-h264parse
-endif
-
-ifdef PTXCONF_GST_PLUGINS_BAD__MPEGDEMUX
-GST_PLUGINS_BAD_AUTOCONF += --enable-mpegdemux
-GST_PLUGINS_BAD_INSTALL  += /usr/lib/gstreamer-0.10/libgstmpegdemux.so
-else
-GST_PLUGINS_BADD_AUTOCONF += --disable-mpegdemux
+ifneq ($(call remove_quotes,$(GST_PLUGINS_BAD_ENABLE-)),)
+GST_PLUGINS_BAD_CONF_OPT +=  --disable-$(subst $(space),$(space)--disable-,$(strip $(GST_PLUGINS_BAD_ENABLE-)))
 endif
 
 # ----------------------------------------------------------------------------
@@ -137,11 +191,21 @@ $(STATEDIR)/gst-plugins-bad.targetinstall:
 	@$(call install_fixup, gst-plugins-bad,DEPENDS,)
 	@$(call install_fixup, gst-plugins-bad,DESCRIPTION,missing)
 
+	# install all activated libs
+	@if [ -d  $(GST_PLUGINS_BAD_PKGDIR)/usr/lib/ ]; then \
+		cd $(GST_PLUGINS_BAD_PKGDIR)/usr/lib/ && for libs in `find -name "*-0.10.so"`; do \
+			$(call install_copy, gst-plugins-bad, 0, 0, 0644, -, /usr/lib/$$libs.0.0.0); \
+			$(call install_link, gst-plugins-bad, $$libs.0.0.0, /usr/lib/$$libs.0); \
+			$(call install_link, gst-plugins-bad, $$libs.0.0.0, /usr/lib/$$libs); \
+		done \
+	fi
+
 	# install all activated plugins
-	@for i in $(GST_PLUGINS_BAD_INSTALL); do \
-		$(call install_copy, gst-plugins-bad, 0, 0, 644, \
-			$(PKGDIR)/$(GST_PLUGINS_BAD)$$i, $$i) \
-	done
+	@if [ -d  $(GST_PLUGINS_BAD_PKGDIR)/usr/lib/gstreamer-0.10/ ]; then \
+		cd $(GST_PLUGINS_BAD_PKGDIR) && for plugin in `find ./usr/lib/gstreamer-0.10/ -name "*.so"`; do \
+			$(call install_copy, gst-plugins-bad, 0, 0, 0644, -, /$$plugin); \
+		done \
+	fi
 
 	@$(call install_finish, gst-plugins-bad)
 
