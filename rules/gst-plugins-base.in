@@ -33,6 +33,10 @@ if GST_PLUGINS_BASE
 	comment "dependency less plugins"
 	# -------------------------------
 
+	config GST_PLUGINS_BASE_APP
+		bool
+		prompt "app"
+
 	config GST_PLUGINS_BASE_ADDER
 		bool
 		prompt "adder"
@@ -130,30 +134,21 @@ if GST_PLUGINS_BASE
 	config GST_PLUGINS_BASE_CDPARANOIA
 		bool
 		depends on BROKEN
-		prompt "cdparanoia"
-
-	comment "cdpraranoia is broken"
+		prompt "cdparanoia [BROKEN]"
 
 	config GST_PLUGINS_BASE_GNOME_VFS
 		bool
 		depends on BROKEN
-		prompt "gnome_vfs"
-
-	comment "gnome_vfs is broken"
+		prompt "gnome_vfs [BROKEN]"
 
 	config GST_PLUGINS_BASE_GIO
 		bool
-		depends on BROKEN
 		prompt "gio"
-
-	comment "gio is broken"
 
 	config GST_PLUGINS_BASE_LIBVISUAL
 		bool
 		depends on BROKEN
-		prompt "libvisual"
-
-	comment "libvisual is broken"
+		prompt "libvisual [BROKEN]"
 
 	config GST_PLUGINS_BASE_OGG
 		bool
