@@ -1,0 +1,62 @@
+## SECTION=multimedia_libs
+
+menuconfig SPEEX
+	tristate
+	select LIBOGG
+	prompt "speex                         "
+	help
+	  Speex is an Open Source/Free Software
+	  patent-free audio compression format
+	  designed for speech.
+
+if SPEEX
+
+config SPEEX_FIXED_POINT
+	bool
+	prompt "use fixed point"
+
+config SPEEX_FIXED_POINT_DEBUG
+	bool
+	depends on SPEEX_FIXED_POINT
+	prompt "fixed point debugging"
+
+config SPEEX_FLOAT_API
+	bool
+	prompt "enable float api"
+
+config SPEEX_VBR
+	bool
+	prompt "enable VBR"
+
+choice
+	prompt "Kind of FFT to use"
+	default SPEEX_FFT_KISS
+
+	config SPEEX_FFT_KISS
+		bool
+		prompt "kiss"
+
+	config SPEEX_FFT_SMALLFT
+		bool
+		prompt "smallft"
+
+	config SPEEX_FFT_GPL_FFTW3
+		bool
+		depends on BROKEN
+		prompt "gpl-fftw3 [BROKEN]"
+
+	config SPEEX_FFT_PROPRIETARY_INTL_MKL
+		bool
+		depends on BROKEN
+		prompt "proprietary-intel-mkl [BROKEN]"
+endchoice
+
+config SPEEX_INSTALL_SPEEXENC
+	bool
+	prompt "Install speexenc"
+
+config SPEEX_INSTALL_SPEEXDEC
+	bool
+	prompt "Install speexdec"
+
+endif
