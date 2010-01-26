@@ -3,7 +3,9 @@
 
 menuconfig BOOST
 	tristate
-	select ZLIB
+	select ZLIB		if BOOST_IOSTREAMS
+	select BZIP2		if BOOST_IOSTREAMS
+	select BZIP2_LIBBZ2	if BOOST_IOSTREAMS
 	prompt "boost                         "
 	help
 

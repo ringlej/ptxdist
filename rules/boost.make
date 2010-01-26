@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BOOST) += boost
 #
 # Paths and names
 #
-BOOST_VERSION	:= 1_38_0
+BOOST_VERSION	:= 1_41_0
 BOOST		:= boost_$(BOOST_VERSION)
 BOOST_SUFFIX	:= tar.bz2
 BOOST_URL	:= $(PTXCONF_SETUP_SFMIRROR)/boost/$(BOOST).$(BOOST_SUFFIX)
@@ -36,20 +36,41 @@ $(BOOST_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
+ifneq ($(PTXCONF_BOOST_INST_NOMT_DBG)$(PTXCONF_BOOST_INST_MT_DBG),)
+JAM_LIB_DEBUG	:= debug
+endif
+ifneq ($(PTXCONF_BOOST_INST_NOMT_RED)$(PTXCONF_BOOST_INST_MT_RED),)
+JAM_LIB_RELEASE	:= release
+endif
+ifneq ($(PTXCONF_BOOST_INST_NOMT_DBG)$(PTXCONF_BOOST_INST_NOMT_RED),)
+JAM_LIB_SINGLE	:= single
+endif
+ifneq ($(PTXCONF_BOOST_INST_MT_DBG)$(PTXCONF_BOOST_INST_MT_RED),)
+JAM_LIB_MULTI	:= multi
+endif
+
 # they reinvent their own wheel^Hmake: jam
 # -q: quit on error
 # -d: debug level, default=1
 BOOST_JAM	:= \
-	$(BOOST_DIR)/tools/jam/src/bjam \
-	-d1 \
+	$(BOOST_DIR)/bjam \
+	--user-config=user-config.jam \
 	-q \
-	--toolset=gcc \
+	-d0 \
+	--layout=tagged \
 	-sNO_BZIP2=0 \
 	-sZLIB_INCLUDE=$(SYSROOT)/usr/include \
 	-sZLIB_LIBPATH=$(SYSROOT)/usr/lib \
-	variant=debug,profile \
-	threading=single,multi \
+	variant=$(subst $(space),$(comma),$(strip $(JAM_LIB_DEBUG) $(JAM_LIB_RELEASE))) \
+	threading=$(subst $(space),$(comma),$(strip $(JAM_LIB_SINGLE) $(JAM_LIB_MULTI))) \
 	link=shared
+
+JAM_MAKE_OPT	:= \
+	$(PARALLELMFLAGS) \
+	stage
+
+JAM_INSTALL_OPT	:= \
+	install
 
 # boost doesn't provide "no library" choice. If the library list is empty, it
 # goes for all libraries. We start at least with date_time lib here to avoid
@@ -67,30 +88,23 @@ BOOST_LIBRARIES-$(PTXCONF_BOOST_WAVE)		+= wave
 BOOST_LIBRARIES-$(PTXCONF_BOOST_TEST)		+= test
 BOOST_LIBRARIES-$(PTXCONF_BOOST_GRAPH)		+= graph
 
-BOOST_CONF_TOOL	:= autoconf
+BOOST_PATH	:= PATH=$(CROSS_PATH)
+BOOST_CONF_TOOL	:= NO
 BOOST_CONF_OPT	:= \
-	--with-bjam="$(BOOST_JAM)" \
+	--with-toolset=gcc \
 	--prefix="$(PKGDIR)/$(BOOST)/usr" \
 	--with-libraries="$(subst $(space),$(comma),$(BOOST_LIBRARIES-y))" \
 	--without-icu
 
 $(STATEDIR)/boost.prepare:
 	@$(call targetinfo)
-	@cd $(BOOST_DIR)/tools/jam/src && \
-		sh build.sh gcc && mv bin.*/bjam .
-	@$(call world/prepare, BOOST)
-	cd $(BOOST_DIR) && \
-		echo "using gcc : `PATH=$(CROSS_PATH) $(CROSS_CXX) -dumpversion` : $(CROSS_CXX) ;" > $(BOOST_DIR)/user-config.jam
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/boost.install:
-	@$(call targetinfo)
-	@$(call install, BOOST)
-	@find $(SYSROOT) -name boost -type d -exec cp -a {} $(SYSROOT)/usr/include \;;
+	cd $(BOOST_DIR) && ./bootstrap.sh $(BOOST_CONF_OPT)
+	@cd $(BOOST_DIR) && \
+		echo "using gcc : `$(BOOST_PATH) $(CROSS_CXX) -dumpversion` : $(CROSS_CXX) ;" > $(BOOST_DIR)/user-config.jam
+	@echo "all:"					>  $(BOOST_DIR)/Makefile
+	@echo "	@$(BOOST_JAM) $(JAM_MAKE_OPT)"		>> $(BOOST_DIR)/Makefile
+	@echo "install:"				>> $(BOOST_DIR)/Makefile
+	@echo "	@$(BOOST_JAM) $(JAM_INSTALL_OPT)"	>> $(BOOST_DIR)/Makefile
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
