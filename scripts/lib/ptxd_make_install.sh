@@ -158,7 +158,7 @@ EOF
 
 	    ;;
 	VERSION)
-	    replace_to="${replace_to}${PTXCONF_PROJECT_BUILD}"
+	    replace_to="${replace_to//[-_]/.}${PTXCONF_PROJECT_BUILD//[-_]/.}"
 	    ;;
 	DEPENDS)
 	    return
