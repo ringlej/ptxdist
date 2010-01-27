@@ -9,7 +9,7 @@
 # see the README file.
 #
 
-SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY) += $(STATEDIR)/ipkg-push
+SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_PUSH_TO_REPOSITORY) += $(STATEDIR)/ipkg-push
 
 $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post
 	@$(call targetinfo)
