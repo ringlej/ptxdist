@@ -13,6 +13,9 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_PUSH_TO_REPOSITORY) += $(STATEDIR)/ipkg-push
 
 $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post
 	@$(call targetinfo)
+ifdef PTXCONF_IMAGE_IPKG_FORCED_PUSH
+	rm  -rf $(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)
+endif
 	@echo "pushing ipkg pakets to ipkg-repository..."
 	@$(HOST_ENV) $(PTXDIST_TOPDIR)/scripts/ipkg-push \
 		--ipkgdir  $(call remove_quotes,$(PKGDIR)) \

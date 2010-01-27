@@ -12,6 +12,18 @@ config IMAGE_IPKG_PUSH_TO_REPOSITORY
 	  Please note, that the ipkg-repository is currently a
 	  local directory on your machine.  
 
+config IMAGE_IPKG_FORCED_PUSH
+	depends on IMAGE_IPKG_PUSH_TO_REPOSITORY
+	bool
+	prompt "force ipkg-push"
+	help
+	  Usually the script checks for some previous ipkg-push to
+	  a 'dist' release and requires you to delete a previous
+	  dist directory
+	  
+	  If this option is checked, this is done by default. This
+	  is most useful for development purposes.
+
 config IMAGE_IPKG_INDEX
 	bool "generate ipkg.index"
 	default y
