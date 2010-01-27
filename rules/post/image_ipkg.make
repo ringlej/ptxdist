@@ -9,16 +9,21 @@
 # see the README file.
 #
 
-SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_IMAGE_FROM_REPOSITORY) += $(STATEDIR)/ipkg-push
+SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_PUSH_TO_REPOSITORY) += $(STATEDIR)/ipkg-push
 
 $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post
 	@$(call targetinfo)
-	$(PTXDIST_TOPDIR)/scripts/ipkg-push \
+ifdef PTXCONF_IMAGE_IPKG_FORCED_PUSH
+	rm  -rf $(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)
+endif
+	@echo "pushing ipkg pakets to ipkg-repository..."
+	@$(HOST_ENV) $(PTXDIST_TOPDIR)/scripts/ipkg-push \
 		--ipkgdir  $(call remove_quotes,$(PKGDIR)) \
 		--repodir  $(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)) \
 		--revision $(call remove_quotes,$(PTXDIST_VERSION_FULL)) \
 		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
 		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION))
+	@echo "ipkg-repository updated"
 
 
 SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_INDEX) += $(PKGDIR)/Packages
@@ -27,7 +32,7 @@ PHONY += $(PKGDIR)/Packages
 $(PKGDIR)/Packages: $(STATEDIR)/host-ipkg-utils.install.post
 	@echo -n "generating ipkg index '$(notdir $@)'..."
 	@$(HOST_ENV) \
-		ipkg-make-index -p "$(@)" "$(PKGDIR)" >/dev/null 2>&1
+		ipkg-make-index -l "$(PKGDIR)/Packages.filelist" -p "$(@)" "$(PKGDIR)" >/dev/null 2>&1
 	@echo "done"
 
 # vim: syntax=make

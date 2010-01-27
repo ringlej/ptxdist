@@ -2,15 +2,27 @@
 
 menu "ipkg options                  "
 
-config IMAGE_IPKG_IMAGE_FROM_REPOSITORY
-	depends on BROKEN
+config IMAGE_IPKG_PUSH_TO_REPOSITORY
 	bool
-	prompt "make images: use packets from repository"
+	prompt "make images: push packets to ipkg-repository"
 	help
-	  Usually 'make images' packages the files from ${IMAGEDIR}
-	  into ${IMAGEDIR}/root.[filesystem]. If this option is checked the
-	  packet files from the IPKG update site (to be specified in
-	  .ptxdistrc) are taken instead.
+	  If this option is checked the packet files are pushed to
+	  the ipkg-repository (to be specified in .ptxdistrc).
+	  
+	  Please note, that the ipkg-repository is currently a
+	  local directory on your machine.  
+
+config IMAGE_IPKG_FORCED_PUSH
+	depends on IMAGE_IPKG_PUSH_TO_REPOSITORY
+	bool
+	prompt "force ipkg-push"
+	help
+	  Usually the script checks for some previous ipkg-push to
+	  a 'dist' release and requires you to delete a previous
+	  dist directory
+	  
+	  If this option is checked, this is done by default. This
+	  is most useful for development purposes.
 
 config IMAGE_IPKG_INDEX
 	bool "generate ipkg.index"
