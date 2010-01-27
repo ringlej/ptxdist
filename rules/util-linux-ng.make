@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.16.2
+UTIL_LINUX_NG_VERSION	:= 2.17
 UTIL_LINUX_NG		:= util-linux-ng-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.bz2
-UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.16/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
+UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.17/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2+
@@ -152,7 +152,7 @@ ifdef PTXCONF_UTIL_LINUX_NG_LIBBLKID
 	@$(call install_link, util-linux-ng, libblkid.so.1.1.0, /lib/libblkid.so)
 endif
 
-ifdef PTXCONF_UTIL_LINUX_NG_INSTALL_BLKID
+ifdef PTXCONF_UTIL_LINUX_NG_BLKID
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/blkid)
 endif
 
@@ -162,8 +162,12 @@ ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
 	@$(call install_link, util-linux-ng, libuuid.so.1.3.0, /lib/libuuid.so)
 endif
 
-ifdef PTXCONF_UTIL_LINUX_NG_INSTALL_UUIDGEN
+ifdef PTXCONF_UTIL_LINUX_NG_UUIDGEN
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/uuidgen)
+endif
+
+ifdef PTXCONF_UTIL_LINUX_NG_FINDFS
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/findfs)
 endif
 
 	@$(call install_finish, util-linux-ng)

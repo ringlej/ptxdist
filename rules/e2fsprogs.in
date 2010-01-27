@@ -206,17 +206,6 @@ config E2FSPROGS_INSTALL_FILEFRAG
 	help
 	  Enable support for filefrag program.
 
-config E2FSPROGS_INSTALL_FINDFS
-	bool
-	select E2FSPROGS_LIBBLKID
-	select E2FSPROGS_LIBCOM_ERR
-	select E2FSPROGS_LIBE2P
-	select E2FSPROGS_LIBEXT2FS
-	select E2FSPROGS_LIBUUID
-	prompt "findfs"
-	help
-	  Enable support for findfs program.
-
 config E2FSPROGS_INSTALL_LOGSAVE
 	bool
 	prompt "logsave"

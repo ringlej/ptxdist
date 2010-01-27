@@ -196,10 +196,6 @@ ifdef PTXCONF_E2FSPROGS_INSTALL_FILEFRAG
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/filefrag)
 endif
 
-ifdef PTXCONF_E2FSPROGS_INSTALL_FINDFS
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/findfs)
-endif
-
 ifdef PTXCONF_E2FSPROGS_INSTALL_LOGSAVE
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/logsave)
 endif

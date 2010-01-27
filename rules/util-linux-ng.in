@@ -157,20 +157,30 @@ config UTIL_LINUX_NG_MCOOKIE
 	  mcookie generates a 128-bit random hexadecimal number for
 	  use with the X authority system.
 
-config UTIL_LINUX_NG_INSTALL_UUIDGEN
+config UTIL_LINUX_NG_UUIDGEN
 	bool
 	select UTIL_LINUX_NG_LIBUUID
 	prompt "uuidgen"
 	help
-	  Enable support for uuidgen program.
+	  uuidgen is a command-line utility to create a new UUID value.
 
-config UTIL_LINUX_NG_INSTALL_BLKID
+config UTIL_LINUX_NG_BLKID
 	bool
 	select UTIL_LINUX_NG_LIBBLKID
 	select UTIL_LINUX_NG_LIBUUID
 	prompt "blkid"
 	help
-	  Enable support for blkid program.
+	  The  blkid  program is the command-line interface to working with libblkid
+	  library.  It can determine the type of content (e.g. filesystem, swap)
+	  a block device holds, and also attributes (tokens, NAME=value pairs) from
+	  the content meta‐data (e.g. LABEL or UUID fields).
 
+config UTIL_LINUX_NG_FINDFS
+	bool
+	select UTIL_LINUX_NG_LIBBLKID
+	prompt "findfs"
+	help
+	  findfs will search the disks in the system looking for a filesystem
+	  which has a label matching label or a UUID equal to uuid.
 
 endif
