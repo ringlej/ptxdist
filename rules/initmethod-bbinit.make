@@ -343,11 +343,12 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_NETWORKING)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_NETWORKING))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_ACPID)),)
 ifdef PTXCONF_ARCH_X86
+ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_ACPID)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/acpid, \
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_ACPID))
+endif
 endif
 
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH)),)
@@ -356,7 +357,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH)),
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH))
 endif
 
-endif
 	@$(call install_finish, initmethod-bbinit)
 
 	@$(call touch)
