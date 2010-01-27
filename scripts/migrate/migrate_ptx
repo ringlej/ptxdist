@@ -45,3 +45,12 @@ s/^\(\(# \)\?PTXCONF_\)ROOTFS_ETC_UDEV__CONF\(.*$\)/\1UDEV__ETC_CONF\3/
 # reason : update busybox 1.13.2 -> 1.15.2
 #
 s/^\(\(# \)\?PTXCONF_BUSYBOX\)_GETOPT_LONG\(.*$\)/\1_LONG_OPTS\3/
+
+#
+# from   : ptxdist-2010.01.0
+# to     : ptxdist-2010.02.0
+# symbol : BZIP2__*	-> BZIP2_*
+# reason : cleanup
+#
+s/^\(\(# \)\?PTXCONF_BZIP2_\)_\(.*$\)/\1\3/
+
