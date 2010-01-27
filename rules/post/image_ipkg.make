@@ -27,7 +27,7 @@ PHONY += $(PKGDIR)/Packages
 $(PKGDIR)/Packages: $(STATEDIR)/host-ipkg-utils.install.post
 	@echo -n "generating ipkg index '$(notdir $@)'..."
 	@$(HOST_ENV) \
-		ipkg-make-index -p "$(@)" "$(PKGDIR)" >/dev/null 2>&1
+		ipkg-make-index -l "$(PKGDIR)/Packages.filelist" -p "$(@)" "$(PKGDIR)" >/dev/null 2>&1
 	@echo "done"
 
 # vim: syntax=make
