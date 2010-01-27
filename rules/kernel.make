@@ -106,7 +106,7 @@ $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 
 ifdef PTXCONF_KLIBC
 # tell the kernel where our spec file for initramfs is
-	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(KLIBC_CONTROL)\",g' \
+	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(INITRAMFS_CONTROL)\",g' \
 		$(KERNEL_DIR)/.config
 endif
 
@@ -114,7 +114,7 @@ endif
 	@cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG)
 
 ifdef PTXCONF_KLIBC
-# Don't keep expanded $(KLIBC_CONTROL) in $(KERNEL_CONFIG) because
+# Don't keep expanded $(INITRAMFS_CONTROL) in $(KERNEL_CONFIG) because
 # it contains local workdir path that is not relevant to other developers.
 	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"#<Automatically set by PTXDist>\",g' \
 		$(KERNEL_CONFIG)

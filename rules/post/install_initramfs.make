@@ -42,7 +42,7 @@ install_initramfs =										\
 		echo "  owner=$$OWN";								\
 		echo "  group=$$GRP";								\
 		echo "  permissions=$$PER";							\
-		echo "dir $$SRC $$PER $$OWN $$GRP" >> $(KLIBC_CONTROL);				\
+		echo "dir $$SRC $$PER $$OWN $$GRP" >> $(INITRAMFS_CONTROL);				\
 	else											\
 		if [ \! -f "$${SRC}" ]; then							\
 			ptxd_bailout "source '$${SRC}' does not exist!";			\
@@ -52,7 +52,7 @@ install_initramfs =										\
 		echo "  owner=$$OWN";								\
 		echo "  group=$$GRP";								\
 		echo "  permissions=$$PER"; 							\
-		echo "file $$DST $$SRC $$PER $$OWN $$GRP" >> $(KLIBC_CONTROL);			\
+		echo "file $$DST $$SRC $$PER $$OWN $$GRP" >> $(INITRAMFS_CONTROL);			\
 	fi
 
 #
@@ -103,7 +103,7 @@ install_initramfs_alt =										\
 	echo "  owner=$$OWN";									\
 	echo "  group=$$GRP";									\
 	echo "  permissions=$$PER"; 								\
-	echo "file $$FILE $$SRC $$PER $$OWN $$GRP" >> $(KLIBC_CONTROL)
+	echo "file $$FILE $$SRC $$PER $$OWN $$GRP" >> $(INITRAMFS_CONTROL)
 
 #
 # install_initramfs_link
@@ -120,7 +120,7 @@ install_initramfs_link =							\
 	SRC=$(strip $(2));							\
 	DST=$(strip $(3));							\
 	echo "install_initramfs_link: src=$$SRC dst=$$DST "; 			\
-	echo "slink $$DST $$SRC 0755 0 0" >> $(KLIBC_CONTROL)
+	echo "slink $$DST $$SRC 0755 0 0" >> $(INITRAMFS_CONTROL)
 
 #
 # install_initramfs_node
@@ -153,6 +153,6 @@ install_initramfs_node =		\
 	echo "  major=$$MAJ";		\
 	echo "  minor=$$MIN";		\
 	echo "  name=$$DEV";		\
-	echo "nod $$DEV $$PER $$OWN $$GRP $$TYP $$MAJ $$MIN" >> $(KLIBC_CONTROL)
+	echo "nod $$DEV $$PER $$OWN $$GRP $$TYP $$MAJ $$MIN" >> $(INITRAMFS_CONTROL)
 
 # vim: syntax=make

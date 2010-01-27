@@ -11,22 +11,22 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_KLIBC_USER_SPEC) += klibc-user-spec
+PACKAGES-$(PTXCONF_INITRAMFS_USER_SPEC) += initramfs-user-spec
 
 #
 # Dummy to keep ipkg happy
 #
-KLIBC_USER_SPEC_VERSION	:= $(KLIBC_VERSION)
+INITRAMFS_USER_SPEC_VERSION	:= $(INITRAMFS_TOOLS_VERSION)
 
-ifdef PTXCONF_KLIBC_USER_SPEC
-$(STATEDIR)/klibc.targetinstall.post: $(STATEDIR)/klibc-user-spec.targetinstall
+ifdef PTXCONF_INITRAMFS_USER_SPEC
+$(STATEDIR)/klibc.targetinstall.post: $(STATEDIR)/initramfs-user-spec.targetinstall
 endif
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/klibc-user-spec.get:
+$(STATEDIR)/initramfs-user-spec.get:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -34,7 +34,7 @@ $(STATEDIR)/klibc-user-spec.get:
 # Extract
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/klibc-user-spec.extract:
+$(STATEDIR)/initramfs-user-spec.extract:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -42,7 +42,7 @@ $(STATEDIR)/klibc-user-spec.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/klibc-user-spec.prepare:
+$(STATEDIR)/initramfs-user-spec.prepare:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -50,7 +50,7 @@ $(STATEDIR)/klibc-user-spec.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/klibc-user-spec.compile:
+$(STATEDIR)/initramfs-user-spec.compile:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -59,7 +59,7 @@ $(STATEDIR)/klibc-user-spec.compile:
 # ----------------------------------------------------------------------------
 #
 
-$(STATEDIR)/klibc-user-spec.install:
+$(STATEDIR)/initramfs-user-spec.install:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -67,7 +67,7 @@ $(STATEDIR)/klibc-user-spec.install:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/klibc-user-spec.targetinstall: $(STATEDIR)/klibc.targetinstall
+$(STATEDIR)/initramfs-user-spec.targetinstall: $(STATEDIR)/klibc.targetinstall
 	@$(call targetinfo)
 #
 # adding user specific files to the list last
@@ -79,7 +79,7 @@ $(STATEDIR)/klibc-user-spec.targetinstall: $(STATEDIR)/klibc.targetinstall
 				source=$(PTXDIST_WORKSPACE)/initramfs/$$source;			\
 			fi;									\
 		fi;										\
-		echo "$$type $$target $$source $$rest" >> $(KLIBC_CONTROL);			\
+		echo "$$type $$target $$source $$rest" >> $(INITRAMFS_CONTROL);			\
 	done
 
 	@$(call touch)

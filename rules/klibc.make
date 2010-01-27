@@ -141,7 +141,7 @@ endif
 $(STATEDIR)/klibc.targetinstall:
 	@$(call targetinfo)
 
-	@echo "# Generated initramfs" > $(KLIBC_CONTROL)
+	@echo "# Generated initramfs" > $(INITRAMFS_CONTROL)
 
 	@$(call install_initramfs, klibc, 0, 0, 0755, /bin);
 	@$(call install_initramfs, klibc, 0, 0, 0755, /dev);
@@ -198,6 +198,6 @@ $(STATEDIR)/klibc.clean:
 	@$(call clean_pkg, KLIBC)
 	rm -f $(PTXCONF_SYSROOT_CROSS)/bin/klcc
 	rm -rf $(SYSROOT)/usr/lib/klibc
-	rm -rf $(KLIBC_CONTROL)
+	rm -rf $(INITRAMFS_CONTROL)
 
 # vim: syntax=make
