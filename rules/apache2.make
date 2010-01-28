@@ -78,7 +78,7 @@ endif
 
 $(STATEDIR)/apache2.prepare:
 	@$(call targetinfo)
-	@$(call prepare, APACHE2)
+	@$(call world/prepare, APACHE2)
 #	#
 #	# Tweak, Tweak ...
 #	#
