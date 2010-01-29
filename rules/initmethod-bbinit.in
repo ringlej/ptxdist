@@ -273,6 +273,12 @@ config INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH
 	prompt "rt-set-bandwidth"
 	default "S03rt-set-bandwidth"
 
+config INITMETHOD_BBINIT_LINK_FAKE_OVERLAYFS
+	string
+	depends on FAKE_OVERLAYFS
+	prompt "fake-overlayfs"
+	default "S00fake-overlayfs"
+
 endmenu
 
 endif

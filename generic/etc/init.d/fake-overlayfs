@@ -1,0 +1,46 @@
+#!/bin/sh
+
+#
+# /etc/init.d/fake-overlay
+#
+
+OVERLAY_DIRS="@OVERLAY_DIRLIST@"
+
+bdir=/tmp/.fake-overlay-root
+
+fake_overlay() {
+	mkdir $bdir
+	mount -o bind / $bdir
+	IFS=:
+	set $OVERLAY_DIRS
+	while [ $# -gt 0 ]; do
+		if [ -z "$1" ]; then
+			shift
+			continue
+		fi
+		echo $1
+		src="$bdir$1"
+		dst="$1/"
+		test -e "$dst" || mkdir $dst
+		cp -a "$src/"* "$src/".[^.]* "$src/"..?* $dst 2> /dev/null
+		shift
+	done
+	umount $bdir
+}
+
+#
+# Main
+#
+
+case $1 in
+
+	start)
+		echo "${PREFIX}copying files to tmpfs..."
+		fake_overlay
+		;;
+	stop)
+		;;
+	*)
+		echo "Usage: $0 [start|stop]"
+		;;
+esac

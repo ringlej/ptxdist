@@ -1,0 +1,45 @@
+## SECTION=rootfs
+
+menuconfig FAKE_OVERLAYFS
+	tristate
+	prompt "fake-overlayfs                "
+	help
+	  fake an overlay filesystem like unionfs by copying the original
+	  content to a tmpfs.
+
+
+if FAKE_OVERLAYFS
+
+comment "Copy the content of these directories"
+
+config FAKE_OVERLAYFS_VAR
+	bool "/var"
+	select ROOTFS_VAR	if ROOTFS
+
+if !FAKE_OVERLAYFS_VAR
+
+config FAKE_OVERLAYFS_VAR_RUN
+	bool "/var/run"
+	select ROOTFS_VAR_RUN	if ROOTFS
+
+config FAKE_OVERLAYFS_VAR_LIB
+	bool "/var/lib"
+	select ROOTFS_VAR_LIB	if ROOTFS
+
+config FAKE_OVERLAYFS_VAR_TMP
+	bool "/var/tmp"
+	select ROOTFS_VAR_TMP	if ROOTFS
+
+config FAKE_OVERLAYFS_VAR_CACHE
+	bool "/var/cache"
+	select ROOTFS_VAR_CACHE	if ROOTFS
+
+endif
+
+config FAKE_OVERLAYFS_OTHER
+	string "other"
+	help
+	  A list of other directories, separated by ':'.
+
+endif
+
