@@ -158,6 +158,9 @@ endif
 ifdef PTXCONF_ROOTFS_VAR_SPOOL_CRON
 	@$(call install_copy, rootfs, 0, 0, 0755, /var/spool/cron)
 endif
+ifdef PTXCONF_ROOTFS_VAR_TMP
+	@$(call install_copy, rootfs, 0, 0, 0755, /var/tmp)
+endif
 
 
 #	#

@@ -233,6 +233,15 @@ config ROOTFS_VAR_SPOOL_CRON
 	  Unless you want to mount a tmpfs on /var you should
 	  say yes here.
 
+config ROOTFS_VAR_TMP
+	bool
+	prompt "/var/tmp"
+	default y
+	help
+	  Create a /var/tmp directory in the root filesystem.
+	  Unless you want to mount a tmpfs on /var you should
+	  say yes here.
+
 endif # ROOTFS_VAR
 endif # ROOTFS
 
