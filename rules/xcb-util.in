@@ -5,6 +5,7 @@ config XCB_UTIL
 	select XORG_PROTO_X
 	select XCB_PROTO
 	select LIBXCB
+	select HOST_GPERF
 	prompt "xcb-util"
 	help
 	  FIXME
