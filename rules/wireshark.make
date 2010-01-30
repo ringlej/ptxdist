@@ -102,6 +102,13 @@ $(STATEDIR)/wireshark.targetinstall:
 # libraries used by some of the executables
 #
 	@$(call install_copy, wireshark, 0, 0, 0644, -, \
+		/usr/lib/libwsutil.so.0.0.0)
+	@$(call install_link, wireshark, libwsutil.so.0.0.0, \
+		/usr/lib/libwsutil.so.0)
+	@$(call install_link, wireshark, libwsutil.so.0.0.0, \
+		/usr/lib/libwsutil.so)
+
+	@$(call install_copy, wireshark, 0, 0, 0644, -, \
 		/usr/lib/libwiretap.so.0.0.1)
 	@$(call install_link, wireshark, libwiretap.so.0.0.1, \
 		/usr/lib/libwiretap.so.0)
