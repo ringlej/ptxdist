@@ -53,14 +53,14 @@ $(STATEDIR)/usplash.extract:
 #
 USPLASH_CONF_TOOL	:= autoconf
 USPLASH_CONF_OPT	:= \
-	$(CROSS_AUTOCONF_USR) \
+	$(CROSS_AUTOCONF_ROOT) \
 	--enable-svga-backend \
 	--disable-convert-tools
 
 $(STATEDIR)/usplash.prepare:
 	@$(call targetinfo)
 	@chmod +x $(USPLASH_DIR)/configure
-	@$(call world/prepare, SPLASH)
+	@$(call world/prepare, USPLASH)
 	@$(call touch)
 
 USPLASH_MAKE_PAR	:= NO
