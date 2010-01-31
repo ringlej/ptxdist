@@ -79,6 +79,10 @@ $(STATEDIR)/libxcb.targetinstall:
 	@$(call install_link, libxcb, libxcb-dpms.so.0.0.0, /usr/lib/libxcb-dpms.so.0)
 	@$(call install_link, libxcb, libxcb-dpms.so.0.0.0, /usr/lib/libxcb-dpms.so)
 	@$(call install_copy, libxcb, 0, 0, 0644, -, \
+		/usr/lib/libxcb-dri2.so.0.0.0)
+	@$(call install_link, libxcb, libxcb-dri2.so.0.0.0, /usr/lib/libxcb-dri2.so.0)
+	@$(call install_link, libxcb, libxcb-dri2.so.0.0.0, /usr/lib/libxcb-dri2.so)
+	@$(call install_copy, libxcb, 0, 0, 0644, -, \
 		/usr/lib/libxcb-glx.so.0.0.0)
 	@$(call install_link, libxcb, libxcb-glx.so.0.0.0, /usr/lib/libxcb-glx.so.0)
 	@$(call install_link, libxcb, libxcb-glx.so.0.0.0, /usr/lib/libxcb-glx.so)
