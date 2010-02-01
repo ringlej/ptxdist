@@ -146,6 +146,26 @@ ifdef PTXCONF_UTIL_LINUX_NG_MCOOKIE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/mcookie)
 endif
 
+ifdef PTXCONF_UTIL_LINUX_NG_LIBBLKID
+	@$(call install_copy, util-linux-ng, 0, 0, 0644, -, /lib/libblkid.so.1.1.0)
+	@$(call install_link, util-linux-ng, libblkid.so.1.1.0, /lib/libblkid.so.1)
+	@$(call install_link, util-linux-ng, libblkid.so.1.1.0, /lib/libblkid.so)
+endif
+
+ifdef PTXCONF_UTIL_LINUX_NG_INSTALL_BLKID
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/blkid)
+endif
+
+ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
+	@$(call install_copy, util-linux-ng, 0, 0, 0644, -, /lib/libuuid.so.1.3.0)
+	@$(call install_link, util-linux-ng, libuuid.so.1.3.0, /lib/libuuid.so.1)
+	@$(call install_link, util-linux-ng, libuuid.so.1.3.0, /lib/libuuid.so)
+endif
+
+ifdef PTXCONF_UTIL_LINUX_NG_INSTALL_UUIDGEN
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/uuidgen)
+endif
+
 	@$(call install_finish, util-linux-ng)
 
 	@$(call touch)

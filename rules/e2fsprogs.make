@@ -56,7 +56,9 @@ E2FSPROGS_AUTOCONF := \
 	--disable-testio-debug \
 	--disable-tls \
 	--enable-elf-shlibs \
-	--enable-htree
+	--enable-htree \
+	--disable-libblkid \
+	--disable-libuuid
 
 ifdef PTXCONF_E2FSPROGS_COMPRESSION
 E2FSPROGS_AUTOCONF += --enable-compression
@@ -109,12 +111,6 @@ $(STATEDIR)/e2fsprogs.targetinstall:
 #	#
 #	# libraries
 #	#
-ifdef PTXCONF_E2FSPROGS_LIBBLKID
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
-		/usr/lib/libblkid.so.1.0)
-	@$(call install_link, e2fsprogs, libblkid.so.1.0, /usr/lib/libblkid.so.1)
-	@$(call install_link, e2fsprogs, libblkid.so.1.0, /usr/lib/libblkid.so)
-endif
 
 ifdef PTXCONF_E2FSPROGS_LIBCOM_ERR
 	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
@@ -144,14 +140,6 @@ ifdef PTXCONF_E2FSPROGS_LIBSS
 	@$(call install_link, e2fsprogs, libss.so.2.0, /usr/lib/libss.so)
 endif
 
-ifdef PTXCONF_E2FSPROGS_LIBUUID
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
-		/usr/lib/libuuid.so.1.2)
-	@$(call install_link, e2fsprogs, libuuid.so.1.2, /usr/lib/libuuid.so.1)
-	@$(call install_link, e2fsprogs, libuuid.so.1.2, /usr/lib/libuuid.so)
-endif
-
-
 #	#
 #	# binaries in /usr/bin
 #	#
@@ -161,9 +149,6 @@ endif
 ifdef PTXCONF_E2FSPROGS_INSTALL_LSATTR
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/bin/lsattr)
 endif
-ifdef PTXCONF_E2FSPROGS_INSTALL_UUIDGEN
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/bin/uuidgen)
-endif
 
 
 #	#
@@ -171,10 +156,6 @@ endif
 #	#
 ifdef PTXCONF_E2FSPROGS_INSTALL_BADBLOCKS
 	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/badblocks)
-endif
-
-ifdef PTXCONF_E2FSPROGS_INSTALL_BLKID
-	@$(call install_copy, e2fsprogs, 0, 0, 0755, -, /usr/sbin/blkid)
 endif
 
 ifdef PTXCONF_E2FSPROGS_INSTALL_DUMPE2FS
