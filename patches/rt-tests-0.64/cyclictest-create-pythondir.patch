@@ -1,0 +1,26 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [PATCH] cyclictest: create python install path
+
+We should make sure directories do already exist when copying into it.
+
+install: cannot create regular file `/home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/packages/rt-tests-0.64/usr/lib/python2.5/site-packages/hwlatdetect.py': No such file or directory
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Makefile                    |    2 +-
+ src/cyclictest/cyclictest.c |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+Index: rt-tests-0.64/Makefile
+===================================================================
+--- rt-tests-0.64.orig/Makefile
++++ rt-tests-0.64/Makefile
+@@ -107,7 +107,7 @@ install: all
+ 	mkdir -p "$(DESTDIR)$(bindir)" "$(DESTDIR)$(mandir)/man4"
+ 	mkdir -p "$(DESTDIR)$(bindir)" "$(DESTDIR)$(mandir)/man8"
+ 	cp $(TARGETS) "$(DESTDIR)$(bindir)"
+-	install -m 755 src/hwlatdetect/hwlatdetect.py $(DESTDIR)$(PYLIB)/hwlatdetect.py
++	install -D -m 755 src/hwlatdetect/hwlatdetect.py $(DESTDIR)$(PYLIB)/hwlatdetect.py
+ 	ln -s $(PYLIB)/hwlatdetect.py "$(DESTDIR)$(bindir)/hwlatdetect"
+ 	mkdir -p "$(DESTDIR)$(srcdir)/backfire"
+ 	gzip src/backfire/backfire.4 -c >"$(DESTDIR)$(mandir)/man4/backfire.4.gz"

@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_RT_TESTS) += rt-tests
 #
 # Paths and names
 #
-RT_TESTS_VERSION	:= 0.60
+RT_TESTS_VERSION	:= 0.64
 RT_TESTS_LICENSE	:= GPLv2, GPLv2+
 RT_TESTS		:= rt-tests-$(RT_TESTS_VERSION)
 RT_TESTS_SUFFIX		:= tar.bz2
@@ -78,16 +78,41 @@ ifdef PTXCONF_RT_TESTS_CYCLICTEST
 	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
 		/usr/bin/cyclictest)
 endif
+ifdef PTXCONF_RT_TESTS_PIP
+	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/pip)
+endif
 ifdef PTXCONF_RT_TESTS_PI_STRESS
 	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
 		/usr/bin/pi_stress)
 endif
+ifdef PTXCONF_RT_TESTS_PTSEMATEST
+	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/ptsematest)
+endif
+ifdef PTXCONF_RT_TESTS_RT_MIGRATE_TEST
+	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/rt-migrate-test)
+endif
+ifdef PTXCONF_RT_TESTS_SENDME
+	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/sendme)
+endif
 ifdef PTXCONF_RT_TESTS_SIGNALTEST
 	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
 		/usr/bin/signaltest)
+endif
+ifdef PTXCONF_RT_TESTS_SIGWAITTEST
+	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/sigwaittest)
+endif
+ifdef PTXCONF_RT_TESTS_SVSEMATEST
+	@$(call install_copy, rt-tests, 0, 0, 0755, -, \
+		/usr/bin/svsematest)
 endif
 	@$(call install_finish, rt-tests)
 
 	@$(call touch)
 
 # vim: syntax=make
+

@@ -1,1 +1,2 @@
 cyclictest-fix-wakeup-latency-tracing-entry-name.patch
+cyclictest-create-pythondir.patch

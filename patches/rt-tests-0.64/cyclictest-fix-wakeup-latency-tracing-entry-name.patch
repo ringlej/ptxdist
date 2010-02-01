@@ -8,14 +8,15 @@ named as "wakeup", not "wakeup_latency"
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
+ Makefile                    |    2 +-
  src/cyclictest/cyclictest.c |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/src/cyclictest/cyclictest.c b/src/cyclictest/cyclictest.c
-index eee7e73..0d9704a 100644
---- a/src/cyclictest/cyclictest.c
-+++ b/src/cyclictest/cyclictest.c
-@@ -463,7 +463,7 @@ static void setup_tracer(void)
+Index: rt-tests-0.64/src/cyclictest/cyclictest.c
+===================================================================
+--- rt-tests-0.64.orig/src/cyclictest/cyclictest.c
++++ rt-tests-0.64/src/cyclictest/cyclictest.c
+@@ -460,7 +460,7 @@ static void setup_tracer(void)
  				setkernvar(traceroptions, traceptr[i]);
  		}
  		setkernvar("tracing_max_latency", "0");
@@ -24,6 +25,3 @@ index eee7e73..0d9704a 100644
  	} else {
  		setkernvar("trace_all_cpus", "1");
  		setkernvar("trace_freerunning", "1");
--- 
-1.6.6
-
