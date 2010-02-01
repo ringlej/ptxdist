@@ -1,0 +1,29 @@
+From ef819011b8ffab89ee04d831f91966d68324540d Mon Sep 17 00:00:00 2001
+From: debian.org <debian.org>
+Date: Mon, 22 Feb 2010 23:14:35 +0100
+Subject: [PATCH 4/6] allow_8bit.diff
+
+http://ftp.de.debian.org/debian/pool/main/b/boa/boa_0.94.14rc21-3.1.diff.gz
+---
+ src/util.c |    5 -----
+ 1 files changed, 0 insertions(+), 5 deletions(-)
+
+diff --git a/src/util.c b/src/util.c
+index 3f54da8..30df6cf 100644
+--- a/src/util.c
++++ b/src/util.c
+@@ -410,11 +410,6 @@ int unescape_uri(char *uri, char **query_string)
+             uri_old++;
+             if ((c = *uri_old++) && (d = *uri_old++)) {
+                 *uri = HEX_TO_DECIMAL(c, d);
+-                if (*uri < 32 || *uri > 126) {
+-                    /* control chars in URI */
+-                    *uri = '\0';
+-                    return 0;
+-                }
+             } else {
+                 *uri = '\0';
+                 return 0;
+-- 
+1.7.0
+

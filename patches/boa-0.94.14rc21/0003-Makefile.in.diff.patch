@@ -1,0 +1,26 @@
+From 56d314ae56b76e2938b622a50061101135fb8ecf Mon Sep 17 00:00:00 2001
+From: debian.org <debian.org>
+Date: Mon, 22 Feb 2010 23:14:35 +0100
+Subject: [PATCH 3/6] Makefile.in.diff
+
+http://ftp.de.debian.org/debian/pool/main/b/boa/boa_0.94.14rc21-3.1.diff.gz
+---
+ Makefile.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 6755951..70e3662 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -20,7 +20,7 @@ distclean:	mrclean
+ 
+ mrclean:	clean
+ 	-(cd src && $(MAKE) $(MFLAGS) mrclean)
+-	-(cd docs && $(MAKE)$(MFLAGS) mrclean)
++	-(cd docs && $(MAKE) $(MFLAGS) mrclean)
+ 	rm -f config.status config.cache config.h config.log 
+ 	rm -f Makefile *~
+ 
+-- 
+1.7.0
+

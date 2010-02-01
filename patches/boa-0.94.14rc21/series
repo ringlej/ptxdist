@@ -1,0 +1,6 @@
+0001-config.diff.patch
+0002-sendfile_ENOSYS.diff.patch
+0003-Makefile.in.diff.patch
+0004-allow_8bit.diff.patch
+0005-lfs_support.diff.patch
+0006-buffer_escape.diff.patch

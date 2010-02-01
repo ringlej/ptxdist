@@ -1,0 +1,28 @@
+From 00381e568e8937e6ffb25871ac51d05b9a324b89 Mon Sep 17 00:00:00 2001
+From: debian.org <debian.org>
+Date: Mon, 22 Feb 2010 23:14:34 +0100
+Subject: [PATCH 2/6] sendfile_ENOSYS.diff
+
+http://ftp.de.debian.org/debian/pool/main/b/boa/boa_0.94.14rc21-3.1.diff.gz
+---
+ src/pipe.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+diff --git a/src/pipe.c b/src/pipe.c
+index 3460277..7126562 100644
+--- a/src/pipe.c
++++ b/src/pipe.c
+@@ -215,7 +215,9 @@ retrysendfile:
+ 	}
+ 	req->ranges->start = sendfile_offset;
+         if (bytes_written < 0) {
+-            if (errno == EWOULDBLOCK || errno == EAGAIN) {
++	    if (errno == ENOSYS) {
++		return io_shuffle(req);
++	    } else if (errno == EWOULDBLOCK || errno == EAGAIN) {
+                 return -1;          /* request blocked at the pipe level, but keep going */
+             } else if (errno == EINTR) {
+                 goto retrysendfile;
+-- 
+1.7.0
+

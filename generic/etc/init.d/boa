@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# See how we were called.
+case "$1" in
+  start)
+	echo -n "Starting boa: "
+	/usr/sbin/boa
+	echo
+	;;
+  stop)
+	echo -n "Shutting down boa: "
+	killall boa
+	;;
+  restart)
+	$0 stop
+	$0 start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit 0
