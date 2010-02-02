@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_BRIDGE_UTILS) += bridge-utils
 #
 # Paths and names
 #
-BRIDGE_UTILS_VERSION	:= 1.1
+BRIDGE_UTILS_VERSION	:= 1.4
 BRIDGE_UTILS		:= bridge-utils-$(BRIDGE_UTILS_VERSION)
 BRIDGE_UTILS_SUFFIX	:= tar.gz
 BRIDGE_UTILS_URL	:= $(PTXCONF_SETUP_SFMIRROR)/bridge/$(BRIDGE_UTILS).$(BRIDGE_UTILS_SUFFIX)
@@ -43,7 +43,9 @@ BRIDGE_UTILS_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-BRIDGE_UTILS_AUTOCONF := $(CROSS_AUTOCONF_USR)
+BRIDGE_UTILS_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-linux-headers=$(KERNEL_HEADERS_DIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -1,0 +1,18 @@
+Subject: [bridge-utils] add dummy patch to enable autogen.sh
+
+See patch below ... not for upstream.
+
+Not-Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ README.ptx |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+Index: bridge-utils-1.4/README.ptx
+===================================================================
+--- /dev/null
++++ bridge-utils-1.4/README.ptx
+@@ -0,0 +1,4 @@
++This is a dummy patch; with a patch, it is possible to run autogen.sh
++from ptxdist.
++
++-rsc
