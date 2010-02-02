@@ -3,7 +3,6 @@
 
 menuconfig FAM
 	tristate
-	depends on BROKEN
 	prompt "fam                           "
 	select PORTMAP
 	select GCCLIBS_CXX

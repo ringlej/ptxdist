@@ -1,0 +1,67 @@
+Subject: [patch] fix issues with newer compilers
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+The fam packet has several issues with newer gcc compilers, which are
+fixed by this patch.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ include/BTree.h |    2 ++
+ lib/Client.c++  |    2 +-
+ src/IMon.c++    |    2 +-
+ src/Interest.h  |    2 ++
+ 4 files changed, 6 insertions(+), 2 deletions(-)
+
+Index: fam-2.7.0/lib/Client.c++
+===================================================================
+--- fam-2.7.0.orig/lib/Client.c++
++++ fam-2.7.0/lib/Client.c++
+@@ -34,7 +34,7 @@
+ #include <syslog.h>
+ #include <errno.h>
+ 
+-#include <iostream.h>
++#include <iostream>
+ 
+ #include "fam.h"
+ #include "Client.h"
+Index: fam-2.7.0/src/Interest.h
+===================================================================
+--- fam-2.7.0.orig/src/Interest.h
++++ fam-2.7.0/src/Interest.h
+@@ -23,6 +23,8 @@
+ #ifndef Interest_included
+ #define Interest_included
+ 
++#include <cstdlib>
++
+ #include <sys/stat.h>
+ #include <sys/types.h>
+ #include <sys/time.h>
+Index: fam-2.7.0/src/IMon.c++
+===================================================================
+--- fam-2.7.0.orig/src/IMon.c++
++++ fam-2.7.0/src/IMon.c++
+@@ -40,7 +40,7 @@
+ #include "Interest.h"
+ #include "Log.h"
+ #include "Scheduler.h"
+-#include "alloc.h"
++#include <cstdlib>
+ 
+ int		   IMon::imonfd = -2;
+ IMon::EventHandler IMon::ehandler = NULL;
+Index: fam-2.7.0/include/BTree.h
+===================================================================
+--- fam-2.7.0.orig/include/BTree.h
++++ fam-2.7.0/include/BTree.h
+@@ -23,6 +23,8 @@
+ #ifndef BTree_included
+ #define BTree_included
+ 
++#include <cstdlib>
++
+ #include "Boolean.h"
+ 
+ //  This is an in-core B-Tree implementation.

@@ -31,6 +31,20 @@ $(FAM_SOURCE):
 	@$(call get, FAM)
 
 # ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/fam.extract:
+	@$(call targetinfo)
+	@$(call clean, $(FAM_DIR))
+	@$(call extract, FAM, $(FAM_BUILDDIR))
+	# configure has incorrect permissions
+	chmod 755 $(FAM_DIR)/configure
+	@$(call patchin, FAM, $(FAM_SRCDIR))
+	mkdir -p $(FAM_DIR)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -40,9 +54,7 @@ FAM_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-FAM_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking
+FAM_AUTOCONF	:= $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -56,36 +68,30 @@ $(STATEDIR)/fam.targetinstall:
 	@$(call install_fixup,fam,PRIORITY,optional)
 	@$(call install_fixup,fam,VERSION,$(FAM_VERSION))
 	@$(call install_fixup,fam,SECTION,base)
-	@$(call install_fixup,fam,AUTHOR,"Juergen Beisert <j.beisert\@pengutronix.de>")
+	@$(call install_fixup,fam,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
 	@$(call install_fixup,fam,DEPENDS,)
 	@$(call install_fixup,fam,DESCRIPTION,missing)
 
-	@$(call install_copy, fam, 0, 0, 0755, $(FAM_DIR)/src/famd, \
-		/usr/sbin/famd)
+	@$(call install_copy, fam, 0, 0, 0755, -, /usr/sbin/famd)
 ifdef PTXCONF_FAM_DEFAULT_CONF
-	@$(call install_copy, fam, 0, 0, 0755, $(FAM_DIR)/conf/fam.conf, \
-		/etc/fam.conf, n)
+	@$(call install_copy, fam, 0, 0, 0755, -, /etc/fam.conf, n)
 endif
 ifdef PTXCONF_FAM_LIBRARY
-	@$(call install_copy, fam, 0, 0, 0644, \
-		$(FAM_DIR)/lib/.libs/libfam.so.0.0.0, \
-		/usr/lib/libfam.so.0.0.0)
-	@$(call install_link, fam, /usr/lib/libfam.so.0.0.0, \
-		/usr/lib/libfam.so.0)
-	@$(call install_link, fam, /usr/lib/libfam.so.0.0.0, \
-		/usr/lib/libfam.so)
+	@$(call install_copy, fam, 0, 0, 0644, -, /usr/lib/libfam.so.0.0.0)
+	@$(call install_link, fam, libfam.so.0.0.0, /usr/lib/libfam.so.0)
+	@$(call install_link, fam, libfam.so.0.0.0, /usr/lib/libfam.so)
 endif
 
 ifdef PTXCONF_FAM_STARTUP_TYPE_STANDALONE
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_FAM_STARTSCRIPT
-	@$(call install_alternative, fam, 0, 0, 0755, /etc/init.d/famd, n)
+	@$(call install_alternative, fam, 0, 0, 0755, /etc/init.d/famd)
 endif
 endif
 endif
 
 ifdef PTXCONF_FAM_INETD_SERVER
-	@$(call install_alternative, fam, 0, 0, 0644, /etc/inetd.conf.d/fam, n)
+	@$(call install_alternative, fam, 0, 0, 0644, /etc/inetd.conf.d/fam)
 endif
 
 	@$(call install_finish,fam)
