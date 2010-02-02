@@ -1,0 +1,2 @@
+0001-xmlrpc-c-config.in-use-pkg-config-to-get-curl-s-libs.patch
+0002-xmlrpc-c-config.in-add-SYSROOT-support.patch

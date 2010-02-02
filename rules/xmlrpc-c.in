@@ -1,0 +1,48 @@
+## SECTION=middleware
+
+menuconfig XMLRPC_C
+	tristate
+	prompt "xmlrpc-c                      "
+	select LIBCURL	if XMLRPC_C_CURL
+	select LIBXML2	if XMLRPC_C_LIBXML2
+	help
+	  A lightweight RPC library based on XML and HTTP for C and C++
+
+	  XML-RPC is a quick-and-easy way to make procedure calls over
+	  the Internet. It converts the procedure call into an XML
+	  document, sends it to a remote server using HTTP, and gets
+	  back the response as XML.
+
+	  This library provides a modular implementation of XML-RPC
+	  for C and C++.
+
+if XMLRPC_C
+
+config XMLRPC_C_CLIENT
+	bool
+
+config XMLRPC_C_CURL
+	bool "include curl client transport"
+	select XMLRPC_C_CLIENT
+	default y
+
+config XMLRPC_C_ABYSS_SERVER
+	bool "include abyss server module"
+	default y
+
+config XMLRPC_C_ABYSS_THREADS
+	bool "use fork in Abyss instead of pthreads"
+	depends on XMLRPC_C_ABYSS_SERVER
+
+config XMLRPC_C_CGI_SERVER
+	bool "include CGI server module"
+	default y
+
+config XMLRPC_C_CPLUSPLUS
+	bool "include C++ wrapper class"
+	default y
+
+config XMLRPC_C_LIBXML2
+	bool "use libxml2 instead of built-in expat"
+
+endif

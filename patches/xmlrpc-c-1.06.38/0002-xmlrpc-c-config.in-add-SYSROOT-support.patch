@@ -1,0 +1,35 @@
+From 8d411623fef991c234712c4c6a87033253a821c6 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 2 Feb 2010 18:59:27 +0100
+Subject: [PATCH 2/2] xmlrpc-c-config.in: add SYSROOT support
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ xmlrpc-c-config.in |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/xmlrpc-c-config.in b/xmlrpc-c-config.in
+index 2baafe9..699f697 100644
+--- a/xmlrpc-c-config.in
++++ b/xmlrpc-c-config.in
+@@ -56,7 +56,7 @@ the_libdirs=
+ 
+ # If Xmlrpc-c libraries are installed in the standard linker search
+ # path on this system, you should remove the following line:
+-the_libdirs="-L$libdir $the_libdirs"
++the_libdirs="-L${SYSROOT}$libdir $the_libdirs"
+ 
+ the_libs="-lxmlrpc -lxmlrpc_util ${LIBXML}"
+ the_rpath=
+@@ -66,7 +66,7 @@ cpp_libs=
+ cflags=
+ # If Xmlrpc-c library interface header files are installed in the standard
+ # compiler search path on this system, you should remove the following line:
+-cflags="-I$includedir $cflags"
++cflags="-I${SYSROOT}$includedir $cflags"
+ 
+ while test $# -gt 0; do
+   case $1 in
+-- 
+1.6.6.1
+

@@ -1,0 +1,26 @@
+From b972a59785cfe7631a642cac1cf7b9c87aa4529c Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 2 Feb 2010 18:57:47 +0100
+Subject: [PATCH 1/2] xmlrpc-c-config.in: use pkg-config to get curl's libs
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ xmlrpc-c-config.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/xmlrpc-c-config.in b/xmlrpc-c-config.in
+index db6afdb..2baafe9 100644
+--- a/xmlrpc-c-config.in
++++ b/xmlrpc-c-config.in
+@@ -116,7 +116,7 @@ while test $# -gt 0; do
+         the_wl_rpath="@WININET_WL_RPATH@ $the_wl_rpath"
+       fi
+       if test "${MUST_BUILD_CURL_CLIENT}" = "yes"; then
+-        the_libs="$the_libs @CURL_LDADD@"
++        the_libs="$the_libs $(pkg-config --libs libcurl)"
+         the_rpath="@CURL_RPATH@ $the_rpath"
+         the_wl_rpath="@CURL_WL_RPATH@ $the_wl_rpath"
+       fi
+-- 
+1.6.6.1
+
