@@ -1,0 +1,28 @@
+Subject: [patch] add DESTDIR support to Makefile.in
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+The Makefile.in does not support DESTDIR, which makes it impossible for
+distribution people to package totd properly. This patch adds DESTDIR
+support.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.in |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+Index: totd-1.5/Makefile.in
+===================================================================
+--- totd-1.5.orig/Makefile.in
++++ totd-1.5/Makefile.in
+@@ -66,8 +66,8 @@ libswill.a:	
+ 	-ranlib libswill.a
+ 
+ install: $(PROG)
+-	$(INSTALL) -c -s -m 0555 -o bin -g bin $(PROG) $(INSTALLDIR)
+-	$(INSTALL) -c -m 0444 -o root -g wheel $(MAN) $(INSTALLMAN)/man8
++	$(INSTALL) -c -s -m 0555 -o bin -g bin $(PROG) $(DESTDIR)$(INSTALLDIR)
++	$(INSTALL) -c -m 0444 -o root -g wheel $(MAN) $(DESTDIR)$(INSTALLMAN)/man8
+ 
+ lint:
+ 	lint ${SRCS}

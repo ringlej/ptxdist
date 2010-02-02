@@ -1,0 +1,58 @@
+Subject: [patch] fix data types in dname_decompress
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+request.c:245: error: pointer targets in passing argument 1 of 'dname_decompress' differ in signedness
+conv_trick.c:123: error: pointer targets in passing argument 3 of 'dname_decompress' differ in signedness
+conv_trick.c:134: error: pointer targets in passing argument 3 of 'dname_decompress' differ in signedness
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ conv_trick.c |    6 +++---
+ request.c    |    2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+Index: totd-1.5/request.c
+===================================================================
+--- totd-1.5.orig/request.c
++++ totd-1.5/request.c
+@@ -242,7 +242,7 @@ int request_retry (Context *cont) {
+ 	else
+ 		cont->current_ns = cont->current_ns->next;
+ 
+-	dname_decompress (astr, MAX_DNAME, cont->qname, 0, 0, 0);
++	dname_decompress ((u_char*)astr, MAX_DNAME, cont->qname, 0, 0, 0);
+        	syslog (LOG_INFO, "Retrying query for %s to nameserver: %s", astr,
+ 		sprint_inet((struct sockaddr *) (cont->current_ns->list_data),
+ 			    bstr));
+Index: totd-1.5/conv_trick.c
+===================================================================
+--- totd-1.5.orig/conv_trick.c
++++ totd-1.5/conv_trick.c
+@@ -111,7 +111,7 @@ void conv_trick_list (G_List *rrsl, int 
+ 		dup = search_name(rrsl, name, len, target_rtype);
+ 		if (dup) {
+ 			if (T.debug > 3) {
+-				dname_decompress (str, MAX_DNAME, name, 0,0,0);
++				dname_decompress (str, MAX_DNAME, (u_char*)name, 0,0,0);
+ 				syslog (LOG_DEBUG, "%s: duplicate %s", fn, str);
+ 			}
+ 			rrset_free(dup);
+@@ -120,7 +120,7 @@ void conv_trick_list (G_List *rrsl, int 
+ 
+ 		/* convert A record into faked target_rtype record */
+ 		if (T.debug > 3) {
+-			dname_decompress (str, MAX_DNAME, name, 0,0,0);
++			dname_decompress (str, MAX_DNAME, (u_char*)name, 0,0,0);
+ 			syslog (LOG_DEBUG, "%s: converting: %s", fn, str);
+ 		}
+ 		rrsp_aaaa = conv_trick_rrset(rrsp, target_rtype,
+@@ -131,7 +131,7 @@ void conv_trick_list (G_List *rrsl, int 
+ 		}
+ 
+ 		if (T.debug) {
+-			dname_decompress (str, MAX_DNAME, name, 0,0,0);
++			dname_decompress (str, MAX_DNAME, (u_char*)name, 0,0,0);
+ 			syslog (LOG_DEBUG, "%s: %s %s", fn,
+ 				add ? "add" : "replace by", str);
+ 		}

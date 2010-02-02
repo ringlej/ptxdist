@@ -1,0 +1,25 @@
+Subject: [patch] install man pages with group root, not wheel
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+/usr/bin/install -c -m 0444 -o root -g wheel totd.8 /home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/packages/totd-1.5/usr/man/man8
+/usr/bin/install: invalid group `wheel'
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.in |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: totd-1.5/Makefile.in
+===================================================================
+--- totd-1.5.orig/Makefile.in
++++ totd-1.5/Makefile.in
+@@ -67,7 +67,7 @@ libswill.a:	
+ 
+ install: $(PROG)
+ 	$(INSTALL) -c -s -m 0555 -o bin -g bin $(PROG) $(DESTDIR)$(INSTALLDIR)
+-	$(INSTALL) -c -m 0444 -o root -g wheel $(MAN) $(DESTDIR)$(INSTALLMAN)/man8
++	$(INSTALL) -c -m 0444 -o root -g root $(MAN) $(DESTDIR)$(INSTALLMAN)/man8
+ 
+ lint:
+ 	lint ${SRCS}

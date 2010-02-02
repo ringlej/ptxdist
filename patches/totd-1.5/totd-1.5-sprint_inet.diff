@@ -1,0 +1,24 @@
+Subject: [patch] fix data types in sprint_inet
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+request.c:148: error: pointer targets in passing argument 2 of 'sprint_inet' differ in signedness
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ request.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: totd-1.5/request.c
+===================================================================
+--- totd-1.5.orig/request.c
++++ totd-1.5/request.c
+@@ -145,7 +145,7 @@ int request_start (Context *cont, int tc
+ 
+        	syslog (LOG_INFO, "Selected forwarder: %s",
+ 		sprint_inet((struct sockaddr *)
+-			(cont->current_ns->list_data), str));
++			(cont->current_ns->list_data), (char*)str));
+ 
+ 	/* forward the actual (modified) query ww want to make */
+ 	return (do_forward (cont, qname, qclass, qtype, tcp));

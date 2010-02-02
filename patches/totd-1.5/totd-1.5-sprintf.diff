@@ -1,0 +1,39 @@
+Subject: [patch] fix data types in sprintf calls
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+ne_mesg.c:532: error: pointer targets in passing argument 1 of 'sprintf' differ in signedness
+ne_mesg.c:540: error: pointer targets in passing argument 1 of 'sprintf' differ in signedness
+ne_mesg.c:543: error: pointer targets in passing argument 1 of 'sprintf' differ in signedness
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ ne_mesg.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+Index: totd-1.5/ne_mesg.c
+===================================================================
+--- totd-1.5.orig/ne_mesg.c
++++ totd-1.5/ne_mesg.c
+@@ -529,7 +529,7 @@ u_char *dname_decompress (u_char *buf, i
+ 					return NULL; /* buffer overrun */
+ 
+ 				wp = buf;
+-				wp += sprintf(wp, "\\[x");
++				wp += sprintf((char*)wp, "\\[x");
+ 				for (i = 1; i < token_len-1; i++) {
+ 					u_char d1, d2;
+ 					uint b;
+@@ -537,10 +537,10 @@ u_char *dname_decompress (u_char *buf, i
+ 					b = (int) *(cp + 1 + i);
+ 					d1 = hex[(b >> 4) & 0x0f];
+ 					d2 = hex[b & 0x0f];
+-					wp += sprintf(wp, "%c%c", d1, d2);
++					wp += sprintf((char*)wp, "%c%c", d1, d2);
+ 				}
+ 				bitlength = *(cp + 1) ? *(cp + 1) : 256;
+-				wp += sprintf(wp, "/%u].", bitlength);
++				wp += sprintf((char*)wp, "/%u].", bitlength);
+ 
+ 				written_len += (wp - buf);
+ 				buf += written_len;

@@ -1,9 +1,8 @@
 ## SECTION=networking_ipv6_transition
 
-config TOTD
+menuconfig TOTD
 	tristate
-	depends on BROKEN
-	prompt "totd"
+	prompt "totd                          "
 	help
 	  This is the Trick Or Treat Daemon (TOTD)
 
@@ -22,3 +21,36 @@ config TOTD
 
 	  References:
 	  http://www.vermicelli.pasta.cs.uit.no/
+
+if TOTD
+
+config TOTD_IPV4
+	bool
+	prompt "ipv4 support"
+
+config TOTD_IPV6
+	bool
+	prompt "ipv6 support"
+
+config TOTD_STF
+	bool
+	prompt "stf support"
+	help
+	  Enables support for 6to4 (stf) reverse lookup.
+
+config TOTD_SCOPED_REWRITE
+	bool
+	prompt "scoped rewrite"
+	help
+	  Enables support for scoped address rewriting.
+
+config TOTD_HTTPD_SERVER
+	bool
+	# needs libswill
+	depends on BROKEN
+	prompt "integrated management webserver"
+	help
+	  Enables support for configuration and management using a
+	  builtin (SWILL) web-server
+
+endif

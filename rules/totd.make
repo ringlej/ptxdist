@@ -18,11 +18,11 @@ PACKAGES-$(PTXCONF_TOTD) += totd
 #
 TOTD_VERSION	:= 1.5
 TOTD		:= totd-$(TOTD_VERSION)
-TOTD_SUFFIX		:= tar.gz
-TOTD_URL		:= ftp://ftp.pasta.cs.uit.no/pub/Vermicelli//$(TOTD).$(TOTD_SUFFIX)
-TOTD_SOURCE		:= $(SRCDIR)/$(TOTD).$(TOTD_SUFFIX)
-TOTD_DIR		:= $(BUILDDIR)/$(TOTD)
-PTRTD_LICENSE      	:= multiple, BSD Style
+TOTD_SUFFIX	:= tar.gz
+TOTD_URL	:= ftp://ftp.pasta.cs.uit.no/pub/Vermicelli/$(TOTD).$(TOTD_SUFFIX)
+TOTD_SOURCE	:= $(SRCDIR)/$(TOTD).$(TOTD_SUFFIX)
+TOTD_DIR	:= $(BUILDDIR)/$(TOTD)
+PTRTD_LICENSE  	:= multiple, BSD Style
 
 # ----------------------------------------------------------------------------
 # Get
@@ -39,7 +39,39 @@ $(TOTD_SOURCE):
 #
 # autoconf
 #
-TOTD_AUTOCONF := $(CROSS_AUTOCONF_USR)
+TOTD_MAKE_OPT := CC=$(CROSS_CC)
+
+TOTD_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-malloc-debug \
+	--enable-debug-tcp-only
+
+
+ifdef PTXCONF_TOTD_IPV4
+TOTD_AUTOCONF += --enable-ip4
+else
+TOTD_AUTOCONF += --disable-ip4
+endif
+ifdef PTXCONF_TOTD_IPV6
+TOTD_AUTOCONF += --enable-ip6
+else
+TOTD_AUTOCONF += --disable-ip6
+endif
+ifdef PTXCONF_TOTD_STF
+TOTD_AUTOCONF += --enable-stf
+else
+TOTD_AUTOCONF += --disable-stf
+endif
+ifdef PTXCONF_TOTD_SCOPED_REWRITE
+TOTD_AUTOCONF += --enable-scoped-rewrite
+else
+TOTD_AUTOCONF += --disable-scoped-rewrite
+endif
+ifdef PTXCONF_TOTD_HTTPD_SERVER
+TOTD_AUTOCONF += --enable-http-server
+else
+TOTD_AUTOCONF += --disable-http-server
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -57,7 +89,7 @@ $(STATEDIR)/totd.targetinstall:
 	@$(call install_fixup, totd,DEPENDS,)
 	@$(call install_fixup, totd,DESCRIPTION,missing)
 
-	@$(call install_copy, totd, 0, 0, 0755, $(TOTD_DIR)/foobar, /dev/null)
+	@$(call install_copy, totd, 0, 0, 0755, -, /usr/sbin/totd)
 
 	@$(call install_finish, totd)
 

@@ -1,0 +1,47 @@
+Subject: [patch] fix data types in strlcpy calls
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+request.c:175: error: pointer targets in passing argument 1 of 'strlcpy' differ in signedness
+request.c:175: error: pointer targets in passing argument 2 of 'strlcpy' differ in signedness
+request.c:318: error: pointer targets in passing argument 1 of 'strlcpy' differ in signedness
+request.c:318: error: pointer targets in passing argument 2 of 'strlcpy' differ in signedness
+request.c:413: error: pointer targets in passing argument 1 of 'strlcpy' differ in signedness
+request.c:413: error: pointer targets in passing argument 2 of 'strlcpy' differ in signedness
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ request.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+Index: totd-1.5/request.c
+===================================================================
+--- totd-1.5.orig/request.c
++++ totd-1.5/request.c
+@@ -172,7 +172,7 @@ int do_forward(struct context *parent, u
+ 	cont->timeout = SEARCH_REMOTE_TIMEOUT;
+ 	cont->current_ns = cont->parent->current_ns;
+ 
+-	strlcpy (cont->qname, qname, MAX_DNAME);
++	strlcpy ((char*)cont->qname, (char*)qname, MAX_DNAME);
+ 	cont->q_class = qclass;
+ 	cont->q_type = qtype;
+ 	cont->q_id = mesg_id ();
+@@ -315,7 +315,7 @@ int recursive_process (Context *cont) {
+ 	/* initialize vars for additional request we may make */
+ 	qclass = cont->q_class;
+ 	qtype = cont->q_type;
+-	strlcpy(qname, cont->qname, MAX_DNAME);
++	strlcpy((char*)qname, (char*)cont->qname, MAX_DNAME);
+ 
+ 	syslog (LOG_DEBUG, "%s: work state: %d", fn, cont->work_state);
+ 
+@@ -410,7 +410,7 @@ int recursive_process (Context *cont) {
+ 				syslog (LOG_DEBUG, "Changed target to A");
+ 
+ 				/* same query, but IPv4 address type */
+-				strlcpy(qname, cont->qname, MAX_DNAME);
++				strlcpy((char*)qname, (char*)cont->qname, MAX_DNAME);
+ 				qtype = RT_A;
+ 
+ 				cont->work_state = TRICK_REQUEST;

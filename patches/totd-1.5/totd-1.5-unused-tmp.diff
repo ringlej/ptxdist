@@ -1,0 +1,29 @@
+Subject: [patch] tmp variable is only used when ip4 or ip6 are selected
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+If none of --enable-ip4 and --enable-ip6 are selected, we get this
+error:
+
+forward.c:17: error: unused variable 'tmp'
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ forward.c |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+Index: totd-1.5/forward.c
+===================================================================
+--- totd-1.5.orig/forward.c
++++ totd-1.5/forward.c
+@@ -14,7 +14,9 @@
+ #include "totd.h"
+ 
+ char *sprint_inet(struct sockaddr *sa, char *address_str) {
+-    char tmp[MAX_DNAME];
++#if defined(USE_INET4) || defined(USE_INET6)
++	char tmp[MAX_DNAME];
++#endif
+ 
+ 	address_str[0] = '\0';
+ #ifdef USE_INET4

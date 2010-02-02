@@ -1,0 +1,32 @@
+Subject: [patch] disable -Werror
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+I couldn't get rid of these warnings yet, so let's disable -Werror now:
+
+ne_io.c: In function 'net_ifc_cmp':
+ne_io.c:72: warning: pointer targets in assignment differ in signedness
+ne_io.c:73: warning: pointer targets in assignment differ in signedness
+ne_io.c: In function 'nia_set_wildsock':
+ne_io.c:275: warning: unused variable 'ni'
+ne_io.c: In function 'net_get_ifaddrs':
+ne_io.c:433: warning: pointer targets in assignment differ in signedness
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ Makefile.in |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+Index: totd-1.5/Makefile.in
+===================================================================
+--- totd-1.5.orig/Makefile.in
++++ totd-1.5/Makefile.in
+@@ -19,7 +19,7 @@ TOT_CONFIG_FILE=@sysconfdir@/totd.conf
+ 
+ INSTALL = /usr/bin/install
+ 
+-CFLAGS  = @CFLAGS@ @DEFS@  -Werror -Wall -DTOTCONF=\"$(TOT_CONFIG_FILE)\" @OPTFLAGS@ $(INCLUDEPATH)
++CFLAGS  = @CFLAGS@ @DEFS@   -Wall -DTOTCONF=\"$(TOT_CONFIG_FILE)\" @OPTFLAGS@ $(INCLUDEPATH)
+ 
+ # When debugging is enabled by --enable-malloc-debug flag to the configure
+ # script, the @DBMALLOC@ substitution will contain the empty string, thus

@@ -1,0 +1,10 @@
+totd-1.5-strlen.diff
+totd-1.5-strncasecmp.diff
+totd-1.5-sprint_inet.diff
+totd-1.5-sprintf.diff
+totd-1.5-strlcpy.diff
+totd-1.5-dname_decompress.diff
+totd-1.5-unused-tmp.diff
+totd-1.5-disable-werror.diff
+totd-1.5-destdir.diff
+totd-1.5-install-group.diff
