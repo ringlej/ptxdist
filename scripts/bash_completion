@@ -11,7 +11,7 @@ _ptxdist_completion()
 	cur=( $(_get_cword) )
 
 	opts=' --collectionconfig --debug --force --force-download --j-extern --j-intern -k --platformconfig --ptxconfig --quiet --toolchain'
-	cmds=' allmodconfig allnoconfig allyesconfig autobuild boardsetup clean clone collection compile distclean drop export_src extract get go images install kernelconfig menu menuconfig migrate newpacket oldconfig platform platformconfig prepare print projects ptxdist select setup tags targetinstall test toolchain u_boot_config version'
+	cmds=' allmodconfig allnoconfig allyesconfig autobuild boardsetup clean clone collection compile distclean drop export_src extract get go images install kernelconfig menu menuconfig migrate newpackage oldconfig platform platformconfig prepare print projects ptxdist select setup tags targetinstall test toolchain u_boot_config version'
 
 	# if no commands were given, complete on commands themselves
 	if [ $COMP_CWORD -eq 1 ]; then
@@ -46,7 +46,7 @@ _ptxdist_completion()
 	drop)
 		COMPREPLY=( $( compgen -W "${opts} $( pushd $(ptxdist print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
 		;;
-	newpacket)
+	newpackage)
 		COMPREPLY=( $( compgen -W "${opts} target host host-existing-target cross cross-existing-target source kernel-driver font simple" -- $cur) )
 		;;
 	esac

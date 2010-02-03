@@ -1,16 +1,16 @@
 #!/bin/bash
 #
-# ipkg-push: push .ipk files to a packet repository site
+# ipkg-push: push .ipk files to a package repository site
 #
 # We assume that all packages follow this naming scheme: 
 #
-# packetname_1.2.3-2_arch.ipk
-# ^^^^^^^^^^ ^^^^^ ^ ^^^^------ architecture
-#     \        \   \----------- ipkg packet revision
-#      \        \-------------- upstream packet revision
-#       \---------------------- packet name
+# packagename_1.2.3-2_arch.ipk
+# ^^^^^^^^^^^ ^^^^^ ^ ^^^^----- architecture
+#     \         \   `---------- ipkg package revision
+#      \         `------------- upstream package revision
+#       `---------------------- package name
 #
-# And we assume that, if a packet is named after this scheme it is
+# And we assume that, if a package is named after this scheme it is
 # versioned internally using the same one :-)
 # 
 
@@ -26,8 +26,8 @@ usage() {
 	echo
 	echo " Arguments:"
 	echo
-	echo "  --ipkgdir  <ipkgdir>       use this directory as an ipkg packet source"
-	echo "  --repodir  <repositorydir> path to ipkg packet repository to be updated"
+	echo "  --ipkgdir  <ipkgdir>       use this directory as an ipkg package source"
+	echo "  --repodir  <repositorydir> path to ipkg package repository to be updated"
 	echo "  --revision <revision>      dist revision name to be updated"
 	echo "  --project  <projectname>   project name"
 	echo "  --dist     <distname>      use this to make a dist release (optional)"
@@ -60,7 +60,7 @@ done
 #
 # Sanity checks
 #
-[ -z "$IPKGDIR" ] 	&& usage "${PREFIX} error: specify ipkg packet dir with --ipkgdir"
+[ -z "$IPKGDIR" ] 	&& usage "${PREFIX} error: specify ipkg package dir with --ipkgdir"
 [ -z "$REPODIR" ] 	&& usage "${PREFIX} error: specify repository dir with --repodir"
 [ -z "$DISTREVISION" ]	&& usage "${PREFIX} error: specify dist revision with --revision"
 [ -d "$IPKGDIR" ]	|| usage "${PREFIX} error: ipkg directory does not exist"
@@ -68,11 +68,11 @@ done
 [ -z "$PROJECT" ]       && usage "${PREFIX} error: specify a project name with --project"
 
 if [ "`find $IPKGDIR -name "*.ipk"`" = "" ]; then
-	echo "no ipkg packets found in --ipkgdir $IPKGDIR"
+	echo "no ipkg packages found in --ipkgdir $IPKGDIR"
 	exit 0
 fi
 
-IPKG_PACKETS=`find $IPKGDIR -name "*.ipk" -exec basename \{} \;`
+IPKG_PACKAGES=`find $IPKGDIR -name "*.ipk" -exec basename \{} \;`
 SCRIPTDIR=`dirname $0`
 POOL=$REPODIR/$PROJECT/pool
 
@@ -97,38 +97,38 @@ fi
 echo "dist directory.....: $DIST"
 
 #
-# For all ipkg packets we have built: check if already in pool
+# For all ipkg packages we have built: check if already in pool
 #
 
-for packet in $IPKG_PACKETS; do
+for package in $IPKG_PACKAGES; do
 
-	echo "checking pool for..: $packet"
+	echo "checking pool for..: $package"
 
-	packet_split=`ptxd_ipkg_split $packet`
-	IPKG_NAME=`ptxd_ipkg_name $packet_split`
-	IPKG_REV_UPSTREAM=`ptxd_ipkg_rev_upstream $packet_split`
-	IPKG_REV_PACKET=`ptxd_ipkg_rev_packet $packet_split`
-	IPKG_REV="${IPKG_REV_UPSTREAM}${IPKG_REV_PACKET}"
-	IPKG_ARCH=`ptxd_ipkg_arch $packet_split`
-	PACKETS_IN_POOL=`find $POOL -name ${IPKG_NAME}_${IPKG_REV}-*_${IPKG_ARCH}.ipk -exec basename \{} \;`
+	package_split=`ptxd_ipkg_split $package`
+	IPKG_NAME=`ptxd_ipkg_name $package_split`
+	IPKG_REV_UPSTREAM=`ptxd_ipkg_rev_upstream $package_split`
+	IPKG_REV_PACKAGE=`ptxd_ipkg_rev_package $package_split`
+	IPKG_REV="${IPKG_REV_UPSTREAM}${IPKG_REV_PACKAGE}"
+	IPKG_ARCH=`ptxd_ipkg_arch $package_split`
+	PACKAGES_IN_POOL=`find $POOL -name ${IPKG_NAME}_${IPKG_REV}-*_${IPKG_ARCH}.ipk -exec basename \{} \;`
 
-	cp -f $IPKGDIR/$packet $POOL/$packet
+	cp -f $IPKGDIR/$package $POOL/$package
 
-	if [ "$PACKETS_IN_POOL" = "" ]; then 
+	if [ "$PACKAGES_IN_POOL" = "" ]; then 
 
-		# this packet wasn't there before, re-revision to -1
-		newpacket=`$SCRIPTDIR/ipkg-revision $POOL/$packet - 1`
+		# this package wasn't there before, re-revision to -1
+		newpackage=`$SCRIPTDIR/ipkg-revision $POOL/$package - 1`
 		if [ -n "$DIST" ]; then 
-			echo "  linking.source...: ../../pool/$newpacket"
-			echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$newpacket"
-			ln -sf ../../pool/$newpacket $REPODIR/$PROJECT/dists/$DIST/$newpacket
+			echo "  linking.source...: ../../pool/$newpackage"
+			echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$newpackage"
+			ln -sf ../../pool/$newpackage $REPODIR/$PROJECT/dists/$DIST/$newpackage
 		fi
 
 	else
 
 		# find out latest revision
 		latest_pkg=""
-		for pkg in $PACKETS_IN_POOL; do 
+		for pkg in $PACKAGES_IN_POOL; do 
 			echo "  candidate........: $pkg"
 			if [ "$latest_pkg" = "" ]; then
 				latest_pkg=$pkg
@@ -140,12 +140,12 @@ for packet in $IPKG_PACKETS; do
 
 		echo "  latest version...: $latest_pkg"
 
-		echo "  comparing........: $packet with $latest_pkg"
+		echo "  comparing........: $package with $latest_pkg"
 
-		$SCRIPTDIR/ipkg-check-equal $POOL/$packet $POOL/$latest_pkg
+		$SCRIPTDIR/ipkg-check-equal $POOL/$package $POOL/$latest_pkg
 		if [ "$?" = "0" ]; then 
-			echo "                     equal, new packet droped"
-			rm -f $POOL/$packet
+			echo "                     equal, new package droped"
+			rm -f $POOL/$package
 			if [ -n "$DIST" ]; then 
 				echo "  linking.source...: ../../pool/$latest_pkg"
 				echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$latest_pkg"
@@ -154,23 +154,23 @@ for packet in $IPKG_PACKETS; do
 			continue
 		fi
 
-		packet_split=`ptxd_ipkg_split $latest_pkg`
-		IPKG_REV_PACKET=`ptxd_ipkg_rev_packet $packet_split`
+		package_split=`ptxd_ipkg_split $latest_pkg`
+		IPKG_REV_PACKAGE=`ptxd_ipkg_rev_package $package_split`
 
-		newpacket=`$SCRIPTDIR/ipkg-revision $POOL/$packet - $(($IPKG_REV_PACKET+1))`
-		echo "RSC2: newpacket=$newpacket"
+		newpackage=`$SCRIPTDIR/ipkg-revision $POOL/$package - $(($IPKG_REV_PACKAGE+1))`
+		echo "RSC2: newpackage=$newpackage"
 		if [ -n "$DIST" ]; then 
-			echo "  linking.source...: ../../pool/$newpacket"
-			echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$newpacket"
-			ln -sf ../../pool/$newpacket $REPODIR/$PROJECT/dists/$DIST/$newpacket
+			echo "  linking.source...: ../../pool/$newpackage"
+			echo "  linking.to.......: $REPODIR/$PROJECT/dists/$DIST/$newpackage"
+			ln -sf ../../pool/$newpackage $REPODIR/$PROJECT/dists/$DIST/$newpackage
 		fi
 
 	fi
 
-	rm -f $POOL/$packet
+	rm -f $POOL/$package
 done
 
-# Everything finished, create the packet index
+# Everything finished, create the package index
 
 echo "creating index.....: "
 

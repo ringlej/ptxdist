@@ -11,84 +11,84 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 
 #
 # Paths and names
 #
-@PACKET@_VERSION	:= @VERSION@
-@PACKET@		:= @packet_filename@-$(@PACKET@_VERSION)
-@PACKET@_SUFFIX		:= @SUFFIX@
-@PACKET@_URL		:= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
-@PACKET@_LICENSE	:= unknown
+@PACKAGE@_VERSION	:= @VERSION@
+@PACKAGE@		:= @package_filename@-$(@PACKAGE@_VERSION)
+@PACKAGE@_SUFFIX	:= @SUFFIX@
+@PACKAGE@_URL		:= @URL@/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
+@PACKAGE@_SOURCE	:= $(SRCDIR)/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
+@PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
+@PACKAGE@_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(@PACKET@_SOURCE):
+$(@PACKAGE@_SOURCE):
 	@$(call targetinfo)
-	@$(call get, @PACKET@)
+	@$(call get, @PACKAGE@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-#@PACKET@_CONF_ENV	:= $(CROSS_ENV)
+#@PACKAGE@_CONF_ENV	:= $(CROSS_ENV)
 
 #
 # autoconf
 #
-@PACKET@_CONF_TOOL	:= autoconf
-#@PACKET@_CONF_OPT	:= $(CROSS_AUTOCONF_USR)
+@PACKAGE@_CONF_TOOL	:= autoconf
+#@PACKAGE@_CONF_OPT	:= $(CROSS_AUTOCONF_USR)
 
-#$(STATEDIR)/@packet@.prepare:
+#$(STATEDIR)/@package@.prepare:
 #	@$(call targetinfo)
-#	@$(call clean, $(@PACKET@_DIR)/config.cache)
-#	cd $(@PACKET@_DIR) && \
-#		$(@PACKET@_PATH) $(@PACKET@_ENV) \
-#		./configure $(@PACKET@_CONF_OPT)
+#	@$(call clean, $(@PACKAGE@_DIR)/config.cache)
+#	cd $(@PACKAGE@_DIR) && \
+#		$(@PACKAGE@_PATH) $(@PACKAGE@_ENV) \
+#		./configure $(@PACKAGE@_CONF_OPT)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@packet@.compile:
+#$(STATEDIR)/@package@.compile:
 #	@$(call targetinfo)
-#	@$(call world/compile, @PACKET@)
+#	@$(call world/compile, @PACKAGE@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@packet@.install:
+#$(STATEDIR)/@package@.install:
 #	@$(call targetinfo)
-#	@$(call world/install, @PACKET@)
+#	@$(call world/install, @PACKAGE@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.targetinstall:
+$(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  @packet@)
-	@$(call install_fixup, @packet@,PACKAGE,@packetdash@)
-	@$(call install_fixup, @packet@,PRIORITY,optional)
-	@$(call install_fixup, @packet@,VERSION,$(@PACKET@_VERSION))
-	@$(call install_fixup, @packet@,SECTION,base)
-	@$(call install_fixup, @packet@,AUTHOR,"@AUTHOR@")
-	@$(call install_fixup, @packet@,DEPENDS,)
-	@$(call install_fixup, @packet@,DESCRIPTION,missing)
+	@$(call install_init,  @package@)
+	@$(call install_fixup, @package@,PACKAGE,@packagedash@)
+	@$(call install_fixup, @package@,PRIORITY,optional)
+	@$(call install_fixup, @package@,VERSION,$(@PACKAGE@_VERSION))
+	@$(call install_fixup, @package@,SECTION,base)
+	@$(call install_fixup, @package@,AUTHOR,"@AUTHOR@")
+	@$(call install_fixup, @package@,DEPENDS,)
+	@$(call install_fixup, @package@,DESCRIPTION,missing)
 
-	@$(call install_copy, @packet@, 0, 0, 0755, $(@PACKET@_DIR)/foobar, /dev/null)
+	@$(call install_copy, @package@, 0, 0, 0755, $(@PACKAGE@_DIR)/foobar, /dev/null)
 
-	@$(call install_finish, @packet@)
+	@$(call install_finish, @package@)
 
 	@$(call touch)
 
@@ -96,8 +96,8 @@ $(STATEDIR)/@packet@.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@packet@.clean:
+#$(STATEDIR)/@package@.clean:
 #	@$(call targetinfo)
-#	@$(call clean_pkg, @PACKET@)
+#	@$(call clean_pkg, @PACKAGE@)
 
 # vim: syntax=make

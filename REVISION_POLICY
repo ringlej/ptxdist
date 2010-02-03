@@ -11,8 +11,8 @@ Changes allowed in micro releases (x.y.Z):
 Changes allowed in minor releases (x.Y.z): 
 
 	- everything which is allowed for micro releases
-	- new packets
-	- new packet versions
+	- new packages
+	- new package versions
 	- changes in the menu infrastructure
 
 Changes allowed in major releases (X.y.z):

@@ -775,16 +775,16 @@ Build Actions:
 
   go				start building the current project
 
-  get <package>			get packet sources
-  extract <package>		extract packet
-  prepare <package>		run configure stages for packet
+  get <package>			get package sources
+  extract <package>		extract package
+  prepare <package>		run configure stages for package
   compile <package>		compile the sources
   install <package>		install host side components into sysroot/
   targetinstall <package>	install files for target into root/
-  clean <package>		cleanup packet
+  clean <package>		cleanup package
   autobuild			search for "autobuild" scripts and run them
-  drop <package>.<stage>	mark a stage of a packet as unbuilt
-  tags <package>		try to build tags for the packet
+  drop <package>.<stage>	mark a stage of a package as unbuilt
+  tags <package>		try to build tags for the package
 
   images			build images for target system
 
@@ -798,8 +798,8 @@ Misc:
 
   version			print out ptxdist version
   test <testname>		run tests
-  newpacket <type>		create a new packet Makefile in a rules dir
-				use 'newpacket help' for a longer description
+  newpackage <type>		create a new package Makefile in a rules dir
+				use 'newpackage help' for a longer description
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
   export_src <target dir>	export all source archives needed for this
@@ -961,7 +961,7 @@ drop() {
 	fi
 }
 
-newpacket() {
+newpackage() {
 	local template template_src
 	local class autoconf_class
 	local action="${1}"
@@ -1021,7 +1021,7 @@ newpacket() {
 		;;
 	help|*)
 		echo
-		echo "usage: 'ptxdist newpacket <type>', where type is:"
+		echo "usage: 'ptxdist newpackage <type>', where type is:"
 		echo
 		echo "  host                     create package for development host"
 		echo "  target                   create package for embedded target"
@@ -1045,19 +1045,19 @@ newpacket() {
 	#
 	# Ask some questions
 	#
-	local packet_name
+	local package_name
 	echo
 	echo "${PROMPT}creating a new '${action}' package:"
 	echo
-	echo -n "${PROMPT}enter packet name.......: "
-	read packet_name
+	echo -n "${PROMPT}enter package name.......: "
+	read package_name
 
 	#
 	# for host and cross packages, find out if there is already an
 	# existing target
 	#
-	if [ -f "${PTXDIST_WORKSPACE}/rules/${packet_name}.make" -o \
-	     -f "${PTXDIST_TOPDIR}/rules/${packet_name}.make" ]; then
+	if [ -f "${PTXDIST_WORKSPACE}/rules/${package_name}.make" -o \
+	     -f "${PTXDIST_TOPDIR}/rules/${package_name}.make" ]; then
 		case "${action}" in
 		    host|cross)
 			action=class-existing-target
@@ -1096,13 +1096,13 @@ newpacket() {
 
 	# FIXME: get address from 'ptxdist setup'
 	local author
-	echo -n "${PROMPT}enter packet author.....: "
+	echo -n "${PROMPT}enter package author.....: "
 	read author
 
-	local packet_filename="${packet_name}"
-	local packet="$(echo ${packet_name} | tr "[A-Z]" "[a-z]")"
-	local packetdash="$(echo ${packet} | tr "[_]" "[\-]")"
-	local PACKET="$(echo ${packet_name} | tr "[a-z-]" "[A-Z_]")"
+	local package_filename="${package_name}"
+	local package="$(echo ${package_name} | tr "[A-Z]" "[a-z]")"
+	local packagedash="$(echo ${package} | tr "[_]" "[\-]")"
+	local PACKAGE="$(echo ${package_name} | tr "[a-z-]" "[A-Z_]")"
 	local CLASS="$(echo ${class} | tr "[a-z-]" "[A-Z_]")"
 	local year="$(date +%Y)"
 
@@ -1110,7 +1110,7 @@ newpacket() {
 	for template_suffix in "make" "in"; do
 
 		local template_file="${TEMPLATESDIR}/${template}-${template_suffix}"
-		local filename="${PTXDIST_WORKSPACE}/rules/${class}${packet_filename}.${template_suffix}"
+		local filename="${PTXDIST_WORKSPACE}/rules/${class}${package_filename}.${template_suffix}"
 
 		if [ ! -f "${template_file}" ]; then
 			echo
@@ -1132,10 +1132,10 @@ newpacket() {
 		fi
 
 	    sed \
-		-e "s#\@packet_filename@#${packet_filename}#g" \
-		-e "s#\@PACKET@#${PACKET}#g" \
-		-e "s#\@packet@#${packet}#g" \
-		-e "s#\@packetdash@#${packetdash}#g" \
+		-e "s#\@package_filename@#${package_filename}#g" \
+		-e "s#\@PACKAGE@#${PACKAGE}#g" \
+		-e "s#\@package@#${package}#g" \
+		-e "s#\@packagedash@#${packagedash}#g" \
 		-e "s#\@class@#${class}#g" \
 		-e "s#\@CLASS@#${CLASS}#g" \
 		-e "s#\@AUTOCONF_CLASS@#${autoconf_class}#g" \
@@ -1153,19 +1153,19 @@ newpacket() {
 	#
 	case "${action}" in
 	src-*)
-		if [ -d "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" ]; then
+		if [ -d "${PTXDIST_WORKSPACE}/local_src/${package}-${version}" ]; then
 			return
 		fi
 
-		echo -e -n "\nlocal_src/${packet}-${version} does not exist, create? [y/n] "
+		echo -e -n "\nlocal_src/${package}-${version} does not exist, create? [y/n] "
 		[ "$(local r; read r; echo "${r}")" = "y" ] || return
 
-		mkdir -p "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}"
+		mkdir -p "${PTXDIST_WORKSPACE}/local_src/${package}-${version}"
 		tar -C "${template_src}" -cf - --exclude .svn . | \
-			tar -C "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" -xvf -
+			tar -C "${PTXDIST_WORKSPACE}/local_src/${package}-${version}" -xvf -
 
-		(cd "${PTXDIST_WORKSPACE}/local_src/${packet}-${version}" && sh wizard.sh ${packet})
-		rm -f ${PTXDIST_WORKSPACE}/local_src/${packet}-${version}/wizard.sh
+		(cd "${PTXDIST_WORKSPACE}/local_src/${package}-${version}" && sh wizard.sh ${package})
+		rm -f ${PTXDIST_WORKSPACE}/local_src/${package}-${version}/wizard.sh
 		;;
 	esac
 
@@ -1867,7 +1867,14 @@ parse_second()
 			exit
 			;;
 
-		newpacket)
+		newpackage|newpacket)
+			if [ "${cmd}" = "newpacket" ]; then
+				echo "${PROMPT}There is no subcommand 'newpacket'. I guess you mean"
+				echo "${PROMPT}'newpackage' and run it for you.  This service stopps"
+				echo "${PROMPT}being provided for free soon. So please use"
+				echo "${PROMPT}'newpackage' directly."
+			fi
+
 			if [ \! -d "rules" ]; then
 				echo
 				echo "${PROMPT}error: no rules/ directory found"
@@ -1875,7 +1882,7 @@ parse_second()
 				echo
 				exit 1
 			fi
-			newpacket "${1}"
+			newpackage "${1}"
 			exit
 			;;
 		print)

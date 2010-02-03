@@ -47,7 +47,7 @@ TODO before 2.0.0
     - for all optional packages: ask back if images, ipkgs etc. shall
       be bundled (with --force)
 
-[ ] rsc: verify 'ptxdist newpacket' mechanics. Check all use cases,
+[ ] rsc: verify 'ptxdist newpackage' mechanics. Check all use cases,
     especially when creating new packages in ptxdist itself (not in the
     project). Workspace check needs more sophistication.
 
@@ -428,8 +428,8 @@ TODO somewhen
 
 [ ] rsc: add checksums for download
 
-Interesting packets
-===================
+Interesting packages
+====================
 
 [ ] rsc: http://en.opensuse.org/Icecream
 [ ] rsc: http://cryptmount.sourceforge.net/
