@@ -1,0 +1,33 @@
+From a11e453f3a908d072984c464fbeafb058b3ed4f1 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 3 Feb 2010 12:43:37 +0100
+Subject: [PATCH 2/4] Makefile.config: fix shared libs on arm
+
+The magic to detect a linux system expects that "HOST_OS" ==
+"linux-gnu". Unfortunately this is not true for modern arm system with
+EABI, the "HOST_OS" is "linux-gnueabi".
+
+With this patch, if the string "linux" is part of "HOST_OS" it's
+considered to compile for a linux system.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile.config.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile.config.in b/Makefile.config.in
+index 07f37af..a79ca1e 100644
+--- a/Makefile.config.in
++++ b/Makefile.config.in
+@@ -136,7 +136,7 @@ endif
+ # out how.  For the rest, we have this default:
+ SHARED_LIB_TYPE = NONE
+ 
+-ifeq ($(HOST_OS),linux-gnu)
++ifeq ($(findstring linux,$(HOST_OS)),linux)
+   # Assume linker is GNU Compiler (gcc)
+   SHARED_LIB_TYPE = unix
+   SHLIB_SUFFIX = so
+-- 
+1.6.6.1
+

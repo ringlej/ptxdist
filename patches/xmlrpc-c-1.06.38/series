@@ -1,2 +1,4 @@
-0001-xmlrpc-c-config.in-use-pkg-config-to-get-curl-s-libs.patch
-0002-xmlrpc-c-config.in-add-SYSROOT-support.patch
+0001-configure.in-add-propper-quoting-to-AC_CHECK_-FUNC-L.patch
+0002-Makefile.config-fix-shared-libs-on-arm.patch
+0003-xmlrpc-c-config.in-use-pkg-config-to-get-curl-s-libs.patch
+0004-xmlrpc-c-config.in-add-SYSROOT-support.patch

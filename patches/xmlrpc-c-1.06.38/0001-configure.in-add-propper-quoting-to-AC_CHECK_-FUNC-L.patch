@@ -1,0 +1,34 @@
+From 478fbb086f852ed4b106d0e984f429204c55b18b Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Wed, 3 Feb 2010 13:47:09 +0100
+Subject: [PATCH 1/4] configure.in: add propper quoting to AC_CHECK_{FUNC,LIB}
+
+This patch fixes this problem:
+
+checking for socket... ./configure: line 1813: ac_fn_c_try_link: command not found
+no
+
+See http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=544809 for more
+information.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ configure.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index 4cfcee1..929fa48 100644
+--- a/configure.in
++++ b/configure.in
+@@ -227,7 +227,7 @@ dnl =======================================================================
+ # hide their networking code in various places.  (Yes, this links too many
+ # of our libraries against -lsocket, but a finer-grained mechanism would
+ # require too much testing.)
+-AC_CHECK_FUNC(socket, , AC_CHECK_LIB(socket, socket))
++AC_CHECK_FUNC([socket], [:], [AC_CHECK_LIB([socket], [socket])])
+ 
+ # Above sets LIBS, which is not all that useful because we don't want
+ # to include every library in every link.  It also sets
+-- 
+1.6.6.1
+

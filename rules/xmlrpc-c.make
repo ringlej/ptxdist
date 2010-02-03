@@ -122,6 +122,29 @@ $(STATEDIR)/xmlrpc-c.targetinstall:
 	@$(call install_link, xmlrpc-c, libxmlrpc_server_abyss.so.3.6.15, \
 		/usr/lib/libxmlrpc_server_abyss.so)
 
+ifdef PTXCONF_XMLRPC_C_CPLUSPLUS
+	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
+		/usr/lib/libxmlrpc++.so.3.06)
+	@$(call install_link, xmlrpc-c, libxmlrpc++.so.3.06, \
+		/usr/lib/libxmlrpc++.so.3)
+	@$(call install_link, xmlrpc-c, libxmlrpc++.so.3.06, \
+		/usr/lib/libxmlrpc++.so)
+
+	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
+		/usr/lib/libxmlrpc_server++.so.3.06)
+	@$(call install_link, xmlrpc-c, libxmlrpc_server++.so.3.06, \
+		/usr/lib/libxmlrpc_server++.so.3)
+	@$(call install_link, xmlrpc-c, libxmlrpc_server++.so.3.06, \
+		/usr/lib/libxmlrpc_server++.so)
+
+	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
+		/usr/lib/libxmlrpc_server_abyss++.so.3.06)
+	@$(call install_link, xmlrpc-c, libxmlrpc_server_abyss++.so.3.06, \
+		/usr/lib/libxmlrpc_server_abyss++.so.3)
+	@$(call install_link, xmlrpc-c, libxmlrpc_server_abyss++.so.3.06, \
+		/usr/lib/libxmlrpc_server_abyss++.so)
+endif
+
 	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
 		/usr/lib/libxmlrpc_util.so.3.6.15)
 	@$(call install_link, xmlrpc-c, libxmlrpc_util.so.3.6.15, \
@@ -152,6 +175,15 @@ ifdef PTXCONF_XMLRPC_C_CLIENT
 		/usr/lib/libxmlrpc_client.so.3)
 	@$(call install_link, xmlrpc-c, libxmlrpc_client.so.3.6.15, \
 		/usr/lib/libxmlrpc_client.so)
+
+ifdef PTXCONF_XMLRPC_C_CPLUSPLUS
+	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
+		/usr/lib/libxmlrpc_client++.so.3.06)
+	@$(call install_link, xmlrpc-c, libxmlrpc_client++.so.3.06, \
+		/usr/lib/libxmlrpc_client++.so.3)
+	@$(call install_link, xmlrpc-c, libxmlrpc_client++.so.3.06, \
+		/usr/lib/libxmlrpc_client++.so)
+endif
 endif
 
 ifdef PTXCONF_XMLRPC_C_ABYSS_SERVER

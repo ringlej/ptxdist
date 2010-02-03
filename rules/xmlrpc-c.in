@@ -27,8 +27,10 @@ config XMLRPC_C_CURL
 	default y
 
 config XMLRPC_C_ABYSS_SERVER
-	bool "include abyss server module"
+	bool
 	default y
+#	prompt "include abyss server module"
+# as of version 1.06.38 it doesn't build without it
 
 config XMLRPC_C_ABYSS_THREADS
 	bool "use fork in Abyss instead of pthreads"
@@ -40,6 +42,7 @@ config XMLRPC_C_CGI_SERVER
 
 config XMLRPC_C_CPLUSPLUS
 	bool "include C++ wrapper class"
+	select XMLRPC_C_ABYSS_SERVER
 	default y
 
 config XMLRPC_C_LIBXML2
