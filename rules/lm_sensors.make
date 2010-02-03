@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Uwe Kleine-König
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,7 +17,7 @@ PACKAGES-$(PTXCONF_LM_SENSORS) += lm_sensors
 #
 # Paths and names
 #
-LM_SENSORS_VERSION	:= 3.1.1
+LM_SENSORS_VERSION	:= 3.1.2
 LM_SENSORS		:= lm_sensors-$(LM_SENSORS_VERSION)
 LM_SENSORS_SUFFIX	:= tar.bz2
 LM_SENSORS_URL		:= http://dl.lm-sensors.org/lm-sensors/releases/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)
@@ -65,9 +66,9 @@ $(STATEDIR)/lm_sensors.targetinstall:
 	@$(call install_fixup, lm_sensors,DEPENDS,)
 	@$(call install_fixup, lm_sensors,DESCRIPTION,missing)
 
-	@$(call install_copy, lm_sensors, 0, 0, 0644, -, /usr/lib/libsensors.so.4.2.0)
-	@$(call install_link, lm_sensors, libsensors.so.4.2.0, /usr/lib/libsensors.so.4)
-	@$(call install_link, lm_sensors, libsensors.so.4.2.0, /usr/lib/libsensors.so)
+	@$(call install_copy, lm_sensors, 0, 0, 0644, -, /usr/lib/libsensors.so.4.2.1)
+	@$(call install_link, lm_sensors, libsensors.so.4.2.1, /usr/lib/libsensors.so.4)
+	@$(call install_link, lm_sensors, libsensors.so.4.2.1, /usr/lib/libsensors.so)
 
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/bin/sensors)
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/bin/sensors-conf-convert)
