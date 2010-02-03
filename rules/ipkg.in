@@ -33,38 +33,39 @@ config IPKG_LOG_WRAPPER
 	  If selected, ipkg will be installed with a wrapper script
 	  which provides basic logging facilities
 
-config IPKG_GENERIC_IPKG_CONF
+config IPKG_IPKG_CONF
 	bool
 	prompt "install /etc/ipkg.conf"
 	default y
-	depends on ROOTFS
 	help
 	  Installs a generic /etc/ipkg.conf file.
 
-	config IPKG_GENERIC_IPKG_CONF_HOST
-		depends on IPKG_GENERIC_IPKG_CONF
-		prompt "IPKG Update Site Host"
-		default "www.example.org"
-		string
-		help
-		  Enter the hostname of your update site here. You can
-		  use it as part of the ipkg.conf URL below.
+	  Important: To make ipkg work at runtime, you must install this
+	  configuration file. Without it you can't install new packages.
 
-	config IPKG_GENERIC_IPKG_CONF_URL
-		depends on IPKG_GENERIC_IPKG_CONF
-		string
-		prompt "IPKG Update Site URL"
-		default "src ptxdist http://${PTXCONF_IPKG_GENERIC_IPKG_CONF_HOST}/ptxdist/${PTXCONF_PROJECT}/dists/${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}"
-		help
-		  This path is put into the /etc/ipkg.conf file and specifies
-		  where to find an IPKG packet feed.
+if IPKG_IPKG_CONF
 
-		  Note: Keep the "src" in front of the URL, its required if the
-		  URL should be used.
+config IPKG_IPKG_CONF_HOST
+	prompt "IPKG Update Site Host"
+	default "www.example.org"
+	string
+	help
+	  Enter the hostname of your update site here. You can
+	  use it as part of the ipkg.conf URL below.
 
-		  If you don't want to use this feature, keep the whole entry empty.
+config IPKG_IPKG_CONF_URL
+	string
+	prompt "IPKG Update Site URL"
+	default "src ptxdist http://${PTXCONF_IPKG_IPKG_CONF_HOST}/ptxdist/${PTXCONF_PROJECT}/dists/${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}"
+	help
+	  This path is put into the /etc/ipkg.conf file and specifies
+	  where to find an IPKG packet feed.
 
-		  Important: To make ipkg work at runtime, you must install this
-		  configuration file. Without it you can't install new packages.
+	  Note: Keep the "src" in front of the URL, its required if the
+	  URL should be used.
+
+	  If you don't want to use this feature, keep the whole entry empty.
+
+endif
 
 endif

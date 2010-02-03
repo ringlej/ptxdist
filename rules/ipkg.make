@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2005 by Robert Schwebel
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -22,7 +23,6 @@ IPKG_SUFFIX	:= tar.gz
 IPKG_URL	:= http://handhelds.org/download/packages/ipkg/$(IPKG).$(IPKG_SUFFIX)
 IPKG_SOURCE	:= $(SRCDIR)/$(IPKG).$(IPKG_SUFFIX)
 IPKG_DIR	:= $(BUILDDIR)/$(IPKG)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -85,11 +85,10 @@ ifdef PTXCONF_IPKG_HASH_TEST
 		/usr/bin/ipkg_hash_test)
 endif
 
-ifdef PTXCONF_IPKG_GENERIC_IPKG_CONF
-	@$(call install_copy, ipkg, 0, 0, 0644, \
-		$(PTXDIST_TOPDIR)/generic/etc/ipkg.conf, /etc/ipkg.conf, n)
+ifdef PTXCONF_IPKG_IPKG_CONF
+	@$(call install_alternative, ipkg, 0, 0, 0644, /etc/ipkg.conf)
 	@$(call install_replace, ipkg, /etc/ipkg.conf, @SRC@, \
-		$(PTXCONF_IPKG_GENERIC_IPKG_CONF_URL))
+		$(PTXCONF_IPKG_IPKG_CONF_URL))
 	@$(call install_replace, ipkg, /etc/ipkg.conf, @ARCH@, \
 		$(PTXDIST_IPKG_ARCH_STRING))
 endif
