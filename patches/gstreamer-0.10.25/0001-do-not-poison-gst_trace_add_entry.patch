@@ -1,0 +1,29 @@
+From 485ae69c9e02f316eb820bfd80eac6c7b14fb973 Mon Sep 17 00:00:00 2001
+From: Peter Kjellerstedt <pkj@axis.com>
+Date: Wed, 14 Oct 2009 08:54:32 +0000
+Subject: trace: Do not poison gst_trace_add_entry()
+
+Since gst_trace_add_entry() is a macro, gcc will barf when it is
+defined in case it has been poisoned due to trace support being
+disabled.
+
+STATUS: Cherry picked from upstream, should not be needed
+anymore when 0.10.26 is released
+
+Signed-off-by: Erwin Rol <erwin@erwinrol.com>
+
+---
+diff --git a/gst/gsttrace.h b/gst/gsttrace.h
+index 6372224..59bb340 100644
+--- a/gst/gsttrace.h
++++ b/gst/gsttrace.h
+@@ -223,7 +223,6 @@ extern gint _gst_trace_on;
+ #pragma GCC poison 	gst_trace_set_default
+ #pragma GCC poison 	_gst_trace_add_entry
+ #pragma GCC poison 	gst_trace_read_tsc
+-#pragma GCC poison 	gst_trace_add_entry
+ #endif
+ 
+ #define		gst_alloc_trace_register(name)	(NULL)
+--
+cgit v0.8.3-6-g21f6

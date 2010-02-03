@@ -1,0 +1,26 @@
+## SECTION=multimedia_libs
+
+menuconfig FLAC
+	tristate
+	select LIBOGG
+	prompt "flac                          "
+	help
+	  FLAC stands out as the fastest and most widely
+	  supported lossless audio codec, and the only one
+	  that at once is non-proprietary, is unencumbered
+	  by patents, has an open-source reference
+	  implementation, has a well documented format
+	  and API, and has several other independent
+	  implementations.
+
+if FLAC
+
+config FLAC_INSTALL_FLAC
+	bool
+	prompt "Install flac"
+
+config FLAC_INSTALL_METAFLAC
+	bool
+	prompt "Install metaflac"
+
+endif

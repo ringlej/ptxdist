@@ -86,7 +86,13 @@ $(STATEDIR)/fontconfig.targetinstall:
 		libfontconfig.so.1.3.0, \
 		/usr/lib/libfontconfig.so)
 
-ifdef PTXCONF_FONTCONFIG_CONFS
+
+ifdef PTXCONF_FONTCONFIG_DTD
+	@$(call install_copy, fontconfig, 0, 0, 0644, -, \
+		/etc/fonts/fonts.dtd,n)
+endif
+
+ifdef PTXCONF_FONTCONFIG_CONFS_DEFAULT
 	@$(call install_copy, fontconfig, 0, 0, 0644, -, \
 		/etc/fonts/fonts.conf,n)
 
@@ -97,6 +103,11 @@ ifdef PTXCONF_FONTCONFIG_CONFS
 # 	@$(call install_copy, fontconfig, 0, 0, 0644, \
 # 		$(FONTCONFIG_DIR)/conf.d/autohint.conf, \
 # 		/etc/fonts/conf.d/autohint.conf,n)
+endif
+
+ifdef PTXCONF_FONTCONFIG_CONFS_CUSTOM
+	@$(call install_alternative, fontconfig, 0, 0, 0644, \
+		/etc/fonts/fonts.conf)
 endif
 
 ifdef PTXCONF_FONTCONFIG_UTILS

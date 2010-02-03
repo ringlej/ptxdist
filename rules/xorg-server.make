@@ -359,6 +359,11 @@ $(STATEDIR)/xorg-server.targetinstall:
 	@$(call install_fixup, xorg-server,DEPENDS,)
 	@$(call install_fixup, xorg-server,DESCRIPTION,missing)
 
+ifdef PTXCONF_XORG_SERVER_CONFIG_FILES_XORG_CONF
+	@$(call install_alternative, xorg-server, 0, 0, 0644, \
+		/etc/X11/xorg.conf)
+endif
+
 ifdef PTXCONF_XORG_SERVER_XVFB
 	@$(call install_copy, xorg-server, 0, 0, 0755, -, \
 		$(XORG_PREFIX)/bin/Xvfb)

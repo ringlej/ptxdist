@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE) += gst-plugins-base
 #
 # Paths and names
 #
-GST_PLUGINS_BASE_VERSION	:= 0.10.22
+GST_PLUGINS_BASE_VERSION	:= 0.10.25
 GST_PLUGINS_BASE		:= gst-plugins-base-$(GST_PLUGINS_BASE_VERSION)
 GST_PLUGINS_BASE_SUFFIX		:= tar.bz2
 GST_PLUGINS_BASE_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE).$(GST_PLUGINS_BASE_SUFFIX)
@@ -34,9 +34,6 @@ $(GST_PLUGINS_BASE_SOURCE):
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-
-GST_PLUGINS_BASE_PATH	:= PATH=$(CROSS_PATH)
-GST_PLUGINS_BASE_ENV 	:= $(CROSS_ENV)
 
 #
 # autoconf
@@ -58,10 +55,18 @@ GST_PLUGINS_BASE_AUTOCONF := \
 	--disable-vorbistest \
 	--disable-freetypetest \
 	--without-libiconv-prefix \
-	--without-libintl-prefix
+	--without-libintl-prefix \
+	--enable-shave
 
-# --with-plugins=foo,bar,baz
+# --with-plugins=foo,bar,baz only works for depencyless plugins and
+# when no plugins are given it falls back to its default which is
+# to enable all plugins, so --with-plugins is useless for us.
 
+ifdef PTXCONF_GST_PLUGINS_BASE_APP
+GST_PLUGINS_BASE_AUTOCONF += --enable-app
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-app
+endif
 ifdef PTXCONF_GST_PLUGINS_BASE_ADDER
 GST_PLUGINS_BASE_AUTOCONF += --enable-adder
 else
@@ -230,28 +235,18 @@ $(STATEDIR)/gst-plugins-base.targetinstall:
 		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/bin/gst-visualise-0.10, \
 		/usr/bin/gst-visualise)
 
-	@for i in \
-		libgsttag-0.10.so.0  \
-		libgstinterfaces-0.10.so.0 \
-		libgstcdda-0.10.so.0 \
-		libgstpbutils-0.10.so.0 \
-		libgstnetbuffer-0.10.so.0 \
-		libgstfft-0.10.so.0 \
-		libgstriff-0.10.so.0 \
-		libgstaudio-0.10.so.0 \
-		libgstrtp-0.10.so.0 \
-		libgstsdp-0.10.so.0 \
-		libgstrtsp-0.10.so.0 \
-		libgstvideo-0.10.so.0 \
-	; do \
-	$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/$$i.16.0, \
-		/usr/lib/$$i.16.0); \
-	$(call install_link, gst-plugins-base,  \
-		$$i.16.0, \
-		/usr/lib/$$i); \
+	# install all activated libs
+	@cd $(GST_PLUGINS_BASE_PKGDIR)/usr/lib/ && for libs in `find -name "*-0.10.so"`; do \
+		$(call install_copy, gst-plugins-base, 0, 0, 0644, -, /usr/lib/$$libs.0.18.0); \
+		$(call install_link, gst-plugins-base, $$libs.0.18.0, /usr/lib/$$libs.0); \
+		$(call install_link, gst-plugins-base, $$libs.0.18.0, /usr/lib/$$libs); \
 	done
 
+ifdef PTXCONF_GST_PLUGINS_BASE_APP
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
+		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstapp.so, \
+		/usr/lib/gstreamer-0.10/libgstapp.so)
+endif
 ifdef PTXCONF_GST_PLUGINS_BASE_ADDER
 	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
 		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstadder.so, \
@@ -369,8 +364,8 @@ ifdef PTXCONF_GST_PLUGINS_BASE_GNOME_VFS
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_GIO
 	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgio.so, \
-		/usr/lib/gstreamer-0.10/libgio.so)
+		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstgio.so, \
+		/usr/lib/gstreamer-0.10/libgstgio.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_LIBVISUAL
 	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \

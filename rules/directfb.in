@@ -52,6 +52,13 @@ config DIRECTFB_WM_UNIQUE
 	bool "enable unique (wm module)"
 	select DIRECTFB_IMAGE_PNG
 
+menu "config files                "
+
+config DIRECTFB_CONFIG_DIRECTFBRC
+	bool "/etc/directfbrc"
+
+endmenu
+
 menu "image providers             "
 
 config DIRECTFB_IMAGE_GIF

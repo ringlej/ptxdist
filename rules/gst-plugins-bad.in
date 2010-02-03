@@ -6,31 +6,499 @@ menuconfig GST_PLUGINS_BAD
 	select LIBOIL
 	select GSTREAMER
 	select GST_PLUGINS_BASE
+	select SDL		if GST_PLUGINS_BAD_SDL
+	select BZIP2		if GST_PLUGINS_BAD_BZ2
+	select BZIP2_LIBBZ2	if GST_PLUGINS_BAD_BZ2
+	select LIBTHEORA	if GST_PLUGINS_BAD_THEORADEC
+
 	prompt "gst-plugins-bad               "
 	help
-	  FIXME
+	  GStreamer Bad Plug-ins is a set of plug-ins that aren't
+	  up to par compared to the rest. They might be close to being
+	  good quality, but they're missing something - be it a good
+	  code review, some documentation, a set of tests, a real
+	  live maintainer, or some actual wide use.
+
 
 if GST_PLUGINS_BAD
 
-	config GST_PLUGINS_BAD__FBDEVSINK
-		bool
-		prompt "fbdevsink"
+config GST_PLUGINS_BAD_AACPARSE
+	bool
+	prompt "aacparse"
 
-	config GST_PLUGINS_BAD__BAYER
-		bool
-		prompt "bayer filter"
+config GST_PLUGINS_BAD_ADPCMDEC
+	bool
+	prompt "adpcmdec"
 
-	config GST_PLUGINS_BAD__MPEGDEMUX
-		bool
-		prompt "mpeg demuxer"
+config GST_PLUGINS_BAD_AIFF
+	bool
+	prompt "aiff"
 
-	config GST_PLUGINS_BAD__MPEG4VIDEOPARSE
-		bool
-		prompt "mpeg4 video parser"
+config GST_PLUGINS_BAD_AMRPARSE
+	bool
+	prompt "amrparse"
 
-	config GST_PLUGINS_BAD__H264PARSE
-		bool
-		prompt "h264 parser"
+config GST_PLUGINS_BAD_ASFMUX
+	bool
+	prompt "asfmux"
+
+config GST_PLUGINS_BAD_AUTOCONVERT
+	bool
+	prompt "autoconvert"
+
+config GST_PLUGINS_BAD_CAMERABIN
+	bool
+	prompt "camerabin"
+
+config GST_PLUGINS_BAD_LEGACYRESAMPLE
+	bool
+	prompt "legacyresample"
+
+config GST_PLUGINS_BAD_BAYER
+	bool
+	prompt "bayer"
+
+config GST_PLUGINS_BAD_CDXAPARSE
+	bool
+	prompt "cdxaparse"
+
+config GST_PLUGINS_BAD_DCCP
+	bool
+	prompt "dccp"
+
+config GST_PLUGINS_BAD_DEBUGUTILS
+	bool
+	prompt "debugutils"
+
+config GST_PLUGINS_BAD_DTMF
+	bool
+	prompt "dtmf"
+
+config GST_PLUGINS_BAD_DVDSPU
+	bool
+	prompt "dvdspu"
+
+config GST_PLUGINS_BAD_FESTIVAL
+	bool
+	prompt "festival"
+
+config GST_PLUGINS_BAD_FREEZE
+	bool
+	prompt "freeze"
+
+config GST_PLUGINS_BAD_FREI0R
+	bool
+	prompt "frei0r"
+
+config GST_PLUGINS_BAD_H264PARSE
+	bool
+	prompt "h264parse"
+
+config GST_PLUGINS_BAD_HDVPARSE
+	bool
+	prompt "hdvparse"
+
+config GST_PLUGINS_BAD_ID3TAG
+	bool
+	prompt "id3tag"
+
+config GST_PLUGINS_BAD_LIBRFB
+	bool
+	prompt "librfb"
+
+config GST_PLUGINS_BAD_LIVEADDER
+	bool
+	prompt "liveadder"
+
+config GST_PLUGINS_BAD_MPEGDEMUX
+	bool
+	prompt "mpegdemux"
+
+config GST_PLUGINS_BAD_MPEGTSMUX
+	bool
+	prompt "mpegtsmux"
+
+config GST_PLUGINS_BAD_MPEGPSMUX
+	bool
+	prompt "mpegpsmux"
+
+config GST_PLUGINS_BAD_MPEG4VIDEOPARSE
+	bool
+	prompt "mpeg4videoparse"
+
+config GST_PLUGINS_BAD_MPEGVIDEOPARSE
+	bool
+	prompt "mpegvideoparse"
+
+config GST_PLUGINS_BAD_MVE
+	bool
+	prompt "mve"
+
+config GST_PLUGINS_BAD_MXF
+	bool
+	prompt "mxf"
+
+config GST_PLUGINS_BAD_NFS
+	bool
+	prompt "nsf"
+
+config GST_PLUGINS_BAD_NUVDEMUX
+	bool
+	prompt "nuvdemux"
+
+config GST_PLUGINS_BAD_PCAPPARSE
+	bool
+	prompt "pcapparse"
+
+config GST_PLUGINS_BAD_PNM
+	bool
+	prompt "pnm"
+
+config GST_PLUGINS_BAD_QTMUX
+	bool
+	prompt "qtmux"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_RAWPARSE
+	bool
+	prompt "rawparse"
+
+config GST_PLUGINS_BAD_REAL
+	bool
+	prompt "real"
+
+config GST_PLUGINS_BAD_RTPMUX
+	bool
+	prompt "rtpmux"
+
+config GST_PLUGINS_BAD_SCALETEMPO
+	bool
+	prompt "scaletempo"
+
+config GST_PLUGINS_BAD_SDP
+	bool
+	prompt "sdp"
+
+config GST_PLUGINS_BAD_SELECTOR
+	bool
+	prompt "selector"
+
+config GST_PLUGINS_BAD_SHAPEWIPE
+	bool
+	prompt "shapewipe"
+
+config GST_PLUGINS_BAD_SIREN
+	bool
+	prompt "siren"
+
+config GST_PLUGINS_BAD_SPEED
+	bool
+	prompt "speed"
+
+config GST_PLUGINS_BAD_SUBENC
+	bool
+	prompt "subenc"
+
+config GST_PLUGINS_BAD_STEREO
+	bool
+	prompt "stereo"
+
+config GST_PLUGINS_BAD_TTA
+	bool
+	prompt "tta"
+
+config GST_PLUGINS_BAD_VALVE
+	bool
+	prompt "valve"
+
+config GST_PLUGINS_BAD_VIDEOMEASURE
+	bool
+	prompt "videomeasure"
+
+config GST_PLUGINS_BAD_VIDEOSIGNAL
+	bool
+	prompt "videosignal"
+
+config GST_PLUGINS_BAD_VMNC
+	bool
+	prompt "vmnc"
+
+config GST_PLUGINS_BAD_DIRECTSOUND
+	bool
+	prompt "directsound"
+
+config GST_PLUGINS_BAD_DIRECTDRAW
+	bool
+	prompt "directdraw"
+
+config GST_PLUGINS_BAD_OSX_VIDEO
+	bool
+	prompt "osx_video"
+
+config GST_PLUGINS_BAD_QUICKTIME
+	bool
+	prompt "quicktime"
+
+config GST_PLUGINS_BAD_VCD
+	bool
+	prompt "vcd"
+
+config GST_PLUGINS_BAD_ALSA
+	bool
+	prompt "alsa"
+
+config GST_PLUGINS_BAD_ASSRENDER
+	bool
+	prompt "assrender"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_AMRWB
+	bool
+	prompt "amrwb"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_APEXSINK
+	bool
+	prompt "apexsink"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_BZ2
+	bool
+	prompt "bz2"
+
+config GST_PLUGINS_BAD_CDAUDIO
+	bool
+	prompt "cdaudio"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_CELT
+	bool
+	prompt "celt"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_COG
+	bool
+	prompt "cog"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_DC1394
+	bool
+	prompt "dc1394"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_DIRECTFB
+	bool
+	prompt "directfb"
+
+config GST_PLUGINS_BAD_DIRAC
+	bool
+	prompt "dirac"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_DTS
+	bool
+	prompt "dts"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_DIVX
+	bool
+	prompt "divx"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_DVDNAV
+	bool
+	prompt "dvdnav"
+
+config GST_PLUGINS_BAD_METADATA
+	bool
+	prompt "metadata"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_FAAC
+	bool
+	prompt "faac"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_FAAD
+	bool
+	prompt "faad"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_FBDEV
+	bool
+	prompt "fbdev"
+
+config GST_PLUGINS_BAD_GSM
+	bool
+	prompt "gsm"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_IVORBIS
+	bool
+	prompt "ivorbis"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_JACK
+	bool
+	prompt "jack"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_JP2K
+	bool
+	prompt "jp2k"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_KATE
+	bool
+	prompt "kate"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_LADSPA
+	bool
+	prompt "ladspa"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_LV2
+	bool
+	prompt "lv2"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_LIBMMS
+	bool
+	prompt "libmms"
+
+config GST_PLUGINS_BAD_MODPLUG
+	bool
+	prompt "modplug"
+
+config GST_PLUGINS_BAD_MIMIC
+	bool
+	prompt "mimic"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_MPEG2ENC
+	bool
+	prompt "mpeg2enc"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_MPLEX
+	bool
+	prompt "mplex"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_MUSEPACK
+	bool
+	prompt "musepack"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_MUSICBRAINZ
+	bool
+	prompt "musicbrainz"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_MYTHTV
+	bool
+	prompt "mythtv"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_NAS
+	bool
+	prompt "nas"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_NEON
+	bool
+	prompt "neon"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_OFA
+	bool
+	prompt "ofa"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_RSVG
+	bool
+	prompt "rsvg"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_TIMIDITY
+	bool
+	prompt "timidity"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_WILDMIDI
+	bool
+	prompt "wildmidi"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_SDL
+	bool
+	prompt "sdl"
+
+config GST_PLUGINS_BAD_SNDFILE
+	bool
+	prompt "sndfile"
+
+config GST_PLUGINS_BAD_SOUNDTOUCH
+	bool
+	prompt "soundtouch"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_SPC
+	bool
+	prompt "spc"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_GME
+	bool
+	prompt "gme"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_SWFDEC
+	bool
+	prompt "swfdec"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_THEORADEC
+	bool
+	prompt "theoradec"
+
+config GST_PLUGINS_BAD_XVID
+	bool
+	prompt "xvid"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_DVB
+	bool
+	prompt "dvb"
+
+config GST_PLUGINS_BAD_OSS4
+	bool
+	prompt "oss4"
+
+config GST_PLUGINS_BAD_WININET
+	bool
+	prompt "wininet"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_ACM
+	bool
+	prompt "acm"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_VDPAU
+	bool
+	prompt "vdpau"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_SCHRO
+	bool
+	prompt "schro"
+
+config GST_PLUGINS_BAD_ZBAR
+	bool
+	prompt "zbar"
+	depends on BROKEN
 
 endif
 

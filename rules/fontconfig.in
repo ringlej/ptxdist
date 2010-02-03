@@ -34,11 +34,34 @@ config FONTCONFIG_UTILS
 	    builds font information cache files for applications
 	    using fontconfig for their font handling.
 
-config FONTCONFIG_CONFS
-	bool "install configuration files for Fontconfig"
+config FONTCONFIG_DTD
+	bool "install DTD file for Fontconfig"
 	default y
 	help
-	  This installs configuration files of fontconfig,
-	  subpixeling is turned on by default
+	  This installs the fonts.dtd file.
+
+choice
+	prompt "install configuration files for Fontconfig"
+	default FONTCONFIG_CONFS_DEFAULT
+
+	config FONTCONFIG_CONFS_NONE
+		bool "don't install config file"
+		help
+		  Choose this if you don't want to install
+		  a fonts.conf file.
+
+	config FONTCONFIG_CONFS_DEFAULT
+		bool "default config"
+		help
+		  This installs a default fonts.conf file of fontconfig,
+		  subpixeling is turned on by default.
+
+	config FONTCONFIG_CONFS_CUSTOM
+		bool "custom config"
+		help
+		  This installs a custom fonts.conf file of fontconfig.
+
+endchoice
 
 endif
+

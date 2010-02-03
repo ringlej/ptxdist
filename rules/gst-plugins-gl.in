@@ -1,0 +1,18 @@
+## SECTION=multimedia_gstreamer
+
+config GST_PLUGINS_GL
+	tristate
+	select GLIB
+	select GSTREAMER
+	select GST_PLUGINS_BASE
+	select XORG_LIB_X11
+	select XORG_SERVER_EXT_GLX
+	select MESALIB
+	select GLEW
+	prompt "gst-plugins-gl"
+	help
+	  The GStreamer OpenGL module provides helper
+	  libraries, base classes and elements for
+	  integrating with OpenGL and using it to perform
+	  video display and processing.
+
