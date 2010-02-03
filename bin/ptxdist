@@ -1875,7 +1875,7 @@ parse_second()
 				echo "${PROMPT}'newpackage' directly."
 			fi
 
-			if [ \! -d "rules" ]; then
+			if [ \! -d "rules" -a "${1}" != "help" ]; then
 				echo
 				echo "${PROMPT}error: no rules/ directory found"
 				echo "${PROMPT}error: please call from a workspace or ptxdist directory"
