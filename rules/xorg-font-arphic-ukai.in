@@ -1,0 +1,8 @@
+## SECTION=multimedia_xorg_font_other
+
+config XORG_FONT_ARPHIC_UKAI
+	bool
+	select XORG_FONTS
+	prompt "'AR PL UKai' Chinese font collection Kaiti style"
+	help
+	  FIXME
