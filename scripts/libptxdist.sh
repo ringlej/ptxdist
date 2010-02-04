@@ -591,7 +591,7 @@ ptxd_ipkg_rev_upstream() {
 #
 # get packet revision part of already split ipkg filename
 #
-ptxd_ipkg_rev_packet() {
+ptxd_ipkg_rev_package() {
 	echo $4
 }
 
@@ -608,10 +608,10 @@ ptxd_ipkg_rev_smaller() {
 
 	local first=`ptxd_ipkg_split $1`
 	local first_rev_upstream=`ptxd_ipkg_rev_upstream $first`
-	local first_rev_packet=`ptxd_ipkg_rev_packet $first`
+	local first_rev_packet=`ptxd_ipkg_rev_package $first`
 	local second=`ptxd_ipkg_split $2`
 	local second_rev_upstream=`ptxd_ipkg_rev_upstream $second`
-	local second_rev_packet=`ptxd_ipkg_rev_packet $second`
+	local second_rev_packet=`ptxd_ipkg_rev_package $second`
 	local first_major=`echo $first_rev_upstream | awk -F. '{print $1}'`
 	local first_minor=`echo $first_rev_upstream | awk -F. '{print $2}'`
 	local first_micro=`echo $first_rev_upstream | awk -F. '{print $3}'`
