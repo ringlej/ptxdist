@@ -4,3 +4,4 @@
 0003-fdisk_osf-silence-warning.patch
 0004-sha1-silence-warning-on-big-endian-platforms.patch
 0005-mkfs_vfat-silence-errors-on-BE-platforms.patch
+0006-ifplugd-restore-auto-ifup-unless--a.patch
