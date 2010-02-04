@@ -25,6 +25,15 @@ config XORG_FONTS
 	select HOST_XORG_APP_BDFTOPCF
 	select HOST_XORG_FONT_UTIL
 
+config XORG_FONTS_QT4_LINKS
+	depends on QT4_PLATFORM_EMBEDDED
+	bool
+	prompt "Make fonts accessable for QtEmbedded"
+	help
+	  QtEmbedded only looks in one directory for fonts.  This will create
+	  links to all fonts int the Qt Font directory to allow QtEmbedded
+	  applications to use these fonts.
+
 source "generated/multimedia_xorg_font.in"
 endif
 

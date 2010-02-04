@@ -111,6 +111,15 @@ $(STATEDIR)/xorg-fonts.targetinstall.post:
 			$(XORG_FONTS_DIR_INSTALL)/$$file, \
 			$(XORG_FONTDIR)/$$file, n); \
 	done
+ifdef PTXCONF_XORG_FONTS_QT4_LINKS
+	@cd $(XORG_FONTS_DIR_INSTALL); \
+	find . -type f | while read file; do \
+		name=`basename $$file`; \
+		$(call install_link, xorg-fonts, \
+			../../..$(XORG_FONTDIR)/$$file, \
+			/usr/lib/fonts/$$name); \
+	done
+endif
 
 	@$(call install_finish, xorg-fonts)
 
