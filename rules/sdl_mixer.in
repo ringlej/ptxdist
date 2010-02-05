@@ -1,12 +1,50 @@
 ## SECTION=multimedia_sdl
 
-config SDL_MIXER
+menuconfig SDL_MIXER
 	tristate
 	prompt "SDL mixer"
 	select SDL
+	select LIBVORBIS	if SDL_MIXER_OGG
+	select LIBMAD		if SDL_MIXER_MP3
+	select FLAC		if SDL_MIXER_FLAC
 
 	help
 	  SDL Mixer is a sample multi-channel audio mixer library.
 	  It supports 4 channels of 16 bit stereo audio, plus a single
 	  channel of music, mixed by the popular MikMod MOD, Timidity
 	  MIDI, and SMPEG MP3 libraries.
+
+if SDL_MIXER
+
+config SDL_MIXER_WAVE
+	bool
+	prompt "WAVE support"
+
+config SDL_MIXER_MOD
+	bool
+	depends on BROKEN
+	prompt "MOD support"
+
+config SDL_MIXER_MIDI_TIMIDITY
+	bool
+	prompt "MIDI support (via timidity)"
+
+config SDL_MIXER_MIDI_NATIVE
+	bool
+	depends on BROKEN
+	prompt "MIDI support (native)"
+
+config SDL_MIXER_OGG
+	bool
+	prompt "OGG support"
+
+config SDL_MIXER_FLAC
+	bool
+	prompt "FLAC support"
+
+config SDL_MIXER_MP3
+	bool
+	prompt "MP3 support"
+
+endif
+

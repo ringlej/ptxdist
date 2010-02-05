@@ -1,0 +1,39 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: fix cross-compiling issue
+
+use AC_COMPILE_IFELSE instead of AC_TRY_RUN
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ configure.in |   14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -417,15 +417,17 @@ if test x$enable_music_flac = xyes; then
+         LIBS_SAVED="$LIBS"
+         LIBS="-lFLAC"
+         AC_MSG_CHECKING([for libflac so-name version >= $libflac_ver])
+-        AC_TRY_RUN([
++        AC_COMPILE_IFELSE([
+ #include "FLAC/export.h"
+-#include "stdio.h"
++
++#ifndef FLAC_API_VERSION_CURRENT
++#error no version
++#endif
++#if FLAC_API_VERSION_CURRENT < $libflac_ver
++#error too old
++#endif
+ int main( int argc, char *argv[] ) {
+-#if defined(FLAC_API_VERSION_CURRENT) && (FLAC_API_VERSION_CURRENT >= $libflac_ver)
+     return 0;
+-#else
+-    return 1;
+-#endif
+ }
+ ], have_flac_ver=yes, have_flac_ver=no)
+         LIBS="$LIBS_SAVED"

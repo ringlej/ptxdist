@@ -46,7 +46,56 @@ SDL_MIXER_ENV 	:= $(CROSS_ENV)
 SDL_MIXER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-sdl-prefix=$(SYSROOT)/usr \
-	--disable-music-mp3
+	--disable-music-mp3 \
+	
+
+ifdef PTXCONF_SDL_MIXER_WAVE
+SDL_MIXER_AUTOCONF += --enable-music-wave
+else
+SDL_MIXER_AUTOCONF += --disable-music-wave
+endif
+
+ifdef PTXCONF_SDL_MIXER_MOD
+SDL_MIXER_AUTOCONF += --enable-music-mod
+else
+SDL_MIXER_AUTOCONF += --disable-music-mod
+endif
+
+ifneq ($(PTXCONF_SDL_MIXER_MIDI_TIMIDITY)$(PTXCONF_SDL_MIXER_MIDI_NATIVE),)
+SDL_MIXER_AUTOCONF += --enable-music-midi
+else
+SDL_MIXER_AUTOCONF += --disable-music-midi
+endif
+
+ifdef PTXCONF_SDL_MIXER_MIDI_TIMIDITY
+SDL_MIXER_AUTOCONF += --enable-music-timidity-midi
+else
+SDL_MIXER_AUTOCONF += --disable-music-timidity-midi
+endif
+
+ifdef PTXCONF_SDL_MIXER_MIDI_NATIVE
+SDL_MIXER_AUTOCONF += --enable-music-native-midi-gpl
+else
+SDL_MIXER_AUTOCONF += --disable-music-native-midi-gpl
+endif
+
+ifdef PTXCONF_SDL_MIXER_OGG
+SDL_MIXER_AUTOCONF += --enable-music-ogg
+else
+SDL_MIXER_AUTOCONF += --disable-music-ogg
+endif
+
+ifdef PTXCONF_SDL_MIXER_FLAC
+SDL_MIXER_AUTOCONF += --enable-music-flac
+else
+SDL_MIXER_AUTOCONF += --disable-music-flac
+endif
+
+ifdef PTXCONF_SDL_MIXER_MP3
+SDL_MIXER_AUTOCONF += --enable-music-mp3-mad-gpl
+else
+SDL_MIXER_AUTOCONF += --disable-music-mp3-mad-gpl
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
