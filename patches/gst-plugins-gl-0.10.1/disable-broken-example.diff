@@ -1,0 +1,36 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: make sure gtk example builds for non X gtk
+
+With this patch tests/examples/gtk/gstgtk.c will compile with non X gtk.
+It won't do anything usefull, though.
+
+Not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ tests/examples/gtk/gstgtk.c |    4 ----
+ 1 file changed, 4 deletions(-)
+
+Index: b/tests/examples/gtk/gstgtk.c
+===================================================================
+--- a/tests/examples/gtk/gstgtk.c
++++ b/tests/examples/gtk/gstgtk.c
+@@ -7,8 +7,6 @@
+ #include <gdk/gdkx.h>
+ #elif defined(GDK_WINDOWING_QUARTZ)
+ #include <gdk/gdkquartz.h>
+-#else
+-#error unimplemented GTK backend
+ #endif
+ 
+ 
+@@ -23,8 +21,6 @@ gst_x_overlay_set_gtk_window (GstXOverla
+         (gulong)gdk_quartz_window_get_nswindow (window->window));
+ #elif defined(GDK_WINDOWING_X11)
+     gst_x_overlay_set_xwindow_id (xoverlay, GDK_WINDOW_XWINDOW(window->window));
+-#else
+-#error unimplemented GTK backend
+ #endif
+ 
+ }
