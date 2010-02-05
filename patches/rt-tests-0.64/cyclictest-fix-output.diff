@@ -1,0 +1,36 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: [PATCH] cyclictest: balance verbose output
+
+For verbose output cyclictest writes all available samples for each thread
+before handling the next thread. As a result the samples of the same cycle
+may be hundreds of lines apart.
+This patch forces the writer thread to switch to the next thread even if
+more samples are available.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ src/cyclictest/cyclictest.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Index: b/src/cyclictest/cyclictest.c
+===================================================================
+--- a/src/cyclictest/cyclictest.c
++++ b/src/cyclictest/cyclictest.c
+@@ -1147,6 +1147,7 @@ static void print_hist(struct thread_par
+ static void print_stat(struct thread_param *par, int index, int verbose)
+ {
+ 	struct thread_stat *stat = par->stats;
++	int i;
+ 
+ 	if (!verbose) {
+ 		if (quiet != 1) {
+@@ -1163,7 +1164,7 @@ static void print_stat(struct thread_par
+ 			       (long)(stat->avg/stat->cycles) : 0, stat->max);
+ 		}
+ 	} else {
+-		while (stat->cycles != stat->cyclesread) {
++		for (i = 0; (i < 5) && (stat->cycles != stat->cyclesread); ++i) {
+ 			long diff = stat->values
+ 			    [stat->cyclesread & par->bufmsk];
+ 
