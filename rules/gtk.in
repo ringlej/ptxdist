@@ -5,6 +5,7 @@ menu "gtk+                          "
 config GTK
 	tristate
 	prompt "gtk+                          "
+	select HOST_GTK_DOC
 	select GLIB
 	select ATK
 	select PANGO
