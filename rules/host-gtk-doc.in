@@ -1,0 +1,5 @@
+## SECTION=host_gtk
+
+config HOST_GTK_DOC
+	tristate
+
