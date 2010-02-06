@@ -74,7 +74,7 @@ $(STATEDIR)/glew.targetinstall:
 	@$(call install_fixup, glew,DESCRIPTION,missing)
 
 	@$(call install_copy, glew, 0, 0, 0644, -, /usr/lib/libGLEW.so.1.5.2)
-	@$(call install_link, glew, libGLEW.so.1.5.2, /usr/lib/libGLEW.so.1)
+	@$(call install_link, glew, libGLEW.so.1.5.2, /usr/lib/libGLEW.so.1.5)
 	@$(call install_link, glew, libGLEW.so.1.5.2, /usr/lib/libGLEW.so)
 
 	@$(call install_finish, glew)
