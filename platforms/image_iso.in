@@ -5,6 +5,7 @@ menuconfig IMAGE_ISO
 	select SYSLINUX
 	select HOST_CDRKIT
 	select IMAGE_CPIO
+	depends on ARCH_X86
 	prompt "Generate images/bootcd.iso    "
 	help
 	  build a bootable cd image
