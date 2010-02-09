@@ -1,0 +1,66 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: make sgutils2 dependency optional
+
+This patch adds a configure option for sgutils2.
+When disabled, the helper program using it will not be built.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ configure.ac    |   21 +++++++++++++--------
+ src/Makefile.am |    5 ++++-
+ 2 files changed, 17 insertions(+), 9 deletions(-)
+
+Index: b/configure.ac
+===================================================================
+--- a/configure.ac
++++ b/configure.ac
+@@ -109,15 +109,20 @@ if test "x$GCC" = "xyes"; then
+   changequote([,])dnl
+ fi
+ 
+-have_sgutils="false"
+-AC_CHECK_LIB([sgutils2], [sg_ll_inquiry], have_sgutils="true")
+-if test x$have_sgutils != "xtrue"; then
+-   AC_MSG_ERROR([libsgutils2 is needed])
++AC_ARG_ENABLE(sgutils2,        [  --disable-sgutils2],enable_sgutils2=$enableval,enable_sgutils2=yes)
++
++if test "x$enable_sgutils2" = xyes; then
++  have_sgutils="false"
++  AC_CHECK_LIB([sgutils2], [sg_ll_inquiry], have_sgutils="true")
++  if test x$have_sgutils != "xtrue"; then
++     AC_MSG_ERROR([libsgutils2 is needed])
++  fi
++  SGUTILS_CFLAGS=""
++  SGUTILS_LIBS="-lsgutils2"
++  AC_SUBST(SGUTILS_CFLAGS)
++  AC_SUBST(SGUTILS_LIBS)
+ fi
+-SGUTILS_CFLAGS=""
+-SGUTILS_LIBS="-lsgutils2"
+-AC_SUBST(SGUTILS_CFLAGS)
+-AC_SUBST(SGUTILS_LIBS)
++AM_CONDITIONAL(SGUTILS2_ENABLED, test "x$enable_sgutils2" = xyes)
+ 
+ 
+ PKG_CHECK_MODULES(GUDEV, [gudev-1.0 >= 001])
+Index: b/src/Makefile.am
+===================================================================
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -85,11 +85,14 @@ libexec_PROGRAMS += devkit-disks-helper-
+ 		    devkit-disks-helper-fstab-mounter			\
+ 		    devkit-disks-helper-ata-smart-collect		\
+ 		    devkit-disks-helper-ata-smart-selftest		\
+-		    devkit-disks-helper-drive-detach			\
+ 		    devkit-disks-helper-drive-poll			\
+ 		    devkit-disks-helper-linux-md-check			\
+ 		    $(NULL)
+ 
++if SGUTILS2_ENABLED
++libexec_PROGRAMS += devkit-disks-helper-drive-detach
++endif
++
+ libexec_SCRIPTS = devkit-disks-helper-change-luks-password
+ 
+ devkit_disks_helper_mkfs_SOURCES = job-shared.h job-mkfs.c

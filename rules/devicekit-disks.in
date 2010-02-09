@@ -1,0 +1,35 @@
+## SECTION=shell_and_console
+
+config DEVICEKIT_DISKS
+	tristate
+	select HOST_LIBXSLT
+	select GLIB
+	select DBUS
+	select DBUS_GLIB
+	select POLKIT
+	select UDEV
+	select UDEV_LIBUDEV
+	select UDEV_LIBGUDEV
+	# busybox mount can't handle all the options
+	select UTIL_LINUX_NG
+	select UTIL_LINUX_NG_MOUNT
+	select UTIL_LINUX_NG_UMOUNT
+	select FAKE_OVERLAYFS		if DEVICEKIT_DISKS_FAKE_OVERLAYFS
+	select FAKE_OVERLAYFS_VAR_TMP	if DEVICEKIT_DISKS_FAKE_OVERLAYFS
+	select FAKE_OVERLAYFS_VAR_RUN	if DEVICEKIT_DISKS_FAKE_OVERLAYFS
+	prompt "devicekit"
+	help
+	  FIXME
+
+if DEVICEKIT_DISKS
+
+config DEVICEKIT_DISKS_FAKE_OVERLAYFS
+	bool
+	prompt "use fake overlayfs"
+	help
+	  This makes sure that all necessary directories and files
+	  are available and writeable on a readonly rootfs + tmpfs for
+	  writable directories.
+
+endif
+

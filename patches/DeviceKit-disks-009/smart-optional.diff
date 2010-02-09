@@ -1,0 +1,269 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: make libatasmart dependency optional
+
+This patch adds a configure option for libatasmart.
+When disabled, the helper programs using it will not be built.
+Any other code using libatasmart is guarded with appropriate ifdefs.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ configure.ac                      |   12 +++++++++---
+ src/Makefile.am                   |   12 +++++++++---
+ src/devkit-disks-device-private.c |    2 ++
+ src/devkit-disks-device-private.h |    6 ++++++
+ src/devkit-disks-device.c         |   12 ++++++++++++
+ tools/devkit-disks.c              |    6 ++++++
+ 6 files changed, 44 insertions(+), 6 deletions(-)
+
+Index: b/configure.ac
+===================================================================
+--- a/configure.ac
++++ b/configure.ac
+@@ -169,9 +169,15 @@ if test "x$enable_devmapper" = xyes; the
+ fi
+ AM_CONDITIONAL(DEVMAPPER_ENABLED, test "x$enable_devmapper" = xyes)
+ 
+-PKG_CHECK_MODULES(LIBATASMART, [libatasmart >= 0.14])
+-AC_SUBST(LIBATASMART_CFLAGS)
+-AC_SUBST(LIBATASMART_LIBS)
++AC_ARG_ENABLE(libatasmart,[  --disable-libatasmart],enable_libatasmart=$enableval,enable_libatasmart=yes)
++
++if test "x$enable_libatasmart" = xyes; then
++  PKG_CHECK_MODULES(LIBATASMART, [libatasmart >= 0.14])
++  AC_SUBST(LIBATASMART_CFLAGS)
++  AC_SUBST(LIBATASMART_LIBS)
++  AC_DEFINE(LIBATASMART_ENABLED,[1],[libatasmart enabled])
++fi
++AM_CONDITIONAL(LIBATASMART_ENABLED, test "x$enable_libatasmart" = xyes)
+ 
+ PKG_CHECK_MODULES(LIBUDEV, [libudev >= 142])
+ AC_SUBST(LIBUDEV_CFLAGS)
+Index: b/src/Makefile.am
+===================================================================
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -81,8 +81,6 @@ libexec_PROGRAMS += devkit-disks-helper-
+ 		    devkit-disks-helper-change-filesystem-label 	\
+ 		    devkit-disks-helper-linux-md-remove-component	\
+ 		    devkit-disks-helper-fstab-mounter			\
+-		    devkit-disks-helper-ata-smart-collect		\
+-		    devkit-disks-helper-ata-smart-selftest		\
+ 		    devkit-disks-helper-drive-poll			\
+ 		    devkit-disks-helper-linux-md-check			\
+ 		    $(NULL)
+@@ -124,6 +122,10 @@ devkit_disks_helper_change_filesystem_la
+ devkit_disks_helper_change_filesystem_label_CPPFLAGS = $(AM_CPPFLAGS)
+ devkit_disks_helper_change_filesystem_label_LDADD = $(GLIB_LIBS)
+ 
++if LIBATASMART_ENABLED
++libexec_PROGRAMS += devkit-disks-helper-ata-smart-collect		\
++		    devkit-disks-helper-ata-smart-selftest		\
++		    $(NULL)
+ devkit_disks_helper_ata_smart_selftest_SOURCES = job-shared.h job-ata-smart-selftest.c
+ devkit_disks_helper_ata_smart_selftest_CPPFLAGS = $(AM_CPPFLAGS) $(LIBATASMART_CFLAGS) $(GLIB_CFLAGS)
+ devkit_disks_helper_ata_smart_selftest_LDADD = $(LIBATASMART_LIBS) $(GLIB_LIBS)
+@@ -131,6 +133,7 @@ devkit_disks_helper_ata_smart_selftest_L
+ devkit_disks_helper_ata_smart_collect_SOURCES = job-ata-smart-collect.c
+ devkit_disks_helper_ata_smart_collect_CPPFLAGS = $(AM_CPPFLAGS) $(LIBATASMART_CFLAGS) $(GLIB_CFLAGS)
+ devkit_disks_helper_ata_smart_collect_LDADD = $(LIBATASMART_LIBS) $(GLIB_LIBS)
++endif
+ 
+ devkit_disks_helper_linux_md_remove_component_SOURCES = job-shared.h job-linux-md-remove-component.c
+ devkit_disks_helper_linux_md_remove_component_CPPFLAGS = $(AM_CPPFLAGS)
+@@ -154,7 +157,7 @@ devkit_disks_helper_drive_poll_LDADD =  
+ 
+ # TODO: move to udev
+ udevhelperdir = $(slashlibdir)/udev
+-udevhelper_PROGRAMS = devkit-disks-probe-ata-smart
++udevhelper_PROGRAMS =
+ 
+ if LIBPARTED_ENABLED
+ udevhelper_PROGRAMS += devkit-disks-part-id
+@@ -170,9 +173,12 @@ devkit_disks_dm_export_CPPFLAGS = $(AM_C
+ devkit_disks_dm_export_LDADD = $(DEVMAPPER_LIBS)
+ endif
+ 
++if LIBATASMART_ENABLED
++udevhelper_PROGRAMS += devkit-disks-probe-ata-smart
+ devkit_disks_probe_ata_smart_SOURCES = devkit-disks-probe-ata-smart.c
+ devkit_disks_probe_ata_smart_CPPFLAGS = $(AM_CPPFLAGS) $(LIBATASMART_CFLAGS)
+ devkit_disks_probe_ata_smart_LDADD = $(LIBATASMART_LIBS)
++endif
+ # end move to udev
+ 
+ # ----------------------------------------------------------------------------------------------------
+Index: b/src/devkit-disks-device-private.h
+===================================================================
+--- a/src/devkit-disks-device-private.h
++++ b/src/devkit-disks-device-private.h
+@@ -23,7 +23,9 @@
+ 
+ #include <dbus/dbus-glib.h>
+ #include <gudev/gudev.h>
++#ifdef LIBATASMART_ENABLED
+ #include <atasmart.h>
++#endif
+ 
+ #include "devkit-disks-types.h"
+ 
+@@ -195,7 +197,9 @@ struct DevkitDisksDevicePrivate
+ 
+         gboolean drive_ata_smart_is_available;
+         guint64 drive_ata_smart_time_collected;
++#ifdef LIBATASMART_ENABLED
+         SkSmartOverall drive_ata_smart_status;
++#endif
+         void *drive_ata_smart_blob;
+         gsize drive_ata_smart_blob_size;
+ 
+@@ -317,7 +321,9 @@ void devkit_disks_device_set_holders_obj
+ 
+ void devkit_disks_device_set_drive_ata_smart_is_available (DevkitDisksDevice *device, gboolean value);
+ void devkit_disks_device_set_drive_ata_smart_time_collected (DevkitDisksDevice *device, guint64 value);
++#ifdef LIBATASMART_ENABLED
+ void devkit_disks_device_set_drive_ata_smart_status (DevkitDisksDevice *device, SkSmartOverall value);
++#endif
+ void devkit_disks_device_set_drive_ata_smart_blob_steal (DevkitDisksDevice *device, gchar *blob, gsize blob_size);
+ 
+ 
+Index: b/src/devkit-disks-device.c
+===================================================================
+--- a/src/devkit-disks-device.c
++++ b/src/devkit-disks-device.c
+@@ -48,7 +48,9 @@
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ #include <gudev/gudev.h>
++#ifdef LIBATASMART_ENABLED
+ #include <atasmart.h>
++#endif
+ 
+ #include "devkit-disks-daemon.h"
+ #include "devkit-disks-device.h"
+@@ -539,6 +541,7 @@ get_property (GObject         *object,
+ 	case PROP_DRIVE_ATA_SMART_TIME_COLLECTED:
+ 		g_value_set_uint64 (value, device->priv->drive_ata_smart_time_collected);
+ 		break;
++#ifdef LIBATASMART_ENABLED
+ 	case PROP_DRIVE_ATA_SMART_STATUS:
+                 {
+                         const gchar *status;
+@@ -549,6 +552,7 @@ get_property (GObject         *object,
+                         g_value_set_string (value, status);
+                 }
+ 		break;
++#endif
+ 	case PROP_DRIVE_ATA_SMART_BLOB:
+                 {
+                         GArray *a;
+@@ -1119,7 +1123,9 @@ devkit_disks_device_init (DevkitDisksDev
+         device->priv->slaves_objpath = g_ptr_array_new ();
+         device->priv->holders_objpath = g_ptr_array_new ();
+ 
++#ifdef LIBATASMART_ENABLED
+         device->priv->drive_ata_smart_status = -1;
++#endif
+ }
+ 
+ static void
+@@ -7947,6 +7953,7 @@ devkit_disks_device_filesystem_set_label
+ 
+ /*--------------------------------------------------------------------------------------------------------------*/
+ 
++#ifdef LIBATASMART_ENABLED
+ /* may be called with context==NULL */
+ static void
+ drive_ata_smart_refresh_data_completed_cb (DBusGMethodInvocation *context,
+@@ -8120,6 +8127,7 @@ devkit_disks_device_drive_ata_smart_refr
+ out:
+         ;
+ }
++#endif /* LIBATASMART_ENABLED */
+ 
+ /* may be called with context==NULL */
+ gboolean
+@@ -8127,6 +8135,7 @@ devkit_disks_device_drive_ata_smart_refr
+                                                   char                 **options,
+                                                   DBusGMethodInvocation *context)
+ {
++#ifdef LIBATASMART_ENABLED
+         const gchar *action_id;
+ 
+         if (!device->priv->drive_ata_smart_is_available) {
+@@ -8153,6 +8162,9 @@ devkit_disks_device_drive_ata_smart_refr
+ 
+  out:
+         return TRUE;
++#else
++        return FALSE;
++#endif
+ }
+ 
+ /*--------------------------------------------------------------------------------------------------------------*/
+Index: b/src/devkit-disks-device-private.c
+===================================================================
+--- a/src/devkit-disks-device-private.c
++++ b/src/devkit-disks-device-private.c
+@@ -1133,6 +1133,7 @@ devkit_disks_device_set_drive_ata_smart_
+     }
+ }
+ 
++#ifdef LIBATASMART_ENABLED
+ void
+ devkit_disks_device_set_drive_ata_smart_status (DevkitDisksDevice *device, SkSmartOverall value)
+ {
+@@ -1142,6 +1143,7 @@ devkit_disks_device_set_drive_ata_smart_
+       emit_changed (device, "drive_ata_smart_status");
+     }
+ }
++#endif
+ 
+ void
+ devkit_disks_device_set_drive_ata_smart_blob_steal (DevkitDisksDevice *device, gchar *blob, gsize blob_size)
+Index: b/tools/devkit-disks.c
+===================================================================
+--- a/tools/devkit-disks.c
++++ b/tools/devkit-disks.c
+@@ -43,7 +43,9 @@
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
++#ifdef LIBATASMART_ENABLED
+ #include <atasmart.h>
++#endif
+ 
+ #include "devkit-disks-daemon-glue.h"
+ #include "devkit-disks-device-glue.h"
+@@ -829,6 +831,7 @@ ata_smart_status_to_desc (const gchar *s
+         return desc;
+ }
+ 
++#ifdef LIBATASMART_ENABLED
+ static gchar *
+ get_ata_smart_unit (guint unit, guint64 pretty_value)
+ {
+@@ -942,6 +945,7 @@ print_ata_smart_attr (SkDisk *d, const S
+         g_free (threshold_str);
+         g_free (pretty);
+ }
++#endif
+ 
+ static void
+ do_show_info (const char *object_path)
+@@ -1116,6 +1120,7 @@ do_show_info (const char *object_path)
+ 
+                 /* ------------------------------------------------------------------------------------------------- */
+ 
++#ifdef LIBATASMART_ENABLED
+                 if (!props->drive_ata_smart_is_available) {
+                         g_print ("    ATA SMART:                 not available\n");
+                 } else if (props->drive_ata_smart_time_collected == 0) {
+@@ -1162,6 +1167,7 @@ do_show_info (const char *object_path)
+ 
+ 
+                 }
++#endif
+ 
+                 /* ------------------------------------------------------------------------------------------------- */
+ 

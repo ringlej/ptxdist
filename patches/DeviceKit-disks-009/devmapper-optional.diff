@@ -1,0 +1,61 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: make devmapper dependency optional
+
+This patch adds a configure option for devmapper.
+When disabled, the helper program using it will not be built.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ configure.ac    |   11 ++++++++---
+ src/Makefile.am |    5 ++++-
+ 2 files changed, 12 insertions(+), 4 deletions(-)
+
+Index: b/configure.ac
+===================================================================
+--- a/configure.ac
++++ b/configure.ac
+@@ -160,9 +160,14 @@ if test "x$enable_libparted" = xyes; the
+ fi
+ AM_CONDITIONAL(LIBPARTED_ENABLED, test "x$enable_libparted" = xyes)
+ 
+-PKG_CHECK_MODULES(DEVMAPPER, [devmapper >= 1.02])
+-AC_SUBST(DEVMAPPER_CFLAGS)
+-AC_SUBST(DEVMAPPER_LIBS)
++AC_ARG_ENABLE(devmapper,[  --disable-devmapper],enable_devmapper=$enableval,enable_devmapper=yes)
++
++if test "x$enable_devmapper" = xyes; then
++  PKG_CHECK_MODULES(DEVMAPPER, [devmapper >= 1.02])
++  AC_SUBST(DEVMAPPER_CFLAGS)
++  AC_SUBST(DEVMAPPER_LIBS)
++fi
++AM_CONDITIONAL(DEVMAPPER_ENABLED, test "x$enable_devmapper" = xyes)
+ 
+ PKG_CHECK_MODULES(LIBATASMART, [libatasmart >= 0.14])
+ AC_SUBST(LIBATASMART_CFLAGS)
+Index: b/src/Makefile.am
+===================================================================
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -154,7 +154,7 @@ devkit_disks_helper_drive_poll_LDADD =  
+ 
+ # TODO: move to udev
+ udevhelperdir = $(slashlibdir)/udev
+-udevhelper_PROGRAMS = devkit-disks-dm-export devkit-disks-probe-ata-smart
++udevhelper_PROGRAMS = devkit-disks-probe-ata-smart
+ 
+ if LIBPARTED_ENABLED
+ udevhelper_PROGRAMS += devkit-disks-part-id
+@@ -163,9 +163,12 @@ devkit_disks_part_id_CPPFLAGS = $(AM_CPP
+ devkit_disks_part_id_LDADD = $(GLIB_LIBS) $(LIBUDEV_LIBS) libpartutil.la
+ endif
+ 
++if DEVMAPPER_ENABLED
++udevhelper_PROGRAMS += devkit-disks-dm-export
+ devkit_disks_dm_export_SOURCES = devkit-disks-dm-export.c
+ devkit_disks_dm_export_CPPFLAGS = $(AM_CPPFLAGS) $(DEVMAPPER_CFLAGS)
+ devkit_disks_dm_export_LDADD = $(DEVMAPPER_LIBS)
++endif
+ 
+ devkit_disks_probe_ata_smart_SOURCES = devkit-disks-probe-ata-smart.c
+ devkit_disks_probe_ata_smart_CPPFLAGS = $(AM_CPPFLAGS) $(LIBATASMART_CFLAGS)
