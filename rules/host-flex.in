@@ -1,0 +1,7 @@
+## SECTION=hosttools_noprompt
+
+config HOST_FLEX
+	tristate
+	help
+	  Flex, the fast lexical analyser generator.
+
