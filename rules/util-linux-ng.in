@@ -4,15 +4,18 @@ menuconfig UTIL_LINUX_NG
 	tristate
 	prompt "util-linux-ng                 "
 	select HOST_GETTEXT
-	# select LIBC_UTIL
-	# we may need libuuid from E2FSPROGS, but we always need blkid
-	select E2FSPROGS
-	select E2FSPROGS_LIBBLKID
-	select E2FSPROGS_LIBUUID	if UTIL_LINUX_NG_MKSWAP_UUID
-	select NCURSES			if UTIL_LINUX_NG_USES_NCURSES
-	select UTIL_LINUX_NG_USES_NCURSES if UTIL_LINUX_NG_CFDISK || UTIL_LINUX_NG_SETTERM
+	select UTIL_LINUX_NG_LIBBLKID
+	select UTIL_LINUX_NG_LIBUUID		if UTIL_LINUX_NG_MKSWAP_UUID
+	select NCURSES				if UTIL_LINUX_NG_USES_NCURSES
+	select UTIL_LINUX_NG_USES_NCURSES 	if UTIL_LINUX_NG_CFDISK || UTIL_LINUX_NG_SETTERM
 
 if UTIL_LINUX_NG
+
+config UTIL_LINUX_NG_LIBBLKID
+	bool
+
+config UTIL_LINUX_NG_LIBUUID
+	bool
 
 config UTIL_LINUX_NG_USES_NCURSES
 	bool
@@ -153,5 +156,21 @@ config UTIL_LINUX_NG_MCOOKIE
 	help
 	  mcookie generates a 128-bit random hexadecimal number for
 	  use with the X authority system.
+
+config UTIL_LINUX_NG_INSTALL_UUIDGEN
+	bool
+	select UTIL_LINUX_NG_LIBUUID
+	prompt "uuidgen"
+	help
+	  Enable support for uuidgen program.
+
+config UTIL_LINUX_NG_INSTALL_BLKID
+	bool
+	select UTIL_LINUX_NG_LIBBLKID
+	select UTIL_LINUX_NG_LIBUUID
+	prompt "blkid"
+	help
+	  Enable support for blkid program.
+
 
 endif

@@ -1,0 +1,12 @@
+## SECTION=hosttools_noprompt
+
+config HOST_LIBBLKID
+	tristate
+	select HOST_UTIL_LINUX_NG
+	help
+	  Helper to select the host packet containing a recent libblkid.so
+	  library and its header.
+	  
+	  The following packages provide libblkid:
+	  - e2fsprogs      (older version)
+	  - utils-linux-ng (more recent version)

@@ -1,0 +1,14 @@
+## SECTION=system_libraries
+
+config LIBBLKID
+	tristate
+	select LIBUUID
+	select UTIL_LINUX_NG
+	select UTIL_LINUX_NG_LIBBLKID
+	help
+	  Helper to select the target packet containing a recent libblkid.so
+	  library and its header.
+	  
+	  The following packages provide libblkid:
+	  - e2fsprogs      (older version)
+	  - utils-linux-ng (more recent version)

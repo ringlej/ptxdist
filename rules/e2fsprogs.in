@@ -4,6 +4,8 @@ menuconfig E2FSPROGS
 	tristate
 	prompt "e2fsprogs                     "
 	select HOST_GETTEXT
+	select LIBBLKID	if E2FSPROGS_LIBBLKID
+	select LIBUUID	if E2FSPROGS_LIBUUID
 	help
 	 The e2fsprogs package provides the filesystem utilities for use
 	 with the ext2 filesystem. It also supports the ext3 filesystem
@@ -105,13 +107,6 @@ config E2FSPROGS_INSTALL_LSATTR
 	help
 	  Enable support for lsattr program.
 
-config E2FSPROGS_INSTALL_UUIDGEN
-	bool
-	select E2FSPROGS_LIBUUID
-	prompt "uuidgen"
-	help
-	  Enable support for uuidgen program.
-
 # -----
 
 config E2FSPROGS_INSTALL_BADBLOCKS
@@ -122,15 +117,6 @@ config E2FSPROGS_INSTALL_BADBLOCKS
 	help
 	  Enable support for badblocks program.
 
-config E2FSPROGS_INSTALL_BLKID
-	bool
-	select E2FSPROGS_LIBBLKID
-	select E2FSPROGS_LIBCOM_ERR
-	select E2FSPROGS_LIBEXT2FS
-	select E2FSPROGS_LIBUUID
-	prompt "blkid"
-	help
-	  Enable support for blkid program.
 
 config E2FSPROGS_INSTALL_DUMPE2FS
 	bool
