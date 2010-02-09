@@ -9,7 +9,7 @@ config NETWORKMANAGER
 	select LIBUUID
 	# FIXME: hal can be configured without policy-kit, but networkmanager depends on it
 	select HAL
-	select HAL__POLKIT
+	select HAL_POLKIT
 	prompt "networkmanager"
 	help
 	  NetworkManager is a tool to automate network configuration as far as

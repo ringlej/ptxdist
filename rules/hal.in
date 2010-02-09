@@ -7,9 +7,9 @@ menuconfig HAL
 	select DBUS
 	select GLIB
 	select DBUS_GLIB
-	select POLICYKIT if HAL__POLKIT
-	# FIXME: why is this dependency necessary?
-	select UDEV__EXTRA_VOLUME_ID
+	select LIBBLKID
+	select POLKIT		if HAL_POLKIT
+	select CONSOLEKIT	if HAL_POLKIT
 	prompt "hal                           "
 	help
 	  hal is a dbus service which provides userspace access for all
@@ -17,7 +17,7 @@ menuconfig HAL
 
 if HAL
 
-config HAL__POLKIT
+config HAL_POLKIT
 	bool
 	prompt "policy kit support"
 

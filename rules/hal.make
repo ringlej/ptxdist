@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_HAL) += hal
 #
 # Paths and names
 #
-HAL_VERSION	:= 0.5.12rc1
+HAL_VERSION	:= 0.5.14
 HAL		:= hal-$(HAL_VERSION)
 HAL_SUFFIX	:= tar.bz2
 HAL_URL		:= http://hal.freedesktop.org/releases/$(HAL).$(HAL_SUFFIX)
@@ -65,7 +65,6 @@ HAL_AUTOCONF := \
 	--disable-parted \
 	--disable-usb \
 	--disable-smbios \
-	--disable-console-kit \
 	--disable-acl-management \
 	--disable-umount-helper \
 	--disable-acpi \
@@ -78,10 +77,10 @@ HAL_AUTOCONF := \
 	--with-hal-user=haldaemon \
 	--with-hal-group=haldaemon
 
-ifdef PTXCONF_HAL__POLKIT
-HAL_AUTOCONF += --enable-policy-kit
+ifdef PTXCONF_HAL_POLKIT
+HAL_AUTOCONF += --enable-policy-kit --enable-console-kit
 else
-HAL_AUTOCONF += --disable-policy-kit
+HAL_AUTOCONF += --disable-policy-kit --disable-console-kit
 endif
 
 #  --with-os-type=<os>     Distribution or OS (redhat)
@@ -127,6 +126,7 @@ $(STATEDIR)/hal.targetinstall:
 #	# binaries
 	@for i in \
 		/usr/bin/hal-is-caller-locked-out \
+		/usr/bin/hal-is-caller-privileged \
 		/usr/bin/hal-set-property \
 		/usr/bin/hal-device \
 		/usr/bin/hal-find-by-capability \
@@ -164,6 +164,7 @@ $(STATEDIR)/hal.targetinstall:
 		/usr/libexec/hald-runner \
 		/usr/libexec/hald-addon-generic-backlight \
 		/usr/libexec/hal-storage-cleanup-mountpoint \
+		/usr/libexec/hald-addon-leds \
 	; do \
 		$(call install_copy, hal, 0, 0, 0755, -, $$i); \
 	done
@@ -182,9 +183,24 @@ $(STATEDIR)/hal.targetinstall:
 		/usr/share/hal/fdi/policy/10osvendor/10-cpufreq.fdi \
 		/usr/share/hal/fdi/policy/10osvendor/10-tabletPCs.fdi \
 		/usr/share/hal/fdi/policy/10osvendor/10-power-mgmt-policy.fdi \
+		/usr/share/hal/fdi/policy/10osvendor/10-leds.fdi \
 	; do \
 		$(call install_copy, hal, 0, 0, 0644, -, $$i); \
 	done
+
+ifdef PTXCONF_HAL_POLKIT
+	@for i in \
+		/usr/share/PolicyKit/policy/org.freedesktop.hal.policy \
+		/usr/share/PolicyKit/policy/org.freedesktop.hal.power-management.policy \
+		/usr/share/PolicyKit/policy/org.freedesktop.hal.storage.policy \
+		/usr/share/PolicyKit/policy/org.freedesktop.hal.wol.policy \
+		/usr/share/PolicyKit/policy/org.freedesktop.hal.leds.policy \
+		/usr/share/PolicyKit/policy/org.freedesktop.hal.dockstation.policy \
+		/usr/share/PolicyKit/policy/org.freedesktop.hal.killswitch.policy \
+	; do \
+		$(call install_copy, hal, 0, 0, 0644, -, $$i); \
+	done
+endif
 
 #	# libs
 	@$(call install_copy, hal, 0, 0, 0644, -, /usr/lib/libhal.so.1.0.0)
@@ -197,42 +213,42 @@ $(STATEDIR)/hal.targetinstall:
 
 #	# scripts
 	@for i in \
-		/usr/lib/hal/scripts/hal-dockstation-undock \
-		/usr/lib/hal/scripts/hal-system-lcd-get-brightness \
-		/usr/lib/hal/scripts/hal-system-killswitch-set-power \
-		/usr/lib/hal/scripts/hal-system-lcd-set-brightness \
-		/usr/lib/hal/scripts/hal-system-power-suspend-hybrid \
-		/usr/lib/hal/scripts/hal-system-power-shutdown \
-		/usr/lib/hal/scripts/hal-system-power-set-power-save \
-		/usr/lib/hal/scripts/linux/hal-system-killswitch-set-power-linux \
-		/usr/lib/hal/scripts/linux/hal-system-killswitch-get-power-linux \
-		/usr/lib/hal/scripts/linux/hal-system-power-set-power-save-linux \
-		/usr/lib/hal/scripts/linux/hal-luks-setup-linux \
-		/usr/lib/hal/scripts/linux/hal-system-wol-linux \
-		/usr/lib/hal/scripts/linux/hal-system-lcd-set-brightness-linux \
-		/usr/lib/hal/scripts/linux/hal-system-power-suspend-hybrid-linux \
-		/usr/lib/hal/scripts/linux/hal-system-lcd-get-brightness-linux \
-		/usr/lib/hal/scripts/linux/hal-system-wol-enable-linux \
-		/usr/lib/hal/scripts/linux/hal-luks-teardown-linux \
-		/usr/lib/hal/scripts/linux/hal-dockstation-undock-linux \
-		/usr/lib/hal/scripts/linux/hal-luks-remove-linux \
-		/usr/lib/hal/scripts/linux/hal-system-power-reboot-linux \
-		/usr/lib/hal/scripts/linux/hal-system-wol-enabled-linux \
-		/usr/lib/hal/scripts/linux/hal-system-power-shutdown-linux \
-		/usr/lib/hal/scripts/linux/hal-system-power-suspend-linux \
-		/usr/lib/hal/scripts/linux/hal-system-wol-supported-linux \
-		/usr/lib/hal/scripts/linux/hal-system-power-hibernate-linux \
-		/usr/lib/hal/scripts/hal-functions \
-		/usr/lib/hal/scripts/hal-system-power-suspend \
-		/usr/lib/hal/scripts/hal-luks-teardown \
-		/usr/lib/hal/scripts/hal-system-wol-enable \
-		/usr/lib/hal/scripts/hal-system-power-hibernate \
-		/usr/lib/hal/scripts/hal-system-wol-enabled \
-		/usr/lib/hal/scripts/hal-system-killswitch-get-power \
-		/usr/lib/hal/scripts/hal-system-wol-supported \
-		/usr/lib/hal/scripts/hal-luks-remove \
-		/usr/lib/hal/scripts/hal-luks-setup \
-		/usr/lib/hal/scripts/hal-system-power-reboot \
+		/usr/libexec/scripts/hal-dockstation-undock \
+		/usr/libexec/scripts/hal-system-lcd-get-brightness \
+		/usr/libexec/scripts/hal-system-killswitch-set-power \
+		/usr/libexec/scripts/hal-system-lcd-set-brightness \
+		/usr/libexec/scripts/hal-system-power-suspend-hybrid \
+		/usr/libexec/scripts/hal-system-power-shutdown \
+		/usr/libexec/scripts/hal-system-power-set-power-save \
+		/usr/libexec/scripts/linux/hal-system-killswitch-set-power-linux \
+		/usr/libexec/scripts/linux/hal-system-killswitch-get-power-linux \
+		/usr/libexec/scripts/linux/hal-system-power-set-power-save-linux \
+		/usr/libexec/scripts/linux/hal-luks-setup-linux \
+		/usr/libexec/scripts/linux/hal-system-wol-linux \
+		/usr/libexec/scripts/linux/hal-system-lcd-set-brightness-linux \
+		/usr/libexec/scripts/linux/hal-system-power-suspend-hybrid-linux \
+		/usr/libexec/scripts/linux/hal-system-lcd-get-brightness-linux \
+		/usr/libexec/scripts/linux/hal-system-wol-enable-linux \
+		/usr/libexec/scripts/linux/hal-luks-teardown-linux \
+		/usr/libexec/scripts/linux/hal-dockstation-undock-linux \
+		/usr/libexec/scripts/linux/hal-luks-remove-linux \
+		/usr/libexec/scripts/linux/hal-system-power-reboot-linux \
+		/usr/libexec/scripts/linux/hal-system-wol-enabled-linux \
+		/usr/libexec/scripts/linux/hal-system-power-shutdown-linux \
+		/usr/libexec/scripts/linux/hal-system-power-suspend-linux \
+		/usr/libexec/scripts/linux/hal-system-wol-supported-linux \
+		/usr/libexec/scripts/linux/hal-system-power-hibernate-linux \
+		/usr/libexec/scripts/hal-functions \
+		/usr/libexec/scripts/hal-system-power-suspend \
+		/usr/libexec/scripts/hal-luks-teardown \
+		/usr/libexec/scripts/hal-system-wol-enable \
+		/usr/libexec/scripts/hal-system-power-hibernate \
+		/usr/libexec/scripts/hal-system-wol-enabled \
+		/usr/libexec/scripts/hal-system-killswitch-get-power \
+		/usr/libexec/scripts/hal-system-wol-supported \
+		/usr/libexec/scripts/hal-luks-remove \
+		/usr/libexec/scripts/hal-luks-setup \
+		/usr/libexec/scripts/hal-system-power-reboot \
 	; do \
 		$(call install_copy, hal, 0, 0, 0644, -, $$i); \
 	done
@@ -251,7 +267,7 @@ $(STATEDIR)/hal.targetinstall:
 	@$(call install_copy, hal, 0, 0, 0755, /etc/hal/fdi/preprobe)
 
 #	# config files
-	@$(call install_copy, hal, 0, 0, 0644, -, /etc/udev/rules.d/90-hal.rules)
+	@$(call install_copy, hal, 0, 0, 0644, -, /usr/lib/udev/rules.d/90-hal.rules)
 	@$(call install_copy, hal, 0, 0, 0644, -, /etc/dbus-1/system.d/hal.conf)
 
 	@$(call install_finish, hal)
