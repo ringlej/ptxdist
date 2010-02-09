@@ -113,10 +113,12 @@ $(STATEDIR)/splashutils.targetinstall:
 
 	@$(call install_copy, splashutils, 0, 0, 0755, -, /sbin/splash-functions.sh,n)
 
+ifdef PTXCONF_ROOTFS_DEV_INITIAL
 	@$(call install_copy, splashutils, 0, 0, 0755, /dev)
 	@$(call install_node, splashutils, 0, 0, 0600, c, 29, 0, /dev/fb0)
 	@$(call install_node, splashutils, 0, 0, 0600, c, 4, 0, /dev/tty0)
 	@$(call install_node, splashutils, 0, 0, 0600, c, 4, 16, /dev/tty16)
+endif
 
 	@$(call install_alternative, splashutils, 0, 0, 0755, /etc/init.d/splashutils)
 	@$(call install_link, splashutils, ../init.d/splashutils, /etc/rc.d/S000splashutils)
