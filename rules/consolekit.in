@@ -1,0 +1,7 @@
+## SECTION=shell_and_console
+
+config CONSOLEKIT
+	tristate
+	prompt "ConsoleKit"
+	help
+	  FIXME
