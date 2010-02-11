@@ -16,13 +16,25 @@ PACKAGES-$(PTXCONF_KLIBC_UDEV) += klibc-udev
 #
 # Paths and names
 #
-KLIBC_UDEV		= klibc-$(UDEV)
-KLIBC_UDEV_SOURCE	= $(UDEV_SOURCE)
-KLIBC_UDEV_DIR		= $(KLIBC_BUILDDIR)/$(UDEV)
+KLIBC_UDEV_VERSION     := 140
+KLIBC_UDEV             := klibc-udev-$(KLIBC_UDEV_VERSION)
+KLIBC_UDEV_SUFFIX      := tar.bz2
+KLIBC_UDEV_SOURCE      := $(SRCDIR)/udev-$(KLIBC_UDEV_VERSION).$(KLIBC_UDEV_SUFFIX)
+KLIBC_UDEV_DIR         := $(KLIBC_BUILDDIR)/udev-$(KLIBC_UDEV_VERSION)
+KLIBC_UDEV_URL := \
+       http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev-$(KLIBC_UDEV_VERSION).$(KLIBC_UDEV_SUFFIX)
 
 ifdef PTXCONF_KLIBC_UDEV
 $(STATEDIR)/klibc.targetinstall.post: $(STATEDIR)/klibc-udev.targetinstall
 endif
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(KLIBC_UDEV_SOURCE):
+	@$(call targetinfo)
+	@$(call get, KLIBC_UDEV)
 
 # ----------------------------------------------------------------------------
 # Prepare
