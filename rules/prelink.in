@@ -11,5 +11,15 @@ config PRELINK
 	  need to be resolved at runtime and thus programs come up
 	  faster.
 
+if PRELINK
 
+config PRELINK_RC_ONCE
+	bool
+	select RC_ONCE
+	prompt "install rc.once.d script"
+	help
+	  install a script that will be run on the first boot to
+	  prelink all programs and libraries.
+
+endif
 

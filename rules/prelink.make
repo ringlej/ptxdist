@@ -63,6 +63,10 @@ $(STATEDIR)/prelink.targetinstall:
 	@$(call install_alternative, prelink, 0, 0, 0644, /etc/prelink.conf)
 	@$(call install_copy, prelink, 0, 0, 0755, -, /usr/sbin/prelink)
 
+ifdef PTXCONF_PRELINK_RC_ONCE
+	@$(call install_alternative, prelink, 0, 0, 0755, /etc/rc.once.d/prelink)
+endif
+
 	@$(call install_finish, prelink)
 
 	@$(call touch)
