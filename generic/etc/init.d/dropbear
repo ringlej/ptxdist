@@ -16,41 +16,10 @@ DROPBEAR_DSSKEY_DEFAULT="/etc/dropbear/dropbear_dss_host_key"
 
 test -z "$DROPBEAR_BANNER" || \
   DROPBEAR_EXTRA_ARGS="$DROPBEAR_EXTRA_ARGS -b $DROPBEAR_BANNER"
-test -n "$DROPBEAR_RSAKEY" || \
-  DROPBEAR_RSAKEY=$DROPBEAR_RSAKEY_DEFAULT
-test -n "$DROPBEAR_DSSKEY" || \
-  DROPBEAR_DSSKEY=$DROPBEAR_DSSKEY_DEFAULT
 test -n "$DROPBEAR_KEYTYPES" || \
   DROPBEAR_KEYTYPES="rsa dss"
 
-gen_key() {
-
-    key_type=$1
-    key_file=$2
-
-    mount_root_rw || exit
-    rm -f $key_file > /dev/null 2>&1
-
-    echo -n "generating $key_type key..."
-    dropbearkey -t $key_type -f $key_file > /dev/null 2>&1
-
-    if [ "$?" = "0" ]; then
-        echo "done"
-    else
-        echo "failed"
-        mount_root_restore
-        exit 1
-    fi
-
-    mount_root_restore || exit
-
-}
-
 dropbear_start() {
-
-    # create keys if necessary
-    [ \! -f "$DROPBEAR_RSAKEY" ] && gen_key rsa "$DROPBEAR_RSAKEY"
-    [ \! -f "$DROPBEAR_DSSKEY" ] && gen_key dss "$DROPBEAR_DSSKEY"
 
     KEY_ARGS=""
     test -f $DROPBEAR_DSSKEY && KEY_ARGS="$KEY_ARGS -d $DROPBEAR_DSSKEY"

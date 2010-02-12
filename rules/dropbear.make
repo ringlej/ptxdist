@@ -280,6 +280,7 @@ endif
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_DROPBEAR_STARTSCRIPT
 	@$(call install_alternative, dropbear, 0, 0, 0755, /etc/init.d/dropbear, n)
+	@$(call install_alternative, dropbear, 0, 0, 0755, /etc/rc.once.d/dropbear, n)
 endif
 endif
 
