@@ -1,0 +1,50 @@
+#!/bin/sh
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+RC_ONCE_DIR=/etc/rc.once.d
+DONE_DIR="$RC_ONCE_DIR/.done"
+STAMP="$DONE_DIR/rc-once"
+
+. /lib/init/initmethod-bbinit-functions.sh
+
+run_start() {
+	test -e "$STAMP" && return
+
+	mount_root_rw || exit 1
+
+	export RC_ONCE_FAILED=no
+	echo "running rc.once.d services..."
+	cd "$RC_ONCE_DIR" || exit 1
+	mkdir -p "$DONE_DIR"
+	for script in *; do
+		test -x "$script" || continue
+		test -e "$DONE_DIR/$script" && continue
+		"$RC_ONCE_DIR/$script"
+		if [ $? -ne 0 ]; then
+			echo "running $script failed."
+			RC_ONCE_FAILED=yes
+		else
+			: > "$DONE_DIR/$script"
+		fi
+	done
+	if [ "$RC_ONCE_FAILED" != "yes" ]; then
+		: > "$STAMP"
+	fi
+	mount_root_restore
+}
+
+case "$1" in
+
+	start)
+		run_start
+		;;
+
+	*)
+		echo "Usage: $0 {start}" >&2
+		exit 1
+		;;
+esac
+
+exit 0
+

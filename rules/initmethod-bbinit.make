@@ -363,6 +363,12 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_FAKE_OVERLAYFS)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_FAKE_OVERLAYFS))
 endif
 
+ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_RC_ONCE)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/rc-once, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_RC_ONCE))
+endif
+
 	@$(call install_finish, initmethod-bbinit)
 
 	@$(call touch)

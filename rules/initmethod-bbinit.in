@@ -279,6 +279,12 @@ config INITMETHOD_BBINIT_LINK_FAKE_OVERLAYFS
 	prompt "fake-overlayfs"
 	default "S00fake-overlayfs"
 
+config INITMETHOD_BBINIT_LINK_RC_ONCE
+	string
+	depends on RC_ONCE
+	prompt "rc-once"
+	default "S01rc-once"
+
 endmenu
 
 endif

@@ -1,0 +1,6 @@
+## SECTION=initmethod
+
+config RC_ONCE
+	tristate
+	prompt "rc.once"
+
