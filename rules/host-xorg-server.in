@@ -2,3 +2,4 @@
 
 config HOST_XORG_SERVER
 	bool
+	select HOST_XORG_UTIL_MACROS
