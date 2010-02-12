@@ -2,6 +2,7 @@
 
 config RTPS
 	tristate
+	depends on !BUSYBOX_PS
 	prompt "rtps"
 	select PROCPS
 	select PROCPS_PS
@@ -10,3 +11,6 @@ config RTPS
 
 	  this is just a wrapper around ps (from the procps package)
 	  with the "right" parameters
+
+comment "busybox's ps is enabled: rtps disabled"
+	depends on BUSYBOX_PS
