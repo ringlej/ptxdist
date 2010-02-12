@@ -1,0 +1,24 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: use /lib/ld-linux.so.3 as default dynamic linker
+
+EABI (/lib/ld-linux.so.3) is used more often than OABI (/lib/ld-linux.so.2)
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ src/arch-arm.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/src/arch-arm.c
+===================================================================
+--- a/src/arch-arm.c
++++ b/src/arch-arm.c
+@@ -832,7 +832,7 @@ PL_ARCH = {
+   .R_COPY = R_ARM_COPY,
+   .R_RELATIVE = R_ARM_RELATIVE,
+   .rtype_class_valid = RTYPE_CLASS_VALID,
+-  .dynamic_linker = "/lib/ld-linux.so.2",
++  .dynamic_linker = "/lib/ld-linux.so.3",
+   .adjust_dyn = arm_adjust_dyn,
+   .adjust_rel = arm_adjust_rel,
+   .adjust_rela = arm_adjust_rela,

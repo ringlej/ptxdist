@@ -1,0 +1,4 @@
+fsync.dpatch
+Makefile.in.dpatch
+prelink.h.dpatch
+arm_ld-linux.so.3.patch
