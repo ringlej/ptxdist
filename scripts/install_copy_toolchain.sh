@@ -58,14 +58,14 @@ ptxd_get_lib_path() {
     lib_path="$(${CC} -print-file-name=${lib})"
     if test "${lib_path}" = "${lib}"; then
 	echo "install_copy_toolchain_lib: ${lib} not found" >&2
-	return -1
+	return 1
     fi
     # let the shell canonicalized the path
     lib_dir="$(cd ${lib_path%/${lib}} && echo $PWD)"
 
     if test \! -d "${lib_dir}"; then
 	echo "install_copy_toolchain_lib: ${lib_dir} not found" >&2
-	return -1
+	return 1
     fi
 
     echo "${lib_dir}/${lib}"
@@ -266,7 +266,7 @@ ptxd_install_toolchain_lib() {
 	    fi
 	else
 	    echo "error: found ${lib_path}, but neither file nor link" 2>&1
-	    return -1
+	    return 1
 	fi
 
 	return 0
@@ -335,6 +335,7 @@ ptxd_install_toolchain_usr() {
 
     if test -z "$(find ${sysroot_usr} -path "${sysroot_usr}/${usr}" -a \! -type d)"; then
 	echo "file ${usr} not found"
+	return 1
     fi
 
     find ${sysroot_usr} -path "${sysroot_usr}/${usr}" -a \! -type d | while read usr_src; do
