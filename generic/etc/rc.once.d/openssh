@@ -1,0 +1,33 @@
+#!/bin/sh
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+OPENSSH_RSAKEY_DEFAULT="/etc/ssh/ssh_host_rsa_key"
+OPENSSH_DSAKEY_DEFAULT="/etc/ssh/ssh_host_dsa_key"
+
+test -n "$OPENSSH_RSAKEY" || \
+	OPENSSH_RSAKEY=$OPENSSH_RSAKEY_DEFAULT
+test -n "$OPENSSH_DSAKEY" || \
+	OPENSSH_DSAKEY=$OPENSSH_DSAKEY_DEFAULT
+
+gen_key() {
+
+	key_type=$1
+	key_file=$2
+
+	rm -f $key_file > /dev/null 2>&1
+
+	echo -n "generating $key_type key..."
+	ssh-keygen -t $key_type -f $key_file -N "" > /dev/null 2>&1
+
+	if [ "$?" = "0" ]; then
+		echo "done"
+	else
+		echo "failed"
+		exit 1
+	fi
+}
+
+gen_key rsa "$OPENSSH_RSAKEY"
+gen_key dsa "$OPENSSH_DSAKEY"
+

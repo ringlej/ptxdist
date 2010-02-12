@@ -94,6 +94,7 @@ endif
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_OPENSSH_SSHD_STARTSCRIPT
+	@$(call install_alternative, openssh, 0, 0, 0755, /etc/rc.once.d/openssh)
 	@$(call install_alternative, openssh, 0, 0, 0755, /etc/init.d/openssh)
 endif
 endif
