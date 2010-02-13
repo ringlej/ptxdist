@@ -105,7 +105,9 @@ SQLITE_AUTOCONF += --disable-tcl
 endif
 
 ifdef PTXCONF_SQLITE_READLINE
-SQLITE_AUTOCONF += --enable-readline
+SQLITE_AUTOCONF += \
+	--enable-readline \
+	--with-readline-inc="-I$(SYSROOT)/include/readline"
 else
 SQLITE_AUTOCONF += --disable-readline
 endif
