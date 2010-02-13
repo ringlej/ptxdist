@@ -1,6 +1,6 @@
 ## SECTION=shell_and_console
 
-config DEVICEKIT_DISKS
+menuconfig DEVICEKIT_DISKS
 	tristate
 	select HOST_LIBXSLT
 	select GLIB
@@ -17,7 +17,7 @@ config DEVICEKIT_DISKS
 	select FAKE_OVERLAYFS		if DEVICEKIT_DISKS_FAKE_OVERLAYFS
 	select FAKE_OVERLAYFS_VAR_TMP	if DEVICEKIT_DISKS_FAKE_OVERLAYFS
 	select FAKE_OVERLAYFS_VAR_RUN	if DEVICEKIT_DISKS_FAKE_OVERLAYFS
-	prompt "devicekit"
+	prompt "devicekit                     "
 	help
 	  FIXME
 
