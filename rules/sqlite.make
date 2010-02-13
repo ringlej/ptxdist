@@ -1,8 +1,9 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2004 by Ladislav Michl
-# Copyright (C) 2009 by Juergen Beisert <j.beisert@pengtronix.de>
-# Copyright (C) 2009 by Erwin Rol <erwin@erwinrol.com>
+#               2009 by Juergen Beisert <j.beisert@pengtronix.de>
+#               2009 by Erwin Rol <erwin@erwinrol.com>
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -42,8 +43,7 @@ SQLITE_PATH	:= PATH=$(CROSS_PATH)
 # don't use := here!
 SQLITE_ENV 	= \
 	$(CROSS_ENV) \
-	TCLLIBDIR=/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/sqlite3 \
-	LDFLAGS=-ldl
+	TCLLIBDIR=/usr/lib/tcl$(TCL_MAJOR).$(TCL_MINOR)/sqlite3
 
 SQLITE_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_USR) \
