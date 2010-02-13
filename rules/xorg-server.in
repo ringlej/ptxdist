@@ -6,6 +6,7 @@ menuconfig XORG_SERVER
 
 	select HOST_XORG_SERVER
 	select HOST_XORG_UTIL_MACROS
+	select HOST_XORG_LIB_XTRANS	# needed for autoreconf
 	#
 	# required dependencies, according to REQUIRED_MODULES
 	# and REQUIRED_LIBS in conrigure.ac:

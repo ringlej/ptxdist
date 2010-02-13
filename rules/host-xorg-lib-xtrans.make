@@ -19,6 +19,10 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_LIB_XTRANS) += host-xorg-lib-xtrans
 #
 HOST_XORG_LIB_XTRANS_DIR	= $(HOST_BUILDDIR)/$(XORG_LIB_XTRANS)
 
+ifdef PTXCONF_HOST_XORG_LIB_XTRANS
+$(STATEDIR)/autogen-tools: $(STATEDIR)/host-xorg-lib-xtrans.install
+endif
+
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
