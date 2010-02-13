@@ -19,7 +19,13 @@ menuconfig DEVICEKIT_DISKS
 	select FAKE_OVERLAYFS_VAR_RUN	if DEVICEKIT_DISKS_FAKE_OVERLAYFS
 	prompt "devicekit                     "
 	help
-	  FIXME
+	  abstraction for enumerating block devices
+
+	  DeviceKit-disks is an abstraction for enumerating block
+	  devices and performing operations on them. Any application
+	  can access the org.freedesktop.DeviceKit. Disks service on
+	  the system message bus. Some operations (such as formatting
+	  disks etc.) are restricted using PolicyKit.
 
 if DEVICEKIT_DISKS
 
