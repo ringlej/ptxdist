@@ -28,7 +28,7 @@
 # b) install from PKG_PKGDIR (result of 'make install'):
 #
 #     $5: "-": source is taken from $(PKG_PKGDIR)/$destination
-#     $6: destination;
+#     $6: destination
 #
 # binaries are stripped automatically
 #
@@ -177,7 +177,7 @@ install_alternative =									\
 		exit 1;									\
 	fi;										\
 	mkdir -p $(PKGDIR)/$$PACKET.tmp;						\
-	echo "f:$$FILE:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms;
+	echo "f:$$FILE:$$OWN:$$GRP:$$PER" >> $(STATEDIR)/$$PACKET.perms
 
 #
 # install_replace
@@ -215,7 +215,7 @@ install_replace = \
 	fi;											\
 	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(PKGDIR)/$$PACKET.tmp/ipkg/$$FILE;		\
 	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR)/$$FILE;				\
-	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR_DEBUG)/$$FILE;
+	sed -i -e "s,$$PLACEHOLDER,$$VALUE,g" $(ROOTDIR_DEBUG)/$$FILE
 
 #
 # install_copy_toolchain_lib
