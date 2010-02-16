@@ -11,70 +11,70 @@
 #
 # We provide this package
 #
-@CLASS@PACKAGES-$(PTXCONF_@CLASS@@PACKET@) += @class@@packet@
+@CLASS@PACKAGES-$(PTXCONF_@CLASS@@PACKAGE@) += @class@@package@
 
 #
 # Paths and names
 #
-@CLASS@@PACKET@_VERSION	:= @VERSION@
-@CLASS@@PACKET@		:= @packet_filename@-$(@CLASS@@PACKET@_VERSION)
-@CLASS@@PACKET@_SUFFIX	:= @SUFFIX@
-@CLASS@@PACKET@_URL	:= @URL@/$(@CLASS@@PACKET@).$(@CLASS@@PACKET@_SUFFIX)
-@CLASS@@PACKET@_SOURCE	:= $(SRCDIR)/$(@CLASS@@PACKET@).$(@CLASS@@PACKET@_SUFFIX)
-@CLASS@@PACKET@_DIR	:= $(@CLASS@BUILDDIR)/$(@CLASS@@PACKET@)
+@CLASS@@PACKAGE@_VERSION	:= @VERSION@
+@CLASS@@PACKAGE@		:= @packet_filename@-$(@CLASS@@PACKAGE@_VERSION)
+@CLASS@@PACKAGE@_SUFFIX	:= @SUFFIX@
+@CLASS@@PACKAGE@_URL	:= @URL@/$(@CLASS@@PACKAGE@).$(@CLASS@@PACKAGE@_SUFFIX)
+@CLASS@@PACKAGE@_SOURCE	:= $(SRCDIR)/$(@CLASS@@PACKAGE@).$(@CLASS@@PACKAGE@_SUFFIX)
+@CLASS@@PACKAGE@_DIR	:= $(@CLASS@BUILDDIR)/$(@CLASS@@PACKAGE@)
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(@CLASS@@PACKET@_SOURCE):
+$(@CLASS@@PACKAGE@_SOURCE):
 	@$(call targetinfo)
-	@$(call get, @CLASS@@PACKET@)
+	@$(call get, @CLASS@@PACKAGE@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-#@CLASS@@PACKET@_CONF_ENV	:= $(@AUTOCONF_CLASS@ENV)
+#@CLASS@@PACKAGE@_CONF_ENV	:= $(@AUTOCONF_CLASS@ENV)
 
 #
 # autoconf
 #
-@CLASS@@PACKET@_CONF_TOOL	:= autoconf
-#@CLASS@@PACKET@_CONF_OPT	:= $(@AUTOCONF_CLASS@AUTOCONF)
+@CLASS@@PACKAGE@_CONF_TOOL	:= autoconf
+#@CLASS@@PACKAGE@_CONF_OPT	:= $(@AUTOCONF_CLASS@AUTOCONF)
 
-#$(STATEDIR)/@class@@packet@.prepare:
+#$(STATEDIR)/@class@@package@.prepare:
 #	@$(call targetinfo)
-#	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
-#	cd $(@CLASS@@PACKET@_DIR) && \
-#		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
-#		./configure $(@CLASS@@PACKET@_CONF_OPT)
+#	@$(call clean, $(@CLASS@@PACKAGE@_DIR)/config.cache)
+#	cd $(@CLASS@@PACKAGE@_DIR) && \
+#		$(@CLASS@@PACKAGE@_PATH) $(@CLASS@@PACKAGE@_ENV) \
+#		./configure $(@CLASS@@PACKAGE@_CONF_OPT)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@class@@packet@.compile:
+#$(STATEDIR)/@class@@package@.compile:
 #	@$(call targetinfo)
-#	@$(call world/compile, @CLASS@@PACKET@)
+#	@$(call world/compile, @CLASS@@PACKAGE@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@class@@packet@.install:
+#$(STATEDIR)/@class@@package@.install:
 #	@$(call targetinfo)
-#	@$(call world/install, @CLASS@@PACKET@)
+#	@$(call world/install, @CLASS@@PACKAGE@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@class@@packet@.clean:
+#$(STATEDIR)/@class@@package@.clean:
 #	@$(call targetinfo)
-#	@$(call clean_pkg, @CLASS@@PACKET@)
+#	@$(call clean_pkg, @CLASS@@PACKAGE@)
 
 # vim: syntax=make

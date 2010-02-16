@@ -1,8 +1,8 @@
 ## SECTION=fixme
 
-config @PACKET@
+config @PACKAGE@
 	bool
 	select XORG_FONTS
-	prompt "@packet@"
+	prompt "@package@"
 	help
 	  FIXME

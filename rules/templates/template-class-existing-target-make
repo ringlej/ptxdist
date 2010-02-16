@@ -11,63 +11,63 @@
 #
 # We provide this package
 #
-@CLASS@PACKAGES-$(PTXCONF_@CLASS@@PACKET@) += @class@@packet@
+@CLASS@PACKAGES-$(PTXCONF_@CLASS@@PACKAGE@) += @class@@package@
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@class@@packet@.extract:
+#$(STATEDIR)/@class@@package@.extract:
 #	@$(call targetinfo)
-#	@$(call clean, $(@CLASS@@PACKET@_DIR))
-#	@$(call extract, @PACKET@, $(@CLASS@BUILDDIR))
-#	@$(call patchin, @PACKET@, $(@CLASS@@PACKET@_DIR))
+#	@$(call clean, $(@CLASS@@PACKAGE@_DIR))
+#	@$(call extract, @PACKAGE@, $(@CLASS@BUILDDIR))
+#	@$(call patchin, @PACKAGE@, $(@CLASS@@PACKAGE@_DIR))
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-#@CLASS@@PACKET@_CONF_ENV	:= $(@CLASS@ENV)
+#@CLASS@@PACKAGE@_CONF_ENV	:= $(@CLASS@ENV)
 
 #
 # autoconf
 #
-@CLASS@@PACKET@_CONF_TOOL	:= autoconf
-#@CLASS@@PACKET@_CONF_OPT	:= $(@AUTOCONF_CLASS@AUTOCONF)
+@CLASS@@PACKAGE@_CONF_TOOL	:= autoconf
+#@CLASS@@PACKAGE@_CONF_OPT	:= $(@AUTOCONF_CLASS@AUTOCONF)
 
-#$(STATEDIR)/@class@@packet@.prepare:
+#$(STATEDIR)/@class@@package@.prepare:
 #	@$(call targetinfo)
-#	@$(call clean, $(@CLASS@@PACKET@_DIR)/config.cache)
-#	cd $(@CLASS@@PACKET@_DIR) && \
-#		$(@CLASS@@PACKET@_PATH) $(@CLASS@@PACKET@_ENV) \
-#		./configure $(@CLASS@@PACKET@_CONF_OPT)
+#	@$(call clean, $(@CLASS@@PACKAGE@_DIR)/config.cache)
+#	cd $(@CLASS@@PACKAGE@_DIR) && \
+#		$(@CLASS@@PACKAGE@_PATH) $(@CLASS@@PACKAGE@_ENV) \
+#		./configure $(@CLASS@@PACKAGE@_CONF_OPT)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@class@@packet@.compile:
+#$(STATEDIR)/@class@@package@.compile:
 #	@$(call targetinfo)
-#	@$(call world/compile, @CLASS@@PACKET@)
+#	@$(call world/compile, @CLASS@@PACKAGE@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@class@@packet@.install:
+#$(STATEDIR)/@class@@package@.install:
 #	@$(call targetinfo)
-#	@$(call world/install, @CLASS@@PACKET@)
+#	@$(call world/install, @CLASS@@PACKAGE@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@class@@packet@.clean:
+#$(STATEDIR)/@class@@package@.clean:
 #	@$(call targetinfo)
-#	@$(call clean_pkg, @CLASS@@PACKET@)
+#	@$(call clean_pkg, @CLASS@@PACKAGE@)
 
 # vim: syntax=make

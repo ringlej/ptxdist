@@ -1,14 +1,14 @@
 ## SECTION=fixme
 
-config @PACKET@
+config @PACKAGE@
 	bool
-	prompt "@packet@"
+	prompt "@package@"
 	help
 	  FIXME
 
-if @PACKET@
+if @PACKAGE@
 
-config @PACKET@_TRUNK
+config @PACKAGE@_TRUNK
 	bool
 	prompt "use trunk"
 	help

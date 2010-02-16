@@ -11,29 +11,29 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 
 #
 # Paths and names
 #
-@PACKET@_VERSION	:= @VERSION@
-@PACKET@		:= @packet_filename@-$(@PACKET@_VERSION)
-@PACKET@_SUFFIX		:= @SUFFIX@
-@PACKET@_URL		:= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
+@PACKAGE@_VERSION	:= @VERSION@
+@PACKAGE@		:= @packet_filename@-$(@PACKAGE@_VERSION)
+@PACKAGE@_SUFFIX		:= @SUFFIX@
+@PACKAGE@_URL		:= @URL@/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
+@PACKAGE@_SOURCE		:= $(SRCDIR)/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
+@PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
 
-ifdef PTXCONF_@PACKET@
-$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/@packet@.targetinstall
+ifdef PTXCONF_@PACKAGE@
+$(STATEDIR)/xorg-fonts.targetinstall.post: $(STATEDIR)/@package@.targetinstall
 endif
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(@PACKET@_SOURCE):
+$(@PACKAGE@_SOURCE):
 	@$(call targetinfo)
-	@$(call get, @PACKET@)
+	@$(call get, @PACKAGE@)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -42,8 +42,8 @@ $(@PACKET@_SOURCE):
 #
 # autoconf
 #
-@PACKET@_CONF_TOOL	:= autoconf
-@PACKET@_CONF_OPT	:= \
+@PACKAGE@_CONF_TOOL	:= autoconf
+@PACKAGE@_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
 	--with-fontdir=$(XORG_FONTDIR)/truetype
 
@@ -51,12 +51,12 @@ $(@PACKET@_SOURCE):
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.targetinstall:
+$(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
 
 	@mkdir -p $(XORG_FONTS_DIR_INSTALL)/truetype
 
-	@find $(@PACKET@_DIR) \
+	@find $(@PACKAGE@_DIR) \
 		-name "*.ttf" \
 		| \
 		while read file; do \

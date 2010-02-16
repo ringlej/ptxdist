@@ -11,83 +11,83 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 
 #
 # Paths and names
 #
-@PACKET@_VERSION	:= @VERSION@
-@PACKET@		:= @packet_filename@-$(@PACKET@_VERSION)
-@PACKET@_SUFFIX		:= @SUFFIX@
-@PACKET@_URL		:= @URL@/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_SOURCE		:= $(SRCDIR)/$(@PACKET@).$(@PACKET@_SUFFIX)
-@PACKET@_DIR		:= $(KLIBC_BUILDDIR)/$(@PACKET@)
+@PACKAGE@_VERSION	:= @VERSION@
+@PACKAGE@		:= @package_filename@-$(@PACKAGE@_VERSION)
+@PACKAGE@_SUFFIX		:= @SUFFIX@
+@PACKAGE@_URL		:= @URL@/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
+@PACKAGE@_SOURCE		:= $(SRCDIR)/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
+@PACKAGE@_DIR		:= $(KLIBC_BUILDDIR)/$(@PACKAGE@)
 
-ifdef PTXCONF_@PACKET@
-$(STATEDIR)/klibc-targetinstall.post: $(STATEDIR)/@packet@.targetinstall
+ifdef PTXCONF_@PACKAGE@
+$(STATEDIR)/klibc-targetinstall.post: $(STATEDIR)/@package@.targetinstall
 endif
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(@PACKET@_SOURCE):
+$(@PACKAGE@_SOURCE):
 	@$(call targetinfo)
-	@$(call get, @PACKET@)
+	@$(call get, @PACKAGE@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-@PACKET@_CONF_ENV	:= $(KLIBC_ENV)
+@PACKAGE@_CONF_ENV	:= $(KLIBC_ENV)
 
 #
 # autoconf
 #
-@PACKET@_CONF_TOOL	:= autoconf
-@PACKET@_CONF_OPT	:= $(KLIBC_AUTOCONF)
+@PACKAGE@_CONF_TOOL	:= autoconf
+@PACKAGE@_CONF_OPT	:= $(KLIBC_AUTOCONF)
 
-#$(STATEDIR)/@packet@.prepare:
+#$(STATEDIR)/@package@.prepare:
 #	@$(call targetinfo)
-#	@$(call clean, $(@PACKET@_DIR)/config.cache)
-#	cd $(@PACKET@_DIR) && \
-#		$(@PACKET@_PATH) $(@PACKET@_ENV) \
-#		./configure $(@PACKET@_CONF_OPT)
+#	@$(call clean, $(@PACKAGE@_DIR)/config.cache)
+#	cd $(@PACKAGE@_DIR) && \
+#		$(@PACKAGE@_PATH) $(@PACKAGE@_ENV) \
+#		./configure $(@PACKAGE@_CONF_OPT)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@packet@.compile:
+#$(STATEDIR)/@package@.compile:
 #	@$(call targetinfo)
-#	@$(call world/compile, @PACKET@)
+#	@$(call world/compile, @PACKAGE@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@packet@.install:
+#$(STATEDIR)/@package@.install:
 #	@$(call targetinfo)
-#	@$(call world/install, @PACKET@)
+#	@$(call world/install, @PACKAGE@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.targetinstall:
+$(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
-	@$(call install_initramfs, @packet@, 0, 0, 0755, $(@PACKET@_DIR)/foobar, /foobar);
+	@$(call install_initramfs, @package@, 0, 0, 0755, $(@PACKAGE@_DIR)/foobar, /foobar);
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Clean
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@packet@.clean:
+#$(STATEDIR)/@package@.clean:
 #	@$(call targetinfo)
-#	@$(call clean_pkg, @PACKET@)
+#	@$(call clean_pkg, @PACKAGE@)
 
 # vim: syntax=make
