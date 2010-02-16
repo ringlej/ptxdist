@@ -8,7 +8,7 @@ menuconfig HAL
 	select GLIB
 	select DBUS_GLIB
 	select LIBBLKID
-	select POLKIT		if HAL_POLKIT
+	select POLICYKIT	if HAL_POLKIT
 	select CONSOLEKIT	if HAL_POLKIT
 	prompt "hal                           "
 	help
