@@ -31,7 +31,7 @@ run_start() {
 	if [ "$RC_ONCE_FAILED" != "yes" ]; then
 		: > "$STAMP"
 	fi
-	mount_root_restore
+	mount_root_restore || (reboot; sleep 100)
 }
 
 case "$1" in
