@@ -30,9 +30,12 @@ endif
 
 SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_INDEX) += $(PKGDIR)/Packages
 
+ipkg-index: $(PKGDIR)/Packages
+
 PHONY += $(PKGDIR)/Packages
 $(PKGDIR)/Packages: $(STATEDIR)/host-ipkg-utils.install.post
 	@echo -n "generating ipkg index '$(notdir $@)'..."
+	@rm -f $(PKGDIR)/Packages*
 	@$(HOST_ENV) \
 		ipkg-make-index -l "$(PKGDIR)/Packages.filelist" -p "$(@)" "$(PKGDIR)" >/dev/null 2>&1
 	@echo "done"
