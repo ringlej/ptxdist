@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Sascha Hauer
-#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -37,14 +37,14 @@ $(U_BOOT_SOURCE):
 # ----------------------------------------------------------------------------
 
 U_BOOT_PATH	:= PATH=$(CROSS_PATH)
-U_BOOT_ENV 	:= CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE)
+U_BOOT_MAKE_OPT	:= CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) HOSTCC=$(HOSTCC)
 U_BOOT_MAKE_PAR	:= NO
 
 $(STATEDIR)/u-boot.prepare:
 	@$(call targetinfo)
 	cd $(U_BOOT_DIR) && \
-		$(U_BOOT_PATH) $(U_BOOT_ENV) \
-		$(MAKE) $(PTXCONF_U_BOOT_CONFIG)
+		$(U_BOOT_PATH) \
+		$(MAKE) $(U_BOOT_MAKE_OPT) $(PTXCONF_U_BOOT_CONFIG)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
