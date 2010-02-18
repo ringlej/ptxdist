@@ -52,6 +52,7 @@ endif
 #
 # create one file with all permissions from all permission source files
 #
+.PHONY += $(IMAGEDIR)/permissions
 $(IMAGEDIR)/permissions: $(PERMISSION_FILES)
 	@cat $^ > $@
 
