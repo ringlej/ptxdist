@@ -967,62 +967,44 @@ drop() {
 }
 
 newpackage() {
-	local template template_src
-	local class autoconf_class
 	local action="${1}"
+	local autoconf_class
+	local class
+
+	# define sane defaults
+	local template="template-${action}"
+	local template_src="${RULESDIR}/templates/${action}"
 
 	case "${action}" in
-	target)
-		template=template-target
+	target|font|simple)
+		#template: default
 		;;
 	host)
-		template=template-class
-		class=host-
+		#class: default
 		autoconf_class=HOST_
+		template=template-class
 		;;
 	cross)
-		template=template-class
-		class=cross-
+		#class: default
 		autoconf_class=HOST_CROSS_
+		template=template-class
 		;;
 	klibc)
-		template=template-klibc
-		class=klibc-
+		#class: default
+		#template: default
 		autoconf_class=KLIBC_
 		;;
 
-	src-cmake-prog)
-		template=template-src-cmake-prog
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-cmake-prog"
-		;;
-	src-autoconf-prog)
+	src-autoconf-prog|src-autoconf-lib|src-autoconf-proglib)
+		#template_src: default
 		template=template-src-autoconf
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-autoconf-prog"
 		;;
-	src-autoconf-lib)
-		template=template-src-autoconf
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-autoconf-lib"
-		class=
-		;;
-	src-autoconf-proglib)
-		template=template-src-autoconf
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-autoconf-proglib"
-		;;
-	src-stellaris)
-		template=template-src-stellaris
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-stellaris"
-		;;
-	src-linux-driver)
-		template=template-src-linux-driver
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-linux-driver"
-		;;
-	font)
-		template=template-font
-		;;
-	simple)
-		template=template-file
 
+	src-cmake-prog|src-linux-driver|src-stellaris)
+		#template: default
+		#template_src: default
 		;;
+
 	help|*)
 		echo
 		echo "usage: 'ptxdist newpackage <type>', where type is:"
@@ -1032,10 +1014,10 @@ newpackage() {
 		echo "  cross                    create cross development package"
 		echo "  klibc                    create package for initramfs built against klibc"
 		echo
-		echo "  src-cmake-prog           create cmake binary"
-		echo "  src-autoconf-prog        create autotoolized binary"
 		echo "  src-autoconf-lib         create autotoolized library"
+		echo "  src-autoconf-prog        create autotoolized binary"
 		echo "  src-autoconf-proglib     create autotoolized binary+library"
+		echo "  src-cmake-prog           create cmake binary"
 		echo "  src-linux-driver         create a linux kernel driver"
 		echo "  src-stellaris            create stellaris firmware"
 		echo "  font"
@@ -1044,6 +1026,11 @@ newpackage() {
 		exit 1
 		;;
 	esac
+
+	#
+	# if "autoconf_class" is defines we need a "class", too
+	#
+	class="${autoconf_class:+${action}-}"
 
 	#
 	# Ask some questions
