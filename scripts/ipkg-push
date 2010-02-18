@@ -72,7 +72,7 @@ if [ "`find $IPKGDIR -name "*.ipk"`" = "" ]; then
 	exit 0
 fi
 
-IPKG_PACKAGES=`find $IPKGDIR -name "*.ipk" -exec basename \{} \;`
+IPKG_PACKAGES=`find $IPKGDIR -maxdepth 1 -name "*.ipk" -exec basename \{} \;`
 SCRIPTDIR=`dirname $0`
 POOL=$REPODIR/$PROJECT/pool
 
