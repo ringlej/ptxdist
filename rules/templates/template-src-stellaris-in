@@ -1,15 +1,15 @@
 ## SECTION=fixme
 
-config @PACKET@
+config @PACKAGE@
 	bool
 	select SW_EK_LM3S3748
-	prompt "@packet@"
+	prompt "@package@"
 	help
 	  FIXME
 
-if @PACKET@
+if @PACKAGE@
 
-config @PACKET@_TRUNK
+config @PACKAGE@_TRUNK
 	bool
 	prompt "use trunk"
 	help

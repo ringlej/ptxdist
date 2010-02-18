@@ -11,66 +11,66 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 
 #
 # Paths and names
 #
-@PACKET@_VERSION	:= @VERSION@
-@PACKET@		:= @packet@-$(@PACKET@_VERSION)
-@PACKET@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
-@PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
-@PACKET@_LICENSE	:= unknown
+@PACKAGE@_VERSION	:= @VERSION@
+@PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
+@PACKAGE@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
+@PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
+@PACKAGE@_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
-$(@PACKET@_SOURCE):
+$(@PACKAGE@_SOURCE):
 	@$(call targetinfo)
-	@$(call get, @PACKET@)
+	@$(call get, @PACKAGE@)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-#@PACKET@_CONF_ENV	:= $(CROSS_ENV)
+#@PACKAGE@_CONF_ENV	:= $(CROSS_ENV)
 
 #
 # cmake
 #
-@PACKET@_CONF_TOOL	:= cmake
-#@PACKET@_CONF_OPT	:= $(CROSS_CMAKE_USR)
+@PACKAGE@_CONF_TOOL	:= cmake
+#@PACKAGE@_CONF_OPT	:= $(CROSS_CMAKE_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.targetinstall:
+$(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  @packet@)
-	@$(call install_fixup, @packet@, PACKAGE, @packet@)
-	@$(call install_fixup, @packet@, PRIORITY, optional)
-	@$(call install_fixup, @packet@, VERSION, @VERSION@)
-	@$(call install_fixup, @packet@, SECTION, base)
-	@$(call install_fixup, @packet@, AUTHOR, "@AUTHOR@")
-	@$(call install_fixup, @packet@, DEPENDS,)
-	@$(call install_fixup, @packet@, DESCRIPTION, missing)
+	@$(call install_init,  @package@)
+	@$(call install_fixup, @package@, PACKAGE, @package@)
+	@$(call install_fixup, @package@, PRIORITY, optional)
+	@$(call install_fixup, @package@, VERSION, @VERSION@)
+	@$(call install_fixup, @package@, SECTION, base)
+	@$(call install_fixup, @package@, AUTHOR, "@AUTHOR@")
+	@$(call install_fixup, @package@, DEPENDS,)
+	@$(call install_fixup, @package@, DESCRIPTION, missing)
 
 #	#
 #	# example code:; copy all binaries
 #	#
 
-	@for i in $(shell cd $(PKGDIR)/$(@PACKET@) && find bin sbin usr/bin usr/sbin -type f); do \
-		$(call install_copy, @packet@, 0, 0, 0755, -, /$$i); \
+	@for i in $(shell cd $(PKGDIR)/$(@PACKAGE@) && find bin sbin usr/bin usr/sbin -type f); do \
+		$(call install_copy, @package@, 0, 0, 0755, -, /$$i); \
 	done
 
 #	#
 #	# FIXME: add all necessary things here
 #	#
 
-	@$(call install_finish, @packet@)
+	@$(call install_finish, @package@)
 
 	@$(call touch)
 
@@ -78,8 +78,8 @@ $(STATEDIR)/@packet@.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@packet@.clean:
+#$(STATEDIR)/@package@.clean:
 #	@$(call targetinfo)
-#	@$(call clean_pkg, @PACKET@)
+#	@$(call clean_pkg, @PACKAGE@)
 
 # vim: syntax=make

@@ -11,9 +11,9 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_@PACKET@) += @packet@
+PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 
-ifdef PTXCONF_@PACKET@
+ifdef PTXCONF_@PACKAGE@
 ifneq ($(shell test -h $(PTXDIST_WORKSPACE)/selected_toolchain_stellaris && echo ok),ok)
     $(warning *** selected_toolchain_stellaris must point to a valid stellaris toolchain)
     $(error )
@@ -27,11 +27,11 @@ endif
 #
 # Paths and names
 #
-@PACKET@_VERSION	:= trunk
-@PACKET@		:= @packet@-$(@PACKET@_VERSION)
-@PACKET@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKET@)
-@PACKET@_DIR		:= $(BUILDDIR)/$(@PACKET@)
-@PACKET@_LICENSE	:= unknown
+@PACKAGE@_VERSION	:= trunk
+@PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
+@PACKAGE@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
+@PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
+@PACKAGE@_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
 # Get
@@ -41,53 +41,53 @@ endif
 # Extract
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.extract:
+$(STATEDIR)/@package@.extract:
 	@$(call targetinfo)
-	@$(call clean, $(@PACKET@_DIR))
-ifdef PTXCONF_@PACKET@_TRUNK
-	cd $(@PACKET@_SRCDIR) && sh autogen.sh
+	@$(call clean, $(@PACKAGE@_DIR))
+ifdef PTXCONF_@PACKAGE@_TRUNK
+	cd $(@PACKAGE@_SRCDIR) && sh autogen.sh
 endif
-	@$(call patchin, @PACKET@, $(@PACKET@_SRCDIR))
-	mkdir -p $(@PACKET@_DIR)
+	@$(call patchin, @PACKAGE@, $(@PACKAGE@_SRCDIR))
+	mkdir -p $(@PACKAGE@_DIR)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-@PACKET@_PATH	:= \
+@PACKAGE@_PATH	:= \
 	PATH=$(PTXDIST_WORKSPACE)/selected_toolchain_stellaris:$$PATH
 
 #
 # autoconf
 #
-@PACKET@_AUTOCONF = \
+@PACKAGE@_AUTOCONF = \
 	--host=arm-cortexm3-eabi \
 	--build=i686-unknown-linux-gnu \
 	--with-stellaris-sdk=$(SW_EK_LM3S3748_DIR) \
 	--with-dfuwrap=$(SW_EK_LM3S3748_DIR)/tools/dfuwrap/dfuwrap
 
-#$(STATEDIR)/@packet@.prepare:
+#$(STATEDIR)/@package@.prepare:
 #	@$(call targetinfo)
-#	@$(call clean, $(@PACKET@_DIR)/config.cache)
-#	cd $(@PACKET@_DIR) && \
-#		$(@PACKET@_PATH) $(@PACKET@_SRCDIR)/configure $(@PACKET@_AUTOCONF)
+#	@$(call clean, $(@PACKAGE@_DIR)/config.cache)
+#	cd $(@PACKAGE@_DIR) && \
+#		$(@PACKAGE@_PATH) $(@PACKAGE@_SRCDIR)/configure $(@PACKAGE@_AUTOCONF)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/@packet@.compile:
+#$(STATEDIR)/@package@.compile:
 #	@$(call targetinfo)
-#	@$(call world/compile, @PACKET@)
+#	@$(call world/compile, @PACKAGE@)
 #	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.install:
+$(STATEDIR)/@package@.install:
 	@$(call targetinfo)
 	@$(call touch)
 
@@ -95,23 +95,23 @@ $(STATEDIR)/@packet@.install:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@packet@.targetinstall:
+$(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  @packet@)
-	@$(call install_fixup, @packet@, PACKAGE, @packet@)
-	@$(call install_fixup, @packet@, PRIORITY, optional)
-	@$(call install_fixup, @packet@, VERSION, trunk)
-	@$(call install_fixup, @packet@, SECTION, base)
-	@$(call install_fixup, @packet@, AUTHOR, "@AUTHOR@")
-	@$(call install_fixup, @packet@, DEPENDS,)
-	@$(call install_fixup, @packet@, DESCRIPTION, missing)
+	@$(call install_init,  @package@)
+	@$(call install_fixup, @package@, PACKAGE, @package@)
+	@$(call install_fixup, @package@, PRIORITY, optional)
+	@$(call install_fixup, @package@, VERSION, trunk)
+	@$(call install_fixup, @package@, SECTION, base)
+	@$(call install_fixup, @package@, AUTHOR, "@AUTHOR@")
+	@$(call install_fixup, @package@, DEPENDS,)
+	@$(call install_fixup, @package@, DESCRIPTION, missing)
 
-	@$(call install_copy, @packet@, 0, 0, 0644, \
-		$(@PACKET@_DIR)/@packet@.dfu, \
-		/lib/firmware/@packet@.dfu)
+	@$(call install_copy, @package@, 0, 0, 0644, \
+		$(@PACKAGE@_DIR)/@package@.dfu, \
+		/lib/firmware/@package@.dfu)
 
-	@$(call install_finish, @packet@)
+	@$(call install_finish, @package@)
 
 	@$(call touch)
 
@@ -119,9 +119,9 @@ $(STATEDIR)/@packet@.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-@packet@_clean:
-	rm -rf $(STATEDIR)/@packet@.*
-	rm -rf $(PKGDIR)/@packet@_*
-	rm -rf $(@PACKET@_DIR)
+@package@_clean:
+	rm -rf $(STATEDIR)/@package@.*
+	rm -rf $(PKGDIR)/@package@_*
+	rm -rf $(@PACKAGE@_DIR)
 
 # vim: syntax=make
