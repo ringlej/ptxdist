@@ -1013,7 +1013,7 @@ newpackage() {
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-stellaris"
 		;;
 	src-linux-driver)
-		template=template-src-driver
+		template=template-src-linux-driver
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-linux-driver"
 		;;
 	font)
