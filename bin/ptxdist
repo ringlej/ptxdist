@@ -973,7 +973,7 @@ newpackage() {
 
 	case "${action}" in
 	target)
-		template=template
+		template=template-target
 		;;
 	host)
 		template=template-class
