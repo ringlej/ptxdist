@@ -98,7 +98,7 @@ $(STATEDIR)/@package@.install:
 $(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
 #
-# TODO: To build your own packet, if this step requires one
+# TODO: To build your own package, if this step requires one
 #	@$(call install_init, @package@)
 #	@$(call install_fixup,@package@,PACKAGE,@package@)
 #	@$(call install_fixup,@package@,PRIORITY,optional)

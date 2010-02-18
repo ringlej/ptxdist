@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 # Paths and names
 #
 @PACKAGE@_VERSION	:= @VERSION@
-@PACKAGE@		:= @packet_filename@-$(@PACKAGE@_VERSION)
+@PACKAGE@		:= @package_filename@-$(@PACKAGE@_VERSION)
 @PACKAGE@_SUFFIX		:= @SUFFIX@
 @PACKAGE@_URL		:= @URL@/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
 @PACKAGE@_SOURCE		:= $(SRCDIR)/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
