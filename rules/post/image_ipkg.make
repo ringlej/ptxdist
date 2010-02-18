@@ -11,7 +11,9 @@
 
 SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_PUSH_TO_REPOSITORY) += $(STATEDIR)/ipkg-push
 
-$(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post
+ipkg-push : $(STATEDIR)/ipkg-push
+
+$(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post $(STATEDIR)/world.targetinstall
 	@$(call targetinfo)
 ifdef PTXCONF_IMAGE_IPKG_FORCED_PUSH
 	rm  -rf $(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)
