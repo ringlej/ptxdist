@@ -1032,7 +1032,6 @@ newpackage() {
 		echo "  src-autoconf-prog        create autotoolized binary"
 		echo "  src-autoconf-lib         create autotoolized library"
 		echo "  src-autoconf-proglib     create autotoolized binary+library"
-		echo "  src-plain-make           create binary with plain makefile"
 		echo "  src-linux-driver         create a linux kernel driver"
 		echo "  src-stellaris            create stellaris firmware"
 		echo "  font"
