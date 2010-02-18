@@ -992,7 +992,7 @@ newpackage() {
 		;;
 
 	src-cmake-prog)
-		template=template-src-cmake
+		template=template-src-cmake-prog
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-cmake-prog"
 		;;
 	src-autoconf-prog)
