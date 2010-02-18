@@ -1,5 +1,6 @@
 ## SECTION=networking
-menuconfig	TCPWRAPPER
+
+menuconfig TCPWRAPPER
 	tristate
 	prompt "tcpwrapper                    "
 	help
@@ -14,12 +15,22 @@ menuconfig	TCPWRAPPER
 	  client or server applications, and impose no overhead on the actual
 	  conversation between the client and server applications.
 
+if TCPWRAPPER
+
 config	TCPWRAPPER_INSTALL_TCPD
 	bool
 	prompt "Install /usr/sbin/tcpd"
-	depends on TCPWRAPPER
 	help
 	  The tcpd program can be set up to monitor incoming requests for telnet,
 	  finger, ftp, exec, rsh, rlogin, tftp, talk, comsat and other services
 	  that have a one-to-one mapping onto executable files.
 
+config	TCPWRAPPER_INSTALL_HOSTS_ACCESS_CONFIGS
+	bool
+	select TCPWRAPPER_INSTALL_TCPD
+	prompt "Install /etc/hosts.{allow|deny}"
+	help
+	  Install the hosts.allow and hosts.deny configs from either
+	  projectroot or from ptxdist/generics.
+
+endif

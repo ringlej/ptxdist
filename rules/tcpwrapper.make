@@ -23,7 +23,6 @@ TCPWRAPPER_URL			:= ftp://ftp.porcupine.org/pub/security/$(TCPWRAPPER).tar.gz
 TCPWRAPPER_SOURCE		:= $(SRCDIR)/$(TCPWRAPPER).tar.gz
 TCPWRAPPER_DIR			:= $(BUILDDIR)/$(TCPWRAPPER)
 
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -71,6 +70,12 @@ $(STATEDIR)/tcpwrapper.targetinstall:
 ifdef PTXCONF_TCPWRAPPER_INSTALL_TCPD
 	@$(call install_copy, tcpwrapper, 0, 0, 0755, $(TCPWRAPPER_DIR)/tcpd, /usr/sbin/tcpd)
 endif
+
+ifdef PTXCONF_TCPWRAPPER_INSTALL_HOSTS_ACCESS_CONFIGS
+	@$(call install_alternative, tcpwrapper, 0, 0, 0644, /etc/hosts.allow)
+	@$(call install_alternative, tcpwrapper, 0, 0, 0644, /etc/hosts.deny)
+endif
+
 	@$(call install_finish, tcpwrapper)
 	@$(call touch)
 
