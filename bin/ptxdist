@@ -1000,7 +1000,7 @@ newpackage() {
 		template=template-src-autoconf
 		;;
 
-	src-cmake-prog|src-linux-driver|src-stellaris)
+	src-cmake-prog|src-linux-driver|src-make-prog|src-stellaris)
 		#template: default
 		#template_src: default
 		;;
@@ -1019,6 +1019,7 @@ newpackage() {
 		echo "  src-autoconf-proglib     create autotoolized binary+library"
 		echo "  src-cmake-prog           create cmake binary"
 		echo "  src-linux-driver         create a linux kernel driver"
+		echo "  src-make-prog            create a plain makefile binary"
 		echo "  src-stellaris            create stellaris firmware"
 		echo "  font"
 		echo "  simple"
@@ -1066,7 +1067,7 @@ newpackage() {
 	#
 	local version
 	case "${action}" in
-	*-existing-target)
+	*-existing-target|src-make-prog)
 		;;
 	*)
 		echo -n "${PROMPT}enter version number.....: "
