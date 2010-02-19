@@ -1046,8 +1046,8 @@ newpackage() {
 	# for host and cross packages, find out if there is already an
 	# existing target
 	#
-	if [ -f "${PTXDIST_WORKSPACE}/rules/${package_name}.make" -o \
-	     -f "${PTXDIST_TOPDIR}/rules/${package_name}.make" ]; then
+	if [ -f "${PROJECTRULESDIR}/${package_name}.make" -o \
+	     -f "${RULESDIR}/${package_name}.make" ]; then
 		case "${action}" in
 		    host|cross)
 			action=class-existing-target
@@ -1069,7 +1069,7 @@ newpackage() {
 	*-existing-target)
 		;;
 	*)
-		echo -n "${PROMPT}enter version number....: "
+		echo -n "${PROMPT}enter version number.....: "
 		read version
 		;;
 	esac
@@ -1077,9 +1077,9 @@ newpackage() {
 	local url suffix
 	case "${action}" in
 	host|target|cross|klibc)
-		echo -n "${PROMPT}enter URL of basedir....: "
+		echo -n "${PROMPT}enter URL of basedir.....: "
 		read url
-		echo -n "${PROMPT}enter suffix............: "
+		echo -n "${PROMPT}enter suffix.............: "
 		read suffix
 		;;
 	esac
@@ -1111,7 +1111,7 @@ newpackage() {
 
 		if [ -f "${filename}" ]; then
 			echo
-			echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n]"
+			echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n] "
 			local overwrite
 			read overwrite
 			if [ "${overwrite}" != "y" ]; then
