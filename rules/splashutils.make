@@ -121,7 +121,6 @@ ifdef PTXCONF_ROOTFS_DEV_INITIAL
 endif
 
 	@$(call install_alternative, splashutils, 0, 0, 0755, /etc/init.d/splashutils)
-	@$(call install_link, splashutils, ../init.d/splashutils, /etc/rc.d/S000splashutils)
 
 	@$(call install_finish, splashutils)
 

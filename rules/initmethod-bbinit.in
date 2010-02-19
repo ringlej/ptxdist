@@ -285,6 +285,12 @@ config INITMETHOD_BBINIT_LINK_RC_ONCE
 	prompt "rc-once"
 	default "S01rc-once"
 
+config INITMETHOD_BBINIT_LINK_SPLASHUTILS
+	string
+	depends on SPLASHUTILS
+	prompt "splashutils"
+	default "S00splashutils"
+
 endmenu
 
 endif
