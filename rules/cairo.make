@@ -56,7 +56,6 @@ CAIRO_AUTOCONF := \
 	--disable-beos \
 	--disable-glitz \
 	--enable-pthread \
-	--enable-svg \
 	--disable-test-surfaces
 
 ifdef PTXCONF_CAIRO_XLIB
@@ -75,6 +74,12 @@ else
 CAIRO_AUTOCONF += \
 	--disable-win32 \
 	--disable-win32-font
+endif
+
+ifdef PTXCONF_CAIRO_SVG
+CAIRO_AUTOCONF += --enable-svg
+else
+CAIRO_AUTOCONF += --disable-svg
 endif
 
 ifdef PTXCONF_CAIRO_PNG

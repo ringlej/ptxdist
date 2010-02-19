@@ -47,6 +47,11 @@ config CAIRO_WIN32
 	help
 	  Build cairo with the Win 32 backend. Makes only sense on mingw.
 
+config CAIRO_SVG
+	bool
+	prompt "SVG backend"
+	select CAIRO_PNG
+
 config CAIRO_FREETYPE
 	bool
 	prompt "Freetype font backend"

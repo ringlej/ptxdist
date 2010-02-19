@@ -12,6 +12,7 @@ config GTK
 
 	select CAIRO
 	select CAIRO_PDF
+	select CAIRO_SVG
 
 #	select LIBTIFF		 if GTK_LOADER_TIFF
 	select LIBPNG		 if GTK_LOADER_PNG
