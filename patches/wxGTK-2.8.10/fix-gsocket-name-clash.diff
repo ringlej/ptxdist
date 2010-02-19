@@ -1,0 +1,29 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: avoid name clashes with GSocket from glib 2.21+
+
+taken from http://trac.wxwidgets.org/changeset/61009
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ src/gtk/gsockgtk.cpp |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+Index: b/src/gtk/gsockgtk.cpp
+===================================================================
+--- a/src/gtk/gsockgtk.cpp
++++ b/src/gtk/gsockgtk.cpp
+@@ -15,8 +15,13 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ 
++// newer versions of glib define its own GSocket but we unfortunately use this
++// name in our own (semi-)public header and so can't change it -- rename glib
++// one instead
++#define GSocket GlibGSocket
+ #include <gdk/gdk.h>
+ #include <glib.h>
++#undef GSocket
+ 
+ #include "wx/gsocket.h"
+ #include "wx/unix/gsockunx.h"

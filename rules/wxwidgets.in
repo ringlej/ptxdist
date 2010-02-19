@@ -1,0 +1,44 @@
+## SECTION=multimedia_libs
+
+menuconfig WXWIDGETS
+	tristate
+	prompt "wxwidgets                     "
+	select GTK
+	select GTK_TARGET_X11
+	select LIBPNG		if WXWIDGETS_LIBPNG
+	select LIBJPEG		if WXWIDGETS_LIBPNG
+	select SDL		if WXWIDGETS_LIBPNG
+	select ZLIB		if WXWIDGETS_LIBPNG
+	select EXPAT		if WXWIDGETS_LIBPNG
+
+	help
+	  FIXME
+
+if WXWIDGETS
+
+config WXWIDGETS_LIBPNG
+	bool
+	prompt "use libpng (PNG image format)"
+
+config WXWIDGETS_LIBJPEG
+	bool
+	prompt "use libjpeg (JPEG file format)"
+
+config WXWIDGETS_SDL
+	bool
+	prompt "use SDL for audio on Unix"
+
+config WXWIDGETS_OPENGL
+	bool
+	prompt "use OpenGL (or Mesa)"
+
+config WXWIDGETS_ZLIB
+	bool
+	prompt "use zlib for LZW compression"
+
+config WXWIDGETS_EXPAT
+	bool
+	prompt "enable XML support using expat parser"
+
+endif
+

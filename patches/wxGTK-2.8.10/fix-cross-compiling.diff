@@ -1,0 +1,61 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: fix cross compiling
+
+ - make sure to search in the right paths.
+ - don't call check for pkg-config multiple times
+   or configure hangs in an endless loop
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ configure.in |   20 ++++----------------
+ 1 file changed, 4 insertions(+), 16 deletions(-)
+
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -2738,14 +2740,12 @@ AC_MSG_RESULT($wx_cv_std_libpath)
+ SEARCH_LIB="`echo "$SEARCH_INCLUDE" | sed s@include@$wx_cv_std_libpath@g` /usr/$wx_cv_std_libpath"
+ 
+ dnl Cross compiling with gcc?
+-if test "$build" != "$host" -a "$GCC" = yes; then
++if test "$build" != "$host"; then
+     dnl for gcc cross-compilers "$CC -print-prog-name=ld" prints the path to
+     dnl the linker. Stripping off the trailing '/bin/ld' gives us a candiate
+     dnl for a 'root' below which libraries and headers for the target system
+     dnl might be installed.
+-    if cross_root=`$CC -print-prog-name=ld 2>/dev/null`; then
+-        cross_root=`dirname $cross_root`
+-        cross_root=`dirname $cross_root`
++    if cross_root="$SYSROOT/usr"; then
+ 
+         dnl substitute this candiate root for '^/usr' in the search lists,
+         dnl strip out any that don't start '^/usr'.
+@@ -3647,8 +3641,6 @@ libraries returned by 'pkg-config gtk+-2
+     fi
+ 
+     if test "$wxUSE_DFB" = 1; then
+-       PKG_PROG_PKG_CONFIG()
+-
+        PKG_CHECK_MODULES(DIRECTFB,
+                          [directfb >= 0.9.23],
+                          [
+@@ -3725,8 +3717,6 @@ libraries returned by 'pkg-config gtk+-2
+         fi
+ 
+         if test "$wxUSE_UNICODE" = "yes"; then
+-            PKG_PROG_PKG_CONFIG()
+-
+             PKG_CHECK_MODULES(PANGOX, pangox,
+                 [
+                     CFLAGS="$PANGOX_CFLAGS $CFLAGS"
+@@ -6154,8 +6144,6 @@ if test "$wxUSE_SOUND" = "yes"; then
+ fi
+ 
+ if test "$WXGTK20" = 1; then
+-    PKG_PROG_PKG_CONFIG()
+-
+     if test "$wxUSE_PRINTING_ARCHITECTURE" = "yes" ; then
+         if test "$wxUSE_LIBGNOMEPRINT" = "yes" ; then
+ 
