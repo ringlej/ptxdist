@@ -1143,19 +1143,30 @@ newpackage() {
 	#
 	case "${action}" in
 	src-*)
-		if [ -d "${PTXDIST_WORKSPACE}/local_src/${package}-${version}" ]; then
+		local dst="${PTXDIST_WORKSPACE}/local_src/${package}${version:+-${version}}"
+
+		if [ -d "${dst}" ]; then
 			return
 		fi
 
-		echo -e -n "\nlocal_src/${package}-${version} does not exist, create? [y/n] "
-		[ "$(local r; read r; echo "${r}")" = "y" ] || return
+		echo -e -n "\n${dst#${PTXDIST_WORKSPACE}/} does not exist, create? [Y/n] "
+		local r
+		read r
+		case "${r}" in
+		    y|Y|"") ;;
+		    *) return ;;
+		esac
 
-		mkdir -p "${PTXDIST_WORKSPACE}/local_src/${package}-${version}"
+		mkdir -p "${dst}" &&
 		tar -C "${template_src}" -cf - --exclude .svn . | \
-			tar -C "${PTXDIST_WORKSPACE}/local_src/${package}-${version}" -xvf -
+			tar -C "${dst}" -xvf - &&
 
-		(cd "${PTXDIST_WORKSPACE}/local_src/${package}-${version}" && sh wizard.sh ${package})
-		rm -f ${PTXDIST_WORKSPACE}/local_src/${package}-${version}/wizard.sh
+		if [ \! -e "${dst}/wizard.sh" ]; then
+			return
+		fi &&
+
+		( cd "${dst}" && bash wizard.sh "${package}" ) &&
+		rm -f "${dst}/wizard.sh" "${package}"
 		;;
 	esac
 
