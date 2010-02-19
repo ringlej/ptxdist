@@ -181,8 +181,16 @@ endif
 ifdef PTXCONF_ROOTFS_FSTAB
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/fstab)
 endif
-ifdef PTXCONF_ROOTFS_MTAB
+ifdef PTXCONF_ROOTFS_MTAB_FILE
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/mtab)
+endif
+ifdef PTXCONF_ROOTFS_MTAB_LINK_MOUNTS
+	@$(call install_link, rootfs, ../proc/mounts, /etc/mtab)
+endif
+ifdef PTXCONF_ROOTFS_MTAB_LINK_VAR
+	@$(call install_copy, rootfs, 0, 0, 0644, \
+		$(PTXDIST_TOPDIR)/generic/etc/mtab, /var/tmp/mtab)
+	@$(call install_link, rootfs, ../var/tmp/mtab, /etc/mtab)
 endif
 ifdef PTXCONF_ROOTFS_HOSTNAME
 	@$(call install_alternative, rootfs, 0, 0, 0644, /etc/hostname)

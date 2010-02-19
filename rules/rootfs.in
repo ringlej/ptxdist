@@ -288,12 +288,36 @@ config ROOTFS_FSTAB
 	  If enabled, it installs the "./projectroot/etc/fstab" file if
 	  present, else a generic one from the ptxdist directory.
 
-config ROOTFS_MTAB
-	bool
+choice
 	prompt "install /etc/mtab"
-	help
-	  If enabled, it installs the "./projectroot/etc/mtab" file if
-	  present, else a generic one from the ptxdist directory.
+	default ROOTFS_MTAB_FILE
+
+	config ROOTFS_MTAB_FILE
+		bool
+		prompt "from file"
+		help
+		  If enabled, it installs the "./projectroot/etc/mtab" file if
+		  present, else a generic one from the ptxdist directory.
+
+	config ROOTFS_MTAB_LINK_MOUNTS
+		bool
+		prompt "link to /proc/mounts"
+		help
+		  If enabled, it installs /etc/mtab as a link to /proc/mounts
+
+	config ROOTFS_MTAB_LINK_VAR
+		bool
+		prompt "link to /var/tmp/mtab"
+		help
+		  If enabled, it installs /etc/mtab as a link to /var/tmp/mtab
+endchoice
+
+config ROOTFS_MTAB_LINK_VAR_FAKE_OVERLAYFS
+	bool
+	depends on ROOTFS_MTAB_LINK_VAR
+	select FAKE_OVERLAYFS
+	select FAKE_OVERLAYFS_VAR_TMP
+	prompt "use fake-overlayfs to create /var/tmp/mtab"
 
 config ROOTFS_HOSTNAME
 	bool
