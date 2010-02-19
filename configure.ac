@@ -289,7 +289,7 @@ if test -z "${MAJOR_MAKE_VERSION}"  -o -z "${MINOR_MAKE_VERSION}" ; then
 	AC_MSG_ERROR([could not parse make version. GNU make >= 3.81 required])
 fi
 if test $MAJOR_MAKE_VERSION -eq 3 -a $MINOR_MAKE_VERSION -lt 81 -o $MAJOR_MAKE_VERSION -lt 3 ; then
-	AC_MSG_ERROR([GNU make >= 2.81 required ($MAKE_VERSION found)])
+	AC_MSG_ERROR([GNU make >= 3.81 required ($MAKE_VERSION found)])
 fi
 
 dnl Check for file
