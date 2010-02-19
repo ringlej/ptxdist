@@ -1135,7 +1135,7 @@ newpackage() {
 		-e "s#\@AUTHOR@#${author}#g" \
 		-e "s#\@SUFFIX@#${suffix}#g" \
 		"${template_file}" \
-		> "${filename}"
+		> "${filename}" || return
 	done
 
 	#
