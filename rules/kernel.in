@@ -1,4 +1,7 @@
-## SECTION=debug_tools
+## SECTION=core
+
+config KERNEL
+	bool
 
 config KERNEL_VMLINUX
 	bool
