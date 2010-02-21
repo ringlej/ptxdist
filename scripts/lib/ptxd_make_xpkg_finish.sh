@@ -60,6 +60,13 @@ ptxd_make_xpkg_finish() {
     if [ \! -f "${pkg_xpkg_perms}" ]; then
 	ptxd_warning "Packet '${pkg_xpkg}' is empty. not generating"
 	rm -rf -- "${pkg_xpkg_tmp}"
+
+	local xpkg_map="${STATEDIR}/${pkg_xpkg}.xpkg.map"
+	sed -i -e "/^${pkg_xpkg}$/d" "${xpkg_map}"	#FIXME: we rely in 1-to-1 mapping here
+
+	if [ \! -s "${xpkg_map}" ]; then
+	    rm -f -- "${xpkg_map}"
+	fi
 	return
     fi
 
