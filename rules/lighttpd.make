@@ -95,9 +95,9 @@ LIGHTTPD_AUTOCONF += --without-openssl
 endif
 
 ifdef PTXCONF_LIGHTTPD_KERBEROS
-LIGHTTPD_AUTOCONF += --with-kerberos=FIXME
+LIGHTTPD_AUTOCONF += --with-kerberos5=FIXME
 else
-LIGHTTPD_AUTOCONF += --without-kerberos
+LIGHTTPD_AUTOCONF += --without-kerberos5
 endif
 
 ifdef PTXCONF_LIGHTTPD_PCRE
