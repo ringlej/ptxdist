@@ -8,21 +8,23 @@
 # see the README file.
 #
 
-SEL_ROOTFS-$(PTXCONF_IMAGE_CPIO) += $(IMAGEDIR)/initrd.gz
+SEL_ROOTFS-$(PTXCONF_IMAGE_CPIO) += $(IMAGEDIR)/root.cpio
 
-#
-# create traditional initrd.gz, to be used
-# as initramfs (-> "-H newc")
-#
-$(IMAGEDIR)/initrd.gz: $(STATEDIR)/image_working_dir
-	@echo -n "Creating initrd.gz from working dir..."
-	@cd $(WORKDIR);							\
-	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
-	(								\
-		echo "find . | ";					\
-		echo "cpio --quiet -H newc -o | ";			\
-		echo "gzip -9 -n > $@" )				\
+$(IMAGEDIR)/root.cpio: $(STATEDIR)/image_working_dir
+	@echo -n "Creating '$(notdir $(@))' from working dir..."
+	@cd $(WORKDIR) && \
+	( \
+		awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions && \
+		echo "find . | cpio --quiet -H newc -o > '$(@)'" \
 	) | $(FAKEROOT) --
+	@echo "done."
+
+
+SEL_ROOTFS-$(PTXCONF_IMAGE_CPIO_GZ) += $(IMAGEDIR)/root.cpio.gz
+
+$(IMAGEDIR)/root.cpio.gz: $(IMAGEDIR)/root.cpio
+	@echo -n "Creating '$(notdir $(@))' from '$(notdir $(^))'..."
+	@cat "$(^)" | gzip -n --best > "$(@)"
 	@echo "done."
 
 # vim: syntax=make

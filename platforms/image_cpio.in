@@ -2,7 +2,15 @@
 
 config IMAGE_CPIO
 	bool
-	prompt "Generate images/initrd.gz"
+	prompt "Generate images/root.cpio"
+	help
+	  Build the traditionally initrd RAM disk to be used
+	  as initramfs by the kernel.
+
+config IMAGE_CPIO_GZ
+	bool
+	prompt "Generate images/root.cpio.gz"
+	select IMAGE_CPIO
 	help
 	  Build the traditionally initrd RAM disk to be used
 	  as initramfs by the kernel.
