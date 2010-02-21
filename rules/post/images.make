@@ -78,7 +78,6 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_UBI)		+= $(IMAGEDIR)/root.ubi
 SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2)	+= $(IMAGEDIR)/root.ext2
 SEL_ROOTFS-$(PTXCONF_IMAGE_HD)		+= $(IMAGEDIR)/hd.img
 SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2_GZIP)	+= $(IMAGEDIR)/root.ext2.gz
-SEL_ROOTFS-$(PTXCONF_IMAGE_CPIO)	+= $(IMAGEDIR)/initrd.gz
 SEL_ROOTFS-$(PTXCONF_IMAGE_SQUASHFS)	+= $(IMAGEDIR)/root.squashfs
 
 #
@@ -227,21 +226,6 @@ $(IMAGEDIR)/root.ext2.gz: $(IMAGEDIR)/root.ext2
 	@echo -n "Creating root.ext2.gz from root.ext2...";
 	@rm -f $@
 	@cat $< | gzip -v9 > $@
-	@echo "done."
-
-#
-# create traditional initrd.gz, to be used
-# as initramfs (-> "-H newc")
-#
-$(IMAGEDIR)/initrd.gz: $(STATEDIR)/image_working_dir
-	@echo -n "Creating initrd.gz from working dir..."
-	@cd $(WORKDIR);							\
-	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
-	(								\
-		echo "find . | ";					\
-		echo "cpio --quiet -H newc -o | ";			\
-		echo "gzip -9 -n > $@" )				\
-	) | $(FAKEROOT) --
 	@echo "done."
 
 # vim600:set foldmethod=marker:
