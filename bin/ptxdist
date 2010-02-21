@@ -835,6 +835,8 @@ clean() {
 	# we want to clean the root dir
 	if [ "${1}" = "root" ]; then
 		echo
+		echo "${PROMPT}cleaning image directory..."
+		rm -fr -- "${IMAGEDIR}"
 		echo "${PROMPT}cleaning root directory..."
 		rm -fr -- "${ROOTDIR}"
 		rm -fr -- "${ROOTDIR_DEBUG}"
@@ -842,6 +844,7 @@ clean() {
 		rm -fr -- "${PKGDIR}"/*.ipk
 		echo "${PROMPT}cleaning targetinstall stages..."
 		rm -f -- "${STATEDIR}"/*.targetinstall*
+		rm -f -- "${STATEDIR}"/*.xpkg.map
 		echo "${PROMPT}done."
 		echo
 		return
