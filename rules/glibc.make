@@ -148,7 +148,7 @@ endif
 
 ifdef PTXCONF_GLIBC_GCONF_BASE
 	@$(call install_copy, glibc, 0, 0, 0755, /usr/lib/gconv)
-	@$(call install_copy_toolchain_lib, glibc, gconv/gconv-modules, /usr/lib/gconv)
+	@$(call install_copy_toolchain_lib, glibc, gconv/gconv-modules, /usr/lib/gconv, n)
 endif
 
 ifdef PTXCONF_GLIBC_GCONV_DEF
