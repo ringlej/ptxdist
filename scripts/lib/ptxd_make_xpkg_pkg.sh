@@ -219,6 +219,128 @@ EOF
 }
 export -f ptxd_install_replace
 
+ptxd_install_generic() {
+    local file="$1"
+    local dst="$2"
+    local usr="$3"
+    local grp="$4"
+
+    local -a stat
+    stat=($(stat -c "%u %g %a %t %T" "${file}")) &&
+    local usr=${usr:-${stat[0]}} &&
+    local grp=${grp:-${stat[1]}} &&
+    local mod=${stat[2]} &&
+    local major=${stat[3]} &&
+    local minor=${stat[4]} &&
+    local type=$(stat -c "%F" "${file}") &&
+    case "${type}" in
+        "directory")
+	    ptxd_install_dir "${dst}" "${usr}" "${grp}" "${mod}"
+	    ;;
+        "character special file")
+	    ptxd_install_mknod "${dst}" "${usr}" "${grp}" "${mod}" c "${major}" "${minor}"
+	    ;;
+        "block special file")
+	    ptxd_install_mknod "${dst}" "${usr}" "${grp}" "${mod}" b "${major}" "${minor}"
+	    ;;
+        "symbolic link")
+	    local src=$(readlink "${file}") &&
+	    ptxd_install_ln "${src}" "${dst}" "${usr}" "${grp}"
+	    ;;
+        "regular file"|"regular empty file")
+	    ptxd_install_file "${file}" "${dst}" "${usr}" "${grp}" "${mod}"
+	    ;;
+        *)
+	    echo "Error: File type \"${type}\" unkown!"
+	    return 1
+	    ;;
+    esac
+}
+export -f ptxd_install_generic
+
+ptxd_install_find() {
+    local dir="${1%/}"
+    local dstdir="${2%/}"
+    local usr="${3#-}"
+    local grp="${4#-}"
+
+    test -d "${dir}" &&
+    find "${dir}" -path "*/.svn" -prune -o -path "*/.git" -prune -o \
+		-path "*/.pc" -prune -o -path "*/CVS" -prune -o \
+		! -path "${dir}" -print | while read file; do
+	local dst="${dstdir}${file#${dir}}"
+	ptxd_install_generic "${file}" "${dst}" "${usr}" "${grp}" || return
+    done
+}
+export -f ptxd_install_find
+
+ptxd_install_tree() {
+    ptxd_install_find "$@" ||
+    ptxd_install_error "install_tree failed!"
+}
+export -f ptxd_install_tree
+
+ptxd_install_archive() {
+    local archive="$1"
+    shift
+
+    local dir=$(mktemp -d "${PTXDIST_TEMPDIR}/install_archive.XXXXXX") &&
+    ptxd_make_extract_archive "${archive}" "${dir}" &&
+    ptxd_install_find "${dir}" "$@" &&
+    rm -rf "${dir}" ||
+    ptxd_install_error "install_archive failed!"
+}
+export -f ptxd_install_archive
+
+ptxd_install_package() {
+    for dir in "${pkg_pkg_dir}/"{,usr/}{bin,sbin,libexec}; do
+	find "${dir}" \( -type f -o -type l \) \
+		    -executable 2>/dev/null | while read file; do
+	    ptxd_install_generic - "${file#${pkg_pkg_dir}}" ||
+	    ptxd_install_error "install_package failed!"
+	done
+    done
+    for dir in "${pkg_pkg_dir}/"{,usr/}lib; do
+	find "${dir}" \( -type f -o -type l \) \
+		    -a -name "*.so*" 2>/dev/null | while read file; do
+	    ptxd_install_generic - "${file#${pkg_pkg_dir}}" ||
+	    ptxd_install_error "install_package failed!"
+	done
+    done
+}
+export -f ptxd_install_package
+
+ptxd_install_shared() {
+    local src="$1"
+    local dst="$2"
+    local usr="$3"
+    local grp="$4"
+    local mod="$5"
+
+    local filename="$(basename "${src}")"
+    ptxd_install_file "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" &&
+    find "$(dirname "${src}")" -type l | while read file; do
+	if [ "$(readlink "${file}")" = "${filename}" ]; then
+	    local link="${dst}/$(basename "${file}")"
+	    ptxd_install_ln "${filename}" "${link}" "${usr}" "${grp}" || return
+	fi
+    done
+}
+export -f ptxd_install_shared
+
+ptxd_install_lib() {
+    local lib="$1"
+    shift
+
+    local file="$(for dir in "${pkg_pkg_dir}/"{,usr/}lib; do
+	    find "${dir}" -type f -name "${lib}.so*"; done 2>/dev/null)"
+    [ -f "${file}" ] &&
+    local dst="$(dirname "${file#${pkg_pkg_dir}}")" &&
+    ptxd_install_shared "${file}" "${dst}" "${@}" ||
+    ptxd_install_error "ptxd_install_lib failed!"
+}
+export -f ptxd_install_lib
+
 ptxd_make_xpkg_pkg() {
     local pkg_xpkg_tmp="$1"
     local pkg_xpkg_cmds="$2"

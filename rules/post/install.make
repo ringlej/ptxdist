@@ -83,6 +83,85 @@ install_alternative =									\
 	echo "ptxd_install_alternative '$$FILE' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds"
 
 #
+# install_tree
+#
+# Installs all files and subdirectories with user/group ownership and
+# permissions via fakeroot.
+#
+#
+# $1: packet label
+# $2: OWN, use '-' to use the real UID of each file/directory
+# $3: GID, use '-' to use the real GID of each file/directory
+# $4: the toplevel directory.
+# $5: the target directory.
+#
+install_tree =			\
+	PACKET=$(strip $(1));	\
+	OWN=$(strip $(2));	\
+	GRP=$(strip $(3));	\
+	DIR=$(strip $(4));	\
+	DST=$(strip $(5));	\
+	$(call install_check, install_tree);	\
+	echo "ptxd_install_tree '$$DIR' '$$DST' '$$OWN' '$$GRP'" >> "$(STATEDIR)/$$PACKET.cmds"
+
+#
+# install_archive
+#
+# Installs all files and directories in an archive with user/group ownership and
+# permissions via fakeroot.
+#
+#
+# $1: packet label
+# $2: OWN, use '-' to use the real UID of each file/directory
+# $3: GID, use '-' to use the real GID of each file/directory
+# $4: the toplevel directory
+# $5: the target directory.
+#
+install_archive =		\
+	PACKET=$(strip $(1));	\
+	OWN=$(strip $(2));	\
+	GRP=$(strip $(3));	\
+	DIR=$(strip $(4));	\
+	DST=$(strip $(5));	\
+	$(call install_check, install_archive);	\
+	echo "ptxd_install_archive '$$DIR' '$$DST' '$$OWN' '$$GRP'" >> "$(STATEDIR)/$$PACKET.cmds"
+
+#
+# install_package
+#
+# Installs usefull files and directories in an archive with user/group ownership and
+# permissions via fakeroot.
+# Usefull means binaries, libs + links, etc.
+#
+#
+# $1: packet label
+# $2: the toplevel directory
+#
+install_package =		\
+	PACKET=$(strip $(1));	\
+	$(call install_check, install_package);	\
+	echo "ptxd_install_package" >> "$(STATEDIR)/$$PACKET.cmds"
+
+#
+# install_lib
+#
+# Installs a library + links in an archive with root/root ownership and
+# 0644 permissions via fakeroot.
+#
+#
+# $1: packet label
+# $2: library name without suffix.
+#
+install_lib =			\
+	PACKET=$(strip $(1));	\
+	OWN="$(strip $(2))";	\
+	GRP="$(strip $(3))";	\
+	PER="$(strip $(4))";	\
+	LIB=$(strip $(5));	\
+	$(call install_check, install_lib);	\
+	echo "ptxd_install_lib '$$LIB' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds"
+
+#
 # install_replace
 #
 # Replace placeholder with value in a previously
