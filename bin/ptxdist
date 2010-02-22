@@ -843,8 +843,10 @@ clean() {
 		echo "${PROMPT}cleaning packages..."
 		rm -fr -- "${PKGDIR}"/*.ipk
 		echo "${PROMPT}cleaning targetinstall stages..."
-		rm -f -- "${STATEDIR}"/*.targetinstall*
-		rm -f -- "${STATEDIR}"/*.xpkg.map
+		rm -f -- \
+		    "${STATEDIR}"/*.perms \
+		    "${STATEDIR}"/*.targetinstall* \
+		    "${STATEDIR}"/*.xpkg.map
 		echo "${PROMPT}done."
 		echo
 		return
