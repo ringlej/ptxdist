@@ -37,6 +37,7 @@ $(STATEDIR)/host-util-linux-ng.get: $(STATEDIR)/util-linux-ng.get
 HOST_UTIL_LINUX_NG_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--disable-use-tty-group \
-	--disable-makeinstall-chown
+	--disable-makeinstall-chown \
+	--disable-fallocate
 
 # vim: syntax=make
