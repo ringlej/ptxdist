@@ -31,7 +31,7 @@ config KERNEL_MODULES_BUILD
 config KERNEL_VERSION
 	prompt "kernel version"
 	string
-	default "2.6.25"
+	default "2.6.32"
 
 choice
 	prompt "kernel architecture "
