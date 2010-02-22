@@ -99,26 +99,37 @@ $(KERNEL_CONFIG):
 	@exit 1
 endif
 
+
+#
+# when compiling the rootfs into the kernel, we just include an empty
+# file for now. the rootfs isn't build yet.
+#
+KERNEL_INITRAMFS_SOURCE_$(PTXCONF_IMAGE_KERNEL_INITRAMFS) += $(STATEDIR)/empty.cpio
+KERNEL_INITRAMFS_SOURCE_$(PTXCONF_KLIBC) += $(INITRAMFS_CONTROL)
+
 $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 	@$(call targetinfo)
 
 	@echo "Using kernel config file: $(<)"
 	@install -m 644 "$(<)" "$(KERNEL_DIR)/.config"
 
-ifdef PTXCONF_KLIBC
-# tell the kernel where our spec file for initramfs is
-	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(INITRAMFS_CONTROL)\",g' \
-		$(KERNEL_DIR)/.config
+ifdef KERNEL_INITRAMFS_SOURCE_y
+	@touch "$(KERNEL_INITRAMFS_SOURCE_y)"
+	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(KERNEL_INITRAMFS_SOURCE_y)\",g' \
+		"$(KERNEL_DIR)/.config"
 endif
 
 	@$(call ptx/oldconfig, KERNEL)
 	@cp "$(KERNEL_DIR)/.config" "$(<)"
 
-ifdef PTXCONF_KLIBC
-# Don't keep expanded $(INITRAMFS_CONTROL) in $(KERNEL_CONFIG) because
-# it contains local workdir path that is not relevant to other developers.
-	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"#<Automatically set by PTXDist>\",g' \
-		$(KERNEL_CONFIG)
+#
+# Don't keep the expanded path to INITRAMS_SOURCE in $(KERNEL_CONFIG),
+# because it contains local workdir path which is not relevant to
+# other developers.
+#
+ifdef KERNEL_INITRAMFS_SOURCE_y
+	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"# Automatically set by PTXDist\",g' \
+		"$(<)"
 endif
 	@$(call touch)
 

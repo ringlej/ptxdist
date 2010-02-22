@@ -9,6 +9,16 @@ menuconfig IMAGE_KERNEL
 
 if IMAGE_KERNEL
 
+comment "'rootfs in kernel image' is incompatible with 'install kernel into /boot'"
+	depends on KERNEL_INSTALL
+
+config IMAGE_KERNEL_INITRAMFS
+	bool
+	select IMAGE_CPIO
+	depends on !KERNEL_INSTALL
+	select IMAGE_KERNEL_INSTALL_LATE
+	prompt "include root filesystem as initramfs in kernel image"
+
 config IMAGE_KERNEL_INSTALL_EARLY
 	bool
 	default !IMAGE_KERNEL_INSTALL_LATE
