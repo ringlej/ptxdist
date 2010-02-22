@@ -3,7 +3,8 @@
 config HOST_CDRKIT
 	tristate
 	select HOST_CMAKE
-	select HOST_LIBCAP
 	select HOST_LIBBZ2
+	select HOST_LIBCAP
+	select HOST_ZLIB
 	help
 	  command-line CD/DVD recorder software
