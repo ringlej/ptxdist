@@ -93,10 +93,10 @@ $(STATEDIR)/consolekit.targetinstall:
 
 	@$(call install_copy, consolekit, 0, 0, 0755, -, \
 		/usr/lib/libck-connector.so.0.0.0)
-	@$(call install_link, consolekit, /usr/lib/libck-connector.so.0.0.0, \
-		libck-connector.so.0)
-	@$(call install_link, consolekit, /usr/lib/libck-connector.so.0.0.0, \
-		libck-connector.so)
+	@$(call install_link, consolekit, libck-connector.so.0.0.0, \
+		/usr/lib/libck-connector.so.0)
+	@$(call install_link, consolekit, libck-connector.so.0.0.0, \
+		/usr/lib/libck-connector.so)
 
 	@$(call install_copy, consolekit, 0, 0, 0755, -, \
 		/usr/libexec/ck-collect-session-info)
