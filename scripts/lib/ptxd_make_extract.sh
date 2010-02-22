@@ -65,52 +65,8 @@ ptxd_make_extract() {
     echo "extract: archive=${packet_source}"
     echo "extract: dest=${dest}"
 
-    local filter
-
-    case "${packet_source}" in
-	*gz)
-	    filter="--gzip"
-	    ;;
-	*bz2)
-	    filter="--bzip2"
-	    ;;
-	*lzma)
-	    filter="--lzma"
-	    ;;
-	*xz)
-	    filter="--xz"
-	    ;;
-	*lzop)
-	    filter="--lzop"
-	    ;;
-	*tar)
-	    # none
-	    ;;
-	*zip)
-	    echo "$(basename "${packet_source}")" >> "${STATEDIR}/packetlist"
-	    unzip -q "${packet_source}" -d "${dest}"
-	    return
-	    ;;
-	*)
-	    echo
-	    echo "Unknown format, cannot extract!"
-	    echo
-	    return 1
-	    ;;
-    esac
-
+    ptxd_make_extract_archive "${packet_source}" "${dest}" &&
     echo "$(basename "${packet_source}")" >> "${STATEDIR}/packetlist"
-    tar -C "${dest}" "${filter}" -x -f "${packet_source}" ||
-    {
-	cat >&2 <<EOF
-
-
-error: extracting '${packet_source}' failed
-
-
-EOF
-	return 1
-    }
 }
 
 export -f ptxd_make_extract
