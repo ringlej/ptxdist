@@ -48,12 +48,12 @@ endif
 #
 # support the different kernel image formats
 #
-KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_BZ)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/bzImage
-KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_U)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/uImage
-KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_VM)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/vmImage
-KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_Z)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/zImage
-KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_VMLINUX) += $(KERNEL_DIR)/vmlinux
-KERNEL_IMAGE_PATH-$(PTXCONF_KERNEL_IMAGE_RAW)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/Image
+KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_BZ)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/bzImage
+KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_RAW)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/Image
+KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_U)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/uImage
+KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_VM)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/vmImage
+KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_Z)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/zImage
+KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_VMLINUX) += $(KERNEL_DIR)/vmlinux
 
 # ----------------------------------------------------------------------------
 # Get
@@ -176,17 +176,8 @@ $(STATEDIR)/kernel.install:
 $(STATEDIR)/kernel.targetinstall:
 	@$(call targetinfo)
 
-#	# we _always_ need the kernel in the image dir
-	@for i in $(KERNEL_IMAGE_PATH-y); do				\
-		if [ -f $$i ]; then					\
-			install -m 644 $$i $(IMAGEDIR)/linuximage;	\
-		fi;							\
-	done
-
-	@if test \! -e $(IMAGEDIR)/linuximage; then				\
-		echo "$(PTXCONF_KERNEL_IMAGE) not found, maybe bzImage on ARM";	\
-		exit 1;								\
-	fi
+# delete the kernel image, it might be out-of-date
+	@rm -f $(IMAGEDIR)/linuximage
 
 ifneq ($(PTXCONF_KERNEL_INSTALL)$(PTXCONF_KERNEL_VMLINUX),)
 	@$(call install_init,  kernel)
@@ -200,25 +191,16 @@ ifneq ($(PTXCONF_KERNEL_INSTALL)$(PTXCONF_KERNEL_VMLINUX),)
 
 	@$(call install_copy, kernel, 0, 0, 0755, /boot);
 ifdef PTXCONF_KERNEL_INSTALL
-	@for i in $(KERNEL_IMAGE_PATH-y); do 				\
-		if [ -f $$i ]; then					\
-			$(call install_copy, kernel, 0, 0, 0644, $$i, /boot/$(KERNEL_IMAGE), n); \
-		fi;							\
-	done
+	$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_IMAGE_PATH_y), /boot/$(KERNEL_IMAGE), n)
 endif
 
-
-#
 # install the ELF kernel image for debugging purpose
-# e.g. oprofile
-#
 ifdef PTXCONF_KERNEL_VMLINUX
 	@$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_DIR)/vmlinux, /boot/vmlinux, n)
 endif
 
 	@$(call install_finish, kernel)
 endif
-
 
 ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@rm -rf $(KERNEL_PKGDIR)
@@ -232,6 +214,10 @@ endif
 # ----------------------------------------------------------------------------
 # Target-Install-post
 # ----------------------------------------------------------------------------
+
+ifdef PTXCONF_IMAGE_KERNEL_INSTALL_EARLY
+$(STATEDIR)/kernel.targetinstall.post: $(IMAGEDIR)/linuximage
+endif
 
 $(STATEDIR)/kernel.targetinstall.post:
 	@$(call targetinfo)

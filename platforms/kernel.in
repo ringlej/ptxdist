@@ -1,6 +1,7 @@
 menuconfig KERNEL
 	bool
 	default y
+	select IMAGE_KERNEL
 	select HOST_UMKIMAGE		if KERNEL_IMAGE_U
 	select HOST_XZ			if KERNEL_XZ
 	select CROSS_MODULE_INIT_TOOLS	if KERNEL_MODULES

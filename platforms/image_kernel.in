@@ -1,0 +1,24 @@
+## SECTION=image
+
+menuconfig IMAGE_KERNEL
+	bool
+	prompt "Generate images/linuximage    "
+	depends on KERNEL
+	help
+	  Install the kernel to "platform-FOO/images/linuximage"
+
+if IMAGE_KERNEL
+
+config IMAGE_KERNEL_INSTALL_EARLY
+	bool
+	default !IMAGE_KERNEL_INSTALL_LATE
+	help
+	  If activated the kernel is installed during the kernel's
+	  "targetinstall" stage.
+
+config IMAGE_KERNEL_INSTALL_LATE
+	bool
+	help
+	  Install kernel image during "images".
+
+endif
