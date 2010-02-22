@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2002-2009 by Pengutronix e.K., Hildesheim, Germany
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -101,8 +102,8 @@ endif
 $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 	@$(call targetinfo)
 
-	@echo "Using kernel config file: $(KERNEL_CONFIG)"
-	@install -m 644 $(KERNEL_CONFIG) $(KERNEL_DIR)/.config
+	@echo "Using kernel config file: $(<)"
+	@install -m 644 "$(<)" "$(KERNEL_DIR)/.config"
 
 ifdef PTXCONF_KLIBC
 # tell the kernel where our spec file for initramfs is
@@ -111,7 +112,7 @@ ifdef PTXCONF_KLIBC
 endif
 
 	@$(call ptx/oldconfig, KERNEL)
-	@cp $(KERNEL_DIR)/.config $(KERNEL_CONFIG)
+	@cp "$(KERNEL_DIR)/.config" "$(<)"
 
 ifdef PTXCONF_KLIBC
 # Don't keep expanded $(INITRAMFS_CONTROL) in $(KERNEL_CONFIG) because
@@ -139,11 +140,12 @@ $(STATEDIR)/kernel.compile:
 	@$(call targetinfo)
 	@rm -f \
 		$(KERNEL_DIR)/usr/initramfs_data.cpio.* \
-		$(KERNEL_DIR)/usr/.initramfs_data.cpio.d
+		$(KERNEL_DIR)/usr/.initramfs_data.cpio.*
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
 	@$(call touch)
-endif
+
+endif # !PTXCONF_PROJECT_USE_PRODUCTION
 
 # ----------------------------------------------------------------------------
 # Install
@@ -157,7 +159,7 @@ $(STATEDIR)/kernel.install:
 		grep headers_install > /dev/null 2>&1; then \
 		$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) headers_install INSTALL_HDR_PATH=$(KERNEL_HEADERS_DIR); \
 	else \
-		mkdir -p $(KERNEL_HEADERS_INCLUDE_DIR)/asm; \
+		mkdir -p $(KERNEL_HEADERS_INCLUDE_DIR)/asm && \
 		cp -r \
 			$(KERNEL_DIR)/include/linux \
 			$(KERNEL_DIR)/include/asm/* \
@@ -186,13 +188,13 @@ $(STATEDIR)/kernel.targetinstall:
 		exit 1;								\
 	fi
 
-ifneq ($(or $(PTXCONF_KERNEL_INSTALL),$(PTXCONF_KERNEL_VMLINUX)),)
+ifneq ($(PTXCONF_KERNEL_INSTALL)$(PTXCONF_KERNEL_VMLINUX),)
 	@$(call install_init,  kernel)
 	@$(call install_fixup, kernel, PACKAGE, kernel)
 	@$(call install_fixup, kernel, PRIORITY,optional)
 	@$(call install_fixup, kernel, VERSION,$(KERNEL_VERSION))
 	@$(call install_fixup, kernel, SECTION,base)
-	@$(call install_fixup, kernel, AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, kernel, AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, kernel, DEPENDS,)
 	@$(call install_fixup, kernel, DESCRIPTION,missing)
 
@@ -218,9 +220,7 @@ endif
 
 
 ifdef PTXCONF_KERNEL_MODULES_INSTALL
-	@if test -e $(KERNEL_PKGDIR); then \
-		rm -rf $(KERNEL_PKGDIR); \
-	fi
+	@rm -rf $(KERNEL_PKGDIR)
 	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) modules_install
 endif
@@ -278,7 +278,7 @@ kernel_clean:
 # ----------------------------------------------------------------------------
 
 kernel_oldconfig kernel_menuconfig: $(STATEDIR)/kernel.extract
-	@if test -e $(KERNEL_CONFIG); then \
+	@if [ -e $(KERNEL_CONFIG) ]; then \
 		cp $(KERNEL_CONFIG) $(KERNEL_DIR)/.config; \
 	fi
 
