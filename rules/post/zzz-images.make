@@ -14,7 +14,11 @@
 PHONY += images
 images: world $(SEL_ROOTFS-y)
 	@echo "Clean up temp working directory"
-	@rm -rf $(WORKDIR) $(STATEDIR)/image_working_dir $(IMAGEDIR)/ipkg.conf
+	@rm -rf \
+		$(IMAGEDIR)/ipkg.conf \
+		$(IMAGEDIR)/permissions \
+		$(STATEDIR)/image_working_dir \
+		$(WORKDIR)
 
 #
 # trick to supress the message:
