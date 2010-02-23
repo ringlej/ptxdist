@@ -339,6 +339,7 @@ install_node =				\
 # $1: packet label
 #
 install_init =				\
+	$(call xpkg/env, $(1))		\
 	ptxd_make_install_init		\
 		-p '$(strip $(1))'	\
 		-t '$(@)'
@@ -354,6 +355,7 @@ install_init =				\
 # $3: replacement
 #
 install_fixup =							\
+	$(call xpkg/env, $(1))					\
 	PTXCONF_PROJECT_BUILD="$(PTXCONF_PROJECT_BUILD)"	\
 	ptxd_make_install_fixup					\
 		-p '$(strip $(1))'				\

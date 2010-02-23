@@ -32,6 +32,8 @@ ptxd_make_xpkg_init() {
 	ptxd_bailout "'pkg_xpkg' or 'pkg_xpkg_type' undefined"
     fi
 
+    ptxd_make_world_init || return
+
     # license
     pkg_license="${pkg_license:-unknown}"
     pkg_xpkg_license="${pkg_xpkg_license:-${pkg_license}}"
