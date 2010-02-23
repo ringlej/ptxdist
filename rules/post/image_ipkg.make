@@ -26,6 +26,7 @@ endif
 		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
 		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION))
 	@echo "ipkg-repository updated"
+	@touch $@
 
 
 SEL_ROOTFS-$(PTXCONF_IMAGE_IPKG_INDEX) += $(PKGDIR)/Packages
