@@ -4,14 +4,22 @@ menuconfig E2FSPROGS
 	tristate
 	prompt "e2fsprogs                     "
 	select HOST_GETTEXT
-	select LIBBLKID	if E2FSPROGS_LIBBLKID
-	select LIBUUID	if E2FSPROGS_LIBUUID
+	# configure needs these external libs
+	select LIBBLKID	#if E2FSPROGS_LIBBLKID
+	select LIBUUID	#if E2FSPROGS_LIBUUID
 	help
 	 The e2fsprogs package provides the filesystem utilities for use
 	 with the ext2 filesystem. It also supports the ext3 filesystem
 	 with journaling support.
 
 if E2FSPROGS
+
+
+config E2FSPROGS_LIBBLKID
+	bool
+
+config E2FSPROGS_LIBUUID
+	bool
 
 # -----------------------------------
 menu "build options                 "
@@ -43,13 +51,6 @@ endmenu
 menu "libraries                     "
 # -----------------------------------
 
-config E2FSPROGS_LIBBLKID
-	bool
-	prompt "libblkid"
-	select E2FSPROGS_LIBUUID
-	help
-	  Install libblkid.
-
 config E2FSPROGS_LIBCOM_ERR
 	bool
 	prompt "libcom_err"
@@ -78,12 +79,6 @@ config E2FSPROGS_LIBSS
 	select LIBC_PTHREAD
 	help
 	  Install libss.
-
-config E2FSPROGS_LIBUUID
-	bool
-	prompt "libuuid"
-	help
-	  Install libuuid.
 
 endmenu
 
