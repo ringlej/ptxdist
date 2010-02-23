@@ -1,0 +1,21 @@
+## SECTION=communication
+
+menuconfig IRSSI
+	tristate
+	prompt "irssi                         "
+	select GCCLIBS_GCC_S
+	select GLIB
+	select ICONV
+	select LIBC_DL
+	select NCURSES
+	select OPENSSL		if IRSSI_SSL
+	help
+	  IRSSI is a command-line focused IRC client.
+
+if IRSSI
+
+config IRSSI_SSL
+	bool
+	prompt "support for SSL"
+
+endif
