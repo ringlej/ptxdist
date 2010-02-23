@@ -222,6 +222,11 @@ ptxd_make_world_init() {
     ptxd_make_world_init_compat || return
 
     #
+    # xpkg mapping
+    #
+    pkg_xpkg_map="${ptx_state_dir}/${pkg_label}.xpkg.map"
+
+    #
     # path
     #
     local path_ptr="ptx_path_${pkg_type}"

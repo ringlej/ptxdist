@@ -140,23 +140,22 @@ ptxd_make_install_fixup() {
 	    #
 	    # track "pkg name" to "xpkg filename"
 	    #
-	    local xpkg_map="${STATEDIR}/${target}.xpkg.map"
-	    if [ -e "${xpkg_map}" ]; then
-		sed -i -e "/^${replace_to}$/d" "${xpkg_map}" &&
+	    if [ -e "${pkg_xpkg_map}" ]; then
+		sed -i -e "/^${replace_to}$/d" "${pkg_xpkg_map}" &&
 
-		if [ -s "${xpkg_map}" ]; then
+		if [ -s "${pkg_xpkg_map}" ]; then
 		    cat >&2 <<EOF
 
 ${PREFIX}warning: more than one ipkg per PTXdist package detected:
 
 pkg:	'${target}'
-ipkg:	'${replace_to}' and '$(cat "${xpkg_map}")'
+ipkg:	'${replace_to}' and '$(cat "${pkg_xpkg_map}")'
 
 
 EOF
 		fi
 	    fi &&
-	    echo "${replace_to}" >> "${xpkg_map}" || return
+	    echo "${replace_to}" >> "${pkg_xpkg_map}" || return
 
 
 	    ;;
