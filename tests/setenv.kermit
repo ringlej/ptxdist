@@ -56,8 +56,12 @@ define setenv_uboot_v1 {
 }
 
 define setenv_uboot_v2 {
+	if eq \m(uboot_prompt) "barebox:" { 
+		run \%1/make_barebox_env \%3
+	} else {
+		run \%1/make_uboot_v2_env \%3
+	}
 
-	run \%1/make_uboot_v2_env \%3
 	ptx_check_fail "Could not generate new environment"
 	.imagename := \fbasename(\%3)
 

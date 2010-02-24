@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+PTXDIST_SETENV_U_BOOT_V2_ENV="${1}"
+ENVTMPDIR="$(mktemp -d "${PTXDIST_TEMPDIR}/uboot_v2_env.XXXXXX")"
+
+tar -C "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/" -c . \
+	--exclude .svn \
+	--exclude .pc \
+	--exclude .git \
+	--exclude "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/config.in" \
+	| tar -C "${ENVTMPDIR}" -x
+
+${PTXDIST_SYSROOT_HOST}/bin/bareboxenv -s "${ENVTMPDIR}" "${IMAGEDIR}/barebox-environment"
+
+cp "${IMAGEDIR}/barebox-environment" "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
+
+rm -rf "${ENVTMPDIR}"
