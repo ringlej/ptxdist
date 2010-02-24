@@ -28,9 +28,16 @@ menuconfig DTC
 	  You will find the device tree binary blob under
 	  images/oftree in your workspace.
 
+if DTC
+
+config DTC_INSTALL_OFTREE
+	bool "install oftree to /boot"
+	help
+	  Creates an package to install the 'oftree' file to /boot
+	  of your target system.
+
 config DTC_OFTREE_DTS
 	string "source dts file"
-	depends on DTC
 	default "${KERNEL_DIR}/arch/powerpc/boot/dts/<yourboard>.dts"
 	help
 	  Select the dts file to use for the device tree binary
@@ -39,4 +46,5 @@ config DTC_OFTREE_DTS
 
 config DTC_EXTRA_ARGS
 	string "extra options passed to dtc"
-	depends on DTC
+
+endif
