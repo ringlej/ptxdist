@@ -83,13 +83,13 @@ else
 XORG_SERVER_AUTOCONF += --disable-config-udev
 endif
 
-ifdef PTXCONF_XORG_SERVER_NULL_ROOT_CURSOR
+ifdef PTXCONF_XORG_SERVER_OPT_NULL_ROOT_CURSOR
 XORG_SERVER_AUTOCONF += --enable-null-root-cursor
 else
 XORG_SERVER_AUTOCONF += --disable-null-root-cursor
 endif
 
-ifdef PTXCONF_XORG_SERVER_AIGLX
+ifdef PTXCONF_XORG_SERVER_OPT_AIGLX
 XORG_SERVER_AUTOCONF += --enable-aiglx
 else
 XORG_SERVER_AUTOCONF += --disable-aiglx
@@ -116,7 +116,7 @@ endif
 ifdef PTXCONF_XORG_SERVER_EXT_SHM
 XORG_SERVER_AUTOCONF += --enable-mitshm
 else
-XORG_SERVER_AUTOCONF += --disable-shm
+XORG_SERVER_AUTOCONF += --disable-mitshm
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_XRES

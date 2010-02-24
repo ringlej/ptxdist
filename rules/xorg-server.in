@@ -284,7 +284,7 @@ config XORG_SERVER_EXT_SHM
 	prompt "shm extension"
 	default y
 	help
-	  --enable-shm Support for MIT Shared Memoy
+	  --enable-mitshm Support for MIT Shared Memoy
 
 config XORG_SERVER_EXT_XRES
 	bool
