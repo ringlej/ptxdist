@@ -5,28 +5,43 @@ if [ ! -e "${PTXDIST_BOARDSETUP}" ]; then
 	exit 1
 fi
 
-CONFFILE="${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/config${PTXDIST_PLATFORMSUFFIX}"
-if [ ! -r "${CONFFILE}.in" ]; then
-	if [ -r "`dirname "${CONFFILE}"`/config.in" ]; then
-		CONFFILE="`dirname "${CONFFILE}"`/config"
-	else
-		echo "Config file for uboot environment is missing!" >&2
-		exit 1
-	fi
-fi
-
-#source and export variables, so we can access them later with awk.
 set -a
 . "${PTXDIST_BOARDSETUP}"
 set +a
 
-#Replace @magics@ with PTXCONF-variables
-#FIXME: Warn if variable is empty?
-awk 'match($0, "@[A-Z0-9_]+@") { var=substr($0,RSTART+1,RLENGTH-2); gsub("@"var"@", ENVIRON[var]); } {print} ' "${CONFFILE}".in >"${CONFFILE}"
+UBOOT_ENVDIR="${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env"
+BAREBOX_ENVDIR="${PTXDIST_PLATFORMCONFIGDIR}/barebox-env"
 
-PTXDIST_SETENV_U_BOOT_V2_ENV="$(mktemp "${PTXCONF_BOARDSETUP_TFTP_PATH}/u-boot-v2-environment.XXXXXX")"
-chmod 644 "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
+if [ -d ${UBOOT_ENVDIR} -a -r ${UBOOT_ENVDIR} ]; then
+	CONFFILE="${UBOOT_ENVDIR}/config${PTXDIST_PLATFORMSUFFIX}"
+	if [ ! -r "${CONFFILE}.in" ]; then
+		if [ -r "`dirname "${CONFFILE}"`/config.in" ]; then
+			CONFFILE="`dirname "${CONFFILE}"`/config"
+		else
+			echo "Direcotry for U-Boot environment found, but config file is missing!" >&2
+			exit 1
+		fi
+	fi
+	awk 'match($0, "@[A-Z0-9_]+@") { var=substr($0,RSTART+1,RLENGTH-2); gsub("@"var"@", ENVIRON[var]); } {print} ' "${CONFFILE}".in >"${CONFFILE}"
+fi
 
-"${PTXDIST_TOPDIR}/tests/kwrapper" setenv "${CONFFILE}" "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
+if [ -d "${BAREBOX_ENVDIR}" -a -r "${BAREBOX_ENVDIR}" -a -z "${CONFFILE}" ]; then
+	# Neith u-boot-v2 nor barebox acutally need CONFFILE while calling
+	# kermit setenv function. However U-Boot V1 need this. So we have to
+	# pass this information to the kwrapper.
+	# barebox parses its conffile in make_barebox_env separately. give a
+	# dummy here to make sure that setenv can parse the parameters correctly
+	CONFFILE="NULL";
+fi
 
-rm -rf "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
+if [ -z "${CONFFILE}" ]; then
+	echo "No environment directory found!" >&2
+	exit 1
+fi
+
+PTXDIST_SETENV_ENV_IMAGE="$(mktemp "${PTXCONF_BOARDSETUP_TFTP_PATH}/environment_image.XXXXXX")"
+chmod 644 "${PTXDIST_SETENV_ENV_IMAGE}"
+
+"${PTXDIST_TOPDIR}/tests/kwrapper" setenv "${CONFFILE}" "${PTXDIST_SETENV_ENV_IMAGE}"
+
+rm -rf "${PTXDIST_SETENV_ENV_IMAGE}"

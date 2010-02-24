@@ -1,18 +1,37 @@
 #!/bin/bash
 
 set -e
-PTXDIST_SETENV_U_BOOT_V2_ENV="${1}"
-ENVTMPDIR="$(mktemp -d "${PTXDIST_TEMPDIR}/uboot_v2_env.XXXXXX")"
+PTXDIST_SETENV_BAREBOX_ENV="${1}"
+ENVTMPDIR="$(mktemp -d "${PTXDIST_TEMPDIR}/barebox_env.XXXXXX")"
 
-tar -C "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/" -c . \
+#source and export variables, so we can access them later with awk.
+set -a
+. "${PTXDIST_BOARDSETUP}"
+set +a
+
+CONFFILE="${PTXDIST_PLATFORMCONFIGDIR}/barebox-env/config${PTXDIST_PLATFORMSUFFIX}"
+if [ ! -r "${CONFFILE}.in" ]; then
+	if [ -r "`dirname "${CONFFILE}"`/config.in" ]; then
+		CONFFILE="`dirname "${CONFFILE}"`/config"
+	else
+		echo "Config file for barebox environment is missing!" >&2
+		exit 1
+	fi
+fi
+
+#Replace @magics@ with PTXCONF-variables
+#FIXME: Warn if variable is empty?
+awk 'match($0, "@[A-Z0-9_]+@") { var=substr($0,RSTART+1,RLENGTH-2); gsub("@"var"@", ENVIRON[var]); } {print} ' "${CONFFILE}".in >"${CONFFILE}"
+
+tar -C "${PTXDIST_PLATFORMCONFIGDIR}/barebox-env/" -c . \
 	--exclude .svn \
 	--exclude .pc \
 	--exclude .git \
-	--exclude "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/config.in" \
+	--exclude "${PTXDIST_PLATFORMCONFIGDIR}/barebox-env/config.in" \
 	| tar -C "${ENVTMPDIR}" -x
 
 ${PTXDIST_SYSROOT_HOST}/bin/bareboxenv -s "${ENVTMPDIR}" "${IMAGEDIR}/barebox-environment"
 
-cp "${IMAGEDIR}/barebox-environment" "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
+cp "${IMAGEDIR}/barebox-environment" "${PTXDIST_SETENV_BAREBOX_ENV}"
 
 rm -rf "${ENVTMPDIR}"
