@@ -198,6 +198,7 @@ ifneq ($(PTXCONF_KERNEL_INSTALL)$(PTXCONF_KERNEL_VMLINUX),)
 	@$(call install_fixup, kernel, DEPENDS,)
 	@$(call install_fixup, kernel, DESCRIPTION,missing)
 
+	@$(call install_copy, kernel, 0, 0, 0755, /boot);
 ifdef PTXCONF_KERNEL_INSTALL
 	@for i in $(KERNEL_IMAGE_PATH-y); do 				\
 		if [ -f $$i ]; then					\
