@@ -403,6 +403,9 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
+_tmp := $(subst -, ,$(PTXCONF_GNU_TARGET))
+GRUB_STAGE_DIR := $(GRUB_PKGDIR)/usr/lib/grub/$(patsubst i%86,i386,$(word 1,$(_tmp)))-$(word 2,$(_tmp))
+
 $(STATEDIR)/grub.targetinstall:
 	@$(call targetinfo)
 
@@ -416,10 +419,10 @@ $(STATEDIR)/grub.targetinstall:
 	@$(call install_fixup, grub,DESCRIPTION,missing)
 
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/stage1, \
+		$(GRUB_STAGE_DIR)/stage1, \
 		/boot/grub/stage1, n)
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/stage2, \
+		$(GRUB_STAGE_DIR)/stage2, \
 		/boot/grub/stage2, n)
 
 	@if [ -n $(PTXCONF_GRUB_MENU_LST) ]; then \
@@ -444,56 +447,56 @@ $(STATEDIR)/grub.targetinstall:
 
 ifdef PTXCONF_GRUB_ISO9660
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/iso9660_stage1_5, \
+		$(GRUB_STAGE_DIR)/iso9660_stage1_5, \
 		/boot/grub/iso9660_stage1_5, n)
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/stage2_eltorito, \
+		$(GRUB_STAGE_DIR)/stage2_eltorito, \
 		/boot/grub/stage2_eltorito, n)
 endif
 
 ifdef PTXCONF_GRUB_EXT2FS
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/e2fs_stage1_5, \
+		$(GRUB_STAGE_DIR)/e2fs_stage1_5, \
 		/boot/grub/e2fs_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_FAT
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/fat_stage1_5, \
+		$(GRUB_STAGE_DIR)/fat_stage1_5, \
 		/boot/grub/fat_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_FFS
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/ffs_stage1_5, \
+		$(GRUB_STAGE_DIR)/ffs_stage1_5, \
 		/boot/grub/ffs_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_JFS
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/jfs_stage1_5, \
+		$(GRUB_STAGE_DIR)/jfs_stage1_5, \
 		/boot/grub/jfs_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_MINIX
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/minix_stage1_5, \
+		$(GRUB_STAGE_DIR)/minix_stage1_5, \
 		/boot/grub/minix_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_REISERFS
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/reiserfs_stage1_5, \
+		$(GRUB_STAGE_DIR)/reiserfs_stage1_5, \
 		/boot/grub/reiserfs_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_UFS2
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/ufs2_stage1_5, \
+		$(GRUB_STAGE_DIR)/ufs2_stage1_5, \
 		/boot/grub/ufs2_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_VSTAFS
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/vstafs_stage1_5, \
+		$(GRUB_STAGE_DIR)/vstafs_stage1_5, \
 		/boot/grub/vstafs_stage1_5, n)
 endif
 ifdef PTXCONF_GRUB_XFS
 	@$(call install_copy, grub, 0, 0, 0644, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/xfs_stage1_5, \
+		$(GRUB_STAGE_DIR)/xfs_stage1_5, \
 		/boot/grub/xfs_stage1_5, n)
 endif
 
@@ -502,10 +505,10 @@ endif
 		/usr/sbin/grub-set-default, n)
 ifdef PTXCONF_GRUB_DISKLESS
 	@$(call install_copy, grub, 0, 0, 0755, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/nbgrub, \
+		$(GRUB_STAGE_DIR)/nbgrub, \
 		/usr/sbin/nbgrub, n)
 	@$(call install_copy, grub, 0, 0, 0755, \
-		$(GRUB_PKGDIR)/usr/lib/grub/i386-unknown/pxegrub, \
+		$(GRUB_STAGE_DIR)/pxegrub, \
 		/usr/sbin/pxegrub, n)
 endif
 
