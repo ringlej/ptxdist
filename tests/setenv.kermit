@@ -70,7 +70,13 @@ define setenv_uboot_v2 {
 
 	ptx_test_start "Getting default environment"
 	ptx_uboot_exec 15 "ping $eth0.serverip"
-	ptx_uboot_exec 15 "tftp \m(imagename)"
+	# in current versions of barebox tftp returns the filesize it has
+	# fetched. The return value will eventually intepreted as failure by
+	# ptx_uboot_exec. We call an empty echo to set $? to 0 if the return
+	# value of tftp is not 1 to work around this. (tftp returns 1 if it
+	# can't get the file. An successfully fetched image will mostly
+	# impossibly have the size 1) 
+	ptx_uboot_exec 15 "tftp \m(imagename); [ $? -ne 1 ] && echo"
 	ptx_test_end
 
 	ptx_test_start "Flashing default environment"
