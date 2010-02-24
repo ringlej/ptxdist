@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_CAIRO) += cairo
 # Paths and names
 #
 CAIRO_SUFFIX	:= tar.gz
-CAIRO_VERSION	:= 1.8.8
+CAIRO_VERSION	:= 1.8.10
 CAIRO_URL	:= http://cairographics.org/releases/cairo-$(CAIRO_VERSION).$(CAIRO_SUFFIX)
 CAIRO		:= cairo-$(CAIRO_VERSION)
 CAIRO_SOURCE	:= $(SRCDIR)/$(CAIRO).$(CAIRO_SUFFIX)
@@ -136,9 +136,9 @@ $(STATEDIR)/cairo.targetinstall:
 	@$(call install_fixup,cairo,DEPENDS,)
 	@$(call install_fixup,cairo,DESCRIPTION,missing)
 
-	@$(call install_copy, cairo, 0, 0, 0644, -, /usr/lib/libcairo.so.2.10800.8)
-	@$(call install_link, cairo, libcairo.so.2.10800.8, /usr/lib/libcairo.so.2)
-	@$(call install_link, cairo, libcairo.so.2.10800.8, /usr/lib/libcairo.so)
+	@$(call install_copy, cairo, 0, 0, 0644, -, /usr/lib/libcairo.so.2.10800.10)
+	@$(call install_link, cairo, libcairo.so.2.10800.10, /usr/lib/libcairo.so.2)
+	@$(call install_link, cairo, libcairo.so.2.10800.10, /usr/lib/libcairo.so)
 
 	@$(call install_finish,cairo)
 
