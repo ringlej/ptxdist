@@ -90,25 +90,34 @@ define ptx_lineout {
 
 define ptx_uboot_enter_shell {
 
-	ptx_test_start "Logging into U-Boot"
+	ptx_test_start "Logging into Bootloader"
 
 	# Determine U-Boot version; 20yy.m is treated as V1.
 	# tried to match all V1 signatures with \fpattern, failed badly :(
-	minput 120 "U-Boot 1." "U-Boot 2." "U-Boot 20"
+	minput 120 "U-Boot 1." "U-Boot 20" "U-Boot 2." "barebox 2" 
 :eval_again
-	ptx_check_fail "waiting for u-boot-signature"
+	ptx_check_fail "waiting for bootloader signature"
 	lineout
-	if = \v(minput) 2 {
-		.uboot_prompt = "uboot:"
-		.uboot_version = 2
-	} else {
+
+	switch \v(minput) {
+	:1
+	:2
 		.uboot_prompt = "uboot>"
 		.uboot_version = 1
+		break
+	:3
+		.uboot_prompt = "uboot:"
+		.uboot_version = 2
+		break
+	:4
+		.uboot_prompt = "barebox:"
+		.uboot_version = 2
+		break
 	}
 	# sometimes there are caches for serial inputs containing old data
 	# make sure we act on the newest one
-	minput 120 "U-Boot 1." "U-Boot 2." "U-Boot 20" \m(uboot_prompt)
-	if not = \v(minput) 4 goto eval_again
+	minput 120 "U-Boot 1." "U-Boot 20" "U-Boot 2." "barebox 2" \m(uboot_prompt)
+	if not = \v(minput) 5 goto eval_again
 	ptx_test_end
 }
 
