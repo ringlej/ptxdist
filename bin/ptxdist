@@ -1722,7 +1722,7 @@ parse_second()
 			;;
 
 		boardsetup)
-			check_config
+			check_config &&
 			do_config menuconfig board
 			exit
 			;;
