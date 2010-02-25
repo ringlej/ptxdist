@@ -14,8 +14,8 @@ function usage() {
 
 
 BEGIN {
-	topdir = ENVIRON["PTXDIST_TOPDIR"];
-	if (topdir == "") {
+	importdir = ENVIRON["PTXDIST_IMPORTDIR"];
+	if (importdir == "") {
 		print "ptxd_lib_import.awk cannot be used stand-alone" > "/dev/stderr";
 		usage();
 	}
@@ -45,7 +45,7 @@ FNR == 1 {
         if (out_file != "")
 		close(out_file);
 
-	out_file = topdir "/" prefix_file "/" gensub(in_path "/", "", "g", FILENAME);
+	out_file = importdir "/" prefix_file "/" gensub(in_path "/", "", "g", FILENAME);
 	out_dir = gensub(/^(.*)\/.*/, "\\1", "g", out_file);
 
 	err = system("						\

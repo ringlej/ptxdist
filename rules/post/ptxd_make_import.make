@@ -15,14 +15,19 @@
 # that points to the toplevel KCONFIG file
 #
 # the kconfig tree will be found in
-# $PTXDIST_TOPLEVEL/config/<package>
+# $(PTXDIST_IMPORTDIR)/config/<package>
 # all symbols are prefixed with <PACKAGE>
 #
+# if PTXDIST_IMPORTDIR is omitted, PTXDIST_TOPLEVEL will be used
+#
 # the import is started with:
-# ptxdist make import <package>
+# ptxdist make <package>_import [PTXDIST_IMPORTDIR=<dir>]
 #
 %_import: $(STATEDIR)/%.extract
 	@$(call targetinfo)
-	@"${PTXDIST_LIB_DIR}/ptxd_make_import.awk" "$(*)" "$($(PTX_MAP_TO_PACKAGE_$(*))_KCONFIG)"
+	@PTXDIST_IMPORTDIR="$(PTXDIST_IMPORTDIR)"; \
+		PTXDIST_IMPORTDIR="$${PTXDIST_IMPORTDIR:-$(PTXDIST_TOPDIR)}" \
+		gawk -f "${PTXDIST_LIB_DIR}/ptxd_make_import.awk" \
+		"$(*)" "$($(PTX_MAP_TO_PACKAGE_$(*))_KCONFIG)"
 
 # vim: syntax=make
