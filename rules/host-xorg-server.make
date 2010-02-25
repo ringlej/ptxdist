@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,23 +19,17 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_SERVER) += host-xorg-server
 #
 HOST_XORG_SERVER_DIR	= $(HOST_BUILDDIR)/$(XORG_SERVER)
 
+#
+# well, well, what can I say: HACK-warning
+#
+# this way we fool the patching not to patch us
+# and the autogen_dep script, not to run autogen on us
+#
+HOST_XORG_SERVER	= host-$(XORG_SERVER)
+
 ifdef PTXCONF_HOST_XORG_SERVER
 $(STATEDIR)/autogen-tools: $(STATEDIR)/host-xorg-server.install
 endif
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-#
-# special extract stage without patchin, we don't need the patches and
-# cannot autoreconf, because the autotools are not build yet
-#
-$(STATEDIR)/host-xorg-server.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_XORG_SERVER_DIR))
-	@$(call extract, HOST_XORG_SERVER, $(HOST_BUILDDIR))
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
