@@ -23,16 +23,22 @@ $(STATEDIR)/autogen-tools: $(STATEDIR)/host-xorg-server.install
 endif
 
 # ----------------------------------------------------------------------------
-# Prepare
+# Extract
 # ----------------------------------------------------------------------------
 
-HOST_XORG_SERVER_PATH	:= PATH=$(HOST_PATH)
-HOST_XORG_SERVER_ENV 	:= $(HOST_ENV)
+#
+# special extract stage without patchin, we don't need the patches and
+# cannot autoreconf, because the autotools are not build yet
+#
+$(STATEDIR)/host-xorg-server.extract:
+	@$(call targetinfo)
+	@$(call clean, $(HOST_XORG_SERVER_DIR))
+	@$(call extract, HOST_XORG_SERVER, $(HOST_BUILDDIR))
+	@$(call touch)
 
-#
-# autoconf
-#
-HOST_XORG_SERVER_AUTOCONF	:= $(HOST_AUTOCONF)
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
 
 $(STATEDIR)/host-xorg-server.prepare:
 	@$(call targetinfo)
