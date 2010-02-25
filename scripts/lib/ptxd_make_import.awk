@@ -78,9 +78,18 @@ FNR == 1 {
 # add prefix to sourced files
 #
 /^[[:space:]]*source[[:space:]]+/ {
+	# remove quotes from file
+	gsub(/(^"|"$)/, "", $2);
 	ARGC++;
 	ARGV[ARGC - 1] = in_path "/" $2;
-	$0 = gensub(/^([[:space:]]*source[[:space:]]+)(")?(.*)$/, "\\1" "\\2" prefix_file "/\\3", "g", $0);
+
+#  source "foo/bar.in"
+# +------+|+--------+|
+#    |    |     |    |
+#    |    |     |    |
+#   \\1  \\2   \\3  \\4
+#
+	$0 = gensub(/^([[:space:]]*source[[:space:]]+)(")?(.*)(")?$/, "\\1" "\"" prefix_file "/\\3\"", "g", $0);
 }
 
 #
