@@ -1,8 +1,0 @@
-configure_ac_remove-fssa.diff
-configure_ac-remove-includes.diff
-configure_ac-snprintf-cacheable.diff
-configure_ac-getgroups-cacheable.diff
-configure_ac-realpath-cacheable.diff
-configure_ac-md5-cacheable.diff
-configure_ac-sha1-cacheable.diff
-configure_ac-virtuozzo-cacheable.diff
