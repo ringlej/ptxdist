@@ -260,16 +260,8 @@ END {
 		#
 		# conditional dependency on autogen script
 		#
-		if (!(this_pkg ~ /^host-|^cross-/)) {
-			print "ifneq ($(" this_PKG "),)"					> DGEN_DEPS_POST;
-			print "ifneq ($(call autogen_dep,$(" this_PKG ")),)"			> DGEN_DEPS_POST;
-		} else {
-			target_PKG = gensub(/^HOST_/, "", "", this_PKG);
-			target_PKG = gensub(/^CROSS_/, "", "", target_PKG);
-			# host/cross packages inherit the package name xor have their own
-			print "ifneq ($(" this_PKG ")$(" target_PKG "),)"			> DGEN_DEPS_POST;
-			print "ifneq ($(call autogen_dep,$(" this_PKG ")$(" target_PKG ")),)"	> DGEN_DEPS_POST;
-		}
+		print "ifneq ($(" this_PKG "),)"						> DGEN_DEPS_POST;
+		print "ifneq ($(call autogen_dep,$(" this_PKG ")),)"				> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg ".extract: $(STATEDIR)/autogen-tools"		> DGEN_DEPS_POST;
 		print "endif"									> DGEN_DEPS_POST;
 		print "endif"									> DGEN_DEPS_POST;
