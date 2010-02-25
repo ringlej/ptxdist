@@ -237,9 +237,9 @@ if GST_PLUGINS_GOOD
 		depends on GST_PLUGINS_GOOD_BROKEN
 		prompt "osx_video"
 
-	config GST_PLUGINS_GOOD_V4L2
+	config GST_PLUGINS_GOOD_GST_V4L2
 		bool
-		prompt "v4l2"
+		prompt "gst_v4l2"
 
 	config GST_PLUGINS_GOOD_X
 		bool
