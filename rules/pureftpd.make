@@ -1,4 +1,5 @@
 # -*-makefile-*-
+# $Id: template 6001 2006-08-12 10:15:00Z mkl $
 #
 # Copyright (C) 2006 by Robert Schwebel
 #
@@ -16,7 +17,7 @@ PACKAGES-$(PTXCONF_PUREFTPD) += pureftpd
 #
 # Paths and names
 #
-PUREFTPD_VERSION	:= 1.0.21
+PUREFTPD_VERSION	:= 1.0.28
 PUREFTPD		:= pure-ftpd-$(PUREFTPD_VERSION)
 PUREFTPD_SUFFIX		:= tar.bz2
 PUREFTPD_URL		:= http://download.pureftpd.org/pub/pure-ftpd/releases/$(PUREFTPD).$(PUREFTPD_SUFFIX)
@@ -145,5 +146,14 @@ endif
 	@$(call install_finish, pureftpd)
 
 	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+pureftpd_clean:
+	rm -rf $(STATEDIR)/pureftpd.*
+	rm -rf $(PKGDIR)/pureftpd_*
+	rm -rf $(PUREFTPD_DIR)
 
 # vim: syntax=make

@@ -1,0 +1,25 @@
+#
+# Submitted:
+#
+# Sascha Hauer <s.hauer@pengutronix.de>, 2005-08-31
+#
+# This patch sets some defaults for cross compiling and
+# removes the -fssa switch from CFLAGS, because man gcc says
+# that this option is not ready for production use and it
+# produces internal compiler errrors here
+#
+# unknown
+# 
+Index: pure-ftpd-1.0.21/configure.ac
+===================================================================
+--- pure-ftpd-1.0.21.orig/configure.ac
++++ pure-ftpd-1.0.21/configure.ac
+@@ -361,7 +361,7 @@ AC_ARG_WITH(minimal,
+     AC_DEFINE(WITHOUT_ASCII)    
+     AC_DEFINE(NO_BANNER)
+     AC_DEFINE(BORING_MODE)
+-    CFLAGS="$CFLAGS -Os -ftracer -fomit-frame-pointer -fssa -fgcse -falign-functions=2 -falign-jumps=2 -fno-unroll-loops "
++    CFLAGS="$CFLAGS -Os -ftracer -fomit-frame-pointer -fgcse -falign-functions=2 -falign-jumps=2 -fno-unroll-loops "
+     LDFLAGS="$LDFLAGS -s "
+   fi ])
+ 
