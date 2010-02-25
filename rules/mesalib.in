@@ -23,7 +23,7 @@ if MESALIB
 
 choice
 	depends on MESALIB
-	prompt "backend driver"
+	prompt "backend driver "
 
 
 	config MESALIB_DRIVER_XLIB
@@ -44,31 +44,50 @@ endchoice
 
 if MESALIB_DRIVER_DRI
 
-comment "dri drivers"
-
-config MESALIB_DRI_I915
+config MESALIB_DRI_GALLIUM
 	bool
-	prompt "i915"
+	prompt "Enable Gallium"
 
 config MESALIB_DRI_SWRAST
 	bool
-	prompt "swrast"
+	prompt "Software Rasterizer           "
+
+menuconfig MESALIB_DRI_INTEL
+	bool
+	prompt "Intel DRI drivers             "
+
+if MESALIB_DRI_INTEL
+
+config MESALIB_DRI_INTEL_GALLIUM
+	bool
+	depends on MESALIB_DRI_GALLIUM
+	prompt "Enable Gallium"
+
+comment "Drivers"
 
 config MESALIB_DRI_I810
 	bool
 	prompt "i810"
 
+config MESALIB_DRI_I915
+	bool
+	prompt "i915"
+
 config MESALIB_DRI_I965
 	bool
 	prompt "i965"
 
+endif
+
+menuconfig MESALIB_DRI_ATI
+	bool
+	prompt "Ati DRI drivers               "
+
+if MESALIB_DRI_ATI
+
 config MESALIB_DRI_MACH64
 	bool
 	prompt "mach64"
-
-config MESALIB_DRI_MGA
-	bool
-	prompt "mga"
 
 config MESALIB_DRI_R128
 	bool
@@ -85,6 +104,14 @@ config MESALIB_DRI_R300
 config MESALIB_DRI_RADEON
 	bool
 	prompt "radeon"
+
+endif
+
+menu "Other DRI Drivers             "
+
+config MESALIB_DRI_MGA
+	bool
+	prompt "mga"
 
 config MESALIB_DRI_S3V
 	bool
@@ -116,11 +143,13 @@ config MESALIB_DRI_FFB
 	bool
 	prompt "ffb"
 
+endmenu
+
 endif
 
 menuconfig MESALIB_TOOLS
 	bool
-	prompt "tools"
+	prompt "Tools and Demos               "
 
 if MESALIB_TOOLS
 

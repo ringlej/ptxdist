@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 7.5.2
+MESALIB_VERSION	:= 7.6.1
 MESALIB		:= MesaLib-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.bz2
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
@@ -27,14 +27,14 @@ MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
 MESALIB_URL	:= \
 	$(PTXCONF_SETUP_SFMIRROR)/mesa3d/$(MESADEMOS).$(MESALIB_SUFFIX) \
-	ftp://ftp.freedesktop.org/pub/mesa/7.5.2/$(MESALIB).$(MESALIB_SUFFIX)
+	ftp://ftp.freedesktop.org/pub/mesa/7.6.1/$(MESALIB).$(MESALIB_SUFFIX)
 
 MESADEMOS		:= MesaDemos-$(MESALIB_VERSION)
 MESADEMOS_SOURCE	:= $(SRCDIR)/$(MESADEMOS).$(MESALIB_SUFFIX)
 
 MESADEMOS_URL		:= \
 	$(PTXCONF_SETUP_SFMIRROR)/mesa3d/$(MESADEMOS).$(MESALIB_SUFFIX) \
-	ftp://ftp.freedesktop.org/pub/mesa/7.5.2/$(MESADEMOS).$(MESALIB_SUFFIX)
+	ftp://ftp.freedesktop.org/pub/mesa/7.6.1/$(MESADEMOS).$(MESALIB_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -120,7 +120,25 @@ ifdef PTXCONF_ARCH_X86
 MESALIB_AUTOCONF += \
 	--enable-32-bit \
 	--disable-64-bit
+
+ifdef PTXCONF_MESALIB_DRI_GALLIUM
+MESALIB_AUTOCONF += \
+        --enable-gallium
+else
+MESALIB_AUTOCONF += \
+        --disable-gallium
 endif
+
+ifdef PTXCONF_MESALIB_DRI_INTEL_GALLIUM
+MESALIB_AUTOCONF += \
+	--enable-gallium-intel
+else
+MESALIB_AUTOCONF += \
+	--disable-gallium-intel
+endif
+
+endif
+
 ifdef PTXCONF_ARCH_ARM
 MESALIB_AUTOCONF += \
 	--disable-gallium-intel
@@ -141,7 +159,7 @@ endif
 # ----------------------------------------------------------------------------
 
 MESALIB_GL_VERSION-$(PTXCONF_MESALIB_DRIVER_DRI)  := 1.2
-MESALIB_GL_VERSION-$(PTXCONF_MESALIB_DRIVER_XLIB) := 1.5.070502
+MESALIB_GL_VERSION-$(PTXCONF_MESALIB_DRIVER_XLIB) := 1.5.070601
 
 $(STATEDIR)/mesalib.targetinstall:
 	@$(call targetinfo)
@@ -296,13 +314,13 @@ ifndef PTXCONF_MESALIB_DRIVER_OSMESA
 	@$(call install_link, mesalib, libGL.so.$(MESALIB_GL_VERSION-y), /usr/lib/libGL.so)
 endif
 
-	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/libGLU.so.1.3.070502)
-	@$(call install_link, mesalib, libGLU.so.1.3.070502, /usr/lib/libGLU.so.1)
-	@$(call install_link, mesalib, libGLU.so.1.3.070502, /usr/lib/libGLU.so)
+	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/libGLU.so.1.3.070601)
+	@$(call install_link, mesalib, libGLU.so.1.3.070601, /usr/lib/libGLU.so.1)
+	@$(call install_link, mesalib, libGLU.so.1.3.070601, /usr/lib/libGLU.so)
 
-	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/libOSMesa.so.7.5.2)
-	@$(call install_link, mesalib, libOSMesa.so.7.5.2, /usr/lib/libOSMesa.so.7)
-	@$(call install_link, mesalib, libOSMesa.so.7.5.2, /usr/lib/libOSMesa.so)
+	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/libOSMesa.so.7.6.1)
+	@$(call install_link, mesalib, libOSMesa.so.7.6.1, /usr/lib/libOSMesa.so.7)
+	@$(call install_link, mesalib, libOSMesa.so.7.6.1, /usr/lib/libOSMesa.so)
 
 	@$(call install_finish, mesalib)
 
