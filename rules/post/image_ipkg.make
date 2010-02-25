@@ -35,10 +35,10 @@ ipkg-index: $(PKGDIR)/Packages
 
 PHONY += $(PKGDIR)/Packages
 $(PKGDIR)/Packages: $(STATEDIR)/host-ipkg-utils.install.post
-	@echo -n "Creating ipkg index '$(notdir $@)'..."
+	@echo "Creating ipkg index '$@'..."
 	@rm -f $(PKGDIR)/Packages*
 	@$(HOST_ENV) \
-		ipkg-make-index -l "$(PKGDIR)/Packages.filelist" -p "$(@)" "$(PKGDIR)" >/dev/null 2>&1
+		ipkg-make-index -l "$(PKGDIR)/Packages.filelist" -p "$(@)" "$(PKGDIR)" 
 	@echo "done."
 
 # vim: syntax=make
