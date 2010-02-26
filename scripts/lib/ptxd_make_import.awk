@@ -20,6 +20,10 @@ BEGIN {
 		usage();
 	}
 
+	if (importdir == ENVIRON["PTXDIST_WORKSPACE"]) {
+		workspace = "workspace/";
+	}
+
 	prefix = ARGV[1];
 	in_file = ARGV[2];
 	ARGV[1] = "";
@@ -89,7 +93,7 @@ FNR == 1 {
 #    |    |     |    |
 #   \\1  \\2   \\3  \\4
 #
-	$0 = gensub(/^([[:space:]]*source[[:space:]]+)(")?(.*)(")?$/, "\\1" "\"" prefix_file "/\\3\"", "g", $0);
+	$0 = gensub(/^([[:space:]]*source[[:space:]]+)(")?(.*)(")?$/, "\\1" "\"" workspace prefix_file "/\\3\"", "g", $0);
 }
 
 #

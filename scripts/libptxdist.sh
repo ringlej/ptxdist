@@ -185,7 +185,23 @@ ptxd_kconfig_migrate() {
 	return ${retval}
 }
 
+ptxd_kconfig_local_prepare() {
+	local part="${1}"
+	local assistent="${PTXDIST_WORKSPACE}/prepare_${part}"
 
+	if [ \! -x "${assistent}" ]; then
+		return 0
+	fi
+
+	. "${assistent}"
+	retval=$?
+
+	if [ ${retval} -ne 0 ]; then
+		ptxd_dialog_msgbox "error: error occured in prepare_${part}"
+	fi
+
+	return ${retval}
+}
 
 #
 # $1	what kind of config ("oldconfig", "menuconfig", "dep")
@@ -275,6 +291,8 @@ ptxd_kconfig() {
 	    KCONFIG_NOTIMESTAMP="1" \
 	    PROJECT="ptxdist" \
 	    FULLVERSION="${PTXDIST_VERSION_FULL}"
+
+	ptxd_kconfig_local_prepare ${part} || ptxd_bailout "error in local_prepare"
 
 	case "${config}" in
 	menuconfig)
