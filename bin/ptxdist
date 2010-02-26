@@ -2276,12 +2276,18 @@ setup_platform() {
 	# reread vars with correct PTXDIST_PLATFORMDIR
 	source "${SCRIPTSDIR}/ptxdist_vars.sh" || return
 
-	local cfg_dir
-	if [ -e "${PTXDIST_PLATFORMCONFIG}" ]; then
-		cfg_dir="$(dirname "$(readlink -f "${PTXDIST_PLATFORMCONFIG}")")" || return
-	fi
+	local cfg_file cfg_dir
+	for cfg_file in \
+		"${PTXDIST_PLATFORMCONFIG}" \
+		"${PTXDIST_PTXCONFIG}"; do
+		[ -e "${cfg_file}" ] || continue
 
-	PTXDIST_PLATFORMCONFIGDIR="${cfg_dir}"
+		cfg_file="$(readlink -f "${cfg_file}")" || return
+		cfg_dir="${cfg_file%/*}"
+		break
+	done
+
+	PTXDIST_PLATFORMCONFIGDIR="${cfg_dir:-${PTXDIST_WORKSPACE}}"
 	PTXDIST_BOARDSETUP="${HOME}/.ptxdist/boardsetup.${project}${project_version}.${platform}"
 }
 
