@@ -1,0 +1,42 @@
+From 9188ffeab409fb4626ac9e70b40c2e07e9fa42d6 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 26 Feb 2010 12:36:28 +0100
+Subject: [PATCH 3/6] [fbcmap] fix Opt_command handling
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ fbcmap/fbcmap.C |   10 ++++++----
+ 1 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/fbcmap/fbcmap.C b/fbcmap/fbcmap.C
+index 30075c3..38965ad 100644
+--- a/fbcmap/fbcmap.C
++++ b/fbcmap/fbcmap.C
+@@ -36,6 +36,7 @@ const struct option Options[] = {
+     { 0, 0, "debug", &Opt_debug, 0 },
+     { 0, 'f', "frame-buffer", &Opt_fb, 1 },
+     { 0, 'l', "length", &Opt_length, 1 },
++    { 0, 'c', "command", &Opt_command, 1 },
+ };
+ 
+ u_int DebugMask = 0;
+@@ -67,11 +68,12 @@ static void Usage(void)
+ 	"    -v, --verbose          : Verbose mode\n"
+ 	"    -l, --length len       : Colormap length\n"
+ 	"    -f, --frame-buffer dev : Framebuffer device to use\n"
+-	"    -d, --dump             : Dump the colormap (default operation)\n"
+-	"    -r, --ramp             : Set the colormap to a ramp\n"
+-	"    -c, --vga              : Set the colormap to the VGA console "
++	"    -c <CMD>               : execute command, where command is one of\n"
++	"       vga                 : Set the colormap to the VGA console "
+ 				     "palette\n"
+-	"    -i, --inverse          : Invert the current colormap\n"
++	"       inverse             : Invert the current colormap\n"
++	"       ramp                : Set the colormap to a ramp\n"
++	"       dump                : dump current palette (default)\n"
+ 	"\n", ProgramName);
+ }
+ 
+-- 
+1.7.0
+

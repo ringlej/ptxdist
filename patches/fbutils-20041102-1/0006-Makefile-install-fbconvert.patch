@@ -1,16 +1,18 @@
+From c63194e3407aa345fa597420da60379d93e9ad7c Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: install fbconvert
+Date: Fri, 26 Feb 2010 12:29:56 +0100
+Subject: [PATCH 6/6] [Makefile] install fbconvert
 
 install fbconvert during 'make install'
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  Makefile |    1 +
- 1 file changed, 1 insertion(+)
+ 1 files changed, 1 insertions(+), 0 deletions(-)
 
-Index: b/Makefile
-===================================================================
+diff --git a/Makefile b/Makefile
+index 155a68d..45fef63 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -17,6 +17,7 @@ install:
@@ -21,3 +23,6 @@ Index: b/Makefile
  		$(INSTALL) -D -p etc/modes $(DESTDIR)/etc/fb/modes
  
  include Rules.build
+-- 
+1.7.0
+

@@ -1,4 +1,6 @@
-fbutils-20041102-1-installfix.diff
-fbutils-20041102-1-ptx1.diff
-fbutils-20041102-1-defect-maxmin.diff
-fbutils-20041102-install-fbconvert.diff
+0001-fix-compiler-warnings.patch
+0002-fbcmap-remove-obsolete-gnu-extension.patch
+0003-fbcmap-fix-Opt_command-handling.patch
+0004-Rules.config-make-buildsystem-more-cross-compile-fri.patch
+0005-Makefile-create-non-existing-directories.patch
+0006-Makefile-install-fbconvert.patch

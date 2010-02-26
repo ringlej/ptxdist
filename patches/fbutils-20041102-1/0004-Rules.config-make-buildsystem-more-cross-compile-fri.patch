@@ -1,0 +1,38 @@
+From 0132b2aa2d4047729b01224a0eed8ae6c8ed913d Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 26 Feb 2010 12:33:14 +0100
+Subject: [PATCH 4/6] [Rules.config] make buildsystem more cross compile friendly
+
+- obey CXX and AR set in env
+- use CPPFLAGS and LDFLAGS
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Rules.config |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Rules.config b/Rules.config
+index 8d987a7..01fcc5c 100644
+--- a/Rules.config
++++ b/Rules.config
+@@ -1,13 +1,13 @@
+ 
+-CXX =		g++
++CXX ?=		g++
+ OPTFLAGS =	-O2
+ DEBUGFLAGS =
+-CFLAGS =	-Wall -I../include $(OPTFLAGS) $(DEBUGFLAGS)
+-LFLAGS =	-L../lib -lfbutil
++CFLAGS +=	-Wall -I../include $(OPTFLAGS) $(DEBUGFLAGS) $(CPPFLAGS)
++LFLAGS =	-L../lib -lfbutil $(LDFLAGS)
+ BISON =		bison -d
+ FLEX =		flex
+ INSTALL =	install
+ RM =		rm -f
+ LN =		ln -sf
+-AR =		ar
++AR ?=		ar
+ 
+-- 
+1.7.0
+

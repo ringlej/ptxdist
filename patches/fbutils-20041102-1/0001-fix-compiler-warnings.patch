@@ -1,0 +1,82 @@
+From b092536f0611cfa12c86d85183ef9aee178898e6 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 26 Feb 2010 12:35:01 +0100
+Subject: [PATCH 1/6] fix compiler warnings
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ include/util.h    |    2 +-
+ lib/framebuffer.C |    4 ++--
+ lib/list.C        |    2 +-
+ lib/util.C        |    3 ++-
+ 4 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/include/util.h b/include/util.h
+index de490b8..484ff2e 100644
+--- a/include/util.h
++++ b/include/util.h
+@@ -20,7 +20,7 @@ extern const char *ProgramName;
+ 
+ extern void Die(const char *fmt,...) __attribute__((noreturn));
+ extern void Warn(const char *fmt,...);
+-extern int GetNextOption(int &argc, const char **&argv,
++extern int GetNextOption(int argc, char **argv,
+ 			 const struct option options[],
+ 			 const u_int num_options);
+ 
+diff --git a/lib/framebuffer.C b/lib/framebuffer.C
+index 923809b..b37c635 100644
+--- a/lib/framebuffer.C
++++ b/lib/framebuffer.C
+@@ -164,7 +164,7 @@ void ColorMap::Invert(void) const
+     }
+ }
+ 
+-void ColorMap::Print(const char *indent = "") const
++void ColorMap::Print(const char *indent) const
+ {
+     printf("start = %d\n", start);
+     printf("len = %d\n", len);
+@@ -191,7 +191,7 @@ void Con2FBMap::Set(const FrameBuffer &fb) const
+ 	Die("ioctl FBIOPUT_CON2FBMAP: %s\n", strerror(errno));
+ }
+ 
+-void Con2FBMap::Print(const char *indent = "") const
++void Con2FBMap::Print(const char *indent) const
+ {
+     printf("%sconsole %d -> fb %d\n", indent, console, framebuffer);
+ }
+diff --git a/lib/list.C b/lib/list.C
+index e88e5cd..836d33b 100644
+--- a/lib/list.C
++++ b/lib/list.C
+@@ -1,4 +1,4 @@
+-
++#include <string.h>
+ #include "list.h"
+ #include "util.h"
+ 
+diff --git a/lib/util.C b/lib/util.C
+index 292380c..7bc4c0a 100644
+--- a/lib/util.C
++++ b/lib/util.C
+@@ -6,6 +6,7 @@
+ #include <string.h>
+ #include <unistd.h>
+ #include <sys/ioctl.h>
++#include <stdlib.h>
+ 
+ #include "util.h"
+ 
+@@ -43,7 +44,7 @@ void Warn(const char *fmt,...)
+ 
+     //  Command Line Parameter Processing
+ 
+-int GetNextOption(int &argc, const char **&argv,
++int GetNextOption(int argc, char **argv,
+ 		  const struct option options[], const u_int num_options)
+ {
+     static bool first = true;
+-- 
+1.7.0
+

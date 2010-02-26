@@ -1,5 +1,7 @@
+From 4d77caf0107881b1a73a8ca12531d8523f72ed17 Mon Sep 17 00:00:00 2001
 From: Robert Schwebel <r.schwebel@pengutronix.de>
-Subject: [patch] remove obsolete gnu extension
+Date: Fri, 26 Feb 2010 12:29:56 +0100
+Subject: [PATCH 2/6] [fbcmap] remove obsolete gnu extension
 
 make[2]: Entering directory `.../fbutils-20041102-1/fbcmap'
 arm-v4t-linux-gnueabi-g++ -Wall -I../include -O2  -M -E *.C > .depend
@@ -10,15 +12,15 @@ fbcmap.C:118: error: expected primary-expression before '?' token
 The GNU extension ">?" for MAX isn't supported any more
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
-
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
  fbcmap/fbcmap.C |   11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ 1 files changed, 8 insertions(+), 3 deletions(-)
 
-Index: fbutils-20041102-1/fbcmap/fbcmap.C
-===================================================================
---- fbutils-20041102-1.orig/fbcmap/fbcmap.C
-+++ fbutils-20041102-1/fbcmap/fbcmap.C
+diff --git a/fbcmap/fbcmap.C b/fbcmap/fbcmap.C
+index c61f19a..30075c3 100644
+--- a/fbcmap/fbcmap.C
++++ b/fbcmap/fbcmap.C
 @@ -13,6 +13,12 @@
  #include "framebuffer.h"
  #include "util.h"
@@ -32,7 +34,7 @@ Index: fbutils-20041102-1/fbcmap/fbcmap.C
  
  bool Opt_version = false;
  bool Opt_verbose = false;
-@@ -115,8 +121,7 @@ int main(int argc, char *argv[])
+@@ -113,8 +119,7 @@ int main(int argc, char *argv[])
  	    break;
  
  	case FB_VISUAL_DIRECTCOLOR:
@@ -42,7 +44,7 @@ Index: fbutils-20041102-1/fbcmap/fbcmap.C
  	    break;
  
  	case FB_VISUAL_PSEUDOCOLOR:
-@@ -145,7 +150,7 @@ int main(int argc, char *argv[])
+@@ -143,7 +148,7 @@ int main(int argc, char *argv[])
  	}
  	cmap.Set(fb);
      } else if (!strcmp(Opt_command, "vga")) {
@@ -51,3 +53,6 @@ Index: fbutils-20041102-1/fbcmap/fbcmap.C
  	memcpy(cmap.red, VGA_Red, len*sizeof(*cmap.red));
  	memcpy(cmap.green, VGA_Green, len*sizeof(*cmap.green));
  	memcpy(cmap.blue, VGA_Blue, len*sizeof(*cmap.blue));
+-- 
+1.7.0
+
