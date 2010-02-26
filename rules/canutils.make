@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2005 by Robert Schwebel
-#               2009 by Marc Kleine-Budde <mkl@pengutroinx.de>
+#               2009, 2010 by Marc Kleine-Budde <mkl@pengutroinx.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,13 +17,12 @@ PACKAGES-$(PTXCONF_CANUTILS) += canutils
 #
 # Paths and names
 #
-CANUTILS_VERSION	:= $(call remove_quotes, $(PTXCONF_CANUTILS_VERSION))
+CANUTILS_VERSION	:= $(CANUTILS_VERSION)
 CANUTILS		:= canutils-$(CANUTILS_VERSION)
 CANUTILS_SUFFIX		:= tar.bz2
-CANUTILS_URL		= http://www.pengutronix.de/software/socket-can/download/canutils/v$(shell echo $(PTXCONF_CANUTILS_VERSION)|sed "s/\([0-9]*\).\([0-9]*\).\([0-9]*\)/\1.\2/")/$(CANUTILS).$(CANUTILS_SUFFIX)
+CANUTILS_URL		:= http://www.pengutronix.de/software/socket-can/download/canutils/v$(CANUTILS_VERSION_MAJOR).$(CANUTILS_VERSION_MINOR)/$(CANUTILS).$(CANUTILS_SUFFIX)
 CANUTILS_SOURCE		:= $(SRCDIR)/$(CANUTILS).$(CANUTILS_SUFFIX)
 CANUTILS_DIR		:= $(BUILDDIR)/$(CANUTILS)
-
 
 # ----------------------------------------------------------------------------
 # Get
