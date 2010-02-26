@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_LIBSOCKETCAN) += libsocketcan
 #
 # Paths and names
 #
-LIBSOCKETCAN_VERSION	:= 0.0.7
+LIBSOCKETCAN_VERSION	:= 0.0.8
 LIBSOCKETCAN		:= libsocketcan-$(LIBSOCKETCAN_VERSION)
 LIBSOCKETCAN_SUFFIX	:= tar.bz2
 LIBSOCKETCAN_URL	:= http://www.pengutronix.de/software/libsocketcan/download/$(LIBSOCKETCAN).$(LIBSOCKETCAN_SUFFIX)
@@ -59,9 +59,9 @@ $(STATEDIR)/libsocketcan.targetinstall:
 	@$(call install_fixup, libsocketcan,DEPENDS,)
 	@$(call install_fixup, libsocketcan,DESCRIPTION,missing)
 
-	@$(call install_copy, libsocketcan, 0, 0, 0644, -, /usr/lib/libsocketcan.so.2.1.0)
-	@$(call install_link, libsocketcan, libsocketcan.so.2.1.0, /usr/lib/libsocketcan.so.2)
-	@$(call install_link, libsocketcan, libsocketcan.so.2.1.0, /usr/lib/libsocketcan.so)
+	@$(call install_copy, libsocketcan, 0, 0, 0644, -, /usr/lib/libsocketcan.so.2.2.0)
+	@$(call install_link, libsocketcan, libsocketcan.so.2.2.0, /usr/lib/libsocketcan.so.2)
+	@$(call install_link, libsocketcan, libsocketcan.so.2.2.0, /usr/lib/libsocketcan.so)
 
 	@$(call install_finish, libsocketcan)
 
