@@ -14,7 +14,7 @@ if CANUTILS
 config CANUTILS_VERSION
 	prompt "Version"
 	string
-	default "3.0.2"
+	default "4.0.9"
 
 config CANUTILS_4
 	bool "canutils version >= 4.0"
