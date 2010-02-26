@@ -3,7 +3,8 @@
 menuconfig CANUTILS
 	tristate
 	prompt "canutils                      "
-	select KERNEL	if CANUTILS_BSP_KERNEL
+	select KERNEL		if CANUTILS_BSP_KERNEL
+	select LIBSOCKETCAN	if CANUTILS_4
 	help
 	  The canutils package contains tools to configure
 	  and test the Socket CAN framework.
@@ -14,6 +15,13 @@ config CANUTILS_VERSION
 	prompt "Version"
 	string
 	default "3.0.2"
+
+config CANUTILS_4
+	bool "canutils version >= 4.0"
+	help
+	  Select this if you're using a canutils version >= 4.0
+
+	  This will enable extra an extra dependency to libsocketcan.
 
 config CANUTILS_BSP_KERNEL
 	bool "use BSP's kernel headers instead of toolchain's"
