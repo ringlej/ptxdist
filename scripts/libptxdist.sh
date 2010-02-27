@@ -525,6 +525,24 @@ export -f ptxd_bailout
 
 
 #
+# print out error message
+# if PTXDIST_PEDANTIC is true exit with status 1
+#
+# $1: error message
+# $2: optional exit value (1 is default)
+#
+# ${PREFIX}: to be printed before message
+#
+ptxd_pedantic() {
+	echo "${PREFIX}error: $1" >&2
+	if [ "$PTXDIST_PEDANTIC" = "true" ]; then
+		exit ${2:-1}
+	fi
+}
+export -f ptxd_pedantic
+
+
+#
 # print out warning message
 #
 # $1: warning message
