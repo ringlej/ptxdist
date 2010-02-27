@@ -309,7 +309,7 @@ ptxd_make_world_init() {
     # parallelmake
     #
     case "${pkg_make_par}" in
-	"YES"|"") pkg_make_par="${PTXDIST_PARALLELMFLAGS_INTERN}" ;;
+	"YES"|"") pkg_make_par="${PTXDIST_PARALLELMFLAGS_INTERN} ${PTXDIST_LOADMFLAGS_INTERN}" ;;
 	"NO")	  pkg_make_par=-j1 ;;
 	*)	  ptxd_bailout "<PKG>_MAKE_PAR: please set to YES or NO" ;;
     esac
