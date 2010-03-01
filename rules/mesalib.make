@@ -69,6 +69,10 @@ endif
 # Prepare
 # ----------------------------------------------------------------------------
 
+MESALIB_CONF_ENV := \
+	$(CROSS_ENV) \
+	MKLIB_OPTIONS="-linker-prefix $(PTXCONF_COMPILER_PREFIX)"
+
 MESALIB_COMPILE_ENV := $(CROSS_ENV_CC_FOR_BUILD)
 
 MESALIB_DRIVERS-$(PTXCONF_MESALIB_DRIVER_XLIB)		+= xlib
