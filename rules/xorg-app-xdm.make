@@ -78,6 +78,8 @@ $(STATEDIR)/xorg-app-xdm.targetinstall:
 	@$(call install_fixup, xorg-app-xdm,DEPENDS,)
 	@$(call install_fixup, xorg-app-xdm,DESCRIPTION,missing)
 
+	@$(call install_copy, xorg-app-xdm, 0, 0, 0755, -, /usr/bin/xdm)
+
 	@$(call install_finish, xorg-app-xdm)
 
 	@$(call touch)
