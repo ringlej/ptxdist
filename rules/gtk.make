@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_GTK) += gtk
 #
 # Paths and names
 #
-GTK_VERSION	:= 2.18.3
+GTK_VERSION	:= 2.18.7
 GTK		:= gtk+-$(GTK_VERSION)
 GTK_SUFFIX	:= tar.bz2
 GTK_URL		:= http://ftp.gtk.org/pub/gtk/2.18/$(GTK).$(GTK_SUFFIX)
@@ -96,6 +96,8 @@ ifdef PTXCONF_GTK_TARGET_WIN32
 GTK_AUTOCONF += --with-gdktarget=win32
 endif
 
+GTK_VERSION_TUPLE := $(subst ., ,$(GTK_VERSION))
+GTK_LIBVERSION := 0.$(word 2,$(GTK_VERSION_TUPLE))00.$(word 3,$(GTK_VERSION_TUPLE))
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -130,7 +132,7 @@ $(STATEDIR)/gtk.targetinstall:
 # /usr/share/themes/Raleigh
 # /usr/share/themes/Raleigh/gtk-2.0
 # /usr/share/themes/Raleigh/gtk-2.0/gtkrc
-# /usr/lib/libgdk_pixbuf-2.0.so.0.1800.3
+# /usr/lib/libgdk_pixbuf-2.0.so.$(GTK_LIBVERSION)
 # /usr/lib/libgdk-directfb-2.0.so
 # /usr/lib/gtk-2.0/modules/libferret.so
 # /usr/lib/gtk-2.0/modules/libgail.so
@@ -143,34 +145,34 @@ $(STATEDIR)/gtk.targetinstall:
 # /usr/lib/libgailutil.so
 # /usr/lib/libgdk_pixbuf-2.0.so
 # /usr/lib/libgtk-directfb-2.0.so.0
-# /usr/lib/libgdk-directfb-2.0.so.0.1800.3
+# /usr/lib/libgdk-directfb-2.0.so.$(GTK_LIBVERSION)
 # /usr/lib/libgtk-directfb-2.0.so
-# /usr/lib/libgtk-directfb-2.0.so.0.1800.3
+# /usr/lib/libgtk-directfb-2.0.so.$(GTK_LIBVERSION)
 # /etc/gtk-2.0/im-multipress.conf
 
 ifdef PTXCONF_GTK_TARGET_DIRECTFB
-	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgdk-directfb-2.0.so.0.1800.3)
-	@$(call install_link, gtk, libgdk-directfb-2.0.so.0.1800.3, /usr/lib/libgdk-directfb-2.0.so.0)
-	@$(call install_link, gtk, libgdk-directfb-2.0.so.0.1800.3, /usr/lib/libgdk-directfb-2.0.so)
+	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgdk-directfb-2.0.so.$(GTK_LIBVERSION))
+	@$(call install_link, gtk, libgdk-directfb-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk-directfb-2.0.so.0)
+	@$(call install_link, gtk, libgdk-directfb-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk-directfb-2.0.so)
 
-	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgtk-directfb-2.0.so.0.1800.3)
-	@$(call install_link, gtk, libgtk-directfb-2.0.so.0.1800.3, /usr/lib/libgtk-directfb-2.0.so.0)
-	@$(call install_link, gtk, libgtk-directfb-2.0.so.0.1800.3, /usr/lib/libgtk-directfb-2.0.so)
+	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgtk-directfb-2.0.so.$(GTK_LIBVERSION))
+	@$(call install_link, gtk, libgtk-directfb-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgtk-directfb-2.0.so.0)
+	@$(call install_link, gtk, libgtk-directfb-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgtk-directfb-2.0.so)
 endif
 
 ifdef PTXCONF_GTK_TARGET_X11
-	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgdk-x11-2.0.so.0.1800.3)
-	@$(call install_link, gtk, libgdk-x11-2.0.so.0.1800.3, /usr/lib/libgdk-x11-2.0.so.0)
-	@$(call install_link, gtk, libgdk-x11-2.0.so.0.1800.3, /usr/lib/libgdk-x11-2.0.so)
+	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgdk-x11-2.0.so.$(GTK_LIBVERSION))
+	@$(call install_link, gtk, libgdk-x11-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk-x11-2.0.so.0)
+	@$(call install_link, gtk, libgdk-x11-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk-x11-2.0.so)
 
-	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgtk-x11-2.0.so.0.1800.3)
-	@$(call install_link, gtk, libgtk-x11-2.0.so.0.1800.3, /usr/lib/libgtk-x11-2.0.so.0)
-	@$(call install_link, gtk, libgtk-x11-2.0.so.0.1800.3, /usr/lib/libgtk-x11-2.0.so)
+	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgtk-x11-2.0.so.$(GTK_LIBVERSION))
+	@$(call install_link, gtk, libgtk-x11-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgtk-x11-2.0.so.0)
+	@$(call install_link, gtk, libgtk-x11-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgtk-x11-2.0.so)
 endif
 
-	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgdk_pixbuf-2.0.so.0.1800.3)
-	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.0.1800.3, /usr/lib/libgdk_pixbuf-2.0.so.0)
-	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.0.1800.3, /usr/lib/libgdk_pixbuf-2.0.so)
+	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgdk_pixbuf-2.0.so.$(GTK_LIBVERSION))
+	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk_pixbuf-2.0.so.0)
+	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk_pixbuf-2.0.so)
 
 ifdef PTXCONF_GTK_DEMO
 	@$(call install_copy, gtk, 0, 0, 0755, \
