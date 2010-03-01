@@ -1,1 +1,4 @@
+11-Move-config_init-after-CreateWellKnownSockets-and-In.diff
 12-Add-libudev-input-hotplug-backend.diff
+14-config-add-example-udev-rules.diff
+install-udev-rule.diff
