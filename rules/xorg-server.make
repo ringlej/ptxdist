@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_XORG_SERVER) += xorg-server
 #
 # Paths and names
 #
-XORG_SERVER_VERSION	:= 1.7.4
+XORG_SERVER_VERSION	:= 1.7.5
 XORG_SERVER		:= xorg-server-$(XORG_SERVER_VERSION)
 XORG_SERVER_SUFFIX	:= tar.bz2
 XORG_SERVER_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
@@ -367,6 +367,11 @@ $(STATEDIR)/xorg-server.targetinstall:
 ifdef PTXCONF_XORG_SERVER_CONFIG_FILES_XORG_CONF
 	@$(call install_alternative, xorg-server, 0, 0, 0644, \
 		/etc/X11/xorg.conf)
+endif
+
+ifdef PTXCONF_XORG_SERVER_UDEV
+	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
+		/lib/udev/rules.d/x11-input.rules)
 endif
 
 ifdef PTXCONF_XORG_SERVER_XVFB

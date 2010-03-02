@@ -65,6 +65,10 @@ endif
 ifdef  PTXCONF_PEKWM_INSTALL_THEME
 	@$(call install_copy, pekwm, 0, 0, 0644, -, \
 		/usr/share/pekwm/themes/default/theme)
+	@cd $(PEKWM_PKGDIR) && \
+	find usr/share/pekwm/themes/default -type f | while read file; do \
+		$(call install_copy, pekwm, 0, 0, 0644, -, /$$file); \
+	done
 endif
 
 	@$(call install_finish,pekwm)
