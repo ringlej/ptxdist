@@ -149,7 +149,7 @@ ptxd_make_world_init_compat() {
     # pkg_sysroot_dir
     #
     case "${pkg_stamp}" in
-	initramfs-*|klibc-*) pkg_sysroot_dir="${PTXDIST_SYSROOT_TARGET}/usr/lib/klibc" ;;
+	initramfs-*|klibc-*) pkg_sysroot_dir="${PTXDIST_SYSROOT_INITRAMFS}" ;;
 	host-*)              pkg_sysroot_dir="${PTXDIST_SYSROOT_HOST}" ;;
 	cross-*)             pkg_sysroot_dir="${PTXDIST_SYSROOT_CROSS}" ;;
 	*)                   pkg_sysroot_dir="${PTXDIST_SYSROOT_TARGET}" ;;
@@ -160,6 +160,7 @@ ptxd_make_world_init_compat() {
     # pkg_env
     case "${pkg_type}" in
 	target)     pkg_env="${PTXDIST_CROSS_ENV_PKG_CONFIG} SYSROOT='${pkg_sysroot_dir}'" ;;
+	initramfs)  pkg_env="${PTXDIST_INITRAMFS_ENV_PKG_CONFIG} SYSROOT='${pkg_sysroot_dir}'" ;;
 	host|cross) pkg_env="PKG_CONFIG_LIBDIR='${PTXDIST_SYSROOT_HOST}/lib/pkgconfig:${PTXDIST_SYSROOT_HOST}/share/pkgconfig'" ;;
     esac
 }
@@ -209,7 +210,7 @@ ptxd_make_world_init() {
     # type
     #
     case "${pkg_stamp}" in
-	host-*|cross-*) pkg_type="${pkg_stamp%%-*}" ;;
+	host-*|cross-*|initramfs-*) pkg_type="${pkg_stamp%%-*}" ;;
 	*)              pkg_type="target" ;;
     esac
 

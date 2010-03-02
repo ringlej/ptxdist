@@ -33,7 +33,7 @@ $(STATEDIR)/host-%.extract:
 $(STATEDIR)/klibc-%.extract:
 	@$(call targetinfo)
 	@$(call clean, $($(PTX_MAP_TO_PACKAGE_klibc-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_klibc-$(*)), $(KLIBC_BUILDDIR))
+	@$(call extract, $(PTX_MAP_TO_PACKAGE_klibc-$(*)), $(INITRAMFS_BUILDDIR))
 	@$(call patchin, $(PTX_MAP_TO_PACKAGE_klibc-$(*)), $($(PTX_MAP_TO_PACKAGE_klibc-$(*))_DIR))
 	@$(call touch)
 
@@ -43,7 +43,7 @@ $(STATEDIR)/klibc-%.extract:
 $(STATEDIR)/initramfs-%.extract:
 	@$(call targetinfo)
 	@$(call clean, $($(PTX_MAP_TO_PACKAGE_initramfs-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_initramfs-$(*)), $(KLIBC_BUILDDIR))
+	@$(call extract, $(PTX_MAP_TO_PACKAGE_initramfs-$(*)), $(INITRAMFS_BUILDDIR))
 	@$(call patchin, $(PTX_MAP_TO_PACKAGE_initramfs-$(*)), $($(PTX_MAP_TO_PACKAGE_initramfs-$(*))_DIR))
 	@$(call touch)
 

@@ -428,11 +428,12 @@ check_dirs_mkdir() {
 # so they are created here.
 #
 check_dirs() {
-	local ptxconf_sysroot_target ptxconf_sysroot_host ptxconf_sysroot_cross
+	local ptxconf_sysroot_target ptxconf_sysroot_initramfs ptxconf_sysroot_host ptxconf_sysroot_cross
 
 	ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)" &&
 	ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)" &&
-	ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)" || return
+	ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)" &&
+	ptxconf_sysroot_initramfs="$(ptxd_get_ptxconf PTXCONF_SYSROOT_INITRAMFS)" || return
 
 	# check for r/w and create standard directory layout
 	local dir
@@ -441,6 +442,7 @@ check_dirs() {
 		"${ptxconf_sysroot_host}" \
 		"${ptxconf_sysroot_cross}" \
 		"${ptxconf_sysroot_target}" \
+		"${ptxconf_sysroot_initramfs}" \
 		; do
 		check_dirs_mkdir "${dir}"
 	done
@@ -451,6 +453,8 @@ check_dirs() {
 		"${ptxconf_sysroot_cross}" \
 		"${ptxconf_sysroot_target}" \
 		"${ptxconf_sysroot_target}/usr" \
+		"${ptxconf_sysroot_initramfs}" \
+		"${ptxconf_sysroot_initramfs}/usr" \
 		; do
 		mkdir -m755 -p -- "${dir}"/{etc,lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}
 	done
@@ -459,12 +463,13 @@ check_dirs() {
 	for dir in \
 		"${BUILDDIR}" \
 		"${CROSS_BUILDDIR}" \
-		"${KLIBC_BUILDDIR}" \
+		"${INITRAMFS_BUILDDIR}" \
 		"${HOST_BUILDDIR}" \
 		"${STATEDIR}" \
 		"${IMAGEDIR}" \
 		"${ROOTDIR}" \
 		"${ROOTDIR_DEBUG}" \
+		"${ROOTDIR_INITRAMFS}" \
 		"${PTXDIST_SRCDIR}" \
 	        "${PTXDIST_GEN_CONFIG_DIR}" \
 		; do
@@ -483,7 +488,7 @@ check_dirs() {
 	for dir in \
 		"${BUILDDIR}" \
 		"${CROSS_BUILDDIR}" \
-		"${KLIBC_BUILDDIR}" \
+		"${INITRAMFS_BUILDDIR}" \
 		"${HOST_BUILDDIR}" \
 		; do
 		local testfile_lower="${dir}/.secret-world-domination-project"
@@ -861,7 +866,7 @@ clean() {
 
 	echo
 	echo "${PROMPT}removing build directories..."
-	for dir in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${KLIBC_BUILDDIR}" "${HOST_BUILDDIR}"; do
+	for dir in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${INITRAMFS_BUILDDIR}" "${HOST_BUILDDIR}"; do
 		if [ ! -d "${dir}" ]; then
 			continue
 		fi
@@ -879,11 +884,12 @@ clean() {
 	if [ -f "${PTXDIST_PTXCONFIG}" ]; then
 		echo "${PROMPT}removing sysroot directories..."
 		local ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
+		local ptxconf_sysroot_initramfs="$(ptxd_get_ptxconf PTXCONF_SYSROOT_INITRAMFS)"
 		local ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
 		local ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
 		local ptxconf_gnu_target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
 
-		for dir in "${ptxconf_sysroot_target}" "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"; do
+		for dir in "${ptxconf_sysroot_target}" "${ptxconf_sysroot_initramfs}" "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"; do
 			if [ ! -d "${dir}" ]; then
 				continue
 			fi
@@ -985,11 +991,11 @@ newpackage() {
 		class=cross-
 		autoconf_class=HOST_CROSS_
 		;;
-	klibc)
-		template=template-klibc
+	initramfs)
+		template=template-initramfs
 		template_src="${PTXDIST_TOPDIR}/rules/templates/src-cmake-prog"
-		class=klibc-
-		autoconf_class=KLIBC_
+		class=initramfs-
+		autoconf_class=INITRAMFS_
 		;;
 
 	src-cmake-prog)
@@ -1031,7 +1037,7 @@ newpackage() {
 		echo "  host                     create package for development host"
 		echo "  target                   create package for embedded target"
 		echo "  cross                    create cross development package"
-		echo "  klibc                    create package for initramfs built against klibc"
+		echo "  initramfs                create package for initramfs"
 		echo
 		echo "  src-cmake-prog           create cmake binary"
 		echo "  src-autoconf-prog        create autotoolized binary"
@@ -1067,9 +1073,9 @@ newpackage() {
 			action=class-existing-target
 			template=template-class-existing-target
 			;;
-		    klibc)
-			action=klibc-existing-target
-			template=template-klibc-existing-target
+		    initramfs)
+			action=initramfs-existing-target
+			template=template-initramfs-existing-target
 			;;
 		esac
 	fi
@@ -1090,7 +1096,7 @@ newpackage() {
 
 	local url suffix
 	case "${action}" in
-	host|target|cross|klibc)
+	host|target|cross|initramfs)
 		echo -n "${PROMPT}enter URL of basedir....: "
 		read url
 		echo -n "${PROMPT}enter suffix............: "

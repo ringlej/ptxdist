@@ -11,6 +11,7 @@
 world/env/impl = \
 	MAKE="$(call ptx/escape,$(MAKE))"					\
 	PTXDIST_SYSROOT_TARGET="$(call ptx/escape,$(PTXDIST_SYSROOT_TARGET))"	\
+	PTXDIST_SYSROOT_INITRAMFS="$(call ptx/escape,$(PTXDIST_SYSROOT_INITRAMFS))"   \
 	PTXDIST_SYSROOT_HOST="$(call ptx/escape,$(PTXDIST_SYSROOT_HOST))"	\
 	PTXDIST_SYSROOT_CROSS="$(call ptx/escape,$(PTXDIST_SYSROOT_CROSS))"	\
 										\

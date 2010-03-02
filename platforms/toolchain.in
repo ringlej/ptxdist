@@ -68,4 +68,19 @@ config COMPILER_PREFIX_BOOTLOADER
 	  name used to compile the bootloader. If the prefix equals
 	  the normal compiler you can use "${PTXCONF_COMPILER_PREFIX}".
 
+config GNU_TARGET_INITRAMFS
+	string
+    prompt "gnu target initramfs"
+    default "${PTXCONF_GNU_TARGET}"
+    help
+      Defines the GNU target for your initramfs cross build.
+
+config COMPILER_PREFIX_INITRAMFS
+	string
+	prompt "compiler prefix (initramfs)"
+	default "${PTXCONF_GNU_TARGET_INITRAMFS}-"
+	help
+	  This is the prefix used to create the correct cross compiler
+	  name used to compile the initramfs.
+
 endmenu

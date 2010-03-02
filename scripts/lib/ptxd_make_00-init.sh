@@ -72,6 +72,38 @@ ptxd_init_sysroot_toolchain() {
     export PTXDIST_SYSROOT_TOOLCHAIN
 }
 
+#
+# figure out the initramfs toolchain's sysroot
+#
+# out:	PTXDIST_SYSROOT_TOOLCHAIN_INITRAMFS
+#
+ptxd_init_sysroot_toolchain_initramfs() {
+    local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX_INITRAMFS)"
+
+    #
+    # no compiler prefix specified means using plain "gcc"
+    # which comes from the distribution, so no sysroot here
+    #
+    if [ -z "${compiler_prefix}" ]; then
+	PTXDIST_SYSROOT_TOOLCHAIN_INITRAMFS="/"
+    else
+	local sysroot
+
+	sysroot="$(echo 'int main(void){return 0;}' | \
+	${compiler_prefix}gcc -x c -o /dev/null -v - 2>&1 | \
+	sed -ne "/.*collect2.*/s,.*--sysroot=\([^[:space:]]*\).*,\1,p" && \
+	check_pipe_status)"
+
+	if [ $? -ne 0 -o -z "${sysroot}" ]; then
+	    return 1
+	fi
+
+	PTXDIST_SYSROOT_TOOLCHAIN_INITRAMFS="$(ptxd_abspath "${sysroot}")" || return
+    fi
+
+    export PTXDIST_SYSROOT_TOOLCHAIN_INITRAMFS
+}
+
 
 
 #
@@ -135,6 +167,39 @@ ptxd_init_ptxdist_path() {
 	PTXDIST_PATH_SYSROOT_ALL="${sysroot_all}" \
 	PTXDIST_PATH_SYSROOT_PREFIX="${sysroot_prefix}" \
 	PTXDIST_PATH_SYSROOT_PREFIX_ALL="${sysroot_prefix_all}"
+}
+
+#
+# gather all initramfs sysroots
+#
+# out:
+# PTXDIST_PATH_SYSROOT_INITRAMFS			additional sysroots (without toolchain)
+# PTXDIST_PATH_SYSROOT_INITRAMFS_ALL		all sysroots (including toolchain)
+# PTXDIST_PATH_SYSROOT_INITRAMFS_PREFIX		prefixes (/, /usr) of additional sysroots (without toolchain)
+# PTXDIST_PATH_SYSROOT_INITRAMFS_PREFIX_ALL	prefixes (/, /usr) of all sysroots (including toolchain)
+#
+ptxd_init_initramfs_path() {
+    local sysroot="$(ptxd_get_ptxconf PTXCONF_SYSROOT_INITRAMFS)"
+    local sysroot_prefix="${sysroot}:${sysroot}/usr"
+
+    local sysroot_production
+    if ptxd_init_get_sysroot_production; then
+	sysroot="${sysroot}:${sysroot_production}"
+	sysroot_prefix="${sysroot_prefix}:${sysroot_production}:${sysroot_production}/usr"
+    fi
+
+    local sysroot_all="${sysroot}"
+    local sysroot_prefix_all="${sysroot_prefix}"
+    if [ -n "${PTXDIST_SYSROOT_TOOLCHAIN_INITRAMFS}" ]; then
+	sysroot_all="${sysroot_all}:${PTXDIST_SYSROOT_TOOLCHAIN_INITRAMFS}"
+	sysroot_prefix_all="${sysroot_prefix}:${PTXDIST_SYSROOT_TOOLCHAIN_INITRAMFS}:${PTXDIST_SYSROOT_TOOLCHAIN_INITRAMFS}/usr"
+    fi
+
+    export \
+	PTXDIST_PATH_SYSROOT_INITRAMFS="${sysroot}" \
+	PTXDIST_PATH_SYSROOT_INITRAMFS_ALL="${sysroot_all}" \
+	PTXDIST_PATH_SYSROOT_INITRAMFS_PREFIX="${sysroot_prefix}" \
+	PTXDIST_PATH_SYSROOT_INITRAMFS_PREFIX_ALL="${sysroot_prefix_all}"
 }
 
 
@@ -219,6 +284,85 @@ ptxd_init_cross_env() {
     IFS="${orig_IFS}"
 }
 
+#
+# setup compiler and pkgconfig environment
+#
+# in:
+# ${PTXDIST_PATH_SYSROOT_INITRAMFS_PREFIX}
+#
+#
+# out:
+# PTXDIST_INITRAMFS_CPPFLAGS		CPPFLAGS for initramfs packages
+# PTXDIST_INITRAMFS_LDFLAGS			LDFLAGS for initramfs packages
+# PTXDIST_INITRAMFS_ENV_PKG_CONFIG		PKG_CONFIG_* environemnt for initramfs pkg-config
+#
+ptxd_init_initramfs_env() {
+
+    ######## CPP_FLAGS, LDFLAGS ########
+
+    local orig_IFS="${IFS}"
+    IFS=":"
+    local -a prefix
+    prefix=( ${PTXDIST_PATH_SYSROOT_INITRAMFS_PREFIX} )
+    IFS="${orig_IFS}"
+
+    # add "-isystem <DIR>/include"
+    local -a cppflags
+    cppflags=( "${prefix[@]/%//include}" )
+    cppflags=( "${cppflags[@]/#/-isystem }" )
+
+    # add "-L<DIR>/lib -Wl,-rpath-link -Wl,<DIR>"
+    local -a ldflags
+    ldflags=( "${prefix[@]/%//lib}" )
+    ldflags=( "${ldflags[@]/#/-L}" "${ldflags[@]/#/-Wl,-rpath-link -Wl,}" )
+
+    export \
+	PTXDIST_INITRAMFS_CPPFLAGS="${cppflags[*]}" \
+	PTXDIST_INITRAMFS_LDFLAGS="${ldflags[*]}"
+
+
+
+    ######## PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH ########
+
+    #
+    # PKG_CONFIG_LIBDIR contains the default pkg-config search
+    # directories. Set it to the components of
+    # PTXDIST_PATH_SYSROOT_PREFIX.
+    #
+
+    # add <DIR>/lib/pkgconfig and <DIR>/share/pkgconfig
+    local -a pkg_libdir
+    pkg_libdir=( "${prefix[@]/%//lib/pkgconfig}" "${prefix[@]/%//share/pkgconfig}" )
+
+    #
+    # PKG_CONFIG_PATH contains additional pkg-config search
+    # directories. It's searched before searching the path specified
+    # in _LIBDIR.
+    #
+
+    #
+    # If we have pkg_config_path defined in our ptxconfig,
+    # prefix them with sysroot and add to pkg_path.
+    #
+    # FIXME: we only take care of normal sysroot for now, no support
+    #        for production releases, though.
+    #
+    local -a pkg_path
+    local -a opt_pkg_path
+    if opt_pkg_path=( $(ptxd_get_ptxconf PTXCONF_PKG_CONFIG_PATH) ); then
+	IFS=":"
+	local -a sysroot
+	sysroot=( ${PTXDIST_PATH_SYSROOT_INITRAMFS} )
+	IFS="${orig_IFS}"
+
+	pkg_path=( "${opt_pkg_path[@]/#/${sysroot[0]}}" )
+    fi
+
+    IFS=":"
+    PTXDIST_INITRAMFS_ENV_PKG_CONFIG="PKG_CONFIG_PATH='${pkg_path[*]}' PKG_CONFIG_LIBDIR='${pkg_libdir[*]}'"
+    export PTXDIST_INITRAMFS_ENV_PKG_CONFIG
+    IFS="${orig_IFS}"
+}
 
 #
 # initialize vars needed by PTXdist's make
@@ -232,6 +376,8 @@ ptxd_make_init() {
     fi &&
 
     ptxd_init_ptxdist_path &&
-    ptxd_init_cross_env
+    ptxd_init_cross_env &&
+    ptxd_init_initramfs_path &&
+    ptxd_init_initramfs_env
 }
 ptxd_make_init

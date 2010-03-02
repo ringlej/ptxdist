@@ -19,6 +19,10 @@ config SYSROOT_TARGET
 
 	  	make install DESTDIR=$(SYSROOT)
 
+config SYSROOT_INITRAMFS
+    string
+    default "${PTXDIST_PLATFORMDIR}/sysroot-initramfs"
+    
 config SYSROOT_HOST
 	string
 	default "${PTXDIST_PLATFORMDIR}/sysroot-host"
