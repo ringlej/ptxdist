@@ -21,7 +21,7 @@ PACKAGES-$(PTXCONF_@CLASS@@PACKAGE@) += @class@@package@
 @CLASS@@PACKAGE@_DIR	= $(@CLASS@BUILDDIR)/$(@PACKAGE@)
 
 ifdef PTXCONF_@CLASS@@PACKAGE@
-$(STATEDIR)/klibc.targetinstall.post: $(STATEDIR)/@class@@package@.targetinstall
+$(STATEDIR)/initramfs.targetinstall.post: $(STATEDIR)/@class@@package@.targetinstall
 endif
 
 # ----------------------------------------------------------------------------

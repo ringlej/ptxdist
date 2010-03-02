@@ -21,10 +21,10 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 @PACKAGE@_SUFFIX		:= @SUFFIX@
 @PACKAGE@_URL		:= @URL@/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
 @PACKAGE@_SOURCE		:= $(SRCDIR)/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)
-@PACKAGE@_DIR		:= $(KLIBC_BUILDDIR)/$(@PACKAGE@)
+@PACKAGE@_DIR		:= $(INITRAMFS_BUILDDIR)/$(@PACKAGE@)
 
 ifdef PTXCONF_@PACKAGE@
-$(STATEDIR)/klibc-targetinstall.post: $(STATEDIR)/@package@.targetinstall
+$(STATEDIR)/initramfs-targetinstall.post: $(STATEDIR)/@package@.targetinstall
 endif
 
 # ----------------------------------------------------------------------------
@@ -39,13 +39,13 @@ $(@PACKAGE@_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-@PACKAGE@_CONF_ENV	:= $(KLIBC_ENV)
+@PACKAGE@_CONF_ENV	:= $(INITRAMFS_ENV)
 
 #
 # autoconf
 #
 @PACKAGE@_CONF_TOOL	:= autoconf
-@PACKAGE@_CONF_OPT	:= $(KLIBC_AUTOCONF)
+@PACKAGE@_CONF_OPT	:= $(INITRAMFS_AUTOCONF)
 
 #$(STATEDIR)/@package@.prepare:
 #	@$(call targetinfo)
