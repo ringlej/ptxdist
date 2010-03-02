@@ -1,0 +1,6 @@
+udev-150-split-extras.diff
+udev-150-revert-SOCK_CLOEXEC.diff
+udev-150-revert-bsg_h-removal.diff
+udev-150-remove-le16toh.diff
+udev-150-fix-ppc-build.diff
+udev-150-kernel-headers-dir.diff

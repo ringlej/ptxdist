@@ -1,0 +1,270 @@
+## SECTION=initramfs
+
+menuconfig INITRAMFS_UDEV
+	bool
+	prompt "udev                          "
+	select INITRAMFS_LIBUSB
+	help
+	  udev provides a dynamic device directory containing only the files for
+	  actually present devices. It creates or removes device node files in the
+	  /dev directory, or it renames network interfaces.
+
+	  Usually udev runs as udevd(8) and receives uevents directly from the
+	  kernel if a device is added or removed from the system.
+
+	  If udev receives a device event, it matches its configured rules against
+	  the available device attributes provided in sysfs to identify the
+	  device. Rules that match, may provide additional device information or
+	  specify a device node name and multiple symlink names and instruct udev
+	  to run additional programs as part of the device event handling.
+
+	  Ensure: This udev implementation requires at least kernel 2.6.15 and
+	  must have sysfs, unix domain sockets and networking enabled.
+
+if INITRAMFS_UDEV
+
+menu "build options                 "
+
+	config INITRAMFS_UDEV_DEBUG
+		bool
+		prompt "enable debug messages"
+		help
+		  If enabled, very verbose debugging messages will be compiled
+		  into the udev binaries. The actual level of debugging is specified
+		  in the udev config file (refer entry "udev_log")
+
+	config INITRAMFS_UDEV_SELINUX
+		bool
+		# not supported yet
+		# prompt "enable selinux support"
+
+	config INITRAMFS_UDEV_SYSLOG
+		bool
+		prompt "syslog support"
+		help
+		  If enabled, udev is able to pass errors or debug information
+		  to syslog. This is very useful to see what udev is doing or not doing.
+		  Note: To use this feature the syslog daemon must start before udev
+
+endmenu
+
+menu "install options               "
+
+	config INITRAMFS_UDEV_ETC_CONF
+		bool
+		default y
+		prompt "install udev.conf"
+		help
+		  Installs /etc/udev/udev.conf. If you don't wish to install the
+		  generic udev.conf, just put a copy of your own udev.conf file into
+		  your own projectroot/etc/udev/
+
+	config INITRAMFS_UDEV_DEFAULT_RULES
+		bool
+		prompt "install default udev rules"
+		help
+		  This will install the generic udev rules files from the udev package
+		  under /lib/udev/rules.d/, except of rules to automatically load
+		  drivers modules.
+
+	config INITRAMFS_UDEV_DEFAULT_DRIVERS_RULES
+		bool
+		prompt "install default udev driver rules"
+		help
+		  This will install the generic udev drivers rules files from the udev package
+		  under /lib/udev/rules.d/,
+		  These rules are required to automatically load kernel modules on
+		  udev start.
+		  If unsure say Y.
+
+	config INITRAMFS_UDEV_DEFAULT_KEYMAPS
+		bool
+		prompt "install default keymaps"
+		help
+	  	  This will install some of the common keymaps shipped by udev.
+
+	config INITRAMFS_UDEV_COMMON_RULES
+		bool
+		prompt "install common udev rules"
+		help
+	  	  This will install some of the common rules shipped by udev, including
+		  rules for sound, isdn, md and device mapper.
+
+	config INITRAMFS_UDEV_CUST_RULES
+		bool
+		prompt "install customized udev rules"
+		help
+		  This will install the customized udev rules files from
+		  projectroot/lib/udev/rules.d into /lib/udev/rules.d
+
+	config INITRAMFS_UDEV_LIBUDEV
+		bool
+		prompt "install libudev"
+		help
+		  Install libudev.so on the target.
+
+	config INITRAMFS_UDEV_LIBGUDEV
+		bool
+		prompt "install libgudev"
+		help
+		  Install libgudev.so on the target.
+
+	config INITRAMFS_UDEV_STARTSCRIPT
+		bool
+		default y
+		prompt "install /etc/init.d/udev or /etc/init/udev.conf"
+		help
+		  Install the startup magic for either bbinit or upstart.
+		  Select Y here, as this is what you usually want.
+
+endmenu
+
+menuconfig INITRAMFS_UDEV_EXTRAS
+	bool "extras                        "
+
+if UDEV_EXTRAS
+
+	config INITRAMFS_UDEV_EXTRA_ATA_ID
+		bool
+		prompt "ata_id"
+		help
+		  udev callout to read product/serial number from ATA drives
+
+	config INITRAMFS_UDEV_EXTRA_CDROM_ID
+		bool
+		prompt "cdrom_id"
+		help
+		  udev callout to determine the capabilities of optical drives and media
+
+	config INITRAMFS_UDEV_EXTRA_COLLECT
+		bool
+		prompt "collect"
+		help
+		  Collect variables across events
+
+	config INITRAMFS_UDEV_EXTRA_EDD_ID
+		bool
+		prompt "edd_id"
+		help
+		  Tool to get EDD ID
+
+	config INITRAMFS_UDEV_EXTRA_FINDKEYBOARDS
+		bool
+		prompt "findkeyboards"
+		help
+		  Tool to find attached keyboards
+
+	config INITRAMFS_UDEV_EXTRA_FIRMWARE
+		bool
+		prompt "firmware"
+		help
+	  	  This is a small helper binary to load some kind of firmware on demand
+
+	config INITRAMFS_UDEV_EXTRA_FLOPPY
+		bool
+		prompt "create_floppy_devices"
+		help
+		  FIXME
+
+	config INITRAMFS_UDEV_EXTRA_FSTAB_IMPORT
+		bool
+		prompt "fstab_import"
+		help
+		  Find matching entry in fstab and export it
+
+	config INITRAMFS_UDEV_EXTRA_HID2HCI
+		bool
+		prompt "hid2hci"
+		help
+		  Convert HID to HCI IDs
+
+	config INITRAMFS_UDEV_EXTRA_INPUT_ID
+		bool
+		prompt "input_id"
+		help
+		  FIXME
+
+	config INITRAMFS_UDEV_EXTRA_KEYBOARD_FORCE_RELEASE
+		bool
+		prompt "keyboard-force-release.sh"
+		help
+		  Keyboard support
+
+	config INITRAMFS_UDEV_EXTRA_KEYMAP
+		bool
+		prompt "keymap"
+		help
+		  Keymap support
+
+	config INITRAMFS_UDEV_EXTRA_MODEM_MODESWITCH
+		bool
+		prompt "modem-modeswitch"
+		help
+		  Option UMTS Modem support
+
+	config INITRAMFS_UDEV_EXTRA_PATH_ID
+		bool
+		prompt "path_id"
+		help
+		  udev callout to create a device path based unique name for a device to
+		  implement the Linux Persistent Device Naming scheme
+
+	config INITRAMFS_UDEV_EXTRA_PCI_DB
+		bool
+		prompt "pci-db"
+		help
+		  Name resolution for PCI IDs
+
+	config INITRAMFS_UDEV_EXTRA_RULE_GENERATOR
+		bool
+		prompt "rule_generator"
+		help
+		  FIXME
+
+	config INITRAMFS_UDEV_EXTRA_SCSI_ID
+		bool
+		prompt "scsi_id"
+		help
+		  Used to build unique IDs for an SCSI media to identify it again
+
+	config INITRAMFS_UDEV_EXTRA_UDEV_ACL
+		bool
+		prompt "udev-acl"
+		help
+		  FIXME
+
+	config INITRAMFS_UDEV_EXTRA_USB_DB
+		bool
+		prompt "usb-db"
+		help
+		  Name resolution for USB IDs
+
+	config INITRAMFS_UDEV_EXTRA_USB_ID
+		bool
+		prompt "usb_id"
+		help
+		    This is a helper to generate unique information about some kind of
+		    USB device. This is required to ensure the same hotplugged device to
+		    appear always at the same device node (via link)
+
+	config INITRAMFS_UDEV_EXTRA_V4L_ID
+		bool
+		prompt "v4l_id"
+		help
+		  FIXME
+
+	config INITRAMFS_UDEV_EXTRA_WRITE_CD_RULES
+		bool
+		prompt "write_cd_rules"
+		help
+		  This will generate udev-based persistent naming rules for your CD/DVD media
+
+	config INITRAMFS_UDEV_EXTRA_WRITE_NET_RULES
+		bool
+		prompt "write_net_rules"
+		help
+		  This will generate udev-based persistent naming rules for your network devices
+
+endif
+
+endif
