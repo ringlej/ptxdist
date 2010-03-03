@@ -52,8 +52,8 @@ $(STATEDIR)/@package@.prepare:
 	@$(call targetinfo)
 	@$(call clean, $(@PACKAGE@_DIR)/config.cache)
 	cd $(@PACKAGE@_DIR) && \
-		$(@PACKAGE@_PATH) $(@PACKAGE@_CONV_ENV) \
-		$(@PACKAGE@_SRCDIR)/configure $(@PACKAGE@_CONV_OPT)
+		$(@PACKAGE@_PATH) $(@PACKAGE@_CONF_ENV) \
+		$(@PACKAGE@_SRCDIR)/configure $(@PACKAGE@_CONF_OPT)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
