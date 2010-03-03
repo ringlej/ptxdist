@@ -1,0 +1,26 @@
+Subject: fix mklib command line
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+during configure the environment variable MKLIB_OPTIONS can be used to
+specify extra options for mklib. This variable is not used everywhere.
+This patch fixes this.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ src/gallium/winsys/drm/Makefile.template |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/src/gallium/winsys/drm/Makefile.template
+===================================================================
+--- a/src/gallium/winsys/drm/Makefile.template
++++ b/src/gallium/winsys/drm/Makefile.template
+@@ -82,7 +82,7 @@ SHARED_INCLUDES = \
+ default: depend symlinks $(TOP)/$(LIB_DIR)/gallium/$(LIBNAME)
+ 
+ $(LIBNAME): $(OBJECTS) $(MESA_MODULES) $(PIPE_DRIVERS) $(WINOBJ) Makefile $(TOP)/src/mesa/drivers/dri/Makefile.template
+-	$(MKLIB) -noprefix -o $@ \
++	$(MKLIB) -noprefix -o $@ $(MKLIB_OPTIONS) \
+ 		$(OBJECTS) $(PIPE_DRIVERS) \
+                 -Wl,--start-group $(MESA_MODULES) -Wl,--end-group \
+                  $(WINOBJ) $(DRI_LIB_DEPS) $(DRIVER_EXTRAS)
