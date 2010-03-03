@@ -113,6 +113,10 @@ $(STATEDIR)/kernel.prepare: $(KERNEL_CONFIG)
 
 	@echo "Using kernel config file: $(<)"
 	@install -m 644 "$(<)" "$(KERNEL_DIR)/.config"
+ifdef PTXCONF_KERNEL_IMAGE_SIMPLE
+	cp $(PTXCONF_KERNEL_IMAGE_SIMPLE_DTS) \
+		$(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/dts/$(PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET).dts
+endif
 
 ifdef KERNEL_INITRAMFS_SOURCE_y
 	@touch "$(KERNEL_INITRAMFS_SOURCE_y)"
