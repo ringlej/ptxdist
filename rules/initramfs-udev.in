@@ -3,7 +3,15 @@
 menuconfig INITRAMFS_UDEV
 	bool
 	prompt "udev                          "
-	select INITRAMFS_LIBUSB
+	select ROOTFS_DEV
+	select HOST_GPERF              if INITRAMFS_UDEV_EXTRA_KEYMAP
+	select INITRAMFS_GLIB          if INITRAMFS_UDEV_LIBGUDEV
+	select INITRAMFS_GLIB          if INITRAMFS_UDEV_EXTRA_UDEV_ACL
+	select INITRAMFS_ACL           if INITRAMFS_UDEV_EXTRA_UDEV_ACL
+#	select INITRAMFS_USBUTILS      if INITRAMFS_UDEV_EXTRA_USB_DB
+#	select INITRAMFS_LIBUSB_COMPAT if INITRAMFS_UDEV_EXTRA_HID2HCI
+#	select INITRAMFS_LIBUSB_COMPAT if INITRAMFS_UDEV_EXTRA_MODEM_MODESWITCH
+#	select INITRAMFS_PCIUTILS      if INITRAMFS_UDEV_EXTRA_PCI_DB
 	help
 	  udev provides a dynamic device directory containing only the files for
 	  actually present devices. It creates or removes device node files in the
