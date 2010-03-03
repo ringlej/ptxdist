@@ -141,7 +141,37 @@ choice
 		help
 		 This is the target to get the kernel image as an raw uncompressed
 		 binary file.
+	config KERNEL_IMAGE_SIMPLE
+		bool
+		prompt "simpleImage"
+		help
+		  Create a simple Image with embedded DTB
 endchoice
+
+if KERNEL_IMAGE_SIMPLE
+
+config KERNEL_IMAGE_SIMPLE_TARGET
+	prompt "name of simple image"
+	string
+	default "xilinx-xup"
+	help
+	  Name of created simple kernel image e.g.
+	  the "xilinx-xup" of "simpleImage.xilinx-xup.elf"
+
+config KERNEL_IMAGE_SIMPLE_DTS
+	prompt "path to DTS file"
+	string
+	default "${PTXDIST_PLATFORMCONFIGDIR}/simpleImage.dts"
+	help
+	  This specifies the "dts" file used to create your simple
+	  image.
+
+	  The default is "${PTXDIST_PLATFORMCONFIGDIR}/simpleImage.dts"
+
+	  The path "${PTXDIST_PLATFORMCONFIGDIR}" is the directory
+	  where your platformconfig file is located.
+
+endif
 
 config KERNEL_IMAGE
 	string
@@ -151,7 +181,7 @@ config KERNEL_IMAGE
 	default "vmImage" if KERNEL_IMAGE_VM
 	default "vmlinux" if KERNEL_IMAGE_VMLINUX
 	default "Image"   if KERNEL_IMAGE_RAW
-
+	default "simpleImage.${PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET}.elf" if KERNEL_IMAGE_SIMPLE
 
 config KERNEL_XZ
 	prompt "build xz-utils hosttool"
