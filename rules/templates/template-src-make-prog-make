@@ -1,0 +1,109 @@
+# -*-makefile-*-
+#
+# Copyright (C) @YEAR@ by @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
+
+#
+# Paths and names
+#
+@PACKAGE@		:= @package@
+@PACKAGE@_URL		:= file://local_src/$(@PACKAGE@)
+@PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
+@PACKAGE@_LICENSE	:= unknown
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@package@.get:
+	@$(call targetinfo)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@package@.extract:
+	@$(call targetinfo)
+	@$(call clean, $(@PACKAGE@_DIR))
+	@$(call extract, @PACKAGE@)
+	@$(call patchin, @PACKAGE@)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+@PACKAGE@_PATH	:= PATH=$(CROSS_PATH)
+@PACKAGE@_ENV 	:= $(CROSS_ENV)
+
+$(STATEDIR)/@package@.prepare:
+	@$(call targetinfo)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@package@.compile:
+	@$(call targetinfo)
+	cd $(@PACKAGE@_DIR) && \
+		$(@PACKAGE@_ENV) $(@PACKAGE@_PATH) $(MAKE) #$(PARALLELMFLAGS)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@package@.install:
+	@$(call targetinfo)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@package@.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init,  @package@)
+	@$(call install_fixup, @package@,PACKAGE,@packagedash@)
+	@$(call install_fixup, @package@,PRIORITY,optional)
+	@$(call install_fixup, @package@,VERSION,0)
+	@$(call install_fixup, @package@,SECTION,base)
+	@$(call install_fixup, @package@,AUTHOR,"@AUTHOR@")
+	@$(call install_fixup, @package@,DEPENDS,)
+	@$(call install_fixup, @package@,DESCRIPTION,missing)
+
+#
+# TODO: Add here all files that should be copied to the target
+# Note: Add everything before(!) call to macro install_finish
+#
+	@$(call install_copy, @package@, 0, 0, 0755, $(@PACKAGE@_DIR)/@package@, /usr/bin/@package@)
+	@$(call install_copy, @package@, 0, 0, 0755, $(@PACKAGE@_DIR)/foobar, /dev/null)
+
+	@$(call install_finish, @package@)
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@package@.clean:
+	@$(call targetinfo)
+	@-cd $(@PACKAGE@_DIR) && \
+		$(@PACKAGE@_ENV) $(@PACKAGE@_PATH) $(MAKE) clean
+	@$(call clean_pkg, @PACKAGE@)
+
+# vim: syntax=make

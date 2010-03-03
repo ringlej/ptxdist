@@ -1,7 +1,7 @@
-## SECTION=multimedia_gtk
+## SECTION=multimedia_gtkcore
 
 config GTK2_ENGINES
 	tristate
-	depends on GTK
-	default GTK
+	default GTKCORE
+	select GTK
 

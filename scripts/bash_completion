@@ -1,5 +1,8 @@
+#!/bin/bash
+#
 # bash_completion for PTXdist by Wolfram Sang, Pengutronix e.K., in 2008-2010
 # part of PTXdist, so same licence.
+#
 
 if have ptxdist; then
 
@@ -47,7 +50,7 @@ _ptxdist_completion()
 		COMPREPLY=( $( compgen -W "${opts} $( pushd $(ptxdist print PTXDIST_PLATFORMDIR)/state >/dev/null; ls +(*.get|*.extract|*.prepare|*.compile|*.install|*.targetinstall); popd >/dev/null )" -- $cur ) )
 		;;
 	newpackage)
-		COMPREPLY=( $( compgen -W "${opts} target host host-existing-target cross cross-existing-target source kernel-driver font simple" -- $cur) )
+		COMPREPLY=( $( compgen -W "${opts} target host cross klibc arc-autoconf-lib src-autoconf-prog src-autoconf-proglib src-cmake-prog src-linux-dirver src-make-prog src-stellaris font simple" -- $cur) )
 		;;
 	esac
 	return 0

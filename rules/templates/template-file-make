@@ -100,7 +100,7 @@ $(STATEDIR)/@package@.targetinstall:
 #
 # TODO: To build your own package, if this step requires one
 #	@$(call install_init, @package@)
-#	@$(call install_fixup,@package@,PACKAGE,@package@)
+#	@$(call install_fixup,@package@,PACKAGE,@packagedash@)
 #	@$(call install_fixup,@package@,PRIORITY,optional)
 #	@$(call install_fixup,@package@,VERSION,@VERSION@)
 #	@$(call install_fixup,@package@,SECTION,base)

@@ -29,6 +29,9 @@ endif
 
 all: $(TARGETS_ALL)
 
+install: $(TARGETS_ALL)
+	install -D $(TARGETS_ALL) $(DESTDIR)/
+
 @name@.elf: @name@.o startup_gcc.o
 
 .PHONY: clean

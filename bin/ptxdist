@@ -975,63 +975,44 @@ drop() {
 }
 
 newpackage() {
-	local template template_src
-	local class autoconf_class
 	local action="${1}"
+	local autoconf_class
+	local class
+
+	# define sane defaults
+	local template="template-${action}"
+	local template_src="${RULESDIR}/templates/${action}"
 
 	case "${action}" in
-	target)
-		template=template
+	target|font|simple)
+		#template: default
 		;;
 	host)
-		template=template-class
-		class=host-
+		#class: default
 		autoconf_class=HOST_
+		template=template-class
 		;;
 	cross)
-		template=template-class
-		class=cross-
+		#class: default
 		autoconf_class=HOST_CROSS_
+		template=template-class
 		;;
 	initramfs)
-		template=template-initramfs
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-cmake-prog"
-		class=initramfs-
-		autoconf_class=INITRAMFS_
+		#class: default
+		#template: default
+		autoconf_class=KLIBC_
 		;;
 
-	src-cmake-prog)
-		template=template-src-cmake
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-cmake-prog"
-		;;
-	src-autoconf-prog)
+	src-autoconf-prog|src-autoconf-lib|src-autoconf-proglib)
+		#template_src: default
 		template=template-src-autoconf
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-autoconf-prog"
 		;;
-	src-autoconf-lib)
-		template=template-src-autoconf
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-autoconf-lib"
-		class=
-		;;
-	src-autoconf-proglib)
-		template=template-src-autoconf
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-autoconf-proglib"
-		;;
-	src-stellaris)
-		template=template-src-stellaris
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-stellaris"
-		;;
-	src-linux-driver)
-		template=template-src-driver
-		template_src="${PTXDIST_TOPDIR}/rules/templates/src-linux-driver"
-		;;
-	font)
-		template=template-font
-		;;
-	simple)
-		template=template-file
 
+	src-cmake-prog|src-linux-driver|src-make-prog|src-stellaris)
+		#template: default
+		#template_src: default
 		;;
+
 	help|*)
 		echo
 		echo "usage: 'ptxdist newpackage <type>', where type is:"
@@ -1041,11 +1022,12 @@ newpackage() {
 		echo "  cross                    create cross development package"
 		echo "  initramfs                create package for initramfs"
 		echo
-		echo "  src-cmake-prog           create cmake binary"
-		echo "  src-autoconf-prog        create autotoolized binary"
 		echo "  src-autoconf-lib         create autotoolized library"
+		echo "  src-autoconf-prog        create autotoolized binary"
 		echo "  src-autoconf-proglib     create autotoolized binary+library"
+		echo "  src-cmake-prog           create cmake binary"
 		echo "  src-linux-driver         create a linux kernel driver"
+		echo "  src-make-prog            create a plain makefile binary"
 		echo "  src-stellaris            create stellaris firmware"
 		echo "  font"
 		echo "  simple"
@@ -1053,6 +1035,11 @@ newpackage() {
 		exit 1
 		;;
 	esac
+
+	#
+	# if "autoconf_class" is defines we need a "class", too
+	#
+	class="${autoconf_class:+${action}-}"
 
 	#
 	# Ask some questions
@@ -1068,8 +1055,8 @@ newpackage() {
 	# for host and cross packages, find out if there is already an
 	# existing target
 	#
-	if [ -f "${PTXDIST_WORKSPACE}/rules/${package_name}.make" -o \
-	     -f "${PTXDIST_TOPDIR}/rules/${package_name}.make" ]; then
+	if [ -f "${PROJECTRULESDIR}/${package_name}.make" -o \
+	     -f "${RULESDIR}/${package_name}.make" ]; then
 		case "${action}" in
 		    host|cross)
 			action=class-existing-target
@@ -1088,10 +1075,10 @@ newpackage() {
 	#
 	local version
 	case "${action}" in
-	*-existing-target)
+	*-existing-target|src-make-prog)
 		;;
 	*)
-		echo -n "${PROMPT}enter version number....: "
+		echo -n "${PROMPT}enter version number.....: "
 		read version
 		;;
 	esac
@@ -1099,9 +1086,9 @@ newpackage() {
 	local url suffix
 	case "${action}" in
 	host|target|cross|initramfs)
-		echo -n "${PROMPT}enter URL of basedir....: "
+		echo -n "${PROMPT}enter URL of basedir.....: "
 		read url
-		echo -n "${PROMPT}enter suffix............: "
+		echo -n "${PROMPT}enter suffix.............: "
 		read suffix
 		;;
 	esac
@@ -1133,7 +1120,7 @@ newpackage() {
 
 		if [ -f "${filename}" ]; then
 			echo
-			echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n]"
+			echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n] "
 			local overwrite
 			read overwrite
 			if [ "${overwrite}" != "y" ]; then
@@ -1157,7 +1144,7 @@ newpackage() {
 		-e "s#\@AUTHOR@#${author}#g" \
 		-e "s#\@SUFFIX@#${suffix}#g" \
 		"${template_file}" \
-		> "${filename}"
+		> "${filename}" || return
 	done
 
 	#
@@ -1165,19 +1152,30 @@ newpackage() {
 	#
 	case "${action}" in
 	src-*)
-		if [ -d "${PTXDIST_WORKSPACE}/local_src/${package}-${version}" ]; then
+		local dst="${PTXDIST_WORKSPACE}/local_src/${package}${version:+-${version}}"
+
+		if [ -d "${dst}" ]; then
 			return
 		fi
 
-		echo -e -n "\nlocal_src/${package}-${version} does not exist, create? [y/n] "
-		[ "$(local r; read r; echo "${r}")" = "y" ] || return
+		echo -e -n "\n${dst#${PTXDIST_WORKSPACE}/} does not exist, create? [Y/n] "
+		local r
+		read r
+		case "${r}" in
+		    y|Y|"") ;;
+		    *) return ;;
+		esac
 
-		mkdir -p "${PTXDIST_WORKSPACE}/local_src/${package}-${version}"
+		mkdir -p "${dst}" &&
 		tar -C "${template_src}" -cf - --exclude .svn . | \
-			tar -C "${PTXDIST_WORKSPACE}/local_src/${package}-${version}" -xvf -
+			tar -C "${dst}" -xvf - &&
 
-		(cd "${PTXDIST_WORKSPACE}/local_src/${package}-${version}" && sh wizard.sh ${package})
-		rm -f ${PTXDIST_WORKSPACE}/local_src/${package}-${version}/wizard.sh
+		if [ \! -e "${dst}/wizard.sh" ]; then
+			return
+		fi &&
+
+		( cd "${dst}" && bash wizard.sh "${package}" ) &&
+		rm -f "${dst}/wizard.sh" "${package}"
 		;;
 	esac
 
