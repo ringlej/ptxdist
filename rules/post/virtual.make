@@ -24,6 +24,10 @@ ifdef PTXCONF_CROSS_PKG_CONFIG_WRAPPER
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/cross-pkg-config-wrapper.install.post
 endif
 
+ifdef PTXCONF_INITRAMFS_PKG_CONFIG_WRAPPER
+$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/initramfs-pkg-config-wrapper.install.post
+endif
+
 $(STATEDIR)/virtual-cross-tools.install:
 	@$(call targetinfo)
 	@$(call touch)
