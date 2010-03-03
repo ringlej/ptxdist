@@ -62,7 +62,7 @@ $(STATEDIR)/@package@.targetinstall:
 #	# example code:; copy all binaries
 #	#
 
-	@for i in $(shell cd $(PKGDIR)/$(@PACKAGE@) && find bin sbin usr/bin usr/sbin -type f); do \
+	@for i in $(shell cd $(@PACKAGE@_PKGDIR) && find bin sbin usr/bin usr/sbin -type f); do \
 		$(call install_copy, @package@, 0, 0, 0755, -, /$$i); \
 	done
 

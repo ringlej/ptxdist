@@ -94,16 +94,16 @@ $(STATEDIR)/@package@.targetinstall:
 #	# example code:; copy all libraries, links and binaries
 #	#
 
-	@for i in $(shell cd $(PKGDIR)/$(@PACKAGE@) && find bin sbin usr/bin usr/sbin -type f); do \
+	@for i in $(shell cd $(@PACKAGE@_PKGDIR) && find bin sbin usr/bin usr/sbin -type f); do \
 		$(call install_copy, @package@, 0, 0, 0755, -, /$$i); \
 	done
-	@for i in $(shell cd $(PKGDIR)/$(@PACKAGE@) && find lib usr/lib -name "*.so*"); do \
+	@for i in $(shell cd $(@PACKAGE@_PKGDIR) && find lib usr/lib -name "*.so*"); do \
 		$(call install_copy, @package@, 0, 0, 0644, -, /$$i); \
 	done
-	@links="$(shell cd $(PKGDIR)/$(@PACKAGE@) && find lib usr/lib -type l)"; \
+	@links="$(shell cd $(@PACKAGE@_PKGDIR) && find lib usr/lib -type l)"; \
 	if [ -n "$$links" ]; then \
 		for i in $$links; do \
-			from="`readlink $(PKGDIR)/$(@PACKAGE@)/$$i`"; \
+			from="`readlink $(@PACKAGE@_PKGDIR)/$$i`"; \
 			to="/$$i"; \
 			$(call install_link, @package@, $$from, $$to); \
 		done; \
