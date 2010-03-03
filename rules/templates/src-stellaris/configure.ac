@@ -19,7 +19,7 @@ CFLAGS="${CFLAGS} -pedantic -DPART_${PART}"
 # workaround for newlib toolchain: place this before AC_PROG_CC, even if
 # LDFLAGS are not AC_SUBSTed
 LDFLAGS="-Wl,--entry -Wl,main -Wl,--gc-sections"
-AC_PROG_CC
+AC_CHECK_TOOLS([CC],[gcc cc])
 
 AC_CHECK_TOOL(OBJCOPY,objcopy)
 

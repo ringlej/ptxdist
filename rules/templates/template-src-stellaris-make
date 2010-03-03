@@ -62,10 +62,11 @@ endif
 #
 # autoconf
 #
+@PACKAGE@_CONF_ENV	:= CC=$(PTXCONF_STELLARIS_CC)
 @PACKAGE@_CONF_TOOL	:= autoconf
 @PACKAGE@_CONF_OPT	:= \
-	--host=arm-cortexm3-eabi \
-	--build=i686-unknown-linux-gnu \
+	--host=$(PTXCONF_STELLARIS_GNU_TARGET) \
+	--build=$(GNU_HOST) \
 	--with-stellaris-sdk=$(SW_EK_LM3S3748_DIR) \
 	--with-dfuwrap=$(SW_EK_LM3S3748_DIR)/tools/dfuwrap/dfuwrap
 
@@ -87,9 +88,10 @@ endif
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.install:
-	@$(call targetinfo)
-	@$(call touch)
+#$(STATEDIR)/@package@.install:
+#	@$(call targetinfo)
+#	@$(call world/install, @PACKAGE@)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -108,7 +110,7 @@ $(STATEDIR)/@package@.targetinstall:
 	@$(call install_fixup, @package@, DESCRIPTION, missing)
 
 	@$(call install_copy, @package@, 0, 0, 0644, \
-		$(@PACKAGE@_DIR)/@package@.dfu, \
+		$(@PACKAGE@_PKGDIR)/@package@.dfu, \
 		/lib/firmware/@package@.dfu)
 
 	@$(call install_finish, @package@)
@@ -119,9 +121,9 @@ $(STATEDIR)/@package@.targetinstall:
 # Clean
 # ----------------------------------------------------------------------------
 
-@package@_clean:
-	rm -rf $(STATEDIR)/@package@.*
-	rm -rf $(PKGDIR)/@package@_*
-	rm -rf $(@PACKAGE@_DIR)
+#$(STATEDIR)/@package@.clean:
+#	@$(call targetinfo)
+#	@$(call clean_pkg, @PACKAGE@)
+
 
 # vim: syntax=make
