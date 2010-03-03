@@ -17,7 +17,8 @@ PACKAGES-$(PTXCONF_INITRAMFS_BUSYBOX) += initramfs-busybox
 # Paths and names
 #
 INITRAMFS_BUSYBOX		:= initramfs-$(BUSYBOX)
-INITRAMFS_BUSYBOX_DIR		:= $(KLIBC_BUILDDIR)/$(BUSYBOX)
+INITRAMFS_BUSYBOX_SOURCE	:= $(BUSYBOX_SOURCE)
+INITRAMFS_BUSYBOX_DIR		:= $(INITRAMFS_BUILDDIR)/$(BUSYBOX)
 INITRAMFS_BUSYBOX_KCONFIG	:= $(INITRAMFS_BUSYBOX_DIR)/Config.in
 
 ifdef PTXCONF_INITRAMFS_BUSYBOX
@@ -28,31 +29,31 @@ endif
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/initramfs-busybox.get: $(STATEDIR)/busybox.get
-	@$(call targetinfo)
-	@$(call touch)
+#$(STATEDIR)/initramfs-busybox.get: $(STATEDIR)/busybox.get
+#	@$(call targetinfo)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/initramfs-busybox.extract:
-	@$(call targetinfo)
-	@$(call clean, $(INITRAMFS_BUSYBOX_DIR))
-	@$(call extract, BUSYBOX, $(KLIBC_BUILDDIR))
-	@$(call patchin, INITRAMFS_BUSYBOX, $(INITRAMFS_BUSYBOX_DIR))
-	@$(call touch)
+#$(STATEDIR)/initramfs-busybox.extract:
+#	@$(call targetinfo)
+#	@$(call clean, $(INITRAMFS_BUSYBOX_DIR))
+#	@$(call extract, BUSYBOX, $(KLIBC_BUILDDIR))
+#	@$(call patchin, INITRAMFS_BUSYBOX, $(INITRAMFS_BUSYBOX_DIR))
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-INITRAMFS_BUSYBOX_PATH	:= PATH=$(CROSS_PATH)
-INITRAMFS_BUSYBOX_ENV 	:= $(CROSS_ENV)
+INITRAMFS_BUSYBOX_PATH	:= PATH=$(INITRAMFS_PATH)
+INITRAMFS_BUSYBOX_ENV 	:= $(INITRAMFS_ENV)
 
 INITRAMFS_BUSYBOX_MAKEVARS := \
 	ARCH=$(PTXCONF_ARCH_STRING) \
-	CROSS_COMPILE=$(COMPILER_PREFIX) \
+	CROSS_COMPILE=$(COMPILER_PREFIX_INITRAMFS) \
 	HOSTCC=$(HOSTCC)
 
 $(STATEDIR)/initramfs-busybox.prepare:
@@ -75,7 +76,7 @@ $(STATEDIR)/initramfs-busybox.prepare:
 $(STATEDIR)/initramfs-busybox.install:
 	@$(call targetinfo)
 	cd $(INITRAMFS_BUSYBOX_DIR) && $(INITRAMFS_BUSYBOX_PATH) $(MAKE) \
-		$(INITRAMFS_BUSYBOX_MAKEVARS) CONFIG_PREFIX=$(SYSROOT)/usr/lib/klibc install
+		$(INITRAMFS_BUSYBOX_MAKEVARS) CONFIG_PREFIX=$(SYSROOT) install
 	cd $(INITRAMFS_BUSYBOX_DIR) && $(INITRAMFS_BUSYBOX_PATH) $(MAKE) \
 		$(INITRAMFS_BUSYBOX_MAKEVARS) CONFIG_PREFIX=$(INITRAMFS_BUSYBOX_PKGDIR) install
 	@$(call touch)
