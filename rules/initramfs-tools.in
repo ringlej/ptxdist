@@ -2,9 +2,6 @@
 
 menuconfig INITRAMFS_TOOLS
 	bool
-	select INITRAMFS_MODULE_INIT_TOOLS
-	select INITRAMFS_MODULE_INIT_TOOLS_DEPMOD
-	select INITRAMFS_MODULE_INIT_TOOLS_MODPROBE
 	prompt "initramfs-tools               "
 	help
 	  Install initramfs skeleton framework
