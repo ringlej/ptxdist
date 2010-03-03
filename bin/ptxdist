@@ -845,6 +845,7 @@ clean() {
 		echo "${PROMPT}cleaning root directory..."
 		rm -fr -- "${ROOTDIR}"
 		rm -fr -- "${ROOTDIR_DEBUG}"
+		rm -fr -- "${ROOTDIR_INITRAMFS}"
 		echo "${PROMPT}cleaning packages..."
 		rm -fr -- "${PKGDIR}"/*.ipk
 		echo "${PROMPT}cleaning targetinstall stages..."
@@ -923,6 +924,7 @@ clean() {
 	echo "${PROMPT}removing root..."
 	rm -fr -- "${ROOTDIR}"
 	rm -fr -- "${ROOTDIR_DEBUG}"
+	rm -fr -- "${ROOTDIR_INITRAMFS}"
 	echo "${PROMPT}removing state..."
 	rm -fr -- "${STATEDIR}"
 	echo "${PROMPT}removing logfile..."
