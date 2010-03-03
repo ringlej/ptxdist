@@ -210,7 +210,8 @@ INITRAMFS_ENV_AC := \
 	bash_cv_func_ctype_nonascii=yes \
 	bash_cv_func_sigsetjmp=present \
 	bash_cv_func_strcoll_broken=no \
-	bash_cv_must_reinstall_sighandlers=no
+	bash_cv_must_reinstall_sighandlers=no \
+	glib_cv_stack_grows=no
 
 INITRAMFS_ENV := \
 	$(INITRAMFS_ENV_PROGS) \
