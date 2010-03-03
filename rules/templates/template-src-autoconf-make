@@ -18,8 +18,9 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 #
 @PACKAGE@_VERSION	:= @VERSION@
 @PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
-@PACKAGE@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
+@PACKAGE@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
+@PACKAGE@_BUILD_OOT	:= YES
 @PACKAGE@_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
@@ -29,11 +30,11 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 $(STATEDIR)/@package@.extract:
 	@$(call targetinfo)
 	@$(call clean, $(@PACKAGE@_DIR))
+	@$(call extract, @PACKAGE@)
 ifdef PTXCONF_@PACKAGE@_TRUNK
-	cd $(@PACKAGE@_SRCDIR) && sh autogen.sh
+	cd $(@PACKAGE@_DIR) && sh autogen.sh
 endif
-	@$(call patchin, @PACKAGE@, $(@PACKAGE@_SRCDIR))
-	mkdir -p $(@PACKAGE@_DIR)
+	@$(call patchin, @PACKAGE@)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -46,15 +47,12 @@ endif
 # autoconf
 #
 @PACKAGE@_CONF_TOOL	:= autoconf
-@PACKAGE@_CONF_OPT	:= $(CROSS_AUTOCONF_USR)
+#@PACKAGE@_CONF_OPT	:= $(CROSS_AUTOCONF_USR)
 
-$(STATEDIR)/@package@.prepare:
-	@$(call targetinfo)
-	@$(call clean, $(@PACKAGE@_DIR)/config.cache)
-	cd $(@PACKAGE@_DIR) && \
-		$(@PACKAGE@_PATH) $(@PACKAGE@_CONF_ENV) \
-		$(@PACKAGE@_SRCDIR)/configure $(@PACKAGE@_CONF_OPT)
-	@$(call touch)
+#$(STATEDIR)/@package@.prepare:
+#	@$(call targetinfo)
+#	@$(call world/prepare, @PACKAGE@)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -82,9 +80,9 @@ $(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  @package@)
-	@$(call install_fixup, @package@, PACKAGE, @package@)
+	@$(call install_fixup, @package@, PACKAGE, @packagedash@)
 	@$(call install_fixup, @package@, PRIORITY, optional)
-	@$(call install_fixup, @package@, VERSION, @VERSION@)
+	@$(call install_fixup, @package@, VERSION, $(@PACKAGE@_VERSION))
 	@$(call install_fixup, @package@, SECTION, base)
 	@$(call install_fixup, @package@, AUTHOR, "@AUTHOR@")
 	@$(call install_fixup, @package@, DEPENDS,)
