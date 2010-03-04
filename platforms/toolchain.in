@@ -26,6 +26,24 @@ config CROSSCHAIN_CHECK
 	  to avoid compilation with the wrong compiler version
 	  when you use your own external toolchain.
 
+choice
+	prompt "c library           "
+	default LIBC_GLIBC
+
+	config LIBC_GLIBC
+		bool
+		prompt "glibc  "
+		help
+		  This menu entry lets you select components from the
+		  standard C library called glibc. It depends on the
+		  system what components are required.
+
+	config LIBC_UCLIBC
+		bool
+		prompt "uClibc "
+endchoice
+
+if LIBC_GLIBC
 config GLIBC_VERSION
 	string
 	prompt "check for specific glibc version"
@@ -34,6 +52,18 @@ config GLIBC_VERSION
 	  Specify the glibc version this BSP shall be built with. This information
           is used to guess the toolchain path if you use "ptxdist toolchain"
 	  without an argument.
+endif
+
+if LIBC_UCLIBC
+config UCLIBC_VERSION
+	string
+	prompt "check for specific uClibc version"
+	default "0.9.30.2"
+	help
+	  Specify the uClibc version this BSP shall be built with. This information
+          is used to guess the toolchain path if you use "ptxdist toolchain"
+	  without an argument.
+endif
 
 config GNU_TARGET
 	string

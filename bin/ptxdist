@@ -1509,7 +1509,7 @@ do_select_toolchain_guess()
 	if [ -n "${glibc_version}" ]; then
 		libc="glibc-${glibc_version}-"
 	elif [ -n "${uclibc_version}" ]; then
-		libc="glibc-${uclibc_version}-"
+		libc="uClibc-${uclibc_version}-"
 	else
 		libc=""
 	fi
