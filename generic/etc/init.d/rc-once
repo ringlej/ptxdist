@@ -31,7 +31,13 @@ run_start() {
 	if [ "$RC_ONCE_FAILED" != "yes" ]; then
 		: > "$STAMP"
 	fi
-	mount_root_restore || (reboot; sleep 100)
+	mount_root_restore || (
+		# remounting rw/ro during the second boot will flush anything
+		# left in the filesystem journal
+		rm "$STAMP"
+		reboot
+		sleep 100
+	)
 }
 
 case "$1" in
