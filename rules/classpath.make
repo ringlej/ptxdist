@@ -184,6 +184,11 @@ $(STATEDIR)/classpath.targetinstall:
 	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/security/classpath.security)
 	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/logging.properties)
 
+ifdef PTXCONF_PRELINK
+	@$(call install_alternative, classpath, 0, 0, 0644, \
+		/etc/prelink.conf.d/classpath)
+endif
+
 	@$(call install_finish, classpath)
 
 	@$(call touch)
