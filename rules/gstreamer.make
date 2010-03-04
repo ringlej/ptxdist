@@ -181,6 +181,11 @@ endif
 		libgstbase-0.10.so.0.22.0, \
 		/usr/lib/libgstbase-0.10.so)
 
+ifdef PTXCONF_PRELINK
+	@$(call install_alternative, gstreamer, 0, 0, 0644, \
+		/etc/prelink.conf.d/gstreamer)
+endif
+
 	@$(call install_finish, gstreamer)
 
 	@$(call touch)
