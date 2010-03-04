@@ -197,7 +197,7 @@ config KERNEL_EXTRA_MAKEVARS
 	help
 	  Specify extra parameters for the kernel build system here. Useful
 	  options include:
-	  
+
 	  * CONFIG_DEBUG_SECTION_MISMATCH=y
 	  Enable this feature if you want kernel's builsystem to check for
 	  section mismatches (__devinit/__devexit, __init/__exit). This
@@ -205,10 +205,10 @@ config KERNEL_EXTRA_MAKEVARS
 	  do this check automatically. Enabling this feature is recommended
 	  for kernel development.
 	  Changing this entry will rebuild the whole kernel.
-	  
+
 	  * C=1
 	  Run sparse when compiling
-	  
+
 	  * V=1
 	  Increase verbosity when compiling
 
@@ -218,12 +218,12 @@ config KERNEL_LOCAL_FLAG
 	help
 	  Do not download a kernel archieve, but use a local kernel tree
 	  (most probably a working tree from a git repository). Its path
-	  is concatenated from SETUP_KERNELDIR_PREFIX defined in setup 
+	  is concatenated from SETUP_KERNELDIR_PREFIX defined in setup
 	  and KERNEL_VERSION from above.
-	  
+
 	  This function is mostly needed by developers who want to test their
 	  patches against a git-tree.
-	  
+
 config KERNEL_SYMLINK_IN_PROJECTDIR
 	prompt "Symlink to kernel tree"
 	bool
@@ -231,7 +231,7 @@ config KERNEL_SYMLINK_IN_PROJECTDIR
 	  Create a symlink named '.kernel' in the workspace directory pointing to
 	  the currently selected kernel. This is a shortcut for developers often
 	  working with kernel sources. It can also prevent to accidently work on
-	  an unselected kernel. Note that the link may be invalid unless you have 
+	  an unselected kernel. Note that the link may be invalid unless you have
 	  extracted the specified kernel version.
 
 endif	# KERNEL
