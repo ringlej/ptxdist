@@ -11,7 +11,7 @@ if LIBC
 
 choice
 	prompt "c library           "
-	default GLIBC
+	default LIBC_GLIBC
 
 	config LIBC_GLIBC
 		bool
