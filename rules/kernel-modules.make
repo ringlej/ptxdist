@@ -78,6 +78,15 @@ $(STATEDIR)/kernel-modules.install:
 
 $(STATEDIR)/kernel-modules.targetinstall:
 	@$(call targetinfo)
+	@$(call install_init,  kernel-modules)
+	@$(call install_fixup, kernel-modules, PACKAGE,kernel-modules)
+	@$(call install_fixup, kernel-modules, PRIORITY,optional)
+	@$(call install_fixup, kernel-modules, VERSION,$(KERNEL_VERSION))
+	@$(call install_fixup, kernel-modules, SECTION,base)
+	@$(call install_fixup, kernel-modules, AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, kernel-modules, DEPENDS,)
+	@$(call install_fixup, kernel-modules, DESCRIPTION,missing)
+
 	@cd $(KERNEL_MODULES_PKGDIR) && \
 	find lib -type d | while read dir; do \
 		$(call install_copy, kernel-modules, 0, 0, 0755, /$${dir}); \
@@ -96,6 +105,8 @@ ifdef PTXCONF_KERNEL_MODULES_USER_SPEC
 		$(call install_copy, kernel-modules, 0, 0, 0644, -, /lib/modules/$${KVER}/$${file}); \
 	done
 endif
+
+	@$(call install_finish, kernel-modules)
 	@$(call touch)
 
 # vim: syntax=make

@@ -30,11 +30,36 @@ menuconfig KERNEL_MODULES
 
 if KERNEL_MODULES
 
-config KERNEL_MODULES_INSTALL
+choice
+	prompt "install kernel modules"
+    default KERNEL_MODULES_ALL
+	help
+	  FIXME
+
+config KERNEL_MODULES_ALL
 	bool
-	default y
-	prompt "Install modules into /lib/modules"
-	depends on KERNEL_MODULES
+	prompt "all"
+	help
+	  FIXME
+
+config KERNEL_MODULES_USER_SPEC
+	bool
+	prompt "selected from spec file"
+	help
+	  FIXME
+
+endchoice
+
+if KERNEL_MODULES_USER_SPEC
+
+config KERNEL_MODULES_USER_SPEC_FILE
+	string
+	prompt "kernel module spec file"
+    default "${PTXDIST_WORKSPACE}/kernel_modules"
+    help
+      FIXME
+
+endif
 
 config KERNEL_MODULES_BUILD
 	depends on KERNEL_MODULES

@@ -218,12 +218,6 @@ endif
 	@$(call install_finish, kernel)
 endif
 
-ifdef PTXCONF_KERNEL_MODULES_INSTALL
-	@rm -rf $(KERNEL_PKGDIR)
-	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) modules_install
-endif
-
 	@$(call touch)
 
 
@@ -237,25 +231,6 @@ endif
 
 $(STATEDIR)/kernel.targetinstall.post:
 	@$(call targetinfo)
-
-ifdef PTXCONF_KERNEL_MODULES_INSTALL
-	@$(call install_init,  kernel-modules)
-	@$(call install_fixup, kernel-modules, PACKAGE,kernel-modules)
-	@$(call install_fixup, kernel-modules, PRIORITY,optional)
-	@$(call install_fixup, kernel-modules, VERSION,$(KERNEL_VERSION))
-	@$(call install_fixup, kernel-modules, SECTION,base)
-	@$(call install_fixup, kernel-modules, AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, kernel-modules, DEPENDS,)
-	@$(call install_fixup, kernel-modules, DESCRIPTION,missing)
-
-	@cd $(KERNEL_PKGDIR) && \
-		find lib -type f | while read file; do \
-			$(call install_copy, kernel-modules, 0, 0, 0644, -, /$${file}, n) \
-	done
-
-	@$(call install_finish, kernel-modules)
-endif
-
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
