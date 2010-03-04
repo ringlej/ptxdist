@@ -45,16 +45,6 @@ KERNEL_URL		:= \
 KERNEL_SOURCE		:= $(SRCDIR)/$(KERNEL).$(KERNEL_SUFFIX)
 endif
 
-#
-# support the different kernel image formats
-#
-KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_BZ)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/bzImage
-KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_RAW)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/Image
-KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_U)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/uImage
-KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_VM)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/vmImage
-KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_Z)	+= $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/zImage
-KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_VMLINUX) += $(KERNEL_DIR)/vmlinux
-
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -84,7 +74,18 @@ KERNEL_MAKEVARS += \
 	DEPMOD=$(PTXCONF_SYSROOT_CROSS)/sbin/$(PTXCONF_GNU_TARGET)-depmod
 endif
 
-KERNEL_IMAGE	:= $(PTXCONF_KERNEL_IMAGE)
+
+#
+# support the different kernel image formats
+#
+KERNEL_IMAGE := $(call remove_quotes, $(PTXCONF_KERNEL_IMAGE))
+
+# these are sane default
+KERNEL_IMAGE_PATH_y := $(KERNEL_DIR)/arch/$(PTXCONF_KERNEL_ARCH_STRING)/boot/$(KERNEL_IMAGE)
+
+# vmlinux is special
+KERNEL_IMAGE_PATH_$(PTXCONF_KERNEL_IMAGE_VMLINUX) := $(KERNEL_DIR)/vmlinux
+
 
 ifndef PTXCONF_PROJECT_USE_PRODUCTION
 
