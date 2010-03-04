@@ -1,11 +1,17 @@
-menuconfig KERNEL
+menuconfig KERNEL_CORE
+	bool y
+	prompt "Linux kernel                  "
+
+
+if KERNEL_CORE
+
+config KERNEL
 	bool
-	default y
+	default KERNEL_CORE
 	select IMAGE_KERNEL
 	select HOST_UMKIMAGE		if KERNEL_IMAGE_U
 	select HOST_XZ			if KERNEL_XZ
 	select CROSS_MODULE_INIT_TOOLS	if KERNEL_MODULES
-	prompt "Linux kernel                  "
 
 if KERNEL
 
@@ -265,3 +271,5 @@ config KERNEL_SYMLINK_IN_PROJECTDIR
 	  extracted the specified kernel version.
 
 endif	# KERNEL
+
+endif	# KERNEL_CORE
