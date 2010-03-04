@@ -4,5 +4,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 echo "running prelink..."
 
-prelink -amR
+cat /etc/prelink.conf /etc/prelink.conf.d/* > /tmp/prelink.conf 2>/dev/null
+
+prelink -afR -c /tmp/prelink.conf
 
