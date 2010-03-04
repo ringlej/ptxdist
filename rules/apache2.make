@@ -286,6 +286,11 @@ ifdef PTXCONF_APACHE2_STARTSCRIPT
 endif
 endif
 
+ifdef PTXCONF_PRELINK
+	@$(call install_alternative, apache2, 0, 0, 0644, \
+		/etc/prelink.conf.d/apache2)
+endif
+
 	@$(call install_finish, apache2)
 
 	@$(call touch)
