@@ -1,0 +1,2 @@
+-l /usr/lib/dri
+-l /usr/lib/xorg/modules

@@ -369,6 +369,11 @@ ifdef PTXCONF_XORG_SERVER_CONFIG_FILES_XORG_CONF
 		/etc/X11/xorg.conf)
 endif
 
+ifdef PTXCONF_PRELINK
+	@$(call install_alternative, xorg-server, 0, 0, 0644, \
+		/etc/prelink.conf.d/xorg)
+endif
+
 ifdef PTXCONF_XORG_SERVER_UDEV
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		/lib/udev/rules.d/x11-input.rules)
