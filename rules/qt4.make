@@ -890,6 +890,11 @@ ifdef PTXCONF_QT4_FONT_L04
 		/usr/lib/fonts/$$i, n); \
 	done
 endif
+ifdef PTXCONF_PRELINK
+	@$(call install_alternative, qt4, 0, 0, 0644, \
+		/etc/prelink.conf.d/qt4)
+endif
+
 
 	@$(call install_finish,qt4)
 
