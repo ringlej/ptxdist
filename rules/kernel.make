@@ -158,7 +158,7 @@ $(STATEDIR)/kernel.compile:
 		$(KERNEL_DIR)/usr/initramfs_data.cpio.* \
 		$(KERNEL_DIR)/usr/.initramfs_data.cpio.*
 	cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) $(PTXCONF_KERNEL_MODULES_BUILD)
+		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE)
 	@$(call touch)
 
 endif # !PTXCONF_PROJECT_USE_PRODUCTION
