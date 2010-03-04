@@ -11,7 +11,6 @@ config KERNEL
 	select IMAGE_KERNEL
 	select HOST_UMKIMAGE		if KERNEL_IMAGE_U
 	select HOST_XZ			if KERNEL_XZ
-	select CROSS_MODULE_INIT_TOOLS	if KERNEL_MODULES
 
 if KERNEL
 
@@ -19,10 +18,17 @@ config KERNEL_INSTALL
 	bool
 	prompt "install kernel into /boot"
 
-config KERNEL_MODULES
+endif	# KERNEL
+
+
+menuconfig KERNEL_MODULES
 	bool
+	select CROSS_MODULE_INIT_TOOLS
+	select KERNEL
 	default y
 	prompt "build kernel-modules"
+
+if KERNEL_MODULES
 
 config KERNEL_MODULES_INSTALL
 	bool
@@ -34,6 +40,11 @@ config KERNEL_MODULES_BUILD
 	depends on KERNEL_MODULES
 	string
 	default "modules"
+
+endif
+
+
+if KERNEL
 
 config KERNEL_VERSION
 	prompt "kernel version"
