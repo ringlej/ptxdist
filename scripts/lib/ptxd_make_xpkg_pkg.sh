@@ -79,10 +79,10 @@ EOF
 
     ptxd_install_setup &&
 
-    install -m ${nfs_mod} -d "${ndirs[@]/%/${dir}}" &&
-    install -m ${mod} -o ${usr} -g ${grp} -d "${pdirs[@]/%/${dir}}" &&
+    install -m "${nfs_mod}" -d "${ndirs[@]/%/${dir}}" &&
+    install -m "${mod}" -o "${usr}" -g "${grp}" -d "${pdirs[@]/%/${dir}}" &&
 
-    echo "f:${dir}:${usr}:${grp}:${mod}" >> ${pkg_xpkg_perms}
+    echo "f:${dir}:${usr}:${grp}:${mod}" >> "${pkg_xpkg_perms}"
 }
 export -f ptxd_install_dir
 
@@ -117,11 +117,11 @@ EOF
 
     rm -f "${dirs[@]/%/${dst}}" &&
     for d in "${ndirs[@]/%/${dst}}"; do
-	install -m ${nfs_mod} -D "${src}" "${d}" || return
+	install -m "${nfs_mod}" -D "${src}" "${d}" || return
     done &&
 
     for d in "${pdirs[@]/%/${dst}}"; do
-	install -m ${mod} -o ${usr} -g ${grp} -D "${src}" "${d}" || return
+	install -m "${mod}" -o "${usr}" -g "${grp}" -D "${src}" "${d}" || return
     done &&
 
     if ! file "${sdirs[0]/%/${dst}}" | egrep -q ":.*(executable|shared object).*stripped"; then
@@ -129,11 +129,11 @@ EOF
     fi &&
     case "${strip}" in
 	0|n|no) ;;
-	k) ${CROSS_STRIP} --strip-debug "${sdirs[@]/%/${dst}}" ;;
-	*) ${CROSS_STRIP} -R .note -R .comment "${sdirs[@]/%/${dst}}" ;;
+	k) "${CROSS_STRIP}" --strip-debug "${sdirs[@]/%/${dst}}" ;;
+	*) "${CROSS_STRIP}" -R .note -R .comment "${sdirs[@]/%/${dst}}" ;;
     esac &&
 
-    echo "f:${dst}:${usr}:${grp}:${mod}" >> ${pkg_xpkg_perms}
+    echo "f:${dst}:${usr}:${grp}:${mod}" >> "${pkg_xpkg_perms}"
 }
 export -f ptxd_install_file
 
@@ -196,11 +196,11 @@ EOF
 
     rm -f "${pdirs[@]/%/${dst}}" &&
     for d in "${pdirs[@]/%/${dst}}"; do
-	mknod -m ${mod} "${d}" ${type} ${major} ${minor} || return
+	mknod -m "${mod}" "${d}" "${type}" "${major}" "${minor}" || return
     done &&
     chown "${usr}:${grp}" "${pdirs[@]/%/${dst}}" &&
 
-    echo "n:${dst}:${usr}:${grp}:${mod}:${type}:${major}:${minor}" >> ${pkg_xpkg_perms}
+    echo "n:${dst}:${usr}:${grp}:${mod}:${type}:${major}:${minor}" >> "${pkg_xpkg_perms}"
 }
 export -f ptxd_install_mknod
 
@@ -261,13 +261,13 @@ ptxd_install_generic() {
     local grp="$4"
 
     local -a stat
-    stat=($(stat -c "%u %g %a %t %T" "${file}")) &&
-    local usr=${usr:-${stat[0]}} &&
-    local grp=${grp:-${stat[1]}} &&
-    local mod=${stat[2]} &&
-    local major=${stat[3]} &&
-    local minor=${stat[4]} &&
-    local type=$(stat -c "%F" "${file}") &&
+    stat=( $(stat -c "%u %g %a %t %T" "${file}") ) &&
+    local usr="${usr:-${stat[0]}}" &&
+    local grp="${grp:-${stat[1]}}" &&
+    local mod="${stat[2]}" &&
+    local major="${stat[3]}" &&
+    local minor="${stat[4]}" &&
+    local type="$(stat -c "%F" "${file}")" &&
 
     case "${type}" in
         "directory")
@@ -280,7 +280,7 @@ ptxd_install_generic() {
 	    ptxd_install_mknod "${dst}" "${usr}" "${grp}" "${mod}" b "${major}" "${minor}"
 	    ;;
         "symbolic link")
-	    local src=$(readlink "${file}") &&
+	    local src="$(readlink "${file}")" &&
 	    ptxd_install_ln "${src}" "${dst}" "${usr}" "${grp}"
 	    ;;
         "regular file"|"regular empty file")
@@ -321,7 +321,7 @@ ptxd_install_archive() {
     local archive="$1"
     shift
 
-    local dir=$(mktemp -d "${PTXDIST_TEMPDIR}/install_archive.XXXXXX") &&
+    local dir="$(mktemp -d "${PTXDIST_TEMPDIR}/install_archive.XXXXXX")" &&
 
     ptxd_make_extract_archive "${archive}" "${dir}" &&
     ptxd_install_find "${dir}" "$@" &&
