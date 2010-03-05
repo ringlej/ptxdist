@@ -27,6 +27,10 @@ choice
 		depends on BROKEN
 		prompt "init ng         "
 
+	config INITMETHOD_INITRAMFS
+		bool
+        prompt "initramfs init  "
+ 
 endchoice
 
 source "generated/initmethod.in"

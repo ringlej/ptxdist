@@ -1,11 +1,9 @@
-## SECTION=initramfs
+## SECTION=initmethod
+
+if INITMETHOD_INITRAMFS
 
 menuconfig INITRAMFS_TOOLS
 	bool
-	select KLIBC
-	select KLIBC_MODULE_INIT_TOOLS
-	select KLIBC_MODULE_INIT_TOOLS_DEPMOD
-	select KLIBC_MODULE_INIT_TOOLS_MODPROBE
 	prompt "initramfs-tools               "
 	help
 	  Install initramfs skeleton framework
@@ -42,3 +40,4 @@ config INITRAMFS_TOOLS_SCRIPTS_NFS
 
 endif
 
+endif
