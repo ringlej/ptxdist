@@ -30,6 +30,7 @@ ptxd_install_setup() {
     pdirs=("${pkg_xpkg_tmp}")
     sdirs=("${ptx_nfsroot}" "${pkg_xpkg_tmp}")
     mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))"
+    mod_rw="$(printf "0%o" $(( 0${mod} | 0200 )))"
 
     if [ "${src}" = "-" -a -n "${dst}" ]; then
 	src="${pkg_pkg_dir}/${dst}"
@@ -67,7 +68,7 @@ ptxd_install_dir() {
     local grp="$3"
     local mod="$4"
     local -a dirs ndirs pdirs sdirs
-    local mod_nfs
+    local mod_nfs mod_rw
 
     cat << EOF
 install directory:
@@ -94,7 +95,7 @@ ptxd_install_file() {
     local mod="$5"
     local strip="$6"
     local -a dirs ndirs pdirs sdirs
-    local mod_nfs
+    local mod_nfs mod_rw
 
     if [ "${src}" == "--" ]; then
 	local cmd="alternative"
@@ -116,15 +117,17 @@ EOF
     ptxd_exist "${src}" &&
 
     rm -f "${dirs[@]/%/${dst}}" &&
+
+    # install with r/w permissions, because we may strip later
     for d in "${ndirs[@]/%/${dst}}"; do
-	install -m "${mod_nfs}" -D "${src}" "${d}" || return
+	install -m "${mod_rw}" -D "${src}" "${d}" || return
     done &&
 
     for d in "${pdirs[@]/%/${dst}}"; do
-	install -m "${mod}" -o "${usr}" -g "${grp}" -D "${src}" "${d}" || return
+	install -m "${mod_rw}" -o "${usr}" -g "${grp}" -D "${src}" "${d}" || return
     done &&
 
-    if ! file "${sdirs[0]/%/${dst}}" | egrep -q ":.*(executable|shared object).*stripped"; then
+    if ! file "${src}" | egrep -q ":.*(executable|shared object).*stripped"; then
 	strip="n"
     fi &&
     case "${strip}" in
@@ -132,6 +135,15 @@ EOF
 	k) "${CROSS_STRIP}" --strip-debug "${sdirs[@]/%/${dst}}" ;;
 	*) "${CROSS_STRIP}" -R .note -R .comment "${sdirs[@]/%/${dst}}" ;;
     esac &&
+
+    # now change to requested permissions
+    for d in "${ndirs[@]/%/${dst}}"; do
+	chmod "${mod_nfs}" "${d}" || return
+    done &&
+
+    for d in "${pdirs[@]/%/${dst}}"; do
+	chmod "${mod}" "${d}" || return
+    done &&
 
     echo "f:${dst}:${usr}:${grp}:${mod}" >> "${pkg_xpkg_perms}"
 }
@@ -143,7 +155,7 @@ ptxd_install_ln() {
     local usr="${3:-0}"
     local grp="${4:-0}"
     local -a dirs ndirs pdirs sdirs
-    local mod_nfs
+    local mod_nfs mod_rw
 
     cat << EOF
 install link:
@@ -179,7 +191,7 @@ ptxd_install_mknod() {
     local major="$6"
     local minor="$7"
     local -a dirs ndirs pdirs sdirs
-    local mod_nfs
+    local mod_nfs mod_rw
 
     cat << EOF
 install device node:
@@ -240,7 +252,7 @@ ptxd_install_replace() {
     local placeholder="$2"
     local value="$3"
     local -a dirs ndirs pdirs sdirs
-    local mod_nfs
+    local mod_nfs mod_rw
 
     cat << EOF
 EOF
