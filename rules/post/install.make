@@ -141,6 +141,7 @@ install_copy = 											\
 # $3: GID
 # $4: permissions (octal)
 # $5: source file
+# $6: destination (optional)
 #
 install_alternative =									\
 	PACKET=$(strip $(1));								\
@@ -178,7 +179,7 @@ install_alternative =									\
 	if [ -n "$(6)" ]; then								\
 		echo "  dest=$$DST";								\
 		FILE=$$DST;								\
-	fi								\
+	fi;								\
 	echo "  owner=$$OWN";								\
 	echo "  group=$$GRP";								\
 	echo "  permissions=$$PER"; 							\
