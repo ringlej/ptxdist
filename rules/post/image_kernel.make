@@ -23,7 +23,7 @@ $(STATEDIR)/image_kernel.compile: $(IMAGEDIR)/root.cpio
 		$(KERNEL_DIR)/usr/*initramfs_data.cpio.* \
 		$(KERNEL_DIR)/usr/.initramfs_data.cpio.d
 	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE) > /dev/null
+		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE)
 	@echo "done."
 
 $(IMAGEDIR)/linuximage: $(KERNEL_IMAGE_PATH_y) $(STATEDIR)/kernel.targetinstall
