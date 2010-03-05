@@ -149,7 +149,7 @@ ptxd_make_world_init_compat() {
     # pkg_sysroot_dir
     #
     case "${pkg_stamp}" in
-	initramfs-*|klibc-*) pkg_sysroot_dir="${PTXDIST_SYSROOT_TARGET}/usr/lib/klibc" ;;
+	klibc-*)             pkg_sysroot_dir="${PTXDIST_SYSROOT_TARGET}/usr/lib/klibc" ;;
 	host-*)              pkg_sysroot_dir="${PTXDIST_SYSROOT_HOST}" ;;
 	cross-*)             pkg_sysroot_dir="${PTXDIST_SYSROOT_CROSS}" ;;
 	*)                   pkg_sysroot_dir="${PTXDIST_SYSROOT_TARGET}" ;;
