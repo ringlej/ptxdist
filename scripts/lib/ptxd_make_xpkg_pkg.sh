@@ -29,7 +29,7 @@ ptxd_install_setup() {
     ndirs=("${ptx_nfsroot}" "${ptx_nfsroot_dbg}")
     pdirs=("${pkg_xpkg_tmp}")
     sdirs=("${ptx_nfsroot}" "${pkg_xpkg_tmp}")
-    nfs_mod="$(printf "0%o" $(( 0${mod} & ~06000 )))"
+    mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))"
 
     if [ "${src}" = "-" -a -n "${dst}" ]; then
 	src="${pkg_pkg_dir}/${dst}"
@@ -67,7 +67,7 @@ ptxd_install_dir() {
     local grp="$3"
     local mod="$4"
     local -a dirs ndirs pdirs sdirs
-    local nfs_mod
+    local mod_nfs
 
     cat << EOF
 install directory:
@@ -79,7 +79,7 @@ EOF
 
     ptxd_install_setup &&
 
-    install -m "${nfs_mod}" -d "${ndirs[@]/%/${dir}}" &&
+    install -m "${mod_nfs}" -d "${ndirs[@]/%/${dir}}" &&
     install -m "${mod}" -o "${usr}" -g "${grp}" -d "${pdirs[@]/%/${dir}}" &&
 
     echo "f:${dir}:${usr}:${grp}:${mod}" >> "${pkg_xpkg_perms}"
@@ -94,7 +94,7 @@ ptxd_install_file() {
     local mod="$5"
     local strip="$6"
     local -a dirs ndirs pdirs sdirs
-    local nfs_mod
+    local mod_nfs
 
     if [ "${src}" == "--" ]; then
 	local cmd="alternative"
@@ -117,7 +117,7 @@ EOF
 
     rm -f "${dirs[@]/%/${dst}}" &&
     for d in "${ndirs[@]/%/${dst}}"; do
-	install -m "${nfs_mod}" -D "${src}" "${d}" || return
+	install -m "${mod_nfs}" -D "${src}" "${d}" || return
     done &&
 
     for d in "${pdirs[@]/%/${dst}}"; do
@@ -143,7 +143,7 @@ ptxd_install_ln() {
     local usr="${3:-0}"
     local grp="${4:-0}"
     local -a dirs ndirs pdirs sdirs
-    local nfs_mod
+    local mod_nfs
 
     cat << EOF
 install link:
@@ -179,7 +179,7 @@ ptxd_install_mknod() {
     local major="$6"
     local minor="$7"
     local -a dirs ndirs pdirs sdirs
-    local nfs_mod
+    local mod_nfs
 
     cat << EOF
 install device node:
@@ -240,7 +240,7 @@ ptxd_install_replace() {
     local placeholder="$2"
     local value="$3"
     local -a dirs ndirs pdirs sdirs
-    local nfs_mod
+    local mod_nfs
 
     cat << EOF
 EOF
