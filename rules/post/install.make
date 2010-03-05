@@ -148,15 +148,37 @@ install_alternative =									\
 	GRP=$(strip $(3));								\
 	PER=$(strip $(4));								\
 	FILE=$(strip $(5));								\
-	if [ -f $(PTXDIST_WORKSPACE)/projectroot$$FILE$(PTXDIST_PLATFORMSUFFIX) ]; then	\
+	DST=$(strip $(6));									\
+	PKG_PKGDIR="$(PKGDIR)/$($(PTX_MAP_TO_PACKAGE_$(notdir $(basename $(basename $@)))))";	\
+	PKG_DIR="$($(PTX_MAP_TO_PACKAGE_$(notdir $(basename $(basename $@))))_DIR)";		\
+	if [ -f $(PTXDIST_WORKSPACE)/projectroot$(PTXDIST_PLATFORMSUFFIX)$$FILE ]; then \
+		SRC=$(PTXDIST_WORKSPACE)/projectroot$(PTXDIST_PLATFORMSUFFIX)$$FILE; \
+	elif [ -f $(PTXDIST_WORKSPACE)/projectroot$$FILE$(PTXDIST_PLATFORMSUFFIX) ]; then	\
 		SRC=$(PTXDIST_WORKSPACE)/projectroot$$FILE$(PTXDIST_PLATFORMSUFFIX);	\
 	elif [ -f $(PTXDIST_WORKSPACE)/projectroot$$FILE ]; then			\
 		SRC=$(PTXDIST_WORKSPACE)/projectroot$$FILE;				\
-	else										\
+	elif [ -f $(PTXDIST_TOPDIR)/generic$$FILE ]; then				\
 		SRC=$(PTXDIST_TOPDIR)/generic$$FILE;					\
+	elif [ -f $${PKG_PKGDIR}$$FILE ]; then							\
+		SRC=$${PKG_PKGDIR}$$FILE;							\
+	elif [ -f $${PKG_DIR}$$FILE ]; then							\
+		SRC=$${PKG_DIR}$$FILE;								\
+	else											\
+		echo "install_alternative: Search for $$FILE in:";					\
+		echo "$(PTXDIST_WORKSPACE)/projectroot$(PTXDIST_PLATFORMSUFFIX)$$FILE";		\
+		echo "$(PTXDIST_WORKSPACE)/projectroot$$FILE$(PTXDIST_PLATFORMSUFFIX)";		\
+		echo "$(PTXDIST_WORKSPACE)/projectroot$$FILE";					\
+		echo "$(PTXDIST_TOPDIR)/generic$$FILE";				\
+		echo "$${PKG_PKGDIR}$$FILE";							\
+		echo "$${PKG_DIR}$$FILE";							\
+		ptxd_bailout "No suitable file $$FILE found to install";			\
 	fi;										\
 	echo "install_alternative:";							\
 	echo "  installing $$FILE from $$SRC";						\
+	if [ -n "$(6)" ]; then								\
+		echo "  dest=$$DST";								\
+		FILE=$$DST;								\
+	fi								\
 	echo "  owner=$$OWN";								\
 	echo "  group=$$GRP";								\
 	echo "  permissions=$$PER"; 							\
