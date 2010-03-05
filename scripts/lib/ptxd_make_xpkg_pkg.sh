@@ -30,20 +30,28 @@ ptxd_install_setup() {
     pdirs=("${pkg_xpkg_tmp}")
     sdirs=("${ptx_nfsroot}" "${pkg_xpkg_tmp}")
     nfs_mod="$(printf "0%o" $(( 0${mod} & ~06000 )))"
+
     if [ "${src}" = "-" -a -n "${dst}" ]; then
 	src="${pkg_pkg_dir}/${dst}"
     fi
+
     if [ -n "${src}" ]; then
 	local -a list
+
 	if [ "${src}" = "--" ]; then
-	    list=(\
+	    list=( \
 		"${PTXDIST_WORKSPACE}/projectroot${dst}${PTXDIST_PLATFORMSUFFIX}" \
 		"${PTXDIST_WORKSPACE}/projectroot${dst}" \
 		"${PTXDIST_TOPDIR}/generic${dst}" \
-		"${pkg_pkg_dir}/${dst}")
+		"${pkg_pkg_dir}/${dst}" \
+		)
 	else
-	    list=("${src}${PTXDIST_PLATFORMSUFFIX}" "${src}")
+	    list=( \
+		"${src}${PTXDIST_PLATFORMSUFFIX}" \
+		"${src}" \
+		)
 	fi
+
 	for src in "${list[@]}"; do
 	    if [ -f "${src}" ]; then
 		break
@@ -60,6 +68,7 @@ ptxd_install_dir() {
     local mod="$4"
     local -a dirs ndirs pdirs sdirs
     local nfs_mod
+
     cat << EOF
 install directory:
   dir=${dir}
@@ -67,9 +76,12 @@ install directory:
   group=${grp}
   permissions=${mod}
 EOF
+
     ptxd_install_setup &&
+
     install -m ${nfs_mod} -d "${ndirs[@]/%/${dir}}" &&
     install -m ${mod} -o ${usr} -g ${grp} -d "${pdirs[@]/%/${dir}}" &&
+
     echo "f:${dir}:${usr}:${grp}:${mod}" >> ${pkg_xpkg_perms}
 }
 export -f ptxd_install_dir
@@ -83,11 +95,13 @@ ptxd_install_file() {
     local strip="$6"
     local -a dirs ndirs pdirs sdirs
     local nfs_mod
+
     if [ "${src}" == "--" ]; then
 	local cmd="alternative"
     else
 	local cmd="copy"
     fi
+
     cat << EOF
 install file:
   src=${src}
@@ -96,15 +110,20 @@ install file:
   group=${grp}
   permissions=${mod}
 EOF
+
     ptxd_install_setup &&
+
     ptxd_exist "${src}" &&
+
     rm -f "${dirs[@]/%/${dst}}" &&
     for d in "${ndirs[@]/%/${dst}}"; do
 	install -m ${nfs_mod} -D "${src}" "${d}" || return
     done &&
+
     for d in "${pdirs[@]/%/${dst}}"; do
 	install -m ${mod} -o ${usr} -g ${grp} -D "${src}" "${d}" || return
     done &&
+
     if ! file "${sdirs[0]/%/${dst}}" | egrep -q ":.*(executable|shared object).*stripped"; then
 	strip="n"
     fi &&
@@ -113,6 +132,7 @@ EOF
 	k) ${CROSS_STRIP} --strip-debug "${sdirs[@]/%/${dst}}" ;;
 	*) ${CROSS_STRIP} -R .note -R .comment "${sdirs[@]/%/${dst}}" ;;
     esac &&
+
     echo "f:${dst}:${usr}:${grp}:${mod}" >> ${pkg_xpkg_perms}
 }
 export -f ptxd_install_file
@@ -124,23 +144,28 @@ ptxd_install_ln() {
     local grp="${4:-0}"
     local -a dirs ndirs pdirs sdirs
     local nfs_mod
+
     cat << EOF
 install link:
   src=${src}
   dst=${dst}
 EOF
+
     ptxd_install_setup &&
+
     case "${src}" in
 	/*) echo "Error: absolute link detected, please fix!"
 	    return 1
 	    ;;
 	*)  ;;
     esac &&
+
     rm -f "${dirs[@]/%/${dst}}" &&
     install -d "${dirs[@]/%/$(dirname "${dst}")}" &&
     for d in "${dirs[@]/%/${dst}}"; do
 	ln -s "${src}" "${d}" || return
     done &&
+
     chown --no-dereference "${usr}:${grp}" "${dirs[@]/%/${dst}}"
 }
 export -f ptxd_install_ln
@@ -155,6 +180,7 @@ ptxd_install_mknod() {
     local minor="$7"
     local -a dirs ndirs pdirs sdirs
     local nfs_mod
+
     cat << EOF
 install device node:
   owner=${usr}
@@ -165,12 +191,15 @@ install device node:
   minor=${minor}
   name=${dst}
 EOF
+
     ptxd_install_setup &&
+
     rm -f "${pdirs[@]/%/${dst}}" &&
     for d in "${pdirs[@]/%/${dst}}"; do
 	mknod -m ${mod} "${d}" ${type} ${major} ${minor} || return
     done &&
     chown "${usr}:${grp}" "${pdirs[@]/%/${dst}}" &&
+
     echo "n:${dst}:${usr}:${grp}:${mod}:${type}:${major}:${minor}" >> ${pkg_xpkg_perms}
 }
 export -f ptxd_install_mknod
@@ -178,10 +207,12 @@ export -f ptxd_install_mknod
 ptxd_install_copy() {
     local cmd="$1"
     shift
+
     case "${cmd}" in
 	f) ptxd_install_file "$@" ;;
 	d) ptxd_install_dir "$@" ;;
     esac ||
+
     ptxd_install_error "install_copy failed!"
 }
 export -f ptxd_install_copy
@@ -210,11 +241,15 @@ ptxd_install_replace() {
     local value="$3"
     local -a dirs ndirs pdirs sdirs
     local nfs_mod
+
     cat << EOF
 EOF
+
     ptxd_install_setup &&
+
     ptxd_exist "${dirs[@]/%/${dst}}" &&
     sed -i -e "s,${placeholder},${value},g" "${dirs[@]/%/${dst}}" ||
+
     ptxd_install_error "install_replace failed!"
 }
 export -f ptxd_install_replace
@@ -233,6 +268,7 @@ ptxd_install_generic() {
     local major=${stat[3]} &&
     local minor=${stat[4]} &&
     local type=$(stat -c "%F" "${file}") &&
+
     case "${type}" in
         "directory")
 	    ptxd_install_dir "${dst}" "${usr}" "${grp}" "${mod}"
@@ -251,7 +287,7 @@ ptxd_install_generic() {
 	    ptxd_install_file "${file}" "${dst}" "${usr}" "${grp}" "${mod}"
 	    ;;
         *)
-	    echo "Error: File type \"${type}\" unkown!"
+	    echo "Error: File type '${type}' unkown!"
 	    return 1
 	    ;;
     esac
@@ -265,6 +301,7 @@ ptxd_install_find() {
     local grp="${4#-}"
 
     test -d "${dir}" &&
+
     find "${dir}" -path "*/.svn" -prune -o -path "*/.git" -prune -o \
 		-path "*/.pc" -prune -o -path "*/CVS" -prune -o \
 		! -path "${dir}" -print | while read file; do
@@ -285,9 +322,12 @@ ptxd_install_archive() {
     shift
 
     local dir=$(mktemp -d "${PTXDIST_TEMPDIR}/install_archive.XXXXXX") &&
+
     ptxd_make_extract_archive "${archive}" "${dir}" &&
     ptxd_install_find "${dir}" "$@" &&
+
     rm -rf "${dir}" ||
+
     ptxd_install_error "install_archive failed!"
 }
 export -f ptxd_install_archive
@@ -300,6 +340,7 @@ ptxd_install_package() {
 	    ptxd_install_error "install_package failed!"
 	done
     done
+
     for dir in "${pkg_pkg_dir}/"{,usr/}lib; do
 	find "${dir}" \( -type f -o -type l \) \
 		    -a -name "*.so*" 2>/dev/null | while read file; do
@@ -316,9 +357,10 @@ ptxd_install_shared() {
     local usr="$3"
     local grp="$4"
     local mod="$5"
-
     local filename="$(basename "${src}")"
+
     ptxd_install_file "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" &&
+
     find "$(dirname "${src}")" -type l | while read file; do
 	if [ "$(readlink "${file}")" = "${filename}" ]; then
 	    local link="${dst}/$(basename "${file}")"
@@ -335,6 +377,7 @@ ptxd_install_lib() {
     local file="$(for dir in "${pkg_pkg_dir}/"{,usr/}lib; do
 	    find "${dir}" -type f -name "${lib}.so*"; done 2>/dev/null)"
     [ -f "${file}" ] &&
+
     local dst="$(dirname "${file#${pkg_pkg_dir}}")" &&
     ptxd_install_shared "${file}" "${dst}" "${@}" ||
     ptxd_install_error "ptxd_install_lib failed!"
