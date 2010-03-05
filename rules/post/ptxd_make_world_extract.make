@@ -38,16 +38,6 @@ $(STATEDIR)/klibc-%.extract:
 	@$(call touch)
 
 
-### --- for INITRAMFS packages only ---
-
-$(STATEDIR)/initramfs-%.extract:
-	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_TO_PACKAGE_initramfs-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_initramfs-$(*)), $(KLIBC_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_initramfs-$(*)), $($(PTX_MAP_TO_PACKAGE_initramfs-$(*))_DIR))
-	@$(call touch)
-
-
 ### --- for TARGET packages only ---
 
 $(STATEDIR)/%.extract:
