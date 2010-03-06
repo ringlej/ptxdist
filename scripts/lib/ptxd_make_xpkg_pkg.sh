@@ -33,7 +33,7 @@ ptxd_install_setup() {
     mod_rw="$(printf "0%o" $(( 0${mod} | 0200 )))"
 
     if [ "${src}" = "-" -a -n "${dst}" ]; then
-	src="${pkg_pkg_dir}/${dst}"
+	src="${pkg_pkg_dir}${dst}"
     fi
 
     if [ -n "${src}" ]; then
@@ -44,7 +44,7 @@ ptxd_install_setup() {
 		"${PTXDIST_WORKSPACE}/projectroot${dst}${PTXDIST_PLATFORMSUFFIX}" \
 		"${PTXDIST_WORKSPACE}/projectroot${dst}" \
 		"${PTXDIST_TOPDIR}/generic${dst}" \
-		"${pkg_pkg_dir}/${dst}" \
+		"${pkg_pkg_dir}${dst}" \
 		)
 	else
 	    list=( \
