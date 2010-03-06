@@ -1,0 +1,13 @@
+#! /bin/bash
+
+bashrc=$(mktemp)
+
+cat > ${bashrc} <<EOF
+. /etc/bash.bashrc
+. ~/.bashrc
+PS1="[ptx] \${PS1}"
+EOF
+
+ptxdist bash bash --init-file ${bashrc}
+rm ${bashrc}
+
