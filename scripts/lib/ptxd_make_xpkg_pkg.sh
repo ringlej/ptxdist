@@ -117,6 +117,7 @@ ptxd_install_file() {
 	local cmd="copy"
     fi
 
+    ptxd_install_setup_src &&
     cat << EOF
 install ${cmd} file:
   src=${src}
@@ -126,10 +127,7 @@ install ${cmd} file:
   permissions=${mod}
 EOF
 
-    ptxd_install_setup_src &&
-
     ptxd_exist "${src}" &&
-
     rm -f "${dirs[@]/%/${dst}}" &&
 
     # install with r/w permissions, because we may strip later
