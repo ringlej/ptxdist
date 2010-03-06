@@ -167,6 +167,7 @@ config MTD_UTILS_UBIDETACH
 
 config MTD_UTILS_UBIFORMAT
 	bool
+	select GCCLIBS_GCC_S
 	prompt "ubiformat"
 	help
 	  format an mtd device
