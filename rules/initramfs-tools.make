@@ -120,8 +120,6 @@ ifdef PTXCONF_INITRAMFS_USER_SPEC
 #pipe  <name> <mode> <uid> <gid>
 #sock  <name> <mode> <uid> <gid>
 	@cat $(PTXDIST_WORKSPACE)/initramfs_spec | while read type args; do	\
-		echo "type=$$type"; \
-		echo "args=$$args"; \
 		if [ "$$type" == "file" ]; then							\
 			echo "$$args" | while read name location mode uid gid; do				\
 				if [ "$$(echo "$$name" | grep "^/")" == "" ]; then			\
