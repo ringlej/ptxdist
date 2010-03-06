@@ -61,9 +61,16 @@ ptxd_install_setup_src() {
 
 	for src in "${list[@]}"; do
 	    if [ -f "${src}" ]; then
-		break
+		return
 	    fi
 	done
+
+	echo -e "\nNo suitable file '${dst}' could be found in any of these locations:"
+	local orig_IFS="${IFS}"
+	local IFS="
+"
+	echo -e "${list[*]}\n"
+	IFS="${orig_IFS}"
     fi
 
 }
