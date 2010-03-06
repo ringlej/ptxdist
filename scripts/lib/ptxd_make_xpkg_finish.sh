@@ -30,16 +30,15 @@ ptxd_make_xpkg_deps() {
 
     local dep
     while [ ${#} -ne 0 ]; do
-	local map="${ptx_state_dir}/${1}.xpkg.map"
 	shift
 
-	if [ \! -e "${map}" ]; then
+	if [ \! -e "${pkg_xpkg_map}" ]; then
 	    continue
 	fi
 
 	while read dep; do
 	    pkg_xpkg_deps=( "${pkg_xpkg_deps[@]}" "${dep}" )
-	done < "${map}"
+	done < "${pkg_xpkg_map}"
     done
 }
 export -f ptxd_make_xpkg_deps
@@ -57,15 +56,14 @@ ptxd_make_xpkg_finish() {
     #
     # no perm file -> no files to package -> exit
     #
-    if [ \! -f "${pkg_xpkg_perms}" ]; then
-	ptxd_warning "Packet '${pkg_xpkg}' is empty. not generating"
+    if [ \! -s "${pkg_xpkg_cmds}" ]; then
+	ptxd_pedantic "Packet '${pkg_xpkg}' is empty. not generating"
 	rm -rf -- "${pkg_xpkg_tmp}"
 
-	local xpkg_map="${STATEDIR}/${pkg_xpkg}.xpkg.map"
-	sed -i -e "/^${pkg_xpkg}$/d" "${xpkg_map}"	#FIXME: we rely in 1-to-1 mapping here
+	sed -i -e "/^${pkg_xpkg}$/d" "${pkg_xpkg_map}"	#FIXME: we rely in 1-to-1 mapping here
 
-	if [ \! -s "${xpkg_map}" ]; then
-	    rm -f -- "${xpkg_map}"
+	if [ \! -s "${pkg_xpkg_map}" ]; then
+	    rm -f -- "${pkg_xpkg_map}"
 	fi
 	return
     fi
@@ -86,7 +84,7 @@ ptxd_make_xpkg_finish() {
 
     ptxd_make_xpkg_deps || return
 
-    echo -n "xpkg_finish:	creating ${pkg_xpkg_type} package ... " &&
+    echo "xpkg_finish:	creating ${pkg_xpkg_type} package ... " &&
     "ptxd_make_${pkg_xpkg_type}_finish" || ret=$?
     rm -rf "${pkg_xpkg_tmp}"
 

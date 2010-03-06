@@ -1239,6 +1239,9 @@ parse_first()
 		-k)
 			PTX_MAKE_ARGS[${#PTX_MAKE_ARGS[@]}]="-k"
 			;;
+		-p|--pedantic)
+			PTXDIST_PEDANTIC=true
+			;;
 		-f|--force)
 			PTX_FORCE=true
 			;;
@@ -1275,6 +1278,12 @@ parse_first()
 			;;
 		-je*)
 			PTXDIST_PARALLELMFLAGS_EXTERN="-j${arg#*e}"
+			;;
+		-l*)
+			PTXDIST_LOADMFLAGS_INTERN="-l${arg#*l}"
+			;;
+		--load-average=*)
+			PTXDIST_LOADMFLAGS_INTERN="-l${arg#*=}"
 			;;
 		-q|--quiet)
 			PTXDIST_QUIET=1
@@ -2407,8 +2416,10 @@ setup_export() {
 		PTXDIST_PLATFORMCONFIGDIR \
 		\
 		PTXDIST_PARALLELMFLAGS_INTERN \
+		PTXDIST_LOADMFLAGS_INTERN \
 		\
 		PTXDIST_QUIET \
+		PTXDIST_PEDANTIC \
 		PTXDIST_FORCE_DOWNLOAD
 }
 

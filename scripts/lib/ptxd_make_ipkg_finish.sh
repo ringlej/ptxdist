@@ -22,12 +22,17 @@ ptxd_make_ipkg_finish() {
 
     sed -i -e "s:@DEPENDS@:${dep}:g" "${pkg_ipkg_control}" || return
 
+    local -a fake_args
+    local fake_env="${ptx_state_dir}/${pkg_label}.fakeroot"
+    if [ -f "$fake_env" ]; then
+	fake_args=("-i" "$fake_env")
+    fi
+    fake_args[${#fake_args[@]}]="-u"
     {
-	echo "pushd '${pkg_ipkg_tmp}' >/dev/null &&" &&
-	ptxd_dopermissions "${pkg_xpkg_perms}" &&
-	echo "popd >/dev/null &&" &&
+	echo "chown -R 0:0 '${pkg_xpkg_tmp}' &&" &&
+	echo "ptxd_make_xpkg_pkg '${pkg_ipkg_tmp}' '${pkg_xpkg_cmds}' '${pkg_xpkg_perms}' &&" &&
 	echo "ipkg-build ${pkg_ipkg_extra_args} '${pkg_ipkg_tmp}' '${ptx_pkg_dir}' >/dev/null"
-    } | fakeroot -- &&
+    } | fakeroot "${fake_args[@]}" -- &&
     check_pipe_status
 }
 export -f ptxd_make_ipkg_finish

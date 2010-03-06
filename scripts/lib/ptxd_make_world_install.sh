@@ -15,6 +15,9 @@
 # FIXME: kick ${pkg_install_env}
 #
 ptxd_make_world_install_pkg() {
+    if [ -z "$fakeroot}" ]; then
+	fakeargs="-s ${ptx_state_dir}/${pkg_label}.fakeroot"
+    fi
     "${echo:-echo}" \
 	"${pkg_path}" \
 	"${pkg_env}" \
@@ -24,7 +27,7 @@ ptxd_make_world_install_pkg() {
 	-C "${pkg_build_dir}" \
 	"${pkg_install_opt}" \
 	-j1 \
-	| "${fakeroot:-fakeroot}" --
+	| "${fakeroot:-fakeroot}" $fakeargs --
     check_pipe_status
 }
 export -f ptxd_make_world_install_pkg

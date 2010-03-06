@@ -15,6 +15,8 @@
 ptxd_make_install_init() {
     . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return
 
+    ptxd_make_xpkg_init || return
+
     local opt
     while getopts "p:t:" opt; do
 	case "${opt}" in
@@ -39,19 +41,20 @@ ptxd_make_install_init() {
     fi
 
     echo "install_init:	preparing for image creation..."
-    local dst="${PKGDIR}/${packet}.tmp"
 
     rm -fr   -- \
-	"${PKGDIR}/${packet}.tmp" \
-	"${STATEDIR}/${packet}.perms"
-    mkdir -p -- "${dst}/ipkg/CONTROL" || return
+	"${pkg_xpkg_tmp}" \
+	"${pkg_xpkg_cmds}" \
+	"${pkg_xpkg_perms}"
+    mkdir -p -- "${pkg_ipkg_control_dir}" || return
+    touch "${pkg_xpkg_cmds}"
 
     local replace_from="ARCH"
     local replace_to="${PTXDIST_IPKG_ARCH_STRING}"
 
     echo -n "install_init:	@${replace_from}@ -> ${replace_to} ... "
     sed -e "s,@${replace_from}@,${replace_to},g" "${RULESDIR}/default.ipkg" > \
-	"${dst}/ipkg/CONTROL/control" || return
+	"${pkg_ipkg_control}" || return
     echo "done"
 
     local script rd found
@@ -69,7 +72,7 @@ ptxd_make_install_init() {
 	    if [ -f "${abs_script}" ]; then
 		install -m 0755 \
 		    -D "${abs_script}" \
-		    "${dst}/ipkg/CONTROL/${script}" || return
+		    "${pkg_ipkg_control_dir}/${script}" || return
 
 		echo "packaging: '${abs_script}'"
 
@@ -97,6 +100,8 @@ export -f ptxd_make_install_init
 #
 ptxd_make_install_fixup() {
     . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return
+
+    ptxd_make_xpkg_init || return
 
     local opt
     while getopts "p:f:t:s:" opt; do
@@ -137,23 +142,22 @@ ptxd_make_install_fixup() {
 	    #
 	    # track "pkg name" to "xpkg filename"
 	    #
-	    local xpkg_map="${STATEDIR}/${target}.xpkg.map"
-	    if [ -e "${xpkg_map}" ]; then
-		sed -i -e "/^${replace_to}$/d" "${xpkg_map}" &&
+	    if [ -e "${pkg_xpkg_map}" ]; then
+		sed -i -e "/^${replace_to}$/d" "${pkg_xpkg_map}" &&
 
-		if [ -s "${xpkg_map}" ]; then
+		if [ -s "${pkg_xpkg_map}" ]; then
 		    cat >&2 <<EOF
 
 ${PREFIX}warning: more than one ipkg per PTXdist package detected:
 
 pkg:	'${target}'
-ipkg:	'${replace_to}' and '$(cat "${xpkg_map}")'
+ipkg:	'${replace_to}' and '$(cat "${pkg_xpkg_map}")'
 
 
 EOF
 		fi
 	    fi &&
-	    echo "${replace_to}" >> "${xpkg_map}" || return
+	    echo "${replace_to}" >> "${pkg_xpkg_map}" || return
 
 
 	    ;;
@@ -166,7 +170,7 @@ EOF
     esac
 
     echo -n "install_fixup:	@${replace_from}@ -> ${replace_to} ... "
-    sed -i -e "s,@$replace_from@,$replace_to,g" "${PKGDIR}/$packet.tmp/ipkg/CONTROL/control" || return
+    sed -i -e "s,@$replace_from@,$replace_to,g" "${pkg_ipkg_control}" || return
     echo "done."
 }
 

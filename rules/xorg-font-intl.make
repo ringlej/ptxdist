@@ -72,7 +72,7 @@ endif
 XORG_FONT_INTL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-compress \
-	--with-fontdir=$(XORG_FONT_INTL_PKGDIR) \
+	--with-fontdir=$(XORG_FONT_INTL_PKGDIR)$(XORG_FONTDIR)/misc \
 	--without-bdf
 
 # ----------------------------------------------------------------------------
