@@ -1,13 +1,19 @@
-#! /bin/bash
+#!/bin/bash
 
-bashrc=$(mktemp)
+ret=0
 
-cat > ${bashrc} <<EOF
+bashrc="$(mktemp)" || {
+    echo "Failed to create tmpdir"
+    exit 1
+}
+
+cat > "${bashrc}" <<EOF
 . /etc/bash.bashrc
 . ~/.bashrc
 PS1="[ptx] \${PS1}"
 EOF
 
-ptxdist bash bash --init-file ${bashrc}
-rm ${bashrc}
+ptxdist bash bash --init-file "${bashrc}" || ret="${?}"
+rm -f "${bashrc}"
 
+exit "${ret}"
