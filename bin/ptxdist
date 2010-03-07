@@ -1782,9 +1782,28 @@ parse_second()
 			;;
 
 		bash)
-			check_premake_compiler &&
-			"${@}"
-			exit
+			if [ ${#} -eq 0 ]; then
+				ret=0
+
+				bashrc="$(mktemp)" || {
+					echo "ptxbash: mktemp failed"
+					exit 1
+					}
+				cat > "${bashrc}" <<EOF
+. /etc/bash.bashrc
+. ~/.bashrc
+PS1="[ptx] \${PS1}"
+EOF
+
+				bash --init-file "${bashrc}" || ret="${?}"
+				rm -f "${bashrc}"
+
+				exit "${ret}"
+			else
+				check_premake_compiler &&
+				"${@}"
+				exit
+			fi
 			;;
 		clean)
 			check_config &&
