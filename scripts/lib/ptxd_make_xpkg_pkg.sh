@@ -32,6 +32,12 @@ ptxd_install_setup() {
     mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))"
     mod_rw="$(printf "0%o" $(( 0${mod} | 0200 )))"
 
+}
+export -f ptxd_install_setup
+
+ptxd_install_setup_src() {
+    ptxd_install_setup
+
     if [ "${src}" = "-" -a -n "${dst}" ]; then
 	src="${pkg_pkg_dir}${dst}"
     fi
@@ -59,8 +65,9 @@ ptxd_install_setup() {
 	    fi
 	done
     fi
+
 }
-export -f ptxd_install_setup
+export -f ptxd_install_setup_src
 
 ptxd_install_dir() {
     local dir="$1"
@@ -112,7 +119,7 @@ install ${cmd} file:
   permissions=${mod}
 EOF
 
-    ptxd_install_setup &&
+    ptxd_install_setup_src &&
 
     ptxd_exist "${src}" &&
 
