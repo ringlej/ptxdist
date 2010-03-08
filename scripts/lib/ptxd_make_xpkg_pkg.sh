@@ -104,7 +104,7 @@ ptxd_install_file() {
     fi
 
     cat << EOF
-install file:
+install ${cmd} file:
   src=${src}
   dst=${dst}
   owner=${usr}
