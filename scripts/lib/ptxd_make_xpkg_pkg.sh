@@ -127,6 +127,12 @@ EOF
 	install -m "${mod_rw}" -o "${usr}" -g "${grp}" -D "${src}" "${d}" || return
     done &&
 
+    if [ -L "${src}" ]; then
+	ptxd_pedantic "file '${src}' is a link"
+	src="$(readlink -f "${src}")"
+	echo "using '${src}' instead"
+    fi &&
+
     if ! file "${src}" | egrep -q ":.*(executable|shared object).*stripped"; then
 	strip="n"
     fi &&
