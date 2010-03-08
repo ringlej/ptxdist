@@ -802,6 +802,8 @@ Misc:
 				use 'newpackage help' for a longer description
   print <var>			print the contents of a variable, in the way
 				it is known by "make"
+  bash				enter a ptxdist environment bash shell
+  bash <cmd> [args...]		execute <cmd> in ptxdist environment
   export_src <target dir>	export all source archives needed for this
 				project to <target dir>
 Overwrite defaults:
@@ -1783,7 +1785,17 @@ parse_second()
 
 		bash)
 			check_premake_compiler &&
-			"${@}"
+			if [ ${#} -eq 0 ]; then
+				local bashrc="${PTXDIST_TEMPDIR}/bashrc"
+				cat > "${bashrc}" <<EOF
+. /etc/bash.bashrc
+. ~/.bashrc
+PS1="[ptx] \${PS1}"
+EOF
+				"${BASH}" --init-file "${bashrc}"
+			else
+				"${@}"
+			fi
 			exit
 			;;
 		clean)
