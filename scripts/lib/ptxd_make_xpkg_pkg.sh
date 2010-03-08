@@ -36,6 +36,7 @@ ptxd_install_setup() {
 export -f ptxd_install_setup
 
 ptxd_install_setup_src() {
+	local cmd="${1}"
     ptxd_install_setup
 
     if [ "${src}" = "-" -a -n "${dst}" ]; then
@@ -45,19 +46,29 @@ ptxd_install_setup_src() {
     if [ -n "${src}" ]; then
 	local -a list
 
-	if [ "${src}" = "--" ]; then
-	    list=( \
-		"${PTXDIST_WORKSPACE}/projectroot${dst}${PTXDIST_PLATFORMSUFFIX}" \
-		"${PTXDIST_WORKSPACE}/projectroot${dst}" \
-		"${PTXDIST_TOPDIR}/generic${dst}" \
-		"${pkg_pkg_dir}${dst}" \
-		)
-	else
-	    list=( \
-		"${src}${PTXDIST_PLATFORMSUFFIX}" \
-		"${src}" \
-		)
-	fi
+	case "${cmd}" in
+		alternative)
+			local file=${src}
+			if [ -z "${dst}" ]; then
+				dst="${file}"
+			fi
+			list=( \
+				"${PTXDIST_WORKSPACE}/projectroot${file}${PTXDIST_PLATFORMSUFFIX}" \
+				"${PTXDIST_WORKSPACE}/projectroot${file}" \
+				"${PTXDIST_TOPDIR}/generic${file}" \
+				"${pkg_pkg_dir}${file}" \
+				)
+			;;
+		copy)
+			list=( \
+				"${src}${PTXDIST_PLATFORMSUFFIX}" \
+				"${src}" \
+				)
+			;;
+		*)
+			ptxd_bailout "ptxd_install_setup_src: unknown cmd \"${cmd}\""
+			;;
+	esac
 
 	for src in "${list[@]}"; do
 	    if [ -f "${src}" ]; then
@@ -102,22 +113,17 @@ EOF
 export -f ptxd_install_dir
 
 ptxd_install_file() {
-    local src="$1"
-    local dst="$2"
-    local usr="$3"
-    local grp="$4"
-    local mod="$5"
-    local strip="$6"
+    local cmd="$1"
+    local src="$2"
+    local dst="$3"
+    local usr="$4"
+    local grp="$5"
+    local mod="$6"
+    local strip="$7"
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw
 
-    if [ "${src}" == "--" ]; then
-	local cmd="alternative"
-    else
-	local cmd="copy"
-    fi
-
-    ptxd_install_setup_src &&
+    ptxd_install_setup_src ${cmd} &&
     cat << EOF
 install ${cmd} file:
   src=${src}
@@ -239,7 +245,7 @@ ptxd_install_copy() {
     shift
 
     case "${cmd}" in
-	f) ptxd_install_file "$@" ;;
+	f) ptxd_install_file copy "$@" ;;
 	d) ptxd_install_dir "$@" ;;
     esac ||
 
@@ -248,7 +254,7 @@ ptxd_install_copy() {
 export -f ptxd_install_copy
 
 ptxd_install_alternative() {
-    ptxd_install_file -- "$@" ||
+    ptxd_install_file alternative "$@" ||
     ptxd_install_error "install_alternative failed!"
 }
 export -f ptxd_install_alternative
@@ -314,7 +320,7 @@ ptxd_install_generic() {
 	    ptxd_install_ln "${src}" "${dst}" "${usr}" "${grp}"
 	    ;;
         "regular file"|"regular empty file")
-	    ptxd_install_file "${file}" "${dst}" "${usr}" "${grp}" "${mod}"
+	    ptxd_install_file copy "${file}" "${dst}" "${usr}" "${grp}" "${mod}"
 	    ;;
         *)
 	    echo "Error: File type '${type}' unkown!"
@@ -389,7 +395,7 @@ ptxd_install_shared() {
     local mod="$5"
     local filename="$(basename "${src}")"
 
-    ptxd_install_file "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" &&
+    ptxd_install_file copy "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" &&
 
     find "$(dirname "${src}")" -type l | while read file; do
 	if [ "$(readlink "${file}")" = "${filename}" ]; then

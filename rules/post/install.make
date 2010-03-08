@@ -80,8 +80,9 @@ install_alternative =									\
 	GRP=$(strip $(3));								\
 	PER=$(strip $(4));								\
 	FILE=$(strip $(5));								\
+	DST=$(strip $(6));								\
 	$(call install_check, install_alternative);					\
-	echo "ptxd_install_alternative '$$FILE' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_alternative '$$FILE' '$$DST' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds"
 
 #
 # install_tree
