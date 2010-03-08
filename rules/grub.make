@@ -406,6 +406,8 @@ endif
 _tmp := $(subst -, ,$(PTXCONF_GNU_TARGET))
 GRUB_STAGE_DIR := $(GRUB_PKGDIR)/usr/lib/grub/$(patsubst i%86,i386,$(word 1,$(_tmp)))-$(word 2,$(_tmp))
 
+GRUB_MENU_LST := $(call remove_quotes, $(PTXCONF_GRUB_MENU_LST))
+
 $(STATEDIR)/grub.targetinstall:
 	@$(call targetinfo)
 
@@ -425,25 +427,29 @@ $(STATEDIR)/grub.targetinstall:
 		$(GRUB_STAGE_DIR)/stage2, \
 		/boot/grub/stage2, n)
 
-	@if [ -n $(PTXCONF_GRUB_MENU_LST) ]; then \
-		if [ -f $(PTXDIST_BOARDSETUP) ]; then \
-			export ROOTDIR="$(ROOTDIR)"; \
-			echo "sourcing boardsetup..."; \
-			. $(PTXDIST_BOARDSETUP); \
-		fi; \
-		tmpfile=`mktemp`; \
-		cp $(PTXCONF_GRUB_MENU_LST) $$tmpfile; \
-		sed -i -e "s/@IPADDR@/$${PTXCONF_BOARDSETUP_TARGETIP}/g" $$tmpfile; \
-		sed -i -e "s/@SERVERIP@/$${PTXCONF_BOARDSETUP_SERVERIP}/g" $$tmpfile; \
-		sed -i -e "s/@NETMASK@/$${PTXCONF_BOARDSETUP_NETMASK}/g" $$tmpfile; \
-		sed -i -e "s/@GATEWAY@/$${PTXCONF_BOARDSETUP_GATEWAY}/g" $$tmpfile; \
-		sed -i -e "s/@ROOTFS@/$${PTXCONF_BOARDSETUP_ROOTFS}/g" $$tmpfile; \
-		sed -i -e "s,@TFTP_PATH@,$${PTXCONF_BOARDSETUP_TFTP_PATH},g" $$tmpfile; \
-		sed -i -e "s,@NFSROOT_PATH@,$${PTXCONF_BOARDSETUP_NFSROOT_PATH},g" $$tmpfile; \
-		sed -i -e "s,@ROOTDEV@,${PTXCONF_GRUB_ROOTFS_DEVICE},g" $$tmpfile; \
-		$(call install_copy, grub, 0, 0, 0644, $$tmpfile, /boot/grub/menu.lst, n); \
-		rm $$tmpfile; \
-	fi
+ifdef GRUB_MENU_LST
+	@if [ -f $(PTXDIST_BOARDSETUP) ]; then \
+		export ROOTDIR="$(ROOTDIR)"; \
+		echo "sourcing boardsetup..."; \
+		. $(PTXDIST_BOARDSETUP); \
+	fi; \
+	$(call install_copy, grub, 0, 0, 0644, $(GRUB_MENU_LST), \
+		/boot/grub/menu.lst); \
+	$(call install_replace, grub, /boot/grub/menu.lst, \
+		@IPADDR@, $${PTXCONF_BOARDSETUP_TARGETIP}); \
+	$(call install_replace, grub, /boot/grub/menu.lst, \
+		@SERVERIP@, $${PTXCONF_BOARDSETUP_SERVERIP}); \
+	$(call install_replace, grub, /boot/grub/menu.lst, \
+		@NETMASK@, $${PTXCONF_BOARDSETUP_NETMASK}); \
+	$(call install_replace, grub, /boot/grub/menu.lst, \
+		@GATEWAY@, $${PTXCONF_BOARDSETUP_GATEWAY}); \
+	$(call install_replace, grub, /boot/grub/menu.lst, \
+		@TFTP_PATH@, $${PTXCONF_BOARDSETUP_TFTP_PATH}); \
+	$(call install_replace, grub, /boot/grub/menu.lst, \
+		@NFSROOT_PATH@, $${PTXCONF_BOARDSETUP_NFSROOT_PATH}); \
+	$(call install_replace, grub, /boot/grub/menu.lst, \
+		@ROOTDEV@, $(PTXCONF_GRUB_ROOTFS_DEVICE));
+endif
 
 ifdef PTXCONF_GRUB_ISO9660
 	@$(call install_copy, grub, 0, 0, 0644, \

@@ -13,6 +13,6 @@ savedefault
 title		Network Boot
 ifconfig	--server=@SERVERIP@ --gateway=@GATEWAY@ --mask=@NETMASK@ --address=@IPADDR@
 root		(nd)
-kernel		(nd)/linux root=/dev/nfs console=ttyS0,115200 ide=nodma ip=@IPADDR@:@SERVERIP@:@GATEWAY@:@NETMASK@::eth0: nfsroot=@NFSROOT_PATH@
+kernel		@TFTP_PATH@/linux root=/dev/nfs console=ttyS0,115200 ide=nodma ip=@IPADDR@:@SERVERIP@:@GATEWAY@:@NETMASK@::eth0: nfsroot=@NFSROOT_PATH@
 savedefault
 
