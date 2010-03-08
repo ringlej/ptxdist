@@ -32,8 +32,14 @@ ptxd_install_setup() {
     mod_nfs="$(printf "0%o" $(( 0${mod} & ~06000 )))"
     mod_rw="$(printf "0%o" $(( 0${mod} | 0200 )))"
 
+}
+export -f ptxd_install_setup
+
+ptxd_install_setup_src() {
+    ptxd_install_setup
+
     if [ "${src}" = "-" -a -n "${dst}" ]; then
-	src="${pkg_pkg_dir}/${dst}"
+	src="${pkg_pkg_dir}${dst}"
     fi
 
     if [ -n "${src}" ]; then
@@ -44,7 +50,7 @@ ptxd_install_setup() {
 		"${PTXDIST_WORKSPACE}/projectroot${dst}${PTXDIST_PLATFORMSUFFIX}" \
 		"${PTXDIST_WORKSPACE}/projectroot${dst}" \
 		"${PTXDIST_TOPDIR}/generic${dst}" \
-		"${pkg_pkg_dir}/${dst}" \
+		"${pkg_pkg_dir}${dst}" \
 		)
 	else
 	    list=( \
@@ -55,12 +61,20 @@ ptxd_install_setup() {
 
 	for src in "${list[@]}"; do
 	    if [ -f "${src}" ]; then
-		break
+		return
 	    fi
 	done
+
+	echo -e "\nNo suitable file '${dst}' could be found in any of these locations:"
+	local orig_IFS="${IFS}"
+	local IFS="
+"
+	echo -e "${list[*]}\n"
+	IFS="${orig_IFS}"
     fi
+
 }
-export -f ptxd_install_setup
+export -f ptxd_install_setup_src
 
 ptxd_install_dir() {
     local dir="$1"
@@ -103,8 +117,9 @@ ptxd_install_file() {
 	local cmd="copy"
     fi
 
+    ptxd_install_setup_src &&
     cat << EOF
-install file:
+install ${cmd} file:
   src=${src}
   dst=${dst}
   owner=${usr}
@@ -112,10 +127,7 @@ install file:
   permissions=${mod}
 EOF
 
-    ptxd_install_setup &&
-
     ptxd_exist "${src}" &&
-
     rm -f "${dirs[@]/%/${dst}}" &&
 
     # install with r/w permissions, because we may strip later
@@ -126,6 +138,12 @@ EOF
     for d in "${pdirs[@]/%/${dst}}"; do
 	install -m "${mod_rw}" -o "${usr}" -g "${grp}" -D "${src}" "${d}" || return
     done &&
+
+    if [ -L "${src}" ]; then
+	ptxd_pedantic "file '${src}' is a link"
+	src="$(readlink -f "${src}")"
+	echo "using '${src}' instead"
+    fi &&
 
     if ! file "${src}" | egrep -q ":.*(executable|shared object).*stripped"; then
 	strip="n"
