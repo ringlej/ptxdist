@@ -53,10 +53,12 @@ ptxd_install_setup_src() {
 				dst="${file}"
 			fi
 			list=( \
+				"${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${file}" \
 				"${PTXDIST_WORKSPACE}/projectroot${file}${PTXDIST_PLATFORMSUFFIX}" \
 				"${PTXDIST_WORKSPACE}/projectroot${file}" \
 				"${PTXDIST_TOPDIR}/generic${file}" \
 				"${pkg_pkg_dir}${file}" \
+				"${pkg_dir}${file}" \
 				)
 			;;
 		copy)
