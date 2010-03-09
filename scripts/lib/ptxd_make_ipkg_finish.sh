@@ -9,6 +9,16 @@
 # see the README file.
 #
 
+#
+# the actual ipkg package creation, will run in fakeroot
+#
+ptxd_make_ipkg_finish_impl() {
+    chown -R 0:0 "${pkg_xpkg_tmp}" &&
+    ptxd_make_xpkg_pkg "${pkg_ipkg_tmp}" "${pkg_xpkg_cmds}" "${pkg_xpkg_perms}" &&
+    ipkg-build ${pkg_ipkg_extra_args} "${pkg_ipkg_tmp}" "${ptx_pkg_dir}"
+}
+export -f ptxd_make_ipkg_finish_impl
+
 
 #
 # create an ipkg package
@@ -27,11 +37,8 @@ ptxd_make_ipkg_finish() {
 	fake_args=( "-i" "${pkg_fake_env}" )
     fi
     fake_args[${#fake_args[@]}]="-u"
-    {
-	echo "chown -R 0:0 '${pkg_xpkg_tmp}' &&" &&
-	echo "ptxd_make_xpkg_pkg '${pkg_ipkg_tmp}' '${pkg_xpkg_cmds}' '${pkg_xpkg_perms}' &&" &&
-	echo "ipkg-build ${pkg_ipkg_extra_args} '${pkg_ipkg_tmp}' '${ptx_pkg_dir}' >/dev/null"
-    } | fakeroot "${fake_args[@]}" -- &&
-    check_pipe_status
+
+    export ${!pkg_*} ${!ptx_*}
+    fakeroot "${fake_args[@]}" -- ptxd_make_ipkg_finish_impl
 }
 export -f ptxd_make_ipkg_finish
