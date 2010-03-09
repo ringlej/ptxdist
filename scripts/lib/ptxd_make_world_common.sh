@@ -225,6 +225,7 @@ ptxd_make_world_init() {
     # xpkg mapping
     #
     pkg_xpkg_map="${ptx_state_dir}/${pkg_label}.xpkg.map"
+    pkg_fake_env="${ptx_state_dir}/${pkg_label}.fakeroot"
 
     #
     # path

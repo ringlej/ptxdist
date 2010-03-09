@@ -23,9 +23,8 @@ ptxd_make_ipkg_finish() {
     sed -i -e "s:@DEPENDS@:${dep}:g" "${pkg_ipkg_control}" || return
 
     local -a fake_args
-    local fake_env="${ptx_state_dir}/${pkg_label}.fakeroot"
-    if [ -f "$fake_env" ]; then
-	fake_args=("-i" "$fake_env")
+    if [ -f "${pkg_fake_env}" ]; then
+	fake_args=( "-i" "${pkg_fake_env}" )
     fi
     fake_args[${#fake_args[@]}]="-u"
     {
