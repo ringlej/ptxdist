@@ -46,10 +46,12 @@ ptxd_install_setup_src() {
 
     if [ "${cmd}" = "alternative" ]; then
 	list=( \
+	    "${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${src}" \
 	    "${PTXDIST_WORKSPACE}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
 	    "${PTXDIST_WORKSPACE}/projectroot${src}" \
 	    "${PTXDIST_TOPDIR}/generic${src}" \
 	    "${pkg_pkg_dir}${src}" \
+	    "${pkg_dir}${src}" \
 	    )
     else
 	list=( \
