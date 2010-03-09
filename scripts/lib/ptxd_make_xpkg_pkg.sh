@@ -234,19 +234,6 @@ EOF
 }
 export -f ptxd_install_mknod
 
-ptxd_install_copy() {
-    local cmd="$1"
-    shift
-
-    case "${cmd}" in
-	f) ptxd_install_file "$@" ;;
-	d) ptxd_install_dir "$@" ;;
-    esac ||
-
-    ptxd_install_error "install_copy failed!"
-}
-export -f ptxd_install_copy
-
 ptxd_install_alternative() {
     ptxd_install_file -- "$@" ||
     ptxd_install_error "install_alternative failed!"

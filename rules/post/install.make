@@ -53,9 +53,9 @@ install_copy = 											\
 	STRIP="$(strip $(7))";									\
 	$(call install_check, install_copy);							\
 	if [ -z "$(6)" ]; then									\
-		echo "ptxd_install_copy d '$$SRC' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds";\
+		echo "ptxd_install_dir '$$SRC' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds";\
 	else											\
-		echo "ptxd_install_copy f '$$SRC' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$PACKET.cmds";\
+		echo "ptxd_install_file '$$SRC' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$PACKET.cmds";\
 	fi
 
 #
