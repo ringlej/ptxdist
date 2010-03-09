@@ -10,7 +10,7 @@ menuconfig INITRAMFS_TOOLS
 
 if INITRAMFS_TOOLS
 
-config INITRAMFS_USER_SPEC
+config INITRAMFS_SPEC
 	bool
 	prompt "parse project specific initramfs_spec"
 	help
@@ -22,6 +22,34 @@ config INITRAMFS_USER_SPEC
 
 	  Files described in this file can either have an absolute or
 	  a relative path (relative to ${PTXDIST_WORKSPACE}).
+
+if INITRAMFS_SPEC
+
+config INITRAMFS_SPEC_FILE
+	string "initramfs spec filename"
+	default "${PTXDIST_WORKSPACE}/initramfs_spec"
+	help
+	  install using a spec file. Format is the same
+	  as described in the kernel source in
+	  Documentation/filesystems/ramfs-rootfs-initramfs.txt
+
+	  file  <name> <location> <mode> <uid> <gid> [<hard links>]
+	  dir   <name> <mode> <uid> <gid>
+	  nod   <name> <mode> <uid> <gid> <dev_type> <maj> <min>
+	  slink <name> <target> <mode> <uid> <gid>
+	  pipe  <name> <mode> <uid> <gid>
+	  sock  <name> <mode> <uid> <gid>
+
+	  file <location> can either have an absolute or
+	  a relative path relative to any of the following paths:
+	    ${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}/<location>
+	    ${PTXDIST_WORKSPACE}/projectroot/<location>${PTXDIST_PLATFORMSUFFIX}
+	    ${PTXDIST_WORKSPACE}/projectroot/<location>
+	    ${PTXDIST_TOPDIR}/generic/<location>
+	    ${pkg_pkg_dir}/<location>
+	    ${pkg_dir}/<location>
+
+endif
 
 config INITRAMFS_TOOLS_SCRIPTS_INIT
 	bool "install /scripts/init         "

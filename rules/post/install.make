@@ -129,6 +129,25 @@ install_archive =		\
 	echo "ptxd_install_archive '$$DIR' '$$DST' '$$OWN' '$$GRP'" >> "$(STATEDIR)/$$PACKET.cmds"
 
 #
+# install_spec
+#
+# Installs files specified by a spec file
+# format as defined in linux/Documentation/filesystems/ramfs-rootfs-initramfs.txt
+#	file  <name> <location> <mode> <uid> <gid>
+#	dir   <name> <mode> <uid> <gid>
+#	nod   <name> <mode> <uid> <gid> <dev_type> <maj> <min>
+#	slink <name> <target> <mode> <uid> <gid>
+#
+# $1: packet label
+# $2: spec file to parse
+#
+install_spec =			\
+	PACKET=$(strip $(1));	\
+	SPECFILE=$(strip $(2));	\
+	$(call install_check, install_spec);	\
+	echo "ptxd_install_spec '$$SPECFILE'" >> "$(STATEDIR)/$$PACKET.cmds"
+
+#
 # install_package
 #
 # Installs usefull files and directories in an archive with user/group ownership and
