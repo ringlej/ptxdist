@@ -846,6 +846,7 @@ clean() {
 		rm -fr -- "${PKGDIR}"/*.ipk
 		echo "${PROMPT}cleaning targetinstall stages..."
 		rm -f -- \
+		    "${STATEDIR}"/*.cmds \
 		    "${STATEDIR}"/*.perms \
 		    "${STATEDIR}"/*.targetinstall* \
 		    "${STATEDIR}"/*.xpkg.map
