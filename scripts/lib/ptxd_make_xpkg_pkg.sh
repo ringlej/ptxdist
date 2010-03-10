@@ -42,36 +42,34 @@ ptxd_install_setup_src() {
 	src="${pkg_pkg_dir}${dst}"
     fi
 
-    if [ -n "${src}" ]; then
-	local -a list
+    local -a list
 
-	if [ "${src}" = "--" ]; then
-	    list=( \
-		"${PTXDIST_WORKSPACE}/projectroot${dst}${PTXDIST_PLATFORMSUFFIX}" \
-		"${PTXDIST_WORKSPACE}/projectroot${dst}" \
-		"${PTXDIST_TOPDIR}/generic${dst}" \
-		"${pkg_pkg_dir}${dst}" \
-		)
-	else
-	    list=( \
-		"${src}${PTXDIST_PLATFORMSUFFIX}" \
-		"${src}" \
-		)
-	fi
-
-	for src in "${list[@]}"; do
-	    if [ -f "${src}" ]; then
-		return
-	    fi
-	done
-
-	echo -e "\nNo suitable file '${dst}' could be found in any of these locations:"
-	local orig_IFS="${IFS}"
-	local IFS="
-"
-	echo -e "${list[*]}\n"
-	IFS="${orig_IFS}"
+    if [ "${cmd}" = "alternative" ]; then
+	list=( \
+	    "${PTXDIST_WORKSPACE}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${PTXDIST_WORKSPACE}/projectroot${src}" \
+	    "${PTXDIST_TOPDIR}/generic${src}" \
+	    "${pkg_pkg_dir}${src}" \
+	    )
+    else
+	list=( \
+	    "${src}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${src}" \
+	    )
     fi
+
+    for src in "${list[@]}"; do
+	if [ -f "${src}" ]; then
+	    return
+	fi
+    done
+
+    echo -e "\nNo suitable file '${dst}' could be found in any of these locations:"
+    local orig_IFS="${IFS}"
+    local IFS="
+"
+    echo -e "${list[*]}\n"
+    IFS="${orig_IFS}"
 
 }
 export -f ptxd_install_setup_src
@@ -101,7 +99,7 @@ EOF
 }
 export -f ptxd_install_dir
 
-ptxd_install_file() {
+ptxd_install_file_impl() {
     local src="$1"
     local dst="$2"
     local usr="$3"
@@ -111,15 +109,9 @@ ptxd_install_file() {
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw
 
-    if [ "${src}" == "--" ]; then
-	local cmd="alternative"
-    else
-	local cmd="copy"
-    fi
-
     ptxd_install_setup_src &&
     cat << EOF
-install ${cmd} file:
+install ${cmd}:
   src=${src}
   dst=${dst}
   owner=${usr}
@@ -165,7 +157,7 @@ EOF
 
     echo "f:${dst}:${usr}:${grp}:${mod}" >> "${pkg_xpkg_perms}"
 }
-export -f ptxd_install_file
+export -f ptxd_install_file_impl
 
 ptxd_install_ln() {
     local src="$1"
@@ -235,10 +227,18 @@ EOF
 export -f ptxd_install_mknod
 
 ptxd_install_alternative() {
-    ptxd_install_file -- "$@" ||
+    local cmd="alternative"
+    ptxd_install_file_impl "${1}" "${@}" ||
     ptxd_install_error "install_alternative failed!"
 }
 export -f ptxd_install_alternative
+
+ptxd_install_file() {
+    local cmd="file"
+    ptxd_install_file_impl "$@" ||
+    ptxd_install_error "install_file failed!"
+}
+export -f ptxd_install_file
 
 ptxd_install_link() {
     ptxd_install_ln "$@" ||
