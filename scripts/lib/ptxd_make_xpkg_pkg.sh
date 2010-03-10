@@ -145,7 +145,7 @@ EOF
 	echo "using '${src}' instead"
     fi &&
 
-    if ! file "${src}" | egrep -q ":.*(executable|shared object).*stripped"; then
+    if ! file "${src}" | egrep -q ":.*(executable|shared object|ELF.*relocatable).*stripped"; then
 	strip="n"
     fi &&
     case "${strip}" in

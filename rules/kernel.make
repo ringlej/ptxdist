@@ -246,7 +246,7 @@ ifdef PTXCONF_KERNEL_MODULES_INSTALL
 
 	@cd $(KERNEL_PKGDIR) && \
 		find lib -type f | while read file; do \
-			$(call install_copy, kernel-modules, 0, 0, 0644, -, /$${file}, n) \
+			$(call install_copy, kernel-modules, 0, 0, 0644, -, /$${file}, k) \
 	done
 
 	@$(call install_finish, kernel-modules)
