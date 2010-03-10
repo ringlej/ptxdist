@@ -232,7 +232,10 @@ export -f ptxd_install_mknod
 
 ptxd_install_alternative() {
     local cmd="alternative"
-    ptxd_install_file_impl "${1}" "${@}" ||
+    local src="${1}"
+    local dst="${2}"
+    shift 2
+    ptxd_install_file_impl "${src}" "${dst:-${src}}" "${@}" ||
     ptxd_install_error "install_alternative failed!"
 }
 export -f ptxd_install_alternative

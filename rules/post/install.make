@@ -72,6 +72,8 @@ install_copy = 											\
 # $3: GID
 # $4: permissions (octal)
 # $5: source file
+# $6: (strip, obsolete)
+# $7: destination (optional)
 #
 install_alternative =									\
 	PACKET=$(strip $(1));								\
@@ -79,8 +81,10 @@ install_alternative =									\
 	GRP=$(strip $(3));								\
 	PER=$(strip $(4));								\
 	FILE=$(strip $(5));								\
+	STRIP=$(strip $(6));								\
+	DST=$(strip $(7));								\
 	$(call install_check, install_alternative);					\
-	echo "ptxd_install_alternative '$$FILE' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_alternative '$$FILE' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$PACKET.cmds"
 
 #
 # install_tree
