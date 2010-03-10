@@ -356,6 +356,90 @@ ptxd_install_archive() {
 }
 export -f ptxd_install_archive
 
+#
+# $1: path to spec file
+#
+# From linux/Documentation/filesystems/ramfs-rootfs-initramfs.txt:
+#
+#   file  <name> <location> <mode> <uid> <gid> [<hard links>]
+#   dir   <name> <mode> <uid> <gid>
+#   nod   <name> <mode> <uid> <gid> <dev_type> <maj> <min>
+#   slink <name> <target> <mode> <uid> <gid>
+#   pipe  <name> <mode> <uid> <gid>
+#   sock  <name> <mode> <uid> <gid>
+#
+ptxd_install_spec() {
+    local specfile="${1}"
+    local type args
+    local orig_IFS="${IFS}"
+
+    ptxd_exist "${specfile}"
+
+    while read type args; do
+	set -- ${args}
+	case "${type}" in
+	    "file")
+		local name="$1"
+		local location="$2"
+		local mode="$3"
+		local uid="$4"
+		local gid="$5"
+
+		case "${location}" in
+		    /*)
+			ptxd_install_file "${location}" "${name}" "${uid}" "${gid}" "${mode}"
+			;;
+		    *)
+			ptxd_install_alternative "/${location}" "${name}" "${uid}" "${gid}" "${mode}"
+			;;
+		esac
+		;;
+
+	    "dir")
+		local name="$1"
+		local mode="$2"
+		local uid="$3"
+		local gid="$4"
+
+		ptxd_install_dir "${name}" "${uid}" "${gid}" "${mode}"
+		;;
+
+	    "nod")
+		local name="$1"
+		local mode="$2"
+		local uid="$3"
+		local gid="$4"
+		local dev_type="$5"
+		local maj="$6"
+		local min="$7"
+
+		ptxd_install_node "${name}" "${uid}" "${gid}" "${mode}" "${dev_type}" "${maj}" "${min}"
+		;;
+
+	    "slink")
+		local name="$1"
+		local target="$2"
+		local mode="$3"
+		local uid="$4"
+		local gid="$5"
+
+		ptxd_install_link "${name}" "${target}" "${uid}" "${gid}"
+		;;
+
+	    "pipe"|"sock")
+		ptxd_install_error "${type} not supported: ${type} ${args}"
+		;;
+
+	    \#*|"")
+		;;
+	    *)
+		ptxd_install_error "Unknown type ${type}"
+		;;
+	esac
+    done < "${specfile}"
+}
+export -f ptxd_install_spec
+
 ptxd_install_package() {
     for dir in "${pkg_pkg_dir}/"{,usr/}{bin,sbin,libexec}; do
 	find "${dir}" \( -type f -o -type l \) \
