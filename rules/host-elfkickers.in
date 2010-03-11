@@ -1,0 +1,6 @@
+## SECTION=hosttools
+
+config HOST_ELFKICKERS
+	tristate
+	help
+	  collection of programs dealing with the ELF file format

@@ -137,13 +137,17 @@ EOF
 	echo "using '${src}' instead"
     fi &&
 
-    if ! file "${src}" | egrep -q ":.*(executable|shared object).*stripped"; then
+    if ! file "${src}" | egrep -q ":.*(executable|shared object|ELF.*relocatable).*stripped"; then
 	strip="n"
     fi &&
     case "${strip}" in
 	0|n|no) ;;
 	k) "${CROSS_STRIP}" --strip-debug "${sdirs[@]/%/${dst}}" ;;
-	*) "${CROSS_STRIP}" -R .note -R .comment "${sdirs[@]/%/${dst}}" ;;
+	*)
+	    case "${ptx_use_sstrip}" in
+		y) sstrip "${sdirs[@]/%/${dst}}" ;;
+		*) "${CROSS_STRIP}" -R .note -R .comment "${sdirs[@]/%/${dst}}" ;;
+	    esac
     esac &&
 
     # now change to requested permissions

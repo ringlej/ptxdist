@@ -13,11 +13,13 @@
 # $2: PKG, uppercase pkg name
 #
 xpkg/env/impl = \
-	$(call world/env, $(2))					\
-	ptx_nfsroot="$(call ptx/escape,$(ROOTDIR))"		\
-	ptx_nfsroot_dbg="$(call ptx/escape,$(ROOTDIR_DEBUG))"	\
-	pkg_xpkg="$(call ptx/escape,$(1))"			\
-	pkg_ipkg_extra_args=$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)	\
+	$(call world/env, $(2))							\
+	CROSS_STRIP="$(call ptx/escape,$(CROSS_STRIP))"				\
+	ptx_use_sstrip="$(call ptx/escape,$(PTXCONF_STRIP_USE_SSTRIP))"		\
+	ptx_nfsroot="$(call ptx/escape,$(ROOTDIR))"				\
+	ptx_nfsroot_dbg="$(call ptx/escape,$(ROOTDIR_DEBUG))"			\
+	pkg_xpkg="$(call ptx/escape,$(1))"					\
+	pkg_ipkg_extra_args=$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)			\
 	pkg_xpkg_type="ipkg"
 
 #

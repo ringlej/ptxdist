@@ -188,7 +188,7 @@ menu "Developer Options "
 
 
 config SETUP_ENV_WHITELIST
-	string "environment variable whitelist"
+	string "environment variable whitelist (space separated)"
 	help
 	  PTXdist clears the environment by default. Specify here a
 	  space seprated list of environment variables to preserve.
