@@ -6,7 +6,7 @@ LC_ALL=POSIX
 declare -a PTXDIST_ARGS_FULL
 declare -a PTXDIST_ARGS_SECOND PTX_MAKE_ARGS
 PTXDIST_ARGS_FULL=("${@}")
-PROMPT="ptxdist: "
+PTXDIST_LOG_PROMPT="ptxdist: "
 
 #
 # defaults
@@ -148,7 +148,7 @@ check_nonstandard() {
 		return 1
 	elif [ -z "${!nonstandard_set}" ]; then
 		echo
-		echo "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
+		echo "${PTXDIST_LOG_PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
 		echo
 		exit 1
 	fi
@@ -162,7 +162,7 @@ check_nonstandard() {
 check_uid() {
 	if [ ${UID} -eq 0 ]; then
 		echo
-		echo "${PROMPT}error: refusing to run PTXdist as root"
+		echo "${PTXDIST_LOG_PROMPT}error: refusing to run PTXdist as root"
 		echo
 		exit 1
 	fi
@@ -520,19 +520,19 @@ check_compiler() {
 		; do
 		if [ -z "${!cc}" ]; then
 			echo
-			echo "${PROMPT}error: undefined host ${cc##*_} compiler"
-			echo "${PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
-			echo "${PROMPT}error: and specify the compiler"
+			echo "${PTXDIST_LOG_PROMPT}error: undefined host ${cc##*_} compiler"
+			echo "${PTXDIST_LOG_PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
+			echo "${PTXDIST_LOG_PROMPT}error: and specify the compiler"
 			echo
 			exit 1
 		fi
 
 		if [ \! -x "$(which "${!cc}" 2>/dev/null)" ]; then
 			echo
-			echo "${PROMPT}error: your host ${cc##*_} compiler: '${!cc}'"
-			echo "${PROMPT}error: cannot be found or isn't executable"
-			echo "${PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
-			echo "${PROMPT}error: and specify the compiler"
+			echo "${PTXDIST_LOG_PROMPT}error: your host ${cc##*_} compiler: '${!cc}'"
+			echo "${PTXDIST_LOG_PROMPT}error: cannot be found or isn't executable"
+			echo "${PTXDIST_LOG_PROMPT}error: run 'ptxdist setup' and enter the 'Developer Options' menu"
+			echo "${PTXDIST_LOG_PROMPT}error: and specify the compiler"
 			echo
 			exit 1
 		fi
@@ -559,8 +559,8 @@ check_compiler() {
 
 		if [ ! -d "${PTXDIST_TOOLCHAIN}" ]; then
 			echo
-			echo "${PROMPT}error: specify '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' with 'ptxdist toolchain [<path>]'"
-			echo "${PROMPT}error: or leave PTXCONF_CROSSCHAIN_VENDOR empty to disable toolchain check"
+			echo "${PTXDIST_LOG_PROMPT}error: specify '${PTXDIST_TOOLCHAIN#${PTXDIST_WORKSPACE}/}' with 'ptxdist toolchain [<path>]'"
+			echo "${PTXDIST_LOG_PROMPT}error: or leave PTXCONF_CROSSCHAIN_VENDOR empty to disable toolchain check"
 			echo
 			exit 1
 		fi
@@ -568,8 +568,8 @@ check_compiler() {
 		local vendor_def="$(readlink -f "${PTXDIST_TOOLCHAIN}/ptxconfig")"
 		if [ -z "${vendor_def}" -o \! -e "${vendor_def}" ]; then
 			echo
-			echo "${PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
-			echo "${PROMPT}error: leave PTXCONF_CROSSCHAIN_VENDOR empty to disable vendor check"
+			echo "${PTXDIST_LOG_PROMPT}error: toolchain doesn't point to an OSELAS.Toolchain"
+			echo "${PTXDIST_LOG_PROMPT}error: leave PTXCONF_CROSSCHAIN_VENDOR empty to disable vendor check"
 			echo
 			exit 1
 		fi
@@ -578,9 +578,9 @@ check_compiler() {
 		local vendor_is="$(source "${vendor_def}" && echo ${PTXCONF_PROJECT})"
 		if [ "${vendor_is}" != "${vendor_should}" ]; then
 			echo
-			echo "${PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
-			echo "${PROMPT}error: specified: ${vendor_should}"
-			echo "${PROMPT}error: found:	 ${vendor_is}"
+			echo "${PTXDIST_LOG_PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
+			echo "${PTXDIST_LOG_PROMPT}error: specified: ${vendor_should}"
+			echo "${PTXDIST_LOG_PROMPT}error: found:	 ${vendor_is}"
 			echo
 			exit 1
 		fi
@@ -594,16 +594,16 @@ check_compiler() {
 
 		if [ -z "${compiler_ver_is}" ]; then
 			echo
-			echo "${PROMPT}error: Compiler '${compiler}' not found. Check PATH or"
-			echo "${PROMPT}error: use 'ptxdist toolchain [</path/to/toolchain>]'."
+			echo "${PTXDIST_LOG_PROMPT}error: Compiler '${compiler}' not found. Check PATH or"
+			echo "${PTXDIST_LOG_PROMPT}error: use 'ptxdist toolchain [</path/to/toolchain>]'."
 			echo
 			exit 1
 		fi
 
 		if [ "${compiler_ver_is}" != "${compiler_ver_should}" ]; then
 			echo
-			echo "${PROMPT}error: Compiler version ${compiler_ver_should} expected,"
-			echo "${PROMPT}error: but ${compiler_ver_is} found."
+			echo "${PTXDIST_LOG_PROMPT}error: Compiler version ${compiler_ver_should} expected,"
+			echo "${PTXDIST_LOG_PROMPT}error: but ${compiler_ver_is} found."
 			echo
 			exit 1
 		fi
@@ -638,7 +638,7 @@ check_deps() {
 check_if_selected() {
 	if [ -z "${1}" ]; then
 		echo
-		echo "${PROMPT}error: please specify a target"
+		echo "${PTXDIST_LOG_PROMPT}error: please specify a target"
 		echo
 		exit 1
 	fi
@@ -647,11 +647,11 @@ check_if_selected() {
 	ptxd_get_ptxconf "${configvar}" > /dev/null || {
 		if [ ${?} -eq 2 ]; then
 			ptxd_dialog_msgbox \
-				"${PROMPT}error: '${1}' is not a valid package name"
+				"${PTXDIST_LOG_PROMPT}error: '${1}' is not a valid package name"
 			return 1
 		else
 			ptxd_dialog_msgbox \
-				"${PROMPT}error: '${1}' is not selected in\n" \
+				"${PTXDIST_LOG_PROMPT}error: '${1}' is not selected in\n" \
 				"	${PTXDIST_PTXCONFIG}"
 			return 1
 		fi
@@ -685,7 +685,7 @@ clone() {
 
 	if [ -d "${2}" ]; then
 		echo
-		echo "${PROMPT}error: directory ${2} does already exist"
+		echo "${PTXDIST_LOG_PROMPT}error: directory ${2} does already exist"
 		echo
 		exit 1
 	fi
@@ -695,7 +695,7 @@ clone() {
 
 	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
 
-		echo "${PROMPT}scanning ${projectdir}..."
+		echo "${PTXDIST_LOG_PROMPT}scanning ${projectdir}..."
 
 		if [ -d "${projectdir}/${1}" ] ; then
 
@@ -704,7 +704,7 @@ clone() {
 			    --exclude .svn --exclude state --exclude debian . | \
 			    tar -C "${2}" -xvf -
 
-			echo "${PROMPT}done."
+			echo "${PTXDIST_LOG_PROMPT}done."
 			echo
 			IFS="${ifs_old}"
 			return 0
@@ -712,7 +712,7 @@ clone() {
 	done
 	IFS="${ifs_old}"
 
-	echo "${PROMPT}project ${1} is to be cloned, but could not be found"
+	echo "${PTXDIST_LOG_PROMPT}project ${1} is to be cloned, but could not be found"
 	echo
 }
 
@@ -837,20 +837,20 @@ clean() {
 	# we want to clean the root dir
 	if [ "${1}" = "root" ]; then
 		echo
-		echo "${PROMPT}cleaning image directory..."
+		echo "${PTXDIST_LOG_PROMPT}cleaning image directory..."
 		rm -fr -- "${IMAGEDIR}"
-		echo "${PROMPT}cleaning root directory..."
+		echo "${PTXDIST_LOG_PROMPT}cleaning root directory..."
 		rm -fr -- "${ROOTDIR}"
 		rm -fr -- "${ROOTDIR_DEBUG}"
-		echo "${PROMPT}cleaning packages..."
+		echo "${PTXDIST_LOG_PROMPT}cleaning packages..."
 		rm -fr -- "${PKGDIR}"/*.ipk
-		echo "${PROMPT}cleaning targetinstall stages..."
+		echo "${PTXDIST_LOG_PROMPT}cleaning targetinstall stages..."
 		rm -f -- \
 		    "${STATEDIR}"/*.cmds \
 		    "${STATEDIR}"/*.perms \
 		    "${STATEDIR}"/*.targetinstall* \
 		    "${STATEDIR}"/*.xpkg.map
-		echo "${PROMPT}done."
+		echo "${PTXDIST_LOG_PROMPT}done."
 		echo
 		return
 	fi
@@ -863,7 +863,7 @@ clean() {
 	fi
 
 	echo
-	echo "${PROMPT}removing build directories..."
+	echo "${PTXDIST_LOG_PROMPT}removing build directories..."
 	for dir in "${BUILDDIR}" "${CROSS_BUILDDIR}" "${KLIBC_BUILDDIR}" "${HOST_BUILDDIR}"; do
 		if [ ! -d "${dir}" ]; then
 			continue
@@ -871,7 +871,7 @@ clean() {
 		for bdir in $(find "${dir}" -maxdepth 1 -mindepth 1 -type l); do
 			# run 'make clean' for linked source directories
 			pushd "${bdir}" > /dev/null
-			echo -n "${PROMPT}running 'make clean' in '${bdir#${dir}/}'... "
+			echo -n "${PTXDIST_LOG_PROMPT}running 'make clean' in '${bdir#${dir}/}'... "
 			make clean 1> /dev/null 2>&1
 			echo "done"
 			popd > /dev/null
@@ -880,7 +880,7 @@ clean() {
 	done
 
 	if [ -f "${PTXDIST_PTXCONFIG}" ]; then
-		echo "${PROMPT}removing sysroot directories..."
+		echo "${PTXDIST_LOG_PROMPT}removing sysroot directories..."
 		local ptxconf_sysroot_target="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
 		local ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
 		local ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
@@ -912,21 +912,21 @@ clean() {
 		fi
 	fi
 
-	echo "${PROMPT}removing deps..."
+	echo "${PTXDIST_LOG_PROMPT}removing deps..."
 	rm -f -- "${PTXDIST_PLATFORMDIR}/"{deptree-a4.ps,deptree.ps}
 	rm -f -- "${STATEDIR}/depend.out"
-	echo "${PROMPT}removing imagedir..."
+	echo "${PTXDIST_LOG_PROMPT}removing imagedir..."
 	rm -fr -- "${IMAGEDIR}"
-	echo "${PROMPT}removing root..."
+	echo "${PTXDIST_LOG_PROMPT}removing root..."
 	rm -fr -- "${ROOTDIR}"
 	rm -fr -- "${ROOTDIR_DEBUG}"
-	echo "${PROMPT}removing state..."
+	echo "${PTXDIST_LOG_PROMPT}removing state..."
 	rm -fr -- "${STATEDIR}"
-	echo "${PROMPT}removing logfile..."
+	echo "${PTXDIST_LOG_PROMPT}removing logfile..."
 	rm -f -- "${PTX_LOGFILE}"
-	echo "${PROMPT}removing test logfile..."
+	echo "${PTXDIST_LOG_PROMPT}removing test logfile..."
 	rm -f -- "${PTXDIST_PLATFORMDIR}/test.log"
-	echo "${PROMPT}removing packages dir..."
+	echo "${PTXDIST_LOG_PROMPT}removing packages dir..."
 	rm -fr -- "${PKGDIR}"
 	for cfg in \
 		"${PTXDIST_PTXCONFIG}" \
@@ -942,7 +942,7 @@ clean() {
 	# remove the remaining PTXDIST_PLATFORMDIR (if empty)
 	rmdir -- "${PTXDIST_PLATFORMDIR}" >/dev/null 2>&1
 
-	echo "${PROMPT}done."
+	echo "${PTXDIST_LOG_PROMPT}done."
 	echo
 }
 
@@ -1041,9 +1041,9 @@ newpackage() {
 	#
 	local package_name
 	echo
-	echo "${PROMPT}creating a new '${action}' package:"
+	echo "${PTXDIST_LOG_PROMPT}creating a new '${action}' package:"
 	echo
-	echo -n "${PROMPT}enter package name.......: "
+	echo -n "${PTXDIST_LOG_PROMPT}enter package name.......: "
 	read package_name
 
 	#
@@ -1073,7 +1073,7 @@ newpackage() {
 	*-existing-target|src-make-prog)
 		;;
 	*)
-		echo -n "${PROMPT}enter version number.....: "
+		echo -n "${PTXDIST_LOG_PROMPT}enter version number.....: "
 		read version
 		;;
 	esac
@@ -1081,16 +1081,16 @@ newpackage() {
 	local url suffix
 	case "${action}" in
 	host|target|cross|klibc)
-		echo -n "${PROMPT}enter URL of basedir.....: "
+		echo -n "${PTXDIST_LOG_PROMPT}enter URL of basedir.....: "
 		read url
-		echo -n "${PROMPT}enter suffix.............: "
+		echo -n "${PTXDIST_LOG_PROMPT}enter suffix.............: "
 		read suffix
 		;;
 	esac
 
 	# FIXME: get address from 'ptxdist setup'
 	local author
-	echo -n "${PROMPT}enter package author.....: "
+	echo -n "${PTXDIST_LOG_PROMPT}enter package author.....: "
 	read author
 
 	local package_filename="${package_name}"
@@ -1108,18 +1108,18 @@ newpackage() {
 
 		if [ ! -f "${template_file}" ]; then
 			echo
-			echo "${PROMPT}warning: template '${template_file}' does not exist"
+			echo "${PTXDIST_LOG_PROMPT}warning: template '${template_file}' does not exist"
 			echo
 			continue
 		fi
 
 		if [ -f "${filename}" ]; then
 			echo
-			echo -n "${PROMPT}warning: ${filename} does already exist, overwrite? [y/n] "
+			echo -n "${PTXDIST_LOG_PROMPT}warning: ${filename} does already exist, overwrite? [y/n] "
 			local overwrite
 			read overwrite
 			if [ "${overwrite}" != "y" ]; then
-				echo "${PROMPT}aborted."
+				echo "${PTXDIST_LOG_PROMPT}aborted."
 				echo
 				exit
 			fi
@@ -1180,16 +1180,16 @@ newpackage() {
 projects() {
 	local ifs_old projects projectdir
 	echo
-	echo "${PROMPT}searching for projects:"
+	echo "${PTXDIST_LOG_PROMPT}searching for projects:"
 	ifs_old="${IFS}"
 	IFS=:
 	projects=
 	for projectdir in ${PTXCONF_SETUP_PROJECTPATH}; do
-		echo "${PROMPT}scanning ${projectdir}..."
+		echo "${PTXDIST_LOG_PROMPT}scanning ${projectdir}..."
 		if [ ! -d ${projectdir} ]; then
 			echo
-			echo "${PROMPT}error: directory does not exist"
-			echo "${PROMPT}please check PTXCONF_SETUP_PROJECTPATH in 'ptxdist setup'"
+			echo "${PTXDIST_LOG_PROMPT}error: directory does not exist"
+			echo "${PTXDIST_LOG_PROMPT}please check PTXCONF_SETUP_PROJECTPATH in 'ptxdist setup'"
 			exit 1
 		fi
 		projects="${projects} $(cd ${projectdir} && find .  -maxdepth 1 -type d ! -name .svn ! -name . -exec basename {} \;)"
@@ -1343,7 +1343,7 @@ do_config()
 		;;
 	*)
 		echo
-		echo "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
+		echo "${PTXDIST_LOG_PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
 		echo
 		exit 1
 		;;
@@ -1380,7 +1380,7 @@ do_config()
 	*)
 		check_if_selected "${part}" &&
 
-		ptxd_dialog_infobox "${PROMPT}Checking dependencies. This may take some seconds." &&
+		ptxd_dialog_infobox "${PTXDIST_LOG_PROMPT}Checking dependencies. This may take some seconds." &&
 
 		check_premake &&
 		ptxd_make "${part}_${config}"
@@ -1390,7 +1390,7 @@ do_config()
 	local retval=${?}
 	if [ ${retval} -ne 0 ]; then
 		echo
-		echo "${PROMPT}'${part} ${config}' returned with an error"
+		echo "${PTXDIST_LOG_PROMPT}'${part} ${config}' returned with an error"
 		echo
 		if [ -n "${PTX_MENU}" ]; then
 			read
@@ -1817,7 +1817,7 @@ EOF
 		distclean)
 			clean
 
-			echo "${PROMPT}removing configuration links..."
+			echo "${PTXDIST_LOG_PROMPT}removing configuration links..."
 
 			for cfg in \
 				"${PTXDIST_PTXCONFIG}" \
@@ -1831,7 +1831,7 @@ EOF
 				fi
 			done
 
-			echo "${PROMPT}removing logs..."
+			echo "${PTXDIST_LOG_PROMPT}removing logs..."
 			rm -f -- "${PTX_LOGFILE}" "${PTXDIST_WORKSPACE}/logfile"
 
 			echo
@@ -1845,13 +1845,13 @@ EOF
 		export_src)
 			if [ -z "${1}" ]; then
 				echo
-				echo "${PROMPT}error: Please specify a target directory."
+				echo "${PTXDIST_LOG_PROMPT}error: Please specify a target directory."
 				echo
 				exit 1
 			fi
 			if [ ! -d "${1}" ]; then
 				echo
-				echo "${PROMPT}error: directory '${1}' does not exist!"
+				echo "${PTXDIST_LOG_PROMPT}error: directory '${1}' does not exist!"
 				echo
 				exit 1
 			fi
@@ -1882,7 +1882,7 @@ EOF
 		menu)
 			if [ \! -x "$(which dialog 2>/dev/null)" ]; then
 				echo
-				echo "${PROMPT}info: Sorry, menu not possible yet. Please install 'dialog'"
+				echo "${PTXDIST_LOG_PROMPT}info: Sorry, menu not possible yet. Please install 'dialog'"
 				echo
 				exit 1
 			fi
@@ -1893,16 +1893,16 @@ EOF
 
 		newpackage|newpacket)
 			if [ "${cmd}" = "newpacket" ]; then
-				echo "${PROMPT}There is no subcommand 'newpacket'. I guess you mean"
-				echo "${PROMPT}'newpackage' and run it for you.  This service stopps"
-				echo "${PROMPT}being provided for free soon. So please use"
-				echo "${PROMPT}'newpackage' directly."
+				echo "${PTXDIST_LOG_PROMPT}There is no subcommand 'newpacket'. I guess you mean"
+				echo "${PTXDIST_LOG_PROMPT}'newpackage' and run it for you.  This service stopps"
+				echo "${PTXDIST_LOG_PROMPT}being provided for free soon. So please use"
+				echo "${PTXDIST_LOG_PROMPT}'newpackage' directly."
 			fi
 
 			if [ \! -d "rules" -a "${1}" != "help" ]; then
 				echo
-				echo "${PROMPT}error: no rules/ directory found"
-				echo "${PROMPT}error: please call from a workspace or ptxdist directory"
+				echo "${PTXDIST_LOG_PROMPT}error: no rules/ directory found"
+				echo "${PTXDIST_LOG_PROMPT}error: please call from a workspace or ptxdist directory"
 				echo
 				exit 1
 			fi
@@ -1963,7 +1963,7 @@ EOF
 			done
 
 			echo
-			echo "${PROMPT}error: test '${1}' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
+			echo "${PTXDIST_LOG_PROMPT}error: test '${1}' not found in PTXDIST_TOPDIR and PTXDIST_WORKSPACE"
 			echo
 			exit 1
 			;;
@@ -2006,7 +2006,7 @@ setup_topdir() {
 	#
 	if [ ! -e "${topdir}/.done" ]; then
 		echo
-		echo "${PROMPT}error: PTXdist in ${topdir} is not built."
+		echo "${PTXDIST_LOG_PROMPT}error: PTXdist in ${topdir} is not built."
 		echo
 		exit 1
 	fi
@@ -2121,7 +2121,7 @@ setup_libs_early() {
 		if [ -e "${abs_file}" ]; then
 			source "${abs_file}" || return
 		else
-			echo "${PROMPT}FATAL didn't find ${abs_file}"
+			echo "${PTXDIST_LOG_PROMPT}FATAL didn't find ${abs_file}"
 			exit 1
 		fi
 	done
@@ -2129,7 +2129,7 @@ setup_libs_early() {
 	PTXDIST_TEMPDIR="$(mktemp -d /tmp/ptxdist.XXXXXX)"
 	if [ ${?} -ne 0 ]; then
 		echo
-		echo "${PROMPT}error: unable to create tempdir"
+		echo "${PTXDIST_LOG_PROMPT}error: unable to create tempdir"
 		echo
 		exit 1
 	fi
@@ -2350,9 +2350,9 @@ setup_path() {
 			PATH="${PTX_CCACHE_DIR}:${PATH}"
 		else
 			echo
-			echo "${PROMPT}warning: ccache has been activated, but was not found on your system"
-			echo "${PROMPT}warning: install ccache, disable it ('ptxdist setup' -> 'Developer Options' menu)"
-			echo "${PROMPT}warning: or ignore this warning."
+			echo "${PTXDIST_LOG_PROMPT}warning: ccache has been activated, but was not found on your system"
+			echo "${PTXDIST_LOG_PROMPT}warning: install ccache, disable it ('ptxdist setup' -> 'Developer Options' menu)"
+			echo "${PTXDIST_LOG_PROMPT}warning: or ignore this warning."
 			echo
 			sleep 3
 		fi
@@ -2431,9 +2431,10 @@ setup_export() {
 		PTXDIST_PARALLELMFLAGS_INTERN \
 		PTXDIST_LOADMFLAGS_INTERN \
 		\
-		PTXDIST_QUIET \
+		PTXDIST_FORCE_DOWNLOAD \
+		PTXDIST_LOG_PROMPT \
 		PTXDIST_PEDANTIC \
-		PTXDIST_FORCE_DOWNLOAD
+		PTXDIST_QUIET
 }
 
 

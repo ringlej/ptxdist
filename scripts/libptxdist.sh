@@ -515,10 +515,10 @@ ptxd_debug "Debugging is enabled - Turn off with PTX_DEBUG=false"
 # $1: error message
 # $2: optional exit value (1 is default)
 #
-# ${PREFIX}: to be printed before message
+# ${PTXDIST_LOG_PROMPT}: to be printed before message
 #
 ptxd_bailout() {
-	echo "${PREFIX}error: $1" >&2
+	echo "${PTXDIST_LOG_PROMPT}error: $1" >&2
 	exit ${2:-1}
 }
 export -f ptxd_bailout
@@ -531,10 +531,10 @@ export -f ptxd_bailout
 # $1: error message
 # $2: optional exit value (1 is default)
 #
-# ${PREFIX}: to be printed before message
+# ${PTXDIST_LOG_PROMPT}: to be printed before message
 #
 ptxd_pedantic() {
-	echo "${PREFIX}error: $1" >&2
+	echo "${PTXDIST_LOG_PROMPT}error: $1" >&2
 	if [ "$PTXDIST_PEDANTIC" = "true" ]; then
 		exit ${2:-1}
 	fi
@@ -546,10 +546,10 @@ export -f ptxd_pedantic
 # print out warning message
 #
 # $1: warning message
-# ${PREFIX}: to be printed before message
+# ${PTXDIST_LOG_PROMPT}: to be printed before message
 #
 ptxd_warning() {
-	echo "${PREFIX}warning: $1" >&2
+	echo "${PTXDIST_LOG_PROMPT}warning: $1" >&2
 }
 export -f ptxd_warning
 
