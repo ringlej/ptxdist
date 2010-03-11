@@ -6,7 +6,7 @@ menu "gdb                           "
 
 config GDB_VERSION
        string "gdb version"
-       default "6.8"
+       default "7.0.1"
        depends on GDB || GDBSERVER
 
 source "generated/debug_tools_gdb.in"
