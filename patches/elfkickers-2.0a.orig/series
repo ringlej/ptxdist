@@ -1,0 +1,6 @@
+0001-01_add_toplevel_makefile.diff.patch
+0002-02_update_subdirs_makefile.diff.patch
+0003-03_add_include_string.h.diff.patch
+0004-04_bsd_include_elf.h.diff.patch
+0005-05_add_et_core_elfls.diff.patch
+0006-mjn3-sstrip.patch

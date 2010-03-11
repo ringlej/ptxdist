@@ -1,0 +1,24 @@
+From 50913d16ecb261ad4bbecaa7fa3c310ccb6ebbd3 Mon Sep 17 00:00:00 2001
+From: the debian project <info@debian.org>
+Date: Thu, 11 Mar 2010 01:11:14 +0100
+Subject: [PATCH 5/6] 05_add_et_core_elfls.diff
+
+---
+ elfls/elfls.c |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/elfls/elfls.c b/elfls/elfls.c
+index feb5b27..04410d2 100644
+--- a/elfls/elfls.c
++++ b/elfls/elfls.c
+@@ -317,6 +317,7 @@ static int readelfhdr(void)
+ 	return FALSE;
+     switch (elffhdr.e_type) {
+       case ET_REL:
++      case ET_CORE:
+       case ET_EXEC:
+       case ET_DYN:
+ 	return TRUE;
+-- 
+1.7.0
+
