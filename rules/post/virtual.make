@@ -12,6 +12,10 @@ ifdef PTXCONF_CROSS_DUMMY_STRIP
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/cross-dummy-strip.install.post
 endif
 
+ifdef PTXCONF_HOST_ELFKICKERS
+$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-elfkickers.install.post
+endif
+
 ifdef PTXCONF_HOST_FAKEROOT
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-fakeroot.install.post
 endif

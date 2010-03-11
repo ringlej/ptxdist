@@ -151,7 +151,11 @@ EOF
     case "${strip}" in
 	0|n|no) ;;
 	k) "${CROSS_STRIP}" --strip-debug "${sdirs[@]/%/${dst}}" ;;
-	*) "${CROSS_STRIP}" -R .note -R .comment "${sdirs[@]/%/${dst}}" ;;
+	*)
+	    case "${ptx_use_sstrip}" in
+		y) sstrip "${sdirs[@]/%/${dst}}" ;;
+		*) "${CROSS_STRIP}" -R .note -R .comment "${sdirs[@]/%/${dst}}" ;;
+	    esac
     esac &&
 
     # now change to requested permissions

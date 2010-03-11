@@ -15,6 +15,7 @@
 xpkg/env/impl = \
 	$(call world/env, $(2))							\
 	CROSS_STRIP="$(call ptx/escape,$(CROSS_STRIP))"				\
+	ptx_use_sstrip="$(call ptx/escape,$(PTXCONF_STRIP_USE_SSTRIP))"		\
 	ptx_nfsroot="$(call ptx/escape,$(ROOTDIR))"				\
 	ptx_nfsroot_dbg="$(call ptx/escape,$(ROOTDIR_DEBUG))"			\
 	pkg_xpkg="$(call ptx/escape,$(1))"					\
