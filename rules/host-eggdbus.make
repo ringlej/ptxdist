@@ -18,9 +18,11 @@ HOST_PACKAGES-$(PTXCONF_HOST_EGGDBUS) += host-eggdbus
 # Prepare
 # ----------------------------------------------------------------------------
 
-#
-# autoconf
-#
-HOST_EGGDBUS_CONF_TOOL := autoconf
+HOST_EGGDBUS_AUTOCONF := \
+	$(HOST_AUTOCONF) \
+	--disable-man-pages \
+	--disable-gtk-doc \
+	--disable-gtk-doc-html \
+	--disable-gtk-doc-pdf
 
 # vim: syntax=make
