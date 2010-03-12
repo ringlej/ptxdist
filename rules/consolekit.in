@@ -3,5 +3,9 @@
 config CONSOLEKIT
 	tristate
 	prompt "ConsoleKit"
+	select DBUS_GLIB
+	select GLIB
+	select ZLIB
+	select POLKIT
 	help
 	  FIXME
