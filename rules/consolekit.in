@@ -8,4 +8,13 @@ config CONSOLEKIT
 	select ZLIB
 	select POLKIT
 	help
-	  FIXME
+	  framework for defining and tracking users, sessions and seats
+
+	  ConsoleKit is a system daemon for tracking what users are
+	  logged into the system and how they interact with the
+	  computer (e.g. which keyboard and mouse they use).
+
+	  It provides asynchronous notification via the system message
+	  bus.
+
+	  Homepage: http://www.freedesktop.org/wiki/Software/ConsoleKit
