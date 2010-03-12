@@ -36,10 +36,7 @@ $(EGGDBUS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-#
-# autoconf
-#
-EGGDBUS_AUTOCONF = \
+EGGDBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-largefile \
 	--disable-ansi \
@@ -67,9 +64,6 @@ $(STATEDIR)/eggdbus.targetinstall:
 	@$(call install_copy, eggdbus, 0, 0, 0644, -, /usr/lib/libeggdbus-1.so.0.0.0)
 	@$(call install_link, eggdbus, libeggdbus-1.so.0.0.0, /usr/lib/libeggdbus-1.so.0)
 	@$(call install_link, eggdbus, libeggdbus-1.so.0.0.0, /usr/lib/libeggdbus-1.so)
-
-	#/usr/bin/eggdbus-glib-genmarshal
-	#/usr/bin/eggdbus-binding-tool
 
 	@$(call install_finish, eggdbus)
 
