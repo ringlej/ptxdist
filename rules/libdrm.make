@@ -65,15 +65,14 @@ $(STATEDIR)/libdrm.targetinstall:
 	@$(call install_fixup, libdrm,DEPENDS,)
 	@$(call install_fixup, libdrm,DESCRIPTION,missing)
 
-	@$(call install_copy, libdrm, 0, 0, 0755, -, \
+	@$(call install_copy, libdrm, 0, 0, 0644, -, \
 		/usr/lib/libdrm.so.2.4.0)
-
 	@$(call install_link, libdrm, libdrm.so.2.4.0, /usr/lib/libdrm.so.2)
 	@$(call install_link, libdrm, libdrm.so.2.4.0, /usr/lib/libdrm.so)
 
 ifndef PTXCONF_ARCH_ARM
 ifdef PTXCONF_LIBDRM_INTEL
-	@$(call install_copy, libdrm, 0, 0, 0755, -, \
+	@$(call install_copy, libdrm, 0, 0, 0644, -, \
 		/usr/lib/libdrm_intel.so.1.0.0)
 
 	@$(call install_link, libdrm, libdrm_intel.so.1.0.0, /usr/lib/libdrm_intel.so.1)
