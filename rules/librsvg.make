@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Erwin Rol
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -82,7 +83,7 @@ $(STATEDIR)/librsvg.targetinstall:
 	@$(call install_fixup, librsvg,DEPENDS,)
 	@$(call install_fixup, librsvg,DESCRIPTION,missing)
 
-	@$(call install_copy, librsvg, 0, 0, 0755, -, \
+	@$(call install_copy, librsvg, 0, 0, 0644, -, \
 		/usr/lib/librsvg-2.so.2.26.0)
 	@$(call install_link, librsvg, librsvg-2.so.2.26.0, \
 		/usr/lib/librsvg-2.so.2)
