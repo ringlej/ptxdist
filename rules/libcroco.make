@@ -35,9 +35,6 @@ $(LIBCROCO_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBCROCO_PATH	:= PATH=$(CROSS_PATH)
-LIBCROCO_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
