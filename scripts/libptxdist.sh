@@ -435,6 +435,19 @@ ptxd_dumpstack() {
 }
 
 
+#
+#
+# return:
+# 0 if dirs are found
+# 1 if no dirs are found
+#
+ptxd_get_dirs() {
+    ptxd_reply=( $(eval command ls -f -d "${@}" 2>/dev/null) )
+
+    [ ${#ptxd_reply[@]} -ne 0 ]
+}
+export -f ptxd_get_dirs
+
 
 #
 # convert a relative or absolute path into an absolute path
