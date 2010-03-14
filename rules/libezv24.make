@@ -37,13 +37,7 @@ $(LIBEZV24_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBEZV24_PATH	:= PATH=$(CROSS_PATH)
-LIBEZV24_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-LIBEZV24_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBEZV24_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
