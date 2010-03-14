@@ -35,13 +35,7 @@ $(LITE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LITE_PATH	:= PATH=$(CROSS_PATH)
-LITE_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-LITE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LITE_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
