@@ -72,6 +72,8 @@ install_copy = 											\
 # $3: GID
 # $4: permissions (octal)
 # $5: source file
+# $6: (strip, obsolete)
+# $7: destination (optional)
 #
 install_alternative =									\
 	PACKET=$(strip $(1));								\
@@ -79,8 +81,10 @@ install_alternative =									\
 	GRP=$(strip $(3));								\
 	PER=$(strip $(4));								\
 	FILE=$(strip $(5));								\
+	STRIP=$(strip $(6));								\
+	DST=$(strip $(7));								\
 	$(call install_check, install_alternative);					\
-	echo "ptxd_install_alternative '$$FILE' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_alternative '$$FILE' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$PACKET.cmds"
 
 #
 # install_tree
@@ -125,6 +129,25 @@ install_archive =		\
 	DST=$(strip $(5));	\
 	$(call install_check, install_archive);	\
 	echo "ptxd_install_archive '$$DIR' '$$DST' '$$OWN' '$$GRP'" >> "$(STATEDIR)/$$PACKET.cmds"
+
+#
+# install_spec
+#
+# Installs files specified by a spec file
+# format as defined in linux/Documentation/filesystems/ramfs-rootfs-initramfs.txt
+#	file  <name> <location> <mode> <uid> <gid>
+#	dir   <name> <mode> <uid> <gid>
+#	nod   <name> <mode> <uid> <gid> <dev_type> <maj> <min>
+#	slink <name> <target> <mode> <uid> <gid>
+#
+# $1: packet label
+# $2: spec file to parse
+#
+install_spec =			\
+	PACKET=$(strip $(1));	\
+	SPECFILE=$(strip $(2));	\
+	$(call install_check, install_spec);	\
+	echo "ptxd_install_spec '$$SPECFILE'" >> "$(STATEDIR)/$$PACKET.cmds"
 
 #
 # install_package
