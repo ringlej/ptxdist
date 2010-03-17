@@ -37,8 +37,8 @@ $(HDPARM_SOURCE):
 # Compile
 # ----------------------------------------------------------------------------
 
-HDPARM_PATH	:= PATH=$(CROSS_PATH)
-HDPARM_MAKE_ENV	:= $(CROSS_ENV)
+HDPARM_CONF_TOOL := NO
+HDPARM_MAKE_ENV := $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install
