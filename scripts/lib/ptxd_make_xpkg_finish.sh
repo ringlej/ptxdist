@@ -57,14 +57,16 @@ ptxd_make_xpkg_finish() {
     # no perm file -> no files to package -> exit
     #
     if [ \! -s "${pkg_xpkg_cmds}" ]; then
-	ptxd_pedantic "Packet '${pkg_xpkg}' is empty. not generating"
-	rm -rf -- "${pkg_xpkg_tmp}"
+	ptxd_pedantic "Packet '${pkg_xpkg}' is empty. not generating" &&
+	rm -rf -- "${pkg_xpkg_tmp}" &&
 
-	sed -i -e "/^${pkg_xpkg}$/d" "${pkg_xpkg_map}"	#FIXME: we rely in 1-to-1 mapping here
+	#FIXME: we rely in 1-to-1 mapping here
+	sed -i -e "/^${pkg_xpkg}$/d" "${pkg_xpkg_map}" &&
 
 	if [ \! -s "${pkg_xpkg_map}" ]; then
 	    rm -f -- "${pkg_xpkg_map}"
 	fi
+
 	return
     fi
 

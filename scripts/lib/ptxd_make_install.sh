@@ -45,9 +45,9 @@ ptxd_make_install_init() {
     rm -fr   -- \
 	"${pkg_xpkg_tmp}" \
 	"${pkg_xpkg_cmds}" \
-	"${pkg_xpkg_perms}"
-    mkdir -p -- "${pkg_ipkg_control_dir}" || return
-    touch "${pkg_xpkg_cmds}"
+	"${pkg_xpkg_perms}" &&
+    mkdir -p -- "${pkg_ipkg_control_dir}" &&
+    touch "${pkg_xpkg_cmds}" || return
 
     local replace_from="ARCH"
     local replace_to="${PTXDIST_IPKG_ARCH_STRING}"
