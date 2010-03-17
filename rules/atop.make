@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2008 by Remy Bohmer, Netherlands
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,9 +17,9 @@ PACKAGES-$(PTXCONF_ATOP) += atop
 #
 # Paths and names
 #
-ATOP_VERSION	:= 1.23
+ATOP_VERSION	:= 1.24
 ATOP		:= atop-$(ATOP_VERSION)
-ATOP_URL	:= http://www.atcomputing.nl/Tools/atop/packages/$(ATOP).tar.gz
+ATOP_URL	:= http://www.atoptool.nl/download/$(ATOP).tar.gz
 ATOP_SOURCE	:= $(SRCDIR)/$(ATOP).tar.gz
 ATOP_DIR	:= $(BUILDDIR)/$(ATOP)
 
@@ -35,7 +36,6 @@ $(ATOP_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-ATOP_PATH	:= PATH=$(CROSS_PATH)
 ATOP_COMPILE_ENV := $(CROSS_ENV)
 
 $(STATEDIR)/atop.prepare:

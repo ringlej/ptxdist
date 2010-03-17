@@ -9,18 +9,17 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
 #20081125: wsa: Mailed to upstream.
 #20081127: wsa: Accepted upstream. Wait for next release.
+#20100317: mkl: Mailed to upstream again.
 
  Makefile |    6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-Index: atop-1.23/Makefile
-===================================================================
---- atop-1.23.orig/Makefile
-+++ atop-1.23/Makefile
-@@ -13,8 +13,8 @@ INIPATH = /etc/rc.d/init.d
- CRNPATH = /etc/cron.d
+--- a/Makefile
++++ b/Makefile
+@@ -15,8 +15,8 @@ CRNPATH = /etc/cron.d
  ROTPATH = /etc/logrotate.d
  
+ # CFLAGS  = -g -I. -Wall	 # -DHTTPSTATS
 -CFLAGS  = -O -I. -Wall	 # -DHTTPSTATS
 -LDFLAGS = -lncurses -lm -lz
 +CFLAGS  += -O2 -I. -Wall	 # -DHTTPSTATS
@@ -28,7 +27,7 @@ Index: atop-1.23/Makefile
  OBJMOD0 = version.o
  OBJMOD1 = various.o  deviate.o   procdbase.o
  OBJMOD2 = acctproc.o photoproc.o photosyst.o  rawlog.o ifprop.o parseable.o
-@@ -25,7 +25,7 @@ ALLMODS = $(OBJMOD0) $(OBJMOD1) $(OBJMOD
+@@ -27,7 +27,7 @@ ALLMODS = $(OBJMOD0) $(OBJMOD1) $(OBJMOD
  all: 		atop
  
  atop:		atop.o    $(ALLMODS) Makefile
