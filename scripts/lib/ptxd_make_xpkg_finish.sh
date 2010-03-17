@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2005, 2006, 2007 Robert Schwebel <r.schwebel@pengutronix.de>
-#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -80,20 +80,18 @@ ptxd_make_xpkg_finish() {
     #
     # create pkg
     #
-    local ret=0
-
-    ptxd_make_xpkg_deps || return
+    ptxd_make_xpkg_deps &&
 
     echo "xpkg_finish:	creating ${pkg_xpkg_type} package ... " &&
-    "ptxd_make_${pkg_xpkg_type}_finish" || ret=$?
-    rm -rf "${pkg_xpkg_tmp}"
+    "ptxd_make_${pkg_xpkg_type}_finish" &&
+    rm -rf "${pkg_xpkg_tmp}" || {
+	local ret=$?
+	echo "failed"
+	return ${ret}
+    }
 
-    if [ $? -ne 0 -o ${ret} -ne 0 ]; then
-	echo "failed."
-	return 1
-    else
-	echo "done."
-    fi
+    echo "done."
+
 
     #
     # post install
