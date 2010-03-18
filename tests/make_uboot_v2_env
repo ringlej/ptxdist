@@ -8,7 +8,8 @@ tar -C "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/" -c . \
 	--exclude .svn \
 	--exclude .pc \
 	--exclude .git \
-	--exclude "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/config.in" \
+	--exclude "config.in" \
+	--exclude "*/*~" \
 	| tar -C "${ENVTMPDIR}" -x
 
 ${PTXDIST_SYSROOT_HOST}/bin/ubootenv -s "${ENVTMPDIR}" "${IMAGEDIR}/u-boot-v2-environment"
