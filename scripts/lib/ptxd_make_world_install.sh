@@ -16,9 +16,9 @@
 #
 ptxd_make_world_install_pkg() {
     local -a fakeargs
-    if [ -z "${fakeroot}" ]; then
-	fakeargs=( "-s" "${pkg_fake_env}" )
-    fi
+#    if [ -z "${fakeroot}" ]; then
+#	fakeargs=( "-s" "${pkg_fake_env}" )
+#    fi
 
     "${echo:-echo}" \
 	"${pkg_path}" \
