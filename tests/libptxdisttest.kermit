@@ -34,6 +34,7 @@ define ptx_init {
 	} else {
 		set host \m(PTXCONF_BOARDSETUP_SERIALPORT)
 		ptx_check_fail "Could not connect to port \m(PTXCONF_BOARDSETUP_SERIALPORT). Is it already in use?"
+		set speed \m(PTXCONF_BOARDSETUP_SERIALBAUDRATE)
 		set terminal echo remote
 	}
 	set carrier-watch off
