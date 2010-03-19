@@ -331,10 +331,10 @@ ptxd_install_copy_toolchain() {
 	    s)
 		case "${OPTARG}" in
 		    y|yes|1|true|"")
-			args="${args} strip=true"
+			args="${args} strip=y"
 			;;
 		    *)
-			args="${args} strip=false"
+			args="${args} strip=n"
 			;;
 		esac
 		;;
