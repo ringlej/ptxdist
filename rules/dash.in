@@ -1,10 +1,20 @@
 ## SECTION=shell_and_console
-config DASH
+
+menuconfig DASH
 	tristate
-	prompt "dash"
+	prompt "dash                          "
 	help
 	  DASH is a POSIX-compliant implementation of /bin/sh that aims
 	  to be as small as possible. It does this without sacrificing speed where
 	  possible. In fact, it is significantly faster than bash (the GNU
 	  Bourne-Again SHell) for most tasks.
 
+if DASH
+
+config DASH_LINK_SH
+	bool
+	prompt "link to /bin/sh"
+	help
+	  FIXME
+
+endif
