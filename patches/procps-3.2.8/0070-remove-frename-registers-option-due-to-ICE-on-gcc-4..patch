@@ -1,0 +1,25 @@
+From 88fe43f463b9a2ad6ae5ac4be85de66af7b142ef Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 19 Mar 2010 22:03:13 +0100
+Subject: [PATCH 70/70] remove -frename-registers option, due to ICE on gcc-4.3.1
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile |    1 -
+ 1 files changed, 0 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 5efabb3..a83df5e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -142,7 +142,6 @@ ALL_CFLAGS += $(call check_gcc,-Wstrict-aliasing,)
+ # if not debugging, enable things that could confuse gdb
+ ifeq (,$(findstring -g,$(filter -g%,$(CFLAGS))))
+ ALL_CFLAGS += $(call check_gcc,-fweb,)
+-ALL_CFLAGS += $(call check_gcc,-frename-registers,)
+ ALL_CFLAGS += $(call check_gcc,-fomit-frame-pointer,)
+ endif
+ 
+-- 
+1.7.0
+

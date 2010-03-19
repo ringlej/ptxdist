@@ -1,0 +1,29 @@
+From 694d025649a5536d0d30ed6e91d0a87ec85dc7aa Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:45 +0100
+Subject: [PATCH 14/70] top_stdin_eof
+
+===================================================================
+---
+ top.c |    5 ++---
+ 1 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/top.c b/top.c
+index 72056a1..beaca0a 100644
+--- a/top.c
++++ b/top.c
+@@ -3408,9 +3408,8 @@ int main (int dont_care_argc, char *argv[])
+          // check 1st, in case tv zeroed (by sig handler) before it got set
+          rc = chin(0, &c, 1);
+          if (rc <= 0) {
+-            // EOF is pretty much a "can't happen" except for a kernel bug.
+-            // We should quickly die via SIGHUP, and thus not spin here.
+-            // if (rc == 0) end_pgm(0); /* EOF from terminal */
++            if (rc == 0) end_pgm(0); /* EOF from terminal, may happen if top
++                                      * erroneously gets detached from it. */
+             fcntl(STDIN_FILENO, F_SETFL, file_flags);
+             select(1, &fs, NULL, NULL, &tv);
+             fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK|file_flags);
+-- 
+1.7.0
+

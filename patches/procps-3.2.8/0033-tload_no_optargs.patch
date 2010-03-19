@@ -1,0 +1,27 @@
+From baaed0489bc1273633e918e085ff28b85e41a3c6 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 33/70] tload_no_optargs
+
+===================================================================
+---
+ tload.c |    3 ---
+ 1 files changed, 0 insertions(+), 3 deletions(-)
+
+diff --git a/tload.c b/tload.c
+index 1d346bb..cece48c 100644
+--- a/tload.c
++++ b/tload.c
+@@ -30,9 +30,6 @@ static int fd=1;
+ static int dly=5;
+ static jmp_buf jb;
+ 
+-extern int optind;
+-extern char *optarg;
+-
+ static void alrm(int signo)
+ {
+     (void)signo;
+-- 
+1.7.0
+

@@ -1,0 +1,26 @@
+From a8346dc7b4d1da04928b2885a5a9564234eb025e Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 51/70] pgrep_usage_exitcode
+
+===================================================================
+---
+ pgrep.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/pgrep.c b/pgrep.c
+index 33cbed8..36eccb6 100644
+--- a/pgrep.c
++++ b/pgrep.c
+@@ -681,7 +681,7 @@ static void parse_opts (int argc, char **argv)
+ //		case 'z':   // Solaris: match by zone ID
+ //			break;
+ 		case '?':
+-			usage (opt);
++			usage (optopt?optopt:opt);
+ 			break;
+ 		}
+ 	}
+-- 
+1.7.0
+

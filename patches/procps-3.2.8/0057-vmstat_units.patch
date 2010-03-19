@@ -1,0 +1,70 @@
+From cc3d82aca91e1910e5dacb56f2b50e23eab66d73 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 57/70] vmstat_units
+
+to stop some overflows of some kernel variables
+Bug-Debian: http://bugs.debian.org/558134
+Bug-Debian: http://bugs.debian.org/558361
+---
+ proc/sysinfo.c |    2 +-
+ vmstat.8       |    3 ++-
+ vmstat.c       |    8 ++++----
+ 3 files changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/proc/sysinfo.c b/proc/sysinfo.c
+index 444ee5b..382c8dc 100644
+--- a/proc/sysinfo.c
++++ b/proc/sysinfo.c
+@@ -606,7 +606,7 @@ void meminfo(void){
+     );
+     head = tail+1;
+     if(!found) goto nextline;
+-    *(found->slot) = strtoul(head,&tail,10);
++    *(found->slot) = (unsigned long)strtoull(head,&tail,10);
+ nextline:
+     tail = strchr(head, '\n');
+     if(!tail) break;
+diff --git a/vmstat.8 b/vmstat.8
+index c97826f..486224b 100644
+--- a/vmstat.8
++++ b/vmstat.8
+@@ -67,7 +67,8 @@ The \fB-D\fP reports some summary statistics about disk activity.
+ .PP
+ The \fB\-p\fP followed by some partition name for detailed statistics (2.5.70 or above required)
+ .PP
+-The \fB\-S\fP followed by k or K or m or M switches outputs between 1000, 1024, 1000000, or 1048576 bytes
++The \fB\-S\fP followed by k or K or m or M switches changes the units of
++ouput from bytes to outputs between 1000, 1024, 1000000, or 1048576 bytes. Note this does not change the swap (si/so) or block (bi/bo) fields.
+ .PP
+ The \fB\-V\fP switch results in displaying version information.
+ .PP
+diff --git a/vmstat.c b/vmstat.c
+index e81a4ac..cbbb094 100644
+--- a/vmstat.c
++++ b/vmstat.c
+@@ -209,8 +209,8 @@ static void new_format(void) {
+ 	 unitConvert(kb_swap_used), unitConvert(kb_main_free),
+ 	 unitConvert(a_option?kb_inactive:kb_main_buffers),
+ 	 unitConvert(a_option?kb_active:kb_main_cached),
+-	 (unsigned)( (*pswpin  * unitConvert(kb_per_page) * hz + divo2) / Div ),
+-	 (unsigned)( (*pswpout * unitConvert(kb_per_page) * hz + divo2) / Div ),
++	 (unsigned)( (*pswpin  * kb_per_page * hz + divo2) / Div ),
++	 (unsigned)( (*pswpout * kb_per_page * hz + divo2) / Div ),
+ 	 (unsigned)( (*pgpgin                * hz + divo2) / Div ),
+ 	 (unsigned)( (*pgpgout               * hz + divo2) / Div ),
+ 	 (unsigned)( (*intr                  * hz + divo2) / Div ),
+@@ -258,8 +258,8 @@ static void new_format(void) {
+ 	   unitConvert(kb_swap_used),unitConvert(kb_main_free),
+ 	   unitConvert(a_option?kb_inactive:kb_main_buffers),
+ 	   unitConvert(a_option?kb_active:kb_main_cached),
+-	   (unsigned)( ( (pswpin [tog] - pswpin [!tog])*unitConvert(kb_per_page)+sleep_half )/sleep_time ), /*si*/
+-	   (unsigned)( ( (pswpout[tog] - pswpout[!tog])*unitConvert(kb_per_page)+sleep_half )/sleep_time ), /*so*/
++	   (unsigned)( ( (pswpin [tog] - pswpin [!tog])*kb_per_page+sleep_half )/sleep_time ), /*si*/
++	   (unsigned)( ( (pswpout[tog] - pswpout[!tog])*kb_per_page+sleep_half )/sleep_time ), /*so*/
+ 	   (unsigned)( (  pgpgin [tog] - pgpgin [!tog]             +sleep_half )/sleep_time ), /*bi*/
+ 	   (unsigned)( (  pgpgout[tog] - pgpgout[!tog]             +sleep_half )/sleep_time ), /*bo*/
+ 	   (unsigned)( (  intr   [tog] - intr   [!tog]             +sleep_half )/sleep_time ), /*in*/
+-- 
+1.7.0
+

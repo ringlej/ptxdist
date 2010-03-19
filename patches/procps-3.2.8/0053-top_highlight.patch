@@ -1,0 +1,29 @@
+From 8408efa4ad9bf469b957b3e84c13593499d9ed64 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 53/70] top_highlight
+
+===================================================================
+---
+ top.c |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/top.c b/top.c
+index f6880b5..d86a311 100644
+--- a/top.c
++++ b/top.c
+@@ -3054,9 +3054,10 @@ static proc_t **summary_show (void)
+       snprintf(_z, sizeof(_z), f, ## va);                                    \
+       snprintf(cbuf, sizeof(cbuf), "%s%s%s",                                 \
+          q->capclr_rowhigh,                                                  \
+-         _z,                                                                 \
++         _z+advance,                                                         \
+          !(CHKw(q, Show_HIROWS) && 'R' == p->state) ? q->capclr_rownorm : "" \
+       );                                                                     \
++      advance=0;                                                             \
+       pad += q->len_rowhigh;                                                 \
+       if (!(CHKw(q, Show_HIROWS) && 'R' == p->state)) pad += q->len_rownorm; \
+    }                                                                         \
+-- 
+1.7.0
+

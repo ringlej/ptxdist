@@ -1,0 +1,32 @@
+From 0a7cff0b81b32033591436d2bbc65f5c54e8fa3a Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 56/70] readproc_double_free
+
+---
+ proc/readproc.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/proc/readproc.c b/proc/readproc.c
+index 9660799..4203071 100644
+--- a/proc/readproc.c
++++ b/proc/readproc.c
+@@ -828,6 +828,7 @@ proc_t* readproc(PROCTAB *restrict const PT, proc_t *restrict p) {
+ 
+   saved_p = p;
+   if(!p) p = xcalloc(p, sizeof *p); /* passed buf or alloced mem */
++  else memset(p, 0, sizeof *p);
+ 
+   for(;;){
+     // fills in the path, plus p->tid and p->tgid
+@@ -856,6 +857,7 @@ proc_t* readtask(PROCTAB *restrict const PT, const proc_t *restrict const p, pro
+ 
+   saved_t = t;
+   if(!t) t = xcalloc(t, sizeof *t); /* passed buf or alloced mem */
++  else memset(t, 0, sizeof *t);
+ 
+   // 1. got to fake a thread for old kernels
+   // 2. for single-threaded processes, this is faster (but must patch up stuff that differs!)
+-- 
+1.7.0
+

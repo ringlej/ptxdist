@@ -1,0 +1,32 @@
+From 8df7dcb845f80d7ebb46a5942a684164577b5bee Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 23/70] sysinfo_elfnote
+
+===================================================================
+---
+ proc/sysinfo.c |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/proc/sysinfo.c b/proc/sysinfo.c
+index cd59534..473634f 100644
+--- a/proc/sysinfo.c
++++ b/proc/sysinfo.c
+@@ -221,12 +221,13 @@ static void init_libproc(void){
+   // _SC_NPROCESSORS_ONLN returns 1, which should work OK
+   smp_num_cpus = sysconf(_SC_NPROCESSORS_ONLN);
+   if(smp_num_cpus<1) smp_num_cpus=1; /* SPARC glibc is buggy */
+-
++#ifdef __linux__
+   if(linux_version_code > LINUX_VERSION(2, 4, 0)){ 
+     Hertz = find_elf_note(AT_CLKTCK);
+     if(Hertz!=NOTE_NOT_FOUND) return;
+     fputs("2.4+ kernel w/o ELF notes? -- report this\n", stderr);
+   }
++#endif
+   old_Hertz_hack();
+ }
+ 
+-- 
+1.7.0
+

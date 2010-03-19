@@ -1,0 +1,46 @@
+From 6f469982d7c74ca22b7345f5bc8b956f583a9783 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 32/70] sysinfo_7_numbers
+
+===================================================================
+---
+ proc/sysinfo.c |    7 ++++---
+ 1 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/proc/sysinfo.c b/proc/sysinfo.c
+index 473634f..8dbabdf 100644
+--- a/proc/sysinfo.c
++++ b/proc/sysinfo.c
+@@ -124,24 +124,25 @@ int uptime(double *restrict uptime_secs, double *restrict idle_secs) {
+ unsigned long long Hertz;
+ 
+ static void old_Hertz_hack(void){
+-  unsigned long long user_j, nice_j, sys_j, other_j;  /* jiffies (clock ticks) */
++  unsigned long long user_j, nice_j, sys_j, other_j, wait_j, hirq_j, sirq_j, stol_j;  /* jiffies (clock ticks) */
+   double up_1, up_2, seconds;
+   unsigned long long jiffies;
+   unsigned h;
+   char *restrict savelocale;
+ 
++  wait_j = hirq_j = sirq_j = stol_j = 0;
+   savelocale = setlocale(LC_NUMERIC, NULL);
+   setlocale(LC_NUMERIC, "C");
+   do{
+     FILE_TO_BUF(UPTIME_FILE,uptime_fd);  sscanf(buf, "%lf", &up_1);
+     /* uptime(&up_1, NULL); */
+     FILE_TO_BUF(STAT_FILE,stat_fd);
+-    sscanf(buf, "cpu %Lu %Lu %Lu %Lu", &user_j, &nice_j, &sys_j, &other_j);
++    sscanf(buf, "cpu %Lu %Lu %Lu %Lu %Lu %Lu %Lu %Lu", &user_j, &nice_j, &sys_j, &other_j, &wait_j, &hirq_j, &sirq_j, &stol_j);
+     FILE_TO_BUF(UPTIME_FILE,uptime_fd);  sscanf(buf, "%lf", &up_2);
+     /* uptime(&up_2, NULL); */
+   } while((long long)( (up_2-up_1)*1000.0/up_1 )); /* want under 0.1% error */
+   setlocale(LC_NUMERIC, savelocale);
+-  jiffies = user_j + nice_j + sys_j + other_j;
++  jiffies = user_j + nice_j + sys_j + other_j + wait_j + hirq_j + sirq_j + stol_j ;
+   seconds = (up_1 + up_2) / 2;
+   h = (unsigned)( (double)jiffies/seconds/smp_num_cpus );
+   /* actual values used by 2.4 kernels: 32 64 100 128 1000 1024 1200 */
+-- 
+1.7.0
+

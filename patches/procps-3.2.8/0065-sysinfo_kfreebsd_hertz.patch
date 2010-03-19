@@ -1,0 +1,31 @@
+From df11ed5cbcac1bcf18799bf5c4df7b0c6a26b639 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 65/70] sysinfo_kfreebsd_hertz
+
+---
+ proc/sysinfo.c |    8 ++++++++
+ 1 files changed, 8 insertions(+), 0 deletions(-)
+
+diff --git a/proc/sysinfo.c b/proc/sysinfo.c
+index c804f49..65d94d7 100644
+--- a/proc/sysinfo.c
++++ b/proc/sysinfo.c
+@@ -230,6 +230,14 @@ static void init_libproc(void){
+     fputs("2.4+ kernel w/o ELF notes? -- report this\n", stderr);
+   }
+ #endif
++#if defined(__FreeBSD_kernel__) || defined(__FreeBSD__)
++  /* On FreeBSD the Hertz hack is unrelaible, there is no ELF note and
++   * Hertz isn't defined in asm/params.h 
++   * See Debian Bug #460331
++   */
++    Hertz = 100;
++    return;
++#endif
+   old_Hertz_hack();
+ }
+ 
+-- 
+1.7.0
+

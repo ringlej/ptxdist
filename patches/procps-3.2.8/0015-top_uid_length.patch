@@ -1,0 +1,26 @@
+From 2bd08f4ab9b3e6b5dcd1a0d7d7dfd25a5355bc92 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:45 +0100
+Subject: [PATCH 15/70] top_uid_length
+
+===================================================================
+---
+ top.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/top.c b/top.c
+index beaca0a..53cab05 100644
+--- a/top.c
++++ b/top.c
+@@ -1237,7 +1237,7 @@ static FLD_t Fieldstab[] = {
+    { "AaAa", "   PID",      " %5u",     -1,    -1, SF(PID), "Process Id",           L_NONE   },
+    { "BbBb", "  PPID",      " %5u",     -1,    -1, SF(PPD), "Parent Process Pid",   L_EITHER },
+    { "CcQq", " RUSER   ",   " %-8.8s",  -1,    -1, SF(URR), "Real user name",       L_RUSER  },
+-   { "DdCc", "  UID",       " %4u",     -1,    -1, SF(UID), "User Id",              L_NONE   },
++   { "DdCc", "   UID",       " %5u",     -1,    -1, SF(UID), "User Id",              L_NONE   },
+    { "EeDd", " USER    ",   " %-8.8s",  -1,    -1, SF(URE), "User Name",            L_EUSER  },
+    { "FfNn", " GROUP   ",   " %-8.8s",  -1,    -1, SF(GRP), "Group Name",           L_GROUP  },
+    { "GgGg", " TTY     ",   " %-8.8s",   8,    -1, SF(TTY), "Controlling Tty",      L_stat   },
+-- 
+1.7.0
+

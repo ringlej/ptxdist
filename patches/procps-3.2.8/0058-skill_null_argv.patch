@@ -1,0 +1,25 @@
+From 52ec990a0823501e28015c2e9607dc6cfc7542ba Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 58/70] skill_null_argv
+
+---
+ skill.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/skill.c b/skill.c
+index c8af9fd..d9a1af9 100644
+--- a/skill.c
++++ b/skill.c
+@@ -307,7 +307,7 @@ no_more_args:
+     long pid;
+     char *endp;
+     pid = strtol(argv[argc],&endp,10);
+-    if(!*endp){
++    if(!*endp && (endp != argv[argc])){
+       if(!kill((pid_t)pid,signo)) continue;
+       // The UNIX standard contradicts itself. If at least one process
+       // is matched for each PID (as if processes could share PID!) and
+-- 
+1.7.0
+

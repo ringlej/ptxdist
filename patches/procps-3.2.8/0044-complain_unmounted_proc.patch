@@ -1,0 +1,29 @@
+From daae1481360c99edbabcf87a544eedd0dda14cc6 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 44/70] complain_unmounted_proc
+
+exiting silently.
+---
+ proc/version.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+diff --git a/proc/version.c b/proc/version.c
+index 96ffb7f..7930367 100644
+--- a/proc/version.c
++++ b/proc/version.c
+@@ -39,8 +39,10 @@ static void init_Linux_version(void) {
+     FILE *fp;
+     char buf[256];
+     
+-    if ( (fp=fopen("/proc/version","r")) == NULL) /* failure implies impending death */
++    if ( (fp=fopen("/proc/version","r")) == NULL) {
++      fprintf(stderr, "Cannot find /proc/version - is /proc mounted?\n");
+       exit(1);
++    }
+     if (fgets(buf, 256, fp) == NULL) {
+       fprintf(stderr, "Cannot read kernel version from /proc/version\n");
+       fclose(fp);
+-- 
+1.7.0
+

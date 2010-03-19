@@ -1,0 +1,25 @@
+From 3350dba35edadb332e7e86baaa514c19c8067223 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 64/70] w_userproc
+
+---
+ w.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/w.c b/w.c
+index 48a02be..107b9fc 100644
+--- a/w.c
++++ b/w.c
+@@ -171,7 +171,7 @@ static const proc_t *getproc(const utmp_t *restrict const u, const char *restric
+ 	    secondbest = tmp;
+ 	}
+ 	if(!ignoreuser && uid != tmp->euid && uid != tmp->ruid) continue;
+-	if(tmp->tgid != tmp->tpgid) continue;
++	if(tmp->pgrp != tmp->tpgid) continue;
+ 	if(best && tmp->start_time <= best->start_time) continue;
+     	best = tmp;
+     }
+-- 
+1.7.0
+

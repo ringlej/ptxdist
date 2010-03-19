@@ -1,0 +1,35 @@
+From 07d93d1f2f5a299d4279a0fe3b69efeb943509dd Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 21/70] kill_warncr
+
+===================================================================
+---
+ skill.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/skill.c b/skill.c
+index 54d4c48..c8af9fd 100644
+--- a/skill.c
++++ b/skill.c
+@@ -128,7 +128,7 @@ static void check_proc(int pid){
+   sprintf(buf, "/proc/%d/stat", pid); /* pid (cmd) state ppid pgrp session tty */
+   fd = open(buf,O_RDONLY);
+   if(fd==-1){  /* process exited maybe */
+-    if(pids && w_flag) printf("WARNING: process %d could not be found.",pid);
++    if(pids && w_flag) printf("WARNING: process %d could not be found.\n",pid);
+     return;
+   }
+   fstat(fd, &statbuf);
+@@ -342,7 +342,7 @@ static void skillsnice_usage(void){
+   }else{
+     fprintf(stderr,
+       "Usage:   snice [new priority] [options] process selection criteria\n"
+-      "Example: snice netscape crack +7\n"
++      "Example: snice +7 netscape crack \n"
+       "\n"
+       "The default priority is +4. (snice +4 ...)\n"
+       "Priority numbers range from +20 (slowest) to -20 (fastest).\n"
+-- 
+1.7.0
+

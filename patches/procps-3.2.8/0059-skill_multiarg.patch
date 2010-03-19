@@ -1,0 +1,25 @@
+From 26cd8eee99742fd69b006b4b8467aefc230ae61d Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 59/70] skill_multiarg
+
+---
+ skill.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/skill.c b/skill.c
+index d9a1af9..2d90ad0 100644
+--- a/skill.c
++++ b/skill.c
+@@ -464,6 +464,8 @@ selection_collection:
+     switch(force){ /* fall through each data type */
+     default: skillsnice_usage();
+     case 0: /* not forced */
++      if (argptr && argptr[0] == '-') /* its the next argument not a parameter */
++        continue;
+     case 't':
+       if(argc){
+         struct stat sbuf;
+-- 
+1.7.0
+

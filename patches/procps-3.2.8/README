@@ -1,8 +1,0 @@
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: import patches from debian's procps
-
-this is basially the patches from:
-http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-1.diff.gz
-taken dpatch squeezed into quilt :)
-
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>

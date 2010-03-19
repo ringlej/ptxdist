@@ -1,0 +1,99 @@
+From 651c5b2622859ce190a6bee53dc6abfd491fa380 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 26/70] w-bassman
+
+===================================================================
+---
+ w.1 |    5 ++++-
+ w.c |   16 +++++++++++++++-
+ 2 files changed, 19 insertions(+), 2 deletions(-)
+
+diff --git a/w.1 b/w.1
+index d57a9b5..84786e6 100644
+--- a/w.1
++++ b/w.1
+@@ -5,7 +5,7 @@
+ w \- Show who is logged on and what they are doing.
+ .SH SYNOPSIS
+ .B w \-
+-.RB [ husfV ]
++.RB [ husfVo ]
+ .RI [ user ]
+ .SH DESCRIPTION
+ .B "w "
+@@ -55,6 +55,9 @@ field is shown by default.
+ .B "\-V "
+ Display version information.
+ .TP 0.5i
++.B "\-o "
++Old style output. Prints blank space for idle times less than one minute.
++.TP 0.5i
+ .B "user "
+ Show information about the specified user only.
+ 
+diff --git a/w.c b/w.c
+index a6b1b25..91fe8b1 100644
+--- a/w.c
++++ b/w.c
+@@ -30,6 +30,7 @@
+ #include <termios.h>
+ 
+ static int ignoreuser = 0;	/* for '-u' */
++static int oldstyle = 0;	/* for '-o' */
+ static proc_t **procs;		/* our snapshot of the process table */
+ 
+ typedef struct utmp utmp_t;
+@@ -76,6 +77,16 @@ static void print_time_ival7(time_t t, int centi_sec, FILE* fout) {
+       printf("   ?   ");
+       return;
+     }
++    if (oldstyle) {
++      if (t >= 48*60*60)               /* > 2 days */
++        fprintf(fout, " %2ludays", t/(24*60*60));
++      else if (t >= 60*60)            /* > 1 hour */
++        fprintf(fout, " %2lu:%02u ", t/(60*60), (unsigned) ((t/60)%60));
++      else if (t > 60)               /* > 1 minute */
++        fprintf(fout, " %2lu:%02um", t/60, (unsigned) t%60);
++      else
++        fprintf(fout, "       ");
++    } else {
+     if (t >= 48*60*60)				/* > 2 days */
+ 	fprintf(fout, " %2ludays", t/(24*60*60));
+     else if (t >= 60*60)			/* > 1 hour */
+@@ -84,6 +95,7 @@ static void print_time_ival7(time_t t, int centi_sec, FILE* fout) {
+ 	fprintf(fout, " %2lu:%02u ", t/60, (unsigned) t%60);
+     else
+     fprintf(fout, " %2lu.%02us", t, centi_sec);
++    }
+ }
+ 
+ /**** stat the device file to get an idle time */
+@@ -239,7 +251,7 @@ int main(int argc, char **argv) {
+ #endif
+ 
+     setlocale(LC_ALL, "");
+-    for (args=0; (ch = getopt(argc, argv, "hlusfV")) != EOF; args++)
++    for (args=0; (ch = getopt(argc, argv, "hlusfVo")) != EOF; args++)
+ 	switch (ch) {
+ 	  case 'h': header = 0;		break;
+ 	  case 'l': longform = 1;	break;
+@@ -247,6 +259,7 @@ int main(int argc, char **argv) {
+ 	  case 'f': from = !from;	break;
+ 	  case 'V': display_version();	exit(0);
+ 	  case 'u': ignoreuser = 1;	break;
++	  case 'o': oldstyle = 1;	break;
+ 	  default:
+ 	    printf("usage: w -hlsufV [user]\n"
+ 		   "    -h    skip header\n"
+@@ -254,6 +267,7 @@ int main(int argc, char **argv) {
+ 		   "    -s    short listing\n"
+ 		   "    -u    ignore uid of processes\n"
+ 		   "    -f    toggle FROM field (default %s)\n"
++		   "    -o    old-style output\n"
+ 		   "    -V    display version\n", FROM_STRING);
+ 	    exit(1);
+ 	}
+-- 
+1.7.0
+

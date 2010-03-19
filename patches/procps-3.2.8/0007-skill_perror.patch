@@ -1,0 +1,25 @@
+From 680328798808b3d7201341a63e00c89e9d1bdb1a Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:45 +0100
+Subject: [PATCH 07/70] skill_perror
+
+===================================================================
+---
+ skill.c |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/skill.c b/skill.c
+index 96cc386..54d4c48 100644
+--- a/skill.c
++++ b/skill.c
+@@ -317,6 +317,7 @@ no_more_args:
+       // The standard says we return non-zero if an error occurs. Thus if
+       // killing two processes gives 0 for one and EPERM for the other,
+       // we are required to return both zero and non-zero. Quantum kill???
++      perror("kill");
+       exitvalue = 1;
+       continue;
+     }
+-- 
+1.7.0
+

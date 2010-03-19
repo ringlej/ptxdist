@@ -1,0 +1,34 @@
+From 6a4504ffe207c72f1f4646f46db4d4076e154c89 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 63/70] top_1_swap
+
+---
+ top.1 |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/top.1 b/top.1
+index 0ce1c62..5b44828 100644
+--- a/top.1
++++ b/top.1
+@@ -401,13 +401,13 @@ A task's currently used share of available \*(MP.
+ o:\fB VIRT\fR \*(EM Virtual Image (kb)
+ The total amount of \*(MV used by the task.
+ It includes all code, data and shared libraries plus pages that have been
+-swapped out.
+-
+-VIRT = SWAP + RES.
++swapped out and pages that have been mapped but not used.
+ 
+ .TP 3
+ p:\fB SWAP\fR \*(EM Swapped size (kb)
+-The swapped out portion of a task's total \*(MV image.
++Memory that is not resident but is present in a task.  This is memory that
++has been swapped out but could include additional non-resident memory.
++This column is calculated by subtracting \*(MP from \*(MV.
+ 
+ .TP 3
+ q:\fB RES\fR \*(EM Resident size (kb)
+-- 
+1.7.0
+

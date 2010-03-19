@@ -1,0 +1,57 @@
+From 70cba9b7a33e2ce32045324b3fbe8fa901cfe9d2 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:45 +0100
+Subject: [PATCH 10/70] sysctl_options
+
+===================================================================
+---
+ sysctl.c |   12 ++++++++++--
+ 1 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/sysctl.c b/sysctl.c
+index 1470df9..4024f71 100644
+--- a/sysctl.c
++++ b/sysctl.c
+@@ -421,6 +421,7 @@ int main(int argc, char *argv[]) {
+    const char *me = (const char *)basename(argv[0]);
+    bool SwitchesAllowed = true;
+    bool WriteMode = false;
++   bool DisplayAllOpt = false;
+    int ReturnCode = 0;
+    const char *preloadfile = DEFAULT_PRELOAD;
+ 
+@@ -486,8 +487,8 @@ int main(int argc, char *argv[]) {
+          case 'a': // string and integer values (for Linux, all of them)
+          case 'A': // same as -a -o
+          case 'X': // same as -a -x
+-              SwitchesAllowed = false;
+-              return DisplayAll(PROC_PATH);
++              DisplayAllOpt = true;
++              break;
+          case 'V':
+               fprintf(stdout, "sysctl (%s)\n",procps_version);
+               exit(0);
+@@ -502,6 +503,8 @@ int main(int argc, char *argv[]) {
+       } else {
+          if (NameOnly && Quiet)   // nonsense
+             return Usage(me);
++         if (DisplayAllOpt)    // We cannot have values with -a
++             return Usage(me);
+          SwitchesAllowed = false;
+          if (WriteMode || index(*argv, '='))
+             ReturnCode = WriteSetting(*argv);
+@@ -509,6 +512,11 @@ int main(int argc, char *argv[]) {
+             ReturnCode = ReadSetting(*argv);
+       }
+    }
++   if (DisplayAllOpt) {
++       if (Quiet)
++           return Usage(me);
++       return DisplayAll(PROC_PATH);
++   }
+ 
+    return ReturnCode;
+ }
+-- 
+1.7.0
+

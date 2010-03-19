@@ -1,0 +1,25 @@
+From 9c1f9f99a5826be5069fc0ef66a8d3ada4e488b2 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:47 +0100
+Subject: [PATCH 68/70] top_username_parse
+
+---
+ top.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/top.c b/top.c
+index e194244..62f4077 100644
+--- a/top.c
++++ b/top.c
+@@ -1924,7 +1924,7 @@ static void parse_args (char **args)
+                   errmsg = parse_uid(cp, &selection_uid);
+                   if (errmsg) std_err(errmsg);
+                   selection_type = 'u';
+-                  cp += snprintf(Curwin->colusrnam, USRNAMSIZ-1, "%s", cp); // FIXME: junk
++                  cp += snprintf(Curwin->colusrnam, USRNAMSIZ-1, "%s", cp)-1; // FIXME: junk
+                } while(0);
+                break;
+             case 'U':
+-- 
+1.7.0
+

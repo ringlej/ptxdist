@@ -1,0 +1,26 @@
+From 20aef92ce98efb9afc8da15135a11dc84e311d54 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 22/70] module_mk_shared
+
+===================================================================
+---
+ proc/module.mk |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/proc/module.mk b/proc/module.mk
+index af20334..c4e85b4 100644
+--- a/proc/module.mk
++++ b/proc/module.mk
+@@ -17,7 +17,7 @@
+ # numbers for future use, the ELF soname can be set equal to the
+ # file name until some future date when a stable ABI is declared.
+ 
+-SHARED     := 1
++SHARED     ?= 1
+ 
+ # for lib$(NAME).so and /usr/include/($NAME) and such
+ NAME       :=  proc
+-- 
+1.7.0
+

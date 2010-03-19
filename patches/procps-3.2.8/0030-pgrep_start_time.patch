@@ -1,0 +1,27 @@
+From 5206f75b80699216ad3677f500a93e3d2323b623 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 30/70] pgrep_start_time
+
+===================================================================
+---
+ pgrep.c |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/pgrep.c b/pgrep.c
+index bbb7cd1..609cabd 100644
+--- a/pgrep.c
++++ b/pgrep.c
+@@ -430,7 +430,8 @@ static union el * select_procs (int *num)
+ 	preg = do_regcomp();
+ 
+ 	if (opt_newest) saved_start_time =  0ULL;
+-	if (opt_oldest) saved_start_time = ~0ULL;
++    else
++	    saved_start_time = ~0ULL;
+ 	if (opt_newest) saved_pid = 0;
+ 	if (opt_oldest) saved_pid = INT_MAX;
+ 	
+-- 
+1.7.0
+

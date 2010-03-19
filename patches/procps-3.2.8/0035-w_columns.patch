@@ -1,0 +1,41 @@
+From 6b8ebd31ac38cd8465f9d9a4c5a335b1d76e04bf Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 35/70] w_columns
+
+===================================================================
+---
+ w.c |    8 ++++++--
+ 1 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/w.c b/w.c
+index 91fe8b1..2077338 100644
+--- a/w.c
++++ b/w.c
+@@ -241,10 +241,10 @@ static void showinfo(utmp_t *u, int formtype, int maxcmd, int from) {
+ 
+ /***** main */
+ int main(int argc, char **argv) {
+-    char *user = NULL;
++    char *user = NULL, *p;
+     utmp_t *u;
+     struct winsize win;
+-    int header=1, longform=1, from=1, args, maxcmd=80, ch;
++    int header=1, longform=1, from=1, args, maxcmd, ch;
+ 
+ #ifndef W_SHOWFROM
+     from = 0;
+@@ -277,6 +277,10 @@ int main(int argc, char **argv) {
+ 
+     if (ioctl(1, TIOCGWINSZ, &win) != -1 && win.ws_col > 0)
+ 	maxcmd = win.ws_col;
++    else if (p = getenv("COLUMNS"))
++        maxcmd = atoi(p);
++    else
++	maxcmd = 80;
+     if (maxcmd < 71) {
+ 	fprintf(stderr, "%d column window is too narrow\n", maxcmd);
+ 	exit(1);
+-- 
+1.7.0
+

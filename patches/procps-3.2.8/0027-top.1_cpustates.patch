@@ -1,0 +1,60 @@
+From e7c71a7a9f743f102e01f2e1104ab0e5417f8f34 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 27/70] top.1_cpustates
+
+===================================================================
+---
+ top.1 |   36 ++++++++++++++++++++++++++++++++++++
+ 1 files changed, 36 insertions(+), 0 deletions(-)
+
+diff --git a/top.1 b/top.1
+index b0cec2d..0ce1c62 100644
+--- a/top.1
++++ b/top.1
+@@ -537,6 +537,42 @@ You\fI move\fR a field to the\fB left\fR by pressing the corresponding\fB
+ upper case\fR letter and to the\fB right\fR with the\fB lower case\fR
+ letter.
+ 
++.\" ......................................................................
++.SS 2c. CPU States
++.\" ----------------------------------------------------------------------
++The CPU states are shown in the Summary Area. They are always shown as a
++percentage and are for the time between now and the last refresh.
++
++.TP 3
++\fB us\fR \*(EM User CPU time
++The time the CPU has spent running users' processes that are not
++niced.
++
++.TP 3
++\fB sy\fR \*(EM System CPU time
++The time the CPU has spent running the kernel and its processes.
++
++.TP 3
++\fB ni\fR \*(EM Nice CPU time
++The time the CPU has spent running users' proccess that have been
++niced.
++
++.TP 3
++\fB wa\fR \*(EM iowait
++Amount of time the CPU has been waiting for I/O to complete.
++
++.TP 3
++\fB hi\fR \*(EM Hardware IRQ
++The amount of time the CPU has been servicing hardware interrupts.
++
++.TP 3
++\fB si\fR \*(EM Software Interrupts
++The amount of time the CPU has been servicing software interrupts.
++
++.TP 3
++\fB st\fR \*(EM Steal Time
++The amount of CPU 'stolen' from this virtual machine by the hypervisor
++for other tasks (such as running another virtual machine).
+ 
+ .\" ----------------------------------------------------------------------
+ .SH 3. INTERACTIVE Commands
+-- 
+1.7.0
+

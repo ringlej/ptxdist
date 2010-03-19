@@ -1,0 +1,102 @@
+From 42fd812b1fde2aa3c05cd67282f7cdfcf8f7e7b8 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:45 +0100
+Subject: [PATCH 03/70] output_sort_time
+
+===================================================================
+---
+ ps/output.c |   29 +++++++++++++++++++++++------
+ 1 files changed, 23 insertions(+), 6 deletions(-)
+
+diff --git a/ps/output.c b/ps/output.c
+index 87bf9de..b4fb3df 100644
+--- a/ps/output.c
++++ b/ps/output.c
+@@ -110,6 +110,20 @@ static int sr_ ## NAME (const proc_t* P, const proc_t* Q) { \
+     return (int)(P->NAME) - (int)(Q->NAME); \
+ }
+ 
++#define cook_time(P) (P->utime + P->stime) / Hertz
++
++#define cook_etime(P) seconds_since_boot - (unsigned long)(P->start_time / Hertz)
++
++#define CMP_COOKED_TIME(NAME) \
++static int sr_ ## NAME (const proc_t* P, const proc_t* Q) { \
++    unsigned long p_time,q_time; \
++    p_time=cook_ ##NAME (P); \
++    q_time=cook_ ##NAME (Q); \
++    if (p_time < q_time) return -1; \
++    if (p_time > q_time) return 1; \
++    return 0; \
++}
++
+ CMP_INT(rtprio)
+ CMP_SMALL(sched)
+ CMP_INT(cutime)
+@@ -185,6 +199,9 @@ CMP_SMALL(pcpu)
+ 
+ CMP_SMALL(state)
+ 
++CMP_COOKED_TIME(time)
++CMP_COOKED_TIME(etime)
++
+ /* approximation to: kB of address space that could end up in swap */
+ static int sr_swapable(const proc_t* P, const proc_t* Q) {
+   unsigned long p_swapable = P->vm_data + P->vm_stack;
+@@ -408,7 +425,7 @@ static int pr_etime(char *restrict const outbuf, const proc_t *restrict const pp
+   unsigned long t;
+   unsigned dd,hh,mm,ss;
+   char *cp = outbuf;
+-  t = seconds_since_boot - (unsigned long)(pp->start_time / Hertz);
++  t = cook_etime(pp);
+   ss = t%60;
+   t /= 60;
+   mm = t%60;
+@@ -476,7 +493,7 @@ static int pr_time(char *restrict const outbuf, const proc_t *restrict const pp)
+   unsigned long t;
+   unsigned dd,hh,mm,ss;
+   int c;
+-  t = (pp->utime + pp->stime) / Hertz;
++  t = cook_time(pp);
+   ss = t%60;
+   t /= 60;
+   mm = t%60;
+@@ -1286,7 +1303,7 @@ static const format_struct format_array[] = {
+ {"alarm",     "ALARM",   pr_alarm,    sr_alarm,   5,   0,    LNX, AN|RIGHT},
+ {"argc",      "ARGC",    pr_nop,      sr_nop,     4,   0,    LNX, PO|RIGHT},
+ {"args",      "COMMAND", pr_args,     sr_cmd,    27, ARG,    U98, PO|UNLIMITED}, /*command*/
+-{"atime",     "TIME",    pr_time,     sr_nop,     8,   0,    SOE, ET|RIGHT}, /*cputime*/ /* was 6 wide */
++{"atime",     "TIME",    pr_time,     sr_time,     8,   0,    SOE, ET|RIGHT}, /*cputime*/ /* was 6 wide */
+ {"blocked",   "BLOCKED", pr_sigmask,  sr_nop,     9,   0,    BSD, TO|SIGNAL}, /*sigmask*/
+ {"bnd",       "BND",     pr_nop,      sr_nop,     1,   0,    AIX, TO|RIGHT},
+ {"bsdstart",  "START",   pr_bsdstart, sr_nop,     6,   0,    LNX, ET|RIGHT},
+@@ -1305,7 +1322,7 @@ static const format_struct format_array[] = {
+ {"cp",        "CP",      pr_cp,       sr_pcpu,    3,   0,    DEC, ET|RIGHT}, /*cpu*/
+ {"cpu",       "CPU",     pr_nop,      sr_nop,     3,   0,    BSD, AN|RIGHT}, /* FIXME ... HP-UX wants this as the CPU number for SMP? */
+ {"cpuid",     "CPUID",   pr_psr,      sr_nop,     5,   0,    BSD, TO|RIGHT}, // OpenBSD: 8 wide!
+-{"cputime",   "TIME",    pr_time,     sr_nop,     8,   0,    DEC, ET|RIGHT}, /*time*/
++{"cputime",   "TIME",    pr_time,     sr_time,     8,   0,    DEC, ET|RIGHT}, /*time*/
+ {"cstime",    "-",       pr_nop,      sr_cstime,  1,   0,    LNX, AN|RIGHT},
+ {"ctid",      "CTID",    pr_nop,      sr_nop,     5,   0,    SUN, ET|RIGHT}, // resource contracts?
+ {"cursig",    "CURSIG",  pr_nop,      sr_nop,     6,   0,    DEC, AN|RIGHT},
+@@ -1320,7 +1337,7 @@ static const format_struct format_array[] = {
+ {"end_code",  "E_CODE",  pr_nop,      sr_end_code, 8,  0,    LNx, PO|RIGHT},
+ {"environ","ENVIRONMENT",pr_nop,      sr_nop,    11, ENV,    LNx, PO|UNLIMITED},
+ {"esp",       "ESP",     pr_esp,      sr_kstk_esp, 8,  0,    LNX, TO|RIGHT},
+-{"etime",     "ELAPSED", pr_etime,    sr_nop,    11,   0,    U98, ET|RIGHT}, /* was 7 wide */
++{"etime",     "ELAPSED", pr_etime,    sr_etime,    11,   0,    U98, ET|RIGHT}, /* was 7 wide */
+ {"euid",      "EUID",    pr_euid,     sr_euid,    5,   0,    LNX, ET|RIGHT},
+ {"euser",     "EUSER",   pr_euser,    sr_euser,   8, USR,    LNX, ET|USER},
+ {"f",         "F",       pr_flag,     sr_flags,   1,   0,    XXX, ET|RIGHT}, /*flags*/
+@@ -1463,7 +1480,7 @@ static const format_struct format_array[] = {
+ {"tdev",      "TDEV",    pr_nop,      sr_nop,     4,   0,    XXX, AN|RIGHT},
+ {"thcount",   "THCNT",   pr_nlwp,     sr_nlwp,    5,   0,    AIX, PO|RIGHT},
+ {"tid",       "TID",     pr_thread,   sr_tid,     5,   0,    AIX, TO|PIDMAX|RIGHT},
+-{"time",      "TIME",    pr_time,     sr_nop,     8,   0,    U98, ET|RIGHT}, /*cputime*/ /* was 6 wide */
++{"time",      "TIME",    pr_time,     sr_time,     8,   0,    U98, ET|RIGHT}, /*cputime*/ /* was 6 wide */
+ {"timeout",   "TMOUT",   pr_nop,      sr_nop,     5,   0,    LNX, AN|RIGHT}, // 2.0.xx era
+ {"tmout",     "TMOUT",   pr_nop,      sr_nop,     5,   0,    LNX, AN|RIGHT}, // 2.0.xx era
+ {"tname",     "TTY",     pr_tty8,     sr_tty,     8,   0,    DEC, PO|LEFT},
+-- 
+1.7.0
+

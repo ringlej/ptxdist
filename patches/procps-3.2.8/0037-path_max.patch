@@ -1,0 +1,87 @@
+From 3bf20a04ddbdf435e20a190dc45cabb5d02c7b68 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 37/70] path_max
+
+===================================================================
+---
+ proc/readproc.c |    2 +-
+ pwdx.c          |   20 ++++++++++++++++----
+ 2 files changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/proc/readproc.c b/proc/readproc.c
+index 0386a63..d3e85a3 100644
+--- a/proc/readproc.c
++++ b/proc/readproc.c
+@@ -1036,7 +1036,7 @@ proc_data_t *readproctab2(int(*want_proc)(proc_t *buf), int(*want_task)(proc_t *
+  * and filled out proc_t structure.
+  */
+ proc_t * get_proc_stats(pid_t pid, proc_t *p) {
+-	static char path[PATH_MAX], sbuf[1024];
++	static char path[32], sbuf[1024];
+ 	struct stat statbuf;
+ 
+ 	sprintf(path, "/proc/%d", pid);
+diff --git a/pwdx.c b/pwdx.c
+index cb96a52..3e88f3c 100644
+--- a/pwdx.c
++++ b/pwdx.c
+@@ -35,7 +35,6 @@ static void version(void)
+ 
+ int main(int argc, char* argv[])
+ {
+-     char buf[PATH_MAX+1];
+      regex_t re;
+      int i;
+ 
+@@ -59,6 +58,7 @@ int main(int argc, char* argv[])
+ 
+      for (i = 1; i < argc; i++) {
+           if (regexec(&re, argv[i], 0, NULL, 0) != 0) {
++               char buf[27 + strlen (argv[i]) + 1];  // Constant 27 is the length of the error string "pwdx: ... "
+                snprintf(buf, sizeof buf, "pwdx: invalid process id: %s\n", argv[i]);
+                die(buf);
+           }
+@@ -68,9 +68,13 @@ int main(int argc, char* argv[])
+ 
+      regfree(&re);
+ 
++     int alloclen = 128;
++     char *pathbuf = malloc(alloclen);
++
+      for (i = 1; i < argc; i++) {
+-          char * s = buf;
++          char * s;
+           int len;
++          char buf[10 + strlen(argv[i]) + 1]; // Constant 10 is the length of strings "/proc/" + "/cwd" + 1
+           
+           // At this point, all arguments are in the form /proc/nnnn
+           // or nnnn, so a simple check based on the first char is
+@@ -82,14 +86,22 @@ int main(int argc, char* argv[])
+ 
+           // buf contains /proc/nnnn/cwd symlink name on entry, the
+           // target of that symlink on return
+-          if ((len = readlink(buf, buf, PATH_MAX)) < 0) {
++          while ((len = readlink(buf, pathbuf, alloclen)) == alloclen) {
++               alloclen *= 2;
++               pathbuf = realloc(pathbuf, alloclen);
++          }
++
++          if (len < 0) {
+                s = strerror(errno == ENOENT ? ESRCH : errno);
+           } else {
+-               buf[len] = 0;
++               pathbuf[len] = 0;
++               s = pathbuf;
+           }
+ 
+           printf("%s: %s\n", argv[i], s);
+      }
+ 
++     free(pathbuf);
++
+      return 0;
+ }
+-- 
+1.7.0
+

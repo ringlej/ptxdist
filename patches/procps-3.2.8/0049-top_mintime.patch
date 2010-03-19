@@ -1,0 +1,27 @@
+From cf99e9bb004f6c6eb649d34bea8221bc7501d106 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 49/70] top_mintime
+
+===================================================================
+---
+ top.c |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/top.c b/top.c
+index 6cc1a93..f6880b5 100644
+--- a/top.c
++++ b/top.c
+@@ -2552,7 +2552,8 @@ static void do_key (unsigned c)
+          else {
+             float tmp =
+                get_float(fmtmk("Change delay from %.1f to", Rc.delay_time));
+-            if (tmp > -1) Rc.delay_time = tmp;
++            if (tmp == 0.0) show_msg("\aNot valid");
++            else if (tmp > 0) Rc.delay_time = tmp;
+          }
+          break;
+ 
+-- 
+1.7.0
+

@@ -1,0 +1,47 @@
+From 9f1caa3ae8d638b24356f4d4e12b3c88aa2451a9 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 39/70] gnu-kbsd-version
+
+===================================================================
+---
+ proc/version.c |   20 ++++++++++++++------
+ 1 files changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/proc/version.c b/proc/version.c
+index 69bae4f..96ffb7f 100644
+--- a/proc/version.c
++++ b/proc/version.c
+@@ -35,15 +35,23 @@ int linux_version_code;
+ 
+ static void init_Linux_version(void) __attribute__((constructor));
+ static void init_Linux_version(void) {
+-    static struct utsname uts;
+     int x = 0, y = 0, z = 0;	/* cleared in case sscanf() < 3 */
++    FILE *fp;
++    char buf[256];
+     
+-    if (uname(&uts) == -1)	/* failure implies impending death */
+-	exit(1);
+-    if (sscanf(uts.release, "%d.%d.%d", &x, &y, &z) < 3)
++    if ( (fp=fopen("/proc/version","r")) == NULL) /* failure implies impending death */
++      exit(1);
++    if (fgets(buf, 256, fp) == NULL) {
++      fprintf(stderr, "Cannot read kernel version from /proc/version\n");
++      fclose(fp);
++      exit(1);
++    }
++    fclose(fp);
++    if (sscanf(buf, "Linux version %d.%d.%d", &x, &y, &z) < 3)
+ 	fprintf(stderr,		/* *very* unlikely to happen by accident */
+ 		"Non-standard uts for running kernel:\n"
+-		"release %s=%d.%d.%d gives version code %d\n",
+-		uts.release, x, y, z, LINUX_VERSION(x,y,z));
++        "release %s=%d.%d.%d gives version code %d\n",
++        buf,
++        x, y, z, LINUX_VERSION(x,y,z));
+     linux_version_code = LINUX_VERSION(x, y, z);
+ }
+-- 
+1.7.0
+

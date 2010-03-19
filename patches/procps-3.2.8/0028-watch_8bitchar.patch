@@ -1,0 +1,26 @@
+From a91e6470c2f1f6bbe481988fbf2a6af6bb87fd6c Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 28/70] watch_8bitchar
+
+===================================================================
+---
+ watch.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/watch.c b/watch.c
+index 5841168..eb5ce92 100644
+--- a/watch.c
++++ b/watch.c
+@@ -297,7 +297,7 @@ main(int argc, char *argv[])
+ 				move(y, x);
+ 				if (option_differences) {
+ 					chtype oldch = inch();
+-					char oldc = oldch & A_CHARTEXT;
++					unsigned char oldc = oldch & A_CHARTEXT;
+ 					attr = !first_screen
+ 					    && ((char)c != oldc
+ 						||
+-- 
+1.7.0
+

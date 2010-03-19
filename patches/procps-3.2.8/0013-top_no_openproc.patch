@@ -1,0 +1,30 @@
+From 9b25ed7c35e2c33e585b893052bcf6d8283b5eca Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:45 +0100
+Subject: [PATCH 13/70] top_no_openproc
+
+===================================================================
+---
+ top.c |    6 ++++++
+ 1 files changed, 6 insertions(+), 0 deletions(-)
+
+diff --git a/top.c b/top.c
+index c7e7553..72056a1 100644
+--- a/top.c
++++ b/top.c
+@@ -1106,6 +1106,12 @@ static proc_t **procs_refresh (proc_t **table, int flags)
+    else
+       PT = openproc(flags);
+ 
++    if (PT==NULL) {
++        std_err(strerror(errno));
++        exit(1);
++    }
++
++
+    // i) Allocated Chunks:  *Existing* table;  refresh + reuse
+    if (!(CHKw(Curwin, Show_THREADS))) {
+       while (curmax < savmax) {
+-- 
+1.7.0
+

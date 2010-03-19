@@ -1,0 +1,25 @@
+From c09814258383e1c032c6df12ae96d5e56386daef Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 54/70] top_nohz
+
+===================================================================
+---
+ top.c |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/top.c b/top.c
+index d86a311..ea33989 100644
+--- a/top.c
++++ b/top.c
+@@ -2916,6 +2916,7 @@ static void summaryhlp (CPU_t *cpu, const char *pfx)
+    s_frme = cpu->s - cpu->s_sav;
+    n_frme = cpu->n - cpu->n_sav;
+    i_frme = TRIMz(cpu->i - cpu->i_sav);
++   if ((u_frme == 0) && (i_frme == 0)) i_frme = 100.0;
+    w_frme = cpu->w - cpu->w_sav;
+    x_frme = cpu->x - cpu->x_sav;
+    y_frme = cpu->y - cpu->y_sav;
+-- 
+1.7.0
+

@@ -1,0 +1,35 @@
+From 49aba46c22ec4af297566165dda611fe6c3c792b Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:46 +0100
+Subject: [PATCH 31/70] readproc_c
+
+return if unable to open /proc
+---
+ proc/readproc.c |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+diff --git a/proc/readproc.c b/proc/readproc.c
+index 4fad11d..0386a63 100644
+--- a/proc/readproc.c
++++ b/proc/readproc.c
+@@ -173,7 +173,7 @@ ENTER(0x220);
+         // examine a field name (hash and compare)
+     base:
+         if(unlikely(!*S)) break;
+-        entry = table[63 & (asso[S[3]] + asso[S[2]] + asso[S[0]])];
++        entry = table[63 & (asso[(int)S[3]] + asso[(int)S[2]] + asso[(int)S[0]])];
+         colon = strchr(S, ':');
+         if(unlikely(!colon)) break;
+         if(unlikely(colon[1]!='\t')) break;
+@@ -942,6 +942,8 @@ proc_t** readproctab(int flags, ...) {
+     else
+ 	PT = openproc(flags);
+     va_end(ap);
++    if (!PT)
++      return 0;
+     do {					/* read table: */
+ 	tab = xrealloc(tab, (n+1)*sizeof(proc_t*));/* realloc as we go, using */
+ 	tab[n] = readproc_direct(PT, NULL);     /* final null to terminate */
+-- 
+1.7.0
+

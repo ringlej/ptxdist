@@ -1,0 +1,26 @@
+From 57506edfb12bcb7b14d8614d9e79872beeca05a9 Mon Sep 17 00:00:00 2001
+From: http://ftp.de.debian.org/debian/pool/main/p/procps/procps_3.2.8-8.debian.tar.gz <info@debian.org>
+Date: Fri, 19 Mar 2010 21:58:45 +0100
+Subject: [PATCH 19/70] w_time
+
+===================================================================
+---
+ w.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/w.c b/w.c
+index 1b2a0fc..a6b1b25 100644
+--- a/w.c
++++ b/w.c
+@@ -83,7 +83,7 @@ static void print_time_ival7(time_t t, int centi_sec, FILE* fout) {
+     else if (t > 60)				/* > 1 minute */
+ 	fprintf(fout, " %2lu:%02u ", t/60, (unsigned) t%60);
+     else
+-	fprintf(fout, " %2lu.%02us", t, centi_sec);
++    fprintf(fout, " %2lu.%02us", t, centi_sec);
+ }
+ 
+ /**** stat the device file to get an idle time */
+-- 
+1.7.0
+
