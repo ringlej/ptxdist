@@ -248,7 +248,7 @@ ptxd_kconfig() {
 		;;
 	*)
 		echo
-		echo "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
+		echo "${PTXDIST_LOG_PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
 		echo
 		exit 1
 		;;
@@ -309,7 +309,7 @@ ptxd_kconfig() {
 		;;
 	*)
 		echo
-		echo "${PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
+		echo "${PTXDIST_LOG_PROMPT}error: invalid use of '${FUNCNAME} ${@}'"
 		echo
 		exit 1
 		;;
