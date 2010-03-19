@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Erwin Rol
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -35,9 +36,6 @@ $(LIBCROCO_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBCROCO_PATH	:= PATH=$(CROSS_PATH)
-LIBCROCO_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
@@ -67,7 +65,7 @@ $(STATEDIR)/libcroco.targetinstall:
 	@$(call install_fixup, libcroco,DEPENDS,)
 	@$(call install_fixup, libcroco,DESCRIPTION,missing)
 
-	@$(call install_copy, libcroco, 0, 0, 0755, -, \
+	@$(call install_copy, libcroco, 0, 0, 0644, -, \
 		 /usr/lib/libcroco-0.6.so.3.0.1)
 	@$(call install_link, libcroco, libcroco-0.6.so.3.0.1, \
 		/usr/lib/libcroco-0.6.so.3)

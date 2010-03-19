@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Luotao Fu <l.fu@pengutronix.de>
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -55,7 +56,7 @@ $(STATEDIR)/bzip2.targetinstall:
 	@$(call install_fixup, bzip2,DESCRIPTION,missing)
 
 ifdef PTXCONF_BZIP2_LIBBZ2
-	@$(call install_copy, bzip2, 0, 0, 0755, -, /usr/lib/libbz2.so.1.0.4)
+	@$(call install_copy, bzip2, 0, 0, 0644, -, /usr/lib/libbz2.so.1.0.4)
 	@$(call install_link, bzip2, libbz2.so.1.0.4, /usr/lib/libbz2.so.1.0)
 endif
 

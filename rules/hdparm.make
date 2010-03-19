@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_HDPARM) += hdparm
 #
 # Paths and names
 #
-HDPARM_VERSION	:= 9.10
+HDPARM_VERSION	:= 9.28
 HDPARM		:= hdparm-$(HDPARM_VERSION)
 HDPARM_SUFFIX	:= tar.gz
 HDPARM_URL	:= $(PTXCONF_SETUP_SFMIRROR)/hdparm/$(HDPARM).$(HDPARM_SUFFIX)
@@ -37,8 +37,8 @@ $(HDPARM_SOURCE):
 # Compile
 # ----------------------------------------------------------------------------
 
-HDPARM_PATH	:= PATH=$(CROSS_PATH)
-HDPARM_MAKE_ENV	:= $(CROSS_ENV)
+HDPARM_CONF_TOOL := NO
+HDPARM_MAKE_ENV := $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install

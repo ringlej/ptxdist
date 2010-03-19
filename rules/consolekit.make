@@ -91,7 +91,7 @@ $(STATEDIR)/consolekit.targetinstall:
 	@$(call install_copy, consolekit, 0, 0, 0755, -, \
 		/usr/lib/ConsoleKit/scripts/ck-system-stop)
 
-	@$(call install_copy, consolekit, 0, 0, 0755, -, \
+	@$(call install_copy, consolekit, 0, 0, 0644, -, \
 		/usr/lib/libck-connector.so.0.0.0)
 	@$(call install_link, consolekit, libck-connector.so.0.0.0, \
 		/usr/lib/libck-connector.so.0)

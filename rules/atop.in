@@ -1,10 +1,13 @@
 ## SECTION=shell_and_console
+
 config ATOP
 	tristate "atop"
 	select ZLIB
 	select NCURSES
 	select LIBC_M
 	help
+	  Monitor for system resources and process activity
+
 	  Atop is an ASCII full-screen performance monitor that is capable of
 	  reporting the activity of all processes (even if processes have
 	  finished during the interval), daily logging of system and process
@@ -15,5 +18,5 @@ config ATOP
 	  CPU utilization, the memory growth, priority, username, state,
 	  and exit code.
 
-	  http://www.atcomputing.nl/Tools/atop
+	  http://www.atoptool.nl/
 

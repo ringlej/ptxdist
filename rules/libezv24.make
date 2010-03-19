@@ -37,13 +37,7 @@ $(LIBEZV24_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBEZV24_PATH	:= PATH=$(CROSS_PATH)
-LIBEZV24_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-LIBEZV24_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBEZV24_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -61,7 +55,7 @@ $(STATEDIR)/libezv24.targetinstall:
 	@$(call install_fixup,libezv24,DEPENDS,)
 	@$(call install_fixup,libezv24,DESCRIPTION,missing)
 
-	@$(call install_copy, libezv24, 0, 0, 0755, -, \
+	@$(call install_copy, libezv24, 0, 0, 0644, -, \
 		/usr/lib/libezV24.so.0.0.0)
 
 	@$(call install_link, libezv24, \

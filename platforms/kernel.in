@@ -4,6 +4,7 @@ menuconfig KERNEL
 	select IMAGE_KERNEL
 	select HOST_UMKIMAGE		if KERNEL_IMAGE_U
 	select HOST_XZ			if KERNEL_XZ
+	select HOST_LZOP		if KERNEL_LZOP
 	select CROSS_MODULE_INIT_TOOLS	if KERNEL_MODULES
 	prompt "Linux kernel                  "
 
@@ -190,6 +191,17 @@ config KERNEL_XZ
 	  Select this if you're going to build your kernel compressed
 	  with lzma and your host system is lacking the proper tools.
 	  ("xz-utils" or the deprecated "lzma" package)
+
+	  Select this if you're unsure, as it won't hurt. It just
+	  increases the build time.
+
+config KERNEL_LZOP
+	prompt "build lzop hosttool"
+	bool
+	help
+	  Select this if you're going to build your kernel compressed
+	  with lzo and your host system is lacking the proper tools.
+	  (the "lzop" package)
 
 	  Select this if you're unsure, as it won't hurt. It just
 	  increases the build time.

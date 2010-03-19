@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBJPEG) += libjpeg
 #
 # Paths and names
 #
-LIBJPEG_VERSION	:= 8
+LIBJPEG_VERSION	:= 8a
 LIBJPEG_SUFFIX	:= tar.gz
 LIBJPEG		:= jpeg-$(LIBJPEG_VERSION)
 LIBJPEG_TARBALL	:= jpegsrc.v$(LIBJPEG_VERSION).$(LIBJPEG_SUFFIX)
@@ -38,13 +38,7 @@ $(LIBJPEG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBJPEG_PATH	:= PATH=$(CROSS_PATH)
-LIBJPEG_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-LIBJPEG_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBJPEG_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -63,9 +57,9 @@ $(STATEDIR)/libjpeg.targetinstall:
 	@$(call install_fixup, libjpeg,DESCRIPTION,missing)
 
 	@$(call install_copy, libjpeg, 0, 0, 0644, -, \
-		/usr/lib/libjpeg.so.8.0.0)
-	@$(call install_link, libjpeg, libjpeg.so.8.0.0, /usr/lib/libjpeg.so.8)
-	@$(call install_link, libjpeg, libjpeg.so.8.0.0, /usr/lib/libjpeg.so)
+		/usr/lib/libjpeg.so.8.0.1)
+	@$(call install_link, libjpeg, libjpeg.so.8.0.1, /usr/lib/libjpeg.so.8)
+	@$(call install_link, libjpeg, libjpeg.so.8.0.1, /usr/lib/libjpeg.so)
 
 	@$(call install_finish, libjpeg)
 

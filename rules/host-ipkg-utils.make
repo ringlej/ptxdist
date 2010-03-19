@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2005 by Robert Schwebel
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -35,12 +36,8 @@ $(HOST_IPKG_UTILS_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_IPKG_UTILS_PATH	:= PATH=$(HOST_PATH)
-HOST_IPKG_UTILS_ENV 	:= $(HOST_ENV)
-HOST_IPKG_UTILS_MAKEVARS := PREFIX=$(PTXCONF_SYSROOT_HOST)
-
-$(STATEDIR)/host-ipkg-utils.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+HOST_IPKG_UTILS_CONF_TOOL := NO
+HOST_IPKG_UTILS_MAKE_OPT := PREFIX=$(PTXCONF_SYSROOT_HOST) $(HOST_ENV_CC)
+HOST_IPKG_UTILS_INSTALL_OPT := $(HOST_IPKG_UTILS_MAKE_OPT) install
 
 # vim: syntax=make

@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Denis Oliver Kropp
+#               2010 by Marc Kleine-Budde <mkl@penugtronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -35,13 +36,7 @@ $(LITE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LITE_PATH	:= PATH=$(CROSS_PATH)
-LITE_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-LITE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LITE_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -59,14 +54,12 @@ $(STATEDIR)/lite.targetinstall:
 	@$(call install_fixup, lite,DEPENDS,)
 	@$(call install_fixup, lite,DESCRIPTION,missing)
 
-	@$(call install_copy, lite, 0, 0, 0755, -, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/lib/liblite.so.3.0.5)
-
 	@$(call install_link, lite, liblite.so.3.0.5, /usr/lib/liblite.so.3)
 
-	@$(call install_copy, lite, 0, 0, 0755, -, \
+	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/lib/libleck.so.3.0.5)
-
 	@$(call install_link, lite, libleck.so.3.0.5, /usr/lib/libleck.so.3)
 
 	@$(call install_copy, lite, 0, 0, 0644, -, \
