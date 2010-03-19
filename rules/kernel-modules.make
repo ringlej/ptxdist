@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_KERNEL_MODULES) += kernel-modules
 #
 # Paths and names
 #
-KERNEL_MODULES_VERSION	:= 1.0.0
+KERNEL_MODULES_VERSION	:= $(KERNEL_VERSION)
 KERNEL_MODULES		:= kernel-modules-$(KERNEL_MODULES_VERSION)
 KERNEL_MODULES_DIR		:= $(BUILDDIR)/$(KERNEL_MODULES)
 
@@ -78,6 +78,15 @@ $(STATEDIR)/kernel-modules.install:
 
 $(STATEDIR)/kernel-modules.targetinstall:
 	@$(call targetinfo)
+	@$(call install_init,  kernel-modules)
+	@$(call install_fixup, kernel-modules, PACKAGE,kernel-modules)
+	@$(call install_fixup, kernel-modules, PRIORITY,optional)
+	@$(call install_fixup, kernel-modules, VERSION,$(KERNEL_VERSION))
+	@$(call install_fixup, kernel-modules, SECTION,base)
+	@$(call install_fixup, kernel-modules, AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, kernel-modules, DEPENDS,)
+	@$(call install_fixup, kernel-modules, DESCRIPTION,missing)
+
 	@cd $(KERNEL_MODULES_PKGDIR) && \
 	find lib -type d | while read dir; do \
 		$(call install_copy, kernel-modules, 0, 0, 0755, /$${dir}); \
@@ -86,16 +95,26 @@ $(STATEDIR)/kernel-modules.targetinstall:
 ifdef PTXCONF_KERNEL_MODULES_ALL
 	@cd $(KERNEL_MODULES_PKGDIR) && \
 	find lib -type f | while read file; do \
-		$(call install_copy, kernel-modules, 0, 0, 0644, -, /$${file}); \
+		$(call install_copy, kernel-modules, 0, 0, 0644, -, /$${file}, k); \
 	done
 endif
 
 ifdef PTXCONF_KERNEL_MODULES_USER_SPEC
-	KVER="$$(cat $(KERNEL_DIR)/include/config/kernel.release)"; \
-	cat $(call remove_quotes, $(PTXCONF_KERNEL_MODULES_USER_SPEC_FILE)) | while read file; do \
-		$(call install_copy, kernel-modules, 0, 0, 0644, -, /lib/modules/$${KVER}/$${file}); \
+
+ifdef PTXCONF_KERNEL_MODULES_INSTALL_MODULES_INFO
+	cd $(KERNEL_MODULES_PKGDIR) && \
+	find lib -name "modules.*" | while read file; do \
+		$(call install_copy, kernel-modules, 0, 0, 0644, -, /$${file}); \
 	done
 endif
+
+	@KVER="$$(cat $(KERNEL_DIR)/include/config/kernel.release)"; \
+	cd $(KERNEL_MODULES_PKGDIR) && while read file; do \
+		$(call install_copy, kernel-modules, 0, 0, 0644, -, /lib/modules/$${KVER}/$${file}, k); \
+	done < $(call remove_quotes, $(PTXCONF_KERNEL_MODULES_USER_SPEC_FILE))
+endif
+
+	@$(call install_finish, kernel-modules)
 	@$(call touch)
 
 # vim: syntax=make

@@ -1,11 +1,16 @@
-menuconfig KERNEL
+menuconfig KERNEL_CORE
 	bool
-	default y
+	prompt "Linux kernel                  "
+
+
+if KERNEL_CORE
+
+config KERNEL
+	bool
+	default KERNEL_CORE
 	select IMAGE_KERNEL
 	select HOST_UMKIMAGE		if KERNEL_IMAGE_U
 	select HOST_XZ			if KERNEL_XZ
-	select CROSS_MODULE_INIT_TOOLS	if KERNEL_MODULES
-	prompt "Linux kernel                  "
 
 if KERNEL
 
@@ -13,21 +18,64 @@ config KERNEL_INSTALL
 	bool
 	prompt "install kernel into /boot"
 
-config KERNEL_MODULES
+endif	# KERNEL
+
+
+menuconfig KERNEL_MODULES
 	bool
+	select CROSS_MODULE_INIT_TOOLS
+	select KERNEL
 	default y
 	prompt "build kernel-modules"
 
-config KERNEL_MODULES_INSTALL
+if KERNEL_MODULES
+
+choice
+	prompt "install kernel modules"
+    default KERNEL_MODULES_ALL
+	help
+	  FIXME
+
+config KERNEL_MODULES_ALL
 	bool
-	default y
-	prompt "Install modules into /lib/modules"
-	depends on KERNEL_MODULES
+	prompt "all"
+	help
+	  FIXME
+
+config KERNEL_MODULES_USER_SPEC
+	bool
+	prompt "selected from spec file"
+	help
+	  FIXME
+
+endchoice
+
+if KERNEL_MODULES_USER_SPEC
+
+config KERNEL_MODULES_INSTALL_MODULES_INFO
+	bool
+	prompt "Install modules info"
+	help
+	  FIXME
+
+config KERNEL_MODULES_USER_SPEC_FILE
+	string
+	prompt "kernel module spec file"
+	default "${PTXDIST_WORKSPACE}/kernel_modules${PTXDIST_PLATFORMSUFFIX}"
+	help
+      FIXME
+
+endif
 
 config KERNEL_MODULES_BUILD
 	depends on KERNEL_MODULES
 	string
 	default "modules"
+
+endif
+
+
+if KERNEL
 
 config KERNEL_VERSION
 	prompt "kernel version"
@@ -265,3 +313,5 @@ config KERNEL_SYMLINK_IN_PROJECTDIR
 	  extracted the specified kernel version.
 
 endif	# KERNEL
+
+endif	# KERNEL_CORE
