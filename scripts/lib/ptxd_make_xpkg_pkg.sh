@@ -131,7 +131,18 @@ ptxd_install_file_strip() {
 	*) ptxd_bailout "${FUNCNAME}: invalid values for strip='${strip}' or ptx_use_sstrip='${ptx_use_sstrip}'" ;;
     esac
 
-    "${strip_cmd[@]}" "${@}"
+    #
+    # create hardlink so that inode stays the same during strip
+    # (fixes 64 bit fakeroot <-> 32 bit strip issue)
+    #
+    local tmp="strip"
+    local file
+    for file in "${@}"; do
+	ln -f "${file}" "${file}.${tmp}" || return
+    done &&
+
+    "${strip_cmd[@]}" "${@}" &&
+    rm -f "${@/%/.${tmp}}"
 }
 export -f ptxd_install_file_strip
 
