@@ -111,6 +111,31 @@ EOF
 }
 export -f ptxd_install_dir
 
+
+#
+# $@: files to strip
+#
+# $strip: k for kernel modules
+#         y for normal executables and libraries
+#
+# $ptx_use_sstrip: "y" use sstrip, 'n' use binutils strip
+#
+#
+ptxd_install_file_strip() {
+    local -a strip_cmd
+
+    case "${strip:-y}${ptx_use_sstrip:-n}" in
+	k*) strip_cmd=( "${CROSS_STRIP}" --strip-debug ) ;;
+	yn) strip_cmd=( "${CROSS_STRIP}" -R .note -R .comment ) ;;
+	yy) strip_cmd=( sstrip ) ;;
+	*) ptxd_bailout "${FUNCNAME}: invalid values for strip='${strip}' or ptx_use_sstrip='${ptx_use_sstrip}'" ;;
+    esac
+
+    "${strip_cmd[@]}" "${@}"
+}
+export -f ptxd_install_file_strip
+
+
 ptxd_install_file_impl() {
     local src="$1"
     local dst="$2"
@@ -134,42 +159,31 @@ EOF
     ptxd_exist "${src}" &&
     rm -f "${dirs[@]/%/${dst}}" &&
 
-    # install with r/w permissions, because we may strip later
-    for d in "${ndirs[@]/%/${dst}}"; do
-	install -m "${mod_rw}" -D "${src}" "${d}" || return
-    done &&
-
-    for d in "${pdirs[@]/%/${dst}}"; do
-	install -m "${mod_rw}" -o "${usr}" -g "${grp}" -D "${src}" "${d}" || return
-    done &&
-
+    # check if src is a link
     if [ -L "${src}" ]; then
-	ptxd_pedantic "file '${src}' is a link"
-	src="$(readlink -f "${src}")"
+	ptxd_pedantic "file '${src}' is a link" &&
+	src="$(readlink -f "${src}")" &&
 	echo "using '${src}' instead"
     fi &&
 
-    if ! file "${src}" | egrep -q ":.*(executable|shared object|ELF.*relocatable).*stripped"; then
-	strip="n"
+    # just install with r/w permissions for now
+    for d in "${dirs[@]/%/${dst}}"; do
+	install -m "${mod_rw}" -D "${src}" "${d}" || return
+    done &&
+
+    if file "${src}" | egrep -q ":.*(executable|shared object|ELF.*relocatable).*stripped"; then
+	case "${strip}" in
+	    0|n|no|N|NO) ;;
+	    *) ptxd_install_file_strip "${sdirs[@]/%/${dst}}" ;;
+	esac
     fi &&
-    case "${strip}" in
-	0|n|no) ;;
-	k) "${CROSS_STRIP}" --strip-debug "${sdirs[@]/%/${dst}}" ;;
-	*)
-	    case "${ptx_use_sstrip}" in
-		y) sstrip "${sdirs[@]/%/${dst}}" ;;
-		*) "${CROSS_STRIP}" -R .note -R .comment "${sdirs[@]/%/${dst}}" ;;
-	    esac
-    esac &&
 
     # now change to requested permissions
-    for d in "${ndirs[@]/%/${dst}}"; do
-	chmod "${mod_nfs}" "${d}" || return
-    done &&
+    chmod "${mod_nfs}" "${ndirs[@]/%/${dst}}" &&
+    chmod "${mod}"     "${pdirs[@]/%/${dst}}" &&
 
-    for d in "${pdirs[@]/%/${dst}}"; do
-	chmod "${mod}" "${d}" || return
-    done &&
+    # now change to requested user and group
+    chown "${usr}:${grp}" "${pdirs[@]/%/${dst}}" &&
 
     echo "f:${dst}:${usr}:${grp}:${mod}" >> "${pkg_xpkg_perms}"
 }
