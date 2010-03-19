@@ -64,6 +64,10 @@ $(STATEDIR)/dash.targetinstall:
 
 	@$(call install_copy, dash, 0, 0, 0755, -, /bin/dash)
 
+ifdef PTXCONF_DASH_LINK_SH
+	@$(call install_link, dash, dash, /bin/sh)
+endif
+
 	@$(call install_finish, dash)
 
 	@$(call touch)
