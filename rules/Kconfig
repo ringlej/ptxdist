@@ -102,9 +102,9 @@ menu "Test Suites                   "
 source "generated/test_suites.in"
 endmenu
 
-menu "Development Tools             "
-source "generated/development.in"
-endmenu
+#menu "Development Tools             "
+#source "generated/development.in"
+#endmenu
 
 menu "Games                         "
 source "generated/games.in"
