@@ -59,13 +59,79 @@ ptxd_make_world_patchin_apply_init()
     fi
 
     # decide which tool to use
-    if which quilt > /dev/null 2>&1; then
+    if [ "${PTXCONF_SETUP_PATCHIN_GIT}" ] && which git > /dev/null 2>&1; then
+	pkg_patch_tool=git
+    elif which quilt > /dev/null 2>&1; then
 	pkg_patch_tool=quilt
     else
 	pkg_patch_tool=patch
     fi
 }
 export -f ptxd_make_world_patchin_apply_init
+
+
+#
+# initialize git database in $pkg_patchin_dir and do initial commit
+#
+ptxd_make_world_patchin_apply_git_init()
+{
+    local git_dir
+    git_dir="$(git rev-parse --git-dir 2> /dev/null)" || true
+
+    # is already git repo?
+    if [ "${git_dir}" != ".git" ]; then
+	git init -q "${pkg_patchin_dir}" &&
+	git add -f . &&
+	git commit -q -m "initial commit" --author="ptxdist-${PTXDIST_VERSION_FULL} <ptxdist@pengutronix.de>" &&
+	git tag "${pkg_pkg}"
+	git tag base
+    fi
+}
+export -f ptxd_make_world_patchin_apply_git_init
+
+
+#
+# create a directory containing the patches and the selected series
+# file.  name that file "series"
+#
+ptxd_make_world_patchin_apply_git_compat()
+{
+    mv "${pkg_patchin_dir}/.ptxdist/patches" "${pkg_patchin_dir}/.ptxdist/patches.orig" &&
+    mkdir "${pkg_patchin_dir}/.ptxdist/patches" &&
+
+    # FIXME use lndir?
+
+    while read patch para; do
+	case "${patch}" in
+	    ""|"#"*) continue ;;	# skip empty lines and comments
+	    *)
+		# FIXME take care about subdirs
+		ln -s "../patches.orig/${patch}" "${pkg_patchin_dir}/.ptxdist/patches" || return
+		;;
+	esac
+    done < "${pkg_patchin_dir}/.ptxdist/series" &&
+
+    ln -sf "../series" "${pkg_patchin_dir}/.ptxdist/patches"
+}
+export -f ptxd_make_world_patchin_apply_git_compat
+
+
+#
+# apply patch series with git
+#
+ptxd_make_world_patchin_apply_git()
+{
+    #
+    # git quiltimport has uses a hardcoded "series"
+    # for now we cannot use git with series files not names "series"
+    #
+    if [ -n "${pkg_patch_series}" -a "${pkg_patch_series##*/}" != "series" ]; then
+	ptxd_make_world_patchin_apply_git_compat || return
+    fi
+
+    git quiltimport --patches "${pkg_patchin_dir}/.ptxdist/patches" --author "unknown author <unknown.author@example.com>"
+}
+export -f ptxd_make_world_patchin_apply_git
 
 
 #
@@ -125,6 +191,10 @@ ptxd_make_world_patchin_apply()
     ptxd_make_world_patchin_apply_init || return
     if [ -z "${pkg_patch_dir}" ]; then
 	return
+    fi &&
+
+    if [ "${pkg_patch_tool}" = "git" ]; then
+	ptxd_make_world_patchin_apply_git_init || return
     fi &&
 
     #

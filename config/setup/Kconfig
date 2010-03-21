@@ -233,6 +233,16 @@ config SETUP_CCACHE
 	  the same compile is being done again.
 
 
+config SETUP_PATCHIN_GIT
+	bool "use git to apply patches"
+	help
+
+	  Activating this option, ptxdist will use "git" instead of
+	  quilt to apply patches.
+
+	  _NOTE_: this is an experimental feature
+
+
 config SETUP_HOST_CC
 	prompt "host CC"
 	string
