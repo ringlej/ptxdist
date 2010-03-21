@@ -465,6 +465,29 @@ ptxd_abspath() {
 export -f ptxd_abspath
 
 
+#
+# prints a path but removes non interesting prefixes
+#
+ptxd_print_path() {
+
+    if [ $# -ne 1 ]; then
+	ptxd_bailout "number of arguments must be 1"
+    fi
+
+    local path out
+    for path in ${PTXDIST_PATH//:/ }; do
+	path="${path%/*}/"
+	out="${1/#${path}}"
+	if [ "${out}" != "${1}" ]; then
+	    break;
+	fi
+    done
+
+    echo "${out}"
+
+}
+export -f ptxd_print_path
+
 
 #
 # convert a human readable number with [kM] suffix or 0x prefix into a number
