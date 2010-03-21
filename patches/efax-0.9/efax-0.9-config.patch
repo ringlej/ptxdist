@@ -1,6 +1,11 @@
---- efax-0.9/Makefile.config	1999-03-12 02:00:34.000000000 +0100
-+++ efax-0.9/Makefile	2002-06-18 12:43:34.000000000 +0200
-@@ -8,7 +8,7 @@
+---
+ Makefile |    2 +-
+ fax      |   14 +++++++-------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+--- a/Makefile
++++ b/Makefile
+@@ -8,7 +8,7 @@ CC=gcc
  # Compile/load options. Add -DNO_STRERROR to CFLAGS if _strerror
  # is undefined
  
@@ -9,8 +14,8 @@
  LDFLAGS=
  
  # Change the following to the destination directories for
---- efax-0.9/fax.config	1999-03-24 09:07:28.000000000 +0100
-+++ efax-0.9/fax	2002-06-18 12:41:53.000000000 +0200
+--- a/fax
++++ b/fax
 @@ -17,9 +17,9 @@
  # The names of the fax script, efax and efix, including full path
  # if necessary.
@@ -24,7 +29,7 @@
  
  # The device to which the fax modem is connected (e.g. ttya for
  # /dev/ttya).  Use a dial-out (cua) device if available.  If
-@@ -28,16 +28,16 @@
+@@ -28,16 +28,16 @@ EFIX=efix
  # /dev/modem is a link to /dev/cua1, then getty, uucp, kermit,
  # pppd, dip, etc. must *all* use either /dev/modem or /dev/cua1.
  
@@ -44,7 +49,7 @@
  
  # The preferred page size for creating and printing faxes.
  # Allowed values are "letter", "legal", and "a4".
-@@ -67,7 +67,7 @@
+@@ -67,7 +67,7 @@ VIEWCMD="xloadimage stdin"		# best
  # The name of the Ghostscript executable including full path if
  # necessary.  Only required if faxing Postscript files.
  

@@ -1,6 +1,10 @@
---- efax-0.9/efax.c.orig	2003-05-20 14:33:31.000000000 +0200
-+++ efax-0.9/efax.c	2003-05-20 14:32:51.000000000 +0200
-@@ -759,7 +759,7 @@
+---
+ efax.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/efax.c
++++ b/efax.c
+@@ -759,7 +759,7 @@ int readfaxruns ( TFILE *f, DECODER *d, 
  	c = tgetd ( f, TO_CHAR ) ;
  
  	rd_state = ( rd_state & rd_allowed[c] ) ?
