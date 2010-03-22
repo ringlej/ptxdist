@@ -1,0 +1,5 @@
+## SECTION=core
+
+config KERNEL_MODULES
+	bool
+

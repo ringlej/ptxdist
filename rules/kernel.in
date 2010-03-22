@@ -3,6 +3,9 @@
 config KERNEL
 	bool
 
+config KERNEL_MODULES
+	bool
+
 config KERNEL_VMLINUX
 	bool
 	help
