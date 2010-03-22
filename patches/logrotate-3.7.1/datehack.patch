@@ -1,11 +1,15 @@
 No longer consider state file dates before 1996 as fatal errors.
 (Closes: #65534)
 
+---
+ logrotate.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 Index: logrotate-3.7.1/logrotate.c
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.c	2006-04-08 20:46:40.217463729 +0100
-+++ logrotate-3.7.1/logrotate.c	2006-04-08 20:52:51.770419373 +0100
-@@ -1145,7 +1145,7 @@
+--- logrotate-3.7.1.orig/logrotate.c
++++ logrotate-3.7.1/logrotate.c
+@@ -1145,7 +1145,7 @@ static int readState(char * stateFilenam
  	}
  	
  	/* Hack to hide earlier bug */

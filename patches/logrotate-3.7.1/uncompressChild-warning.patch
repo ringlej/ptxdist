@@ -1,8 +1,12 @@
+---
+ logrotate.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 Index: logrotate-3.7.1/logrotate.c
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.c	2006-04-08 22:58:51.000000000 +0100
-+++ logrotate-3.7.1/logrotate.c	2006-04-08 23:01:00.459602124 +0100
-@@ -209,7 +209,7 @@
+--- logrotate-3.7.1.orig/logrotate.c
++++ logrotate-3.7.1/logrotate.c
+@@ -209,7 +209,7 @@ static int compressLogFile(char * name, 
  static int mailLog(char * logFile, char * mailCommand, char * uncompressCommand, 
  		   char * address, char * subject) {
      int mailInput;

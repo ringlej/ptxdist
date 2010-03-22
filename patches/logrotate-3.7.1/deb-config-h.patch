@@ -1,10 +1,14 @@
 Fix locations of STATEFILE and DEFAULT_MAIL_COMMAND for Debian.
 
 
+---
+ config.h |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
 Index: logrotate-3.7.1/config.h
 ===================================================================
---- logrotate-3.7.1.orig/config.h	2006-04-08 20:26:13.052651364 +0100
-+++ logrotate-3.7.1/config.h	2006-04-08 20:51:24.180005096 +0100
+--- logrotate-3.7.1.orig/config.h
++++ logrotate-3.7.1/config.h
 @@ -20,7 +20,7 @@
   * Default settings for Linux - leave these last.
   */

@@ -18,11 +18,15 @@ with the day of the last rotation, 01:00 AM.  This can be solved by
 setting lastRotated.tm_isdst correctly prior to the mktime() call.
 
 
+---
+ logrotate.c |    1 +
+ 1 file changed, 1 insertion(+)
+
 Index: logrotate-3.7.1/logrotate.c
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.c	2006-04-08 21:36:03.268110593 +0100
-+++ logrotate-3.7.1/logrotate.c	2006-04-08 21:36:11.342764986 +0100
-@@ -78,6 +78,7 @@
+--- logrotate-3.7.1.orig/logrotate.c
++++ logrotate-3.7.1/logrotate.c
+@@ -78,6 +78,7 @@ static logState * findState(const char *
  	states[i].lastRotated.tm_mon = now.tm_mon;
  	states[i].lastRotated.tm_mday = now.tm_mday;
  	states[i].lastRotated.tm_year = now.tm_year;

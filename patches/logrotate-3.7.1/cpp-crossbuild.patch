@@ -6,11 +6,15 @@ dpkg-cross sets CPP variable, and compilation failures, because
 the executable 'cpp' does not accept multiple input files.
 
 
+---
+ Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 Index: logrotate-3.7.1/Makefile
 ===================================================================
---- logrotate-3.7.1.orig/Makefile	2003-10-09 21:05:07.000000000 +0100
-+++ logrotate-3.7.1/Makefile	2006-04-08 21:21:31.333853922 +0100
-@@ -88,7 +88,7 @@
+--- logrotate-3.7.1.orig/Makefile
++++ logrotate-3.7.1/Makefile
+@@ -88,7 +88,7 @@ clean:
  	rm -f $(OBJS) $(PROG) core* .depend
  
  depend:

@@ -1,11 +1,18 @@
 Enhance logrotate with "maxage".
 From upstream RedHat patch.
 
+---
+ config.c    |   15 +++++++++++++++
+ logrotate.8 |    6 ++++++
+ logrotate.c |   25 +++++++++++++++++++++++--
+ logrotate.h |    1 +
+ 4 files changed, 45 insertions(+), 2 deletions(-)
+
 Index: logrotate-3.7.1/logrotate.c
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.c	2006-04-08 20:38:58.277761983 +0100
-+++ logrotate-3.7.1/logrotate.c	2006-04-08 20:38:58.314755223 +0100
-@@ -640,7 +640,10 @@
+--- logrotate-3.7.1.orig/logrotate.c
++++ logrotate-3.7.1/logrotate.c
+@@ -640,7 +640,10 @@ int rotateSingleLog(logInfo * log, int l
  	     * the date in their name */
  	    for (i = 0; i < globResult.gl_pathc; i++) {
  		if( !stat((globResult.gl_pathv)[i],&fst_buf) ) {
@@ -17,7 +24,7 @@ Index: logrotate-3.7.1/logrotate.c
  			if ( mail_out != -1 ) {
  			    if (!hasErrors && log->logAddress) {
  				char * mailFilename = (globResult.gl_pathv)[mail_out];
-@@ -670,6 +673,22 @@
+@@ -670,6 +673,22 @@ int rotateSingleLog(logInfo * log, int l
  	globfree(&globResult);
  	free(glob_pattern);
      } else {
@@ -40,7 +47,7 @@ Index: logrotate-3.7.1/logrotate.c
  
      sprintf(oldName, "%s/%s.%d%s%s", dirName, baseName,
              logStart + rotateCount, fileext, compext);
-@@ -1188,7 +1207,9 @@
+@@ -1188,7 +1207,9 @@ static int readState(char * stateFilenam
  
  int main(int argc, const char ** argv) {
      logInfo defConfig = { NULL, NULL, 0, NULL, ROT_SIZE, 
@@ -53,9 +60,9 @@ Index: logrotate-3.7.1/logrotate.c
  			  /* first, last */ NULL, NULL,
 Index: logrotate-3.7.1/logrotate.h
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.h	2006-04-08 20:38:58.274762531 +0100
-+++ logrotate-3.7.1/logrotate.h	2006-04-08 20:38:58.315755040 +0100
-@@ -35,6 +35,7 @@
+--- logrotate-3.7.1.orig/logrotate.h
++++ logrotate-3.7.1/logrotate.h
+@@ -35,6 +35,7 @@ typedef struct {
      enum { ROT_DAYS, ROT_WEEKLY, ROT_MONTHLY, ROT_SIZE, ROT_FORCE } criterium;
      unsigned int threshhold;
      int rotateCount;
@@ -65,9 +72,9 @@ Index: logrotate-3.7.1/logrotate.h
      char * logAddress;
 Index: logrotate-3.7.1/config.c
 ===================================================================
---- logrotate-3.7.1.orig/config.c	2006-04-08 20:38:58.279761617 +0100
-+++ logrotate-3.7.1/config.c	2006-04-08 20:38:58.317754675 +0100
-@@ -678,6 +678,21 @@
+--- logrotate-3.7.1.orig/config.c
++++ logrotate-3.7.1/config.c
+@@ -678,6 +678,21 @@ static int readConfigFile(const char * c
  		    }
  		    *endtag = oldchar, start = endtag;
  		}
@@ -91,9 +98,9 @@ Index: logrotate-3.7.1/config.c
  			configFile, lineNum);
 Index: logrotate-3.7.1/logrotate.8
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.8	2006-04-08 20:38:58.280761435 +0100
-+++ logrotate-3.7.1/logrotate.8	2006-04-08 20:38:58.318754492 +0100
-@@ -251,6 +251,12 @@
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
+@@ -251,6 +251,12 @@ When using the \fBmail\fR command, mail 
  instead of the just-rotated file (this is the default).
  
  .TP

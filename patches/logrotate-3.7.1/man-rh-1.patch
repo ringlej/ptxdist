@@ -1,12 +1,16 @@
 Fixes from upstream 3.7.1-4:
  * Typo and missing information in man page (#139346)
 
+---
+ logrotate.8 |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
 Index: logrotate-3.7.1/logrotate.8
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.8	2006-04-08 21:16:19.525257240 +0100
-+++ logrotate-3.7.1/logrotate.8	2006-04-08 21:17:39.954145340 +0100
-@@ -126,7 +126,8 @@
- Each is rotated whenever it grows over 100k is size, and the old log
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
+@@ -126,7 +126,8 @@ The next section defines the parameters 
+ Each is rotated whenever it grows over 100k in size, and the old log
  files are mailed (uncompressed) to www@my.org after going through 5
  rotations, rather then being removed. The \fBsharedscripts\fR means that
 -the \fBpostrotate\fR script will only be run once, not once for each
@@ -15,7 +19,7 @@ Index: logrotate-3.7.1/logrotate.8
  log which is rotated. Note that log file names may be enclosed in
  quotes (and that quotes are required if the name contains spaces).
  Normal shell quoting rules apply, with \fB'\fR, \fB"\fR, and \fB\\\fR
-@@ -384,7 +385,7 @@
+@@ -376,7 +377,7 @@ times for log file entries which match m
  are only run once, no matter how many logs match the wildcarded pattern.
  However, if none of the logs in the pattern require rotating, the scripts
  will not be run at all. This option overrides the \fBnosharedscripts\fR
@@ -23,4 +27,4 @@ Index: logrotate-3.7.1/logrotate.8
 +option and implies \fBcreate\fR option.
  
  .TP
- \fBstart \fIcount\fR
+ \fBsize \fIsize\fR[\fBG\fR|\fBM\fR|\fBk\fR]

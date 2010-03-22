@@ -1,11 +1,15 @@
 Fix typo in the lastaction section of the manpage. It refers to itself 
 rather than to firstaction.
 
+---
+ logrotate.8 |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 Index: logrotate-3.7.1/logrotate.8
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.8	2006-04-08 21:11:37.760424103 +0100
-+++ logrotate-3.7.1/logrotate.8	2006-04-08 21:13:28.917607025 +0100
-@@ -359,7 +359,7 @@
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
+@@ -359,7 +359,7 @@ The lines between \fBlastaction\fR and \
  must appear on lines by themselves) are executed once after all log
  files that match the wildcarded pattern are rotated, after postrotate script
  is run and only if at least one log is rotated. These directives may only

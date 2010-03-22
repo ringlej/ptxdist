@@ -1,8 +1,14 @@
 Fix location of killall in the examples. (Closes: #189243)
 
---- /home/pm/deb/logrotate/logrotate-3.7/logrotate.8	2004-02-11 21:18:23.000000000 +0000
-+++ logrotate-3.7/logrotate.8	2004-02-11 21:18:54.000000000 +0000
-@@ -83,7 +83,7 @@
+---
+ logrotate.8 |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: logrotate-3.7.1/logrotate.8
+===================================================================
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
+@@ -83,7 +83,7 @@ compress
      rotate 5
      weekly
      postrotate
@@ -11,7 +17,7 @@ Fix location of killall in the examples. (Closes: #189243)
      endscript
  }
  
-@@ -93,7 +93,7 @@
+@@ -93,7 +93,7 @@ compress
      size=100k
      sharedscripts
      postrotate
