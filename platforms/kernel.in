@@ -212,7 +212,7 @@ menu "patching & configuration      "
 config KERNEL_SERIES
 	prompt "patch series file"
 	string
-	default "series${PTXDIST_PLATFORMSUFFIX}"
+	default "series"
 	help
 	  This entry specifies a patch series file which has to live in
 	  the kernel patches directory:
