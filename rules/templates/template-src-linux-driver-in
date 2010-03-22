@@ -2,7 +2,8 @@
 
 config @PACKAGE@
 	tristate
-	select KERNEL
+	select HOST_LNDIR
+	select KERNEL_MODULES
 	prompt "@package@"
 	help
 	  FIXME

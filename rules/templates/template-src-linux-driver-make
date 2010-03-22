@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 #
 @PACKAGE@_VERSION	:= @VERSION@
 @PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
-@PACKAGE@_SRCDIR		:= $(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
+@PACKAGE@_URL		:= lndir://$(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
 @PACKAGE@_LICENSE	:= unknown
 
@@ -40,14 +40,7 @@ $(STATEDIR)/@package@.extract:
 
 $(STATEDIR)/@package@.compile:
 	@$(call targetinfo)
-#	# The kernel cannot build an out-of-tree driver out-of-tree :-)
-#	# So we make a local copy.
-	rm -fr $(@PACKAGE@_DIR)
-	cp -a $(@PACKAGE@_SRCDIR) $(@PACKAGE@_DIR)
-	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) \
-		-C $(KERNEL_DIR) \
-		M=$(@PACKAGE@_DIR) \
-		modules
+	cd $(@PACKAGE@_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -56,6 +49,11 @@ $(STATEDIR)/@package@.compile:
 
 $(STATEDIR)/@package@.install:
 	@$(call targetinfo)
+	@$(call clean, $(@PACKAGE@_PKGDIR))
+	cd $(@PACKAGE@_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
+		$(filter-out INSTALL_MOD_PATH=%,$(KERNEL_MAKEVARS)) \
+		INSTALL_MOD_PATH=$(@PACKAGE@_PKGDIR) \
+		modules_install
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -64,10 +62,25 @@ $(STATEDIR)/@package@.install:
 
 $(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
-	$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) \
-		-C $(KERNEL_DIR) \
-		M=$(@PACKAGE@_DIR) \
-		modules_install
+	@$(call install_init, @package@)
+	@$(call install_fixup, @package@, PACKAGE, @package@)
+	@$(call install_fixup, @package@, PRIORITY, optional)
+	@$(call install_fixup, @package@, VERSION, $(@PACKAGE@_VERSION))
+	@$(call install_fixup, @package@, SECTION, base)
+	@$(call install_fixup, @package@, AUTHOR, "@AUTHOR@")
+	@$(call install_fixup, @package@, DEPENDS,)
+	@$(call install_fixup, @package@, DESCRIPTION, missing)
+
+	@cd $(@PACKAGE@_PKGDIR) && \
+	find lib -type d | while read dir; do \
+		$(call install_copy, @package@, 0, 0, 0755, /$${dir}); \
+	done
+
+	@cd $(@PACKAGE@_PKGDIR) && \
+	find lib -name "*.ko" | while read file; do \
+		$(call install_copy, @package@, 0, 0, 0644, -, /$${file}, k); \
+	done
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
