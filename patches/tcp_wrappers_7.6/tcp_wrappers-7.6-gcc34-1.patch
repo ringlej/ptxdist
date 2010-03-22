@@ -13,13 +13,19 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
 
-diff -aur tcp_wrappers_7.6/scaffold.c tcp_wrappers_7.6-new/scaffold.c
---- tcp_wrappers_7.6/scaffold.c	1997-03-21 10:27:24.000000000 -0800
-+++ tcp_wrappers_7.6-new/scaffold.c	2004-04-10 14:11:01.653193120 -0700
-@@ -25,7 +25,6 @@
+---
+ scaffold.c |    1 -
+ 1 file changed, 1 deletion(-)
+
+Index: tcp_wrappers_7.6/scaffold.c
+===================================================================
+--- tcp_wrappers_7.6.orig/scaffold.c
++++ tcp_wrappers_7.6/scaffold.c
+@@ -25,7 +25,6 @@ static char sccs_id[] = "@(#) scaffold.c
  #define	INADDR_NONE	(-1)		/* XXX should be 0xffffffff */
  #endif
  
 -extern char *malloc();
  
  /* Application-specific. */
+ 

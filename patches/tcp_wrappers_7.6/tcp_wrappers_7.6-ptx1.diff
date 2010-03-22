@@ -1,7 +1,13 @@
-diff -urN /home/robert/embedded/ptxdist-0.3.20pre/build/tcp_wrappers_7.6/Makefile tcp_wrappers_7.6/Makefile
---- /home/robert/embedded/ptxdist-0.3.20pre/build/tcp_wrappers_7.6/Makefile	1997-03-21 19:27:21.000000000 +0100
-+++ tcp_wrappers_7.6/Makefile	2003-02-04 16:18:35.000000000 +0100
-@@ -44,7 +44,7 @@
+---
+ Makefile    |    2 +-
+ percent_m.c |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+Index: tcp_wrappers_7.6/Makefile
+===================================================================
+--- tcp_wrappers_7.6.orig/Makefile
++++ tcp_wrappers_7.6/Makefile
+@@ -44,7 +44,7 @@ what:
  #REAL_DAEMON_DIR=/usr/etc
  #
  # SysV.4 Solaris 2.x OSF AIX
@@ -10,10 +16,11 @@ diff -urN /home/robert/embedded/ptxdist-0.3.20pre/build/tcp_wrappers_7.6/Makefil
  #
  # BSD 4.4
  #REAL_DAEMON_DIR=/usr/libexec
-diff -urN /home/robert/embedded/ptxdist-0.3.20pre/build/tcp_wrappers_7.6/percent_m.c tcp_wrappers_7.6/percent_m.c
---- /home/robert/embedded/ptxdist-0.3.20pre/build/tcp_wrappers_7.6/percent_m.c	1994-12-28 17:42:37.000000000 +0100
-+++ tcp_wrappers_7.6/percent_m.c	2003-02-04 16:20:11.000000000 +0100
-@@ -14,7 +14,7 @@
+Index: tcp_wrappers_7.6/percent_m.c
+===================================================================
+--- tcp_wrappers_7.6.orig/percent_m.c
++++ tcp_wrappers_7.6/percent_m.c
+@@ -14,7 +14,7 @@ static char sccsid[] = "@(#) percent_m.c
  
  extern int errno;
  #ifndef SYS_ERRLIST_DEFINED
