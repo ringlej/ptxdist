@@ -1,9 +1,9 @@
 ## SECTION=debug_tools
 
-config PRELINK
+menuconfig PRELINK
 	tristate
 	select LIBELF
-	prompt "prelink"
+	prompt "prelink                       "
 	help
 	  ELF prelinking utility to speed up dynamic linking.  The
 	  prelink package contains a utility which modifies ELF shared
@@ -22,4 +22,3 @@ config PRELINK_RC_ONCE
 	  prelink all programs and libraries.
 
 endif
-
