@@ -1,6 +1,6 @@
 ## SECTION=multimedia_sound
 
-menuconfig RAWREC
+config RAWREC
 	tristate
 	prompt "rawrec/rawplay"
 	help
