@@ -1,0 +1,24 @@
+## SECTION=disk_and_file
+
+menuconfig SQUASHFS_TOOLS
+	tristate
+	select ZLIB
+	prompt "squashfs-tools"
+	help
+	  Squashfs is a highly compressed read-only filesystem for Linux.
+	  It uses zlib compression to compress both files, inodes and directories.
+	  Inodes in the system are very small and all blocks are packed to minimise
+	  data overhead. Block sizes greater than 4K are supported up to a maximum
+	  of 1Mbytes (default block size 128K).
+
+if SQUASHFS_TOOLS
+
+config SQUASHFS_TOOLS_MKSQUASHFS
+	bool
+	prompt "Install mksquashfs"
+
+config SQUASHFS_TOOLS_UNSQUASHFS
+	bool
+	prompt "Install unsquashfs"
+
+endif

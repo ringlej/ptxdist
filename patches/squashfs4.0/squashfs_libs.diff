@@ -1,0 +1,34 @@
+Subject: Add way to change linker settings
+From: Erwin Rol <erwin@erwinrol.com>
+
+When cross compiling the linker can not find libz, this patch
+adds a LIBS variable that makes it possible to pass the right
+linker flags.
+
+Signed-off-by: Erwin Rol <erwin@erwinrol.com>
+
+--- squashfs4.0/squashfs-tools/Makefile.orig	2010-02-26 13:25:30.000000000 +0100
++++ squashfs4.0/squashfs-tools/Makefile	2010-02-26 13:26:31.000000000 +0100
+@@ -4,10 +4,12 @@
+ 
+ CFLAGS := -I$(INCLUDEDIR) -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE -O2
+ 
++LIBS := -lz -lpthread -lm 
++
+ all: mksquashfs unsquashfs
+ 
+ mksquashfs: mksquashfs.o read_fs.o sort.o swap.o pseudo.o
+-	$(CC) mksquashfs.o read_fs.o sort.o swap.o pseudo.o -lz -lpthread -lm -o $@
++	$(CC) mksquashfs.o read_fs.o sort.o swap.o pseudo.o $(LIBS) $(LDFLAGS) -o $@
+ 
+ mksquashfs.o: mksquashfs.c squashfs_fs.h mksquashfs.h global.h sort.h squashfs_swap.h Makefile
+ 
+@@ -20,7 +22,7 @@
+ pseudo.o: pseudo.c pseudo.h Makefile
+ 
+ unsquashfs: unsquashfs.o unsquash-1.o unsquash-2.o unsquash-3.o unsquash-4.o swap.o
+-	$(CC) unsquashfs.o unsquash-1.o unsquash-2.o unsquash-3.o unsquash-4.o swap.o -lz -lpthread -lm -o $@
++	$(CC) unsquashfs.o unsquash-1.o unsquash-2.o unsquash-3.o unsquash-4.o swap.o $(LIBS) $(LDFLAGS) -o $@
+ 
+ unsquashfs.o: unsquashfs.h unsquashfs.c squashfs_fs.h squashfs_swap.h squashfs_compat.h global.h Makefile
+ 

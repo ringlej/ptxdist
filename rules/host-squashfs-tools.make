@@ -16,21 +16,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_SQUASHFS_TOOLS) += host-squashfs-tools
 #
 # Paths and names
 #
-HOST_SQUASHFS_TOOLS_VERSION	:= $(call ptx/ifdef, PTXCONF_HOST_SQUASHFS_TOOLS_V3X, 3.4, 4.0)
-HOST_SQUASHFS_TOOLS		:= squashfs$(HOST_SQUASHFS_TOOLS_VERSION)
-HOST_SQUASHFS_TOOLS_SUFFIX	:= tar.gz
-HOST_SQUASHFS_TOOLS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/squashfs/$(HOST_SQUASHFS_TOOLS).$(HOST_SQUASHFS_TOOLS_SUFFIX)
-HOST_SQUASHFS_TOOLS_SOURCE	:= $(SRCDIR)/$(HOST_SQUASHFS_TOOLS).$(HOST_SQUASHFS_TOOLS_SUFFIX)
-HOST_SQUASHFS_TOOLS_DIR		:= $(HOST_BUILDDIR)/$(HOST_SQUASHFS_TOOLS)
+HOST_SQUASHFS_TOOLS_DIR		= $(HOST_BUILDDIR)/$(SQUASHFS_TOOLS)
 HOST_SQUASHFS_TOOLS_SUBDIR	:= squashfs-tools
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(HOST_SQUASHFS_TOOLS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_SQUASHFS_TOOLS)
 
 # ----------------------------------------------------------------------------
 # Compile
