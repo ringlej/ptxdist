@@ -2,7 +2,7 @@
 
 menuconfig SDL_MIXER
 	tristate
-	prompt "SDL mixer"
+	prompt "SDL mixer                     "
 	select SDL
 	select LIBVORBIS	if SDL_MIXER_OGG
 	select LIBMAD		if SDL_MIXER_MP3
