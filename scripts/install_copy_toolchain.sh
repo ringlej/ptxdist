@@ -209,7 +209,7 @@ ptxd_install_toolchain_lib() {
 
 		perm="$(stat -c %a "${lib_path}")"
 
-		echo "ptxd_install_file \"${lib_path}\" \"${prefix}/${lib}\" 0 0 \"${perm}\" \"\"" >> "${STATEDIR}/${packet}.cmds"
+		echo "ptxd_install_file \"${lib_path}\" \"${prefix}/${lib}\" 0 0 \"${perm}\" \"${strip}\"" >> "${STATEDIR}/${packet}.cmds"
 
 		# now create some links to that lib
 		# e.g. libstdc++.so.6 -> libstdc++.so.6.6.6
@@ -306,7 +306,7 @@ ptxd_install_toolchain_usr() {
 
 	echo "usr - ${usr_dst}"
 
-	echo "ptxd_install_file \"${usr_src}\" \"${usr_dst}\" 0 0 \"${usr_perm}\" \"\"" >> "${STATEDIR}/${packet}.cmds"
+	echo "ptxd_install_file \"${usr_src}\" \"${usr_dst}\" 0 0 \"${usr_perm}\" \"${strip}\"" >> "${STATEDIR}/${packet}.cmds"
     done
 }
 
