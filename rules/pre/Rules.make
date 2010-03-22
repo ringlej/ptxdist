@@ -214,6 +214,7 @@ CROSS_ENV_AC := \
 	ac_cv_func_strtod=yes \
 	ac_cv_func_strtoul=yes \
 	ac_cv_func_vsnprintf_c99=yes \
+	ac_cv_func_wait3_rusage=yes \
 	ac_cv_have_abstract_sockets=yes \
 	ac_cv_lib_c_inet_aton=yes \
 	ac_cv_sizeof_long_double=$(PTXCONF_SIZEOF_LONG_DOUBLE) \
