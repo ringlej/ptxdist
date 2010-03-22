@@ -46,8 +46,7 @@ SDL_MIXER_ENV 	:= $(CROSS_ENV)
 SDL_MIXER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-sdl-prefix=$(SYSROOT)/usr \
-	--disable-music-mp3 \
-	
+	--disable-music-mp3
 
 ifdef PTXCONF_SDL_MIXER_WAVE
 SDL_MIXER_AUTOCONF += --enable-music-wave
