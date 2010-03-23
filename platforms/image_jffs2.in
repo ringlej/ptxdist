@@ -30,7 +30,7 @@ config IMAGE_JFFS2_EXTRA_ARGS
 	  If needed you can add extra arguments for mkfs.jffs2 here
 	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt,
 	  -b to create a big endian filesystem on a little endian host or
-	  -c if targeting NAND flash)
+	  -n if targeting NAND flash)
 
 config IMAGE_JFFS2_SUM
 	bool

@@ -18,6 +18,9 @@ config IMAGE_KERNEL_INITRAMFS
 	depends on !KERNEL_INSTALL
 	select IMAGE_KERNEL_INSTALL_LATE
 	prompt "include root filesystem as initramfs in kernel image"
+	help
+	  In order to boot into the initrd use these kernel parameters:
+	  "root=/dev/ram0 rdinit=/sbin/init"
 
 config IMAGE_KERNEL_INSTALL_EARLY
 	bool
