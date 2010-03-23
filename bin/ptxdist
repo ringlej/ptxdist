@@ -1291,6 +1291,13 @@ parse_first()
 		-q|--quiet)
 			PTXDIST_QUIET=1
 			;;
+		--)
+			while [ ${#} -ne 0 ]; do
+				arg="${1}"
+				shift
+				PTXDIST_ARGS_SECOND[${#PTXDIST_ARGS_SECOND[@]}]="${arg}"
+			done
+			;;
 		*)
 			PTXDIST_ARGS_SECOND[${#PTXDIST_ARGS_SECOND[@]}]="${arg}"
 			;;
