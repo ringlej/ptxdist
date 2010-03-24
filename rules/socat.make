@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2009 by Jon Ringle
+# Copyright (C) 2010 by Jon Ringle
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -22,7 +22,7 @@ SOCAT_SUFFIX		:= tar.bz2
 SOCAT_URL		:= http://www.dest-unreach.org/socat/download/$(SOCAT).$(SOCAT_SUFFIX)
 SOCAT_SOURCE		:= $(SRCDIR)/$(SOCAT).$(SOCAT_SUFFIX)
 SOCAT_DIR		:= $(BUILDDIR)/$(SOCAT)
-SOCAT_LICENSE	:= unknown
+SOCAT_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
@@ -64,24 +64,6 @@ $(STATEDIR)/socat.prepare:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/socat.compile:
-#	@$(call targetinfo)
-#	cd $(SOCAT_DIR) && $(SOCAT_PATH) $(MAKE) $(PARALLELMFLAGS)
-#	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/socat.install:
-#	@$(call targetinfo)
-#	@$(call install, SOCAT)
-#	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -97,21 +79,12 @@ $(STATEDIR)/socat.targetinstall:
 	@$(call install_fixup, socat,DEPENDS,)
 	@$(call install_fixup, socat,DESCRIPTION,missing)
 
-	@$(call install_copy, socat, 0, 0, 0755, $(SOCAT_DIR)/socat, /usr/bin/socat)
-	@$(call install_copy, socat, 0, 0, 0755, $(SOCAT_DIR)/procan, /usr/bin/procan)
-	@$(call install_copy, socat, 0, 0, 0755, $(SOCAT_DIR)/filan, /usr/bin/filan)
+	@$(call install_copy, socat, 0, 0, 0755, -, /usr/bin/socat)
+	@$(call install_copy, socat, 0, 0, 0755, -, /usr/bin/procan)
+	@$(call install_copy, socat, 0, 0, 0755, -, /usr/bin/filan)
 
 	@$(call install_finish, socat)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-socat_clean:
-	rm -rf $(STATEDIR)/socat.*
-	rm -rf $(PKGDIR)/socat_*
-	rm -rf $(SOCAT_DIR)
 
 # vim: syntax=make
