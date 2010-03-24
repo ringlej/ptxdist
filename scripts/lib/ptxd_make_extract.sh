@@ -34,6 +34,17 @@ ptxd_make_extract() {
     dest="${dest:-${BUILDDIR}}"
 
     case "${packet_url}" in
+	lndir://*)
+	    local thing="${packet_url//lndir:\/\//}"
+	    if [ -d "${thing}" ]; then
+		echo "local directory using lndir"
+		mkdir -p "${packet_dir}" &&
+		lndir "$(ptxd_abspath "${thing}")" "${packet_dir}"
+		return
+	    else
+		ptxd_bailout "the URL '${packet_url}' points to non existing directory."
+	    fi
+	    ;;
 	file://*)
 	    local thing="${packet_url//file:\/\//}"
 	    if [ -d "${thing}" ]; then
