@@ -79,7 +79,7 @@ AVAHI_AUTOCONF := \
 ifdef PTXCONF_AVAHI_DAEMON
 AVAHI_AUTOCONF += 				\
 	--with-avahi-user=$(PTXCONF_AVAHI_USER)	\
-	--with-avahi-group=$(PTXCONF_AVAHI_USER)
+	--with-avahi-group=$(PTXCONF_AVAHI_GROUP)
 endif
 
 ifdef PTXCONF_AVAHI_AUTOIP
@@ -182,14 +182,14 @@ ifdef PTXCONF_AVAHI_DAEMON
 	@$(call install_link, avahi, ../init.d/avahi-daemon, /etc/rc.d/S35avahi-daemon)
 endif
 
-ifdef AVAHI_SERVICES
+ifdef PTXCONF_AVAHI_SERVICES
 #	avahi service descriptions
 #	depends on avahi-daemon
 	@$(call install_copy, avahi, 0, 0, 0644, -, /etc/avahi/services/sftp-ssh.service)
 	@$(call install_copy, avahi, 0, 0, 0644, -, /etc/avahi/services/ssh.service)
 endif
 
-ifdef AVAHI_DNSCONFD
+ifdef PTXCONF_AVAHI_DNSCONFD
 #	avahi dnsconfd (Unicast DNS server from mDNS/DNS-SD configuration daemon)
 #	depends on avahi-daemon
 	@$(call install_copy, avahi, 0, 0, 0755, -, /usr/sbin/avahi-dnsconfd)
