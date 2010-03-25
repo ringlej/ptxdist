@@ -68,7 +68,7 @@ endif
 #
 @PACKAGE@_CONF_ENV	:= CC=$(PTXCONF_STELLARIS_CC)
 @PACKAGE@_CONF_TOOL	:= autoconf
-@PACKAGE@_CONF_OPT	:= \
+@PACKAGE@_CONF_OPT	= \
 	--host=$(PTXCONF_STELLARIS_GNU_TARGET) \
 	--build=$(GNU_HOST) \
 	--with-stellaris-sdk=$(SW_EK_LM3S3748_DIR) \
