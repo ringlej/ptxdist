@@ -27,6 +27,10 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 # Extract
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_@PACKAGE@_TRUNK
+$(STATEDIR)/@package@.extract: $(STATEDIR)/autogen-tools
+endif
+
 $(STATEDIR)/@package@.extract:
 	@$(call targetinfo)
 	@$(call clean, $(@PACKAGE@_DIR))
