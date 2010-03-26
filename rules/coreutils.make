@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
