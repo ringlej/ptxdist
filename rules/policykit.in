@@ -4,7 +4,7 @@ config POLICYKIT
 	tristate
 	prompt "policykit"
 	select HOST_INTLTOOL
-	select GLIB	# > 2.6
+	select GLIB
 	select DBUS_GLIB
 	help
 	  Policy kit offers an infrastructure for security policies for
