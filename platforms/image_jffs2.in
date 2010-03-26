@@ -16,11 +16,13 @@ if IMAGE_JFFS2
 config IMAGE_JFFS2_BLOCKSIZE
 	hex
 	default 0x10000
-	prompt "Erase Block Size"
+	prompt "Erase Block Size (in HEX)"
 	help
 	  Enter here the size of each (sector) block in target's flash device.
 	  The image must use the same blocksize as the real JFFS2 filesystem
 	  running on the target.
+
+comment "*** add '-n' here for NAND flash ***"
 
 config IMAGE_JFFS2_EXTRA_ARGS
 	string
