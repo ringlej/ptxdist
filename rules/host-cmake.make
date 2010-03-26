@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_CMAKE) += host-cmake
 #
 # Paths and names
 #
-HOST_CMAKE_VERSION	:= 2.8.0
+HOST_CMAKE_VERSION	:= 2.8.1
 HOST_CMAKE		:= cmake-$(HOST_CMAKE_VERSION)
 HOST_CMAKE_SUFFIX	:= tar.gz
 HOST_CMAKE_URL		:= http://www.cmake.org/files/v2.8/$(HOST_CMAKE).$(HOST_CMAKE_SUFFIX)
