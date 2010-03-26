@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Sascha Hauer
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,7 +17,7 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_INSIGHT) += cross-insight
 #
 # Paths and names
 #
-CROSS_INSIGHT_VERSION	:= 6.6
+CROSS_INSIGHT_VERSION	:= 6.8-1
 CROSS_INSIGHT		:= insight-$(CROSS_INSIGHT_VERSION)
 CROSS_INSIGHT_SUFFIX	:= tar.bz2
 CROSS_INSIGHT_URL	:= ftp://sourceware.org/pub/insight/releases/$(CROSS_INSIGHT).$(CROSS_INSIGHT_SUFFIX)
@@ -41,17 +42,8 @@ CROSS_INSIGHT_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-CROSS_INSIGHT_AUTOCONF	:= --target=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(PTXCONF_SYSROOT_CROSS)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/cross-insight.compile:
-	@$(call targetinfo)
-	cd $(CROSS_INSIGHT_DIR) && $(CROSS_INSIGHT_PATH) $(MAKE) $(PARALLELMFLAGS)
-	cd $(CROSS_INSIGHT_DIR) && $(CROSS_INSIGHT_PATH) $(MAKE) $(PARALLELMFLAGS)
-	@$(call touch)
+CROSS_INSIGHT_AUTOCONF := \
+	--target=$(PTXCONF_GNU_TARGET) \
+	--prefix=$(PTXDIST_SYSROOT_CROSS)
 
 # vim: syntax=make
