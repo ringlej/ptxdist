@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2008 by Robert Schwebel
+#               2010 by Marc Kleine-Budde <mkl@penutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,7 +17,7 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.17.1
+UTIL_LINUX_NG_VERSION	:= 2.17.2
 UTIL_LINUX_NG		:= util-linux-ng-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.bz2
 UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.17/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
