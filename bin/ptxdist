@@ -979,7 +979,7 @@ newpackage() {
 	local template_src="${RULESDIR}/templates/${action}"
 
 	case "${action}" in
-	target|font|simple)
+	target|font|file)
 		#template: default
 		;;
 	host)
@@ -1025,7 +1025,7 @@ newpackage() {
 		echo "  src-make-prog            create a plain makefile binary"
 		echo "  src-stellaris            create stellaris firmware"
 		echo "  font"
-		echo "  simple"
+		echo "  file                     create package to install existing files"
 		echo
 		exit 1
 		;;
