@@ -36,14 +36,6 @@ $(HOST_FAKEROOT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_FAKEROOT_PATH	:= PATH=$(HOST_PATH)
-HOST_FAKEROOT_ENV 	:= $(HOST_ENV)
-
-#
-# autoconf
-#
-HOST_FAKEROOT_AUTOCONF	:= \
-	$(HOST_AUTOCONF) \
-	--without-po4a
+HOST_FAKEROOT_CONF_TOOL := autoconf
 
 # vim: syntax=make
