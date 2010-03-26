@@ -36,14 +36,8 @@ $(HOST_CMAKE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_CMAKE_PATH	:= PATH=$(HOST_PATH)
-HOST_CMAKE_ENV 	:= $(HOST_ENV)
 HOST_CMAKE_BUILD_OOT := YES
-
-#
-# autoconf
-#
-HOST_CMAKE_AUTOCONF := $(HOST_AUTOCONF)
+HOST_CMAKE_CONF_TOOL := autoconf
 
 $(STATEDIR)/host-cmake.install.post: \
 	$(PTXDIST_CMAKE_TOOLCHAIN_TARGET) \
