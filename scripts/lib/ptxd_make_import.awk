@@ -48,10 +48,7 @@ FNR == 1 {
 	out_file = importdir "/" prefix_file "/" gensub(in_path "/", "", "g", FILENAME);
 	out_dir = gensub(/^(.*)\/.*/, "\\1", "g", out_file);
 
-	err = system("						\
-		if [ \\! -d  \"" out_dir "\" ]; then		\
-			mkdir -p -- \"" out_dir "\";		\
-		fi");
+	err = system("mkdir -p -- \"" out_dir "\"");
 	if (err != 0)
 		exit(err);
 }
