@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_BUSYBOX) += busybox
 #
 # Paths and names
 #
-BUSYBOX_VERSION	:= 1.15.3
+BUSYBOX_VERSION	:= 1.16.1
 BUSYBOX		:= busybox-$(BUSYBOX_VERSION)
 BUSYBOX_SUFFIX	:= tar.bz2
 BUSYBOX_URL	:= http://www.busybox.net/downloads/$(BUSYBOX).$(BUSYBOX_SUFFIX)
@@ -130,7 +130,7 @@ endif # PTXCONF_INITMETHOD_BBINIT
 #	# config files
 #	#
 
-ifdef PTXCONF_BUSYBOX_APP_UDHCPC
+ifdef PTXCONF_BUSYBOX_UDHCPC
 	@$(call install_alternative, busybox, 0, 0, 0754, /etc/udhcpc.script)
 	@$(call install_link, busybox, ../../../etc/udhcpc.script, /usr/share/udhcpc/default.script)
 endif
