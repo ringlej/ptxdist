@@ -836,6 +836,9 @@ Options:
 
   --load-average=<n>, -l<n>	try to limit load to <n>
 
+  --nice=<n>, -n<n>		run with reduced scheduling priority (i.e. nice)
+				(default = 10)
+
   -k				keep going. Continue as much as possible
 				after an error.
 
@@ -1298,6 +1301,14 @@ parse_first()
 			;;
 		--load-average=*)
 			PTXDIST_LOADMFLAGS_INTERN="-l${arg#*=}"
+			;;
+		-n*)
+			PTX_NICE="${arg#*n}"
+			PTX_NICE="${PTX_NICE:-10}"
+			;;
+		--nice=*)
+			PTX_NICE="${arg#*=}"
+			PTX_NICE="${PTX_NICE:-10}"
 			;;
 		-q|--quiet)
 			PTXDIST_QUIET=1
