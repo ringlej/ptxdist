@@ -9,3 +9,4 @@ hide-cursor-at-startup.diff
 # dependency with ptxdist.
 #script-qtdbus.diff
 #designer-script.diff
+fix-host-zlib.diff

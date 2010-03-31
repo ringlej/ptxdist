@@ -1,0 +1,35 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: fix bootstrap during cross compilation if host lacks zlib
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/tools/bootstrap/bootstrap.pri |    2 +-
+ src/tools/bootstrap/bootstrap.pro |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+Index: b/src/tools/bootstrap/bootstrap.pro
+===================================================================
+--- a/src/tools/bootstrap/bootstrap.pro
++++ b/src/tools/bootstrap/bootstrap.pro
+@@ -95,7 +95,7 @@ macx: {
+    LIBS += -framework CoreServices
+ }
+ 
+-contains(QT_CONFIG, zlib) {
++contains(QT_CONFIG, zlib)|cross_compile {
+    INCLUDEPATH += ../../3rdparty/zlib
+    SOURCES+= \
+         ../3rdparty/zlib/adler32.c \
+Index: b/src/tools/bootstrap/bootstrap.pri
+===================================================================
+--- a/src/tools/bootstrap/bootstrap.pri
++++ b/src/tools/bootstrap/bootstrap.pri
+@@ -51,7 +51,7 @@ hpux-acc*|hpuxi-acc* {
+     }
+     LIBS += -lbootstrap
+ }
+-!contains(QT_CONFIG, zlib):!contains(QT_CONFIG, no-zlib) {
++!contains(QT_CONFIG, zlib):!contains(QT_CONFIG, no-zlib):!cross_compile {
+    unix:LIBS += -lz
+ #  win32:LIBS += libz.lib
+ }
