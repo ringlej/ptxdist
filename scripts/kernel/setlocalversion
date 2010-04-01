@@ -9,29 +9,53 @@
 #
 #
 
-usage() {
-	echo "Usage: $0 [srctree]" >&2
-	exit 1
-}
+#
+# Use the following line in your configure.ac, so that $(VERSION) will
+# automatically be up-to-date each time configure is run (and note that
+# since configure.ac no longer includes a version string, Makefile rules
+# should not depend on configure.ac for version updates).
+#
+# AC_INIT([GNU project],
+#         m4_esyscmd([build-aux/git-version-gen .tarball-version]),
+#         [bug-project@example])
+#
 
-cd "${1:-.}" || usage
+case $# in
+    1) ;;
+    *) echo 1>&2 "Usage: $0 \$srcdir/.tarball-version"; exit 1;;
+esac
+
+tarball_version_file="$1"
+nl='
+'
+
+# First see if there is a tarball-only version file.
+if test -f $tarball_version_file
+then
+    v=`cat $tarball_version_file` || exit 1
+    case $v in
+	*$nl*) v= ;; # reject multi-line output
+    esac
+    test -z "$v" \
+	&& echo "$0: WARNING: $tarball_version_file seems to be damaged" 1>&2
+
+    echo -n "$v"
+    exit
+fi
+
+cd "$(dirname "${tarball_version_file}")"
 
 # Check for git and a git repo.
 if head=`git rev-parse --verify --short HEAD 2>/dev/null`; then
 
-	# If we are at a tagged commit (like "v2.6.30-rc6"), we ignore it,
-	# because this version is defined in the top level Makefile.
-	if [ -z "`git describe --exact-match 2>/dev/null`" ]; then
+	# If we are past a tagged commit (like "ptxdist-2010.03.0-130-g3c60777"),
+	# we pretty print it.
+	if atag="`git describe 2>/dev/null`"; then
+		echo "$atag" | awk -F- '{printf("%s-%05d-%s", $(NF-2),$(NF-1),$(NF))}'
 
-		# If we are past a tagged commit (like "v2.6.30-rc5-302-g72357d5"),
-		# we pretty print it.
-		if atag="`git describe 2>/dev/null`"; then
-			echo "$atag" | awk -F- '{printf("-%05d-%s", $(NF-1),$(NF))}'
-
-		# If we don't have a tag at all we print -g{commitish}.
-		else
-			printf '%s%s' -g $head
-		fi
+	# If we don't have a tag at all we print -g{commitish}.
+	else
+		printf '%s%s' -g $head
 	fi
 
 	# Is this git on svn?
@@ -43,7 +67,7 @@ if head=`git rev-parse --verify --short HEAD 2>/dev/null`; then
 	[ -w . ] && git update-index --refresh --unmerged > /dev/null
 
 	# Check for uncommitted changes
-	if git diff-index --name-only HEAD | grep -v "^scripts/package" \
+	if git diff-index --name-only HEAD \
 	    | read dummy; then
 		printf '%s' -dirty
 	fi
@@ -59,7 +83,7 @@ if hgid=`hg id 2>/dev/null`; then
 	# Do we have an untagged version?
 	if [ -z "$tag" -o "$tag" = tip ]; then
 		id=`printf '%s' "$hgid" | sed 's/[+ ].*//'`
-		printf '%s%s' -hg "$id"
+		printf '%s%s' hg "$id"
 	fi
 
 	# Are there uncommitted changes?
@@ -75,7 +99,7 @@ fi
 # Check for svn and a svn repo.
 if rev=`svn info 2>/dev/null | grep '^Last Changed Rev'`; then
 	rev=`echo $rev | awk '{print $NF}'`
-	printf -- '-svn%s' "$rev"
+	printf -- 'svn%s' "$rev"
 
 	# All done with svn
 	exit

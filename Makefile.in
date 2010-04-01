@@ -35,11 +35,21 @@ all:
 	@echo "done."
 	@touch .done
 
-install: all
+clean:
+	@rm -f .done
+	@$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" clean
+
+dirty-check:
+	@case "$(version)" in \
+		*-dirty) echo "refusing to install or package a dirty git tree!" ; exit 1 ;; \
+	esac
+
+install: all dirty-check
 	@echo "installing PTXdist to $(DESTDIR)$(prefix)..."
 	@rm -fr   "$(DESTDIR)$(instdir)"
 	@mkdir -p "$(DESTDIR)$(instdir)"
-	@tar -C $(abs_srcdir) -cf - \
+	@tar -C "$(abs_srcdir)" -cf - \
+		--exclude *~ \
 		--exclude .git \
 		--exclude .pc \
 		--exclude .svn \
@@ -50,7 +60,9 @@ install: all
 		--exclude state \
 		. | \
 		tar -o -C "$(DESTDIR)$(instdir)" -xvf -
-
+	@if [ \! -e "$(DESTDIR)$(instdir)/.tarball-version" ]; then \
+		echo -n "${version}" > "$(DESTDIR)$(instdir)/.tarball-version"; \
+	fi
 	@mkdir -p "$(DESTDIR)$(bindir)"
 	@rm -f    "$(DESTDIR)$(bindir)/ptxdist"
 	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist-$(version)"
@@ -60,27 +72,28 @@ install: all
 		cp scripts/bash_completion "$(DESTDIR)@BASH_COMPLETION_DIR@/ptxdist"; \
 	fi
 
-clean:
-	@rm -f .done
-	@$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" clean
 
-dist:
+dist: dirty-check
 	@rm -rf "$(project)"
-	git archive "$(project)" --prefix="$(project)"/ | tar x
+	@git archive "$(project)" --prefix="$(project)"/ | tar x
+
+	echo -n "${version}" > "${project}/.tarball-version"
 	cd "$(project)" && ./autogen.sh
+
 	tar -cz \
-		--exclude ".svn" \
 		--exclude ".git" \
 		--exclude ".pc" \
+		--exclude ".svn" \
 		--exclude "$(project)/autom4te.cache" \
 		--exclude "$(project)/patches" \
 		-f "$(project).tgz" \
 		"$(project)"
 	md5sum "$(project).tgz" > "$(project).tgz.md5"
+
 	tar -cz \
-		--exclude ".svn" \
 		--exclude ".git" \
 		--exclude ".pc" \
+		--exclude ".svn" \
 		--exclude "$(project)/autom4te.cache" \
 		-f "$(project)-patches.tgz" \
 		"$(project)/patches"
