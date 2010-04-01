@@ -55,8 +55,10 @@ install: all
 	@rm -f    "$(DESTDIR)$(bindir)/ptxdist"
 	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist-$(version)"
 	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist"
-	-@[ -d "$(DESTDIR)@BASH_COMPLETION_DIR@" ] && \
-		cp scripts/bash_completion "$(DESTDIR)@BASH_COMPLETION_DIR@/ptxdist"
+	@if [ -d "$(DESTDIR)@BASH_COMPLETION_DIR@" -a \
+		-w "$(DESTDIR)@BASH_COMPLETION_DIR@" ]; then \
+		cp scripts/bash_completion "$(DESTDIR)@BASH_COMPLETION_DIR@/ptxdist"; \
+	fi
 
 clean:
 	@rm -f .done
