@@ -16,6 +16,15 @@
 #
 ptxd_make_world_install_pkg() {
     local -a fakeargs
+    #
+    # fakeroot is a host pkg and
+    # might not be available, yet
+    #
+    if ! eval "${pkg_path}" which fakeroot > /dev/null; then
+	local echo="eval"
+	local fakeroot="cat"
+    fi &&
+
 #    if [ -z "${fakeroot}" ]; then
 #	fakeargs=( "-s" "${pkg_fake_env}" )
 #    fi
@@ -81,22 +90,6 @@ export -f ptxd_make_world_install_target
 
 
 #
-# for host pkgs
-#
-ptxd_make_world_install_host() {
-    #
-    # fakeroot is a host pkg and
-    # might not be available, yet
-    #
-    local echo="eval"
-    local fakeroot="cat"
-
-    ptxd_make_world_install_pkg
-}
-export -f ptxd_make_world_install_host
-
-
-#
 # generic "make install" function
 #
 ptxd_make_world_install() {
@@ -104,7 +97,7 @@ ptxd_make_world_install() {
 
     case "${pkg_type}" in
 	target) ptxd_make_world_install_target ;;
-	*)      ptxd_make_world_install_host ;;
+	*)      ptxd_make_world_install_pkg ;;
     esac
 }
 export -f ptxd_make_world_install
