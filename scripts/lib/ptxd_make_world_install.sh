@@ -57,6 +57,11 @@ ptxd_make_world_install_target() {
 	return
     fi &&
 
+    # make pkgconfig's pc files relocatable
+    find "${pkg_pkg_dir}" -name "*.pc" -print0 | \
+	xargs -r -0 gawk -f "${PTXDIST_LIB_DIR}/ptxd_make_world_install_mangle_pc.awk" &&
+    check_pipe_status &&
+
     # prefix paths in la files with sysroot
     find "${pkg_pkg_dir}" -name "*.la" -print0 | xargs -r -0 -- \
 	sed -i \
@@ -64,15 +69,10 @@ ptxd_make_world_install_target() {
 	-e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${pkg_sysroot_dir}\2:g" &&
     check_pipe_status &&
 
-    # make pkgconfig's pc files relocatable
-    find "${pkg_pkg_dir}" -name "*.pc" -print0 | \
-	xargs -r -0 gawk -f "${PTXDIST_LIB_DIR}/ptxd_make_world_install_mangle_pc.awk" &&
-    check_pipe_status &&
-
-    cp -dprf -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}"
+    cp -dprf -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
 
     # copy *-config into sysroot_cross
-    local config
+    local config &&
     for config in $(find "${pkg_pkg_dir}" -name "${pkg_binconfig_glob}"); do
 	cp -PR -- "${config}" "${PTXDIST_SYSROOT_CROSS}/bin" || return
     done
