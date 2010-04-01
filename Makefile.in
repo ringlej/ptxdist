@@ -43,6 +43,9 @@ install: all
 		--exclude .git \
 		--exclude .pc \
 		--exclude .svn \
+		--exclude autom4te.cache \
+		--exclude config.log \
+		--exclude config.status \
 		--exclude debian \
 		--exclude state \
 		. | \
