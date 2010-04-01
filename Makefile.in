@@ -75,29 +75,16 @@ install: all dirty-check
 
 dist: dirty-check
 	@rm -rf "$(project)"
-	@git archive "$(project)" --prefix="$(project)"/ | tar x
-
+	@git archive "$(project)" --prefix="$(project)"/ > "${project}.tar"
+	tar xf "${project}.tar"
 	echo -n "${version}" > "${project}/.tarball-version"
 	cd "$(project)" && ./autogen.sh
 
-	tar -cz \
-		--exclude ".git" \
-		--exclude ".pc" \
-		--exclude ".svn" \
-		--exclude "$(project)/autom4te.cache" \
-		--exclude "$(project)/patches" \
-		-f "$(project).tgz" \
-		"$(project)"
-	md5sum "$(project).tgz" > "$(project).tgz.md5"
-
-	tar -cz \
-		--exclude ".git" \
-		--exclude ".pc" \
-		--exclude ".svn" \
-		--exclude "$(project)/autom4te.cache" \
-		-f "$(project)-patches.tgz" \
-		"$(project)/patches"
-	md5sum "$(project)-patches.tgz" > "$(project)-patches.tgz.md5"
+	tar -rf "${project}.tar" \
+		"${project}/configure" \
+		"${project}/.tarball-version"
+	bzip2 "${project}.tar"
+	md5sum "${project}.tar.bz2" > "${project}.tar.bz2.md5"
 
 distclean: clean
 	rm -fr Makefile
