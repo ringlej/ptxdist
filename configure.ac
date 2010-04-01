@@ -4,7 +4,7 @@ dnl Most parts of this configure script have been borrowed from quilt.
 dnl
 AC_PREREQ(2.59)
 
-AC_INIT([ptxdist],[2010.03.0],[ptxdist@pengutronix.de])
+AC_INIT([ptxdist],[2010.04.0],[ptxdist@pengutronix.de])
 AC_CONFIG_AUX_DIR(scripts/autoconf)
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
