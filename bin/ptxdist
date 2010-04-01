@@ -834,6 +834,8 @@ Options:
   --j-extern=<n>, -je<n>	set number of packages built in parallel
 				(default = 1)
 
+  --load-average=<n>, -l<n>	try to limit load to <n>
+
   -k				keep going. Continue as much as possible
 				after an error.
 
