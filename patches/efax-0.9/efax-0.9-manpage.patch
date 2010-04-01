@@ -1,6 +1,10 @@
---- efax-0.9/efax.1	2002/07/22 05:28:31	1.1
-+++ efax-0.9/efax.1	2002/07/22 05:30:21
-@@ -791,8 +791,8 @@
+---
+ efax.1 |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/efax.1
++++ b/efax.1
+@@ -791,8 +791,8 @@ locking will only work if all programs u
  
  efax will lock the modem device before opening it if one or more
  UUCP lock file names are given with \fB-x\fP options.  Most
@@ -10,3 +14,4 @@
 +\fB/var/lock\fP directories and use the name \fBLCK..\fP\fIdev\fP
  where \fIdev\fP is the name of the device file in the /dev
  directory that is to be locked.
+ 

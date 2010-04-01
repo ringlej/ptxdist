@@ -1,11 +1,15 @@
 Fix the markup on the "mail" part of the manpage (Closes: #300644)
 
 
+---
+ logrotate.8 |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 Index: logrotate-3.7.1/logrotate.8
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.8	2006-04-08 21:14:56.187543069 +0100
-+++ logrotate-3.7.1/logrotate.8	2006-04-08 21:16:19.525257240 +0100
-@@ -45,7 +45,7 @@
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
+@@ -45,7 +45,7 @@ by hand, as the new files will be create
  correctly.
  
  .TP

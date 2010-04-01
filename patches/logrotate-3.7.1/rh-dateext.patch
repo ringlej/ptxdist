@@ -1,10 +1,17 @@
 Enhance logrotate with "dateext".
 From RedHat patches
 
+---
+ config.c    |    8 ++
+ logrotate.8 |    5 +
+ logrotate.c |  177 +++++++++++++++++++++++++++++++++++++++++++++++++++++-------
+ logrotate.h |    1 
+ 4 files changed, 173 insertions(+), 18 deletions(-)
+
 Index: logrotate-3.7.1/logrotate.h
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.h	2006-04-08 20:32:36.772133783 +0100
-+++ logrotate-3.7.1/logrotate.h	2006-04-08 20:36:00.250859767 +0100
+--- logrotate-3.7.1.orig/logrotate.h
++++ logrotate-3.7.1/logrotate.h
 @@ -15,6 +15,7 @@
  #define LOG_FLAG_MAILFIRST	(1 << 6)
  #define LOG_FLAG_SHAREDSCRIPTS	(1 << 7)
@@ -15,8 +22,8 @@ Index: logrotate-3.7.1/logrotate.h
  #define FORCE_ROTATE    1
 Index: logrotate-3.7.1/logrotate.c
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.c	2006-04-08 20:32:36.773133590 +0100
-+++ logrotate-3.7.1/logrotate.c	2006-04-08 20:36:00.254859022 +0100
+--- logrotate-3.7.1.orig/logrotate.c
++++ logrotate-3.7.1/logrotate.c
 @@ -11,6 +11,7 @@
  #include <sys/wait.h>
  #include <time.h>
@@ -25,7 +32,7 @@ Index: logrotate-3.7.1/logrotate.c
  
  #ifdef WITH_SELINUX
  #include <selinux/selinux.h>
-@@ -22,6 +23,10 @@
+@@ -22,6 +23,10 @@ int selinux_enabled=0;
  #include "log.h"
  #include "logrotate.h"
  
@@ -36,7 +43,7 @@ Index: logrotate-3.7.1/logrotate.c
  typedef struct {
      char * fn;
      struct tm lastRotated;	/* only tm.mon, tm_mday, tm_year are good! */
-@@ -42,6 +47,14 @@
+@@ -42,6 +47,14 @@ int debug = 0;
  char * mailCommand = DEFAULT_MAIL_COMMAND;
  time_t nowSecs = 0;
  
@@ -51,7 +58,7 @@ Index: logrotate-3.7.1/logrotate.c
  static logState * findState(const char * fn, struct stateSet * sip) {
      int i;
      logState * states = sip->states;
-@@ -121,6 +134,17 @@
+@@ -121,6 +134,17 @@ static int runScript(char * logfn, char 
      return rc;
  }
  
@@ -69,7 +76,7 @@ Index: logrotate-3.7.1/logrotate.c
  static int compressLogFile(char * name, logInfo * log, struct stat *sb) {
      char * compressedName;
      const char ** fullCommand;
-@@ -265,6 +289,25 @@
+@@ -265,6 +289,25 @@ static int mailLog(char * logFile, char 
      return rc;
  }
  
@@ -95,7 +102,7 @@ Index: logrotate-3.7.1/logrotate.c
  static int copyTruncate(char * currLog, char * saveLog, struct stat * sb, int flags) {
      char buf[BUFSIZ];
      int fdcurr = -1, fdsave = -1;
-@@ -479,6 +522,9 @@
+@@ -479,6 +522,9 @@ int rotateSingleLog(logInfo * log, int l
      char * baseName;
      char * dirName;
      char * firstRotated;
@@ -105,7 +112,7 @@ Index: logrotate-3.7.1/logrotate.c
      size_t alloc_size;
      int rotateCount = log->rotateCount ? log->rotateCount : 1;
      int logStart = (log->logStart == -1) ? 1 : log->logStart;
-@@ -509,7 +555,7 @@
+@@ -509,7 +555,7 @@ int rotateSingleLog(logInfo * log, int l
  
      alloc_size = strlen(dirName) + strlen(baseName) + 
                   strlen(log->files[logNum]) + strlen(fileext) +
@@ -114,7 +121,7 @@ Index: logrotate-3.7.1/logrotate.c
      
      oldName = alloca(alloc_size);
      newName = alloca(alloc_size);
-@@ -531,25 +577,106 @@
+@@ -531,25 +577,106 @@ int rotateSingleLog(logInfo * log, int l
      /* First compress the previous log when necessary */
      if (log->flags & LOG_FLAG_COMPRESS &&
          log->flags & LOG_FLAG_DELAYCOMPRESS) {
@@ -231,7 +238,7 @@ Index: logrotate-3.7.1/logrotate.c
      sprintf(firstRotated, "%s/%s.%d%s%s", dirName, baseName,
              logStart, fileext, 
  	    (log->flags & LOG_FLAG_DELAYCOMPRESS) ? "" : compext);
-@@ -599,12 +726,27 @@
+@@ -599,12 +726,27 @@ int rotateSingleLog(logInfo * log, int l
                  hasErrors = 1;
  	    }
  	}
@@ -263,7 +270,7 @@ Index: logrotate-3.7.1/logrotate.c
      
      /* if the last rotation doesn't exist, that's okay */
      if (!debug && access(disposeName, F_OK)) {
-@@ -613,9 +755,6 @@
+@@ -613,9 +755,6 @@ int rotateSingleLog(logInfo * log, int l
          disposeName = NULL;
      } 
      
@@ -273,7 +280,7 @@ Index: logrotate-3.7.1/logrotate.c
      if (!hasErrors) {
          if (log->pre && !(log->flags & LOG_FLAG_SHAREDSCRIPTS)) {
              message(MESS_DEBUG, "running prerotate script\n");
-@@ -761,6 +900,8 @@
+@@ -761,6 +900,8 @@ int rotateSingleLog(logInfo * log, int l
  	  }
  	}
  #endif
@@ -284,9 +291,9 @@ Index: logrotate-3.7.1/logrotate.c
  
 Index: logrotate-3.7.1/config.c
 ===================================================================
---- logrotate-3.7.1.orig/config.c	2006-04-08 20:32:36.774133397 +0100
-+++ logrotate-3.7.1/config.c	2006-04-08 20:36:00.256858650 +0100
-@@ -511,6 +511,14 @@
+--- logrotate-3.7.1.orig/config.c
++++ logrotate-3.7.1/config.c
+@@ -511,6 +511,14 @@ static int readConfigFile(const char * c
  		newlog->flags &= ~LOG_FLAG_IFEMPTY;
  
  		*endtag = oldchar, start = endtag;
@@ -303,9 +310,9 @@ Index: logrotate-3.7.1/config.c
  
 Index: logrotate-3.7.1/logrotate.8
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.8	2006-04-08 20:32:36.775133204 +0100
-+++ logrotate-3.7.1/logrotate.8	2006-04-08 20:36:00.257858464 +0100
-@@ -200,6 +200,11 @@
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
+@@ -200,6 +200,11 @@ file for the omitted attributes. This op
  Log files are rotated every day.
  
  .TP

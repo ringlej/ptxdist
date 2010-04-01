@@ -113,7 +113,7 @@ ptxd_init_get_sysroot_production() {
 # PTXDIST_PATH_SYSROOT_PREFIX		prefixes (/, /usr) of additional sysroots (without toolchain)
 # PTXDIST_PATH_SYSROOT_PREFIX_ALL	prefixes (/, /usr) of all sysroots (including toolchain)
 #
-ptxd_init_ptxdist_path() {
+ptxd_init_ptxdist_path_sysroot() {
     local sysroot="$(ptxd_get_ptxconf PTXCONF_SYSROOT_TARGET)"
     local sysroot_prefix="${sysroot}:${sysroot}/usr"
 
@@ -135,6 +135,20 @@ ptxd_init_ptxdist_path() {
 	PTXDIST_PATH_SYSROOT_ALL="${sysroot_all}" \
 	PTXDIST_PATH_SYSROOT_PREFIX="${sysroot_prefix}" \
 	PTXDIST_PATH_SYSROOT_PREFIX_ALL="${sysroot_prefix_all}"
+}
+
+
+#
+#
+#
+ptxd_init_ptxdist_path() {
+    PTXDIST_PATH="${PTXDIST_WORKSPACE}:${PTXDIST_PLATFORMCONFIGDIR}:${PTXDIST_TOPDIR}:"
+    export PTXDIST_PATH
+
+    PTXDIST_PATH_PATCHES="${PTXDIST_PATH//://patches:}"
+    export PTXDIST_PATH_PATCHES
+
+    ptxd_init_ptxdist_path_sysroot
 }
 
 

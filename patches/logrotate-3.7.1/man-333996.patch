@@ -5,11 +5,15 @@ The manpage contains several sentences with the same mistake:
 the use of "then" instead of "than".
 
 
+---
+ logrotate.8 |   12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
 Index: logrotate-3.7.1/logrotate.8
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.8	2006-04-08 21:47:40.000000000 +0100
-+++ logrotate-3.7.1/logrotate.8	2006-04-08 21:48:43.456864197 +0100
-@@ -125,7 +125,7 @@
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
+@@ -125,7 +125,7 @@ The next section defines the parameters 
  \fI/var/log/httpd/access.log\fR and \fI/var/log/httpd/error.log\fR.
  Each is rotated whenever it grows over 100k in size, and the old log
  files are mailed (uncompressed) to www@my.org after going through 5
@@ -18,7 +22,7 @@ Index: logrotate-3.7.1/logrotate.8
  the \fBpostrotate\fR script will only be run once (after the old logs 
  have been compressed), not once for each
  log which is rotated. Note that log file names may be enclosed in
-@@ -135,7 +135,7 @@
+@@ -135,7 +135,7 @@ characters supported.
  
  The last section defines the parameters for all of the files in
  \fI/var/log/news\fR. Each file is rotated on a monthly basis.  This is
@@ -27,7 +31,7 @@ Index: logrotate-3.7.1/logrotate.8
  one file, the log files are not compressed.
  
  Please use wildcards with caution.  If you specify *, \fBlogrotate\fR will
-@@ -366,7 +366,7 @@
+@@ -366,7 +366,7 @@ appear inside a log file definition. See
  \fBrotate \fIcount\fR
  Log files are rotated \fIcount\fR times before being removed or mailed to the
  address specified in a \fBmail\fR directive. If \fIcount\fR is 0, old versions
@@ -36,7 +40,7 @@ Index: logrotate-3.7.1/logrotate.8
  
  .TP
  \fBsharedscripts\fR
-@@ -381,7 +381,7 @@
+@@ -381,7 +381,7 @@ option and implies \fBcreate\fR option.
  
  .TP
  \fBsize \fIsize\fR[\fBG\fR|\fBM\fR|\fBk\fR]
@@ -45,7 +49,7 @@ Index: logrotate-3.7.1/logrotate.8
  \fIsize\fR is followed by \fIM\fR, the size if assumed to be in megabytes.
  If the \fIG\fR suffix is used, the size is in gigabytes.
  If the \fIk\fR suffix is used, the size is in kilobytes. So \fBsize 100\fR,
-@@ -408,8 +408,8 @@
+@@ -408,8 +408,8 @@ not commas.
  
  .TP
  \fBweekly\fR

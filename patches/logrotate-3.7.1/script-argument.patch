@@ -3,11 +3,15 @@ Closes: #330783
 Allow the use of $1 in scripts.
 
 
+---
+ logrotate.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 Index: logrotate-3.7.1/logrotate.c
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.c	2006-04-08 21:47:41.000000000 +0100
-+++ logrotate-3.7.1/logrotate.c	2006-04-08 22:01:23.722498089 +0100
-@@ -101,7 +101,7 @@
+--- logrotate-3.7.1.orig/logrotate.c
++++ logrotate-3.7.1/logrotate.c
+@@ -101,7 +101,7 @@ static int runScript(char * logfn, char 
      }
  
      if (!fork()) {

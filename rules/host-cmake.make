@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_CMAKE) += host-cmake
 #
 # Paths and names
 #
-HOST_CMAKE_VERSION	:= 2.8.0
+HOST_CMAKE_VERSION	:= 2.8.1
 HOST_CMAKE		:= cmake-$(HOST_CMAKE_VERSION)
 HOST_CMAKE_SUFFIX	:= tar.gz
 HOST_CMAKE_URL		:= http://www.cmake.org/files/v2.8/$(HOST_CMAKE).$(HOST_CMAKE_SUFFIX)
@@ -36,14 +36,8 @@ $(HOST_CMAKE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_CMAKE_PATH	:= PATH=$(HOST_PATH)
-HOST_CMAKE_ENV 	:= $(HOST_ENV)
 HOST_CMAKE_BUILD_OOT := YES
-
-#
-# autoconf
-#
-HOST_CMAKE_AUTOCONF := $(HOST_AUTOCONF)
+HOST_CMAKE_CONF_TOOL := autoconf
 
 $(STATEDIR)/host-cmake.install.post: \
 	$(PTXDIST_CMAKE_TOOLCHAIN_TARGET) \

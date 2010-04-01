@@ -1,11 +1,15 @@
 Inconsistency in manpage logrotate(8), start directive
 (Closes: #290628)
 
+---
+ logrotate.8 |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 Index: logrotate-3.7.1/logrotate.8
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.8	2006-04-08 21:09:24.530501346 +0100
-+++ logrotate-3.7.1/logrotate.8	2006-04-08 21:11:37.760424103 +0100
-@@ -392,7 +392,7 @@
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
+@@ -392,7 +392,7 @@ This is the number to use as the base fo
  you specify 0, the logs will be created with a .0 extension as they are
  rotated from the original log files.  If you specify 9, log files will
  be created with a .9, skipping 0-8.  Files will still be rotated the

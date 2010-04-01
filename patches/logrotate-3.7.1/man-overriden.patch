@@ -1,11 +1,15 @@
 Fix manpage typo (Closes: #310337)
 
 
+---
+ logrotate.8 |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 Index: logrotate-3.7.1/logrotate.8
 ===================================================================
---- logrotate-3.7.1.orig/logrotate.8	2006-04-08 21:13:28.917607025 +0100
-+++ logrotate-3.7.1/logrotate.8	2006-04-08 21:14:56.187543069 +0100
-@@ -329,7 +329,7 @@
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
+@@ -329,7 +329,7 @@ must be on the same physical device as t
  and is assumed to be relative to the directory holding the log file
  unless an absolute path name is specified. When this option is used all
  old versions of the log end up in \fIdirectory\fR.  This option may be

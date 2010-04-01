@@ -1,11 +1,15 @@
 # Loosens the config syntax checking to allow more flexibility.
 #  (Closes: #95617,#95630)
 
+---
+ config.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
 Index: logrotate-3.7.1/config.c
 ===================================================================
---- logrotate-3.7.1.orig/config.c	2006-04-08 20:46:40.250457779 +0100
-+++ logrotate-3.7.1/config.c	2006-04-08 20:48:15.188228344 +0100
-@@ -768,7 +768,7 @@
+--- logrotate-3.7.1.orig/config.c
++++ logrotate-3.7.1/config.c
+@@ -768,7 +768,7 @@ static int readConfigFile(const char * c
  
  		    while (*start) {
  			chptr = start;
@@ -14,7 +18,7 @@ Index: logrotate-3.7.1/config.c
  			    chptr++;
  
  			tabooExts = realloc(tabooExts, sizeof(*tabooExts) * 
-@@ -780,7 +780,7 @@
+@@ -780,7 +780,7 @@ static int readConfigFile(const char * c
  			tabooCount++;
  
  			start = chptr;

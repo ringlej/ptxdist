@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -15,7 +16,7 @@ PACKAGES-$(PTXCONF_COREUTILS) += coreutils
 #
 # Paths and names
 #
-COREUTILS_VERSION	:= 8.2
+COREUTILS_VERSION	:= 8.4
 COREUTILS		:= coreutils-$(COREUTILS_VERSION)
 COREUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/coreutils/$(COREUTILS).tar.gz
 COREUTILS_SOURCE	:= $(SRCDIR)/$(COREUTILS).tar.gz

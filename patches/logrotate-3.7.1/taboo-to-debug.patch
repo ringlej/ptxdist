@@ -1,10 +1,14 @@
 Quietens the taboo list from ERROR to a DEBUG (Closes: #249073)
 
+---
+ config.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 Index: logrotate-3.7.1/config.c
 ===================================================================
---- logrotate-3.7.1.orig/config.c	2006-04-08 20:48:47.169764580 +0100
-+++ logrotate-3.7.1/config.c	2006-04-08 20:49:55.460798704 +0100
-@@ -149,7 +149,7 @@
+--- logrotate-3.7.1.orig/config.c
++++ logrotate-3.7.1/config.c
+@@ -149,7 +149,7 @@ static int checkFile(const char * fname)
      for (i = 0; i < tabooCount; i++) {
  	if (!strcmp(fname + strlen(fname) - strlen(tabooExts[i]),
  	    tabooExts[i])) {

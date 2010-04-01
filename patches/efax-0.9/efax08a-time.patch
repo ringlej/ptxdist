@@ -1,5 +1,9 @@
---- efax08a/efaxio.c.ewt	Thu Dec  1 21:26:31 2016
-+++ efax08a/efaxio.c	Thu Dec  1 21:26:31 2016
+---
+ efaxio.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/efaxio.c
++++ b/efaxio.c
 @@ -2,6 +2,7 @@
  #include <signal.h>    
  #include <stdio.h>

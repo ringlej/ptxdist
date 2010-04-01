@@ -1,8 +1,14 @@
 Fix manpage typo in the size example.
 
---- /home/pm/deb/logrotate/logrotate-3.7/logrotate.8	2004-09-13 22:50:08.000000000 +0100
-+++ logrotate-3.7/logrotate.8	2004-09-13 22:50:25.000000000 +0100
-@@ -90,7 +90,7 @@
+---
+ logrotate.8 |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: logrotate-3.7.1/logrotate.8
+===================================================================
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
+@@ -90,7 +90,7 @@ compress
  "/var/log/httpd/access.log" /var/log/httpd/error.log {
      rotate 5
      mail www@my.org

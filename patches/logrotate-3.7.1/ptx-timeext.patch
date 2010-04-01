@@ -1,7 +1,14 @@
-Index: logrotate.h
+---
+ config.c    |    8 ++++++++
+ logrotate.8 |    8 ++++++++
+ logrotate.c |   49 +++++++++++++++++++++++++++++++++++++------------
+ logrotate.h |    1 +
+ 4 files changed, 54 insertions(+), 12 deletions(-)
+
+Index: logrotate-3.7.1/logrotate.h
 ===================================================================
---- a/logrotate.h.orig
-+++ b/logrotate.h
+--- logrotate-3.7.1.orig/logrotate.h
++++ logrotate-3.7.1/logrotate.h
 @@ -16,6 +16,7 @@
  #define LOG_FLAG_SHAREDSCRIPTS	(1 << 7)
  #define LOG_FLAG_COPY		(1 << 8)
@@ -10,10 +17,10 @@ Index: logrotate.h
  
  #define NO_FORCE_ROTATE 0
  #define FORCE_ROTATE    1
-Index: config.c
+Index: logrotate-3.7.1/config.c
 ===================================================================
---- a/config.c.orig
-+++ b/config.c
+--- logrotate-3.7.1.orig/config.c
++++ logrotate-3.7.1/config.c
 @@ -521,6 +521,14 @@ static int readConfigFile(const char * c
  		newlog->flags &= ~LOG_FLAG_DATEEXT;
  
@@ -29,10 +36,10 @@ Index: config.c
  	    } else if (!strcmp(start, "noolddir")) {
  		newlog->oldDir = NULL;
  
-Index: logrotate.8
+Index: logrotate-3.7.1/logrotate.8
 ===================================================================
---- a/logrotate.8.orig
-+++ b/logrotate.8
+--- logrotate-3.7.1.orig/logrotate.8
++++ logrotate-3.7.1/logrotate.8
 @@ -216,6 +216,14 @@ Archive old versions of log files adding
  instead of simply adding a number.
  
@@ -48,10 +55,10 @@ Index: logrotate.8
  \fBdelaycompress\fR
  Postpone compression of the previous log file to the next rotation cycle.
  This only has effect when used in combination with \fBcompress\fR.
-Index: logrotate.c
+Index: logrotate-3.7.1/logrotate.c
 ===================================================================
---- a/logrotate.c.orig
-+++ b/logrotate.c
+--- logrotate-3.7.1.orig/logrotate.c
++++ logrotate-3.7.1/logrotate.c
 @@ -542,7 +542,7 @@ int rotateSingleLog(logInfo * log, int l
  
      alloc_size = strlen(dirName) + strlen(baseName) + 

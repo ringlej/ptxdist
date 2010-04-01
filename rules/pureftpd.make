@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_PUREFTPD) += pureftpd
 #
 # Paths and names
 #
-PUREFTPD_VERSION	:= 1.0.28
+PUREFTPD_VERSION	:= 1.0.29
 PUREFTPD		:= pure-ftpd-$(PUREFTPD_VERSION)
 PUREFTPD_SUFFIX		:= tar.bz2
 PUREFTPD_URL		:= http://download.pureftpd.org/pub/pure-ftpd/releases/$(PUREFTPD).$(PUREFTPD_SUFFIX)
@@ -36,10 +36,6 @@ $(PUREFTPD_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-PUREFTPD_PATH	:= PATH=$(CROSS_PATH)
-PUREFTPD_ENV 	:= $(CROSS_ENV) \
-	ac_cv_snprintf_type=8
-
 #
 # autoconf
 #
@@ -47,14 +43,12 @@ PUREFTPD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-dependency-tracking \
 	--without-ascii \
-	--with-banner \
 	--without-pam \
 	--without-cookie \
 	--without-throttling \
 	--without-ratios \
 	--without-quotas \
 	--without-ftpwho \
-	--with-largefile \
 	--with-welcomemsg \
 	--without-virtualchroot \
 	--without-nonroot \

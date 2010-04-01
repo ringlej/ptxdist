@@ -2,10 +2,14 @@ Fix the taboo list to avoid .dpkg-old, etc.
 
 
 
+---
+ config.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
 Index: logrotate-3.7.1/config.c
 ===================================================================
---- logrotate-3.7.1.orig/config.c	2006-04-08 20:46:40.147476352 +0100
-+++ logrotate-3.7.1/config.c	2006-04-08 20:48:26.323326011 +0100
+--- logrotate-3.7.1.orig/config.c
++++ logrotate-3.7.1/config.c
 @@ -30,6 +30,8 @@
  #endif
  
