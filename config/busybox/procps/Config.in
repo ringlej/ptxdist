@@ -188,6 +188,13 @@ config BUSYBOX_FEATURE_TOPMEM
 	help
 	  Enable 's' in top (gives lots of memory info).
 
+config BUSYBOX_FEATURE_SHOW_THREADS
+	bool "Support for showing threads in ps/top"
+	default n
+	depends on BUSYBOX_PS || BUSYBOX_TOP
+	help
+	  Enables ps -T option and 'h' command in top
+
 config BUSYBOX_UPTIME
 	bool "uptime"
 	default n
@@ -202,6 +209,5 @@ config BUSYBOX_WATCH
 	help
 	  watch is used to execute a program periodically, showing
 	  output to the screen.
-
 
 endmenu

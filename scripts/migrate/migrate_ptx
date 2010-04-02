@@ -62,3 +62,16 @@ s/^\(\(# \)\?PTXCONF_BZIP2_\)_\(.*$\)/\1\3/
 #
 s/^\(\(# \)\?PTXCONF_UDEV_\)_\(.*$\)/\1\3/
 
+#
+# from   : ptxdist-2010.03.0
+# to     : ptxdist-2010.04.0
+# symbol : BUSYBOX_APP_DHCPRELAY -> BUSYBOX_DHCPRELAY
+# symbol : BUSYBOX_APP_DUMPLEASES -> BUSYBOX_DUMPLEASES
+# symbol : BUSYBOX_APP_UDHCPC -> BUSYBOX_UDHCPC
+# symbol : BUSYBOX_APP_UDHCPD -> BUSYBOX_UDHCPD
+# reason : update busybox 1.15.3-> 1.16.1
+#
+s/^\(\(# \)\?PTXCONF_BUSYBOX\)_APP_DHCPRELAY\(.*$\)/\1_DHCPRELAY\3/
+s/^\(\(# \)\?PTXCONF_BUSYBOX\)_APP_DUMPLEASES\(.*$\)/\1_DUMPLEASES\3/
+s/^\(\(# \)\?PTXCONF_BUSYBOX\)_APP_UDHCPC\(.*$\)/\1_UDHCPC\3/
+s/^\(\(# \)\?PTXCONF_BUSYBOX\)_APP_UDHCPD\(.*$\)/\1_UDHCPD\3/

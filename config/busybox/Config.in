@@ -30,6 +30,23 @@ config BUSYBOX_EXTRA_COMPAT
 	  some GNU extensions in libc. You probably only need this option
 	  if you plan to run busybox on desktop.
 
+config BUSYBOX_INCLUDE_SUSv2
+	bool "Enable obsolete features removed before SUSv3"
+	default y
+	help
+	  This option will enable backwards compatibility with SuSv2,
+	  specifically, old-style numeric options ('command -1 <file>')
+	  will be supported in head, tail, and fold. (Note: should
+	  affect renice too.)
+
+config BUSYBOX_USE_PORTABLE_CODE
+	bool "Avoid using GCC-specific code constructs"
+	default n
+	help
+	  Use this option if you are trying to compile busybox with
+	  compiler other than gcc.
+	  If you do use gcc, this option may needlessly increase code size.
+
 choice
 	prompt "Buffer allocation policy"
 	default BUSYBOX_FEATURE_BUFFERS_USE_MALLOC
@@ -503,17 +520,8 @@ config BUSYBOX_EFENCE
 
 endchoice
 
-config BUSYBOX_INCLUDE_SUSv2
-	bool "Enable obsolete features removed before SUSv3?"
-	default y
-	help
-	  This option will enable backwards compatibility with SuSv2,
-	  specifically, old-style numeric options ('command -1 <file>')
-	  will be supported in head, tail, and fold. (Note: should
-	  affect renice too.)
-
 ### config PARSE
-### 	bool "Uniform config file parser debugging applet: parse"
+###	bool "Uniform config file parser debugging applet: parse"
 
 endmenu
 
@@ -592,29 +600,29 @@ config BUSYBOX_PREFIX
 
 endmenu
 
-source config/busybox/libbb/Config.in
+source "config/busybox/libbb/Config.in"
 
 endmenu
 
 comment "Applets"
 
-source config/busybox/archival/Config.in
-source config/busybox/coreutils/Config.in
-source config/busybox/console-tools/Config.in
-source config/busybox/debianutils/Config.in
-source config/busybox/editors/Config.in
-source config/busybox/findutils/Config.in
-source config/busybox/init/Config.in
-source config/busybox/loginutils/Config.in
-source config/busybox/e2fsprogs/Config.in
-source config/busybox/modutils/Config.in
-source config/busybox/util-linux/Config.in
-source config/busybox/miscutils/Config.in
-source config/busybox/networking/Config.in
-source config/busybox/printutils/Config.in
-source config/busybox/mailutils/Config.in
-source config/busybox/procps/Config.in
-source config/busybox/runit/Config.in
-source config/busybox/selinux/Config.in
-source config/busybox/shell/Config.in
-source config/busybox/sysklogd/Config.in
+source "config/busybox/archival/Config.in"
+source "config/busybox/coreutils/Config.in"
+source "config/busybox/console-tools/Config.in"
+source "config/busybox/debianutils/Config.in"
+source "config/busybox/editors/Config.in"
+source "config/busybox/findutils/Config.in"
+source "config/busybox/init/Config.in"
+source "config/busybox/loginutils/Config.in"
+source "config/busybox/e2fsprogs/Config.in"
+source "config/busybox/modutils/Config.in"
+source "config/busybox/util-linux/Config.in"
+source "config/busybox/miscutils/Config.in"
+source "config/busybox/networking/Config.in"
+source "config/busybox/printutils/Config.in"
+source "config/busybox/mailutils/Config.in"
+source "config/busybox/procps/Config.in"
+source "config/busybox/runit/Config.in"
+source "config/busybox/selinux/Config.in"
+source "config/busybox/shell/Config.in"
+source "config/busybox/sysklogd/Config.in"
