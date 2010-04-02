@@ -160,7 +160,7 @@ ptxd_install_file_impl() {
     ptxd_install_setup_src &&
     cat << EOF
 install ${cmd}:
-  src=${src}
+  src=$(ptxd_print_path ${src})
   dst=${dst}
   owner=${usr}
   group=${grp}
