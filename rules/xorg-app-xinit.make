@@ -46,8 +46,7 @@ XORG_APP_XINIT_MAKEVARS :=  XINITDIR=/etc/X11/xinit \
 #
 # autoconf
 #
-XORG_APP_XINIT_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking
+XORG_APP_XINIT_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 #
 # if no value is given ignore the "--datadir" switch

@@ -42,8 +42,7 @@ XORG_LIB_XAU_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XAU_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking
+XORG_LIB_XAU_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 ifdef PTXCONF_XORG_LIB_XAU_THREAD
 XORG_LIB_XAU_AUTOCONF += --enable-xthreads

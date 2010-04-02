@@ -42,8 +42,8 @@ XORG_APP_MKFONTSCALE_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_APP_MKFONTSCALE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
+XORG_APP_MKFONTSCALE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 # ----------------------------------------------------------------------------

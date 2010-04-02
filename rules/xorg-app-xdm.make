@@ -46,7 +46,6 @@ XORG_APP_XDM_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
-	--disable-dependency-tracking \
 	--with-random-device=$(XORG_APP_XDM_DEV_RANDOM) \
 	--with-utmp-file=/var/run/utmp \
 	--with-wtmp-file=/var/log/wtmp

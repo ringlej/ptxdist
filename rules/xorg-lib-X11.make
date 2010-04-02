@@ -54,7 +54,6 @@ XORG_LIB_X11_AUTOCONF := \
 	$(XORG_OPTIONS_TRANS) \
 	--with-xcb \
 	--disable-malloc0returnsnull \
-	--disable-dependency-tracking \
 	--disable-man-pages \
 	--disable-specs \
 	--enable-xthreads \

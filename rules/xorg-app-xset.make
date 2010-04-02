@@ -41,8 +41,8 @@ XORG_APP_XSET_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_APP_XSET_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
+XORG_APP_XSET_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 # ----------------------------------------------------------------------------

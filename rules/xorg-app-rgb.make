@@ -44,8 +44,9 @@ XORG_APP_RGB_ENV 	:= $(CROSS_ENV)
 # FIXME: importance of switch
 #   --with-rgb-db-type=(text|dbm|ndbm) rgb database type (default is text)
 #
-XORG_APP_RGB_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking --datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+XORG_APP_RGB_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -43,9 +43,9 @@ XORG_LIB_DMX_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_DMX_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-malloc0returnsnull \
-	--disable-dependency-tracking
+XORG_LIB_DMX_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-malloc0returnsnull
 
 # ----------------------------------------------------------------------------
 # Target-Install

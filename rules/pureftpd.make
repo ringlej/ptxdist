@@ -41,7 +41,6 @@ $(PUREFTPD_SOURCE):
 #
 PUREFTPD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
 	--without-ascii \
 	--without-pam \
 	--without-cookie \

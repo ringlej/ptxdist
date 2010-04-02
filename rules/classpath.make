@@ -65,7 +65,6 @@ CLASSPATH_AUTOCONF := \
 	--disable-Werror \
 	--disable-xmlj \
 	--disable-alsa \
-	--disable-dependency-tracking \
 	--disable-dssi \
 	--disable-gtk-peer \
 	--disable-qt-peer \

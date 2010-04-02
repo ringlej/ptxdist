@@ -44,8 +44,7 @@ XORG_DRIVER_INPUT_MOUSE_ENV 	:=  $(CROSS_ENV) \
 #
 # autoconf
 #
-XORG_DRIVER_INPUT_MOUSE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking
+XORG_DRIVER_INPUT_MOUSE_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -41,8 +41,7 @@ SDPARM_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-SDPARM_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking
+SDPARM_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

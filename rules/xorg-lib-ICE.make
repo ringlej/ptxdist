@@ -44,8 +44,7 @@ XORG_LIB_ICE_ENV 	:= $(CROSS_ENV)
 #
 XORG_LIB_ICE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(XORG_OPTIONS_TRANS) \
-	--disable-dependency-tracking
+	$(XORG_OPTIONS_TRANS)
 
 # ----------------------------------------------------------------------------
 # Target-Install

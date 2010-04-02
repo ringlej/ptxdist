@@ -60,8 +60,8 @@ INETUTILS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--disable-talk \
 	--disable-tftp \
 	--disable-whois \
-	--disable-ifconfig \
-	--disable-dependency-tracking
+	--disable-ifconfig
+#
 # FIXME: Unhandled options:
 # --enable-encryption
 # --enable-authentication

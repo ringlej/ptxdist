@@ -32,9 +32,7 @@ SPARSEHASH_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-SPARSEHASH_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking
+SPARSEHASH_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

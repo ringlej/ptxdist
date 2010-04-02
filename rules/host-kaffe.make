@@ -40,8 +40,7 @@ HOST_KAFFE_AUTOCONF	:= $(HOST_AUTOCONF) \
 	--disable-esd \
 	--disable-dssi \
 	--disable-nls \
-	--disable-largefile \
-	--disable-dependency-tracking
+	--disable-largefile
 
 ifdef PTXCONF_KAFFE_JAVAC_ECJ
 HOST_KAFFE_AUTOCONF += --with-ecj

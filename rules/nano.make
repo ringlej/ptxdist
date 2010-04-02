@@ -43,8 +43,7 @@ NANO_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-NANO_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking
+NANO_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

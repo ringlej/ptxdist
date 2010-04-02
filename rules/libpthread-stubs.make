@@ -41,8 +41,8 @@ LIBPTHREAD_STUBS_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LIBPTHREAD_STUBS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
+LIBPTHREAD_STUBS_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
 	--enable-shared=no
 
 # ----------------------------------------------------------------------------

@@ -43,7 +43,6 @@ CVS_ENV 	:= $(CROSS_ENV)
 #
 CVS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--prefix=/usr \
-	--disable-dependency-tracking \
 	--enable-case-sensitivity
 
 ifdef PTXCONF_CVS_NDBM

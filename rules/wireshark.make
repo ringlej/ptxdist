@@ -42,8 +42,8 @@ WIRESHARK_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-WIRESHARK_AUTOCONF = $(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
+WIRESHARK_AUTOCONF = \
+	$(CROSS_AUTOCONF_USR) \
 	--disable-usr-local \
 	--disable-threads \
 	--disable-profile-build \

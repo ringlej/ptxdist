@@ -42,9 +42,7 @@ LTP_BASE_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-LTP_BASE_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking
+LTP_BASE_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install

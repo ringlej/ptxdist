@@ -43,8 +43,7 @@ FAILMALLOC_ENV 	:= $(CROSS_ENV)
 #
 FAILMALLOC_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-static=no \
-	--disable-dependency-tracking
+	--enable-static=no
 
 # ----------------------------------------------------------------------------
 # Target-Install

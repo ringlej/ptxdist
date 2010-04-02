@@ -46,8 +46,7 @@ SDL_GFX_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-sdl-prefix=$(SYSROOT)/usr \
 	--disable-mmx \
-	--disable-sdltest \
-	--disable-dependency-tracking
+	--disable-sdltest
 
 # ----------------------------------------------------------------------------
 # Target-Install

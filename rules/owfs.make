@@ -41,7 +41,6 @@ $(OWFS_SOURCE):
 #
 OWFS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
 	--enable-shared \
 	--enable-static \
 	--disable-fast-install \

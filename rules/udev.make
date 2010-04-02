@@ -47,7 +47,6 @@ UDEV_AUTOCONF := \
 	--libexecdir=/lib/udev \
 	--with-kernel-headers-dir=$(PTXDIST_SYSROOT_TOOLCHAIN)/usr/include \
 	\
-	--disable-dependency-tracking \
 	--disable-introspection \
 	--enable-shared
 

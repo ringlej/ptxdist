@@ -38,7 +38,6 @@ SDL_TTF_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-sdl-prefix=$(SYSROOT)/usr \
 	--disable-sdltest \
-	--disable-dependency-tracking \
 	--without-x
 
 # ----------------------------------------------------------------------------

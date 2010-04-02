@@ -43,7 +43,6 @@ LIBCONFUSE_ENV 	:= $(CROSS_ENV)
 #
 LIBCONFUSE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
 	--disable-nls
 
 ifdef PTXCONF_LIBCONFUSE_STATIC

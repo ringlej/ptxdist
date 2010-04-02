@@ -44,7 +44,6 @@ XORG_LIB_XRENDER_ENV 	:= $(CROSS_ENV)
 #
 XORG_LIB_XRENDER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
 	--disable-malloc0returnsnull
 
 # ----------------------------------------------------------------------------

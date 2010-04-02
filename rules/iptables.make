@@ -46,7 +46,6 @@ IPTABLES_ENV	:= $(CROSS_ENV)
 #
 IPTABLES_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-dependency-tracking \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--with-xtlibdir=/usr/lib
 
