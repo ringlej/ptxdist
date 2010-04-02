@@ -193,21 +193,20 @@ check_version() {
 	# if config file and ptxdist match return success
 	# (or if beeing forced)
 	#
-	if [ "${1}" = "${PTXDIST_VERSION_CFG_FULL}" -o \
+	if [ "${1}" = "${PTXDIST_VERSION_FULL}" -o \
 	    -n "${PTX_FORCE}" ]; then
 		return 0
 	fi
 
-	local config_full="${1/-/.}"
 	local ifs_old="${IFS}"
-	IFS=.
-	set -- ${config_full}
+	local IFS=".-"
+	set -- ${1}
 	IFS="${ifs_old}"
 
 	local config_year="${1}"
 	local config_month="${2}"
 	local config_bugfix="${3}"
-	local config_scm="${4:+-$4}"
+	local config_scm="${4}"
 
 	if ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN >/dev/null; then
 		#
@@ -220,14 +219,24 @@ check_version() {
 	fi
 
 	#
+	# If both ptxdist and config file are not using a release
+	# (i.e. scm is set), we say it's compatible, too.
+	#
+	# If not the developer has to fix it :P
+	#
+	if [ "${PTXDIST_VERSION_SCM:+-git}" = "${config_scm:+-git}" ]; then
+		return 0
+	fi
+
+	#
 	# we're doing timed releases now, so year and month _must_
-	# match scm (source code management) must match, too
+	# match.
 	#
 	# the "bugfix" level of ptxdist must be greater or equal to
 	# the "bugfix" level of the config file
 	#
-	if [ "${PTXDIST_VERSION_YEAR}.${PTXDIST_VERSION_MONTH}${PTXDIST_VERSION_CFG_SCM}" != \
-		"${config_year}.${config_month}${config_scm}" ]; then
+	if [ "${PTXDIST_VERSION_YEAR}.${PTXDIST_VERSION_MONTH}${PTXDIST_VERSION_SCM:+-git}" != \
+		"${config_year}.${config_month}" ]; then
 		return 1
 	elif [ ${PTXDIST_VERSION_BUGFIX} -ge ${config_bugfix} ] >/dev/null 2>&1; then
 		return 0
@@ -2121,7 +2130,6 @@ setup_libs_early() {
 
 	for file in \
 		scripts/ptxdist_vars.sh \
-		scripts/ptxdist_version.sh \
 		scripts/libptxdist.sh \
 	; do
 		abs_file="${PTXDIST_TOPDIR}/${file}"
@@ -2426,8 +2434,6 @@ setup_export() {
 		\
 		PTXDIST_VERSION_SCM \
 		PTXDIST_VERSION_FULL \
-		PTXDIST_VERSION_CFG_SCM \
-		PTXDIST_VERSION_CFG_FULL \
 		\
 		PTXDIST_WORKSPACE \
 		\
