@@ -92,24 +92,36 @@ export -f ptxd_make_world_patchin_apply_git_init
 
 #
 # create a directory containing the patches and the selected series
-# file.  name that file "series"
+# file. name that file "series".
+#
+# decompress "bz2" and "gz" patches on the fly
 #
 ptxd_make_world_patchin_apply_git_compat()
 {
     mv "${pkg_patchin_dir}/.ptxdist/patches" "${pkg_patchin_dir}/.ptxdist/patches.orig" &&
-    mkdir "${pkg_patchin_dir}/.ptxdist/patches" &&
+    mv "${pkg_patchin_dir}/.ptxdist/series" "${pkg_patchin_dir}/.ptxdist/series.orig" &&
+    mkdir "${pkg_patchin_dir}/.ptxdist/patches" || return
 
-    # FIXME use lndir?
-
+    local patch para
     while read patch para; do
+	local cat
+
 	case "${patch}" in
 	    ""|"#"*) continue ;;	# skip empty lines and comments
+	    *.gz)  cat="zcat" ;;
+	    *.bz2) cat="bzcat" ;;
 	    *)
-		# FIXME take care about subdirs
-		ln -s "../patches.orig/${patch}" "${pkg_patchin_dir}/.ptxdist/patches" || return
+		ln -s "../patches.orig/${patch}" "${pkg_patchin_dir}/.ptxdist/patches/${patch##*/}" &&
+		echo "${patch}" "${para}" >> "${pkg_patchin_dir}/.ptxdist/series" || return
+		continue
 		;;
-	esac
-    done < "${pkg_patchin_dir}/.ptxdist/series" &&
+	esac &&
+
+	"${cat}" "${pkg_patchin_dir}/.ptxdist/patches.orig/${patch}" > \
+	    "${pkg_patchin_dir}/.ptxdist/patches/${patch%.*}" &&
+	    echo "${patch%.*}" "${para}" >> "${pkg_patchin_dir}/.ptxdist/series" || return
+
+    done < "${pkg_patchin_dir}/.ptxdist/series.orig" &&
 
     ln -sf "../series" "${pkg_patchin_dir}/.ptxdist/patches"
 }
@@ -122,12 +134,9 @@ export -f ptxd_make_world_patchin_apply_git_compat
 ptxd_make_world_patchin_apply_git()
 {
     #
-    # git quiltimport has uses a hardcoded "series"
-    # for now we cannot use git with series files not names "series"
+    # git quiltimport has certain limitations, work around them
     #
-    if [ -n "${pkg_patch_series}" -a "${pkg_patch_series##*/}" != "series" ]; then
-	ptxd_make_world_patchin_apply_git_compat || return
-    fi
+    ptxd_make_world_patchin_apply_git_compat || return
 
     git quiltimport --patches "${pkg_patchin_dir}/.ptxdist/patches" --author "unknown author <unknown.author@example.com>"
 }
