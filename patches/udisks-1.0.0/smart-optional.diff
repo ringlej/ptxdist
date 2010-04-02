@@ -1,0 +1,415 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: make libatasmart dependency optional
+
+This patch adds a configure option for libatasmart.
+When disabled, the helper programs using it will not be built.
+Any other code using libatasmart is guarded with appropriate ifdefs.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ configure.ac            |   12 +++++++++---
+ src/adapter-private.h   |    1 -
+ src/adapter.c           |    1 -
+ src/daemon.c            |    4 ++++
+ src/device-private.c    |    2 ++
+ src/device-private.h    |    6 ++++++
+ src/device.c            |   20 ++++++++++++++++++++
+ src/expander-private.h  |    1 -
+ src/expander.c          |    1 -
+ src/helpers/Makefile.am |    9 +++++++--
+ src/port-private.h      |    1 -
+ src/probers/Makefile.am |    5 ++++-
+ tools/udisks.c          |    6 ++++++
+ 13 files changed, 58 insertions(+), 11 deletions(-)
+
+Index: b/configure.ac
+===================================================================
+--- a/configure.ac
++++ b/configure.ac
+@@ -204,9 +204,15 @@ if test "x$enable_dmmp" != "xno"; then
+ fi
+ AM_CONDITIONAL(HAVE_DMMP, [test "$have_dmmp" = "yes"])
+ 
+-PKG_CHECK_MODULES(LIBATASMART, [libatasmart >= 0.14])
+-AC_SUBST(LIBATASMART_CFLAGS)
+-AC_SUBST(LIBATASMART_LIBS)
++AC_ARG_ENABLE(libatasmart,[  --disable-libatasmart],enable_libatasmart=$enableval,enable_libatasmart=yes)
++
++if test "x$enable_libatasmart" = xyes; then
++  PKG_CHECK_MODULES(LIBATASMART, [libatasmart >= 0.14])
++  AC_SUBST(LIBATASMART_CFLAGS)
++  AC_SUBST(LIBATASMART_LIBS)
++  AC_DEFINE(LIBATASMART_ENABLED,[1],[libatasmart enabled])
++fi
++AM_CONDITIONAL(LIBATASMART_ENABLED, test "x$enable_libatasmart" = xyes)
+ 
+ PKG_CHECK_MODULES(LIBUDEV, [libudev >= 143])
+ AC_SUBST(LIBUDEV_CFLAGS)
+Index: b/src/device-private.h
+===================================================================
+--- a/src/device-private.h
++++ b/src/device-private.h
+@@ -23,7 +23,9 @@
+ 
+ #include <dbus/dbus-glib.h>
+ #include <gudev/gudev.h>
++#ifdef LIBATASMART_ENABLED
+ #include <atasmart.h>
++#endif
+ 
+ #include "types.h"
+ 
+@@ -224,7 +226,9 @@ struct DevicePrivate
+ 
+   gboolean drive_ata_smart_is_available;
+   guint64 drive_ata_smart_time_collected;
++#ifdef LIBATASMART_ENABLED
+   SkSmartOverall drive_ata_smart_status;
++#endif
+   void *drive_ata_smart_blob;
+   gsize drive_ata_smart_blob_size;
+ 
+@@ -389,10 +393,12 @@ void device_set_dm_name (Device *device,
+ void device_set_slaves_objpath (Device *device, GStrv value);
+ void device_set_holders_objpath (Device *device, GStrv value);
+ 
++#ifdef LIBATASMART_ENABLED
+ void device_set_drive_ata_smart_is_available (Device *device, gboolean value);
+ void device_set_drive_ata_smart_time_collected (Device *device, guint64 value);
+ void device_set_drive_ata_smart_status (Device *device, SkSmartOverall value);
+ void device_set_drive_ata_smart_blob_steal (Device *device, gchar *blob, gsize blob_size);
++#endif
+ 
+ G_END_DECLS
+ 
+Index: b/src/device.c
+===================================================================
+--- a/src/device.c
++++ b/src/device.c
+@@ -49,7 +49,9 @@
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ #include <gudev/gudev.h>
++#ifdef LIBATASMART_ENABLED
+ #include <atasmart.h>
++#endif
+ 
+ #include "daemon.h"
+ #include "device.h"
+@@ -658,6 +660,7 @@ get_property (GObject *object,
+     case PROP_DRIVE_ATA_SMART_TIME_COLLECTED:
+       g_value_set_uint64 (value, device->priv->drive_ata_smart_time_collected);
+       break;
++#ifdef LIBATASMART_ENABLED
+     case PROP_DRIVE_ATA_SMART_STATUS:
+       {
+         const gchar *status;
+@@ -668,6 +671,7 @@ get_property (GObject *object,
+         g_value_set_string (value, status);
+       }
+       break;
++#endif
+     case PROP_DRIVE_ATA_SMART_BLOB:
+       {
+         GArray *a;
+@@ -1740,7 +1744,9 @@ device_init (Device *device)
+   device->priv->slaves_objpath = g_ptr_array_new ();
+   device->priv->holders_objpath = g_ptr_array_new ();
+ 
++#ifdef LIBATASMART_ENABLED
+   device->priv->drive_ata_smart_status = -1;
++#endif
+ }
+ 
+ static void
+@@ -3830,6 +3836,7 @@ update_info_linux_md (Device *device)
+ static gboolean
+ update_info_drive_ata_smart (Device *device)
+ {
++#ifdef LIBATASMART_ENABLED
+   gboolean ata_smart_is_available;
+ 
+   ata_smart_is_available = FALSE;
+@@ -3842,6 +3849,7 @@ update_info_drive_ata_smart (Device *dev
+    *       collecting data is done in separate routines, see the
+    *       device_drive_ata_smart_refresh_data() function for details.
+    */
++#endif
+ 
+   return TRUE;
+ }
+@@ -9646,6 +9654,7 @@ device_filesystem_set_label (Device *dev
+ 
+ /*--------------------------------------------------------------------------------------------------------------*/
+ 
++#ifdef LIBATASMART_ENABLED
+ /* may be called with context==NULL */
+ static void
+ drive_ata_smart_refresh_data_completed_cb (DBusGMethodInvocation *context,
+@@ -9848,6 +9857,7 @@ device_drive_ata_smart_refresh_data_auth
+   ;
+   PROFILE ("device_drive_ata_smart_refresh_data_authorized_cb(device=%s) end", device->priv->native_path);
+ }
++#endif /* LIBATASMART_ENABLED */
+ 
+ /* may be called with context==NULL */
+ gboolean
+@@ -9855,6 +9865,7 @@ device_drive_ata_smart_refresh_data (Dev
+                                      char **options,
+                                      DBusGMethodInvocation *context)
+ {
++#ifdef LIBATASMART_ENABLED
+   const gchar *action_id;
+ 
+   action_id = NULL;
+@@ -9875,10 +9886,14 @@ device_drive_ata_smart_refresh_data (Dev
+                            g_strfreev);
+ 
+   return TRUE;
++#else
++  return FALSE;
++#endif
+ }
+ 
+ /*--------------------------------------------------------------------------------------------------------------*/
+ 
++#ifdef LIBATASMART_ENABLED
+ static void
+ drive_ata_smart_initiate_selftest_completed_cb (DBusGMethodInvocation *context,
+                                                 Device *device,
+@@ -9975,6 +9990,7 @@ device_drive_ata_smart_initiate_selftest
+  out:
+   ;
+ }
++#endif /* LIBATASMART_ENABLED */
+ 
+ gboolean
+ device_drive_ata_smart_initiate_selftest (Device *device,
+@@ -9982,6 +9998,7 @@ device_drive_ata_smart_initiate_selftest
+                                           gchar **options,
+                                           DBusGMethodInvocation *context)
+ {
++#ifdef LIBATASMART_ENABLED
+   if (!device->priv->drive_ata_smart_is_available)
+     {
+       throw_error (context, ERROR_FAILED, "Device does not support ATA SMART");
+@@ -10003,6 +10020,9 @@ device_drive_ata_smart_initiate_selftest
+ 
+  out:
+   return TRUE;
++#else
++  return FALSE;
++#endif
+ }
+ 
+ /*--------------------------------------------------------------------------------------------------------------*/
+Index: b/src/device-private.c
+===================================================================
+--- a/src/device-private.c
++++ b/src/device-private.c
+@@ -1354,6 +1354,7 @@ device_set_holders_objpath (Device *devi
+     }
+ }
+ 
++#ifdef LIBATASMART_ENABLED
+ void
+ device_set_drive_ata_smart_is_available (Device *device,
+                                          gboolean value)
+@@ -1400,6 +1401,7 @@ device_set_drive_ata_smart_blob_steal (D
+ 
+   emit_changed (device, "drive_ata_smart_blob");
+ }
++#endif /* LIBATASMART_ENABLED */
+ 
+ 
+ void
+Index: b/tools/udisks.c
+===================================================================
+--- a/tools/udisks.c
++++ b/tools/udisks.c
+@@ -43,7 +43,9 @@
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ 
++#ifdef LIBATASMART_ENABLED
+ #include <atasmart.h>
++#endif
+ 
+ #include "udisks-daemon-glue.h"
+ #include "udisks-device-glue.h"
+@@ -1003,6 +1005,7 @@ ata_smart_status_to_desc (const gchar *s
+   return desc;
+ }
+ 
++#ifdef LIBATASMART_ENABLED
+ static gchar *
+ get_ata_smart_unit (guint unit,
+                     guint64 pretty_value)
+@@ -1137,6 +1140,7 @@ print_ata_smart_attr (SkDisk *d,
+   g_free (threshold_str);
+   g_free (pretty);
+ }
++#endif
+ 
+ static void
+ do_show_info (const char *object_path)
+@@ -1419,6 +1423,7 @@ do_show_info (const char *object_path)
+ 
+       /* ------------------------------------------------------------------------------------------------- */
+ 
++#ifdef LIBATASMART_ENABLED
+       if (!props->drive_ata_smart_is_available)
+         {
+           g_print ("    ATA SMART:                 not available\n");
+@@ -1471,6 +1476,7 @@ do_show_info (const char *object_path)
+             }
+ 
+         }
++#endif
+ 
+       /* ------------------------------------------------------------------------------------------------- */
+ 
+Index: b/src/helpers/Makefile.am
+===================================================================
+--- a/src/helpers/Makefile.am
++++ b/src/helpers/Makefile.am
+@@ -22,13 +22,18 @@ libexec_PROGRAMS = 					\
+ 	udisks-helper-change-filesystem-label 		\
+ 	udisks-helper-linux-md-remove-component		\
+ 	udisks-helper-fstab-mounter			\
+-	udisks-helper-ata-smart-collect			\
+-	udisks-helper-ata-smart-selftest		\
+ 	udisks-helper-drive-poll			\
+ 	udisks-helper-linux-md-check			\
+ 	udisks-helper-drive-benchmark			\
+ 	$(NULL)
+ 
++if LIBATASMART_ENABLED
++libexec_PROGRAMS += 					\
++	udisks-helper-ata-smart-collect			\
++	udisks-helper-ata-smart-selftest		\
++	$(NULL)
++endif
++
+ if SGUTILS2_ENABLED
+ libexec_PROGRAMS += udisks-helper-drive-detach
+ endif
+Index: b/src/probers/Makefile.am
+===================================================================
+--- a/src/probers/Makefile.am
++++ b/src/probers/Makefile.am
+@@ -22,7 +22,6 @@ INCLUDES = \
+ 
+ udevhelperdir = $(slashlibdir)/udev
+ udevhelper_PROGRAMS =					\
+-		      	udisks-probe-ata-smart 		\
+ 			udisks-probe-sas-expander 	\
+ 			$(NULL)
+ 
+@@ -38,6 +37,10 @@ if HAVE_LVM2
+ udevhelper_PROGRAMS += udisks-lvm-pv-export
+ endif
+ 
++if LIBATASMART_ENABLED
++udevhelper_PROGRAMS += udisks-probe-ata-smart
++endif
++
+ udisks_part_id_SOURCES = part-id.c
+ udisks_part_id_CPPFLAGS = $(AM_CPPFLAGS) $(LIBUDEV_CFLAGS)
+ udisks_part_id_LDADD = $(GLIB_LIBS) $(LIBUDEV_LIBS) $(top_builddir)/src/helpers/libpartutil.la
+Index: b/src/adapter-private.h
+===================================================================
+--- a/src/adapter-private.h
++++ b/src/adapter-private.h
+@@ -23,7 +23,6 @@
+ 
+ #include <dbus/dbus-glib.h>
+ #include <gudev/gudev.h>
+-#include <atasmart.h>
+ 
+ #include "types.h"
+ 
+Index: b/src/expander-private.h
+===================================================================
+--- a/src/expander-private.h
++++ b/src/expander-private.h
+@@ -23,7 +23,6 @@
+ 
+ #include <dbus/dbus-glib.h>
+ #include <gudev/gudev.h>
+-#include <atasmart.h>
+ 
+ #include "types.h"
+ 
+Index: b/src/port-private.h
+===================================================================
+--- a/src/port-private.h
++++ b/src/port-private.h
+@@ -23,7 +23,6 @@
+ 
+ #include <dbus/dbus-glib.h>
+ #include <gudev/gudev.h>
+-#include <atasmart.h>
+ 
+ #include "types.h"
+ 
+Index: b/src/adapter.c
+===================================================================
+--- a/src/adapter.c
++++ b/src/adapter.c
+@@ -30,7 +30,6 @@
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ #include <gudev/gudev.h>
+-#include <atasmart.h>
+ 
+ #include "daemon.h"
+ #include "adapter.h"
+Index: b/src/daemon.c
+===================================================================
+--- a/src/daemon.c
++++ b/src/daemon.c
+@@ -1719,6 +1719,7 @@ mdstat_changed_event (GIOChannel *channe
+   return TRUE;
+ }
+ 
++#ifdef LIBATASMART_ENABLED
+ static gboolean
+ refresh_ata_smart_data (Daemon *daemon)
+ {
+@@ -1747,6 +1748,7 @@ refresh_ata_smart_data (Daemon *daemon)
+ 
+   return FALSE;
+ }
++#endif /* LIBATASMART_ENABLED */
+ 
+ static gboolean
+ register_disks_daemon (Daemon *daemon)
+@@ -1949,12 +1951,14 @@ daemon_new (void)
+   mount_file_clean_stale (l);
+   g_list_free (l);
+ 
++#ifdef LIBATASMART_ENABLED
+   /* set up timer for refreshing ATA SMART data - we don't want to refresh immediately because
+    * when adding a device we also do this...
+    */
+   daemon->priv->ata_smart_refresh_timer_id = g_timeout_add_seconds (ATA_SMART_REFRESH_INTERVAL_SECONDS,
+                                                                     (GSourceFunc) refresh_ata_smart_data,
+                                                                     daemon);
++#endif /* LIBATASMART_ENABLED */
+ 
+   PROFILE ("daemon_new(): end");
+   return daemon;
+Index: b/src/expander.c
+===================================================================
+--- a/src/expander.c
++++ b/src/expander.c
+@@ -34,7 +34,6 @@
+ #include <dbus/dbus-glib.h>
+ #include <dbus/dbus-glib-lowlevel.h>
+ #include <gudev/gudev.h>
+-#include <atasmart.h>
+ #include <stdlib.h>
+ 
+ #include "daemon.h"

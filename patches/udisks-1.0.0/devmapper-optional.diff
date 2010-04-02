@@ -1,0 +1,58 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: make devmapper dependency optional
+
+This patch adds a configure option for devmapper.
+When disabled, the helper program using it will not be built.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ configure.ac            |   11 ++++++++---
+ src/probers/Makefile.am |    5 ++++-
+ 2 files changed, 12 insertions(+), 4 deletions(-)
+
+Index: b/configure.ac
+===================================================================
+--- a/configure.ac
++++ b/configure.ac
+@@ -173,9 +173,14 @@ if test "x$enable_libparted" = xyes; the
+ fi
+ AM_CONDITIONAL(LIBPARTED_ENABLED, test "x$enable_libparted" = xyes)
+ 
+-PKG_CHECK_MODULES(DEVMAPPER, [devmapper >= 1.02])
+-AC_SUBST(DEVMAPPER_CFLAGS)
+-AC_SUBST(DEVMAPPER_LIBS)
++AC_ARG_ENABLE(devmapper,[  --disable-devmapper],enable_devmapper=$enableval,enable_devmapper=yes)
++
++if test "x$enable_devmapper" = xyes; then
++  PKG_CHECK_MODULES(DEVMAPPER, [devmapper >= 1.02])
++  AC_SUBST(DEVMAPPER_CFLAGS)
++  AC_SUBST(DEVMAPPER_LIBS)
++fi
++AM_CONDITIONAL(DEVMAPPER_ENABLED, test "x$enable_devmapper" = xyes)
+ 
+ have_lvm2=no
+ AC_ARG_ENABLE(lvm2, AS_HELP_STRING([--disable-lvm2], [disable LVM2 support]))
+Index: b/src/probers/Makefile.am
+===================================================================
+--- a/src/probers/Makefile.am
++++ b/src/probers/Makefile.am
+@@ -22,7 +22,6 @@ INCLUDES = \
+ 
+ udevhelperdir = $(slashlibdir)/udev
+ udevhelper_PROGRAMS =					\
+-			udisks-dm-export 		\
+ 		      	udisks-probe-ata-smart 		\
+ 			udisks-probe-sas-expander 	\
+ 			$(NULL)
+@@ -31,6 +30,10 @@ if LIBPARTED_ENABLED
+ udevhelper_PROGRAMS += udisks-part-id
+ endif
+ 
++if DEVMAPPER_ENABLED
++udevhelper_PROGRAMS += udisks-dm-export
++endif
++
+ if HAVE_LVM2
+ udevhelper_PROGRAMS += udisks-lvm-pv-export
+ endif

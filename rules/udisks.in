@@ -1,0 +1,42 @@
+## SECTION=shell_and_console
+
+menuconfig UDISKS
+	tristate
+	select HOST_GTK_DOC
+	select HOST_LIBXSLT
+	select GLIB
+	select DBUS
+	select DBUS_GLIB
+	select POLKIT
+	select UDEV
+	select UDEV_LIBUDEV
+	select UDEV_LIBGUDEV
+	# busybox mount can't handle all the options
+	select UTIL_LINUX_NG
+	select UTIL_LINUX_NG_MOUNT
+	select UTIL_LINUX_NG_UMOUNT
+	select FAKE_OVERLAYFS		if UDISKS_FAKE_OVERLAYFS
+	select FAKE_OVERLAYFS_VAR_TMP	if UDISKS_FAKE_OVERLAYFS
+	select FAKE_OVERLAYFS_VAR_RUN	if UDISKS_FAKE_OVERLAYFS
+	prompt "udisks                        "
+	help
+	  abstraction for enumerating block devices
+
+	  Udisks is an abstraction for enumerating block
+	  devices and performing operations on them. Any application
+	  can access the org.freedesktop.UDisks. Disks service on
+	  the system message bus. Some operations (such as formatting
+	  disks etc.) are restricted using PolicyKit.
+
+if UDISKS
+
+config UDISKS_FAKE_OVERLAYFS
+	bool
+	prompt "use fake overlayfs"
+	help
+	  This makes sure that all necessary directories and files
+	  are available and writeable on a readonly rootfs + tmpfs for
+	  writable directories.
+
+endif
+
