@@ -1,0 +1,26 @@
+From a4f559d56a4c013e20919f83961e3c870ecc6df5 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 3 Apr 2010 14:52:11 +0200
+Subject: [PATCH 2/2] [tail] HACK: touch man file to avoid re-generation
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ man/tail.1 |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/man/tail.1 b/man/tail.1
+index 3d18380..74c5a54 100644
+--- a/man/tail.1
++++ b/man/tail.1
+@@ -92,7 +92,7 @@ There is NO WARRANTY, to the extent permitted by law.
+ .SH "SEE ALSO"
+ The full documentation for
+ .B tail
+-is maintained as a Texinfo manual.  If the
++is maintained as a Texinfo manual. If the
+ .B info
+ and
+ .B tail
+-- 
+1.7.0.3
+
