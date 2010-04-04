@@ -1,0 +1,466 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: [patch] fix warning
+
+With gcc-4.3.2 I get this error:
+
+cc1: warnings being treated as errors
+lexer.c:1638: error: 'input' defined but not used
+make[3]: *** [lexer.lo] Error 1
+
+Add "#define YY_NO_INPUT" to lexer.l to fix this.
+lexer.c is regenerated with flex.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ src/lexer.c |  108 ++++++++++++++++++++++++++++++------------------------------
+ src/lexer.l |    2 +
+ 2 files changed, 57 insertions(+), 53 deletions(-)
+
+Index: b/src/lexer.l
+===================================================================
+--- a/src/lexer.l
++++ b/src/lexer.l
+@@ -36,6 +36,8 @@
+ #endif
+ #define N_(str) str
+ 
++#define YY_NO_INPUT
++
+ typedef char * YYSTYPE;
+ extern YYSTYPE cfg_yylval;
+ 
+Index: b/src/lexer.c
+===================================================================
+--- a/src/lexer.c
++++ b/src/lexer.c
+@@ -336,7 +336,7 @@ void cfg_yyfree (void *  );
+ 
+ /* Begin user sect3 */
+ 
+-#define cfg_yywrap() 1
++#define cfg_yywrap(n) 1
+ #define YY_SKIP_YYWRAP
+ 
+ typedef unsigned char YY_CHAR;
+@@ -574,6 +574,8 @@ char *cfg_yytext;
+ #endif
+ #define N_(str) str
+ 
++#define YY_NO_INPUT
++
+ typedef char * YYSTYPE;
+ extern YYSTYPE cfg_yylval;
+ 
+@@ -603,7 +605,7 @@ static YY_BUFFER_STATE string_scan_state
+ 
+ 
+ 
+-#line 607 "lexer.c"
++#line 609 "lexer.c"
+ 
+ #define INITIAL 0
+ #define comment 1
+@@ -759,10 +761,10 @@ YY_DECL
+ 	register char *yy_cp, *yy_bp;
+ 	register int yy_act;
+     
+-#line 73 "lexer.l"
++#line 75 "lexer.l"
+ 
+ 
+-#line 766 "lexer.c"
++#line 768 "lexer.c"
+ 
+ 	if ( !(yy_init) )
+ 		{
+@@ -847,90 +849,90 @@ do_action:	/* This label is used only to
+ 
+ case 1:
+ YY_RULE_SETUP
+-#line 75 "lexer.l"
++#line 77 "lexer.l"
+ /* eat up whitespace */
+ 	YY_BREAK
+ case 2:
+ /* rule 2 can match eol */
+ YY_RULE_SETUP
+-#line 77 "lexer.l"
++#line 79 "lexer.l"
+ cfg->line++; /* keep track of line number */
+ 	YY_BREAK
+ case 3:
+ YY_RULE_SETUP
+-#line 79 "lexer.l"
++#line 81 "lexer.l"
+ /* eat up one-line comments */
+ 	YY_BREAK
+ /* special keywords/symbols
+   */
+ case 4:
+ YY_RULE_SETUP
+-#line 83 "lexer.l"
++#line 85 "lexer.l"
+ { cfg_yylval = cfg_yytext; return '{'; }
+ 	YY_BREAK
+ case 5:
+ YY_RULE_SETUP
+-#line 84 "lexer.l"
++#line 86 "lexer.l"
+ { cfg_yylval = cfg_yytext; return '}'; }
+ 	YY_BREAK
+ case 6:
+ YY_RULE_SETUP
+-#line 85 "lexer.l"
++#line 87 "lexer.l"
+ { cfg_yylval = cfg_yytext; return '('; }
+ 	YY_BREAK
+ case 7:
+ YY_RULE_SETUP
+-#line 86 "lexer.l"
++#line 88 "lexer.l"
+ { cfg_yylval = cfg_yytext; return ')'; }
+ 	YY_BREAK
+ case 8:
+ YY_RULE_SETUP
+-#line 87 "lexer.l"
++#line 89 "lexer.l"
+ { cfg_yylval = cfg_yytext; return '='; }
+ 	YY_BREAK
+ case 9:
+ YY_RULE_SETUP
+-#line 88 "lexer.l"
++#line 90 "lexer.l"
+ { cfg_yylval = cfg_yytext; return '+'; }
+ 	YY_BREAK
+ case 10:
+ YY_RULE_SETUP
+-#line 89 "lexer.l"
++#line 91 "lexer.l"
+ { cfg_yylval = cfg_yytext; return ','; }
+ 	YY_BREAK
+ /* handle multi-line C-style comments
+   */
+ case 11:
+ YY_RULE_SETUP
+-#line 93 "lexer.l"
++#line 95 "lexer.l"
+ BEGIN(comment);
+ 	YY_BREAK
+ case 12:
+ YY_RULE_SETUP
+-#line 94 "lexer.l"
++#line 96 "lexer.l"
+ /* eat anything that's not a '*' */
+ 	YY_BREAK
+ case 13:
+ YY_RULE_SETUP
+-#line 95 "lexer.l"
++#line 97 "lexer.l"
+ /* eat up '*'s not followed by '/'s */
+ 	YY_BREAK
+ case 14:
+ /* rule 14 can match eol */
+ YY_RULE_SETUP
+-#line 96 "lexer.l"
++#line 98 "lexer.l"
+ cfg->line++;
+ 	YY_BREAK
+ case 15:
+ YY_RULE_SETUP
+-#line 97 "lexer.l"
++#line 99 "lexer.l"
+ BEGIN(INITIAL);
+ 	YY_BREAK
+ /* handle C-style strings
+   */
+ case 16:
+ YY_RULE_SETUP
+-#line 101 "lexer.l"
++#line 103 "lexer.l"
+ {
+     qstring_index = 0;
+     BEGIN(dq_str);
+@@ -938,7 +940,7 @@ YY_RULE_SETUP
+ 	YY_BREAK
+ case 17:
+ YY_RULE_SETUP
+-#line 105 "lexer.l"
++#line 107 "lexer.l"
+ { /* saw closing quote - all done */
+     BEGIN(INITIAL);
+     qputc('\0');
+@@ -949,7 +951,7 @@ YY_RULE_SETUP
+ case 18:
+ /* rule 18 can match eol */
+ YY_RULE_SETUP
+-#line 111 "lexer.l"
++#line 113 "lexer.l"
+ { /* environment variable substitution */
+     char *var;
+     char *e;
+@@ -969,7 +971,7 @@ YY_RULE_SETUP
+ case 19:
+ /* rule 19 can match eol */
+ YY_RULE_SETUP
+-#line 126 "lexer.l"
++#line 128 "lexer.l"
+ {
+     qputc('\n');
+     cfg->line++;
+@@ -978,7 +980,7 @@ YY_RULE_SETUP
+ case 20:
+ /* rule 20 can match eol */
+ YY_RULE_SETUP
+-#line 130 "lexer.l"
++#line 132 "lexer.l"
+ { /* allow continuing on next line */
+     /* no-op */
+     cfg->line++;
+@@ -986,7 +988,7 @@ YY_RULE_SETUP
+ 	YY_BREAK
+ case 21:
+ YY_RULE_SETUP
+-#line 134 "lexer.l"
++#line 136 "lexer.l"
+ {  /* octal escape sequence */
+     int result;
+     sscanf(cfg_yytext + 1, "%o", &result);
+@@ -999,7 +1001,7 @@ YY_RULE_SETUP
+ 	YY_BREAK
+ case 22:
+ YY_RULE_SETUP
+-#line 143 "lexer.l"
++#line 145 "lexer.l"
+ {
+     cfg_error(cfg, _("bad escape sequence '%s'"), cfg_yytext);
+     return 0;
+@@ -1007,7 +1009,7 @@ YY_RULE_SETUP
+ 	YY_BREAK
+ case 23:
+ YY_RULE_SETUP
+-#line 147 "lexer.l"
++#line 149 "lexer.l"
+ { /* hexadecimal escape sequence */
+     int result;
+     sscanf(cfg_yytext + 2, "%x", &result);
+@@ -1016,70 +1018,70 @@ YY_RULE_SETUP
+ 	YY_BREAK
+ case 24:
+ YY_RULE_SETUP
+-#line 152 "lexer.l"
++#line 154 "lexer.l"
+ {
+     qputc('\n');
+ }
+ 	YY_BREAK
+ case 25:
+ YY_RULE_SETUP
+-#line 155 "lexer.l"
++#line 157 "lexer.l"
+ {
+     qputc('\r');
+ }
+ 	YY_BREAK
+ case 26:
+ YY_RULE_SETUP
+-#line 158 "lexer.l"
++#line 160 "lexer.l"
+ {
+     qputc('\b');
+ }
+ 	YY_BREAK
+ case 27:
+ YY_RULE_SETUP
+-#line 161 "lexer.l"
++#line 163 "lexer.l"
+ {
+     qputc('\f');
+ }
+ 	YY_BREAK
+ case 28:
+ YY_RULE_SETUP
+-#line 164 "lexer.l"
++#line 166 "lexer.l"
+ {
+     qputc('\007');
+ }
+ 	YY_BREAK
+ case 29:
+ YY_RULE_SETUP
+-#line 167 "lexer.l"
++#line 169 "lexer.l"
+ {
+     qputc('\033');
+ }
+ 	YY_BREAK
+ case 30:
+ YY_RULE_SETUP
+-#line 170 "lexer.l"
++#line 172 "lexer.l"
+ {
+     qputc('\t');
+ }
+ 	YY_BREAK
+ case 31:
+ YY_RULE_SETUP
+-#line 173 "lexer.l"
++#line 175 "lexer.l"
+ {
+     qputc('\v');
+ }
+ 	YY_BREAK
+ case 32:
+ YY_RULE_SETUP
+-#line 176 "lexer.l"
++#line 178 "lexer.l"
+ {
+     qputc(cfg_yytext[1]);
+ }
+ 	YY_BREAK
+ case 33:
+ YY_RULE_SETUP
+-#line 179 "lexer.l"
++#line 181 "lexer.l"
+ {
+     char *yptr = cfg_yytext;
+     while(*yptr) {
+@@ -1090,7 +1092,7 @@ YY_RULE_SETUP
+ /* single-quoted string ('...') */
+ case 34:
+ YY_RULE_SETUP
+-#line 187 "lexer.l"
++#line 189 "lexer.l"
+ {
+     qstring_index = 0;
+     BEGIN(sq_str);
+@@ -1098,7 +1100,7 @@ YY_RULE_SETUP
+ 	YY_BREAK
+ case 35:
+ YY_RULE_SETUP
+-#line 191 "lexer.l"
++#line 193 "lexer.l"
+ { /* saw closing quote - all done */
+     BEGIN(INITIAL);
+     qputc('\0');
+@@ -1109,7 +1111,7 @@ YY_RULE_SETUP
+ case 36:
+ /* rule 36 can match eol */
+ YY_RULE_SETUP
+-#line 197 "lexer.l"
++#line 199 "lexer.l"
+ {
+     qputc('\n');
+     cfg->line++;
+@@ -1118,7 +1120,7 @@ YY_RULE_SETUP
+ case 37:
+ /* rule 37 can match eol */
+ YY_RULE_SETUP
+-#line 201 "lexer.l"
++#line 203 "lexer.l"
+ { /* allow continuing on next line */
+     /* no-op */
+     cfg->line++;
+@@ -1126,7 +1128,7 @@ YY_RULE_SETUP
+ 	YY_BREAK
+ case 38:
+ YY_RULE_SETUP
+-#line 205 "lexer.l"
++#line 207 "lexer.l"
+ {
+     qputc(cfg_yytext[1]);
+ }
+@@ -1134,7 +1136,7 @@ YY_RULE_SETUP
+ case 39:
+ /* rule 39 can match eol */
+ YY_RULE_SETUP
+-#line 208 "lexer.l"
++#line 210 "lexer.l"
+ {
+     qputc(cfg_yytext[0]);
+     qputc(cfg_yytext[1]);
+@@ -1142,7 +1144,7 @@ YY_RULE_SETUP
+ 	YY_BREAK
+ case 40:
+ YY_RULE_SETUP
+-#line 212 "lexer.l"
++#line 214 "lexer.l"
+ {
+     char *cp = cfg_yytext;
+     while(*cp != '\0') {
+@@ -1151,7 +1153,7 @@ YY_RULE_SETUP
+ }
+ 	YY_BREAK
+ case YY_STATE_EOF(sq_str):
+-#line 218 "lexer.l"
++#line 220 "lexer.l"
+ {
+     cfg_error(cfg, _("unterminated string constant"));
+     return 0;
+@@ -1160,7 +1162,7 @@ case YY_STATE_EOF(sq_str):
+ case YY_STATE_EOF(INITIAL):
+ case YY_STATE_EOF(comment):
+ case YY_STATE_EOF(dq_str):
+-#line 223 "lexer.l"
++#line 225 "lexer.l"
+ {
+              if( string_scan_state != 0 || cfg_include_stack_ptr <= 0 )
+                  {
+@@ -1183,7 +1185,7 @@ case YY_STATE_EOF(dq_str):
+ case 41:
+ /* rule 41 can match eol */
+ YY_RULE_SETUP
+-#line 243 "lexer.l"
++#line 245 "lexer.l"
+ {
+     char *var;
+     char *e;
+@@ -1208,7 +1210,7 @@ YY_RULE_SETUP
+   */
+ case 42:
+ YY_RULE_SETUP
+-#line 265 "lexer.l"
++#line 267 "lexer.l"
+ {
+     cfg_yylval = cfg_yytext;
+     return CFGT_STR;
+@@ -1216,10 +1218,10 @@ YY_RULE_SETUP
+ 	YY_BREAK
+ case 43:
+ YY_RULE_SETUP
+-#line 270 "lexer.l"
++#line 272 "lexer.l"
+ ECHO;
+ 	YY_BREAK
+-#line 1223 "lexer.c"
++#line 1225 "lexer.c"
+ 
+ 	case YY_END_OF_BUFFER:
+ 		{
+@@ -1448,7 +1450,7 @@ static int yy_get_next_buffer (void)
+ 
+ 		/* Read in more data. */
+ 		YY_INPUT( (&YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[number_to_move]),
+-			(yy_n_chars), (size_t) num_to_read );
++			(yy_n_chars), num_to_read );
+ 
+ 		YY_CURRENT_BUFFER_LVALUE->yy_n_chars = (yy_n_chars);
+ 		}
+@@ -1949,7 +1951,7 @@ YY_BUFFER_STATE cfg_yy_scan_buffer  (cha
+ 
+ /** Setup the input buffer state to scan a string. The next call to cfg_yylex() will
+  * scan from a @e copy of @a str.
+- * @param yystr a NUL-terminated string to scan
++ * @param str a NUL-terminated string to scan
+  * 
+  * @return the newly allocated buffer state object.
+  * @note If you want to scan bytes that may contain NUL values, then use
+@@ -2203,7 +2205,7 @@ void cfg_yyfree (void * ptr )
+ 
+ #define YYTABLES_NAME "yytables"
+ 
+-#line 270 "lexer.l"
++#line 272 "lexer.l"
+ 
+ 
+ 
