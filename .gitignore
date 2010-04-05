@@ -4,6 +4,7 @@
 /autom4te.cache/
 /Makefile
 /.done
+/.tarball-version
 
 *.orig
 *.swp
@@ -13,7 +14,6 @@
 
 logfile
 
-scripts/ptxdist_version.sh
 scripts/kconfig/conf
 scripts/kconfig/conf.o
 scripts/kconfig/lex.zconf.c

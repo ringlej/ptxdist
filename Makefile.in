@@ -35,47 +35,65 @@ all:
 	@echo "done."
 	@touch .done
 
-install: all
-	@echo "installing PTXdist to $(DESTDIR)$(prefix)..."
-	@rm -fr   "$(DESTDIR)$(instdir)"
-	@mkdir -p "$(DESTDIR)$(instdir)"
-	@tar -C $(abs_srcdir) -cf - \
-		--exclude .git \
-		--exclude .pc \
-		--exclude .svn \
-		--exclude debian \
-		--exclude state \
-		. | \
-		tar -o -C "$(DESTDIR)$(instdir)" -xvf -
-
-	@mkdir -p "$(DESTDIR)$(bindir)"
-	@rm -f    "$(DESTDIR)$(bindir)/ptxdist"
-	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist-$(version)"
-	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist"
-	-@[ -d "$(DESTDIR)@BASH_COMPLETION_DIR@" ] && \
-		cp scripts/bash_completion "$(DESTDIR)@BASH_COMPLETION_DIR@/ptxdist"
-
 clean:
 	@rm -f .done
 	@$(MAKE) -C "$(abs_srcdir)/scripts/kconfig" clean
 
-dist:
+dirty-check:
+	@case "$(version)" in \
+		*-dirty) echo "refusing to install or package a dirty git tree!" ; exit 1 ;; \
+	esac
+
+install: all dirty-check
+	@echo "installing PTXdist to $(DESTDIR)$(prefix)..."
+	@rm -fr   "$(DESTDIR)$(instdir)"
+	@mkdir -p "$(DESTDIR)$(instdir)"
+	@tar -C "$(abs_srcdir)" -cf - \
+		--exclude *~ \
+		--exclude .git \
+		--exclude .pc \
+		--exclude .svn \
+		--exclude autom4te.cache \
+		--exclude config.log \
+		--exclude config.status \
+		--exclude debian \
+		--exclude state \
+		. | \
+		tar -o -C "$(DESTDIR)$(instdir)" -xvf -
+	@if [ \! -e "$(DESTDIR)$(instdir)/.tarball-version" ]; then \
+		echo -n "${version}" > "$(DESTDIR)$(instdir)/.tarball-version"; \
+	fi
+	@mkdir -p "$(DESTDIR)$(bindir)"
+	@rm -f    "$(DESTDIR)$(bindir)/ptxdist"
+	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist-$(version)"
+	@ln -sf   "$(instdir)/bin/ptxdist" "$(DESTDIR)$(bindir)/ptxdist"
+	@if [ -d "$(DESTDIR)@BASH_COMPLETION_DIR@" -a \
+		-w "$(DESTDIR)@BASH_COMPLETION_DIR@" ]; then \
+		cp scripts/bash_completion "$(DESTDIR)@BASH_COMPLETION_DIR@/ptxdist"; \
+	fi
+
+
+dist: dirty-check
 	@rm -rf "$(project)"
-	git archive "$(project)" --prefix="$(project)"/ | tar x
+	@git archive "$(project)" --prefix="$(project)"/ | tar x
+
+	echo -n "${version}" > "${project}/.tarball-version"
 	cd "$(project)" && ./autogen.sh
+
 	tar -cz \
-		--exclude ".svn" \
 		--exclude ".git" \
 		--exclude ".pc" \
+		--exclude ".svn" \
 		--exclude "$(project)/autom4te.cache" \
 		--exclude "$(project)/patches" \
 		-f "$(project).tgz" \
 		"$(project)"
 	md5sum "$(project).tgz" > "$(project).tgz.md5"
+
 	tar -cz \
-		--exclude ".svn" \
 		--exclude ".git" \
 		--exclude ".pc" \
+		--exclude ".svn" \
 		--exclude "$(project)/autom4te.cache" \
 		-f "$(project)-patches.tgz" \
 		"$(project)/patches"

@@ -4,7 +4,9 @@ dnl Most parts of this configure script have been borrowed from quilt.
 dnl
 AC_PREREQ(2.59)
 
-AC_INIT([ptxdist],[2010.04.0],[ptxdist@pengutronix.de])
+AC_INIT([ptxdist],
+	m4_esyscmd([scripts/kernel/setlocalversion .tarball-version]),
+	[ptxdist@pengutronix.de])
 AC_CONFIG_AUX_DIR(scripts/autoconf)
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -403,26 +405,9 @@ AC_ARG_WITH([bash-completion],
 )
 AC_SUBST(BASH_COMPLETION_DIR)
 
-dnl
-dnl versions
-dnl
-orig_ifs="${IFS}"
-IFS=.
-set -- ${PACKAGE_VERSION}
-IFS="${orig_ifs}"
-
-PTXDIST_VERSION_YEAR="${1}"
-PTXDIST_VERSION_MONTH="${2}"
-PTXDIST_VERSION_BUGFIX="${3}"
-
-AC_SUBST(PTXDIST_VERSION_YEAR)
-AC_SUBST(PTXDIST_VERSION_MONTH)
-AC_SUBST(PTXDIST_VERSION_BUGFIX)
-
 AC_MSG_RESULT([])
 AC_CONFIG_FILES( \
 	Makefile \
-	scripts/ptxdist_version.sh \
 )
 AC_OUTPUT
 AC_MSG_RESULT([])
