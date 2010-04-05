@@ -1,12 +1,30 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
+
+#
+# extract
+#
+# Extract a source archive into a directory. This stage is
+# skipped if $1_URL points to a local directory instead of
+# an archive or online URL.
+#
+# $1: Packet label; we extract $1_SOURCE
+# $2: dir to extract into; if $2 is not given we extract to $(BUILDDIR)
+#
+extract = \
+	ptxd_make_extract \
+		-s "$($(strip $(1))_SOURCE)" \
+		-p "$($(strip $(1))_DIR)" \
+		-u "$($(strip $(1))_URL)" \
+		-d "$(strip $(2))"
+
 
 ### --- for CROSS packages only ---
 

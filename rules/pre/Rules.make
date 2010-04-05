@@ -406,23 +406,6 @@ add_zoneinfo =							\
 	-p $$PREF						\
 	-s $$SYSROOT
 
-#
-# extract
-#
-# Extract a source archive into a directory. This stage is
-# skipped if $1_URL points to a local directory instead of
-# an archive or online URL.
-#
-# $1: Packet label; we extract $1_SOURCE
-# $2: dir to extract into; if $2 is not given we extract to $(BUILDDIR)
-#
-extract =							\
-	ptxd_make_extract					\
-		-s "$($(strip $(1))_SOURCE)"			\
-		-p "$($(strip $(1))_DIR)"			\
-		-u "$($(strip $(1))_URL)"			\
-		-d "$(strip $(2))"
-
 
 #
 # clean
