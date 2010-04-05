@@ -80,11 +80,13 @@ ptxd_make_world_patchin_apply_git_init()
 
     # is already git repo?
     if [ "${git_dir}" != ".git" ]; then
+	echo "patchin: git: initializing repository"
 	git init -q "${pkg_patchin_dir}" &&
 	git add -f . &&
 	git commit -q -m "initial commit" --author="ptxdist-${PTXDIST_VERSION_FULL} <ptxdist@pengutronix.de>" &&
 	git tag "${pkg_pkg}"
 	git tag base
+	echo "patchin: git: done"
     fi
 }
 export -f ptxd_make_world_patchin_apply_git_init
@@ -104,6 +106,11 @@ ptxd_make_world_patchin_apply_git_compat()
     while read patch para; do
 	local cat
 	local patch_file="${patch##*/}"
+
+	case "${para}" in
+	    ""|"#"*) para="-p1" ;;	# no para or comment
+	    -p*) ;;
+	esac
 
 	case "${patch}" in
 	    ""|"#"*) continue ;;	# skip empty lines and comments
