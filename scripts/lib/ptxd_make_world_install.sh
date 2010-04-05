@@ -105,6 +105,19 @@ ptxd_make_world_install_pack() {
 	xargs -r -0 gawk -f "${PTXDIST_LIB_DIR}/ptxd_make_world_install_mangle_pc.awk" &&
     check_pipe_status &&
 
+    local pkg_sysroot_dir_nolink="$(readlink -f "${pkg_sysroot_dir}")" &&
+    # remove sysroot prefix from paths in la files
+    find "${pkg_pkg_dir}" -name "*.la" -print0 | xargs -r -0 -- \
+	sed -i \
+	-e "/^dependency_libs/s:\( \|-L\|-R\)\(\|${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\|${pkg_pkg_dir}\)/*\(/lib\|/usr/lib\):\1@SYSROOT@\3:g" \
+	-e "/^libdir=/s:\(libdir='\)\(\|${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\|${pkg_pkg_dir}\)/*\(/lib\|/usr/lib\):\1@SYSROOT@\3:g" &&
+    check_pipe_status &&
+    find "${pkg_pkg_dir}" ! -type d -name "${pkg_binconfig_glob}" -print0 | xargs -r -0 -- \
+	sed -i \
+	-e "s:\(-L\|-Wl,\)\(${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\)/*\(/lib\|/usr/lib\):\1@SYSROOT@\3:g" \
+	-e "s:\(-I\|-isystem \)\(${pkg_sysroot_dir}\|${pkg_sysroot_dir_nolink}\)/*\(/include\|/usr/include\):\1@SYSROOT@\3:g" &&
+    check_pipe_status &&
+
     if [ "${pkg_pkg_dev}" != "NO" -a "$(ptxd_get_ptxconf PTXCONF_PROJECT_CREATE_DEVPKGS)" = "y" ]; then
 	tar -c -C "${ptx_pkg_dir}" -z -f "${ptx_pkg_dir}/${pkg_pkg_dev}" "${pkg_pkg_dir##*/}"
     fi
@@ -124,17 +137,16 @@ ptxd_make_world_install_post() {
     fi &&
     # prefix paths in la files with sysroot
     find "${pkg_pkg_dir}" -name "*.la" -print0 | xargs -r -0 -- \
-	sed -i \
-	-e "/^dependency_libs/s:\( \)\(/lib\|/usr/lib\):\1${pkg_sysroot_dir}\2:g" \
-	-e "/^libdir=/s:\(libdir='\)\(/lib\|/usr/lib\):\1${pkg_sysroot_dir}\2:g" &&
+	sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" &&
     check_pipe_status &&
 
     cp -dprf -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
 
     # copy *-config into sysroot_cross
     local config &&
-    for config in $(find "${pkg_pkg_dir}" -name "${pkg_binconfig_glob}"); do
-	cp -PR -- "${config}" "${PTXDIST_SYSROOT_CROSS}/bin" || return
+    find "${pkg_pkg_dir}" ! -type d -name "${pkg_binconfig_glob}" | while read config; do
+	sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" "${config}" &&
+	cp -P -- "${config}" "${PTXDIST_SYSROOT_CROSS}/bin" || return
     done
 }
 export -f ptxd_make_world_install_post
