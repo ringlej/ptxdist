@@ -98,32 +98,29 @@ export -f ptxd_make_world_patchin_apply_git_init
 #
 ptxd_make_world_patchin_apply_git_compat()
 {
-    mv "${pkg_patchin_dir}/.ptxdist/patches" "${pkg_patchin_dir}/.ptxdist/patches.orig" &&
-    mv "${pkg_patchin_dir}/.ptxdist/series" "${pkg_patchin_dir}/.ptxdist/series.orig" &&
-    mkdir "${pkg_patchin_dir}/.ptxdist/patches" || return
+    mkdir "${pkg_patchin_dir}/.ptxdist/git-patches" || return
 
     local patch para
     while read patch para; do
 	local cat
+	local patch_file="${patch##*/}"
 
 	case "${patch}" in
 	    ""|"#"*) continue ;;	# skip empty lines and comments
 	    *.gz)  cat="zcat" ;;
 	    *.bz2) cat="bzcat" ;;
 	    *)
-		ln -s "../patches.orig/${patch}" "${pkg_patchin_dir}/.ptxdist/patches/${patch##*/}" &&
-		echo "${patch}" "${para}" >> "${pkg_patchin_dir}/.ptxdist/series" || return
+		ln -s "../patches/${patch}" "${pkg_patchin_dir}/.ptxdist/git-patches/${patch_file}" &&
+		echo "${patch_file}" "${para}" >> "${pkg_patchin_dir}/.ptxdist/git-patches/series" || return
 		continue
 		;;
 	esac &&
 
-	"${cat}" "${pkg_patchin_dir}/.ptxdist/patches.orig/${patch}" > \
-	    "${pkg_patchin_dir}/.ptxdist/patches/${patch%.*}" &&
-	    echo "${patch%.*}" "${para}" >> "${pkg_patchin_dir}/.ptxdist/series" || return
+	"${cat}" "${pkg_patchin_dir}/.ptxdist/patches/${patch}" > \
+	    "${pkg_patchin_dir}/.ptxdist/git-patches/${patch_file%.*}"
+	echo "${patch_file%.*}" "${para}" >> "${pkg_patchin_dir}/.ptxdist/git-patches/series" || return
 
-    done < "${pkg_patchin_dir}/.ptxdist/series.orig" &&
-
-    ln -sf "../series" "${pkg_patchin_dir}/.ptxdist/patches"
+    done < "${pkg_patchin_dir}/.ptxdist/series"
 }
 export -f ptxd_make_world_patchin_apply_git_compat
 
@@ -138,7 +135,9 @@ ptxd_make_world_patchin_apply_git()
     #
     ptxd_make_world_patchin_apply_git_compat || return
 
-    git quiltimport --patches "${pkg_patchin_dir}/.ptxdist/patches" --author "unknown author <unknown.author@example.com>"
+    git quiltimport \
+	--patches "${pkg_patchin_dir}/.ptxdist/git-patches" \
+	--author "unknown author <unknown.author@example.com>"
 }
 export -f ptxd_make_world_patchin_apply_git
 
