@@ -425,20 +425,6 @@ extract =							\
 
 
 #
-# get
-#
-# Download a package from a given URL. This macro has some magic
-# to handle different URLs; as wget is not able to transfer
-# file URLs this case is being handed over to cp.
-#
-# $1: Packet Label; this macro gets $1_URL
-#
-get =								\
-	PTXCONF_SETUP_NO_DOWNLOAD="$(PTXCONF_SETUP_NO_DOWNLOAD)"\
-	ptxd_make_get "$($(strip $(1))_URL)"
-
-
-#
 # clean
 #
 # Cleanup the given directory or file.
