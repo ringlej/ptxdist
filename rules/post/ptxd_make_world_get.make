@@ -13,12 +13,8 @@ $(STATEDIR)/%.get:
 	@$(call world/get, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
 
-#
-# download packages
-#
 world/get = \
-	$(call world/env, $1) \
+	$(call world/env, $(1)) \
 	ptxd_make_world_get
 
-# vim600:set foldmethod=marker:
-# vim600:set syntax=make:
+# vim: syntax=make
