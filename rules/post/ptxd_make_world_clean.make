@@ -19,7 +19,7 @@ $(STATEDIR)/%.clean: FORCE
 # clean
 #
 world/clean = \
-	$(call world/env, $1) \
+	$(call world/env, $(1)) \
 	ptxd_make_world_clean
 
 #
@@ -30,5 +30,4 @@ world/clean = \
 clean_pkg = \
 	$(call world/clean, $(1))
 
-# vim600:set foldmethod=marker:
-# vim600:set syntax=make:
+# vim: syntax=make
