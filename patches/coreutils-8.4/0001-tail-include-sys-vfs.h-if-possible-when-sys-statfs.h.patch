@@ -1,0 +1,30 @@
+From 98dacf492e2e6f2153455cb4179058578cee20ff Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sun, 4 Apr 2010 09:15:07 +0200
+Subject: [PATCH] tail: include sys/vfs.h (if possible) when sys/statfs.h is absent
+
+* src/tail.c [HAVE_INOTIFY && !HAVE_SYS_STATFS_H]: Include <sys/vfs.h>.
+
+(cherry-picked from upstream commit 98dacf492e2e6f2153455cb4179058578cee20ff)
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/tail.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/src/tail.c b/src/tail.c
+index 02c4a1a..9e95dee 100644
+--- a/src/tail.c
++++ b/src/tail.c
+@@ -56,6 +56,8 @@
+ # include "fs.h"
+ # if HAVE_SYS_STATFS_H
+ #  include <sys/statfs.h>
++# elif HAVE_SYS_VFS_H
++#  include <sys/vfs.h>
+ # endif
+ #endif
+ 
+-- 
+1.7.0.3
+
