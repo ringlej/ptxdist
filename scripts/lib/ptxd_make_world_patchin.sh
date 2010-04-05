@@ -105,6 +105,11 @@ ptxd_make_world_patchin_apply_git_compat()
 	local cat
 	local patch_file="${patch##*/}"
 
+	case "${para}" in
+	    ""|"#"*) para="-p1" ;;	# no para or comment
+	    -p*) ;;
+	esac
+
 	case "${patch}" in
 	    ""|"#"*) continue ;;	# skip empty lines and comments
 	    *.gz)  cat="zcat" ;;
