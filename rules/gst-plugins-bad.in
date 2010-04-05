@@ -308,6 +308,8 @@ config GST_PLUGINS_BAD_DIVX
 config GST_PLUGINS_BAD_DVDNAV
 	bool
 	prompt "dvdnav"
+	# needs libdvdnav
+	depends on BROKEN
 
 config GST_PLUGINS_BAD_METADATA
 	bool
