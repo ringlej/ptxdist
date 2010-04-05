@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2007-2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2007-2008, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -41,6 +41,7 @@ $(DIRECTFB_EXAMPLES_SOURCE):
 
 $(STATEDIR)/directfb-examples.extract:
 	@$(call targetinfo)
+	@$(call clean, $(DIRECTFB_EXAMPLES_DIR))
 	@$(call extract, DIRECTFB_EXAMPLES)
 	@$(call patchin, DIRECTFB_EXAMPLES)
 	@cp $(DIRECTFB_EXAMPLES_DIR)/patches/ptx_logo_640_480.png $(DIRECTFB_EXAMPLES_DIR)/data
