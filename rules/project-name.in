@@ -149,6 +149,7 @@ config PROJECT_CREATE_DEVPKGS
 
 config PROJECT_USE_DEVPKGS
 	bool
+	select HOST_CHRPATH
 	prompt "use dev packages"
 
 config PROJECT_DEVPKGDIR

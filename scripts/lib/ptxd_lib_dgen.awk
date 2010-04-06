@@ -326,6 +326,8 @@ END {
 		#
 		if (this_pkg ~ /^host-pkg-config$/)
 			continue;
+		if (this_pkg ~ /^host-chrpath$/)
+			continue;
 
 		if (this_pkg ~ /^host-|^cross-/)
 			virtual = "virtual-host-tools";

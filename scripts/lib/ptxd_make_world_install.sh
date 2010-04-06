@@ -139,6 +139,14 @@ ptxd_make_world_install_post() {
     if [ \! -d "${pkg_pkg_dir}" ]; then
 	return
     fi &&
+    # fix rpaths in host/cross tools
+    if [ "${pkg_type}" != "target" ]; then
+	find "${pkg_pkg_dir}" ! -type d -executable -print | while read file; do
+	    if chrpath "${file}" > /dev/null 2>&1; then
+		chrpath --replace "${PTXDIST_SYSROOT_HOST}/lib" "${file}" || return
+	    fi
+	done
+    fi &&
     # prefix paths in la files with sysroot
     find "${pkg_pkg_dir}" \( -name "*.la" -o -name "*.prl" \) -print0 | xargs -r -0 -- \
 	sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" &&

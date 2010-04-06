@@ -37,6 +37,10 @@ ifdef PTXCONF_HOST_PKG_CONFIG
 $(STATEDIR)/virtual-host-tools.install: $(STATEDIR)/host-pkg-config.install.post
 endif
 
+ifdef PTXCONF_HOST_CHRPATH
+$(STATEDIR)/virtual-host-tools.install: $(STATEDIR)/host-chrpath.install.post
+endif
+
 $(STATEDIR)/virtual-host-tools.install:
 	@$(call targetinfo)
 	@$(call touch)

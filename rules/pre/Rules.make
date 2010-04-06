@@ -288,7 +288,10 @@ CROSS_QMAKE_OPT := -recursive
 HOST_PATH	:= $$PATH
 
 HOST_CPPFLAGS	:= -I$(PTXDIST_SYSROOT_HOST)/include
-HOST_LDFLAGS	:= -L$(PTXDIST_SYSROOT_HOST)/lib -Wl,-rpath -Wl,$(PTXDIST_SYSROOT_HOST)/lib
+HOST_LDFLAGS	:= \
+	-L$(PTXDIST_SYSROOT_HOST)/lib \
+	-Wl,-rpath -Wl,$(PTXDIST_SYSROOT_HOST)/lib \
+	-Wl,-rpath -Wl,/this/is/a/long/path/to/make/host/tools/relocateable/with/chrpath/when/using/dev/packages
 
 HOST_ENV_CC		:= CC="$(HOSTCC)"
 HOST_ENV_CXX		:= CXX="$(HOSTCXX)"
