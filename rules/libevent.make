@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2009 by Michael Olbrich <m.olbrich@pengutronix.de>
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBEVENT) += libevent
 #
 # Paths and names
 #
-LIBEVENT_VERSION	:= 2.0.3-alpha
+LIBEVENT_VERSION	:= 2.0.4-alpha
 LIBEVENT		:= libevent-$(LIBEVENT_VERSION)
 LIBEVENT_SUFFIX		:= tar.gz
 LIBEVENT_URL		:= http://www.monkey.org/~provos/$(LIBEVENT).$(LIBEVENT_SUFFIX)
@@ -61,9 +62,9 @@ $(STATEDIR)/libevent.targetinstall:
 	@$(call install_fixup, libevent,DESCRIPTION,missing)
 
 	@$(call install_copy, libevent, 0, 0, 0644, -, \
-		/usr/lib/libevent.so.2.0.0)
-	@$(call install_link, libevent, libevent.so.2.0.0, /usr/lib/libevent.so.2)
-	@$(call install_link, libevent, libevent.so.2.0.0, /usr/lib/libevent.so)
+		/usr/lib/libevent.so.3.0.0)
+	@$(call install_link, libevent, libevent.so.3.0.0, /usr/lib/libevent.so.3)
+	@$(call install_link, libevent, libevent.so.3.0.0, /usr/lib/libevent.so)
 
 	@$(call install_finish, libevent)
 
