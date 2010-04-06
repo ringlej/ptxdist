@@ -42,7 +42,9 @@ CAIROMM_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-CAIROMM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+CAIROMM_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-docs
 
 # ----------------------------------------------------------------------------
 # Target-Install
