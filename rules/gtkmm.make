@@ -41,7 +41,9 @@ GTKMM_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-GTKMM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+GTKMM_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-documentation
 
 # ----------------------------------------------------------------------------
 # Target-Install
