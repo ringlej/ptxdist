@@ -41,7 +41,9 @@ PANGOMM_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-PANGOMM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+PANGOMM_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-documentation
 
 # ----------------------------------------------------------------------------
 # Target-Install
