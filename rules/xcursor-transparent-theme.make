@@ -59,7 +59,7 @@ $(STATEDIR)/xcursor-transparent-theme.targetinstall:
 	cd $(XCURSOR_TRANSPARENT_THEME_PKGDIR);				\
 	find . -type l | while read link; do				\
 		target=$$(readlink $$link);				\
-		target=$${target#$$(cd $$(dirname $$link); pwd)/};	\
+		target=$$(basename $$target);				\
 		$(call install_link, xcursor-transparent-theme,		\
 			$$target, $${link#.});				\
 	done;								\
