@@ -2,7 +2,7 @@
 
 config PLATFORMCONFIG_VERSION_DEFAULT
 	string
-	option env="PTXDIST_VERSION_CFG_FULL"
+	option env="PTXDIST_VERSION_FULL"
 
 config PLATFORMCONFIG_VERSION
 	string
