@@ -27,7 +27,11 @@ endif
 #
 # Paths and names
 #
+ifdef PTXCONF_@PACKAGE@_TRUNK
+@PACKAGE@_VERSION	:= trunk
+else
 @PACKAGE@_VERSION	:= @VERSION@
+endif
 @PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
 @PACKAGE@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
