@@ -267,12 +267,6 @@ if test -z "$SORT"; then
 	AC_MSG_ERROR([sort could not be found, please install])
 fi
 
-dnl Check for perl
-AC_PATH_PROGS(PERL, perl,, $PATH)
-if test -z "$PERL"; then
-	AC_MSG_ERROR([perl could not be found, please install])
-fi
-
 dnl Check for expect
 AC_PATH_PROGS(EXPECT, expect,, $PATH)
 if test -z "$EXPECT"; then

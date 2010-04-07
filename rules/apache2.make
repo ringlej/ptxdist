@@ -85,7 +85,7 @@ $(STATEDIR)/apache2.prepare:
 #	# The original object files are also used for other binaries, so
 #	# we generate a dummy dependency here
 #	#
-	perl -i -p -e "s/^gen_test_char_OBJECTS =.*$$/gen_test_char_OBJECTS = dummy.lo/g" $(APACHE2_DIR)/server/Makefile
+	sed -i -e "s/^gen_test_char_OBJECTS =.*$$/gen_test_char_OBJECTS = dummy.lo/g" $(APACHE2_DIR)/server/Makefile
 
 	@$(call touch)
 
