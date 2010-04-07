@@ -10,7 +10,7 @@
 
 ptxd_exist() {
     for file in "${@}"; do
-	if [ ! -f "${file}" ]; then
+	if [ ! -e "${file}" ]; then
 	    echo -e "\nError: file not found: ${file}\n"
 	    return 1
 	fi
@@ -71,7 +71,7 @@ ptxd_install_setup_src() {
     fi
 
     for src in "${list[@]}"; do
-	if [ -f "${src}" ]; then
+	if [ -e "${src}" ]; then
 	    return
 	fi
     done
