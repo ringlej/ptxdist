@@ -14,21 +14,15 @@
 #
 HOST_PACKAGES-$(PTXCONF_HOST_GTKMM) += host-gtkmm
 
-#
-# Paths and names
-#
-HOST_GTKMM_DIR	= $(HOST_BUILDDIR)/$(GTKMM)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_GTKMM_PATH	:= PATH=$(HOST_PATH)
-HOST_GTKMM_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_GTKMM_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_GTKMM_AUTOCONF	:= \
+	$(HOST_AUTOCONF) \
+	--disable-documentation
 
 # vim: syntax=make
