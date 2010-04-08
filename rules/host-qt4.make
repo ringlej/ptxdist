@@ -36,7 +36,7 @@ HOST_QT4_ENV		:= $(HOST_ENV)
 # Important: Use "-no-fast" here. Otherwise qmake will be called during
 # the compile stage when the environment is not properly set!
 HOST_QT4_AUTOCONF := \
-	$(HOST_AUTOCONF) \
+	-prefix / \
 	-shared \
 	-opensource \
 	-confirm-license \
@@ -63,7 +63,6 @@ HOST_QT4_AUTOCONF := \
 	-pch \
 	-force-pkg-config \
 	-depths all \
-	-prefix $(PTXCONF_SYSROOT_HOST) \
 	-make libs \
 	-make tools \
 	-nomake examples \
@@ -107,7 +106,6 @@ HOST_QT4_AUTOCONF := \
 # Compile
 # ----------------------------------------------------------------------------
 
-
 $(STATEDIR)/host-qt4.compile:
 	@$(call targetinfo)
 	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
@@ -136,21 +134,28 @@ HOST_QT4_INSTALL_TARGETS := \
 	sub-rcc-install_subtargets \
 	sub-uic-install_subtargets
 
+HOST_QT4_INSTALL_OPT	= INSTALL_ROOT=$(HOST_QT4_PKGDIR)
+
 $(STATEDIR)/host-qt4.install:
 	@$(call targetinfo)
 	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
-		$(HOST_QT4_INSTALL_TARGETS) $(HOST_QT4_MAKEVARS)
+		$(HOST_QT4_INSTALL_TARGETS) $(HOST_QT4_INSTALL_OPT)
 	@cd $(HOST_QT4_BUILDDIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) install $(HOST_QT4_MAKEVARS)
+		$(MAKE) $(PARALLELMFLAGS) install $(HOST_QT4_INSTALL_OPT)
 	@cd $(HOST_QT4_BUILDDIR)/tools/qdbus && $(HOST_QT4_PATH) \
-		$(MAKE) $(PARALLELMFLAGS) $(HOST_QT4_MAKEVARS) \
+		$(MAKE) $(PARALLELMFLAGS) $(HOST_QT4_INSTALL_OPT) \
 		sub-qdbusxml2cpp-install_subtargets \
 		sub-qdbuscpp2xml-install_subtargets
+	@$(call touch)
+
+$(STATEDIR)/host-qt4.install.post:
+	@$(call targetinfo)
+	@$(call world/install.post, HOST_QT4)
 #	create a cross qmake:
 #	copy host qmake and add a qt.conf (these must be in the same dir)
 #	add wrapper script that sets the correct QMAKESPEC
 	@rm -f $(PTXDIST_SYSROOT_CROSS)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake-cross
-	@cp $(PTXDIST_SYSROOT_HOST)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake-cross
+	@cp $(HOST_QT4_PKGDIR)/bin/qmake $(PTXDIST_SYSROOT_CROSS)/bin/qmake-cross
 	@echo -e '#!/bin/sh\nexport QMAKESPEC=qws/linux-ptx-g++\nexec $(PTXDIST_SYSROOT_CROSS)/bin/qmake-cross "$$@"\n' > $(PTXDIST_SYSROOT_CROSS)/bin/qmake
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qmake
 	@echo -e "[Paths]\nPrefix=$(SYSROOT)/usr\nBinaries=$(PTXCONF_SYSROOT_HOST)/bin" > $(PTXDIST_SYSROOT_CROSS)/bin/qt.conf
