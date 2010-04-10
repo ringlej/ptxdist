@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006 by Robert Schwebel
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #          
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,13 +17,12 @@ PACKAGES-$(PTXCONF_LIBDAEMON) += libdaemon
 #
 # Paths and names
 #
-LIBDAEMON_VERSION	:= 0.12
+LIBDAEMON_VERSION	:= 0.14
 LIBDAEMON		:= libdaemon-$(LIBDAEMON_VERSION)
 LIBDAEMON_SUFFIX	:= tar.gz
 LIBDAEMON_URL		:= http://0pointer.de/lennart/projects/libdaemon/$(LIBDAEMON).$(LIBDAEMON_SUFFIX)
 LIBDAEMON_SOURCE	:= $(SRCDIR)/$(LIBDAEMON).$(LIBDAEMON_SUFFIX)
 LIBDAEMON_DIR		:= $(BUILDDIR)/$(LIBDAEMON)
-
 
 # ----------------------------------------------------------------------------
 # Get
@@ -63,14 +63,14 @@ $(STATEDIR)/libdaemon.targetinstall:
 	@$(call install_fixup,libdaemon,DESCRIPTION,missing)
 
 	@$(call install_copy, libdaemon, 0, 0, 0644, -, \
-		/usr/lib/libdaemon.so.0.3.1)
+		/usr/lib/libdaemon.so.0.5.0)
 
 	@$(call install_link, libdaemon, \
-		libdaemon.so.0.3.1, \
+		libdaemon.so.0.5.0, \
 		/usr/lib/libdaemon.so.0)
 
 	@$(call install_link, libdaemon, \
-		libdaemon.so.0.3.1, \
+		libdaemon.so.0.5.0, \
 		/usr/lib/libdaemon.so)
 
 	@$(call install_finish,libdaemon)
