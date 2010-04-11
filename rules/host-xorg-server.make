@@ -53,7 +53,8 @@ $(STATEDIR)/host-xorg-server.compile:
 
 $(STATEDIR)/host-xorg-server.install:
 	@$(call targetinfo)
-	@cd $(HOST_XORG_SERVER_DIR) && cp xorg-server.m4 $(PTXDIST_SYSROOT_HOST)/share/aclocal/
+	install -D -m 644 $(HOST_XORG_SERVER_DIR)/xorg-server.m4 \
+		$(HOST_XORG_SERVER_PKGDIR)/share/aclocal/xorg-server.m4
 	@$(call touch)
 
 # vim: syntax=make
