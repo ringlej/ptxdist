@@ -29,6 +29,8 @@ HOST_CAIROMM_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_CAIROMM_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_CAIROMM_AUTOCONF	:= \
+	$(HOST_AUTOCONF) \
+	--disable-docs
 
 # vim: syntax=make
