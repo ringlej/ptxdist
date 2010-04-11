@@ -42,7 +42,9 @@ GLIBMM_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-GLIBMM_AUTOCONF := $(CROSS_AUTOCONF_USR)
+GLIBMM_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-documentation
 
 # ----------------------------------------------------------------------------
 # Target-Install
