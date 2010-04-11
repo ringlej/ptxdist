@@ -64,6 +64,9 @@ $(STATEDIR)/host-mysql.compile:
 
 $(STATEDIR)/host-mysql.install:
 	@$(call targetinfo)
+	@install -m 755 -D $(HOST_MYSQL_DIR)/extra/comp_err $(HOST_MYSQL_PKGDIR)/bin/comp_err
+	@install -m 755 -D $(HOST_MYSQL_DIR)/sql/gen_lex_hash $(HOST_MYSQL_PKGDIR)/bin/gen_lex_hash
+	@install -m 755 -D $(HOST_MYSQL_DIR)/dbug/factorial $(HOST_MYSQL_PKGDIR)/bin/factorial
 	@$(call touch)
 
 # vim: syntax=make

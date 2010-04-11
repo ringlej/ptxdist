@@ -37,19 +37,15 @@ $(MYSQL_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-MYSQL_PATH	:= PATH=$(HOST_MYSQL_DIR)/extra:$(HOST_MYSQL_DIR)/sql:$(CROSS_PATH)
-
-# no := here, please!
-MYSQL_ENV = \
+MYSQL_ENV := \
 	$(CROSS_ENV) \
-	ac_cv_path_COMP_ERR=$(HOST_MYSQL_DIR)/extra/comp_err \
-	ac_cv_path_GEN_LEX_HASH=$(HOST_MYSQL_DIR)/sql/gen_lex_hash
+	ac_cv_path_COMP_ERR=$(PTXCONF_SYSROOT_HOST)/bin/comp_err \
+	ac_cv_path_GEN_LEX_HASH=$(PTXCONF_SYSROOT_HOST)/bin/gen_lex_hash
 #
 # autoconf
 #
 MYSQL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--with-build-mysql=$(HOST_MYSQL_DIR) \
 	--without-extra-tools \
 	--with-zlib-dir=$(SYSROOT)/usr \
 	--without-debug
