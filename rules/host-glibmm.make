@@ -29,6 +29,8 @@ HOST_GLIBMM_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_GLIBMM_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_GLIBMM_AUTOCONF	:= \
+	$(HOST_AUTOCONF) \
+	--disable-documentation
 
 # vim: syntax=make
