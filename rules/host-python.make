@@ -45,7 +45,7 @@ HOST_PYTHON_AUTOCONF := \
 $(STATEDIR)/host-python.install:
 	@$(call targetinfo)
 	@$(call install, HOST_PYTHON,,h)
-	install -m 0755 $(HOST_PYTHON_DIR)/Parser/pgen $(PTXCONF_SYSROOT_HOST)/bin
+	install -m 0755 $(HOST_PYTHON_DIR)/Parser/pgen $(HOST_PYTHON_PKGDIR)/bin
 #
 # remove "python" so that it doesn't interfere with the build
 # machine's python
@@ -54,8 +54,8 @@ $(STATEDIR)/host-python.install:
 # python-$(PYTHON_MAJORMINOR)
 #
 	@rm -v \
-		"$(PTXCONF_SYSROOT_HOST)/bin/python" \
-		"$(PTXCONF_SYSROOT_HOST)/bin/python-config"
+		"$(HOST_PYTHON_PKGDIR)/bin/python" \
+		"$(HOST_PYTHON_PKGDIR)/bin/python-config"
 	@$(call touch)
 
 # vim: syntax=make
