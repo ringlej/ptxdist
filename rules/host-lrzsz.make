@@ -17,6 +17,11 @@ HOST_PACKAGES-$(PTXCONF_HOST_LRZSZ) += host-lrzsz
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_LRZSZ_CONF_TOOL	:= autoconf
+#
+# autoconf
+#
+HOST_LRZSZ_AUTOCONF	:= \
+	$(HOST_AUTOCONF) \
+	--disable-nls
 
 # vim: syntax=make
