@@ -2,6 +2,7 @@
 config HOST_LIBXML2
 	tristate
 	select HOST_ZLIB
+	select HOST_LIBICONV
 	help
 	  Libxml2 is a XML C parser and toolkit. XML itself is a
 	  metalanguage to design markup languages, i.e. text
