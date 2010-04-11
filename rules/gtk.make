@@ -100,6 +100,16 @@ GTK_VERSION_TUPLE := $(subst ., ,$(GTK_VERSION))
 GTK_LIBVERSION := 0.$(word 2,$(GTK_VERSION_TUPLE))00.$(word 3,$(GTK_VERSION_TUPLE))
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/gtk.install:
+	@$(call targetinfo)
+	@$(call install, GTK)
+	@install  -m 755 -D $(GTK_DIR)/tests/testgtk $(GTK_PKGDIR)/usr/bin/
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -175,8 +185,7 @@ endif
 	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk_pixbuf-2.0.so)
 
 ifdef PTXCONF_GTK_DEMO
-	@$(call install_copy, gtk, 0, 0, 0755, \
-		$(GTK_DIR)/tests/testgtk, \
+	@$(call install_copy, gtk, 0, 0, 0755, -,\
 		/usr/bin/testgtk)
 endif
 
