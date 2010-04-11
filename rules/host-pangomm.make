@@ -28,6 +28,8 @@ HOST_PANGOMM_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_PANGOMM_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_PANGOMM_AUTOCONF	:= \
+	$(HOST_AUTOCONF) \
+	--disable-documentation
 
 # vim: syntax=make
