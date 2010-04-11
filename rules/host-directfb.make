@@ -67,6 +67,7 @@ $(STATEDIR)/host-directfb.compile:
 
 $(STATEDIR)/host-directfb.install:
 	@$(call targetinfo)
+	install -D -m 755 $(HOST_DIRECTFB_DIR)/tools/directfb-csource $(HOST_DIRECTFB_PKGDIR)/bin/directfb-csource
 	@$(call touch)
 
 # vim: syntax=make

@@ -40,9 +40,9 @@ $(DIRECTFB_SOURCE):
 # ----------------------------------------------------------------------------
 
 DIRECTFB_PATH	:= PATH=$(CROSS_PATH)
-DIRECTFB_ENV 	= \
+DIRECTFB_ENV 	:= \
 	$(CROSS_ENV) \
-	DIRECTFB_CSOURCE=$(HOST_DIRECTFB_DIR)/tools/directfb-csource
+	DIRECTFB_CSOURCE=$(PTXCONF_SYSROOT_HOST)/bin/directfb-csource
 
 DIRECTFB_INPUT-$(PTXCONF_DIRECTFB_INPUT_KEYBOARD)	+= keyboard
 DIRECTFB_INPUT-$(PTXCONF_DIRECTFB_INPUT_LINUXINPUT)	+= linuxinput
