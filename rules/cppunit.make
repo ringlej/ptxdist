@@ -42,7 +42,9 @@ CPPUNIT_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-CPPUNIT_AUTOCONF := $(CROSS_AUTOCONF_USR)
+CPPUNIT_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-doxygen
 
 # ----------------------------------------------------------------------------
 # Target-Install
