@@ -53,6 +53,12 @@ FRODO_AUTOCONF := \
 
 $(STATEDIR)/frodo.install:
 	@$(call targetinfo)
+	install -D -m 755 "$(FRODO_DIR)/Src/Frodo" "$(FRODO_PKGDIR)/usr/bin/Frodo"
+
+	install -D -m 644 "$(FRODO_DIR)/1541 ROM" "$(FRODO_PKGDIR)/home/1541 ROM"
+	install -D -m 644 "$(FRODO_DIR)/Basic ROM" "$(FRODO_PKGDIR)/home/Basic ROM"
+	install -D -m 644 "$(FRODO_DIR)/Char ROM" "$(FRODO_PKGDIR)/home/Char ROM"
+	install -D -m 644 "$(FRODO_DIR)/Kernal ROM" "$(FRODO_PKGDIR)/home/Kernal ROM"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -71,12 +77,12 @@ $(STATEDIR)/frodo.targetinstall:
 	@$(call install_fixup, frodo,DEPENDS,)
 	@$(call install_fixup, frodo,DESCRIPTION,missing)
 
-	@$(call install_copy, frodo, 0, 0, 0755, $(FRODO_DIR)/Src/Frodo, /usr/bin/Frodo)
+	@$(call install_copy, frodo, 0, 0, 0755, -, /usr/bin/Frodo)
 
-	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/1541 ROM, /home/1541 ROM, n)
-	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/Basic ROM, /home/Basic ROM, n)
-	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/Char ROM, /home/Char ROM, n)
-	@$(call install_copy, frodo, 0, 0, 0644, $(FRODO_DIR)/Kernal ROM, /home/Kernal ROM, n)
+	@$(call install_copy, frodo, 0, 0, 0644, -, /home/1541 ROM)
+	@$(call install_copy, frodo, 0, 0, 0644, -, /home/Basic ROM)
+	@$(call install_copy, frodo, 0, 0, 0644, -, /home/Char ROM)
+	@$(call install_copy, frodo, 0, 0, 0644, -, /home/Kernal ROM)
 
 	@$(call install_alternative, frodo, 0, 0, 0644, /etc/frodorc, n)
 	@$(call install_link, frodo, ../etc/frodorc, /home/.frodorc)
