@@ -136,6 +136,47 @@ else
 CONNMAN_AUTOCONF += --disable-fake
 endif
 
+CONNMAN_TESTS := \
+	connect-network \
+	create-network \
+	debug-connman \
+	disable-device \
+	disable-network \
+	disconnect-network \
+	enable-device \
+	get-state \
+	list-connections \
+	list-devices \
+	list-networks \
+	list-profiles \
+	monitor-connman \
+	select-connection \
+	select-network \
+	set-address \
+	set-passphrase \
+	set-policy \
+	show-introspection \
+	simple-agent \
+	start-scanning \
+	test-compat \
+	test-connman \
+	test-manager
+
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/connman.install:
+	@$(call targetinfo)
+	@$(call install, CONNMAN)
+	install -D -m 755 "$(CONNMAN_DIR)/client/cm" \
+		"$(CONNMAN_PKGDIR)/usr/sbin/cm"
+	@for i in $(CONNMAN_TESTS); do \
+		install -D -m 755 "$(CONNMAN_DIR)/test/$$i" \
+			"$(CONNMAN_PKGDIR)/usr/sbin/cm-$$i"; \
+	done
+	@$(call touch)
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -214,39 +255,13 @@ endif
 
 #	# command line client
 ifdef PTXCONF_CONNMAN_CLIENT
-	@$(call install_copy, connman, 0, 0, 0755, $(CONNMAN_DIR)/client/cm, /usr/sbin/cm)
+	@$(call install_copy, connman, 0, 0, 0755, -, /usr/sbin/cm)
 endif
 
 #	# python tests
 ifdef PTXCONF_CONNMAN_TESTS
-	@for i in \
-		connect-network \
-		create-network \
-		debug-connman \
-		disable-device \
-		disable-network \
-		disconnect-network \
-		enable-device \
-		get-state \
-		list-connections \
-		list-devices \
-		list-networks \
-		list-profiles \
-		monitor-connman \
-		select-connection \
-		select-network \
-		set-address \
-		set-passphrase \
-		set-policy \
-		show-introspection \
-		simple-agent \
-		start-scanning \
-		test-compat \
-		test-connman \
-		test-manager \
-	; do \
-		$(call install_copy, connman, 0, 0, 0755, \
-			$(CONNMAN_DIR)/test/$$i, \
+	@for i in $(CONNMAN_TESTS); do \
+		$(call install_copy, connman, 0, 0, 0755, -, \
 			/usr/sbin/cm-$$i); \
 	done
 endif
