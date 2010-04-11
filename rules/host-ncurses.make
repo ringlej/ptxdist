@@ -50,6 +50,10 @@ $(STATEDIR)/host-ncurses.compile:
 
 $(STATEDIR)/host-ncurses.install:
 	@$(call targetinfo)
+	install -D -m 755 $(HOST_NCURSES_DIR)/ncurses/make_keys \
+		$(HOST_NCURSES_PKGDIR)/bin/make_keys
+	install -D -m 755 $(HOST_NCURSES_DIR)/ncurses/make_hash \
+		$(HOST_NCURSES_PKGDIR)/bin/make_hash
 	@$(call touch)
 
 # vim: syntax=make

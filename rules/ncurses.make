@@ -72,8 +72,8 @@ NCURSES_AUTOCONF := \
 
 $(STATEDIR)/ncurses.compile:
 	@$(call targetinfo)
-	cd $(HOST_NCURSES_DIR)/ncurses && cp make_keys make_hash $(NCURSES_DIR)/ncurses/
-	cd $(NCURSES_DIR) && $(NCURSES_PATH) $(MAKE) $(PARALLELMFLAGS)
+	cp $(PTXCONF_SYSROOT_HOST)/bin/{make_keys,make_hash} $(NCURSES_DIR)/ncurses/
+	@$(call compile, NCURSES)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
