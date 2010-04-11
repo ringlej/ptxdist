@@ -172,9 +172,9 @@ EOF
 
     # check if src is a link
     if [ -L "${src}" ]; then
-	ptxd_pedantic "file '${src}' is a link" &&
+	ptxd_pedantic "file '$(ptxd_print_path "${src}")' is a link" &&
 	src="$(readlink -f "${src}")" &&
-	echo "using '${src}' instead"
+	echo "using '$(ptxd_print_path "${src}")' instead"
     fi &&
 
     # just install with r/w permissions for now
