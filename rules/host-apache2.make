@@ -48,6 +48,12 @@ $(STATEDIR)/host-apache2.compile:
 
 $(STATEDIR)/host-apache2.install:
 	@$(call targetinfo)
+	install -D -m 755 "$(HOST_APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims" \
+		"$(HOST_APACHE2_PKGDIR)/bin/apache2/gen_uri_delims"
+	install -D -m 755 "$(HOST_APACHE2_DIR)/srclib/pcre/dftables" \
+		"$(HOST_APACHE2_PKGDIR)/bin/apache2/dftables"
+	install -D -m 755 "$(HOST_APACHE2_DIR)/server/gen_test_char" \
+		"$(HOST_APACHE2_PKGDIR)/bin/apache2/gen_test_char"
 	@$(call touch)
 
 # vim: syntax=make

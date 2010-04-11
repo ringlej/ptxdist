@@ -103,15 +103,18 @@ $(STATEDIR)/apache2.compile:
 #	# compiled for the host, not for the target
 #	#
 	touch $(APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims.lo
-	cp $(HOST_APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims $(APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims
+	cp $(PTXCONF_SYSROOT_HOST)/bin/apache2/gen_uri_delims \
+		$(APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims
 	touch $(APACHE2_DIR)/srclib/apr-util/uri/gen_uri_delims
 
 	touch $(APACHE2_DIR)/srclib/pcre/dftables.lo
-	cp $(HOST_APACHE2_DIR)/srclib/pcre/dftables $(APACHE2_DIR)/srclib/pcre/dftables
+	cp $(PTXCONF_SYSROOT_HOST)/bin/apache2/dftables \
+		$(APACHE2_DIR)/srclib/pcre/dftables
 	touch $(APACHE2_DIR)/srclib/pcre/dftables
 
 	touch $(APACHE2_DIR)/server/dummy.lo
-	cp $(HOST_APACHE2_DIR)/server/gen_test_char $(APACHE2_DIR)/server/gen_test_char
+	cp $(PTXCONF_SYSROOT_HOST)/bin/apache2/gen_test_char \
+		$(APACHE2_DIR)/server/gen_test_char
 	touch $(APACHE2_DIR)/server/gen_test_char
 
 	@$(call compile, APACHE2)
