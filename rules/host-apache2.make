@@ -29,7 +29,7 @@ HOST_APACHE2_ENV 	:= $(HOST_ENV)
 #
 # autoconf
 #
-HOST_APACHE2_AUTOCONF := $(HOST_AUTOCONF)
+HOST_APACHE2_AUTOCONF := --prefix=/
 
 # ----------------------------------------------------------------------------
 # Compile
