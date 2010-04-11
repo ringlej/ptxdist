@@ -159,6 +159,18 @@ ifdef PTXCONF_MESALIB_DRIVER_OSMESA
 endif
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/mesalib.install:
+	@$(call targetinfo)
+	@$(call install, MESALIB)
+	@mkdir -p $(MESALIB_PKGDIR)/usr/bin/
+	@cd $(MESALIB_DIR)/progs/xdemos/ && find -type f -executable | \
+		xargs install -m 755 -D -t $(MESALIB_PKGDIR)/usr/bin/
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -236,79 +248,79 @@ endif
 endif
 
 ifdef PTXCONF_MESALIB_TOOLS_CORENDER
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/corender, /usr/bin/corender)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/corender)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLSYNC
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glsync, /usr/bin/glsync)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glsync)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLTHREADS
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glthreads, /usr/bin/glthreads)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glthreads)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXCONTEXTS
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxcontexts, /usr/bin/glxcontexts)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxcontexts)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXDEMO
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxdemo, /usr/bin/glxdemo)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxdemo)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXGEARS
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxgears, /usr/bin/glxgears)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxgears)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXGEARS_FBCONFIG
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxgears_fbconfig, /usr/bin/glxgears_fbconfig)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxgears_fbconfig)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXGEARS_PIXMAP
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxgears_pixmap, /usr/bin/glxgears_pixmap)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxgears_pixmap)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXHEADS
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxheads, /usr/bin/glxheads)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxheads)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXINFO
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxinfo, /usr/bin/glxinfo)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxinfo)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXPBDEMO
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxpbdemo, /usr/bin/glxpbdemo)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxpbdemo)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXPIXMAP
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxpixmap, /usr/bin/glxpixmap)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxpixmap)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXSNOOP
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxsnoop, /usr/bin/glxsnoop)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxsnoop)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_GLXSWAPCONTROL
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/glxswapcontrol, /usr/bin/glxswapcontrol)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/glxswapcontrol)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_MANYWIN
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/manywin, /usr/bin/manywin)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/manywin)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_OFFSET
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/offset, /usr/bin/offset)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/offset)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_OVERLAY
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/overlay, /usr/bin/overlay)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/overlay)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_PBDEMO
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/pbdemo, /usr/bin/pbdemo)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/pbdemo)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_PBINFO
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/pbinfo, /usr/bin/pbinfo)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/pbinfo)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_SHAREDTEX
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/sharedtex, /usr/bin/sharedtex)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/sharedtex)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_SHAREDTEX_MT
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/sharedtex_mt, /usr/bin/sharedtex_mt)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/sharedtex_mt)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_TEXTURE_FROM_PIXMAP
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/texture_from_pixmap, /usr/bin/texture_from_pixmap)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/texture_from_pixmap)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_WINCOPY
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/wincopy, /usr/bin/wincopy)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/wincopy)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_XFONT
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/xfont, /usr/bin/xfont)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/xfont)
 endif
 ifdef PTXCONF_MESALIB_TOOLS_XROTFONTDEMO
-	@$(call install_copy, mesalib, 0, 0, 0755, $(MESALIB_DIR)/progs/xdemos/xrotfontdemo, /usr/bin/xrotfontdemo)
+	@$(call install_copy, mesalib, 0, 0, 0755, -, /usr/bin/xrotfontdemo)
 endif
 
 ifndef PTXCONF_MESALIB_DRIVER_OSMESA
