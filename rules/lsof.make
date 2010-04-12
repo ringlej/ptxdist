@@ -64,6 +64,7 @@ $(STATEDIR)/lsof.prepare:
 
 $(STATEDIR)/lsof.install:
 	@$(call targetinfo)
+	install -D -m 755 "$(LSOF_DIR)/lsof" "$(LSOF_PKGDIR)/usr/bin/lsof"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -82,7 +83,7 @@ $(STATEDIR)/lsof.targetinstall:
 	@$(call install_fixup, lsof,DEPENDS,)
 	@$(call install_fixup, lsof,DESCRIPTION,missing)
 
-	@$(call install_copy, lsof, 0, 0, 0755, $(LSOF_DIR)/lsof, /usr/bin/lsof)
+	@$(call install_copy, lsof, 0, 0, 0755, -, /usr/bin/lsof)
 
 	@$(call install_finish, lsof)
 
