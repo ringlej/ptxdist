@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2008 by Daniel Schnell
-#		2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#		2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_LIBCURL) += libcurl
 #
 # Paths and names
 #
-LIBCURL_VERSION	:= 7.19.7
+LIBCURL_VERSION	:= 7.20.0
 LIBCURL		:= curl-$(LIBCURL_VERSION)
 LIBCURL_SUFFIX	:= tar.gz
 LIBCURL_URL	:= http://curl.haxx.se/download/$(LIBCURL).$(LIBCURL_SUFFIX)
@@ -140,9 +140,9 @@ ifdef PTXCONF_LIBCURL_CURL
 	@$(call install_copy, libcurl, 0, 0, 0755, -, /usr/bin/curl)
 endif
 
-	@$(call install_copy, libcurl, 0, 0, 0644, -, /usr/lib/libcurl.so.4.1.1)
-	@$(call install_link, libcurl, libcurl.so.4.1.1, /usr/lib/libcurl.so.4)
-	@$(call install_link, libcurl, libcurl.so.4, /usr/lib/libcurl.so)
+	@$(call install_copy, libcurl, 0, 0, 0644, -, /usr/lib/libcurl.so.4.2.0)
+	@$(call install_link, libcurl, libcurl.so.4.2.0, /usr/lib/libcurl.so.4)
+	@$(call install_link, libcurl, libcurl.so.4.2.0, /usr/lib/libcurl.so)
 
 	@$(call install_finish, libcurl)
 
