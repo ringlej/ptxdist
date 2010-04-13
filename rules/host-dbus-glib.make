@@ -37,4 +37,15 @@ HOST_DBUS_GLIB_AUTOCONF := \
 	--disable-gtk-doc \
 	--disable-tests
 
+# ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/host-dbus-glib.install:
+	@$(call targetinfo)
+	@$(call install, HOST_DBUS_GLIB)
+	install -D -m 644 "$(HOST_DBUS_GLIB_DIR)/tools/dbus-bus-introspect.xml" \
+		"$(HOST_DBUS_GLIB_PKGDIR)/share/dbus-glib/dbus-bus-introspect.xml"
+	@$(call touch)
+
 # vim: syntax=make
