@@ -100,11 +100,11 @@ endif
 
 endif
 
-$(STATEDIR)/ncurses.install:
+$(STATEDIR)/ncurses.install.post:
 	@$(call targetinfo)
-	@$(call install, NCURSES)
+	@$(call world/install.post, NCURSES)
 
-	@cp -dp -- "$(PKGDIR)/$(NCURSES)/usr/bin/"*config* "$(PTXCONF_SYSROOT_CROSS)/bin"
+	@cp -dp -- "$(NCURSES_PKGDIR)/usr/bin/"*config* "$(PTXCONF_SYSROOT_CROSS)/bin"
 
 ifdef PTXCONF_NCURSES_WIDE_CHAR
 # Note: This tweak only works if we build the application with these settings!
