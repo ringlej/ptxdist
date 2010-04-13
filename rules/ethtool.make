@@ -36,18 +36,11 @@ $(ETHTOOL_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-ETHTOOL_PATH	:= PATH=$(CROSS_PATH)
-ETHTOOL_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-ETHTOOL_AUTOCONF := $(CROSS_AUTOCONF_USR)
+ETHTOOL_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
 
 $(STATEDIR)/ethtool.targetinstall:
 	@$(call targetinfo)
