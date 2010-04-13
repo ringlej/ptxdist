@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_TCPDUMP) += tcpdump
 #
 # Paths and names
 #
-TCPDUMP_VERSION	:= 4.0.0
+TCPDUMP_VERSION	:= 4.1.1
 TCPDUMP		:= tcpdump-$(TCPDUMP_VERSION)
 TCPDUMP_SUFFIX	:= tar.gz
 TCPDUMP_URL	:= http://www.tcpdump.org/release/$(TCPDUMP).$(TCPDUMP_SUFFIX)
