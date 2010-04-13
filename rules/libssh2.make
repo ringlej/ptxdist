@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_LIBSSH2) += libssh2
 #
 # Paths and names
 #
-LIBSSH2_VERSION	:= 1.2.2
+LIBSSH2_VERSION	:= 1.2.4
 LIBSSH2		:= libssh2-$(LIBSSH2_VERSION)
 LIBSSH2_SUFFIX	:= tar.gz
 LIBSSH2_URL	:= http://www.libssh2.org/download/$(LIBSSH2).$(LIBSSH2_SUFFIX)
