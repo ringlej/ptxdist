@@ -22,7 +22,7 @@ endif
 endif
 
 ifdef PTXCONF_HOST_INTLTOOL
-$(STATEDIR)/autogen-tools: $(STATEDIR)/host-intltool.install
+$(STATEDIR)/autogen-tools: $(STATEDIR)/host-intltool.install.post
 endif
 
 #
