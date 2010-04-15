@@ -4,6 +4,15 @@ set -e
 PTXDIST_SETENV_U_BOOT_V2_ENV="${1}"
 ENVTMPDIR="$(mktemp -d "${PTXDIST_TEMPDIR}/uboot_v2_env.XXXXXX")"
 
+# IMAGEDIR is not set if we are called from "ptxdist test" directly
+# since it comes from kwraper.
+[ -z "${IMAGEDIR}" ] && export IMAGEDIR=${PTXDIST_PLATFORMDIR}/images
+
+if [ ! -r ${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/config ]; then
+	echo "ERROR: missing valid ${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/config" >&2
+	exit 1
+fi
+
 tar -C "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/" -c . \
 	--exclude .svn \
 	--exclude .pc \
@@ -12,8 +21,9 @@ tar -C "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/" -c . \
 	--exclude "*/*~" \
 	| tar -C "${ENVTMPDIR}" -x
 
-${PTXDIST_SYSROOT_HOST}/bin/ubootenv -s "${ENVTMPDIR}" "${IMAGEDIR}/u-boot-v2-environment"
+ubootenv -s "${ENVTMPDIR}" "${IMAGEDIR}/u-boot-v2-environment"
 
-cp "${IMAGEDIR}/u-boot-v2-environment" "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
+# only copy the image if we are called by "ptxdist test setenv"
+[ -n "${PTXDIST_SETENV_U_BOOT_V2_ENV}" ] && cp "${IMAGEDIR}/u-boot-v2-environment" "${PTXDIST_SETENV_U_BOOT_V2_ENV}"
 
 rm -rf "${ENVTMPDIR}"
