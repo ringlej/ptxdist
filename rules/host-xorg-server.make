@@ -28,7 +28,7 @@ HOST_XORG_SERVER_DIR	= $(HOST_BUILDDIR)/$(XORG_SERVER)
 HOST_XORG_SERVER	= host-$(XORG_SERVER)
 
 ifdef PTXCONF_HOST_XORG_SERVER
-$(STATEDIR)/autogen-tools: $(STATEDIR)/host-xorg-server.install
+$(STATEDIR)/autogen-tools: $(STATEDIR)/host-xorg-server.install.post
 endif
 
 # ----------------------------------------------------------------------------
