@@ -45,6 +45,7 @@ BOA_CONF_TOOL := autoconf
 
 $(STATEDIR)/boa.install:
 	@$(call targetinfo)
+	install -D -m 755 $(BOA_DIR)/src/boa $(BOA_PKGDIR)/usr/sbin/boa
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -63,7 +64,7 @@ $(STATEDIR)/boa.targetinstall:
 	@$(call install_fixup, boa,DEPENDS,)
 	@$(call install_fixup, boa,DESCRIPTION,missing)
 
-	@$(call install_copy, boa, 0, 0, 0755, $(BOA_DIR)/src/boa, /usr/sbin/boa)
+	@$(call install_copy, boa, 0, 0, 0755, -, /usr/sbin/boa)
 
 	@$(call install_alternative, boa, 0, 0, 0755, /etc/init.d/boa)
 
