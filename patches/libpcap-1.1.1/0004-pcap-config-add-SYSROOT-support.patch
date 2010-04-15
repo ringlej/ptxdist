@@ -1,0 +1,55 @@
+From e41188c0eb0cbd906c4c649ea2f13de2d57b79ee Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sun, 10 Jan 2010 00:49:07 +0100
+Subject: [PATCH 4/4] pcap-config: add SYSROOT support
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ pcap-config.in |   16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+Index: b/pcap-config.in
+===================================================================
+--- a/pcap-config.in
++++ b/pcap-config.in
+@@ -47,16 +47,16 @@ then
+ 	#
+ 	if [ "$show_cflags" = 1 -a "$show_libs" = 1 ]
+ 	then
+-		echo "-I@includedir@ -L@libdir@ -lpcap @LIBS@"
++		echo "-I${SYSROOT}@includedir@ -L${SYSROOT}@libdir@ -lpcap @LIBS@"
+ 	elif [ "$show_cflags" = 1 -a "$show_additional_libs" = 1 ]
+ 	then
+-		echo "-I@includedir@ -L@libdir@ @LIBS@"
++		echo "-I${SYSROOT}@includedir@ -L${SYSROOT}@libdir@ @LIBS@"
+ 	elif [ "$show_cflags" = 1 ]
+ 	then
+-		echo "-I@includedir@"
++		echo "-I${SYSROOT}@includedir@"
+ 	elif [ "$show_libs" = 1 ]
+ 	then
+-		echo "-L@libdir@ -lpcap @LIBS@"
++		echo "-L${SYSROOT}@libdir@ -lpcap @LIBS@"
+ 	elif [ "$show_additional_libs" = 1 ]
+ 	then
+ 		echo "@LIBS@"
+@@ -68,15 +68,15 @@ else
+ 	#
+ 	if [ "$show_cflags" = 1 -a "$show_libs" = 1 ]
+ 	then
+-		echo "-I@includedir@ -L@libdir@ $RPATH -lpcap"
++		echo "-I${SYSROOT}@includedir@ -L${SYSROOT}@libdir@ $RPATH -lpcap"
+ 	elif [ "$show_cflags" = 1 -a "$show_additional_libs" = 1 ]
+ 	then
+-		echo "-I@includedir@"
++		echo "-I${SYSROOT}@includedir@"
+ 	elif [ "$show_cflags" = 1 ]
+ 	then
+-		echo "-I@includedir@"
++		echo "-I${SYSROOT}@includedir@"
+ 	elif [ "$show_libs" = 1 ]
+ 	then
+-		echo "-L@libdir@ $RPATH -lpcap"
++		echo "-L:{SYSROOT}@libdir@ $RPATH -lpcap"
+ 	fi
+ fi
