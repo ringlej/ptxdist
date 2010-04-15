@@ -35,7 +35,7 @@ $(HOST_LIBCAP_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_LIBCAP_MAKE_OPT := prefix=$(PTXDIST_SYSROOT_HOST) PAM_CAP=no LIBATTR=no lib=lib
+HOST_LIBCAP_MAKE_OPT := prefix= PAM_CAP=no LIBATTR=no lib=lib
 HOST_LIBCAP_INSTALL_OPT := $(HOST_LIBCAP_MAKE_OPT) install
 
 # vim: syntax=make
