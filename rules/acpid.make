@@ -36,21 +36,9 @@ $(ACPID_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-ACPID_PATH	:= PATH=$(CROSS_PATH)
-ACPID_ENV 	:= $(CROSS_ENV)
-ACPID_MAKEVARS	:= CC=$(CROSS_CC)
-
-$(STATEDIR)/acpid.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/acpid.install:
-	@$(call targetinfo)
-	@$(call touch)
+ACPID_CONF_TOOL		:= NO
+ACPID_MAKE_OPT		:= CC=$(CROSS_CC)
+ACPID_INSTALL_OPT	:= INSTPREFIX=$(ACPID_PKGDIR) install
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -68,8 +56,8 @@ $(STATEDIR)/acpid.targetinstall:
 	@$(call install_fixup, acpid,DEPENDS,)
 	@$(call install_fixup, acpid,DESCRIPTION,missing)
 
-	@$(call install_copy, acpid, 0, 0, 0755, $(ACPID_DIR)/acpid, /usr/sbin/acpid)
-	@$(call install_copy, acpid, 0, 0, 0755, $(ACPID_DIR)/acpi_listen, /usr/bin/acpi_listen)
+	@$(call install_copy, acpid, 0, 0, 0755, -, /usr/sbin/acpid)
+	@$(call install_copy, acpid, 0, 0, 0755, -, /usr/bin/acpi_listen)
 
 ifdef PTXCONF_ACPID_POWEROFF
 	@$(call install_alternative, acpid, 0, 0, 0755, /etc/acpi/events/power_button)
