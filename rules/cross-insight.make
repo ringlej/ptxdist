@@ -44,6 +44,6 @@ CROSS_INSIGHT_ENV 	:= $(HOST_ENV)
 #
 CROSS_INSIGHT_AUTOCONF := \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--prefix=$(PTXDIST_SYSROOT_CROSS)
+	--prefix=
 
 # vim: syntax=make

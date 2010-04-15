@@ -1,0 +1,375 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: fix DESTDIR and INSTALL_ROOT
+
+* don't clean DESTDIR / INSTALL_ROOT
+* use DESTDIR / INSTALL_ROOT for everything
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ etc/Makefile.in                    |    2 +-
+ gdb/Makefile.in                    |    2 +-
+ itcl/itcl/Makefile.in              |   20 ++++++++++----------
+ itcl/itk/Makefile.in               |   22 +++++++++++-----------
+ itcl/iwidgets/Makefile.in          |    4 ++--
+ libgui/Makefile.in                 |    2 +-
+ libgui/library/Makefile.in         |    2 +-
+ libgui/src/Makefile.in             |    2 +-
+ readline/Makefile.in               |    2 +-
+ readline/doc/Makefile.in           |    2 +-
+ readline/examples/Makefile.in      |    2 +-
+ readline/examples/rlfe/Makefile.in |    2 +-
+ readline/shlib/Makefile.in         |    2 +-
+ tcl/cygwin/Makefile.in             |    2 +-
+ tcl/unix/Makefile.in               |    2 +-
+ tcl/win/Makefile.in                |    2 +-
+ tk/unix/Makefile.in                |    2 +-
+ tk/win/Makefile.in                 |    2 +-
+ 18 files changed, 38 insertions(+), 38 deletions(-)
+
+Index: b/itcl/itcl/Makefile.in
+===================================================================
+--- a/itcl/itcl/Makefile.in
++++ b/itcl/itcl/Makefile.in
+@@ -116,7 +116,7 @@ GENERIC_HDRS= \
+ SAMPLE_NEW_VAR=@SAMPLE_NEW_VAR@
+ 
+ # CYGNUS LOCAL
+-ITCL_LIBRARY = @datadir@/itcl$(VERSION)
++ITCL_LIBRARY = $(DESTDIR)/@datadir@/itcl$(VERSION)
+ # END CYGNUS LOCAL
+ 
+ ITCL_GENERIC_DIR_NATIVE = @ITCL_GENERIC_DIR_NATIVE@
+@@ -149,7 +149,7 @@ mandir = @mandir@
+ includedir = @includedir@
+ oldincludedir = /usr/include
+ 
+-DESTDIR =
++#DESTDIR =
+ 
+ pkgdatadir = $(datadir)/@PACKAGE@@VERSION@
+ pkglibdir = $(libdir)/@PACKAGE@@VERSION@
+@@ -272,11 +272,11 @@ install-binaries: binaries install-lib-b
+ #========================================================================
+ 
+ install-libraries: libraries
+-	$(mkinstalldirs) $(includedir)
+-	@echo "Installing header files in $(includedir)"
++	$(mkinstalldirs) $(DESTDIR)$(includedir)
++	@echo "Installing header files in $(DESTDIR)$(includedir)"
+ 	@for i in $(GENERIC_HDRS) ; do \
+ 	    echo "Installing $$i" ; \
+-	    $(INSTALL_DATA) $$i $(includedir) ; \
++	    $(INSTALL_DATA) $$i $(DESTDIR)$(includedir) ; \
+ 	done;
+ 	@echo "Installing library files in $(ITCL_LIBRARY)"
+ 	@for i in $(srcdir)/library/*.tcl ; do \
+@@ -290,14 +290,14 @@ install-libraries: libraries
+ #========================================================================
+ 
+ install-doc: doc
+-	$(mkinstalldirs) $(mandir)/mann
+-	@echo "Installing man pages in $(mandir)"
++	$(mkinstalldirs) $(DESTDIR)$(mandir)/mann
++	@echo "Installing man pages in $(DESTDIR)$(mandir)"
+ 	@cd $(srcdir)/doc; for i in *.n; \
+ 	    do \
+ 	    echo "Installing $$i"; \
+ 	    sed -e '/man\.macros/r man.macros' -e '/man\.macros/d' \
+-		$$i > $(mandir)/mann/$$i; \
+-	    chmod 444 $(mandir)/mann/$$i; \
++		$$i > $(DESTDIR)$(mandir)/mann/$$i; \
++	    chmod 444 $(DESTDIR)$(mandir)/mann/$$i; \
+ 	    done
+ 
+ test: $(TCLSH_PROG)
+@@ -447,7 +447,7 @@ install-lib-binaries: installdirs
+ 	    $(RANLIB) $(DESTDIR)$(libdir)/$$p; \
+ 	  else :; fi; \
+ 	done
+-	$(INSTALL_DATA) pkgIndex.tcl $(pkglibdir)
++	$(INSTALL_DATA) pkgIndex.tcl $(DESTDIR)$(pkglibdir)
+ 
+ #========================================================================
+ # Install binary executables (e.g. .exe files)
+Index: b/etc/Makefile.in
+===================================================================
+--- a/etc/Makefile.in
++++ b/etc/Makefile.in
+@@ -2,7 +2,7 @@
+ # Makefile.in for etc
+ #
+ 
+-DESTDIR		=
++#DESTDIR		=
+ 
+ prefix 		= @prefix@
+ exec_prefix 	= @exec_prefix@
+Index: b/gdb/Makefile.in
+===================================================================
+--- a/gdb/Makefile.in
++++ b/gdb/Makefile.in
+@@ -60,7 +60,7 @@ INSTALL = @INSTALL@
+ INSTALL_PROGRAM = @INSTALL_PROGRAM@
+ INSTALL_DATA = @INSTALL_DATA@
+ 
+-DESTDIR =
++#DESTDIR =
+ 
+ AR = @AR@
+ AR_FLAGS = qv
+Index: b/itcl/itk/Makefile.in
+===================================================================
+--- a/itcl/itk/Makefile.in
++++ b/itcl/itk/Makefile.in
+@@ -104,7 +104,7 @@ GENERIC_HDRS= \
+ SAMPLE_NEW_VAR=@SAMPLE_NEW_VAR@
+ 
+ # CYGNUS LOCAL
+-ITK_LIBRARY = @datadir@/itk$(VERSION)
++ITK_LIBRARY = $(DESTDIR)@datadir@/itk$(VERSION)
+ # END CYGNUS LOCAL
+ 
+ ITK_GENERIC_DIR_NATIVE = @ITK_GENERIC_DIR_NATIVE@
+@@ -137,7 +137,7 @@ mandir = @mandir@
+ includedir = @includedir@
+ oldincludedir = /usr/include
+ 
+-DESTDIR =
++#DESTDIR =
+ 
+ pkgdatadir = $(datadir)/@PACKAGE@@VERSION@
+ pkglibdir = $(libdir)/@PACKAGE@@VERSION@
+@@ -267,11 +267,11 @@ install-binaries: binaries install-lib-b
+ #========================================================================
+ 
+ install-libraries: libraries
+-	$(mkinstalldirs) $(includedir)
+-	@echo "Installing header files in $(includedir)"
++	$(mkinstalldirs) $(DESTDIR)$(includedir)
++	@echo "Installing header files in $(DESTDIR)$(includedir)"
+ 	@for i in $(GENERIC_HDRS) ; do \
+ 	    echo "Installing $$i" ; \
+-	    $(INSTALL_DATA) $$i $(includedir) ; \
++	    $(INSTALL_DATA) $$i $(DESTDIR)$(includedir) ; \
+ 	done;
+ 	@echo "Installing library files in $(ITK_LIBRARY)"
+ 	@for i in $(srcdir)/library/*.* $(srcdir)/library/tclIndex ; do \
+@@ -285,14 +285,14 @@ install-libraries: libraries
+ #========================================================================
+ 
+ install-doc: doc
+-	$(mkinstalldirs) $(mandir)/mann
+-	@echo "Installing man pages in $(mandir)"
++	$(mkinstalldirs) $(DESTDIR)$(mandir)/mann
++	@echo "Installing man pages in $(DESTDIR)$(mandir)"
+ 	@cd $(srcdir)/doc; for i in *.n; \
+ 	    do \
+-	    echo "Installing $$i info $(mandir)/mann"; \
++	    echo "Installing $$i info $(DESTDIR)$(mandir)/mann"; \
+ 	    sed -e '/man\.macros/r man.macros' -e '/man\.macros/d' \
+-		$$i > $(mandir)/mann/$$i; \
+-	    chmod 444 $(mandir)/mann/$$i; \
++		$$i > $(DESTDIR)$(mandir)/mann/$$i; \
++	    chmod 444 $(DESTDIR)$(mandir)/mann/$$i; \
+ 	    done
+ 
+ test: $(TCLSH_PROG)
+@@ -421,7 +421,7 @@ install-lib-binaries: installdirs
+ 	    $(RANLIB) $(DESTDIR)$(libdir)/$$p; \
+ 	  else :; fi; \
+ 	done
+-	$(INSTALL_DATA) pkgIndex.tcl $(pkglibdir)
++	$(INSTALL_DATA) pkgIndex.tcl $(DESTDIR)$(pkglibdir)
+ 
+ #========================================================================
+ # Install binary executables (e.g. .exe files)
+Index: b/itcl/iwidgets/Makefile.in
+===================================================================
+--- a/itcl/iwidgets/Makefile.in
++++ b/itcl/iwidgets/Makefile.in
+@@ -36,13 +36,13 @@ bindir = @bindir@
+ # to be different than those used for actually reference files at
+ # run-time.  INSTALL_ROOT is prepended to $prefix and $exec_prefix
+ # when installing files.
+-INSTALL_ROOT =
++#INSTALL_ROOT =
+ 
+ # Path name to use when installing library scripts:
+ 
+ # REDHAT LOCAL
+ #SCRIPT_INSTALL_DIR = $(INSTALL_ROOT)$(prefix)/lib/iwidgets$(IWIDGETS_VERSION)
+-SCRIPT_INSTALL_DIR = @datadir@/iwidgets$(IWIDGETS_VERSION)
++SCRIPT_INSTALL_DIR = $(INSTALL_ROOT)@datadir@/iwidgets$(IWIDGETS_VERSION)
+ # END REDHAT LOCAL
+ 
+ # Directory in which to install the archive libtcl.a:
+Index: b/libgui/Makefile.in
+===================================================================
+--- a/libgui/Makefile.in
++++ b/libgui/Makefile.in
+@@ -32,7 +32,7 @@ mandir = @mandir@
+ includedir = @includedir@
+ oldincludedir = /usr/include
+ 
+-DESTDIR =
++#DESTDIR =
+ 
+ pkgdatadir = $(datadir)/@PACKAGE@
+ pkglibdir = $(libdir)/@PACKAGE@
+Index: b/libgui/library/Makefile.in
+===================================================================
+--- a/libgui/library/Makefile.in
++++ b/libgui/library/Makefile.in
+@@ -32,7 +32,7 @@ mandir = @mandir@
+ includedir = @includedir@
+ oldincludedir = /usr/include
+ 
+-DESTDIR =
++#DESTDIR =
+ 
+ pkgdatadir = $(datadir)/@PACKAGE@
+ pkglibdir = $(libdir)/@PACKAGE@
+Index: b/libgui/src/Makefile.in
+===================================================================
+--- a/libgui/src/Makefile.in
++++ b/libgui/src/Makefile.in
+@@ -34,7 +34,7 @@ mandir = @mandir@
+ includedir = @includedir@
+ oldincludedir = /usr/include
+ 
+-DESTDIR =
++#DESTDIR =
+ 
+ pkgdatadir = $(datadir)/@PACKAGE@
+ pkglibdir = $(libdir)/@PACKAGE@
+Index: b/readline/Makefile.in
+===================================================================
+--- a/readline/Makefile.in
++++ b/readline/Makefile.in
+@@ -63,7 +63,7 @@ infodir = @infodir@
+ man3dir = $(mandir)/man3
+ 
+ # Support an alternate destination root directory for package building
+-DESTDIR =
++#DESTDIR =
+ 
+ # Programs to make tags files.
+ ETAGS = etags -tw
+Index: b/readline/doc/Makefile.in
+===================================================================
+--- a/readline/doc/Makefile.in
++++ b/readline/doc/Makefile.in
+@@ -36,7 +36,7 @@ man3dir = $(mandir)/$(manpfx)3
+ htmldir =
+ 
+ # Support an alternate destination root directory for package building
+-DESTDIR =
++#DESTDIR =
+ 
+ SHELL = @MAKE_SHELL@
+ RM = rm -f
+Index: b/readline/examples/Makefile.in
+===================================================================
+--- a/readline/examples/Makefile.in
++++ b/readline/examples/Makefile.in
+@@ -27,7 +27,7 @@ top_srcdir = @top_srcdir@
+ BUILD_DIR = .
+ 
+ # Support an alternate destination root directory for package building
+-DESTDIR =
++#DESTDIR =
+ 
+ DEFS = @DEFS@
+ CC = @CC@
+Index: b/readline/examples/rlfe/Makefile.in
+===================================================================
+--- a/readline/examples/rlfe/Makefile.in
++++ b/readline/examples/rlfe/Makefile.in
+@@ -7,7 +7,7 @@
+ srcdir = @srcdir@
+ VPATH = @srcdir@
+ 
+-DESTDIR = 
++#DESTDIR =
+ 
+ # Where to install screen.
+ 
+Index: b/readline/shlib/Makefile.in
+===================================================================
+--- a/readline/shlib/Makefile.in
++++ b/readline/shlib/Makefile.in
+@@ -59,7 +59,7 @@ datadir = @datadir@
+ localedir = $(datadir)/locale
+ 
+ # Support an alternate destination root directory for package building
+-DESTDIR =
++#DESTDIR =
+ 
+ CFLAGS = @CFLAGS@
+ LOCAL_CFLAGS = @LOCAL_CFLAGS@ -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"'
+Index: b/tcl/cygwin/Makefile.in
+===================================================================
+--- a/tcl/cygwin/Makefile.in
++++ b/tcl/cygwin/Makefile.in
+@@ -32,7 +32,7 @@ mandir = @mandir@
+ includedir = @includedir@
+ oldincludedir = /usr/include
+ 
+-DESTDIR =
++#DESTDIR =
+ 
+ pkgdatadir = $(datadir)/@PACKAGE@
+ pkglibdir = $(libdir)/@PACKAGE@
+Index: b/tcl/unix/Makefile.in
+===================================================================
+--- a/tcl/unix/Makefile.in
++++ b/tcl/unix/Makefile.in
+@@ -38,7 +38,7 @@ mandir			= @mandir@
+ # to be different than those used for actually reference files at
+ # run-time.  INSTALL_ROOT is prepended to $prefix and $exec_prefix
+ # when installing files.
+-INSTALL_ROOT		=
++#INSTALL_ROOT		=
+ 
+ # Path for the platform independent Tcl scripting libraries:
+ # REDHAT LOCAL
+Index: b/tcl/win/Makefile.in
+===================================================================
+--- a/tcl/win/Makefile.in
++++ b/tcl/win/Makefile.in
+@@ -34,7 +34,7 @@ mandir			= @mandir@
+ # to be different than those used for actually reference files at
+ # run-time.  INSTALL_ROOT is prepended to $prefix and $exec_prefix
+ # when installing files.
+-INSTALL_ROOT	=
++#INSTALL_ROOT	=
+ 
+ # Directory from which applications will reference the library of Tcl
+ # scripts (note: you can set the TCL_LIBRARY environment variable at
+Index: b/tk/unix/Makefile.in
+===================================================================
+--- a/tk/unix/Makefile.in
++++ b/tk/unix/Makefile.in
+@@ -41,7 +41,7 @@ mandir			= @mandir@
+ # to be different than those used for actually reference files at
+ # run-time.  INSTALL_ROOT is prepended to $prefix and $exec_prefix
+ # when installing files.
+-INSTALL_ROOT		=
++#INSTALL_ROOT		=
+ 
+ # Directory from which applications will reference the library of Tcl
+ # scripts (note: you can set the TK_LIBRARY environment variable at
+Index: b/tk/win/Makefile.in
+===================================================================
+--- a/tk/win/Makefile.in
++++ b/tk/win/Makefile.in
+@@ -34,7 +34,7 @@ mandir			= @mandir@
+ # to be different than those used for actually reference files at
+ # run-time.  INSTALL_ROOT is prepended to $prefix and $exec_prefix
+ # when installing files.
+-INSTALL_ROOT		=
++#INSTALL_ROOT		=
+ 
+ # Directory from which applications will reference the library of Tk
+ # scripts (note: you can set the TK_LIBRARY environment variable at
