@@ -54,9 +54,9 @@ endif
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/canfestival.install:
+$(STATEDIR)/canfestival.install.post:
 	@$(call targetinfo)
-	@$(call install, CANFESTIVAL)
+	@$(call world/install.post, CANFESTIVAL)
 	@for file in objdictedit objdictgen; do \
 		ln -sf $(PTXCONF_SYSROOT_TARGET)/usr/bin/"$${file}" $(PTXCONF_SYSROOT_HOST)/bin; \
 	done
