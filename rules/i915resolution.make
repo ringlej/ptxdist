@@ -32,23 +32,13 @@ $(I915RESOLUTION_SOURCE):
 	@$(call get, I915RESOLUTION)
 
 # ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-I915RESOLUTION_PATH	:= PATH=$(CROSS_PATH)
-I915RESOLUTION_MAKEVARS	:=  $(CROSS_ENV_CC)
-
-$(STATEDIR)/i915resolution.prepare:
-	@$(call targetinfo)
-	cd $(I915RESOLUTION_DIR) && $(I915RESOLUTION_PATH) $(MAKE) clean
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/i915resolution.install:
 	@$(call targetinfo)
+	install -D -m 755 $(I915RESOLUTION_DIR)/915resolution \
+		$(I915RESOLUTION_PKGDIR)/usr/sbin/915resolution
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -63,11 +53,11 @@ $(STATEDIR)/i915resolution.targetinstall:
 	@$(call install_fixup,i915resolution,PRIORITY,optional)
 	@$(call install_fixup,i915resolution,VERSION,$(I915RESOLUTION_VERSION))
 	@$(call install_fixup,i915resolution,SECTION,base)
-	@$(call install_fixup,i915resolution,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup,i915resolution,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,i915resolution,DEPENDS,)
 	@$(call install_fixup,i915resolution,DESCRIPTION,missing)
 
-	@$(call install_copy, i915resolution, 0, 0, 0755, $(I915RESOLUTION_DIR)/915resolution, /usr/sbin/915resolution)
+	@$(call install_copy, i915resolution, 0, 0, 0755, -, /usr/sbin/915resolution)
 
 	@$(call install_finish,i915resolution)
 
