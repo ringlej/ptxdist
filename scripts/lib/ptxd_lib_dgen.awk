@@ -19,6 +19,7 @@ BEGIN {
 	DGEN_DEPS_PRE		= ENVIRON["PTX_DGEN_DEPS_PRE"];
 	DGEN_DEPS_POST		= ENVIRON["PTX_DGEN_DEPS_POST"];
 	DGEN_RULESFILES_MAKE	= ENVIRON["PTX_DGEN_RULESFILES_MAKE"];
+	PTXDIST_TEMPDIR		= ENVIRON["PTXDIST_TEMPDIR"];
 }
 
 #
@@ -182,6 +183,18 @@ $1 ~ /^PTXCONF_/ && $2 ~ /^[ym]$/ {
 	if (this_PKG in PKG_to_pkg)
 		active_PKG_to_pkg[this_PKG] = PKG_to_pkg[this_PKG];
 
+	do {
+		if (this_PKG in PKG_to_pkg) {
+			next_PKG_HASHFILE = PTXDIST_TEMPDIR "/pkghash-" this_PKG;
+			if (next_PKG_HASHFILE != PKG_HASHFILE) {
+				close(PKG_HASHFILE);
+				PKG_HASHFILE = next_PKG_HASHFILE;
+			}
+			print $0 >> PKG_HASHFILE;
+			break;
+		}
+	} while (sub(/_+[^_]+$/, "", this_PKG));
+
 	next;
 }
 
@@ -309,6 +322,14 @@ END {
 			"$(STATEDIR)/" virtual  ".install"			> DGEN_DEPS_POST;
 	}
 
+	close(PKG_HASHFILE);
+	MD5SUM_CMD = "md5sum " PTXDIST_TEMPDIR "/pkghash-*";
+	while (MD5SUM_CMD | getline) {
+		split($0, line, "[ -]")
+		print line[length(line)] "_CFGHASH = " line[1]			> DGEN_DEPS_PRE;
+	}
+
+	close(MD5SUM_CMD)
 	close(MAP_ALL);
 	close(MAP_ALL_MAKE);
 	close(MAP_DEPS);
