@@ -1,0 +1,57 @@
+## SECTION=communication
+
+menuconfig BERLIOS_CAN_UTILS
+	tristate
+	prompt "berlios-can-utils             "
+	help
+	  The can-utils (berlios flavour) package contains tools to
+	  configure and test the Socket CAN framework.
+
+if BERLIOS_CAN_UTILS
+
+config BERLIOS_CAN_UTILS_ASC2LOG
+	bool asc2log
+
+config BERLIOS_CAN_UTILS_BCMSERVER
+	bool bcmserver
+
+config BERLIOS_CAN_UTILS_CANBUSLOAD
+	bool canbusload
+
+config BERLIOS_CAN_UTILS_CANDUMP
+	bool candump
+
+config BERLIOS_CAN_UTILS_CANFDTEST
+	bool canfdtest
+
+config BERLIOS_CAN_UTILS_CANGEN
+	bool cangen
+
+config BERLIOS_CAN_UTILS_CANLOGSERVER
+	bool canlogserver
+
+config BERLIOS_CAN_UTILS_CANPLAYER
+	bool canplayer
+
+config BERLIOS_CAN_UTILS_CANSEND
+	bool cansend
+
+config BERLIOS_CAN_UTILS_CANSNIFFER
+	bool cansniffer
+
+config BERLIOS_CAN_UTILS_LOG2ASC
+	bool log2asc
+
+config BERLIOS_CAN_UTILS_LOG2LONG
+	bool log2long
+
+config BERLIOS_CAN_UTILS_SLCAN_ATTACH
+	bool slcan_attach
+
+config BERLIOS_CAN_UTILS_SLCAND
+	bool slcand
+
+config BERLIOS_CAN_UTILS_SLCANPTY
+	bool slcanpty
+
+endif
