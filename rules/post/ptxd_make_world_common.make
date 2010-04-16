@@ -29,6 +29,10 @@ world/env/impl = \
 	ptx_conf_opt_autoconf_host="$(call ptx/escape,$(HOST_AUTOCONF))"	\
 	ptx_conf_opt_cmake_host="$(call ptx/escape,$(HOST_CMAKE_OPT))"		\
 										\
+	ptx_path_cross="${call ptx/escape,$(HOST_CROSS_PATH)}"			\
+	ptx_conf_env_cross="$(call ptx/escape,$(HOST_CROSS_ENV))"		\
+	ptx_conf_opt_autoconf_cross="$(call ptx/escape,$(HOST_CROSS_AUTOCONF))"	\
+										\
 	pkg_stamp="$(notdir $(@))"						\
 	pkg_pkg_dir="$(call ptx/escape,$($(1)_PKGDIR))"				\
 	pkg_license="$(call ptx/escape,$($(1)_LICENSE))"			\
