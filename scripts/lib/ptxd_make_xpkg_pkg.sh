@@ -507,7 +507,7 @@ ptxd_install_shared() {
     ptxd_install_file "${src}" "${dst}/${filename}" "${usr}" "${grp}" "${mod}" &&
 
     find "$(dirname "${src}")" -type l | while read file; do
-	if [ "$(readlink "${file}")" = "${filename}" ]; then
+	if [ "$(basename "$(readlink -f "${file}")")" = "${filename}" ]; then
 	    local link="${dst}/$(basename "${file}")"
 	    ptxd_install_ln "${filename}" "${link}" "${usr}" "${grp}" || return
 	fi
