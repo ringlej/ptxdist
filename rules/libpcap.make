@@ -76,7 +76,20 @@ endif
 
 $(STATEDIR)/libpcap.targetinstall:
 	@$(call targetinfo)
-# no targetinstall, cause it's a static lib (mkl)
+
+	@$(call install_init,  libpcap)
+	@$(call install_fixup, libpcap,PACKAGE,libpcap)
+	@$(call install_fixup, libpcap,PRIORITY,optional)
+	@$(call install_fixup, libpcap,VERSION,$(LIBPCAP_VERSION))
+	@$(call install_fixup, libpcap,SECTION,base)
+	@$(call install_fixup, libpcap,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
+	@$(call install_fixup, libpcap,DEPENDS,)
+	@$(call install_fixup, libpcap,DESCRIPTION,missing)
+
+	@$(call install_lib, libpcap, 0, 0, 0644, libpcap)
+
+	@$(call install_finish, libpcap)
+
 	@$(call touch)
 
 # vim: syntax=make

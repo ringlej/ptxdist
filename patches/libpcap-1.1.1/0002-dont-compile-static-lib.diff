@@ -1,0 +1,34 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: build and install share lib only
+
+This patch removes the static library from the dependency list
+for "all" and "install". This way libpcap.a is not built and
+tcpdump cannot link against it.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.in |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: b/Makefile.in
+===================================================================
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -324,7 +324,7 @@ EXTRA_DIST = \
+ 	Win32/Src/inet_net.c \
+ 	Win32/Src/inet_pton.c
+ 
+-all: libpcap.a shared pcap-config
++all: shared pcap-config
+ 
+ libpcap.a: $(OBJ)
+ 	@rm -f $@
+@@ -497,7 +497,7 @@ selpolltest: selpolltest.c libpcap.a
+ opentest: opentest.c libpcap.a
+ 	$(CC) $(CFLAGS) -I. -L. -o opentest $(srcdir)/opentest.c libpcap.a $(LIBS)
+ 
+-install: install-shared install-archive pcap-config
++install: install-shared pcap-config
+ 	[ -d $(DESTDIR)$(libdir) ] || \
+ 	    (mkdir -p $(DESTDIR)$(libdir); chmod 755 $(DESTDIR)$(libdir))
+ 	[ -d $(DESTDIR)$(includedir) ] || \
