@@ -37,12 +37,6 @@ $(OPROFILE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-OPROFILE_PATH	:= PATH=$(CROSS_PATH)
-OPROFILE_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
 OPROFILE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
@@ -77,10 +71,9 @@ $(STATEDIR)/oprofile.targetinstall:
 	@$(call install_copy, oprofile, 0, 0, 0755, -, \
 		/usr/bin/oprofiled)
 
-	@cd $(PKGDIR)/$(OPROFILE)/usr/share/oprofile && \
-	find . -type f | while read file; do \
-		$(call install_copy, oprofile, 0, 0, 0644, -, \
-			/usr/share/oprofile/$$file) \
+	@cd $(OPROFILE_PKGIDR) && \
+	find usr/share/oprofile -type f | while read file; do \
+		$(call install_copy, oprofile, 0, 0, 0644, -, /$${file}) \
 	done
 
 	@$(call install_finish, oprofile)
