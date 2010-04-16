@@ -44,8 +44,7 @@ GRUB_ENV	:= $(CROSS_ENV) CFLAGS=''
 GRUB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--without-curses \
-	--target=$(PTXCONF_GNU_TARGET) \
-	--prefix=/usr
+	--target=$(PTXCONF_GNU_TARGET)
 
 ifdef PTXCONF_GRUB_EXT2FS
 GRUB_AUTOCONF += --enable-ext2fs

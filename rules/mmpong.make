@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -35,13 +35,7 @@ $(MMPONG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-MMPONG_PATH	:= PATH=$(CROSS_PATH)
-MMPONG_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-MMPONG_CONF_OPT	:= $(CROSS_CMAKE_USR)
+MMPONG_CONF_TOOL := cmake
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -1,4 +1,12 @@
+# -*-makefile-*-
+#
 # Copyright (C) 2009 by Markus Rathgeb <rathgeb.markus@googlemail.com>
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
 
 #
 # We provide this package
@@ -14,7 +22,6 @@ SDL_TTF_SUFFIX	:= tar.gz
 SDL_TTF_URL	:= http://www.libsdl.org/projects/SDL_ttf/release/$(SDL_TTF).$(SDL_TTF_SUFFIX)
 SDL_TTF_SOURCE	:= $(SRCDIR)/$(SDL_TTF).$(SDL_TTF_SUFFIX)
 SDL_TTF_DIR	:= $(BUILDDIR)/$(SDL_TTF)
-
 
 # ----------------------------------------------------------------------------
 # Get

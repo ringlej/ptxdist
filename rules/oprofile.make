@@ -3,6 +3,7 @@
 # Copyright (C) 2003 by Benedikt Spranger <b.spranger@pengutronix.de>
 #               2003 by Auerswald GmbH & Co. KG, Schandelah, Germany
 #               2003-2009 by Pengutronix e.K., Hildesheim, Germany
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,7 +19,7 @@ PACKAGES-$(PTXCONF_OPROFILE) += oprofile
 #
 # Paths and names
 #
-OPROFILE_VERSION	:= 0.9.5
+OPROFILE_VERSION	:= 0.9.6
 OPROFILE		:= oprofile-$(OPROFILE_VERSION)
 OPROFILE_SUFFIX		:= tar.gz
 OPROFILE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/oprofile/$(OPROFILE).$(OPROFILE_SUFFIX)
@@ -37,12 +38,6 @@ $(OPROFILE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-OPROFILE_PATH	:= PATH=$(CROSS_PATH)
-OPROFILE_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
 OPROFILE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--target=$(PTXCONF_GNU_TARGET) \
@@ -77,10 +72,9 @@ $(STATEDIR)/oprofile.targetinstall:
 	@$(call install_copy, oprofile, 0, 0, 0755, -, \
 		/usr/bin/oprofiled)
 
-	@cd $(PKGDIR)/$(OPROFILE)/usr/share/oprofile && \
-	find . -type f | while read file; do \
-		$(call install_copy, oprofile, 0, 0, 0644, -, \
-			/usr/share/oprofile/$$file) \
+	@cd $(OPROFILE_PKGIDR) && \
+	find usr/share/oprofile -type f | while read file; do \
+		$(call install_copy, oprofile, 0, 0, 0644, -, /$${file}) \
 	done
 
 	@$(call install_finish, oprofile)

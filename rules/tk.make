@@ -108,7 +108,7 @@ ifdef PTXCONF_TK_WISH
 endif
 ifdef PTXCONF_TK_TTK
 	@$(call install_copy, tk, 0, 0, 0755, /usr/lib/tk$(TK_MAJOR).$(TK_MINOR)/ttk)
-	cd $(TK_PKGDIR)/usr/lib/tk$(TK_MAJOR).$(TK_MINOR)/ttk && \
+	@cd $(TK_PKGDIR)/usr/lib/tk$(TK_MAJOR).$(TK_MINOR)/ttk && \
 	for file in *.tcl ; do \
 		$(call install_copy, tk, 0, 0, 0644, -, \
 			/usr/lib/tk$(TK_MAJOR).$(TK_MINOR)/ttk/$$file, n); \

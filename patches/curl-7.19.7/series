@@ -1,2 +1,0 @@
-0001-don-t-include-LDFLAGS-int-pkg-config-libs.patch
-0002-curl-config.in-add-SYSROOT-support.patch

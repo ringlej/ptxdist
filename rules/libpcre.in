@@ -1,27 +1,32 @@
 ## SECTION=system_libraries
+
 menuconfig LIBPCRE
 	tristate
 	prompt "libpcre                       "
-	select GCCLIBS_CXX if LIBPCRE__LIBPCRECPP
-       select ZLIB if LIBPCRE__ENABLE_PCREGREP_LIBZ
+	select GCCLIBS_CXX	if LIBPCRE_LIBPCRECPP
+	select ZLIB		if LIBPCRE_ENABLE_PCREGREP_LIBZ
 	help
-	  Perl Compatible Regluar Expressions Library
+	  Perl 5 Compatible Regular Expression Library
+
+	  This is a library of functions to support regular
+	  expressions whose syntax and semantics are as close as
+	  possible to those of the Perl 5 language.
 
 if LIBPCRE
 
-config LIBPCRE__ENABLE_NEWLINE_IS_ANYCRLF
+config LIBPCRE_ENABLE_NEWLINE_IS_ANYCRLF
        bool "Enable NL is any CRLF"
 
-config LIBPCRE__ENABLE_PCREGREP_LIBZ
+config LIBPCRE_ENABLE_PCREGREP_LIBZ
        bool "Enable grep libz"
 
-config LIBPCRE__ENABLE_UTF8
+config LIBPCRE_ENABLE_UTF8
        bool "Enable UTF8"
 
-config LIBPCRE__LIBPCREPOSIX
+config LIBPCRE_LIBPCREPOSIX
        bool "install libpcreposix"
 
-config LIBPCRE__LIBPCRECPP
+config LIBPCRE_LIBPCRECPP
        bool "install libpcrecpp (c++ bindings for libpcre)"
 
 endif

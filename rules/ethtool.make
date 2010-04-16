@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Sascha Hauer
+#               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,12 +17,11 @@ PACKAGES-$(PTXCONF_ETHTOOL) += ethtool
 #
 # Paths and names
 #
-ETHTOOL_VERSION	:= 6+20090323.orig
+ETHTOOL_VERSION	:= 2.6.33
 ETHTOOL_SUFFIX	:= tar.gz
 ETHTOOL		:= ethtool-$(ETHTOOL_VERSION)
-ETHTOOL_TARBALL	:= ethtool_$(ETHTOOL_VERSION).$(ETHTOOL_SUFFIX)
-ETHTOOL_URL	:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/e/ethtool/$(ETHTOOL_TARBALL)
-ETHTOOL_SOURCE	:= $(SRCDIR)/$(ETHTOOL_TARBALL)
+ETHTOOL_URL	:= $(PTXCONF_SETUP_SFMIRROR)/gkernel/ethtool/2.6.33/$(ETHTOOL).$(ETHTOOL_SUFFIX)
+ETHTOOL_SOURCE	:= $(SRCDIR)/$(ETHTOOL).$(ETHTOOL_SUFFIX)
 ETHTOOL_DIR	:= $(BUILDDIR)/$(ETHTOOL)
 
 # ----------------------------------------------------------------------------
@@ -36,18 +36,11 @@ $(ETHTOOL_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-ETHTOOL_PATH	:= PATH=$(CROSS_PATH)
-ETHTOOL_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-ETHTOOL_AUTOCONF := $(CROSS_AUTOCONF_USR)
+ETHTOOL_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
 
 $(STATEDIR)/ethtool.targetinstall:
 	@$(call targetinfo)

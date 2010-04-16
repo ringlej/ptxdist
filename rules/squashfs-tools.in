@@ -3,7 +3,7 @@
 menuconfig SQUASHFS_TOOLS
 	tristate
 	select ZLIB
-	prompt "squashfs-tools"
+	prompt "squashfs-tools                "
 	help
 	  Squashfs is a highly compressed read-only filesystem for Linux.
 	  It uses zlib compression to compress both files, inodes and directories.

@@ -75,3 +75,11 @@ s/^\(\(# \)\?PTXCONF_BUSYBOX\)_APP_DHCPRELAY\(.*$\)/\1_DHCPRELAY\3/
 s/^\(\(# \)\?PTXCONF_BUSYBOX\)_APP_DUMPLEASES\(.*$\)/\1_DUMPLEASES\3/
 s/^\(\(# \)\?PTXCONF_BUSYBOX\)_APP_UDHCPC\(.*$\)/\1_UDHCPC\3/
 s/^\(\(# \)\?PTXCONF_BUSYBOX\)_APP_UDHCPD\(.*$\)/\1_UDHCPD\3/
+
+#
+# from   : ptxdist-2010.04.0
+# to     : ptxdist-2010.05.0
+# symbol : LIBPCRE__*			-> LIBPCRE_
+# reason : consolidation of config symbols
+#
+s/^\(\(# \)\?PTXCONF_LIBPCRE_\)_\(.*$\)/\1\3/
