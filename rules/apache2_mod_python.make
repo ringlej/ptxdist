@@ -36,8 +36,9 @@ $(APACHE2_MOD_PYTHON_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-APACHE2_MOD_PYTHON_PATH	:= PATH=$(CROSS_PATH)
-APACHE2_MOD_PYTHON_ENV 	:= $(CROSS_ENV)
+APACHE2_MOD_PYTHON_CONF_ENV := \
+	$(CROSS_ENV) \
+	LIBEXECDIR=/usr/modules
 
 #
 # autoconf
@@ -63,15 +64,14 @@ $(STATEDIR)/apache2_mod_python.targetinstall:
 	@$(call install_fixup, apache2_mod_python,DEPENDS,)
 	@$(call install_fixup, apache2_mod_python,DESCRIPTION,missing)
 
-	@$(call install_copy, apache2_mod_python, 0, 0, 0644, \
-		$(APACHE2_MOD_PYTHON_PKGDIR)/mod_python.so, \
-		/usr/share/apache2/libexec/mod_python.so)
+	@$(call install_copy, apache2_mod_python, 0, 0, 0644, -, \
+		/usr/modules/mod_python.so)
 
 	@cd $(APACHE2_MOD_PYTHON_PKGDIR) && \
-		find ./usr/lib/python$(PYTHON_MAJORMINOR) \
+		find usr/lib/python$(PYTHON_MAJORMINOR) \
 		-name "*.so" -o -name "*.pyc" | \
 		while read file; do \
-		$(call install_copy, apache2_mod_python, 0, 0, 644, -, $${file##.}); \
+		$(call install_copy, apache2_mod_python, 0, 0, 644, -, /$${file}); \
 	done
 
 	@$(call install_finish, apache2_mod_python)
