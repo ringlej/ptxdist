@@ -94,13 +94,13 @@ ptxd_install_dir() {
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw
 
-    cat << EOF
+    echo "\
 install directory:
   dir=${dir}
   owner=${usr}
   group=${grp}
   permissions=${mod}
-EOF
+"
 
     ptxd_install_setup &&
 
@@ -158,14 +158,14 @@ ptxd_install_file_impl() {
     local mod_nfs mod_rw
 
     ptxd_install_setup_src &&
-    cat << EOF
+    echo "\
 install ${cmd}:
   src=$(ptxd_print_path "${src}")
   dst=${dst}
   owner=${usr}
   group=${grp}
   permissions=${mod}
-EOF
+"
 
     ptxd_exist "${src}" &&
     rm -f "${dirs[@]/%/${dst}}" &&
@@ -208,11 +208,11 @@ ptxd_install_ln() {
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw
 
-    cat << EOF
+    echo "\
 install link:
   src=${src}
   dst=${dst}
-EOF
+"
 
     ptxd_install_setup &&
 
@@ -244,7 +244,7 @@ ptxd_install_mknod() {
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw
 
-    cat << EOF
+    echo "\
 install device node:
   owner=${usr}
   group=${grp}
@@ -253,7 +253,7 @@ install device node:
   major=${major}
   minor=${minor}
   name=${dst}
-EOF
+"
 
     ptxd_install_setup &&
 
@@ -303,8 +303,8 @@ ptxd_install_replace() {
     local -a dirs ndirs pdirs sdirs
     local mod_nfs mod_rw
 
-    cat << EOF
-EOF
+    echo "\
+"
 
     ptxd_install_setup &&
 
