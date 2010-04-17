@@ -21,6 +21,7 @@ UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
 UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
+UDEV_DEVPKG	:= NO
 
 UDEV_URL := \
 	http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX) \
