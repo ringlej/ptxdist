@@ -17,21 +17,18 @@ http://syslinux.zytor.com/archives/2010-January/013669.html
 
 ---
  Makefile |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Makefile b/Makefile
-index d0f5e71..f429e8c 100644
+Index: b/Makefile
+===================================================================
 --- a/Makefile
 +++ b/Makefile
-@@ -67,7 +67,7 @@ INSTALL_SBIN  = extlinux/extlinux
+@@ -68,7 +68,7 @@ INSTALL_SBIN  = extlinux/extlinux
  # Things to install in /usr/lib/syslinux
  INSTALL_AUX   =	core/pxelinux.0 gpxe/gpxelinux.0 core/isolinux.bin \
  		core/isolinux-debug.bin \
--		dos/syslinux.com dos/copybs.com win32/syslinux.exe \
-+		dos/syslinux.com dos/copybs.com \
+-		dos/syslinux.com win32/syslinux.exe \
++		dos/syslinux.com \
  		mbr/*.bin $(MODULES)
  INSTALL_AUX_OPT = win32/syslinux.exe
  
--- 
-1.6.6
-

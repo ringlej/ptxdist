@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_SYSLINUX) += syslinux
 #
 # Paths and names
 #
-SYSLINUX_VERSION	:= 3.84
+SYSLINUX_VERSION	:= 3.86
 SYSLINUX		:= syslinux-$(SYSLINUX_VERSION)
 SYSLINUX_SUFFIX		:= tar.bz2
-SYSLINUX_URL		:= http://www.kernel.org/pub/linux/utils/boot/syslinux/$(SYSLINUX).$(SYSLINUX_SUFFIX)
+SYSLINUX_URL		:= http://www.kernel.org/pub/linux/utils/boot/syslinux/3.xx/$(SYSLINUX).$(SYSLINUX_SUFFIX)
 SYSLINUX_SOURCE		:= $(SRCDIR)/$(SYSLINUX).$(SYSLINUX_SUFFIX)
 SYSLINUX_DIR		:= $(BUILDDIR)/$(SYSLINUX)
 SYSLINUX_LICENSE	:= unknown
