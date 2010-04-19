@@ -38,7 +38,9 @@ $(XORG_DRIVER_INPUT_EVDEV_SOURCE):
 # ----------------------------------------------------------------------------
 
 XORG_DRIVER_INPUT_EVDEV_PATH	:= PATH=$(CROSS_PATH)
-XORG_DRIVER_INPUT_EVDEV_ENV 	:= $(CROSS_ENV)
+XORG_DRIVER_INPUT_EVDEV_ENV 	:= \
+	$(CROSS_ENV) \
+	PTXDIST_PKG_CONFIG_VAR_NO_SYSROOT=sdkdir
 
 #
 # autoconf
