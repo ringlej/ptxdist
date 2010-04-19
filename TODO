@@ -221,14 +221,6 @@ TODO somewhen
 
 [ ] rsc: add sparse support
 
-[ ] mol: bash configure --enable-job-control does not work when cross compiling
-    posible fix in:
-    https://iocaste.extern.pengutronix.de/svn/oselas/bsp/johndeere/OSELAS.BSP-JohnDeere-ComPC-trunk/rules/bash.make
-    explained here:
-    http://www.mail-archive.com/bug-bash%40gnu.org/msg03107.html
-
-[ ] bbu: add more real GNU coreutils
-
 [ ] jbe: review samba configure stage. For a non-root and cross-compile run it
     seems to omit many tests and switches of many features in the final
     application. Check if samba_cv_HAVE_IFACE_IFCONF=yes and samba_cv_HAVE_MMAP=yes
@@ -244,16 +236,6 @@ TODO somewhen
     WARNING: no network interfaces found
 
     Seems to be a failure with current glibc
-
-[ ] rsc: xorg-app-xkbcomp needs xorg-lib-xkbfile, but dependency doesn't
-    work
-
-[ ] rsc: xorg-data-xkbdata needs xkbcomp on the host - otherwhise we get
-    a circular dependency ...
-
-[ ] jbe: alsa-lib creates funny pathes at the install stage
-
-[ ] jbe: org-server fails if no xkbfile is selected
 
 [ ] jbe: audit packages which are marked to be BROKEN
 
@@ -407,10 +389,6 @@ TODO somewhen
     calling shell. The same applies to lots of variables from
     Rules.make.
 
-[ ] Write macros $(call compile) and $(call configure).
-
-[ ] libxslt crypto support is broken
-
 [ ] image build mechanism tries to access data and infos from already
     disabled targets! (if they where enabled before). It does so
     unless a manually delete of the remaining and (now) useless targets
@@ -464,6 +442,44 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] Write macros $(call compile) and $(call configure).
+
+    update 20100419 mol: done
+
+[x] libxslt crypto support is broken
+
+    update 20100419 mol: done
+
+[x] jbe: org-server fails if no xkbfile is selected
+
+    update 20100419 mol: not sure what the problem was, but it seems to be gone.
+
+[x] jbe: alsa-lib creates funny pathes at the install stage
+
+    update 20100419 mol: done
+
+[x] rsc: xorg-app-xkbcomp needs xorg-lib-xkbfile, but dependency doesn't
+    work
+
+    update 20100419 mol: not sure what the problem was, but it seems to be gone.
+
+[x] rsc: xorg-data-xkbdata needs xkbcomp on the host - otherwhise we get
+    a circular dependency ...
+
+    update 20100419 mol: obsolete: xorg-data-xkbdata is gone.
+
+[x] bbu: add more real GNU coreutils
+
+    update 20100419 mol: done
+
+[x] mol: bash configure --enable-job-control does not work when cross compiling
+    posible fix in:
+    https://iocaste.extern.pengutronix.de/svn/oselas/bsp/johndeere/OSELAS.BSP-JohnDeere-ComPC-trunk/rules/bash.make
+    explained here:
+    http://www.mail-archive.com/bug-bash%40gnu.org/msg03107.html
+
+    update 20100419 mol: done
 
 [x] rsc: http://www.nongnu.org/failmalloc/
 [x] rsc: sysstat: http://perso.wanadoo.fr/sebastien.godard/
