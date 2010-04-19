@@ -37,20 +37,11 @@ $(STRACE_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-STRACE_PATH	:= PATH=$(CROSS_PATH)
 STRACE_ENV 	:= $(CROSS_ENV)
 
 ifndef PTXCONF_STRACE_SHARED
 STRACE_ENV	+=  LDFLAGS=-static
 endif
-
-#
-# autoconf
-#
-
-STRACE_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--target=$(PTXCONF_GNU_TARGET)
 
 # ----------------------------------------------------------------------------
 # Target-Install
