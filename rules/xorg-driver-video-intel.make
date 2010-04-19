@@ -64,15 +64,15 @@ endif
 ifdef PTXCONF_XORG_DRIVER_VIDEO_INTEL_DRI
 XORG_DRIVER_VIDEO_INTEL_AUTOCONF += --enable-dri
 XORG_DRIVER_VIDEO_INTEL_ENV += \
-	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/lib/pkgconfig/../../include/xorg/dri.h)=yes \
-	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/lib/pkgconfig/../../include/xorg/sarea.h)=yes \
-	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/lib/pkgconfig/../../include/xorg/dristruct.h)=yes
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/dri.h)=yes \
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/sarea.h)=yes \
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/dristruct.h)=yes
 else
 XORG_DRIVER_VIDEO_INTEL_AUTOCONF += --disable-dri
 XORG_DRIVER_VIDEO_INTEL_ENV += \
-	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/lib/pkgconfig/../../include/xorg/dri.h)=no \
-	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/lib/pkgconfig/../../include/xorg/sarea.h)=no \
-	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/lib/pkgconfig/../../include/xorg/dristruct.h)=no
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/dri.h)=no \
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/sarea.h)=no \
+	ac_cv_file_$(call tr_sh,$(SYSROOT)/usr/include/xorg/dristruct.h)=no
 endif
 
 # ----------------------------------------------------------------------------
