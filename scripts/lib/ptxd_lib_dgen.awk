@@ -177,10 +177,10 @@ $1 ~ /^PTX_MAP_DEP/ {
 # parse the ptx- and platformconfig
 # record yes and module packages
 #
-$1 ~ /^PTXCONF_/ && $2 ~ /^[ym]$/ {
+$1 ~ /^PTXCONF_/ {
 	this_PKG = gensub(/^PTXCONF_/, "", "g", $1);
 
-	if (this_PKG in PKG_to_pkg)
+	if ($2 ~ /^[ym]$/ && this_PKG in PKG_to_pkg)
 		active_PKG_to_pkg[this_PKG] = PKG_to_pkg[this_PKG];
 
 	do {
