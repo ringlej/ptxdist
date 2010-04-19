@@ -1,0 +1,28 @@
+From ffb8d658042e698dced9be6fece1bcf3f5b62f68 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 28 Apr 2009 19:08:19 +0200
+Subject: [PATCH] setup.py: skip import check while cross compiling
+
+during cross compilation we cannot import freshly for the target
+compiled modules into the build python. This patch skips this check.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ setup.py |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+Index: b/setup.py
+===================================================================
+--- a/setup.py
++++ b/setup.py
+@@ -246,6 +246,10 @@ class PyBuildExt(build_ext):
+             self.announce('WARNING: skipping import check for Cygwin-based "%s"'
+                 % ext.name)
+             return
++        if os.environ.get('CROSS_COMPILING') == 'yes':
++            self.announce('WARNING: skipping import check for cross compiled "%s"'
++                % ext.name)
++            return
+         ext_filename = os.path.join(
+             self.build_lib,
+             self.get_ext_filename(self.get_ext_fullname(ext.name)))

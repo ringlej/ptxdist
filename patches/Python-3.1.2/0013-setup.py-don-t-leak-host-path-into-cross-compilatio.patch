@@ -1,0 +1,85 @@
+From 2733013612e513e4756fafd82f33f66f7f7036f3 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Tue, 28 Apr 2009 19:07:54 +0200
+Subject: [PATCH] setup.py: don't leak host path into cross compilation environment
+
+During cross compilation we don't host path (neither include nor library
+search patch) to leak into our environment.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ setup.py |   33 ++++++++++++++++++++++++++-------
+ 1 file changed, 26 insertions(+), 7 deletions(-)
+
+Index: b/setup.py
+===================================================================
+--- a/setup.py
++++ b/setup.py
+@@ -295,8 +295,10 @@ class PyBuildExt(build_ext):
+ 
+     def detect_modules(self):
+         # Ensure that /usr/local is always used
+-        add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
+-        add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
++
++        if os.environ.get('CROSS_COMPILING') != 'yes':
++            add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
++            add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
+ 
+         # Add paths specified in the environment variables LDFLAGS and
+         # CPPFLAGS for header and library files.
+@@ -310,6 +312,10 @@ class PyBuildExt(build_ext):
+                 ('CPPFLAGS', '-I', self.compiler.include_dirs)):
+             env_val = sysconfig.get_config_var(env_var)
+             if env_val:
++                # replace "-isystem" by "-I" so that the option
++                # parser finds the dirs referenced by "-isystem"
++                env_val = re.sub(r'(^|\s+)-isystem\s+','\\1-I', env_val)
++
+                 # To prevent optparse from raising an exception about any
+                 # options in env_val that it doesn't know about we strip out
+                 # all double dashes and any dashes followed by a character
+@@ -341,11 +347,18 @@ class PyBuildExt(build_ext):
+         # lib_dirs and inc_dirs are used to search for files;
+         # if a file is found in one of those directories, it can
+         # be assumed that no additional -I,-L directives are needed.
+-        lib_dirs = self.compiler.library_dirs + [
+-            '/lib64', '/usr/lib64',
+-            '/lib', '/usr/lib',
+-            ]
+-        inc_dirs = self.compiler.include_dirs + ['/usr/include']
++        lib_dirs = self.compiler.library_dirs
++        inc_dirs = self.compiler.include_dirs
++
++        if os.environ.get('CROSS_COMPILING') != 'yes':
++            lib_dirs += [
++                '/lib64', '/usr/lib64',
++                '/lib', '/usr/lib',
++                ]
++            inc_dirs += ['/usr/include']
++        else:
++            lib_dirs += [ '.' ]
++
+         exts = []
+         missing = []
+ 
+@@ -697,6 +710,9 @@ class PyBuildExt(build_ext):
+             db_inc_paths.append('/pkg/db-3.%d/include' % x)
+             db_inc_paths.append('/opt/db-3.%d/include' % x)
+ 
++        if os.environ.get('CROSS_COMPILING') == 'yes':
++            db_inc_paths = []
++
+         # Add some common subdirectories for Sleepycat DB to the list,
+         # based on the standard include directories. This way DB3/4 gets
+         # picked up when it is installed in a non-standard prefix and
+@@ -815,6 +831,9 @@ class PyBuildExt(build_ext):
+         MIN_SQLITE_VERSION = ".".join([str(x)
+                                     for x in MIN_SQLITE_VERSION_NUMBER])
+ 
++        if os.environ.get('CROSS_COMPILING') == 'yes':
++            sqlite_inc_paths = []
++
+         # Scan the default include directories before the SQLite specific
+         # ones. This allows one to override the copy of sqlite on OSX,
+         # where /usr/include contains an old version of sqlite.

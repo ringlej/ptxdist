@@ -16,15 +16,8 @@ PACKAGES-$(PTXCONF_PYTHON) += python
 #
 # Paths and names
 #
-ifdef PTXCONF_PYTHON_26
 PYTHON_VERSION		:= 2.6.4
 PYTHON_MAJORMINOR	:= 2.6
-endif
-ifdef PTXCONF_PYTHON_3
-PYTHON_VERSION		:= 3.1a2
-PYTHON_MAJORMINOR	:= 3.1
-endif
-
 PYTHON			:= Python-$(PYTHON_VERSION)
 PYTHON_SUFFIX		:= tar.bz2
 PYTHON_SOURCE		:= $(SRCDIR)/$(PYTHON).$(PYTHON_SUFFIX)
@@ -52,7 +45,8 @@ PYTHON_ENV 	:= \
 	PYTHON_FOR_BUILD=$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON_MAJORMINOR) \
 	ac_cv_have_chflags=no \
 	ac_cv_have_lchflags=no \
-	ac_cv_py_format_size_t=yes
+	ac_cv_py_format_size_t=yes \
+	ac_cv_broken_sem_getvalue=no
 
 PYTHON_BINCONFIG_GLOB := ""
 

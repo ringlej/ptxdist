@@ -1,0 +1,36 @@
+From e8684e66c22ce7463c86fb2c6b48451988769721 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Fri, 24 Apr 2009 18:47:19 +0200
+Subject: [PATCH] use AC_TYPE_LONG_DOUBLE to detect long double support
+
+use the correct AC_TYPE_LONG_DOUBLE function rahter than hand crafted
+test to detect long double support.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ configure.in |   12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
+
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -1403,16 +1403,8 @@ if test "$ac_cv_type_long_long" = "yes" 
+   AC_DEFINE(HAVE_LONG_LONG, 1, [Define this if you have the type long long.])
+ fi
+ 
+-AC_MSG_CHECKING(for long double support)
+-have_long_double=no
+-AC_TRY_COMPILE([], [long double x; x = (long double)0;], [
+-  AC_DEFINE(HAVE_LONG_DOUBLE, 1, [Define this if you have the type long double.]) 
+-  have_long_double=yes
+-])
+-AC_MSG_RESULT($have_long_double)
+-if test "$have_long_double" = yes ; then
+-AC_CHECK_SIZEOF(long double, 16)
+-fi
++AC_TYPE_LONG_DOUBLE
++AC_CHECK_SIZEOF(long double)
+ 
+ 
+ AC_MSG_CHECKING(for _Bool support)

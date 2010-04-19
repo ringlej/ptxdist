@@ -1,0 +1,19 @@
+0001-Add-support-for-socketcan-to-the-python-socket-modul.patch
+# 0002--configure.in-chflags.patch ## upstream
+# 0003--configure.in-lchflags.patch ## upstream
+0004--configure.in-printf-format-zd.patch
+0005-use-AC_COMPILE_IFELSE-rather-than-AC_TRY_RUN.patch
+0006-use-AC_CHECK_SIZEOF-rather-than-AC_TRY_COMPILE-for-l.patch
+0007-use-AC_TYPE_LONG_DOUBLE-to-detect-long-double-suppor.patch
+0008-use-AC_CHECK_SIZEOF-rather-than-handcrafted-test-wit.patch
+0009-fix-silent-flag.patch
+0010-use-PGEN_FOR_BUILD.patch
+0011-introduce-and-use-PYTHON_FOR_BUILD.patch
+0012-distutils-introduce-and-use-EXECUTABLE_DIRNAME.patch
+0013-setup.py-don-t-leak-host-path-into-cross-compilatio.patch
+0014-setup.py-skip-import-check-while-cross-compiling.patch
+0015-add-cross-compilation-support.patch
+0016-provide-wrapper-for-cross-python.patch
+0017-fix-for-new-autoconf.diff
+0018-dont-add-rpaths.diff
+0019-add-cache-for-sem-getvalue.diff

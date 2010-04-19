@@ -1,0 +1,51 @@
+From 44a7b5cd5bca0d11b785d917a842d6436f6ad19f Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 23 Apr 2009 08:49:08 +0200
+Subject: [PATCH] [configure.in] printf format %zd
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ configure.in |   23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
+
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -3955,7 +3955,8 @@ else
+ fi
+ 
+ AC_MSG_CHECKING(for %zd printf() format support)
+-AC_TRY_RUN([#include <stdio.h>
++AC_CACHE_VAL([ac_cv_py_format_size_t],[
++  AC_RUN_IFELSE([#include <stdio.h>
+ #include <stddef.h>
+ #include <string.h>
+ 
+@@ -3989,9 +3990,23 @@ int main()
+ 
+     return 0;
+ }],
+-[AC_MSG_RESULT(yes)
+- AC_DEFINE(PY_FORMAT_SIZE_T, "z", [Define to printf format modifier for Py_ssize_t])],
+- AC_MSG_RESULT(no))
++  [ac_cv_py_format_size_t=yes],
++  [ac_cv_py_format_size_t=no],
++  [ac_cv_py_format_size_t=cross],
++)])
++
++case "${ac_cv_py_format_size_t}" in
++yes)
++  AC_MSG_RESULT([yes])
++  AC_DEFINE(PY_FORMAT_SIZE_T, "z", [Define to printf format modifier for Py_ssize_t])
++  ;;
++no)
++  AC_MSG_RESULT([no])
++  ;;
++*)
++  AC_MSG_ERROR([cross compiling - please ac_cv_py_format_size_t to yes (for working %zd printf() format support) or no])
++  ;;
++esac
+ 
+ AC_CHECK_TYPE(socklen_t,,
+   AC_DEFINE(socklen_t,int,

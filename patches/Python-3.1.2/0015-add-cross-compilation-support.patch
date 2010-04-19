@@ -1,0 +1,142 @@
+From 430893ea1bad2245f00d44fef62bbfb75db27f96 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 4 May 2009 14:39:18 +0200
+Subject: [PATCH] add cross compilation support
+
+This patch adds preliminary cross compilation support to python.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Lib/distutils/sysconfig.py |   11 +++++++++--
+ Makefile.pre.in            |   12 ++++++++----
+ configure.in               |   31 ++++++++++++++++++++++++++++---
+ setup.py                   |    6 +++++-
+ 4 files changed, 50 insertions(+), 10 deletions(-)
+
+Index: b/Lib/distutils/sysconfig.py
+===================================================================
+--- a/Lib/distutils/sysconfig.py
++++ b/Lib/distutils/sysconfig.py
+@@ -19,9 +19,16 @@ import sys
+ from .errors import DistutilsPlatformError
+ 
+ # These are needed in a couple of spots, so just compute them once.
+-PREFIX = os.path.normpath(sys.prefix)
+-EXEC_PREFIX = os.path.normpath(sys.exec_prefix)
+ EXECUTABLE_DIRNAME = os.path.dirname(os.path.abspath(sys.executable))
++if os.environ.get('CROSS_COMPILING') == 'yes':
++    _sysroot=os.environ.get('_python_sysroot')
++    PREFIX = os.path.normpath(_sysroot + os.environ.get('_python_prefix'))
++    EXEC_PREFIX = os.path.normpath(_sysroot + os.environ.get('_python_exec_prefix'))
++    if '_python_srcdir' in os.environ:
++        EXECUTABLE_DIRNAME = os.path.normpath(os.environ['_python_srcdir'])
++else:
++    PREFIX = os.path.normpath(sys.prefix)
++    EXEC_PREFIX = os.path.normpath(sys.exec_prefix)
+ 
+ # Path to the base directory of the project. On Windows the binary may
+ # live in project/PCBuild9.  If we're dealing with an x64 Windows build,
+Index: b/Makefile.pre.in
+===================================================================
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -75,6 +75,10 @@ CFLAGSFORSHARED=@CFLAGSFORSHARED@
+ # C flags used for building the interpreter object files
+ PY_CFLAGS=	$(CFLAGS) $(CPPFLAGS) $(CFLAGSFORSHARED) -DPy_BUILD_CORE
+ 
++# cross compiler options
++ifndef DESTDIR
++sysroot=	@SYSROOT@
++endif
+ 
+ # Machine-dependent subdirectories
+ MACHDEP=	@MACHDEP@
+@@ -90,11 +94,11 @@ datarootdir=    @datarootdir@
+ 
+ # Expanded directories
+ BINDIR=		$(exec_prefix)/bin
+-LIBDIR=		$(exec_prefix)/lib
++LIBDIR=		$(sysroot)$(exec_prefix)/lib
+ MANDIR=		@mandir@
+-INCLUDEDIR=	@includedir@
+-CONFINCLUDEDIR=	$(exec_prefix)/include
+-SCRIPTDIR=	$(prefix)/lib
++INCLUDEDIR=	$(sysroot)@includedir@
++CONFINCLUDEDIR=	$(sysroot)$(exec_prefix)/include
++SCRIPTDIR=	$(sysroot)$(prefix)/lib
+ 
+ # Detailed destination directories
+ BINLIBDEST=	$(LIBDIR)/python$(VERSION)
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -21,6 +21,9 @@ if test "$prefix" != "/"; then
+     prefix=`echo "$prefix" | sed -e 's/\/$//g'`
+ fi    
+ 
++AC_CANONICAL_BUILD
++AC_CANONICAL_HOST
++
+ dnl This is for stuff that absolutely must end up in pyconfig.h.
+ dnl Please use pyport.h instead, if possible.
+ AH_TOP([
+@@ -760,9 +763,9 @@ fi
+ 
+ AC_MSG_RESULT($LDLIBRARY)
+ 
+-AC_PROG_RANLIB
+-AC_SUBST(AR)
+-AC_CHECK_PROGS(AR, ar aal, ar)
++# find tools while respecting --host setting
++AC_CHECK_TOOL(RANLIB,ranlib)
++AC_CHECK_TOOLS(AR,ar aal,ar)
+ 
+ # tweak ARFLAGS only if the user didn't set it on the command line
+ AC_SUBST(ARFLAGS)
+@@ -4027,6 +4030,28 @@ AC_SUBST(PYTHON_FOR_BUILD)
+ AC_ARG_VAR(PYTHON_FOR_BUILD,[build system python (default: python)])
+ 
+ 
++#
++# Cross compiling
++#
++# special RUNSHARED
++if test "$cross_compiling" = "yes"; then
++    RUNSHARED="\
++		CROSS_COMPILING=yes \
++		_python_cross_host=${ac_cv_host} \
++		_python_sysroot=\"\$(sysroot)\" \
++		_python_srcdir=\"\$(srcdir)\" \
++		_python_prefix=\"\$(prefix)\" \
++		_python_exec_prefix=\"\$(exec_prefix)\""
++fi
++
++# sysroot
++AC_SUBST(SYSROOT)
++if test "$cross_compiling" = "yes"; then
++    AC_MSG_CHECKING([for SYSROOT])
++    AC_MSG_RESULT([$SYSROOT])
++fi
++
++
+ # generate output files
+ AC_CONFIG_FILES(Makefile.pre Modules/Setup.config Misc/python.pc)
+ AC_OUTPUT
+Index: b/setup.py
+===================================================================
+--- a/setup.py
++++ b/setup.py
+@@ -1494,7 +1494,11 @@ class PyBuildExt(build_ext):
+                                          ffi_configfile):
+                 from distutils.dir_util import mkpath
+                 mkpath(ffi_builddir)
+-                config_args = []
++
++                if os.environ.get('CROSS_COMPILING') != 'yes':
++                    config_args = []
++                else:
++                    config_args = ['--host=%s' % os.environ["_python_cross_host"],]
+ 
+                 # Pass empty CFLAGS because we'll just append the resulting
+                 # CFLAGS to Python's; -g or -O2 is to be avoided.

@@ -1,0 +1,46 @@
+From ff60f7c08cb167d060fd0e34b543550facf846c6 Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Mon, 4 May 2009 21:45:37 +0200
+Subject: [PATCH] provide wrapper for cross-python
+
+this patch provides a wrapper script that sets up a propper cross
+compilation environemnt and call the python_for_build
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ configure.in            |    2 +-
+ cross-python-wrapper.in |   13 +++++++++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+ create mode 100755 cross-python-wrapper.in
+
+Index: b/configure.in
+===================================================================
+--- a/configure.in
++++ b/configure.in
+@@ -4053,7 +4053,7 @@ fi
+ 
+ 
+ # generate output files
+-AC_CONFIG_FILES(Makefile.pre Modules/Setup.config Misc/python.pc)
++AC_CONFIG_FILES(Makefile.pre Modules/Setup.config Misc/python.pc cross-python-wrapper)
+ AC_OUTPUT
+ 
+ echo "creating Modules/Setup"
+Index: b/cross-python-wrapper.in
+===================================================================
+--- /dev/null
++++ b/cross-python-wrapper.in
+@@ -0,0 +1,13 @@
++#!/bin/sh
++
++prefix="@prefix@"
++exec_prefix="@exec_prefix@"
++
++CROSS_COMPILING=yes
++_python_sysroot="@SYSROOT@"
++_python_prefix="${prefix}"
++_python_exec_prefix="${exec_prefix}"
++
++export CROSS_COMPILING _python_sysroot _python_prefix _python_exec_prefix
++
++exec @PYTHON_FOR_BUILD@ "${@}"

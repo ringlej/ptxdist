@@ -1,19 +1,19 @@
 ## SECTION=scripting_languages
 
-menuconfig PYTHON
-	tristate "python                        "
+menuconfig PYTHON3
+	tristate "python3                       "
 	select LIBC_DL
 	select LIBC_UTIL
 	select LIBC_PTHREAD
-	select HOST_PYTHON
+	select HOST_PYTHON3
 	select GCCLIBS_CXX
-	select NCURSES		if PYTHON_NCURSES
-	select SQLITE		if PYTHON_SQLITE
-	select BZIP2		if PYTHON_BZ2
-	select BZIP2_LIBBZ2	if PYTHON_BZ2
-	select ZLIB		if PYTHON_ZLIB
-	select READLINE		if PYTHON_READLINE
-	select DB		if PYTHON_DB
+	select NCURSES		if PYTHON3_NCURSES
+	select SQLITE		if PYTHON3_SQLITE
+	select BZIP2		if PYTHON3_BZ2
+	select BZIP2_LIBBZ2	if PYTHON3_BZ2
+	select ZLIB		if PYTHON3_ZLIB
+	select READLINE		if PYTHON3_READLINE
+	select DB		if PYTHON3_DB
 	help
 	  Python is a dynamic object-oriented programming
 	  language that can be used for many kinds of
@@ -22,40 +22,40 @@ menuconfig PYTHON
 	  comes with extensive standard libraries, and
 	  can be learned in a few days.
 
-if PYTHON
+if PYTHON3
 
-config PYTHON_NCURSES
+config PYTHON3_NCURSES
 	bool "ncurses bindings"
 
-config PYTHON_SQLITE
+config PYTHON3_SQLITE
 	bool "sqlite bindings"
 
-config PYTHON_BZ2
+config PYTHON3_BZ2
 	bool "libbz2 bindings"
 
-config PYTHON_ZLIB
+config PYTHON3_ZLIB
 	bool "zlib bindings"
 
-config PYTHON_READLINE
+config PYTHON3_READLINE
 	bool "readline bindings"
 
-config PYTHON_DB
+config PYTHON3_DB
 	bool "db bindings"
 
-config PYTHON_SYMLINK
+config PYTHON3_SYMLINK
 	bool
 	prompt "install symbolic link /usr/bin/python"
 	default y
 
-config PYTHON_LIBTK
+config PYTHON3_LIBTK
 	bool
 	prompt "Include lib-tk packages"
 
-config PYTHON_IDLELIB
+config PYTHON3_IDLELIB
 	bool
 	prompt "Include idlelib packages"
 
-config PYTHON_DISTUTILS
+config PYTHON3_DISTUTILS
 	bool
 	prompt "Include distutils packages"
 
