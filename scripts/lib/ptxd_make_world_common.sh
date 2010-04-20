@@ -199,19 +199,21 @@ ptxd_make_world_init() {
     ptxd_make_world_init_sanity_check || return
 
     #
-    # sanitize pkg_pkg_dir
-    #
-    if [ "${pkg_pkg_dir}" = "${ptx_pkg_dir}/" ]; then
-	pkg_pkg_dir=""
-    fi
-
-    #
     # type
     #
     case "${pkg_stamp}" in
 	host-*|cross-*) pkg_type="${pkg_stamp%%-*}" ;;
 	*)              pkg_type="target" ;;
     esac
+
+    #
+    # sanitize pkg_pkg_dir
+    #
+    if [ "${pkg_pkg_dir}" = "${ptx_pkg_dir}/" -o \
+	 "${pkg_pkg_dev}" = "NO" -a "${pkg_type}" != "target" ]; then
+	pkg_pkg_dir=""
+	local conf_opt_ext="_sysroot"
+    fi
 
     #
     # label + stage
@@ -259,7 +261,7 @@ ptxd_make_world_init() {
 
     case "${pkg_conf_tool}" in
 	autoconf|cmake|qmake)
-	    local conf_opt_ptr="ptx_conf_opt_${pkg_conf_tool}_${pkg_type}"
+	    local conf_opt_ptr="ptx_conf_opt_${pkg_conf_tool}_${pkg_type}${conf_opt_ext}"
 	    local conf_env_ptr="ptx_conf_env_${pkg_type}"
 
 	    pkg_conf_opt="${pkg_conf_opt:-${!conf_opt_ptr}}"

@@ -315,9 +315,11 @@ HOST_ENV	:= \
 	$(HOST_ENV_PYTHONPATH)
 
 
-HOST_AUTOCONF  := --prefix=$(PTXDIST_SYSROOT_HOST)
+HOST_AUTOCONF  := --prefix=
+HOST_AUTOCONF_SYSROOT := --prefix=$(PTXDIST_SYSROOT_HOST)
 
-HOST_CMAKE_OPT := -DCMAKE_INSTALL_PREFIX=$(PTXDIST_SYSROOT_HOST) -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+HOST_CMAKE_OPT := -DCMAKE_INSTALL_PREFIX= -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
+HOST_CMAKE_OPT_SYSROOT := -DCMAKE_INSTALL_PREFIX=$(PTXDIST_SYSROOT_HOST) -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo
 
 # ----------------------------------------------------------------------------
 # HOST_CROSS stuff
@@ -327,7 +329,8 @@ HOST_CROSS_PATH := $(CROSS_PATH)
 
 HOST_CROSS_ENV := $(HOST_ENV)
 
-HOST_CROSS_AUTOCONF := --prefix=$(PTXDIST_SYSROOT_CROSS)
+HOST_CROSS_AUTOCONF := --prefix=
+HOST_CROSS_AUTOCONF_SYSROOT := --prefix=$(PTXDIST_SYSROOT_CROSS)
 
 # ----------------------------------------------------------------------------
 # Convenience macros

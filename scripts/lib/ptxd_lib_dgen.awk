@@ -251,8 +251,12 @@ function import_PKG(this_PKG,	this_pkg) {
 		print this_PKG "_DIR = $(" this_PKG_type \
 			"BUILDDIR)/$(" target_PKG ")"			> DGEN_DEPS_PRE;
 		if (this_pkg ~ /^host-/) {
+			print this_PKG "_PKGDIR = $(PKGDIR)/host-$(" \
+				this_PKG ")"				> DGEN_DEPS_PRE;
 			print this_PKG "_DEVPKG = host-" this_devpkg	> DGEN_DEPS_PRE;
 		} else if (this_pkg ~ /^cross-/) {
+			print this_PKG "_PKGDIR = $(PKGDIR)/cross-$(" \
+				this_PKG ")"				> DGEN_DEPS_PRE;
 			print this_PKG "_DEVPKG = cross-" this_devpkg	> DGEN_DEPS_PRE;
 		}
 	}
