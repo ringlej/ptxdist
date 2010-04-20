@@ -275,7 +275,12 @@ END {
 		print "$(STATEDIR)/" this_pkg ".tags: "               "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg ".compile: "            "$(STATEDIR)/" this_pkg ".prepare"	> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg ".install: "            "$(STATEDIR)/" this_pkg ".compile"	> DGEN_DEPS_POST;
-		print "$(STATEDIR)/" this_pkg ".install.post: "       "$(STATEDIR)/" this_pkg ".install"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".install.pack: "       "$(STATEDIR)/" this_pkg ".install"	> DGEN_DEPS_POST;
+		print "ifeq ($(strip $(wildcard $(PTXDIST_DEVPKG_PLATFORMDIR)/$(" this_PKG "_DEVPKG))),)"	> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".install.post: "       "$(STATEDIR)/" this_pkg ".install.pack"	> DGEN_DEPS_POST;
+		print "else"											> DGEN_DEPS_POST;
+		print "$(STATEDIR)/" this_pkg ".install.post: "       "$(STATEDIR)/" this_pkg ".install.unpack"	> DGEN_DEPS_POST;
+		print "endif"											> DGEN_DEPS_POST;
 		if (!(this_pkg ~ /^host-|^cross-/)) {
 			print "$(STATEDIR)/" this_pkg ".targetinstall: "      "$(STATEDIR)/" this_pkg ".install.post"	> DGEN_DEPS_POST;
 			print "$(STATEDIR)/" this_pkg ".targetinstall.post: " "$(STATEDIR)/" this_pkg ".targetinstall"	> DGEN_DEPS_POST;
@@ -300,6 +305,9 @@ END {
 
 			print \
 				"$(STATEDIR)/" this_pkg	".prepare: " \
+				"$(STATEDIR)/" this_dep	".install.post"		> DGEN_DEPS_POST;
+			print \
+				"$(STATEDIR)/" this_pkg	".install.unpack: " \
 				"$(STATEDIR)/" this_dep	".install.post"		> DGEN_DEPS_POST;
 
 			#
@@ -330,6 +338,9 @@ END {
 
 		print \
 			"$(STATEDIR)/" this_pkg ".prepare: " \
+			"$(STATEDIR)/" virtual  ".install"			> DGEN_DEPS_POST;
+		print \
+			"$(STATEDIR)/" this_pkg ".install.unpack: " \
 			"$(STATEDIR)/" virtual  ".install"			> DGEN_DEPS_POST;
 	}
 

@@ -16,6 +16,20 @@ world/install = \
 	ptxd_make_world_install
 
 #
+# world/install.pack
+#
+world/install.pack = \
+	$(call world/env, $1) \
+	ptxd_make_world_install_pack
+
+#
+# world/install.unpack
+#
+world/install.unpack = \
+	$(call world/env, $1) \
+	ptxd_make_world_install_unpack
+
+#
 # world/install.post
 #
 world/install.post = \
@@ -39,6 +53,16 @@ install = \
 $(STATEDIR)/%.install:
 	@$(call targetinfo)
 	@$(call world/install, $(PTX_MAP_TO_PACKAGE_$(*)))
+	@$(call touch)
+
+$(STATEDIR)/%.install.pack:
+	@$(call targetinfo)
+	@$(call world/install.pack, $(PTX_MAP_TO_PACKAGE_$(*)))
+	@$(call touch)
+
+$(STATEDIR)/%.install.unpack:
+	@$(call targetinfo)
+	@$(call world/install.unpack, $(PTX_MAP_TO_PACKAGE_$(*)))
 	@$(call touch)
 
 $(STATEDIR)/%.install.post:
