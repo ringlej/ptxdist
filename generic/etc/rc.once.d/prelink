@@ -1,6 +1,13 @@
 #!/bin/sh
 
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+SKIP_ON_NFSROOT=@NFSSKIP@
+
+if [ "$SKIP_ON_NFSROOT" = "yes" ]; then
+	if cat /proc/cmdline | grep -q 'root=/dev/nfs'; then
+		echo "Skipping prelink on nfsroot"
+		exit 0
+	fi
+fi
 
 echo "running prelink..."
 

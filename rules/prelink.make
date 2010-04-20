@@ -65,6 +65,11 @@ $(STATEDIR)/prelink.targetinstall:
 
 ifdef PTXCONF_PRELINK_RC_ONCE
 	@$(call install_alternative, prelink, 0, 0, 0755, /etc/rc.once.d/prelink)
+ifdef PTXCONF_PRELINK_SKIP_ON_NFSROOT
+	@$(call install_replace, prelink, /etc/rc.once.d/prelink, @NFSSKIP@, yes)
+else
+	@$(call install_replace, prelink, /etc/rc.once.d/prelink, @NFSSKIP@, no)
+endif
 endif
 
 	@$(call install_finish, prelink)

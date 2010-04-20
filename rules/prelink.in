@@ -3,6 +3,7 @@
 menuconfig PRELINK
 	tristate
 	select LIBELF
+	select RC_ONCE if PRELINK_RC_ONCE
 	prompt "prelink                       "
 	help
 	  ELF prelinking utility to speed up dynamic linking.  The
@@ -15,10 +16,19 @@ if PRELINK
 
 config PRELINK_RC_ONCE
 	bool
-	select RC_ONCE
 	prompt "install rc.once.d script"
 	help
 	  install a script that will be run on the first boot to
 	  prelink all programs and libraries.
+
+config PRELINK_SKIP_ON_NFSROOT
+	bool
+	depends on PRELINK_RC_ONCE
+	prompt "skip prelinking on nfsroot"
+	help
+	  prelinking is done for better startup performance for the
+	  final system. nfsroot is usually used during development.
+	  This option allows to skip prelinking when booting from
+	  nfsroot.
 
 endif
