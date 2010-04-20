@@ -233,6 +233,25 @@ ptxd_init_cross_env() {
     IFS="${orig_IFS}"
 }
 
+ptxd_init_devpkg()
+{
+    local prefix
+
+    prefix="$(ptxd_get_ptxconf PTXCONF_PROJECT_DEVPKGDIR)" || return 0
+
+    local platform platform_version
+    platform="$(ptxd_get_ptxconf PTXCONF_PLATFORM)"
+    platform_version="$(ptxd_get_ptxconf PTXCONF_PLATFORM_VERSION)"
+
+    if [ -n "${platform}" ]; then
+	prefix="${prefix}/platform-${platform}${platform_version}"
+    else
+	: # nothing to do for non-platform BSPs
+    fi
+
+    PTXDIST_DEVPKG_PLATFORMDIR="${prefix}"
+    export PTXDIST_DEVPKG_PLATFORMDIR
+}
 
 #
 # initialize vars needed by PTXdist's make
@@ -244,6 +263,8 @@ ptxd_make_init() {
 	! ptxd_get_ptxconf PTXCONF_BUILD_TOOLCHAIN > /dev/null; then
 	ptxd_init_sysroot_toolchain || return
     fi &&
+
+    ptxd_init_devpkg &&
 
     ptxd_init_ptxdist_path &&
     ptxd_init_cross_env

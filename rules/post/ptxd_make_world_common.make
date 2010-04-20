@@ -17,6 +17,7 @@ world/env/impl = \
 	ptx_state_dir="$(call ptx/escape,$(STATEDIR))"				\
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
+	ptx_pkg_dev_dir="$(call ptx/escape,$(PTXDIST_DEVPKG_PLATFORMDIR))"	\
 										\
 	ptx_path_target="${call ptx/escape,$(CROSS_PATH)}"			\
 	ptx_conf_env_target="$(call ptx/escape,$(CROSS_ENV))"			\
