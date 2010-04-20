@@ -226,14 +226,20 @@ function import_PKG(this_PKG,	this_pkg) {
 		" := $(STATEDIR)/" this_pkg "." stage ".post"		> DGEN_DEPS_PRE;
 
 	#
+	# archive name for devel packages
+	#
+	this_devpkg = "$(" this_PKG ")-$(" this_PKG "_CFGHASH)-dev.tar.gz"
+
+	#
 	# things depending on target or host-, cross- package
 	#
-	if (this_pkg !~ /^host-|^cross-/)
+	if (this_pkg !~ /^host-|^cross-/) {
 		# target packages
 
 		# define ${PKG}_PKGDIR
 		print this_PKG "_PKGDIR = $(PKGDIR)/$(" this_PKG ")"	> DGEN_DEPS_PRE;
-	else {
+		print this_PKG "_DEVPKG = " this_devpkg			> DGEN_DEPS_PRE;
+	} else {
 		# host, cross packages
 
 		target_PKG = gensub(/^HOST_|^CROSS_/, "", "", this_PKG);
@@ -244,6 +250,11 @@ function import_PKG(this_PKG,	this_pkg) {
 		print this_PKG "_SOURCE = $(" target_PKG "_SOURCE)"	> DGEN_DEPS_PRE;
 		print this_PKG "_DIR = $(" this_PKG_type \
 			"BUILDDIR)/$(" target_PKG ")"			> DGEN_DEPS_PRE;
+		if (this_pkg ~ /^host-/) {
+			print this_PKG "_DEVPKG = host-" this_devpkg	> DGEN_DEPS_PRE;
+		} else if (this_pkg ~ /^cross-/) {
+			print this_PKG "_DEVPKG = cross-" this_devpkg	> DGEN_DEPS_PRE;
+		}
 	}
 }
 
