@@ -12,6 +12,24 @@ config INVISIBLE
 
 comment "PTXDIST Setup Menu"
 
+menu "User              "
+
+config SETUP_USER_NAME
+	prompt "Name"
+	string
+	default ""
+	help
+	  Full name of the user. Used as default in 'ptxdist newpackage'
+
+config SETUP_USER_EMAIL
+	prompt "eMail"
+	string
+	default ""
+	help
+	  eMail address of the user. Used as default in 'ptxdist newpackage'
+
+endmenu
+
 menu "Proxies           "
 
 config SETUP_FTP_PROXY
