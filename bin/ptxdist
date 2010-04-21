@@ -1058,8 +1058,7 @@ newpackage() {
 	echo
 	echo "${PTXDIST_LOG_PROMPT}creating a new '${action}' package:"
 	echo
-	echo -n "${PTXDIST_LOG_PROMPT}enter package name.......: "
-	read package_name
+	read -e -p "${PTXDIST_LOG_PROMPT}enter package name.......: " package_name
 
 	#
 	# for host and cross packages, find out if there is already an
@@ -1088,25 +1087,21 @@ newpackage() {
 	*-existing-target|src-make-prog)
 		;;
 	*)
-		echo -n "${PTXDIST_LOG_PROMPT}enter version number.....: "
-		read version
+		read -e -p "${PTXDIST_LOG_PROMPT}enter version number.....: " version
 		;;
 	esac
 
 	local url suffix
 	case "${action}" in
 	host|target|cross|klibc)
-		echo -n "${PTXDIST_LOG_PROMPT}enter URL of basedir.....: "
-		read url
-		echo -n "${PTXDIST_LOG_PROMPT}enter suffix.............: "
-		read suffix
+		read -e -p "${PTXDIST_LOG_PROMPT}enter URL of basedir.....: " url
+		read -e -p "${PTXDIST_LOG_PROMPT}enter suffix.............: " suffix
 		;;
 	esac
 
 	# FIXME: get address from 'ptxdist setup'
 	local author
-	echo -n "${PTXDIST_LOG_PROMPT}enter package author.....: "
-	read author
+	read -e -p "${PTXDIST_LOG_PROMPT}enter package author.....: " author
 
 	local package_filename="${package_name}"
 	local package="$(echo ${package_name} | tr "[A-Z]" "[a-z]")"
@@ -1130,9 +1125,8 @@ newpackage() {
 
 		if [ -f "${filename}" ]; then
 			echo
-			echo -n "${PTXDIST_LOG_PROMPT}warning: ${filename} does already exist, overwrite? [y/n] "
 			local overwrite
-			read overwrite
+			read -e -p "${PTXDIST_LOG_PROMPT}warning: ${filename} does already exist, overwrite? [y/n] " overwrite
 			if [ "${overwrite}" != "y" ]; then
 				echo "${PTXDIST_LOG_PROMPT}aborted."
 				echo
@@ -1168,9 +1162,9 @@ newpackage() {
 			return
 		fi
 
-		echo -e -n "\n${dst#${PTXDIST_WORKSPACE}/} does not exist, create? [Y/n] "
+		echo
 		local r
-		read r
+		read -e -p "${dst#${PTXDIST_WORKSPACE}/} does not exist, create? [Y/n] " r
 		case "${r}" in
 		    y|Y|"") ;;
 		    *) return ;;
