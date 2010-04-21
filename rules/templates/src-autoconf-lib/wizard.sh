@@ -8,6 +8,7 @@ if [ -z "$NAME" ]; then
 	read NAME
 fi
 NAME_UP=$(echo $NAME | tr '[a-z-]' '[A-Z_]')
+NAME_NODASH=$(echo $NAME | tr '-' '_')
 
 mv "@name@.c" "${NAME}.c"
 
@@ -17,6 +18,7 @@ for i in \
 	${NAME}.c \
 ; do
 	sed -i -e "s/\@name\@/${NAME}/g" $i
+	sed -i -e "s/\@namenodash\@/${NAME_NODASH}/g" $i
 	sed -i -e "s/\@NAME\@/${NAME_UP}/g" $i
 done
 

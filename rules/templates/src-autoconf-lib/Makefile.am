@@ -17,9 +17,9 @@ MAINTAINERCLEANFILES = \
 #
 # binary
 #
-lib@name@_la_SOURCES = \
+lib@namenodash@_la_SOURCES = \
 	@name@.c
 
-#@name@_LDADD = \
+#@namenodash@_LDADD = \
 #	$(some_LIBS)
 
