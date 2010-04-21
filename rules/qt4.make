@@ -524,9 +524,9 @@ $(STATEDIR)/qt4.install:
 	@$(call targetinfo)
 	@$(call install, QT4)
 	@find "$(QT4_PKGDIR)" -name "*.la" -print0 | xargs -r -0 -- \
-		sed -i -e "/^dependency_libs/s:\( \|-L\|-R\)$(QT4_PKGDIR)\(/lib\|/usr/lib\):\1\2:g"
+		sed -i -e "/^dependency_libs/s:\( \|-L\|-R\)$(QT4_PKGDIR)\(/lib\|/usr/lib\):\1$(SYSROOT)\2:g"
 	@find "$(QT4_PKGDIR)" -name "*.prl" -print0 | xargs -r -0 -- \
-		sed -i -e "/^QMAKE_PRL_LIBS/s:\( \|-L\|-R\)$(QT4_PKGDIR)\|$(SYSROOT)\(/lib\|/usr/lib\):\1\2:g"
+		sed -i -e "/^QMAKE_PRL_LIBS/s:\( \|-L\|-R\)$(QT4_PKGDIR)\(/lib\|/usr/lib\):\1$(SYSROOT)\2:g"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
