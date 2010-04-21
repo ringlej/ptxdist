@@ -1017,7 +1017,7 @@ newpackage() {
 		template=template-src-autoconf
 		;;
 
-	src-cmake-prog|src-linux-driver|src-make-prog|src-stellaris)
+	src-cmake-prog|src-qmake-prog|src-linux-driver|src-make-prog|src-stellaris)
 		#template: default
 		#template_src: default
 		;;
@@ -1035,6 +1035,7 @@ newpackage() {
 		echo "  src-autoconf-prog        create autotoolized binary"
 		echo "  src-autoconf-proglib     create autotoolized binary+library"
 		echo "  src-cmake-prog           create cmake binary"
+		echo "  src-qmake-prog           create qmake binary"
 		echo "  src-linux-driver         create a linux kernel driver"
 		echo "  src-make-prog            create a plain makefile binary"
 		echo "  src-stellaris            create stellaris firmware"

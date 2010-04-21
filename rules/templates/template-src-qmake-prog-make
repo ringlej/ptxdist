@@ -1,0 +1,90 @@
+# -*-makefile-*-
+#
+# Copyright (C) @YEAR@ by @AUTHOR@
+#
+# See CREDITS for details about who has contributed to this project.
+#
+# For further information about the PTXdist project and license conditions
+# see the README file.
+#
+
+#
+# We provide this package
+#
+PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
+
+#
+# Paths and names
+#
+ifdef PTXCONF_@PACKAGE@_TRUNK
+@PACKAGE@_VERSION	:= trunk
+else
+@PACKAGE@_VERSION	:= @VERSION@
+endif
+@PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
+@PACKAGE@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)
+@PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
+@PACKAGE@_BUILD_OOT	:= YES
+@PACKAGE@_LICENSE	:= unknown
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(@PACKAGE@_SOURCE):
+	@$(call targetinfo)
+	@$(call get, @PACKAGE@)
+
+# ----------------------------------------------------------------------------
+# Prepare
+# ----------------------------------------------------------------------------
+
+#@PACKAGE@_CONF_ENV	:= $(CROSS_ENV)
+
+#
+# qmake
+#
+@PACKAGE@_CONF_TOOL	:= qmake
+@PACKAGE@_CONF_OPT	:= $(CROSS_QMAKE_OPT) PREFIX=/usr
+
+# ----------------------------------------------------------------------------
+# Target-Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/@package@.targetinstall:
+	@$(call targetinfo)
+
+	@$(call install_init,  @package@)
+	@$(call install_fixup, @package@, PACKAGE, @packagedash@)
+	@$(call install_fixup, @package@, PRIORITY, optional)
+	@$(call install_fixup, @package@, VERSION, $(@PACKAGE@_VERSION))
+	@$(call install_fixup, @package@, SECTION, base)
+	@$(call install_fixup, @package@, AUTHOR, "@AUTHOR@")
+	@$(call install_fixup, @package@, DEPENDS,)
+	@$(call install_fixup, @package@, DESCRIPTION, missing)
+
+#	#
+#	# example code:; copy all binaries
+#	#
+
+	@for i in $(shell cd $(@PACKAGE@_PKGDIR) && find bin sbin usr/bin usr/sbin -type f); do \
+		$(call install_copy, @package@, 0, 0, 0755, -, /$$i); \
+	done
+
+#	#
+#	# FIXME: add all necessary things here
+#	#
+
+	@$(call install_finish, @package@)
+
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+#$(STATEDIR)/@package@.clean:
+#	@$(call targetinfo)
+#	@$(call clean_pkg, @PACKAGE@)
+
+# vim: syntax=make

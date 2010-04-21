@@ -1,0 +1,18 @@
+## SECTION=fixme
+
+config @PACKAGE@
+	bool
+	prompt "@package@"
+	select QT4
+	help
+	  FIXME
+
+if @PACKAGE@
+
+config @PACKAGE@_TRUNK
+	bool
+	prompt "use trunk"
+	help
+	  Build trunk instead of latest release.
+
+endif
