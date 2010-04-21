@@ -1104,6 +1104,10 @@ newpackage() {
 		-i "${PTXCONF_SETUP_USER_NAME} <${PTXCONF_SETUP_USER_EMAIL}>" \
 		author
 
+	local section
+	read -e -p "${PTXDIST_LOG_PROMPT}enter package section....: " \
+		-i "project_specific" section
+
 	local package_filename="${package_name}"
 	local package="$(echo ${package_name} | tr "[A-Z]" "[a-z]")"
 	local packagedash="$(echo ${package} | tr "[_]" "[\-]")"
@@ -1148,6 +1152,7 @@ newpackage() {
 		-e "s#\@YEAR@#${year}#g" \
 		-e "s#\@AUTHOR@#${author}#g" \
 		-e "s#\@SUFFIX@#${suffix}#g" \
+		-e "s#\@section@#${section}#g" \
 		"${template_file}" \
 		> "${filename}" || return
 	done

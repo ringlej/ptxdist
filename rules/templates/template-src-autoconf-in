@@ -1,4 +1,4 @@
-## SECTION=fixme
+## SECTION=@section@
 
 config @PACKAGE@
 	bool

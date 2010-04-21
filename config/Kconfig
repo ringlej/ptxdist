@@ -9,6 +9,7 @@ config MODULES
 	bool
 	default y
 
+source "generated/project_specific.in"
 source "generated/fixme.in"
 
 source "generated/project_name.in"
