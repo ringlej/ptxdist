@@ -53,9 +53,9 @@ if head=`git rev-parse --verify --short HEAD 2>/dev/null`; then
 	if atag="`git describe 2>/dev/null`"; then
 		echo "$atag" | awk -F- '{printf("%s-%05d-%s", $(NF-2),$(NF-1),$(NF))}'
 
-	# If we don't have a tag at all we print -g{commitish}.
+	# If we don't have a tag at all we print ????.??.?-?-g{commitish}.
 	else
-		printf '%s%s' -g $head
+		printf '%s%s' ????.??.?-?-g $head
 	fi
 
 	# Is this git on svn?
