@@ -36,8 +36,7 @@ $(ARORA_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-ARORA_PATH	:= PATH=$(CROSS_PATH)
-ARORA_CONF_ENV	:= $(CROSS_ENV)
+ARORA_CONF_OPT	:= $(CROSS_QMAKE_OPT) PREFIX=/usr
 
 # ----------------------------------------------------------------------------
 # Target-Install
