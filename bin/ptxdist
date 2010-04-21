@@ -1099,9 +1099,10 @@ newpackage() {
 		;;
 	esac
 
-	# FIXME: get address from 'ptxdist setup'
 	local author
-	read -e -p "${PTXDIST_LOG_PROMPT}enter package author.....: " author
+	read -e -p "${PTXDIST_LOG_PROMPT}enter package author.....: " \
+		-i "${PTXCONF_SETUP_USER_NAME} <${PTXCONF_SETUP_USER_EMAIL}>" \
+		author
 
 	local package_filename="${package_name}"
 	local package="$(echo ${package_name} | tr "[A-Z]" "[a-z]")"
