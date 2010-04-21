@@ -2074,6 +2074,25 @@ setup_env() {
 	source "${PTXDIST_TOPDIR}/scripts/ptxdist_version.sh" &&
 	eval ptxrc="${PTXDIST_PTXRC_DEFAULT}" &&
 
+	if [ ! -e "${ptxrc}" ]; then
+		local tmp_year="${PTXDIST_VERSION_YEAR}"
+		local tmp_month="${PTXDIST_VERSION_MONTH}"
+		while [ "${tmp_year}" -ge 2010 ]; do
+			local oldptxrc="${HOME}/.ptxdist/ptxdistrc-${tmp_year}.${tmp_month}"
+			if [ -e "${oldptxrc}" ]; then
+				cp "${oldptxrc}" "${ptxrc}"
+				break
+			fi
+			if [ "${tmp_month}" = "01" ]; then
+				tmp_month=12
+				tmp_year=$[tmp_year-1]
+			else
+				tmp_month=${tmp_month#0}
+				tmp_month="$(printf "%02d" $[tmp_month-1])"
+			fi
+		done
+	fi
+
 	if [ -e "${ptxrc}" ]; then
 		source "${ptxrc}"
 	fi || return
