@@ -236,6 +236,8 @@ ptxd_make_world_patchin_apply()
     # link series file - if not available create it
     if [ -z "${pkg_patch_series}" ]; then
 
+	ptxd_pedantic "series file for '$(ptxd_print_path "${pkg_patch_dir}")' is missing"
+
 	# if writable, create series file next to the patches
 	if [ -w "${pkg_patch_dir}/" ]; then
 	    pkg_patch_series="${pkg_patch_dir}/series" &&
