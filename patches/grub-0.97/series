@@ -1,0 +1,2 @@
+grub-0.97-gcc4x.diff
+grub-set-install_partition_hd0_0.diff
