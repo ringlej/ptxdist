@@ -131,7 +131,9 @@ $(STATEDIR)/apache2.install.post:
 		$(SYSROOT)/usr/bin/apr-config \
 		$(SYSROOT)/usr/bin/apu-config \
 		$(SYSROOT)/usr/bin/apxs
-	sed -i -e "/AP._BINDIR/s~\([ =\"]\)\(/usr\)~\1$(SYSROOT)\2~g" \
+	sed -i \
+		-e "/AP._BINDIR/s~\([ =\"]\)\(/usr\)~\1$(SYSROOT)\2~g" \
+		-e "/^includedir/s~= \(.*\)~= $(SYSROOT)\1~g" \
 		$(SYSROOT)/usr/build/config_vars.mk
 	@$(call touch)
 
