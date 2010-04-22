@@ -57,7 +57,7 @@ $(STATEDIR)/gst-plugins-fsl_vpu.targetinstall:
 	@$(call install_fixup, gst-plugins-fsl_vpu,DESCRIPTION,missing)
 
 	@$(call install_copy, gst-plugins-fsl_vpu, 0, 0, 0644, \
-		$(GST_PLUGINS_FSL_VPU_DIR)/src/.libs/libgst-plugins-fsl-vpu.so, \
+		$(GST_PLUGINS_FSL_VPU_PKGDIR)/usr/lib/libgst-plugins-fsl-vpu.so, \
 		/usr/lib/gstreamer-0.10/libmfw_gst_vpu.so)
 
 	@$(call install_finish, gst-plugins-fsl_vpu)
