@@ -19,9 +19,6 @@ $(STATEDIR)/image_kernel.compile: $(IMAGEDIR)/root.cpio
 	@echo -n "Creating '$(KERNEL_IMAGE)' including '$(notdir $(<))'..."
 	@sed -i -e 's,^CONFIG_INITRAMFS_SOURCE.*$$,CONFIG_INITRAMFS_SOURCE=\"$(<)\",g' \
 		$(KERNEL_DIR)/.config
-	@rm -f \
-		$(KERNEL_DIR)/usr/*initramfs_data.cpio.* \
-		$(KERNEL_DIR)/usr/.initramfs_data.cpio.d
 	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE)
 	@echo "done."
