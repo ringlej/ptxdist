@@ -18,17 +18,15 @@ HOST_PACKAGES-$(PTXCONF_HOST_XORG_APP_MKFONTDIR) += host-xorg-app-mkfontdir
 # Paths and names
 #
 HOST_XORG_APP_MKFONTDIR_DIR	= $(HOST_BUILDDIR)/$(XORG_APP_MKFONTDIR)
+HOST_XORG_APP_MKFONTDIR_DEVPKG	= NO
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_XORG_APP_MKFONTDIR_PATH	:= PATH=$(HOST_PATH)
-HOST_XORG_APP_MKFONTDIR_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_XORG_APP_MKFONTDIR_AUTOCONF	:= $(HOST_AUTOCONF)
+HOST_XORG_APP_MKFONTDIR_CONFTOOL	:= autoconf
 
 # vim: syntax=make
