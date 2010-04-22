@@ -22,15 +22,10 @@ CROSS_MODULE_INIT_TOOLS_DIR	= $(CROSS_BUILDDIR)/$(MODULE_INIT_TOOLS)
 # Prepare
 # ----------------------------------------------------------------------------
 
-CROSS_MODULE_INIT_TOOLS_PATH := PATH=$(CROSS_PATH)
-CROSS_MODULE_INIT_TOOLS_ENV  := $(HOST_ENV)
-
 #
 # autoconf
 #
-CROSS_MODULE_INIT_TOOLS_AUTOCONF := \
-	--prefix=$(PTXCONF_SYSROOT_CROSS) \
-	--target=$(PTXCONF_GNU_TARGET)
+CROSS_MODULE_INIT_TOOLS_CONFTOOL := autoconf
 
 CROSS_MODULE_INIT_TOOLS_MAKE_OPT := depmod
 
