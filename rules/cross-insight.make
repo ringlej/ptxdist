@@ -36,14 +36,9 @@ $(CROSS_INSIGHT_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-CROSS_INSIGHT_PATH	:= PATH=$(HOST_PATH)
-CROSS_INSIGHT_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-CROSS_INSIGHT_AUTOCONF := \
-	--target=$(PTXCONF_GNU_TARGET) \
-	--prefix=
+CROSS_INSIGHT_CONFTOOL := autoconf
 
 # vim: syntax=make
