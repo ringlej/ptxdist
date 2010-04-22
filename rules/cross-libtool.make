@@ -19,6 +19,7 @@ CROSS_PACKAGES-$(PTXCONF_CROSS_LIBTOOL) += cross-libtool
 CROSS_LIBTOOL		= $(LIBLTDL)
 CROSS_LIBTOOL_DIR	= $(CROSS_BUILDDIR)/$(LIBLTDL)
 CROSS_LIBTOOL_SOURCE	= $(LIBLTDL_SOURCE)
+CROSS_LIBTOOL_DEVPKG	= NO
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -35,7 +36,7 @@ CROSS_LIBTOOL_CONF_ENV := \
 # autoconf
 #
 CROSS_LIBTOOL_AUTOCONF	:= \
-	$(HOST_CROSS_AUTOCONF) \
+	$(HOST_CROSS_AUTOCONF_SYSROOT) \
 	--prefix=$(PTXCONF_SYSROOT_CROSS) \
 	--host=$(PTXCONF_GNU_TARGET) \
 	--build=$(GNU_HOST)
