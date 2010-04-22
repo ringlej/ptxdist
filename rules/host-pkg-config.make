@@ -22,6 +22,7 @@ HOST_PKG_CONFIG_SUFFIX	:= tar.gz
 HOST_PKG_CONFIG_URL	:= http://pkgconfig.freedesktop.org/releases/$(HOST_PKG_CONFIG).$(HOST_PKG_CONFIG_SUFFIX)
 HOST_PKG_CONFIG_SOURCE	:= $(SRCDIR)/$(HOST_PKG_CONFIG).$(HOST_PKG_CONFIG_SUFFIX)
 HOST_PKG_CONFIG_DIR	:= $(HOST_BUILDDIR)/$(HOST_PKG_CONFIG)
+HOST_PKG_CONFIG_DEVPKG	:= NO
 
 # ----------------------------------------------------------------------------
 # Get
@@ -35,12 +36,9 @@ $(HOST_PKG_CONFIG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-HOST_PKG_CONFIG_PATH	:= PATH=$(HOST_PATH)
-HOST_PKG_CONFIG_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-HOST_PKG_CONFIG_AUTOCONF := $(HOST_AUTOCONF)
+HOST_PKG_CONFIG_CONFTOOL := autoconf
 
 # vim: syntax=make
