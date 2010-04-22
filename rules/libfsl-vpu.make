@@ -56,8 +56,7 @@ $(STATEDIR)/libfsl-vpu.targetinstall:
 	@$(call install_fixup, libfsl-vpu,DEPENDS,)
 	@$(call install_fixup, libfsl-vpu,DESCRIPTION,missing)
 
-	@$(call install_copy, libfsl-vpu, 0, 0, 0644, \
-		$(LIBFSL_VPU_DIR)/src/.libs/libfsl-vpu-0.1.0.so.0.0.0, \
+	@$(call install_copy, libfsl-vpu, 0, 0, 0644, -, \
 		/usr/lib/libfsl-vpu-0.1.0.so.0.0.0)
 	@$(call install_link, libfsl-vpu, libfsl-vpu-0.1.0.so.0.0.0, /usr/lib/libfsl-vpu-0.1.0.so.0)
 	@$(call install_link, libfsl-vpu, libfsl-vpu-0.1.0.so.0.0.0, /usr/lib/libfsl-vpu.so)
