@@ -36,13 +36,10 @@ $(CROSS_NASM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-CROSS_NASM_ENV 	:= $(HOST_ENV)
-
 #
 # autoconf
 #
-CROSS_NASM_AUTOCONF := \
-	--prefix=$(PTXCONF_SYSROOT_CROSS) \
-	--target=$(PTXCONF_GNU_TARGET)
+CROSS_NASM_CONFTOOL := autoconf
+CROSS_NASM_INSTALL_OPT := INSTALLROOT="$(CROSS_NASM_PKGDIR)" install
 
 # vim: syntax=make
