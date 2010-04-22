@@ -15,7 +15,9 @@ for ((i = 1; i <= ${#}; i++)); do
     esac
 done
 
-args=("-e" "s:/lib/pkgconfig/../..::g")
+args=( \
+	"-e" "s:/usr/lib/pkgconfig/\.\./\.\./\.\.::g" \
+	"-e" "s:/lib/pkgconfig/\.\./\.\.::g")
 
 if [ -n "${PTXDIST_PKG_CONFIG_VAR_NO_SYSROOT}" -a \
 	-n "${found_var}" ]; then
