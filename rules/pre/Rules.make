@@ -329,8 +329,11 @@ HOST_CROSS_PATH := $(CROSS_PATH)
 
 HOST_CROSS_ENV := $(HOST_ENV)
 
-HOST_CROSS_AUTOCONF := --prefix=
-HOST_CROSS_AUTOCONF_SYSROOT := --prefix=$(PTXDIST_SYSROOT_CROSS)
+
+HOST_CROSS_AUTOCONF_ARCH := --target=$(PTXCONF_GNU_TARGET)
+
+HOST_CROSS_AUTOCONF := --prefix= $(HOST_CROSS_AUTOCONF_ARCH)
+HOST_CROSS_AUTOCONF_SYSROOT := --prefix=$(PTXDIST_SYSROOT_CROSS) $(HOST_CROSS_AUTOCONF_ARCH)
 
 # ----------------------------------------------------------------------------
 # Convenience macros
