@@ -66,6 +66,17 @@ BUSYBOX_INSTALL_OPT := \
 	install
 
 # ----------------------------------------------------------------------------
+# Install
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/busybox.install:
+	@$(call targetinfo)
+	@$(call world/install, BUSYBOX)
+	install -D -m644 $(BUSYBOX_DIR)/busybox.links \
+		$(BUSYBOX_PKGDIR)/etc/busybox.links
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
@@ -86,7 +97,7 @@ ifdef PTXCONF_BUSYBOX_FEATURE_SUID
 else
 	@$(call install_copy, busybox, 0, 0, 755, -, /bin/busybox)
 endif
-	@cat $(BUSYBOX_DIR)/busybox.links | while read link; do		\
+	@cat $(BUSYBOX_PKGDIR)/etc/busybox.links | while read link; do	\
 		case "$${link}" in					\
 		(/*/*/*) to="../../bin/busybox" ;;			\
 		(/bin/*) to="busybox" ;;				\
