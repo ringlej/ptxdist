@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+#
+# This file does only exist to create a defined entry in the "project_specific"
+# section, so that the toplevel Kconfig can include generated/project_specific.in
+# even if no package is in that category.
+#
