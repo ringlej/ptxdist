@@ -24,6 +24,7 @@ HOST_CHRPATH_URL	:= \
 	http://ftp.tux.org/pub/X-Windows/ftp.hungry.com/chrpath/$(HOST_CHRPATH).$(HOST_CHRPATH_SUFFIX)
 HOST_CHRPATH_SOURCE	:= $(SRCDIR)/$(HOST_CHRPATH).$(HOST_CHRPATH_SUFFIX)
 HOST_CHRPATH_DIR	:= $(HOST_BUILDDIR)/$(HOST_CHRPATH)
+HOST_CHRPATH_DEVPKG	:= NO
 
 # ----------------------------------------------------------------------------
 # Get
