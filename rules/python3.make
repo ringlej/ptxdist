@@ -71,11 +71,42 @@ PYTHON3_MAKEVARS := \
 # Install
 # ----------------------------------------------------------------------------
 
+$(STATEDIR)/python3.install:
+	@$(call targetinfo)
+	@$(call install, PYTHON3)
+	@cp "$(PYTHON3_DIR)/cross-python-wrapper" "$(PYTHON3_PKGDIR)/usr/bin/"
+	@sed -i \
+		-e "s:$(SYSROOT):@SYSROOT@:g" \
+		-e "s:$(PTXCONF_SYSROOT_HOST):@SYSROOT_HOST@:g" \
+		$(PYTHON3_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/config/Makefile
+	@$(call touch)
+
+
 $(STATEDIR)/python3.install.post:
 	@$(call targetinfo)
+	@sed -i \
+		-e "s:@SYSROOT@:$(SYSROOT):g" \
+		-e "s:@SYSROOT_HOST@:$(PTXCONF_SYSROOT_HOST):g" \
+		$(PYTHON3_PKGDIR)/usr/lib/python$(PYTHON3_MAJORMINOR)/config/Makefile
 	@$(call world/install.post, PYTHON3)
+	@rm -f "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo '#!/bin/sh'				>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo ''					>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo 'prefix="/usr"'				>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo 'exec_prefix="$${prefix}"'		>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo ''					>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo 'CROSS_COMPILING=yes'			>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo '_python_sysroot="$(SYSROOT)"'		>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo '_python_prefix="$${prefix}"'		>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo '_python_exec_prefix="$${exec_prefix}"'	>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo ''					>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo 'export CROSS_COMPILING _python_sysroot _python_prefix _python_exec_prefix' \
+							>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo ''					>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+	@echo 'exec $(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR) "$${@}"' \
+							>> "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
 
-	@cp "$(PYTHON3_DIR)/cross-python-wrapper" "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
+#	@cp "$(PYTHON3_PKGDIR)/usr/bin/cross-python-wrapper" "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
 	@chmod a+x "$(PTXCONF_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR)"
 	@ln -sf "python$(PYTHON3_MAJORMINOR)" \
 		"$(PTXCONF_SYSROOT_CROSS)/bin/python3"
