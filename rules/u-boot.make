@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_U_BOOT) += u-boot
 U_BOOT_VERSION	:= $(call remove_quotes,$(PTXCONF_U_BOOT_VERSION))
 U_BOOT		:= u-boot-$(U_BOOT_VERSION)
 U_BOOT_SUFFIX	:= tar.bz2
-U_BOOT_URL	:= ftp://ftp.denx.de/pub/u-boot/$(U_BOOT).$(U_BOOT_SUFFIX)
+U_BOOT_URL	:= http://ftp.denx.de/pub/u-boot/$(U_BOOT).$(U_BOOT_SUFFIX)
 U_BOOT_SOURCE	:= $(SRCDIR)/$(U_BOOT).$(U_BOOT_SUFFIX)
 U_BOOT_DIR	:= $(BUILDDIR)/$(U_BOOT)
 
