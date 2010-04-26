@@ -21,13 +21,14 @@ HOST_PACKAGES-$(PTXCONF_HOST_ACL) += host-acl
 HOST_ACL_ENV := $(HOST_ENV)
 
 HOST_ACL_INSTALL_OPT := \
+	DIST_ROOT=$(HOST_ACL_PKGDIR) \
 	install \
 	install-lib \
 	install-dev
 
 HOST_ACL_AUTOCONF := \
 	$(HOST_AUTOCONF) \
-	--libexecdir=$(PTXDIST_SYSROOT_HOST)/lib \
+	--libexecdir=/lib \
 	--enable-shared
 
 # vim: syntax=make
