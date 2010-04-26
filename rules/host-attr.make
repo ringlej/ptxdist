@@ -21,13 +21,14 @@ HOST_PACKAGES-$(PTXCONF_HOST_ATTR) += host-attr
 HOST_ATTR_ENV := $(HOST_ENV)
 
 HOST_ATTR_INSTALL_OPT := \
+	DIST_ROOT=$(HOST_ATTR_PKGDIR) \
 	install \
 	install-lib \
 	install-dev
 
 HOST_ATTR_AUTOCONF := \
 	$(HOST_AUTOCONF) \
-	--libexecdir=$(PTXDIST_SYSROOT_HOST)/lib \
+	--libexecdir=/lib \
 	--enable-shared
 
 # vim: syntax=make
