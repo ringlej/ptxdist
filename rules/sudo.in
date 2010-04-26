@@ -11,13 +11,13 @@ menuconfig SUDO
 
 if SUDO
 
-config SUDO__SENDMAIL
+config SUDO_USE_SENDMAIL
 	bool
 	# FIXME: sendmail support is buggy and searches for
 	# /sbin/sendmail on the host
 	#prompt "sendmail support"
 
-config SUDO__ETC_SUDOERS
+config SUDO_INSTALL_ETC_SUDOERS
 	bool "Install sudoers file into /etc"
 	default y
 	help

@@ -61,7 +61,7 @@ SUDO_AUTOCONF = \
 	--with-ignore-dot \
 	--without-pam
 
-ifdef PTXCONF_SUDO__SENDMAIL
+ifdef PTXCONF_SUDO_USE_SENDMAIL
 SUDO_AUTOCONF += --with-sendmail
 else
 SUDO_AUTOCONF += --without-sendmail
@@ -137,7 +137,7 @@ $(STATEDIR)/sudo.targetinstall:
 	@$(call install_copy, sudo, 0, 0, 0755, -, \
 		/usr/libexec/sudo_noexec.so)
 
-ifdef PTXCONF_SUDO__ETC_SUDOERS
+ifdef PTXCONF_SUDO_INSTALL_ETC_SUDOERS
 	@$(call install_alternative, sudo, 0, 0, 0440, /etc/sudoers, n)
 endif
 	@$(call install_finish, sudo)
