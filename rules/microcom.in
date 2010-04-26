@@ -1,9 +1,13 @@
 ## SECTION=networking
 
 config MICROCOM
+	depends on !BUSYBOX_MICROCOM || ALLYES
 	tristate
 	prompt "microcom"
 	help
 	  minimalistic terminal program
 
 	  It doesn't work with modem though.
+
+comment "BusyBox' microcom is selected!"
+	depends on BUSYBOX_MICROCOM
