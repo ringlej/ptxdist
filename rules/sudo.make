@@ -67,6 +67,16 @@ else
 SUDO_AUTOCONF += --without-sendmail
 endif
 
+ifneq ($(PTXCONF_SUDO_DEFAULT_EDITOR),"")
+SUDO_AUTOCONF += --with-editor=$(PTXCONF_SUDO_DEFAULT_EDITOR)
+endif
+
+ifdef PTXCONF_SUDO_USE_ENV_EDITOR
+SUDO_AUTOCONF += --with-env-editor
+else
+SUDO_AUTOCONF += --without-env-editor
+endif
+
 #  --disable-root-mailer   Don't run the mailer as root, run as the user
 #  --disable-setreuid      Don't try to use the setreuid() function
 #  --disable-setresuid     Don't try to use the setresuid() function
@@ -140,8 +150,12 @@ $(STATEDIR)/sudo.targetinstall:
 ifdef PTXCONF_SUDO_INSTALL_ETC_SUDOERS
 	@$(call install_alternative, sudo, 0, 0, 0440, /etc/sudoers, n)
 endif
-	@$(call install_finish, sudo)
 
+ifdef PTXCONF_SUDO_INSTALL_VISUDO
+	@$(call install_copy, sudo, 0, 0, 755, -, /usr/sbin/visudo)
+endif
+
+	@$(call install_finish, sudo)
 	@$(call touch)
 
 # vim: syntax=make

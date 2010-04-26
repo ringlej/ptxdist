@@ -23,4 +23,24 @@ config SUDO_INSTALL_ETC_SUDOERS
 	help
 	  Installs /etc/sudoers from a selectable source
 
+config SUDO_INSTALL_VISUDO
+	bool "Install visudo to edit /etc/sudoers"
+	help
+	  Installs visudo to edit /etc/sudoers.
+
+if SUDO_INSTALL_VISUDO
+
+config SUDO_DEFAULT_EDITOR
+	string "visudo default editor"
+	default "/bin/vi"
+	help
+	  Default editor for visudo
+
+config SUDO_USE_ENV_EDITOR
+	bool "Use EDITOR env for visudo"
+	help
+	  Uses editor from EDITOR env for visudo
+
+endif
+
 endif
