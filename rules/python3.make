@@ -25,8 +25,8 @@ PYTHON3_SOURCE		:= $(SRCDIR)/$(PYTHON3).$(PYTHON3_SUFFIX)
 PYTHON3_DIR		:= $(BUILDDIR)/$(PYTHON3)
 
 PYTHON3_URL		:= \
-	http://python.org/ftp/python3/$(PYTHON3_VERSION)/$(PYTHON3).$(PYTHON3_SUFFIX) \
-	http://python.org/ftp/python3/$(PYTHON3_MAJORMINOR)/$(PYTHON3).$(PYTHON3_SUFFIX)
+	http://python.org/ftp/python/$(PYTHON3_VERSION)/$(PYTHON3).$(PYTHON3_SUFFIX) \
+	http://python.org/ftp/python/$(PYTHON3_MAJORMINOR)/$(PYTHON3).$(PYTHON3_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
