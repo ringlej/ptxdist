@@ -94,7 +94,7 @@ config INETUTILS_SYSLOGD
 
 if INETUTILS_SYSLOGD
 
-config INETUTILS_SYSLOGD_STARTSRCIPT
+config INETUTILS_SYSLOGD_STARTSCRIPT
 	bool
 	prompt "install /etc/init.d/syslogd"
 	default y
