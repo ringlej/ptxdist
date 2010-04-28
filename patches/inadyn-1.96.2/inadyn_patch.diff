@@ -3,6 +3,7 @@ configuration file.
 
 Patch made by Christian Eyrich, http://www.eyrich-net.org/programmiertes.html
 
+Signed-off-by: (no sign yet, ask upstream)
 ---
  man/inadyn.8      |    5 
  src/dyndns.c      |  325 ++++++++++++++++++++++++++++++++----------------------
