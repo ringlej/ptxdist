@@ -1,22 +1,14 @@
-#
-# Submitted-By: Ladislav Michl, 2007-12-7
-# Committed-By: Ladislav Michl
-#
-# Error:
-#
-# In file included from interface.c:27:
-# /opt/crosstool/gcc-4.1.1-glibc-2.4/arm-unknown-linux-gnu/lib/gcc/arm-unknown-linux-gnu/4.1.1/../../../../arm-unknown-linux-gnu/sys-include/sys/types.h:62: error: conflicting types for 'dev_t'
-# ... etc
-#
-# Description:
-#
-# Compilation fails because of kernel header inclusion.
-#
-# State:
-#
-# fixed, Linux distributions use similar fix, upstream state unknown.
-#
+From: Ladislav Michl <ladis@linux-mips.org>
+Subject: Compilation fails because of kernel header inclusion
 
+Fixes the following error:
+
+In file included from interface.c:27:
+/opt/crosstool/gcc-4.1.1-glibc-2.4/arm-unknown-linux-gnu/lib/gcc/arm-unknown-linux-gnu/4.1.1/../../../../arm-unknown-linux-gnu/sys-include/sys/types.h:62: error: conflicting types for 'dev_t'
+... etc
+
+Signed-off-by: Ladislav Michl <ladis@linux-mips.org>
+---
 --- ifplugd-0.28/src/interface.c	2005-01-05 01:25:31.000000000 +0100
 +++ ifplugd-0.28/src/interface.c	2007-07-15 21:04:54.000000000 +0200
 @@ -23,11 +23,9 @@
