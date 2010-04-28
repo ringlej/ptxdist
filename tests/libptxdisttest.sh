@@ -14,7 +14,6 @@ REPORTFILE="${PTXDIST_WORKSPACE}/test${PTXDIST_PLATFORMSUFFIX}.report"
 TESTRUNDIRBASE="${PTXDIST_WORKSPACE}/results/result${PTXDIST_PLATFORMSUFFIX}"
 [ -d "$TESTRUNDIRBASE" ] || mkdir -p "$TESTRUNDIRBASE"
 
-echo "<report starttime=\""$(date +%FT%T.%N)"\">" > "$REPORTFILE"
 
 RED='\0033[1;31m'
 GREEN='\0033[1;32m'
@@ -97,6 +96,15 @@ reportwrite() {
 		echo "Error: No or wrong action given in reportwrite call in $0" >> "$LOGFILE"
 		false
 	esac
+}
+
+report_begin() {
+	echo "<report starttime=\"$(date +%FT%T.%N)\">" > "$REPORTFILE"
+}
+
+report_end() {
+	echo "</report>" >> "$REPORTFILE"
+	cp "$REPORTFILE" "$TESTRUNDIRBASE/test${PTXDIST_PLATFORMSUFFIX}-${datenohyphen}-${testrunseq}.report"
 }
 
 test_begin() {
