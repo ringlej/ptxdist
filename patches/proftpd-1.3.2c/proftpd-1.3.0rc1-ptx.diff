@@ -1,7 +1,7 @@
 From: Robert Schwebel <rsc@pengutronix.de>
 Subject: Makefile is trying to compile host tool with cross compiler
 
-Singed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
 ---
 # mkl: added standard patch header, quilt refresh'ed
