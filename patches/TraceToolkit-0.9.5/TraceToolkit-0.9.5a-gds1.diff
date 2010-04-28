@@ -1,3 +1,10 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+(no idea where this patch comes from, needs review)
+
+Signed-off-by: (none)
+---
+
 diff -ru --new-file TraceToolkit-0.9.5/Daemon/TraceDaemon.c /home/kub/src/TraceToolkit-0.9.5/Daemon/TraceDaemon.c
 --- TraceToolkit-0.9.5/Daemon/TraceDaemon.c	Mon Apr 15 22:49:10 2002
 +++ /home/kub/src/TraceToolkit-0.9.5/Daemon/TraceDaemon.c	Wed Aug 20 12:58:21 2003
