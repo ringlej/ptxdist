@@ -1,3 +1,11 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: Fix CONFIG_HEADERS
+
+Fix a typo.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+
 Index: configure.ac
 ===================================================================
 --- configure.ac.orig

@@ -1,3 +1,5 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: build system fix
 
 This patch handles the fact that generated header files shouldn't be
 distributed in a better way than before. It is now possible to run "make
