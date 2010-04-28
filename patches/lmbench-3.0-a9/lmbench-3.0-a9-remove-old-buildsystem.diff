@@ -1,3 +1,10 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: Add autotool based build system
+
+In order to provide an autotool based build system, remove the old one.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  Makefile         |   74 --------
  results/Makefile |  333 -------------------------------------

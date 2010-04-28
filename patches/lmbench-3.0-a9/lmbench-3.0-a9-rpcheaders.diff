@@ -1,3 +1,11 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: minor cleanups
+
+Add missing header file, add a cast to silence compiler.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+
 --- lmbench-3.0-a9-orig/src/lib_tcp.c	2006-06-27 18:27:19.000000000 +0200
 +++ lmbench-3.0-a9/src/lib_tcp.c	2009-04-09 17:56:50.000000000 +0200
 @@ -7,6 +7,7 @@
