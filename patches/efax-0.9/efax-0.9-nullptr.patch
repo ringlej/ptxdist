@@ -1,3 +1,10 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [efax] add nullpointer check
+
+Patch taken from redhat.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  efax.c   |    1 +
  efaxos.c |    4 ++--

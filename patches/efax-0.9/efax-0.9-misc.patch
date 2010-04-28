@@ -1,3 +1,10 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [efax] fix rd_state
+
+Patch taken from redhat.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  efax.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
