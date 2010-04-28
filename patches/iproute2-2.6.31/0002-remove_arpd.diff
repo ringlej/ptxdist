@@ -1,13 +1,17 @@
-Subject: Make the buildsystem be gracious to us.
+Subject: [iproute2] build system fixes
+From: Juergen Beisert <juergen@kreuzholzen.de>
 
-Signed-off-by: Juergen Beisert juergen@kreuzholzen.de
-[refreshed for iproute2-2.6.31]
+Build arpd only if the user has requested it.
+Add a mechanism to feed in CPPFLAGS for cross builds.
+
+Signed-off-by: Juergen Beisert <juergen@kreuzholzen.de>
 Signed-off-by: Jon Ringle <jon@ringle.org>
-
 ---
  Makefile      |    2 +-
  misc/Makefile |    6 +++++-
  2 files changed, 6 insertions(+), 2 deletions(-)
+
+Jon Ringle: refreshed for iproute2-2.6.31
 
 --- iproute2-2.6.31.orig/misc/Makefile	2009-12-26 13:26:44.000000000 -0500
 +++ iproute2-2.6.31/misc/Makefile	2009-11-08 23:48:39.000000000 -0500
