@@ -1,12 +1,18 @@
-From d8d84cd7082a95e673a7efc285879dd412b78b4c Mon Sep 17 00:00:00 2001
 From: Robert Schwebel <r.schwebel@pengutronix.de>
-Date: Tue, 7 Jul 2009 15:56:56 +0200
-Subject: [PATCH 1/8] Linux oplock support is conditional on HAVE_KERNEL_OPLOCKS_LINUX, not plain old LINUX.
+Subject: [samba] make oplock support conditional
 
-http://websvn.samba.org/cgi-bin/viewcvs.cgi?view=rev&root=samba&rev=23962
+Linux oplock support is conditional on HAVE_KERNEL_OPLOCKS_LINUX, not
+plain old LINUX.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  source/modules/vfs_default.c |    5 +++--
  1 files changed, 3 insertions(+), 2 deletions(-)
+
+# 20100428 rsc: This patch was already applied in the samba upstream, see
+# http://websvn.samba.org/cgi-bin/viewcvs.cgi?view=rev&root=samba&rev=23962
+# and d8d84cd7082a95e673a7efc285879dd412b78b4c in samba git.
 
 diff --git a/source/modules/vfs_default.c b/source/modules/vfs_default.c
 index 4cc6e88..1f8fb63 100644
