@@ -1,3 +1,9 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [fltk] add library search path
+
+Add library search path.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
  configure    |    2 +-
  configure.in |    2 +-
