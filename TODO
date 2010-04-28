@@ -1,9 +1,5 @@
-TODO before 2.0.0
-=================
-
-[ ] add roadmap
-
-[ ] http://www.osadl.org/Single-View.111+M52e8d0c2b2f.0.html
+TODO (Prio A)
+=============
 
 [.] ipkg with dependecies
 
@@ -12,7 +8,60 @@ TODO before 2.0.0
 	ipkg are created with dependencies now, image creation still works.
 	however online update is still untested, though.
 
-[ ] rsc: port python 2.6 patches to 3.x -> mkl
+[ ] mol, rsc: improve user database concept. Especially for the system
+    users we currently have the problem how to generate system users which
+    are only necessary for certain services. Maybe some kind of
+    /etc/passwd.d/* mechanism could be a solution? Discuss with team.
+
+    Discuss UUID/GID of "rpcuser" and other important system users
+
+[ ] rsc: GDB__VERSION: shouldn't this be taken from the toolchain, in
+    order to be consistent with the gdb which is provided there? Discuss
+    with mkl.
+
+[ ] jbe: If someone adds a project local menu (*.in) file and uses
+    'project_specific' as its SECTION name ptxdist should automatically
+    generate an additional submenu "Project Specific Configuration" and
+    include this menu into it. This should avoid a local "Kconfig" copy
+    in each ptxdist project for such a simple addition.
+
+[ ] lfu: some mountable devices are available after udev has started.
+    hence we need an extra mount script to mount all entries in fstab
+    instead out of rcS.
+
+[ ] jbe: all test scripts should check if their interaction with the filesystem
+    where successfull. If a file copy to /tftpboot fails, it should *not* continue.
+
+TODO (Prio B)
+=============
+
+[ ] jbe: mplayer.compile: It seems very PXA specific now?
+
+    i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
+    vo_pxa.c: In function 'draw_osd':
+    vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
+    vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
+    [...]
+    vo_pxa.c: In function 'config':
+    vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
+    vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
+    [...]
+    make[2]: *** [vo_pxa.o] Error 1
+    make[2]: Leaving directory `[...]/platform-i586/build-target/MPlayer-1.0rc2/libvo'
+
+    --> menu contains pxa specific stuff. Maybe this should be modified?
+
+    Even with disabled PXA specific options a build for x86 still fails:
+
+    libvo/libvo.a(video_out.o):(.data+0x20): undefined reference to `video_out_x11'
+    libvo/libvo.a(video_out.o):(.data+0x24): undefined reference to `video_out_xover'
+    libvo/libvo.a(video_out.o):(.data+0x28): undefined reference to `video_out_pxa'
+    [...] and much more
+
+    Update 20090118 rsc: not reproducable, switched on again and we wait
+    for sisyphus to explode.
+
+[ ] http://www.osadl.org/Single-View.111+M52e8d0c2b2f.0.html
 
 [ ] rsc: add "ptxdist export_bsp <dir>", similar to
     "ptxdist export_src <dir>".
@@ -47,20 +96,6 @@ TODO before 2.0.0
     - for all optional packages: ask back if images, ipkgs etc. shall
       be bundled (with --force)
 
-[ ] rsc: verify 'ptxdist newpackage' mechanics. Check all use cases,
-    especially when creating new packages in ptxdist itself (not in the
-    project). Workspace check needs more sophistication.
-
-[ ] mol, rsc: improve user database concept. Especially for the system
-    users we currently have the problem how to generate system users which
-    are only necessary for certain services. Maybe some kind of
-    /etc/passwd.d/* mechanism could be a solution? Discuss with team.
-
-    Discuss UUID/GID of "rpcuser" and other important system users
-
-[ ] jbe, rsc -> mgr: provide a "bare metal" project for Stellaris/Cortex-M3,
-    to show how to use ptxdist-2 for non-Linux targets.
-
 [ ] jbe: Shown pathes are much too long in "ptxconfig" and "platformconfig"
     while running "ptxdist menu"
 
@@ -74,17 +109,6 @@ TODO before 2.0.0
 
 [ ] jbe: most of the time thttpd does not respond to the USR1 signal.
 	  - the start/stop script fails to stop this service
-
-
-Unclear
--------
-
-[ ] rsc: GDB__VERSION: shouldn't this be taken from the toolchain, in
-    order to be consistent with the gdb which is provided there? Discuss
-    with mkl.
-
-[ ] rsc: multi stage BSPs: platform team releases a BSP, users use it.
-    May involve 'apt-get install OSELAS.BSP-phyCORE-12'
 
 [ ] bbu, lfu, rsc, sha: "bspfix feature"
 
@@ -116,8 +140,8 @@ Before Release
 
 [ ] update ChangeLog from git
 
-[ ] jbe, rsc: provide demo projects for ptxdist-2.0.0, including website
-    documentation, maybe even elinux.org docs.
+[ ] jbe, rsc: provide demo projects, including website documentation,
+    maybe even elinux.org docs.
 
     Release tarballs in a way that they can be installed with ptxdist, which
     means that they have to be installed into the "projects/" directory in
@@ -129,54 +153,6 @@ Before Release
 [ ] bbu: check ptxdist first-time-usage scenario for chicken-egg problems
     e.g. if you don´t set sane defaults for PTXCONF_SETUP_PROJECTPATH,
     ptxdist won´t find its own projects.
-
-
-TODO before 2.1.0
-=================
-
-[ ] rsc: 'ptxdist images' for the i586 target sometimes does not work,
-    the generated image is incorrect and grub stops booting.
-
-[ ] jbe: If someone adds a project local menu (*.in) file and uses
-    'project_specific' as its SECTION name ptxdist should automatically
-    generate an additional submenu "Project Specific Configuration" and
-    include this menu into it. This should avoid a local "Kconfig" copy
-    in each ptxdist project for such a simple addition.
-
-[ ] lfu: some mountable devices are available after udev has started.
-    hence we need an extra mount script to mount all entries in fstab
-    instead out of rcS.
-
-[ ] jbe: mplayer.compile: It seems very PXA specific now?
-
-    i586-unknown-linux-gnu-gcc [...] -c -o vo_pxa.o vo_pxa.c
-    vo_pxa.c: In function 'draw_osd':
-    vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
-    vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
-    [...]
-    vo_pxa.c: In function 'config':
-    vo_pxa.c:964: error: unknown register name 'r5' in 'asm'
-    vo_pxa.c:964: error: unknown register name 'r4' in 'asm'
-    [...]
-    make[2]: *** [vo_pxa.o] Error 1
-    make[2]: Leaving directory `[...]/platform-i586/build-target/MPlayer-1.0rc2/libvo'
-
-    --> menu contains pxa specific stuff. Maybe this should be modified?
-
-    Even with disabled PXA specific options a build for x86 still fails:
-
-    libvo/libvo.a(video_out.o):(.data+0x20): undefined reference to `video_out_x11'
-    libvo/libvo.a(video_out.o):(.data+0x24): undefined reference to `video_out_xover'
-    libvo/libvo.a(video_out.o):(.data+0x28): undefined reference to `video_out_pxa'
-    [...] and much more
-
-    Update 20090118 rsc: not reproducable, switched on again and we wait
-    for sisyphus to explode.
-
-[ ] jbe: all test scripts should check if their interaction with the filesystem
-    where successfull. If a file copy to /tftpboot fails, it should *not* continue.
-
-[ ] rsc: fix python 3.x
 
 [ ] jbe: Would there be a solution to supress sysroot-* folders for target system
     (for example bare metall) that do not need a Unix filesystem?
@@ -207,7 +183,6 @@ TODO before 2.1.0
     the hard disk again!  But the BIOS and Kernel on target side are
     successfull. Problem happend on SUSE-10.1 on host side and an USB to IDE
     adapter to initial write the hd.img to the harddisk.
-
 
 TODO somewhen
 =============
@@ -381,8 +356,6 @@ TODO somewhen
 [ ] add sanity checks for all user configurable variables (especially
     paths)
 
-[ ] audit project files for CROSS_AUTOCONF
-
 [ ] Problem: When doing things like "PKG_CONFIG_PATH=bla something",
     something does not inherit the environment variable PKG_CONFIG_PATH.
     To achieve this properly, we need to export these variables to the
@@ -442,6 +415,33 @@ Test suite components to be added
 
 DONE
 ====
+
+[x] rsc: fix python 3.x
+    update 20100428 rsc: done by mol
+
+[x] rsc: 'ptxdist images' for the i586 target sometimes does not work,
+    the generated image is incorrect and grub stops booting.
+
+    update 20100428 rsc: done
+
+[x] rsc: multi stage BSPs: platform team releases a BSP, users use it.
+    May involve 'apt-get install OSELAS.BSP-phyCORE-12'
+
+    update 20100428 rsc: done
+
+[x] jbe, rsc -> mgr: provide a "bare metal" project for Stellaris/Cortex-M3,
+    to show how to use ptxdist-2 for non-Linux targets.
+
+    update 20100428 rsc: done
+
+[x] rsc: verify 'ptxdist newpackage' mechanics. Check all use cases,
+    especially when creating new packages in ptxdist itself (not in the
+    project). Workspace check needs more sophistication.
+
+    update 20100428 rsc: seems to be fixed in the meantime
+
+[x] rsc: port python 2.6 patches to 3.x -> mkl
+    update 20100428 rsc: done by mol
 
 [x] Write macros $(call compile) and $(call configure).
 
