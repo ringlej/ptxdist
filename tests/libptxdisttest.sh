@@ -121,7 +121,7 @@ test_end() {
 }
 
 checking() {
-	printf "%-71s" "checking $1" >&2
+	printf "%-71s\n" "checking $1" >&2
 	reportwrite checking "$1"
 }
 
@@ -190,10 +190,12 @@ remote() {
 }
 
 host() {
+	local stdout
+
 	echo "${1}" >> "$LOGFILE"
 	reportwrite host "${1}"
-	local stdout=$(eval ${1}) 2>> "$LOGFILE"
-	local retval=$?
+	stdout=$(eval ${1}; exit ${?}) 2>>"$LOGFILE"
+	local retval=${?}
 	reportwrite stdout "${stdout}"
 	reportwrite exitstatus ${retval}
 	echo "$stdout"
