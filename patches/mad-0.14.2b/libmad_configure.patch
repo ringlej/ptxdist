@@ -1,3 +1,13 @@
+From: Juergen Beisert <j.beisert@pengutronixde>
+Subject: [libmad] remove special handling for architectures
+
+The configure script adds certain -march flags for different
+architectures, which contain a-priori implications which might not be
+true for several systems.
+
+Signed-off-by: Juergen Beisert <j.beisert@pengutronixde>
+---
+
 --- libmad/configure.orig	2006-12-21 18:55:55.000000000 +0100
 +++ libmad/configure	2006-12-21 18:56:11.000000000 +0100
 @@ -1656,10 +1656,9 @@
