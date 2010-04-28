@@ -1,3 +1,9 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [nickel] remove handmade soname
+
+Don't use handmade soname.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
  src/Makefile |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
