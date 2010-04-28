@@ -1,11 +1,12 @@
-#
-# Submitted-By: Marc Kleine-Budde, 2006-04-21
-# Committed-By: Marc Kleine-Budde
-#
-# Error:
-#
-# libtool sux, cannont crosscompile if -l<lib> is given, add -Wl, prefixes
-#
+From: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+Subject: add -Wl
+
+libtool sux, cannont crosscompile if -l<lib> is given, add -Wl, prefixes
+
+
+Signed-off-by: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+---
+
 Index: sablevm-1.13/configure
 ===================================================================
 --- sablevm-1.13.orig/configure
