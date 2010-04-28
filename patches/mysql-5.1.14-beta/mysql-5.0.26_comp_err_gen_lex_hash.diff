@@ -1,3 +1,9 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: add cross support
+
+Signed-off-by: (not finished yet)
+---
+
 Index: extra/Makefile.am
 ===================================================================
 --- extra/Makefile.am.orig
