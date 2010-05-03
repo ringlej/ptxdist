@@ -1,7 +1,14 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [efax] fix -l option in efix
+
 This patch fixes the '-l' option in efix 0.3 which is part of efax 0.9.
 Without this patch, lines on page 2 and subsequent are missing if the
 specified number of lines per page is lower than the default (66).
-<mschwendt@yahoo.com>
+
+This patch was taken from redhat, probably first written by
+mschwendt@yahoo.com.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
  efix.c |    6 +++---

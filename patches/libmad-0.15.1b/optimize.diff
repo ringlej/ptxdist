@@ -1,4 +1,9 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: add upstream patch
+
 From: http://ftp.de.debian.org/debian/pool/main/libm/libmad/libmad_0.15.1b-3.diff.gz
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
  configure.ac |   66 -----------------------------------------------------------
  1 file changed, 1 insertion(+), 65 deletions(-)

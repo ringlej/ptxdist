@@ -1,3 +1,7 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: Include tcpd.h only if HOST_ACCESS is selected
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
  pmap_check.c |    2 ++
  1 file changed, 2 insertions(+)

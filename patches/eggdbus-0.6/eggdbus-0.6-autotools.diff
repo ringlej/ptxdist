@@ -1,3 +1,9 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: update autotoolization
+
+This patch updates the autotool-infrastructure for recent tools.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
  Makefile.am              |    2 ++
  configure.ac             |   15 ++++++++-------

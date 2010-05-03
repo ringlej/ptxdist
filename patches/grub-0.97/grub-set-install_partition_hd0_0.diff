@@ -1,14 +1,12 @@
-#
-# Submitted-By: Sascha Hauer, 2006-11-22
-# Committed-By: Sascha Hauer <s.hauer@pengutronix.de>
-#
-# Description:
-#
-# Let grub find the default partition the rootfs is installed
-# on. There must be a better (proper) way to archieve this,
-# but I don't know any.
-#
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Subject: Add hack for default partition
 
+Let grub find the default partition the rootfs is installed
+on. There must be a better (proper) way to archieve this,
+but I don't know any.
+
+Signed-off-by: (not for upstream)
+---
 Index: grub-0.97/stage2/asm.S
 ===================================================================
 --- grub-0.97.orig/stage2/asm.S

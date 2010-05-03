@@ -1,3 +1,8 @@
+From: Wolfram Sang <w.sang@pengutronix.de>
+Subject: Add Pengutronix logo
+
+Signed-off-by: (not for upstream)
+
 ---
  src/df_andi.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)

@@ -1,3 +1,8 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: Add autotool based build system
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
 ---
  Makefile.am     |    3 +
  autogen.sh      |   22 ++++++++++++

@@ -1,3 +1,10 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: remove runtime test for cross compiling
+
+When cross compiling, we assume that the user has made sure that
+reasonably new versions are provided.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
  configure.in |    5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)

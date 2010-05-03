@@ -1,19 +1,11 @@
-# 
-# Submitted-By:
-# Committed-By: Bjørn Bürger, 2006-01-03
-#
-# Error: 
-# 
-# not gcc4 save, -mcpu is deprecated
-#
-# Description: 
-#
-# -march may be used alternatively
-#
-# State:
-# 
-# <upstream state of this problem>
-#
+From: Bjoern Buerger <b.buerger@pengutronix.de>
+Subject: Fix makefiles to be gcc-compliant
+
+The code is not gcc4 save, -mcpu is deprecated (-march may be used
+alternatively).
+
+Signed-off-by: Bjoern Buerger <b.buerger@pengutronix.de>
+---
 
 diff -urN mknbi-1.4.4.orig/Makefile mknbi-1.4.4/Makefile
 --- mknbi-1.4.4.orig/Makefile	2006-01-03 13:58:14.000000000 +0100

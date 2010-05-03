@@ -1,3 +1,7 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: Add upstream patch
+
+---------8<----------
 From: 'Hartmut&nbsp;Holzgraefe'Date: December 14 2006 6:07pm
 Subject: bk commit into 5.1 tree (hartmut:1.2359) BUG#25075
 
@@ -20,6 +24,10 @@ ChangeSet@stripped, 2006-12-14 18:06:48+01:00, hartmut@stripped +1 -0
 # User:	hartmut
 # Host:	linux.site
 # Root:	/home/hartmut/projects/mysql/dev/5.1
+---------8<----------
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
 
 --- 1.304/sql/sql_class.cc	2006-12-14 18:07:00 +01:00
 +++ 1.305/sql/sql_class.cc	2006-12-14 18:07:00 +01:00

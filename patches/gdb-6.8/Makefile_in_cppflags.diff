@@ -1,34 +1,24 @@
-#
-# Submitted-By: Marc Kleine-Budde, 2006-03-20
-# Committed-By: Marc Kleine-Budde
-#
-# Error:
-#
-# checking for arm-softfloat-linux-gnu-dlltool... arm-softfloat-linux-gnu-dlltool
-# checking for arm-softfloat-linux-gnu-windres... arm-softfloat-linux-gnu-windres
-# checking for arm-softfloat-linux-gnu-mig... no
-# checking for mig... no
-# checking for main in -lm... yes
-# checking for wctype... yes
-# checking for library containing gethostbyname... none required
-# checking for library containing socketpair... none required
-# checking for library containing waddstr... no
-# checking for library containing tgetent... no
-# configure: error: no termcap library found
-# make[2]: *** [configure-gdb] Error 1
-#
-# Description:
-#
-# gdb forgets the {LD,CPP}FLAGS_FOR_TARGET
-#
-# State:
-#
-# unknown
-#
+From: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+Subject: gdb forgets the {LD,CPP}FLAGS_FOR_TARGET
+
+checking for arm-softfloat-linux-gnu-dlltool... arm-softfloat-linux-gnu-dlltool
+checking for arm-softfloat-linux-gnu-windres... arm-softfloat-linux-gnu-windres
+checking for arm-softfloat-linux-gnu-mig... no
+checking for mig... no
+checking for main in -lm... yes
+checking for wctype... yes
+checking for library containing gethostbyname... none required
+checking for library containing socketpair... none required
+checking for library containing waddstr... no
+checking for library containing tgetent... no
+configure: error: no termcap library found
+make[2]: *** [configure-gdb] Error 1
+
+Signed-off-by: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
 ---
-# Makefile.in |    2 ++
-# 1 file changed, 2 insertions(+)
-#
+ Makefile.in |    2 ++
+ 1 file changed, 2 insertions(+)
+
 Index: Makefile.in
 ===================================================================
 --- Makefile.in.orig	2008-03-27 19:23:26.000000000 +0100

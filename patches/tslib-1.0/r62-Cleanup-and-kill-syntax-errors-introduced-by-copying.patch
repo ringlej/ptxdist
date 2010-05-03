@@ -1,9 +1,14 @@
+From: Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>
+Subject: [tslib] add upstream patch
+
 From 48ff3b48b080d0c69dcdc32e578ccd6977c07729 Mon Sep 17 00:00:00 2001
 From: kergoth <kergoth@a933c7a4-9bf7-0310-9141-a2e45189604d>
 Date: Tue, 11 Nov 2008 20:22:25 +0000
 Subject: [PATCH 14/30] Cleanup and kill syntax errors introduced by copying/pasting bits from a badly wrapped mail patch.
 
 git-svn-id: svn://svn.berlios.de/tslib/trunk/tslib@62 a933c7a4-9bf7-0310-9141-a2e45189604d
+
+Signed-off-by: Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>
 ---
  plugins/input-raw.c |   30 +++++++++++++-----------------
  1 files changed, 13 insertions(+), 17 deletions(-)

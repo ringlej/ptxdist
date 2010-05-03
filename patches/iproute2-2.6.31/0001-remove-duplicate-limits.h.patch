@@ -1,7 +1,14 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: [iproute2] remove duplicate header file
+
+This patch is already in upstream:
+
 From 52d6a850505d70a699fc89604986c45b0cd0c54e Mon Sep 17 00:00:00 2001
 From: Stephen Hemminger <stephen.hemminger@vyatta.com>
 Date: Fri, 27 Mar 2009 11:07:46 -0700
 Subject: [PATCH 03/23] remove duplicate limits.h
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
  tc/m_xt.c |    1 -

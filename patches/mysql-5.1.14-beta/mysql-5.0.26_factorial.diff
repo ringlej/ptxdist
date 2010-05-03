@@ -1,3 +1,12 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Subject: use "build" side factorial tool
+
+When cross compiling, the "factorial" tool has to be compiled for the
+"build" machine. We provide the proper path here.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+
 Index: dbug/Makefile.am
 ===================================================================
 --- dbug/Makefile.am.orig

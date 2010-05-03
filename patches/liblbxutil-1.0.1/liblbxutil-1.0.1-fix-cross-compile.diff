@@ -1,32 +1,25 @@
-#
-# Submitted-By: Marc Kleine-Budde, 2006-01-19
-# Committed-By: Marc Kleine-Budde
-#
-# Error:
-#
-# crosscompiling sux, x86 doesn't like it, when arm binaries are executed:
-#
-# /bin/sh ../libtool --mode=link arm-softfloat-linux-gnu-gcc -O
-# -L/home/frogger/projects/pengutronix/ptxdist/ptxdist-0.9-trunk/local/arm-softfloat-linux-gnu/lib
-# -L/home/frogger/projects/pengutronix/ptxdist/ptxdist-0.9-trunk/local/arm-softfloat-linux-gnu/usr/lib
-# -o mkg3states mkg3states.o arm-softfloat-linux-gnu-gcc -O -o
-# mkg3states mkg3states.o
-# -L/home/frogger/projects/pengutronix/ptxdist/ptxdist-0.9-trunk/local/arm-softfloat-linux-gnu/lib
-# -L/home/frogger/projects/pengutronix/ptxdist/ptxdist-0.9-trunk/local/arm-softfloat-linux-gnu/usr/lib
-# rm -f g3states.h ./mkg3states -c > g3states.h_ && mv g3states.h_
-# g3states.h /bin/sh: ./mkg3states: cannot execute binary file
-# make[3]: *** [g3states.h] Error 126
-#
-#
-# Description:
-#
-# build mkg3states for build not for host, using BSP hack, but works
-# rediffed for Xorg7.1 by Luotao Fu, 2006-06-19
-#
-# State:
-#
-# submitted upstream
-#
+From: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+Subject: build mkg3states for build not for host
+
+crosscompiling sux, x86 doesn't like it, when arm binaries are executed:
+
+/bin/sh ../libtool --mode=link arm-softfloat-linux-gnu-gcc -O
+-L/home/frogger/projects/pengutronix/ptxdist/ptxdist-0.9-trunk/local/arm-softfloat-linux-gnu/lib
+-L/home/frogger/projects/pengutronix/ptxdist/ptxdist-0.9-trunk/local/arm-softfloat-linux-gnu/usr/lib
+-o mkg3states mkg3states.o arm-softfloat-linux-gnu-gcc -O -o
+mkg3states mkg3states.o
+-L/home/frogger/projects/pengutronix/ptxdist/ptxdist-0.9-trunk/local/arm-softfloat-linux-gnu/lib
+-L/home/frogger/projects/pengutronix/ptxdist/ptxdist-0.9-trunk/local/arm-softfloat-linux-gnu/usr/lib
+rm -f g3states.h ./mkg3states -c > g3states.h_ && mv g3states.h_
+g3states.h /bin/sh: ./mkg3states: cannot execute binary file
+make[3]: *** [g3states.h] Error 126
+
+Signed-off-by: Marc Kleine-Budde <m.kleine-budde@pengutronix.de>
+---
+
+# 20060619 lfu: rediffed for Xorg7.1
+# 20060119 mkl: submitted upstream
+
 Index: liblbxutil-1.0.1/configure.ac
 ===================================================================
 --- liblbxutil-1.0.1.orig/configure.ac	2007-10-18 09:39:19.000000000 +0200

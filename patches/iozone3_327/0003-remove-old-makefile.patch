@@ -1,3 +1,10 @@
+From: Luotao Fu <l.fu@pengutronix.de>
+Subject: remove old makefiles
+
+This one removes the old hand made makefiles, after autotool support has
+been added.
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
  src/current/makefile | 1285 ---------------------------------------------------
  1 file changed, 1285 deletions(-)

@@ -1,21 +1,11 @@
-# 
-# Submitted-By: Benedikt Spranger, 2005-09-26
-# Committed-By: Robert Schwebel
-#
-# Error: 
-#
-# 
-#
-# Description: 
-#
-# GCC 4.x declares non-static declaration and static definition and vice 
-# versa as error.
-#
-# State:
-# 
-# unknown
-#
+Subject: fix static declaration
+From: Benedikt Spranger <b.spranger@pengutronix.de>
 
+GCC 4.x declares non-static declaration and static definition and vice
+versa as error.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
 diff -ruN grub-0.97.orig/netboot/main.c grub-0.97/netboot/main.c
 --- grub-0.97.orig/netboot/main.c	2004-05-21 00:19:33.000000000 +0200
 +++ grub-0.97/netboot/main.c	2005-09-15 17:33:34.383904479 +0200

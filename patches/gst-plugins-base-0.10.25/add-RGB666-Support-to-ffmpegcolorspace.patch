@@ -4,8 +4,8 @@ Subject: [PATCH] added RGB666 Support to ffmpegcolorspace
 
 This one adds RGB666 Support to ffmpegcolorspace
 Still very hacky, need to be enhanced before submitting to mainline
-  
-Signe-off-by: Luotao Fu <l.fu@pengutronix.de>
+
+Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
  gst/ffmpegcolorspace/avcodec.h           |    1 
  gst/ffmpegcolorspace/gstffmpegcodecmap.c |   26 ++++++++++-

@@ -1,3 +1,6 @@
+From: Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>
+Subject: [tslib] add upstream patch
+
 From b2b509ecaee7b449a093c512c78acd180ad53f78 Mon Sep 17 00:00:00 2001
 From: kergoth <kergoth@a933c7a4-9bf7-0310-9141-a2e45189604d>
 Date: Tue, 18 Nov 2008 15:47:57 +0000
@@ -5,8 +8,9 @@ Subject: [PATCH 18/30] Define the _CNT macros if needed.
 
 EV_CNT & friends weren't added to linux/input.h until 2.6.24-rc1.
 
-
 git-svn-id: svn://svn.berlios.de/tslib/trunk/tslib@66 a933c7a4-9bf7-0310-9141-a2e45189604d
+
+Signed-off-by: Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>
 ---
  plugins/input-raw.c |    9 +++++++++
  1 files changed, 9 insertions(+), 0 deletions(-)
