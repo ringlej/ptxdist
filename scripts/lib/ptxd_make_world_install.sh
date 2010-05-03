@@ -77,7 +77,16 @@ ptxd_make_world_install_unpack() {
     fi &&
     rm -rf -- "${pkg_pkg_dir}" &&
     mkdir -p -- "${ptx_pkg_dir}" &&
-    tar -x -C "${ptx_pkg_dir}" -z -f "${ptx_pkg_dev_dir}/${pkg_pkg_dev}"
+    tar -x -C "${ptx_pkg_dir}" -z -f "${ptx_pkg_dev_dir}/${pkg_pkg_dev}" &&
+
+    # fix rpaths in host/cross tools
+    if [ "${pkg_type}" != "target" ]; then
+	find "${pkg_pkg_dir}" ! -type d -executable -print | while read file; do
+	    if chrpath "${file}" > /dev/null 2>&1; then
+		chrpath --replace "${PTXDIST_SYSROOT_HOST}/lib" "${file}" || return
+	    fi
+	done
+    fi
 }
 export -f ptxd_make_world_install_unpack
 
@@ -138,14 +147,6 @@ ptxd_make_world_install_post() {
     # do nothing if pkg_pkg_dir does not exist
     if [ \! -d "${pkg_pkg_dir}" ]; then
 	return
-    fi &&
-    # fix rpaths in host/cross tools
-    if [ "${pkg_type}" != "target" ]; then
-	find "${pkg_pkg_dir}" ! -type d -executable -print | while read file; do
-	    if chrpath "${file}" > /dev/null 2>&1; then
-		chrpath --replace "${PTXDIST_SYSROOT_HOST}/lib" "${file}" || return
-	    fi
-	done
     fi &&
     # prefix paths in la files with sysroot
     find "${pkg_pkg_dir}" \( -name "*.la" -o -name "*.prl" \) -print0 | xargs -r -0 -- \
