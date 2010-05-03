@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Luotao Fu <lfu@pengutronix.de>
-#               2008 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,7 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_LOCALEDEF) += host-localedef
 #
 # Paths and names
 #
-HOST_LOCALEDEF_VERSION	:= eglibc-2.9-ptx1
+HOST_LOCALEDEF_VERSION	:= eglibc-2.11.90-ptx1
 HOST_LOCALEDEF		:= localedef-$(HOST_LOCALEDEF_VERSION)
 HOST_LOCALEDEF_SUFFIX	:= tar.bz2
 HOST_LOCALEDEF_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_LOCALEDEF).$(HOST_LOCALEDEF_SUFFIX)
@@ -43,7 +43,7 @@ HOST_LOCALEDEF_ENV 	:= $(HOST_ENV)
 # autoconf
 #
 HOST_LOCALEDEF_AUTOCONF	:= \
-	--with-glibc=./eglibc-2.9 \
+	--with-glibc=./eglibc \
 	--prefix=/usr
 
 # ----------------------------------------------------------------------------
