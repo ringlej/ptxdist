@@ -2,6 +2,7 @@
 
 config HOST_GPERF
 	tristate
+	default ALLYES
 	help
 	  Perfect hash function generator
 

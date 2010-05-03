@@ -2,5 +2,6 @@
 
 config HOST_ELFKICKERS
 	tristate
+	default ALLYES
 	help
 	  collection of programs dealing with the ELF file format

@@ -2,4 +2,4 @@
 
 config HOST_NCURSES
 	tristate
-
+	default ALLYES

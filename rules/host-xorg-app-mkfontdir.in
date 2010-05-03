@@ -1,4 +1,6 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_XORG_APP_MKFONTDIR
 	select HOST_XORG_APP_MKFONTSCALE
+	default ALLYES
 	tristate

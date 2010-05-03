@@ -2,6 +2,7 @@
 
 config HOST_FLEX
 	tristate
+	default ALLYES
 	help
 	  Flex, the fast lexical analyser generator.
 

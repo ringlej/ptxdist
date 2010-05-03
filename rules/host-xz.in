@@ -2,6 +2,7 @@
 
 config HOST_XZ
 	tristate
+	default ALLYES
 	help
 	  XZ-format compression utilities
 

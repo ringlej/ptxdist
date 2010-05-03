@@ -2,6 +2,7 @@
 
 config HOST_GENEXT2FS
 	tristate
+	default ALLYES
 	help
 	  ext2 filesystem generator for embedded systems
  	  `genext2fs' is meant to generate an ext2 filesystem
@@ -14,4 +15,3 @@ config HOST_GENEXT2FS
  	  systems. As such, it will generate a filesystem for
 	  single-user usage: all files/directories/etc.
 	  will belong to UID/GID 0.
-

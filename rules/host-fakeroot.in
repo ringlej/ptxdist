@@ -9,4 +9,3 @@ config HOST_FAKEROOT
 
 	  If you want to create rootfs images with 'make image' you
 	  need this.
-

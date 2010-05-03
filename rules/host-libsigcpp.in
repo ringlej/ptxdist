@@ -1,6 +1,8 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_LIBSIGCPP
 	tristate
+	default ALLYES
 	help
 	  libsigc++ implements a typesafe callback system for standard C++. It
 	  allows you to define signals and to connect those signals to any

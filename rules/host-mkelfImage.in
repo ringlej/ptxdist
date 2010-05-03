@@ -3,6 +3,7 @@
 config HOST_MKELFIMAGE
 	tristate
 	select HOST_ZLIB
+	default ALLYES
 	help
 	  With mkelfImage you can create elf images from kernel
 	  files to be downloaded by Etherboot for LinuxBIOS.

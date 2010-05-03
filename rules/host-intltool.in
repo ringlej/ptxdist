@@ -2,6 +2,7 @@
 
 config HOST_INTLTOOL
 	tristate
+	default ALLYES
 	help
 	  intltool is a set of tools to centralise translation of many different
 	  file formats using GNU gettext-compatible PO files.

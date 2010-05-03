@@ -3,6 +3,7 @@
 config HOST_LZOP
 	tristate
 	select HOST_LIBLZO
+	default ALLYES
 	help
 	  fast compression program
 

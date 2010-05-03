@@ -3,6 +3,7 @@
 config HOST_LIBBLKID
 	tristate
 	select HOST_UTIL_LINUX_NG
+	default ALLYES
 	help
 	  Helper to select the host packet containing a recent libblkid.so
 	  library and its header.

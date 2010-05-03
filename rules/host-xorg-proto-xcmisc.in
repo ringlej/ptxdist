@@ -1,3 +1,5 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_XORG_PROTO_XCMISC
 	tristate
+	default ALLYES

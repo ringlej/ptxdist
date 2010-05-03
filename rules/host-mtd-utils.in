@@ -5,3 +5,4 @@ config HOST_MTD_UTILS
 	select HOST_LIBLZO
 	select HOST_ZLIB
 	select HOST_LIBUUID
+	default ALLYES

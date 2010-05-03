@@ -3,6 +3,7 @@
 config HOST_DBUS
 	tristate
 	select HOST_EXPAT
+	default ALLYES
 	help
 	  D-Bus is a message bus system, a simple way
 	  for applications to talk to one another. In

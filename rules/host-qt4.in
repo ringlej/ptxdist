@@ -3,4 +3,5 @@
 config HOST_QT4
 	tristate
 	select HOST_DBUS
+	default ALLYES
 

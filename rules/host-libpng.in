@@ -1,4 +1,6 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_LIBPNG
 	tristate
 	select HOST_ZLIB
+	default ALLYES

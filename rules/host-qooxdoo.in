@@ -1,5 +1,5 @@
 ## SECTION=hosttools_noprompt
 
 config HOST_QOOXDOO
-	bool
-
+	tristate
+	default ALLYES

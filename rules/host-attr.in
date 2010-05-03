@@ -2,6 +2,7 @@
 
 config HOST_ATTR
 	tristate
+	default ALLYES
 	help
 	  Utilities for manipulating filesystem extended attributes
 

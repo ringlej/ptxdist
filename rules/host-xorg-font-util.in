@@ -1,3 +1,5 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_XORG_FONT_UTIL
 	tristate
+	default ALLYES

@@ -2,3 +2,4 @@
 
 config HOST_LIBLZO
 	tristate
+	default ALLYES

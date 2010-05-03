@@ -5,3 +5,4 @@ config HOST_DBUS_GLIB
 	select HOST_DBUS
 	select HOST_GLIB
 	select HOST_EXPAT
+	default ALLYES

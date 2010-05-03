@@ -1,7 +1,9 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_XORG_APP_MKFONTSCALE
 	tristate
 	select HOST_ZLIB
 	select HOST_XORG_LIB_FONTENC
 	select HOST_FREETYPE
 	select HOST_XORG_PROTO_X
+	default ALLYES

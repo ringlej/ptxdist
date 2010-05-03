@@ -2,3 +2,4 @@
 
 config HOST_LOCALEDEF
 	tristate
+	default ALLYES

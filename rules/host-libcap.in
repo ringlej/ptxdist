@@ -2,6 +2,7 @@
 
 config HOST_LIBCAP
 	tristate
+	default ALLYES
 	help
 	  support for getting/setting POSIX.1e capabilities
 

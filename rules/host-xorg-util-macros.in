@@ -1,4 +1,5 @@
 ## SECTION=hosttools_noprompt
 
 config HOST_XORG_UTIL_MACROS
-	bool
+	tristate
+	default ALLYES

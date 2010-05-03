@@ -1,3 +1,5 @@
 ## SECTION=hosttools_noprompt
+
 config HOST_XCB_PROTO
 	tristate
+	default ALLYES
