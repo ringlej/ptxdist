@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_SUDO) += sudo
 #
 # Paths and names
 #
-SUDO_VERSION	:= 1.6.9
+SUDO_VERSION	:= 1.7.2p6
 SUDO		:= sudo-$(SUDO_VERSION)
 SUDO_SUFFIX	:= tar.gz
-SUDO_URL	:= http://www.courtesan.com/sudo/dist/OLD/$(SUDO).$(SUDO_SUFFIX)
+SUDO_URL	:= http://www.sudo.ws/sudo/dist/$(SUDO).$(SUDO_SUFFIX)
 SUDO_SOURCE	:= $(SRCDIR)/$(SUDO).$(SUDO_SUFFIX)
 SUDO_DIR	:= $(BUILDDIR)/$(SUDO)
 
@@ -39,6 +39,9 @@ $(SUDO_SOURCE):
 SUDO_PATH	:= PATH=$(CROSS_PATH)
 SUDO_ENV 	:= \
 	$(CROSS_ENV) \
+	sudo_cv_func_fnmatch=yes \
+	sudo_cv_func_unsetenv_void=no \
+	sudo_cv_sock_sa_len=yes \
 	sudo_cv_uid_t_len=10
 
 #
