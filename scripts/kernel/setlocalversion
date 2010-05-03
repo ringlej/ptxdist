@@ -51,7 +51,7 @@ if head=`git rev-parse --verify --short HEAD 2>/dev/null`; then
 	# If we are at a tagged commit (like "ptxdist-2010.05.0"), we
 	# print it here
 	if atag="`git describe --exact-match 2>/dev/null`"; then
-		printf -- '%s' $atag
+		echo "$atag" | awk -F- '{printf("%s", $(NF))}'
 
 	# If we are past a tagged commit (like "ptxdist-2010.03.0-130-g3c60777"),
 	# we pretty print it.
