@@ -147,7 +147,7 @@ $(STATEDIR)/sudo.targetinstall:
 	@$(call install_copy, sudo, 0, 0, 7755, -, /usr/bin/sudo)
 	@$(call install_link, sudo, sudo, /usr/bin/sudoedit)
 
-	@$(call install_copy, sudo, 0, 0, 0644, -,
+	@$(call install_copy, sudo, 0, 0, 0644, -, \
 		/usr/libexec/sudo_noexec.so)
 
 ifdef PTXCONF_SUDO_INSTALL_ETC_SUDOERS
