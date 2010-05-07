@@ -1,0 +1,12 @@
+## SECTION=shell_and_console
+
+config SCHED_SWITCH
+	tristate
+	prompt "sched switch"
+	help
+	  This is a tool that convert the kernel tracer 'sched_switch' data to
+	  VCD (value change dump) data.
+	  It makes a graphical visualization tool of the task switches that can be
+	  visualised with GTK-wave
+	  See http://www.osadl.org/Visualize-the-temporal-relationship-of-L.taks-visualizer.0.html
+

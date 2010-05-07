@@ -1,0 +1,26 @@
+Fix cross compilation
+
+Signed-off-by: Remy Bohmer <linux@bohmer.net>
+---
+ Makefile |   14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+Index: sched_switch-0.1/Makefile
+===================================================================
+--- sched_switch-0.1.orig/Makefile
++++ sched_switch-0.1/Makefile
+@@ -1 +1,13 @@
+-sched_switch:
++DESTDIR =
++BINDIR = /usr/bin
++
++sched_switch: sched_switch.c Makefile
++	$(CC) sched_switch.c $(CFLAGS)  $(CPPFLAGS) $(LDFLAGS) $(XCFLAGS) -o sched_switch
++
++.PHONY: clean
++clean:
++	rm -f sched_switch
++
++.PHONY: install
++install: sched_switch
++	install -m 0755 sched_switch $(DESTDIR)$(BINDIR)/
