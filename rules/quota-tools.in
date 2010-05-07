@@ -1,0 +1,81 @@
+## SECTION=disk_and_file
+
+menuconfig QUOTA_TOOLS
+	tristate
+	prompt "Disk Quota Tools"
+	select E2FSPROGS
+	select E2FSPROGS_LIBEXT2FS
+	select E2FSPROGS_LIBCOM_ERR
+	help
+	  Tools and patches for the Linux Diskquota system as part of the
+	  Linux kernel (http://sourceforge.net/projects/linuxquota)
+
+if QUOTA_TOOLS
+
+config QUOTA_TOOLS_QUOTA
+	bool
+	prompt "install quota"
+	help
+	  displays users' disk usage and limits
+
+config QUOTA_TOOLS_REPQUOTA
+	bool
+	prompt "install repquota"
+	help
+	  summarize quotas for a filesystem
+
+config QUOTA_TOOLS_QUOT
+	bool
+	prompt "install quot"
+	help
+	  summarizes file system ownership
+
+config QUOTA_TOOLS_EDQUOTA
+	bool
+	prompt "install edquota"
+	help
+	   edit user quotas
+
+config QUOTA_TOOLS_SETQUOTA
+	bool
+	prompt "install setquota"
+	help
+	  command line quota editor
+
+config QUOTA_TOOLS_QUOTAONOFF
+	bool
+	prompt "install quotaon / quotaoff"
+	help
+	  turn filesystem quotas on and off
+
+config QUOTA_TOOLS_WARNQUOTA
+	bool
+	prompt "install warnquota"
+	help
+	  checks the disk quota for each filesystem and mails a warning message to those users who have reached their softlimit
+
+config QUOTA_TOOLS_QUOTACHECK
+	bool
+	prompt "install quotacheck"
+	help
+	  scan a filesystem for disk usage, create, check and repair quota files
+
+config QUOTA_TOOLS_CONVERTQUOTA
+	bool
+	prompt "install convertquota"
+	help
+	  convert quota from old file format to new one
+
+config QUOTA_TOOLS_QUOTASTATS
+	bool
+	prompt "install quotastats"
+	help
+	  query quota statistics
+
+config QUOTA_TOOLS_RQUOTAD
+	bool
+	prompt "install rpc.rquotad"
+	help
+	  remote quota server
+
+endif
