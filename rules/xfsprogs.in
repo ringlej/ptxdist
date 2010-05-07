@@ -1,0 +1,142 @@
+## SECTION=disk_and_file
+
+menuconfig XFSPROGS
+	tristate
+	prompt "xfsprogs"
+	select E2FSPROGS_LIBUUID if XFSPROGS_INSTALL_MKXFS || XFSPROGS_INSTALL_GROWFS || XFSPROGS_INSTALL_LOGPRINT || XFSPROGS_INSTALL_COPY
+	help
+	 The xfsprogs package provides the filesystem utilities for use
+	 with the xfs filesystem.
+
+if XFSPROGS
+
+config XFSPROGS_INSTALL_MKXFS
+	bool
+	prompt "mkfs.xfs"
+	help
+	  Install the mkfs.xfs program.
+
+config XFSPROGS_INSTALL_XFS_REPAIR
+	bool
+	prompt "xfs_repair"
+	help
+	  Install the xfs_repair program.
+
+config XFSPROGS_INSTALL_GROWFS
+	bool
+	prompt "xfs_growfs"
+	help
+	  Install the xfs_growfs program
+
+config XFSPROGS_INSTALL_INFO
+	bool
+	prompt "xfs_info"
+	select XFSPROGS_INSTALL_GROWFS
+	help
+	  Install the xfs_info program
+
+config XFSPROGS_INSTALL_DB
+	bool
+	prompt "xfs_db"
+	help
+	  Install the xfs_db program
+
+
+config XFSPROGS_INSTALL_METADUMP
+	bool
+	prompt "xfs_metadump"
+	select XFSPROGS_INSTALL_DB
+	help
+	  Install the xfs_metadump program
+
+config XFSPROGS_INSTALL_NCHECK
+	bool
+	prompt "xfs_ncheck"
+	select XFSPROGS_INSTALL_DB
+	help
+	  Install the xfs_ncheck program
+
+config XFSPROGS_INSTALL_CHECK
+	bool
+	select XFSPROGS_INSTALL_DB
+	prompt "xfs_check"
+	help
+	  Install the xfs_check program
+
+config XFSPROGS_INSTALL_ADMIN
+	bool
+	prompt "xfs_admin"
+	select XFSPROGS_INSTALL_DB
+	help
+	  Install the xfs_admin program
+
+config XFSPROGS_INSTALL_IO
+	bool
+	prompt "xfs_io"
+	help
+	  Install the xfs_io program
+
+config XFSPROGS_INSTALL_FREEZE
+	bool
+	prompt "xfs_freeze"
+	select XFSPROGS_INSTALL_IO
+	help
+	  Install the xfs_freeze program
+
+config XFSPROGS_INSTALL_MKFILE
+	bool
+	prompt "xfs_mkfile"
+	select XFSPROGS_INSTALL_IO
+	help
+	  Install the xfs_mkfile program
+
+config XFSPROGS_INSTALL_BMAP
+	bool
+	prompt "xfs_bmap"
+	select XFSPROGS_INSTALL_IO
+	help
+	  Install the xfs_bmap program
+
+config XFSPROGS_INSTALL_LOGPRINT
+	bool
+	prompt "xfs_logprint"
+	help
+	  Install the xfs_logprint program
+
+config XFSPROGS_INSTALL_MDRESTORE
+	bool
+	prompt "xfs_mdrestore"
+	help
+	  Install the xfs_mdrestore program
+
+config XFSPROGS_INSTALL_QUOTA
+	bool
+	prompt "xfs_quota"
+	help
+	  Install the xfs_quota program
+
+config XFSPROGS_INSTALL_RTCP
+	bool
+	prompt "xfs_rtcp"
+	help
+	  Install the xfs_rtcp program
+
+config XFSPROGS_INSTALL_COPY
+	bool
+	prompt "xfs_copy"
+	help
+	  Install the xfs_copy program
+
+config XFSPROGS_INSTALL_ESTIMATE
+	bool
+	prompt "xfs_estimate"
+	help
+	  Install the xfs_estimate program
+
+config XFSPROGS_INSTALL_FSR
+	bool
+	prompt "xfs_fsr"
+	help
+	  Install the xfs_fsr program
+
+endif
