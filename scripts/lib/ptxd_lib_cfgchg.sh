@@ -77,6 +77,6 @@ ptxd_cfgchg()
 		xargs -0 -r rm -f --
 	fi
 
-	cp "${cfg_orig}" "${cfg_old}" || return
+	install -m644 "${cfg_orig}" "${cfg_old}" || return
     done
 }
