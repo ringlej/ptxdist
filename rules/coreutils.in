@@ -22,22 +22,42 @@ if COREUTILS
 config COREUTILS_ECHO
 	bool
 	prompt "echo"
+	depends on !BUSYBOX_ECHO || ALLYES
+
+comment "BusyBox' echo is selected!"
+	depends on BUSYBOX_ECHO
 
 config COREUTILS_STAT
 	bool
 	prompt "stat"
+	depends on !BUSYBOX_STAT || ALLYES
+
+comment "BusyBox' stat is selected!"
+	depends on BUSYBOX_STAT
 
 config COREUTILS_DATE
 	bool
 	prompt "date"
+	depends on !BUSYBOX_DATE || ALLYES
+
+comment "BusyBox' date is selected!"
+	depends on BUSYBOX_DATE
 
 config COREUTILS_HOSTID
 	bool
 	prompt "hostid"
+	depends on !BUSYBOX_HOSTID || ALLYES
+
+comment "BusyBox' hostid is selected!"
+	depends on BUSYBOX_HOSTID
 
 config COREUTILS_UNAME
 	bool
 	prompt "uname"
+	depends on !BUSYBOX_UNAME || ALLYES
+
+comment "BusyBox' uname is selected!"
+	depends on BUSYBOX_UNAME
 
 config COREUTILS_DIRCOLORS
 	bool
@@ -56,6 +76,10 @@ comment "BusyBox' seq is selected!"
 config COREUTILS_NOHUP
 	bool
 	prompt "nohup"
+	depends on !BUSYBOX_NOHUP || ALLYES
+
+comment "BusyBox' nohup is selected!"
+	depends on BUSYBOX_NOHUP
 
 config COREUTILS_GROUPS
 	bool
@@ -68,6 +92,10 @@ config COREUTILS_SHA224SUM
 config COREUTILS_EXPR
 	bool
 	prompt "expr"
+	depends on !BUSYBOX_EXPR || ALLYES
+
+comment "busybox' expr is selected!"
+	depends on BUSYBOX_EXPR
 
 config COREUTILS_TRUNCATE
 	bool
@@ -76,46 +104,90 @@ config COREUTILS_TRUNCATE
 config COREUTILS_CHCON
 	bool
 	prompt "chcon"
+	depends on !BUSYBOX_CHCON || ALLYES
+
+comment "busybox' chcon is selected!"
+	depends on BUSYBOX_CHCON
 
 config COREUTILS_PRINTF
 	bool
 	prompt "printf"
+	depends on !BUSYBOX_PRINTF || ALLYES
+
+comment "busybox' printf is selected!"
+	depends on BUSYBOX_PRINTF
 
 config COREUTILS_RMDIR
 	bool
 	prompt "rmdir"
+	depends on !BUSYBOX_RMDIR || ALLYES
+
+comment "busybox' rmdir is selected!"
+	depends on BUSYBOX_RMDIR
 
 config COREUTILS_PRINTENV
 	bool
 	prompt "printenv"
+	depends on !BUSYBOX_PRINTENV || ALLYES
+
+comment "busybox' printenv is selected!"
+	depends on BUSYBOX_PRINTENV
 
 config COREUTILS_EXPAND
 	bool
 	prompt "expand"
+	depends on !BUSYBOX_EXPAND || ALLYES
+
+comment "busybox' expand is selected!"
+	depends on BUSYBOX_EXPAND
 
 config COREUTILS_CHMOD
 	bool
 	prompt "chmod"
+	depends on !BUSYBOX_CHMOD || ALLYES
+
+comment "busybox' chmod is selected!"
+	depends on BUSYBOX_CHMOD
 
 config COREUTILS_CHOWN
 	bool
 	prompt "chown"
+	depends on !BUSYBOX_CHOWN || ALLYES
+
+comment "busybox' chown is selected!"
+	depends on BUSYBOX_CHOWN
 
 config COREUTILS_SHA512SUM
 	bool
 	prompt "sha512sum"
+	depends on !BUSYBOX_SHA512SUM || ALLYES
+
+comment "busybox' sha512sum is selected!"
+	depends on BUSYBOX_SHA512SUM
 
 config COREUTILS_UNIQ
 	bool
 	prompt "uniq"
+	depends on !BUSYBOX_UNIQ || ALLYES
+
+comment "busybox' uniq is selected!"
+	depends on BUSYBOX_UNIQ
 
 config COREUTILS_INSTALL
 	bool
 	prompt "install"
+	depends on !BUSYBOX_INSTALL || ALLYES
+
+comment "busybox' install is selected!"
+	depends on BUSYBOX_INSTALL
 
 config COREUTILS_TTY
 	bool
 	prompt "tty"
+	depends on !BUSYBOX_TTY || ALLYES
+
+comment "busybox' tty is selected!"
+	depends on BUSYBOX_TTY
 
 config COREUTILS_SHA384SUM
 	bool
@@ -124,6 +196,10 @@ config COREUTILS_SHA384SUM
 config COREUTILS_CUT
 	bool
 	prompt "cut"
+	depends on !BUSYBOX_CUT || ALLYES
+
+comment "busybox' cut is selected!"
+	depends on BUSYBOX_CUT
 
 config COREUTILS_SHRED
 	bool
@@ -132,10 +208,18 @@ config COREUTILS_SHRED
 config COREUTILS_OD
 	bool
 	prompt "od"
+	depends on !BUSYBOX_OD || ALLYES
+
+comment "busybox' od is selected!"
+	depends on BUSYBOX_OD
 
 config COREUTILS_CHGRP
 	bool
 	prompt "chgrp"
+	depends on !BUSYBOX_CHGRP || ALLYES
+
+comment "busybox' chgrp is selected!"
+	depends on BUSYBOX_CHGRP
 
 config COREUTILS_DIR
 	bool
@@ -144,18 +228,34 @@ config COREUTILS_DIR
 config COREUTILS_MKFIFO
 	bool
 	prompt "mkfifo"
+	depends on !BUSYBOX_MKFIFO || ALLYES
+
+comment "busybox' mkfifo is selected!"
+	depends on BUSYBOX_MKFIFO
 
 config COREUTILS_CHROOT
 	bool
 	prompt "chroot"
+	depends on !BUSYBOX_CHROOT || ALLYES
+
+comment "busybox' chroot is selected!"
+	depends on BUSYBOX_CHROOT
 
 config COREUTILS_LN
 	bool
 	prompt "ln"
+	depends on !BUSYBOX_LN || ALLYES
+
+comment "busybox' ln is selected!"
+	depends on BUSYBOX_LN
 
 config COREUTILS_SUM
 	bool
 	prompt "sum"
+	depends on !BUSYBOX_SUM || ALLYES
+
+comment "busybox' sum is selected!"
+	depends on BUSYBOX_SUM
 
 config COREUTILS_USERS
 	bool
@@ -164,6 +264,10 @@ config COREUTILS_USERS
 config COREUTILS_TOUCH
 	bool
 	prompt "touch"
+	depends on !BUSYBOX_TOUCH || ALLYES
+
+comment "busybox' touch is selected!"
+	depends on BUSYBOX_TOUCH
 
 config COREUTILS_PASTE
 	bool
@@ -172,6 +276,10 @@ config COREUTILS_PASTE
 config COREUTILS_MKNOD
 	bool
 	prompt "mknod"
+	depends on !BUSYBOX_MKNOD || ALLYES
+
+comment "busybox' mknod is selected!"
+	depends on BUSYBOX_MKNOD
 
 config COREUTILS_TSORT
 	bool
@@ -180,10 +288,18 @@ config COREUTILS_TSORT
 config COREUTILS_MKTEMP
 	bool
 	prompt "mktemp"
+	depends on !BUSYBOX_MKTEMP || ALLYES
+
+comment "busybox' mktemp is selected!"
+	depends on BUSYBOX_MKTEMP
 
 config COREUTILS_RUNCON
 	bool
 	prompt "runcon"
+	depends on !BUSYBOX_RUNCON || ALLYES
+
+comment "busybox' runcon is selected!"
+	depends on BUSYBOX_RUNCON
 
 config COREUTILS_READLINK
 	bool
@@ -195,6 +311,10 @@ config COREUTILS_READLINK
 config COREUTILS_TAC
 	bool
 	prompt "tac"
+	depends on !BUSYBOX_TAC || ALLYES
+
+comment "busybox' tac is selected!"
+	depends on BUSYBOX_TAC
 
 config COREUTILS_MD5SUM
 	bool
@@ -219,6 +339,10 @@ comment "BusyBox' dd is selected!"
 config COREUTILS_YES
 	bool
 	prompt "yes"
+	depends on !BUSYBOX_YES || ALLYES
+
+comment "busybox' yes is selected!"
+	depends on BUSYBOX_YES
 
 config COREUTILS_FACTOR
 	bool
@@ -231,6 +355,10 @@ config COREUTILS_JOIN
 config COREUTILS_PWD
 	bool
 	prompt "pwd"
+	depends on !BUSYBOX_PWD || ALLYES
+
+comment "busybox' pwd is selected!"
+	depends on BUSYBOX_PWD
 
 config COREUTILS_SHUF
 	bool
@@ -239,10 +367,18 @@ config COREUTILS_SHUF
 config COREUTILS_SHA1SUM
 	bool
 	prompt "sha1sum"
+	depends on !BUSYBOX_SHA1SUM || ALLYES
+
+comment "busybox' sha1sum is selected!"
+	depends on BUSYBOX_SHA1SUM
 
 config COREUTILS_TR
 	bool
 	prompt "tr"
+	depends on !BUSYBOX_TR || ALLYES
+
+comment "busybox' tr is selected!"
+	depends on BUSYBOX_TR
 
 config COREUTILS_CSPLIT
 	bool
@@ -251,10 +387,18 @@ config COREUTILS_CSPLIT
 config COREUTILS_DU
 	bool
 	prompt "du"
+	depends on !BUSYBOX_DU || ALLYES
+
+comment "busybox' du is selected!"
+	depends on BUSYBOX_DU
 
 config COREUTILS_TAIL
 	bool
 	prompt "tail"
+	depends on !BUSYBOX_TAIL || ALLYES
+
+comment "busybox' tail is selected!"
+	depends on BUSYBOX_TAIL
 
 config COREUTILS_PTX
 	bool
@@ -267,22 +411,42 @@ config COREUTILS_BASE64
 config COREUTILS_TIMEOUT
 	bool
 	prompt "timeout"
+	depends on !BUSYBOX_TIMEOUT || ALLYES
+
+comment "busybox' timeout is selected!"
+	depends on BUSYBOX_TIMEOUT
 
 config COREUTILS_SORT
 	bool
 	prompt "sort"
+	depends on !BUSYBOX_SORT || ALLYES
+
+comment "busybox' sort is selected!"
+	depends on BUSYBOX_SORT
 
 config COREUTILS_FALSE
 	bool
 	prompt "false"
+	depends on !BUSYBOX_FALSE || ALLYES
+
+comment "busybox' false is selected!"
+	depends on BUSYBOX_FALSE
 
 config COREUTILS_DIRNAME
 	bool
 	prompt "dirname"
+	depends on !BUSYBOX_DIRNAME || ALLYES
+
+comment "busybox' dirname is selected!"
+	depends on BUSYBOX_DIRNAME
 
 config COREUTILS_TEST
 	bool
 	prompt "test"
+	depends on !BUSYBOX_TEST || ALLYES
+
+comment "busybox' test is selected!"
+	depends on BUSYBOX_TEST
 
 config COREUTILS_FMT
 	bool
@@ -299,10 +463,18 @@ config COREUTILS_PINKY
 config COREUTILS_BASENAME
 	bool
 	prompt "basename"
+	depends on !BUSYBOX_BASENAME || ALLYES
+
+comment "busybox' basename is selected!"
+	depends on BUSYBOX_BASENAME
 
 config COREUTILS_ID
 	bool
 	prompt "id"
+	depends on !BUSYBOX_ID || ALLYES
+
+comment "busybox' id is selected!"
+	depends on BUSYBOX_ID
 
 config COREUTILS_LINK
 	bool
@@ -311,30 +483,58 @@ config COREUTILS_LINK
 config COREUTILS_SLEEP
 	bool
 	prompt "sleep"
+	depends on !BUSYBOX_SLEEP || ALLYES
+
+comment "busybox' sleep is selected!"
+	depends on BUSYBOX_SLEEP
 
 config COREUTILS_SHA256SUM
 	bool
 	prompt "sha256sum"
+	depends on !BUSYBOX_SHA256SUM || ALLYES
+
+comment "busybox' sha256sum is selected!"
+	depends on BUSYBOX_SHA256SUM
 
 config COREUTILS_ENV
 	bool
 	prompt "env"
+	depends on !BUSYBOX_ENV || ALLYES
+
+comment "busybox' env is selected!"
+	depends on BUSYBOX_ENV
 
 config COREUTILS_WHO
 	bool
 	prompt "who"
+	depends on !BUSYBOX_WHO || ALLYES
+
+comment "busybox' who is selected!"
+	depends on BUSYBOX_WHO
 
 config COREUTILS_LOGNAME
 	bool
 	prompt "logname"
+	depends on !BUSYBOX_LOGNAME || ALLYES
+
+comment "busybox' logname is selected!"
+	depends on BUSYBOX_LOGNAME
 
 config COREUTILS_WHOAMI
 	bool
 	prompt "whoami"
+	depends on !BUSYBOX_WHOAMI || ALLYES
+
+comment "busybox' whoami is selected!"
+	depends on BUSYBOX_WHOAMI
 
 config COREUTILS_STTY
 	bool
 	prompt "stty"
+	depends on !BUSYBOX_STTY || ALLYES
+
+comment "busybox' stty is selected!"
+	depends on BUSYBOX_STTY
 
 config COREUTILS_PATHCHK
 	bool
@@ -347,6 +547,10 @@ config COREUTILS_NL
 config COREUTILS_WC
 	bool
 	prompt "wc"
+	depends on !BUSYBOX_WC || ALLYES
+
+comment "busybox' wc is selected!"
+	depends on BUSYBOX_WC
 
 config COREUTILS_UNLINK
 	bool
@@ -355,6 +559,10 @@ config COREUTILS_UNLINK
 config COREUTILS_UNEXPAND
 	bool
 	prompt "unexpand"
+	depends on !BUSYBOX_UNEXPAND || ALLYES
+
+comment "busybox' unexpand is selected!"
+	depends on BUSYBOX_UNEXPAND
 
 config COREUTILS_NPROC
 	bool
@@ -367,46 +575,90 @@ config COREUTILS_VDIR
 config COREUTILS_SYNC
 	bool
 	prompt "sync"
+	depends on !BUSYBOX_SYNC || ALLYES
+
+comment "busybox' sync is selected!"
+	depends on BUSYBOX_SYNC
 
 config COREUTILS_RM
 	bool
 	prompt "rm"
+	depends on !BUSYBOX_RM || ALLYES
+
+comment "busybox' rm is selected!"
+	depends on BUSYBOX_RM
 
 config COREUTILS_CKSUM
 	bool
 	prompt "cksum"
+	depends on !BUSYBOX_CKSUM || ALLYES
+
+comment "busybox' cksum is selected!"
+	depends on BUSYBOX_CKSUM
 
 config COREUTILS_TEE
 	bool
 	prompt "tee"
+	depends on !BUSYBOX_TEE || ALLYES
+
+comment "busybox' tee is selected!"
+	depends on BUSYBOX_TEE
 
 config COREUTILS_MKDIR
 	bool
 	prompt "mkdir"
+	depends on !BUSYBOX_MKDIR || ALLYES
+
+comment "busybox' mkdir is selected!"
+	depends on BUSYBOX_MKDIR
 
 config COREUTILS_MV
 	bool
 	prompt "mv"
+	depends on !BUSYBOX_MV || ALLYES
+
+comment "busybox' mv is selected!"
+	depends on BUSYBOX_MV
 
 config COREUTILS_LS
 	bool
 	prompt "ls"
+	depends on !BUSYBOX_LS || ALLYES
+
+comment "busybox' ls is selected!"
+	depends on BUSYBOX_LS
 
 config COREUTILS_HEAD
 	bool
 	prompt "head"
+	depends on !BUSYBOX_HEAD || ALLYES
+
+comment "busybox' head is selected!"
+	depends on BUSYBOX_HEAD
 
 config COREUTILS_TRUE
 	bool
 	prompt "true"
+	depends on !BUSYBOX_TRUE || ALLYES
+
+comment "busybox' true is selected!"
+	depends on BUSYBOX_TRUE
 
 config COREUTILS_CAT
 	bool
 	prompt "cat"
+	depends on !BUSYBOX_CAT || ALLYES
+
+comment "busybox' cat is selected!"
+	depends on BUSYBOX_CAT
 
 config COREUTILS_KILL
 	bool
 	prompt "kill"
+	depends on !BUSYBOX_KILL || ALLYES
+
+comment "busybox' kill is selected!"
+	depends on BUSYBOX_KILL
 
 config COREUTILS_CP
 	bool
@@ -421,14 +673,26 @@ comment "BusyBox' cp is selected!"
 config COREUTILS_COMM
 	bool
 	prompt "comm"
+	depends on !BUSYBOX_COMM || ALLYES
+
+comment "busybox' comm is selected!"
+	depends on BUSYBOX_COMM
 
 config COREUTILS_SPLIT
 	bool
 	prompt "split"
+	depends on !BUSYBOX_SPLIT || ALLYES
+
+comment "busybox' split is selected!"
+	depends on BUSYBOX_SPLIT
 
 config COREUTILS_FOLD
 	bool
 	prompt "fold"
+	depends on !BUSYBOX_FOLD || ALLYES
+
+comment "busybox' fold is selected!"
+	depends on BUSYBOX_FOLD
 
 config COREUTILS_PR
 	bool
@@ -437,10 +701,18 @@ config COREUTILS_PR
 config COREUTILS_UPTIME
 	bool
 	prompt "uptime"
+	depends on !BUSYBOX_UPTIME || ALLYES
+
+comment "busybox' uptime is selected!"
+	depends on BUSYBOX_UPTIME
 
 config COREUTILS_NICE
 	bool
 	prompt "nice"
+	depends on !BUSYBOX_NICE || ALLYES
+
+comment "busybox' nice is selected!"
+	depends on BUSYBOX_NICE
 
 endif
 
