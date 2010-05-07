@@ -1,0 +1,13 @@
+## SECTION=shell_and_console
+config PARTED
+	tristate
+	prompt "parted"
+	select GETTEXT
+	select READLINE
+	select E2FSPROGS
+	select NCURSES
+	help
+	  The GNU Parted program allows you to create, destroy, resize, move,
+	  and copy hard disk partitions. Parted can be used for creating space
+	  for new operating systems, reorganizing disk usage, and copying data
+	  to new hard disks.
