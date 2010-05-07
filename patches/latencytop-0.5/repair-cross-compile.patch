@@ -1,0 +1,30 @@
+Adapt the Makefile for Cross-compilation
+
+Signed-off-by: Remy Bohmer <linux@bohmer.net>
+---
+ Makefile |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+Index: latencytop-0.5/Makefile
+===================================================================
+--- latencytop-0.5.orig/Makefile
++++ latencytop-0.5/Makefile
+@@ -26,14 +26,16 @@ endif
+ 
+ # We write explicity this "implicit rule"
+ %.o : %.c
+-	gcc -c $(CFLAGS) $(XCFLAGS) $< -o $@
++	$(CC) -c $(CFLAGS) $(CPPFLAGS) $(XCFLAGS) $< -o $@
+ 
+ latencytop:  $(OBJS) latencytop.h Makefile
+-	gcc $(CFLAGS) $(OBJS) $(LDF) -o latencytop 
++	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LDF) -o latencytop
+ 
++.PHONY: clean
+ clean:
+ 	rm -f *~ latencytop DEADJOE *.o
+ 
++.PHONY: install
+ install: latencytop
+ 	mkdir -p $(DESTDIR)/usr/share/latencytop
+ 	install -m 0644 latencytop.trans $(DESTDIR)/usr/share/latencytop/latencytop.trans
