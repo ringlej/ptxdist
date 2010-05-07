@@ -386,10 +386,12 @@ add_locale =							\
 add_zoneinfo =							\
 	ZONEINFO_NAME=$(strip $(1));				\
 	PREF=$(strip $(2));					\
+	SYSROOT=$(strip $(3));					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)			\
 	$(SCRIPTSDIR)/make_zoneinfo.sh				\
 	-n $$ZONEINFO_NAME					\
-	-p $$PREF
+	-p $$PREF						\
+	-s $$SYSROOT
 
 #
 # extract

@@ -21,14 +21,17 @@ usage() {
 }
 
 add_zoneinfo() {
-	local PREF ZONEINFO_NAME
-	while getopts "n:p:" opt; do
+	local PREF ZONEINFO_NAME SYSROOT_USR
+	while getopts "n:p:s:" opt; do
 		case "${opt}" in
 		    n)
-		    	ZONEINFO_NAME="${OPTARG}"
+		        ZONEINFO_NAME="${OPTARG}"
                         ;;
                     p)
                         PREF="${OPTARG}"
+                        ;;
+                    s)
+                        SYSROOT_USR="${OPTARG}"
                         ;;
 		    *)
 			usage
@@ -36,9 +39,9 @@ add_zoneinfo() {
 		esac
 	done
 
-	SYSROOT_USR=`ptxd_get_sysroot_usr`
-	[ ! -d ${SYSROOT_USR} ] && { echo "Toolchain sysroot dir not found"; exit 1; }
-	[ ! -d ${SYSROOT_USR}/share/zoneinfo ] && { echo "Zoneinfo dir not found"; exit 1; }
+	[ -z ${SYSROOT_USR} ] && SYSROOT_USR=`ptxd_get_sysroot_usr`
+	[ ! -d ${SYSROOT_USR} ] && { echo "Toolchain sysroot dir (${SYSROOT_USR}) not found"; exit 1; }
+	[ ! -d ${SYSROOT_USR}/share/zoneinfo ] && { echo "Zoneinfo dir (${SYSROOT_USR}) not found"; exit 1; }
 
 	if [ ! -d ${PREF}/zoneinfo ]; then
 		mkdir -p ${PREF}/zoneinfo

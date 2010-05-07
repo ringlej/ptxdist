@@ -137,9 +137,15 @@ $(STATEDIR)/timezone.targetinstall:
 	@$(call install_fixup, timezone,DEPENDS,)
 	@$(call install_fixup, timezone,DESCRIPTION,missing)
 
+ifdef PTXCONF_TIMEZONE_LOCAL_DATABASE
 	@for target in $(TIMEZONE-y); do \
-		$(call add_zoneinfo, $$target, $(TIMEZONE_DIR)); \
+		$(call add_zoneinfo, $$target, $(TIMEZONE_DIR), $(PTXDIST_SYSROOT_HOST)/usr); \
 	done
+else
+	@for target in $(TIMEZONE-y); do \
+		$(call add_zoneinfo, $$target, $(TIMEZONE_DIR), ""); \
+	done
+endif
 
 	@$(call install_copy, timezone, 0, 0, 0755, /usr/share/zoneinfo)
 	@for d in `find ${TIMEZONE_DIR}/zoneinfo/ -type d | awk -v FS="zoneinfo/" '{print $$2}'`; do \
@@ -151,7 +157,7 @@ $(STATEDIR)/timezone.targetinstall:
         done
 
 ifdef PTXCONF_GLIBC_LOCALTIME_LINK
-	@$(call install_link, timezone, $(PTXCONF_GLIBC_LOCALTIME_LINK), /etc/localtime)
+	@$(call install_link, timezone, ..$(PTXCONF_GLIBC_LOCALTIME_LINK), /etc/localtime)
 endif
 
 	@$(call install_finish, timezone)

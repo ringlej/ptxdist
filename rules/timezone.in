@@ -1,13 +1,13 @@
 ## SECTION=core
 
-comment "Time zone support doesn't work with OSELAS.Toolchain-1.1.0"
-comment "and prio versions, hence marked as broken for now"
+# comment "Time zone support doesn't work with OSELAS.Toolchain-1.1.0"
+# comment "and prio versions, hence marked as broken for now"
 
 menuconfig TIMEZONE
 	tristate
 	prompt "Timezone Files                "
 	depends on GLIBC
-	depends on BROKEN
+	select HOST_TZDATABASE if TIMEZONE_LOCAL_DATABASE
 	help
 	  installs timezone files
 
@@ -22,6 +22,15 @@ config GLIBC_LOCALTIME_LINK
 	help
 	  Where should /etc/localtime point to.
 	  (e.g. /usr/share/zoneinfo/Europe/Berlin)
+
+config TIMEZONE_LOCAL_DATABASE
+	bool
+	prompt "Use local build timezone database"
+	depends on TIMEZONE
+	default y
+	help
+	  Don't use the timezone info provided by the toolchain
+	  but a locally build from source
 
 config TIMEZONE_AFRICA
 	bool
