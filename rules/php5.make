@@ -321,7 +321,7 @@ ifdef PTXCONF_PHP5_SAPI_CLI
 endif
 
 ifdef PTXCONF_PHP5_SAPI_CGI
-	@$(call install_copy, php5, 0, 0, 0755, -, /usr/bin/php5-cgi)
+	@$(call install_copy, php5, 0, 0, 0755, -, /usr/bin/php-cgi)
 endif
 
 ifdef PTXCONF_PHP5_INI
