@@ -39,6 +39,7 @@ $(U_BOOT_SOURCE):
 U_BOOT_PATH	:= PATH=$(CROSS_PATH)
 U_BOOT_MAKE_OPT	:= CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) HOSTCC=$(HOSTCC)
 U_BOOT_MAKE_PAR	:= NO
+U_BOOT_TAGS_OPT	:= ctags cscope etags
 
 $(STATEDIR)/u-boot.prepare:
 	@$(call targetinfo)
