@@ -1,0 +1,13 @@
+## SECTION=shell_and_console
+
+config DIALOG
+	tristate
+	select NCURSES
+	prompt "dialog"
+	help
+	  Dialog is a program that will let you to present a variety of
+	  questions or display messages using dialog boxes from a shell script.
+	  It is built from the dialog library, which consists of several widgets
+	  as well as utility functions that are used by the widgets or the main
+	  program.
+
