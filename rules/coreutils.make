@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_COREUTILS) += coreutils
 #
 # Paths and names
 #
-COREUTILS_VERSION	:= 8.4
+COREUTILS_VERSION	:= 8.5
 COREUTILS		:= coreutils-$(COREUTILS_VERSION)
 COREUTILS_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/coreutils/$(COREUTILS).tar.gz
 COREUTILS_SOURCE	:= $(SRCDIR)/$(COREUTILS).tar.gz
@@ -93,7 +93,7 @@ $(STATEDIR)/coreutils.targetinstall:
 	@$(call install_copy, coreutils, 0, 0, 0644, -, /usr/lib/coreutils/libstdbuf.so)
 
 ifdef PTXCONF_COREUTILS_ECHO
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/cp)
+	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/echo)
 endif
 ifdef PTXCONF_COREUTILS_STAT
 	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/stat)
