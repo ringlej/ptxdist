@@ -104,3 +104,12 @@ config LIBC_NSL
 	select UCLIBC_NSL		if LIBC_UCLIBC
 
 endif
+
+#
+# needed to keep dependencies working
+# there must be a package selecting BASE
+#
+config NO_LIBC
+	tristate
+	select BASE
+	default y if !LIBC
