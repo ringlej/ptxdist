@@ -17,14 +17,22 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #
 # Paths and names
 #
+ifdef PTXCONF_GLIB_EXPERIMENTAL
+GLIB_VERSION	:= 2.25.7
+else
 GLIB_VERSION	:= 2.22.2
+endif
 
 GLIB		:= glib-$(GLIB_VERSION)
 GLIB_SUFFIX	:= tar.bz2
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
 GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
+ifdef PTXCONF_GLIB_EXPERIMENTAL
+GLIB_URL	:= http://ftp.gtk.org/pub/glib/2.25/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
+else
 GLIB_URL	:= http://ftp.gtk.org/pub/glib/2.22/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
+endif
 
 # ----------------------------------------------------------------------------
 # Get
@@ -52,6 +60,27 @@ GLIB_ENV 	:= \
 # is the right choice for no locales and locales-via-libc
 #
 
+ifdef PTXCONF_GLIB_EXPERIMENTAL
+GLIB_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-silent-rules \
+	--enable-debug=minimum \
+	--disable-gc-friendly \
+	--enable-mem-pools \
+	--enable-threads \
+	--with-threads=posix \
+	--disable-rebuilds \
+	--disable-included-printf \
+	--disable-selinux \
+	--disable-fam \
+	--disable-xattr \
+	--disable-gtk-doc \
+	--disable-man \
+	--with-pcre=internal \
+	--enable-static \
+	--enable-shared \
+	--with-libiconv=no
+else
 GLIB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-threads \
@@ -70,28 +99,17 @@ GLIB_AUTOCONF := \
 	--with-gnu-ld \
 	--with-pcre=internal \
 	--with-libiconv=no
-
-#  --enable-debug=[no/minimum/yes]
-#                          turn on debugging [default=minimum]
-#  --disable-mem-pools     disable all glib memory pools
-#  --disable-rebuilds      disable all source autogeneration rules
-#  --disable-visibility    don't use ELF visibility attributes
-#  --disable-largefile     omit support for large files
-#  --enable-iconv-cache=[yes/no/auto]
-#                          cache iconv descriptors [default=auto]
-#  --disable-regex         disable the compilation of GRegex
-#
-#  --with-pic              try to use only PIC/non-PIC objects [default=use
-#                          both]
-#  --with-gio-module-dir=PATH
-#                          Load gio modules from this directory
-#                          [LIBDIR/gio/modules]
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
 
+ifdef PTXCONF_GLIB_EXPERIMENTAL
+GLIB_LIB_VERSION := 0.2507.0
+else
 GLIB_LIB_VERSION := 0.2200.2
+endif
 
 $(STATEDIR)/glib.targetinstall:
 	@$(call targetinfo)
