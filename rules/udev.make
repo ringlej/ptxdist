@@ -16,14 +16,11 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
-UDEV_VERSION	:= 150
+UDEV_VERSION	:= 158
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
 UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
-ifdef PTXCONF_UDEV_COMMON_RULES
-UDEV_DEVPKG	:= NO
-endif
 
 UDEV_URL := \
 	http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX) \
@@ -101,10 +98,10 @@ else
 UDEV_AUTOCONF	+= --disable-pcidb
 endif
 
-ifdef PTXCONF_UDEV_EXTRA_MODEM_MODESWITCH
-UDEV_AUTOCONF	+= --enable-modem-modeswitch
+ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
+UDEV_AUTOCONF	+= --enable-mobile-action-modeswitch
 else
-UDEV_AUTOCONF	+= --disable-modem-modeswitch
+UDEV_AUTOCONF	+= --disable-mobile-action-modeswitch
 endif
 
 ifdef PTXCONF_UDEV_SELINUX
@@ -188,39 +185,6 @@ ifdef PTXCONF_UDEV_DEFAULT_KEYMAPS
 			$(UDEV_PKGDIR)/lib/udev/keymaps/$$file, \
 			/lib/udev/keymaps/$$file, n); \
 	done
-endif
-
-ifdef PTXCONF_UDEV_COMMON_RULES
-#
-# these rules are not installed by default
-#
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-isdn.rules, \
-		/lib/udev/rules.d/40-isdn.rules, n);
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-zaptel.rules, \
-		/lib/udev/rules.d/40-zaptel.rules, n);
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-s390.rules, \
-		/lib/udev/rules.d/40-s390.rules, n);
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-pilot-links.rules, \
-		/lib/udev/rules.d/40-pilot-links.rules, n);
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-ppc.rules, \
-		/lib/udev/rules.d/40-ppc.rules, n);
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-infiniband.rules, \
-		/lib/udev/rules.d/40-infiniband.rules, n);
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/40-ia64.rules, \
-		/lib/udev/rules.d/40-ia64.rules, n);
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/64-device-mapper.rules, \
-		/lib/udev/rules.d/64-device-mapper.rules, n);
-	@$(call install_copy, udev, 0, 0, 0644, \
-		$(UDEV_DIR)/rules/packages/64-md-raid.rules, \
-		/lib/udev/rules.d/64-md-raid.rules, n);
 endif
 
 ifdef PTXCONF_UDEV_CUST_RULES
@@ -333,12 +297,10 @@ ifdef PTXCONF_UDEV_EXTRA_KEYMAP
 		/lib/udev/rules.d/95-keymap.rules,n)
 endif
 
-ifdef PTXCONF_UDEV_EXTRA_MODEM_MODESWITCH
-	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/modem-modeswitch)
+ifdef PTXCONF_UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
+	@$(call install_copy, udev, 0, 0, 0755, -, /lib/udev/mobile-action-modeswitch)
 	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/61-option-modem-modeswitch.rules,n)
-	@$(call install_copy, udev, 0, 0, 0644, -, \
-		/lib/udev/rules.d/61-mobile-action.rules,n)
+		/lib/udev/rules.d/61-mobile-action.rules)
 endif
 
 ifdef PTXCONF_UDEV_EXTRA_PATH_ID
@@ -393,9 +355,7 @@ ifdef PTXCONF_UDEV_EXTRA_WRITE_NET_RULES
 endif
 
 ifdef PTXCONF_UDEV_LIBUDEV
-	@$(call install_copy, udev, 0, 0, 0644, -, /lib/libudev.so.0.6.0)
-	@$(call install_link, udev, libudev.so.0.6.0, /lib/libudev.so.0)
-	@$(call install_link, udev, libudev.so.0.6.0, /lib/libudev.so)
+	@$(call install_lib, udev, 0, 0, 0644, libudev)
 endif
 
 ifdef PTXCONF_UDEV_LIBGUDEV

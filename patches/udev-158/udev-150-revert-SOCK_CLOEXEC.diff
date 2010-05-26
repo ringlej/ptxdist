@@ -48,9 +48,9 @@ index c2fff00..6738a9b 100644
  int udev_util_replace_chars(char *str, const char *white);
  int udev_util_encode_string(const char *str, char *str_enc, size_t len);
 +void util_set_fd_cloexec(int fd);
- unsigned int util_string_hash32(const char *str);
+ unsigned int util_string_hash32(const char *key);
+ uint64_t util_string_bloom64(const char *str);
  
- /* libudev-util-private.c */
 diff --git a/libudev/libudev-util.c b/libudev/libudev-util.c
 index c0209f9..9a656b5 100644
 --- a/libudev/libudev-util.c

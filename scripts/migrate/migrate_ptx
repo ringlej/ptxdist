@@ -107,3 +107,9 @@ s/^\(\(# \)\?PTXCONF_GLIB_\)_\(.*$\)/\1\3/
 #
 s/^\(\(# \)\?PTXCONF_SUDO_\)_\(SENDMAIL\)/\1USE_\3/
 s/^\(\(# \)\?PTXCONF_SUDO_\)_\(ETC_SUDOERS\)/\1INSTALL_\3/
+
+#
+# symbol : UDEV_EXTRA_MODEM_MODESWITCH	-> UDEV_EXTRA_MOBILE_ACTION_MODESWITCH
+# reason : upstream name changed
+#
+s/^\(\(# \)\?PTXCONF_UDEV_EXTRA_\)MODEM\(_MODESWITCH.*$\)/\1MOBILE_ACTION\3/
