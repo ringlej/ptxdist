@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_COMMONCPP2) += commoncpp2
 #
 # Paths and names
 #
-COMMONCPP2_VERSION	:= 1.7.3
+COMMONCPP2_VERSION	:= 1.8.0
 COMMONCPP2		:= commoncpp2-$(COMMONCPP2_VERSION)
 COMMONCPP2_SUFFIX	:= tar.gz
 COMMONCPP2_SOURCE	:= $(SRCDIR)/$(COMMONCPP2).$(COMMONCPP2_SUFFIX)
@@ -46,7 +46,21 @@ COMMONCPP2_MAKE_PAR := NO
 #
 # autoconf
 #
-COMMONCPP2_AUTOCONF := $(CROSS_AUTOCONF_USR)
+COMMONCPP2_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--disable-debug \
+	--disable-profiling \
+	--without-ipv6 \
+	--without-nat \
+	--enable-monotonic \
+	--enable-extras \
+	--without-gnutls \
+	--without-openssl \
+	--without-memaudit \
+	--without-cppunit
+
+# the logic for this switch is broken in 1.8.0:
+#	--with-exceptions
 
 ifndef PTXCONF_COMMONCPP2_LIBZ
 COMMONCPP2_AUTOCONF += --without-compression
@@ -72,13 +86,13 @@ $(STATEDIR)/commoncpp2.targetinstall:
 	@$(call install_fixup, commoncpp2,DEPENDS,)
 	@$(call install_fixup, commoncpp2,DESCRIPTION,missing)
 
-	@$(call install_copy, commoncpp2, 0, 0, 0644, -, /usr/lib/libccgnu2-1.7.so.0.0.3)
-	@$(call install_link, commoncpp2, libccgnu2-1.7.so.0.0.3, /usr/lib/libccgnu2-1.7.so.0)
-	@$(call install_link, commoncpp2, libccgnu2-1.7.so.0.0.3, /usr/lib/libccgnu2.so)
+	@$(call install_copy, commoncpp2, 0, 0, 0644, -, /usr/lib/libccgnu2-1.8.so.0.0.0)
+	@$(call install_link, commoncpp2, libccgnu2-1.8.so.0.0.0, /usr/lib/libccgnu2-1.8.so.0)
+	@$(call install_link, commoncpp2, libccgnu2-1.8.so.0.0.0, /usr/lib/libccgnu2.so)
 
-	@$(call install_copy, commoncpp2, 0, 0, 0644, -, /usr/lib/libccext2-1.7.so.0.0.3)
-	@$(call install_link, commoncpp2, libccext2-1.7.so.0.0.3, /usr/lib/libccext2-1.7.so.1)
-	@$(call install_link, commoncpp2, libccext2-1.7.so.0.0.3, /usr/lib/libccext2.so)
+	@$(call install_copy, commoncpp2, 0, 0, 0644, -, /usr/lib/libccext2-1.8.so.0.0.0)
+	@$(call install_link, commoncpp2, libccext2-1.8.so.0.0.0, /usr/lib/libccext2-1.8.so.0)
+	@$(call install_link, commoncpp2, libccext2-1.8.so.0.0.0, /usr/lib/libccext2.so)
 
 	@$(call install_finish, commoncpp2)
 

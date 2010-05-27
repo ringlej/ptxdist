@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_E2FSPROGS) += e2fsprogs
 #
 # Paths and names
 #
-E2FSPROGS_VERSION	:= 1.41.9
+E2FSPROGS_VERSION	:= 1.41.12
 E2FSPROGS		:= e2fsprogs-$(E2FSPROGS_VERSION)
 E2FSPROGS_SUFFIX	:= tar.gz
 E2FSPROGS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/e2fsprogs/$(E2FSPROGS).$(E2FSPROGS_SUFFIX)
@@ -44,21 +44,25 @@ E2FSPROGS_ENV 	:= $(CROSS_ENV)
 #
 E2FSPROGS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-blkid-debug \
+	--disable-symlink-install \
+	--disable-symlink-build \
+	--disable-verbose-makecmds \
+	--enable-htree \
+	--enable-elf-shlibs \
 	--disable-bsd-shlibs \
+	--disable-profile \
 	--disable-checker \
+	--disable-jbd-debug \
+	--disable-blkid-debug \
+	--disable-testio-debug \
+	--disable-libuuid \
+	--disable-libblkid \
 	--disable-debugfs \
 	--disable-e2initrd-helper \
-	--disable-jbd-debug \
-	--disable-nls \
-	--disable-profile \
-	--disable-rpath \
-	--disable-testio-debug \
 	--disable-tls \
-	--enable-elf-shlibs \
-	--enable-htree \
-	--disable-libblkid \
-	--disable-libuuid
+	--disable-nls \
+	--disable-rpath \
+	--without-diet-libc
 
 ifdef PTXCONF_E2FSPROGS_COMPRESSION
 E2FSPROGS_AUTOCONF += --enable-compression

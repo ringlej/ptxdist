@@ -9,10 +9,10 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  src/ccgnu2-config.in |    6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-Index: commoncpp2-1.7.3/src/ccgnu2-config.in
+Index: commoncpp2-1.8.0/src/ccgnu2-config.in
 ===================================================================
---- commoncpp2-1.7.3.orig/src/ccgnu2-config.in
-+++ commoncpp2-1.7.3/src/ccgnu2-config.in
+--- commoncpp2-1.8.0.orig/src/ccgnu2-config.in
++++ commoncpp2-1.8.0/src/ccgnu2-config.in
 @@ -18,7 +18,7 @@ ccload="@DYN_LOADER@"
  ccstd="@SSL_LIBS@ @ZSTREAM_LIBS@"
  prefix="@prefix@"

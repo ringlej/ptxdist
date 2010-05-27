@@ -1,0 +1,133 @@
+Subject: [PATCH] Fix --without-exceptions
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+If built --without-exceptions, use the THROW() macro instead of calling
+throw directly. The files that use THROW() do also have to include
+cstdlib. Fixes a bunch of compile errors.
+
+Signed-of-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+# rsc: https://savannah.gnu.org/patch/index.php?7199
+
+ inc/cc++/applog.h |    2 ++
+ src/applog.cpp    |   19 ++++++++++---------
+ src/socket.cpp    |    4 ++--
+ 3 files changed, 14 insertions(+), 11 deletions(-)
+
+Index: commoncpp2-1.8.0/src/socket.cpp
+===================================================================
+--- commoncpp2-1.8.0.orig/src/socket.cpp
++++ commoncpp2-1.8.0/src/socket.cpp
+@@ -581,13 +581,13 @@ Socket::Error Socket::error(Error err, c
+ #ifdef	CCXX_EXCEPTIONS
+ 	switch(Thread::getException()) {
+ 	case Thread::throwObject:
+-		throw((Socket *)this);
++		THROW((Socket *)this);
+ #ifdef	COMMON_STD_EXCEPTION
+ 	case Thread::throwException:
+ 		{
+ 			if(!errs)
+ 				errs = (char *)"";
+-			throw SockException(String(errs), err, systemError);
++			THROW(SockException(String(errs), err, systemError));
+ 		}
+ #endif
+ 	case Thread::throwNothing:
+Index: commoncpp2-1.8.0/inc/cc++/applog.h
+===================================================================
+--- commoncpp2-1.8.0.orig/inc/cc++/applog.h
++++ commoncpp2-1.8.0/inc/cc++/applog.h
+@@ -123,6 +123,7 @@ class __EXPORT HEXdump
+ 
+ };
+ 
++#ifdef	CCXX_EXCEPTIONS
+ /**
+  * Applog exception, used for memory problems at the moment
+  *
+@@ -137,6 +138,7 @@ class __EXPORT AppLogException : public
+     AppLogException(const std::string &what_arg) : ost::Exception(what_arg) {};
+ 
+ };
++#endif
+ 
+ class AppLogPrivate;
+ 
+Index: commoncpp2-1.8.0/src/applog.cpp
+===================================================================
+--- commoncpp2-1.8.0.orig/src/applog.cpp
++++ commoncpp2-1.8.0/src/applog.cpp
+@@ -42,6 +42,7 @@
+ #include <iomanip>
+ #include <iostream>
+ #include <cstdio>
++#include <cstdlib>
+ #include <stdarg.h>
+ #include <errno.h>
+ 
+@@ -301,11 +302,11 @@ logger::logger(const char* logFileName,
+         _logfs.open(_nomeFile.c_str(), std::fstream::in | std::fstream::out);
+       }
+       else
+-        throw AppLogException("Can't create pipe");
++        THROW(AppLogException("Can't create pipe"));
+     }
+ #endif
+     if (_logfs.fail())
+-      throw AppLogException("Can't open log file name");
++      THROW(AppLogException("Can't open log file name"));
+   }
+ }
+ 
+@@ -346,11 +347,11 @@ void logger::logFileName(const char* Fil
+         _logfs.open(_nomeFile.c_str(), std::fstream::in | std::fstream::out);
+       }
+       else
+-        throw AppLogException("Can't create pipe");
++        THROW(AppLogException("Can't create pipe"));
+     }
+ #endif
+     if (_logfs.fail())
+-      throw AppLogException("Can't open log file name");
++      THROW(AppLogException("Can't open log file name"));
+   }
+ 
+ }
+@@ -407,7 +408,7 @@ AppLog::AppLog(const char* logFileName,
+   d= NULL; // pedantic fussy about initing members before base classes...
+   d = new AppLogPrivate();
+   if (!d)
+-    throw  AppLogException("Memory allocation problem");
++    THROW(AppLogException("Memory allocation problem"));
+ 
+   d->_nomeFile = "";
+   d->_logDirectly = logDirectly;
+@@ -460,11 +461,11 @@ AppLog::AppLog(const char* logFileName,
+         d->_logfs.open(d->_nomeFile.c_str(), std::fstream::in | std::fstream::out);
+       }
+       else
+-        throw AppLogException("Can't create pipe");
++        THROW(AppLogException("Can't create pipe"));
+     }
+ #endif
+     if (d->_logfs.fail())
+-      throw AppLogException("Can't open log file name");
++      THROW(AppLogException("Can't open log file name"));
+   }
+ 
+   //from Error level on write to syslog also
+@@ -562,11 +563,11 @@ void AppLog::logFileName(const char* Fil
+         d->_logfs.open(d->_nomeFile.c_str(), std::fstream::in | std::fstream::out);
+       }
+       else
+-        throw AppLogException("Can't create pipe");
++        THROW(AppLogException("Can't create pipe"));
+     }
+ #endif
+     if (d->_logfs.fail())
+-      throw AppLogException("Can't open log file name");
++      THROW(AppLogException("Can't open log file name"));
+   }
+   d->_lock.leaveMutex();
+ }

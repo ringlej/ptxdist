@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_CPUFREQUTILS) += cpufrequtils
 #
 # Paths and names
 #
-CPUFREQUTILS_VERSION	:= 006
+CPUFREQUTILS_VERSION	:= 007
 CPUFREQUTILS		:= cpufrequtils-$(CPUFREQUTILS_VERSION)
 CPUFREQUTILS_SUFFIX	:= tar.bz2
 CPUFREQUTILS_URL	:= http://www.kernel.org/pub/linux/utils/kernel/cpufreq/$(CPUFREQUTILS).$(CPUFREQUTILS_SUFFIX)
