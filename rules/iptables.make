@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_IPTABLES) += iptables
 #
 # Paths and names
 #
-IPTABLES_VERSION	:= 1.4.5
+IPTABLES_VERSION	:= 1.4.8
 IPTABLES		:= iptables-$(IPTABLES_VERSION)
 IPTABLES_SUFFIX		:= tar.bz2
 IPTABLES_URL		:= http://ftp.netfilter.org/pub/iptables/$(IPTABLES).$(IPTABLES_SUFFIX)
@@ -47,7 +47,22 @@ IPTABLES_ENV	:= $(CROSS_ENV)
 IPTABLES_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
-	--with-xtlibdir=/usr/lib
+	--with-xtlibdir=/usr/lib \
+	--enable-large-file \
+	--disable-devel \
+	--disable-libipq
+
+ifdef PTXCONF_IPTABLES_INSTALL_IPV4_TOOLS
+IPTABLES_AUTOCONF += --enable-ipv4
+else
+IPTABLES_AUTOCONF += --disable-ipv4
+endif
+
+ifdef PTXCONF_IPTABLES_INSTALL_IPV6_TOOLS
+IPTABLES_AUTOCONF += --enable-ipv6
+else
+IPTABLES_AUTOCONF += --disable-ipv6
+endif
 
 # ----------------------------------------------------------------------------
 # Install
@@ -83,9 +98,9 @@ $(STATEDIR)/iptables.targetinstall:
 	@$(call install_link, iptables, libiptc.so.0.0.0, /usr/lib/libiptc.so.0)
 
 	@$(call install_copy, iptables, 0, 0, 0644, -, \
-		/usr/lib/libxtables.so.2.1.0)
-	@$(call install_link, iptables, libxtables.so.2.1.0, /usr/lib/libxtables.so)
-	@$(call install_link, iptables, libxtables.so.2.1.0, /usr/lib/libxtables.so.2)
+		/usr/lib/libxtables.so.4.0.0)
+	@$(call install_link, iptables, libxtables.so.4.0.0, /usr/lib/libxtables.so)
+	@$(call install_link, iptables, libxtables.so.4.0.0, /usr/lib/libxtables.so.4)
 
 # IPv6 part
 ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES_MULTI
