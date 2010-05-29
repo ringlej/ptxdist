@@ -375,6 +375,12 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_SPLASHUTILS)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SPLASHUTILS))
 endif
 
+ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_SMARTD)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/smartd, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_SMARTD))
+endif
+
 	@$(call install_finish, initmethod-bbinit)
 
 	@$(call touch)

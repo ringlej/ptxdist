@@ -1,0 +1,30 @@
+#!/bin/sh
+
+DAEMON=/usr/sbin/smartd
+PIDFILE=/var/run/smartd.pid
+
+case $1 in
+start)
+	echo -n "Starting smartd..."
+	start-stop-daemon --start --oknodo \
+		--pidfile $PIDFILE --exec $DAEMON
+
+	if [ "$?" = "0" ]; then
+		echo "done"
+		exit 0
+	else
+		echo "failed"
+		exit 1
+	fi
+
+	;;
+stop)
+	echo "Stopping smartd"
+	start-stop-daemon --stop --oknodo --quiet \
+		--pidfile $PIDFILE --exec $DAEMON
+	;;
+*)
+	echo "usage: $0 [start|stop]"
+	;;
+esac
+

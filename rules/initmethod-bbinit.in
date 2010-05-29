@@ -291,6 +291,12 @@ config INITMETHOD_BBINIT_LINK_SPLASHUTILS
 	prompt "splashutils"
 	default "S00splashutils"
 
+config INITMETHOD_BBINIT_SMARTD
+	string
+	depends on SMARTMONTOOLS_SMARTD_INITD
+	prompt "smartd"
+	default "S40smartd"
+
 endmenu
 
 endif

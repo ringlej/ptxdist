@@ -1,0 +1,45 @@
+## SECTION=shell_and_console
+
+config SMARTMONTOOLS
+	tristate
+	prompt "smartmontools"
+	select BUSYBOX_START_STOP_DAEMON if SMARTMONTOOLS_SMARTD_INITD
+	help
+	  The smartmontools package contains two utility programs (smartctl and smartd)
+	  to control and monitor storage systems using the Self-Monitoring, Analysis
+	  and Reporting Technology System (SMART) built into most modern ATA and SCSI
+	  harddisks. In many cases, these utilities will provide advanced warning of
+	  disk degradation and failure.
+if SMARTMONTOOLS
+
+config SMARTMONTOOLS_SMARTCTL
+	bool
+	default y
+	prompt "install smartctl"
+	help
+	  Control and Monitor Utility for SMART Disks
+
+config SMARTMONTOOLS_SMARTD
+	bool
+	default n
+	prompt "install smartd"
+	help
+	  SMART Disk Monitoring Daemon
+
+config SMARTMONTOOLS_SMARTD_CONFIG
+	bool
+	depends	on SMARTMONTOOLS_SMARTD
+	default n
+	prompt "install smartd.conf"
+	help
+	  SMART Disk Monitoring Daemon Configuration File
+
+config SMARTMONTOOLS_SMARTD_INITD
+	bool
+	depends	on SMARTMONTOOLS_SMARTD
+	default n
+	prompt "install /etc/init.d/smartd"
+	help
+	  SMART Disk Monitoring Daemon Configuration File
+
+endif
