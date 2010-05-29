@@ -22,8 +22,10 @@
 # 4. TIMEOUT not tested. ping has a flag I don't know, and I'm suspicious
 # of the $1 in its args.
 
-# 'ip' just looks too weird.  /sbin/ip looks less weird.
-ip=/sbin/ip
+# busybox installs /bin/ip but iproute2 installs /sbin/ip, so put all the
+# possible locations of ip, ifconfig and route in the PATH to make sure
+# these tools can be found.
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
 
 make_resolv_conf() {
   if [ x"$new_domain_name_servers" != x ]; then
@@ -235,10 +237,10 @@ fi
 
 if [ ${reason} = PREINIT6 ] ; then
   # Ensure interface is up.
-  ${ip} link set ${interface} up
+  ip link set ${interface} up
 
   # Remove any stale addresses from aborted clients.
-  ${ip} -f inet6 addr flush dev ${interface} scope global permanent
+  ip -f inet6 addr flush dev ${interface} scope global permanent
 
   exit_with_hooks 0
 fi
@@ -254,7 +256,7 @@ if [ ${reason} = BOUND6 ] ; then
     exit_with_hooks 2;
   fi
 
-  ${ip} -f inet6 addr add ${new_ip6_address}/${new_ip6_prefixlen} \
+  ip -f inet6 addr add ${new_ip6_address}/${new_ip6_prefixlen} \
 	dev ${interface} scope global
 
   # Check for nameserver options.
@@ -280,7 +282,7 @@ if [ ${reason} = DEPREF6 ] ; then
     exit_with_hooks 2;
   fi
 
-  ${ip} -f inet6 addr change ${new_ip6_address}/${new_ip6_prefixlen} \
+  ip -f inet6 addr change ${new_ip6_address}/${new_ip6_prefixlen} \
        dev ${interface} scope global preferred_lft 0
 
   exit_with_hooks 0
@@ -291,7 +293,7 @@ if [ ${reason} = EXPIRE6 -o ${reason} = RELEASE6 -o ${reason} = STOP6 ] ; then
     exit_with_hooks 2;
   fi
 
-  ${ip} -f inet6 addr del ${old_ip6_address}/${old_ip6_prefixlen} \
+  ip -f inet6 addr del ${old_ip6_address}/${old_ip6_prefixlen} \
 	dev ${interface}
 
   exit_with_hooks 0
