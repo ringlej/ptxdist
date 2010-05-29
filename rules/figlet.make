@@ -37,8 +37,8 @@ $(FIGLET_SOURCE):
 # Compile
 # ----------------------------------------------------------------------------
 
-FIGLET_PATH		:= PATH=$(CROSS_PATH)
 FIGLET_MAKE_ENV		:= $(CROSS_ENV)
+FIGLET_MAKE_OPT		:= prefix=/usr
 FIGLET_INSTALL_OPT	:= prefix=/usr install
 
 # ----------------------------------------------------------------------------
