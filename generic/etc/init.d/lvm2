@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# Setting up Logical Volume Management
+#
+case "$1" in
+	start)
+		echo "Setting up LVM2..."
+		if /usr/sbin/lvm vgscan > /dev/null 2>&1; then
+			/usr/sbin/lvm vgchange -a y
+			echo "done"
+		else
+			echo "failed"
+			exit 1
+		fi
+		;;
+	stop)
+		echo "Stopping LVM2"
+		/usr/sbin/lvm vgchange -a n
+		;;
+	*)
+		echo "usage: $0 [start|stop]"
+		exit 1
+		;;
+esac

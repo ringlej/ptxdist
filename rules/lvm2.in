@@ -1,0 +1,41 @@
+## SECTION=disk_and_file
+
+config LVM2
+	tristate
+	select READLINE
+	select NCURSES
+	prompt "lvm2"
+	help
+	  LVM2 refers to a new userspace toolset that provide logical volume management
+	  facilities on linux. It is reasonably backwards-compatible with the original
+	  LVM toolset
+
+if LVM2
+
+config LVM2_STARTSCRIPT
+	bool
+	default y
+        prompt "install /etc/init.d/lvm2"
+
+config LVM2_DEVICE_UID
+	int
+	default 0
+	prompt "device node uid"
+	help
+	  The effective UID of the device nodes create by LVM
+
+config LVM2_DEVICE_GID
+	int
+	default 107
+	prompt "device node gid"
+	help
+	  The effective GID of the device nodes create by LVM
+
+config LVM2_DEVICE_MODE
+	string
+	default 0660
+	prompt "device node access mode"
+	help
+	  The effective access mode of the device nodes create by LVM
+
+endif

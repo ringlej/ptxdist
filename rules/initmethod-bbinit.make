@@ -357,6 +357,12 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH)),
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH))
 endif
 
+ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_LVM2)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/lvm2, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_LVM2))
+endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_FAKE_OVERLAYFS)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/fake-overlayfs, \

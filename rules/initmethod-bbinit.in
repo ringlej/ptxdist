@@ -297,6 +297,12 @@ config INITMETHOD_BBINIT_SMARTD
 	prompt "smartd"
 	default "S40smartd"
 
+config INITMETHOD_BBINIT_LINK_LVM2
+	string
+	depends on LVM2_STARTSCRIPT
+	prompt "lvm2"
+	default "S20lvm2"
+
 endmenu
 
 endif
