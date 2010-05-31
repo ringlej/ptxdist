@@ -44,6 +44,7 @@ menuconfig IMAGE_UBIFS_ROOT
 	  Build an ubifs image of the root filesystem.
 
 if IMAGE_UBIFS_ROOT
+
 config IMAGE_UBIFS_ROOT_MAX_LEB_COUNT
 	string
 	default "<invalid>"
@@ -52,5 +53,25 @@ config IMAGE_UBIFS_ROOT_MAX_LEB_COUNT
 	  This option is passed to the -c option of mkfs.ubifs. This specifies
 	  the maximum size of your ubi filesystem in units of logical erase
 	  blocks
+
+endif
+
+menuconfig IMAGE_UBIFS_DATA
+	bool
+	prompt "Generate images/data.ubifs      "
+	help
+	  Build an empty data image of the root filesystem.
+
+if IMAGE_UBIFS_DATA
+
+config IMAGE_UBIFS_DATA_MAX_LEB_COUNT
+	string
+	default "<invalid>"
+	prompt "maximum logical erase block count"
+	help
+	  This option is passed to the -c option of mkfs.ubifs. This specifies
+	  the maximum size of your ubi filesystem in units of logical erase
+	  blocks
+
 endif
 endif

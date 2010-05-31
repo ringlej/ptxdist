@@ -87,4 +87,57 @@ config IMAGE_UBI_ROOT_VOL_NAME
 	  Give the root volume name here. Default is "root".
 
 endif
+
+menuconfig UBI_CREATE_DATA
+	bool
+	prompt "Create a data partition"
+	select IMAGE_UBIFS_DATA
+	help
+	  Generate a data partition. The ubifs image containg the data
+	  partition can either integrated into the root ubi Image as
+	  a further volume or created as a standalone flashable UBI image.
+
+if UBI_CREATE_DATA
+
+choice
+	prompt "Type of data partition"
+	default IMAGE_UBI_DATA
+	help
+	  specify the type of the data partition.
+
+config IMAGE_UBI_DATA_VOL
+	bool
+	prompt "Volume in root.ubi"
+	help
+	  Combine the datavolume and the rootfs volume in one single ubi
+	  image.
+
+config IMAGE_UBI_DATA
+	bool
+	prompt "Standalone as data.ubi"
+	help
+	  Build a single volume standalone ubi image for the data ubifs
+	  image. This image can be directly written to e.g. an mtd
+	  partition on a raw flash devices.
+endchoice
+
+config IMAGE_UBI_DATA_VOL_SIZE
+	string
+	prompt "Data volume size"
+	default "<invalid>"
+	help
+	  Give the data volume size here. You can use size unit like
+	  "KiB" or "MiB" here. The volume size must be greater
+	  than than the actual ubifs file and smaller than the mtd device
+	  less 10% spare place.
+
+config IMAGE_UBI_DATA_VOL_NAME
+	string
+	prompt "Data volume name"
+	default "data"
+	help
+	  Give the data volume name here. Default is "data".
+
+endif
+
 endif
