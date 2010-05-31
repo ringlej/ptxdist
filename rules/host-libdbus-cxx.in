@@ -3,4 +3,5 @@
 config HOST_LIBDBUS_CXX
 	tristate
 	select HOST_DBUS
+	depends on BROKEN
 	default ALLYES
