@@ -75,9 +75,13 @@ if GST_PLUGINS_GOOD
 		bool
 		prompt "cutter"
 
-	config GST_PLUGINS_GOOD_DEBUG
+	config GST_PLUGINS_GOOD_DEBUGUTILS
 		bool
-		prompt "debug"
+		prompt "debugutils"
+
+	config GST_PLUGINS_GOOD_DEINTERLACE
+		bool
+		prompt "deinterlace"
 
 	config GST_PLUGINS_GOOD_EFFECTV
 		bool
@@ -86,6 +90,10 @@ if GST_PLUGINS_GOOD
 	config GST_PLUGINS_GOOD_EQUALIZER
 		bool
 		prompt "equalizer"
+
+	config GST_PLUGINS_GOOD_FLV
+		bool
+		prompt "flv"
 
 	config GST_PLUGINS_GOOD_ID3DEMUX
 		bool
@@ -110,6 +118,10 @@ if GST_PLUGINS_GOOD
 	config GST_PLUGINS_GOOD_GOOM2K1
 		bool
 		prompt "goom2k1"
+
+	config GST_PLUGINS_GOOD_IMAGEFREEZE
+		bool
+		prompt "imagefreeze"
 
 	config GST_PLUGINS_GOOD_LAW
 		bool
@@ -147,9 +159,17 @@ if GST_PLUGINS_GOOD
 		bool
 		prompt "rtp"
 
+	config GST_PLUGINS_GOOD_RTPMANAGER
+		bool
+		prompt "rtpmanager"
+
 	config GST_PLUGINS_GOOD_RTSP
 		bool
 		prompt "rtsp"
+
+	config GST_PLUGINS_GOOD_SHAPEWIPE
+		bool
+		prompt "shapewipe"
 
 	config GST_PLUGINS_GOOD_SMPTE
 		bool
@@ -183,22 +203,6 @@ if GST_PLUGINS_GOOD
 		bool
 		prompt "wavparse"
 
-	config GST_PLUGINS_GOOD_DEBUGUTILS
-		bool
-		prompt "debugutils"
-
-	config GST_PLUGINS_GOOD_DEINTERLACE
-		bool
-		prompt "deinterlace"
-
-	config GST_PLUGINS_GOOD_FLV
-		bool
-		prompt "flv"
-
-	config GST_PLUGINS_GOOD_RTPMANAGER
-		bool
-		prompt "rtpmanager"
-
 	config GST_PLUGINS_GOOD_Y4M
 		bool
 		prompt "y4m"
@@ -206,11 +210,6 @@ if GST_PLUGINS_GOOD
 	# ---------------------------------
 	comment "plugins with dependencies"
 	# ---------------------------------
-
-	config GST_PLUGINS_GOOD_DIRECTDRAW
-		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
-		prompt "directdraw"
 
 	config GST_PLUGINS_GOOD_DIRECTSOUND
 		bool
@@ -221,6 +220,11 @@ if GST_PLUGINS_GOOD
 		bool
 		depends on GST_PLUGINS_GOOD_BROKEN
 		prompt "oss"
+
+	config GST_PLUGINS_GOOD_OSS4
+		bool
+		depends on GST_PLUGINS_GOOD_BROKEN
+		prompt "oss4"
 
 	config GST_PLUGINS_GOOD_SUNAUDIO
 		bool
@@ -266,11 +270,6 @@ if GST_PLUGINS_GOOD
 	config GST_PLUGINS_GOOD_CAIRO
 		bool
 		prompt "cairo"
-
-	config GST_PLUGINS_GOOD_CDIO
-		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
-		prompt "cdio"
 
 	config GST_PLUGINS_GOOD_ESD
 		bool
