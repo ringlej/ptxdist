@@ -8,15 +8,15 @@
 # see the README file.
 #
 
-SEL_ROOTFS-$(PTXCONF_IMAGE_UBIFS)	+= $(IMAGEDIR)/root.ubifs
+SEL_ROOTFS-$(PTXCONF_IMAGE_UBIFS_ROOT)	+= $(IMAGEDIR)/root.ubifs
 SEL_ROOTFS-$(PTXCONF_IMAGE_UBI)		+= $(IMAGEDIR)/root.ubi
 
 #
 # create the UBIFS image
 #
 $(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
-	@echo -n "Creating root.ubifs from working dir... (-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) "
-	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_MAX_LEB_COUNT)"
+	@echo -n "Creating $(notdir $(@)) from working dir... (-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) "
+	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_ROOT_MAX_LEB_COUNT)"
 	@echo -n "$(PTXCONF_IMAGE_UBIFS_EXTRA_ARGS)) "
 	@cd $(WORKDIR);								\
 	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&			\
@@ -25,7 +25,7 @@ $(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 		echo -n "-d $(WORKDIR) ";					\
 		echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) ";			\
 		echo -n "-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) ";	\
-		echo -n "-c $(PTXCONF_IMAGE_UBIFS_MAX_LEB_COUNT) ";		\
+		echo -n "-c $(PTXCONF_IMAGE_UBIFS_ROOT_MAX_LEB_COUNT) ";	\
 		echo -n "$(PTXCONF_IMAGE_UBIFS_EXTRA_ARGS) ";			\
 		echo -n "-o $@" )						\
 	) | $(FAKEROOT) --
@@ -34,13 +34,25 @@ $(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 #
 # create the UBI image
 #
-$(IMAGEDIR)/root.ubi: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post $(IMAGEDIR)/root.ubifs
-	@echo -n "Creating root.ubi from root.ubifs... (-s $(PTXCONF_IMAGE_UBI_SUB_PAGE_SIZE) "
+
+ifdef PTXCONF_IMAGE_UBI_ROOT_VOL
+$(IMAGEDIR)/root.ubi: $(IMAGEDIR)/root.ubifs
+endif
+
+$(IMAGEDIR)/root.ubi: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
+	@echo -n "Creating $(notdir $(@)) from"
+	@echo -n " $(notdir $(filter %.ubifs,$(^))) ... "
+	@echo -n "(-s $(PTXCONF_IMAGE_UBI_SUB_PAGE_SIZE) "
 	@echo -n "-O $(PTXCONF_IMAGE_UBI_VID_HEADER_OFFSET) -p $(PTXCONF_IMAGE_UBI_PEB_SIZE) "
 	@echo -n "-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE)"
 	@echo -n "$(PTXCONF_IMAGE_UBI_EXTRA_ARGS)) "
-	@export UBI_VOLUME_SIZE=${PTXCONF_IMAGE_UBI_VOLUME_SIZE} && \
-	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/mtd-utils/ubi.ini" > "${PTXDIST_TEMPDIR}/ubi.ini"
+ifdef PTXCONF_IMAGE_UBI_ROOT_VOL
+	@UBI_VOLUME_SIZE="$(call remove_quotes, $(PTXCONF_IMAGE_UBI_ROOT_VOL_SIZE))" \
+	 UBI_VOLUME_NAME="$(call remove_quotes, $(PTXCONF_IMAGE_UBI_ROOT_VOL_NAME))" \
+	 UBI_VOLUME_ID="0" \
+	 UBI_VOLUME_IMAGE="root.ubifs" \
+	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/mtd-utils/ubi.ini" > "${PTXDIST_TEMPDIR}/ubi_root.ini"
+endif
 	@cd $(IMAGEDIR);							\
 	$(PTXCONF_SYSROOT_HOST)/sbin/ubinize					\
 		-s $(PTXCONF_IMAGE_UBI_SUB_PAGE_SIZE)				\
@@ -49,7 +61,9 @@ $(IMAGEDIR)/root.ubi: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.i
 		-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE)			\
 		$(PTXCONF_IMAGE_UBI_EXTRA_ARGS)					\
 		-o $@								\
-		${PTXDIST_TEMPDIR}/ubi.ini;					\
+		${PTXDIST_TEMPDIR}/ubi_root.ini;					\
 
 	@echo "done."
 
+# vim600:set foldmethod=marker:
+# vim600:set syntax=make:
