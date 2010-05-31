@@ -94,6 +94,9 @@ $(STATEDIR)/busybox.targetinstall:
 
 ifdef PTXCONF_BUSYBOX_FEATURE_SUID
 	@$(call install_copy, busybox, 0, 0, 4755, -, /bin/busybox)
+ifdef PTXCONF_BUSYBOX_FEATURE_SUID_CONFIG
+	@$(call install_alternative, busybox, 0, 0, 0644, /etc/busybox.conf)
+endif
 else
 	@$(call install_copy, busybox, 0, 0, 755, -, /bin/busybox)
 endif
