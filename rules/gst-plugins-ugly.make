@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_UGLY) += gst-plugins-ugly
 #
 # Paths and names
 #
-GST_PLUGINS_UGLY_VERSION := 0.10.13
+GST_PLUGINS_UGLY_VERSION := 0.10.15
 GST_PLUGINS_UGLY	 := gst-plugins-ugly-$(GST_PLUGINS_UGLY_VERSION)
 GST_PLUGINS_UGLY_SUFFIX	 := tar.bz2
 GST_PLUGINS_UGLY_URL	 := http://gstreamer.freedesktop.org/src/gst-plugins-ugly/$(GST_PLUGINS_UGLY).$(GST_PLUGINS_UGLY_SUFFIX)
@@ -61,8 +61,10 @@ GST_PLUGINS_UGLY_ENABLE-$(PTXCONF_GST_PLUGINS_UGLY_X264)		+= x264
 GST_PLUGINS_UGLY_CONF_TOOL	:= autoconf
 GST_PLUGINS_UGLY_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-        --disable-rpath \
+	--enable-option-checking \
+	--enable-silent-rules \
         --disable-nls \
+        --disable-rpath \
 	--disable-debug \
 	--disable-profiling \
 	--disable-valgrind \
@@ -71,8 +73,10 @@ GST_PLUGINS_UGLY_CONF_OPT	:= \
 	--enable-external \
 	--enable-experimental \
 	--disable-gtk-doc \
-	--with-package-origin="PTXDist" \
-	--enable-shave
+	--with-package-origin="PTXDist"
+
+#  --enable-gobject-cast-checks=[no/auto/yes] Enable GObject cast checks
+
 #
 # the --with-plugins sadly only applies to depencyless plugings
 # and when no plugins are sellected it builds them all. So
