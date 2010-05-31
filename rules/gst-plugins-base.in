@@ -35,13 +35,13 @@ if GST_PLUGINS_BASE
 	comment "dependency less plugins"
 	# -------------------------------
 
-	config GST_PLUGINS_BASE_APP
-		bool
-		prompt "app"
-
 	config GST_PLUGINS_BASE_ADDER
 		bool
 		prompt "adder"
+
+	config GST_PLUGINS_BASE_APP
+		bool
+		prompt "app"
 
 	config GST_PLUGINS_BASE_AUDIOCONVERT
 		bool
@@ -51,20 +51,18 @@ if GST_PLUGINS_BASE
 		bool
 		prompt "audiorate"
 
-	config GST_PLUGINS_BASE_AUDIORESAMPLE
-		bool
-		prompt "audioresample"
-
 	config GST_PLUGINS_BASE_AUDIOTESTSRC
 		bool
 		prompt "audiotestsrc"
 
 	config GST_PLUGINS_BASE_DECODEBIN
 		bool
+		select GST_PLUGINS_BASE_PLAYBACK
 		prompt "decodebin"
 
 	config GST_PLUGINS_BASE_DECODEBIN_2
 		bool
+		select GST_PLUGINS_BASE_PLAYBACK
 		prompt "decodebin2"
 
 	config GST_PLUGINS_BASE_FFMPEGCOLORSPACE
@@ -75,9 +73,13 @@ if GST_PLUGINS_BASE
 		bool
 		prompt "gdp"
 
-	config GST_PLUGINS_BASE_PLAYBIN
+	config GST_PLUGINS_BASE_PLAYBACK
 		bool
-		prompt "playbin"
+		prompt "playback"
+
+	config GST_PLUGINS_BASE_AUDIORESAMPLE
+		bool
+		prompt "audioresample"
 
 	config GST_PLUGINS_BASE_SUBPARSE
 		bool
@@ -106,6 +108,10 @@ if GST_PLUGINS_BASE
 	config GST_PLUGINS_BASE_VOLUME
 		bool
 		prompt "volume"
+
+	config GST_PLUGINS_BASE_ISO_CODES
+		bool
+		prompt "iso codes"
 
 	comment "plugins with dependencies"
 
@@ -142,6 +148,10 @@ if GST_PLUGINS_BASE
 		bool
 		depends on BROKEN
 		prompt "gnome_vfs [BROKEN]"
+
+	config GST_PLUGINS_BASE_IVORBIS
+		bool
+		prompt "ivorbis"
 
 	config GST_PLUGINS_BASE_GIO
 		bool

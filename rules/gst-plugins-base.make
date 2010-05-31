@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE) += gst-plugins-base
 #
 # Paths and names
 #
-GST_PLUGINS_BASE_VERSION	:= 0.10.25
+GST_PLUGINS_BASE_VERSION	:= 0.10.29
 GST_PLUGINS_BASE		:= gst-plugins-base-$(GST_PLUGINS_BASE_VERSION)
 GST_PLUGINS_BASE_SUFFIX		:= tar.bz2
 GST_PLUGINS_BASE_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE).$(GST_PLUGINS_BASE_SUFFIX)
@@ -40,42 +40,39 @@ $(GST_PLUGINS_BASE_SOURCE):
 #
 GST_PLUGINS_BASE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-rpath \
+	--enable-option-checking \
+	--enable-silent-rules \
 	--disable-nls \
+	--disable-rpath \
 	--disable-debug \
 	--disable-profiling \
 	--disable-valgrind \
 	--disable-gcov \
 	--disable-examples \
-	--disable-largefile \
-	--disable-gtk-doc \
 	--enable-external \
 	--disable-experimental \
+	--disable-largefile \
+	--disable-gtk-doc \
+	--disable-gobject-cast-checks \
 	--disable-oggtest \
 	--disable-vorbistest \
 	--disable-freetypetest \
 	--without-libiconv-prefix \
-	--without-libintl-prefix \
-	--enable-shave
+	--without-libintl-prefix
 
 # --with-plugins=foo,bar,baz only works for depencyless plugins and
 # when no plugins are given it falls back to its default which is
 # to enable all plugins, so --with-plugins is useless for us.
 
-ifdef PTXCONF_GST_PLUGINS_BASE_APP
-GST_PLUGINS_BASE_AUTOCONF += --enable-app
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-app
-endif
 ifdef PTXCONF_GST_PLUGINS_BASE_ADDER
 GST_PLUGINS_BASE_AUTOCONF += --enable-adder
 else
 GST_PLUGINS_BASE_AUTOCONF += --disable-adder
 endif
-ifdef PTXCONF_GST_PLUGINS_BASE_AUDIOCONVERT
-GST_PLUGINS_BASE_AUTOCONF += --enable-audioconvert
+ifdef PTXCONF_GST_PLUGINS_BASE_APP
+GST_PLUGINS_BASE_AUTOCONF += --enable-app
 else
-GST_PLUGINS_BASE_AUTOCONF += --disable-audioconvert
+GST_PLUGINS_BASE_AUTOCONF += --disable-app
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_AUDIOCONVERT
 GST_PLUGINS_BASE_AUTOCONF += --enable-audioconvert
@@ -86,11 +83,6 @@ ifdef PTXCONF_GST_PLUGINS_BASE_AUDIORATE
 GST_PLUGINS_BASE_AUTOCONF += --enable-audiorate
 else
 GST_PLUGINS_BASE_AUTOCONF += --disable-audiorate
-endif
-ifdef PTXCONF_GST_PLUGINS_BASE_AUDIORESAMPLE
-GST_PLUGINS_BASE_AUTOCONF += --enable-audioresample
-else
-GST_PLUGINS_BASE_AUTOCONF += --disable-audioresample
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_AUDIOTESTSRC
 GST_PLUGINS_BASE_AUTOCONF += --enable-audiotestsrc
@@ -107,10 +99,15 @@ GST_PLUGINS_BASE_AUTOCONF += --enable-gdp
 else
 GST_PLUGINS_BASE_AUTOCONF += --disable-gdp
 endif
-ifneq ($(PTXCONF_GST_PLUGINS_BASE_PLAYBIN)$(PTXCONF_GST_PLUGINS_BASE_DECODEBIN)$(PTXCONF_GST_PLUGINS_BASE_DECODEBIN2),)
+ifdef PTXCONF_GST_PLUGINS_BASE_PLAYBACK
 GST_PLUGINS_BASE_AUTOCONF += --enable-playback
 else
 GST_PLUGINS_BASE_AUTOCONF += --disable-playback
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE_AUDIORESAMPLE
+GST_PLUGINS_BASE_AUTOCONF += --enable-audioresample
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-audioresample
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_SUBPARSE
 GST_PLUGINS_BASE_AUTOCONF += --enable-subparse
@@ -146,6 +143,11 @@ ifdef PTXCONF_GST_PLUGINS_BASE_VOLUME
 GST_PLUGINS_BASE_AUTOCONF += --enable-volume
 else
 GST_PLUGINS_BASE_AUTOCONF += --disable-volume
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE_ISO_CODES
+GST_PLUGINS_BASE_AUTOCONF += --enable-iso-codes
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-iso-codes
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_X
 GST_PLUGINS_BASE_AUTOCONF += --enable-x
@@ -184,6 +186,11 @@ GST_PLUGINS_BASE_AUTOCONF += --enable-gnome_vfs
 else
 GST_PLUGINS_BASE_AUTOCONF += --disable-gnome_vfs
 endif
+ifdef PTXCONF_GST_PLUGINS_BASE_IVORBIS
+GST_PLUGINS_BASE_AUTOCONF += --enable-ivorbis
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-ivorbis
+endif
 ifdef PTXCONF_GST_PLUGINS_BASE_GIO
 GST_PLUGINS_BASE_AUTOCONF += --enable-gio
 else
@@ -215,9 +222,14 @@ else
 GST_PLUGINS_BASE_AUTOCONF += --disable-vorbis
 endif
 
+# --enable-introspection=[no/auto/yes] Enable introspection for this build
+# --with-plugins          comma-separated list of dependencyless plug-ins to compile
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
+
+GST_PLUGINS_BASE_LIB_VERSION := 0.20.0
 
 $(STATEDIR)/gst-plugins-base.targetinstall:
 	@$(call targetinfo)
@@ -237,9 +249,9 @@ $(STATEDIR)/gst-plugins-base.targetinstall:
 
 	# install all activated libs
 	@cd $(GST_PLUGINS_BASE_PKGDIR)/usr/lib/ && for libs in `find -name "*-0.10.so"`; do \
-		$(call install_copy, gst-plugins-base, 0, 0, 0644, -, /usr/lib/$$libs.0.18.0); \
-		$(call install_link, gst-plugins-base, $$libs.0.18.0, /usr/lib/$$libs.0); \
-		$(call install_link, gst-plugins-base, $$libs.0.18.0, /usr/lib/$$libs); \
+		$(call install_copy, gst-plugins-base, 0, 0, 0644, -, /usr/lib/$$libs.$(GST_PLUGINS_BASE_LIB_VERSION)); \
+		$(call install_link, gst-plugins-base, $$libs.$(GST_PLUGINS_BASE_LIB_VERSION), /usr/lib/$$libs.0); \
+		$(call install_link, gst-plugins-base, $$libs.$(GST_PLUGINS_BASE_LIB_VERSION), /usr/lib/$$libs); \
 	done
 
 ifdef PTXCONF_GST_PLUGINS_BASE_APP
@@ -292,7 +304,7 @@ ifdef PTXCONF_GST_PLUGINS_BASE_GDP
 		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstgdp.so, \
 		/usr/lib/gstreamer-0.10/libgstgdp.so)
 endif
-ifdef PTXCONF_GST_PLUGINS_BASE_PLAYBIN
+ifdef PTXCONF_GST_PLUGINS_BASE_PLAYBACK
 	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
 		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstplaybin.so, \
 		/usr/lib/gstreamer-0.10/libgstplaybin.so)

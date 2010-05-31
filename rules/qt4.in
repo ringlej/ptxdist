@@ -13,7 +13,6 @@ menuconfig QT4
 	select DIRECTFB		if QT4_GFX_DIRECTFB_PLUGIN
 	select GSTREAMER	if QT4_BUILD_PHONON
 	select GST_PLUGINS_BASE	if QT4_BUILD_PHONON
-	select GST_PLUGINS_BASE_DECODEBIN if QT4_BUILD_PHONON
 	select OPENSSL		if QT4_OPENSSL
 # libsvga is currently not in ptxdist
 #	select LIBSVGA		if QT4_GFX_SVGA_PLUGIN
