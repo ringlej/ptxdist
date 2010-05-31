@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2006 by Roland Hostettler
 #               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2010 Tim Sander <tim.sander@hbm.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -145,6 +146,12 @@ endif
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_DBUS_STARTSCRIPT
 	@$(call install_alternative, dbus, 0, 0, 0755, /etc/init.d/dbus)
+endif
+endif
+
+ifdef PTXCONF_INITMETHOD_UPSTART
+ifdef PTXCONF_DBUS_STARTSCRIPT
+	@$(call install_alternative, dbus, 0, 0, 0644, /etc/init/dbus.conf)
 endif
 endif
 
