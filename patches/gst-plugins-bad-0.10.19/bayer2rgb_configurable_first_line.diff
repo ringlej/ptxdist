@@ -10,10 +10,10 @@ Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
  gst/bayer/gstbayer2rgb.c |   36 +++++++++++++++++++++++++++---------
  1 file changed, 27 insertions(+), 9 deletions(-)
 
-Index: gst-plugins-bad-0.10.8/gst/bayer/gstbayer2rgb.c
+Index: gst-plugins-bad-0.10.19/gst/bayer/gstbayer2rgb.c
 ===================================================================
---- gst-plugins-bad-0.10.8.orig/gst/bayer/gstbayer2rgb.c
-+++ gst-plugins-bad-0.10.8/gst/bayer/gstbayer2rgb.c
+--- gst-plugins-bad-0.10.19.orig/gst/bayer/gstbayer2rgb.c
++++ gst-plugins-bad-0.10.19/gst/bayer/gstbayer2rgb.c
 @@ -108,6 +108,7 @@ struct _GstBayer2RGB
    int r_off;                    /* offset for red */
    int g_off;                    /* offset for green */
@@ -22,7 +22,7 @@ Index: gst-plugins-bad-0.10.8/gst/bayer/gstbayer2rgb.c
  };
  
  struct _GstBayer2RGBClass
-@@ -138,7 +139,8 @@ GST_ELEMENT_DETAILS ("Bayer to RGB decod
+@@ -132,7 +133,8 @@ struct _GstBayer2RGBClass
  
  enum
  {
@@ -32,7 +32,7 @@ Index: gst-plugins-bad-0.10.8/gst/bayer/gstbayer2rgb.c
  };
  
  #define DEBUG_INIT(bla) \
-@@ -195,6 +197,13 @@ gst_bayer2rgb_class_init (GstBayer2RGBCl
+@@ -193,6 +195,13 @@ gst_bayer2rgb_class_init (GstBayer2RGBCl
        GST_DEBUG_FUNCPTR (gst_bayer2rgb_set_caps);
    GST_BASE_TRANSFORM_CLASS (klass)->transform =
        GST_DEBUG_FUNCPTR (gst_bayer2rgb_transform);
@@ -46,7 +46,7 @@ Index: gst-plugins-bad-0.10.8/gst/bayer/gstbayer2rgb.c
  }
  
  static void
-@@ -209,8 +218,12 @@ static void
+@@ -207,8 +216,12 @@ static void
  gst_bayer2rgb_set_property (GObject * object, guint prop_id,
      const GValue * value, GParamSpec * pspec)
  {
@@ -59,7 +59,7 @@ Index: gst-plugins-bad-0.10.8/gst/bayer/gstbayer2rgb.c
      default:
        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
        break;
-@@ -221,8 +234,12 @@ static void
+@@ -219,8 +232,12 @@ static void
  gst_bayer2rgb_get_property (GObject * object, guint prop_id,
      GValue * value, GParamSpec * pspec)
  {
@@ -72,7 +72,7 @@ Index: gst-plugins-bad-0.10.8/gst/bayer/gstbayer2rgb.c
      default:
        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
        break;
-@@ -291,6 +308,7 @@ gst_bayer2rgb_reset (GstBayer2RGB * filt
+@@ -289,6 +306,7 @@ gst_bayer2rgb_reset (GstBayer2RGB * filt
    filter->r_off = 0;
    filter->g_off = 0;
    filter->b_off = 0;
@@ -80,7 +80,7 @@ Index: gst-plugins-bad-0.10.8/gst/bayer/gstbayer2rgb.c
  }
  
  static GstCaps *
-@@ -468,19 +486,19 @@ do_row0_col0 (uint8_t * input, uint8_t *
+@@ -466,19 +484,19 @@ do_row0_col0 (uint8_t * input, uint8_t *
    int type;
  
    /* Horizontal edges */
@@ -106,7 +106,7 @@ Index: gst-plugins-bad-0.10.8/gst/bayer/gstbayer2rgb.c
    vborder (input, output, 1, type, filter);
  }
  
-@@ -565,9 +583,9 @@ do_body (uint8_t * input, uint8_t * outp
+@@ -564,9 +582,9 @@ do_body (uint8_t * input, uint8_t * outp
       * be RED for odd-numbered rows and GREENB for even rows.
       */
      if (h & 1)

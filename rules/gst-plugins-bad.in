@@ -22,21 +22,17 @@ menuconfig GST_PLUGINS_BAD
 
 if GST_PLUGINS_BAD
 
-config GST_PLUGINS_BAD_AACPARSE
-	bool
-	prompt "aacparse"
-
 config GST_PLUGINS_BAD_ADPCMDEC
 	bool
 	prompt "adpcmdec"
 
+config GST_PLUGINS_BAD_ADPCMENC
+	bool
+	prompt "adpcmenc"
+
 config GST_PLUGINS_BAD_AIFF
 	bool
 	prompt "aiff"
-
-config GST_PLUGINS_BAD_AMRPARSE
-	bool
-	prompt "amrparse"
 
 config GST_PLUGINS_BAD_ASFMUX
 	bool
@@ -61,6 +57,10 @@ config GST_PLUGINS_BAD_BAYER
 config GST_PLUGINS_BAD_CDXAPARSE
 	bool
 	prompt "cdxaparse"
+
+config GST_PLUGINS_BAD_DATAURISRC
+	bool
+	prompt "dataurisrc"
 
 config GST_PLUGINS_BAD_DCCP
 	bool
@@ -102,6 +102,14 @@ config GST_PLUGINS_BAD_ID3TAG
 	bool
 	prompt "id3tag"
 
+config GST_PLUGINS_BAD_INVTELECINE
+	bool
+	prompt "invtelecine"
+
+config GST_PLUGINS_BAD_JPEGFORMAT
+	bool
+	prompt "jpegformat"
+
 config GST_PLUGINS_BAD_LIBRFB
 	bool
 	prompt "librfb"
@@ -122,13 +130,13 @@ config GST_PLUGINS_BAD_MPEGPSMUX
 	bool
 	prompt "mpegpsmux"
 
-config GST_PLUGINS_BAD_MPEG4VIDEOPARSE
-	bool
-	prompt "mpeg4videoparse"
-
 config GST_PLUGINS_BAD_MPEGVIDEOPARSE
 	bool
 	prompt "mpegvideoparse"
+
+config GST_PLUGINS_BAD_MPEG4VIDEOPARSE
+	bool
+	prompt "mpeg4videoparse"
 
 config GST_PLUGINS_BAD_MVE
 	bool
@@ -179,13 +187,13 @@ config GST_PLUGINS_BAD_SDP
 	bool
 	prompt "sdp"
 
+config GST_PLUGINS_BAD_SEGMENTCLIP
+	bool
+	prompt "segmentclip"
+
 config GST_PLUGINS_BAD_SELECTOR
 	bool
 	prompt "selector"
-
-config GST_PLUGINS_BAD_SHAPEWIPE
-	bool
-	prompt "shapewipe"
 
 config GST_PLUGINS_BAD_SIREN
 	bool
@@ -305,11 +313,9 @@ config GST_PLUGINS_BAD_DIVX
 	prompt "divx"
 	depends on BROKEN
 
-config GST_PLUGINS_BAD_DVDNAV
+config GST_PLUGINS_BAD_RESINDVD
 	bool
-	prompt "dvdnav"
-	# needs libdvdnav
-	depends on BROKEN
+	prompt "resindvd"
 
 config GST_PLUGINS_BAD_METADATA
 	bool
@@ -330,14 +336,14 @@ config GST_PLUGINS_BAD_FBDEV
 	bool
 	prompt "fbdev"
 
+config GST_PLUGINS_BAD_FLITE
+	bool
+	prompt "flite"
+	depends on BROKEN
+
 config GST_PLUGINS_BAD_GSM
 	bool
 	prompt "gsm"
-	depends on BROKEN
-
-config GST_PLUGINS_BAD_IVORBIS
-	bool
-	prompt "ivorbis"
 	depends on BROKEN
 
 config GST_PLUGINS_BAD_JACK
@@ -474,10 +480,6 @@ config GST_PLUGINS_BAD_DVB
 	bool
 	prompt "dvb"
 
-config GST_PLUGINS_BAD_OSS4
-	bool
-	prompt "oss4"
-
 config GST_PLUGINS_BAD_WININET
 	bool
 	prompt "wininet"
@@ -500,6 +502,11 @@ config GST_PLUGINS_BAD_SCHRO
 config GST_PLUGINS_BAD_ZBAR
 	bool
 	prompt "zbar"
+	depends on BROKEN
+
+config GST_PLUGINS_BAD_VP8
+	bool
+	prompt "vp8"
 	depends on BROKEN
 
 endif

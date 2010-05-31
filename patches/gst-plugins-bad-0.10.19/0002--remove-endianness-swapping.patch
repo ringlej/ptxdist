@@ -13,11 +13,11 @@ Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
  sys/fbdev/gstfbdevsink.c |   14 +-------------
  1 files changed, 1 insertions(+), 13 deletions(-)
 
-diff --git a/sys/fbdev/gstfbdevsink.c b/sys/fbdev/gstfbdevsink.c
-index c9a7e14..c01e5b6 100644
---- sys/fbdev/gstfbdevsink.c
+Index: sys/fbdev/gstfbdevsink.c
+===================================================================
+--- sys/fbdev/gstfbdevsink.c.orig
 +++ sys/fbdev/gstfbdevsink.c
-@@ -158,21 +158,9 @@ gst_fbdevsink_getcaps (GstBaseSink * bsink)
+@@ -153,21 +153,9 @@ gst_fbdevsink_getcaps (GstBaseSink * bsi
  
    switch (fbdevsink->varinfo.bits_per_pixel) {
      case 32:
@@ -40,6 +40,3 @@ index c9a7e14..c01e5b6 100644
      case 15:
      case 16:
        endianness = 1234;
--- 
-1.5.6.5
-
