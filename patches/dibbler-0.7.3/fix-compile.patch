@@ -1,0 +1,31 @@
+Fix compilation of dibbler package
+
+A header file is included that is not needed, and even breaks
+compilation on recent kernels. Remove it.
+
+Signed-off-by: Remy Bohmer <linux@bohmer.net>
+---
+ Port-linux/utils.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+ 
+Index: dibbler-0.7.3/Port-linux/utils.c
+===================================================================
+--- dibbler-0.7.3.orig/Port-linux/utils.c
++++ dibbler-0.7.3/Port-linux/utils.c
+@@ -14,6 +14,7 @@
+  * Rani Assaf <rani@magic.metawire.com> 980929:	resolve addresses
+  */
+ 
++#define GNU_SOURCE
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+@@ -26,7 +27,7 @@
+ #include <arpa/inet.h>
+ #include <resolv.h>
+ #include <asm/types.h>
+-#include <linux/pkt_sched.h>
++/*#include <linux/pkt_sched.h>*/
+ #include <time.h>
+ #include <sys/time.h>
+ 

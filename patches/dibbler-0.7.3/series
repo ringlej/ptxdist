@@ -1,0 +1,3 @@
+merge-dns-search.patch
+fix-compile.patch
+fix-incremental-build.patch

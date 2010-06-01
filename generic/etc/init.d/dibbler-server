@@ -1,0 +1,50 @@
+#! /bin/sh
+#
+# Starts/stops dibbler-client
+#
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/sbin/dibbler-server
+NAME=dibbler-server
+DESC="DHCPv6 server"
+DAEMON_OPTS=run
+
+test -x $DAEMON || exit 0
+
+# Include dibbler defaults if available
+if [ -f /etc/default/dibbler ] ; then
+	. /etc/default/dibbler
+fi
+
+set -e
+
+case "$1" in
+  start)
+	echo -n "Starting $DESC: "
+	$DAEMON start 2>&1 > /dev/null
+	echo "$NAME."
+	;;
+  stop)
+	echo -n "Stopping $DESC: "
+	($DAEMON stop 2>&1 > /dev/null; true)
+	echo "$NAME."
+	;;
+  status)
+	echo "Status $DESC: $NAME"
+	$DAEMON status
+	;;
+  restart|force-reload)
+	echo -n "Restarting $DESC: "
+	($DAEMON stop 2>&1 > /dev/null; true)
+	sleep 1
+	$DAEMON start 2>&1 > /dev/null
+	echo "$NAME."
+	;;
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0

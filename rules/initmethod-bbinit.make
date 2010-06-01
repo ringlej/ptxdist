@@ -363,6 +363,24 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_LVM2)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_LVM2))
 endif
 
+ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_SERVER)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/dibbler-server, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_SERVER))
+endif
+
+ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_CLIENT)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/dibbler-client, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_CLIENT))
+endif
+
+ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_RELAY)),)
+	@$(call install_link, initmethod-bbinit, \
+		../init.d/dibbler-relay, \
+		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_RELAY))
+endif
+
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_FAKE_OVERLAYFS)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/fake-overlayfs, \

@@ -1,0 +1,24 @@
+Fix incremental build of dibbler package
+
+The make install fails if the changelog.gz already exists.
+So, the repair incremental builds make sure the changelog.gz
+file does not exist before generating a new one.
+
+Signed-off-by: Remy Bohmer <linux@bohmer.net>
+---
+ Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ 
+Index: dibbler-0.7.3/Makefile
+===================================================================
+--- dibbler-0.7.3.orig/Makefile
++++ dibbler-0.7.3/Makefile
+@@ -428,7 +428,7 @@ install: 
+ 	$(INSTALL) -m 644 doc/dibbler-devel.pdf $(INST_DOCDIR)/dibbler/dibbler-devel.pdf
+ 	@echo "[INSTALL] CHANGELOG"
+ 	$(INSTALL) -m 644 CHANGELOG $(INST_DOCDIR)/dibbler/changelog
+-	gzip -9 $(INST_DOCDIR)/dibbler/changelog
++	gzip -f -9 $(INST_DOCDIR)/dibbler/changelog
+ 
+ DIR=`basename $(PWD)`
+ 
