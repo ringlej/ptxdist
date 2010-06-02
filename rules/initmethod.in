@@ -19,7 +19,6 @@ choice
 
 	config INITMETHOD_UPSTART
 		bool
-		depends on BROKEN
 		prompt "upstart         "
 
 	config INITMETHOD_INITNG

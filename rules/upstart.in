@@ -2,7 +2,9 @@
 
 config UPSTART
 	tristate
+	select UDEV
 	select DBUS
+	select LIBNIH
 	prompt "upstart"
 	help
 	  upstart is a replacement for the /sbin/init daemon which

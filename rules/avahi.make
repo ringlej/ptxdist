@@ -207,6 +207,10 @@ ifdef PTXCONF_AVAHI_AUTOIP
 	@$(call install_link, avahi, ../init.d/zeroconf, /etc/rc.d/S30zeroconf)
 endif
 
+ifdef PTXCONF_INITMETHOD_UPSTART
+	@$(call install_alternative, avahi, 0, 0, 0644, /etc/init/avahi-daemon.conf)
+endif
+
 	@$(call install_finish, avahi)
 
 	@$(call touch)

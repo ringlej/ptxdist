@@ -99,6 +99,10 @@ ifdef PTXCONF_OPENSSH_SSHD_STARTSCRIPT
 endif
 endif
 
+ifdef PTXCONF_INITMETHOD_UPSTART
+	@$(call install_alternative, openssh, 0, 0, 0644, /etc/init/ssh.conf)
+endif
+
 ifdef PTXCONF_OPENSSH_SCP
 	@$(call install_copy, openssh, 0, 0, 0755, -, \
 		/usr/bin/scp)
