@@ -3,8 +3,8 @@
 menuconfig GLIB
 	tristate
 	prompt "glib                          "
-	select GETTEXT		if GLIB__GETTEXT_GETTEXT
-	select GETTEXT_DUMMY	if GLIB__GETTEXT_DUMMY
+	select GETTEXT		if GLIB_GETTEXT_GETTEXT
+	select GETTEXT_DUMMY	if GLIB_GETTEXT_DUMMY
 	select HOST_GLIB
 	select ICONV
 	select ZLIB if GLIB_EXPERIMENTAL
@@ -23,17 +23,17 @@ config GLIB_EXPERIMENTAL
 choice
 
 	prompt "gettext variant"
-	default GLIB__GETTEXT_NONE
+	default GLIB_GETTEXT_NONE
 
-	config GLIB__GETTEXT_NONE
+	config GLIB_GETTEXT_NONE
 		bool
 		prompt "not needed    "
 
-	config GLIB__GETTEXT_GETTEXT
+	config GLIB_GETTEXT_GETTEXT
 		bool
 		prompt "gnu (gettext) "
 
-	config GLIB__GETTEXT_DUMMY
+	config GLIB_GETTEXT_DUMMY
 		bool
 		prompt "dummy         "
 

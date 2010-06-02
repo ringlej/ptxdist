@@ -93,6 +93,14 @@ s/^\(\(# \)\?PTXCONF_LIBPCRE_\)_\(.*$\)/\1\3/
 s/^\(\(# \)\?PTXCONF_INETUTILS_SYSLOGD\)\(_STARTSRCIPT$\)/\1_STARTSCRIPT/
 
 #
+# from   : ptxdist-2010.05.0
+# to     : ptxdist-2010.06.0
+# symbol : GLIB__*			-> GLIB_
+# reason : consolidation of config symbols
+#
+s/^\(\(# \)\?PTXCONF_GLIB_\)_\(.*$\)/\1\3/
+
+#
 # symbol : SUDO__SENDMAIL		-> SUDO_USE_SENDMAIL
 # symbol : SUDO__ETC_SUDOERS		-> SUDO_INSTALL_ETC_SUDOERS
 # reason : consolidation of config symbols
