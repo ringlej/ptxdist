@@ -1,0 +1,14 @@
+## SECTION=multimedia_sound
+
+config MPG123
+	tristate
+	prompt "mpg123"
+	select ALSA_LIB
+	help
+	  mpg123 is a real time MPEG 1.0/2.0/2.5 audio player/decoder for layers 1,2 and 3
+	  (MPEG 1.0 layer 3 aka MP3 most commonly tested). Among others working with Linux,
+	  MacOSX, FreeBSD, SunOS4.1.3, Solaris 2.5, HPUX 9.x, SGI Irix and Cygwin or plain
+	  MS Windows.
+	  It is free software licensed under LGPL 2.1 (the officially released sources,
+	  some files in subversion repository may differ).
+
