@@ -144,6 +144,10 @@ endif # PTXCONF_INITMETHOD_BBINIT
 #	# config files
 #	#
 
+ifdef PTXCONF_BUSYBOX_FEATURE_MDEV_CONF
+	@$(call install_alternative, busybox, 0, 0, 0644, /etc/mdev.conf)
+endif
+
 ifdef PTXCONF_BUSYBOX_UDHCPC
 	@$(call install_alternative, busybox, 0, 0, 0754, /etc/udhcpc.script)
 	@$(call install_link, busybox, ../../../etc/udhcpc.script, /usr/share/udhcpc/default.script)
