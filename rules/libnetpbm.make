@@ -36,10 +36,17 @@ $(LIBNETPBM_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBNETPBM_PATH	:= PATH=$(CROSS_PATH)
-LIBNETPBM_MAKE_ENV := $(CROSS_ENV)
-LIBNETPBM_MAKE_PAR := NO
-LIBNETPBM_INSTALL_OPT := install-run install-dev pkgdir=$(LIBNETPBM_PKGDIR)/usr
+LIBNETPBM_MAKE_ENV	:= $(CROSS_ENV)
+LIBNETPBM_MAKE_PAR	:= NO
+LIBNETPBM_MAKE_OPT	:= XML2_LIBS=NONE
+ifndef PTXCONF_LIBNETPBM_PNG2PNM
+LIBNETPBM_MAKE_OPT	+= HAVE_PNGLIB=N
+endif
+LIBNETPBM_INSTALL_OPT	:= \
+	$(LIBNETPBM_MAKE_OPT) \
+	pkgdir=$(LIBNETPBM_PKGDIR)/usr \
+	install-run install-dev
+
 
 $(STATEDIR)/libnetpbm.prepare:
 	@$(call targetinfo)
@@ -88,6 +95,9 @@ ifdef PTXCONF_LIBNETPBM_PBM2LJ
 endif
 ifdef PTXCONF_LIBNETPBM_PPM2LJ
 	@$(call install_copy, libnetpbm, 0, 0, 0755, -, /usr/bin/ppmtolj)
+endif
+ifdef PTXCONF_LIBNETPBM_PNG2PNM
+	@$(call install_copy, libnetpbm, 0, 0, 0755, -, /usr/bin/pngtopnm)
 endif
 ifdef PTXCONF_LIBNETPBM_PNM2XWD
 	@$(call install_copy, libnetpbm, 0, 0, 0755, -, /usr/bin/pnmtoxwd)
