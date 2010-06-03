@@ -245,17 +245,19 @@ if GST_PLUGINS_GOOD
 		bool
 		prompt "gst_v4l2"
 
+	config GST_PLUGINS_GOOD_XVIDEO
+		bool
+		depends on GST_PLUGINS_GOOD_GST_V4L2
+		prompt "xvideo support"
+
 	config GST_PLUGINS_GOOD_X
 		bool
 		prompt "x"
 
 	config GST_PLUGINS_GOOD_XSHM
 		bool
-		prompt "xshm"
-
-	config GST_PLUGINS_GOOD_XVIDEO
-		bool
-		prompt "xvideo"
+		depends on GST_PLUGINS_GOOD_X
+		prompt "xshm support"
 
 	config GST_PLUGINS_GOOD_AALIB
 		bool
