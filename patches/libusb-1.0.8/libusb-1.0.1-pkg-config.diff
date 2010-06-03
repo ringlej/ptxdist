@@ -5,6 +5,9 @@ Add missing dependencies.
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 
 ---
+# 20100603 rsc: The patch was closed upstream, and I don't
+#          remember a use case any more :-( Let's keep it
+#          here for the moment, until we have a user.
 # 20100101 rsc: added as http://libusb.org/ticket/24
 
  libusb-1.0.pc.in |    2 +-
