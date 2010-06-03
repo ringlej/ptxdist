@@ -38,6 +38,10 @@ config GST_PLUGINS_BAD_ASFMUX
 	bool
 	prompt "asfmux"
 
+config GST_PLUGINS_BAD_AUDIOPARSERS
+	bool
+	prompt "audioparsers"
+
 config GST_PLUGINS_BAD_AUTOCONVERT
 	bool
 	prompt "autoconvert"
@@ -233,19 +237,19 @@ config GST_PLUGINS_BAD_VMNC
 
 config GST_PLUGINS_BAD_DIRECTSOUND
 	bool
-	prompt "directsound"
+	# windows only
 
 config GST_PLUGINS_BAD_DIRECTDRAW
 	bool
-	prompt "directdraw"
+	# windows only
 
 config GST_PLUGINS_BAD_OSX_VIDEO
 	bool
-	prompt "osx_video"
+	# OSX only
 
 config GST_PLUGINS_BAD_QUICKTIME
 	bool
-	prompt "quicktime"
+	# OSX only
 
 config GST_PLUGINS_BAD_VCD
 	bool
@@ -315,6 +319,8 @@ config GST_PLUGINS_BAD_DIVX
 
 config GST_PLUGINS_BAD_RESINDVD
 	bool
+	# needs dvdnav & dvdread
+	depends on BROKEN
 	prompt "resindvd"
 
 config GST_PLUGINS_BAD_METADATA
@@ -373,10 +379,14 @@ config GST_PLUGINS_BAD_LV2
 
 config GST_PLUGINS_BAD_LIBMMS
 	bool
+	# needs libmms
+	depends on BROKEN
 	prompt "libmms"
 
 config GST_PLUGINS_BAD_MODPLUG
 	bool
+	# needs libmodplug
+	depends on BROKEN
 	prompt "modplug"
 
 config GST_PLUGINS_BAD_MIMIC
@@ -445,6 +455,8 @@ config GST_PLUGINS_BAD_SDL
 
 config GST_PLUGINS_BAD_SNDFILE
 	bool
+	# needs sndfile
+	depends on BROKEN
 	prompt "sndfile"
 
 config GST_PLUGINS_BAD_SOUNDTOUCH
@@ -469,6 +481,9 @@ config GST_PLUGINS_BAD_SWFDEC
 
 config GST_PLUGINS_BAD_THEORADEC
 	bool
+	# this is disabled in the source code (0.10.19)
+	# recheck in later versions
+	depends on BROKEN
 	prompt "theoradec"
 
 config GST_PLUGINS_BAD_XVID
@@ -497,6 +512,8 @@ config GST_PLUGINS_BAD_VDPAU
 
 config GST_PLUGINS_BAD_SCHRO
 	bool
+	# needs schroedinger-1.0
+	depends on BROKEN
 	prompt "schro"
 
 config GST_PLUGINS_BAD_ZBAR
