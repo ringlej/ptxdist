@@ -16,12 +16,13 @@ PACKAGES-$(PTXCONF_DFU_UTIL) += dfu-util
 #
 # Paths and names
 #
-DFU_UTIL_VERSION	:= 5118
+DFU_UTIL_VERSION	:= 0.1
 DFU_UTIL		:= dfu-util-$(DFU_UTIL_VERSION)
 DFU_UTIL_SUFFIX		:= tar.gz
-DFU_UTIL_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(DFU_UTIL).$(DFU_UTIL_SUFFIX)
+DFU_UTIL_URL		:= http://dfu-util.gnumonks.org/releases/$(DFU_UTIL).$(DFU_UTIL_SUFFIX)
 DFU_UTIL_SOURCE		:= $(SRCDIR)/$(DFU_UTIL).$(DFU_UTIL_SUFFIX)
 DFU_UTIL_DIR		:= $(BUILDDIR)/$(DFU_UTIL)
+DFU_UTIL_LICENSE	:= GPLv2
 
 # ----------------------------------------------------------------------------
 # Get
@@ -50,7 +51,7 @@ DFU_UTIL_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/dfu-util.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, dfu-util)
+	@$(call install_init,  dfu-util)
 	@$(call install_fixup, dfu-util,PACKAGE,dfu-util)
 	@$(call install_fixup, dfu-util,PRIORITY,optional)
 	@$(call install_fixup, dfu-util,VERSION,$(DFU_UTIL_VERSION))
