@@ -255,153 +255,123 @@ $(STATEDIR)/gst-plugins-base.targetinstall:
 	done
 
 ifdef PTXCONF_GST_PLUGINS_BASE_APP
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstapp.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstapp.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_ADDER
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstadder.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstadder.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_AUDIOCONVERT
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstaudioconvert.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstaudioconvert.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_AUDIORATE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstaudiorate.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstaudiorate.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_AUDIORESAMPLE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstaudioresample.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstaudioresample.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_AUDIOTESTSRC
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstaudiotestsrc.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstaudiotestsrc.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_DECODEBIN
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstdecodebin.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstdecodebin.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_DECODEBIN_2
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstdecodebin2.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstdecodebin2.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_FFMPEGCOLORSPACE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstffmpegcolorspace.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstffmpegcolorspace.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_GDP
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstgdp.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstgdp.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_PLAYBACK
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstplaybin.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstplaybin.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_SUBPARSE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstsubparse.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstsubparse.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_TCP
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgsttcp.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgsttcp.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_TYPEFIND
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgsttypefindfunctions.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgsttypefindfunctions.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_VIDEOTESTSRC
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstvideotestsrc.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstvideotestsrc.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_VIDEORATE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstvideorate.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstvideorate.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_VIDEOSCALE
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstvideoscale.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstvideoscale.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_VOLUME
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstvolume.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstvolume.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_X
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstximagesink.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstximagesink.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_XVIDEO
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstxvimagesink.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstxvimagesink.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_GST_V4L
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstvideo4linux.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstvideo4linux.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_ALSA
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstalsa.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstalsa.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_CDPARANOIA
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstcdparanoia.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstcdparanoia.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_GNOME_VFS
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstgnomevfs.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstgnomevfs.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_GIO
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstgio.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstgio.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_LIBVISUAL
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstlibvisual.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstlibvisual.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_OGG
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstogg.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstogg.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_PANGO
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstpango.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstpango.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_THEORA
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgsttheora.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgsttheora.so)
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_VORBIS
-	@$(call install_copy, gst-plugins-base, 0, 0, 0644, \
-		$(PKGDIR)/$(GST_PLUGINS_BASE)/usr/lib/gstreamer-0.10/libgstvorbis.so, \
+	@$(call install_copy, gst-plugins-base, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstvorbis.so)
 endif
 	@$(call install_finish, gst-plugins-base)
