@@ -1099,10 +1099,15 @@ newpackage() {
 		;;
 	esac
 
+	local iargs
+	if echo | read -i foo -p bar -e > /dev/null 2>&1; then
+		iargs=("-i" "${PTXCONF_SETUP_USER_NAME} <${PTXCONF_SETUP_USER_EMAIL}>")
+	else
+		iargs=()
+	fi
 	local author
 	read -e -p "${PTXDIST_LOG_PROMPT}enter package author.....: " \
-		-i "${PTXCONF_SETUP_USER_NAME} <${PTXCONF_SETUP_USER_EMAIL}>" \
-		author
+		"${iargs[@]}" author
 
 	local section
 	read -e -p "${PTXDIST_LOG_PROMPT}enter package section....: " \
