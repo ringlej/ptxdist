@@ -6,6 +6,7 @@ menuconfig SYSLOGNG
 	prompt "syslog-ng                     "
 	select EVENTLOG
 	select GLIB
+	select LIBC_NSL
 	select LIBC_RT
 	select LIBNET		if SYSLOGNG_SPOOF_SOURCE
 	select TCPWRAPPER	if SYSLOGNG_TCP_WRAPPER
