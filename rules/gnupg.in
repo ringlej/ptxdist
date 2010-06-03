@@ -2,6 +2,7 @@
 config GNUPG
 	tristate
 	prompt "gnupg"
+	select ZLIB
 	help
 	  GnuPG - The GNU Privacy Guard suite of programs
 
