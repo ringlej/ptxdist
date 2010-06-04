@@ -1,0 +1,54 @@
+## SECTION=shell_and_console
+
+menuconfig KBD
+	tristate
+	prompt "kbd"
+	help
+	  The kbd package contains keytable files and keyboard utilities
+	  compatible with kernel version 1.1.54 and later. Setfont requires
+	  1.1.92 or later.
+if KBD
+
+config KBD_DUMPKEYS
+	bool
+	prompt "dumpkeys"
+	help
+	  dumpkeys - dump keyboard translation tables
+
+config KBD_LOADKEYS
+	bool
+	prompt "loadkeys"
+	help
+	  loadkeys - load keyboard translation tables
+
+config KBD_GETKEYCODES
+	bool
+	prompt "getkeycodes"
+	help
+	  getkeycodes - print kernel scancode-to-keycode mapping table
+
+config KBD_SETKEYCODES
+	bool
+	prompt "setkeycodes"
+	help
+	  setkeycodes - load kernel scancode-to-keycode mapping table entries
+
+config KBD_SHOWKEY
+	bool
+	prompt "showkey"
+	help
+	  showkey - examine the scan codes and keycodes sent by the keyboard
+
+config KBD_CHVT
+	bool
+	prompt "chvt"
+	help
+	  chvt - change foreground virtual terminal
+
+config KBD_DEALLOCVT
+	bool
+	prompt "deallocvt"
+	help
+	  deallocvt - deallocate unused virtual terminals
+
+endif
