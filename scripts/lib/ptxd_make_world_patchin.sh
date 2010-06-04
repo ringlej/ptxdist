@@ -81,11 +81,11 @@ ptxd_make_world_patchin_apply_git_init()
     # is already git repo?
     if [ "${git_dir}" != ".git" ]; then
 	echo "patchin: git: initializing repository"
-	git init -q "${pkg_patchin_dir}" &&
+	git init -q &&
 	git add -f . &&
 	git commit -q -m "initial commit" --author="ptxdist-${PTXDIST_VERSION_FULL} <ptxdist@pengutronix.de>" &&
-	git tag "${pkg_pkg}"
-	git tag base
+	git tag "${pkg_pkg}" &&
+	git tag base &&
 	echo "patchin: git: done"
     fi
 }
