@@ -197,6 +197,10 @@ ifdef PTXCONF_LIGHTTPD_STARTSCRIPT
 endif
 endif
 
+ifdef PTXCONF_INITMETHOD_UPSTART
+	@$(call install_alternative, lighttpd, 0, 0, 0755, /etc/init/lighttpd.conf)
+endif
+
 ifdef PTXCONF_LIGHTTPD_GENERIC_SITE
 ifdef PTXCONF_PHP5_SAPI_CGI
 	@$(call install_copy, lighttpd, 12, 102, 0644, \
