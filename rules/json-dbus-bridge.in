@@ -1,0 +1,15 @@
+## SECTION=networking
+
+config JSON_DBUS_BRIDGE
+	tristate
+	select DBUS
+	select JSON_C
+	select FCGI
+	select LIBEVENT
+	prompt "json-dbus-bridge"
+	help
+	  The JSON-D-Bus-bridge is a fastcgi application that provides access to
+	  D-Bus. It accepts JSON-RPC calls as used for instance by qooxdoo and
+	  translates these into D-Bus calls. Any response is converted back to
+	  JSON and sent to the client.
+
