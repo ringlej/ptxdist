@@ -125,7 +125,7 @@ ifdef KERNEL_INITRAMFS_SOURCE_y
 endif
 
 	@$(call ptx/oldconfig, KERNEL)
-	@diff -q "$(KERNEL_DIR)/.config" "$(<)" > /dev/null || cp "$(KERNEL_DIR)/.config" "$(<)"
+	@diff -q -I "# [^C]" "$(KERNEL_DIR)/.config" "$(<)" > /dev/null || cp "$(KERNEL_DIR)/.config" "$(<)"
 
 #
 # Don't keep the expanded path to INITRAMS_SOURCE in $(KERNEL_CONFIG),
