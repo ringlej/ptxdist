@@ -224,7 +224,7 @@ check_version() {
 	#
 	# If not the developer has to fix it :P
 	#
-	if [ "${PTXDIST_VERSION_SCM:+-git}" = "${config_scm:+-git}" ]; then
+	if [ -n "${PTXDIST_VERSION_SCM}" -a -n "${config_scm}" ]; then
 		return 0
 	fi
 
