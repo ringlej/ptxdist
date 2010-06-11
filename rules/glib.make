@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 # Paths and names
 #
 ifdef PTXCONF_GLIB_EXPERIMENTAL
-GLIB_VERSION	:= 2.25.7
+GLIB_VERSION	:= 2.25.10
 else
 GLIB_VERSION	:= 2.22.2
 endif
@@ -79,7 +79,8 @@ GLIB_AUTOCONF := \
 	--with-pcre=internal \
 	--enable-static \
 	--enable-shared \
-	--with-libiconv=no
+	--with-libiconv=no \
+	--disable-gcov
 else
 GLIB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
@@ -106,7 +107,7 @@ endif
 # ----------------------------------------------------------------------------
 
 ifdef PTXCONF_GLIB_EXPERIMENTAL
-GLIB_LIB_VERSION := 0.2507.0
+GLIB_LIB_VERSION := 0.2510.0
 else
 GLIB_LIB_VERSION := 0.2200.2
 endif
