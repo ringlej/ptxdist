@@ -1,10 +1,54 @@
 ## SECTION=disk_and_file
 
-config OPKG
+menuconfig OPKG
 	tristate
-	select LIBCURL
-	prompt "opkg"
+	select LIBCURL if OPKG_CURL
+	prompt "opkg                          "
 	help
 	  Opkg is a lightweight package management system based on Ipkg.
 
 	  http://code.google.com/p/opkg/
+
+if OPKG
+
+config OPKG_PATHFINDER
+	bool
+	prompt "pathfinder support"
+	# needs pathfinder-openssl
+	depends on BROKEN
+	help
+	  FIXME
+
+config OPKG_CURL
+	bool
+	prompt "libcurl support"
+	help
+	  FIXME - is this optional?
+
+config OPKG_SHA256
+	bool
+	prompt "sha256 support"
+	help
+	  FIXME
+
+config OPKG_OPENSSL
+	bool
+	prompt "openssl signature checking"
+	help
+	  FIXME
+
+config OPKG_SSL_CURL
+	bool
+	prompt "libcurl certificate authentication"
+	help
+	  FIXME
+
+config OPKG_GPG
+	bool
+	prompt "signature checking with gpg"
+	# gpg and openssl are mutually exclusive
+	depends on ! OPKG_OPENSSL
+	help
+	  FIXME
+
+endif

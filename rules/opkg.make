@@ -16,21 +16,12 @@ PACKAGES-$(PTXCONF_OPKG) += opkg
 #
 # Paths and names
 #
-OPKG_VERSION	:= r180
+OPKG_VERSION	:= 0.1.8
 OPKG		:= opkg-$(OPKG_VERSION)
 OPKG_SUFFIX	:= tar.gz
-#                  http://code.google.com/p/opkg/
-OPKG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(OPKG).$(OPKG_SUFFIX)
+OPKG_URL	:= http://opkg.googlecode.com/files/$(OPKG).$(OPKG_SUFFIX)
 OPKG_SOURCE	:= $(SRCDIR)/$(OPKG).$(OPKG_SUFFIX)
 OPKG_DIR	:= $(BUILDDIR)/$(OPKG)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(OPKG_SOURCE):
-	@$(call targetinfo)
-	@$(call get, OPKG)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -42,9 +33,41 @@ OPKG_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-OPKG_AUTOCONF := \
+OPKG_CONF_TOOL	:= autoconf
+OPKG_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-gpg
+	--enable-shave
+
+ifdef PTXCONF_OPKG_PATHFINDER
+OPKG_CONF_OPT += --enable-pathfinder
+else
+OPKG_CONF_OPT += --disable-pathfinder
+endif
+ifdef PTXCONF_OPKG_CURL
+OPKG_CONF_OPT += --enable-curl
+else
+OPKG_CONF_OPT += --disable-curl
+endif
+ifdef PTXCONF_OPKG_SHA256
+OPKG_CONF_OPT += --enable-sha256
+else
+OPKG_CONF_OPT += --disable-sha256
+endif
+ifdef PTXCONF_OPKG_OPENSSL
+OPKG_CONF_OPT += --enable-openssl
+else
+OPKG_CONF_OPT += --disable-openssl
+endif
+ifdef PTXCONF_OPKG_SSL_CURL
+OPKG_CONF_OPT += --enable-ssl-curl
+else
+OPKG_CONF_OPT += --disable-ssl-curl
+endif
+ifdef PTXCONF_OPKG_GPG
+OPKG_CONF_OPT += --enable-gpg
+else
+OPKG_CONF_OPT += --disable-gpg
+endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -59,16 +82,17 @@ $(STATEDIR)/opkg.targetinstall:
 	@$(call install_fixup, opkg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, opkg,DESCRIPTION,missing)
 
-#	# makes only sense when we --enable-gpg
-#	# @$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg-key)
-	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/update-alternatives)
+ifdef PTXCONF_OPKG_GPG
+	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg-key)
+endif
+#	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/update-alternatives)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/bin/opkg-cl)
+
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/ldconfig)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/depmod)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/update-modules)
-	@$(call install_copy, opkg, 0, 0, 0644, -, /usr/lib/libopkg.so.0.0.0)
-	@$(call install_link, opkg, libopkg.so.0.0.0, /usr/lib/libopkg.so.0)
-	@$(call install_link, opkg, libopkg.so.0.0.0, /usr/lib/libopkg.so)
+
+	@$(call install_lib, opkg, 0, 0, 0644, libopkg)
 
 #	# opkg tries to write to the OPKG_STATE_DIR_PREFIX, which is /usr/lib/opkg
 	@$(call install_link, opkg, ../../tmp, /usr/lib/opkg)
