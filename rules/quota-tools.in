@@ -2,7 +2,7 @@
 
 menuconfig QUOTA_TOOLS
 	tristate
-	prompt "Disk Quota Tools"
+	prompt "quota tools                   "
 	select E2FSPROGS
 	select E2FSPROGS_LIBEXT2FS
 	select E2FSPROGS_LIBCOM_ERR
