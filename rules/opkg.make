@@ -76,7 +76,8 @@ endif
 $(STATEDIR)/opkg.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, opkg)
+	@$(call install_init,  opkg)
+	@$(call install_fixup, opkg,PACKAGE,opkg)
 	@$(call install_fixup, opkg,PRIORITY,optional)
 	@$(call install_fixup, opkg,SECTION,base)
 	@$(call install_fixup, opkg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
@@ -92,7 +93,7 @@ endif
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/depmod)
 	@$(call install_copy, opkg, 0, 0, 0755, -, /usr/share/opkg/intercept/update-modules)
 
-	@$(call install_lib, opkg, 0, 0, 0644, libopkg)
+	@$(call install_lib,  opkg, 0, 0, 0644, libopkg)
 
 #	# opkg tries to write to the OPKG_STATE_DIR_PREFIX, which is /usr/lib/opkg
 	@$(call install_link, opkg, ../../tmp, /usr/lib/opkg)
