@@ -25,13 +25,13 @@ KERNEL_HEADERS_INCLUDE_DIR := $(KERNEL_HEADERS_DIR)/include
 #
 ifdef PTXCONF_KERNEL
     ifneq ($(PTXCONF_COMPILER_PREFIX),$(PTXCONF_COMPILER_PREFIX_KERNEL))
-	ifeq ($(wildcard selected_toolchain_kernel/$(PTXCONF_COMPILER_PREFIX_KERNEL)gcc),)
-	    $(warning *** no 'selected_toolchain_kernel' link found. Please create a link)
-	    $(warning *** 'selected_toolchain_kernel' to the bin directory of your)
-	    $(warning '$(PTXCONF_COMPILER_PREFIX_KERNEL)' toolchain)
-	    $(error )
-	endif
-	KERNEL_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/selected_toolchain_kernel/
+        ifeq ($(wildcard selected_toolchain_kernel/$(PTXCONF_COMPILER_PREFIX_KERNEL)gcc),)
+            $(warning *** no 'selected_toolchain_kernel' link found. Please create a link)
+            $(warning *** 'selected_toolchain_kernel' to the bin directory of your)
+            $(warning '$(PTXCONF_COMPILER_PREFIX_KERNEL)' toolchain)
+            $(error )
+        endif
+        KERNEL_TOOLCHAIN_LINK := $(PTXDIST_WORKSPACE)/selected_toolchain_kernel/
     endif
 endif
 
