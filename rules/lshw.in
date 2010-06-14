@@ -2,7 +2,7 @@
 
 menuconfig LSHW
 	tristate
-	prompt "lshw                         "
+	prompt "lshw                          "
 	select GTK if LSHW_GUI
 	help
 	  lshw (Hardware Lister) is a small tool to provide detailed information
