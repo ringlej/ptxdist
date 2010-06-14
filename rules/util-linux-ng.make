@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.17.2
+UTIL_LINUX_NG_VERSION	:= 2.18
 UTIL_LINUX_NG		:= util-linux-ng-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.bz2
-UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.17/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
+UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.18/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2+
@@ -69,7 +69,6 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-mesg \
 	--disable-partx \
 	--disable-raw \
-	--disable-rdev \
 	--disable-rename \
 	--disable-reset \
 	--enable-schedutils \
@@ -86,7 +85,8 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--without-pam \
 	--without-slang \
 	--without-selinux \
-	--without-audit
+	--without-audit \
+	--without-utempter
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -162,6 +162,10 @@ ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
 	@$(call install_copy, util-linux-ng, 0, 0, 0644, -, /lib/libuuid.so.1.3.0)
 	@$(call install_link, util-linux-ng, libuuid.so.1.3.0, /lib/libuuid.so.1)
 	@$(call install_link, util-linux-ng, libuuid.so.1.3.0, /lib/libuuid.so)
+endif
+
+ifdef PTXCONF_UTIL_LINUX_NG_LIBMOUNT
+	# FIXME - no user yet
 endif
 
 ifdef PTXCONF_UTIL_LINUX_NG_UUIDGEN

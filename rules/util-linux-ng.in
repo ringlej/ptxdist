@@ -17,6 +17,9 @@ config UTIL_LINUX_NG_LIBBLKID
 config UTIL_LINUX_NG_LIBUUID
 	bool
 
+config UTIL_LINUX_NG_LIBMOUNT
+	bool
+
 config UTIL_LINUX_NG_USES_NCURSES
 	bool
 
