@@ -3,7 +3,6 @@
 config HOST_UMKIMAGE
 	tristate
 	default ALLYES
-	select HOST_ZLIB
 	help
 	  umkimage is the U-Boot mkimage command. It is used to create
 	  boot images for the U-Boot bootloader.
