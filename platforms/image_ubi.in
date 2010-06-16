@@ -3,20 +3,16 @@
 menuconfig IMAGE_UBI
 	bool
 	select IMAGE_UBIFS
-	prompt "Generate images/root.ubi      "
+	select IMAGE_UBI_ROOT_VOL
+	prompt "Generate UBI Image            "
 	help
-	  Build an ubi image of the root filesystem. This image is suitable for
-	  writing to raw flash devices.
+	  Build ubi formated image(s) for the root file system and an
+	  optional data partition. UBI is faster and robuster than JFFS2,
+	  we recommend strongly the usage of UBI if you want a file
+	  system for raw flash devices. The image(s) can be directly
+	  written to e.g. an mtd partition on a raw flash devices.
 
 if IMAGE_UBI
-
-config IMAGE_UBI_VOLUME_SIZE
-	string
-	prompt "ubi volume size"
-	default "<invalid>"
-	help
-	  ptxdist currently creates ubi images with only one volume in it. Specify
-	  its size here.
 
 config IMAGE_UBI_SUB_PAGE_SIZE
 	string
@@ -42,5 +38,106 @@ config IMAGE_UBI_PEB_SIZE
 	  This option is passed to the -p option of ubinize. Gain the
 	  correct value from 'mtdinfo -u' on your target.
 
+menuconfig IMAGE_UBI_ROOT_VOL
+	bool
+	select IMAGE_UBIFS_ROOT
+	default y
+	prompt "Create root volume      "
+	help
+	  Create a root volume with the content of root.ubifs. You will
+	  most probably want to activate this option is essential since
+	  otherwise the final ubi image  will not contain a root file
+	  system.
+
+if IMAGE_UBI_ROOT_VOL
+
+config IMAGE_UBI_ROOT_VOL_SIZE
+	string
+	prompt "root volume size"
+	default "<invalid>"
+	help
+	  Give the root volume size here. You can use size unit like
+	  "KiB" or "MiB".
+
+	  The volume size must be greater than than the actual ubifs
+	  file. Further the sum of all volumes in an UBI image should
+	  be slightly smaller than the mtd device, to wich the image
+	  will be flashed. The spare place is supposed to be used for
+	  Jounal and other UBI header informations. We recommend a
+	  ratio between spare place and the actual size of the mtd
+	  partion at about 10% or higher. It is OK to define a big
+	  amount of spare place. The UBI System will scan for available
+	  space during first boot and expand the volume to the maximal
+	  usable size after reserving internally used blocks.
+
+	  An example: Our UBI image is supposed to contain a single "root"
+	  volume. The mtd partition, onto which we will flash the UBI
+	  image has a size of 32MiB. Our actual rootfs.ubifs has a size
+	  of 16MiB. Than we should define our root volume size between
+	  16MiB and 29MiB. We decide for 25MiB. During the boot process
+	  the UBI system detects a mtd partiton of 32MiB. After reserving
+	  2MiB for internal use it will expand our volume automatically to
+	  30MiB.
+
+config IMAGE_UBI_ROOT_VOL_NAME
+	string
+	prompt "root volume name"
+	default "root"
+	help
+	  Give the root volume name here. Default is "root".
+
 endif
 
+menuconfig UBI_CREATE_DATA
+	bool
+	prompt "Create a data partition"
+	select IMAGE_UBIFS_DATA
+	help
+	  Generate a data partition. The ubifs image containg the data
+	  partition can either integrated into the root ubi Image as
+	  a further volume or created as a standalone flashable UBI image.
+
+if UBI_CREATE_DATA
+
+choice
+	prompt "Type of data partition"
+	default IMAGE_UBI_DATA
+	help
+	  specify the type of the data partition.
+
+config IMAGE_UBI_DATA_VOL
+	bool
+	prompt "Volume in root.ubi"
+	help
+	  Combine the datavolume and the rootfs volume in one single ubi
+	  image.
+
+config IMAGE_UBI_DATA
+	bool
+	prompt "Standalone as data.ubi"
+	help
+	  Build a single volume standalone ubi image for the data ubifs
+	  image. This image can be directly written to e.g. an mtd
+	  partition on a raw flash devices.
+endchoice
+
+config IMAGE_UBI_DATA_VOL_SIZE
+	string
+	prompt "Data volume size"
+	default "<invalid>"
+	help
+	  Give the data volume size here. You can use size unit like
+	  "KiB" or "MiB" here. The volume size must be greater
+	  than than the actual ubifs file and smaller than the mtd device
+	  less 10% spare place.
+
+config IMAGE_UBI_DATA_VOL_NAME
+	string
+	prompt "Data volume name"
+	default "data"
+	help
+	  Give the data volume name here. Default is "data".
+
+endif
+
+endif

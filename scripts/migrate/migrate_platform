@@ -7,3 +7,13 @@
 # reason : more generic special compiler handling
 #
 s/^\(\(# \)\?PTXCONF\)_COMPILER_PREFIX_UBOOT\(.*$\)/\1_COMPILER_PREFIX_BOOTLOADER\3/
+
+#
+# from   : ptxdist-2010.05.2
+# to     : ptxdist-2010.06.0
+# symbol : IMAGE_UBI_VOLUME_SIZE -> IMAGE_UBI_ROOT_VOL_SIZE
+# symbol : IMAGE_UBIFS_MAX_LEB_COUNT -> IMAGE_UBIFS_ROOT_MAX_LEB_COUNT
+# reason : changes in ubi image generation, we are going to have more than one volumes
+#
+s/^\(\(# \)\?PTXCONF\)_IMAGE_UBI_VOLUME_SIZE\(.*$\)/\1_IMAGE_UBI_ROOT_VOL_SIZE\3/
+s/^\(\(# \)\?PTXCONF\)_IMAGE_UBIFS_MAX_LEB_COUNT\(.*$\)/\1_IMAGE_UBIFS_ROOT_MAX_LEB_COUNT\3/

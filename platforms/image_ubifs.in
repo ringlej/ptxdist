@@ -3,12 +3,12 @@
 menuconfig IMAGE_UBIFS
 	bool
 	select HOST_MTD_UTILS
-	prompt "Generate images/root.ubifs    "
+	prompt "Generate UBIFS Images         "
 	help
-	  Build an ubifs image of the root filesystem. Note that this image
-	  is not suitable for raw flash but for usage with the ubiupdatevol
-	  utility. If you are looking for a image for raw flash look at the
-	  root.ubi option below
+	  Build ubifs images of the root filesystem or an optional data
+	  partition. Note that this image is not suitable for raw flash
+	  but for usage with the ubiupdatevol utility. If you are looking
+	  for a image for raw flash look at the "UBI Image" option below
 
 if IMAGE_UBIFS
 
@@ -28,15 +28,6 @@ config IMAGE_UBIFS_LEB_SIZE
 	  This option is passed to the -e option of mkfs.ubifs. Gain the
 	  correct value from 'mtdinfo -u' on your target.
 
-config IMAGE_UBIFS_MAX_LEB_COUNT
-	string
-	default "<invalid>"
-	prompt "maximum logical erase block count"
-	help
-	  This option is passed to the -c option of mkfs.ubifs. This specifies
-	  the maximum size of your ubi filesystem in units of logical erase
-	  blocks
-
 config IMAGE_UBIFS_EXTRA_ARGS
 	string
 	default ""
@@ -45,4 +36,42 @@ config IMAGE_UBIFS_EXTRA_ARGS
 	  If needed you can add extra arguments for mkfs.ubifs here
 	  (e.g. --devtable=${PTXDIST_WORKSPACE}/device_table.txt)
 
+menuconfig IMAGE_UBIFS_ROOT
+	bool
+	default y
+	prompt "Generate images/root.ubifs      "
+	help
+	  Build an ubifs image of the root filesystem.
+
+if IMAGE_UBIFS_ROOT
+
+config IMAGE_UBIFS_ROOT_MAX_LEB_COUNT
+	string
+	default "<invalid>"
+	prompt "maximum logical erase block count"
+	help
+	  This option is passed to the -c option of mkfs.ubifs. This specifies
+	  the maximum size of your ubi filesystem in units of logical erase
+	  blocks
+
+endif
+
+menuconfig IMAGE_UBIFS_DATA
+	bool
+	prompt "Generate images/data.ubifs      "
+	help
+	  Build an empty data image of the root filesystem.
+
+if IMAGE_UBIFS_DATA
+
+config IMAGE_UBIFS_DATA_MAX_LEB_COUNT
+	string
+	default "<invalid>"
+	prompt "maximum logical erase block count"
+	help
+	  This option is passed to the -c option of mkfs.ubifs. This specifies
+	  the maximum size of your ubi filesystem in units of logical erase
+	  blocks
+
+endif
 endif
