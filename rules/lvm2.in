@@ -1,10 +1,10 @@
 ## SECTION=disk_and_file
 
-config LVM2
+menuconfig LVM2
 	tristate
 	select READLINE
 	select NCURSES
-	prompt "lvm2"
+	prompt "lvm2                          "
 	help
 	  LVM2 refers to a new userspace toolset that provide logical volume management
 	  facilities on linux. It is reasonably backwards-compatible with the original
