@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2006-2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2006-2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,7 +16,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_PKG_CONFIG) += host-pkg-config
 #
 # Paths and names
 #
-HOST_PKG_CONFIG_VERSION	:= 0.23
+HOST_PKG_CONFIG_VERSION	:= 0.25
 HOST_PKG_CONFIG		:= pkg-config-$(HOST_PKG_CONFIG_VERSION)
 HOST_PKG_CONFIG_SUFFIX	:= tar.gz
 HOST_PKG_CONFIG_URL	:= http://pkgconfig.freedesktop.org/releases/$(HOST_PKG_CONFIG).$(HOST_PKG_CONFIG_SUFFIX)
