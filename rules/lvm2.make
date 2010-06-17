@@ -37,20 +37,21 @@ $(LVM2_SOURCE):
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
-LVM2_PATH	:= PATH=$(CROSS_PATH)
-# CLDFLAGS is real name used by the Makefiles, it is not a typo
-LVM2_ENV	:= $(CROSS_ENV) \
-		CLDFLAGS="$(CROSS_LDFLAGS)" \
-		CFLAGS="$(CROSS_CPPFLAGS)"
+
+LVM2_ENV := \
+	$(CROSS_ENV) \
+	CFLAGS="$(CROSS_CFLAGS) $(CROSS_CPPFLAGS)" \
+	ac_cv_path_MODPROBE_CMD="/sbin/modprobe"
 
 #
 # autoconf
 #
 LVM2_CONF_TOOL	:= autoconf
-LVM2_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
-		--with-device-uid=$(PTXCONF_LVM2_DEVICE_UID) \
-		--with-device-gid=$(PTXCONF_LVM2_DEVICE_GID) \
-		--with-device-mode=$(PTXCONF_LVM2_DEVICE_MODE)
+LVM2_CONF_OPT := \
+	$(CROSS_AUTOCONF_USR) \
+	--with-device-uid=$(PTXCONF_LVM2_DEVICE_UID) \
+	--with-device-gid=$(PTXCONF_LVM2_DEVICE_GID) \
+	--with-device-mode=$(PTXCONF_LVM2_DEVICE_MODE)
 
 # ----------------------------------------------------------------------------
 # Target-Install
