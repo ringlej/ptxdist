@@ -5,21 +5,14 @@ menuconfig E2FSPROGS
 	prompt "e2fsprogs                     "
 	select HOST_GETTEXT
 	# configure needs these external libs
-	select LIBBLKID	#if E2FSPROGS_LIBBLKID
-	select LIBUUID	#if E2FSPROGS_LIBUUID
+	select LIBBLKID
+	select LIBUUID
 	help
 	 The e2fsprogs package provides the filesystem utilities for use
 	 with the ext2 filesystem. It also supports the ext3 filesystem
 	 with journaling support.
 
 if E2FSPROGS
-
-
-config E2FSPROGS_LIBBLKID
-	bool
-
-config E2FSPROGS_LIBUUID
-	bool
 
 # -----------------------------------
 menu "build options                 "
@@ -115,10 +108,10 @@ config E2FSPROGS_INSTALL_BADBLOCKS
 
 config E2FSPROGS_INSTALL_DUMPE2FS
 	bool
+#	select E2FSPROGS_LIBUUID
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
 	select E2FSPROGS_LIBEXT2FS
-	select E2FSPROGS_LIBUUID
 	prompt "dumpe2fs"
 	help
 	  Enable support for dumpe2fs program.
@@ -127,11 +120,11 @@ config E2FSPROGS_INSTALL_DUMPE2FS
 
 config E2FSPROGS_INSTALL_E2FSCK
 	bool
-	select E2FSPROGS_LIBBLKID
+#	select E2FSPROGS_LIBBLKID
+#	select E2FSPROGS_LIBUUID
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
 	select E2FSPROGS_LIBEXT2FS
-	select E2FSPROGS_LIBUUID
 	prompt "e2fsck"
 	help
 	  Enable support for e2fsck program.
@@ -178,11 +171,11 @@ config E2FSPROGS_INSTALL_E2IMAGE
 
 config E2FSPROGS_INSTALL_E2LABEL
 	bool
-	select E2FSPROGS_LIBBLKID
+#	select E2FSPROGS_LIBBLKID
+#	select E2FSPROGS_LIBUUID
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
 	select E2FSPROGS_LIBEXT2FS
-	select E2FSPROGS_LIBUUID
 	prompt "e2label"
 	help
 	  Enable support for e2label program.
@@ -211,11 +204,11 @@ config E2FSPROGS_INSTALL_LOGSAVE
 
 config E2FSPROGS_INSTALL_MKE2FS
 	bool
-	select E2FSPROGS_LIBBLKID
+#	select E2FSPROGS_LIBBLKID
+#	select E2FSPROGS_LIBUUID
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
 	select E2FSPROGS_LIBEXT2FS
-	select E2FSPROGS_LIBUUID
 	prompt "mke2fs"
 	help
 	  Enable support for mke2fs program.
@@ -267,18 +260,18 @@ config E2FSPROGS_INSTALL_RESIZE2FS
 
 config E2FSPROGS_INSTALL_TUNE2FS
 	bool
-	select E2FSPROGS_LIBBLKID
+#	select E2FSPROGS_LIBBLKID
+#	select E2FSPROGS_LIBUUID
 	select E2FSPROGS_LIBCOM_ERR
 	select E2FSPROGS_LIBE2P
 	select E2FSPROGS_LIBEXT2FS
-	select E2FSPROGS_LIBUUID
 	prompt "tune2fs"
 	help
 	  Enable support for tune2fs program.
 
 config E2FSPROGS_INSTALL_UUIDD
 	bool
-	select E2FSPROGS_LIBUUID
+#	select E2FSPROGS_LIBUUID
 	prompt "uuid"
 	help
 	  Enable support for uuid program.
