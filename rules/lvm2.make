@@ -120,7 +120,7 @@ $(STATEDIR)/lvm2.targetinstall:
 
 	@$(call install_alternative, lvm2, 0, 0, 0644, /etc/lvm/lvm.conf)
 
-	@$(call install_copy, lvm2, 0, 0, 0755, -, /usr/lib/libdevmapper.so.1.02)
+	@$(call install_copy, lvm2, 0, 0, 0644, -, /usr/lib/libdevmapper.so.1.02)
 	@$(call install_link, lvm2, libdevmapper.so.1.02, /usr/lib/libdevmapper.so)
 
 ifdef PTXCONF_LVM2_STARTSCRIPT
