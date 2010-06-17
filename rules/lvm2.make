@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_LVM2) += lvm2
 #
 # Paths and names
 #
-LVM2_VERSION	:= 2.02.53
+LVM2_VERSION	:= 2.02.66
 LVM2		:= LVM2.$(LVM2_VERSION)
 LVM2_SUFFIX	:= tgz
 LVM2_URL	:= \
