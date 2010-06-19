@@ -37,7 +37,11 @@ $(LSHW_SOURCE):
 # ----------------------------------------------------------------------------
 
 LSHW_CONF_TOOL		:= NO
-LSHW_MAKE_OPT		:= $(CROSS_ENV) all
+# calling "make all gui" in the toplevel dir breaks parallel building:
+# the two targets are run at the same time and src/core/ is built twice.
+# the result are random missing symbols or broken files. Calling make in
+# the src subdir avoids this.
+LSHW_MAKE_OPT		:= $(CROSS_ENV) -C src all
 LSHW_INSTALL_OPT	:= $(CROSS_ENV) install
 ifdef PTXCONF_LSHW_GUI
 LSHW_MAKE_OPT		+= gui
