@@ -1,4 +1,7 @@
-Replace keyword node with hwnode for TinyXpath compatibility
+From 0eea91e31ed90c82acc45c221be689c10e4f779c Mon Sep 17 00:00:00 2001
+From: Bart vdr. Meulen <bartvdrmeulen@gmail.com>
+Date: Sun, 20 Jun 2010 22:48:09 +0200
+Subject: [PATCH 2/2] Replace keyword node with hwnode for TinyXpath compatibility
 
 It turns out that within TinyXpath 'node' is a reserved key-word.
 Replace it with 'hwnode' when printing to xml.
@@ -7,12 +10,12 @@ Signed-off-by: Bart vdr. Meulen <bartvdrmeulen@gmail.com>
 Signed-off-by: Remy Bohmer <linux@bohmer.net>
 ---
  src/core/hw.cc |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
-Index: lshw-B.02.14/src/core/hw.cc
-===================================================================
---- lshw-B.02.14.orig/src/core/hw.cc	2009-10-14 14:49:33.000000000 +0200
-+++ lshw-B.02.14/src/core/hw.cc	2009-10-14 14:49:49.000000000 +0200
+diff --git a/src/core/hw.cc b/src/core/hw.cc
+index 36679d3..367729b 100644
+--- a/src/core/hw.cc
++++ b/src/core/hw.cc
 @@ -1343,7 +1343,7 @@ string hwNode::asXML(unsigned level)
    if(visible(getClassName()))
    {
@@ -29,5 +32,8 @@ Index: lshw-B.02.14/src/core/hw.cc
 -    out << "</node>" << endl;
 +    out << "</hwnode>" << endl;
    }
-
+ 
    return out.str();
+-- 
+1.7.1
+
