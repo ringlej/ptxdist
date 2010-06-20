@@ -2,7 +2,7 @@
 
 menuconfig KBD
 	tristate
-	prompt "kbd"
+	prompt "kbd                           "
 	help
 	  The kbd package contains keytable files and keyboard utilities
 	  compatible with kernel version 1.1.54 and later. Setfont requires
