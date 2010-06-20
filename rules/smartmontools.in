@@ -1,8 +1,8 @@
 ## SECTION=shell_and_console
 
-config SMARTMONTOOLS
+menuconfig SMARTMONTOOLS
 	tristate
-	prompt "smartmontools"
+	prompt "smartmontools                 "
 	select BUSYBOX_START_STOP_DAEMON if SMARTMONTOOLS_SMARTD_INITD
 	help
 	  The smartmontools package contains two utility programs (smartctl and smartd)
