@@ -14,7 +14,6 @@ if LSHW
 
 config LSHW_GUI
 	bool
-	default n
 	prompt "install GUI"
 
 endif
