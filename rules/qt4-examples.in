@@ -88,6 +88,8 @@ if QT4_EXAMPLES_DBUS
 config QT4_EXAMPLES_DBUS_COMPLEXPING
 	bool
 	prompt "complexping"
+	# strange broken .pro files
+	depends on BROKEN
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	depends on QT4_BUILD_XML
 	depends on QT4_BUILD_NETWORK
@@ -95,6 +97,8 @@ config QT4_EXAMPLES_DBUS_COMPLEXPING
 config QT4_EXAMPLES_DBUS_COMPLEXPONG
 	bool
 	prompt "complexpong"
+	# strange broken .pro files
+	depends on BROKEN
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	depends on QT4_BUILD_XML
 	depends on QT4_BUILD_NETWORK
@@ -117,6 +121,8 @@ config QT4_EXAMPLES_DBUS_LISTNAMES
 config QT4_EXAMPLES_DBUS_PING
 	bool
 	prompt "ping"
+	# strange broken .pro files
+	depends on BROKEN
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	depends on QT4_BUILD_XML
 	depends on QT4_BUILD_NETWORK
@@ -124,6 +130,8 @@ config QT4_EXAMPLES_DBUS_PING
 config QT4_EXAMPLES_DBUS_PONG
 	bool
 	prompt "pong"
+	# strange broken .pro files
+	depends on BROKEN
 	depends on QT4_DBUS_LOAD || QT4_DBUS_LINK
 	depends on QT4_BUILD_XML
 	depends on QT4_BUILD_NETWORK
