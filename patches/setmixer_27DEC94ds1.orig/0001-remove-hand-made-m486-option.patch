@@ -1,0 +1,31 @@
+From b4167f1b15d6463a86fa1550c3561a41bcc3a397 Mon Sep 17 00:00:00 2001
+From: Juergen Beisert <j.beisert@pengutronix.de>
+Date: Tue, 22 Jun 2010 09:11:00 +0200
+Subject: [PATCH] remove hand-made -m486 option
+
+Don't use hand made -m<cpu> options.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ Makefile |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index bfed9a6..1676ad1 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,8 @@
+ DESTDIR =
+ INSTALL = install
+ CC=gcc
+-CFLAGS= -O6 -fomit-frame-pointer -Wall -pipe -m486
+-LDFLAGS= -Xlinker -N -s
++CFLAGS+= -O6 -fomit-frame-pointer -Wall -pipe
++LDFLAGS+=
+ PROG=setmixer
+ 
+ $(PROG): setmixer.o
+-- 
+1.7.1
+
