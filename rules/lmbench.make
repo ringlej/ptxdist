@@ -35,16 +35,7 @@ $(LMBENCH_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-#
-# autoconf
-#
 LMBENCH_CONF_TOOL := autoconf
-
-$(STATEDIR)/lmbench.prepare:
-	@$(call targetinfo)
-	chmod +x $(LMBENCH_DIR)/configure
-	@$(call world/prepare, LMBENCH)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
