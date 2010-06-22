@@ -90,8 +90,6 @@ $(STATEDIR)/coreutils.targetinstall:
 	@$(call install_fixup, coreutils,DEPENDS,)
 	@$(call install_fixup, coreutils,DESCRIPTION,missing)
 
-	@$(call install_copy, coreutils, 0, 0, 0644, -, /usr/lib/coreutils/libstdbuf.so)
-
 ifdef PTXCONF_COREUTILS_ECHO
 	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/echo)
 endif
@@ -280,6 +278,7 @@ ifdef PTXCONF_COREUTILS_FMT
 	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/fmt)
 endif
 ifdef PTXCONF_COREUTILS_STDBUF
+	@$(call install_copy, coreutils, 0, 0, 0644, -, /usr/lib/coreutils/libstdbuf.so)
 	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/stdbuf)
 endif
 ifdef PTXCONF_COREUTILS_PINKY
