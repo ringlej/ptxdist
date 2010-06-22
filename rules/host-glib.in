@@ -8,4 +8,4 @@ config HOST_GLIB
 	#       header check in glib.
 	# FIXME what to do if we build a target system without iconv?
 	select HOST_LIBICONV
-	select HOST_ZLIB
+	select HOST_ZLIB	if GLIB_EXPERIMENTAL
