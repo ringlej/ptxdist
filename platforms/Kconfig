@@ -27,9 +27,10 @@ config PLATFORM
 config PLATFORM_VERSION
 	prompt "platform version"
 	string
-	default "1.0"
+	default "-trunk"
 	help
 	  This is the revision of the platform.
+	  The string is supposed to start with an "-".
 
 source "platforms/architecture.in"
 source "platforms/kernel.in"

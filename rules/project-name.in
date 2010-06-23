@@ -31,6 +31,7 @@ config PROJECT_VERSION
 	default "-trunk"
 	help
 	  The Version of your Project.
+	  The string is supposed to start with an "-".
 
 comment "------------------------------------"
 
