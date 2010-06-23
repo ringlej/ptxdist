@@ -1829,6 +1829,7 @@ parse_second()
 . /etc/bash.bashrc
 . ~/.bashrc
 PS1="[ptx] \${PS1}"
+PATH="${PATH}"
 EOF
 				"${BASH}" --init-file "${bashrc}"
 			else
