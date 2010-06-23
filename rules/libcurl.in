@@ -28,7 +28,7 @@ config LIBCURL_COOKIES
        depends on LIBCURL_HTTP
 
 config LIBCURL_FTP
-       bool "ftpt"
+       bool "ftp"
        default y
 
 config LIBCURL_FILE
