@@ -1,13 +1,6 @@
 #!/bin/bash
 
 PTX_DEBUG=${PTX_DEBUG:="false"}
-
-#
-# awk script for permission fixing
-#
-DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $2, $3, $4, $2); if ($1 == "n") printf("mknod -m %s .%s %s %s %s; chown %s.%s .%s;\n", $5, $2, $6, $7, $8, $3, $4, $2);}'
-
-
 PTX_DIALOG="dialog --aspect 60"
 PTX_DIALOG_HEIGHT=0
 PTX_DIALOG_WIDTH=0
