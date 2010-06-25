@@ -2,6 +2,11 @@
 
 ptxd_colgen_generate_sections()
 {
+    #
+    # "ptxdist -q allyesconfig" collection gives an empty collection
+    # ignore the '-q' option to get a valid collection.
+    #
+    unset PTXDIST_QUIET
     ptxd_make_log "print-PACKAGES-m" | gawk '
 	BEGIN {
 		FS = "=\"|\"|=";
