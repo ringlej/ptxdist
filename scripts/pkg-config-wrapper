@@ -15,12 +15,20 @@ for ((i = 1; i <= ${#}; i++)); do
     esac
 done
 
+#
+# this sed will sanitize pkg-config's output. it will remove:
+#
+# "/usr/lib/pkgconfig/../../.."
+# "/lib/pkgconfig/../.."
+#
+declare -a args
 args=( \
-	"-e" "s:/usr/lib/pkgconfig/\.\./\.\./\.\.::g" \
-	"-e" "s:/lib/pkgconfig/\.\./\.\.::g")
+    "-e" "s~/usr/lib/pkgconfig/\.\./\.\./\.\.~~g" \
+    "-e" "s~/lib/pkgconfig/\.\./\.\.~~g" \
+    )
 
 if [ -n "${PTXDIST_PKG_CONFIG_VAR_NO_SYSROOT}" -a \
-	-n "${found_var}" ]; then
+    -n "${found_var}" ]; then
     #
     # remove sysroot for variables that return a path
     #
@@ -30,4 +38,3 @@ fi
 
 "${PKG_CONFIG}" "${@}" | sed "${args[@]}"
 check_pipe_status
-
