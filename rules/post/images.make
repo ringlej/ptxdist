@@ -70,8 +70,6 @@ WORKDIR := $(IMAGEDIR)/work_dir
 #
 # Define what images should be build
 #
-SEL_ROOTFS-$(PTXCONF_IMAGE_JFFS2)	+= $(IMAGEDIR)/root.jffs2
-SEL_ROOTFS-$(PTXCONF_IMAGE_JFFS2_SUM)	+= $(IMAGEDIR)/root.sum.jffs2
 SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2)	+= $(IMAGEDIR)/root.ext2
 SEL_ROOTFS-$(PTXCONF_IMAGE_HD)		+= $(IMAGEDIR)/hd.img
 SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2_GZIP)	+= $(IMAGEDIR)/root.ext2.gz
@@ -87,34 +85,6 @@ $(STATEDIR)/image_working_dir: $(IPKG_FILES) $(IMAGEDIR)/permissions $(IMAGEDIR)
 	@echo -n "Extracting ipkg packages into working directory..."
 	@DESTDIR=$(WORKDIR) $(FAKEROOT) -- $(PTXCONF_SYSROOT_HOST)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(WORKDIR) install $(IPKG_FILES) 2>&1 >/dev/null
 	@$(call touch, $@)
-
-#
-# create the JFFS2 image
-#
-$(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
-	@echo -n "Creating root.jffs2 from working dir... (--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS))"
-	@cd $(WORKDIR);							\
-	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
-	(								\
-		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/mkfs.jffs2 ";	\
-		echo -n "-d $(WORKDIR) ";				\
-		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
-		echo -n "$(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS) ";		\
-		echo -n "-o $@" )					\
-	) | $(FAKEROOT) --
-	@echo "done."
-
-$(IMAGEDIR)/root.sum.jffs2: $(IMAGEDIR)/root.jffs2
-	@echo -n "Creating root.sum.jffs2 with summary... (--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) $(PTXCONF_IMAGE_JFFS2_SUM_EXTRA_ARGS))"
-	@cd $(WORKDIR);							\
-	(								\
-		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/sumtool ";	\
-		echo -n "-i $< ";					\
-		echo -n "--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) "; \
-		echo -n "$(PTXCONF_IMAGE_JFFS2_SUM_EXTRA_ARGS) ";	\
-		echo -n "-o $@"						\
-	) | $(FAKEROOT) --
-	@echo "done."
 
 #
 # create the squashfs image
