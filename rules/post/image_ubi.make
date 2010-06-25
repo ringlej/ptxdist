@@ -20,11 +20,11 @@ $(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 	@echo -n "Creating $(notdir $(@)) from working dir... (-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) "
 	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_ROOT_MAX_LEB_COUNT)"
 	@echo -n "$(PTXCONF_IMAGE_UBIFS_EXTRA_ARGS)) "
-	@cd $(WORKDIR);								\
+	@cd $(image/work_dir);								\
 	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&			\
 	(									\
 		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/mkfs.ubifs ";		\
-		echo -n "-d $(WORKDIR) ";					\
+		echo -n "-d $(image/work_dir) ";					\
 		echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) ";			\
 		echo -n "-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) ";	\
 		echo -n "-c $(PTXCONF_IMAGE_UBIFS_ROOT_MAX_LEB_COUNT) ";	\

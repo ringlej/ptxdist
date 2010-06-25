@@ -44,10 +44,10 @@ $(IMAGEDIR)/ipkg.conf:
 #
 PHONY += $(STATEDIR)/image_working_dir
 $(STATEDIR)/image_working_dir: $(IPKG_FILES) $(IMAGEDIR)/permissions $(IMAGEDIR)/ipkg.conf
-	@rm -rf $(WORKDIR)
-	@mkdir $(WORKDIR)
+	@rm -rf $(image/work_dir)
+	@mkdir $(image/work_dir)
 	@echo -n "Extracting ipkg packages into working directory..."
-	@DESTDIR=$(WORKDIR) $(FAKEROOT) -- $(PTXCONF_SYSROOT_HOST)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(WORKDIR) install $(IPKG_FILES) 2>&1 >/dev/null
+	@DESTDIR=$(image/work_dir) $(FAKEROOT) -- $(PTXCONF_SYSROOT_HOST)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(image/work_dir) install $(IPKG_FILES) 2>&1 >/dev/null
 	@$(call touch, $@)
 
 # vim600:set foldmethod=marker:

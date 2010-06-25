@@ -16,11 +16,11 @@ IMAGE_SQUASHFS_EXTRA_ARGS := \
 
 $(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squashfs-tools.install.post
 	@echo -n "Creating root.squashfs from working dir..."
-	@cd $(WORKDIR);							\
+	@cd $(image/work_dir);							\
 	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
 	(								\
 		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/mksquashfs ";	\
-		echo -n "$(WORKDIR) ";					\
+		echo -n "$(image/work_dir) ";					\
 		echo -n "$@ ";						\
 		echo -n "-noappend ";					\
 		echo -n "-b $(PTXCONF_IMAGE_SQUASHFS_BLOCK_SIZE) ";	\

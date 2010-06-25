@@ -18,7 +18,7 @@ images: world $(SEL_ROOTFS-y)
 		$(IMAGEDIR)/ipkg.conf \
 		$(IMAGEDIR)/permissions \
 		$(STATEDIR)/image_working_dir \
-		$(WORKDIR)
+		$(image/work_dir)
 
 #
 # trick to supress the message:

@@ -8,6 +8,6 @@
 # see the README file.
 #
 
-WORKDIR := $(IMAGEDIR)/work_dir
+image/work_dir := $(IMAGEDIR)/work_dir
 
 # vim: syntax=make
