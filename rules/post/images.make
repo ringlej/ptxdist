@@ -29,8 +29,8 @@ endif
 #
 # create one file with all permissions from all permission source files
 #
-PHONY += $(IMAGEDIR)/permissions
-$(IMAGEDIR)/permissions: $(PERMISSION_FILES)
+PHONY += $(image/permissions)
+$(image/permissions): $(PERMISSION_FILES)
 	@cat $^ > $@
 
 #
@@ -43,7 +43,7 @@ $(IMAGEDIR)/ipkg.conf:
 # extract all current ipkgs into the working directory
 #
 PHONY += $(STATEDIR)/image_working_dir
-$(STATEDIR)/image_working_dir: $(IPKG_FILES) $(IMAGEDIR)/permissions $(IMAGEDIR)/ipkg.conf
+$(STATEDIR)/image_working_dir: $(IPKG_FILES) $(image/permissions) $(IMAGEDIR)/ipkg.conf
 	@rm -rf $(image/work_dir)
 	@mkdir $(image/work_dir)
 	@echo -n "Extracting ipkg packages into working directory..."

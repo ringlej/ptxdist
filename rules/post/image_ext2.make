@@ -14,7 +14,7 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2_GZIP)	+= $(IMAGEDIR)/root.ext2.gz
 $(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
 	@echo -n "Creating root.ext2 from working dir..."
 	@cd $(image/work_dir);							\
-	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
+	(awk -F: $(DOPERMISSIONS) $(image/permissions) &&		\
 	(								\
 		echo -n "$(PTXCONF_SYSROOT_HOST)/bin/genext2fs ";	\
 		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) ";		\

@@ -14,7 +14,7 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_JFFS2_SUM)	+= $(IMAGEDIR)/root.sum.jffs2
 $(IMAGEDIR)/root.jffs2: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
 	@echo -n "Creating root.jffs2 from working dir... (--eraseblock=$(PTXCONF_IMAGE_JFFS2_BLOCKSIZE) $(PTXCONF_IMAGE_JFFS2_EXTRA_ARGS))"
 	@cd $(image/work_dir);							\
-	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
+	(awk -F: $(DOPERMISSIONS) $(image/permissions) &&		\
 	(								\
 		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/mkfs.jffs2 ";	\
 		echo -n "-d $(image/work_dir) ";				\

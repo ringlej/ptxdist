@@ -16,7 +16,7 @@ images: world $(SEL_ROOTFS-y)
 	@echo "Clean up temp working directory"
 	@rm -rf \
 		$(IMAGEDIR)/ipkg.conf \
-		$(IMAGEDIR)/permissions \
+		$(image/permissions) \
 		$(STATEDIR)/image_working_dir \
 		$(image/work_dir)
 

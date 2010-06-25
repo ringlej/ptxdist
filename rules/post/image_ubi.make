@@ -21,7 +21,7 @@ $(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_ROOT_MAX_LEB_COUNT)"
 	@echo -n "$(PTXCONF_IMAGE_UBIFS_EXTRA_ARGS)) "
 	@cd $(image/work_dir);								\
-	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&			\
+	(awk -F: $(DOPERMISSIONS) $(image/permissions) &&			\
 	(									\
 		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/mkfs.ubifs ";		\
 		echo -n "-d $(image/work_dir) ";					\

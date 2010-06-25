@@ -13,7 +13,7 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_TGZ)		+= $(IMAGEDIR)/root.tgz
 $(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
 	@echo -n "Creating root.tgz from working dir..."
 	@cd $(image/work_dir);							\
-	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
+	(awk -F: $(DOPERMISSIONS) $(image/permissions) &&		\
 	(	echo -n "tar -zcf ";					\
 		echo -n "$@ ." )					\
 	) | $(FAKEROOT) --

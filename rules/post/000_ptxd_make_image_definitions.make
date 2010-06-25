@@ -9,5 +9,6 @@
 #
 
 image/work_dir := $(IMAGEDIR)/work_dir
+image/permissions := $(IMAGEDIR)/permissions
 
 # vim: syntax=make
