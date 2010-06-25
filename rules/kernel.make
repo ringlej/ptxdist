@@ -207,7 +207,7 @@ ifneq ($(PTXCONF_KERNEL_INSTALL)$(PTXCONF_KERNEL_VMLINUX),)
 
 	@$(call install_copy, kernel, 0, 0, 0755, /boot);
 ifdef PTXCONF_KERNEL_INSTALL
-	$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_IMAGE_PATH_y), /boot/$(KERNEL_IMAGE), n)
+	@$(call install_copy, kernel, 0, 0, 0644, $(KERNEL_IMAGE_PATH_y), /boot/$(KERNEL_IMAGE), n)
 endif
 
 # install the ELF kernel image for debugging purpose
