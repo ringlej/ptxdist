@@ -71,7 +71,6 @@ WORKDIR := $(IMAGEDIR)/work_dir
 # Define what images should be build
 #
 SEL_ROOTFS-$(PTXCONF_IMAGE_HD)		+= $(IMAGEDIR)/hd.img
-SEL_ROOTFS-$(PTXCONF_IMAGE_SQUASHFS)	+= $(IMAGEDIR)/root.squashfs
 
 #
 # extract all current ipkgs into the working directory
@@ -83,27 +82,6 @@ $(STATEDIR)/image_working_dir: $(IPKG_FILES) $(IMAGEDIR)/permissions $(IMAGEDIR)
 	@echo -n "Extracting ipkg packages into working directory..."
 	@DESTDIR=$(WORKDIR) $(FAKEROOT) -- $(PTXCONF_SYSROOT_HOST)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(WORKDIR) install $(IPKG_FILES) 2>&1 >/dev/null
 	@$(call touch, $@)
-
-#
-# create the squashfs image
-#
-IMAGE_SQUASHFS_EXTRA_ARGS := \
-	$(call ptx/ifdef, PTXCONF_HOST_SQUASHFS_TOOLS_V3X, $(call ptx/ifdef, PTXCONF_ENDIAN_BIG, -be, -le), ) \
-	$(PTXCONF_IMAGE_SQUASHFS_EXTRA_ARGS)
-
-$(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squashfs-tools.install.post
-	@echo -n "Creating root.squashfs from working dir..."
-	@cd $(WORKDIR);							\
-	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
-	(								\
-		echo -n "$(PTXCONF_SYSROOT_HOST)/sbin/mksquashfs ";	\
-		echo -n "$(WORKDIR) ";					\
-		echo -n "$@ ";						\
-		echo -n "-noappend ";					\
-		echo -n "-b $(PTXCONF_IMAGE_SQUASHFS_BLOCK_SIZE) ";	\
-		echo -n $(IMAGE_SQUASHFS_EXTRA_ARGS) )	\
-	) | $(FAKEROOT) --
-	@echo "done."
 
 #
 # TODO
