@@ -40,11 +40,6 @@ $(IMAGEDIR)/ipkg.conf:
 	@echo -e "dest root /\narch $(PTXDIST_IPKG_ARCH_STRING) 10\narch all 1\narch noarch 1\n" > $@
 
 #
-# Working directory to create any kind of image
-#
-WORKDIR := $(IMAGEDIR)/work_dir
-
-#
 # extract all current ipkgs into the working directory
 #
 PHONY += $(STATEDIR)/image_working_dir
