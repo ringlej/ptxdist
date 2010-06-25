@@ -70,9 +70,7 @@ WORKDIR := $(IMAGEDIR)/work_dir
 #
 # Define what images should be build
 #
-SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2)	+= $(IMAGEDIR)/root.ext2
 SEL_ROOTFS-$(PTXCONF_IMAGE_HD)		+= $(IMAGEDIR)/hd.img
-SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2_GZIP)	+= $(IMAGEDIR)/root.ext2.gz
 SEL_ROOTFS-$(PTXCONF_IMAGE_SQUASHFS)	+= $(IMAGEDIR)/root.squashfs
 
 #
@@ -108,37 +106,12 @@ $(IMAGEDIR)/root.squashfs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-squash
 	@echo "done."
 
 #
-# create the ext2 image
-#
-$(IMAGEDIR)/root.ext2: $(STATEDIR)/image_working_dir
-	@echo -n "Creating root.ext2 from working dir..."
-	@cd $(WORKDIR);							\
-	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
-	(								\
-		echo -n "$(PTXCONF_SYSROOT_HOST)/bin/genext2fs ";	\
-		echo -n "-b $(PTXCONF_IMAGE_EXT2_SIZE) ";		\
-		echo -n "$(PTXCONF_IMAGE_EXT2_EXTRA_ARGS) ";		\
-		echo -n "-d $(WORKDIR) ";				\
-		echo "$@" )						\
-	) | $(FAKEROOT) --
-	@echo "done."
-
-#
 # TODO
 #
 $(IMAGEDIR)/hd.img: $(IMAGEDIR)/root.ext2
 	@echo -n "Creating hdimg from root.ext2";					\
 	PATH=$(PTXCONF_SYSROOT_HOST)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg	\
 	-o $@ $(GENHDIMARGS)
-	@echo "done."
-
-#
-# TODO
-#
-$(IMAGEDIR)/root.ext2.gz: $(IMAGEDIR)/root.ext2
-	@echo -n "Creating root.ext2.gz from root.ext2...";
-	@rm -f $@
-	@cat $< | gzip -v9 > $@
 	@echo "done."
 
 # vim600:set foldmethod=marker:
