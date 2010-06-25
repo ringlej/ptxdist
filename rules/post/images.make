@@ -70,7 +70,6 @@ WORKDIR := $(IMAGEDIR)/work_dir
 #
 # Define what images should be build
 #
-SEL_ROOTFS-$(PTXCONF_IMAGE_TGZ)		+= $(IMAGEDIR)/root.tgz
 SEL_ROOTFS-$(PTXCONF_IMAGE_JFFS2)	+= $(IMAGEDIR)/root.jffs2
 SEL_ROOTFS-$(PTXCONF_IMAGE_JFFS2_SUM)	+= $(IMAGEDIR)/root.sum.jffs2
 SEL_ROOTFS-$(PTXCONF_IMAGE_EXT2)	+= $(IMAGEDIR)/root.ext2
@@ -88,18 +87,6 @@ $(STATEDIR)/image_working_dir: $(IPKG_FILES) $(IMAGEDIR)/permissions $(IMAGEDIR)
 	@echo -n "Extracting ipkg packages into working directory..."
 	@DESTDIR=$(WORKDIR) $(FAKEROOT) -- $(PTXCONF_SYSROOT_HOST)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(WORKDIR) install $(IPKG_FILES) 2>&1 >/dev/null
 	@$(call touch, $@)
-
-#
-# create the root.tgz image
-#
-$(IMAGEDIR)/root.tgz: $(STATEDIR)/image_working_dir
-	@echo -n "Creating root.tgz from working dir..."
-	@cd $(WORKDIR);							\
-	(awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions &&		\
-	(	echo -n "tar -zcf ";					\
-		echo -n "$@ ." )					\
-	) | $(FAKEROOT) --
-	@echo "done."
 
 #
 # create the JFFS2 image
