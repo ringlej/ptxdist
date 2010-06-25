@@ -14,23 +14,6 @@ DOPERMISSIONS := '{	\
 	if ($$1 == "n")	\
 		printf("mkdir -p \".`dirname \"%s\"`\"; mknod -m %s \".%s\" %s %s %s; chown %s.%s \".%s\";\n", $$2, $$5, $$2, $$6, $$7, $$8, $$3, $$4, $$2);}'
 
-ifdef PTXCONF_IMAGE_HD_PART1
-	GENHDIMARGS = -p $(PTXCONF_IMAGE_HD_PART1_START):$(PTXCONF_IMAGE_HD_PART1_END):$(PTXCONF_IMAGE_HD_PART1_TYPE):$(IMAGEDIR)/root.ext2
-endif
-ifdef PTXCONF_IMAGE_HD_PART2
-	GENHDIMARGS += -p $(PTXCONF_IMAGE_HD_PART2_START):$(PTXCONF_IMAGE_HD_PART2_END):$(PTXCONF_IMAGE_HD_PART2_TYPE):
-endif
-ifdef PTXCONF_IMAGE_HD_PART3
-	GENHDIMARGS += -p $(PTXCONF_IMAGE_HD_PART3_START):$(PTXCONF_IMAGE_HD_PART3_END):$(PTXCONF_IMAGE_HD_PART3_TYPE):
-endif
-ifdef PTXCONF_IMAGE_HD_PART4
-	GENHDIMARGS += -p $(PTXCONF_IMAGE_HD_PART4_START):$(PTXCONF_IMAGE_HD_PART4_END):$(PTXCONF_IMAGE_HD_PART4_TYPE):
-endif
-ifdef PTXCONF_GRUB
-	GENHDIMARGS += -m $(GRUB_DIR)/stage1/stage1
-	GENHDIMARGS += -n $(GRUB_DIR)/stage2/stage2
-endif
-
 #
 # generate the list of source permission files
 #
@@ -68,11 +51,6 @@ $(IMAGEDIR)/ipkg.conf:
 WORKDIR := $(IMAGEDIR)/work_dir
 
 #
-# Define what images should be build
-#
-SEL_ROOTFS-$(PTXCONF_IMAGE_HD)		+= $(IMAGEDIR)/hd.img
-
-#
 # extract all current ipkgs into the working directory
 #
 PHONY += $(STATEDIR)/image_working_dir
@@ -82,15 +60,6 @@ $(STATEDIR)/image_working_dir: $(IPKG_FILES) $(IMAGEDIR)/permissions $(IMAGEDIR)
 	@echo -n "Extracting ipkg packages into working directory..."
 	@DESTDIR=$(WORKDIR) $(FAKEROOT) -- $(PTXCONF_SYSROOT_HOST)/bin/ipkg-cl -f $(IMAGEDIR)/ipkg.conf -o $(WORKDIR) install $(IPKG_FILES) 2>&1 >/dev/null
 	@$(call touch, $@)
-
-#
-# TODO
-#
-$(IMAGEDIR)/hd.img: $(IMAGEDIR)/root.ext2
-	@echo -n "Creating hdimg from root.ext2";					\
-	PATH=$(PTXCONF_SYSROOT_HOST)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg	\
-	-o $@ $(GENHDIMARGS)
-	@echo "done."
 
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:
