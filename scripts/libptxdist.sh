@@ -435,17 +435,20 @@ ptxd_dumpstack() {
 
 
 #
+# ptxd_get_path - look for files and/or dirs
 #
 # return:
-# 0 if dirs are found
-# 1 if no dirs are found
+# 0 if files/dirs are found
+# 1 if no files/dirs are found
 #
-ptxd_get_dirs() {
+# array "ptxd_reply" containing the found files/dirs
+#
+ptxd_get_path() {
     ptxd_reply=( $(eval command ls -f -d "${@}" 2>/dev/null) )
 
     [ ${#ptxd_reply[@]} -ne 0 ]
 }
-export -f ptxd_get_dirs
+export -f ptxd_get_path
 
 
 #
