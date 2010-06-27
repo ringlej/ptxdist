@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-world/env/impl = \
+ptx/env = \
 	MAKE="$(call ptx/escape,$(MAKE))"					\
 	PTXDIST_SYSROOT_TARGET="$(call ptx/escape,$(PTXDIST_SYSROOT_TARGET))"	\
 	PTXDIST_SYSROOT_HOST="$(call ptx/escape,$(PTXDIST_SYSROOT_HOST))"	\
@@ -35,8 +35,9 @@ world/env/impl = \
 	ptx_path_cross="$(call ptx/escape,$(HOST_CROSS_PATH))"			\
 	ptx_conf_env_cross="$(call ptx/escape,$(HOST_CROSS_ENV))"		\
 	ptx_conf_opt_autoconf_cross="$(call ptx/escape,$(HOST_CROSS_AUTOCONF))"	\
-	ptx_conf_opt_autoconf_cross_sysroot="$(call ptx/escape,$(HOST_CROSS_AUTOCONF_SYSROOT))"	\
-										\
+	ptx_conf_opt_autoconf_cross_sysroot="$(call ptx/escape,$(HOST_CROSS_AUTOCONF_SYSROOT))"
+
+world/env/impl = \
 	pkg_stamp="$(notdir $(@))"						\
 	pkg_pkg_dir="$(call ptx/escape,$($(1)_PKGDIR))"				\
 	pkg_pkg_dev="$(call ptx/escape,$($(1)_DEVPKG))"				\
@@ -75,6 +76,7 @@ world/env/impl = \
 	pkg_deprecated_makevars="$(call ptx/escape, $($(1)_MAKEVARS))"
 
 world/env= \
+	$(call ptx/env) \
 	$(call world/env/impl,$(strip $(1)))
 
 # vim: syntax=make
