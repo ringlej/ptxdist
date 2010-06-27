@@ -21,7 +21,9 @@ UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
 UDEV_DIR	:= $(BUILDDIR)/$(UDEV)
+ifdef PTXCONF_UDEV_COMMON_RULES
 UDEV_DEVPKG	:= NO
+endif
 
 UDEV_URL := \
 	http://www.kernel.org/pub/linux/utils/kernel/hotplug/$(UDEV).$(UDEV_SUFFIX) \
@@ -146,22 +148,27 @@ $(STATEDIR)/udev.targetinstall:
 
 # install everything apart of drivers rule.
 ifdef PTXCONF_UDEV_DEFAULT_RULES
-	@cd $(UDEV_DIR)/rules/rules.d; \
-	for file in `find . -type f ! -name "*drivers*"`; do \
-		$(call install_copy, udev, 0, 0, 0644, \
-			$(UDEV_DIR)/rules/rules.d/$$file, \
-			/lib/udev/rules.d/$$file, n); \
+	@for rule in \
+			50-udev-default.rules \
+			60-persistent-alsa.rules \
+			60-persistent-input.rules \
+			60-persistent-serial.rules \
+			60-persistent-storage-tape.rules \
+			60-persistent-storage.rules \
+			75-net-description.rules \
+			75-tty-description.rules \
+			78-sound-card.rules \
+			95-udev-late.rules \
+			do \
+		$(call install_copy, udev, 0, 0, 0644, -, \
+			/lib/udev/rules.d/$$rule); \
 	done
 endif
 
 # install drivers rules.
 ifdef PTXCONF_UDEV_DEFAULT_DRIVERS_RULES
-	@cd $(UDEV_DIR)/rules/rules.d; \
-	for file in `find . -type f -name "*drivers*"`; do \
-		$(call install_copy, udev, 0, 0, 0644, \
-			$(UDEV_DIR)/rules/rules.d/$$file, \
-			/lib/udev/rules.d/$$file, n); \
-	done
+	@$(call install_copy, udev, 0, 0, 0644, -, \
+		/lib/udev/rules.d/80-drivers.rules)
 endif
 
 # install default keymaps.
