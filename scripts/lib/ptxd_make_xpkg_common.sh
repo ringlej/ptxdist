@@ -25,6 +25,30 @@ export -f ptxd_dopermissions
 
 
 #
+# ptxd_do_xpkg_map - do the mapping from package name to xpkg name(s)
+#
+# in:
+# ${@}	package name(s)
+#
+# out:
+# ${ptxd_reply[@]}	array of xpkg names
+#
+# return:
+# 0	if xpkg names are found
+# 1	if no xpkg names are found
+#
+# ptxd_reply (array)
+#
+ptxd_do_xpkg_map() {
+    set -- "${@/#/${ptx_state_dir}/}"
+    ptxd_reply=( $(cat "${@/%/.xpkg.map}" 2>/dev/null) )
+
+    [ ${#ptxd_reply[@]} -ne 0 ]
+}
+export -f ptxd_do_xpkg_map
+
+
+#
 # initialize variables needed for packaging
 #
 ptxd_make_xpkg_init() {
