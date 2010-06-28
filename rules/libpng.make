@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBPNG) += libpng
 #
 # Paths and names
 #
-LIBPNG_VERSION	:= 1.2.42
+LIBPNG_VERSION	:= 1.2.44
 LIBPNG		:= libpng-$(LIBPNG_VERSION)
 LIBPNG_SUFFIX	:= tar.gz
 LIBPNG_URL	:= $(PTXCONF_SETUP_SFMIRROR)/libpng/$(LIBPNG).$(LIBPNG_SUFFIX)
@@ -38,12 +38,6 @@ $(LIBPNG_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBPNG_PATH	:= PATH=$(CROSS_PATH)
-LIBPNG_ENV	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
 LIBPNG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--without-libpng-compat
@@ -65,9 +59,9 @@ $(STATEDIR)/libpng.targetinstall:
 	@$(call install_fixup, libpng,DESCRIPTION,missing)
 
 	@$(call install_copy, libpng, 0, 0, 0644, -, \
-		/usr/lib/libpng12.so.0.42.0)
-	@$(call install_link, libpng, libpng12.so.0.42.0, /usr/lib/libpng12.so.0)
-	@$(call install_link, libpng, libpng12.so.0.42.0, /usr/lib/libpng12.so)
+		/usr/lib/libpng12.so.0.44.0)
+	@$(call install_link, libpng, libpng12.so.0.44.0, /usr/lib/libpng12.so.0)
+	@$(call install_link, libpng, libpng12.so.0.44.0, /usr/lib/libpng12.so)
 
 	@$(call install_finish, libpng)
 
