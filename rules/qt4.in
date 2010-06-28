@@ -34,9 +34,9 @@ menuconfig QT4
 	select XORG_PROTO_INPUT		if QT4_X11_XINPUT
 	select XORG_LIB_XI		if QT4_X11_XINPUT
 
-	prompt "Qt Embedded                   "
+	prompt "qt                            "
 	help
-	  Qt Embedded is Trolltech's Widget Library for Embedded Linux.
+	  Qt is Nokia's Widget Library for Linux.
 
 if QT4
 
@@ -46,7 +46,7 @@ config QT4_SHARED
 	bool
 	prompt "build shared libraries"
 	help
-	  If selected the shared Qt Embedded Libraries are built
+	  If selected the shared Qt Libraries are built
 	  and installed.
 
 choice
