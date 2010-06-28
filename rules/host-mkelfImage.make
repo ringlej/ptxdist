@@ -22,9 +22,19 @@ HOST_PACKAGES-$(PTXCONF_HOST_MKELFIMAGE) += host-mkelfimage
 HOST_MKELFIMAGE_VERSION	:= 2.7
 HOST_MKELFIMAGE		:= mkelfImage-$(HOST_MKELFIMAGE_VERSION)
 HOST_MKELFIMAGE_SUFFIX	:= tar.gz
-HOST_MKELFIMAGE_URL	:= ftp://ftp.lnxi.com/pub/mkelfImage/$(HOST_MKELFIMAGE).$(HOST_MKELFIMAGE_SUFFIX)
+HOST_MKELFIMAGE_URL	:= \
+	ftp://ftp.lnxi.com/pub/mkelfImage/$(HOST_MKELFIMAGE).$(HOST_MKELFIMAGE_SUFFIX) \
+	ftp://ftp.bootsplash.org/pub/mirrors/ftp.lnxi.com/pub/mkelfImage/$(HOST_MKELFIMAGE).$(HOST_MKELFIMAGE_SUFFIX)
 HOST_MKELFIMAGE_SOURCE	:= $(SRCDIR)/$(HOST_MKELFIMAGE).$(HOST_MKELFIMAGE_SUFFIX)
 HOST_MKELFIMAGE_DIR	:= $(HOST_BUILDDIR)/$(HOST_MKELFIMAGE)
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(HOST_MKELFIMAGE_SOURCE):
+	@$(call targetinfo)
+	@$(call get, HOST_MKELFIMAGE)
 
 # ----------------------------------------------------------------------------
 # Prepare
