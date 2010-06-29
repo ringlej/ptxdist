@@ -1666,7 +1666,6 @@ do_go()
 do_images()
 {
 	check_premake_compiler &&
-	ptxd_make_log images_world &&
 	ptxd_make_log images
 }
 
