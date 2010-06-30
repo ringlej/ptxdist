@@ -22,9 +22,7 @@ include $(RULESDIR)/other/Definitions.make
 include $(PTXDIST_PTXCONFIG)
 
 # might be non existent
-ifneq ($(wildcard $(PTXDIST_PLATFORMCONFIG)),)
-include $(PTXDIST_PLATFORMCONFIG)
-endif
+-include $(PTXDIST_PLATFORMCONFIG)
 
 # might be non existent
 ifneq ($(wildcard $(PTXDIST_COLLECTIONCONFIG)),)
@@ -41,9 +39,8 @@ include $(PTX_MAP_ALL_MAKE)
 include $(RULESDIR)/other/Namespace.make
 include $(wildcard $(PRERULESDIR)/*.make)
 
-ifneq ($(wildcard $(PROJECTPRERULESDIR)/*.make),)
+# might be non existent
 include $(wildcard $(PROJECTPRERULESDIR)/*.make)
-endif
 
 include $(PTX_DGEN_DEPS_PRE)
 include $(PTX_DGEN_RULESFILES_MAKE)
@@ -86,13 +83,9 @@ PTX_PACKAGES_SELECTED	:= \
 	$(CROSS_PACKAGES) \
 	$(HOST_PACKAGES)
 
-ifneq ($(wildcard $(POSTRULESDIR)/*.make),)
+# might be non existent
 include $(wildcard $(POSTRULESDIR)/*.make)
-endif
-
-ifneq ($(wildcard $(PROJECTPOSTRULESDIR)/*.make),)
 include $(wildcard $(PROJECTPOSTRULESDIR)/*.make)
-endif
 
 # ----------------------------------------------------------------------------
 # just the "print" target
