@@ -86,6 +86,9 @@ PTX_PACKAGES_SELECTED	:= \
 # might be non existent
 include $(wildcard $(POSTRULESDIR)/*.make)
 include $(wildcard $(PROJECTPOSTRULESDIR)/*.make)
+# install_alternative and install_copy has some configuration defined
+# dependencies. include the files specifying these dependencies.
+include $(wildcard $(STATEDIR)/*.deps)
 
 # ----------------------------------------------------------------------------
 # just the "print" target

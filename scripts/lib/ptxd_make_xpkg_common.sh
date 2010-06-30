@@ -40,6 +40,7 @@ ptxd_make_xpkg_init() {
     pkg_xpkg_license_file="${ptx_state_dir}/${pkg_xpkg}.license"
 
     # packaging stuff
+    pkg_xpkg_install_deps="${ptx_state_dir}/${pkg_xpkg}.deps"
     pkg_xpkg_perms="${ptx_state_dir}/${pkg_xpkg}.perms"
     pkg_xpkg_cmds="${ptx_state_dir}/${pkg_xpkg}.cmds"
     pkg_xpkg_tmp="${ptx_pkg_dir}/${pkg_xpkg}.tmp"

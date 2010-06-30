@@ -72,6 +72,16 @@ ptxd_install_setup_src() {
 
     for src in "${list[@]}"; do
 	if [ -e "${src}" ]; then
+		# Since the dependency to the source files is dynamic we store
+		# the dependency information in a dependency file that can be
+		# included in the make files itself.
+		deprule="${ptx_state_dir}/${pkg_stamp}: \$(wildcard ${src})"
+
+		# Make the deps rule robust for varying installation paths, and
+		# make the deps rules file more readable.
+		deprule=${deprule//${PTXDIST_TOPDIR}/\$(PTXDIST_TOPDIR)}
+		deprule=${deprule//${PTXDIST_WORKSPACE}/\$(PTXDIST_WORKSPACE)}
+		echo "${deprule}" >> ${pkg_xpkg_install_deps}
 	    return
 	fi
     done

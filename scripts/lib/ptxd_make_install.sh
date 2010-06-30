@@ -45,7 +45,8 @@ ptxd_make_install_init() {
     rm -fr   -- \
 	"${pkg_xpkg_tmp}" \
 	"${pkg_xpkg_cmds}" \
-	"${pkg_xpkg_perms}" &&
+	"${pkg_xpkg_perms}" \
+	"${pkg_xpkg_install_deps}" &&
     mkdir -p -- "${pkg_ipkg_control_dir}" &&
     touch "${pkg_xpkg_cmds}" || return
 
