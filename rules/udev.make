@@ -155,14 +155,23 @@ ifdef PTXCONF_UDEV_DEFAULT_RULES
 			60-persistent-serial.rules \
 			60-persistent-storage-tape.rules \
 			60-persistent-storage.rules \
-			75-net-description.rules \
-			75-tty-description.rules \
-			78-sound-card.rules \
 			95-udev-late.rules; \
 			do \
 		$(call install_copy, udev, 0, 0, 0644, -, \
 			/lib/udev/rules.d/$$rule); \
 	done
+ifdef PTXCONF_UDEV_EXTRA_USB_DB
+ifdef PTXCONF_UDEV_EXTRA_PCI_DB
+	@for rule in \
+			75-net-description.rules \
+			75-tty-description.rules \
+			78-sound-card.rules; \
+			do \
+		$(call install_copy, udev, 0, 0, 0644, -, \
+			/lib/udev/rules.d/$$rule); \
+	done
+endif
+endif
 endif
 
 # install drivers rules.
