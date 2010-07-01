@@ -1929,14 +1929,7 @@ EOF
 			exit
 			;;
 
-		newpackage|newpacket)
-			if [ "${cmd}" = "newpacket" ]; then
-				echo "${PTXDIST_LOG_PROMPT}There is no subcommand 'newpacket'. I guess you mean"
-				echo "${PTXDIST_LOG_PROMPT}'newpackage' and run it for you.  This service stopps"
-				echo "${PTXDIST_LOG_PROMPT}being provided for free soon. So please use"
-				echo "${PTXDIST_LOG_PROMPT}'newpackage' directly."
-			fi
-
+		newpackage)
 			if [ \! -d "rules" -a "${1}" != "help" ]; then
 				echo
 				echo "${PTXDIST_LOG_PROMPT}error: no rules/ directory found"
