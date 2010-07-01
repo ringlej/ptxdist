@@ -158,7 +158,7 @@ ifdef PTXCONF_UDEV_DEFAULT_RULES
 			75-net-description.rules \
 			75-tty-description.rules \
 			78-sound-card.rules \
-			95-udev-late.rules \
+			95-udev-late.rules; \
 			do \
 		$(call install_copy, udev, 0, 0, 0644, -, \
 			/lib/udev/rules.d/$$rule); \
