@@ -10,7 +10,7 @@ bdir=/tmp/.fake-overlay-root
 
 fake_overlay() {
 	mkdir $bdir
-	mount -o bind / $bdir
+	mount -o bind,ro / $bdir
 	IFS=:
 	set $OVERLAY_DIRS
 	while [ $# -gt 0 ]; do
@@ -26,6 +26,7 @@ fake_overlay() {
 		shift
 	done
 	umount $bdir
+	rmdir $bdir
 }
 
 #
