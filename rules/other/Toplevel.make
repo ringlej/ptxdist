@@ -83,6 +83,11 @@ PTX_PACKAGES_SELECTED	:= \
 	$(CROSS_PACKAGES) \
 	$(HOST_PACKAGES)
 
+PTX_PACKAGES_INSTALL	:= \
+	$(PACKAGES) \
+	$(PTXDIST_BASE_PACKAGES) \
+	$(PACKAGES-b)
+
 # might be non existent
 include $(wildcard $(POSTRULESDIR)/*.make)
 include $(wildcard $(PROJECTPOSTRULESDIR)/*.make)

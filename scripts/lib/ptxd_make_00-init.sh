@@ -109,6 +109,28 @@ ptxd_init_get_sysroot_base_platform() {
 }
 
 
+#
+# fixup collectionconfig when using another platform
+#
+# out:
+# PTXDIST_BASE_PACKAGES		packages of the used platform (without 'm' when using a collection)
+# PTXDIST_COLLECTIONCONFIG	a modified collectionconfig (for packages from the other platform)
+#
+ptxd_init_collectionconfig() {
+    if [ -e "${PTXDIST_COLLECTIONCONFIG}" ]; then
+	local new_collection="${PTXDIST_TEMPDIR}/collectionconfig"
+	sed -e 's/=y$/=b/' "${PTXDIST_COLLECTIONCONFIG}" > "${new_collection}"
+	export PTXDIST_COLLECTIONCONFIG="${new_collection}"
+	PTXDIST_BASE_PACKAGES="$(PTXDIST_PTXCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_ptxconfig"
+		PTXDIST_PLATFORMCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_platformconfig"
+		ptxd_make_log "print-PACKAGES-y")"
+    else
+	PTXDIST_BASE_PACKAGES="$(PTXDIST_PTXCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_ptxconfig"
+		PTXDIST_PLATFORMCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_platformconfig"
+		ptxd_make_log "print-PACKAGES")"
+    fi
+    export PTXDIST_BASE_PACKAGES
+}
 
 #
 # gather all sysroots
@@ -127,6 +149,7 @@ ptxd_init_ptxdist_path_sysroot() {
     if ptxd_init_get_sysroot_base_platform; then
 	sysroot="${sysroot}:${sysroot_base_platform}"
 	sysroot_prefix="${sysroot_prefix}:${sysroot_base_platform}:${sysroot_base_platform}/usr"
+	ptxd_init_collectionconfig
     fi
 
     local sysroot_all="${sysroot}"

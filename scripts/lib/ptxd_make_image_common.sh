@@ -49,21 +49,6 @@ Run first 'ptxdist clean root' then 'ptxdist images' again.
 
 	shift
     done
-
-    #
-    # take care about production build
-    #
-    if [ -n "${PTXDIST_BASE_PLATFORMDIR}" ]; then
-	if ! ptxd_get_path "${PTXDIST_BASE_PLATFORMDIR}/packages/*.ipk"; then
-	    ptxd_bailout "use production BSP: no ipkg files found in '${PTXDIST_BASE_PLATFORMDIR}/packages'"
-	fi
-	ptxd_reply_ipkg_files=( "${ptxd_reply_ipkg_files[@]}" "${ptxd_reply[@]}" )
-
-	if ! ptxd_get_path "${PTXDIST_BASE_PLATFORMDIR}/state/*.perms"; then
-	    ptxd_bailout "use production BSP: no perms files found in '${PTXDIST_BASE_PLATFORMDIR}/state"
-	fi
-	ptxd_reply_perm_files=( "${ptxd_reply_perm_files[@]}" "${ptxd_reply[@]}" )
-    fi
 }
 export -f ptxd_get_ipkg_files
 
@@ -73,5 +58,8 @@ export -f ptxd_get_ipkg_files
 #
 ptxd_make_image_init() {
     image_ipkg_repo_dirs=( "${ptx_pkg_dir}" )
+    if [ -n "${PTXDIST_BASE_PLATFORMDIR}" ]; then
+	image_ipkg_repo_dirs[${#image_ipkg_repo_dirs[@]}]="${PTXDIST_BASE_PLATFORMDIR}/packages"
+    fi
 }
 export -f ptxd_make_image_init
