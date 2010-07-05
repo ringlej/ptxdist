@@ -1,0 +1,51 @@
+From 0ceaf99bf18517bf76eb0cd4400a569daa0224ec Mon Sep 17 00:00:00 2001
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 5 Jul 2010 17:04:38 +0200
+Subject: [PATCH 3/3] make dbus-1.pc relocatable
+
+Don't use expanded paths in dbus-1.pc.in
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.in |    3 +++
+ dbus-1.pc.in |    6 +++---
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index 486c612..fd744a0 100644
+--- a/configure.in
++++ b/configure.in
+@@ -1365,10 +1365,13 @@ AC_DEFINE_UNQUOTED(DBUS_DATADIR,"$DBUS_DATADIR", [Directory for installing DBUS
+ #### Directory to install dbus-daemon
+ if test -z "$with_dbus_daemondir" ; then
+     DBUS_DAEMONDIR=$EXPANDED_BINDIR
++    RELATIVE_DBUS_DAEMONDIR=$bindir
+ else
+     DBUS_DAEMONDIR=$with_dbus_daemondir
++    RELATIVE_DBUS_DAEMONDIR=$with_dbus_daemondir
+ fi
+ AC_SUBST(DBUS_DAEMONDIR)
++AC_SUBST(RELATIVE_DBUS_DAEMONDIR)
+ AC_DEFINE_UNQUOTED(DBUS_DAEMONDIR,"$DBUS_DAEMONDIR", [Directory for installing the DBUS daemon])
+ 
+ #### Directory to install the other binaries
+diff --git a/dbus-1.pc.in b/dbus-1.pc.in
+index 866f81c..1cb1b8d 100644
+--- a/dbus-1.pc.in
++++ b/dbus-1.pc.in
+@@ -3,9 +3,9 @@ exec_prefix=@exec_prefix@
+ libdir=@libdir@
+ includedir=@includedir@
+ system_bus_default_address=@DBUS_SYSTEM_BUS_DEFAULT_ADDRESS@
+-sysconfdir=@EXPANDED_SYSCONFDIR@
+-session_bus_services_dir=@EXPANDED_DATADIR@/dbus-1/services
+-daemondir=@DBUS_DAEMONDIR@
++sysconfdir=@sysconfdir@
++session_bus_services_dir=@datadir@/dbus-1/services
++daemondir=@RELATIVE_DBUS_DAEMONDIR@
+ 
+ Name: dbus
+ Description: Free desktop message bus
+-- 
+1.7.1
+
