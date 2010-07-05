@@ -148,6 +148,23 @@ config PROJECT_USE_PRODUCTION_PREFIX
 	default "/opt/OSELAS.BSP/${PTXCONF_PROJECT_VENDOR}/OSELAS.BSP-${PTXCONF_PROJECT_VENDOR}-${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}" if PROJECT_USE_PRODUCTION_PREFIX_DEFAULT_CHOICE
 	default "${PTXCONF_PROJECT_USE_PRODUCTION_PREFIX_CUSTOM}" if PROJECT_USE_PRODUCTION_PREFIX_CUSTOM_CHOICE
 
+config PROJECT_USE_LOCAL_PLATFORM
+	bool
+	prompt "built on top of another platform"
+	depends on PROJECT_BUILD_DEVEL && !PROJECT_USE_PRODUCTION
+	select PROJECT_USE_BASE_PLATFORM
+	help
+	  Use a pre-built production relase.
+
+config PROJECT_USE_LOCAL_PLATFORM_NAME
+	string
+	prompt "platform name"
+	depends on PROJECT_USE_LOCAL_PLATFORM
+	help
+	  The name of the platform to use. This is the directory name of
+	  the platform in the ptxdist workspace e.g. ``platform-i586''.
+
+
 config PROJECT_CREATE_DEVPKGS
 	bool
 	prompt "create dev packages"
