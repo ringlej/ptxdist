@@ -62,6 +62,9 @@ ptxd_cfgchg_generate()
 
 ptxd_cfgchg()
 {
+    local cfg_old_tmp="${PTXDIST_TEMPDIR}/ptxconfig-diff.old"
+    local cfg_orig_tmp="${PTXDIST_TEMPDIR}/ptxconfig-diff.orig"
+
     for cfg in PTXDIST_PTXCONFIG PTXDIST_PLATFORMCONFIG; do
 	local cfg_orig="${!cfg}"
 	if [ \! -e "${cfg_orig}" ]; then
@@ -72,11 +75,17 @@ ptxd_cfgchg()
 	local cfg_old="${STATEDIR}/${!cfg_default#${PTXDIST_WORKSPACE}/}.deps_old"
 
 	if [ -e "${cfg_old}" ]; then
-	    diff -u "${cfg_old}" "${cfg_orig}" | \
-		ptxd_cfgchg_generate | \
-		xargs -0 -r rm -f --
+	    grep -v '^# ' "${cfg_orig}" >> "${cfg_orig_tmp}"
+	    grep -v '^# ' "${cfg_old}" >> "${cfg_old_tmp}"
 	fi
 
 	install -m644 "${cfg_orig}" "${cfg_old}" || return
     done
+    if [ -f "${cfg_orig_tmp}" ]; then
+	sort -u "${cfg_old_tmp}" -o "${cfg_old_tmp}"
+	sort -u "${cfg_orig_tmp}" -o "${cfg_orig_tmp}"
+	diff -u  "${cfg_old_tmp}" "${cfg_orig_tmp}" | \
+	    ptxd_cfgchg_generate | \
+	    xargs -0 -r rm -f --
+    fi
 }
