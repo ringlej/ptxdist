@@ -1,0 +1,35 @@
+From 284019e9903de7ef550e61ec9ce64aed63779916 Mon Sep 17 00:00:00 2001
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 5 Jul 2010 22:51:51 +0200
+Subject: [PATCH] install: fix for static only
+
+"make install" tries to install the shared lib even if only
+the static lib is compiled. This patch makes installing the
+shared lib conditional.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.in |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 5b15bd0..82639e6 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -168,10 +168,11 @@ install-libs: $(LIBS)
+ 	-@if [ ! -d $(DESTDIR)$(man3dir)      ]; then mkdir -p $(DESTDIR)$(man3dir); fi
+ 	-@if [ ! -d $(DESTDIR)$(pkgconfigdir) ]; then mkdir -p $(DESTDIR)$(pkgconfigdir); fi
+ 	cp $(STATICLIB) $(DESTDIR)$(libdir)
+-	cp $(SHAREDLIBV) $(DESTDIR)$(sharedlibdir)
+ 	cd $(DESTDIR)$(libdir); chmod u=rw,go=r $(STATICLIB)
+ 	-@(cd $(DESTDIR)$(libdir); $(RANLIB) libz.a || true) >/dev/null 2>&1
+-	-@cd $(DESTDIR)$(sharedlibdir); if test "$(SHAREDLIBV)" -a -f $(SHAREDLIBV); then \
++	-@if test "$(SHAREDLIBV)" -a -f $(SHAREDLIBV); then \
++	  cp $(SHAREDLIBV) $(DESTDIR)$(sharedlibdir); \
++	  cd $(DESTDIR)$(sharedlibdir); \
+ 	  chmod 755 $(SHAREDLIBV); \
+ 	  rm -f $(SHAREDLIB) $(SHAREDLIBM); \
+ 	  ln -s $(SHAREDLIBV) $(SHAREDLIB); \
+-- 
+1.7.1
+
