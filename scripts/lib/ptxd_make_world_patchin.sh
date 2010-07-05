@@ -86,6 +86,7 @@ ptxd_make_world_patchin_apply_git_init()
 	git commit -q -m "initial commit" --author="ptxdist-${PTXDIST_VERSION_FULL} <ptxdist@pengutronix.de>" &&
 	git tag "${pkg_pkg}" &&
 	git tag base &&
+	git config alias.ptx-patches "!sh ${PTXDIST_TOPDIR}/scripts/git-ptx-patches \"\$@\""
 	echo "patchin: git: done"
     fi
 }
