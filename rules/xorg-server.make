@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_XORG_SERVER) += xorg-server
 #
 # Paths and names
 #
-XORG_SERVER_VERSION	:= 1.7.5
+XORG_SERVER_VERSION	:= 1.8.2
 XORG_SERVER		:= xorg-server-$(XORG_SERVER_VERSION)
 XORG_SERVER_SUFFIX	:= tar.bz2
 XORG_SERVER_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
@@ -57,7 +57,7 @@ XORG_SERVER_AUTOCONF = \
 	--disable-maintainer-mode \
 	--enable-dependency-tracking \
 	--enable-largefile \
-	--disable-werror \
+	--disable-strict-compilation \
 	--disable-debug \
 	--disable-unit-tests \
 	--disable-builddocs \
@@ -66,8 +66,11 @@ XORG_SERVER_AUTOCONF = \
 	--disable-xfree86-utils \
 	--disable-xquartz \
 	--disable-standalone-xpbproxy \
+	--disable-local-transport \
+	--without-doxygen \
 	--localstatedir=/var \
-	--with-xkb-output=/tmp
+	--with-xkb-output=/tmp \
+	--with-fontrootdir=$(XORG_FONTDIR)
 
 # FIXME
 # - what is XORG_OPTIONS_TRANS?
@@ -81,12 +84,6 @@ ifdef PTXCONF_XORG_SERVER_UDEV
 XORG_SERVER_AUTOCONF += --enable-config-udev
 else
 XORG_SERVER_AUTOCONF += --disable-config-udev
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_NULL_ROOT_CURSOR
-XORG_SERVER_AUTOCONF += --enable-null-root-cursor
-else
-XORG_SERVER_AUTOCONF += --disable-null-root-cursor
 endif
 
 ifdef PTXCONF_XORG_SERVER_OPT_AIGLX
@@ -293,12 +290,6 @@ else
 XORG_SERVER_AUTOCONF += --disable-xephyr
 endif
 
-ifdef PTXCONF_XORG_SERVER_XSDL
-XORG_SERVER_AUTOCONF += --enable-xsdl
-else
-XORG_SERVER_AUTOCONF += --disable-xsdl
-endif
-
 ifdef PTXCONF_XORG_SERVER_XFAKE
 XORG_SERVER_AUTOCONF += --enable-xfake
 else
@@ -315,6 +306,24 @@ ifdef PTXCONF_XORG_SERVER_OPT_INSTALL_SETUID
 XORG_SERVER_AUTOCONF += --enable-install-setuid
 else
 XORG_SERVER_AUTOCONF += --disable-install-setuid
+endif
+
+ifdef PTXCONF_XORG_SERVER_OPT_UNIX_TRANSPORT
+XORG_SERVER_AUTOCONF += --enable-unix-transport
+else
+XORG_SERVER_AUTOCONF += --disable-unix-transport
+endif
+
+ifdef PTXCONF_XORG_SERVER_OPT_TCP_TRANSPORT
+XORG_SERVER_AUTOCONF += --enable-tcp-transport
+else
+XORG_SERVER_AUTOCONF += --disable-tcp-transport
+endif
+
+ifdef PTXCONF_XORG_SERVER_OPT_IPV6
+XORG_SERVER_AUTOCONF += --enable-ipv6
+else
+XORG_SERVER_AUTOCONF += --disable-ipv6
 endif
 
 ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC

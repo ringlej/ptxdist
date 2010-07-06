@@ -188,13 +188,6 @@ config XORG_SERVER_XEPHYR
 	  Xnest this kind of server supports all new features (extensions). It
 	  doesn't depend on the features of the underlying X server.
 
-config XORG_SERVER_XSDL
-	bool
-	depends on BROKEN
-	prompt "xsdl server"
-	help
-	  FIXME
-
 config XORG_SERVER_XFAKE
 	bool
 	depends on BROKEN
@@ -229,10 +222,6 @@ endmenu
 
 menu "xorg options                  "
 
-config XORG_SERVER_OPT_NULL_ROOT_CURSOR
-	bool
-	prompt "null root cursor"
-
 config XORG_SERVER_OPT_AIGLX
 	bool
 	depends on BROKEN
@@ -247,6 +236,24 @@ config XORG_SERVER_OPT_INSTALL_SETUID
 	prompt "install server suid root"
 	help
 	  --enable-install-setuid
+
+config XORG_SERVER_OPT_UNIX_TRANSPORT
+	bool
+	prompt "UNIX domain socket transport"
+	help
+	  --enable-unix-transport
+
+config XORG_SERVER_OPT_TCP_TRANSPORT
+	bool
+	prompt "TCP socket transport"
+	help
+	  --enable-tcp-transport
+
+config XORG_SERVER_OPT_IPV6
+	bool
+	prompt "IPv6 support"
+	help
+	  --enable-IPv6
 
 config XORG_SERVER_OPT_SECURE_RPC
 	bool

@@ -1,0 +1,28 @@
+From 7b7359f9e0b3295cf200d763b4762b84d1d4b841 Mon Sep 17 00:00:00 2001
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 7 Jul 2010 13:02:15 +0200
+Subject: [PATCH] Fix typo
+
+MultiBufferDrawableResType != MultibufferDrawableResType
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Xext/mbuf.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Xext/mbuf.c b/Xext/mbuf.c
+index aacb9cf..b4c6357 100644
+--- a/Xext/mbuf.c
++++ b/Xext/mbuf.c
+@@ -468,7 +468,7 @@ MultibufferExtensionInit()
+      */
+     MultibufferDrawableResType =
+ 	CreateNewResourceType(MultibufferDrawableDelete, "MultibufferDrawable");
+-    if (MultiBufferDrawableResType)
++    if (MultibufferDrawableResType)
+ 	MultibufferDrawableResType |= RC_DRAWABLE;
+     MultibufferResType = CreateNewResourceType(MultibufferDelete,
+ 					       "MultibufferBuffer");
+-- 
+1.7.1
+
