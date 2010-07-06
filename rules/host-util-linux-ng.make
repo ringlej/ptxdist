@@ -38,6 +38,11 @@ HOST_UTIL_LINUX_NG_AUTOCONF := \
 	$(HOST_AUTOCONF) \
 	--disable-use-tty-group \
 	--disable-makeinstall-chown \
-	--disable-fallocate
+	--disable-fallocate \
+	--enable-libuuid \
+	--enable-libblkid
+
+HOST_UTIL_LINUX_NG_MAKE_OPT	:= -C shlibs
+HOST_UTIL_LINUX_NG_INSTALL_OPT	:= $(HOST_UTIL_LINUX_NG_MAKE_OPT) install
 
 # vim: syntax=make
