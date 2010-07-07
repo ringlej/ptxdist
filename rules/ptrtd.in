@@ -7,7 +7,7 @@ config PTRTD
 	  This is a Portable Transport Relay Translator Daemon (pTRTd)
 	  as specified by RFC 3142 (tcp, udp)
 
-	  Beware: This is rather old vodoo, last upstream update was
+	  Beware: This is rather old voodoo, last upstream update was
 	  in 2002. This ptxdist package ist provided primarily for
 	  test environments, ipv6 transition planing, etc.
 

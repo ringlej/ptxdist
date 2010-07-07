@@ -11,7 +11,7 @@ menuconfig TOTD
 	  and can be used as a DNS-ALG for NAT-PT or
 	  pTRTd based setups.
 
-	  Beware: This is rather old vodoo, last upstream update was
+	  Beware: This is rather old voodoo, last upstream update was
 	  in 2005. This ptxdist package ist provided primarily for
 	  test environments, ipv6 transition planing, etc.
 
