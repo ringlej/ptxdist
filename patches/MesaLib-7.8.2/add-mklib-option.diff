@@ -1,0 +1,49 @@
+Subject: add -linker-prefix option to mklib
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+On Linux mklib uses gcc or g++ (for C++) as linker. This breaks when
+cross-compiling. The "-linker" option cannot be used, because it cannot be
+used to specify a differen linker for C and C++.
+This patch adds an extra option to add a prefix for the linker command.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ bin/mklib |   11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+Index: b/bin/mklib
+===================================================================
+--- a/bin/mklib
++++ b/bin/mklib
+@@ -34,6 +34,7 @@ MINOR=0
+ PATCH=""
+ DEPS=""
+ LINK=""
++LINK_PREFIX=""
+ LDFLAGS=""
+ CPLUSPLUS=0
+ STATIC=0
+@@ -99,6 +100,10 @@ do
+ 	    shift 1;
+ 	    LINK=$1
+ 	    ;;
++	'-linker-prefix')
++	    shift 1;
++	    LINK_PREFIX=$1
++	    ;;
+ 	'-ldflags')
+ 	    shift 1;
+ 	    LDFLAGS=$1
+@@ -234,9 +239,9 @@ case $ARCH in
+ 	if [ "x$LINK" = "x" ] ; then
+ 	    # -linker was not specified so set default link command now
+             if [ $CPLUSPLUS = 1 ] ; then
+-                LINK=g++
++                LINK=${LINK_PREFIX}g++
+             else
+-                LINK=gcc
++                LINK=${LINK_PREFIX}gcc
+             fi
+ 	fi
+ 

@@ -1,0 +1,45 @@
+From b1f388870b1a128b652273981fa862c0a09cbdf0 Mon Sep 17 00:00:00 2001
+From: Erwin Rol <erwin@erwinrol.com>
+Date: Wed, 7 Jul 2010 10:57:40 +0200
+Subject: [PATCH 1/4] remove crosscompile check
+
+When cross compiling it refuses to use assembly since it assumes it can
+not use the gen_matypes tool. But we fixed the gen_matypes so now the
+test is not needed anymore.
+
+Signed-off-by: Erwin Rol <erwin@erwinrol.com>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ configure.ac |   16 ++++++++--------
+ 1 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index e711634..e8f32eb 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -317,14 +317,14 @@ GLAPI_ASM_SOURCES=""
+ AC_MSG_CHECKING([whether to enable assembly])
+ test "x$enable_asm" = xno && AC_MSG_RESULT([no])
+ # disable if cross compiling on x86/x86_64 since we must run gen_matypes
+-if test "x$enable_asm" = xyes && test "x$cross_compiling" = xyes; then
+-    case "$host_cpu" in
+-    i?86 | x86_64)
+-        enable_asm=no
+-        AC_MSG_RESULT([no, cross compiling])
+-        ;;
+-    esac
+-fi
++#if test "x$enable_asm" = xyes && test "x$cross_compiling" = xyes; then
++#    case "$host_cpu" in
++#    i?86 | x86_64)
++#        enable_asm=no
++#        AC_MSG_RESULT([no, cross compiling])
++#        ;;
++#    esac
++#fi
+ # check for supported arches
+ if test "x$enable_asm" = xyes; then
+     case "$host_cpu" in
+-- 
+1.7.1
+

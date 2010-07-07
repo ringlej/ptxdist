@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_MESALIB) += mesalib
 #
 # Paths and names
 #
-MESALIB_VERSION	:= 7.6.1
+MESALIB_VERSION	:= 7.8.2
 MESALIB		:= MesaLib-$(MESALIB_VERSION)
 MESALIB_SUFFIX	:= tar.bz2
 MESALIB_SOURCE	:= $(SRCDIR)/$(MESALIB).$(MESALIB_SUFFIX)
@@ -27,14 +27,14 @@ MESALIB_DIR	:= $(BUILDDIR)/Mesa-$(MESALIB_VERSION)
 
 MESALIB_URL	:= \
 	$(PTXCONF_SETUP_SFMIRROR)/mesa3d/$(MESADEMOS).$(MESALIB_SUFFIX) \
-	ftp://ftp.freedesktop.org/pub/mesa/7.6.1/$(MESALIB).$(MESALIB_SUFFIX)
+	ftp://ftp.freedesktop.org/pub/mesa/7.8.2/$(MESALIB).$(MESALIB_SUFFIX)
 
 MESADEMOS		:= MesaDemos-$(MESALIB_VERSION)
 MESADEMOS_SOURCE	:= $(SRCDIR)/$(MESADEMOS).$(MESALIB_SUFFIX)
 
 MESADEMOS_URL		:= \
 	$(PTXCONF_SETUP_SFMIRROR)/mesa3d/$(MESADEMOS).$(MESALIB_SUFFIX) \
-	ftp://ftp.freedesktop.org/pub/mesa/7.6.1/$(MESADEMOS).$(MESALIB_SUFFIX)
+	ftp://ftp.freedesktop.org/pub/mesa/7.8.2/$(MESADEMOS).$(MESALIB_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -90,6 +90,7 @@ MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_MGA)		+= mga
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_R128)		+= r128
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_R200)		+= r200
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_R300)		+= r300
+MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_R300)		+= r600
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_RADEON)	+= radeon
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_S3V)		+= s3v
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_SAVAGE)	+= savage
@@ -114,6 +115,7 @@ MESALIB_AUTOCONF   := \
 	--disable-glw \
 	--disable-motif \
 	--disable-glut \
+	--disable-egl \
 	--with-driver=$(subst $(space),$(comma),$(MESALIB_DRIVERS-y)) \
 	--with-dri-drivers=$(subst $(space),$(comma),$(MESALIB_DRI_DRIVERS-y))
 
@@ -159,6 +161,16 @@ ifdef PTXCONF_MESALIB_DRIVER_OSMESA
 endif
 
 # ----------------------------------------------------------------------------
+# Compile
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/mesalib.compile:
+	@$(call targetinfo)
+	@cp $(PTXCONF_SYSROOT_HOST)/bin/mesa/* $(MESALIB_DIR)/src/glsl/apps
+	@$(call compile, MESALIB)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
@@ -175,7 +187,7 @@ $(STATEDIR)/mesalib.install:
 # ----------------------------------------------------------------------------
 
 MESALIB_GL_VERSION-$(PTXCONF_MESALIB_DRIVER_DRI)  := 1.2
-MESALIB_GL_VERSION-$(PTXCONF_MESALIB_DRIVER_XLIB) := 1.5.070601
+MESALIB_GL_VERSION-$(PTXCONF_MESALIB_DRIVER_XLIB) := 1.5.07.8.2
 
 $(STATEDIR)/mesalib.targetinstall:
 	@$(call targetinfo)
@@ -324,19 +336,11 @@ ifdef PTXCONF_MESALIB_TOOLS_XROTFONTDEMO
 endif
 
 ifndef PTXCONF_MESALIB_DRIVER_OSMESA
-	@$(call install_copy, mesalib, 0, 0, 0644, -, \
-		 /usr/lib/libGL.so.$(MESALIB_GL_VERSION-y))
-	@$(call install_link, mesalib, libGL.so.$(MESALIB_GL_VERSION-y), /usr/lib/libGL.so.1)
-	@$(call install_link, mesalib, libGL.so.$(MESALIB_GL_VERSION-y), /usr/lib/libGL.so)
+	@$(call install_lib, mesalib, 0, 0, 0644, libGL)
 endif
 
-	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/libGLU.so.1.3.070601)
-	@$(call install_link, mesalib, libGLU.so.1.3.070601, /usr/lib/libGLU.so.1)
-	@$(call install_link, mesalib, libGLU.so.1.3.070601, /usr/lib/libGLU.so)
-
-	@$(call install_copy, mesalib, 0, 0, 0644, -, /usr/lib/libOSMesa.so.7.6.1)
-	@$(call install_link, mesalib, libOSMesa.so.7.6.1, /usr/lib/libOSMesa.so.7)
-	@$(call install_link, mesalib, libOSMesa.so.7.6.1, /usr/lib/libOSMesa.so)
+	@$(call install_lib, mesalib, 0, 0, 0644, libGLU)
+	@$(call install_lib, mesalib, 0, 0, 0644, libOSMesa)
 
 	@$(call install_finish, mesalib)
 

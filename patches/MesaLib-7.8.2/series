@@ -1,0 +1,4 @@
+0001-remove-crosscompile-check.patch
+0002-fix-mklib-command-line.patch
+0003-add-linker-prefix-option-to-mklib.patch
+0004-HACK-allow-compiling-host-tools-without-configure.patch

@@ -5,6 +5,7 @@ menuconfig MESALIB
 	prompt "mesa                          "
 	select LIBDRM
 	select DRI2PROTO
+	select HOST_MESALIB
 	select XORG_LIB_X11		if MESALIB_DRIVER_DRI
 	select XORG_LIB_XEXT		if MESALIB_DRIVER_DRI || MESALIB_DRIVER_XLIB
 	select XORG_LIB_XXF86VM		if MESALIB_DRIVER_DRI
@@ -101,6 +102,10 @@ config MESALIB_DRI_R300
 	bool
 	prompt "r300"
 
+config MESALIB_DRI_R600
+	bool
+	prompt "r300"
+
 config MESALIB_DRI_RADEON
 	bool
 	prompt "radeon"
@@ -112,10 +117,6 @@ menu "Other DRI Drivers             "
 config MESALIB_DRI_MGA
 	bool
 	prompt "mga"
-
-config MESALIB_DRI_S3V
-	bool
-	prompt "s3v"
 
 config MESALIB_DRI_SAVAGE
 	bool
@@ -131,17 +132,9 @@ config MESALIB_DRI_TDFX
 	bool
 	prompt "tdfx"
 
-config MESALIB_DRI_TRIDENT
-	bool
-	prompt "trident"
-
 config MESALIB_DRI_UNICHROME
 	bool
 	prompt "unichrome"
-
-config MESALIB_DRI_FFB
-	bool
-	prompt "ffb"
 
 endmenu
 

@@ -15,12 +15,12 @@ Index: b/src/gallium/winsys/drm/Makefile.template
 ===================================================================
 --- a/src/gallium/winsys/drm/Makefile.template
 +++ b/src/gallium/winsys/drm/Makefile.template
-@@ -82,7 +82,7 @@ SHARED_INCLUDES = \
- default: depend symlinks $(TOP)/$(LIB_DIR)/gallium/$(LIBNAME)
+@@ -65,7 +65,7 @@ default: depend symlinks $(TOP)/$(LIB_DI
  
- $(LIBNAME): $(OBJECTS) $(MESA_MODULES) $(PIPE_DRIVERS) $(WINOBJ) Makefile $(TOP)/src/mesa/drivers/dri/Makefile.template
--	$(MKLIB) -noprefix -o $@ \
-+	$(MKLIB) -noprefix -o $@ $(MKLIB_OPTIONS) \
+ $(LIBNAME): $(OBJECTS) $(MESA_MODULES) $(PIPE_DRIVERS) Makefile \
+ 		$(TOP)/src/mesa/drivers/dri/Makefile.template
+-	$(MKLIB) -o $@ -noprefix -linker '$(CC)' -ldflags '$(LDFLAGS)' \
++	$(MKLIB) -o $@ $(MKLIB_OPTIONS) -noprefix -linker '$(CC)' -ldflags '$(LDFLAGS)' \
  		$(OBJECTS) $(PIPE_DRIVERS) \
                  -Wl,--start-group $(MESA_MODULES) -Wl,--end-group \
-                  $(WINOBJ) $(DRI_LIB_DEPS) $(DRIVER_EXTRAS)
+                  $(DRI_LIB_DEPS) $(DRIVER_EXTRAS)

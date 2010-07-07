@@ -1,5 +1,7 @@
-Subject: add -linker-prefix option to mklib
+From af051dc63f474c532be558410bc560d67a381003 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 7 Jul 2010 10:57:40 +0200
+Subject: [PATCH 3/4] add -linker-prefix option to mklib
 
 On Linux mklib uses gcc or g++ (for C++) as linker. This breaks when
 cross-compiling. The "-linker" option cannot be used, because it cannot be
@@ -7,16 +9,15 @@ used to specify a differen linker for C and C++.
 This patch adds an extra option to add a prefix for the linker command.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
- bin/mklib |   11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ bin/mklib |    9 +++++++--
+ 1 files changed, 7 insertions(+), 2 deletions(-)
 
-Index: b/bin/mklib
-===================================================================
+diff --git a/bin/mklib b/bin/mklib
+index 08ef99e..b922ef1 100755
 --- a/bin/mklib
 +++ b/bin/mklib
-@@ -34,6 +34,7 @@ MINOR=0
+@@ -137,6 +137,7 @@ MINOR=0
  PATCH=""
  DEPS=""
  LINK=""
@@ -24,7 +25,7 @@ Index: b/bin/mklib
  LDFLAGS=""
  CPLUSPLUS=0
  STATIC=0
-@@ -99,6 +100,10 @@ do
+@@ -178,6 +179,10 @@ do
  	    shift 1;
  	    LINK=$1
  	    ;;
@@ -35,7 +36,7 @@ Index: b/bin/mklib
  	'-ldflags')
  	    shift 1;
  	    LDFLAGS=$1
-@@ -234,9 +239,9 @@ case $ARCH in
+@@ -313,9 +318,9 @@ case $ARCH in
  	if [ "x$LINK" = "x" ] ; then
  	    # -linker was not specified so set default link command now
              if [ $CPLUSPLUS = 1 ] ; then
@@ -47,12 +48,6 @@ Index: b/bin/mklib
              fi
  	fi
  
-@@ -271,7 +276,7 @@ case $ARCH in
-         elif [ $STATIC = 1 ] ; then
-             LIBNAME="lib${LIBNAME}.a"     # prefix with "lib", suffix with ".a"
-             echo "mklib: Making" $ARCH "static library: " ${LIBNAME}
--            LINK="ar"
-+            LINK="${LINK_PREFIX}ar"
-             OPTS="-ru"
-             if [ "${ALTOPTS}" ] ; then
-                 OPTS=${ALTOPTS}
+-- 
+1.7.1
+

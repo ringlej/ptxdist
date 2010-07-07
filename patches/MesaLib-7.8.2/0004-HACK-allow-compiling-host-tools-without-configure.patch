@@ -1,0 +1,95 @@
+From bcf6de73e080d662b28381e4eb3dfcc7eb0ce8f7 Mon Sep 17 00:00:00 2001
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 7 Jul 2010 10:58:14 +0200
+Subject: [PATCH 4/4] HACK: allow compiling host tools without configure
+
+This patch modifies the Makefiles for the hosttools to allow
+compiling without configure. This way we can avoid
+unnecessary dependencies when only compiling host tools.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/glsl/Makefile      |    4 ++++
+ src/glsl/apps/Makefile |    8 ++++++++
+ src/glsl/cl/Makefile   |    4 ++++
+ src/glsl/pp/Makefile   |    4 ++++
+ 4 files changed, 20 insertions(+), 0 deletions(-)
+
+diff --git a/src/glsl/Makefile b/src/glsl/Makefile
+index ca7f2d2..69e980a 100644
+--- a/src/glsl/Makefile
++++ b/src/glsl/Makefile
+@@ -2,7 +2,11 @@
+ 
+ TOP = ../..
+ 
++ifeq ($(wildcard $(TOP)/configs/current),)
++include $(TOP)/configs/default
++else
+ include $(TOP)/configs/current
++endif
+ 
+ SUBDIRS = pp cl apps
+ 
+diff --git a/src/glsl/apps/Makefile b/src/glsl/apps/Makefile
+index 39a0df7..aba16f0 100644
+--- a/src/glsl/apps/Makefile
++++ b/src/glsl/apps/Makefile
+@@ -2,7 +2,11 @@
+ 
+ TOP = ../../..
+ 
++ifeq ($(wildcard $(TOP)/configs/current),)
++include $(TOP)/configs/default
++else
+ include $(TOP)/configs/current
++endif
+ 
+ LIBS = \
+ 	$(TOP)/src/glsl/pp/libglslpp.a \
+@@ -37,6 +41,10 @@ INCLUDES = -I.
+ default: $(APPS)
+ 
+ install:
++	@for app in $(APPS); do \
++		echo install -D -m 0755 $$app $(DESTDIR)/bin/mesa/$$app; \
++		install -D -m 0755 $$app $(DESTDIR)/bin/mesa/$$app; \
++	done
+ 
+ clean:
+ 	-rm -f $(APPS)
+diff --git a/src/glsl/cl/Makefile b/src/glsl/cl/Makefile
+index 04a52df..209dd7b 100644
+--- a/src/glsl/cl/Makefile
++++ b/src/glsl/cl/Makefile
+@@ -2,7 +2,11 @@
+ 
+ TOP = ../../..
+ 
++ifeq ($(wildcard $(TOP)/configs/current),)
++include $(TOP)/configs/default
++else
+ include $(TOP)/configs/current
++endif
+ 
+ LIBNAME = glslcl
+ 
+diff --git a/src/glsl/pp/Makefile b/src/glsl/pp/Makefile
+index fda1c42..d4ad55c 100644
+--- a/src/glsl/pp/Makefile
++++ b/src/glsl/pp/Makefile
+@@ -2,7 +2,11 @@
+ 
+ TOP = ../../..
+ 
++ifeq ($(wildcard $(TOP)/configs/current),)
++include $(TOP)/configs/default
++else
+ include $(TOP)/configs/current
++endif
+ 
+ LIBNAME = glslpp
+ 
+-- 
+1.7.1
+
