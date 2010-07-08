@@ -829,8 +829,10 @@ ifdef PTXCONF_QT4_GFX_POWERVR_PLUGIN
 		/usr/lib/libpvrQWSWSEGL.so)
 endif
 ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK),)
+ifdef PTXCONF_QT4_BUILD_SCRIPT
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
 		/usr/plugins/script/libqtscriptdbus.$(QT4_PLUGIN_EXT))
+endif
 endif
 ifdef PTXCONF_QT4_GIF_INTERNAL
 	@$(call install_copy, qt4, 0, 0, 0644, -, \

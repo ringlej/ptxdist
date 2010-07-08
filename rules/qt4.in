@@ -665,14 +665,12 @@ config QT4_DBUS_NONE
 config QT4_DBUS_LOAD
 	bool "load    "
 	select QT4_BUILD_XML
-	select QT4_BUILD_SCRIPT
 	help
 	  Build Qt dbus support and dynamically load libdbus-1.
 
 config QT4_DBUS_LINK
 	bool "link    "
 	select QT4_BUILD_XML
-	select QT4_BUILD_SCRIPT
 	help
 	  Build Qt dbus support and link to libdbus-1.
 endchoice
