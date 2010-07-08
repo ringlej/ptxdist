@@ -12,12 +12,23 @@
 #
 # install_init
 #
-# Deletes $(PKGDIR)/$$PACKET.tmp/ipkg and prepares for new ipkg package creation
+# prepares for new xpkg package creation
 #
-# $1: packet label
+# $1: xpkg label
 #
-install_init =				\
-	$(call xpkg/env, $(1))		\
-	ptxd_make_install_init
+install_init = \
+	$(call xpkg/prepare, $(1))
+
+
+#
+# xpkg/prepare
+#
+# prepares for new xpkg package creation
+#
+# $1: xpkg label
+#
+xpkg/prepare = \
+	$(call xpkg/env, $(1)) \
+	ptxd_make_xpkg_prepare
 
 # vim: syntax=make

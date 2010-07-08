@@ -10,16 +10,13 @@
 #
 
 #
-# -p PACKET
 #
-ptxd_make_install_init() {
-    . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return
-
+ptxd_make_xpkg_prepare() {
     ptxd_make_xpkg_init || return
 
-    echo "install_init:	preparing for image creation..."
+    echo "install_init:	preparing for image creation of '${pkg_xpkg}'..."
 
-    rm -fr   -- \
+    rm -fr -- \
 	"${pkg_xpkg_tmp}" \
 	"${pkg_xpkg_cmds}" \
 	"${pkg_xpkg_perms}" &&
@@ -34,39 +31,26 @@ ptxd_make_install_init() {
 	"${pkg_ipkg_control}" || return
     echo "done"
 
-    local script rd found
-    for script in \
-	preinst postinst prerm postrm; do
-
+    local script
+    for script in preinst postinst prerm postrm; do
 	echo -n "install_init:	${script} "
-	unset found
 
-	for rd in \
-	    "${PROJECTRULESDIR}" "${RULESDIR}"; do
+	if ptxd_get_path "${PTXDIST_PATH_RULES//://${pkg_xpkg}.${script} }"; then
+	    install -m 0755 \
+		-D "${ptxd_reply}" \
+		"${pkg_ipkg_control_dir}/${script}" || return
 
-	    local abs_script="${rd}/${pkg_xpkg}.${script}"
+	    echo "packaging: '$(ptxd_print_path "${ptxd_reply}")'"
 
-	    if [ -f "${abs_script}" ]; then
-		install -m 0755 \
-		    -D "${abs_script}" \
-		    "${pkg_ipkg_control_dir}/${script}" || return
-
-		echo "packaging: '${abs_script}'"
-
-		if [ "${script}" = "preinst" ]; then
-		    echo "install_init:	executing '${abs_script}'"
-		    DESTDIR="${ROOTDIR}" /bin/sh "${abs_script}" || return
-		fi
-
-		found=true
-		break
+	    # FIXME: install ipkg rather than executing script
+	    if [ "${script}" = "preinst" ]; then
+		echo "install_init:	executing '${ptxd_reply}'"
+		DESTDIR="${ptx_nfsroot}" /bin/sh "${ptxd_reply}"
+		DESTDIR="${ptx_nfsroot_dbg}" /bin/sh "${ptxd_reply}"
 	    fi
-	done
-
-	if [ -z "${found}" ]; then
+	else
 	    echo "not available"
 	fi
     done
 }
-
-export -f ptxd_make_install_init
+export -f ptxd_make_xpkg_prepare
