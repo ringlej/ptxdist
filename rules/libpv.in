@@ -3,8 +3,8 @@
 menuconfig LIBPV
 	tristate
 	prompt "libpv                         "
-	select LIBLIST
 	select LIBC_PTHREAD
+	select LIBLIST		if !LIBPV_XML_EXPAT
 	select LIBXMLCONFIG	if !LIBPV_XML_EXPAT
 	select EXPAT		if LIBPV_XML_EXPAT
 	select PYTHON		if LIBPV_PYTHON
