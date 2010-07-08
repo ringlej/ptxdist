@@ -297,23 +297,4 @@ install_node =				\
 	$(call install_check, install_node);	\
 	echo "ptxd_install_node '$$DEV' '$$OWN' '$$GRP' '$$PER' '$$TYP' '$$MAJ' '$$MIN'" >> "$(STATEDIR)/$$PACKET.cmds"
 
-
-#
-# install_fixup
-#
-# Replaces @...@ sequences in rules/*.ipkg files
-#
-# $1: packet label
-# $2: sequence to be replaced
-# $3: replacement
-#
-install_fixup =							\
-	$(call xpkg/env, $(1))					\
-	PTXCONF_PROJECT_BUILD="$(PTXCONF_PROJECT_BUILD)"	\
-	ptxd_make_install_fixup					\
-		-p '$(strip $(1))'				\
-		-f '$(strip $(2))'				\
-		-t '$(strip $(3))'				\
-		-s '$(@)'
-
 # vim: syntax=make
