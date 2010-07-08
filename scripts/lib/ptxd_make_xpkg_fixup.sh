@@ -76,7 +76,7 @@ EOF
 
 	    ;;
 	VERSION)
-	    replace_to="${replace_to//[-_]/.}${PTXCONF_PROJECT_BUILD//[-_]/.}"
+	    replace_to="${replace_to//[-_]/.}"
 	    ;;
 	DEPENDS)
 	    return
