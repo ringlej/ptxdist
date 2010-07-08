@@ -12,16 +12,16 @@
 #
 # install_fixup
 #
-# Replaces @...@ sequences in rules/*.ipkg files
+# Replaces @MAGIC@ sequences in rules/*.ipkg files
 #
 # $1: packet label
-# $2: sequence to be replaced
+# $2: MAGIC to be replaced
 # $3: replacement
 #
 install_fixup =							\
 	$(call xpkg/env, $(1))					\
-	ptxd_make_install_fixup					\
-		-f '$(strip $(2))'				\
-		-t '$(strip $(3))'
+	pkg_xpkg_fixup_from='$(strip $(2))'			\
+	pkg_xpkg_fixup_to='$(strip $(3))'			\
+	ptxd_make_install_fixup
 
 # vim: syntax=make

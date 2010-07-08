@@ -15,33 +15,18 @@
 ptxd_make_install_fixup() {
     ptxd_make_xpkg_init || return
 
-    local opt
-    while getopts "p:f:t:s:" opt; do
-	case "${opt}" in
-	    f)
-		local replace_from="${OPTARG}"
-		;;
-	    t)
-		local replace_to="${OPTARG}"
-		;;
-	    *)
-		return 1
-		;;
-	esac
-    done
-
-    case "${replace_from}" in
+    case "${pkg_xpkg_fixup_from}" in
 	AUTHOR)
-	    replace_to="`echo ${replace_to} | sed -e 's/\([^\\]\)@/\1\\\@/g'`"
+	    pkg_xpkg_fixup_to="`echo ${pkg_xpkg_fixup_to} | sed -e 's/\([^\\]\)@/\1\\\@/g'`"
 	    ;;
 	PACKAGE)
-	    replace_to="`echo ${replace_to} | sed -e 's/_/-/g'`"
+	    pkg_xpkg_fixup_to="`echo ${pkg_xpkg_fixup_to} | sed -e 's/_/-/g'`"
 
 	    #
 	    # track "pkg name" to "xpkg filename"
 	    #
 	    if [ -e "${pkg_xpkg_map}" ]; then
-		sed -i -e "/^${replace_to}$/d" "${pkg_xpkg_map}" &&
+		sed -i -e "/^${pkg_xpkg_fixup_to}$/d" "${pkg_xpkg_map}" &&
 
 		if [ -s "${pkg_xpkg_map}" ]; then
 		    cat >&2 <<EOF
@@ -49,26 +34,26 @@ ptxd_make_install_fixup() {
 ${PREFIX}warning: more than one ipkg per PTXdist package detected:
 
 pkg:	'${pkg_pkg}'
-ipkg:	'${replace_to}' and '$(cat "${pkg_xpkg_map}")'
+ipkg:	'${pkg_xpkg_fixup_to}' and '$(cat "${pkg_xpkg_map}")'
 
 
 EOF
 		fi
 	    fi &&
-	    echo "${replace_to}" >> "${pkg_xpkg_map}" || return
+	    echo "${pkg_xpkg_fixup_to}" >> "${pkg_xpkg_map}" || return
 
 
 	    ;;
 	VERSION)
-	    replace_to="${replace_to//[-_]/.}"
+	    pkg_xpkg_fixup_to="${pkg_xpkg_fixup_to//[-_]/.}"
 	    ;;
 	DEPENDS)
 	    return
 	    ;;
     esac
 
-    echo -n "install_fixup:	@${replace_from}@ -> ${replace_to} ... "
-    sed -i -e "s,@$replace_from@,$replace_to,g" "${pkg_ipkg_control}" || return
+    echo -n "install_fixup:	@${pkg_xpkg_fixup_from}@ -> ${pkg_xpkg_fixup_to} ... "
+    sed -i -e "s,@$pkg_xpkg_fixup_from@,$pkg_xpkg_fixup_to,g" "${pkg_ipkg_control}" || return
     echo "done."
 }
 
