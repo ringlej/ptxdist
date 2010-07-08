@@ -9,6 +9,17 @@
 #
 
 #
+# install_finish
+#
+# finishes packet creation
+#
+# $1: packet label
+#
+install_finish = \
+	$(call xpkg/finish, $(1))
+
+
+#
 # xpkg/finish
 #
 # finishes packet creation

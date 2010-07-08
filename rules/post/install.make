@@ -316,14 +316,4 @@ install_fixup =							\
 		-t '$(strip $(3))'				\
 		-s '$(@)'
 
-#
-# install_finish
-#
-# finishes packet creation
-#
-# $1: packet label
-#
-install_finish = \
-	$(call xpkg/finish, $(1))
-
 # vim: syntax=make
