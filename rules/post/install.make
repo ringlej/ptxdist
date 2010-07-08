@@ -299,20 +299,6 @@ install_node =				\
 
 
 #
-# install_init
-#
-# Deletes $(PKGDIR)/$$PACKET.tmp/ipkg and prepares for new ipkg package creation
-#
-# $1: packet label
-#
-install_init =				\
-	$(call xpkg/env, $(1))		\
-	ptxd_make_install_init		\
-		-p '$(strip $(1))'	\
-		-t '$(@)'
-
-
-#
 # install_fixup
 #
 # Replaces @...@ sequences in rules/*.ipkg files
