@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2005, 2006, 2007 Robert Schwebel <r.schwebel@pengutronix.de>
-#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -21,9 +21,7 @@
 install_fixup =							\
 	$(call xpkg/env, $(1))					\
 	ptxd_make_install_fixup					\
-		-p '$(strip $(1))'				\
 		-f '$(strip $(2))'				\
-		-t '$(strip $(3))'				\
-		-s '$(@)'
+		-t '$(strip $(3))'
 
 # vim: syntax=make

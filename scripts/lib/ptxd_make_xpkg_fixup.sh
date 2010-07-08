@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2005, 2006, 2007 Robert Schwebel <r.schwebel@pengutronix.de>
-#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -18,31 +18,17 @@ ptxd_make_install_fixup() {
     local opt
     while getopts "p:f:t:s:" opt; do
 	case "${opt}" in
-	    p)
-		local packet="${OPTARG}"
-		;;
 	    f)
 		local replace_from="${OPTARG}"
 		;;
 	    t)
 		local replace_to="${OPTARG}"
 		;;
-	    s)
-		local target="${OPTARG##*/}"
-		target="${target%%.targetinstall*}"
-		;;
 	    *)
 		return 1
 		;;
 	esac
     done
-
-    if [ -z "${packet}" ]; then
-    	echo
-	echo "Error: empty parameter to 'install_fixup()'"
-	echo
-	return 1
-    fi
 
     case "${replace_from}" in
 	AUTHOR)
@@ -62,7 +48,7 @@ ptxd_make_install_fixup() {
 
 ${PREFIX}warning: more than one ipkg per PTXdist package detected:
 
-pkg:	'${target}'
+pkg:	'${pkg_pkg}'
 ipkg:	'${replace_to}' and '$(cat "${pkg_xpkg_map}")'
 
 
