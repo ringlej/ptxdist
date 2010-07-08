@@ -27,7 +27,7 @@ ptxd_make_xpkg_prepare() {
     local replace_to="${PTXDIST_IPKG_ARCH_STRING}"
 
     echo -n "install_init:	@${replace_from}@ -> ${replace_to} ... "
-    sed -e "s,@${replace_from}@,${replace_to},g" "${RULESDIR}/default.ipkg" > \
+    sed -e "s,@${replace_from}@,${replace_to},g" "${PTXDIST_TOPDIR}/config/xpkg/ipkg.control" > \
 	"${pkg_ipkg_control}" || return
     echo "done"
 
