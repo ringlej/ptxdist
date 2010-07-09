@@ -32,6 +32,13 @@ ptxd_make_xpkg_init() {
 	ptxd_bailout "'pkg_xpkg' or 'pkg_xpkg_type' undefined"
     fi
 
+    #
+    # sanitize pkg_xpkg name
+    #
+    # replace "_" by "-"
+    #
+    pkg_xpkg="${pkg_xpkg//_/-}"
+
     ptxd_make_world_init || return
 
     # license

@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2005, 2006, 2007 Robert Schwebel <r.schwebel@pengutronix.de>
-#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -44,7 +44,7 @@ install_check =										\
 # binaries are stripped automatically
 #
 install_copy = 											\
-	XPKG="$(strip $(1))";									\
+	XPKG="$(subst _,-,$(strip $(1)))";							\
 	OWN="$(strip $(2))";									\
 	GRP="$(strip $(3))";									\
 	PER="$(strip $(4))";									\
@@ -76,7 +76,7 @@ install_copy = 											\
 # $7: destination (optional)
 #
 install_alternative =									\
-	XPKG=$(strip $(1));								\
+	XPKG=$(subst _,-,$(strip $(1)));						\
 	OWN=$(strip $(2));								\
 	GRP=$(strip $(3));								\
 	PER=$(strip $(4));								\
@@ -100,7 +100,7 @@ install_alternative =									\
 # $5: the target directory.
 #
 install_tree =			\
-	XPKG=$(strip $(1));	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
 	OWN=$(strip $(2));	\
 	GRP=$(strip $(3));	\
 	DIR=$(strip $(4));	\
@@ -122,7 +122,7 @@ install_tree =			\
 # $5: the target directory.
 #
 install_archive =		\
-	XPKG=$(strip $(1));	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
 	OWN=$(strip $(2));	\
 	GRP=$(strip $(3));	\
 	DIR=$(strip $(4));	\
@@ -144,7 +144,7 @@ install_archive =		\
 # $2: spec file to parse
 #
 install_spec =			\
-	XPKG=$(strip $(1));	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
 	SPECFILE=$(strip $(2));	\
 	$(call install_check, install_spec);	\
 	echo "ptxd_install_spec '$$SPECFILE'" >> "$(STATEDIR)/$$XPKG.cmds"
@@ -161,7 +161,7 @@ install_spec =			\
 # $2: the toplevel directory
 #
 install_package =		\
-	XPKG=$(strip $(1));	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
 	$(call install_check, install_package);	\
 	echo "ptxd_install_package" >> "$(STATEDIR)/$$XPKG.cmds"
 
@@ -176,7 +176,7 @@ install_package =		\
 # $2: library name without suffix.
 #
 install_lib =			\
-	XPKG=$(strip $(1));	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
 	OWN="$(strip $(2))";	\
 	GRP="$(strip $(3))";	\
 	PER="$(strip $(4))";	\
@@ -196,7 +196,7 @@ install_lib =			\
 # $4: value
 #
 install_replace = \
-	XPKG=$(strip $(1));									\
+	XPKG=$(subst _,-,$(strip $(1)));							\
 	FILE=$(strip $(2));									\
 	PLACEHOLDER=$(strip $(3));								\
 	VALUE=$(strip $(4));									\
@@ -212,7 +212,7 @@ install_replace = \
 # $4: strip (y|n)	default is to strip
 #
 install_copy_toolchain_lib =									\
-	XPKG=$(strip $(1));									\
+	XPKG=$(subst _,-,$(strip $(1)));							\
 	LIB="$(strip $2)";									\
 	DST="$(strip $3)";									\
 	STRIP="$(strip $4)";									\
@@ -229,7 +229,7 @@ install_copy_toolchain_lib =									\
 # $3: strip (y|n)	default is to strip
 #
 install_copy_toolchain_dl =									\
-	XPKG=$(strip $(1));									\
+	XPKG=$(subst _,-,$(strip $(1)));							\
 	DST="$(strip $2)";									\
 	STRIP="$(strip $3)";									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
@@ -246,7 +246,7 @@ install_copy_toolchain_dl =									\
 # $4: strip (y|n)	default is to strip
 #
 install_copy_toolchain_usr =									\
-	XPKG=$(strip $(1));									\
+	XPKG=$(subst _,-,$(strip $(1)));							\
 	LIB="$(strip $2)";									\
 	DST="$(strip $3)";									\
 	STRIP="$(strip $4)";									\
@@ -265,7 +265,7 @@ install_copy_toolchain_usr =									\
 # $3: destination
 #
 install_link =									\
-	XPKG=$(strip $(1));							\
+	XPKG=$(subst _,-,$(strip $(1)));					\
 	SRC=$(strip $(2));							\
 	DST=$(strip $(3));							\
 	$(call install_check, install_link);					\
@@ -286,7 +286,7 @@ install_link =									\
 # $8: device node name
 #
 install_node =				\
-	XPKG=$(strip $(1));		\
+	XPKG=$(subst _,-,$(strip $(1)));\
 	OWN=$(strip $(2));		\
 	GRP=$(strip $(3));		\
 	PER=$(strip $(4));		\
