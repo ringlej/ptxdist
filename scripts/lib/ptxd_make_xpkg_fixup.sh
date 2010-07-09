@@ -12,7 +12,7 @@
 #
 #
 #
-ptxd_make_install_fixup() {
+ptxd_make_xpkg_fixup() {
     ptxd_make_xpkg_init || return
 
     case "${pkg_xpkg_fixup_from}" in
@@ -57,4 +57,4 @@ EOF
     echo "done."
 }
 
-export -f ptxd_make_install_fixup
+export -f ptxd_make_xpkg_fixup
