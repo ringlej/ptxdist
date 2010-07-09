@@ -15,6 +15,7 @@
 #
 PACKAGES-$(PTXCONF_GDBSERVER) += gdbserver
 
+GDBSERVER_VERSION	= $(GDB_VERSION)
 GDBSERVER		= gdbserver-$(GDB_VERSION)
 GDBSERVER_BUILDDIR	= $(BUILDDIR)/$(GDB)-server-build
 GDBSERVER_LICENSE	:= GPLv3+
@@ -71,7 +72,7 @@ $(STATEDIR)/gdbserver.targetinstall:
 	@$(call install_init, gdbserver)
 	@$(call install_fixup, gdbserver,PACKAGE,gdbserver)
 	@$(call install_fixup, gdbserver,PRIORITY,optional)
-	@$(call install_fixup, gdbserver,VERSION,$(GDB_VERSION))
+	@$(call install_fixup, gdbserver,VERSION,$(GDBSERVER_VERSION))
 	@$(call install_fixup, gdbserver,SECTION,base)
 	@$(call install_fixup, gdbserver,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gdbserver,DEPENDS,)
