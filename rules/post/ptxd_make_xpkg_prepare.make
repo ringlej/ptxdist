@@ -18,8 +18,6 @@
 #
 install_init =				\
 	$(call xpkg/env, $(1))		\
-	ptxd_make_install_init		\
-		-p '$(strip $(1))'	\
-		-t '$(@)'
+	ptxd_make_install_init
 
 # vim: syntax=make

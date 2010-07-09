@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Copyright (C) 2005, 2006, 2007 Robert Schwebel <r.schwebel@pengutronix.de>
-#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -16,29 +16,6 @@ ptxd_make_install_init() {
     . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return
 
     ptxd_make_xpkg_init || return
-
-    local opt
-    while getopts "p:t:" opt; do
-	case "${opt}" in
-	    p)
-		local packet="${OPTARG}"
-		;;
-	    t)
-		local target="${OPTARG##*/}"
-		target="${target%%.targetinstall*}"
-		;;
-	    *)
-		return 1
-		;;
-	esac
-    done
-
-    if [ -z "${packet}" ]; then
-    	echo
-	echo "Error: empty parameter to 'install_init()'"
-	echo
-	return 1
-    fi
 
     echo "install_init:	preparing for image creation..."
 
@@ -67,7 +44,7 @@ ptxd_make_install_init() {
 	for rd in \
 	    "${PROJECTRULESDIR}" "${RULESDIR}"; do
 
-	    local abs_script="${rd}/${packet}.${script}"
+	    local abs_script="${rd}/${pkg_xpkg}.${script}"
 
 	    if [ -f "${abs_script}" ]; then
 		install -m 0755 \
