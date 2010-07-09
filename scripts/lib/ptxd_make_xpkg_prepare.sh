@@ -23,13 +23,17 @@ ptxd_make_xpkg_prepare() {
     mkdir -p -- "${pkg_ipkg_control_dir}" &&
     touch "${pkg_xpkg_cmds}" || return
 
-    local replace_from="ARCH"
-    local replace_to="${PTXDIST_IPKG_ARCH_STRING}"
+    #
+    # replace ARCH and PACKAGE in control file
+    #
+    echo -e "\
+install_init:	@ARCH@ -> ${PTXDIST_IPKG_ARCH_STRING}
+install_init:	@PACKAGE@ -> ${pkg_xpkg}"
 
-    echo -n "install_init:	@${replace_from}@ -> ${replace_to} ... "
-    sed -e "s,@${replace_from}@,${replace_to},g" "${PTXDIST_TOPDIR}/config/xpkg/ipkg.control" > \
+    ARCH="${PTXDIST_IPKG_ARCH_STRING}" \
+	PACKAGE="${pkg_xpkg}" \
+	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/xpkg/ipkg.control" > \
 	"${pkg_ipkg_control}" || return
-    echo "done"
 
     local script
     for script in preinst postinst prerm postrm; do
