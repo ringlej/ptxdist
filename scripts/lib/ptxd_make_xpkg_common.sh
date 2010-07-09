@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -38,6 +38,16 @@ ptxd_make_xpkg_init() {
     # replace "_" by "-"
     #
     pkg_xpkg="${pkg_xpkg//_/-}"
+
+    #
+    # sanitize pkg_version
+    #
+    # replace "_" by "."
+    #
+    pkg_xpkg_version="${pkg_version//_/.}"
+    if [ -z ${pkg_xpkg_version} ]; then
+	ptxd_bailout "${FUNCNAME}: please define <PKG>_VERSION"
+    fi
 
     ptxd_make_world_init || return
 
