@@ -99,12 +99,9 @@ ptxd_make_xpkg_finish() {
     #
     # post install
     #
-    if [ -f "${PTXDIST_WORKSPACE}/rules/${pkg_xpkg}.postinst" ]; then
+    if ptxd_get_path "${PTXDIST_PATH_RULES//://${pkg_xpkg}.postinst }"; then
 	echo "xpkg_finish:	running postinst"
-	DESTDIR="${ROOTDIR}" /bin/sh "${PTXDIST_WORKSPACE}/rules/${pkg_xpkg}.postinst"
-    elif [ -f "${PTXDIST_TOPDIR}/rules/${pkg_xpkg}.postinst" ]; then
-	echo "xpkg_finish:	running postinst"
-	DESTDIR="${ROOTDIR}" /bin/sh "${PTXDIST_TOPDIR}/rules/${pkg_xpkg}.postinst"
+	DESTDIR="${ROOTDIR}" /bin/sh "${ptxd_reply}"
     fi
 
     return
