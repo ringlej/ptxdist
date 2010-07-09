@@ -1,7 +1,6 @@
-From b1f388870b1a128b652273981fa862c0a09cbdf0 Mon Sep 17 00:00:00 2001
 From: Erwin Rol <erwin@erwinrol.com>
 Date: Wed, 7 Jul 2010 10:57:40 +0200
-Subject: [PATCH 1/4] remove crosscompile check
+Subject: [PATCH] remove crosscompile check
 
 When cross compiling it refuses to use assembly since it assumes it can
 not use the gen_matypes tool. But we fixed the gen_matypes so now the

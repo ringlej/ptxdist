@@ -1,7 +1,6 @@
-From bcf6de73e080d662b28381e4eb3dfcc7eb0ce8f7 Mon Sep 17 00:00:00 2001
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Wed, 7 Jul 2010 10:58:14 +0200
-Subject: [PATCH 4/4] HACK: allow compiling host tools without configure
+Subject: [PATCH] HACK: allow compiling host tools without configure
 
 This patch modifies the Makefiles for the hosttools to allow
 compiling without configure. This way we can avoid
