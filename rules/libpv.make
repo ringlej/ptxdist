@@ -37,34 +37,38 @@ $(LIBPV_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBPV_PATH	:= PATH=$(CROSS_PATH)
-LIBPV_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
-LIBPV_AUTOCONF := \
+LIBPV_CONF_TOOL	:= autoconf
+
+# force disable xsltproc to avoid building docs
+LIBPV_CONF_ENV	:= \
+	$(CROSS_ENV) \
+	ac_cv_prog_XSLTPROC=false
+
+LIBPV_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-shared \
 	--enable-static \
 	--disable-debug
 
 ifdef PTXCONF_LIBPV_EVENT
-LIBPV_AUTOCONF += --enable-event
+LIBPV_CONF_OPT += --enable-event
 else
-LIBPV_AUTOCONF += --disable-event
+LIBPV_CONF_OPT += --disable-event
 endif
 
 ifdef PTXCONF_LIBPV_PYTHON
-LIBPV_AUTOCONF += --enable-python
+LIBPV_CONF_OPT += --enable-python
 else
-LIBPV_AUTOCONF += --disable-python
+LIBPV_CONF_OPT += --disable-python
 endif
 
 ifdef PTXCONF_LIBPV_XML_EXPAT
-LIBPV_AUTOCONF += --with-expat
+LIBPV_CONF_OPT += --with-expat
 else
-LIBPV_AUTOCONF += --without-expat
+LIBPV_CONF_OPT += --without-expat
 endif
 
 # ----------------------------------------------------------------------------
