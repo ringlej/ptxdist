@@ -13,6 +13,9 @@
 #
 PACKAGES-$(PTXCONF_FAKE_OVERLAYFS) += fake-overlayfs
 
+# dummy version for xpkg
+FAKE_OVERLAYFS_VERSION	:= 1.0
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -82,7 +85,7 @@ $(STATEDIR)/fake-overlayfs.targetinstall:
 	@$(call install_init, fake-overlayfs)
 	@$(call install_fixup,fake-overlayfs,PACKAGE,fake-overlayfs)
 	@$(call install_fixup,fake-overlayfs,PRIORITY,optional)
-	@$(call install_fixup,fake-overlayfs,VERSION,1.0)
+	@$(call install_fixup,fake-overlayfs,VERSION,$(FAKE_OVERLAYFS_VERSION))
 	@$(call install_fixup,fake-overlayfs,SECTION,base)
 	@$(call install_fixup,fake-overlayfs,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup,fake-overlayfs,DEPENDS,)
