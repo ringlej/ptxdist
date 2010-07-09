@@ -369,7 +369,8 @@ ptxd_make_log() {
 
 
 #
-# replaces @MAGIC@ with MAGIC from environment
+# replaces @MAGIC@ with MAGIC from environment (if available)
+# it will stay @MAGIC@ if MAGIC is unset in the environment
 #
 # $1		input file
 # stdout:	output
@@ -377,9 +378,14 @@ ptxd_make_log() {
 ptxd_replace_magic() {
 	gawk '
 $0 ~ /@[A-Z0-9_]+@/ {
-	while (match($0, "@[A-Z0-9_]+@")) {
-		var = substr($0, RSTART+1, RLENGTH-2);
-		gsub("@" var "@", ENVIRON[var]);
+	line = $0
+
+	while (match(line, "@[A-Z0-9_]+@")) {
+		var = substr(line, RSTART + 1, RLENGTH - 2);
+		line = substr(line, RSTART + RLENGTH);
+
+		if (var in ENVIRON)
+			gsub("@" var "@", ENVIRON[var]);
 	}
 }
 
