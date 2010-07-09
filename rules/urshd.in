@@ -2,7 +2,7 @@
 menuconfig URSHD
 	tristate
 	prompt "urshd                         "
-	depends on !INETUTILS_RSHD
+	depends on !INETUTILS_RSHD || ALLYES
 	help
 	  urshd (micro remote shell server) is a server for rsh program.
 	  It is (indirectly) derived from BSD rshd with all the security
