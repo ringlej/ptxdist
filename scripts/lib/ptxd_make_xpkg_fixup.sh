@@ -19,10 +19,7 @@ ptxd_make_xpkg_fixup() {
 	AUTHOR)
 	    pkg_xpkg_fixup_to="`echo ${pkg_xpkg_fixup_to} | sed -e 's/\([^\\]\)@/\1\\\@/g'`"
 	    ;;
-	VERSION)
-	    pkg_xpkg_fixup_to="${pkg_xpkg_fixup_to//[-_]/.}"
-	    ;;
-	DEPENDS|PACKAGE)
+	DEPENDS|PACKAGE|VERSION)
 	    return
 	    ;;
     esac

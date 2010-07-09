@@ -28,10 +28,12 @@ ptxd_make_xpkg_prepare() {
     #
     echo -e "\
 install_init:	@ARCH@ -> ${PTXDIST_IPKG_ARCH_STRING}
-install_init:	@PACKAGE@ -> ${pkg_xpkg}"
+install_init:	@PACKAGE@ -> ${pkg_xpkg}
+install_init:	@VERSION@ -> ${pkg_xpkg_version}"
 
     ARCH="${PTXDIST_IPKG_ARCH_STRING}" \
 	PACKAGE="${pkg_xpkg}" \
+	VERSION="${pkg_xpkg_version}" \
 	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/xpkg/ipkg.control" > \
 	"${pkg_ipkg_control}" || return
 
