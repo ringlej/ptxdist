@@ -237,24 +237,6 @@ config XORG_SERVER_OPT_INSTALL_SETUID
 	help
 	  --enable-install-setuid
 
-config XORG_SERVER_OPT_UNIX_TRANSPORT
-	bool
-	prompt "UNIX domain socket transport"
-	help
-	  --enable-unix-transport
-
-config XORG_SERVER_OPT_TCP_TRANSPORT
-	bool
-	prompt "TCP socket transport"
-	help
-	  --enable-tcp-transport
-
-config XORG_SERVER_OPT_IPV6
-	bool
-	prompt "IPv6 support"
-	help
-	  --enable-IPv6
-
 config XORG_SERVER_OPT_SECURE_RPC
 	bool
 	prompt "secure rpc"

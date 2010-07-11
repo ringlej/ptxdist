@@ -49,6 +49,10 @@ XORG_SERVER_ENV 	:= $(CROSS_ENV) \
 #
 # autoconf
 #
+# XORG_OPTIONS_TRANS adds:
+# --{en,dis}able-{unix,tcp}-transport
+# --{en,dis}able-ipv6
+#
 # use "=" here
 XORG_SERVER_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
@@ -73,7 +77,6 @@ XORG_SERVER_AUTOCONF = \
 	--with-fontrootdir=$(XORG_FONTDIR)
 
 # FIXME
-# - what is XORG_OPTIONS_TRANS?
 # --enable-shared
 # --enable-static
 # --enable-install-libxf86config
@@ -306,24 +309,6 @@ ifdef PTXCONF_XORG_SERVER_OPT_INSTALL_SETUID
 XORG_SERVER_AUTOCONF += --enable-install-setuid
 else
 XORG_SERVER_AUTOCONF += --disable-install-setuid
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_UNIX_TRANSPORT
-XORG_SERVER_AUTOCONF += --enable-unix-transport
-else
-XORG_SERVER_AUTOCONF += --disable-unix-transport
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_TCP_TRANSPORT
-XORG_SERVER_AUTOCONF += --enable-tcp-transport
-else
-XORG_SERVER_AUTOCONF += --disable-tcp-transport
-endif
-
-ifdef PTXCONF_XORG_SERVER_OPT_IPV6
-XORG_SERVER_AUTOCONF += --enable-ipv6
-else
-XORG_SERVER_AUTOCONF += --disable-ipv6
 endif
 
 ifdef PTXCONF_XORG_SERVER_OPT_SECURE_RPC
