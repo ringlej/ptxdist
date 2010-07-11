@@ -44,7 +44,8 @@ XORG_LIB_XFONT_ENV 	:= $(CROSS_ENV)
 #
 XORG_LIB_XFONT_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	$(XORG_OPTIONS_TRANS)
+	$(XORG_OPTIONS_TRANS) \
+	--without-xmlto
 
 #
 # Use the global switch here to support freetype when
