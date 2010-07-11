@@ -35,27 +35,6 @@ config XORG_LIB_XFONT_FONTSERVER
 	  This will support connections to font server.
 	  FIXME: xorg server fails when font server connections are disabled.
 
-config XORG_LIB_XFONT_TYPE1_FONTS
-	depends on XORG_LIB_XFONT
-	bool
-	prompt "Support type1 fonts"
-	help
-	  Enable Type 1 fonts in this X server.
-
-config XORG_LIB_XFONT_CID_FONTS
-	depends on XORG_LIB_XFONT
-	bool
-	prompt "Support CID fonts"
-	help
-	  Enable CID fonts in this X server.
-
-config XORG_LIB_XFONT_SPEEDO_FONTS
-	depends on XORG_LIB_XFONT
-	bool
-	prompt "Support Speedo fonts"
-	help
-	  Enable Speedo fonts in this X server.
-
 config XORG_LIB_XFONT_PCF_FONTS
 	depends on XORG_LIB_XFONT
 	bool

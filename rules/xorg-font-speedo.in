@@ -2,7 +2,6 @@
 
 menuconfig XORG_FONT_SPEEDO
 	depends on MENU_XORG_FONTS
-	select XORG_LIB_XFONT_SPEEDO_FONTS
 	bool
 	prompt "xorg speedo fonts             "
 

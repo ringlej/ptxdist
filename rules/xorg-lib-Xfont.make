@@ -63,24 +63,6 @@ else
 XORG_LIB_XFONT_AUTOCONF	+= --disable-fc
 endif
 
-ifdef PTXCONF_XORG_LIB_XFONT_TYPE1_FONTS
-XORG_LIB_XFONT_AUTOCONF	+= --enable-type1
-else
-XORG_LIB_XFONT_AUTOCONF	+= --disable-type1
-endif
-
-ifdef PTXCONF_XORG_LIB_XFONT_CID_FONTS
-XORG_LIB_XFONT_AUTOCONF	+= --enable-cid
-else
-XORG_LIB_XFONT_AUTOCONF	+= --disable-cid
-endif
-
-ifdef PTXCONF_XORG_LIB_XFONT_SPEEDO_FONTS
-XORG_LIB_XFONT_AUTOCONF	+= --enable-speedo
-else
-XORG_LIB_XFONT_AUTOCONF	+= --disable-speedo
-endif
-
 ifdef PTXCONF_XORG_LIB_XFONT_PCF_FONTS
 XORG_LIB_XFONT_AUTOCONF	+= --enable-pcfformat
 else

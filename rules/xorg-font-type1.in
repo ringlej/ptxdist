@@ -2,7 +2,6 @@
 
 menuconfig XORG_FONT_TYPE1
 	depends on MENU_XORG_FONTS
-	select XORG_LIB_XFONT_TYPE1_FONTS
 	bool
 	prompt "xorg scalable fonts           "
 
