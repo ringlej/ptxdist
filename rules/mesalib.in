@@ -104,7 +104,7 @@ config MESALIB_DRI_R300
 
 config MESALIB_DRI_R600
 	bool
-	prompt "r300"
+	prompt "r600"
 
 config MESALIB_DRI_RADEON
 	bool
