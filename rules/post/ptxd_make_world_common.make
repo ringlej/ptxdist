@@ -14,6 +14,9 @@ ptx/env = \
 	PTXDIST_SYSROOT_HOST="$(call ptx/escape,$(PTXDIST_SYSROOT_HOST))"	\
 	PTXDIST_SYSROOT_CROSS="$(call ptx/escape,$(PTXDIST_SYSROOT_CROSS))"	\
 										\
+	ptx_nfsroot="$(call ptx/escape,$(ROOTDIR))"				\
+	ptx_nfsroot_dbg="$(call ptx/escape,$(ROOTDIR_DEBUG))"			\
+										\
 	ptx_state_dir="$(call ptx/escape,$(STATEDIR))"				\
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
