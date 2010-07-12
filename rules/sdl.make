@@ -226,12 +226,6 @@ else
 SDL_AUTOCONF += --disable-timers
 endif
 
-ifdef PTXCONF_SDL_ENDIAN
-SDL_AUTOCONF += --enable-endian
-else
-SDL_AUTOCONF += --disable-endian
-endif
-
 ifdef PTXCONF_SDL_FILE
 SDL_AUTOCONF += --enable-file
 else
@@ -251,19 +245,16 @@ SDL_AUTOCONF += --disable-nasm
 endif
 
 SDL_AUTOCONF += \
-	--disable-debug \
-	--disable-strict-ansi \
 	--disable-video-ps2gs \
 	--disable-video-ggi \
 	--disable-video-svga \
 	--disable-video-vgl \
-	--disable-video-xbios \
-	--disable-video-gem \
+	--disable-xbios \
+	--disable-gem \
 	--enable-assembly \
 	--enable-video-dummy \
 	--enable-pthreads \
 	--enable-pthread-sem \
-	--enable-sigaction \
 	--disable-stdio-redirect \
 	--disable-directx \
 	--disable-video-picogui \

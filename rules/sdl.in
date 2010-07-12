@@ -47,13 +47,6 @@ config SDL_TIMERS
 	help
 	  FIXME
 
-config SDL_ENDIAN
-	bool
-	prompt "SDL Endian Support"
-	default y
-	help
-	  FIXME
-
 config SDL_FILE
 	bool
 	prompt "SDL File Support"
