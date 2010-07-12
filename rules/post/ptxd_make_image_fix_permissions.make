@@ -20,6 +20,6 @@ world: $(PTX_FIXPERM_RUN)
 endif
 
 $(PTX_FIXPERM_RUN): $(PTX_PERMISSIONS) $(STATEDIR)/world.targetinstall
-	@ptxd_make_fixpermissions -p "$<" -r "$(ROOTDIR)" -r "$(ROOTDIR_DEBUG)"
+	@ptxd_make_image_fix_permissions -p "$<" -r "$(ROOTDIR)" -r "$(ROOTDIR_DEBUG)"
 
 # vim: syntax=make

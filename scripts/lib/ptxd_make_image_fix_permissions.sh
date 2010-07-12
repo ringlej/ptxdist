@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-ptxd_make_fixpermissions_generate() {
+ptxd_make_image_fix_permissions_generate() {
     case "${kind}" in
 	n)
 	    # erase existing nodes
@@ -25,11 +25,11 @@ EOF
 	    ;;
     esac
 }
-export -f ptxd_make_fixpermissions_generate
+export -f ptxd_make_image_fix_permissions_generate
 
 
 
-ptxd_make_fixpermissions_check() {
+ptxd_make_image_fix_permissions_check() {
     local workdir="${1}"
     local ifs_orig="${IFS}"
     IFS=":"
@@ -73,17 +73,16 @@ ptxd_make_fixpermissions_check() {
 	fi
 
 	if [ "${fixup}" = "true" ]; then
-	    ptxd_make_fixpermissions_generate
+	    ptxd_make_image_fix_permissions_generate
 	fi
     done
 
     IFS="${ifs_orig}"
 }
-export -f ptxd_make_fixpermissions_check
+export -f ptxd_make_image_fix_permissions_check
 
 
-
-ptxd_make_fixpermissions() {
+ptxd_make_image_fix_permissions() {
     local permfile workdirs opt
 
     while getopts "p:r:" opt; do
@@ -110,7 +109,7 @@ ptxd_make_fixpermissions() {
 
     exec 3> "${fixscript}"
     while [ ${#} -ne 0 ]; do
-	ptxd_make_fixpermissions_check "${1}" || return
+	ptxd_make_image_fix_permissions_check "${1}" || return
 	shift
     done
     exec 3>&-
@@ -153,4 +152,4 @@ WARNING: NFS-root might not be working correctly!
 EOF
     fi
 }
-export -f ptxd_make_fixpermissions
+export -f ptxd_make_image_fix_permissions
