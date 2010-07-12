@@ -44,8 +44,7 @@ XORG_LIB_XT_ENV 	:= $(CROSS_ENV)
 #
 XORG_LIB_XT_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-malloc0returnsnull \
-	--disable-install-makestrs
+	--disable-malloc0returnsnull
 
 ifdef PTXCONF_XORG_LIB_X11_XKB
 XORG_LIB_XT_AUTOCONF += --enable-xkb
