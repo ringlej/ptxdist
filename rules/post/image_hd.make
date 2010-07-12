@@ -28,7 +28,7 @@ ifdef PTXCONF_GRUB
 endif
 
 $(IMAGEDIR)/hd.img: $(IMAGEDIR)/root.ext2
-	@echo -n "Creating hdimg from root.ext2";					\
+	@echo "Creating hdimg from root.ext2";					\
 	PATH=$(PTXCONF_SYSROOT_HOST)/bin:$$PATH $(PTXDIST_TOPDIR)/scripts/genhdimg	\
 	-o $@ $(GENHDIMARGS)
 	@echo "done."
