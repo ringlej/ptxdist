@@ -190,6 +190,7 @@ CROSS_ENV_PKG_CONFIG := \
 # use AC_TRY_RUN and run cross compiled things on the development host
 #
 CROSS_ENV_AC := \
+	enable_option_checking=fatal \
 	ac_cv_file__dev_random=yes \
 	ac_cv_file__proc_self_exe=yes \
 	ac_cv_file__proc_self_fd=yes \
