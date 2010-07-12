@@ -45,7 +45,6 @@ $(UDEV_SOURCE):
 UDEV_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
 	--libexecdir=/lib/udev \
-	--with-kernel-headers-dir=$(PTXDIST_SYSROOT_TOOLCHAIN)/usr/include \
 	\
 	--disable-introspection \
 	--enable-shared
