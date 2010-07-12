@@ -203,9 +203,9 @@ LIBXML2_AUTOCONF += --without-threads
 endif
 
 ifdef PTXCONF_LIBXML2_THREADS_ALLOC
-LIBXML2_AUTOCONF += --with-threads-alloc
+LIBXML2_AUTOCONF += --with-thread-alloc
 else
-LIBXML2_AUTOCONF += --without-threads-alloc
+LIBXML2_AUTOCONF += --without-thread-alloc
 endif
 
 ifdef PTXCONF_LIBXML2_DOM
