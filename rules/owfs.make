@@ -78,9 +78,7 @@ OWFS_AUTOCONF := \
 	--without-phpconfig \
 	--without-python \
 	--without-pythonconfig \
-	--without-tcl \
-	--with-fuseinclude=$(SYSROOT)/usr/include \
-	--with-fuselib=$(SYSROOT)/usr/lib
+	--without-tcl
 
 #	--with-libusb-config=PATH
 
