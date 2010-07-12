@@ -36,17 +36,14 @@ $(LIBNET_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBNET_PATH	:= PATH=$(CROSS_PATH)
-LIBNET_ENV 	:= \
-	$(CROSS_ENV) \
-	ac_libnet_have_packet_socket=yes
-
 #
 # autoconf
 #
-LIBNET_AUTOCONF	:= \
-	$(CROSS_AUTOCONF_USR) \
-	--with-pf_packet=yes
+LIBNET_CONF_TOOL	:= autoconf
+
+LIBNET_CONF_ENV		:= \
+	$(CROSS_ENV) \
+	libnet_cv_have_packet_socket=yes
 
 # ----------------------------------------------------------------------------
 # Target-Install
