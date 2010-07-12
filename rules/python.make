@@ -56,12 +56,11 @@ PYTHON_BINCONFIG_GLOB := ""
 PYTHON_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-shared \
-	--with-cyclic-gc \
 	--with-pymalloc \
 	--with-signal-module \
 	--with-threads \
 	--with-wctype-functions \
-	--without-cxx
+	--without-doc-strings
 
 PYTHON_MAKEVARS := \
 	PGEN_FOR_BUILD=$(PTXCONF_SYSROOT_HOST)/bin/pgen
