@@ -50,8 +50,6 @@ export -f ptxd_make_xpkg_deps
 # function to create a generic package
 #
 ptxd_make_xpkg_finish() {
-    . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return
-
     ptxd_make_xpkg_init || return
 
     #
@@ -99,9 +97,11 @@ ptxd_make_xpkg_finish() {
     #
     # post install
     #
+    # FIXME: install ipkg rather than executing script
     if ptxd_get_path "${PTXDIST_PATH_RULES//://${pkg_xpkg}.postinst }"; then
 	echo "xpkg_finish:	running postinst"
-	DESTDIR="${ROOTDIR}" /bin/sh "${ptxd_reply}"
+	DESTDIR="${ptx_nfsroot}" /bin/sh "${ptxd_reply}"
+	DESTDIR="${ptx_nfsroot_dbg}" /bin/sh "${ptxd_reply}"
     fi
 
     return
