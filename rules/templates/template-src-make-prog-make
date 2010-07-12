@@ -16,6 +16,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 #
 # Paths and names
 #
+@PACKAGE@_VERSION	:= @VERSION@
 @PACKAGE@		:= @package@
 @PACKAGE@_URL		:= file://local_src/$(@PACKAGE@)
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
@@ -79,7 +80,7 @@ $(STATEDIR)/@package@.targetinstall:
 	@$(call install_init,  @package@)
 	@$(call install_fixup, @package@,PACKAGE,@packagedash@)
 	@$(call install_fixup, @package@,PRIORITY,optional)
-	@$(call install_fixup, @package@,VERSION,0)
+	@$(call install_fixup, @package@,VERSION,$(@PACKAGE@_VERSION))
 	@$(call install_fixup, @package@,SECTION,base)
 	@$(call install_fixup, @package@,AUTHOR,"@AUTHOR@")
 	@$(call install_fixup, @package@,DEPENDS,)
