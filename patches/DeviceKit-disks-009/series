@@ -1,5 +1,4 @@
 libsgutils-optional.diff
-disable-docs.diff
 libparted-optional.diff
 devmapper-optional.diff
 smart-optional.diff
