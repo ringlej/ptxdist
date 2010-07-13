@@ -45,7 +45,7 @@ USBUTILS_ENV 	:= $(CROSS_ENV)
 #
 USBUTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-largefile \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-zlib
 
 # ----------------------------------------------------------------------------
