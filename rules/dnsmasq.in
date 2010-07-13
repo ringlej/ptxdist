@@ -41,12 +41,6 @@ config DNSMASQ_TFTP
 	help
 	  This includes TFTP services into dnsmasq
 
-config DNSMASQ_IPV6
-	bool
-	prompt "enable IPv6"
-	help
-	  This includes IPv6 support into dnsmasq
-
 comment "runtime options   ---"
 
 choice
