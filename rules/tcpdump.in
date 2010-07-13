@@ -31,12 +31,4 @@ config TCPDUMP_SMB
 	  Notes from configure, when this entry is checked:
 	   The SMB printer may have exploitable buffer overflows!!!
 
-config TCPDUMP_IPV6
-	bool
-	select LIBPCAP_IPV6
-	prompt "enable ipv6 (with ipv4) support"
-	help
-	  Enable this if you require ipv6 support. This also requires ipv6
-	  support in libpcap (already done if you check this entry)
-
 endif

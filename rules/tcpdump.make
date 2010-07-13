@@ -44,6 +44,7 @@ TCPDUMP_ENV 	:= $(CROSS_ENV)
 #
 TCPDUMP_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	ac_cv_linux_vers=$(KERNEL_VERSION_MAJOR) \
 	td_cv_buggygetaddrinfo=no
 
@@ -59,12 +60,6 @@ ifdef PTXCONF_TCPDUMP_SMB
 TCPDUMP_AUTOCONF += --enable-smb
 else
 TCPDUMP_AUTOCONF += --disable-smb
-endif
-
-ifdef PTXCONF_TCPDUMP_IPV6
-TCPDUMP_AUTOCONF += --enable-ipv6
-else
-TCPDUMP_AUTOCONF += --disable-ipv6
 endif
 
 # ----------------------------------------------------------------------------
