@@ -46,12 +46,6 @@ config LIGHTTPD_LFS
 	help
 	  Turn on Large File System.
 
-config LIGHTTPD_IPV6
-	bool
-	prompt "IPv6 support"
-	help
-	  Enable IPv6 support.
-
 config LIGHTTPD_MYSQL
 	bool
 #	prompt "MySQL support"

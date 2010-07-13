@@ -44,6 +44,7 @@ LIGHTTPD_ENV 	:= $(CROSS_ENV)
 #
 LIGHTTPD_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--without-valgrind
 
 ifdef PTXCONF_LIGHTTPD_ZLIB
@@ -62,12 +63,6 @@ ifdef PTXCONF_LIGHTTPD_LFS
 LIGHTTPD_AUTOCONF += --enable-lfs
 else
 LIGHTTPD_AUTOCONF += --disable-lfs
-endif
-
-ifdef PTXCONF_LIGHTTPD_IPV6
-LIGHTTPD_AUTOCONF += --enable-ipv6
-else
-LIGHTTPD_AUTOCONF += --disable-ipv6
 endif
 
 ifdef PTXCONF_LIGHTTPD_MYSQL
