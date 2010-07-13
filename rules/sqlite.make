@@ -47,6 +47,7 @@ SQLITE_ENV 	= \
 
 SQLITE_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-releasemode \
 	--disable-amalgamation
 
@@ -88,12 +89,6 @@ ifdef PTXCONF_SQLITE_LOAD_EXTENTION
 SQLITE_AUTOCONF += --enable-load-extension
 else
 SQLITE_AUTOCONF += --disable-load-extension
-endif
-
-ifdef PTXCONF_SQLITE_DISABLE_LFS
-SQLITE_AUTOCONF += --disable-largefile
-else
-SQLITE_AUTOCONF += --enable-largefile
 endif
 
 ifdef PTXCONF_SQLITE_TCL

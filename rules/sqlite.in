@@ -27,11 +27,6 @@ comment "build options"
 #		prompt "UTF-8"
 #endchoice
 
-config SQLITE_DISABLE_LFS
-	bool
-	prompt "Disable large file support"
-
-
 choice
 	prompt "Temp. RAM storage"
 	default SQLITE_TEMPSTORE_NEVER
