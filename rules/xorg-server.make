@@ -57,10 +57,10 @@ XORG_SERVER_ENV 	:= $(CROSS_ENV) \
 XORG_SERVER_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-option-checking \
 	--disable-maintainer-mode \
 	--enable-dependency-tracking \
-	--enable-largefile \
 	--disable-strict-compilation \
 	--disable-debug \
 	--disable-unit-tests \
