@@ -44,13 +44,13 @@ LSH_ENV 	:= $(CROSS_ENV)
 #
 LSH_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
+	$(GLOBAL_IPV6_OPTION) \
 	--sysconfdir=/etc/lsh \
 	--disable-kerberos \
 	--disable-pam \
 	--disable-tcp-forward \
 	--disable-x11-forward \
 	--disable-agent-forward \
-	--disable-ipv6 \
 	--disable-utmp \
 	--without-x \
 	--without-system-argp
