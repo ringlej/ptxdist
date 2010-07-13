@@ -56,6 +56,7 @@ PYTHON3_BINCONFIG_GLOB := ""
 #
 PYTHON3_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--enable-shared \
 	--with-pymalloc \
 	--with-signal-module \

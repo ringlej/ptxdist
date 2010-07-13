@@ -1,0 +1,27 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 14 Jul 2010 09:47:43 +0200
+Subject: [PATCH] assume non-buggy getaddrinfo when cross-compiling
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.in |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index 89acf25..34dd048 100644
+--- a/configure.in
++++ b/configure.in
+@@ -2909,8 +2909,8 @@ AC_MSG_RESULT(good)
+ buggygetaddrinfo=no,
+ AC_MSG_RESULT(buggy)
+ buggygetaddrinfo=yes,
+-AC_MSG_RESULT(buggy)
+-buggygetaddrinfo=yes)], [
++AC_MSG_RESULT(cross compiling: assume good)
++buggygetaddrinfo=no)], [
+ AC_MSG_RESULT(no)
+ buggygetaddrinfo=yes
+ ])
+-- 
+1.7.1
+
