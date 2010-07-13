@@ -26,12 +26,5 @@ config WIRESHARK_TSHARK
 #	help
 #	  This is the graphical version of wireshark
 #
-# FIXME: Not tested yet
-#config WIRESHARK_IPV6
-#	bool
-#	prompt "support ipv6"
-#	help
-#	  Activate this to support ipv6 in wireshark
-#
 
 endif

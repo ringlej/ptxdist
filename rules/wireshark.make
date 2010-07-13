@@ -44,6 +44,7 @@ WIRESHARK_ENV 	:= $(CROSS_ENV)
 #
 WIRESHARK_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--disable-usr-local \
 	--disable-threads \
 	--disable-profile-build \
@@ -66,12 +67,6 @@ ifdef PTXCONF_WIRESHARK_WIRESHARK
 WIRESHARK_AUTOCONF	+= --enable-wireshark
 else
 WIRESHARK_AUTOCONF	+= --disable-wireshark
-endif
-
-ifdef PTXCONF_WIRESHARK_IPV6
-WIRESHARK_AUTOCONF	+= --enable-ipv6
-else
-WIRESHARK_AUTOCONF	+= --disable-ipv6
 endif
 
 # ----------------------------------------------------------------------------
