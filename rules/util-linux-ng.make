@@ -51,10 +51,10 @@ UTIL_LINUX_NG_ENV 	:= \
 #
 UTIL_LINUX_NG_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--$(call ptx/wwo, PTXCONF_UTIL_LINUX_NG_USES_NCURSES)-ncurses \
 	--enable-shared \
 	--enable-static \
-	--enable-largefile \
 	--disable-nls \
 	--disable-rpath \
 	--disable-arch \
