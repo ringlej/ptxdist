@@ -122,7 +122,7 @@ ifdef PTXCONF_AVAHI_DBUS
 AVAHI_AUTOCONF += 					\
 	--enable-dbus					\
 	--with-dbus-sys=$(PTXCONF_AVAHI_DBUS_SYS)	\
-	--with-dbus-system-address=$(PTXCONF_AVAHI_DBUS_SOCKET)
+	--with-dbus-system-socket=$(PTXCONF_AVAHI_DBUS_SOCKET)
 else
 AVAHI_AUTOCONF += --disable-dbus
 endif
