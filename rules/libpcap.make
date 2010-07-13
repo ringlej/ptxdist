@@ -51,6 +51,7 @@ LIBPCAP_COMPILE_ENV := \
 #
 LIBPCAP_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--enable-protochain \
 	--disable-optimizer-dbg \
 	--disable-yydebug \
@@ -62,12 +63,6 @@ LIBPCAP_AUTOCONF += --with-pcap=null
 LIBPCAP_ENV += ac_cv_lbl_gcc_fixincludes=yes
 else
 LIBPCAP_AUTOCONF += --with-pcap=linux
-endif
-
-ifdef PTXCONF_LIBPCAP_IPV6
-LIBPCAP_AUTOCONF += --enable-ipv6
-else
-LIBPCAP_AUTOCONF += --disable-ipv6
 endif
 
 # ----------------------------------------------------------------------------

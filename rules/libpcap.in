@@ -24,12 +24,6 @@ menuconfig LIBPCAP
 
 if LIBPCAP
 
-config LIBPCAP_IPV6
-	bool
-	prompt "build IPv6-capable version"
-	help
-	  Enable this if you require ipv6 support.
-
 config LIBPCAP_BLUETOOTH
 	bool
 	prompt "bluetooth sniffing support"
