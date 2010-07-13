@@ -45,18 +45,13 @@ LIBGSF_ENV 	:= \
 #
 LIBGSF_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-iso-c \
 	--disable-gtk-doc \
 	--disable-schemas-install \
 	--without-bonobo \
 	--without-gdk-pixbuf \
 	--without-gnome-vfs
-
-ifdef PTXCONF_LIBGSF_LARGEFILE
-LIBGSF_AUTOCONF += --enable-largefile
-else
-LIBGSF_AUTOCONF += --disable-largefile
-endif
 
 ifdef PTXCONF_LIBGSF_NLS
 LIBGSF_AUTOCONF += --enable-nls

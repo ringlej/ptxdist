@@ -19,13 +19,6 @@ menuconfig LIBGSF
 
 if LIBGSF
 
-config LIBGSF_LARGEFILE
-	bool
-	prompt "largefile support"
-	default y
-	help
-	  FIXME
-
 config LIBGSF_NLS
 	bool
 	prompt "NLS Support"
