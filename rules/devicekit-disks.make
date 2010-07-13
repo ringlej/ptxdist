@@ -41,9 +41,9 @@ $(DEVICEKIT_DISKS_SOURCE):
 #
 DEVICEKIT_DISKS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-shared \
 	--enable-static \
-	--disable-largefile \
 	--disable-ansi \
 	--disable-man-pages \
 	--disable-gtk-doc \
