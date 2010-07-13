@@ -44,6 +44,7 @@ LIBCURL_ENV 	:= $(CROSS_ENV)
 #
 LIBCURL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--with-random=/dev/urandom \
 	--with-zlib=$(SYSROOT) \
 	\
@@ -112,12 +113,6 @@ ifdef PTXCONF_LIBCURL_LIBSSH2
 LIBCURL_AUTOCONF += --with-libssh2
 else
 LIBCURL_AUTOCONF += --without-libssh2
-endif
-
-ifdef PTXCONF_LIBCURL_IPV6
-LIBCURL_AUTOCONF += --enable-ipv6
-else
-LIBCURL_AUTOCONF += --disable-ipv6
 endif
 
 # ----------------------------------------------------------------------------
