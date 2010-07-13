@@ -40,6 +40,7 @@ $(GST_PLUGINS_BASE_SOURCE):
 #
 GST_PLUGINS_BASE_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--enable-option-checking \
 	--enable-silent-rules \
 	--disable-nls \
@@ -51,7 +52,6 @@ GST_PLUGINS_BASE_AUTOCONF := \
 	--disable-examples \
 	--enable-external \
 	--disable-experimental \
-	--disable-largefile \
 	--disable-gtk-doc \
 	--disable-gobject-cast-checks \
 	--disable-oggtest \
