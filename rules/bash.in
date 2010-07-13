@@ -121,15 +121,6 @@ config BASH_JOBS
 	  This enables support for background jobs in bash.
 	  You can list the actual managed jobs by the "jobs" command.
 
-config BASH_LARGEFILES
-	bool
-	prompt "Enable support for large files"
-	default y
-	help
-	  Enable support for large files (LFS) if the operating system
-	  requires special compiler options to build programs
-	  which can access large files.
-
 config BASH_PROCSUBST
 	bool
 	prompt "Enable process substitution"

@@ -41,6 +41,7 @@ BASH_ENV	:= $(CROSS_ENV)
 
 BASH_AUTOCONF	:= \
 	$(CROSS_AUTOCONF_ROOT) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--without-bash-malloc \
 	--disable-net-redirections
 
@@ -115,12 +116,6 @@ BASH_ENV	+= bash_cv_job_control_missing=present
 BASH_AUTOCONF	+= --enable-job-control
 else
 BASH_AUTOCONF	+= --disable-job-control
-endif
-
-ifdef PTXCONF_BASH_LARGEFILES
-BASH_AUTOCONF	+= --enable-largefile
-else
-BASH_AUTOCONF	+= --disable-largefile
 endif
 
 ifdef PTXCONF_BASH_PROCSUBST
