@@ -44,6 +44,7 @@ INETUTILS_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 INETUTILS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--with-PATH-CP=/bin/cp \
 	--localstatedir=/var \
 	--sysconfdir=/etc \
