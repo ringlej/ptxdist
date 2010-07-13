@@ -74,14 +74,5 @@ config XORG_OPTIONS_TRANS_TCP
 	 TCP socket transport. You will need this feature if your X server
 	 runs on one host and at least one X client on another host.
 
-config XORG_OPTIONS_TRANS_IPV6
-	bool
-	prompt "ipv6 support"
-	help
-	  Enable this if your X server needs IPv6 support. If the starting X
-	  server complains about missing IPv6 support you should disable this
-	  feature here due to the target environment does not support it (its
-	  useless in this case)
-
 endmenu
 

@@ -19,12 +19,6 @@ else
 XORG_OPTIONS_TRANS	+= --disable-tcp-transport
 endif
 
-ifdef PTXCONF_XORG_OPTIONS_TRANS_IPV6
-XORG_OPTIONS_TRANS	+= --enable-ipv6
-else
-XORG_OPTIONS_TRANS	+= \
-	--disable-ipv6 \
-	--disable-IPV6
-endif
+XORG_OPTIONS_TRANS	+= $(GLOBAL_IPV6_OPTION)
 
 # vim: syntax=make
