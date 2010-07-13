@@ -40,6 +40,7 @@ $(GSTREAMER_SOURCE):
 #
 GSTREAMER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
 	--disable-rpath \
 	--disable-trace \
@@ -54,7 +55,6 @@ GSTREAMER_AUTOCONF := \
 	--disable-tests \
 	--disable-failing-tests	\
 	--disable-poisoning \
-	--enable-largefile \
 	--disable-introspection \
 	--disable-docbook \
 	--disable-gtk-doc \
