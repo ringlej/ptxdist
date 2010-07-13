@@ -79,7 +79,6 @@ QT4_AUTOCONF := \
 	-release \
 	-no-rpath \
 	-no-fast \
-	-no-largefile \
 	-no-accessibility \
 	-no-sql-ibase \
 	-no-sql-mysql \
@@ -107,6 +106,12 @@ ifdef PTXCONF_ICONV
 QT4_AUTOCONF += -iconv
 else
 QT4_AUTOCONF += -no-iconv
+endif
+
+ifdef PTXCONF_GLOBAL_LARGE_FILE
+QT4_AUTOCONF += -largefile
+else
+QT4_AUTOCONF += -no-largefile
 endif
 
 ifdef PTXCONF_QT4_PLATFORM_EMBEDDED
