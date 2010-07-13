@@ -52,15 +52,15 @@ COMMONCPP2_AUTOCONF := \
 	--disable-profiling \
 	--without-ipv6 \
 	--without-nat \
-	--enable-monotonic \
-	--enable-extras \
 	--without-gnutls \
 	--without-openssl \
 	--without-memaudit \
 	--without-cppunit
 
-# the logic for this switch is broken in 1.8.0:
+# the logic for these switches is broken in 1.8.0:
 #	--with-exceptions
+#	--with-monotonic
+#	--with-extras
 
 ifndef PTXCONF_COMMONCPP2_LIBZ
 COMMONCPP2_AUTOCONF += --without-compression
