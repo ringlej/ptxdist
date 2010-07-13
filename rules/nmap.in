@@ -18,9 +18,6 @@ if NMAP
 config NMAP_OPENSSL
        bool "openssl support"
 
-config NMAP_IPV6
-       bool "ipv6 support (in included libpcap)"
-
 config NMAP_SERVICES
 	bool "Install nmap-services"
 	default y

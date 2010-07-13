@@ -46,6 +46,7 @@ NMAP_ENV  := \
 # autoconf
 #
 NMAP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--with-libpcre=$(SYSROOT)/usr \
 	--with-libpcap=included \
 	--without-liblua \
@@ -54,12 +55,6 @@ NMAP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	--enable-protochain \
 	--disable-optimizer-dbg \
 	--disable-yydebug
-
-ifdef PTXCONF_NMAP_IPV6
-NMAP_AUTOCONF += --enable-ipv6
-else
-NMAP_AUTOCONF += --disable-ipv6
-endif
 
 ifdef PTXCONF_NMAP_OPENSSL
 NMAP_AUTOCONF += --with-openssl=$(SYSROOT)
