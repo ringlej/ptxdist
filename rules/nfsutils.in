@@ -48,14 +48,6 @@ config	NFSUTILS_V4
 	help
           Enable support for version 4 of the NFS protocol.
 
-config	NFSUTILS_SECURE_STATD
-	bool
-	prompt "Only lockd can use statd (security)"
-
-config	NFSUTILS_RQUOTAD
-	bool
-	prompt "Enable rquotad"
-
 config	NFSUTILS_WITH_TCPWRAPPERS
 	bool
 	prompt "Use TCP Wrappers"

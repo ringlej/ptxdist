@@ -70,18 +70,6 @@ else
 NFSUTILS_AUTOCONF += --disable-nfsv4
 endif
 
-ifdef PTXCONF_NFSUTILS_SECURE_STATD
-NFSUTILS_AUTOCONF += --enable-secure-statd
-else
-NFSUTILS_AUTOCONF += --disable-secure-statd
-endif
-
-ifdef PTXCONF_NFSUTILS_RQUOTAD
-NFSUTILS_AUTOCONF += --enable-rquotad
-else
-NFSUTILS_AUTOCONF += --disable-rquotad
-endif
-
 ifdef PTXCONF_NFSUTILS_WITH_TCPWRAPPERS
 NFSUTILS_AUTOCONF += --with-tcp-wrappers=$(SYSROOT)
 else
