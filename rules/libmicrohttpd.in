@@ -14,13 +14,6 @@ menuconfig LIBMICROHTTPD
 
 if LIBMICROHTTPD
 
-config LIBMICROHTTPD_LARGEFILE
-	bool
-	prompt "Large file support"
-	default y
-	help
-	  FIXME
-
 config LIBMICROHTTPD_HTTPS
 	bool
 	prompt "HTTPS support"
