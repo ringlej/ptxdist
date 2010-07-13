@@ -281,6 +281,12 @@ CROSS_CMAKE_ROOT := -DCMAKE_INSTALL_PREFIX=/    -DCMAKE_BUILD_TYPE:STRING=RelWit
 
 CROSS_QMAKE_OPT := -recursive
 
+ifdef PTXCONF_GLOBAL_IPV6
+GLOBAL_IPV6_OPTION := --enable-ipv6
+else
+GLOBAL_IPV6_OPTION := --disable-ipv6
+endif
+
 # ----------------------------------------------------------------------------
 # HOST stuff
 # ----------------------------------------------------------------------------

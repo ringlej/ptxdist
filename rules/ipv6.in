@@ -1,0 +1,9 @@
+## SECTION=core
+
+config GLOBAL_IPV6
+	bool
+	default y
+	prompt "IPv6 support"
+	help
+	  This will enable IPv6 for all packages with optional IPv6 support.
+
