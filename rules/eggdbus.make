@@ -38,7 +38,7 @@ $(EGGDBUS_SOURCE):
 
 EGGDBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-largefile \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-ansi \
 	--disable-verbose-mode \
 	--disable-man-pages \
