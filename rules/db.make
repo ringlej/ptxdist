@@ -51,6 +51,7 @@ $(DB_SOURCE):
 DB_CONF_TOOL := autoconf
 DB_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-cryptography \
 	--disable-debug \
 	--disable-debug_rop \
@@ -72,7 +73,6 @@ DB_CONF_OPT	:= \
 	--enable-compat185 \
 	--enable-cxx \
 	--enable-hash \
-	--enable-largefile \
 	--enable-o_direct \
 	--enable-pthread_self \
 	--enable-shared
