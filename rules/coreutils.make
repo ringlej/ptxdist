@@ -60,13 +60,13 @@ $(COREUTILS_SOURCE):
 
 COREUTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--disable-silent-rules \
 	--enable-threads=posix \
 	--disable-acl \
 	--disable-assert \
 	--disable-rpath \
-	--enable-largefile \
 	--disable-xattr \
 	--disable-libcap \
 	--disable-nls
