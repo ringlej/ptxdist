@@ -50,10 +50,6 @@ config NET_SNMP_SNMPTRAPD
 	bool
 	prompt "agentx subagent code in snmptrapd"
 
-config NET_SNMP_IPV6
-	bool
-	prompt "support for IPv6"
-
 config NET_SNMP_LOCAL_SMUX
 	bool
 	prompt "restrict SMUX connections to localhost (by default)"

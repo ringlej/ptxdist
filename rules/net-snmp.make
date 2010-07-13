@@ -45,6 +45,7 @@ NET_SNMP_BINCONFIG_GLOB := net-snmp-config
 #
 NET_SNMP_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--with-defaults \
 	--disable-manuals \
 	--with-mib-modules=$(PTXCONF_NET_SNMP_MIB_MODULES) \
@@ -125,12 +126,6 @@ ifdef PTXCONF_NET_SNMP_SNMPTRAPD
 NET_SNMP_AUTOCONF += --enable-snmptrapd-subagent
 else
 NET_SNMP_AUTOCONF += --disable-snmptrapd-subagent
-endif
-
-ifdef PTXCONF_NET_SNMP_IPV6
-NET_SNMP_AUTOCONF += --enable-ipv6
-else
-NET_SNMP_AUTOCONF += --disable-ipv6
 endif
 
 ifdef PTXCONF_NET_SNMP_LOCAL_SMUX
