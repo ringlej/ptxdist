@@ -46,9 +46,9 @@ IPTABLES_ENV	:= $(CROSS_ENV)
 #
 IPTABLES_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--with-xtlibdir=/usr/lib \
-	--enable-largefile \
 	--disable-devel \
 	--disable-libipq
 
