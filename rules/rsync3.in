@@ -11,12 +11,6 @@ menuconfig RSYNC3
 
 if RSYNC3
 
-config RSYNC3_IPV6
-	bool
-	prompt "Support IPV6"
-	help
-	  This switch enables IPV6 support in rsync
-
 config RSYNC3_LARGE_FILE
 	bool
 	default y
