@@ -42,8 +42,8 @@ $(FLAC_SOURCE):
 FLAC_CONF_TOOL	:= autoconf
 FLAC_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-rpath \
-	--enable-largefile \
 	--disable-debug \
 	--disable-thorough-tests \
 	--disable-exhaustive-tests \
