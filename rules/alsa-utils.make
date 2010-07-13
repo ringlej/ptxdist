@@ -48,11 +48,11 @@ ALSA_UTILS_ENV 	:= $(CROSS_ENV)
 ALSA_UTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(CROSS_ENV_AC_NCURSES) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-nls \
 	--disable-rpath \
 	--disable-alsatest \
-	--disable-xmlto \
-	--disable-largefile
+	--disable-xmlto
 
 ifdef PTXCONF_ALSA_UTILS_ALSAMIXER
 ALSA_UTILS_AUTOCONF += --enable-alsamixer
