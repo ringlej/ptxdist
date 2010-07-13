@@ -57,7 +57,6 @@ XORG_APP_XDM_AUTOCONF += --disable-secure-rpc
 endif
 
 XORG_APP_XDM_AUTOCONF += --enable-xpm-logos	# Display xpm logos in greeter
-XORG_APP_XDM_AUTOCONF += --disable-xprint	# FIXME XPrint support
 XORG_APP_XDM_AUTOCONF += --enable-dynamic-greeter # Build greeter as dynamically loaded shared object
 XORG_APP_XDM_AUTOCONF += --without-pam		# FXIME
 
