@@ -54,7 +54,7 @@ $(STATEDIR)/libnih.targetinstall:
 	@$(call install_init,  libnih)
 	@$(call install_fixup, libnih, PACKAGE, libnih)
 	@$(call install_fixup, libnih, PRIORITY, optional)
-	@$(call install_fixup, libnih, VERSION, 1.0.1)
+	@$(call install_fixup, libnih, VERSION, $(LIBNIH_VERSION))
 	@$(call install_fixup, libnih, SECTION, base)
 	@$(call install_fixup, libnih, AUTHOR, "Tim Sandet <tim.sander@hbm.com>")
 	@$(call install_fixup, libnih, DEPENDS,)
