@@ -45,12 +45,12 @@ NFSUTILS_ENV 	:= \
 #
 NFSUTILS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--sbindir=/sbin \
 	--disable-gss \
 	--disable-kprefix \
 	--disable-tirpc \
 	--disable-ipv6 \
-	--enable-largefile \
 	--enable-shared \
 	--enable-static \
 	--with-rpcgen=internal
