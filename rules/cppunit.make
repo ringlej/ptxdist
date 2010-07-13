@@ -54,7 +54,7 @@ $(STATEDIR)/cppunit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, cppunit)
-	@$(call install_fixup, cppunit,PACKAGE,$(CPPUNIT))
+	@$(call install_fixup, cppunit,PACKAGE,cppunit)
 	@$(call install_fixup, cppunit,PRIORITY,optional)
 	@$(call install_fixup, cppunit,VERSION,$(CPPUNIT_VERSION))
 	@$(call install_fixup, cppunit,SECTION,base)
