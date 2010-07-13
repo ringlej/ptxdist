@@ -44,6 +44,7 @@ MTR_ENV 	:= $(CROSS_ENV)
 #
 MTR_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--without-gtk
 
 # ----------------------------------------------------------------------------
