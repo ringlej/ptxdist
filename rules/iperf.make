@@ -41,7 +41,9 @@ IPERF_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-IPERF_AUTOCONF := $(CROSS_AUTOCONF_USR)
+IPERF_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION)
 
 # ----------------------------------------------------------------------------
 # Target-Install
