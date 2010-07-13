@@ -46,7 +46,6 @@ MYSQL_ENV := \
 #
 MYSQL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--without-extra-tools \
 	--with-zlib-dir=$(SYSROOT)/usr \
 	--without-debug
 
