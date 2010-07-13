@@ -46,6 +46,7 @@ RSYNC_ENV 	:= \
 #
 RSYNC_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-included-popt \
 	--disable-debug \
@@ -55,12 +56,6 @@ ifdef PTXCONF_RSYNC_LARGE_FILE
 RSYNC_AUTOCONF += --enable-largefile
 else
 RSYNC_AUTOCONF += --disable-largefile
-endif
-
-ifdef PTXCONF_RSYNC_IPV6
-RSYNC_AUTOCONF += --enable-ipv6
-else
-RSYNC_AUTOCONF += --disable-ipv6
 endif
 
 ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)),)

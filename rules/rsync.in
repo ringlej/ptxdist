@@ -13,12 +13,6 @@ if RSYNC
 
 comment "build options   ---"
 
-config RSYNC_IPV6
-	bool
-	prompt "Support IPV6"
-	help
-	  This switch enables IPV6 support in rsync
-
 config RSYNC_LARGE_FILE
 	bool
 	default y
