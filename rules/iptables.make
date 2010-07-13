@@ -48,7 +48,7 @@ IPTABLES_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-kernel=$(KERNEL_HEADERS_DIR) \
 	--with-xtlibdir=/usr/lib \
-	--enable-large-file \
+	--enable-largefile \
 	--disable-devel \
 	--disable-libipq
 
