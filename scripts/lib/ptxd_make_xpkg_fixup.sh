@@ -13,8 +13,6 @@
 #
 #
 ptxd_make_install_fixup() {
-    . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return
-
     ptxd_make_xpkg_init || return
 
     local opt
