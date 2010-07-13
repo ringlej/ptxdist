@@ -11,13 +11,6 @@ menuconfig RSYNC3
 
 if RSYNC3
 
-config RSYNC3_LARGE_FILE
-	bool
-	default y
-	prompt "Large file support"
-	help
-	  Support for large files
-
 config RSYNC3_STARTSCRIPT
 	bool
 	default y

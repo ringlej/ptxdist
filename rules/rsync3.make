@@ -45,15 +45,10 @@ RSYNC3_ENV 	:= $(CROSS_ENV)
 RSYNC3_AUTOCONF  := \
 	 $(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--with-included-popt \
 	--disable-debug \
 	--disable-locale
-
-ifdef PTXCONF_RSYNC3_LARGE_FILE
-RSYNC3_AUTOCONF += --enable-largefile
-else
-RSYNC3_AUTOCONF += --disable-largefile
-endif
 
 ifneq ($(call remove_quotes,$(PTXCONF_RSYNC3_CONFIG_FILE)),)
 RSYNC3_AUTOCONF += --with-rsync3d-conf=$(PTXCONF_RSYNC3_CONFIG_FILE)
