@@ -43,6 +43,7 @@ GNUPG_ENV 	= $(CROSS_ENV)
 # autoconf
 #
 GNUPG_AUTOCONF = $(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-asm \
 	--disable-card-support \
 	--disable-exec \
@@ -62,7 +63,6 @@ GNUPG_AUTOCONF = $(CROSS_AUTOCONF_USR) \
 	--disable-finger \
 	--disable-ftp \
 	--disable-keyserver-path \
-	--disable-largefile \
 	--disable-dns-srv \
 	--disable-nls \
 	--disable-rpath \
