@@ -49,6 +49,7 @@ LIBXML2_ENV	:= $(CROSS_ENV)
 #
 LIBXML2_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--oldincludedir=$(SYSROOT)/usr/include
 
 ifdef PTXCONF_ICONV
