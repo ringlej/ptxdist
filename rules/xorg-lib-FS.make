@@ -43,6 +43,7 @@ XORG_LIB_FS_ENV 	:= $(CROSS_ENV)
 # autoconf
 #
 XORG_LIB_FS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	$(XORG_OPTIONS_TRANS) \
 	--disable-malloc0returnsnull
 
 # ----------------------------------------------------------------------------
