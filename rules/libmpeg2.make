@@ -42,8 +42,8 @@ $(LIBMPEG2_SOURCE):
 LIBMPEG2_CONF_TOOL := autoconf
 LIBMPEG2_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-debug \
-	--enable-largefile \
 	--disable-accel-detect \
 	--disable-sdl \
 	--disable-warnings \
