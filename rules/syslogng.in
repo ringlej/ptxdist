@@ -15,12 +15,6 @@ menuconfig SYSLOGNG
 
 if SYSLOGNG
 
-config SYSLOGNG_IPV6
-	bool
-	prompt "Support ipv6"
-	help
-	  Enable ipv6 support, otherwise ipv4 is supported only
-
 config SYSLOGNG_TCP_WRAPPER
 	bool
 	prompt "tcpwrapper support"

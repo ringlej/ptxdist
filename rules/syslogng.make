@@ -44,16 +44,11 @@ SYSLOGNG_ENV 	:= $(CROSS_ENV)
 #
 SYSLOGNG_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
+	$(GLOBAL_IPV6_OPTION) \
 	--enable-dynamic-linking \
 	--disable-debug \
 	--disable-sun-streams \
 	--disable-sun-door
-
-ifdef PTXCONF_SYSLOGNG_IPV6
-SYSLOGNG_AUTOCONF += --enable-ipv6
-else
-SYSLOGNG_AUTOCONF += --disable-ipv6
-endif
 
 ifdef PTXCONF_SYSLOGNG_TCP_WRAPPER
 SYSLOGNG_AUTOCONF += --enable-tcp-wrapper
