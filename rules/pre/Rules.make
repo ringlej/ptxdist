@@ -287,6 +287,12 @@ else
 GLOBAL_IPV6_OPTION := --disable-ipv6
 endif
 
+ifdef PTXCONF_GLOBAL_LARGE_FILE
+GLOBAL_LARGE_FILE_OPTION := --enable-largefile
+else
+GLOBAL_LARGE_FILE_OPTION := --disable-largefile
+endif
+
 # ----------------------------------------------------------------------------
 # HOST stuff
 # ----------------------------------------------------------------------------
