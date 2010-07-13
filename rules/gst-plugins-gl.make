@@ -41,14 +41,14 @@ $(GST_PLUGINS_GL_SOURCE):
 GST_PLUGINS_GL_CONF_TOOL := autoconf
 GST_PLUGINS_GL_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--disable-rpath \
 	--disable-nls \
 	--disable-debug \
 	--disable-profiling \
 	--disable-valgrind \
 	--disable-gcov \
-	--disable-gtk-doc \
-	--enable-largefile
+	--disable-gtk-doc
 
 # ----------------------------------------------------------------------------
 # Target-Install
