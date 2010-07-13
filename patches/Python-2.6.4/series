@@ -16,3 +16,4 @@
 0016-provide-wrapper-for-cross-python.patch
 0017-fix-for-new-autoconf.diff
 0018-dont-add-rpaths.diff
+0019-assume-non-buggy-getaddrinfo-when-cross-compiling.patch
