@@ -58,7 +58,7 @@ $(STATEDIR)/ppp.prepare:
 	@cd $(PPP_DIR) && $(PPP_PATH) $(PPP_CONF_ENV) \
 		./configure --prefix=/usr --sysconfdir=/etc
 
-ifdef PTXCONF_PPP_IPV6
+ifdef PTXCONF_GLOBAL_IPV6
 	@$(call enable_sh,$(PPP_DIR)/pppd/Makefile,HAVE_INET6=y)
 else
 	@$(call disable_sh,$(PPP_DIR)/pppd/Makefile,HAVE_INET6=y)

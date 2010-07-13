@@ -8,7 +8,6 @@ menuconfig PPP
 	select LIBC_RESOLV	if PPP_PLUGINS
 	select LIBC_CRYPT	if PPP_NEEDS_CRYPT
 	select LIBPCAP		if PPP_FILTER
-	select LIBPCAP_IPV6	if PPP_FILTER && PPP_IPV6
 	select OPENSSL		if PPP_SRP
 	help
 	  Point-to-Point Protocol (PPP) - daemon
@@ -31,12 +30,6 @@ config PPP_SUID
 	help
 	  Makes the pppd binary SUID for ruMakes the pppd binary SUID
 	  for Makes the pppd binary SUID for running as a server.
-
-config PPP_IPV6
-	bool
-	prompt "enable ipv6 support"
-	help
-	  Enable IPV6 support
 
 config PPP_IPX
 	bool
