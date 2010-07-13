@@ -13,13 +13,6 @@ if RSYNC
 
 comment "build options   ---"
 
-config RSYNC_LARGE_FILE
-	bool
-	default y
-	prompt "Large file support"
-	help
-	  Support for large files
-
 config RSYNC_CONFIG_FILE
 	string
 	default "/etc/rsyncd.conf"

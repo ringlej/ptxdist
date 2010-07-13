@@ -47,16 +47,11 @@ RSYNC_ENV 	:= \
 RSYNC_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
+	$(GLOBAL_LARGE_FILE_OPTION) \
 	--target=$(PTXCONF_GNU_TARGET) \
 	--with-included-popt \
 	--disable-debug \
 	--disable-locale
-
-ifdef PTXCONF_RSYNC_LARGE_FILE
-RSYNC_AUTOCONF += --enable-largefile
-else
-RSYNC_AUTOCONF += --disable-largefile
-endif
 
 ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_CONFIG_FILE)),)
 RSYNC_AUTOCONF += --with-rsyncd-conf=$(PTXCONF_RSYNC_CONFIG_FILE)
