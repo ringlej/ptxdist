@@ -42,6 +42,7 @@ $(IRSSI_SOURCE):
 IRSSI_CONF_TOOL := autoconf
 IRSSI_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--with-ncurses=$(PTXDIST_SYSROOT_TARGET)/usr \
 	--without-perl
 
