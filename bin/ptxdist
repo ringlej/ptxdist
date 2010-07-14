@@ -1337,6 +1337,10 @@ parse_first()
 		-q|--quiet)
 			PTXDIST_QUIET=1
 			;;
+		--git)
+			# overwrite default from ptxdistrc
+			export PTXCONF_SETUP_PATCHIN_GIT=y
+			;;
 		--)
 			while [ ${#} -ne 0 ]; do
 				arg="${1}"
