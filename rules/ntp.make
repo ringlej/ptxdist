@@ -46,6 +46,7 @@ NTP_ENV 	:= \
 # autoconf
 #
 NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--with-binsubdir=sbin \
 	--without-lineeditlibs \
 	--without-net-snmp-config
