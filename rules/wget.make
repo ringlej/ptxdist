@@ -44,6 +44,7 @@ WGET_ENV 	:= $(CROSS_ENV)
 #
 WGET_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--without-socks \
 	--without-ssl
 
