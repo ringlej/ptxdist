@@ -640,8 +640,9 @@ check_compiler() {
 				ptxd_bailout "unable to create ccache link"
 		done
 	fi
+	local toolchain="$(readlink -f "${PTXDIST_TOOLCHAIN}")"
 	rm -f "${PTXDIST_PLATFORMDIR}/selected_toolchain" &&
-	ln -s "$(readlink -f "${PTXDIST_TOOLCHAIN}")" "${PTXDIST_PLATFORMDIR}/selected_toolchain"
+	ln -s "${toolchain}" "${PTXDIST_PLATFORMDIR}/selected_toolchain"
 }
 
 
