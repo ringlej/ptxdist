@@ -43,6 +43,7 @@ XORG_APP_XAUTH_ENV 	:= $(CROSS_ENV)
 #
 XORG_APP_XAUTH_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
+	$(XORG_OPTIONS_TRANS) \
 	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
 
 # ----------------------------------------------------------------------------
