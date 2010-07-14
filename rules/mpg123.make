@@ -42,6 +42,7 @@ $(MPG123_SOURCE):
 MPG123_CONF_TOOL	:= autoconf
 MPG123_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
+	$(GLOBAL_IPV6_OPTION) \
 	--with-audio=alsa,oss \
 	--with-default-audio=alsa
 # ----------------------------------------------------------------------------
