@@ -1,0 +1,36 @@
+## SECTION=communication
+
+menuconfig BLUEZ
+	tristate "bluez                         "
+	select DBUS
+	select ALSA_LIB		if BLUEZ_ALSA
+	select GSTREAMER	if BLUEZ_GSTREAMER
+	select GST_PLUGINS_BASE	if BLUEZ_GSTREAMER
+	select PYGOBJECT	if BLUEZ_INSTALL_TESTSCRIPTS
+	select DBUS_PYTHON	if BLUEZ_INSTALL_TESTSCRIPTS
+	help
+	  official Linux Bluetooth protocol stack
+
+if BLUEZ
+
+config BLUEZ_ALSA
+	bool "alsa support"
+	help
+	  install bluez-alsa modules
+
+config BLUEZ_GSTREAMER
+	bool "gstreamer support"
+	help
+	  install libgstbluetooth
+	  
+config BLUEZ_UTILS
+	bool "install bluez tools"
+	help
+	  install ciptool l2ping hcitool rctest rfcomm sdptool
+
+config BLUEZ_INSTALL_TESTSCRIPTS
+	bool "install testscripts"
+	help
+	  install test scripts that allow to set up bluetooth connections
+
+endif
