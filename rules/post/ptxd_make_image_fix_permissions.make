@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -8,18 +8,16 @@
 # see the README file.
 #
 
-### --- internal ---
-
-PTX_FIXPERM_RUN    := $(STATEDIR)/fix-permissions.run
+image/fix_permissions	:= $(STATEDIR)/ptx_image_fix_permissions
 
 #
 # only run if make goal is "world", i.e. don't run during images_world
 #
 ifeq ($(MAKECMDGOALS)-$(PTXCONF_FIX_PERMISSIONS)-$(PTXDIST_QUIET),world-y-)
-world: $(PTX_FIXPERM_RUN)
+world: $(image/fix_permissions)
 endif
 
-$(PTX_FIXPERM_RUN): $(STATEDIR)/world.targetinstall
+$(image/fix_permissions): $(STATEDIR)/world.targetinstall
 	@$(call image/env) \
 	ptxd_make_image_fix_permissions
 

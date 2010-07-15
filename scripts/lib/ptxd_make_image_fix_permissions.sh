@@ -83,16 +83,19 @@ ptxd_make_image_fix_permissions_check() {
 export -f ptxd_make_image_fix_permissions_check
 
 
+#
+# ptxd_make_image_fix_permissions - create device nodes in nfsroots
+#
 ptxd_make_image_fix_permissions() {
-    ptxd_make_image_init || return
+    ptxd_make_image_init &&
 
-    local fixscript
-    fixscript="$(mktemp "${PTXDIST_TEMPDIR}/fixpermissions.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
+    local fixscript="${PTXDIST_TEMPDIR}/${FUNCNAME}" &&
+    touch "${fixscript}" &&
     chmod +x "${fixscript}" &&
 
     # get permission files
     local -a ptxd_reply_ipkg_file ptxd_reply_perm_files &&
-    ptxd_get_ipkg_files &&
+    ptxd_get_ipkg_files || return
 
     set -- "${ptx_nfsroot}" "${ptx_nfsroot_dbg}"
 
@@ -119,18 +122,7 @@ In order to create them root privileges are required.
 
 EOF
     read -t 5 -p "(Please press enter to start 'sudo' to gain root privileges.)"
-    if [ ${?} -eq 0 ]; then
-	sudo "${fixscript}" || {
-	    cat <<EOF
-
-error: creation of device node(s) failed.
-
-EOF
-	    return 1
-	}
-	echo
-	rm "${fixscript}"
-    else
+    if [ ${?} -ne 0 ]; then
 	cat >&2 <<EOF
 
 
@@ -139,6 +131,17 @@ WARNING: NFS-root might not be working correctly!
 
 
 EOF
+	return
     fi
+
+    if ! sudo "${fixscript}"; then
+	cat <<EOF
+
+error: creation of device node(s) failed.
+
+EOF
+	return 1
+    fi
+    echo
 }
 export -f ptxd_make_image_fix_permissions
