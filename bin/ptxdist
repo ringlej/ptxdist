@@ -360,17 +360,20 @@ check_config() {
 		_check_config_collection
 	fi &&
 	if [ ! -e "${PTXDIST_PLATFORMDIR}/selected_ptxconfig" -o -L "${PTXDIST_PLATFORMDIR}/selected_ptxconfig" ]; then
+		local ptxconfig="$(readlink -f "${PTXDIST_PTXCONFIG}")"
 		rm -f "${PTXDIST_PLATFORMDIR}/selected_ptxconfig" &&
-		ln -s "$(readlink -f "${PTXDIST_PTXCONFIG}")" "${PTXDIST_PLATFORMDIR}/selected_ptxconfig"
+		ln -s "${ptxconfig}" "${PTXDIST_PLATFORMDIR}/selected_ptxconfig"
 	fi &&
 	if [ ! -e "${PTXDIST_PLATFORMDIR}/selected_platformconfig" -o -L "${PTXDIST_PLATFORMDIR}/selected_platformconfig" ]; then
+		local platformconfig="$(readlink -f "${PTXDIST_PLATFORMCONFIG}")"
 		rm -f "${PTXDIST_PLATFORMDIR}/selected_platformconfig" &&
-		ln -s "$(readlink -f "${PTXDIST_PLATFORMCONFIG}")" "${PTXDIST_PLATFORMDIR}/selected_platformconfig"
-	fi
+		ln -s "${platformconfig}" "${PTXDIST_PLATFORMDIR}/selected_platformconfig"
+	fi &&
 	if [ -e "${PTXDIST_COLLECTIONCONFIG}" -a \( ! -e "${PTXDIST_PLATFORMDIR}/selected_collectionconfig" -o \
 		-L "${PTXDIST_PLATFORMDIR}/selected_collectionconfig" \) ]; then
+		local collectionconfig="$(readlink -f "${PTXDIST_COLLECTIONCONFIG}")"
 		rm -f "${PTXDIST_PLATFORMDIR}/selected_collectionconfig" &&
-		ln -s "$(readlink -f "${PTXDIST_COLLECTIONCONFIG}")" "${PTXDIST_PLATFORMDIR}/selected_collectionconfig"
+		ln -s "${collectionconfig}" "${PTXDIST_PLATFORMDIR}/selected_collectionconfig"
 	fi
 }
 
