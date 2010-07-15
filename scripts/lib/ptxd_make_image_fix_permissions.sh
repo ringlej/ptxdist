@@ -35,7 +35,8 @@ ptxd_make_image_fix_permissions_check() {
     IFS=":"
 
     # just care about dev-nodes, for now
-    egrep "^[n]:" "${permfile}" | while read kind file uid_should gid_should prm_should type major_should minor_should; do
+    egrep -h "^[n]:" "${ptxd_reply_perm_files[@]}" |
+    while read kind file uid_should gid_should prm_should type major_should minor_should; do
 	local fixup=false
 	file="${workdir}/${file#/}"
 
@@ -85,21 +86,13 @@ export -f ptxd_make_image_fix_permissions_check
 ptxd_make_image_fix_permissions() {
     ptxd_make_image_init || return
 
-    local permfile opt
-
-    while getopts "p:r:" opt; do
-	case "$opt" in
-	    p)
-		permfile="${OPTARG}"
-		;;
-	    *)
-		;;
-	esac
-    done
-
     local fixscript
     fixscript="$(mktemp "${PTXDIST_TEMPDIR}/fixpermissions.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
-    chmod +x "${fixscript}"
+    chmod +x "${fixscript}" &&
+
+    # get permission files
+    local -a ptxd_reply_ipkg_file ptxd_reply_perm_files &&
+    ptxd_get_ipkg_files &&
 
     set -- "${ptx_nfsroot}" "${ptx_nfsroot_dbg}"
 

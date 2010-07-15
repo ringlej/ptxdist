@@ -19,8 +19,8 @@ ifeq ($(MAKECMDGOALS)-$(PTXCONF_FIX_PERMISSIONS)-$(PTXDIST_QUIET),world-y-)
 world: $(PTX_FIXPERM_RUN)
 endif
 
-$(PTX_FIXPERM_RUN): $(PTX_PERMISSIONS) $(STATEDIR)/world.targetinstall
+$(PTX_FIXPERM_RUN): $(STATEDIR)/world.targetinstall
 	@$(call image/env) \
-	ptxd_make_image_fix_permissions -p "$<"
+	ptxd_make_image_fix_permissions
 
 # vim: syntax=make
