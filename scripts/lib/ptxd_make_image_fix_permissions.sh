@@ -83,15 +83,14 @@ export -f ptxd_make_image_fix_permissions_check
 
 
 ptxd_make_image_fix_permissions() {
-    local permfile workdirs opt
+    ptxd_make_image_init || return
+
+    local permfile opt
 
     while getopts "p:r:" opt; do
 	case "$opt" in
 	    p)
 		permfile="${OPTARG}"
-		;;
-	    r)
-		workdirs="${workdirs}${workdirs:+:}${OPTARG}"
 		;;
 	    *)
 		;;
@@ -102,10 +101,7 @@ ptxd_make_image_fix_permissions() {
     fixscript="$(mktemp "${PTXDIST_TEMPDIR}/fixpermissions.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
     chmod +x "${fixscript}"
 
-    local ifs_orig="${IFS}"
-    IFS=":"
-    set -- ${workdirs}
-    IFS="${ifs_orig}"
+    set -- "${ptx_nfsroot}" "${ptx_nfsroot_dbg}"
 
     exec 3> "${fixscript}"
     while [ ${#} -ne 0 ]; do
