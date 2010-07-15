@@ -43,7 +43,7 @@ $(PYTHON3_SOURCE):
 PYTHON3_PATH	:= PATH=$(CROSS_PATH)
 PYTHON3_ENV 	:= \
 	$(CROSS_ENV) \
-	PYTHON3_FOR_BUILD=$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR) \
+	PYTHON_FOR_BUILD=$(PTXCONF_SYSROOT_HOST)/bin/python$(PYTHON3_MAJORMINOR) \
 	ac_cv_have_chflags=no \
 	ac_cv_have_lchflags=no \
 	ac_cv_py_format_size_t=yes \
