@@ -24,6 +24,12 @@ menuconfig DROPBEAR
 
 if DROPBEAR
 
+config DROPBEAR_KEY_DIR
+	string "dropbear key directory"
+	default "/etc/dropbear"
+	help
+	  This is the directory where dropbear stores the keys.
+
 config DROPBEAR_ZLIB
 	bool
 	prompt "zlib support"

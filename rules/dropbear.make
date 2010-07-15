@@ -280,11 +280,15 @@ endif
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_DROPBEAR_STARTSCRIPT
 	@$(call install_alternative, dropbear, 0, 0, 0755, /etc/init.d/dropbear, n)
+	@$(call install_replace, dropbear, /etc/init.d/dropbear, \
+		@KEYDIR@, $(PTXCONF_DROPBEAR_KEY_DIR))
 	@$(call install_alternative, dropbear, 0, 0, 0755, /etc/rc.once.d/dropbear, n)
+	@$(call install_replace, dropbear, /etc/rc.once.d/dropbear, \
+		@KEYDIR@, $(PTXCONF_DROPBEAR_KEY_DIR))
 endif
 endif
 
-	@$(call install_copy, dropbear, 0, 0, 0755, /etc/dropbear)
+	@$(call install_copy, dropbear, 0, 0, 0755, $(PTXCONF_DROPBEAR_KEY_DIR))
 
 	@$(call install_finish, dropbear)
 

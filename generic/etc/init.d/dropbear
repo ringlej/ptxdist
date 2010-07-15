@@ -11,8 +11,8 @@ DROPBEAR_EXTRA_ARGS=
 
 # test ! -h /var/service/dropbear || exit 0
 
-DROPBEAR_RSAKEY_DEFAULT="/etc/dropbear/dropbear_rsa_host_key"
-DROPBEAR_DSSKEY_DEFAULT="/etc/dropbear/dropbear_dss_host_key"
+DROPBEAR_RSAKEY_DEFAULT="@KEYDIR@/dropbear_rsa_host_key"
+DROPBEAR_DSSKEY_DEFAULT="@KEYDIR@/dropbear_dss_host_key"
 
 test -z "$DROPBEAR_BANNER" || \
   DROPBEAR_EXTRA_ARGS="$DROPBEAR_EXTRA_ARGS -b $DROPBEAR_BANNER"
