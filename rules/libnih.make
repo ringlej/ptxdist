@@ -61,13 +61,13 @@ $(STATEDIR)/libnih.targetinstall:
 	@$(call install_fixup, libnih, DEPENDS,)
 	@$(call install_fixup, libnih, DESCRIPTION, missing)
 
-	$(call install_copy, libnih, 0, 0, 0644, -, /usr/lib/libnih-dbus.so.1.0.0); 
-	$(call install_link, libnih, libnih-dbus.so.1.0.0, /usr/lib/libnih-dbus.so.1); 
-	$(call install_link, libnih, libnih-dbus.so.1.0.0, /usr/lib/libnih-dbus.so); 
+	@$(call install_copy, libnih, 0, 0, 0644, -, /usr/lib/libnih-dbus.so.1.0.0);
+	@$(call install_link, libnih, libnih-dbus.so.1.0.0, /usr/lib/libnih-dbus.so.1);
+	@$(call install_link, libnih, libnih-dbus.so.1.0.0, /usr/lib/libnih-dbus.so);
 
-	$(call install_copy, libnih, 0, 0, 0644, -, /usr/lib/libnih.so.1.0.0); 
-	$(call install_link, libnih, libnih.so.1.0.0, /usr/lib/libnih.so.1); 
-	$(call install_link, libnih, libnih.so.1.0.0, /usr/lib/libnih.so); 
+	@$(call install_copy, libnih, 0, 0, 0644, -, /usr/lib/libnih.so.1.0.0);
+	@$(call install_link, libnih, libnih.so.1.0.0, /usr/lib/libnih.so.1);
+	@$(call install_link, libnih, libnih.so.1.0.0, /usr/lib/libnih.so);
 	@$(call install_finish, libnih)
 
 	@$(call touch)
