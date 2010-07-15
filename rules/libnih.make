@@ -35,8 +35,9 @@ $(LIBNIH_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBNIH_PATH	:= PATH=$(CROSS_PATH)
-LIBNIH_ENV 	:= $(CROSS_ENV) NIH_DBUS_TOOL=${PTXDIST_SYSROOT_HOST}/bin/nih-dbus-tool
+LIBNIH_ENV := \
+	$(CROSS_ENV) \
+	NIH_DBUS_TOOL=${PTXDIST_SYSROOT_HOST}/bin/nih-dbus-tool
 
 #
 # autoconf
