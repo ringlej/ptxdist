@@ -444,6 +444,8 @@ ptxd_dumpstack() {
 # array "ptxd_reply" containing the found files/dirs
 #
 ptxd_get_path() {
+    [ -n "${1}" ] || return
+
     ptxd_reply=( $(eval command ls -f -d "${@}" 2>/dev/null) )
 
     [ ${#ptxd_reply[@]} -ne 0 ]
