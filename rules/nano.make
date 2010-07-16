@@ -53,12 +53,9 @@ $(STATEDIR)/nano.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, nano)
-	@$(call install_fixup,nano,PACKAGE,nano)
 	@$(call install_fixup,nano,PRIORITY,optional)
-	@$(call install_fixup,nano,VERSION,$(NANO_VERSION))
 	@$(call install_fixup,nano,SECTION,base)
 	@$(call install_fixup,nano,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,nano,DEPENDS,)
 	@$(call install_fixup,nano,DESCRIPTION,missing)
 
 	@$(call install_copy, nano, 0, 0, 0755, -, /usr/bin/nano)

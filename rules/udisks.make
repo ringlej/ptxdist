@@ -63,12 +63,9 @@ $(STATEDIR)/udisks.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  udisks)
-	@$(call install_fixup, udisks,PACKAGE,udisks)
 	@$(call install_fixup, udisks,PRIORITY,optional)
-	@$(call install_fixup, udisks,VERSION,$(UDISKS_VERSION))
 	@$(call install_fixup, udisks,SECTION,base)
 	@$(call install_fixup, udisks,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, udisks,DEPENDS,)
 	@$(call install_fixup, udisks,DESCRIPTION,missing)
 
 	@$(call install_copy, udisks, 0, 0, 0755, -, \

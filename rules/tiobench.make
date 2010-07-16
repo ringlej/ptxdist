@@ -69,12 +69,9 @@ $(STATEDIR)/tiobench.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, tiobench)
-	@$(call install_fixup, tiobench,PACKAGE,tiobench)
 	@$(call install_fixup, tiobench,PRIORITY,optional)
-	@$(call install_fixup, tiobench,VERSION,$(TIOBENCH_VERSION))
 	@$(call install_fixup, tiobench,SECTION,base)
 	@$(call install_fixup, tiobench,AUTHOR,"Juergen Beisert <jbeisert@pengutronix.de>")
-	@$(call install_fixup, tiobench,DEPENDS,)
 	@$(call install_fixup, tiobench,DESCRIPTION,missing)
 
 	@$(call install_copy, tiobench, 0, 0, 0755, $(TIOBENCH_DIR)/tiotest, \

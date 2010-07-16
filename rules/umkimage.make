@@ -51,12 +51,9 @@ $(STATEDIR)/umkimage.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  umkimage)
-	@$(call install_fixup, umkimage,PACKAGE,umkimage)
 	@$(call install_fixup, umkimage,PRIORITY,optional)
-	@$(call install_fixup, umkimage,VERSION,$(UMKIMAGE_VERSION))
 	@$(call install_fixup, umkimage,SECTION,base)
 	@$(call install_fixup, umkimage,AUTHOR,"Remy Bohmer <linux@bohmer.net>")
-	@$(call install_fixup, umkimage,DEPENDS,)
 	@$(call install_fixup, umkimage,DESCRIPTION,missing)
 
 	@$(call install_copy, umkimage, 0, 0, 0755, -, /usr/bin/mkimage)

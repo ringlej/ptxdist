@@ -70,12 +70,9 @@ $(STATEDIR)/openssh.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  openssh)
-	@$(call install_fixup, openssh,PACKAGE,openssh)
 	@$(call install_fixup, openssh,PRIORITY,optional)
-	@$(call install_fixup, openssh,VERSION,$(OPENSSH_VERSION))
 	@$(call install_fixup, openssh,SECTION,base)
 	@$(call install_fixup, openssh,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, openssh,DEPENDS,)
 	@$(call install_fixup, openssh,DESCRIPTION,missing)
 
 ifdef PTXCONF_OPENSSH_SSH

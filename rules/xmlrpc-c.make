@@ -93,12 +93,9 @@ $(STATEDIR)/xmlrpc-c.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  xmlrpc-c)
-	@$(call install_fixup, xmlrpc-c,PACKAGE,xmlrpc-c)
 	@$(call install_fixup, xmlrpc-c,PRIORITY,optional)
-	@$(call install_fixup, xmlrpc-c,VERSION,$(XMLRPC_C_VERSION))
 	@$(call install_fixup, xmlrpc-c,SECTION,base)
 	@$(call install_fixup, xmlrpc-c,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, xmlrpc-c,DEPENDS,)
 	@$(call install_fixup, xmlrpc-c,DESCRIPTION,missing)
 
 	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \

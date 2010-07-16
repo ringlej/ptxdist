@@ -103,12 +103,9 @@ $(STATEDIR)/nfsutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, nfsutils)
-	@$(call install_fixup,nfsutils,PACKAGE,nfsutils)
 	@$(call install_fixup,nfsutils,PRIORITY,optional)
-	@$(call install_fixup,nfsutils,VERSION,$(NFSUTILS_VERSION))
 	@$(call install_fixup,nfsutils,SECTION,base)
 	@$(call install_fixup,nfsutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,nfsutils,DEPENDS,)
 	@$(call install_fixup,nfsutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_NFSUTILS_INSTALL_EXPORTFS

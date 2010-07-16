@@ -53,12 +53,9 @@ $(STATEDIR)/memstat.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, memstat)
-	@$(call install_fixup, memstat,PACKAGE,memstat)
 	@$(call install_fixup, memstat,PRIORITY,optional)
-	@$(call install_fixup, memstat,VERSION,$(MEMSTAT_VERSION))
 	@$(call install_fixup, memstat,SECTION,base)
 	@$(call install_fixup, memstat,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, memstat,DEPENDS,)
 	@$(call install_fixup, memstat,DESCRIPTION,missing)
 
 	@$(call install_copy, memstat, 0, 0, 0644, -, /etc/memstat.conf, n)

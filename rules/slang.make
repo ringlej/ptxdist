@@ -69,12 +69,9 @@ $(STATEDIR)/slang.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  slang)
-	@$(call install_fixup, slang,PACKAGE,slang)
 	@$(call install_fixup, slang,PRIORITY,optional)
-	@$(call install_fixup, slang,VERSION,$(SLANG_VERSION))
 	@$(call install_fixup, slang,SECTION,base)
 	@$(call install_fixup, slang,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, slang,DEPENDS,)
 	@$(call install_fixup, slang,DESCRIPTION,missing)
 
 	@$(call install_copy, slang, 0, 0, 0644, -, \

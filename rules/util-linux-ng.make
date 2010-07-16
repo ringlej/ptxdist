@@ -96,12 +96,9 @@ $(STATEDIR)/util-linux-ng.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, util-linux-ng)
-	@$(call install_fixup, util-linux-ng,PACKAGE,util-linux-ng)
 	@$(call install_fixup, util-linux-ng,PRIORITY,optional)
-	@$(call install_fixup, util-linux-ng,VERSION,$(UTIL_LINUX_NG_VERSION))
 	@$(call install_fixup, util-linux-ng,SECTION,base)
 	@$(call install_fixup, util-linux-ng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, util-linux-ng,DEPENDS,)
 	@$(call install_fixup, util-linux-ng,DESCRIPTION,missing)
 
 ifdef PTXCONF_UTIL_LINUX_NG_MKSWAP

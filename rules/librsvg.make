@@ -75,12 +75,9 @@ $(STATEDIR)/librsvg.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, librsvg)
-	@$(call install_fixup, librsvg,PACKAGE,librsvg)
 	@$(call install_fixup, librsvg,PRIORITY,optional)
-	@$(call install_fixup, librsvg,VERSION,$(LIBRSVG_VERSION))
 	@$(call install_fixup, librsvg,SECTION,base)
 	@$(call install_fixup, librsvg,AUTHOR,"Erwin Rol")
-	@$(call install_fixup, librsvg,DEPENDS,)
 	@$(call install_fixup, librsvg,DESCRIPTION,missing)
 
 	@$(call install_copy, librsvg, 0, 0, 0644, -, \

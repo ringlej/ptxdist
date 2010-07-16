@@ -82,12 +82,9 @@ $(STATEDIR)/proftpd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, proftpd)
-	@$(call install_fixup, proftpd,PACKAGE,proftpd)
 	@$(call install_fixup, proftpd,PRIORITY,optional)
-	@$(call install_fixup, proftpd,VERSION,$(PROFTPD_VERSION))
 	@$(call install_fixup, proftpd,SECTION,base)
 	@$(call install_fixup, proftpd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, proftpd,DEPENDS,)
 	@$(call install_fixup, proftpd,DESCRIPTION,missing)
 
 	@$(call install_copy, proftpd, 0, 0, 0755, -, \

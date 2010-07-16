@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-app-mkfontscale.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-mkfontscale)
-	@$(call install_fixup, xorg-app-mkfontscale,PACKAGE,xorg-app-mkfontscale)
 	@$(call install_fixup, xorg-app-mkfontscale,PRIORITY,optional)
-	@$(call install_fixup, xorg-app-mkfontscale,VERSION,$(XORG_APP_MKFONTSCALE_VERSION))
 	@$(call install_fixup, xorg-app-mkfontscale,SECTION,base)
 	@$(call install_fixup, xorg-app-mkfontscale,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xorg-app-mkfontscale,DEPENDS,)
 	@$(call install_fixup, xorg-app-mkfontscale,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-mkfontscale, 0, 0, 0755, -, \

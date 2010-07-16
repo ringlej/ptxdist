@@ -58,12 +58,9 @@ $(STATEDIR)/xorg-lib-xau.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xau)
-	@$(call install_fixup, xorg-lib-xau,PACKAGE,xorg-lib-xau)
 	@$(call install_fixup, xorg-lib-xau,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xau,VERSION,$(XORG_LIB_XAU_VERSION))
 	@$(call install_fixup, xorg-lib-xau,SECTION,base)
 	@$(call install_fixup, xorg-lib-xau,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xau,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xau,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xau, 0, 0, 0644, -, \

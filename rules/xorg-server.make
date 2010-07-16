@@ -350,12 +350,9 @@ $(STATEDIR)/xorg-server.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-server)
-	@$(call install_fixup, xorg-server,PACKAGE,xorg-server)
 	@$(call install_fixup, xorg-server,PRIORITY,optional)
-	@$(call install_fixup, xorg-server,VERSION,$(XORG_SERVER_VERSION))
 	@$(call install_fixup, xorg-server,SECTION,base)
 	@$(call install_fixup, xorg-server,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xorg-server,DEPENDS,)
 	@$(call install_fixup, xorg-server,DESCRIPTION,missing)
 
 ifdef PTXCONF_XORG_SERVER_CONFIG_FILES_XORG_CONF

@@ -52,12 +52,9 @@ $(STATEDIR)/xorg-lib-xcursor.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xcursor)
-	@$(call install_fixup, xorg-lib-xcursor,PACKAGE,xorg-lib-xcursor)
 	@$(call install_fixup, xorg-lib-xcursor,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xcursor,VERSION,$(XORG_LIB_XCURSOR_VERSION))
 	@$(call install_fixup, xorg-lib-xcursor,SECTION,base)
 	@$(call install_fixup, xorg-lib-xcursor,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xcursor,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xcursor,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xcursor, 0, 0, 0644, -, \

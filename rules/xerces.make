@@ -58,12 +58,9 @@ $(STATEDIR)/xerces.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xerces)
-	@$(call install_fixup, xerces,PACKAGE,xerces)
 	@$(call install_fixup, xerces,PRIORITY,optional)
-	@$(call install_fixup, xerces,VERSION,$(XERCES_VERSION))
 	@$(call install_fixup, xerces,SECTION,base)
 	@$(call install_fixup, xerces,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xerces,DEPENDS,)
 	@$(call install_fixup, xerces,DESCRIPTION,missing)
 
 	@$(call install_copy, xerces, 0, 0, 0644, -, \

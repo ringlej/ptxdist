@@ -57,12 +57,9 @@ $(STATEDIR)/kbd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  kbd)
-	@$(call install_fixup, kbd,PACKAGE,kbd)
 	@$(call install_fixup, kbd,PRIORITY,optional)
-	@$(call install_fixup, kbd,VERSION,$(KBD_VERSION))
 	@$(call install_fixup, kbd,SECTION,base)
 	@$(call install_fixup, kbd,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
-	@$(call install_fixup, kbd,DEPENDS,)
 	@$(call install_fixup, kbd,DESCRIPTION,missing)
 
 ifdef PTXCONF_KBD_DUMPKEYS

@@ -57,12 +57,9 @@ $(STATEDIR)/readline.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, readline)
-	@$(call install_fixup, readline,PACKAGE,readline)
 	@$(call install_fixup, readline,PRIORITY,optional)
-	@$(call install_fixup, readline,VERSION,$(READLINE_VERSION))
 	@$(call install_fixup, readline,SECTION,base)
 	@$(call install_fixup, readline,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, readline,DEPENDS,)
 	@$(call install_fixup, readline,DESCRIPTION,missing)
 
 	@$(call install_copy, readline, 0, 0, 0644, -, \

@@ -60,12 +60,9 @@ $(STATEDIR)/xorg-driver-video-ati.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-video-ati)
-	@$(call install_fixup, xorg-driver-video-ati,PACKAGE,xorg-driver-video-ati)
 	@$(call install_fixup, xorg-driver-video-ati,PRIORITY,optional)
-	@$(call install_fixup, xorg-driver-video-ati,VERSION,$(XORG_DRIVER_VIDEO_ATI_VERSION))
 	@$(call install_fixup, xorg-driver-video-ati,SECTION,base)
 	@$(call install_fixup, xorg-driver-video-ati,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-driver-video-ati,DEPENDS,)
 	@$(call install_fixup, xorg-driver-video-ati,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-ati, 0, 0, 0755, -, /usr/lib/xorg/modules/drivers/ati_drv.so)

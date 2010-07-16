@@ -95,12 +95,9 @@ $(STATEDIR)/xorg-lib-xfont.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xfont)
-	@$(call install_fixup, xorg-lib-xfont,PACKAGE,xorg-lib-xfont)
 	@$(call install_fixup, xorg-lib-xfont,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xfont,VERSION,$(XORG_LIB_XFONT_VERSION))
 	@$(call install_fixup, xorg-lib-xfont,SECTION,base)
 	@$(call install_fixup, xorg-lib-xfont,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xfont,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xfont,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xfont, 0, 0, 0644, -, \

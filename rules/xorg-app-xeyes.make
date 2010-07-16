@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-app-xeyes.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xeyes)
-	@$(call install_fixup, xorg-app-xeyes,PACKAGE,xorg-app-xeyes)
 	@$(call install_fixup, xorg-app-xeyes,PRIORITY,optional)
-	@$(call install_fixup, xorg-app-xeyes,VERSION,$(XORG_APP_XEYES_VERSION))
 	@$(call install_fixup, xorg-app-xeyes,SECTION,base)
 	@$(call install_fixup, xorg-app-xeyes,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xorg-app-xeyes,DEPENDS,)
 	@$(call install_fixup, xorg-app-xeyes,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xeyes, 0, 0, 0755, -, \

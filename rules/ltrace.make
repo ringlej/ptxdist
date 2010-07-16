@@ -54,12 +54,9 @@ $(STATEDIR)/ltrace.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  ltrace)
-	@$(call install_fixup, ltrace,PACKAGE,ltrace)
 	@$(call install_fixup, ltrace,PRIORITY,optional)
-	@$(call install_fixup, ltrace,VERSION,$(LTRACE_VERSION))
 	@$(call install_fixup, ltrace,SECTION,base)
 	@$(call install_fixup, ltrace,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, ltrace,DEPENDS,)
 	@$(call install_fixup, ltrace,DESCRIPTION,missing)
 
 	@$(call install_copy, ltrace, 0, 0, 0755, -, /usr/bin/ltrace)

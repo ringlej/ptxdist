@@ -60,12 +60,9 @@ $(STATEDIR)/xorg-lib-xt.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xt)
-	@$(call install_fixup, xorg-lib-xt,PACKAGE,xorg-lib-xt)
 	@$(call install_fixup, xorg-lib-xt,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xt,VERSION,$(XORG_LIB_XT_VERSION))
 	@$(call install_fixup, xorg-lib-xt,SECTION,base)
 	@$(call install_fixup, xorg-lib-xt,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xt,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xt,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xt, 0, 0, 0644, -, \

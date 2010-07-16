@@ -52,12 +52,9 @@ $(STATEDIR)/libgpg-error.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libgpg-error)
-	@$(call install_fixup, libgpg-error,PACKAGE,libgpg-error)
 	@$(call install_fixup, libgpg-error,PRIORITY,optional)
-	@$(call install_fixup, libgpg-error,VERSION,$(LIBGPG_ERROR_VERSION))
 	@$(call install_fixup, libgpg-error,SECTION,base)
 	@$(call install_fixup, libgpg-error,AUTHOR,"Erwin Rol")
-	@$(call install_fixup, libgpg-error,DEPENDS,)
 	@$(call install_fixup, libgpg-error,DESCRIPTION,missing)
 
 	@$(call install_copy, libgpg-error, 0, 0, 0644, -, \

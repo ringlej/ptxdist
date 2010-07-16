@@ -56,12 +56,9 @@ $(STATEDIR)/fftw.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fftw)
-	@$(call install_fixup, fftw,PACKAGE,fftw)
 	@$(call install_fixup, fftw,PRIORITY,optional)
-	@$(call install_fixup, fftw,VERSION,$(FFTW_VERSION))
 	@$(call install_fixup, fftw,SECTION,base)
 	@$(call install_fixup, fftw,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, fftw,DEPENDS,)
 	@$(call install_fixup, fftw,DESCRIPTION,missing)
 
 	@$(call install_copy, fftw, 0, 0, 0644, -, /usr/lib/libfftw3.so.3.2.4)

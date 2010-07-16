@@ -70,12 +70,9 @@ $(STATEDIR)/ltp-commands.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-commands)
-	@$(call install_fixup, ltp-commands,PACKAGE,ltp-commands)
 	@$(call install_fixup, ltp-commands,PRIORITY,optional)
-	@$(call install_fixup, ltp-commands,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-commands,SECTION,base)
 	@$(call install_fixup, ltp-commands,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-commands,DEPENDS,)
 	@$(call install_fixup, ltp-commands,DESCRIPTION,missing)
 
 	@cd $(LTP_COMMANDS_PKGDIR)/bin; \

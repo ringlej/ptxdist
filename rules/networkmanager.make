@@ -74,12 +74,9 @@ $(STATEDIR)/networkmanager.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, networkmanager)
-	@$(call install_fixup, networkmanager,PACKAGE,networkmanager)
 	@$(call install_fixup, networkmanager,PRIORITY,optional)
-	@$(call install_fixup, networkmanager,VERSION,$(NETWORKMANAGER_VERSION))
 	@$(call install_fixup, networkmanager,SECTION,base)
 	@$(call install_fixup, networkmanager,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, networkmanager,DEPENDS,)
 	@$(call install_fixup, networkmanager,DESCRIPTION,missing)
 
 	@$(call install_copy, networkmanager, 0, 0, 0755, $(NETWORKMANAGER_DIR)/foobar, /dev/null)

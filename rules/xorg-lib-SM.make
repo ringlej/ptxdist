@@ -55,12 +55,9 @@ $(STATEDIR)/xorg-lib-sm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-sm)
-	@$(call install_fixup, xorg-lib-sm,PACKAGE,xorg-lib-sm)
 	@$(call install_fixup, xorg-lib-sm,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-sm,VERSION,$(XORG_LIB_SM_VERSION))
 	@$(call install_fixup, xorg-lib-sm,SECTION,base)
 	@$(call install_fixup, xorg-lib-sm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-sm,DEPENDS,)
 	@$(call install_fixup, xorg-lib-sm,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-sm, 0, 0, 0644, -, \

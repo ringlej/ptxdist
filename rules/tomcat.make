@@ -65,12 +65,9 @@ $(STATEDIR)/tomcat.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  tomcat)
-	@$(call install_fixup, tomcat,PACKAGE,tomcat)
 	@$(call install_fixup, tomcat,PRIORITY,optional)
-	@$(call install_fixup, tomcat,VERSION,$(TOMCAT_VERSION))
 	@$(call install_fixup, tomcat,SECTION,base)
 	@$(call install_fixup, tomcat,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, tomcat,DEPENDS,)
 	@$(call install_fixup, tomcat,DESCRIPTION,missing)
 
 	@$(call install_copy, tomcat, 0, 0, 0755, $(TOMCAT_PREFIX)/bin)

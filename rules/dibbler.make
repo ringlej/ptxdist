@@ -70,12 +70,9 @@ $(STATEDIR)/dibbler.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  dibbler)
-	@$(call install_fixup, dibbler,PACKAGE,dibbler)
 	@$(call install_fixup, dibbler,PRIORITY,optional)
-	@$(call install_fixup, dibbler,VERSION,$(DIBBLER_VERSION))
 	@$(call install_fixup, dibbler,SECTION,base)
 	@$(call install_fixup, dibbler,AUTHOR,"Remy Bohmer <linux@bohmer.net>")
-	@$(call install_fixup, dibbler,DEPENDS,)
 	@$(call install_fixup, dibbler,DESCRIPTION,missing)
 
 	@$(call install_copy, dibbler, 0, 0, 0755, /etc/dibbler)

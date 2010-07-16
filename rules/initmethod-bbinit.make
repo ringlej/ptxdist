@@ -67,12 +67,9 @@ $(STATEDIR)/initmethod-bbinit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  initmethod-bbinit)
-	@$(call install_fixup, initmethod-bbinit, PACKAGE, initmethod-bbinit)
 	@$(call install_fixup, initmethod-bbinit, PRIORITY, optional)
-	@$(call install_fixup, initmethod-bbinit, VERSION, $(INITMETHOD_BBINIT_VERSION))
 	@$(call install_fixup, initmethod-bbinit, SECTION, base)
 	@$(call install_fixup, initmethod-bbinit, AUTHOR, "Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, initmethod-bbinit, DEPENDS,)
 	@$(call install_fixup, initmethod-bbinit, DESCRIPTION, missing)
 
 #	# first of all: generate the required directories & rcS

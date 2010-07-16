@@ -50,12 +50,9 @@ $(STATEDIR)/atop.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, atop)
-	@$(call install_fixup, atop,PACKAGE,atop)
 	@$(call install_fixup, atop,PRIORITY,optional)
-	@$(call install_fixup, atop,VERSION,$(ATOP_VERSION))
 	@$(call install_fixup, atop,SECTION,base)
 	@$(call install_fixup, atop,AUTHOR,"Remy Bohmer <linux@bohmer.net>")
-	@$(call install_fixup, atop,DEPENDS,)
 	@$(call install_fixup, atop,DESCRIPTION,missing)
 
 	@$(call install_copy, atop, 0, 0, 0755, -, /usr/bin/atop)

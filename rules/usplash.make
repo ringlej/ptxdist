@@ -73,12 +73,9 @@ $(STATEDIR)/usplash.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, usplash)
-	@$(call install_fixup, usplash,PACKAGE,usplash)
 	@$(call install_fixup, usplash,PRIORITY,optional)
-	@$(call install_fixup, usplash,VERSION,$(USPLASH_VERSION))
 	@$(call install_fixup, usplash,SECTION,base)
 	@$(call install_fixup, usplash,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, usplash,DEPENDS,)
 	@$(call install_fixup, usplash,DESCRIPTION,missing)
 
 	@$(call install_copy, usplash, 0, 0, 0755, -, /sbin/usplash)

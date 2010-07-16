@@ -255,12 +255,9 @@ $(STATEDIR)/net-snmp.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, net-snmp)
-	@$(call install_fixup, net-snmp,PACKAGE,net-snmp)
 	@$(call install_fixup, net-snmp,PRIORITY,optional)
-	@$(call install_fixup, net-snmp,VERSION,$(NET_SNMP_VERSION))
 	@$(call install_fixup, net-snmp,SECTION,base)
 	@$(call install_fixup, net-snmp,AUTHOR,"Randall Loomis <rloomis@solectek.com>")
-	@$(call install_fixup, net-snmp,DEPENDS,)
 	@$(call install_fixup, net-snmp,DESCRIPTION,missing)
 
 ifdef PTXCONF_NET_SNMP_AGENT

@@ -56,12 +56,9 @@ $(STATEDIR)/lcms.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  lcms)
-	@$(call install_fixup, lcms,PACKAGE,lcms)
 	@$(call install_fixup, lcms,PRIORITY,optional)
-	@$(call install_fixup, lcms,VERSION,$(LCMS_VERSION))
 	@$(call install_fixup, lcms,SECTION,base)
 	@$(call install_fixup, lcms,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, lcms,DEPENDS,)
 	@$(call install_fixup, lcms,DESCRIPTION,missing)
 
 	@$(call install_copy, lcms, 0, 0, 0644, -, /usr/lib/liblcms.so.1.0.18)

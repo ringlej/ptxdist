@@ -55,12 +55,9 @@ $(STATEDIR)/hping.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, hping)
-	@$(call install_fixup, hping,PACKAGE,hping)
 	@$(call install_fixup, hping,PRIORITY,optional)
-	@$(call install_fixup, hping,VERSION,$(HPING_VERSION))
 	@$(call install_fixup, hping,SECTION,base)
 	@$(call install_fixup, hping,AUTHOR,"Juergen Beisert <jbe@pengutronix.de>")
-	@$(call install_fixup, hping,DEPENDS,)
 	@$(call install_fixup, hping,DESCRIPTION,missing)
 
 	@$(call install_copy, hping, 0, 0, 0755, -, /usr/sbin/hping3)

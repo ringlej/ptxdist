@@ -130,12 +130,9 @@ $(STATEDIR)/gnuplot.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gnuplot)
-	@$(call install_fixup, gnuplot,PACKAGE,gnuplot)
 	@$(call install_fixup, gnuplot,PRIORITY,optional)
-	@$(call install_fixup, gnuplot,VERSION,$(GNUPLOT_VERSION))
 	@$(call install_fixup, gnuplot,SECTION,base)
 	@$(call install_fixup, gnuplot,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gnuplot,DEPENDS,)
 	@$(call install_fixup, gnuplot,DESCRIPTION,missing)
 
 	@$(call install_copy, gnuplot, 0, 0, 0755, -, /usr/bin/gnuplot)

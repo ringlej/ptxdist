@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-driver-video-dummy.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-video-dummy)
-	@$(call install_fixup, xorg-driver-video-dummy,PACKAGE,xorg-driver-video-dummy)
 	@$(call install_fixup, xorg-driver-video-dummy,PRIORITY,optional)
-	@$(call install_fixup, xorg-driver-video-dummy,VERSION,$(XORG_DRIVER_VIDEO_DUMMY_VERSION))
 	@$(call install_fixup, xorg-driver-video-dummy,SECTION,base)
 	@$(call install_fixup, xorg-driver-video-dummy,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-driver-video-dummy,DEPENDS,)
 	@$(call install_fixup, xorg-driver-video-dummy,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-dummy, 0, 0, 0755, -, \

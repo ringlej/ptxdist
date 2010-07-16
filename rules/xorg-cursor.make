@@ -72,12 +72,9 @@ $(STATEDIR)/xorg-cursor.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-cursor)
-	@$(call install_fixup, xorg-cursor,PACKAGE,xorg-cursor)
 	@$(call install_fixup, xorg-cursor,PRIORITY,optional)
-	@$(call install_fixup, xorg-cursor,VERSION,$(XORG_CURSOR_VERSION))
 	@$(call install_fixup, xorg-cursor,SECTION,base)
 	@$(call install_fixup, xorg-cursor,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xorg-cursor,DEPENDS,)
 	@$(call install_fixup, xorg-cursor,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-cursor, 0, 0, 0755, /usr/share/icons/default)

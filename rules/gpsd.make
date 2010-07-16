@@ -230,12 +230,9 @@ $(STATEDIR)/gpsd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gpsd)
-	@$(call install_fixup, gpsd,PACKAGE,gpsd)
 	@$(call install_fixup, gpsd,PRIORITY,optional)
-	@$(call install_fixup, gpsd,VERSION,$(GPSD_VERSION))
 	@$(call install_fixup, gpsd,SECTION,base)
 	@$(call install_fixup, gpsd,AUTHOR,"Jürgen Kilb <j.kilb@phytec.de>")
-	@$(call install_fixup, gpsd,DEPENDS,)
 	@$(call install_fixup, gpsd,DESCRIPTION,missing)
 
 	@$(call install_copy, gpsd, 0, 0, 0644, -, \

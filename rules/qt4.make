@@ -646,12 +646,9 @@ $(STATEDIR)/qt4.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, qt4)
-	@$(call install_fixup,qt4,PACKAGE,qt4)
 	@$(call install_fixup,qt4,PRIORITY,optional)
-	@$(call install_fixup,qt4,VERSION,$(QT4_VERSION))
 	@$(call install_fixup,qt4,SECTION,base)
 	@$(call install_fixup,qt4,AUTHOR,"Juergen Beisertl <j.beisert@pengutronix.de>")
-	@$(call install_fixup,qt4,DEPENDS,)
 	@$(call install_fixup,qt4,DESCRIPTION,missing)
 
 ifdef PTXCONF_QT4_SHARED

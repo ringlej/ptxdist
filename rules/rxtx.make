@@ -76,12 +76,9 @@ $(STATEDIR)/rxtx.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, rxtx)
-	@$(call install_fixup, rxtx,PACKAGE,rxtx)
 	@$(call install_fixup, rxtx,PRIORITY,optional)
-	@$(call install_fixup, rxtx,VERSION,$(RXTX_VERSION))
 	@$(call install_fixup, rxtx,SECTION,base)
 	@$(call install_fixup, rxtx,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
-	@$(call install_fixup, rxtx,DEPENDS,)
 	@$(call install_fixup, rxtx,DESCRIPTION,missing)
 
 	@$(call install_copy, rxtx, 0, 0, 0644, -, \

@@ -72,12 +72,9 @@ $(STATEDIR)/syslogng.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, syslogng)
-	@$(call install_fixup, syslogng,PACKAGE,syslogng)
 	@$(call install_fixup, syslogng,PRIORITY,optional)
-	@$(call install_fixup, syslogng,VERSION,$(SYSLOGNG_VERSION))
 	@$(call install_fixup, syslogng,SECTION,base)
 	@$(call install_fixup, syslogng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, syslogng,DEPENDS,)
 	@$(call install_fixup, syslogng,DESCRIPTION,missing)
 
 #	# binary

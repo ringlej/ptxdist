@@ -52,12 +52,9 @@ $(STATEDIR)/xorg-driver-input-tslib.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-input-tslib)
-	@$(call install_fixup, xorg-driver-input-tslib,PACKAGE,xorg-driver-input-tslib)
 	@$(call install_fixup, xorg-driver-input-tslib,PRIORITY,optional)
-	@$(call install_fixup, xorg-driver-input-tslib,VERSION,$(XORG_DRIVER_INPUT_TSLIB_VERSION))
 	@$(call install_fixup, xorg-driver-input-tslib,SECTION,base)
 	@$(call install_fixup, xorg-driver-input-tslib,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-driver-input-tslib,DEPENDS,)
 	@$(call install_fixup, xorg-driver-input-tslib,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-input-tslib, 0, 0, 0755, -, \

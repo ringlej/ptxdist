@@ -69,12 +69,9 @@ $(STATEDIR)/upstart.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, upstart)
-	@$(call install_fixup, upstart,PACKAGE,upstart)
 	@$(call install_fixup, upstart,PRIORITY,optional)
-	@$(call install_fixup, upstart,VERSION,$(UPSTART_VERSION))
 	@$(call install_fixup, upstart,SECTION,base)
 	@$(call install_fixup, upstart,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, upstart,DEPENDS,)
 	@$(call install_fixup, upstart,DESCRIPTION,missing)
 
 	@$(call install_copy, upstart, 0, 0, 0755, -, /usr/sbin/init)

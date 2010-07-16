@@ -58,12 +58,9 @@ $(STATEDIR)/libxcb.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libxcb)
-	@$(call install_fixup, libxcb,PACKAGE,libxcb)
 	@$(call install_fixup, libxcb,PRIORITY,optional)
-	@$(call install_fixup, libxcb,VERSION,$(LIBXCB_VERSION))
 	@$(call install_fixup, libxcb,SECTION,base)
 	@$(call install_fixup, libxcb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libxcb,DEPENDS,)
 	@$(call install_fixup, libxcb,DESCRIPTION,missing)
 
 	@$(call install_copy, libxcb, 0, 0, 0644, -, \

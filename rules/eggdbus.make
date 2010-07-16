@@ -53,12 +53,9 @@ $(STATEDIR)/eggdbus.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  eggdbus)
-	@$(call install_fixup, eggdbus,PACKAGE,eggdbus)
 	@$(call install_fixup, eggdbus,PRIORITY,optional)
-	@$(call install_fixup, eggdbus,VERSION,$(EGGDBUS_VERSION))
 	@$(call install_fixup, eggdbus,SECTION,base)
 	@$(call install_fixup, eggdbus,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, eggdbus,DEPENDS,)
 	@$(call install_fixup, eggdbus,DESCRIPTION,missing)
 
 	@$(call install_copy, eggdbus, 0, 0, 0644, -, /usr/lib/libeggdbus-1.so.0.0.0)

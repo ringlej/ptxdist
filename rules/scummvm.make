@@ -50,12 +50,9 @@ $(STATEDIR)/scummvm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, scummvm)
-	@$(call install_fixup, scummvm,PACKAGE,scummvm)
 	@$(call install_fixup, scummvm,PRIORITY,optional)
-	@$(call install_fixup, scummvm,VERSION,$(SCUMMVM_VERSION))
 	@$(call install_fixup, scummvm,SECTION,base)
 	@$(call install_fixup, scummvm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, scummvm,DEPENDS,)
 	@$(call install_fixup, scummvm,DESCRIPTION,missing)
 
 	@$(call install_copy, scummvm, 0, 0, 0755, -, /usr/bin/scummvm)

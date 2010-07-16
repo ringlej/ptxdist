@@ -53,12 +53,9 @@ $(STATEDIR)/libnih.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libnih)
-	@$(call install_fixup, libnih, PACKAGE, libnih)
 	@$(call install_fixup, libnih, PRIORITY, optional)
-	@$(call install_fixup, libnih, VERSION, $(LIBNIH_VERSION))
 	@$(call install_fixup, libnih, SECTION, base)
 	@$(call install_fixup, libnih, AUTHOR, "Tim Sandet <tim.sander@hbm.com>")
-	@$(call install_fixup, libnih, DEPENDS,)
 	@$(call install_fixup, libnih, DESCRIPTION, missing)
 
 	@$(call install_copy, libnih, 0, 0, 0644, -, /usr/lib/libnih-dbus.so.1.0.0);

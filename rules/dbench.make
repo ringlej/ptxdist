@@ -54,12 +54,9 @@ $(STATEDIR)/dbench.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, dbench)
-	@$(call install_fixup, dbench,PACKAGE,dbench)
 	@$(call install_fixup, dbench,PRIORITY,optional)
-	@$(call install_fixup, dbench,VERSION,$(DBENCH_VERSION))
 	@$(call install_fixup, dbench,SECTION,base)
 	@$(call install_fixup, dbench,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, dbench,DEPENDS,)
 	@$(call install_fixup, dbench,DESCRIPTION,missing)
 
 ifdef PTXCONF_DBENCH_DBENCH

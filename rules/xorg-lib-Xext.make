@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-lib-xext.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xext)
-	@$(call install_fixup, xorg-lib-xext,PACKAGE,xorg-lib-xext)
 	@$(call install_fixup, xorg-lib-xext,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xext,VERSION,$(XORG_LIB_XEXT_VERSION))
 	@$(call install_fixup, xorg-lib-xext,SECTION,base)
 	@$(call install_fixup, xorg-lib-xext,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xext,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xext,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xext, 0, 0, 0644, -, \

@@ -95,12 +95,9 @@ $(STATEDIR)/fltk.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fltk)
-	@$(call install_fixup, fltk,PACKAGE,fltk)
 	@$(call install_fixup, fltk,PRIORITY,optional)
-	@$(call install_fixup, fltk,VERSION,$(FLTK_VERSION))
 	@$(call install_fixup, fltk,SECTION,base)
 	@$(call install_fixup, fltk,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, fltk,DEPENDS,)
 	@$(call install_fixup, fltk,DESCRIPTION,missing)
 
 	@$(call install_copy, fltk, 0, 0, 0644, -, \

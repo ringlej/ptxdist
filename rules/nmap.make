@@ -76,12 +76,9 @@ $(STATEDIR)/nmap.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, nmap)
-	@$(call install_fixup, nmap,PACKAGE,nmap)
 	@$(call install_fixup, nmap,PRIORITY,optional)
-	@$(call install_fixup, nmap,VERSION,$(NMAP_VERSION))
 	@$(call install_fixup, nmap,SECTION,base)
 	@$(call install_fixup, nmap,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, nmap,DEPENDS,)
 	@$(call install_fixup, nmap,DESCRIPTION,missing)
 
 	@$(call install_copy, nmap, 0, 0, 0755, -, \

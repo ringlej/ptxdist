@@ -70,12 +70,9 @@ $(STATEDIR)/ltp-network.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-network)
-	@$(call install_fixup, ltp-network,PACKAGE,ltp-network)
 	@$(call install_fixup, ltp-network,PRIORITY,optional)
-	@$(call install_fixup, ltp-network,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-network,SECTION,base)
 	@$(call install_fixup, ltp-network,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-network,DEPENDS,)
 	@$(call install_fixup, ltp-network,DESCRIPTION,missing)
 
 	@cd $(LTP_NETWORK_PKGDIR)/bin; \

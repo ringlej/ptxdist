@@ -49,12 +49,9 @@ $(STATEDIR)/smartmontools.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  smartmontools)
-	@$(call install_fixup, smartmontools,PACKAGE,smartmontools)
 	@$(call install_fixup, smartmontools,PRIORITY,optional)
-	@$(call install_fixup, smartmontools,VERSION,$(SMARTMONTOOLS_VERSION))
 	@$(call install_fixup, smartmontools,SECTION,base)
 	@$(call install_fixup, smartmontools,AUTHOR,"Bart vdr. Meulen <bartvdrmeulen@gmail.com>")
-	@$(call install_fixup, smartmontools,DEPENDS,)
 	@$(call install_fixup, smartmontools,DESCRIPTION,missing)
 
 ifdef PTXCONF_SMARTMONTOOLS_SMARTCTL

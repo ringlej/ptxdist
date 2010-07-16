@@ -72,12 +72,9 @@ $(STATEDIR)/acl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  acl)
-	@$(call install_fixup, acl,PACKAGE,acl)
 	@$(call install_fixup, acl,PRIORITY,optional)
-	@$(call install_fixup, acl,VERSION,$(ACL_VERSION))
 	@$(call install_fixup, acl,SECTION,base)
 	@$(call install_fixup, acl,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
-	@$(call install_fixup, acl,DEPENDS,)
 	@$(call install_fixup, acl,DESCRIPTION,missing)
 
 ifdef PTXCONF_ACL_TOOLS

@@ -71,12 +71,9 @@ NTPCLIENT_MAKE_OPT += CFLAGS='-O2 $(NTPCLIENT_CFLAGS)'
 $(STATEDIR)/ntpclient.targetinstall:
 	@$(call targetinfo)
 	@$(call install_init, ntpclient)
-	@$(call install_fixup, ntpclient,PACKAGE,ntpclient)
 	@$(call install_fixup, ntpclient,PRIORITY,optional)
-	@$(call install_fixup, ntpclient,VERSION,$(NTPCLIENT_VERSION))
 	@$(call install_fixup, ntpclient,SECTION,base)
 	@$(call install_fixup, ntpclient,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ntpclient,DEPENDS,)
 	@$(call install_fixup, ntpclient,DESCRIPTION,missing)
 
 ifdef PTXCONF_NTPCLIENT_BUILD_NTPCLIENT

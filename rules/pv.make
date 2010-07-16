@@ -55,12 +55,9 @@ $(STATEDIR)/pv.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pv)
-	@$(call install_fixup, pv,PACKAGE,pv)
 	@$(call install_fixup, pv,PRIORITY,optional)
-	@$(call install_fixup, pv,VERSION,$(PV_VERSION))
 	@$(call install_fixup, pv,SECTION,base)
 	@$(call install_fixup, pv,AUTHOR,"Wolfram Sang <w.sang@pengutronix.de>")
-	@$(call install_fixup, pv,DEPENDS,)
 	@$(call install_fixup, pv,DESCRIPTION,missing)
 
 	@$(call install_copy, pv, 0, 0, 0755, -, /usr/bin/pv)

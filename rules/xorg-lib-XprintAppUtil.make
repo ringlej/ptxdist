@@ -52,12 +52,9 @@ $(STATEDIR)/xorg-lib-xprintapputil.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xprintapputil)
-	@$(call install_fixup, xorg-lib-xprintapputil,PACKAGE,xorg-lib-xprintapputil)
 	@$(call install_fixup, xorg-lib-xprintapputil,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xprintapputil,VERSION,$(XORG_LIB_XPRINTAPPUTIL_VERSION))
 	@$(call install_fixup, xorg-lib-xprintapputil,SECTION,base)
 	@$(call install_fixup, xorg-lib-xprintapputil,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xprintapputil,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xprintapputil,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xprintapputil, 0, 0, 0644, -,\

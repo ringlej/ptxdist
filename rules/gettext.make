@@ -57,12 +57,9 @@ $(STATEDIR)/gettext.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gettext)
-	@$(call install_fixup, gettext,PACKAGE,gettext)
 	@$(call install_fixup, gettext,PRIORITY,optional)
-	@$(call install_fixup, gettext,VERSION,$(GETTEXT_VERSION))
 	@$(call install_fixup, gettext,SECTION,base)
 	@$(call install_fixup, gettext,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gettext,DEPENDS,)
 	@$(call install_fixup, gettext,DESCRIPTION,missing)
 
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/xgettext)

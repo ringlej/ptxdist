@@ -65,12 +65,9 @@ $(STATEDIR)/libffi.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libffi)
-	@$(call install_fixup, libffi,PACKAGE,libffi)
 	@$(call install_fixup, libffi,PRIORITY,optional)
-	@$(call install_fixup, libffi,VERSION,$(LIBFFI_VERSION))
 	@$(call install_fixup, libffi,SECTION,base)
 	@$(call install_fixup, libffi,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libffi,DEPENDS,)
 	@$(call install_fixup, libffi,DESCRIPTION,missing)
 
 	@$(call install_copy, libffi, 0, 0, 0644, -, \

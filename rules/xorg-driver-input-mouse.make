@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-driver-input-mouse.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-input-mouse)
-	@$(call install_fixup, xorg-driver-input-mouse,PACKAGE,xorg-driver-input-mouse)
 	@$(call install_fixup, xorg-driver-input-mouse,PRIORITY,optional)
-	@$(call install_fixup, xorg-driver-input-mouse,VERSION,$(XORG_DRIVER_INPUT_MOUSE_VERSION))
 	@$(call install_fixup, xorg-driver-input-mouse,SECTION,base)
 	@$(call install_fixup, xorg-driver-input-mouse,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-driver-input-mouse,DEPENDS,)
 	@$(call install_fixup, xorg-driver-input-mouse,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-input-mouse, 0, 0, 0755, -, \

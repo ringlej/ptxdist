@@ -70,12 +70,9 @@ $(STATEDIR)/ltp-template.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-template)
-	@$(call install_fixup, ltp-template,PACKAGE,ltp-template)
 	@$(call install_fixup, ltp-template,PRIORITY,optional)
-	@$(call install_fixup, ltp-template,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-template,SECTION,base)
 	@$(call install_fixup, ltp-template,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-template,DEPENDS,)
 	@$(call install_fixup, ltp-template,DESCRIPTION,missing)
 
 	@for file in `find $(LTP_TEMPLATE_PKGDIR)/bin -type f`; do \

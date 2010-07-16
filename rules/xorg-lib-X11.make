@@ -113,12 +113,9 @@ $(STATEDIR)/xorg-lib-x11.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-x11)
-	@$(call install_fixup, xorg-lib-x11,PACKAGE,xorg-lib-x11)
 	@$(call install_fixup, xorg-lib-x11,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-x11,VERSION,$(XORG_LIB_X11_VERSION))
 	@$(call install_fixup, xorg-lib-x11,SECTION,base)
 	@$(call install_fixup, xorg-lib-x11,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-x11,DEPENDS,)
 	@$(call install_fixup, xorg-lib-x11,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \

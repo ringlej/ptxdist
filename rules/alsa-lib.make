@@ -152,12 +152,9 @@ $(STATEDIR)/alsa-lib.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  alsa-lib)
-	@$(call install_fixup, alsa-lib, PACKAGE, alsa-lib)
 	@$(call install_fixup, alsa-lib, PRIORITY,optional)
-	@$(call install_fixup, alsa-lib, VERSION,$(ALSA_LIB_VERSION))
 	@$(call install_fixup, alsa-lib, SECTION,base)
 	@$(call install_fixup, alsa-lib, AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, alsa-lib, DEPENDS,)
 	@$(call install_fixup, alsa-lib, DESCRIPTION,missing)
 
 ifdef PTXCONF_ALSA_LIB_LIGHT

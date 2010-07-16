@@ -56,12 +56,9 @@ $(STATEDIR)/sdl-gfx.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sdl-gfx)
-	@$(call install_fixup, sdl-gfx,PACKAGE,sdl-gfx)
 	@$(call install_fixup, sdl-gfx,PRIORITY,optional)
-	@$(call install_fixup, sdl-gfx,VERSION,$(SDL_GFX_VERSION))
 	@$(call install_fixup, sdl-gfx,SECTION,base)
 	@$(call install_fixup, sdl-gfx,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
-	@$(call install_fixup, sdl-gfx,DEPENDS,)
 	@$(call install_fixup, sdl-gfx,DESCRIPTION,missing)
 
 	@$(call install_copy, sdl-gfx, 0, 0, 0644, -, \

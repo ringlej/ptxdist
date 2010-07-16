@@ -59,12 +59,9 @@ $(STATEDIR)/tcpwrapper.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, tcpwrapper)
-	@$(call install_fixup, tcpwrapper,PACKAGE,tcpwrapper)
 	@$(call install_fixup, tcpwrapper,PRIORITY,optional)
-	@$(call install_fixup, tcpwrapper,VERSION,$(TCPWRAPPER_VERSION))
 	@$(call install_fixup, tcpwrapper,SECTION,base)
 	@$(call install_fixup, tcpwrapper,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, tcpwrapper,DEPENDS,)
 	@$(call install_fixup, tcpwrapper,DESCRIPTION,missing)
 
 ifdef PTXCONF_TCPWRAPPER_INSTALL_TCPD

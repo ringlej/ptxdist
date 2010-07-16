@@ -50,12 +50,9 @@ $(STATEDIR)/nickel.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, nickel)
-	@$(call install_fixup, nickel,PACKAGE,nickel)
 	@$(call install_fixup, nickel,PRIORITY,optional)
-	@$(call install_fixup, nickel,VERSION,$(NICKEL_VERSION))
 	@$(call install_fixup, nickel,SECTION,base)
 	@$(call install_fixup, nickel,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, nickel,DEPENDS,)
 	@$(call install_fixup, nickel,DESCRIPTION,missing)
 
 	@$(call install_copy, nickel, 0, 0, 0644, -, \

@@ -54,12 +54,9 @@ $(STATEDIR)/irssi.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  irssi)
-	@$(call install_fixup, irssi,PACKAGE,irssi)
 	@$(call install_fixup, irssi,PRIORITY,optional)
-	@$(call install_fixup, irssi,VERSION,$(IRSSI_VERSION))
 	@$(call install_fixup, irssi,SECTION,base)
 	@$(call install_fixup, irssi,AUTHOR,"Josef Holzmayr <holzmayr@rsi-elektrotechnik.de")
-	@$(call install_fixup, irssi,DEPENDS,)
 	@$(call install_fixup, irssi,DESCRIPTION,missing)
 
 	@$(call install_copy, irssi, 0, 0, 0755, -, /usr/bin/irssi)

@@ -95,12 +95,9 @@ $(STATEDIR)/locales.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, locales)
-	@$(call install_fixup, locales,PACKAGE,locales)
 	@$(call install_fixup, locales,PRIORITY,optional)
-	@$(call install_fixup, locales,VERSION,$(LOCALES_VERSION))
 	@$(call install_fixup, locales,SECTION,base)
 	@$(call install_fixup, locales,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, locales,DEPENDS,)
 	@$(call install_fixup, locales,DESCRIPTION,missing)
 
 	@$(call install_copy, locales, 0, 0, 0755, -, \

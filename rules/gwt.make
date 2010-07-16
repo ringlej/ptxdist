@@ -58,12 +58,9 @@ $(STATEDIR)/gwt.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gwt)
-	@$(call install_fixup, gwt,PACKAGE,gwt)
 	@$(call install_fixup, gwt,PRIORITY,optional)
-	@$(call install_fixup, gwt,VERSION,$(GWT_VERSION))
 	@$(call install_fixup, gwt,SECTION,base)
 	@$(call install_fixup, gwt,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gwt,DEPENDS,)
 	@$(call install_fixup, gwt,DESCRIPTION,missing)
 
 	@$(call install_copy, gwt, 0, 0, 0644, -, /usr/lib/libgwt.so.1.0.0)

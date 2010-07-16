@@ -1,6 +1,4 @@
 # -*-makefile-*-
-# $Id: template 6001 2006-08-12 10:15:00Z mkl $
-#
 # Copyright (C) 2006 by Robert Schwebel
 #
 # See CREDITS for details about who has contributed to this project.
@@ -109,12 +107,9 @@ $(STATEDIR)/pureftpd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pureftpd)
-	@$(call install_fixup,pureftpd,PACKAGE,pureftpd)
 	@$(call install_fixup,pureftpd,PRIORITY,optional)
-	@$(call install_fixup,pureftpd,VERSION,$(PUREFTPD_VERSION))
 	@$(call install_fixup,pureftpd,SECTION,base)
 	@$(call install_fixup,pureftpd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,pureftpd,DEPENDS,)
 	@$(call install_fixup,pureftpd,DESCRIPTION,missing)
 
 	@$(call install_copy, pureftpd, 0, 0, 0755, -, \

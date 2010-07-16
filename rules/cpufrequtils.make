@@ -54,12 +54,9 @@ $(STATEDIR)/cpufrequtils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, cpufrequtils)
-	@$(call install_fixup, cpufrequtils,PACKAGE,cpufrequtils)
 	@$(call install_fixup, cpufrequtils,PRIORITY,optional)
-	@$(call install_fixup, cpufrequtils,VERSION,$(CPUFREQUTILS_VERSION))
 	@$(call install_fixup, cpufrequtils,SECTION,base)
 	@$(call install_fixup, cpufrequtils,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
-	@$(call install_fixup, cpufrequtils,DEPENDS,)
 	@$(call install_fixup, cpufrequtils,DESCRIPTION,missing)
 
 	@$(call install_copy, cpufrequtils, 0, 0, 0644, -, \

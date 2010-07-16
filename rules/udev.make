@@ -123,12 +123,9 @@ $(STATEDIR)/udev.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  udev)
-	@$(call install_fixup, udev,PACKAGE,udev)
 	@$(call install_fixup, udev,PRIORITY,optional)
-	@$(call install_fixup, udev,VERSION,$(UDEV_VERSION))
 	@$(call install_fixup, udev,SECTION,base)
 	@$(call install_fixup, udev,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, udev,DEPENDS,)
 	@$(call install_fixup, udev,DESCRIPTION,missing)
 
 #	#

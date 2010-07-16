@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-lib-xevie.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xevie)
-	@$(call install_fixup, xorg-lib-xevie,PACKAGE,xorg-lib-xevie)
 	@$(call install_fixup, xorg-lib-xevie,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xevie,VERSION,$(XORG_LIB_XEVIE_VERSION))
 	@$(call install_fixup, xorg-lib-xevie,SECTION,base)
 	@$(call install_fixup, xorg-lib-xevie,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xevie,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xevie,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xevie, 0, 0, 0644, -, \

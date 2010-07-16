@@ -53,12 +53,9 @@ $(STATEDIR)/libnet.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libnet)
-	@$(call install_fixup, libnet,PACKAGE,libnet)
 	@$(call install_fixup, libnet,PRIORITY,optional)
-	@$(call install_fixup, libnet,VERSION,$(LIBNET_VERSION))
 	@$(call install_fixup, libnet,SECTION,base)
 	@$(call install_fixup, libnet,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libnet,DEPENDS,)
 	@$(call install_fixup, libnet,DESCRIPTION,missing)
 
 	@$(call install_copy, libnet, 0, 0, 0644, -, /usr/lib/libnet.so.1.5.0)

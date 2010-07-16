@@ -61,12 +61,9 @@ $(STATEDIR)/liboop.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  liboop)
-	@$(call install_fixup, liboop,PACKAGE,liboop)
 	@$(call install_fixup, liboop,PRIORITY,optional)
-	@$(call install_fixup, liboop,VERSION,$(LIBOOP_VERSION))
 	@$(call install_fixup, liboop,SECTION,base)
 	@$(call install_fixup, liboop,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, liboop,DEPENDS,)
 	@$(call install_fixup, liboop,DESCRIPTION,missing)
 
 	@$(call install_copy, liboop, 0, 0, 0644, -, \

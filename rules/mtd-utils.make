@@ -62,12 +62,9 @@ $(STATEDIR)/mtd-utils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, mtd-utils)
-	@$(call install_fixup, mtd-utils,PACKAGE,mtd-utils)
 	@$(call install_fixup, mtd-utils,PRIORITY,optional)
-	@$(call install_fixup, mtd-utils,VERSION,$(MTD_UTILS_VERSION))
 	@$(call install_fixup, mtd-utils,SECTION,base)
 	@$(call install_fixup, mtd-utils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, mtd-utils,DEPENDS,)
 	@$(call install_fixup, mtd-utils,DESCRIPTION,missing)
 
 ifdef PTXCONF_MTD_UTILS_FLASH_ERASE

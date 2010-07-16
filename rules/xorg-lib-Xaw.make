@@ -66,12 +66,9 @@ $(STATEDIR)/xorg-lib-xaw.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xaw)
-	@$(call install_fixup, xorg-lib-xaw,PACKAGE,xorg-lib-xaw)
 	@$(call install_fixup, xorg-lib-xaw,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xaw,VERSION,$(XORG_LIB_XAW_VERSION))
 	@$(call install_fixup, xorg-lib-xaw,SECTION,base)
 	@$(call install_fixup, xorg-lib-xaw,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xaw,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xaw,DESCRIPTION,missing)
 
 ifdef PTXCONF_XORG_LIB_XAW_V6

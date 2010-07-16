@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-lib-xv.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xv)
-	@$(call install_fixup, xorg-lib-xv,PACKAGE,xorg-lib-xv)
 	@$(call install_fixup, xorg-lib-xv,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xv,VERSION,$(XORG_LIB_XV_VERSION))
 	@$(call install_fixup, xorg-lib-xv,SECTION,base)
 	@$(call install_fixup, xorg-lib-xv,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xv,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xv,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xv, 0, 0, 0644, -, \

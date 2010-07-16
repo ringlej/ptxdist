@@ -54,12 +54,9 @@ $(STATEDIR)/glibmm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, glibmm)
-	@$(call install_fixup, glibmm,PACKAGE,glibmm)
 	@$(call install_fixup, glibmm,PRIORITY,optional)
-	@$(call install_fixup, glibmm,VERSION,$(GLIBMM_VERSION))
 	@$(call install_fixup, glibmm,SECTION,base)
 	@$(call install_fixup, glibmm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, glibmm,DEPENDS,)
 	@$(call install_fixup, glibmm,DESCRIPTION,missing)
 
 	@$(call install_copy, glibmm, 0, 0, 0644, -, \

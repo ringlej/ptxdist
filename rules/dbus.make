@@ -85,12 +85,9 @@ $(STATEDIR)/dbus.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, dbus)
-	@$(call install_fixup,dbus,PACKAGE,dbus)
 	@$(call install_fixup,dbus,PRIORITY,optional)
-	@$(call install_fixup,dbus,VERSION,$(DBUS_VERSION))
 	@$(call install_fixup,dbus,SECTION,base)
 	@$(call install_fixup,dbus,AUTHOR,"Roland Hostettler <r.hostettler@gmx.ch>")
-	@$(call install_fixup,dbus,DEPENDS,)
 	@$(call install_fixup,dbus,DESCRIPTION,missing)
 
 	@$(call install_copy, dbus, 0, 0, 0755, -, \

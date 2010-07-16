@@ -55,12 +55,9 @@ $(STATEDIR)/htop.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, htop)
-	@$(call install_fixup, htop,PACKAGE,htop)
 	@$(call install_fixup, htop,PRIORITY,optional)
-	@$(call install_fixup, htop,VERSION,$(HTOP_VERSION))
 	@$(call install_fixup, htop,SECTION,base)
 	@$(call install_fixup, htop,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, htop,DEPENDS,)
 	@$(call install_fixup, htop,DESCRIPTION,missing)
 
 	@$(call install_copy, htop, 0, 0, 0755, -, /usr/bin/htop)

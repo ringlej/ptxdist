@@ -49,12 +49,9 @@ $(STATEDIR)/fbtest.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fbtest)
-	@$(call install_fixup, fbtest,PACKAGE,fbtest)
 	@$(call install_fixup, fbtest,PRIORITY,optional)
-	@$(call install_fixup, fbtest,VERSION,$(FBTEST_VERSION))
 	@$(call install_fixup, fbtest,SECTION,base)
 	@$(call install_fixup, fbtest,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, fbtest,DEPENDS,)
 	@$(call install_fixup, fbtest,DESCRIPTION,missing)
 
 	@$(call install_copy, fbtest, 0, 0, 0755, -, /sbin/fbtest)

@@ -61,12 +61,9 @@ $(STATEDIR)/xawtv.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xawtv)
-	@$(call install_fixup,xawtv,PACKAGE,xawtv)
 	@$(call install_fixup,xawtv,PRIORITY,optional)
-	@$(call install_fixup,xawtv,VERSION,$(XAWTV_VERSION))
 	@$(call install_fixup,xawtv,SECTION,base)
 	@$(call install_fixup,xawtv,AUTHOR,"Luotao Fu <lfu@pengutronix.de>")
-	@$(call install_fixup,xawtv,DEPENDS,)
 	@$(call install_fixup,xawtv,DESCRIPTION,missing)
 
 	@$(call install_copy, xawtv, 0, 0, 0755, -, /usr/bin/dump-mixers)

@@ -83,12 +83,9 @@ $(STATEDIR)/iptables.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, iptables)
-	@$(call install_fixup, iptables,PACKAGE,iptables)
 	@$(call install_fixup, iptables,PRIORITY,optional)
-	@$(call install_fixup, iptables,VERSION,$(IPTABLES_VERSION))
 	@$(call install_fixup, iptables,SECTION,base)
 	@$(call install_fixup, iptables,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, iptables,DEPENDS,)
 	@$(call install_fixup, iptables,DESCRIPTION,missing)
 
 # 	# install the basic libraries

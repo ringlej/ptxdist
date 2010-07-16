@@ -149,12 +149,9 @@ $(STATEDIR)/apache2.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, apache2)
-	@$(call install_fixup, apache2,PACKAGE,apache2)
 	@$(call install_fixup, apache2,PRIORITY,optional)
-	@$(call install_fixup, apache2,VERSION,$(APACHE2_VERSION))
 	@$(call install_fixup, apache2,SECTION,base)
 	@$(call install_fixup, apache2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, apache2,DEPENDS,)
 	@$(call install_fixup, apache2,DESCRIPTION,missing)
 
 #	# the server binary

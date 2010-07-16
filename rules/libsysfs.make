@@ -51,12 +51,9 @@ $(STATEDIR)/libsysfs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libsysfs)
-	@$(call install_fixup, libsysfs,PACKAGE,libsysfs)
 	@$(call install_fixup, libsysfs,PRIORITY,optional)
-	@$(call install_fixup, libsysfs,VERSION,$(LIBSYSFS_VERSION))
 	@$(call install_fixup, libsysfs,SECTION,base)
 	@$(call install_fixup, libsysfs,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, libsysfs,DEPENDS,)
 	@$(call install_fixup, libsysfs,DESCRIPTION,missing)
 
 	@$(call install_copy, libsysfs, 0,0, 644, -, /usr/lib/libsysfs.so.2.0.1)

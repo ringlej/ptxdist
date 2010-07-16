@@ -97,12 +97,9 @@ $(STATEDIR)/xorg-fonts.targetinstall.post:
 # FIXME: add fc-cache?
 
 	@$(call install_init, xorg-fonts)
-	@$(call install_fixup, xorg-fonts,PACKAGE,xorg-fonts)
 	@$(call install_fixup, xorg-fonts,PRIORITY,optional)
-	@$(call install_fixup, xorg-fonts,VERSION,$(XORG_FONTS_VERSION))
 	@$(call install_fixup, xorg-fonts,SECTION,base)
 	@$(call install_fixup, xorg-fonts,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xorg-fonts,DEPENDS,)
 	@$(call install_fixup, xorg-fonts,DESCRIPTION,missing)
 
 	@cd $(XORG_FONTS_DIR_INSTALL); \

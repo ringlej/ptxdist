@@ -53,12 +53,9 @@ $(STATEDIR)/gtk-engine-experience.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gtk-engine-experience)
-	@$(call install_fixup, gtk-engine-experience,PACKAGE,gtk-engine-experience)
 	@$(call install_fixup, gtk-engine-experience,PRIORITY,optional)
-	@$(call install_fixup, gtk-engine-experience,VERSION,$(GTK_ENGINE_EXPERIENCE_VERSION))
 	@$(call install_fixup, gtk-engine-experience,SECTION,base)
 	@$(call install_fixup, gtk-engine-experience,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gtk-engine-experience,DEPENDS,)
 	@$(call install_fixup, gtk-engine-experience,DESCRIPTION,missing)
 
 	@$(call install_copy, gtk-engine-experience, 0, 0, 0644, \

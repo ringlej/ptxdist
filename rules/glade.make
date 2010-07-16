@@ -55,12 +55,9 @@ $(STATEDIR)/glade.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, glade)
-	@$(call install_fixup, glade,PACKAGE,glade)
 	@$(call install_fixup, glade,PRIORITY,optional)
-	@$(call install_fixup, glade,VERSION,$(GLADE_VERSION))
 	@$(call install_fixup, glade,SECTION,base)
 	@$(call install_fixup, glade,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, glade,DEPENDS,)
 	@$(call install_fixup, glade,DESCRIPTION,missing)
 
 	@$(call install_copy, glade, 0, 0, 0755, -, \

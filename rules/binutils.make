@@ -61,12 +61,9 @@ $(STATEDIR)/binutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  binutils)
-	@$(call install_fixup, binutils,PACKAGE,binutils)
 	@$(call install_fixup, binutils,PRIORITY,optional)
-	@$(call install_fixup, binutils,VERSION,$(BINUTILS_VERSION))
 	@$(call install_fixup, binutils,SECTION,base)
 	@$(call install_fixup, binutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, binutils,DEPENDS,)
 	@$(call install_fixup, binutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_BINUTILS_READELF

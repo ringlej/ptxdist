@@ -77,12 +77,9 @@ $(STATEDIR)/php-apc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, php-apc)
-	@$(call install_fixup, php-apc,PACKAGE,php-apc)
 	@$(call install_fixup, php-apc,PRIORITY,optional)
-	@$(call install_fixup, php-apc,VERSION,$(PHP_APC_VERSION))
 	@$(call install_fixup, php-apc,SECTION,base)
 	@$(call install_fixup, php-apc,AUTHOR,"Jiri Nesladek <nesladek@2n.cz>")
-	@$(call install_fixup, php-apc,DEPENDS,)
 	@$(call install_fixup, php-apc,DESCRIPTION,missing)
 
 	@$(call install_copy, php-apc, 0, 0, 0644, -, /usr/lib/php/apc.so)

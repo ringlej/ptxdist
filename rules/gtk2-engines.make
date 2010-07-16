@@ -53,12 +53,9 @@ $(STATEDIR)/gtk2-engines.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gtk2-engines)
-	@$(call install_fixup, gtk2-engines,PACKAGE,gtk2-engines)
 	@$(call install_fixup, gtk2-engines,PRIORITY,optional)
-	@$(call install_fixup, gtk2-engines,VERSION,$(GTK2_ENGINES_VERSION))
 	@$(call install_fixup, gtk2-engines,SECTION,base)
 	@$(call install_fixup, gtk2-engines,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gtk2-engines,DEPENDS,)
 	@$(call install_fixup, gtk2-engines,DESCRIPTION,missing)
 
 	@$(call install_copy, gtk2-engines, 0, 0, 0644, -, \

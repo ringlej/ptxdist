@@ -87,12 +87,9 @@ $(STATEDIR)/libgd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libgd)
-	@$(call install_fixup, libgd,PACKAGE,libgd)
 	@$(call install_fixup, libgd,PRIORITY,optional)
-	@$(call install_fixup, libgd,VERSION,$(LIBGD_VERSION))
 	@$(call install_fixup, libgd,SECTION,base)
 	@$(call install_fixup, libgd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libgd,DEPENDS,)
 	@$(call install_fixup, libgd,DESCRIPTION,missing)
 
 	@$(call install_copy, libgd, 0, 0, 0644, -, \

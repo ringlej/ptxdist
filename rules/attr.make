@@ -77,12 +77,9 @@ $(STATEDIR)/attr.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, attr)
-	@$(call install_fixup, attr,PACKAGE,attr)
 	@$(call install_fixup, attr,PRIORITY,optional)
-	@$(call install_fixup, attr,VERSION,$(ATTR_VERSION))
 	@$(call install_fixup, attr,SECTION,base)
 	@$(call install_fixup, attr,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, attr,DEPENDS,)
 	@$(call install_fixup, attr,DESCRIPTION,missing)
 
 ifdef PTXCONF_ATTR_TOOLS

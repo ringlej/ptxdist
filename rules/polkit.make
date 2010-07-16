@@ -60,12 +60,9 @@ $(STATEDIR)/polkit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, polkit)
-	@$(call install_fixup, polkit,PACKAGE,polkit)
 	@$(call install_fixup, polkit,PRIORITY,optional)
-	@$(call install_fixup, polkit,VERSION,$(POLKIT_VERSION))
 	@$(call install_fixup, polkit,SECTION,base)
 	@$(call install_fixup, polkit,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, polkit,DEPENDS,)
 	@$(call install_fixup, polkit,DESCRIPTION,missing)
 
 # dbus

@@ -62,12 +62,9 @@ $(STATEDIR)/rsync3.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  rsync3)
-	@$(call install_fixup, rsync3,PACKAGE,rsync3)
 	@$(call install_fixup, rsync3,PRIORITY,optional)
-	@$(call install_fixup, rsync3,VERSION,$(RSYNC3_VERSION))
 	@$(call install_fixup, rsync3,SECTION,base)
 	@$(call install_fixup, rsync3,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, rsync3,DEPENDS,)
 	@$(call install_fixup, rsync3,DESCRIPTION,missing)
 
 	@$(call install_copy, rsync3, 0, 0, 0755, -, \

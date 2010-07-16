@@ -55,12 +55,9 @@ $(STATEDIR)/libcgi.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libcgi)
-	@$(call install_fixup, libcgi,PACKAGE,libcgi)
 	@$(call install_fixup, libcgi,PRIORITY,optional)
-	@$(call install_fixup, libcgi,VERSION,$(LIBCGI_VERSION))
 	@$(call install_fixup, libcgi,SECTION,base)
 	@$(call install_fixup, libcgi,AUTHOR,"Guillaume GOURAT <guillaume.gourat@nexvision.fr>")
-	@$(call install_fixup, libcgi,DEPENDS,)
 	@$(call install_fixup, libcgi,DESCRIPTION,missing)
 
 	@$(call install_copy, libcgi, 0, 0, 0644, -, /usr/lib/libcgi.so)

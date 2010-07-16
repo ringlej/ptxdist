@@ -51,12 +51,9 @@ $(STATEDIR)/xorg-app-xrdb.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xrdb)
-	@$(call install_fixup,xorg-app-xrdb,PACKAGE,xorg-app-xrdb)
 	@$(call install_fixup,xorg-app-xrdb,PRIORITY,optional)
-	@$(call install_fixup,xorg-app-xrdb,VERSION,$(XORG_APP_XRDB_VERSION))
 	@$(call install_fixup,xorg-app-xrdb,SECTION,base)
 	@$(call install_fixup,xorg-app-xrdb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-app-xrdb,DEPENDS,)
 	@$(call install_fixup,xorg-app-xrdb,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xrdb, 0, 0, 0755, -, \

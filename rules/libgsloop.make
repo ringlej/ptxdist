@@ -51,12 +51,9 @@ $(STATEDIR)/libgsloop.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libgsloop)
-	@$(call install_fixup, libgsloop,PACKAGE,libgsloop)
 	@$(call install_fixup, libgsloop,PRIORITY,optional)
-	@$(call install_fixup, libgsloop,VERSION,$(LIBGSLOOP_VERSION))
 	@$(call install_fixup, libgsloop,SECTION,base)
 	@$(call install_fixup, libgsloop,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libgsloop,DEPENDS,)
 	@$(call install_fixup, libgsloop,DESCRIPTION,missing)
 
 	@$(call install_copy, libgsloop, 0, 0, 0644, -, \

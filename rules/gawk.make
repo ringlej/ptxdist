@@ -51,12 +51,9 @@ $(STATEDIR)/gawk.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gawk)
-	@$(call install_fixup, gawk,PACKAGE,gawk)
 	@$(call install_fixup, gawk,PRIORITY,optional)
-	@$(call install_fixup, gawk,VERSION,$(GAWK_VERSION))
 	@$(call install_fixup, gawk,SECTION,base)
 	@$(call install_fixup, gawk,AUTHOR,"Carsten Schlote <schlote@konzeptpark.de>")
-	@$(call install_fixup, gawk,DEPENDS,)
 	@$(call install_fixup, gawk,DESCRIPTION,missing)
 
 	@$(call install_copy, gawk, 0, 0, 0755, -, /usr/bin/gawk)

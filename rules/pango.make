@@ -74,12 +74,9 @@ $(STATEDIR)/pango.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pango)
-	@$(call install_fixup,pango,PACKAGE,pango)
 	@$(call install_fixup,pango,PRIORITY,optional)
-	@$(call install_fixup,pango,VERSION,$(PANGO_VERSION))
 	@$(call install_fixup,pango,SECTION,base)
 	@$(call install_fixup,pango,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,pango,DEPENDS,)
 	@$(call install_fixup,pango,DESCRIPTION,missing)
 
 	@$(call install_copy, pango, 0, 0, 0644, -, \

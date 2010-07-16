@@ -51,12 +51,9 @@ $(STATEDIR)/urshd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, urshd)
-	@$(call install_fixup, urshd,PACKAGE,urshd)
 	@$(call install_fixup, urshd,PRIORITY,optional)
-	@$(call install_fixup, urshd,VERSION,$(URSHD_VERSION))
 	@$(call install_fixup, urshd,SECTION,base)
 	@$(call install_fixup, urshd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, urshd,DEPENDS,)
 	@$(call install_fixup, urshd,DESCRIPTION,missing)
 
 	@$(call install_copy, urshd, 0, 0, 0755, -, \

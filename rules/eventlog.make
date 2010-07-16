@@ -51,12 +51,9 @@ $(STATEDIR)/eventlog.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, eventlog)
-	@$(call install_fixup, eventlog,PACKAGE,eventlog)
 	@$(call install_fixup, eventlog,PRIORITY,optional)
-	@$(call install_fixup, eventlog,VERSION,$(EVENTLOG_VERSION))
 	@$(call install_fixup, eventlog,SECTION,base)
 	@$(call install_fixup, eventlog,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, eventlog,DEPENDS,)
 	@$(call install_fixup, eventlog,DESCRIPTION,missing)
 
 	@$(call install_copy, eventlog, 0, 0, 0644, -, \

@@ -86,12 +86,9 @@ $(STATEDIR)/speex.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  speex)
-	@$(call install_fixup, speex,PACKAGE,speex)
 	@$(call install_fixup, speex,PRIORITY,optional)
-	@$(call install_fixup, speex,VERSION,$(SPEEX_VERSION))
 	@$(call install_fixup, speex,SECTION,base)
 	@$(call install_fixup, speex,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
-	@$(call install_fixup, speex,DEPENDS,)
 	@$(call install_fixup, speex,DESCRIPTION,missing)
 
 ifdef PTXCONF_SPEEX_INSTALL_SPEEXENC

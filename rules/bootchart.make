@@ -60,12 +60,9 @@ $(STATEDIR)/bootchart.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, bootchart)
-	@$(call install_fixup, bootchart,PACKAGE,bootchart)
 	@$(call install_fixup, bootchart,PRIORITY,optional)
-	@$(call install_fixup, bootchart,VERSION,$(BOOTCHART_VERSION))
 	@$(call install_fixup, bootchart,SECTION,base)
 	@$(call install_fixup, bootchart,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, bootchart,DEPENDS,)
 	@$(call install_fixup, bootchart,DESCRIPTION,missing)
 
 #	# we mount a tmpfs into this dir

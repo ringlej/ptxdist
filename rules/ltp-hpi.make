@@ -70,12 +70,9 @@ $(STATEDIR)/ltp-hpi.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-hpi)
-	@$(call install_fixup, ltp-hpi,PACKAGE,ltp-hpi)
 	@$(call install_fixup, ltp-hpi,PRIORITY,optional)
-	@$(call install_fixup, ltp-hpi,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-hpi,SECTION,base)
 	@$(call install_fixup, ltp-hpi,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-hpi,DEPENDS,)
 	@$(call install_fixup, ltp-hpi,DESCRIPTION,missing)
 
 	@for file in `find $(LTP_HPI_PKGDIR)/bin -type f`; do \

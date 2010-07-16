@@ -75,12 +75,9 @@ $(STATEDIR)/lsof.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, lsof)
-	@$(call install_fixup, lsof,PACKAGE,lsof)
 	@$(call install_fixup, lsof,PRIORITY,optional)
-	@$(call install_fixup, lsof,VERSION,$(LSOF_VERSION))
 	@$(call install_fixup, lsof,SECTION,base)
 	@$(call install_fixup, lsof,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, lsof,DEPENDS,)
 	@$(call install_fixup, lsof,DESCRIPTION,missing)
 
 	@$(call install_copy, lsof, 0, 0, 0755, -, /usr/bin/lsof)

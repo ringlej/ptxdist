@@ -48,12 +48,9 @@ $(STATEDIR)/hdparm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, hdparm)
-	@$(call install_fixup, hdparm,PACKAGE,hdparm)
 	@$(call install_fixup, hdparm,PRIORITY,optional)
-	@$(call install_fixup, hdparm,VERSION,$(HDPARM_VERSION))
 	@$(call install_fixup, hdparm,SECTION,base)
 	@$(call install_fixup, hdparm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, hdparm,DEPENDS,)
 	@$(call install_fixup, hdparm,DESCRIPTION,missing)
 
 	@$(call install_copy, hdparm, 0, 0, 0755, -, /sbin/hdparm)

@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-lib-xinerama.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xinerama)
-	@$(call install_fixup, xorg-lib-xinerama,PACKAGE,xorg-lib-xinerama)
 	@$(call install_fixup, xorg-lib-xinerama,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xinerama,VERSION,$(XORG_LIB_XINERAMA_VERSION))
 	@$(call install_fixup, xorg-lib-xinerama,SECTION,base)
 	@$(call install_fixup, xorg-lib-xinerama,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xinerama,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xinerama,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xinerama, 0, 0, 0644, -, \

@@ -53,12 +53,9 @@ $(STATEDIR)/expat.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, expat)
-	@$(call install_fixup, expat,PACKAGE,expat)
 	@$(call install_fixup, expat,PRIORITY,optional)
-	@$(call install_fixup, expat,VERSION,$(EXPAT_VERSION))
 	@$(call install_fixup, expat,SECTION,base)
 	@$(call install_fixup, expat,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, expat,DEPENDS,)
 	@$(call install_fixup, expat,DESCRIPTION,missing)
 
 	@$(call install_copy, expat, 0, 0, 0644, -, /usr/lib/libexpat.so.1.5.2)

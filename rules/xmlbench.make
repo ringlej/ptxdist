@@ -71,12 +71,9 @@ $(STATEDIR)/xmlbench.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xmlbench)
-	@$(call install_fixup, xmlbench,PACKAGE,xmlbench)
 	@$(call install_fixup, xmlbench,PRIORITY,optional)
-	@$(call install_fixup, xmlbench,VERSION,$(XMLBENCH_VERSION))
 	@$(call install_fixup, xmlbench,SECTION,base)
 	@$(call install_fixup, xmlbench,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xmlbench,DEPENDS,)
 	@$(call install_fixup, xmlbench,DESCRIPTION,missing)
 
 	@$(call install_copy, xmlbench, 0, 0, 0755, $(XMLBENCH_DIR)/foobar, /dev/null)

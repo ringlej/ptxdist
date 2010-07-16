@@ -48,12 +48,9 @@ $(STATEDIR)/acpid.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  acpid)
-	@$(call install_fixup, acpid,PACKAGE,acpid)
 	@$(call install_fixup, acpid,PRIORITY,optional)
-	@$(call install_fixup, acpid,VERSION,$(ACPID_VERSION))
 	@$(call install_fixup, acpid,SECTION,base)
 	@$(call install_fixup, acpid,AUTHOR,"Jan Weitzel <j.weitzel@phytec.de>, Juergen Kilb <j.kilb@phytec.de>")
-	@$(call install_fixup, acpid,DEPENDS,)
 	@$(call install_fixup, acpid,DESCRIPTION,missing)
 
 	@$(call install_copy, acpid, 0, 0, 0755, -, /usr/sbin/acpid)

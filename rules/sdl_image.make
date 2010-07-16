@@ -70,12 +70,9 @@ $(STATEDIR)/sdl_image.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sdl_image)
-	@$(call install_fixup, sdl_image,PACKAGE,sdl-image)
 	@$(call install_fixup, sdl_image,PRIORITY,optional)
-	@$(call install_fixup, sdl_image,VERSION,$(SDL_IMAGE_VERSION))
 	@$(call install_fixup, sdl_image,SECTION,base)
 	@$(call install_fixup, sdl_image,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, sdl_image,DEPENDS,)
 	@$(call install_fixup, sdl_image,DESCRIPTION,missing)
 
 	@$(call install_copy, sdl_image, 0, 0, 0644, -, \

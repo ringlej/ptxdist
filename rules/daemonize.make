@@ -52,12 +52,9 @@ $(STATEDIR)/daemonize.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, daemonize)
-	@$(call install_fixup,daemonize,PACKAGE,daemonize)
 	@$(call install_fixup,daemonize,PRIORITY,optional)
-	@$(call install_fixup,daemonize,VERSION,$(DAEMONIZE_VERSION))
 	@$(call install_fixup,daemonize,SECTION,base)
 	@$(call install_fixup,daemonize,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,daemonize,DEPENDS,)
 	@$(call install_fixup,daemonize,DESCRIPTION,missing)
 
 	@$(call install_copy, daemonize, 0, 0, 0755, -, \

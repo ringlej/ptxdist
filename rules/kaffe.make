@@ -93,12 +93,9 @@ $(STATEDIR)/kaffe.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, kaffe)
-	@$(call install_fixup,kaffe,PACKAGE,kaffe)
 	@$(call install_fixup,kaffe,PRIORITY,optional)
-	@$(call install_fixup,kaffe,VERSION,$(KAFFE_VERSION))
 	@$(call install_fixup,kaffe,SECTION,base)
 	@$(call install_fixup,kaffe,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,kaffe,DEPENDS,)
 	@$(call install_fixup,kaffe,DESCRIPTION,missing)
 
 	@$(call install_copy, kaffe, 0, 0, 0755, -, /usr/jre/bin/java)

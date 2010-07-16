@@ -56,12 +56,9 @@ $(STATEDIR)/valgrind.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, valgrind)
-	@$(call install_fixup, valgrind,PACKAGE,valgrind)
 	@$(call install_fixup, valgrind,PRIORITY,optional)
-	@$(call install_fixup, valgrind,VERSION,$(VALGRIND_VERSION))
 	@$(call install_fixup, valgrind,SECTION,base)
 	@$(call install_fixup, valgrind,AUTHOR,"Shahar Livne <shahar@livnex.com>")
-	@$(call install_fixup, valgrind,DEPENDS,)
 	@$(call install_fixup, valgrind,DESCRIPTION,missing)
 
 	@$(call install_copy, valgrind, 0, 0, 0755, -, /usr/bin/valgrind)

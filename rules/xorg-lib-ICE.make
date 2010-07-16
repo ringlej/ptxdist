@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-lib-ice.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-ice)
-	@$(call install_fixup, xorg-lib-ice,PACKAGE,xorg-lib-ice)
 	@$(call install_fixup, xorg-lib-ice,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-ice,VERSION,$(XORG_LIB_ICE_VERSION))
 	@$(call install_fixup, xorg-lib-ice,SECTION,base)
 	@$(call install_fixup, xorg-lib-ice,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-ice,DEPENDS,)
 	@$(call install_fixup, xorg-lib-ice,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-ice, 0, 0, 0644, -, \

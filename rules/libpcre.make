@@ -68,12 +68,9 @@ $(STATEDIR)/libpcre.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libpcre)
-	@$(call install_fixup, libpcre,PACKAGE,libpcre)
 	@$(call install_fixup, libpcre,PRIORITY,optional)
-	@$(call install_fixup, libpcre,VERSION,$(LIBPCRE_VERSION))
 	@$(call install_fixup, libpcre,SECTION,base)
 	@$(call install_fixup, libpcre,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libpcre,DEPENDS,)
 	@$(call install_fixup, libpcre,DESCRIPTION,missing)
 
 	@$(call install_copy, libpcre, 0, 0, 0644, -, /usr/lib/libpcre.so.0.0.1)

@@ -302,12 +302,9 @@ $(STATEDIR)/php5.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, php5)
-	@$(call install_fixup,php5,PACKAGE,php5)
 	@$(call install_fixup,php5,PRIORITY,optional)
-	@$(call install_fixup,php5,VERSION,$(PHP5_VERSION))
 	@$(call install_fixup,php5,SECTION,base)
 	@$(call install_fixup,php5,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,php5,DEPENDS,)
 	@$(call install_fixup,php5,DESCRIPTION,missing)
 
 ifdef PTXCONF_PHP5_SAPI_APXS2

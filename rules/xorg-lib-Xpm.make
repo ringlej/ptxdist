@@ -52,12 +52,9 @@ $(STATEDIR)/xorg-lib-xpm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xpm)
-	@$(call install_fixup, xorg-lib-xpm,PACKAGE,xorg-lib-xpm)
 	@$(call install_fixup, xorg-lib-xpm,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xpm,VERSION,$(XORG_LIB_XPM_VERSION))
 	@$(call install_fixup, xorg-lib-xpm,SECTION,base)
 	@$(call install_fixup, xorg-lib-xpm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xpm,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xpm,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xpm, 0, 0, 0644, -, \

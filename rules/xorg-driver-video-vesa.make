@@ -51,12 +51,9 @@ $(STATEDIR)/xorg-driver-video-vesa.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-video-vesa)
-	@$(call install_fixup,xorg-driver-video-vesa,PACKAGE,xorg-driver-video-vesa)
 	@$(call install_fixup,xorg-driver-video-vesa,PRIORITY,optional)
-	@$(call install_fixup,xorg-driver-video-vesa,VERSION,$(XORG_DRIVER_VIDEO_VESA_VERSION))
 	@$(call install_fixup,xorg-driver-video-vesa,SECTION,base)
 	@$(call install_fixup,xorg-driver-video-vesa,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-driver-video-vesa,DEPENDS,)
 	@$(call install_fixup,xorg-driver-video-vesa,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-vesa, 0, 0, 0755, -, \

@@ -53,12 +53,9 @@ $(STATEDIR)/freetype.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, freetype)
-	@$(call install_fixup, freetype,PACKAGE,freetype)
 	@$(call install_fixup, freetype,PRIORITY,optional)
-	@$(call install_fixup, freetype,VERSION,$(FREETYPE_VERSION))
 	@$(call install_fixup, freetype,SECTION,base)
 	@$(call install_fixup, freetype,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, freetype,DEPENDS,)
 	@$(call install_fixup, freetype,DESCRIPTION,missing)
 
 	@$(call install_copy, freetype, 0, 0, 0644, -, /usr/lib/libfreetype.so.6.3.22)

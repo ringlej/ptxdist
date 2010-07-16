@@ -56,12 +56,9 @@ $(STATEDIR)/sysvinit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sysvinit)
-	@$(call install_fixup, sysvinit,PACKAGE,sysvinit)
 	@$(call install_fixup, sysvinit,PRIORITY,optional)
-	@$(call install_fixup, sysvinit,VERSION,$(SYSVINIT_VERSION))
 	@$(call install_fixup, sysvinit,SECTION,base)
 	@$(call install_fixup, sysvinit,AUTHOR,"Oscar Peredo <oscar@exis.cl>")
-	@$(call install_fixup, sysvinit,DEPENDS,)
 	@$(call install_fixup, sysvinit,DESCRIPTION,missing)
 
 ifdef PTXCONF_SYSVINIT_INIT

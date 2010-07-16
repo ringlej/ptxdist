@@ -52,12 +52,9 @@ $(STATEDIR)/xorg-lib-fontenc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-fontenc)
-	@$(call install_fixup, xorg-lib-fontenc,PACKAGE,xorg-lib-fontenc)
 	@$(call install_fixup, xorg-lib-fontenc,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-fontenc,VERSION,$(XORG_LIB_FONTENC_VERSION))
 	@$(call install_fixup, xorg-lib-fontenc,SECTION,base)
 	@$(call install_fixup, xorg-lib-fontenc,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-fontenc,DEPENDS,)
 	@$(call install_fixup, xorg-lib-fontenc,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-fontenc, 0, 0, 0644, -, \

@@ -71,12 +71,9 @@ $(STATEDIR)/canfestival.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, canfestival)
-	@$(call install_fixup, canfestival,PACKAGE,canfestival)
 	@$(call install_fixup, canfestival,PRIORITY,optional)
-	@$(call install_fixup, canfestival,VERSION,$(CANFESTIVAL_VERSION))
 	@$(call install_fixup, canfestival,SECTION,base)
 	@$(call install_fixup, canfestival,AUTHOR,"Markus Messmer <m.messmer@pengutronix.de>")
-	@$(call install_fixup, canfestival,DEPENDS,)
 	@$(call install_fixup, canfestival,DESCRIPTION,missing)
 
 	@$(call install_copy, canfestival, 0, 0, 0644, -, \

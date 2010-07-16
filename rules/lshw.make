@@ -61,12 +61,9 @@ $(STATEDIR)/lshw.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  lshw)
-	@$(call install_fixup, lshw,PACKAGE,lshw)
 	@$(call install_fixup, lshw,PRIORITY,optional)
-	@$(call install_fixup, lshw,VERSION,$(LSHW_VERSION))
 	@$(call install_fixup, lshw,SECTION,base)
 	@$(call install_fixup, lshw,AUTHOR,"Bart vdr. Meulen <bartvdrmeulen@gmail.com>")
-	@$(call install_fixup, lshw,DEPENDS,)
 	@$(call install_fixup, lshw,DESCRIPTION,missing)
 
 	@$(call install_copy, lshw, 0, 0, 0755, -, /usr/sbin/lshw)

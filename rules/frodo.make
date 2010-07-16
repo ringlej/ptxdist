@@ -69,12 +69,9 @@ $(STATEDIR)/frodo.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, frodo)
-	@$(call install_fixup, frodo,PACKAGE,frodo)
 	@$(call install_fixup, frodo,PRIORITY,optional)
-	@$(call install_fixup, frodo,VERSION,$(FRODO_VERSION))
 	@$(call install_fixup, frodo,SECTION,base)
 	@$(call install_fixup, frodo,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, frodo,DEPENDS,)
 	@$(call install_fixup, frodo,DESCRIPTION,missing)
 
 	@$(call install_copy, frodo, 0, 0, 0755, -, /usr/bin/Frodo)

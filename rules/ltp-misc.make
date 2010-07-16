@@ -70,12 +70,9 @@ $(STATEDIR)/ltp-misc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-misc)
-	@$(call install_fixup, ltp-misc,PACKAGE,ltp-misc)
 	@$(call install_fixup, ltp-misc,PRIORITY,optional)
-	@$(call install_fixup, ltp-misc,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-misc,SECTION,base)
 	@$(call install_fixup, ltp-misc,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-misc,DEPENDS,)
 	@$(call install_fixup, ltp-misc,DESCRIPTION,missing)
 
 	@cd $(LTP_MISC_PKGDIR)/bin; \

@@ -70,12 +70,9 @@ $(STATEDIR)/ltp-ballista.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-ballista)
-	@$(call install_fixup, ltp-ballista,PACKAGE,ltp-ballista)
 	@$(call install_fixup, ltp-ballista,PRIORITY,optional)
-	@$(call install_fixup, ltp-ballista,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-ballista,SECTION,base)
 	@$(call install_fixup, ltp-ballista,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-ballista,DEPENDS,)
 	@$(call install_fixup, ltp-ballista,DESCRIPTION,missing)
 
 	@for file in `find $(LTP_BALLISTA_PKGDIR)/bin -type f`; do \

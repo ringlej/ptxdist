@@ -59,12 +59,9 @@ $(STATEDIR)/libmng.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libmng)
-	@$(call install_fixup, libmng,PACKAGE,libmng)
 	@$(call install_fixup, libmng,PRIORITY,optional)
-	@$(call install_fixup, libmng,VERSION,$(LIBMNG_VERSION))
 	@$(call install_fixup, libmng,SECTION,base)
 	@$(call install_fixup, libmng,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, libmng,DEPENDS,)
 	@$(call install_fixup, libmng,DESCRIPTION,missing)
 
 	@$(call install_copy, libmng, 0, 0, 0644, -, /usr/lib/libmng.so.1.0.0)

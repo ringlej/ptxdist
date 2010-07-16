@@ -64,12 +64,9 @@ $(STATEDIR)/xli.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xli)
-	@$(call install_fixup, xli,PACKAGE,xli)
 	@$(call install_fixup, xli,PRIORITY,optional)
-	@$(call install_fixup, xli,VERSION,$(XLI_VERSION))
 	@$(call install_fixup, xli,SECTION,base)
 	@$(call install_fixup, xli,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xli,DEPENDS,)
 	@$(call install_fixup, xli,DESCRIPTION,missing)
 
 	@$(call install_copy, xli, 0, 0, 0755, -, /usr/bin/xli)

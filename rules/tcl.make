@@ -94,12 +94,9 @@ $(STATEDIR)/tcl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, tcl)
-	@$(call install_fixup, tcl,PACKAGE,tcl)
 	@$(call install_fixup, tcl,PRIORITY,optional)
-	@$(call install_fixup, tcl,VERSION,$(TCL_VERSION))
 	@$(call install_fixup, tcl,SECTION,base)
 	@$(call install_fixup, tcl,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de")
-	@$(call install_fixup, tcl,DEPENDS,)
 	@$(call install_fixup, tcl,DESCRIPTION,missing)
 
 	@$(call install_copy, tcl, 0, 0, 0755, \

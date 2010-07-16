@@ -70,12 +70,9 @@ $(STATEDIR)/ltp-kdump.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-kdump)
-	@$(call install_fixup, ltp-kdump,PACKAGE,ltp-kdump)
 	@$(call install_fixup, ltp-kdump,PRIORITY,optional)
-	@$(call install_fixup, ltp-kdump,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-kdump,SECTION,base)
 	@$(call install_fixup, ltp-kdump,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-kdump,DEPENDS,)
 	@$(call install_fixup, ltp-kdump,DESCRIPTION,missing)
 
 	@for file in `find $(LTP_KDUMP_PKGDIR)/bin -type f`; do \

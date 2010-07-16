@@ -59,9 +59,7 @@ $(STATEDIR)/libpopt.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libpopt)
-	@$(call install_fixup,libpopt,PACKAGE,libpopt)
 	@$(call install_fixup,libpopt,PRIORITY,optional)
-	@$(call install_fixup,libpopt,VERSION,$(LIBPOPT_VERSION))
 	@$(call install_fixup,libpopt,SECTION,base)
 	@$(call install_fixup,libpopt,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup,libpopt,DESCRIPTION,missing)

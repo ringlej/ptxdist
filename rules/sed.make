@@ -53,12 +53,9 @@ $(STATEDIR)/sed.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sed)
-	@$(call install_fixup, sed,PACKAGE,sed)
 	@$(call install_fixup, sed,PRIORITY,optional)
-	@$(call install_fixup, sed,VERSION,$(SED_VERSION))
 	@$(call install_fixup, sed,SECTION,base)
 	@$(call install_fixup, sed,AUTHOR,"Marco Cavallini <m.cavallini@koansoftware.com>")
-	@$(call install_fixup, sed,DEPENDS,)
 	@$(call install_fixup, sed,DESCRIPTION,missing)
 
 	@$(call install_copy, sed, 0, 0, 0755, -, \

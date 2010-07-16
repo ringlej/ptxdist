@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-lib-xtst.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xtst)
-	@$(call install_fixup, xorg-lib-xtst,PACKAGE,xorg-lib-xtst)
 	@$(call install_fixup, xorg-lib-xtst,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xtst,VERSION,$(XORG_LIB_XTST_VERSION))
 	@$(call install_fixup, xorg-lib-xtst,SECTION,base)
 	@$(call install_fixup, xorg-lib-xtst,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xtst,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xtst,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xtst, 0, 0, 0644, -, \

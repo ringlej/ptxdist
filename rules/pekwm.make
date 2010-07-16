@@ -46,12 +46,9 @@ $(STATEDIR)/pekwm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pekwm)
-	@$(call install_fixup,pekwm,PACKAGE,pekwm)
 	@$(call install_fixup,pekwm,PRIORITY,optional)
-	@$(call install_fixup,pekwm,VERSION,$(PEKWM_VERSION))
 	@$(call install_fixup,pekwm,SECTION,base)
 	@$(call install_fixup,pekwm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,pekwm,DEPENDS,)
 	@$(call install_fixup,pekwm,DESCRIPTION,missing)
 
 	@$(call install_copy, pekwm, 0, 0, 0755, -, /usr/bin/pekwm)

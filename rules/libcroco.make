@@ -57,12 +57,9 @@ $(STATEDIR)/libcroco.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libcroco)
-	@$(call install_fixup, libcroco,PACKAGE,libcroco)
 	@$(call install_fixup, libcroco,PRIORITY,optional)
-	@$(call install_fixup, libcroco,VERSION,$(LIBCROCO_VERSION))
 	@$(call install_fixup, libcroco,SECTION,base)
 	@$(call install_fixup, libcroco,AUTHOR,"Erwin Rol")
-	@$(call install_fixup, libcroco,DEPENDS,)
 	@$(call install_fixup, libcroco,DESCRIPTION,missing)
 
 	@$(call install_copy, libcroco, 0, 0, 0644, -, \

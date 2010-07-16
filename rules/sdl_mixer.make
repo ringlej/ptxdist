@@ -104,12 +104,9 @@ $(STATEDIR)/sdl_mixer.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  sdl_mixer)
-	@$(call install_fixup, sdl_mixer,PACKAGE,sdl-mixer)
 	@$(call install_fixup, sdl_mixer,PRIORITY,optional)
-	@$(call install_fixup, sdl_mixer,VERSION,$(SDL_MIXER_VERSION))
 	@$(call install_fixup, sdl_mixer,SECTION,base)
 	@$(call install_fixup, sdl_mixer,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, sdl_mixer,DEPENDS,)
 	@$(call install_fixup, sdl_mixer,DESCRIPTION,missing)
 
 	@$(call install_copy, sdl_mixer, 0, 0, 0644, -, \

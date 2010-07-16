@@ -51,12 +51,9 @@ $(STATEDIR)/strace.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, strace)
-	@$(call install_fixup, strace,PACKAGE,strace)
 	@$(call install_fixup, strace,PRIORITY,optional)
-	@$(call install_fixup, strace,VERSION,$(STRACE_VERSION))
 	@$(call install_fixup, strace,SECTION,base)
 	@$(call install_fixup, strace,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, strace,DEPENDS,)
 	@$(call install_fixup, strace,DESCRIPTION,missing)
 
 	@$(call install_copy, strace, 0, 0, 0755, -, /usr/bin/strace)

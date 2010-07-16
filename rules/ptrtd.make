@@ -56,12 +56,9 @@ $(STATEDIR)/ptrtd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  ptrtd)
-	@$(call install_fixup, ptrtd,PACKAGE,ptrtd)
 	@$(call install_fixup, ptrtd,PRIORITY,optional)
-	@$(call install_fixup, ptrtd,VERSION,$(PTRTD_VERSION))
 	@$(call install_fixup, ptrtd,SECTION,base)
 	@$(call install_fixup, ptrtd,AUTHOR,"Bjoern Buerger <b.buerger@pengutronix.de>")
-	@$(call install_fixup, ptrtd,DEPENDS,)
 	@$(call install_fixup, ptrtd,DESCRIPTION,Portable Transport Relay Translator Daemon)
 
 	# FIXME: currently, only the daemon is installed,

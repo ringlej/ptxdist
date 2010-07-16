@@ -143,12 +143,9 @@ $(STATEDIR)/python.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, python)
-	@$(call install_fixup, python,PACKAGE,python)
 	@$(call install_fixup, python,PRIORITY,optional)
-	@$(call install_fixup, python,VERSION,$(PYTHON_VERSION))
 	@$(call install_fixup, python,SECTION,base)
 	@$(call install_fixup, python,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, python,DEPENDS,)
 	@$(call install_fixup, python,DESCRIPTION,missing)
 
 	@cd $(PYTHON_PKGDIR) && \

@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-driver-input-void.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-input-void)
-	@$(call install_fixup, xorg-driver-input-void,PACKAGE,xorg-driver-input-void)
 	@$(call install_fixup, xorg-driver-input-void,PRIORITY,optional)
-	@$(call install_fixup, xorg-driver-input-void,VERSION,$(XORG_DRIVER_INPUT_VOID_VERSION))
 	@$(call install_fixup, xorg-driver-input-void,SECTION,base)
 	@$(call install_fixup, xorg-driver-input-void,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-driver-input-void,DEPENDS,)
 	@$(call install_fixup, xorg-driver-input-void,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-input-void, 0, 0, 0755, -, \

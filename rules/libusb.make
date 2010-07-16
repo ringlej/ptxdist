@@ -69,12 +69,9 @@ $(STATEDIR)/libusb.targetinstall:
 
 ifndef PTXCONF_LIBUSB_BUILD_STATIC
 	@$(call install_init,  libusb)
-	@$(call install_fixup, libusb,PACKAGE,libusb)
 	@$(call install_fixup, libusb,PRIORITY,optional)
-	@$(call install_fixup, libusb,VERSION,$(LIBUSB_VERSION))
 	@$(call install_fixup, libusb,SECTION,base)
 	@$(call install_fixup, libusb,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
-	@$(call install_fixup, libusb,DEPENDS,)
 	@$(call install_fixup, libusb,DESCRIPTION,missing)
 
 	@$(call install_copy, libusb, 0, 0, 0644, -, /usr/lib/libusb-1.0.so.0.0.0 )

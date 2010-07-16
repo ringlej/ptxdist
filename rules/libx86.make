@@ -51,12 +51,9 @@ $(STATEDIR)/libx86.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libx86)
-	@$(call install_fixup, libx86,PACKAGE,libx86)
 	@$(call install_fixup, libx86,PRIORITY,optional)
-	@$(call install_fixup, libx86,VERSION,$(LIBX86_VERSION))
 	@$(call install_fixup, libx86,SECTION,base)
 	@$(call install_fixup, libx86,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libx86,DEPENDS,)
 	@$(call install_fixup, libx86,DESCRIPTION,missing)
 
 	@$(call install_copy, libx86, 0, 0, 0644, -, /usr/lib/libx86.so.1)

@@ -51,12 +51,9 @@ $(STATEDIR)/xorg-app-xev.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  xorg-app-xev)
-	@$(call install_fixup, xorg-app-xev,PACKAGE,xorg-app-xev)
 	@$(call install_fixup, xorg-app-xev,PRIORITY,optional)
-	@$(call install_fixup, xorg-app-xev,VERSION,$(XORG_APP_XEV_VERSION))
 	@$(call install_fixup, xorg-app-xev,SECTION,base)
 	@$(call install_fixup, xorg-app-xev,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, xorg-app-xev,DEPENDS,)
 	@$(call install_fixup, xorg-app-xev,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xev, 0, 0, 0755, -, /usr/bin/xev)

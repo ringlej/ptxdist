@@ -51,12 +51,9 @@ $(STATEDIR)/inotify-tools.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, inotify-tools)
-	@$(call install_fixup,inotify-tools,PACKAGE,inotify-tools)
 	@$(call install_fixup,inotify-tools,PRIORITY,optional)
-	@$(call install_fixup,inotify-tools,VERSION,$(INOTIFY_TOOLS_VERSION))
 	@$(call install_fixup,inotify-tools,SECTION,base)
 	@$(call install_fixup,inotify-tools,AUTHOR,"Brandon Fosdick <bfosdick@dash.net>")
-	@$(call install_fixup,inotify-tools,DEPENDS,)
 	@$(call install_fixup,inotify-tools,DESCRIPTION,missing)
 
 	@$(call install_copy, inotify-tools, 0, 0, 0755, -, \

@@ -74,12 +74,9 @@ $(STATEDIR)/libnetpbm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libnetpbm)
-	@$(call install_fixup, libnetpbm,PACKAGE,libnetpbm)
 	@$(call install_fixup, libnetpbm,PRIORITY,optional)
-	@$(call install_fixup, libnetpbm,VERSION,$(LIBNETPBM_VERSION))
 	@$(call install_fixup, libnetpbm,SECTION,base)
 	@$(call install_fixup, libnetpbm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libnetpbm,DEPENDS,)
 	@$(call install_fixup, libnetpbm,DESCRIPTION,missing)
 
 	@$(call install_copy, libnetpbm, 0, 0, 0644, -, \

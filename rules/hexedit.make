@@ -65,12 +65,9 @@ $(STATEDIR)/hexedit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, hexedit)
-	@$(call install_fixup, hexedit,PACKAGE,hexedit)
 	@$(call install_fixup, hexedit,PRIORITY,optional)
-	@$(call install_fixup, hexedit,VERSION,$(HEXEDIT_VERSION))
 	@$(call install_fixup, hexedit,SECTION,base)
 	@$(call install_fixup, hexedit,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, hexedit,DEPENDS,)
 	@$(call install_fixup, hexedit,DESCRIPTION,missing)
 
 	@$(call install_copy, hexedit, 0, 0, 0755, -, \

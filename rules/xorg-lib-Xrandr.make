@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-lib-xrandr.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xrandr)
-	@$(call install_fixup, xorg-lib-xrandr,PACKAGE,xorg-lib-xrandr)
 	@$(call install_fixup, xorg-lib-xrandr,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xrandr,VERSION,$(XORG_LIB_XRANDR_VERSION))
 	@$(call install_fixup, xorg-lib-xrandr,SECTION,base)
 	@$(call install_fixup, xorg-lib-xrandr,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xrandr,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xrandr,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xrandr, 0, 0, 0644, -, \

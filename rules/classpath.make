@@ -124,12 +124,9 @@ $(STATEDIR)/classpath.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, classpath)
-	@$(call install_fixup, classpath,PACKAGE,classpath)
 	@$(call install_fixup, classpath,PRIORITY,optional)
-	@$(call install_fixup, classpath,VERSION,$(CLASSPATH_VERSION))
 	@$(call install_fixup, classpath,SECTION,base)
 	@$(call install_fixup, classpath,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, classpath,DEPENDS,)
 	@$(call install_fixup, classpath,DESCRIPTION,missing)
 
 

@@ -55,12 +55,9 @@ $(STATEDIR)/liblockfile.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, liblockfile)
-	@$(call install_fixup, liblockfile,PACKAGE,liblockfile)
 	@$(call install_fixup, liblockfile,PRIORITY,optional)
-	@$(call install_fixup, liblockfile,VERSION,$(LIBLOCKFILE_VERSION))
 	@$(call install_fixup, liblockfile,SECTION,base)
 	@$(call install_fixup, liblockfile,AUTHOR,"Bjoern Buerger <b.buerger@pengutronix.de>")
-	@$(call install_fixup, liblockfile,DEPENDS,)
 	@$(call install_fixup, liblockfile,DESCRIPTION,missing)
 
 	@$(call install_copy, liblockfile, 0, 0, 0755, -, \

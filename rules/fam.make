@@ -64,12 +64,9 @@ $(STATEDIR)/fam.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fam)
-	@$(call install_fixup,fam,PACKAGE,fam)
 	@$(call install_fixup,fam,PRIORITY,optional)
-	@$(call install_fixup,fam,VERSION,$(FAM_VERSION))
 	@$(call install_fixup,fam,SECTION,base)
 	@$(call install_fixup,fam,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
-	@$(call install_fixup,fam,DEPENDS,)
 	@$(call install_fixup,fam,DESCRIPTION,missing)
 
 	@$(call install_copy, fam, 0, 0, 0755, -, /usr/sbin/famd)

@@ -52,12 +52,9 @@ $(STATEDIR)/libcgicc.targetinstall:
 
 	@$(call targetinfo)
 	@$(call install_init, libcgicc)
-	@$(call install_fixup, libcgicc,PACKAGE,libcgicc)
 	@$(call install_fixup, libcgicc,PRIORITY,optional)
-	@$(call install_fixup, libcgicc,VERSION,$(LIBCGICC_VERSION))
 	@$(call install_fixup, libcgicc,SECTION,base)
 	@$(call install_fixup, libcgicc,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
-	@$(call install_fixup, libcgicc,DEPENDS,)
 	@$(call install_fixup, libcgicc,DESCRIPTION,missing)
 
 	@$(call install_copy, libcgicc, 0,0, 644, -, /usr/lib/libcgicc.so.5.0.2)

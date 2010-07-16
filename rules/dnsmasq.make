@@ -63,12 +63,9 @@ $(STATEDIR)/dnsmasq.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, dnsmasq)
-	@$(call install_fixup, dnsmasq,PACKAGE,dnsmasq)
 	@$(call install_fixup, dnsmasq,PRIORITY,optional)
-	@$(call install_fixup, dnsmasq,VERSION,$(DNSMASQ_VERSION))
 	@$(call install_fixup, dnsmasq,SECTION,base)
 	@$(call install_fixup, dnsmasq,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, dnsmasq,DEPENDS,)
 	@$(call install_fixup, dnsmasq,DESCRIPTION,missing)
 
 	@$(call install_copy, dnsmasq, 0, 0, 0755, -, \

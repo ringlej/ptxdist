@@ -197,12 +197,9 @@ $(STATEDIR)/kernel.targetinstall:
 
 ifneq ($(PTXCONF_KERNEL_INSTALL)$(PTXCONF_KERNEL_VMLINUX),)
 	@$(call install_init,  kernel)
-	@$(call install_fixup, kernel, PACKAGE, kernel)
 	@$(call install_fixup, kernel, PRIORITY,optional)
-	@$(call install_fixup, kernel, VERSION,$(KERNEL_VERSION))
 	@$(call install_fixup, kernel, SECTION,base)
 	@$(call install_fixup, kernel, AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, kernel, DEPENDS,)
 	@$(call install_fixup, kernel, DESCRIPTION,missing)
 
 	@$(call install_copy, kernel, 0, 0, 0755, /boot);
@@ -240,12 +237,9 @@ $(STATEDIR)/kernel.targetinstall.post:
 
 ifdef PTXCONF_KERNEL_MODULES_INSTALL
 	@$(call install_init,  kernel-modules)
-	@$(call install_fixup, kernel-modules, PACKAGE,kernel-modules)
 	@$(call install_fixup, kernel-modules, PRIORITY,optional)
-	@$(call install_fixup, kernel-modules, VERSION,$(KERNEL_VERSION))
 	@$(call install_fixup, kernel-modules, SECTION,base)
 	@$(call install_fixup, kernel-modules, AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, kernel-modules, DEPENDS,)
 	@$(call install_fixup, kernel-modules, DESCRIPTION,missing)
 
 	@cd $(KERNEL_PKGDIR) && \

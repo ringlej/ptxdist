@@ -53,12 +53,9 @@ $(STATEDIR)/module-init-tools.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, module-init-tools)
-	@$(call install_fixup, module-init-tools,PACKAGE,module-init-tools)
 	@$(call install_fixup, module-init-tools,PRIORITY,optional)
-	@$(call install_fixup, module-init-tools,VERSION,$(MODULE_INIT_TOOLS_VERSION))
 	@$(call install_fixup, module-init-tools,SECTION,base)
 	@$(call install_fixup, module-init-tools,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, module-init-tools,DEPENDS,)
 	@$(call install_fixup, module-init-tools,DESCRIPTION,missing)
 
 ifdef PTXCONF_MODULE_INIT_TOOLS_INSMOD

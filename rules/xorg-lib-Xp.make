@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-lib-xp.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xp)
-	@$(call install_fixup, xorg-lib-xp,PACKAGE,xorg-lib-xp)
 	@$(call install_fixup, xorg-lib-xp,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xp,VERSION,$(XORG_LIB_XP_VERSION))
 	@$(call install_fixup, xorg-lib-xp,SECTION,base)
 	@$(call install_fixup, xorg-lib-xp,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xp,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xp,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xp, 0, 0, 0644, -, \

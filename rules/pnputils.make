@@ -46,12 +46,9 @@ $(STATEDIR)/pnputils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pnputils)
-	@$(call install_fixup, pnputils,PACKAGE,pnputils)
 	@$(call install_fixup, pnputils,PRIORITY,optional)
-	@$(call install_fixup, pnputils,VERSION,$(PNPUTILS_VERSION))
 	@$(call install_fixup, pnputils,SECTION,base)
 	@$(call install_fixup, pnputils,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
-	@$(call install_fixup, pnputils,DEPENDS,)
 	@$(call install_fixup, pnputils,DESCRIPTION,missing)
 
 ifdef PTXCONF_PNPUTILS_SETPNP

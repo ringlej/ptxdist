@@ -48,12 +48,9 @@ $(STATEDIR)/libjpeg.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libjpeg)
-	@$(call install_fixup, libjpeg,PACKAGE,libjpeg)
 	@$(call install_fixup, libjpeg,PRIORITY,optional)
-	@$(call install_fixup, libjpeg,VERSION,$(LIBJPEG_VERSION))
 	@$(call install_fixup, libjpeg,SECTION,base)
 	@$(call install_fixup, libjpeg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libjpeg,DEPENDS,)
 	@$(call install_fixup, libjpeg,DESCRIPTION,missing)
 
 	@$(call install_copy, libjpeg, 0, 0, 0644, -, \

@@ -53,12 +53,9 @@ $(STATEDIR)/mpg123.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  mpg123)
-	@$(call install_fixup, mpg123,PACKAGE,mpg123)
 	@$(call install_fixup, mpg123,PRIORITY,optional)
-	@$(call install_fixup, mpg123,VERSION,$(MPG123_VERSION))
 	@$(call install_fixup, mpg123,SECTION,base)
 	@$(call install_fixup, mpg123,AUTHOR,"Juergen Kilb <J.Kilb@phytec.de>")
-	@$(call install_fixup, mpg123,DEPENDS,)
 	@$(call install_fixup, mpg123,DESCRIPTION,missing)
 
 	@$(call install_copy, mpg123, 0, 0, 0755, -, /usr/bin/mpg123)

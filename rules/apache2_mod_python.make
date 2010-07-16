@@ -56,12 +56,9 @@ $(STATEDIR)/apache2_mod_python.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  apache2_mod_python)
-	@$(call install_fixup, apache2_mod_python,PACKAGE,apache2-mod-python)
 	@$(call install_fixup, apache2_mod_python,PRIORITY,optional)
-	@$(call install_fixup, apache2_mod_python,VERSION,$(APACHE2_MOD_PYTHON_VERSION))
 	@$(call install_fixup, apache2_mod_python,SECTION,base)
 	@$(call install_fixup, apache2_mod_python,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, apache2_mod_python,DEPENDS,)
 	@$(call install_fixup, apache2_mod_python,DESCRIPTION,missing)
 
 	@$(call install_copy, apache2_mod_python, 0, 0, 0644, -, \

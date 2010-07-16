@@ -105,12 +105,9 @@ $(STATEDIR)/gst-plugins-ugly.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gst-plugins-ugly)
-	@$(call install_fixup, gst-plugins-ugly,PACKAGE,gst-plugins-ugly)
 	@$(call install_fixup, gst-plugins-ugly,PRIORITY,optional)
-	@$(call install_fixup, gst-plugins-ugly,VERSION,$(GST_PLUGINS_UGLY_VERSION))
 	@$(call install_fixup, gst-plugins-ugly,SECTION,base)
 	@$(call install_fixup, gst-plugins-ugly,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
-	@$(call install_fixup, gst-plugins-ugly,DEPENDS,)
 	@$(call install_fixup, gst-plugins-ugly,DESCRIPTION,missing)
 
 	# install all activated plugins

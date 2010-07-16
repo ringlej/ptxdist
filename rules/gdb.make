@@ -77,12 +77,9 @@ $(STATEDIR)/gdb.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gdb)
-	@$(call install_fixup, gdb,PACKAGE,gdb)
 	@$(call install_fixup, gdb,PRIORITY,optional)
-	@$(call install_fixup, gdb,VERSION,$(GDB_VERSION))
 	@$(call install_fixup, gdb,SECTION,base)
 	@$(call install_fixup, gdb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gdb,DEPENDS,)
 	@$(call install_fixup, gdb,DESCRIPTION,missing)
 
 	@$(call install_copy, gdb, 0, 0, 0755, -, /usr/bin/gdb)

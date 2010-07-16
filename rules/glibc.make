@@ -69,12 +69,9 @@ $(STATEDIR)/glibc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, glibc)
-	@$(call install_fixup, glibc,PACKAGE,glibc)
 	@$(call install_fixup, glibc,PRIORITY,optional)
-	@$(call install_fixup, glibc,VERSION,$(GLIBC_VERSION))
 	@$(call install_fixup, glibc,SECTION,base)
 	@$(call install_fixup, glibc,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, glibc,DEPENDS,)
 	@$(call install_fixup, glibc,DESCRIPTION,missing)
 
 ifdef PTXCONF_GLIBC_LD

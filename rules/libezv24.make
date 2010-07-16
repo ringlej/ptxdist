@@ -47,12 +47,9 @@ $(STATEDIR)/libezv24.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libezv24)
-	@$(call install_fixup,libezv24,PACKAGE,libezv24)
 	@$(call install_fixup,libezv24,PRIORITY,optional)
-	@$(call install_fixup,libezv24,VERSION,$(LIBEZV24_VERSION))
 	@$(call install_fixup,libezv24,SECTION,base)
 	@$(call install_fixup,libezv24,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,libezv24,DEPENDS,)
 	@$(call install_fixup,libezv24,DESCRIPTION,missing)
 
 	@$(call install_copy, libezv24, 0, 0, 0644, -, \

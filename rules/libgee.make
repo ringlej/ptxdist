@@ -53,12 +53,9 @@ $(STATEDIR)/libgee.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libgee)
-	@$(call install_fixup, libgee,PACKAGE,libgee)
 	@$(call install_fixup, libgee,PRIORITY,optional)
-	@$(call install_fixup, libgee,VERSION,$(LIBGEE_VERSION))
 	@$(call install_fixup, libgee,SECTION,base)
 	@$(call install_fixup, libgee,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, libgee,DEPENDS,)
 	@$(call install_fixup, libgee,DESCRIPTION,missing)
 
 	@$(call install_lib, libgee, 0, 0, 0644, libgee)

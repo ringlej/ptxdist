@@ -52,12 +52,9 @@ $(STATEDIR)/xorg-lib-xdmcp.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  xorg-lib-xdmcp)
-	@$(call install_fixup, xorg-lib-xdmcp,PACKAGE,xorg-lib-xdmcp)
 	@$(call install_fixup, xorg-lib-xdmcp,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xdmcp,VERSION,$(XORG_LIB_XDMCP_VERSION))
 	@$(call install_fixup, xorg-lib-xdmcp,SECTION,base)
 	@$(call install_fixup, xorg-lib-xdmcp,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xdmcp,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xdmcp,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xdmcp, 0, 0, 0644, -, \

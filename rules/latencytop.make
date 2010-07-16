@@ -54,12 +54,9 @@ $(STATEDIR)/latencytop.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  latencytop)
-	@$(call install_fixup, latencytop,PACKAGE,latencytop)
 	@$(call install_fixup, latencytop,PRIORITY,optional)
-	@$(call install_fixup, latencytop,VERSION,$(LATENCYTOP_VERSION))
 	@$(call install_fixup, latencytop,SECTION,base)
 	@$(call install_fixup, latencytop,AUTHOR,"Remy Bohmer <linux@bohmer.net>")
-	@$(call install_fixup, latencytop,DEPENDS,)
 	@$(call install_fixup, latencytop,DESCRIPTION,missing)
 
 	@$(call install_copy, latencytop, 0, 0, 0644, -, \

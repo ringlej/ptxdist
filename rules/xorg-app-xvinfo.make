@@ -55,12 +55,9 @@ $(STATEDIR)/xorg-app-xvinfo.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xvinfo)
-	@$(call install_fixup,xorg-app-xvinfo,PACKAGE,xorg-app-xvinfo)
 	@$(call install_fixup,xorg-app-xvinfo,PRIORITY,optional)
-	@$(call install_fixup,xorg-app-xvinfo,VERSION,$(XORG_APP_XVINFO_VERSION))
 	@$(call install_fixup,xorg-app-xvinfo,SECTION,base)
 	@$(call install_fixup,xorg-app-xvinfo,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-app-xvinfo,DEPENDS,)
 	@$(call install_fixup,xorg-app-xvinfo,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xvinfo, 0, 0, 0755, -, \

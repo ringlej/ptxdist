@@ -66,12 +66,9 @@ $(STATEDIR)/pciutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pciutils)
-	@$(call install_fixup,pciutils,PACKAGE,pciutils)
 	@$(call install_fixup,pciutils,PRIORITY,optional)
-	@$(call install_fixup,pciutils,VERSION,$(PCIUTILS_VERSION))
 	@$(call install_fixup,pciutils,SECTION,base)
 	@$(call install_fixup,pciutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,pciutils,DEPENDS,)
 	@$(call install_fixup,pciutils,DESCRIPTION,missing)
 
 	@$(call install_copy, pciutils, 0, 0, 0755, -, /usr/bin/lspci)

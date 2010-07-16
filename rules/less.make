@@ -105,12 +105,9 @@ $(STATEDIR)/less.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, less)
-	@$(call install_fixup, less,PACKAGE,less)
 	@$(call install_fixup, less,PRIORITY,optional)
-	@$(call install_fixup, less,VERSION,$(LESS_VERSION))
 	@$(call install_fixup, less,SECTION,base)
 	@$(call install_fixup, less,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, less,DEPENDS,)
 	@$(call install_fixup, less,DESCRIPTION,missing)
 
 ifdef PTXCONF_LESS_BIN

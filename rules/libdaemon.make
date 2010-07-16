@@ -54,12 +54,9 @@ $(STATEDIR)/libdaemon.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libdaemon)
-	@$(call install_fixup,libdaemon,PACKAGE,libdaemon)
 	@$(call install_fixup,libdaemon,PRIORITY,optional)
-	@$(call install_fixup,libdaemon,VERSION,$(LIBDAEMON_VERSION))
 	@$(call install_fixup,libdaemon,SECTION,base)
 	@$(call install_fixup,libdaemon,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,libdaemon,DEPENDS,)
 	@$(call install_fixup,libdaemon,DESCRIPTION,missing)
 
 	@$(call install_copy, libdaemon, 0, 0, 0644, -, \

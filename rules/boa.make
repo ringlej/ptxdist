@@ -56,12 +56,9 @@ $(STATEDIR)/boa.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  boa)
-	@$(call install_fixup, boa,PACKAGE,boa)
 	@$(call install_fixup, boa,PRIORITY,optional)
-	@$(call install_fixup, boa,VERSION,$(BOA_VERSION))
 	@$(call install_fixup, boa,SECTION,base)
 	@$(call install_fixup, boa,AUTHOR,"Alexander Stein <alexander.stein@systec-electronic.com>")
-	@$(call install_fixup, boa,DEPENDS,)
 	@$(call install_fixup, boa,DESCRIPTION,missing)
 
 	@$(call install_copy, boa, 0, 0, 0755, -, /usr/sbin/boa)

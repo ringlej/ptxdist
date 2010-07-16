@@ -46,12 +46,9 @@ $(STATEDIR)/berlios-can-utils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  berlios-can-utils)
-	@$(call install_fixup, berlios-can-utils,PACKAGE,berlios-can-utils)
 	@$(call install_fixup, berlios-can-utils,PRIORITY,optional)
-	@$(call install_fixup, berlios-can-utils,VERSION,$(BERLIOS_CAN_UTILS_VERSION))
 	@$(call install_fixup, berlios-can-utils,SECTION,base)
 	@$(call install_fixup, berlios-can-utils,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, berlios-can-utils,DEPENDS,)
 	@$(call install_fixup, berlios-can-utils,DESCRIPTION,missing)
 
 ifdef PTXCONF_BERLIOS_CAN_UTILS_ASC2LOG 

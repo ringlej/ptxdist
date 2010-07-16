@@ -49,12 +49,9 @@ $(STATEDIR)/fbv.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fbv)
-	@$(call install_fixup, fbv,PACKAGE,fbv)
 	@$(call install_fixup, fbv,PRIORITY,optional)
-	@$(call install_fixup, fbv,VERSION,$(FBV_VERSION))
 	@$(call install_fixup, fbv,SECTION,base)
 	@$(call install_fixup, fbv,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, fbv,DEPENDS,)
 	@$(call install_fixup, fbv,DESCRIPTION,missing)
 
 	@$(call install_copy, fbv, 0, 0, 0755, -, /usr/bin/fbv)

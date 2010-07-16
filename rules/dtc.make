@@ -69,12 +69,9 @@ $(STATEDIR)/dtc.targetinstall:
 
 ifdef PTXCONF_DTC_INSTALL_OFTREE
 	@$(call install_init,  dtc)
-	@$(call install_fixup, dtc, PACKAGE, dtc)
 	@$(call install_fixup, dtc, PRIORITY,optional)
-	@$(call install_fixup, dtc, VERSION,$(DTC_VERSION))
 	@$(call install_fixup, dtc, SECTION,base)
 	@$(call install_fixup, dtc, AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
-	@$(call install_fixup, dtc, DEPENDS,)
 	@$(call install_fixup, dtc, DESCRIPTION, "oftree description for machine $(PTXCONF_PROJECT_VERSION)")
 
 	@$(call install_copy, dtc, 0, 0, 0755, /boot);

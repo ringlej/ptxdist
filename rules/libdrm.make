@@ -57,12 +57,9 @@ $(STATEDIR)/libdrm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libdrm)
-	@$(call install_fixup, libdrm,PACKAGE,libdrm)
 	@$(call install_fixup, libdrm,PRIORITY,optional)
-	@$(call install_fixup, libdrm,VERSION,$(LIBDRM_VERSION))
 	@$(call install_fixup, libdrm,SECTION,base)
 	@$(call install_fixup, libdrm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libdrm,DEPENDS,)
 	@$(call install_fixup, libdrm,DESCRIPTION,missing)
 
 	@$(call install_copy, libdrm, 0, 0, 0644, -, \

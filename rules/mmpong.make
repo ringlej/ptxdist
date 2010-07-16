@@ -45,12 +45,9 @@ $(STATEDIR)/mmpong.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, mmpong)
-	@$(call install_fixup, mmpong,PACKAGE,mmpong)
 	@$(call install_fixup, mmpong,PRIORITY,optional)
-	@$(call install_fixup, mmpong,VERSION,$(MMPONG_VERSION))
 	@$(call install_fixup, mmpong,SECTION,base)
 	@$(call install_fixup, mmpong,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, mmpong,DEPENDS,)
 	@$(call install_fixup, mmpong,DESCRIPTION,missing)
 
 	@$(call install_copy, mmpong, 0, 0, 0644, -, /usr/lib/libmmpong.so.0.9)

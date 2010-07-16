@@ -81,12 +81,9 @@ $(STATEDIR)/libxslt.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libxslt)
-	@$(call install_fixup, libxslt,PACKAGE,libxslt)
 	@$(call install_fixup, libxslt,PRIORITY,optional)
-	@$(call install_fixup, libxslt,VERSION,$(LIBXSLT_VERSION))
 	@$(call install_fixup, libxslt,SECTION,base)
 	@$(call install_fixup, libxslt,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libxslt,DEPENDS,)
 	@$(call install_fixup, libxslt,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBXSLT_LIBXSLT

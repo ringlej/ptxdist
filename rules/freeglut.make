@@ -49,12 +49,9 @@ $(STATEDIR)/freeglut.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  freeglut)
-	@$(call install_fixup, freeglut,PACKAGE,freeglut)
 	@$(call install_fixup, freeglut,PRIORITY,optional)
-	@$(call install_fixup, freeglut,VERSION,$(FREEGLUT_VERSION))
 	@$(call install_fixup, freeglut,SECTION,base)
 	@$(call install_fixup, freeglut,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, freeglut,DEPENDS,)
 	@$(call install_fixup, freeglut,DESCRIPTION,missing)
 
 	@$(call install_copy, freeglut, 0, 0, 0644, -, \

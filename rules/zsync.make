@@ -49,12 +49,9 @@ $(STATEDIR)/zsync.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  zsync)
-	@$(call install_fixup, zsync,PACKAGE,zsync)
 	@$(call install_fixup, zsync,PRIORITY,optional)
-	@$(call install_fixup, zsync,VERSION,$(ZSYNC_VERSION))
 	@$(call install_fixup, zsync,SECTION,base)
 	@$(call install_fixup, zsync,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
-	@$(call install_fixup, zsync,DEPENDS,)
 	@$(call install_fixup, zsync,DESCRIPTION,missing)
 
 	@$(call install_copy, zsync, 0, 0, 0755, -, /usr/bin/zsync)

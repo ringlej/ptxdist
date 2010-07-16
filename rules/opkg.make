@@ -54,12 +54,9 @@ $(STATEDIR)/opkg.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, opkg)
-	@$(call install_fixup, opkg,PACKAGE,opkg)
 	@$(call install_fixup, opkg,PRIORITY,optional)
-	@$(call install_fixup, opkg,VERSION,$(OPKG_VERSION))
 	@$(call install_fixup, opkg,SECTION,base)
 	@$(call install_fixup, opkg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, opkg,DEPENDS,)
 	@$(call install_fixup, opkg,DESCRIPTION,missing)
 
 #	# makes only sense when we --enable-gpg

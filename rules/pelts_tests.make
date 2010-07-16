@@ -52,12 +52,9 @@ $(STATEDIR)/pelts-tests.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pelts-tests)
-	@$(call install_fixup,pelts-tests,PACKAGE,pelts-tests)
 	@$(call install_fixup,pelts-tests,PRIORITY,optional)
-	@$(call install_fixup,pelts-tests,VERSION,$(PELTS_TESTS_VERSION))
 	@$(call install_fixup,pelts-tests,SECTION,base)
 	@$(call install_fixup,pelts-tests,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,pelts-tests,DEPENDS,)
 	@$(call install_fixup,pelts-tests,DESCRIPTION,missing)
 
 	@$(call install_copy, pelts-tests, 0, 0, 0755, -, /usr/bin/floattest)

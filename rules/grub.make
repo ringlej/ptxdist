@@ -411,12 +411,9 @@ $(STATEDIR)/grub.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, grub)
-	@$(call install_fixup, grub,PACKAGE,grub)
 	@$(call install_fixup, grub,PRIORITY,optional)
-	@$(call install_fixup, grub,VERSION,$(GRUB_VERSION))
 	@$(call install_fixup, grub,SECTION,base)
 	@$(call install_fixup, grub,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, grub,DEPENDS,)
 	@$(call install_fixup, grub,DESCRIPTION,missing)
 
 	@$(call install_copy, grub, 0, 0, 0644, \

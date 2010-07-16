@@ -148,12 +148,9 @@ $(STATEDIR)/ppp.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ppp)
-	@$(call install_fixup, ppp,PACKAGE,ppp)
 	@$(call install_fixup, ppp,PRIORITY,optional)
-	@$(call install_fixup, ppp,VERSION,$(PPP_VERSION))
 	@$(call install_fixup, ppp,SECTION,base)
 	@$(call install_fixup, ppp,AUTHOR,"Robert Schwebel (r.schwebel@pengutronix.de)")
-	@$(call install_fixup, ppp,DEPENDS,)
 	@$(call install_fixup, ppp,DESCRIPTION,missing)
 
 ifdef PTXCONFIG_PPP_SUID

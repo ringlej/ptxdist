@@ -144,12 +144,9 @@ $(STATEDIR)/python3.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, python3)
-	@$(call install_fixup, python3,PACKAGE,python3)
 	@$(call install_fixup, python3,PRIORITY,optional)
-	@$(call install_fixup, python3,VERSION,$(PYTHON3_VERSION))
 	@$(call install_fixup, python3,SECTION,base)
 	@$(call install_fixup, python3,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, python3,DEPENDS,)
 	@$(call install_fixup, python3,DESCRIPTION,missing)
 
 	@cd $(PYTHON3_PKGDIR) && \

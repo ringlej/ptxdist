@@ -52,12 +52,9 @@ $(STATEDIR)/libnl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libnl)
-	@$(call install_fixup, libnl,PACKAGE,libnl)
 	@$(call install_fixup, libnl,PRIORITY,optional)
-	@$(call install_fixup, libnl,VERSION,$(LIBNL_VERSION))
 	@$(call install_fixup, libnl,SECTION,base)
 	@$(call install_fixup, libnl,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libnl,DEPENDS,)
 	@$(call install_fixup, libnl,DESCRIPTION,missing)
 
 	@$(call install_copy, libnl, 0, 0, 0644, -, /usr/lib/libnl.so.1.1)

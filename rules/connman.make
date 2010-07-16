@@ -185,12 +185,9 @@ $(STATEDIR)/connman.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, connman)
-	@$(call install_fixup, connman,PACKAGE,connman)
 	@$(call install_fixup, connman,PRIORITY,optional)
-	@$(call install_fixup, connman,VERSION,$(CONNMAN_VERSION))
 	@$(call install_fixup, connman,SECTION,base)
 	@$(call install_fixup, connman,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, connman,DEPENDS,)
 	@$(call install_fixup, connman,DESCRIPTION,missing)
 
 #	# binary

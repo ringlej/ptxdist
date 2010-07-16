@@ -68,12 +68,9 @@ $(STATEDIR)/hackbench.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, hackbench)
-	@$(call install_fixup, hackbench,PACKAGE,hackbench)
 	@$(call install_fixup, hackbench,PRIORITY,optional)
-	@$(call install_fixup, hackbench,VERSION,$(HACKBENCH_VERSION))
 	@$(call install_fixup, hackbench,SECTION,base)
 	@$(call install_fixup, hackbench,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, hackbench,DEPENDS,)
 	@$(call install_fixup, hackbench,DESCRIPTION,missing)
 
 	@$(call install_copy, hackbench, 0, 0, 0755, $(HACKBENCH_DIR)/hackbench, /usr/bin/hackbench)

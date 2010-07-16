@@ -1,6 +1,4 @@
 # -*-makefile-*-
-# $Id: template-make 9053 2008-11-03 10:58:48Z wsa $
-#
 # Copyright (C) 2009 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
@@ -62,12 +60,9 @@ $(STATEDIR)/devicekit-disks.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  devicekit-disks)
-	@$(call install_fixup, devicekit-disks,PACKAGE,devicekit-disks)
 	@$(call install_fixup, devicekit-disks,PRIORITY,optional)
-	@$(call install_fixup, devicekit-disks,VERSION,$(DEVICEKIT_DISKS_VERSION))
 	@$(call install_fixup, devicekit-disks,SECTION,base)
 	@$(call install_fixup, devicekit-disks,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, devicekit-disks,DEPENDS,)
 	@$(call install_fixup, devicekit-disks,DESCRIPTION,missing)
 
 	@$(call install_copy, devicekit-disks, 0, 0, 0755, -, \

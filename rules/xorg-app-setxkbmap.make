@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-app-setxkbmap.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-setxkbmap)
-	@$(call install_fixup, xorg-app-setxkbmap,PACKAGE,xorg-app-setxkbmap)
 	@$(call install_fixup, xorg-app-setxkbmap,PRIORITY,optional)
-	@$(call install_fixup, xorg-app-setxkbmap,VERSION,$(XORG_APP_SETXKBMAP_VERSION))
 	@$(call install_fixup, xorg-app-setxkbmap,SECTION,base)
 	@$(call install_fixup, xorg-app-setxkbmap,AUTHOR,"Juergen Beisert")
-	@$(call install_fixup, xorg-app-setxkbmap,DEPENDS,)
 	@$(call install_fixup, xorg-app-setxkbmap,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-setxkbmap,  0, 0, 0755, -, \

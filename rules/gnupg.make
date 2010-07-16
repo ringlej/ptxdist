@@ -82,12 +82,9 @@ $(STATEDIR)/gnupg.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gnupg)
-	@$(call install_fixup, gnupg,PACKAGE,gnupg)
 	@$(call install_fixup, gnupg,PRIORITY,optional)
-	@$(call install_fixup, gnupg,VERSION,$(GNUPG_VERSION))
 	@$(call install_fixup, gnupg,SECTION,base)
 	@$(call install_fixup, gnupg,AUTHOR,"Jiri Nesladek <nesladek@2n.cz>")
-	@$(call install_fixup, gnupg,DEPENDS,)
 	@$(call install_fixup, gnupg,DESCRIPTION,missing)
 
 	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpg)

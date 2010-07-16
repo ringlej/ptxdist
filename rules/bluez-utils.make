@@ -57,12 +57,9 @@ $(STATEDIR)/bluez-utils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, bluez-utils)
-	@$(call install_fixup, bluez-utils,PACKAGE,bluez-utils)
 	@$(call install_fixup, bluez-utils,PRIORITY,optional)
-	@$(call install_fixup, bluez-utils,VERSION,$(BLUEZ_UTILS_VERSION))
 	@$(call install_fixup, bluez-utils,SECTION,base)
 	@$(call install_fixup, bluez-utils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, bluez-utils,DEPENDS,)
 	@$(call install_fixup, bluez-utils,DESCRIPTION,missing)
 
 	# FIXME: wait for patch from Sandro Noel

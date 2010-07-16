@@ -53,12 +53,9 @@ $(STATEDIR)/hpanel.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, hpanel)
-	@$(call install_fixup,hpanel,PACKAGE,hpanel)
 	@$(call install_fixup,hpanel,PRIORITY,optional)
-	@$(call install_fixup,hpanel,VERSION,$(HPANEL_VERSION))
 	@$(call install_fixup,hpanel,SECTION,base)
 	@$(call install_fixup,hpanel,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,hpanel,DEPENDS,)
 	@$(call install_fixup,hpanel,DESCRIPTION,missing)
 
 	@$(call install_copy, hpanel, 0, 0, 0755, -, /usr/bin/hpanel)

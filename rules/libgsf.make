@@ -85,12 +85,9 @@ $(STATEDIR)/libgsf.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libgsf)
-	@$(call install_fixup, libgsf,PACKAGE,libgsf)
 	@$(call install_fixup, libgsf,PRIORITY,optional)
-	@$(call install_fixup, libgsf,VERSION,$(LIBGSF_VERSION))
 	@$(call install_fixup, libgsf,SECTION,base)
 	@$(call install_fixup, libgsf,AUTHOR,"Erwin Rol")
-	@$(call install_fixup, libgsf,DEPENDS,)
 	@$(call install_fixup, libgsf,DESCRIPTION,missing)
 
 	@$(call install_copy, libgsf, 0, 0, 0644, -, \

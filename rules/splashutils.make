@@ -86,12 +86,9 @@ $(STATEDIR)/splashutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  splashutils)
-	@$(call install_fixup, splashutils,PACKAGE,splashutils)
 	@$(call install_fixup, splashutils,PRIORITY,optional)
-	@$(call install_fixup, splashutils,VERSION,$(SPLASHUTILS_VERSION))
 	@$(call install_fixup, splashutils,SECTION,base)
 	@$(call install_fixup, splashutils,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, splashutils,DEPENDS,)
 	@$(call install_fixup, splashutils,DESCRIPTION,missing)
 
 	@$(call install_copy, splashutils, 0, 0, 0755, /lib/splash/cache)

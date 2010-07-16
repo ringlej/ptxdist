@@ -52,12 +52,9 @@ $(STATEDIR)/libusb-compat.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libusb-compat)
-	@$(call install_fixup, libusb-compat,PACKAGE,libusb-compat)
 	@$(call install_fixup, libusb-compat,PRIORITY,optional)
-	@$(call install_fixup, libusb-compat,VERSION,$(LIBUSB_COMPAT_VERSION))
 	@$(call install_fixup, libusb-compat,SECTION,base)
 	@$(call install_fixup, libusb-compat,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libusb-compat,DEPENDS,)
 	@$(call install_fixup, libusb-compat,DESCRIPTION,missing)
 
 	@$(call install_copy, libusb-compat, 0, 0, 0644, -, /usr/lib/libusb-0.1.so.4.4.4 )

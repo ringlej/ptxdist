@@ -54,12 +54,9 @@ $(STATEDIR)/efax.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  efax)
-	@$(call install_fixup, efax,PACKAGE,efax)
 	@$(call install_fixup, efax,PRIORITY,optional)
-	@$(call install_fixup, efax,VERSION,$(EFAX_VERSION))
 	@$(call install_fixup, efax,SECTION,base)
 	@$(call install_fixup, efax,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, efax,DEPENDS,)
 	@$(call install_fixup, efax,DESCRIPTION,missing)
 
 	@$(call install_copy, efax, 0, 0, 0755, -, /usr/bin/efax)

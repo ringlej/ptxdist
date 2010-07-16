@@ -46,12 +46,9 @@ $(STATEDIR)/watchdog.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  watchdog)
-	@$(call install_fixup, watchdog,PACKAGE,watchdog)
 	@$(call install_fixup, watchdog,PRIORITY,optional)
-	@$(call install_fixup, watchdog,VERSION,$(WATCHDOG_VERSION))
 	@$(call install_fixup, watchdog,SECTION,base)
 	@$(call install_fixup, watchdog,AUTHOR,"Jon Ringle")
-	@$(call install_fixup, watchdog,DEPENDS,)
 	@$(call install_fixup, watchdog,DESCRIPTION,missing)
 
 	@$(call install_alternative, watchdog, 0, 0, 0644, /etc/watchdog.conf)

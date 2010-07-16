@@ -51,12 +51,9 @@ $(STATEDIR)/libogg.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libogg)
-	@$(call install_fixup, libogg,PACKAGE,libogg)
 	@$(call install_fixup, libogg,PRIORITY,optional)
-	@$(call install_fixup, libogg,VERSION,$(LIBOGG_VERSION))
 	@$(call install_fixup, libogg,SECTION,base)
 	@$(call install_fixup, libogg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libogg,DEPENDS,)
 	@$(call install_fixup, libogg,DESCRIPTION,missing)
 
 	@$(call install_copy, libogg, 0, 0, 0644, -, /usr/lib/libogg.so.0.6.0)

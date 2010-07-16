@@ -58,12 +58,9 @@ $(STATEDIR)/gst-plugins-gl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gst-plugins-gl)
-	@$(call install_fixup, gst-plugins-gl,PACKAGE,gst-plugins-gl)
 	@$(call install_fixup, gst-plugins-gl,PRIORITY,optional)
-	@$(call install_fixup, gst-plugins-gl,VERSION,$(GST_PLUGINS_GL_VERSION))
 	@$(call install_fixup, gst-plugins-gl,SECTION,base)
 	@$(call install_fixup, gst-plugins-gl,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
-	@$(call install_fixup, gst-plugins-gl,DEPENDS,)
 	@$(call install_fixup, gst-plugins-gl,DESCRIPTION,missing)
 
 	@$(call install_copy, gst-plugins-gl, 0, 0, 0644, -, /usr/lib/gstreamer-0.10/libgstopengl.so)

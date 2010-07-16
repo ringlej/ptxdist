@@ -52,12 +52,9 @@ $(STATEDIR)/xorg-lib-xdamage.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xdamage)
-	@$(call install_fixup, xorg-lib-xdamage,PACKAGE,xorg-lib-xdamage)
 	@$(call install_fixup, xorg-lib-xdamage,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xdamage,VERSION,$(XORG_LIB_XDAMAGE_VERSION))
 	@$(call install_fixup, xorg-lib-xdamage,SECTION,base)
 	@$(call install_fixup, xorg-lib-xdamage,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xdamage,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xdamage,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xdamage, 0, 0, 0644, -, \

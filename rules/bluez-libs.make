@@ -52,12 +52,9 @@ $(STATEDIR)/bluez-libs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, bluez-libs)
-	@$(call install_fixup, bluez-libs,PACKAGE,bluez-libs)
 	@$(call install_fixup, bluez-libs,PRIORITY,optional)
-	@$(call install_fixup, bluez-libs,VERSION,$(BLUEZ_LIBS_VERSION))
 	@$(call install_fixup, bluez-libs,SECTION,base)
 	@$(call install_fixup, bluez-libs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, bluez-libs,DEPENDS,)
 	@$(call install_fixup, bluez-libs,DESCRIPTION,missing)
 
 	@$(call install_copy, bluez-libs, 0, 0, 0644, - ,\

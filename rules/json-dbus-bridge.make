@@ -50,12 +50,9 @@ $(STATEDIR)/json-dbus-bridge.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  json-dbus-bridge)
-	@$(call install_fixup, json-dbus-bridge,PACKAGE,json-dbus-bridge)
 	@$(call install_fixup, json-dbus-bridge,PRIORITY,optional)
-	@$(call install_fixup, json-dbus-bridge,VERSION,$(JSON_DBUS_BRIDGE_VERSION))
 	@$(call install_fixup, json-dbus-bridge,SECTION,base)
 	@$(call install_fixup, json-dbus-bridge,AUTHOR,"Tim Sander <tim.sander@hbm.com>")
-	@$(call install_fixup, json-dbus-bridge,DEPENDS,)
 	@$(call install_fixup, json-dbus-bridge,DESCRIPTION,missing)
 
 	@$(call install_copy, json-dbus-bridge, 0, 0, 0755, -, /usr/bin/json-dbus-bridge)

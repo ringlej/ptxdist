@@ -52,12 +52,9 @@ $(STATEDIR)/liblist.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, liblist)
-	@$(call install_fixup, liblist,PACKAGE,liblist)
 	@$(call install_fixup, liblist,PRIORITY,optional)
-	@$(call install_fixup, liblist,VERSION,$(LIBLIST_VERSION))
 	@$(call install_fixup, liblist,SECTION,base)
 	@$(call install_fixup, liblist,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, liblist,DEPENDS,)
 	@$(call install_fixup, liblist,DESCRIPTION,missing)
 
 	@$(call install_copy, liblist, 0, 0, 0644, -, \

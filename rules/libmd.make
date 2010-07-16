@@ -64,12 +64,9 @@ $(STATEDIR)/libmd.targetinstall:
 
 ifndef PTXCONF_LIBMD_STATIC
 	@$(call install_init, libmd)
-	@$(call install_fixup, libmd,PACKAGE,libmd)
 	@$(call install_fixup, libmd,PRIORITY,optional)
-	@$(call install_fixup, libmd,VERSION,$(LIBMD_VERSION))
 	@$(call install_fixup, libmd,SECTION,base)
 	@$(call install_fixup, libmd,AUTHOR,"Juergen Beisert <jbe@pengutronix.de>")
-	@$(call install_fixup, libmd,DEPENDS,)
 	@$(call install_fixup, libmd,DESCRIPTION,missing)
 
 	@$(call install_copy, libmd, 0, 0, 0644, -, \

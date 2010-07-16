@@ -53,12 +53,9 @@ $(STATEDIR)/gtkmm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gtkmm)
-	@$(call install_fixup, gtkmm,PACKAGE,gtkmm)
 	@$(call install_fixup, gtkmm,PRIORITY,optional)
-	@$(call install_fixup, gtkmm,VERSION,$(GTKMM_VERSION))
 	@$(call install_fixup, gtkmm,SECTION,base)
 	@$(call install_fixup, gtkmm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gtkmm,DEPENDS,)
 	@$(call install_fixup, gtkmm,DESCRIPTION,missing)
 
 	@$(call install_copy, gtkmm, 0, 0, 0644, -, \

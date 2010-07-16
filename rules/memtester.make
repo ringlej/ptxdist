@@ -61,12 +61,9 @@ $(STATEDIR)/memtester.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, memtester)
-	@$(call install_fixup, memtester,PACKAGE,memtester)
 	@$(call install_fixup, memtester,PRIORITY,optional)
-	@$(call install_fixup, memtester,VERSION,$(MEMTESTER_VERSION))
 	@$(call install_fixup, memtester,SECTION,base)
 	@$(call install_fixup, memtester,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, memtester,DEPENDS,)
 	@$(call install_fixup, memtester,DESCRIPTION,missing)
 
 	@$(call install_copy, memtester, 0, 0, 0755, $(MEMTESTER_DIR)/memtester, /usr/sbin/memtester)

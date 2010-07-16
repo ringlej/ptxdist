@@ -55,12 +55,9 @@ $(STATEDIR)/microcom.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  microcom)
-	@$(call install_fixup, microcom,PACKAGE,microcom)
 	@$(call install_fixup, microcom,PRIORITY,optional)
-	@$(call install_fixup, microcom,VERSION,$(MICROCOM_VERSION))
 	@$(call install_fixup, microcom,SECTION,base)
 	@$(call install_fixup, microcom,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, microcom,DEPENDS,)
 	@$(call install_fixup, microcom,DESCRIPTION,missing)
 
 	@$(call install_copy, microcom, 0, 0, 0755, $(MICROCOM_DIR)/microcom, /usr/bin/microcom)

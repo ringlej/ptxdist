@@ -50,12 +50,9 @@ $(STATEDIR)/libpng.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libpng)
-	@$(call install_fixup, libpng,PACKAGE,libpng)
 	@$(call install_fixup, libpng,PRIORITY,optional)
-	@$(call install_fixup, libpng,VERSION,$(LIBPNG_VERSION))
 	@$(call install_fixup, libpng,SECTION,base)
 	@$(call install_fixup, libpng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libpng,DEPENDS,)
 	@$(call install_fixup, libpng,DESCRIPTION,missing)
 
 	@$(call install_copy, libpng, 0, 0, 0644, -, \

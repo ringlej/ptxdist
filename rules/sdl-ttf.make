@@ -55,12 +55,9 @@ $(STATEDIR)/sdl-ttf.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sdl-ttf)
-	@$(call install_fixup, sdl-ttf,PACKAGE,sdl-ttf)
 	@$(call install_fixup, sdl-ttf,PRIORITY,optional)
-	@$(call install_fixup, sdl-ttf,VERSION,$(SDL_TTF_VERSION))
 	@$(call install_fixup, sdl-ttf,SECTION,base)
 	@$(call install_fixup, sdl-ttf,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
-	@$(call install_fixup, sdl-ttf,DEPENDS,)
 	@$(call install_fixup, sdl-ttf,DESCRIPTION,missing)
 
 	@$(call install_copy, sdl-ttf, 0, 0, 0644, -, \

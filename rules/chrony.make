@@ -54,12 +54,9 @@ $(STATEDIR)/chrony.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, chrony)
-	@$(call install_fixup, chrony,PACKAGE,chrony)
 	@$(call install_fixup, chrony,PRIORITY,optional)
-	@$(call install_fixup, chrony,VERSION,$(CHRONY_VERSION))
 	@$(call install_fixup, chrony,SECTION,base)
 	@$(call install_fixup, chrony,AUTHOR,"PTXdist Base Package <ptxdist@pengutronix.de>")
-	@$(call install_fixup, chrony,DEPENDS,)
 	@$(call install_fixup, chrony,DESCRIPTION,missing)
 
 # binaries

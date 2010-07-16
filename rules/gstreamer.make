@@ -99,12 +99,9 @@ $(STATEDIR)/gstreamer.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gstreamer)
-	@$(call install_fixup, gstreamer,PACKAGE,gstreamer)
 	@$(call install_fixup, gstreamer,PRIORITY,optional)
-	@$(call install_fixup, gstreamer,VERSION,$(GSTREAMER_VERSION))
 	@$(call install_fixup, gstreamer,SECTION,base)
 	@$(call install_fixup, gstreamer,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gstreamer,DEPENDS,)
 	@$(call install_fixup, gstreamer,DESCRIPTION,missing)
 
 ifdef PTXCONF_GSTREAMER__INSTALL_TYPEFIND

@@ -112,12 +112,9 @@ $(STATEDIR)/jamvm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, jamvm)
-	@$(call install_fixup, jamvm,PACKAGE,jamvm)
 	@$(call install_fixup, jamvm,PRIORITY,optional)
-	@$(call install_fixup, jamvm,VERSION,$(JAMVM_VERSION))
 	@$(call install_fixup, jamvm,SECTION,base)
 	@$(call install_fixup, jamvm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, jamvm,DEPENDS,)
 	@$(call install_fixup, jamvm,DESCRIPTION,missing)
 
 	@$(call install_copy, jamvm, 0, 0, 0755, -, /usr/bin/jamvm)

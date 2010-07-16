@@ -78,12 +78,9 @@ $(STATEDIR)/commoncpp2.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, commoncpp2)
-	@$(call install_fixup, commoncpp2,PACKAGE,commoncpp2)
 	@$(call install_fixup, commoncpp2,PRIORITY,optional)
-	@$(call install_fixup, commoncpp2,VERSION,$(COMMONCPP2_VERSION))
 	@$(call install_fixup, commoncpp2,SECTION,base)
 	@$(call install_fixup, commoncpp2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, commoncpp2,DEPENDS,)
 	@$(call install_fixup, commoncpp2,DESCRIPTION,missing)
 
 	@$(call install_copy, commoncpp2, 0, 0, 0644, -, /usr/lib/libccgnu2-1.8.so.0.0.0)

@@ -117,12 +117,9 @@ $(STATEDIR)/gtk.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gtk)
-	@$(call install_fixup,gtk,PACKAGE,gtk)
 	@$(call install_fixup,gtk,PRIORITY,optional)
-	@$(call install_fixup,gtk,VERSION,$(GTK_VERSION))
 	@$(call install_fixup,gtk,SECTION,base)
 	@$(call install_fixup,gtk,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,gtk,DEPENDS,)
 	@$(call install_fixup,gtk,DESCRIPTION,missing)
 
 # reviewed: 2.14.7 wants to install this:

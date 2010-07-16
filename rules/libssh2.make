@@ -55,12 +55,9 @@ $(STATEDIR)/libssh2.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libssh2)
-	@$(call install_fixup, libssh2,PACKAGE,libssh2)
 	@$(call install_fixup, libssh2,PRIORITY,optional)
-	@$(call install_fixup, libssh2,VERSION,$(LIBSSH2_VERSION))
 	@$(call install_fixup, libssh2,SECTION,base)
 	@$(call install_fixup, libssh2,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, libssh2,DEPENDS,)
 	@$(call install_fixup, libssh2,DESCRIPTION,missing)
 
 	@$(call install_copy, libssh2, 0, 0, 0644, -, \

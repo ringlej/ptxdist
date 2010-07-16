@@ -79,12 +79,9 @@ $(STATEDIR)/policykit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, policykit)
-	@$(call install_fixup, policykit,PACKAGE,policykit)
 	@$(call install_fixup, policykit,PRIORITY,optional)
-	@$(call install_fixup, policykit,VERSION,$(POLICYKIT_VERSION))
 	@$(call install_fixup, policykit,SECTION,base)
 	@$(call install_fixup, policykit,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, policykit,DEPENDS,)
 	@$(call install_fixup, policykit,DESCRIPTION,missing)
 
 	# libs

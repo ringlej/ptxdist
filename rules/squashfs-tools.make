@@ -53,12 +53,9 @@ $(STATEDIR)/squashfs-tools.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  squashfs-tools)
-	@$(call install_fixup, squashfs-tools,PACKAGE,squashfs-tools)
 	@$(call install_fixup, squashfs-tools,PRIORITY,optional)
-	@$(call install_fixup, squashfs-tools,VERSION,$(SQUASHFS_TOOLS_VERSION))
 	@$(call install_fixup, squashfs-tools,SECTION,base)
 	@$(call install_fixup, squashfs-tools,AUTHOR,"Erwin Rol")
-	@$(call install_fixup, squashfs-tools,DEPENDS,)
 	@$(call install_fixup, squashfs-tools,DESCRIPTION,missing)
 
 

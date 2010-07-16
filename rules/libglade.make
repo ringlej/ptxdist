@@ -54,12 +54,9 @@ $(STATEDIR)/libglade.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libglade)
-	@$(call install_fixup, libglade,PACKAGE,libglade)
 	@$(call install_fixup, libglade,PRIORITY,optional)
-	@$(call install_fixup, libglade,VERSION,$(LIBGLADE_VERSION))
 	@$(call install_fixup, libglade,SECTION,base)
 	@$(call install_fixup, libglade,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libglade,DEPENDS,)
 	@$(call install_fixup, libglade,DESCRIPTION,missing)
 
 	@$(call install_copy, libglade, 0, 0, 0644, -, \

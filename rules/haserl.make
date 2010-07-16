@@ -52,12 +52,9 @@ $(STATEDIR)/haserl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, haserl)
-	@$(call install_fixup,haserl,PACKAGE,haserl)
 	@$(call install_fixup,haserl,PRIORITY,optional)
-	@$(call install_fixup,haserl,VERSION,$(HASERL_VERSION))
 	@$(call install_fixup,haserl,SECTION,base)
 	@$(call install_fixup,haserl,AUTHOR,"N. Angelacos; PTXDist rule: Tom St")
-	@$(call install_fixup,haserl,DEPENDS,)
 	@$(call install_fixup,haserl,DESCRIPTION,missing)
 
 	@$(call install_copy, haserl, 0, 0, 0755, -, /usr/bin/haserl)

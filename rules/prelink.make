@@ -52,12 +52,9 @@ $(STATEDIR)/prelink.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, prelink)
-	@$(call install_fixup, prelink,PACKAGE,prelink)
 	@$(call install_fixup, prelink,PRIORITY,optional)
-	@$(call install_fixup, prelink,VERSION,$(PRELINK_VERSION))
 	@$(call install_fixup, prelink,SECTION,base)
 	@$(call install_fixup, prelink,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, prelink,DEPENDS,)
 	@$(call install_fixup, prelink,DESCRIPTION,missing)
 
 	@$(call install_alternative, prelink, 0, 0, 0644, /etc/prelink.conf)

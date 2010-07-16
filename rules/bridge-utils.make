@@ -55,12 +55,9 @@ $(STATEDIR)/bridge-utils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,   bridge-utils)
-	@$(call install_fixup,  bridge-utils,PACKAGE,bridge-utils)
 	@$(call install_fixup,  bridge-utils,PRIORITY,optional)
-	@$(call install_fixup,  bridge-utils,VERSION,$(BRIDGE_UTILS_VERSION))
 	@$(call install_fixup,  bridge-utils,SECTION,base)
 	@$(call install_fixup,  bridge-utils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,  bridge-utils,DEPENDS,)
 	@$(call install_fixup,  bridge-utils,DESCRIPTION,missing)
 
 	@$(call install_copy,   bridge-utils, 0, 0, 0755, -, /usr/sbin/brctl)

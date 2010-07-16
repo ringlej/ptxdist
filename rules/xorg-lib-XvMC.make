@@ -55,12 +55,9 @@ $(STATEDIR)/xorg-lib-xvmc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xvmc)
-	@$(call install_fixup, xorg-lib-xvmc,PACKAGE,xorg-lib-xvmc)
 	@$(call install_fixup, xorg-lib-xvmc,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xvmc,VERSION,$(XORG_LIB_XVMC_VERSION))
 	@$(call install_fixup, xorg-lib-xvmc,SECTION,base)
 	@$(call install_fixup, xorg-lib-xvmc,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xvmc,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xvmc,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xvmc, 0, 0, 0644, -, \

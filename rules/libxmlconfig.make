@@ -53,12 +53,9 @@ $(STATEDIR)/libxmlconfig.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libxmlconfig)
-	@$(call install_fixup, libxmlconfig,PACKAGE,libxmlconfig)
 	@$(call install_fixup, libxmlconfig,PRIORITY,optional)
-	@$(call install_fixup, libxmlconfig,VERSION,$(LIBXMLCONFIG_VERSION))
 	@$(call install_fixup, libxmlconfig,SECTION,base)
 	@$(call install_fixup, libxmlconfig,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libxmlconfig,DEPENDS,)
 	@$(call install_fixup, libxmlconfig,DESCRIPTION,missing)
 
 	@$(call install_copy, libxmlconfig, 0, 0, 0644, -, \

@@ -51,12 +51,9 @@ $(STATEDIR)/xorg-lib-xft.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xft)
-	@$(call install_fixup, xorg-lib-xft,PACKAGE,xorg-lib-xft)
 	@$(call install_fixup, xorg-lib-xft,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xft,VERSION,$(XORG_LIB_XFT_VERSION))
 	@$(call install_fixup, xorg-lib-xft,SECTION,base)
 	@$(call install_fixup, xorg-lib-xft,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xft,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xft,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xft, 0, 0, 0644, -, \

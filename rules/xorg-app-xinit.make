@@ -77,12 +77,9 @@ $(STATEDIR)/xorg-app-xinit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xinit)
-	@$(call install_fixup,xorg-app-xinit,PACKAGE,xorg-app-xinit)
 	@$(call install_fixup,xorg-app-xinit,PRIORITY,optional)
-	@$(call install_fixup,xorg-app-xinit,VERSION,$(XORG_APP_XINIT_VERSION))
 	@$(call install_fixup,xorg-app-xinit,SECTION,base)
 	@$(call install_fixup,xorg-app-xinit,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-app-xinit,DEPENDS,)
 	@$(call install_fixup,xorg-app-xinit,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xinit, 0, 0, 0755, -, \

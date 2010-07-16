@@ -63,12 +63,9 @@ $(STATEDIR)/libpciaccess.targetinstall:
 ifndef PTXCONF_LIBPCIACCESS_STATIC
 # only shared libraries are to be installed on the target
 	@$(call install_init, libpciaccess)
-	@$(call install_fixup, libpciaccess,PACKAGE,libpciaccess)
 	@$(call install_fixup, libpciaccess,PRIORITY,optional)
-	@$(call install_fixup, libpciaccess,VERSION,$(LIBPCIACCESS_VERSION))
 	@$(call install_fixup, libpciaccess,SECTION,base)
 	@$(call install_fixup, libpciaccess,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
-	@$(call install_fixup, libpciaccess,DEPENDS,)
 	@$(call install_fixup, libpciaccess,DESCRIPTION,missing)
 
 	@$(call install_copy, libpciaccess, 0, 0, 0644, -, \

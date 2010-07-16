@@ -57,12 +57,9 @@ $(STATEDIR)/openvpn.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, openvpn)
-	@$(call install_fixup, openvpn,PACKAGE,openvpn)
 	@$(call install_fixup, openvpn,PRIORITY,optional)
-	@$(call install_fixup, openvpn,VERSION,$(OPENVPN_VERSION))
 	@$(call install_fixup, openvpn,SECTION,base)
 	@$(call install_fixup, openvpn,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
-	@$(call install_fixup, openvpn,DEPENDS,)
 	@$(call install_fixup, openvpn,DESCRIPTION,missing)
 
 	@$(call install_copy, openvpn, 0, 0, 0755, -, /usr/sbin/openvpn)

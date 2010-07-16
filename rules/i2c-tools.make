@@ -62,12 +62,9 @@ $(STATEDIR)/i2c-tools.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, i2c-tools)
-	@$(call install_fixup, i2c-tools,PACKAGE,i2c-tools)
 	@$(call install_fixup, i2c-tools,PRIORITY,optional)
-	@$(call install_fixup, i2c-tools,VERSION,$(I2C_TOOLS_VERSION))
 	@$(call install_fixup, i2c-tools,SECTION,base)
 	@$(call install_fixup, i2c-tools,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, i2c-tools,DEPENDS,)
 	@$(call install_fixup, i2c-tools,DESCRIPTION,missing)
 
 	@$(call install_copy, i2c-tools, 0, 0, 0755, -, /usr/sbin/i2cdetect)

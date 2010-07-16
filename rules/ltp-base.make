@@ -52,12 +52,9 @@ $(STATEDIR)/ltp_base.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp_base)
-	@$(call install_fixup, ltp_base,PACKAGE,ltp_base)
 	@$(call install_fixup, ltp_base,PRIORITY,optional)
-	@$(call install_fixup, ltp_base,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp_base,SECTION,base)
 	@$(call install_fixup, ltp_base,AUTHOR,"Juergen Beisert@pengutronix.de")
-	@$(call install_fixup, ltp_base,DEPENDS,)
 	@$(call install_fixup, ltp_base,DESCRIPTION,missing)
 
 # just a test

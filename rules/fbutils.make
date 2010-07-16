@@ -48,12 +48,9 @@ $(STATEDIR)/fbutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fbutils)
-	@$(call install_fixup, fbutils,PACKAGE,fbutils)
 	@$(call install_fixup, fbutils,PRIORITY,optional)
-	@$(call install_fixup, fbutils,VERSION,$(FBUTILS_VERSION))
 	@$(call install_fixup, fbutils,SECTION,base)
 	@$(call install_fixup, fbutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, fbutils,DEPENDS,)
 	@$(call install_fixup, fbutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_FBUTILS_FBSET

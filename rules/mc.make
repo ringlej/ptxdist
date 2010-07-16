@@ -67,12 +67,9 @@ $(STATEDIR)/mc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, mc)
-	@$(call install_fixup,mc,PACKAGE,mc)
 	@$(call install_fixup,mc,PRIORITY,optional)
-	@$(call install_fixup,mc,VERSION,$(MC_VERSION))
 	@$(call install_fixup,mc,SECTION,base)
 	@$(call install_fixup,mc,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,mc,DEPENDS,)
 	@$(call install_fixup,mc,DESCRIPTION,missing)
 
 	@$(call install_copy, mc, 0, 0, 0755, -, /usr/bin/mc)

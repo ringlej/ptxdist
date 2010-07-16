@@ -48,12 +48,9 @@ $(STATEDIR)/xcursor-transparent-theme.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xcursor-transparent-theme)
-	@$(call install_fixup, xcursor-transparent-theme,PACKAGE,xcursor-transparent-theme)
 	@$(call install_fixup, xcursor-transparent-theme,PRIORITY,optional)
-	@$(call install_fixup, xcursor-transparent-theme,VERSION,$(XCURSOR_TRANSPARENT_THEME_VERSION))
 	@$(call install_fixup, xcursor-transparent-theme,SECTION,base)
 	@$(call install_fixup, xcursor-transparent-theme,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xcursor-transparent-theme,DEPENDS,)
 	@$(call install_fixup, xcursor-transparent-theme,DESCRIPTION,missing)
 
 	cd $(XCURSOR_TRANSPARENT_THEME_PKGDIR);				\

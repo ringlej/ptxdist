@@ -52,12 +52,9 @@ $(STATEDIR)/ltt-control.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltt-control)
-	@$(call install_fixup, ltt-control,PACKAGE,ltt-control)
 	@$(call install_fixup, ltt-control,PRIORITY,optional)
-	@$(call install_fixup, ltt-control,VERSION,$(LTT_CONTROL_VERSION))
 	@$(call install_fixup, ltt-control,SECTION,base)
 	@$(call install_fixup, ltt-control,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltt-control,DEPENDS,)
 	@$(call install_fixup, ltt-control,DESCRIPTION,missing)
 
 	@$(call install_copy, ltt-control, 0, 0, 0755, -, /usr/bin/lttctl)

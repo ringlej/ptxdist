@@ -53,12 +53,9 @@ $(STATEDIR)/libevent.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libevent)
-	@$(call install_fixup, libevent,PACKAGE,libevent)
 	@$(call install_fixup, libevent,PRIORITY,optional)
-	@$(call install_fixup, libevent,VERSION,$(LIBEVENT_VERSION))
 	@$(call install_fixup, libevent,SECTION,base)
 	@$(call install_fixup, libevent,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, libevent,DEPENDS,)
 	@$(call install_fixup, libevent,DESCRIPTION,missing)
 
 	@$(call install_copy, libevent, 0, 0, 0644, -, \

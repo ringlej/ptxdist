@@ -52,12 +52,9 @@ $(STATEDIR)/glademm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, glademm)
-	@$(call install_fixup, glademm,PACKAGE,glademm)
 	@$(call install_fixup, glademm,PRIORITY,optional)
-	@$(call install_fixup, glademm,VERSION,$(GLADEMM_VERSION))
 	@$(call install_fixup, glademm,SECTION,base)
 	@$(call install_fixup, glademm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, glademm,DEPENDS,)
 	@$(call install_fixup, glademm,DESCRIPTION,missing)
 
 	@$(call install_copy, glademm, 0, 0, 0755, -, \

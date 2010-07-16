@@ -56,12 +56,9 @@ $(STATEDIR)/usbutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, usbutils)
-	@$(call install_fixup, usbutils,PACKAGE,usbutils)
 	@$(call install_fixup, usbutils,PRIORITY,optional)
-	@$(call install_fixup, usbutils,VERSION,$(USBUTILS_VERSION))
 	@$(call install_fixup, usbutils,SECTION,base)
 	@$(call install_fixup, usbutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, usbutils,DEPENDS,)
 	@$(call install_fixup, usbutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_USBUTILS_LSUSB

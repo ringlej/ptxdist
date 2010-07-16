@@ -55,12 +55,9 @@ $(STATEDIR)/xorg-lib-dmx.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-dmx)
-	@$(call install_fixup, xorg-lib-dmx,PACKAGE,xorg-lib-dmx)
 	@$(call install_fixup, xorg-lib-dmx,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-dmx,VERSION,$(XORG_LIB_DMX_VERSION))
 	@$(call install_fixup, xorg-lib-dmx,SECTION,base)
 	@$(call install_fixup, xorg-lib-dmx,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-dmx,DEPENDS,)
 	@$(call install_fixup, xorg-lib-dmx,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-dmx, 0, 0, 0644, -, \

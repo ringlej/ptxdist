@@ -235,12 +235,9 @@ $(STATEDIR)/gst-plugins-base.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  gst-plugins-base)
-	@$(call install_fixup, gst-plugins-base,PACKAGE,gst-plugins-base)
 	@$(call install_fixup, gst-plugins-base,PRIORITY,optional)
-	@$(call install_fixup, gst-plugins-base,VERSION,$(GST_PLUGINS_BASE_VERSION))
 	@$(call install_fixup, gst-plugins-base,SECTION,base)
 	@$(call install_fixup, gst-plugins-base,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gst-plugins-base,DEPENDS,)
 	@$(call install_fixup, gst-plugins-base,DESCRIPTION,missing)
 
 	@$(call install_copy, gst-plugins-base, 0, 0, 0755, \

@@ -46,12 +46,9 @@ $(STATEDIR)/dialog.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  dialog)
-	@$(call install_fixup, dialog,PACKAGE,dialog)
 	@$(call install_fixup, dialog,PRIORITY,optional)
-	@$(call install_fixup, dialog,VERSION,$(DIALOG_VERSION))
 	@$(call install_fixup, dialog,SECTION,base)
 	@$(call install_fixup, dialog,AUTHOR,"Bart vdr. Meulen <bartvdrmeulen@gmail.com>")
-	@$(call install_fixup, dialog,DEPENDS,)
 	@$(call install_fixup, dialog,DESCRIPTION,missing)
 
 	@$(call install_copy, dialog, 0, 0, 0755, -, /usr/bin/dialog)

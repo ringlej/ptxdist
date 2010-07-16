@@ -64,12 +64,9 @@ $(STATEDIR)/pixman.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pixman)
-	@$(call install_fixup, pixman,PACKAGE,pixman)
 	@$(call install_fixup, pixman,PRIORITY,optional)
-	@$(call install_fixup, pixman,VERSION,$(PIXMAN_VERSION))
 	@$(call install_fixup, pixman,SECTION,base)
 	@$(call install_fixup, pixman,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, pixman,DEPENDS,)
 	@$(call install_fixup, pixman,DESCRIPTION,missing)
 
 	@$(call install_copy, pixman, 0, 0, 0644, -, /usr/lib/libpixman-1.so.0.17.6)

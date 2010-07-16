@@ -54,12 +54,9 @@ $(STATEDIR)/argtable2.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, argtable2)
-	@$(call install_fixup, argtable2,PACKAGE,argtable2)
 	@$(call install_fixup, argtable2,PRIORITY,optional)
-	@$(call install_fixup, argtable2,VERSION,$(ARGTABLE2_VERSION))
 	@$(call install_fixup, argtable2,SECTION,base)
 	@$(call install_fixup, argtable2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, argtable2,DEPENDS,)
 	@$(call install_fixup, argtable2,DESCRIPTION,missing)
 
 	@$(call install_copy, argtable2, 0, 0, 0644, -, \

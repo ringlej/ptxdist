@@ -123,12 +123,9 @@ $(STATEDIR)/libcurl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libcurl)
-	@$(call install_fixup, libcurl,PACKAGE,libcurl)
 	@$(call install_fixup, libcurl,PRIORITY,optional)
-	@$(call install_fixup, libcurl,VERSION,$(LIBCURL_VERSION))
 	@$(call install_fixup, libcurl,SECTION,base)
 	@$(call install_fixup, libcurl,AUTHOR,"Daniel Schnell <daniel.schnell@marel.com>")
-	@$(call install_fixup, libcurl,DEPENDS,)
 	@$(call install_fixup, libcurl,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBCURL_CURL

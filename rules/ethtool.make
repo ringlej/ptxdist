@@ -46,12 +46,9 @@ $(STATEDIR)/ethtool.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ethtool)
-	@$(call install_fixup, ethtool,PACKAGE,ethtool)
 	@$(call install_fixup, ethtool,PRIORITY,optional)
-	@$(call install_fixup, ethtool,VERSION,$(ETHTOOL_VERSION))
 	@$(call install_fixup, ethtool,SECTION,base)
 	@$(call install_fixup, ethtool,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ethtool,DEPENDS,)
 	@$(call install_fixup, ethtool,DESCRIPTION,missing)
 
 	@$(call install_copy, ethtool, 0, 0, 0755, -, /usr/sbin/ethtool)

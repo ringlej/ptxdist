@@ -55,12 +55,9 @@ $(STATEDIR)/libgdbus.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libgdbus)
-	@$(call install_fixup, libgdbus,PACKAGE,libgdbus)
 	@$(call install_fixup, libgdbus,PRIORITY,optional)
-	@$(call install_fixup, libgdbus,VERSION,$(LIBGDBUS_VERSION))
 	@$(call install_fixup, libgdbus,SECTION,base)
 	@$(call install_fixup, libgdbus,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libgdbus,DEPENDS,)
 	@$(call install_fixup, libgdbus,DESCRIPTION,missing)
 
 	@$(call install_copy, libgdbus, 0, 0, 0644, -, /usr/lib/libgdbus.so.0.0.0)

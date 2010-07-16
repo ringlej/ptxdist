@@ -46,12 +46,9 @@ $(STATEDIR)/arora.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, arora)
-	@$(call install_fixup, arora,PACKAGE,arora)
 	@$(call install_fixup, arora,PRIORITY,optional)
-	@$(call install_fixup, arora,VERSION,$(ARORA_VERSION))
 	@$(call install_fixup, arora,SECTION,base)
 	@$(call install_fixup, arora,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, arora,DEPENDS,)
 	@$(call install_fixup, arora,DESCRIPTION,missing)
 
 	@$(call install_copy, arora, 0, 0, 0755, -, /usr/bin/arora)

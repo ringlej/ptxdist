@@ -54,12 +54,9 @@ $(STATEDIR)/supertux.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, supertux)
-	@$(call install_fixup, supertux,PACKAGE,supertux)
 	@$(call install_fixup, supertux,PRIORITY,optional)
-	@$(call install_fixup, supertux,VERSION,$(SUPERTUX_VERSION))
 	@$(call install_fixup, supertux,SECTION,base)
 	@$(call install_fixup, supertux,AUTHOR,"Marek Moeckel")
-	@$(call install_fixup, supertux,DEPENDS,)
 	@$(call install_fixup, supertux,DESCRIPTION,missing)
 
 	@cd $(PKGDIR)/$(SUPERTUX); \

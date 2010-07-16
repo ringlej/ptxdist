@@ -58,12 +58,9 @@ $(STATEDIR)/grep.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, grep)
-	@$(call install_fixup, grep,PACKAGE,grep)
 	@$(call install_fixup, grep,PRIORITY,optional)
-	@$(call install_fixup, grep,VERSION,$(GREP_VERSION))
 	@$(call install_fixup, grep,SECTION,base)
 	@$(call install_fixup, grep,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
-	@$(call install_fixup, grep,DEPENDS,)
 	@$(call install_fixup, grep,DESCRIPTION,missing)
 
 	@$(call install_copy, grep, 0, 0, 0755, -, /bin/grep)

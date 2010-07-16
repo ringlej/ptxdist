@@ -206,12 +206,9 @@ $(STATEDIR)/gst-plugins-bad.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gst-plugins-bad)
-	@$(call install_fixup, gst-plugins-bad,PACKAGE,gst-plugins-bad)
 	@$(call install_fixup, gst-plugins-bad,PRIORITY,optional)
-	@$(call install_fixup, gst-plugins-bad,VERSION,$(GST_PLUGINS_BAD_VERSION))
 	@$(call install_fixup, gst-plugins-bad,SECTION,base)
 	@$(call install_fixup, gst-plugins-bad,AUTHOR,"Sascha Hauer")
-	@$(call install_fixup, gst-plugins-bad,DEPENDS,)
 	@$(call install_fixup, gst-plugins-bad,DESCRIPTION,missing)
 
 	# install all activated libs

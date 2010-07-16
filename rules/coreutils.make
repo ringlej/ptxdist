@@ -79,12 +79,9 @@ $(STATEDIR)/coreutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  coreutils)
-	@$(call install_fixup, coreutils,PACKAGE,coreutils)
 	@$(call install_fixup, coreutils,PRIORITY,optional)
-	@$(call install_fixup, coreutils,VERSION,$(COREUTILS_VERSION))
 	@$(call install_fixup, coreutils,SECTION,base)
 	@$(call install_fixup, coreutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, coreutils,DEPENDS,)
 	@$(call install_fixup, coreutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_COREUTILS_ECHO

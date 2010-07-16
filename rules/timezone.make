@@ -129,12 +129,9 @@ $(STATEDIR)/timezone.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, timezone)
-	@$(call install_fixup, timezone,PACKAGE,timezone)
 	@$(call install_fixup, timezone,PRIORITY,optional)
-	@$(call install_fixup, timezone,VERSION,$(TIMEZONE_VERSION))
 	@$(call install_fixup, timezone,SECTION,base)
 	@$(call install_fixup, timezone,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, timezone,DEPENDS,)
 	@$(call install_fixup, timezone,DESCRIPTION,missing)
 
 ifdef PTXCONF_TIMEZONE_LOCAL_DATABASE

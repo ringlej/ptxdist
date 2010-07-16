@@ -66,12 +66,9 @@ $(STATEDIR)/rt-tests.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, rt-tests)
-	@$(call install_fixup, rt-tests,PACKAGE,rt-tests)
 	@$(call install_fixup, rt-tests,PRIORITY,optional)
-	@$(call install_fixup, rt-tests,VERSION,$(RT_TESTS_VERSION))
 	@$(call install_fixup, rt-tests,SECTION,base)
 	@$(call install_fixup, rt-tests,AUTHOR,"Robert Schwebel")
-	@$(call install_fixup, rt-tests,DEPENDS,)
 	@$(call install_fixup, rt-tests,DESCRIPTION,missing)
 
 ifdef PTXCONF_RT_TESTS_CYCLICTEST

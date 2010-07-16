@@ -55,12 +55,9 @@ $(STATEDIR)/ifplugd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ifplugd)
-	@$(call install_fixup, ifplugd,PACKAGE,ifplugd)
 	@$(call install_fixup, ifplugd,PRIORITY,optional)
-	@$(call install_fixup, ifplugd,VERSION,$(IFPLUGD_VERSION))
 	@$(call install_fixup, ifplugd,SECTION,base)
 	@$(call install_fixup, ifplugd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ifplugd,DEPENDS,)
 	@$(call install_fixup, ifplugd,DESCRIPTION,missing)
 
 	@$(call install_copy, ifplugd, 0, 0, 0755, -, /usr/sbin/ifplugd)

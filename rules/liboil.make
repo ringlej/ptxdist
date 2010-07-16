@@ -52,12 +52,9 @@ $(STATEDIR)/liboil.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, liboil)
-	@$(call install_fixup,liboil,PACKAGE,liboil)
 	@$(call install_fixup,liboil,PRIORITY,optional)
-	@$(call install_fixup,liboil,VERSION,$(LIBOIL_VERSION))
 	@$(call install_fixup,liboil,SECTION,base)
 	@$(call install_fixup,liboil,AUTHOR,"Guillaume GOURAT <guillaume.gourat@nexvision.fr>")
-	@$(call install_fixup,liboil,DEPENDS,)
 	@$(call install_fixup,liboil,DESCRIPTION,missing)
 
 	@$(call install_copy, liboil, 0, 0, 0644, -, \

@@ -79,12 +79,9 @@ $(STATEDIR)/libpv.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libpv)
-	@$(call install_fixup, libpv,PACKAGE,libpv)
 	@$(call install_fixup, libpv,PRIORITY,optional)
-	@$(call install_fixup, libpv,VERSION,$(LIBPV_VERSION))
 	@$(call install_fixup, libpv,SECTION,base)
 	@$(call install_fixup, libpv,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libpv,DEPENDS,)
 	@$(call install_fixup, libpv,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBPV_PVTOOL

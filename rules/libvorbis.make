@@ -54,12 +54,9 @@ $(STATEDIR)/libvorbis.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libvorbis)
-	@$(call install_fixup, libvorbis,PACKAGE,libvorbis)
 	@$(call install_fixup, libvorbis,PRIORITY,optional)
-	@$(call install_fixup, libvorbis,VERSION,$(LIBVORBIS_VERSION))
 	@$(call install_fixup, libvorbis,SECTION,base)
 	@$(call install_fixup, libvorbis,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libvorbis,DEPENDS,)
 	@$(call install_fixup, libvorbis,DESCRIPTION,missing)
 
 	@$(call install_copy, libvorbis, 0, 0, 0644, -,	/usr/lib/libvorbis.so.0.4.3)

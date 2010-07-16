@@ -83,12 +83,9 @@ $(STATEDIR)/xorg-driver-video-intel.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-video-intel)
-	@$(call install_fixup,xorg-driver-video-intel,PACKAGE,xorg-driver-video-intel)
 	@$(call install_fixup,xorg-driver-video-intel,PRIORITY,optional)
-	@$(call install_fixup,xorg-driver-video-intel,VERSION,$(XORG_DRIVER_VIDEO_INTEL_VERSION))
 	@$(call install_fixup,xorg-driver-video-intel,SECTION,base)
 	@$(call install_fixup,xorg-driver-video-intel,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-driver-video-intel,DEPENDS,)
 	@$(call install_fixup,xorg-driver-video-intel,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \

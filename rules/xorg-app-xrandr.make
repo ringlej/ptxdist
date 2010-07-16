@@ -52,12 +52,9 @@ $(STATEDIR)/xorg-app-xrandr.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  xorg-app-xrandr)
-	@$(call install_fixup, xorg-app-xrandr,PACKAGE,xorg-app-xrandr)
 	@$(call install_fixup, xorg-app-xrandr,PRIORITY,optional)
-	@$(call install_fixup, xorg-app-xrandr,VERSION,$(XORG_APP_XRANDR_VERSION))
 	@$(call install_fixup, xorg-app-xrandr,SECTION,base)
 	@$(call install_fixup, xorg-app-xrandr,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, xorg-app-xrandr,DEPENDS,)
 	@$(call install_fixup, xorg-app-xrandr,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xrandr, 0, 0, 0755, -, \

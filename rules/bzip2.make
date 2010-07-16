@@ -47,12 +47,9 @@ $(STATEDIR)/bzip2.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, bzip2)
-	@$(call install_fixup, bzip2,PACKAGE,bzip2)
 	@$(call install_fixup, bzip2,PRIORITY,optional)
-	@$(call install_fixup, bzip2,VERSION,$(BZIP2_VERSION))
 	@$(call install_fixup, bzip2,SECTION,base)
 	@$(call install_fixup, bzip2,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
-	@$(call install_fixup, bzip2,DEPENDS,)
 	@$(call install_fixup, bzip2,DESCRIPTION,missing)
 
 ifdef PTXCONF_BZIP2_LIBBZ2

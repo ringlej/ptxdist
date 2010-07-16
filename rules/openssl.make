@@ -99,12 +99,9 @@ $(STATEDIR)/openssl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  openssl)
-	@$(call install_fixup, openssl,PACKAGE,openssl)
 	@$(call install_fixup, openssl,PRIORITY,optional)
-	@$(call install_fixup, openssl,VERSION,$(OPENSSL_VERSION))
 	@$(call install_fixup, openssl,SECTION,base)
 	@$(call install_fixup, openssl,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, openssl,DEPENDS,)
 	@$(call install_fixup, openssl,DESCRIPTION,missing)
 
 ifdef PTXCONF_OPENSSL_BIN

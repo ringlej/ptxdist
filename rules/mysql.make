@@ -302,12 +302,9 @@ $(STATEDIR)/mysql.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, mysql)
-	@$(call install_fixup,mysql,PACKAGE,mysql)
 	@$(call install_fixup,mysql,PRIORITY,optional)
-	@$(call install_fixup,mysql,VERSION,$(MYSQL_VERSION))
 	@$(call install_fixup,mysql,SECTION,base)
 	@$(call install_fixup,mysql,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,mysql,DEPENDS,)
 	@$(call install_fixup,mysql,DESCRIPTION,missing)
 
 #	# install server stuff

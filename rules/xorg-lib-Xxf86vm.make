@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-lib-xxf86vm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xxf86vm)
-	@$(call install_fixup, xorg-lib-xxf86vm,PACKAGE,xorg-lib-xxf86vm)
 	@$(call install_fixup, xorg-lib-xxf86vm,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xxf86vm,VERSION,$(XORG_LIB_XXF86VM_VERSION))
 	@$(call install_fixup, xorg-lib-xxf86vm,SECTION,base)
 	@$(call install_fixup, xorg-lib-xxf86vm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xxf86vm,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xxf86vm,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xxf86vm, 0, 0, 0644, -, \

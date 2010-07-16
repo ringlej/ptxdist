@@ -54,12 +54,9 @@ $(STATEDIR)/dash.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  dash)
-	@$(call install_fixup, dash,PACKAGE,dash)
 	@$(call install_fixup, dash,PRIORITY,optional)
-	@$(call install_fixup, dash,VERSION,$(DASH_VERSION))
 	@$(call install_fixup, dash,SECTION,base)
 	@$(call install_fixup, dash,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, dash,DEPENDS,)
 	@$(call install_fixup, dash,DESCRIPTION,missing)
 
 	@$(call install_copy, dash, 0, 0, 0755, -, /bin/dash)

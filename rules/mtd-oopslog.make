@@ -63,12 +63,9 @@ $(STATEDIR)/mtd-oopslog.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, mtd-oopslog)
-	@$(call install_fixup, mtd-oopslog,PACKAGE,mtd-oopslog)
 	@$(call install_fixup, mtd-oopslog,PRIORITY,optional)
-	@$(call install_fixup, mtd-oopslog,VERSION,$(MTD_OOPSLOG_VERSION))
 	@$(call install_fixup, mtd-oopslog,SECTION,base)
 	@$(call install_fixup, mtd-oopslog,AUTHOR,"Wolfram Sang")
-	@$(call install_fixup, mtd-oopslog,DEPENDS,)
 	@$(call install_fixup, mtd-oopslog,DESCRIPTION,missing)
 
 	@$(call install_copy, mtd-oopslog, 0, 0, 0755, $(MTD_OOPSLOG_DIR)/oopslog, /bin/oopslog)

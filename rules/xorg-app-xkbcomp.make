@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-app-xkbcomp.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xkbcomp)
-	@$(call install_fixup, xorg-app-xkbcomp,PACKAGE,xorg-app-xkbcomp)
 	@$(call install_fixup, xorg-app-xkbcomp,PRIORITY,optional)
-	@$(call install_fixup, xorg-app-xkbcomp,VERSION,$(XORG_APP_XKBCOMP_VERSION))
 	@$(call install_fixup, xorg-app-xkbcomp,SECTION,base)
 	@$(call install_fixup, xorg-app-xkbcomp,AUTHOR,"Juergen Beisert")
-	@$(call install_fixup, xorg-app-xkbcomp,DEPENDS,)
 	@$(call install_fixup, xorg-app-xkbcomp,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xkbcomp,  0, 0, 0755, -, \

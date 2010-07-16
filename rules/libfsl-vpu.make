@@ -48,12 +48,9 @@ $(STATEDIR)/libfsl-vpu.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libfsl-vpu)
-	@$(call install_fixup, libfsl-vpu,PACKAGE,libfsl-vpu)
 	@$(call install_fixup, libfsl-vpu,PRIORITY,optional)
-	@$(call install_fixup, libfsl-vpu,VERSION,$(LIBFSL_VPU_VERSION))
 	@$(call install_fixup, libfsl-vpu,SECTION,base)
 	@$(call install_fixup, libfsl-vpu,AUTHOR,"Sascha Hauer <s.hauer@pengutronix.de>")
-	@$(call install_fixup, libfsl-vpu,DEPENDS,)
 	@$(call install_fixup, libfsl-vpu,DESCRIPTION,missing)
 
 	@$(call install_copy, libfsl-vpu, 0, 0, 0644, -, \

@@ -61,12 +61,9 @@ $(STATEDIR)/findutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,findutils)
-	@$(call install_fixup,findutils,PACKAGE,findutils)
 	@$(call install_fixup,findutils,PRIORITY,optional)
-	@$(call install_fixup,findutils,VERSION,$(FINDUTILS_VERSION))
 	@$(call install_fixup,findutils,SECTION,base)
 	@$(call install_fixup,findutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,findutils,DEPENDS,)
 	@$(call install_fixup,findutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_FINDUTILS_FIND

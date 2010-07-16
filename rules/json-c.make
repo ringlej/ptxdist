@@ -52,12 +52,9 @@ $(STATEDIR)/json-c.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, json-c)
-	@$(call install_fixup, json-c,PACKAGE,json-c)
 	@$(call install_fixup, json-c,PRIORITY,optional)
-	@$(call install_fixup, json-c,VERSION,$(JSON_C_VERSION))
 	@$(call install_fixup, json-c,SECTION,base)
 	@$(call install_fixup, json-c,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, json-c,DEPENDS,)
 	@$(call install_fixup, json-c,DESCRIPTION,missing)
 
 	@$(call install_copy, json-c, 0, 0, 0644, -, /usr/lib/libjson.so.0.0.1)

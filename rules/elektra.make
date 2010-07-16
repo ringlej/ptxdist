@@ -171,12 +171,9 @@ $(STATEDIR)/elektra.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, elektra)
-	@$(call install_fixup, elektra,PACKAGE,elektra)
 	@$(call install_fixup, elektra,PRIORITY,optional)
-	@$(call install_fixup, elektra,VERSION,$(ELEKTRA_VERSION))
 	@$(call install_fixup, elektra,SECTION,base)
 	@$(call install_fixup, elektra,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de> <your@email.please>")
-	@$(call install_fixup, elektra,DEPENDS,)
 	@$(call install_fixup, elektra,DESCRIPTION,missing)
 
 	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/src/kdb/kdb, /usr/bin/kdb)

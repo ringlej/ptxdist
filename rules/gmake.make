@@ -55,12 +55,9 @@ $(STATEDIR)/gmake.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gmake)
-	@$(call install_fixup, gmake,PACKAGE,gmake)
 	@$(call install_fixup, gmake,PRIORITY,optional)
-	@$(call install_fixup, gmake,VERSION,$(GMAKE_VERSION))
 	@$(call install_fixup, gmake,SECTION,base)
 	@$(call install_fixup, gmake,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gmake,DEPENDS,)
 	@$(call install_fixup, gmake,DESCRIPTION,missing)
 
 	@$(call install_copy, gmake, 0, 0, 0755, -, /usr/bin/make)

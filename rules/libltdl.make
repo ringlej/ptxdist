@@ -51,12 +51,9 @@ $(STATEDIR)/libltdl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libltdl)
-	@$(call install_fixup,libltdl,PACKAGE,libltdl)
 	@$(call install_fixup,libltdl,PRIORITY,optional)
-	@$(call install_fixup,libltdl,VERSION,$(LIBLTDL_VERSION))
 	@$(call install_fixup,libltdl,SECTION,base)
 	@$(call install_fixup,libltdl,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,libltdl,DEPENDS,)
 	@$(call install_fixup,libltdl,DESCRIPTION,missing)
 
 	@$(call install_copy, libltdl, 0, 0, 0644, -, \

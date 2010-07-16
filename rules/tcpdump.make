@@ -70,12 +70,9 @@ $(STATEDIR)/tcpdump.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, tcpdump)
-	@$(call install_fixup, tcpdump,PACKAGE,tcpdump)
 	@$(call install_fixup, tcpdump,PRIORITY,optional)
-	@$(call install_fixup, tcpdump,VERSION,$(TCPDUMP_VERSION))
 	@$(call install_fixup, tcpdump,SECTION,base)
 	@$(call install_fixup, tcpdump,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, tcpdump,DEPENDS,)
 	@$(call install_fixup, tcpdump,DESCRIPTION,missing)
 
 	@$(call install_copy, tcpdump, 0, 0, 0755, -, /usr/sbin/tcpdump)

@@ -53,12 +53,9 @@ $(STATEDIR)/failmalloc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, failmalloc)
-	@$(call install_fixup, failmalloc,PACKAGE,failmalloc)
 	@$(call install_fixup, failmalloc,PRIORITY,optional)
-	@$(call install_fixup, failmalloc,VERSION,$(FAILMALLOC_VERSION))
 	@$(call install_fixup, failmalloc,SECTION,base)
 	@$(call install_fixup, failmalloc,AUTHOR,"Juergen Beisert")
-	@$(call install_fixup, failmalloc,DEPENDS,)
 	@$(call install_fixup, failmalloc,DESCRIPTION,missing)
 
 	@$(call install_copy, failmalloc, 0, 0, 0644, -,  \

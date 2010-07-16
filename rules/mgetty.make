@@ -77,12 +77,9 @@ $(STATEDIR)/mgetty.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, mgetty)
-	@$(call install_fixup, mgetty,PACKAGE,mgetty)
 	@$(call install_fixup, mgetty,PRIORITY,optional)
-	@$(call install_fixup, mgetty,VERSION,$(MGETTY_VERSION))
 	@$(call install_fixup, mgetty,SECTION,base)
 	@$(call install_fixup, mgetty,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, mgetty,DEPENDS,)
 	@$(call install_fixup, mgetty,DESCRIPTION,missing)
 
 	@$(call install_copy, mgetty, 0, 0, 0700, -, /usr/sbin/mgetty)

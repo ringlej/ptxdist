@@ -70,12 +70,9 @@ $(STATEDIR)/ltp-pounder21.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-pounder21)
-	@$(call install_fixup, ltp-pounder21,PACKAGE,ltp-pounder21)
 	@$(call install_fixup, ltp-pounder21,PRIORITY,optional)
-	@$(call install_fixup, ltp-pounder21,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-pounder21,SECTION,base)
 	@$(call install_fixup, ltp-pounder21,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-pounder21,DEPENDS,)
 	@$(call install_fixup, ltp-pounder21,DESCRIPTION,missing)
 
 	@for file in `find $(LTP_POUNDER21_PKGDIR)/bin -type f`; do \

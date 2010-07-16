@@ -49,12 +49,9 @@ $(STATEDIR)/ps3-utils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  ps3-utils)
-	@$(call install_fixup, ps3-utils,PACKAGE,ps3-utils)
 	@$(call install_fixup, ps3-utils,PRIORITY,optional)
-	@$(call install_fixup, ps3-utils,VERSION,$(PS3_UTILS_VERSION))
 	@$(call install_fixup, ps3-utils,SECTION,base)
 	@$(call install_fixup, ps3-utils,AUTHOR,"Remy Bohmer <linux@bohmer.net>")
-	@$(call install_fixup, ps3-utils,DEPENDS,)
 	@$(call install_fixup, ps3-utils,DESCRIPTION,missing)
 
 	@$(call install_copy, ps3-utils, 0, 0, 0644, -, /usr/lib/libps3-utils.so.2.0.0)

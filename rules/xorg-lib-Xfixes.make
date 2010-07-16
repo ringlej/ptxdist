@@ -52,12 +52,9 @@ $(STATEDIR)/xorg-lib-xfixes.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xfixes)
-	@$(call install_fixup, xorg-lib-xfixes,PACKAGE,xorg-lib-xfixes)
 	@$(call install_fixup, xorg-lib-xfixes,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xfixes,VERSION,$(XORG_LIB_XFIXES_VERSION))
 	@$(call install_fixup, xorg-lib-xfixes,SECTION,base)
 	@$(call install_fixup, xorg-lib-xfixes,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xfixes,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xfixes,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xfixes, 0, 0, 0644, -, \

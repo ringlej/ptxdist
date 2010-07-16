@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-lib-oldx.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-oldx)
-	@$(call install_fixup, xorg-lib-oldx,PACKAGE,xorg-lib-oldx)
 	@$(call install_fixup, xorg-lib-oldx,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-oldx,VERSION,$(XORG_LIB_OLDX_VERSION))
 	@$(call install_fixup, xorg-lib-oldx,SECTION,base)
 	@$(call install_fixup, xorg-lib-oldx,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-oldx,DEPENDS,)
 	@$(call install_fixup, xorg-lib-oldx,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-oldx, 0, 0, 0644, -, \

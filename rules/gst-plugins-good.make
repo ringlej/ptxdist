@@ -172,12 +172,9 @@ $(STATEDIR)/gst-plugins-good.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gst-plugins-good)
-	@$(call install_fixup, gst-plugins-good,PACKAGE,gst-plugins-good)
 	@$(call install_fixup, gst-plugins-good,PRIORITY,optional)
-	@$(call install_fixup, gst-plugins-good,VERSION,$(GST_PLUGINS_GOOD_VERSION))
 	@$(call install_fixup, gst-plugins-good,SECTION,base)
 	@$(call install_fixup, gst-plugins-good,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gst-plugins-good,DEPENDS,)
 	@$(call install_fixup, gst-plugins-good,DESCRIPTION,missing)
 
 	@for plugin in $(GST_PLUGINS_GOOD_ENABLEP-y); do \

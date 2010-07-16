@@ -65,12 +65,9 @@ $(STATEDIR)/gcclibs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gcclibs)
-	@$(call install_fixup, gcclibs,PACKAGE,gcclibs)
 	@$(call install_fixup, gcclibs,PRIORITY,optional)
-	@$(call install_fixup, gcclibs,VERSION,$(GCCLIBS_VERSION))
 	@$(call install_fixup, gcclibs,SECTION,base)
 	@$(call install_fixup, gcclibs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gcclibs,DEPENDS,)
 	@$(call install_fixup, gcclibs,DESCRIPTION,missing)
 
 ifdef PTXCONF_GCCLIBS_GCC_S

@@ -65,12 +65,9 @@ $(STATEDIR)/libgmp.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libgmp)
-	@$(call install_fixup, libgmp,PACKAGE,libgmp)
 	@$(call install_fixup, libgmp,PRIORITY,optional)
-	@$(call install_fixup, libgmp,VERSION,$(LIBGMP_VERSION))
 	@$(call install_fixup, libgmp,SECTION,base)
 	@$(call install_fixup, libgmp,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
-	@$(call install_fixup, libgmp,DEPENDS,)
 	@$(call install_fixup, libgmp,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBGMP_SHARED

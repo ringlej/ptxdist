@@ -58,12 +58,9 @@ $(STATEDIR)/libmpeg2.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libmpeg2)
-	@$(call install_fixup, libmpeg2,PACKAGE,libmpeg2)
 	@$(call install_fixup, libmpeg2,PRIORITY,optional)
-	@$(call install_fixup, libmpeg2,VERSION,$(LIBMPEG2_VERSION))
 	@$(call install_fixup, libmpeg2,SECTION,base)
 	@$(call install_fixup, libmpeg2,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
-	@$(call install_fixup, libmpeg2,DEPENDS,)
 	@$(call install_fixup, libmpeg2,DESCRIPTION,missing)
 
 	@$(call install_copy, libmpeg2, 0, 0, 0644, -, \

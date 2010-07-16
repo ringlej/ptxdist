@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-font-alias.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  xorg-font-alias)
-	@$(call install_fixup, xorg-font-alias,PACKAGE,xorg-font-alias)
 	@$(call install_fixup, xorg-font-alias,PRIORITY,optional)
-	@$(call install_fixup, xorg-font-alias,VERSION,$(XORG_FONT_ALIAS_VERSION))
 	@$(call install_fixup, xorg-font-alias,SECTION,base)
 	@$(call install_fixup, xorg-font-alias,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-font-alias,DEPENDS,)
 	@$(call install_fixup, xorg-font-alias,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-font-alias, 0, 0, 0644, - ,\

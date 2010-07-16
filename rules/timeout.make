@@ -70,12 +70,9 @@ $(STATEDIR)/timeout.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, timeout)
-	@$(call install_fixup, timeout,PACKAGE,timeout)
 	@$(call install_fixup, timeout,PRIORITY,optional)
-	@$(call install_fixup, timeout,VERSION,$(TIMEOUT_VERSION))
 	@$(call install_fixup, timeout,SECTION,base)
 	@$(call install_fixup, timeout,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, timeout,DEPENDS,)
 	@$(call install_fixup, timeout,DESCRIPTION,missing)
 
 	@$(call install_copy, timeout, 0, 0, 0755, $(TIMEOUT_DIR)/bin/timeout, /usr/bin/timeout)

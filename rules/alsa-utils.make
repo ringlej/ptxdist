@@ -68,12 +68,9 @@ $(STATEDIR)/alsa-utils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, alsa-utils)
-	@$(call install_fixup, alsa-utils, PACKAGE, alsa-utils)
 	@$(call install_fixup, alsa-utils, PRIORITY, optional)
-	@$(call install_fixup, alsa-utils, VERSION, $(ALSA_UTILS_VERSION))
 	@$(call install_fixup, alsa-utils, SECTION, base)
 	@$(call install_fixup, alsa-utils, AUTHOR, "Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, alsa-utils, DEPENDS,)
 	@$(call install_fixup, alsa-utils, DESCRIPTION, missing)
 
 	@$(call install_copy, alsa-utils, 0, 0, 0755, -, /usr/sbin/alsactl)

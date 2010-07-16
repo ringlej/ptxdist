@@ -52,12 +52,9 @@ $(STATEDIR)/xcb-util.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  xcb-util)
-	@$(call install_fixup, xcb-util,PACKAGE,xcb-util)
 	@$(call install_fixup, xcb-util,PRIORITY,optional)
-	@$(call install_fixup, xcb-util,VERSION,$(XCB_UTIL_VERSION))
 	@$(call install_fixup, xcb-util,SECTION,base)
 	@$(call install_fixup, xcb-util,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
-	@$(call install_fixup, xcb-util,DEPENDS,)
 	@$(call install_fixup, xcb-util,DESCRIPTION,missing)
 
 	@$(call install_copy, xcb-util, 0, 0, 0644, - , /usr/lib/libxcb-atom.so.1.0.0)

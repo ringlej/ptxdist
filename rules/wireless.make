@@ -74,12 +74,9 @@ $(STATEDIR)/wireless.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, wireless)
-	@$(call install_fixup, wireless,PACKAGE,wireless)
 	@$(call install_fixup, wireless,PRIORITY,optional)
-	@$(call install_fixup, wireless,VERSION,$(WIRELESS_VERSION))
 	@$(call install_fixup, wireless,SECTION,base)
 	@$(call install_fixup, wireless,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, wireless,DEPENDS,)
 	@$(call install_fixup, wireless,DESCRIPTION,missing)
 
 	@$(call install_copy, wireless, 0, 0, 0755, -, /usr/sbin/iwconfig)

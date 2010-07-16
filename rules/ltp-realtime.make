@@ -72,12 +72,9 @@ $(STATEDIR)/ltp-realtime.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-realtime)
-	@$(call install_fixup, ltp-realtime,PACKAGE,ltp-realtime)
 	@$(call install_fixup, ltp-realtime,PRIORITY,optional)
-	@$(call install_fixup, ltp-realtime,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-realtime,SECTION,base)
 	@$(call install_fixup, ltp-realtime,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, ltp-realtime,DEPENDS,)
 	@$(call install_fixup, ltp-realtime,DESCRIPTION,missing)
 
 	@for file in `find $(LTP_REALTIME_PKGDIR)/bin -type f`; do \

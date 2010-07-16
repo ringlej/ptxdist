@@ -52,12 +52,9 @@ $(STATEDIR)/killproc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, killproc)
-	@$(call install_fixup, killproc,PACKAGE,killproc)
 	@$(call install_fixup, killproc,PRIORITY,optional)
-	@$(call install_fixup, killproc,VERSION,$(KILLPROC_VERSION))
 	@$(call install_fixup, killproc,SECTION,base)
 	@$(call install_fixup, killproc,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, killproc,DEPENDS,)
 	@$(call install_fixup, killproc,DESCRIPTION,missing)
 
 ifdef PTXCONF_KILLPROC_CHECKPROC

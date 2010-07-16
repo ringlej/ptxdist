@@ -52,12 +52,9 @@ $(STATEDIR)/diffutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, diffutils)
-	@$(call install_fixup, diffutils,PACKAGE,diffutils)
 	@$(call install_fixup, diffutils,PRIORITY,optional)
-	@$(call install_fixup, diffutils,VERSION,$(DIFFUTILS_VERSION))
 	@$(call install_fixup, diffutils,SECTION,base)
 	@$(call install_fixup, diffutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, diffutils,DEPENDS,)
 	@$(call install_fixup, diffutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_DIFFUTILS_DIFF

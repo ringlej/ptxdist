@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-lib-xkbui.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xkbui)
-	@$(call install_fixup, xorg-lib-xkbui,PACKAGE,xorg-lib-xkbui)
 	@$(call install_fixup, xorg-lib-xkbui,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xkbui,VERSION,$(XORG_LIB_XKBUI_VERSION))
 	@$(call install_fixup, xorg-lib-xkbui,SECTION,base)
 	@$(call install_fixup, xorg-lib-xkbui,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xkbui,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xkbui,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xkbui, 0, 0, 0644, -, \

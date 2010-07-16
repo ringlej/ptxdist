@@ -57,12 +57,9 @@ $(STATEDIR)/powertop.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, powertop)
-	@$(call install_fixup, powertop,PACKAGE,powertop)
 	@$(call install_fixup, powertop,PRIORITY,optional)
-	@$(call install_fixup, powertop,VERSION,$(POWERTOP_VERSION))
 	@$(call install_fixup, powertop,SECTION,base)
 	@$(call install_fixup, powertop,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, powertop,DEPENDS,)
 	@$(call install_fixup, powertop,DESCRIPTION,missing)
 
 	@$(call install_copy, powertop, 0, 0, 0755, -, /usr/sbin/powertop)

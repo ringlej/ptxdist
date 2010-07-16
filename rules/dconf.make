@@ -57,12 +57,9 @@ $(STATEDIR)/dconf.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  dconf)
-	@$(call install_fixup, dconf,PACKAGE,dconf)
 	@$(call install_fixup, dconf,PRIORITY,optional)
-	@$(call install_fixup, dconf,VERSION,$(DCONF_VERSION))
 	@$(call install_fixup, dconf,SECTION,base)
 	@$(call install_fixup, dconf,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, dconf,DEPENDS,)
 	@$(call install_fixup, dconf,DESCRIPTION,missing)
 
 	@$(call install_copy, dconf, 0, 0, 0644, -, /usr/lib/gio/modules/libdconfsettings.so)

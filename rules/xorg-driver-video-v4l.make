@@ -51,12 +51,9 @@ $(STATEDIR)/xorg-driver-video-v4l.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-video-v4l)
-	@$(call install_fixup,xorg-driver-video-v4l,PACKAGE,xorg-driver-video-v4l)
 	@$(call install_fixup,xorg-driver-video-v4l,PRIORITY,optional)
-	@$(call install_fixup,xorg-driver-video-v4l,VERSION,$(XORG_DRIVER_VIDEO_V4L_VERSION))
 	@$(call install_fixup,xorg-driver-video-v4l,SECTION,base)
 	@$(call install_fixup,xorg-driver-video-v4l,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-driver-video-v4l,DEPENDS,)
 	@$(call install_fixup,xorg-driver-video-v4l,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-v4l, 0, 0, 0755, -, \

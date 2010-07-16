@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-lib-xres.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xres)
-	@$(call install_fixup, xorg-lib-xres,PACKAGE,xorg-lib-xres)
 	@$(call install_fixup, xorg-lib-xres,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xres,VERSION,$(XORG_LIB_XRES_VERSION))
 	@$(call install_fixup, xorg-lib-xres,SECTION,base)
 	@$(call install_fixup, xorg-lib-xres,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xres,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xres,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xres, 0, 0, 0644, -, \

@@ -189,12 +189,9 @@ $(STATEDIR)/mesalib.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, mesalib)
-	@$(call install_fixup, mesalib,PACKAGE,mesalib)
 	@$(call install_fixup, mesalib,PRIORITY,optional)
-	@$(call install_fixup, mesalib,VERSION,$(MESALIB_VERSION))
 	@$(call install_fixup, mesalib,SECTION,base)
 	@$(call install_fixup, mesalib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, mesalib,DEPENDS,)
 	@$(call install_fixup, mesalib,DESCRIPTION,missing)
 
 ifdef PTXCONF_MESALIB_DRIVER_DRI

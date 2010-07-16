@@ -52,12 +52,9 @@ $(STATEDIR)/oprofile.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, oprofile)
-	@$(call install_fixup, oprofile,PACKAGE,oprofile)
 	@$(call install_fixup, oprofile,PRIORITY,optional)
-	@$(call install_fixup, oprofile,VERSION,$(OPROFILE_VERSION))
 	@$(call install_fixup, oprofile,SECTION,base)
 	@$(call install_fixup, oprofile,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, oprofile,DEPENDS,)
 	@$(call install_fixup, oprofile,DESCRIPTION,missing)
 
 	@$(call install_copy, oprofile, 0, 0, 0755, -, \

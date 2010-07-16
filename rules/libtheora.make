@@ -98,12 +98,9 @@ $(STATEDIR)/libtheora.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libtheora)
-	@$(call install_fixup, libtheora,PACKAGE,libtheora)
 	@$(call install_fixup, libtheora,PRIORITY,optional)
-	@$(call install_fixup, libtheora,VERSION,$(LIBTHEORA_VERSION))
 	@$(call install_fixup, libtheora,SECTION,base)
 	@$(call install_fixup, libtheora,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libtheora,DEPENDS,)
 	@$(call install_fixup, libtheora,DESCRIPTION,missing)
 
 	@$(call install_copy, libtheora, 0, 0, 0644, -, /usr/lib/libtheora.so.0.3.10)

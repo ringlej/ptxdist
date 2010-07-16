@@ -67,12 +67,9 @@ $(STATEDIR)/libftdi.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libftdi)
-	@$(call install_fixup, libftdi,PACKAGE,libftdi)
 	@$(call install_fixup, libftdi,PRIORITY,optional)
-	@$(call install_fixup, libftdi,VERSION,$(LIBFTDI_VERSION))
 	@$(call install_fixup, libftdi,SECTION,base)
 	@$(call install_fixup, libftdi,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libftdi,DEPENDS,)
 	@$(call install_fixup, libftdi,DESCRIPTION,missing)
 
 	@$(call install_copy, libftdi, 0, 0, 0755, -, /usr/bin/bitbang_ft2232)

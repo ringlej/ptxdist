@@ -54,12 +54,9 @@ $(STATEDIR)/termcap.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, termcap)
-	@$(call install_fixup, termcap,PACKAGE,termcap)
 	@$(call install_fixup, termcap,PRIORITY,optional)
-	@$(call install_fixup, termcap,VERSION,$(TERMCAP_VERSION))
 	@$(call install_fixup, termcap,SECTION,base)
 	@$(call install_fixup, termcap,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, termcap,DEPENDS,)
 	@$(call install_fixup, termcap,DESCRIPTION,missing)
 
 ifdef PTXCONF_TERMCAP_TERMCAP

@@ -65,12 +65,9 @@ $(STATEDIR)/netcat.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, netcat)
-	@$(call install_fixup, netcat,PACKAGE,netcat)
 	@$(call install_fixup, netcat,PRIORITY,optional)
-	@$(call install_fixup, netcat,VERSION,$(NETCAT_VERSION))
 	@$(call install_fixup, netcat,SECTION,base)
 	@$(call install_fixup, netcat,AUTHOR,"Bjoern Buerger <b.buerger@pengutronix.de>")
-	@$(call install_fixup, netcat,DEPENDS,)
 	@$(call install_fixup, netcat,DESCRIPTION,missing)
 
 	@$(call install_copy, netcat, 0, 0, 0755, -, /bin/netcat)

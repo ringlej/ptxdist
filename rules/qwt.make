@@ -47,12 +47,9 @@ $(STATEDIR)/qwt.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, qwt)
-	@$(call install_fixup, qwt,PACKAGE,qwt)
 	@$(call install_fixup, qwt,PRIORITY,optional)
-	@$(call install_fixup, qwt,VERSION,$(QWT_VERSION))
 	@$(call install_fixup, qwt,SECTION,base)
 	@$(call install_fixup, qwt,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, qwt,DEPENDS,)
 	@$(call install_fixup, qwt,DESCRIPTION,missing)
 
 	@$(call install_copy, qwt, 0, 0, 0644, -, \

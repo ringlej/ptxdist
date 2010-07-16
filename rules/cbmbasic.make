@@ -80,12 +80,9 @@ $(STATEDIR)/cbmbasic.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  cbmbasic)
-	@$(call install_fixup, cbmbasic,PACKAGE,cbmbasic)
 	@$(call install_fixup, cbmbasic,PRIORITY,optional)
-	@$(call install_fixup, cbmbasic,VERSION,$(CBMBASIC_VERSION))
 	@$(call install_fixup, cbmbasic,SECTION,base)
 	@$(call install_fixup, cbmbasic,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, cbmbasic,DEPENDS,)
 	@$(call install_fixup, cbmbasic,DESCRIPTION,missing)
 
 	@$(call install_copy, cbmbasic, 0, 0, 0755, \

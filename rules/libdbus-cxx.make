@@ -57,12 +57,9 @@ $(STATEDIR)/libdbus-cxx.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libdbus-cxx)
-	@$(call install_fixup, libdbus-cxx,PACKAGE,libdbus-cxx)
 	@$(call install_fixup, libdbus-cxx,PRIORITY,optional)
-	@$(call install_fixup, libdbus-cxx,VERSION,$(LIBDBUS_CXX_VERSION))
 	@$(call install_fixup, libdbus-cxx,SECTION,base)
 	@$(call install_fixup, libdbus-cxx,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libdbus-cxx,DEPENDS,)
 	@$(call install_fixup, libdbus-cxx,DESCRIPTION,missing)
 
 	@$(call install_copy, libdbus-cxx, 0, 0, 0755, \

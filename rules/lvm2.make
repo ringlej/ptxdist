@@ -61,12 +61,9 @@ $(STATEDIR)/lvm2.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  lvm2)
-	@$(call install_fixup, lvm2,PACKAGE,lvm2)
 	@$(call install_fixup, lvm2,PRIORITY,optional)
-	@$(call install_fixup, lvm2,VERSION,$(LVM2_VERSION))
 	@$(call install_fixup, lvm2,SECTION,base)
 	@$(call install_fixup, lvm2,AUTHOR,"Bart vdr. Meulen <bartvdrmeulen@gmail.com>")
-	@$(call install_fixup, lvm2,DEPENDS,)
 	@$(call install_fixup, lvm2,DESCRIPTION,missing)
 
 	@$(call install_copy, lvm2, 0, 0, 0755, -, /usr/sbin/dmsetup)

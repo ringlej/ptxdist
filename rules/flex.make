@@ -52,12 +52,9 @@ $(STATEDIR)/flex.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  flex)
-	@$(call install_fixup, flex,PACKAGE,flex)
 	@$(call install_fixup, flex,PRIORITY,optional)
-	@$(call install_fixup, flex,VERSION,$(FLEX_VERSION))
 	@$(call install_fixup, flex,SECTION,base)
 	@$(call install_fixup, flex,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, flex,DEPENDS,)
 	@$(call install_fixup, flex,DESCRIPTION,missing)
 
 #

@@ -67,12 +67,9 @@ $(STATEDIR)/at.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  at)
-	@$(call install_fixup, at,PACKAGE,at)
 	@$(call install_fixup, at,PRIORITY,optional)
-	@$(call install_fixup, at,VERSION,$(AT_VERSION))
 	@$(call install_fixup, at,SECTION,base)
 	@$(call install_fixup, at,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, at,DEPENDS,)
 	@$(call install_fixup, at,DESCRIPTION,missing)
 
 	@$(call install_alternative, at, 0, 0, 0640, /etc/at.deny)

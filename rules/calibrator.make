@@ -55,12 +55,9 @@ $(STATEDIR)/calibrator.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, calibrator)
-	@$(call install_fixup, calibrator,PACKAGE,calibrator)
 	@$(call install_fixup, calibrator,PRIORITY,optional)
-	@$(call install_fixup, calibrator,VERSION,$(CALIBRATOR_VERSION))
 	@$(call install_fixup, calibrator,SECTION,base)
 	@$(call install_fixup, calibrator,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, calibrator,DEPENDS,)
 	@$(call install_fixup, calibrator,DESCRIPTION,missing)
 
 	@$(call install_copy, calibrator, 0, 0, 0755, $(CALIBRATOR_DIR)/calibrator, /usr/bin/calibrator)

@@ -51,12 +51,9 @@ $(STATEDIR)/gettext-dummy.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gettext-dummy)
-	@$(call install_fixup, gettext-dummy,PACKAGE,gettext-dummy)
 	@$(call install_fixup, gettext-dummy,PRIORITY,optional)
-	@$(call install_fixup, gettext-dummy,VERSION,$(GETTEXT_DUMMY_VERSION))
 	@$(call install_fixup, gettext-dummy,SECTION,base)
 	@$(call install_fixup, gettext-dummy,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gettext-dummy,DEPENDS,)
 	@$(call install_fixup, gettext-dummy,DESCRIPTION,missing)
 
 	@$(call install_copy, gettext-dummy, 0, 0, 0644, \

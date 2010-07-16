@@ -52,12 +52,9 @@ $(STATEDIR)/tslib.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, tslib)
-	@$(call install_fixup, tslib,PACKAGE,tslib)
 	@$(call install_fixup, tslib,PRIORITY,optional)
-	@$(call install_fixup, tslib,VERSION,$(TSLIB_VERSION))
 	@$(call install_fixup, tslib,SECTION,base)
 	@$(call install_fixup, tslib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, tslib,DEPENDS,)
 	@$(call install_fixup, tslib,DESCRIPTION,missing)
 
 	@$(call install_alternative, tslib, 0, 0, 0644, \

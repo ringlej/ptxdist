@@ -57,12 +57,9 @@ $(STATEDIR)/zip.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, zip)
-	@$(call install_fixup, zip,PACKAGE,zip)
 	@$(call install_fixup, zip,PRIORITY,optional)
-	@$(call install_fixup, zip,VERSION,$(ZIP_VERSION))
 	@$(call install_fixup, zip,SECTION,base)
 	@$(call install_fixup, zip,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, zip,DEPENDS,)
 	@$(call install_fixup, zip,DESCRIPTION,missing)
 
 ifdef PTXCONF_ZIP_ZIP

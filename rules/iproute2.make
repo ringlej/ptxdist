@@ -61,12 +61,9 @@ $(STATEDIR)/iproute2.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, iproute2)
-	@$(call install_fixup,iproute2,PACKAGE,iproute2)
 	@$(call install_fixup,iproute2,PRIORITY,optional)
-	@$(call install_fixup,iproute2,VERSION,$(IPROUTE2_VERSION))
 	@$(call install_fixup,iproute2,SECTION,base)
 	@$(call install_fixup,iproute2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,iproute2,DEPENDS,)
 	@$(call install_fixup,iproute2,DESCRIPTION,missing)
 
 ifdef PTXCONF_IPROUTE2_IP

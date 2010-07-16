@@ -57,12 +57,9 @@ $(STATEDIR)/myodbc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  myodbc)
-	@$(call install_fixup, myodbc,PACKAGE,myodbc)
 	@$(call install_fixup, myodbc,PRIORITY,optional)
-	@$(call install_fixup, myodbc,VERSION,$(MYODBC_VERSION))
 	@$(call install_fixup, myodbc,SECTION,base)
 	@$(call install_fixup, myodbc,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, myodbc,DEPENDS,)
 	@$(call install_fixup, myodbc,DESCRIPTION,missing)
 
 	@$(call install_copy, myodbc, 0, 0, 0644, -, /usr/lib/libmyodbc3_r-3.51.27.so)

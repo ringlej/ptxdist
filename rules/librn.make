@@ -54,12 +54,9 @@ $(STATEDIR)/librn.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, librn)
-	@$(call install_fixup, librn,PACKAGE,librn)
 	@$(call install_fixup, librn,PRIORITY,optional)
-	@$(call install_fixup, librn,VERSION,$(LIBRN_VERSION))
 	@$(call install_fixup, librn,SECTION,base)
 	@$(call install_fixup, librn,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, librn,DEPENDS,)
 	@$(call install_fixup, librn,DESCRIPTION,missing)
 
 	@$(call install_copy, librn, 0, 0, 0644, -, \

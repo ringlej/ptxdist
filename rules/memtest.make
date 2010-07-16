@@ -55,12 +55,9 @@ $(STATEDIR)/memtest.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, memtest)
-	@$(call install_fixup, memtest,PACKAGE,memtest)
 	@$(call install_fixup, memtest,PRIORITY,optional)
-	@$(call install_fixup, memtest,VERSION,$(MEMTEST_VERSION))
 	@$(call install_fixup, memtest,SECTION,base)
 	@$(call install_fixup, memtest,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, memtest,DEPENDS,)
 	@$(call install_fixup, memtest,DESCRIPTION,missing)
 
 	@$(call install_copy, memtest, 0, 0, 0755, $(MEMTEST_DIR)/mtest, /usr/sbin/memtest)

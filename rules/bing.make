@@ -54,12 +54,9 @@ $(STATEDIR)/bing.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, bing)
-	@$(call install_fixup, bing,PACKAGE,bing)
 	@$(call install_fixup, bing,PRIORITY,optional)
-	@$(call install_fixup, bing,VERSION,$(BING_VERSION))
 	@$(call install_fixup, bing,SECTION,base)
 	@$(call install_fixup, bing,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, bing,DEPENDS,)
 	@$(call install_fixup, bing,DESCRIPTION,missing)
 	@$(call install_copy, bing, 0, 0, 0755, -, /usr/sbin/bing)
 	@$(call install_finish, bing)

@@ -63,12 +63,9 @@ $(STATEDIR)/lsh.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, lsh)
-	@$(call install_fixup, lsh,PACKAGE,lsh)
 	@$(call install_fixup, lsh,PRIORITY,optional)
-	@$(call install_fixup, lsh,VERSION,$(LSH_VERSION))
 	@$(call install_fixup, lsh,SECTION,base)
 	@$(call install_fixup, lsh,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, lsh,DEPENDS,)
 	@$(call install_fixup, lsh,DESCRIPTION,missing)
 
 ifdef PTXCONF_LSH_EXECUV

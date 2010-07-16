@@ -295,12 +295,9 @@ $(STATEDIR)/ntp.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  ntp)
-	@$(call install_fixup, ntp,PACKAGE,ntp)
 	@$(call install_fixup, ntp,PRIORITY,optional)
-	@$(call install_fixup, ntp,VERSION,$(NTP_VERSION))
 	@$(call install_fixup, ntp,SECTION,base)
 	@$(call install_fixup, ntp,AUTHOR,"Robert Schwebel")
-	@$(call install_fixup, ntp,DEPENDS,)
 	@$(call install_fixup, ntp,DESCRIPTION,missing)
 
 #	#

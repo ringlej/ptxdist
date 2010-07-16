@@ -52,12 +52,9 @@ $(STATEDIR)/portmap.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, portmap)
-	@$(call install_fixup, portmap,PACKAGE,portmap)
 	@$(call install_fixup, portmap,PRIORITY,optional)
-	@$(call install_fixup, portmap,VERSION,$(PORTMAP_VERSION))
 	@$(call install_fixup, portmap,SECTION,base)
 	@$(call install_fixup, portmap,AUTHOR,"Juergen Beisert <jbeisert@netscape.net>")
-	@$(call install_fixup, portmap,DEPENDS,)
 	@$(call install_fixup, portmap,DESCRIPTION,missing)
 
 	@$(call install_copy, portmap, 0, 0, 0755, -, /sbin/portmap)

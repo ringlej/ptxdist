@@ -53,12 +53,9 @@ $(STATEDIR)/joe.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, joe)
-	@$(call install_fixup, joe,PACKAGE,joe)
 	@$(call install_fixup, joe,PRIORITY,optional)
-	@$(call install_fixup, joe,VERSION,$(JOE_VERSION))
 	@$(call install_fixup, joe,SECTION,base)
 	@$(call install_fixup, joe,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
-	@$(call install_fixup, joe,DEPENDS,)
 	@$(call install_fixup, joe,DESCRIPTION,missing)
 
 	@$(call install_copy, joe, 0, 0, 0755, -, /usr/bin/joe)

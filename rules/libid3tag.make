@@ -54,12 +54,9 @@ $(STATEDIR)/libid3tag.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libid3tag)
-	@$(call install_fixup, libid3tag,PACKAGE,libid3tag)
 	@$(call install_fixup, libid3tag,PRIORITY,optional)
-	@$(call install_fixup, libid3tag,VERSION,$(LIBID3TAG_VERSION))
 	@$(call install_fixup, libid3tag,SECTION,base)
 	@$(call install_fixup, libid3tag,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, libid3tag,DEPENDS,)
 	@$(call install_fixup, libid3tag,DESCRIPTION,missing)
 
 	@$(call install_copy, libid3tag, 0, 0, 0644, -, \

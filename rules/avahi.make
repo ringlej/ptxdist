@@ -136,12 +136,9 @@ $(STATEDIR)/avahi.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, avahi)
-	@$(call install_fixup, avahi,PACKAGE,avahi)
 	@$(call install_fixup, avahi,PRIORITY,optional)
-	@$(call install_fixup, avahi,VERSION,$(AVAHI_VERSION))
 	@$(call install_fixup, avahi,SECTION,base)
 	@$(call install_fixup, avahi,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, avahi,DEPENDS,)
 	@$(call install_fixup, avahi,DESCRIPTION,missing)
 
 	@$(call install_copy, avahi, 0, 0, 0644, -, /usr/share/avahi/service-types)

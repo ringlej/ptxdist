@@ -81,12 +81,9 @@ $(STATEDIR)/totd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  totd)
-	@$(call install_fixup, totd,PACKAGE,totd)
 	@$(call install_fixup, totd,PRIORITY,optional)
-	@$(call install_fixup, totd,VERSION,$(TOTD_VERSION))
 	@$(call install_fixup, totd,SECTION,base)
 	@$(call install_fixup, totd,AUTHOR,"Bjoern Buerger <b.buerger@pengutronix.de>")
-	@$(call install_fixup, totd,DEPENDS,)
 	@$(call install_fixup, totd,DESCRIPTION,missing)
 
 	@$(call install_copy, totd, 0, 0, 0755, -, /usr/sbin/totd)

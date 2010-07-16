@@ -53,12 +53,9 @@ $(STATEDIR)/xkeyboard-config.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  xkeyboard-config)
-	@$(call install_fixup, xkeyboard-config,PACKAGE,xkeyboard-config)
 	@$(call install_fixup, xkeyboard-config,PRIORITY,optional)
-	@$(call install_fixup, xkeyboard-config,VERSION,$(XKEYBOARD_CONFIG_VERSION))
 	@$(call install_fixup, xkeyboard-config,SECTION,base)
 	@$(call install_fixup, xkeyboard-config,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, xkeyboard-config,DEPENDS,)
 	@$(call install_fixup, xkeyboard-config,DESCRIPTION,missing)
 
 	@cd $(XKEYBOARD_CONFIG_PKGDIR) &&					\

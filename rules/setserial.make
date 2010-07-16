@@ -52,12 +52,9 @@ $(STATEDIR)/setserial.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, setserial)
-	@$(call install_fixup, setserial,PACKAGE,setserial)
 	@$(call install_fixup, setserial,PRIORITY,optional)
-	@$(call install_fixup, setserial,VERSION,$(SETSERIAL_VERSION))
 	@$(call install_fixup, setserial,SECTION,base)
 	@$(call install_fixup, setserial,AUTHOR,"Benedikt Spranger <b.spranger@linutronix.de>")
-	@$(call install_fixup, setserial,DEPENDS,)
 	@$(call install_fixup, setserial,DESCRIPTION,missing)
 
 	@$(call install_copy, setserial, 0, 0, 0755, -, /bin/setserial)

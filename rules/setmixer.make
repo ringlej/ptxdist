@@ -49,12 +49,9 @@ $(STATEDIR)/setmixer.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, setmixer)
-	@$(call install_fixup, setmixer,PACKAGE,setmixer)
 	@$(call install_fixup, setmixer,PRIORITY,optional)
-	@$(call install_fixup, setmixer,VERSION,$(SETMIXER_VERSION))
 	@$(call install_fixup, setmixer,SECTION,base)
 	@$(call install_fixup, setmixer,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, setmixer,DEPENDS,)
 	@$(call install_fixup, setmixer,DESCRIPTION,missing)
 
 	@$(call install_copy, setmixer, 0, 0, 0755, -, /usr/bin/setmixer)

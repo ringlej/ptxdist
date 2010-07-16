@@ -129,12 +129,9 @@ $(STATEDIR)/inetutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, inetutils)
-	@$(call install_fixup, inetutils,PACKAGE,inetutils)
 	@$(call install_fixup, inetutils,PRIORITY,optional)
-	@$(call install_fixup, inetutils,VERSION,$(INETUTILS_VERSION))
 	@$(call install_fixup, inetutils,SECTION,base)
 	@$(call install_fixup, inetutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, inetutils,DEPENDS,)
 	@$(call install_fixup, inetutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_INETUTILS_INETD

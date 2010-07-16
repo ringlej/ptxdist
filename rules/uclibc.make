@@ -1,5 +1,4 @@
 # -*-makefile-*-
-# $Id$
 #
 # Copyright (C) 2003, 2004, 2008 by Marc Kleine-Budde <kleine-budde@gmx.de>
 #
@@ -64,12 +63,9 @@ $(STATEDIR)/uclibc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, uclibc)
-	@$(call install_fixup, uclibc,PACKAGE,uclibc)
 	@$(call install_fixup, uclibc,PRIORITY,optional)
-	@$(call install_fixup, uclibc,VERSION,$(UCLIBC_VERSION))
 	@$(call install_fixup, uclibc,SECTION,base)
-	@$(call install_fixup, uclibc,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup, uclibc,DEPENDS,)
+	@$(call install_fixup, uclibc,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, uclibc,DESCRIPTION,missing)
 
 ifdef PTXCONF_UCLIBC

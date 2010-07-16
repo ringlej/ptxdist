@@ -51,12 +51,9 @@ $(STATEDIR)/sdparm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sdparm)
-	@$(call install_fixup, sdparm,PACKAGE,sdparm)
 	@$(call install_fixup, sdparm,PRIORITY,optional)
-	@$(call install_fixup, sdparm,VERSION,$(SDPARM_VERSION))
 	@$(call install_fixup, sdparm,SECTION,base)
 	@$(call install_fixup, sdparm,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
-	@$(call install_fixup, sdparm,DEPENDS,)
 	@$(call install_fixup, sdparm,DESCRIPTION,missing)
 
 	@$(call install_copy, sdparm, 0, 0, 0755, -, \

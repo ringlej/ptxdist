@@ -50,12 +50,9 @@ $(STATEDIR)/unzip.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, unzip)
-	@$(call install_fixup, unzip,PACKAGE,unzip)
 	@$(call install_fixup, unzip,PRIORITY,optional)
-	@$(call install_fixup, unzip,VERSION,$(UNZIP_VERSION))
 	@$(call install_fixup, unzip,SECTION,base)
 	@$(call install_fixup, unzip,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, unzip,DEPENDS,)
 	@$(call install_fixup, unzip,DESCRIPTION,missing)
 
 ifdef PTXCONF_UNZIP_UNZIP

@@ -53,12 +53,9 @@ $(STATEDIR)/iperf.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, iperf)
-	@$(call install_fixup, iperf,PACKAGE,iperf)
 	@$(call install_fixup, iperf,PRIORITY,optional)
-	@$(call install_fixup, iperf,VERSION,$(IPERF_VERSION))
 	@$(call install_fixup, iperf,SECTION,base)
 	@$(call install_fixup, iperf,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, iperf,DEPENDS,)
 	@$(call install_fixup, iperf,DESCRIPTION,missing)
 
 	@$(call install_copy, iperf, 0, 0, 0755, -, /usr/bin/iperf)

@@ -55,12 +55,9 @@ $(STATEDIR)/smtpclient.targetinstall:
 	@$(call targetinfo)
 	
 	@$(call install_init, smtpclient)
-	@$(call install_fixup, smtpclient,PACKAGE,smtpclient)
 	@$(call install_fixup, smtpclient,PRIORITY,optional)
-	@$(call install_fixup, smtpclient,VERSION,$(SMTPCLIENT_VERSION))
 	@$(call install_fixup, smtpclient,SECTION,base)
 	@$(call install_fixup, smtpclient,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, smtpclient,DEPENDS,)
 	@$(call install_fixup, smtpclient,DESCRIPTION,missing)
 
 	@$(call install_copy, smtpclient, 0, 0, 0755, -, /usr/bin/smtpclient)

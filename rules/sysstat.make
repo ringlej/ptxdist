@@ -53,12 +53,9 @@ $(STATEDIR)/sysstat.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sysstat)
-	@$(call install_fixup, sysstat,PACKAGE,sysstat)
 	@$(call install_fixup, sysstat,PRIORITY,optional)
-	@$(call install_fixup, sysstat,VERSION,$(SYSSTAT_VERSION))
 	@$(call install_fixup, sysstat,SECTION,base)
 	@$(call install_fixup, sysstat,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, sysstat,DEPENDS,)
 	@$(call install_fixup, sysstat,DESCRIPTION,missing)
 
 	@$(call install_copy, sysstat, 0, 0, 0755, /var/log/sa)

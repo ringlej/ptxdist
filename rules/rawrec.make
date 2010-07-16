@@ -52,12 +52,9 @@ $(STATEDIR)/rawrec.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, rawrec)
-	@$(call install_fixup, rawrec,PACKAGE,rawrec)
 	@$(call install_fixup, rawrec,PRIORITY,optional)
-	@$(call install_fixup, rawrec,VERSION,$(RAWREC_VERSION))
 	@$(call install_fixup, rawrec,SECTION,base)
 	@$(call install_fixup, rawrec,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, rawrec,DEPENDS,)
 	@$(call install_fixup, rawrec,DESCRIPTION,missing)
 
 	@$(call install_copy, rawrec, 0, 0, 0755, -, /usr/bin/rawrec)

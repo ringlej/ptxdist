@@ -56,12 +56,9 @@ $(STATEDIR)/quota-tools.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  quota-tools)
-	@$(call install_fixup, quota-tools,PACKAGE,quota-tools)
 	@$(call install_fixup, quota-tools,PRIORITY,optional)
-	@$(call install_fixup, quota-tools,VERSION,$(QUOTA_TOOLS_VERSION))
 	@$(call install_fixup, quota-tools,SECTION,base)
 	@$(call install_fixup, quota-tools,AUTHOR,"Bart vdr. Meulen <bartvdrmeulen@gmail.com>")
-	@$(call install_fixup, quota-tools,DEPENDS,)
 	@$(call install_fixup, quota-tools,DESCRIPTION,missing)
 
 ifdef PTXCONF_QUOTA_TOOLS_QUOTACHECK

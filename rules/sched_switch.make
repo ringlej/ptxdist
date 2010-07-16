@@ -52,12 +52,9 @@ $(STATEDIR)/sched_switch.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  sched_switch)
-	@$(call install_fixup, sched_switch,PACKAGE,sched-switch)
 	@$(call install_fixup, sched_switch,PRIORITY,optional)
-	@$(call install_fixup, sched_switch,VERSION,$(SCHED_SWITCH_VERSION))
 	@$(call install_fixup, sched_switch,SECTION,base)
 	@$(call install_fixup, sched_switch,AUTHOR,"Remy Bohmer <linux@bohmer.net>")
-	@$(call install_fixup, sched_switch,DEPENDS,)
 	@$(call install_fixup, sched_switch,DESCRIPTION,missing)
 
 	@$(call install_copy, sched_switch, 0, 0, 0755, -, /usr/bin/sched_switch)

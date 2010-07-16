@@ -51,12 +51,9 @@ $(STATEDIR)/lsuio.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, lsuio)
-	@$(call install_fixup, lsuio,PACKAGE,lsuio)
 	@$(call install_fixup, lsuio,PRIORITY,optional)
-	@$(call install_fixup, lsuio,VERSION,$(LSUIO_VERSION))
 	@$(call install_fixup, lsuio,SECTION,base)
 	@$(call install_fixup, lsuio,AUTHOR,"Wolfram Sang <w.sang@pengutronix.de>")
-	@$(call install_fixup, lsuio,DEPENDS,)
 	@$(call install_fixup, lsuio,DESCRIPTION,missing)
 
 	@$(call install_copy, lsuio, 0, 0, 0755, -, /usr/bin/lsuio)

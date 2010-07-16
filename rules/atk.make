@@ -56,12 +56,9 @@ $(STATEDIR)/atk.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, atk)
-	@$(call install_fixup,atk,PACKAGE,atk)
 	@$(call install_fixup,atk,PRIORITY,optional)
-	@$(call install_fixup,atk,VERSION,$(ATK_VERSION))
 	@$(call install_fixup,atk,SECTION,base)
 	@$(call install_fixup,atk,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,atk,DEPENDS,)
 	@$(call install_fixup,atk,DESCRIPTION,missing)
 
 	@$(call install_copy, atk, 0, 0, 0644, -, \

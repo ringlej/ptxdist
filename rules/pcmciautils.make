@@ -64,12 +64,9 @@ $(STATEDIR)/pcmciautils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pcmciautils)
-	@$(call install_fixup, pcmciautils,PACKAGE,pcmciautils)
 	@$(call install_fixup, pcmciautils,PRIORITY,optional)
-	@$(call install_fixup, pcmciautils,VERSION,$(PCMCIAUTILS_VERSION))
 	@$(call install_fixup, pcmciautils,SECTION,base)
 	@$(call install_fixup, pcmciautils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, pcmciautils,DEPENDS,)
 	@$(call install_fixup, pcmciautils,DESCRIPTION,missing)
 
 #	# install-tools

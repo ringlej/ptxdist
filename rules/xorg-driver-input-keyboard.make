@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-driver-input-keyboard.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-input-keyboard)
-	@$(call install_fixup, xorg-driver-input-keyboard,PACKAGE,xorg-driver-input-keyboard)
 	@$(call install_fixup, xorg-driver-input-keyboard,PRIORITY,optional)
-	@$(call install_fixup, xorg-driver-input-keyboard,VERSION,$(XORG_DRIVER_INPUT_KEYBOARD_VERSION))
 	@$(call install_fixup, xorg-driver-input-keyboard,SECTION,base)
 	@$(call install_fixup, xorg-driver-input-keyboard,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-driver-input-keyboard,DEPENDS,)
 	@$(call install_fixup, xorg-driver-input-keyboard,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-input-keyboard, 0, 0, 0755, -, \

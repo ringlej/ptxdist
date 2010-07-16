@@ -117,12 +117,9 @@ $(STATEDIR)/cvs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, cvs)
-	@$(call install_fixup,cvs,PACKAGE,cvs)
 	@$(call install_fixup,cvs,PRIORITY,optional)
-	@$(call install_fixup,cvs,VERSION,$(CVS_VERSION))
 	@$(call install_fixup,cvs,SECTION,base)
 	@$(call install_fixup,cvs,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
-	@$(call install_fixup,cvs,DEPENDS,)
 	@$(call install_fixup,cvs,DESCRIPTION,missing)
 
 ifdef PTXCONF_CVS_INETD

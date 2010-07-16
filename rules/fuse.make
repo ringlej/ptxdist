@@ -71,12 +71,9 @@ $(STATEDIR)/fuse.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fuse)
-	@$(call install_fixup, fuse,PACKAGE,fuse)
 	@$(call install_fixup, fuse,PRIORITY,optional)
-	@$(call install_fixup, fuse,VERSION,$(FUSE_VERSION))
 	@$(call install_fixup, fuse,SECTION,base)
 	@$(call install_fixup, fuse,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, fuse,DEPENDS,)
 	@$(call install_fixup, fuse,DESCRIPTION,missing)
 
 ifdef PTXCONF_FUSE__LIB

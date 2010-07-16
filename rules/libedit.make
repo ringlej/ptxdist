@@ -51,12 +51,9 @@ $(STATEDIR)/libedit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libedit)
-	@$(call install_fixup, libedit,PACKAGE,libedit)
 	@$(call install_fixup, libedit,PRIORITY,optional)
-	@$(call install_fixup, libedit,VERSION,$(LIBEDIT_VERSION))
 	@$(call install_fixup, libedit,SECTION,base)
 	@$(call install_fixup, libedit,AUTHOR,"Erwin Rol")
-	@$(call install_fixup, libedit,DEPENDS,)
 	@$(call install_fixup, libedit,DESCRIPTION,missing)
 
 	@$(call install_copy, libedit, 0, 0, 0755, -, /usr/lib/libedit.so.0.0.31)

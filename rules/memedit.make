@@ -54,12 +54,9 @@ $(STATEDIR)/memedit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, memedit)
-	@$(call install_fixup, memedit,PACKAGE,memedit)
 	@$(call install_fixup, memedit,PRIORITY,optional)
-	@$(call install_fixup, memedit,VERSION,$(MEMEDIT_VERSION))
 	@$(call install_fixup, memedit,SECTION,base)
 	@$(call install_fixup, memedit,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, memedit,DEPENDS,)
 	@$(call install_fixup, memedit,DESCRIPTION,missing)
 
 	@$(call install_copy, memedit, 0, 0, 0755, -, \

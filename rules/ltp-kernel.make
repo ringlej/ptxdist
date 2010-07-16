@@ -116,12 +116,9 @@ $(STATEDIR)/ltp-kernel.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-kernel)
-	@$(call install_fixup, ltp-kernel,PACKAGE,ltp-kernel)
 	@$(call install_fixup, ltp-kernel,PRIORITY,optional)
-	@$(call install_fixup, ltp-kernel,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-kernel,SECTION,base)
 	@$(call install_fixup, ltp-kernel,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-kernel,DEPENDS,)
 	@$(call install_fixup, ltp-kernel,DESCRIPTION,missing)
 
 	@cd $(LTP_KERNEL_PKGDIR)/bin; \

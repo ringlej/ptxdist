@@ -62,12 +62,9 @@ $(STATEDIR)/zlib.targetinstall:
 
 ifndef PTXCONF_ZLIB_STATIC
 	@$(call install_init, zlib)
-	@$(call install_fixup, zlib,PACKAGE,zlib)
 	@$(call install_fixup, zlib,PRIORITY,optional)
-	@$(call install_fixup, zlib,VERSION,$(ZLIB_VERSION))
 	@$(call install_fixup, zlib,SECTION,base)
 	@$(call install_fixup, zlib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, zlib,DEPENDS,)
 	@$(call install_fixup, zlib,DESCRIPTION,missing)
 
 	@$(call install_copy, zlib, 0, 0, 0644, -, \

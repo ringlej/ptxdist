@@ -336,12 +336,9 @@ $(STATEDIR)/initng.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, initng)
-	@$(call install_fixup,initng,PACKAGE,initng)
 	@$(call install_fixup,initng,PRIORITY,optional)
-	@$(call install_fixup,initng,VERSION,$(INITNG_VERSION))
 	@$(call install_fixup,initng,SECTION,base)
 	@$(call install_fixup,initng,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup,initng,DEPENDS,)
 	@$(call install_fixup,initng,DESCRIPTION,missing)
 
 	@$(call install_copy, initng, 0, 0, 0644, -, /lib/libinitng.so.0.0.0)

@@ -55,12 +55,9 @@ $(STATEDIR)/mtr.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  mtr)
-	@$(call install_fixup, mtr,PACKAGE,mtr)
 	@$(call install_fixup, mtr,PRIORITY,optional)
-	@$(call install_fixup, mtr,VERSION,$(MTR_VERSION))
 	@$(call install_fixup, mtr,SECTION,base)
 	@$(call install_fixup, mtr,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, mtr,DEPENDS,)
 	@$(call install_fixup, mtr,DESCRIPTION,missing)
 
 	@$(call install_copy, mtr, 0, 0, 4755, -, /usr/sbin/mtr)

@@ -145,12 +145,9 @@ $(STATEDIR)/lighttpd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, lighttpd)
-	@$(call install_fixup, lighttpd,PACKAGE,lighttpd)
 	@$(call install_fixup, lighttpd,PRIORITY,optional)
-	@$(call install_fixup, lighttpd,VERSION,$(LIGHTTPD_VERSION))
 	@$(call install_fixup, lighttpd,SECTION,base)
 	@$(call install_fixup, lighttpd,AUTHOR,"Daniel Schnell <danielsch@marel.com>")
-	@$(call install_fixup, lighttpd,DEPENDS,)
 	@$(call install_fixup, lighttpd,DESCRIPTION,missing)
 
 	@$(call install_copy, lighttpd, 0, 0, 0755, -, \

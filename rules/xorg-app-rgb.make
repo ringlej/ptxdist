@@ -56,12 +56,9 @@ $(STATEDIR)/xorg-app-rgb.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-rgb)
-	@$(call install_fixup,xorg-app-rgb,PACKAGE,xorg-app-rgb)
 	@$(call install_fixup,xorg-app-rgb,PRIORITY,optional)
-	@$(call install_fixup,xorg-app-rgb,VERSION,$(XORG_APP_RGB_VERSION))
 	@$(call install_fixup,xorg-app-rgb,SECTION,base)
 	@$(call install_fixup,xorg-app-rgb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-app-rgb,DEPENDS,)
 	@$(call install_fixup,xorg-app-rgb,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-rgb, 0, 0, 0644, -, \

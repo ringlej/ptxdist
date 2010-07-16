@@ -49,12 +49,9 @@ FCGI_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/fcgi.targetinstall:
 	@$(call targetinfo)
 	@$(call install_init, fcgi)
-	@$(call install_fixup, fcgi,PACKAGE,fcgi)
 	@$(call install_fixup, fcgi,PRIORITY,optional)
-	@$(call install_fixup, fcgi,VERSION,$(FCGI_VERSION))
 	@$(call install_fixup, fcgi,SECTION,base)
 	@$(call install_fixup, fcgi,AUTHOR,"Daniel Schnell <danielsch@marel.com>")
-	@$(call install_fixup, fcgi,DEPENDS,)
 	@$(call install_fixup, fcgi,DESCRIPTION,missing)
 
 	@$(call install_copy, fcgi, 0, 0, 0755, -, \

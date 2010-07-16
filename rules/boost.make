@@ -123,12 +123,9 @@ $(STATEDIR)/boost.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, boost)
-	@$(call install_fixup,boost,PACKAGE,boost)
 	@$(call install_fixup,boost,PRIORITY,optional)
-	@$(call install_fixup,boost,VERSION,$(BOOST_VERSION))
 	@$(call install_fixup,boost,SECTION,base)
 	@$(call install_fixup,boost,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,boost,DEPENDS,)
 	@$(call install_fixup,boost,DESCRIPTION,missing)
 
 # iterate for selected libraries

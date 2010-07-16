@@ -55,12 +55,9 @@ $(STATEDIR)/iozone.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, iozone)
-	@$(call install_fixup, iozone,PACKAGE,iozone)
 	@$(call install_fixup, iozone,PRIORITY,optional)
-	@$(call install_fixup, iozone,VERSION,$(IOZONE_VERSION))
 	@$(call install_fixup, iozone,SECTION,base)
 	@$(call install_fixup, iozone,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
-	@$(call install_fixup, iozone,DEPENDS,)
 	@$(call install_fixup, iozone,DESCRIPTION,missing)
 
 	@$(call install_copy, iozone, 0, 0, 0755, -, /usr/bin/iozone)

@@ -78,12 +78,9 @@ $(STATEDIR)/ckermit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ckermit)
-	@$(call install_fixup, ckermit,PACKAGE,ckermit)
 	@$(call install_fixup, ckermit,PRIORITY,optional)
-	@$(call install_fixup, ckermit,VERSION,$(CKERMIT_VERSION))
 	@$(call install_fixup, ckermit,SECTION,base)
 	@$(call install_fixup, ckermit,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, ckermit,DEPENDS,)
 	@$(call install_fixup, ckermit,DESCRIPTION,missing)
 
 	@$(call install_copy, ckermit, 0, 0, 0755, \

@@ -84,12 +84,9 @@ $(STATEDIR)/jvisu.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, jvisu)
-	@$(call install_fixup, jvisu,PACKAGE,jvisu)
 	@$(call install_fixup, jvisu,PRIORITY,optional)
-	@$(call install_fixup, jvisu,VERSION,$(JVISU_VERSION))
 	@$(call install_fixup, jvisu,SECTION,base)
 	@$(call install_fixup, jvisu,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, jvisu,DEPENDS,)
 	@$(call install_fixup, jvisu,DESCRIPTION,missing)
 
 ifdef PTXCONF_JVISU_APPLET

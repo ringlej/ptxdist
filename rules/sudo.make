@@ -136,12 +136,9 @@ $(STATEDIR)/sudo.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  sudo)
-	@$(call install_fixup, sudo,PACKAGE,sudo)
 	@$(call install_fixup, sudo,PRIORITY,optional)
-	@$(call install_fixup, sudo,VERSION,$(SUDO_VERSION))
 	@$(call install_fixup, sudo,SECTION,base)
 	@$(call install_fixup, sudo,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
-	@$(call install_fixup, sudo,DEPENDS,)
 	@$(call install_fixup, sudo,DESCRIPTION,missing)
 
 	@$(call install_copy, sudo, 0, 0, 7755, -, /usr/bin/sudo)

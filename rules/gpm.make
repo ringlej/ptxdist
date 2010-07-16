@@ -49,12 +49,9 @@ $(STATEDIR)/gpm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gpm)
-	@$(call install_fixup, gpm,PACKAGE,gpm)
 	@$(call install_fixup, gpm,PRIORITY,optional)
-	@$(call install_fixup, gpm,VERSION,$(GPM_VERSION))
 	@$(call install_fixup, gpm,SECTION,base)
 	@$(call install_fixup, gpm,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
-	@$(call install_fixup, gpm,DEPENDS,)
 	@$(call install_fixup, gpm,DESCRIPTION,missing)
 
 	@$(call install_copy, gpm, 0, 0, 0644, -, \

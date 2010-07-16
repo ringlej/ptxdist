@@ -54,12 +54,9 @@ $(STATEDIR)/xterm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xterm)
-	@$(call install_fixup,xterm,PACKAGE,xterm)
 	@$(call install_fixup,xterm,PRIORITY,optional)
-	@$(call install_fixup,xterm,VERSION,$(XTERM_VERSION))
 	@$(call install_fixup,xterm,SECTION,base)
 	@$(call install_fixup,xterm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xterm,DEPENDS,)
 	@$(call install_fixup,xterm,DESCRIPTION,missing)
 
 	@$(call install_copy, xterm, 0, 0, 0755, -, $(XORG_BINDIR)/xterm)

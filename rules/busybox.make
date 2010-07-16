@@ -84,12 +84,9 @@ $(STATEDIR)/busybox.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, busybox)
-	@$(call install_fixup, busybox,PACKAGE,busybox)
 	@$(call install_fixup, busybox,PRIORITY,optional)
-	@$(call install_fixup, busybox,VERSION,$(BUSYBOX_VERSION))
 	@$(call install_fixup, busybox,SECTION,base)
 	@$(call install_fixup, busybox,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, busybox,DEPENDS,)
 	@$(call install_fixup, busybox,DESCRIPTION,missing)
 
 ifdef PTXCONF_BUSYBOX_FEATURE_SUID

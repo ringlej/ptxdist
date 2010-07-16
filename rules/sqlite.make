@@ -115,12 +115,9 @@ $(STATEDIR)/sqlite.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sqlite)
-	@$(call install_fixup, sqlite,PACKAGE,sqlite)
 	@$(call install_fixup, sqlite,PRIORITY,optional)
-	@$(call install_fixup, sqlite,VERSION,$(SQLITE_VERSION))
 	@$(call install_fixup, sqlite,SECTION,base)
 	@$(call install_fixup, sqlite,AUTHOR,"Ladislav Michl <ladis@linux-mips.org>")
-	@$(call install_fixup, sqlite,DEPENDS,)
 	@$(call install_fixup, sqlite,DESCRIPTION,missing)
 
 	@$(call install_copy, sqlite, 0, 0, 0644, -, \

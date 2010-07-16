@@ -51,12 +51,9 @@ $(STATEDIR)/libucdaemon.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libucdaemon)
-	@$(call install_fixup, libucdaemon,PACKAGE,libucdaemon)
 	@$(call install_fixup, libucdaemon,PRIORITY,optional)
-	@$(call install_fixup, libucdaemon,VERSION,$(LIBUCDAEMON_VERSION))
 	@$(call install_fixup, libucdaemon,SECTION,base)
 	@$(call install_fixup, libucdaemon,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libucdaemon,DEPENDS,)
 	@$(call install_fixup, libucdaemon,DESCRIPTION,missing)
 
 	@$(call install_copy, libucdaemon, 0, 0, 0644, -, \

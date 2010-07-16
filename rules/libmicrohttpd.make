@@ -73,12 +73,9 @@ $(STATEDIR)/libmicrohttpd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libmicrohttpd)
-	@$(call install_fixup, libmicrohttpd,PACKAGE,libmicrohttpd)
 	@$(call install_fixup, libmicrohttpd,PRIORITY,optional)
-	@$(call install_fixup, libmicrohttpd,VERSION,$(LIBMICROHTTPD_VERSION))
 	@$(call install_fixup, libmicrohttpd,SECTION,base)
 	@$(call install_fixup, libmicrohttpd,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
-	@$(call install_fixup, libmicrohttpd,DEPENDS,)
 	@$(call install_fixup, libmicrohttpd,DESCRIPTION,missing)
 
 	@$(call install_copy, libmicrohttpd, 0, 0, 0644, -, \

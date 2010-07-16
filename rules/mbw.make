@@ -80,12 +80,9 @@ $(STATEDIR)/mbw.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, mbw)
-	@$(call install_fixup, mbw,PACKAGE,mbw)
 	@$(call install_fixup, mbw,PRIORITY,optional)
-	@$(call install_fixup, mbw,VERSION,$(MBW_VERSION))
 	@$(call install_fixup, mbw,SECTION,base)
 	@$(call install_fixup, mbw,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, mbw,DEPENDS,)
 	@$(call install_fixup, mbw,DESCRIPTION,missing)
 
 	@$(call install_copy, mbw, 0, 0, 0755, $(MBW_DIR)/mbw, /usr/bin/mbw)

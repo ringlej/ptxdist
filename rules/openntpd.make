@@ -60,12 +60,9 @@ $(STATEDIR)/openntpd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, openntpd)
-	@$(call install_fixup, openntpd,PACKAGE,openntpd)
 	@$(call install_fixup, openntpd,PRIORITY,optional)
-	@$(call install_fixup, openntpd,VERSION,$(OPENNTPD_VERSION))
 	@$(call install_fixup, openntpd,SECTION,base)
 	@$(call install_fixup, openntpd,AUTHOR,"Carsten Schlote c.schlote@konzeptpark.de>")
-	@$(call install_fixup, openntpd,DEPENDS,)
 	@$(call install_fixup, openntpd,DESCRIPTION,missing)
 
 	@$(call install_copy, openntpd, 0, 0, 0755, -, /usr/sbin/ntpd)

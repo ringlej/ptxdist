@@ -88,12 +88,9 @@ $(STATEDIR)/tk.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, tk)
-	@$(call install_fixup, tk,PACKAGE,tk)
 	@$(call install_fixup, tk,PRIORITY,optional)
-	@$(call install_fixup, tk,VERSION,$(TK_VERSION))
 	@$(call install_fixup, tk,SECTION,base)
 	@$(call install_fixup, tk,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
-	@$(call install_fixup, tk,DEPENDS,)
 	@$(call install_fixup, tk,DESCRIPTION,missing)
 
 

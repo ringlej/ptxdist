@@ -63,12 +63,9 @@ $(STATEDIR)/libmad.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libmad)
-	@$(call install_fixup, libmad,PACKAGE,libmad)
 	@$(call install_fixup, libmad,PRIORITY,optional)
-	@$(call install_fixup, libmad,VERSION,$(LIBMAD_VERSION))
 	@$(call install_fixup, libmad,SECTION,base)
 	@$(call install_fixup, libmad,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, libmad,DEPENDS,)
 	@$(call install_fixup, libmad,DESCRIPTION,missing)
 
 	@$(call install_copy, libmad, 0, 0, 0644, -, \

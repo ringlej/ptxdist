@@ -57,12 +57,9 @@ $(STATEDIR)/dhcp.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, dhcp)
-	@$(call install_fixup, dhcp,PACKAGE,dhcp)
 	@$(call install_fixup, dhcp,PRIORITY,optional)
-	@$(call install_fixup, dhcp,VERSION,$(DHCP_VERSION))
 	@$(call install_fixup, dhcp,SECTION,base)
 	@$(call install_fixup, dhcp,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, dhcp,DEPENDS,)
 	@$(call install_fixup, dhcp,DESCRIPTION,missing)
 
 ifdef PTXCONF_DHCP_SERVER

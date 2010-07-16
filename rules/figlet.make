@@ -49,12 +49,9 @@ $(STATEDIR)/figlet.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, figlet)
-	@$(call install_fixup, figlet,PACKAGE,figlet)
 	@$(call install_fixup, figlet,PRIORITY,optional)
-	@$(call install_fixup, figlet,VERSION,$(FIGLET_VERSION))
 	@$(call install_fixup, figlet,SECTION,base)
 	@$(call install_fixup, figlet,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, figlet,DEPENDS,)
 	@$(call install_fixup, figlet,DESCRIPTION,missing)
 
 	@$(call install_copy, figlet, 0, 0, 0755, -, \

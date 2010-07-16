@@ -52,12 +52,9 @@ $(STATEDIR)/libsigcpp.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libsigcpp)
-	@$(call install_fixup, libsigcpp,PACKAGE,libsigcpp)
 	@$(call install_fixup, libsigcpp,PRIORITY,optional)
-	@$(call install_fixup, libsigcpp,VERSION,$(LIBSIGCPP_VERSION))
 	@$(call install_fixup, libsigcpp,SECTION,base)
 	@$(call install_fixup, libsigcpp,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libsigcpp,DEPENDS,)
 	@$(call install_fixup, libsigcpp,DESCRIPTION,missing)
 
 	@$(call install_copy, libsigcpp, 0, 0, 0644, -, \

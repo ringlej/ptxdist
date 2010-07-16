@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-lib-xxf86dga.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xxf86dga)
-	@$(call install_fixup, xorg-lib-xxf86dga,PACKAGE,xorg-lib-xxf86dga)
 	@$(call install_fixup, xorg-lib-xxf86dga,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xxf86dga,VERSION,$(XORG_LIB_XXF86DGA_VERSION))
 	@$(call install_fixup, xorg-lib-xxf86dga,SECTION,base)
 	@$(call install_fixup, xorg-lib-xxf86dga,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xxf86dga,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xxf86dga,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xxf86dga, 0, 0, 0644, -, \

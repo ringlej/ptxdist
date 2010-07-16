@@ -174,12 +174,9 @@ $(STATEDIR)/bash.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, bash)
-	@$(call install_fixup, bash,PACKAGE,bash)
 	@$(call install_fixup, bash,PRIORITY,optional)
-	@$(call install_fixup, bash,VERSION,$(BASH_VERSION))
 	@$(call install_fixup, bash,SECTION,base)
 	@$(call install_fixup, bash,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, bash,DEPENDS,)
 	@$(call install_fixup, bash,DESCRIPTION,missing)
 
 	@$(call install_copy, bash, 0, 0, 0755, -, /bin/bash)

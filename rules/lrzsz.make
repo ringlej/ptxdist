@@ -56,12 +56,9 @@ $(STATEDIR)/lrzsz.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, lrzsz)
-	@$(call install_fixup, lrzsz,PACKAGE,lrzsz)
 	@$(call install_fixup, lrzsz,PRIORITY,optional)
-	@$(call install_fixup, lrzsz,VERSION,$(LRZSZ_VERSION))
 	@$(call install_fixup, lrzsz,SECTION,base)
 	@$(call install_fixup, lrzsz,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, lrzsz,DEPENDS,)
 	@$(call install_fixup, lrzsz,DESCRIPTION,missing)
 
 	@$(call install_copy, lrzsz, 0, 0, 0755, -, /usr/bin/lrz)

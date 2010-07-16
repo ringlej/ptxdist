@@ -69,12 +69,9 @@ $(STATEDIR)/jsvc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  jsvc)
-	@$(call install_fixup, jsvc,PACKAGE,jsvc)
 	@$(call install_fixup, jsvc,PRIORITY,optional)
-	@$(call install_fixup, jsvc,VERSION,$(JSVC_VERSION))
 	@$(call install_fixup, jsvc,SECTION,base)
 	@$(call install_fixup, jsvc,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, jsvc,DEPENDS,)
 	@$(call install_fixup, jsvc,DESCRIPTION,missing)
 
 	@$(call install_copy, jsvc, 0, 0, 0755, $(JSVC_DIR)/jsvc, /usr/bin/jsvc)

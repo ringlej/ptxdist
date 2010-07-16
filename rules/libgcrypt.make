@@ -63,12 +63,9 @@ $(STATEDIR)/libgcrypt.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libgcrypt)
-	@$(call install_fixup, libgcrypt,PACKAGE,libgcrypt)
 	@$(call install_fixup, libgcrypt,PRIORITY,optional)
-	@$(call install_fixup, libgcrypt,VERSION,$(LIBGCRYPT_VERSION))
 	@$(call install_fixup, libgcrypt,SECTION,base)
 	@$(call install_fixup, libgcrypt,AUTHOR,"Erwin Rol")
-	@$(call install_fixup, libgcrypt,DEPENDS,)
 	@$(call install_fixup, libgcrypt,DESCRIPTION,missing)
 
 	@$(call install_copy, libgcrypt, 0, 0, 0644, -, \

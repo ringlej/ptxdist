@@ -57,12 +57,9 @@ $(STATEDIR)/bonniexx.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, bonniexx)
-	@$(call install_fixup, bonniexx,PACKAGE,bonniexx)
 	@$(call install_fixup, bonniexx,PRIORITY,optional)
-	@$(call install_fixup, bonniexx,VERSION,$(BONNIEXX_VERSION))
 	@$(call install_fixup, bonniexx,SECTION,base)
 	@$(call install_fixup, bonniexx,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, bonniexx,DEPENDS,)
 	@$(call install_fixup, bonniexx,DESCRIPTION,missing)
 
 	@$(call install_copy, bonniexx, 0, 0, 0755, -, \

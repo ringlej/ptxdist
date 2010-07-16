@@ -65,12 +65,9 @@ $(STATEDIR)/rootfs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  rootfs)
-	@$(call install_fixup, rootfs,PACKAGE,rootfs)
 	@$(call install_fixup, rootfs,PRIORITY,optional)
-	@$(call install_fixup, rootfs,VERSION,$(ROOTFS_VERSION))
 	@$(call install_fixup, rootfs,SECTION,base)
 	@$(call install_fixup, rootfs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, rootfs,DEPENDS,)
 	@$(call install_fixup, rootfs,DESCRIPTION,missing)
 
 #	#

@@ -185,12 +185,9 @@ $(STATEDIR)/directfb.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, directfb)
-	@$(call install_fixup,directfb,PACKAGE,directfb)
 	@$(call install_fixup,directfb,PRIORITY,optional)
-	@$(call install_fixup,directfb,VERSION,$(DIRECTFB_VERSION))
 	@$(call install_fixup,directfb,SECTION,base)
 	@$(call install_fixup,directfb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,directfb,DEPENDS,)
 	@$(call install_fixup,directfb,DESCRIPTION,missing)
 
 ifdef PTXCONF_DIRECTFB_CONFIG_DIRECTFBRC

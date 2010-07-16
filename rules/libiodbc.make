@@ -71,12 +71,9 @@ $(STATEDIR)/libiodbc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  libiodbc)
-	@$(call install_fixup, libiodbc,PACKAGE,libiodbc)
 	@$(call install_fixup, libiodbc,PRIORITY,optional)
-	@$(call install_fixup, libiodbc,VERSION,$(LIBIODBC_VERSION))
 	@$(call install_fixup, libiodbc,SECTION,base)
 	@$(call install_fixup, libiodbc,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, libiodbc,DEPENDS,)
 	@$(call install_fixup, libiodbc,DESCRIPTION,missing)
 
 	@$(call install_copy, libiodbc, 0, 0, 0644, -, \

@@ -66,12 +66,9 @@ $(STATEDIR)/initramfs-tools.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, initramfs-tools)
-	@$(call install_fixup, initramfs-tools,PACKAGE,initramfs-tools)
 	@$(call install_fixup, initramfs-tools,PRIORITY,optional)
-	@$(call install_fixup, initramfs-tools,VERSION,$(INITRAMFS_TOOLS_VERSION))
 	@$(call install_fixup, initramfs-tools,SECTION,base)
 	@$(call install_fixup, initramfs-tools,AUTHOR,"Jon Ringle <jon@ringle.org>")
-	@$(call install_fixup, initramfs-tools,DEPENDS,)
 	@$(call install_fixup, initramfs-tools,DESCRIPTION,missing)
 
 	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /conf);

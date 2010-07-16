@@ -245,12 +245,9 @@ $(STATEDIR)/dropbear.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, dropbear)
-	@$(call install_fixup, dropbear,PACKAGE,dropbear)
 	@$(call install_fixup, dropbear,PRIORITY,optional)
-	@$(call install_fixup, dropbear,VERSION,$(DROPBEAR_VERSION))
 	@$(call install_fixup, dropbear,SECTION,base)
 	@$(call install_fixup, dropbear,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, dropbear,DEPENDS,)
 	@$(call install_fixup, dropbear,DESCRIPTION,missing)
 
 ifdef PTXCONF_DROPBEAR_DROPBEAR

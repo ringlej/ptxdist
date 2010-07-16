@@ -128,12 +128,9 @@ $(STATEDIR)/cairo.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, cairo)
-	@$(call install_fixup,cairo,PACKAGE,cairo)
 	@$(call install_fixup,cairo,PRIORITY,optional)
-	@$(call install_fixup,cairo,VERSION,$(CAIRO_VERSION))
 	@$(call install_fixup,cairo,SECTION,base)
 	@$(call install_fixup,cairo,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,cairo,DEPENDS,)
 	@$(call install_fixup,cairo,DESCRIPTION,missing)
 
 	@$(call install_copy, cairo, 0, 0, 0644, -, /usr/lib/libcairo.so.2.10800.10)

@@ -104,12 +104,9 @@ $(STATEDIR)/e2fsprogs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, e2fsprogs)
-	@$(call install_fixup,e2fsprogs,PACKAGE,e2fsprogs)
 	@$(call install_fixup,e2fsprogs,PRIORITY,optional)
-	@$(call install_fixup,e2fsprogs,VERSION,$(E2FSPROGS_VERSION))
 	@$(call install_fixup,e2fsprogs,SECTION,base)
 	@$(call install_fixup,e2fsprogs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,e2fsprogs,DEPENDS,)
 	@$(call install_fixup,e2fsprogs,DESCRIPTION,missing)
 
 #	#

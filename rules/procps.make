@@ -67,12 +67,9 @@ $(STATEDIR)/procps.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, procps)
-	@$(call install_fixup, procps,PACKAGE,procps)
 	@$(call install_fixup, procps,PRIORITY,optional)
-	@$(call install_fixup, procps,VERSION,$(PROCPS_VERSION))
 	@$(call install_fixup, procps,SECTION,base)
 	@$(call install_fixup, procps,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, procps,DEPENDS,)
 	@$(call install_fixup, procps,DESCRIPTION,missing)
 
 	@$(call install_copy, procps, 0, 0, 0644, -, \

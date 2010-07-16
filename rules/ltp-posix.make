@@ -82,12 +82,9 @@ $(STATEDIR)/ltp-posix.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-posix)
-	@$(call install_fixup, ltp-posix,PACKAGE,ltp-posix)
 	@$(call install_fixup, ltp-posix,PRIORITY,optional)
-	@$(call install_fixup, ltp-posix,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-posix,SECTION,base)
 	@$(call install_fixup, ltp-posix,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-posix,DEPENDS,)
 	@$(call install_fixup, ltp-posix,DESCRIPTION,missing)
 
 ifdef PTXCONF_LTP_POSIX_CONFORMANCE

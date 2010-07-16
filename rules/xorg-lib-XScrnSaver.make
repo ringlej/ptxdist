@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-lib-xscrnsaver.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xscrnsaver)
-	@$(call install_fixup, xorg-lib-xscrnsaver,PACKAGE,xorg-lib-xscrnsaver)
 	@$(call install_fixup, xorg-lib-xscrnsaver,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xscrnsaver,VERSION,$(XORG_LIB_XSCRNSAVER_VERSION))
 	@$(call install_fixup, xorg-lib-xscrnsaver,SECTION,base)
 	@$(call install_fixup, xorg-lib-xscrnsaver,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xscrnsaver,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xscrnsaver,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xscrnsaver, 0, 0, 0644, -, \

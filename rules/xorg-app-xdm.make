@@ -68,12 +68,9 @@ $(STATEDIR)/xorg-app-xdm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xdm)
-	@$(call install_fixup, xorg-app-xdm,PACKAGE,xorg-app-xdm)
 	@$(call install_fixup, xorg-app-xdm,PRIORITY,optional)
-	@$(call install_fixup, xorg-app-xdm,VERSION,$(XORG_APP_XDM_VERSION))
 	@$(call install_fixup, xorg-app-xdm,SECTION,base)
 	@$(call install_fixup, xorg-app-xdm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-app-xdm,DEPENDS,)
 	@$(call install_fixup, xorg-app-xdm,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xdm, 0, 0, 0755, -, /usr/bin/xdm)

@@ -64,12 +64,9 @@ $(STATEDIR)/liblzo.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, liblzo)
-	@$(call install_fixup, liblzo,PACKAGE,liblzo)
 	@$(call install_fixup, liblzo,PRIORITY,optional)
-	@$(call install_fixup, liblzo,VERSION,$(LIBLZO_VERSION))
 	@$(call install_fixup, liblzo,SECTION,base)
 	@$(call install_fixup, liblzo,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
-	@$(call install_fixup, liblzo,DEPENDS,)
 	@$(call install_fixup, liblzo,DESCRIPTION,missing)
 
   ifdef PTXCONF_LIBLZO_SHARED

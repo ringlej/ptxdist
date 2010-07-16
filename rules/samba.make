@@ -129,12 +129,9 @@ $(STATEDIR)/samba.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, samba)
-	@$(call install_fixup, samba,PACKAGE,samba)
 	@$(call install_fixup, samba,PRIORITY,optional)
-	@$(call install_fixup, samba,VERSION,$(SAMBA_VERSION))
 	@$(call install_fixup, samba,SECTION,base)
 	@$(call install_fixup, samba,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, samba,DEPENDS,)
 	@$(call install_fixup, samba,DESCRIPTION,missing)
 
 	@$(call install_copy, samba, 0, 0, 0755, /etc/samba)

@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-app-mkfontdir.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-mkfontdir)
-	@$(call install_fixup, xorg-app-mkfontdir,PACKAGE,xorg-app-mkfontdir)
 	@$(call install_fixup, xorg-app-mkfontdir,PRIORITY,optional)
-	@$(call install_fixup, xorg-app-mkfontdir,VERSION,$(XORG_APP_MKFONTDIR_VERSION))
 	@$(call install_fixup, xorg-app-mkfontdir,SECTION,base)
 	@$(call install_fixup, xorg-app-mkfontdir,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xorg-app-mkfontdir,DEPENDS,)
 	@$(call install_fixup, xorg-app-mkfontdir,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-mkfontdir, 0, 0, 0755, -, \

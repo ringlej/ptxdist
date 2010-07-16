@@ -70,12 +70,9 @@ $(STATEDIR)/gdbserver.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gdbserver)
-	@$(call install_fixup, gdbserver,PACKAGE,gdbserver)
 	@$(call install_fixup, gdbserver,PRIORITY,optional)
-	@$(call install_fixup, gdbserver,VERSION,$(GDBSERVER_VERSION))
 	@$(call install_fixup, gdbserver,SECTION,base)
 	@$(call install_fixup, gdbserver,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gdbserver,DEPENDS,)
 	@$(call install_fixup, gdbserver,DESCRIPTION,missing)
 
 	@$(call install_copy, gdbserver, 0, 0, 0755, -, \

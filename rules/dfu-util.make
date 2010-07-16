@@ -52,12 +52,9 @@ $(STATEDIR)/dfu-util.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  dfu-util)
-	@$(call install_fixup, dfu-util,PACKAGE,dfu-util)
 	@$(call install_fixup, dfu-util,PRIORITY,optional)
-	@$(call install_fixup, dfu-util,VERSION,$(DFU_UTIL_VERSION))
 	@$(call install_fixup, dfu-util,SECTION,base)
 	@$(call install_fixup, dfu-util,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, dfu-util,DEPENDS,)
 	@$(call install_fixup, dfu-util,DESCRIPTION,missing)
 
 	@$(call install_copy, dfu-util, 0, 0, 0755, -, /usr/bin/dfu-util)

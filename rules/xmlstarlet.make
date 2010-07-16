@@ -58,12 +58,9 @@ $(STATEDIR)/xmlstarlet.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xmlstarlet)
-	@$(call install_fixup, xmlstarlet,PACKAGE,xmlstarlet)
 	@$(call install_fixup, xmlstarlet,PRIORITY,optional)
-	@$(call install_fixup, xmlstarlet,VERSION,$(XMLSTARLET_VERSION))
 	@$(call install_fixup, xmlstarlet,SECTION,base)
 	@$(call install_fixup, xmlstarlet,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, xmlstarlet,DEPENDS,)
 	@$(call install_fixup, xmlstarlet,DESCRIPTION,missing)
 
 	@$(call install_copy, xmlstarlet, 0, 0, 0755, \

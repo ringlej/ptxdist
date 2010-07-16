@@ -58,12 +58,9 @@ $(STATEDIR)/lm_sensors.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  lm_sensors)
-	@$(call install_fixup, lm_sensors,PACKAGE,lm-sensors)
 	@$(call install_fixup, lm_sensors,PRIORITY,optional)
-	@$(call install_fixup, lm_sensors,VERSION,$(LM_SENSORS_VERSION))
 	@$(call install_fixup, lm_sensors,SECTION,base)
 	@$(call install_fixup, lm_sensors,AUTHOR,"Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>")
-	@$(call install_fixup, lm_sensors,DEPENDS,)
 	@$(call install_fixup, lm_sensors,DESCRIPTION,missing)
 
 	@$(call install_copy, lm_sensors, 0, 0, 0644, -, /usr/lib/libsensors.so.4.2.1)

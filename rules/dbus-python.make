@@ -54,12 +54,9 @@ $(STATEDIR)/dbus-python.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, dbus-python)
-	@$(call install_fixup, dbus-python,PACKAGE,dbus-python)
 	@$(call install_fixup, dbus-python,PRIORITY,optional)
-	@$(call install_fixup, dbus-python,VERSION,$(DBUS_PYTHON_VERSION))
 	@$(call install_fixup, dbus-python,SECTION,base)
 	@$(call install_fixup, dbus-python,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, dbus-python,DEPENDS,)
 	@$(call install_fixup, dbus-python,DESCRIPTION,missing)
 
 	@cd "$(DBUS_PYTHON_PKGDIR)"; \

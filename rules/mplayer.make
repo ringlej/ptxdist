@@ -357,12 +357,9 @@ $(STATEDIR)/mplayer.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, mplayer)
-	@$(call install_fixup, mplayer,PACKAGE,mplayer)
 	@$(call install_fixup, mplayer,PRIORITY,optional)
-	@$(call install_fixup, mplayer,VERSION,$(MPLAYER_VERSION))
 	@$(call install_fixup, mplayer,SECTION,base)
 	@$(call install_fixup, mplayer,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, mplayer,DEPENDS,)
 	@$(call install_fixup, mplayer,DESCRIPTION,missing)
 
 	@$(call install_copy, mplayer, 0, 0, 0755, -, /usr/bin/mplayer)

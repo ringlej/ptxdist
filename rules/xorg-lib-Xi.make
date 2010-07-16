@@ -55,12 +55,9 @@ $(STATEDIR)/xorg-lib-xi.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xi)
-	@$(call install_fixup, xorg-lib-xi,PACKAGE,xorg-lib-xi)
 	@$(call install_fixup, xorg-lib-xi,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xi,VERSION,$(XORG_LIB_XI_VERSION))
 	@$(call install_fixup, xorg-lib-xi,SECTION,base)
 	@$(call install_fixup, xorg-lib-xi,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xi,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xi,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xi, 0, 0, 0644, -, \

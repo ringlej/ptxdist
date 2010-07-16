@@ -55,12 +55,9 @@ $(STATEDIR)/xorg-driver-input-evdev.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-input-evdev)
-	@$(call install_fixup, xorg-driver-input-evdev,PACKAGE,xorg-driver-input-evdev)
 	@$(call install_fixup, xorg-driver-input-evdev,PRIORITY,optional)
-	@$(call install_fixup, xorg-driver-input-evdev,VERSION,$(XORG_DRIVER_INPUT_EVDEV_VERSION))
 	@$(call install_fixup, xorg-driver-input-evdev,SECTION,base)
 	@$(call install_fixup, xorg-driver-input-evdev,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-driver-input-evdev,DEPENDS,)
 	@$(call install_fixup, xorg-driver-input-evdev,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-input-evdev, 0, 0, 0755, -, \

@@ -61,12 +61,9 @@ $(STATEDIR)/dbus-glib.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, dbus-glib)
-	@$(call install_fixup, dbus-glib,PACKAGE,dbus-glib)
 	@$(call install_fixup, dbus-glib,PRIORITY,optional)
-	@$(call install_fixup, dbus-glib,VERSION,$(DBUS_GLIB_VERSION))
 	@$(call install_fixup, dbus-glib,SECTION,base)
 	@$(call install_fixup, dbus-glib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, dbus-glib,DEPENDS,)
 	@$(call install_fixup, dbus-glib,DESCRIPTION,missing)
 
 	@$(call install_copy, dbus-glib, 0, 0, 0644, -, \

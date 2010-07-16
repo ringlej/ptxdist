@@ -53,12 +53,9 @@ $(STATEDIR)/pangomm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pangomm)
-	@$(call install_fixup, pangomm,PACKAGE,pangomm)
 	@$(call install_fixup, pangomm,PRIORITY,optional)
-	@$(call install_fixup, pangomm,VERSION,$(PANGOMM_VERSION))
 	@$(call install_fixup, pangomm,SECTION,base)
 	@$(call install_fixup, pangomm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, pangomm,DEPENDS,)
 	@$(call install_fixup, pangomm,DESCRIPTION,missing)
 
 	@$(call install_copy, pangomm, 0, 0, 0644, -, /usr/lib/libpangomm-1.4.so.1.0.30)

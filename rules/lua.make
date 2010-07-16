@@ -58,12 +58,9 @@ $(STATEDIR)/lua.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, lua)
-	@$(call install_fixup, lua,PACKAGE,lua)
 	@$(call install_fixup, lua,PRIORITY,optional)
-	@$(call install_fixup, lua,VERSION,$(LUA_VERSION))
 	@$(call install_fixup, lua,SECTION,base)
 	@$(call install_fixup, lua,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
-	@$(call install_fixup, lua,DEPENDS,)
 	@$(call install_fixup, lua,DESCRIPTION,missing)
 
 ifdef PTXCONF_LUA_INSTALL_LUA

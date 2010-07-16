@@ -92,12 +92,9 @@ $(STATEDIR)/db.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, db)
-	@$(call install_fixup, db,PACKAGE,db)
 	@$(call install_fixup, db,PRIORITY,optional)
-	@$(call install_fixup, db,VERSION,$(DB_VERSION))
 	@$(call install_fixup, db,SECTION,base)
 	@$(call install_fixup, db,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, db,DEPENDS,)
 	@$(call install_fixup, db,DESCRIPTION,missing)
 
 	@$(call install_copy, db, 0, 0, 0644, -, \

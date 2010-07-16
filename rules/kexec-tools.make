@@ -70,12 +70,9 @@ $(STATEDIR)/kexec-tools.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  kexec-tools)
-	@$(call install_fixup, kexec-tools,PACKAGE,kexec-tools)
 	@$(call install_fixup, kexec-tools,PRIORITY,optional)
-	@$(call install_fixup, kexec-tools,VERSION,$(KEXEC_TOOLS_VERSION))
 	@$(call install_fixup, kexec-tools,SECTION,base)
 	@$(call install_fixup, kexec-tools,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
-	@$(call install_fixup, kexec-tools,DEPENDS,)
 	@$(call install_fixup, kexec-tools,DESCRIPTION,missing)
 
 ifdef PTXCONF_KEXEC_TOOLS_KEXEC

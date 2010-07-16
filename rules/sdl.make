@@ -273,12 +273,9 @@ $(STATEDIR)/sdl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sdl)
-	@$(call install_fixup, sdl,PACKAGE,sdl)
 	@$(call install_fixup, sdl,PRIORITY,optional)
-	@$(call install_fixup, sdl,VERSION,$(SDL_VERSION))
 	@$(call install_fixup, sdl,SECTION,base)
 	@$(call install_fixup, sdl,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, sdl,DEPENDS,)
 	@$(call install_fixup, sdl,DESCRIPTION,missing)
 
 ifdef PTXCONF_SDL_SHARED

@@ -130,12 +130,9 @@ $(STATEDIR)/ncurses.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ncurses)
-	@$(call install_fixup, ncurses,PACKAGE,ncurses)
 	@$(call install_fixup, ncurses,PRIORITY,optional)
-	@$(call install_fixup, ncurses,VERSION,$(NCURSES_VERSION))
 	@$(call install_fixup, ncurses,SECTION,base)
 	@$(call install_fixup, ncurses,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ncurses,DEPENDS,)
 	@$(call install_fixup, ncurses,DESCRIPTION,missing)
 
 	@$(call install_copy, ncurses, 0, 0, 0644, -, \

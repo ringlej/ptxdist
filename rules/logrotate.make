@@ -51,12 +51,9 @@ $(STATEDIR)/logrotate.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, logrotate)
-	@$(call install_fixup,logrotate,PACKAGE,logrotate)
 	@$(call install_fixup,logrotate,PRIORITY,optional)
-	@$(call install_fixup,logrotate,VERSION,$(LOGROTATE_VERSION))
 	@$(call install_fixup,logrotate,SECTION,base)
 	@$(call install_fixup,logrotate,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,logrotate,DEPENDS,)
 	@$(call install_fixup,logrotate,DESCRIPTION,missing)
 
 	@$(call install_copy, logrotate, 0, 0, 0755, -, /usr/sbin/logrotate)

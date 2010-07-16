@@ -56,12 +56,9 @@ $(STATEDIR)/fbgrab.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fbgrab)
-	@$(call install_fixup, fbgrab,PACKAGE,fbgrab)
 	@$(call install_fixup, fbgrab,PRIORITY,optional)
-	@$(call install_fixup, fbgrab,VERSION,$(FBGRAB_VERSION))
 	@$(call install_fixup, fbgrab,SECTION,base)
 	@$(call install_fixup, fbgrab,AUTHOR,"Roland Hostettler <r.hostettler@gmx.ch>")
-	@$(call install_fixup, fbgrab,DEPENDS,)
 	@$(call install_fixup, fbgrab,DESCRIPTION,missing)
 
 	@$(call install_copy, fbgrab, 0, 0, 0755, -, /usr/bin/fbgrab)

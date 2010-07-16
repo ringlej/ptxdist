@@ -124,12 +124,9 @@ $(STATEDIR)/links.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, links)
-	@$(call install_fixup, links,PACKAGE,links)
 	@$(call install_fixup, links,PRIORITY,optional)
-	@$(call install_fixup, links,VERSION,$(LINKS_VERSION))
 	@$(call install_fixup, links,SECTION,base)
 	@$(call install_fixup, links,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
-	@$(call install_fixup, links,DEPENDS,)
 	@$(call install_fixup, links,DESCRIPTION,missing)
 
 	@$(call install_copy, links, 0, 0, 0755, -, /usr/bin/links)

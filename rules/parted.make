@@ -49,12 +49,9 @@ $(STATEDIR)/parted.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  parted)
-	@$(call install_fixup, parted,PACKAGE,parted)
 	@$(call install_fixup, parted,PRIORITY,optional)
-	@$(call install_fixup, parted,VERSION,$(PARTED_VERSION))
 	@$(call install_fixup, parted,SECTION,base)
 	@$(call install_fixup, parted,AUTHOR,"Bart vdr. Meulen <bartvdrmeulen@gmail.com>")
-	@$(call install_fixup, parted,DEPENDS,)
 	@$(call install_fixup, parted,DESCRIPTION,missing)
 
 	@$(call install_copy, parted, 0, 0, 0755, -, /usr/sbin/parted)

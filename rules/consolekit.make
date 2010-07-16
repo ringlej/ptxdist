@@ -53,12 +53,9 @@ $(STATEDIR)/consolekit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  consolekit)
-	@$(call install_fixup, consolekit,PACKAGE,consolekit)
 	@$(call install_fixup, consolekit,PRIORITY,optional)
-	@$(call install_fixup, consolekit,VERSION,$(CONSOLEKIT_VERSION))
 	@$(call install_fixup, consolekit,SECTION,base)
 	@$(call install_fixup, consolekit,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, consolekit,DEPENDS,)
 	@$(call install_fixup, consolekit,DESCRIPTION,missing)
 
 	@$(call install_copy, consolekit, 0, 0, 0644, -, \

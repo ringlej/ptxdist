@@ -67,12 +67,9 @@ $(STATEDIR)/directfb-examples.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, directfb-examples)
-	@$(call install_fixup, directfb-examples,PACKAGE,directfb-examples)
 	@$(call install_fixup, directfb-examples,PRIORITY,optional)
-	@$(call install_fixup, directfb-examples,VERSION,$(DIRECTFB_EXAMPLES_VERSION))
 	@$(call install_fixup, directfb-examples,SECTION,base)
 	@$(call install_fixup, directfb-examples,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, directfb-examples,DEPENDS,)
 	@$(call install_fixup, directfb-examples,DESCRIPTION,missing)
 
 # installs the binaries

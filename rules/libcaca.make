@@ -72,12 +72,9 @@ $(STATEDIR)/libcaca.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libcaca)
-	@$(call install_fixup, libcaca,PACKAGE,libcaca)
 	@$(call install_fixup, libcaca,PRIORITY,optional)
-	@$(call install_fixup, libcaca,VERSION,$(LIBCACA_VERSION))
 	@$(call install_fixup, libcaca,SECTION,base)
 	@$(call install_fixup, libcaca,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup, libcaca,DEPENDS,)
 	@$(call install_fixup, libcaca,DESCRIPTION,missing)
 
 	@$(call install_copy, libcaca, 0, 0, 0644, -, /usr/lib/libcaca.so.0.99.16)

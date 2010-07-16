@@ -62,12 +62,9 @@ $(STATEDIR)/thttpd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  thttpd)
-	@$(call install_fixup, thttpd,PACKAGE,thttpd)
 	@$(call install_fixup, thttpd,PRIORITY,optional)
-	@$(call install_fixup, thttpd,VERSION,$(THTTPD_VERSION))
 	@$(call install_fixup, thttpd,SECTION,base)
 	@$(call install_fixup, thttpd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, thttpd,DEPENDS,)
 	@$(call install_fixup, thttpd,DESCRIPTION,missing)
 
 	@$(call install_copy, thttpd, 0, 0, 0755, -, /usr/sbin/thttpd)

@@ -45,12 +45,9 @@ $(STATEDIR)/lmbench.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, lmbench)
-	@$(call install_fixup, lmbench,PACKAGE,lmbench)
 	@$(call install_fixup, lmbench,PRIORITY,optional)
-	@$(call install_fixup, lmbench,VERSION,$(LMBENCH_VERSION))
 	@$(call install_fixup, lmbench,SECTION,base)
 	@$(call install_fixup, lmbench,AUTHOR,"Robert Schwebel")
-	@$(call install_fixup, lmbench,DEPENDS,)
 	@$(call install_fixup, lmbench,DESCRIPTION,missing)
 
 	for file in \

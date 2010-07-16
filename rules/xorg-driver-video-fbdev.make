@@ -53,12 +53,9 @@ $(STATEDIR)/xorg-driver-video-fbdev.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-video-fbdev)
-	@$(call install_fixup, xorg-driver-video-fbdev,PACKAGE,xorg-driver-video-fbdev)
 	@$(call install_fixup, xorg-driver-video-fbdev,PRIORITY,optional)
-	@$(call install_fixup, xorg-driver-video-fbdev,VERSION,$(XORG_DRIVER_VIDEO_FBDEV_VERSION))
 	@$(call install_fixup, xorg-driver-video-fbdev,SECTION,base)
 	@$(call install_fixup, xorg-driver-video-fbdev,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-driver-video-fbdev,DEPENDS,)
 	@$(call install_fixup, xorg-driver-video-fbdev,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-fbdev, 0, 0, 0755, -, \

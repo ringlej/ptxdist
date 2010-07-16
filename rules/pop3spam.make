@@ -53,12 +53,9 @@ $(STATEDIR)/pop3spam.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pop3spam)
-	@$(call install_fixup, pop3spam,PACKAGE,pop3spam)
 	@$(call install_fixup, pop3spam,PRIORITY,optional)
-	@$(call install_fixup, pop3spam,VERSION,$(POP3SPAM_VERSION))
 	@$(call install_fixup, pop3spam,SECTION,base)
 	@$(call install_fixup, pop3spam,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, pop3spam,DEPENDS,)
 	@$(call install_fixup, pop3spam,DESCRIPTION,missing)
 
 	@$(call install_copy, pop3spam, 0, 0, 0755, -, /usr/bin/pop3spam)

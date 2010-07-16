@@ -70,12 +70,9 @@ $(STATEDIR)/ltp-dots.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ltp-dots)
-	@$(call install_fixup, ltp-dots,PACKAGE,ltp-dots)
 	@$(call install_fixup, ltp-dots,PRIORITY,optional)
-	@$(call install_fixup, ltp-dots,VERSION,$(LTP_BASE_VERSION))
 	@$(call install_fixup, ltp-dots,SECTION,base)
 	@$(call install_fixup, ltp-dots,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ltp-dots,DEPENDS,)
 	@$(call install_fixup, ltp-dots,DESCRIPTION,missing)
 
 	@for file in `find $(LTP_DOTS_PKGDIR)/bin -type f`; do \

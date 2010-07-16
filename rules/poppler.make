@@ -101,12 +101,9 @@ $(STATEDIR)/poppler.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  poppler)
-	@$(call install_fixup, poppler, PACKAGE, poppler)
 	@$(call install_fixup, poppler, PRIORITY, optional)
-	@$(call install_fixup, poppler, VERSION, $(POPPLER_VERSION))
 	@$(call install_fixup, poppler, SECTION, base)
 	@$(call install_fixup, poppler, AUTHOR, "r.schwebel@pengutronix.de")
-	@$(call install_fixup, poppler, DEPENDS,)
 	@$(call install_fixup, poppler, DESCRIPTION, missing)
 
 	@$(call install_copy, poppler, 0, 0, 0644, -, /usr/lib/libpoppler.so.4.0.0)

@@ -67,12 +67,9 @@ $(STATEDIR)/inadyn.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, inadyn)
-	@$(call install_fixup, inadyn,PACKAGE,inadyn)
 	@$(call install_fixup, inadyn,PRIORITY,optional)
-	@$(call install_fixup, inadyn,VERSION,$(INADYN_VERSION))
 	@$(call install_fixup, inadyn,SECTION,base)
 	@$(call install_fixup, inadyn,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
-	@$(call install_fixup, inadyn,DEPENDS,)
 	@$(call install_fixup, inadyn,DESCRIPTION,missing)
 
 	@$(call install_copy, inadyn, 0, 0, 0755, \

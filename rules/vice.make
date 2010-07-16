@@ -77,12 +77,9 @@ $(STATEDIR)/vice.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, vice)
-	@$(call install_fixup, vice,PACKAGE,vice)
 	@$(call install_fixup, vice,PRIORITY,optional)
-	@$(call install_fixup, vice,VERSION,$(VICE_VERSION))
 	@$(call install_fixup, vice,SECTION,base)
 	@$(call install_fixup, vice,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, vice,DEPENDS,)
 	@$(call install_fixup, vice,DESCRIPTION,missing)
 
 #	@$(call install_copy, vice, 0, 0, 0755, $(VICE_DIR)/foobar, /dev/null)

@@ -73,12 +73,9 @@ $(STATEDIR)/ssmtp.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  ssmtp)
-	@$(call install_fixup, ssmtp,PACKAGE,ssmtp)
 	@$(call install_fixup, ssmtp,PRIORITY,optional)
-	@$(call install_fixup, ssmtp,VERSION,$(SSMTP_VERSION))
 	@$(call install_fixup, ssmtp,SECTION,base)
 	@$(call install_fixup, ssmtp,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ssmtp,DEPENDS,)
 	@$(call install_fixup, ssmtp,DESCRIPTION,missing)
 
 	@$(call install_copy, ssmtp, 0, 0, 0755, -, /sbin/ssmtp)

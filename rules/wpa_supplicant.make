@@ -86,12 +86,9 @@ $(STATEDIR)/wpa_supplicant.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  wpa_supplicant)
-	@$(call install_fixup, wpa_supplicant,PACKAGE,wpa-supplicant)
 	@$(call install_fixup, wpa_supplicant,PRIORITY,optional)
-	@$(call install_fixup, wpa_supplicant,VERSION,$(WPA_SUPPLICANT_VERSION))
 	@$(call install_fixup, wpa_supplicant,SECTION,base)
 	@$(call install_fixup, wpa_supplicant,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
-	@$(call install_fixup, wpa_supplicant,DEPENDS,)
 	@$(call install_fixup, wpa_supplicant,DESCRIPTION,missing)
 
 	@$(call install_copy, wpa_supplicant, 0, 0, 0755, -, \

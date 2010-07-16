@@ -63,12 +63,9 @@ $(STATEDIR)/ipkg.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ipkg)
-	@$(call install_fixup, ipkg,PACKAGE,ipkg)
 	@$(call install_fixup, ipkg,PRIORITY,optional)
-	@$(call install_fixup, ipkg,VERSION,$(IPKG_VERSION))
 	@$(call install_fixup, ipkg,SECTION,base)
 	@$(call install_fixup, ipkg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, ipkg,DEPENDS,)
 	@$(call install_fixup, ipkg,DESCRIPTION,missing)
 
 	@$(call install_copy, ipkg, 0, 0, 0644, -, \

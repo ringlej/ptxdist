@@ -106,12 +106,9 @@ $(STATEDIR)/owfs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, owfs)
-	@$(call install_fixup, owfs,PACKAGE,owfs)
 	@$(call install_fixup, owfs,PRIORITY,optional)
-	@$(call install_fixup, owfs,VERSION,$(OWFS_VERSION))
 	@$(call install_fixup, owfs,SECTION,base)
 	@$(call install_fixup, owfs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, owfs,DEPENDS,)
 	@$(call install_fixup, owfs,DESCRIPTION,missing)
 
 	@$(call install_copy, owfs, 0, 0, 0644, \

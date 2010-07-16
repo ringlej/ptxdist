@@ -58,12 +58,9 @@ $(STATEDIR)/xfsprogs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  xfsprogs)
-	@$(call install_fixup, xfsprogs,PACKAGE,xfsprogs)
 	@$(call install_fixup, xfsprogs,PRIORITY,optional)
-	@$(call install_fixup, xfsprogs,VERSION,$(XFSPROGS_VERSION))
 	@$(call install_fixup, xfsprogs,SECTION,base)
 	@$(call install_fixup, xfsprogs,AUTHOR,"Bart vdr. Meulen <bartvdrmeulen@gmail.com>")
-	@$(call install_fixup, xfsprogs,DEPENDS,)
 	@$(call install_fixup, xfsprogs,DESCRIPTION,missing)
 
 ifdef PTXCONF_XFSPROGS_INSTALL_MKXFS

@@ -90,12 +90,9 @@ $(STATEDIR)/wxwidgets.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  wxwidgets)
-	@$(call install_fixup, wxwidgets,PACKAGE,wxwidgets)
 	@$(call install_fixup, wxwidgets,PRIORITY,optional)
-	@$(call install_fixup, wxwidgets,VERSION,$(WXWIDGETS_VERSION))
 	@$(call install_fixup, wxwidgets,SECTION,base)
 	@$(call install_fixup, wxwidgets,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup, wxwidgets,DEPENDS,)
 	@$(call install_fixup, wxwidgets,DESCRIPTION,missing)
 
 	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \

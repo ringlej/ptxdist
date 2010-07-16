@@ -115,12 +115,9 @@ $(STATEDIR)/hal.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, hal)
-	@$(call install_fixup, hal,PACKAGE,hal)
 	@$(call install_fixup, hal,PRIORITY,optional)
-	@$(call install_fixup, hal,VERSION,$(HAL_VERSION))
 	@$(call install_fixup, hal,SECTION,base)
 	@$(call install_fixup, hal,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, hal,DEPENDS,)
 	@$(call install_fixup, hal,DESCRIPTION,missing)
 
 #	# binaries

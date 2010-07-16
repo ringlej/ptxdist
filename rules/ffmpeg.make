@@ -423,12 +423,9 @@ $(STATEDIR)/ffmpeg.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, ffmpeg)
-	@$(call install_fixup, ffmpeg,PACKAGE,ffmpeg)
 	@$(call install_fixup, ffmpeg,PRIORITY,optional)
-	@$(call install_fixup, ffmpeg,VERSION,$(FFMPEG_VERSION))
 	@$(call install_fixup, ffmpeg,SECTION,base)
 	@$(call install_fixup, ffmpeg,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, ffmpeg,DEPENDS,)
 	@$(call install_fixup, ffmpeg,DESCRIPTION,missing)
 
 	@$(call install_copy, ffmpeg, 0, 0, 0644, -, \

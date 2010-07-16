@@ -55,12 +55,9 @@ $(STATEDIR)/xorg-driver-video-apm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-video-apm)
-	@$(call install_fixup, xorg-driver-video-apm,PACKAGE,xorg-driver-video-apm)
 	@$(call install_fixup, xorg-driver-video-apm,PRIORITY,optional)
-	@$(call install_fixup, xorg-driver-video-apm,VERSION,$(XORG_DRIVER_VIDEO_APM_VERSION))
 	@$(call install_fixup, xorg-driver-video-apm,SECTION,base)
 	@$(call install_fixup, xorg-driver-video-apm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-driver-video-apm,DEPENDS,)
 	@$(call install_fixup, xorg-driver-video-apm,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-apm, 0, 0, 0755, -, \

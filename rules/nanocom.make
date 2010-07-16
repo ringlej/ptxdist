@@ -72,12 +72,9 @@ $(STATEDIR)/nanocom.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, nanocom)
-	@$(call install_fixup, nanocom,PACKAGE,nanocom)
 	@$(call install_fixup, nanocom,PRIORITY,optional)
-	@$(call install_fixup, nanocom,VERSION,$(NANOCOM_VERSION))
 	@$(call install_fixup, nanocom,SECTION,base)
 	@$(call install_fixup, nanocom,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
-	@$(call install_fixup, nanocom,DEPENDS,)
 	@$(call install_fixup, nanocom,DESCRIPTION,missing)
 
 	@$(call install_copy, nanocom, 0, 0, 0755, $(NANOCOM_DIR)/nanocom, /bin/nanocom)

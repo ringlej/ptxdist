@@ -54,12 +54,9 @@ $(STATEDIR)/xorg-lib-xmu.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xmu)
-	@$(call install_fixup, xorg-lib-xmu,PACKAGE,xorg-lib-xmu)
 	@$(call install_fixup, xorg-lib-xmu,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xmu,VERSION,$(XORG_LIB_XMU_VERSION))
 	@$(call install_fixup, xorg-lib-xmu,SECTION,base)
 	@$(call install_fixup, xorg-lib-xmu,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xmu,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xmu,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xmu, 0, 0, 0644, -, \

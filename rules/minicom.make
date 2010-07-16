@@ -58,12 +58,9 @@ $(STATEDIR)/minicom.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, minicom)
-	@$(call install_fixup, minicom,PACKAGE,minicom)
 	@$(call install_fixup, minicom,PRIORITY,optional)
-	@$(call install_fixup, minicom,VERSION,$(MINICOM_VERSION))
 	@$(call install_fixup, minicom,SECTION,base)
 	@$(call install_fixup, minicom,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
-	@$(call install_fixup, minicom,DEPENDS,)
 	@$(call install_fixup, minicom,DESCRIPTION,missing)
 
 	@$(call install_copy, minicom, 0, 0, 0755, -, \

@@ -78,12 +78,9 @@ $(STATEDIR)/gtk-theme-experience.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gtk-theme-experience)
-	@$(call install_fixup, gtk-theme-experience,PACKAGE,gtk-theme-experience)
 	@$(call install_fixup, gtk-theme-experience,PRIORITY,optional)
-	@$(call install_fixup, gtk-theme-experience,VERSION,$(GTK_THEME_EXPERIENCE_VERSION))
 	@$(call install_fixup, gtk-theme-experience,SECTION,base)
 	@$(call install_fixup, gtk-theme-experience,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup, gtk-theme-experience,DEPENDS,)
 	@$(call install_fixup, gtk-theme-experience,DESCRIPTION,missing)
 
 ifdef PTXCONF_GTK_THEME_EXPERIENCE_PLAIN

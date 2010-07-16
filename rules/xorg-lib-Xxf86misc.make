@@ -55,12 +55,9 @@ $(STATEDIR)/xorg-lib-xxf86misc.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-lib-xxf86misc)
-	@$(call install_fixup, xorg-lib-xxf86misc,PACKAGE,xorg-lib-xxf86misc)
 	@$(call install_fixup, xorg-lib-xxf86misc,PRIORITY,optional)
-	@$(call install_fixup, xorg-lib-xxf86misc,VERSION,$(XORG_LIB_XXF86MISC_VERSION))
 	@$(call install_fixup, xorg-lib-xxf86misc,SECTION,base)
 	@$(call install_fixup, xorg-lib-xxf86misc,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup, xorg-lib-xxf86misc,DEPENDS,)
 	@$(call install_fixup, xorg-lib-xxf86misc,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-lib-xxf86misc, 0, 0, 0644, -, \

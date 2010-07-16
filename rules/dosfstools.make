@@ -58,12 +58,9 @@ $(STATEDIR)/dosfstools.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, dosfstools)
-	@$(call install_fixup, dosfstools,PACKAGE,dosfstools)
 	@$(call install_fixup, dosfstools,PRIORITY,optional)
-	@$(call install_fixup, dosfstools,VERSION,$(DOSFSTOOLS_VERSION))
 	@$(call install_fixup, dosfstools,SECTION,base)
 	@$(call install_fixup, dosfstools,AUTHOR,"Steven Scholz <steven.scholz@imc-berlin.de>")
-	@$(call install_fixup, dosfstools,DEPENDS,)
 	@$(call install_fixup, dosfstools,DESCRIPTION,missing)
 
 ifdef PTXCONF_DOSFSTOOLS_MKDOSFS
