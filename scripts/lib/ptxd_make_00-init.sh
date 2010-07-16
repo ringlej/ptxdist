@@ -148,6 +148,9 @@ ptxd_init_ptxdist_path() {
     PTXDIST_PATH_PATCHES="${PTXDIST_PATH//://patches:}"
     export PTXDIST_PATH_PATCHES
 
+    PTXDIST_PATH_RULES="${PTXDIST_PATH//://rules:}"
+    export PTXDIST_PATH_RULES
+
     ptxd_init_ptxdist_path_sysroot
 }
 

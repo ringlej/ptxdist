@@ -8,7 +8,7 @@
 # see the README file.
 #
 
-ptxd_make_fixpermissions_generate() {
+ptxd_make_image_fix_permissions_generate() {
     case "${kind}" in
 	n)
 	    # erase existing nodes
@@ -25,17 +25,18 @@ EOF
 	    ;;
     esac
 }
-export -f ptxd_make_fixpermissions_generate
+export -f ptxd_make_image_fix_permissions_generate
 
 
 
-ptxd_make_fixpermissions_check() {
+ptxd_make_image_fix_permissions_check() {
     local workdir="${1}"
     local ifs_orig="${IFS}"
     IFS=":"
 
     # just care about dev-nodes, for now
-    egrep "^[n]:" "${permfile}" | while read kind file uid_should gid_should prm_should type major_should minor_should; do
+    egrep -h "^[n]:" "${ptxd_reply_perm_files[@]}" |
+    while read kind file uid_should gid_should prm_should type major_should minor_should; do
 	local fixup=false
 	file="${workdir}/${file#/}"
 
@@ -73,44 +74,34 @@ ptxd_make_fixpermissions_check() {
 	fi
 
 	if [ "${fixup}" = "true" ]; then
-	    ptxd_make_fixpermissions_generate
+	    ptxd_make_image_fix_permissions_generate
 	fi
     done
 
     IFS="${ifs_orig}"
 }
-export -f ptxd_make_fixpermissions_check
+export -f ptxd_make_image_fix_permissions_check
 
 
+#
+# ptxd_make_image_fix_permissions - create device nodes in nfsroots
+#
+ptxd_make_image_fix_permissions() {
+    ptxd_make_image_init &&
 
-ptxd_make_fixpermissions() {
-    local permfile workdirs opt
+    local fixscript="${PTXDIST_TEMPDIR}/${FUNCNAME}" &&
+    touch "${fixscript}" &&
+    chmod +x "${fixscript}" &&
 
-    while getopts "p:r:" opt; do
-	case "$opt" in
-	    p)
-		permfile="${OPTARG}"
-		;;
-	    r)
-		workdirs="${workdirs}${workdirs:+:}${OPTARG}"
-		;;
-	    *)
-		;;
-	esac
-    done
+    # get permission files
+    local -a ptxd_reply_ipkg_file ptxd_reply_perm_files &&
+    ptxd_get_ipkg_files || return
 
-    local fixscript
-    fixscript="$(mktemp "${PTXDIST_TEMPDIR}/fixpermissions.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
-    chmod +x "${fixscript}"
-
-    local ifs_orig="${IFS}"
-    IFS=":"
-    set -- ${workdirs}
-    IFS="${ifs_orig}"
+    set -- "${ptx_nfsroot}" "${ptx_nfsroot_dbg}"
 
     exec 3> "${fixscript}"
     while [ ${#} -ne 0 ]; do
-	ptxd_make_fixpermissions_check "${1}" || return
+	ptxd_make_image_fix_permissions_check "${1}" || return
 	shift
     done
     exec 3>&-
@@ -131,18 +122,7 @@ In order to create them root privileges are required.
 
 EOF
     read -t 5 -p "(Please press enter to start 'sudo' to gain root privileges.)"
-    if [ ${?} -eq 0 ]; then
-	sudo "${fixscript}" || {
-	    cat <<EOF
-
-error: creation of device node(s) failed.
-
-EOF
-	    return 1
-	}
-	echo
-	rm "${fixscript}"
-    else
+    if [ ${?} -ne 0 ]; then
 	cat >&2 <<EOF
 
 
@@ -151,6 +131,17 @@ WARNING: NFS-root might not be working correctly!
 
 
 EOF
+	return
     fi
+
+    if ! sudo "${fixscript}"; then
+	cat <<EOF
+
+error: creation of device node(s) failed.
+
+EOF
+	return 1
+    fi
+    echo
 }
-export -f ptxd_make_fixpermissions
+export -f ptxd_make_image_fix_permissions

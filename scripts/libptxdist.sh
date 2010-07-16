@@ -1,13 +1,6 @@
 #!/bin/bash
 
 PTX_DEBUG=${PTX_DEBUG:="false"}
-
-#
-# awk script for permission fixing
-#
-DOPERMISSIONS='{ if ($1 == "f") printf("chmod %s .%s; chown %s.%s .%s;\n", $5, $2, $3, $4, $2); if ($1 == "n") printf("mknod -m %s .%s %s %s %s; chown %s.%s .%s;\n", $5, $2, $6, $7, $8, $3, $4, $2);}'
-
-
 PTX_DIALOG="dialog --aspect 60"
 PTX_DIALOG_HEIGHT=0
 PTX_DIALOG_WIDTH=0
@@ -376,7 +369,8 @@ ptxd_make_log() {
 
 
 #
-# replaces @MAGIC@ with MAGIC from environment
+# replaces @MAGIC@ with MAGIC from environment (if available)
+# it will stay @MAGIC@ if MAGIC is unset in the environment
 #
 # $1		input file
 # stdout:	output
@@ -384,9 +378,14 @@ ptxd_make_log() {
 ptxd_replace_magic() {
 	gawk '
 $0 ~ /@[A-Z0-9_]+@/ {
-	while (match($0, "@[A-Z0-9_]+@")) {
-		var = substr($0, RSTART+1, RLENGTH-2);
-		gsub("@" var "@", ENVIRON[var]);
+	line = $0
+
+	while (match(line, "@[A-Z0-9_]+@")) {
+		var = substr(line, RSTART + 1, RLENGTH - 2);
+		line = substr(line, RSTART + RLENGTH);
+
+		if (var in ENVIRON)
+			gsub("@" var "@", ENVIRON[var]);
 	}
 }
 
@@ -436,17 +435,22 @@ ptxd_dumpstack() {
 
 
 #
+# ptxd_get_path - look for files and/or dirs
 #
 # return:
-# 0 if dirs are found
-# 1 if no dirs are found
+# 0 if files/dirs are found
+# 1 if no files/dirs are found
 #
-ptxd_get_dirs() {
+# array "ptxd_reply" containing the found files/dirs
+#
+ptxd_get_path() {
+    [ -n "${1}" ] || return
+
     ptxd_reply=( $(eval command ls -f -d "${@}" 2>/dev/null) )
 
     [ ${#ptxd_reply[@]} -ne 0 ]
 }
-export -f ptxd_get_dirs
+export -f ptxd_get_path
 
 
 #

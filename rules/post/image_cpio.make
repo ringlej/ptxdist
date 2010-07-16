@@ -12,9 +12,9 @@ SEL_ROOTFS-$(PTXCONF_IMAGE_CPIO) += $(IMAGEDIR)/root.cpio
 
 $(IMAGEDIR)/root.cpio: $(STATEDIR)/image_working_dir
 	@echo -n "Creating '$(notdir $(@))' from working dir..."
-	@cd $(WORKDIR) && \
+	@cd $(image/work_dir) && \
 	( \
-		awk -F: $(DOPERMISSIONS) $(IMAGEDIR)/permissions && \
+		awk -F: $(DOPERMISSIONS) $(image/permissions) && \
 		echo "find . | cpio --quiet -H newc -o > '$(@)'" \
 	) | $(FAKEROOT) --
 	@echo "done."

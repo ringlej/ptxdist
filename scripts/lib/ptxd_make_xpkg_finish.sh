@@ -50,27 +50,35 @@ export -f ptxd_make_xpkg_deps
 # function to create a generic package
 #
 ptxd_make_xpkg_finish() {
-    . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return
-
     ptxd_make_xpkg_init || return
 
     #
-    # no perm file -> no files to package -> exit
+    # no command file -> no files to package -> exit
     #
     if [ \! -s "${pkg_xpkg_cmds}" ]; then
-	ptxd_pedantic "Packet '${pkg_xpkg}' is empty. not generating" &&
 	rm -rf -- "${pkg_xpkg_tmp}" &&
-
-	#FIXME: we rely in 1-to-1 mapping here
-	sed -i -e "/^${pkg_xpkg}$/d" "${pkg_xpkg_map}" &&
-
-	if [ \! -s "${pkg_xpkg_map}" ]; then
-	    rm -f -- "${pkg_xpkg_map}"
-	fi
-
+	ptxd_pedantic "Packet '${pkg_xpkg}' is empty. not generating"
 	return
-    fi
+    fi &&
 
+    #
+    # track "pkg name" to "xpkg filename" mapping
+    #
+    if [ -e "${pkg_xpkg_map}" ]; then
+	sed -i -e "/^${pkg_xpkg}$/d" "${pkg_xpkg_map}" &&
+	if [ -s "${pkg_xpkg_map}" ]; then
+	    cat >&2 <<EOF
+
+${PTXDIST_LOG_PROMPT}warning: more than one ipkg per package detected:
+
+package: '${pkg_pkg}'
+ipkg:    '${pkg_xpkg}' and '$(cat "${pkg_xpkg_map}")'
+
+
+EOF
+	fi
+    fi &&
+    echo "${pkg_xpkg}" >> "${pkg_xpkg_map}" || return
 
     #
     # license
@@ -99,12 +107,11 @@ ptxd_make_xpkg_finish() {
     #
     # post install
     #
-    if [ -f "${PTXDIST_WORKSPACE}/rules/${pkg_xpkg}.postinst" ]; then
+    # FIXME: install ipkg rather than executing script
+    if ptxd_get_path "${PTXDIST_PATH_RULES//://${pkg_xpkg}.postinst }"; then
 	echo "xpkg_finish:	running postinst"
-	DESTDIR="${ROOTDIR}" /bin/sh "${PTXDIST_WORKSPACE}/rules/${pkg_xpkg}.postinst"
-    elif [ -f "${PTXDIST_TOPDIR}/rules/${pkg_xpkg}.postinst" ]; then
-	echo "xpkg_finish:	running postinst"
-	DESTDIR="${ROOTDIR}" /bin/sh "${PTXDIST_TOPDIR}/rules/${pkg_xpkg}.postinst"
+	DESTDIR="${ptx_nfsroot}" /bin/sh "${ptxd_reply}"
+	DESTDIR="${ptx_nfsroot_dbg}" /bin/sh "${ptxd_reply}"
     fi
 
     return

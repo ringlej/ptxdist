@@ -35,8 +35,9 @@ $(LIBNIH_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBNIH_PATH	:= PATH=$(CROSS_PATH)
-LIBNIH_ENV 	:= $(CROSS_ENV) NIH_DBUS_TOOL=${PTXDIST_SYSROOT_HOST}/bin/nih-dbus-tool
+LIBNIH_ENV := \
+	$(CROSS_ENV) \
+	NIH_DBUS_TOOL=${PTXDIST_SYSROOT_HOST}/bin/nih-dbus-tool
 
 #
 # autoconf
@@ -54,19 +55,19 @@ $(STATEDIR)/libnih.targetinstall:
 	@$(call install_init,  libnih)
 	@$(call install_fixup, libnih, PACKAGE, libnih)
 	@$(call install_fixup, libnih, PRIORITY, optional)
-	@$(call install_fixup, libnih, VERSION, 1.0.1)
+	@$(call install_fixup, libnih, VERSION, $(LIBNIH_VERSION))
 	@$(call install_fixup, libnih, SECTION, base)
 	@$(call install_fixup, libnih, AUTHOR, "Tim Sandet <tim.sander@hbm.com>")
 	@$(call install_fixup, libnih, DEPENDS,)
 	@$(call install_fixup, libnih, DESCRIPTION, missing)
 
-	$(call install_copy, libnih, 0, 0, 0644, -, /usr/lib/libnih-dbus.so.1.0.0); 
-	$(call install_link, libnih, libnih-dbus.so.1.0.0, /usr/lib/libnih-dbus.so.1); 
-	$(call install_link, libnih, libnih-dbus.so.1.0.0, /usr/lib/libnih-dbus.so); 
+	@$(call install_copy, libnih, 0, 0, 0644, -, /usr/lib/libnih-dbus.so.1.0.0);
+	@$(call install_link, libnih, libnih-dbus.so.1.0.0, /usr/lib/libnih-dbus.so.1);
+	@$(call install_link, libnih, libnih-dbus.so.1.0.0, /usr/lib/libnih-dbus.so);
 
-	$(call install_copy, libnih, 0, 0, 0644, -, /usr/lib/libnih.so.1.0.0); 
-	$(call install_link, libnih, libnih.so.1.0.0, /usr/lib/libnih.so.1); 
-	$(call install_link, libnih, libnih.so.1.0.0, /usr/lib/libnih.so); 
+	@$(call install_copy, libnih, 0, 0, 0644, -, /usr/lib/libnih.so.1.0.0);
+	@$(call install_link, libnih, libnih.so.1.0.0, /usr/lib/libnih.so.1);
+	@$(call install_link, libnih, libnih.so.1.0.0, /usr/lib/libnih.so);
 	@$(call install_finish, libnih)
 
 	@$(call touch)

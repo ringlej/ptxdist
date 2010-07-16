@@ -3,45 +3,41 @@ menuconfig DOSFSTOOLS
 	tristate
 	prompt "dosfstools                    "
 
+if DOSFSTOOLS
+
 config DOSFSTOOLS_MKDOSFS
 	bool
 	prompt "mkdosfs"
-	depends on DOSFSTOOLS
 	help
 	  mkdosfs - create an MS-DOS file system under Linux
 
 config DOSFSTOOLS_MKDOSFS_MSDOS
 	bool
 	prompt "create mkfs.msdos link"
-	depends on DOSFSTOOLS_MKDOSFS
 	help
 	  FAT 12 / MSDOS Format
 
 config DOSFSTOOLS_MKDOSFS_VFAT
 	bool
 	prompt "create mkfs.vfat link"
-	depends on DOSFSTOOLS_MKDOSFS
 	help
 	  VFAT Format - Long Filenames, big files, etc.
 
 config DOSFSTOOLS_DOSFSCK
 	bool
 	prompt "dosfsck"
-	depends on DOSFSTOOLS
 	help
 	  This is the DOSFS / VFAT Filesystem Checker
 
 config DOSFSTOOLS_DOSFSCK_MSDOS
 	bool
 	prompt "create fsck.msdos link"
-	depends on DOSFSTOOLS_DOSFSCK
 	help
 	  FAT 12 / MSDOS Format
 
 config DOSFSTOOLS_DOSFSCK_VFAT
 	bool
 	prompt "create fsck.vfat link"
-	depends on DOSFSTOOLS_DOSFSCK
 	help
 	  VFAT Format - Long Filenames, big files, etc.
 
@@ -50,3 +46,5 @@ config DOSFSTOOLS_DOSFSLABEL
 	prompt "dosfslabel"
 	help
 	  set or get a MS-DOS filesystem label
+
+endif

@@ -174,7 +174,7 @@ check_uid() {
 # remove "." from the PATH
 #
 check_path() {
-	PATH="$(echo "${PATH}" | sed -e "s/:\.$//" -e "s/^\.://" -e "s/:\.://")"
+	PATH="$(echo "${PATH}" | sed -e "s/\(:\.\)\+:/:/g" -e "s/\(^\.:\|:\.$\)//g")"
 }
 
 
@@ -1689,7 +1689,6 @@ do_go()
 do_images()
 {
 	check_premake_compiler &&
-	ptxd_make_log images_world &&
 	ptxd_make_log images
 }
 

@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2005, 2006, 2007 Robert Schwebel <r.schwebel@pengutronix.de>
-#               2008, 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -11,11 +11,11 @@
 
 install_check =										\
 	CMD="$(strip $(1))";								\
-	if [ ! -f "$(STATEDIR)/$$PACKET.cmds" ]; then					\
+	if [ ! -f "$(STATEDIR)/$$XPKG.cmds" ]; then					\
 		echo;									\
-		echo "Error: install_init was not called for package '$$PACKET'!";	\
+		echo "Error: install_init was not called for package '$$XPKG'!";	\
 		echo "This is probably caused by a typo in the package name of:";	\
-		echo "\$$(call $$CMD, $$PACKET, ...)";					\
+		echo "\$$(call $$CMD, $$XPKG, ...)";					\
 		echo;									\
 		exit 1;									\
 	fi
@@ -26,7 +26,7 @@ install_check =										\
 # Installs a file with user/group ownership and permissions via
 # fakeroot.
 #
-# $1: packet label
+# $1: xpkg label
 # $2: UID
 # $3: GID
 # $4: permissions (octal)
@@ -44,7 +44,7 @@ install_check =										\
 # binaries are stripped automatically
 #
 install_copy = 											\
-	PACKET="$(strip $(1))";									\
+	XPKG="$(subst _,-,$(strip $(1)))";							\
 	OWN="$(strip $(2))";									\
 	GRP="$(strip $(3))";									\
 	PER="$(strip $(4))";									\
@@ -53,9 +53,9 @@ install_copy = 											\
 	STRIP="$(strip $(7))";									\
 	$(call install_check, install_copy);							\
 	if [ -z "$(6)" ]; then									\
-		echo "ptxd_install_dir '$$SRC' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds";\
+		echo "ptxd_install_dir '$$SRC' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$XPKG.cmds";\
 	else											\
-		echo "ptxd_install_file '$$SRC' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$PACKET.cmds";\
+		echo "ptxd_install_file '$$SRC' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$XPKG.cmds";\
 	fi
 
 #
@@ -67,7 +67,7 @@ install_copy = 											\
 # This macro first looks in $(PTXDIST_WORKSPACE)/projectroot for the file to copy and then
 # in $(PTXDIST_TOPDIR)/generic and installs the file under $(ROOTDIR)
 #
-# $1: packet label
+# $1: xpkg label
 # $2: UID
 # $3: GID
 # $4: permissions (octal)
@@ -76,7 +76,7 @@ install_copy = 											\
 # $7: destination (optional)
 #
 install_alternative =									\
-	PACKET=$(strip $(1));								\
+	XPKG=$(subst _,-,$(strip $(1)));						\
 	OWN=$(strip $(2));								\
 	GRP=$(strip $(3));								\
 	PER=$(strip $(4));								\
@@ -84,7 +84,7 @@ install_alternative =									\
 	STRIP=$(strip $(6));								\
 	DST=$(strip $(7));								\
 	$(call install_check, install_alternative);					\
-	echo "ptxd_install_alternative '$$FILE' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_alternative '$$FILE' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_tree
@@ -93,20 +93,20 @@ install_alternative =									\
 # permissions via fakeroot.
 #
 #
-# $1: packet label
+# $1: xpkg label
 # $2: OWN, use '-' to use the real UID of each file/directory
 # $3: GID, use '-' to use the real GID of each file/directory
 # $4: the toplevel directory.
 # $5: the target directory.
 #
 install_tree =			\
-	PACKET=$(strip $(1));	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
 	OWN=$(strip $(2));	\
 	GRP=$(strip $(3));	\
 	DIR=$(strip $(4));	\
 	DST=$(strip $(5));	\
 	$(call install_check, install_tree);	\
-	echo "ptxd_install_tree '$$DIR' '$$DST' '$$OWN' '$$GRP'" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_tree '$$DIR' '$$DST' '$$OWN' '$$GRP'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_archive
@@ -115,20 +115,20 @@ install_tree =			\
 # permissions via fakeroot.
 #
 #
-# $1: packet label
+# $1: xpkg label
 # $2: OWN, use '-' to use the real UID of each file/directory
 # $3: GID, use '-' to use the real GID of each file/directory
 # $4: the toplevel directory
 # $5: the target directory.
 #
 install_archive =		\
-	PACKET=$(strip $(1));	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
 	OWN=$(strip $(2));	\
 	GRP=$(strip $(3));	\
 	DIR=$(strip $(4));	\
 	DST=$(strip $(5));	\
 	$(call install_check, install_archive);	\
-	echo "ptxd_install_archive '$$DIR' '$$DST' '$$OWN' '$$GRP'" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_archive '$$DIR' '$$DST' '$$OWN' '$$GRP'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_spec
@@ -140,14 +140,14 @@ install_archive =		\
 #	nod   <name> <mode> <uid> <gid> <dev_type> <maj> <min>
 #	slink <name> <target> <mode> <uid> <gid>
 #
-# $1: packet label
+# $1: xpkg label
 # $2: spec file to parse
 #
 install_spec =			\
-	PACKET=$(strip $(1));	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
 	SPECFILE=$(strip $(2));	\
 	$(call install_check, install_spec);	\
-	echo "ptxd_install_spec '$$SPECFILE'" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_spec '$$SPECFILE'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_package
@@ -157,13 +157,13 @@ install_spec =			\
 # Usefull means binaries, libs + links, etc.
 #
 #
-# $1: packet label
+# $1: xpkg label
 # $2: the toplevel directory
 #
 install_package =		\
-	PACKET=$(strip $(1));	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
 	$(call install_check, install_package);	\
-	echo "ptxd_install_package" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_package" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_lib
@@ -172,17 +172,17 @@ install_package =		\
 # 0644 permissions via fakeroot.
 #
 #
-# $1: packet label
+# $1: xpkg label
 # $2: library name without suffix.
 #
 install_lib =			\
-	PACKET=$(strip $(1));	\
+	XPKG=$(subst _,-,$(strip $(1)));	\
 	OWN="$(strip $(2))";	\
 	GRP="$(strip $(3))";	\
 	PER="$(strip $(4))";	\
 	LIB=$(strip $(5));	\
 	$(call install_check, install_lib);	\
-	echo "ptxd_install_lib '$$LIB' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_lib '$$LIB' '$$OWN' '$$GRP' '$$PER'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_replace
@@ -190,93 +190,93 @@ install_lib =			\
 # Replace placeholder with value in a previously
 # installed file
 #
-# $1: label of the packet
+# $1: xpkg label
 # $2: filename
 # $3: placeholder
 # $4: value
 #
 install_replace = \
-	PACKET=$(strip $(1));									\
+	XPKG=$(subst _,-,$(strip $(1)));							\
 	FILE=$(strip $(2));									\
 	PLACEHOLDER=$(strip $(3));								\
 	VALUE=$(strip $(4));									\
 	$(call install_check, install_replace);							\
-	echo "ptxd_install_replace '$$FILE' '$$PLACEHOLDER' '$$VALUE'" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_replace '$$FILE' '$$PLACEHOLDER' '$$VALUE'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_copy_toolchain_lib
 #
-# $1: packet label
+# $1: xpkg label
 # $2: source
 # $3: destination
 # $4: strip (y|n)	default is to strip
 #
 install_copy_toolchain_lib =									\
-	PACKET=$(strip $(1));									\
+	XPKG=$(subst _,-,$(strip $(1)));							\
 	LIB="$(strip $2)";									\
 	DST="$(strip $3)";									\
 	STRIP="$(strip $4)";									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
 	$(call install_check, install_copy_toolchain_lib);					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP) PKGDIR="$(PKGDIR)"					\
-		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -l "$${LIB}" $${DST} -s "$${STRIP}"
+		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${XPKG}" -l "$${LIB}" $${DST} -s "$${STRIP}"
 
 #
 # install_copy_toolchain_dl
 #
-# $1: packet label
+# $1: xpkg label
 # $2: destination
 # $3: strip (y|n)	default is to strip
 #
 install_copy_toolchain_dl =									\
-	PACKET=$(strip $(1));									\
+	XPKG=$(subst _,-,$(strip $(1)));							\
 	DST="$(strip $2)";									\
 	STRIP="$(strip $3)";									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
 	$(call install_check, install_copy_toolchain_dl);					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP) PKGDIR="$(PKGDIR)"					\
-		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -l LINKER $${DST} -s "$${STRIP}"
+		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${XPKG}" -l LINKER $${DST} -s "$${STRIP}"
 
 #
 # install_copy_toolchain_other
 #
-# $1: packet label
+# $1: xpkg label
 # $2: source
 # $3: destination
 # $4: strip (y|n)	default is to strip
 #
 install_copy_toolchain_usr =									\
-	PACKET=$(strip $(1));									\
+	XPKG=$(subst _,-,$(strip $(1)));							\
 	LIB="$(strip $2)";									\
 	DST="$(strip $3)";									\
 	STRIP="$(strip $4)";									\
 	test "$${DST}" != "" && DST="-d $${DST}";						\
 	$(call install_check, install_copy_toolchain_other);					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP) PKGDIR="$(PKGDIR)"					\
-		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${PACKET}" -u "$${LIB}" $${DST} -s "$${STRIP}"
+		$(SCRIPTSDIR)/install_copy_toolchain.sh -p "$${XPKG}" -u "$${LIB}" $${DST} -s "$${STRIP}"
 
 #
 # install_link
 #
-# Installs a soft link in root directory in an ipkg packet.
+# Installs a soft link in root directory in an xpkg package
 #
-# $1: packet label
+# $1: xpkg label
 # $2: source
 # $3: destination
 #
 install_link =									\
-	PACKET=$(strip $(1));							\
+	XPKG=$(subst _,-,$(strip $(1)));					\
 	SRC=$(strip $(2));							\
 	DST=$(strip $(3));							\
 	$(call install_check, install_link);					\
-	echo "ptxd_install_link '$$SRC' '$$DST'" >> "$(STATEDIR)/$$PACKET.cmds"
+	echo "ptxd_install_link '$$SRC' '$$DST'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_node
 #
-# Installs a device node in root directory in an ipkg packet.
+# Installs a device node in root directory in an xpkg package
 #
-# $1: packet label
+# $1: xpkg label
 # $2: UID
 # $3: GID
 # $4: permissions (octal)
@@ -286,7 +286,7 @@ install_link =									\
 # $8: device node name
 #
 install_node =				\
-	PACKET=$(strip $(1));		\
+	XPKG=$(subst _,-,$(strip $(1)));\
 	OWN=$(strip $(2));		\
 	GRP=$(strip $(3));		\
 	PER=$(strip $(4));		\
@@ -295,49 +295,6 @@ install_node =				\
 	MIN=$(strip $(7));		\
 	DEV=$(strip $(8));		\
 	$(call install_check, install_node);	\
-	echo "ptxd_install_node '$$DEV' '$$OWN' '$$GRP' '$$PER' '$$TYP' '$$MAJ' '$$MIN'" >> "$(STATEDIR)/$$PACKET.cmds"
-
-
-#
-# install_init
-#
-# Deletes $(PKGDIR)/$$PACKET.tmp/ipkg and prepares for new ipkg package creation
-#
-# $1: packet label
-#
-install_init =				\
-	$(call xpkg/env, $(1))		\
-	ptxd_make_install_init		\
-		-p '$(strip $(1))'	\
-		-t '$(@)'
-
-
-#
-# install_fixup
-#
-# Replaces @...@ sequences in rules/*.ipkg files
-#
-# $1: packet label
-# $2: sequence to be replaced
-# $3: replacement
-#
-install_fixup =							\
-	$(call xpkg/env, $(1))					\
-	PTXCONF_PROJECT_BUILD="$(PTXCONF_PROJECT_BUILD)"	\
-	ptxd_make_install_fixup					\
-		-p '$(strip $(1))'				\
-		-f '$(strip $(2))'				\
-		-t '$(strip $(3))'				\
-		-s '$(@)'
-
-#
-# install_finish
-#
-# finishes packet creation
-#
-# $1: packet label
-#
-install_finish = \
-	$(call xpkg/finish, $(1))
+	echo "ptxd_install_node '$$DEV' '$$OWN' '$$GRP' '$$PER' '$$TYP' '$$MAJ' '$$MIN'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 # vim: syntax=make

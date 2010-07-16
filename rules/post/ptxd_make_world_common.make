@@ -8,35 +8,39 @@
 # see the README file.
 #
 
-world/env/impl = \
+ptx/env = \
 	MAKE="$(call ptx/escape,$(MAKE))"					\
 	PTXDIST_SYSROOT_TARGET="$(call ptx/escape,$(PTXDIST_SYSROOT_TARGET))"	\
 	PTXDIST_SYSROOT_HOST="$(call ptx/escape,$(PTXDIST_SYSROOT_HOST))"	\
 	PTXDIST_SYSROOT_CROSS="$(call ptx/escape,$(PTXDIST_SYSROOT_CROSS))"	\
+										\
+	ptx_nfsroot="$(call ptx/escape,$(ROOTDIR))"				\
+	ptx_nfsroot_dbg="$(call ptx/escape,$(ROOTDIR_DEBUG))"			\
 										\
 	ptx_state_dir="$(call ptx/escape,$(STATEDIR))"				\
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
 	ptx_pkg_dev_dir="$(call ptx/escape,$(PTXDIST_DEVPKG_PLATFORMDIR))"	\
 										\
-	ptx_path_target="${call ptx/escape,$(CROSS_PATH)}"			\
+	ptx_path_target="$(call ptx/escape,$(CROSS_PATH))"			\
 	ptx_conf_env_target="$(call ptx/escape,$(CROSS_ENV))"			\
 	ptx_conf_opt_autoconf_target="$(call ptx/escape,$(CROSS_AUTOCONF_USR))"	\
 	ptx_conf_opt_cmake_target="$(call ptx/escape,$(CROSS_CMAKE_USR))"	\
 	ptx_conf_opt_qmake_target="$(call ptx/escape,$(CROSS_QMAKE_OPT))"	\
 										\
-	ptx_path_host="${call ptx/escape,$(HOST_PATH)}"				\
+	ptx_path_host="$(call ptx/escape,$(HOST_PATH))"				\
 	ptx_conf_env_host="$(call ptx/escape,$(HOST_ENV))"			\
 	ptx_conf_opt_autoconf_host="$(call ptx/escape,$(HOST_AUTOCONF))"	\
 	ptx_conf_opt_cmake_host="$(call ptx/escape,$(HOST_CMAKE_OPT))"		\
 	ptx_conf_opt_autoconf_host_sysroot="$(call ptx/escape,$(HOST_AUTOCONF_SYSROOT))"\
 	ptx_conf_opt_cmake_host_sysroot="$(call ptx/escape,$(HOST_CMAKE_OPT_SYSROOT))"\
 										\
-	ptx_path_cross="${call ptx/escape,$(HOST_CROSS_PATH)}"			\
+	ptx_path_cross="$(call ptx/escape,$(HOST_CROSS_PATH))"			\
 	ptx_conf_env_cross="$(call ptx/escape,$(HOST_CROSS_ENV))"		\
 	ptx_conf_opt_autoconf_cross="$(call ptx/escape,$(HOST_CROSS_AUTOCONF))"	\
-	ptx_conf_opt_autoconf_cross_sysroot="$(call ptx/escape,$(HOST_CROSS_AUTOCONF_SYSROOT))"	\
-										\
+	ptx_conf_opt_autoconf_cross_sysroot="$(call ptx/escape,$(HOST_CROSS_AUTOCONF_SYSROOT))"
+
+world/env/impl = \
 	pkg_stamp="$(notdir $(@))"						\
 	pkg_pkg_dir="$(call ptx/escape,$($(1)_PKGDIR))"				\
 	pkg_pkg_dev="$(call ptx/escape,$($(1)_DEVPKG))"				\
@@ -44,6 +48,7 @@ world/env/impl = \
 	pkg_deps="$(call ptx/escape,$(PTX_MAP_dep_$(1)))"			\
 										\
 	pkg_pkg="$(call ptx/escape,$($(1)))"					\
+	pkg_version="$(call ptx/escape,$($(1)_VERSION))"			\
 	pkg_path="$(call ptx/escape,$($(1)_PATH))"				\
 	pkg_src="$(call ptx/escape,$($(1)_SOURCE))"				\
 	pkg_url="$(call ptx/escape,$($(1)_URL))"				\
@@ -75,6 +80,7 @@ world/env/impl = \
 	pkg_deprecated_makevars="$(call ptx/escape, $($(1)_MAKEVARS))"
 
 world/env= \
+	$(call ptx/env) \
 	$(call world/env/impl,$(strip $(1)))
 
 # vim: syntax=make
