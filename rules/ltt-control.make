@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_LTT_CONTROL) += ltt-control
 #
 # Paths and names
 #
-LTT_CONTROL_VERSION	:= 0.63-03012009
+LTT_CONTROL_VERSION	:= 0.87-09062010
 LTT_CONTROL		:= ltt-control-$(LTT_CONTROL_VERSION)
 LTT_CONTROL_SUFFIX	:= tar.gz
-LTT_CONTROL_URL		:= http://ltt.polymtl.ca/files/lttng/$(LTT_CONTROL).$(LTT_CONTROL_SUFFIX)
+LTT_CONTROL_URL		:= http://lttng.org/files/lttng/$(LTT_CONTROL).$(LTT_CONTROL_SUFFIX)
 LTT_CONTROL_SOURCE	:= $(SRCDIR)/$(LTT_CONTROL).$(LTT_CONTROL_SUFFIX)
 LTT_CONTROL_DIR		:= $(BUILDDIR)/$(LTT_CONTROL)
 
@@ -63,12 +63,8 @@ $(STATEDIR)/ltt-control.targetinstall:
 	@$(call install_copy, ltt-control, 0, 0, 0755, -, /usr/bin/lttctl)
 	@$(call install_copy, ltt-control, 0, 0, 0755, -, /usr/bin/lttd)
 
-	@$(call install_copy, ltt-control, 0, 0, 0644, -, \
-		/usr/lib/liblttctl.so.0.0.0)
-	@$(call install_link, ltt-control, liblttctl.so.0.0.0, \
-		/usr/lib/liblttctl.so.0)
-	@$(call install_link, ltt-control, liblttctl.so.0.0.0, \
-		/usr/lib/liblttctl.so)
+	@$(call install_lib, ltt-control, 0, 0, 0644, liblttctl)
+	@$(call install_lib, ltt-control, 0, 0, 0644, liblttd)
 
 	@$(call install_finish, ltt-control)
 
