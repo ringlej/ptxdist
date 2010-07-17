@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_AUTOTOOLS_AUTOMAKE) += host-autotools-automake
+LAYZ_PACKAGES-$(PTXCONF_HOST_AUTOTOOLS_AUTOMAKE) += host-autotools-automake
 
 #
 # Paths and names

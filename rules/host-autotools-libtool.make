@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_AUTOTOOLS_LIBTOOL) += host-autotools-libtool
+LAZY_PACKAGES-$(PTXCONF_HOST_AUTOTOOLS_LIBTOOL) += host-autotools-libtool
 
 #
 # Paths and names

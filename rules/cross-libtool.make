@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-CROSS_PACKAGES-$(PTXCONF_CROSS_LIBTOOL) += cross-libtool
+LAZY_PACKAGES-$(PTXCONF_CROSS_LIBTOOL) += cross-libtool
 
 #
 # Paths and names

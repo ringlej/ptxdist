@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-HOST_PACKAGES-$(PTXCONF_HOST_AUTOTOOLS_AUTOCONF) += host-autotools-autoconf
+LAZY_PACKAGES-$(PTXCONF_HOST_AUTOTOOLS_AUTOCONF) += host-autotools-autoconf
 
 #
 # Paths and names
