@@ -2,7 +2,6 @@
 
 config HOST_UTIL_LINUX_NG
 	tristate
-	select HOST_GETTEXT
 	default ALLYES
 	help
 	  Useful hosttools and libs for linux ng utils.
