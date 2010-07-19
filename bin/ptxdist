@@ -918,23 +918,32 @@ clean() {
 		local ptxconf_sysroot_host="$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)"
 		local ptxconf_sysroot_cross="$(ptxd_get_ptxconf PTXCONF_SYSROOT_CROSS)"
 		local ptxconf_gnu_target="$(ptxd_get_ptxconf PTXCONF_GNU_TARGET)"
+		local ptxconf_project_build_production="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION)"
 
 		for dir in "${ptxconf_sysroot_target}" "${ptxconf_sysroot_host}" "${ptxconf_sysroot_cross}"; do
-			if [ ! -d "${dir}" ]; then
-				continue
-			fi
+		    if [ ! -d "${dir}" ]; then
+			continue
+		    fi
+
+		    if [ -n "${ptxconf_project_build_production}" ]; then
+			#
+			# in case of a production build, delete sysroots.
+			# it makes no sense to keep them,
+			# but delete the image and state dirs
+			#
+			rm -fr -- "${dir}"
+		    else
 			#
 			# remove the dir only if it is inside the workspace; if we for
-			# example build toolchains or production builds to /opt/...,
+			# example build toolchains to /opt/...,
 			# we don't want to clean them here!
 			#
 			case "${dir}" in
-			(${PTXDIST_WORKSPACE}/*)
-				rm -fr -- "${dir}"
-				;;
-			(*)
-				;;
+			    (${PTXDIST_WORKSPACE}/*)
+			    rm -fr -- "${dir}" ;;
+			    (*) ;;
 			esac
+		    fi
 		done
 
 		# this is for ptxdist-1 backward compatibility
