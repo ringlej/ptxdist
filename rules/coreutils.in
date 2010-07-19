@@ -3,7 +3,6 @@
 menuconfig COREUTILS
 	tristate
 	prompt "coreutils                     "
-	select HOST_GETTEXT	# as long as we need to autoreconf
 	help
 	  This package contains the essential basic system utilities.
 
