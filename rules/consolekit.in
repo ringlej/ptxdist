@@ -2,7 +2,7 @@
 
 config CONSOLEKIT
 	tristate
-	prompt "ConsoleKit"
+	prompt "consolekit"
 	select DBUS_GLIB
 	select GLIB
 	select ZLIB
