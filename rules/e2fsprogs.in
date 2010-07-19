@@ -3,7 +3,6 @@
 menuconfig E2FSPROGS
 	tristate
 	prompt "e2fsprogs                     "
-	select HOST_GETTEXT
 	# configure needs these external libs
 	select LIBBLKID
 	select LIBUUID
