@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2003 by Pengutronix e.K., Hildesheim, Germany
+# Copyright (C) 2003-2010 by Pengutronix e.K., Hildesheim, Germany
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -70,9 +70,6 @@ COREUTILS_AUTOCONF := \
 	--disable-xattr \
 	--disable-libcap \
 	--disable-nls
-
-COREUTILS_PATH	:= PATH=$(CROSS_PATH)
-COREUTILS_ENV	:= $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install
