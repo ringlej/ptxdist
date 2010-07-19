@@ -53,12 +53,12 @@ $(STATEDIR)/base-pkgs.install:
 	@$(call targetinfo)
 	@echo -e \
 		"copying 'root', 'root-debug' from\n" \
-		"'$(PTXDIST_PROD_PLATFORMDIR)'\n"
+		"'$(PTXDIST_BASE_PLATFORMDIR)'\n"
 	@tar -c --exclude="./dev/*" \
-		-C "$(PTXDIST_PROD_PLATFORMDIR)/root" . | \
+		-C "$(PTXDIST_BASE_PLATFORMDIR)/root" . | \
 		tar -x -C "$(ROOTDIR)" && \
 		check_pipe_status
-	@tar -c -C "$(PTXDIST_PROD_PLATFORMDIR)/root-debug" . | \
+	@tar -c -C "$(PTXDIST_BASE_PLATFORMDIR)/root-debug" . | \
 		tar -x --exclude="./dev/*" \
 		-C "$(ROOTDIR_DEBUG)" && \
 		check_pipe_status

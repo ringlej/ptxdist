@@ -35,6 +35,9 @@ config PROJECT_VERSION
 
 comment "------------------------------------"
 
+config  PROJECT_USE_BASE_PLATFORM
+	bool
+
 choice
 	prompt "Build Type"
 	default PROJECT_BUILD_DEVEL
@@ -110,6 +113,7 @@ config PROJECT_USE_PRODUCTION
 	bool
 	prompt "use pre-built production release"
 	depends on PROJECT_BUILD_DEVEL
+	select PROJECT_USE_BASE_PLATFORM
 	help
 	  Use a pre-built production relase.
 

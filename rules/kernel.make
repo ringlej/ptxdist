@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_KERNEL) += kernel
 # we use the precompiled kernel from /opt
 #
 ifdef PTXCONF_PROJECT_USE_PRODUCTION
-KERNEL_BDIR		:= $(PTXDIST_PROD_PLATFORMDIR)/build-target
+KERNEL_BDIR		:= $(PTXDIST_BASE_PLATFORMDIR)/build-target
 else
 KERNEL_BDIR		:= $(BUILDDIR)
 endif
