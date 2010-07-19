@@ -12,6 +12,9 @@ menuconfig XORG_SERVER
 	# and REQUIRED_LIBS in conrigure.ac:
 	#
 
+	select LIBC_DL
+	select LIBC_M
+
 	# protos
 	select XORG_PROTO_RECORD
 	select XORG_PROTO_RANDR
@@ -92,7 +95,6 @@ menuconfig XORG_SERVER
 	#select XORG_LIB_XAW
 	#select XORG_PROTO_XF86MISC
 	#select XORG_PROTO_XF86BIGFONT
-	#select LIBC_DL
 	#select XORG_LIB_XT
 	#select XORG_LIB_XMU
 	#select XORG_LIB_XTST
