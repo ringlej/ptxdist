@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_USPLASH) += usplash
 #
 # Paths and names
 #
-USPLASH_VERSION	:= 0.5.21
+USPLASH_VERSION	:= 0.5.49
 USPLASH		:= usplash_$(USPLASH_VERSION)
 USPLASH_SUFFIX	:= tar.gz
 USPLASH_URL	:= http://archive.ubuntu.com/ubuntu/pool/main/u/usplash/$(USPLASH).$(USPLASH_SUFFIX)

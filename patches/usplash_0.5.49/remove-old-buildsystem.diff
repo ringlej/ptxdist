@@ -27,7 +27,7 @@ Index: b/Makefile
 -CPPFLAGS=-D_GNU_SOURCE
 -INCLUDES=-Ibogl
 -
--COMPILE = $(CC) $(INCLUDES) $(CFLAGS)
+-COMPILE = $(CC) $(CPPFLAGS) $(INCLUDES) $(CFLAGS)
 -LINK = $(CC) $(CFLAGS) $(LDFLAGS)
 -
 -INSTALL = /usr/bin/install -c
