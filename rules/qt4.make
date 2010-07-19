@@ -40,6 +40,7 @@ $(QT4_SOURCE):
 
 $(STATEDIR)/qt4.extract:
 	@$(call targetinfo)
+	@$(call clean, $(QT4_DIR))
 	@$(call extract, QT4)
 	@$(call patchin, QT4)
 	@for file in \
