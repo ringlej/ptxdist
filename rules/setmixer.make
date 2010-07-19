@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_SETMIXER) += setmixer
 SETMIXER_VERSION	:= 27DEC94ds1
 SETMIXER		:= setmixer_$(SETMIXER_VERSION).orig
 SETMIXER_SUFFIX		:= tar.gz
-SETMIXER_URL		:= $(PTXCONF_SETUP_DEBMIRROR)/pool/main/s/setmixer/$(SETMIXER).$(SETMIXER_SUFFIX)
+SETMIXER_URL		:= http://archive.ubuntu.com/ubuntu/pool/universe/s/setmixer/$(SETMIXER).$(SETMIXER_SUFFIX)
 SETMIXER_SOURCE		:= $(SRCDIR)/$(SETMIXER).$(SETMIXER_SUFFIX)
 SETMIXER_DIR		:= $(BUILDDIR)/setmixer-27DEC94ds1.orig
 
