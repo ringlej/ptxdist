@@ -4,3 +4,4 @@ hide-cursor-at-startup.diff
 fix-examples.diff
 fix-qws-dnd.diff
 fix-host-zlib.diff
+ppc-hack.diff

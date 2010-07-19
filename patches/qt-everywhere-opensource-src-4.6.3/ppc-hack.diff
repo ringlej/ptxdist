@@ -1,0 +1,28 @@
+Subject: Hack: disable -Wl,--gc-sections on ppc
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+
+The linker in our toolchain crashes with -Wl,--gc-sections on PowerPC.
+This patch removes this option and related options when building
+for PowerPC.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+
+---
+ src/3rdparty/webkit/WebCore/WebCore.pro |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: b/src/3rdparty/webkit/WebCore/WebCore.pro
+===================================================================
+--- a/src/3rdparty/webkit/WebCore/WebCore.pro
++++ b/src/3rdparty/webkit/WebCore/WebCore.pro
+@@ -65,8 +65,8 @@ unix {
+     lessThan(QT_MINOR_VERSION, 4): QMAKE_PKGCONFIG_REQUIRES += QtXml
+ }
+ 
+-unix:!mac:*-g++*:QMAKE_CXXFLAGS += -ffunction-sections -fdata-sections 
+-unix:!mac:*-g++*:QMAKE_LFLAGS += -Wl,--gc-sections
++unix:!ppc:!mac:*-g++*:QMAKE_CXXFLAGS += -ffunction-sections -fdata-sections 
++unix:!ppc:!mac:*-g++*:QMAKE_LFLAGS += -Wl,--gc-sections
+ 
+ CONFIG(release):!CONFIG(QTDIR_build) {
+     contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols

@@ -68,6 +68,9 @@ QT4_ARCH = armv6
 else
 QT4_ARCH = $(call remove_quotes, $(PTXCONF_ARCH_STRING))
 endif
+ifeq ($(QT4_ARCH),ppc)
+QT4_ARCH = powerpc
+endif
 
 #
 # autoconf
