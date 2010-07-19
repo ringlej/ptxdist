@@ -3,7 +3,6 @@ menuconfig UTIL_LINUX_NG
 
 	tristate
 	prompt "util-linux-ng                 "
-	select HOST_GETTEXT
 	select UTIL_LINUX_NG_LIBBLKID
 	select UTIL_LINUX_NG_LIBUUID		if UTIL_LINUX_NG_MKSWAP_UUID
 	select NCURSES				if UTIL_LINUX_NG_USES_NCURSES
