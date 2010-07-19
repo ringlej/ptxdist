@@ -58,6 +58,7 @@ endif
 
 $(STATEDIR)/mesalib.extract:
 	@$(call targetinfo)
+	@$(call clean, $(MESALIB_DIR))
 	@$(call extract, MESALIB)
 ifdef PTXCONF_MESALIB_TOOLS
 	@$(call extract, MESADEMOS)
