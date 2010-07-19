@@ -102,12 +102,9 @@ $(STATEDIR)/@package@.targetinstall:
 #
 # TODO: To build your own package, if this step requires one
 #	@$(call install_init, @package@)
-#	@$(call install_fixup,@package@,PACKAGE,@packagedash@)
 #	@$(call install_fixup,@package@,PRIORITY,optional)
-#	@$(call install_fixup,@package@,VERSION,@VERSION@)
 #	@$(call install_fixup,@package@,SECTION,base)
 #	@$(call install_fixup,@package@,AUTHOR,"@AUTHOR@")
-#	@$(call install_fixup,@package@,DEPENDS,)
 #	@$(call install_fixup,@package@,DESCRIPTION,missing)
 #
 # TODO: Add here all files that should be copied to the target

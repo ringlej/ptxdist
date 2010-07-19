@@ -78,12 +78,9 @@ $(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init,  @package@)
-	@$(call install_fixup, @package@,PACKAGE,@packagedash@)
 	@$(call install_fixup, @package@,PRIORITY,optional)
-	@$(call install_fixup, @package@,VERSION,$(@PACKAGE@_VERSION))
 	@$(call install_fixup, @package@,SECTION,base)
 	@$(call install_fixup, @package@,AUTHOR,"@AUTHOR@")
-	@$(call install_fixup, @package@,DEPENDS,)
 	@$(call install_fixup, @package@,DESCRIPTION,missing)
 
 	@$(call install_copy, @package@, 0, 0, 0755, $(@PACKAGE@_DIR)/foobar, /dev/null)
