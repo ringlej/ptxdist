@@ -21,8 +21,8 @@ Index: b/src/3rdparty/webkit/WebCore/WebCore.pro
  
 -unix:!mac:*-g++*:QMAKE_CXXFLAGS += -ffunction-sections -fdata-sections 
 -unix:!mac:*-g++*:QMAKE_LFLAGS += -Wl,--gc-sections
-+unix:!ppc:!mac:*-g++*:QMAKE_CXXFLAGS += -ffunction-sections -fdata-sections 
-+unix:!ppc:!mac:*-g++*:QMAKE_LFLAGS += -Wl,--gc-sections
++unix:!isEqual(QT_ARCH, powerpc):!mac:*-g++*:QMAKE_CXXFLAGS += -ffunction-sections -fdata-sections 
++unix:!isEqual(QT_ARCH, powerpc):!mac:*-g++*:QMAKE_LFLAGS += -Wl,--gc-sections
  
  CONFIG(release):!CONFIG(QTDIR_build) {
      contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols
