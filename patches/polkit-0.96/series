@@ -1,1 +1,3 @@
-polkit-shadow.diff
+0001-Bug-26982-pkexec-information-disclosure-vulnerabilit.patch
+0002-Add-shadow-support.patch
+0003-Bug-29051-Configuration-reload-on-every-query.patch

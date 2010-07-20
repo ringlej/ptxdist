@@ -1,40 +1,62 @@
-Subject: /etc/shadow support
+From a2edcef54d2ab1a92f729e34dfa0c183b2533c61 Mon Sep 17 00:00:00 2001
 From: Andrew Psaltis <ampsaltis@gmail.com>
+Date: Mon, 28 Jun 2010 22:04:00 -0400
+Subject: [PATCH 2/3] Add shadow support
 
-This patch is taken from http://bugs.gentoo.org/291116
+Added support for the shadow authentication framework instead of PAM.
+Enable it by passing --with-authfw=shadow to configure.
 
-It makes it possible to compile polkit without PAM.
+This is done by splitting the polkitagenthelper source into separate
+parts, one that does auth with PAM, and another that does auth with
+shadow, sharing functions where appropriate.
 
-Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+Also, all PAM-dependendent code in all other files has been #ifdef'd.
+The only affected file is src/programs/pkexec.c
+
+Signed-off-by: David Zeuthen <davidz@redhat.com>
+---
+ src/polkitagent/Makefile.am                |    9 +-
+ src/polkitagent/polkitagenthelper-pam.c    |  264 ++++++++++++++++++++++
+ src/polkitagent/polkitagenthelper-shadow.c |  198 ++++++++++++++++
+ src/polkitagent/polkitagenthelper.c        |  339 ----------------------------
+ src/polkitagent/polkitagenthelperprivate.c |  106 +++++++++
+ src/polkitagent/polkitagenthelperprivate.h |   45 ++++
+ src/programs/pkexec.c                      |    8 +
+ 7 files changed, 629 insertions(+), 340 deletions(-)
+ create mode 100644 src/polkitagent/polkitagenthelper-pam.c
+ create mode 100644 src/polkitagent/polkitagenthelper-shadow.c
+ delete mode 100644 src/polkitagent/polkitagenthelper.c
+ create mode 100644 src/polkitagent/polkitagenthelperprivate.c
+ create mode 100644 src/polkitagent/polkitagenthelperprivate.h
 
 diff --git a/src/polkitagent/Makefile.am b/src/polkitagent/Makefile.am
-index 3f38329..e114d01 100644
+index 3f38329..820be4d 100644
 --- a/src/polkitagent/Makefile.am
 +++ b/src/polkitagent/Makefile.am
-@@ -68,8 +68,15 @@ libpolkit_agent_1_la_LDFLAGS = -export-symbols-regex '(^polkit_.*)'
+@@ -68,9 +68,16 @@ libpolkit_agent_1_la_LDFLAGS = -export-symbols-regex '(^polkit_.*)'
  libexec_PROGRAMS = polkit-agent-helper-1
  
  polkit_agent_helper_1_SOURCES = 					\
 -	polkitagenthelper.c						\
--	$(NULL)
-+	polkitagenthelperprivate.c polkitagenthelperprivate.h		
-+
++	polkitagenthelperprivate.c polkitagenthelperprivate.h		\
+ 	$(NULL)
+ 
 +if POLKIT_AUTHFW_PAM
 +polkit_agent_helper_1_SOURCES += polkitagenthelper-pam.c
 +endif
 +if POLKIT_AUTHFW_SHADOW
 +polkit_agent_helper_1_SOURCES += polkitagenthelper-shadow.c
 +endif
-+polkit_agent_helper_1_SOURCES += $(NULL)
- 
++
  polkit_agent_helper_1_CFLAGS  = 					\
          -D_POLKIT_COMPILATION                                  		\
+ 	$(GLIB_CFLAGS)							\
 diff --git a/src/polkitagent/polkitagenthelper-pam.c b/src/polkitagent/polkitagenthelper-pam.c
 new file mode 100644
-index 0000000..3b649e9
+index 0000000..5e8b54c
 --- /dev/null
 +++ b/src/polkitagent/polkitagenthelper-pam.c
-@@ -0,0 +1,288 @@
+@@ -0,0 +1,264 @@
 +/*
 + * Copyright (C) 2008, 2010 Red Hat, Inc.
 + *
@@ -57,6 +79,8 @@ index 0000000..3b649e9
 + */
 +
 +#include "config.h"
++#include "polkitagenthelperprivate.h"
++
 +#include <stdio.h>
 +#include <stdlib.h>
 +#include <string.h>
@@ -67,31 +91,6 @@ index 0000000..3b649e9
 +#include <security/pam_appl.h>
 +
 +#include <polkit/polkit.h>
-+#include "polkitagenthelperprivate.h"
-+
-+#ifdef HAVE_SOLARIS
-+#  define LOG_AUTHPRIV    (10<<3)
-+#endif
-+
-+#ifndef HAVE_CLEARENV
-+extern char **environ;
-+
-+static int
-+clearenv (void)
-+{
-+	if (environ != NULL)
-+		environ[0] = NULL;
-+	return 0;
-+}
-+#endif
-+
-+/* Development aid: define PAH_DEBUG to get debugging output. Do _NOT_
-+ * enable this in production builds; it may leak passwords and other
-+ * sensitive information.
-+ */
-+#undef PAH_DEBUG
-+// #define PAH_DEBUG
-+
 +
 +static int conversation_function (int n, const struct pam_message **msg, struct pam_response **resp, void *data);
 +
@@ -109,7 +108,7 @@ index 0000000..3b649e9
 +  pam_h = NULL;
 +
 +  /* clear the entire environment to avoid attacks using with libraries honoring environment variables */
-+  if (clearenv () != 0)
++  if (_polkit_clearenv () != 0)
 +    goto error;
 +
 +  /* set a minimal environment */
@@ -322,13 +321,12 @@ index 0000000..3b649e9
 +  *resp = NULL;
 +  return PAM_CONV_ERR;
 +}
-+
 diff --git a/src/polkitagent/polkitagenthelper-shadow.c b/src/polkitagent/polkitagenthelper-shadow.c
 new file mode 100644
-index 0000000..1a48e04
+index 0000000..a4f73ac
 --- /dev/null
 +++ b/src/polkitagent/polkitagenthelper-shadow.c
-@@ -0,0 +1,204 @@
+@@ -0,0 +1,198 @@
 +/*
 + * Copyright (C) 2008 Red Hat, Inc.
 + * Copyright (C) 2009-2010 Andrew Psaltis <ampsaltis@gmail.com>
@@ -354,6 +352,8 @@ index 0000000..1a48e04
 + */
 +
 +#include "config.h"
++#include "polkitagenthelperprivate.h"
++
 +#include <stdio.h>
 +#include <stdlib.h>
 +#include <string.h>
@@ -367,21 +367,8 @@ index 0000000..1a48e04
 +#include <time.h>
 +
 +#include <polkit/polkit.h>
-+#include "polkitagenthelperprivate.h"
 +
-+#ifdef HAVE_SOLARIS
-+#  define LOG_AUTHPRIV    (10<<3)
-+#endif
-+
-+/* Development aid: define PAH_DEBUG to get debugging output. Do _NOT_
-+ * enable this in production builds; it may leak passwords and other
-+ * sensitive information.
-+ */
-+#undef PAH_DEBUG
-+//#define PAH_DEBUG
-+
-+extern char *crypt ();
-+static int shadow_authenticate(struct spwd *shadow);
++static gboolean shadow_authenticate (struct spwd *shadow);
 +
 +int
 +main (int argc, char *argv[])
@@ -389,11 +376,11 @@ index 0000000..1a48e04
 +  struct spwd *shadow;
 +  const char *user_to_auth;
 +  const char *cookie;
-+  time_t tm;
++  time_t now;
 +
 +  /* clear the entire environment to avoid attacks with
 +     libraries honoring environment variables */
-+  if (clearenv () != 0)
++  if (_polkit_clearenv () != 0)
 +    goto error;
 +
 +  /* set a minimal environment */
@@ -402,8 +389,8 @@ index 0000000..1a48e04
 +  /* check that we are setuid root */
 +  if (geteuid () != 0)
 +    {
-+    fprintf (stderr, "polkit-agent-helper-1: needs to be setuid root\n");
-+    goto error;
++      fprintf (stderr, "polkit-agent-helper-1: needs to be setuid root\n");
++      goto error;
 +    }
 +
 +  openlog ("polkit-agent-helper-1", LOG_CONS | LOG_PID, LOG_AUTHPRIV);
@@ -421,9 +408,9 @@ index 0000000..1a48e04
 +    /* check we're running with a non-tty stdin */
 +    if (isatty (STDIN_FILENO) != 0)
 +      {
-+      syslog (LOG_NOTICE, "inappropriate use of helper, stdin is a tty [uid=%d]", getuid ());
-+      fprintf (stderr, "polkit-agent-helper-1: inappropriate use of helper, stdin is a tty. This incident has been logged.\n");
-+      goto error;
++        syslog (LOG_NOTICE, "inappropriate use of helper, stdin is a tty [uid=%d]", getuid ());
++        fprintf (stderr, "polkit-agent-helper-1: inappropriate use of helper, stdin is a tty. This incident has been logged.\n");
++        goto error;
 +      }
 +    }
 +
@@ -434,45 +421,50 @@ index 0000000..1a48e04
 +  fprintf (stderr, "polkit-agent-helper-1: user to auth is '%s'.\n", user_to_auth);
 +#endif /* PAH_DEBUG */
 +
++
 +  /* Ask shadow about the user requesting authentication */
-+  if ((shadow = getspnam (user_to_auth)) == NULL)
++  shadow = getspnam (user_to_auth);
++
++  if (shadow == NULL)
 +    {
-+    syslog (LOG_NOTICE, "shadow file data information request for user %s [uid=%d] failed", user_to_auth, getuid());
-+    fprintf(stderr, "polkit-agent-helper-1: could not get shadow information for%.100s", user_to_auth);
-+    goto error;
++      syslog (LOG_NOTICE, "shadow file data information request for user '%s' [uid=%d] failed", user_to_auth, getuid ());
++      fprintf(stderr, "polkit-agent-helper-1: could not get shadow information for '%s'", user_to_auth);
++      goto error;
 +    }
-+  
++
 +  /* Check the user's identity */
-+  if(!shadow_authenticate (shadow))
++  if (shadow_authenticate (shadow) == FALSE)
 +    {
-+    syslog (LOG_NOTICE, "authentication failure [uid=%d] trying to authenticate '%s'", getuid (), user_to_auth);
-+    fprintf (stderr, "polkit-agent-helper-1: authentication failure. This incident has been logged.\n");
-+    goto error;
++      syslog (LOG_NOTICE, "authentication failure [uid=%d] trying to authenticate '%s'", getuid (), user_to_auth);
++      fprintf (stderr, "polkit-agent-helper-1: authentication failure. This incident has been logged.\n");
++      goto error;
 +    }
 +
 +  /* Check whether the user's password has expired */
-+  time(&tm);
-+  if( (shadow->sp_lstchg + shadow->sp_max) * 60 * 60 * 24 >= tm)
++  now = time (NULL);
++  if (shadow->sp_max >= 0 && (shadow->sp_lstchg + shadow->sp_max) * 60 * 60 * 24 <= now)
 +    {
-+    syslog (LOG_NOTICE, "password expired for user '%s' [uid=%d] trying to authenticate", user_to_auth, getuid () );
-+    fprintf (stderr, "polkit-agent-helper-1: authorization failure. This incident has been logged.\n");
++      syslog (LOG_NOTICE, "password expired for user '%s' [uid=%d] trying to authenticate", user_to_auth, getuid ());
++      fprintf (stderr, "polkit-agent-helper-1: authorization failure. This incident has been logged.\n");
++      goto error;
 +    }
 +
 +  /* Check whether the user's password has aged (and account expired along
 +   * with it)
 +   */
-+  if( (shadow->sp_lstchg + shadow->sp_max + shadow->sp_inact) * 60 * 60 * 24           >= tm) 
++  if (shadow->sp_inact >= 0 && (shadow->sp_lstchg + shadow->sp_max + shadow->sp_inact) * 60 * 60 * 24 <= now)
 +    {
-+    syslog (LOG_NOTICE, "password aged for user '%s' [uid=%d] trying to authenticate", user_to_auth, getuid () );
-+    fprintf (stderr, "polkit-agent-helper-1: authorization failure. This incident has been logged.\n");
++      syslog (LOG_NOTICE, "password aged for user '%s' [uid=%d] trying to authenticate", user_to_auth, getuid ());
++      fprintf (stderr, "polkit-agent-helper-1: authorization failure. This incident has been logged.\n");
++      goto error;
 +    }
 +
 +  /* Check whether the user's account has expired */
-+  if(shadow->sp_expire * 60 * 60 * 24 >= tm) 
++  if (shadow->sp_expire >= 0 && shadow->sp_expire * 60 * 60 * 24 <= now)
 +    {
-+    syslog (LOG_NOTICE, "account expired for user '%s' [uid=%d] trying to authenticate", user_to_auth, getuid () );
-+    fprintf (stderr, "polkit-agent-helper-1: authorization failure. This incident has been logged.\n");
-+     
++      syslog (LOG_NOTICE, "account expired for user '%s' [uid=%d] trying to authenticate", user_to_auth, getuid ());
++      fprintf (stderr, "polkit-agent-helper-1: authorization failure. This incident has been logged.\n");
++      goto error;
 +    }
 +
 +#ifdef PAH_DEBUG
@@ -495,44 +487,44 @@ index 0000000..1a48e04
 +#endif /* PAH_DEBUG */
 +
 +  fprintf (stdout, "SUCCESS\n");
-+  flush_and_wait();
++  flush_and_wait ();
 +  return 0;
 +
 +error:
-+  sleep (2); /* Discourage brute force attackers */
 +  fprintf (stdout, "FAILURE\n");
-+  flush_and_wait();
++  flush_and_wait ();
 +  return 1;
 +}
 +
-+static int
-+shadow_authenticate(struct spwd *shadow)
++static gboolean
++shadow_authenticate (struct spwd *shadow)
 +{
-+  /* Speak PAM to the daemon, thanks to David Zeuthen for the idea. */
-+  char passwd[256];
-+  fprintf(stdout, "PAM_PROMPT_ECHO_OFF password:\n");
-+  //fprintf(stderr, "PAM_PROMPT_ECHO_OFF password:\n");
-+  fflush(stdout);
++  char passwd[512], *crypt_pass;
++
++  fprintf (stdout, "PAM_PROMPT_ECHO_OFF password:\n");
++  fflush (stdout);
 +  usleep (10 * 1000); /* since fflush(3) seems buggy */
 +
-+  //fprintf(stderr, "Waiting for password...\n");
 +  if (fgets (passwd, sizeof (passwd), stdin) == NULL)
 +    goto error;
-+  //fprintf(stderr, "Got password\n");
 +
 +  if (strlen (passwd) > 0 && passwd[strlen (passwd) - 1] == '\n')
 +    passwd[strlen (passwd) - 1] = '\0';
-+  //fprintf(stderr, "Checking password...\n");
++
++  /* Use the encrypted password as the salt, according to the crypt(3) man page,
++   * it will perform whatever encryption method is specified in /etc/shadow
++   */
++  crypt_pass = crypt (passwd, shadow->sp_pwdp);
++
++  if (crypt_pass == NULL)
++    goto error;
++
 +  if (strcmp (shadow->sp_pwdp, crypt (passwd, shadow->sp_pwdp)) != 0)
 +    goto error;
-+  //fprintf(stderr, "Correct.\n");
 +  return 1;
 +error:
-+  //fprintf(stderr, "Something failed. :(\n");
 +  return 0;
 +}
-+
-+//static int shadow_acct_mgmt(shadow
 diff --git a/src/polkitagent/polkitagenthelper.c b/src/polkitagent/polkitagenthelper.c
 deleted file mode 100644
 index cca86db..0000000
@@ -880,10 +872,10 @@ index cca86db..0000000
 -}
 diff --git a/src/polkitagent/polkitagenthelperprivate.c b/src/polkitagent/polkitagenthelperprivate.c
 new file mode 100644
-index 0000000..5fa4519
+index 0000000..be495e9
 --- /dev/null
 +++ b/src/polkitagent/polkitagenthelperprivate.c
-@@ -0,0 +1,83 @@
+@@ -0,0 +1,106 @@
 +/*
 + * Copyright (C) 2009-2010 Red Hat, Inc.
 + *
@@ -902,12 +894,34 @@ index 0000000..5fa4519
 + * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 + * Boston, MA 02110-1301, USA.
 + *
-+ * Authosr: David Zeuthen <davidz@redhat.com>,
++ * Authors: David Zeuthen <davidz@redhat.com>,
 + *          Andrew Psaltis <ampsaltis@gmail.com>
 + */
 +
++#include "config.h"
 +#include "polkitagenthelperprivate.h"
 +#include <stdio.h>
++#include <stdlib.h>
++#include <unistd.h>
++
++#ifndef HAVE_CLEARENV
++extern char **environ;
++
++int
++_polkit_clearenv (void)
++{
++  if (environ != NULL)
++    environ[0] = NULL;
++  return 0;
++}
++#else
++int
++_polkit_clearenv (void)
++{
++  return clearenv ();
++}
++#endif
++
 +
 +gboolean
 +send_dbus_message (const char *cookie, const char *user)
@@ -959,7 +973,8 @@ index 0000000..5fa4519
 +
 +/* fflush(3) stdin and stdout and wait a little bit.
 + * This replaces the three-line commands at the bottom of
-+ * polkit-agent-helper-1's main() function. */
++ * polkit-agent-helper-1's main() function.
++ */
 +void
 +flush_and_wait ()
 +{
@@ -969,10 +984,10 @@ index 0000000..5fa4519
 +}
 diff --git a/src/polkitagent/polkitagenthelperprivate.h b/src/polkitagent/polkitagenthelperprivate.h
 new file mode 100644
-index 0000000..7e51440
+index 0000000..7294d46
 --- /dev/null
 +++ b/src/polkitagent/polkitagenthelperprivate.h
-@@ -0,0 +1,38 @@
+@@ -0,0 +1,45 @@
 +/*
 + * Copyright (C) 2009-2010 Red Hat, Inc.
 + *
@@ -997,57 +1012,44 @@ index 0000000..7e51440
 +#ifndef __POLKIT_AGENT_HELPER_PRIVATE_H
 +#define __POLKIT_AGENT_HELPER_PRIVATE_H
 +
++#define _GNU_SOURCE
 +#include <polkit/polkit.h>
-+ 
++
 +/* Development aid: define PAH_DEBUG to get debugging output. Do _NOT_
 + * enable this in production builds; it may leak passwords and other
 + * sensitive information.
 + */
-+//#undef PAH_DEBUG
++#undef PAH_DEBUG
 +// #define PAH_DEBUG
++
++#ifdef HAVE_SOLARIS
++#  define LOG_AUTHPRIV    (10<<3)
++#endif
++
++int _polkit_clearenv (void);
 +
 +gboolean send_dbus_message (const char *cookie, const char *user);
 +
 +void flush_and_wait ();
 +
 +#endif /* __POLKIT_AGENT_HELPER_PRIVATE_H */
-diff --git a/src/polkitagent/polkitagentsession.c b/src/polkitagent/polkitagentsession.c
-index b919e0a..6c5e3e8 100644
---- a/src/polkitagent/polkitagentsession.c
-+++ b/src/polkitagent/polkitagentsession.c
-@@ -348,14 +348,16 @@ io_watch_have_data (GIOChannel    *channel,
-   if (strlen (line) > 0 && line[strlen (line) - 1] == '\n')
-     line[strlen (line) - 1] = '\0';
- 
--  //g_debug ("Got '%s' from helper", line);
-+  g_debug ("Got '%s' from helper", line);
- 
-   if (g_str_has_prefix (line, "PAM_PROMPT_ECHO_OFF "))
-     {
-+      //fprintf(stderr, "Got PAM_PROMPT_ECHO_OFF\n");
-       g_signal_emit_by_name (session, "request", line + sizeof "PAM_PROMPT_ECHO_OFF " - 1, FALSE);
-     }
-   else if (g_str_has_prefix (line, "PAM_PROMPT_ECHO_ON "))
-     {
-+      //printf(stderr, "Got PAM_PROMPT_ECHO_ON\n");
-       g_signal_emit_by_name (session, "request", line + sizeof "PAM_PROMPT_ECHO_ON " - 1, TRUE);
-     }
-   else if (g_str_has_prefix (line, "PAM_ERROR_MSG "))
 diff --git a/src/programs/pkexec.c b/src/programs/pkexec.c
-index 860e665..b08aa6e 100644
+index 17c191e..b0193f4 100644
 --- a/src/programs/pkexec.c
 +++ b/src/programs/pkexec.c
-@@ -34,7 +34,9 @@
+@@ -34,7 +34,11 @@
  #include <grp.h>
  #include <pwd.h>
  #include <errno.h>
++
 +#ifdef POLKIT_AUTHFW_PAM
  #include <security/pam_appl.h>
 +#endif /* POLKIT_AUTHFW_PAM */
++
  #include <syslog.h>
  #include <stdarg.h>
  
-@@ -115,6 +117,7 @@ log_message (gint     level,
+@@ -115,6 +119,7 @@ log_message (gint     level,
  
  /* ---------------------------------------------------------------------------------------------------- */
  
@@ -1055,25 +1057,27 @@ index 860e665..b08aa6e 100644
  static int
  pam_conversation_function (int n,
                             const struct pam_message **msg,
-@@ -167,6 +170,7 @@ out:
+@@ -167,6 +172,7 @@ out:
      pam_end (pam_h, rc);
    return ret;
  }
-+#endif /*POLKIT_AUTHFW_PAM*/
++#endif /* POLKIT_AUTHFW_PAM */
  
  /* ---------------------------------------------------------------------------------------------------- */
  
-@@ -742,11 +746,12 @@ main (int argc, char *argv[])
+@@ -741,10 +747,12 @@ main (int argc, char *argv[])
     * TODO: The question here is whether we should clear the limits before applying them?
     * As evident above, neither su(1) (and, for that matter, nor sudo(8)) does this.
     */
-+#ifdef POLKIT_AUTHW_PAM
++#ifdef POLKIT_AUTHFW_PAM
    if (!open_session (pw->pw_name))
      {
        goto out;
      }
--
 +#endif /* POLKIT_AUTHFW_PAM */
+ 
    /* become the user */
    if (setgroups (0, NULL) != 0)
-     {
+-- 
+1.7.1
+
