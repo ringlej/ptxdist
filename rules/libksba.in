@@ -1,0 +1,15 @@
+## SECTION=system_libraries
+
+config LIBKSBA
+	tristate
+	prompt "libksba"
+	select LIBGPG_ERROR
+	help
+	  Libksba provides an easy API to create and parse X.509
+	  and CMS related objects
+
+	  libksba is a library to make the tasks of working with
+	  X.509 certificates, CMS data and related objects more
+	  easy. It provides a highlevel interface to the
+	  implemented protocols and presents the data in a
+	  consistent way.
