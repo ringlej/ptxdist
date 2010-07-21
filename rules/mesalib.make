@@ -175,8 +175,10 @@ $(STATEDIR)/mesalib.install:
 	@$(call targetinfo)
 	@$(call install, MESALIB)
 	@mkdir -p $(MESALIB_PKGDIR)/usr/bin/
+ifdef PTXCONF_MESALIB_TOOLS
 	@cd $(MESALIB_DIR)/progs/xdemos/ && find -type f -executable | \
 		xargs install -m 755 -D -t $(MESALIB_PKGDIR)/usr/bin/
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
