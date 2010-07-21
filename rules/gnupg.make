@@ -16,62 +16,41 @@ PACKAGES-$(PTXCONF_GNUPG) += gnupg
 #
 # Paths and names
 #
-GNUPG_VERSION	:= 1.4.10
+GNUPG_VERSION	:= 2.0.15
 GNUPG		:= gnupg-$(GNUPG_VERSION)
 GNUPG_SUFFIX	:= tar.bz2
 GNUPG_URL	:= ftp://ftp.gnupg.org/gcrypt/gnupg/$(GNUPG).$(GNUPG_SUFFIX)
 GNUPG_SOURCE	:= $(SRCDIR)/$(GNUPG).$(GNUPG_SUFFIX)
 GNUPG_DIR	:= $(BUILDDIR)/$(GNUPG)
 
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(GNUPG_SOURCE):
-	@$(call targetinfo)
-	@$(call get, GNUPG)
-
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-GNUPG_PATH	= PATH=$(CROSS_PATH)
-GNUPG_ENV 	= $(CROSS_ENV)
-
-#
-# autoconf
-#
-GNUPG_AUTOCONF = $(CROSS_AUTOCONF_USR) \
+GNUPG_CONF_TOOL := autoconf
+GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-asm \
-	--disable-card-support \
+	--enable-gpg \
+	--disable-gpgsm \
+	--disable-agent \
+	--disable-scdaemon \
+	--disable-tools \
+	--disable-doc \
 	--disable-exec \
-	--disable-idea \
-	--enable-cast5 \
-	--enable-blowfish \
-	--enable-aes \
-	--enable-twofish \
-	--enable-sha256 \
-	--enable-sha512 \
 	--disable-exec \
 	--disable-photo-viewers \
 	--disable-keyserver-helpers \
 	--disable-ldap \
 	--disable-hkp \
-	--disable-http \
 	--disable-finger \
-	--disable-ftp \
 	--disable-keyserver-path \
 	--disable-dns-srv \
 	--disable-nls \
 	--disable-rpath \
 	--disable-regex
 
-ifdef PTXCONF_ICONV
-GNUPG_AUTOCONF += --enable-gnupg-iconv
-else
-GNUPG_AUTOCONF += --disable-gnupg-iconv
+ifndef PTXCONF_ICONV
+GNUPG_AUTOCONF += --without-libiconv-prefix
 endif
 
 # ----------------------------------------------------------------------------
@@ -87,7 +66,8 @@ $(STATEDIR)/gnupg.targetinstall:
 	@$(call install_fixup, gnupg,AUTHOR,"Jiri Nesladek <nesladek@2n.cz>")
 	@$(call install_fixup, gnupg,DESCRIPTION,missing)
 
-	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpg)
+	@$(call install_copy, gnupg, 0, 0, 0755, -, /usr/bin/gpg2)
+	@$(call install_link, gnupg, gpg2, /usr/bin/gpg)
 
 	@$(call install_finish, gnupg)
 

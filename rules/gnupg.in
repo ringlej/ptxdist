@@ -2,6 +2,9 @@
 config GNUPG
 	tristate
 	prompt "gnupg"
+	select LIBASSUAN
+	select LIBGCRYPT
+	select LIBKSBA
 	select ZLIB
 	help
 	  GnuPG - The GNU Privacy Guard suite of programs
