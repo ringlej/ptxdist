@@ -3,6 +3,7 @@
 config GLOBAL_IPV6
 	bool
 	default y
+	select BUSYBOX_FEATURE_IPV6 if BUSYBOX
 	prompt "IPv6 support"
 	help
 	  This will enable IPv6 for all packages with optional IPv6 support.
