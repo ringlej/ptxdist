@@ -1,0 +1,13 @@
+## SECTION=system_libraries
+
+config LIBASSUAN
+	tristate
+	prompt "libassuan"
+	select LIBGPG_ERROR
+	help
+	  IPC library used by GnuPG and GPGME
+
+	  libassuan is a small library implementing the so-called
+	  Assuan protocol. This protocol is used for IPC between
+	  most newer GnuPG components. Both, server and client
+	  side functions are provided.
