@@ -367,7 +367,7 @@ endif
 
 ifdef PTXCONF_XORG_SERVER_UDEV
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		/lib/udev/rules.d/x11-input.rules)
+		/usr/lib/X11/xorg.conf.d/10-evdev.conf)
 endif
 
 ifdef PTXCONF_XORG_SERVER_XVFB
