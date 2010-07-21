@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 ifdef PTXCONF_GLIB_EXPERIMENTAL
 GLIB_VERSION	:= 2.25.10
 else
-GLIB_VERSION	:= 2.22.2
+GLIB_VERSION	:= 2.24.1
 endif
 
 GLIB		:= glib-$(GLIB_VERSION)
@@ -28,11 +28,7 @@ GLIB_SUFFIX	:= tar.bz2
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
 GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
-ifdef PTXCONF_GLIB_EXPERIMENTAL
-GLIB_URL	:= http://ftp.gtk.org/pub/glib/2.25/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
-else
-GLIB_URL	:= http://ftp.gtk.org/pub/glib/2.22/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
-endif
+GLIB_URL	:= http://ftp.gtk.org/pub/glib/$(basename $(GLIB_VERSION))/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -109,7 +105,7 @@ endif
 ifdef PTXCONF_GLIB_EXPERIMENTAL
 GLIB_LIB_VERSION := 0.2510.0
 else
-GLIB_LIB_VERSION := 0.2200.2
+GLIB_LIB_VERSION := 0.2400.1
 endif
 
 $(STATEDIR)/glib.targetinstall:
