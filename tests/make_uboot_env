@@ -1,0 +1,14 @@
+#!/bin/bash
+
+UBOOT_ENV="${1}"
+
+ptxd_get_path "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/config{${PTXDIST_PLATFORMSUFFIX},}{.in,}" ||
+ptxd_bailout "could not find U-Boot environment."
+
+CONFFILE_IN="${ptxd_reply}"
+CONFFILE="${CONFFILE_IN%%.in}"
+
+ptxd_replace_magic "${CONFFILE_IN}" > "${CONFFILE}"
+
+[ -n "${UBOOT_ENV}" ] && cp "${CONFFILE}" "${UBOOT_ENV}"
+
