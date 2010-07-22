@@ -1,0 +1,10 @@
+## SECTION=scripting_languages
+
+config PYGOBJECT
+	tristate
+	select LIBFFI
+	select PYTHON
+	select GLIB
+	prompt "python-gobject"
+	help
+	  This package contains the Python bindings for GObject.
