@@ -44,8 +44,8 @@ $(STATEDIR)/libassuan.targetinstall:
 
 	@$(call install_copy, libassuan, 0, 0, 0644, -, \
 		/usr/lib/libassuan.so.0.0.0)
-	@$(call install_link, libassuan, libassuan.so.11.5.3, /usr/lib/libassuan.so.0)
-	@$(call install_link, libassuan, libassuan.so.11.5.3, /usr/lib/libassuan.so)
+	@$(call install_link, libassuan, libassuan.so.0.0.0, /usr/lib/libassuan.so.0)
+	@$(call install_link, libassuan, libassuan.so.0.0.0, /usr/lib/libassuan.so)
 
 	@$(call install_finish, libassuan)
 
