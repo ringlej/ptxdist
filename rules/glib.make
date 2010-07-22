@@ -30,6 +30,8 @@ GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
 GLIB_URL	:= http://ftp.gtk.org/pub/glib/$(basename $(GLIB_VERSION))/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
 
+GLIB_LICENSE	:= LGPLv2+
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
