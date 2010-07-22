@@ -113,6 +113,8 @@ define ptx_uboot_enter_shell {
 	:4
 		.uboot_prompt = "barebox:"
 		.uboot_version = 2
+		# make sure we have the default barebox prompt
+		ptx_lineout "PS1='barebox: '"
 		break
 	}
 	# sometimes there are caches for serial inputs containing old data
