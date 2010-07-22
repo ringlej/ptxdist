@@ -1,5 +1,8 @@
 
 define setenv_uboot_v1 {
+	run \%1/make_uboot_env \%2
+	ptx_check_fail "Could not generate new environment"
+
 	ptx_test_start "Setting new environment"
 
 	# Open the file with the new environment
@@ -57,13 +60,13 @@ define setenv_uboot_v1 {
 
 define setenv_uboot_v2 {
 	if eq \m(uboot_prompt) "barebox:" { 
-		run \%1/make_barebox_env \%3
+		run \%1/make_barebox_env \%2
 	} else {
-		run \%1/make_uboot_v2_env \%3
+		run \%1/make_uboot_v2_env \%2
 	}
 
 	ptx_check_fail "Could not generate new environment"
-	.imagename := \fbasename(\%3)
+	.imagename := \fbasename(\%2)
 
 	ptx_test_start "Setting initial environment"
 	ptx_uboot_exec 3 "eth0.ipaddr=\m(PTXCONF_BOARDSETUP_TARGETIP)"
@@ -106,6 +109,6 @@ ptx_init \%2
 
 ptx_uboot_enter_shell
 
-setenv_uboot_v\m(uboot_version) \%1 \%3 \%4
+setenv_uboot_v\m(uboot_version) \%1 \%3
 
 ptx_exit
