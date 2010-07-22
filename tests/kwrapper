@@ -35,7 +35,7 @@ TMPFILE="$(mktemp "${PTXDIST_TEMPDIR}/kwrapper.XXXXXX")"
 sed -e 's/^\(PTXCONF_BOARDSETUP_[A-Z0-9_]*\)=/define \1 /' "${PTXDIST_BOARDSETUP}" > "${TMPFILE}"
 # FIXME: add PTXDIST_TEST_vars from environment, too
 
-"${PTXDIST_SYSROOT_HOST}/bin/ckermit" "${KSCRIPT}" -Y = "${LIB_PATH}" "${TMPFILE}" "${@}"
+ckermit "${KSCRIPT}" -Y = "${LIB_PATH}" "${TMPFILE}" "${@}"
 [ $? != 0 ] && echo "An error occured! Please check also .${PTXDIST_PLATFORMDIR#${PTXDIST_WORKSPACE}}/test.log for further details!" >&2
 
 rm -f "${TMPFILE}"
