@@ -17,6 +17,10 @@ ptx/env = \
 	ptx_nfsroot="$(call ptx/escape,$(ROOTDIR))"				\
 	ptx_nfsroot_dbg="$(call ptx/escape,$(ROOTDIR_DEBUG))"			\
 										\
+	ptx_extract_dir_target="$(call ptx/escape,$(BUILDDIR))"			\
+	ptx_extract_dir_host="$(call ptx/escape,$(HOST_BUILDDIR))"		\
+	ptx_extract_dir_cross="$(call ptx/escape,$(CROSS_BUILDDIR))"		\
+										\
 	ptx_state_dir="$(call ptx/escape,$(STATEDIR))"				\
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
