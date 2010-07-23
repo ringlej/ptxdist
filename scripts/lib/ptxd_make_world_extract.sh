@@ -75,8 +75,7 @@ ptxd_make_extract() {
     echo "extract: archive=${packet_source}"
     echo "extract: dest=${dest}"
 
-    ptxd_make_extract_archive "${packet_source}" "${dest}" &&
-    echo "$(basename "${packet_source}")" >> "${STATEDIR}/packetlist"
+    ptxd_make_extract_archive "${packet_source}" "${dest}"
 }
 
 export -f ptxd_make_extract
