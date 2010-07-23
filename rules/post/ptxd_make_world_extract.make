@@ -19,10 +19,9 @@
 # $2: dir to extract into; if $2 is not given we extract to $(BUILDDIR)
 #
 extract = \
+	$(call world/env, $(1)) \
 	ptxd_make_extract \
-		-s "$($(strip $(1))_SOURCE)" \
 		-p "$($(strip $(1))_DIR)" \
-		-u "$($(strip $(1))_URL)" \
 		-d "$(strip $(2))"
 
 
