@@ -21,7 +21,6 @@
 extract = \
 	$(call world/env, $(1)) \
 	ptxd_make_extract \
-		-p "$($(strip $(1))_DIR)" \
 		-d "$(strip $(2))"
 
 

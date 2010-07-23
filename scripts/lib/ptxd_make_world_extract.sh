@@ -9,7 +9,6 @@
 
 #
 # -d DEST
-# -p PACKET_DIR
 #
 ptxd_make_extract() {
     ptxd_make_world_init || return
@@ -20,9 +19,6 @@ ptxd_make_extract() {
 
     while getopts "s:p:u:d:" opt; do
 	case "${opt}" in
- 	    p)
-		local packet_dir="${OPTARG}"
-		;;
 	    d)
 		local dest="${OPTARG}"
 		;;
@@ -42,7 +38,7 @@ ptxd_make_extract() {
 	    fi
 	    if [ -d "${thing}" ]; then
 		echo "local directory instead of tar file, linking build dir"
-		ln -sf "$(ptxd_abspath "${thing}")" "${packet_dir}"
+		ln -sf "$(ptxd_abspath "${thing}")" "${pkg_dir}"
 		return
 	    elif [ -f "${thing}" ]; then
 		echo
