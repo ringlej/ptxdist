@@ -59,12 +59,6 @@ menu "service startup configuration "
 
 source "generated/initmethod_bbinit.in"
 
-config INITMETHOD_BBINIT_LINK_CONNMAN
-	string
-	depends on CONNMAN_STARTSCRIPT
-	prompt "connman"
-	default "S26connman"
-
 config INITMETHOD_BBINIT_LINK_CVS
 	string
 	depends on CVS_STARTSCRIPT

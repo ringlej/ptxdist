@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config CONNMAN_BBINIT_LINK
+	string
+	depends on CONNMAN_STARTSCRIPT
+	prompt "connman"
+	default "S26connman"
+

@@ -201,6 +201,12 @@ $(STATEDIR)/connman.targetinstall:
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_CONNMAN_STARTSCRIPT
 	@$(call install_alternative, connman, 0, 0, 0755, /etc/init.d/connman, n)
+
+ifneq ($(call remove_quotes, $(PTXCONF_CONNMAN_BBINIT_LINK)),)
+	@$(call install_link, connman, \
+		../init.d/connman, \
+		/etc/rc.d/$(PTXCONF_CONNMAN_BBINIT_LINK))
+endif
 endif
 endif
 
