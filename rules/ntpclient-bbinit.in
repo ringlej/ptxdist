@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config NTPCLIENT_BBINIT_LINK
+	string
+	depends on NTPCLIENT_STARTSCRIPT
+	prompt "ntpclient"
+	default "S20ntpclient"
+

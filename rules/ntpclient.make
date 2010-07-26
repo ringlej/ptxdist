@@ -98,6 +98,12 @@ ifneq ($(PTXCONF_NTPCLIENT_NTPSERVER_NAME),"")
 		@HOST@, \
 		"$(PTXCONF_NTPCLIENT_NTPSERVER_NAME)")
 endif
+
+ifneq ($(call remove_quotes,$(PTXCONF_NTPCLIENT_BBINIT_LINK)),)
+	@$(call install_link, ntpclient, \
+		../init.d/ntpclient, \
+		/etc/rc.d/$(PTXCONF_NTPCLIENT_BBINIT_LINK))
+endif
 endif
 endif
 
