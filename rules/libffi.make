@@ -28,24 +28,10 @@ LIBFFI_URL	:= \
 	ftp://sourceware.org/pub/libffi/$(LIBFFI).$(LIBFFI_SUFFIX)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(LIBFFI_SOURCE):
-	@$(call targetinfo)
-	@$(call get, LIBFFI)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-LIBFFI_PATH	:= PATH=$(CROSS_PATH)
-LIBFFI_ENV 	:= $(CROSS_ENV)
-
-#
-# autoconf
-#
-LIBFFI_AUTOCONF := $(CROSS_AUTOCONF_USR)
+LIBFFI_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Install
