@@ -83,12 +83,6 @@ config INITMETHOD_BBINIT_LINK_HWCLOCK
 	prompt "hwclock"
 	default "S12hwclock"
 
-config INITMETHOD_BBINIT_LINK_LIGHTTPD
-	string
-	depends on LIGHTTPD_STARTSCRIPT
-	prompt "lighttpd"
-	default "S91lighttpd"
-
 config INITMETHOD_BBINIT_LINK_MYSQL
 	string
 	depends on MYSQL_STARTSCRIPT
