@@ -119,6 +119,12 @@ endif
 
 	@$(call install_alternative, splashutils, 0, 0, 0755, /etc/init.d/splashutils)
 
+ifneq ($(call remove_quotes,$(PTXCONF_SPLASHUTILS_BBINIT_LINK)),)
+	@$(call install_link, splashutils, \
+		../init.d/splashutils, \
+		/etc/rc.d/$(PTXCONF_SPLASHUTILS_BBINIT_LINK))
+endif
+
 	@$(call install_finish, splashutils)
 
 	@$(call touch)

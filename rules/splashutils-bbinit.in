@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config SPLASHUTILS_BBINIT_LINK
+	string
+	depends on SPLASHUTILS
+	prompt "splashutils"
+	default "S00splashutils"
+

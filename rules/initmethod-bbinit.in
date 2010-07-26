@@ -119,12 +119,6 @@ config INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH
 	prompt "rt-set-bandwidth"
 	default "S03rt-set-bandwidth"
 
-config INITMETHOD_BBINIT_LINK_SPLASHUTILS
-	string
-	depends on SPLASHUTILS
-	prompt "splashutils"
-	default "S00splashutils"
-
 config INITMETHOD_BBINIT_SMARTD
 	string
 	depends on SMARTMONTOOLS_SMARTD_INITD
