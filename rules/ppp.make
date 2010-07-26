@@ -181,6 +181,12 @@ ifdef PTXCONF_PPP_STARTSCRIPT
 	@$(call install_alternative, ppp, 0, 0, 0755, /etc/init.d/pppd)
 	@$(call install_replace, ppp, /etc/init.d/pppd, \
 		@PPPD_INTF@, $(PTXCONF_PPPD_INTF))
+
+ifneq ($(call remove_quotes,$(PTXCONF_PPPD_BBINIT_LINK)),)
+	@$(call install_link, ppp, \
+		../init.d/pppd, \
+		/etc/rc.d/$(PTXCONF_PPPD_BBINIT_LINK))
+endif
 endif
 endif
 

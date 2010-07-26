@@ -161,12 +161,6 @@ ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_PPPD)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/pppd, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_PPPD))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_PROFTPD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/proftpd, \
