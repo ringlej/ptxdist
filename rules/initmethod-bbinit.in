@@ -83,12 +83,6 @@ config INITMETHOD_BBINIT_LINK_HWCLOCK
 	prompt "hwclock"
 	default "S12hwclock"
 
-config INITMETHOD_BBINIT_LINK_SYSLOG_NG
-	string
-	depends on SYSLOGNG_STARTSCRIPT
-	prompt "syslog-ng"
-	default "S10syslog-ng"
-
 config INITMETHOD_BBINIT_LINK_TELNETD
 	string
 	depends on BUSYBOX_TELNETD_STARTSCRIPT || UTELNETD_STARTSCRIPT

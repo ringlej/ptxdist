@@ -161,12 +161,6 @@ ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOG_NG)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/syslog-ng, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOG_NG))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_TELNETD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/telnetd, \

@@ -90,6 +90,12 @@ endif
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_SYSLOGNG_STARTSCRIPT
 	@$(call install_alternative, syslogng, 0, 0, 0755, /etc/init.d/syslog-ng, n)
+
+ifneq ($(call remove_quotes,$(PTXCONF_SYSLOGNG_BBINIT_LINK)),)
+	@$(call install_link, syslogng, \
+		../init.d/syslog-ng, \
+		/etc/rc.d/$(PTXCONF_SYSLOGNG_BBINIT_LINK))
+endif
 endif
 endif
 	@$(call install_finish, syslogng)
