@@ -167,12 +167,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_TELNETD)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_TELNETD))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_THTTPD)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/thttpd, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_THTTPD))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_UDEV)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/udev, \

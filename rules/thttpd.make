@@ -72,6 +72,12 @@ $(STATEDIR)/thttpd.targetinstall:
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_THTTPD_STARTSCRIPT
 	@$(call install_alternative, thttpd, 0, 0, 0755, /etc/init.d/thttpd, n)
+
+ifneq ($(call remove_quotes,$(PTXCONF_THTTPD_BBINIT_LINK)),)
+	@$(call install_link, thttpd, \
+		../init.d/thttpd, \
+		/etc/rc.d/$(PTXCONF_THTTPD_BBINIT_LINK))
+endif
 endif
 endif
 
