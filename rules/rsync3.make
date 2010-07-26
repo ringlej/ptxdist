@@ -80,6 +80,12 @@ $(STATEDIR)/rsync3.targetinstall:
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_RSYNC3_STARTSCRIPT
 	@$(call install_alternative, rsync3, 0, 0, 0755, /etc/init.d/rsyncd, n)
+
+ifneq ($(call remove_quotes,$(PTXCONF_RSYNC3_BBINIT_LINK)),)
+	@$(call install_link, rsync3, \
+		../init.d/rsyncd, \
+		/etc/rc.d/$(PTXCONF_RSYNC3_BBINIT_LINK))
+endif
 endif
 endif
 	@$(call install_finish, rsync3)

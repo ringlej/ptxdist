@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config RSYNC3_BBINIT_LINK
+	string
+	depends on RSYNC3_STARTSCRIPT
+	prompt "rsyncd"
+	default "S20rsyncd"
+
