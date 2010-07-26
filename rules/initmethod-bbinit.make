@@ -137,12 +137,6 @@ endif
 #	# collect start links
 #	#
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DROPBEAR)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/dropbear, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DROPBEAR))
-endif
-
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_INETD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/inetd, \

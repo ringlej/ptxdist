@@ -59,12 +59,6 @@ menu "service startup configuration "
 
 source "generated/initmethod_bbinit.in"
 
-config INITMETHOD_BBINIT_LINK_DROPBEAR
-	string
-	depends on DROPBEAR_STARTSCRIPT
-	prompt "dropbear"
-	default "S16dropbear"
-
 config INITMETHOD_BBINIT_LINK_INETD
 	string
 	depends on BUSYBOX_INETD_STARTSCRIPT || INETUTILS_INETD_STARTSCRIPT

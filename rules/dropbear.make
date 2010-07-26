@@ -282,6 +282,12 @@ ifdef PTXCONF_DROPBEAR_STARTSCRIPT
 	@$(call install_alternative, dropbear, 0, 0, 0755, /etc/rc.once.d/dropbear, n)
 	@$(call install_replace, dropbear, /etc/rc.once.d/dropbear, \
 		@KEYDIR@, $(PTXCONF_DROPBEAR_KEY_DIR))
+
+ifneq ($(call remove_quotes,$(PTXCONF_DROPBEAR_BBINIT_LINK)),)
+	@$(call install_link, dropbear, \
+		../init.d/dropbear, \
+		/etc/rc.d/$(PTXCONF_DROPBEAR_BBINIT_LINK))
+endif
 endif
 endif
 

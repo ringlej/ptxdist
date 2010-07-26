@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config DROPBEAR_BBINIT_LINK
+	string
+	depends on DROPBEAR_STARTSCRIPT
+	prompt "dropbear"
+	default "S16dropbear"
+
