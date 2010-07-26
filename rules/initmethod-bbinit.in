@@ -113,12 +113,6 @@ config INITMETHOD_BBINIT_LINK_NETWORKING
 	prompt "networking"
 	default "S26networking"
 
-config INITMETHOD_BBINIT_ACPID
-	string
-	depends on ACPID_STARTSCRIPT
-	prompt "acpid"
-	default "S10acpid"
-
 config INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH
 	string
 	depends on INITMETHOD_BBINIT_ETC_INITD_RT_SET_BANDWIDTH

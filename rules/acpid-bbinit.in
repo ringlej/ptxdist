@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config ACPID_BBINIT_LINK
+	string
+	depends on ACPID_STARTSCRIPT
+	prompt "acpid"
+	default "S10acpid"
+

@@ -62,6 +62,12 @@ endif
 
 ifdef PTXCONF_ACPID_STARTSCRIPT
 	@$(call install_alternative, acpid, 0, 0, 0755, /etc/init.d/acpid)
+
+ifneq ($(call remove_quotes,$(PTXCONF_ACPID_BBINIT_LINK)),)
+	@$(call install_link, acpid, \
+		../init.d/acpid, \
+		/etc/rc.d/$(PTXCONF_ACPID_BBINIT_LINK))
+endif
 endif
 
 	@$(call install_finish, acpid)
