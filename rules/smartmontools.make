@@ -65,6 +65,12 @@ ifdef PTXCONF_SMARTMONTOOLS_SMARTD_CONFIG
 endif
 ifdef PTXCONF_SMARTMONTOOLS_SMARTD_INITD
 	@$(call install_alternative, smartmontools, 0, 0, 0755, /etc/init.d/smartd)
+
+ifneq ($(call remove_quotes,$(PTXCONF_SMARTMONTOOLS_BBINIT_LINK)),)
+	@$(call install_link, smartmontools, \
+		../init.d/smartd, \
+		/etc/rc.d/$(PTXCONF_SMARTMONTOOLS_BBINIT_LINK))
+endif
 endif
 
 	@$(call install_finish, smartmontools)

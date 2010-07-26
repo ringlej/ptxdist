@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config SMARTMONTOOLS_BBINIT_LINK
+	string
+	depends on SMARTMONTOOLS_SMARTD_INITD
+	prompt "smartd"
+	default "S40smartd"
+

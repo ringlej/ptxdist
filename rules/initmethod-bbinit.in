@@ -119,12 +119,6 @@ config INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH
 	prompt "rt-set-bandwidth"
 	default "S03rt-set-bandwidth"
 
-config INITMETHOD_BBINIT_SMARTD
-	string
-	depends on SMARTMONTOOLS_SMARTD_INITD
-	prompt "smartd"
-	default "S40smartd"
-
 config INITMETHOD_BBINIT_LINK_LVM2
 	string
 	depends on LVM2_STARTSCRIPT

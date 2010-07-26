@@ -221,12 +221,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_RELAY)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_RELAY))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_SMARTD)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/smartd, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_SMARTD))
-endif
-
 	@$(call install_finish, initmethod-bbinit)
 
 	@$(call touch)
