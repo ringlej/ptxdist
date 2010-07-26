@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config APACHE2_BBINIT_LINK
+	string
+	depends on APACHE2_STARTSCRIPT
+	prompt "apache2"
+	default "S91apache2"
+

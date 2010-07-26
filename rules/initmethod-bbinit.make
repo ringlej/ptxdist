@@ -137,12 +137,6 @@ endif
 #	# collect start links
 #	#
 
-ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_APACHE2)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/apache2, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_APACHE2))
-endif
-
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_AT)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/atd, \

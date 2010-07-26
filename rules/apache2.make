@@ -286,6 +286,12 @@ ifdef PTXCONF_APACHE2_STARTSCRIPT
 		@APACHECONFIG@,  $(PTXCONF_APACHE2_CONFIGDIR) )
 	@$(call install_replace, apache2, /etc/init.d/apache2, \
 		@LOGPATH@,  $(PTXCONF_APACHE2_LOGDIR) )
+
+ifneq ($(call remove_quotes, $(PTXCONF_APACHE2_BBINIT_LINK)),)
+	@$(call install_link, apache2, \
+		../init.d/apache2, \
+		/etc/rc.d/$(PTXCONF_APACHE2_BBINIT_LINK))
+endif
 endif
 endif
 
