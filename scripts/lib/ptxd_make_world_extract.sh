@@ -17,38 +17,30 @@ ptxd_make_world_extract() {
 
     case "${pkg_url}" in
 	file://*)
-	    local thing="${pkg_url//file:\/\//}"
+	    local url="${pkg_url//file:\/\//}"
 	    if [ -n "${packet_source}" ]; then
 		ptxd_bailout "<PKG>_SOURCE must not be defined when using a file:// URL!"
 	    fi
-	    if [ -d "${thing}" ]; then
+	    if [ -d "${url}" ]; then
 		echo "local directory instead of tar file, linking build dir"
-		ln -sf "$(ptxd_abspath "${thing}")" "${pkg_dir}"
+		ln -sf "$(ptxd_abspath "${url}")" "${pkg_dir}"
 		return
-	    elif [ -f "${thing}" ]; then
+	    elif [ -f "${url}" ]; then
 		echo
 		echo "Using local archive"
 		echo
-		pkg_src="${thing}"
+		pkg_src="${url}"
 	    else
 		ptxd_bailout "the URL '${pkg_url}' points to non existing directory or file."
 	    fi
 	    ;;
     esac
 
-    if [ -z "${pkg_src}" ]; then
-	echo
-	echo "Error: empty parameter to 'extract()'"
-	echo
-	return 1
-    fi
+    mkdir -p "${dest}" || return
 
-    if [ \! -d "${dest}" ]; then
-	mkdir -p "${dest}" || return
-    fi
-
-    echo "extract: archive=${pkg_src}"
-    echo "extract: dest=${pkg_extract_dir}"
+    echo "\
+extract: pkg_src=$(ptxd_print_path ${pkg_src})
+extract: pkg_extract_dir=$(ptxd_print_path ${pkg_extract_dir})"
 
     ptxd_make_extract_archive "${pkg_src}" "${pkg_extract_dir}"
 }
