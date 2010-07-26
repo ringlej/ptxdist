@@ -83,18 +83,6 @@ config INITMETHOD_BBINIT_LINK_HWCLOCK
 	prompt "hwclock"
 	default "S12hwclock"
 
-config INITMETHOD_BBINIT_LINK_NTP
-	string
-	depends on NTP_NTPD_STARTSCRIPT
-	prompt "ntp"
-	default "S20ntp-server"
-
-config INITMETHOD_BBINIT_LINK_NTPC
-	string
-	depends on NTP_NTPC_STARTSCRIPT
-	prompt "ntpc"
-	default "S20ntp-client"
-
 config INITMETHOD_BBINIT_LINK_NTPCLIENT
 	string
 	depends on NTPCLIENT_STARTSCRIPT

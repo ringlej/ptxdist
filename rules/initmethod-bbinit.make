@@ -161,18 +161,6 @@ ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_NTP)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/ntp-server, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_NTP))
-endif
-
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_NTPC)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/ntp-client, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_NTPC))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_NTPCLIENT)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/ntpclient, \
