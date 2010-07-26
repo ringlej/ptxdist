@@ -8,9 +8,9 @@
 #
 
 #
-# ptxd_make_extract
+# ptxd_make_world_extract
 #
-ptxd_make_extract() {
+ptxd_make_world_extract() {
     ptxd_make_world_init || return
 
     pkg_extract_dir="${pkg_deprecated_extract_dir:-${pkg_extract_dir}}"
@@ -53,4 +53,4 @@ ptxd_make_extract() {
     ptxd_make_extract_archive "${pkg_src}" "${pkg_extract_dir}"
 }
 
-export -f ptxd_make_extract
+export -f ptxd_make_world_extract

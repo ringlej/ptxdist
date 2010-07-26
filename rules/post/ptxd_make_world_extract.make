@@ -21,7 +21,7 @@
 extract = \
 	$(call world/env, $(1)) \
 	pkg_deprecated_extract_dir="$(call ptx/escape, $(strip $(2)))" \
-	ptxd_make_extract
+	ptxd_make_world_extract
 
 ### --- for KLIBC packages only ---
 
