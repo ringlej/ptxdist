@@ -1,0 +1,14 @@
+## SECTION=initmethod_bbinit
+
+config INETUTILS_INETD_BBINIT_LINK
+	string
+	depends on INETUTILS_INETD_STARTSCRIPT
+	prompt "inetd"
+	default "S95inetd"
+
+config INETUTILS_SYSLOGD_BBINIT_LINK
+	string
+	depends on INETUTILS_SYSLOGD_STARTSCRIPT
+	prompt "syslogd"
+	default "S08syslogd"
+

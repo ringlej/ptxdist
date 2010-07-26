@@ -162,6 +162,12 @@ endif
 ifdef PTXCONF_INETUTILS_SYSLOGD_STARTSCRIPT
 	@$(call install_alternative, inetutils, 0, 0, 0755, \
 		/etc/init.d/syslogd, n)
+
+ifneq ($(call remove_quotes, $(PTXCONF_INETUTILS_SYSLOGD_BBINIT_LINK)),)
+	@$(call install_link, inetutils, \
+		../init.d/syslogd, \
+		/etc/rc.d/$(PTXCONF_INETUTILS_SYSLOGD_BBINIT_LINK))
+endif
 endif
 ifdef PTXCONF_INETUTILS_SYSLOGD_CONFIG
 	@$(call install_alternative, inetutils, 0, 0, 0644, \
@@ -189,6 +195,12 @@ endif
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_INETUTILS_INETD_STARTSCRIPT
 	@$(call install_alternative, inetutils, 0, 0, 0755, /etc/init.d/inetd, n)
+
+ifneq ($(call remove_quotes, $(PTXCONF_INETUTILS_INETD_BBINIT_LINK)),)
+	@$(call install_link, inetutils, \
+		../init.d/inetd, \
+		/etc/rc.d/$(PTXCONF_INETUTILS_INETD_BBINIT_LINK))
+endif
 endif
 endif
 

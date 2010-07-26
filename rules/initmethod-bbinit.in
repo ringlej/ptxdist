@@ -61,13 +61,13 @@ source "generated/initmethod_bbinit.in"
 
 config INITMETHOD_BBINIT_LINK_INETD
 	string
-	depends on BUSYBOX_INETD_STARTSCRIPT || INETUTILS_INETD_STARTSCRIPT
+	depends on BUSYBOX_INETD_STARTSCRIPT
 	prompt "inetd"
 	default "S95inetd"
 
 config INITMETHOD_BBINIT_LINK_SYSLOGD
 	string
-	depends on BUSYBOX_SYSLOGD_STARTSCRIPT || INETUTILS_SYSLOGD_STARTSCRIPT
+	depends on BUSYBOX_SYSLOGD_STARTSCRIPT
 	prompt "syslogd"
 	default "S08syslogd"
 
