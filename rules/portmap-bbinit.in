@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config PORTMAP_BBINIT_LINK
+	string
+	depends on PORTMAP_STARTSCRIPT
+	prompt "portmap"
+	default ""
+

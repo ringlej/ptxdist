@@ -65,6 +65,12 @@ $(STATEDIR)/portmap.targetinstall:
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_PORTMAP_STARTSCRIPT
 	@$(call install_alternative, portmap, 0, 0, 0755, /etc/init.d/portmapd, n)
+
+ifneq ($(call remove_quotes,$(PTXCONF_PORTMAP_BBINIT_LINK)),)
+	@$(call install_link, portmap, \
+		../init.d/portmapd, \
+		/etc/rc.d/$(PTXCONF_PORTMAP_BBINIT_LINK))
+endif
 endif
 endif
 
