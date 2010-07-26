@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config PROFTPD_BBINIT_LINK
+	string
+	depends on PROFTPD_STARTSCRIPT
+	prompt "proftpd"
+	default "S91proftpd"
+

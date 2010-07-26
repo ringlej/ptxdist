@@ -83,12 +83,6 @@ config INITMETHOD_BBINIT_LINK_HWCLOCK
 	prompt "hwclock"
 	default "S12hwclock"
 
-config INITMETHOD_BBINIT_LINK_PROFTPD
-	string
-	depends on PROFTPD_STARTSCRIPT
-	prompt "proftpd"
-	default "S91proftpd"
-
 config INITMETHOD_BBINIT_LINK_PUREFTPD
 	string
 	depends on PUREFTPD_STARTSCRIPT
