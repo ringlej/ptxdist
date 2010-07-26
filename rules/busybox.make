@@ -29,6 +29,7 @@ BUSYBOX_LICENSE	:= GPLv2
 # Prepare
 # ----------------------------------------------------------------------------
 
+busybox_import: $(STATEDIR)/busybox.prepare
 
 BUSYBOX_TAGS_OPT := TAGS tags
 
