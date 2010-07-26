@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config UTELNETD_BBINIT_LINK
+	string
+	depends on UTELNETD_STARTSCRIPT
+	prompt "telnetd"
+	default "S16telnetd"
+
