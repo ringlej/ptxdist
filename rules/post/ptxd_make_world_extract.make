@@ -23,27 +23,6 @@ extract = \
 	pkg_deprecated_extract_dir="$(call ptx/escape, $(strip $(2)))" \
 	ptxd_make_extract
 
-
-### --- for CROSS packages only ---
-
-$(STATEDIR)/cross-%.extract:
-	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_TO_PACKAGE_cross-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_cross-$(*)), $(CROSS_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_cross-$(*)), $($(PTX_MAP_TO_PACKAGE_cross-$(*))_DIR))
-	@$(call touch)
-
-
-### --- for HOST packages only ---
-
-$(STATEDIR)/host-%.extract:
-	@$(call targetinfo)
-	@$(call clean, $($(PTX_MAP_TO_PACKAGE_host-$(*))_DIR))
-	@$(call extract, $(PTX_MAP_TO_PACKAGE_host-$(*)), $(HOST_BUILDDIR))
-	@$(call patchin, $(PTX_MAP_TO_PACKAGE_host-$(*)), $($(PTX_MAP_TO_PACKAGE_host-$(*))_DIR))
-	@$(call touch)
-
-
 ### --- for KLIBC packages only ---
 
 $(STATEDIR)/klibc-%.extract:
@@ -53,8 +32,7 @@ $(STATEDIR)/klibc-%.extract:
 	@$(call patchin, $(PTX_MAP_TO_PACKAGE_klibc-$(*)), $($(PTX_MAP_TO_PACKAGE_klibc-$(*))_DIR))
 	@$(call touch)
 
-
-### --- for TARGET packages only ---
+### --- all but KLIBC packages ---
 
 $(STATEDIR)/%.extract:
 	@$(call targetinfo)
