@@ -120,6 +120,12 @@ endif
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_CHRONY_STARTSCRIPT
 	@$(call install_alternative, chrony, 0, 0, 0755, /etc/init.d/chrony)
+
+ifneq ($(call remove_quotes, $(PTXCONF_CHRONY_BBINIT_LINK)),)
+	@$(call install_link, chrony, \
+		../init.d/chrony, \
+		/etc/rc.d/$(PTXCONF_CHRONY_BBINIT_LINK))
+endif
 endif
 endif
 	@$(call install_finish, chrony)

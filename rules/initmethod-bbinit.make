@@ -137,12 +137,6 @@ endif
 #	# collect start links
 #	#
 
-ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_CHRONY)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/chrony, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_CHRONY))
-endif
-
 ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_CONNMAN)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/connman, \
