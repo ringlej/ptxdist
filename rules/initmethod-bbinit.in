@@ -57,6 +57,8 @@ config INITMETHOD_BBINIT_ETC_INITD_RT_SET_BANDWIDTH
 
 menu "service startup configuration "
 
+source "generated/initmethod_bbinit.in"
+
 config INITMETHOD_BBINIT_LINK_ALSA_UTILS
 	string
 	depends on ALSA_UTILS_STARTSCRIPT
