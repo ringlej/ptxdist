@@ -87,6 +87,12 @@ endif
 
 ifdef PTXCONF_DIBBLER_SERVER_STARTSCRIPT
 	@$(call install_alternative, dibbler, 0, 0, 0755, /etc/init.d/dibbler-server)
+
+ifneq ($(call remove_quotes,$(PTXCONF_DIBBLER_SERVER_BBINIT_LINK)),)
+	@$(call install_link, dibbler, \
+		../init.d/dibbler-server, \
+		/etc/rc.d/$(PTXCONF_DIBBLER_SERVER_BBINIT_LINK))
+endif
 endif
 
 ifdef PTXCONF_DIBBLER_CLIENT
@@ -97,6 +103,12 @@ endif
 
 ifdef PTXCONF_DIBBLER_CLIENT_STARTSCRIPT
 	@$(call install_alternative, dibbler, 0, 0, 0755, /etc/init.d/dibbler-client)
+
+ifneq ($(call remove_quotes,$(PTXCONF_DIBBLER_CLIENT_BBINIT_LINK)),)
+	@$(call install_link, dibbler, \
+		../init.d/dibbler-client, \
+		/etc/rc.d/$(PTXCONF_DIBBLER_CLIENT_BBINIT_LINK))
+endif
 endif
 
 ifdef PTXCONF_DIBBLER_RELAY
@@ -106,6 +118,12 @@ endif
 
 ifdef PTXCONF_DIBBLER_RELAY_STARTSCRIPT
 	@$(call install_alternative, dibbler, 0, 0, 0755, /etc/init.d/dibbler-relay)
+
+ifneq ($(call remove_quotes,$(PTXCONF_DIBBLER_RELAY_BBINIT_LINK)),)
+	@$(call install_link, dibbler, \
+		../init.d/dibbler-relay, \
+		/etc/rc.d/$(PTXCONF_DIBBLER_RELAY_BBINIT_LINK))
+endif
 endif
 
 	@$(call install_finish, dibbler)

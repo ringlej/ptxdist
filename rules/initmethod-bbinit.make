@@ -197,24 +197,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH)),
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_SERVER)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/dibbler-server, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_SERVER))
-endif
-
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_CLIENT)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/dibbler-client, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_CLIENT))
-endif
-
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_RELAY)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/dibbler-relay, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_RELAY))
-endif
-
 	@$(call install_finish, initmethod-bbinit)
 
 	@$(call touch)

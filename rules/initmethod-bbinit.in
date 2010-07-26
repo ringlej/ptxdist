@@ -119,24 +119,6 @@ config INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH
 	prompt "rt-set-bandwidth"
 	default "S03rt-set-bandwidth"
 
-config INITMETHOD_BBINIT_LINK_DIBBLER_SERVER
-        string
-        depends on DIBBLER_SERVER_STARTSCRIPT
-        prompt "dibbler-server"
-        default "S27dibbler-server"
-
-config INITMETHOD_BBINIT_LINK_DIBBLER_CLIENT
-        string
-        depends on DIBBLER_CLIENT_STARTSCRIPT
-        prompt "dibbler-client"
-        default "S27dibbler-client"
-
-config INITMETHOD_BBINIT_LINK_DIBBLER_RELAY
-        string
-        depends on DIBBLER_RELAY_STARTSCRIPT
-        prompt "dibbler-relay"
-        default "S27dibbler-relay"
-
 endmenu
 
 endif
