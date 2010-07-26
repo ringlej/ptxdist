@@ -59,12 +59,6 @@ menu "service startup configuration "
 
 source "generated/initmethod_bbinit.in"
 
-config INITMETHOD_BBINIT_LINK_CVS
-	string
-	depends on CVS_STARTSCRIPT
-	prompt "cvs"
-	default "S95cvs"
-
 config INITMETHOD_BBINIT_LINK_DBUS
 	string
 	depends on DBUS_STARTSCRIPT

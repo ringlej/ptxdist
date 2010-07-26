@@ -139,6 +139,12 @@ endif
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_CVS_STARTSCRIPT
 	@$(call install_alternative, cvs, 0, 0, 0755, /etc/init.d/cvs, n)
+
+ifneq ($(call remove_quotes, $(PTXCONF_CVS_BBINIT_LINK)),)
+	@$(call install_link, cvs, \
+		../init.d/cvs, \
+		/etc/rc.d/$(PTXCONF_CVS_BBINIT_LINK))
+endif
 endif
 endif
 
