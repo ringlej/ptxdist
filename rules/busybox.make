@@ -110,22 +110,52 @@ endif
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_BUSYBOX_INETD_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/inetd)
+
+ifneq ($(call remove_quotes, $(PTXCONF_BUSYBOX_INETD_BBINIT_LINK)),)
+	@$(call install_link, busybox, \
+		../init.d/inetd, \
+		/etc/rc.d/$(PTXCONF_BUSYBOX_INETD_BBINIT_LINK))
+endif
 endif
 
 ifdef PTXCONF_BUSYBOX_TELNETD_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/telnetd)
+
+ifneq ($(call remove_quotes,$(PTXCONF_BUSYBOX_TELNETD_BBINIT_LINK)),)
+	@$(call install_link, busybox, \
+		../init.d/telnetd, \
+		/etc/rc.d/$(PTXCONF_BUSYBOX_TELNETD_BBINIT_LINK))
+endif
 endif
 
 ifdef PTXCONF_BUSYBOX_SYSLOGD_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/syslogd)
+
+ifneq ($(call remove_quotes, $(PTXCONF_BUSYBOX_SYSLOGD_BBINIT_LINK)),)
+	@$(call install_link, busybox, \
+		../init.d/syslogd, \
+		/etc/rc.d/$(PTXCONF_BUSYBOX_SYSLOGD_BBINIT_LINK))
+endif
 endif
 
 ifdef PTXCONF_BUSYBOX_CROND_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/crond)
+
+ifneq ($(call remove_quotes, $(PTXCONF_BUSYBOX_CROND_BBINIT_LINK)),)
+	@$(call install_link, busybox, \
+		../init.d/crond, \
+		/etc/rc.d/$(PTXCONF_BUSYBOX_CROND_BBINIT_LINK))
+endif
 endif
 
 ifdef PTXCONF_BUSYBOX_HWCLOCK_STARTSCRIPT
 	@$(call install_alternative, busybox, 0, 0, 0755, /etc/init.d/hwclock)
+
+ifneq ($(call remove_quotes, $(PTXCONF_BUSYBOX_HWCLOCK_BBINIT_LINK)),)
+	@$(call install_link, busybox, \
+		../init.d/hwclock, \
+		/etc/rc.d/$(PTXCONF_BUSYBOX_HWCLOCK_BBINIT_LINK))
+endif
 endif
 endif # PTXCONF_INITMETHOD_BBINIT
 

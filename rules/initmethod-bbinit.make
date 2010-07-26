@@ -137,36 +137,6 @@ endif
 #	# collect start links
 #	#
 
-ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_INETD)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/inetd, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_INETD))
-endif
-
-ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOGD)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/syslogd, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_SYSLOGD))
-endif
-
-ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_CROND)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/crond, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_CROND))
-endif
-
-ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/hwclock, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK))
-endif
-
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_TELNETD)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/telnetd, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_TELNETD))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_BANNER)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/banner, \

@@ -59,36 +59,6 @@ menu "service startup configuration "
 
 source "generated/initmethod_bbinit.in"
 
-config INITMETHOD_BBINIT_LINK_INETD
-	string
-	depends on BUSYBOX_INETD_STARTSCRIPT
-	prompt "inetd"
-	default "S95inetd"
-
-config INITMETHOD_BBINIT_LINK_SYSLOGD
-	string
-	depends on BUSYBOX_SYSLOGD_STARTSCRIPT
-	prompt "syslogd"
-	default "S08syslogd"
-
-config INITMETHOD_BBINIT_LINK_CROND
-	string
-	depends on BUSYBOX_CROND_STARTSCRIPT
-	prompt "crond"
-	default "S10crond"
-
-config INITMETHOD_BBINIT_LINK_HWCLOCK
-	string
-	depends on BUSYBOX_HWCLOCK_STARTSCRIPT
-	prompt "hwclock"
-	default "S12hwclock"
-
-config INITMETHOD_BBINIT_LINK_TELNETD
-	string
-	depends on BUSYBOX_TELNETD_STARTSCRIPT
-	prompt "telnetd"
-	default "S16telnetd"
-
 config INITMETHOD_BBINIT_LINK_BANNER
 	string
 	depends on INITMETHOD_BBINIT_ETC_INITD_BANNER
