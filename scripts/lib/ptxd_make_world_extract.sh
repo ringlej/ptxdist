@@ -8,27 +8,12 @@
 #
 
 #
-# -d DEST
+# ptxd_make_extract
 #
 ptxd_make_extract() {
     ptxd_make_world_init || return
 
-    local opt
-
-    . ${PTXDIST_TOPDIR}/scripts/ptxdist_vars.sh || return 1
-
-    while getopts "s:p:u:d:" opt; do
-	case "${opt}" in
-	    d)
-		local dest="${OPTARG}"
-		;;
-	    *)
-		return 1
-		;;
-	esac
-    done
-
-    dest="${dest:-${BUILDDIR}}"
+    pkg_extract_dir="${pkg_deprecated_extract_dir:-${pkg_extract_dir}}"
 
     case "${pkg_url}" in
 	file://*)
@@ -63,9 +48,9 @@ ptxd_make_extract() {
     fi
 
     echo "extract: archive=${pkg_src}"
-    echo "extract: dest=${dest}"
+    echo "extract: dest=${pkg_extract_dir}"
 
-    ptxd_make_extract_archive "${pkg_src}" "${dest}"
+    ptxd_make_extract_archive "${pkg_src}" "${pkg_extract_dir}"
 }
 
 export -f ptxd_make_extract

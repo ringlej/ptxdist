@@ -20,8 +20,8 @@
 #
 extract = \
 	$(call world/env, $(1)) \
-	ptxd_make_extract \
-		-d "$(strip $(2))"
+	pkg_deprecated_extract_dir="$(call ptx/escape, $(strip $(2)))" \
+	ptxd_make_extract
 
 
 ### --- for CROSS packages only ---
