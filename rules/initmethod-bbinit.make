@@ -161,12 +161,6 @@ ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_MYSQL)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/mysql, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_MYSQL))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_NFSD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/nfsd, \

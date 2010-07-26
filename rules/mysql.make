@@ -355,6 +355,12 @@ $(STATEDIR)/mysql.targetinstall:
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_MYSQL_STARTSCRIPT
 	@$(call install_alternative, mysql, 0, 0, 0755, /etc/init.d/mysql, n)
+
+ifneq ($(call remove_quotes,$(PTXCONF_MYSQL_BBINIT_LINK)),)
+	@$(call install_link, mysql, \
+		../init.d/mysql, \
+		/etc/rc.d/$(PTXCONF_MYSQL_BBINIT_LINK))
+endif
 endif
 endif
 
