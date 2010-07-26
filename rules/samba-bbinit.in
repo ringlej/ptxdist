@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config SAMBA_BBINIT_LINK
+	string
+	depends on SAMBA_STARTSCRIPT
+	prompt "samba"
+	default "S95samba"
+

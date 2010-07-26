@@ -83,12 +83,6 @@ config INITMETHOD_BBINIT_LINK_HWCLOCK
 	prompt "hwclock"
 	default "S12hwclock"
 
-config INITMETHOD_BBINIT_LINK_SAMBA
-	string
-	depends on SAMBA_STARTSCRIPT
-	prompt "samba"
-	default "S95samba"
-
 config INITMETHOD_BBINIT_LINK_SYSLOG_NG
 	string
 	depends on SYSLOGNG_STARTSCRIPT
