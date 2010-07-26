@@ -122,6 +122,12 @@ $(STATEDIR)/lvm2.targetinstall:
 
 ifdef PTXCONF_LVM2_STARTSCRIPT
 	@$(call install_alternative, lvm2, 0, 0, 0755, /etc/init.d/lvm2)
+
+ifneq ($(call remove_quotes,$(PTXCONF_LVM2_BBINIT_LINK)),)
+	@$(call install_link, lvm2, \
+		../init.d/lvm2, \
+		/etc/rc.d/$(PTXCONF_LVM2_BBINIT_LINK))
+endif
 endif
 
 	@$(call install_finish, lvm2)

@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config LVM2_BBINIT_LINK
+	string
+	depends on LVM2_STARTSCRIPT
+	prompt "lvm2"
+	default "S20lvm2"
+

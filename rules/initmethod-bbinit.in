@@ -119,12 +119,6 @@ config INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH
 	prompt "rt-set-bandwidth"
 	default "S03rt-set-bandwidth"
 
-config INITMETHOD_BBINIT_LINK_LVM2
-	string
-	depends on LVM2_STARTSCRIPT
-	prompt "lvm2"
-	default "S20lvm2"
-
 config INITMETHOD_BBINIT_LINK_DIBBLER_SERVER
         string
         depends on DIBBLER_SERVER_STARTSCRIPT
