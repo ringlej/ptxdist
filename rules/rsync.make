@@ -83,6 +83,12 @@ ifdef PTXCONF_RSYNC_STARTSCRIPT
 	@$(call install_replace, rsync, /etc/init.d/rsyncd, \
 		@CONFIG@, \
 		"--config=$(PTXCONF_RSYNC_CONFIG_FILE)" )
+
+ifneq ($(call remove_quotes,$(PTXCONF_RSYNC_BBINIT_LINK)),)
+	@$(call install_link, rsync, \
+		../init.d/rsyncd, \
+		/etc/rc.d/$(PTXCONF_RSYNC_BBINIT_LINK))
+endif
 endif
 endif
 endif

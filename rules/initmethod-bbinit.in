@@ -85,7 +85,7 @@ config INITMETHOD_BBINIT_LINK_HWCLOCK
 
 config INITMETHOD_BBINIT_LINK_RSYNCD
 	string
-	depends on RSYNC_STARTSCRIPT || RSYNC3_STARTSCRIPT
+	depends on RSYNC3_STARTSCRIPT
 	prompt "rsyncd"
 	default "S20rsyncd"
 
