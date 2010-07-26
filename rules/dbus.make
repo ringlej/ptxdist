@@ -143,6 +143,12 @@ endif
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_DBUS_STARTSCRIPT
 	@$(call install_alternative, dbus, 0, 0, 0755, /etc/init.d/dbus)
+
+ifneq ($(call remove_quotes,$(PTXCONF_DBUS_BBINIT_LINK)),)
+	@$(call install_link, dbus, \
+		../init.d/dbus, \
+		/etc/rc.d/$(PTXCONF_DBUS_BBINIT_LINK))
+endif
 endif
 endif
 

@@ -137,12 +137,6 @@ endif
 #	# collect start links
 #	#
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DBUS)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/dbus, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DBUS))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DNSMASQ)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/dnsmasq, \
