@@ -119,12 +119,6 @@ config INITMETHOD_BBINIT_LINK_RT_SET_BANDWIDTH
 	prompt "rt-set-bandwidth"
 	default "S03rt-set-bandwidth"
 
-config INITMETHOD_BBINIT_LINK_RC_ONCE
-	string
-	depends on RC_ONCE
-	prompt "rc-once"
-	default "S01rc-once"
-
 config INITMETHOD_BBINIT_LINK_SPLASHUTILS
 	string
 	depends on SPLASHUTILS

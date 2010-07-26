@@ -66,6 +66,12 @@ $(STATEDIR)/rc-once.targetinstall:
 
 	@$(call install_alternative, rc-once, 0, 0, 0755, /etc/init.d/rc-once)
 
+ifneq ($(call remove_quotes,$(PTXCONF_RC_ONCE_BBINIT_LINK)),)
+	@$(call install_link, rc-once, \
+		../init.d/rc-once, \
+		/etc/rc.d/$(PTXCONF_RC_ONCE_BBINIT_LINK))
+endif
+
 	@$(call install_copy, rc-once, 0, 0, 0755, /etc/rc.once.d)
 	@$(call install_copy, rc-once, 0, 0, 0755, /etc/rc.once.d/.done)
 

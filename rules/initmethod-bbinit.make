@@ -221,12 +221,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_RELAY)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_RELAY))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_RC_ONCE)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/rc-once, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_RC_ONCE))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_SPLASHUTILS)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/splashutils, \

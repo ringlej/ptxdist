@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config RC_ONCE_BBINIT_LINK
+	string
+	depends on RC_ONCE
+	prompt "rc-once"
+	default "S01rc-once"
+
