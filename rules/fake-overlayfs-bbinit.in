@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config FAKE_OVERLAYFS_BBINIT_LINK
+	string
+	depends on FAKE_OVERLAYFS
+	prompt "fake-overlayfs"
+	default "S00fake-overlayfs"
+

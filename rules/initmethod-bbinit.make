@@ -221,12 +221,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_RELAY)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_DIBBLER_RELAY))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_FAKE_OVERLAYFS)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/fake-overlayfs, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_FAKE_OVERLAYFS))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_RC_ONCE)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/rc-once, \

@@ -93,6 +93,12 @@ $(STATEDIR)/fake-overlayfs.targetinstall:
 	@$(call install_replace, fake-overlayfs, /etc/init.d/fake-overlayfs, \
 		@OVERLAY_DIRLIST@, $(FAKE_OVERLAYFS_DIRS))
 
+ifneq ($(call remove_quotes,$(PTXCONF_FAKE_OVERLAYFS_BBINIT_LINK)),)
+	@$(call install_link, fake-overlayfs, \
+		../init.d/fake-overlayfs, \
+		/etc/rc.d/$(PTXCONF_FAKE_OVERLAYFS_BBINIT_LINK))
+endif
+
 	@$(call install_finish,fake-overlayfs)
 
 	@$(call touch)
