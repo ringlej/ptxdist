@@ -101,14 +101,14 @@ FNR == 1 {
 # add prefix to symbols on line
 #
 function add_prefix(IN,    in_match) {
-#		depends on FOO && BAR
-#       +----------------+ +--------+
-#               |              |
-#           in_match[1]        |
+#		depends on FOO && BAR # comment
+#       +----------------+ +--------+ +-------+
+#               |              |          |
+#           in_match[1]        |     in_match[7]
 #                              |
 #                         in_match[4]
 
-	match(IN, /^([[:space:]]*(config|select|default|if|depends([[:space:]]+on)?)[[:space:]]+)((")?[^"]*(")?)$/, in_match);
+	match(IN, /^([[:space:]]*(config|select|default|if|depends([[:space:]]+on)?)[[:space:]]+)((")?[^"#]*(")?)(#.*)?/, in_match);
 
 	# don't convert things wrapped in ""
 	if (in_match[5] ~ /"/) {
@@ -116,7 +116,7 @@ function add_prefix(IN,    in_match) {
 	}
 
 	# don't convert "N" symbols like in "default N"
-	return in_match[1] gensub(/(!)?(N[A-Z0-9_]+|[A-MO-Z]+[A-Z0-9_]*)/, "\\1" prefix "\\2", "g", in_match[4]);
+	return in_match[1] gensub(/(!)?(N[A-Z0-9_]+|[A-MO-Z]+[A-Z0-9_]*)/, "\\1" prefix "\\2", "g", in_match[4]) in_match[7];
 }
 
 
