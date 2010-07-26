@@ -81,6 +81,12 @@ $(STATEDIR)/at.targetinstall:
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_AT_STARTSCRIPT
 	@$(call install_alternative, at, 0, 0, 0755, /etc/init.d/atd)
+
+ifneq ($(call remove_quotes, $(PTXCONF_AT_BBINIT_LINK)),)
+	@$(call install_link, at, \
+		../init.d/atd, \
+		/etc/rc.d/$(PTXCONF_AT_BBINIT_LINK))
+endif
 endif
 endif
 

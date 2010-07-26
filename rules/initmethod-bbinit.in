@@ -59,12 +59,6 @@ menu "service startup configuration "
 
 source "generated/initmethod_bbinit.in"
 
-config INITMETHOD_BBINIT_LINK_AT
-	string
-	depends on AT_STARTSCRIPT
-	prompt "atd"
-	default "S90atd"
-
 config INITMETHOD_BBINIT_LINK_CHRONY
 	string
 	depends on CHRONY_STARTSCRIPT

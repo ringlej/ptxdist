@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config AT_BBINIT_LINK
+	string
+	depends on AT_STARTSCRIPT
+	prompt "atd"
+	default "S90atd"
+
