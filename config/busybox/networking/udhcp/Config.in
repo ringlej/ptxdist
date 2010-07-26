@@ -1,18 +1,21 @@
+# DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
 # see scripts/kbuild/config-language.txt.
 #
 
+
+
 config BUSYBOX_UDHCPD
 	bool "udhcp server (udhcpd)"
-	default n
+	default y
 	help
 	  udhcpd is a DHCP server geared primarily toward embedded systems,
 	  while striving to be fully functional and RFC compliant.
 
 config BUSYBOX_DHCPRELAY
 	bool "dhcprelay"
-	default n
+	default y
 	depends on BUSYBOX_UDHCPD
 	help
 	  dhcprelay listens for dhcp requests on one or more interfaces
@@ -21,7 +24,7 @@ config BUSYBOX_DHCPRELAY
 
 config BUSYBOX_DUMPLEASES
 	bool "Lease display utility (dumpleases)"
-	default n
+	default y
 	depends on BUSYBOX_UDHCPD
 	help
 	  dumpleases displays the leases written out by the udhcpd server.
@@ -30,7 +33,7 @@ config BUSYBOX_DUMPLEASES
 
 config BUSYBOX_FEATURE_UDHCPD_WRITE_LEASES_EARLY
 	bool "Rewrite the lease file at every new acknowledge"
-	default n
+	default y
 	depends on BUSYBOX_UDHCPD
 	help
 	  If selected, udhcpd will write a new file with leases every
@@ -48,7 +51,7 @@ config BUSYBOX_DHCPD_LEASES_FILE
 
 config BUSYBOX_UDHCPC
 	bool "udhcp client (udhcpc)"
-	default n
+	default y
 	help
 	  udhcpc is a DHCP client geared primarily toward embedded systems,
 	  while striving to be fully functional and RFC compliant.
@@ -68,7 +71,7 @@ config BUSYBOX_FEATURE_UDHCPC_ARPING
 
 config BUSYBOX_FEATURE_UDHCP_PORT
 	bool "Enable '-P port' option for udhcpd and udhcpc"
-	default n
+	default y
 	depends on BUSYBOX_UDHCPD || BUSYBOX_UDHCPC
 	help
 	  At the cost of ~300 bytes, enables -P port option.
@@ -76,7 +79,7 @@ config BUSYBOX_FEATURE_UDHCP_PORT
 
 config BUSYBOX_UDHCP_DEBUG
 	int "Maximum verbosity level for udhcp applets (0..9)"
-	default 0
+	default 9
 	range 0 9
 	depends on BUSYBOX_UDHCPD || BUSYBOX_UDHCPC || BUSYBOX_DHCPRELAY
 	help
@@ -88,11 +91,12 @@ config BUSYBOX_UDHCP_DEBUG
 
 config BUSYBOX_FEATURE_UDHCP_RFC3397
 	bool "Support for RFC3397 domain search (experimental)"
-	default n
+	default y
 	depends on BUSYBOX_UDHCPD || BUSYBOX_UDHCPC
 	help
 	  If selected, both client and server will support passing of domain
-	  search lists via option 119, specified in RFC3397.
+	  search lists via option 119, specified in RFC 3397,
+	  and SIP servers option 120, specified in RFC 3361.
 
 config BUSYBOX_UDHCPC_DEFAULT_SCRIPT
 	string "Absolute path to config script"

@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
 # see scripts/kbuild/config-language.txt.
@@ -5,16 +6,18 @@
 
 menu "Runit Utilities"
 
+
+
 config BUSYBOX_RUNSV
 	bool "runsv"
-	default n
+	default y
 	help
 	  runsv starts and monitors a service and optionally an appendant log
 	  service.
 
 config BUSYBOX_RUNSVDIR
 	bool "runsvdir"
-	default n
+	default y
 	help
 	  runsvdir starts a runsv process for each subdirectory, or symlink to
 	  a directory, in the services directory dir, up to a limit of 1000
@@ -31,7 +34,7 @@ config BUSYBOX_FEATURE_RUNSVDIR_LOG
 
 config BUSYBOX_SV
 	bool "sv"
-	default n
+	default y
 	help
 	  sv reports the current status and controls the state of services
 	  monitored by the runsv supervisor.
@@ -46,7 +49,7 @@ config BUSYBOX_SV_DEFAULT_SERVICE_DIR
 
 config BUSYBOX_SVLOGD
 	bool "svlogd"
-	default n
+	default y
 	help
 	  svlogd continuously reads log data from its standard input, optionally
 	  filters log messages, and writes the data to one or more automatically
@@ -54,29 +57,33 @@ config BUSYBOX_SVLOGD
 
 config BUSYBOX_CHPST
 	bool "chpst"
-	default n
+	default y
 	help
 	  chpst changes the process state according to the given options, and
 	  execs specified program.
 
 config BUSYBOX_SETUIDGID
 	bool "setuidgid"
+	default y
 	help
 	  Sets soft resource limits as specified by options
 
 config BUSYBOX_ENVUIDGID
 	bool "envuidgid"
+	default y
 	help
 	  Sets $UID to account's uid and $GID to account's gid
 
 config BUSYBOX_ENVDIR
 	bool "envdir"
+	default y
 	help
 	  Sets various environment variables as specified by files
 	  in the given directory
 
 config BUSYBOX_SOFTLIMIT
 	bool "softlimit"
+	default y
 	help
 	  Sets soft resource limits as specified by options
 
