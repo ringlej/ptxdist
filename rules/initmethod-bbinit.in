@@ -89,12 +89,6 @@ config INITMETHOD_BBINIT_LINK_TELNETD
 	prompt "telnetd"
 	default "S16telnetd"
 
-config INITMETHOD_BBINIT_LINK_UDEV
-	string
-	depends on UDEV_STARTSCRIPT
-	prompt "udev"
-	default "S00udev"
-
 config INITMETHOD_BBINIT_LINK_BANNER
 	string
 	depends on INITMETHOD_BBINIT_ETC_INITD_BANNER

@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config UDEV_BBINIT_LINK
+	string
+	depends on UDEV_STARTSCRIPT
+	prompt "udev"
+	default "S00udev"
+
