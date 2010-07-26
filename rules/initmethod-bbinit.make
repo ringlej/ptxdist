@@ -161,12 +161,6 @@ ifneq ($(call remove_quotes, $(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK)),)
 		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_HWCLOCK))
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_PUREFTPD)),)
-	@$(call install_link, initmethod-bbinit, \
-		../init.d/pureftpd, \
-		/etc/rc.d/$(PTXCONF_INITMETHOD_BBINIT_LINK_PUREFTPD))
-endif
-
 ifneq ($(call remove_quotes,$(PTXCONF_INITMETHOD_BBINIT_LINK_RSYNCD)),)
 	@$(call install_link, initmethod-bbinit, \
 		../init.d/rsyncd, \

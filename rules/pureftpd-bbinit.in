@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config PUREFTPD_BBINIT_LINK
+	string
+	depends on PUREFTPD_STARTSCRIPT
+	prompt "pureftpd"
+	default "S91pureftpd"
+
