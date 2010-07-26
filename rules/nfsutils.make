@@ -191,6 +191,12 @@ endif
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_NFSUTILS_NFSD_STARTSCRIPT
 	@$(call install_alternative, nfsutils, 0, 0, 0755, /etc/init.d/nfsd)
+
+ifneq ($(call remove_quotes,$(PTXCONF_NFSUTILS_NFSD_BBINIT_LINK)),)
+	@$(call install_link, nfsutils, \
+		../init.d/nfsd, \
+		/etc/rc.d/$(PTXCONF_NFSUTILS_NFSD_BBINIT_LINK))
+endif
 endif
 endif
 	@$(call install_finish, nfsutils)

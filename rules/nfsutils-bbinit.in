@@ -1,0 +1,8 @@
+## SECTION=initmethod_bbinit
+
+config NFSUTILS_NFSD_BBINIT_LINK
+	string
+	depends on NFSUTILS_NFSD_STARTSCRIPT
+	prompt "nfsd"
+	default "S95nfsd"
+

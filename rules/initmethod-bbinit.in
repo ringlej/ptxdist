@@ -83,12 +83,6 @@ config INITMETHOD_BBINIT_LINK_HWCLOCK
 	prompt "hwclock"
 	default "S12hwclock"
 
-config INITMETHOD_BBINIT_LINK_NFSD
-	string
-	depends on NFSUTILS_NFSD_STARTSCRIPT
-	prompt "nfsd"
-	default "S95nfsd"
-
 config INITMETHOD_BBINIT_LINK_NTP
 	string
 	depends on NTP_NTPD_STARTSCRIPT
