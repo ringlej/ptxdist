@@ -85,7 +85,7 @@ $0 ~ /^include[[:space:]]+\/.*\.make$/ {
 # pkg_to_PKG		array that maps from lower case to upper case pkg name
 # PKG_to_filename	array that maps from upper case pkg name to filename
 #
-$1 ~ /^[A-Z_]*PACKAGES/ {
+$1 ~ /^[A-Z_]*PACKAGES-/ {
 	this_PKG = gensub(/^[A-Z_]*PACKAGES-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", $1);
 	this_PKG = gensub(/^[A-Z0-9_]*-\$\(PTXCONF_([^\)]*)\)/, "\\1", "g", this_PKG);
 
