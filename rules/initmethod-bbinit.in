@@ -83,12 +83,6 @@ config INITMETHOD_BBINIT_LINK_HWCLOCK
 	prompt "hwclock"
 	default "S12hwclock"
 
-config INITMETHOD_BBINIT_LINK_OPENSSH
-	string
-	depends on OPENSSH_SSHD_STARTSCRIPT
-	prompt "openssh"
-	default "S16openssh"
-
 config INITMETHOD_BBINIT_LINK_PORTMAP
 	string
 	depends on PORTMAP_STARTSCRIPT
