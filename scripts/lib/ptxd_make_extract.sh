@@ -43,11 +43,14 @@ ptxd_make_extract() {
     case "${packet_url}" in
 	file://*)
 	    local thing="${packet_url//file:\/\//}"
+	    if [ -n "${packet_source}" ]; then
+		ptxd_bailout "<PKG>_SOURCE must not be defined when using a file:// URL!"
+	    fi
 	    if [ -d "${thing}" ]; then
 		echo "local directory instead of tar file, linking build dir"
 		ln -sf "$(ptxd_abspath "${thing}")" "${packet_dir}"
 		return
-	    elif [ -f "${thing}" -a -z "${packet_source}" ]; then
+	    elif [ -f "${thing}" ]; then
 		echo
 		echo "Using local archive"
 		echo
