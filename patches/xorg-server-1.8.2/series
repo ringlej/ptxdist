@@ -1,1 +1,4 @@
 0001-Fix-typo.patch
+07-xfree86-fix-build-with-xv-disabled.diff
+loader-when-creating-sdksyms.c-only-include-shmint.h.patch
+
