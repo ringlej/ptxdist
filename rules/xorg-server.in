@@ -42,7 +42,6 @@ menuconfig XORG_SERVER
 
 	# input hotplug with udev
 	select UDEV			if XORG_SERVER_UDEV
-	select UDEV_LIBUDEV		if XORG_SERVER_UDEV
 
 	# glx triggered
 	select XORG_LIB_X11		if XORG_SERVER_EXT_GLX
@@ -253,6 +252,9 @@ config XORG_SERVER_TSLIB
 
 config XORG_SERVER_UDEV
 	bool
+	select UDEV_LIBUDEV
+	select UDEV_EXTRAS
+	select UDEV_EXTRA_INPUT_ID
 	prompt "detect input devices via udev"
 	help
 	  FIXME
