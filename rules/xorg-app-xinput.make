@@ -19,27 +19,16 @@ PACKAGES-$(PTXCONF_XORG_APP_XINPUT) += xorg-app-xinput
 XORG_APP_XINPUT_VERSION	:= 1.5.2
 XORG_APP_XINPUT		:= xinput-$(XORG_APP_XINPUT_VERSION)
 XORG_APP_XINPUT_SUFFIX	:= tar.bz2
-XORG_APP_XINPUT_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/app/$(XORG_APP_XINPUT).$(XORG_APP_XINPUT_SUFFIX)
+XORG_APP_XINPUT_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/app/$(XORG_APP_XINPUT).$(XORG_APP_XINPUT_SUFFIX)
 XORG_APP_XINPUT_SOURCE	:= $(SRCDIR)/$(XORG_APP_XINPUT).$(XORG_APP_XINPUT_SUFFIX)
-XORG_APP_XINPUT_DIR		:= $(BUILDDIR)/$(XORG_APP_XINPUT)
+XORG_APP_XINPUT_DIR	:= $(BUILDDIR)/$(XORG_APP_XINPUT)
 XORG_APP_XINPUT_LICENSE	:= unknown
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(XORG_APP_XINPUT_SOURCE):
-	@$(call targetinfo)
-	@$(call get, XORG_APP_XINPUT)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-#
-# autoconf
-#
-XORG_APP_XINPUT_CONF_TOOL	:= autoconf
+XORG_APP_XINPUT_CONF_TOOL := autoconf
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -59,13 +48,3 @@ $(STATEDIR)/xorg-app-xinput.targetinstall:
 	@$(call install_finish, xorg-app-xinput)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-#$(STATEDIR)/xorg-app-xinput.clean:
-#	@$(call targetinfo)
-#	@$(call clean_pkg, XORG_APP_XINPUT)
-
-# vim: syntax=make
