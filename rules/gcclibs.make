@@ -3,7 +3,8 @@
 # Copyright (C) 2004 by Robert Schwebel
 #                       Marc Kleine-Budde <kleine-budde@gmx.de>
 #               2005-2008 by Marc Kleine-Budde <mkl@pengutronix.de>, Pengutronix
-#          
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -20,46 +21,6 @@ GCCLIBS_VERSION	:= unknown
 else
 GCCLIBS_VERSION	:= $(shell $(CROSS_CC) -dumpversion)
 endif
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gcclibs.get:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gcclibs.extract:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gcclibs.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gcclibs.compile:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/gcclibs.install:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
