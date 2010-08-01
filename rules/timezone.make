@@ -17,8 +17,7 @@ PACKAGES-$(PTXCONF_TIMEZONE) += timezone
 # Paths and names
 #
 TIMEZONE_VERSION	:= 1.0
-TIMEZONE		:= timezone
-TIMEZONE_DIR		:= $(BUILDDIR)/$(TIMEZONE)/usr/share/
+TIMEZONE		:= timezone-$(TIMEZONE_VERSION)
 
 TIMEZONE-$(PTXCONF_TIMEZONE_AFRICA) := "Africa"
 TIMEZONE-$(PTXCONF_TIMEZONE_ATLANTIC) += "Atlantic"
@@ -80,45 +79,20 @@ TIMEZONE-$(PTXCONF_TIMEZONE_SYSTEMV) += "SystemV"
 TIMEZONE-$(PTXCONF_TIMEZONE_UNIVERSAL) += "Universal"
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(TIMEZONE_SOURCE):
-	@$(call targetinfo)
-	@$(call get, TIMEZONE)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/timezone.extract:
-	@$(call targetinfo)
-	@$(call clean, $(TIMEZONE_DIR))
-	@mkdir -p $(TIMEZONE_DIR)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/timezone.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/timezone.compile:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/timezone.install:
 	@$(call targetinfo)
+ifdef PTXCONF_TIMEZONE_LOCAL_DATABASE
+	@for target in $(TIMEZONE-y); do \
+		$(call add_zoneinfo, $$target, $(TIMEZONE_PKGDIR)/usr/share, $(PTXDIST_SYSROOT_HOST)/usr); \
+	done
+else
+	@for target in $(TIMEZONE-y); do \
+		$(call add_zoneinfo, $$target, $(TIMEZONE_PKGDIR)/usr/share, ""); \
+	done
+endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -134,23 +108,13 @@ $(STATEDIR)/timezone.targetinstall:
 	@$(call install_fixup, timezone,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, timezone,DESCRIPTION,missing)
 
-ifdef PTXCONF_TIMEZONE_LOCAL_DATABASE
-	@for target in $(TIMEZONE-y); do \
-		$(call add_zoneinfo, $$target, $(TIMEZONE_DIR), $(PTXDIST_SYSROOT_HOST)/usr); \
-	done
-else
-	@for target in $(TIMEZONE-y); do \
-		$(call add_zoneinfo, $$target, $(TIMEZONE_DIR), ""); \
-	done
-endif
-
 	@$(call install_copy, timezone, 0, 0, 0755, /usr/share/zoneinfo)
-	@for d in `find ${TIMEZONE_DIR}/zoneinfo/ -type d | awk -v FS="zoneinfo/" '{print $$2}'`; do \
+	@for d in `find ${TIMEZONE_PKGDIR}/usr/share/zoneinfo/ -type d | awk -v FS="zoneinfo/" '{print $$2}'`; do \
 		$(call install_copy, timezone, 0, 0, 0755, /usr/share/zoneinfo/$$d); \
 	done
 
-	@for f in `find ${TIMEZONE_DIR}/zoneinfo/ -type f | awk -v FS="zoneinfo/" '{print $$2}'`; do \
-		$(call install_copy, timezone, 0, 0, 0655, $(TIMEZONE_DIR)/zoneinfo/$$f, /usr/share/zoneinfo/$$f,n); \
+	@for f in `find ${TIMEZONE_PKGDIR}/usr/share/zoneinfo/ -type f | awk -v FS="zoneinfo/" '{print $$2}'`; do \
+		$(call install_copy, timezone, 0, 0, 0655, -, /usr/share/zoneinfo/$$f,n); \
         done
 
 ifdef PTXCONF_GLIBC_LOCALTIME_LINK
