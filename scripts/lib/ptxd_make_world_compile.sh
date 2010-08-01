@@ -13,6 +13,11 @@
 ptxd_make_world_compile() {
     ptxd_make_world_init &&
 
+    if [ -z "${pkg_build_dir}" ]; then
+	# no build dir -> assume the package has nothing to build.
+	return
+    fi &&
+
     eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
