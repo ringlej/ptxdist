@@ -13,8 +13,6 @@
 # create pkg_pkg_dir and typical subdirs if pkg_pkg_dir is defined
 #
 ptxd_make_world_install_prepare() {
-    ptxd_make_world_init &&
-
     if [ -z "${pkg_pkg_dir}" ]; then
 	return
     fi &&
@@ -28,6 +26,13 @@ export -f ptxd_make_world_install_prepare
 #
 ptxd_make_world_install() {
     local -a fakeargs
+
+    ptxd_make_world_init &&
+
+    if [ -z "${pkg_build_dir}" ]; then
+	# no build dir -> assume the package has nothing to install.
+	return
+    fi &&
     #
     # fakeroot is a host pkg and
     # might not be available, yet
@@ -97,6 +102,11 @@ export -f ptxd_make_world_install_unpack
 #
 ptxd_make_world_install_pack() {
     ptxd_make_world_init &&
+
+    if [ -z "${pkg_pkg_dir}" ]; then
+	# no pkg dir -> assume the package has nothing to install.
+	return
+    fi &&
 
     # remove empty dirs
     test \! -e "${pkg_pkg_dir}" || \
