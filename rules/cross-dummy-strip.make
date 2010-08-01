@@ -13,18 +13,6 @@
 #
 CROSS_PACKAGES-$(PTXCONF_CROSS_DUMMY_STRIP) += cross-dummy-strip
 
-$(STATEDIR)/cross-dummy-strip.extract:
-	@$(call targetinfo)
-	@$(call touch)
-
-$(STATEDIR)/cross-dummy-strip.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-$(STATEDIR)/cross-dummy-strip.compile:
-	@$(call targetinfo)
-	@$(call touch)
-
 $(STATEDIR)/cross-dummy-strip.install:
 	@$(call targetinfo)
 	install -D -m 755 $(PTXDIST_TOPDIR)/scripts/dummy-strip.sh $(PTXCONF_SYSROOT_CROSS)/bin/strip
