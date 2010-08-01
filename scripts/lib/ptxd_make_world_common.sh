@@ -210,6 +210,8 @@ ptxd_make_world_init() {
     # sanitize pkg_pkg_dir
     #
     if [ "${pkg_pkg_dir}" = "${ptx_pkg_dir}/" -o \
+	 "${pkg_pkg_dir}" = "${ptx_pkg_dir}/host-" -o \
+	 "${pkg_pkg_dir}" = "${ptx_pkg_dir}/cross-" -o \
 	 "${pkg_pkg_dev}" = "NO" -a "${pkg_type}" != "target" ]; then
 	pkg_pkg_dir=""
 	local conf_opt_ext="_sysroot"
