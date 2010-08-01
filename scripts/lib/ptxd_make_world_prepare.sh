@@ -99,6 +99,11 @@ ptxd_make_world_prepare() {
     ptxd_make_world_init &&
     ptxd_make_world_prepare_sanity_check || return
 
+    if [ -z "${pkg_conf_dir_abs}" ]; then
+	# no conf dir -> assume the package has nothing to configure.
+	return
+    fi
+
     # delete existing build_dir
     if [ -n "${pkg_build_oot}" ]; then
 	rm -rf   -- "${pkg_build_dir}" &&
