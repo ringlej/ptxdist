@@ -18,35 +18,7 @@ PACKAGES-$(PTXCONF_XORG_FONTS) += xorg-fonts
 # Paths and names
 #
 XORG_FONTS_VERSION	:= 1.0.0
-XORG_FONTS		:= xorg-fonts-$(XORG_FONTS_VERSION)
-XORG_FONTS_DIR		:= $(BUILDDIR)/$(XORG_FONTS)
-XORG_FONTS_DIR_INSTALL	:= $(XORG_FONTS_DIR)-install
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xorg-fonts.extract:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-XORG_FONTS_PATH	:=  PATH=$(HOST_PATH)
-
-$(STATEDIR)/xorg-fonts.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/xorg-fonts.compile:
-	@$(call targetinfo)
-	@$(call touch)
+XORG_FONTS_DIR_INSTALL	:= $(BUILDDIR)/xorg-fonts-$(XORG_FONTS_VERSION)-install
 
 # ----------------------------------------------------------------------------
 # Install
@@ -77,7 +49,6 @@ $(STATEDIR)/xorg-fonts.targetinstall:
 $(STATEDIR)/xorg-fonts.targetinstall.post:
 	@$(call targetinfo)
 
-	@$(XORG_FONTS_PATH); \
 	find $(XORG_FONTS_DIR_INSTALL) -mindepth 1 -type d | while read dir; do \
 		echo $$dir;\
 		case "$${dir}" in \
