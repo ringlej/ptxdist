@@ -13,6 +13,11 @@
 ptxd_make_world_extract() {
     ptxd_make_world_init || return
 
+    if [ -z "${pkg_url}" -a -z "${pkg_src}" ]; then
+	# no <PKG>_URL and no <PKG>_SOURCE -> assume the package has nothing to extract.
+	return
+    fi
+
     pkg_extract_dir="${pkg_deprecated_extract_dir:-${pkg_extract_dir}}"
 
     case "${pkg_url}" in

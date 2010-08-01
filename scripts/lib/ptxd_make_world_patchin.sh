@@ -386,6 +386,11 @@ ptxd_make_world_patchin()
 {
     ptxd_make_world_init || return
 
+    if [ -z "${pkg_url}" -a -z "${pkg_src}" ]; then
+	# no <PKG>_URL and no <PKG>_SOURCE -> assume the package has nothing to patchin.
+	return
+    fi
+
     if [ -n "${pkg_deprecated_patchin_series}" ]; then
 	ptxd_bailout "a 3rd parameter to patchin ('${pkg_deprecated_patchin_series}') is obsolete, please define <PKG>_SERIES instead"
     fi
