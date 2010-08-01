@@ -25,30 +25,8 @@ HOST_LIBBZ2_SOURCE	:= $(SRCDIR)/$(HOST_LIBBZ2).$(HOST_LIBBZ2_SUFFIX)
 HOST_LIBBZ2_DIR		:= $(HOST_BUILDDIR)/$(HOST_LIBBZ2)
 
 # ----------------------------------------------------------------------------
-# Get
+# Install
 # ----------------------------------------------------------------------------
-
-$(HOST_LIBBZ2_SOURCE):
-	@$(call targetinfo)
-	@$(call get, HOST_LIBBZ2)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/host-libbz2.extract:
-	@$(call targetinfo)
-	@$(call clean, $(HOST_LIBBZ2_DIR))
-	@$(call extract, HOST_LIBBZ2, $(HOST_BUILDDIR))
-	@$(call patchin, HOST_LIBBZ2, $(HOST_LIBBZ2_DIR))
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-HOST_LIBBZ2_PATH	:= PATH=$(HOST_PATH)
-HOST_LIBBZ2_ENV 	:= $(HOST_ENV)
 
 HOST_LIBBZ2_INSTALL_OPT := install PREFIX=$(HOST_LIBBZ2_PKGDIR)
 
