@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2003, 2004, 2008 by Marc Kleine-Budde <kleine-budde@gmx.de>
+#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -14,46 +15,6 @@
 PACKAGES-$(PTXCONF_UCLIBC) += uclibc
 
 UCLIBC_VERSION	:= $(call remove_quotes,$(PTXCONF_UCLIBC_VERSION))
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uclibc.get:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Extract
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uclibc.extract:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Prepare
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uclibc.prepare:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Compile
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uclibc.compile:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Install
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/uclibc.install:
-	@$(call targetinfo)
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
