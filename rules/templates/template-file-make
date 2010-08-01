@@ -19,33 +19,33 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 # Get
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.get:
-	@$(call targetinfo)
-	@$(call touch)
+#$(STATEDIR)/@package@.get:
+#	@$(call targetinfo)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.extract:
-	@$(call targetinfo)
-	@$(call touch)
+#$(STATEDIR)/@package@.extract:
+#	@$(call targetinfo)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+#$(STATEDIR)/@package@.prepare:
+#	@$(call targetinfo)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.compile:
-	@$(call targetinfo)
-	@$(call touch)
+#$(STATEDIR)/@package@.compile:
+#	@$(call targetinfo)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
