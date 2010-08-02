@@ -38,23 +38,23 @@ ptxd_dgen_configdeps() {
 }
 
 #
-# FIXME: gawk it
+# get package *.make files without duplicates
 #
 ptxd_dgen_rulesfiles() {
     {
-	if test -d "${PROJECTRULESDIR}"; then
-	    find "${PROJECTRULESDIR}" \
-		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" &&
-	    find "${RULESDIR}" \
-		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" \
-		$(find "${PROJECTRULESDIR}" \
-		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*" \
-		-printf "! -name %f ")
-	else
-	    find "${RULESDIR}" \
-		-mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
-	fi
-    } | sed -e "s/\(.*\)/include \1/" > "${PTX_DGEN_RULESFILES_MAKE}.tmp"
+	local rulesdir
+	for rulesdir in ${PTXDIST_PATH_RULES//:/ }; do
+	    if [ ! -d "${rulesdir}" ]; then
+		continue
+	    fi
+	    find "${rulesdir}" -mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
+	done
+    } | awk '{
+	    n=gensub(".*/", "", "g");
+	    if (!(n in names))
+		print "include", $0;
+	    names[n]=1;
+	}' > "${PTX_DGEN_RULESFILES_MAKE}.tmp"
     check_pipe_status
 }
 
