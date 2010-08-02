@@ -31,6 +31,7 @@ HOST_XORG_LIB_XFONT_ENV 	:= $(HOST_ENV)
 #
 HOST_XORG_LIB_XFONT_AUTOCONF := \
 	$(HOST_AUTOCONF) \
-	--disable-freetype
+	--disable-freetype \
+	--without-xmlto
 
 # vim: syntax=make
