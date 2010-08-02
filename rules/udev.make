@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_UDEV) += udev
 #
 # Paths and names
 #
-UDEV_VERSION	:= 158
+UDEV_VERSION	:= 160
 UDEV		:= udev-$(UDEV_VERSION)
 UDEV_SUFFIX	:= tar.bz2
 UDEV_SOURCE	:= $(SRCDIR)/$(UDEV).$(UDEV_SUFFIX)
