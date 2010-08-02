@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
 # see scripts/kbuild/config-language.txt.
@@ -5,38 +6,11 @@
 
 menu "Shells"
 
-choice
-	prompt "Choose your default shell"
-	default BUSYBOX_FEATURE_SH_IS_NONE
-	help
-	  Choose a shell. The ash shell is the most bash compatible
-	  and full featured one.
 
-config BUSYBOX_FEATURE_SH_IS_ASH
-	select BUSYBOX_ASH
-	bool "ash"
-	depends on !BUSYBOX_NOMMU
-
-config BUSYBOX_FEATURE_SH_IS_HUSH
-	select BUSYBOX_HUSH
-	bool "hush"
-
-####config FEATURE_SH_IS_LASH
-####	select LASH
-####	bool "lash"
-
-####config FEATURE_SH_IS_MSH
-####	select MSH
-####	bool "msh"
-
-config BUSYBOX_FEATURE_SH_IS_NONE
-	bool "none"
-
-endchoice
 
 config BUSYBOX_ASH
 	bool "ash"
-	default n
+	default y
 	depends on !BUSYBOX_NOMMU
 	help
 	  Tha 'ash' shell adds about 60k in the default configuration and is
@@ -68,7 +42,7 @@ config BUSYBOX_ASH_ALIAS
 
 config BUSYBOX_ASH_GETOPTS
 	bool "Builtin getopt to parse positional parameters"
-	default n
+	default y
 	depends on BUSYBOX_ASH
 	help
 	  Enable getopts builtin in the ash shell.
@@ -96,7 +70,7 @@ config BUSYBOX_ASH_BUILTIN_TEST
 
 config BUSYBOX_ASH_CMDCMD
 	bool "'command' command to override shell builtins"
-	default n
+	default y
 	depends on BUSYBOX_ASH
 	help
 	  Enable support for the ash 'command' builtin, which allows
@@ -105,7 +79,7 @@ config BUSYBOX_ASH_CMDCMD
 
 config BUSYBOX_ASH_MAIL
 	bool "Check for new mail on interactive shells"
-	default y
+	default n
 	depends on BUSYBOX_ASH
 	help
 	  Enable "check for new mail" in the ash shell.
@@ -119,7 +93,7 @@ config BUSYBOX_ASH_OPTIMIZE_FOR_SIZE
 
 config BUSYBOX_ASH_RANDOM_SUPPORT
 	bool "Pseudorandom generator and $RANDOM variable"
-	default n
+	default y
 	depends on BUSYBOX_ASH
 	help
 	  Enable pseudorandom generator and dynamic variable "$RANDOM".
@@ -130,7 +104,7 @@ config BUSYBOX_ASH_RANDOM_SUPPORT
 
 config BUSYBOX_ASH_EXPAND_PRMT
 	bool "Expand prompt string"
-	default n
+	default y
 	depends on BUSYBOX_ASH
 	help
 	  "PS#" may contain volatile content, such as backquote commands.
@@ -139,7 +113,7 @@ config BUSYBOX_ASH_EXPAND_PRMT
 
 config BUSYBOX_HUSH
 	bool "hush"
-	default n
+	default y
 	help
 	  hush is a small shell (22k). It handles the normal flow control
 	  constructs such as if/then/elif/else/fi, for/in/do/done, while loops,
@@ -160,7 +134,7 @@ config BUSYBOX_HUSH_BASH_COMPAT
 
 config BUSYBOX_HUSH_HELP
 	bool "help builtin"
-	default n
+	default y
 	depends on BUSYBOX_HUSH
 	help
 	  Enable help builtin in hush. Code size + ~1 kbyte.
@@ -177,7 +151,7 @@ config BUSYBOX_HUSH_INTERACTIVE
 
 config BUSYBOX_HUSH_JOB
 	bool "Job control"
-	default n
+	default y
 	depends on BUSYBOX_HUSH_INTERACTIVE
 	help
 	  Enable job control: Ctrl-Z backgrounds, Ctrl-C interrupts current
@@ -188,60 +162,115 @@ config BUSYBOX_HUSH_JOB
 
 config BUSYBOX_HUSH_TICK
 	bool "Process substitution"
-	default n
+	default y
 	depends on BUSYBOX_HUSH
 	help
 	  Enable process substitution `command` and $(command) in hush.
 
 config BUSYBOX_HUSH_IF
 	bool "Support if/then/elif/else/fi"
-	default n
+	default y
 	depends on BUSYBOX_HUSH
 	help
 	  Enable if/then/elif/else/fi in hush.
 
 config BUSYBOX_HUSH_LOOPS
 	bool "Support for, while and until loops"
-	default n
+	default y
 	depends on BUSYBOX_HUSH
 	help
 	  Enable for, while and until loops in hush.
 
 config BUSYBOX_HUSH_CASE
 	bool "Support case ... esac statement"
-	default n
+	default y
 	depends on BUSYBOX_HUSH
 	help
 	  Enable case ... esac statement in hush. +400 bytes.
 
 config BUSYBOX_HUSH_FUNCTIONS
 	bool "Support funcname() { commands; } syntax"
-	default n
+	default y
 	depends on BUSYBOX_HUSH
 	help
 	  Enable support for shell functions in hush. +800 bytes.
 
 config BUSYBOX_HUSH_LOCAL
 	bool "Support local builtin"
-	default n
+	default y
 	depends on BUSYBOX_HUSH_FUNCTIONS
 	help
 	  Enable support for local variables in functions.
 
 config BUSYBOX_HUSH_EXPORT_N
 	bool "Support export '-n' option"
-	default n
+	default y
 	depends on BUSYBOX_HUSH
 	help
 	  Enable support for export '-n' option in hush. It is a bash extension.
 
 config BUSYBOX_HUSH_RANDOM_SUPPORT
 	bool "Pseudorandom generator and $RANDOM variable"
-	default n
+	default y
 	depends on BUSYBOX_HUSH
 	help
 	  Enable pseudorandom generator and dynamic variable "$RANDOM".
 	  Each read of "$RANDOM" will generate a new pseudorandom value.
+
+
+choice
+	prompt "Choose which shell is aliased to 'sh' name"
+	default BUSYBOX_FEATURE_SH_IS_ASH
+	help
+	  Choose which shell you want to be executed by 'sh' alias.
+	  The ash shell is the most bash compatible and full featured one.
+
+# note: cannot use "select ASH" here, it breaks "make allnoconfig"
+config BUSYBOX_FEATURE_SH_IS_ASH
+	depends on BUSYBOX_ASH
+	bool "ash"
+	depends on !BUSYBOX_NOMMU
+
+config BUSYBOX_FEATURE_SH_IS_HUSH
+	depends on BUSYBOX_HUSH
+	bool "hush"
+
+config BUSYBOX_FEATURE_SH_IS_NONE
+	bool "none"
+
+endchoice
+
+choice
+	prompt "Choose which shell is aliased to 'bash' name"
+	default BUSYBOX_FEATURE_BASH_IS_NONE
+	help
+	  Choose which shell you want to be executed by 'bash' alias.
+	  The ash shell is the most bash compatible and full featured one.
+
+	  Note that selecting this option does not switch on any bash
+	  compatibility code. It merely makes it possible to install
+	  /bin/bash (sym)link and run scripts which start with
+	  #!/bin/bash line.
+
+	  Many systems use it in scripts which use bash-specific features,
+	  even simple ones like $RANDOM. Without this option, busybox
+	  can't be used for running them because it won't recongnize
+	  "bash" as a supported applet name.
+
+config BUSYBOX_FEATURE_BASH_IS_ASH
+	depends on BUSYBOX_ASH
+	bool "ash"
+	depends on !BUSYBOX_NOMMU
+
+config BUSYBOX_FEATURE_BASH_IS_HUSH
+	depends on BUSYBOX_HUSH
+	bool "hush"
+
+config BUSYBOX_FEATURE_BASH_IS_NONE
+	bool "none"
+
+endchoice
+
 
 config BUSYBOX_LASH
 	bool "lash (deprecated: aliased to hush)"
@@ -275,7 +304,7 @@ config BUSYBOX_SH_MATH_SUPPORT
 
 config BUSYBOX_SH_MATH_SUPPORT_64
 	bool "Extend POSIX math support to 64 bit"
-	default n
+	default y
 	depends on BUSYBOX_SH_MATH_SUPPORT
 	help
 	  Enable 64-bit math support in the shell. This will make the shell
@@ -284,15 +313,15 @@ config BUSYBOX_SH_MATH_SUPPORT_64
 
 config BUSYBOX_FEATURE_SH_EXTRA_QUIET
 	bool "Hide message on interactive shell startup"
-	default n
-	depends on BUSYBOX_MSH || BUSYBOX_LASH || BUSYBOX_HUSH || BUSYBOX_ASH
+	default y
+	depends on BUSYBOX_HUSH || BUSYBOX_ASH
 	help
 	  Remove the busybox introduction when starting a shell.
 
 config BUSYBOX_FEATURE_SH_STANDALONE
 	bool "Standalone shell"
 	default n
-	depends on (BUSYBOX_MSH || BUSYBOX_LASH || BUSYBOX_HUSH || BUSYBOX_ASH) && BUSYBOX_FEATURE_PREFER_APPLETS
+	depends on (BUSYBOX_HUSH || BUSYBOX_ASH) && BUSYBOX_FEATURE_PREFER_APPLETS
 	help
 	  This option causes busybox shells to use busybox applets
 	  in preference to executables in the PATH whenever possible. For
@@ -325,7 +354,7 @@ config BUSYBOX_FEATURE_SH_STANDALONE
 config BUSYBOX_FEATURE_SH_NOFORK
 	bool "Run 'nofork' applets directly"
 	default n
-	depends on (BUSYBOX_MSH || BUSYBOX_LASH || BUSYBOX_HUSH || BUSYBOX_ASH) && BUSYBOX_FEATURE_PREFER_APPLETS
+	depends on (BUSYBOX_HUSH || BUSYBOX_ASH) && BUSYBOX_FEATURE_PREFER_APPLETS
 	help
 	  This option causes busybox shells [currently only ash]
 	  to not execute typical fork/exec/wait sequence, but call <applet>_main
@@ -341,7 +370,7 @@ config BUSYBOX_FEATURE_SH_NOFORK
 
 config BUSYBOX_CTTYHACK
 	bool "cttyhack"
-	default n
+	default y
 	help
 	  One common problem reported on the mailing list is "can't access tty;
 	  job control turned off" error message which typically appears when
@@ -354,9 +383,20 @@ config BUSYBOX_CTTYHACK
 	  It analyzes stdin with various ioctls, trying to determine whether
 	  it is a /dev/ttyN or /dev/ttySN (virtual terminal or serial line).
 	  If it detects one, it closes stdin/out/err and reopens that device.
-	  Then it executes given program. Usage example for /etc/inittab
-	  (for busybox init):
+	  Then it executes given program. Opening the device will make
+	  that device a controlling tty. This may require cttyhack
+	  to be a session leader.
+
+	  Example for /etc/inittab (for busybox init):
 
 	  ::respawn:/bin/cttyhack /bin/sh
+
+	  Giving controlling tty to shell running with PID 1:
+
+	  $ exec cttyhack sh
+
+	  Starting an interactive shell from boot shell script:
+
+	  setsid cttyhack sh
 
 endmenu

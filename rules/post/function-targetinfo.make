@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2004, 2005, 2006, 2007, 2008 by the PTXdist project
-#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -15,7 +15,7 @@
 # Print out the targetinfo line on the terminal
 #
 ifdef PTXDIST_QUIET
-_targetinfo_opt_output := echo "started : $(PTX_COLOR_BLUE)$${target}$(PTX_COLOR_OFF)" >&2;
+_targetinfo_opt_output := echo "started : $(PTX_COLOR_BLUE)$${target}$(PTX_COLOR_OFF)" >&$(PTXDIST_FD_STDOUT);
 endif
 
 targetinfo = 								\

@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
 # see scripts/kbuild/config-language.txt.
@@ -5,21 +6,23 @@
 
 menu "Debian Utilities"
 
+
+
 config BUSYBOX_MKTEMP
 	bool "mktemp"
-	default n
+	default y
 	help
 	  mktemp is used to create unique temporary files
 
 config BUSYBOX_PIPE_PROGRESS
 	bool "pipe_progress"
-	default n
+	default y
 	help
 	  Display a dot to indicate pipe activity.
 
 config BUSYBOX_RUN_PARTS
 	bool "run-parts"
-	default n
+	default y
 	help
 	  run-parts is a utility designed to run all the scripts in a directory.
 
@@ -34,14 +37,14 @@ config BUSYBOX_RUN_PARTS
 
 config BUSYBOX_FEATURE_RUN_PARTS_LONG_OPTIONS
 	bool "Enable long options"
-	default n
+	default y
 	depends on BUSYBOX_RUN_PARTS && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the run-parts applet.
 
 config BUSYBOX_FEATURE_RUN_PARTS_FANCY
 	bool "Support additional arguments"
-	default n
+	default y
 	depends on BUSYBOX_RUN_PARTS
 	help
 	  Support additional options:
@@ -50,7 +53,7 @@ config BUSYBOX_FEATURE_RUN_PARTS_FANCY
 
 config BUSYBOX_START_STOP_DAEMON
 	bool "start-stop-daemon"
-	default n
+	default y
 	help
 	  start-stop-daemon is used to control the creation and
 	  termination of system-level processes, usually the ones
@@ -58,7 +61,7 @@ config BUSYBOX_START_STOP_DAEMON
 
 config BUSYBOX_FEATURE_START_STOP_DAEMON_FANCY
 	bool "Support additional arguments"
-	default n
+	default y
 	depends on BUSYBOX_START_STOP_DAEMON
 	help
 	  Support additional arguments.
@@ -68,17 +71,16 @@ config BUSYBOX_FEATURE_START_STOP_DAEMON_FANCY
 
 config BUSYBOX_FEATURE_START_STOP_DAEMON_LONG_OPTIONS
 	bool "Enable long options"
-	default n
+	default y
 	depends on BUSYBOX_START_STOP_DAEMON && BUSYBOX_LONG_OPTS
 	help
 	  Support long options for the start-stop-daemon applet.
 
 config BUSYBOX_WHICH
 	bool "which"
-	default n
+	default y
 	help
 	  which is used to find programs in your PATH and
 	  print out their pathnames.
 
 endmenu
-

@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
 # see scripts/kbuild/config-language.txt.
@@ -5,9 +6,11 @@
 
 menu "System Logging Utilities"
 
+
+
 config BUSYBOX_SYSLOGD
 	bool "syslogd"
-	default n
+	default y
 	help
 	  The syslogd utility is used to record logs of all the
 	  significant events that occur on a system. Every
@@ -22,7 +25,7 @@ config BUSYBOX_SYSLOGD
 
 config BUSYBOX_FEATURE_ROTATE_LOGFILE
 	bool "Rotate message files"
-	default n
+	default y
 	depends on BUSYBOX_SYSLOGD
 	help
 	  This enables syslogd to rotate the message files
@@ -30,7 +33,7 @@ config BUSYBOX_FEATURE_ROTATE_LOGFILE
 
 config BUSYBOX_FEATURE_REMOTE_LOG
 	bool "Remote Log support"
-	default n
+	default y
 	depends on BUSYBOX_SYSLOGD
 	help
 	  When you enable this feature, the syslogd utility can
@@ -44,15 +47,25 @@ config BUSYBOX_FEATURE_REMOTE_LOG
 
 config BUSYBOX_FEATURE_SYSLOGD_DUP
 	bool "Support -D (drop dups) option"
-	default n
+	default y
 	depends on BUSYBOX_SYSLOGD
 	help
 	  Option -D instructs syslogd to drop consecutive messages
 	  which are totally the same.
 
+config BUSYBOX_FEATURE_SYSLOGD_READ_BUFFER_SIZE
+	int "Read buffer size in bytes"
+	default 256
+	range 256 20000
+	depends on BUSYBOX_SYSLOGD
+	help
+	  This option sets the size of the syslog read buffer.
+	  Actual memory usage increases around five times the
+	  change done here.
+
 config BUSYBOX_FEATURE_IPC_SYSLOG
 	bool "Circular Buffer support"
-	default n
+	default y
 	depends on BUSYBOX_SYSLOGD
 	help
 	  When you enable this feature, the syslogd utility will
@@ -85,7 +98,7 @@ config BUSYBOX_LOGREAD
 
 config BUSYBOX_FEATURE_LOGREAD_REDUCED_LOCKING
 	bool "Double buffering"
-	default n
+	default y
 	depends on BUSYBOX_LOGREAD
 	help
 	  'logread' ouput to slow serial terminals can have
@@ -96,7 +109,7 @@ config BUSYBOX_FEATURE_LOGREAD_REDUCED_LOCKING
 
 config BUSYBOX_KLOGD
 	bool "klogd"
-	default n
+	default y
 	help
 	  klogd is a utility which intercepts and logs all
 	  messages from the Linux kernel and sends the messages
@@ -106,7 +119,7 @@ config BUSYBOX_KLOGD
 
 config BUSYBOX_LOGGER
 	bool "logger"
-	default n
+	default y
 	select BUSYBOX_FEATURE_SYSLOG
 	help
 	    The logger utility allows you to send arbitrary text
@@ -115,4 +128,3 @@ config BUSYBOX_LOGGER
 	    problems that occur within programs and scripts.
 
 endmenu
-

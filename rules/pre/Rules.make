@@ -406,37 +406,6 @@ add_zoneinfo =							\
 	-p $$PREF						\
 	-s $$SYSROOT
 
-#
-# extract
-#
-# Extract a source archive into a directory. This stage is
-# skipped if $1_URL points to a local directory instead of
-# an archive or online URL.
-#
-# $1: Packet label; we extract $1_SOURCE
-# $2: dir to extract into; if $2 is not given we extract to $(BUILDDIR)
-#
-extract =							\
-	ptxd_make_extract					\
-		-s "$($(strip $(1))_SOURCE)"			\
-		-p "$($(strip $(1))_DIR)"			\
-		-u "$($(strip $(1))_URL)"			\
-		-d "$(strip $(2))"
-
-
-#
-# get
-#
-# Download a package from a given URL. This macro has some magic
-# to handle different URLs; as wget is not able to transfer
-# file URLs this case is being handed over to cp.
-#
-# $1: Packet Label; this macro gets $1_URL
-#
-get =								\
-	PTXCONF_SETUP_NO_DOWNLOAD="$(PTXCONF_SETUP_NO_DOWNLOAD)"\
-	ptxd_make_get "$($(strip $(1))_URL)"
-
 
 #
 # clean

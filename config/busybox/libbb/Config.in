@@ -1,9 +1,12 @@
+# DO NOT EDIT. This file is generated from Config.src
 #
 # For a description of the syntax of this configuration file,
 # see scripts/kbuild/config-language.txt.
 #
 
 menu "Busybox Library Tuning"
+
+
 
 config BUSYBOX_PASSWORD_MINLEN
 	int "Minimum password length"
@@ -28,7 +31,7 @@ config BUSYBOX_MD5_SIZE_VS_SPEED
 
 config BUSYBOX_FEATURE_FAST_TOP
 	bool "Faster /proc scanning code (+100 bytes)"
-	default n
+	default y
 	help
 	  This option makes top (and ps) ~20% faster (or 20% less CPU hungry),
 	  but code size is slightly bigger.
@@ -43,7 +46,7 @@ config BUSYBOX_FEATURE_ETC_NETWORKS
 
 config BUSYBOX_FEATURE_EDITING
 	bool "Command line editing"
-	default n
+	default y
 	help
 	  Enable line editing (mainly for shell command line).
 
@@ -68,21 +71,21 @@ config BUSYBOX_FEATURE_EDITING_VI
 config BUSYBOX_FEATURE_EDITING_HISTORY
 	int "History size"
 	range 0 99999
-	default 15
+	default 255
 	depends on BUSYBOX_FEATURE_EDITING
 	help
 	  Specify command history size.
 
 config BUSYBOX_FEATURE_EDITING_SAVEHISTORY
 	bool "History saving"
-	default n
+	default y
 	depends on BUSYBOX_ASH && BUSYBOX_FEATURE_EDITING
 	help
 	  Enable history saving in ash shell.
 
 config BUSYBOX_FEATURE_TAB_COMPLETION
 	bool "Tab completion"
-	default n
+	default y
 	depends on BUSYBOX_FEATURE_EDITING
 	help
 	  Enable tab completion.
@@ -96,7 +99,7 @@ config BUSYBOX_FEATURE_USERNAME_COMPLETION
 
 config BUSYBOX_FEATURE_EDITING_FANCY_PROMPT
 	bool "Fancy shell prompts"
-	default n
+	default y
 	depends on BUSYBOX_FEATURE_EDITING
 	help
 	  Setting this option allows for prompts to use things like \w and
@@ -150,7 +153,7 @@ config BUSYBOX_FEATURE_COPYBUF_KB
 
 config BUSYBOX_MONOTONIC_SYSCALL
 	bool "Use clock_gettime(CLOCK_MONOTONIC) syscall"
-	default y
+	default n
 	help
 	  Use clock_gettime(CLOCK_MONOTONIC) syscall for measuring
 	  time intervals (time, ping, traceroute etc need this).

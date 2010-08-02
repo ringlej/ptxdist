@@ -1,8 +1,11 @@
+# DO NOT EDIT. This file is generated from Config.src
 menu "Mail Utilities"
+
+
 
 config BUSYBOX_MAKEMIME
 	bool "makemime"
-	default n
+	default y
 	help
 	  Create MIME-formatted messages.
 
@@ -15,14 +18,14 @@ config BUSYBOX_FEATURE_MIME_CHARSET
 
 config BUSYBOX_POPMAILDIR
 	bool "popmaildir"
-	default n
+	default y
 	help
 	  Simple yet powerful POP3 mail popper. Delivers content
 	  of remote mailboxes to local Maildir.
 
 config BUSYBOX_FEATURE_POPMAILDIR_DELIVERY
 	bool "Allow message filters and custom delivery program"
-	default n
+	default y
 	depends on BUSYBOX_POPMAILDIR
 	help
 	  Allow to use a custom program to filter the content
@@ -32,7 +35,7 @@ config BUSYBOX_FEATURE_POPMAILDIR_DELIVERY
 
 config BUSYBOX_REFORMIME
 	bool "reformime"
-	default n
+	default y
 	help
 	  Parse MIME-formatted messages.
 
@@ -46,7 +49,7 @@ config BUSYBOX_FEATURE_REFORMIME_COMPAT
 
 config BUSYBOX_SENDMAIL
 	bool "sendmail"
-	default n
+	default y
 	help
 	  Barebones sendmail.
 
