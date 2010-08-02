@@ -36,7 +36,7 @@ ptxd_make_world_extract() {
 	    ;;
     esac
 
-    mkdir -p "${dest}" || return
+    mkdir -p "${pkg_extract_dir}" || return
 
     echo "\
 extract: pkg_src=$(ptxd_print_path ${pkg_src})
