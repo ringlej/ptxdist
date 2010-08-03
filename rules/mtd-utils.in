@@ -4,7 +4,7 @@ menuconfig MTD_UTILS
 	tristate
 	prompt "mtd-utils                     "
 	select ZLIB
-	select LIBUUID
+	select LIBUUID if MTD_UTILS_MKFS_UBIFS
 	select LIBLZO if MTD_UTILS_USE_LIBLZO
 	help
 	  Memory Technology Device Utilities

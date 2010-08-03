@@ -1,0 +1,24 @@
+From: Ladislav Michl <ladis@linux-mips.org>
+Date: Tue, 3 Aug 2010 13:00:00 +0200
+Subject: [PATCH] make mkubifs optional
+
+Signed-off-by: Ladislav Michl <ladis@linux-mips.org>
+---
+ Makefile |    6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+--- a/Makefile	2010-08-03 14:55:20.000000000 +0200
++++ b/Makefile	2010-08-03 14:24:39.000000000 +0200
+@@ -11,7 +11,11 @@
+   CPPFLAGS += -DWITHOUT_LZO
+ endif
+ 
+-SUBDIRS = ubi-utils mkfs.ubifs
++SUBDIRS = ubi-utils
++
++ifneq ($(WITHOUT_MKUBIFS), 1)
++  SUBDIRS += mkfs.ubifs
++endif
+ 
+ TARGETS = ftl_format flash_erase flash_eraseall nanddump doc_loadbios \
+ 	ftl_check mkfs.jffs2 flash_lock flash_unlock flash_info \
