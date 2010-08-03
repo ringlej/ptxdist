@@ -5,11 +5,13 @@ Subject: [PATCH] make mkubifs optional
 Signed-off-by: Ladislav Michl <ladis@linux-mips.org>
 ---
  Makefile |    6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ 1 files changed, 5 insertions(+), 1 deletions(-)
 
---- a/Makefile	2010-08-03 14:55:20.000000000 +0200
-+++ b/Makefile	2010-08-03 14:24:39.000000000 +0200
-@@ -11,7 +11,11 @@
+diff --git a/Makefile b/Makefile
+index 5de9382..462a8f9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -11,7 +11,11 @@ ifeq ($(WITHOUT_LZO), 1)
    CPPFLAGS += -DWITHOUT_LZO
  endif
  
@@ -22,3 +24,6 @@ Signed-off-by: Ladislav Michl <ladis@linux-mips.org>
  
  TARGETS = ftl_format flash_erase flash_eraseall nanddump doc_loadbios \
  	ftl_check mkfs.jffs2 flash_lock flash_unlock flash_info \
+-- 
+1.7.1
+
