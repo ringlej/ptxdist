@@ -861,6 +861,8 @@ Options:
   -k				keep going. Continue as much as possible
 				after an error.
 
+  --git				use git to apply patches
+
 EOF
 }
 
