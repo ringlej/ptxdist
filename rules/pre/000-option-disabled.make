@@ -51,6 +51,18 @@ endef
 
 
 #
+# $(call ptx/disen, PTXCONF_SYMBOL) returns "disable" or "enable"
+# depending on the symbol is defined or not
+#
+# $(call ptx/disen, PTXCONF_SYMBOL)
+#                     $1
+#
+define ptx/disen
+$(call ptx/ifdef, $(1), disable, enable)
+endef
+
+
+#
 # $(call ptx/wwo, PTXCONF_SYMBOL) returns "with" or "without"
 # depending on the symbol is defined or not
 #
