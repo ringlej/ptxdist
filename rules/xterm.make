@@ -44,7 +44,14 @@ XTERM_ENV 	:= $(CROSS_ENV)
 #
 XTERM_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-freetype
+	--disable-freetype \
+	--without-x
+
+#
+# "--without-x" is no typo, it means don't look for X using pre
+# defined --paths like /usr or /usr/X11, xterm will find X via
+# pkg-config then.
+#
 
 # ----------------------------------------------------------------------------
 # Target-Install
