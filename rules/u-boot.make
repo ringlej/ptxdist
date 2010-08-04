@@ -63,6 +63,12 @@ $(STATEDIR)/u-boot.install:
 $(STATEDIR)/u-boot.targetinstall:
 	@$(call targetinfo)
 	@install -D -m644 $(U_BOOT_DIR)/u-boot.bin $(IMAGEDIR)/u-boot.bin
+#ifdef PTXCONF_U_BOOT_INSTALL_SREC
+	@install -D -m644 $(U_BOOT_DIR)/u-boot.srec $(IMAGEDIR)/u-boot.srec
+#endif
+#ifdef PTXCONF_U_BOOT_INSTALL_ELF
+	@install -D -m644 $(U_BOOT_DIR)/u-boot $(IMAGEDIR)/u-boot.elf
+#endif
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -72,6 +78,6 @@ $(STATEDIR)/u-boot.targetinstall:
 $(STATEDIR)/u-boot.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, U_BOOT)
-	@rm -rf $(IMAGEDIR)/u-boot.bin
+	@rm -f $(IMAGEDIR)/u-boot.bin $(IMAGEDIR)/u-boot.srec $(IMAGEDIR)/u-boot.elf
 
 # vim: syntax=make

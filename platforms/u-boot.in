@@ -42,5 +42,19 @@ config U_BOOT_CONFIG
 	  "yourbox_config". See Uboot's main Makefile for possible
 	  configuration targets.
 
+comment "target install"
+
+config U_BOOT_INSTALL_SREC
+	prompt "install u-boot.srec"
+	bool
+	help
+	  Installing the U-Boot srec hexfile into platform image directory.
+
+config U_BOOT_INSTALL_ELF
+	prompt "install u-boot.elf"
+	bool
+	help
+	  Installing the U-Boot ELF binary into platform image directory.
+
 endif
 
