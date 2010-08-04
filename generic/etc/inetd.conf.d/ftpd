@@ -1,0 +1,1 @@
+ftp stream tcp nowait root /usr/sbin/ftpd ftpd -w -S /tmp

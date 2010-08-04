@@ -103,6 +103,10 @@ endif
 		$(call install_link, busybox, "$${to}", "$${link}");	\
 	done
 
+ifdef PTXCONF_BUSYBOX_FTPD_INETD
+	@$(call install_alternative, busybox, 0, 0, 0644, /etc/inetd.conf.d/ftpd)
+endif
+
 ifdef PTXCONF_BUSYBOX_TELNETD_INETD
 	@$(call install_alternative, busybox, 0, 0, 0644, /etc/inetd.conf.d/telnetd)
 endif
