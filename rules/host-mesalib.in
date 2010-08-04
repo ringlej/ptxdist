@@ -2,4 +2,4 @@
 
 config HOST_MESALIB
 	tristate
-
+	select HOST_MAKEDEPEND
