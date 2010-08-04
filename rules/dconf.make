@@ -16,10 +16,10 @@ PACKAGES-$(PTXCONF_DCONF) += dconf
 #
 # Paths and names
 #
-DCONF_VERSION	:= 0.4.1
+DCONF_VERSION	:= 0.5
 DCONF		:= dconf-$(DCONF_VERSION)
 DCONF_SUFFIX	:= tar.bz2
-DCONF_URL	:= http://download.gnome.org/sources/dconf/0.4/$(DCONF).$(DCONF_SUFFIX)
+DCONF_URL	:= http://download.gnome.org/sources/dconf/0.5/$(DCONF).$(DCONF_SUFFIX)
 DCONF_SOURCE	:= $(SRCDIR)/$(DCONF).$(DCONF_SUFFIX)
 DCONF_DIR	:= $(BUILDDIR)/$(DCONF)
 DCONF_LICENSE	:= LGPLv2.1

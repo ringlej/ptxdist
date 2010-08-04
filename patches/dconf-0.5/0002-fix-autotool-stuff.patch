@@ -4,29 +4,28 @@ Subject: [PATCH 2/2] fix autotool stuff
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- configure.ac        |    2 +-
- m4/introspection.m4 |   88 +++++++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 89 insertions(+), 1 deletions(-)
+ configure.ac        |    2 -
+ m4/introspection.m4 |   88 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 89 insertions(+), 1 deletion(-)
  create mode 100644 m4/introspection.m4
 
-diff --git a/configure.ac b/configure.ac
-index 2073946..a639b2b 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -6,7 +6,7 @@ AC_INIT([dconf],
- AC_CONFIG_SRCDIR([configure.ac])
+Index: dconf-0.5/configure.ac
+===================================================================
+--- dconf-0.5.orig/configure.ac
++++ dconf-0.5/configure.ac
+@@ -7,7 +7,7 @@ AC_CONFIG_SRCDIR([configure.ac])
  AC_CONFIG_MACRO_DIR([m4])
+ AC_CONFIG_AUX_DIR([aux])
  
 -AM_INIT_AUTOMAKE([1.11 -Wno-portability])
 +AM_INIT_AUTOMAKE([foreign])
  AM_SILENT_RULES([yes])
  
  # Check for programs
-diff --git a/m4/introspection.m4 b/m4/introspection.m4
-new file mode 100644
-index 0000000..bb3a0da
+Index: dconf-0.5/m4/introspection.m4
+===================================================================
 --- /dev/null
-+++ b/m4/introspection.m4
++++ dconf-0.5/m4/introspection.m4
 @@ -0,0 +1,88 @@
 +dnl -*- mode: autoconf -*-
 +dnl Copyright 2009 Johan Dahlin
@@ -116,6 +115,3 @@ index 0000000..bb3a0da
 +[
 +  _GOBJECT_INTROSPECTION_CHECK_INTERNAL([$1], [require])
 +])
--- 
-1.7.1
-
