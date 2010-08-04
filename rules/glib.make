@@ -28,7 +28,7 @@ GLIB_SUFFIX	:= tar.bz2
 GLIB_SOURCE	:= $(SRCDIR)/$(GLIB).$(GLIB_SUFFIX)
 GLIB_DIR	:= $(BUILDDIR)/$(GLIB)
 
-GLIB_URL	:= http://ftp.gtk.org/pub/glib/$(basename $(GLIB_VERSION))/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
+GLIB_URL	:= http://ftp.gnome.org/pub/GNOME/sources/glib/$(basename $(GLIB_VERSION))/glib-$(GLIB_VERSION).$(GLIB_SUFFIX)
 
 GLIB_LICENSE	:= LGPLv2+
 
