@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 # Paths and names
 #
 ifdef PTXCONF_GLIB_EXPERIMENTAL
-GLIB_VERSION	:= 2.25.10
+GLIB_VERSION	:= 2.25.12
 else
 GLIB_VERSION	:= 2.24.1
 endif
@@ -105,7 +105,7 @@ endif
 # ----------------------------------------------------------------------------
 
 ifdef PTXCONF_GLIB_EXPERIMENTAL
-GLIB_LIB_VERSION := 0.2510.0
+GLIB_LIB_VERSION := 0.2512.0
 else
 GLIB_LIB_VERSION := 0.2400.1
 endif
