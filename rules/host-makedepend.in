@@ -1,0 +1,5 @@
+## SECTION=hosttools_noprompt
+
+config HOST_MAKEDEPEND
+	select HOST_XORG_PROTO_X
+	default ALLYES
