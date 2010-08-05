@@ -1,0 +1,50 @@
+## SECTION=bootloader
+
+menuconfig X_LOAD
+	bool
+	depends on ARCH_ARM_OMAP
+	prompt "x-loader                      "
+	help
+	  The X-Loader is a first level bootloader for Texas Intruments OMAP
+	  microprocessors (similar to the AT91Bootstrap application). It is
+	  used for booting these microprocessors from NAND-flash, MMC/SD-card,
+	  USB or serial interfaces.
+
+if X_LOAD
+
+config X_LOAD_VERSION
+	string
+	default f243938
+	prompt "x-loader version"
+	help
+	  Enter the X-Loader version you want to build. Usally something like "1.4.2"
+
+	  NOTICE: The X-Loader source tree was never released as download archive.
+	  As long as that fact exists you can use the archived tarballs at:
+
+	    http://www.ptxdist.org/software/ptxdist/temporary-src/
+
+	  or have to store a local tarball inside your ptxdist project root at:
+
+	    ${PTXDIST_WORKSPACE}/local_src/
+
+config X_LOAD_CONFIG
+	string
+	prompt "x-loader config target"
+	help
+	  The X-Loader make config target. Usually something like
+	  "yourbox_config". See X-Loader's main Makefile for possible
+	  configuration targets.
+
+config X_LOAD_MAKE_IFT
+	bool
+	prompt "generate signed ift file"
+	help
+	  When this option is enabled, a so-called IFT file is generated. You
+	  need a X-Loader source tree that supports this. This must know about
+	  the make target 'ift' so ptxdist can do the following: "make ift".
+
+	  In details you will need the tool signGP from
+	  http://beagleboard.googlecode.com/files/signGP.c
+
+endif
