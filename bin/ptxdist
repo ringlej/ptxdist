@@ -2344,6 +2344,9 @@ setup_platform() {
 	project_version="$(ptxd_get_ptxconf PTXCONF_PROJECT_VERSION)"		|| [ ${?} -eq 1 ] &&
 	production="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION)"	|| [ ${?} -eq 1 ] || return
 
+	# remove space and "(" ")"
+	project_version="${project_version//[ \(\)]/_}"
+
 	local prefix
 	if [ -n "${production}" ]; then
 		if ! prefix="$(ptxd_get_ptxconf PTXCONF_PROJECT_BUILD_PRODUCTION_PREFIX)"; then
