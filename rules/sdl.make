@@ -260,7 +260,7 @@ SDL_AUTOCONF += \
 	--disable-video-picogui \
 	--enable-sdl-dlopen \
 	--disable-atari-ldg \
-	--enable-rpath \
+	--disable-rpath \
 	--disable-mintaudio \
 	--disable-video-photon \
 	--enable-input-events
