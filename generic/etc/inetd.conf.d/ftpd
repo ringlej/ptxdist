@@ -1,1 +1,3 @@
-ftp stream tcp nowait root /usr/sbin/ftpd ftpd -w -S /tmp
+# Enable all kinds of FTP upload commands (-w option)
+#ftp stream tcp nowait root /usr/sbin/ftpd ftpd -w -S /tmp
+ftp stream tcp nowait root /usr/sbin/ftpd ftpd -S /tmp
