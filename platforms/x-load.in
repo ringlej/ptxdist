@@ -3,7 +3,7 @@
 menuconfig X_LOAD
 	bool
 	depends on ARCH_ARM_OMAP
-	prompt "x-loader                      "
+	prompt "x-load                        "
 	help
 	  The X-Loader is a first level bootloader for Texas Intruments OMAP
 	  microprocessors (similar to the AT91Bootstrap application). It is
