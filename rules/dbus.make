@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.2.24
+DBUS_VERSION	:= 1.4.0
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -46,15 +46,24 @@ DBUS_ENV := $(CROSS_ENV)
 #
 DBUS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-dnotify \
+	--enable-silent-rules \
+	--disable-tests \
+	--disable-ansi \
+	--disable-verbose-mode \
+	--disable-asserts \
+	--disable-checks \
+	--disable-xml-docs \
 	--disable-doxygen-docs \
 	--disable-gcov \
-	--disable-kqueue \
-	--disable-libaudit \
-	--disable-tests \
-	--disable-xml-docs \
 	--enable-abstract-sockets=yes \
-	--with-dbus-user=$(PTXCONF_DBUS_USER)
+	--disable-libaudit \
+	--disable-dnotify \
+	--disable-inotify \
+	--disable-kqueue \
+	--disable-console-owner-file \
+	--disable-userdb-cache \
+	--with-dbus-user=$(PTXCONF_DBUS_USER) \
+	--with-systemdsystemunitdir=/usr/share/dbus-1/system-services
 
 ifdef PTXCONF_DBUS_XML_EXPAT
 DBUS_AUTOCONF += --with-xml=expat
@@ -74,7 +83,6 @@ DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr
 else
 DBUS_AUTOCONF += --without-x
 endif
-
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -105,9 +113,9 @@ $(STATEDIR)/dbus.targetinstall:
 		/usr/libexec/dbus-daemon-launch-helper)
 
 	@$(call install_copy, dbus, 0, 0, 0644, -, \
-		/usr/lib/libdbus-1.so.3.4.0)
-	@$(call install_link, dbus, libdbus-1.so.3.4.0, /usr/lib/libdbus-1.so.3)
-	@$(call install_link, dbus, libdbus-1.so.3.4.0, /usr/lib/libdbus-1.so)
+		/usr/lib/libdbus-1.so.3.5.2)
+	@$(call install_link, dbus, libdbus-1.so.3.5.2, /usr/lib/libdbus-1.so.3)
+	@$(call install_link, dbus, libdbus-1.so.3.5.2, /usr/lib/libdbus-1.so)
 
 #	#
 #	# create system.d and event.d directories, which are used by the configuration and startup files

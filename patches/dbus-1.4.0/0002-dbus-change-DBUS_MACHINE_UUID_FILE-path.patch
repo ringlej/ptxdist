@@ -16,10 +16,10 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  tools/Makefile.am |    2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/dbus/Makefile.am b/dbus/Makefile.am
-index e966a43..c015ffe 100644
---- a/dbus/Makefile.am
-+++ b/dbus/Makefile.am
+Index: dbus-1.3.2/dbus/Makefile.am
+===================================================================
+--- dbus-1.3.2.orig/dbus/Makefile.am
++++ dbus-1.3.2/dbus/Makefile.am
 @@ -2,7 +2,7 @@
  configdir=$(sysconfdir)/dbus-1
  
@@ -29,18 +29,15 @@ index e966a43..c015ffe 100644
  	-DDBUS_SYSTEM_CONFIG_FILE=\""$(configdir)/system.conf"\"			\
  	-DDBUS_SESSION_CONFIG_FILE=\""$(configdir)/session.conf"\"
  
-diff --git a/tools/Makefile.am b/tools/Makefile.am
-index 9fad7a7..e347afc 100644
---- a/tools/Makefile.am
-+++ b/tools/Makefile.am
+Index: dbus-1.3.2/tools/Makefile.am
+===================================================================
+--- dbus-1.3.2.orig/tools/Makefile.am
++++ dbus-1.3.2/tools/Makefile.am
 @@ -1,6 +1,6 @@
  configdir=$(sysconfdir)/dbus-1
  
--INCLUDES=-I$(top_srcdir) $(DBUS_CLIENT_CFLAGS) $(DBUS_X_CFLAGS) -DDBUS_LOCALEDIR=\"@EXPANDED_DATADIR@/locale\" -DDBUS_COMPILATION -DDBUS_DAEMONDIR=\"@DBUS_DAEMONDIR@\" -DDBUS_MACHINE_UUID_FILE=\""$(localstatedir)/lib/dbus/machine-id"\"
-+INCLUDES=-I$(top_srcdir) $(DBUS_CLIENT_CFLAGS) $(DBUS_X_CFLAGS) -DDBUS_LOCALEDIR=\"@EXPANDED_DATADIR@/locale\" -DDBUS_COMPILATION -DDBUS_DAEMONDIR=\"@DBUS_DAEMONDIR@\" -DDBUS_MACHINE_UUID_FILE=\""$(localstatedir)/run/dbus/machine-id"\"
+-INCLUDES=-I$(top_srcdir) $(DBUS_CLIENT_CFLAGS) $(DBUS_X_CFLAGS) -DDBUS_LOCALEDIR=\"@EXPANDED_DATADIR@/locale\" -DDBUS_COMPILATION -DDBUS_MACHINE_UUID_FILE=\""$(localstatedir)/lib/dbus/machine-id"\"
++INCLUDES=-I$(top_srcdir) $(DBUS_CLIENT_CFLAGS) $(DBUS_X_CFLAGS) -DDBUS_LOCALEDIR=\"@EXPANDED_DATADIR@/locale\" -DDBUS_COMPILATION -DDBUS_MACHINE_UUID_FILE=\""$(localstatedir)/run/dbus/machine-id"\"
  
- bin_PROGRAMS=dbus-send dbus-monitor dbus-launch dbus-cleanup-sockets dbus-uuidgen
- 
--- 
-1.6.3.1
-
+ extra_bin_programs=
+ if DBUS_UNIX
