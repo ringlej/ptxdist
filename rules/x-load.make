@@ -27,7 +27,7 @@ X_LOAD_DIR	:= $(BUILDDIR)/$(X_LOAD)
 # Prepare
 # ----------------------------------------------------------------------------
 
-X_LOAD_MAKE_OPT	:= CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) HOSTCC=$(HOSTCC)
+X_LOAD_MAKE_ENV	:= CROSS_COMPILE=$(BOOTLOADER_CROSS_COMPILE) HOSTCC=$(HOSTCC)
 X_LOAD_MAKE_PAR	:= NO
 
 $(STATEDIR)/x-load.prepare:
