@@ -1,0 +1,7 @@
+## SECTION=system_libraries
+
+config LIBCAP
+	tristate
+	prompt "libcap"
+	help
+	  A library for getting and setting POSIX.1e capabilities.
