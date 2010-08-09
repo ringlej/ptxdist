@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_LIBCAP) += libcap
 #
 # Paths and names
 #
-LIBCAP_VERSION	:= 2.19
+LIBCAP_VERSION	:= 2.20
 LIBCAP		:= libcap-$(LIBCAP_VERSION)
 LIBCAP_SUFFIX	:= tar.bz2
 LIBCAP_URL	:= http://ftp.kernel.org/pub/linux/libs/security/linux-privs/libcap2/$(LIBCAP).$(LIBCAP_SUFFIX)
@@ -42,7 +42,7 @@ LIBCAP_INSTALL_OPT := $(LIBCAP_MAKE_OPT) install
 $(STATEDIR)/libcap.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init, libcap)
+	@$(call install_init,  libcap)
 	@$(call install_fixup, libcap,PRIORITY,optional)
 	@$(call install_fixup, libcap,SECTION,base)
 	@$(call install_fixup, libcap,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
@@ -50,7 +50,7 @@ $(STATEDIR)/libcap.targetinstall:
 
 	@$(call install_copy, libcap, 0, 0, 0755, -, /sbin/getpcaps)
 	@$(call install_copy, libcap, 0, 0, 0755, -, /sbin/capsh)
-	@$(call install_lib, libcap, 0, 0, 0644, libcap)
+	@$(call install_lib,  libcap, 0, 0, 0644, libcap)
 
 	@$(call install_finish, libcap)
 

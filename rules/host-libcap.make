@@ -18,6 +18,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_LIBCAP) += host-libcap
 # Prepare
 # ----------------------------------------------------------------------------
 
+HOST_LIBCAP_CONF_TOOL := autoconf
 HOST_LIBCAP_MAKE_OPT := prefix= PAM_CAP=no LIBATTR=no lib=lib
 HOST_LIBCAP_INSTALL_OPT := $(HOST_LIBCAP_MAKE_OPT) install
 
