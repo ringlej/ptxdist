@@ -17,17 +17,15 @@ PACKAGES-$(PTXCONF_PHP5) += php5
 #
 # Paths and names
 #
-PHP5_VERSION	:= 5.2.9
+PHP5_VERSION	:= 5.3.3
 PHP5		:= php-$(PHP5_VERSION)
 PHP5_SUFFIX	:= tar.bz2
 PHP5_SOURCE	:= $(SRCDIR)/$(PHP5).$(PHP5_SUFFIX)
 PHP5_DIR	:= $(BUILDDIR)/$(PHP5)
 
 PHP5_URL	:= \
+	http://de.php.net/distributions/$(PHP5).$(PHP5_SUFFIX) \
 	http://museum.php.net/php5/$(PHP5).$(PHP5_SUFFIX)
-
-# This is the primary URL, but they remove old revisions from there :-(
-#	http://de.php.net/distributions/$(PHP5).$(PHP5_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -52,10 +50,16 @@ PHP5_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-config-file-path=/etc/php5 \
 	--without-pdo-sqlite \
+	--disable-phar \
 	--without-iconv
 
+PHP5_MAKE_OPT	:= \
+	PHP_NATIVE_DIR=$(PTXCONF_SYSROOT_HOST)/bin \
+	PHP_EXECUTABLE=$(PTXCONF_SYSROOT_HOST)/bin/php
 
 # FIXME: configure is broken beyond repair for glibc-libiconv
+
+# FIXME: phar doesn't cross compile
 
 # FIXME: PHP Data Objects -> sqlite doesn't link correctly
 
