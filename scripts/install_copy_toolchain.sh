@@ -193,7 +193,7 @@ ptxd_install_toolchain_lib() {
 			    script_lib="${sysroot}${script_lib}"
 			    ;;
 			*.so*)
-			    script_lib="${lib_dir}/${script_lib}"
+			    script_lib="$(ptxd_get_lib_path "${script_lib}")"
 			    ;;
 			*)
 			    continue
