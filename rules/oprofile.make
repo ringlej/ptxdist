@@ -69,7 +69,7 @@ $(STATEDIR)/oprofile.targetinstall:
 	@$(call install_copy, oprofile, 0, 0, 0755, -, \
 		/usr/bin/oprofiled)
 
-	@cd $(OPROFILE_PKGIDR) && \
+	@cd $(OPROFILE_PKGDIR) && \
 	find usr/share/oprofile -type f | while read file; do \
 		$(call install_copy, oprofile, 0, 0, 0644, -, /$${file}) \
 	done
