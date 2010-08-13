@@ -81,7 +81,7 @@ ptxd_make_world_install_unpack() {
 
     # fix rpaths in host/cross tools
     if [ "${pkg_type}" != "target" ]; then
-	find "${pkg_pkg_dir}" ! -type d -executable -print | while read file; do
+	find "${pkg_pkg_dir}" ! -type d -perm /111 -print | while read file; do
 	    if chrpath "${file}" > /dev/null 2>&1; then
 		chrpath --replace "${PTXDIST_SYSROOT_HOST}/lib" "${file}" || return
 	    fi

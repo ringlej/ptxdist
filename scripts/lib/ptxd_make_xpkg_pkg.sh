@@ -490,7 +490,7 @@ export -f ptxd_install_spec
 ptxd_install_package() {
     for dir in "${pkg_pkg_dir}/"{,usr/}{bin,sbin,libexec}; do
 	find "${dir}" \( -type f -o -type l \) \
-		    -executable 2>/dev/null | while read file; do
+		    -perm /111 2>/dev/null | while read file; do
 	    ptxd_install_generic - "${file#${pkg_pkg_dir}}" ||
 	    ptxd_install_error "install_package failed!"
 	done
