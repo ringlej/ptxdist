@@ -153,8 +153,6 @@ ptxd_make_world_install_post() {
 	sed -i -e "s:@SYSROOT@:${pkg_sysroot_dir}:g" &&
     check_pipe_status &&
 
-    cp -dprf -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}" &&
-
     # fix *-config and copy into sysroot_cross for target packages
     local config &&
     find "${pkg_pkg_dir}" ! -type d -name "${pkg_binconfig_glob}" | while read config; do
@@ -162,6 +160,8 @@ ptxd_make_world_install_post() {
 	if [ "${pkg_type}" = "target" ]; then
 	    cp -P -- "${config}" "${PTXDIST_SYSROOT_CROSS}/bin" || return
 	fi
-    done
+    done &&
+
+    cp -dprf -- "${pkg_pkg_dir}"/* "${pkg_sysroot_dir}"
 }
 export -f ptxd_make_world_install_post
