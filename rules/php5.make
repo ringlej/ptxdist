@@ -39,9 +39,8 @@ $(PHP5_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
-PHP5_PATH	:= PATH=$(CROSS_PATH)
-PHP5_ENV 	:= $(CROSS_ENV)
-PHP5_BINCONFIG_GLOB := ""
+PHP5_CONF_ENV		:= $(CROSS_ENV)
+PHP5_BINCONFIG_GLOB	:= ""
 
 #
 # autoconf
@@ -76,12 +75,6 @@ else
 PHP5_AUTOCONF += --without-aolserver
 endif
 
-ifdef PTXCONF_PHP5_SAPI_MOD_CHARSET
-PHP5_AUTOCONF += --with-mod_charset
-else
-PHP5_AUTOCONF += --without-mod_charset
-endif
-
 ifdef PTXCONF_PHP5_SAPI_APXS2FILTER
 PHP5_AUTOCONF += --with-apxs2filter
 else
@@ -113,9 +106,9 @@ else
 endif
 
 ifdef PTXCONF_PHP5_SAPI_EMBEDDED
-PHP5_AUTOCONF += --enable-embedded
+PHP5_AUTOCONF += --enable-embed
 else
-#PHP5_AUTOCONF += --disable-embedded
+#PHP5_AUTOCONF += --disable-embed
 endif
 
 ifdef PTXCONF_PHP5_SAPI_ISAPI
@@ -178,30 +171,6 @@ else
 PHP5_AUTOCONF += --disable-cgi
 endif
 
-ifdef PTXCONF_PHP5_SAPI_FORCE_CGI_REDIRECT
-PHP5_AUTOCONF += --enable-force-cgi-redirect
-else
-PHP5_AUTOCONF += --disable-force-cgi-redirect
-endif
-
-ifdef PTXCONF_PHP5_SAPI_DISCARD_PATH
-PHP5_AUTOCONF += --enable-discard-path
-else
-PHP5_AUTOCONF += --disable-discard-path
-endif
-
-ifdef PTXCONF_PHP5_SAPI_FASTCGI
-PHP5_AUTOCONF += --enable-fastcgi
-else
-#PHP5_AUTOCONF += --disable-fastcgi
-endif
-
-ifdef PTXCONF_PHP5_SAPI_PATH_INFO_CHECK
-PHP5_AUTOCONF += --enable-path-info-check
-else
-PHP5_AUTOCONF += --disable-path-info-check
-endif
-
 # ---------------
 # General Options
 # ---------------
@@ -215,7 +184,7 @@ endif
 ifdef PTXCONF_PHP5_XML_LIBXML2
 PHP5_AUTOCONF += \
 	--enable-libxml \
-	--with-libxml-dir=$(SYSROOT)/usr
+	--with-libxml-dir=$(PTXCONF_SYSROOT)/usr
 else
 PHP5_AUTOCONF += --disable-libxml
 endif
@@ -268,6 +237,15 @@ ifdef PTXCONF_PHP5_EXT_SOCKETS
 PHP5_AUTOCONF += --enable-sockets
 else
 PHP5_AUTOCONF += --disable-sockets
+endif
+
+ifdef PTXCONF_PHP5_EXT_SQLITE3
+PHP5_AUTOCONF += --with-sqlite3
+# broken config system: sqlite3 (local copy) uses it
+# but it is only linked to if used by external dependencies
+PHP5_CONF_ENV += PHP_LDFLAGS=-ldl
+else
+PHP5_AUTOCONF += --without-sqlite3
 endif
 
 ifdef PTXCONF_PHP5_EXT_PEAR

@@ -26,7 +26,8 @@ config PHP5_INI
 # SAPI Modules
 # ----------------------------------------------------------------------------
 
-menu "SAPI Modules                "
+choice
+	prompt "SAPI Module"
 
 config PHP5_SAPI_AOLSERVER
 	bool
@@ -35,16 +36,9 @@ config PHP5_SAPI_AOLSERVER
 	help
 	  Use AOLserver.
 
-config PHP5_SAPI_MOD_CHARSET
-	bool
-	prompt "mod_charset"
-	help
-	  Enable transfer tables for mod_charset (Rus Apache)
-
 config PHP5_SAPI_APXS2FILTER
 	bool
 	prompt "apxs2filter"
-	depends on !PHP5_SAPI_APXS2
 	help
 	  EXPERIMENTAL: Build shared Apache 2.0 Filter module. FILE is the optional
 	  pathname to the Apache apxs tool [apxs]
@@ -61,12 +55,6 @@ config PHP5_SAPI_CAUDIUM
 	depends on BROKEN
 	help
 	  Build PHP as a Pike module for use with Caudium.
-
-config PHP5_SAPI_CLI
-	bool
-	prompt "cli"
-	help
-	  Build CLI (commandline interface) version of PHP
 
 config PHP5_SAPI_CONTINUITY
 	bool
@@ -154,75 +142,21 @@ config PHP5_SAPI_WEBJAMES
 config PHP5_SAPI_CGI
 	bool
 	prompt "cgi"
-	depends on !PHP5_SAPI_APXS2
 	help
 	  Build CGI version of PHP.
 
-config PHP5_SAPI_FORCE_CGI_REDIRECT
+config PHP5_SAPI_NONE
 	bool
-	depends on PHP5_SAPI_CGI
-	prompt "force-cgi-redirect"
-	help
-	  Enable the security check for internal server
-	  redirects. You should use this if you are
-	  running the CGI version with Apache.
-
-config PHP5_SAPI_DISCARD_PATH
-	bool
-	depends on PHP5_SAPI_CGI
-	prompt "discard path"
-	help
-	  If this is enabled, the PHP CGI binary
-	  can safely be placed outside of the
-	  web tree and people will not be able
-	  to circumvent .htaccess security
-
-config PHP5_SAPI_FASTCGI
-	bool
-	depends on PHP5_SAPI_CGI
-	depends on !PHP5_SAPI_DISCARD_PATH
-	prompt "fastcgi"
-	help
-	  If this is enabled, the cgi module will
-	  be built with support for fastcgi also
-
-config PHP5_SAPI_PATH_INFO_CHECK
-	bool
-	depends on PHP5_SAPI_CGI
-	prompt "path info check"
-	help
-	  If this is disabled, paths such as
-	  /info.php/test?a=b will fail to work
-
-config PHP5_SAPI_FALLBACK
-	bool
-	default y
-	depends on \
-		!PHP5_SAPI_AOLSERVER && \
-		!PHP5_SAPI_MOD_CHARSET && \
-		!PHP5_SAPI_APXS2FILTER && \
-		!PHP5_SAPI_APXS2 && \
-		!PHP5_SAPI_CAUDIUM && \
-		!PHP5_SAPI_CONTINUITY && \
-		!PHP5_SAPI_EMBEDDED && \
-		!PHP5_SAPI_ISAPI && \
-		!PHP5_SAPI_MILTER && \
-		!PHP5_SAPI_NSAPI && \
-		!PHP5_SAPI_PHTTPD && \
-		!PHP5_SAPI_PI3WEB && \
-		!PHP5_SAPI_ROXEN && \
-		!PHP5_SAPI_ROXEN_ZTS && \
-		!PHP5_SAPI_THTTPD && \
-		!PHP5_SAPI_TUX && \
-		!PHP5_SAPI_WEBJAMES && \
-		!PHP5_SAPI_CGI && \
-		!PHP5_SAPI_FORCE_CGI_REDIRECT && \
-		!PHP5_SAPI_DISCARD_PATH && \
-		!PHP5_SAPI_FASTCGI && \
-		!PHP5_SAPI_PATH_INFO_CHECK
+	prompt "none"
 	select PHP5_SAPI_CLI
 
-endmenu
+endchoice
+
+config PHP5_SAPI_CLI
+	bool
+	prompt "cli"
+	help
+	  Build CLI (commandline interface) version of PHP
 
 # ----------------------------------------------------------------------------
 # General Settings
@@ -521,16 +455,23 @@ config PHP5_EXT_MYSQL
 config PHP5_EXT_SOAP
 	bool
 	prompt "soap"
+	select PHP5_XML
 	help
 	  Enable SOAP support for PHP.
 
 #  --enable-sockets        Enable sockets support
 
 config PHP5_EXT_SOCKETS
-  bool
-  prompt "sockets"
-  help
-    Enable sockets support for PHP.
+	bool
+	prompt "sockets"
+	help
+	  Enable sockets support for PHP.
+
+config PHP5_EXT_SQLITE3
+	bool
+	prompt "sqlite3"
+	help
+	  Enable sqlite3 support for PHP.
 
 #  --disable-spl           Disable Standard PHP Library
 #  --without-sqlite        Do not include sqlite support.
