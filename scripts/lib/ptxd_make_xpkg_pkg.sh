@@ -531,7 +531,10 @@ ptxd_install_lib() {
 
     local file="$(for dir in "${pkg_pkg_dir}/"{,usr/}lib; do
 	    find "${dir}" -type f -name "${lib}.so*"; done 2>/dev/null)"
-    [ -f "${file}" ] &&
+
+    if [ ! -f "${file}" ]; then
+	ptxd_install_error "ptxd_lib_install: cannot find library '${lib}'!"
+    fi
 
     local dst="$(dirname "${file#${pkg_pkg_dir}}")" &&
     ptxd_install_shared "${file}" "${dst}" "${@}" ||
