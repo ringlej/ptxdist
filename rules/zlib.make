@@ -67,7 +67,7 @@ ifndef PTXCONF_ZLIB_STATIC
 	@$(call install_fixup, zlib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, zlib,DESCRIPTION,missing)
 
-	@$(call install_lib, zlib, 0, 0, 0644, -, libz.so)
+	@$(call install_lib, zlib, 0, 0, 0644, libz)
 
 	@$(call install_finish, zlib)
 endif
