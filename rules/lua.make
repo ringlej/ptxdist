@@ -25,14 +25,6 @@ LUA_SOURCE	:= $(SRCDIR)/$(LUA).$(LUA_SUFFIX)
 LUA_DIR		:= $(BUILDDIR)/$(LUA)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(LUA_SOURCE):
-	@$(call targetinfo)
-	@$(call get, LUA)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -70,9 +62,7 @@ ifdef PTXCONF_LUA_INSTALL_LUAC
 	@$(call install_copy, lua, 0, 0, 0755, -, /usr/bin/luac)
 endif
 ifdef PTXCONF_LUA_INSTALL_LIBLUA
-	@$(call install_copy, lua, 0, 0, 0644, -, \
-		/usr/lib/liblua-5.1.3.so)
-	@$(call install_link, lua, liblua-5.1.3.so, /usr/lib/liblua.so)
+	@$(call install_lib, lua, 0, 0, 0644, liblua-5.1.3)
 endif
 	@$(call install_finish, lua)
 
