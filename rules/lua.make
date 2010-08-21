@@ -28,9 +28,6 @@ LUA_DIR		:= $(BUILDDIR)/$(LUA)
 # Prepare
 # ----------------------------------------------------------------------------
 
-LUA_PATH	:= PATH=$(CROSS_PATH)
-LUA_ENV 	:= $(CROSS_ENV)
-
 #
 # autoconf
 #
