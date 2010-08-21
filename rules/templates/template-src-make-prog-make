@@ -45,7 +45,7 @@ $(STATEDIR)/@package@.extract:
 # Prepare
 # ----------------------------------------------------------------------------
 
-@PACKAGE@_PATH	:= PATH=$(CROSS_PATH)
+#@PACKAGE@_PATH	:= PATH=$(CROSS_PATH)
 @PACKAGE@_ENV 	:= $(CROSS_ENV)
 
 $(STATEDIR)/@package@.prepare:
