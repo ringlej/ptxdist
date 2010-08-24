@@ -1,0 +1,10 @@
+## SECTION=system_libraries
+
+config LIBMXML
+	bool
+	prompt "libmxml"
+	help
+	  Mini-XML is a small XML parsing library
+	  that you can use to read XML and XML-like
+	  data files in your application without
+	  requiring large non-standard libraries.
