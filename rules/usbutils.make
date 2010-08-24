@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2007 by Sascha Hauer
-#               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_USBUTILS) += usbutils
 #
 # Paths and names
 #
-USBUTILS_VERSION	:= 0.86
+USBUTILS_VERSION	:= 0.90
 USBUTILS		:= usbutils-$(USBUTILS_VERSION)
-USBUTILS_SUFFIX		:= tar.gz
-USBUTILS_URL		:= $(PTXCONF_SETUP_SFMIRROR)/linux-usb/$(USBUTILS).$(USBUTILS_SUFFIX)
+USBUTILS_SUFFIX		:= tar.bz2
+USBUTILS_URL		:= http://www.kernel.org/pub/linux/utils/usb/usbutils/$(USBUTILS).$(USBUTILS_SUFFIX)
 USBUTILS_SOURCE		:= $(SRCDIR)/$(USBUTILS).$(USBUTILS_SUFFIX)
 USBUTILS_DIR		:= $(BUILDDIR)/$(USBUTILS)
 USBUTILS_LICENSE	:= GPLv2
