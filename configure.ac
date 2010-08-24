@@ -267,12 +267,6 @@ if test -z "$SORT"; then
 	AC_MSG_ERROR([sort could not be found, please install])
 fi
 
-dnl Check for expect
-AC_PATH_PROGS(EXPECT, expect,, $PATH)
-if test -z "$EXPECT"; then
-	AC_MSG_ERROR([expect could not be found, please install])
-fi
-
 dnl Check for make
 AC_PATH_PROGS(MAKE, gmake gnumake make,, $PATH)
 if test -z "$MAKE"; then
