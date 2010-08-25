@@ -5,11 +5,17 @@ Readd bsg.h which is not part of the kernel headers in OSELAS.Toolchain-1.99.3
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 
-diff --git a/Makefile.am b/Makefile.am
-index b7ced1d..67cff09 100644
---- a/Makefile.am
-+++ b/Makefile.am
-@@ -268,7 +268,8 @@ extras_scsi_id_scsi_id_SOURCES =\
+---
+ Makefile.am                  |    3 +
+ extras/scsi_id/bsg.h         |   84 +++++++++++++++++++++++++++++++++++++++++++
+ extras/scsi_id/scsi_serial.c |    3 +
+ 3 files changed, 88 insertions(+), 2 deletions(-)
+
+Index: udev-162/Makefile.am
+===================================================================
+--- udev-162.orig/Makefile.am
++++ udev-162/Makefile.am
+@@ -287,7 +287,8 @@ extras_scsi_id_scsi_id_SOURCES =\
  	extras/scsi_id/scsi_id.c \
  	extras/scsi_id/scsi_serial.c \
  	extras/scsi_id/scsi.h \
@@ -19,11 +25,10 @@ index b7ced1d..67cff09 100644
  extras_scsi_id_scsi_id_LDADD = libudev/libudev-private.la
  libexec_PROGRAMS += extras/scsi_id/scsi_id
  dist_man_MANS += extras/scsi_id/scsi_id.8
-diff --git a/extras/scsi_id/bsg.h b/extras/scsi_id/bsg.h
-new file mode 100644
-index 0000000..cf0303a
+Index: udev-162/extras/scsi_id/bsg.h
+===================================================================
 --- /dev/null
-+++ b/extras/scsi_id/bsg.h
++++ udev-162/extras/scsi_id/bsg.h
 @@ -0,0 +1,84 @@
 +#ifndef BSG_H
 +#define BSG_H
@@ -109,11 +114,11 @@ index 0000000..cf0303a
 +#endif /* __KERNEL__ */
 +
 +#endif
-diff --git a/extras/scsi_id/scsi_serial.c b/extras/scsi_id/scsi_serial.c
-index 0c9d9c3..65b3de5 100644
---- a/extras/scsi_id/scsi_serial.c
-+++ b/extras/scsi_id/scsi_serial.c
-@@ -29,7 +29,8 @@
+Index: udev-162/extras/scsi_id/scsi_serial.c
+===================================================================
+--- udev-162.orig/extras/scsi_id/scsi_serial.c
++++ udev-162/extras/scsi_id/scsi_serial.c
+@@ -32,7 +32,8 @@
  #include <scsi/scsi.h>
  #include <scsi/sg.h>
  #include <linux/types.h>

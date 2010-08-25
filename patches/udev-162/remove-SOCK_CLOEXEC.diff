@@ -11,11 +11,11 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  udev/udevd.c |    3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-Index: b/udev/udevd.c
+Index: udev-162/udev/udevd.c
 ===================================================================
---- a/udev/udevd.c
-+++ b/udev/udevd.c
-@@ -979,10 +979,11 @@ static int init_notify(const char *state
+--- udev-162.orig/udev/udevd.c
++++ udev-162/udev/udevd.c
+@@ -982,10 +982,11 @@ static int init_notify(const char *state
  		goto finish;
  	}
  

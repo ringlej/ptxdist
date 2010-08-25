@@ -5,11 +5,19 @@ SOCK_CLOEXEC is not defined by the glibc in OSELAS.Toolchain-1.99.3
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 
-diff --git a/libudev/libudev-monitor.c b/libudev/libudev-monitor.c
-index 96c153f..ee855af 100644
---- a/libudev/libudev-monitor.c
-+++ b/libudev/libudev-monitor.c
-@@ -139,12 +139,13 @@ struct udev_monitor *udev_monitor_new_from_socket(struct udev *udev, const char
+---
+ libudev/libudev-monitor.c |    6 ++++--
+ libudev/libudev-private.h |    1 +
+ libudev/libudev-util.c    |   12 ++++++++++++
+ udev/udev-watch.c         |    6 ++++--
+ udev/udevd.c              |    4 +++-
+ 5 files changed, 24 insertions(+), 5 deletions(-)
+
+Index: udev-162/libudev/libudev-monitor.c
+===================================================================
+--- udev-162.orig/libudev/libudev-monitor.c
++++ udev-162/libudev/libudev-monitor.c
+@@ -144,12 +144,13 @@ struct udev_monitor *udev_monitor_new_fr
  		util_strscpy(&udev_monitor->sun.sun_path[1], sizeof(udev_monitor->sun.sun_path)-1, socket_path);
  		udev_monitor->addrlen = offsetof(struct sockaddr_un, sun_path) + strlen(socket_path)+1;
  	}
@@ -24,7 +32,7 @@ index 96c153f..ee855af 100644
  
  	dbg(udev, "monitor %p created with '%s'\n", udev_monitor, socket_path);
  	return udev_monitor;
-@@ -196,12 +197,13 @@ struct udev_monitor *udev_monitor_new_from_netlink(struct udev *udev, const char
+@@ -201,12 +202,13 @@ struct udev_monitor *udev_monitor_new_fr
  	if (udev_monitor == NULL)
  		return NULL;
  
@@ -39,11 +47,11 @@ index 96c153f..ee855af 100644
  
  	udev_monitor->snl.nl_family = AF_NETLINK;
  	udev_monitor->snl.nl_groups = group;
-diff --git a/libudev/libudev-private.h b/libudev/libudev-private.h
-index c2fff00..6738a9b 100644
---- a/libudev/libudev-private.h
-+++ b/libudev/libudev-private.h
-@@ -204,6 +204,7 @@ size_t util_strscpyl(char *dest, size_t size, const char *src, ...) __attribute_
+Index: udev-162/libudev/libudev-private.h
+===================================================================
+--- udev-162.orig/libudev/libudev-private.h
++++ udev-162/libudev/libudev-private.h
+@@ -205,6 +205,7 @@ size_t util_strscpyl(char *dest, size_t
  int udev_util_replace_whitespace(const char *str, char *to, size_t len);
  int udev_util_replace_chars(char *str, const char *white);
  int udev_util_encode_string(const char *str, char *str_enc, size_t len);
@@ -51,12 +59,12 @@ index c2fff00..6738a9b 100644
  unsigned int util_string_hash32(const char *key);
  uint64_t util_string_bloom64(const char *str);
  
-diff --git a/libudev/libudev-util.c b/libudev/libudev-util.c
-index c0209f9..9a656b5 100644
---- a/libudev/libudev-util.c
-+++ b/libudev/libudev-util.c
-@@ -481,6 +481,18 @@ err:
- 	return -1;
+Index: udev-162/libudev/libudev-util.c
+===================================================================
+--- udev-162.orig/libudev/libudev-util.c
++++ udev-162/libudev/libudev-util.c
+@@ -535,6 +535,18 @@ static unsigned int murmur_hash2(const c
+ 	return h;
  }
  
 +void util_set_fd_cloexec(int fd)
@@ -73,11 +81,11 @@ index c0209f9..9a656b5 100644
 +
  unsigned int util_string_hash32(const char *str)
  {
- 	unsigned int hash = 0;
-diff --git a/udev/udev-watch.c b/udev/udev-watch.c
-index d67083b..102e16f 100644
---- a/udev/udev-watch.c
-+++ b/udev/udev-watch.c
+ 	return murmur_hash2(str, strlen(str), 0);
+Index: udev-162/udev/udev-watch.c
+===================================================================
+--- udev-162.orig/udev/udev-watch.c
++++ udev-162/udev/udev-watch.c
 @@ -38,8 +38,10 @@ static int inotify_fd = -1;
   */
  int udev_watch_init(struct udev *udev)
@@ -91,19 +99,19 @@ index d67083b..102e16f 100644
  		err(udev, "inotify_init failed: %m\n");
  	return inotify_fd;
  }
-diff --git a/udev/udevd.c b/udev/udevd.c
-index fe3352c..86936c7 100644
---- a/udev/udevd.c
-+++ b/udev/udevd.c
-@@ -223,6 +223,7 @@ static void worker_new(struct event *event)
+Index: udev-162/udev/udevd.c
+===================================================================
+--- udev-162.orig/udev/udevd.c
++++ udev-162/udev/udevd.c
+@@ -225,6 +225,7 @@ static void worker_new(struct event *eve
  	/* allow the main daemon netlink address to send devices to the worker */
  	udev_monitor_allow_unicast_sender(worker_monitor, monitor);
  	udev_monitor_enable_receiving(worker_monitor);
 +	util_set_fd_cloexec(udev_monitor_get_fd(worker_monitor));
  
  	worker = calloc(1, sizeof(struct worker));
- 	if (worker == NULL)
-@@ -922,13 +923,14 @@ int main(int argc, char *argv[])
+ 	if (worker == NULL) {
+@@ -1227,13 +1228,14 @@ int main(int argc, char *argv[])
  	}
  
  	/* unnamed socket from workers to the main daemon */

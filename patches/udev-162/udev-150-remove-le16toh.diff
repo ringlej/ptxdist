@@ -11,11 +11,11 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  extras/ata_id/ata_id.c |    6 +++++-
  1 file changed, 5 insertions(+), 1 deletion(-)
 
-Index: b/extras/ata_id/ata_id.c
+Index: udev-162/extras/ata_id/ata_id.c
 ===================================================================
---- a/extras/ata_id/ata_id.c
-+++ b/extras/ata_id/ata_id.c
-@@ -168,7 +168,11 @@ static void disk_identify_fixup_uint16 (
+--- udev-162.orig/extras/ata_id/ata_id.c
++++ udev-162/extras/ata_id/ata_id.c
+@@ -167,7 +167,11 @@ static void disk_identify_fixup_uint16 (
  	uint16_t *p;
  
  	p = (uint16_t *) identify;
