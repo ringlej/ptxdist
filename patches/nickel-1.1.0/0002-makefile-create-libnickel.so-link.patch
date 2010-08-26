@@ -1,0 +1,26 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 26 Aug 2010 12:21:13 +0200
+Subject: [PATCH] makefile: create libnickel.so link
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index 2260499..aba566f 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -99,7 +99,8 @@ install: $(NICKEL) ../include/bohr/ni.h
+ 	$(INSTALL) -s -m 755 -D $(NICKEL) $(DESTDIR)$(libdir)/$(NICKEL)
+ 	cd $(DESTDIR)$(libdir); \
+ 	rm -f $(SONAME); \
+-	ln -s $(NICKEL) $(SONAME)
++	ln -s $(NICKEL) $(SONAME); \
++	ln -s $(NICKEL) $(LIBNAME)
+ 	(ldconfig || true) > /dev/null 2>&1
+ 
+ uninstall:
+-- 
+1.7.1
+

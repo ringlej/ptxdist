@@ -1,0 +1,27 @@
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 26 Aug 2010 12:20:56 +0200
+Subject: [PATCH] makefile: don't overwrite CFLAGS and LDFLAGS, use CPPFLAGS
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/Makefile |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/Makefile b/src/Makefile
+index 9cd38d1..2260499 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -15,8 +15,8 @@ CC=gcc
+ LD=gcc
+ INSTALL=install
+ 
+-CFLAGS=-O2
+-LDFLAGS=
++CFLAGS+=-O2 $(CPPFLAGS)
++LDFLAGS+=
+ 
+ prefix=/usr/local
+ exec_prefix=${prefix}
+-- 
+1.7.1
+
