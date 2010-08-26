@@ -46,17 +46,9 @@ $(STATEDIR)/nickel.targetinstall:
 	@$(call install_fixup, nickel,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, nickel,DESCRIPTION,missing)
 
-	@$(call install_copy, nickel, 0, 0, 0644, -, \
-		/usr/lib/libnickel.so.1.1.0)
-	@$(call install_link, nickel,  \
-		libnickel.so.1.1.0, \
-		/usr/lib/libnickel.so.1)
-	@$(call install_link, nickel,  \
-		libnickel.so.1.1.0, \
-		/usr/lib/libnickel.so)
+	@$(call install_lib, nickel, 0, 0, 0644, libnickel)
 
 	@$(call install_finish, nickel)
-
 	@$(call touch)
 
 # vim: syntax=make
