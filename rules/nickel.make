@@ -25,18 +25,9 @@ NICKEL_SOURCE	:= $(SRCDIR)/$(NICKEL).$(NICKEL_SUFFIX)
 NICKEL_DIR	:= $(BUILDDIR)/$(NICKEL)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(NICKEL_SOURCE):
-	@$(call targetinfo)
-	@$(call get, NICKEL)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-NICKEL_PATH	:= PATH=$(CROSS_PATH)
 NICKEL_SUBDIR	:= src
 
 NICKEL_MAKE_OPT := CC=$(CROSS_CC) LD=$(CROSS_CC)
