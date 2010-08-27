@@ -265,7 +265,7 @@ CROSS_ENV := \
 #
 
 CROSS_AUTOCONF_SYSROOT_USR := \
-	--prefix=/usr --sysconfdir=/etc
+	--prefix=/usr --sysconfdir=/etc --localstatedir=/var
 
 CROSS_AUTOCONF_SYSROOT_ROOT := \
 	--prefix=

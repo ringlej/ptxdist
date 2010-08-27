@@ -73,7 +73,6 @@ AVAHI_AUTOCONF := \
 	--with-distro=none \
 	--with-xml=expat \
 	--with-avahi-priv-access-group=netdev \
-	--localstatedir=/var \
 	--disable-stack-protector
 
 ifdef PTXCONF_AVAHI_DAEMON

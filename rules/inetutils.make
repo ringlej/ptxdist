@@ -46,7 +46,6 @@ INETUTILS_ENV 	:= $(CROSS_ENV)
 INETUTILS_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
 	--with-PATH-CP=/bin/cp \
-	--localstatedir=/var \
 	--sysconfdir=/etc \
 	--libexecdir=/usr/sbin \
 	--disable-ftpd \

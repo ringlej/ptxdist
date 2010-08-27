@@ -47,7 +47,6 @@ HAL_ENV 	:= \
 #
 HAL_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--localstatedir=/var \
 	--enable-shared \
 	--enable-static \
 	--disable-pci-ids \

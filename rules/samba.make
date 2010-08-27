@@ -82,7 +82,6 @@ SAMBA_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-pie \
 	--libdir=/usr/lib/samba \
-	--localstatedir=/var \
 	--sysconfdir=/etc \
 	--with-configdir=/etc/samba \
 	--with-libdir=/usr/lib \

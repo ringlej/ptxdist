@@ -72,7 +72,6 @@ XORG_SERVER_AUTOCONF = \
 	--disable-standalone-xpbproxy \
 	--disable-local-transport \
 	--without-doxygen \
-	--localstatedir=/var \
 	--with-xkb-output=/tmp \
 	--with-fontrootdir=$(XORG_FONTDIR)
 

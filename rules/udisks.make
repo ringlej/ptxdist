@@ -49,7 +49,6 @@ UDISKS_AUTOCONF := \
 	--enable-gtk-doc-html \
 	--enable-gtk-doc-pdf \
 	--with-gnu-ld \
-	--localstatedir=/var \
 	--disable-sgutils2 \
 	--disable-libparted \
 	--disable-devmapper \

@@ -46,7 +46,6 @@ DEVICEKIT_DISKS_AUTOCONF := \
 	--disable-man-pages \
 	--disable-gtk-doc \
 	--with-gnu-ld \
-	--localstatedir=/var \
 	--disable-sgutils2 \
 	--disable-libparted \
 	--disable-devmapper \

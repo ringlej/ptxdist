@@ -54,7 +54,6 @@ DBUS_AUTOCONF := \
 	--disable-tests \
 	--disable-xml-docs \
 	--enable-abstract-sockets=yes \
-	--localstatedir=/var \
 	--with-dbus-user=$(PTXCONF_DBUS_USER)
 
 ifdef PTXCONF_DBUS_XML_EXPAT

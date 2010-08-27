@@ -33,7 +33,6 @@ BLUEZ_LICENSE	:= GPLv2+ LGPLv2.1+
 #
 BLUEZ_CONF_TOOL	:= autoconf
 BLUEZ_CONF_OPT	:= $(CROSS_AUTOCONF_USR) \
-	--localstatedir=/var \
 	--enable-audio \
 	--enable-bccmd \
 	--disable-capng \
