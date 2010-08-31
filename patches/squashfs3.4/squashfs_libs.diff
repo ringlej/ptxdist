@@ -19,7 +19,7 @@ Signed-off-by: Erwin Rol <erwin@erwinrol.com>
  
  mksquashfs: mksquashfs.o read_fs.o sort.o
 -	$(CC) mksquashfs.o read_fs.o sort.o -lz -lpthread -lm -o $@
-+	$(CC) mksquashfs.o read_fs.o sort.o $(LIBS) $(LDFLAGS)-o $@
++	$(CC) mksquashfs.o read_fs.o sort.o $(LIBS) $(LDFLAGS) -o $@
  
  mksquashfs.o: mksquashfs.c squashfs_fs.h mksquashfs.h global.h sort.h
  
@@ -28,7 +28,7 @@ Signed-off-by: Erwin Rol <erwin@erwinrol.com>
  
  unsquashfs: unsquashfs.o
 -	$(CC) unsquashfs.o -lz -lpthread -lm -o $@
-+	$(CC) unsquashfs.o $(LIBS) $(LDFLAGS)-o $@
++	$(CC) unsquashfs.o $(LIBS) $(LDFLAGS) -o $@
  
  unsquashfs.o: unsquashfs.c squashfs_fs.h read_fs.h global.h
  
