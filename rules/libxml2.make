@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_LIBXML2) += libxml2
 #
 # Paths and names
 #
-LIBXML2_VERSION	:= 2.7.6
+LIBXML2_VERSION	:= 2.7.7
 LIBXML2		:= libxml2-$(LIBXML2_VERSION)
 LIBXML2_SUFFIX	:= tar.gz
 LIBXML2_SOURCE	:= $(SRCDIR)/$(LIBXML2).$(LIBXML2_SUFFIX)
@@ -270,10 +270,7 @@ $(STATEDIR)/libxml2.targetinstall:
 	@$(call install_fixup, libxml2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libxml2,DESCRIPTION,missing)
 
-	@$(call install_copy, libxml2, 0, 0, 0644, -, \
-		/usr/lib/libxml2.so.2.7.6)
-	@$(call install_link, libxml2, libxml2.so.2.7.6,  /usr/lib/libxml2.so.2)
-	@$(call install_link, libxml2, libxml2.so.2.7.6, /usr/lib/libxml2.so)
+	@$(call install_lib, libxml2, 0, 0, 0644, libxml2)
 
 	@$(call install_finish, libxml2)
 
