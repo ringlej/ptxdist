@@ -20,7 +20,7 @@ PACKAGES-$(PTXCONF_ALSA_LIB) += alsa-lib
 ALSA_LIB_SUFFIX		:= tar.bz2
 
 ifdef PTXCONF_ALSA_LIB_FULL
-ALSA_LIB_VERSION	:= 1.0.22
+ALSA_LIB_VERSION	:= 1.0.23
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_URL		:= \
 	http://dl.ambiweb.de/mirrors/ftp.alsa-project.org/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX) \
@@ -151,40 +151,19 @@ endif
 $(STATEDIR)/alsa-lib.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  alsa-lib)
+	@$(call install_init, alsa-lib)
 	@$(call install_fixup, alsa-lib, PRIORITY,optional)
 	@$(call install_fixup, alsa-lib, SECTION,base)
 	@$(call install_fixup, alsa-lib, AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, alsa-lib, DESCRIPTION,missing)
 
 ifdef PTXCONF_ALSA_LIB_LIGHT
-	@$(call install_copy, alsa-lib, 0, 0, 0644, -, \
-		/usr/lib/libsalsa.so.0.0.1)
-
-	@$(call install_link, alsa-lib, \
-		libsalsa.so.0.0.1, \
-		/usr/lib/libsalsa.so.0)
-
-	@$(call install_link, alsa-lib, \
-		libsalsa.so.0.0.1, \
-		/usr/lib/libsalsa.so)
-
-	@$(call install_link, alsa-lib, \
-		libsalsa.so, \
-		/usr/lib/libasound.so)
+	@$(call install_lib, alsa-lib, 0, 0, 0644, libsalsa)
+	@$(call install_link, alsa-lib, libsalsa.so, /usr/lib/libasound.so)
 endif
 
 ifdef PTXCONF_ALSA_LIB_FULL
-	@$(call install_copy, alsa-lib, 0, 0, 0644, -, \
-		/usr/lib/libasound.so.2.0.0)
-
-	@$(call install_link, alsa-lib, \
-		libasound.so.2.0.0, \
-		/usr/lib/libasound.so.2)
-
-	@$(call install_link, alsa-lib, \
-		libasound.so.2.0.0, \
-		/usr/lib/libasound.so)
+	@$(call install_lib, alsa-lib, 0, 0, 0644, libasound)
 
 ifdef PTXCONF_ALSA_LIB_MIXER
 	@$(call install_copy, alsa-lib, \
