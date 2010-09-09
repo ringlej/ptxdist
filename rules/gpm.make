@@ -54,14 +54,8 @@ $(STATEDIR)/gpm.targetinstall:
 	@$(call install_fixup, gpm,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
 	@$(call install_fixup, gpm,DESCRIPTION,missing)
 
-	@$(call install_copy, gpm, 0, 0, 0644, -, \
-		/usr/lib/libgpm.so.2.1.0)
-	@$(call install_link, gpm, libgpm.so.2.1.0, /usr/lib/libgpm.so.2)
-	@$(call install_link, gpm, libgpm.so.2, /usr/lib/libgpm.so)
-
-
-	@$(call install_copy, gpm, 0, 0, 0755, -, \
-		/usr/sbin/gpm)
+	@$(call install_lib, gpm, 0, 0, 0644, libgpm)
+	@$(call install_copy, gpm, 0, 0, 0755, -, /usr/sbin/gpm)
 
 	@$(call install_finish, gpm)
 
