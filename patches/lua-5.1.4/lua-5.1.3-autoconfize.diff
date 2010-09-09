@@ -16,13 +16,13 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  src/luaconf.h.template.in |  777 ++++++++++++++++++++++++++++++++++++++++++++++
  3 files changed, 877 insertions(+)
 
-Index: lua-5.1.3/configure.ac
+Index: lua-5.1.4/configure.ac
 ===================================================================
 --- /dev/null
-+++ lua-5.1.3/configure.ac
++++ lua-5.1.4/configure.ac
 @@ -0,0 +1,68 @@
 +AC_PREREQ(2.59)
-+AC_INIT([Autotoolized Lua], [5.1.3], [], [lua-at])
++AC_INIT([Autotoolized Lua], [5.1.4], [], [lua-at])
 +
 +AC_CONFIG_HEADERS([config.h])
 +AC_CONFIG_SRCDIR([src/lapi.c])
@@ -89,10 +89,10 @@ Index: lua-5.1.3/configure.ac
 +                 doc/Makefile
 +		 test/Makefile])
 +AC_OUTPUT
-Index: lua-5.1.3/etc/lua.pc.in
+Index: lua-5.1.4/etc/lua.pc.in
 ===================================================================
 --- /dev/null
-+++ lua-5.1.3/etc/lua.pc.in
++++ lua-5.1.4/etc/lua.pc.in
 @@ -0,0 +1,32 @@
 +# lua.pc -- pkg-config data for Lua
 +
@@ -126,10 +126,10 @@ Index: lua-5.1.3/etc/lua.pc.in
 +Cflags: -I${includedir}
 +
 +# (end of lua.pc)
-Index: lua-5.1.3/src/luaconf.h.template.in
+Index: lua-5.1.4/src/luaconf.h.template.in
 ===================================================================
 --- /dev/null
-+++ lua-5.1.3/src/luaconf.h.template.in
++++ lua-5.1.4/src/luaconf.h.template.in
 @@ -0,0 +1,777 @@
 +/*
 +** $Id: luaconf.h,v 1.82a 2006/04/10 18:27:23 roberto Exp $
