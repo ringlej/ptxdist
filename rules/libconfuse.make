@@ -65,14 +65,7 @@ ifndef PTXCONF_LIBCONFUSE_STATIC
 	@$(call install_fixup, libconfuse,AUTHOR,"Juergen Beisert <juergen@kreuzholzen.de>")
 	@$(call install_fixup, libconfuse,DESCRIPTION,missing)
 
-	@$(call install_copy, libconfuse, 0, 0, 0644, -, \
-		/usr/lib/libconfuse.so.0.0.0)
-	@$(call install_link, libconfuse, \
-		libconfuse.so.0.0.0, \
-		/usr/lib/libconfuse.so.0)
-	@$(call install_link, libconfuse, \
-		libconfuse.so.0.0.0, \
-		/usr/lib/libconfuse.so)
+	@$(call install_lib, libconfuse, 0, 0, 0644, libconfuse)
 
 	@$(call install_finish, libconfuse)
 endif
