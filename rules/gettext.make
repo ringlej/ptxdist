@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_GETTEXT) += gettext
 #
 # Paths and names
 #
-GETTEXT_VERSION	:= 0.16.1
+GETTEXT_VERSION	:= 0.18.1
 GETTEXT		:= gettext-$(GETTEXT_VERSION)
 GETTEXT_SUFFIX	:= tar.gz
 GETTEXT_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/gettext/$(GETTEXT).$(GETTEXT_SUFFIX)
@@ -65,10 +65,10 @@ $(STATEDIR)/gettext.targetinstall:
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/xgettext)
 	@$(call install_copy, gettext, 0, 0, 0755, -, /usr/bin/gettext)
 
-	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextlib-0.16.1.so)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextlib-0.18.1.so)
 	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libasprintf.so.0.0.0)
-	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextpo.so.0.3.0)
-	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextsrc-0.16.1.so)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextpo.so.0.5.1)
+	@$(call install_copy, gettext, 0, 0, 0644, -, /usr/lib/libgettextsrc-0.18.1.so)
 
 	@$(call install_finish, gettext)
 
