@@ -51,27 +51,13 @@ $(STATEDIR)/inotify-tools.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, inotify-tools)
-	@$(call install_fixup,inotify-tools,PRIORITY,optional)
-	@$(call install_fixup,inotify-tools,SECTION,base)
-	@$(call install_fixup,inotify-tools,AUTHOR,"Brandon Fosdick <bfosdick@dash.net>")
-	@$(call install_fixup,inotify-tools,DESCRIPTION,missing)
+	@$(call install_fixup, inotify-tools,PRIORITY,optional)
+	@$(call install_fixup, inotify-tools,SECTION,base)
+	@$(call install_fixup, inotify-tools,AUTHOR,"Brandon Fosdick <bfosdick@dash.net>")
+	@$(call install_fixup, inotify-tools,DESCRIPTION,missing)
 
-	@$(call install_copy, inotify-tools, 0, 0, 0755, -, \
-		/usr/bin/inotifywait)
-
-	@$(call install_copy, inotify-tools, 0, 0, 0755, -, \
-		/usr/bin/inotifywait)
-
-	@$(call install_copy, inotify-tools, 0, 0, 0644, -, \
-		/usr/lib/libinotifytools.so.0.4.1)
-
-	@$(call install_link, inotify-tools, \
-		libinotifytools.so.0.4.1, \
-		/usr/lib/libinotifytools.so.0)
-
-	@$(call install_link, inotify-tools, \
-		libinotifytools.so.0.4.1, \
-		/usr/lib/libinotifytools.so)
+	@$(call install_copy, inotify-tools, 0, 0, 0755, -, /usr/bin/inotifywait)
+	@$(call install_lib, inotify_tools, 0, 0, 0644, libinotifytools)
 
 	@$(call install_finish, inotify-tools)
 
