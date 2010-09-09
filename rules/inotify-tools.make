@@ -57,7 +57,7 @@ $(STATEDIR)/inotify-tools.targetinstall:
 	@$(call install_fixup, inotify-tools,DESCRIPTION,missing)
 
 	@$(call install_copy, inotify-tools, 0, 0, 0755, -, /usr/bin/inotifywait)
-	@$(call install_lib, inotify_tools, 0, 0, 0644, libinotifytools)
+	@$(call install_lib,  inotify_tools, 0, 0, 0644, libinotifytools)
 
 	@$(call install_finish, inotify-tools)
 
