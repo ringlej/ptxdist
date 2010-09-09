@@ -47,6 +47,14 @@ config OPENSSH_SCP
 	help
 	  Install the secure copy program (scp) on the target
 
+config OPENSSH_SCP_TARGET_USE
+	bool "to be used at target's side"
+	depends on OPENSSH_SCP
+	select OPENSSH_SSH
+	help
+	  Enable this entry if the 'scp' command is intended to be used at
+	  target's side
+
 config OPENSSH_SFTP
 	bool "sftp (client)"
 	help
