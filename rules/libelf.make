@@ -67,10 +67,7 @@ $(STATEDIR)/libelf.targetinstall:
 	@$(call install_fixup, libelf,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, libelf,DESCRIPTION,missing)
 
-	@$(call install_copy, libelf, 0, 0, 0644, -, \
-		/usr/lib/libelf.so.0.8.13)
-	@$(call install_link, libelf, libelf.so.0.8.13, /usr/lib/libelf.so.0)
-	@$(call install_link, libelf, libelf.so.0.8.13, /usr/lib/libelf.so)
+	@$(call install_lib, libelf, 0, 0, 0644, libelf)
 
 	@$(call install_finish, libelf)
 
