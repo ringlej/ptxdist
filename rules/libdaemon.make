@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2006 by Robert Schwebel
 #               2010 by Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -54,23 +54,14 @@ $(STATEDIR)/libdaemon.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libdaemon)
-	@$(call install_fixup,libdaemon,PRIORITY,optional)
-	@$(call install_fixup,libdaemon,SECTION,base)
-	@$(call install_fixup,libdaemon,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,libdaemon,DESCRIPTION,missing)
+	@$(call install_fixup, libdaemon,PRIORITY,optional)
+	@$(call install_fixup, libdaemon,SECTION,base)
+	@$(call install_fixup, libdaemon,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, libdaemon,DESCRIPTION,missing)
 
-	@$(call install_copy, libdaemon, 0, 0, 0644, -, \
-		/usr/lib/libdaemon.so.0.5.0)
+	@$(call install_lib, libdaemon, 0, 0, 0644, libdaemon)
 
-	@$(call install_link, libdaemon, \
-		libdaemon.so.0.5.0, \
-		/usr/lib/libdaemon.so.0)
-
-	@$(call install_link, libdaemon, \
-		libdaemon.so.0.5.0, \
-		/usr/lib/libdaemon.so)
-
-	@$(call install_finish,libdaemon)
+	@$(call install_finish, libdaemon)
 
 	@$(call touch)
 
