@@ -58,9 +58,7 @@ $(STATEDIR)/expat.targetinstall:
 	@$(call install_fixup, expat,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, expat,DESCRIPTION,missing)
 
-	@$(call install_copy, expat, 0, 0, 0644, -, /usr/lib/libexpat.so.1.5.2)
-	@$(call install_link, expat, libexpat.so.1.5.2, /usr/lib/libexpat.so.1)
-	@$(call install_link, expat, libexpat.so.1.5.2, /usr/lib/libexpat.so)
+	@$(call install_lib, expat, 0, 0, 0644, libexpat)
 
 	@$(call install_finish, expat)
 
