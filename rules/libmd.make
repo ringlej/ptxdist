@@ -69,10 +69,7 @@ ifndef PTXCONF_LIBMD_STATIC
 	@$(call install_fixup, libmd,AUTHOR,"Juergen Beisert <jbe@pengutronix.de>")
 	@$(call install_fixup, libmd,DESCRIPTION,missing)
 
-	@$(call install_copy, libmd, 0, 0, 0644, -, \
-		/usr/lib/libmd.so.1.0.0)
-	@$(call install_link, libmd, libmd.so.1.0.0, /usr/lib/libmd.so.1)
-	@$(call install_link, libmd, libmd.so.1.0.0, /usr/lib/libmd.so)
+	@$(call install_lib, libmd, 0, 0, 0644, libmd)
 
 	@$(call install_finish, libmd)
 endif
