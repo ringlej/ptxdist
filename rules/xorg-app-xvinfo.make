@@ -55,15 +55,15 @@ $(STATEDIR)/xorg-app-xvinfo.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xvinfo)
-	@$(call install_fixup,xorg-app-xvinfo,PRIORITY,optional)
-	@$(call install_fixup,xorg-app-xvinfo,SECTION,base)
-	@$(call install_fixup,xorg-app-xvinfo,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-app-xvinfo,DESCRIPTION,missing)
+	@$(call install_fixup, xorg-app-xvinfo,PRIORITY,optional)
+	@$(call install_fixup, xorg-app-xvinfo,SECTION,base)
+	@$(call install_fixup, xorg-app-xvinfo,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, xorg-app-xvinfo,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xvinfo, 0, 0, 0755, -, \
 		$(XORG_BINDIR)/xvinfo)
 
-	@$(call install_finish,xorg-app-xvinfo)
+	@$(call install_finish, xorg-app-xvinfo)
 
 	@$(call touch)
 
