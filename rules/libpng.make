@@ -49,16 +49,13 @@ LIBPNG_AUTOCONF := \
 $(STATEDIR)/libpng.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libpng)
+	@$(call install_init, libpng)
 	@$(call install_fixup, libpng,PRIORITY,optional)
 	@$(call install_fixup, libpng,SECTION,base)
 	@$(call install_fixup, libpng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libpng,DESCRIPTION,missing)
 
-	@$(call install_copy, libpng, 0, 0, 0644, -, \
-		/usr/lib/libpng12.so.0.44.0)
-	@$(call install_link, libpng, libpng12.so.0.44.0, /usr/lib/libpng12.so.0)
-	@$(call install_link, libpng, libpng12.so.0.44.0, /usr/lib/libpng12.so)
+	@$(call install_lib, libpng, 0, 0, 0644, libpng12)
 
 	@$(call install_finish, libpng)
 
