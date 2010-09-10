@@ -52,14 +52,14 @@ $(STATEDIR)/pelts-tests.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pelts-tests)
-	@$(call install_fixup,pelts-tests,PRIORITY,optional)
-	@$(call install_fixup,pelts-tests,SECTION,base)
-	@$(call install_fixup,pelts-tests,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,pelts-tests,DESCRIPTION,missing)
+	@$(call install_fixup, pelts-tests,PRIORITY,optional)
+	@$(call install_fixup, pelts-tests,SECTION,base)
+	@$(call install_fixup, pelts-tests,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, pelts-tests,DESCRIPTION,missing)
 
 	@$(call install_copy, pelts-tests, 0, 0, 0755, -, /usr/bin/floattest)
 
-	@$(call install_finish,pelts-tests)
+	@$(call install_finish, pelts-tests)
 
 	@$(call touch)
 
