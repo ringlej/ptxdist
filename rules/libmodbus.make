@@ -58,11 +58,7 @@ $(STATEDIR)/libmodbus.targetinstall:
 	@$(call install_fixup, libmodbus,AUTHOR,"Josef Holzmayr <holzmayr@rsi-elektrotechnik.de>")
 	@$(call install_fixup, libmodbus,DESCRIPTION,missing)
 
-	@$(call install_copy, libmodbus, 0, 0, 0644, -, \
-		/usr/lib/libmodbus.so.2.0.0)
-
-	@$(call install_link, libmodbus, libmodbus.so.2.0.0, /usr/lib/libmodbus.so.2)
-	@$(call install_link, libmodbus, libmodbus.so.2.0.0, /usr/lib/libmodbus.so)
+	@$(call install_lib, libmodbus, 0, 0, 0644, libmodbus)
 
 	@$(call install_finish, libmodbus)
 
