@@ -60,16 +60,7 @@ $(STATEDIR)/xorg-lib-sm.targetinstall:
 	@$(call install_fixup, xorg-lib-sm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-sm,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-sm, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libSM.so.6.0.1)
-
-	@$(call install_link, xorg-lib-sm, \
-		libSM.so.6.0.1, \
-		$(XORG_LIBDIR)/libSM.so.6)
-
-	@$(call install_link, xorg-lib-sm, \
-		libSM.so.6.0.1, \
-		$(XORG_LIBDIR)/libSM.so)
+	@$(call install_lib, xorg-lib-sm, 0, 0, 0644, libSM)
 
 	@$(call install_finish, xorg-lib-sm)
 
