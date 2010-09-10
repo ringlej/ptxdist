@@ -114,10 +114,10 @@ $(STATEDIR)/glib.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, glib)
-	@$(call install_fixup,glib,PRIORITY,optional)
-	@$(call install_fixup,glib,SECTION,base)
-	@$(call install_fixup,glib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,glib,DESCRIPTION,missing)
+	@$(call install_fixup, glib,PRIORITY,optional)
+	@$(call install_fixup, glib,SECTION,base)
+	@$(call install_fixup, glib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, glib,DESCRIPTION,missing)
 
 #	# /usr/bin/gtester-report
 #	# /usr/bin/glib-genmarshal
@@ -128,13 +128,11 @@ $(STATEDIR)/glib.targetinstall:
 
 	@$(call install_copy, glib, 0, 0, 0755, /usr/lib/gio/modules)
 
-	@for i in libgio libglib libgmodule libgobject libgthread; do \
-		$(call install_copy, glib, 0, 0, 0644, -, /usr/lib/$$i-2.0.so.$(GLIB_LIB_VERSION)); \
-		$(call install_link, glib, $$i-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/$$i-2.0.so.0); \
-		$(call install_link, glib, $$i-2.0.so.$(GLIB_LIB_VERSION), /usr/lib/$$i-2.0.so); \
+	@for i in libgio-2.0 libglib-2.0 libgmodule-2.0 libgobject-2.0 libgthread-2.0; do \
+		$(call install_lib, glib, 0, 0, 0644, $$i); \
 	done
 
-	@$(call install_finish,glib)
+	@$(call install_finish, glib)
 
 	@$(call touch)
 
