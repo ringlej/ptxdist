@@ -66,7 +66,7 @@ endif
 $(STATEDIR)/libftdi.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libftdi)
+	@$(call install_init, libftdi)
 	@$(call install_fixup, libftdi,PRIORITY,optional)
 	@$(call install_fixup, libftdi,SECTION,base)
 	@$(call install_fixup, libftdi,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
@@ -79,9 +79,7 @@ $(STATEDIR)/libftdi.targetinstall:
 	@$(call install_copy, libftdi, 0, 0, 0755, -, /usr/bin/bitbang_cbus)
 	@$(call install_copy, libftdi, 0, 0, 0755, -, /usr/bin/simple)
 
-	@$(call install_copy, libftdi, 0, 0, 0644, -, /usr/lib/libftdi.so.1.17.0)
-	@$(call install_link, libftdi, libftdi.so.1.17.0, /usr/lib/libftdi.so.1)
-	@$(call install_link, libftdi, libftdi.so.1.17.0, /usr/lib/libftdi.so)
+	@$(call install_lib, libftdi, 0, 0, 0644, libftdi)
 
 	@$(call install_finish, libftdi)
 
