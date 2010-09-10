@@ -58,16 +58,7 @@ $(STATEDIR)/xorg-lib-xp.targetinstall:
 	@$(call install_fixup, xorg-lib-xp,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xp,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xp, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXp.so.6.2.0)
-
-	@$(call install_link, xorg-lib-xp, \
-		libXp.so.6.2.0, \
-		$(XORG_LIBDIR)/libXp.so.6)
-
-	@$(call install_link, xorg-lib-xp, \
-		libXp.so.6.2.0, \
-		$(XORG_LIBDIR)/libXp.so)
+	@$(call install_lib, xorg-lib-xp, 0, 0, 0644, libXp)
 
 	@$(call install_finish, xorg-lib-xp)
 
