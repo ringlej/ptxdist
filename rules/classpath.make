@@ -150,33 +150,13 @@ $(STATEDIR)/classpath.targetinstall:
 	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/share/classpath/glibj.zip)
 	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/share/classpath/tools.zip)
 
-	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/classpath/libjavautil.so.0.0.0)
-	@$(call install_link, classpath, libjavautil.so.0.0.0, /usr/lib/classpath/libjavautil.so.0)
-	@$(call install_link, classpath, libjavautil.so.0.0.0, /usr/lib/classpath/libjavautil.so)
-
-	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/classpath/libjavalangmanagement.so.0.0.0)
-	@$(call install_link, classpath, libjavalangmanagement.so.0.0.0, /usr/lib/classpath/libjavalangmanagement.so.0)
-	@$(call install_link, classpath, libjavalangmanagement.so.0.0.0, /usr/lib/classpath/libjavalangmanagement.so)
-
-	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/classpath/libjavaio.so.0.0.0)
-	@$(call install_link, classpath, libjavaio.so.0.0.0, /usr/lib/classpath/libjavaio.so.0)
-	@$(call install_link, classpath, libjavaio.so.0.0.0, /usr/lib/classpath/libjavaio.so)
-
-	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/classpath/libjavalang.so.0.0.0)
-	@$(call install_link, classpath, libjavalang.so.0.0.0, /usr/lib/classpath/libjavalang.so.0)
-	@$(call install_link, classpath, libjavalang.so.0.0.0, /usr/lib/classpath/libjavalang.so)
-
-	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/classpath/libjavanet.so.0.0.0)
-	@$(call install_link, classpath, libjavanet.so.0.0.0, /usr/lib/classpath/libjavanet.so.0)
-	@$(call install_link, classpath, libjavanet.so.0.0.0, /usr/lib/classpath/libjavanet.so)
-
-	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/classpath/libjavalangreflect.so.0.0.0)
-	@$(call install_link, classpath, libjavalangreflect.so.0.0.0, /usr/lib/classpath/libjavalangreflect.so.0)
-	@$(call install_link, classpath, libjavalangreflect.so.0.0.0, /usr/lib/classpath/libjavalangreflect.so)
-
-	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/classpath/libjavanio.so.0.0.0)
-	@$(call install_link, classpath, libjavanio.so.0.0.0, /usr/lib/classpath/libjavanio.so.0)
-	@$(call install_link, classpath, libjavanio.so.0.0.0, /usr/lib/classpath/libjavanio.so)
+	@$(call install_lib, classpath, 0, 0, 0644, classpath/libjavautil)
+	@$(call install_lib, classpath, 0, 0, 0644, classpath/libjavalangmanagement)
+	@$(call install_lib, classpath, 0, 0, 0644, classpath/libjavaio)
+	@$(call install_lib, classpath, 0, 0, 0644, classpath/libjavalang)
+	@$(call install_lib, classpath, 0, 0, 0644, classpath/libjavanet)
+	@$(call install_lib, classpath, 0, 0, 0644, classpath/libjavalangreflect)
+	@$(call install_lib, classpath, 0, 0, 0644, classpath/libjavanio)
 
 	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/security/classpath.security)
 	@$(call install_copy, classpath, 0, 0, 0644, -, /usr/lib/logging.properties)
