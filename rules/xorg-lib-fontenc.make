@@ -57,16 +57,7 @@ $(STATEDIR)/xorg-lib-fontenc.targetinstall:
 	@$(call install_fixup, xorg-lib-fontenc,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-fontenc,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-fontenc, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libfontenc.so.1.0.0)
-
-	@$(call install_link, xorg-lib-fontenc, \
-		libfontenc.so.1.0.0, \
-		$(XORG_LIBDIR)/libfontenc.so.1)
-
-	@$(call install_link, xorg-lib-fontenc, \
-		libfontenc.so.1.0.0, \
-		$(XORG_LIBDIR)/libfontenc.so)
+	@$(call install_lib, xorg-lib-fontenc, 0, 0, 0644, libfontenc)
 
 	@$(call install_finish, xorg-lib-fontenc)
 
