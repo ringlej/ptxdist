@@ -68,16 +68,13 @@ $(STATEDIR)/slang.compile:
 $(STATEDIR)/slang.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  slang)
+	@$(call install_init, slang)
 	@$(call install_fixup, slang,PRIORITY,optional)
 	@$(call install_fixup, slang,SECTION,base)
 	@$(call install_fixup, slang,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, slang,DESCRIPTION,missing)
 
-	@$(call install_copy, slang, 0, 0, 0644, -, \
-		/usr/lib/libslang.so.$(SLANG_VERSION))
-	@$(call install_link, slang, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so.$(SLANG_MAJOR))
-	@$(call install_link, slang, libslang.so.$(SLANG_VERSION), /usr/lib/libslang.so)
+	@$(call install_lib, slang, 0, 0, 0644, libslang)
 
 	@$(call install_finish, slang)
 
