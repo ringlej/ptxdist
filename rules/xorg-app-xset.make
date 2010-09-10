@@ -53,14 +53,14 @@ $(STATEDIR)/xorg-app-xset.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xset)
-	@$(call install_fixup,xorg-app-xset,PRIORITY,optional)
-	@$(call install_fixup,xorg-app-xset,SECTION,base)
-	@$(call install_fixup,xorg-app-xset,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-app-xset,DESCRIPTION,missing)
+	@$(call install_fixup, xorg-app-xset,PRIORITY,optional)
+	@$(call install_fixup, xorg-app-xset,SECTION,base)
+	@$(call install_fixup, xorg-app-xset,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, xorg-app-xset,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xset, 0, 0, 0755, -, /usr/bin/xset)
 
-	@$(call install_finish,xorg-app-xset)
+	@$(call install_finish, xorg-app-xset)
 
 	@$(call touch)
 
