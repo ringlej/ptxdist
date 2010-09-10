@@ -92,122 +92,47 @@ XMLRPC_C_MAKE_PAR := NO
 $(STATEDIR)/xmlrpc-c.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  xmlrpc-c)
+	@$(call install_init, xmlrpc-c)
 	@$(call install_fixup, xmlrpc-c,PRIORITY,optional)
 	@$(call install_fixup, xmlrpc-c,SECTION,base)
 	@$(call install_fixup, xmlrpc-c,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, xmlrpc-c,DESCRIPTION,missing)
 
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc.so.3.6.15)
-	@$(call install_link, xmlrpc-c, libxmlrpc.so.3.6.15, \
-		/usr/lib/libxmlrpc.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc.so.3.6.15, \
-		/usr/lib/libxmlrpc.so)
-
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_server.so.3.6.15)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server.so.3.6.15, \
-		/usr/lib/libxmlrpc_server.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server.so.3.6.15, \
-		/usr/lib/libxmlrpc_server.so)
-
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_server_abyss.so.3.6.15)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server_abyss.so.3.6.15, \
-		/usr/lib/libxmlrpc_server_abyss.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server_abyss.so.3.6.15, \
-		/usr/lib/libxmlrpc_server_abyss.so)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_server)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_server_abyss)
 
 ifdef PTXCONF_XMLRPC_C_CPLUSPLUS
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc++.so.3.06)
-	@$(call install_link, xmlrpc-c, libxmlrpc++.so.3.06, \
-		/usr/lib/libxmlrpc++.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc++.so.3.06, \
-		/usr/lib/libxmlrpc++.so)
-
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_server++.so.3.06)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server++.so.3.06, \
-		/usr/lib/libxmlrpc_server++.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server++.so.3.06, \
-		/usr/lib/libxmlrpc_server++.so)
-
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_server_abyss++.so.3.06)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server_abyss++.so.3.06, \
-		/usr/lib/libxmlrpc_server_abyss++.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server_abyss++.so.3.06, \
-		/usr/lib/libxmlrpc_server_abyss++.so)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc++)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_server++)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_server_abyss++)
 endif
 
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_util.so.3.6.15)
-	@$(call install_link, xmlrpc-c, libxmlrpc_util.so.3.6.15, \
-		/usr/lib/libxmlrpc_util.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_util.so.3.6.15, \
-		/usr/lib/libxmlrpc_util.so)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_util)
 
 ifndef PTXCONF_XMLRPC_C_LIBXML2
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_xmlparse.so.3.6.15)
-	@$(call install_link, xmlrpc-c, libxmlrpc_xmlparse.so.3.6.15, \
-		/usr/lib/libxmlrpc_xmlparse.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_xmlparse.so.3.6.15, \
-		/usr/lib/libxmlrpc_xmlparse.so)
-
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_xmltok.so.3.6.15)
-	@$(call install_link, xmlrpc-c, libxmlrpc_xmltok.so.3.6.15, \
-		/usr/lib/libxmlrpc_xmltok.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_xmltok.so.3.6.15, \
-		/usr/lib/libxmlrpc_xmltok.so)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_xmlparse)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_xmltok)
 endif
 
 ifdef PTXCONF_XMLRPC_C_CLIENT
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_client.so.3.6.15)
-	@$(call install_link, xmlrpc-c, libxmlrpc_client.so.3.6.15, \
-		/usr/lib/libxmlrpc_client.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_client.so.3.6.15, \
-		/usr/lib/libxmlrpc_client.so)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_client)
 
 ifdef PTXCONF_XMLRPC_C_CPLUSPLUS
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_client++.so.3.06)
-	@$(call install_link, xmlrpc-c, libxmlrpc_client++.so.3.06, \
-		/usr/lib/libxmlrpc_client++.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_client++.so.3.06, \
-		/usr/lib/libxmlrpc_client++.so)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_client++)
 endif
 endif
 
 ifdef PTXCONF_XMLRPC_C_ABYSS_SERVER
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_abyss.so.3.6.15)
-	@$(call install_link, xmlrpc-c, libxmlrpc_abyss.so.3.6.15, \
-		/usr/lib/libxmlrpc_abyss.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_abyss.so.3.6.15, \
-		/usr/lib/libxmlrpc_abyss.so)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_abyss)
 endif
 
 ifdef PTXCONF_XMLRPC_C_CGI_SERVER
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_server_cgi.so.3.6.15)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server_cgi.so.3.6.15, \
-		/usr/lib/libxmlrpc_server_cgi.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server_cgi.so.3.6.15, \
-		/usr/lib/libxmlrpc_server_cgi.so)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_server_cgi)
 endif
 
 ifdef XMLRPC_C_CGI_SERVER
-	@$(call install_copy, xmlrpc-c, 0, 0, 0644, -, \
-		/usr/lib/libxmlrpc_server.so.3.6.15)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server.so.3.6.15, \
-		/usr/lib/libxmlrpc_server.so.3)
-	@$(call install_link, xmlrpc-c, libxmlrpc_server.so.3.6.15, \
-		/usr/lib/libxmlrpc_server.so)
+	@$(call install_lib, xmlrpc-c, 0, 0, 0644, libxmlrpc_server)
 endif
 
 	@$(call install_finish, xmlrpc-c)
