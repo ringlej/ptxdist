@@ -57,16 +57,7 @@ $(STATEDIR)/xorg-lib-xfixes.targetinstall:
 	@$(call install_fixup, xorg-lib-xfixes,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xfixes,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xfixes, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXfixes.so.3.1.0)
-
-	@$(call install_link, xorg-lib-xfixes, \
-		libXfixes.so.3.1.0, \
-		$(XORG_LIBDIR)/libXfixes.so.3)
-
-	@$(call install_link, xorg-lib-xfixes, \
-		libXfixes.so.3.1.0, \
-		$(XORG_LIBDIR)/libXfixes.so)
+	@$(call install_lib, xorg-lib-xfixes, 0, 0, 0644, libXfixes)
 
 	@$(call install_finish, xorg-lib-xfixes)
 
