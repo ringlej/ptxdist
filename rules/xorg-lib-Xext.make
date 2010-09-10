@@ -59,16 +59,7 @@ $(STATEDIR)/xorg-lib-xext.targetinstall:
 	@$(call install_fixup, xorg-lib-xext,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xext,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xext, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXext.so.6.4.0)
-
-	@$(call install_link, xorg-lib-xext, \
-		libXext.so.6.4.0, \
-		$(XORG_LIBDIR)/libXext.so.6)
-
-	@$(call install_link, xorg-lib-xext, \
-		libXext.so.6.4.0, \
-		$(XORG_LIBDIR)/libXext.so)
+	@$(call install_lib, xorg-lib-xext, 0, 0, 0644, libXext)
 
 	@$(call install_finish, xorg-lib-xext)
 
