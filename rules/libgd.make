@@ -86,16 +86,13 @@ endif
 $(STATEDIR)/libgd.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libgd)
+	@$(call install_init, libgd)
 	@$(call install_fixup, libgd,PRIORITY,optional)
 	@$(call install_fixup, libgd,SECTION,base)
 	@$(call install_fixup, libgd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libgd,DESCRIPTION,missing)
 
-	@$(call install_copy, libgd, 0, 0, 0644, -, \
-		/usr/lib/libgd.so.2.0.0)
-	@$(call install_link, libgd, libgd.so.2.0.0, /usr/lib/libgd.so.2)
-	@$(call install_link, libgd, libgd.so.2.0.0, /usr/lib/libgd.so)
+	@$(call install_lib, libgd, 0, 0, 0644, libgd)
 
 	@$(call install_finish, libgd)
 
