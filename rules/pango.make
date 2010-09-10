@@ -74,27 +74,16 @@ $(STATEDIR)/pango.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pango)
-	@$(call install_fixup,pango,PRIORITY,optional)
-	@$(call install_fixup,pango,SECTION,base)
-	@$(call install_fixup,pango,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,pango,DESCRIPTION,missing)
+	@$(call install_fixup, pango,PRIORITY,optional)
+	@$(call install_fixup, pango,SECTION,base)
+	@$(call install_fixup, pango,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, pango,DESCRIPTION,missing)
 
-	@$(call install_copy, pango, 0, 0, 0644, -, \
-		/usr/lib/libpango-1.0.so.0.2600.0)
-	@$(call install_link, pango, libpango-1.0.so.0.2600.0, /usr/lib/libpango-1.0.so.0)
-	@$(call install_link, pango, libpango-1.0.so.0.2600.0, /usr/lib/libpango-1.0.so)
+	@$(call install_lib, pango, 0, 0, 0644, libpango-1.0)
+	@$(call install_lib, pango, 0, 0, 0644, libpangoft2-1.0)
+	@$(call install_lib, pango, 0, 0, 0644, libpangocairo-1.0)
 
-	@$(call install_copy, pango, 0, 0, 0644, -, \
-		/usr/lib/libpangoft2-1.0.so.0.2600.0)
-	@$(call install_link, pango, libpangoft2-1.0.so.0.2600.0, /usr/lib/libpangoft2-1.0.so.0)
-	@$(call install_link, pango, libpangoft2-1.0.so.0.2600.0, /usr/lib/libpangoft2-1.0.so)
-
-	@$(call install_copy, pango, 0, 0, 0644, -, \
-		/usr/lib/libpangocairo-1.0.so.0.2600.0)
-	@$(call install_link, pango, libpangocairo-1.0.so.0.2600.0, /usr/lib/libpangocairo-1.0.so.0)
-	@$(call install_link, pango, libpangocairo-1.0.so.0.2600.0, /usr/lib/libpangocairo-1.0.so)
-
-	@$(call install_finish,pango)
+	@$(call install_finish, pango)
 
 	@$(call touch)
 
