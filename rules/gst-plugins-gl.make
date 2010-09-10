@@ -64,10 +64,7 @@ $(STATEDIR)/gst-plugins-gl.targetinstall:
 	@$(call install_fixup, gst-plugins-gl,DESCRIPTION,missing)
 
 	@$(call install_copy, gst-plugins-gl, 0, 0, 0644, -, /usr/lib/gstreamer-0.10/libgstopengl.so)
-
-	@$(call install_copy, gst-plugins-gl, 0, 0, 0644, -, /usr/lib/libgstgl-0.10.so.0.0.0)
-	@$(call install_link, gst-plugins-gl, libgstgl-0.10.so.0.0.0, /usr/lib/libgstgl-0.10.so.0)
-	@$(call install_link, gst-plugins-gl, libgstgl-0.10.so.0.0.0, /usr/lib/libgstgl-0.10.so)
+	@$(call install_lib, gst-plugins-gl, 0, 0, 0644, libgstgl-0.10)
 
 	@$(call install_finish, gst-plugins-gl)
 
