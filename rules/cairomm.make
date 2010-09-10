@@ -59,13 +59,7 @@ $(STATEDIR)/cairomm.targetinstall:
 	@$(call install_fixup, cairomm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, cairomm,DESCRIPTION,missing)
 
-	@$(call install_copy, cairomm, 0, 0, 0644, -, /usr/lib/libcairomm-1.0.so.1.3.0)
-
-	@$(call install_link, cairomm, \
-		libcairomm-1.0.so.1.3.0, /usr/lib/libcairomm-1.0.so.1)
-
-	@$(call install_link, cairomm, \
-		libcairomm-1.0.so.1.3.0, /usr/lib/libcairomm-1.0.so)
+	@$(call install_lib, cairomm, 0, 0, 0644, libcairomm-1.0)
 
 	@$(call install_finish, cairomm)
 
