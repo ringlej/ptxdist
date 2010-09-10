@@ -57,16 +57,7 @@ $(STATEDIR)/xorg-lib-xkbfile.targetinstall:
 	@$(call install_fixup, xorg-lib-xkbfile,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xkbfile,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xkbfile, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libxkbfile.so.1.0.2)
-
-	@$(call install_link, xorg-lib-xkbfile, \
-		libxkbfile.so.1.0.2, \
-		$(XORG_LIBDIR)/libxkbfile.so.1)
-
-	@$(call install_link, xorg-lib-xkbfile, \
-		libxkbfile.so.1.0.2, \
-		$(XORG_LIBDIR)/libxkbfile.so)
+	@$(call install_lib, xorg-lib-xkbfile, 0, 0, 0644, libxkbfile)
 
 	@$(call install_finish, xorg-lib-xkbfile)
 
