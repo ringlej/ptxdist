@@ -57,7 +57,7 @@ XFSPROGS_INSTALL_OPT := \
 $(STATEDIR)/xfsprogs.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  xfsprogs)
+	@$(call install_init, xfsprogs)
 	@$(call install_fixup, xfsprogs,PRIORITY,optional)
 	@$(call install_fixup, xfsprogs,SECTION,base)
 	@$(call install_fixup, xfsprogs,AUTHOR,"Bart vdr. Meulen <bartvdrmeulen@gmail.com>")
@@ -142,8 +142,7 @@ endif
 
 ifdef PTXCONF_XFSPROGS_INSTALL_FSR
 	@$(call install_copy, xfsprogs, 0, 0, 0755, -, /usr/sbin/xfs_fsr)
-	@$(call install_copy, xfsprogs, 0, 0, 0644, -, /lib/libhandle.so.1.0.3)
-	@$(call install_link, xfsprogs, libhandle.so.1.0.3, /lib/libhandle.so.1)
+	@$(call install_lib, xfsprogs, 0, 0, 0644, libhandle)
 endif
 
 	@$(call install_finish, xfsprogs)
