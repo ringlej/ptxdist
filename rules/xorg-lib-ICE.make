@@ -59,16 +59,7 @@ $(STATEDIR)/xorg-lib-ice.targetinstall:
 	@$(call install_fixup, xorg-lib-ice,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-ice,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-ice, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libICE.so.6.3.0)
-
-	@$(call install_link, xorg-lib-ice, \
-		libICE.so.6.3.0, \
-		$(XORG_LIBDIR)/libICE.so.6)
-
-	@$(call install_link, xorg-lib-ice, \
-		libICE.so.6.3.0, \
-		$(XORG_LIBDIR)/libICE.so)
+	@$(call install_lib, xorg-lib-ice, 0, 0, 0644, libICE)
 
 	@$(call install_finish, xorg-lib-ice)
 
