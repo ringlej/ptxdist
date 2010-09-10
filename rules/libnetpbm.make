@@ -73,19 +73,13 @@ endif
 $(STATEDIR)/libnetpbm.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libnetpbm)
+	@$(call install_init, libnetpbm)
 	@$(call install_fixup, libnetpbm,PRIORITY,optional)
 	@$(call install_fixup, libnetpbm,SECTION,base)
 	@$(call install_fixup, libnetpbm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libnetpbm,DESCRIPTION,missing)
 
-	@$(call install_copy, libnetpbm, 0, 0, 0644, -, \
-		/usr/lib/libnetpbm.so.10.35)
-
-	@$(call install_link, libnetpbm, libnetpbm.so.10.35, \
-		/usr/lib/libnetpbm.so.10)
-	@$(call install_link, libnetpbm, libnetpbm.so.10.35, \
-		/usr/lib/libnetpbm.so)
+	@$(call install_lib, libnetpbm, 0, 0, 0644, libnetpbm)
 
 ifdef PTXCONF_LIBNETPBM_PBM2LJ
 	@$(call install_copy, libnetpbm, 0, 0, 0755, -, /usr/bin/pbmtolj)
