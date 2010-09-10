@@ -99,10 +99,10 @@ $(STATEDIR)/pureftpd.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pureftpd)
-	@$(call install_fixup,pureftpd,PRIORITY,optional)
-	@$(call install_fixup,pureftpd,SECTION,base)
-	@$(call install_fixup,pureftpd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,pureftpd,DESCRIPTION,missing)
+	@$(call install_fixup, pureftpd,PRIORITY,optional)
+	@$(call install_fixup, pureftpd,SECTION,base)
+	@$(call install_fixup, pureftpd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, pureftpd,DESCRIPTION,missing)
 
 	@$(call install_copy, pureftpd, 0, 0, 0755, -, \
 		/usr/sbin/pure-ftpd)
@@ -128,7 +128,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_PUREFTPD_BBINIT_LINK)),)
 endif
 endif
 endif
-
 	@$(call install_finish, pureftpd)
 
 	@$(call touch)
