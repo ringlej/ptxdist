@@ -59,16 +59,7 @@ $(STATEDIR)/xorg-lib-windowswm.targetinstall:
 	@$(call install_fixup, xorg-lib-windowswm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-windowswm,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-windowswm, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libWindowsWM.so.7.0.0)
-
-	@$(call install_link, xorg-lib-windowswm, \
-		libWindowsWM.so.7.0.0, \
-		$(XORG_LIBDIR)/libWindowsWM.so.7)
-
-	@$(call install_link, xorg-lib-windowswm, \
-		libWindowsWM.so.7.0.0, \
-		$(XORG_LIBDIR)/libWindowsWM.so)
+	@$(call install_lib, xorg-lib-windowswm, 0, 0, 0644, libWindowsWM)
 
 	@$(call install_finish, xorg-lib-windowswm)
 
