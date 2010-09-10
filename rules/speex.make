@@ -85,7 +85,7 @@ endif
 $(STATEDIR)/speex.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  speex)
+	@$(call install_init, speex)
 	@$(call install_fixup, speex,PRIORITY,optional)
 	@$(call install_fixup, speex,SECTION,base)
 	@$(call install_fixup, speex,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
@@ -98,13 +98,8 @@ ifdef PTXCONF_SPEEX_INSTALL_SPEEXDEC
 	@$(call install_copy, speex, 0, 0, 0755, -, /usr/bin/speexdec)
 endif
 
-	@$(call install_copy, speex, 0, 0, 0644, -, /usr/lib/libspeexdsp.so.1.5.0)
-	@$(call install_link, speex, libspeexdsp.so.1.5.0, /usr/lib/libspeexdsp.so.1)
-	@$(call install_link, speex, libspeexdsp.so.1.5.0, /usr/lib/libspeexdsp.so)
-
-	@$(call install_copy, speex, 0, 0, 0644, -, /usr/lib/libspeex.so.1.5.0)
-	@$(call install_link, speex, libspeex.so.1.5.0, /usr/lib/libspeex.so.1)
-	@$(call install_link, speex, libspeex.so.1.5.0, /usr/lib/libspeex.so)
+	@$(call install_lib, speex, 0, 0, 0644, libspeexdsp)
+	@$(call install_lib, speex, 0, 0, 0644, libspeex)
 
 	@$(call install_finish, speex)
 
