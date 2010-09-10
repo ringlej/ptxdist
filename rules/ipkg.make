@@ -68,10 +68,7 @@ $(STATEDIR)/ipkg.targetinstall:
 	@$(call install_fixup, ipkg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, ipkg,DESCRIPTION,missing)
 
-	@$(call install_copy, ipkg, 0, 0, 0644, -, \
-		/usr/lib/libipkg.so.0.0.0)
-	@$(call install_link, ipkg, libipkg.so.0.0.0, /usr/lib/libipkg.so.0.0)
-	@$(call install_link, ipkg, libipkg.so.0.0.0, /usr/lib/libipkg.so.0)
+	@$(call install_lib, ipkg, 0, 0, 0644, libipkg)
 
 ifdef PTXCONF_IPKG_LOG_WRAPPER
 	@$(call install_copy, ipkg, 0, 0, 0755, -, \
