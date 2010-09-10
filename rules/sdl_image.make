@@ -75,12 +75,7 @@ $(STATEDIR)/sdl_image.targetinstall:
 	@$(call install_fixup, sdl_image,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, sdl_image,DESCRIPTION,missing)
 
-	@$(call install_copy, sdl_image, 0, 0, 0644, -, \
-		/usr/lib/libSDL_image-1.2.so.0.1.5)
-	@$(call install_link, sdl_image, libSDL_image-1.2.so.0.1.5, \
-		/usr/lib/libSDL_image-1.2.so.0)
-	@$(call install_link, sdl_image, libSDL_image-1.2.so.0.1.5, \
-		/usr/lib/libSDL_image.so.0)
+	@$(call install_lib, sdl_image, 0, 0, 0644, libSDL_image-1.2)
 
 	@$(call install_finish, sdl_image)
 
