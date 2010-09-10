@@ -59,10 +59,7 @@ $(STATEDIR)/libid3tag.targetinstall:
 	@$(call install_fixup, libid3tag,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, libid3tag,DESCRIPTION,missing)
 
-	@$(call install_copy, libid3tag, 0, 0, 0644, -, \
-		/usr/lib/libid3tag.so.0.3.0)
-	@$(call install_link, libid3tag, libid3tag.so.0.3.0, /usr/lib/libid3tag.so.0)
-	@$(call install_link, libid3tag, libid3tag.so.0.3.0, /usr/lib/libid3tag.so)
+	@$(call install_lib, libid3tag, 0, 0, 0644, libid3tag)
 
 	@$(call install_finish, libid3tag)
 
