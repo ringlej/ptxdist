@@ -60,16 +60,7 @@ $(STATEDIR)/xorg-lib-xi.targetinstall:
 	@$(call install_fixup, xorg-lib-xi,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xi,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xi, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXi.so.6.1.0)
-
-	@$(call install_link, xorg-lib-xi, \
-		libXi.so.6.1.0, \
-		$(XORG_LIBDIR)/libXi.so.6)
-
-	@$(call install_link, xorg-lib-xi, \
-		libXi.so.6.1.0, \
-		$(XORG_LIBDIR)/libXi.so)
+	@$(call install_lib, xorg-lib-xi, 0, 0, 0644, libXi)
 
 	@$(call install_finish, xorg-lib-xi)
 
