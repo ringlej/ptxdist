@@ -54,19 +54,13 @@ LIBSSH2_AUTOCONF := \
 $(STATEDIR)/libssh2.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libssh2)
+	@$(call install_init, libssh2)
 	@$(call install_fixup, libssh2,PRIORITY,optional)
 	@$(call install_fixup, libssh2,SECTION,base)
 	@$(call install_fixup, libssh2,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, libssh2,DESCRIPTION,missing)
 
-	@$(call install_copy, libssh2, 0, 0, 0644, -, \
-		/usr/lib/libssh2.so.1.0.1)
-
-	@$(call install_link, libssh2, libssh2.so.1.0.1, \
-		/usr/lib/libssh2.so.1)
-	@$(call install_link, libssh2, libssh2.so.1.0.1, \
-		/usr/lib/libssh2.so)
+	@$(call install_lib, libssh2, 0, 0, 0644, libssh2)
 
 	@$(call install_finish, libssh2)
 
