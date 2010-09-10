@@ -83,35 +83,19 @@ $(STATEDIR)/xorg-driver-video-intel.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-driver-video-intel)
-	@$(call install_fixup,xorg-driver-video-intel,PRIORITY,optional)
-	@$(call install_fixup,xorg-driver-video-intel,SECTION,base)
-	@$(call install_fixup,xorg-driver-video-intel,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-driver-video-intel,DESCRIPTION,missing)
+	@$(call install_fixup, xorg-driver-video-intel,PRIORITY,optional)
+	@$(call install_fixup, xorg-driver-video-intel,SECTION,base)
+	@$(call install_fixup, xorg-driver-video-intel,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, xorg-driver-video-intel,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
 		/usr/lib/xorg/modules/drivers/intel_drv.so)
 
 ifdef PTXCONF_XORG_DRIVER_VIDEO_INTEL_XVMC
-	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
-		/usr/lib/libI810XvMC.so.1.0.0)
-	@$(call install_link, xorg-driver-video-intel, \
-		libI810XvMC.so.1.0.0, \
-		/usr/lib/libI810XvMC.so.1)
-	@$(call install_link, xorg-driver-video-intel, \
-		libI810XvMC.so.1.0.0, \
-		/usr/lib/libI810XvMC.so)
-
-	@$(call install_copy, xorg-driver-video-intel, 0, 0, 0644, -, \
-		/usr/lib/libIntelXvMC.so.1.0.0)
-	@$(call install_link, xorg-driver-video-intel, \
-		libIntelXvMC.so.1.0.0, \
-		/usr/lib/libIntelXvMC.so.1)
-	@$(call install_link, xorg-driver-video-intel, \
-		libIntelXvMC.so.1.0.0, \
-		/usr/lib/libIntelXvMC.so)
+	@$(call install_lib, xorg-driver-video-intel, 0, 0, 0644, libI810XvMC)
+	@$(call install_lib, xorg-driver-video-intel, 0, 0, 0644, libIntelXvMC)
 endif
-
-	@$(call install_finish,xorg-driver-video-intel)
+	@$(call install_finish, xorg-driver-video-intel)
 
 	@$(call touch)
 
