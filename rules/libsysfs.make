@@ -56,14 +56,11 @@ $(STATEDIR)/libsysfs.targetinstall:
 	@$(call install_fixup, libsysfs,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, libsysfs,DESCRIPTION,missing)
 
-	@$(call install_copy, libsysfs, 0,0, 644, -, /usr/lib/libsysfs.so.2.0.1)
-	@$(call install_link, libsysfs, libsysfs.so.2.0.1, /usr/lib/libsysfs.so.2)
-	@$(call install_link, libsysfs, libsysfs.so.2.0.1, /usr/lib/libsysfs.so)
+	@$(call install_lib, libsysfs, 0,0, 644, libsysfs)
 
 ifdef PTXCONF_LIBSYSFS_SYSTOOL
 	@$(call install_copy, libsysfs, 0, 0, 0775, -, /usr/bin/systool)
 endif
-
 	@$(call install_finish, libsysfs)
 
 	@$(call touch)
