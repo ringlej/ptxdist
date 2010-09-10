@@ -118,27 +118,8 @@ $(STATEDIR)/xorg-lib-x11.targetinstall:
 	@$(call install_fixup, xorg-lib-x11,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-x11,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libX11.so.6.3.0)
-
-	@$(call install_link, xorg-lib-x11, \
-		libX11.so.6.3.0, \
-		$(XORG_LIBDIR)/libX11.so.6)
-
-	@$(call install_link, xorg-lib-x11, \
-		libX11.so.6.3.0, \
-		$(XORG_LIBDIR)/libX11.so)
-
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libX11-xcb.so.1.0.0)
-
-	@$(call install_link, xorg-lib-x11, \
-		libX11-xcb.so.1.0.0, \
-		$(XORG_LIBDIR)/libX11-xcb.so.1)
-
-	@$(call install_link, xorg-lib-x11, \
-		libX11-xcb.so.1.0.0, \
-		$(XORG_LIBDIR)/libX11-xcb.so)
+	@$(call install_lib, xorg-lib-x11, 0, 0, 0644, libX11)
+	@$(call install_lib, xorg-lib-x11, 0, 0, 0644, libX11-xcb)
 
 	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
 		/usr/lib/X11/XKeysymDB)
