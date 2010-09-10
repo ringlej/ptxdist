@@ -69,9 +69,7 @@ $(STATEDIR)/pixman.targetinstall:
 	@$(call install_fixup, pixman,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, pixman,DESCRIPTION,missing)
 
-	@$(call install_copy, pixman, 0, 0, 0644, -, /usr/lib/libpixman-1.so.0.17.6)
-	@$(call install_link, pixman, libpixman-1.so.0.17.6, /usr/lib/libpixman-1.so.0)
-	@$(call install_link, pixman, libpixman-1.so.0.17.6, /usr/lib/libpixman-1.so)
+	@$(call install_lib, pixman, 0, 0, 0644, libpixman-1)
 
 	@$(call install_finish, pixman)
 
