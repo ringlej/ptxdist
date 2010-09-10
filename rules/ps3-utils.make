@@ -48,16 +48,13 @@ PS3_UTILS_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/ps3-utils.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  ps3-utils)
+	@$(call install_init, ps3-utils)
 	@$(call install_fixup, ps3-utils,PRIORITY,optional)
 	@$(call install_fixup, ps3-utils,SECTION,base)
 	@$(call install_fixup, ps3-utils,AUTHOR,"Remy Bohmer <linux@bohmer.net>")
 	@$(call install_fixup, ps3-utils,DESCRIPTION,missing)
 
-	@$(call install_copy, ps3-utils, 0, 0, 0644, -, /usr/lib/libps3-utils.so.2.0.0)
-	@$(call install_link, ps3-utils, libps3-utils.so.2.0.0, /usr/lib/libps3-utils.so)
-	@$(call install_link, ps3-utils, libps3-utils.so.2.0.0, /usr/lib/libps3-utils.so.2)
-
+	@$(call install_lib, ps3-utils, 0, 0, 0644, libps3-utils)
 	@$(call install_copy, ps3-utils, 0, 0, 0755, -, /usr/bin/ps3-video-mode)
 	@$(call install_copy, ps3-utils, 0, 0, 0755, -, /usr/sbin/ps3-boot-game-os)
 	@$(call install_copy, ps3-utils, 0, 0, 0755, -, /usr/sbin/ps3-dump-bootloader)
