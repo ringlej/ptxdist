@@ -135,12 +135,7 @@ $(STATEDIR)/ncurses.targetinstall:
 	@$(call install_fixup, ncurses,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, ncurses,DESCRIPTION,missing)
 
-	@$(call install_copy, ncurses, 0, 0, 0644, -, \
-		/lib/libncurses$(NCURSES_WIDE).so.5.6)
-	@$(call install_link, ncurses, libncurses$(NCURSES_WIDE).so.5.6, \
-		/lib/libncurses$(NCURSES_WIDE).so.5)
-	@$(call install_link, ncurses, libncurses$(NCURSES_WIDE).so.5.6, \
-		/lib/libncurses$(NCURSES_WIDE).so)
+	@$(call install_lib, ncurses, 0, 0, 0644, libncurses$(NCURSES_WIDE))
 
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncurses.so.5.6)
@@ -148,14 +143,8 @@ ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libncursesw.so.5.6, /lib/libncurses.so)
 endif
 
-
 ifdef PTXCONF_NCURSES_FORM
-	@$(call install_copy, ncurses, 0, 0, 0644, -, \
-		/lib/libform$(NCURSES_WIDE).so.5.6)
-	@$(call install_link, ncurses, libform$(NCURSES_WIDE).so.5.6, \
-		/lib/libform$(NCURSES_WIDE).so.5)
-	@$(call install_link, ncurses, libform$(NCURSES_WIDE).so.5.6, \
-		/lib/libform$(NCURSES_WIDE).so)
+	@$(call install_lib, ncurses, 0, 0, 0644, libform$(NCURSES_WIDE))
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so.5.6)
 	@$(call install_link, ncurses, libformw.so.5.6, /lib/libform.so.5)
@@ -165,12 +154,7 @@ endif
 
 
 ifdef PTXCONF_NCURSES_MENU
-	@$(call install_copy, ncurses, 0, 0, 0644, -, \
-		/lib/libmenu$(NCURSES_WIDE).so.5.6)
-	@$(call install_link, ncurses, libmenu$(NCURSES_WIDE).so.5.6, \
-		/lib/libmenu$(NCURSES_WIDE).so.5)
-	@$(call install_link, ncurses, libmenu$(NCURSES_WIDE).so.5.6, \
-		/lib/libmenu$(NCURSES_WIDE).so)
+	@$(call install_lib, ncurses, 0, 0, 0644, libmenu$(NCURSES_WIDE))
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so.5.6)
 	@$(call install_link, ncurses, libmenuw.so.5.6, /lib/libmenu.so.5)
@@ -180,12 +164,7 @@ endif
 
 
 ifdef PTXCONF_NCURSES_PANEL
-	@$(call install_copy, ncurses, 0, 0, 0644, -, \
-		/lib/libpanel$(NCURSES_WIDE).so.5.6)
-	@$(call install_link, ncurses, libpanel$(NCURSES_WIDE).so.5.6, \
-		/lib/libpanel$(NCURSES_WIDE).so.5)
-	@$(call install_link, ncurses, libpanel$(NCURSES_WIDE).so.5.6, \
-		/lib/libpanel$(NCURSES_WIDE).so)
+	@$(call install_lib, ncurses, 0, 0, 0644, libpanel$(NCURSES_WIDE))
 ifdef PTXCONF_NCURSES_BACKWARD_COMPATIBLE_NON_WIDE_CHAR
 	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so.5.6)
 	@$(call install_link, ncurses, libpanelw.so.5.6, /lib/libpanel.so.5)
