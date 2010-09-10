@@ -57,15 +57,13 @@ $(STATEDIR)/lm_sensors.prepare:
 $(STATEDIR)/lm_sensors.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  lm_sensors)
+	@$(call install_init, lm_sensors)
 	@$(call install_fixup, lm_sensors,PRIORITY,optional)
 	@$(call install_fixup, lm_sensors,SECTION,base)
 	@$(call install_fixup, lm_sensors,AUTHOR,"Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>")
 	@$(call install_fixup, lm_sensors,DESCRIPTION,missing)
 
-	@$(call install_copy, lm_sensors, 0, 0, 0644, -, /usr/lib/libsensors.so.4.2.1)
-	@$(call install_link, lm_sensors, libsensors.so.4.2.1, /usr/lib/libsensors.so.4)
-	@$(call install_link, lm_sensors, libsensors.so.4.2.1, /usr/lib/libsensors.so)
+	@$(call install_lib, lm_sensors, 0, 0, 0644, libsensors)
 
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/bin/sensors)
 	@$(call install_copy, lm_sensors, 0, 0, 0755, -, /usr/bin/sensors-conf-convert)
