@@ -302,10 +302,10 @@ $(STATEDIR)/mysql.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, mysql)
-	@$(call install_fixup,mysql,PRIORITY,optional)
-	@$(call install_fixup,mysql,SECTION,base)
-	@$(call install_fixup,mysql,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,mysql,DESCRIPTION,missing)
+	@$(call install_fixup, mysql,PRIORITY,optional)
+	@$(call install_fixup, mysql,SECTION,base)
+	@$(call install_fixup, mysql,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, mysql,DESCRIPTION,missing)
 
 #	# install server stuff
 #	# --------------------
@@ -335,22 +335,10 @@ $(STATEDIR)/mysql.targetinstall:
 	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysqlcheck)
 	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysqldump)
 
-	@$(call install_copy, mysql, 0, 0, 0644, \
-		$(MYSQL_PKGDIR)/usr/lib/mysql/libmysqlclient.so.15.0.0, \
-		/usr/lib/libmysqlclient.so.15.0.0)
-	@$(call install_link, mysql, libmysqlclient.so.15.0.0, \
-		/usr/lib/libmysqlclient.so.15)
-	@$(call install_link, mysql, libmysqlclient.so.15.0.0, \
-		/usr/lib/libmysqlclient.so)
+	@$(call install_lib, mysql, 0, 0, 0644, mysql/libmysqlclient)
 
 #	# libmyodbc3_r-3.51.27.so uses this library:
-	@$(call install_copy, mysql, 0, 0, 0644, \
-		$(MYSQL_PKGDIR)/usr/lib/mysql/libmysqlclient_r.so.15.0.0, \
-		/usr/lib/libmysqlclient_r.so.15.0.0)
-	@$(call install_link, mysql, libmysqlclient_r.so.15.0.0, \
-		/usr/lib/libmysqlclient_r.so.15)
-	@$(call install_link, mysql, libmysqlclient_r.so.15.0.0, \
-		/usr/lib/libmysqlclient_r.so)
+	@$(call install_lib, mysql, 0, 0, 0644, mysql/libmysqlclient_r)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_MYSQL_STARTSCRIPT
@@ -364,7 +352,7 @@ endif
 endif
 endif
 
-	@$(call install_finish,mysql)
+	@$(call install_finish, mysql)
 
 	@$(call touch)
 
