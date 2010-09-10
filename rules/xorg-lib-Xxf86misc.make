@@ -60,16 +60,7 @@ $(STATEDIR)/xorg-lib-xxf86misc.targetinstall:
 	@$(call install_fixup, xorg-lib-xxf86misc,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xxf86misc,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xxf86misc, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXxf86misc.so.1.1.0)
-
-	@$(call install_link, xorg-lib-xxf86misc, \
-		libXxf86misc.so.1.1.0, \
-		$(XORG_LIBDIR)/libXxf86misc.so.1)
-
-	@$(call install_link, xorg-lib-xxf86misc, \
-		libXxf86misc.so.1.1.0, \
-		$(XORG_LIBDIR)/libXxf86misc.so)
+	@$(call install_lib, xorg-lib-xxf86misc, 0, 0, 0644, libXxf86misc)
 
 	@$(call install_finish, xorg-lib-xxf86misc)
 
