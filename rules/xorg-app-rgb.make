@@ -56,15 +56,15 @@ $(STATEDIR)/xorg-app-rgb.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-rgb)
-	@$(call install_fixup,xorg-app-rgb,PRIORITY,optional)
-	@$(call install_fixup,xorg-app-rgb,SECTION,base)
-	@$(call install_fixup,xorg-app-rgb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-app-rgb,DESCRIPTION,missing)
+	@$(call install_fixup, xorg-app-rgb,PRIORITY,optional)
+	@$(call install_fixup, xorg-app-rgb,SECTION,base)
+	@$(call install_fixup, xorg-app-rgb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, xorg-app-rgb,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-rgb, 0, 0, 0644, -, \
 		$(PTXCONF_XORG_DEFAULT_DATA_DIR)/X11/rgb.txt, n)
 
-	@$(call install_finish,xorg-app-rgb)
+	@$(call install_finish, xorg-app-rgb)
 
 	@$(call touch)
 
