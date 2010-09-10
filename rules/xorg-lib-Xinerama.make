@@ -58,16 +58,7 @@ $(STATEDIR)/xorg-lib-xinerama.targetinstall:
 	@$(call install_fixup, xorg-lib-xinerama,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xinerama,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xinerama, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXinerama.so.1.0.0)
-
-	@$(call install_link, xorg-lib-xinerama, \
-		libXinerama.so.1.0.0, \
-		$(XORG_LIBDIR)/libXinerama.so.1)
-
-	@$(call install_link, xorg-lib-xinerama, \
-		libXinerama.so.1.0.0, \
-		$(XORG_LIBDIR)/libXinerama.so)
+	@$(call install_lib, xorg-lib-xinerama, 0, 0, 0644, libXinerama)
 
 	@$(call install_finish, xorg-lib-xinerama)
 
