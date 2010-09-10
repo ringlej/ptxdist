@@ -55,15 +55,10 @@ $(STATEDIR)/failmalloc.targetinstall:
 	@$(call install_init, failmalloc)
 	@$(call install_fixup, failmalloc,PRIORITY,optional)
 	@$(call install_fixup, failmalloc,SECTION,base)
-	@$(call install_fixup, failmalloc,AUTHOR,"Juergen Beisert")
+	@$(call install_fixup, failmalloc,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
 	@$(call install_fixup, failmalloc,DESCRIPTION,missing)
 
-	@$(call install_copy, failmalloc, 0, 0, 0644, -,  \
-		/usr/lib/libfailmalloc.so.0.0.0)
-	@$(call install_link, failmalloc, libfailmalloc.so.0.0.0, \
-		/usr/lib/libfailmalloc.so.0)
-	@$(call install_link, failmalloc, libfailmalloc.so.0.0.0, \
-		/usr/lib/libfailmalloc.so)
+	@$(call install_lib, failmalloc, 0, 0, 0644, libfailmalloc)
 
 	@$(call install_finish, failmalloc)
 
