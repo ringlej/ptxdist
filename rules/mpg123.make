@@ -52,16 +52,15 @@ MPG123_CONF_OPT		:= \
 $(STATEDIR)/mpg123.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  mpg123)
+	@$(call install_init, mpg123)
 	@$(call install_fixup, mpg123,PRIORITY,optional)
 	@$(call install_fixup, mpg123,SECTION,base)
 	@$(call install_fixup, mpg123,AUTHOR,"Juergen Kilb <J.Kilb@phytec.de>")
 	@$(call install_fixup, mpg123,DESCRIPTION,missing)
 
 	@$(call install_copy, mpg123, 0, 0, 0755, -, /usr/bin/mpg123)
-	@$(call install_copy, mpg123, 0, 0, 0644, -, /usr/lib/libmpg123.so.0.25.0)
-	@$(call install_link, mpg123, libmpg123.so.0.25.0, /usr/lib/libmpg123.so)
-	@$(call install_link, mpg123, libmpg123.so.0.25.0, /usr/lib/libmpg123.so.0)
+	@$(call install_lib, mpg123, 0, 0, 0644, libmpg123)
+
 	@$(call install_finish, mpg123)
 
 	@$(call touch)
