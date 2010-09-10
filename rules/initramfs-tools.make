@@ -71,16 +71,16 @@ $(STATEDIR)/initramfs-tools.targetinstall:
 	@$(call install_fixup, initramfs-tools,AUTHOR,"Jon Ringle <jon@ringle.org>")
 	@$(call install_fixup, initramfs-tools,DESCRIPTION,missing)
 
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /conf);
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /conf/conf.d);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /conf);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /conf/conf.d);
 	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /init);
 	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /conf/initramfs.conf);
 	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /conf/arch.conf);
 
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /scripts);
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /scripts/init-top);
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /scripts/init-premount);
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /scripts/init-bottom);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /scripts);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /scripts/init-top);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /scripts/init-premount);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /scripts/init-bottom);
 	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /scripts/functions);
 
 ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_INIT
@@ -91,9 +91,9 @@ ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_INIT
 endif
 
 ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_LOCAL
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /scripts/local-top);
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /scripts/local-premount);
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /scripts/local-bottom);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /scripts/local-top);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /scripts/local-premount);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /scripts/local-bottom);
 	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /scripts/local);
 	@cd $(INITRAMFS_TOOLS_DIR) && \
 		find scripts/local-* -type f | while read file; do \
@@ -102,9 +102,9 @@ ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_LOCAL
 endif
 
 ifdef PTXCONF_INITRAMFS_TOOLS_SCRIPTS_NFS
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /scripts/nfs-top);
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /scripts/nfs-premount);
-	@$(call install_copy,        initramfs-tools, 0, 0, 0755, /scripts/nfs-bottom);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /scripts/nfs-top);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /scripts/nfs-premount);
+	@$(call install_copy, initramfs-tools, 0, 0, 0755, /scripts/nfs-bottom);
 	@$(call install_alternative, initramfs-tools, 0, 0, 0755, /scripts/nfs);
 endif
 
