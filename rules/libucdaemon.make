@@ -56,13 +56,7 @@ $(STATEDIR)/libucdaemon.targetinstall:
 	@$(call install_fixup, libucdaemon,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libucdaemon,DESCRIPTION,missing)
 
-	@$(call install_copy, libucdaemon, 0, 0, 0644, -, \
-		/usr/lib/libucdaemon.so.0.0.0)
-
-	@$(call install_link, libucdaemon, libucdaemon.so.0.0.0, \
-		/usr/lib/libucdaemon.so.0)
-	@$(call install_link, libucdaemon, libucdaemon.so.0.0.0, \
-		/usr/lib/libucdaemon.so)
+	@$(call install_lib, libucdaemon, 0, 0, 0644, libucdaemon)
 
 	@$(call install_finish, libucdaemon)
 
