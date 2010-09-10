@@ -63,12 +63,9 @@ $(STATEDIR)/minicom.targetinstall:
 	@$(call install_fixup, minicom,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
 	@$(call install_fixup, minicom,DESCRIPTION,missing)
 
-	@$(call install_copy, minicom, 0, 0, 0755, -, \
-		/usr/bin/minicom)
-	@$(call install_copy, minicom, 0, 0, 0755, -, \
-		/usr/bin/runscript)
-	@$(call install_copy, minicom, 0, 0, 0755, -, \
-		/usr/bin/ascii-xfr)
+	@$(call install_copy, minicom, 0, 0, 0755, -, /usr/bin/minicom)
+	@$(call install_copy, minicom, 0, 0, 0755, -, /usr/bin/runscript)
+	@$(call install_copy, minicom, 0, 0, 0755, -, /usr/bin/ascii-xfr)
 
 ifdef PTXCONF_MINICOM_DEFCONFIG
 	@$(call install_alternative, minicom, 0, 0, 0644, /etc/minirc.dfl)
