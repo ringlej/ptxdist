@@ -47,16 +47,13 @@ LIBFSL_VPU_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/libfsl-vpu.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libfsl-vpu)
+	@$(call install_init, libfsl-vpu)
 	@$(call install_fixup, libfsl-vpu,PRIORITY,optional)
 	@$(call install_fixup, libfsl-vpu,SECTION,base)
 	@$(call install_fixup, libfsl-vpu,AUTHOR,"Sascha Hauer <s.hauer@pengutronix.de>")
 	@$(call install_fixup, libfsl-vpu,DESCRIPTION,missing)
 
-	@$(call install_copy, libfsl-vpu, 0, 0, 0644, -, \
-		/usr/lib/libfsl-vpu-0.1.0.so.0.0.0)
-	@$(call install_link, libfsl-vpu, libfsl-vpu-0.1.0.so.0.0.0, /usr/lib/libfsl-vpu-0.1.0.so.0)
-	@$(call install_link, libfsl-vpu, libfsl-vpu-0.1.0.so.0.0.0, /usr/lib/libfsl-vpu.so)
+	@$(call install_lib, libfsl-vpu, 0, 0, 0644, libfsl-vpu-0.1.0)
 
 	@$(call install_finish, libfsl-vpu)
 
