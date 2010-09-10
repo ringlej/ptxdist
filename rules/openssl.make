@@ -98,7 +98,7 @@ $(STATEDIR)/openssl.prepare:
 $(STATEDIR)/openssl.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  openssl)
+	@$(call install_init, openssl)
 	@$(call install_fixup, openssl,PRIORITY,optional)
 	@$(call install_fixup, openssl,SECTION,base)
 	@$(call install_fixup, openssl,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
@@ -108,17 +108,9 @@ ifdef PTXCONF_OPENSSL_BIN
 	@$(call install_copy, openssl, 0, 0, 0755, -, \
 		/usr/bin/openssl)
 endif
-
 ifdef PTXCONF_OPENSSL_SHARED
-	@$(call install_copy, openssl, 0, 0, 0644, -, \
-		/usr/lib/libssl.so.0.9.8)
-	@$(call install_link, openssl, libssl.so.0.9.8, /usr/lib/libssl.so.0)
-	@$(call install_link, openssl, libssl.so.0.9.8, /usr/lib/libssl.so)
-
-	@$(call install_copy, openssl, 0, 0, 0644, -, \
-		/usr/lib/libcrypto.so.0.9.8)
-	@$(call install_link, openssl, libcrypto.so.0.9.8, /usr/lib/libcrypto.so.0)
-	@$(call install_link, openssl, libcrypto.so.0.9.8, /usr/lib/libcrypto.so)
+	@$(call install_lib, openssl, 0, 0, 0644, libssl)
+	@$(call install_lib, openssl, 0, 0, 0644, libcrypto)
 endif
 	@$(call install_finish, openssl)
 
