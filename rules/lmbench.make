@@ -98,9 +98,7 @@ $(STATEDIR)/lmbench.targetinstall:
 		$(call install_copy, lmbench, 0, 0, 0755, -, $$file); \
 	done
 
-	@$(call install_copy, lmbench, 0, 0, 0644, -, /usr/lib/liblmbench.so.0.0.0)
-	@$(call install_link, lmbench, liblmbench.so.0.0.0, /usr/lib/liblmbench.so.0)
-	@$(call install_link, lmbench, liblmbench.so.0.0.0, /usr/lib/liblmbench.so)
+	@$(call install_lib, lmbench, 0, 0, 0644, liblmbench)
 
 	@$(call install_finish, lmbench)
 
