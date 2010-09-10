@@ -52,12 +52,7 @@ $(STATEDIR)/qwt.targetinstall:
 	@$(call install_fixup, qwt,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, qwt,DESCRIPTION,missing)
 
-	@$(call install_copy, qwt, 0, 0, 0644, -, \
-		/usr/lib/libqwt.so.5.2.0)
-	@$(call install_link, qwt, libqwt.so.5.2.0, \
-		/usr/lib/libqwt.so.5.2)
-	@$(call install_link, qwt, libqwt.so.5.2.0, \
-		/usr/lib/libqwt.so.5)
+	@$(call install_lib, qwt, 0, 0, 0644, libqwt)
 
 	@$(call install_finish, qwt)
 
