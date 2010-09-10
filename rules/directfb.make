@@ -185,10 +185,10 @@ $(STATEDIR)/directfb.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, directfb)
-	@$(call install_fixup,directfb,PRIORITY,optional)
-	@$(call install_fixup,directfb,SECTION,base)
-	@$(call install_fixup,directfb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,directfb,DESCRIPTION,missing)
+	@$(call install_fixup, directfb,PRIORITY,optional)
+	@$(call install_fixup, directfb,SECTION,base)
+	@$(call install_fixup, directfb,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, directfb,DESCRIPTION,missing)
 
 ifdef PTXCONF_DIRECTFB_CONFIG_DIRECTFBRC
 	@$(call install_alternative, directfb, 0, 0, 0644, /etc/directfbrc)
@@ -201,29 +201,19 @@ endif
 
 	@$(call install_copy, directfb, 0, 0, 0755, -, /usr/bin/dfbinfo)
 
-	@$(call install_copy, directfb, 0, 0, 0644, -, /usr/lib/libdirectfb-1.4.so.0.3.0)
-	@$(call install_link, directfb, libdirectfb-1.4.so.0.3.0, /usr/lib/libdirectfb-1.4.so.0)
-	@$(call install_link, directfb, libdirectfb-1.4.so.0.3.0, /usr/lib/libdirectfb.so)
-
-	@$(call install_copy, directfb, 0, 0, 0644, -, /usr/lib/libfusion-1.4.so.0.3.0)
-	@$(call install_link, directfb, libfusion-1.4.so.0.3.0, /usr/lib/libfusion-1.4.so.0)
-	@$(call install_link, directfb, libfusion-1.4.so.0.3.0, /usr/lib/libfusion.so)
-
-	@$(call install_copy, directfb, 0, 0, 0644, -, /usr/lib/libdirect-1.4.so.0.3.0)
-	@$(call install_link, directfb, libdirect-1.4.so.0.3.0, /usr/lib/libdirect-1.4.so.0)
-	@$(call install_link, directfb, libdirect-1.4.so.0.3.0, /usr/lib/libdirect.so)
+	@$(call install_lib, directfb, 0, 0, 0644, libdirectfb-1.4)
+	@$(call install_lib, directfb, 0, 0, 0644, libfusion-1.4)
+	@$(call install_lib, directfb, 0, 0, 0644, libdirect-1.4)
 
 ifdef PTXCONF_DIRECTFB_WM_UNIQUE
-	@$(call install_copy, directfb, 0, 0, 0644, -,/usr/lib/libuniquewm-1.4.so.0.3.0)
-	@$(call install_link, directfb, libuniquewm-1.4.so.0.3.0, /usr/lib/libuniquewm-1.4.so.0)
-	@$(call install_link, directfb, libuniquewm-1.4.so.0.3.0, /usr/lib/libuniquewm.so)
+	@$(call install_lib, directfb, 0, 0, 0644, libuniquewm-1.4)
 endif
 
 	@cd $(DIRECTFB_PKGDIR) && for plugin in `find ./$(DIRECTFB_MODULE_DIRECTORY) -name "*.so"`; do \
 		$(call install_copy, directfb, 0, 0, 0644, -, /$$plugin); \
 	done
 
-	@$(call install_finish,directfb)
+	@$(call install_finish, directfb)
 
 	@$(call touch)
 
