@@ -89,9 +89,7 @@ ifdef PTXCONF_ATTR_TOOLS
 endif
 
 ifdef PTXCONF_ATTR_SHARED
-	@$(call install_copy, attr, 0, 0, 0644, -, /usr/lib/libattr.so.1.1.0)
-	@$(call install_link, attr, libattr.so.1.1.0, /usr/lib/libattr.so.1)
-	@$(call install_link, attr, libattr.so.1.1.0, /usr/lib/libattr.so)
+	@$(call install_lib, attr, 0, 0, 0644, libattr)
 endif
 	@$(call install_finish, attr)
 
