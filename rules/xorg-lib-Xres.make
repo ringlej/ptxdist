@@ -59,16 +59,7 @@ $(STATEDIR)/xorg-lib-xres.targetinstall:
 	@$(call install_fixup, xorg-lib-xres,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xres,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xres, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXRes.so.1.0.0)
-
-	@$(call install_link, xorg-lib-xres, \
-		libXRes.so.1.0.0, \
-		$(XORG_LIBDIR)/libXRes.so.1)
-
-	@$(call install_link, xorg-lib-xres, \
-		libXRes.so.1.0.0, \
-		$(XORG_LIBDIR)/libXRes.so)
+	@$(call install_lib, xorg-lib-xres, 0, 0, 0644, libXRes)
 
 	@$(call install_finish, xorg-lib-xres)
 
