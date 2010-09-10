@@ -59,16 +59,7 @@ $(STATEDIR)/xorg-lib-fs.targetinstall:
 	@$(call install_fixup, xorg-lib-fs,AUTHOR,"Erwin rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-fs,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-fs, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libFS.so.6.0.0)
-
-	@$(call install_link, xorg-lib-fs, \
-		libFS.so.6.0.0, \
-		$(XORG_LIBDIR)/libFS.so.6)
-
-	@$(call install_link, xorg-lib-fs, \
-		libFS.so.6.0.0, \
-		$(XORG_LIBDIR)/libFS.so)
+	@$(call install_lib, xorg-lib-fs, 0, 0, 0644, libFS)
 
 	@$(call install_finish, xorg-lib-fs)
 
