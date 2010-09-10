@@ -59,16 +59,7 @@ $(STATEDIR)/xorg-lib-oldx.targetinstall:
 	@$(call install_fixup, xorg-lib-oldx,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-oldx,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-oldx, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/liboldX.so.6.0.0)
-
-	@$(call install_link, xorg-lib-oldx, \
-		liboldX.so.6.0.0, \
-		$(XORG_LIBDIR)/liboldX.so.6)
-
-	@$(call install_link, xorg-lib-oldx, \
-		liboldX.so.6.0.0, \
-		$(XORG_LIBDIR)/liboldX.so)
+	@$(call install_lib, xorg-lib-oldx, 0, 0, 0644, liboldX)
 
 	@$(call install_finish, xorg-lib-oldx)
 
