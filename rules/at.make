@@ -66,7 +66,7 @@ AT_MAKE_PAR := NO
 $(STATEDIR)/at.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  at)
+	@$(call install_init, at)
 	@$(call install_fixup, at,PRIORITY,optional)
 	@$(call install_fixup, at,SECTION,base)
 	@$(call install_fixup, at,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
@@ -93,23 +93,18 @@ endif
 ifdef PTXCONF_AT_ATD
 	@$(call install_copy, at, 0, 0, 0755, -, /usr/sbin/atd)
 endif
-
 ifdef PTXCONF_AT_AT
 	@$(call install_copy, at, 0, 0, 6755, -, /usr/bin/at)
 endif
-
 ifdef PTXCONF_AT_ATQ
 	@$(call install_link, at, at, /usr/bin/atq)
 endif
-
 ifdef PTXCONF_AT_ATRM
 	@$(call install_link, at, at, /usr/bin/atrm)
 endif
-
 ifdef PTXCONF_AT_BATCH
 	@$(call install_copy, at, 0, 0, 0755, -, /usr/bin/batch)
 endif
-
 	@$(call install_finish, at)
 
 	@$(call touch)
