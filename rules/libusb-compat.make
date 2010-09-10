@@ -57,9 +57,7 @@ $(STATEDIR)/libusb-compat.targetinstall:
 	@$(call install_fixup, libusb-compat,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libusb-compat,DESCRIPTION,missing)
 
-	@$(call install_copy, libusb-compat, 0, 0, 0644, -, /usr/lib/libusb-0.1.so.4.4.4 )
-	@$(call install_link, libusb-compat, libusb-0.1.so.4.4.4, /usr/lib/libusb-0.1.so.4)
-	@$(call install_link, libusb-compat, libusb-0.1.so.4.4.4, /usr/lib/libusb-0.1.so)
+	@$(call install_lib, libusb-compat, 0, 0, 0644, libusb-0.1)
 
 	@$(call install_finish, libusb-compat)
 
