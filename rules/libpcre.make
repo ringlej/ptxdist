@@ -73,22 +73,14 @@ $(STATEDIR)/libpcre.targetinstall:
 	@$(call install_fixup, libpcre,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libpcre,DESCRIPTION,missing)
 
-	@$(call install_copy, libpcre, 0, 0, 0644, -, /usr/lib/libpcre.so.0.0.1)
-	@$(call install_link, libpcre, libpcre.so.0.0.1, /usr/lib/libpcre.so.0)
-	@$(call install_link, libpcre, libpcre.so.0.0.1, /usr/lib/libpcre.so)
+	@$(call install_lib, libpcre, 0, 0, 0644, libpcre)
 
 ifdef PTXCONF_LIBPCRE_LIBPCREPOSIX
-	@$(call install_copy, libpcre, 0, 0, 0644, -, /usr/lib/libpcreposix.so.0.0.0)
-	@$(call install_link, libpcre, libpcreposix.so.0.0.0, /usr/lib/libpcreposix.so.0)
-	@$(call install_link, libpcre, libpcreposix.so.0.0.0, /usr/lib/libpcreposix.so)
+	@$(call install_lib, libpcre, 0, 0, 0644, libpcreposix)
 endif
-
 ifdef PTXCONF_LIBPCRE_LIBPCRECPP
-	@$(call install_copy, libpcre, 0, 0, 0644, -, /usr/lib/libpcrecpp.so.0.0.0)
-	@$(call install_link, libpcre, libpcrecpp.so.0.0.0, /usr/lib/libpcrecpp.so.0)
-	@$(call install_link, libpcre, libpcrecpp.so.0.0.0, /usr/lib/libpcrecpp.so)
+	@$(call install_lib, libpcre, 0, 0, 0644, libpcrecpp)
 endif
-
 	@$(call install_finish, libpcre)
 
 	@$(call touch)
