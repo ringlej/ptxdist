@@ -83,10 +83,10 @@ $(STATEDIR)/fake-overlayfs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fake-overlayfs)
-	@$(call install_fixup,fake-overlayfs,PRIORITY,optional)
-	@$(call install_fixup,fake-overlayfs,SECTION,base)
-	@$(call install_fixup,fake-overlayfs,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
-	@$(call install_fixup,fake-overlayfs,DESCRIPTION,missing)
+	@$(call install_fixup, fake-overlayfs,PRIORITY,optional)
+	@$(call install_fixup, fake-overlayfs,SECTION,base)
+	@$(call install_fixup, fake-overlayfs,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
+	@$(call install_fixup, fake-overlayfs,DESCRIPTION,missing)
 
 	@$(call install_alternative, fake-overlayfs, 0, 0, 0755, \
 		/etc/init.d/fake-overlayfs)
@@ -99,7 +99,7 @@ ifneq ($(call remove_quotes,$(PTXCONF_FAKE_OVERLAYFS_BBINIT_LINK)),)
 		/etc/rc.d/$(PTXCONF_FAKE_OVERLAYFS_BBINIT_LINK))
 endif
 
-	@$(call install_finish,fake-overlayfs)
+	@$(call install_finish, fake-overlayfs)
 
 	@$(call touch)
 
