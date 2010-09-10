@@ -58,32 +58,9 @@ $(STATEDIR)/gtkmm.targetinstall:
 	@$(call install_fixup, gtkmm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gtkmm,DESCRIPTION,missing)
 
-	@$(call install_copy, gtkmm, 0, 0, 0644, -, \
-		/usr/lib/libgtkmm-2.4.so.1.1.0)
-
-	@$(call install_link, gtkmm, \
-		libgtkmm-2.4.so.1.1.0, /usr/lib/libgtkmm-2.4.so.1)
-
-	@$(call install_link, gtkmm, \
-		libgtkmm-2.4.so.1.1.0, /usr/lib/libgtkmm-2.4.so)
-
-	@$(call install_copy, gtkmm, 0, 0, 0644, -, \
-		/usr/lib/libgdkmm-2.4.so.1.1.0)
-
-	@$(call install_link, gtkmm, \
-		libgdkmm-2.4.so.1.1.0, /usr/lib/libgdkmm-2.4.so.1)
-
-	@$(call install_link, gtkmm, \
-		libgdkmm-2.4.so.1.1.0, /usr/lib/libgdkmm-2.4.so)
-
-	@$(call install_copy, gtkmm, 0, 0, 0644, -, \
-		/usr/lib/libatkmm-1.6.so.1.1.0)
-
-	@$(call install_link, gtkmm, \
-		libatkmm-1.6.so.1.1.0, /usr/lib/libatkmm-1.6.so.1)
-
-	@$(call install_link, gtkmm, \
-		libatkmm-1.6.so.1.1.0, /usr/lib/libatkmm-1.6.so)
+	@$(call install_lib, gtkmm, 0, 0, 0644, libgtkmm-2.4)
+	@$(call install_lib, gtkmm, 0, 0, 0644, libgdkmm-2.4)
+	@$(call install_lib, gtkmm, 0, 0, 0644, libatkmm-1.6)
 
 	@$(call install_finish, gtkmm)
 
