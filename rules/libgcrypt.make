@@ -68,10 +68,7 @@ $(STATEDIR)/libgcrypt.targetinstall:
 	@$(call install_fixup, libgcrypt,AUTHOR,"Erwin Rol")
 	@$(call install_fixup, libgcrypt,DESCRIPTION,missing)
 
-	@$(call install_copy, libgcrypt, 0, 0, 0644, -, \
-		/usr/lib/libgcrypt.so.11.5.3)
-	@$(call install_link, libgcrypt, libgcrypt.so.11.5.3, /usr/lib/libgcrypt.so.11)
-	@$(call install_link, libgcrypt, libgcrypt.so.11.5.3, /usr/lib/libgcrypt.so)
+	@$(call install_lib, libgcrypt, 0, 0, 0644, libgcrypt)
 
 	@$(call install_finish, libgcrypt)
 
