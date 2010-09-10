@@ -100,15 +100,13 @@ endif
 $(STATEDIR)/poppler.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  poppler)
+	@$(call install_init, poppler)
 	@$(call install_fixup, poppler, PRIORITY, optional)
 	@$(call install_fixup, poppler, SECTION, base)
 	@$(call install_fixup, poppler, AUTHOR, "r.schwebel@pengutronix.de")
 	@$(call install_fixup, poppler, DESCRIPTION, missing)
 
-	@$(call install_copy, poppler, 0, 0, 0644, -, /usr/lib/libpoppler.so.4.0.0)
-	@$(call install_link, poppler, libpoppler.so.4.0.0, /usr/lib/libpoppler.so.4)
-	@$(call install_link, poppler, libpoppler.so.4.0.0, /usr/lib/libpoppler.so)
+	@$(call install_lib, poppler, 0, 0, 0644, libpoppler)
 
 ifdef PTXCONF_POPPLER_BIN
 	@cd $(PKGDIR)/$(POPPLER)/usr/bin/ && \
@@ -116,13 +114,9 @@ ifdef PTXCONF_POPPLER_BIN
 		$(call install_copy, poppler, 0, 0, 0755, -, /usr/bin/$$i); \
 	done
 endif
-
 ifdef PTXCONF_POPPLER_GLIB
-	@$(call install_copy, poppler, 0, 0, 0644, -, /usr/lib/libpoppler-glib.so.4.0.0)
-	@$(call install_link, poppler, libpoppler-glib.so.4.0.0, /usr/lib/libpoppler-glib.so.4)
-	@$(call install_link, poppler, libpoppler-glib.so.4.0.0, /usr/lib/libpoppler-glib.so)
+	@$(call install_lib, poppler, 0, 0, 0644, libpoppler-glib)
 endif
-
 	@$(call install_finish, poppler)
 
 	@$(call touch)
