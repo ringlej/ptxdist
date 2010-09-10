@@ -60,8 +60,7 @@ $(STATEDIR)/liblockfile.targetinstall:
 	@$(call install_fixup, liblockfile,AUTHOR,"Bjoern Buerger <b.buerger@pengutronix.de>")
 	@$(call install_fixup, liblockfile,DESCRIPTION,missing)
 
-	@$(call install_copy, liblockfile, 0, 0, 0755, -, \
-		/usr/bin/dotlockfile)
+	@$(call install_copy, liblockfile, 0, 0, 0755, -, /usr/bin/dotlockfile)
 
 	@$(call install_finish, liblockfile)
 
