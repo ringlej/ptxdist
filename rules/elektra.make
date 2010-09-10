@@ -179,26 +179,13 @@ $(STATEDIR)/elektra.targetinstall:
 	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/src/kdb/kdb, /usr/bin/kdb)
 	@$(call install_copy, elektra, 0, 0, 0755, $(ELEKTRA_DIR)/src/preload/preload, /usr/bin/preload)
 
-	@$(call install_copy, elektra, 0, 0, 0644, \
-		$(ELEKTRA_DIR)/src/libelektra/.libs/libelektra.so.3.0.0, \
-		/usr/lib/libelektra.so.3.0.0)
-	@$(call install_link, elektra, libelektra.so.3.0.0, /usr/lib/libelektra.so.3)
-	@$(call install_link, elektra, libelektra.so.3.0.0, /usr/lib/libelektra.so)
+	@$(call install_lib, elektra, 0, 0, 0644, libelektra)
 
 #	FIXME: libelektratools is only available if we have xml support
-#
-#	@$(call install_copy, elektra, 0, 0, 0644, \
-#		$(ELEKTRA_DIR)/src/libelektratools/.libs/libelektratools.so.2.0.0, \
-#		/usr/lib/elektra/libelektratools.so.2.0.0)
-#	@$(call install_link, elektra, libelektratools.so.2.0.0, /usr/lib/elektra/libelektratools.so.2)
-#	@$(call install_link, elektra, libelektratools.so.2.0.0, /usr/lib/elektra/libelektratools.so)
+#	@$(call install_lib, elektra, 0, 0, 0644, libelektratools)
 
 ifdef PTXCONF_ELEKTRA__CPP
-	@$(call install_copy, elektra, 0, 0, 0644, \
-		$(ELEKTRA_DIR)/src/bindings/cpp/.libs/libelektra-cpp.so.0.0.0, \
-		/usr/lib/libelektra-cpp.so.0.0.0)
-	@$(call install_link, elektra, libelektra-cpp.so.0.0.0, /usr/lib/libelektra-cpp.so.0)
-	@$(call install_link, elektra, libelektra-cpp.so.0.0.0, /usr/lib/libelektra-cpp.so)
+	@$(call install_lib, elektra, 0, 0, 0644, libelektra-cpp)
 endif
 ifdef PTXCONF_ELEKTRA__FILESYS
 	@$(call install_copy, elektra, 0, 0, 0644, \
@@ -273,13 +260,8 @@ ifdef PTXCONF_ELEKTRA__DEFAULT_BACKEND_DAEMON
 		libelektra-daemon.so, \
 		/usr/lib/elektra/libelektra-default.so)
 endif
-
 	# FIXME: see note above
-	@$(call install_copy, elektra, 0, 0, 0644, \
-		$(ELEKTRA_DIR)/libltdl/.libs/libltdl.so.7.2.0, \
-		/usr/lib/libltdl.so.7.2.0)
-	@$(call install_link, elektra, libltdl.so.7.2.0, /usr/lib/libltdl.so.7)
-	@$(call install_link, elektra, libltdl.so.7.2.0, /usr/lib/libltdl.so)
+	@$(call install_lib, elektra, 0, 0, 0644, libltdl)
 
 	@$(call install_finish, elektra)
 
