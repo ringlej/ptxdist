@@ -100,18 +100,11 @@ $(STATEDIR)/fltk.targetinstall:
 	@$(call install_fixup, fltk,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, fltk,DESCRIPTION,missing)
 
-	@$(call install_copy, fltk, 0, 0, 0644, -, \
-		/usr/lib/libfltk.so.1.1)
-	@$(call install_link, fltk, libfltk.so.1.1, /usr/lib/libfltk.so)
-
-	@$(call install_copy, fltk, 0, 0, 0644, -, \
-		/usr/lib/libfltk_forms.so.1.1)
-	@$(call install_link, fltk, libfltk_forms.so.1.1, /usr/lib/libfltk_forms.so)
+	@$(call install_lib, fltk, 0, 0, 0644, libfltk)
+	@$(call install_lib, fltk, 0, 0, 0644, libfltk_forms)
 
 #	FIXME: only static?
-#	@$(call install_copy, fltk, 0, 0, 0644, -, \
-#		/usr/lib/libfltk_images.so.1.1)
-#	@$(call install_link, fltk, libfltk_images.so.1.1, /usr/lib/libfltk_images.so)
+#	@$(call install_lib, fltk, 0, 0, 0644, libfltk_images)
 
 	@$(call install_finish, fltk)
 
