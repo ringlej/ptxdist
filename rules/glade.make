@@ -60,13 +60,8 @@ $(STATEDIR)/glade.targetinstall:
 	@$(call install_fixup, glade,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, glade,DESCRIPTION,missing)
 
-	@$(call install_copy, glade, 0, 0, 0755, -, \
-		/usr/bin/glade-3)
-
-	@$(call install_copy, glade, 0, 0, 0644, -, \
-		/usr/lib/libgladeui-1.so.7.0.1)
-	@$(call install_link, glade, libgladeui-1.so.7.0.1, /usr/lib/libgladeui-1.so.7)
-	@$(call install_link, glade, libgladeui-1.so.7.0.1, /usr/lib/libgladeui-1.so)
+	@$(call install_copy, glade, 0, 0, 0755, -, /usr/bin/glade-3)
+	@$(call install_lib, glade, 0, 0, 0644, libgladeui-1)
 
 	@$(call install_finish, glade)
 
