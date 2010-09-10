@@ -59,17 +59,14 @@ $(STATEDIR)/libpopt.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libpopt)
-	@$(call install_fixup,libpopt,PRIORITY,optional)
-	@$(call install_fixup,libpopt,SECTION,base)
-	@$(call install_fixup,libpopt,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,libpopt,DESCRIPTION,missing)
+	@$(call install_fixup, libpopt,PRIORITY,optional)
+	@$(call install_fixup, libpopt,SECTION,base)
+	@$(call install_fixup, libpopt,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, libpopt,DESCRIPTION,missing)
 
-	@$(call install_copy, libpopt, 0, 0, 0644, -, \
-		/usr/lib/libpopt.so.0.0.0)
-	@$(call install_link, libpopt, libpopt.so.0.0.0, /usr/lib/libpopt.so.0)
-	@$(call install_link, libpopt, libpopt.so.0.0.0, /usr/lib/libpopt.so)
+	@$(call install_lib, libpopt, 0, 0, 0644, libpopt)
 
-	@$(call install_finish,libpopt)
+	@$(call install_finish, libpopt)
 
 	@$(call touch)
 
