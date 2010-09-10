@@ -87,24 +87,14 @@ $(STATEDIR)/libxslt.targetinstall:
 	@$(call install_fixup, libxslt,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBXSLT_LIBXSLT
-	@$(call install_copy, libxslt, 0, 0, 0644, -, \
-		/usr/lib/libxslt.so.1.1.26)
-	@$(call install_link, libxslt, libxslt.so.1.1.26, /usr/lib/libxslt.so.1)
-	@$(call install_link, libxslt, libxslt.so.1.1.26, /usr/lib/libxslt.so)
+	@$(call install_lib, libxslt, 0, 0, 0644, libxslt)
 endif
-
 ifdef PTXCONF_LIBXSLT_LIBEXSLT
-	@$(call install_copy, libxslt, 0, 0, 0644, -, \
-		/usr/lib/libexslt.so.0.8.15)
-	@$(call install_link, libxslt, libexslt.so.0.8.15, /usr/lib/libexslt.so.0)
-	@$(call install_link, libxslt, libexslt.so.0.8.15, /usr/lib/libexslt.so)
+	@$(call install_lib, libxslt, 0, 0, 0644, libexslt)
 endif
-
 ifdef PTXCONF_LIBXSLT_XSLTPROC
-	@$(call install_copy, libxslt, 0, 0, 0755, -, \
-		/usr/bin/xsltproc)
+	@$(call install_copy, libxslt, 0, 0, 0755, -, /usr/bin/xsltproc)
 endif
-
 	@$(call install_finish, libxslt)
 
 	@$(call touch)
