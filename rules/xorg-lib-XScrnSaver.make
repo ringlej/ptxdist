@@ -58,16 +58,7 @@ $(STATEDIR)/xorg-lib-xscrnsaver.targetinstall:
 	@$(call install_fixup, xorg-lib-xscrnsaver,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xscrnsaver,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xscrnsaver, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXss.so.1.0.0)
-
-	@$(call install_link, xorg-lib-xscrnsaver, \
-		libXss.so.1.0.0, \
-		$(XORG_LIBDIR)/libXss.so.1)
-
-	@$(call install_link, xorg-lib-xscrnsaver, \
-		libXss.so.1.0.0, \
-		$(XORG_LIBDIR)/libXss.so)
+	@$(call install_lib, xorg-lib-xscrnsaver, 0, 0, 0644, libXss)
 
 	@$(call install_finish, xorg-lib-xscrnsaver)
 
