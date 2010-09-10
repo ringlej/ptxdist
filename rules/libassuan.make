@@ -42,10 +42,7 @@ $(STATEDIR)/libassuan.targetinstall:
 	@$(call install_fixup, libassuan,AUTHOR,"Alexander Stein")
 	@$(call install_fixup, libassuan,DESCRIPTION,missing)
 
-	@$(call install_copy, libassuan, 0, 0, 0644, -, \
-		/usr/lib/libassuan.so.0.0.0)
-	@$(call install_link, libassuan, libassuan.so.0.0.0, /usr/lib/libassuan.so.0)
-	@$(call install_link, libassuan, libassuan.so.0.0.0, /usr/lib/libassuan.so)
+	@$(call install_lib, libassuan, 0, 0, 0644, libassuan)
 
 	@$(call install_finish, libassuan)
 
