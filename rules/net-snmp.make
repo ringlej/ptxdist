@@ -261,42 +261,21 @@ $(STATEDIR)/net-snmp.targetinstall:
 	@$(call install_fixup, net-snmp,DESCRIPTION,missing)
 
 ifdef PTXCONF_NET_SNMP_AGENT
-	@$(call install_copy, net-snmp, 0, 0, 0644, -, \
-		/usr/lib/libnetsnmpagent.so.$(NET_SNMP_LIBVER))
-	@$(call install_link, net-snmp, libnetsnmpagent.so.$(NET_SNMP_LIBVER), \
-		/usr/lib/libnetsnmpagent.so.$(NET_SNMP_LIBMAJOR))
-	@$(call install_link, net-snmp, libnetsnmpagent.so.$(NET_SNMP_LIBVER), \
-		/usr/lib/libnetsnmpagent.so)
+	@$(call install_lib, net-snmp, 0, 0, 0644, libnetsnmpagent)
 
 # agent mib libs
-	@$(call install_copy, net-snmp, 0, 0, 0644, -, \
-		/usr/lib/libnetsnmpmibs.so.$(NET_SNMP_LIBVER))
-	@$(call install_link, net-snmp, libnetsnmpmibs.so.$(NET_SNMP_LIBVER), \
-		/usr/lib/libnetsnmpmibs.so.$(NET_SNMP_LIBMAJOR))
-	@$(call install_link, net-snmp, libnetsnmpmibs.so.$(NET_SNMP_LIBVER), \
-		/usr/lib/libnetsnmpmibs.so)
+	@$(call install_lib, net-snmp, 0, 0, 0644, libnetsnmpmibs)
 
 # agent binary
-	@$(call install_copy, net-snmp, 0, 0, 0755, -, \
-		/usr/sbin/snmpd)
+	@$(call install_copy, net-snmp, 0, 0, 0755, -, /usr/sbin/snmpd)
 
 # agent helper libs
-	@$(call install_copy, net-snmp, 0, 0, 0644, -, \
-		/usr/lib/libnetsnmphelpers.so.$(NET_SNMP_LIBVER))
-	@$(call install_link, net-snmp, libnetsnmphelpers.so.$(NET_SNMP_LIBVER), \
-		/usr/lib/libnetsnmphelpers.so.$(NET_SNMP_LIBMAJOR))
-	@$(call install_link, net-snmp, libnetsnmphelpers.so.$(NET_SNMP_LIBVER), \
-		/usr/lib/libnetsnmphelpers.so)
+	@$(call install_lib, net-snmp, 0, 0, 0644, libnetsnmphelpers)
 endif
 
 ifdef PTXCONF_NET_SNMP_APPLICATIONS
 # apps libs
-	@$(call install_copy, net-snmp, 0, 0, 0644, -, \
-		/usr/lib/libnetsnmptrapd.so.$(NET_SNMP_LIBVER))
-	@$(call install_link, net-snmp, libnetsnmptrapd.so.$(NET_SNMP_LIBVER), \
-		/usr/lib/libnetsnmptrapd.so.$(NET_SNMP_LIBMAJOR))
-	@$(call install_link, net-snmp, libnetsnmptrapd.so.$(NET_SNMP_LIBVER), \
-		/usr/lib/libnetsnmptrapd.so)
+	@$(call install_lib, net-snmp, 0, 0, 0644, libnetsnmptrapd)
 
 # apps binaries
 ##ifdef PTXCONF_NET_SNMP_MINI_AGENT
@@ -326,12 +305,7 @@ ifdef PTXCONF_NET_SNMP_APPLICATIONS
 endif
 
 # snmplib
-	@$(call install_copy, net-snmp, 0, 0, 0644, -, \
-		/usr/lib/libnetsnmp.so.$(NET_SNMP_LIBVER))
-	@$(call install_link, net-snmp, libnetsnmp.so.$(NET_SNMP_LIBVER), \
-		/usr/lib/libnetsnmp.so.$(NET_SNMP_LIBMAJOR))
-	@$(call install_link, net-snmp, libnetsnmp.so.$(NET_SNMP_LIBVER), \
-		/usr/lib/libnetsnmp.so)
+	@$(call install_lib, net-snmp, 0, 0, 0644, libnetsnmp)
 
 # MIB files <TODO: install specified set of mib files>
 ifdef PTXCONF_NET_SNMP_MIBS
