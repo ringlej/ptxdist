@@ -53,10 +53,7 @@ $(STATEDIR)/libjpeg.targetinstall:
 	@$(call install_fixup, libjpeg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libjpeg,DESCRIPTION,missing)
 
-	@$(call install_copy, libjpeg, 0, 0, 0644, -, \
-		/usr/lib/libjpeg.so.8.0.1)
-	@$(call install_link, libjpeg, libjpeg.so.8.0.1, /usr/lib/libjpeg.so.8)
-	@$(call install_link, libjpeg, libjpeg.so.8.0.1, /usr/lib/libjpeg.so)
+	@$(call install_lib, libjpeg, 0, 0, 0644, libjpeg)
 
 	@$(call install_finish, libjpeg)
 
