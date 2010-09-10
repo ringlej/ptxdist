@@ -64,19 +64,17 @@ $(STATEDIR)/fam.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fam)
-	@$(call install_fixup,fam,PRIORITY,optional)
-	@$(call install_fixup,fam,SECTION,base)
-	@$(call install_fixup,fam,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
-	@$(call install_fixup,fam,DESCRIPTION,missing)
+	@$(call install_fixup, fam,PRIORITY,optional)
+	@$(call install_fixup, fam,SECTION,base)
+	@$(call install_fixup, fam,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
+	@$(call install_fixup, fam,DESCRIPTION,missing)
 
 	@$(call install_copy, fam, 0, 0, 0755, -, /usr/sbin/famd)
 ifdef PTXCONF_FAM_DEFAULT_CONF
 	@$(call install_copy, fam, 0, 0, 0755, -, /etc/fam.conf, n)
 endif
 ifdef PTXCONF_FAM_LIBRARY
-	@$(call install_copy, fam, 0, 0, 0644, -, /usr/lib/libfam.so.0.0.0)
-	@$(call install_link, fam, libfam.so.0.0.0, /usr/lib/libfam.so.0)
-	@$(call install_link, fam, libfam.so.0.0.0, /usr/lib/libfam.so)
+	@$(call install_lib, fam, 0, 0, 0644, libfam)
 endif
 
 ifdef PTXCONF_FAM_STARTUP_TYPE_STANDALONE
@@ -91,7 +89,7 @@ ifdef PTXCONF_FAM_INETD_SERVER
 	@$(call install_alternative, fam, 0, 0, 0644, /etc/inetd.conf.d/fam)
 endif
 
-	@$(call install_finish,fam)
+	@$(call install_finish, fam)
 
 	@$(call touch)
 
