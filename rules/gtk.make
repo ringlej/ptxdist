@@ -117,10 +117,10 @@ $(STATEDIR)/gtk.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, gtk)
-	@$(call install_fixup,gtk,PRIORITY,optional)
-	@$(call install_fixup,gtk,SECTION,base)
-	@$(call install_fixup,gtk,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,gtk,DESCRIPTION,missing)
+	@$(call install_fixup, gtk,PRIORITY,optional)
+	@$(call install_fixup, gtk,SECTION,base)
+	@$(call install_fixup, gtk,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, gtk,DESCRIPTION,missing)
 
 # reviewed: 2.14.7 wants to install this:
 #
@@ -158,35 +158,22 @@ $(STATEDIR)/gtk.targetinstall:
 # /etc/gtk-2.0/im-multipress.conf
 
 ifdef PTXCONF_GTK_TARGET_DIRECTFB
-	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgdk-directfb-2.0.so.$(GTK_LIBVERSION))
-	@$(call install_link, gtk, libgdk-directfb-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk-directfb-2.0.so.0)
-	@$(call install_link, gtk, libgdk-directfb-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk-directfb-2.0.so)
-
-	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgtk-directfb-2.0.so.$(GTK_LIBVERSION))
-	@$(call install_link, gtk, libgtk-directfb-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgtk-directfb-2.0.so.0)
-	@$(call install_link, gtk, libgtk-directfb-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgtk-directfb-2.0.so)
+	@$(call install_lib, gtk, 0, 0, 0644, libgdk-directfb-2.0)
+	@$(call install_lib, gtk, 0, 0, 0644, libgtk-directfb-2.0)
 endif
 
 ifdef PTXCONF_GTK_TARGET_X11
-	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgdk-x11-2.0.so.$(GTK_LIBVERSION))
-	@$(call install_link, gtk, libgdk-x11-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk-x11-2.0.so.0)
-	@$(call install_link, gtk, libgdk-x11-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk-x11-2.0.so)
-
-	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgtk-x11-2.0.so.$(GTK_LIBVERSION))
-	@$(call install_link, gtk, libgtk-x11-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgtk-x11-2.0.so.0)
-	@$(call install_link, gtk, libgtk-x11-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgtk-x11-2.0.so)
+	@$(call install_lib, gtk, 0, 0, 0644, libgdk-x11-2.0)
+	@$(call install_lib, gtk, 0, 0, 0644, libgtk-x11-2.0)
 endif
 
-	@$(call install_copy, gtk, 0, 0, 0644, -, /usr/lib/libgdk_pixbuf-2.0.so.$(GTK_LIBVERSION))
-	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk_pixbuf-2.0.so.0)
-	@$(call install_link, gtk, libgdk_pixbuf-2.0.so.$(GTK_LIBVERSION), /usr/lib/libgdk_pixbuf-2.0.so)
+	@$(call install_lib, gtk, 0, 0, 0644, libgdk_pixbuf-2.0)
 
 ifdef PTXCONF_GTK_DEMO
 	@$(call install_copy, gtk, 0, 0, 0755, -,\
 		/usr/bin/testgtk)
 endif
-
-	@$(call install_finish,gtk)
+	@$(call install_finish, gtk)
 
 	@$(call touch)
 
