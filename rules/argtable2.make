@@ -59,10 +59,7 @@ $(STATEDIR)/argtable2.targetinstall:
 	@$(call install_fixup, argtable2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, argtable2,DESCRIPTION,missing)
 
-	@$(call install_copy, argtable2, 0, 0, 0644, -, \
-		/usr/lib/libargtable2.so.0.1.7)
-	@$(call install_link, argtable2, libargtable2.so.0.1.7, /usr/lib/libargtable2.so.0)
-	@$(call install_link, argtable2, libargtable2.so.0.1.7, /usr/lib/libargtable2.so)
+	@$(call install_lib, argtable2, 0, 0, 0644, libargtable2)
 
 	@$(call install_finish, argtable2)
 
