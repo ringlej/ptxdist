@@ -58,9 +58,7 @@ $(STATEDIR)/freetype.targetinstall:
 	@$(call install_fixup, freetype,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, freetype,DESCRIPTION,missing)
 
-	@$(call install_copy, freetype, 0, 0, 0644, -, /usr/lib/libfreetype.so.6.3.22)
-	@$(call install_link, freetype, libfreetype.so.6.3.22, /usr/lib/libfreetype.so.6)
-	@$(call install_link, freetype, libfreetype.so.6.3.22, /usr/lib/libfreetype.so)
+	@$(call install_lib, freetype, 0, 0, 0644, libfreetype)
 
 	@$(call install_finish, freetype)
 
