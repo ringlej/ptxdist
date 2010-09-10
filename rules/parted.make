@@ -48,7 +48,7 @@ PARTED_CONF_OPT  := \
 $(STATEDIR)/parted.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  parted)
+	@$(call install_init, parted)
 	@$(call install_fixup, parted,PRIORITY,optional)
 	@$(call install_fixup, parted,SECTION,base)
 	@$(call install_fixup, parted,AUTHOR,"Bart vdr. Meulen <bartvdrmeulen@gmail.com>")
@@ -57,9 +57,8 @@ $(STATEDIR)/parted.targetinstall:
 	@$(call install_copy, parted, 0, 0, 0755, -, /usr/sbin/parted)
 	@$(call install_copy, parted, 0, 0, 0755, -, /usr/sbin/partprobe)
 
-	@$(call install_copy, parted, 0, 0, 0644, -, /usr/lib/libparted-1.8.so.7.0.0 )
-	@$(call install_link, parted, libparted-1.8.so.7.0.0, /usr/lib/libparted-1.8.so.7)
-	@$(call install_link, parted, libparted-1.8.so.7.0.0, /usr/lib/libparted.so)
+	@$(call install_lib, parted, 0, 0, 0644, libparted-1.8)
+
 	@$(call install_finish, parted)
 
 	@$(call touch)
