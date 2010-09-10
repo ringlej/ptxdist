@@ -58,17 +58,7 @@ $(STATEDIR)/xorg-lib-xxf86dga.targetinstall:
 	@$(call install_fixup, xorg-lib-xxf86dga,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xxf86dga,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xxf86dga, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXxf86dga.so.1.0.0)
-
-	@$(call install_link, xorg-lib-xxf86dga, \
-		libXxf86dga.so.1.0.0, \
-		$(XORG_LIBDIR)/libXxf86dga.so.1)
-
-	@$(call install_link, xorg-lib-xxf86dga, \
-		libXxf86dga.so.1.0.0, \
-		$(XORG_LIBDIR)/libXxf86dga.so)
-
+	@$(call install_lib, xorg-lib-xxf86dga, 0, 0, 0644, libXxf86dga)
 
 	@$(call install_finish, xorg-lib-xxf86dga)
 
