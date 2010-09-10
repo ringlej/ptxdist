@@ -57,10 +57,7 @@ $(STATEDIR)/libsigcpp.targetinstall:
 	@$(call install_fixup, libsigcpp,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libsigcpp,DESCRIPTION,missing)
 
-	@$(call install_copy, libsigcpp, 0, 0, 0644, -, \
-		/usr/lib/libsigc-2.0.so.0.0.0)
-	@$(call install_link, libsigcpp, libsigc-2.0.so.0.0.0, /usr/lib/libsigc-2.0.so.0)
-	@$(call install_link, libsigcpp, libsigc-2.0.so.0.0.0, /usr/lib/libsigc-2.0.so)
+	@$(call install_lib, libsigcpp, 0, 0, 0644, libsigc-2.0)
 
 	@$(call install_finish, libsigcpp)
 
