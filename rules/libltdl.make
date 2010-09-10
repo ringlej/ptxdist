@@ -51,17 +51,14 @@ $(STATEDIR)/libltdl.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libltdl)
-	@$(call install_fixup,libltdl,PRIORITY,optional)
-	@$(call install_fixup,libltdl,SECTION,base)
-	@$(call install_fixup,libltdl,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,libltdl,DESCRIPTION,missing)
+	@$(call install_fixup, libltdl,PRIORITY,optional)
+	@$(call install_fixup, libltdl,SECTION,base)
+	@$(call install_fixup, libltdl,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, libltdl,DESCRIPTION,missing)
 
-	@$(call install_copy, libltdl, 0, 0, 0644, -, \
-		/usr/lib/libltdl.so.3.1.6)
-	@$(call install_link, libltdl, libltdl.so.3.1.6, /usr/lib/libltdl.so.3)
-	@$(call install_link, libltdl, libltdl.so.3.1.6, /usr/lib/libltdl.so)
+	@$(call install_lib, libltdl, 0, 0, 0644, libltdl)
 
-	@$(call install_finish,libltdl)
+	@$(call install_finish, libltdl)
 
 	@$(call touch)
 
