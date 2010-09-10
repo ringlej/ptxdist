@@ -58,9 +58,7 @@ $(STATEDIR)/pangomm.targetinstall:
 	@$(call install_fixup, pangomm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, pangomm,DESCRIPTION,missing)
 
-	@$(call install_copy, pangomm, 0, 0, 0644, -, /usr/lib/libpangomm-1.4.so.1.0.30)
-	@$(call install_link, pangomm, libpangomm-1.4.so.1.0.30, /usr/lib/libpangomm-1.4.so.1)
-	@$(call install_link, pangomm, libpangomm-1.4.so.1.0.30, /usr/lib/libpangomm-1.4.so)
+	@$(call install_lib, pangomm, 0, 0, 0644, libpangomm-1.4)
 
 	@$(call install_finish, pangomm)
 
