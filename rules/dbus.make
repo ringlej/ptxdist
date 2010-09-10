@@ -92,10 +92,10 @@ $(STATEDIR)/dbus.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, dbus)
-	@$(call install_fixup,dbus,PRIORITY,optional)
-	@$(call install_fixup,dbus,SECTION,base)
-	@$(call install_fixup,dbus,AUTHOR,"Roland Hostettler <r.hostettler@gmx.ch>")
-	@$(call install_fixup,dbus,DESCRIPTION,missing)
+	@$(call install_fixup, dbus,PRIORITY,optional)
+	@$(call install_fixup, dbus,SECTION,base)
+	@$(call install_fixup, dbus,AUTHOR,"Roland Hostettler <r.hostettler@gmx.ch>")
+	@$(call install_fixup, dbus,DESCRIPTION,missing)
 
 	@$(call install_copy, dbus, 0, 0, 0755, -, \
 		/usr/bin/dbus-daemon)
@@ -112,10 +112,7 @@ $(STATEDIR)/dbus.targetinstall:
 	@$(call install_copy, dbus, 0, 104, 4754, -, \
 		/usr/libexec/dbus-daemon-launch-helper)
 
-	@$(call install_copy, dbus, 0, 0, 0644, -, \
-		/usr/lib/libdbus-1.so.3.5.2)
-	@$(call install_link, dbus, libdbus-1.so.3.5.2, /usr/lib/libdbus-1.so.3)
-	@$(call install_link, dbus, libdbus-1.so.3.5.2, /usr/lib/libdbus-1.so)
+	@$(call install_lib, dbus, 0, 0, 0644, libdbus-1)
 
 #	#
 #	# create system.d and event.d directories, which are used by the configuration and startup files
@@ -165,7 +162,7 @@ ifdef PTXCONF_DBUS_STARTSCRIPT
 endif
 endif
 
-	@$(call install_finish,dbus)
+	@$(call install_finish, dbus)
 
 	@$(call touch)
 
