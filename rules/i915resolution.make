@@ -1,7 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2006 by Erwin Rol
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -49,14 +49,14 @@ $(STATEDIR)/i915resolution.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, i915resolution)
-	@$(call install_fixup,i915resolution,PRIORITY,optional)
-	@$(call install_fixup,i915resolution,SECTION,base)
-	@$(call install_fixup,i915resolution,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,i915resolution,DESCRIPTION,missing)
+	@$(call install_fixup, i915resolution,PRIORITY,optional)
+	@$(call install_fixup, i915resolution,SECTION,base)
+	@$(call install_fixup, i915resolution,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, i915resolution,DESCRIPTION,missing)
 
 	@$(call install_copy, i915resolution, 0, 0, 0755, -, /usr/sbin/915resolution)
 
-	@$(call install_finish,i915resolution)
+	@$(call install_finish, i915resolution)
 
 	@$(call touch)
 
