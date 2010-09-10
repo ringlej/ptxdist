@@ -47,10 +47,10 @@ LIBMXML_INSTALL_OPT := \
 $(STATEDIR)/libmxml.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libmxml)
+	@$(call install_init, libmxml)
 	@$(call install_fixup, libmxml,PRIORITY,optional)
 	@$(call install_fixup, libmxml,SECTION,base)
-	@$(call install_fixup, libmxml,AUTHOR,"<Ryan Raasch ryan.raasch@gmail.com>")
+	@$(call install_fixup, libmxml,AUTHOR,"Ryan Raasch <ryan.raasch@gmail.com>")
 	@$(call install_fixup, libmxml,DESCRIPTION,missing)
 
 	@$(call install_lib, libmxml, 0, 0, 0644, libmxml)
