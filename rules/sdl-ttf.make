@@ -60,12 +60,7 @@ $(STATEDIR)/sdl-ttf.targetinstall:
 	@$(call install_fixup, sdl-ttf,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
 	@$(call install_fixup, sdl-ttf,DESCRIPTION,missing)
 
-	@$(call install_copy, sdl-ttf, 0, 0, 0644, -, \
-		/usr/lib/libSDL_ttf-2.0.so.0.6.3)
-	@$(call install_link, sdl-ttf, libSDL_ttf-2.0.so.0.6.3, \
-		/usr/lib/libSDL_ttf-2.0.so.0)
-	@$(call install_link, sdl-ttf, libSDL_ttf-2.0.so.0.6.3, \
-		/usr/lib/libSDL_ttf.so)
+	@$(call install_lib, sdl-ttf, 0, 0, 0644, libSDL_ttf-2.0)
 
 	@$(call install_finish, sdl-ttf)
 
