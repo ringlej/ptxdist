@@ -84,18 +84,13 @@ endif
 $(STATEDIR)/libgsf.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libgsf)
+	@$(call install_init, libgsf)
 	@$(call install_fixup, libgsf,PRIORITY,optional)
 	@$(call install_fixup, libgsf,SECTION,base)
 	@$(call install_fixup, libgsf,AUTHOR,"Erwin Rol")
 	@$(call install_fixup, libgsf,DESCRIPTION,missing)
 
-	@$(call install_copy, libgsf, 0, 0, 0644, -, \
-		/usr/lib/libgsf-1.so.114.0.16)
-	@$(call install_link, libgsf, \
-		libgsf-1.so.114.0.16, /usr/lib/libgsf-1.so.114)
-	@$(call install_link, libgsf, \
-		libgsf-1.so.114.0.16, /usr/lib/libgsf-1.so)
+	@$(call install_lib, libgsf, 0, 0, 0644, libgsf-1)
 
 	@$(call install_finish, libgsf)
 
