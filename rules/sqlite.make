@@ -120,12 +120,7 @@ $(STATEDIR)/sqlite.targetinstall:
 	@$(call install_fixup, sqlite,AUTHOR,"Ladislav Michl <ladis@linux-mips.org>")
 	@$(call install_fixup, sqlite,DESCRIPTION,missing)
 
-	@$(call install_copy, sqlite, 0, 0, 0644, -, \
-		/usr/lib/libsqlite3-$(SQLITE_VERSION).so.0.8.6)
-	@$(call install_link, sqlite, libsqlite3-$(SQLITE_VERSION).so.0.8.6, \
-		/usr/lib/libsqlite3.so)
-	@$(call install_link, sqlite, libsqlite3-$(SQLITE_VERSION).so.0.8.6, \
-		/usr/lib/libsqlite3-$(SQLITE_VERSION).so.0)
+	@$(call install_lib, sqlite, 0, 0, 0644, libsqlite3-$(SQLITE_VERSION))
 
 ifdef PTXCONF_SQLITE_TOOL
 	@$(call install_copy, sqlite, 0, 0, 0755, -, /usr/bin/sqlite3)
