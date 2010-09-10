@@ -62,11 +62,7 @@ $(STATEDIR)/libdbus-cxx.targetinstall:
 	@$(call install_fixup, libdbus-cxx,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libdbus-cxx,DESCRIPTION,missing)
 
-	@$(call install_copy, libdbus-cxx, 0, 0, 0755, \
-		$(LIBDBUS_CXX_DIR)/src/.libs/libdbus-c++-1.so.0.0.0, \
-		/usr/lib/libdbus-c++-1.so.0.0.0)
-	@$(call install_link, libdbus-cxx, libdbus-c++-1.so.0.0.0, /usr/lib/libdbus-c++-1.so.0)
-	@$(call install_link, libdbus-cxx, libdbus-c++-1.so.0.0.0, /usr/lib/libdbus-c++-1.so)
+	@$(call install_lib, libdbus-cxx, 0, 0, 0755, libdbus-c++-1)
 
 	@$(call install_finish, libdbus-cxx)
 
