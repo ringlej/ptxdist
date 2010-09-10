@@ -58,12 +58,7 @@ $(STATEDIR)/libxmlconfig.targetinstall:
 	@$(call install_fixup, libxmlconfig,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libxmlconfig,DESCRIPTION,missing)
 
-	@$(call install_copy, libxmlconfig, 0, 0, 0644, -, \
-		/usr/lib/libxmlconfig.so.0.0.0)
-	@$(call install_link, libxmlconfig, libxmlconfig.so.0.0.0, \
-		/usr/lib/libxmlconfig.so.0)
-	@$(call install_link, libxmlconfig, libxmlconfig.so.0.0.0, \
-		/usr/lib/libxmlconfig.so)
+	@$(call install_lib, libxmlconfig, 0, 0, 0644, libxmlconfig)
 
 	@$(call install_finish, libxmlconfig)
 
