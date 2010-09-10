@@ -85,17 +85,9 @@ $(STATEDIR)/policykit.targetinstall:
 	@$(call install_fixup, policykit,DESCRIPTION,missing)
 
 	# libs
-	@$(call install_copy, policykit, 0, 0, 0644, -, /usr/lib/libpolkit-dbus.so.2.0.0)
-	@$(call install_link, policykit, libpolkit-dbus.so.2.0.0, /usr/lib/libpolkit-dbus.so.2)
-	@$(call install_link, policykit, libpolkit-dbus.so.2.0.0, /usr/lib/libpolkit-dbus.so)
-
-	@$(call install_copy, policykit, 0, 0, 0644, -, /usr/lib/libpolkit-grant.so.2.0.0)
-	@$(call install_link, policykit, libpolkit-grant.so.2.0.0, /usr/lib/libpolkit-grant.so.2)
-	@$(call install_link, policykit, libpolkit-grant.so.2.0.0, /usr/lib/libpolkit-grant.so)
-
-	@$(call install_copy, policykit, 0, 0, 0644, -, /usr/lib/libpolkit.so.2.0.0)
-	@$(call install_link, policykit, libpolkit.so.2.0.0, /usr/lib/libpolkit.so.2)
-	@$(call install_link, policykit, libpolkit.so.2.0.0, /usr/lib/libpolkit.so)
+	@$(call install_lib, policykit, 0, 0, 0644, libpolkit-dbus)
+	@$(call install_lib, policykit, 0, 0, 0644, libpolkit-grant)
+	@$(call install_lib, policykit, 0, 0, 0644, libpolkit)
 
 	# configs
 	for i in \
