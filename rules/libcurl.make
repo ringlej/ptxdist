@@ -122,7 +122,7 @@ endif
 $(STATEDIR)/libcurl.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libcurl)
+	@$(call install_init, libcurl)
 	@$(call install_fixup, libcurl,PRIORITY,optional)
 	@$(call install_fixup, libcurl,SECTION,base)
 	@$(call install_fixup, libcurl,AUTHOR,"Daniel Schnell <daniel.schnell@marel.com>")
@@ -131,10 +131,7 @@ $(STATEDIR)/libcurl.targetinstall:
 ifdef PTXCONF_LIBCURL_CURL
 	@$(call install_copy, libcurl, 0, 0, 0755, -, /usr/bin/curl)
 endif
-
-	@$(call install_copy, libcurl, 0, 0, 0644, -, /usr/lib/libcurl.so.4.2.0)
-	@$(call install_link, libcurl, libcurl.so.4.2.0, /usr/lib/libcurl.so.4)
-	@$(call install_link, libcurl, libcurl.so.4.2.0, /usr/lib/libcurl.so)
+	@$(call install_lib, libcurl, 0, 0, 0644, libcurl)
 
 	@$(call install_finish, libcurl)
 
