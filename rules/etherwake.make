@@ -56,8 +56,7 @@ $(STATEDIR)/etherwake.targetinstall:
 	@$(call install_fixup, etherwake,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, etherwake,DESCRIPTION,missing)
 
-	@$(call install_copy, etherwake, 0, 0, 0755, -, \
-		/usr/sbin/etherwake)
+	@$(call install_copy, etherwake, 0, 0, 0755, -, /usr/sbin/etherwake)
 
 	@$(call install_finish, etherwake)
 
