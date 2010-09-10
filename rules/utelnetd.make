@@ -64,8 +64,7 @@ $(STATEDIR)/utelnetd.targetinstall:
 	@$(call install_fixup, utelnetd,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, utelnetd,DESCRIPTION,missing)
 
-	@$(call install_copy, utelnetd, 0, 0, 0755, -, \
-		/sbin/utelnetd)
+	@$(call install_copy, utelnetd, 0, 0, 0755, -, /sbin/utelnetd)
 
 	#
 	# busybox init
