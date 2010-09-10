@@ -57,17 +57,10 @@ $(STATEDIR)/oprofile.targetinstall:
 	@$(call install_fixup, oprofile,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, oprofile,DESCRIPTION,missing)
 
-	@$(call install_copy, oprofile, 0, 0, 0755, -, \
-		/usr/bin/opcontrol)
-
-	@$(call install_copy, oprofile, 0, 0, 0755, -, \
-		/usr/bin/ophelp)
-
-	@$(call install_copy, oprofile, 0, 0, 0755, -, \
-		/usr/bin/opreport)
-
-	@$(call install_copy, oprofile, 0, 0, 0755, -, \
-		/usr/bin/oprofiled)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/opcontrol)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/ophelp)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/opreport)
+	@$(call install_copy, oprofile, 0, 0, 0755, -, /usr/bin/oprofiled)
 
 	@cd $(OPROFILE_PKGDIR) && \
 	find usr/share/oprofile -type f | while read file; do \
