@@ -58,16 +58,7 @@ $(STATEDIR)/xorg-lib-xxf86vm.targetinstall:
 	@$(call install_fixup, xorg-lib-xxf86vm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xxf86vm,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xxf86vm, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXxf86vm.so.1.0.0)
-
-	@$(call install_link, xorg-lib-xxf86vm, \
-		libXxf86vm.so.1.0.0, \
-		$(XORG_LIBDIR)/libXxf86vm.so.1)
-
-	@$(call install_link, xorg-lib-xxf86vm, \
-		libXxf86vm.so.1.0.0, \
-		$(XORG_LIBDIR)/libXxf86vm.so)
+	@$(call install_lib, xorg-lib-xxf86vm, 0, 0, 0644, libXxf86vm)
 
 	@$(call install_finish, xorg-lib-xxf86vm)
 
