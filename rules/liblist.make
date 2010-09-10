@@ -57,12 +57,7 @@ $(STATEDIR)/liblist.targetinstall:
 	@$(call install_fixup, liblist,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, liblist,DESCRIPTION,missing)
 
-	@$(call install_copy, liblist, 0, 0, 0644, -, \
-		/usr/lib/libptxlist.so.0.0.0)
-	@$(call install_link, liblist, libptxlist.so.0.0.0, \
-		/usr/lib/libptxlist.so.0)
-	@$(call install_link, liblist, libptxlist.so.0.0.0, \
-		/usr/lib/libptxlist.so)
+	@$(call install_lib, liblist, 0, 0, 0644, libptxlist)
 
 	@$(call install_finish, liblist)
 
