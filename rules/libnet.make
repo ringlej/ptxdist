@@ -58,9 +58,7 @@ $(STATEDIR)/libnet.targetinstall:
 	@$(call install_fixup, libnet,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libnet,DESCRIPTION,missing)
 
-	@$(call install_copy, libnet, 0, 0, 0644, -, /usr/lib/libnet.so.1.5.0)
-	@$(call install_link, libnet, libnet.so.1.5.0, /usr/lib/libnet.so.1)
-	@$(call install_link, libnet, libnet.so.1.5.0, /usr/lib/libnet.so)
+	@$(call install_lib, libnet, 0, 0, 0644, libnet)
 
 	@$(call install_finish, libnet)
 
