@@ -57,9 +57,7 @@ $(STATEDIR)/libnl.targetinstall:
 	@$(call install_fixup, libnl,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libnl,DESCRIPTION,missing)
 
-	@$(call install_copy, libnl, 0, 0, 0644, -, /usr/lib/libnl.so.1.1)
-	@$(call install_link, libnl, libnl.so.1.1, /usr/lib/libnl.so.1)
-	@$(call install_link, libnl, libnl.so.1.1, /usr/lib/libnl.so)
+	@$(call install_lib, libnl, 0, 0, 0644, libnl)
 
 ifdef PTXCONF_LIBNL_MONITOR
 	@$(call install_copy, libnl, 0, 0, 0755, -, /usr/sbin/nl-monitor)
