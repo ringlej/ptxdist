@@ -56,8 +56,7 @@ $(STATEDIR)/sdparm.targetinstall:
 	@$(call install_fixup, sdparm,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
 	@$(call install_fixup, sdparm,DESCRIPTION,missing)
 
-	@$(call install_copy, sdparm, 0, 0, 0755, -, \
-		/usr/bin/sdparm)
+	@$(call install_copy, sdparm, 0, 0, 0755, -, /usr/bin/sdparm)
 
 	@$(call install_finish, sdparm)
 
