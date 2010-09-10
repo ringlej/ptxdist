@@ -59,10 +59,7 @@ $(STATEDIR)/libglade.targetinstall:
 	@$(call install_fixup, libglade,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libglade,DESCRIPTION,missing)
 
-	@$(call install_copy, libglade, 0, 0, 0644, -, \
-		/usr/lib/libglade-2.0.so.0.0.7)
-	@$(call install_link, libglade, libglade-2.0.so.0.0.7, /usr/lib/libglade-2.0.so.0)
-	@$(call install_link, libglade, libglade-2.0.so.0.0.7, /usr/lib/libglade-2.0.so)
+	@$(call install_lib, libglade, 0, 0, 0644, libglade-2.0)
 
 	@$(call install_finish, libglade)
 
