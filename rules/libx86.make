@@ -56,8 +56,7 @@ $(STATEDIR)/libx86.targetinstall:
 	@$(call install_fixup, libx86,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libx86,DESCRIPTION,missing)
 
-	@$(call install_copy, libx86, 0, 0, 0644, -, /usr/lib/libx86.so.1)
-	@$(call install_link, libx86, libx86.so.1, /usr/lib/libx86.so)
+	@$(call install_lib, libx86, 0, 0, 0644, libx86)
 
 	@$(call install_finish, libx86)
 
