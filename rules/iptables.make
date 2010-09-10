@@ -89,13 +89,13 @@ $(STATEDIR)/iptables.targetinstall:
 	@$(call install_fixup, iptables,DESCRIPTION,missing)
 
 # 	# install the basic libraries
-	@$(call install_lib,  iptables, 0, 0, 0644, libiptc)
-	@$(call install_lib,  iptables, 0, 0, 0644, libxtables)
+	@$(call install_lib, iptables, 0, 0, 0644, libiptc)
+	@$(call install_lib, iptables, 0, 0, 0644, libxtables)
 
 # 	# IPv6 part
 ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES_MULTI
 	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/ip6tables-multi)
-	@$(call install_lib,  iptables, 0, 0, 0644, libip6tc)
+	@$(call install_lib, iptables, 0, 0, 0644, libip6tc)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_IP6TABLES
@@ -122,7 +122,7 @@ endif
 # IPv4 part
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES_MULTI
 	@$(call install_copy, iptables, 0, 0, 0755, -, /usr/sbin/iptables-multi)
-	@$(call install_lib,  iptables, 0, 0, 0644, libip4tc)
+	@$(call install_lib, iptables, 0, 0, 0644, libip4tc)
 endif
 
 ifdef PTXCONF_IPTABLES_INSTALL_IPTABLES
