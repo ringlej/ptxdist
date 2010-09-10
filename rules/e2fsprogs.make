@@ -104,41 +104,26 @@ $(STATEDIR)/e2fsprogs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, e2fsprogs)
-	@$(call install_fixup,e2fsprogs,PRIORITY,optional)
-	@$(call install_fixup,e2fsprogs,SECTION,base)
-	@$(call install_fixup,e2fsprogs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,e2fsprogs,DESCRIPTION,missing)
+	@$(call install_fixup, e2fsprogs,PRIORITY,optional)
+	@$(call install_fixup, e2fsprogs,SECTION,base)
+	@$(call install_fixup, e2fsprogs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, e2fsprogs,DESCRIPTION,missing)
 
 #	#
 #	# libraries
 #	#
 
 ifdef PTXCONF_E2FSPROGS_LIBCOM_ERR
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
-		/usr/lib/libcom_err.so.2.1)
-	@$(call install_link, e2fsprogs, libcom_err.so.2.1, /usr/lib/libcom_err.so.2)
-	@$(call install_link, e2fsprogs, libcom_err.so.2.1, /usr/lib/libcom_err.so)
+	@$(call install_lib, e2fsprogs, 0, 0, 0644, libcom_err)
 endif
-
 ifdef PTXCONF_E2FSPROGS_LIBE2P
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
-		/usr/lib/libe2p.so.2.3)
-	@$(call install_link, e2fsprogs, libe2p.so.2.3, /usr/lib/libe2p.so.2)
-	@$(call install_link, e2fsprogs, libe2p.so.2.3, /usr/lib/libe2p.so)
+	@$(call install_lib, e2fsprogs, 0, 0, 0644, libe2p)
 endif
-
 ifdef PTXCONF_E2FSPROGS_LIBEXT2FS
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
-		/usr/lib/libext2fs.so.2.4)
-	@$(call install_link, e2fsprogs, libext2fs.so.2.4, /usr/lib/libext2fs.so.2)
-	@$(call install_link, e2fsprogs, libext2fs.so.2.4, /usr/lib/libext2fs.so)
+	@$(call install_lib, e2fsprogs, 0, 0, 0644, libext2fs)
 endif
-
 ifdef PTXCONF_E2FSPROGS_LIBSS
-	@$(call install_copy, e2fsprogs, 0, 0, 0644, -, \
-		/usr/lib/libss.so.2.0)
-	@$(call install_link, e2fsprogs, libss.so.2.0, /usr/lib/libss.so.2)
-	@$(call install_link, e2fsprogs, libss.so.2.0, /usr/lib/libss.so)
+	@$(call install_lib, e2fsprogs, 0, 0, 0644, libss)
 endif
 
 #	#
@@ -237,7 +222,7 @@ endif
 
 	@$(call install_alternative, e2fsprogs, 0, 0, 0644, /etc/mke2fs.conf, n)
 
-	@$(call install_finish,e2fsprogs)
+	@$(call install_finish, e2fsprogs)
 
 	@$(call touch)
 
