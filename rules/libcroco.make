@@ -56,18 +56,13 @@ endif
 $(STATEDIR)/libcroco.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libcroco)
+	@$(call install_init, libcroco)
 	@$(call install_fixup, libcroco,PRIORITY,optional)
 	@$(call install_fixup, libcroco,SECTION,base)
 	@$(call install_fixup, libcroco,AUTHOR,"Erwin Rol")
 	@$(call install_fixup, libcroco,DESCRIPTION,missing)
 
-	@$(call install_copy, libcroco, 0, 0, 0644, -, \
-		 /usr/lib/libcroco-0.6.so.3.0.1)
-	@$(call install_link, libcroco, libcroco-0.6.so.3.0.1, \
-		/usr/lib/libcroco-0.6.so.3)
-	@$(call install_link, libcroco, libcroco-0.6.so.3.0.1, \
-		/usr/lib/libcroco-0.6.so)
+	@$(call install_lib, libcroco, 0, 0, 0644, libcroco-0.6)
 
 	@$(call install_finish, libcroco)
 
