@@ -122,7 +122,7 @@ endif
 $(STATEDIR)/udev.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  udev)
+	@$(call install_init, udev)
 	@$(call install_fixup, udev,PRIORITY,optional)
 	@$(call install_fixup, udev,SECTION,base)
 	@$(call install_fixup, udev,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
@@ -361,11 +361,8 @@ ifdef PTXCONF_UDEV_LIBUDEV
 endif
 
 ifdef PTXCONF_UDEV_LIBGUDEV
-	@$(call install_copy, udev, 0, 0, 0644, -, /lib/libgudev-1.0.so.0.0.1)
-	@$(call install_link, udev, libgudev-1.0.so.0.0.1, /lib/libgudev-1.0.so.0)
-	@$(call install_link, udev, libgudev-1.0.so.0.0.1, /lib/libgudev-1.0.so)
+	@$(call install_lib, udev, 0, 0, 0644, libgudev-1.0)
 endif
-
 	@$(call install_finish, udev)
 
 	@$(call touch)
