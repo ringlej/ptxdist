@@ -60,7 +60,7 @@ LVM2_CONF_OPT := \
 $(STATEDIR)/lvm2.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  lvm2)
+	@$(call install_init, lvm2)
 	@$(call install_fixup, lvm2,PRIORITY,optional)
 	@$(call install_fixup, lvm2,SECTION,base)
 	@$(call install_fixup, lvm2,AUTHOR,"Bart vdr. Meulen <bartvdrmeulen@gmail.com>")
@@ -117,8 +117,7 @@ $(STATEDIR)/lvm2.targetinstall:
 
 	@$(call install_alternative, lvm2, 0, 0, 0644, /etc/lvm/lvm.conf)
 
-	@$(call install_copy, lvm2, 0, 0, 0644, -, /usr/lib/libdevmapper.so.1.02)
-	@$(call install_link, lvm2, libdevmapper.so.1.02, /usr/lib/libdevmapper.so)
+	@$(call install_lib, lvm2, 0, 0, 0644, libdevmapper)
 
 ifdef PTXCONF_LVM2_STARTSCRIPT
 	@$(call install_alternative, lvm2, 0, 0, 0755, /etc/init.d/lvm2)
@@ -129,7 +128,6 @@ ifneq ($(call remove_quotes,$(PTXCONF_LVM2_BBINIT_LINK)),)
 		/etc/rc.d/$(PTXCONF_LVM2_BBINIT_LINK))
 endif
 endif
-
 	@$(call install_finish, lvm2)
 
 	@$(call touch)
