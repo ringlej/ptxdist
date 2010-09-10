@@ -66,10 +66,10 @@ $(STATEDIR)/pciutils.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pciutils)
-	@$(call install_fixup,pciutils,PRIORITY,optional)
-	@$(call install_fixup,pciutils,SECTION,base)
-	@$(call install_fixup,pciutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,pciutils,DESCRIPTION,missing)
+	@$(call install_fixup, pciutils,PRIORITY,optional)
+	@$(call install_fixup, pciutils,SECTION,base)
+	@$(call install_fixup, pciutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, pciutils,DESCRIPTION,missing)
 
 	@$(call install_copy, pciutils, 0, 0, 0755, -, /usr/bin/lspci)
 	@$(call install_copy, pciutils, 0, 0, 0755, -, /usr/bin/setpci)
@@ -82,8 +82,7 @@ else
 	@$(call install_copy, pciutils, 0, 0, 0644, -, \
 		/usr/share/pci.ids, n)
 endif
-
-	@$(call install_finish,pciutils)
+	@$(call install_finish, pciutils)
 
 	@$(call touch)
 
