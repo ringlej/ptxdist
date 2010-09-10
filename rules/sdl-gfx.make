@@ -61,12 +61,7 @@ $(STATEDIR)/sdl-gfx.targetinstall:
 	@$(call install_fixup, sdl-gfx,AUTHOR,"Markus Rathgeb <rathgeb.markus@googlemail.com>")
 	@$(call install_fixup, sdl-gfx,DESCRIPTION,missing)
 
-	@$(call install_copy, sdl-gfx, 0, 0, 0644, -, \
-		/usr/lib/libSDL_gfx.so.13.5.2)
-	@$(call install_link, sdl-gfx, libSDL_gfx.so.13.5.2, \
-		/usr/lib/libSDL_gfx.so.13)
-	@$(call install_link, sdl-gfx, libSDL_gfx.so.13.5.2, \
-		/usr/lib/libSDL_gfx.so)
+	@$(call install_lib, sdl-gfx, 0, 0, 0644, libSDL_gfx)
 
 	@$(call install_finish, sdl-gfx)
 
