@@ -62,10 +62,7 @@ $(STATEDIR)/readline.targetinstall:
 	@$(call install_fixup, readline,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, readline,DESCRIPTION,missing)
 
-	@$(call install_copy, readline, 0, 0, 0644, -, \
-		/lib/libreadline.so.6.1)
-	@$(call install_link, readline, libreadline.so.6.1, /lib/libreadline.so.6)
-	@$(call install_link, readline, libreadline.so.6.1, /lib/libreadline.so)
+	@$(call install_lib, readline, 0, 0, 0644, libreadline)
 
 ifdef PTXCONF_READLINE_ETC_INPUTRC
 	@$(call install_alternative, readline, 0, 0, 0644, /etc/inputrc)
