@@ -58,15 +58,13 @@ endif
 $(STATEDIR)/libmng.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  libmng)
+	@$(call install_init, libmng)
 	@$(call install_fixup, libmng,PRIORITY,optional)
 	@$(call install_fixup, libmng,SECTION,base)
 	@$(call install_fixup, libmng,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, libmng,DESCRIPTION,missing)
 
-	@$(call install_copy, libmng, 0, 0, 0644, -, /usr/lib/libmng.so.1.0.0)
-	@$(call install_link, libmng, libmng.so.1.0.0, /usr/lib/libmng.so.1)
-	@$(call install_link, libmng, libmng.so.1.0.0, /usr/lib/libmng.so)
+	@$(call install_lib, libmng, 0, 0, 0644, libmng)
 
 	@$(call install_finish, libmng)
 
