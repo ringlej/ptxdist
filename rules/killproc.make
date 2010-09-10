@@ -58,20 +58,16 @@ $(STATEDIR)/killproc.targetinstall:
 	@$(call install_fixup, killproc,DESCRIPTION,missing)
 
 ifdef PTXCONF_KILLPROC_CHECKPROC
-	@$(call install_copy, killproc, 0, 0, 0755, -, \
-		/sbin/checkproc)
+	@$(call install_copy, killproc, 0, 0, 0755, -, /sbin/checkproc)
 endif
 ifdef PTXCONF_KILLPROC_KILLPROC
-	@$(call install_copy, killproc, 0, 0, 0755, -, \
-		/sbin/killproc)
+	@$(call install_copy, killproc, 0, 0, 0755, -, /sbin/killproc)
 endif
 ifdef PTXCONF_KILLPROC_STARTPROC
-	@$(call install_copy, killproc, 0, 0, 0755, -, \
-		/sbin/startproc)
+	@$(call install_copy, killproc, 0, 0, 0755, -, /sbin/startproc)
 endif
 ifdef PTXCONF_KILLPROC_USLEEP
-	@$(call install_copy, killproc, 0, 0, 0755, -, \
-		/bin/usleep)
+	@$(call install_copy, killproc, 0, 0, 0755, -, /bin/usleep)
 endif
 	@$(call install_finish, killproc)
 
