@@ -58,16 +58,7 @@ $(STATEDIR)/xorg-lib-xprintutil.targetinstall:
 	@$(call install_fixup, xorg-lib-xprintutil,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xprintutil,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xprintutil, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXprintUtil.so.1.0.0)
-
-	@$(call install_link, xorg-lib-xprintutil, \
-		libXprintUtil.so.1.0.0, \
-		$(XORG_LIBDIR)/libXprintUtil.so.1)
-
-	@$(call install_link, xorg-lib-xprintutil, \
-		libXprintUtil.so.1.0.0, \
-		$(XORG_LIBDIR)/libXprintUtil.so)
+	@$(call install_lib, xorg-lib-xprintutil, 0, 0, 0644, libXprintUtil)
 
 	@$(call install_finish, xorg-lib-xprintutil)
 
