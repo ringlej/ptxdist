@@ -60,12 +60,7 @@ $(STATEDIR)/xorg-lib-dmx.targetinstall:
 	@$(call install_fixup, xorg-lib-dmx,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-dmx,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-dmx, 0, 0, 0644, -, \
-		/usr/lib/libdmx.so.1.0.0)
-	@$(call install_link, xorg-lib-dmx, \
-		libdmx.so.1.0.0, /usr/lib/libdmx.so.1)
-	@$(call install_link, xorg-lib-dmx, \
-		libdmx.so.1.0.0, /usr/lib/libdmx.so)
+	@$(call install_lib, xorg-lib-dmx, 0, 0, 0644, libdmx)
 
 	@$(call install_finish, xorg-lib-dmx)
 
