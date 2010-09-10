@@ -65,16 +65,7 @@ $(STATEDIR)/xorg-lib-xt.targetinstall:
 	@$(call install_fixup, xorg-lib-xt,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xt,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xt, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXt.so.6.0.0)
-
-	@$(call install_link, xorg-lib-xt, \
-		libXt.so.6.0.0, \
-		$(XORG_LIBDIR)/libXt.so.6)
-
-	@$(call install_link, xorg-lib-xt, \
-		libXt.so.6.0.0, \
-		$(XORG_LIBDIR)/libXt.so)
+	@$(call install_lib, xorg-lib-xt, 0, 0, 0644, libXt)
 
 	@$(call install_finish, xorg-lib-xt)
 
