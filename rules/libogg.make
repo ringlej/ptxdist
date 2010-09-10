@@ -56,9 +56,7 @@ $(STATEDIR)/libogg.targetinstall:
 	@$(call install_fixup, libogg,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libogg,DESCRIPTION,missing)
 
-	@$(call install_copy, libogg, 0, 0, 0644, -, /usr/lib/libogg.so.0.6.0)
-	@$(call install_link, libogg, libogg.so.0.6.0, /usr/lib/libogg.so.0)
-	@$(call install_link, libogg, libogg.so.0.6.0, /usr/lib/libogg.so)
+	@$(call install_lib, libogg, 0, 0, 0644, libogg)
 
 	@$(call install_finish, libogg)
 
