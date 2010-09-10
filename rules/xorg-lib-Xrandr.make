@@ -58,16 +58,7 @@ $(STATEDIR)/xorg-lib-xrandr.targetinstall:
 	@$(call install_fixup, xorg-lib-xrandr,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xrandr,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xrandr, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXrandr.so.2.2.0)
-
-	@$(call install_link, xorg-lib-xrandr, \
-		libXrandr.so.2.2.0, \
-		$(XORG_LIBDIR)/libXrandr.so.2)
-
-	@$(call install_link, xorg-lib-xrandr, \
-		libXrandr.so.2.2.0, \
-		$(XORG_LIBDIR)/libXrandr.so)
+	@$(call install_lib, xorg-lib-xrandr, 0, 0, 0644, libXrandr)
 
 	@$(call install_finish, xorg-lib-xrandr)
 
