@@ -56,9 +56,7 @@ $(STATEDIR)/libsocketcan.targetinstall:
 	@$(call install_fixup, libsocketcan,AUTHOR,"Luotao Fu <l.fu@pengutronix.de>")
 	@$(call install_fixup, libsocketcan,DESCRIPTION,missing)
 
-	@$(call install_copy, libsocketcan, 0, 0, 0644, -, /usr/lib/libsocketcan.so.2.2.0)
-	@$(call install_link, libsocketcan, libsocketcan.so.2.2.0, /usr/lib/libsocketcan.so.2)
-	@$(call install_link, libsocketcan, libsocketcan.so.2.2.0, /usr/lib/libsocketcan.so)
+	@$(call install_lib, libsocketcan, 0, 0, 0644, libsocketcan)
 
 	@$(call install_finish, libsocketcan)
 
