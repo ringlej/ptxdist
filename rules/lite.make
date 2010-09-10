@@ -51,41 +51,23 @@ $(STATEDIR)/lite.targetinstall:
 	@$(call install_fixup, lite,AUTHOR,"Denis Oliver Kropp <dok@directfb.org>")
 	@$(call install_fixup, lite,DESCRIPTION,missing)
 
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/lib/liblite.so.3.0.5)
-	@$(call install_link, lite, liblite.so.3.0.5, /usr/lib/liblite.so.3)
+	@$(call install_lib, lite, 0, 0, 0644, liblite)
+	@$(call install_lib, lite, 0, 0, 0644, libleck)
 
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/lib/libleck.so.3.0.5)
-	@$(call install_link, lite, libleck.so.3.0.5, /usr/lib/libleck.so.3)
-
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/share/LiTE/cursor.png, n)
-
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/share/LiTE/links.png, n)
-
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/share/LiTE/obenlinks.png, n)
-
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/share/LiTE/oben.png, n)
-
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/share/LiTE/obenrechts.png, n)
-
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/share/LiTE/rechts.png, n)
-
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/share/LiTE/untenlinks.png, n)
-
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/share/LiTE/unten.png, n)
-
-	@$(call install_copy, lite, 0, 0, 0644, -, \
-		/usr/share/LiTE/untenrechts.png, n)
-
+	@for i in \
+		cursor \
+		links \
+		obenlinks \
+		oben \
+		obenrechts \
+		rechts \
+		untenlinks \
+		unten \
+		untenrechts; \
+	do \
+		$(call install_copy, lite, 0, 0, 0644, -, \
+			/usr/share/LiTE/$$i.png) \
+	done
 
 	@for i in \
 		lite_bench		\
@@ -101,8 +83,7 @@ $(STATEDIR)/lite.targetinstall:
 		lite_textbuttontest	\
 		lite_textlinetest	\
 		lite_textlisttest;	\
-			do		\
-					\
+	do				\
 		$(call install_copy, lite, 0, 0, 0755, -, \
 			/usr/bin/$$i) \
 	done
@@ -125,7 +106,7 @@ $(STATEDIR)/lite.targetinstall:
 		progress.png			\
 		progress_bg.png			\
 		scrollbar.png;			\
-			do			\
+	do					\
 						\
 		$(call install_copy, lite, 0, 0, 0644, -, \
 			/usr/share/LiTE/examples/$$i, n) \
@@ -149,7 +130,6 @@ $(STATEDIR)/lite.targetinstall:
 
 	@$(call install_copy, lite, 0, 0, 0644, -, \
 		/usr/share/fonts/truetype/whiterabbit.ttf, n)
-
 
 	@$(call install_finish, lite)
 
