@@ -68,12 +68,7 @@ ifndef PTXCONF_LIBPCIACCESS_STATIC
 	@$(call install_fixup, libpciaccess,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
 	@$(call install_fixup, libpciaccess,DESCRIPTION,missing)
 
-	@$(call install_copy, libpciaccess, 0, 0, 0644, -, \
-		/usr/lib/libpciaccess.so.0.10.8)
-	@$(call install_link, libpciaccess, libpciaccess.so.0.10.8, \
-		/usr/lib/libpciaccess.so.0)
-	@$(call install_link, libpciaccess, libpciaccess.so.0.10.8, \
-		/usr/lib/libpciaccess.so)
+	@$(call install_lib, libpciaccess, 0, 0, 0644, libpciaccess)
 
 	@$(call install_finish, libpciaccess)
 endif
