@@ -77,16 +77,11 @@ $(STATEDIR)/libcaca.targetinstall:
 	@$(call install_fixup, libcaca,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, libcaca,DESCRIPTION,missing)
 
-	@$(call install_copy, libcaca, 0, 0, 0644, -, /usr/lib/libcaca.so.0.99.16)
-	@$(call install_link, libcaca, libcaca.so.0.99.16, /usr/lib/libcaca.so.0)
-	@$(call install_link, libcaca, libcaca.so.0.99.16, /usr/lib/libcaca.so)
+	@$(call install_lib, libcaca, 0, 0, 0644, libcaca)
 
 ifdef PTXCONF_LIBCACA_CXX
-	@$(call install_copy, libcaca, 0, 0, 0644, -, /usr/lib/libcaca++.so.0.99.16)
-	@$(call install_link, libcaca, libcaca++.so.0.99.16, /usr/lib/libcaca++.so.0)
-	@$(call install_link, libcaca, libcaca++.so.0.99.16, /usr/lib/libcaca++.so)
+	@$(call install_lib, libcaca, 0, 0, 0644, libcaca++)
 endif
-
 	@$(call install_finish, libcaca)
 
 	@$(call touch)
