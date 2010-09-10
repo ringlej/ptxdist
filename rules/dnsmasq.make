@@ -68,8 +68,7 @@ $(STATEDIR)/dnsmasq.targetinstall:
 	@$(call install_fixup, dnsmasq,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, dnsmasq,DESCRIPTION,missing)
 
-	@$(call install_copy, dnsmasq, 0, 0, 0755, -, \
-		/usr/sbin/dnsmasq)
+	@$(call install_copy, dnsmasq, 0, 0, 0755, -, /usr/sbin/dnsmasq)
 
 ifdef PTXCONF_DNSMASQ_INETD
 	@$(call install_alternative, dnsmasq, 0, 0, 0644, /etc/inetd.conf.d/dnsmasq, n)
