@@ -84,25 +84,20 @@ $(STATEDIR)/libpv.targetinstall:
 	@$(call install_fixup, libpv,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libpv,DESCRIPTION,missing)
 
+	@$(call install_lib, libpv, 0, 0, 0644, libpv)
+
 ifdef PTXCONF_LIBPV_PVTOOL
-	@$(call install_copy, libpv, 0, 0, 0755, -, \
-		/usr/bin/pvtool)
+	@$(call install_copy, libpv, 0, 0, 0755, -, /usr/bin/pvtool)
 endif
 ifdef PTXCONF_LIBPV_EVENT
 	@$(call install_copy, libpv, 0, 0, 0755, -, \
 		/usr/bin/pv_eventd)
 endif
 
-	@$(call install_copy, libpv, 0, 0, 0644, - , \
-		/usr/lib/libpv.so.12.0.0)
-	@$(call install_link, libpv, libpv.so.12.0.0, /usr/lib/libpv.so.12)
-	@$(call install_link, libpv, libpv.so.12.0.0, /usr/lib/libpv.so)
-
 ifdef PTXCONF_LIBPV_PYTHON
 	@$(call install_copy, libpv, 0, 0, 0644, -, \
 		/usr/lib/python$(PYTHON_MAJORMINOR)/site-packages/libpv.so)
 endif
-
 	@$(call install_finish, libpv)
 
 	@$(call touch)
