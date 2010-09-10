@@ -279,17 +279,8 @@ $(STATEDIR)/sdl.targetinstall:
 	@$(call install_fixup, sdl,DESCRIPTION,missing)
 
 ifdef PTXCONF_SDL_SHARED
-	@$(call install_copy, sdl, 0, 0, 0644, -, /usr/lib/libSDL-1.2.so.0.11.3)
-
-	@$(call install_link, sdl, \
-		libSDL-1.2.so.0.11.3, \
-		/usr/lib/libSDL-1.2.so.0)
-
-	@$(call install_link, sdl, \
-		libSDL-1.2.so.0.11.3, \
-		/usr/lib/libSDL-1.2.so)
+	@$(call install_lib, sdl, 0, 0, 0644, libSDL-1.2)
 endif
-
 	@$(call install_finish, sdl)
 
 	@$(call touch)
