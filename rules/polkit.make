@@ -80,26 +80,9 @@ $(STATEDIR)/polkit.targetinstall:
 		/usr/share/polkit-1/actions/org.freedesktop.policykit.policy)
 
 # libs
-	@$(call install_copy, polkit, 0, 0, 0644, -, \
-		/usr/lib/libpolkit-agent-1.so.0.0.0)
-	@$(call install_link, polkit, libpolkit-agent-1.so.0.0.0, \
-		/usr/lib/libpolkit-agent-1.so.0)
-	@$(call install_link, polkit, libpolkit-agent-1.so.0.0.0, \
-		/usr/lib/libpolkit-agent-1.so)
-
-	@$(call install_copy, polkit, 0, 0, 0644, -, \
-		/usr/lib/libpolkit-backend-1.so.0.0.0)
-	@$(call install_link, polkit, libpolkit-backend-1.so.0.0.0, \
-			/usr/lib/libpolkit-backend-1.so.0)
-	@$(call install_link, polkit, libpolkit-backend-1.so.0.0.0, \
-			/usr/lib/libpolkit-backend-1.so)
-
-	@$(call install_copy, polkit, 0, 0, 0644, -, \
-		/usr/lib/libpolkit-gobject-1.so.0.0.0)
-	@$(call install_link, polkit, libpolkit-gobject-1.so.0.0.0, \
-			/usr/lib/libpolkit-gobject-1.so.0)
-	@$(call install_link, polkit, libpolkit-gobject-1.so.0.0.0, \
-			/usr/lib/libpolkit-gobject-1.so)
+	@$(call install_lib, polkit, 0, 0, 0644, libpolkit-agent-1)
+	@$(call install_lib, polkit, 0, 0, 0644, libpolkit-backend-1)
+	@$(call install_lib, polkit, 0, 0, 0644, libpolkit-gobject-1)
 
 	@$(call install_copy, polkit, 0, 0, 0644, -, \
 		/usr/lib/polkit-1/extensions/libnullbackend.so)
