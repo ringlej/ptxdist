@@ -77,15 +77,13 @@ endif
 $(STATEDIR)/flac.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  flac)
+	@$(call install_init, flac)
 	@$(call install_fixup, flac,PRIORITY,optional)
 	@$(call install_fixup, flac,SECTION,base)
 	@$(call install_fixup, flac,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
 	@$(call install_fixup, flac,DESCRIPTION,missing)
 
-	@$(call install_copy, flac, 0, 0, 0644, -, /usr/lib/libFLAC.so.8.2.0)
-	@$(call install_link, flac, libFLAC.so.8.2.0, /usr/lib/libFLAC.so.8)
-	@$(call install_link, flac, libFLAC.so.8.2.0, /usr/lib/libFLAC.so)
+	@$(call install_lib, flac, 0, 0, 0644, libFLAC)
 
 ifdef PTXCONF_FLAC_INSTALL_FLAC
 	@$(call install_copy, flac, 0, 0, 0755, -, /usr/bin/flac)
