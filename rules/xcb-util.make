@@ -51,47 +51,21 @@ XCB_UTIL_CONF_TOOL	:= autoconf
 $(STATEDIR)/xcb-util.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  xcb-util)
+	@$(call install_init, xcb-util)
 	@$(call install_fixup, xcb-util,PRIORITY,optional)
 	@$(call install_fixup, xcb-util,SECTION,base)
 	@$(call install_fixup, xcb-util,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
 	@$(call install_fixup, xcb-util,DESCRIPTION,missing)
 
-	@$(call install_copy, xcb-util, 0, 0, 0644, - , /usr/lib/libxcb-atom.so.1.0.0)
-	@$(call install_link, xcb-util, libxcb-atom.so.1.0.0, /usr/lib/libxcb-atom.so.1)
-	@$(call install_link, xcb-util, libxcb-atom.so.1.0.0, /usr/lib/libxcb-atom.so)
-
-	@$(call install_copy, xcb-util, 0, 0, 0644, - , /usr/lib/libxcb-keysyms.so.1.0.0)
-	@$(call install_link, xcb-util, libxcb-keysyms.so.1.0.0, /usr/lib/libxcb-keysyms.so.1)
-	@$(call install_link, xcb-util, libxcb-keysyms.so.1.0.0, /usr/lib/libxcb-keysyms.so)	
-
-	@$(call install_copy, xcb-util, 0, 0, 0644, - , /usr/lib/libxcb-aux.so.0.0.0)
-	@$(call install_link, xcb-util,	libxcb-aux.so.0.0.0, /usr/lib/libxcb-aux.so.0)
-	@$(call install_link, xcb-util, libxcb-aux.so.0.0.0, /usr/lib/libxcb-aux.so)
-
-	@$(call install_copy, xcb-util, 0, 0, 0644, - , /usr/lib/libxcb-property.so.1.0.0)
-	@$(call install_link, xcb-util,	libxcb-property.so.1.0.0, /usr/lib/libxcb-property.so.1)
-	@$(call install_link, xcb-util, libxcb-property.so.1.0.0, /usr/lib/libxcb-property.so)
-
-	@$(call install_copy, xcb-util, 0, 0, 0644, - , /usr/lib/libxcb-event.so.1.0.0)
-	@$(call install_link, xcb-util,	libxcb-event.so.1.0.0, /usr/lib/libxcb-event.so.1)
-	@$(call install_link, xcb-util, libxcb-event.so.1.0.0, /usr/lib/libxcb-event.so)
-	
-	@$(call install_copy, xcb-util, 0, 0, 0644, - , /usr/lib/libxcb-render-util.so.0.0.0)
-	@$(call install_link, xcb-util,	libxcb-render-util.so.0.0.0, /usr/lib/libxcb-render-util.so.0)
-	@$(call install_link, xcb-util, libxcb-render-util.so.0.0.0, /usr/lib/libxcb-render-util.so)
-
-	@$(call install_copy, xcb-util, 0, 0, 0644, - , /usr/lib/libxcb-icccm.so.1.0.0)
-	@$(call install_link, xcb-util, libxcb-icccm.so.1.0.0, /usr/lib/libxcb-icccm.so.1)
-	@$(call install_link, xcb-util, libxcb-icccm.so.1.0.0, /usr/lib/libxcb-icccm.so)
-
-	@$(call install_copy, xcb-util, 0, 0, 0644, - , /usr/lib/libxcb-reply.so.1.0.0)
-	@$(call install_link, xcb-util, libxcb-reply.so.1.0.0, /usr/lib/libxcb-reply.so.1)
-	@$(call install_link, xcb-util, libxcb-reply.so.1.0.0, /usr/lib/libxcb-reply.so)
-	
-	@$(call install_copy, xcb-util, 0, 0, 0644, - , /usr/lib/libxcb-image.so.0.0.0)
-	@$(call install_link, xcb-util, libxcb-image.so.0.0.0, /usr/lib/libxcb-image.so.0)
-	@$(call install_link, xcb-util, libxcb-image.so.0.0.0, /usr/lib/libxcb-image.so)
+	@$(call install_lib, xcb-util, 0, 0, 0644, libxcb-atom)
+	@$(call install_lib, xcb-util, 0, 0, 0644, libxcb-keysyms)
+	@$(call install_lib, xcb-util, 0, 0, 0644, libxcb-aux)
+	@$(call install_lib, xcb-util, 0, 0, 0644, libxcb-property)
+	@$(call install_lib, xcb-util, 0, 0, 0644, libxcb-event)
+	@$(call install_lib, xcb-util, 0, 0, 0644, libxcb-render-util)
+	@$(call install_lib, xcb-util, 0, 0, 0644, libxcb-icccm)
+	@$(call install_lib, xcb-util, 0, 0, 0644, libxcb-reply)
+	@$(call install_lib, xcb-util, 0, 0, 0644, libxcb-image)
 
 	@$(call install_finish, xcb-util)
 
