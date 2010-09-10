@@ -52,7 +52,7 @@ CONSOLEKIT_CONF_OPT	:= \
 $(STATEDIR)/consolekit.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  consolekit)
+	@$(call install_init, consolekit)
 	@$(call install_fixup, consolekit,PRIORITY,optional)
 	@$(call install_fixup, consolekit,SECTION,base)
 	@$(call install_fixup, consolekit,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
@@ -60,7 +60,6 @@ $(STATEDIR)/consolekit.targetinstall:
 
 	@$(call install_copy, consolekit, 0, 0, 0644, -, \
 		/etc/ConsoleKit/seats.d/00-primary.seat)
-
 # dbus
 	@$(call install_copy, consolekit, 0, 0, 0644, -, \
 		/etc/dbus-1/system.d/ConsoleKit.conf)
@@ -88,12 +87,7 @@ $(STATEDIR)/consolekit.targetinstall:
 	@$(call install_copy, consolekit, 0, 0, 0755, -, \
 		/usr/lib/ConsoleKit/scripts/ck-system-stop)
 
-	@$(call install_copy, consolekit, 0, 0, 0644, -, \
-		/usr/lib/libck-connector.so.0.0.0)
-	@$(call install_link, consolekit, libck-connector.so.0.0.0, \
-		/usr/lib/libck-connector.so.0)
-	@$(call install_link, consolekit, libck-connector.so.0.0.0, \
-		/usr/lib/libck-connector.so)
+	@$(call install_lib, consolekit, 0, 0, 0644, libck-connector)
 
 	@$(call install_copy, consolekit, 0, 0, 0755, -, \
 		/usr/libexec/ck-collect-session-info)
