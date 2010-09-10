@@ -42,10 +42,7 @@ $(STATEDIR)/libksba.targetinstall:
 	@$(call install_fixup, libksba,AUTHOR,"Alexander Stein")
 	@$(call install_fixup, libksba,DESCRIPTION,missing)
 
-	@$(call install_copy, libksba, 0, 0, 0644, -, \
-		/usr/lib/libksba.so.8.9.6)
-	@$(call install_link, libksba, libksba.so.8.9.6, /usr/lib/libksba.so.8)
-	@$(call install_link, libksba, libksba.so.8.9.6, /usr/lib/libksba.so)
+	@$(call install_lib, libksba, 0, 0, 0644, libksba)
 
 	@$(call install_finish, libksba)
 
