@@ -48,16 +48,13 @@ FREEGLUT_CONF_TOOL	:= autoconf
 $(STATEDIR)/freeglut.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  freeglut)
+	@$(call install_init, freeglut)
 	@$(call install_fixup, freeglut,PRIORITY,optional)
 	@$(call install_fixup, freeglut,SECTION,base)
 	@$(call install_fixup, freeglut,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, freeglut,DESCRIPTION,missing)
 
-	@$(call install_copy, freeglut, 0, 0, 0644, -, \
-		/usr/lib/libglut.so.3.9.0)
-	@$(call install_link, freeglut, libglut.so.3.9.0, /usr/lib/libglut.so.3)
-	@$(call install_link, freeglut, libglut.so.3.9.0, /usr/lib/libglut.so)
+	@$(call install_lib, freeglut, 0, 0, 0644, libglut)
 
 	@$(call install_finish, freeglut)
 
