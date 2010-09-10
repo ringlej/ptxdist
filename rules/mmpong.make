@@ -50,13 +50,11 @@ $(STATEDIR)/mmpong.targetinstall:
 	@$(call install_fixup, mmpong,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, mmpong,DESCRIPTION,missing)
 
-	@$(call install_copy, mmpong, 0, 0, 0644, -, /usr/lib/libmmpong.so.0.9)
-	@$(call install_link, mmpong, libmmpong.so.0.9, /usr/lib/libmmpong.so)
+	@$(call install_lib, mmpong, 0, 0, 0644, libmmpong)
 
 ifdef PTXCONF_MMPONG_CACA
 	@$(call install_copy, mmpong, 0, 0, 0755, -, /usr/games/mmpong-caca)
 endif
-
 ifdef PTXCONF_MMPONG_SERVER
 	@$(call install_copy, mmpong, 0, 0, 0755, -, /usr/games/mmpongd)
 endif
