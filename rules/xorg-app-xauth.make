@@ -54,14 +54,14 @@ $(STATEDIR)/xorg-app-xauth.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xauth)
-	@$(call install_fixup,xorg-app-xauth,PRIORITY,optional)
-	@$(call install_fixup,xorg-app-xauth,SECTION,base)
-	@$(call install_fixup,xorg-app-xauth,AUTHOR,"Claudio Leonel <cls@elaxys.com.br>")
-	@$(call install_fixup,xorg-app-xauth,DESCRIPTION,missing)
+	@$(call install_fixup, xorg-app-xauth,PRIORITY,optional)
+	@$(call install_fixup, xorg-app-xauth,SECTION,base)
+	@$(call install_fixup, xorg-app-xauth,AUTHOR,"Claudio Leonel <cls@elaxys.com.br>")
+	@$(call install_fixup, xorg-app-xauth,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xauth, 0, 0, 0755, -, /usr/bin/xauth)
 
-	@$(call install_finish,xorg-app-xauth)
+	@$(call install_finish, xorg-app-xauth)
 
 	@$(call touch)
 
