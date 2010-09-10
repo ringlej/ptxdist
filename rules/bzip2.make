@@ -53,8 +53,7 @@ $(STATEDIR)/bzip2.targetinstall:
 	@$(call install_fixup, bzip2,DESCRIPTION,missing)
 
 ifdef PTXCONF_BZIP2_LIBBZ2
-	@$(call install_copy, bzip2, 0, 0, 0644, -, /usr/lib/libbz2.so.1.0.4)
-	@$(call install_link, bzip2, libbz2.so.1.0.4, /usr/lib/libbz2.so.1.0)
+	@$(call install_lib, bzip2, 0, 0, 0644, libbz2)
 endif
 
 ifdef PTXCONF_BZIP2_BZIP2
