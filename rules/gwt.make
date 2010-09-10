@@ -63,16 +63,11 @@ $(STATEDIR)/gwt.targetinstall:
 	@$(call install_fixup, gwt,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gwt,DESCRIPTION,missing)
 
-	@$(call install_copy, gwt, 0, 0, 0644, -, /usr/lib/libgwt.so.1.0.0)
-	@$(call install_link, gwt, libgwt.so.1.0.0, /usr/lib/libgwt.so.1)
-	@$(call install_link, gwt, libgwt.so.1.0.0, /usr/lib/libgwt.so)
+	@$(call install_lib, gwt, 0, 0, 0644, libgwt)
 
 ifdef PTXCONF_GWT_GWTMM
-	@$(call install_copy, gwt, 0, 0, 0644, -, /usr/lib/libgwtmm.so.1.0.0)
-	@$(call install_link, gwt, libgwtmm.so.1.0.0, /usr/lib/libgwtmm.so.1)
-	@$(call install_link, gwt, libgwtmm.so.1.0.0, /usr/lib/libgwtmm.so)
+	@$(call install_lib, gwt, 0, 0, 0644, libgwtmm)
 endif
-
 	@$(call install_finish, gwt)
 
 	@$(call touch)
