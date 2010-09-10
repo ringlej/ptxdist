@@ -64,15 +64,13 @@ GLEW_INSTALL_OPT := \
 $(STATEDIR)/glew.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  glew)
+	@$(call install_init, glew)
 	@$(call install_fixup, glew,PRIORITY,optional)
 	@$(call install_fixup, glew,SECTION,base)
 	@$(call install_fixup, glew,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
 	@$(call install_fixup, glew,DESCRIPTION,missing)
 
-	@$(call install_copy, glew, 0, 0, 0644, -, /usr/lib/libGLEW.so.1.5.2)
-	@$(call install_link, glew, libGLEW.so.1.5.2, /usr/lib/libGLEW.so.1.5)
-	@$(call install_link, glew, libGLEW.so.1.5.2, /usr/lib/libGLEW.so)
+	@$(call install_lib, glew, 0, 0, 0644, libGLEW)
 
 	@$(call install_finish, glew)
 
