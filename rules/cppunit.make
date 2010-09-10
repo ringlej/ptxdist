@@ -59,11 +59,7 @@ $(STATEDIR)/cppunit.targetinstall:
 	@$(call install_fixup, cppunit,AUTHOR,"Shahar Livne <shahar@livnex.com>")
 	@$(call install_fixup, cppunit,DESCRIPTION,missing)
 
-	@$(call install_copy, cppunit, 0, 0, 0644, -, \
-		/usr/lib/libcppunit-1.12.so.1.0.0)
-
-	@$(call install_link, cppunit, libcppunit-1.12.so.1.0.0, /usr/lib/libcppunit-1.10.so.1)
-	@$(call install_link, cppunit, libcppunit-1.12.so.1.0.0, /usr/lib/libcppunit.so)
+	@$(call install_lib, cppunit, 0, 0, 0644, libcppunit-1.12)
 
 	@$(call install_finish, cppunit)
 
