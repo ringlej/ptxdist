@@ -69,19 +69,9 @@ $(STATEDIR)/liblzo.targetinstall:
 	@$(call install_fixup, liblzo,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
 	@$(call install_fixup, liblzo,DESCRIPTION,missing)
 
-  ifdef PTXCONF_LIBLZO_SHARED
-	@$(call install_copy, liblzo, 0, 0, 0644, -, \
-		/usr/lib/liblzo2.so.2.0.0)
-
-	@$(call install_link, liblzo, liblzo2.so.2.0.0, /usr/lib/liblzo2.so.2)
-	@$(call install_link, liblzo, liblzo2.so.2.0.0, /usr/lib/liblzo2.so)
-  endif
-
-  ifdef PTXCONF_LIBLZO_STATIC
-	@$(call install_copy, liblzo, 0, 0, 0644, -, \
-		/usr/lib/liblzo2.la)
-  endif
-
+ifdef PTXCONF_LIBLZO_SHARED
+	@$(call install_lib, liblzo, 0, 0, 0644, liblzo2)
+endif
 	@$(call install_finish, liblzo)
 
 	@$(call touch)
