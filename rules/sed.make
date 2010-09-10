@@ -58,8 +58,7 @@ $(STATEDIR)/sed.targetinstall:
 	@$(call install_fixup, sed,AUTHOR,"Marco Cavallini <m.cavallini@koansoftware.com>")
 	@$(call install_fixup, sed,DESCRIPTION,missing)
 
-	@$(call install_copy, sed, 0, 0, 0755, -, \
-		/usr/bin/sed)
+	@$(call install_copy, sed, 0, 0, 0755, -, /usr/bin/sed)
 
 	@$(call install_finish, sed)
 
