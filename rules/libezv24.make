@@ -47,21 +47,14 @@ $(STATEDIR)/libezv24.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, libezv24)
-	@$(call install_fixup,libezv24,PRIORITY,optional)
-	@$(call install_fixup,libezv24,SECTION,base)
-	@$(call install_fixup,libezv24,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,libezv24,DESCRIPTION,missing)
+	@$(call install_fixup, libezv24,PRIORITY,optional)
+	@$(call install_fixup, libezv24,SECTION,base)
+	@$(call install_fixup, libezv24,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, libezv24,DESCRIPTION,missing)
 
-	@$(call install_copy, libezv24, 0, 0, 0644, -, \
-		/usr/lib/libezV24.so.0.0.0)
+	@$(call install_lib, libezv24, 0, 0, 0644, libezV24)
 
-	@$(call install_link, libezv24, \
-		libezV24.so.0.0.0, /usr/lib/libezV24.so.0)
-
-	@$(call install_link, libezv24, \
-		libezV24.so.0.0.0, /usr/lib/libezV24.so)
-
-	@$(call install_finish,libezv24)
+	@$(call install_finish, libezv24)
 
 	@$(call touch)
 
