@@ -59,10 +59,7 @@ $(STATEDIR)/librn.targetinstall:
 	@$(call install_fixup, librn,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, librn,DESCRIPTION,missing)
 
-	@$(call install_copy, librn, 0, 0, 0644, -, \
-		/usr/lib/librn.so.2.0.0)
-	@$(call install_link, librn, librn.so.2.0.0, /usr/lib/librn.so.2)
-	@$(call install_link, librn, librn.so.2.0.0, /usr/lib/librn.so)
+	@$(call install_lib, librn, 0, 0, 0644, librn)
 
 	@$(call install_finish, librn)
 
