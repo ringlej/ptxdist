@@ -85,7 +85,7 @@ $(STATEDIR)/splashutils.install:
 $(STATEDIR)/splashutils.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  splashutils)
+	@$(call install_init, splashutils)
 	@$(call install_fixup, splashutils,PRIORITY,optional)
 	@$(call install_fixup, splashutils,SECTION,base)
 	@$(call install_fixup, splashutils,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
@@ -95,13 +95,8 @@ $(STATEDIR)/splashutils.targetinstall:
 
 	@$(call install_copy, splashutils, 0, 0, 0755, -, /usr/sbin/fbsplashd)
 
-	@$(call install_copy, splashutils, 0, 0, 0644, -, /usr/lib/libfbsplashrender.so.1.0.0)
-	@$(call install_link, splashutils, libfbsplashrender.so.1.0.0, /usr/lib/libfbsplashrender.so.1)
-	@$(call install_link, splashutils, libfbsplashrender.so.1.0.0, /usr/lib/libfbsplashrender.so)
-
-	@$(call install_copy, splashutils, 0, 0, 0644, -, /usr/lib/libfbsplash.so.1.0.0)
-	@$(call install_link, splashutils, libfbsplash.so.1.0.0, /usr/lib/libfbsplash.so.1)
-	@$(call install_link, splashutils, libfbsplash.so.1.0.0, /usr/lib/libfbsplash.so)
+	@$(call install_lib, splashutils, 0, 0, 0644, libfbsplashrender)
+	@$(call install_lib, splashutils, 0, 0, 0644, libfbsplash)
 
 	@$(call install_copy, splashutils, 0, 0, 0755, -, /sbin/fbsplashctl)
 	@$(call install_link, splashutils, fbsplashctl, /sbin/fbcondecor_ctl.static)
