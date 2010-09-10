@@ -51,22 +51,13 @@ XORG_LIB_XDMCP_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/xorg-lib-xdmcp.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  xorg-lib-xdmcp)
+	@$(call install_init, xorg-lib-xdmcp)
 	@$(call install_fixup, xorg-lib-xdmcp,PRIORITY,optional)
 	@$(call install_fixup, xorg-lib-xdmcp,SECTION,base)
 	@$(call install_fixup, xorg-lib-xdmcp,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xdmcp,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xdmcp, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXdmcp.so.6.0.0)
-
-	@$(call install_link, xorg-lib-xdmcp, \
-		libXdmcp.so.6.0.0, \
-		$(XORG_LIBDIR)/libXdmcp.so.6)
-
-	@$(call install_link, xorg-lib-xdmcp, \
-		libXdmcp.so.6.0.0, \
-		$(XORG_LIBDIR)/libXdmcp.so)
+	@$(call install_lib, xorg-lib-xdmcp, 0, 0, 0644, libXdmcp)
 
 	@$(call install_finish, xorg-lib-xdmcp)
 
