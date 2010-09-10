@@ -71,7 +71,7 @@ endif
 $(STATEDIR)/acl.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  acl)
+	@$(call install_init, acl)
 	@$(call install_fixup, acl,PRIORITY,optional)
 	@$(call install_fixup, acl,SECTION,base)
 	@$(call install_fixup, acl,AUTHOR,"Carsten Schlote <c.schlote@konzeptpark.de>")
@@ -82,13 +82,9 @@ ifdef PTXCONF_ACL_TOOLS
 	@$(call install_copy, acl, 0, 0, 0755, -, /usr/bin/setfacl)
 	@$(call install_copy, acl, 0, 0, 0755, -, /usr/bin/getfacl)
 endif
-
 ifdef PTXCONF_ACL_SHARED
-	@$(call install_copy, acl, 0, 0, 0644, -, /usr/lib/libacl.so.1.1.0)
-	@$(call install_link, acl, libacl.so.1.1.0, /usr/lib/libacl.so.1)
-	@$(call install_link, acl, libacl.so.1.1.0, /usr/lib/libacl.so)
+	@$(call install_lib, acl, 0, 0, 0644, libacl)
 endif
-
 	@$(call install_finish, acl)
 
 	@$(call touch)
