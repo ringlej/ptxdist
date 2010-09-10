@@ -60,12 +60,7 @@ $(STATEDIR)/tslib.targetinstall:
 	@$(call install_alternative, tslib, 0, 0, 0644, \
 		/etc/ts.conf)
 
-	@$(call install_copy, tslib, 0, 0, 0644, -, \
-		/usr/lib/libts-0.0.so.0.1.1)
-	@$(call install_link, tslib, libts-0.0.so.0.1.1, \
-		/usr/lib/libts.so)
-	@$(call install_link, tslib, libts-0.0.so.0.1.1, \
-		/usr/lib/libts-0.0.so.0)
+	@$(call install_lib, tslib, 0, 0, 0644, libts-0.0)
 
 ifdef PTXCONF_TSLIB_TS_CALIBRATE
 	@$(call install_copy, tslib, 0, 0, 0755, -, /usr/bin/ts_calibrate)
