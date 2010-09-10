@@ -57,14 +57,13 @@ JED_AUTOCONF := \
 $(STATEDIR)/jed.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  jed)
+	@$(call install_init, jed)
 	@$(call install_fixup, jed,PRIORITY,optional)
 	@$(call install_fixup, jed,SECTION,base)
 	@$(call install_fixup, jed,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, jed,DESCRIPTION,missing)
 
-	@$(call install_copy, jed, 0, 0, 0755, -, \
-		/usr/bin/jed)
+	@$(call install_copy, jed, 0, 0, 0755, -, /usr/bin/jed)
 
 	@$(call install_finish, jed)
 
