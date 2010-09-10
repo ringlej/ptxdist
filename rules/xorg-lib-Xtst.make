@@ -58,16 +58,7 @@ $(STATEDIR)/xorg-lib-xtst.targetinstall:
 	@$(call install_fixup, xorg-lib-xtst,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xtst,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xtst, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXtst.so.6.1.0)
-
-	@$(call install_link, xorg-lib-xtst, \
-		libXtst.so.6.1.0, \
-		$(XORG_LIBDIR)/libXtst.so.6)
-
-	@$(call install_link, xorg-lib-xtst, \
-		libXtst.so.6.1.0, \
-		$(XORG_LIBDIR)/libXtst.so)
+	@$(call install_lib, xorg-lib-xtst, 0, 0, 0644, libXtst)
 
 	@$(call install_finish, xorg-lib-xtst)
 
