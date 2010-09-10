@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2004 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
-#          
+#
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -54,10 +54,8 @@ $(STATEDIR)/figlet.targetinstall:
 	@$(call install_fixup, figlet,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, figlet,DESCRIPTION,missing)
 
-	@$(call install_copy, figlet, 0, 0, 0755, -, \
-		/usr/bin/figlet)
-	@$(call install_copy, figlet, 0, 0, 0644, -, \
-		/usr/share/figlet/standard.flf)
+	@$(call install_copy, figlet, 0, 0, 0755, -, /usr/bin/figlet)
+	@$(call install_copy, figlet, 0, 0, 0644, -, /usr/share/figlet/standard.flf)
 
 	@$(call install_finish, figlet)
 
