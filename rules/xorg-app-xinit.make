@@ -77,17 +77,17 @@ $(STATEDIR)/xorg-app-xinit.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xorg-app-xinit)
-	@$(call install_fixup,xorg-app-xinit,PRIORITY,optional)
-	@$(call install_fixup,xorg-app-xinit,SECTION,base)
-	@$(call install_fixup,xorg-app-xinit,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,xorg-app-xinit,DESCRIPTION,missing)
+	@$(call install_fixup, xorg-app-xinit,PRIORITY,optional)
+	@$(call install_fixup, xorg-app-xinit,SECTION,base)
+	@$(call install_fixup, xorg-app-xinit,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, xorg-app-xinit,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-app-xinit, 0, 0, 0755, -, \
 		$(XORG_PREFIX)/bin/xinit)
 	@$(call install_copy, xorg-app-xinit, 0, 0, 0755, -, \
 		$(XORG_PREFIX)/bin/startx, n)
 
-	@$(call install_finish,xorg-app-xinit)
+	@$(call install_finish, xorg-app-xinit)
 
 	@$(call touch)
 
