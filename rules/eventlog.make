@@ -56,14 +56,7 @@ $(STATEDIR)/eventlog.targetinstall:
 	@$(call install_fixup, eventlog,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, eventlog,DESCRIPTION,missing)
 
-	@$(call install_copy, eventlog, 0, 0, 0644, -, \
-		/usr/lib/libevtlog.so.0.0.0)
-
-	@$(call install_link, eventlog, \
-		libevtlog.so.0.0.0, /usr/lib/libevtlog.so.0)
-
-	@$(call install_link, eventlog, \
-		libevtlog.so.0.0.0, /usr/lib/libevtlog.so)
+	@$(call install_lib, eventlog, 0, 0, 0644, libevtlog)
 
 	@$(call install_finish, eventlog)
 
