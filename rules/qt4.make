@@ -650,156 +650,64 @@ $(STATEDIR)/qt4.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, qt4)
-	@$(call install_fixup,qt4,PRIORITY,optional)
-	@$(call install_fixup,qt4,SECTION,base)
-	@$(call install_fixup,qt4,AUTHOR,"Juergen Beisertl <j.beisert@pengutronix.de>")
-	@$(call install_fixup,qt4,DESCRIPTION,missing)
+	@$(call install_fixup, qt4,PRIORITY,optional)
+	@$(call install_fixup, qt4,SECTION,base)
+	@$(call install_fixup, qt4,AUTHOR,"Juergen Beisertl <j.beisert@pengutronix.de>")
+	@$(call install_fixup, qt4,DESCRIPTION,missing)
 
 ifdef PTXCONF_QT4_SHARED
 # always install QtCore
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtCore.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtCore.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtCore.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtCore.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtCore.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtCore)
 ifdef PTXCONF_QT4_BUILD_XML
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtXml.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtXml.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtXml.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtXml.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtXml.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtXml)
 endif
 ifdef PTXCONF_QT4_BUILD_GUI
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtGui.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtGui.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtGui.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtGui.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtGui.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtGui)
 endif
 ifdef PTXCONF_QT4_BUILD_SQL
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtSql.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtSql.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtSql.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtSql.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtSql.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtSql)
 endif
 ifdef PTXCONF_QT4_SQLITE_PLUGIN
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
 		/usr/plugins/sqldrivers/libqsqlite.$(QT4_PLUGIN_EXT))
 endif
 ifdef PTXCONF_QT4_BUILD_NETWORK
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtNetwork.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtNetwork.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtNetwork.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtNetwork.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtNetwork.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtNetwork)
 endif
 ifdef PTXCONF_QT4_BUILD_SVG
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtSvg.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtSvg.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtSvg.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtSvg.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtSvg.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtSvg)
 endif
 ifdef PTXCONF_QT4_BUILD_SCRIPT
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtScript.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtScript.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtScript.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtScript.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtScript.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtScript)
 endif
 ifdef PTXCONF_QT4_BUILD_QTESTLIB
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtTest.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtTest.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtTest.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtTest.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtTest.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtTest)
 endif
 ifdef PTXCONF_QT4_BUILD_ASSISTANTLIB
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtAssistantClient.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtAssistantClient.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtAssistantClient.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtAssistantClient.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtAssistantClient.so.$(QT_VERSION_L1))
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtCLucene.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtCLucene.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtCLucene.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtCLucene.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtCLucene.so.$(QT_VERSION_L1))
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtHelp.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtHelp.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtHelp.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtHelp.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtHelp.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtAssistantClient)
+	@$(call install_lib, qt4, 0, 0, 0644, libQtCLucene)
+	@$(call install_lib, qt4, 0, 0, 0644, libQtHelp)
 endif
 ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK),)
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtDBus.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtDBus.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtDBus.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtDBus.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtDBus.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtDBus)
 endif
 ifdef PTXCONF_QT4_BUILD_DESIGNERLIBS
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtDesigner.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtDesigner.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtDesigner.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtDesigner.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtDesigner.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtDesigner)
 endif
 ifdef PTXCONF_QT4_BUILD_WEBKIT
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtWebKit.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtWebKit.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtWebKit.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtWebKit.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtWebKit.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtWebKit)
 endif
 ifdef PTXCONF_QT4_BUILD_SCRIPTTOOLS
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtScriptTools.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtScriptTools.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtScriptTools.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtScriptTools.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtScriptTools.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtScriptTools)
 endif
 ifdef PTXCONF_QT4_BUILD_QTXMLPATTERNS
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtXmlPatterns.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtXmlPatterns.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtXmlPatterns.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtXmlPatterns.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtXmlPatterns.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtXmlPatterns)
 endif
 ifdef PTXCONF_QT4_BUILD_MULTIMEDIA
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libQtMultimedia.so.$(QT_VERSION_L3))
-	@$(call install_link, qt4, libQtMultimedia.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtMultimedia.so.$(QT_VERSION_L2))
-	@$(call install_link, qt4, libQtMultimedia.so.$(QT_VERSION_L3), \
-		/usr/lib/libQtMultimedia.so.$(QT_VERSION_L1))
+	@$(call install_lib, qt4, 0, 0, 0644, libQtMultimedia)
 endif
 ifdef PTXCONF_QT4_BUILD_PHONON
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libphonon.so.4.3.1)
-	@$(call install_link, qt4, libphonon.so.4.3.1, \
-		/usr/lib/libphonon.so.4.3)
-	@$(call install_link, qt4, libphonon.so.4.3.1, \
-		/usr/lib/libphonon.so.4)
-	@$(call install_link, qt4, libphonon.so.4.3.1, \
-		/usr/lib/libphonon.so)
+	@$(call install_lib, qt4, 0, 0, 0644, libphonon)
 endif
 endif #PTXCONF_QT4_SHARED
 ifdef PTXCONF_QT4_GFX_LINUXFB_PLUGIN
@@ -825,14 +733,7 @@ endif
 ifdef PTXCONF_QT4_GFX_POWERVR_PLUGIN
 	@$(call install_copy, qt4, 0, 0, 0644, -, \
 		/usr/plugins/gfxdrivers/libqgfxpvregl.$(QT4_PLUGIN_EXT))
-	@$(call install_copy, qt4, 0, 0, 0644, -, \
-		/usr/lib/libpvrQWSWSEGL.so.1.0.0)
-	@$(call install_link, qt4, libpvrQWSWSEGL.so.1.0.0, \
-		/usr/lib/libpvrQWSWSEGL.so.1.0)
-	@$(call install_link, qt4, libpvrQWSWSEGL.so.1.0.0, \
-		/usr/lib/libpvrQWSWSEGL.so.1)
-	@$(call install_link, qt4, libpvrQWSWSEGL.so.1.0.0, \
-		/usr/lib/libpvrQWSWSEGL.so)
+	@$(call install_lib, qt4, 0, 0, 0644, libpvrQWSWSEGL)
 endif
 ifneq ($(PTXCONF_QT4_DBUS_LOAD)$(PTXCONF_QT4_DBUS_LINK),)
 ifdef PTXCONF_QT4_BUILD_SCRIPT
@@ -1024,7 +925,7 @@ ifdef PTXCONF_PRELINK
 endif
 
 
-	@$(call install_finish,qt4)
+	@$(call install_finish, qt4)
 
 	@$(call touch)
 
