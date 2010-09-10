@@ -48,7 +48,7 @@ LIBMPEG2_CONF_OPT := \
 	--disable-sdl \
 	--disable-warnings \
 	--disable-gprof \
-	--without-x 
+	--without-x
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -63,19 +63,8 @@ $(STATEDIR)/libmpeg2.targetinstall:
 	@$(call install_fixup, libmpeg2,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
 	@$(call install_fixup, libmpeg2,DESCRIPTION,missing)
 
-	@$(call install_copy, libmpeg2, 0, 0, 0644, -, \
-		/usr/lib/libmpeg2.so.0.1.0)
-	@$(call install_link, libmpeg2, libmpeg2.so.0.1.0, \
-                /usr/lib/libmpeg2.so.0)
-	@$(call install_link, libmpeg2, libmpeg2.so.0.1.0, \
-                /usr/lib/libmpeg2.so)
-
-	@$(call install_copy, libmpeg2, 0, 0, 0644, -, \
-		/usr/lib/libmpeg2convert.so.0.0.0)
-	@$(call install_link, libmpeg2, libmpeg2convert.so.0.0.0, \
-                /usr/lib/libmpeg2convert.so.0)
-	@$(call install_link, libmpeg2, libmpeg2convert.so.0.0.0, \
-                /usr/lib/libmpeg2convert.so)
+	@$(call install_lib, libmpeg2, 0, 0, 0644, libmpeg2)
+	@$(call install_lib, libmpeg2, 0, 0, 0644, libmpeg2convert)
 
 	@$(call install_finish, libmpeg2)
 
