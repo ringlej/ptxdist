@@ -78,7 +78,9 @@ $(STATEDIR)/xorg-cursor.targetinstall:
 	@$(call install_fixup, xorg-cursor,DESCRIPTION,missing)
 
 	@$(call install_copy, xorg-cursor, 0, 0, 0755, /usr/share/icons/default)
-	@$(call install_copy, xorg-cursor, 0, 0, 0644, $(XORG_CURSOR_DIR)/index.theme, /usr/share/icons/default/index.theme, n)
+	@$(call install_copy, xorg-cursor, 0, 0, 0644, \
+		$(XORG_CURSOR_DIR)/index.theme, \
+		/usr/share/icons/default/index.theme, n)
 
 	@$(call install_finish, xorg-cursor)
 
