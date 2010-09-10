@@ -336,14 +336,12 @@ $(STATEDIR)/initng.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, initng)
-	@$(call install_fixup,initng,PRIORITY,optional)
-	@$(call install_fixup,initng,SECTION,base)
-	@$(call install_fixup,initng,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
-	@$(call install_fixup,initng,DESCRIPTION,missing)
+	@$(call install_fixup, initng,PRIORITY,optional)
+	@$(call install_fixup, initng,SECTION,base)
+	@$(call install_fixup, initng,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
+	@$(call install_fixup, initng,DESCRIPTION,missing)
 
-	@$(call install_copy, initng, 0, 0, 0644, -, /lib/libinitng.so.0.0.0)
-	@$(call install_link, initng, libinitng.so.0.0.0, /lib/libinitng.so.0)
-	@$(call install_link, initng, libinitng.so.0.0.0, /lib/libinitng.so)
+	@$(call install_lib, initng, 0, 0, 0644, libinitng)
 
 	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/librunlevel.so)
 	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/libdaemon.so)
@@ -366,28 +364,19 @@ endif
 
 ifdef PTXCONF_INITNG_NGCS
 	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/libngcs.so)
-	@$(call install_copy, initng, 0, 0, 0644, -, /lib/libngcs_common.so.0.0.0)
-	@$(call install_link, initng, libngcs_common.so.0.0.0, /lib/libngcs_common.so.0)
-	@$(call install_link, initng, libngcs_common.so.0.0.0, /lib/libngcs_common.so)
-
-	@$(call install_copy, initng, 0, 0, 0644, -, /lib/libngcs_client.so.0.0.0)
-	@$(call install_link, initng, libngcs_client.so.0.0.0, /lib/libngcs_client.so.0)
-	@$(call install_link, initng, libngcs_client.so.0.0.0, /lib/libngcs_client.so)
+	@$(call install_lib, initng, 0, 0, 0644, libngcs_common)
+	@$(call install_lib, initng, 0, 0, 0644, libngcs_client)
 endif
 
 ifdef PTXCONF_INITNG_NGC4
 	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/libngc4.so)
-	@$(call install_copy, initng, 0, 0, 0644, -, /lib/libngcclient.so.0.0.0)
-	@$(call install_link, initng, libngcclient.so.0.0.0, /lib/libngcclient.so.0)
-	@$(call install_link, initng, libngcclient.so.0.0.0, /lib/libngcclient.so)
+	@$(call install_lib, initng, 0, 0, 0644, libngcclient)
 
 	@$(call install_copy, initng, 0, 0, 0755, -, /sbin/ngc)
 endif
 
 ifdef PTXCONF_INITNG_NGE
-	@$(call install_copy, initng, 0, 0, 0644, -, /lib/libngeclient.so.0.0.0)
-	@$(call install_link, initng, libngeclient.so.0.0.0, /lib/libngeclient.so.0)
-	@$(call install_link, initng, libngeclient.so.0.0.0, /lib/libngeclient.so)
+	@$(call install_lib, initng, 0, 0, 0644, libngeclient)
 
 	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/libnge.so)
 
@@ -547,7 +536,7 @@ endif
 ifdef PTXCONF_INITNG_CRITICAL
 	@$(call install_copy, initng, 0, 0, 0644, -, /lib/initng/libcritical.so)
 endif
-	@$(call install_finish,initng)
+	@$(call install_finish, initng)
 
 	@$(call touch)
 
