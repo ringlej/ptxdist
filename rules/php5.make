@@ -284,10 +284,10 @@ $(STATEDIR)/php5.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, php5)
-	@$(call install_fixup,php5,PRIORITY,optional)
-	@$(call install_fixup,php5,SECTION,base)
-	@$(call install_fixup,php5,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,php5,DESCRIPTION,missing)
+	@$(call install_fixup, php5,PRIORITY,optional)
+	@$(call install_fixup, php5,SECTION,base)
+	@$(call install_fixup, php5,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, php5,DESCRIPTION,missing)
 
 ifdef PTXCONF_PHP5_SAPI_APXS2
 	@$(call install_copy, php5, 0, 0, 0644, -, \
@@ -307,7 +307,7 @@ ifdef PTXCONF_PHP5_INI
 	@$(call install_alternative, php5, 0, 0, 0644, /etc/php5/php.ini)
 endif
 
-	@$(call install_finish,php5)
+	@$(call install_finish, php5)
 
 	@$(call touch)
 
