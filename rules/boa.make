@@ -55,7 +55,7 @@ $(STATEDIR)/boa.install:
 $(STATEDIR)/boa.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  boa)
+	@$(call install_init, boa)
 	@$(call install_fixup, boa,PRIORITY,optional)
 	@$(call install_fixup, boa,SECTION,base)
 	@$(call install_fixup, boa,AUTHOR,"Alexander Stein <alexander.stein@systec-electronic.com>")
@@ -68,7 +68,6 @@ $(STATEDIR)/boa.targetinstall:
 ifdef PTXCONF_BOA_INSTALL_CONFIG
 	@$(call install_alternative, boa, 0, 0, 0644, /etc/boa/boa.conf)
 endif
-
 	@$(call install_finish, boa)
 
 	@$(call touch)
