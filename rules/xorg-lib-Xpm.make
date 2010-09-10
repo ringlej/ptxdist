@@ -57,16 +57,7 @@ $(STATEDIR)/xorg-lib-xpm.targetinstall:
 	@$(call install_fixup, xorg-lib-xpm,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xpm,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xpm, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXpm.so.4.11.0)
-
-	@$(call install_link, xorg-lib-xpm, \
-		libXpm.so.4.11.0, \
-		$(XORG_LIBDIR)/libXpm.so.4)
-
-	@$(call install_link, xorg-lib-xpm, \
-		libXpm.so.4.11.0, \
-		$(XORG_LIBDIR)/libXpm.so)
+	@$(call install_lib, xorg-lib-xpm, 0, 0, 0644, libXpm)
 
 	@$(call install_finish, xorg-lib-xpm)
 
