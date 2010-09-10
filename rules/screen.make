@@ -53,10 +53,10 @@ $(STATEDIR)/screen.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, screen)
-	@$(call install_fixup,screen,PRIORITY,optional)
-	@$(call install_fixup,screen,SECTION,base)
-	@$(call install_fixup,screen,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,screen,DESCRIPTION,missing)
+	@$(call install_fixup, screen,PRIORITY,optional)
+	@$(call install_fixup, screen,SECTION,base)
+	@$(call install_fixup, screen,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, screen,DESCRIPTION,missing)
 
 	@$(call install_copy, screen, 0, 0, 0755, -, /usr/bin/screen)
 
@@ -64,7 +64,7 @@ ifdef PTXCONF_SCREEN_ETC_SCREENRC
 	@$(call install_alternative, screen, 0, 0, 0644, /etc/screenrc, n)
 endif
 
-	@$(call install_finish,screen)
+	@$(call install_finish, screen)
 
 	@$(call touch)
 
