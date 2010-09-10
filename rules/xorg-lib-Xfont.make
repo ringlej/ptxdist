@@ -51,7 +51,7 @@ XORG_LIB_XFONT_AUTOCONF := \
 # Use the global switch here to support freetype when
 # its present in the system
 #
-ifdef PTXCONF_XORG_LIB_XFONT_FREETYPE 
+ifdef PTXCONF_XORG_LIB_XFONT_FREETYPE
 XORG_LIB_XFONT_AUTOCONF	+= --enable-freetype
 else
 XORG_LIB_XFONT_AUTOCONF	+= --disable-freetype
@@ -100,16 +100,7 @@ $(STATEDIR)/xorg-lib-xfont.targetinstall:
 	@$(call install_fixup, xorg-lib-xfont,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xfont,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xfont, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXfont.so.1.4.1)
-
-	@$(call install_link, xorg-lib-xfont, \
-		libXfont.so.1.4.1, \
-		$(XORG_LIBDIR)/libXfont.so.1)
-
-	@$(call install_link, xorg-lib-xfont, \
-		libXfont.so.1.4.1, \
-		$(XORG_LIBDIR)/libXfont.so)
+	@$(call install_lib, xorg-lib-xfont, 0, 0, 0644, libXfont)
 
 	@$(call install_finish, xorg-lib-xfont)
 
