@@ -56,17 +56,14 @@ $(STATEDIR)/atk.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, atk)
-	@$(call install_fixup,atk,PRIORITY,optional)
-	@$(call install_fixup,atk,SECTION,base)
-	@$(call install_fixup,atk,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,atk,DESCRIPTION,missing)
+	@$(call install_fixup, atk,PRIORITY,optional)
+	@$(call install_fixup, atk,SECTION,base)
+	@$(call install_fixup, atk,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, atk,DESCRIPTION,missing)
 
-	@$(call install_copy, atk, 0, 0, 0644, -, \
-		/usr/lib/libatk-1.0.so.0.2809.1)
-	@$(call install_link, atk, libatk-1.0.so.0.2809.1, /usr/lib/libatk-1.0.so.0)
-	@$(call install_link, atk, libatk-1.0.so.0.2809.1, /usr/lib/libatk-1.0.so)
+	@$(call install_lib, atk, 0, 0, 0644, libatk-1.0)
 
-	@$(call install_finish,atk)
+	@$(call install_finish, atk)
 
 	@$(call touch)
 
