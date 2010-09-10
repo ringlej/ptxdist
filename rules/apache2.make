@@ -159,15 +159,8 @@ $(STATEDIR)/apache2.targetinstall:
 		$(APACHE2_PKGDIR)/usr/bin/httpd, /usr/sbin/apache2)
 
 #	# and some needed shared libraries
-	@$(call install_copy, apache2, 0, 0, 0644, -, \
-		/usr/lib/libaprutil-0.so.0.9.12)
-	@$(call install_link, apache2, libaprutil-0.so.0.9.12, /usr/lib/libaprutil-0.so.0.9)
-	@$(call install_link, apache2, libaprutil-0.so.0.9.12, /usr/lib/libaprutil-0.so.0)
-
-	@$(call install_copy, apache2, 0, 0, 0644, -, \
-		/usr/lib/libapr-0.so.0.9.12)
-	@$(call install_link, apache2, libapr-0.so.0.9.12, /usr/lib/libapr-0.so.0.9)
-	@$(call install_link, apache2, libapr-0.so.0.9.12, /usr/lib/libapr-0.so.0)
+	@$(call install_lib, apache2, 0, 0, 0644, libaprutil-0)
+	@$(call install_lib, apache2, 0, 0, 0644, libapr-0)
 
 ifneq ($(PTXCONF_APACHE2_SERVERROOT),"")
 	@$(call install_copy, apache2, 12,102,0755,$(PTXCONF_APACHE2_SERVERROOT))
