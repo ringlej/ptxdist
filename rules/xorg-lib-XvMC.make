@@ -60,19 +60,8 @@ $(STATEDIR)/xorg-lib-xvmc.targetinstall:
 	@$(call install_fixup, xorg-lib-xvmc,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xvmc,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xvmc, 0, 0, 0644, -, \
-		/usr/lib/libXvMC.so.1.0.0)
-	@$(call install_link, xorg-lib-xvmc, \
-		libXvMC.so.1.0.0, /usr/lib/libXvMC.so.1)
-	@$(call install_link, xorg-lib-xvmc, \
-		libXvMC.so.1.0.0, /usr/lib/libXvMC.so)
-
-	@$(call install_copy, xorg-lib-xvmc, 0, 0, 0644, -, \
-		/usr/lib/libXvMCW.so.1.0.0)
-	@$(call install_link, xorg-lib-xvmc, \
-		libXvMCW.so.1.0.0, /usr/lib/libXvMCW.so.1)
-	@$(call install_link, xorg-lib-xvmc, \
-		libXvMCW.so.1.0.0, /usr/lib/libXvMCW.so)
+	@$(call install_lib, xorg-lib-xvmc, 0, 0, 0644, libXvMC)
+	@$(call install_lib, xorg-lib-xvmc, 0, 0, 0644, libXvMCW)
 
 	@$(call install_finish, xorg-lib-xvmc)
 
