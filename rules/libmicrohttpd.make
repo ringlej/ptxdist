@@ -78,12 +78,7 @@ $(STATEDIR)/libmicrohttpd.targetinstall:
 	@$(call install_fixup, libmicrohttpd,AUTHOR,"Erwin Rol <erwin@erwinrol.com>")
 	@$(call install_fixup, libmicrohttpd,DESCRIPTION,missing)
 
-	@$(call install_copy, libmicrohttpd, 0, 0, 0644, -, \
-		/usr/lib/libmicrohttpd.so.5.2.0)
-	@$(call install_link, libmicrohttpd, libmicrohttpd.so.5.2.0, \
-		/usr/lib/libmicrohttpd.so.5)
-	@$(call install_link, libmicrohttpd, libmicrohttpd.so.5.2.0, \
-		/usr/lib/libmicrohttpd.so)
+	@$(call install_lib, libmicrohttpd, 0, 0, 0644, libmicrohttpd)
 
 	@$(call install_finish, libmicrohttpd)
 
