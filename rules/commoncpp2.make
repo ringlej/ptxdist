@@ -83,13 +83,8 @@ $(STATEDIR)/commoncpp2.targetinstall:
 	@$(call install_fixup, commoncpp2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, commoncpp2,DESCRIPTION,missing)
 
-	@$(call install_copy, commoncpp2, 0, 0, 0644, -, /usr/lib/libccgnu2-1.8.so.0.0.0)
-	@$(call install_link, commoncpp2, libccgnu2-1.8.so.0.0.0, /usr/lib/libccgnu2-1.8.so.0)
-	@$(call install_link, commoncpp2, libccgnu2-1.8.so.0.0.0, /usr/lib/libccgnu2.so)
-
-	@$(call install_copy, commoncpp2, 0, 0, 0644, -, /usr/lib/libccext2-1.8.so.0.0.0)
-	@$(call install_link, commoncpp2, libccext2-1.8.so.0.0.0, /usr/lib/libccext2-1.8.so.0)
-	@$(call install_link, commoncpp2, libccext2-1.8.so.0.0.0, /usr/lib/libccext2.so)
+	@$(call install_lib, commoncpp2, 0, 0, 0644, libccgnu2-1.8)
+	@$(call install_lib, commoncpp2, 0, 0, 0644, libccext2-1.8)
 
 	@$(call install_finish, commoncpp2)
 
