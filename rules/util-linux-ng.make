@@ -146,9 +146,7 @@ ifdef PTXCONF_UTIL_LINUX_NG_MCOOKIE
 endif
 
 ifdef PTXCONF_UTIL_LINUX_NG_LIBBLKID
-	@$(call install_copy, util-linux-ng, 0, 0, 0644, -, /lib/libblkid.so.1.1.0)
-	@$(call install_link, util-linux-ng, libblkid.so.1.1.0, /lib/libblkid.so.1)
-	@$(call install_link, util-linux-ng, libblkid.so.1.1.0, /lib/libblkid.so)
+	@$(call install_lib, util-linux-ng, 0, 0, 0644, libblkid)
 endif
 
 ifdef PTXCONF_UTIL_LINUX_NG_BLKID
@@ -156,9 +154,7 @@ ifdef PTXCONF_UTIL_LINUX_NG_BLKID
 endif
 
 ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
-	@$(call install_copy, util-linux-ng, 0, 0, 0644, -, /lib/libuuid.so.1.3.0)
-	@$(call install_link, util-linux-ng, libuuid.so.1.3.0, /lib/libuuid.so.1)
-	@$(call install_link, util-linux-ng, libuuid.so.1.3.0, /lib/libuuid.so)
+	@$(call install_lib, util-linux-ng, 0, 0, 0644, libuuid)
 endif
 
 ifdef PTXCONF_UTIL_LINUX_NG_LIBMOUNT
