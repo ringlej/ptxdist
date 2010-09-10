@@ -62,8 +62,7 @@ $(STATEDIR)/bonniexx.targetinstall:
 	@$(call install_fixup, bonniexx,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, bonniexx,DESCRIPTION,missing)
 
-	@$(call install_copy, bonniexx, 0, 0, 0755, -, \
-		/usr/sbin/bonnie++)
+	@$(call install_copy, bonniexx, 0, 0, 0755, -, /usr/sbin/bonnie++)
 
 	@$(call install_finish, bonniexx)
 
