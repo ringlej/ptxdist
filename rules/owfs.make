@@ -111,18 +111,11 @@ $(STATEDIR)/owfs.targetinstall:
 	@$(call install_fixup, owfs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, owfs,DESCRIPTION,missing)
 
-	@$(call install_copy, owfs, 0, 0, 0644, \
-		$(PKGDIR)/$(OWFS)/usr/lib/libow-2.7.so.26.0.0, \
-		/usr/lib/libow-2.7.so.26.0.0)
-	@$(call install_link, owfs, libow-2.7.so.26.0.0, /usr/lib/libow-2.7.so.26)
-	@$(call install_link, owfs, libow-2.7.so.26.0.0, /usr/lib/libow-2.7.so)
+	@$(call install_lib, owfs, 0, 0, 0644, libow-2.7)
 
 ifdef PTXCONF_OWFS__OWFS
-	@$(call install_copy, owfs, 0, 0, 0755, \
-		$(PKGDIR)/$(OWFS)/usr/bin/owfs, \
-		/usr/bin/owfs)
+	@$(call install_copy, owfs, 0, 0, 0755, /usr/bin/owfs)
 endif
-
 	@$(call install_finish, owfs)
 
 	@$(call touch)
