@@ -60,18 +60,14 @@ $(STATEDIR)/dbench.targetinstall:
 	@$(call install_fixup, dbench,DESCRIPTION,missing)
 
 ifdef PTXCONF_DBENCH_DBENCH
-	@$(call install_copy, dbench, 0, 0, 0755, -,\
-		/usr/bin/dbench)
+	@$(call install_copy, dbench, 0, 0, 0755, -, /usr/bin/dbench)
 endif
 ifdef PTXCONF_DBENCH_TBENCH
-	@$(call install_copy, dbench, 0, 0, 0755, -,\
-		/usr/bin/tbench)
+	@$(call install_copy, dbench, 0, 0, 0755, -, /usr/bin/tbench)
 endif
 ifdef PTXCONF_DBENCH_TBENCH_SERVER
-	@$(call install_copy, dbench, 0, 0, 0755, -,\
-		/usr/bin/tbench_srv)
+	@$(call install_copy, dbench, 0, 0, 0755, -, /usr/bin/tbench_srv)
 endif
-
 	@$(call install_finish, dbench)
 
 	@$(call touch)
