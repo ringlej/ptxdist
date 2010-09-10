@@ -75,315 +75,130 @@ COREUTILS_AUTOCONF := \
 # Target-Install
 # ----------------------------------------------------------------------------
 
+COREUTILS_INST-y =
+COREUTILS_INST-m =
+COREUTILS_INST-$(PTXCONF_COREUTILS_ECHO) += /usr/bin/echo
+COREUTILS_INST-$(PTXCONF_COREUTILS_STAT) += /usr/bin/stat
+COREUTILS_INST-$(PTXCONF_COREUTILS_DATE) += /usr/bin/date
+COREUTILS_INST-$(PTXCONF_COREUTILS_HOSTIOD) += /usr/bin/hostid
+COREUTILS_INST-$(PTXCONF_COREUTILS_UNAME) += /usr/bin/uname
+COREUTILS_INST-$(PTXCONF_COREUTILS_DIRCOLORS) += /usr/bin/dircolors
+COREUTILS_INST-$(PTXCONF_COREUTILS_SEQ) += /usr/bin/seq
+COREUTILS_INST-$(PTXCONF_COREUTILS_NOHUP) += /usr/bin/nohup
+COREUTILS_INST-$(PTXCONF_COREUTILS_GROUPS) += /usr/bin/groups
+COREUTILS_INST-$(PTXCONF_COREUTILS_SHA224SUM) += /usr/bin/sha224sum
+COREUTILS_INST-$(PTXCONF_COREUTILS_EXPR) += /usr/bin/expr
+COREUTILS_INST-$(PTXCONF_COREUTILS_TRUNCATE) += /usr/bin/truncate
+COREUTILS_INST-$(PTXCONF_COREUTILS_CHCON) += /usr/bin/chcon
+COREUTILS_INST-$(PTXCONF_COREUTILS_PRINTF) += /usr/bin/printf
+COREUTILS_INST-$(PTXCONF_COREUTILS_RMDIR) += /usr/bin/rmdir
+COREUTILS_INST-$(PTXCONF_COREUTILS_PRINTENV) += /usr/bin/printenv
+COREUTILS_INST-$(PTXCONF_COREUTILS_EXPANd) += /usr/bin/expand
+COREUTILS_INST-$(PTXCONF_COREUTILS_CHMOD) += /usr/bin/chmod
+COREUTILS_INST-$(PTXCONF_COREUTILS_CHOWN) += /usr/bin/chown
+COREUTILS_INST-$(PTXCONF_COREUTILS_SHA512SUM) += /usr/bin/sha512sum
+COREUTILS_INST-$(PTXCONF_COREUTILS_UNIQ) += /usr/bin/uniq
+COREUTILS_INST-$(PTXCONF_COREUTILS_INSTALL) += /usr/bin/install
+COREUTILS_INST-$(PTXCONF_COREUTILS_TTY) += /usr/bin/tty
+COREUTILS_INST-$(PTXCONF_COREUTILS_SHA384SUM) += /usr/bin/sha384sum
+COREUTILS_INST-$(PTXCONF_COREUTILS_CUT) += /usr/bin/cut
+COREUTILS_INST-$(PTXCONF_COREUTILS_SHRED) += /usr/bin/shred
+COREUTILS_INST-$(PTXCONF_COREUTILS_OD) += /usr/bin/od
+COREUTILS_INST-$(PTXCONF_COREUTILS_CHGRP) += /usr/bin/chgrp
+COREUTILS_INST-$(PTXCONF_COREUTILS_DIR) += /usr/bin/dir
+COREUTILS_INST-$(PTXCONF_COREUTILS_MKFIFO) += /usr/bin/mkfifo
+COREUTILS_INST-$(PTXCONF_COREUTILS_CHROOT) += /usr/bin/chroot
+COREUTILS_INST-$(PTXCONF_COREUTILS_LN) += /usr/bin/ln
+COREUTILS_INST-$(PTXCONF_COREUTILS_SUM) += /usr/bin/sum
+COREUTILS_INST-$(PTXCONF_COREUTILS_USERS) += /usr/bin/users
+COREUTILS_INST-$(PTXCONF_COREUTILS_TOUCH) += /usr/bin/touch
+COREUTILS_INST-$(PTXCONF_COREUTILS_PASTE) += /usr/bin/paste
+COREUTILS_INST-$(PTXCONF_COREUTILS_MKNOD) += /usr/bin/mknod
+COREUTILS_INST-$(PTXCONF_COREUTILS_TSORT) += /usr/bin/tsort
+COREUTILS_INST-$(PTXCONF_COREUTILS_MKTEMP) += /usr/bin/mktemp
+COREUTILS_INST-$(PTXCONF_COREUTILS_RUNCON) += /usr/bin/runcon
+COREUTILS_INST-$(PTXCONF_COREUTILS_READLINK) += /usr/bin/readlink
+COREUTILS_INST-$(PTXCONF_COREUTILS_TAC) += /usr/bin/tac
+COREUTILS_INST-$(PTXCONF_COREUTILS_MD5SUM) += /usr/bin/md5sum
+COREUTILS_INST-$(PTXCONF_COREUTILS_DD) += /usr/bin/dd
+COREUTILS_INST-$(PTXCONF_COREUTILS_YES) += /usr/bin/yes
+COREUTILS_INST-$(PTXCONF_COREUTILS_FACTOR) += /usr/bin/factor
+COREUTILS_INST-$(PTXCONF_COREUTILS_JOIN) += /usr/bin/join
+COREUTILS_INST-$(PTXCONF_COREUTILS_PWD) += /usr/bin/pwd
+COREUTILS_INST-$(PTXCONF_COREUTILS_SHUF) += /usr/bin/shuf
+COREUTILS_INST-$(PTXCONF_COREUTILS_SHA1SUM) += /usr/bin/sha1sum
+COREUTILS_INST-$(PTXCONF_COREUTILS_TR) += /usr/bin/tr
+COREUTILS_INST-$(PTXCONF_COREUTILS_CSPLIT) += /usr/bin/csplit
+COREUTILS_INST-$(PTXCONF_COREUTILS_DU) += /usr/bin/du
+COREUTILS_INST-$(PTXCONF_COREUTILS_TAIL) += /usr/bin/tail
+COREUTILS_INST-$(PTXCONF_COREUTILS_PTX) += /usr/bin/ptx
+COREUTILS_INST-$(PTXCONF_COREUTILS_BASE64) += /usr/bin/base64
+COREUTILS_INST-$(PTXCONF_COREUTILS_TIMEOUT) += /usr/bin/timeout
+COREUTILS_INST-$(PTXCONF_COREUTILS_SORT) += /usr/bin/sort
+COREUTILS_INST-$(PTXCONF_COREUTILS_FALSE) += /usr/bin/false
+COREUTILS_INST-$(PTXCONF_COREUTILS_DIRNAME) += /usr/bin/dirname
+COREUTILS_INST-$(PTXCONF_COREUTILS_TEST) += /usr/bin/test
+COREUTILS_INST-$(PTXCONF_COREUTILS_TEST) += /usr/bin/[
+COREUTILS_INST-$(PTXCONF_COREUTILS_FMT) += /usr/bin/fmt
+COREUTILS_INST-$(PTXCONF_COREUTILS_STDBUF) += /usr/bin/stdbuf
+COREUTILS_INST-$(PTXCONF_COREUTILS_PINKY) += /usr/bin/pinky
+COREUTILS_INST-$(PTXCONF_COREUTILS_BASENAME) += /usr/bin/basename
+COREUTILS_INST-$(PTXCONF_COREUTILS_ID) += /usr/bin/id
+COREUTILS_INST-$(PTXCONF_COREUTILS_LINK) += /usr/bin/link
+COREUTILS_INST-$(PTXCONF_COREUTILS_SLEEP) += /usr/bin/sleep
+COREUTILS_INST-$(PTXCONF_COREUTILS_SHA256SUM) += /usr/bin/sha256sum
+COREUTILS_INST-$(PTXCONF_COREUTILS_ENV) += /usr/bin/env
+COREUTILS_INST-$(PTXCONF_COREUTILS_WHO) += /usr/bin/who
+COREUTILS_INST-$(PTXCONF_COREUTILS_LOGNAME) += /usr/bin/logname
+COREUTILS_INST-$(PTXCONF_COREUTILS_WHOAMI) += /usr/bin/whoami
+COREUTILS_INST-$(PTXCONF_COREUTILS_STTY) += /usr/bin/stty
+COREUTILS_INST-$(PTXCONF_COREUTILS_PATHCHK) += /usr/bin/pathchk
+COREUTILS_INST-$(PTXCONF_COREUTILS_NL) += /usr/bin/nl
+COREUTILS_INST-$(PTXCONF_COREUTILS_WC) += /usr/bin/wc
+COREUTILS_INST-$(PTXCONF_COREUTILS_UNLINK) += /usr/bin/unlink
+COREUTILS_INST-$(PTXCONF_COREUTILS_UNEXPAND) += /usr/bin/unexpand
+COREUTILS_INST-$(PTXCONF_COREUTILS_NPROC) += /usr/bin/nproc
+COREUTILS_INST-$(PTXCONF_COREUTILS_VDIR) += /usr/bin/vdir
+COREUTILS_INST-$(PTXCONF_COREUTILS_SYNC) += /usr/bin/sync
+COREUTILS_INST-$(PTXCONF_COREUTILS_RM) += /usr/bin/rm
+COREUTILS_INST-$(PTXCONF_COREUTILS_CKSUM) += /usr/bin/cksum
+COREUTILS_INST-$(PTXCONF_COREUTILS_TEE) += /usr/bin/tee
+COREUTILS_INST-$(PTXCONF_COREUTILS_MKDIR) += /usr/bin/mkdir
+COREUTILS_INST-$(PTXCONF_COREUTILS_MV) += /usr/bin/mv
+COREUTILS_INST-$(PTXCONF_COREUTILS_LS) += /usr/bin/ls
+COREUTILS_INST-$(PTXCONF_COREUTILS_HEAD) += /usr/bin/head
+COREUTILS_INST-$(PTXCONF_COREUTILS_TRUE) += /usr/bin/true
+COREUTILS_INST-$(PTXCONF_COREUTILS_CAT) += /usr/bin/cat
+COREUTILS_INST-$(PTXCONF_COREUTILS_KILL) += /usr/bin/kill
+COREUTILS_INST-$(PTXCONF_COREUTILS_CP) += /usr/bin/cp
+COREUTILS_INST-$(PTXCONF_COREUTILS_COMM) += /usr/bin/comm
+COREUTILS_INST-$(PTXCONF_COREUTILS_SPLIT) += /usr/bin/split
+COREUTILS_INST-$(PTXCONF_COREUTILS_FOLD) += /usr/bin/fold
+COREUTILS_INST-$(PTXCONF_COREUTILS_PR) += /usr/bin/pr
+COREUTILS_INST-$(PTXCONF_COREUTILS_UPTIME) += /usr/bin/uptime
+COREUTILS_INST-$(PTXCONF_COREUTILS_NICE) += /usr/bin/nice
+COREUTILS_INST-$(PTXCONF_COREUTILS_) += /usr/bin/
+COREUTILS_INST-$(PTXCONF_COREUTILS_) += /usr/bin/
+
 $(STATEDIR)/coreutils.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  coreutils)
+	@$(call install_init, coreutils)
 	@$(call install_fixup, coreutils,PRIORITY,optional)
 	@$(call install_fixup, coreutils,SECTION,base)
 	@$(call install_fixup, coreutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, coreutils,DESCRIPTION,missing)
 
-ifdef PTXCONF_COREUTILS_ECHO
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/echo)
-endif
-ifdef PTXCONF_COREUTILS_STAT
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/stat)
-endif
-ifdef PTXCONF_COREUTILS_DATE
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/date)
-endif
-ifdef PTXCONF_COREUTILS_HOSTID
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/hostid)
-endif
-ifdef PTXCONF_COREUTILS_UNAME
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/uname)
-endif
-ifdef PTXCONF_COREUTILS_DIRCOLORS
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/dircolors)
-endif
-ifdef PTXCONF_COREUTILS_SEQ
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/seq)
-endif
-ifdef PTXCONF_COREUTILS_NOHUP
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/nohup)
-endif
-ifdef PTXCONF_COREUTILS_GROUPS
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/groups)
-endif
-ifdef PTXCONF_COREUTILS_SHA224SUM
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/sha224sum)
-endif
-ifdef PTXCONF_COREUTILS_EXPR
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/expr)
-endif
-ifdef PTXCONF_COREUTILS_TRUNCATE
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/truncate)
-endif
-ifdef PTXCONF_COREUTILS_CHCON
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/chcon)
-endif
-ifdef PTXCONF_COREUTILS_PRINTF
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/printf)
-endif
-ifdef PTXCONF_COREUTILS_RMDIR
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/rmdir)
-endif
-ifdef PTXCONF_COREUTILS_PRINTENV
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/printenv)
-endif
-ifdef PTXCONF_COREUTILS_EXPAND
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/expand)
-endif
-ifdef PTXCONF_COREUTILS_CHMOD
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/chmod)
-endif
-ifdef PTXCONF_COREUTILS_CHOWN
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/chown)
-endif
-ifdef PTXCONF_COREUTILS_SHA512SUM
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/sha512sum)
-endif
-ifdef PTXCONF_COREUTILS_UNIQ
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/uniq)
-endif
-ifdef PTXCONF_COREUTILS_INSTALL
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/install)
-endif
-ifdef PTXCONF_COREUTILS_TTY
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/tty)
-endif
-ifdef PTXCONF_COREUTILS_SHA384SUM
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/sha384sum)
-endif
-ifdef PTXCONF_COREUTILS_CUT
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/cut)
-endif
-ifdef PTXCONF_COREUTILS_SHRED
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/shred)
-endif
-ifdef PTXCONF_COREUTILS_OD
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/od)
-endif
-ifdef PTXCONF_COREUTILS_CHGRP
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/chgrp)
-endif
-ifdef PTXCONF_COREUTILS_DIR
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/dir)
-endif
-ifdef PTXCONF_COREUTILS_MKFIFO
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/mkfifo)
-endif
-ifdef PTXCONF_COREUTILS_CHROOT
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/chroot)
-endif
-ifdef PTXCONF_COREUTILS_LN
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/ln)
-endif
-ifdef PTXCONF_COREUTILS_SUM
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/sum)
-endif
-ifdef PTXCONF_COREUTILS_USERS
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/users)
-endif
-ifdef PTXCONF_COREUTILS_TOUCH
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/touch)
-endif
-ifdef PTXCONF_COREUTILS_PASTE
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/paste)
-endif
-ifdef PTXCONF_COREUTILS_MKNOD
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/mknod)
-endif
-ifdef PTXCONF_COREUTILS_TSORT
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/tsort)
-endif
-ifdef PTXCONF_COREUTILS_MKTEMP
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/mktemp)
-endif
-ifdef PTXCONF_COREUTILS_RUNCON
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/runcon)
-endif
-ifdef PTXCONF_COREUTILS_READLINK
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/readlink)
-endif
-ifdef PTXCONF_COREUTILS_TAC
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/tac)
-endif
-ifdef PTXCONF_COREUTILS_MD5SUM
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/md5sum)
-endif
-ifdef PTXCONF_COREUTILS_DD
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/dd)
-endif
-ifdef PTXCONF_COREUTILS_YES
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/yes)
-endif
-ifdef PTXCONF_COREUTILS_FACTOR
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/factor)
-endif
-ifdef PTXCONF_COREUTILS_JOIN
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/join)
-endif
-ifdef PTXCONF_COREUTILS_PWD
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/pwd)
-endif
-ifdef PTXCONF_COREUTILS_SHUF
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/shuf)
-endif
-ifdef PTXCONF_COREUTILS_SHA1SUM
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/sha1sum)
-endif
-ifdef PTXCONF_COREUTILS_TR
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/tr)
-endif
-ifdef PTXCONF_COREUTILS_CSPLIT
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/csplit)
-endif
-ifdef PTXCONF_COREUTILS_DU
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/du)
-endif
-ifdef PTXCONF_COREUTILS_TAIL
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/tail)
-endif
-ifdef PTXCONF_COREUTILS_PTX
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/ptx)
-endif
-ifdef PTXCONF_COREUTILS_BASE64
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/base64)
-endif
-ifdef PTXCONF_COREUTILS_TIMEOUT
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/timeout)
-endif
-ifdef PTXCONF_COREUTILS_SORT
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/sort)
-endif
-ifdef PTXCONF_COREUTILS_FALSE
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/false)
-endif
-ifdef PTXCONF_COREUTILS_DIRNAME
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/dirname)
-endif
-ifdef PTXCONF_COREUTILS_TEST
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/test)
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/[)
-endif
-ifdef PTXCONF_COREUTILS_FMT
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/fmt)
-endif
 ifdef PTXCONF_COREUTILS_STDBUF
 	@$(call install_copy, coreutils, 0, 0, 0644, -, /usr/lib/coreutils/libstdbuf.so)
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/stdbuf)
 endif
-ifdef PTXCONF_COREUTILS_PINKY
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/pinky)
-endif
-ifdef PTXCONF_COREUTILS_BASENAME
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/basename)
-endif
-ifdef PTXCONF_COREUTILS_ID
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/id)
-endif
-ifdef PTXCONF_COREUTILS_LINK
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/link)
-endif
-ifdef PTXCONF_COREUTILS_SLEEP
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/sleep)
-endif
-ifdef PTXCONF_COREUTILS_SHA256SUM
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/sha256sum)
-endif
-ifdef PTXCONF_COREUTILS_ENV
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/env)
-endif
-ifdef PTXCONF_COREUTILS_WHO
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/who)
-endif
-ifdef PTXCONF_COREUTILS_LOGNAME
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/logname)
-endif
-ifdef PTXCONF_COREUTILS_WHOAMI
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/whoami)
-endif
-ifdef PTXCONF_COREUTILS_STTY
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/stty)
-endif
-ifdef PTXCONF_COREUTILS_PATHCHK
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/pathchk)
-endif
-ifdef PTXCONF_COREUTILS_NL
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/nl)
-endif
-ifdef PTXCONF_COREUTILS_WC
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/wc)
-endif
-ifdef PTXCONF_COREUTILS_UNLINK
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/unlink)
-endif
-ifdef PTXCONF_COREUTILS_UNEXPAND
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/unexpand)
-endif
-ifdef PTXCONF_COREUTILS_NPROC
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/nproc)
-endif
-ifdef PTXCONF_COREUTILS_VDIR
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/vdir)
-endif
-ifdef PTXCONF_COREUTILS_SYNC
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/sync)
-endif
-ifdef PTXCONF_COREUTILS_RM
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/rm)
-endif
-ifdef PTXCONF_COREUTILS_CKSUM
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/cksum)
-endif
-ifdef PTXCONF_COREUTILS_TEE
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/tee)
-endif
-ifdef PTXCONF_COREUTILS_MKDIR
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/mkdir)
-endif
-ifdef PTXCONF_COREUTILS_MV
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/mv)
-endif
-ifdef PTXCONF_COREUTILS_LS
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/ls)
-endif
-ifdef PTXCONF_COREUTILS_HEAD
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/head)
-endif
-ifdef PTXCONF_COREUTILS_TRUE
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/true)
-endif
-ifdef PTXCONF_COREUTILS_CAT
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/cat)
-endif
-ifdef PTXCONF_COREUTILS_KILL
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/kill)
-endif
-ifdef PTXCONF_COREUTILS_CP
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/cp)
-endif
-ifdef PTXCONF_COREUTILS_COMM
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/comm)
-endif
-ifdef PTXCONF_COREUTILS_SPLIT
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/split)
-endif
-ifdef PTXCONF_COREUTILS_FOLD
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/fold)
-endif
-ifdef PTXCONF_COREUTILS_PR
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/pr)
-endif
-ifdef PTXCONF_COREUTILS_UPTIME
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/uptime)
-endif
-ifdef PTXCONF_COREUTILS_NICE
-	@$(call install_copy, coreutils, 0, 0, 0755, -, /usr/bin/nice)
-endif
+
+	@for i in $(COREUTILS_INST-y) $(COREUTILS_INST-m); do \
+		$(call install_copy, coreutils, 0, 0, 0755, -, $$i) \
+	done
+
 	@$(call install_finish, coreutils)
+
 	@$(call touch)
 
 # vim: syntax=make
