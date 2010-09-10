@@ -68,10 +68,7 @@ $(STATEDIR)/libmad.targetinstall:
 	@$(call install_fixup, libmad,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, libmad,DESCRIPTION,missing)
 
-	@$(call install_copy, libmad, 0, 0, 0644, -, \
-		/usr/lib/libmad.so.0.2.1)
-	@$(call install_link, libmad, libmad.so.0.2.1, /usr/lib/libmad.so.0)
-	@$(call install_link, libmad, libmad.so.0.2.1, /usr/lib/libmad.so)
+	@$(call install_lib, libmad, 0, 0, 0644, libmad)
 
 	@$(call install_finish, libmad)
 
