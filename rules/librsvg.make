@@ -80,12 +80,7 @@ $(STATEDIR)/librsvg.targetinstall:
 	@$(call install_fixup, librsvg,AUTHOR,"Erwin Rol")
 	@$(call install_fixup, librsvg,DESCRIPTION,missing)
 
-	@$(call install_copy, librsvg, 0, 0, 0644, -, \
-		/usr/lib/librsvg-2.so.2.26.0)
-	@$(call install_link, librsvg, librsvg-2.so.2.26.0, \
-		/usr/lib/librsvg-2.so.2)
-	@$(call install_link, librsvg, librsvg-2.so.2.26.0, \
-		/usr/lib/librsvg-2.so)
+	@$(call install_lib, librsvg, 0, 0, 0644, librsvg-2)
 
 	@$(call install_finish, librsvg)
 
