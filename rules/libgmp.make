@@ -71,17 +71,11 @@ $(STATEDIR)/libgmp.targetinstall:
 	@$(call install_fixup, libgmp,DESCRIPTION,missing)
 
 ifdef PTXCONF_LIBGMP_SHARED
-	@$(call install_copy, libgmp, 0, 0, 0644, -, \
-		/usr/lib/libgmp.so.3.4.4)
-	@$(call install_link, libgmp, libgmp.so.3.4.4, /usr/lib/libgmp.so.3)
-	@$(call install_link, libgmp, libgmp.so.3.4.4, /usr/lib/libgmp.so)
+	@$(call install_lib, libgmp, 0, 0, 0644, libgmp)
 endif
-
 ifdef PTXCONF_LIBGMP_STATIC
-	@$(call install_copy, libgmp, 0, 0, 0644, -, \
-		/usr/lib/libgmp.la)
+	@$(call install_copy, libgmp, 0, 0, 0644, -, /usr/lib/libgmp.la)
 endif
-
 	@$(call install_finish, libgmp)
 
 	@$(call touch)
