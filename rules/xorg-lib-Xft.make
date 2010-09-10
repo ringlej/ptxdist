@@ -56,14 +56,7 @@ $(STATEDIR)/xorg-lib-xft.targetinstall:
 	@$(call install_fixup, xorg-lib-xft,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xft,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xft, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXft.so.2.1.13)
-
-	@$(call install_link, xorg-lib-xft, \
-		libXft.so.2.1.13, $(XORG_LIBDIR)/libXft.so.2)
-
-	@$(call install_link, xorg-lib-xft, \
-		libXft.so.2.1.13, $(XORG_LIBDIR)/libXft.so)
+	@$(call install_lib, xorg-lib-xft, 0, 0, 0644, libXft)
 
 	@$(call install_finish, xorg-lib-xft)
 
