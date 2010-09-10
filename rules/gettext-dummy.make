@@ -56,12 +56,7 @@ $(STATEDIR)/gettext-dummy.targetinstall:
 	@$(call install_fixup, gettext-dummy,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, gettext-dummy,DESCRIPTION,missing)
 
-	@$(call install_copy, gettext-dummy, 0, 0, 0644, \
-		$(GETTEXT_DUMMY_DIR)/.libs/libintl.so.0.0.0, \
-		/usr/lib/libintl.so.0.0.0)
-
-	@$(call install_link, gettext-dummy, libintl.so.0.0.0, /usr/lib/libintl.so.0)
-	@$(call install_link, gettext-dummy, libintl.so.0.0.0, /usr/lib/libintl.so)
+	@$(call install_lib, gettext-dummy, 0, 0, 0644, libintl)
 
 	@$(call install_finish, gettext-dummy)
 
