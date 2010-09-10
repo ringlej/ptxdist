@@ -235,10 +235,7 @@ $(STATEDIR)/gpsd.targetinstall:
 	@$(call install_fixup, gpsd,AUTHOR,"Jürgen Kilb <j.kilb@phytec.de>")
 	@$(call install_fixup, gpsd,DESCRIPTION,missing)
 
-	@$(call install_copy, gpsd, 0, 0, 0644, -, \
-		/usr/lib/libgps.so.18.0.0)
-	@$(call install_link, gpsd, libgps.so.18.0.0, /usr/lib/libgps.so)
-	@$(call install_link, gpsd, libgps.so.18.0.0, /usr/lib/libgps.so.18)
+	@$(call install_lib, gpsd, 0, 0, 0644, libgps)
 
 ifdef PTXCONF_GPSD_GPSD
 	@$(call install_copy, gpsd, 0, 0, 0755, -, /usr/sbin/gpsd)
