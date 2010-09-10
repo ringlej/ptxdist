@@ -120,9 +120,7 @@ $(STATEDIR)/jamvm.targetinstall:
 	@$(call install_copy, jamvm, 0, 0, 0755, -, /usr/bin/jamvm)
 	@$(call install_copy, jamvm, 0, 0, 0644, -, /usr/share/jamvm/classes.zip)
 
-	@$(call install_copy, jamvm, 0, 0, 0644, -, /usr/lib/libjvm.so.0.0.0)
-	@$(call install_link, jamvm, libjvm.so.0.0.0, /usr/lib/libjvm.so.0)
-	@$(call install_link, jamvm, libjvm.so.0.0.0, /usr/lib/libjvm.so)
+	@$(call install_lib, jamvm, 0, 0, 0644, libjvm)
 
 	@$(call install_finish, jamvm)
 
