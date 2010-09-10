@@ -58,7 +58,9 @@ $(STATEDIR)/bing.targetinstall:
 	@$(call install_fixup, bing,SECTION,base)
 	@$(call install_fixup, bing,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, bing,DESCRIPTION,missing)
+
 	@$(call install_copy, bing, 0, 0, 0755, -, /usr/sbin/bing)
+
 	@$(call install_finish, bing)
 
 	@$(call touch)
