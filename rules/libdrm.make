@@ -62,21 +62,13 @@ $(STATEDIR)/libdrm.targetinstall:
 	@$(call install_fixup, libdrm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libdrm,DESCRIPTION,missing)
 
-	@$(call install_copy, libdrm, 0, 0, 0644, -, \
-		/usr/lib/libdrm.so.2.4.0)
-	@$(call install_link, libdrm, libdrm.so.2.4.0, /usr/lib/libdrm.so.2)
-	@$(call install_link, libdrm, libdrm.so.2.4.0, /usr/lib/libdrm.so)
+	@$(call install_lib, libdrm, 0, 0, 0644, libdrm)
 
 ifndef PTXCONF_ARCH_ARM
 ifdef PTXCONF_LIBDRM_INTEL
-	@$(call install_copy, libdrm, 0, 0, 0644, -, \
-		/usr/lib/libdrm_intel.so.1.0.0)
-
-	@$(call install_link, libdrm, libdrm_intel.so.1.0.0, /usr/lib/libdrm_intel.so.1)
-	@$(call install_link, libdrm, libdrm_intel.so.1.0.0, /usr/lib/libdrm_intel.so)
+	@$(call install_copy, libdrm, 0, 0, 0644, libdrm_intel)
 endif
 endif
-
 	@$(call install_finish, libdrm)
 
 	@$(call touch)
