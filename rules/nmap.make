@@ -81,8 +81,7 @@ $(STATEDIR)/nmap.targetinstall:
 	@$(call install_fixup, nmap,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, nmap,DESCRIPTION,missing)
 
-	@$(call install_copy, nmap, 0, 0, 0755, -, \
-		/usr/bin/nmap)
+	@$(call install_copy, nmap, 0, 0, 0755, -, /usr/bin/nmap)
 
 ifdef PTXCONF_NMAP_SERVICES
 	@$(call install_copy, nmap, 0, 0, 0644, -, \
