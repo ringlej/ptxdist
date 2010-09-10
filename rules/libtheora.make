@@ -103,17 +103,9 @@ $(STATEDIR)/libtheora.targetinstall:
 	@$(call install_fixup, libtheora,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libtheora,DESCRIPTION,missing)
 
-	@$(call install_copy, libtheora, 0, 0, 0644, -, /usr/lib/libtheora.so.0.3.10)
-	@$(call install_link, libtheora, libtheora.so.0.3.10, /usr/lib/libtheora.so.0)
-	@$(call install_link, libtheora, libtheora.so.0.3.10, /usr/lib/libtheora.so)
-
-	@$(call install_copy, libtheora, 0, 0, 0644, -,	/usr/lib/libtheoradec.so.1.1.4)
-	@$(call install_link, libtheora, libtheoradec.so.1.1.4, /usr/lib/libtheoradec.so.1)
-	@$(call install_link, libtheora, libtheoradec.so.1.1.4, /usr/lib/libtheoradec.so)
-
-	@$(call install_copy, libtheora, 0, 0, 0644, -, /usr/lib/libtheoraenc.so.1.1.2)
-	@$(call install_link, libtheora, libtheoraenc.so.1.1.2, /usr/lib/libtheoraenc.so.1)
-	@$(call install_link, libtheora, libtheoraenc.so.1.1.2, /usr/lib/libtheoraenc.so)
+	@$(call install_lib, libtheora, 0, 0, 0644, libtheora)
+	@$(call install_lib, libtheora, 0, 0, 0644, libtheoradec)
+	@$(call install_lib, libtheora, 0, 0, 0644, libtheoraenc)
 
 	@$(call install_finish, libtheora)
 
