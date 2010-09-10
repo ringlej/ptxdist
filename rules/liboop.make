@@ -60,16 +60,13 @@ LIBOOP_MAKE_PAR := NO
 $(STATEDIR)/liboop.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  liboop)
+	@$(call install_init, liboop)
 	@$(call install_fixup, liboop,PRIORITY,optional)
 	@$(call install_fixup, liboop,SECTION,base)
 	@$(call install_fixup, liboop,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
 	@$(call install_fixup, liboop,DESCRIPTION,missing)
 
-	@$(call install_copy, liboop, 0, 0, 0644, -, \
-		/usr/lib/liboop.so.4.0.1)
-	@$(call install_link, liboop, liboop.so.4.0.1, /usr/lib/liboop.so.4)
-	@$(call install_link, liboop, liboop.so.4.0.1, /usr/lib/liboop.so)
+	@$(call install_lib, liboop, 0, 0, 0644, liboop)
 
 	@$(call install_finish, liboop)
 
