@@ -77,44 +77,25 @@ $(STATEDIR)/wireshark.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, wireshark)
-	@$(call install_fixup,wireshark,PRIORITY,optional)
-	@$(call install_fixup,wireshark,SECTION,base)
-	@$(call install_fixup,wireshark,AUTHOR,"Juergen Beisert <j.bisert@pengutronix.de>")
-	@$(call install_fixup,wireshark,DESCRIPTION,missing)
+	@$(call install_fixup, wireshark,PRIORITY,optional)
+	@$(call install_fixup, wireshark,SECTION,base)
+	@$(call install_fixup, wireshark,AUTHOR,"Juergen Beisert <j.bisert@pengutronix.de>")
+	@$(call install_fixup, wireshark,DESCRIPTION,missing)
 #
 # executables
 #
-	@$(call install_copy, wireshark, 0, 0, 0755, -, \
-		/usr/bin/capinfos)
-	@$(call install_copy, wireshark, 0, 0, 0755, -, \
-		/usr/bin/dumpcap)
+	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/capinfos)
+	@$(call install_copy, wireshark, 0, 0, 0755, -, /usr/bin/dumpcap)
 	@$(call install_copy, wireshark, 0, 0, 0755, -, \
 		/usr/bin/tshark)
 #
 # libraries used by some of the executables
 #
-	@$(call install_copy, wireshark, 0, 0, 0644, -, \
-		/usr/lib/libwsutil.so.0.0.0)
-	@$(call install_link, wireshark, libwsutil.so.0.0.0, \
-		/usr/lib/libwsutil.so.0)
-	@$(call install_link, wireshark, libwsutil.so.0.0.0, \
-		/usr/lib/libwsutil.so)
+	@$(call install_lib, wireshark, 0, 0, 0644, libwsutil)
+	@$(call install_lib, wireshark, 0, 0, 0644, libwiretap)
+	@$(call install_lib, wireshark, 0, 0, 0644, libwireshark)
 
-	@$(call install_copy, wireshark, 0, 0, 0644, -, \
-		/usr/lib/libwiretap.so.0.0.1)
-	@$(call install_link, wireshark, libwiretap.so.0.0.1, \
-		/usr/lib/libwiretap.so.0)
-	@$(call install_link, wireshark, libwiretap.so.0.0.1, \
-		/usr/lib/libwiretap.so)
-
-	@$(call install_copy, wireshark, 0, 0, 0644, -, \
-		/usr/lib/libwireshark.so.0.0.1)
-	@$(call install_link, wireshark, libwireshark.so.0.0.1, \
-		/usr/lib/libwireshark.so.0)
-	@$(call install_link, wireshark, libwireshark.so.0.0.1, \
-		/usr/lib/libwireshark.so)
-
-	@$(call install_finish,wireshark)
+	@$(call install_finish, wireshark)
 
 	@$(call touch)
 
