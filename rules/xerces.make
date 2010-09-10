@@ -63,13 +63,7 @@ $(STATEDIR)/xerces.targetinstall:
 	@$(call install_fixup, xerces,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, xerces,DESCRIPTION,missing)
 
-	@$(call install_copy, xerces, 0, 0, 0644, -, \
-		/usr/lib/libxerces-c.so.27.0)
-
-	@$(call install_link, xerces, libxerces-c.so.27.0, \
-		/usr/lib/libxerces-c.so.27)
-	@$(call install_link, xerces, libxerces-c.so.27, \
-		/usr/lib/libxerces-c.so)
+	@$(call install_lib, xerces, 0, 0, 0644, libxerces-c)
 
 	@$(call install_finish, xerces)
 
