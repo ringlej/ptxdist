@@ -60,19 +60,17 @@ BINUTILS_AUTOCONF := \
 $(STATEDIR)/binutils.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  binutils)
+	@$(call install_init, binutils)
 	@$(call install_fixup, binutils,PRIORITY,optional)
 	@$(call install_fixup, binutils,SECTION,base)
 	@$(call install_fixup, binutils,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, binutils,DESCRIPTION,missing)
 
 ifdef PTXCONF_BINUTILS_READELF
-	@$(call install_copy, binutils, 0, 0, 0755, -, \
-		/usr/bin/readelf)
+	@$(call install_copy, binutils, 0, 0, 0755, -, /usr/bin/readelf)
 endif
 ifdef PTXCONF_BINUTILS_OBJDUMP
-	@$(call install_copy, binutils, 0, 0, 0755, -, \
-		/usr/bin/objdump)
+	@$(call install_copy, binutils, 0, 0, 0755, -, /usr/bin/objdump)
 endif
 	@$(call install_finish, binutils)
 
