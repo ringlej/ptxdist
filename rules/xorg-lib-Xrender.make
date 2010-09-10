@@ -59,16 +59,7 @@ $(STATEDIR)/xorg-lib-xrender.targetinstall:
 	@$(call install_fixup, xorg-lib-xrender,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xrender,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xrender, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXrender.so.1.3.0)
-
-	@$(call install_link, xorg-lib-xrender, \
-		libXrender.so.1.3.0, \
-		$(XORG_LIBDIR)/libXrender.so.1)
-
-	@$(call install_link, xorg-lib-xrender, \
-		libXrender.so.1.3.0, \
-		$(XORG_LIBDIR)/libXrender.so)
+	@$(call install_lib, xorg-lib-xrender, 0, 0, 0644, libXrender)
 
 	@$(call install_finish, xorg-lib-xrender)
 
