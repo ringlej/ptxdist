@@ -52,15 +52,13 @@ EGGDBUS_AUTOCONF := \
 $(STATEDIR)/eggdbus.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  eggdbus)
+	@$(call install_init, eggdbus)
 	@$(call install_fixup, eggdbus,PRIORITY,optional)
 	@$(call install_fixup, eggdbus,SECTION,base)
 	@$(call install_fixup, eggdbus,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, eggdbus,DESCRIPTION,missing)
 
-	@$(call install_copy, eggdbus, 0, 0, 0644, -, /usr/lib/libeggdbus-1.so.0.0.0)
-	@$(call install_link, eggdbus, libeggdbus-1.so.0.0.0, /usr/lib/libeggdbus-1.so.0)
-	@$(call install_link, eggdbus, libeggdbus-1.so.0.0.0, /usr/lib/libeggdbus-1.so)
+	@$(call install_lib, eggdbus, 0, 0, 0644, libeggdbus-1)
 
 	@$(call install_finish, eggdbus)
 
