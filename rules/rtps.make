@@ -64,14 +64,14 @@ $(STATEDIR)/rtps.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, rtps)
-	@$(call install_fixup,rtps,PRIORITY,optional)
-	@$(call install_fixup,rtps,SECTION,base)
-	@$(call install_fixup,rtps,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
-	@$(call install_fixup,rtps,DESCRIPTION,missing)
+	@$(call install_fixup, rtps,PRIORITY,optional)
+	@$(call install_fixup, rtps,SECTION,base)
+	@$(call install_fixup, rtps,AUTHOR,"Marc Kleine-Budde <mkl@pengutronix.de>")
+	@$(call install_fixup, rtps,DESCRIPTION,missing)
 
 	@$(call install_alternative, rtps, 0, 0, 0755, /bin/rtps)
 
-	@$(call install_finish,rtps)
+	@$(call install_finish, rtps)
 
 	@$(call touch)
 
