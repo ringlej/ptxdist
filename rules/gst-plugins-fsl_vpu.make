@@ -47,7 +47,8 @@ GST_PLUGINS_FSL_VPU_AUTOCONF := $(CROSS_AUTOCONF_USR)
 $(STATEDIR)/gst-plugins-fsl_vpu.targetinstall:
 
 	@$(call targetinfo)
-	@$(call install_init,  gst-plugins-fsl_vpu)
+
+	@$(call install_init, gst-plugins-fsl_vpu)
 	@$(call install_fixup, gst-plugins-fsl_vpu,PRIORITY,optional)
 	@$(call install_fixup, gst-plugins-fsl_vpu,SECTION,base)
 	@$(call install_fixup, gst-plugins-fsl_vpu,AUTHOR,"Sascha Hauer <s.hauer@pengutronix.de>")
