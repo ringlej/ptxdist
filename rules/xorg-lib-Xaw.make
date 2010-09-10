@@ -72,16 +72,7 @@ $(STATEDIR)/xorg-lib-xaw.targetinstall:
 	@$(call install_fixup, xorg-lib-xaw,DESCRIPTION,missing)
 
 ifdef PTXCONF_XORG_LIB_XAW_V6
-	@$(call install_copy, xorg-lib-xaw, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXaw6.so.6.0.1)
-
-	@$(call install_link, xorg-lib-xaw, \
-		libXaw6.so.6.0.1, \
-		$(XORG_LIBDIR)/libXaw6.so.6)
-
-	@$(call install_link, xorg-lib-xaw, \
-		libXaw6.so.6.0.1, \
-		$(XORG_LIBDIR)/libXaw6.so)
+	@$(call install_lib, xorg-lib-xaw, 0, 0, 0644, libXaw6)
 
 	@$(call install_link, xorg-lib-xaw, \
 		libXaw6.so.6.0.1, \
@@ -89,22 +80,12 @@ ifdef PTXCONF_XORG_LIB_XAW_V6
 endif
 
 ifdef PTXCONF_XORG_LIB_XAW_V7
-	@$(call install_copy, xorg-lib-xaw, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXaw7.so.7.0.0)
-
-	@$(call install_link, xorg-lib-xaw, \
-		libXaw7.so.7.0.0, \
-		$(XORG_LIBDIR)/libXaw7.so.7)
-
-	@$(call install_link, xorg-lib-xaw, \
-		libXaw7.so.7.0.0, \
-		$(XORG_LIBDIR)/libXaw7.so)
+	@$(call install_lib, xorg-lib-xaw, 0, 0, 0644, libXaw7)
 
 	@$(call install_link, xorg-lib-xaw, \
 		libXaw7.so.7.0.0, \
 		$(XORG_LIBDIR)/libXaw.so.7)
 endif
-
 	@$(call install_finish, xorg-lib-xaw)
 
 	@$(call touch)
