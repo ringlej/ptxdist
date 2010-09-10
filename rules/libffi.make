@@ -56,10 +56,7 @@ $(STATEDIR)/libffi.targetinstall:
 	@$(call install_fixup, libffi,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, libffi,DESCRIPTION,missing)
 
-	@$(call install_copy, libffi, 0, 0, 0644, -, \
-		/usr/lib/libffi.so.5.0.10)
-	@$(call install_link, libffi, libffi.so.5.0.10, /usr/lib/libffi.so.5)
-	@$(call install_link, libffi, libffi.so.5.0.10, /usr/lib/libffi.so)
+	@$(call install_lib, libffi, 0, 0, 0644, libffi)
 
 	@$(call install_finish, libffi)
 
