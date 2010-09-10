@@ -64,8 +64,7 @@ $(STATEDIR)/madplay.targetinstall:
 	@$(call install_fixup, madplay,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, madplay,DESCRIPTION,missing)
 
-	@$(call install_copy, madplay, 0, 0, 0755, -, \
-		/usr/bin/madplay)
+	@$(call install_copy, madplay, 0, 0, 0755, -, /usr/bin/madplay)
 
 	@$(call install_finish, madplay)
 	@$(call touch)
