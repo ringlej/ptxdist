@@ -57,16 +57,7 @@ $(STATEDIR)/xorg-lib-xcomposite.targetinstall:
 	@$(call install_fixup, xorg-lib-xcomposite,AUTHOR,"Erwin Rol <ero@pengutronix.de>")
 	@$(call install_fixup, xorg-lib-xcomposite,DESCRIPTION,missing)
 
-	@$(call install_copy, xorg-lib-xcomposite, 0, 0, 0644, -, \
-		$(XORG_LIBDIR)/libXcomposite.so.1.0.0)
-
-	@$(call install_link, xorg-lib-xcomposite, \
-		libXcomposite.so.1.0.0, \
-		$(XORG_LIBDIR)/libXcomposite.so.1)
-
-	@$(call install_link, xorg-lib-xcomposite, \
-		libXcomposite.so.1.0.0, \
-		$(XORG_LIBDIR)/libXcomposite.so)
+	@$(call install_lib, xorg-lib-xcomposite, 0, 0, 0644, libXcomposite)
 
 	@$(call install_finish, xorg-lib-xcomposite)
 
