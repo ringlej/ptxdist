@@ -57,11 +57,8 @@ $(STATEDIR)/glademm.targetinstall:
 	@$(call install_fixup, glademm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, glademm,DESCRIPTION,missing)
 
-	@$(call install_copy, glademm, 0, 0, 0755, -, \
-		/usr/bin/glade--)
-
-	@$(call install_copy, glademm, 0, 0, 0755, -, \
-		/usr/bin/glademm-embed)
+	@$(call install_copy, glademm, 0, 0, 0755, -, /usr/bin/glade--)
+	@$(call install_copy, glademm, 0, 0, 0755, -, /usr/bin/glademm-embed)
 
 	@$(call install_finish, glademm)
 
