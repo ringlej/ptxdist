@@ -59,8 +59,7 @@ $(STATEDIR)/memedit.targetinstall:
 	@$(call install_fixup, memedit,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, memedit,DESCRIPTION,missing)
 
-	@$(call install_copy, memedit, 0, 0, 0755, -, \
-		/usr/bin/memedit)
+	@$(call install_copy, memedit, 0, 0, 0755, -, /usr/bin/memedit)
 
 	@$(call install_finish, memedit)
 
