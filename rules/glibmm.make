@@ -59,19 +59,8 @@ $(STATEDIR)/glibmm.targetinstall:
 	@$(call install_fixup, glibmm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, glibmm,DESCRIPTION,missing)
 
-	@$(call install_copy, glibmm, 0, 0, 0644, -, \
-		/usr/lib/libglibmm-2.4.so.1.2.0)
-	@$(call install_link, glibmm, \
-		libglibmm-2.4.so.1.2.0, /usr/lib/libglibmm-2.4.so.1)
-	@$(call install_link, glibmm, \
-		libglibmm-2.4.so.1.2.0, /usr/lib/libglibmm-2.4.so)
-
-	@$(call install_copy, glibmm, 0, 0, 0644, -, \
-		/usr/lib/libgiomm-2.4.so.1.2.0)
-	@$(call install_link, glibmm, \
-		libgiomm-2.4.so.1.2.0, /usr/lib/libgiomm-2.4.so.1)
-	@$(call install_link, glibmm, \
-		libgiomm-2.4.so.1.2.0, /usr/lib/libgiomm-2.4.so)
+	@$(call install_lib, glibmm, 0, 0, 0644, libglibmm-2.4)
+	@$(call install_lib, glibmm, 0, 0, 0644, libgiomm-2.4)
 
 	@$(call install_finish, glibmm)
 
