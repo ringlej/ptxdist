@@ -66,12 +66,7 @@ $(STATEDIR)/dbus-glib.targetinstall:
 	@$(call install_fixup, dbus-glib,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, dbus-glib,DESCRIPTION,missing)
 
-	@$(call install_copy, dbus-glib, 0, 0, 0644, -, \
-		/usr/lib/libdbus-glib-1.so.2.1.0)
-	@$(call install_link, dbus-glib, libdbus-glib-1.so.2.1.0, \
-		/usr/lib/libdbus-glib-1.so.2)
-	@$(call install_link, dbus-glib, libdbus-glib-1.so.2.1.0, \
-		/usr/lib/libdbus-glib-1.so)
+	@$(call install_lib, dbus-glib, 0, 0, 0644, libdbus-glib-1)
 
 	@$(call install_finish, dbus-glib)
 
