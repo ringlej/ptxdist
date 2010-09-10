@@ -199,13 +199,8 @@ ifdef PTXCONF_HAL_POLKIT
 endif
 
 #	# libs
-	@$(call install_copy, hal, 0, 0, 0644, -, /usr/lib/libhal.so.1.0.0)
-	@$(call install_link, hal, libhal.so.1.0.0, /usr/lib/libhal.so.1)
-	@$(call install_link, hal, libhal.so.1.0.0, /usr/lib/libhal.so)
-
-	@$(call install_copy, hal, 0, 0, 0644, -, /usr/lib/libhal-storage.so.1.0.0)
-	@$(call install_link, hal, libhal-storage.so.1.0.0, /usr/lib/libhal-storage.so.1)
-	@$(call install_link, hal, libhal-storage.so.1.0.0, /usr/lib/libhal-storage.so)
+	@$(call install_lib, hal, 0, 0, 0644, libhal)
+	@$(call install_lib, hal, 0, 0, 0644, libhal-storage)
 
 #	# scripts
 	@for i in \
