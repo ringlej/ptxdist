@@ -55,15 +55,13 @@ LCMS_AUTOCONF := \
 $(STATEDIR)/lcms.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  lcms)
+	@$(call install_init, lcms)
 	@$(call install_fixup, lcms,PRIORITY,optional)
 	@$(call install_fixup, lcms,SECTION,base)
 	@$(call install_fixup, lcms,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, lcms,DESCRIPTION,missing)
 
-	@$(call install_copy, lcms, 0, 0, 0644, -, /usr/lib/liblcms.so.1.0.18)
-	@$(call install_link, lcms, liblcms.so.1.0.18, /usr/lib/liblcms.so.1)
-	@$(call install_link, lcms, liblcms.so.1.0.18, /usr/lib/liblcms.so)
+	@$(call install_lib, lcms, 0, 0, 0644, liblcms)
 
 	@$(call install_finish, lcms)
 
