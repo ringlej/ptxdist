@@ -57,10 +57,7 @@ $(STATEDIR)/libgpg-error.targetinstall:
 	@$(call install_fixup, libgpg-error,AUTHOR,"Erwin Rol")
 	@$(call install_fixup, libgpg-error,DESCRIPTION,missing)
 
-	@$(call install_copy, libgpg-error, 0, 0, 0644, -, \
-		/usr/lib/libgpg-error.so.0.5.0)
-	@$(call install_link, libgpg-error, libgpg-error.so.0.5.0, /usr/lib/libgpg-error.so.0)
-	@$(call install_link, libgpg-error, libgpg-error.so.0.5.0, /usr/lib/libgpg-error.so)
+	@$(call install_lib, libgpg-error, 0, 0, 0644, libgpg-error)
 
 	@$(call install_finish, libgpg-error)
 
