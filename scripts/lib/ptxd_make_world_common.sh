@@ -66,7 +66,7 @@ ptxd_make_world_init_compat() {
     # env
     if [ -n "${pkg_deprecated_env}" ]; then
 	if [ -n "${pkg_conf_env}" -o -n "${pkg_make_env}" ]; then
-	    ptxd_bailout "${FUNCNAME}: <PKG>_ENV is incompatibel with <PKG>_CONF_ENV or <PKG>_MAKE_ENV"
+	    ptxd_bailout "${FUNCNAME}: <PKG>_ENV is incompatible with <PKG>_CONF_ENV or <PKG>_MAKE_ENV"
 	fi
 	pkg_conf_env="${pkg_deprecated_env}"
 	pkg_install_env="${pkg_deprecated_env}"
@@ -76,7 +76,7 @@ ptxd_make_world_init_compat() {
     # autoconf
     if [ -n "${pkg_deprecated_autoconf}" ]; then
 	if [ -n "${pkg_conf_opt}" ]; then
-	    ptxd_bailout "${FUNCNAME}: <PKG>_AUTOCONF is incompatibel with <PKG>_CONF_OPT"
+	    ptxd_bailout "${FUNCNAME}: <PKG>_AUTOCONF is incompatible with <PKG>_CONF_OPT"
 	fi
 	pkg_conf_opt="${pkg_deprecated_autoconf}"
 	pkg_conf_tool="autoconf"
@@ -86,7 +86,7 @@ ptxd_make_world_init_compat() {
     # cmake
     if [ -n "${pkg_deprecated_cmake}" ]; then
 	if [ -n "${pkg_conf_opt}" ]; then
-	    ptxd_bailout "${FUNCNAME}: <PKG>_CMAKE is incompatibel with <PKG>_CONF_OPT"
+	    ptxd_bailout "${FUNCNAME}: <PKG>_CMAKE is incompatible with <PKG>_CONF_OPT"
 	fi
 	pkg_conf_opt="${pkg_deprecated_cmake}"
 	pkg_conf_tool="cmake"
@@ -96,7 +96,7 @@ ptxd_make_world_init_compat() {
     # compile_env
     if [ -n "${pkg_deprecated_compile_env}" ]; then
 	if [ -n "${pkg_make_env}" ]; then
-	    ptxd_bailout "${FUNCNAME}: <PKG>_COMPILE_ENV is incompatibel with <PKG>_MAKE_ENV"
+	    ptxd_bailout "${FUNCNAME}: <PKG>_COMPILE_ENV is incompatible with <PKG>_MAKE_ENV"
 	fi
 	pkg_make_env="${pkg_deprecated_compile_env}"
     fi
@@ -105,7 +105,7 @@ ptxd_make_world_init_compat() {
     # makevars
     if [ -n "${pkg_deprecated_makevars}" ]; then
 	if [ -n "${pkg_make_opt}" ]; then
-	    ptxd_bailout "${FUNCNAME}: <PKG>_MAKEVARS is incompatibel with <PKG>_MAKE_OPT"
+	    ptxd_bailout "${FUNCNAME}: <PKG>_MAKEVARS is incompatible with <PKG>_MAKE_OPT"
 	fi
 	pkg_make_opt="${pkg_deprecated_makevars}"
     fi
@@ -122,7 +122,7 @@ ptxd_make_world_init_compat() {
 	pkg_install_opt="${pkg_install_opt}${pkg_deprecated_install_opt:+ }${pkg_deprecated_install_opt}"
     else
 	if [ -n "${pkg_deprecated_makevars}" -o -n "${pkg_deprecated_install_opt}" ]; then
-	    ptxd_bailout "${FUNCNAME}: <PKG>_MAKEVARS is incompatibel with <PKG>_INSTALL_OPT"
+	    ptxd_bailout "${FUNCNAME}: <PKG>_MAKEVARS is incompatible with <PKG>_INSTALL_OPT"
 	fi
     fi
 
