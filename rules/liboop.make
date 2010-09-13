@@ -51,7 +51,7 @@ LIBOOP_AUTOCONF := \
 	--without-tcl \
 	--without-libwww
 
-LIBOOP_PAR	:= NO
+LIBOOP_MAKE_PAR := NO
 
 # ----------------------------------------------------------------------------
 # Target-Install
