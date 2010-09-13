@@ -28,7 +28,7 @@ config XORG_FONTS
 config XORG_FONTS_QT4_LINKS
 	depends on QT4_PLATFORM_EMBEDDED
 	bool
-	prompt "Make fonts accessable for QtEmbedded"
+	prompt "Make fonts accessible for QtEmbedded"
 	help
 	  QtEmbedded only looks in one directory for fonts.  This will create
 	  links to all fonts int the Qt Font directory to allow QtEmbedded

@@ -176,7 +176,7 @@ config SETUP_IPKG_REPOSITORY
 	prompt "Path to IPKG Repository"
 	help
 	  PTXdist can be used to update an IPKG server which is
-	  accessable via a mounted path. Run 'make ipkg-push'
+	  accessible via a mounted path. Run 'make ipkg-push'
 	  to push the packets from $IMAGEDIR to the server dir
 	  which is specified here.
 

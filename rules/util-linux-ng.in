@@ -101,7 +101,7 @@ config UTIL_LINUX_NG_IPCS
 	depends on !BUSYBOX_IPCS || ALLYES
 	help
 	  ipcs provides information on the ipc facilities
-	  for which the calling process has read acccess.
+	  for which the calling process has read access.
 
 comment "BusyBox' ipcs is selected!"
 	depends on BUSYBOX_IPCS
