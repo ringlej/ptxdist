@@ -38,7 +38,7 @@ config DHCP_CLIENT
 	prompt "DHCP Client dhclient"
 	help
 	  This is a client process to provide the system it runs on
-	  with an IP adress. It also handles a lease refresh if it
+	  with an IP address. It also handles a lease refresh if it
 	  expires.
 
 if DHCP_CLIENT

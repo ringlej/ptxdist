@@ -4,7 +4,7 @@ Date: Fri, 5 Sep 2008 22:38:22 +0200
 Subject: [PATCH 08/21] [klibc] ipconfig: raise field length for rootpath DHCP option
 
 ipconfig would cut off after 40 bytes, use 256 bytes.
-This is indeed way too short for dotted-decimal IP adresses
+This is indeed way too short for dotted-decimal IP addresses
 up to 15 byes long and several NFS mount options.
 fixes http://bugs.debian.org/497800
 
