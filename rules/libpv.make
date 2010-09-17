@@ -88,6 +88,10 @@ ifdef PTXCONF_LIBPV_PVTOOL
 	@$(call install_copy, libpv, 0, 0, 0755, -, \
 		/usr/bin/pvtool)
 endif
+ifdef PTXCONF_LIBPV_EVENT
+	@$(call install_copy, libpv, 0, 0, 0755, -, \
+		/usr/bin/pv_eventd)
+endif
 
 	@$(call install_copy, libpv, 0, 0, 0644, - , \
 		/usr/lib/libpv.so.12.0.0)
