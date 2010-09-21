@@ -28,6 +28,6 @@ gen_key() {
 	fi
 }
 
-gen_key rsa "$DROPBEAR_RSAKEY"
-gen_key dss "$DROPBEAR_DSSKEY"
+[ -e "$DROPBEAR_RSAKEY" ] || gen_key rsa "$DROPBEAR_RSAKEY"
+[ -e "$DROPBEAR_DSSKEY" ] || gen_key dss "$DROPBEAR_DSSKEY"
 
