@@ -55,13 +55,17 @@ ptxd_install_setup_src() {
     local -a list
 
     if [ "${cmd}" = "alternative" ]; then
+	#
+	# if pkg_dir is empty we'll have some some empty entries in
+	# the array, but that's no problem for the "-e" below.
+	#
 	list=( \
 	    "${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${src}" \
 	    "${PTXDIST_WORKSPACE}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
 	    "${PTXDIST_WORKSPACE}/projectroot${src}" \
 	    "${PTXDIST_TOPDIR}/generic${src}" \
-	    "${pkg_pkg_dir}${src}" \
-	    "${pkg_dir}${src}" \
+	    "${pkg_pkg_dir:+${pkg_pkg_dir}${src}}" \
+	    "${pkg_dir:+${pkg_dir}${src}}" \
 	    )
     else
 	list=( \
