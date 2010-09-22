@@ -183,6 +183,12 @@ $(STATEDIR)/kernel.install:
 			$(KERNEL_HEADERS_INCLUDE_DIR); \
 	fi
 
+ifdef PTXCONF_KERNEL_MODULES_INSTALL
+	@rm -rf $(KERNEL_PKGDIR)
+	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
+		$(KERNEL_MAKEVARS) modules_install
+endif
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -213,12 +219,6 @@ ifdef PTXCONF_KERNEL_VMLINUX
 endif
 
 	@$(call install_finish, kernel)
-endif
-
-ifdef PTXCONF_KERNEL_MODULES_INSTALL
-	@rm -rf $(KERNEL_PKGDIR)
-	@cd $(KERNEL_DIR) && $(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) \
-		$(KERNEL_MAKEVARS) modules_install
 endif
 
 	@$(call touch)
