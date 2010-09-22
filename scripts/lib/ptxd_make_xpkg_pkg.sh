@@ -63,6 +63,8 @@ ptxd_install_setup_src() {
 	    "${PTXDIST_WORKSPACE}/projectroot${PTXDIST_PLATFORMSUFFIX}${src}" \
 	    "${PTXDIST_WORKSPACE}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
 	    "${PTXDIST_WORKSPACE}/projectroot${src}" \
+	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${src}${PTXDIST_PLATFORMSUFFIX}" \
+	    "${PTXDIST_PLATFORMCONFIGDIR}/projectroot${src}" \
 	    "${PTXDIST_TOPDIR}/generic${src}" \
 	    "${pkg_pkg_dir:+${pkg_pkg_dir}${src}}" \
 	    "${pkg_dir:+${pkg_dir}${src}}" \
