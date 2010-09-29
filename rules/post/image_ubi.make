@@ -33,7 +33,7 @@ $(IMAGEDIR)/root.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils
 	) | $(FAKEROOT) --
 	@echo "done."
 
-$(IMAGEDIR)/data.ubifs: $(STATEDIR)/host-mtd-utils.install.post
+$(IMAGEDIR)/data.ubifs: $(STATEDIR)/image_working_dir $(STATEDIR)/host-mtd-utils.install.post
 	@echo -n "Creating $(notdir $(@)) from empty dir... (-m $(PTXCONF_IMAGE_UBIFS_MINIMUM_IO_UNIT_SIZE) "
 	@echo -n "-e $(PTXCONF_IMAGE_UBIFS_LEB_SIZE) -c $(PTXCONF_IMAGE_UBIFS_DATA_MAX_LEB_COUNT)"
 	@echo -n "$(PTXCONF_IMAGE_UBIFS_DATA_EXTRA_ARGS)) "
