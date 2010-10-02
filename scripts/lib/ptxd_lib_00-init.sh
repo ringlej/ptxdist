@@ -92,6 +92,12 @@ ptxd_init_ptxdist_path() {
     PTXDIST_PATH_RULES="${PTXDIST_PATH//://rules:}"
     export PTXDIST_PATH_RULES
 
+    PTXDIST_PATH_PRERULES="${PTXDIST_PATH_RULES//://pre:}"
+    export PTXDIST_PATH_PRERULES
+
+    PTXDIST_PATH_POSTRULES="${PTXDIST_PATH_RULES//://post:}"
+    export PTXDIST_PATH_POSTRULES
+
     ptxd_init_ptxdist_path_sysroot
 }
 
