@@ -9,12 +9,8 @@
 #
 
 autogen_dep = $(strip $(wildcard						\
-	$(PROJECTPATCHDIR)/$(strip $(1))/generic/autogen.sh			\
-	$(PROJECTPATCHDIR)/$(strip $(1))/autogen.sh				\
-	$(PTXDIST_PLATFORMCONFIGDIR)/patches/$(strip $(1))/generic/autogen.sh	\
-	$(PTXDIST_PLATFORMCONFIGDIR)/patches/$(strip $(1))/autogen.sh		\
-	$(PATCHDIR)/$(strip $(1))/generic/autogen.sh				\
-	$(PATCHDIR)/$(strip $(1))/autogen.sh))
+	$(foreach dir,$(subst :,/$(strip $(1))$(space),$(PTXDIST_PATH_PATCHES)),\
+		$(dir)/generic/autogen.sh $(dir)/autogen.sh)))
 
 $(STATEDIR)/autogen-tools:
 	@$(call targetinfo)
