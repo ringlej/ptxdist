@@ -1,0 +1,66 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Tue, 5 Oct 2010 15:36:03 +0200
+Subject: [PATCH] make block size configureable
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ src/lzop.c  |    5 +++++
+ src/p_lzo.c |    4 ++--
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/src/lzop.c b/src/lzop.c
+index 25359c6..4d53af8 100644
+--- a/src/lzop.c
++++ b/src/lzop.c
+@@ -2451,6 +2451,7 @@ char* prepare_shortopts(char *buf, const char *n,
+     return buf;
+ }
+ 
++extern lzo_uint block_size;
+ 
+ static int do_option(int optc)
+ {
+@@ -2459,6 +2460,9 @@ static int do_option(int optc)
+ 
+     switch (optc)
+     {
++    case 'b':
++        block_size = strtoul(mfx_optarg,NULL,0);
++        break;
+     case 'c':
+         opt_stdout = 1;
+         break;
+@@ -2716,6 +2720,7 @@ static int get_options(int argc, char **argv)
+ 
+ static const struct mfx_option longopts[] =
+ {
++    {"blocksize",  1, 0, 'b'},
+     {"best",       0, 0, '9'},      /* compress better */
+     {"decompress", 0, 0, 'd'},      /* decompress */
+     {"fast",       0, 0, '1'},      /* compress faster */
+diff --git a/src/p_lzo.c b/src/p_lzo.c
+index 8aada29..c3aa6a2 100644
+--- a/src/p_lzo.c
++++ b/src/p_lzo.c
+@@ -192,7 +192,7 @@ static lzo_bool alloc_mem(lzo_uint32 s1, lzo_uint32 s2, lzo_uint32 w)
+ **************************************************************************/
+ 
+ /* maybe make this an option ? */
+-static const lzo_uint block_size = BLOCK_SIZE;
++lzo_uint block_size = BLOCK_SIZE;
+ 
+ lzo_bool lzo_enter(const header_t *h)
+ {
+@@ -215,7 +215,7 @@ lzo_bool lzo_enter(const header_t *h)
+ #endif
+     assert(block_size <= BLOCK_SIZE);
+     assert(block_size <= MAX_BLOCK_SIZE);
+-    assert(block_size >= 16*1024);
++    assert(block_size >= 1024);
+ 
+     if (opt_method == M_LZO1X_1)
+         wrk_len = LZO1X_1_MEM_COMPRESS;
+-- 
+1.7.0.4
+
