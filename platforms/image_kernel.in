@@ -34,4 +34,14 @@ config IMAGE_KERNEL_INSTALL_LATE
 	help
 	  Install kernel image during "images".
 
+config IMAGE_KERNEL_LZOP
+	bool
+	select KERNEL_LZOP
+	prompt "Generate a lzop compressed kernel image"
+
+config IMAGE_KERNEL_LZOP_EXTRA_ARGS
+	depends on IMAGE_KERNEL_LZOP
+	string
+	prompt "extra arguments passed to the lzop command"
+
 endif
