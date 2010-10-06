@@ -2,6 +2,7 @@
 
 menuconfig BAREBOX
 	select BOOTLOADER
+	select KERNEL	if BAREBOX_BTCS
 	prompt "barebox                       "
 	bool
 	help
@@ -21,6 +22,13 @@ config BAREBOX_CONFIG
 	help
 	  This entry specifies the .config file used to compile
 	  barebox.
+
+config BAREBOX_BTCS
+	depends on BTCS
+	bool "extra dependencies for BTCS"
+	help
+	  Select this to enable some extra dependencies for btcs,
+	  which means "boot time critical service".
 
 config BAREBOX_ARCH_STRING
 	string
