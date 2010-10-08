@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_ARCH_PPC)-$(PTXCONF_VALGRIND) += valgrind
 # Paths and names
 #
 VALGRIND_VERSION	:= 3.6.1
+VALGRIND_MD5		:= 2c3aa122498baecc9d69194057ca88f5
 VALGRIND		:= valgrind-$(VALGRIND_VERSION)
 VALGRIND_SUFFIX		:= tar.bz2
 VALGRIND_URL		:= http://valgrind.org/downloads/$(VALGRIND).$(VALGRIND_SUFFIX)

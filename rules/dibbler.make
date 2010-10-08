@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_DIBBLER) += dibbler
 # Paths and names
 #
 DIBBLER_VERSION	:= 0.7.3
+DIBBLER_MD5	:= 39be72da38c2e6d33fd43a2811a276b1
 DIBBLER		:= dibbler-$(DIBBLER_VERSION)
 DIBBLER_SUFFIX	:= tar.gz
 DIBBLER_URL	:= http://klub.com.pl/dhcpv6/dibbler/$(DIBBLER)-src.$(DIBBLER_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_OWFS) += owfs
 # Paths and names
 #
 OWFS_VERSION	:= 2.8p6
+OWFS_MD5	:= ffd2cec1ceeccfd911b4f181b66829c2
 OWFS		:= owfs-$(OWFS_VERSION)
 OWFS_SUFFIX	:= tar.gz
 OWFS_URL	:= $(PTXCONF_SETUP_SFMIRROR)/owfs/$(OWFS).$(OWFS_SUFFIX)

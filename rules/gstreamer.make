@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_GSTREAMER) += gstreamer
 # Paths and names
 #
 GSTREAMER_VERSION	:= 0.10.29
+GSTREAMER_MD5		:= c92d6bce4fc65fa9d5a3ad35cdd1a466
 GSTREAMER		:= gstreamer-$(GSTREAMER_VERSION)
 GSTREAMER_SUFFIX	:= tar.bz2
 GSTREAMER_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER).$(GSTREAMER_SUFFIX)
@@ -94,6 +95,7 @@ endif
 # ----------------------------------------------------------------------------
 
 GSTREAMER_LIB_VERSION := 0.25.0
+GSTREAMER_MD5		:= c92d6bce4fc65fa9d5a3ad35cdd1a466
 
 $(STATEDIR)/gstreamer.targetinstall:
 	@$(call targetinfo)

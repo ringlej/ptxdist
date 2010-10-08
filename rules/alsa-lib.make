@@ -21,6 +21,7 @@ ALSA_LIB_SUFFIX		:= tar.bz2
 
 ifdef PTXCONF_ALSA_LIB_FULL
 ALSA_LIB_VERSION	:= 1.0.23
+ALSA_LIB_MD5		:= f48b50421d8a69d2d806d9c47e534f0d
 ALSA_LIB		:= alsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_URL		:= \
 	http://dl.ambiweb.de/mirrors/ftp.alsa-project.org/lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX) \
@@ -29,6 +30,7 @@ endif
 
 ifdef PTXCONF_ALSA_LIB_LIGHT
 ALSA_LIB_VERSION	:= 0.0.17
+ALSA_LIB_MD5		:= 81f209f58a3378f5553763b7735e1d58
 ALSA_LIB		:= salsa-lib-$(ALSA_LIB_VERSION)
 ALSA_LIB_URL		:= ftp://ftp.suse.com/pub/people/tiwai/salsa-lib/$(ALSA_LIB).$(ALSA_LIB_SUFFIX)
 endif

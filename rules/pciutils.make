@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_PCIUTILS) += pciutils
 # Paths and names
 #
 PCIUTILS_VERSION	:= 3.1.2
+PCIUTILS_MD5		:= 46387fd7a18c33fbb5311fdb3ab9ea12
 PCIUTILS		:= pciutils-$(PCIUTILS_VERSION)
 PCIUTILS_SUFFIX		:= tar.bz2
 PCIUTILS_URL		:= http://ftp.kernel.org/pub/software/utils/pciutils/$(PCIUTILS).$(PCIUTILS_SUFFIX)

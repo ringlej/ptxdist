@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_SJINN) += sjinn
 # Paths and names
 #
 SJINN_VERSION	:= 1.01
+SJINN_MD5	:= b38969d4a614b660919090ba0c8d5c7d
 SJINN		:= sjinn-$(SJINN_VERSION)
 SJINN_SUFFIX	:= tar.gz
 SJINN_URL	:= http://downloads.sourceforge.net/sjinn/$(SJINN).$(SJINN_SUFFIX)

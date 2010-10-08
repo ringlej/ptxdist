@@ -29,6 +29,7 @@ endif
 # Paths and names
 #
 HOST_INTLTOOL_VERSION	:= 0.40.6
+HOST_INTLTOOL_MD5	:= 69bc0353323112f42ad4f9cf351bc3e5
 HOST_INTLTOOL		:= intltool-$(HOST_INTLTOOL_VERSION)
 HOST_INTLTOOL_SUFFIX	:= tar.bz2
 HOST_INTLTOOL_URL	:= http://ftp.gnome.org/pub/gnome/sources/intltool/0.40/$(HOST_INTLTOOL).$(HOST_INTLTOOL_SUFFIX)

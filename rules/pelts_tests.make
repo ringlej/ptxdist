@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_PELTS_TESTS) += pelts-tests
 # Paths and names
 #
 PELTS_TESTS_VERSION	:= 0.0.1
+PELTS_TESTS_MD5		:= c7aa8b856ec703cc270a0d14541709cd
 PELTS_TESTS		:= pelts_tests-$(PELTS_TESTS_VERSION)
 PELTS_TESTS_SUFFIX	:= tar.bz2
 PELTS_TESTS_URL		:= http://www.pengutronix.de/software/pelts/download/utils/$(PELTS_TESTS).$(PELTS_TESTS_SUFFIX)

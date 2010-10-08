@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBPVGEN) += libpvgen
 # Paths and names
 #
 LIBPVGEN_VERSION	:= 1.0.1
+LIBPVGEN_MD5		:=
 LIBPVGEN		:= libpvgen-$(LIBPVGEN_VERSION)
 LIBPVGEN_SUFFIX		:= tar.gz
 LIBPVGEN_URL		:= http://www.pengutronix.de/software/libpvgen/download/$(LIBPVGEN).$(LIBPVGEN_SUFFIX)

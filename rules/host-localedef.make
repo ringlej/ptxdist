@@ -18,6 +18,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_LOCALEDEF) += host-localedef
 # Paths and names
 #
 HOST_LOCALEDEF_VERSION	:= eglibc-2.11.90-ptx1
+HOST_LOCALEDEF_MD5	:= db611c5fee51df24c4f7f544ccea2ef4
 HOST_LOCALEDEF		:= localedef-$(HOST_LOCALEDEF_VERSION)
 HOST_LOCALEDEF_SUFFIX	:= tar.bz2
 HOST_LOCALEDEF_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HOST_LOCALEDEF).$(HOST_LOCALEDEF_SUFFIX)

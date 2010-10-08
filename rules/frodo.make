@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_FRODO) += frodo
 # Paths and names
 #
 FRODO_VERSION	:= 4.1b
+FRODO_MD5	:= 095b9f21c03204cc13f7f249e8866cd9
 FRODO		:= Frodo-$(FRODO_VERSION)
 FRODO_SUFFIX	:= Src.tar.gz
 FRODO_URL	:= http://frodo.cebix.net/downloads/FrodoV4_1b.$(FRODO_SUFFIX)

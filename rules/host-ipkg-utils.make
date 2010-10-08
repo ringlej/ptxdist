@@ -18,6 +18,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_IPKG_UTILS) += host-ipkg-utils
 # Paths and names
 #
 HOST_IPKG_UTILS_VERSION	:= 050831
+HOST_IPKG_UTILS_MD5	:= 4ede7edd4bcb69d9a0b74af2f68fd6da
 HOST_IPKG_UTILS		:= ipkg-utils-$(HOST_IPKG_UTILS_VERSION)
 HOST_IPKG_UTILS_SUFFIX	:= tar.gz
 HOST_IPKG_UTILS_URL	:= http://www.handhelds.org/download/packages/ipkg-utils/$(HOST_IPKG_UTILS).$(HOST_IPKG_UTILS_SUFFIX)

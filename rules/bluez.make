@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_BLUEZ) += bluez
 # Paths and names
 #
 BLUEZ_VERSION	:= 4.69
+BLUEZ_MD5	:= 986a08fb5c94ebd7d1a4d702e45ee34e
 BLUEZ		:= bluez-$(BLUEZ_VERSION)
 BLUEZ_SUFFIX	:= tar.gz
 BLUEZ_URL	:= http://www.kernel.org/pub/linux/bluetooth/$(BLUEZ).$(BLUEZ_SUFFIX)

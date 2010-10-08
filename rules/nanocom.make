@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_NANOCOM) += nanocom
 # Paths and names
 #
 NANOCOM_VERSION		:= 1.0
+NANOCOM_MD5		:= 6dd9cc4f4a2191952ee8b13da877dec5
 NANOCOM			:= nanocom-$(NANOCOM_VERSION)
 NANOCOM_SUFFIX		:= tar.bz2
 NANOCOM_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(NANOCOM).$(NANOCOM_SUFFIX)

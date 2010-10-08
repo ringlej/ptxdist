@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_HPING) += hping
 # Paths and names
 #
 HPING_VERSION	:= 3-20051105
+HPING_MD5	:= ca4ea4e34bcc2162aedf25df8b2d1747
 HPING		:= hping$(HPING_VERSION)
 HPING_SUFFIX	:= tar.gz
 HPING_URL	:= http://www.hping.org/$(HPING).$(HPING_SUFFIX)

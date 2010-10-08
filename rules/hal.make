@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_HAL) += hal
 # Paths and names
 #
 HAL_VERSION	:= 0.5.14
+HAL_MD5		:= c627d8fb0f9afff94f3c687b5216bc06
 HAL		:= hal-$(HAL_VERSION)
 HAL_SUFFIX	:= tar.bz2
 HAL_URL		:= http://hal.freedesktop.org/releases/$(HAL).$(HAL_SUFFIX)

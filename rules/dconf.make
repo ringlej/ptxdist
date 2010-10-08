@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_DCONF) += dconf
 # Paths and names
 #
 DCONF_VERSION	:= 0.7.2
+DCONF_MD5	:= 1583be314e3ea0ab483d104e791ef653
 DCONF		:= dconf-$(DCONF_VERSION)
 DCONF_SUFFIX	:= tar.bz2
 DCONF_URL	:= http://download.gnome.org/sources/dconf/0.7/$(DCONF).$(DCONF_SUFFIX)

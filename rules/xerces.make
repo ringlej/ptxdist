@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_XERCES) += xerces
 # Paths and names
 #
 XERCES_VERSION	:= 2_7_0
+XERCES_MD5	:= 04169609449a8846bc1e6891c04cadf4
 XERCES		:= xerces-c-src_$(XERCES_VERSION)
 XERCES_SUFFIX	:= tar.gz
 XERCES_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(XERCES).$(XERCES_SUFFIX)

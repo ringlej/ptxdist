@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_POLKIT) += polkit
 # Paths and names
 #
 POLKIT_VERSION	:= 0.96
+POLKIT_MD5	:= e0a06da501b04ed3bab986a9df5b5aa2
 POLKIT		:= polkit-$(POLKIT_VERSION)
 POLKIT_SUFFIX	:= tar.gz
 POLKIT_URL	:= http://hal.freedesktop.org/releases/$(POLKIT).$(POLKIT_SUFFIX)

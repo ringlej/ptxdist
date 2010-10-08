@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LITE) += lite
 # Paths and names
 #
 LITE_VERSION	:= 0.8.10
+LITE_MD5	:= b9a28007d38c2b1c51ba1c3841df29ad
 LITE		:= LiTE-$(LITE_VERSION)
 LITE_SUFFIX	:= tar.gz
 LITE_URL	:= http://www.directfb.org/downloads/Libs/$(LITE).$(LITE_SUFFIX)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_INADYN) += inadyn
 # Paths and names
 #
 INADYN_VERSION	:= 1.96.2
+INADYN_MD5	:= fecb4c970811cb0c8b8d2ffcd7792879
 INADYN		:= inadyn-$(INADYN_VERSION)
 INADYN_SUFFIX	:= tar.bz2
 INADYN_URL	:= http://cdn.dyndns.com/$(INADYN).$(INADYN_SUFFIX)

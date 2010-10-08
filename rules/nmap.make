@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_NMAP) += nmap
 # Paths and names
 #
 NMAP_VERSION	:= 5.51
+NMAP_MD5	:= 0b80d2cb92ace5ebba8095a4c2850275
 NMAP		:= nmap-$(NMAP_VERSION)
 NMAP_SUFFIX	:= tar.bz2
 NMAP_URL	:= http://nmap.org/dist/$(NMAP).$(NMAP_SUFFIX)

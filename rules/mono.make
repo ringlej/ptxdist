@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_MONO) += mono
 # Paths and names
 #
 MONO_VERSION	:= 2.10.1
+MONO_MD5	:= ae8d1875447527599e68dd6c1d82bc11
 MONO		:= mono-$(MONO_VERSION)
 MONO_SUFFIX	:= tar.bz2
 MONO_URL	:= http://ftp.novell.com/pub/mono/sources/mono/$(MONO).$(MONO_SUFFIX)

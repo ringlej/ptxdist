@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LSUIO) += lsuio
 # Paths and names
 #
 LSUIO_VERSION	:= 0.2.0
+LSUIO_MD5	:= 8da82b681c24e6c5b3518c99e7f961d7
 LSUIO		:= lsuio-$(LSUIO_VERSION)
 LSUIO_SUFFIX	:= tar.gz
 LSUIO_URL	:= http://www.osadl.org/projects/downloads/UIO/user/$(LSUIO).$(LSUIO_SUFFIX)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBXMLCONFIG) += libxmlconfig
 # Paths and names
 #
 LIBXMLCONFIG_VERSION	:= 1.0.8
+LIBXMLCONFIG_MD5	:= 56a7f981ebcea07bb495c4339bc93421
 LIBXMLCONFIG		:= libxmlconfig-$(LIBXMLCONFIG_VERSION)
 LIBXMLCONFIG_SUFFIX	:= tar.bz2
 LIBXMLCONFIG_URL	:= http://www.pengutronix.de/software/libxmlconfig/download/$(LIBXMLCONFIG).$(LIBXMLCONFIG_SUFFIX)

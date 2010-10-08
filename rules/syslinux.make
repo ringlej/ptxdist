@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_SYSLINUX) += syslinux
 # Paths and names
 #
 SYSLINUX_VERSION	:= 3.86
+SYSLINUX_MD5		:= d6fb0231e82190b4932b2aa20274911a
 SYSLINUX		:= syslinux-$(SYSLINUX_VERSION)
 SYSLINUX_SUFFIX		:= tar.bz2
 SYSLINUX_URL		:= http://www.kernel.org/pub/linux/utils/boot/syslinux/3.xx/$(SYSLINUX).$(SYSLINUX_SUFFIX)

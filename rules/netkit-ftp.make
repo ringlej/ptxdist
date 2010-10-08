@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_NETKIT_FTP) += netkit-ftp
 # Paths and names
 #
 NETKIT_FTP_VERSION	:= 0.17
+NETKIT_FTP_MD5		:= 94441610c9b86ef45c4c6ec609444060
 NETKIT_FTP		:= netkit-ftp-$(NETKIT_FTP_VERSION)
 NETKIT_FTP_SUFFIX	:= tar.gz
 NETKIT_FTP_URL		:= ftp://ftp.uk.linux.org/pub/linux/Networking/netkit//$(NETKIT_FTP).$(NETKIT_FTP_SUFFIX)

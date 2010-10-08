@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBEZV24) += libezv24
 # Paths and names
 #
 LIBEZV24_VERSION	:= 0.1.1-ptx2
+LIBEZV24_MD5		:= d9108654e23f2aa9009dde73db2f7f91
 LIBEZV24		:= libezv24-$(LIBEZV24_VERSION)
 LIBEZV24_SUFFIX		:= tar.bz2
 LIBEZV24_URL		:= http://www.pengutronix.de/software/misc/download/$(LIBEZV24).$(LIBEZV24_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_SUPERTUX) += supertux
 # Paths and names
 #
 SUPERTUX_VERSION	:= 0.1.3
+SUPERTUX_MD5		:= f2fc288459f33d5cd8f645fbca737a63
 SUPERTUX		:= supertux-$(SUPERTUX_VERSION)
 SUPERTUX_SUFFIX		:= tar.bz2
 SUPERTUX_URL		:= http://download.berlios.de/supertux/$(SUPERTUX).$(SUPERTUX_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBGEE) += libgee
 # Paths and names
 #
 LIBGEE_VERSION	:= 0.5.1
+LIBGEE_MD5	:= 59789b5b266beadfb8b51bf2c96211b3
 LIBGEE		:= libgee-$(LIBGEE_VERSION)
 LIBGEE_SUFFIX	:= tar.bz2
 LIBGEE_URL	:= http://download.gnome.org/sources/libgee/0.5/$(LIBGEE).$(LIBGEE_SUFFIX)

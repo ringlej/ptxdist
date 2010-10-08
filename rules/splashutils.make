@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_SPLASHUTILS) += splashutils
 # Paths and names
 #
 SPLASHUTILS_VERSION	:= 1.5.4.3
+SPLASHUTILS_MD5		:= 206da4493c4c511ddda507e20217369b
 SPLASHUTILS		:= splashutils-$(SPLASHUTILS_VERSION)
 SPLASHUTILS_SUFFIX	:= tar.bz2
 SPLASHUTILS_URL		:= http://download.berlios.de/fbsplash/splashutils-lite-$(SPLASHUTILS_VERSION).$(SPLASHUTILS_SUFFIX)

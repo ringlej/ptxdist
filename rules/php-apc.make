@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_PHP_APC) += php-apc
 # Paths and names
 #
 PHP_APC_VERSION	:= 2.0.4
+PHP_APC_MD5	:=
 PHP_APC		:= APC-$(PHP_APC_VERSION)
 PHP_APC_SUFFIX	:= tgz
 PHP_APC_URL	:= http://pecl.php.net/get/$(PHP_APC).$(PHP_APC_SUFFIX)

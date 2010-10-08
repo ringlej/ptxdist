@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_SETMIXER) += setmixer
 # Paths and names
 #
 SETMIXER_VERSION	:= 27DEC94ds1
+SETMIXER_MD5		:= 2e0792ae48e74933ddcdfc3d42e73cfb
 SETMIXER		:= setmixer_$(SETMIXER_VERSION).orig
 SETMIXER_SUFFIX		:= tar.gz
 SETMIXER_URL		:= http://archive.ubuntu.com/ubuntu/pool/universe/s/setmixer/$(SETMIXER).$(SETMIXER_SUFFIX)

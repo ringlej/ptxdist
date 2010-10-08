@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_FBV) += fbv
 # Paths and names
 #
 FBV_VERSION	:= 1.0b-ptx3
+FBV_MD5		:= 0d466f678630941fb9a38884e3402f21
 FBV		:= fbv-$(FBV_VERSION)
 FBV_SUFFIX	:= tar.bz2
 FBV_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBV).$(FBV_SUFFIX)

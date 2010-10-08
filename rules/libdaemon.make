@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBDAEMON) += libdaemon
 # Paths and names
 #
 LIBDAEMON_VERSION	:= 0.14
+LIBDAEMON_MD5		:= 509dc27107c21bcd9fbf2f95f5669563
 LIBDAEMON		:= libdaemon-$(LIBDAEMON_VERSION)
 LIBDAEMON_SUFFIX	:= tar.gz
 LIBDAEMON_URL		:= http://0pointer.de/lennart/projects/libdaemon/$(LIBDAEMON).$(LIBDAEMON_SUFFIX)

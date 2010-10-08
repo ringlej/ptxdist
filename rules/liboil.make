@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBOIL) += liboil
 # Paths and names
 #
 LIBOIL_VERSION	:= 0.3.16
+LIBOIL_MD5	:= febb1d9f9bc4c440fcf622dc90f8b6b7
 LIBOIL		:= liboil-$(LIBOIL_VERSION)
 LIBOIL_SUFFIX	:= tar.gz
 LIBOIL_URL	:= http://liboil.freedesktop.org/download/$(LIBOIL).$(LIBOIL_SUFFIX)

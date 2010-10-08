@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_ZLIB) += zlib
 # Paths and names
 #
 ZLIB_VERSION	:= 1.2.5
+ZLIB_MD5	:= be1e89810e66150f5b0327984d8625a0
 ZLIB		:= zlib-$(ZLIB_VERSION)
 ZLIB_SUFFIX	:= tar.bz2
 ZLIB_URL	:= http://zlib.net/$(ZLIB).$(ZLIB_SUFFIX)

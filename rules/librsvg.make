@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBRSVG) += librsvg
 # Paths and names
 #
 LIBRSVG_VERSION	:= 2.26.0
+LIBRSVG_MD5	:= 65dbd726a514fe8b797d26254b8efc1e
 LIBRSVG		:= librsvg-$(LIBRSVG_VERSION)
 LIBRSVG_SUFFIX	:= tar.bz2
 LIBRSVG_URL	:= http://ftp.gnome.org/pub/GNOME/sources/librsvg/2.26/$(LIBRSVG).$(LIBRSVG_SUFFIX)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_PEKWM) += pekwm
 # Paths and names
 #
 PEKWM_VERSION	:= 0.1.12
+PEKWM_MD5	:= 1f7f9ed32cc03f565a3ad30fd6045c1f
 PEKWM		:= pekwm-$(PEKWM_VERSION)
 PEKWM_SUFFIX	:= tar.gz
 PEKWM_URL	:= http://www.pekwm.org/projects/pekwm/files/$(PEKWM).$(PEKWM_SUFFIX)

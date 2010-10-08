@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_TCPWRAPPER) += tcpwrapper
 # Paths and names
 #
 TCPWRAPPER_VERSION		:= 7.6
+TCPWRAPPER_MD5			:= e6fa25f71226d090f34de3f6b122fb5a
 TCPWRAPPER			:= tcp_wrappers_$(TCPWRAPPER_VERSION)
 TCPWRAPPER_URL			:= ftp://ftp.porcupine.org/pub/security/$(TCPWRAPPER).tar.gz
 TCPWRAPPER_SOURCE		:= $(SRCDIR)/$(TCPWRAPPER).tar.gz

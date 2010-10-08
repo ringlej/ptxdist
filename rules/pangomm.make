@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_PANGOMM) += pangomm
 # Paths and names
 #
 PANGOMM_VERSION	:= 2.26.0
+PANGOMM_MD5	:= 37f54dc8e6cb73ed923b22f313352156
 PANGOMM		:= pangomm-$(PANGOMM_VERSION)
 PANGOMM_SUFFIX	:= tar.bz2
 PANGOMM_URL	:= http://ftp.acc.umu.se/pub/GNOME/sources/pangomm/2.26/$(PANGOMM).$(PANGOMM_SUFFIX)

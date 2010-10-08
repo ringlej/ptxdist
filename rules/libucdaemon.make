@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBUCDAEMON) += libucdaemon
 # Paths and names
 #
 LIBUCDAEMON_VERSION	:= 0.0.5
+LIBUCDAEMON_MD5		:= 78ec4581a76692ebe31c7f8c78f4a026
 LIBUCDAEMON		:= libucdaemon-$(LIBUCDAEMON_VERSION)
 LIBUCDAEMON_SUFFIX	:= tar.bz2
 LIBUCDAEMON_URL		:= http://www.pengutronix.de/software/libucdaemon/download/$(LIBUCDAEMON).$(LIBUCDAEMON_SUFFIX)

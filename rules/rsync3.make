@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_RSYNC3) += rsync3
 # Paths and names
 #
 RSYNC3_VERSION	:= 3.0.5
+RSYNC3_MD5	:= a130e736c011572cb423b6245e97fc4b
 RSYNC3		:= rsync-$(RSYNC3_VERSION)
 RSYNC3_SUFFIX	:= tar.gz
 RSYNC3_URL	:= http://rsync.samba.org/ftp/rsync/src/$(RSYNC3).$(RSYNC3_SUFFIX)

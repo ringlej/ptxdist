@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_SED) += sed
 # Paths and names
 #
 SED_VERSION	:= 4.2.1
+SED_MD5		:= 7d310fbd76e01a01115075c1fd3f455a
 SED		:= sed-$(SED_VERSION)
 SED_SUFFIX	:= tar.bz2
 SED_URL		:= $(PTXCONF_SETUP_GNUMIRROR)/sed/$(SED).$(SED_SUFFIX)

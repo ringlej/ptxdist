@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_OPKG) += opkg
 # Paths and names
 #
 OPKG_VERSION	:= 0.1.8
+OPKG_MD5	:= c714ce0e4863bf1315e3b6913ffe3299
 OPKG		:= opkg-$(OPKG_VERSION)
 OPKG_SUFFIX	:= tar.gz
 OPKG_URL	:= http://opkg.googlecode.com/files/$(OPKG).$(OPKG_SUFFIX)

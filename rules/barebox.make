@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_BAREBOX) += barebox
 # Paths and names
 #
 BAREBOX_VERSION	:= $(call remove_quotes,$(PTXCONF_BAREBOX_VERSION))
+BAREBOX_MD5	:=
 BAREBOX		:= barebox-$(BAREBOX_VERSION)
 BAREBOX_SUFFIX	:= tar.bz2
 BAREBOX_URL	:= http://www.barebox.org/download/$(BAREBOX).$(BAREBOX_SUFFIX)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_SDL_MIXER) += sdl_mixer
 # Paths and names
 #
 SDL_MIXER_VERSION	:= 1.2.11
+SDL_MIXER_MD5		:= 65ada3d997fe85109191a5fb083f248c
 SDL_MIXER		:= SDL_mixer-$(SDL_MIXER_VERSION)
 SDL_MIXER_SUFFIX	:= tar.gz
 SDL_MIXER_URL		:= http://www.libsdl.org/projects/SDL_mixer/release/$(SDL_MIXER).$(SDL_MIXER_SUFFIX)

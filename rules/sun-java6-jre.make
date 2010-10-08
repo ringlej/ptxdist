@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_SUN_JAVA6_JRE) += sun-java6-jre
 # Paths and names
 #
 SUN_JAVA6_JRE_VERSION		:= 1.6.0.02
+SUN_JAVA6_JRE_MD5		:= 0d30636b5cd23e161da5eda9409f02d5
 SUN_JAVA6_JRE			:= jre-6u2-linux-i586
 SUN_JAVA6_JRE_SOURCE		:= $(SRCDIR)/$(SUN_JAVA6_JRE).bin
 SUN_JAVA6_JRE_URL		:= http://javadl.sun.com/webapps/download/AutoDL?BundleId=11284

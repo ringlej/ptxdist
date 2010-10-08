@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_GETTEXT_DUMMY) += gettext-dummy
 # Paths and names
 #
 GETTEXT_DUMMY_VERSION	:= 1.0.1
+GETTEXT_DUMMY_MD5	:= 44d4a2bd104942950ad72d800fa1282e
 GETTEXT_DUMMY		:= gettext-dummy-$(GETTEXT_DUMMY_VERSION)
 GETTEXT_DUMMY_SUFFIX	:= tar.bz2
 GETTEXT_DUMMY_URL	:= http://www.pengutronix.de/software/gettext-dummy/download/$(GETTEXT_DUMMY).$(GETTEXT_DUMMY_SUFFIX)

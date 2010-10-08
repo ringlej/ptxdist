@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_PYGOBJECT) += pygobject
 # Paths and names
 #
 PYGOBJECT_VERSION	:= 2.21.5
+PYGOBJECT_MD5		:= ef1ef7def7faa407c07b4bbd6d068ff2
 PYGOBJECT		:= pygobject-$(PYGOBJECT_VERSION)
 PYGOBJECT_SUFFIX	:= tar.gz
 PYGOBJECT_URL		:= http://ftp.gnome.org/pub/GNOME/sources/pygobject/$(basename $(PYGOBJECT_VERSION))/$(PYGOBJECT).$(PYGOBJECT_SUFFIX)

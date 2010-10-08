@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_JOE) += joe
 # Paths and names
 #
 JOE_VERSION	:= 3.5
+JOE_MD5		:= 9bdffecce7ef910feaa06452d48843de
 JOE		:= joe-$(JOE_VERSION)
 JOE_SUFFIX	:= tar.gz
 JOE_URL		:= $(PTXCONF_SETUP_SFMIRROR)/joe-editor/$(JOE).$(JOE_SUFFIX)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_PCMCIAUTILS) += pcmciautils
 # Paths and names
 #
 PCMCIAUTILS_VERSION	:= 017
+PCMCIAUTILS_MD5		:= ee5837214d297661c8b8189055a351fc
 PCMCIAUTILS		:= pcmciautils-$(PCMCIAUTILS_VERSION)
 PCMCIAUTILS_SUFFIX	:= tar.gz
 PCMCIAUTILS_URL		:= http://www.kernel.org/pub/linux/utils/kernel/pcmcia/$(PCMCIAUTILS).$(PCMCIAUTILS_SUFFIX)

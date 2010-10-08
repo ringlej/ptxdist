@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBKSBA) += libksba
 # Paths and names
 #
 LIBKSBA_VERSION	:= 1.0.7
+LIBKSBA_MD5	:= eebce521a90600369c33c5fa6b9bbbd8
 LIBKSBA		:= libksba-$(LIBKSBA_VERSION)
 LIBKSBA_SUFFIX	:= tar.bz2
 LIBKSBA_URL	:= ftp://ftp.gnupg.org/gcrypt/libksba/$(LIBKSBA).$(LIBKSBA_SUFFIX)

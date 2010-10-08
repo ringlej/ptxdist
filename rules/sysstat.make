@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_SYSSTAT) += sysstat
 # Paths and names
 #
 SYSSTAT_VERSION	:= 9.0.3
+SYSSTAT_MD5	:= 0b464951596db934418259737cf50a31
 SYSSTAT		:= sysstat-$(SYSSTAT_VERSION)
 SYSSTAT_SUFFIX	:= tar.gz
 SYSSTAT_URL	:= http://pagesperso-orange.fr/sebastien.godard/$(SYSSTAT).$(SYSSTAT_SUFFIX)

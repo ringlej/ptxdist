@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LTRACE) += ltrace
 # Paths and names
 #
 LTRACE_VERSION	:= 0.5.1
+LTRACE_MD5	:= 7dae92a19979e65bbf8ec50c0ed54d9a
 LTRACE_SUFFIX	:= orig.tar.gz
 LTRACE		:= ltrace-$(LTRACE_VERSION)
 LTRACE_TARBALL	:= ltrace_$(LTRACE_VERSION).$(LTRACE_SUFFIX)

@@ -20,9 +20,11 @@ PACKAGES-$(PTXCONF_DB) += db
 
 ifdef PTXCONF_DB_41
 DB_VERSION	:= 4.1.25.NC
+DB_MD5		:= b0c31a1db087741a7947c88824043560
 endif
 ifdef PTXCONF_DB_44
 DB_VERSION	:= 4.4.20.NC
+DB_MD5		:= afd9243ea353bbaa04421488d3b37900
 endif
 DB_MINOR	:= $(word 2,$(subst ., ,$(DB_VERSION)))
 DB		:= db-$(DB_VERSION)

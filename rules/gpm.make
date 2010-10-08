@@ -14,6 +14,7 @@ PACKAGES-$(PTXCONF_GPM) += gpm
 # Paths and names
 #
 GPM_VERSION	:= 1.20.6
+GPM_MD5		:= 6b534da16dc1b28ba828dea89e520f6f
 GPM		:= gpm-$(GPM_VERSION)
 GPM_SUFFIX	:= tar.bz2
 GPM_URL		:= http://www.nico.schottelius.org/software/gpm/archives/$(GPM).$(GPM_SUFFIX)

@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_KLIBC) += klibc
 # Paths and names
 #
 KLIBC_VERSION	:= 1.5.15
+KLIBC_MD5 :=
 KLIBC		:= klibc-$(KLIBC_VERSION)
 KLIBC_SUFFIX	:= tar.gz
 KLIBC_SOURCE	:= $(SRCDIR)/$(KLIBC).$(KLIBC_SUFFIX)

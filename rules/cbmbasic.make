@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_CBMBASIC) += cbmbasic
 # Paths and names
 #
 CBMBASIC_VERSION	:= 1.0
+CBMBASIC_MD5		:= ecd8cd832470ea85368c11d609274c31
 CBMBASIC		:= cbmbasic
 CBMBASIC_SUFFIX		:= zip
 CBMBASIC_URL		:= http://www.weihenstephan.org/~michaste/pagetable/recompiler/$(CBMBASIC).$(CBMBASIC_SUFFIX)

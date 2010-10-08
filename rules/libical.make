@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBICAL) += libical
 # Paths and names
 #
 LIBICAL_VERSION	:= 0.46
+LIBICAL_MD5	:= 9c08f88945bfd5d0791d102e4aa4125c
 LIBICAL		:= libical-$(LIBICAL_VERSION)
 LIBICAL_SUFFIX	:= tar.gz
 LIBICAL_URL	:= $(PTXCONF_SETUP_SFMIRROR)/project/freeassociation/libical/libical-0.46/$(LIBICAL).$(LIBICAL_SUFFIX)

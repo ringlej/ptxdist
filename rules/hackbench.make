@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_HACKBENCH) += hackbench
 # Paths and names
 #
 HACKBENCH_VERSION	:= 20070821-1
+HACKBENCH_MD5		:= b1c0bd167c4c28bbd6177a6316e20541
 HACKBENCH		:= hackbench-$(HACKBENCH_VERSION)
 HACKBENCH_SUFFIX	:= tar.bz2
 HACKBENCH_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(HACKBENCH).$(HACKBENCH_SUFFIX)

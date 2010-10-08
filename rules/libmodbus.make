@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBMODBUS) += libmodbus
 # Paths and names
 #
 LIBMODBUS_VERSION	:= 2.0.3
+LIBMODBUS_MD5		:= 8c19a718bf8f182fb4b961928834cc1c
 LIBMODBUS		:= libmodbus-$(LIBMODBUS_VERSION)
 LIBMODBUS_SUFFIX	:= tar.gz
 LIBMODBUS_URL		:= http://launchpad.net/libmodbus/trunk/2.0.3/+download/$(LIBMODBUS).$(LIBMODBUS_SUFFIX)

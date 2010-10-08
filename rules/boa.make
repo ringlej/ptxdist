@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_BOA) += boa
 # Paths and names
 #
 BOA_VERSION	:= 0.94.14rc21
+BOA_MD5		:= e24b570bd767a124fcfb40a34d148ba9
 BOA_SUFFIX	:= tar.gz
 BOA		:= boa-$(BOA_VERSION)
 BOA_TARBALL	:= boa_$(BOA_VERSION).orig.$(BOA_SUFFIX)

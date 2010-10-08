@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_ARORA) += arora
 # Paths and names
 #
 ARORA_VERSION	:= 0.10.2
+ARORA_MD5	:= ccef0f214e0f03828cde8c521f7a5225
 ARORA		:= arora-$(ARORA_VERSION)
 ARORA_SUFFIX	:= tar.gz
 ARORA_URL	:= http://arora.googlecode.com/files/$(ARORA).$(ARORA_SUFFIX)

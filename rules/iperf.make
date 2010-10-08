@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_IPERF) += iperf
 # Paths and names
 #
 IPERF_VERSION	:= 2.0.4
+IPERF_MD5	:= 8c5bc14cc2ea55f18f22afe3c23e3dcb
 IPERF		:= iperf-$(IPERF_VERSION)
 IPERF_SUFFIX	:= tar.gz
 IPERF_URL	:= $(PTXCONF_SETUP_SFMIRROR)/iperf/$(IPERF).$(IPERF_SUFFIX)

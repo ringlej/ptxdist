@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_FLTK) += fltk
 # Paths and names
 #
 FLTK_VERSION	:= 1.1.6
+FLTK_MD5	:=
 FLTK		:= fltk-$(FLTK_VERSION)
 FLTK_SUFFIX	:= source.tar.bz2
 FLTK_URL	:= \

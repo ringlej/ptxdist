@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_MMPONG) += mmpong
 # Paths and names
 #
 MMPONG_VERSION	:= 0.9
+MMPONG_MD5	:= c06d21b85b838eb8e35d944dd08a8997
 MMPONG		:= mmpong-$(MMPONG_VERSION)
 MMPONG_SUFFIX	:= tar.gz
 MMPONG_URL	:= http://www.mmpong.net/trac/downloads/$(MMPONG).$(MMPONG_SUFFIX)

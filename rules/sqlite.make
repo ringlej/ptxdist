@@ -21,6 +21,7 @@ PACKAGES-$(PTXCONF_SQLITE) += sqlite
 # Paths and names
 #
 SQLITE_VERSION := 3070500
+SQLITE_MD5	:= a9604a82613ade2e7f4c303f233e477f
 SQLITE_TYPE            := autoconf
 ifeq ($(SQLITE_TYPE),)
 SQLITE         := sqlite-$(SQLITE_VERSION)

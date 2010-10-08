@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_KEXEC_TOOLS) += kexec-tools
 # Paths and names
 #
 KEXEC_TOOLS_VERSION	:= 2.0.1
+KEXEC_TOOLS_MD5		:= 67c1a396fdf67b984dad939a59a01571
 KEXEC_TOOLS		:= kexec-tools-$(KEXEC_TOOLS_VERSION)
 KEXEC_TOOLS_SUFFIX	:= tar.bz2
 KEXEC_TOOLS_URL		:= http://www.kernel.org/pub/linux/kernel/people/horms/kexec/$(KEXEC_TOOLS).$(KEXEC_TOOLS_SUFFIX)

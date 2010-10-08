@@ -17,6 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_TZDATABASE) += host-tz-database
 # Paths and names
 #
 TZCODE_VERSION	:= 2010f
+TZCODE_MD5	:=
 TZCODE		:= tzcode$(TZCODE_VERSION)
 TZCODE_SUFFIX	:= tar.gz
 TZCODE_URL	:= \
@@ -25,6 +26,7 @@ ftp://munnari.oz.au/pub/oldtz/$(TZCODE).$(TZCODE_SUFFIX)
 TZCODE_SOURCE	:= $(SRCDIR)/$(TZCODE).$(TZCODE_SUFFIX)
 
 TZDATA_VERSION	:= 2010h
+TZCODE_MD5	:=
 TZDATA		:= tzdata$(TZDATA_VERSION)
 TZDATA_SUFFIX	:= tar.gz
 TZDATA_URL	:= \

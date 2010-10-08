@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_SSMTP) += ssmtp
 # Paths and names
 #
 SSMTP_VERSION		:= 2.64
+SSMTP_MD5		:= 65b4e0df4934a6cd08c506cabcbe584f
 SSMTP			:= ssmtp-$(SSMTP_VERSION)
 SSMTP_SUFFIX		:= tar.bz2
 SSMTP_SRC		:= ssmtp_$(SSMTP_VERSION).orig.$(SSMTP_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_CONNMAN) += connman
 # Paths and names
 #
 CONNMAN_VERSION	:= 0.10
+CONNMAN_MD5	:= 094743343e062ea370fcd461aa48a7fe
 CONNMAN		:= connman-$(CONNMAN_VERSION)
 CONNMAN_SUFFIX	:= tar.gz
 CONNMAN_URL	:= http://ftp.moblin.org/connman/releases/$(CONNMAN).$(CONNMAN_SUFFIX)

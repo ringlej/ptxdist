@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_TOMCAT) += tomcat
 # Paths and names
 #
 TOMCAT_VERSION	:= 5.0.30
+TOMCAT_MD5	:= e140483d062de8dd703cfd6ecac58c71
 TOMCAT		:= jakarta-tomcat-$(TOMCAT_VERSION)
 TOMCAT_SUFFIX	:= tar.gz
 TOMCAT_URL	:= http://archive.apache.org/dist/tomcat/tomcat-5/v5.0.30/bin/$(TOMCAT).$(TOMCAT_SUFFIX)

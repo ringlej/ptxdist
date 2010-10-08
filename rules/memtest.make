@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_MEMTEST) += memtest
 # Paths and names
 #
 MEMTEST_VERSION		:= 0.0.4
+MEMTEST_MD5		:= 99bfee929133eff2938877d8c9a04ca0
 MEMTEST			:= memtest-$(MEMTEST_VERSION)
 MEMTEST_SUFFIX		:= tar.bz2
 MEMTEST_URL		:= http://carpanta.dc.fi.udc.es/~quintela/memtest/$(MEMTEST).$(MEMTEST_SUFFIX)

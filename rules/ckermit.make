@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_CKERMIT) += ckermit
 # Paths and names
 #
 CKERMIT_VERSION	:= 211
+CKERMIT_MD5	:= 5767ec5e6ff0857cbfe2d3ec1ee0e2bc
 CKERMIT		:= cku$(CKERMIT_VERSION)
 CKERMIT_SUFFIX	:= tar.gz
 CKERMIT_URL	:= http://www.columbia.edu/kermit/ftp/archives/$(CKERMIT).$(CKERMIT_SUFFIX)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBTHEORA) += libtheora
 # Paths and names
 #
 LIBTHEORA_VERSION	:= 1.1.1
+LIBTHEORA_MD5		:= bb4dc37f0dc97db98333e7160bfbb52b
 LIBTHEORA		:= libtheora-$(LIBTHEORA_VERSION)
 LIBTHEORA_SUFFIX	:= tar.gz
 LIBTHEORA_URL		:= http://downloads.xiph.org/releases/theora/$(LIBTHEORA).$(LIBTHEORA_SUFFIX)

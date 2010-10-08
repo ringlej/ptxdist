@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_SDL_GFX) += sdl-gfx
 # Paths and names
 #
 SDL_GFX_VERSION	:= 2.0.20
+SDL_GFX_MD5	:= 8a787e538a8e4d80d4927535be5af083
 SDL_GFX		:= SDL_gfx-$(SDL_GFX_VERSION)
 SDL_GFX_SUFFIX	:= tar.gz
 SDL_GFX_URL	:= http://www.ferzkopp.net/Software/SDL_gfx-2.0/$(SDL_GFX).$(SDL_GFX_SUFFIX)

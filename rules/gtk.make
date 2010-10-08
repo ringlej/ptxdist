@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_GTK) += gtk
 # Paths and names
 #
 GTK_VERSION	:= 2.18.7
+GTK_MD5		:= e38d0b6801789b5b4c598e84b28fb215
 GTK		:= gtk+-$(GTK_VERSION)
 GTK_SUFFIX	:= tar.bz2
 GTK_URL		:= http://ftp.gtk.org/pub/gtk/2.18/$(GTK).$(GTK_SUFFIX)

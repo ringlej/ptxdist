@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBNL) += libnl
 # Paths and names
 #
 LIBNL_VERSION	:= 1.1
+LIBNL_MD5	:= ae970ccd9144e132b68664f98e7ceeb1
 LIBNL		:= libnl-$(LIBNL_VERSION)
 LIBNL_SUFFIX	:= tar.gz
 LIBNL_URL	:= http://people.suug.ch/~tgr/libnl/files/$(LIBNL).$(LIBNL_SUFFIX)

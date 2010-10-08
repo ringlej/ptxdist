@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_FBGRAB) += fbgrab
 # Paths and names
 #
 FBGRAB_VERSION	:= 1.0
+FBGRAB_MD5	:= 7af4d8774684182ed690d5da82d6d234
 FBGRAB		:= fbgrab-$(FBGRAB_VERSION)
 FBGRAB_SUFFIX	:= tar.gz
 FBGRAB_URL	:= http://hem.bredband.net/gmogmo/fbgrab/$(FBGRAB).$(FBGRAB_SUFFIX)

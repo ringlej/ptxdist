@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_GLADEMM) += glademm
 # Paths and names
 #
 GLADEMM_VERSION	:= 2.6.0
+GLADEMM_MD5	:= e88be4e895ff3b99d8ae39e799b714a2
 GLADEMM		:= glademm-$(GLADEMM_VERSION)
 GLADEMM_SUFFIX	:= tar.gz
 GLADEMM_URL	:= http://home.wtal.de/petig/Gtk/$(GLADEMM).$(GLADEMM_SUFFIX)

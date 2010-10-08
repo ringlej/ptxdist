@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBVORBIS) += libvorbis
 # Paths and names
 #
 LIBVORBIS_VERSION	:= 1.2.3
+LIBVORBIS_MD5		:= 5aa77f55c0e0aab8eb8ed982335daac8
 LIBVORBIS		:= libvorbis-$(LIBVORBIS_VERSION)
 LIBVORBIS_SUFFIX	:= tar.gz
 LIBVORBIS_URL		:= http://downloads.xiph.org/releases/vorbis/$(LIBVORBIS).$(LIBVORBIS_SUFFIX)

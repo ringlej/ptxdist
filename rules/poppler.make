@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_POPPLER) += poppler
 # Paths and names
 #
 POPPLER_VERSION	:= 0.10.4
+POPPLER_MD5	:= 8d17dbf4e4f0f55bdcf433ce1d5c44b5
 POPPLER		:= poppler-$(POPPLER_VERSION)
 POPPLER_SUFFIX	:= tar.gz
 POPPLER_URL	:= http://poppler.freedesktop.org/$(POPPLER).$(POPPLER_SUFFIX)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_MC) += mc
 # Paths and names
 #
 MC_VERSION	:= 4.6.1
+MC_MD5		:= 18b20db6e40480a53bac2870c56fc3c4
 MC		:= mc-$(MC_VERSION)
 MC_SUFFIX	:= tar.gz
 MC_URL		:= http://www.ibiblio.org/pub/Linux/utils/file/managers/mc/$(MC).$(MC_SUFFIX)

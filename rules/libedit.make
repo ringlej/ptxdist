@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBEDIT) += libedit
 # Paths and names
 #
 LIBEDIT_VERSION	:= 20100424-3.0
+LIBEDIT_MD5	:= eb4482139525beff12c8ef59f1a84aae
 LIBEDIT		:= libedit-$(LIBEDIT_VERSION)
 LIBEDIT_SUFFIX	:= tar.gz
 LIBEDIT_URL	:= http://www.thrysoee.dk/editline/$(LIBEDIT).$(LIBEDIT_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_TRACE_CMD) += trace-cmd
 # Paths and names
 #
 TRACE_CMD_VERSION	:= 1.0.5
+TRACE_CMD_MD5		:= 251432a677c4498f2428654d9b6ec7fd
 TRACE_CMD		:= trace-cmd-$(TRACE_CMD_VERSION)
 TRACE_CMD_SUFFIX	:= tar.bz2
 TRACE_CMD_URL		:= http://www.ru.kernel.org/kernel.org/linux/analysis/trace-cmd/$(TRACE_CMD).$(TRACE_CMD_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_GLADE) += glade
 # Paths and names
 #
 GLADE_VERSION	:= 3.4.0
+GLADE_MD5	:= 7d9354a92d3d95417d1e2d0bc3ebf4f5
 GLADE		:= glade3-$(GLADE_VERSION)
 GLADE_SUFFIX	:= tar.bz2
 GLADE_URL	:= http://ftp.gnome.org/pub/GNOME/sources/glade3/3.4/$(GLADE).$(GLADE_SUFFIX)

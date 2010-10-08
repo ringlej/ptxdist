@@ -21,6 +21,7 @@ TK_MAJOR	:= 8
 TK_MINOR	:= 5
 TK_PL		:= 6
 TK_VERSION	:= $(TK_MAJOR).$(TK_MINOR).$(TK_PL)
+TK_MD5		:= 7da2e00adddc7eed6080df904579d94e
 TK		:= tk$(TK_VERSION)
 TK_SUFFIX	:= -src.tar.gz
 TK_URL		:= $(PTXCONF_SETUP_SFMIRROR)/tcl/$(TK)$(TK_SUFFIX)

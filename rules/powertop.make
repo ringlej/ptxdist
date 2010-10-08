@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_POWERTOP) += powertop
 # Paths and names
 #
 POWERTOP_VERSION	:= 1.11
+POWERTOP_MD5		:= 3498f5983c683c3a57dce7379a722082
 POWERTOP		:= powertop-$(POWERTOP_VERSION)
 POWERTOP_SUFFIX		:= tar.gz
 POWERTOP_URL		:= http://www.lesswatts.org/projects/powertop/download/$(POWERTOP).$(POWERTOP_SUFFIX)

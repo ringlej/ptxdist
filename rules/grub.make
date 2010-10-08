@@ -16,6 +16,7 @@ PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_GRUB) += grub
 # Paths and names
 #
 GRUB_VERSION		:= 0.97
+GRUB_MD5		:= cd3f3eb54446be6003156158d51f4884
 GRUB			:= grub-$(GRUB_VERSION)
 GRUB_URL		:= ftp://alpha.gnu.org/gnu/grub/$(GRUB).tar.gz
 GRUB_SOURCE		:= $(SRCDIR)/$(GRUB).tar.gz

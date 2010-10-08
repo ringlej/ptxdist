@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBCACA) += libcaca
 # Paths and names
 #
 LIBCACA_VERSION	:= 0.99.beta16
+LIBCACA_MD5	:= 3953bf4a803747b63a99f50125563151
 LIBCACA		:= libcaca-$(LIBCACA_VERSION)
 LIBCACA_SUFFIX	:= tar.gz
 LIBCACA_URL	:= http://caca.zoy.org/files/libcaca/$(LIBCACA).$(LIBCACA_SUFFIX)

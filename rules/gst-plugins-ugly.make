@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_UGLY) += gst-plugins-ugly
 # Paths and names
 #
 GST_PLUGINS_UGLY_VERSION := 0.10.15
+GST_PLUGINS_UGLY_MD5	 := 21c034a762a5da252f91640e53bfe457
 GST_PLUGINS_UGLY	 := gst-plugins-ugly-$(GST_PLUGINS_UGLY_VERSION)
 GST_PLUGINS_UGLY_SUFFIX	 := tar.bz2
 GST_PLUGINS_UGLY_URL	 := http://gstreamer.freedesktop.org/src/gst-plugins-ugly/$(GST_PLUGINS_UGLY).$(GST_PLUGINS_UGLY_SUFFIX)

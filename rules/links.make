@@ -15,6 +15,7 @@ PACKAGES-$(PTXCONF_LINKS) += links
 #
 LINKS_NAME	:= links
 LINKS_VERSION	:= 2.2
+LINKS_MD5	:= bf5b20529a2a811701c5af52b28ebdd4
 LINKS		:= $(LINKS_NAME)-$(LINKS_VERSION)
 LINKS_SUFFIX	:= tar.bz2
 LINKS_URL	:= http://links.twibright.com/download/$(LINKS).$(LINKS_SUFFIX)

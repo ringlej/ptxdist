@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_ELEKTRA) += elektra
 # Paths and names
 #
 ELEKTRA_VERSION	:= 0.7.0-r1618
+ELEKTRA_MD5	:=
 ELEKTRA		:= elektra-$(ELEKTRA_VERSION)
 ELEKTRA_SUFFIX	:= tar.gz
 ELEKTRA_URL	:= http://www.markus-raab.org/ftp/$(ELEKTRA).$(ELEKTRA_SUFFIX) \

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_MTR) += mtr
 # Paths and names
 #
 MTR_VERSION	:= 0.75
+MTR_MD5		:= 23baca52d0922c2ecba7eba05317868c
 MTR		:= mtr-$(MTR_VERSION)
 MTR_SUFFIX	:= tar.gz
 MTR_URL		:= ftp://ftp.bitwizard.nl/mtr/$(MTR).$(MTR_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_EVTEST) += evtest
 # Paths and names
 #
 EVTEST_VERSION	:= 1.25
+EVTEST_MD5	:= 770d6af03affe976bdbe3ad1a922c973
 EVTEST		:= evtest-$(EVTEST_VERSION)
 EVTEST_SUFFIX	:= tar.bz2
 EVTEST_URL	:= http://cgit.freedesktop.org/~whot/evtest/snapshot/$(EVTEST).$(EVTEST_SUFFIX)

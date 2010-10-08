@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_DIALOG) += dialog
 # Paths and names
 #
 DIALOG_VERSION	:= 1.1-20100428
+DIALOG_MD5	:= 519c0a0cbac28ddb992111ec2c3f82aa
 DIALOG		:= dialog-$(DIALOG_VERSION)
 DIALOG_SUFFIX	:= tgz
 DIALOG_URL	:= ftp://invisible-island.net/dialog/$(DIALOG).$(DIALOG_SUFFIX)

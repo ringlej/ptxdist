@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_TSLIB) += tslib
 # Paths and names
 #
 TSLIB_VERSION	:= 1.0
+TSLIB_MD5	:= 970cc089da1a75f6626172543a2e8df4
 TSLIB		:= tslib-$(TSLIB_VERSION)
 TSLIB_SUFFIX	:= tar.bz2
 TSLIB_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(TSLIB).$(TSLIB_SUFFIX)

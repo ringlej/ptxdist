@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_XCB_UTIL) += xcb-util
 # Paths and names
 #
 XCB_UTIL_VERSION	:= 0.3.6
+XCB_UTIL_MD5		:= dd8968b8ee613cb027a8ef1fcbdc8fc9
 XCB_UTIL		:= xcb-util-$(XCB_UTIL_VERSION)
 XCB_UTIL_SUFFIX		:= tar.bz2
 XCB_UTIL_URL		:= http://xcb.freedesktop.org/dist/$(XCB_UTIL).$(XCB_UTIL_SUFFIX)

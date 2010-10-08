@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_MINICOM) += minicom
 # Paths and names
 #
 MINICOM_VERSION	:= 2.4
+MINICOM_MD5	:= 700976a3c2dcc8bbd50ab9bb1c08837b
 MINICOM		:= minicom-$(MINICOM_VERSION)
 MINICOM_SUFFIX	:= tar.gz
 MINICOM_URL	:= http://alioth.debian.org/frs/download.php/3195/$(MINICOM).$(MINICOM_SUFFIX)

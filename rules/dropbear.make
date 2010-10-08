@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_DROPBEAR) += dropbear
 # Paths and names
 #
 DROPBEAR_VERSION	:= 0.52
+DROPBEAR_MD5		:= a1fc7adf601bca53330a792a9c873439
 DROPBEAR		:= dropbear-$(DROPBEAR_VERSION)
 DROPBEAR_SUFFIX		:= tar.bz2
 DROPBEAR_URL		:= http://www.ucc.asn.au/~matt/dropbear/releases/$(DROPBEAR).$(DROPBEAR_SUFFIX)

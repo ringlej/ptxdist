@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBEVENT) += libevent
 # Paths and names
 #
 LIBEVENT_VERSION	:= 2.0.10
+LIBEVENT_MD5		:= a37401d26cbbf28185211d582741a3d4
 LIBEVENT		:= libevent-$(LIBEVENT_VERSION)-stable
 LIBEVENT_SUFFIX		:= tar.gz
 LIBEVENT_URL		:= http://www.monkey.org/~provos/$(LIBEVENT).$(LIBEVENT_SUFFIX)

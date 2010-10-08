@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE) += gst-plugins-base
 # Paths and names
 #
 GST_PLUGINS_BASE_VERSION	:= 0.10.29
+GST_PLUGINS_BASE_MD5		:= d07e251152cccbaa81807c14cf0fd8c0
 GST_PLUGINS_BASE		:= gst-plugins-base-$(GST_PLUGINS_BASE_VERSION)
 GST_PLUGINS_BASE_SUFFIX		:= tar.bz2
 GST_PLUGINS_BASE_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE).$(GST_PLUGINS_BASE_SUFFIX)

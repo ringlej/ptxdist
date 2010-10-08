@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_BZIP2) += bzip2
 # Paths and names
 #
 BZIP2_VERSION	:= 1.0.5
+BZIP2_MD5	:= 3c15a0c8d1d3ee1c46a1634d00617b1a
 BZIP2		:= bzip2-$(BZIP2_VERSION)
 BZIP2_SUFFIX	:= tar.gz
 BZIP2_URL	:= http://www.bzip.org/1.0.5/$(BZIP2).$(BZIP2_SUFFIX)

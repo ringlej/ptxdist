@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_DFU_UTIL) += dfu-util
 # Paths and names
 #
 DFU_UTIL_VERSION	:= 0.1
+DFU_UTIL_MD5		:= 454b931249d29e4a6c2a2ade17858490
 DFU_UTIL		:= dfu-util-$(DFU_UTIL_VERSION)
 DFU_UTIL_SUFFIX		:= tar.gz
 DFU_UTIL_URL		:= http://dfu-util.gnumonks.org/releases/$(DFU_UTIL).$(DFU_UTIL_SUFFIX)

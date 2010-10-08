@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_ATK) += atk
 # Paths and names
 #
 ATK_VERSION	:= 1.28.0
+ATK_MD5		:= 010a85478adc053c016a0a5c9bb52004
 ATK		:= atk-$(ATK_VERSION)
 ATK_SUFFIX	:= tar.bz2
 ATK_URL		:= http://ftp.gnome.org/pub/gnome/sources/atk/1.28/$(ATK).$(ATK_SUFFIX)

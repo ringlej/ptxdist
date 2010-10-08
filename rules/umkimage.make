@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_UMKIMAGE) += umkimage
 # Paths and names
 #
 UMKIMAGE_VERSION	:= 2010.03-1
+UMKIMAGE_MD5		:= 5e7b4ed03e855a4824317fc4e3917dba
 UMKIMAGE		:= u-boot-mkimage-$(UMKIMAGE_VERSION)
 UMKIMAGE_SUFFIX		:= tar.gz
 UMKIMAGE_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(UMKIMAGE).$(UMKIMAGE_SUFFIX)

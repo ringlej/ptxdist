@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LM_SENSORS) += lm_sensors
 # Paths and names
 #
 LM_SENSORS_VERSION	:= 3.1.2
+LM_SENSORS_MD5		:= 58a9a225808ac4587c4c8cbd12b40b5c
 LM_SENSORS		:= lm_sensors-$(LM_SENSORS_VERSION)
 LM_SENSORS_SUFFIX	:= tar.bz2
 LM_SENSORS_URL		:= http://dl.lm-sensors.org/lm-sensors/releases/$(LM_SENSORS).$(LM_SENSORS_SUFFIX)

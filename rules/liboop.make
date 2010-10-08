@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBOOP) += liboop
 # Paths and names
 #
 LIBOOP_VERSION	:= 1.0
+LIBOOP_MD5	:= 88fc8decf99fd75d2af40e0a005fa0d3
 LIBOOP		:= liboop-$(LIBOOP_VERSION)
 LIBOOP_SUFFIX	:= tar.bz2
 LIBOOP_URL	:= http://download.ofb.net/liboop/$(LIBOOP).$(LIBOOP_SUFFIX)

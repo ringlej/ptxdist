@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_AT) += at
 # Paths and names
 #
 AT_VERSION	:= 3.1.12
+AT_MD5		:= 1e67991776148fb319fd77a2e599a765
 AT_SUFFIX	:= tar.gz
 AT		:= at-$(AT_VERSION)
 AT_TARBALL	:= at_$(AT_VERSION).orig.$(AT_SUFFIX)

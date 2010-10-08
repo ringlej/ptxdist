@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_XORG_FONT_ARPHIC_UKAI) += xorg-font-arphic-ukai
 # Paths and names
 #
 XORG_FONT_ARPHIC_UKAI_VERSION	:= 0.2.20080216.1
+XORG_FONT_ARPHIC_UKAI_MD5	:= 4d3beb55db000bfedd18c9c7d6e631d8
 XORG_FONT_ARPHIC_UKAI		:= ttf-arphic-ukai_$(XORG_FONT_ARPHIC_UKAI_VERSION)
 XORG_FONT_ARPHIC_UKAI_SUFFIX	:= tar.gz
 XORG_FONT_ARPHIC_UKAI_URL	:= http://de.archive.ubuntu.com/ubuntu/pool/main/t/ttf-arphic-ukai/$(XORG_FONT_ARPHIC_UKAI).orig.$(XORG_FONT_ARPHIC_UKAI_SUFFIX)

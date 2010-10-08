@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_CALIBRATOR) += calibrator
 # Paths and names
 #
 CALIBRATOR_VERSION	:= 20070821-1
+CALIBRATOR_MD5		:= b26765e360144e951f4924aed6e6d45c
 CALIBRATOR		:= calibrator-$(CALIBRATOR_VERSION)
 CALIBRATOR_SUFFIX	:= tar.bz2
 CALIBRATOR_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(CALIBRATOR).$(CALIBRATOR_SUFFIX)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_BONNIEXX) += bonniexx
 # Paths and names
 #
 BONNIEXX_VERSION	:= 1.03e
+BONNIEXX_MD5		:= 750aa5b5051263a99c6c195888c74968
 BONNIEXX		:= bonnie++-$(BONNIEXX_VERSION)
 BONNIEXX_SUFFIX		:= tgz
 BONNIEXX_URL		:= http://www.coker.com.au/bonnie++/$(BONNIEXX).$(BONNIEXX_SUFFIX)

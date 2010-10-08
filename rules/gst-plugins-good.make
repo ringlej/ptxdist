@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_GOOD) += gst-plugins-good
 # Paths and names
 #
 GST_PLUGINS_GOOD_VERSION	:= 0.10.23
+GST_PLUGINS_GOOD_MD5		:= 9cddbb0e7e90677f0cc05c23feffef5c
 GST_PLUGINS_GOOD		:= gst-plugins-good-$(GST_PLUGINS_GOOD_VERSION)
 GST_PLUGINS_GOOD_SUFFIX		:= tar.bz2
 GST_PLUGINS_GOOD_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-good/$(GST_PLUGINS_GOOD).$(GST_PLUGINS_GOOD_SUFFIX)

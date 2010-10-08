@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_APACHE2) += apache2
 # Paths and names
 #
 APACHE2_VERSION	:= 2.0.58
+APACHE2_MD5	:= ac732a8b3ec5760baa582888f5dbad66
 APACHE2		:= httpd-$(APACHE2_VERSION)
 APACHE2_SUFFIX	:= tar.bz2
 APACHE2_URL	:= http://archive.apache.org/dist/httpd/$(APACHE2).$(APACHE2_SUFFIX)

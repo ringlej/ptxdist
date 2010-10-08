@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LSH) += lsh
 # Paths and names
 #
 LSH_VERSION	:= 2.0.4
+LSH_MD5		:= 621f4442332bb772b92d397d17ccaf02
 LSH		:= lsh-$(LSH_VERSION)
 LSH_SUFFIX	:= tar.gz
 LSH_URL		:= http://www.lysator.liu.se/~nisse/archive/$(LSH).$(LSH_SUFFIX)

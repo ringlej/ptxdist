@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_JSON_C) += json-c
 # Paths and names
 #
 JSON_C_VERSION		:= 0.9
+JSON_C_MD5		:= 3a13d264528dcbaf3931b0cede24abae
 JSON_C			:= json-c-$(JSON_C_VERSION)
 JSON_C_SUFFIX		:= tar.gz
 JSON_C_URL		:= http://oss.metaparadigm.com/json-c/$(JSON_C).$(JSON_C_SUFFIX)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_IFPLUGD) += ifplugd
 # Paths and names
 #
 IFPLUGD_VERSION	:= 0.28
+IFPLUGD_MD5	:= df6f4bab52f46ffd6eb1f5912d4ccee3
 IFPLUGD		:= ifplugd-$(IFPLUGD_VERSION)
 IFPLUGD_SUFFIX	:= tar.gz
 IFPLUGD_URL	:= http://0pointer.de/lennart/projects/ifplugd/$(IFPLUGD).$(IFPLUGD_SUFFIX)

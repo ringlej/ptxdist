@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_FBTEST) += fbtest
 # Paths and names
 #
 FBTEST_VERSION	:= 20041102-1
+FBTEST_MD5	:= d9dc61e96edb60dc52491ce3a5d5185c
 FBTEST		:= fbtest-$(FBTEST_VERSION)
 FBTEST_SUFFIX	:= tar.gz
 FBTEST_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FBTEST).$(FBTEST_SUFFIX)

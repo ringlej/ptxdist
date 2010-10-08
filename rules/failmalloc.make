@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_FAILMALLOC) += failmalloc
 # Paths and names
 #
 FAILMALLOC_VERSION	:= 1.0
+FAILMALLOC_MD5		:= eae617cb8d800dc17efe55b26565a7e2
 FAILMALLOC		:= failmalloc-$(FAILMALLOC_VERSION)
 FAILMALLOC_SUFFIX	:= tar.gz
 FAILMALLOC_URL		:= http://download.savannah.nongnu.org/releases/failmalloc/$(FAILMALLOC).$(FAILMALLOC_SUFFIX)

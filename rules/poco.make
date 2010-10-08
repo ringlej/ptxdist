@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_POCO) += poco
 # Paths and names
 #
 POCO_VERSION	:= 1.4.1p1
+POCO_MD5	:= bedcf66df951a6e534a004f18344f385
 POCO		:= poco-$(POCO_VERSION)
 POCO_SUFFIX	:= tar.gz
 POCO_URL	:= $(PTXCONF_SETUP_SFMIRROR)/project/poco/sources/poco-1.4.1/$(POCO).$(POCO_SUFFIX)

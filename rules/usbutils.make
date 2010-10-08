@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_USBUTILS) += usbutils
 # Paths and names
 #
 USBUTILS_VERSION	:= 0.90
+USBUTILS_MD5		:= cf542098627c77484c671be4fc5e7271
 USBUTILS		:= usbutils-$(USBUTILS_VERSION)
 USBUTILS_SUFFIX		:= tar.bz2
 USBUTILS_URL		:= http://www.kernel.org/pub/linux/utils/usb/usbutils/$(USBUTILS).$(USBUTILS_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBMD) += libmd
 # Paths and names
 #
 LIBMD_VERSION	:= 0.3.1
+LIBMD_MD5	:= 0bc578ca17d9534418bf24d7602163a2
 LIBMD		:= libmd-$(LIBMD_VERSION)
 LIBMD_SUFFIX	:= tar.gz
 LIBMD_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBMD).$(LIBMD_SUFFIX)

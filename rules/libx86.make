@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_LIBX86) += libx86
 # Paths and names
 #
 LIBX86_VERSION		:= 1.1
+LIBX86_MD5		:= 41bee1f8e22b82d82b5f7d7ba51abc2a
 LIBX86			:= libx86-$(LIBX86_VERSION)
 LIBX86_SUFFIX		:= tar.gz
 LIBX86_URL		:= http://www.codon.org.uk/~mjg59/libx86/downloads/$(LIBX86).$(LIBX86_SUFFIX)

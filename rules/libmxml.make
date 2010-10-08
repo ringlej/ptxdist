@@ -15,6 +15,7 @@ PACKAGES-$(PTXCONF_LIBMXML) += libmxml
 # Paths and names
 #
 LIBMXML_VERSION	:= 2.6
+LIBMXML_MD5	:= 68977789ae64985dddbd1a1a1652642e
 LIBMXML		:= mxml-$(LIBMXML_VERSION)
 LIBMXML_SUFFIX	:= tar.gz
 LIBMXML_URL	:= http://ftp.easysw.com/pub/mxml/$(LIBMXML_VERSION)/$(LIBMXML).$(LIBMXML_SUFFIX)

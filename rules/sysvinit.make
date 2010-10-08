@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_SYSVINIT) += sysvinit
 # Paths and names
 #
 SYSVINIT_VERSION	:= 2.86
+SYSVINIT_MD5		:=
 SYSVINIT		:= sysvinit-$(SYSVINIT_VERSION)
 SYSVINIT_SUFFIX		:= tar.gz
 SYSVINIT_URL		:= ftp://ftp.cistron.nl/pub/people/miquels/sysvinit/$(SYSVINIT).$(SYSVINIT_SUFFIX)

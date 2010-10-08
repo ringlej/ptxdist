@@ -16,6 +16,7 @@ PACKAGES-$(PTXCONF_UTELNETD) += utelnetd
 # Paths and names
 #
 UTELNETD_VERSION	:= 0.1.11
+UTELNETD_MD5		:= a6d1c84163d01e79b45242d6f6435d6a
 UTELNETD		:= utelnetd-$(UTELNETD_VERSION)
 UTELNETD_URL		:= http://www.pengutronix.de/software/utelnetd/$(UTELNETD).tar.gz
 UTELNETD_SOURCE		:= $(SRCDIR)/$(UTELNETD).tar.gz

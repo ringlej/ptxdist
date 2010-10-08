@@ -20,6 +20,7 @@ PACKAGES-$(PTXCONF_LRZSZ) += lrzsz
 # Paths and names
 #
 LRZSZ_VERSION	:= 0.12.20
+LRZSZ_MD5	:= b5ce6a74abc9b9eb2af94dffdfd372a4
 LRZSZ		:= lrzsz-$(LRZSZ_VERSION)
 LRZSZ_SUFFIX	:= tar.gz
 LRZSZ_URL	:= http://www.ohse.de/uwe/releases/$(LRZSZ).$(LRZSZ_SUFFIX)

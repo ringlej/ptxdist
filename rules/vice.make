@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_VICE) += vice
 # Paths and names
 #
 VICE_VERSION	:= 1.22
+VICE_MD5	:=
 VICE		:= vice-$(VICE_VERSION)
 VICE_SUFFIX	:= tar.gz
 VICE_URL	:= http://www.viceteam.org/online/$(VICE).$(VICE_SUFFIX)

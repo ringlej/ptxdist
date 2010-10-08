@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_HPANEL) += hpanel
 # Paths and names
 #
 HPANEL_VERSION	:= 0.3.2
+HPANEL_MD5	:= 94eda6b7a14253f5e36b2cea57a14b01
 HPANEL		:= hpanel-$(HPANEL_VERSION)
 HPANEL_SUFFIX	:= tar.gz
 HPANEL_URL	:= http://www.phrat.de/$(HPANEL).$(HPANEL_SUFFIX)

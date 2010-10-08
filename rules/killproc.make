@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_KILLPROC) += killproc
 # Paths and names
 #
 KILLPROC_VERSION	:= 2.13
+KILLPROC_MD5		:= 7b52f7cd46f08bd1c4723a035a00c389
 KILLPROC		:= killproc-$(KILLPROC_VERSION)
 KILLPROC_SUFFIX		:= tar.gz
 KILLPROC_URL		:= http://ftp.suse.com/pub/projects/init/$(KILLPROC).$(KILLPROC_SUFFIX)

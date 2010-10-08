@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LSOF) += lsof
 # Paths and names
 #
 LSOF_VERSION	:= 4.81.dfsg.1
+LSOF_MD5	:= 138b628cb1b6a3b16b32b792f77abcce
 LSOF_SUFFIX	:= tar.gz
 LSOF		:= lsof-$(LSOF_VERSION)
 LSOF_TARBALL	:= lsof_$(LSOF_VERSION).orig.$(LSOF_SUFFIX)

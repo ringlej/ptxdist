@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_FAM) += fam
 # Paths and names
 #
 FAM_VERSION	:= 2.7.0
+FAM_MD5		:= 1bf3ae6c0c58d3201afc97c6a4834e39
 FAM		:= fam-$(FAM_VERSION)
 FAM_SUFFIX	:= tar.gz
 FAM_URL		:= ftp://oss.sgi.com/projects/fam/download/stable/$(FAM).$(FAM_SUFFIX)

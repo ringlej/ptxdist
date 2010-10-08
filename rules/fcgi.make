@@ -15,6 +15,7 @@ PACKAGES-$(PTXCONF_FCGI) += fcgi
 # Paths and names
 #
 FCGI_VERSION    := 2.4.0
+FCGI_MD5	:= d15060a813b91383a9f3c66faf84867e
 FCGI		:= fcgi-$(FCGI_VERSION)
 FCGI_SUFFIX	:= tar.gz
 FCGI_URL	:= http://www.fastcgi.com/dist/$(FCGI).$(FCGI_SUFFIX)

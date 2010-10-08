@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBPOPT) += libpopt
 # Paths and names
 #
 LIBPOPT_VERSION	:= 1.15
+LIBPOPT_MD5	:= c61ef795fa450eb692602a661ec8d7f1
 LIBPOPT		:= popt-$(LIBPOPT_VERSION)
 LIBPOPT_SUFFIX	:= tar.gz
 LIBPOPT_URL	:= http://rpm5.org/files/popt/$(LIBPOPT).$(LIBPOPT_SUFFIX)

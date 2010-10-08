@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_ZIP) += zip
 # (zip is packaged a bit unusual way, that's why two version variables exist)
 #
 ZIP_VERSION	:= 3.0
+ZIP_MD5		:= 7b74551e63f8ee6aab6fbc86676c0d37
 ZIP_AVERSION	:= 30
 ZIP_ARCHIVE	:= zip$(ZIP_AVERSION).tar.gz
 ZIP		:= zip$(ZIP_AVERSION)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_WIRESHARK) += wireshark
 # Paths and names
 #
 WIRESHARK_VERSION	:= 1.2.5
+WIRESHARK_MD5		:= fdc1bc9815ee7ba067094edf60f7b9ff
 WIRESHARK		:= wireshark-$(WIRESHARK_VERSION)
 WIRESHARK_SUFFIX	:= tar.gz
 WIRESHARK_URL		:= http://www.wireshark.org/download/src/all-versions/$(WIRESHARK).$(WIRESHARK_SUFFIX)

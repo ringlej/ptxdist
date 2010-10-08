@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_UNZIP) += unzip
 # (unzip is packaged a bit unusual way, that's why two version variables exist)
 #
 UNZIP_VERSION	:= 5.52
+UNZIP_MD5	:= 9d23919999d6eac9217d1f41472034a9
 UNZIP_AVERSION	:= 552
 UNZIP_ARCHIVE	:= unzip$(UNZIP_AVERSION).tgz
 UNZIP		:= unzip-$(UNZIP_VERSION)

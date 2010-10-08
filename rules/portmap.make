@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_PORTMAP) += portmap
 # Paths and names
 #
 PORTMAP_VERSION := 6.0
+PORTMAP_MD5	:= ac108ab68bf0f34477f8317791aaf1ff
 PORTMAP		:= portmap_$(PORTMAP_VERSION)
 PORTMAP_SUFFIX	:= tgz
 PORTMAP_URL	:= http://neil.brown.name/portmap/portmap-$(PORTMAP_VERSION).$(PORTMAP_SUFFIX)

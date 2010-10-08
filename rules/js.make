@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_JS) += js
 # Paths and names
 #
 JS_VERSION	:= 1.9.2.16
+JS_MD5		:= 229fc3f629200561ad725fcddd435bf6
 JS		:= js-$(JS_VERSION)
 JS_SUFFIX	:= tar.bz2
 JS_URL		:= http://ftp.mozilla.org/pub/mozilla.org/xulrunner/releases/$(JS_VERSION)/source/xulrunner-$(JS_VERSION).source.$(JS_SUFFIX)

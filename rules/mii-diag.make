@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_MII_DIAG) += mii-diag
 # Paths and names
 #
 MII_DIAG_VERSION	:= 2.11
+MII_DIAG_MD5		:= 2c0cc0cd29c80f86921e6f300709bf81
 MII_DIAG_SUFFIX		:= tar.gz
 MII_DIAG		:= mii-diag-$(MII_DIAG_VERSION).orig
 MII_DIAG_TARBALL	:= mii-diag_$(MII_DIAG_VERSION).orig.$(MII_DIAG_SUFFIX)

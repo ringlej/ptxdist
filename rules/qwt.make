@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_QWT) += qwt
 # Paths and names
 #
 QWT_VERSION	:= 5.2.0
+QWT_MD5		:= c60b4cfac271a41524402b3ae5197890
 QWT		:= qwt-$(QWT_VERSION)
 QWT_SUFFIX	:= tar.bz2
 QWT_URL		:= $(PTXCONF_SETUP_SFMIRROR)/qwt/$(QWT).$(QWT_SUFFIX)

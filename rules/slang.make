@@ -20,6 +20,7 @@ PACKAGES-$(PTXCONF_SLANG) += slang
 #
 SLANG_MAJOR	:= 2
 SLANG_VERSION	:= $(SLANG_MAJOR).1.2
+SLANG_MD5	:= 99534ae667ed1a50c863ce9a08912ccc
 SLANG		:= slang-$(SLANG_VERSION)
 SLANG_SUFFIX	:= tar.bz2
 SLANG_URL	:= ftp://space.mit.edu/pub/davis/slang/v2.1/$(SLANG).$(SLANG_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_POLICYKIT) += policykit
 # Paths and names
 #
 POLICYKIT_VERSION	:= 0.9
+POLICYKIT_MD5		:= 802fd13ae41f73d79359e5ecb0a98716
 POLICYKIT		:= PolicyKit-$(POLICYKIT_VERSION)
 POLICYKIT_SUFFIX	:= tar.gz
 POLICYKIT_URL		:= http://hal.freedesktop.org/releases/$(POLICYKIT).$(POLICYKIT_SUFFIX)

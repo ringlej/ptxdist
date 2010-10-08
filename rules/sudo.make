@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_SUDO) += sudo
 # Paths and names
 #
 SUDO_VERSION	:= 1.7.2p6
+SUDO_MD5	:= c4f1a43e8ba94f6bf06d2211442148c4
 SUDO		:= sudo-$(SUDO_VERSION)
 SUDO_SUFFIX	:= tar.gz
 SUDO_URL	:= http://www.sudo.ws/sudo/dist/$(SUDO).$(SUDO_SUFFIX)

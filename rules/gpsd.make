@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_GPSD) += gpsd
 # Paths and names
 #
 GPSD_VERSION	:= 2.39
+GPSD_MD5	:= 3db437196a6840c252fca99b6c19d4d0
 GPSD		:= gpsd-$(GPSD_VERSION)
 GPSD_SUFFIX	:= tar.gz
 GPSD_URL	:= http://download.berlios.de/gpsd/$(GPSD).$(GPSD_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBGSF) += libgsf
 # Paths and names
 #
 LIBGSF_VERSION	:= 1.14.16
+LIBGSF_MD5	:= 8478d83fda0b6e57f36550c11a693ee1
 LIBGSF		:= libgsf-$(LIBGSF_VERSION)
 LIBGSF_SUFFIX	:= tar.bz2
 LIBGSF_URL	:= http://ftp.acc.umu.se/pub/GNOME/sources/libgsf/1.14/$(LIBGSF).$(LIBGSF_SUFFIX)

@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_PDKSH) += pdksh
 # Paths and names
 #
 PDKSH_VERSION		:= 5.2.14
+PDKSH_MD5		:=
 PDKSH			:= pdksh-$(PDKSH_VERSION)
 PDKSH_SUFFIX		:= tar.gz
 PDKSH_URL		:= ftp://ftp.cs.mun.ca/pub/pdksh/$(PDKSH).$(PDKSH_SUFFIX)

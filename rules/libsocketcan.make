@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBSOCKETCAN) += libsocketcan
 # Paths and names
 #
 LIBSOCKETCAN_VERSION	:= 0.0.8
+LIBSOCKETCAN_MD5	:= 7fa608d46553c1e33b6b34cab0a83c00
 LIBSOCKETCAN		:= libsocketcan-$(LIBSOCKETCAN_VERSION)
 LIBSOCKETCAN_SUFFIX	:= tar.bz2
 LIBSOCKETCAN_URL	:= http://www.pengutronix.de/software/libsocketcan/download/$(LIBSOCKETCAN).$(LIBSOCKETCAN_SUFFIX)

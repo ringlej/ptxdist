@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_PANGO) += pango
 # Paths and names
 #
 PANGO_VERSION	:= 1.26.0
+PANGO_MD5	:= 74ce18cfcc3ad0008a6ad56cfc535061
 PANGO		:= pango-$(PANGO_VERSION)
 PANGO_SUFFIX	:= tar.bz2
 PANGO_URL	:= http://ftp.gnome.org/pub/GNOME/sources/pango/1.26/$(PANGO).$(PANGO_SUFFIX)

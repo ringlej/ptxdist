@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_TOTD) += totd
 # Paths and names
 #
 TOTD_VERSION	:= 1.5
+TOTD_MD5	:= b7da63fc1ea1b2e2ce959732826bc146
 TOTD		:= totd-$(TOTD_VERSION)
 TOTD_SUFFIX	:= tar.gz
 TOTD_URL	:= ftp://ftp.pasta.cs.uit.no/pub/Vermicelli/$(TOTD).$(TOTD_SUFFIX)

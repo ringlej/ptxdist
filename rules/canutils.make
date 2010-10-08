@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_CANUTILS) += canutils
 # Paths and names
 #
 CANUTILS_VERSION	:= $(CANUTILS_VERSION)
+CANUTILS_MD5		:= 4bf69310d6abaf06e93ab07b55587f34
 CANUTILS		:= canutils-$(CANUTILS_VERSION)
 CANUTILS_SUFFIX		:= tar.bz2
 CANUTILS_URL		:= http://www.pengutronix.de/software/socket-can/download/canutils/v$(CANUTILS_VERSION_MAJOR).$(CANUTILS_VERSION_MINOR)/$(CANUTILS).$(CANUTILS_SUFFIX)

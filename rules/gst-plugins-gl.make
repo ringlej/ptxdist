@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_GL) += gst-plugins-gl
 # Paths and names
 #
 GST_PLUGINS_GL_VERSION	:= 0.10.1
+GST_PLUGINS_GL_MD5	:= 3880eb17f3cff03b8e1b8af215116813
 GST_PLUGINS_GL		:= gst-plugins-gl-$(GST_PLUGINS_GL_VERSION)
 GST_PLUGINS_GL_SUFFIX	:= tar.bz2
 GST_PLUGINS_GL_URL	:= http://gstreamer.freedesktop.org/src/gst-plugins-gl/$(GST_PLUGINS_GL).$(GST_PLUGINS_GL_SUFFIX)

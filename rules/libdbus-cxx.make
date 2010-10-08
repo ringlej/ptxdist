@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBDBUS_CXX) += libdbus-cxx
 # Paths and names
 #
 LIBDBUS_CXX_VERSION	:= r9139
+LIBDBUS_CXX_MD5		:=
 LIBDBUS_CXX		:= libdbus-c++-$(LIBDBUS_CXX_VERSION)
 LIBDBUS_CXX_SUFFIX	:= tar.gz
 LIBDBUS_CXX_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LIBDBUS_CXX).$(LIBDBUS_CXX_SUFFIX)

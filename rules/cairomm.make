@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_CAIROMM) += cairomm
 # Paths and names
 #
 CAIROMM_VERSION	:= 1.8.0
+CAIROMM_MD5	:= 15c0f56eee57bb418c38463a6297d715
 CAIROMM		:= cairomm-$(CAIROMM_VERSION)
 CAIROMM_SUFFIX	:= tar.gz
 CAIROMM_URL	:= http://cairographics.org/releases/$(CAIROMM).$(CAIROMM_SUFFIX)

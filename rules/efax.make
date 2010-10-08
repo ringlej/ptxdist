@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_EFAX) += efax
 # Paths and names
 #
 EFAX_VERSION	:= 0.9
+EFAX_MD5	:= 23bd3767f87c455c58ccae7f88bce725
 EFAX		:= efax-$(EFAX_VERSION)
 EFAX_SUFFIX	:= tar.gz
 EFAX_URL	:= ftp://ftp.metalab.unc.edu/pub/Linux/apps/serialcomm/fax/$(EFAX).$(EFAX_SUFFIX)

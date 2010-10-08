@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_PNPUTILS) += pnputils
 # Paths and names
 #
 PNPUTILS_VERSION	:= 0.1
+PNPUTILS_MD5		:= 7fd1e18cc8b9eddcccb355654291fac3
 PNPUTILS		:= pnputils-$(PNPUTILS_VERSION)
 PNPUTILS_SUFFIX		:= tar.bz2
 PNPUTILS_URL		:= http://www.vi.kernel.org/pub/linux/kernel/people/helgaas/$(PNPUTILS).$(PNPUTILS_SUFFIX)

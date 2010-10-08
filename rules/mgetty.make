@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_MGETTY) += mgetty
 # Paths and names
 #
 MGETTY_VERSION	:= 1.1.36
+MGETTY_MD5	:= 0320e98c6b86bcca48fc5f355b94ead4
 MGETTY_DATE	:= Jun15
 MGETTY		:= mgetty-$(MGETTY_VERSION)
 MGETTY_SUFFIX	:= tar.gz

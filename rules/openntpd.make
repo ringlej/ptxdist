@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_OPENNTPD) += openntpd
 # Paths and names
 #
 OPENNTPD_VERSION	:= 3.7p1
+OPENNTPD_MD5		:= 10ed8eefd760e5819efcf3277b118f47
 OPENNTPD		:= openntpd-$(OPENNTPD_VERSION)
 OPENNTPD_SUFFIX		:= tar.gz
 OPENNTPD_URL		:= http://ftp.eu.openbsd.org/pub/OpenBSD/OpenNTPD/$(OPENNTPD).$(OPENNTPD_SUFFIX)

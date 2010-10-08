@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_CONSOLEKIT) += consolekit
 # Paths and names
 #
 CONSOLEKIT_VERSION	:= 0.4.1
+CONSOLEKIT_MD5		:= 48eda4483cc97841d5f88e8e003eb6d7
 CONSOLEKIT		:= ConsoleKit-$(CONSOLEKIT_VERSION)
 CONSOLEKIT_SUFFIX	:= tar.bz2
 CONSOLEKIT_URL		:= http://www.freedesktop.org/software/ConsoleKit/dist/$(CONSOLEKIT).$(CONSOLEKIT_SUFFIX)

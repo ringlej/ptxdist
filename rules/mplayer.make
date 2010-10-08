@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_MPLAYER) += mplayer
 # Paths and names
 #
 MPLAYER_VERSION	:= 1.0rc4
+MPLAYER_MD5	:= 1699c94de39da9c4c5d34e8f58e418f0
 MPLAYER		:= MPlayer-$(MPLAYER_VERSION)
 MPLAYER_SUFFIX	:= tar.bz2
 MPLAYER_URL	:= http://www.mplayerhq.hu/MPlayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)

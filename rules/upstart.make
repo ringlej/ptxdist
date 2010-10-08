@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_UPSTART) += upstart
 # Paths and names
 #
 UPSTART_VERSION	:= 0.6.6
+UPSTART_MD5	:= 5a2e9962a4cea719fbe07c33e2591b06
 UPSTART		:= upstart-$(UPSTART_VERSION)
 UPSTART_SUFFIX	:= tar.gz
 UPSTART_URL	:= http://upstart.ubuntu.com/download/0.6/$(UPSTART).$(UPSTART_SUFFIX)

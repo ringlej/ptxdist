@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_NICKEL) += nickel
 # Paths and names
 #
 NICKEL_VERSION	:= 1.1.0
+NICKEL_MD5	:= 5bcbf33d1457e6587c46ac3b0526523c
 NICKEL		:= nickel-$(NICKEL_VERSION)
 NICKEL_SUFFIX	:= tar.gz
 NICKEL_URL	:= http://downloads.sourceforge.net/chaoslizard/$(NICKEL).$(NICKEL_SUFFIX)

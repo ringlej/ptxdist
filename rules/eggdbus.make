@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_EGGDBUS) += eggdbus
 # Paths and names
 #
 EGGDBUS_VERSION	:= 0.6
+EGGDBUS_MD5	:= b43d2a6c523fcb8b9d0b0300c4222386
 EGGDBUS		:= eggdbus-$(EGGDBUS_VERSION)
 EGGDBUS_SUFFIX	:= tar.gz
 EGGDBUS_URL	:= http://hal.freedesktop.org/releases/$(EGGDBUS).$(EGGDBUS_SUFFIX)

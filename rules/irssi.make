@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_IRSSI) += irssi
 # Paths and names
 #
 IRSSI_VERSION	:= 0.8.14
+IRSSI_MD5	:= 00efe7638dd596d5930dfa2aeae87b3a
 IRSSI		:= irssi-$(IRSSI_VERSION)
 IRSSI_SUFFIX	:= tar.bz2
 IRSSI_URL	:= http://irssi.org/files/$(IRSSI).$(IRSSI_SUFFIX)

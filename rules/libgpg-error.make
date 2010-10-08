@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBGPG_ERROR) += libgpg-error
 # Paths and names
 #
 LIBGPG_ERROR_VERSION	:= 1.7
+LIBGPG_ERROR_MD5	:= 62c0d09d1e76c5b6da8fff92314c4665
 LIBGPG_ERROR		:= libgpg-error-$(LIBGPG_ERROR_VERSION)
 LIBGPG_ERROR_SUFFIX	:= tar.bz2
 LIBGPG_ERROR_URL	:= ftp://ftp.gnupg.org/gcrypt/libgpg-error/$(LIBGPG_ERROR).$(LIBGPG_ERROR_SUFFIX)

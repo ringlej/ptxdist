@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_MYSQL) += mysql
 # Paths and names
 #
 MYSQL_VERSION	:= 5.1.14-beta
+MYSQL_MD5	:= f02115e98c99558e062adcf2dc305283
 MYSQL		:= mysql-$(MYSQL_VERSION)
 MYSQL_SUFFIX	:= tar.gz
 MYSQL_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(MYSQL).$(MYSQL_SUFFIX)

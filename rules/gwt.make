@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_GWT) += gwt
 # Paths and names
 #
 GWT_VERSION	:= 1.0.1
+GWT_MD5		:= 8bd2212db208f42a92f8f3e79f0c8f04
 GWT		:= gwt-$(GWT_VERSION)
 GWT_SUFFIX	:= tar.bz2
 GWT_URL		:= http://www.pengutronix.de/software/gwt/download/$(GWT).$(GWT_SUFFIX)

@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_THTTPD) += thttpd
 # Paths and names
 #
 THTTPD_VERSION	:= 2.25b
+THTTPD_MD5	:= 156b249b3b0bcd48b06badd2db0d56c5
 THTTPD		:= thttpd-$(THTTPD_VERSION)
 THTTPD_SUFFIX	:= tar.gz
 THTTPD_URL	:= http://www.acme.com/software/thttpd/$(THTTPD).$(THTTPD_SUFFIX)

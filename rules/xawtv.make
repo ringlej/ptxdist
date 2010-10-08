@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_XAWTV) += xawtv
 # Paths and names
 #
 XAWTV_VERSION	:= 3.95
+XAWTV_MD5	:= ad25e03f7e128b318e392cb09f52207d
 XAWTV		:= xawtv-$(XAWTV_VERSION)
 XAWTV_SUFFIX	:= tar.gz
 XAWTV_URL	:= http://dl.bytesex.org/releases/xawtv//$(XAWTV).$(XAWTV_SUFFIX)

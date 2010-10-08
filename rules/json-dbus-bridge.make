@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_JSON_DBUS_BRIDGE) += json-dbus-bridge
 # Paths and names
 #
 JSON_DBUS_BRIDGE_VERSION	:= 1.0.0
+JSON_DBUS_BRIDGE_MD5		:= ac1d4a909e148cbf6fb5c7829bd5332d
 JSON_DBUS_BRIDGE		:= json-dbus-bridge-$(JSON_DBUS_BRIDGE_VERSION)
 JSON_DBUS_BRIDGE_SUFFIX		:= tar.bz2
 JSON_DBUS_BRIDGE_URL		:= http://www.pengutronix.de/software/json-dbus-bridge/download/$(JSON_DBUS_BRIDGE).$(JSON_DBUS_BRIDGE_SUFFIX)

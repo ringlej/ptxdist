@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_MADPLAY) += madplay
 # Paths and names
 #
 MADPLAY_VERSION	:= 0.15.2b
+MADPLAY_MD5	:= 6814b47ceaa99880c754c5195aa1aac1
 MADPLAY		:= madplay-$(MADPLAY_VERSION)
 MADPLAY_SUFFIX	:= tar.gz
 MADPLAY_URL	:= ftp://ftp.mars.org/pub/mpeg/$(MADPLAY).$(MADPLAY_SUFFIX)

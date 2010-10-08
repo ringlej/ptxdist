@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_MYODBC) += myodbc
 # Paths and names
 #
 MYODBC_VERSION	:= 3.51.27r695
+MYODBC_MD5	:= bb3df0778a7dc99d88ce1146ea709cbe
 MYODBC		:= mysql-connector-odbc-$(MYODBC_VERSION)
 MYODBC_SUFFIX	:= tar.gz
 MYODBC_URL	:= http://mysql.cbn.net.id/Downloads/Connector-ODBC/3.51/$(MYODBC).$(MYODBC_SUFFIX)

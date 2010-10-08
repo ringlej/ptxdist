@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBMPEG2) += libmpeg2
 # Paths and names
 #
 LIBMPEG2_VERSION	:= 0.5.1
+LIBMPEG2_MD5		:= 0f92c7454e58379b4a5a378485bbd8ef
 LIBMPEG2		:= libmpeg2-$(LIBMPEG2_VERSION)
 LIBMPEG2_SUFFIX		:= tar.gz
 LIBMPEG2_URL		:= http://libmpeg2.sourceforge.net/files//$(LIBMPEG2).$(LIBMPEG2_SUFFIX)

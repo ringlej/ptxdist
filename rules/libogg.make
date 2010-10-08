@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBOGG) += libogg
 # Paths and names
 #
 LIBOGG_VERSION	:= 1.1.4
+LIBOGG_MD5	:= 10200ec22543841d9d1c23e0aed4e5e9
 LIBOGG		:= libogg-$(LIBOGG_VERSION)
 LIBOGG_SUFFIX	:= tar.gz
 LIBOGG_URL	:= http://downloads.xiph.org/releases/ogg/$(LIBOGG).$(LIBOGG_SUFFIX)

@@ -30,6 +30,7 @@ endif
 # Paths and names
 #
 JVISU_VERSION	:= 1.0.1
+JVISU_MD5	:= 1d615bfac83909cf7d07d1fe20333942
 JVISU		:= JVisu-$(JVISU_VERSION)
 JVISU_SUFFIX	:= tgz
 JVISU_URL	:= http://www.pengutronix.de/software/jvisu/download/archive/$(JVISU).$(JVISU_SUFFIX)

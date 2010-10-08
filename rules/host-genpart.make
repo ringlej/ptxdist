@@ -17,6 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_GENPART) += host-genpart
 # Paths and names
 #
 HOST_GENPART_VERSION	:= 1.0.2
+HOST_GENPART_MD5	:= 2a51dc4ecb5827048044e83e59ac9e1b
 HOST_GENPART		:= genpart-$(HOST_GENPART_VERSION)
 HOST_GENPART_SUFFIX	:= tar.bz2
 HOST_GENPART_URL	:= http://www.pengutronix.de/software/genpart/download/$(HOST_GENPART).$(HOST_GENPART_SUFFIX)

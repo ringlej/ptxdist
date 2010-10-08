@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_FFTW) += fftw
 # Paths and names
 #
 FFTW_VERSION	:= 3.2.2
+FFTW_MD5	:= b616e5c91218cc778b5aa735fefb61ae
 FFTW		:= fftw-$(FFTW_VERSION)
 FFTW_SUFFIX	:= tar.gz
 FFTW_SOURCE	:= $(SRCDIR)/$(FFTW).$(FFTW_SUFFIX)

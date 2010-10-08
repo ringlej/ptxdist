@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_BERLIOS_CAN_UTILS) += berlios-can-utils
 # Paths and names
 #
 BERLIOS_CAN_UTILS_VERSION	:= r1167
+BERLIOS_CAN_UTILS_MD5		:= 291bb306470ee641529ca98b8a80eacd
 BERLIOS_CAN_UTILS		:= berlios-can-utils-$(BERLIOS_CAN_UTILS_VERSION)
 BERLIOS_CAN_UTILS_SUFFIX	:= tar.bz2
 BERLIOS_CAN_UTILS_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(BERLIOS_CAN_UTILS).$(BERLIOS_CAN_UTILS_SUFFIX)

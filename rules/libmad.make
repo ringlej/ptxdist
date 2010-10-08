@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBMAD) += libmad
 # Paths and names
 #
 LIBMAD_VERSION	:= 0.15.1b
+LIBMAD_MD5	:= 1be543bc30c56fb6bea1d7bf6a64e66c
 LIBMAD		:= libmad-$(LIBMAD_VERSION)
 LIBMAD_SUFFIX	:= tar.gz
 LIBMAD_URL	:= ftp://ftp.mars.org/pub/mpeg/$(LIBMAD).$(LIBMAD_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBCAP) += libcap
 # Paths and names
 #
 LIBCAP_VERSION	:= 2.20
+LIBCAP_MD5	:= 10e47ed32ca2214eb0e58780282d27b4
 LIBCAP		:= libcap-$(LIBCAP_VERSION)
 LIBCAP_SUFFIX	:= tar.bz2
 LIBCAP_URL	:= http://ftp.kernel.org/pub/linux/libs/security/linux-privs/libcap2/$(LIBCAP).$(LIBCAP_SUFFIX)

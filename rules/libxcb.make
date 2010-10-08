@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBXCB) += libxcb
 # Paths and names
 #
 LIBXCB_VERSION		:= 1.5
+LIBXCB_MD5		:= d19c0ba6ba42ebccd3d62d8bb147b551
 LIBXCB			:= libxcb-$(LIBXCB_VERSION)
 LIBXCB_SUFFIX		:= tar.bz2
 LIBXCB_URL		:= http://xcb.freedesktop.org/dist/$(LIBXCB).$(LIBXCB_SUFFIX)

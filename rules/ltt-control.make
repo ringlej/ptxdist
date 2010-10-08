@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LTT_CONTROL) += ltt-control
 # Paths and names
 #
 LTT_CONTROL_VERSION	:= 0.87-09062010
+LTT_CONTROL_MD5		:= 8054b5dabebdc524ac747efd1d9c5b88
 LTT_CONTROL		:= ltt-control-$(LTT_CONTROL_VERSION)
 LTT_CONTROL_SUFFIX	:= tar.gz
 LTT_CONTROL_URL		:= http://lttng.org/files/lttng/$(LTT_CONTROL).$(LTT_CONTROL_SUFFIX)

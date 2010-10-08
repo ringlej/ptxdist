@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_MICROCOM) += microcom
 # Paths and names
 #
 MICROCOM_VERSION	:= 2009.06
+MICROCOM_MD5		:= 68a63c2d56196a28be89d1b4e5d13af1
 MICROCOM		:= microcom-$(MICROCOM_VERSION)
 MICROCOM_SUFFIX		:= tar.gz
 MICROCOM_URL		:= http://www.pengutronix.de/software/microcom/download/$(MICROCOM).$(MICROCOM_SUFFIX)

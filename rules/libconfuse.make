@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBCONFUSE) += libconfuse
 # Paths and names
 #
 LIBCONFUSE_VERSION	:= 2.7
+LIBCONFUSE_MD5		:= 45932fdeeccbb9ef4228f1c1a25e9c8f
 LIBCONFUSE		:= confuse-$(LIBCONFUSE_VERSION)
 LIBCONFUSE_SUFFIX	:= tar.gz
 LIBCONFUSE_URL		:= http://savannah.nongnu.org/download/confuse/$(LIBCONFUSE).$(LIBCONFUSE_SUFFIX)

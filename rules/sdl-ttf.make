@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_SDL_TTF) += sdl-ttf
 # Paths and names
 #
 SDL_TTF_VERSION	:= 2.0.9
+SDL_TTF_MD5	:= 6dd5a85e4924689a35a5fb1cb3336156
 SDL_TTF		:= SDL_ttf-$(SDL_TTF_VERSION)
 SDL_TTF_SUFFIX	:= tar.gz
 SDL_TTF_URL	:= http://www.libsdl.org/projects/SDL_ttf/release/$(SDL_TTF).$(SDL_TTF_SUFFIX)

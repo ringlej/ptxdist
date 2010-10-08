@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_LIBGDBUS) += libgdbus
 # Paths and names
 #
 LIBGDBUS_VERSION	:= 0.2
+LIBGDBUS_MD5		:= 775a41347751d0b0169d6bace03c1361
 LIBGDBUS		:= libgdbus-$(LIBGDBUS_VERSION)
 LIBGDBUS_SUFFIX		:= tar.bz2
 LIBGDBUS_URL		:= http://www.kernel.org/pub/linux/bluetooth/$(LIBGDBUS).$(LIBGDBUS_SUFFIX)

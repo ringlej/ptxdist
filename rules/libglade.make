@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBGLADE) += libglade
 # Paths and names
 #
 LIBGLADE_VERSION	:= 2.6.2
+LIBGLADE_MD5		:= da4f9d1c6cd1337f6ef5e2db768d8557
 LIBGLADE		:= libglade-$(LIBGLADE_VERSION)
 LIBGLADE_SUFFIX		:= tar.bz2
 LIBGLADE_URL		:= http://ftp.gnome.org/pub/GNOME/sources/libglade/2.6/$(LIBGLADE).$(LIBGLADE_SUFFIX)

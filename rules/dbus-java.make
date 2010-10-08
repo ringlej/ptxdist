@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_DBUS_JAVA) += dbus-java
 # Paths and names
 #
 DBUS_JAVA_VERSION	:= 2.7
+DBUS_JAVA_MD5		:= 8b8470db5cd657591bac245e3b6e18e4
 DBUS_JAVA		:= dbus-java-$(DBUS_JAVA_VERSION)
 DBUS_JAVA_SUFFIX	:= tar.gz
 DBUS_JAVA_URL		:= http://dbus.freedesktop.org/releases/dbus-java/$(DBUS_JAVA).$(DBUS_JAVA_SUFFIX)

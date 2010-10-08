@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_PV) += pv
 # Paths and names
 #
 PV_VERSION	:= 1.1.4
+PV_MD5		:= 63033e090d61a040407bfd043aeb6d27
 PV		:= pv-$(PV_VERSION)
 PV_SUFFIX	:= tar.bz2
 PV_URL		:= http://pipeviewer.googlecode.com/files/$(PV).$(PV_SUFFIX)

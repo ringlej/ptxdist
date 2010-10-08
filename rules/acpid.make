@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_ACPID) += acpid
 # Paths and names
 #
 ACPID_VERSION		:= 2.0.8
+ACPID_MD5		:= 7e5ede75e37ccaaf75536bc44cf214fc
 ACPID_LICENSE		:= GPLv2
 ACPID			:= acpid-$(ACPID_VERSION)
 ACPID_SUFFIX		:= tar.gz

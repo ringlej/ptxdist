@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_JED) += jed
 # Paths and names
 #
 JED_VERSION	:= 0.99-19
+JED_MD5		:= c9b2f58a3defc6f61faa1ce7d6d629ea
 JED		:= jed-$(JED_VERSION)
 JED_SUFFIX	:= tar.bz2
 JED_URL		:= ftp://space.mit.edu/pub/davis/jed/v0.99/old/$(JED).$(JED_SUFFIX) \

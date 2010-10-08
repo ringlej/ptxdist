@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LOGROTATE) += logrotate
 # Paths and names
 #
 LOGROTATE_VERSION	:= 3.7.1
+LOGROTATE_MD5		:= 12207ce768031878f6ab70c559043ae2
 LOGROTATE		:= logrotate-$(LOGROTATE_VERSION)
 LOGROTATE_SUFFIX	:= tar.gz
 LOGROTATE_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(LOGROTATE).$(LOGROTATE_SUFFIX)

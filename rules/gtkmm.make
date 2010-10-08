@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_GTKMM) += gtkmm
 # Paths and names
 #
 GTKMM_VERSION	:= 2.18.2
+GTKMM_MD5	:= 3e43e9eef1da8988a76a2815d6b31c91
 GTKMM		:= gtkmm-$(GTKMM_VERSION)
 GTKMM_SUFFIX	:= tar.bz2
 GTKMM_URL	:= http://ftp.gnome.org/pub/GNOME/sources/gtkmm/2.18/$(GTKMM).$(GTKMM_SUFFIX)

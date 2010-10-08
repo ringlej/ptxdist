@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_EVENTLOG) += eventlog
 # Paths and names
 #
 EVENTLOG_VERSION	:= 0.2.7
+EVENTLOG_MD5		:= 51ac5bff610194ad57f3d632277bdf49
 EVENTLOG		:= eventlog-$(EVENTLOG_VERSION)
 EVENTLOG_SUFFIX		:= tar.gz
 EVENTLOG_URL		:= http://www.balabit.com/downloads/files/syslog-ng/sources/2.0/src/$(EVENTLOG).$(EVENTLOG_SUFFIX)

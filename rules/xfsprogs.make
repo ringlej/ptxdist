@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_XFSPROGS) += xfsprogs
 # Paths and names
 #
 XFSPROGS_VERSION:= 3.0.5
+XFSPROGS_MD5	:= d2f981b1ae9348405a331b4c33a08cab
 XFSPROGS	:= xfsprogs-$(XFSPROGS_VERSION)
 XFSPROGS_SUFFIX	:= tar.gz
 XFSPROGS_URL	:= ftp://oss.sgi.com/projects/xfs/cmd_tars-oct_09/$(XFSPROGS).$(XFSPROGS_SUFFIX)

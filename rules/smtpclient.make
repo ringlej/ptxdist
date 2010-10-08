@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_SMTPCLIENT) += smtpclient
 # Paths and names
 #
 SMTPCLIENT_VERSION	:= 1.0.0
+SMTPCLIENT_MD5		:= 8b5d9260572107bb901edf6aacbf3747
 SMTPCLIENT		:= smtpclient-$(SMTPCLIENT_VERSION)
 SMTPCLIENT_SUFFIX	:= tar.gz
 SMTPCLIENT_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(SMTPCLIENT).$(SMTPCLIENT_SUFFIX)

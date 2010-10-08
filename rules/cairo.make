@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_CAIRO) += cairo
 #
 CAIRO_SUFFIX	:= tar.gz
 CAIRO_VERSION	:= 1.8.10
+CAIRO_MD5	:= b60a82f405f9400bbfdcf850b1728d25
 CAIRO_URL	:= http://cairographics.org/releases/cairo-$(CAIRO_VERSION).$(CAIRO_SUFFIX)
 CAIRO		:= cairo-$(CAIRO_VERSION)
 CAIRO_SOURCE	:= $(SRCDIR)/$(CAIRO).$(CAIRO_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_UDISKS) += udisks
 # Paths and names
 #
 UDISKS_VERSION	:= 1.0.0
+UDISKS_MD5	:= a33fac347956e015f40e56a86d63f8ff
 UDISKS		:= udisks-$(UDISKS_VERSION)
 UDISKS_SUFFIX	:= tar.gz
 UDISKS_URL	:= http://hal.freedesktop.org/releases/$(UDISKS).$(UDISKS_SUFFIX)

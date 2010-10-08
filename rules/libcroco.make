@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_LIBCROCO) += libcroco
 # Paths and names
 #
 LIBCROCO_VERSION	:= 0.6.2
+LIBCROCO_MD5		:= 1429c597aa4b75fc610ab3a542c99209
 LIBCROCO		:= libcroco-$(LIBCROCO_VERSION)
 LIBCROCO_SUFFIX		:= tar.bz2
 LIBCROCO_URL		:= http://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/$(LIBCROCO).$(LIBCROCO_SUFFIX)

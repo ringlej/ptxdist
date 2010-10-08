@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_KAFFE) += kaffe
 # Paths and names
 #
 KAFFE_VERSION	:= 1.1.7
+KAFFE_MD5	:=
 KAFFE		:= kaffe-$(KAFFE_VERSION)
 KAFFE_SUFFIX	:= tar.bz2
 KAFFE_URL	:= ftp://ftp.kaffe.org/pub/kaffe/v1.1.x-development/$(KAFFE).$(KAFFE_SUFFIX)

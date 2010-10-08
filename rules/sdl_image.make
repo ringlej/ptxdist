@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_SDL_IMAGE) += sdl_image
 # Paths and names
 #
 SDL_IMAGE_VERSION	:= 1.2.6
+SDL_IMAGE_MD5		:= b866dc4f647517bdaf57f6ffdefd013e
 SDL_IMAGE		:= SDL_image-$(SDL_IMAGE_VERSION)
 SDL_IMAGE_SUFFIX	:= tar.gz
 SDL_IMAGE_URL		:= http://www.libsdl.org/projects/SDL_image/release/$(SDL_IMAGE).$(SDL_IMAGE_SUFFIX)

@@ -17,6 +17,7 @@ HOST_PACKAGES-$(PTXCONF_HOST_LZOP) += host-lzop
 # Paths and names
 #
 HOST_LZOP_VERSION	:= 1.03
+HOST_LZOP_MD5		:= 006c5e27fb78cdd14a628fdfa5aa1905
 HOST_LZOP		:= lzop-$(HOST_LZOP_VERSION)
 HOST_LZOP_SUFFIX	:= tar.gz
 HOST_LZOP_URL		:= http://www.lzop.org/download/$(HOST_LZOP).$(HOST_LZOP_SUFFIX)

@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_FLUXBOX) += fluxbox
 # Paths and names
 #
 FLUXBOX_VERSION	:= 1.1.1
+FLUXBOX_MD5	:= fa9fa8fe9a44f86522de5754f8b285ca
 FLUXBOX		:= fluxbox-$(FLUXBOX_VERSION)
 FLUXBOX_SUFFIX	:= tar.bz2
 FLUXBOX_URL	:= http://prdownloads.sourceforge.net/fluxbox/$(FLUXBOX).$(FLUXBOX_SUFFIX)

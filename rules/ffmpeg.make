@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_FFMPEG) += ffmpeg
 # Paths and names
 #
 FFMPEG_VERSION	:= r12314
+FFMPEG_MD5	:=
 FFMPEG		:= ffmpeg-$(FFMPEG_VERSION)
 FFMPEG_SUFFIX	:= tar.bz2
 FFMPEG_URL	:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FFMPEG).$(FFMPEG_SUFFIX)

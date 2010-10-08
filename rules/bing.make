@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_BING) += bing
 # Paths and names
 #
 BING_VERSION	:= 1.1.3
+BING_MD5	:= 0ccd96cc01351c0562f1e4b94aaa2790
 BING		:= bing_src-$(BING_VERSION)
 BING_SUFFIX	:= tar.gz
 BING_URL	:= http://fgouget.free.fr/bing/$(BING).$(BING_SUFFIX)

@@ -25,6 +25,7 @@ endif
 # Paths and names
 #
 RXTX_VERSION	:= 2.1-7r2
+RXTX_MD5	:= 9290b4832d46199f8d798a531209640b
 RXTX		:= rxtx-$(RXTX_VERSION)
 RXTX_SUFFIX	:= zip
 RXTX_URL	:= http://rxtx.qbang.org/pub/rxtx/$(RXTX).$(RXTX_SUFFIX)

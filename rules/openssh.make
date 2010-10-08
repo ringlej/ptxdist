@@ -18,6 +18,7 @@ PACKAGES-$(PTXCONF_OPENSSH) += openssh
 # Paths and names
 #
 OPENSSH_VERSION	:= 5.8p1
+OPENSSH_MD5	:= 86f5e1c23b4c4845f23b9b7b493fb53d
 OPENSSH		:= openssh-$(OPENSSH_VERSION)
 OPENSSH_SUFFIX	:= tar.gz
 OPENSSH_URL	:= http://openssh.linux-mirror.org/portable/$(OPENSSH).$(OPENSSH_SUFFIX)

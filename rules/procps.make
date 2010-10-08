@@ -19,6 +19,7 @@ PACKAGES-$(PTXCONF_PROCPS) += procps
 # Paths and names
 #
 PROCPS_VERSION	:= 3.2.8
+PROCPS_MD5	:= 9532714b6846013ca9898984ba4cd7e0
 PROCPS		:= procps-$(PROCPS_VERSION)
 PROCPS_SUFFIX	:= tar.gz
 PROCPS_URL	:= http://procps.sourceforge.net/$(PROCPS).$(PROCPS_SUFFIX)
