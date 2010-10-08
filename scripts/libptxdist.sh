@@ -529,6 +529,7 @@ ptxd_name_to_NAME() {
 	name="$(echo "${1}" | tr 'a-z-' 'A-Z_')"
 	echo "${name}"
 }
+export -f ptxd_name_to_NAME
 
 #
 # customized exit functions
