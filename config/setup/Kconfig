@@ -170,6 +170,30 @@ config SETUP_XORGMIRROR
 endif	# !SETUP_PTXMIRROR_ONLY
 endif	# !SETUP_NO_DOWNLOAD
 
+choice
+	prompt "archive check"
+	default SETUP_CHECK_ALWAYS
+
+	config SETUP_CHECK_ALWAYS
+		bool
+		prompt "always"
+
+	config SETUP_CHECK_NOTEMPTY
+		bool
+		prompt "for existing checksum"
+
+	config SETUP_CHECK_NEVER
+		bool
+		prompt "never"
+
+endchoice
+
+config SETUP_CHECK
+	string
+	default "always" if SETUP_CHECK_ALWAYS
+	default "notempty" if SETUP_CHECK_NOTEMPTY
+	default "never" if SETUP_CHECK_NEVER
+
 endmenu
 
 menu "IPKG Repository   "

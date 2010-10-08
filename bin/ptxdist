@@ -1370,6 +1370,10 @@ parse_first()
 			# overwrite default from ptxdistrc
 			export PTXCONF_SETUP_PATCHIN_GIT=y
 			;;
+		--update-md5)
+			# overwrite default from ptxdistrc
+			export PTXCONF_SETUP_CHECK="update"
+			;;
 		--)
 			while [ ${#} -ne 0 ]; do
 				arg="${1}"

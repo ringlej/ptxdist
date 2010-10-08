@@ -57,6 +57,7 @@ world/env/impl = \
 	pkg_version="$(call ptx/escape,$($(1)_VERSION))"			\
 	pkg_path="$(call ptx/escape,$($(1)_PATH))"				\
 	pkg_src="$(call ptx/escape,$($(1)_SOURCE))"				\
+	pkg_md5="$(call ptx/escape,$($(1)_MD5))"				\
 	pkg_url="$(call ptx/escape,$($(1)_URL))"				\
 										\
 	pkg_dir="$(call ptx/escape,$($(1)_DIR))"				\
