@@ -26,6 +26,7 @@ ptx/env = \
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
 	ptx_pkg_dev_dir="$(call ptx/escape,$(PTXDIST_DEVPKG_PLATFORMDIR))"	\
+	ptx_path_rules="$(call ptx/escape,$(PTXDIST_PATH_RULES))"		\
 										\
 	ptx_path_target="$(call ptx/escape,$(CROSS_PATH))"			\
 	ptx_conf_env_target="$(call ptx/escape,$(CROSS_ENV))"			\
