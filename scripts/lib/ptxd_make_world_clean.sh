@@ -23,7 +23,11 @@ ptxd_make_world_clean() {
     fi
     if [ -n "$(ls "${ptx_state_dir}/${pkg_label}".* 2> /dev/null)" ]; then
 	echo "Deleting stage files:"
-	ls "${ptx_state_dir}/${pkg_label}".*
+	for name in $(cat "${pkg_xpkg_map}" 2>/dev/null); do
+	    ls "${ptx_state_dir}/${name}".*
+	    rm -f "${ptx_state_dir}/${name}".*
+	done
+	ls "${ptx_state_dir}/${pkg_label}".* 2>/dev/null
 	rm -f "${ptx_state_dir}/${pkg_label}".*
 	echo
     fi
@@ -40,6 +44,11 @@ ptxd_make_world_clean() {
 	echo
     fi
     if [ -d "${pkg_pkg_dir}" ]; then
+	echo "Removing files from sysroot..."
+	echo
+	find "${pkg_pkg_dir}" ! -type d | while read file; do
+		rm -f "${pkg_sysroot_dir}/${file##${pkg_pkg_dir}}"
+	done
 	echo "Deleting pkg dir:"
 	echo "${pkg_pkg_dir}"
 	rm -rf "${pkg_pkg_dir}"
