@@ -93,3 +93,6 @@ distclean: clean
 
 maintainer-clean: distclean
 	rm -f configure
+
+release:
+	@scripts/make_$@.sh
