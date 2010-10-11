@@ -1,5 +1,6 @@
 ## SECTION=system_libraries
 config GETTEXT_DUMMY
-	bool
+	tristate
+	default ALLYES
 	help
 	  This is a small do nothing replacement for the gettext monster
