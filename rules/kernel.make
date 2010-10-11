@@ -258,9 +258,14 @@ endif
 
 ifndef PTXCONF_PROJECT_USE_PRODUCTION
 
-kernel_clean:
-	rm -rf $(STATEDIR)/kernel.* $(STATEDIR)/kernel-modules.*
-	rm -rf $(PKGDIR)/kernel_* $(PKGDIR)/kernel-modules_*
+$(STATEDIR)/kernel.clean:
+	@$(call targetinfo)
+	@$(call clean_pkg, KERNEL)
+	@if [ -d "$(KERNEL_HEADERS_DIR)" ]; then \
+		echo "Deleting kernel headers:"; \
+		echo "$(KERNEL_HEADERS_DIR)"; \
+		rm -rf "$(KERNEL_HEADERS_DIR)"; \
+	fi
 	@if [ -L $(KERNEL_DIR) ]; then \
 		pushd $(KERNEL_DIR); \
 		quilt pop -af; \
@@ -268,7 +273,6 @@ kernel_clean:
 		$(KERNEL_PATH) $(KERNEL_ENV) $(MAKE) $(KERNEL_MAKEVARS) distclean; \
 		popd; \
 	fi
-	rm -rf $(KERNEL_DIR)
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig
