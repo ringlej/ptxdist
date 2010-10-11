@@ -23,14 +23,6 @@ DEVICEKIT_DISKS_SOURCE	:= $(SRCDIR)/$(DEVICEKIT_DISKS).$(DEVICEKIT_DISKS_SUFFIX)
 DEVICEKIT_DISKS_DIR	:= $(BUILDDIR)/$(DEVICEKIT_DISKS)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(DEVICEKIT_DISKS_SOURCE):
-	@$(call targetinfo)
-	@$(call get, DEVICEKIT_DISKS)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
@@ -121,14 +113,5 @@ endif
 	@$(call install_finish, devicekit-disks)
 
 	@$(call touch)
-
-# ----------------------------------------------------------------------------
-# Clean
-# ----------------------------------------------------------------------------
-
-devicekit-disks_clean:
-	rm -rf $(STATEDIR)/devicekit-disks.*
-	rm -rf $(PKGDIR)/devicekit-disks_*
-	rm -rf $(DEVICEKIT_DISKS_DIR)
 
 # vim: syntax=make
