@@ -46,9 +46,11 @@ ptxd_make_world_clean() {
     if [ -d "${pkg_pkg_dir}" ]; then
 	echo "Removing files from sysroot..."
 	echo
-	find "${pkg_pkg_dir}" ! -type d | while read file; do
-		rm -f "${pkg_sysroot_dir}/${file##${pkg_pkg_dir}}"
-	done
+	cd "${pkg_pkg_dir}" && find . ! -type d -print0 | \
+	    { cd "${pkg_sysroot_dir}" && xargs -0 rm -f; }
+	cd "${pkg_pkg_dir}" && find . -mindepth 1 -depth -type d -print0 | \
+	    { cd "${pkg_sysroot_dir}" && \
+	      xargs -0 rmdir --ignore-fail-on-non-empty; }
 	echo "Deleting pkg dir:"
 	echo "${pkg_pkg_dir}"
 	rm -rf "${pkg_pkg_dir}"
