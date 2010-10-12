@@ -20,6 +20,7 @@ ifdef PTXCONF_@PACKAGE@_TRUNK
 @PACKAGE@_VERSION	:= trunk
 else
 @PACKAGE@_VERSION	:= @VERSION@
+@PACKAGE@_MD5		:=
 endif
 @PACKAGE@		:= @package@-$(@PACKAGE@_VERSION)
 @PACKAGE@_URL		:= file://$(PTXDIST_WORKSPACE)/local_src/$(@PACKAGE@)

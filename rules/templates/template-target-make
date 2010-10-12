@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 # Paths and names
 #
 @PACKAGE@_VERSION	:= @VERSION@
+@PACKAGE@_MD5		:=
 @PACKAGE@		:= @package_filename@-$(@PACKAGE@_VERSION)
 @PACKAGE@_SUFFIX	:= @SUFFIX@
 @PACKAGE@_URL		:= @URL@/$(@PACKAGE@).$(@PACKAGE@_SUFFIX)

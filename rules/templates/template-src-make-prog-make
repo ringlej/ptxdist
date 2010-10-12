@@ -17,6 +17,7 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 # Paths and names
 #
 @PACKAGE@_VERSION	:= @VERSION@
+@PACKAGE@_MD5		:=
 @PACKAGE@		:= @package@
 @PACKAGE@_URL		:= file://local_src/$(@PACKAGE@)
 @PACKAGE@_DIR		:= $(BUILDDIR)/$(@PACKAGE@)
