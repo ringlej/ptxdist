@@ -141,7 +141,6 @@ ptxd_install_file_strip() {
     case "${strip:-y}" in
 	k) strip_cmd=( "${CROSS_STRIP}" --strip-debug ) ;;
 	y) strip_cmd=( "${CROSS_STRIP}" -R .note -R .comment ) ;;
-	*) ptxd_bailout "${FUNCNAME}: invalid value for strip='${strip}'" ;;
     esac
 
     #
@@ -195,12 +194,23 @@ install ${cmd}:
 	install -m "${mod_rw}" -D "${src}" "${d}" || return
     done &&
 
-    if file "${src}" | egrep -q ":.*(executable|shared object|ELF.*relocatable).*stripped"; then
-	case "${strip}" in
-	    0|n|no|N|NO) ;;
-	    *) ptxd_install_file_strip "${sdirs[@]/%/${dst}}" ;;
-	esac
-    fi &&
+    case "${strip}" in
+	0|n|no|N|NO) ;;
+	y|k|"")
+	    if file "${src}" | egrep -q ":.*(executable|shared object|ELF.*relocatable).*stripped"; then
+		ptxd_install_file_strip "${sdirs[@]/%/${dst}}"
+	    fi
+	    ;;
+	*)
+	    if [ "${strip:0:1}" = "/" -a "${cmd}" = "alternative" ]; then
+		ptxd_bailout "
+the 6th parameter of 'install_alternative' is strip, not the destination.
+Usually, just remove the 6th parameter and everything works fine.
+"
+	    fi
+	    ptxd_bailout "${FUNCNAME}: invalid value for strip ('${strip}')"
+	    ;;
+    esac &&
 
     # now change to requested permissions
     chmod "${mod_nfs}" "${ndirs[@]/%/${dst}}" &&
