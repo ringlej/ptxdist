@@ -1,7 +1,6 @@
 # -*-makefile-*-
-# $Id$
 #
-# Copyright (C) 2003-2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2003-2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -10,10 +9,6 @@
 
 ifdef PTXCONF_CROSS_DUMMY_STRIP
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/cross-dummy-strip.install.post
-endif
-
-ifdef PTXCONF_HOST_ELFKICKERS
-$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-elfkickers.install.post
 endif
 
 ifdef PTXCONF_HOST_FAKEROOT

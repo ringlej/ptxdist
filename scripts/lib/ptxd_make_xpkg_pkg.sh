@@ -134,17 +134,14 @@ export -f ptxd_install_dir
 # $strip: k for kernel modules
 #         y for normal executables and libraries
 #
-# $ptx_use_sstrip: "y" use sstrip, 'n' use binutils strip
-#
 #
 ptxd_install_file_strip() {
     local -a strip_cmd
 
-    case "${strip:-y}${ptx_use_sstrip:-n}" in
-	k*) strip_cmd=( "${CROSS_STRIP}" --strip-debug ) ;;
-	yn) strip_cmd=( "${CROSS_STRIP}" -R .note -R .comment ) ;;
-	yy) strip_cmd=( sstrip ) ;;
-	*) ptxd_bailout "${FUNCNAME}: invalid values for strip='${strip}' or ptx_use_sstrip='${ptx_use_sstrip}'" ;;
+    case "${strip:-y}" in
+	k) strip_cmd=( "${CROSS_STRIP}" --strip-debug ) ;;
+	y) strip_cmd=( "${CROSS_STRIP}" -R .note -R .comment ) ;;
+	*) ptxd_bailout "${FUNCNAME}: invalid value for strip='${strip}'" ;;
     esac
 
     #

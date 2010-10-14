@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+# Copyright (C) 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -15,7 +15,6 @@
 xpkg/env/impl = \
 	$(call world/env, $(2))							\
 	CROSS_STRIP="$(call ptx/escape,$(CROSS_STRIP))"				\
-	ptx_use_sstrip="$(call ptx/escape,$(PTXCONF_STRIP_USE_SSTRIP))"		\
 	pkg_xpkg="$(call ptx/escape,$(1))"					\
 	pkg_ipkg_extra_args=$(PTXCONF_IMAGE_IPKG_EXTRA_ARGS)			\
 	pkg_xpkg_type="ipkg"
