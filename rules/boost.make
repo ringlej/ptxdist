@@ -123,10 +123,10 @@ $(STATEDIR)/boost.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, boost)
-	@$(call install_fixup,boost,PRIORITY,optional)
-	@$(call install_fixup,boost,SECTION,base)
-	@$(call install_fixup,boost,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,boost,DESCRIPTION,missing)
+	@$(call install_fixup, boost,PRIORITY,optional)
+	@$(call install_fixup, boost,SECTION,base)
+	@$(call install_fixup, boost,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, boost,DESCRIPTION,missing)
 
 # iterate for selected libraries
 # trim whitespaces added by make and go for single .so files depending on which
@@ -175,7 +175,7 @@ $(STATEDIR)/boost.targetinstall:
 		fi; \
 	done
 
-	@$(call install_finish,boost)
+	@$(call install_finish, boost)
 
 	@$(call touch)
 
