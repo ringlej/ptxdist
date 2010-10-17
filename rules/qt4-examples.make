@@ -10,13 +10,13 @@ endif
 $(STATEDIR)/qt4-examples.targetinstall: $(STATEDIR)/qt4.targetinstall
 	@$(call targetinfo, $@)
 	@$(call install_init, qt4-examples)
-	@$(call install_fixup,qt4-examples,PACKAGE,qt4-examples)
-	@$(call install_fixup,qt4-examples,PRIORITY,optional)
-	@$(call install_fixup,qt4-examples,VERSION,$(QT4_VERSION))
-	@$(call install_fixup,qt4-examples,SECTION,base)
-	@$(call install_fixup,qt4-examples,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup,qt4-examples,DEPENDS,)
-	@$(call install_fixup,qt4-examples,DESCRIPTION,missing)
+	@$(call install_fixup, qt4-examples,PACKAGE,qt4-examples)
+	@$(call install_fixup, qt4-examples,PRIORITY,optional)
+	@$(call install_fixup, qt4-examples,VERSION,$(QT4_VERSION))
+	@$(call install_fixup, qt4-examples,SECTION,base)
+	@$(call install_fixup, qt4-examples,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
+	@$(call install_fixup, qt4-examples,DEPENDS,)
+	@$(call install_fixup, qt4-examples,DESCRIPTION,missing)
 
 ifdef PTXCONF_QT4_EXAMPLES_ANIMATION_ANIMATEDTILES
 	@$(call install_copy, qt4-examples, 0, 0, 0755, \
@@ -1423,6 +1423,6 @@ ifdef PTXCONF_QT4_EXAMPLES_XMLPATTERNS_TRAFFICINFO
 endif
 
 
-	@$(call install_finish,qt4-examples)
+	@$(call install_finish, qt4-examples)
 	@$(call touch, $@)
 
