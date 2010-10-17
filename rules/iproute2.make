@@ -61,10 +61,10 @@ $(STATEDIR)/iproute2.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, iproute2)
-	@$(call install_fixup,iproute2,PRIORITY,optional)
-	@$(call install_fixup,iproute2,SECTION,base)
-	@$(call install_fixup,iproute2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,iproute2,DESCRIPTION,missing)
+	@$(call install_fixup, iproute2,PRIORITY,optional)
+	@$(call install_fixup, iproute2,SECTION,base)
+	@$(call install_fixup, iproute2,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, iproute2,DESCRIPTION,missing)
 
 ifdef PTXCONF_IPROUTE2_IP
 	@$(call install_copy, iproute2, 0, 0, 0755, -, /sbin/ip)
@@ -117,7 +117,7 @@ endif
 	@$(call install_copy, iproute2, 0, 0, 0644, -, \
 		/etc/iproute2/rt_tables)
 
-	@$(call install_finish,iproute2)
+	@$(call install_finish, iproute2)
 
 	@$(call touch)
 
