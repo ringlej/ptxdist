@@ -117,10 +117,10 @@ $(STATEDIR)/cvs.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, cvs)
-	@$(call install_fixup,cvs,PRIORITY,optional)
-	@$(call install_fixup,cvs,SECTION,base)
-	@$(call install_fixup,cvs,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
-	@$(call install_fixup,cvs,DESCRIPTION,missing)
+	@$(call install_fixup, cvs,PRIORITY,optional)
+	@$(call install_fixup, cvs,SECTION,base)
+	@$(call install_fixup, cvs,AUTHOR,"Juergen Beisert <j.beisert@pengutronix.de>")
+	@$(call install_fixup, cvs,DESCRIPTION,missing)
 
 ifdef PTXCONF_CVS_INETD
 	@$(call install_alternative, cvs, 0, 0, 0644, /etc/inetd.conf.d/cvs, n)
@@ -177,7 +177,7 @@ endif
 
 	@$(call install_copy, cvs, 0, 0, 0755, -, /usr/bin/cvs)
 
-	@$(call install_finish,cvs)
+	@$(call install_finish, cvs)
 
 	@$(call touch)
 
