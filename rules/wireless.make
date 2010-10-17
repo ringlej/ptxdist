@@ -87,9 +87,7 @@ $(STATEDIR)/wireless.targetinstall:
 	@$(call install_copy, wireless, 0, 0, 0755, -, /usr/sbin/iwevent)
 
 ifdef PTXCONF_WIRELESS_SHARED
-	@$(call install_copy, wireless, 0, 0, 0644, -, \
-		/usr/lib/libiw.so.$(WIRELESS_VERSION))
-	@$(call install_link, wireless, libiw.so.$(WIRELESS_VERSION), /usr/lib/libiw.so)
+	@$(call install_lib, wireless, 0, 0, 0644, libiw)
 endif
 
 	@$(call install_finish, wireless)
