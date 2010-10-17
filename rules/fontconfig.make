@@ -67,10 +67,10 @@ $(STATEDIR)/fontconfig.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, fontconfig)
-	@$(call install_fixup,fontconfig,PRIORITY,optional)
-	@$(call install_fixup,fontconfig,SECTION,base)
-	@$(call install_fixup,fontconfig,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,fontconfig,DESCRIPTION,missing)
+	@$(call install_fixup, fontconfig,PRIORITY,optional)
+	@$(call install_fixup, fontconfig,SECTION,base)
+	@$(call install_fixup, fontconfig,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, fontconfig,DESCRIPTION,missing)
 
 	@$(call install_copy, fontconfig, 0, 0, 0644, -, \
 		/usr/lib/libfontconfig.so.1.3.0)
@@ -118,7 +118,7 @@ ifdef PTXCONF_FONTCONFIG_UTILS
 		/usr/bin/fc-match)
 endif
 
-	@$(call install_finish,fontconfig)
+	@$(call install_finish, fontconfig)
 
 	@$(call touch)
 
