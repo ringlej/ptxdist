@@ -93,10 +93,10 @@ $(STATEDIR)/kaffe.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, kaffe)
-	@$(call install_fixup,kaffe,PRIORITY,optional)
-	@$(call install_fixup,kaffe,SECTION,base)
-	@$(call install_fixup,kaffe,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,kaffe,DESCRIPTION,missing)
+	@$(call install_fixup, kaffe,PRIORITY,optional)
+	@$(call install_fixup, kaffe,SECTION,base)
+	@$(call install_fixup, kaffe,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, kaffe,DESCRIPTION,missing)
 
 	@$(call install_copy, kaffe, 0, 0, 0755, -, /usr/jre/bin/java)
 	@$(call install_copy, kaffe, 0, 0, 0755, -, /usr/bin/kaffe)
@@ -126,7 +126,7 @@ ifndef PTXCONF_KAFFE_STATIC
 	done
 endif
 
-	@$(call install_finish,kaffe)
+	@$(call install_finish, kaffe)
 
 	@$(call touch)
 
