@@ -44,17 +44,14 @@ PYGOBJECT_CONF_OPT := \
 $(STATEDIR)/pygobject.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  pygobject)
+	@$(call install_init, pygobject)
 	@$(call install_fixup, pygobject,PRIORITY,optional)
 	@$(call install_fixup, pygobject,VERSION,$(PYGOBJECT_VERSION))
 	@$(call install_fixup, pygobject,SECTION,base)
 	@$(call install_fixup, pygobject,AUTHOR,"Uwe Kleine-Koenig <u.kleine-koenig@pengutronix.de>")
 	@$(call install_fixup, pygobject,DESCRIPTION,missing)
 
-	@$(foreach lib,libpyglib-2.0-python.so.0.0.0, \
-	$(call install_copy, pygobject, 0, 0, 0644, -, /usr/lib/$(lib)); \
-	$(call install_link, pygobject, $(lib), /usr/lib/$(basename $(basename $(lib)))); \
-	)
+	@$(call install_lib, pygobject, 0, 0, 0644, libpyglib-2.0-python)
 
 	@$(call install_copy, pygobject, 0, 0, 0644, -, $(PYTHON_SITEPACKAGES)/pygtk.pth)
 
