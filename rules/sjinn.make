@@ -70,14 +70,14 @@ $(STATEDIR)/sjinn.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, sjinn)
-	@$(call install_fixup,sjinn,PRIORITY,optional)
-	@$(call install_fixup,sjinn,SECTION,base)
-	@$(call install_fixup,sjinn,AUTHOR,"Tom St")
-	@$(call install_fixup,sjinn,DESCRIPTION,missing)
+	@$(call install_fixup, sjinn,PRIORITY,optional)
+	@$(call install_fixup, sjinn,SECTION,base)
+	@$(call install_fixup, sjinn,AUTHOR,"Tom St")
+	@$(call install_fixup, sjinn,DESCRIPTION,missing)
 
 	@$(call install_copy, sjinn, 0, 0, 0755, -, /usr/bin/rs232)
 
-	@$(call install_finish,sjinn)
+	@$(call install_finish, sjinn)
 
 	@$(call touch)
 
