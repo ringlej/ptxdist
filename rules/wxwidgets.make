@@ -89,111 +89,23 @@ WXWIDGETS_MAKE_OPT := all samples
 $(STATEDIR)/wxwidgets.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  wxwidgets)
+	@$(call install_init, wxwidgets)
 	@$(call install_fixup, wxwidgets,PRIORITY,optional)
 	@$(call install_fixup, wxwidgets,SECTION,base)
 	@$(call install_fixup, wxwidgets,AUTHOR,"Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, wxwidgets,DESCRIPTION,missing)
 
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_base-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_base-2.8.so.0.6.0, \
-		/usr/lib/libwx_base-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_base-2.8.so.0.6.0, \
-		/usr/lib/libwx_base-2.8.so)
-
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_base_net-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_base_net-2.8.so.0.6.0, \
-		/usr/lib/libwx_base_net-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_base_net-2.8.so.0.6.0, \
-		/usr/lib/libwx_base_net-2.8.so)
-
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_base_xml-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_base_xml-2.8.so.0.6.0, \
-		/usr/lib/libwx_base_xml-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_base_xml-2.8.so.0.6.0, \
-		/usr/lib/libwx_base_xml-2.8.so)
-
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_gtk2_adv-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_adv-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_adv-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_adv-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_adv-2.8.so)
-
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_gtk2_aui-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_aui-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_aui-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_aui-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_aui-2.8.so)
-
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_gtk2_core-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_core-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_core-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_core-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_core-2.8.so)
-
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_gtk2_gl-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_gl-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_gl-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_gl-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_gl-2.8.so)
-
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_gtk2_html-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_html-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_html-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_html-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_html-2.8.so)
-
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_gtk2_qa-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_qa-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_qa-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_qa-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_qa-2.8.so)
-
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_gtk2_richtext-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_richtext-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_richtext-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_richtext-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_richtext-2.8.so)
-
-	@$(call install_copy, wxwidgets, 0, 0, 0644, -, \
-		/usr/lib/libwx_gtk2_xrc-2.8.so.0.6.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_xrc-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_xrc-2.8.so.0)
-	@$(call install_link, wxwidgets, \
-		libwx_gtk2_xrc-2.8.so.0.6.0, \
-		/usr/lib/libwx_gtk2_xrc-2.8.so)
-
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_base-2.8)
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_base_net-2.8)
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_base_xml-2.8)
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_gtk2_adv-2.8)
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_gtk2_aui-2.8)
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_gtk2_core-2.8)
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_gtk2_gl-2.8)
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_gtk2_html-2.8)
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_gtk2_qa-2.8)
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_gtk2_richtext-2.8)
+	@$(call install_lib, wxwidgets, 0, 0, 0644, libwx_gtk2_xrc-2.8)
 
 	@$(call install_finish, wxwidgets)
 
