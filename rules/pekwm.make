@@ -46,10 +46,10 @@ $(STATEDIR)/pekwm.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, pekwm)
-	@$(call install_fixup,pekwm,PRIORITY,optional)
-	@$(call install_fixup,pekwm,SECTION,base)
-	@$(call install_fixup,pekwm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
-	@$(call install_fixup,pekwm,DESCRIPTION,missing)
+	@$(call install_fixup, pekwm,PRIORITY,optional)
+	@$(call install_fixup, pekwm,SECTION,base)
+	@$(call install_fixup, pekwm,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
+	@$(call install_fixup, pekwm,DESCRIPTION,missing)
 
 	@$(call install_copy, pekwm, 0, 0, 0755, -, /usr/bin/pekwm)
 
@@ -68,7 +68,7 @@ ifdef  PTXCONF_PEKWM_INSTALL_THEME
 	done
 endif
 
-	@$(call install_finish,pekwm)
+	@$(call install_finish, pekwm)
 
 	@$(call touch)
 
