@@ -61,10 +61,10 @@ $(STATEDIR)/xawtv.targetinstall:
 	@$(call targetinfo)
 
 	@$(call install_init, xawtv)
-	@$(call install_fixup,xawtv,PRIORITY,optional)
-	@$(call install_fixup,xawtv,SECTION,base)
-	@$(call install_fixup,xawtv,AUTHOR,"Luotao Fu <lfu@pengutronix.de>")
-	@$(call install_fixup,xawtv,DESCRIPTION,missing)
+	@$(call install_fixup, xawtv,PRIORITY,optional)
+	@$(call install_fixup, xawtv,SECTION,base)
+	@$(call install_fixup, xawtv,AUTHOR,"Luotao Fu <lfu@pengutronix.de>")
+	@$(call install_fixup, xawtv,DESCRIPTION,missing)
 
 	@$(call install_copy, xawtv, 0, 0, 0755, -, /usr/bin/dump-mixers)
 	@$(call install_copy, xawtv, 0, 0, 0755, -, /usr/bin/record)
@@ -101,7 +101,7 @@ $(STATEDIR)/xawtv.targetinstall:
 	@$(call install_copy, xawtv, 0, 0, 0644, -, /usr/lib/xawtv/linear-blend.so)
 	@$(call install_copy, xawtv, 0, 0, 0644, -, /usr/lib/xawtv/linedoubler.so)
 
-	@$(call install_finish,xawtv)
+	@$(call install_finish, xawtv)
 
 	@$(call touch)
 
