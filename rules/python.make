@@ -159,9 +159,7 @@ $(STATEDIR)/python.targetinstall:
 	done
 
 	@$(call install_copy, python, 0, 0, 755, -, /usr/bin/python$(PYTHON_MAJORMINOR))
-	@$(call install_copy, python, 0, 0, 644, -, /usr/lib/libpython$(PYTHON_MAJORMINOR).so.1.0)
-	@$(call install_link, python, libpython$(PYTHON_MAJORMINOR).so.1.0, \
-		/usr/lib/libpython$(PYTHON_MAJORMINOR).so)
+	@$(call install_lib, python, 0, 0, 644, libpython$(PYTHON_MAJORMINOR))
 
 ifdef PTXCONF_PYTHON_SYMLINK
 	@$(call install_link, python, python$(PYTHON_MAJORMINOR), /usr/bin/python)
