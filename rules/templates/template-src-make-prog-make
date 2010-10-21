@@ -77,7 +77,7 @@ $(STATEDIR)/@package@.install:
 $(STATEDIR)/@package@.targetinstall:
 	@$(call targetinfo)
 
-	@$(call install_init,  @package@)
+	@$(call install_init, @package@)
 	@$(call install_fixup, @package@,PRIORITY,optional)
 	@$(call install_fixup, @package@,SECTION,base)
 	@$(call install_fixup, @package@,AUTHOR,"@AUTHOR@")
