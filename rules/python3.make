@@ -160,9 +160,7 @@ $(STATEDIR)/python3.targetinstall:
 	done
 
 	@$(call install_copy, python3, 0, 0, 755, -, /usr/bin/python$(PYTHON3_MAJORMINOR))
-	@$(call install_copy, python3, 0, 0, 644, -, /usr/lib/libpython$(PYTHON3_MAJORMINOR).so.1.0)
-	@$(call install_link, python3, libpython$(PYTHON3_MAJORMINOR).so.1.0, \
-		/usr/lib/libpython$(PYTHON3_MAJORMINOR).so)
+	@$(call install_lib, python3, 0, 0, 644, libpython$(PYTHON3_MAJORMINOR))
 
 ifdef PTXCONF_PYTHON3_SYMLINK
 	@$(call install_link, python3, python$(PYTHON3_MAJORMINOR), /usr/bin/python3)
