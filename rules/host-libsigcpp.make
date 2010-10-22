@@ -1,7 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2007 by 
-#           (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
+# Copyright (C) 2010 by Michael Olbrich <m.olbrich@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
