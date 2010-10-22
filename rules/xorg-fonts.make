@@ -54,6 +54,12 @@ $(STATEDIR)/xorg-fonts.compile:
 
 $(STATEDIR)/xorg-fonts.install:
 	@$(call targetinfo)
+
+	@if test -e $(XORG_FONTS_DIR_INSTALL); then \
+		rm -rf $(XORG_FONTS_DIR_INSTALL); \
+	fi
+	@mkdir -p $(XORG_FONTS_DIR_INSTALL)
+
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -62,12 +68,6 @@ $(STATEDIR)/xorg-fonts.install:
 
 $(STATEDIR)/xorg-fonts.targetinstall:
 	@$(call targetinfo)
-
-	@if test -e $(XORG_FONTS_DIR_INSTALL); then \
-		rm -rf $(XORG_FONTS_DIR_INSTALL); \
-	fi
-	@mkdir -p $(XORG_FONTS_DIR_INSTALL)
-
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
