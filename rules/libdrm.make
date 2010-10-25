@@ -66,7 +66,7 @@ $(STATEDIR)/libdrm.targetinstall:
 
 ifndef PTXCONF_ARCH_ARM
 ifdef PTXCONF_LIBDRM_INTEL
-	@$(call install_copy, libdrm, 0, 0, 0644, libdrm_intel)
+	@$(call install_lib, libdrm, 0, 0, 0644, libdrm_intel)
 endif
 endif
 	@$(call install_finish, libdrm)
