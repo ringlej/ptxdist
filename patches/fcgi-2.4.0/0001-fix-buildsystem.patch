@@ -1,41 +1,20 @@
-Subject: fix buildsystem
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 27 Oct 2010 23:17:40 +0200
+Subject: [PATCH] fix buildsystem
 
  * Use libfcgi.la instead of -lfcgi when linking against a library in the
    same directory
  * Use AM_* where appropriate.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
  cgi-fcgi/Makefile.am |    2 +-
  examples/Makefile.am |    4 ++--
  libfcgi/Makefile.am  |    5 +++--
  3 files changed, 6 insertions(+), 5 deletions(-)
 
-Index: b/libfcgi/Makefile.am
-===================================================================
---- a/libfcgi/Makefile.am
-+++ b/libfcgi/Makefile.am
-@@ -1,7 +1,7 @@
- # $Id: Makefile.am,v 1.9 2001/12/22 03:16:20 robs Exp $
- 
- INCLUDEDIR  = ../include
--CPPFLAGS    = @CPPFLAGS@ -I$(top_srcdir)/include
-+AM_CPPFLAGS    = @CPPFLAGS@ -I$(top_srcdir)/include
- 
- INCLUDE_FILES = $(INCLUDEDIR)/fastcgi.h     \
-                 $(INCLUDEDIR)/fcgiapp.h     \
-@@ -23,5 +23,6 @@ libfcgi___la_SOURCES = $(INCLUDE_FILES) 
-                        $(INCLUDEDIR)/fcgio.h  \
-                        fcgio.cpp
- libfcgi___la_CFLAGS  = @PTHREAD_CFLAGS@
--libfcgi___la_LDFLAGS = -lfcgi -rpath @libdir@
-+libfcgi___la_LDFLAGS = -rpath @libdir@
-+libfcgi___la_LIBADD = libfcgi.la
- 
-Index: b/cgi-fcgi/Makefile.am
-===================================================================
+diff --git a/cgi-fcgi/Makefile.am b/cgi-fcgi/Makefile.am
+index 4a5c685..04b4483 100644
 --- a/cgi-fcgi/Makefile.am
 +++ b/cgi-fcgi/Makefile.am
 @@ -2,7 +2,7 @@
@@ -47,11 +26,11 @@ Index: b/cgi-fcgi/Makefile.am
  
  INCLUDE_FILES   = $(INCLUDEDIR)/fastcgi.h  \
  		  $(INCLUDEDIR)/fcgiapp.h  \
-Index: b/examples/Makefile.am
-===================================================================
+diff --git a/examples/Makefile.am b/examples/Makefile.am
+index 484d3e8..930f203 100644
 --- a/examples/Makefile.am
 +++ b/examples/Makefile.am
-@@ -11,7 +11,7 @@ noinst_PROGRAMS     = authorizer        
+@@ -11,7 +11,7 @@ noinst_PROGRAMS     = authorizer        \
  EXTRA_PROGRAMS = threaded echo-cpp
  
  INCLUDEDIR  = ../include
@@ -67,3 +46,27 @@ Index: b/examples/Makefile.am
 -echo_cpp_LDADD   = $(LIBDIR)/libfcgi++.la
 +echo_cpp_LDADD   = $(LIBDIR)/libfcgi++.la $(LIBDIR)/libfcgi.la
  
+diff --git a/libfcgi/Makefile.am b/libfcgi/Makefile.am
+index 0f14615..d7346f5 100644
+--- a/libfcgi/Makefile.am
++++ b/libfcgi/Makefile.am
+@@ -1,7 +1,7 @@
+ # $Id: Makefile.am,v 1.9 2001/12/22 03:16:20 robs Exp $
+ 
+ INCLUDEDIR  = ../include
+-CPPFLAGS    = @CPPFLAGS@ -I$(top_srcdir)/include
++AM_CPPFLAGS    = @CPPFLAGS@ -I$(top_srcdir)/include
+ 
+ INCLUDE_FILES = $(INCLUDEDIR)/fastcgi.h     \
+                 $(INCLUDEDIR)/fcgiapp.h     \
+@@ -23,5 +23,6 @@ libfcgi___la_SOURCES = $(INCLUDE_FILES)       \
+                        $(INCLUDEDIR)/fcgio.h  \
+                        fcgio.cpp
+ libfcgi___la_CFLAGS  = @PTHREAD_CFLAGS@
+-libfcgi___la_LDFLAGS = -lfcgi -rpath @libdir@
++libfcgi___la_LDFLAGS = -rpath @libdir@
++libfcgi___la_LIBADD = libfcgi.la
+ 
+-- 
+1.7.2.3
+

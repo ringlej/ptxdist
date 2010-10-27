@@ -1,19 +1,19 @@
-Subject: prepare for new autotools
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 27 Oct 2010 23:17:40 +0200
+Subject: [PATCH] prepare for new autotools
 
 we need AM_INIT_AUTOMAKE([foreign]) or automake fails with missing files
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
  configure.in |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
-Index: b/configure.in
-===================================================================
+diff --git a/configure.in b/configure.in
+index e1941d0..1f94dde 100755
 --- a/configure.in
 +++ b/configure.in
-@@ -4,8 +4,8 @@ dnl     This file is an input file used 
+@@ -4,8 +4,8 @@ dnl     This file is an input file used by the GNU "autoconf" program to
  dnl     generate the file "configure", which is run during the build
  dnl     to configure the system for the local environment.
  
@@ -24,3 +24,6 @@ Index: b/configure.in
  
  AM_CONFIG_HEADER(fcgi_config.h)
  
+-- 
+1.7.2.3
+
