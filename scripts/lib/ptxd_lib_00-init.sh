@@ -98,6 +98,9 @@ ptxd_init_ptxdist_path() {
     PTXDIST_PATH_POSTRULES="${PTXDIST_PATH_RULES//://post:}"
     export PTXDIST_PATH_POSTRULES
 
+    PTXDIST_PATH_PLATFORMS="${PTXDIST_PATH//://platforms:}"
+    export PTXDIST_PATH_PLATFORMS
+
     ptxd_init_ptxdist_path_sysroot
 }
 

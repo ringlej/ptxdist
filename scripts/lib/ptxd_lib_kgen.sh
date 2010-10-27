@@ -10,14 +10,6 @@
 
 export PTX_KGEN_DIR="${PTXDIST_TEMPDIR}/kgen"
 
-#
-# local defined vars
-#
-# FIXME: use these globaly
-#
-PTXDIST_OVERWRITE_DIRS_MSB=( "${PTXDIST_PLATFORMCONFIGDIR}" "${PTXDIST_WORKSPACE}" "${PTXDIST_TOPDIR}" )
-PTXDIST_OVERWRITE_DIRS_LSB=( "${PTXDIST_TOPDIR}" "${PTXDIST_WORKSPACE}" "${PTXDIST_PLATFORMCONFIGDIR}" )
-
 ptxd_kgen_awk()
 {
     kgen_part="${kgen_part}" \
@@ -31,7 +23,8 @@ ptxd_kgen_awk()
 	    section = $2;
 	    pkg = gensub(/.*\//, "", "g", file);
 
-	    pkgs[section, pkg] = file;
+	    if (!((section, pkg) in pkgs))
+		pkgs[section, pkg] = file;
 	}
 
 	END {
@@ -58,12 +51,12 @@ ptxd_kgen_generate_sections()
 {
     local dir
     {
-	for dir in "${PTXDIST_OVERWRITE_DIRS_LSB[@]}"; do
-	    if [ \! -d "${dir}/${kgen_part_dir}" ]; then
+	for dir in "${kgen_dirs[@]}"; do
+	    if [ \! -d "${dir}" ]; then
 		continue
 	    fi
 	    # '! -name ".#*"' filters out emacs's lock files
-	    find "${dir}/${kgen_part_dir}/" -name *.in \! -name ".#*" -print0
+	    find "${dir}/" -name *.in \! -name ".#*" -print0
 	done
     } | {
 	#
@@ -81,7 +74,7 @@ ptxd_kgen_generate_sections()
 ptxd_kgen()
 {
     local kgen_part="${1}"
-    local kgen_part_dir="${part}"
+    local kgen_dirs
 
     if [ ${#} -ne 1 ]; then
 	cat <<EOF
@@ -94,8 +87,8 @@ EOF
 
     # transmogrify part into subdir
     case "${kgen_part}" in
-	ptx)	  kgen_part_dir="rules" ;;
-	platform) kgen_part_dir="platforms" ;;
+	ptx)	  IFS=: kgen_dirs=( ${PTXDIST_PATH_RULES} ) ;;
+	platform) IFS=: kgen_dirs=( ${PTXDIST_PATH_PLATFORMS} ) ;;
 	board|user|collection) return 0 ;;
 	*) cat <<EOF
 
