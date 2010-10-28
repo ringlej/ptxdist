@@ -39,7 +39,7 @@ $(CROSS_NASM_SOURCE):
 #
 # autoconf
 #
-CROSS_NASM_CONFTOOL := autoconf
+CROSS_NASM_CONF_TOOL := autoconf
 CROSS_NASM_INSTALL_OPT := INSTALLROOT="$(CROSS_NASM_PKGDIR)" install
 
 # vim: syntax=make
