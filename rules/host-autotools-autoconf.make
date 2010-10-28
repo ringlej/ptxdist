@@ -41,6 +41,6 @@ $(HOST_AUTOTOOLS_AUTOCONF_SOURCE):
 #
 # autoconf
 #
-HOST_AUTOTOOLS_AUTOCONF_CONFTOOL	:= autoconf
+HOST_AUTOTOOLS_AUTOCONF_CONF_TOOL	:= autoconf
 
 # vim: syntax=make
