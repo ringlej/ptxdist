@@ -27,6 +27,6 @@ HOST_XORG_APP_MKFONTDIR_DEVPKG	= NO
 #
 # autoconf
 #
-HOST_XORG_APP_MKFONTDIR_CONFTOOL	:= autoconf
+HOST_XORG_APP_MKFONTDIR_CONF_TOOL	:= autoconf
 
 # vim: syntax=make
