@@ -39,6 +39,6 @@ $(CROSS_INSIGHT_SOURCE):
 #
 # autoconf
 #
-CROSS_INSIGHT_CONFTOOL := autoconf
+CROSS_INSIGHT_CONF_TOOL := autoconf
 
 # vim: syntax=make
