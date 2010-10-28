@@ -335,10 +335,10 @@ $(STATEDIR)/mysql.targetinstall:
 	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysqlcheck)
 	@$(call install_copy, mysql, 0, 0, 0755, -, /usr/bin/mysqldump)
 
-	@$(call install_lib, mysql, 0, 0, 0644, mysql/libmysqlclient)
+	@$(call install_lib, mysql, 0, 0, 0644, libmysqlclient)
 
 #	# libmyodbc3_r-3.51.27.so uses this library:
-	@$(call install_lib, mysql, 0, 0, 0644, mysql/libmysqlclient_r)
+	@$(call install_lib, mysql, 0, 0, 0644, libmysqlclient_r)
 
 ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_MYSQL_STARTSCRIPT

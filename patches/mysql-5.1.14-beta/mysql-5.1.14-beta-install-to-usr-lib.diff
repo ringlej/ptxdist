@@ -1,0 +1,21 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: install libs to $(prefix)/lib not $(prefix)/lib/mysql
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ libmysql/Makefile.shared |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: b/libmysql/Makefile.shared
+===================================================================
+--- a/libmysql/Makefile.shared
++++ b/libmysql/Makefile.shared
+@@ -26,7 +26,7 @@ MYSQLBASEdir=			$(prefix)
+ ## We'll use CLIENT_EXTRA_LDFLAGS for threaded and non-threaded
+ ## until someone complains that they need separate options.
+ LDADD =				@CLIENT_EXTRA_LDFLAGS@ $(target)
+-pkglib_LTLIBRARIES =		$(target)
++lib_LTLIBRARIES =		$(target)
+ 
+ noinst_PROGRAMS = conf_to_src
+ 

@@ -2,3 +2,4 @@ mysql-5.0.26_configure.in -p0
 mysql-5.0.26_comp_err_gen_lex_hash.diff -p0
 mysql-5.0.26_factorial.diff -p0
 mysql-5.1.14-beta-query_cache.diff
+mysql-5.1.14-beta-install-to-usr-lib.diff
