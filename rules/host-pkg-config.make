@@ -39,6 +39,6 @@ $(HOST_PKG_CONFIG_SOURCE):
 #
 # autoconf
 #
-HOST_PKG_CONFIG_CONFTOOL := autoconf
+HOST_PKG_CONFIG_CONF_TOOL := autoconf
 
 # vim: syntax=make
