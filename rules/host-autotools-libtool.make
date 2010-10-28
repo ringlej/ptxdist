@@ -41,6 +41,6 @@ $(HOST_AUTOTOOLS_LIBTOOL_SOURCE):
 #
 # autoconf
 #
-HOST_AUTOTOOLS_LIBTOOL_CONFTOOL	:= autoconf
+HOST_AUTOTOOLS_LIBTOOL_CONF_TOOL	:= autoconf
 
 # vim: syntax=make
