@@ -87,10 +87,14 @@ ptxd_init_collectionconfig() {
 	export PTXDIST_COLLECTIONCONFIG="${new_collection}"
 	PTXDIST_BASE_PACKAGES="$(PTXDIST_PTXCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_ptxconfig"
 		PTXDIST_PLATFORMCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_platformconfig"
+		PTXDIST_BASE_PLATFORMDIR=
+		ptxd_lib_init
 		ptxd_make_log "print-PACKAGES-y")"
     else
 	PTXDIST_BASE_PACKAGES="$(PTXDIST_PTXCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_ptxconfig"
 		PTXDIST_PLATFORMCONFIG="${PTXDIST_BASE_PLATFORMDIR}/selected_platformconfig"
+		PTXDIST_BASE_PLATFORMDIR=
+		ptxd_lib_init
 		ptxd_make_log "print-PACKAGES")"
     fi
     export PTXDIST_BASE_PACKAGES
