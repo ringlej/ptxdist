@@ -8,6 +8,10 @@
 # see the README file.
 #
 
+$(STATEDIR)/%.targetinstall:
+	@$(call targetinfo)
+	@$(call touch)
+
 $(STATEDIR)/%.targetinstall.post:
 	@$(call targetinfo)
 	@$(call touch)
