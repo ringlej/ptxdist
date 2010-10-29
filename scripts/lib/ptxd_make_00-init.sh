@@ -184,6 +184,7 @@ ptxd_init_cross_env() {
 ptxd_init_devpkg()
 {
     local prefix
+    local -a path
 
     prefix="$(ptxd_get_ptxconf PTXCONF_PROJECT_DEVPKGDIR)" || return 0
 
@@ -192,12 +193,21 @@ ptxd_init_devpkg()
     platform_version="$(ptxd_get_ptxconf PTXCONF_PLATFORM_VERSION)"
 
     if [ -n "${platform}" ]; then
-	prefix="${prefix}/platform-${platform}${platform_version}"
-    else
-	: # nothing to do for non-platform BSPs
+	path[${#path[@]}]="${prefix}/platform-${platform}${platform_version}"
+	path[${#path[@]}]="${prefix}/platform-${platform}/packages"
+    fi
+    path[${#path[@]}]="${prefix}/packages"
+    path[${#path[@]}]="${prefix}"
+
+    if ! ptxd_get_path "${path[@]}"; then
+	ptxd_warning "No dev packages found in '$(ptxd_print_path "${prefix}")'"
+    fi
+    if [ "${PKGDIR}" = "${ptxd_reply}" ]; then
+	# don't my own packages. The timestamps mess up the dependencies.
+	return
     fi
 
-    PTXDIST_DEVPKG_PLATFORMDIR="${prefix}"
+    PTXDIST_DEVPKG_PLATFORMDIR="${ptxd_reply}"
     export PTXDIST_DEVPKG_PLATFORMDIR
 }
 
