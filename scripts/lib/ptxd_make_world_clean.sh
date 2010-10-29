@@ -56,6 +56,12 @@ ptxd_make_world_clean() {
 	rm -rf "${pkg_pkg_dir}"
 	echo
     fi
+    local pkgs="${pkg_pkg_dev%-*-dev.tar.gz}-*-dev.tar.gz"
+    if [ -n "$(ls "${ptx_pkg_dir}/"${pkgs} 2> /dev/null)" ]; then
+	echo "Deleting dev packages:"
+	ls "${ptx_pkg_dir}/"${pkgs}
+	rm "${ptx_pkg_dir}/"${pkgs}
+    fi
 }
 export -f ptxd_make_world_clean
 
