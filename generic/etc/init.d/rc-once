@@ -43,7 +43,7 @@ run_start() {
 case "$1" in
 
 	start)
-		run_start
+		run_start >&2
 		;;
 
 	*)
