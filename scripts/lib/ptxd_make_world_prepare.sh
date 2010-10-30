@@ -110,9 +110,9 @@ ptxd_make_world_prepare() {
 	mkdir -p -- "${pkg_build_dir}" || return
     fi
 
-    cd -- "${pkg_build_dir}" &&
     case "${pkg_conf_tool}" in
 	autoconf|cmake|qmake)
+	    cd -- "${pkg_build_dir}" &&
 	    ptxd_make_world_prepare_"${pkg_conf_tool}" ;;
 	"NO") echo "prepare stage disabled." ;;
 	"")   echo "No prepare tool found. Do nothing." ;;
