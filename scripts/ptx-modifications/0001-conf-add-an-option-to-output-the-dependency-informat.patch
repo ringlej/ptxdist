@@ -1,0 +1,98 @@
+From aee97396d42a5c030162fcd7247058ddf91e279c Mon Sep 17 00:00:00 2001
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 1 Nov 2010 19:49:21 +0100
+Subject: [PATCH 01/10] conf: add an option to output the dependency information
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ scripts/kconfig/conf.c |   39 +++++++++++++++++++++++++++++++++++++++
+ 1 files changed, 39 insertions(+), 0 deletions(-)
+
+diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
+index 5459a38..2a11cbe 100644
+--- a/scripts/kconfig/conf.c
++++ b/scripts/kconfig/conf.c
+@@ -33,6 +33,7 @@ enum input_mode {
+ 	savedefconfig,
+ 	listnewconfig,
+ 	oldnoconfig,
++	writedepend,
+ } input_mode = oldaskconfig;
+ 
+ char *defconfig_file;
+@@ -440,6 +441,36 @@ static void check_conf(struct menu *menu)
+ 		check_conf(child);
+ }
+ 
++static void create_dep_output()
++{
++	int i;
++	bool hit;
++	struct symbol *sym;
++	struct property *prop;
++
++	for_all_symbols(i, sym) {
++		if ((sym_get_tristate_value(sym) == no) || !sym->name)
++			continue;
++
++		hit = 0;
++		for (prop = sym->prop; prop; prop = prop->next) {
++			if (prop->type == P_SELECT && expr_calc_value(prop->visible.expr)) {
++				hit=1;
++				break;
++			}
++		}
++		if (!hit)
++			continue;
++		printf("DEP:%s", sym->name);
++		for (prop = sym->prop; prop; prop = prop->next) {
++			if (prop->type == P_SELECT && expr_calc_value(prop->visible.expr)) {
++				printf(":%s", prop->expr->left.sym->name);
++			}
++		}
++		printf("\n");
++	}
++}
++
+ static struct option long_opts[] = {
+ 	{"oldaskconfig",    no_argument,       NULL, oldaskconfig},
+ 	{"oldconfig",       no_argument,       NULL, oldconfig},
+@@ -453,6 +484,7 @@ static struct option long_opts[] = {
+ 	{"randconfig",      no_argument,       NULL, randconfig},
+ 	{"listnewconfig",   no_argument,       NULL, listnewconfig},
+ 	{"oldnoconfig",     no_argument,       NULL, oldnoconfig},
++	{"writedepend",     no_argument,       NULL, writedepend},
+ 	{NULL, 0, NULL, 0}
+ };
+ 
+@@ -461,6 +493,7 @@ int main(int ac, char **av)
+ 	int opt;
+ 	const char *name;
+ 	struct stat tmpstat;
++	int dep_output = 0;
+ 
+ 	setlocale(LC_ALL, "");
+ 	bindtextdomain(PACKAGE, LOCALEDIR);
+@@ -469,6 +502,10 @@ int main(int ac, char **av)
+ 	while ((opt = getopt_long(ac, av, "", long_opts, NULL)) != -1) {
+ 		input_mode = (enum input_mode)opt;
+ 		switch (opt) {
++		case writedepend:
++			dep_output = 1;
++			opt = silentoldconfig;
++			/* fall through */
+ 		case silentoldconfig:
+ 			sync_kconfig = 1;
+ 			break;
+@@ -616,6 +653,8 @@ int main(int ac, char **av)
+ 			  input_mode != oldnoconfig));
+ 		break;
+ 	}
++	if (dep_output)
++		create_dep_output();
+ 
+ 	if (sync_kconfig) {
+ 		/* silentoldconfig is used during the build so we shall update autoconf.
+-- 
+1.7.2.3
+
