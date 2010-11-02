@@ -57,6 +57,9 @@ else
 fi
 AC_SUBST(CURSES_LOC)
 
+AM_CONDITIONAL(BUILD_NCONF, test "x$CURSES_LOC" = "x<ncurses.h>")
+
+
 AC_SYS_INTERPRETER
 if test "$interpval" != yes ; then
 	AC_MSG_WARN([no

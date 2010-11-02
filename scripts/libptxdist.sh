@@ -263,6 +263,7 @@ ptxd_kconfig() {
 
 	local conf="${PTXDIST_TOPDIR}/scripts/kconfig/conf"
 	local mconf="${PTXDIST_TOPDIR}/scripts/kconfig/mconf"
+	local nconf="${PTXDIST_TOPDIR}/scripts/kconfig/nconf"
 
 	export \
 	    KCONFIG_NOTIMESTAMP="1" \
@@ -272,6 +273,9 @@ ptxd_kconfig() {
 	case "${config}" in
 	menuconfig)
 		"${mconf}" "${file_kconfig}"
+		;;
+	nconfig)
+		"${nconf}" "${file_kconfig}"
 		;;
 	oldconfig)
 		#

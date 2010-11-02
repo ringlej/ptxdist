@@ -765,6 +765,7 @@ Setup and Project Actions:
   projects			show available projects
   clone <from> <to>		create a new project, cloned from <from>.
 
+  nconfig
   menuconfig			configure the project's filesystem
 
   menuconfig kernel
@@ -1410,7 +1411,7 @@ do_config()
 	fi
 
 	case "${config}" in
-	"menuconfig"|"oldconfig"|"allmodconfig"|"allyesconfig"|"allnoconfig")
+	"menuconfig"|"nconfig"|"oldconfig"|"allmodconfig"|"allyesconfig"|"allnoconfig")
 		;;
 	*)
 		echo
@@ -1772,7 +1773,7 @@ parse_second()
 
 ######## *config, *setup, toolchain
 
-		menuconfig|oldconfig|allmodconfig|allyesconfig|allnoconfig)
+		menuconfig|nconfig|oldconfig|allmodconfig|allyesconfig|allnoconfig)
 			do_config "${cmd}" "${@}"
 			exit
 			;;
@@ -2319,7 +2320,7 @@ setup_platform_continue_with_broken_config()
 		shift
 
 		case "${arg}" in
-		menuconfig|select) return ;;
+		menuconfig|nconfig|select) return ;;
 		*) return 1 ;;
 		esac
 	done
