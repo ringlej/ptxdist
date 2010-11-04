@@ -86,6 +86,7 @@ EOF
     fi
 
     # transmogrify part into subdir
+    local oldIFS="$IFS"
     case "${kgen_part}" in
 	ptx)	  IFS=: kgen_dirs=( ${PTXDIST_PATH_RULES} ) ;;
 	platform) IFS=: kgen_dirs=( ${PTXDIST_PATH_PLATFORMS} ) ;;
@@ -97,6 +98,7 @@ ${PROMPT}error: '${FUNCNAME}' doesn't support '${part}', yet
 EOF
 	    exit 1
     esac
+    IFS="$oldIFS"
 
     rm -rf "${PTX_KGEN_DIR}/${kgen_part}" &&
     mkdir -p "${PTX_KGEN_DIR}/${kgen_part}" &&
