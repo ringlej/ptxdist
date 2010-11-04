@@ -16,21 +16,13 @@ PACKAGES-$(PTXCONF_DIALOG) += dialog
 #
 # Paths and names
 #
-DIALOG_VERSION	:= 1.1-20100119
+DIALOG_VERSION	:= 1.1-20100428
 DIALOG		:= dialog-$(DIALOG_VERSION)
 DIALOG_SUFFIX	:= tgz
 DIALOG_URL	:= ftp://invisible-island.net/dialog/$(DIALOG).$(DIALOG_SUFFIX)
 DIALOG_SOURCE	:= $(SRCDIR)/$(DIALOG).$(DIALOG_SUFFIX)
 DIALOG_DIR	:= $(BUILDDIR)/$(DIALOG)
 DIALOG_LICENSE	:= LGPLv2.1
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(DIALOG_SOURCE):
-	@$(call targetinfo)
-	@$(call get, DIALOG)
 
 # ----------------------------------------------------------------------------
 # Prepare
