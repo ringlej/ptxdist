@@ -1,0 +1,49 @@
+From: Darren Hutchinson <dhutchinson@google.com>
+Date: Mon, 8 Nov 2010 13:21:56 +0100
+Subject: [PATCH] ipkg: make ar deterministic
+
+I had a strange problem when I tried to create an image.
+The last part of the error message was:
+
+File
+"<path to ptxdist>/projects/<project name>/ \
+platform-<project name>/sysroot-host/lib/python2.6/site-packages/arfile.py",
+line 79, in _scan
+    size = int(descriptor[5])
+ValueError: invalid literal for int() with base 10: '`'
+
+The problem eventually turned out to be that arfile.py has trouble parsing AR
+files created with a UID >99999 - it relies on the (ascii) AR header fields
+using one digit less than their allocated sizes so it can the padding
+space to split() them.
+
+There is no real need to use the actual UID in the ar header, and GNU AR has a
+'D' option that uses UID and GID values of zero when creating the ipkg archive.
+I have put together a quick patch that tells ptxdist to patch ipkg-build to use
+the 'D' option when invoking AR.
+
+Signed-off-by: Darren Hutchinson <dhutchinson@google.com>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ ipkg-build |    5 ++++-
+ 1 files changed, 4 insertions(+), 1 deletions(-)
+
+diff --git a/ipkg-build b/ipkg-build
+index 77367ac..27e4868 100755
+--- a/ipkg-build
++++ b/ipkg-build
+@@ -235,7 +235,10 @@ echo "2.0" > $tmp_dir/debian-binary
+ pkg_file=$dest_dir/${pkg}_${version}_${arch}.ipk
+ rm -f $pkg_file
+ if [ "$outer" = "ar" ] ; then
+-  ( cd $tmp_dir && ar -crf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
++  # Add 'D' flag to ar. This forces UID 0 to be used when creating ipkg
++  # files. This is needed as high UID values (> 99999) cause problems when
++  # parsing ar file headers
++  ( cd $tmp_dir && ar -crDf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
+ else
+   ( cd $tmp_dir && tar -zcf $pkg_file ./debian-binary ./data.tar.gz ./control.tar.gz )
+ fi
+-- 
+1.7.2.3
+

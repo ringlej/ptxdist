@@ -7,3 +7,4 @@
 0007-ipkg-env.patch
 0008-ipkg.py-don-t-use-wildcards.patch
 0009-Makefile-add-prefix-to-python-install.patch
+0010-ipkg-make-ar-deterministic.patch
