@@ -111,6 +111,7 @@ ptxd_source_kconfig() {
 	sed -e "s/^\([^#]*=.*\)/export \1/" "${config}" > "${config_source}"
 	. "${config_source}" || return
 }
+export -f ptxd_source_kconfig
 
 
 #
