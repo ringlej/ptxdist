@@ -230,6 +230,9 @@ endif
 
 ifdef PTXCONF_IMAGE_KERNEL_INSTALL_EARLY
 $(STATEDIR)/kernel.targetinstall.post: $(IMAGEDIR)/linuximage
+ifdef PTXCONF_IMAGE_KERNEL_LZOP
+$(STATEDIR)/kernel.targetinstall.post: $(IMAGEDIR)/linuximage.lzo
+endif
 endif
 
 $(STATEDIR)/kernel.targetinstall.post:
