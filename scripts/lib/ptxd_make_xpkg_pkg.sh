@@ -78,6 +78,8 @@ ptxd_install_setup_src() {
 
     for src in "${list[@]}"; do
 	if [ -e "${src}" ]; then
+	    # don't provide dependencies for files in PTXDIST_PLATFORMDIR.
+	    if [ "${src}" = "${src#${PTXDIST_PLATFORMDIR}}" ]; then
 		# Since the dependency to the source files is dynamic we store
 		# the dependency information in a dependency file that can be
 		# included in the make files itself.
@@ -88,6 +90,7 @@ ptxd_install_setup_src() {
 		deprule=${deprule//${PTXDIST_TOPDIR}/\$(PTXDIST_TOPDIR)}
 		deprule=${deprule//${PTXDIST_WORKSPACE}/\$(PTXDIST_WORKSPACE)}
 		echo "${deprule}" >> ${pkg_xpkg_install_deps}
+	    fi
 	    return
 	fi
     done
