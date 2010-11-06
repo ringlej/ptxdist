@@ -99,17 +99,14 @@ ptxd_dialog_yesno() {
 # source a kconfig file
 #
 ptxd_source_kconfig() {
-	local config config_source
+	local ret
 
-	config="${1}"
-	config_source="${PTXDIST_TEMPDIR}/${config##*/}"
+	set -a
+	source "${1}" 2> /dev/null
+	ret=$?
+	set +a
 
-	if test \! -e "${config}"; then
-		return 1
-	fi
-
-	sed -e "s/^\([^#]*=.*\)/export \1/" "${config}" > "${config_source}"
-	. "${config_source}" || return
+	return ${ret}
 }
 export -f ptxd_source_kconfig
 
