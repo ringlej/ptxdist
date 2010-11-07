@@ -250,7 +250,7 @@ function import_PKG(this_PKG,	this_pkg) {
 	#
 	# archive name for devel packages
 	#
-	this_devpkg = "$(" this_PKG ")-$(" this_PKG "_CFGHASH)-dev.tar.gz"
+	this_devpkg = "$(" this_PKG ")-$(PTXCONF_ARCH_STRING)-$(" this_PKG "_CFGHASH)-dev.tar.gz"
 
 	#
 	# things depending on target or host-, cross- package
