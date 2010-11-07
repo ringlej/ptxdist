@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ptxd_source_kconfig "${PTXDIST_BOARDSETUP}" ||
+ptxd_bailout "Please run 'ptxdist boardsetup' first!"
+
 UBOOT_ENV="${1}"
 
 ptxd_get_path "${PTXDIST_PLATFORMCONFIGDIR}/u-boot-env/config{${PTXDIST_PLATFORMSUFFIX},}{.in,}" ||
