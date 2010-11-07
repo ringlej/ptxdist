@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ptxd_source_kconfig "${PTXDIST_BOARDSETUP}" ||
+ptxd_bailout "Please run 'ptxdist boardsetup' first!"
+
 BAREBOX_ENV="${1}"
 ENVTMPDIR="$(mktemp -d "${PTXDIST_TEMPDIR}/barebox_env.XXXXXX")" ||
 ptxd_bailout "mktemp failed."
