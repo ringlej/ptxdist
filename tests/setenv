@@ -1,13 +1,7 @@
 #!/bin/bash
 
-if [ ! -e "${PTXDIST_BOARDSETUP}" ]; then
-	echo "Please run 'ptxdist boardsetup' first!" >&2
-	exit 1
-fi
-
-set -a
-. "${PTXDIST_BOARDSETUP}"
-set +a
+ptxd_source_kconfig "${PTXDIST_BOARDSETUP}" ||
+ptxd_bailout "Please run 'ptxdist boardsetup' first!"
 
 PTXDIST_SETENV_ENV_IMAGE="$(mktemp "${PTXCONF_BOARDSETUP_TFTP_PATH}/environment_image.XXXXXX")"
 chmod 644 "${PTXDIST_SETENV_ENV_IMAGE}"
