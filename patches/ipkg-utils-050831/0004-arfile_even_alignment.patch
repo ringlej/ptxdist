@@ -1,7 +1,6 @@
-From f6efdc7de100f6177f3bbb70416e722ce1fda660 Mon Sep 17 00:00:00 2001
 From: the openembedded project <http://openembedded.net/>
 Date: Fri, 22 Jan 2010 11:05:12 +0100
-Subject: [PATCH 4/9] arfile_even_alignment
+Subject: [PATCH] arfile_even_alignment
 
 ---
  arfile.py |    2 ++
@@ -21,5 +20,5 @@ index 0bcd8d0..597cb3d 100644
  #            print hex(f.tell())
  
 -- 
-1.6.6
+1.7.2.3
 

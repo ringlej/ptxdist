@@ -1,7 +1,6 @@
-From 3495129e1a3de5f72c8669735fa65d65a7d80d20 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Fri, 22 Jan 2010 11:22:41 +0100
-Subject: [PATCH 8/9] ipkg.py: don't use wildcards
+Subject: [PATCH] ipkg.py: don't use wildcards
 
 it's not portable
 
@@ -24,5 +23,5 @@ index d6f7e69..c951371 100644
              self.read_control(control)
              control.close()
 -- 
-1.6.6
+1.7.2.3
 

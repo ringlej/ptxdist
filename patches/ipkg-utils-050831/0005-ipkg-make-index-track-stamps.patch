@@ -1,7 +1,6 @@
-From 7977d6e578b9bbb3e61dd43cae1961bf355b3a6d Mon Sep 17 00:00:00 2001
 From: the openembedded project <http://openembedded.net/>
 Date: Fri, 22 Jan 2010 11:05:14 +0100
-Subject: [PATCH 5/9] ipkg-make-index-track-stamps
+Subject: [PATCH] ipkg-make-index-track-stamps
 
 ---
  ipkg-make-index |   29 ++++++++++++++++++++++++++---
@@ -92,5 +91,5 @@ index 8924dd0..6a49849 100755
       sys.exit(0)
  
 -- 
-1.6.6
+1.7.2.3
 

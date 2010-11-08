@@ -1,7 +1,6 @@
-From d4b08628c7c7f257c7b231ad60958300eed48db8 Mon Sep 17 00:00:00 2001
 From: the openembedded project <http://openembedded.net/>
 Date: Fri, 22 Jan 2010 11:05:16 +0100
-Subject: [PATCH 7/9] ipkg-env
+Subject: [PATCH] ipkg-env
 
 ---
  ipkg-list-fields  |    2 +-
@@ -73,5 +72,5 @@ index 2fe5186..01e5815 100755
  import sys, os, os.path, re
  
 -- 
-1.6.6
+1.7.2.3
 

@@ -1,9 +1,7 @@
-From 58d97dac258ba1c2930f21b560c92e84ffd70319 Mon Sep 17 00:00:00 2001
 From: the openembedded project <http://openembedded.net/>
 Date: Fri, 22 Jan 2010 11:05:07 +0100
-Subject: [PATCH 3/9] ipkg-py-tarfile
+Subject: [PATCH] ipkg-py-tarfile
 
-===================================================================
 ---
  arfile.py |  124 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
  ipkg.py   |  121 +++++++++++++++++++++++++++++++++--------------------------
@@ -329,5 +327,5 @@ index 1c0c96c..8b28392 100644
  		      scripts = ['ipkg-compare-indexes', 'ipkg-make-index', 'ipkg-update-index', 'ipkg-build', 'ipkg-unbuild', 'ipkg-upload']
                        )
 -- 
-1.6.6
+1.7.2.3
 

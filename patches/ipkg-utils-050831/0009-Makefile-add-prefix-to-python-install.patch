@@ -1,7 +1,6 @@
-From 58ae8050e076f2cd4a073b3090c71606160ea4eb Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Fri, 22 Jan 2010 11:27:37 +0100
-Subject: [PATCH 9/9] Makefile: add prefix to python install
+Subject: [PATCH] Makefile: add prefix to python install
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
@@ -22,5 +21,5 @@ index 7093a0d..249c687 100644
  	cp -f ipkg-make-index $(PREFIX)/bin
  	chmod agu+rx ipkg-list-fields
 -- 
-1.6.6
+1.7.2.3
 
