@@ -31,6 +31,7 @@ MESALIB_URL	:= \
 	ftp://ftp.freedesktop.org/pub/mesa/7.8.2/$(MESALIB).$(MESALIB_SUFFIX)
 
 MESADEMOS		:= MesaDemos-$(MESALIB_VERSION)
+MESADEMOS_MD5		:= 757d9e2e06f48b1a52848be9b0307ced
 MESADEMOS_SOURCE	:= $(SRCDIR)/$(MESADEMOS).$(MESALIB_SUFFIX)
 
 MESADEMOS_URL		:= \
@@ -48,6 +49,13 @@ $(MESALIB_SOURCE):
 $(MESADEMOS_SOURCE):
 	@$(call targetinfo)
 	@$(call get, MESADEMOS)
+
+$(STATEDIR)/mesalib.get:
+	@$(call targetinfo)
+	@$(call world/get, MESALIB)
+	@$(call world/check_src, MESALIB)
+	@$(call check_src, MESADEMOS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Extract
