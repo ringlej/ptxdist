@@ -49,7 +49,7 @@ ptxd_dgen_rulesfiles() {
 	    fi
 	    find "${rulesdir}" -mindepth 1 -maxdepth 1 -name "*.make" -a \! -path "*#*"
 	done
-    } | awk '{
+    } | gawk '{
 	    n=gensub(".*/", "", "g");
 	    if (!(n in names))
 		print "include", $0;
