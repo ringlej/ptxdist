@@ -20,7 +20,7 @@
 #
 
 define ptx/opt-dis
-$(firstword $(subst y,n,$(filter y,$($(strip $(1))))) y)
+$(call ptx/ifdef,$(1),n,y)
 endef
 
 
@@ -34,7 +34,7 @@ endef
 #                     $1,    $2, $3
 #
 define ptx/ifdef
-$(strip $(firstword $(subst y,$(2),$(filter y,$($(strip $(1))))) $(3)))
+$(strip $(if $(filter y,$($(strip $(1)))),$(2),$(3)))
 endef
 
 
