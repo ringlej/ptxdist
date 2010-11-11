@@ -39,7 +39,7 @@ include $(PTX_MAP_ALL_MAKE)
 include $(RULESDIR)/other/Namespace.make
 
 # might be non existent
-include $(wildcard $(addsuffix /*.make,$(subst :,$(space),$(PTXDIST_PATH_PRERULES))))
+include $(wildcard $(addsuffix /*.make,$(call reverse,$(subst :,$(space),$(PTXDIST_PATH_PRERULES)))))
 
 include $(PTX_DGEN_DEPS_PRE)
 include $(PTX_DGEN_RULESFILES_MAKE)
@@ -95,7 +95,7 @@ PTX_PACKAGES_INSTALL	:= \
 	$(PACKAGES-b)
 
 # might be non existent
-include $(wildcard $(addsuffix /*.make,$(subst :,$(space),$(PTXDIST_PATH_POSTRULES))))
+include $(wildcard $(addsuffix /*.make,$(call reverse,$(subst :,$(space),$(PTXDIST_PATH_POSTRULES)))))
 # install_alternative and install_copy has some configuration defined
 # dependencies. include the files specifying these dependencies.
 include $(wildcard $(STATEDIR)/*.deps)

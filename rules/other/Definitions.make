@@ -56,5 +56,9 @@ define tr_sh
 $(strip $(shell echo $(1) | sed 'y%*+%pp%;s%[^_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]%_%g'))
 endef
 
+define reverse
+$(if $(1),$(call reverse,$(wordlist 2,$(words $(1)),$(1)))) $(firstword $(1))
+endef
+
 # vim600:set foldmethod=marker:
 # vim600:set syntax=make:
