@@ -2374,7 +2374,7 @@ setup_platform() {
 		PTXDIST_PLATFORMDIR="${prefix}/platform-${platform}${platform_version}"
 		PTXDIST_PLATFORMSUFFIX=".${platform}"
 	else
-		PTXDIST_PLATFORMDIR="${prefix}"
+		PTXDIST_PLATFORMDIR="${prefix}/platform"
 		PTXDIST_PLATFORMSUFFIX=""
 	fi
 
