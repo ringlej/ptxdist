@@ -46,6 +46,7 @@ LIBCACA_ENV 	:= \
 LIBCACA_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	\
+	--disable-doc \
 	--disable-slang \
 	--disable-conio \
 	--disable-cocoa \
