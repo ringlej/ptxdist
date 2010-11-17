@@ -31,18 +31,18 @@ extern "C" {
 
 #define SRCTREE "srctree"
 
-#define CFGSYM "PTXCONF_"
-#define CFGSYMFC 'P'
-#define CFGSYMLEN 8
-#define RELEASESYM "FULLVERSION"
-#define RELEASENAME "PTXdist"
-
+#ifndef PACKAGE
 #define PACKAGE "linux"
+#endif
+
 #define LOCALEDIR "/usr/share/locale"
 
 #define _(text) gettext(text)
 #define N_(text) (text)
 
+#ifndef CONFIG_
+#define CONFIG_ "CONFIG_"
+#endif
 
 #define TF_COMMAND	0x0001
 #define TF_PARAM	0x0002
@@ -76,20 +76,31 @@ FILE *zconf_fopen(const char *name);
 void zconf_initscan(const char *name);
 void zconf_nextfile(const char *name);
 int zconf_lineno(void);
-char *zconf_curname(void);
+const char *zconf_curname(void);
+
+/* conf.c */
+void xfgets(char *str, int size, FILE *in);
 
 /* confdata.c */
 const char *conf_get_configname(void);
+const char *conf_get_autoconfig_name(void);
 char *conf_get_default_confname(void);
 void sym_set_change_count(int count);
 void sym_add_change_count(int count);
 void conf_set_all_new_symbols(enum conf_def_mode mode);
 
+/* confdata.c and expr.c */
+static inline void xfwrite(const void *str, size_t len, size_t count, FILE *out)
+{
+	if (fwrite(str, len, count, out) < count)
+		fprintf(stderr, "\nError in writing or end of file.\n");
+}
+
 /* kconfig_load.c */
 void kconfig_load(void);
 
 /* menu.c */
-void menu_init(void);
+void _menu_init(void);
 void menu_warn(struct menu *menu, const char *fmt, ...);
 struct menu *menu_add_menu(void);
 void menu_end_menu(void);
@@ -111,6 +122,11 @@ int file_write_dep(const char *name);
 struct gstr {
 	size_t len;
 	char  *s;
+	/*
+	* when max_width is not zero long lines in string s (if any) get
+	* wrapped not to exceed the max_width value
+	*/
+	int max_width;
 };
 struct gstr str_new(void);
 struct gstr str_assign(const char *s);
@@ -126,6 +142,8 @@ void sym_init(void);
 void sym_clear_all_valid(void);
 void sym_set_all_changed(void);
 void sym_set_changed(struct symbol *sym);
+struct symbol *sym_choice_default(struct symbol *sym);
+const char *sym_get_string_default(struct symbol *sym);
 struct symbol *sym_check_deps(struct symbol *sym);
 struct property *prop_alloc(enum prop_type type, struct symbol *sym);
 struct symbol *prop_get_symbol(struct property *prop);

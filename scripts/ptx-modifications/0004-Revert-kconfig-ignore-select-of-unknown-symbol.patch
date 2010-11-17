@@ -1,7 +1,7 @@
-From 603d49885e023d1f68c627c2a2db599fb40eefec Mon Sep 17 00:00:00 2001
-From: Sam Ravnborg <sam@ravnborg.org>
-Date: Sat, 2 Feb 2008 21:09:57 +0100
-Subject: [PATCH] kconfig: ignore select of unknown symbol
+From 631cb793027b476a8576f23bbaada799ceb59478 Mon Sep 17 00:00:00 2001
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 11 Nov 2010 06:00:37 +0100
+Subject: [PATCH 04/10] Revert "kconfig: ignore select of unknown symbol"
 
 We have had warnings for a long time about select of unknow symbol
 but the warnings does not really makes sense since we may
@@ -16,19 +16,19 @@ select but we need a more relaible method to do so.
 Signed-off-by: Sam Ravnborg <sam@ravnborg.org>
 Cc: Roman Zippel <zippel@linux-m68k.org>
 
-reversed patch
+This reverts commit 603d49885e023d1f68c627c2a2db599fb40eefec
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
- menu.c |    9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ scripts/kconfig/menu.c |    9 ++++++---
+ 1 files changed, 6 insertions(+), 3 deletions(-)
 
-Index: kconfig/menu.c
-===================================================================
---- kconfig.orig/menu.c
-+++ kconfig/menu.c
-@@ -203,9 +203,12 @@ void sym_check_prop(struct symbol *sym)
+diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
+index 7e83aef..3c5c089 100644
+--- a/scripts/kconfig/menu.c
++++ b/scripts/kconfig/menu.c
+@@ -208,9 +208,12 @@ static void sym_check_prop(struct symbol *sym)
  				prop_warn(prop,
  				    "config symbol '%s' uses select, but is "
  				    "not boolean or tristate", sym->name);
@@ -44,3 +44,6 @@ Index: kconfig/menu.c
  				prop_warn(prop,
  				    "'%s' has wrong type. 'select' only "
  				    "accept arguments of boolean and "
+-- 
+1.7.2.3
+

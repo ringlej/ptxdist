@@ -15,7 +15,9 @@ endif
 
 CPPFLAGS += \
 	-DCURSES_LOC="$(CURSES_LOC)" \
-	-DKBUILD_NO_NLS
+	-DKBUILD_NO_NLS \
+	-DPACKAGE='"ptxdist"' \
+	-DCONFIG_='"PTXCONF_"'
 
 ifndef MCONF_LIBS
 MCONF_LIBS := -lncurses
@@ -23,6 +25,7 @@ endif
 
 conf-libs  := $(CONF_LIBS)
 mconf-libs := $(MCONF_LIBS)
+nconf-libs := -lncurses -lmenu -lpanel
 
 lkc-deps := lkc.h lkc_defs.h expr.h
 
@@ -43,11 +46,19 @@ mconf-objs := \
 	zconf.tab.o \
 	$(lxdialog-objs)
 
+nconf-objs := \
+	nconf.o \
+	zconf.tab.o \
+	nconf.gui.o
+
 conf: $(conf-objs)
 	$(CC) $^ $(LDFLAGS) -o $@ $(conf-libs)
 
 mconf: $(mconf-objs)
 	$(CC) $^ $(LDFLAGS) -o $@ $(mconf-libs)
+
+nconf: $(nconf-objs)
+	$(CC) $^ $(LDFLAGS) -o $@ $(nconf-libs)
 
 %.moc: %.h
 	$(MOC) -i $< -o $@
@@ -110,5 +121,5 @@ lex.%.c: %.l
 endif
 
 clean:
-	rm -f $(conf-objs) $(mconf-objs) conf mconf gconf qconf
+	rm -f $(conf-objs) $(mconf-objs) $(nconf-objs) conf mconf nconf gconf qconf
 	rm -f lkc_defs.h zconf.tab.o zconf.tab.c zconf.hash.c lex.zconf.c

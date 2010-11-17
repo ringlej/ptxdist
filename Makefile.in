@@ -19,6 +19,8 @@ SHELL		:= @BASH@
 
 export SHELL
 
+@BUILD_NCONF_TRUE@NCONF = nconf
+
 all:
 	@echo "building conf and mconf ..."
 	@CC="$(CC)" \
@@ -31,7 +33,7 @@ all:
 		CONF_LIBS="@CONF_LIBS@" \
 		MCONF_LIBS="@MCONF_LIBS@" \
 		CURSES_LOC="@CURSES_LOC@" \
-		conf mconf
+		conf mconf $(NCONF)
 	@echo "done."
 	@touch .done
 

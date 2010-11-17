@@ -261,6 +261,7 @@ ptxd_kconfig() {
 
 	local conf="${PTXDIST_TOPDIR}/scripts/kconfig/conf"
 	local mconf="${PTXDIST_TOPDIR}/scripts/kconfig/mconf"
+	local nconf="${PTXDIST_TOPDIR}/scripts/kconfig/nconf"
 
 	export \
 	    KCONFIG_NOTIMESTAMP="1" \
@@ -271,6 +272,9 @@ ptxd_kconfig() {
 	menuconfig)
 		"${mconf}" "${file_kconfig}"
 		;;
+	nconfig)
+		"${nconf}" "${file_kconfig}"
+		;;
 	oldconfig)
 		#
 		# In silent mode, we cannot redirect input. So use
@@ -279,23 +283,23 @@ ptxd_kconfig() {
 		#
 		ptxd_kconfig_migrate "${part}" &&
 		if tty -s; then
-			"${conf}" -s "${file_kconfig}"
+			"${conf}" --silentoldconfig "${file_kconfig}"
 		else
-			"${conf}" -o "${file_kconfig}"
+			"${conf}" --oldconfig "${file_kconfig}"
 		fi
 		;;
 	allmodconfig)
-		"${conf}" -m "${file_kconfig}"
+		"${conf}" --allmodconfig "${file_kconfig}"
 		;;
 	allyesconfig)
-		"${conf}" -y "${file_kconfig}"
+		"${conf}" --allyesconfig "${file_kconfig}"
 		;;
 	allnoconfig)
-		"${conf}" -n "${file_kconfig}"
+		"${conf}" --allnoconfig "${file_kconfig}"
 		;;
 	dep)
 		copy_back="false"
-		yes "" | "${conf}" -O "${file_kconfig}" &&
+		yes "" | "${conf}" --writedepend "${file_kconfig}" &&
 		cp -- ".config" "${PTXDIST_DGEN_DIR}/${part}config"
 		;;
 	*)
