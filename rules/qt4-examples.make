@@ -1,13 +1,11 @@
 # WARNING: this file is generated with qt4_mk_examples.sh
 # do not edit
 
-PTX_MAP_TO_PACKAGE_qt4-examples := QT4
-
 ifdef PTXCONF_QT4_EXAMPLES
-$(STATEDIR)/qt4.targetinstall.post: $(STATEDIR)/qt4-examples.targetinstall
+$(STATEDIR)/qt4.targetinstall.post: $(STATEDIR)/qt4.targetinstall2
 endif
 
-$(STATEDIR)/qt4-examples.targetinstall: $(STATEDIR)/qt4.targetinstall
+$(STATEDIR)/qt4.targetinstall2: $(STATEDIR)/qt4.targetinstall
 	@$(call targetinfo, $@)
 	@$(call install_init, qt4-examples)
 	@$(call install_fixup, qt4-examples,PACKAGE,qt4-examples)
