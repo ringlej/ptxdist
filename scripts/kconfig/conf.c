@@ -504,7 +504,7 @@ int main(int ac, char **av)
 		switch (opt) {
 		case writedepend:
 			dep_output = 1;
-			opt = silentoldconfig;
+			input_mode = silentoldconfig;
 			/* fall through */
 		case silentoldconfig:
 			sync_kconfig = 1;
