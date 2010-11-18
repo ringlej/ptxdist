@@ -2,7 +2,7 @@
 # platforms/Kconfig: main menu structure for platform configuration
 #
 
-mainmenu "Platform"
+mainmenu "PTXdist $PLATFORMCONFIG_VERSION"
 
 source "platforms/ptxdist-version.in"
 
