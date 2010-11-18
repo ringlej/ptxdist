@@ -1,3 +1,10 @@
+
+mainmenu "PTXdist $COLLECTION_VERSION_DEFAULT"
+
+config COLLECTION_VERSION_DEFAULT
+	string
+	option env="PTXDIST_VERSION_FULL"
+
 config _collectionconfig_MAGIC__
 	bool
 	default y
