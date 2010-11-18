@@ -11,7 +11,6 @@ ptxd_colgen_generate_sections()
 	BEGIN {
 		FS = "=\"|\"|=";
 		col_in     = "'"${PTX_KGEN_DIR}"'" "/collection/ptx_collection.in";
-		col_all_in = "'"${PTX_KGEN_DIR}"'" "/collection/ptx_collection_all.in";
 	}
 
 	$1 ~ /^PTX_MAP_TO_package/ {
@@ -41,20 +40,6 @@ ptxd_colgen_generate_sections()
 	END {
 		n = asorti(module_pkgs, sorted);
 
-		printf \
-			"config COLLECTION_ALL\n"\
-			"\t"	"bool \"select all packages \"\n"	> col_all_in;
-
-
-		for (i = 1; i <= n; i++) {
-			pkg = sorted[i];
-
-			print "\tselect " pkg				> col_all_in;
-		}
-
-		printf "\n"						> col_all_in;
-		close(col_all_in);
-
 		printf "" > col_in;
 
 		for (i = 1; i <= n; i++) {
@@ -63,7 +48,9 @@ ptxd_colgen_generate_sections()
 
 			printf \
 				"config " pkg "\n"\
-				"\t"	"bool \"" pkg_lc "\"\n"		> col_in;
+				"\t"	"bool\n"\
+				"\t"	"prompt \"" pkg_lc "\" if COLLECTION_MANUAL\n"\
+				"\t"	"default COLLECTION_ALL\n"	> col_in;
 
 			m = split(deps[pkg], dep, ":");
 			for (j = 1; j <= m; j++) {

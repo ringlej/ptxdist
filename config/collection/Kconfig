@@ -9,12 +9,23 @@ config _collectionconfig_MAGIC__
 	bool
 	default y
 
-menuconfig COLLECTION
-	bool "select optional packages      "
-	depends on !COLLECTION_ALL
+choice
+	prompt "select packages"
+	default COLLECTION_MANUAL
 
-if COLLECTION
+config COLLECTION_NONE
+	tristate
+	prompt "none  "
+
+config COLLECTION_MANUAL
+	tristate
+	prompt "manual"
+
+config COLLECTION_ALL
+	tristate
+	prompt "all   "
+
+endchoice
+
 source "generated/ptx_collection.in"
-endif
 
-source "generated/ptx_collection_all.in"
