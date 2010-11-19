@@ -1,0 +1,41 @@
+From: George McCollister <george.mccollister@gmail.com>
+Date: Wed, 17 Nov 2010 16:20:57 -0600
+Subject: [PATCH] Add required files
+
+autotools complains if AUTHORS, NEWS and README are missing.
+
+Signed-off-by: George McCollister <george.mccollister@gmail.com>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ AUTHORS |    1 +
+ NEWS    |    1 +
+ README  |    1 +
+ 3 files changed, 3 insertions(+), 0 deletions(-)
+ create mode 100644 AUTHORS
+ create mode 100644 NEWS
+ create mode 100644 README
+
+diff --git a/AUTHORS b/AUTHORS
+new file mode 100644
+index 0000000..709e88f
+--- /dev/null
++++ b/AUTHORS
+@@ -0,0 +1 @@
++This must be here.
+diff --git a/NEWS b/NEWS
+new file mode 100644
+index 0000000..709e88f
+--- /dev/null
++++ b/NEWS
+@@ -0,0 +1 @@
++This must be here.
+diff --git a/README b/README
+new file mode 100644
+index 0000000..709e88f
+--- /dev/null
++++ b/README
+@@ -0,0 +1 @@
++This must be here.
+-- 
+1.7.2.3
+

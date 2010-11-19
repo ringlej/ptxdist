@@ -1,0 +1,9 @@
+## SECTION=system_libraries
+
+config LIBMEMCACHE
+	tristate
+	prompt "libmemcache"
+	help
+	  libmemcache is the C API for memcached(8), a high-performance,
+	  distributed memory object caching system.
+
