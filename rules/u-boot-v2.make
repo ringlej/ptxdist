@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_U_BOOT_V2) += u-boot-v2
 # Paths and names
 #
 U_BOOT_V2_VERSION	:= $(call remove_quotes,$(PTXCONF_U_BOOT_V2_VERSION))
-U_BOOT_V2_MD5		:=
+U_BOOT_V2_MD5		:= $(call remove_quotes,$(PTXCONF_U_BOOT_V2_MD5))
 U_BOOT_V2		:= u-boot-$(U_BOOT_V2_VERSION)
 U_BOOT_V2_SUFFIX	:= tar.gz
 U_BOOT_V2_URL		:= http://www.pengutronix.de/software/u-boot/download/$(U_BOOT_V2).$(U_BOOT_V2_SUFFIX)

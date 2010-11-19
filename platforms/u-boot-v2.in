@@ -11,6 +11,11 @@ config U_BOOT_V2_VERSION
 	string
 	default "2.0.0"
 
+config U_BOOT_V2_MD5
+	prompt "u-boot-v2 source md5"
+	depends on U_BOOT_V2
+	string
+
 config U_BOOT_V2_CONFIG
 	prompt "config file"
 	depends on U_BOOT_V2
