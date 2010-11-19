@@ -30,6 +30,7 @@ endif
 # Paths and names
 #
 KERNEL			:= linux-$(KERNEL_VERSION)
+KERNEL_MD5		:= $(call remove_quotes,$(PTXCONF_KERNEL_MD5))
 KERNEL_SUFFIX		:= tar.bz2
 KERNEL_DIR		:= $(KERNEL_BDIR)/$(KERNEL)
 KERNEL_CONFIG		:= $(call remove_quotes, $(PTXDIST_PLATFORMCONFIGDIR)/$(PTXCONF_KERNEL_CONFIG))
