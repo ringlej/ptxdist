@@ -15,6 +15,10 @@ config BAREBOX_VERSION
 	string
 	default "2010.10.0"
 
+config BAREBOX_MD5
+	prompt "barebox source md5sum"
+	string
+
 config BAREBOX_CONFIG
 	prompt "config file"
 	string
