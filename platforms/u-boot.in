@@ -14,6 +14,10 @@ config U_BOOT_VERSION
 	help
 	  Enter the Uboot version you want to build. Usally something like "1.2.0"
 
+config U_BOOT_MD5
+	string
+	prompt "U-Boot source md5"
+
 config U_BOOT_PROMPT
 	string
 	prompt "uboot prompt"
