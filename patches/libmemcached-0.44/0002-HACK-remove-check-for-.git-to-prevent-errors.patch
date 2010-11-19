@@ -1,0 +1,38 @@
+From 6c31950db7b22f6b55d175814297eeb0bf753a79 Mon Sep 17 00:00:00 2001
+From: George McCollister <george.mccollister@gmail.com>
+Date: Fri, 19 Nov 2010 13:38:53 -0600
+Subject: [PATCH 2/2] HACK remove check for .git to prevent errors
+
+If they see .git they force warnings as errors. Since ptxdist can apply
+patches with git sometimes .git will be detected and on ARM, alignment
+warnings will generate errors. I ran tests and the warnings on io.c:776
+and io.c:792 don't appear to indicate a real alignment issue on ARM
+processors. This hack of a patch removes the check for the .git directory so
+warnings as errors will not be forced.
+
+Signed-off-by: George McCollister <george.mccollister@gmail.com>
+---
+ m4/pandora_vc_build.m4 |    7 +------
+ 1 files changed, 1 insertions(+), 6 deletions(-)
+
+diff --git a/m4/pandora_vc_build.m4 b/m4/pandora_vc_build.m4
+index c1a8fba..df596f6 100644
+--- a/m4/pandora_vc_build.m4
++++ b/m4/pandora_vc_build.m4
+@@ -27,12 +27,7 @@ AC_DEFUN([PANDORA_TEST_VC_DIR],[
+     pandora_building_from_hg=no
+   fi
+ 
+-  if test -d ".git" ; then
+-    pandora_building_from_git=yes
+-    pandora_building_from_vc=yes
+-  else
+-    pandora_building_from_git=no
+-  fi
++  pandora_building_from_git=no
+ ])
+ 
+ AC_DEFUN([PANDORA_BUILDING_FROM_VC],[
+-- 
+1.6.4.2
+

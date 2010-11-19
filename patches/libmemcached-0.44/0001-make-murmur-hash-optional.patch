@@ -1,0 +1,322 @@
+From d9997af782614323dc0393fe17b43d196534e9dd Mon Sep 17 00:00:00 2001
+From: George McCollister <george.mccollister@gmail.com>
+Date: Fri, 19 Nov 2010 13:31:03 -0600
+Subject: [PATCH] make murmur hash optional
+
+The murmur hash function may not work correctly on ARM processors and
+doesn't produce the same results on big and little endian machines.
+This patch allows it to be disabled by passing --disable-murmur_hash to
+configure.
+
+This patch was submitted upstream here:
+https://bugs.launchpad.net/libmemcached/+bug/677609
+
+Signed-off-by: George McCollister <george.mccollister@gmail.com>
+---
+ configure.ac              |    1 +
+ libhashkit/algorithm.c    |    2 ++
+ libhashkit/algorithm.h    |    4 ++++
+ libhashkit/digest.c       |    4 ++++
+ libhashkit/function.c     |    6 ++++++
+ libhashkit/include.am     |    5 ++++-
+ m4/hsieh.m4               |    2 +-
+ m4/murmur.m4              |   18 ++++++++++++++++++
+ tests/hash_results.h      |    4 ++++
+ tests/hashkit_functions.c |   12 ++++++++++++
+ tests/mem_functions.c     |   26 +++++++++++++++++++++++++-
+ 11 files changed, 81 insertions(+), 3 deletions(-)
+ create mode 100644 m4/murmur.m4
+
+diff --git a/configure.ac b/configure.ac
+index 379466d..6c996e2 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -101,6 +101,7 @@ DETECT_BYTEORDER
+ ENABLE_UTILLIB
+ SETSOCKOPT_SANITY
+ ENABLE_HSIEH_HASH
++ENABLE_MURMUR_HASH
+ PROTOCOL_BINARY_TEST
+ WITH_MEMCACHED
+ ENABLE_DEPRECATED
+diff --git a/libhashkit/algorithm.c b/libhashkit/algorithm.c
+index e8f859e..0f0f9f0 100644
+--- a/libhashkit/algorithm.c
++++ b/libhashkit/algorithm.c
+@@ -45,10 +45,12 @@ uint32_t libhashkit_hsieh(const char *key, size_t key_length)
+ }
+ #endif
+ 
++#ifdef HAVE_MURMUR_HASH
+ uint32_t libhashkit_murmur(const char *key, size_t key_length)
+ {
+   return hashkit_murmur(key, key_length, NULL);
+ }
++#endif
+ 
+ uint32_t libhashkit_jenkins(const char *key, size_t key_length)
+ {
+diff --git a/libhashkit/algorithm.h b/libhashkit/algorithm.h
+index 40ab98a..052575c 100644
+--- a/libhashkit/algorithm.h
++++ b/libhashkit/algorithm.h
+@@ -41,8 +41,10 @@ HASHKIT_API
+ uint32_t libhashkit_hsieh(const char *key, size_t key_length);
+ #endif
+ 
++#ifdef HAVE_MURMUR_HASH
+ HASHKIT_API
+ uint32_t libhashkit_murmur(const char *key, size_t key_length);
++#endif
+ 
+ HASHKIT_API
+ uint32_t libhashkit_jenkins(const char *key, size_t key_length);
+@@ -73,8 +75,10 @@ HASHKIT_LOCAL
+ uint32_t hashkit_hsieh(const char *key, size_t key_length, void *context);
+ #endif
+ 
++#ifdef HAVE_MURMUR_HASH
+ HASHKIT_LOCAL
+ uint32_t hashkit_murmur(const char *key, size_t key_length, void *context);
++#endif
+ 
+ HASHKIT_LOCAL
+ uint32_t hashkit_jenkins(const char *key, size_t key_length, void *context);
+diff --git a/libhashkit/digest.c b/libhashkit/digest.c
+index bca6b5b..4ff6de2 100644
+--- a/libhashkit/digest.c
++++ b/libhashkit/digest.c
+@@ -38,7 +38,11 @@ uint32_t libhashkit_digest(const char *key, size_t key_length, hashkit_hash_algo
+     return 1;
+ #endif
+   case HASHKIT_HASH_MURMUR:
++#ifdef HAVE_MURMUR_HASH
+     return libhashkit_murmur(key, key_length);
++#else
++    return 1;
++#endif
+   case HASHKIT_HASH_JENKINS:
+     return libhashkit_jenkins(key, key_length);
+   case HASHKIT_HASH_CUSTOM:
+diff --git a/libhashkit/function.c b/libhashkit/function.c
+index 25c929b..2e68b58 100644
+--- a/libhashkit/function.c
++++ b/libhashkit/function.c
+@@ -41,8 +41,12 @@ static hashkit_return_t _set_function(struct hashkit_function_st *self, hashkit_
+     return HASHKIT_FAILURE;
+ #endif
+   case HASHKIT_HASH_MURMUR:
++#ifdef HAVE_MURMUR_HASH
+     self->function= hashkit_murmur;
+     break;    
++#else
++    return HASHKIT_FAILURE;
++#endif
+   case HASHKIT_HASH_JENKINS:
+     self->function= hashkit_jenkins;
+     break;    
+@@ -126,10 +130,12 @@ static hashkit_hash_algorithm_t get_function_type(const hashkit_hash_fn function
+     return HASHKIT_HASH_HSIEH;
+   }
+ #endif
++#ifdef HAVE_MURMUR_HASH
+   else if (function == hashkit_murmur)
+   {
+     return HASHKIT_HASH_MURMUR;
+   }
++#endif
+   else if (function == hashkit_jenkins)
+   {
+     return HASHKIT_HASH_JENKINS;
+diff --git a/libhashkit/include.am b/libhashkit/include.am
+index e800d79..f0adcdc 100644
+--- a/libhashkit/include.am
++++ b/libhashkit/include.am
+@@ -40,7 +40,6 @@ libhashkit_libhashkit_la_SOURCES= \
+ 				  libhashkit/jenkins.c \
+ 				  libhashkit/ketama.c \
+ 				  libhashkit/md5.c \
+-				  libhashkit/murmur.c \
+ 				  libhashkit/one_at_a_time.c \
+ 				  libhashkit/strerror.c
+ 
+@@ -48,6 +47,10 @@ if INCLUDE_HSIEH_SRC
+ libhashkit_libhashkit_la_SOURCES+= libhashkit/hsieh.c
+ endif
+ 
++if INCLUDE_MURMUR_SRC
++libhashkit_libhashkit_la_SOURCES+= libhashkit/murmur.c
++endif
++
+ libhashkit_libhashkit_la_CFLAGS= \
+ 				 ${AM_CFLAGS} \
+ 				 -DBUILDING_HASHKIT
+diff --git a/m4/hsieh.m4 b/m4/hsieh.m4
+index b057bfd..c4f3df0 100644
+--- a/m4/hsieh.m4
++++ b/m4/hsieh.m4
+@@ -4,7 +4,7 @@ dnl ---------------------------------------------------------------------------
+ AC_DEFUN([ENABLE_HSIEH_HASH],
+   [AC_ARG_ENABLE([hsieh_hash],
+     [AS_HELP_STRING([--enable-hsieh_hash],
+-      [build with support for hsieh hashing. @<:default=off@:>@])],
++      [build with support for hsieh hashing. @<:@default=off@:>@])],
+     [ac_cv_enable_hsieh_hash=yes],
+     [ac_cv_enable_hsieh_hash=no])
+ 
+diff --git a/m4/murmur.m4 b/m4/murmur.m4
+new file mode 100644
+index 0000000..ecdcf3a
+--- /dev/null
++++ b/m4/murmur.m4
+@@ -0,0 +1,18 @@
++dnl ---------------------------------------------------------------------------
++dnl Macro: ENABLE_MURMUR_HASH
++dnl ---------------------------------------------------------------------------
++AC_DEFUN([ENABLE_MURMUR_HASH],
++  [AC_ARG_ENABLE([murmur_hash],
++    [AS_HELP_STRING([--disable-murmur_hash],
++      [build with support for murmur hashing. @<:@default=on@:>@])],
++    [ac_cv_enable_murmur_hash=no],
++    [ac_cv_enable_murmur_hash=yes])
++
++  AS_IF([test "$ac_cv_enable_murmur_hash" = "yes"],
++        [AC_DEFINE([HAVE_MURMUR_HASH], [1], [Enables murmur hashing support])])
++
++  AM_CONDITIONAL([INCLUDE_MURMUR_SRC], [test "$ac_cv_enable_murmur_hash" = "yes"])
++])
++dnl ---------------------------------------------------------------------------
++dnl End Macro: ENABLE_MURMUR_HASH
++dnl ---------------------------------------------------------------------------
+diff --git a/tests/hash_results.h b/tests/hash_results.h
+index 26f1ed8..c05053a 100644
+--- a/tests/hash_results.h
++++ b/tests/hash_results.h
+@@ -105,6 +105,7 @@ static uint32_t hsieh_values[]= { 3738850110U, 3636226060U, 3821074029U, 3489929
+ static uint32_t hsieh_values[]= {  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+ #endif
+ 
++#ifdef HAVE_MURMUR_HASH
+ static uint32_t murmur_values[]= {  4142305122U, 734504955U, 3802834688U, 4076891445U,
+                                     387802650U, 560515427U, 3274673488U, 3150339524U,
+                                     1527441970U, 2728642900U, 3613992239U, 2938419259U,
+@@ -112,6 +113,9 @@ static uint32_t murmur_values[]= {  4142305122U, 734504955U, 3802834688U, 407689
+                                     264013145U, 3995512858U, 2400956718U, 2346666219U,
+                                     926327338U, 442757446U, 1770805201U, 560483147U,
+                                     3902279934U };
++#else
++static uint32_t murmur_values[]= {  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
++#endif
+ 
+ static uint32_t jenkins_values[]= { 1442444624U, 4253821186U, 1885058256U, 2120131735U,
+                                     3261968576U, 3515188778U, 4232909173U, 4288625128U,
+diff --git a/tests/hashkit_functions.c b/tests/hashkit_functions.c
+index 46f5393..d1f846e 100644
+--- a/tests/hashkit_functions.c
++++ b/tests/hashkit_functions.c
+@@ -251,6 +251,7 @@ static test_return_t hsieh_run (hashkit_st *hashk __attribute__((unused)))
+ static test_return_t murmur_run (hashkit_st *hashk __attribute__((unused)))
+ {
+ #ifdef WORDS_BIGENDIAN
++  (void)murmur_values;
+   return TEST_SKIPPED;
+ #else
+   uint32_t x;
+@@ -260,7 +261,11 @@ static test_return_t murmur_run (hashkit_st *hashk __attribute__((unused)))
+   {
+     uint32_t hash_val;
+ 
++#ifdef HAVE_MURMUR_HASH
+     hash_val= libhashkit_murmur(*ptr, strlen(*ptr));
++#else
++    hash_val= 1;
++#endif
+     assert(murmur_values[x] == hash_val);
+   }
+ 
+@@ -319,8 +324,15 @@ static test_return_t hashkit_set_function_test(hashkit_st *hashk)
+     rc= hashkit_set_function(hashk, algo);
+ 
+     /* Hsieh is disabled most of the time for patent issues */
++#ifndef HAVE_HSIEH_HASH
+     if (rc == HASHKIT_FAILURE && algo == HASHKIT_HASH_HSIEH)
+       continue;
++#endif
++
++#ifndef HAVE_MURMUR_HASH
++    if (rc == HASHKIT_FAILURE && algo == HASHKIT_HASH_MURMUR)
++      continue;
++#endif
+ 
+     if (rc == HASHKIT_FAILURE && algo == HASHKIT_HASH_CUSTOM)
+       continue;
+diff --git a/tests/mem_functions.c b/tests/mem_functions.c
+index 06c414a..f6631a6 100644
+--- a/tests/mem_functions.c
++++ b/tests/mem_functions.c
+@@ -3622,9 +3622,13 @@ static test_return_t pre_nonblock_binary(memcached_st *memc)
+ 
+ static test_return_t pre_murmur(memcached_st *memc)
+ {
++#ifdef HAVE_MURMUR_HASH
+   memcached_behavior_set(memc, MEMCACHED_BEHAVIOR_HASH, (uint64_t)MEMCACHED_HASH_MURMUR);
+-
+   return TEST_SUCCESS;
++#else
++  (void) memc;
++  return TEST_SKIPPED;
++#endif
+ }
+ 
+ static test_return_t pre_jenkins(memcached_st *memc)
+@@ -4760,6 +4764,19 @@ static test_return_t hsieh_avaibility_test (memcached_st *memc)
+   return TEST_SUCCESS;
+ }
+ 
++static test_return_t murmur_avaibility_test (memcached_st *memc)
++{
++  memcached_return_t expected_rc= MEMCACHED_FAILURE;
++#ifdef HAVE_MURMUR_HASH
++  expected_rc= MEMCACHED_SUCCESS;
++#endif
++  memcached_return_t rc= memcached_behavior_set(memc, MEMCACHED_BEHAVIOR_HASH,
++                                                (uint64_t)MEMCACHED_HASH_MURMUR);
++  test_true(rc == expected_rc);
++
++  return TEST_SUCCESS;
++}
++
+ static test_return_t one_at_a_time_run (memcached_st *memc __attribute__((unused)))
+ {
+   uint32_t x;
+@@ -4892,6 +4909,7 @@ static test_return_t hsieh_run (memcached_st *memc __attribute__((unused)))
+ static test_return_t murmur_run (memcached_st *memc __attribute__((unused)))
+ {
+ #ifdef WORDS_BIGENDIAN
++  (void)murmur_values;
+   return TEST_SKIPPED;
+ #else
+   uint32_t x;
+@@ -6320,6 +6338,11 @@ test_st hsieh_availability[] ={
+   {0, 0, (test_callback_fn)0}
+ };
+ 
++test_st murmur_availability[] ={
++  {"murmur_avaibility_test", 0, (test_callback_fn)murmur_avaibility_test},
++  {0, 0, (test_callback_fn)0}
++};
++
+ #if 0
+ test_st hash_sanity[] ={
+   {"hash sanity", 0, (test_callback_fn)hash_sanity_test},
+@@ -6361,6 +6384,7 @@ collection_st collection[] ={
+   {"hash_sanity", 0, 0, hash_sanity},
+ #endif
+   {"hsieh_availability", 0, 0, hsieh_availability},
++  {"murmur_availability", 0, 0, murmur_availability},
+   {"block", 0, 0, tests},
+   {"binary", (test_callback_fn)pre_binary, 0, tests},
+   {"nonblock", (test_callback_fn)pre_nonblock, 0, tests},
+-- 
+1.6.4.2
+

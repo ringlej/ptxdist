@@ -1,0 +1,36 @@
+## SECTION=system_libraries
+
+menuconfig LIBMEMCACHED
+	tristate
+	prompt "libmemcached"
+	help
+	  libmemcached is a C client library for interfacing to a memcached
+	  server. It has been designed to be light on memory usage, thread
+	  safe and to provide full access to server side methods. It also
+	  implements several command line tools: memcat, memflush, memrm,
+	  memstat, and memslap (for load generation). The library has been
+	  designed to allow for different hashing methods on keys,
+	  partitioning by keys, and to use consistent hashing for 
+	  distribution. 
+	  You can find more information here: http://tangent.org/552/libmemcached.html
+
+	config LIBMEMCACHED_LIBHASHKIT
+		depends on LIBMEMCACHED
+		bool
+		prompt "install libhashkit"
+		help
+		  If selected libhashkit will be included in the package.
+
+	config LIBMEMCACHED_LIBMEMCACHEDUTIL
+		depends on LIBMEMCACHED
+		bool
+		prompt "install libmemcachedutil"
+		help
+		  If selected libmemcachedutil will be included in the package.
+
+	config LIBMEMCACHED_LIBMEMCACHEDPROTOCOL
+		depends on LIBMEMCACHED
+		bool
+		prompt "install libmemcachedprotocol"
+		help
+		  If selected libmemcachedprotocol will be included in the package.
