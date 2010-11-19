@@ -505,7 +505,7 @@ int main(int ac, char **av)
 		case writedepend:
 			dep_output = 1;
 			input_mode = silentoldconfig;
-			/* fall through */
+			break;
 		case silentoldconfig:
 			sync_kconfig = 1;
 			break;
