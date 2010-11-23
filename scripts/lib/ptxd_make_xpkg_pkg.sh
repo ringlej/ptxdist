@@ -346,6 +346,7 @@ ptxd_install_generic() {
     local dst="$2"
     local usr="$3"
     local grp="$4"
+    local strip="$5"
 
     local -a stat
     stat=( $(stat -c "%u %g %a %t %T" "${file}") ) &&
@@ -371,7 +372,7 @@ ptxd_install_generic() {
 	    ptxd_install_ln "${src}" "${dst}" "${usr}" "${grp}"
 	    ;;
         "regular file"|"regular empty file")
-	    ptxd_install_file "${file}" "${dst}" "${usr}" "${grp}" "${mod}"
+	    ptxd_install_file "${file}" "${dst}" "${usr}" "${grp}" "${mod}" "${strip}"
 	    ;;
         *)
 	    echo "Error: File type '${type}' unkown!"
@@ -386,6 +387,7 @@ ptxd_install_find() {
     local dstdir="${2%/}"
     local usr="${3#-}"
     local grp="${4#-}"
+    local strip="${5}"
 
     test -d "${dir}" &&
 
@@ -393,7 +395,7 @@ ptxd_install_find() {
 		-path "*/.pc" -prune -o -path "*/CVS" -prune -o \
 		! -path "${dir}" -print | while read file; do
 	local dst="${dstdir}${file#${dir}}"
-	ptxd_install_generic "${file}" "${dst}" "${usr}" "${grp}" || return
+	ptxd_install_generic "${file}" "${dst}" "${usr}" "${grp}" "${strip}" || return
     done
 }
 export -f ptxd_install_find

@@ -98,6 +98,7 @@ install_alternative =									\
 # $3: GID, use '-' to use the real GID of each file/directory
 # $4: the toplevel directory.
 # $5: the target directory.
+# $6: strip
 #
 install_tree =			\
 	XPKG=$(subst _,-,$(strip $(1)));	\
@@ -105,8 +106,9 @@ install_tree =			\
 	GRP=$(strip $(3));	\
 	DIR=$(strip $(4));	\
 	DST=$(strip $(5));	\
+	STRIP=$(strip $(6));	\
 	$(call install_check, install_tree);	\
-	echo "ptxd_install_tree '$$DIR' '$$DST' '$$OWN' '$$GRP'" >> "$(STATEDIR)/$$XPKG.cmds"
+	echo "ptxd_install_tree '$$DIR' '$$DST' '$$OWN' '$$GRP' '$$STRIP'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
 # install_archive
