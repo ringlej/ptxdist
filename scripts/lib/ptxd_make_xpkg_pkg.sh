@@ -200,7 +200,7 @@ install ${cmd}:
     case "${strip}" in
 	0|n|no|N|NO) ;;
 	y|k|"")
-	    if file "${src}" | egrep -q ":.*(executable|shared object|ELF.*relocatable).*stripped"; then
+	    if readelf -h "${src}" > /dev/null 2>&1; then
 		ptxd_install_file_strip "${sdirs[@]/%/${dst}}"
 	    fi
 	    ;;
