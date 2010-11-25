@@ -17,21 +17,21 @@ choice
 	prompt "squashfs version"
 	default HOST_SQUASHFS_TOOLS_V3X
 	help
-	  Select 4.0 if you are using linux-2.6.29 or later
+	  Select 4.x if you are using linux-2.6.29 or later
 	  Otherwise select the version that matches the squashfs patch you've
 	  applied to your linux kernel tree.
 
 	config HOST_SQUASHFS_TOOLS_V3X
-	bool "3.4"
+	bool "3.x"
 	help
 	  Select 4.0 if you are using linux-2.6.29 or later
 	  Otherwise select the version that matches the squashfs patch you've
 	  applied to your linux kernel tree.
 
 	config HOST_SQUASHFS_TOOLS_V4X
-	bool "4.0"
+	bool "4.x"
 	help
-	  Select 4.0 if you are using linux-2.6.29 or later
+	  Select 4.x if you are using linux-2.6.29 or later
 	  Otherwise select the version that matches the squashfs patch you've
 	  applied to your linux kernel tree.
 
