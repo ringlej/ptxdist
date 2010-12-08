@@ -6,6 +6,7 @@ menuconfig GLIB
 	select GETTEXT		if GLIB_GETTEXT_GETTEXT
 	select GETTEXT_DUMMY	if GLIB_GETTEXT_DUMMY
 	select HOST_GLIB
+	select HOST_GTK_DOC
 	select ICONV
 	select ZLIB
 	help
