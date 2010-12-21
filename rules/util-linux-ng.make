@@ -88,6 +88,12 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--without-audit \
 	--without-utempter
 
+ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
+UTIL_LINUX_NG_AUTOCONF += --enable-libuuid
+else
+UTIL_LINUX_NG_AUTOCONF += --disable-libuuid
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
