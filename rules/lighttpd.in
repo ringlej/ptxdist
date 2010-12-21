@@ -2,6 +2,7 @@
 menuconfig LIGHTTPD
 	tristate
 	prompt "lighttpd                      "
+	select LIBC_DL
 	select ZLIB		if LIGHTTPD_ZLIB
 	select BZIP2		if LIGHTTPD_BZ2LIB
 	select BZIP2_LIBBZ2	if LIGHTTPD_BZ2LIB
