@@ -402,9 +402,9 @@ add_zoneinfo =							\
 	SYSROOT=$(strip $(3));					\
 	${CROSS_ENV_CC} $(CROSS_ENV_STRIP)			\
 	$(SCRIPTSDIR)/make_zoneinfo.sh				\
-	-n $$ZONEINFO_NAME					\
-	-p $$PREF						\
-	-s $$SYSROOT
+	-n "$$ZONEINFO_NAME"					\
+	-p "$$PREF"						\
+	-s "$$SYSROOT"
 
 
 #
