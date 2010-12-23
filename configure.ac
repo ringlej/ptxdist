@@ -57,7 +57,27 @@ else
 fi
 AC_SUBST(CURSES_LOC)
 
-AM_CONDITIONAL(BUILD_NCONF, test "x$CURSES_LOC" = "x<ncurses.h>")
+AC_ARG_WITH(ncurses, AS_HELP_STRING([--with-ncurses],[Include path to the ncurses headers]),
+	[
+		if test "x$withval" != "xyes"; then
+			CPPFLAGS="-I$withval"
+			AC_SUBST(CPPFLAGS)
+		fi
+		with_ncurses=yes
+	],[
+		with_ncurses=auto
+])
+
+AC_CHECK_HEADER(
+	[menu.h],
+	[NCURSES_FOUND=yes],[
+	if test "$with_ncurses" = "yes"; then
+		AC_MSG_ERROR([Cannot find menu.h (ncurses).])
+	else
+		AC_MSG_WARN([Cannot find menu.h (ncurses). Not building nconf.])
+	fi
+])
+AM_CONDITIONAL(BUILD_NCONF, test "x$NCURSES_FOUND" = "xyes")
 
 
 AC_SYS_INTERPRETER
