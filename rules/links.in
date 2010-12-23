@@ -4,6 +4,8 @@ menuconfig LINKS
 	tristate
 	prompt "links                         "
 	select NCURSES
+	select LIBC_M
+	select LIBC_DL
 	select OPENSSL		if LINKS_SSL
 	select GPM		if LINKS_GPM
 	select LIBPNG		if LINKS_PNG
