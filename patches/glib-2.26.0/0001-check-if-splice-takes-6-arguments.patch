@@ -1,0 +1,46 @@
+From: George McCollister <george.mccollister@gmail.com>
+Date: Thu, 2 Dec 2010 09:31:38 -0600
+Subject: [PATCH] check if splice() takes 6 arguments
+
+checking for the presence of splice() isn't sufficient. Older
+implimentations only accept 4 arguments while this version of glib
+assumes that it takes 6.
+
+Signed-off-by: George McCollister <george.mccollister@gmail.com>
+[mol: configure.in -> configure.ac]
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac |   17 ++++++++++++++++-
+ 1 files changed, 16 insertions(+), 1 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index ea73394..b86a785 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -956,7 +956,22 @@ AC_CHECK_FUNCS(chown lchmod lchown fchmod fchown link statvfs statfs utimes getg
+ AC_CHECK_FUNCS(getmntent_r setmntent endmntent hasmntopt getmntinfo)
+ # Check for high-resolution sleep functions
+ AC_CHECK_FUNCS(nanosleep nsleep)
+-AC_CHECK_FUNCS(splice)
++
++AC_CACHE_CHECK([for splice()],
++  [ac_cv_func_splice],
++  [AC_LINK_IFELSE([AC_LANG_PROGRAM([[
++#define _GNU_SOURCE
++#include <stdlib.h>
++#include <fcntl.h>
++  ]],[[
++    splice(0, NULL, 0, NULL, (size_t)0, (unsigned int)0);
++  ]])],
++  [ac_cv_func_splice=yes],
++  [ac_cv_func_splice=no])])
++
++AS_IF([test "x$ac_cv_func_splice" = "xyes"],[
++  AC_DEFINE([HAVE_SPLICE],[1],[If we have splice])
++])
+ 
+ AC_CHECK_HEADERS(crt_externs.h)
+ AC_CHECK_FUNCS(_NSGetEnviron)
+-- 
+1.7.2.3
+
