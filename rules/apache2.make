@@ -56,7 +56,7 @@ APACHE2_BINCONFIG_GLOB := ""
 APACHE2_CONF_TOOL := autoconf
 APACHE2_CONF_OPT := \
 	$(CROSS_AUTOCONF_USR) \
-	--includedir=/usr/include/apache2
+	--includedir=/usr/include/apache2 \
 	--enable-so \
 	--with-expat=$(SYSROOT)/usr
 
