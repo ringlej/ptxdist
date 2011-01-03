@@ -1,9 +1,8 @@
 #include <stdio.h>
-#include "fish.h"
 
 int main(void)
 {
-	fish();
+	printf("hello fish!\n");
 	return 0;
 }
 
