@@ -23,14 +23,12 @@
 ptxd_make_world_patchin_apply_init()
 {
     #
+    # find patch_dir
     # for compatibility, look first in 'generic', then in standard
     # location
     #
-    local path="${PTXDIST_PATH_PATCHES//://${pkg_pkg}/generic } \
-	${PTXDIST_PATH_PATCHES//://${pkg_pkg} }"
-
-    # find patch_dir
-    if ! ptxd_get_path "${path}"; then
+    if ! ptxd_in_path PTXDIST_PATH_PATCHES ${pkg_pkg}/generic &&
+		! ptxd_in_path PTXDIST_PATH_PATCHES ${pkg_pkg} ; then
 	echo "patchin: no patches found"
 	return
     fi
