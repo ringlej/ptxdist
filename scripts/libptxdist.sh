@@ -462,6 +462,28 @@ ptxd_get_path() {
 }
 export -f ptxd_get_path
 
+#
+# ptxd_in_path - look for files and/or dirs
+#
+# $1 variable name with paths separated by ":"
+# $2 filename to find within these paths
+#
+# return:
+# 0 if files/dirs are found
+# 1 if no files/dirs are found
+#
+# array "ptxd_reply" containing the found files/dirs
+#
+ptxd_in_path() {
+	local orig_IFS="${IFS}"
+	IFS=:
+	local -a paths
+	paths=( ${!1} )
+	IFS="${orig_IFS}"
+	paths=( "${paths[@]/%//${2}}" )
+	ptxd_get_path "${paths[@]}"
+}
+export -f ptxd_in_path
 
 #
 # convert a relative or absolute path into an absolute path
