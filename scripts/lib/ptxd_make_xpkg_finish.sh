@@ -108,7 +108,7 @@ EOF
     # post install
     #
     # FIXME: install ipkg rather than executing script
-    if ptxd_get_path "${PTXDIST_PATH_RULES//://${pkg_xpkg}.postinst }"; then
+    if ptxd_in_path PTXDIST_PATH_RULES "${pkg_xpkg}.postinst"; then
 	echo "xpkg_finish:	running postinst"
 	DESTDIR="${ptx_nfsroot}" /bin/sh "${ptxd_reply}"
 	DESTDIR="${ptx_nfsroot_dbg}" /bin/sh "${ptxd_reply}"
