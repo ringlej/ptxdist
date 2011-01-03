@@ -23,52 +23,46 @@ PACKAGES-$(PTXCONF_@PACKAGE@) += @package@
 @PACKAGE@_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(STATEDIR)/@package@.get:
-	@$(call targetinfo)
-	@$(call touch)
-
-# ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.extract:
-	@$(call targetinfo)
-	@$(call clean, $(@PACKAGE@_DIR))
-	@$(call extract, @PACKAGE@)
-	@$(call patchin, @PACKAGE@)
-	@$(call touch)
+#$(STATEDIR)/@package@.extract:
+#	@$(call targetinfo)
+#	@$(call clean, $(@PACKAGE@_DIR))
+#	@$(call extract, @PACKAGE@)
+#	@$(call patchin, @PACKAGE@)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 #@PACKAGE@_PATH	:= PATH=$(CROSS_PATH)
-@PACKAGE@_ENV 	:= $(CROSS_ENV)
+@PACKAGE@_CONF_TOOL	:= NO
+@PACKAGE@_MAKE_ENV	:= $(CROSS_ENV)
 
-$(STATEDIR)/@package@.prepare:
-	@$(call targetinfo)
-	@$(call touch)
+#$(STATEDIR)/@package@.prepare:
+#	@$(call targetinfo)
+#	@$(call world/prepare, @PACKAGE@)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.compile:
-	@$(call targetinfo)
-	cd $(@PACKAGE@_DIR) && \
-		$(@PACKAGE@_ENV) $(@PACKAGE@_PATH) $(MAKE) #$(PARALLELMFLAGS)
-	@$(call touch)
+#$(STATEDIR)/@package@.compile:
+#	@$(call targetinfo)
+#	@$(call world/compile, @PACKAGE@)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/@package@.install:
-	@$(call targetinfo)
-	@$(call touch)
+#$(STATEDIR)/@package@.install:
+#	@$(call targetinfo)
+#	@$(call world/install, @PACKAGE@)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -88,7 +82,6 @@ $(STATEDIR)/@package@.targetinstall:
 # Note: Add everything before(!) call to macro install_finish
 #
 	@$(call install_copy, @package@, 0, 0, 0755, $(@PACKAGE@_DIR)/@package@, /usr/bin/@package@)
-	@$(call install_copy, @package@, 0, 0, 0755, $(@PACKAGE@_DIR)/foobar, /dev/null)
 
 	@$(call install_finish, @package@)
 

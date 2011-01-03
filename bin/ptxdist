@@ -1115,7 +1115,7 @@ newpackage() {
 	#
 	local version
 	case "${action}" in
-	*-existing-target|src-make-prog)
+	*-existing-target)
 		;;
 	*)
 		read -e -p "${PTXDIST_LOG_PROMPT}enter version number.....: " version
