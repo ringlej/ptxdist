@@ -1095,8 +1095,7 @@ newpackage() {
 	# for host and cross packages, find out if there is already an
 	# existing target
 	#
-	if [ -f "${PROJECTRULESDIR}/${package_name}.make" -o \
-	     -f "${RULESDIR}/${package_name}.make" ]; then
+	if ptxd_in_path PTXDIST_PATH_RULES "${package_name}.make"; then
 		case "${action}" in
 		    host|cross)
 			action=class-existing-target
