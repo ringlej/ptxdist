@@ -42,7 +42,7 @@ install_init:	@VERSION@ -> ${pkg_xpkg_version}"
     for script in preinst postinst prerm postrm; do
 	echo -n "install_init:	${script} "
 
-	if ptxd_get_path "${PTXDIST_PATH_RULES//://${pkg_xpkg}.${script} }"; then
+	if ptxd_in_path PTXDIST_PATH_RULES "${pkg_xpkg}.${script}"; then
 	    install -m 0755 \
 		-D "${ptxd_reply}" \
 		"${pkg_ipkg_control_dir}/${script}" || return
