@@ -56,6 +56,8 @@ $(STATEDIR)/@package@.extract:
 	@$(call extract, @PACKAGE@)
 ifdef PTXCONF_@PACKAGE@_TRUNK
 	cd $(@PACKAGE@_DIR) && sh autogen.sh
+else
+	cd $(@PACKAGE@_DIR) && [ -f configure ] || sh autogen.sh
 endif
 	@$(call patchin, @PACKAGE@)
 	@$(call touch)
