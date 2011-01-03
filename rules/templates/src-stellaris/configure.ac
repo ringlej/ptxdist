@@ -4,9 +4,6 @@ esyscmd([echo "define(myversion, $(dir=$(basename $(pwd)); if test \"${dir%%-tru
 
 AC_INIT([@name@], myversion, [bugs@pengutronix.de])
 AC_CONFIG_SRCDIR([@name@.c])
-AC_CANONICAL_BUILD
-AC_CANONICAL_HOST
-
 
 PART=LM3S3748
 CFLAGS="-mthumb -mcpu=cortex-m3"
