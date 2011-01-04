@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_X11) += xorg-lib-x11
 #
 # Paths and names
 #
-XORG_LIB_X11_VERSION	:= 1.3.4
+XORG_LIB_X11_VERSION	:= 1.4.0
 XORG_LIB_X11		:= libX11-$(XORG_LIB_X11_VERSION)
 XORG_LIB_X11_SUFFIX	:= tar.bz2
 XORG_LIB_X11_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_X11).$(XORG_LIB_X11_SUFFIX)
@@ -52,9 +52,7 @@ XORG_LIB_X11_ENV += ac_cv_func_mmap_fixed_mapped=yes
 XORG_LIB_X11_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(XORG_OPTIONS_TRANS) \
-	--with-xcb \
 	--disable-malloc0returnsnull \
-	--disable-man-pages \
 	--disable-specs \
 	--enable-xthreads \
 	--enable-xcms \
@@ -121,8 +119,9 @@ $(STATEDIR)/xorg-lib-x11.targetinstall:
 	@$(call install_lib, xorg-lib-x11, 0, 0, 0644, libX11)
 	@$(call install_lib, xorg-lib-x11, 0, 0, 0644, libX11-xcb)
 
-	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
-		/usr/lib/X11/XKeysymDB)
+# Where is it gone?
+#	@$(call install_copy, xorg-lib-x11, 0, 0, 0644, -, \
+#		/usr/lib/X11/XKeysymDB)
 
 ifdef PTXCONF_XORG_LIB_X11_INSTALL_LOCALE
 	@$(call install_copy, xorg-lib-x11, 0, 0, 0755, /usr/lib/X11/locale)
