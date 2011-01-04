@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_XORG_LIB_XEVIE) += xorg-lib-xevie
 #
 # Paths and names
 #
-XORG_LIB_XEVIE_VERSION	:= 1.0.2
+XORG_LIB_XEVIE_VERSION	:= 1.0.3
 XORG_LIB_XEVIE		:= libXevie-$(XORG_LIB_XEVIE_VERSION)
 XORG_LIB_XEVIE_SUFFIX	:= tar.bz2
 XORG_LIB_XEVIE_URL	:= $(PTXCONF_SETUP_XORGMIRROR)/individual/lib/$(XORG_LIB_XEVIE).$(XORG_LIB_XEVIE_SUFFIX)
@@ -43,8 +43,7 @@ XORG_LIB_XEVIE_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-XORG_LIB_XEVIE_AUTOCONF := $(CROSS_AUTOCONF_USR) \
-	--disable-malloc0returnsnull
+XORG_LIB_XEVIE_AUTOCONF := $(CROSS_AUTOCONF_USR)
 
 # ----------------------------------------------------------------------------
 # Target-Install
