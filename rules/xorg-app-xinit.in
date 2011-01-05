@@ -1,10 +1,22 @@
 ## SECTION=multimedia_xorg_app
 
-config XORG_APP_XINIT
+menuconfig XORG_APP_XINIT
 	tristate
 	select XORG_LIB_X11
+	select XORG_APP_XAUTH if XORG_APP_XINIT_STARTX
+	select UTIL_LINUX_NG if XORG_APP_XINIT_STARTX
+	select UTIL_LINUX_NG_MCOOKIE if XORG_APP_XINIT_STARTX
 	prompt "xorg xinit"
 	help
-	  This package provides xinit and startx, utilities for starting the
-	  X Window System server. This is from the modular X.org.
+	  This package provides 'xinit' and 'startx', utilities for starting
+	  the X Window System server. This is from the modular X.org.
 
+if XORG_APP_XINIT
+
+config XORG_APP_XINIT_STARTX
+	bool
+	prompt "Install the 'startx' shell script"
+	help
+	  To run the X system on your target, just enter 'startx' in the shell.
+
+endif

@@ -84,8 +84,11 @@ $(STATEDIR)/xorg-app-xinit.targetinstall:
 
 	@$(call install_copy, xorg-app-xinit, 0, 0, 0755, -, \
 		$(XORG_PREFIX)/bin/xinit)
+
+ifdef PTXCONF_XORG_APP_XINIT_STARTX
 	@$(call install_copy, xorg-app-xinit, 0, 0, 0755, -, \
 		$(XORG_PREFIX)/bin/startx, n)
+endif
 
 	@$(call install_finish, xorg-app-xinit)
 
