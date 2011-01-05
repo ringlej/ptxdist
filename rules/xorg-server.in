@@ -7,6 +7,7 @@ menuconfig XORG_SERVER
 	select HOST_XORG_SERVER
 	select HOST_XORG_UTIL_MACROS
 	select HOST_XORG_LIB_XTRANS	# needed for autoreconf
+	select HOST_XORG_FONT_UTIL	# needed for autoreconf
 	#
 	# required dependencies, according to REQUIRED_MODULES
 	# and REQUIRED_LIBS in conrigure.ac:
@@ -14,6 +15,7 @@ menuconfig XORG_SERVER
 
 	select LIBC_DL
 	select LIBC_M
+	select LIBC_CRYPT	# for SHA1
 
 	# protos
 	select XORG_PROTO_RECORD
@@ -42,6 +44,7 @@ menuconfig XORG_SERVER
 
 	# input hotplug with udev
 	select UDEV			if XORG_SERVER_UDEV
+	select UDEV_LIBUDEV		if XORG_SERVER_UDEV
 
 	# glx triggered
 	select XORG_LIB_X11		if XORG_SERVER_EXT_GLX
@@ -418,12 +421,6 @@ config XORG_SERVER_EXT_CALIBRATE
 	# seems to need xcalibrate proto, but there is no release of
 	# http://cgit.freedesktop.org/xorg/lib/libXCalibrate/ available
 	prompt "calibrate"
-	help
-	  FIXME
-
-config XORG_SERVER_EXT_MULTIBUFFER
-	bool
-	prompt "multibuffer"
 	help
 	  FIXME
 
