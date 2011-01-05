@@ -40,11 +40,22 @@ if XORG_DRIVER_VIDEO_INTEL
 
 comment "X.org Intel Driver"
 
+if BROKEN
 config XORG_DRIVER_VIDEO_INTEL_DRI
 	bool
         prompt "Enable DRI"
+        default y
         help
           --enable-dri
+          Note: The driver cannot be built without this option enabled.
+endif
+if !BROKEN
+config XORG_DRIVER_VIDEO_INTEL_DRI
+	bool
+	default y
+	help
+	  Its still not possible to build this driver without dri support
+endif
 
 config XORG_DRIVER_VIDEO_INTEL_XVMC
 	bool
