@@ -1,0 +1,24 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: Check for DBUS only, if enabled
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+
+---
+ configure.ac |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: xorg-server-1.9.3/configure.ac
+===================================================================
+--- xorg-server-1.9.3.orig/configure.ac
++++ xorg-server-1.9.3/configure.ac
+@@ -845,8 +845,8 @@ fi
+ dnl HAVE_DBUS is true if we actually have the D-Bus library, whereas
+ dnl CONFIG_DBUS_API is true if we want to enable the D-Bus config
+ dnl API.
+-PKG_CHECK_MODULES(DBUS, $LIBDBUS, [HAVE_DBUS=yes], [HAVE_DBUS=no])
+-if test "x$HAVE_DBUS" = xyes; then
++if test "x$HAVE_DBUS" = xyes -o "x$HAVE_DBUS" = xauto; then
++	PKG_CHECK_MODULES(DBUS, $LIBDBUS, [HAVE_DBUS=yes], [HAVE_DBUS=no])
+ 	AC_DEFINE(HAVE_DBUS, 1, [Have D-Bus support])
+ fi
+ AM_CONDITIONAL(HAVE_DBUS, [test "x$HAVE_DBUS" = xyes])

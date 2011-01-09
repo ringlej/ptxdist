@@ -1,0 +1,23 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: Check for HAL only, if enabled
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+---
+ configure.ac |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: xorg-server-1.9.3/configure.ac
+===================================================================
+--- xorg-server-1.9.3.orig/configure.ac
++++ xorg-server-1.9.3/configure.ac
+@@ -864,8 +864,8 @@ if test "x$CONFIG_DBUS_API" = xyes; then
+ fi
+ AM_CONDITIONAL(CONFIG_DBUS_API, [test "x$CONFIG_DBUS_API" = xyes])
+ 
+-PKG_CHECK_MODULES(HAL, hal, [HAVE_HAL=yes], [HAVE_HAL=no])
+-if test "x$CONFIG_HAL" = xauto; then
++if test "x$CONFIG_HAL" = xauto -o "x$CONFIG_HAL" = xyes; then
++	PKG_CHECK_MODULES(HAL, hal, [HAVE_HAL=yes], [HAVE_HAL=no])
+ 	CONFIG_HAL="$HAVE_HAL"
+ fi
+ if test "x$CONFIG_HAL" = xyes; then

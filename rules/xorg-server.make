@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_XORG_SERVER) += xorg-server
 #
 # Paths and names
 #
-XORG_SERVER_VERSION	:= 1.8.2
+XORG_SERVER_VERSION	:= 1.9.3
 XORG_SERVER		:= xorg-server-$(XORG_SERVER_VERSION)
 XORG_SERVER_SUFFIX	:= tar.bz2
 XORG_SERVER_URL		:= $(PTXCONF_SETUP_XORGMIRROR)/individual/xserver/$(XORG_SERVER).$(XORG_SERVER_SUFFIX)
@@ -40,7 +40,7 @@ XORG_SERVER_ENV 	:= $(CROSS_ENV) \
 	ac_cv_file__usr_share_sgml_X11_defs_ent=no
 
 #
-# FIXME: not all processors upports MTRR. Geode GX1 not for
+# FIXME: not all processors support MTRR. Geode GX1 not for
 # example. But it is a 586 clone. configure decides always to support
 # mtrr!
 #
@@ -65,15 +65,28 @@ XORG_SERVER_AUTOCONF = \
 	--disable-debug \
 	--disable-unit-tests \
 	--disable-builddocs \
-	--disable-config-dbus \
-	--disable-config-hal \
+	--disable-docs \
+	--disable-devel-docs \
 	--disable-xfree86-utils \
 	--disable-xquartz \
+	--disable-sparkle \
 	--disable-standalone-xpbproxy \
 	--disable-local-transport \
 	--without-doxygen \
 	--with-xkb-output=/tmp \
+	--with-vendor-name=Ptxdist \
+	--with-vendor-name-short=PTX \
+	--with-vendor-web=http://www.pengutronix.de/software/ptxdist/index_en.html \
+	--with-os-name=Linux-$(PTXCONF_KERNEL_VERSION) \
+	--with-os-vendor=Ptxdist \
 	--with-fontrootdir=$(XORG_FONTDIR)
+
+XORG_SERVER_AUTOCONF += \
+	--disable-config-dbus \
+	--disable-config-hal
+
+XORG_SERVER_AUTOCONF += \
+	--with-fontrootdir=/usr/share/fonts/X11
 
 # FIXME
 # --enable-shared
@@ -224,12 +237,6 @@ ifdef PTXCONF_XORG_SERVER_TSLIB
 XORG_SERVER_AUTOCONF += --enable-tslib
 else
 XORG_SERVER_AUTOCONF += --disable-tslib
-endif
-
-ifdef PTXCONF_XORG_SERVER_EXT_MULTIBUFFER
-XORG_SERVER_AUTOCONF += --enable-multibuffer
-else
-XORG_SERVER_AUTOCONF += --disable-multibuffer
 endif
 
 ifdef PTXCONF_XORG_SERVER_EXT_DBE
@@ -393,7 +400,7 @@ ifdef PTXCONF_XORG_SERVER_XORG
 
 ifdef PTXCONF_XORG_DRIVER_VIDEO
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
-		$(XORG_PREFIX)/lib/xorg/modules/linux/libfbdevhw.so)
+		$(XORG_PREFIX)/lib/xorg/modules/libfbdevhw.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \
 		$(XORG_PREFIX)/lib/xorg/modules/libexa.so)
 	@$(call install_copy, xorg-server, 0, 0, 0644, -, \

@@ -1,0 +1,23 @@
+From: Juergen Beisert <jbe@pengutronix.de>
+Subject: Check for LIBUSB only, if enabled
+
+Signed-off-by: Juergen Beisert <jbe@pengutronix.de>
+---
+ configure.ac |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+Index: xorg-server-1.9.3/configure.ac
+===================================================================
+--- xorg-server-1.9.3.orig/configure.ac
++++ xorg-server-1.9.3/configure.ac
+@@ -828,8 +828,8 @@ if test "x$CONFIG_UDEV" = xyes &&
+ 	AC_MSG_ERROR([Hotplugging through both libudev and dbus/hal not allowed])
+ fi
+ 
+-PKG_CHECK_MODULES(UDEV, $LIBUDEV, [HAVE_LIBUDEV=yes], [HAVE_LIBUDEV=no])
+-if test "x$CONFIG_UDEV" = xauto; then
++if test "x$CONFIG_UDEV" = xauto -o "x$CONFIG_UDEV" = xyes; then
++	PKG_CHECK_MODULES(UDEV, $LIBUDEV, [HAVE_LIBUDEV=yes], [HAVE_LIBUDEV=no])
+ 	CONFIG_UDEV="$HAVE_LIBUDEV"
+ fi
+ AM_CONDITIONAL(CONFIG_UDEV, [test "x$CONFIG_UDEV" = xyes])
