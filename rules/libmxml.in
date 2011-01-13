@@ -1,7 +1,7 @@
 ## SECTION=system_libraries
 
 config LIBMXML
-	bool
+	tristate
 	prompt "libmxml"
 	help
 	  Mini-XML is a small XML parsing library
