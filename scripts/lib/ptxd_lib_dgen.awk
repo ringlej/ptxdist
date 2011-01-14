@@ -351,8 +351,8 @@ END {
 				continue;
 
 			print \
-				"$(STATEDIR)/" this_pkg ".targetinstall.post: " \
-				"$(STATEDIR)/" this_dep ".targetinstall.post"	> DGEN_DEPS_POST;
+				"$(STATEDIR)/" this_pkg ".targetinstall: " \
+				"$(STATEDIR)/" this_dep ".targetinstall"	> DGEN_DEPS_POST;
 		}
 
 		#
