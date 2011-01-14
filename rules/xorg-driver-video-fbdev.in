@@ -6,6 +6,7 @@ config XORG_DRIVER_VIDEO_FBDEV
 	select XORG_SERVER
 	select XORG_SERVER_XORG
 	select XORG_PROTO_FONTS
+	select XORG_SERVER_EXT_XV
 	prompt "FBDev"
 	help
 	  fbdev is a driver for framebuffer devices.
