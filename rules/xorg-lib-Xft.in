@@ -5,6 +5,7 @@ config XORG_LIB_XFT
 	select FREETYPE
 	select FONTCONFIG
 	select XORG_LIB_XRENDER
+	select XORG_PROTO_X
 	prompt "libXft"
 	help
 	  This library is the X Font Library 2.x. (previous versions are called
