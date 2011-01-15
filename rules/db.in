@@ -3,6 +3,7 @@
 menuconfig DB
 	tristate
 	prompt "berkeley db                   "
+	select GCCLIBS_GCC_S
 	help
 	  FIXME
 
