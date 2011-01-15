@@ -3,6 +3,7 @@
 config TIOBENCH
 	tristate
 	prompt "tiotest"
+	select LIBC_PTHREAD
 	help
 	  Threaded I/O bench for Linux (or any *nix system with POSIX threads
 	  support library)
