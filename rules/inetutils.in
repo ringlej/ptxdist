@@ -2,6 +2,7 @@
 menuconfig INETUTILS
 	tristate
 	prompt "inetutils                     "
+	select LIBC_UTIL if INETUTILS_RLOGIND
 	help
 	  Inetutils is a collection of common network programs. It includes:
 	  * An ftp client and server.
