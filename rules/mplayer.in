@@ -2,6 +2,8 @@
 
 menuconfig MPLAYER
 	tristate
+	select LIBC_M
+	select GCCLIBS_GCC_S
 	select LIBJPEG if MPLAYER_VO_JPEG
 	select XORG_LIB_XV if MPLAYER_VO_XV
 	select XORG_LIB_X11 if MPLAYER_VO_X11
@@ -9,7 +11,7 @@ menuconfig MPLAYER
 	help
 	  The Ultimate Movie Player For Linux
 
- 	  It plays most mpeg, avi and asf files, supported by many
+	  It plays most mpeg, avi and asf files, supported by many
 	  native and win32 DLL codecs. You can watch VCD, DVD and
 	  even DivX movies too. The other big feature of mplayer
 	  is the wide range of supported output drivers.
