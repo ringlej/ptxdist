@@ -3,6 +3,10 @@
 menuconfig LIBMEMCACHED
 	tristate
 	prompt "libmemcached                  "
+	select LIBC_M
+	select LIBC_RT
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
 	help
 	  libmemcached is a C client library for interfacing to a memcached
 	  server. It has been designed to be light on memory usage, thread
