@@ -5,6 +5,9 @@ menuconfig SAMBA
 	prompt "samba                         "
 	select LIBC_NSL
 	select LIBC_RESOLV
+	select LIBC_DL
+	select LIBC_CRYPT if SAMBA_SERVER
+	select GCCLIBS_GCC_S
 	select READLINE
 	select BUSYBOX_START_STOP_DAEMON if SAMBA_STARTSCRIPT
 	help
