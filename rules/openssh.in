@@ -7,6 +7,9 @@ menuconfig OPENSSH
 	select LIBC_RESOLV
 	select LIBC_NSL
 	select LIBC_DL
+	select LIBC_CRYPT
+	select LIBC_UTIL
+	select GCCLIBS_GCC_S
 	select RC_ONCE
 	select BUSYBOX_START_STOP_DAEMON if OPENSSH_SSHD_STARTSCRIPT
 	prompt "openssh                       "
