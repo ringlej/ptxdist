@@ -5,6 +5,7 @@ menuconfig DROPBEAR
 	select ZLIB
 	select LIBC_UTIL
 	select LIBC_CRYPT
+	select GCCLIBS_GCC_S
 	select INITMETHOD
 	select RC_ONCE
 	select BUSYBOX_START_STOP_DAEMON			if DROPBEAR_STARTSCRIPT
