@@ -3,8 +3,10 @@ menuconfig SQLITE
 	tristate
 	prompt "sqlite                        "
 	select LIBC_DL
-	select TCL	if SQLITE_TCL
-	select READLINE	if SQLITE_READLINE
+	select LIBC_PTHREAD	if SQLITE_THREADSAFE
+	select GCCLIBS_GCC_S
+	select TCL		if SQLITE_TCL
+	select READLINE		if SQLITE_READLINE
 	help
 	  SQLite is a software library that implements a self-contained,
 	  serverless, zero-configuration, transactional SQL database engine.
