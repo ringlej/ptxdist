@@ -3,6 +3,9 @@
 menuconfig SPLASHUTILS
 	tristate
 	prompt "splashutils                   "
+	select LIBC_M
+	select LIBC_RT
+	select LIBC_PTHREAD
 	select LIBJPEG
 	select BUSYBOX_PIDOF
 	select BUSYBOX_MKFIFO
