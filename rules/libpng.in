@@ -4,6 +4,7 @@ config LIBPNG
 	tristate
 	prompt "libpng"
 	select ZLIB
+	select LIBC_M
 	help
 	  libpng is the official PNG reference library.
 	  It supports almost all PNG features, is extensible,
