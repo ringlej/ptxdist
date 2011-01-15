@@ -2,6 +2,7 @@
 
 menuconfig CONNMAN
 	tristate
+	select LIBC_DL
 	select LIBC_RT
 	select LIBC_PTHREAD
 	select DBUS
