@@ -2,6 +2,8 @@
 
 menuconfig FBUTILS
 	tristate
+	select LIBC_M
+	select GCCLIBS_GCC_S
 	select GCCLIBS_CXX
 	prompt "fbutils                       "
 	help
