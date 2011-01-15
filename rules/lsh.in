@@ -4,6 +4,7 @@
 menuconfig LSH
 	tristate
 	prompt "lsh                           "
+	select LIBC_CRYPT if LSH_LSHD
 	select LIBGMP
 	select LIBOOP
 	help
