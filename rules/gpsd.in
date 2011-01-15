@@ -1,6 +1,11 @@
 ## SECTION=system_libraries
 menuconfig GPSD
 	tristate
+	select LIBC_M
+	select LIBC_NSL
+	select LIBC_PTHREAD
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
 	select NCURSES		if GPSD_CGPS
 	select NCURSES		if GPSD_GPSMON
 	select DBUS_GLIB	if GPSD_DBUS
