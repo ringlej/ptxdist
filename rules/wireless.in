@@ -3,8 +3,9 @@
 menuconfig WIRELESS
 	tristate
 	prompt "wireless tools                "
+	select LIBC_M
 	help
- 	  The wireless tools are used to manipulate the
+	  The wireless tools are used to manipulate the
 	  Linux Wireless Extension. The Wireless Extension
 	  is an interface allowing you to set Wireless LAN
 	  specific parameters and get the specific stats.
