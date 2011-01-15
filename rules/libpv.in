@@ -4,6 +4,8 @@ menuconfig LIBPV
 	tristate
 	prompt "libpv                         "
 	select LIBC_PTHREAD
+	select LIBC_RT
+	select GCCLIBS_GCC_S
 	select LIBLIST		if !LIBPV_XML_EXPAT
 	select LIBXMLCONFIG	if !LIBPV_XML_EXPAT
 	select EXPAT		if LIBPV_XML_EXPAT
