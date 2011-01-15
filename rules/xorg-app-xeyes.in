@@ -2,6 +2,7 @@
 
 config XORG_APP_XEYES
 	tristate
+	select LIBC_M
 	select XORG_LIB_XMU
 	select XORG_LIB_XT
 	select XORG_LIB_SM
