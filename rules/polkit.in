@@ -3,6 +3,7 @@
 config POLKIT
 	tristate
 	prompt "policykit-1"
+	select LIBC_CRYPT
 	select HOST_INTLTOOL
 	select HOST_GTK_DOC
 	select GLIB
