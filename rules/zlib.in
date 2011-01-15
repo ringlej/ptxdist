@@ -2,6 +2,7 @@
 menuconfig ZLIB
 	tristate
 	prompt "zlib                          "
+	select GCCLIBS_GCC_S
 	help
 	  A Massively Spiffy Yet Delicately Unobtrusive 
 	  Compression Library
