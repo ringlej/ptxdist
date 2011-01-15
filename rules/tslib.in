@@ -2,6 +2,8 @@
 
 menuconfig TSLIB
 	tristate
+	select LIBC_DL
+	select GCCLIBS_GCC_S
 	prompt "tslib                         "
 	help
 	  Tslib is an abstraction layer for touchscreen panel events,
