@@ -6,6 +6,7 @@ menuconfig ALSA_LIB
 	select LIBC_M
 	select LIBC_PTHREAD
 	select LIBC_RT
+	select GCCLIBS_GCC_S
 	help
 	  This is the userspace library to the kernel's "Advanced Linux Sound Architecture" feature
 
