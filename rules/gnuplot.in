@@ -2,6 +2,8 @@
 menuconfig GNUPLOT
 	tristate
 	prompt "gnuplot                       "
+	select LIBC_M
+	select GCCLIBS_GCC_S
 	select ZLIB
 	select LIBPNG if GNUPLOT_PNG
 	select XORG_LIB_XT if GNUPLOT_X
