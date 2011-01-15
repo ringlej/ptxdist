@@ -3,7 +3,9 @@
 config LIBCGICC
 	tristate
 	prompt "libcgicc"
+	select LIBC_M
 	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
 	help
 	  cgicc is a C++ class library for writing CGI applications. See
 	  http://www.cgicc.org for more details.
