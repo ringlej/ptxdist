@@ -3,6 +3,8 @@
 config LIBNIH
 	tristate
 	prompt "libnih"
+	select LIBC_RT
+	select LIBC_PTHREAD
 	select DBUS
 	select HOST_LIBNIH
 	help
