@@ -3,6 +3,10 @@
 menuconfig SDL
 	tristate
 	prompt "SDL                           "
+	select LIBC_M
+	select LIBC_DL
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
 	select ALSA_LIB			if SDL_ALSA
 	select XORG_LIB_X11		if SDL_XORG
 	select XORG_LIB_XT		if SDL_XORG
