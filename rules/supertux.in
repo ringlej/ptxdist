@@ -2,6 +2,8 @@
 config SUPERTUX
 	tristate
 	prompt "supertux"
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
 	select SDL_MIXER
 	select SDL_IMAGE
 	select SDL_JOYSTICK
