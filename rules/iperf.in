@@ -1,6 +1,8 @@
 ## SECTION=test_suites
 config IPERF
-        tristate
+	tristate
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
 	select GCCLIBS_CXX
 	prompt "iperf"
 	help
