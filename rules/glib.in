@@ -3,6 +3,11 @@
 menuconfig GLIB
 	tristate
 	prompt "glib                          "
+	select LIBC_DL
+	select LIBC_RT
+	select LIBC_RESOLV
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
 	select GETTEXT		if GLIB_GETTEXT_GETTEXT
 	select GETTEXT_DUMMY	if GLIB_GETTEXT_DUMMY
 	select HOST_GLIB
