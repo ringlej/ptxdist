@@ -3,6 +3,8 @@
 config MTR
 	tristate
 	prompt "mtr"
+	select LIBC_M
+	select LIBC_RESOLV
 	select NCURSES
 	help
 	  Full screen ncurses traceroute tool
