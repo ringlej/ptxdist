@@ -7,6 +7,8 @@ menuconfig IPROUTE2
 	select LIBC_DL
 	select LIBC_M
 	select LIBC_RESOLV
+	select LIBC_PTHREAD if IPROUTE2_ARPD
+	select GCCLIBS_GCC_S if IPROUTE2_IP || IPROUTE2_TC
 	help
 	  Networking and traffic control tools
 
