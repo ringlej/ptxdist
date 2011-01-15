@@ -1,6 +1,8 @@
 ## SECTION=shell_and_console
 menuconfig DIFFUTILS
 	tristate
+	select LIBC_RT if DIFFUTILS_DIFF
+	select GCCLIBS_GCC_S if DIFFUTILS_CMP
 	prompt "gnu diffutils                 "
 
 if DIFFUTILS
