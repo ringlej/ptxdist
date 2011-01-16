@@ -2,6 +2,7 @@
 config BING
 	tristate
 	prompt "bing"
+	select LIBC_M
 	help
 	  Empirical stochastic bandwidth tester (bing)
 
