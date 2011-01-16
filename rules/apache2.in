@@ -5,7 +5,12 @@ menuconfig APACHE2
 	tristate
 	prompt "apache 2 http server          "
 	select EXPAT
+	select LIBC_M
 	select LIBC_RT
+	select LIBC_DL
+	select LIBC_NSL
+	select LIBC_CRYPT
+	select GCCLIBS_GCC_S
 	select HOST_APACHE2
 	help
 	  Apache v2 is the next generation of the Apache web server.
