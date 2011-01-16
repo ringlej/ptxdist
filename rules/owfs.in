@@ -1,8 +1,11 @@
 ## SECTION=system_libraries
 menuconfig OWFS
 	tristate
-	select FUSE if OWFS__OWFS
 	prompt "owfs                          "
+	select LIBC_M
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
+	select FUSE if OWFS__OWFS
 	help
 	  OWFS is the 1-Wire file system. It is used by Dallas 1-Wire and iButton
 	  chips with standard linux commands. Create temperature loggers. Monitor
