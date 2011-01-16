@@ -6,6 +6,7 @@ menuconfig MC
 	select NCURSES if MC_USES_NCURSES
 	select SLANG if MC_USES_SLANG
 	select LIBC_NSL
+	select GCCLIBS_GCC_S
 	prompt "midnight commander            "
 	help
 	  midnight commander is a text oriented file manager
