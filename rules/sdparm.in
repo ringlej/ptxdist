@@ -1,6 +1,7 @@
 ## SECTION=disk_and_file
 config SDPARM
 	tristate
+	select GCCLIBS_GCC_S
 	prompt "sdparm"
 	help
 	  The sdparm utility accesses SCSI device parameters. When the SCSI
