@@ -2,6 +2,7 @@
 config SMTPCLIENT
 	tristate
 	prompt "smtpclient"
+	select LIBC_NSL
 	help
 	  smtpclient is a small program which can be used to send emails.
 	  Unfortunately it disappeared from www.engelschall.com, so we
