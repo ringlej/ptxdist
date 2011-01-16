@@ -2,6 +2,8 @@
 
 menuconfig LIBCACA
 	tristate "libcaca                       "
+	select LIBC_M
+	select GCCLIBS_GCC_S
 	select NCURSES		if LIBCACA_NCURSES
 	select XORG_LIB_X11	if LIBCACA_X11
 	help
