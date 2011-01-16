@@ -3,6 +3,7 @@
 menuconfig XORG_LIB_X11
 	tristate
 	prompt "libX11                        "
+	select LIBC_DL
 	select XORG_PROTO_X
 	select XORG_PROTO_XEXT
 	select XORG_LIB_XDMCP		if !XORG_LIB_X11_XCB_LOW_LEVEL
