@@ -5,6 +5,7 @@ comment "BusyBox' less is selected!"
 menuconfig LESS
 	tristate
 	prompt "less                          "
+	select GCCLIBS_GCC_S
 	depends on !BUSYBOX_LESS || ALLYES
 #	select LIBPW if LESS_USE_PW
 #	select CURSES if LESS_USE_CURSES
