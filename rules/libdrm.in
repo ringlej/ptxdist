@@ -3,6 +3,7 @@
 menuconfig LIBDRM
 	tristate
 	prompt "libdrm                        "
+	select LIBC_RT
 	select LIBPTHREAD_STUBS
 	help
 	  This library provides an user-level interface to the DRM
