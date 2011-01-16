@@ -2,6 +2,9 @@
 
 menuconfig SQUASHFS_TOOLS
 	tristate
+	select LIBC_M
+	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
 	select ZLIB
 	prompt "squashfs-tools                "
 	help
