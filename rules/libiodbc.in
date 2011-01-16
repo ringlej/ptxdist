@@ -2,6 +2,7 @@
 
 menuconfig LIBIODBC
 	tristate "libiodbc                      "
+	select LIBC_DL
 	select GTK if LIBIODBC_GUI
 	help
 	  iODBC Driver Manager
