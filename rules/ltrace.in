@@ -2,8 +2,9 @@
 
 config LTRACE
 	tristate
-	select LIBELF
 	prompt "ltrace"
+	select LIBELF
+	select GCCLIBS_GCC_S
 	help
 	  ltrace is a debugging program which runs a specified command
 	  until it exits.  While the command is executing, ltrace
