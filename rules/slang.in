@@ -1,6 +1,9 @@
 ## SECTION=system_libraries
 config SLANG
 	tristate
+	select LIBC_M
+	select LIBC_DL
+	select GCCLIBS_GCC_S
 	prompt "s-lang"
 	help
 	  S-Lang is a C programmer's library that includes routines
