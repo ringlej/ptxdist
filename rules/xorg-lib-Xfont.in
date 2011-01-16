@@ -7,6 +7,7 @@
 
 menuconfig XORG_LIB_XFONT
 	tristate
+	select LIBC_M
 	select XORG_PROTO_X
 	select XORG_PROTO_FONTS
 	select XORG_LIB_FONTENC
