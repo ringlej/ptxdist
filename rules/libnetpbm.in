@@ -3,6 +3,7 @@
 
 menuconfig LIBNETPBM
 	tristate
+	select LIBC_M
 	select LIBPNG if LIBNETPBM_PNG2PNM
 	prompt "libnetpbm                     "
 	help
