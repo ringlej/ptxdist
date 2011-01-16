@@ -3,8 +3,11 @@
 menuconfig XMLRPC_C
 	tristate
 	prompt "xmlrpc-c                      "
-	select LIBCURL	if XMLRPC_C_CURL
-	select LIBXML2	if XMLRPC_C_LIBXML2
+	select LIBC_M		if XMLRPC_C_CPLUSPLUS
+	select GCCLIBS_CXX	if XMLRPC_C_CPLUSPLUS
+	select GCCLIBS_GCC_S
+	select LIBCURL		if XMLRPC_C_CURL
+	select LIBXML2		if XMLRPC_C_LIBXML2
 	help
 	  A lightweight RPC library based on XML and HTTP for C and C++
 
