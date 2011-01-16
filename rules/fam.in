@@ -4,6 +4,7 @@
 menuconfig FAM
 	tristate
 	prompt "fam                           "
+	select LIBC_M
 	select PORTMAP
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
