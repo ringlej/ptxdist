@@ -3,6 +3,8 @@
 menuconfig LIBNL
 	tristate
 	prompt "libnl                         "
+	select LIBC_M
+	select GCCLIBS_GCC_S
 	help
 	  libnl is a library for applications dealing with netlink
 	  sockets. The library provides an interface for raw
