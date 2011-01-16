@@ -2,6 +2,7 @@
 config JED
 	tristate
 	select SLANG
+	select LIBC_UTIL
 	prompt "jed"
 	help
 	  JED - An editor for programmers
