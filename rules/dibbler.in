@@ -3,6 +3,9 @@
 menuconfig DIBBLER
 	tristate
 	prompt "dibbler (DHCPv6)              "
+	select LIBC_M
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
 	help
 	  Dibbler is a portable DHCPv6 implementation.
 	  It supports stateful (i.e. IPv6 address granting) as well as
