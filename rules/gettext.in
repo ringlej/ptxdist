@@ -2,6 +2,10 @@
 menuconfig GETTEXT
 	tristate
 	prompt "gettext (gnu)                 "
+	select LIBC_M
+	select LIBC_DL
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
 	help
 	  The gettext program translates a natural language
 	  message into the user's language, by looking up
