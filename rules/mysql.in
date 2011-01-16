@@ -3,6 +3,13 @@
 menuconfig MYSQL
 	tristate
 	prompt "mysql                         "
+	select LIBC_M
+	select LIBC_DL
+	select LIBC_NSL
+	select LIBC_CRYPT
+	select LIBC_PTHREAD
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
 	select TERMCAP if MYSQL_TERMINAL_TERMCAP
 	select NCURSES if MYSQL_TERMINAL_NCURSES
 	select HOST_MYSQL
