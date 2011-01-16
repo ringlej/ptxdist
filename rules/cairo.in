@@ -2,6 +2,7 @@
 
 menuconfig CAIRO
 	tristate
+	select GCCLIBS_GCC_S
 	select XORG_LIB_XT	if CAIRO_XLIB && !GTK_TARGET_HOST_X11
 	select XORG_LIB_XRENDER	if CAIRO_XLIB && !GTK_TARGET_HOST_X11
 
