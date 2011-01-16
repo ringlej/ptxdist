@@ -1,10 +1,11 @@
 ## SECTION=networking
 menuconfig NFSUTILS
 	tristate
+	prompt "nfsutils                      "
+	select GCCLIBS_GCC_S	if NFSUTILS_INSTALL_NFSSTAT
 	# we need libblkid
 	select LIBBLKID
 	select TCPWRAPPER	if NFSUTILS_WITH_TCPWRAPPERS
-	prompt "nfsutils                      "
 	help
 	  The Sun Network Filesystem (NFS) protocol provides transparent remote
    	  access to shared files across networks.  The NFS protocol is designed
