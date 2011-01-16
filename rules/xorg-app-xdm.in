@@ -3,6 +3,7 @@
 menuconfig XORG_APP_XDM
 	tristate
 	prompt "xorg XDM"
+	select LIBC_CRYPT
 	select XORG_LIB_XPM
 	select XORG_LIB_XMU
 	select XORG_LIB_XAW
