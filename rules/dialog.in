@@ -2,6 +2,7 @@
 
 config DIALOG
 	tristate
+	select LIBC_M
 	select NCURSES
 	prompt "dialog"
 	help
