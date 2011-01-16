@@ -3,6 +3,7 @@
 config CLASSPATH
 	tristate
 	prompt "classpath"
+	select GCCLIBS_GCC_S
 	help
 	  GNU Classpath, Essential Libraries for Java, is a GNU project to create
 	  free core class libraries for use with virtual machines and compilers
