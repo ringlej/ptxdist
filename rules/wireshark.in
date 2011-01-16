@@ -2,6 +2,7 @@
 menuconfig WIRESHARK
 	tristate
 	prompt "wireshark                     "
+	select LIBC_M
 	select LIBPCAP
 	select GLIB
 	help
