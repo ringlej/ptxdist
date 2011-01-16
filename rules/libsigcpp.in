@@ -2,6 +2,9 @@
 config LIBSIGCPP
 	tristate
 	prompt "libsigc++"
+	select LIBC_M
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
 	help
 	  libsigc++ implements a typesafe callback system for standard C++. It
 	  allows you to define signals and to connect those signals to any
