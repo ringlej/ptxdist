@@ -2,6 +2,8 @@
 config GNUPG
 	tristate
 	prompt "gnupg"
+	select LIBC_RESOLV
+	select GCCLIBS_GCC_S
 	select LIBASSUAN
 	select LIBGCRYPT
 	select LIBKSBA
