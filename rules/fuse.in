@@ -2,6 +2,9 @@
 menuconfig FUSE
 	tristate
 	prompt "fuse                          "
+	select LIBC_DL if FUSE__LIB
+	select LIBC_RT if FUSE__LIB
+	select LIBC_PTHREAD
 	help
 	  utilities for filesystems in userspace
 
