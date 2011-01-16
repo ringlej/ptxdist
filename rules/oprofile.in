@@ -2,6 +2,10 @@
 
 config OPROFILE
 	tristate
+	select LIBC_M
+	select LIBC_DL
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
 	select LIBPOPT
 	select KERNEL_VMLINUX
 	select BUSYBOX_DIRNAME
