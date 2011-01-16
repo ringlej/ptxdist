@@ -2,6 +2,7 @@
 
 config SED
 	tristate
+	select GCCLIBS_GCC_S
 	depends on !BUSYBOX_SED || ALLYES
 	prompt "sed"
 	help
