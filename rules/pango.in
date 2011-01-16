@@ -3,6 +3,7 @@
 menuconfig PANGO
 	tristate
 	prompt "pango                         "
+	select LIBC_M
 	select CAIRO
 	select GLIB
 	select WINE if PANGO__WINE
