@@ -3,6 +3,7 @@
 config SYSSTAT
 	tristate
 	prompt "sysstat"
+	select GCCLIBS_GCC_S
 	help
 	  sar, iostat and mpstat - system performance tools for Linux
 
