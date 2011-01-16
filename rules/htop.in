@@ -1,6 +1,7 @@
 ## SECTION=shell_and_console
 config HTOP
 	tristate
+	select LIBC_M
 	select NCURSES
 	prompt "htop"
 	help
