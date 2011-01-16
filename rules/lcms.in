@@ -3,5 +3,6 @@
 config LCMS
 	tristate
 	prompt "lcms"
+	select LIBC_M
 	help
 	  FIXME
