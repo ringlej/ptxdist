@@ -3,6 +3,7 @@
 menuconfig BOA
 	tristate
 	prompt "boa                           "
+	select GCCLIBS_GCC_S
 	help
 	  Boa is a single-tasking HTTP server. That means that
 	  unlike traditional web servers, it does not fork for
