@@ -1,8 +1,11 @@
 ## SECTION=debug_tools
 
 config CPPUNIT
-        tristate
+	tristate
 	prompt "cppunit"
+	select LIBC_M
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
 	help
 	  cppunit is a C++ port of JUnit. It is a testing framework.
 	  For more info, check:
