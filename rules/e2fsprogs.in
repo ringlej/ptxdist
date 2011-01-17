@@ -4,6 +4,7 @@ menuconfig E2FSPROGS
 	tristate
 	prompt "e2fsprogs                     "
 	# configure needs these external libs
+	select LIBC_PTHREAD if E2FSPROGS_LIBCOM_ERR
 	select LIBBLKID
 	select LIBUUID
 	help
