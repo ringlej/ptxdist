@@ -2,6 +2,7 @@
 menuconfig SUDO
 	tristate
 	prompt "sudo                          "
+	select LIBC_CRYPT
 	help
 	  Sudo is a program designed to allow a sysadmin
 	  to give limited root privileges to users and log
