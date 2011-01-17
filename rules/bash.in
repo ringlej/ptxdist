@@ -3,6 +3,7 @@ menuconfig BASH
 	tristate "bash                          "
 	select LIBC_DL
 	select GCCLIBS_GCC_S
+	select NCURSES if BASH_CURSES
 	help
 	  The GNU Bourne Again SHell
 	  Bash is an sh-compatible command language interpreter that executes
@@ -191,5 +192,9 @@ config BASH_STATIC
 	help
 	  This causes Bash to be linked statically, if gcc is being used.
 	  This could be used to build a version to use as root's shell.
+
+config BASH_CURSES
+	bool
+	prompt "Use libcurses instead of libtermcap"
 
 endif

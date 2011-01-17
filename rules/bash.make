@@ -166,6 +166,12 @@ else
 BASH_AUTOCONF	+= --disable-static-link
 endif
 
+ifdef PTXCONF_BASH_CURSES
+BASH_AUTOCONF	:= --with-curses
+else
+BASH_AUTOCONF	:= --without-curses
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
