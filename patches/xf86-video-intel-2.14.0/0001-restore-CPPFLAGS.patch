@@ -1,0 +1,34 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 17 Jan 2011 14:38:11 +0100
+Subject: [PATCH] restore CPPFLAGS
+
+Without this, CPPFLAGS defined when running configure are lost.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.ac |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 529a294..179c084 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -99,6 +99,7 @@ PKG_CHECK_MODULES(PCIACCESS, [pciaccess >= 0.10])
+ sdkdir=`$PKG_CONFIG --variable=sdkdir xorg-server`
+ 
+ save_CFLAGS="$CFLAGS"
++save_CPPFLAGS="$CPPFLAGS"
+ CFLAGS="$XORG_CFLAGS $DRI_CFLAGS $DRM_CFLAGS"
+ CPPFLAGS="$XORG_CFLAGS $DRI_CFLAGS $DRM_CFLAGS"
+ AC_MSG_CHECKING([whether to include DRI support])
+@@ -122,6 +123,7 @@ if test x$DRI = xauto; then
+ fi
+ AC_MSG_RESULT([$DRI])
+ CFLAGS="$save_CFLAGS $DEBUGFLAGS"
++CPPFLAGS="$save_CPPFLAGS"
+ 
+ AM_CONDITIONAL(DRI, test x$DRI = xyes)
+ if test "$DRI" = yes; then
+-- 
+1.7.2.3
+
