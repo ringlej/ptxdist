@@ -3,6 +3,7 @@
 menuconfig COREUTILS
 	tristate
 	prompt "coreutils                     "
+	select LIBC_RT
 	help
 	  This package contains the essential basic system utilities.
 
