@@ -3,5 +3,6 @@
 config LTT_CONTROL
 	tristate
 	prompt "ltt-control"
+	select LIBC_PTHREAD
 	help
 	  Linux Trace Toolkit ltt-control
