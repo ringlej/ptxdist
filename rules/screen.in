@@ -3,6 +3,7 @@ menuconfig SCREEN
 	tristate
 	prompt "screen                        "
 	select LIBC_CRYPT
+	select LIBC_UTIL
 	select NCURSES
 	help
 	  Screen is a full-screen window manager that multiplexes a physical
