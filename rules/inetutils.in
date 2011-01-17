@@ -2,6 +2,8 @@
 menuconfig INETUTILS
 	tristate
 	prompt "inetutils                     "
+	select LIBC_NSL if INETUTILS_PING
+	select LIBC_RESOLV if INETUTILS_PING
 	select LIBC_UTIL if INETUTILS_RLOGIND
 	help
 	  Inetutils is a collection of common network programs. It includes:
