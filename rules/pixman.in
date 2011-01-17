@@ -3,6 +3,7 @@
 config PIXMAN
 	tristate
 	prompt "pixman"
+	select LIBC_M
 	help
 	  Pixman contains lowlevel pixel manipulation routines and is used by
 	  both xorg and cairo.
