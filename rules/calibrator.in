@@ -3,6 +3,7 @@
 config CALIBRATOR
 	tristate
 	prompt "calibrator"
+	select LIBC_M
 	help
 	  The Calibrator is a Cache-Memory and TLB Calibration Tool
 
