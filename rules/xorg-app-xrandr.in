@@ -3,6 +3,7 @@
 config XORG_APP_XRANDR
 	tristate
 	prompt "xorg xrandr"
+	select LIBC_M
 	select XORG_LIB_XRANDR
 	select XORG_LIB_XRENDER
 	select XORG_LIB_X11
