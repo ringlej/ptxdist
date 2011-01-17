@@ -3,6 +3,7 @@
 config XORG_LIB_XKBUI
 	tristate
 	prompt "libxkbui"
+	select LIBC_M
 	select XORG_LIB_X11
 	select XORG_LIB_XT
 	select XORG_LIB_XKBFILE
