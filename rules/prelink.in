@@ -2,6 +2,7 @@
 
 menuconfig PRELINK
 	tristate
+	select GCCLIBS_GCC_S
 	select LIBELF
 	select RC_ONCE if PRELINK_RC_ONCE
 	prompt "prelink                       "
