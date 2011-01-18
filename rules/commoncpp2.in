@@ -4,6 +4,9 @@
 menuconfig COMMONCPP2
 	tristate
 	prompt "commonc++ 2                   "
+	select LIBC_RT
+	select LIBC_PTHREAD
+	select GCCLIBS_CXX
 	select ZLIB if COMMONCPP2_LIBZ
 	select LIBXML2 if COMMONCPP2_LIBXML2
 	select LIBXML2_PUSH if COMMONCPP2_LIBXML2
