@@ -3,6 +3,7 @@
 menuconfig TOTD
 	tristate
 	prompt "totd                          "
+	select LIBC_NSL
 	help
 	  This is the Trick Or Treat Daemon (TOTD)
 
