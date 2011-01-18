@@ -3,6 +3,7 @@
 menuconfig LIBPOPT
 	tristate
 	prompt "libpopt                       "
+	select GCCLIBS_GCC_S
 	help
 	  lib for parsing cmdline parameters
 
