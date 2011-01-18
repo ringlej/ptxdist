@@ -2,6 +2,7 @@
 menuconfig THTTPD
 	tristate
 	prompt "thttpd                        "
+	select LIBC_CRYPT
 	help
 	  thttpd (thin httpd) is a small, fast secure webserver.
 
