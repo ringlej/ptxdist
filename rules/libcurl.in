@@ -3,6 +3,7 @@
 menuconfig LIBCURL
 	tristate
 	prompt "libcurl                       "
+	select LIBC_RT
 	select ZLIB
 	select OPENSSL	if LIBCURL_SSL
 	select LIBSSH2	if LIBCURL_LIBSSH2
