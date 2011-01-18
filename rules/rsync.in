@@ -2,6 +2,7 @@
 menuconfig RSYNC
 	tristate
 	prompt "rsync                         "
+	select GCCLIBS_GCC_S
 	select OPENSSH_SSH
 	help
 	  rsync is a program that behaves in much the same way that rcp does,
