@@ -1,6 +1,7 @@
 ## SECTION=shell_and_console
 config XMLSTARLET
 	tristate
+	select LIBC_PTHREAD
 	select LIBXML2
 	select LIBXSLT
 	prompt "xmlstarlet"
