@@ -3,6 +3,7 @@
 config POWERTOP
 	tristate
 	prompt "powertop"
+	select GCCLIBS_GCC_S
 	select NCURSES
 	help
 	  PowerTOP is a Linux tool that finds the software
