@@ -2,6 +2,8 @@
 config LIBOIL
 	tristate
 	prompt "liboil"
+	select LIBC_M
+	select LIBC_RT
 	help
 	  Liboil is a library of simple functions that are optimized for
 	  various CPUs ("optimization of inner loops"). See the project
