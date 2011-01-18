@@ -17,6 +17,8 @@ menuconfig GST_PLUGINS_GOOD
 	select SPEEX		if GST_PLUGINS_GOOD_SPEEX
 	select FLAC		if GST_PLUGINS_GOOD_FLAC
 	select CAIRO		if GST_PLUGINS_GOOD_CAIRO
+	select UDEV		if GST_PLUGINS_BASE_GST_V4L2
+	select UDEV_LIBGUDEV	if GST_PLUGINS_BASE_GST_V4L2
 
 	prompt "gst-plugins-good              "
 	help

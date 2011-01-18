@@ -164,6 +164,12 @@ ifneq ($(call remove_quotes,$(GST_PLUGINS_GOOD_ENABLEC-)),)
 GST_PLUGINS_GOOD_CONF_OPT +=  --disable-$(subst $(space),$(space)--disable-,$(strip $(GST_PLUGINS_GOOD_ENABLEC-)))
 endif
 
+ifdef PTXCONF_GST_PLUGINS_GOOD_GST_V4L2
+GST_PLUGINS_GOOD_CONF_OPT += --with-gudev
+else
+GST_PLUGINS_GOOD_CONF_OPT += --without-gudev
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
