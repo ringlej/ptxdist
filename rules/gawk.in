@@ -2,6 +2,9 @@
 menuconfig GAWK
 	tristate
 	prompt "gawk                          "
+	select LIBC_M
+	select LIBC_DL
+	select GCCLIBS_GCC_S
 	help
 	  Gawk is the GNU Project's implementation of the AWK programming
 	  language. It conforms to the definition of the language in the POSIX
