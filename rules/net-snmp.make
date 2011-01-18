@@ -48,6 +48,7 @@ NET_SNMP_AUTOCONF := \
 	$(GLOBAL_IPV6_OPTION) \
 	--with-defaults \
 	--disable-manuals \
+	--without-openssl \
 	--with-mib-modules=$(PTXCONF_NET_SNMP_MIB_MODULES) \
 	--with-mibs=$(PTXCONF_NET_SNMP_DEFAULT_MIBS) \
 	--with-logfile=$(call remove_quotes,$(PTXCONF_NET_SNMP_LOGFILE)) \

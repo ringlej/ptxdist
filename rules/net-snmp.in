@@ -2,6 +2,9 @@
 menuconfig NET_SNMP
 	tristate
 	prompt "net-snmp                      "
+	select LIBC_M
+	select GCCLIBS_GCC_S if NET_SNMP_AGENT
+	select LIBC_DL if NET_SNMP_AGENT || NET_SNMP_APPLICATIONS
 
 if NET_SNMP
 
