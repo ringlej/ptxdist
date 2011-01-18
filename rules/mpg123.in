@@ -3,6 +3,7 @@
 config MPG123
 	tristate
 	prompt "mpg123"
+	select LIBLTDL
 	select ALSA_LIB
 	help
 	  mpg123 is a real time MPEG 1.0/2.0/2.5 audio player/decoder for layers 1,2 and 3
