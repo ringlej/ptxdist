@@ -38,6 +38,8 @@ $(SCUMMVM_SOURCE):
 SCUMMVM_CONF_TOOL := autoconf
 SCUMMVM_CONF_OPT := \
 	--host=$(PTXCONF_GNU_TARGET) \
+	--disable-flac \
+	--disable-vorbis \
 	--prefix=/usr
 
 SCUMMVM_MAKE_OPT := $(CROSS_ENV_AS) $(CROSS_ENV_RANLIB) AR="$(CROSS_AR) cru"
