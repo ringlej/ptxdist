@@ -4,6 +4,7 @@ menuconfig MPLAYER
 	tristate
 	select LIBC_M
 	select GCCLIBS_GCC_S
+	select ZLIB
 	select LIBJPEG if MPLAYER_VO_JPEG
 	select XORG_LIB_XV if MPLAYER_VO_XV
 	select XORG_LIB_X11 if MPLAYER_VO_X11
