@@ -24,7 +24,11 @@ if IPROUTE2
 
 config IPROUTE2_IP
 	bool
+	depends on !BUSYBOX_IP || ALLYES
 	prompt "ip"
+
+comment "busybox' ip is selected"
+	depends on BUSYBOX_IP
 
 config IPROUTE2_RTMON
 	bool
