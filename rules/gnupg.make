@@ -47,7 +47,8 @@ GNUPG_CONF_OPT := $(CROSS_AUTOCONF_USR) \
 	--disable-dns-srv \
 	--disable-nls \
 	--disable-rpath \
-	--disable-regex
+	--disable-regex \
+	--disable-bzip2
 
 ifndef PTXCONF_ICONV
 GNUPG_AUTOCONF += --without-libiconv-prefix
