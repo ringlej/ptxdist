@@ -3,6 +3,8 @@
 menuconfig LIBXML2
 	tristate
 	prompt "libxml2                       "
+	select LIBC_M
+	select LIBC_DL	if LIBXML2_MODULES
 	select ZLIB	if LIBXML2_ZLIB
 	select PYTHON	if LIBXML2_PYTHON
 	help
