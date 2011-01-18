@@ -2,6 +2,9 @@
 
 menuconfig JAMVM
 	tristate
+	select LIBC_M
+	select LIBC_DL
+	select LIBC_PTHREAD
 	select ZLIB
 	select LIBFFI if JAMVM_USE_LIBFFI
 	prompt "jamvm                         "
