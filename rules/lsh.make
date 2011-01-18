@@ -53,7 +53,8 @@ LSH_AUTOCONF := \
 	--disable-agent-forward \
 	--disable-utmp \
 	--without-x \
-	--without-system-argp
+	--without-system-argp \
+	--with-zlib
 
 # ----------------------------------------------------------------------------
 # Target-Install

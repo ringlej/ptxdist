@@ -7,6 +7,7 @@ menuconfig LSH
 	select LIBC_CRYPT if LSH_LSHD
 	select LIBGMP
 	select LIBOOP
+	select ZLIB
 	help
 	  lsh is an SSH implementation.
 if LSH
