@@ -213,7 +213,7 @@ $(STATEDIR)/gst-plugins-bad.targetinstall:
 
 	# install all activated libs
 	@if [ -d  $(GST_PLUGINS_BAD_PKGDIR)/usr/lib/ ]; then \
-		cd $(GST_PLUGINS_BAD_PKGDIR)/usr/lib/ && for libs in `find -name "*-0.10.so" | sed -e ,\.so,,`; do \
+		cd $(GST_PLUGINS_BAD_PKGDIR)/usr/lib/ && for libs in `find -name "*-0.10.so" | sed -e 's,\./\(.*\)\.so,\1,'`; do \
 			$(call install_lib, gst-plugins-bad, 0, 0, 0644, $$libs); \
 		done \
 	fi
