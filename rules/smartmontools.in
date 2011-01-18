@@ -4,6 +4,9 @@ menuconfig SMARTMONTOOLS
 	tristate
 	prompt "smartmontools                 "
 	select BUSYBOX_START_STOP_DAEMON if SMARTMONTOOLS_SMARTD_INITD
+	select LIBC_M
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
 	help
 	  The smartmontools package contains two utility programs (smartctl and smartd)
 	  to control and monitor storage systems using the Self-Monitoring, Analysis
