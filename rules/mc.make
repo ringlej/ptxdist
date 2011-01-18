@@ -47,6 +47,7 @@ MC_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--with-x=no \
 	--without-gpm-mouse \
+	--without-ext2undel \
 	--disable-rpath
 
 ifdef PTXCONF_MC_USES_NCURSES
