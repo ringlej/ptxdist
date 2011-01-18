@@ -3,7 +3,9 @@
 menuconfig COREUTILS
 	tristate
 	prompt "coreutils                     "
+	select LIBC_M if COREUTILS_SORT
 	select LIBC_RT
+	select GCCLIBS_GCC_S
 	help
 	  This package contains the essential basic system utilities.
 

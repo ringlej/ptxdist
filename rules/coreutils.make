@@ -69,7 +69,8 @@ COREUTILS_AUTOCONF := \
 	--disable-rpath \
 	--disable-xattr \
 	--disable-libcap \
-	--disable-nls
+	--disable-nls \
+	--without-gmp
 
 # ----------------------------------------------------------------------------
 # Target-Install
