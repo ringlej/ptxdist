@@ -7,6 +7,7 @@ config XORG_APP_XSETROOT
 	select XORG_LIB_XAU
 	select XORG_LIB_XMU
 	select XORG_LIB_XDMCP
+	select XORG_LIB_XCURSOR
 	select XORG_DATA_XBITMAPS
 	select XORG_APP_RGB
 	prompt "xorg xsetroot"
