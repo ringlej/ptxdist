@@ -3,6 +3,8 @@
 config ZSYNC
 	tristate
 	prompt "zsync"
+	select LIBC_M
+	select GCCLIBS_GCC_S
 	help
 	  zsync is a file transfer program. It allows you to download a
 	  file from a remote server, where you have a copy of an older
