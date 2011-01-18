@@ -3,6 +3,7 @@
 menuconfig BINUTILS
 	tristate
 	select GCCLIBS_GCC_S
+	select ZLIB
 	prompt "binutils                      "
 	help
 	  The GNU binutils are needed for some debug utilities, like oprofile.
