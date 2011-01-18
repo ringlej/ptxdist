@@ -4,6 +4,7 @@
 menuconfig CHRONY
 	tristate
 	prompt "chrony                        "
+	select LIBC_M
 	help
 	  This will install the Chrony NTPD Daemon (chronyd)
 	  Chrony is a pair of programs which are used to maintain
