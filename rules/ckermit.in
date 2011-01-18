@@ -3,6 +3,9 @@
 config CKERMIT
 	tristate
 	prompt "ckermit"
+	select LIBC_M
+	select LIBC_CRYPT
+	select LIBC_RESOLV
 	select NCURSES
 	help
 	  Columbia Univ 'kermit' terminal program: Basic file transfer &
