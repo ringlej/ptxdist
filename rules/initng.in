@@ -5,6 +5,7 @@ menuconfig INITNG
 	select HOST_CMAKE
 	select NCURSES
 	select LIBC_DL
+	select LIBC_CRYPT if INITNG_INSTALL_INIT
 	prompt "initng                        "
 	help
 	  Initng is a full replacement of the old and in many ways
