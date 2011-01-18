@@ -2,6 +2,7 @@
 menuconfig DOSFSTOOLS
 	tristate
 	prompt "dosfstools                    "
+	select GCCLIBS_GCC_S
 
 if DOSFSTOOLS
 
