@@ -5,6 +5,7 @@ comment "BusyBox' grep is selected!"
 menuconfig GREP
 	tristate
 	depends on !BUSYBOX_GREP || ALLYES
+	select GCCLIBS_GCC_S
 	select LIBPCRE if GREP_PCRE
 	prompt "grep                          "
 	help
