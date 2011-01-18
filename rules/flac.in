@@ -2,6 +2,8 @@
 
 menuconfig FLAC
 	tristate
+	select LIBC_M
+	select GCCLIBS_GCC_S
 	select LIBOGG
 	prompt "flac                          "
 	help
