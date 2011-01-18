@@ -167,9 +167,9 @@ else
 GST_PLUGINS_BASE_AUTOCONF += --disable-xshm
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_GST_V4L
-GST_PLUGINS_BASE_AUTOCONF += --enable-gst_v4l
+GST_PLUGINS_BASE_AUTOCONF += --enable-gst_v4l --with-gudev
 else
-GST_PLUGINS_BASE_AUTOCONF += --disable-gst_v4l
+GST_PLUGINS_BASE_AUTOCONF += --disable-gst_v4l --without-gudev
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_ALSA
 GST_PLUGINS_BASE_AUTOCONF += --enable-alsa
