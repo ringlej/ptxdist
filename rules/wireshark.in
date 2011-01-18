@@ -5,6 +5,7 @@ menuconfig WIRESHARK
 	select LIBC_M
 	select LIBPCAP
 	select GLIB
+	select LIBPCRE
 	help
 	  Wireshark is a network traffic analyzer for Unix
 	  and Unix-like operating systems. It is a tool used
