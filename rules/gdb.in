@@ -3,8 +3,10 @@
 menuconfig GDB
 	tristate
 	prompt "gdb (the real one)            "
-	select TERMCAP if GDB_TERMCAP
-	select NCURSES if GDB_NCURSES
+	select LIBC_M
+	select LIBC_DL
+	select GCCLIBS_GCC_S
+	select NCURSES
 	help
 	  The GNU Debugger
 
@@ -23,32 +25,6 @@ config GDB_SHARED
 	help
 	  If not set, the build option
 	  LDFLAGS=-static will be activated.
-
-choice
-	prompt "select term library"
-	default GDB_TERMCAP
-
-	config GDB_TERMCAP
-		bool "termcap"
-		help
-	  	  Use termcap as terminal library.
-
-		  Termcap is a library of C functions that
-		  enable programs to send control strings
-		  to terminals in a way independent of the
-		  terminal type.
-
-	config GDB_NCURSES
-		bool "ncurses"
-		help
-	  	  Use ncurses as terminal library.
-
-		  The ncurses (new curses) library is a free
-		  software emulation of curses. It uses terminfo
-		  format, supports pads and color and multiple
-		  highlights and forms charcters and function-key
-		  mapping.
-endchoice
 
 endif
 
