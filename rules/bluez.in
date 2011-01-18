@@ -3,6 +3,7 @@
 menuconfig BLUEZ
 	tristate "bluez                         "
 	select DBUS
+	select LIBUSB_COMPAT
 	select ALSA_LIB		if BLUEZ_ALSA
 	select GSTREAMER	if BLUEZ_GSTREAMER
 	select GST_PLUGINS_BASE	if BLUEZ_GSTREAMER
