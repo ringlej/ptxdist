@@ -6,6 +6,9 @@ menuconfig NTP
 	select OPENSSL		if NTP_CRYPTO
 	select ROOTFS_VAR_CACHE	if NTP_NTPD
 	select LIBC_M
+	select LIBC_RT
+	select GCCLIBS_GCC_S
+	select LIBMD
 	help
 	  Build the standard NTP Daemon Process an supplementary programs.
 	  This conflicts with BSD openntpd.

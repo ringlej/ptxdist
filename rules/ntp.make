@@ -49,7 +49,8 @@ NTP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
 	--with-binsubdir=sbin \
 	--without-lineeditlibs \
-	--without-net-snmp-config
+	--without-net-snmp-config \
+	--disable-linuxcaps
 
 ifdef PTXCONF_NTP_ALL_CLOCK_DRIVERS
 NTP_AUTOCONF += --enable-all-clocks
