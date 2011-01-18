@@ -5,6 +5,7 @@ menuconfig TCL
 	select LIBC_M
 	select LIBC_DL
 	select LIBC_PTHREAD
+	select GCCLIBS_GCC_S
 	help
 	  From the FAQ (refer http://tcl.sourceforge.net/faqs/):
 	  Tcl and Tk originated with Dr. John Ousterhout while teaching at the
