@@ -4,6 +4,8 @@ menuconfig RT_TESTS
 	tristate
 	select LIBC_PTHREAD
 	select LIBC_RT
+	select LIBC_DL
+	select GCCLIBS_GCC_S if RT_TESTS_RT_MIGRATE_TEST
 	prompt "rt-tests                      "
 	help
 	  Test programs for rt kernels
