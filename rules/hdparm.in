@@ -2,6 +2,7 @@
 config HDPARM
 	tristate "hdparm"
 	depends on !BUSYBOX_HDPARM || ALLYES
+	select GCCLIBS_GCC_S
 	help
 	  hdparm - get/set ATA drive parameters under Linux
 
