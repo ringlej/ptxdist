@@ -43,7 +43,9 @@ JOE_ENV 	:= $(CROSS_ENV)
 #
 # autoconf
 #
-JOE_AUTOCONF := $(CROSS_AUTOCONF_USR)
+JOE_AUTOCONF := \
+	$(CROSS_AUTOCONF_USR) \
+	--enable-curses
 
 # ----------------------------------------------------------------------------
 # Target-Install

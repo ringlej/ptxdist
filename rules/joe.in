@@ -2,6 +2,10 @@
 menuconfig JOE
 	tristate
 	prompt "joe                           "
+	select LIBC_M
+	select LIBC_UTIL
+	select GCCLIBS_GCC_S
+	select NCURSES
 	help
 	  Joe is a simple editor which uses the old wordstar commands.
 
