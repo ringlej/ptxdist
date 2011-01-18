@@ -4,6 +4,7 @@
 config BRIDGE_UTILS
 	tristate
 	prompt "bridge utils                  "
+	select GCCLIBS_GCC_S
 	help
 	  Utilities for configuring the Linux ethernet bridge
 
