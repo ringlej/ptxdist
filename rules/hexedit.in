@@ -1,6 +1,7 @@
 ## SECTION=editors
 config HEXEDIT
 	tristate
+	select GCCLIBS_GCC_S
 	select NCURSES
 	prompt "hexedit"
 	help
