@@ -2,6 +2,7 @@
 config LIBLTDL
 	tristate
 	prompt "libltdl"
+	select LIBC_DL
 	help
 	  A small library that aims at hiding the various difficulties
 	  of dlopening libraries from programmers.  It is a system
