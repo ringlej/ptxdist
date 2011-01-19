@@ -2,6 +2,7 @@
 
 menuconfig USBUTILS
 	select LIBUSB_COMPAT
+	depends on !BUSYBOX_LSUSB || ALLYES
 	tristate
 	prompt "usbutils                      "
 	help
@@ -16,6 +17,8 @@ menuconfig USBUTILS
 	  More information can be found at the Linux USB web site
 	  http://www.linux-usb.org/usbutils
 
+comment "busybox' lsusb is selected"
+	depends on BUSYBOX_LSUSB
 
 config USBUTILS_LSUSB
 	bool
