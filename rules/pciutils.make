@@ -12,7 +12,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_HAS_PCI)-$(PTXCONF_PCIUTILS) += pciutils
+PACKAGES-$(PTXCONF_PCIUTILS) += pciutils
 
 #
 # Paths and names
