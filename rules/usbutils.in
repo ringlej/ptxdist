@@ -17,9 +17,6 @@ menuconfig USBUTILS
 	  More information can be found at the Linux USB web site
 	  http://www.linux-usb.org/usbutils
 
-comment "busybox' lsusb is selected"
-	depends on BUSYBOX_LSUSB
-
 config USBUTILS_LSUSB
 	bool
 	depends on USBUTILS
@@ -35,3 +32,5 @@ config USBUTILS_LSUSB
 
 	  in the /etc/fstab does the job.
 
+comment "busybox' lsusb is selected"
+	depends on BUSYBOX_LSUSB
