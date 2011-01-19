@@ -1,0 +1,133 @@
+## SECTION=x_windowmanagers
+
+menuconfig FLUXBOX
+	tristate
+	select XORG_LIB_ICE
+	select XORG_LIB_SM
+	select XORG_LIB_X11
+	select XORG_LIB_XPM if FLUXBOX_XPM
+	select XORG_LIB_XFT if FLUXBOX_XFT
+	select LIBC_M
+	select GCCLIBS_CXX
+	select GCCLIBS_GCC_S
+#	select FIXME if FLUXBOX_IMLIB2
+	prompt "fluxbox                       "
+	help
+	  Fluxbox is a fork of the original Blackbox 0.61.1 sourcecode with
+	  different goals.
+	  For more information and extensive documentation go to:
+	        http://fluxbox.org/version-0.9.php
+
+if FLUXBOX
+config FLUXBOX_IMLIB2
+	bool
+	# imlib2 ist not in PTXdist
+	depends on BROKEN
+	prompt "imlib based theme support"
+	help
+	  --enable-imlib2         Imlib2 (pixmap themes) support
+
+config FLUXBOX_XPM
+	bool
+	prompt "xpm based theme support"
+	help
+	  --enable-xpm            Xpm (pixmap themes) support
+
+config FLUXBOX_XFT
+	bool
+	prompt "Antialising font support"
+	help
+	  Fluxbox can use the Xft library to perform anti-aliased text
+	  rendering.
+
+config FLUXBOX_THEMES
+	bool
+	prompt "install themes"
+	help
+	  Enable this entry to select some themes fluxbox provides
+
+if FLUXBOX_THEMES
+config FLUXBOX_THEMES_ARCH
+	bool
+	depends on FLUXBOX_XPM
+	prompt "Arch"
+
+config FLUXBOX_THEMES_BLOE
+	bool
+	depends on FLUXBOX_XPM
+	prompt "Bloe"
+
+config FLUXBOX_THEMES_BLUEFLUX
+	bool
+	depends on FLUXBOX_XPM
+	prompt "BlueFlux"
+
+config FLUXBOX_THEMES_BORABLACK
+	bool
+	prompt "Bora Black"
+
+config FLUXBOX_THEMES_BORABLUE
+	bool
+	prompt "Bora Blue"
+
+config FLUXBOX_THEMES_BORAGREEN
+	bool
+	prompt "Bora Green"
+
+config FLUXBOX_THEMES_CARP
+	bool
+	prompt "Carp"
+
+config FLUXBOX_THEMES_EMERGE
+	bool
+	depends on FLUXBOX_XPM
+	prompt "Emerge"
+
+config FLUXBOX_THEMES_GREENTEA
+	bool
+	prompt "Green Tea"
+
+config FLUXBOX_THEMES_OSTRICH
+	bool
+	prompt "Ostrich"
+
+config FLUXBOX_THEMES_ZIMEKBISQUE
+	bool
+	prompt "Zimek Bisque"
+
+config FLUXBOX_THEMES_ZIMEKDARKBLUE
+	bool
+	prompt "Zimek Dark Blue"
+
+config FLUXBOX_THEMES_ZIMEKGREEN
+	bool
+	prompt "Zimek Green"
+
+choice
+	prompt "Default theme"
+	depends on FLUXBOX_XPM
+
+config FLUXBOX_DEFAULT_THEME_ARCH
+	bool
+	depends on FLUXBOX_THEMES_ARCH
+	prompt "Arch"
+
+config FLUXBOX_DEFAULT_THEME_BLOE
+	bool
+	depends on FLUXBOX_THEMES_BLOE
+	prompt "Bloe"
+
+config FLUXBOX_DEFAULT_THEME_BLUEFLUX
+	bool
+	depends on FLUXBOX_THEMES_BLUEFLUX
+	prompt "Blue Flux"
+
+config FLUXBOX_DEFAULT_THEME_EMERGE
+	bool
+	depends on FLUXBOX_THEMES_EMERGE
+	prompt "Emerge"
+
+endchoice
+
+endif
+endif
