@@ -1,0 +1,25 @@
+## SECTION=middleware
+
+menuconfig DBUS_JAVA
+	tristate
+	prompt "dbus java bindings            "
+	select HOST_GETTEXT
+	select LIBMATTHEW_JAVA
+	select LIBMATTHEW_JAVA_UNIX_SOCKETS
+	select LIBMATTHEW_JAVA_DEBUG
+	select LIBMATTHEW_JAVA_HEXDUMP
+	select CLASSPATH
+	select DBUS
+	help
+	  Runtime shared native libraries and classes to make JAVA talking
+	  with DBus.
+
+if DBUS_JAVA
+
+config DBUS_JAVA_SCRIPTS
+	bool
+	prompt "Install scripts"
+	help
+	  Install a few shell scripts, to run and test the JAVA classes.
+
+endif

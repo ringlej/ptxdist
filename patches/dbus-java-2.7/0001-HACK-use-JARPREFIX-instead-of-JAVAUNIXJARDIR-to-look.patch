@@ -1,0 +1,28 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 19 Jan 2011 14:01:46 +0100
+Subject: [PATCH] HACK: use $JARPREFIX instead of $JAVAUNIXJARDIR to look for unix.jar at runtime.
+
+JAVAUNIXJARDIR cannot be used here because it is used at compile time and has
+to start with $(SYSROOT).
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 65bff86..ce0b147 100644
+--- a/Makefile
++++ b/Makefile
+@@ -141,7 +141,7 @@ doc/api/index.html: $(SRCDIR)/*.java $(SRCDIR)/dbus/*.java .doc
+ 	$(DOCBOOKTOMAN) $< > $@
+ 	
+ bin/%: %.sh .bin
+-	sed 's,\%JARPATH\%,$(JARPREFIX),;s,\%JAVAUNIXJARPATH\%,$(JAVAUNIXJARDIR),;s,\%JAVAUNIXLIBPATH\%,$(JAVAUNIXLIBDIR),;s,\%VERSION\%,$(VERSION),;s,\%DEBUG\%,$(DEBUG),;s,\%JAVA\%,$(JAVA),' < $< > $@
++	sed 's,\%JARPATH\%,$(JARPREFIX),;s,\%JAVAUNIXJARPATH\%,$(JARPREFIX),;s,\%JAVAUNIXLIBPATH\%,$(JAVAUNIXLIBDIR),;s,\%VERSION\%,$(VERSION),;s,\%DEBUG\%,$(DEBUG),;s,\%JAVA\%,$(JAVA),' < $< > $@
+ 
+ win/%.bat: %.bat .win
+ 	sed 's,\%WINJARPATH\%,$(JARPREFIX),;s,\%WINUNIXJARPATH\%,$(JAVAUNIXJARDIR),;s,\%VERSION\%,$(VERSION),;s,\%DEBUG\%,$(DEBUG),' < $< > $@
+-- 
+1.7.2.3
+
