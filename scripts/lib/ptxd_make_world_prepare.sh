@@ -37,23 +37,14 @@ export -f ptxd_make_world_prepare_sanity_check
 # prepare for cmake based pkgs
 #
 ptxd_make_world_prepare_cmake() {
-    local pkg_cmake_opt
-
-    case "${pkg_type}" in
-	target)
-	    pkg_cmake_opt="-DCMAKE_TOOLCHAIN_FILE='${PTXDIST_CMAKE_TOOLCHAIN_TARGET}'" ;;
-	host)
-	    pkg_cmake_opt="-DCMAKE_TOOLCHAIN_FILE='${PTXDIST_CMAKE_TOOLCHAIN_HOST}'" ;;
-	cross)
-	    ptxd_bailout "sorry - cmake 'cross' packages are not supported" ;;
-    esac
+    [ "${pkg_type}" == "cross" ] && \
+	ptxd_bailout "sorry - cmake 'cross' packages are not supported"
 
     eval \
 	"${pkg_path}" \
 	"${pkg_env}" \
 	"${pkg_conf_env}" \
 	cmake \
-	"${pkg_cmake_opt}" \
 	"${pkg_conf_opt}" \
 	"${pkg_conf_dir}"
 }
