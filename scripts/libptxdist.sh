@@ -328,6 +328,7 @@ ptxd_kconfig() {
 
 	return $retval
 }
+export -f ptxd_kconfig
 
 
 #

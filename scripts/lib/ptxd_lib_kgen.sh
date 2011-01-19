@@ -45,6 +45,7 @@ ptxd_kgen_awk()
 	}
 	'
 }
+export -f ptxd_kgen_awk
 
 
 ptxd_kgen_generate_sections()
@@ -69,6 +70,7 @@ ptxd_kgen_generate_sections()
     } | ptxd_kgen_awk
     check_pipe_status
 }
+export -f ptxd_kgen_generate_sections
 
 
 ptxd_kgen()
@@ -105,3 +107,4 @@ EOF
 
     ptxd_kgen_generate_sections
 }
+export -f ptxd_kgen
