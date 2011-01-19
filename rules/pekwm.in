@@ -7,6 +7,7 @@ menuconfig PEKWM
 	select XORG_LIB_X11
 	select XORG_LIB_XEXT
 	select XORG_LIB_XPM
+	select XORG_APP_XPROP if PEKWM_INSTALL_SCRIPTS
 	select LIBJPEG
 	select LIBPNG
 	select GCCLIBS_CXX
@@ -33,6 +34,12 @@ config PEKWM_INSTALL_THEME
 	help
 	  install the default pekwm theme. Without theme there will be
 	  no menus or titlebar.
+
+config PEKWM_INSTALL_SCRIPTS
+	bool
+	prompt "install default scripts"
+	help
+	  install helper scripts.
 
 endif
 
