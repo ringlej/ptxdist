@@ -1,0 +1,54 @@
+## SECTION=communication
+
+menuconfig LIBMATTHEW_JAVA
+	tristate
+	prompt "libmatthew-java               "
+	help
+	  These are a selection of libraries for Java which I have written
+	  because they are useful and not provided with normal Java.
+
+if LIBMATTHEW_JAVA
+
+config LIBMATTHEW_JAVA_UNIX_SOCKETS
+	bool
+	prompt "Unix sockets"
+	help
+	  This is a collection of classes and native code to allow you to
+	  read and write Unix sockets in Java.
+
+config LIBMATTHEW_JAVA_DEBUG
+	bool
+	prompt "Debug support"
+	help
+	  This is a comprehensive logging and debugging solution. 
+
+config LIBMATTHEW_JAVA_CGI
+	bool
+	prompt "CGI support"
+	help
+	  This is a collection of classes and native code to allow you to
+	  write CGI applications in Java.
+
+config LIBMATTHEW_JAVA_IO
+	bool
+	prompt "IO extension"
+	help
+	  This provides a few much needed extensions to the Java I/O
+	  subsystem. Firstly, there is a class which will connect and
+	  InputStream with an OutputStream and copy data between them.
+
+	  Secondly there are two classes for inserting into an Input or
+	  OutputStream pipe a command line command, so that everything is
+	  piped through that command.
+
+	  Thirdly there are a pair of classes for splitting streams in two.
+	  This can either be to two OuputStreams, or to an OutputStream and a
+	  file. Equivelent to the UNIX tool tee in UNIX pipes.
+
+config LIBMATTHEW_JAVA_HEXDUMP
+	bool
+	prompt "Hexdump support"
+	help
+	  This class formats byte-arrays in hex and ascii for display.
+
+endif
