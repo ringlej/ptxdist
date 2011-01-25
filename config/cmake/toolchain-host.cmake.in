@@ -2,6 +2,9 @@
 SET(CMAKE_C_COMPILER			@CC@)
 SET(CMAKE_CXX_COMPILER			@CXX@)
 
+# don't remove rpaths
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH	True)
+
 # additional search directories
 SET(CMAKE_PREFIX_PATH			@PREFIX_PATH@)
 include_directories(			@INCLUDE_DIRECTORIES@)
