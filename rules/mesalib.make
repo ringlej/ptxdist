@@ -97,6 +97,11 @@ MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_TRIDENT)	+= trident
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_UNICHROME)	+= unichrome
 MESALIB_DRI_DRIVERS-$(PTXCONF_MESALIB_DRI_FFB)		+= ffb
 
+MESALIB_STATE_TRACKERS-$(PTXCONF_MESALIB_DRIVER_XLIB)	+= glx
+MESALIB_STATE_TRACKERS-$(PTXCONF_MESALIB_DRIVER_DRI)	+= dri
+# circular dependency with xorg
+#MESALIB_STATE_TRACKERS-$(PTXCONF_MESALIB_DRIVER_DRI)	+= xorg
+
 MESALIB_AUTOCONF   := \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-static \
@@ -119,42 +124,37 @@ MESALIB_AUTOCONF   := \
 # the 32/64 bit options result in CFLAGS -> -m32 and -m64 which seem
 # only to be available on x86
 
+ifdef PTXCONF_MESALIB_DRI_GALLIUM
+MESALIB_AUTOCONF += \
+	--enable-gallium \
+	--with-state-trackers=$(subst $(space),$(comma),$(MESALIB_STATE_TRACKERS-y))
+else
+MESALIB_AUTOCONF += \
+	--disable-gallium \
+	--without-state-trackers
+endif
+
 ifdef PTXCONF_ARCH_X86
 MESALIB_AUTOCONF += \
 	--enable-32-bit \
 	--disable-64-bit
 
-ifdef PTXCONF_MESALIB_DRI_GALLIUM
-MESALIB_AUTOCONF += \
-        --enable-gallium
-else
-MESALIB_AUTOCONF += \
-        --disable-gallium
-endif
-
 ifdef PTXCONF_MESALIB_DRI_INTEL_GALLIUM
-MESALIB_AUTOCONF += \
-	--enable-gallium-intel
+MESALIB_AUTOCONF += --enable-gallium-intel
 else
-MESALIB_AUTOCONF += \
-	--disable-gallium-intel
+MESALIB_AUTOCONF += --disable-gallium-intel
 endif
 
 endif
 
 ifdef PTXCONF_ARCH_ARM
-MESALIB_AUTOCONF += \
-	--disable-gallium-intel
+MESALIB_AUTOCONF += --disable-gallium-intel
 endif
 
-ifdef PTXCONF_MESALIB_DRIVER_XLIB
-	MESALIB_AUTOCONF += --enable-gl-osmesa
-endif
-ifdef PTXCONF_MESALIB_DRIVER_DRI
-	MESALIB_AUTOCONF += --enable-gl-osmesa
-endif
 ifdef PTXCONF_MESALIB_DRIVER_OSMESA
-	MESALIB_AUTOCONF += --disable-gl-osmesa
+MESALIB_AUTOCONF += --disable-gl-osmesa
+else
+MESALIB_AUTOCONF += --enable-gl-osmesa
 endif
 
 # ----------------------------------------------------------------------------
