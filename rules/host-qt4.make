@@ -158,6 +158,7 @@ else
 endif
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qmake
 	@echo -e "[Paths]\nPrefix=$(SYSROOT)/usr\nBinaries=$(PTXCONF_SYSROOT_HOST)/bin" > $(PTXDIST_SYSROOT_CROSS)/bin/qt.conf
+	@echo -e "[Paths]\nPrefix=$(PTXCONF_SYSROOT_HOST)" > $(PTXDIST_SYSROOT_HOST)/bin/qt.conf
 	@$(call touch)
 
 # vim: syntax=make
