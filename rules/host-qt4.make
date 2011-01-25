@@ -71,11 +71,9 @@ HOST_QT4_AUTOCONF := \
 	-no-libjpeg \
 	-qt-zlib \
 	-no-freetype \
-	-no-stl \
+	-stl \
 	-no-glib \
 	-dbus \
-	-no-xmlpatterns \
-	-no-exceptions \
 	-no-phonon \
 	-no-phonon-backend \
 	-no-webkit \
@@ -97,6 +95,12 @@ HOST_QT4_AUTOCONF := \
 	-no-mouse-qvfb \
 	-no-mouse-qnx
 
+ifdef PTXCONF_HOST_QT4_XMLPATTERNS
+HOST_QT4_AUTOCONF += -xmlpatterns -exceptions
+else
+HOST_QT4_AUTOCONF += -no-xmlpatterns -no-exceptions
+endif
+
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
@@ -109,6 +113,10 @@ $(STATEDIR)/host-qt4.compile:
 		sub-xml sub-dbus sub-moc sub-rcc sub-uic
 	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
 		sub-network
+ifdef PTXCONF_HOST_QT4_XMLPATTERNS
+	@cd $(HOST_QT4_BUILDDIR) && $(HOST_QT4_PATH) $(MAKE) $(PARALLELMFLAGS) \
+		sub-xmlpatterns
+endif
 	@cd $(HOST_QT4_BUILDDIR)/tools/linguist/lrelease && $(HOST_QT4_PATH) \
 		$(MAKE) $(PARALLELMFLAGS)
 	@cd $(HOST_QT4_BUILDDIR)/tools/qdbus && $(HOST_QT4_PATH) \
@@ -128,6 +136,10 @@ HOST_QT4_INSTALL_TARGETS := \
 	sub-moc-install_subtargets \
 	sub-rcc-install_subtargets \
 	sub-uic-install_subtargets
+
+ifdef PTXCONF_HOST_QT4_XMLPATTERNS
+HOST_QT4_INSTALL_TARGETS += sub-xmlpatterns-install_subtargets
+endif
 
 HOST_QT4_INSTALL_OPT	= INSTALL_ROOT=$(HOST_QT4_PKGDIR)
 

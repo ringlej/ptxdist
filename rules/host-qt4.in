@@ -5,3 +5,10 @@ config HOST_QT4
 	select HOST_DBUS
 	default ALLYES
 
+if HOST_QT4
+
+config HOST_QT4_XMLPATTERNS
+	bool
+
+endif
+
