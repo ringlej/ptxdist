@@ -1,0 +1,26 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 28 Jan 2011 16:03:10 +0100
+Subject: [PATCH] add "#include <iostream>"
+
+Without it std::copy() is undefined when Qt is build without stl.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ libpyside/dynamicqmetaobject.cpp |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/libpyside/dynamicqmetaobject.cpp b/libpyside/dynamicqmetaobject.cpp
+index 6c7710f..4cbb14e 100644
+--- a/libpyside/dynamicqmetaobject.cpp
++++ b/libpyside/dynamicqmetaobject.cpp
+@@ -27,6 +27,7 @@
+ #include <QList>
+ #include <QObject>
+ #include <cstring>
++#include <iostream>
+ #include <QDebug>
+ #include <QMetaMethod>
+ 
+-- 
+1.7.2.3
+
