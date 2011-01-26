@@ -1,0 +1,7 @@
+## SECTION=hosttools_noprompt
+
+config HOST_SHIBOKEN
+	tristate
+	select HOST_APIEXTRACTOR
+	select HOST_GENERATORRUNNER
+	select HOST_CMAKE
