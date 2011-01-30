@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2004 by Robert Schwebel
 #               2009 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2011 by Wolfram Sang <w.sang@pengutronix.de>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -17,10 +18,10 @@ PACKAGES-$(PTXCONF_FIGLET) += figlet
 #
 # Paths and names
 #
-FIGLET_VERSION		:= 222
-FIGLET			:= figlet$(FIGLET_VERSION)
+FIGLET_VERSION		:= 2.2.4
+FIGLET			:= figlet-$(FIGLET_VERSION)
 FIGLET_SUFFIX		:= tar.gz
-FIGLET_URL		:= http://www.pengutronix.de/software/ptxdist/temporary-src/$(FIGLET).$(FIGLET_SUFFIX)
+FIGLET_URL		:= ftp://ftp.figlet.org/pub/figlet/program/unix/$(FIGLET).$(FIGLET_SUFFIX)
 FIGLET_SOURCE		:= $(SRCDIR)/$(FIGLET).$(FIGLET_SUFFIX)
 FIGLET_DIR		:= $(BUILDDIR)/$(FIGLET)
 FIGLET_LICENSE		:= figlet
@@ -37,8 +38,7 @@ $(FIGLET_SOURCE):
 # Compile
 # ----------------------------------------------------------------------------
 
-FIGLET_MAKE_ENV		:= $(CROSS_ENV)
-FIGLET_MAKE_OPT		:= prefix=/usr
+FIGLET_MAKE_OPT		:= prefix=/usr CC=$(CROSS_CC) LD=$(CROSS_CC) $(CROSS_ENV_FLAGS)
 FIGLET_INSTALL_OPT	:= prefix=/usr install
 
 # ----------------------------------------------------------------------------
