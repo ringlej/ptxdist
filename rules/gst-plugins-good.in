@@ -220,7 +220,6 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_OSS
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
 		prompt "oss"
 
 	config GST_PLUGINS_GOOD_OSS4
