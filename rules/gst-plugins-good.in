@@ -224,7 +224,6 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_OSS4
 		bool
-		depends on GST_PLUGINS_GOOD_BROKEN
 		prompt "oss4"
 
 	config GST_PLUGINS_GOOD_SUNAUDIO
