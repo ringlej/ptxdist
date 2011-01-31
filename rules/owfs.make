@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_OWFS) += owfs
 #
 # Paths and names
 #
-OWFS_VERSION	:= 2.7p26
+OWFS_VERSION	:= 2.8p6
 OWFS		:= owfs-$(OWFS_VERSION)
 OWFS_SUFFIX	:= tar.gz
 OWFS_URL	:= $(PTXCONF_SETUP_SFMIRROR)/owfs/$(OWFS).$(OWFS_SUFFIX)
@@ -41,10 +41,6 @@ $(OWFS_SOURCE):
 #
 OWFS_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--enable-shared \
-	--enable-static \
-	--disable-fast-install \
-	--enable-libtool-lock \
 	--disable-debian \
 	--disable-debug \
 	--enable-owlib \
@@ -53,12 +49,14 @@ OWFS_AUTOCONF := \
 	--enable-mt \
 	--disable-i2c \
 	--disable-ha7 \
+	--disable-w1 \
 	--disable-owhttpd \
 	--disable-owftpd \
 	--disable-owserver \
 	--disable-ownet \
 	--disable-owtap \
-	--disable-owside \
+	--disable-owmalloc \
+	--disable-owtraffic \
 	--disable-owmon \
 	--disable-owcapi \
 	--disable-swig \
@@ -71,16 +69,12 @@ OWFS_AUTOCONF := \
 	--disable-zero \
 	--disable-usb \
 	--disable-parport \
-	--with-gnu-ld \
-	--with-pic \
 	--without-perl5 \
 	--without-php \
 	--without-phpconfig \
 	--without-python \
 	--without-pythonconfig \
 	--without-tcl
-
-#	--with-libusb-config=PATH
 
 ifdef PTXCONF_OWFS__OWSHELL
 OWFS_AUTOCONF += --enable-owshell
@@ -111,10 +105,10 @@ $(STATEDIR)/owfs.targetinstall:
 	@$(call install_fixup, owfs,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, owfs,DESCRIPTION,missing)
 
-	@$(call install_lib, owfs, 0, 0, 0644, libow-2.7)
+	@$(call install_lib, owfs, 0, 0, 0644, libow-2.8)
 
 ifdef PTXCONF_OWFS__OWFS
-	@$(call install_copy, owfs, 0, 0, 0755, /usr/bin/owfs)
+	@$(call install_copy, owfs, 0, 0, 0755, -, /usr/bin/owfs)
 endif
 	@$(call install_finish, owfs)
 

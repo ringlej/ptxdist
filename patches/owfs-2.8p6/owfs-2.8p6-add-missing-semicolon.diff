@@ -1,0 +1,31 @@
+Subject: owfs: add missing ;
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+
+Without this patch, we get this compile error:
+
+libtool: compile:  arm-1136jfs-linux-gnueabi-gcc -DHAVE_CONFIG_H -I. -I../../../../src/include -isystem /home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/sysroot-target/include -isystem /home/rsc/svn/oselas/bsp/pengutronix/OSELAS.BSP-Pengutronix-AllYes-trunk/platform-ARM-reference/sysroot-target/usr/include -I../include -fexceptions -Wall -W -Wundef -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wstrict-prototypes -Wredundant-decls -D__EXTENSIONS__ -D_FILE_OFFSET_BITS=64 -D_XOPEN_SOURCE=500 -D_BSD_SOURCE=1 -D_ISOC99_SOURCE=1 -D_POSIX_C_SOURCE=200112L -pthread -g -O2 -D_XOPEN_SOURCE=500 -D_BSD_SOURCE=1 -D_ISOC99_SOURCE=1 -D_POSIX_C_SOURCE=200112L -MT ow_simultaneous.lo -MD -MP -MF .deps/ow_simultaneous.Tpo -c ow_simultaneous.c  -fPIC -DPIC -o .libs/ow_simultaneous.o
+ow_simultaneous.c: In function 'FS_Test_Simultaneous':
+ow_simultaneous.c:81: warning: unused parameter 'type'
+ow_simultaneous.c:81: warning: unused parameter 'pn'
+ow_simultaneous.c: In function 'FS_w_convert_temp':
+ow_simultaneous.c:152: error: expected ';' before 'return'
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+
+---
+ module/owlib/src/c/ow_simultaneous.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Index: owfs-2.8p6/module/owlib/src/c/ow_simultaneous.c
+===================================================================
+--- owfs-2.8p6.orig/module/owlib/src/c/ow_simultaneous.c
++++ owfs-2.8p6/module/owlib/src/c/ow_simultaneous.c
+@@ -148,7 +148,7 @@ static ZERO_OR_ERROR FS_w_convert_temp(s
+ 			break ;
+ 	}
+ 	if ( BAD(ret) ) {
+-		LEVEL_DEBUG("Trouble setting simultaneous for %s",pn_directory->path)
++		LEVEL_DEBUG("Trouble setting simultaneous for %s",pn_directory->path);
+ 		return -EINVAL ;
+ 	}
+ 	Cache_Add_Simul(simul_temp, pn_directory);	// Mark start time
