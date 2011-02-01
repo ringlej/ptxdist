@@ -6,6 +6,7 @@ config DCONF
 	select GLIB_EXPERIMENTAL
 	select LIBC_RT
 	select LIBC_RESOLV
+	select DBUS
 	prompt "dconf"
 	help
 	  dconf is a low-level configuration system. Its main purpose is to
