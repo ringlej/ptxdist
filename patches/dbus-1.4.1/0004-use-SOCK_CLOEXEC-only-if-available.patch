@@ -5,10 +5,10 @@ sd-daemon.c:356: error: 'SOCK_CLOEXEC' undeclared (first use in this function)
  dbus/sd-daemon.c |    5 +++++
  1 file changed, 5 insertions(+)
 
-Index: dbus-1.3.2/dbus/sd-daemon.c
+Index: dbus-1.4.1/dbus/sd-daemon.c
 ===================================================================
---- dbus-1.3.2.orig/dbus/sd-daemon.c
-+++ dbus-1.3.2/dbus/sd-daemon.c
+--- dbus-1.4.1.orig/dbus/sd-daemon.c
++++ dbus-1.4.1/dbus/sd-daemon.c
 @@ -43,6 +43,11 @@
  
  #include "sd-daemon.h"

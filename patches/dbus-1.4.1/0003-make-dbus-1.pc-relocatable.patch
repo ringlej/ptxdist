@@ -13,11 +13,11 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  dbus-1.pc.in |    6 +++---
  2 files changed, 6 insertions(+), 3 deletions(-)
 
-Index: dbus-1.4.0/configure.in
+Index: dbus-1.4.1/configure.in
 ===================================================================
---- dbus-1.4.0.orig/configure.in
-+++ dbus-1.4.0/configure.in
-@@ -1466,10 +1466,13 @@ AC_DEFINE_UNQUOTED(DBUS_DATADIR,"$DBUS_D
+--- dbus-1.4.1.orig/configure.in
++++ dbus-1.4.1/configure.in
+@@ -1510,10 +1510,13 @@ AC_DEFINE_UNQUOTED(DBUS_DATADIR,"$DBUS_D
  #### Directory to install dbus-daemon
  if test -z "$with_dbus_daemondir" ; then
      DBUS_DAEMONDIR=$EXPANDED_BINDIR
@@ -31,10 +31,10 @@ Index: dbus-1.4.0/configure.in
  AC_DEFINE_UNQUOTED(DBUS_DAEMONDIR,"$DBUS_DAEMONDIR", [Directory for installing the DBUS daemon])
  
  #### Directory to install the other binaries
-Index: dbus-1.4.0/dbus-1.pc.in
+Index: dbus-1.4.1/dbus-1.pc.in
 ===================================================================
---- dbus-1.4.0.orig/dbus-1.pc.in
-+++ dbus-1.4.0/dbus-1.pc.in
+--- dbus-1.4.1.orig/dbus-1.pc.in
++++ dbus-1.4.1/dbus-1.pc.in
 @@ -3,11 +3,11 @@ exec_prefix=@exec_prefix@
  libdir=@libdir@
  includedir=@includedir@
