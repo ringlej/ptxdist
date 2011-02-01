@@ -18,9 +18,9 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 # Paths and names
 #
 ifdef PTXCONF_GLIB_EXPERIMENTAL
-GLIB_VERSION	:= 2.26.0
+GLIB_VERSION	:= 2.27.93
 else
-GLIB_VERSION	:= 2.24.1
+GLIB_VERSION	:= 2.26.1
 endif
 
 GLIB		:= glib-$(GLIB_VERSION)
@@ -58,7 +58,6 @@ GLIB_ENV 	:= \
 # is the right choice for no locales and locales-via-libc
 #
 
-ifdef PTXCONF_GLIB_EXPERIMENTAL
 GLIB_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	--enable-silent-rules \
@@ -79,36 +78,10 @@ GLIB_AUTOCONF := \
 	--enable-shared \
 	--with-libiconv=no \
 	--disable-gcov
-else
-GLIB_AUTOCONF := \
-	$(CROSS_AUTOCONF_USR) \
-	--enable-threads \
-	--with-threads=posix \
-	--enable-static \
-	--enable-shared \
-	--disable-selinux \
-	--disable-gtk-doc \
-	--disable-man \
-	--disable-gc-friendly \
-	--disable-fast-install \
-	--disable-libtool-lock \
-	--disable-included-printf \
-	--disable-fam \
-	--disable-xattr \
-	--with-gnu-ld \
-	--with-pcre=internal \
-	--with-libiconv=no
-endif
 
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-ifdef PTXCONF_GLIB_EXPERIMENTAL
-GLIB_LIB_VERSION := 0.2600.0
-else
-GLIB_LIB_VERSION := 0.2400.1
-endif
 
 $(STATEDIR)/glib.targetinstall:
 	@$(call targetinfo)
