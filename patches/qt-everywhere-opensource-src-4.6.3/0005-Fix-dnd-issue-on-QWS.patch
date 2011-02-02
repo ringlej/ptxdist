@@ -1,18 +1,18 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: Fix dnd issue on QWS
+Date: Wed, 2 Feb 2011 18:31:53 +0100
+Subject: [PATCH] Fix dnd issue on QWS
 
 An overrideCursor set in the application can be messed up by
 dnd stuff. As a result, the cursor gets stuck at Qt::ForbiddenCursor
 This patch seems to fix it, but I'm not sure if it breaks anything.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
  src/gui/kernel/qdnd_qws.cpp |    9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ 1 files changed, 3 insertions(+), 6 deletions(-)
 
-Index: b/src/gui/kernel/qdnd_qws.cpp
-===================================================================
+diff --git a/src/gui/kernel/qdnd_qws.cpp b/src/gui/kernel/qdnd_qws.cpp
+index ec0247f..59058cc 100644
 --- a/src/gui/kernel/qdnd_qws.cpp
 +++ b/src/gui/kernel/qdnd_qws.cpp
 @@ -162,10 +162,10 @@ void QDragManager::updateCursor()
@@ -28,7 +28,7 @@ Index: b/src/gui/kernel/qdnd_qws.cpp
          if (qt_qws_dnd_deco)
              qt_qws_dnd_deco->hide();
      }
-@@ -242,7 +242,6 @@ bool QDragManager::eventFilter(QObject *
+@@ -242,7 +242,6 @@ bool QDragManager::eventFilter(QObject *o, QEvent *e)
                          willDrop = false;
                          global_accepted_action = Qt::IgnoreAction;
                          updateCursor();
@@ -36,7 +36,7 @@ Index: b/src/gui/kernel/qdnd_qws.cpp
                          object->d_func()->target = 0;
                      }
                      if (cw && cw->acceptDrops()) {
-@@ -253,7 +252,6 @@ bool QDragManager::eventFilter(QObject *
+@@ -253,7 +252,6 @@ bool QDragManager::eventFilter(QObject *o, QEvent *e)
                          willDrop = dee.isAccepted() && dee.dropAction() != Qt::IgnoreAction;
                          global_accepted_action = willDrop ? dee.dropAction() : Qt::IgnoreAction;
                          updateCursor();
@@ -44,7 +44,7 @@ Index: b/src/gui/kernel/qdnd_qws.cpp
                      }
                  } else if (cw) {
                      QDragMoveEvent dme(cw->mapFromGlobal(me->globalPos()), possible_actions, dropData,
-@@ -277,8 +275,8 @@ bool QDragManager::eventFilter(QObject *
+@@ -277,8 +275,8 @@ bool QDragManager::eventFilter(QObject *o, QEvent *e)
          case QEvent::MouseButtonRelease:
          {
              qApp->removeEventFilter(this);
@@ -54,7 +54,7 @@ Index: b/src/gui/kernel/qdnd_qws.cpp
  #ifndef QT_NO_CURSOR
                  QApplication::restoreOverrideCursor();
  #endif
-@@ -332,7 +330,6 @@ Qt::DropAction QDragManager::drag(QDrag 
+@@ -332,7 +330,6 @@ Qt::DropAction QDragManager::drag(QDrag *o)
      willDrop = false;
      updatePixmap();
      updateCursor();
@@ -62,3 +62,6 @@ Index: b/src/gui/kernel/qdnd_qws.cpp
      object->d_func()->target = 0;
      qApp->installEventFilter(this);
  
+-- 
+1.7.2.3
+

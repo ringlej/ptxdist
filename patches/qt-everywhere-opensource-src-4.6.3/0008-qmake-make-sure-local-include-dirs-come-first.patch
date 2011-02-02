@@ -1,0 +1,42 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 2 Feb 2011 18:00:51 +0100
+Subject: [PATCH] qmake: make sure local include dirs come first.
+
+This fixes the issue where a pcre.h from a include path from
+CXXFLAGS is used instead of the one in webkit.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ qmake/generators/unix/unixmake.cpp  |    2 +-
+ qmake/generators/unix/unixmake2.cpp |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/qmake/generators/unix/unixmake.cpp b/qmake/generators/unix/unixmake.cpp
+index fa12aff..8ba50e1 100644
+--- a/qmake/generators/unix/unixmake.cpp
++++ b/qmake/generators/unix/unixmake.cpp
+@@ -215,7 +215,7 @@ UnixMakefileGenerator::init()
+             cflags += " $(CFLAGS)";
+         else
+             cflags += " $(" + comps[i] + "FLAGS)";
+-        compile_flag += cflags + " $(INCPATH)";
++        compile_flag += " $(INCPATH)" + cflags;
+ 
+         QString compiler = comps[i];
+         if (compiler == "C")
+diff --git a/qmake/generators/unix/unixmake2.cpp b/qmake/generators/unix/unixmake2.cpp
+index 0bb38fb..bbc85a7 100644
+--- a/qmake/generators/unix/unixmake2.cpp
++++ b/qmake/generators/unix/unixmake2.cpp
+@@ -955,7 +955,7 @@ UnixMakefileGenerator::writeMakeParts(QTextStream &t)
+                 compiler = "$(CXX)";
+ 
+             // compile command
+-            t << "\n\t" << compiler << cflags << " $(INCPATH) " << pchFlags << endl << endl;
++            t << "\n\t" << compiler << " $(INCPATH) " << cflags << " " << pchFlags << endl << endl;
+         }
+     }
+ 
+-- 
+1.7.2.3
+

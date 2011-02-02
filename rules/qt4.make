@@ -50,6 +50,9 @@ $(STATEDIR)/qt4.extract:
 		    -e "s,@INCDIR@,$(SYSROOT)/include $(SYSROOT)/usr/include,g" \
 		    -e "s,@LIBDIR@,$(SYSROOT)/lib $(SYSROOT)/usr/lib,g" \
 		    -e "s#@LDFLAGS@#$(strip $(CROSS_LDFLAGS))#g" \
+		    -e "s#@QMAKE_LIBS_OPENGL_ES1@#$(strip $(QT4_QMAKE_LIBS_OPENGL_ES1))#g" \
+		    -e "s#@QMAKE_LIBS_OPENGL_ES1CL@#$(strip $(QT4_QMAKE_LIBS_OPENGL_ES1CL))#g" \
+		    -e "s#@QMAKE_LIBS_OPENGL_ES2@#$(strip $(QT4_QMAKE_LIBS_OPENGL_ES2))#g" \
 		    $$file > $${file%%.in}; \
 	done
 	@$(call touch)
@@ -705,6 +708,9 @@ ifdef PTXCONF_QT4_BUILD_QTXMLPATTERNS
 endif
 ifdef PTXCONF_QT4_BUILD_MULTIMEDIA
 	@$(call install_lib, qt4, 0, 0, 0644, libQtMultimedia)
+endif
+ifdef PTXCONF_QT4_BUILD_OPENGL
+	@$(call install_lib, qt4, 0, 0, 0644, libQtOpenGL)
 endif
 ifdef PTXCONF_QT4_BUILD_PHONON
 	@$(call install_lib, qt4, 0, 0, 0644, libphonon)

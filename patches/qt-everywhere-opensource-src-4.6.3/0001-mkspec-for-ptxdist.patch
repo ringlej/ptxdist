@@ -1,0 +1,120 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Fri, 8 Oct 2010 20:13:39 +0200
+Subject: [PATCH] mkspec for ptxdist
+
+Add a mkspec for ptxdist:
+- qplatformdefs.h
+    Include the generic qplatformdefs.h
+- qmake.conf.in
+    Used to generate qmake.conf with the correct toolchain.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ mkspecs/linux-ptx-g++/qmake.conf.in       |   38 +++++++++++++++++++++++++++++
+ mkspecs/linux-ptx-g++/qplatformdefs.h     |    2 +
+ mkspecs/qws/linux-ptx-g++/qmake.conf.in   |   29 ++++++++++++++++++++++
+ mkspecs/qws/linux-ptx-g++/qplatformdefs.h |    2 +
+ 4 files changed, 71 insertions(+), 0 deletions(-)
+ create mode 100644 mkspecs/linux-ptx-g++/qmake.conf.in
+ create mode 100644 mkspecs/linux-ptx-g++/qplatformdefs.h
+ create mode 100644 mkspecs/qws/linux-ptx-g++/qmake.conf.in
+ create mode 100644 mkspecs/qws/linux-ptx-g++/qplatformdefs.h
+
+diff --git a/mkspecs/linux-ptx-g++/qmake.conf.in b/mkspecs/linux-ptx-g++/qmake.conf.in
+new file mode 100644
+index 0000000..495c53e
+--- /dev/null
++++ b/mkspecs/linux-ptx-g++/qmake.conf.in
+@@ -0,0 +1,38 @@
++#
++# qmake configuration for linux-ptx-g++
++#
++
++
++include(../common/g++.conf)
++include(../common/linux.conf)
++
++MAKEFILE_GENERATOR      = UNIX
++TEMPLATE                = app
++CONFIG                 += qt warn_on release incremental link_prl
++QT                     += core gui network
++QMAKE_INCREMENTAL_STYLE = sublib
++
++# modifications to g++.conf
++QMAKE_CC                = @COMPILER_PREFIX@gcc
++QMAKE_CXX               = @COMPILER_PREFIX@g++
++QMAKE_INCDIR            = @INCDIR@
++QMAKE_LIBDIR            = @LIBDIR@
++
++QMAKE_LINK              = @COMPILER_PREFIX@g++
++QMAKE_LINK_SHLIB        = @COMPILER_PREFIX@g++
++QMAKE_LFLAGS            = @LDFLAGS@
++
++QMAKE_INCDIR_X11        =
++QMAKE_LIBDIR_X11        =
++QMAKE_INCDIR_OPENGL     =
++QMAKE_LIBDIR_OPENGL     =
++QMAKE_LIBS_OPENGL_ES1CL = @QMAKE_LIBS_OPENGL_ES1CL@
++QMAKE_LIBS_OPENGL_ES1   = @QMAKE_LIBS_OPENGL_ES1@
++QMAKE_LIBS_OPENGL_ES2   = @QMAKE_LIBS_OPENGL_ES2@
++
++# modifications to linux.conf
++QMAKE_AR                = @COMPILER_PREFIX@ar cqs
++QMAKE_OBJCOPY           = @COMPILER_PREFIX@objcopy
++QMAKE_STRIP             = @COMPILER_PREFIX@strip
++
++load(qt_config)
+diff --git a/mkspecs/linux-ptx-g++/qplatformdefs.h b/mkspecs/linux-ptx-g++/qplatformdefs.h
+new file mode 100644
+index 0000000..05c77d1
+--- /dev/null
++++ b/mkspecs/linux-ptx-g++/qplatformdefs.h
+@@ -0,0 +1,2 @@
++
++#include "../linux-g++/qplatformdefs.h"
+diff --git a/mkspecs/qws/linux-ptx-g++/qmake.conf.in b/mkspecs/qws/linux-ptx-g++/qmake.conf.in
+new file mode 100644
+index 0000000..6b5c824
+--- /dev/null
++++ b/mkspecs/qws/linux-ptx-g++/qmake.conf.in
+@@ -0,0 +1,29 @@
++#
++# qmake configuration for linux-ptx-g++
++#
++
++
++include(../../common/g++.conf)
++include(../../common/linux.conf)
++include(../../common/qws.conf)
++
++# modifications to g++.conf
++QMAKE_CC                = @COMPILER_PREFIX@gcc
++QMAKE_CXX               = @COMPILER_PREFIX@g++
++QMAKE_INCDIR            = @INCDIR@
++QMAKE_LIBDIR            = @LIBDIR@
++
++QMAKE_LINK              = @COMPILER_PREFIX@g++
++QMAKE_LINK_SHLIB        = @COMPILER_PREFIX@g++
++QMAKE_LFLAGS            = @LDFLAGS@
++
++QMAKE_LIBS_OPENGL_ES1CL = @QMAKE_LIBS_OPENGL_ES1CL@
++QMAKE_LIBS_OPENGL_ES1   = @QMAKE_LIBS_OPENGL_ES1@
++QMAKE_LIBS_OPENGL_ES2   = @QMAKE_LIBS_OPENGL_ES2@
++
++# modifications to linux.conf
++QMAKE_AR                = @COMPILER_PREFIX@ar cqs
++QMAKE_OBJCOPY           = @COMPILER_PREFIX@objcopy
++QMAKE_STRIP             = @COMPILER_PREFIX@strip
++
++load(qt_config)
+diff --git a/mkspecs/qws/linux-ptx-g++/qplatformdefs.h b/mkspecs/qws/linux-ptx-g++/qplatformdefs.h
+new file mode 100644
+index 0000000..e10ebcf
+--- /dev/null
++++ b/mkspecs/qws/linux-ptx-g++/qplatformdefs.h
+@@ -0,0 +1,2 @@
++
++#include "../../linux-g++/qplatformdefs.h"
+-- 
+1.7.2.3
+

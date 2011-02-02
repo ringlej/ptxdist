@@ -1,5 +1,6 @@
-Subject: disable ordered compiling.
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 2 Feb 2011 18:31:52 +0100
+Subject: [PATCH] disable ordered compiling.
 
 By default all modules are compiled in a predefined order. This breaks when
 building not all modules. This patch disables ordered building. As a result
@@ -11,8 +12,8 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  src/src.pro  |    6 ++++--
  2 files changed, 4 insertions(+), 3 deletions(-)
 
-Index: b/projects.pro
-===================================================================
+diff --git a/projects.pro b/projects.pro
+index c9e77cb..6a63e09 100644
 --- a/projects.pro
 +++ b/projects.pro
 @@ -2,7 +2,6 @@
@@ -23,8 +24,8 @@ Index: b/projects.pro
  TEMPLATE = subdirs
  
  cross_compile: CONFIG += nostrip
-Index: b/src/src.pro
-===================================================================
+diff --git a/src/src.pro b/src/src.pro
+index f2070ae..d663c60 100644
 --- a/src/src.pro
 +++ b/src/src.pro
 @@ -98,11 +98,12 @@ src_declarative.target = sub-declarative
@@ -42,7 +43,7 @@ Index: b/src/src.pro
     contains(QT_CONFIG, webkit)  {
        src_webkit.depends = src_gui src_sql src_network src_xml 
        contains(QT_CONFIG, phonon):src_webkit.depends += src_phonon
-@@ -115,6 +116,7 @@ src_declarative.target = sub-declarative
+@@ -116,6 +117,7 @@ src_declarative.target = sub-declarative
        src_phonon.depends +=  src_dbus
     }
     contains(QT_CONFIG, opengl)|contains(QT_CONFIG, opengles1)|contains(QT_CONFIG, opengles2): src_plugins.depends += src_opengl
@@ -50,3 +51,6 @@ Index: b/src/src.pro
  }
  
  !symbian {
+-- 
+1.7.2.3
+

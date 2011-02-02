@@ -683,6 +683,9 @@ endchoice
 
 endmenu
 
+config QT4_BUILD_OPENGL
+	bool
+
 choice
 	prompt "OpenGL support  "
 	help
@@ -694,18 +697,21 @@ config QT4_OPENGL_NONE
 config QT4_OPENGL_DESKTOP
 	bool "Desktop  "
 	depends on QT4_PLATFORM_X11
+	select QT4_BUILD_OPENGL
 
 config QT4_OPENGL_ES1
 	bool "ES 1.x   "
+	select QT4_BUILD_OPENGL
 
 config QT4_OPENGL_ES1CL
 	bool "ES 1.x CL"
+	select QT4_BUILD_OPENGL
 
 config QT4_OPENGL_ES2
 	bool "ES 2.x   "
+	select QT4_BUILD_OPENGL
 
 endchoice
-
 
 menu "optional libraries          "
 

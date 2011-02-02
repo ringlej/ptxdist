@@ -1,18 +1,18 @@
-Subject: Hack: disable -Wl,--gc-sections on ppc
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 2 Feb 2011 18:31:53 +0100
+Subject: [PATCH] Hack: disable -Wl,--gc-sections on ppc
 
 The linker in our toolchain crashes with -Wl,--gc-sections on PowerPC.
 This patch removes this option and related options when building
 for PowerPC.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
  src/3rdparty/webkit/WebCore/WebCore.pro |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ 1 files changed, 2 insertions(+), 2 deletions(-)
 
-Index: b/src/3rdparty/webkit/WebCore/WebCore.pro
-===================================================================
+diff --git a/src/3rdparty/webkit/WebCore/WebCore.pro b/src/3rdparty/webkit/WebCore/WebCore.pro
+index 7e57394..b2e2b77 100644
 --- a/src/3rdparty/webkit/WebCore/WebCore.pro
 +++ b/src/3rdparty/webkit/WebCore/WebCore.pro
 @@ -65,8 +65,8 @@ unix {
@@ -26,3 +26,6 @@ Index: b/src/3rdparty/webkit/WebCore/WebCore.pro
  
  CONFIG(release):!CONFIG(QTDIR_build) {
      contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols
+-- 
+1.7.2.3
+
