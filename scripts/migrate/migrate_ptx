@@ -136,3 +136,12 @@ s/^\(\(# \)\?PTXCONF_\)INITMETHOD_BBINIT_LINK_\(ALSA_UTILS\|APACHE2\|AT\|CHRONY\
 #          PTXCONF_BLUEZ_UTILS is unchanged
 #
 s/^\(\(# \)\?PTXCONF_BLUEZ\)_LIBS/\1/
+
+#
+# from   : ptxdist-2011.01.0
+# to     : ptxdist-2011.02.0
+# symbol : OWFS__*			-> OWFS_
+# reason : consolidation of config symbols
+#
+s/^\(\(# \)\?PTXCONF_OWFS_\)_\(.*$\)/\1\3/
+

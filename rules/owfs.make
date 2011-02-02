@@ -76,17 +76,17 @@ OWFS_AUTOCONF := \
 	--without-pythonconfig \
 	--without-tcl
 
-ifdef PTXCONF_OWFS__OWSHELL
+ifdef PTXCONF_OWFS_OWSHELL
 OWFS_AUTOCONF += --enable-owshell
 else
 OWFS_AUTOCONF += --disable-owshell
 endif
-ifdef PTXCONF_OWFS__OWNETLIB
+ifdef PTXCONF_OWFS_OWNETLIB
 OWFS_AUTOCONF += --enable-ownetlib
 else
 OWFS_AUTOCONF += --disable-ownetlib
 endif
-ifdef PTXCONF_OWFS__OWFS
+ifdef PTXCONF_OWFS_OWFS
 OWFS_AUTOCONF += --enable-owfs
 else
 OWFS_AUTOCONF += --disable-owfs
@@ -107,7 +107,7 @@ $(STATEDIR)/owfs.targetinstall:
 
 	@$(call install_lib, owfs, 0, 0, 0644, libow-2.8)
 
-ifdef PTXCONF_OWFS__OWFS
+ifdef PTXCONF_OWFS_OWFS
 	@$(call install_copy, owfs, 0, 0, 0755, -, /usr/bin/owfs)
 endif
 	@$(call install_finish, owfs)

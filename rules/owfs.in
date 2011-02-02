@@ -5,10 +5,11 @@ menuconfig OWFS
 	select LIBC_M
 	select LIBC_PTHREAD
 	select GCCLIBS_GCC_S
-	select FUSE if OWFS__OWFS
-	select UTIL_LINUX_NG if OWFS__OWFS
-	select UTIL_LINUX_NG_MOUNT if OWFS__OWFS
-	select UTIL_LINUX_NG_UMOUNT if OWFS__OWFS
+	select FUSE			if OWFS_OWFS
+	select FUSE__LIB		if OWFS_OWFS
+	select UTIL_LINUX_NG		if OWFS_OWFS
+	select UTIL_LINUX_NG_MOUNT	if OWFS_OWFS
+	select UTIL_LINUX_NG_UMOUNT	if OWFS_OWFS
 	help
 	  OWFS is the 1-Wire file system. It is used by Dallas 1-Wire and iButton
 	  chips with standard linux commands. Create temperature loggers. Monitor
@@ -20,21 +21,20 @@ menuconfig OWFS
 if OWFS
 
 
-config OWFS__OWSHELL
+config OWFS_OWSHELL
 	bool
 	prompt "owshell"
 
-config OWFS__OWNETLIB
+config OWFS_OWNETLIB
 	bool
 	prompt "ownetlib"
 
 comment "OWFS does not work with busybox's 'mount' and 'umount'"
 	depends on BUSYBOX_MOUNT || BUSYBOX_UMOUNT
 
-config OWFS__OWFS
+config OWFS_OWFS
 	bool
-	depends on !BUSYBOX_MOUNT && !BUSYBOX_UMOUNT
-	select FUSE__LIB
+	depends on !BUSYBOX_MOUNT && !BUSYBOX_UMOUNT || ALLYES
 	prompt "owfs"
 
 endif
