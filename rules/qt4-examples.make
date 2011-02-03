@@ -6,14 +6,11 @@ $(STATEDIR)/qt4.targetinstall.post: $(STATEDIR)/qt4.targetinstall2
 endif
 
 $(STATEDIR)/qt4.targetinstall2: $(STATEDIR)/qt4.targetinstall
-	@$(call targetinfo, $@)
+	@$(call targetinfo)
 	@$(call install_init, qt4-examples)
-	@$(call install_fixup, qt4-examples,PACKAGE,qt4-examples)
 	@$(call install_fixup, qt4-examples,PRIORITY,optional)
-	@$(call install_fixup, qt4-examples,VERSION,$(QT4_VERSION))
 	@$(call install_fixup, qt4-examples,SECTION,base)
-	@$(call install_fixup, qt4-examples,AUTHOR,"Robert Schwebel <r.schwebel\@pengutronix.de>")
-	@$(call install_fixup, qt4-examples,DEPENDS,)
+	@$(call install_fixup, qt4-examples,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, qt4-examples,DESCRIPTION,missing)
 
 ifdef PTXCONF_QT4_EXAMPLES_ANIMATION_ANIMATEDTILES
@@ -1422,5 +1419,6 @@ endif
 
 
 	@$(call install_finish, qt4-examples)
-	@$(call touch, $@)
+	@$(call touch)
 
+# vim: syntax=make

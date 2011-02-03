@@ -1178,16 +1178,19 @@ if QT4_EXAMPLES_QWS
 config QT4_EXAMPLES_QWS_FRAMEBUFFER
 	bool
 	prompt "framebuffer"
+	depends on QT4_PLATFORM_EMBEDDED
 
 config QT4_EXAMPLES_QWS_MOUSECALIBRATION
 	bool
 	prompt "mousecalibration"
+	depends on QT4_PLATFORM_EMBEDDED
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
 config QT4_EXAMPLES_QWS_SIMPLEDECORATION
 	bool
 	prompt "simpledecoration"
+	depends on QT4_PLATFORM_EMBEDDED
 	depends on QT4_BUILD_GUI
 	depends on QT4_BUILD_NETWORK
 
