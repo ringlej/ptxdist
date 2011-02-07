@@ -272,6 +272,7 @@ function write_deps_pkg_active(this_PKG, this_pkg, prefix) {
 		print "$(STATEDIR)/" this_pkg ".targetinstall: "      "$(STATEDIR)/" this_pkg ".install.post"	> DGEN_DEPS_POST;
 		print "$(STATEDIR)/" this_pkg ".targetinstall.post: " "$(STATEDIR)/" this_pkg ".targetinstall"	> DGEN_DEPS_POST;
 	}
+	print "$(STATEDIR)/" this_pkg ".report: "                     "$(STATEDIR)/" this_pkg ".extract"	> DGEN_DEPS_POST;
 
 	#
 	# conditional dependencies
