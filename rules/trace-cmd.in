@@ -1,0 +1,11 @@
+## SECTION=debug_tools
+
+config TRACE_CMD
+	tristate
+	prompt "trace-cmd"
+	help
+	  The trace-cmd command interacts with the Ftrace tracer that
+	  is built inside the Linux kernel. It interfaces with the
+	  Ftrace specific files found in the debugfs file system under
+	  the tracing directory.
+
