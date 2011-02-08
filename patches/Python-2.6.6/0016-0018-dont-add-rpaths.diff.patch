@@ -1,12 +1,16 @@
+From: unknown author <unknown.author@example.com>
+Date: Tue, 8 Feb 2011 15:10:31 +0100
+Subject: [PATCH] 0018-dont-add-rpaths.diff
+
 ---
  setup.py |    3 ---
- 1 file changed, 3 deletions(-)
+ 1 files changed, 0 insertions(+), 3 deletions(-)
 
-Index: b/setup.py
-===================================================================
+diff --git a/setup.py b/setup.py
+index d3aac1b..8c86ed8 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -893,7 +893,6 @@ class PyBuildExt(build_ext):
+@@ -991,7 +991,6 @@ class PyBuildExt(build_ext):
              exts.append(Extension('_bsddb', ['_bsddb.c'],
                                    depends = ['bsddb.h'],
                                    library_dirs=dblib_dir,
@@ -14,7 +18,7 @@ Index: b/setup.py
                                    include_dirs=db_incs,
                                    libraries=dblibs))
          else:
-@@ -995,7 +994,6 @@ class PyBuildExt(build_ext):
+@@ -1100,7 +1099,6 @@ class PyBuildExt(build_ext):
                                    include_dirs=["Modules/_sqlite",
                                                  sqlite_incdir],
                                    library_dirs=sqlite_libdir,
@@ -22,7 +26,7 @@ Index: b/setup.py
                                    extra_link_args=sqlite_extra_link_args,
                                    libraries=["sqlite3",]))
          else:
-@@ -1065,7 +1063,6 @@ class PyBuildExt(build_ext):
+@@ -1176,7 +1174,6 @@ class PyBuildExt(build_ext):
              elif db_incs is not None:
                  exts.append( Extension('dbm', ['dbmmodule.c'],
                                         library_dirs=dblib_dir,
@@ -30,3 +34,6 @@ Index: b/setup.py
                                         include_dirs=db_incs,
                                         define_macros=[('HAVE_BERKDB_H',None),
                                                        ('DB_DBM_HSEARCH',None)],
+-- 
+1.7.2.3
+

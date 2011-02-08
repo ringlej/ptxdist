@@ -1,7 +1,6 @@
-From 44a7b5cd5bca0d11b785d917a842d6436f6ad19f Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Thu, 23 Apr 2009 08:49:08 +0200
-Subject: [PATCH] [configure.in] printf format %zd
+Subject: [PATCH] printf format %zd
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
@@ -9,10 +8,10 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 files changed, 19 insertions(+), 4 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 0af62ae..b86ee74 100644
+index e9b5cf0..87fad98 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -3700,7 +3700,8 @@ else
+@@ -3874,7 +3874,8 @@ else
  fi
  
  AC_MSG_CHECKING(for %zd printf() format support)
@@ -22,7 +21,7 @@ index 0af62ae..b86ee74 100644
  #include <stddef.h>
  #include <string.h>
  
-@@ -3734,9 +3735,23 @@ int main()
+@@ -3908,9 +3909,23 @@ int main()
  
      return 0;
  }],
@@ -50,5 +49,5 @@ index 0af62ae..b86ee74 100644
  AC_CHECK_TYPE(socklen_t,,
    AC_DEFINE(socklen_t,int,
 -- 
-1.5.6.3
+1.7.2.3
 

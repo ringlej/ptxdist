@@ -1,4 +1,3 @@
-From ffb8d658042e698dced9be6fece1bcf3f5b62f68 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Tue, 28 Apr 2009 19:08:19 +0200
 Subject: [PATCH] setup.py: skip import check while cross compiling
@@ -12,10 +11,10 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 files changed, 4 insertions(+), 0 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index eacbbd8..7beb08b 100644
+index 08208bd..01b0ffc 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -267,6 +267,10 @@ class PyBuildExt(build_ext):
+@@ -313,6 +313,10 @@ class PyBuildExt(build_ext):
              self.announce('WARNING: skipping import check for Cygwin-based "%s"'
                  % ext.name)
              return
@@ -27,5 +26,5 @@ index eacbbd8..7beb08b 100644
              self.build_lib,
              self.get_ext_filename(self.get_ext_fullname(ext.name)))
 -- 
-1.5.6.3
+1.7.2.3
 

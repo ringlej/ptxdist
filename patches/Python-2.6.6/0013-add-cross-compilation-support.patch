@@ -1,4 +1,3 @@
-From 430893ea1bad2245f00d44fef62bbfb75db27f96 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Mon, 4 May 2009 14:39:18 +0200
 Subject: [PATCH] add cross compilation support
@@ -14,7 +13,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  4 files changed, 50 insertions(+), 10 deletions(-)
 
 diff --git a/Lib/distutils/sysconfig.py b/Lib/distutils/sysconfig.py
-index a00b2f9..b1091da 100644
+index 83af687..f583381 100644
 --- a/Lib/distutils/sysconfig.py
 +++ b/Lib/distutils/sysconfig.py
 @@ -19,9 +19,16 @@ import sys
@@ -23,7 +22,7 @@ index a00b2f9..b1091da 100644
  # These are needed in a couple of spots, so just compute them once.
 -PREFIX = os.path.normpath(sys.prefix)
 -EXEC_PREFIX = os.path.normpath(sys.exec_prefix)
- EXECUTABLE_DIRNAME = os.path.dirname(os.path.abspath(sys.executable))
+ EXECUTABLE_DIRNAME = os.path.dirname(os.path.realpath(sys.executable))
 +if os.environ.get('CROSS_COMPILING') == 'yes':
 +    _sysroot=os.environ.get('_python_sysroot')
 +    PREFIX = os.path.normpath(_sysroot + os.environ.get('_python_prefix'))
@@ -37,7 +36,7 @@ index a00b2f9..b1091da 100644
  # Path to the base directory of the project. On Windows the binary may
  # live in project/PCBuild9.  If we're dealing with an x64 Windows build,
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 8ad6e8b..795b67d 100644
+index 4031505..2bc3f38 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -72,6 +72,10 @@ CFLAGSFORSHARED=@CFLAGSFORSHARED@
@@ -54,9 +53,9 @@ index 8ad6e8b..795b67d 100644
 @@ -87,11 +91,11 @@ datarootdir=    @datarootdir@
  
  # Expanded directories
- BINDIR=		$(exec_prefix)/bin
--LIBDIR=		$(exec_prefix)/lib
-+LIBDIR=		$(sysroot)$(exec_prefix)/lib
+ BINDIR=		@bindir@
+-LIBDIR=		@libdir@
++LIBDIR=		$(sysroot)@libdir@
  MANDIR=		@mandir@
 -INCLUDEDIR=	@includedir@
 -CONFINCLUDEDIR=	$(exec_prefix)/include
@@ -68,7 +67,7 @@ index 8ad6e8b..795b67d 100644
  # Detailed destination directories
  BINLIBDEST=	$(LIBDIR)/python$(VERSION)
 diff --git a/configure.in b/configure.in
-index e65e530..1354b7f 100644
+index 52de250..88462b3 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -12,6 +12,9 @@ AC_INIT(python, PYTHON_VERSION, http://www.python.org/python-bugs)
@@ -81,7 +80,7 @@ index e65e530..1354b7f 100644
  dnl This is for stuff that absolutely must end up in pyconfig.h.
  dnl Please use pyport.h instead, if possible.
  AH_TOP([
-@@ -756,9 +759,9 @@ fi
+@@ -795,9 +798,9 @@ fi
  
  AC_MSG_RESULT($LDLIBRARY)
  
@@ -94,7 +93,7 @@ index e65e530..1354b7f 100644
  
  AC_SUBST(SVNVERSION)
  AC_CHECK_PROG(SVNVERSION, svnversion, found, not-found)
-@@ -3729,6 +3732,28 @@ AC_SUBST(PYTHON_FOR_BUILD)
+@@ -3910,6 +3913,28 @@ AC_SUBST(PYTHON_FOR_BUILD)
  AC_ARG_VAR(PYTHON_FOR_BUILD,[build system python (default: python)])
  
  
@@ -124,10 +123,10 @@ index e65e530..1354b7f 100644
  AC_CONFIG_FILES(Makefile.pre Modules/Setup.config)
  AC_OUTPUT
 diff --git a/setup.py b/setup.py
-index 7beb08b..2c183c4 100644
+index 01b0ffc..d3aac1b 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -1715,7 +1715,11 @@ class PyBuildExt(build_ext):
+@@ -1849,7 +1849,11 @@ class PyBuildExt(build_ext):
                                           ffi_configfile):
                  from distutils.dir_util import mkpath
                  mkpath(ffi_builddir)
@@ -141,5 +140,5 @@ index 7beb08b..2c183c4 100644
                  # Pass empty CFLAGS because we'll just append the resulting
                  # CFLAGS to Python's; -g or -O2 is to be avoided.
 -- 
-1.5.6.3
+1.7.2.3
 

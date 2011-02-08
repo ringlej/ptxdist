@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_PYTHON) += python
 #
 # Paths and names
 #
-PYTHON_VERSION		:= 2.6.4
+PYTHON_VERSION		:= 2.6.6
 PYTHON_MAJORMINOR	:= $(basename $(PYTHON_VERSION))
 PYTHON_SITEPACKAGES	:= /usr/lib/python$(PYTHON_MAJORMINOR)/site-packages
 PYTHON			:= Python-$(PYTHON_VERSION)

@@ -1,12 +1,16 @@
+From: unknown author <unknown.author@example.com>
+Date: Tue, 8 Feb 2011 15:10:31 +0100
+Subject: [PATCH] 0017-fix-for-new-autoconf.diff
+
 ---
  configure.in |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ 1 files changed, 2 insertions(+), 1 deletions(-)
 
-Index: b/configure.in
-===================================================================
+diff --git a/configure.in b/configure.in
+index 9b80a5d..2895a7d 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -1362,8 +1362,9 @@ AC_CHECK_SIZEOF(fpos_t, 4)
+@@ -1458,8 +1458,9 @@ AC_CHECK_SIZEOF(fpos_t, 4)
  AC_CHECK_SIZEOF(size_t, 4)
  AC_CHECK_SIZEOF(pid_t, 4)
  
@@ -17,3 +21,6 @@ Index: b/configure.in
    AC_DEFINE(HAVE_LONG_LONG, 1, [Define this if you have the type long long.])
  fi
  
+-- 
+1.7.2.3
+

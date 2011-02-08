@@ -1,4 +1,3 @@
-From f091c104cb02b0724e7ea13fb5062a788c37091c Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Tue, 28 Apr 2009 14:22:01 +0200
 Subject: [PATCH] introduce and use PYTHON_FOR_BUILD
@@ -15,7 +14,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  2 files changed, 36 insertions(+), 19 deletions(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index e847e2c..8ad6e8b 100644
+index 01d4c98..4031505 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -174,7 +174,8 @@ LIBOBJS=	@LIBOBJS@
@@ -51,10 +50,10 @@ index e847e2c..8ad6e8b 100644
 -sharedmods: $(BUILDPYTHON)
 +sharedmods: $(BUILDPYTHON) $(PYTHON_FOR_BUILD)
  	@case "$(MAKEFLAGS)" in \
--	s|*\ s|s\ *|*\ s\ *) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
--	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
-+	s|*\ s|s\ *|*\ s\ *) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' $(PYTHON_FOR_BUILD) -E $(srcdir)/setup.py -q build;; \
-+	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' $(PYTHON_FOR_BUILD) -E $(srcdir)/setup.py build;; \
+-	s|*\ s|s\ *|*\ s\ *) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' LDFLAGS='$(LDFLAGS)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
+-	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' LDFLAGS='$(LDFLAGS)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
++	s|*\ s|s\ *|*\ s\ *) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' LDFLAGS='$(LDFLAGS)' OPT='$(OPT)' $(PYTHON_FOR_BUILD) -E $(srcdir)/setup.py -q build;; \
++	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' LDFLAGS='$(LDFLAGS)' OPT='$(OPT)' $(PYTHON_FOR_BUILD) -E $(srcdir)/setup.py build;; \
  	esac
  
  # Build static library
@@ -69,10 +68,10 @@ index e847e2c..8ad6e8b 100644
  		-$(TESTPYTHON) $(TESTPROG) $(TESTOPTS)
 @@ -700,7 +701,7 @@ testuniversal:	all platform
  		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
- 		-$(TESTPYTHON) $(TESTPROG) $(TESTOPTS) -uall
- 		$(TESTPYTHON) $(TESTPROG) $(TESTOPTS) -uall
--		$(RUNSHARED) /usr/libexec/oah/translate ./$(BUILDPYTHON) -E -tt $(TESTPROG) $(TESTOPTS) -uall
-+		$(RUNSHARED) /usr/libexec/oah/translate $(PYTHON_FOR_BUILD) -E -tt $(TESTPROG) $(TESTOPTS) -uall
+ 		-$(TESTPYTHON) $(TESTPROG) -uall $(TESTOPTS)
+ 		$(TESTPYTHON) $(TESTPROG) -uall $(TESTOPTS)
+-		$(RUNSHARED) /usr/libexec/oah/translate ./$(BUILDPYTHON) -E -tt $(TESTPROG) -uall $(TESTOPTS)
++		$(RUNSHARED) /usr/libexec/oah/translate $(PYTHON_FOR_BUILD) -E -tt $(TESTPROG) -uall $(TESTOPTS)
  
  
  # Like testall, but with a single pass only
@@ -123,7 +122,7 @@ index e847e2c..8ad6e8b 100644
  	$(LN) -fsn $(VERSION) $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Versions/Current
  	$(LN) -fsn Versions/Current/$(PYTHONFRAMEWORK) $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/$(PYTHONFRAMEWORK)
  	$(LN) -fsn Versions/Current/Headers $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Headers
-@@ -1082,7 +1083,7 @@ frameworkinstallextras:
+@@ -1083,7 +1084,7 @@ frameworkinstallextras:
  # This installs a few of the useful scripts in Tools/scripts
  scriptsinstall:
  	SRCDIR=$(srcdir) $(RUNSHARED) \
@@ -132,7 +131,7 @@ index e847e2c..8ad6e8b 100644
  	--prefix=$(prefix) \
  	--install-scripts=$(BINDIR) \
  	--root=/$(DESTDIR)
-@@ -1104,7 +1105,7 @@ config.status:	$(srcdir)/configure
+@@ -1105,7 +1106,7 @@ config.status:	$(srcdir)/configure
  
  # Run reindent on the library
  reindent:
@@ -141,7 +140,7 @@ index e847e2c..8ad6e8b 100644
  
  # Rerun configure with the same options as it was run last time,
  # provided the config.status script exists
-@@ -1200,7 +1201,7 @@ funny:
+@@ -1203,7 +1204,7 @@ funny:
  
  # Perform some verification checks on any modified files.
  patchcheck:
@@ -151,10 +150,10 @@ index e847e2c..8ad6e8b 100644
  # Dependencies
  
 diff --git a/configure.in b/configure.in
-index 5135bd3..e65e530 100644
+index 1066880..52de250 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -3713,6 +3713,22 @@ for dir in $SRCDIRS; do
+@@ -3894,6 +3894,22 @@ for dir in $SRCDIRS; do
  done
  AC_MSG_RESULT(done)
  
@@ -178,5 +177,5 @@ index 5135bd3..e65e530 100644
  AC_CONFIG_FILES(Makefile.pre Modules/Setup.config)
  AC_OUTPUT
 -- 
-1.5.6.3
+1.7.2.3
 

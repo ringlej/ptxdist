@@ -1,4 +1,3 @@
-From ff60f7c08cb167d060fd0e34b543550facf846c6 Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Mon, 4 May 2009 21:45:37 +0200
 Subject: [PATCH] provide wrapper for cross-python
@@ -11,13 +10,13 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  configure.in            |    2 +-
  cross-python-wrapper.in |   13 +++++++++++++
  2 files changed, 14 insertions(+), 1 deletions(-)
- create mode 100755 cross-python-wrapper.in
+ create mode 100644 cross-python-wrapper.in
 
 diff --git a/configure.in b/configure.in
-index 1354b7f..7beda7d 100644
+index 88462b3..9b80a5d 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -3755,7 +3755,7 @@ fi
+@@ -3936,7 +3936,7 @@ fi
  
  
  # generate output files
@@ -27,7 +26,7 @@ index 1354b7f..7beda7d 100644
  
  echo "creating Modules/Setup"
 diff --git a/cross-python-wrapper.in b/cross-python-wrapper.in
-new file mode 100755
+new file mode 100644
 index 0000000..9cfd36f
 --- /dev/null
 +++ b/cross-python-wrapper.in
@@ -46,5 +45,5 @@ index 0000000..9cfd36f
 +
 +exec @PYTHON_FOR_BUILD@ "${@}"
 -- 
-1.5.6.3
+1.7.2.3
 
