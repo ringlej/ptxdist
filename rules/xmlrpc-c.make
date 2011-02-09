@@ -16,7 +16,7 @@ PACKAGES-$(PTXCONF_XMLRPC_C) += xmlrpc-c
 #
 # Paths and names
 #
-XMLRPC_C_VERSION	:= 1.06.38
+XMLRPC_C_VERSION	:= 1.06.41
 XMLRPC_C		:= xmlrpc-c-$(XMLRPC_C_VERSION)
 XMLRPC_C_SUFFIX		:= tgz
 XMLRPC_C_URL		:= $(PTXCONF_SETUP_SFMIRROR)/xmlrpc-c/Xmlrpc-c%20Super%20Stable/1.06.38/$(XMLRPC_C).$(XMLRPC_C_SUFFIX)
