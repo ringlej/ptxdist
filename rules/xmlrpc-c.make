@@ -80,6 +80,7 @@ XMLRPC_C_CONF_OPT += --disable-libxml2-backend
 endif
 
 XMLRPC_C_MAKE_OPT := \
+	CADD=-fPIC \
 	BUILDTOOL_CC=$(HOSTCC) \
 	BUILDTOOL_CCLD=$(HOSTCC)
 
