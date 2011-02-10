@@ -1,0 +1,27 @@
+From: unknown author <unknown.author@example.com>
+Date: Mon, 23 Aug 2010 10:45:58 +0200
+Subject: [PATCH] fix compiling with g++ 4.5
+
+g++ 4.5 is stricter and won't compile without this patch.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/core/scsi.cc |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/core/scsi.cc b/src/core/scsi.cc
+index ef49677..e72376b 100644
+--- a/src/core/scsi.cc
++++ b/src/core/scsi.cc
+@@ -842,7 +842,7 @@ static bool scan_hosts(hwNode & node)
+ 
+           if (!controller)
+           {
+-            controller = node.addChild(hwNode::hwNode("scsi", hw::storage));
++            controller = node.addChild(hwNode("scsi", hw::storage));
+             if (controller)
+             {
+               controller->setLogicalName(host_logicalname(number));
+-- 
+1.7.1
+
