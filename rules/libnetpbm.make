@@ -63,6 +63,7 @@ endif
 	sed -i -e "s,^CC_FOR_BUILD.*,CC_FOR_BUILD=$(HOSTCC),g" $(LIBNETPBM_DIR)/Makefile.config
 	sed -i -e "s,^LD_FOR_BUILD.*,LD_FOR_BUILD=$(HOSTCC),g" $(LIBNETPBM_DIR)/Makefile.config
 	sed -i -e "s,^CFLAGS_FOR_BUILD.*,CFLAGS_FOR_BUILD=,g" $(LIBNETPBM_DIR)/Makefile.config
+	sed -i -e "s,^CFLAGS_SHLIB.*,CFLAGS_SHLIB=-fPIC,g" $(LIBNETPBM_DIR)/Makefile.config
 	echo "CFLAGS=$(CROSS_CFLAGS) $(CROSS_CPPFLAGS)" >> $(LIBNETPBM_DIR)/Makefile.config
 	@$(call touch)
 
