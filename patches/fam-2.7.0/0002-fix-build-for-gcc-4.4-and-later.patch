@@ -1,0 +1,25 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 12 Feb 2011 22:21:29 +0100
+Subject: [PATCH] fix build for gcc 4.4 and later
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/NFSFileSystem.c++ |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/NFSFileSystem.c++ b/src/NFSFileSystem.c++
+index 65c0b4e..3826a24 100644
+--- a/src/NFSFileSystem.c++
++++ b/src/NFSFileSystem.c++
+@@ -97,7 +97,7 @@ NFSFileSystem::NFSFileSystem(const mntent& mnt)
+ 
+     attr_cache_timeout = ACREGMAX;
+ 
+-    char * p;
++    const char * p;
+         
+     if (strstr(opt, "noac")) {
+         f_noac = true;
+-- 
+1.7.2.3
+
