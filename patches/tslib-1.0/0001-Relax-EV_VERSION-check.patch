@@ -1,0 +1,30 @@
+From 412d99d8b92c12545f939972146a38c5074f3dcb Mon Sep 17 00:00:00 2001
+From: Martin Jansa <Martin.Jansa@gmail.com>
+Date: Wed, 12 Jan 2011 14:36:35 +0100
+Subject: [PATCH] Relax EV_VERSION check
+
+Fail only if version of running kernel is lower than the EV_VERSION from the
+kernel headers, rather than expecting an exact match.
+
+Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
+Signed-off-by: Chris Larson <chris_larson@mentor.com>
+---
+ plugins/input-raw.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/plugins/input-raw.c b/plugins/input-raw.c
+index 9511a0d..4396eab 100644
+--- a/plugins/input-raw.c
++++ b/plugins/input-raw.c
+@@ -78,7 +78,7 @@ static int check_fd(struct tslib_input *i)
+ 		return -1;
+ 	}
+ 
+-	if (version != EV_VERSION) {
++	if (version < EV_VERSION) {
+ 		fprintf(stderr, "tslib: Selected device uses a different version of the event protocol than tslib was compiled for\n");
+ 		return -1;
+ 	}
+-- 
+1.7.2.3
+

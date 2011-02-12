@@ -16,3 +16,4 @@ r71-Fix-regularly-reported-absbit-keybit-copy-paste-bug.patch
 r73-Prefix-correct-some-error-messages-in-input-raw-modu.patch
 r75-Rely-on-SYN-Events-when-pen-is-lifted.patch
 r78-input-raw-Handling-of-EVIOCGBIT-ioctl-coding.patch
+0001-Relax-EV_VERSION-check.patch
