@@ -1,0 +1,31 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 12 Feb 2011 21:34:12 +0100
+Subject: [PATCH] don't build ubi-utils/old-utils with -Werror
+
+gcc 4.5 generates a warning:
+
+cc1: warnings being treated as errors
+./src/libubigen.c: In function 'ubigen_write_leb':
+./src/libubigen.c:204:19: error: operation on 'u->v->copy_flag' may be undefined
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ ubi-utils/old-utils/Makefile |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/ubi-utils/old-utils/Makefile b/ubi-utils/old-utils/Makefile
+index acdb31a..6df7c06 100644
+--- a/ubi-utils/old-utils/Makefile
++++ b/ubi-utils/old-utils/Makefile
+@@ -4,7 +4,7 @@
+ 
+ KERNELHDR := ../../include
+ 
+-CFLAGS ?= -O2 -g -Werror
++CFLAGS ?= -O2 -g
+ CPPFLAGS := -I./inc -I./src -I$(KERNELHDR) \
+ 	-std=gnu99 -DPACKAGE_VERSION=\"1.0\" $(CPPFLAGS)
+ 
+-- 
+1.7.2.3
+
