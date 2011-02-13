@@ -1,0 +1,56 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 13 Feb 2011 21:06:02 +0100
+Subject: [PATCH] fix building with gcc 4.5
+
+don't build with -Werror. getsid is not declared for glibc < 2.12.
+We cannot fix it for both without warning.
+
+[...]/initng-0.6.10.2/tools/killalli5.c:104:9: error: redundant redeclaration of 'getsid'
+[...]/usr/include/unistd.h:690:16: note: previous declaration of 'getsid' was here
+make[3]: *** [tools/CMakeFiles/killalli5.dir/killalli5.o] Error 1
+
+include sys/stat.h:
+
+[...]/initng-0.6.10.2/plugins/find/initng_find.c: In function 'search_dir':
+[...]/initng-0.6.10.2/plugins/find/initng_find.c:66:2: error: implicit declaration of function 'stat'
+[...]/initng-0.6.10.2/plugins/find/initng_find.c:66:2: error: nested extern declaration of 'stat'
+[...]/initng-0.6.10.2/plugins/find/initng_find.c:66:2: error: implicit declaration of function 'S_ISREG'
+[...]/initng-0.6.10.2/plugins/find/initng_find.c:66:2: error: nested extern declaration of 'S_ISREG'
+[...]/initng-0.6.10.2/plugins/find/initng_find.c:108:3: error: implicit declaration of function 'S_ISDIR'
+[...]/initng-0.6.10.2/plugins/find/initng_find.c:108:3: error: nested extern declaration of 'S_ISDIR'
+make[3]: *** [plugins/find/CMakeFiles/find.dir/initng_find.o] Error 1
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ CMakeLists.txt             |    2 +-
+ plugins/find/initng_find.c |    1 +
+ 2 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 18c5d54..8307378 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,7 +14,7 @@ INCLUDE(UsePkgConfig)
+ 
+ ADD_DEFINITIONS(-DHAVE_CONFIG_H)
+ # Turn on warnings
+-SET(CMAKE_C_FLAGS "-Wall -Werror ${CMAKE_C_FLAGS}")
++SET(CMAKE_C_FLAGS "-Wall ${CMAKE_C_FLAGS}")
+ 
+ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+ 
+diff --git a/plugins/find/initng_find.c b/plugins/find/initng_find.c
+index 195b38c..a1fbcdf 100644
+--- a/plugins/find/initng_find.c
++++ b/plugins/find/initng_find.c
+@@ -27,6 +27,7 @@
+ #include <stdlib.h>
+ #include <assert.h>
+ #include <sys/types.h>
++#include <sys/stat.h>
+ #include <errno.h>
+ #include <dirent.h>
+ 
+-- 
+1.7.2.3
+

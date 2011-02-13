@@ -1,4 +1,3 @@
-From ffc11e594dffa4d6fc386c41846d0e1ec383239a Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Fri, 1 Jan 2010 16:08:33 +0100
 Subject: [PATCH] inotify-syscalls: don't define inotofy syscalls if already defined
@@ -29,5 +28,5 @@ index 8cfa879..495d592 100644
  static inline int inotify_init(void)
  {
 -- 
-1.6.5.7
+1.7.2.3
 
