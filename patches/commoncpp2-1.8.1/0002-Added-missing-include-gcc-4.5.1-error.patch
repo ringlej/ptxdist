@@ -1,0 +1,35 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 13 Feb 2011 19:59:59 +0100
+Subject: [PATCH] Added missing include (gcc 4.5.1 error)
+
+applog.cpp: In constructor 'ost::logger::logger(const char*, bool)':
+applog.cpp:300:43: error: 'S_IREAD' was not declared in this scope
+applog.cpp:300:53: error: 'S_IWRITE' was not declared in this scope
+applog.cpp:300:61: error: 'mkfifo' was not declared in this scope
+[...]
+
+this is upstream revision 1570.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/applog.cpp |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/src/applog.cpp b/src/applog.cpp
+index b5c02b0..71d4e12 100755
+--- a/src/applog.cpp
++++ b/src/applog.cpp
+@@ -38,6 +38,10 @@
+ #include <cc++/thread.h>
+ #include <cc++/slog.h>
+ #include <cc++/buffer.h>
++#ifndef WIN32
++#include <sys/types.h>
++#include <sys/stat.h>
++#endif
+ #include <string>
+ #include <iomanip>
+ #include <iostream>
+-- 
+1.7.2.3
+

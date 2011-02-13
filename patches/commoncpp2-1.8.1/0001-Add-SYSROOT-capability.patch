@@ -1,18 +1,18 @@
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: Add ${SYSROOT} capability
+Date: Sun, 13 Feb 2011 19:59:43 +0100
+Subject: [PATCH] Add ${SYSROOT} capability
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
----
 # rsc: https://savannah.gnu.org/patch/index.php?6971
-
+---
  src/ccgnu2-config.in |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ 1 files changed, 3 insertions(+), 3 deletions(-)
 
-Index: commoncpp2-1.8.0/src/ccgnu2-config.in
-===================================================================
---- commoncpp2-1.8.0.orig/src/ccgnu2-config.in
-+++ commoncpp2-1.8.0/src/ccgnu2-config.in
+diff --git a/src/ccgnu2-config.in b/src/ccgnu2-config.in
+index 9fcafc9..9da0366 100755
+--- a/src/ccgnu2-config.in
++++ b/src/ccgnu2-config.in
 @@ -18,7 +18,7 @@ ccload="@DYN_LOADER@"
  ccstd="@SSL_LIBS@ @ZSTREAM_LIBS@"
  prefix="@prefix@"
@@ -22,16 +22,16 @@ Index: commoncpp2-1.8.0/src/ccgnu2-config.in
  
  includedir="@includedir@"
  
-@@ -48,7 +48,7 @@ fi
- while test $# -gt 0 ; do
- 	case "$1" in
+@@ -66,7 +66,7 @@ while test $# -gt 0 ; do
+ 		libdir="-L$sysroot@libdir@"
+ 		;;
  	--prefix)
 -		echo @prefix@
 +		echo ${SYSROOT}@prefix@
  		;;
- 	--version)
- 		echo @VERSION@
-@@ -72,7 +72,7 @@ while test $# -gt 0 ; do
+ 	--exec-prefix=*)
+ 		exec_prefix=$optarg
+@@ -97,7 +97,7 @@ while test $# -gt 0 ; do
  		echo -lccext2 $ccstd
  		;;
  	--includes)
@@ -40,3 +40,6 @@ Index: commoncpp2-1.8.0/src/ccgnu2-config.in
  		;;
  	--dyn | --dso)
  		echo $ost_cv_dynloader
+-- 
+1.7.2.3
+
