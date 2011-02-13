@@ -38,7 +38,9 @@ $(CANFESTIVAL_SOURCE):
 
 CANFESTIVAL_PATH	:= PATH=$(CROSS_PATH)
 CANFESTIVAL_ENV 	:= $(CROSS_ENV_CC)
-CANFESTIVAL_MAKEVARS	:= CFLAGS="-I$(KERNEL_HEADERS_INCLUDE_DIR)"
+# Overwrite OPT_CFLAGS instead of CFLAGS so we don't loose other flags
+# such as -fPIC for libs. Not this breaks when using "--disable-Ox"
+CANFESTIVAL_MAKEVARS	:= OPT_CFLAGS="-I$(KERNEL_HEADERS_INCLUDE_DIR) -O2"
 #
 # autoconf
 #
