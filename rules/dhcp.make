@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_DHCP) += dhcp
 #
 # Paths and names
 #
-DHCP_VERSION	:= 4.1.1
+DHCP_VERSION	:= 4.1.2
 DHCP		:= dhcp-$(DHCP_VERSION)
 DHCP_SUFFIX	:= tar.gz
 DHCP_SOURCE	:= $(SRCDIR)/$(DHCP).$(DHCP_SUFFIX)
@@ -48,6 +48,10 @@ DHCP_PATH	:= PATH=$(CROSS_PATH)
 DHCP_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
 	--disable-dhcpv6
+
+# overwrite CFLAGS to remove -Werror
+DHCP_MAKE_OPT := \
+	CFLAGS="-g -O2  -Wall -fno-strict-aliasing"
 
 # ----------------------------------------------------------------------------
 # Target-Install
