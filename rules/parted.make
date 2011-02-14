@@ -16,14 +16,13 @@ PACKAGES-$(PTXCONF_PARTED) += parted
 #
 # Paths and names
 #
-# versions newer than 1.8.7 are GPLv3 and by some users not preferred
-PARTED_VERSION	:= 1.8.7
+PARTED_VERSION	:= 2.3
 PARTED		:= parted-$(PARTED_VERSION)
 PARTED_SUFFIX	:= tar.gz
 PARTED_URL	:= $(PTXCONF_SETUP_GNUMIRROR)/parted/$(PARTED).$(PARTED_SUFFIX)
 PARTED_SOURCE	:= $(SRCDIR)/$(PARTED).$(PARTED_SUFFIX)
 PARTED_DIR	:= $(BUILDDIR)/$(PARTED)
-PARTED_LICENSE	:= GPLv2
+PARTED_LICENSE	:= GPLv3
 
 # ----------------------------------------------------------------------------
 # Get
@@ -57,7 +56,7 @@ $(STATEDIR)/parted.targetinstall:
 	@$(call install_copy, parted, 0, 0, 0755, -, /usr/sbin/parted)
 	@$(call install_copy, parted, 0, 0, 0755, -, /usr/sbin/partprobe)
 
-	@$(call install_lib, parted, 0, 0, 0644, libparted-1.8)
+	@$(call install_lib, parted, 0, 0, 0644, libparted)
 
 	@$(call install_finish, parted)
 
