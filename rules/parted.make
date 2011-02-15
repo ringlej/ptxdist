@@ -38,6 +38,7 @@ $(PARTED_SOURCE):
 PARTED_CONF_TOOL := autoconf
 PARTED_CONF_OPT  := \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-device-mapper \
 	--disable-Werror
 
 # ----------------------------------------------------------------------------
