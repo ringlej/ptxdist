@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_NET_SNMP) += net-snmp
 #
 # Paths and names
 #
-NET_SNMP_VERSION	:= 5.3.3
+NET_SNMP_VERSION	:= 5.6.1
 NET_SNMP		:= net-snmp-$(NET_SNMP_VERSION)
 NET_SNMP_SUFFIX		:= tar.gz
 NET_SNMP_URL		:= $(PTXCONF_SETUP_SFMIRROR)/net-snmp/$(NET_SNMP).$(NET_SNMP_SUFFIX)
@@ -55,6 +55,8 @@ NET_SNMP_AUTOCONF := \
 	--with-persistent-directory=$(call remove_quotes,$(PTXCONF_NET_SNMP_PERSISTENT_DIR)) \
 	--with-default-snmp-version=$(call remove_quotes,$(PTXCONF_NET_SNMP_DEFAULT_VERSION)) \
 	--enable-shared \
+	--disable-embedded-perl \
+	--without-perl-modules \
 	--disable-static
 
 ifdef PTXCONF_ENDIAN_LITTLE
@@ -211,8 +213,8 @@ NET_SNMP_MAKE_PAR := NO
 # Target-Install
 # ----------------------------------------------------------------------------
 
-NET_SNMP_LIBMAJOR := 10
-NET_SNMP_LIBMINOR := 0.5
+NET_SNMP_LIBMAJOR := 25
+NET_SNMP_LIBMINOR := 0.1
 NET_SNMP_LIBVER :=$(NET_SNMP_LIBMAJOR).$(NET_SNMP_LIBMINOR)
 
 NET_SNMP_V1MIBS := RFC1155-SMI.txt RFC1213-MIB.txt RFC-1215.txt

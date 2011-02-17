@@ -4,24 +4,29 @@ Date: Sun, 10 Jan 2010 00:33:45 +0100
 Subject: [PATCH] net-snmp-config; add SYSROOT support
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+Adapted to 5.6.1
+
+Signed-off-by: Wolfram Sang <w.sang@pengutronix.de>
+
 ---
  net-snmp-config.in |    8 ++++----
- 1 files changed, 4 insertions(+), 4 deletions(-)
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/net-snmp-config.in b/net-snmp-config.in
-index fee15be..50cece9 100755
---- a/net-snmp-config.in
-+++ b/net-snmp-config.in
-@@ -33,7 +33,7 @@ includedir=@includedir@
- libdir=@libdir@
+Index: net-snmp-config.in
+===================================================================
+--- net-snmp-config.in.orig
++++ net-snmp-config.in
+@@ -49,7 +49,7 @@ datarootdir=@datarootdir@
  NSC_LDFLAGS="@LDFLAGS@"
+ NSC_LNETSNMPLIBS="@LNETSNMPLIBS@"
  NSC_INCLUDEDIR=${includedir}
 -NSC_LIBDIR=-L${libdir}
 +NSC_LIBDIR=-L${SYSROOT}${libdir}
- NSC_LIBS="@LIBS@ @WRAPLIBS@"
- NSC_AGENTLIBS="@AGENTLIBS@ @WRAPLIBS@ @PERLLDOPTS@"
+ NSC_LIBS="@LIBS@"
+ NSC_AGENTLIBS="@AGENTLIBS@ @PERLLDOPTS_FOR_APPS@"
  NSC_PREFIX=$prefix
-@@ -105,10 +105,10 @@ else
+@@ -127,10 +127,10 @@ else
        ;;
      #################################################### compile
      --base-cflags)
@@ -34,7 +39,7 @@ index fee15be..50cece9 100755
        ;;
      --srcdir)
        echo $NSC_SRCDIR
-@@ -473,7 +473,7 @@ EOF
+@@ -588,7 +588,7 @@ EOF
          echo "Ack.  Can't create $tmpfile."
  	exit 1
        fi
@@ -43,6 +48,3 @@ index fee15be..50cece9 100755
        echo "running: $cmd"
        `$cmd`
        if test "x$norm" != "x1" ; then
--- 
-1.6.6
-

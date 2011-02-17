@@ -5,6 +5,8 @@ menuconfig NET_SNMP
 	select LIBC_M
 	select GCCLIBS_GCC_S if NET_SNMP_AGENT
 	select LIBC_DL if NET_SNMP_AGENT || NET_SNMP_APPLICATIONS
+	select NET_SNMP_MD5
+#	^ build fix for 5.6.1
 
 if NET_SNMP
 
