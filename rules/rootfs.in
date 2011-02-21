@@ -305,6 +305,12 @@ choice
 		help
 		  If enabled, it installs /etc/mtab as a link to /proc/mounts
 
+	config ROOTFS_MTAB_LINK_SELF_MOUNTS
+		bool
+		prompt "link to /proc/self/mounts"
+		help
+		  If enabled, it installs /etc/mtab as a link to /proc/self/mounts
+
 	config ROOTFS_MTAB_LINK_VAR
 		bool
 		prompt "link to /var/tmp/mtab"

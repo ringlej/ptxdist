@@ -145,6 +145,9 @@ endif
 ifdef PTXCONF_ROOTFS_MTAB_LINK_MOUNTS
 	@$(call install_link, rootfs, ../proc/mounts, /etc/mtab)
 endif
+ifdef PTXCONF_ROOTFS_MTAB_LINK_SELF_MOUNTS
+	@$(call install_link, rootfs, ../proc/self/mounts, /etc/mtab)
+endif
 ifdef PTXCONF_ROOTFS_MTAB_LINK_VAR
 	@$(call install_copy, rootfs, 0, 0, 0644, \
 		$(PTXDIST_TOPDIR)/generic/etc/mtab, /var/tmp/mtab)
