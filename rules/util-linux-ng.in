@@ -23,6 +23,12 @@ config UTIL_LINUX_NG_LIBMOUNT
 config UTIL_LINUX_NG_USES_NCURSES
 	bool
 
+config UTIL_LINUX_NG_AGETTY
+	bool
+	prompt "agetty"
+	help
+	  A small getty.
+
 config UTIL_LINUX_NG_FDISK
 	bool
 	prompt "fdisk"

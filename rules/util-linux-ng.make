@@ -58,7 +58,6 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--disable-nls \
 	--disable-rpath \
 	--disable-arch \
-	--disable-agetty \
 	--disable-cramfs \
 	--disable-elvtune \
 	--disable-fallocate \
@@ -88,6 +87,12 @@ UTIL_LINUX_NG_AUTOCONF := \
 	--without-audit \
 	--without-utempter
 
+ifdef PTXCONF_UTIL_LINUX_NG_AGETTY
+UTIL_LINUX_NG_AUTOCONF += --enable-agetty
+else
+UTIL_LINUX_NG_AUTOCONF += --disable-agetty
+endif
+
 ifdef PTXCONF_UTIL_LINUX_NG_LIBUUID
 UTIL_LINUX_NG_AUTOCONF += --enable-libuuid
 else
@@ -107,6 +112,9 @@ $(STATEDIR)/util-linux-ng.targetinstall:
 	@$(call install_fixup, util-linux-ng,AUTHOR,"Robert Schwebel <r.schwebel@pengutronix.de>")
 	@$(call install_fixup, util-linux-ng,DESCRIPTION,missing)
 
+ifdef PTXCONF_UTIL_LINUX_NG_AGETTY
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/agetty)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_MKSWAP
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/mkswap)
 endif
