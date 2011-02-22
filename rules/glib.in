@@ -22,9 +22,9 @@ menuconfig GLIB
 
 if GLIB
 
-config GLIB_EXPERIMENTAL
-	bool
-	prompt "experimental version"
+#config GLIB_EXPERIMENTAL
+#	bool
+#	prompt "experimental version"
 
 choice
 

@@ -17,11 +17,11 @@ PACKAGES-$(PTXCONF_GLIB) += glib
 #
 # Paths and names
 #
-ifdef PTXCONF_GLIB_EXPERIMENTAL
-GLIB_VERSION	:= 2.27.93
-else
-GLIB_VERSION	:= 2.26.1
-endif
+#ifdef PTXCONF_GLIB_EXPERIMENTAL
+#GLIB_VERSION	:= 2.27.93
+#else
+GLIB_VERSION	:= 2.28.1
+#endif
 
 GLIB		:= glib-$(GLIB_VERSION)
 GLIB_SUFFIX	:= tar.bz2

@@ -3,7 +3,6 @@
 config DCONF
 	tristate
 	select GLIB
-	select GLIB_EXPERIMENTAL
 	select LIBC_RT
 	select LIBC_RESOLV
 	select DBUS

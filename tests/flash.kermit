@@ -4,7 +4,7 @@ define flash {
 	.tftpfilename := \fbasename(\%1)
 
 	if = \m(uboot_version) 2 {
-		ptx_uboot_exec 600 "update_\%2 nor \m(tftpfilename)"
+		ptx_uboot_exec 600 "update_\%2 \m(tftpfilename)"
 	} else {
 		ptx_uboot_exec 5 "setenv \%2 \m(tftpfilename)"
 		ptx_uboot_exec 600 "run update_\%2" "Copy to Flash... done"

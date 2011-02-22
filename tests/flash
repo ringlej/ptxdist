@@ -1,30 +1,30 @@
 #!/bin/bash
 
-_error() {
-	echo "$1" >&2
-	exit 1
+exit_handler() {
+	rm -f "${KERNEL}" "${ROOTFS}" "${OFTREE}"
 }
+trap 'exit_handler' 0 1 15
 
-[ -e "${PTXDIST_BOARDSETUP}" ] || _error "Please run 'ptxdist boardsetup' first!"
+[ -e "${PTXDIST_BOARDSETUP}" ] || ptxd_bailout "Please run 'ptxdist boardsetup' first!"
 
 . ${PTXDIST_BOARDSETUP}
 
-[ -f ${PTXDIST_PLATFORMDIR}/images/linuximage ] || _error "Kernel-Image not found. Please run 'ptxdist images'."
+[ -f ${PTXDIST_PLATFORMDIR}/images/linuximage ] || ptxd_bailout "Kernel-Image not found. Please run 'ptxdist images'."
 KERNEL=$(mktemp ${PTXCONF_BOARDSETUP_TFTP_PATH}/kernel.XXXXXXXX)
 cp -p ${PTXDIST_PLATFORMDIR}/images/linuximage ${KERNEL}
 
-# FIXME: Might be not jffs2
-[ -f ${PTXDIST_PLATFORMDIR}/images/root.jffs2 ] || _error "Rootfs-Image not found. Please run 'ptxdist images'."
-ROOTFS=$(mktemp ${PTXCONF_BOARDSETUP_TFTP_PATH}/rootfs.XXXXXXXX)
-cp -p ${PTXDIST_PLATFORMDIR}/images/root.jffs2 ${ROOTFS}
+ptxd_get_path \
+	"${PTXDIST_PLATFORMDIR}/images/root.jffs2" \
+	"${PTXDIST_PLATFORMDIR}/images/root.ubi" ||
+ptxd_bailout "Rootfs-Image not found. Please run 'ptxdist images'."
 
-if [ -f ${PTXDIST_PLATFORMDIR}/images/oftree ]; then
-	OFTREE=$(mktemp ${PTXCONF_BOARDSETUP_TFTP_PATH}/oftree.XXXXXXXX)
-	cp -p ${PTXDIST_PLATFORMDIR}/images/oftree ${OFTREE}
+ROOTFS="$(mktemp ${PTXCONF_BOARDSETUP_TFTP_PATH}/rootfs.XXXXXXXX)"
+cp -p "${ptxd_reply}" "${ROOTFS}"
+
+if [ -f "${PTXDIST_PLATFORMDIR}/images/oftree" ]; then
+	OFTREE="$(mktemp ${PTXCONF_BOARDSETUP_TFTP_PATH}/oftree.XXXXXXXX)"
+	cp -p "${PTXDIST_PLATFORMDIR}/images/oftree" "${OFTREE}"
 fi
 
-${PTXDIST_TOPDIR}/tests/kwrapper flash ${KERNEL} ${ROOTFS} ${OFTREE}
+${PTXDIST_TOPDIR}/tests/kwrapper flash "${KERNEL}" "${ROOTFS}" "${OFTREE}"
 
-rm -f ${KERNEL}
-rm -f ${ROOTFS}
-if [ "${OFTREE}" ]; then rm -f ${OFTREE}; fi

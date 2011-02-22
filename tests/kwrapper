@@ -1,30 +1,24 @@
 #!/bin/bash
 
-_error() {
-	echo "$1" >&2
-	exit 1
-}
-
 export PTXDIST_SYSROOT_HOST=$(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)
 # FIXME: Is there a dedicated IMAGEDIR?
 export IMAGEDIR=${PTXDIST_PLATFORMDIR}/images
-OURDIR="$(dirname "${0}")"
 TST="${1}"
 shift
 
-[ -e "${PTXDIST_BOARDSETUP}" ] || _error "Please run 'ptxdist boardsetup' first!"
+[ -e "${PTXDIST_BOARDSETUP}" ] || ptxd_bailout "Please run 'ptxdist boardsetup' first!"
 
-KSCRIPT="${PTXDIST_WORKSPACE}/tests/${TST}.kermit"
-if [ ! -e "${KSCRIPT}" ]; then
-	KSCRIPT="${OURDIR}/${TST}.kermit"
-	[ -e "${KSCRIPT}" ] || _error "No kermit-script for ${TST} found! Please report to the developers."
-fi
+ptxd_get_path \
+	"${PTXDIST_WORKSPACE}/tests/${TST}.kermit" \
+	"${PTXDIST_TOPDIR}/tests/${TST}.kermit" ||
+ptxd_bailout "No kermit-script for ${TST} found! Please report to the developers."
+KSCRIPT="${ptxd_reply}"
 
-LIB_PATH="${PTXDIST_WORKSPACE}/tests"
-if [ ! -e "${LIB_PATH}/libptxdisttest.kermit" ]; then
-	LIB_PATH="${OURDIR}"
-	[ -e "${LIB_PATH}/libptxdisttest.kermit" ] || _error "Could not find kermit-library! Please report to the developers."
-fi
+ptxd_get_path \
+	"${PTXDIST_WORKSPACE}/tests/libptxdisttest.kermit" \
+	"${PTXDIST_TOPDIR}/tests/libptxdisttest.kermit" ||
+ptxd_bailout "Could not find kermit-library! Please report to the developers."
+LIB_PATH="$(dirname ${ptxd_reply})"
 
 TMPFILE="$(mktemp "${PTXDIST_TEMPDIR}/kwrapper.XXXXXX")"
 
@@ -35,7 +29,7 @@ TMPFILE="$(mktemp "${PTXDIST_TEMPDIR}/kwrapper.XXXXXX")"
 sed -e 's/^\(PTXCONF_BOARDSETUP_[A-Z0-9_]*\)=/define \1 /' "${PTXDIST_BOARDSETUP}" > "${TMPFILE}"
 # FIXME: add PTXDIST_TEST_vars from environment, too
 
-ckermit "${KSCRIPT}" -Y = "${LIB_PATH}" "${TMPFILE}" "${@}"
-[ $? != 0 ] && echo "An error occured! Please check also .${PTXDIST_PLATFORMDIR#${PTXDIST_WORKSPACE}}/test.log for further details!" >&2
+ckermit "${KSCRIPT}" -Y = "${LIB_PATH}" "${TMPFILE}" "${@}" ||
+echo "An error occured! Please check also .${PTXDIST_PLATFORMDIR#${PTXDIST_WORKSPACE}}/test.log for further details!" >&2
 
 rm -f "${TMPFILE}"
