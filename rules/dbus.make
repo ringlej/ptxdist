@@ -18,7 +18,7 @@ PACKAGES-$(PTXCONF_DBUS) += dbus
 #
 # Paths and names
 #
-DBUS_VERSION	:= 1.4.1
+DBUS_VERSION	:= 1.4.6
 DBUS		:= dbus-$(DBUS_VERSION)
 DBUS_SUFFIX	:= tar.gz
 DBUS_URL	:= http://dbus.freedesktop.org/releases/dbus/$(DBUS).$(DBUS_SUFFIX)
@@ -54,7 +54,7 @@ DBUS_AUTOCONF := \
 	--disable-checks \
 	--disable-xml-docs \
 	--disable-doxygen-docs \
-	--disable-gcov \
+	--disable-compiler-coverage \
 	--enable-abstract-sockets=yes \
 	--disable-libaudit \
 	--disable-dnotify \
