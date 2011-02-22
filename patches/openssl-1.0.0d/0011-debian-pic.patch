@@ -1,0 +1,263 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 22 Feb 2011 13:56:43 +0100
+Subject: [PATCH] debian pic
+
+Applied pic.patch from openssl_1.0.0c-2.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ crypto/Makefile                |    4 ++--
+ crypto/aes/Makefile            |    2 +-
+ crypto/aes/asm/aes-x86_64.pl   |    4 ++++
+ crypto/des/asm/desboth.pl      |   17 ++++++++++++++---
+ crypto/perlasm/cbc.pl          |   24 ++++++++++++++++++++----
+ crypto/perlasm/x86_64-xlate.pl |    2 +-
+ crypto/perlasm/x86gas.pl       |   10 ++++++++++
+ crypto/rc4/Makefile            |    2 +-
+ crypto/rc4/asm/rc4-x86_64.pl   |    8 ++++++++
+ crypto/x86_64cpuid.pl          |    4 ++++
+ 10 files changed, 65 insertions(+), 12 deletions(-)
+
+diff --git a/crypto/Makefile b/crypto/Makefile
+index 85d9f24..0682e4a 100644
+--- a/crypto/Makefile
++++ b/crypto/Makefile
+@@ -58,7 +58,7 @@ buildinf.h: ../Makefile
+ 	echo "  #define DATE \"`LC_ALL=C LC_TIME=C date`\""; \
+ 	echo '#endif' ) >buildinf.h
+ 
+-x86cpuid.s:	x86cpuid.pl perlasm/x86asm.pl
++x86cpuid.S:	x86cpuid.pl perlasm/x86asm.pl
+ 	$(PERL) x86cpuid.pl $(PERLASM_SCHEME) $(CFLAGS) $(PROCESSOR) > $@
+ 
+ applink.o:	$(TOP)/ms/applink.c
+@@ -70,7 +70,7 @@ uplink.o:	$(TOP)/ms/uplink.c applink.o
+ uplink-cof.s:	$(TOP)/ms/uplink.pl
+ 	$(PERL) $(TOP)/ms/uplink.pl coff > $@
+ 
+-x86_64cpuid.s: x86_64cpuid.pl
++x86_64cpuid.S: x86_64cpuid.pl
+ 	$(PERL) x86_64cpuid.pl $(PERLASM_SCHEME) > $@
+ ia64cpuid.s: ia64cpuid.S
+ 	$(CC) $(CFLAGS) -E ia64cpuid.S > $@
+diff --git a/crypto/aes/Makefile b/crypto/aes/Makefile
+index c501a43..b03b331 100644
+--- a/crypto/aes/Makefile
++++ b/crypto/aes/Makefile
+@@ -51,7 +51,7 @@ aes-ia64.s: asm/aes-ia64.S
+ aes-586.s:	asm/aes-586.pl ../perlasm/x86asm.pl
+ 	$(PERL) asm/aes-586.pl $(PERLASM_SCHEME) $(CFLAGS) $(PROCESSOR) > $@
+ 
+-aes-x86_64.s: asm/aes-x86_64.pl
++aes-x86_64.S: asm/aes-x86_64.pl
+ 	$(PERL) asm/aes-x86_64.pl $(PERLASM_SCHEME) > $@
+ 
+ aes-sparcv9.s: asm/aes-sparcv9.pl
+diff --git a/crypto/aes/asm/aes-x86_64.pl b/crypto/aes/asm/aes-x86_64.pl
+index a545e89..b4c3880 100755
+--- a/crypto/aes/asm/aes-x86_64.pl
++++ b/crypto/aes/asm/aes-x86_64.pl
+@@ -1669,7 +1669,11 @@ AES_cbc_encrypt:
+ 	lea	.LAES_Td(%rip),$sbox
+ .Lcbc_picked_te:
+ 
++#ifdef OPENSSL_PIC
++	mov	OPENSSL_ia32cap_P\@GOTPCREL(%rip),%r10d
++#else
+ 	mov	OPENSSL_ia32cap_P(%rip),%r10d
++#endif
+ 	cmp	\$$speed_limit,%rdx
+ 	jb	.Lcbc_slow_prologue
+ 	test	\$15,%rdx
+diff --git a/crypto/des/asm/desboth.pl b/crypto/des/asm/desboth.pl
+index eec0088..ab6f524 100644
+--- a/crypto/des/asm/desboth.pl
++++ b/crypto/des/asm/desboth.pl
+@@ -16,6 +16,11 @@ sub DES_encrypt3
+ 
+ 	&push("edi");
+ 
++	&call   (&label("pic_point0"));
++	&set_label("pic_point0");
++	&blindpop("ebp");
++	&add    ("ebp", "\$_GLOBAL_OFFSET_TABLE_+[.-" . &label("pic_point0") . "]");
++
+ 	&comment("");
+ 	&comment("Load the data words");
+ 	&mov($L,&DWP(0,"ebx","",0));
+@@ -47,15 +52,21 @@ sub DES_encrypt3
+ 	&mov(&swtmp(2),	(DWC(($enc)?"1":"0")));
+ 	&mov(&swtmp(1),	"eax");
+ 	&mov(&swtmp(0),	"ebx");
+-	&call("DES_encrypt2");
++	&exch("ebx", "ebp");
++	&call("DES_encrypt2\@PLT");
++	&exch("ebx", "ebp");
+ 	&mov(&swtmp(2),	(DWC(($enc)?"0":"1")));
+ 	&mov(&swtmp(1),	"edi");
+ 	&mov(&swtmp(0),	"ebx");
+-	&call("DES_encrypt2");
++	&exch("ebx", "ebp");
++	&call("DES_encrypt2\@PLT");
++	&exch("ebx", "ebp");
+ 	&mov(&swtmp(2),	(DWC(($enc)?"1":"0")));
+ 	&mov(&swtmp(1),	"esi");
+ 	&mov(&swtmp(0),	"ebx");
+-	&call("DES_encrypt2");
++	&exch("ebx", "ebp");
++	&call("DES_encrypt2\@PLT");
++	&exch("ebx", "ebp");
+ 
+ 	&stack_pop(3);
+ 	&mov($L,&DWP(0,"ebx","",0));
+diff --git a/crypto/perlasm/cbc.pl b/crypto/perlasm/cbc.pl
+index e43dc9a..688d38b 100644
+--- a/crypto/perlasm/cbc.pl
++++ b/crypto/perlasm/cbc.pl
+@@ -122,7 +122,11 @@ sub cbc
+ 	&mov(&DWP($data_off,"esp","",0),	"eax");	# put in array for call
+ 	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
+ 
+-	&call($enc_func);
++	&call	(&label("pic_point0"));
++	&set_label("pic_point0");
++	&blindpop("ebx");
++	&add	("ebx", "\$_GLOBAL_OFFSET_TABLE_+[.-" . &label("pic_point0") . "]");
++	&call("$enc_func\@PLT");
+ 
+ 	&mov("eax",	&DWP($data_off,"esp","",0));
+ 	&mov("ebx",	&DWP($data_off+4,"esp","",0));
+@@ -187,7 +191,11 @@ sub cbc
+ 	&mov(&DWP($data_off,"esp","",0),	"eax");	# put in array for call
+ 	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
+ 
+-	&call($enc_func);
++	&call	(&label("pic_point1"));
++	&set_label("pic_point1");
++	&blindpop("ebx");
++	&add	("ebx", "\$_GLOBAL_OFFSET_TABLE_+[.-" . &label("pic_point1") . "]");
++	&call("$enc_func\@PLT");
+ 
+ 	&mov("eax",	&DWP($data_off,"esp","",0));
+ 	&mov("ebx",	&DWP($data_off+4,"esp","",0));
+@@ -220,7 +228,11 @@ sub cbc
+ 	&mov(&DWP($data_off,"esp","",0),	"eax");	# put back
+ 	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
+ 
+-	&call($dec_func);
++	&call	(&label("pic_point2"));
++	&set_label("pic_point2");
++	&blindpop("ebx");
++	&add	("ebx", "\$_GLOBAL_OFFSET_TABLE_+[.-" . &label("pic_point2") . "]");
++	&call("$dec_func\@PLT");
+ 
+ 	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
+ 	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
+@@ -263,7 +275,11 @@ sub cbc
+ 	&mov(&DWP($data_off,"esp","",0),	"eax");	# put back
+ 	&mov(&DWP($data_off+4,"esp","",0),	"ebx");	#
+ 
+-	&call($dec_func);
++	&call	(&label("pic_point3"));
++	&set_label("pic_point3");
++	&blindpop("ebx");
++	&add	("ebx", "\$_GLOBAL_OFFSET_TABLE_+[.-" . &label("pic_point3") . "]");
++	&call("$dec_func\@PLT");
+ 
+ 	&mov("eax",	&DWP($data_off,"esp","",0));	# get return
+ 	&mov("ebx",	&DWP($data_off+4,"esp","",0));	#
+diff --git a/crypto/perlasm/x86_64-xlate.pl b/crypto/perlasm/x86_64-xlate.pl
+index bd7676c..10c477d 100755
+--- a/crypto/perlasm/x86_64-xlate.pl
++++ b/crypto/perlasm/x86_64-xlate.pl
+@@ -638,7 +638,7 @@ while($line=<>) {
+ 
+     chomp($line);
+ 
+-    $line =~ s|[#!].*$||;	# get rid of asm-style comments...
++#    $line =~ s|[#!].*$||;	# get rid of asm-style comments...
+     $line =~ s|/\*.*\*/||;	# ... and C-style comments...
+     $line =~ s|^\s+||;		# ... and skip white spaces in beginning
+ 
+diff --git a/crypto/perlasm/x86gas.pl b/crypto/perlasm/x86gas.pl
+index 6eab727..a41f425 100644
+--- a/crypto/perlasm/x86gas.pl
++++ b/crypto/perlasm/x86gas.pl
+@@ -209,7 +209,17 @@ sub ::initseg
+     if ($::elf)
+     {	$initseg.=<<___;
+ .section	.init
++#ifdef OPENSSL_PIC
++	pushl	%ebx
++	call    .pic_point0
++.pic_point0:
++	popl    %ebx
++	addl    \$_GLOBAL_OFFSET_TABLE_+[.-.pic_point0],%ebx
++	call	$f\@PLT
++	popl	%ebx
++#else
+ 	call	$f
++#endif
+ 	jmp	.Linitalign
+ .align	$align
+ .Linitalign:
+diff --git a/crypto/rc4/Makefile b/crypto/rc4/Makefile
+index 264451a..cd344a0 100644
+--- a/crypto/rc4/Makefile
++++ b/crypto/rc4/Makefile
+@@ -44,7 +44,7 @@ lib:	$(LIBOBJ)
+ rc4-586.s:	asm/rc4-586.pl ../perlasm/x86asm.pl
+ 	$(PERL) asm/rc4-586.pl $(PERLASM_SCHEME) $(CFLAGS) > $@
+ 
+-rc4-x86_64.s: asm/rc4-x86_64.pl
++rc4-x86_64.S: asm/rc4-x86_64.pl
+ 	$(PERL) asm/rc4-x86_64.pl $(PERLASM_SCHEME) > $@
+ 
+ rc4-ia64.S: asm/rc4-ia64.pl
+diff --git a/crypto/rc4/asm/rc4-x86_64.pl b/crypto/rc4/asm/rc4-x86_64.pl
+index 677be5f..2007769 100755
+--- a/crypto/rc4/asm/rc4-x86_64.pl
++++ b/crypto/rc4/asm/rc4-x86_64.pl
+@@ -279,7 +279,11 @@ RC4_set_key:
+ 	xor	%r10,%r10
+ 	xor	%r11,%r11
+ 
++#ifdef OPENSSL_PIC
++	mov	OPENSSL_ia32cap_P\@GOTPCREL(%rip),$idx#d
++#else
+ 	mov	OPENSSL_ia32cap_P(%rip),$idx#d
++#endif
+ 	bt	\$20,$idx#d
+ 	jnc	.Lw1stloop
+ 	bt	\$30,$idx#d
+@@ -346,7 +350,11 @@ RC4_set_key:
+ .align	16
+ RC4_options:
+ 	lea	.Lopts(%rip),%rax
++#ifdef OPENSSL_PIC
++	mov	OPENSSL_ia32cap_P\@GOTPCREL(%rip),%edx
++#else
+ 	mov	OPENSSL_ia32cap_P(%rip),%edx
++#endif
+ 	bt	\$20,%edx
+ 	jnc	.Ldone
+ 	add	\$12,%rax
+diff --git a/crypto/x86_64cpuid.pl b/crypto/x86_64cpuid.pl
+index c96821a..b35762b 100644
+--- a/crypto/x86_64cpuid.pl
++++ b/crypto/x86_64cpuid.pl
+@@ -14,7 +14,11 @@ else		{ $arg1="%rdi"; $arg2="%rsi"; }
+ print<<___;
+ .extern		OPENSSL_cpuid_setup
+ .section	.init
++#ifdef OPENSSL_PIC
++	call	OPENSSL_cpuid_setup\@PLT
++#else
+ 	call	OPENSSL_cpuid_setup
++#endif
+ 
+ .text
+ 
+-- 
+1.7.4.1
+

@@ -1,0 +1,27 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 22 Feb 2011 13:56:43 +0100
+Subject: [PATCH] debian kfreebsd-pipe
+
+Applied kfreebsd-pipe.patch from openssl_1.0.0c-2.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ crypto/perlasm/x86_64-xlate.pl |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/crypto/perlasm/x86_64-xlate.pl b/crypto/perlasm/x86_64-xlate.pl
+index e47116b..bd7676c 100755
+--- a/crypto/perlasm/x86_64-xlate.pl
++++ b/crypto/perlasm/x86_64-xlate.pl
+@@ -66,7 +66,7 @@ if ($flavour =~ /\./) { $output = $flavour; undef $flavour; }
+   my ($outdev,$outino,@junk)=stat($output);
+ 
+     open STDOUT,">$output" || die "can't open $output: $!"
+-	if ($stddev!=$outdev || $stdino!=$outino);
++#	if ($stddev!=$outdev || $stdino!=$outino);
+ }
+ 
+ my $gas=1;	$gas=0 if ($output =~ /\.asm$/);
+-- 
+1.7.4.1
+

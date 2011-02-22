@@ -1,0 +1,27 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 22 Feb 2011 13:56:43 +0100
+Subject: [PATCH] debian no-symbolic
+
+Applied no-symbolic.patch from openssl_1.0.0c-2.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.shared |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile.shared b/Makefile.shared
+index 6e3f886..44e3d9c 100644
+--- a/Makefile.shared
++++ b/Makefile.shared
+@@ -151,7 +151,7 @@ DO_GNU_SO=$(CALC_VERSIONS); \
+ 	SHLIB_SUFFIX=; \
+ 	ALLSYMSFLAGS='-Wl,--whole-archive'; \
+ 	NOALLSYMSFLAGS='-Wl,--no-whole-archive'; \
+-	SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -shared -Wl,-Bsymbolic -Wl,-soname=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX"
++	SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -shared -Wl,-soname=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX"
+ 
+ DO_GNU_APP=LDFLAGS="$(CFLAGS)"
+ 
+-- 
+1.7.4.1
+

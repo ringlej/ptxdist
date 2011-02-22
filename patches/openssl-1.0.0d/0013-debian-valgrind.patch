@@ -1,0 +1,34 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 22 Feb 2011 13:56:43 +0100
+Subject: [PATCH] debian valgrind
+
+Applied valgrind.patch from openssl_1.0.0c-2.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ crypto/rand/md_rand.c |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/crypto/rand/md_rand.c b/crypto/rand/md_rand.c
+index b2f04ff..79d46c6 100644
+--- a/crypto/rand/md_rand.c
++++ b/crypto/rand/md_rand.c
+@@ -476,6 +476,7 @@ static int ssleay_rand_bytes(unsigned char *buf, int num)
+ 		MD_Update(&m,(unsigned char *)&(md_c[0]),sizeof(md_c));
+ 
+ #ifndef PURIFY /* purify complains */
++#if 0
+ 		/* The following line uses the supplied buffer as a small
+ 		 * source of entropy: since this buffer is often uninitialised
+ 		 * it may cause programs such as purify or valgrind to
+@@ -485,6 +486,7 @@ static int ssleay_rand_bytes(unsigned char *buf, int num)
+ 		 */
+ 		MD_Update(&m,buf,j);
+ #endif
++#endif
+ 
+ 		k=(st_idx+MD_DIGEST_LENGTH/2)-st_num;
+ 		if (k > 0)
+-- 
+1.7.4.1
+

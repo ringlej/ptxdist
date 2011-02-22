@@ -1,0 +1,28 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 22 Feb 2011 13:56:44 +0100
+Subject: [PATCH] debian shared-lib-ext
+
+Applied shared-lib-ext.patch from openssl_1.0.0c-2.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Configure |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/Configure b/Configure
+index 39e9f3a..d7f90d7 100755
+--- a/Configure
++++ b/Configure
+@@ -1601,7 +1601,8 @@ while (<IN>)
+ 	elsif ($shared_extension ne "" && $shared_extension =~ /^\.s([ol])\.[^\.]*\.[^\.]*$/)
+ 		{
+ 		my $sotmp = $1;
+-		s/^SHARED_LIBS_LINK_EXTS=.*/SHARED_LIBS_LINK_EXTS=.s$sotmp.\$(SHLIB_MAJOR) .s$sotmp/;
++#		s/^SHARED_LIBS_LINK_EXTS=.*/SHARED_LIBS_LINK_EXTS=.s$sotmp.\$(SHLIB_MAJOR) .s$sotmp/;
++		s/^SHARED_LIBS_LINK_EXTS=.*/SHARED_LIBS_LINK_EXTS=.s$sotmp/;
+ 		}
+ 	elsif ($shared_extension ne "" && $shared_extension =~ /^\.[^\.]*\.[^\.]*\.dylib$/)
+ 		{
+-- 
+1.7.4.1
+

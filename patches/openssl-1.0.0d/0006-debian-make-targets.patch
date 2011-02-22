@@ -1,0 +1,27 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 22 Feb 2011 13:56:43 +0100
+Subject: [PATCH] debian make-targets
+
+Applied make-targets.patch from openssl_1.0.0c-2.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.org |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/Makefile.org b/Makefile.org
+index 0a1550b..246abc4 100644
+--- a/Makefile.org
++++ b/Makefile.org
+@@ -109,7 +109,7 @@ LIBKRB5=
+ ZLIB_INCLUDE=
+ LIBZLIB=
+ 
+-DIRS=   crypto ssl engines apps test tools
++DIRS=   crypto ssl engines apps tools
+ ENGDIRS= ccgost
+ SHLIBDIRS= crypto ssl
+ 
+-- 
+1.7.4.1
+

@@ -1,0 +1,95 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 22 Feb 2011 13:56:43 +0100
+Subject: [PATCH] debian engines-path
+
+Applied engines-path.patch from openssl_1.0.0c-2.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Configure               |    2 +-
+ Makefile.org            |    2 +-
+ engines/Makefile        |   10 +++++-----
+ engines/ccgost/Makefile |    6 +++---
+ 4 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/Configure b/Configure
+index 52e0dc6..39e9f3a 100755
+--- a/Configure
++++ b/Configure
+@@ -1729,7 +1729,7 @@ while (<IN>)
+ 		}
+ 	elsif	(/^#define\s+ENGINESDIR/)
+ 		{
+-		my $foo = "$prefix/$libdir/engines";
++		my $foo = "$prefix/$libdir/openssl-1.0.0/engines";
+ 		$foo =~ s/\\/\\\\/g;
+ 		print OUT "#define ENGINESDIR \"$foo\"\n";
+ 		}
+diff --git a/Makefile.org b/Makefile.org
+index fb0af7e..0a1550b 100644
+--- a/Makefile.org
++++ b/Makefile.org
+@@ -497,7 +497,7 @@ install: all install_docs install_sw
+ install_sw:
+ 	@$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \
+ 		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR) \
+-		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines \
++		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines \
+ 		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/pkgconfig \
+ 		$(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl \
+ 		$(INSTALL_PREFIX)$(OPENSSLDIR)/misc \
+diff --git a/engines/Makefile b/engines/Makefile
+index 2fa9534..58e0281 100644
+--- a/engines/Makefile
++++ b/engines/Makefile
+@@ -107,7 +107,7 @@ install:
+ 	@[ -n "$(INSTALLTOP)" ] # should be set by top Makefile...
+ 	@if [ -n "$(SHARED_LIBS)" ]; then \
+ 		set -e; \
+-		$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines; \
++		$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines; \
+ 		for l in $(LIBNAMES); do \
+ 			( echo installing $$l; \
+ 			  pfx=lib; \
+@@ -119,13 +119,13 @@ install:
+ 				*DSO_WIN32*)	sfx="eay32.dll"; pfx=;;	\
+ 				*)		sfx=".bad";;	\
+ 				esac; \
+-				cp $$pfx$$l$$sfx $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$$pfx$$l$$sfx.new; \
++				cp $$pfx$$l$$sfx $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines/$$pfx$$l$$sfx.new; \
+ 			  else \
+ 				sfx=".so"; \
+-				cp cyg$$l.dll $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$$pfx$$l$$sfx.new; \
++				cp cyg$$l.dll $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines/$$pfx$$l$$sfx.new; \
+ 			  fi; \
+-			  chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$$pfx$$l$$sfx.new; \
+-			  mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$$pfx$$l$$sfx.new $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$$pfx$$l$$sfx ); \
++			  chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines/$$pfx$$l$$sfx.new; \
++			  mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines/$$pfx$$l$$sfx.new $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines/$$pfx$$l$$sfx ); \
+ 		done; \
+ 	fi
+ 	@target=install; $(RECURSIVE_MAKE)
+diff --git a/engines/ccgost/Makefile b/engines/ccgost/Makefile
+index dadb523..2c88759 100644
+--- a/engines/ccgost/Makefile
++++ b/engines/ccgost/Makefile
+@@ -53,13 +53,13 @@ install:
+ 			*DSO_WIN32*) sfx="eay32.dll"; pfx=;; \
+ 			*) sfx=".bad";; \
+ 			esac; \
+-			cp $${pfx}$(LIBNAME)$$sfx $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$${pfx}$(LIBNAME)$$sfx.new; \
++			cp $${pfx}$(LIBNAME)$$sfx $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines/$${pfx}$(LIBNAME)$$sfx.new; \
+ 		else \
+ 			sfx=".so"; \
+ 			cp cyg$(LIBNAME).dll $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$${pfx}$(LIBNAME)$$sfx.new; \
+ 		fi; \
+-		chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$${pfx}$(LIBNAME)$$sfx.new; \
+-		mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$${pfx}$(LIBNAME)$$sfx.new $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$${pfx}$(LIBNAME)$$sfx; \
++		chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines/$${pfx}$(LIBNAME)$$sfx.new; \
++		mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines/$${pfx}$(LIBNAME)$$sfx.new $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/openssl-1.0.0/engines/$${pfx}$(LIBNAME)$$sfx; \
+ 	fi
+ 
+ links:
+-- 
+1.7.4.1
+

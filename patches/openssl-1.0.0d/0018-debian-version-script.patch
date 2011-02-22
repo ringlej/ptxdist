@@ -1,0 +1,53 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 22 Feb 2011 13:56:44 +0100
+Subject: [PATCH] debian version-script
+
+Applied version-script.patch from openssl_1.0.0c-2.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Configure          |    2 ++
+ engines/openssl.ld |    5 +++++
+ openssl.ld         |    5 +++++
+ 3 files changed, 12 insertions(+), 0 deletions(-)
+ create mode 100644 engines/openssl.ld
+ create mode 100644 openssl.ld
+
+diff --git a/Configure b/Configure
+index d7f90d7..fdb7a2e 100755
+--- a/Configure
++++ b/Configure
+@@ -1511,6 +1511,8 @@ if ($strict_warnings)
+ 		}
+ 	}
+ 
++$shared_ldflag .= " -Wl,--version-script=openssl.ld";
++
+ open(IN,'<Makefile.org') || die "unable to read Makefile.org:$!\n";
+ unlink("$Makefile.new") || die "unable to remove old $Makefile.new:$!\n" if -e "$Makefile.new";
+ open(OUT,">$Makefile.new") || die "unable to create $Makefile.new:$!\n";
+diff --git a/engines/openssl.ld b/engines/openssl.ld
+new file mode 100644
+index 0000000..5f26d60
+--- /dev/null
++++ b/engines/openssl.ld
+@@ -0,0 +1,5 @@
++OPENSSL_1.0.0 {
++	 global:
++		 *;
++};
++
+diff --git a/openssl.ld b/openssl.ld
+new file mode 100644
+index 0000000..5f26d60
+--- /dev/null
++++ b/openssl.ld
+@@ -0,0 +1,5 @@
++OPENSSL_1.0.0 {
++	 global:
++		 *;
++};
++
+-- 
+1.7.4.1
+

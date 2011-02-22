@@ -1,0 +1,47 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 22 Feb 2011 13:56:44 +0100
+Subject: [PATCH] debian rehash-crt
+
+Applied rehash-crt.patch from openssl_1.0.0c-2.debian.tar.gz
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ tools/c_rehash.in |   12 +++++++++---
+ 1 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/tools/c_rehash.in b/tools/c_rehash.in
+index bfc4a69..4958e3d 100644
+--- a/tools/c_rehash.in
++++ b/tools/c_rehash.in
+@@ -75,12 +75,15 @@ sub hash_dir {
+ 		}
+ 	}
+ 	closedir DIR;
+-	FILE: foreach $fname (grep {/\.pem$/} @flist) {
++	FILE: foreach $fname (grep {/\.pem$|\.crt$/} @flist) {
+ 		# Check to see if certificates and/or CRLs present.
+ 		my ($cert, $crl) = check_file($fname);
+ 		if(!$cert && !$crl) {
+-			print STDERR "WARNING: $fname does not contain a certificate or CRL: skipping\n";
+-			next;
++			($cert, $crl) = check_file("$openssl x509 -in \"$fname\" -inform der  -outform pem | ");
++			if(!$cert && !$crl) {
++				print STDERR "WARNING: $fname does not contain a certificate or CRL: skipping\n";
++				next;
++			}
+ 		}
+ 		link_hash_cert($fname) if($cert);
+ 		link_hash_crl($fname) if($crl);
+@@ -153,6 +156,9 @@ sub link_hash_crl {
+ 		my $fname = $_[0];
+ 		$fname =~ s/'/'\\''/g;
+ 		my ($hash, $fprint) = `"$openssl" crl -hash -fingerprint -noout -in '$fname'`;
++		if(!$hash || !fprint) {
++			($hash, $fprint) = `"$openssl" crl -hash -fingerprint -noout -in '$fname' -inform der`;
++		}
+ 		chomp $hash;
+ 		chomp $fprint;
+ 		$fprint =~ s/^.*=//;
+-- 
+1.7.4.1
+
