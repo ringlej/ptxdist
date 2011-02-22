@@ -8,6 +8,9 @@ This fixes the following compile error:
 Signed-off-by: Juergen Beisert <jbeisert@pengutronix.de>
 
 ---
+
+[20110222 wsa: fixed in master meanwhile]
+
  drivers.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 

@@ -12,6 +12,9 @@ I only did this quick hack. Better ideas are highly welcome.
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
+
+[20110222 wsa: fixed in master meanwhile. Like this.]
+
  gpsdecode.c |    6 ++++++
  1 file changed, 6 insertions(+)
 

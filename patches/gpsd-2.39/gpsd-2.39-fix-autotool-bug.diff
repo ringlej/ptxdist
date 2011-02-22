@@ -15,6 +15,9 @@ python is not enabled.
 Signed-off-by: FIXME
 
 ---
+
+[20110222 wsa: fixed in master meanwhile]
+
  configure.ac |   21 +++++++++++++++++++++
  1 file changed, 21 insertions(+)
 

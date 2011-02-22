@@ -8,6 +8,9 @@ NMEA_ENABLE to fix this.
 
 Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
+
+[20110222 wsa: fixed in master meanwhile]
+
  libgpsd_core.c |    2 +-
  1 files changed, 1 insertions(+), 1 deletions(-)
 
