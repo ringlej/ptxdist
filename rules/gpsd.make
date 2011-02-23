@@ -76,8 +76,8 @@ else
 GPSD_AUTOCONF += --disable-pps-on-cts
 endif
 
-ifneq ($(call remove_quotes,$(PTXCONF_GPSD_DRIVER_USER)),)
-GPSD_AUTOCONF += --enable-gpsd-user=$(PTXCONF_GPSD_DRIVER_USER)
+ifneq ($(call remove_quotes,$(PTXCONF_GPSD_USER)),)
+GPSD_AUTOCONF += --enable-gpsd-user=$(PTXCONF_GPSD_USER)
 endif
 ifneq ($(call remove_quotes,$(PTXCONF_GPSD_FIXED_PORT_SPEED)),)
 GPSD_AUTOCONF += --enable-fixed-port-speed=$(PTXCONF_GPSD_FIXED_PORT_SPEED)
