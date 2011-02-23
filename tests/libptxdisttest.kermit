@@ -114,6 +114,7 @@ define ptx_uboot_enter_shell {
 		.uboot_prompt = "barebox:"
 		.uboot_version = 2
 		# make sure we have the default barebox prompt
+		sleep 1
 		ptx_lineout "PS1='barebox: '"
 		break
 	}
