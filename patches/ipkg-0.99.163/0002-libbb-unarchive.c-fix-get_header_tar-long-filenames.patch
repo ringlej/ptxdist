@@ -1,0 +1,73 @@
+From: Michael Grzeschik <m.grzeschik@pengutronix.de>
+Date: Wed, 23 Feb 2011 12:10:19 +0100
+Subject: [PATCH] [libbb/unarchive.c] fix get_header_tar long filenames
+
+backported longlinksfix.patch from opkg svn-commit r594
+---
+ libbb/unarchive.c |   43 +++++++++++++++++++++++++++----------------
+ 1 files changed, 27 insertions(+), 16 deletions(-)
+
+diff --git a/libbb/unarchive.c b/libbb/unarchive.c
+index 0946ded..ffc5b9d 100644
+--- a/libbb/unarchive.c
++++ b/libbb/unarchive.c
+@@ -591,22 +591,6 @@ file_header_t *get_header_tar(FILE *tar_stream)
+ 	/* convert to type'ed variables */
+ 	tar_entry = xcalloc(1, sizeof(file_header_t));
+ 
+-#ifdef CONFIG_FEATURE_TAR_GNU_EXTENSIONS
+-        if (longname) {
+-                tar_entry->name = longname;
+-                longname = NULL;
+-        }
+-        else if (linkname) {
+-                tar_entry->name = linkname;
+-                linkname = NULL;
+-        } else
+-#endif
+-        if (tar.formated.prefix[0] == 0) {
+-                tar_entry->name = strdup(tar.formated.name);
+-        } else {                                              
+-                tar_entry->name = concat_path_file(tar.formated.prefix, tar.formated.name);
+-        }
+-
+ 	// tar_entry->name = xstrdup(tar.formated.name);
+ 
+ /*
+@@ -687,6 +671,33 @@ file_header_t *get_header_tar(FILE *tar_stream)
+ 
+ 	}
+ 
++#ifdef CONFIG_FEATURE_TAR_GNU_EXTENSIONS
++        if (longname) {
++                tar_entry->name = longname;
++                longname = NULL;
++        } else
++#endif
++        {
++                tar_entry->name = xstrndup(tar.formated.name, 100);
++
++                if (tar.formated.prefix[0]) {
++                        char *temp = tar_entry->name;
++                        char *prefixTemp = xstrndup(tar.formated.prefix, 155);
++                        tar_entry->name = concat_path_file(prefixTemp, temp);
++                        free(temp);
++                        free(prefixTemp);
++                }
++        }
++
++	if (linkname) {
++		tar_entry->link_name = linkname;
++		linkname = NULL;
++	} else
++	{
++		tar_entry->link_name = *tar.formated.linkname != '\0' ?
++			xstrndup(tar.formated.linkname, 100) : NULL;
++	}
++
+ 	return(tar_entry);
+ }
+ 
+-- 
+1.7.2.3
+
