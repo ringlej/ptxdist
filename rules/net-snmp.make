@@ -274,6 +274,9 @@ ifdef PTXCONF_NET_SNMP_AGENT
 
 # agent helper libs
 	@$(call install_lib, net-snmp, 0, 0, 0644, libnetsnmphelpers)
+
+# agent configuration
+	@$(call install_alternative, net-snmp, 0, 0, 0644, /etc/snmp/snmpd.conf)
 endif
 
 ifdef PTXCONF_NET_SNMP_APPLICATIONS
