@@ -23,7 +23,9 @@ $(STATEDIR)/image_kernel.compile: $(IMAGEDIR)/root.cpio
 		$(KERNEL_MAKEVARS) $(KERNEL_IMAGE)
 	@echo "done."
 
-$(IMAGEDIR)/linuximage: $(KERNEL_IMAGE_PATH_y) $(STATEDIR)/kernel.targetinstall
+$(KERNEL_IMAGE_PATH_y): $(STATEDIR)/kernel.targetinstall
+
+$(IMAGEDIR)/linuximage: $(KERNEL_IMAGE_PATH_y)
 	@echo -n "Creating '$(notdir $(@))' from '$(notdir $(<))'..."
 	@install -m 644 "$(<)" "$(@)"
 	@echo "done."
