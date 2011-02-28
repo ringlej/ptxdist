@@ -107,7 +107,7 @@ MESALIB_AUTOCONF   := \
 	--disable-static \
 	--enable-shared \
 	--disable-debug \
-	--enable-asm \
+	--disable-asm \
 	--enable-pic \
 	--disable-selinux \
 	--enable-xcb \
