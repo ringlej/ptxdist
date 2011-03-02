@@ -10,18 +10,18 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  2 files changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/src/lzop.c b/src/lzop.c
-index 25359c6..4d53af8 100644
+index 5571e89..4cd1bb7 100644
 --- a/src/lzop.c
 +++ b/src/lzop.c
-@@ -2451,6 +2451,7 @@ char* prepare_shortopts(char *buf, const char *n,
+@@ -2462,6 +2462,7 @@ char* prepare_shortopts(char *buf, const char *n,
      return buf;
  }
  
 +extern lzo_uint block_size;
  
- static int do_option(int optc)
+ static int do_option(acc_getopt_p g, int optc)
  {
-@@ -2459,6 +2460,9 @@ static int do_option(int optc)
+@@ -2471,6 +2472,9 @@ static int do_option(acc_getopt_p g, int optc)
  
      switch (optc)
      {
@@ -31,16 +31,16 @@ index 25359c6..4d53af8 100644
      case 'c':
          opt_stdout = 1;
          break;
-@@ -2716,6 +2720,7 @@ static int get_options(int argc, char **argv)
+@@ -2745,6 +2749,7 @@ static int get_options(int argc, char **argv)
  
- static const struct mfx_option longopts[] =
+ static const struct acc_getopt_longopt_t longopts[] =
  {
 +    {"blocksize",  1, 0, 'b'},
      {"best",       0, 0, '9'},      /* compress better */
      {"decompress", 0, 0, 'd'},      /* decompress */
      {"fast",       0, 0, '1'},      /* compress faster */
 diff --git a/src/p_lzo.c b/src/p_lzo.c
-index 8aada29..c3aa6a2 100644
+index bacb28d..d635ad6 100644
 --- a/src/p_lzo.c
 +++ b/src/p_lzo.c
 @@ -192,7 +192,7 @@ static lzo_bool alloc_mem(lzo_uint32 s1, lzo_uint32 s2, lzo_uint32 w)
@@ -52,7 +52,7 @@ index 8aada29..c3aa6a2 100644
  
  lzo_bool lzo_enter(const header_t *h)
  {
-@@ -215,7 +215,7 @@ lzo_bool lzo_enter(const header_t *h)
+@@ -219,7 +219,7 @@ lzo_bool lzo_enter(const header_t *h)
  #endif
      assert(block_size <= BLOCK_SIZE);
      assert(block_size <= MAX_BLOCK_SIZE);
@@ -62,5 +62,5 @@ index 8aada29..c3aa6a2 100644
      if (opt_method == M_LZO1X_1)
          wrk_len = LZO1X_1_MEM_COMPRESS;
 -- 
-1.7.0.4
+1.7.2.3
 
