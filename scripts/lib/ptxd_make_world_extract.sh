@@ -23,7 +23,7 @@ ptxd_make_world_extract() {
     case "${pkg_url}" in
 	file://*)
 	    local url="${pkg_url//file:\/\//}"
-	    if [ -n "${packet_source}" ]; then
+	    if [ -n "${pkg_src}" ]; then
 		ptxd_bailout "<PKG>_SOURCE must not be defined when using a file:// URL!"
 	    fi
 	    if [ -d "${url}" ]; then
