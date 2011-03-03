@@ -14,7 +14,7 @@ ptxd_make_world_get() {
     ptxd_make_world_init &&
 
     if [ -n "${pkg_src}" -a \! -e "${pkg_src}" ]; then
-	ptxd_make_get "${pkg_url}"
+	ptxd_make_get "${pkg_src}" "${pkg_url}"
     fi
 }
 export -f ptxd_make_world_get

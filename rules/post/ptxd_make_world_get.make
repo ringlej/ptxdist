@@ -33,7 +33,7 @@ world/check_src = \
 #
 get = \
 	PTXCONF_SETUP_NO_DOWNLOAD="$(PTXCONF_SETUP_NO_DOWNLOAD)" \
-	ptxd_make_get "$($(strip $(1))_URL)"
+	ptxd_make_get "$($(strip $(1))_SOURCE)" "$($(strip $(1))_URL)"
 
 check_src = \
 	ptxd_make_check_src "$($(strip $(1))_SOURCE)" "$($(strip $(1))_MD5)"

@@ -11,6 +11,7 @@
 #
 # in env:
 #
+# ${path}	: local file name
 # ${url}	: the url to download
 # ${opts[]}	: an array of options
 #
@@ -43,9 +44,9 @@ ptxd_make_get_http() {
 	local file="${url##*/}"
 
 	# remove any pending or half downloaded files
-	rm -f -- "${PTXDIST_SRCDIR}/${file}."*
+	rm -f -- "${path}."*
 
-	local temp_file="$(mktemp "${PTXDIST_SRCDIR}/${file}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
+	local temp_file="$(mktemp "${path}.XXXXXXXXXX")" || ptxd_bailout "failed to create tempfile"
 	wget \
 	    --passive-ftp \
 	    --progress=bar:force \
@@ -56,7 +57,7 @@ ptxd_make_get_http() {
 	    -O "${temp_file}" \
 	    "${url}" && {
 		chmod 644 -- "${temp_file}" &&
-		mv -- "${temp_file}" "${PTXDIST_SRCDIR}/${file}"
+		mv -- "${temp_file}" "${path}"
 		return
 	}
 
@@ -101,6 +102,7 @@ export -f ptxd_make_get_download_permitted
 
 
 #
+# $1: target source path (including file name)
 # $@: possible download URLs, seperated by space
 #
 # options seperated from URLs by ";"
@@ -111,6 +113,9 @@ export -f ptxd_make_get_download_permitted
 ptxd_make_get() {
 	local -a argv
 	local mrd=false		# is mirror already part of urls?
+
+	local path="${1}"
+	shift
 
 	local -a orig_argv
 	orig_argv=( "${@}" )
