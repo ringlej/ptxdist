@@ -78,23 +78,9 @@ config MPLAYER_CODEC_MPEG2
 
 endif
 
-# -----
-# FIXME: This menu should only be visible when
-# the current architecture is PXA or ARM
-#
-menuconfig MPLAYER_ADVANCED
+config MPLAYER_IWMMXT
 	bool
-	prompt "Advanced Options            "
-
-if MPLAYER_ADVANCED
-config MPLAYER_ADVANCED_PXA
-	bool
-	prompt "pxa support"
-
-config MPLAYER_ADVANCED_IWMMXT
-	bool
+	depends on ARCH_ARM_IWMMXT
 	prompt "iwmmxt extensions"
-
-endif
 
 endif

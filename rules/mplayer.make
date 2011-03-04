@@ -328,19 +328,10 @@ endif
 #
 # Advanced Options
 #
-ifdef PTXCONF_ARCH_ARM_PXA
-ifdef PTXCONF_MPLAYER_ADVANCED_PXA
-MPLAYER_AUTOCONF += --enable-pxa
-else
-MPLAYER_AUTOCONF += --disable-pxa
-endif
-ifdef PTXCONF_MPLAYER_ADVANCED_IWMMXT
+ifdef PTXCONF_MPLAYER_IWMMXT
 MPLAYER_AUTOCONF += --enable-iwmmxt
 else
 MPLAYER_AUTOCONF += --disable-iwmmxt
-endif
-else
-MPLAYER_AUTOCONF += --disable-pxa --disable-iwmmxt
 endif
 
 ifdef PTXCONF_ARCH_ARM_V6
