@@ -117,62 +117,20 @@ FFMPEG_AUTOCONF += \
 endif
 
 ifdef PTXCONF_ARCH_ARM
- ifdef PTXCONF_ARCH_ARM_NETX
-   FFMPEG_AUTOCONF += \
-	--arch=arm \
-	--cpu=arm926ej-s \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
- else
- ifdef PTXCONF_ARCH_ARM_PXA
-   # FIXME not all xscales are iwmmxt
+ ifdef PTXCONF_ARCH_ARM_IWMMXT
    FFMPEG_AUTOCONF += \
 	--arch=arm \
 	--cpu=iwmmxt \
 	--disable-altivec \
 	--disable-mmx
  else
- ifdef PTXCONF_ARCH_ARM_AT91SAM926X
+# v5 fallback. Will not run on v4.
    FFMPEG_AUTOCONF += \
 	--arch=arm \
 	--cpu=arm926ej-s \
 	--disable-altivec \
 	--disable-mmx \
 	--disable-iwmmxt
- else
- ifdef PTXCONF_ARCH_ARM_IMX
-   FFMPEG_AUTOCONF += \
-	--arch=arm \
-	--cpu=arm926ej-s \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
- else
- ifdef PTXCONF_ARCH_ARM_LPC32XX
-   FFMPEG_AUTOCONF += \
-	--arch=arm \
-	--cpu=arm926ej-s \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
- else
- ifdef PTXCONF_ARCH_ARM_OMAP
-   FFMPEG_AUTOCONF += \
-	--arch=arm \
-	--cpu=cortex-a8 \
-	--disable-altivec \
-	--disable-mmx \
-	--disable-iwmmxt
- else
- ifdef PTXCONF_FFMPEG
- $(warning Please define the config options for this CPU type!)
- endif
- endif
- endif
- endif
- endif
- endif
  endif
 endif
 
