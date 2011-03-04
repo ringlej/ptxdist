@@ -2,7 +2,7 @@
 
 menuconfig AT91BOOTSTRAP
 	bool
-	depends on ARCH_ARM_AT91SAM926X
+	depends on ARCH_ARM
 	prompt "AT91 bootstrap                "
 	help
 	  The AT91Bootstrap application is a first level bootloader
