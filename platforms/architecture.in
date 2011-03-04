@@ -253,6 +253,12 @@ config ARCH_ARM_V6
 	  architecture version of ARMv6 or newer. Which is the case
 	  for the ARM11 and Cortex A Cores.
 
+config ARCH_ARM_IWMMXT
+	bool "support iwmmxt extension"
+	depends on ARCH_ARM
+	help
+	  This enables the iwmmxt extension. This is present on some
+	  but not all pxa processors.
 
 #
 # hardware / software floating point
