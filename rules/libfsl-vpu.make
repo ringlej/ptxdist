@@ -11,7 +11,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_ARCH_ARM_IMX)-$(PTXCONF_LIBFSL_VPU) += libfsl-vpu
+PACKAGES-$(PTXCONF_LIBFSL_VPU) += libfsl-vpu
 
 #
 # Paths and names
