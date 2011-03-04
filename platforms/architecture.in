@@ -23,6 +23,8 @@ choice
 
 	config ARCH_ARM
 		bool "arm        "
+		select ARCH_SUPPORTS_ENDIAN_LITTLE
+		select ARCH_SUPPORTS_ENDIAN_BIG
 		select HAS_MMU
 		help
 		  This is support for the ARM processor architecture.
@@ -100,61 +102,6 @@ choice
 		  This is support for the SuperH architecture.
 endchoice
 
-
-#
-# arm
-#
-choice
-	prompt "arm SoC variant "
-	depends on ARCH_ARM
-	help
-	  The ARM processor architecture has a variety of flavours.
-	  Please chose one.
-
-	config ARCH_ARM_ATMEL
-		bool "atmel      "
-		select ARCH_SUPPORTS_ENDIAN_LITTLE
-
-	config ARCH_ARM_AT91RM9200
-		bool "at91rm9200 "
-		select ARCH_SUPPORTS_ENDIAN_LITTLE
-
-	config ARCH_ARM_AT91SAM926X
-		bool "at91sam926x"
-		select ARCH_SUPPORTS_ENDIAN_LITTLE
-
-	config ARCH_ARM_EPXA
-		bool "excalibur  "
-		select ARCH_SUPPORTS_ENDIAN_LITTLE
-
-	config ARCH_ARM_IMX
-		bool "i.mx       "
-		select ARCH_SUPPORTS_ENDIAN_LITTLE
-
-	config ARCH_ARM_IXP
-		bool "ixp        "
-		select HAS_PCI
-		select ARCH_SUPPORTS_ENDIAN_BIG
-		select ARCH_SUPPORTS_ENDIAN_LITTLE
-
-	config ARCH_ARM_LPC32XX
-		bool "lpc32xx    "
-		select ARCH_SUPPORTS_ENDIAN_LITTLE
-
-	config ARCH_ARM_NETX
-		bool "netx       "
-		select ARCH_SUPPORTS_ENDIAN_LITTLE
-
-	config ARCH_ARM_OMAP
-		bool "omap       "
-		select ARCH_SUPPORTS_ENDIAN_LITTLE
-
-	config ARCH_ARM_PXA
-		bool "pxa        "
-		select ARCH_SUPPORTS_ENDIAN_LITTLE
-endchoice
-
-
 #
 # superh
 #
@@ -229,6 +176,7 @@ config ARCH_SUPPORTS_ENDIAN_LITTLE
 
 choice
 	prompt "endianess       "
+	default ENDIAN_LITTLE
 
 	config ENDIAN_BIG
 		bool "big        "
