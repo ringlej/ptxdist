@@ -1,0 +1,23 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Subject: fix dependencies
+
+sone source files of eggdbus-binding-tool need eggdbusenumtypes.h
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/eggdbus/Makefile.am |    2 ++
+ 1 file changed, 2 insertions(+)
+
+Index: b/src/eggdbus/Makefile.am
+===================================================================
+--- a/src/eggdbus/Makefile.am
++++ b/src/eggdbus/Makefile.am
+@@ -81,6 +81,8 @@ eggdbus_binding_tool_SOURCES = 						\
+ 	completetype.c			completetype.h			\
+ 	$(NULL)
+ 
++$(eggdbus_binding_tool_SOURCES): eggdbusenumtypes.h
++
+ eggdbus_binding_tool_CFLAGS =                		      		\
+         -D_EGG_DBUS_COMPILATION                                  	\
+ 	$(GLIB_CFLAGS)							\

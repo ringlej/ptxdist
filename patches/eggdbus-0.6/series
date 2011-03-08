@@ -1,3 +1,4 @@
 eggdbus-0.6-host-tools.diff
 eggdbus-0.6-no-tests.diff
 eggdbus-0.6-autotools.diff
+eggdbus-0.6-fix-deps.diff
