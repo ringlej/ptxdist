@@ -35,6 +35,7 @@ config BAREBOX_ARCH_STRING
 	default "arm"			if ARCH_ARM
 	default "blackfin"		if ARCH_BLACKFIN
 	default "ppc"			if ARCH_PPC
+	default "x86"			if ARCH_X86
 
 config BAREBOX_EXTRA_ENV
 	prompt "extend the builtin barebox environment"
