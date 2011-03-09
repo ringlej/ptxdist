@@ -68,6 +68,16 @@ $(STATEDIR)/barebox.prepare: $(BAREBOX_CONFIG)
 	@echo "Using barebox config file: $(BAREBOX_CONFIG)"
 	@install -m 644 $(BAREBOX_CONFIG) $(BAREBOX_DIR)/.config
 
+ifdef PTXCONF_BAREBOX_EXTRA_ENV
+	@rm -rf $(BAREBOX_DIR)/.ptxdist-defaultenv
+	@ptxd_source_kconfig "${PTXDIST_PTXCONFIG}" && \
+	ptxd_source_kconfig "${PTXDIST_PLATFORMCONFIG}" && \
+	ptxd_filter_dir "$(PTXCONF_BAREBOX_EXTRA_ENV_PATH)" \
+		$(BAREBOX_DIR)/.ptxdist-defaultenv
+	@sed -i -e "s,^\(CONFIG_DEFAULT_ENVIRONMENT_PATH=.*\)\"$$,\1 .ptxdist-defaultenv\"," \
+		$(BAREBOX_DIR)/.config
+endif
+
 	@$(call ptx/oldconfig, BAREBOX)
 
 	@$(call touch)
@@ -97,6 +107,7 @@ $(STATEDIR)/barebox.install:
 $(STATEDIR)/barebox.targetinstall:
 	@$(call targetinfo)
 	@install -D -m644 $(BAREBOX_DIR)/barebox.bin $(IMAGEDIR)/barebox-image
+	@install -D -m644 $(BAREBOX_DIR)/barebox_default_env $(IMAGEDIR)/barebox-default-environment
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

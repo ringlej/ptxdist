@@ -36,4 +36,14 @@ config BAREBOX_ARCH_STRING
 	default "blackfin"		if ARCH_BLACKFIN
 	default "ppc"			if ARCH_PPC
 
+config BAREBOX_EXTRA_ENV
+	prompt "extend the builtin barebox environment"
+	bool
+
+config BAREBOX_EXTRA_ENV_PATH
+	prompt "env dir"
+	string
+	default "${PTXDIST_PLATFORMCONFIGDIR}/barebox-defaultenv"
+	depends on BAREBOX_EXTRA_ENV
+
 endif
