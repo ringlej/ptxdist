@@ -410,6 +410,42 @@ export -f ptxd_replace_magic
 
 
 #
+#
+#
+ptxd_filter_dir() {
+	local srcdir="${1}"
+	local dstdir="${2}"
+	local src dst
+
+	[ -d "${srcdir}" ] || return
+	[ -n "${dstdir}" ] || return
+
+	mkdir -p "${dstdir}" &&
+
+	tar -C "${srcdir}" -c . \
+		--exclude .svn \
+		--exclude .pc \
+		--exclude .git \
+		--exclude "*.in" \
+		--exclude "*.in.*" \
+		--exclude "*/*~" \
+		| tar -C "${dstdir}" -x
+	check_pipe_status || return
+
+	{
+		find "${srcdir}" -name "*.in"
+		find "${srcdir}" -name "*.in${PTXDIST_PLATFORMSUFFIX}"
+	} | while read src; do
+		dst="${src/#${srcdir}/${dstdir}/}"
+		dst="${dst%.in}"
+		ptxd_replace_magic "${src}" > "${dst}" || return
+	done
+}
+export -f ptxd_filter_dir
+
+
+
+#
 # returns the concatination of two variables,
 # the seperator can be specified, space is default
 #
