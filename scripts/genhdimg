@@ -3,7 +3,7 @@
 # Create a bootable harddisk (or compact flash) image from
 # a partition definition given from command line
 #
-# (C) 2006 Pengutronix
+# (C) 2006, 2011 Pengutronix
 #
 
 
@@ -13,11 +13,9 @@ cat <<-EOF
 Usage: `basename "$0"` OPTIONS <svn rep>
 
     -h              this help
-    -m <stage1>     path to grub stage1
-    -n <stafe2>     path to grub stage2
     -o <hdimg file> resulting hd image
     -i <img file>   filesystem image
-    -p <def>       partition definition (can be given multiple times)
+    -p <def>        partition definition (can be given multiple times)
 
     A partition definition has the form
     start_sector:end_sector:partition_type:[imagefile]
@@ -31,7 +29,7 @@ pad() {
 	to="$2"
 	blocks="$3"
 
-	if [ ! -f "$from" ]; then
+	if [ ! -e "$from" ]; then
 		echo "$from does not exist"
 		exit 1
 	fi
@@ -62,20 +60,16 @@ partcount=0
 
 while getopts "hm:n:o:p:" OPT
 do
-    case "$OPT" in
-        h)  Usage
-	    exit 1
-            ;;
-	m)  STAGE1="$OPTARG"
-	    ;;
-	n)  STAGE2="$OPTARG"
-	    ;;
-	o)  IMAGEFILE="$OPTARG"
+	case "$OPT" in
+	h)	Usage
+		exit 1
+		;;
+	o) IMAGEFILE="$OPTARG"
 	    ;;
 	p)  partcount=$(($partcount + 1))
 	    PART[$partcount]="$OPTARG"
 	    ;;
-    esac
+	esac
 done
 
 if [ "$partcount" == 0 ]; then
@@ -93,38 +87,28 @@ if [ -z "$IMAGEFILE" ]; then
 	exit 1
 fi
 
-IMAGETMP=$(mktemp)
+IMAGETMP1=$(mktemp -p ${PTXDIST_TEMPDIR})
+IMAGETMP2=$(mktemp -p ${PTXDIST_TEMPDIR})
+IMAGETMP3=$(mktemp -p ${PTXDIST_TEMPDIR})
+IMAGETMP4=$(mktemp -p ${PTXDIST_TEMPDIR})
 
-# get the first 446 bytes of grub stage1 or from /dev/zero
-if [ -n "$STAGE1" ]; then
-	echo "using stage1 file $STAGE1"
-	if [ ! -r "$STAGE1" ]; then
-		echo "cannot open stage1 file $STAGE1"
-		exit 1
-	fi
+echo "------------------------"
+echo "Creating hard disk's MBR"
+echo "------------------------"
 
-	dd if="$STAGE1" bs=446 count=1 > $IMAGEFILE 2>/dev/null
-else
-	dd if=/dev/zero bs=446 count=1 > $IMAGEFILE 2>/dev/null
-fi
+# create the first 512 byte sector (MBR)
 
-# add offset to first partition and fill it with grub stage2 if given
-offset=$(( $(echo ${PART[1]} | awk -F: '{print $1}') - 1))
-if [ -n "$STAGE2" ]; then
-	echo "using stage2 file $STAGE2"
-	if [ ! -r "$STAGE2" ]; then
-		echo "cannot open stage2 file $STAGE2"
-		exit 1
-	fi
-	pad "$STAGE2" "$IMAGETMP" $(($offset))
-else
-	cat /dev/zero | dd bs=512 count=$offset > "$IMAGETMP" 2>/dev/null
-fi
+# fill it up to offset 446
+dd if=/dev/zero bs=446 count=1 > $IMAGEFILE 2>/dev/null
 
 # append the partitions
 
 # mark the first partition bootable
 extraarg="-c"
+
+echo "------------------------------------"
+echo "Creating hard disk's partition table"
+echo "------------------------------------"
 
 for i in $(seq 4); do
 	pstart=$(( $(echo ${PART[$i]} | awk -F: '{print $1}') ))
@@ -132,12 +116,14 @@ for i in $(seq 4); do
 	ptype=$(( $(echo ${PART[$i]} | awk -F: '{print $3}') ))
 	pimage=$(echo ${PART[$i]} | awk -F: '{print $4}')
 	psize=$(($pend - $pstart + 1))
-		
+
 	if [ $i -gt $partcount ]; then
 		psize=0
 	fi
 
-	echo "Generating partition $i (start=$pstart, size=$psize type=$ptype)"
+	if [ ${psize} -ne 0 ]; then
+		echo "Partition $i (start=$pstart, size=$psize type=$ptype)"
+	fi
 
 	# add 0x55aa magic to last partition in table
 	if [ $i == 4 ]; then
@@ -146,13 +132,57 @@ for i in $(seq 4); do
 
 	genpart $extraarg -b $pstart -s $psize -t $ptype >> $IMAGEFILE
 
-	if [ -n "$pimage" ]; then
-		echo "Initializing partition $i with $pimage"
-		pad "$pimage" "$IMAGETMP" $(($psize))
+	if [ -z "${pimage}" ]; then
+		pimage=/dev/zero
 	fi
+
+	echo "    Initializing partition $i with '$(basename $pimage)'"
+	eval TMPFILE=\$IMAGETMP${i}
+	pad "$pimage" "${TMPFILE}" $psize
 
 	extraarg=""
 done
 
-cat $IMAGETMP >> $IMAGEFILE
-rm -f $IMAGETMP
+# add offset to first partition
+offset=$(( $(echo ${PART[1]} | awk -F: '{print $1}') - 1))
+if [ ${offset} -gt 1 ]; then
+	echo
+	echo "-------------------------------------------"
+	echo "Creating hard disk's first partition offset"
+	echo "-------------------------------------------"
+
+	echo -n "padding ${offset} empty sectors..."
+	dd if=/dev/zero bs=512 count=$offset >> $IMAGEFILE 2>/dev/null
+	echo "done"
+fi
+
+echo
+echo "----------------------------"
+echo "Appending partitions content"
+echo "----------------------------"
+
+if [ -s ${IMAGETMP1} ]; then
+	echo -n "adding content for partition 1..."
+	cat ${IMAGETMP1} >> ${IMAGEFILE}
+	echo "done"
+fi
+# FIXME padding sectors?
+if [ -s ${IMAGETMP2} ]; then
+	echo -n "adding content for partition 2..."
+	cat ${IMAGETMP2} >> ${IMAGEFILE}
+	echo "done"
+fi
+# FIXME padding sectors?
+if [ -s ${IMAGETMP3} ]; then
+	echo -n "adding content for partition 3..."
+	cat ${IMAGETMP3} >> ${IMAGEFILE}
+	echo "done"
+fi
+# FIXME padding sectors?
+if [ -s ${IMAGETMP4} ]; then
+	echo -n "adding content for partition 4..."
+	cat ${IMAGETMP4} >> ${IMAGEFILE}
+	echo "done"
+fi
+rm -f ${IMAGETMP1} ${IMAGETMP2} ${IMAGETMP3} ${IMAGETMP4}
+
