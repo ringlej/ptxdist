@@ -137,9 +137,11 @@ else
 NET_SNMP_AUTOCONF += --disable-local-smux
 endif
 
-ifdef PTXCONF_NET_SNMP_DEBUGGING
+ifdef PTXCONF_NET_SNMP_FORCE_DEBUGGING
 NET_SNMP_AUTOCONF += --enable-debugging
-else
+endif
+
+ifdef PTXCONF_NET_SNMP_STRIP_DEBUGGING
 NET_SNMP_AUTOCONF += --disable-debugging
 endif
 

@@ -6,7 +6,7 @@ menuconfig NET_SNMP
 	select GCCLIBS_GCC_S if NET_SNMP_AGENT
 	select LIBC_DL if NET_SNMP_AGENT || NET_SNMP_APPLICATIONS
 	select NET_SNMP_MD5
-#	^ build fix for 5.6.1
+#	^ build fix for 5.6.1 (see http://sourceforge.net/tracker/index.php?func=detail&aid=3184697&group_id=12694&atid=112694)
 
 if NET_SNMP
 
@@ -59,9 +59,29 @@ config NET_SNMP_LOCAL_SMUX
 	bool
 	prompt "restrict SMUX connections to localhost (by default)"
 
-config NET_SNMP_DEBUGGING
-	bool
+choice
 	prompt "debugging"
+	default NET_SNMP_DEFAULT_DEBUGGING
+
+config NET_SNMP_DEFAULT_DEBUGGING
+	bool
+	prompt "default"
+	help
+	  Use default debugging, selectable via -D on the command-line.
+
+config NET_SNMP_FORCE_DEBUGGING
+	bool
+	prompt "enforce"
+	help
+	  Always print all debugging even when not specified on command-line.
+
+config NET_SNMP_STRIP_DEBUGGING
+	bool
+	prompt "strip"
+	help
+	  Strip debugging code entirely.
+
+endchoice
 
 config NET_SNMP_DEVELOPER
 	bool
