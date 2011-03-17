@@ -70,10 +70,12 @@ config LIBC_M
 
 config LIBC_NSS_DNS
 	bool
+	default y
 	select GLIBC_NSS_DNS		if LIBC_GLIBC
 
 config LIBC_NSS_FILES
 	bool
+	default y
 	select GLIBC_NSS_FILES		if LIBC_GLIBC
 
 config LIBC_NSS_HESIOD
