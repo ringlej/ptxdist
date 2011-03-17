@@ -601,14 +601,18 @@ check_compiler() {
 
 		# both vendor strings are present. Check them
 		local vendor_is="$(source "${vendor_def}" && echo ${PTXCONF_PROJECT})"
-		if [ "${vendor_is}" != "${vendor_should}" ]; then
+		case "${vendor_is}" in
+		"${vendor_should}"*)
+			;;
+		*)
 			echo
 			echo "${PTXDIST_LOG_PROMPT}error: wrong toolchain vendor: Cannot continue! Vendor is '${vendor_is}',"
 			echo "${PTXDIST_LOG_PROMPT}error: specified: ${vendor_should}"
 			echo "${PTXDIST_LOG_PROMPT}error: found:	 ${vendor_is}"
 			echo
 			exit 1
-		fi
+			;;
+		esac
 	}
 
 	local compiler_prefix="$(ptxd_get_ptxconf PTXCONF_COMPILER_PREFIX)"
@@ -1600,10 +1604,14 @@ do_select_toolchain_guess()
 	local hint="/opt/${vendor}/${target}/${gcc}${java}${libc}*/bin"
 
 	# let the shell expand the "*" in the hint, put it into an array
-	toolchain=($(ls -d ${hint} 2>/dev/null))
+	if ! ptxd_get_path ${hint}; then
+	    hint="/opt/${vendor}*/${target}/${gcc}${java}${libc}*/bin"
+	    ptxd_get_path ${hint}
+	fi
+	toolchain="${ptxd_reply[@]}"
 
 	# number of items in array == number of found toolchains
-	local num="${#toolchain[@]}"
+	local num="${#ptxd_reply[@]}"
 
 	if [ ${num} -eq 0 ]; then
 		ptxd_dialog_msgbox \
