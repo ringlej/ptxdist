@@ -1,18 +1,18 @@
-Subject: teach ncurses-config about sysroot
 From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 17 Mar 2011 13:34:53 +0100
+Subject: [PATCH] teach ncurses-config about sysroot
 
-This patch teaches ncursrs-config about sysroot
+This patch teaches ncurses-config about sysroot
 
-Signed-off-by: Marc Kleine-Buddde <mkl@pengutronix.de>
-
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- misc/ncurses-config.in |    8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ misc/ncurses-config.in |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
 
-Index: ncurses-5.6/misc/ncurses-config.in
-===================================================================
---- ncurses-5.6.orig/misc/ncurses-config.in
-+++ ncurses-5.6/misc/ncurses-config.in
+diff --git a/misc/ncurses-config.in b/misc/ncurses-config.in
+index 1da156c..25c7858 100644
+--- a/misc/ncurses-config.in
++++ b/misc/ncurses-config.in
 @@ -70,11 +70,11 @@ while test $# -gt 0; do
  	# compile/link
  	--cflags)
@@ -37,3 +37,15 @@ Index: ncurses-5.6/misc/ncurses-config.in
  ENDECHO
  		;;
  	# identification
+@@ -103,7 +103,7 @@ ENDECHO
+ 		echo "${datadir}"
+ 		;;
+ 	--libdir)
+-		echo "${libdir}"
++		echo "${SYSROOT}${libdir}"
+ 		;;
+ 	--mandir)
+ 		echo "${mandir}"
+-- 
+1.7.2.3
+

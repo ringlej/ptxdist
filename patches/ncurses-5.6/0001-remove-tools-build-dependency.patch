@@ -1,19 +1,19 @@
-Subject: remove tools build dependency
 From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 17 Mar 2011 13:34:53 +0100
+Subject: [PATCH] remove tools build dependency
 
 make_keys is built as host tool and copied to the real package.
 This patch makes sure that it is not rebuilt again.
 
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
-
 ---
 # 20081125: wsa: HACK: Not for upstream.
 
  ncurses/Makefile.in |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ 1 files changed, 1 insertions(+), 2 deletions(-)
 
-Index: b/ncurses/Makefile.in
-===================================================================
+diff --git a/ncurses/Makefile.in b/ncurses/Makefile.in
+index ce35c03..0e2b08d 100644
 --- a/ncurses/Makefile.in
 +++ b/ncurses/Makefile.in
 @@ -189,7 +189,7 @@ $(DESTDIR)$(libdir) :
@@ -33,3 +33,6 @@ Index: b/ncurses/Makefile.in
  		../include/hashsize.h \
  		$(tinfo)/MKcaptab.awk
  	sh $(tinfo)/MKcaptab.awk $(AWK) $(srcdir)/../include/@TERMINFO_CAPS@ > $@
+-- 
+1.7.2.3
+
