@@ -22,39 +22,13 @@ Usage: `basename "$0"` OPTIONS <svn rep>
 EOF
 }
 
-# usage: pad from to blocks
-#        cat $from to $to and pad the output to $blocks * 512 bytes
-pad() {
-	from="$1"
-	to="$2"
-	blocks="$3"
-
-	if [ ! -e "$from" ]; then
-		echo "$from does not exist"
-		exit 1
-	fi
-
-	fromsize=$(stat -c "%s" "$from")
-
-	if [ $(($fromsize)) -gt $(($blocks * 512)) ]; then
-		echo "warning: $from truncated. Need $fromsize bytes, but have only $(($blocks * 512))!"
-	fi
-
-	tosize=$(stat -c "%s" "$to")
-	toblocks_before=$(( $tosize / 512 ))
-
-	dd if="$from" bs=512 count=$blocks conv=sync >> "$to" 2> /dev/null
-
-	tosize=$(stat -c "%s" "$to")
-	toblocks=$(( $tosize / 512 ))
-
-	blocksleft=$(( $blocks - $toblocks + $toblocks_before ))
-
-	if [ $blocksleft -gt 0 ]; then
-		dd if=/dev/zero bs=512 count=$blocksleft >> "$to" 2>/dev/null
-	fi
+part_opts() {
+	pstart=$(( $(echo ${PART[$1]} | awk -F: '{print $1}') ))
+	pend=$(( $(echo ${PART[$1]} | awk -F: '{print $2}') ))
+	ptype=$(( $(echo ${PART[$1]} | awk -F: '{print $3}') ))
+	pimage=$(echo ${PART[$1]} | awk -F: '{print $4}')
+	psize=$(($pend - $pstart + 1))
 }
-
 
 partcount=0
 
@@ -87,11 +61,6 @@ if [ -z "$IMAGEFILE" ]; then
 	exit 1
 fi
 
-IMAGETMP1=$(mktemp -p ${PTXDIST_TEMPDIR})
-IMAGETMP2=$(mktemp -p ${PTXDIST_TEMPDIR})
-IMAGETMP3=$(mktemp -p ${PTXDIST_TEMPDIR})
-IMAGETMP4=$(mktemp -p ${PTXDIST_TEMPDIR})
-
 echo "------------------------"
 echo "Creating hard disk's MBR"
 echo "------------------------"
@@ -111,11 +80,7 @@ echo "Creating hard disk's partition table"
 echo "------------------------------------"
 
 for i in $(seq 4); do
-	pstart=$(( $(echo ${PART[$i]} | awk -F: '{print $1}') ))
-	pend=$(( $(echo ${PART[$i]} | awk -F: '{print $2}') ))
-	ptype=$(( $(echo ${PART[$i]} | awk -F: '{print $3}') ))
-	pimage=$(echo ${PART[$i]} | awk -F: '{print $4}')
-	psize=$(($pend - $pstart + 1))
+	part_opts "$i"
 
 	if [ $i -gt $partcount ]; then
 		psize=0
@@ -132,57 +97,17 @@ for i in $(seq 4); do
 
 	genpart $extraarg -b $pstart -s $psize -t $ptype >> $IMAGEFILE
 
-	if [ -z "${pimage}" ]; then
-		pimage=/dev/zero
-	fi
-
-	echo "    Initializing partition $i with '$(basename $pimage)'"
-	eval TMPFILE=\$IMAGETMP${i}
-	pad "$pimage" "${TMPFILE}" $psize
-
 	extraarg=""
 done
 
-# add offset to first partition
-offset=$(( $(echo ${PART[1]} | awk -F: '{print $1}') - 1))
-if [ ${offset} -gt 1 ]; then
-	echo
-	echo "-------------------------------------------"
-	echo "Creating hard disk's first partition offset"
-	echo "-------------------------------------------"
+for i in $(seq 4); do
+	part_opts "$i"
 
-	echo -n "padding ${offset} empty sectors..."
-	dd if=/dev/zero bs=512 count=$offset >> $IMAGEFILE 2>/dev/null
-	echo "done"
-fi
+	if [ -z "${pimage}" ]; then
+		continue
+	fi
 
-echo
-echo "----------------------------"
-echo "Appending partitions content"
-echo "----------------------------"
-
-if [ -s ${IMAGETMP1} ]; then
-	echo -n "adding content for partition 1..."
-	cat ${IMAGETMP1} >> ${IMAGEFILE}
-	echo "done"
-fi
-# FIXME padding sectors?
-if [ -s ${IMAGETMP2} ]; then
-	echo -n "adding content for partition 2..."
-	cat ${IMAGETMP2} >> ${IMAGEFILE}
-	echo "done"
-fi
-# FIXME padding sectors?
-if [ -s ${IMAGETMP3} ]; then
-	echo -n "adding content for partition 3..."
-	cat ${IMAGETMP3} >> ${IMAGEFILE}
-	echo "done"
-fi
-# FIXME padding sectors?
-if [ -s ${IMAGETMP4} ]; then
-	echo -n "adding content for partition 4..."
-	cat ${IMAGETMP4} >> ${IMAGEFILE}
-	echo "done"
-fi
-rm -f ${IMAGETMP1} ${IMAGETMP2} ${IMAGETMP3} ${IMAGETMP4}
+	echo "    Initializing partition $i with '$(basename $pimage)'"
+	dd if="$pimage" of="$IMAGEFILE" bs=512 count="$psize" seek="$pstart" conv=notrunc 2>/dev/null
+done
 
