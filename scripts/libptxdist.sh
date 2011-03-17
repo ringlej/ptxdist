@@ -337,8 +337,12 @@ export -f ptxd_kconfig
 # ("scripts/lib/ptxd_make_"*.sh)
 #
 ptxd_make() {
-	for lib in "${SCRIPTSDIR}/lib/ptxd_make_"*.sh; do
-		source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
+	local lib i
+	ptxd_in_path PTXDIST_PATH_SCRIPTS || return
+	for ((i=$((${#ptxd_reply[@]}-1)); i>=0; i--)) do
+		for lib in "${ptxd_reply[${i}]}/lib/ptxd_make_"*.sh; do
+			source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
+		done
 	done
 	${PTX_NICE:+nice -n ${PTX_NICE}} "${PTXCONF_SETUP_HOST_MAKE}" \
 	    "${PTX_MAKE_ARGS[@]}" "${PTXDIST_PARALLELMFLAGS_EXTERN}" \
