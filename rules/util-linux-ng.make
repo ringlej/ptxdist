@@ -17,10 +17,10 @@ PACKAGES-$(PTXCONF_UTIL_LINUX_NG) += util-linux-ng
 #
 # Paths and names
 #
-UTIL_LINUX_NG_VERSION	:= 2.18
-UTIL_LINUX_NG		:= util-linux-ng-$(UTIL_LINUX_NG_VERSION)
+UTIL_LINUX_NG_VERSION	:= 2.19
+UTIL_LINUX_NG		:= util-linux-$(UTIL_LINUX_NG_VERSION)
 UTIL_LINUX_NG_SUFFIX	:= tar.bz2
-UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux-ng/v2.18/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
+UTIL_LINUX_NG_URL	:= http://ftp.kernel.org/pub/linux/utils/util-linux/v2.19/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_SOURCE	:= $(SRCDIR)/$(UTIL_LINUX_NG).$(UTIL_LINUX_NG_SUFFIX)
 UTIL_LINUX_NG_DIR	:= $(BUILDDIR)/$(UTIL_LINUX_NG)
 UTIL_LINUX_NG_LICENSE	:= GPLv2+
