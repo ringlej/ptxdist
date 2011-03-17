@@ -36,7 +36,7 @@ ifdef PTXCONF_GRUB
 	@echo "-----------------------------------"
 	@echo "Making the image bootable with grub"
 	@echo "-----------------------------------"
-	@ptxd_make_bootable $@ $(PTXCONF_IMAGE_HD_PART1_START) $(GRUB_DIR)/stage1/stage1 $(GRUB_DIR)/stage1/stage2
+	@ptxd_make_bootable $@ $(PTXCONF_IMAGE_HD_PART1_START) $(GRUB_DIR)/stage1/stage1 $(GRUB_DIR)/stage2/stage2
 endif
 ifdef PTXCONF_BAREBOX
 	@echo

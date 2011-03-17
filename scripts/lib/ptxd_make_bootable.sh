@@ -25,7 +25,7 @@ ptxd_make_bootable() {
     local stage1="$3"
     local stage2="$4"
     local opt="conv=notrunc"
-    local opt2
+    local opt2="seek=1"
 
     if [ ! -w "${image}" ]; then
 	ptxd_bailout "Cannot write image file '${stage1}'"
@@ -35,7 +35,7 @@ ptxd_make_bootable() {
     fi
     if [ -z "${stage2}" ]; then
 	stage2="${stage1}"
-	opt2="${opt} seek=1 skip=1"
+	opt2="${opt2} skip=1"
     elif [ ! -r "${stage2}" ]; then
 	ptxd_bailout "Cannot open stage2 file '${stage1}'"
     else
