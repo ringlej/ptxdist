@@ -35,7 +35,7 @@ if AT91BOOTSTRAP
 
 config AT91BOOTSTRAP_VERSION
 	string
-	default 1.11
+	default 1.16
 	prompt "AT91 Bootstrap version"
 	help
 	  Enter the AT91 Bootstrap version you want to build. Usally something like "1.11"

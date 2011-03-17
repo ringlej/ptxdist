@@ -26,18 +26,9 @@ AT91BOOTSTRAP_SOURCE	:= $(SRCDIR)/$(AT91BOOTSTRAP_TARBALL)
 AT91BOOTSTRAP_DIR	:= $(BUILDDIR)/$(AT91BOOTSTRAP)
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(AT91BOOTSTRAP_SOURCE):
-	@$(call targetinfo)
-	@$(call get, AT91BOOTSTRAP)
-
-# ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-AT91BOOTSTRAP_PATH	:= PATH=$(CROSS_PATH)
 AT91BOOTSTRAP_ENV 	:= CROSS_COMPILE=$(COMPILER_PREFIX)
 
 AT91BOOTSTRAP_BOOTMEDIA-$(PTXCONF_AT91BOOTSTRAP_BOOT_DATAFLASH) += dataflash
@@ -67,7 +58,7 @@ $(STATEDIR)/at91bootstrap.install:
 
 $(STATEDIR)/at91bootstrap.targetinstall:
 	@$(call targetinfo)
-	@cp $(AT91BOOTSTRAP_BOARDDIR)/$(AT91BOOTSTRAP_BOOTMEDIA-y)_${PTXCONF_AT91BOOTSTRAP_CONFIG}.bin \
+	@install -m644 $(AT91BOOTSTRAP_BOARDDIR)/$(AT91BOOTSTRAP_BOOTMEDIA-y)_${PTXCONF_AT91BOOTSTRAP_CONFIG}.bin \
 		$(IMAGEDIR)/at91bootstrap.bin
 	@$(call touch)
 
@@ -78,6 +69,6 @@ $(STATEDIR)/at91bootstrap.targetinstall:
 $(STATEDIR)/at91bootstrap.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, AT91BOOTSTRAP)
-	@rm -rf $(IMAGEDIR)/at91bootstrap_*
+	@rm -rf $(IMAGEDIR)/at91bootstrap*
 
 # vim: syntax=make

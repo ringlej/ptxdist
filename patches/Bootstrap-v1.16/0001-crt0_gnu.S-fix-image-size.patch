@@ -1,0 +1,51 @@
+From ed5f0b461a5652c7852f1fd7846be7b4814237de Mon Sep 17 00:00:00 2001
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Thu, 17 Feb 2011 15:21:09 +0100
+Subject: [PATCH] crt0_gnu.S: fix image size
+
+This patch fixes the calculation of the image size which is located
+at offset 0x14. Without the patch the end address of the linked image
+is written.
+
+On the at91sam9m10ekes the bootstrap is linked to 0x300000, so the image
+size is ~3 MiB. When written to NAND the boot rom code doesn't recognize
+the NAND as a valid boot medium, because the size is bigger than 60KiB.
+This is the maximum Image size on that processor. See chapter 11.4.2 of
+the SAM9M10 Preliminary.
+
+This patch applies to Bootstrap-v1.16.
+
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ crt0_gnu.S          |    2 +-
+ elf32-littlearm.lds |    1 +
+ 2 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/crt0_gnu.S b/crt0_gnu.S
+index 042b617..638b32b 100644
+--- a/crt0_gnu.S
++++ b/crt0_gnu.S
+@@ -56,7 +56,7 @@ _exception_vectors:
+ 	b 	swi_vector   	/* Software Interrupt */
+ 	b 	pabt_vector  	/* Prefetch Abort */
+ 	b 	dabt_vector  	/* Data Abort */
+-.word		_edata		/* Size of the image for SAM-BA */
++.word		_image_len	/* Size of the image for SAM-BA */
+ 	b 	irq_vector	/* IRQ : read the AIC */
+ 	b 	fiq_vector      /* FIQ */
+ 
+diff --git a/elf32-littlearm.lds b/elf32-littlearm.lds
+index a33952f..bf02b93 100644
+--- a/elf32-littlearm.lds
++++ b/elf32-littlearm.lds
+@@ -19,6 +19,7 @@ SECTIONS
+ 		*(.vectors)
+ 		*(.data)
+ 		_edata = .;
++		_image_len = _edata - _stext;
+ 	}
+ 
+ 	/* collect all uninitialized .bss sections */
+-- 
+1.7.2.3
+
