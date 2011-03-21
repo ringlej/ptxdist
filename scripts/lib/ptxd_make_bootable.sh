@@ -51,6 +51,28 @@ ptxd_make_dd_bootloader() {
 }
 export -f ptxd_make_dd_bootloader
 
+#
+# Install barebox on x86 systems.
+# barebox is installed in the first sector and at the end of the free space.
+# The space between is used for the barebox environment.
+#
+# $1	the image to modify
+# $2	number of free sectors at the start of the image
+# $3	the barebox image
+#
+ptxd_make_x86_boot_barebox() {
+    local image="$1"
+    local sectors="$2"
+    local barebox="$3"
+    local needed="$(stat --printf="%s" "${barebox}")"
+    # round to the next sector
+    needed=$(((${needed}-1)/512+1))
+    if [ "${needed}" -gt "${sectors}" ]; then
+	ptxd_bailout "Not enough space to write barebox: available: ${sectors} needed: ${needed} (sectors)"
+    fi
+    setupmbr -s $((${sectors}-${needed})) -m "${barebox}" -d "${image}"
+}
+export -f ptxd_make_x86_boot_barebox
 
 #
 # Make a disk image bootable. What exactly happens depends on the selected
@@ -83,7 +105,7 @@ ptxd_make_bootable() {
 	echo "--------------------------------------"
 	stage1="${ptx_image_dir}/barebox-image"
 	if ptxd_get_ptxconf PTXCONF_ARCH_X86 > /dev/null; then
-	    setupmbr -s 32 -m "${stage1}" -d "${image}"
+	    ptxd_make_x86_boot_barebox "${image}" "${sectors}" "${stage1}"
 	    return
 	fi
     fi
