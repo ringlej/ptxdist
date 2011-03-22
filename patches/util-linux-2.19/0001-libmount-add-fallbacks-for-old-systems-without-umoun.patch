@@ -1,0 +1,53 @@
+From db9bd703a9a696bd73cb7d41e98c66854a604477 Mon Sep 17 00:00:00 2001
+From: Karel Zak <kzak@redhat.com>
+Date: Fri, 11 Feb 2011 10:45:09 +0100
+Subject: [PATCH] libmount: add fallbacks for old systems without umount2() syscall
+
+Reported-by: Peter Breitenlohner <peb@mppmu.mpg.de>
+Signed-off-by: Karel Zak <kzak@redhat.com>
+---
+ shlibs/mount/src/context_umount.c |   28 ++++++++++++++++++++++++++++
+ 1 files changed, 28 insertions(+), 0 deletions(-)
+
+diff --git a/shlibs/mount/src/context_umount.c b/shlibs/mount/src/context_umount.c
+index bd9be69..1187a87 100644
+--- a/shlibs/mount/src/context_umount.c
++++ b/shlibs/mount/src/context_umount.c
+@@ -21,6 +21,34 @@
+ #include "strutils.h"
+ #include "mountP.h"
+ 
++#if defined(MNT_FORCE)
++/* Interesting ... it seems libc knows about MNT_FORCE and presumably
++   about umount2 as well -- need not do anything */
++#else /* MNT_FORCE */
++/* Does the present kernel source know about umount2? */
++# include <linux/unistd.h>
++# ifdef __NR_umount2
++static int umount2(const char *path, int flags);
++_syscall2(int, umount2, const char *, path, int, flags);
++# else /* __NR_umount2 */
++static int
++umount2(const char *path, int flags) {
++	fprintf(stderr, _("umount: compiled without support for -f\n"));
++	errno = ENOSYS;
++	return -1;
++}
++#endif /* __NR_umount2 */
++# if !defined(MNT_FORCE)
++# define MNT_FORCE 1
++#endif
++
++#endif /* MNT_FORCE */
++
++#if !defined(MNT_DETACH)
++#define MNT_DETACH 2
++#endif
++
++
+ static int lookup_umount_fs(struct libmnt_context *cxt)
+ {
+ 	int rc;
+-- 
+1.7.2.3
+
