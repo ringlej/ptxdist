@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_MPLAYER) += mplayer
 #
 # Paths and names
 #
-MPLAYER_VERSION	:= 1.0rc2
+MPLAYER_VERSION	:= 1.0rc4
 MPLAYER		:= MPlayer-$(MPLAYER_VERSION)
 MPLAYER_SUFFIX	:= tar.bz2
 MPLAYER_URL	:= http://www.mplayerhq.hu/MPlayer/releases/$(MPLAYER).$(MPLAYER_SUFFIX)
@@ -55,10 +55,7 @@ MPLAYER_AUTOCONF := \
 	--ranlib=$(CROSS_RANLIB) \
 	--language=en \
 	--target=$(PTXCONF_GNU_TARGET) \
-	--with-extraincdir=$(SYSROOT)/usr/include \
-	--with-extralibdir=$(SYSROOT)/usr/lib \
-	--with-extraincdir=$(SYSROOT)/include \
-	--with-extralibdir=$(SYSROOT)/lib \
+	--extra-cflags='$(CROSS_CPPFLAGS)' \
 	--extra-libs='$(CROSS_LDFLAGS)'
 
 ifdef PTXCONF_ICONV
@@ -71,35 +68,41 @@ endif
 # video out
 #
 MPLAYER_AUTOCONF += \
-	--disable-vidix-internal \
-	--disable-vidix-external \
+	--disable-vidix \
+	--disable-vidix-pcidb \
+	--disable-dhahelper \
+	--disable-svgalib_helper \
 	--disable-gl \
+	--disable-matrixview \
 	--disable-dga2 \
 	--disable-dga1 \
 	--disable-vesa \
 	--disable-svga \
 	--disable-sdl \
+	--disable-kva \
 	--disable-aa \
 	--disable-caca \
 	--disable-ggi \
 	--disable-ggiwmh \
+	--disable-direct3d \
 	--disable-directx \
 	--disable-dxr2 \
 	--disable-dxr3 \
 	--disable-ivtv \
+	--disable-v4l2 \
 	--disable-dvb \
-	--disable-dvbhead \
 	--disable-mga \
 	--disable-xmga \
 	--disable-xvmc \
+	--disable-vdpau \
 	--disable-vm \
 	--disable-xinerama \
-	--disable-x11 \
 	--disable-xshape \
 	--disable-mlib \
 	--disable-3dfx \
 	--disable-tdfxfb \
 	--disable-s3fb \
+	--disable-wii \
 	--disable-directfb \
 	--disable-zr \
 	--disable-bl \
@@ -107,7 +110,10 @@ MPLAYER_AUTOCONF += \
 	--disable-xvr100 \
 	--disable-tga \
 	--disable-pnm \
-	--disable-md5sum
+	--disable-md5sum \
+	--disable-yuv4mpeg \
+	--disable-corevideo \
+	--disable-quartz
 #
 # optional features
 #
@@ -117,7 +123,6 @@ MPLAYER_AUTOCONF += \
 	--disable-gui \
 	--disable-gtk1 \
 	--disable-largefiles \
-	--disable-linux-devfs \
 	--disable-termcap \
 	--disable-termios \
 	--disable-langinfo \
@@ -125,6 +130,7 @@ MPLAYER_AUTOCONF += \
 	--disable-lircc \
 	--disable-joystick \
 	--disable-apple-remote \
+	--disable-apple-ir \
 	--disable-vm \
 	--disable-xf86keysym \
 	--disable-radio \
@@ -132,47 +138,49 @@ MPLAYER_AUTOCONF += \
 	--disable-radio-v4l2 \
 	--disable-radio-bsdbt848 \
 	--disable-tv-bsdbt848 \
-	--disable-tv-teletext \
 	--disable-pvr \
 	--disable-rtc \
 	--disable-network \
-	--disable-winsock2 \
+	--disable-winsock2_h \
 	--disable-smb \
 	--disable-live \
 	--disable-nemesi \
+	--disable-librtmp \
+	--disable-vcd \
+	--disable-bluray \
 	--disable-dvdnav \
 	--disable-dvdread \
 	--disable-dvdread-internal \
 	--disable-libdvdcss-internal \
 	--disable-cdparanoia \
 	--disable-cddb \
-	--disable-bitmap-font \
 	--disable-freetype \
 	--disable-fontconfig \
-	--disable-unrarlib \
+	--disable-unrarexec \
 	--disable-menu \
 	--disable-sortsub \
 	--disable-fribidi \
 	--disable-enca \
-	--disable-macosx \
 	--disable-maemo \
-	--disable-macosx-finder-support \
+	--disable-macosx-finder \
 	--disable-macosx-bundle \
 	--disable-inet6 \
 	--disable-gethostbyname2 \
 	--disable-ftp \
 	--disable-vstream \
-	--disable-pthreads \
 	--disable-w32threads \
+	--disable-ass-internal \
 	--disable-ass \
 	--disable-rpath
+
+#	--disable-bitmap-font \
+
 #
 # codecs
 #
 MPLAYER_AUTOCONF += \
 	--disable-gif \
 	--disable-png \
-	--disable-jpeg \
 	--disable-libcdio \
 	--disable-liblzo \
 	--disable-win32dll \
@@ -180,23 +188,34 @@ MPLAYER_AUTOCONF += \
 	--disable-xanim \
 	--disable-real \
 	--disable-xvid \
+	--disable-xvid-lavc \
 	--disable-x264 \
+	--disable-x264-lavc \
+	--disable-libdirac-lavc \
+	--disable-libschroedinger-lavc \
+	--disable-libvpx-lavc \
 	--disable-libnut \
 	--disable-libpostproc_a \
 	--disable-libpostproc_so \
 	--disable-tremor-internal \
 	--disable-tremor-low \
-	--disable-tremor-external \
+	--disable-tremor \
 	--disable-libvorbis \
 	--disable-speex \
+	--disable-libgsm \
 	--disable-theora \
-	--disable-faad-external \
+	--disable-faad \
 	--disable-faad-internal \
 	--disable-faad-fixed \
 	--disable-faac \
+	--disable-faac-lavc \
 	--disable-ladspa \
+	--disable-libbs2b \
 	--disable-libdv \
+	--disable-mpg123 \
 	--disable-mad \
+	--disable-mp3lame \
+	--disable-mp3lame-lavc \
 	--disable-toolame \
 	--disable-twolame \
 	--disable-xmms \
@@ -204,15 +223,18 @@ MPLAYER_AUTOCONF += \
 	--disable-mp3lib \
 	--disable-liba52 \
 	--disable-musepack \
-	--disable-libamr_nb \
-	--disable-libamr_wb
+	--disable-libopencore_amrnb \
+	--disable-libopencore_amrwb \
+	--disable-libopenjpeg
 
 #	--disable-libavutil_a \
 #	--disable-libavcodec_a \
 #	--disable-libavformat_a \
+#	--disable-libswscale_a \
 #	--disable-libavutil_so \
 #	--disable-libavcodec_so \
 #	--disable-libavformat_so \
+#	--disable-libswscale_so \
 #	--disable-libavcodec_mpegaudio_hp \
 
 #
@@ -223,13 +245,16 @@ MPLAYER_AUTOCONF += \
 	--disable-ossaudio \
 	--disable-arts \
 	--disable-esd \
-	--disable-polyp \
+	--disable-pulse \
 	--disable-jack \
 	--disable-openal \
 	--disable-nas \
 	--disable-sgiaudio \
 	--disable-sunaudio \
+	--disable-kai \
+	--disable-dart \
 	--disable-win32waveout \
+	--disable-coreaudio \
 	--disable-select
 
 #
@@ -246,7 +271,11 @@ MPLAYER_AUTOCONF += \
 	--disable-shm \
 	--disable-altivec \
 	--disable-armv5te \
+	--disable-armv6t2 \
+	--disable-armvfp \
+	--disable-neon \
 	--disable-fastmemcpy \
+	--disable-hardcoded-tables \
 	--disable-big-endian \
 	--disable-debug \
 	--disable-profile \
@@ -254,21 +283,20 @@ MPLAYER_AUTOCONF += \
 	--disable-crash-debug \
 	--disable-dynamic-plugins
 
-# Use these options if autodetection fails (Options marked with (*) accept
-# multiple paths separated by ':'):
-#   --extra-libs=FLAGS          extra linker flags
-#   --extra-libs-mplayer=FLAGS  extra linker flags for MPlayer
-#   --extra-libs-mencoder=FLAGS extra linker flags for MEncoder
-#   --with-extraincdir=DIR      extra header search paths in DIR (*)
-#   --with-extralibdir=DIR      extra linker search paths in DIR (*)
-#   --with-xvmclib=NAME         adapter-specific library name (e.g. XvMCNVIDIA)
+#Use these options if autodetection fails:
+#  --extra-cflags=FLAGS        extra CFLAGS
+#  --extra-ldflags=FLAGS       extra LDFLAGS
+#  --extra-libs=FLAGS          extra linker flags
+#  --extra-libs-mplayer=FLAGS  extra linker flags for MPlayer
+#  --extra-libs-mencoder=FLAGS extra linker flags for MEncoder
+#  --with-xvmclib=NAME         adapter-specific library name (e.g. XvMCNVIDIA)
 #
-#   --with-freetype-config=PATH path to freetype-config
-#   --with-fribidi-config=PATH  path to fribidi-config
-#   --with-glib-config=PATH     path to glib*-config
-#   --with-gtk-config=PATH      path to gtk*-config
-#   --with-sdl-config=PATH      path to sdl*-config
-#   --with-dvdnav-config=PATH   path to dvdnav-config
+#  --with-freetype-config=PATH path to freetype-config
+#  --with-glib-config=PATH     path to glib*-config
+#  --with-gtk-config=PATH      path to gtk*-config
+#  --with-sdl-config=PATH      path to sdl*-config
+#  --with-dvdnav-config=PATH   path to dvdnav-config
+#  --with-dvdread-config=PATH  path to dvdread-config
 
 #
 # Configurable Video Inputs
@@ -308,10 +336,11 @@ else
 MPLAYER_AUTOCONF += --disable-fbdev
 endif
 
-# enable tv if any of the tv options are on
+# enable tv and pthreads if any of the tv options are on
 ifeq ($(or $(PTXCONF_MPLAYER_VI_V4L1),$(PTXCONF_MPLAYER_VI_V4L2)),)
-MPLAYER_AUTOCONF += --disable-tv
+MPLAYER_AUTOCONF += --disable-tv --disable-pthreads
 else
+# Don't enable pthread explicitly. The correct library will not be detected
 MPLAYER_AUTOCONF += --enable-tv
 endif
 
@@ -319,10 +348,16 @@ endif
 #
 # Configurable Codecs
 #
-ifdef PTXCONF_MPLAYER_CODEC_MPEG2
-MPLAYER_AUTOCONF += --enable-libmpeg2
+ifdef PTXCONF_MPLAYER_CODEC_JPEG
+MPLAYER_AUTOCONF += --enable-jpeg
 else
-MPLAYER_AUTOCONF += --disable-libmpeg2
+MPLAYER_AUTOCONF += --disable-jpeg
+endif
+
+ifdef PTXCONF_MPLAYER_CODEC_MPEG2
+MPLAYER_AUTOCONF += --enable-libmpeg2 --enable-libmpeg2-internal
+else
+MPLAYER_AUTOCONF += --disable-libmpeg2 --disable-libmpeg2-internal
 endif
 
 #

@@ -5,9 +5,9 @@ menuconfig MPLAYER
 	select LIBC_M
 	select GCCLIBS_GCC_S
 	select ZLIB
-	select LIBJPEG if MPLAYER_VO_JPEG
 	select XORG_LIB_XV if MPLAYER_VO_XV
 	select XORG_LIB_X11 if MPLAYER_VO_X11
+	select LIBJPEG if MPLAYER_CODEC_JPEG
 	prompt "mplayer                       "
 	help
 	  The Ultimate Movie Player For Linux
@@ -71,6 +71,10 @@ menuconfig MPLAYER_CODEC
 	prompt "Video Codecs                "
 
 if MPLAYER_CODEC
+
+config MPLAYER_CODEC_JPEG
+	bool
+	prompt "jpeg"
 
 config MPLAYER_CODEC_MPEG2
 	bool
