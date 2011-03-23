@@ -6,14 +6,15 @@
 0005-use-AC_TYPE_LONG_DOUBLE-to-detect-long-double-suppor.patch
 0006-use-AC_CHECK_SIZEOF-rather-than-handcrafted-test-wit.patch
 0007-fix-silent-flag.patch
-0008-use-PGEN_FOR_BUILD.patch
-0009-introduce-and-use-PYTHON_FOR_BUILD.patch
-0010-distutils-introduce-and-use-EXECUTABLE_DIRNAME.patch
-0011-setup.py-don-t-leak-host-path-into-cross-compilation.patch
-0012-setup.py-skip-import-check-while-cross-compiling.patch
-0013-add-cross-compilation-support.patch
-0014-provide-wrapper-for-cross-python.patch
-0015-0017-fix-for-new-autoconf.diff.patch
-0016-0018-dont-add-rpaths.diff.patch
-0017-assume-non-buggy-getaddrinfo-when-cross-compiling.patch
-# af3d1249cd85718d1faf28b107c2d3df  - git-ptx-patches magic
+0008-upstream-patch-to-fix-parallel-building.patch
+0009-use-PGEN_FOR_BUILD.patch
+0010-introduce-and-use-PYTHON_FOR_BUILD.patch
+0011-distutils-introduce-and-use-EXECUTABLE_DIRNAME.patch
+0012-setup.py-don-t-leak-host-path-into-cross-compilation.patch
+0013-setup.py-skip-import-check-while-cross-compiling.patch
+0014-add-cross-compilation-support.patch
+0015-provide-wrapper-for-cross-python.patch
+0016-0017-fix-for-new-autoconf.diff.patch
+0017-0018-dont-add-rpaths.diff.patch
+0018-assume-non-buggy-getaddrinfo-when-cross-compiling.patch
+# 853a308c279b1f259b3f824528f4086a  - git-ptx-patches magic

@@ -1,0 +1,61 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 23 Mar 2011 13:22:18 +0100
+Subject: [PATCH] upstream patch to fix parallel building
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+ # HG changeset patch
+ # User Antoine Pitrou <solipsis@pitrou.net>
+ # Date 1294081892 0
+ # Node ID 78de3a7fb89634e296bc2574a5d2a5411e3bb2e6
+ # Parent  b0b4414c0bdc21de4365247888087dd7311f609d
+ Merged revisions 84068,87558 via svnmerge from
+ svn+ssh://pythondev@svn.python.org/python/branches/py3k
+
+........
+  r84068 | martin.v.loewis | 2010-08-15 17:47:25 +0200 (dim., 15 août 2010) | 2 lines
+
+  Don't run pgen twice when using make -j.
+........
+  r87558 | victor.stinner | 2010-12-29 00:14:17 +0100 (mer., 29 déc. 2010) | 1 line
+
+  Don't ignore pgen error (on "make Parser/pgen.stamp")
+........
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ Makefile.pre.in |    9 ++++++---
+ 1 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index f8a8d36..8b1e44b 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -515,9 +515,12 @@ Modules/python.o: $(srcdir)/Modules/python.c
+ 	$(MAINCC) -c $(PY_CFLAGS) -o $@ $(srcdir)/Modules/python.c
+ 
+ 
+-$(GRAMMAR_H) $(GRAMMAR_C): $(PGEN) $(GRAMMAR_INPUT)
++# Use a stamp file to prevent make -j invoking pgen twice
++$(GRAMMAR_H) $(GRAMMAR_C): Parser/pgen.stamp
++Parser/pgen.stamp: $(PGEN) $(GRAMMAR_INPUT)
+ 		-@$(INSTALL) -d Include
+-		-$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
++		$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
++		-touch Parser/pgen.stamp
+ 
+ $(PGEN):	$(PGENOBJS)
+ 		$(CC) $(OPT) $(LDFLAGS) $(PGENOBJS) $(LIBS) -o $(PGEN)
+@@ -1149,7 +1152,7 @@ profile-removal:
+ 
+ clobber: clean profile-removal
+ 	-rm -f $(BUILDPYTHON) $(PGEN) $(LIBRARY) $(LDLIBRARY) $(DLLLIBRARY) \
+-		tags TAGS \
++		tags TAGS Parser/pgen.stamp \
+ 		config.cache config.log pyconfig.h Modules/config.c
+ 	-rm -rf build platform
+ 	-rm -rf $(PYTHONFRAMEWORKDIR)
+-- 
+1.7.2.3
+

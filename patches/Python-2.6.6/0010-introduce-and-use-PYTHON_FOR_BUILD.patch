@@ -14,7 +14,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  2 files changed, 36 insertions(+), 19 deletions(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 01d4c98..4031505 100644
+index 703c6aa..78e9a60 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -174,7 +174,8 @@ LIBOBJS=	@LIBOBJS@
@@ -57,7 +57,7 @@ index 01d4c98..4031505 100644
  	esac
  
  # Build static library
-@@ -677,7 +678,7 @@ $(LIBRARY_OBJS) $(MODOBJS) Modules/python.o: $(PYTHON_HEADERS)
+@@ -680,7 +681,7 @@ $(LIBRARY_OBJS) $(MODOBJS) Modules/python.o: $(PYTHON_HEADERS)
  
  TESTOPTS=	-l $(EXTRATESTOPTS)
  TESTPROG=	$(srcdir)/Lib/test/regrtest.py
@@ -66,7 +66,7 @@ index 01d4c98..4031505 100644
  test:		all platform
  		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
  		-$(TESTPYTHON) $(TESTPROG) $(TESTOPTS)
-@@ -700,7 +701,7 @@ testuniversal:	all platform
+@@ -703,7 +704,7 @@ testuniversal:	all platform
  		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
  		-$(TESTPYTHON) $(TESTPROG) -uall $(TESTOPTS)
  		$(TESTPYTHON) $(TESTPROG) -uall $(TESTOPTS)
@@ -75,7 +75,7 @@ index 01d4c98..4031505 100644
  
  
  # Like testall, but with a single pass only
-@@ -888,23 +889,23 @@ libinstall:	build_all $(srcdir)/Lib/$(PLATDIR)
+@@ -891,23 +892,23 @@ libinstall:	build_all $(srcdir)/Lib/$(PLATDIR)
  	done
  	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
  	PYTHONPATH=$(DESTDIR)$(LIBDEST)  $(RUNSHARED) \
@@ -104,7 +104,7 @@ index 01d4c98..4031505 100644
  
  # Create the PLATDIR source directory, if one wasn't distributed..
  $(srcdir)/Lib/$(PLATDIR):
-@@ -1002,7 +1003,7 @@ libainstall:	all
+@@ -1005,7 +1006,7 @@ libainstall:	all
  # Install the dynamically loadable modules
  # This goes into $(exec_prefix)
  sharedinstall:
@@ -113,7 +113,7 @@ index 01d4c98..4031505 100644
  	   	--prefix=$(prefix) \
  		--install-scripts=$(BINDIR) \
  		--install-platlib=$(DESTSHARED) \
-@@ -1040,7 +1041,7 @@ frameworkinstallstructure:	$(LDLIBRARY)
+@@ -1043,7 +1044,7 @@ frameworkinstallstructure:	$(LDLIBRARY)
  		fi; \
  	done
  	$(LN) -fsn include/python$(VERSION) $(DESTDIR)$(prefix)/Headers
@@ -122,7 +122,7 @@ index 01d4c98..4031505 100644
  	$(LN) -fsn $(VERSION) $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Versions/Current
  	$(LN) -fsn Versions/Current/$(PYTHONFRAMEWORK) $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/$(PYTHONFRAMEWORK)
  	$(LN) -fsn Versions/Current/Headers $(DESTDIR)$(PYTHONFRAMEWORKINSTALLDIR)/Headers
-@@ -1083,7 +1084,7 @@ frameworkinstallextras:
+@@ -1086,7 +1087,7 @@ frameworkinstallextras:
  # This installs a few of the useful scripts in Tools/scripts
  scriptsinstall:
  	SRCDIR=$(srcdir) $(RUNSHARED) \
@@ -131,7 +131,7 @@ index 01d4c98..4031505 100644
  	--prefix=$(prefix) \
  	--install-scripts=$(BINDIR) \
  	--root=/$(DESTDIR)
-@@ -1105,7 +1106,7 @@ config.status:	$(srcdir)/configure
+@@ -1108,7 +1109,7 @@ config.status:	$(srcdir)/configure
  
  # Run reindent on the library
  reindent:
@@ -140,7 +140,7 @@ index 01d4c98..4031505 100644
  
  # Rerun configure with the same options as it was run last time,
  # provided the config.status script exists
-@@ -1203,7 +1204,7 @@ funny:
+@@ -1206,7 +1207,7 @@ funny:
  
  # Perform some verification checks on any modified files.
  patchcheck:

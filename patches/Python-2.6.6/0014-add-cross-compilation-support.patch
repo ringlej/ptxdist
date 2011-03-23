@@ -36,7 +36,7 @@ index 83af687..f583381 100644
  # Path to the base directory of the project. On Windows the binary may
  # live in project/PCBuild9.  If we're dealing with an x64 Windows build,
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 4031505..2bc3f38 100644
+index 78e9a60..8b6a6b4 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -72,6 +72,10 @@ CFLAGSFORSHARED=@CFLAGSFORSHARED@

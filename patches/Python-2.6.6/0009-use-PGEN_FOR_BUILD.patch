@@ -8,7 +8,7 @@ Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
  1 files changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index f8a8d36..01d4c98 100644
+index 8b1e44b..703c6aa 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -205,6 +205,7 @@ GRAMMAR_INPUT=	$(srcdir)/Grammar/Grammar
@@ -19,18 +19,18 @@ index f8a8d36..01d4c98 100644
  
  POBJS=		\
  		Parser/acceler.o \
-@@ -515,9 +516,9 @@ Modules/python.o: $(srcdir)/Modules/python.c
- 	$(MAINCC) -c $(PY_CFLAGS) -o $@ $(srcdir)/Modules/python.c
+@@ -517,9 +518,9 @@ Modules/python.o: $(srcdir)/Modules/python.c
  
- 
--$(GRAMMAR_H) $(GRAMMAR_C): $(PGEN) $(GRAMMAR_INPUT)
-+$(GRAMMAR_H) $(GRAMMAR_C): $(PGEN_FOR_BUILD) $(GRAMMAR_INPUT)
+ # Use a stamp file to prevent make -j invoking pgen twice
+ $(GRAMMAR_H) $(GRAMMAR_C): Parser/pgen.stamp
+-Parser/pgen.stamp: $(PGEN) $(GRAMMAR_INPUT)
++Parser/pgen.stamp: $(PGEN_FOR_BUILD) $(GRAMMAR_INPUT)
  		-@$(INSTALL) -d Include
--		-$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
-+		-$(PGEN_FOR_BUILD) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
+-		$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
++		$(PGEN_FOR_BUILD) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
+ 		-touch Parser/pgen.stamp
  
  $(PGEN):	$(PGENOBJS)
- 		$(CC) $(OPT) $(LDFLAGS) $(PGENOBJS) $(LIBS) -o $(PGEN)
 -- 
 1.7.2.3
 
