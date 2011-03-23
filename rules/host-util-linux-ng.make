@@ -39,11 +39,31 @@ HOST_UTIL_LINUX_NG_AUTOCONF := \
 	--disable-nls \
 	--disable-use-tty-group \
 	--disable-makeinstall-chown \
+	--disable-gtk-doc \
+	--disable-mount \
+	--disable-fsck \
+	--disable-uuidd \
+	--disable-nls \
+	--disable-agetty \
+	--disable-cramfs \
+	--disable-switch_root \
+	--disable-pivot_root \
 	--disable-fallocate \
+	--disable-unshare \
+	--disable-init \
+	--disable-kill \
+	--disable-last \
+	--disable-mesg \
+	--disable-partx \
+	--disable-raw \
+	--disable-rename \
+	--disable-reset \
+	--disable-login-utils \
+	--disable-schedutils \
+	--disable-wall \
+	--disable-write \
 	--enable-libuuid \
-	--enable-libblkid
-
-HOST_UTIL_LINUX_NG_MAKE_OPT	:= -C shlibs
-HOST_UTIL_LINUX_NG_INSTALL_OPT	:= $(HOST_UTIL_LINUX_NG_MAKE_OPT) install
+	--enable-libblkid \
+	--enable-libmount
 
 # vim: syntax=make
