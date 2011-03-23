@@ -22,6 +22,7 @@ ptx/env = \
 	ptx_extract_dir_cross="$(call ptx/escape,$(CROSS_BUILDDIR))"		\
 										\
 	ptx_state_dir="$(call ptx/escape,$(STATEDIR))"				\
+	ptx_image_dir="$(call ptx/escape,$(IMAGEDIR))"				\
 	ptx_lib_dir="$(call ptx/escape,$(PTXDIST_LIB_DIR))"			\
 	ptx_pkg_dir="$(call ptx/escape,$(PKGDIR))"				\
 	ptx_pkg_dev_dir="$(call ptx/escape,$(PTXDIST_DEVPKG_PLATFORMDIR))"	\
