@@ -6,6 +6,7 @@ config XORG_APP_XSET
 	select XORG_LIB_XT
 	select XORG_LIB_SM
 	select XORG_LIB_ICE
+	select XORG_LIB_XXF86MISC
 	prompt "xorg xset"
 	help
 	  xset is used to set various user preference options of the display.

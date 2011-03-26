@@ -43,7 +43,8 @@ XORG_APP_XSET_ENV 	:= $(CROSS_ENV)
 #
 XORG_APP_XSET_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
-	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR)
+	--datadir=$(PTXCONF_XORG_DEFAULT_DATA_DIR) \
+	--with-xf86misc
 
 # ----------------------------------------------------------------------------
 # Target-Install
