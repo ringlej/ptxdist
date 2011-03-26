@@ -56,7 +56,8 @@ WIRESHARK_AUTOCONF = \
 	--disable-randpkt \
 	--with-pcap=$(LIBPCAP_DIR) \
 	--with-pcre \
-	--without-gcrypt
+	--without-gcrypt \
+	--without-libcap
 
 ifdef PTXCONF_WIRESHARK_TSHARK
 WIRESHARK_AUTOCONF	+= --enable-tshark
