@@ -3,8 +3,9 @@ menuconfig NET_SNMP
 	tristate
 	prompt "net-snmp                      "
 	select LIBC_M
-	select GCCLIBS_GCC_S if NET_SNMP_AGENT
-	select LIBC_DL if NET_SNMP_AGENT || NET_SNMP_APPLICATIONS
+	select GCCLIBS_GCC_S	if NET_SNMP_AGENT
+	select LIBC_DL		if NET_SNMP_AGENT || NET_SNMP_APPLICATIONS
+	select LIBNL		if NET_SNMP_AGENT || NET_SNMP_APPLICATIONS
 	select NET_SNMP_MD5
 #	^ build fix for 5.6.1 (see http://sourceforge.net/tracker/index.php?func=detail&aid=3184697&group_id=12694&atid=112694)
 
