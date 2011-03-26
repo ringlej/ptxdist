@@ -2,6 +2,7 @@
 config LRZSZ
 	tristate
 	prompt "lrzsz"
+	select LIBC_NSL
 	help
 	  lrzsz is a unix communication package providing the XMODEM,
 	  YMODEM and ZMODEM file transfer protocols. lrzsz is a heavily
