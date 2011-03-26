@@ -3,6 +3,8 @@
 config TRACE_CMD
 	tristate
 	prompt "trace-cmd"
+	select LIBC_DL
+	select GCCLIBS_GCC_S
 	help
 	  The trace-cmd command interacts with the Ftrace tracer that
 	  is built inside the Linux kernel. It interfaces with the
