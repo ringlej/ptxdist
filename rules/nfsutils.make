@@ -51,6 +51,7 @@ NFSUTILS_AUTOCONF := \
 	--disable-kprefix \
 	--disable-tirpc \
 	--disable-ipv6 \
+	--disable-caps \
 	--enable-shared \
 	--enable-static \
 	--with-rpcgen=internal
