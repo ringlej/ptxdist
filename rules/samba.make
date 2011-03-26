@@ -95,6 +95,7 @@ SAMBA_AUTOCONF := \
 	--with-syslog \
 	--without-ads \
 	--without-automount \
+	--without-included-popt \
 	--without-krb5 \
 	--without-ldap \
 	--without-pam \
