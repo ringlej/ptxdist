@@ -40,5 +40,8 @@ $(CROSS_INSIGHT_SOURCE):
 # autoconf
 #
 CROSS_INSIGHT_CONF_TOOL := autoconf
+CROSS_INSIGHT_CONF_OPT	:= \
+	$(HOST_CROSS_AUTOCONF) \
+	--disable-werror
 
 # vim: syntax=make
