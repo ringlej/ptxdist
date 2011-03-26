@@ -60,7 +60,7 @@ FLUXBOX_CONF_OPT += \
 	--with-overlay=/usr/share/fluxbox/overlay \
 	--with-init=/usr/share/fluxbox/init
 
-ifdef PTXCONF_XORG_SERVER_EXT_XINERAMA
+ifdef PTXCONF_FLUXBOX_XINERAMA
 FLUXBOX_CONF_OPT += --enable-xinerama
 else
 FLUXBOX_CONF_OPT += --disable-xinerama

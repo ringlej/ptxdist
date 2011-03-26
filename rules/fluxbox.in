@@ -5,8 +5,9 @@ menuconfig FLUXBOX
 	select XORG_LIB_ICE
 	select XORG_LIB_SM
 	select XORG_LIB_X11
-	select XORG_LIB_XPM if FLUXBOX_XPM
-	select XORG_LIB_XFT if FLUXBOX_XFT
+	select XORG_LIB_XPM		if FLUXBOX_XPM
+	select XORG_LIB_XFT		if FLUXBOX_XFT
+	select XORG_LIB_XINERAMA	if FLUXBOX_XINERAMA
 	select LIBC_M
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
@@ -39,6 +40,12 @@ config FLUXBOX_XFT
 	help
 	  Fluxbox can use the Xft library to perform anti-aliased text
 	  rendering.
+
+config FLUXBOX_XINERAMA
+	bool
+	prompt "Xinerama support"
+	help
+	  whether to build support for the Xinerama extension
 
 config FLUXBOX_THEMES
 	bool
