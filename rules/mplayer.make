@@ -98,6 +98,7 @@ MPLAYER_AUTOCONF += \
 	--disable-vm \
 	--disable-xinerama \
 	--disable-xshape \
+	--disable-xss \
 	--disable-mlib \
 	--disable-3dfx \
 	--disable-tdfxfb \
@@ -181,6 +182,7 @@ MPLAYER_AUTOCONF += \
 MPLAYER_AUTOCONF += \
 	--disable-gif \
 	--disable-png \
+	--disable-mng \
 	--disable-libcdio \
 	--disable-liblzo \
 	--disable-win32dll \
