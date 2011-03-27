@@ -47,7 +47,8 @@ PUREFTPD_AUTOCONF := \
 	--without-ldap \
 	--without-mysql \
 	--without-pgsql \
-	--without-privsep
+	--without-privsep \
+	--without-capabilities
 
 #
 # FIXME: configure probes host's /dev/urandom and /dev/random
