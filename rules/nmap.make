@@ -17,7 +17,7 @@ PACKAGES-$(PTXCONF_NMAP) += nmap
 #
 # Paths and names
 #
-NMAP_VERSION	:= 4.85BETA8
+NMAP_VERSION	:= 5.51
 NMAP		:= nmap-$(NMAP_VERSION)
 NMAP_SUFFIX	:= tar.bz2
 NMAP_URL	:= http://nmap.org/dist/$(NMAP).$(NMAP_SUFFIX)
@@ -47,10 +47,13 @@ NMAP_ENV  := \
 #
 NMAP_AUTOCONF := $(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_IPV6_OPTION) \
-	--with-libpcre=$(SYSROOT)/usr \
-	--with-libpcap=included \
+	--with-libpcre \
+	--with-libpcap \
 	--without-liblua \
+	--without-ndiff \
 	--without-zenmap \
+	--without-nping \
+	--without-ncat \
 	\
 	--enable-protochain \
 	--disable-optimizer-dbg \
@@ -60,12 +63,6 @@ ifdef PTXCONF_NMAP_OPENSSL
 NMAP_AUTOCONF += --with-openssl=$(SYSROOT)
 else
 NMAP_AUTOCONF += --without-openssl
-endif
-
-ifdef PTXCONF_ARCH_MINGW
-NMAP_AUTOCONF += --with-pcap=null
-else
-NMAP_AUTOCONF += --with-pcap=linux
 endif
 
 # ----------------------------------------------------------------------------

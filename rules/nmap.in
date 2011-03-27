@@ -5,6 +5,7 @@ menuconfig NMAP
 	select OPENSSL if NMAP_OPENSSL
 	select OPENSSL
 	select LIBPCRE
+	select LIBPCAP
 	select GCCLIBS_CXX
 	help
 	  Nmap ("Network Mapper") is a utility for network exploration
