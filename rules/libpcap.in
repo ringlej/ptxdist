@@ -3,6 +3,7 @@
 menuconfig LIBPCAP
 	tristate
 	prompt "libpcap                       "
+	select LIBNL
 	select BLUEZ	if LIBPCAP_BLUETOOTH
 	help
 	  libpcap is a system-independent interface for user-level packet capture.

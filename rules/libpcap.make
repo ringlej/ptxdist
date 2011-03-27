@@ -55,6 +55,7 @@ LIBPCAP_AUTOCONF := \
 	--enable-protochain \
 	--disable-optimizer-dbg \
 	--disable-yydebug \
+	--with-libnl \
 	--without-dag \
 	--without-septel
 
