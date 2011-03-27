@@ -74,6 +74,7 @@ XORG_SERVER_AUTOCONF = \
 	--disable-local-transport \
 	--without-doxygen \
 	--with-xkb-output=/tmp \
+	--with-sha1=libcrypto \
 	--with-vendor-name=Ptxdist \
 	--with-vendor-name-short=PTX \
 	--with-vendor-web=http://www.pengutronix.de/software/ptxdist/index_en.html \
