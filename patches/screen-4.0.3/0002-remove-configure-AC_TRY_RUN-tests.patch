@@ -1,6 +1,19 @@
-Index: configure.in
-===================================================================
---- a/configure.in.orig
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 27 Mar 2011 15:22:02 +0200
+Subject: [PATCH] remove configure AC_TRY_RUN tests
+
+AC_TRY_RUN fails when cross-compiling.
+
+Not for upstream.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.in |  652 +---------------------------------------------------------
+ 1 files changed, 9 insertions(+), 643 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index c1460af..419279d 100644
+--- a/configure.in
 +++ b/configure.in
 @@ -46,31 +46,6 @@ AC_PROG_CPP
  AC_PROG_GCC_TRADITIONAL
@@ -34,7 +47,7 @@ Index: configure.in
  AC_PROG_AWK
  
  AC_PROG_INSTALL
-@@ -288,354 +263,6 @@ AC_CHECKING(select with $LIBS)
+@@ -279,354 +254,6 @@ AC_CHECKING(select with $LIBS)
  AC_TRY_LINK(,[select(0, 0, 0, 0, 0);],, 
  AC_MSG_ERROR(!!! no select - no screen))
  )
@@ -389,7 +402,7 @@ Index: configure.in
  
  dnl
  dnl    ****  termcap or terminfo  ****
-@@ -663,12 +290,8 @@ AC_CHECKING(libncurses)
+@@ -654,12 +281,8 @@ AC_CHECKING(libncurses)
  AC_TRY_LINK(,tgetent((char *)0, (char *)0);,,
  AC_MSG_ERROR(!!! no tgetent - no screen))))))
  
@@ -404,7 +417,7 @@ Index: configure.in
  AC_CHECKING(ospeed)
  AC_TRY_LINK(extern short ospeed;,ospeed=5;,,AC_DEFINE(NEED_OSPEED))
  
-@@ -719,95 +342,6 @@ AC_DEFINE_UNQUOTED(PTYRANGE0,"$p0")
+@@ -710,95 +333,6 @@ AC_DEFINE_UNQUOTED(PTYRANGE0,"$p0")
  AC_DEFINE_UNQUOTED(PTYRANGE1,"$p1")
  fi
  
@@ -500,7 +513,7 @@ Index: configure.in
  dnl
  dnl    ****  utmp handling  ****
  dnl
-@@ -880,101 +414,6 @@ AC_DEFINE(LOADAV_GETLOADAVG) load=1, LIB
+@@ -871,101 +405,6 @@ AC_DEFINE(LOADAV_GETLOADAVG) load=1, LIBS="$olibs")
  fi
  )
  
@@ -602,7 +615,7 @@ Index: configure.in
  AC_PROGRAM_SOURCE([
  #include <sys/types.h>
  #include <sys/param.h>
-@@ -1046,41 +485,8 @@ sigset(0, (void (*)())0);
+@@ -1037,41 +476,8 @@ sigset(0, (void (*)())0);
  sigset(0, (int (*)())0);
  #endif
  ], AC_DEFINE(USESIGSET))
@@ -610,14 +623,14 @@ Index: configure.in
 -AC_TRY_RUN([
 -#include <sys/types.h>
 -#include <signal.h>
--
+ 
 -#ifndef SIGCLD
 -#define SIGCLD SIGCHLD
 -#endif
 -#ifdef USESIGSET
 -#define signal sigset
 -#endif
- 
+-
 -int got;
 -
 -#ifdef SIGVOID
@@ -645,7 +658,7 @@ Index: configure.in
  
  fi
  
-@@ -1148,50 +554,12 @@ AC_CHECKING(fdwalk)
+@@ -1139,50 +545,12 @@ AC_CHECKING(fdwalk)
  AC_TRY_LINK([#include <stdlib.h>], [fdwalk(NULL, NULL);],AC_DEFINE(HAVE_FDWALK))
  
  AC_CHECKING(whether memcpy/memmove/bcopy handles overlapping arguments)
@@ -702,7 +715,7 @@ Index: configure.in
  
  AC_MSG_CHECKING(long file names)
  (echo 1 > /tmp/conftest9012345) 2>/dev/null
-@@ -1266,8 +634,6 @@ fi
+@@ -1257,8 +625,6 @@ fi
  dnl Ptx bug workaround -- insert -lc after -ltermcap
  test -n "$seqptx" && LIBS="-ltermcap -lc -lsocket -linet -lnsl -lsec -lseq"
  
@@ -711,3 +724,6 @@ Index: configure.in
  ETCSCREENRC="\"/usr/local/etc/screenrc\""
  if test -n "$prefix"; then
  ETCSCREENRC="\"$prefix/etc/screenrc\""
+-- 
+1.7.4.1
+

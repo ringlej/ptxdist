@@ -1,9 +1,16 @@
----
- configure.in |  122 +++++++++++++++++++++++++++++------------------------------
- 1 file changed, 61 insertions(+), 61 deletions(-)
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 27 Mar 2011 15:23:55 +0200
+Subject: [PATCH] autoconf cleanup
 
-Index: b/configure.in
-===================================================================
+update to latest autoconf syntax
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.in |  118 +++++++++++++++++++++++++++++-----------------------------
+ 1 files changed, 59 insertions(+), 59 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index 5411add..6864c71 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -70,7 +70,7 @@ AC_ARG_ENABLE(socket-dir,
@@ -81,18 +88,7 @@ Index: b/configure.in
  
  AC_CHECKING(for sequent/ptx)
  AC_EGREP_CPP(yes,
-@@ -175,8 +175,8 @@ LIBS="$LIBS -lelf"
- AC_CHECKING(SVR4)
- AC_TRY_LINK([#include <utmpx.h>
- ],,
--[AC_CHECK_HEADER(dwarf.h, AC_DEFINE(SVR4) AC_DEFINE(BUGGYGETLOGIN),
--[AC_CHECK_HEADER(elf.h, AC_DEFINE(SVR4) AC_DEFINE(BUGGYGETLOGIN))])]
-+[AC_CHECK_HEADER(dwarf.h, AC_DEFINE([SVR4],[1],[SVR4]) AC_DEFINE([BUGGYGETLOGIN],[1],[BUGGYGETLOGIN]),
-+[AC_CHECK_HEADER(elf.h, AC_DEFINE([SVR4],[1],[SVR4]) AC_DEFINE([BUGGYGETLOGIN],[1],[BUGGYGETLOGIN]))])]
- ,LIBS="$oldlibs")
- 
- AC_CHECKING(for Solaris 2.x)
-@@ -193,16 +193,16 @@ dnl (currently not used)
+@@ -184,16 +184,16 @@ dnl (currently not used)
  dnl
  dnl AC_CHECKING(for pid_t)
  dnl AC_EGREP_CPP(pid_t,[#include <sys/types.h>
@@ -112,7 +108,7 @@ Index: b/configure.in
  dnl
  
  dnl
-@@ -224,7 +224,7 @@ setpgrp();
+@@ -215,7 +215,7 @@ setpgrp();
  int y = TIOCNOTTY;
  #endif
  #endif
@@ -121,7 +117,7 @@ Index: b/configure.in
  
  dnl
  dnl    ****  setreuid(), seteuid()  ****
-@@ -236,7 +236,7 @@ setresuid(0, 0, 0);
+@@ -227,7 +227,7 @@ setresuid(0, 0, 0);
  #else
  setreuid(0, 0);
  #endif
@@ -130,7 +126,7 @@ Index: b/configure.in
  dnl
  dnl seteuid() check:
  dnl   linux seteuid was broken before V1.1.11
-@@ -250,7 +250,7 @@ seteuid_is_broken(0);
+@@ -241,7 +241,7 @@ seteuid_is_broken(0);
  #else
  seteuid(0);
  #endif
@@ -139,7 +135,7 @@ Index: b/configure.in
  
  dnl
  dnl    ****  select()  ****
-@@ -290,23 +290,23 @@ AC_CHECKING(libncurses)
+@@ -281,23 +281,23 @@ AC_CHECKING(libncurses)
  AC_TRY_LINK(,tgetent((char *)0, (char *)0);,,
  AC_MSG_ERROR(!!! no tgetent - no screen))))))
  
@@ -167,7 +163,7 @@ Index: b/configure.in
  sysvr4ptys=1])
  fi
  
-@@ -315,7 +315,7 @@ AC_CHECK_FUNCS(getpt)
+@@ -306,7 +306,7 @@ AC_CHECK_FUNCS(getpt)
  dnl check for openpty()
  if test -z "$sysvr4ptys"; then
  AC_CHECK_FUNCS(openpty,,
@@ -176,7 +172,7 @@ Index: b/configure.in
  fi
  
  AC_CHECKING(for ptyranges)
-@@ -338,8 +338,8 @@ dnl fi
+@@ -329,8 +329,8 @@ dnl fi
  if test "$ptys" != "$pdir/pty??" ; then
  p0=`echo $ptys | tr ' ' '\012' | sed -e 's/^.*\(.\).$/\1/g' | sort -u | tr -d '\012'`
  p1=`echo $ptys | tr ' ' '\012' | sed -e 's/^.*\(.\)$/\1/g'  | sort -u | tr -d '\012'`
@@ -187,7 +183,7 @@ Index: b/configure.in
  fi
  
  dnl
-@@ -359,7 +359,7 @@ AC_TRY_LINK([
+@@ -350,7 +350,7 @@ AC_TRY_LINK([
  #define pututline _pututline
  #endif
  ],
@@ -196,7 +192,7 @@ Index: b/configure.in
  olibs="$LIBS"
  LIBS="$LIBS -lgen"
  AC_CHECKING(getutent with -lgen)
-@@ -376,7 +376,7 @@ AC_TRY_LINK([
+@@ -367,7 +367,7 @@ AC_TRY_LINK([
  #define pututline _pututline
  #endif
  ],
@@ -205,7 +201,7 @@ Index: b/configure.in
  )
  AC_CHECKING(ut_host)
  AC_TRY_COMPILE([
-@@ -388,10 +388,10 @@ AC_TRY_COMPILE([
+@@ -379,10 +379,10 @@ AC_TRY_COMPILE([
  #else
  #include <utmp.h>
  #endif
@@ -218,7 +214,7 @@ Index: b/configure.in
    LIBS="$LIBS -lutempter"
  fi
  
-@@ -404,13 +404,13 @@ test -f /usr/lib/libutil.a && LIBS="$LIB
+@@ -395,13 +395,13 @@ test -f /usr/lib/libutil.a && LIBS="$LIBS -lutil"
  
  AC_CHECKING(getloadavg)
  AC_TRY_LINK(,[getloadavg((double *)0, 0);],
@@ -234,7 +230,7 @@ Index: b/configure.in
  fi
  )
  
-@@ -450,10 +450,10 @@ loadnum=3
+@@ -441,10 +441,10 @@ loadnum=3
  #endif
  ])
  
@@ -249,7 +245,7 @@ Index: b/configure.in
  
  dnl
  dnl    ****  signal handling  ****
-@@ -462,7 +462,7 @@ if test -n "$posix" ; then
+@@ -453,7 +453,7 @@ if test -n "$posix" ; then
  
  dnl POSIX has reliable signals with void return type.
  AC_NOTE(assuming posix signal definition)
@@ -258,7 +254,7 @@ Index: b/configure.in
  
  else
  
-@@ -473,7 +473,7 @@ AC_TRY_COMPILE(
+@@ -464,7 +464,7 @@ AC_TRY_COMPILE(
  #ifdef signal
  #undef signal
  #endif
@@ -267,7 +263,7 @@ Index: b/configure.in
  AC_CHECKING(sigset)
  AC_TRY_LINK([
  #include <sys/types.h>
-@@ -484,9 +484,9 @@ sigset(0, (void (*)())0);
+@@ -475,9 +475,9 @@ sigset(0, (void (*)())0);
  #else
  sigset(0, (int (*)())0);
  #endif
@@ -279,7 +275,7 @@ Index: b/configure.in
  
  fi
  
-@@ -512,7 +512,7 @@ AC_TRY_LINK(,[closelog();], , [oldlibs="
+@@ -503,7 +503,7 @@ AC_TRY_LINK(,[closelog();], , [oldlibs="$LIBS"
  LIBS="$LIBS -lbsd"
  AC_CHECKING(syslog in libbsd.a)
  AC_TRY_LINK(, [closelog();], AC_NOTE(- found.), [LIBS="$oldlibs"
@@ -288,7 +284,7 @@ Index: b/configure.in
  
  AC_EGREP_CPP(yes,
  [#ifdef M_UNIX
-@@ -532,34 +532,34 @@ AC_TRY_COMPILE([#include <sys/types.h>
+@@ -523,34 +523,34 @@ AC_TRY_COMPILE([#include <sys/types.h>
  #ifdef WEXITSTATUS
    y = WEXITSTATUS(x);
  #endif
@@ -333,7 +329,7 @@ Index: b/configure.in
  
  AC_MSG_CHECKING(long file names)
  (echo 1 > /tmp/conftest9012345) 2>/dev/null
-@@ -569,25 +569,25 @@ if test -f /tmp/conftest9012345 && test 
+@@ -560,25 +560,25 @@ if test -f /tmp/conftest9012345 && test "$val" = 1; then
  AC_MSG_RESULT(yes)
  else
  AC_MSG_RESULT(no)
@@ -364,7 +360,7 @@ Index: b/configure.in
  
  AC_SEARCH_LIBS(gethostname, nsl)
  
-@@ -602,25 +602,25 @@ if test "$enable_pam" = "yes"; then
+@@ -593,25 +593,25 @@ if test "$enable_pam" = "yes"; then
  	pam_start(0, 0, 0, 0);
  	pam_authenticate(0, 0);
  	pam_end(0,0);
@@ -395,7 +391,7 @@ Index: b/configure.in
  fi
  
  dnl
-@@ -640,7 +640,7 @@ ETCSCREENRC="\"$prefix/etc/screenrc\""
+@@ -631,7 +631,7 @@ ETCSCREENRC="\"$prefix/etc/screenrc\""
  fi
  AC_MSG_CHECKING(for the global screenrc file)
  AC_ARG_WITH(sys-screenrc, [  --with-sys-screenrc=path  where to put the global screenrc file], [ ETCSCREENRC="\"${withval}\"" ])
@@ -404,7 +400,7 @@ Index: b/configure.in
  AC_MSG_RESULT($ETCSCREENRC)
  
  SCREENENCODINGS="\"/usr/local/lib/screen/utf8encodings\""
-@@ -649,7 +649,7 @@ eval SCREENENCODINGS="$datadir/screen/ut
+@@ -640,7 +640,7 @@ eval SCREENENCODINGS="$datadir/screen/utf8encodings"
  eval SCREENENCODINGS="\\\"$SCREENENCODINGS\\\""
  fi
  AC_MSG_CHECKING(for the utf8-encodings location)
@@ -413,3 +409,6 @@ Index: b/configure.in
  AC_MSG_RESULT($SCREENENCODINGS)
  
  AC_OUTPUT(Makefile doc/Makefile, [[
+-- 
+1.7.4.1
+

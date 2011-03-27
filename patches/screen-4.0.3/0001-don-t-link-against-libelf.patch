@@ -1,0 +1,35 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sun, 27 Mar 2011 15:19:15 +0200
+Subject: [PATCH] don't link against libelf
+
+libelf is not used. It's just some broken configure check.
+Patch from gentoo.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ configure.in |    9 ---------
+ 1 files changed, 0 insertions(+), 9 deletions(-)
+
+diff --git a/configure.in b/configure.in
+index 34c9372..c1460af 100644
+--- a/configure.in
++++ b/configure.in
+@@ -195,15 +195,6 @@ AC_EGREP_CPP(yes,
+ #endif
+ ], LIBS="$LIBS -lsocket -linet";seqptx=1)
+ 
+-oldlibs="$LIBS"
+-LIBS="$LIBS -lelf"
+-AC_CHECKING(SVR4)
+-AC_TRY_LINK([#include <utmpx.h>
+-],,
+-[AC_CHECK_HEADER(dwarf.h, AC_DEFINE(SVR4) AC_DEFINE(BUGGYGETLOGIN),
+-[AC_CHECK_HEADER(elf.h, AC_DEFINE(SVR4) AC_DEFINE(BUGGYGETLOGIN))])]
+-,LIBS="$oldlibs")
+-
+ AC_CHECKING(for Solaris 2.x)
+ AC_EGREP_CPP(yes,
+ [#if defined(SVR4) && defined(sun)
+-- 
+1.7.4.1
+
