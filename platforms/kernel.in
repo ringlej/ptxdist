@@ -83,6 +83,7 @@ config KERNEL_ARCH_STRING
 	default "blackfin"		if ARCH_BLACKFIN
 	default "m68k"			if ARCH_M68K
 	default "sparc"			if ARCH_SPARC
+	default "microblaze"		if ARCH_MICROBLAZE
 	default "mips"			if ARCH_MIPS
 	default "mips"			if ARCH_MIPSEL
 	default "cris"			if ARCH_CRIS
@@ -142,6 +143,7 @@ choice
 		help
 		 This is the target to get the kernel image as an raw uncompressed
 		 binary file.
+
 	config KERNEL_IMAGE_SIMPLE
 		bool
 		prompt "simpleImage"
@@ -182,7 +184,8 @@ config KERNEL_IMAGE
 	default "vmImage" if KERNEL_IMAGE_VM
 	default "vmlinux" if KERNEL_IMAGE_VMLINUX
 	default "Image"   if KERNEL_IMAGE_RAW
-	default "simpleImage.${PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET}.elf" if KERNEL_IMAGE_SIMPLE
+	default "simpleImage.${PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET}.elf" if KERNEL_IMAGE_SIMPLE && KERNEL_ARCH_POWERPC
+	default "simpleImage.${PTXCONF_KERNEL_IMAGE_SIMPLE_TARGET}" if KERNEL_IMAGE_SIMPLE && ARCH_MICROBLAZE
 
 config KERNEL_XZ
 	prompt "build xz-utils hosttool"

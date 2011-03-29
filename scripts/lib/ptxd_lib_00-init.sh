@@ -104,6 +104,9 @@ ptxd_init_ptxdist_path() {
     PTXDIST_PATH_SCRIPTS="${PTXDIST_PATH//://scripts:}"
     export PTXDIST_PATH_SCRIPTS
 
+    PTXDIST_PATH_PLATFORMS_XLBSP="${PTXDIST_PATH_PLATFORMS//://xlbsp:}"
+    export PTXDIST_PATH_PLATFORMS_XLBSP
+
     ptxd_init_ptxdist_path_sysroot
 }
 

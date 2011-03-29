@@ -32,6 +32,11 @@ ptxd_init_arch() {
 		    ipkg_arch=arm
 		    ;;
 	    esac
+	    ;;
+
+	microblaze)
+	    ipkg_arch=mb
+	    ;;
     esac
 
     PTXDIST_IPKG_ARCH_STRING="${ipkg_arch}"

@@ -71,6 +71,13 @@ choice
 		help
 		  This is support for the SPARC architecture.
 
+	config ARCH_MICROBLAZE
+		bool "microblaze "
+		select HAS_MMU
+		select ARCH_SUPPORTS_ENDIAN_BIG
+		help
+		  This is support for the Xilinx MicroBlaze architecture (with MMU).
+
 	config ARCH_MIPS
 		bool "mips       "
 		select HAS_MMU
@@ -256,6 +263,7 @@ config ARCH_STRING
 	default "m68k"			if ARCH_M68K
 	default "ppc"			if ARCH_PPC
 	default "sparc"			if ARCH_SPARC
+	default "microblaze"		if ARCH_MICROBLAZE
 	default "mips"			if ARCH_MIPS
 	default "cris"			if ARCH_CRIS
 	default "parisc"		if ARCH_PARISC
@@ -263,6 +271,7 @@ config ARCH_STRING
 
 # ----------------------------------------------------------------------------
 
+source "generated/microblaze_options.in"
 source "generated/architecture_options.in"
 
 endmenu
