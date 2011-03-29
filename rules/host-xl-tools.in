@@ -1,0 +1,13 @@
+## SECTION=hosttools_noprompt
+
+config HOST_XL_TOOLS
+	tristate
+	default ALLYES
+	help
+	  Xilinx tools provides a collection of small host programs
+	  you need for Xilinx cross development especially MicroBlaze
+	  development.
+
+	  If you want to generate especially payload blobs for the
+	  XL-Boot you will need the program mkxlblob from this tool
+	  collection.
