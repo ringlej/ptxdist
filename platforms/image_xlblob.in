@@ -1,0 +1,34 @@
+## SECTION=image
+
+menuconfig IMAGE_XLBLOB
+	bool
+	select HOST_XL_TOOLS
+	depends on ARCH_MICROBLAZE
+	prompt "Generate XLBLOB Images        "
+	help
+	  Generate a PIC executable blob tagged for XL-Boot that copies
+	  a image from FLASH to its linked address in RAM and executes it.
+
+if IMAGE_XLBLOB
+
+config IMAGE_XLBLOB_U_BOOT
+	bool
+	depends on U_BOOT
+	prompt "Generate images/u-boot-xl"
+	default y
+	help
+	  Generate a PIC executable blob tagged for XL-Boot that copies
+	  the U-Boot image from FLASH to its linked address in RAM and
+	  executes it.
+
+config IMAGE_XLBLOB_KERNEL
+	bool
+	depends on KERNEL
+	prompt "Generate images/linuximage-xl"
+	default y
+	help
+	  Generate a PIC executable blob tagged for XL-Boot that copies
+	  the Linux kernel image from FLASH to its linked address in RAM
+	  and executes it.
+
+endif
