@@ -24,6 +24,9 @@ BLUEZ_SOURCE	:= $(SRCDIR)/$(BLUEZ).$(BLUEZ_SUFFIX)
 BLUEZ_DIR	:= $(BUILDDIR)/$(BLUEZ)
 BLUEZ_LICENSE	:= GPLv2+ LGPLv2.1+
 
+# the tools don't depend on the generated headers
+BLUEZ_MAKE_PAR	:= NO
+
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
