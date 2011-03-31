@@ -97,8 +97,7 @@ ptxd_make_bootable() {
 	stage1="${ptxd_reply}"
 	ptxd_get_path ${PTXDIST_SYSROOT_TARGET}/usr/lib/grub/*/stage2 || return
 	stage2="${ptxd_reply}"
-    fi
-    if ptxd_get_ptxconf PTXCONF_BAREBOX > /dev/null; then
+    elif ptxd_get_ptxconf PTXCONF_BAREBOX > /dev/null; then
 	echo
 	echo "--------------------------------------"
 	echo "Making the image bootable with barebox"
@@ -108,6 +107,9 @@ ptxd_make_bootable() {
 	    ptxd_make_x86_boot_barebox "${image}" "${sectors}" "${stage1}"
 	    return
 	fi
+    else
+	# no bootloader to write
+	return 0
     fi
     ptxd_make_dd_bootloader "${image}" "${sectors}" "${stage1}" "${stage2}"
 }
