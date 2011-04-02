@@ -34,12 +34,6 @@ FNR == 1 {
 	replace[prefix "include"] = replace["includedir"];
 	replace[prefix "lib"]     = replace["libdir"];
 
-	#
-	# then remove trailing "/" (if any)
-	#
-	prefix = gensub(/(.+)\/$/, "\\1", "", prefix);
-	q_prefix = gensub(/([+/])/, "\\\\\\1", "g", prefix);
-
 	rel_sysroot = replace["prefix"] gensub(/\/[^/]+/, "/..", "g", prefix);
 
 
@@ -54,7 +48,7 @@ $1 ~ /^(prefix|exec_prefix)$/ {
 
 $1 ~ /^(includedir|libdir)$/ {
 	# replace e.g. /usr/include
-	if (match($2, prefix "\\/(include|lib)")) {
+	if (match($2, "^" prefix "(include|lib)")) {
 		this_var = substr($2, RSTART, RLENGTH);
 		sub(this_var, replace[this_var]);
 	}
@@ -65,7 +59,7 @@ $1 ~ /^(includedir|libdir)$/ {
 
 
 $1 ~ /^(Libs(\.private)?|Cflags):$/ {
-	this_regex = "(-[LI])(" SYSROOT "|" pkg_pkg_dir")";
+	this_regex = "(-[LI])(" SYSROOT "|" pkg_pkg_dir")/";
 
 	#
 	# replace absolute path by relative ones
