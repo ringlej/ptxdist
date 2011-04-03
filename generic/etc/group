@@ -1,5 +1,6 @@
 root:x:0:
 daemon:x:1:
+utmp:x:43:
 users:x:100:
 ftp:x:101:
 www:x:102:
