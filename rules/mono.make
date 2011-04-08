@@ -25,20 +25,12 @@ MONO_DIR	:= $(BUILDDIR)/$(MONO)
 MONO_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(MONO_SOURCE):
-	@$(call targetinfo)
-	@$(call get, MONO)
-
-# ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 MONO_CONF_ENV	:= \
 	$(CROSS_ENV) \
-	CPPFLAGS="$(CROSS_CPPFLAGS) -DARM_FPU_NONE=1" \
+	CPPFLAGS="$(CROSS_CPPFLAGS) -DARM_FPU_NONE=$(call ptx/ifdef, PTXCONF_HAS_HARDFLOAT, 0, 1)" \
 	mono_cv_uscore=yes
 #
 # autoconf
