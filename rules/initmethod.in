@@ -17,6 +17,11 @@ choice
 		select BUSYBOX_RUN_PARTS
 		prompt "busybox init    "
 
+	config INITMETHOD_SYSTEMD
+		bool
+		select SYSTEMD
+		prompt "systemd         "
+
 	config INITMETHOD_UPSTART
 		bool
 		prompt "upstart         "

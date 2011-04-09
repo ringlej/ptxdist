@@ -96,6 +96,13 @@ $(STATEDIR)/systemd.targetinstall:
 	@$(call install_copy, systemd, 0, 0, 0755, -, /bin/systemd-notify)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/systemd-cgls)
 
+ifdef PTXCONF_INITMETHOD_SYSTEMD
+	@$(call install_link, systemd, ../bin/systemd, /sbin/init)
+	@$(call install_link, systemd, ../bin/systemctl, /sbin/halt)
+	@$(call install_link, systemd, ../bin/systemctl, /sbin/poweroff)
+	@$(call install_link, systemd, ../bin/systemctl, /sbin/reboot)
+endif
+
 	# configuration
 	@$(call install_copy, systemd, 0, 0, 0644, -, /etc/systemd/system.conf)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/tmpfiles.d/x11.conf)
