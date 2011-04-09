@@ -10,7 +10,7 @@ menuconfig OPENSSH
 	select LIBC_CRYPT
 	select LIBC_UTIL
 	select GCCLIBS_GCC_S
-	select RC_ONCE
+	select RC_ONCE if OPENSSH_SSHD
 	select BUSYBOX_START_STOP_DAEMON if OPENSSH_SSHD_STARTSCRIPT
 	prompt "openssh                       "
 	help
