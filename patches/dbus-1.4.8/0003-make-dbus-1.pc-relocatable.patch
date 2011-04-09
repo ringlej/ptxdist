@@ -9,14 +9,14 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 ---
 # 20100825 wsa: according to mol not necessary for mainline.
 
- configure.in |    3 +++
+ configure.ac |    3 +++
  dbus-1.pc.in |    6 +++---
  2 files changed, 6 insertions(+), 3 deletions(-)
 
-Index: dbus-1.4.1/configure.in
+Index: dbus-1.4.1/configure.ac
 ===================================================================
---- dbus-1.4.1.orig/configure.in
-+++ dbus-1.4.1/configure.in
+--- dbus-1.4.1.orig/configure.ac
++++ dbus-1.4.1/configure.ac
 @@ -1510,10 +1510,13 @@ AC_DEFINE_UNQUOTED(DBUS_DATADIR,"$DBUS_D
  #### Directory to install dbus-daemon
  if test -z "$with_dbus_daemondir" ; then
