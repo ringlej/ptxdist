@@ -45,6 +45,12 @@ config OPENSSH_SSHD_STARTSCRIPT
 	depends on OPENSSH_SSHD
 	prompt "install /etc/init.d/openssh"
 
+config OPENSSH_SSHD_SYSTEMD_UNIT
+	bool
+	default y
+	depends on OPENSSH_SSHD && SYSTEMD
+	prompt "install systemd unit files for sshd"
+
 config OPENSSH_SCP
 	bool "scp"
 	help
