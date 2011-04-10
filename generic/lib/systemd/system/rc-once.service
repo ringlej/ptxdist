@@ -1,0 +1,12 @@
+[Unit]
+Description=First boot services
+DefaultDependencies=no
+After=local-fs.target
+Requires=local-fs.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/lib/systemd/systemd-rc-once
+StandardOutput=syslog+console
+

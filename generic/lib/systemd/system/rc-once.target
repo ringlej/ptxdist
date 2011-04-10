@@ -1,0 +1,8 @@
+[Unit]
+Description=System setup
+DefaultDependencies=no
+After=rc-once.service
+Requires=rc-once.service
+
+[Install]
+Alias=default.target

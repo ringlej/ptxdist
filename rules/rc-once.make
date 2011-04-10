@@ -31,12 +31,26 @@ $(STATEDIR)/rc-once.targetinstall:
 	@$(call install_fixup, rc-once, AUTHOR, "Michael Olbrich <m.olbrich@pengutronix.de>")
 	@$(call install_fixup, rc-once, DESCRIPTION, missing)
 
+	@$(call install_alternative, rc-once, 0, 0, 0644, /lib/init/rc-once.sh)
+
+ifdef PTXCONF_INITMETHOD_BBINIT
 	@$(call install_alternative, rc-once, 0, 0, 0755, /etc/init.d/rc-once)
 
 ifneq ($(call remove_quotes,$(PTXCONF_RC_ONCE_BBINIT_LINK)),)
 	@$(call install_link, rc-once, \
 		../init.d/rc-once, \
 		/etc/rc.d/$(PTXCONF_RC_ONCE_BBINIT_LINK))
+endif
+endif
+ifdef PTXCONF_INITMETHOD_SYSTEMD
+	@$(call install_alternative, rc-once, 0, 0, 0755, \
+		/lib/systemd/systemd-rc-once)
+
+	@$(call install_alternative, rc-once, 0, 0, 0644, \
+		/lib/systemd/system/rc-once.service)
+	@$(call install_alternative, rc-once, 0, 0, 0644, \
+		/lib/systemd/system/rc-once.target)
+	@$(call install_copy, rc-once, 0, 0, 0755, /etc/systemd/system)
 endif
 
 	@$(call install_copy, rc-once, 0, 0, 0755, /etc/rc.once.d)
