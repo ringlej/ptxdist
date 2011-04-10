@@ -146,6 +146,13 @@ config ROOTFS_PROC
 	  Create a /proc directory in the root filesystem.
 	  You should say yes here.
 
+config ROOTFS_RUN
+	bool
+	prompt "/run"
+	default y
+	help
+	  Create a /run directory in the root filesystem.
+
 config ROOTFS_SYS
 	bool
 	prompt "/sys"

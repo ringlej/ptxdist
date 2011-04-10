@@ -86,6 +86,9 @@ endif
 ifdef PTXCONF_ROOTFS_PROC
 	@$(call install_copy, rootfs, 0, 0, 0555, /proc)
 endif
+ifdef PTXCONF_ROOTFS_RUN
+	@$(call install_copy, rootfs, 0, 0, 0755, /run)
+endif
 ifdef PTXCONF_ROOTFS_SYS
 	@$(call install_copy, rootfs, 0, 0, 0755, /sys)
 endif
