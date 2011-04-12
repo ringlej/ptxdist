@@ -338,9 +338,12 @@ export -f ptxd_kconfig
 #
 ptxd_make() {
 	local lib i
+	local -a dir
 	ptxd_in_path PTXDIST_PATH_SCRIPTS || return
-	for ((i=$((${#ptxd_reply[@]}-1)); i>=0; i--)) do
-		for lib in "${ptxd_reply[${i}]}/lib/ptxd_make_"*.sh; do
+	dir=( "${ptxd_reply[@]}" )
+	for ((i=$((${#dir[@]}-1)); i>=0; i--)) do
+		ptxd_get_path "${dir[${i}]}/lib/ptxd_make_"*.sh || continue
+		for lib in "${ptxd_reply[@]}"; do
 			source "${lib}" || ptxd_bailout "failed to source lib: ${lib}"
 		done
 	done
