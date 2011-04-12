@@ -50,6 +50,10 @@ LIBMPEG2_CONF_OPT := \
 	--disable-gprof \
 	--without-x
 
+ifdef PTXCONF_ARCH_PPC
+LIBMPEG2_CONF_ENV := $(CROSS_ENV) CFLAGS="$(CROSS_CFLAGS) -mno-altivec"
+endif
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
