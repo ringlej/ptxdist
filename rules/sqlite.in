@@ -10,64 +10,14 @@ menuconfig SQLITE
 	help
 	  SQLite is a software library that implements a self-contained,
 	  serverless, zero-configuration, transactional SQL database engine.
-	  Note: This package needs a host tclsh to be built.
 
 if SQLITE
 
 comment "build options"
 
-#choice
-#	prompt "Assume text encoding"
-#	default ISO8859
-#
-#	config SQLITE_ISO8859
-#		bool
-#		prompt "ISO8859"
-#
-#	config SQLITE_UTF8
-#		bool
-#		prompt "UTF-8"
-#endchoice
-
-choice
-	prompt "Temp. RAM storage"
-	default SQLITE_TEMPSTORE_NEVER
-
-	config SQLITE_TEMPSTORE_NEVER
-		bool
-		prompt "never"
-
-	config SQLITE_TEMPSTORE_NO
-		bool
-		prompt "no"
-
-	config SQLITE_TEMPSTORE_YES
-		bool
-		prompt "yes"
-
-	config SQLITE_TEMPSTORE_ALWAYS
-		bool
-		prompt "always"
-
-endchoice
-
-
 config SQLITE_THREADSAFE
 	bool
 	prompt "Safe for use within a multi-threaded program"
-
-
-config SQLITE_CROSS_THREAD_CONNECTIONS
-	bool
-	prompt "Thread connection sharing"
-	help
-	  Allow connection sharing across threads
-
-config SQLITE_THREAD_OVERRIDE_LOCKS
-	bool
-	prompt "Thread override locks"
-	help
-	  Threads can override each others locks
 
 config SQLITE_LOAD_EXTENTION
 	bool
@@ -80,12 +30,6 @@ config SQLITE_READLINE
 	prompt "use readline"
 	help
 	  Enable readline support
-
-config SQLITE_TCL
-	bool
-	prompt "build tcl extension"
-	help
-	  Build the TCL extension
 
 comment "install options"
 
