@@ -184,7 +184,7 @@ endif
 ifdef PTXCONF_PHP5_XML_LIBXML2
 PHP5_AUTOCONF += \
 	--enable-libxml \
-	--with-libxml-dir=$(PTXCONF_SYSROOT)/usr
+	--with-libxml-dir=$(SYSROOT)/usr
 else
 PHP5_AUTOCONF += --disable-libxml
 endif
