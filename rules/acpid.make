@@ -16,29 +16,20 @@ PACKAGES-$(PTXCONF_ARCH_X86)-$(PTXCONF_ACPID) += acpid
 #
 # Paths and names
 #
-ACPID_VERSION		:= 1.0.10
+ACPID_VERSION		:= 2.0.8
 ACPID_LICENSE		:= GPLv2
 ACPID			:= acpid-$(ACPID_VERSION)
 ACPID_SUFFIX		:= tar.gz
-ACPID_URL		:= $(PTXCONF_SETUP_SFMIRROR)/acpid/$(ACPID).$(ACPID_SUFFIX)
+ACPID_URL		:= http://www.tedfelix.com/linux/$(ACPID).$(ACPID_SUFFIX)
 ACPID_SOURCE		:= $(SRCDIR)/$(ACPID).$(ACPID_SUFFIX)
 ACPID_DIR		:= $(BUILDDIR)/$(ACPID)
-
-# ----------------------------------------------------------------------------
-# Get
-# ----------------------------------------------------------------------------
-
-$(ACPID_SOURCE):
-	@$(call targetinfo)
-	@$(call get, ACPID)
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
 ACPID_CONF_TOOL		:= NO
-ACPID_MAKE_OPT		:= CC=$(CROSS_CC)
-ACPID_INSTALL_OPT	:= INSTPREFIX=$(ACPID_PKGDIR) install
+ACPID_MAKE_ENV		:= $(CROSS_ENV)
 
 # ----------------------------------------------------------------------------
 # Target-Install
