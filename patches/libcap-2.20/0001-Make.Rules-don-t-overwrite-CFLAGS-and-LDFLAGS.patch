@@ -1,4 +1,3 @@
-From 9c73a6c51b942334a99954959e29de8a0aa6158f Mon Sep 17 00:00:00 2001
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 Date: Mon, 11 Jan 2010 19:12:43 +0100
 Subject: [PATCH] Make.Rules: don't overwrite CFLAGS and LDFLAGS
@@ -8,15 +7,17 @@ by LDFLAGS=-L from outside.
 
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- Make.Rules |    6 +++---
- 1 files changed, 3 insertions(+), 3 deletions(-)
+ Make.Rules       |    7 ++++---
+ libcap/Makefile  |    2 +-
+ pam_cap/Makefile |    2 +-
+ 3 files changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/Make.Rules b/Make.Rules
-index 10fccd0..5f6a804 100644
+index e0f3c6a..a76ba31 100644
 --- a/Make.Rules
 +++ b/Make.Rules
-@@ -46,7 +46,7 @@ KERNEL_HEADERS := $(topdir)/libcap/include
- IPATH += -I$(topdir)/libcap/include -I$(KERNEL_HEADERS)
+@@ -48,7 +48,7 @@ KERNEL_HEADERS := $(topdir)/libcap/include
+ IPATH += -fPIC -I$(topdir)/libcap/include -I$(KERNEL_HEADERS)
  
  CC := gcc
 -CFLAGS := -O2
@@ -24,17 +25,44 @@ index 10fccd0..5f6a804 100644
  BUILD_CC := $(CC)
  BUILD_CFLAGS := $(CFLAGS) $(IPATH)
  AR := ar
-@@ -56,8 +56,8 @@ WARNINGS=-fPIC -Wall -Wwrite-strings \
+@@ -58,8 +58,9 @@ WARNINGS=-Wall -Wwrite-strings \
          -Wpointer-arith -Wcast-qual -Wcast-align \
          -Wstrict-prototypes -Wmissing-prototypes \
          -Wnested-externs -Winline -Wshadow
 -LD=$(CC) -Wl,-x -shared
 -LDFLAGS := #-g
 +LD=$(CC)
-+LDFLAGS += -Wl,-x -shared #-g
++LDFLAGS_SHLIB = -Wl,-x -shared
++LDFLAGS += #-g
  
  SYSTEM_HEADERS = /usr/include
  INCS=$(topdir)/libcap/include/sys/capability.h
+diff --git a/libcap/Makefile b/libcap/Makefile
+index 4762c60..0593b9d 100644
+--- a/libcap/Makefile
++++ b/libcap/Makefile
+@@ -50,7 +50,7 @@ $(STALIBNAME): $(OBJS)
+ 	$(RANLIB) $@
+ 
+ $(MINLIBNAME): $(OBJS)
+-	$(LD) $(CFLAGS) $(LDFLAGS) -Wl,-soname,$(MAJLIBNAME) -o $@ $^
++	$(LD) $(CFLAGS) $(LDFLAGS) $(LDFLAGS_SHLIB) -Wl,-soname,$(MAJLIBNAME) -o $@ $^
+ 	ln -sf $(MINLIBNAME) $(MAJLIBNAME)
+ 	ln -sf $(MAJLIBNAME) $(LIBNAME)
+ 
+diff --git a/pam_cap/Makefile b/pam_cap/Makefile
+index 9ca5bef..6e46afb 100644
+--- a/pam_cap/Makefile
++++ b/pam_cap/Makefile
+@@ -17,7 +17,7 @@ install: all
+ 	install -m 0755 pam_cap.so $(LIBDIR)/security
+ 
+ pam_cap.so: pam_cap.o
+-	$(LD) $(LDFLAGS) -o pam_cap.so $< $(LDLIBS)
++	$(LD) $(LDFLAGS) $(LDFLAGS_SHLIB) -o pam_cap.so $< $(LDLIBS)
+ 
+ pam_cap.o: pam_cap.c
+ 	$(CC) $(CFLAGS) $(IPATH) -c $< -o $@
 -- 
-1.6.6
+1.7.4.1
 
