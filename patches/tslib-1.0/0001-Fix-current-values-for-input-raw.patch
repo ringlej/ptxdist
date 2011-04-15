@@ -1,0 +1,69 @@
+From 2b7340390935b916e1bddfce3b98d972b00f866c Mon Sep 17 00:00:00 2001
+From: Teresa Gamez <T.Gamez@phytec.de>
+Date: Mon, 4 Oct 2010 11:45:14 +0200
+Subject: [PATCH] Fix current values for input-raw
+
+The input driver only sends new ABS_X and ABS_Y events when the value changes,
+even after a pen up and a pen down.
+
+If we have the same y value after releasing and touching again, there will be
+no ABS_Y event sent and the sample returns at an EV_SYN the value x,0.
+
+So we don't change the current values at pen_up, but a flag that sets the sample
+values to 0.
+
+Signed-off-by: Teresa Gamez <t.gamez@phytec.de>
+Signed-off-by: Jan Weitzel <j.weitzel@phytec.de>
+Signed-off-by: Chris Larson <chris_larson@mentor.com>
+---
+ plugins/input-raw.c |   22 +++++++++++++---------
+ 1 files changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/plugins/input-raw.c b/plugins/input-raw.c
+index 59d235e..9511a0d 100644
+--- a/plugins/input-raw.c
++++ b/plugins/input-raw.c
+@@ -134,6 +134,7 @@ static int ts_input_read(struct tslib_module_info *inf,
+ 	struct input_event ev;
+ 	int ret = nr;
+ 	int total = 0;
++	int pen_up = 0;
+ 
+ 	if (i->sane_fd == 0)
+ 		i->sane_fd = check_fd(i);
+@@ -153,20 +154,23 @@ static int ts_input_read(struct tslib_module_info *inf,
+ 			case EV_KEY:
+ 				switch (ev.code) {
+ 				case BTN_TOUCH:
+-					if (ev.value == 0) {
+-						/* pen up */
+-						i->current_x = 0;
+-						i->current_y = 0;
+-						i->current_p = 0;
+-					}
++					if (ev.value == 0)
++						pen_up = 1;
+ 					break;
+ 				}
+ 				break;
+ 			case EV_SYN:
+ 				/* Fill out a new complete event */
+-				samp->x = i->current_x;
+-				samp->y = i->current_y;
+-				samp->pressure = i->current_p;
++				if (pen_up) {
++					samp->x = 0;
++					samp->y = 0;
++					samp->pressure = 0;
++					pen_up = 0;
++				} else {
++					samp->x = i->current_x;
++					samp->y = i->current_y;
++					samp->pressure = i->current_p;
++				}
+ 				samp->tv = ev.time;
+ 	#ifdef DEBUG
+ 				fprintf(stderr, "RAW---------------------> %d %d %d %d.%d\n",
+-- 
+1.7.2.3
+

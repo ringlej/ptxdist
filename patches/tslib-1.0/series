@@ -17,3 +17,4 @@ r73-Prefix-correct-some-error-messages-in-input-raw-modu.patch
 r75-Rely-on-SYN-Events-when-pen-is-lifted.patch
 r78-input-raw-Handling-of-EVIOCGBIT-ioctl-coding.patch
 0001-Relax-EV_VERSION-check.patch
+0001-Fix-current-values-for-input-raw.patch
