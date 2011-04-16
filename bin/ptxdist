@@ -469,6 +469,17 @@ check_dirs() {
 		; do
 		check_dirs_mkdir "${dir}"
 	done
+	if ! df -l "${PTXDIST_PLATFORMDIR}" >/dev/null 2>&1; then
+		if [ "${PTXCONF_SETUP_DISABLE_LOCAL_CHECK}" != "y" ]; then
+			echo
+			echo "$(ptxd_print_path "${PTXDIST_PLATFORMDIR}") must be on a local disk!"
+			echo "Disable this check with 'ptxdist setup' (Developer Options) to continue anyways."
+			echo
+			exit 1
+		else
+			ptxd_warning "$(ptxd_print_path "${PTXDIST_PLATFORMDIR}") is not on a local disk."
+		fi
+	fi
 
 	# create standard direcory layout
 	for dir in \

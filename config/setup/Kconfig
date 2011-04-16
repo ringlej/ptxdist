@@ -208,6 +208,14 @@ menu "Developer Options "
 #config SETUP_CHECK_OMIT_SPACES
 #	bool "don't check for spaces in important directories"
 
+config SETUP_DISABLE_LOCAL_CHECK
+	bool
+	prompt "disable local disk check"
+	help
+	  By default ptxdist will check that the BSP is built on a
+	  local disk. Building on a network file system is slow and
+	  may fail under certain circumstances.
+	  Disable this check at your own risk.
 
 config SETUP_ENV_WHITELIST
 	string "environment variable whitelist (space separated)"
