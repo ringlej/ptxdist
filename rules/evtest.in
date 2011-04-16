@@ -1,0 +1,33 @@
+## SECTION=test_suites
+
+menuconfig EVTEST
+	tristate
+	prompt "evtest                        "
+	select LIBXML2 if EVTEST_CAPTURE
+	help
+	  Simple tool for Linux's input event debugging
+
+if EVTEST
+
+comment "Installation Options"
+
+config EVTEST_EVTEST
+	bool
+	prompt "evtest"
+	default y
+	help
+	  Install the 'evtest' tool
+
+config EVTEST_CAPTURE
+	bool
+	prompt "evtest-capture"
+	help
+	  'evtest-capture' captures the information and events from the input
+	   device specified on the command line and writes it to a xml file.
+	   Together with with evtest-create-device.xsl, a simple uinput-based
+	   software input device can be created that replays the events as if
+	   the same input was performed on the physical device. This can be
+	   useful to replicate bugs with input devices in upper layers of the
+	   stack.Install the 'evtest-capture' tool (Note: requires libXML2).
+
+endif
