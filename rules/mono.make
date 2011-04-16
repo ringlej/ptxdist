@@ -49,6 +49,7 @@ MONO_CONF_OPT	:= \
 	--disable-big-arrays \
 	--disable-dtrace \
 	--disable-llvm \
+	--disable-mono-debugger \
 	--with-libgdiplus=installed \
 	--with-glib=embedded \
 	--with-gc=included \
