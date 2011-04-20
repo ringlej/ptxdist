@@ -1,0 +1,28 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Wed, 20 Apr 2011 09:19:50 +0200
+Subject: [PATCH] Fix sgen build on PPC linux.
+
+This is part of the upstream commit 4a812850f8af461619530dfd7c6e7f4531fdcf8d
+from Zoltan Varga <vargaz@gmail.com>
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ mono/metadata/sgen-archdep.h |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/mono/metadata/sgen-archdep.h b/mono/metadata/sgen-archdep.h
+index a1e3e6d..cde4ef5 100644
+--- a/mono/metadata/sgen-archdep.h
++++ b/mono/metadata/sgen-archdep.h
+@@ -102,7 +102,7 @@
+ 	((a)[14] = (gpointer) (UCONTEXT_REG_R15 (ctx)));	\
+ 	} while (0)
+ 
+-#elif defined(__ppc__)
++#elif defined(__ppc__) || defined(__powerpc__) || defined(__powerpc64__)
+ 
+ #define REDZONE_SIZE	224
+ 
+-- 
+1.7.4.1
+
