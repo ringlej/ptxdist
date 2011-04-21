@@ -8,11 +8,13 @@ config OPROFILE
 	select GCCLIBS_GCC_S
 	select LIBPOPT
 	select KERNEL_VMLINUX
+	select BUSYBOX_EXPR
 	select BUSYBOX_DIRNAME
 	select BUSYBOX_ID
 	select BUSYBOX_MKTEMP
 	select BUSYBOX_PIDOF
 	select BUSYBOX_PRINTF
+	select BUSYBOX_TR
 	select BINUTILS
 	select BINUTILS_OBJDUMP
 	prompt "oprofile"
