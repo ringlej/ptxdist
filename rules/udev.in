@@ -32,6 +32,13 @@ if UDEV
 
 menu "build options                 "
 
+	config UDEV_EXPERIMENTAL
+		bool
+		prompt "use newer udev version"
+		help
+		  Warning: this option only works with a new toolchain.
+		  SOCK_CLOEXEC, le16toh, etc. must be supported.
+
 	config UDEV_DEBUG
 		bool
 		prompt "enable debug messages"
