@@ -1,13 +1,12 @@
 ## SECTION=debug_tools
 
-config OPROFILE
+menuconfig OPROFILE
 	tristate
 	select LIBC_M
 	select LIBC_DL
 	select GCCLIBS_CXX
 	select GCCLIBS_GCC_S
 	select LIBPOPT
-	select KERNEL_VMLINUX
 	select BUSYBOX_EXPR
 	select BUSYBOX_DIRNAME
 	select BUSYBOX_ID
@@ -17,7 +16,21 @@ config OPROFILE
 	select BUSYBOX_TR
 	select BINUTILS
 	select BINUTILS_OBJDUMP
-	prompt "oprofile"
+	prompt "oprofile                      "
 	help
 	  oprofile user space executables including opcontrol, opreport and others
 
+if OPROFILE
+
+config OPROFILE_VMLINUX
+	bool
+	select KERNEL_VMLINUX
+	prompt "Install vmlinux"
+	help
+	  Disabled by default.
+	  The vmlinux ELF file is needed to profile the kernel.
+	  Because this file is very large (too large for some filesysems), it
+	  can be ommited. Kernel profile is still possible by installing vmlinux
+	  in other filesystem, e.g. NFS.
+
+endif
