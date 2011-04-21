@@ -48,9 +48,11 @@ $(UDEV_SOURCE):
 #
 # autoconf
 #
+# Note: explicit sbindir to avoid "${exec_prefix}/sbin/" on the target.
 UDEV_AUTOCONF := \
 	$(CROSS_AUTOCONF_ROOT) \
 	--libexecdir=/lib/udev \
+	--sbindir=/sbin \
 	\
 	--disable-introspection \
 	--enable-shared
@@ -71,6 +73,12 @@ ifdef PTXCONF_UDEV_LIBGUDEV
 UDEV_AUTOCONF	+= --enable-gudev
 else
 UDEV_AUTOCONF	+= --disable-gudev
+endif
+
+ifdef PTXCONF_UDEV_SYSTEMD
+UDEV_AUTOCONF	+= --with-systemdsystemunitdir=/lib/systemd/system
+else
+UDEV_AUTOCONF	+= --without-systemdsystemunitdir
 endif
 
 ifeq ($(PTXCONF_ARCH_ARM)-$(PTXCONF_UDEV_EXTRA_HID2HCI),-y)
@@ -368,6 +376,26 @@ endif
 
 ifdef PTXCONF_UDEV_LIBGUDEV
 	@$(call install_lib, udev, 0, 0, 0644, libgudev-1.0)
+endif
+
+ifdef PTXCONF_UDEV_SYSTEMD
+	@$(call install_copy, udev, 0, 0, 0644, -, \
+		/lib/systemd/system/udev.socket)
+	@$(call install_link, udev, ../udev.socket, \
+		/lib/systemd/system/socket.target.wants/udev.socket)
+
+	@$(call install_copy, udev, 0, 0, 0644, -, \
+		/lib/systemd/system/udev.service)
+	@$(call install_link, udev, ../udev.service, \
+		/lib/systemd/system/basic.target.wants/udev.service)
+
+	@$(call install_copy, udev, 0, 0, 0644, -, \
+		/lib/systemd/system/udev-trigger.service)
+	@$(call install_link, udev, ../udev-trigger.service, \
+		/lib/systemd/system/basic.target.wants/udev-trigger.service)
+
+	@$(call install_copy, udev, 0, 0, 0644, -, \
+		/lib/systemd/system/udev-settle.service)
 endif
 	@$(call install_finish, udev)
 

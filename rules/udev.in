@@ -124,6 +124,13 @@ menu "install options               "
 		  Install the startup magic for either bbinit or upstart.
 		  Select Y here, as this is what you usually want.
 
+	config UDEV_SYSTEMD
+		bool
+		default y
+		depends on SYSTEMD
+		select UDEV_EXPERIMENTAL
+		prompt "install systemd service files"
+
 endmenu
 
 menuconfig UDEV_EXTRAS
