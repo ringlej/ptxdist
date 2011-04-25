@@ -147,6 +147,19 @@ config UTIL_LINUX_NG_CHRT
 comment "chrt from busybox selected"
 	depends on BUSYBOX_CHRT
 
+config UTIL_LINUX_NG_HWCLOCK
+        bool
+        prompt "hwclock"
+        depends on !BUSYBOX_HWCLOCK || ALLYES
+        help
+	  hwclock - The hwclock utility is used to read and set the hardware
+	  clock on a system.  This is primarily used to set the current time
+	  on shutdown in the hardware clock, so the hardware will keep the
+	  correct time when Linux is _not_ running.
+
+comment "hwclock from busybox selected"
+        depends on BUSYBOX_HWCLOCK
+
 config UTIL_LINUX_NG_IONICE
 	bool
 	prompt "ionice"

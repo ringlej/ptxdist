@@ -149,6 +149,9 @@ endif
 ifdef PTXCONF_UTIL_LINUX_NG_CHRT
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/chrt)
 endif
+ifdef PTXCONF_UTIL_LINUX_NG_HWCLOCK
+	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /sbin/hwclock)
+endif
 ifdef PTXCONF_UTIL_LINUX_NG_IONICE
 	@$(call install_copy, util-linux-ng, 0, 0, 0755, -, /usr/bin/ionice)
 endif
