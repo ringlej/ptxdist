@@ -175,6 +175,7 @@ if UDEV_EXTRAS
 
 	config UDEV_EXTRA_FSTAB_IMPORT
 		bool
+		depends on !UDEV_EXPERIMENTAL
 		prompt "fstab_import"
 		help
 		  Find matching entry in fstab and export it
