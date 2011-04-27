@@ -63,8 +63,7 @@ DBUS_AUTOCONF := \
 	--disable-kqueue \
 	--disable-console-owner-file \
 	--disable-userdb-cache \
-	--with-dbus-user=$(PTXCONF_DBUS_USER) \
-	--with-systemdsystemunitdir=/usr/share/dbus-1/system-services
+	--with-dbus-user=$(PTXCONF_DBUS_USER)
 
 ifdef PTXCONF_DBUS_XML_EXPAT
 DBUS_AUTOCONF += --with-xml=expat
@@ -83,6 +82,12 @@ ifdef PTXCONF_DBUS_X
 DBUS_AUTOCONF += --with-x=$(SYSROOT)/usr
 else
 DBUS_AUTOCONF += --without-x
+endif
+
+ifdef PTXCONF_DBUS_SYSTEMD_UNIT
+DBUS_AUTOCONF += --with-systemdsystemunitdir=/lib/systemd/system
+else
+DBUS_AUTOCONF += --without-systemdsystemunitdir
 endif
 
 # ----------------------------------------------------------------------------
@@ -160,6 +165,19 @@ ifneq ($(call remove_quotes,$(PTXCONF_DBUS_BBINIT_LINK)),)
 		/etc/rc.d/$(PTXCONF_DBUS_BBINIT_LINK))
 endif
 endif
+endif
+ifdef PTXCONF_DBUS_SYSTEMD_UNIT
+	@$(call install_copy, dbus, 0, 0, 0644, -, \
+		/lib/systemd/system/dbus.socket)
+	@$(call install_link, dbus, ../dbus.socket, \
+		/lib/systemd/system/sockets.target.wants/dbus.socket)
+	@$(call install_link, dbus, ../dbus.socket, \
+		/lib/systemd/system/dbus.target.wants/dbus.socket)
+
+	@$(call install_copy, dbus, 0, 0, 0644, -, \
+		/lib/systemd/system/dbus.service)
+	@$(call install_link, dbus, ../dbus.service, \
+		/lib/systemd/system/multi-user.target.wants/dbus.service)
 endif
 
 ifdef PTXCONF_INITMETHOD_UPSTART

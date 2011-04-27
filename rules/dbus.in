@@ -127,4 +127,10 @@ config DBUS_STARTSCRIPT
 	default y
 	prompt "install /etc/init.d/dbus"
 
+config DBUS_SYSTEMD_UNIT
+	bool
+	default y
+	depends on SYSTEMD
+	prompt "install systemd unit files for dbus"
+
 endif
