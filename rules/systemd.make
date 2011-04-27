@@ -118,6 +118,13 @@ endif
 	# systemd expects this directory to exist.
 	@$(call install_copy, systemd, 0, 0, 0755, /var/cache/man)
 
+ifdef PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED
+	@$(call install_link, systemd, /dev/null, \
+		/lib/systemd/system/systemd-random-seed-save.service)
+	@$(call install_link, systemd, /dev/null, \
+		/lib/systemd/system/systemd-random-seed-load.service)
+endif
+
 	@$(call install_finish, systemd)
 
 	@$(call touch)

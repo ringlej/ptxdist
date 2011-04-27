@@ -22,3 +22,18 @@ config SYSTEMD
 	  drop-in replacement for sysvinit.
 
 	  http://www.freedesktop.org/wiki/Software/systemd
+
+if SYSTEMD
+
+config SYSTEMD_DISABLE_RANDOM_SEED
+	bool
+	prompt "disable random seed services"
+	help
+	  Disable service files to load/save the random seed during
+	  startup/shutdown.
+	  This option is for systems with read-only rootfs, where writing
+	  the random seed is not possible.
+	  Warning: enabling this option may be insecure.
+
+endif
+
