@@ -6,6 +6,7 @@ menuconfig DBUS
 	select EXPAT		if DBUS_XML_EXPAT
 	select LIBXML2		if DBUS_XML_LIBXML2
 	select XORG_LIB_X11	if DBUS_X
+	select RC_ONCE
 	select LIBC_PTHREAD
 	select LIBC_RT
 	help

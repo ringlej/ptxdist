@@ -115,6 +115,11 @@ $(STATEDIR)/dbus.targetinstall:
 
 	@$(call install_lib, dbus, 0, 0, 0644, libdbus-1)
 
+	@$(call install_alternative, dbus, 0, 0, 0755, \
+		/etc/rc.once.d/dbus)
+	@$(call install_link, dbus, /etc/machine-id, \
+		/var/lib/dbus/machine-id)
+
 #	#
 #	# create system.d and event.d directories, which are used by the configuration and startup files
 #	#

@@ -8,8 +8,6 @@
 set -e
 
 DAEMON=/usr/bin/dbus-daemon
-UUIDGEN=/usr/bin/dbus-uuidgen
-UUIDGEN_OPTS=--ensure
 NAME=dbus
 DAEMONUSER=messagebus
 PIDDIR=/var/run/dbus
@@ -20,13 +18,6 @@ EVENTDIR=/etc/dbus-1/event.d
 test -x $DAEMON || exit 0
 
 PARAMS=""
-
-create_machineid() {
-  # Create machine-id file
-  if [ -x $UUIDGEN ]; then
-    $UUIDGEN $UUIDGEN_OPTS
-  fi
-}
 
 start_it_up()
 {
@@ -44,7 +35,6 @@ start_it_up()
 			rm -f $PIDFILE
 		fi
 	fi
-	create_machineid
 	echo -n "Starting $DESC:" "$NAME"
 	$DAEMON --system $PARAMS
 	echo "."

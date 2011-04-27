@@ -1,0 +1,7 @@
+#!/bin/sh
+
+MACHINE_ID="/etc/machine-id"
+
+dbus-uuidgen --ensure="${MACHINE_ID}" &&
+chmod 0444 "${MACHINE_ID}"
+
