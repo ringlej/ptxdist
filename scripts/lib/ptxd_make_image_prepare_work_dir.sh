@@ -18,7 +18,6 @@
 # - $image_pkgs_selected_target	space seperated list of selected
 #				packages
 # - $PTXDIST_IPKG_ARCH_STRING	ARCH variable for ipkg files
-# - $PTXCONF_IPKG_IPKG_CONF_URL	the URL to use in /etc/ipkg.conf
 #
 # out:
 # - $image_permissions		file containing all permissions
@@ -50,7 +49,7 @@ ${list[*]}
     mkdir -p "${image_work_dir}" &&
 
     ARCH="${PTXDIST_IPKG_ARCH_STRING}" \
-    SRC="${PTXCONF_IPKG_IPKG_CONF_URL}" \
+    SRC="" \
 	ptxd_replace_magic "${ptxd_reply}" > "${ipkg_conf}" &&
 
     DESTDIR="${image_work_dir}" \
