@@ -8,10 +8,9 @@ clean:
 
 else
 
-PWD	:= $(shell pwd)
 obj-m	:= @name@.o
 
 modules modules_install clean:
-	$(MAKE) -C $(PTX_KERNEL_DIR) M=$(PWD) V=$(V) $@
+	$(MAKE) -C $(PTX_KERNEL_DIR) M=$(CURDIR) V=$(V) $@
 
 endif
