@@ -95,9 +95,6 @@ endif
 
 	@$(call install_lib,  opkg, 0, 0, 0644, libopkg)
 
-#	# opkg tries to write to the OPKG_STATE_DIR_PREFIX, which is /usr/lib/opkg
-	@$(call install_link, opkg, ../../tmp, /usr/lib/opkg)
-
 ifdef PTXCONF_OPKG_OPKG_CONF
 	@$(call install_alternative, opkg, 0, 0, 0644, /etc/opkg/opkg.conf)
 	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @SRC@, \
