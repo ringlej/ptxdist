@@ -81,4 +81,24 @@ config WPA_SUPPLICANT_DRIVER_NDIS
 	help
 	  TBD
 
+config WPA_SUPPLICANT_DRIVER_NL80211
+	bool
+	prompt "nl80211"
+	help
+	  Driver interface for Linux drivers using the nl80211 kernel interface
+
+config WPA_SUPPLICANT_DRIVER_WIRED
+	bool
+	prompt "wired"
+	help
+	  Driver interface for wired Ethernet drivers
+	  untested
+
+config WPA_SUPPLICANT_DRIVER_ROBOSWITCH
+	bool
+	prompt "roboswitch"
+	help
+	  Driver interface for the Broadcom RoboSwitch family
+	  untested
+
 endif
