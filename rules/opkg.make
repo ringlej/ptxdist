@@ -98,6 +98,14 @@ endif
 #	# opkg tries to write to the OPKG_STATE_DIR_PREFIX, which is /usr/lib/opkg
 	@$(call install_link, opkg, ../../tmp, /usr/lib/opkg)
 
+ifdef PTXCONF_OPKG_OPKG_CONF
+	@$(call install_alternative, opkg, 0, 0, 0644, /etc/opkg/opkg.conf)
+	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @SRC@, \
+		$(PTXCONF_OPKG_OPKG_CONF_URL))
+	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @ARCH@, \
+		$(PTXDIST_IPKG_ARCH_STRING))
+endif
+
 	@$(call install_finish, opkg)
 
 	@$(call touch)

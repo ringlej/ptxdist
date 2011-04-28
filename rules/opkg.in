@@ -51,4 +51,39 @@ config OPKG_GPG
 	help
 	  FIXME
 
+config OPKG_OPKG_CONF
+	bool
+	prompt "install /etc/opkg/opkg.conf"
+	default y
+	help
+	  Installs a generic /etc/opkg/opkg.conf file.
+
+	  Important: To make opkg work at runtime, you must install this
+	  configuration file. Without it you can't install new packages.
+
+if OPKG_OPKG_CONF
+
+config OPKG_OPKG_CONF_HOST
+	prompt "OPKG Update Site Host"
+	default "www.example.org"
+	string
+	help
+	  Enter the hostname of your update site here. You can
+	  use it as part of the opkg.conf URL below.
+
+config OPKG_OPKG_CONF_URL
+	string
+	prompt "OPKG Update Site URL"
+	default "src ptxdist http://${PTXCONF_OPKG_OPKG_CONF_HOST}/ptxdist/${PTXCONF_PROJECT}/dists/${PTXCONF_PROJECT}${PTXCONF_PROJECT_VERSION}"
+	help
+	  This path is put into the /etc/opkg/opkg.conf file and specifies
+	  where to find an OPKG packet feed.
+
+	  Note: Keep the "src" in front of the URL, its required if the
+	  URL should be used.
+
+	  If you don't want to use this feature, keep the whole entry empty.
+
+endif
+
 endif
