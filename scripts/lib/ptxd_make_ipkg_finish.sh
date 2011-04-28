@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2005, 2006, 2007 Robert Schwebel <r.schwebel@pengutronix.de>
 #               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2011 by George McCollister <george.mccollister@gmail.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -30,7 +31,7 @@ ptxd_make_ipkg_finish() {
     dep="${pkg_xpkg_deps[*]}"
     dep="${dep// /, }"
 
-    sed -i -e "s:@DEPENDS@:${dep}:g" "${pkg_ipkg_control}" || return
+    sed -i -e "s:@DEPENDS@:${dep}:g" "${pkg_xpkg_control}" || return
 
     local -a fake_args
     if [ -f "${pkg_fake_env}" ]; then

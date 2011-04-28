@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2005, 2006, 2007 Robert Schwebel <r.schwebel@pengutronix.de>
 #               2008, 2009, 2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2011 by George McCollister <george.mccollister@gmail.com>
 #
 # See CREDITS for details about who has contributed to this project.
 #
@@ -21,7 +22,7 @@ ptxd_make_xpkg_prepare() {
 	"${pkg_xpkg_cmds}" \
 	"${pkg_xpkg_perms}" \
 	"${pkg_xpkg_install_deps}" &&
-    mkdir -p -- "${pkg_ipkg_control_dir}" &&
+    mkdir -p -- "${pkg_xpkg_control_dir}" &&
     touch "${pkg_xpkg_cmds}" || return
 
     #
@@ -36,7 +37,7 @@ install_init:	@VERSION@ -> ${pkg_xpkg_version}"
 	PACKAGE="${pkg_xpkg}" \
 	VERSION="${pkg_xpkg_version}" \
 	ptxd_replace_magic "${PTXDIST_TOPDIR}/config/xpkg/ipkg.control" > \
-	"${pkg_ipkg_control}" || return
+	"${pkg_xpkg_control}" || return
 
     local script
     for script in preinst postinst prerm postrm; do
@@ -45,7 +46,7 @@ install_init:	@VERSION@ -> ${pkg_xpkg_version}"
 	if ptxd_in_path PTXDIST_PATH_RULES "${pkg_xpkg}.${script}"; then
 	    install -m 0755 \
 		-D "${ptxd_reply}" \
-		"${pkg_ipkg_control_dir}/${script}" || return
+		"${pkg_xpkg_control_dir}/${script}" || return
 
 	    echo "packaging: '$(ptxd_print_path "${ptxd_reply}")'"
 
