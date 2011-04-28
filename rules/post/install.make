@@ -87,6 +87,34 @@ install_alternative =									\
 	echo "ptxd_install_alternative '$$FILE' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$XPKG.cmds"
 
 #
+# install_config
+#
+# Installs a config file with user/group ownership and permissions via
+# fakeroot. Adds filename to conffiles
+#
+# This macro first looks in $(PTXDIST_WORKSPACE)/projectroot for the file to copy and then
+# in $(PTXDIST_TOPDIR)/generic and installs the file under $(ROOTDIR)
+#
+# $1: xpkg label
+# $2: UID
+# $3: GID
+# $4: permissions (octal)
+# $5: source file
+# $6: (strip, obsolete)
+# $7: destination (optional)
+#
+install_config =									\
+	XPKG=$(subst _,-,$(strip $(1)));						\
+	OWN=$(strip $(2));								\
+	GRP=$(strip $(3));								\
+	PER=$(strip $(4));								\
+	FILE=$(strip $(5));								\
+	STRIP=$(strip $(6));								\
+	DST=$(strip $(7));								\
+	$(call install_check, install_config);						\
+	echo "ptxd_install_config '$$FILE' '$$DST' '$$OWN' '$$GRP' '$$PER' '$$STRIP'" >> "$(STATEDIR)/$$XPKG.cmds"
+
+#
 # install_tree
 #
 # Installs all files and subdirectories with user/group ownership and

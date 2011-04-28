@@ -54,7 +54,7 @@ ptxd_install_setup_src() {
 
     local -a list
 
-    if [ "${cmd}" = "alternative" ]; then
+    if [ "${cmd}" = "alternative" -o "${cmd}" = "config" ]; then
 	#
 	# if pkg_dir is empty we'll have some some empty entries in
 	# the array, but that's no problem for the "-e" below.
@@ -205,9 +205,10 @@ install ${cmd}:
 	    fi
 	    ;;
 	*)
-	    if [ "${strip:0:1}" = "/" -a "${cmd}" = "alternative" ]; then
+	    if [ "${strip:0:1}" = "/" ] && \
+		[ "${cmd}" = "alternative" -o "${cmd}" = "config" ]; then
 		ptxd_bailout "
-the 6th parameter of 'install_alternative' is strip, not the destination.
+the 6th parameter of 'install_${cmd}' is strip, not the destination.
 Usually, just remove the 6th parameter and everything works fine.
 "
 	    fi
@@ -302,6 +303,19 @@ ptxd_install_alternative() {
     ptxd_install_error "install_alternative failed!"
 }
 export -f ptxd_install_alternative
+
+ptxd_install_config() {
+    local cmd="config"
+    local src="${1}"
+    local dst="${2}"
+    shift 2
+    ptxd_install_file_impl "${src}" "${dst:-${src}}" "${@}" &&
+    # this is a config file add it to conffiles so it's handled correctly
+    echo "${dst:-${src}}" >> "${pkg_xpkg_conffiles}" &&
+    chown 0:0 "${pkg_xpkg_conffiles}" ||
+    ptxd_install_error "install_config failed!"
+}
+export -f ptxd_install_config
 
 ptxd_install_file() {
     local cmd="file"
