@@ -265,7 +265,7 @@ config KERNEL_LOCAL_FLAG
 	prompt "Local kernel tree"
 	bool
 	help
-	  Do not download a kernel archieve, but use a local kernel tree
+	  Do not download a kernel archive, but use a local kernel tree
 	  (most probably a working tree from a git repository). Its path
 	  is concatenated from SETUP_KERNELDIR_PREFIX defined in setup
 	  and KERNEL_VERSION from above.
