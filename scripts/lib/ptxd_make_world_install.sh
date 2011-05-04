@@ -17,7 +17,7 @@ ptxd_make_world_install_prepare() {
 	return
     fi &&
     rm -rf -- "${pkg_pkg_dir}" &&
-    mkdir -p -- "${pkg_pkg_dir}"/{etc,{,usr/}{lib,{,s}bin,include,{,share/}man/man{1,2,3,4,5,6,7,8,9}}}
+    mkdir -p -- "${pkg_pkg_dir}"/{etc,{,usr/}{lib,{,s}bin,include,{,share/}{man/man{1,2,3,4,5,6,7,8,9},misc}}}
 }
 export -f ptxd_make_world_install_prepare
 
