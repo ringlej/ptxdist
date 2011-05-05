@@ -238,7 +238,7 @@ ptxd_install_ln() {
     local usr="${3:-0}"
     local grp="${4:-0}"
     local -a dirs ndirs pdirs sdirs
-    local mod_nfs mod_rw
+    local mod_nfs mod_rw rel
 
     echo "\
 install link:
@@ -249,15 +249,20 @@ install link:
     ptxd_install_setup &&
 
     case "${src}" in
-	/*) echo "Error: absolute link detected, please fix!"
-	    return 1
+	/*)
+	    if [ "${PTXCONF_SETUP_NFS_REL_SYMLINK}" = "y" ]; then
+		rel="$(dirname "${dst}" | sed -e 's,/[^/]*,/..,g' -e 's,^/,,')"
+	    fi
 	    ;;
 	*)  ;;
     esac &&
 
     rm -f "${dirs[@]/%/${dst}}" &&
     install -d "${dirs[@]/%/$(dirname "${dst}")}" &&
-    for d in "${dirs[@]/%/${dst}}"; do
+    for d in "${ndirs[@]/%/${dst}}"; do
+	ln -s "${rel}${src}" "${d}" || return
+    done &&
+    for d in "${pdirs[@]/%/${dst}}"; do
 	ln -s "${src}" "${d}" || return
     done &&
 

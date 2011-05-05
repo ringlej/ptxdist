@@ -296,6 +296,14 @@ config SETUP_PATCHIN_GIT
 
 	  _NOTE_: this is an experimental feature
 
+config SETUP_NFS_REL_SYMLINK
+	bool "make absolute symlinks relative on nfsroot"
+	help
+	  With this option enabled, ptxdist converts any absolute
+	  symlink into a relative symlink when installing it to
+	  ${PLATFORMDIR}/root{,-debug}. This makes it easier to check
+	  for broken links.
+	  The link installed into the image remains absolute.
 
 config SETUP_HOST_CC
 	prompt "host CC"
