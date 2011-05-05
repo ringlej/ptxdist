@@ -25,6 +25,11 @@ ptxd_install_error() {
 export -f ptxd_install_error
 
 ptxd_install_setup() {
+    case "${dst}" in
+	/*|"") ;;
+	*) ptxd_bailout "'dst' must be an absolute path!" ;;
+    esac
+
     # all dirs
     dirs=("${ptx_nfsroot}" "${ptx_nfsroot_dbg}" "${pkg_xpkg_tmp}")
 
