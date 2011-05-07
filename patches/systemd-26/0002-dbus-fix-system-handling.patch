@@ -1,0 +1,33 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Thu, 14 Oct 2010 17:53:07 +0200
+Subject: [PATCH] dbus: fix --system handling
+
+We currently only create the private D-Bus server when pid == 1, but
+this has also to be done if the user started us with --system.
+Otherwhise we get this error:
+
+  systemd-cgroups-agent[164]: Failed to get D-Bus connection:
+  Failed to connect to socket /org/freedesktop/systemd1/private: Connection refused
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/dbus.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/dbus.c b/src/dbus.c
+index 187ed30..67ac33c 100644
+--- a/src/dbus.c
++++ b/src/dbus.c
+@@ -957,7 +957,7 @@ static int bus_init_private(Manager *m) {
+                 return 0;
+ 
+         /* We want the private bus only when running as init */
+-        if (getpid() != 1)
++        if (m->running_as != MANAGER_SYSTEM)
+                 return 0;
+ 
+         unlink("/run/systemd/private");
+-- 
+1.7.4.1
+

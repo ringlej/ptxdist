@@ -1,0 +1,36 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 3 May 2011 19:11:36 +0200
+Subject: [PATCH] user-sessions: don't report errors unless /{etc,run}/nologin exists and cannot be removed
+
+on a read-only file-system 'unlink' returns EROFS (Read-only file
+system) even if the file does not exists.
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ src/user-sessions.c |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/user-sessions.c b/src/user-sessions.c
+index 4518d95..c48b6c1 100644
+--- a/src/user-sessions.c
++++ b/src/user-sessions.c
+@@ -41,13 +41,14 @@ int main(int argc, char*argv[]) {
+ 
+         if (streq(argv[1], "start")) {
+                 int q = 0, r = 0;
++                struct stat buffer;
+ 
+-                if (unlink("/run/nologin") < 0 && errno != ENOENT) {
++                if (stat("/run/nologin", &buffer) == 0 && unlink("/run/nologin") < 0 && errno != ENOENT) {
+                         log_error("Failed to remove /run/nologin file: %m");
+                         r = -errno;
+                 }
+ 
+-                if (unlink("/etc/nologin") < 0 && errno != ENOENT) {
++                if (stat("/etc/nologin", &buffer) == 0 && unlink("/etc/nologin") < 0 && errno != ENOENT) {
+                         log_error("Failed to remove /etc/nologin file: %m");
+                         q = -errno;
+                 }
+-- 
+1.7.4.1
+
