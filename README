@@ -7,7 +7,6 @@ Necessary Packages
 In order to build ptxdist, you need three archives:
 
 	ptxdist-<version>.tgz		(mandatory)
-	ptxdist-<version>-patches.tgz	(mandatory)
 	ptxdist-<version>-projects.tgz	(optional)
 
 Extract these archives into some build directory; the tarballs are put
