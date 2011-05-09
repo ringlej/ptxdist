@@ -27,5 +27,5 @@ index 9befa2b..e65e25c 100644
  		case 'd':
  			input_mode = set_default;
 -- 
-1.7.1
+1.7.5.1
 
