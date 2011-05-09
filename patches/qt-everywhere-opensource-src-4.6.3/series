@@ -8,4 +8,5 @@
 0007-Hack-disable-Wl-gc-sections-on-ppc.patch
 0008-qmake-make-sure-local-include-dirs-come-first.patch
 0009-phonon-fix-colors-for-video-on-qgraphicsview.patch
-# 4850bc496f565516b8725a1e3a1b3a37  - git-ptx-patches magic
+0010-Qualify-ptrdiff_t-s-namespace-in-stltest-configure-t.patch
+# 99a3b72c0e064df9b4f0975bdab09508  - git-ptx-patches magic
