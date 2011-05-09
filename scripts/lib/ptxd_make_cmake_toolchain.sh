@@ -27,6 +27,8 @@ ptxd_make_cmake_toolchain_target() {
     SYSTEM_NAME="Linux" \
 	SYSTEM_VERSION="1" \
 	\
+	SYSTEM_PROCESSOR="${PTXCONF_ARCH_STRING}" \
+	\
 	CC="$(which "${CC}")" \
 	CXX="$(which "${CXX}")" \
 	\
