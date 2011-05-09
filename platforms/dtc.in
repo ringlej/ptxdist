@@ -11,9 +11,13 @@ if HOST_DTC
 config HOST_DTC_VERSION
 	string
 	prompt "Device tree compiler version"
-	default "1.1.0"
+	default "1.3.0"
 	help
 	  Specify the DTC version number to be used
+
+config HOST_DTC_MD5
+	prompt "dtc source md5sum"
+	string
 
 endif
 
