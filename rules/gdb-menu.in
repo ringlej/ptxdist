@@ -4,10 +4,17 @@ menu "gdb                           "
 
 # must be before GDB - used by gdb & gdbserver
 
+if GDB || GDBSERVER
+
 config GDB_VERSION
        string "gdb version"
        default "7.0.1"
-       depends on GDB || GDBSERVER
+
+config GDB_MD5
+	prompt "gdb source md5sum"
+	string
+
+endif
 
 source "generated/debug_tools_gdb.in"
 

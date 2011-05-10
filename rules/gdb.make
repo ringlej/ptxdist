@@ -19,7 +19,7 @@ PACKAGES-$(PTXCONF_GDB) += gdb
 # Paths and names
 #
 GDB_VERSION	:= $(call remove_quotes,$(PTXCONF_GDB_VERSION))
-GDB_MD5		:= c9da266b884fb8fa54df786dfaadbc7a
+GDB_MD5		:= $(call remove_quotes,$(PTXCONF_GDB_MD5))
 GDB		:= gdb-$(GDB_VERSION)
 GDB_SUFFIX	:= tar.bz2
 GDB_SOURCE	:= $(SRCDIR)/$(GDB).$(GDB_SUFFIX)
