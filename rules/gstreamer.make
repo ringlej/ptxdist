@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GSTREAMER) += gstreamer
 #
 # Paths and names
 #
-GSTREAMER_VERSION	:= 0.10.29
-GSTREAMER_MD5		:= c92d6bce4fc65fa9d5a3ad35cdd1a466
+GSTREAMER_VERSION	:= 0.10.33
+GSTREAMER_MD5		:= fca0e4ca0dacb3c0372600bb27b6fe62
 GSTREAMER		:= gstreamer-$(GSTREAMER_VERSION)
 GSTREAMER_SUFFIX	:= tar.bz2
 GSTREAMER_URL		:= http://gstreamer.freedesktop.org/src/gstreamer/$(GSTREAMER).$(GSTREAMER_SUFFIX)
@@ -36,33 +36,38 @@ $(GSTREAMER_SOURCE):
 # Prepare
 # ----------------------------------------------------------------------------
 
+GSTREAMER_GENERIC_CONF_OPT = \
+	--disable-nls \
+	--disable-rpath \
+	--disable-debug \
+	--disable-profiling \
+	--disable-valgrind \
+	--disable-gcov \
+	--disable-examples \
+	--disable-gtk-doc \
+	--disable-silent-rules \
+	--without-libiconv-prefix \
+	--without-libintl-prefix \
+	--disable-gobject-cast-checks
+
 #
 # autoconf
 #
 GSTREAMER_AUTOCONF := \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--disable-nls \
-	--disable-rpath \
+	$(GSTREAMER_GENERIC_CONF_OPT) \
 	--disable-trace \
 	--disable-alloc-trace \
 	--enable-registry \
 	--enable-plugin \
-	--disable-debug \
-	--disable-profiling \
-	--disable-valgrind \
-	--disable-gcov \
-	--disable-examples \
 	--disable-tests \
 	--disable-failing-tests	\
 	--disable-poisoning \
 	--disable-introspection \
 	--disable-docbook \
-	--disable-gtk-doc \
-	--disable-gobject-cast-checks \
 	--disable-check \
-	--without-libiconv-prefix \
-	--without-libintl-prefix
+	--enable-Bsymbolic
 
 ifdef PTXCONF_GSTREAMER__DEBUG
 GSTREAMER_AUTOCONF += --enable-gst-debug
@@ -93,9 +98,6 @@ endif
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
-
-GSTREAMER_LIB_VERSION := 0.25.0
-GSTREAMER_MD5		:= c92d6bce4fc65fa9d5a3ad35cdd1a466
 
 $(STATEDIR)/gstreamer.targetinstall:
 	@$(call targetinfo)
@@ -131,32 +133,11 @@ ifdef PTXCONF_GSTREAMER__INSTALL_LAUNCH
 		/usr/bin/gst-launch-0.10)
 endif
 ifdef PTXCONF_GSTREAMER__NETDIST
-	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
-		/usr/lib/libgstnet-0.10.so.$(GSTREAMER_LIB_VERSION))
-	@$(call install_link, gstreamer, \
-		libgstnet-0.10.so.$(GSTREAMER_LIB_VERSION), \
-		/usr/lib/libgstnet-0.10.so.0)
-	@$(call install_link, gstreamer, \
-		libgstnet-0.10.so.$(GSTREAMER_LIB_VERSION), \
-		/usr/lib/libgstnet-0.10.so)
+	@$(call install_lib, gstreamer, 0, 0, 0644, libgstnet-0.10)
 endif
-	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
-		/usr/lib/libgstcontroller-0.10.so.$(GSTREAMER_LIB_VERSION))
-	@$(call install_link, gstreamer, \
-		libgstcontroller-0.10.so.$(GSTREAMER_LIB_VERSION), \
-		/usr/lib/libgstcontroller-0.10.so.0)
-	@$(call install_link, gstreamer, \
-		libgstcontroller-0.10.so.$(GSTREAMER_LIB_VERSION), \
-		/usr/lib/libgstcontroller-0.10.so)
+	@$(call install_lib, gstreamer, 0, 0, 0644, libgstcontroller-0.10)
 
-	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
-		/usr/lib/libgstreamer-0.10.so.$(GSTREAMER_LIB_VERSION))
-	@$(call install_link, gstreamer, \
-		libgstreamer-0.10.so.$(GSTREAMER_LIB_VERSION), \
-		/usr/lib/libgstreamer-0.10.so.0)
-	@$(call install_link, gstreamer, \
-		libgstreamer-0.10.so.$(GSTREAMER_LIB_VERSION), \
-		/usr/lib/libgstreamer-0.10.so)
+	@$(call install_lib, gstreamer, 0, 0, 0644, libgstreamer-0.10)
 
 	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstcoreelements.so)
@@ -164,23 +145,9 @@ endif
 	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
 		/usr/lib/gstreamer-0.10/libgstcoreindexers.so)
 
-	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
-		/usr/lib/libgstdataprotocol-0.10.so.$(GSTREAMER_LIB_VERSION))
-	@$(call install_link, gstreamer, \
-		libgstdataprotocol-0.10.so.$(GSTREAMER_LIB_VERSION), \
-		/usr/lib/libgstdataprotocol-0.10.so.0)
-	@$(call install_link, gstreamer, \
-		libgstdataprotocol-0.10.so.$(GSTREAMER_LIB_VERSION), \
-		/usr/lib/libgstdataprotocol-0.10.so)
+	@$(call install_lib, gstreamer, 0, 0, 0644, libgstdataprotocol-0.10)
 
-	@$(call install_copy, gstreamer, 0, 0, 0644, -, \
-		/usr/lib/libgstbase-0.10.so.$(GSTREAMER_LIB_VERSION))
-	@$(call install_link, gstreamer, \
-		libgstbase-0.10.so.$(GSTREAMER_LIB_VERSION), \
-		/usr/lib/libgstbase-0.10.so.0)
-	@$(call install_link, gstreamer, \
-		libgstbase-0.10.so.$(GSTREAMER_LIB_VERSION), \
-		/usr/lib/libgstbase-0.10.so)
+	@$(call install_lib, gstreamer, 0, 0, 0644, libgstbase-0.10)
 
 ifdef PTXCONF_PRELINK
 	@$(call install_alternative, gstreamer, 0, 0, 0644, \
