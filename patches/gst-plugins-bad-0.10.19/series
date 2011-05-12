@@ -1,3 +1,0 @@
-bayer2rgb_configurable_first_line.diff
-0002--remove-endianness-swapping.patch -p0
-0003--add-rgb666-support.patch -p0

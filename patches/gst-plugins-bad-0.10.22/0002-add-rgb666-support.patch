@@ -14,11 +14,11 @@ Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
  sys/fbdev/gstfbdevsink.c |   19 +++++++++++++++++++
  1 files changed, 19 insertions(+), 0 deletions(-)
 
-Index: sys/fbdev/gstfbdevsink.c
-===================================================================
---- sys/fbdev/gstfbdevsink.c.orig
-+++ sys/fbdev/gstfbdevsink.c
-@@ -69,9 +69,28 @@ static GstCaps *gst_fbdevsink_getcaps (G
+diff --git a/sys/fbdev/gstfbdevsink.c b/sys/fbdev/gstfbdevsink.c
+index 62b9986..b7d3f1a 100644
+--- a/sys/fbdev/gstfbdevsink.c
++++ b/sys/fbdev/gstfbdevsink.c
+@@ -69,9 +69,28 @@ static GstCaps *gst_fbdevsink_getcaps (GstBaseSink * bsink);
  
  static GstVideoSinkClass *parent_class = NULL;
  
@@ -47,3 +47,6 @@ Index: sys/fbdev/gstfbdevsink.c
   ";" GST_VIDEO_CAPS_BGR \
   ";" GST_VIDEO_CAPS_BGRx \
   ";" GST_VIDEO_CAPS_xBGR \
+-- 
+1.7.4.1
+

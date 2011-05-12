@@ -9,7 +9,6 @@ menuconfig GST_PLUGINS_BAD
 	select SDL		if GST_PLUGINS_BAD_SDL
 	select BZIP2		if GST_PLUGINS_BAD_BZ2
 	select BZIP2_LIBBZ2	if GST_PLUGINS_BAD_BZ2
-	select LIBTHEORA	if GST_PLUGINS_BAD_THEORADEC
 
 	prompt "gst-plugins-bad               "
 	help
@@ -38,10 +37,6 @@ config GST_PLUGINS_BAD_ASFMUX
 	bool
 	prompt "asfmux"
 
-config GST_PLUGINS_BAD_AUDIOPARSERS
-	bool
-	prompt "audioparsers"
-
 config GST_PLUGINS_BAD_AUTOCONVERT
 	bool
 	prompt "autoconvert"
@@ -49,6 +44,10 @@ config GST_PLUGINS_BAD_AUTOCONVERT
 config GST_PLUGINS_BAD_CAMERABIN
 	bool
 	prompt "camerabin"
+
+config GST_PLUGINS_BAD_CAMERABIN2
+	bool
+	prompt "camerabin2"
 
 config GST_PLUGINS_BAD_LEGACYRESAMPLE
 	bool
@@ -166,11 +165,6 @@ config GST_PLUGINS_BAD_PNM
 	bool
 	prompt "pnm"
 
-config GST_PLUGINS_BAD_QTMUX
-	bool
-	prompt "qtmux"
-	depends on BROKEN
-
 config GST_PLUGINS_BAD_RAWPARSE
 	bool
 	prompt "rawparse"
@@ -195,10 +189,6 @@ config GST_PLUGINS_BAD_SEGMENTCLIP
 	bool
 	prompt "segmentclip"
 
-config GST_PLUGINS_BAD_SELECTOR
-	bool
-	prompt "selector"
-
 config GST_PLUGINS_BAD_SIREN
 	bool
 	prompt "siren"
@@ -218,10 +208,6 @@ config GST_PLUGINS_BAD_STEREO
 config GST_PLUGINS_BAD_TTA
 	bool
 	prompt "tta"
-
-config GST_PLUGINS_BAD_VALVE
-	bool
-	prompt "valve"
 
 config GST_PLUGINS_BAD_VIDEOMEASURE
 	bool
@@ -254,10 +240,6 @@ config GST_PLUGINS_BAD_QUICKTIME
 config GST_PLUGINS_BAD_VCD
 	bool
 	prompt "vcd"
-
-config GST_PLUGINS_BAD_ALSA
-	bool
-	prompt "alsa"
 
 config GST_PLUGINS_BAD_ASSRENDER
 	bool
@@ -323,11 +305,6 @@ config GST_PLUGINS_BAD_RESINDVD
 	depends on BROKEN
 	prompt "resindvd"
 
-config GST_PLUGINS_BAD_METADATA
-	bool
-	prompt "metadata"
-	depends on BROKEN
-
 config GST_PLUGINS_BAD_FAAC
 	bool
 	prompt "faac"
@@ -350,11 +327,6 @@ config GST_PLUGINS_BAD_FLITE
 config GST_PLUGINS_BAD_GSM
 	bool
 	prompt "gsm"
-	depends on BROKEN
-
-config GST_PLUGINS_BAD_JACK
-	bool
-	prompt "jack"
 	depends on BROKEN
 
 config GST_PLUGINS_BAD_JP2K
@@ -479,13 +451,6 @@ config GST_PLUGINS_BAD_SWFDEC
 	prompt "swfdec"
 	depends on BROKEN
 
-config GST_PLUGINS_BAD_THEORADEC
-	bool
-	# this is disabled in the source code (0.10.19)
-	# recheck in later versions
-	depends on BROKEN
-	prompt "theoradec"
-
 config GST_PLUGINS_BAD_XVID
 	bool
 	prompt "xvid"
@@ -525,6 +490,47 @@ config GST_PLUGINS_BAD_VP8
 	bool
 	prompt "vp8"
 	depends on BROKEN
+
+config GST_PLUGINS_BAD_COLOREFFECTS
+	bool
+	prompt "coloreffects"
+
+config GST_PLUGINS_BAD_COLORSPACE
+	bool
+	prompt "colorspace"
+
+config GST_PLUGINS_BAD_DVBSUBOVERLAY
+	bool
+	prompt "dvbsuboverlay"
+
+config GST_PLUGINS_BAD_GAUDIEFFECTS
+	bool
+	prompt "gaudieffects"
+
+config GST_PLUGINS_BAD_GEOMETRICTRANSFORMS
+	bool
+	prompt "geometrictransforms"
+
+config GST_PLUGINS_BAD_INTERLACE
+	bool
+	prompt "interlace"
+
+config GST_PLUGINS_BAD_IVFPARSE
+	bool
+	prompt "ivfparse"
+
+config GST_PLUGINS_BAD_JP2DECIMATOR
+	bool
+	prompt "jp2decimator"
+
+config GST_PLUGINS_BAD_VIDEOMAXRATE
+	bool
+	prompt "videomaxrate"
+
+config GST_PLUGINS_BAD_Y4M
+	bool
+	depends on BROKEN
+	prompt "j4m"
 
 endif
 
