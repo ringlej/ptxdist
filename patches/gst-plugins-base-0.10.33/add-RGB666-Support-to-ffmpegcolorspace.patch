@@ -9,17 +9,17 @@ Signed-off-by: Luotao Fu <l.fu@pengutronix.de>
 ---
  gst/ffmpegcolorspace/avcodec.h           |    1 
  gst/ffmpegcolorspace/gstffmpegcodecmap.c |   26 ++++++++++-
- gst/ffmpegcolorspace/imgconvert.c        |   70 +++++++++++++++++++++++++++++--
- 3 files changed, 90 insertions(+), 7 deletions(-)
+ gst/ffmpegcolorspace/imgconvert.c        |   71 +++++++++++++++++++++++++++++--
+ 3 files changed, 91 insertions(+), 7 deletions(-)
 
 Index: gst/ffmpegcolorspace/avcodec.h
 ===================================================================
 --- gst/ffmpegcolorspace/avcodec.h.orig
 +++ gst/ffmpegcolorspace/avcodec.h
-@@ -87,6 +87,7 @@ enum PixelFormat {
-     PIX_FMT_UYVY411,   ///< Packed pixel, Cb Y0 Y1 Cr Y2 Y3
+@@ -94,6 +94,7 @@ enum PixelFormat {
  
      PIX_FMT_AYUV4444,  ///< Packed pixel, A0 Y0 Cb Cr
+     PIX_FMT_YUVA420P,   ///< Planar YUV 4:4:2:0 (1 Cr & Cb sample per 2x2 Y & A samples) (A420)
 +    PIX_FMT_RGB666,
      PIX_FMT_NB
  };
@@ -28,10 +28,11 @@ Index: gst/ffmpegcolorspace/imgconvert.c
 ===================================================================
 --- gst/ffmpegcolorspace/imgconvert.c.orig
 +++ gst/ffmpegcolorspace/imgconvert.c
-@@ -409,8 +409,18 @@ static PixFmtInfo pix_fmt_info[PIX_FMT_N
-         /* .x_chroma_shift = */ 0,
-         /* .y_chroma_shift = */ 0,
-         /*.depth = */ 8
+@@ -488,7 +488,18 @@ static PixFmtInfo pix_fmt_info[PIX_FMT_N
+         /* .x_chroma_shift = */ 1,
+         /* .y_chroma_shift = */ 1,
+         /* .depth          = */ 8,
+-      }
 +      },
 +  /* [PIX_FMT_RGB666] = */ {
 +        /* .format         = */ PIX_FMT_RGB666,
@@ -43,12 +44,11 @@ Index: gst/ffmpegcolorspace/imgconvert.c
 +        /* .x_chroma_shift = */ 0,
 +        /* .y_chroma_shift = */ 0,
 +        /* .depth          = */ 6,
-       }
--
++       }
  };
  
  /* returns NULL if not found */
-@@ -419,7 +429,6 @@ PixFmtInfo *
+@@ -497,7 +508,6 @@ PixFmtInfo *
  get_pix_fmt_info (enum PixelFormat format)
  {
    int i;
@@ -56,7 +56,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    for (i = 0; i < sizeof (pix_fmt_info) / sizeof (pix_fmt_info[0]); i++) {
      if (pix_fmt_info[i].format == format) {
        return pix_fmt_info + i;
-@@ -594,6 +603,8 @@ avg_bits_per_pixel (int pix_fmt)
+@@ -673,6 +683,8 @@ avg_bits_per_pixel (int pix_fmt)
          case PIX_FMT_RGB555:
            bits = 16;
            break;
@@ -65,7 +65,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
          case PIX_FMT_UYVY411:
            bits = 12;
            break;
-@@ -603,7 +614,9 @@ avg_bits_per_pixel (int pix_fmt)
+@@ -682,7 +694,9 @@ avg_bits_per_pixel (int pix_fmt)
        }
        break;
      case FF_PIXEL_PLANAR:
@@ -76,7 +76,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
          bits = pf->depth * pf->nb_channels;
        } else {
          bits = pf->depth + ((2 * pf->depth) >>
-@@ -661,7 +674,6 @@ avcodec_find_best_pix_fmt (int pix_fmt_m
+@@ -740,7 +754,6 @@ avcodec_find_best_pix_fmt (int pix_fmt_m
      ~FF_LOSS_DEPTH,
      0,
    };
@@ -84,7 +84,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    /* try with successive loss */
    i = 0;
    for (;;) {
-@@ -1768,6 +1780,37 @@ bitcopy_n (unsigned int a, int n)
+@@ -2371,6 +2384,37 @@ bitcopy_n (unsigned int a, int n)
  
  #include "imgconvert_template.h"
  
@@ -122,7 +122,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
  /* xrgb32 handling */
  
  #define RGB_NAME xrgb32
-@@ -2099,6 +2142,7 @@ static ConvertEntry convert_table[] = {
+@@ -3102,6 +3146,7 @@ static ConvertEntry convert_table[] = {
    {PIX_FMT_YUV420P, PIX_FMT_RGB565, yuv420p_to_rgb565},
    {PIX_FMT_YUV420P, PIX_FMT_BGR24, yuv420p_to_bgr24},
    {PIX_FMT_YUV420P, PIX_FMT_RGB24, yuv420p_to_rgb24},
@@ -130,7 +130,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    {PIX_FMT_YUV420P, PIX_FMT_RGB32, yuv420p_to_rgb32},
    {PIX_FMT_YUV420P, PIX_FMT_BGR32, yuv420p_to_bgr32},
    {PIX_FMT_YUV420P, PIX_FMT_xRGB32, yuv420p_to_xrgb32},
-@@ -2112,6 +2156,7 @@ static ConvertEntry convert_table[] = {
+@@ -3115,6 +3160,7 @@ static ConvertEntry convert_table[] = {
    {PIX_FMT_NV12, PIX_FMT_RGB565, nv12_to_rgb565},
    {PIX_FMT_NV12, PIX_FMT_BGR24, nv12_to_bgr24},
    {PIX_FMT_NV12, PIX_FMT_RGB24, nv12_to_rgb24},
@@ -138,7 +138,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    {PIX_FMT_NV12, PIX_FMT_RGB32, nv12_to_rgb32},
    {PIX_FMT_NV12, PIX_FMT_BGR32, nv12_to_bgr32},
    {PIX_FMT_NV12, PIX_FMT_xRGB32, nv12_to_xrgb32},
-@@ -2126,6 +2171,7 @@ static ConvertEntry convert_table[] = {
+@@ -3130,6 +3176,7 @@ static ConvertEntry convert_table[] = {
    {PIX_FMT_NV21, PIX_FMT_RGB565, nv21_to_rgb565},
    {PIX_FMT_NV21, PIX_FMT_BGR24, nv21_to_bgr24},
    {PIX_FMT_NV21, PIX_FMT_RGB24, nv21_to_rgb24},
@@ -146,7 +146,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    {PIX_FMT_NV21, PIX_FMT_RGB32, nv21_to_rgb32},
    {PIX_FMT_NV21, PIX_FMT_BGR32, nv21_to_bgr32},
    {PIX_FMT_NV21, PIX_FMT_xRGB32, nv21_to_xrgb32},
-@@ -2145,6 +2191,7 @@ static ConvertEntry convert_table[] = {
+@@ -3151,6 +3198,7 @@ static ConvertEntry convert_table[] = {
    {PIX_FMT_YUVJ420P, PIX_FMT_RGB565, yuvj420p_to_rgb565},
    {PIX_FMT_YUVJ420P, PIX_FMT_BGR24, yuvj420p_to_bgr24},
    {PIX_FMT_YUVJ420P, PIX_FMT_RGB24, yuvj420p_to_rgb24},
@@ -154,7 +154,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    {PIX_FMT_YUVJ420P, PIX_FMT_RGB32, yuvj420p_to_rgb32},
    {PIX_FMT_YUVJ420P, PIX_FMT_BGR32, yuvj420p_to_bgr32},
    {PIX_FMT_YUVJ420P, PIX_FMT_RGB32, yuvj420p_to_xrgb32},
-@@ -2167,6 +2214,7 @@ static ConvertEntry convert_table[] = {
+@@ -3216,6 +3264,7 @@ static ConvertEntry convert_table[] = {
    {PIX_FMT_RGB24, PIX_FMT_NV21, rgb24_to_nv21},
    {PIX_FMT_RGB24, PIX_FMT_RGB565, rgb24_to_rgb565},
    {PIX_FMT_RGB24, PIX_FMT_RGB555, rgb24_to_rgb555},
@@ -162,15 +162,15 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    {PIX_FMT_RGB24, PIX_FMT_RGB32, rgb24_to_rgb32},
    {PIX_FMT_RGB24, PIX_FMT_BGR32, rgb24_to_bgr32},
    {PIX_FMT_RGB24, PIX_FMT_xRGB32, rgb24_to_xrgb32},
-@@ -2185,6 +2233,7 @@ static ConvertEntry convert_table[] = {
+@@ -3239,6 +3288,7 @@ static ConvertEntry convert_table[] = {
  
    {PIX_FMT_RGB32, PIX_FMT_RGB24, rgb32_to_rgb24},
    {PIX_FMT_RGB32, PIX_FMT_RGB555, rgba32_to_rgb555},
 +  {PIX_FMT_RGB32, PIX_FMT_RGB666, rgba32_to_rgb666},
    {PIX_FMT_RGB32, PIX_FMT_PAL8, rgb32_to_pal8},
    {PIX_FMT_RGB32, PIX_FMT_YUV420P, rgb32_to_yuv420p},
-   {PIX_FMT_RGB32, PIX_FMT_NV12, rgb32_to_nv12},
-@@ -2205,6 +2254,7 @@ static ConvertEntry convert_table[] = {
+   {PIX_FMT_RGB32, PIX_FMT_YUVA420P, rgb32_to_yuva420p},
+@@ -3269,6 +3319,7 @@ static ConvertEntry convert_table[] = {
    {PIX_FMT_RGBA32, PIX_FMT_BGRx32, rgba32_to_bgrx32},
    {PIX_FMT_RGBA32, PIX_FMT_ABGR32, rgba32_to_abgr32},
    {PIX_FMT_RGBA32, PIX_FMT_RGB24, rgba32_to_rgb24},
@@ -178,9 +178,9 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    {PIX_FMT_RGBA32, PIX_FMT_RGB555, rgba32_to_rgb555},
    {PIX_FMT_RGBA32, PIX_FMT_PAL8, rgba32_to_pal8},
    {PIX_FMT_RGBA32, PIX_FMT_YUV420P, rgba32_to_yuv420p},
-@@ -2269,10 +2319,18 @@ static ConvertEntry convert_table[] = {
-   {PIX_FMT_RGB565, PIX_FMT_NV21, rgb565_to_nv21},
-   {PIX_FMT_RGB565, PIX_FMT_GRAY8, rgb565_to_gray},
+@@ -3408,10 +3459,18 @@ static ConvertEntry convert_table[] = {
+   {PIX_FMT_Y16, PIX_FMT_ABGR32, y16_to_abgr32},
+   {PIX_FMT_Y16, PIX_FMT_Y800, y16_to_y800},
  
 +  {PIX_FMT_RGB666, PIX_FMT_GRAY8, rgb666_to_gray},
 +  {PIX_FMT_RGB666, PIX_FMT_NV12, rgb666_to_nv12},
@@ -197,7 +197,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    {PIX_FMT_GRAY8, PIX_FMT_RGB32, gray_to_rgb32},
    {PIX_FMT_GRAY8, PIX_FMT_BGR32, gray_to_bgr32},
    {PIX_FMT_GRAY8, PIX_FMT_xRGB32, gray_to_xrgb32},
-@@ -2292,6 +2350,7 @@ static ConvertEntry convert_table[] = {
+@@ -3463,6 +3522,7 @@ static ConvertEntry convert_table[] = {
    {PIX_FMT_PAL8, PIX_FMT_RGB565, pal8_to_rgb565},
    {PIX_FMT_PAL8, PIX_FMT_BGR24, pal8_to_bgr24},
    {PIX_FMT_PAL8, PIX_FMT_RGB24, pal8_to_rgb24},
@@ -205,7 +205,7 @@ Index: gst/ffmpegcolorspace/imgconvert.c
    {PIX_FMT_PAL8, PIX_FMT_RGB32, pal8_to_rgb32},
    {PIX_FMT_PAL8, PIX_FMT_BGR32, pal8_to_bgr32},
    {PIX_FMT_PAL8, PIX_FMT_xRGB32, pal8_to_xrgb32},
-@@ -2656,6 +2715,9 @@ img_get_alpha_info (const AVPicture * sr
+@@ -3858,6 +3918,9 @@ img_get_alpha_info (const AVPicture * sr
      case PIX_FMT_ABGR32:
        ret = get_alpha_info_abgr32 (src, width, height);
        break;
@@ -219,7 +219,7 @@ Index: gst/ffmpegcolorspace/gstffmpegcodecmap.c
 ===================================================================
 --- gst/ffmpegcolorspace/gstffmpegcodecmap.c.orig
 +++ gst/ffmpegcolorspace/gstffmpegcodecmap.c
-@@ -219,6 +219,14 @@ gst_ffmpeg_pixfmt_to_caps (enum PixelFor
+@@ -228,6 +228,14 @@ gst_ffmpeg_pixfmt_to_caps (enum PixelFor
        b_mask = 0xff000000;
  #endif
        break;
@@ -234,7 +234,7 @@ Index: gst/ffmpegcolorspace/gstffmpegcodecmap.c
      case PIX_FMT_BGR32:
        bpp = 32;
        depth = 24;
-@@ -630,7 +638,6 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
+@@ -684,7 +692,6 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
      }
    } else if (gst_structure_has_name (structure, "video/x-raw-rgb")) {
      gint bpp = 0, rmask = 0, endianness = 0, amask = 0, depth = 0;
@@ -242,7 +242,7 @@ Index: gst/ffmpegcolorspace/gstffmpegcodecmap.c
      if (gst_structure_get_int (structure, "bpp", &bpp) &&
          gst_structure_get_int (structure, "endianness", &endianness)) {
        if (gst_structure_get_int (structure, "red_mask", &rmask)) {
-@@ -642,6 +649,8 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
+@@ -696,6 +703,8 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
                  context->pix_fmt = PIX_FMT_BGRA32;
                else if (rmask == 0x00ff0000)
                  context->pix_fmt = PIX_FMT_RGBA32;
@@ -251,7 +251,7 @@ Index: gst/ffmpegcolorspace/gstffmpegcodecmap.c
                else if (rmask == 0xff000000)
                  context->pix_fmt = PIX_FMT_ARGB32;
                else              // if (r_mask = 0x000000ff)
-@@ -651,6 +660,11 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
+@@ -705,6 +714,11 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
                  context->pix_fmt = PIX_FMT_BGRA32;
                else if (rmask == 0x0000ff00)
                  context->pix_fmt = PIX_FMT_RGBA32;
@@ -263,7 +263,7 @@ Index: gst/ffmpegcolorspace/gstffmpegcodecmap.c
                else if (rmask == 0x000000ff)
                  context->pix_fmt = PIX_FMT_ARGB32;
                else              // if (rmask == 0xff000000)
-@@ -662,7 +676,9 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
+@@ -716,7 +730,9 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
                  context->pix_fmt = PIX_FMT_RGB32;
                else if (rmask == 0x0000ff00)
                  context->pix_fmt = PIX_FMT_BGR32;
@@ -274,7 +274,7 @@ Index: gst/ffmpegcolorspace/gstffmpegcodecmap.c
                  context->pix_fmt = PIX_FMT_xRGB32;
                else              // if (rmask == 0x000000ff)
                  context->pix_fmt = PIX_FMT_BGRx32;
-@@ -671,7 +687,10 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
+@@ -725,7 +741,10 @@ gst_ffmpeg_caps_to_pixfmt (const GstCaps
                  context->pix_fmt = PIX_FMT_RGB32;
                else if (rmask == 0x00ff0000)
                  context->pix_fmt = PIX_FMT_BGR32;
@@ -286,7 +286,7 @@ Index: gst/ffmpegcolorspace/gstffmpegcodecmap.c
                  context->pix_fmt = PIX_FMT_xRGB32;
                else              // if (rmask == 0xff000000)
                  context->pix_fmt = PIX_FMT_BGRx32;
-@@ -837,6 +856,7 @@ gst_ffmpegcsp_avpicture_fill (AVPicture 
+@@ -922,6 +941,7 @@ gst_ffmpegcsp_avpicture_fill (AVPicture
        picture->linesize[0] = stride;
        return size;
      case PIX_FMT_AYUV4444:

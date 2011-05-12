@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_GST_PLUGINS_BASE) += gst-plugins-base
 #
 # Paths and names
 #
-GST_PLUGINS_BASE_VERSION	:= 0.10.29
-GST_PLUGINS_BASE_MD5		:= d07e251152cccbaa81807c14cf0fd8c0
+GST_PLUGINS_BASE_VERSION	:= 0.10.33
+GST_PLUGINS_BASE_MD5		:= 8120aa48802eff56987a65f5bf1f8911
 GST_PLUGINS_BASE		:= gst-plugins-base-$(GST_PLUGINS_BASE_VERSION)
 GST_PLUGINS_BASE_SUFFIX		:= tar.bz2
 GST_PLUGINS_BASE_URL		:= http://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE).$(GST_PLUGINS_BASE_SUFFIX)
@@ -39,27 +39,17 @@ $(GST_PLUGINS_BASE_SOURCE):
 #
 # autoconf
 #
-GST_PLUGINS_BASE_AUTOCONF := \
+GST_PLUGINS_BASE_AUTOCONF = \
 	$(CROSS_AUTOCONF_USR) \
 	$(GLOBAL_LARGE_FILE_OPTION) \
-	--enable-option-checking \
-	--enable-silent-rules \
-	--disable-nls \
-	--disable-rpath \
-	--disable-debug \
-	--disable-profiling \
-	--disable-valgrind \
-	--disable-gcov \
-	--disable-examples \
+	$(GSTREAMER_GENERIC_CONF_OPT) \
 	--enable-external \
 	--disable-experimental \
-	--disable-gtk-doc \
-	--disable-gobject-cast-checks \
+	--disable-introspection \
 	--disable-oggtest \
 	--disable-vorbistest \
 	--disable-freetypetest \
-	--without-libiconv-prefix \
-	--without-libintl-prefix
+	--enable-Bsymbolic
 
 # --with-plugins=foo,bar,baz only works for depencyless plugins and
 # when no plugins are given it falls back to its default which is
@@ -89,6 +79,11 @@ ifdef PTXCONF_GST_PLUGINS_BASE_AUDIOTESTSRC
 GST_PLUGINS_BASE_AUTOCONF += --enable-audiotestsrc
 else
 GST_PLUGINS_BASE_AUTOCONF += --disable-audiotestsrc
+endif
+ifdef PTXCONF_GST_PLUGINS_BASE_ENCODING
+GST_PLUGINS_BASE_AUTOCONF += --enable-encoding
+else
+GST_PLUGINS_BASE_AUTOCONF += --disable-encoding
 endif
 ifdef PTXCONF_GST_PLUGINS_BASE_FFMPEGCOLORSPACE
 GST_PLUGINS_BASE_AUTOCONF += --enable-ffmpegcolorspace
@@ -230,8 +225,6 @@ endif
 # Target-Install
 # ----------------------------------------------------------------------------
 
-GST_PLUGINS_BASE_LIB_VERSION := 0.20.0
-
 $(STATEDIR)/gst-plugins-base.targetinstall:
 	@$(call targetinfo)
 
@@ -246,10 +239,8 @@ $(STATEDIR)/gst-plugins-base.targetinstall:
 		/usr/bin/gst-visualise)
 
 	# install all activated libs
-	@cd $(GST_PLUGINS_BASE_PKGDIR)/usr/lib/ && for libs in `find -name "*-0.10.so"`; do \
-		$(call install_copy, gst-plugins-base, 0, 0, 0644, -, /usr/lib/$$libs.$(GST_PLUGINS_BASE_LIB_VERSION)); \
-		$(call install_link, gst-plugins-base, $$libs.$(GST_PLUGINS_BASE_LIB_VERSION), /usr/lib/$$libs.0); \
-		$(call install_link, gst-plugins-base, $$libs.$(GST_PLUGINS_BASE_LIB_VERSION), /usr/lib/$$libs); \
+	@cd $(GST_PLUGINS_BASE_PKGDIR)/usr/lib/ && for libs in `find -name "*-0.10.so" -printf '%f\n'`; do \
+		$(call install_lib, gst-plugins-base, 0, 0, 0644, $${libs%.so}); \
 	done
 
 ifdef PTXCONF_GST_PLUGINS_BASE_APP
