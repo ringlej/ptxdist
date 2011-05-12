@@ -61,6 +61,10 @@ if GST_PLUGINS_GOOD
 		bool
 		prompt "audiofx"
 
+	config GST_PLUGINS_GOOD_AUDIOPARSERS
+		bool
+		prompt "audioparsers"
+
 	config GST_PLUGINS_GOOD_AUPARSE
 		bool
 		prompt "auparse"
@@ -151,7 +155,7 @@ if GST_PLUGINS_GOOD
 
 	config GST_PLUGINS_GOOD_QTDEMUX
 		bool
-		prompt "qtdemux"
+		prompt "isomp4"
 
 	config GST_PLUGINS_GOOD_REPLAYGAIN
 		bool
@@ -299,6 +303,11 @@ if GST_PLUGINS_GOOD
 	config GST_PLUGINS_GOOD_JPEG
 		bool
 		prompt "jpeg"
+
+	config GST_PLUGINS_GOOD_JACK
+		bool
+		prompt "jack"
+		depends on BROKEN
 
 	config GST_PLUGINS_GOOD_LIBCACA
 		bool
