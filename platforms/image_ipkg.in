@@ -24,6 +24,34 @@ config IMAGE_IPKG_FORCED_PUSH
 	  If this option is checked, this is done by default. This
 	  is most useful for development purposes.
 
+menuconfig IMAGE_IPKG_SIGN_OPENSSL
+	depends on IMAGE_IPKG_PUSH_TO_REPOSITORY
+	bool
+	select HOST_OPENSSL
+	prompt "sign ipkg-repository with openssl"
+	help
+	  Use openssl to to sign the Packages file in the package
+	  repository.
+
+
+if IMAGE_IPKG_SIGN_OPENSSL
+
+config IMAGE_IPKG_SIGN_OPENSSL_SIGNER
+	string
+	default ""
+	prompt "signer certificate file"
+	help
+	  signer certificate file to pass to openssl for signing.
+
+config IMAGE_IPKG_SIGN_OPENSSL_KEY
+	string
+	default ""
+	prompt "private key file"
+	help
+	  private key file to pass to openssl.
+
+endif
+
 config IMAGE_INSTALL_FROM_IPKG_REPOSITORY
 	bool
 	select IMAGE_IPKG_PUSH_TO_REPOSITORY

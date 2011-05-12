@@ -27,6 +27,19 @@ endif
 		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)) \
 		--type     $(PTXCONF_HOST_PACKAGE_MANAGEMENT)
 	@echo "ipkg-repository updated"
+ifdef PTXCONF_IMAGE_IPKG_SIGN_OPENSSL
+	@echo "signing Packages..."
+	openssl smime -sign \
+		-in $(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)/Packages \
+		-text -binary \
+		-signer $(PTXCONF_IMAGE_IPKG_SIGN_OPENSSL_SIGNER) \
+		-inkey $(PTXCONF_IMAGE_IPKG_SIGN_OPENSSL_KEY) | \
+		(echo -----BEGIN PKCS7----- ; \
+		sed -e '1,/^Content-Disposition:/d;/^-----/d;/^$$/d'; \
+		echo -----END PKCS7-----) > \
+		$(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)/Packages.sig
+	@echo "Packages.sig created"
+endif
 	@touch $@
 
 

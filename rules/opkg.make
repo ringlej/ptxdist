@@ -96,12 +96,31 @@ endif
 
 	@$(call install_lib,  opkg, 0, 0, 0644, libopkg)
 
+ifdef PTXCONF_IMAGE_IPKG_SIGN_OPENSSL
+	@$(call install_copy, opkg, 0, 0, 0644, $(PTXCONF_IMAGE_IPKG_SIGN_OPENSSL_SIGNER), /etc/ssl/certs/opkg.crt)
+endif
+
 ifdef PTXCONF_OPKG_OPKG_CONF
 	@$(call install_alternative, opkg, 0, 0, 0644, /etc/opkg/opkg.conf)
 	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @SRC@, \
 		$(PTXCONF_OPKG_OPKG_CONF_URL))
 	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @ARCH@, \
 		$(PTXDIST_IPKG_ARCH_STRING))
+ifdef PTXCONF_OPKG_OPKG_CONF_CHECKSIG
+	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @CHECKSIG@, \
+		"option check_signature 1")
+	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @CAPATH@, \
+		"option signature_ca_path /etc/ssl/certs")
+	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @CAFILE@, \
+		"option signature_ca_file /etc/ssl/certs/opkg.crt")
+else
+	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @CHECKSIG@, \
+		"option check_signature 0")
+	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @CAPATH@, \
+		"#option signature_ca_path /etc/ssl/certs")
+	@$(call install_replace, opkg, /etc/opkg/opkg.conf, @CAFILE@, \
+		"#option signature_ca_file /etc/ssl/certs/opkg.crt")
+endif
 endif
 
 	@$(call install_finish, opkg)
