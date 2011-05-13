@@ -120,9 +120,9 @@ endif
 
 ifdef PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED
 	@$(call install_link, systemd, /dev/null, \
-		/lib/systemd/system/systemd-random-seed-save.service)
+		/etc/systemd/system/systemd-random-seed-save.service)
 	@$(call install_link, systemd, /dev/null, \
-		/lib/systemd/system/systemd-random-seed-load.service)
+		/etc/systemd/system/systemd-random-seed-load.service)
 endif
 
 	@$(call install_finish, systemd)
