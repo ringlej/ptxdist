@@ -42,7 +42,7 @@ if GST_PLUGINS_GOOD
 		  a plugin! :-)
 
 	# ------------------------------
-	comment "dependencyless plugins"
+	comment "dependency-less plugins"
 	# ------------------------------
 
 	config GST_PLUGINS_GOOD_VIDEOFILTER
