@@ -17,8 +17,8 @@ PACKAGES-$(PTXCONF_SYSLOGNG) += syslogng
 #
 # Paths and names
 #
-SYSLOGNG_VERSION	:= 2.0.9
-SYSLOGNG_MD5		:= 2d4232f7167c2b4f48794e4f8f80e863
+SYSLOGNG_VERSION	:= 2.0.10
+SYSLOGNG_MD5		:= 3f96ccf13dda0b9e150e511bcffde795
 SYSLOGNG		:= syslog-ng-$(SYSLOGNG_VERSION)
 SYSLOGNG_SUFFIX		:= tar.gz
 SYSLOGNG_URL		:= http://www.balabit.com/downloads/files/syslog-ng/sources/2.0/src/$(SYSLOGNG).$(SYSLOGNG_SUFFIX)
