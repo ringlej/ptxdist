@@ -18,13 +18,14 @@ $(STATEDIR)/ipkg-push: $(STATEDIR)/host-ipkg-utils.install.post $(STATEDIR)/worl
 ifdef PTXCONF_IMAGE_IPKG_FORCED_PUSH
 	rm  -rf $(PTXCONF_SETUP_IPKG_REPOSITORY)/$(PTXCONF_PROJECT)/dists/$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)
 endif
-	@echo "pushing ipkg pakets to ipkg-repository..."
+	@echo "pushing ipkg packages to ipkg-repository..."
 	@$(HOST_ENV) $(PTXDIST_TOPDIR)/scripts/ipkg-push \
 		--ipkgdir  $(call remove_quotes,$(PKGDIR)) \
 		--repodir  $(call remove_quotes,$(PTXCONF_SETUP_IPKG_REPOSITORY)) \
 		--revision $(call remove_quotes,$(PTXDIST_VERSION_FULL)) \
 		--project  $(call remove_quotes,$(PTXCONF_PROJECT)) \
-		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION))
+		--dist     $(call remove_quotes,$(PTXCONF_PROJECT)$(PTXCONF_PROJECT_VERSION)) \
+		--type     $(PTXCONF_HOST_PACKAGE_MANAGEMENT)
 	@echo "ipkg-repository updated"
 	@touch $@
 
@@ -37,8 +38,8 @@ PHONY += $(PKGDIR)/Packages
 $(PKGDIR)/Packages: $(STATEDIR)/host-ipkg-utils.install.post
 	@echo "Creating ipkg index '$@'..."
 	@rm -f $(PKGDIR)/Packages*
-	@$(HOST_ENV) \
-		ipkg-make-index -l "$(PKGDIR)/Packages.filelist" -p "$(@)" "$(PKGDIR)" 
+	@$(HOST_ENV) $(PTXCONF_HOST_PACKAGE_MANAGEMENT)-make-index \
+		-l "$(PKGDIR)/Packages.filelist" -p "$(@)" "$(PKGDIR)"
 	@echo "done."
 
 # vim: syntax=make

@@ -1,0 +1,22 @@
+## SECTION=hosttools
+
+choice
+	prompt "package management  "
+	default HOST_PACKAGE_MANAGEMENT_IPKG
+
+	config HOST_PACKAGE_MANAGEMENT_IPKG
+		bool
+		select HOST_IPKG
+		prompt "ipkg   "
+
+	config HOST_PACKAGE_MANAGEMENT_OPKG
+		bool
+		select HOST_OPKG
+		prompt "opkg   "
+endchoice
+
+config HOST_PACKAGE_MANAGEMENT
+	string
+	default "ipkg" if HOST_PACKAGE_MANAGEMENT_IPKG
+	default "opkg" if HOST_PACKAGE_MANAGEMENT_OPKG
+

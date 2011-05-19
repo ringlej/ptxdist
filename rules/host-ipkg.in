@@ -2,8 +2,8 @@
 
 config HOST_IPKG
 	tristate
-	default y
-	# no prompt, policy is that we always need it
+	default ALLYES
+	select HOST_IPKG_UTILS
 	help
 	  ipkg is used on the development host to install packets into
 	  some directory. Example:

@@ -1,6 +1,7 @@
 # -*-makefile-*-
 #
 # Copyright (C) 2003-2010 by Marc Kleine-Budde <mkl@pengutronix.de>
+#               2011 by George McCollister <george.mccollister@gmail.com>
 # See CREDITS for details about who has contributed to this project.
 #
 # For further information about the PTXdist project and license conditions
@@ -15,8 +16,12 @@ ifdef PTXCONF_HOST_FAKEROOT
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-fakeroot.install.post
 endif
 
-ifdef PTXCONF_HOST_IPKG_UTILS
+ifdef PTXCONF_HOST_PACKAGE_MANAGEMENT_IPKG
 $(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-ipkg-utils.install.post
+endif
+
+ifdef PTXCONF_HOST_PACKAGE_MANAGEMENT_OPKG
+$(STATEDIR)/virtual-cross-tools.install: $(STATEDIR)/host-opkg-utils.install.post
 endif
 
 ifdef PTXCONF_CROSS_PKG_CONFIG_WRAPPER

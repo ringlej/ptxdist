@@ -31,6 +31,7 @@ usage() {
 	echo "  --revision <revision>      dist revision name to be updated"
 	echo "  --project  <projectname>   project name"
 	echo "  --dist     <distname>      use this to make a dist release (optional)"
+	echo "  --type     <package type>  specify package type (default: ipkg)"
 	echo
 	exit 0
 }
@@ -40,6 +41,7 @@ REPODIR=
 DISTREVISION=
 PROJECT=
 DIST=
+TYPE=ipkg
 
 
 #
@@ -53,6 +55,7 @@ while [ $# -gt 0 ]; do
 		--revision) DISTREVISION=`ptxd_abspath $2`; shift 2 ;;
 		--project)  PROJECT=$2;	                    shift 2 ;;
 		--dist)     DIST=$2;                        shift 2 ;;
+		--type)     TYPE=$2;                        shift 2 ;;
 		*)  usage "unknown option $1" ;;
   	esac
 done
@@ -190,7 +193,7 @@ done
 
 echo "creating index.....: "
 
-(cd $REPODIR/$PROJECT/dists/$DIST && ipkg-make-index . > Packages)
+(cd $REPODIR/$PROJECT/dists/$DIST && ${TYPE}-make-index . > Packages)
 
 exit
 
