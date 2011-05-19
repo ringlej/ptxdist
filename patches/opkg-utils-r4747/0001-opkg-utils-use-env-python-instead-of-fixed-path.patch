@@ -1,0 +1,71 @@
+From a84ad7f392520432d6364523f17fc9777310fb13 Mon Sep 17 00:00:00 2001
+From: George McCollister <george.mccollister@gmail.com>
+Date: Fri, 13 May 2011 10:00:47 -0500
+Subject: [PATCH] opkg-utils: use env python instead of fixed path
+
+I moved this patch over from ipkg-utils. I believe this is needed so we
+use the copy of python built and installed by HOST_PYTHON instead of the
+copy provided by the disto.
+
+Signed-off-by: George McCollister <george.mccollister@gmail.com>
+---
+ opkg-list-fields  |    2 +-
+ opkg-make-index   |    2 +-
+ opkg-show-deps    |    2 +-
+ opkg-unbuild      |    2 +-
+ opkg-update-index |    2 +-
+ 5 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/opkg-list-fields b/opkg-list-fields
+index d263b90..da78d53 100755
+--- a/opkg-list-fields
++++ b/opkg-list-fields
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python
+ 
+ import sys, opkg
+ 
+diff --git a/opkg-make-index b/opkg-make-index
+index ae829e6..6ebba5f 100755
+--- a/opkg-make-index
++++ b/opkg-make-index
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python
+ 
+ import sys, os, posixpath
+ from glob import glob
+diff --git a/opkg-show-deps b/opkg-show-deps
+index a6681f4..9de1aac 100755
+--- a/opkg-show-deps
++++ b/opkg-show-deps
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python
+ 
+ import sys, os, posixpath
+ from glob import glob
+diff --git a/opkg-unbuild b/opkg-unbuild
+index eff604b..b5c5227 100755
+--- a/opkg-unbuild
++++ b/opkg-unbuild
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python
+ 
+ import sys, os, re
+ 
+diff --git a/opkg-update-index b/opkg-update-index
+index 807f8f4..3864fa5 100755
+--- a/opkg-update-index
++++ b/opkg-update-index
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python2.1
++#!/usr/bin/env python
+ 
+ import sys, os
+ from glob import glob
+-- 
+1.7.1
+

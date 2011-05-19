@@ -1,0 +1,8 @@
+## SECTION=hosttools_noprompt
+
+config HOST_OPKG_UTILS
+	tristate
+	default ALLYES
+	help
+	  opkg-utils let you build packages in the opkg format.
+
