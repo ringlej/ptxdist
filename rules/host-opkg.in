@@ -1,0 +1,12 @@
+## SECTION=hosttools_noprompt
+
+config HOST_OPKG
+	tristate
+	default ALLYES
+	select HOST_OPKG_UTILS
+	help
+	  opkg is used on the development host to install packets into
+	  some directory. Example:
+
+		opkg-cl -o . --force-depends -f ../generic/etc/opkg.conf install foo.ipk
+
